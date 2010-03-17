@@ -32,17 +32,14 @@
 #include <string>
 #include <vector>
 
-#define WALKING 0
-#define PUBLIC 1
-#define PRIVATE 2
-#define WAITING 3
-
 
 // ===========================================================================
 // class declarations
 // ===========================================================================
 class MSNet;
 class MSEdge;
+
+typedef std::vector<const MSEdge*> MSEdgeVector;
 
 
 // ===========================================================================
@@ -56,8 +53,20 @@ class MSEdge;
 class MSPerson {
 public:
     /**
+     * @enum ModeType
+     * @brief Defines possible person modes
+     */
+    enum ModeType {
+        /// @brief The person walks
+        PERSON_WALKING = 0,
+        /// @brief The person waits (stops)
+        PERSON_WAITING = 1,
+        /// @brief The person drives either by car or public transport
+        PERSON_DRIVING = 2
+    };
+    /**
      * The "abstract" class for a single stage of a persons movement
-     * Contains the destination of the curent movement step
+     * Contains the destination of the current movement step
      */
     class MSPersonStage {
     public:
@@ -71,14 +80,14 @@ public:
         const MSEdge &getDestination() const;
 
         /// returns the type of the stage (faster than type_id)
-        virtual int getType() const = 0;
+        virtual ModeType getMode() const = 0;
 
         /// proceeds to the next step
         virtual void proceed(MSNet *net, MSPerson *person, SUMOTime now, MSEdge *previousEdge) = 0;
 
     protected:
         /// the next edge to reach (either by walking or driving)
-        const MSEdge &m_pDestination;
+        const MSEdge &myDestination;
 
     private:
         /// @brief Invalidated copy constructor.
@@ -94,10 +103,10 @@ public:
      * The walking does not need any route as it is not simulated.
      * Only the duration is needed
      */
-    class MSPersonStage_Walking : MSPersonStage {
+    class MSPersonStage_Walking : public MSPersonStage {
     public:
         /// constructor
-        MSPersonStage_Walking(const MSEdge &destination, SUMOTime walkingTime);
+        MSPersonStage_Walking(MSEdgeVector route, SUMOTime walkingTime, SUMOReal speed);
 
         /// destructor
         ~MSPersonStage_Walking();
@@ -105,9 +114,9 @@ public:
         /// returns the time the person is walking
         SUMOTime getWalkingTime();
 
-        /// returns the type of the stage
-        int getType() const {
-            return WALKING;
+        /// returns the mode of the stage
+        ModeType getMode() const {
+            return PERSON_WALKING;
         }
 
         /// proceeds to the next step
@@ -115,7 +124,13 @@ public:
 
     private:
         /// the time the person is walking
-        SUMOTime m_uiWalkingTime;
+        MSEdgeVector myRoute;
+
+        /// the time the person is walking
+        SUMOTime myWalkingTime;
+
+        /// the speed at which the person is walking
+        SUMOReal myWalkingSpeed;
 
     private:
         /// @brief Invalidated copy constructor.
@@ -127,91 +142,36 @@ public:
     };
 
     /**
-     * A "real" stage performing the travelling by a public transport
-     * This class holds the id of the used public transport system.
-     *  The route is stored in this transport system and will be proceeded
-     *  until the destination edge is reached. The travel time is computed
-     *  by the simulation.
-     */
-    class MSPersonStage_PublicVehicle : MSPersonStage {
-    public:
-        /// constructor
-        MSPersonStage_PublicVehicle(const MSEdge &destination, const std::string &lineId);
-
-        /// destructor
-        ~MSPersonStage_PublicVehicle();
-
-        /// returns the id of the line to use
-        const std::string &getLineId() const;
-
-        /// returns the type of the stage
-        int getType() const {
-            return PUBLIC;
-        }
-
-        /// proceeds to the next step
-        virtual void proceed(MSNet *net, MSPerson *person, SUMOTime now, MSEdge *previousEdge);
-
-    private:
-        /// the line of the public traffic the person is using
-        std::string m_LineId;
-
-    private:
-        /// @brief Invalidated copy constructor.
-        MSPersonStage_PublicVehicle(const MSPersonStage_PublicVehicle&);
-
-        /// @brief Invalidated assignment operator.
-        MSPersonStage_PublicVehicle& operator=(const MSPersonStage_PublicVehicle&);
-
-    };
-
-    /**
-     * A "real" stage performing the travelling by a private transport system
+     * A "real" stage performing the travelling by a transport system
      * The given route will be chosen. The travel time is computed by the simulation
      */
-    class MSPersonStage_PrivateVehicle : MSPersonStage {
+    class MSPersonStage_Driving : public MSPersonStage {
     public:
         /// constructor
-        MSPersonStage_PrivateVehicle(const MSEdge &destination,
-                                     const std::string &routeId, const std::string &vehicleId,
-                                     const std::string &vehicleType);
+        MSPersonStage_Driving(const MSEdge &destination,
+                              const std::vector<std::string> &lines);
 
         /// destructor
-        ~MSPersonStage_PrivateVehicle();
-
-        /// returns the id of the chosen route
-        const std::string &getRouteId() const;
-
-        /// returns the id of the vehicle
-        const std::string &getVehicleId() const;
-
-        /// return the type of the vehicle
-        const std::string &getVehicleType() const;
+        ~MSPersonStage_Driving();
 
         /// returns the type of the stage
-        int getType() const {
-            return PRIVATE;
+        ModeType getMode() const {
+            return PERSON_DRIVING;
         }
 
         /// proceeds to the next step
         virtual void proceed(MSNet *net, MSPerson *person, SUMOTime now, MSEdge *previousEdge);
 
     private:
-        /// the id of the chosen route
-        std::string m_RouteId;
-
-        /// the id of the vehicle
-        std::string m_VehicleId;
-
-        /// the type of the vehicle
-        std::string m_VehicleType;
+        /// the lines  to choose from
+        const std::vector<std::string> &myLines;
 
     private:
         /// @brief Invalidated copy constructor.
-        MSPersonStage_PrivateVehicle(const MSPersonStage_PrivateVehicle&);
+        MSPersonStage_Driving(const MSPersonStage_Driving&);
 
         /// @brief Invalidated assignment operator.
-        MSPersonStage_PrivateVehicle& operator=(const MSPersonStage_PrivateVehicle&);
+        MSPersonStage_Driving& operator=(const MSPersonStage_Driving&);
 
     };
 
@@ -219,10 +179,10 @@ public:
      * A "real" stage performing a waiting over the specified time
      * The time is not being added to the travel time?
      */
-    class MSPersonStage_Waiting : MSPersonStage {
+    class MSPersonStage_Waiting : public MSPersonStage {
     public:
         /// constructor
-        MSPersonStage_Waiting(const MSEdge &destination, SUMOTime waitingTime);
+        MSPersonStage_Waiting(const MSEdge &destination, SUMOTime duration, SUMOTime until);
 
         /// destructor
         ~MSPersonStage_Waiting();
@@ -231,8 +191,8 @@ public:
         SUMOTime getWaitingTime() const;
 
         /// returns the type of the stage
-        int getType() const {
-            return WAITING;
+        ModeType getMode() const {
+            return PERSON_WAITING;
         }
 
         /// proceeds to the next step
@@ -240,7 +200,10 @@ public:
 
     private:
         /// the time the person is waiting
-        SUMOTime m_uiWaitingTime;
+        SUMOTime myWaitingDuration;
+
+        /// the time until the person is waiting
+        SUMOTime myWaitingUntil;
 
     private:
         /// @brief Invalidated copy constructor.
@@ -252,25 +215,22 @@ public:
     };
 
 public:
-    /// the structure holding the route of a person
-    typedef std::vector<MSPersonStage*> MSPersonRoute;
+    /// the structure holding the plan of a person
+    typedef std::vector<MSPersonStage*> MSPersonPlan;
 
 private:
-    /// the travel time (without the time waited)
-    SUMOTime m_uiTravelTime;
+    /// the plan of the person
+    const SUMOVehicleParameter *myParameter;
 
-    /// the id of the person
-    std::string m_Id;
-
-    /// the route of the person
-    MSPersonRoute *m_pRoute;
+    /// the plan of the person
+    MSPersonPlan *myPlan;
 
     /// the iterator over the route
-    MSPersonRoute::iterator m_pStep;
+    MSPersonPlan::iterator myStep;
 
 public:
     /// constructor
-    MSPerson(const std::string &id, MSPersonRoute *route);
+    MSPerson(const SUMOVehicleParameter* pars, MSPersonPlan *plan);
 
     /// destructor
     ~MSPerson();
@@ -284,19 +244,10 @@ public:
     /// returns the information whether the persons route is over
     bool endReached() const;
 
-    /** Inserts edge into the static dictionary and returns true if the key
-        id isn't already in the dictionary. Otherwise returns false. */
-    static bool dictionary(const std::string &id, MSPerson* person);
-
-    /** Returns the MSEdge associated to the key id if exists, otherwise
-        returns 0. */
-    static MSPerson* dictionary(const std::string &id);
-
-private:
-    /// Static dictionary to associate string-ids with objects.
-    typedef std::map<std::string, MSPerson*> DictType;
-
-    static DictType myDict;
+    /// Returns the desired departure time.
+    SUMOTime getDesiredDepart() const throw() {
+        return myParameter->depart;
+    }
 
 private:
     /// @brief Invalidated copy constructor.

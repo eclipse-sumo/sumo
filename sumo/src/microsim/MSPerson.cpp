@@ -44,19 +44,13 @@
 
 
 // ===========================================================================
-// used namespaces
-// ===========================================================================
-using namespace std;
-
-
-// ===========================================================================
 // method definitions
 // ===========================================================================
 /* -------------------------------------------------------------------------
  * MSPerson::MSPersonStage - methods
  * ----------------------------------------------------------------------- */
 MSPerson::MSPersonStage::MSPersonStage(const MSEdge &destination)
-        : m_pDestination(destination) {}
+        : myDestination(destination) {}
 
 
 MSPerson::MSPersonStage::~MSPersonStage() {}
@@ -64,16 +58,15 @@ MSPerson::MSPersonStage::~MSPersonStage() {}
 
 const MSEdge &
 MSPerson::MSPersonStage::getDestination() const {
-    return m_pDestination;
+    return myDestination;
 }
 
 
 /* -------------------------------------------------------------------------
  * MSPerson::MSPersonStage_Walking - methods
  * ----------------------------------------------------------------------- */
-MSPerson::MSPersonStage_Walking::MSPersonStage_Walking(const MSEdge &destination,
-        SUMOTime walkingTime)
-        : MSPersonStage(destination), m_uiWalkingTime(walkingTime) {}
+MSPerson::MSPersonStage_Walking::MSPersonStage_Walking(MSEdgeVector route, SUMOTime walkingTime, SUMOReal speed)
+        : MSPersonStage(*route.back()), myWalkingTime(walkingTime), myWalkingSpeed(speed) {}
 
 
 MSPerson::MSPersonStage_Walking::~MSPersonStage_Walking() {}
@@ -81,7 +74,7 @@ MSPerson::MSPersonStage_Walking::~MSPersonStage_Walking() {}
 
 SUMOTime
 MSPerson::MSPersonStage_Walking::getWalkingTime() {
-    return m_uiWalkingTime;
+    return myWalkingTime;
 }
 
 
@@ -95,64 +88,18 @@ MSPerson::MSPersonStage_Walking::proceed(MSNet* /*net*/,
 
 
 /* -------------------------------------------------------------------------
- * MSPerson::MSPersonStage_PublicVehicle - methods
- * ----------------------------------------------------------------------- */
-MSPerson::MSPersonStage_PublicVehicle::MSPersonStage_PublicVehicle(const MSEdge &destination,
-        const string &lineId)
-        : MSPersonStage(destination), m_LineId(lineId) {}
-
-
-MSPerson::MSPersonStage_PublicVehicle::~MSPersonStage_PublicVehicle() {}
-
-
-const string &
-MSPerson::MSPersonStage_PublicVehicle::getLineId() const {
-    return m_LineId;
-}
-
-void
-MSPerson::MSPersonStage_PublicVehicle::proceed(MSNet* /*net*/,
-        MSPerson* /*person*/, SUMOTime /*now*/,
-        MSEdge* /*previousEdge*/) {
-//!!!!    previousEdge->addWaitingForPublicVehicle(person, m_LineId);
-}
-
-
-
-/* -------------------------------------------------------------------------
  * MSPerson::MSPersonStage_PrivateVehicle - methods
  * ----------------------------------------------------------------------- */
-MSPerson::MSPersonStage_PrivateVehicle::MSPersonStage_PrivateVehicle(
-    const MSEdge &destination,
-    const std::string &routeId, const std::string &vehicleId,
-    const std::string &vehicleType)
-        : MSPersonStage(destination), m_RouteId(routeId),
-        m_VehicleId(vehicleId), m_VehicleType(vehicleType) {}
+MSPerson::MSPersonStage_Driving::MSPersonStage_Driving(const MSEdge &destination,
+                                                       const std::vector<std::string> &lines)
+        : MSPersonStage(destination), myLines(lines) {}
 
 
-MSPerson::MSPersonStage_PrivateVehicle::~MSPersonStage_PrivateVehicle() {}
-
-
-const std::string &
-MSPerson::MSPersonStage_PrivateVehicle::getRouteId() const {
-    return m_RouteId;
-}
-
-
-const std::string &
-MSPerson::MSPersonStage_PrivateVehicle::getVehicleId() const {
-    return m_VehicleId;
-}
-
-
-const std::string &
-MSPerson::MSPersonStage_PrivateVehicle::getVehicleType() const {
-    return m_VehicleType;
-}
+MSPerson::MSPersonStage_Driving::~MSPersonStage_Driving() {}
 
 
 void
-MSPerson::MSPersonStage_PrivateVehicle::proceed(MSNet* /*net*/,
+MSPerson::MSPersonStage_Driving::proceed(MSNet* /*net*/,
         MSPerson* /*person*/, SUMOTime /*now*/,
         MSEdge* /*previousEdge*/) {
     /*!!!
@@ -167,17 +114,11 @@ MSPerson::MSPersonStage_PrivateVehicle::proceed(MSNet* /*net*/,
  * MSPerson::MSPersonStage_Waiting - methods
  * ----------------------------------------------------------------------- */
 MSPerson::MSPersonStage_Waiting::MSPersonStage_Waiting(const MSEdge &destination,
-        SUMOTime waitingTime)
-        : MSPersonStage(destination), m_uiWaitingTime(waitingTime) {}
+                                                       SUMOTime duration, SUMOTime until)
+        : MSPersonStage(destination), myWaitingDuration(duration), myWaitingUntil(until) {}
 
 
 MSPerson::MSPersonStage_Waiting::~MSPersonStage_Waiting() {}
-
-
-SUMOTime
-MSPerson::MSPersonStage_Waiting::getWaitingTime() const {
-    return m_uiWaitingTime;
-}
 
 
 void
@@ -189,30 +130,22 @@ MSPerson::MSPersonStage_Waiting::proceed(MSNet* /*net*/,
 
 
 /* -------------------------------------------------------------------------
- * MSPerson - static variables
- * ----------------------------------------------------------------------- */
-MSPerson::DictType MSPerson::myDict;
-
-
-/* -------------------------------------------------------------------------
  * MSPerson - methods
  * ----------------------------------------------------------------------- */
-MSPerson::MSPerson(const std::string &id, MSPersonRoute *route)
-        : m_uiTravelTime(0),
-        m_Id(id),
-        m_pRoute(route) {
-    m_pStep = m_pRoute->begin();
+MSPerson::MSPerson(const SUMOVehicleParameter* pars, MSPersonPlan *plan)
+        : myParameter(pars), myPlan(plan) {
+    myStep = myPlan->begin();
 }
 
 
 MSPerson::~MSPerson() {
-    delete m_pRoute;
+    delete myPlan;
 }
 
 
 const MSPerson::MSPersonStage &
 MSPerson::getCurrentStage() const {
-    return **m_pStep;
+    return **myStep;
 }
 
 
@@ -229,32 +162,8 @@ MSPerson::proceed(MSNet* /*net*/, SUMOTime /*time*/) {
 
 bool
 MSPerson::endReached() const {
-    return m_pStep == m_pRoute->end();
+    return myStep == myPlan->end();
 }
-
-
-bool
-MSPerson::dictionary(const std::string &id, MSPerson* ptr) {
-    DictType::iterator it = myDict.find(id);
-    if (it == myDict.end()) {
-        // id not in myDict.
-        myDict.insert(DictType::value_type(id, ptr));
-        return true;
-    }
-    return false;
-}
-
-
-MSPerson*
-MSPerson::dictionary(const std::string &id) {
-    DictType::iterator it = myDict.find(id);
-    if (it == myDict.end()) {
-        // id not in myDict.
-        return 0;
-    }
-    return it->second;
-}
-
 
 
 /****************************************************************************/

@@ -61,7 +61,7 @@ public:
     ~MSPersonControl();
 
     /// adds a single person to the list of walking persons
-    void add(SUMOTime now, MSPerson *person);
+    void add(MSPerson *person);
 
     ///
     bool hasWaitingPersons(SUMOTime time) const;
@@ -95,9 +95,9 @@ public:
 
     private:
         /// the time of the arrival at the destination / the end of the waiting
-        SUMOTime m_uiArrivalTime;
+        SUMOTime myArrivalTime;
         /// the list of persons walking/waiting
-        std::vector<MSPerson*> m_pPersons;
+        std::vector<MSPerson*> myPersons;
     };
 
 private:

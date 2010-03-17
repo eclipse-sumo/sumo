@@ -45,11 +45,11 @@
  * MSPersonControl::SameDepartureTimeCont - methods
  * ----------------------------------------------------------------------- */
 MSPersonControl::SameDepartureTimeCont::SameDepartureTimeCont(SUMOTime time)
-        : m_uiArrivalTime(time) {}
+        : myArrivalTime(time) {}
 
 
 MSPersonControl::SameDepartureTimeCont::~SameDepartureTimeCont() {
-    for (PersonVector::iterator i=m_pPersons.begin(); i!=m_pPersons.end(); ++i) {
+    for (PersonVector::iterator i=myPersons.begin(); i!=myPersons.end(); ++i) {
         delete(*i);
     }
 }
@@ -57,25 +57,25 @@ MSPersonControl::SameDepartureTimeCont::~SameDepartureTimeCont() {
 
 void
 MSPersonControl::SameDepartureTimeCont::add(MSPerson *person) {
-    m_pPersons.push_back(person);
+    myPersons.push_back(person);
 }
 
 
 void
 MSPersonControl::SameDepartureTimeCont::add(const PersonVector &cont) {
-    std::copy(cont.begin(), cont.end(), std::back_inserter(m_pPersons));
+    std::copy(cont.begin(), cont.end(), std::back_inserter(myPersons));
 }
 
 
 SUMOTime
 MSPersonControl::SameDepartureTimeCont::getTime() const {
-    return m_uiArrivalTime;
+    return myArrivalTime;
 }
 
 
 const MSPersonControl::PersonVector &
 MSPersonControl::SameDepartureTimeCont::getPersons() const {
-    return m_pPersons;
+    return myPersons;
 }
 
 
@@ -92,7 +92,8 @@ MSPersonControl::~MSPersonControl() {
 
 
 void
-MSPersonControl::add(SUMOTime when, MSPerson *person) {
+MSPersonControl::add(MSPerson *person) {
+    const SUMOTime when = person->getDesiredDepart();
     WaitingPersons::iterator i = std::find_if(myWaiting.begin(), myWaiting.end(), equal(when));
     if (i==myWaiting.end()) {
         SameDepartureTimeCont cont(when);

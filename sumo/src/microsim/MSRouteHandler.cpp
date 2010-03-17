@@ -107,6 +107,42 @@ MSRouteHandler::myStartElement(SumoXMLTag element,
         delete myVehicleParameter;
         myVehicleParameter = SUMOVehicleParserHelper::parseVehicleAttributes(attrs);
         break;
+    case SUMO_TAG_PERSON:
+        delete myVehicleParameter;
+        myVehicleParameter = SUMOVehicleParserHelper::parseVehicleAttributes(attrs);
+        myActivePlan = new MSPerson::MSPersonPlan();
+        break;
+    case SUMO_TAG_RIDE: {
+        const std::string pid = myVehicleParameter->id;
+        bool ok = true;
+        MSEdge *from = 0;
+        if (attrs.hasAttribute(SUMO_ATTR_FROM)) {
+            const std::string fromID = attrs.getStringReporting(SUMO_ATTR_FROM, "ride", pid.c_str(), ok);
+            from = MSEdge::dictionary(fromID);
+            if (from==0) {
+                throw ProcessError("The from edge '" + fromID + "' within a ride of person '" + pid + "' is not known.");
+            }
+        }
+        const std::string toID = attrs.getStringReporting(SUMO_ATTR_TO, "ride", pid.c_str(), ok);
+        MSEdge *to = MSEdge::dictionary(toID);
+        if (to==0) {
+            throw ProcessError("The to edge '" + toID + "' within a ride of person '" + pid + "' is not known.");
+        }
+        const std::string desc = attrs.getStringReporting(SUMO_ATTR_LINES, "ride", pid.c_str(), ok);
+        StringTokenizer st(desc);
+        myActivePlan->push_back(new MSPerson::MSPersonStage_Driving(*to, st.getVector()));
+        break;
+                        }
+    case SUMO_TAG_WALK: {
+        myActiveRoute.clear();
+        bool ok = true;
+        MSEdge::parseEdgesList(attrs.getStringReporting(SUMO_ATTR_EDGES, "walk", myVehicleParameter->id.c_str(), ok), myActiveRoute, myActiveRouteID);
+        const SUMOTime duration = attrs.getOptSUMOTimeReporting(SUMO_ATTR_DURATION, "walk", 0, ok, -1);
+        const SUMOReal speed = attrs.getOptSUMORealReporting(SUMO_ATTR_SPEED, "walk", 0, ok, -1);
+        myActivePlan->push_back(new MSPerson::MSPersonStage_Walking(myActiveRoute, duration, speed));
+        myActiveRoute.clear();
+        break;
+                        }
     case SUMO_TAG_FLOW:
         delete myVehicleParameter;
         myVehicleParameter = SUMOVehicleParserHelper::parseFlowAttributes(attrs);
@@ -315,6 +351,11 @@ MSRouteHandler::myEndElement(SumoXMLTag element) throw(ProcessError) {
             myVehicleParameter = 0;
             break;
         }
+    case SUMO_TAG_PERSON:
+        closePerson();
+        delete myVehicleParameter;
+        myVehicleParameter = 0;
+        break;
     case SUMO_TAG_FLOW:
         closeFlow();
         break;
@@ -509,10 +550,19 @@ MSRouteHandler::closeVehicle() throw(ProcessError) {
 
 
 void
+MSRouteHandler::closePerson() throw(ProcessError) {
+    MSPerson *person = new MSPerson(myVehicleParameter, myActivePlan);
+    MSNet::getInstance()->getPersonControl().add(person);
+    myVehicleParameter = 0;
+    myActivePlan = 0;
+}
+
+
+void
 MSRouteHandler::closeFlow() throw(ProcessError) {
-    // let's check whether this vehicle had to be emitted before the simulation starts
+    // let's check whether vehicles had to be emitted before the simulation starts
     myVehicleParameter->repetitionsDone = 0;
-    SUMOReal offsetToBegin =  OptionsCont::getOptions().getInt("begin") - myVehicleParameter->depart;
+    SUMOReal offsetToBegin = OptionsCont::getOptions().getInt("begin") - myVehicleParameter->depart;
     while (myVehicleParameter->repetitionsDone * myVehicleParameter->repetitionOffset < offsetToBegin) {
         myVehicleParameter->repetitionsDone++;
         if (myVehicleParameter->repetitionsDone == myVehicleParameter->repetitionNumber) {

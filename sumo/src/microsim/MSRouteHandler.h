@@ -30,6 +30,7 @@
 #endif
 
 #include <string>
+#include "MSPerson.h"
 #include "MSVehicle.h"
 #include <utils/xml/SUMOSAXHandler.h>
 #include <utils/common/SUMOTime.h>
@@ -130,6 +131,9 @@ protected:
     /// Ends the processing of a vehicle
     void closeVehicle() throw(ProcessError);
 
+    /// Ends the processing of a person
+    void closePerson() throw(ProcessError);
+
     /// Ends the processing of a flow
     void closeFlow() throw(ProcessError);
 
@@ -157,6 +161,9 @@ protected:
 
     /// @brief List of the stops on the parsed route
     std::vector<SUMOVehicleParameter::Stop> myActiveRouteStops;
+
+    /// the plan of the current person
+    MSPerson::MSPersonPlan *myActivePlan;
 
     /** information whether vehicles shall be directly added to the network
         or kept within the buffer */
