@@ -54,12 +54,6 @@
 
 
 // ===========================================================================
-// used namespaces
-// ===========================================================================
-using namespace std;
-
-
-// ===========================================================================
 // method definitions
 // ===========================================================================
 /* -------------------------------------------------------------------------
@@ -147,7 +141,7 @@ MSTriggeredRerouter::myStartElement(SumoXMLTag element,
     if (element==SUMO_TAG_DEST_PROB_REROUTE) {
         // by giving probabilities of new destinations
         // get the destination edge
-        string dest = attrs.getStringSecure(SUMO_ATTR_ID, "");
+        std::string dest = attrs.getStringSecure(SUMO_ATTR_ID, "");
         if (dest=="") {
             throw ProcessError("MSTriggeredRerouter " + getID() + ": No destination edge id given.");
         }
@@ -170,7 +164,7 @@ MSTriggeredRerouter::myStartElement(SumoXMLTag element,
 
     if (element==SUMO_TAG_CLOSING_REROUTE) {
         // by closing
-        string closed_id = attrs.getStringSecure(SUMO_ATTR_ID, "");
+        std::string closed_id = attrs.getStringSecure(SUMO_ATTR_ID, "");
         if (closed_id=="") {
             throw ProcessError("MSTriggeredRerouter " + getID() + ": closed edge id given.");
         }
@@ -184,7 +178,7 @@ MSTriggeredRerouter::myStartElement(SumoXMLTag element,
     if (element==SUMO_TAG_ROUTE_PROB_REROUTE) {
         // by explicite rerouting using routes
         // check if route exists
-        string routeStr = attrs.getStringSecure(SUMO_ATTR_ID, "");
+        std::string routeStr = attrs.getStringSecure(SUMO_ATTR_ID, "");
         if (routeStr=="") {
             throw ProcessError("MSTriggeredRerouter " + getID() + ": No route id given.");
         }

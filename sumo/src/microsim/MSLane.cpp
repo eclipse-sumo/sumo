@@ -60,12 +60,6 @@
 
 
 // ===========================================================================
-// used namespaces
-// ===========================================================================
-using namespace std;
-
-
-// ===========================================================================
 // static member definitions
 // ===========================================================================
 MSLane::DictType MSLane::myDict;
@@ -451,13 +445,13 @@ MSLane::getLastVehicleInformation() const throw() {
         // the last vehicle is the one in scheduled by this lane
         MSVehicle *last = *myVehicles.begin();
         SUMOReal pos = MAX2(SUMOReal(0), last->getPositionOnLane()-last->getLength());
-        return make_pair(last, pos);
+        return std::make_pair(last, pos);
     }
     if (myInlappingVehicle!=0) {
         // the last one is a vehicle extending into this lane
-        return make_pair(myInlappingVehicle, myInlappingVehicleEnd);
+        return std::make_pair(myInlappingVehicle, myInlappingVehicleEnd);
     }
-    return make_pair<MSVehicle*, SUMOReal>(0, 0);
+    return std::make_pair<MSVehicle*, SUMOReal>(0, 0);
 }
 
 
@@ -466,7 +460,7 @@ bool
 MSLane::moveCritical(SUMOTime t) {
     myLeftVehLength = myVehicleLengthSum;
     assert(myVehicles.size()!=0);
-    vector<MSVehicle*> collisions;
+    std::vector<MSVehicle*> collisions;
     VehCont::iterator lastBeforeEnd = myVehicles.end() - 1;
     VehCont::iterator veh;
     // Move all next vehicles beside the first
@@ -485,7 +479,7 @@ MSLane::moveCritical(SUMOTime t) {
     assert((*veh)->getPositionOnLane() <= myLength);
     assert(&(*veh)->getLane()==this);
     // deal with collisions
-    for (vector<MSVehicle*>::iterator i=collisions.begin(); i!=collisions.end(); ++i) {
+    for (std::vector<MSVehicle*>::iterator i=collisions.begin(); i!=collisions.end(); ++i) {
         MsgHandler::getWarningInstance()->inform("Teleporting vehicle '" + (*i)->getID() + "'; collision, lane='" + getID() + "', time=" + toString(MSNet::getInstance()->getCurrentTimeStep()) + ".");
 		myVehicleLengthSum -= (*i)->getVehicleType().getLength();
         MSVehicleTransfer::getInstance()->addVeh((*i));
@@ -611,7 +605,7 @@ MSLane::setCritical(SUMOTime t, std::vector<MSLane*> &into) {
 
 
 bool
-MSLane::dictionary(string id, MSLane* ptr) {
+MSLane::dictionary(std::string id, MSLane* ptr) {
     DictType::iterator it = myDict.find(id);
     if (it == myDict.end()) {
         // id not in myDict.
@@ -623,7 +617,7 @@ MSLane::dictionary(string id, MSLane* ptr) {
 
 
 MSLane*
-MSLane::dictionary(string id) {
+MSLane::dictionary(std::string id) {
     DictType::iterator it = myDict.find(id);
     if (it == myDict.end()) {
         // id not in myDict.
@@ -908,7 +902,7 @@ std::pair<MSVehicle * const, SUMOReal>
 MSLane::getFollowerOnConsecutive(SUMOReal dist, SUMOReal seen, SUMOReal leaderSpeed, SUMOReal backOffset) const {
     // ok, a vehicle has not noticed the lane about itself;
     //  iterate as long as necessary to search for an approaching one
-    set<MSLane*> visited;
+    std::set<MSLane*> visited;
     visited.insert((MSLane*) this);
     std::vector<std::pair<MSVehicle *, SUMOReal> > possible;
     std::vector<MSLane::IncomingLaneInfo> newFound;
@@ -923,7 +917,7 @@ MSLane::getFollowerOnConsecutive(SUMOReal dist, SUMOReal seen, SUMOReal leaderSp
                 MSVehicle * v = (MSVehicle*) next->getFirstVehicle();
                 SUMOReal agap = (*i).length - v->getPositionOnLane() + backOffset;
                 if (!v->hasSafeGap(v->maxNextSpeed(v->getSpeed()), agap, leaderSpeed, v->getLane().getMaxSpeed())) {
-                    possible.push_back(make_pair(v, (*i).length-v->getPositionOnLane()+seen));
+                    possible.push_back(std::make_pair(v, (*i).length-v->getPositionOnLane()+seen));
                 }
             } else {
                 if ((*i).length+seen<dist) {

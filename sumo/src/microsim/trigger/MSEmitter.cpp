@@ -44,12 +44,6 @@
 #endif // CHECK_MEMORY_LEAKS
 
 
-// ===========================================================================
-// used namespaces
-// ===========================================================================
-using namespace std;
-
-
 
 /* -------------------------------------------------------------------------
  * MSTriggeredReader::UserCommand-methods
@@ -383,7 +377,7 @@ MSEmitter::childCheckEmit(MSEmitterChild *child) {
 void
 MSEmitter::schedule(MSEmitterChild *child,
                     MSVehicle *v, SUMOReal speed) {
-    myToEmit[child] = make_pair(v, speed);
+    myToEmit[child] = std::make_pair(v, speed);
 }
 
 

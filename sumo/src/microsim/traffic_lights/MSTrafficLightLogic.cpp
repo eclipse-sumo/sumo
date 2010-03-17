@@ -43,12 +43,6 @@
 
 
 // ===========================================================================
-// used namespaces
-// ===========================================================================
-using namespace std;
-
-
-// ===========================================================================
 // member method definitions
 // ===========================================================================
 /* -------------------------------------------------------------------------
@@ -154,7 +148,7 @@ MSTrafficLightLogic::collectLinkStates() const throw() {
     for (LinkVectorVector::const_iterator i1=myLinks.begin(); i1!=myLinks.end(); ++i1) {
         const LinkVector &l = (*i1);
         for (LinkVector::const_iterator i2=l.begin(); i2!=l.end(); ++i2) {
-            ret[*i2] = make_pair((*i2)->getState(), (*i2)->havePriority());
+            ret[*i2] = std::make_pair((*i2)->getState(), (*i2)->havePriority());
         }
     }
     return ret;

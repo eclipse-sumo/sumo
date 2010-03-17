@@ -44,12 +44,6 @@
 
 
 // ===========================================================================
-// used namespaces
-// ===========================================================================
-using namespace std;
-
-
-// ===========================================================================
 // member method definitions
 // ===========================================================================
 MSAgentbasedTrafficLightLogic::MSAgentbasedTrafficLightLogic(
@@ -254,7 +248,7 @@ MSAgentbasedTrafficLightLogic::calculateDuration() throw() {
 void
 MSAgentbasedTrafficLightLogic::lengthenCycleTime(unsigned int toLengthen) throw() {
     typedef std::pair <unsigned int, unsigned int> contentType;
-    typedef vector< pair <unsigned int, unsigned int> > GreenPhasesVector;
+    typedef std::vector< std::pair <unsigned int, unsigned int> > GreenPhasesVector;
     GreenPhasesVector tmp_phases(myPhases.size());
     tmp_phases.clear();
     unsigned int maxLengthen = 0;  // the sum of all times, that is possible to lengthen
@@ -293,7 +287,7 @@ MSAgentbasedTrafficLightLogic::lengthenCycleTime(unsigned int toLengthen) throw(
 void
 MSAgentbasedTrafficLightLogic::cutCycleTime(unsigned int toCut) throw() {
     typedef std::pair <unsigned int, unsigned int> contentType;
-    typedef vector< pair <unsigned int, unsigned int> > GreenPhasesVector;
+    typedef std::vector< std::pair <unsigned int, unsigned int> > GreenPhasesVector;
     GreenPhasesVector tmp_phases(myPhases.size());
     tmp_phases.clear();
     unsigned maxCut = 0;  // the sum of all times, that is possible to cut
@@ -315,7 +309,7 @@ MSAgentbasedTrafficLightLogic::cutCycleTime(unsigned int toCut) throw() {
             }
         }
     }
-    sort(tmp_phases.begin(), tmp_phases.end());
+    std::sort(tmp_phases.begin(), tmp_phases.end());
     //cuts the phases acording to the difference between duration and minDuration
     for (GreenPhasesVector::iterator i=tmp_phases.begin(); i!=tmp_phases.end(); i++) {
         SUMOTime toCutPerPhase = 0;

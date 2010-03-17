@@ -94,12 +94,6 @@
 
 
 // ===========================================================================
-// used namespaces
-// ===========================================================================
-using namespace std;
-
-
-// ===========================================================================
 // static member definitions
 // ===========================================================================
 MSNet* MSNet::myInstance = 0;
@@ -197,7 +191,7 @@ void
 MSNet::closeBuilding(MSEdgeControl *edges, MSJunctionControl *junctions,
                      MSRouteLoaderControl *routeLoaders,
                      MSTLLogicControl *tlc,
-                     vector<int> stateDumpTimes,
+                     std::vector<int> stateDumpTimes,
                      std::string stateDumpFiles) throw() {
     myEdges = edges;
     myJunctions = junctions;
@@ -266,7 +260,7 @@ MSNet::~MSNet() throw() {
 int
 MSNet::simulate(SUMOTime start, SUMOTime stop) {
     // the simulation loop
-    string quitMessage = "";
+    std::string quitMessage = "";
     myStep = start;
     do {
         if (myLogStepNumber) {
@@ -307,7 +301,7 @@ void
 MSNet::closeSimulation(SUMOTime start) {
     if (myLogExecutionTime) {
         long duration = SysUtils::getCurrentMillis() - mySimBeginMillis;
-        ostringstream msg;
+        std::ostringstream msg;
         msg << "Performance: " << "\n" << " Duration: " << duration << " ms" << "\n";
         if (duration!=0) {
             msg << " Real time factor: " << ((SUMOReal)(myStep-start)*1000./(SUMOReal)duration) << "\n";
@@ -340,8 +334,8 @@ MSNet::simulationStep() {
 #ifdef HAVE_MESOSIM
     // netstate output
     if (find(myStateDumpTimes.begin(), myStateDumpTimes.end(), myStep)!=myStateDumpTimes.end()) {
-        string name = myStateDumpFiles + '_' + toString(myStep) + ".bin";
-        ofstream strm(name.c_str(), fstream::out|fstream::binary);
+        std::string name = myStateDumpFiles + '_' + toString(myStep) + ".bin";
+        std::ofstream strm(name.c_str(), std::fstream::out|std::fstream::binary);
         saveState(strm);
     }
 #endif
@@ -546,16 +540,16 @@ MSNet::getWeightsStorage() throw() {
 
 void
 MSNet::preSimStepOutput() const throw() {
-    cout << std::setprecision(OUTPUT_ACCURACY);
-    cout << "Step #" << myStep;
+    std::cout << std::setprecision(OUTPUT_ACCURACY);
+    std::cout << "Step #" << myStep;
 }
 
 
 void
 MSNet::postSimStepOutput() const throw() {
     if (myLogExecutionTime) {
-        string msg;
-        ostringstream oss;
+        std::string msg;
+        std::ostringstream oss;
         oss.setf(std::ios::fixed , std::ios::floatfield);    // use decimal format
         oss.setf(std::ios::showpoint);    // print decimal point
         oss << std::setprecision(OUTPUT_ACCURACY);
@@ -571,11 +565,11 @@ MSNet::postSimStepOutput() const throw() {
         << " ACT " << myVehicleControl->getRunningVehicleNo()
         << ")                                              ";
         msg = oss.str();
-        string prev = "Step #" + toString(myStep-DELTA_T);
+        std::string prev = "Step #" + toString(myStep-DELTA_T);
         msg = msg.substr(0, 78 - prev.length());
-        cout << msg;
+        std::cout << msg;
     }
-    cout << (char) 13;
+    std::cout << (char) 13;
 }
 
 

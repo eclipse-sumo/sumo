@@ -50,12 +50,6 @@
 #endif // CHECK_MEMORY_LEAKS
 
 
-// ===========================================================================
-// used namespaces
-// ===========================================================================
-using namespace std;
-
-
 
 /* -------------------------------------------------------------------------
  * MSTriggeredReader::UserCommand-methods
@@ -244,7 +238,7 @@ MSCalibrator::MSCalibrator_FileTriggeredChild::myStartElement(SumoXMLTag element
     // vehicle-type distributions
     if (element==SUMO_TAG_VTYPEDISTELEM) {
         // get the id, report an error if not given or empty...
-        string id;
+        std::string id;
         if (!attrs.setIDFromAttributes("vtypedistelem", id)) {
             return;
         }
@@ -519,7 +513,7 @@ MSCalibrator::childCheckEmit(MSCalibratorChild *child) {
 void
 MSCalibrator::schedule(MSCalibratorChild *child,
                        MSVehicle *v, SUMOReal speed) {
-    myToEmit[child] = make_pair(v, speed);
+    myToEmit[child] = std::make_pair(v, speed);
 }
 
 

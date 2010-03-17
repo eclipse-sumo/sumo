@@ -46,15 +46,9 @@
 
 
 // ===========================================================================
-// used namespaces
-// ===========================================================================
-using namespace std;
-
-
-// ===========================================================================
 // method definitions
 // ===========================================================================
-MSInductLoop::MSInductLoop(const string& id,
+MSInductLoop::MSInductLoop(const std::string& id,
                            MSLane * const lane,
                            SUMOReal positionInMeters) throw()
         : MSMoveReminder(lane), Named(id), myCurrentVehicle(0),
@@ -142,7 +136,7 @@ MSInductLoop::notifyEnter(MSVehicle& veh, bool, bool) throw() {
 
 SUMOReal
 MSInductLoop::getCurrentSpeed() const throw() {
-    vector<VehicleData> d = collectVehiclesOnDet(MSNet::getInstance()->getCurrentTimeStep()-DELTA_T);
+    std::vector<VehicleData> d = collectVehiclesOnDet(MSNet::getInstance()->getCurrentTimeStep()-DELTA_T);
     return d.size()!=0
            ? accumulate(d.begin(), d.end(), (SUMOReal) 0.0, speedSum) / (SUMOReal) d.size()
            : -1;
@@ -151,7 +145,7 @@ MSInductLoop::getCurrentSpeed() const throw() {
 
 SUMOReal
 MSInductLoop::getCurrentLength() const throw() {
-    vector<VehicleData> d = collectVehiclesOnDet(MSNet::getInstance()->getCurrentTimeStep()-DELTA_T);
+    std::vector<VehicleData> d = collectVehiclesOnDet(MSNet::getInstance()->getCurrentTimeStep()-DELTA_T);
     return d.size()!=0
            ? accumulate(d.begin(), d.end(), (SUMOReal) 0.0, lengthSum) / (SUMOReal) d.size()
            : -1;
@@ -160,7 +154,7 @@ MSInductLoop::getCurrentLength() const throw() {
 
 SUMOReal
 MSInductLoop::getCurrentOccupancy() const throw() {
-    vector<VehicleData> d = collectVehiclesOnDet(MSNet::getInstance()->getCurrentTimeStep()-DELTA_T);
+    std::vector<VehicleData> d = collectVehiclesOnDet(MSNet::getInstance()->getCurrentTimeStep()-DELTA_T);
     return d.size()!=0
            ? accumulate(d.begin(), d.end(), (SUMOReal) 0.0, occupancySum) / (SUMOReal) d.size()
            : -1;
@@ -169,16 +163,16 @@ MSInductLoop::getCurrentOccupancy() const throw() {
 
 SUMOReal
 MSInductLoop::getCurrentPassedNumber() const throw() {
-    vector<VehicleData> d = collectVehiclesOnDet(MSNet::getInstance()->getCurrentTimeStep()-DELTA_T);
+    std::vector<VehicleData> d = collectVehiclesOnDet(MSNet::getInstance()->getCurrentTimeStep()-DELTA_T);
     return (SUMOReal) d.size();
 }
 
 
 std::vector<std::string>
 MSInductLoop::getCurrentVehicleIDs() const throw() {
-    vector<VehicleData> d = collectVehiclesOnDet(MSNet::getInstance()->getCurrentTimeStep()-DELTA_T);
+    std::vector<VehicleData> d = collectVehiclesOnDet(MSNet::getInstance()->getCurrentTimeStep()-DELTA_T);
     std::vector<std::string> ret;
-    for (vector<VehicleData>::iterator i=d.begin(); i!=d.end(); ++i) {
+    for (std::vector<VehicleData>::iterator i=d.begin(); i!=d.end(); ++i) {
         ret.push_back((*i).idM);
     }
     return ret;
@@ -233,7 +227,7 @@ MSInductLoop::writeXMLOutput(OutputDevice &dev,
 void
 MSInductLoop::enterDetectorByMove(MSVehicle& veh,
                                   SUMOReal entryTimestep) throw() {
-    myVehiclesOnDet.insert(make_pair(&veh, entryTimestep));
+    myVehiclesOnDet.insert(std::make_pair(&veh, entryTimestep));
     veh.quitRemindedEntered(this);
     if (myCurrentVehicle!=0&&myCurrentVehicle!=&veh) {
         // in fact, this is an error - a second vehicle is on the detector

@@ -36,12 +36,6 @@
 
 
 // ===========================================================================
-// used namespaces
-// ===========================================================================
-using namespace std;
-
-
-// ===========================================================================
 // method definitions
 // ===========================================================================
 MS_E2_ZS_CollectorOverLanes::MS_E2_ZS_CollectorOverLanes(const std::string &id,
@@ -167,7 +161,7 @@ MS_E2_ZS_CollectorOverLanes::extendTo(SUMOReal length) throw() {
 
 std::vector<MSLane*>
 MS_E2_ZS_CollectorOverLanes::getLanePredeccessorLanes(MSLane *l) throw() {
-    string eid = l->getEdge().getID();
+    std::string eid = l->getEdge().getID();
     // get predecessing edges
     const std::vector<MSEdge*> &predEdges = l->getEdge().getIncomingEdges();
     std::vector<MSLane*> ret;
@@ -198,7 +192,7 @@ MS_E2_ZS_CollectorOverLanes::getLanePredeccessorLanes(MSLane *l) throw() {
 MSE2Collector *
 MS_E2_ZS_CollectorOverLanes::buildCollector(size_t c, size_t r, MSLane *l,
         SUMOReal start, SUMOReal end) throw() {
-    string id = makeID(l->getID(), c, r);
+    std::string id = makeID(l->getID(), c, r);
     if (start+end<l->getLength()) {
         start = l->getLength() - end - (SUMOReal) 0.1;
     }
@@ -237,7 +231,7 @@ size_t bla = 0;
 std::string
 MS_E2_ZS_CollectorOverLanes::makeID(const std::string &baseID ,
                                     size_t /*col*/, size_t /*row*/) const throw() {
-    string add;
+    std::string add;
     switch (myUsage) {
     case DU_USER_DEFINED:
         add = "(u)";
@@ -251,7 +245,7 @@ MS_E2_ZS_CollectorOverLanes::makeID(const std::string &baseID ,
     default:
         break;
     }
-    string ret =  baseID + add + toString<size_t>(bla++);
+    std::string ret =  baseID + add + toString<size_t>(bla++);
     return ret;
 }
 

@@ -37,12 +37,6 @@
 
 
 // ===========================================================================
-// used namespaces
-// ===========================================================================
-using namespace std;
-
-
-// ===========================================================================
 // member method definitions
 // ===========================================================================
 MSJunctionControl::MSJunctionControl() throw() {
@@ -55,8 +49,8 @@ MSJunctionControl::~MSJunctionControl() throw() {
 
 void
 MSJunctionControl::postloadInitContainer() throw(ProcessError) {
-    const vector<MSJunction*> &junctions = buildAndGetStaticVector();
-    for (vector<MSJunction*>::const_iterator i=junctions.begin(); i!=junctions.end(); ++i) {
+    const std::vector<MSJunction*> &junctions = buildAndGetStaticVector();
+    for (std::vector<MSJunction*>::const_iterator i=junctions.begin(); i!=junctions.end(); ++i) {
         (*i)->postloadInit();
     }
 }
@@ -64,15 +58,15 @@ MSJunctionControl::postloadInitContainer() throw(ProcessError) {
 
 void
 MSJunctionControl::resetRequests() throw() {
-    const vector<MSJunction*> &junctions = buildAndGetStaticVector();
-    for_each(junctions.begin(), junctions.end(), mem_fun(& MSJunction::clearRequests));
+    const std::vector<MSJunction*> &junctions = buildAndGetStaticVector();
+    std::for_each(junctions.begin(), junctions.end(), std::mem_fun(& MSJunction::clearRequests));
 }
 
 
 void
 MSJunctionControl::setAllowed() throw() {
-    const vector<MSJunction*> &junctions = buildAndGetStaticVector();
-    for_each(junctions.begin(), junctions.end(), mem_fun(& MSJunction::setAllowed));
+    const std::vector<MSJunction*> &junctions = buildAndGetStaticVector();
+    std::for_each(junctions.begin(), junctions.end(), std::mem_fun(& MSJunction::setAllowed));
 }
 
 

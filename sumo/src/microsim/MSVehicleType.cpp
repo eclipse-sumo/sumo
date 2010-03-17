@@ -43,15 +43,9 @@
 
 
 // ===========================================================================
-// used namespaces
-// ===========================================================================
-using namespace std;
-
-
-// ===========================================================================
 // method definitions
 // ===========================================================================
-MSVehicleType::MSVehicleType(const string &id, SUMOReal length,
+MSVehicleType::MSVehicleType(const std::string &id, SUMOReal length,
                              SUMOReal maxSpeed, SUMOReal accel,
                              SUMOReal decel, SUMOReal dawdle,
                              SUMOReal tau, SUMOReal prob,
@@ -60,7 +54,7 @@ MSVehicleType::MSVehicleType(const string &id, SUMOReal length,
                              SUMOEmissionClass emissionClass,
                              SUMOVehicleShape shape,
                              SUMOReal guiWidth, SUMOReal guiOffset,
-                             int cfModel, const string &lcModel,
+                             int cfModel, const std::string &lcModel,
                              const RGBColor &c) throw()
         : myID(id), myLength(length), myMaxSpeed(maxSpeed), myAccel(accel),
         myDecel(decel), myDawdle(dawdle), myTau(tau),

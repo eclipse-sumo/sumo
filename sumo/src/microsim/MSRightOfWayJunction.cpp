@@ -44,12 +44,6 @@
 
 
 // ===========================================================================
-// used namespaces
-// ===========================================================================
-using namespace std;
-
-
-// ===========================================================================
 // method definitions
 // ===========================================================================
 MSRightOfWayJunction::MSRightOfWayJunction(const std::string &id,
@@ -184,7 +178,7 @@ MSRightOfWayJunction::deadlockKiller() {
         // myRequest, i.e. a "single bit" request. Then again, send it
         // through myLogic (this is necessary because we don't have a
         // mapping between requests and lanes.) !!! (we do now!!)
-        vector< unsigned > trueRequests;
+        std::vector< unsigned > trueRequests;
         trueRequests.reserve(myRespond.size());
         for (unsigned i = 0; i < myRequest.size(); ++i) {
             if (myRequest.test(i)) {

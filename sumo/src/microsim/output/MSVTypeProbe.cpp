@@ -41,16 +41,10 @@
 
 
 // ===========================================================================
-// used namespaces
-// ===========================================================================
-using namespace std;
-
-
-// ===========================================================================
 // method definitions
 // ===========================================================================
-MSVTypeProbe::MSVTypeProbe(const string &id,
-                           const string &vType) throw()
+MSVTypeProbe::MSVTypeProbe(const std::string &id,
+                           const std::string &vType) throw()
         : Named(id), myVType(vType) {
 }
 

@@ -4,7 +4,7 @@
 /// @date    2005-09-15
 /// @version $Id$
 ///
-// Detectors container; responsible for string and output generation
+// Detectors container; responsible for std::string and output generation
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // Copyright 2001-2010 DLR (http://www.dlr.de/) and contributors
@@ -49,12 +49,6 @@
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
 #endif // CHECK_MEMORY_LEAKS
-
-
-// ===========================================================================
-// used namespaces
-// ===========================================================================
-using namespace std;
 
 
 // ===========================================================================
@@ -224,7 +218,7 @@ MSDetectorControl::updateDetectors(SUMOTime step) throw() {
     // induct loops do not need to be updated...
     // vtypeprobes do not need to be updated...
     // ... but harmonoise
-    for (vector<MSMeanData_Harmonoise*>::const_iterator i=myHarmonoiseDetectors.begin(); i!=myHarmonoiseDetectors.end(); ++i) {
+    for (std::vector<MSMeanData_Harmonoise*>::const_iterator i=myHarmonoiseDetectors.begin(); i!=myHarmonoiseDetectors.end(); ++i) {
         (*i)->update();
     }
 }
@@ -256,18 +250,18 @@ MSDetectorControl::addDetectorAndInterval(MSDetectorFileOutput* det,
     if (begin == -1) {
         begin = OptionsCont::getOptions().getInt("begin");
     }
-    IntervalsKey key = make_pair(interval, begin);
+    IntervalsKey key = std::make_pair(interval, begin);
     Intervals::iterator it = myIntervals.find(key);
     // Add command for given key only once to MSEventControl...
     if (it == myIntervals.end()) {
         DetectorFileVec detAndFileVec;
-        detAndFileVec.push_back(make_pair(det, device));
-        myIntervals.insert(make_pair(key, detAndFileVec));
+        detAndFileVec.push_back(std::make_pair(det, device));
+        myIntervals.insert(std::make_pair(key, detAndFileVec));
         myLastCalls[key] = begin;
     } else {
         DetectorFileVec& detAndFileVec = it->second;
         if (find_if(detAndFileVec.begin(), detAndFileVec.end(), bind2nd(detectorEquals(), det)) == detAndFileVec.end()) {
-            detAndFileVec.push_back(make_pair(det, device));
+            detAndFileVec.push_back(std::make_pair(det, device));
         } else {
             // detector already in container. Don't add several times
             WRITE_WARNING("MSDetector2File::addDetectorAndInterval: detector already in container. Ignoring.");

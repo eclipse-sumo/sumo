@@ -45,12 +45,6 @@
 
 
 // ===========================================================================
-// used namespaces
-// ===========================================================================
-using namespace std;
-
-
-// ===========================================================================
 // method definitions
 // ===========================================================================
 void
@@ -122,7 +116,7 @@ MSXMLRawOut::writeLane(OutputDevice &of, const MSLane &lane) throw(IOError) {
     of.openTag("lane") << " id=\"" << lane.myID << "\"";
     if (lane.getVehicleNumber()!=0) {
         of << ">\n";
-        for (vector<MSVehicle*>::const_iterator veh = lane.myVehBuffer.begin();
+        for (std::vector<MSVehicle*>::const_iterator veh = lane.myVehBuffer.begin();
                 veh != lane.myVehBuffer.end(); ++veh) {
             writeVehicle(of, **veh);
         }
