@@ -1,6 +1,7 @@
 Parsing nodes from osm-file 'osm.xml'... done.
 Parsing edges from osm-file 'osm.xml'... done.
-Removing duplicate nodes... ...done.
+Removing duplicate nodes...  done.
+Removing duplicate edges...  done.
  Import done:
    89 nodes loaded.
    30 types loaded.
