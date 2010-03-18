@@ -54,7 +54,7 @@ def poiAppend(poi_edge, poi_nr, poi_x, poi_y, poi_buf):
 	poi_buf.append("\t<poi id=\"" + str(poi_edge) + "-" + str(poi_nr) + "\" type=\"default\" color=\"1,0,0\" layer=\"0\" x=\"" + str(poi_x) + "\" y=\"" + str(poi_y) + "\"/>")
 	return
 
-print("Reading net ...\n")
+print("Reading net ...")
 parser = make_parser()
 net = sumonet.NetReader()
 parser.setContentHandler(net)
@@ -147,7 +147,7 @@ for elm in connEdges:
 		offset = offset + pow(pow((x2 - xCur), 2) + pow((y2 - yCur), 2), 0.5)
 POIbuf.append("</POIs>")
 
-print("writing output\n")
+print("writing output")
 # finally write output in file
 outfile = open('pois.add.xml', 'w')
 for POIs in POIbuf:
