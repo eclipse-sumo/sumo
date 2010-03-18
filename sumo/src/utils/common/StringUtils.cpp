@@ -4,7 +4,7 @@
 /// @date    unknown
 /// @version $Id$
 ///
-// Some static methods for std::string processing
+// Some static methods for string processing
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // Copyright 2001-2010 DLR (http://www.dlr.de/) and contributors

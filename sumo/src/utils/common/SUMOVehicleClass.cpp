@@ -42,10 +42,10 @@
 
 
 // ===========================================================================
-// definitions of std::string representations
+// definitions of string representations
 // ===========================================================================
 // ---------------------------------------------------------------------------
-// std::string representations of SUMOVehicleClass
+// string representations of SUMOVehicleClass
 // ---------------------------------------------------------------------------
 std::string sSVC_PRIVATE("private");
 std::string sSVC_PUBLIC_TRANSPORT("public_transport");
