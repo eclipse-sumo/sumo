@@ -4,7 +4,7 @@
 /// @date    2005-09-15
 /// @version $Id$
 ///
-// Detectors container; responsible for std::string and output generation
+// Detectors container; responsible for string and output generation
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // Copyright 2001-2010 DLR (http://www.dlr.de/) and contributors
@@ -65,7 +65,7 @@ MSDetectorControl::~MSDetectorControl() throw() {
     myLoops.clear();
 #ifdef _MESSAGES
 #ifdef _DEBUG
-    cout << "MSDetectorControl: clearing myMsgLoops" << endl;
+    std::cout << "MSDetectorControl: clearing myMsgLoops" << std::endl;
 #endif
     myMsgLoops.clear();
 #endif
@@ -90,7 +90,7 @@ MSDetectorControl::close(SUMOTime step) throw(IOError) {
 void
 MSDetectorControl::add(MSMsgInductLoop *msgl, OutputDevice& device, int splInterval) throw(ProcessError) {
 #ifdef _DEBUG
-    cout << "adding MSMsgInductLoop..." << endl;
+    std::cout << "adding MSMsgInductLoop..." << std::endl;
 #endif
     if (! myMsgLoops.add(msgl->getID(), msgl)) {
         throw ProcessError("message induct loop '" + msgl->getID() + "' could not be build;"

@@ -320,7 +320,7 @@ MSRouteHandler::myCharacters(SumoXMLTag element,
         }
         if (beg<len) {
             if (!myHaveWarned) {
-                MsgHandler::getWarningInstance()->inform("Defining routes as a nested std::string is deprecated, use the edges attribute instead.");
+                MsgHandler::getWarningInstance()->inform("Defining routes as a nested string is deprecated, use the edges attribute instead.");
                 myHaveWarned = true;
             }
             MSEdge::parseEdgesList(chars, myActiveRoute, myActiveRouteID);
