@@ -1,230 +1,230 @@
 <?xml version="1.0"?>
 
-<!-- generated on 05/07/09 12:22:07 by SUMO sumo Version dev-SVN-r7121
+<!-- generated on 03/18/10 13:37:32 by SUMO sumo Version dev-SVN-r8460
 <configuration>
 
-   <input>
-      <net-file>net.net.xml</net-file>
-      <route-files>input_routes.rou.xml</route-files>
-      <additional-files>input_additional2.add.xml</additional-files>
-   </input>
+    <input>
+        <net-file value="net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+        <additional-files value="input_additional2.add.xml"/>
+    </input>
 
-   <output>
-      <netstate-dump>rawdump.xml</netstate-dump>
-   </output>
+    <output>
+        <netstate-dump value="rawdump.xml"/>
+    </output>
 
-   <time>
-      <begin>0</begin>
-      <end>100</end>
-   </time>
+    <time>
+        <begin value="0"/>
+        <end value="100"/>
+    </time>
 
-   <processing>
-      <no-duration-log>true</no-duration-log>
-      <no-step-log>true</no-step-log>
-   </processing>
+    <report>
+        <no-duration-log value="true"/>
+        <no-step-log value="true"/>
+    </report>
 
 </configuration>
 -->
 
 <sumo-netstate>
-   <timestep time="0.00">
-   </timestep>
-   <timestep time="1.00">
-   </timestep>
-   <timestep time="2.00">
-   </timestep>
-   <timestep time="3.00">
-   </timestep>
-   <timestep time="4.00">
-   </timestep>
-   <timestep time="5.00">
-   </timestep>
-   <timestep time="6.00">
-   </timestep>
-   <timestep time="7.00">
-   </timestep>
-   <timestep time="8.00">
-   </timestep>
-   <timestep time="9.00">
-   </timestep>
-   <timestep time="10.00">
-   </timestep>
-   <timestep time="11.00">
-   </timestep>
-   <timestep time="12.00">
-   </timestep>
-   <timestep time="13.00">
-   </timestep>
-   <timestep time="14.00">
-   </timestep>
-   <timestep time="15.00">
-   </timestep>
-   <timestep time="16.00">
-   </timestep>
-   <timestep time="17.00">
-   </timestep>
-   <timestep time="18.00">
-   </timestep>
-   <timestep time="19.00">
-   </timestep>
-   <timestep time="20.00">
-   </timestep>
-   <timestep time="21.00">
-   </timestep>
-   <timestep time="22.00">
-   </timestep>
-   <timestep time="23.00">
-   </timestep>
-   <timestep time="24.00">
-   </timestep>
-   <timestep time="25.00">
-   </timestep>
-   <timestep time="26.00">
-   </timestep>
-   <timestep time="27.00">
-   </timestep>
-   <timestep time="28.00">
-   </timestep>
-   <timestep time="29.00">
-   </timestep>
-   <timestep time="30.00">
-   </timestep>
-   <timestep time="31.00">
-   </timestep>
-   <timestep time="32.00">
-   </timestep>
-   <timestep time="33.00">
-   </timestep>
-   <timestep time="34.00">
-   </timestep>
-   <timestep time="35.00">
-   </timestep>
-   <timestep time="36.00">
-   </timestep>
-   <timestep time="37.00">
-   </timestep>
-   <timestep time="38.00">
-   </timestep>
-   <timestep time="39.00">
-   </timestep>
-   <timestep time="40.00">
-   </timestep>
-   <timestep time="41.00">
-   </timestep>
-   <timestep time="42.00">
-   </timestep>
-   <timestep time="43.00">
-   </timestep>
-   <timestep time="44.00">
-   </timestep>
-   <timestep time="45.00">
-   </timestep>
-   <timestep time="46.00">
-   </timestep>
-   <timestep time="47.00">
-   </timestep>
-   <timestep time="48.00">
-   </timestep>
-   <timestep time="49.00">
-   </timestep>
-   <timestep time="50.00">
-   </timestep>
-   <timestep time="51.00">
-   </timestep>
-   <timestep time="52.00">
-   </timestep>
-   <timestep time="53.00">
-   </timestep>
-   <timestep time="54.00">
-   </timestep>
-   <timestep time="55.00">
-   </timestep>
-   <timestep time="56.00">
-   </timestep>
-   <timestep time="57.00">
-   </timestep>
-   <timestep time="58.00">
-   </timestep>
-   <timestep time="59.00">
-   </timestep>
-   <timestep time="60.00">
-   </timestep>
-   <timestep time="61.00">
-   </timestep>
-   <timestep time="62.00">
-   </timestep>
-   <timestep time="63.00">
-   </timestep>
-   <timestep time="64.00">
-   </timestep>
-   <timestep time="65.00">
-   </timestep>
-   <timestep time="66.00">
-   </timestep>
-   <timestep time="67.00">
-   </timestep>
-   <timestep time="68.00">
-   </timestep>
-   <timestep time="69.00">
-   </timestep>
-   <timestep time="70.00">
-   </timestep>
-   <timestep time="71.00">
-   </timestep>
-   <timestep time="72.00">
-   </timestep>
-   <timestep time="73.00">
-   </timestep>
-   <timestep time="74.00">
-   </timestep>
-   <timestep time="75.00">
-   </timestep>
-   <timestep time="76.00">
-   </timestep>
-   <timestep time="77.00">
-   </timestep>
-   <timestep time="78.00">
-   </timestep>
-   <timestep time="79.00">
-   </timestep>
-   <timestep time="80.00">
-   </timestep>
-   <timestep time="81.00">
-   </timestep>
-   <timestep time="82.00">
-   </timestep>
-   <timestep time="83.00">
-   </timestep>
-   <timestep time="84.00">
-   </timestep>
-   <timestep time="85.00">
-   </timestep>
-   <timestep time="86.00">
-   </timestep>
-   <timestep time="87.00">
-   </timestep>
-   <timestep time="88.00">
-   </timestep>
-   <timestep time="89.00">
-   </timestep>
-   <timestep time="90.00">
-   </timestep>
-   <timestep time="91.00">
-   </timestep>
-   <timestep time="92.00">
-   </timestep>
-   <timestep time="93.00">
-   </timestep>
-   <timestep time="94.00">
-   </timestep>
-   <timestep time="95.00">
-   </timestep>
-   <timestep time="96.00">
-   </timestep>
-   <timestep time="97.00">
-   </timestep>
-   <timestep time="98.00">
-   </timestep>
-   <timestep time="99.00">
-   </timestep>
+    <timestep time="0.00">
+    </timestep>
+    <timestep time="1.00">
+    </timestep>
+    <timestep time="2.00">
+    </timestep>
+    <timestep time="3.00">
+    </timestep>
+    <timestep time="4.00">
+    </timestep>
+    <timestep time="5.00">
+    </timestep>
+    <timestep time="6.00">
+    </timestep>
+    <timestep time="7.00">
+    </timestep>
+    <timestep time="8.00">
+    </timestep>
+    <timestep time="9.00">
+    </timestep>
+    <timestep time="10.00">
+    </timestep>
+    <timestep time="11.00">
+    </timestep>
+    <timestep time="12.00">
+    </timestep>
+    <timestep time="13.00">
+    </timestep>
+    <timestep time="14.00">
+    </timestep>
+    <timestep time="15.00">
+    </timestep>
+    <timestep time="16.00">
+    </timestep>
+    <timestep time="17.00">
+    </timestep>
+    <timestep time="18.00">
+    </timestep>
+    <timestep time="19.00">
+    </timestep>
+    <timestep time="20.00">
+    </timestep>
+    <timestep time="21.00">
+    </timestep>
+    <timestep time="22.00">
+    </timestep>
+    <timestep time="23.00">
+    </timestep>
+    <timestep time="24.00">
+    </timestep>
+    <timestep time="25.00">
+    </timestep>
+    <timestep time="26.00">
+    </timestep>
+    <timestep time="27.00">
+    </timestep>
+    <timestep time="28.00">
+    </timestep>
+    <timestep time="29.00">
+    </timestep>
+    <timestep time="30.00">
+    </timestep>
+    <timestep time="31.00">
+    </timestep>
+    <timestep time="32.00">
+    </timestep>
+    <timestep time="33.00">
+    </timestep>
+    <timestep time="34.00">
+    </timestep>
+    <timestep time="35.00">
+    </timestep>
+    <timestep time="36.00">
+    </timestep>
+    <timestep time="37.00">
+    </timestep>
+    <timestep time="38.00">
+    </timestep>
+    <timestep time="39.00">
+    </timestep>
+    <timestep time="40.00">
+    </timestep>
+    <timestep time="41.00">
+    </timestep>
+    <timestep time="42.00">
+    </timestep>
+    <timestep time="43.00">
+    </timestep>
+    <timestep time="44.00">
+    </timestep>
+    <timestep time="45.00">
+    </timestep>
+    <timestep time="46.00">
+    </timestep>
+    <timestep time="47.00">
+    </timestep>
+    <timestep time="48.00">
+    </timestep>
+    <timestep time="49.00">
+    </timestep>
+    <timestep time="50.00">
+    </timestep>
+    <timestep time="51.00">
+    </timestep>
+    <timestep time="52.00">
+    </timestep>
+    <timestep time="53.00">
+    </timestep>
+    <timestep time="54.00">
+    </timestep>
+    <timestep time="55.00">
+    </timestep>
+    <timestep time="56.00">
+    </timestep>
+    <timestep time="57.00">
+    </timestep>
+    <timestep time="58.00">
+    </timestep>
+    <timestep time="59.00">
+    </timestep>
+    <timestep time="60.00">
+    </timestep>
+    <timestep time="61.00">
+    </timestep>
+    <timestep time="62.00">
+    </timestep>
+    <timestep time="63.00">
+    </timestep>
+    <timestep time="64.00">
+    </timestep>
+    <timestep time="65.00">
+    </timestep>
+    <timestep time="66.00">
+    </timestep>
+    <timestep time="67.00">
+    </timestep>
+    <timestep time="68.00">
+    </timestep>
+    <timestep time="69.00">
+    </timestep>
+    <timestep time="70.00">
+    </timestep>
+    <timestep time="71.00">
+    </timestep>
+    <timestep time="72.00">
+    </timestep>
+    <timestep time="73.00">
+    </timestep>
+    <timestep time="74.00">
+    </timestep>
+    <timestep time="75.00">
+    </timestep>
+    <timestep time="76.00">
+    </timestep>
+    <timestep time="77.00">
+    </timestep>
+    <timestep time="78.00">
+    </timestep>
+    <timestep time="79.00">
+    </timestep>
+    <timestep time="80.00">
+    </timestep>
+    <timestep time="81.00">
+    </timestep>
+    <timestep time="82.00">
+    </timestep>
+    <timestep time="83.00">
+    </timestep>
+    <timestep time="84.00">
+    </timestep>
+    <timestep time="85.00">
+    </timestep>
+    <timestep time="86.00">
+    </timestep>
+    <timestep time="87.00">
+    </timestep>
+    <timestep time="88.00">
+    </timestep>
+    <timestep time="89.00">
+    </timestep>
+    <timestep time="90.00">
+    </timestep>
+    <timestep time="91.00">
+    </timestep>
+    <timestep time="92.00">
+    </timestep>
+    <timestep time="93.00">
+    </timestep>
+    <timestep time="94.00">
+    </timestep>
+    <timestep time="95.00">
+    </timestep>
+    <timestep time="96.00">
+    </timestep>
+    <timestep time="97.00">
+    </timestep>
+    <timestep time="98.00">
+    </timestep>
+    <timestep time="99.00">
+    </timestep>
 </sumo-netstate>

@@ -1,160 +1,160 @@
 <?xml version="1.0"?>
 
-<!-- generated on 05/07/09 12:22:39 by SUMO sumo Version dev-SVN-r7121
+<!-- generated on 03/18/10 13:38:42 by SUMO sumo Version dev-SVN-r8460
 <configuration>
 
-   <input>
-      <net-file>net.net.xml</net-file>
-      <route-files>input_routes.rou.xml</route-files>
-      <additional-files>input_additional.add.xml</additional-files>
-   </input>
+    <input>
+        <net-file value="net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+        <additional-files value="input_additional.add.xml"/>
+    </input>
 
-   <time>
-      <begin>0</begin>
-      <end>150</end>
-   </time>
+    <time>
+        <begin value="0"/>
+        <end value="150"/>
+    </time>
 
-   <processing>
-      <no-duration-log>true</no-duration-log>
-      <no-step-log>true</no-step-log>
-   </processing>
+    <report>
+        <no-duration-log value="true"/>
+        <no-step-log value="true"/>
+    </report>
 
 </configuration>
 -->
 
 <netstats>
-   <interval begin="0" end="150" id="dump_900">
-      <edge id="0/0to0/1">
-         <lane id="0/0to0/1_0" sampledSeconds="0.00" noise="0.00"/>
-      </edge>
-      <edge id="0/0to1/0">
-         <lane id="0/0to1/0_0" sampledSeconds="0.00" noise="0.00"/>
-      </edge>
-      <edge id="0/1to0/0">
-         <lane id="0/1to0/0_0" sampledSeconds="0.00" noise="0.00"/>
-      </edge>
-      <edge id="0/1to0/2">
-         <lane id="0/1to0/2_0" sampledSeconds="0.00" noise="0.00"/>
-      </edge>
-      <edge id="0/1to1/1">
-         <lane id="0/1to1/1_0" sampledSeconds="0.00" noise="0.00"/>
-      </edge>
-      <edge id="0/2to0/1">
-         <lane id="0/2to0/1_0" sampledSeconds="0.00" noise="0.00"/>
-      </edge>
-      <edge id="0/2to1/2">
-         <lane id="0/2to1/2_0" sampledSeconds="0.00" noise="0.00"/>
-      </edge>
-      <edge id="1/0to0/0">
-         <lane id="1/0to0/0_0" sampledSeconds="0.00" noise="0.00"/>
-      </edge>
-      <edge id="1/0to1/1">
-         <lane id="1/0to1/1_0" sampledSeconds="0.00" noise="0.00"/>
-      </edge>
-      <edge id="1/0to2/0">
-         <lane id="1/0to2/0_0" sampledSeconds="0.00" noise="0.00"/>
-      </edge>
-      <edge id="1/1to0/1">
-         <lane id="1/1to0/1_0" sampledSeconds="0.00" noise="0.00"/>
-      </edge>
-      <edge id="1/1to1/0">
-         <lane id="1/1to1/0_0" sampledSeconds="0.00" noise="0.00"/>
-      </edge>
-      <edge id="1/1to1/2">
-         <lane id="1/1to1/2_0" sampledSeconds="0.00" noise="0.00"/>
-      </edge>
-      <edge id="1/1to2/1">
-         <lane id="1/1to2/1_0" sampledSeconds="0.00" noise="0.00"/>
-      </edge>
-      <edge id="1/2to0/2">
-         <lane id="1/2to0/2_0" sampledSeconds="0.00" noise="0.00"/>
-      </edge>
-      <edge id="1/2to1/1">
-         <lane id="1/2to1/1_0" sampledSeconds="0.00" noise="0.00"/>
-      </edge>
-      <edge id="1/2to2/2">
-         <lane id="1/2to2/2_0" sampledSeconds="0.00" noise="0.00"/>
-      </edge>
-      <edge id="2/0to1/0">
-         <lane id="2/0to1/0_0" sampledSeconds="0.00" noise="0.00"/>
-      </edge>
-      <edge id="2/0to2/1">
-         <lane id="2/0to2/1_0" sampledSeconds="0.00" noise="0.00"/>
-      </edge>
-      <edge id="2/0to3/0">
-         <lane id="2/0to3/0_0" sampledSeconds="0.00" noise="0.00"/>
-      </edge>
-      <edge id="2/1to1/1">
-         <lane id="2/1to1/1_0" sampledSeconds="0.00" noise="0.00"/>
-      </edge>
-      <edge id="2/1to2/0">
-         <lane id="2/1to2/0_0" sampledSeconds="0.00" noise="0.00"/>
-      </edge>
-      <edge id="2/1to2/2">
-         <lane id="2/1to2/2_0" sampledSeconds="0.00" noise="0.00"/>
-      </edge>
-      <edge id="2/1to3/1">
-         <lane id="2/1to3/1_0" sampledSeconds="0.00" noise="0.00"/>
-      </edge>
-      <edge id="2/2to1/2">
-         <lane id="2/2to1/2_0" sampledSeconds="0.00" noise="0.00"/>
-      </edge>
-      <edge id="2/2to2/1">
-         <lane id="2/2to2/1_0" sampledSeconds="0.00" noise="0.00"/>
-      </edge>
-      <edge id="2/2to3/2">
-         <lane id="2/2to3/2_0" sampledSeconds="0.00" noise="0.00"/>
-      </edge>
-      <edge id="3/0to2/0">
-         <lane id="3/0to2/0_0" sampledSeconds="0.00" noise="0.00"/>
-      </edge>
-      <edge id="3/0to3/1">
-         <lane id="3/0to3/1_0" sampledSeconds="0.00" noise="0.00"/>
-      </edge>
-      <edge id="3/0to4/0">
-         <lane id="3/0to4/0_0" sampledSeconds="0.00" noise="0.00"/>
-      </edge>
-      <edge id="3/1to2/1">
-         <lane id="3/1to2/1_0" sampledSeconds="0.00" noise="0.00"/>
-      </edge>
-      <edge id="3/1to3/0">
-         <lane id="3/1to3/0_0" sampledSeconds="0.00" noise="0.00"/>
-      </edge>
-      <edge id="3/1to3/2">
-         <lane id="3/1to3/2_0" sampledSeconds="0.00" noise="0.00"/>
-      </edge>
-      <edge id="3/1to4/1">
-         <lane id="3/1to4/1_0" sampledSeconds="0.00" noise="0.00"/>
-      </edge>
-      <edge id="3/2to2/2">
-         <lane id="3/2to2/2_0" sampledSeconds="0.00" noise="0.00"/>
-      </edge>
-      <edge id="3/2to3/1">
-         <lane id="3/2to3/1_0" sampledSeconds="0.00" noise="0.00"/>
-      </edge>
-      <edge id="3/2to4/2">
-         <lane id="3/2to4/2_0" sampledSeconds="0.00" noise="0.00"/>
-      </edge>
-      <edge id="4/0to3/0">
-         <lane id="4/0to3/0_0" sampledSeconds="0.00" noise="0.00"/>
-      </edge>
-      <edge id="4/0to4/1">
-         <lane id="4/0to4/1_0" sampledSeconds="0.00" noise="0.00"/>
-      </edge>
-      <edge id="4/1to3/1">
-         <lane id="4/1to3/1_0" sampledSeconds="0.00" noise="0.00"/>
-      </edge>
-      <edge id="4/1to4/0">
-         <lane id="4/1to4/0_0" sampledSeconds="0.00" noise="0.00"/>
-      </edge>
-      <edge id="4/1to4/2">
-         <lane id="4/1to4/2_0" sampledSeconds="0.00" noise="0.00"/>
-      </edge>
-      <edge id="4/2to3/2">
-         <lane id="4/2to3/2_0" sampledSeconds="0.00" noise="0.00"/>
-      </edge>
-      <edge id="4/2to4/1">
-         <lane id="4/2to4/1_0" sampledSeconds="0.00" noise="0.00"/>
-      </edge>
-   </interval>
+    <interval begin="0.00" end="150.00" id="dump_900">
+        <edge id="0/0to0/1">
+            <lane id="0/0to0/1_0" sampledSeconds="0.00" noise="0.00"/>
+        </edge>
+        <edge id="0/0to1/0">
+            <lane id="0/0to1/0_0" sampledSeconds="0.00" noise="0.00"/>
+        </edge>
+        <edge id="0/1to0/0">
+            <lane id="0/1to0/0_0" sampledSeconds="0.00" noise="0.00"/>
+        </edge>
+        <edge id="0/1to0/2">
+            <lane id="0/1to0/2_0" sampledSeconds="0.00" noise="0.00"/>
+        </edge>
+        <edge id="0/1to1/1">
+            <lane id="0/1to1/1_0" sampledSeconds="0.00" noise="0.00"/>
+        </edge>
+        <edge id="0/2to0/1">
+            <lane id="0/2to0/1_0" sampledSeconds="0.00" noise="0.00"/>
+        </edge>
+        <edge id="0/2to1/2">
+            <lane id="0/2to1/2_0" sampledSeconds="0.00" noise="0.00"/>
+        </edge>
+        <edge id="1/0to0/0">
+            <lane id="1/0to0/0_0" sampledSeconds="0.00" noise="0.00"/>
+        </edge>
+        <edge id="1/0to1/1">
+            <lane id="1/0to1/1_0" sampledSeconds="0.00" noise="0.00"/>
+        </edge>
+        <edge id="1/0to2/0">
+            <lane id="1/0to2/0_0" sampledSeconds="0.00" noise="0.00"/>
+        </edge>
+        <edge id="1/1to0/1">
+            <lane id="1/1to0/1_0" sampledSeconds="0.00" noise="0.00"/>
+        </edge>
+        <edge id="1/1to1/0">
+            <lane id="1/1to1/0_0" sampledSeconds="0.00" noise="0.00"/>
+        </edge>
+        <edge id="1/1to1/2">
+            <lane id="1/1to1/2_0" sampledSeconds="0.00" noise="0.00"/>
+        </edge>
+        <edge id="1/1to2/1">
+            <lane id="1/1to2/1_0" sampledSeconds="0.00" noise="0.00"/>
+        </edge>
+        <edge id="1/2to0/2">
+            <lane id="1/2to0/2_0" sampledSeconds="0.00" noise="0.00"/>
+        </edge>
+        <edge id="1/2to1/1">
+            <lane id="1/2to1/1_0" sampledSeconds="0.00" noise="0.00"/>
+        </edge>
+        <edge id="1/2to2/2">
+            <lane id="1/2to2/2_0" sampledSeconds="0.00" noise="0.00"/>
+        </edge>
+        <edge id="2/0to1/0">
+            <lane id="2/0to1/0_0" sampledSeconds="0.00" noise="0.00"/>
+        </edge>
+        <edge id="2/0to2/1">
+            <lane id="2/0to2/1_0" sampledSeconds="0.00" noise="0.00"/>
+        </edge>
+        <edge id="2/0to3/0">
+            <lane id="2/0to3/0_0" sampledSeconds="0.00" noise="0.00"/>
+        </edge>
+        <edge id="2/1to1/1">
+            <lane id="2/1to1/1_0" sampledSeconds="0.00" noise="0.00"/>
+        </edge>
+        <edge id="2/1to2/0">
+            <lane id="2/1to2/0_0" sampledSeconds="0.00" noise="0.00"/>
+        </edge>
+        <edge id="2/1to2/2">
+            <lane id="2/1to2/2_0" sampledSeconds="0.00" noise="0.00"/>
+        </edge>
+        <edge id="2/1to3/1">
+            <lane id="2/1to3/1_0" sampledSeconds="0.00" noise="0.00"/>
+        </edge>
+        <edge id="2/2to1/2">
+            <lane id="2/2to1/2_0" sampledSeconds="0.00" noise="0.00"/>
+        </edge>
+        <edge id="2/2to2/1">
+            <lane id="2/2to2/1_0" sampledSeconds="0.00" noise="0.00"/>
+        </edge>
+        <edge id="2/2to3/2">
+            <lane id="2/2to3/2_0" sampledSeconds="0.00" noise="0.00"/>
+        </edge>
+        <edge id="3/0to2/0">
+            <lane id="3/0to2/0_0" sampledSeconds="0.00" noise="0.00"/>
+        </edge>
+        <edge id="3/0to3/1">
+            <lane id="3/0to3/1_0" sampledSeconds="0.00" noise="0.00"/>
+        </edge>
+        <edge id="3/0to4/0">
+            <lane id="3/0to4/0_0" sampledSeconds="0.00" noise="0.00"/>
+        </edge>
+        <edge id="3/1to2/1">
+            <lane id="3/1to2/1_0" sampledSeconds="0.00" noise="0.00"/>
+        </edge>
+        <edge id="3/1to3/0">
+            <lane id="3/1to3/0_0" sampledSeconds="0.00" noise="0.00"/>
+        </edge>
+        <edge id="3/1to3/2">
+            <lane id="3/1to3/2_0" sampledSeconds="0.00" noise="0.00"/>
+        </edge>
+        <edge id="3/1to4/1">
+            <lane id="3/1to4/1_0" sampledSeconds="0.00" noise="0.00"/>
+        </edge>
+        <edge id="3/2to2/2">
+            <lane id="3/2to2/2_0" sampledSeconds="0.00" noise="0.00"/>
+        </edge>
+        <edge id="3/2to3/1">
+            <lane id="3/2to3/1_0" sampledSeconds="0.00" noise="0.00"/>
+        </edge>
+        <edge id="3/2to4/2">
+            <lane id="3/2to4/2_0" sampledSeconds="0.00" noise="0.00"/>
+        </edge>
+        <edge id="4/0to3/0">
+            <lane id="4/0to3/0_0" sampledSeconds="0.00" noise="0.00"/>
+        </edge>
+        <edge id="4/0to4/1">
+            <lane id="4/0to4/1_0" sampledSeconds="0.00" noise="0.00"/>
+        </edge>
+        <edge id="4/1to3/1">
+            <lane id="4/1to3/1_0" sampledSeconds="0.00" noise="0.00"/>
+        </edge>
+        <edge id="4/1to4/0">
+            <lane id="4/1to4/0_0" sampledSeconds="0.00" noise="0.00"/>
+        </edge>
+        <edge id="4/1to4/2">
+            <lane id="4/1to4/2_0" sampledSeconds="0.00" noise="0.00"/>
+        </edge>
+        <edge id="4/2to3/2">
+            <lane id="4/2to3/2_0" sampledSeconds="0.00" noise="0.00"/>
+        </edge>
+        <edge id="4/2to4/1">
+            <lane id="4/2to4/1_0" sampledSeconds="0.00" noise="0.00"/>
+        </edge>
+    </interval>
 </netstats>

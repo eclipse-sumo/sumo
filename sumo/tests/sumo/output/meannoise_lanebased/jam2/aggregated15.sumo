@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 12/22/09 11:49:59 by SUMO sumo Version dev-SVN-r8086
+<!-- generated on 03/18/10 13:38:53 by SUMO sumo Version dev-SVN-r8460
 <configuration>
 
     <input>
@@ -26,36 +26,36 @@
 -->
 
 <netstats>
-   <interval begin="600" end="615" id="dump_15">
-      <edge id="3/1to2/1">
-         <lane id="3/1to2/1_0" sampledSeconds="795.00" noise="73.18"/>
-      </edge>
-      <edge id="4/1to3/1">
-         <lane id="4/1to3/1_0" sampledSeconds="375.00" noise="69.92"/>
-      </edge>
-   </interval>
-   <interval begin="615" end="630" id="dump_15">
-      <edge id="3/1to2/1">
-         <lane id="3/1to2/1_0" sampledSeconds="795.00" noise="73.18"/>
-      </edge>
-      <edge id="4/1to3/1">
-         <lane id="4/1to3/1_0" sampledSeconds="375.00" noise="69.92"/>
-      </edge>
-   </interval>
-   <interval begin="630" end="645" id="dump_15">
-      <edge id="3/1to2/1">
-         <lane id="3/1to2/1_0" sampledSeconds="795.00" noise="73.18"/>
-      </edge>
-      <edge id="4/1to3/1">
-         <lane id="4/1to3/1_0" sampledSeconds="375.00" noise="69.92"/>
-      </edge>
-   </interval>
-   <interval begin="645" end="660" id="dump_15">
-      <edge id="3/1to2/1">
-         <lane id="3/1to2/1_0" sampledSeconds="795.00" noise="73.18"/>
-      </edge>
-      <edge id="4/1to3/1">
-         <lane id="4/1to3/1_0" sampledSeconds="375.00" noise="69.92"/>
-      </edge>
-   </interval>
+    <interval begin="600.00" end="615.00" id="dump_15">
+        <edge id="3/1to2/1">
+            <lane id="3/1to2/1_0" sampledSeconds="795.00" noise="73.18"/>
+        </edge>
+        <edge id="4/1to3/1">
+            <lane id="4/1to3/1_0" sampledSeconds="375.00" noise="69.92"/>
+        </edge>
+    </interval>
+    <interval begin="615.00" end="630.00" id="dump_15">
+        <edge id="3/1to2/1">
+            <lane id="3/1to2/1_0" sampledSeconds="795.00" noise="73.18"/>
+        </edge>
+        <edge id="4/1to3/1">
+            <lane id="4/1to3/1_0" sampledSeconds="375.00" noise="69.92"/>
+        </edge>
+    </interval>
+    <interval begin="630.00" end="645.00" id="dump_15">
+        <edge id="3/1to2/1">
+            <lane id="3/1to2/1_0" sampledSeconds="795.00" noise="73.18"/>
+        </edge>
+        <edge id="4/1to3/1">
+            <lane id="4/1to3/1_0" sampledSeconds="375.00" noise="69.92"/>
+        </edge>
+    </interval>
+    <interval begin="645.00" end="660.00" id="dump_15">
+        <edge id="3/1to2/1">
+            <lane id="3/1to2/1_0" sampledSeconds="795.00" noise="73.18"/>
+        </edge>
+        <edge id="4/1to3/1">
+            <lane id="4/1to3/1_0" sampledSeconds="375.00" noise="69.92"/>
+        </edge>
+    </interval>
 </netstats>

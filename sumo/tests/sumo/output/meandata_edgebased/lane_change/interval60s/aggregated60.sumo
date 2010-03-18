@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 12/22/09 11:47:35 by SUMO sumo Version dev-SVN-r8086
+<!-- generated on 03/18/10 13:37:50 by SUMO sumo Version dev-SVN-r8460
 <configuration>
 
     <input>
@@ -22,12 +22,12 @@
 -->
 
 <netstats>
-   <interval begin="0" end="60" id="dump_60">
-      <edge id="1si" sampledSeconds="87.16" traveltime="75.35" density="6.13" occupancy="1.02" waitingTime="20.65" speed="3.15" departed="2" arrived="0" entered="0" left="2" laneChangedFrom="4" laneChangedTo="4"/>
-      <edge id="4o" sampledSeconds="1.84" traveltime="282.43" density="0.06" occupancy="0.03" waitingTime="0.00" speed="1.73" departed="0" arrived="2" entered="2" left="0" laneChangedFrom="0" laneChangedTo="0"/>
-   </interval>
-   <interval begin="60" end="120" id="dump_60">
-   </interval>
-   <interval begin="120" end="150" id="dump_60">
-   </interval>
+    <interval begin="0.00" end="60.00" id="dump_60">
+        <edge id="1si" sampledSeconds="87.16" traveltime="75.35" density="6.13" occupancy="1.02" waitingTime="20.65" speed="3.15" departed="2" arrived="0" entered="0" left="2" laneChangedFrom="4" laneChangedTo="4"/>
+        <edge id="4o" sampledSeconds="1.84" traveltime="282.43" density="0.06" occupancy="0.03" waitingTime="0.00" speed="1.73" departed="0" arrived="2" entered="2" left="0" laneChangedFrom="0" laneChangedTo="0"/>
+    </interval>
+    <interval begin="60.00" end="120.00" id="dump_60">
+    </interval>
+    <interval begin="120.00" end="150.00" id="dump_60">
+    </interval>
 </netstats>

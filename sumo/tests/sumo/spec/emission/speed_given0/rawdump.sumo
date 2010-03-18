@@ -1,38 +1,38 @@
 <?xml version="1.0"?>
 
-<!-- generated on 04/10/08 08:34:58 by SUMO sumo Version 0.9.7
+<!-- generated on 03/18/10 13:31:11 by SUMO sumo Version dev-SVN-r8460
 <configuration>
 
-   <input>
-      <net-file>net.net.xml</net-file>
-      <additional-files>input_routes.rou.xml,input_additional.add.xml</additional-files>
-   </input>
+    <input>
+        <net-file value="net.net.xml"/>
+        <additional-files value="input_routes.rou.xml,input_additional.add.xml"/>
+    </input>
 
-   <output>
-      <netstate-dump>rawdump.xml</netstate-dump>
-   </output>
+    <output>
+        <netstate-dump value="rawdump.xml"/>
+    </output>
 
-   <time>
-      <begin>0</begin>
-      <end>0</end>
-   </time>
+    <time>
+        <begin value="0"/>
+        <end value="0"/>
+    </time>
 
-   <processing>
-      <no-duration-log>true</no-duration-log>
-      <no-step-log>true</no-step-log>
-   </processing>
+    <report>
+        <no-duration-log value="true"/>
+        <no-step-log value="true"/>
+    </report>
 
 </configuration>
 -->
 
 <sumo-netstate>
-   <timestep time="0.00">
-      <edge id="beg">
-         <lane id="beg_0">
-            <vehicle id="1" pos="0.00" speed="0.00"/>
-         </lane>
-         <lane id="beg_1"/>
-         <lane id="beg_2"/>
-      </edge>
-   </timestep>
+    <timestep time="0.00">
+        <edge id="beg">
+            <lane id="beg_0">
+                <vehicle id="1" pos="0.00" speed="0.00"/>
+            </lane>
+            <lane id="beg_1"/>
+            <lane id="beg_2"/>
+        </edge>
+    </timestep>
 </sumo-netstate>

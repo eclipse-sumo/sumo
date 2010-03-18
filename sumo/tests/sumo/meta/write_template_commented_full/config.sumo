@@ -34,6 +34,9 @@
         <!-- Save single vehicle route inf. into FILE -->
         <vehroute-output value=""/>
 
+        <!-- Write the exit times for all edges -->
+        <vehroute-output.exit-times value="false"/>
+
     </output>
 
     <time>

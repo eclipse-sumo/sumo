@@ -13,6 +13,8 @@ two_vehicles_diff_speed
 # two vehicles are moving; the first is 5m long, the second 15m
 two_vehicles_diff_length
 
+# one vehicle is moving with exit times
+exit_times
+
 # Testing error cases
 errors
-

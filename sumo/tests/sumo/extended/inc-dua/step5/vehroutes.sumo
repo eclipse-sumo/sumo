@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 03/02/10 10:13:19 by SUMO sumo Version dev-SVN-r8163
+<!-- generated on 03/18/10 13:42:52 by SUMO sumo Version dev-SVN-r8460
 <configuration>
 
     <input>
@@ -31,22 +31,22 @@
 <routes>
     <vehicle id="horizontal01" depart="100" arrival="270.00">
         <route edges="2fi 2si 1o 1fi 1si 2o 2fi"/>
-   </vehicle>
+    </vehicle>
 
     <vehicle id="horizontal02" depart="102" arrival="272.00">
         <route edges="2fi 2si 1o 1fi 1si 2o 2fi"/>
-   </vehicle>
+    </vehicle>
 
     <vehicle id="horizontal03" depart="105" arrival="275.00">
         <route edges="2fi 2si 1o 1fi 1si 2o 2fi"/>
-   </vehicle>
+    </vehicle>
 
     <vehicle id="horizontal04" depart="107" arrival="277.00">
         <route edges="2fi 2si 1o 1fi 1si 2o 2fi"/>
-   </vehicle>
+    </vehicle>
 
     <vehicle id="horizontal05" depart="110" arrival="280.00">
         <route edges="2fi 2si 1o 1fi 1si 2o 2fi"/>
-   </vehicle>
+    </vehicle>
 
 </routes>

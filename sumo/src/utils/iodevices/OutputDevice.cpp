@@ -169,7 +169,7 @@ OutputDevice::writeXMLHeader(const std::string &rootElement, const bool writeCon
 
 OutputDevice&
 OutputDevice::indent() throw() {
-    getOStream() << std::string(3*myXMLStack.size(), ' ');
+    getOStream() << std::string(4*myXMLStack.size(), ' ');
     postWriteHook();
     return *this;
 }
@@ -177,7 +177,7 @@ OutputDevice::indent() throw() {
 
 OutputDevice&
 OutputDevice::openTag(const std::string &xmlElement) throw() {
-    getOStream() << std::string(3*myXMLStack.size(), ' ') << "<" << xmlElement;
+    getOStream() << std::string(4*myXMLStack.size(), ' ') << "<" << xmlElement;
     postWriteHook();
     myXMLStack.push_back(xmlElement);
     return *this;
@@ -190,7 +190,7 @@ OutputDevice::closeTag(bool abbreviated) throw() {
         if (abbreviated) {
             getOStream() << "/>" << std::endl;
         } else {
-            std::string indent(3*(myXMLStack.size()-1), ' ');
+            std::string indent(4*(myXMLStack.size()-1), ' ');
             getOStream() << indent << "</" << myXMLStack.back() << ">" << std::endl;
         }
         myXMLStack.pop_back();

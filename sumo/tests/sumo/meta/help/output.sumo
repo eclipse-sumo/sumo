@@ -1,4 +1,4 @@
-SUMO sumo Version dev-SVN-r8426
+SUMO sumo Version dev-SVN-r8460
  (c) DLR 2001-2009; http://sumo.sourceforge.net
  
 A microscopic road traffic simulation.
@@ -32,6 +32,7 @@ Usage: sumo.exe [OPTION]*
                                         into FILE
   --tripinfo-output FILE              Save single vehicle trip inf. into FILE
   --vehroute-output FILE              Save single vehicle route inf. into FILE
+  --vehroute-output.exit-times        Write the exit times for all edges
 
  Time Options:
   -b, --begin INT                     Defines the begin time;

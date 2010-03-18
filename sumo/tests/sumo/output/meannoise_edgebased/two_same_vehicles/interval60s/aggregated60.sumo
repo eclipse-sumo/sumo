@@ -1,36 +1,36 @@
 <?xml version="1.0"?>
 
-<!-- generated on 05/07/09 12:22:34 by SUMO sumo Version dev-SVN-r7121
+<!-- generated on 03/18/10 13:38:30 by SUMO sumo Version dev-SVN-r8460
 <configuration>
 
-   <input>
-      <net-file>net.net.xml</net-file>
-      <additional-files>input_routes.rou.xml,input_additional.add.xml,input_additional2.add.xml</additional-files>
-   </input>
+    <input>
+        <net-file value="net.net.xml"/>
+        <additional-files value="input_routes.rou.xml,input_additional.add.xml,input_additional2.add.xml"/>
+    </input>
 
-   <time>
-      <begin>0</begin>
-      <end>150</end>
-   </time>
+    <time>
+        <begin value="0"/>
+        <end value="150"/>
+    </time>
 
-   <processing>
-      <no-duration-log>true</no-duration-log>
-      <no-step-log>true</no-step-log>
-   </processing>
+    <report>
+        <no-duration-log value="true"/>
+        <no-step-log value="true"/>
+    </report>
 
 </configuration>
 -->
 
 <netstats>
-   <interval begin="0" end="60" id="dump_60">
-      <edge id="3/1to2/1" sampledSeconds="54.90" noise="61.40"/>
-      <edge id="4/1to3/1" sampledSeconds="60.10" noise="61.92"/>
-   </interval>
-   <interval begin="60" end="120" id="dump_60">
-      <edge id="1/1to0/1" sampledSeconds="1.70" noise="47.00"/>
-      <edge id="2/1to1/1" sampledSeconds="78.10" noise="63.02"/>
-      <edge id="3/1to2/1" sampledSeconds="23.20" noise="57.97"/>
-   </interval>
-   <interval begin="120" end="150" id="dump_60">
-   </interval>
+    <interval begin="0.00" end="60.00" id="dump_60">
+        <edge id="3/1to2/1" sampledSeconds="54.90" noise="61.40"/>
+        <edge id="4/1to3/1" sampledSeconds="60.10" noise="61.92"/>
+    </interval>
+    <interval begin="60.00" end="120.00" id="dump_60">
+        <edge id="1/1to0/1" sampledSeconds="1.70" noise="47.00"/>
+        <edge id="2/1to1/1" sampledSeconds="78.10" noise="63.02"/>
+        <edge id="3/1to2/1" sampledSeconds="23.20" noise="57.97"/>
+    </interval>
+    <interval begin="120.00" end="150.00" id="dump_60">
+    </interval>
 </netstats>

@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 02/02/10 13:35:08 by SUMO sumo Version dev-SVN-r8210
+<!-- generated on 03/18/10 13:31:14 by SUMO sumo Version dev-SVN-r8460
 <configuration>
 
     <input>
@@ -14,7 +14,7 @@
 
     <time>
         <begin value="0"/>
-        <end value="0"/>
+        <end value="1"/>
     </time>
 
     <report>
@@ -26,13 +26,13 @@
 -->
 
 <sumo-netstate>
-   <timestep time="0.00">
-      <edge id="beg">
-         <lane id="beg_0">
-            <vehicle id="f1.0" pos="0.00" speed="0.00"/>
-         </lane>
-         <lane id="beg_1"/>
-         <lane id="beg_2"/>
-      </edge>
-   </timestep>
+    <timestep time="0.00">
+        <edge id="beg">
+            <lane id="beg_0">
+                <vehicle id="f1.0" pos="0.00" speed="0.00"/>
+            </lane>
+            <lane id="beg_1"/>
+            <lane id="beg_2"/>
+        </edge>
+    </timestep>
 </sumo-netstate>

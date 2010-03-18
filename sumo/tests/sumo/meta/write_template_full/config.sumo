@@ -14,6 +14,7 @@
         <emissions-output value=""/>
         <tripinfo-output value=""/>
         <vehroute-output value=""/>
+        <vehroute-output.exit-times value="false"/>
     </output>
 
     <time>

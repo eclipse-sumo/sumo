@@ -1,29 +1,32 @@
 <?xml version="1.0"?>
 
-<!-- generated on 05/13/09 14:03:48 by SUMO sumo Version dev-SVN-r7157
+<!-- generated on 03/18/10 13:38:33 by SUMO sumo Version dev-SVN-r8460
 <configuration>
 
-   <input>
-      <net-file>net.net.xml</net-file>
-      <additional-files>input_routes.rou.xml,input_additional.add.xml,input_additional2.add.xml</additional-files>
-   </input>
+    <input>
+        <net-file value="net.net.xml"/>
+        <additional-files value="input_routes.rou.xml,input_additional.add.xml,input_additional2.add.xml"/>
+    </input>
 
-   <time>
-      <begin>0</begin>
-      <end>1000</end>
-   </time>
+    <time>
+        <begin value="0"/>
+        <end value="1000"/>
+    </time>
 
-   <processing>
-      <time-to-teleport>-1</time-to-teleport>
-      <no-duration-log>true</no-duration-log>
-      <no-step-log>true</no-step-log>
-   </processing>
+    <processing>
+        <time-to-teleport value="-1"/>
+    </processing>
+
+    <report>
+        <no-duration-log value="true"/>
+        <no-step-log value="true"/>
+    </report>
 
 </configuration>
 -->
 
 <netstats>
-   <interval begin="600" end="660" id="dump_60">
-      <edge id="3/1to2/1" sampledSeconds="1200.00" noise="68.95"/>
-   </interval>
+    <interval begin="600.00" end="660.00" id="dump_60">
+        <edge id="3/1to2/1" sampledSeconds="1200.00" noise="68.95"/>
+    </interval>
 </netstats>
