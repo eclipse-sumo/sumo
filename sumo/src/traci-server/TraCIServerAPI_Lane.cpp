@@ -53,10 +53,10 @@ TraCIServerAPI_Lane::processGet(tcpip::Storage &inputStorage,
                                 tcpip::Storage &outputStorage,
                                 bool withStatus) throw(TraCIException) {
     Storage tmpResult;
-    string warning = "";	// additional description for response
+    std::string warning = "";	// additional description for response
     // variable
     int variable = inputStorage.readUnsignedByte();
-    string id = inputStorage.readString();
+    std::string id = inputStorage.readString();
     // check variable
     if (variable!=ID_LIST&&variable!=LANE_LINK_NUMBER&&variable!=LANE_EDGE_ID&&variable!=VAR_LENGTH
             &&variable!=VAR_MAXSPEED&&variable!=LANE_LINKS&&variable!=VAR_SHAPE
@@ -288,7 +288,7 @@ TraCIServerAPI_Lane::processGet(tcpip::Storage &inputStorage,
 bool
 TraCIServerAPI_Lane::processSet(tcpip::Storage &inputStorage,
                                 tcpip::Storage &outputStorage) throw(TraCIException) {
-    string warning = ""; // additional description for response
+    std::string warning = ""; // additional description for response
     // variable
     int variable = inputStorage.readUnsignedByte();
     if (variable!=VAR_MAXSPEED&&variable!=VAR_LENGTH&&variable!=LANE_ALLOWED&&variable!=LANE_DISALLOWED) {
@@ -296,7 +296,7 @@ TraCIServerAPI_Lane::processSet(tcpip::Storage &inputStorage,
         return false;
     }
     // id
-    string id = inputStorage.readString();
+    std::string id = inputStorage.readString();
     MSLane *l = MSLane::dictionary(id);
     if (l==0) {
         TraCIServerAPIHelper::writeStatusCmd(CMD_SET_LANE_VARIABLE, RTYPE_ERR, "Lane '" + id + "' is not known", outputStorage);

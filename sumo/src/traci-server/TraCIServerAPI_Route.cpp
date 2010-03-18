@@ -54,10 +54,10 @@ bool
 TraCIServerAPI_Route::processGet(tcpip::Storage &inputStorage,
                                  tcpip::Storage &outputStorage,
                                  bool withStatus) throw(TraCIException) {
-    string warning = ""; // additional description for response
+    std::string warning = ""; // additional description for response
     // variable & id
     int variable = inputStorage.readUnsignedByte();
-    string id = inputStorage.readString();
+    std::string id = inputStorage.readString();
     // check variable
     if (variable!=ID_LIST&&variable!=VAR_EDGES) {
         TraCIServerAPIHelper::writeStatusCmd(CMD_GET_ROUTE_VARIABLE, RTYPE_ERR, "Unsupported variable specified", outputStorage);

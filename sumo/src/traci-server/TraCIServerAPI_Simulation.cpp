@@ -55,10 +55,10 @@ TraCIServerAPI_Simulation::processGet(tcpip::Storage &inputStorage,
                                       tcpip::Storage &outputStorage,
                                       const std::map<MSNet::VehicleState, std::vector<std::string> > &infos,
                                       bool withStatus) throw(TraCIException) {
-    string warning = ""; // additional description for response
+    std::string warning = ""; // additional description for response
     // variable & id
     int variable = inputStorage.readUnsignedByte();
-    string id = inputStorage.readString();
+    std::string id = inputStorage.readString();
     // check variable
     if (variable!=VAR_TIME_STEP&&variable!=VAR_LOADED_VEHICLES_IDS
             &&variable!=VAR_DEPARTED_VEHICLES_IDS&&variable!=VAR_TELEPORT_STARTING_VEHICLES_IDS

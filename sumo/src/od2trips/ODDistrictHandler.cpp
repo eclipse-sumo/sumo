@@ -44,12 +44,6 @@
 
 
 // ===========================================================================
-// used namespaces
-// ===========================================================================
-using namespace std;
-
-
-// ===========================================================================
 // method definitions
 // ===========================================================================
 ODDistrictHandler::ODDistrictHandler(ODDistrictCont &cont,
@@ -91,7 +85,7 @@ void
 ODDistrictHandler::openDistrict(const SUMOSAXAttributes &attrs) throw() {
     myCurrentDistrict = 0;
     // get the id, report an error if not given or empty...
-    string id;
+    std::string id;
     if (!attrs.setIDFromAttributes("district", id)) {
         return;
     }
@@ -125,7 +119,7 @@ ODDistrictHandler::parseConnection(const SUMOSAXAttributes &attrs, const std::st
         return std::pair<std::string, SUMOReal>("", -1);
     }
     // get the id, report an error if not given or empty...
-    string id;
+    std::string id;
     if (!attrs.setIDFromAttributes(type.c_str(), id)) {
         return std::pair<std::string, SUMOReal>("", -1);
     }

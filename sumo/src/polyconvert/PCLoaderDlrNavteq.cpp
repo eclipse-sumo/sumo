@@ -57,12 +57,6 @@
 
 
 // ===========================================================================
-// used namespaces
-// ===========================================================================
-using namespace std;
-
-
-// ===========================================================================
 // method definitions
 // ===========================================================================
 void
@@ -80,8 +74,8 @@ PCLoaderDlrNavteq::loadIfSet(OptionsCont &oc, PCPolyContainer &toFill,
 void
 PCLoaderDlrNavteq::loadPOIFiles(OptionsCont &oc, PCPolyContainer &toFill,
                                 PCTypeMap &tm) throw(ProcessError) {
-    vector<string> files = oc.getStringVector("dlr-navteq-poi-files");
-    for (vector<string>::const_iterator file=files.begin(); file!=files.end(); ++file) {
+    std::vector<std::string> files = oc.getStringVector("dlr-navteq-poi-files");
+    for (std::vector<std::string>::const_iterator file=files.begin(); file!=files.end(); ++file) {
         if (!FileHelpers::exists(*file)) {
             throw ProcessError("Could not open dlr-navteq-poi-file '" + *file + "'.");
         }
@@ -95,8 +89,8 @@ PCLoaderDlrNavteq::loadPOIFiles(OptionsCont &oc, PCPolyContainer &toFill,
 void
 PCLoaderDlrNavteq::loadPolyFiles(OptionsCont &oc, PCPolyContainer &toFill,
                                  PCTypeMap &tm) throw(ProcessError) {
-    vector<string> files = oc.getStringVector("dlr-navteq-poly-files");
-    for (vector<string>::const_iterator file=files.begin(); file!=files.end(); ++file) {
+    std::vector<std::string> files = oc.getStringVector("dlr-navteq-poly-files");
+    for (std::vector<std::string>::const_iterator file=files.begin(); file!=files.end(); ++file) {
         if (!FileHelpers::exists(*file)) {
             throw ProcessError("Could not open dlr-navteq-poly-file '" + *file + "'.");
         }
@@ -117,10 +111,10 @@ PCLoaderDlrNavteq::loadPOIFile(const std::string &file,
     int l = 0;
     LineReader lr(file);
     while (lr.hasMore()) {
-        string line = lr.readLine();
+        std::string line = lr.readLine();
         ++l;
         // skip invalid/empty lines
-        if (line.length()==0||line.find("#") != string::npos) {
+        if (line.length()==0||line.find("#") != std::string::npos) {
             continue;
         }
         if (StringUtils::prune(line)=="") {
@@ -197,10 +191,10 @@ PCLoaderDlrNavteq::loadPolyFile(const std::string &file,
     int l = 0;
     LineReader lr(file);
     while (lr.hasMore()) {
-        string line = lr.readLine();
+        std::string line = lr.readLine();
         ++l;
         // skip invalid/empty lines
-        if (line.length()==0||line.find("#") != string::npos) {
+        if (line.length()==0||line.find("#") != std::string::npos) {
             continue;
         }
         if (StringUtils::prune(line)=="") {
@@ -208,20 +202,20 @@ PCLoaderDlrNavteq::loadPolyFile(const std::string &file,
         }
         // parse the poi
         StringTokenizer st(line, "\t");
-        vector<string> values = st.getVector();
+        std::vector<std::string> values = st.getVector();
         if (values.size()<6||values.size()%2!=0) {
             throw ProcessError("Invalid dlr-navteq-polygon - line: '" + line + "'.");
         }
-        string id = values[0];
-        string ort = values[1];
-        string type = values[2];
-        string name = values[3];
+        std::string id = values[0];
+        std::string ort = values[1];
+        std::string type = values[2];
+        std::string name = values[3];
         Position2DVector vec;
         size_t index = 4;
         // now collect the positions
         while (values.size()>index) {
-            string xpos = values[index];
-            string ypos = values[index+1];
+            std::string xpos = values[index];
+            std::string ypos = values[index+1];
             index += 2;
             SUMOReal x = TplConvert<char>::_2SUMOReal(xpos.c_str());
             SUMOReal y = TplConvert<char>::_2SUMOReal(ypos.c_str());

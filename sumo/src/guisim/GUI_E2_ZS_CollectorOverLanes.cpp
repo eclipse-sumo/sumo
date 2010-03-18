@@ -49,12 +49,6 @@
 
 
 // ===========================================================================
-// used namespaces
-// ===========================================================================
-using namespace std;
-
-
-// ===========================================================================
 // method definitions
 // ===========================================================================
 /* -------------------------------------------------------------------------
@@ -89,7 +83,7 @@ GUI_E2_ZS_CollectorOverLanes::buildDetectorWrapper(GUIGlObjectStorage &idStorage
 MSE2Collector *
 GUI_E2_ZS_CollectorOverLanes::buildCollector(size_t c, size_t r, MSLane *l,
         SUMOReal start, SUMOReal end) throw() {
-    string id = makeID(myID, c, r);
+    std::string id = makeID(myID, c, r);
     if (start+end<l->getLength()) {
         start = l->getLength() - end - (SUMOReal) 0.1;
     }

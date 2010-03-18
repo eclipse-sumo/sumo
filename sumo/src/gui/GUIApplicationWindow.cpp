@@ -1049,8 +1049,8 @@ GUIApplicationWindow::onCmdCutSwell(FXObject*, FXSelector, void*)
     about->create();
     about->show(PLACEMENT_OWNER);
     /
-    string prev = myStatusbar->getStatusLine()->getText().text();
-    string text = string("Computing strategies.");
+    std::string prev = myStatusbar->getStatusLine()->getText().text();
+    std::string text = std::string("Computing strategies.");
     myStatusbar->getStatusLine()->setText(text.c_str());
     myStatusbar->getStatusLine()->setNormalText(text.c_str());
     for(int i=0; i<100; ++i) {

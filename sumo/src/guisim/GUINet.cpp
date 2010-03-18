@@ -70,12 +70,6 @@
 
 
 // ===========================================================================
-// used namespaces
-// ===========================================================================
-using namespace std;
-
-
-// ===========================================================================
 // member method definitions
 // ===========================================================================
 GUINet::GUINet(MSVehicleControl *vc, MSEventControl *beginOfTimestepEvents,
@@ -105,7 +99,7 @@ GUINet::~GUINet() throw() {
         delete(*i3).second;
     }
     //  of detectors
-    for (map<string, GUIDetectorWrapper*>::iterator i=myDetectorDict.begin(); i!=myDetectorDict.end(); ++i) {
+    for (std::map<std::string, GUIDetectorWrapper*>::iterator i=myDetectorDict.begin(); i!=myDetectorDict.end(); ++i) {
         delete(*i).second;
     }
     // the visualization tree
@@ -122,8 +116,8 @@ GUINet::getBoundary() const {
 void
 GUINet::initDetectors() {
     // e2-detectors
-    const map<string, MSE2Collector*> &e2 = myDetectorControl->getE2Detectors().getMyMap();
-    for (map<string, MSE2Collector*>::const_iterator i2=e2.begin(); i2!=e2.end(); i2++) {
+    const std::map<std::string, MSE2Collector*> &e2 = myDetectorControl->getE2Detectors().getMyMap();
+    for (std::map<std::string, MSE2Collector*>::const_iterator i2=e2.begin(); i2!=e2.end(); i2++) {
         MSE2Collector *const e2i = (*i2).second;
         const MSLane *lane = e2i->getLane();
         GUIEdge &edge = static_cast<GUIEdge&>(lane->getEdge());
@@ -141,8 +135,8 @@ GUINet::initDetectors() {
         myDetectorDict[wrapper->getMicrosimID()] = wrapper;
     }
     // e2 over lanes -detectors
-    const map<string, MS_E2_ZS_CollectorOverLanes*> &e2ol = myDetectorControl->getE2OLDetectors().getMyMap();
-    for (map<string, MS_E2_ZS_CollectorOverLanes*>::const_iterator i2=e2ol.begin(); i2!=e2ol.end(); i2++) {
+    const std::map<std::string, MS_E2_ZS_CollectorOverLanes*> &e2ol = myDetectorControl->getE2OLDetectors().getMyMap();
+    for (std::map<std::string, MS_E2_ZS_CollectorOverLanes*>::const_iterator i2=e2ol.begin(); i2!=e2ol.end(); i2++) {
         MS_E2_ZS_CollectorOverLanes * const e2oli = (*i2).second;
         // build the wrapper
         GUIDetectorWrapper *wrapper =
@@ -152,8 +146,8 @@ GUINet::initDetectors() {
         myDetectorDict[wrapper->getMicrosimID()] = wrapper;
     }
     // induction loops
-    const map<string, MSInductLoop*> &e1 = myDetectorControl->getInductLoops().getMyMap();
-    for (map<string, MSInductLoop*>::const_iterator i2=e1.begin(); i2!=e1.end(); i2++) {
+    const std::map<std::string, MSInductLoop*> &e1 = myDetectorControl->getInductLoops().getMyMap();
+    for (std::map<std::string, MSInductLoop*>::const_iterator i2=e1.begin(); i2!=e1.end(); i2++) {
         MSInductLoop *const e1i = (*i2).second;
         const MSLane *lane = e1i->getLane();
         GUIEdge &edge = static_cast<GUIEdge&>(lane->getEdge());
@@ -163,8 +157,8 @@ GUINet::initDetectors() {
         myDetectorDict[wrapper->getMicrosimID()] = wrapper;
     }
     // e3-detectors
-    const map<string, MSE3Collector*> &e3 = myDetectorControl->getE3Detectors().getMyMap();
-    for (map<string, MSE3Collector*>::const_iterator i2=e3.begin(); i2!=e3.end(); i2++) {
+    const std::map<std::string, MSE3Collector*> &e3 = myDetectorControl->getE3Detectors().getMyMap();
+    for (std::map<std::string, MSE3Collector*>::const_iterator i2=e3.begin(); i2!=e3.end(); i2++) {
         MSE3Collector *const e3i = (*i2).second;
         // build the wrapper
         GUIDetectorWrapper *wrapper =
@@ -178,11 +172,11 @@ GUINet::initDetectors() {
 void
 GUINet::initTLMap() {
     // get the list of loaded tl-logics
-    const vector<MSTrafficLightLogic*> &logics = getTLSControl().getAllLogics();
+    const std::vector<MSTrafficLightLogic*> &logics = getTLSControl().getAllLogics();
     // allocate storage for the wrappers
     myTLLogicWrappers.reserve(logics.size());
     // go through the logics
-    for (vector<MSTrafficLightLogic*>::const_iterator i=logics.begin(); i!=logics.end(); ++i) {
+    for (std::vector<MSTrafficLightLogic*>::const_iterator i=logics.begin(); i!=logics.end(); ++i) {
         // get the logic
         MSTrafficLightLogic *tll = (*i);
         // get the links
@@ -272,10 +266,10 @@ GUINet::getJunctionIDs() const {
 std::vector<GLuint>
 GUINet::getTLSIDs() const {
     std::vector<GLuint> ret;
-    std::vector<string> ids;
+    std::vector<std::string> ids;
     for (std::map<MSTrafficLightLogic*, GUITrafficLightLogicWrapper*>::const_iterator i=myLogics2Wrapper.begin(); i!=myLogics2Wrapper.end(); ++i) {
         size_t nid = (*i).second->getGlID();
-        string sid = (*i).second->getMicrosimID();
+        std::string sid = (*i).second->getMicrosimID();
         if (find(ids.begin(), ids.end(), sid)==ids.end()) {
             ret.push_back(nid);
             ids.push_back(sid);
@@ -324,7 +318,7 @@ GUINet::initGUIStructures() {
     // build the visualization tree
     float *cmin = new float[2];
     float *cmax = new float[2];
-    for (vector<GUIEdge*>::iterator i=myEdgeWrapper.begin(); i!=myEdgeWrapper.end(); ++i) {
+    for (std::vector<GUIEdge*>::iterator i=myEdgeWrapper.begin(); i!=myEdgeWrapper.end(); ++i) {
         GUIEdge *edge = *i;
         Boundary b;
         const std::vector<MSLane*> &lanes = edge->getLanes();
@@ -339,7 +333,7 @@ GUINet::initGUIStructures() {
         myGrid->Insert(cmin, cmax, edge);
         myBoundary.add(b);
     }
-    for (vector<GUIJunctionWrapper*>::iterator i=myJunctionWrapper.begin(); i!=myJunctionWrapper.end(); ++i) {
+    for (std::vector<GUIJunctionWrapper*>::iterator i=myJunctionWrapper.begin(); i!=myJunctionWrapper.end(); ++i) {
         GUIJunctionWrapper *junction = *i;
         Boundary b = junction->getBoundary();
         b.grow(2.);
@@ -350,8 +344,8 @@ GUINet::initGUIStructures() {
         myGrid->Insert(cmin, cmax, junction);
         myBoundary.add(b);
     }
-    const vector<GUIGlObject_AbstractAdd*> &a = GUIGlObject_AbstractAdd::getObjectList();
-    for (vector<GUIGlObject_AbstractAdd*>::const_iterator i=a.begin(); i!=a.end(); ++i) {
+    const std::vector<GUIGlObject_AbstractAdd*> &a = GUIGlObject_AbstractAdd::getObjectList();
+    for (std::vector<GUIGlObject_AbstractAdd*>::const_iterator i=a.begin(); i!=a.end(); ++i) {
         GUIGlObject_AbstractAdd *o = *i;
         Boundary b = o->getCenteringBoundary();
         cmin[0] = b.xmin();

@@ -39,12 +39,6 @@
 
 
 // ===========================================================================
-// used namespaces
-// ===========================================================================
-using namespace std;
-
-
-// ===========================================================================
 // member method definitions
 // ===========================================================================
 bool
@@ -58,21 +52,21 @@ GUISelectionLoader::loadSelection(const std::string &file, std::string &msg) thr
     typeMap["lane"] = GLO_LANE;
     typeMap["tl-logic"] = GLO_TLLOGIC;
     typeMap["vehicle"] = GLO_VEHICLE;
-    ifstream strm(file.c_str());
+    std::ifstream strm(file.c_str());
     if (!strm.good()) {
         msg = "Could not open '" + file + "'.";
         return false;
     }
     while (strm.good()) {
-        string line;
+        std::string line;
         strm >> line;
         if (line.length()==0) {
             continue;
         }
         size_t idx = line.find(':');
-        if (idx!=string::npos) {
-            string type = line.substr(0, idx);
-            string name = line.substr(idx+1);
+        if (idx!=std::string::npos) {
+            std::string type = line.substr(0, idx);
+            std::string name = line.substr(idx+1);
             if (typeMap.find(type)==typeMap.end()) {
                 msg = "Unknown type '" + type + "' occured.";
                 continue;

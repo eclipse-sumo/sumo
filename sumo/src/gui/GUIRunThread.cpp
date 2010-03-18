@@ -186,7 +186,7 @@ GUIRunThread::makeStep() throw() {
             myEventThrow.signal();
         }
     } catch (ProcessError &e2) {
-        if (string(e2.what())!=string("Process Error") && string(e2.what())!=string("")) {
+        if (string(e2.what())!=string("Process Error") && std::string(e2.what())!=string("")) {
             MsgHandler::getErrorInstance()->inform(e2.what());
         }
         MsgHandler::getErrorInstance()->inform("Quitting (on error).", false);

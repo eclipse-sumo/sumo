@@ -51,12 +51,6 @@
 
 
 // ===========================================================================
-// used namespaces
-// ===========================================================================
-using namespace std;
-
-
-// ===========================================================================
 // method definitions
 // ===========================================================================
 // ---------------------------------------------------------------------------
@@ -70,8 +64,8 @@ PCLoaderXML::loadIfSet(OptionsCont &oc, PCPolyContainer &toFill,
     }
     PCLoaderXML handler(toFill, tm, oc);
     // parse file(s)
-    vector<string> files = oc.getStringVector("xml");
-    for (vector<string>::const_iterator file=files.begin(); file!=files.end(); ++file) {
+    std::vector<std::string> files = oc.getStringVector("xml");
+    for (std::vector<std::string>::const_iterator file=files.begin(); file!=files.end(); ++file) {
         if (!FileHelpers::exists(*file)) {
             throw ProcessError("Could not open xml-file '" + *file + "'.");
         }
@@ -105,7 +99,7 @@ PCLoaderXML::myStartElement(SumoXMLTag element,
     }
     if (element==SUMO_TAG_POI) {
         // get the id, report an error if not given or empty...
-        string id;
+        std::string id;
         if (!attrs.setIDFromAttributes("poi", id)) {
             return;
         }

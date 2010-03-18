@@ -58,10 +58,10 @@ bool
 TraCIServerAPI_Edge::processGet(tcpip::Storage &inputStorage,
                                 tcpip::Storage &outputStorage,
                                 bool withStatus) throw(TraCIException) {
-    string warning = ""; // additional description for response
+    std::string warning = ""; // additional description for response
     // variable & id
     int variable = inputStorage.readUnsignedByte();
-    string id = inputStorage.readString();
+    std::string id = inputStorage.readString();
     // check variable
     if (variable!=ID_LIST&&variable!=VAR_EDGE_TRAVELTIME&&variable!=VAR_EDGE_EFFORT&&variable!=VAR_CURRENT_TRAVELTIME
             &&variable!=LANE_ALLOWED&&variable!=LANE_DISALLOWED
@@ -300,7 +300,7 @@ TraCIServerAPI_Edge::processGet(tcpip::Storage &inputStorage,
 bool
 TraCIServerAPI_Edge::processSet(tcpip::Storage &inputStorage,
                                 tcpip::Storage &outputStorage) throw(TraCIException) {
-    string warning = ""; // additional description for response
+    std::string warning = ""; // additional description for response
     // variable
     int variable = inputStorage.readUnsignedByte();
     if (variable!=VAR_EDGE_TRAVELTIME&&variable!=VAR_EDGE_EFFORT&&variable!=VAR_MAXSPEED) {
@@ -308,7 +308,7 @@ TraCIServerAPI_Edge::processSet(tcpip::Storage &inputStorage,
         return false;
     }
     // id
-    string id = inputStorage.readString();
+    std::string id = inputStorage.readString();
     MSEdge *e = MSEdge::dictionary(id);
     if (e==0) {
         TraCIServerAPIHelper::writeStatusCmd(CMD_SET_EDGE_VARIABLE, RTYPE_ERR, "Edge '" + id + "' is not known", outputStorage);

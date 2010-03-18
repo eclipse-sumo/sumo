@@ -44,12 +44,6 @@
 
 
 // ===========================================================================
-// used namespaces
-// ===========================================================================
-using namespace std;
-
-
-// ===========================================================================
 // method definitions
 // ===========================================================================
 ODMatrix::ODMatrix(const ODDistrictCont &dc) throw()
@@ -152,7 +146,7 @@ ODMatrix::write(SUMOTime begin, SUMOTime end,
         // recheck whether a new cell got valid
         bool changed = false;
         while (next!=myContainer.end()&&(*next)->begin<=t&&(*next)->end>t) {
-            std::pair<std::string, std::string> odID = make_pair((*next)->origin, (*next)->destination);
+            std::pair<std::string, std::string> odID = std::make_pair((*next)->origin, (*next)->destination);
             // check whether the current cell must be extended by the last fraction
             if (fractionLeft.find(odID)!=fractionLeft.end()) {
                 (*next)->vehicleNumber += fractionLeft[odID];

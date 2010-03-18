@@ -53,12 +53,6 @@
 
 
 // ===========================================================================
-// used namespaces
-// ===========================================================================
-using namespace std;
-
-
-// ===========================================================================
 // member method definitions
 // ===========================================================================
 /* -------------------------------------------------------------------------
@@ -440,7 +434,7 @@ GUITLLogicPhasesTrackerWindow::drawValues(GUITLLogicPhasesTrackerPanel &caller) 
         int pos = 31;// + /*!!!currTime*/ - myFirstTime2Show;
         SUMOReal glpos = (SUMOReal) pos / (SUMOReal) width;
         while (pos<width+50) {
-            string timeStr = toString<SUMOTime>(currTime);
+            std::string timeStr = toString<SUMOTime>(currTime);
             SUMOReal w = pfdkGetStringWidth(timeStr.c_str());
             glRotated(180, 1, 0, 0);
             pfSetPosition(0, 0);

@@ -55,10 +55,10 @@ TraCIServerAPI_Junction::processGet(tcpip::Storage &inputStorage,
                                     tcpip::Storage &outputStorage,
                                     bool withStatus) throw(TraCIException) {
     Storage tmpResult;
-    string warning = "";	// additional description for response
+    std::string warning = "";	// additional description for response
     // variable
     int variable = inputStorage.readUnsignedByte();
-    string id = inputStorage.readString();
+    std::string id = inputStorage.readString();
     // check variable
     if (variable!=ID_LIST&&variable!=VAR_POSITION) {
         TraCIServerAPIHelper::writeStatusCmd(CMD_GET_JUNCTION_VARIABLE, RTYPE_ERR, "Unsupported variable specified", outputStorage);

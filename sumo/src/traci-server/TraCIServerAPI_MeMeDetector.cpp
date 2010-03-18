@@ -53,10 +53,10 @@ bool
 TraCIServerAPI_MeMeDetector::processGet(tcpip::Storage &inputStorage,
                                         tcpip::Storage &outputStorage,
                                         bool withStatus) throw(TraCIException) {
-    string warning = ""; // additional description for response
+    std::string warning = ""; // additional description for response
     // variable & id
     int variable = inputStorage.readUnsignedByte();
-    string id = inputStorage.readString();
+    std::string id = inputStorage.readString();
     // check variable
     if (variable!=ID_LIST&&variable!=LAST_STEP_VEHICLE_NUMBER&&variable!=LAST_STEP_MEAN_SPEED
             &&variable!=LAST_STEP_VEHICLE_ID_LIST&&variable!=LAST_STEP_VEHICLE_HALTING_NUMBER) {
@@ -93,7 +93,7 @@ TraCIServerAPI_MeMeDetector::processGet(tcpip::Storage &inputStorage,
             break;
         case LAST_STEP_VEHICLE_ID_LIST: {
             tempMsg.writeUnsignedByte(TYPE_STRINGLIST);
-            vector<string> ids = e3->getCurrentVehicleIDs();
+            std::vector<std::string> ids = e3->getCurrentVehicleIDs();
             tempMsg.writeStringList(ids);
         }
         break;

@@ -64,12 +64,6 @@
 
 
 // ===========================================================================
-// used namespaces
-// ===========================================================================
-using namespace std;
-
-
-// ===========================================================================
 // FOX callback mapping
 // ===========================================================================
 /* -------------------------------------------------------------------------
@@ -334,7 +328,7 @@ GUITriggeredRerouter::drawGL(const GUIVisualizationSettings &s) const throw() {
         SUMOReal prob = myAmInUserMode ? myUserProbability : myProbability;
         prob *= 100.;
         prob = (SUMOReal)((int) prob);
-        string str = toString(prob) + "%";
+        std::string str = toString(prob) + "%";
         pfSetPosition(0, 0);
         pfSetScale(.7f);
         w = pfdkGetStringWidth(str.c_str());

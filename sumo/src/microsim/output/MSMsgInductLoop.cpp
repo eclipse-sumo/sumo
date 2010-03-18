@@ -226,7 +226,7 @@ MSMsgInductLoop::writeXMLOutput(OutputDevice &dev,
 void
 MSMsgInductLoop::enterDetectorByMove(MSVehicle& veh,
                                      SUMOReal entryTimestep) throw() {
-    myVehiclesOnDet.insert(make_pair(&veh, entryTimestep));
+    myVehiclesOnDet.insert(std::make_pair(&veh, entryTimestep));
     veh.quitRemindedEntered(this);
     myCurrentVehicle = &veh;
 }

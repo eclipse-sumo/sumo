@@ -65,12 +65,6 @@
 
 
 // ===========================================================================
-// used namespaces
-// ===========================================================================
-using namespace std;
-
-
-// ===========================================================================
 // FOX callback mapping
 // ===========================================================================
 /* -------------------------------------------------------------------------
@@ -293,7 +287,7 @@ GUILaneSpeedTrigger::GUILaneSpeedTrigger(const std::string &id,
         myShowAsKMH(true), myLastValue(-1) {
     myFGPositions.reserve(destLanes.size());
     myFGRotations.reserve(destLanes.size());
-    vector<MSLane*>::const_iterator i;
+    std::vector<MSLane*>::const_iterator i;
     for (i=destLanes.begin(); i!=destLanes.end(); ++i) {
         const Position2DVector &v = (*i)->getShape();
         myFGPositions.push_back(v.positionAtLengthPosition(0));
@@ -387,7 +381,7 @@ GUILaneSpeedTrigger::drawGL(const GUIVisualizationSettings &s) const throw() {
                 myLastValue = value;
                 myLastValueString = toString<SUMOReal>(myLastValue);
                 size_t idx = myLastValueString.find('.');
-                if (idx!=string::npos) {
+                if (idx!=std::string::npos) {
                     if (idx>myLastValueString.length()) {
                         idx = myLastValueString.length();
                     }

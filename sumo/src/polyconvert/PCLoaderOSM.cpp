@@ -52,12 +52,6 @@
 
 
 // ===========================================================================
-// used namespaces
-// ===========================================================================
-using namespace std;
-
-
-// ===========================================================================
 // method definitions
 // ===========================================================================
 // ---------------------------------------------------------------------------
@@ -70,11 +64,11 @@ PCLoaderOSM::loadIfSet(OptionsCont &oc, PCPolyContainer &toFill,
         return;
     }
     // parse file(s)
-    vector<string> files = oc.getStringVector("osm-files");
+    std::vector<std::string> files = oc.getStringVector("osm-files");
     // load nodes, first
     std::map<int, PCOSMNode*> nodes;
     NodesHandler nodesHandler(nodes);
-    for (vector<string>::const_iterator file=files.begin(); file!=files.end(); ++file) {
+    for (std::vector<std::string>::const_iterator file=files.begin(); file!=files.end(); ++file) {
         // nodes
         if (!FileHelpers::exists(*file)) {
             MsgHandler::getErrorInstance()->inform("Could not open osm-file '" + *file + "'.");
@@ -89,7 +83,7 @@ PCLoaderOSM::loadIfSet(OptionsCont &oc, PCPolyContainer &toFill,
     // load edges, then
     std::map<std::string, PCOSMEdge*> edges;
     EdgesHandler edgesHandler(nodes, edges);
-    for (vector<string>::const_iterator file=files.begin(); file!=files.end(); ++file) {
+    for (std::vector<std::string>::const_iterator file=files.begin(); file!=files.end(); ++file) {
         // edges
         MsgHandler::getMessageInstance()->beginProcessMsg("Parsing edges from osm-file '" + *file + "'...");
         XMLSubSys::runParser(edgesHandler, *file);
@@ -105,7 +99,7 @@ PCLoaderOSM::loadIfSet(OptionsCont &oc, PCPolyContainer &toFill,
         }
         // compute shape
         Position2DVector vec;
-        for (vector<int>::iterator j=e->myCurrentNodes.begin(); j!=e->myCurrentNodes.end(); ++j) {
+        for (std::vector<int>::iterator j=e->myCurrentNodes.begin(); j!=e->myCurrentNodes.end(); ++j) {
             PCOSMNode *n = nodes.find(*j)->second;
             Position2D pos(n->lon, n->lat);
             if (!GeoConvHelper::x2cartesian(pos)) {
@@ -114,8 +108,8 @@ PCLoaderOSM::loadIfSet(OptionsCont &oc, PCPolyContainer &toFill,
             vec.push_back_noDoublePos(pos);
         }
         // set type etc.
-        string name = e->id;
-        string type;
+        std::string name = e->id;
+        std::string type;
         RGBColor color;
         bool fill = vec.getBegin()==vec.getEnd();
         bool discard = false;
@@ -128,7 +122,7 @@ PCLoaderOSM::loadIfSet(OptionsCont &oc, PCPolyContainer &toFill,
             fill = fill && def.allowFill;
             discard = def.discard;
             layer = def.layer;
-        } else if (e->myType.find(".")!=string::npos&&tm.has(e->myType.substr(0, e->myType.find(".")))) {
+        } else if (e->myType.find(".")!=std::string::npos&&tm.has(e->myType.substr(0, e->myType.find(".")))) {
             const PCTypeMap::TypeDef &def = tm.get(e->myType.substr(0, e->myType.find(".")));
             name = def.prefix + name;
             type = def.id;
@@ -153,7 +147,7 @@ PCLoaderOSM::loadIfSet(OptionsCont &oc, PCPolyContainer &toFill,
         }
     }
     // instantiate pois
-    for (map<int, PCOSMNode*>::iterator i=nodes.begin(); i!=nodes.end(); ++i) {
+    for (std::map<int, PCOSMNode*>::iterator i=nodes.begin(); i!=nodes.end(); ++i) {
         PCOSMNode *n = (*i).second;
         if (!n->myIsAdditional) {
             continue;
@@ -162,8 +156,8 @@ PCLoaderOSM::loadIfSet(OptionsCont &oc, PCPolyContainer &toFill,
         // patch the values
         bool discard = false;
         int layer = oc.getInt("layer");
-        string name = toString(n->id);
-        string type;
+        std::string name = toString(n->id);
+        std::string type;
         RGBColor color;
         if (tm.has(n->myType)) {
             const PCTypeMap::TypeDef &def = tm.get(n->myType);
@@ -172,7 +166,7 @@ PCLoaderOSM::loadIfSet(OptionsCont &oc, PCPolyContainer &toFill,
             color = RGBColor::parseColor(def.color);
             discard = def.discard;
             layer = def.layer;
-        } else if (type.find(".")!=string::npos&&tm.has(type.substr(0, type.find(".")))) {
+        } else if (type.find(".")!=std::string::npos&&tm.has(type.substr(0, type.find(".")))) {
             const PCTypeMap::TypeDef &def = tm.get(type.substr(0, type.find(".")));
             name = def.prefix + name;
             type = def.id;
@@ -256,8 +250,8 @@ PCLoaderOSM::NodesHandler::myStartElement(SumoXMLTag element, const SUMOSAXAttri
     }
     if (element==SUMO_TAG_TAG&&myParentElements.size()>2&&myParentElements[myParentElements.size()-2]==SUMO_TAG_NODE) {
         bool ok = true;
-        string key = attrs.getStringReporting(SUMO_ATTR_K, "node", toString(myLastNodeID).c_str(), ok);
-        string value = attrs.getStringReporting(SUMO_ATTR_V, "node", toString(myLastNodeID).c_str(), ok);
+        std::string key = attrs.getStringReporting(SUMO_ATTR_K, "node", toString(myLastNodeID).c_str(), ok);
+        std::string value = attrs.getStringReporting(SUMO_ATTR_V, "node", toString(myLastNodeID).c_str(), ok);
         if (!ok) {
             return;
         }
@@ -302,7 +296,7 @@ PCLoaderOSM::EdgesHandler::myStartElement(SumoXMLTag element, const SUMOSAXAttri
     // parse "way" elements
     if (element==SUMO_TAG_WAY) {
         bool ok = true;
-        string id = attrs.getStringReporting(SUMO_ATTR_ID, "way", 0, ok);
+        std::string id = attrs.getStringReporting(SUMO_ATTR_ID, "way", 0, ok);
         if (!ok) {
             return;
         }
@@ -326,8 +320,8 @@ PCLoaderOSM::EdgesHandler::myStartElement(SumoXMLTag element, const SUMOSAXAttri
     // parse values
     if (element==SUMO_TAG_TAG&&myParentElements.size()>2&&myParentElements[myParentElements.size()-2]==SUMO_TAG_WAY) {
         bool ok = true;
-        string key = attrs.getStringReporting(SUMO_ATTR_K, "way", toString(myCurrentEdge->id).c_str(), ok);
-        string value = attrs.getStringReporting(SUMO_ATTR_V, "way", toString(myCurrentEdge->id).c_str(), ok);
+        std::string key = attrs.getStringReporting(SUMO_ATTR_K, "way", toString(myCurrentEdge->id).c_str(), ok);
+        std::string value = attrs.getStringReporting(SUMO_ATTR_V, "way", toString(myCurrentEdge->id).c_str(), ok);
         if (!ok) {
             return;
         }

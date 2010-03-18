@@ -54,10 +54,10 @@ bool
 TraCIServerAPI_POI::processGet(tcpip::Storage &inputStorage,
                                tcpip::Storage &outputStorage,
                                bool withStatus) throw(TraCIException) {
-    string warning = ""; // additional description for response
+    std::string warning = ""; // additional description for response
     // variable & id
     int variable = inputStorage.readUnsignedByte();
-    string id = inputStorage.readString();
+    std::string id = inputStorage.readString();
     // check variable
     if (variable!=ID_LIST&&variable!=VAR_TYPE&&variable!=VAR_COLOR&&variable!=VAR_POSITION) {
         TraCIServerAPIHelper::writeStatusCmd(CMD_GET_POI_VARIABLE, RTYPE_ERR, "Unsupported variable specified", outputStorage);
@@ -123,7 +123,7 @@ TraCIServerAPI_POI::processGet(tcpip::Storage &inputStorage,
 bool
 TraCIServerAPI_POI::processSet(tcpip::Storage &inputStorage,
                                tcpip::Storage &outputStorage) throw(TraCIException) {
-    string warning = ""; // additional description for response
+    std::string warning = ""; // additional description for response
     // variable
     int variable = inputStorage.readUnsignedByte();
     if (variable!=VAR_TYPE&&variable!=VAR_COLOR&&variable!=VAR_POSITION
@@ -132,7 +132,7 @@ TraCIServerAPI_POI::processSet(tcpip::Storage &inputStorage,
         return false;
     }
     // id
-    string id = inputStorage.readString();
+    std::string id = inputStorage.readString();
     PointOfInterest *p = 0;
     ShapeContainer& shapeCont = MSNet::getInstance()->getShapeContainer();
     if (variable!=ADD&&variable!=REMOVE) {

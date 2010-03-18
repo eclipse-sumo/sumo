@@ -59,10 +59,10 @@ bool
 TraCIServerAPI_TLS::processGet(tcpip::Storage &inputStorage,
                                tcpip::Storage &outputStorage,
                                bool withStatus) throw(TraCIException) {
-    string warning = ""; // additional description for response
+    std::string warning = ""; // additional description for response
     // variable & id
     int variable = inputStorage.readUnsignedByte();
-    string id = inputStorage.readString();
+    std::string id = inputStorage.readString();
     // check variable
     if (variable!=ID_LIST&&variable!=TL_RED_YELLOW_GREEN_STATE&&variable!=TL_PHASE_BRAKE_YELLOW_STATE
             &&variable!=TL_COMPLETE_DEFINITION_PBY&&variable!=TL_COMPLETE_DEFINITION_RYG
@@ -93,7 +93,7 @@ TraCIServerAPI_TLS::processGet(tcpip::Storage &inputStorage,
             break;
         case TL_RED_YELLOW_GREEN_STATE: {
             tempMsg.writeUnsignedByte(TYPE_STRING);
-            string state = vars.getActive()->getCurrentPhaseDef().getState();
+            std::string state = vars.getActive()->getCurrentPhaseDef().getState();
             tempMsg.writeString(state);
         }
         break;
@@ -101,7 +101,7 @@ TraCIServerAPI_TLS::processGet(tcpip::Storage &inputStorage,
             const std::string &state = vars.getActive()->getCurrentPhaseDef().getState();
             unsigned int linkNo = vars.getActive()->getLinks().size();
             tempMsg.writeUnsignedByte(TYPE_STRINGLIST);
-            vector<string> phaseDef;
+            std::vector<std::string> phaseDef;
             phaseDef.push_back(MSPhaseDefinition::new2driveMask(state));
             phaseDef.push_back(MSPhaseDefinition::new2brakeMask(state));
             phaseDef.push_back(MSPhaseDefinition::new2yellowMask(state));
@@ -113,7 +113,7 @@ TraCIServerAPI_TLS::processGet(tcpip::Storage &inputStorage,
         }
         break;
         case TL_COMPLETE_DEFINITION_PBY: {
-            vector<MSTrafficLightLogic*> logics = vars.getAllLogics();
+            std::vector<MSTrafficLightLogic*> logics = vars.getAllLogics();
             tempMsg.writeUnsignedByte(TYPE_COMPOUND);
             Storage tempContent;
             unsigned int cnt = 0;
@@ -156,7 +156,7 @@ TraCIServerAPI_TLS::processGet(tcpip::Storage &inputStorage,
                     const std::string &state = phase.getState();
                     unsigned int linkNo = vars.getActive()->getLinks().size();
                     tempContent.writeUnsignedByte(TYPE_STRINGLIST);
-                    vector<string> phaseDef;
+                    std::vector<std::string> phaseDef;
                     phaseDef.push_back(MSPhaseDefinition::new2driveMask(state));
                     phaseDef.push_back(MSPhaseDefinition::new2brakeMask(state));
                     phaseDef.push_back(MSPhaseDefinition::new2yellowMask(state));
@@ -173,7 +173,7 @@ TraCIServerAPI_TLS::processGet(tcpip::Storage &inputStorage,
         }
         break;
         case TL_COMPLETE_DEFINITION_RYG: {
-            vector<MSTrafficLightLogic*> logics = vars.getAllLogics();
+            std::vector<MSTrafficLightLogic*> logics = vars.getAllLogics();
             tempMsg.writeUnsignedByte(TYPE_COMPOUND);
             Storage tempContent;
             unsigned int cnt = 0;
@@ -227,7 +227,7 @@ TraCIServerAPI_TLS::processGet(tcpip::Storage &inputStorage,
         case TL_CONTROLLED_LANES: {
             const MSTrafficLightLogic::LaneVectorVector &lanes = vars.getActive()->getLanes();
             tempMsg.writeUnsignedByte(TYPE_STRINGLIST);
-            vector<string> laneIDs;
+            std::vector<std::string> laneIDs;
             for (MSTrafficLightLogic::LaneVectorVector::const_iterator i=lanes.begin(); i!=lanes.end(); ++i) {
                 const MSTrafficLightLogic::LaneVector &llanes = (*i);
                 for (MSTrafficLightLogic::LaneVector::const_iterator j=llanes.begin(); j!=llanes.end(); ++j) {
@@ -257,7 +257,7 @@ TraCIServerAPI_TLS::processGet(tcpip::Storage &inputStorage,
                 ++cnt;
                 for (unsigned int j=0; j<no2; ++j) {
                     MSLink *link = llinks[j];
-                    vector<string> def;
+                    std::vector<std::string> def;
                     // incoming lane
                     def.push_back(llanes[j]->getID());
                     // approached non-internal lane (if any)
@@ -314,7 +314,7 @@ TraCIServerAPI_TLS::processGet(tcpip::Storage &inputStorage,
 bool
 TraCIServerAPI_TLS::processSet(tcpip::Storage &inputStorage,
                                tcpip::Storage &outputStorage) throw(TraCIException) {
-    string warning = ""; // additional description for response
+    std::string warning = ""; // additional description for response
     // variable
     int variable = inputStorage.readUnsignedByte();
     if (variable!=TL_PHASE_BRAKE_YELLOW_STATE&&variable!=TL_PHASE_INDEX&&variable!=TL_PROGRAM
@@ -322,7 +322,7 @@ TraCIServerAPI_TLS::processSet(tcpip::Storage &inputStorage,
         TraCIServerAPIHelper::writeStatusCmd(CMD_SET_TL_VARIABLE, RTYPE_ERR, "Unsupported variable specified", outputStorage);
         return false;
     }
-    string id = inputStorage.readString();
+    std::string id = inputStorage.readString();
     if (!MSNet::getInstance()->getTLSControl().knows(id)) {
         TraCIServerAPIHelper::writeStatusCmd(CMD_SET_TL_VARIABLE, RTYPE_ERR, "Traffic light '" + id + "' is not known", outputStorage);
         return false;
@@ -337,7 +337,7 @@ TraCIServerAPI_TLS::processSet(tcpip::Storage &inputStorage,
             TraCIServerAPIHelper::writeStatusCmd(CMD_SET_TL_VARIABLE, RTYPE_ERR, "The phase must be given as three strings.", outputStorage);
             return false;
         }
-        vector<string> defs = inputStorage.readStringList();
+        std::vector<std::string> defs = inputStorage.readStringList();
         if (defs.size()!=3) {
             TraCIServerAPIHelper::writeStatusCmd(CMD_SET_TL_VARIABLE, RTYPE_ERR, "The phase must be given as three strings.", outputStorage);
             return false;
@@ -345,7 +345,7 @@ TraCIServerAPI_TLS::processSet(tcpip::Storage &inputStorage,
         // build only once...
         std::string state = MSPhaseDefinition::old2new(defs[0], defs[1], defs[2]);
         MSPhaseDefinition *phase = new MSPhaseDefinition(1, state);
-        vector<MSPhaseDefinition*> phases;
+        std::vector<MSPhaseDefinition*> phases;
         phases.push_back(phase);
         MSTrafficLightLogic *logic = new MSSimpleTrafficLightLogic(tlsControl, id, "online", phases, 0, cTime+1);
         if (!vars.addLogic("online", logic, true, true)) {
@@ -379,7 +379,7 @@ TraCIServerAPI_TLS::processSet(tcpip::Storage &inputStorage,
             TraCIServerAPIHelper::writeStatusCmd(CMD_SET_TL_VARIABLE, RTYPE_ERR, "The program must be given as a string.", outputStorage);
             return false;
         }
-        string subID = inputStorage.readString();
+        std::string subID = inputStorage.readString();
         try {
             vars.switchTo(tlsControl, subID);
         } catch (ProcessError &e) {
@@ -404,9 +404,9 @@ TraCIServerAPI_TLS::processSet(tcpip::Storage &inputStorage,
             return false;
         }
         // build only once...
-        string state = inputStorage.readString();
+        std::string state = inputStorage.readString();
         MSPhaseDefinition *phase = new MSPhaseDefinition(1, state);
-        vector<MSPhaseDefinition*> phases;
+        std::vector<MSPhaseDefinition*> phases;
         phases.push_back(phase);
         if (vars.getLogic("online")==0) {
             MSTrafficLightLogic *logic = new MSSimpleTrafficLightLogic(tlsControl, id, "online", phases, 0, cTime+1);
@@ -450,7 +450,7 @@ TraCIServerAPI_TLS::processSet(tcpip::Storage &inputStorage,
             return false;
         }
         int phaseNo = inputStorage.readInt();
-        vector<MSPhaseDefinition*> phases;
+        std::vector<MSPhaseDefinition*> phases;
         for (unsigned int j=0; j<phaseNo; ++j) {
             if (inputStorage.readUnsignedByte()!=TYPE_INTEGER) {
                 TraCIServerAPIHelper::writeStatusCmd(CMD_SET_TL_VARIABLE, RTYPE_ERR, "set program: 6.1. parameter (duration) must be an int.", outputStorage);
@@ -471,7 +471,7 @@ TraCIServerAPI_TLS::processSet(tcpip::Storage &inputStorage,
                 TraCIServerAPIHelper::writeStatusCmd(CMD_SET_TL_VARIABLE, RTYPE_ERR, "set program: 6.4. parameter (phase) must be a string.", outputStorage);
                 return false;
             }
-            string state = inputStorage.readString();
+            std::string state = inputStorage.readString();
             MSPhaseDefinition *phase = new MSPhaseDefinition(duration, minDuration, maxDuration, state);
             phases.push_back(phase);
         }

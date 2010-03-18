@@ -56,12 +56,6 @@
 
 
 // ===========================================================================
-// used namespaces
-// ===========================================================================
-using namespace std;
-
-
-// ===========================================================================
 // method definitions
 // ===========================================================================
 void
@@ -71,8 +65,8 @@ PCLoaderVisum::loadIfSet(OptionsCont &oc, PCPolyContainer &toFill,
         return;
     }
     // parse file(s)
-    vector<string> files = oc.getStringVector("visum-files");
-    for (vector<string>::const_iterator file=files.begin(); file!=files.end(); ++file) {
+    std::vector<std::string> files = oc.getStringVector("visum-files");
+    for (std::vector<std::string>::const_iterator file=files.begin(); file!=files.end(); ++file) {
         if (!FileHelpers::exists(*file)) {
             throw ProcessError("Could not open visum-file '" + *file + "'.");
         }
@@ -85,17 +79,17 @@ PCLoaderVisum::loadIfSet(OptionsCont &oc, PCPolyContainer &toFill,
 
 
 void
-PCLoaderVisum::load(const string &file, OptionsCont &oc, PCPolyContainer &toFill,
+PCLoaderVisum::load(const std::string &file, OptionsCont &oc, PCPolyContainer &toFill,
                     PCTypeMap &tm) throw(ProcessError) {
-    string what;
-    map<long, Position2D> punkte;
-    map<long, Position2DVector> kanten;
-    map<long, Position2DVector> teilflaechen;
-    map<long, long> flaechenelemente;
+    std::string what;
+    std::map<long, Position2D> punkte;
+    std::map<long, Position2DVector> kanten;
+    std::map<long, Position2DVector> teilflaechen;
+    std::map<long, long> flaechenelemente;
     NamedColumnsParser lineParser;
     LineReader lr(file);
     while (lr.hasMore()) {
-        string line = lr.readLine();
+        std::string line = lr.readLine();
         // reset if current is over
         if (line.length()==0||line[0]=='*'||line[0]=='$') {
             what = "";
@@ -185,17 +179,17 @@ PCLoaderVisum::load(const string &file, OptionsCont &oc, PCPolyContainer &toFill
 
     // do some more sane job...
     RGBColor c = RGBColor::parseColor(oc.getString("color"));
-    map<string, string> typemap;
+    std::map<std::string, std::string> typemap;
     // load the pois/polys
     lr.reinit();
     bool parsingCategories = false;
     bool parsingPOIs = false;
     bool parsingDistrictsDirectly = false;
     Position2DVector vec;
-    string polyType, lastID;
+    std::string polyType, lastID;
     bool first = true;
     while (lr.hasMore()) {
-        string line = lr.readLine();
+        std::string line = lr.readLine();
         // do not parse empty lines
         if (line.length()==0) {
             continue;
@@ -216,21 +210,21 @@ PCLoaderVisum::load(const string &file, OptionsCont &oc, PCPolyContainer &toFill
         if (parsingCategories) {
             // parse the category
             StringTokenizer st(line, ";");
-            string catid = st.next();
-            string catname = st.next();
+            std::string catid = st.next();
+            std::string catname = st.next();
             typemap[catid] = catname;
         }
         if (parsingPOIs) {
             // parse the poi
             // $POI:Nr;CATID;CODE;NAME;Kommentar;XKoord;YKoord;
             StringTokenizer st(line, ";");
-            string num = st.next();
-            string catid = st.next();
-            string code = st.next();
-            string name = st.next();
-            string comment = st.next();
-            string xpos = st.next();
-            string ypos = st.next();
+            std::string num = st.next();
+            std::string catid = st.next();
+            std::string code = st.next();
+            std::string name = st.next();
+            std::string comment = st.next();
+            std::string xpos = st.next();
+            std::string ypos = st.next();
             // process read values
             SUMOReal x = TplConvert<char>::_2SUMOReal(xpos.c_str());
             SUMOReal y = TplConvert<char>::_2SUMOReal(ypos.c_str());
@@ -238,7 +232,7 @@ PCLoaderVisum::load(const string &file, OptionsCont &oc, PCPolyContainer &toFill
             if (!GeoConvHelper::x2cartesian(pos)) {
                 MsgHandler::getWarningInstance()->inform("Unable to project coordinates for POI '" + num + "'.");
             }
-            string type = typemap[catid];
+            std::string type = typemap[catid];
             // check the poi
             name = num;
             // patch the values
@@ -269,8 +263,8 @@ PCLoaderVisum::load(const string &file, OptionsCont &oc, PCPolyContainer &toFill
         // poly
         if (polyType!="") {
             StringTokenizer st(line, ";");
-            string id = st.next();
-            string type;
+            std::string id = st.next();
+            std::string type;
             if (!first&&lastID!=id) {
                 // we have parsed a polygon completely
                 RGBColor color;
@@ -300,9 +294,9 @@ PCLoaderVisum::load(const string &file, OptionsCont &oc, PCPolyContainer &toFill
             lastID = id;
             first = false;
             // parse current poly
-            string index = st.next();
-            string xpos = st.next();
-            string ypos = st.next();
+            std::string index = st.next();
+            std::string xpos = st.next();
+            std::string ypos = st.next();
             Position2D pos2D((SUMOReal) atof(xpos.c_str()), (SUMOReal) atof(ypos.c_str()));
             if (!GeoConvHelper::x2cartesian(pos2D)) {
                 MsgHandler::getWarningInstance()->inform("Unable to project coordinates for polygon '" + id + "'.");
@@ -314,15 +308,15 @@ PCLoaderVisum::load(const string &file, OptionsCont &oc, PCPolyContainer &toFill
         if (parsingDistrictsDirectly) {
             //$BEZIRK:NR	CODE	NAME	TYPNR	XKOORD	YKOORD	FLAECHEID	BEZART	IVANTEIL_Q	IVANTEIL_Z	OEVANTEIL	METHODEANBANTEILE	ZWERT1	ZWERT2	ZWERT3	ISTINAUSWAHL	OBEZNR	NOM_COM	COD_COM
             StringTokenizer st(line, ";");
-            string num = st.next();
-            string code = st.next();
-            string name = st.next();
+            std::string num = st.next();
+            std::string code = st.next();
+            std::string name = st.next();
             st.next(); // typntr
-            string xpos = st.next();
-            string ypos = st.next();
+            std::string xpos = st.next();
+            std::string ypos = st.next();
             long id = TplConvert<char>::_2long(st.next().c_str());
             // patch the values
-            string type = "district";
+            std::string type = "district";
             name = num;
             bool discard = false;
             int layer = oc.getInt("layer");
@@ -371,16 +365,16 @@ PCLoaderVisum::load(const string &file, OptionsCont &oc, PCPolyContainer &toFill
             // ok, got pois, begin parsing from next line
             parsingPOIs = true;
         }
-        if (line.find("$BEZIRK")==0 && line.find("FLAECHEID")!=string::npos) {
+        if (line.find("$BEZIRK")==0 && line.find("FLAECHEID")!=std::string::npos) {
             // ok, have a district header, and it seems like districts would reference shapes...
             parsingDistrictsDirectly = true;
         }
 
 
-        if (line.find("$BEZIRKPOLY")!=string::npos) {
+        if (line.find("$BEZIRKPOLY")!=std::string::npos) {
             polyType = "district";
         }
-        if (line.find("$GEBIETPOLY")!=string::npos) {
+        if (line.find("$GEBIETPOLY")!=std::string::npos) {
             polyType = "area";
         }
 

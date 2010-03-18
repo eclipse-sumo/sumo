@@ -55,10 +55,10 @@ bool
 TraCIServerAPI_Polygon::processGet(tcpip::Storage &inputStorage,
                                    tcpip::Storage &outputStorage,
                                    bool withStatus) throw(TraCIException) {
-    string warning = ""; // additional description for response
+    std::string warning = ""; // additional description for response
     // variable & id
     int variable = inputStorage.readUnsignedByte();
-    string id = inputStorage.readString();
+    std::string id = inputStorage.readString();
     // check variable
     if (variable!=ID_LIST&&variable!=VAR_TYPE&&variable!=VAR_COLOR&&variable!=VAR_SHAPE&&variable!=VAR_FILL) {
         TraCIServerAPIHelper::writeStatusCmd(CMD_GET_POLYGON_VARIABLE, RTYPE_ERR, "Unsupported variable specified", outputStorage);
@@ -131,7 +131,7 @@ TraCIServerAPI_Polygon::processGet(tcpip::Storage &inputStorage,
 bool
 TraCIServerAPI_Polygon::processSet(tcpip::Storage &inputStorage,
                                    tcpip::Storage &outputStorage) throw(TraCIException) {
-    string warning = ""; // additional description for response
+    std::string warning = ""; // additional description for response
     // variable
     int variable = inputStorage.readUnsignedByte();
     if (variable!=VAR_TYPE&&variable!=VAR_COLOR&&variable!=VAR_SHAPE&&variable!=VAR_FILL
@@ -140,7 +140,7 @@ TraCIServerAPI_Polygon::processSet(tcpip::Storage &inputStorage,
         return false;
     }
     // id
-    string id = inputStorage.readString();
+    std::string id = inputStorage.readString();
     Polygon2D *p = 0;
     ShapeContainer& shapeCont = MSNet::getInstance()->getShapeContainer();
     if (variable!=ADD&&variable!=REMOVE) {

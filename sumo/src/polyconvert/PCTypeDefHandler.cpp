@@ -44,12 +44,6 @@
 
 
 // ===========================================================================
-// used namespaces
-// ===========================================================================
-using namespace std;
-
-
-// ===========================================================================
 // method definitions
 // ===========================================================================
 PCTypeDefHandler::PCTypeDefHandler(OptionsCont &oc, PCTypeMap &con) throw()
@@ -65,7 +59,7 @@ PCTypeDefHandler::myStartElement(SumoXMLTag element,
                                  const SUMOSAXAttributes &attrs) throw(ProcessError) {
     if (element==SUMO_TAG_POLYTYPE) {
         // get the id, report an error if not given or empty...
-        string id;
+        std::string id;
         if (!attrs.setIDFromAttributes("polytype", id)) {
             return;
         }

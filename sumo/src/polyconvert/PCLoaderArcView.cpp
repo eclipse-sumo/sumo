@@ -48,12 +48,6 @@
 
 
 // ===========================================================================
-// used namespaces
-// ===========================================================================
-using namespace std;
-
-
-// ===========================================================================
 // method definitions
 // ===========================================================================
 void
@@ -63,8 +57,8 @@ PCLoaderArcView::loadIfSet(OptionsCont &oc, PCPolyContainer &toFill,
         return;
     }
     // parse file(s)
-    vector<string> files = oc.getStringVector("shape-files");
-    for (vector<string>::const_iterator file=files.begin(); file!=files.end(); ++file) {
+    std::vector<std::string> files = oc.getStringVector("shape-files");
+    for (std::vector<std::string>::const_iterator file=files.begin(); file!=files.end(); ++file) {
         MsgHandler::getMessageInstance()->beginProcessMsg("Parsing from shape-file '" + *file + "'...");
         load(*file, oc, toFill, tm);
         MsgHandler::getMessageInstance()->endProcessMsg("done.");
@@ -74,17 +68,17 @@ PCLoaderArcView::loadIfSet(OptionsCont &oc, PCPolyContainer &toFill,
 
 
 void
-PCLoaderArcView::load(const string &file, OptionsCont &oc, PCPolyContainer &toFill,
+PCLoaderArcView::load(const std::string &file, OptionsCont &oc, PCPolyContainer &toFill,
                       PCTypeMap &) throw(ProcessError) {
 #ifdef HAVE_GDAL
     // get defaults
-    string prefix = oc.getString("prefix");
-    string type = oc.getString("type");
+    std::string prefix = oc.getString("prefix");
+    std::string type = oc.getString("type");
     RGBColor color = RGBColor::parseColor(oc.getString("color"));
     int layer = oc.getInt("layer");
-    string idField = oc.getString("shape-files.id-name");
+    std::string idField = oc.getString("shape-files.id-name");
     // start parsing
-    string shpName = file + ".shp";
+    std::string shpName = file + ".shp";
     OGRRegisterAll();
     OGRDataSource *poDS = OGRSFDriverRegistrar::Open(shpName.c_str(), FALSE);
     if (poDS == NULL) {
@@ -116,7 +110,7 @@ PCLoaderArcView::load(const string &file, OptionsCont &oc, PCPolyContainer &toFi
     poLayer->ResetReading();
     while ((poFeature = poLayer->GetNextFeature()) != NULL) {
         // read in edge attributes
-        string id = poFeature->GetFieldAsString(idField.c_str());
+        std::string id = poFeature->GetFieldAsString(idField.c_str());
         id = StringUtils::prune(id);
         if (id=="") {
             throw ProcessError("Missing id under '" + idField + "'");
@@ -182,7 +176,7 @@ PCLoaderArcView::load(const string &file, OptionsCont &oc, PCPolyContainer &toFi
             for (int i=0; i<cgeom->getNumGeometries(); ++i) {
                 OGRPoint *cgeom2 = (OGRPoint*) cgeom->getGeometryRef(i);
                 Position2D pos((SUMOReal) cgeom2->getX(), (SUMOReal) cgeom2->getY());
-                string tid = id + "#" + toString(i);
+                std::string tid = id + "#" + toString(i);
                 if (!GeoConvHelper::x2cartesian(pos)) {
                     MsgHandler::getErrorInstance()->inform("Unable to project coordinates for POI '" + tid + "'.");
                 }
@@ -199,7 +193,7 @@ PCLoaderArcView::load(const string &file, OptionsCont &oc, PCPolyContainer &toFi
             for (int i=0; i<cgeom->getNumGeometries(); ++i) {
                 OGRLineString *cgeom2 = (OGRLineString*) cgeom->getGeometryRef(i);
                 Position2DVector shape;
-                string tid = id + "#" + toString(i);
+                std::string tid = id + "#" + toString(i);
                 for (int j=0; j<cgeom2->getNumPoints(); j++) {
                     Position2D pos((SUMOReal) cgeom2->getX(j), (SUMOReal) cgeom2->getY(j));
                     if (!GeoConvHelper::x2cartesian(pos)) {
@@ -220,7 +214,7 @@ PCLoaderArcView::load(const string &file, OptionsCont &oc, PCPolyContainer &toFi
             for (int i=0; i<cgeom->getNumGeometries(); ++i) {
                 OGRLinearRing *cgeom2 = ((OGRPolygon*) cgeom->getGeometryRef(i))->getExteriorRing();
                 Position2DVector shape;
-                string tid = id + "#" + toString(i);
+                std::string tid = id + "#" + toString(i);
                 for (int j=0; j<cgeom2->getNumPoints(); j++) {
                     Position2D pos((SUMOReal) cgeom2->getX(j), (SUMOReal) cgeom2->getY(j));
                     if (!GeoConvHelper::x2cartesian(pos)) {

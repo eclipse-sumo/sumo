@@ -378,7 +378,7 @@ TraCITestClient::run(std::string fileName, int port, std::string host) {
             defFile >> valueDataType;
             commandScenario(flag, domain, domainId, variable, valueDataType);
         } else if (lineCommand.compare("scenario_string") == 0) {
-            // trigger command Scenario, giving a string value
+            // trigger command Scenario, giving a std::string value
             int flag;
             int domain;
             int domainId;
@@ -436,25 +436,25 @@ TraCITestClient::run(std::string fileName, int port, std::string host) {
         } else if (lineCommand.compare("getvariable") == 0) {
             // trigger command GetXXXVariable
             int domID, varID;
-            string objID;
+            std::string objID;
             defFile >> domID >> varID >> objID;
             commandGetVariable(domID, varID, objID);
         } else if (lineCommand.compare("getvariable_plus") == 0) {
             // trigger command GetXXXVariable
             int domID, varID;
-            string objID;
+            std::string objID;
             defFile >> domID >> varID >> objID;
             commandGetVariablePlus(domID, varID, objID, defFile);
         } else if (lineCommand.compare("subscribevariable") == 0) {
             // trigger command GetXXXVariable
             int domID, varNo, beginTime, endTime;
-            string objID;
+            std::string objID;
             defFile >> domID >> objID >> beginTime >> endTime >> varNo;
             commandSubscribeVariable(domID, objID, beginTime, endTime, varNo, defFile);
         }  else if (lineCommand.compare("setvalue") == 0) {
             // trigger command SetXXXValue
             int domID, varID;
-            string objID;
+            std::string objID;
             defFile >> domID >> varID >> objID;
             commandSetValue(domID, varID, objID, defFile);
         } else {
@@ -1365,7 +1365,7 @@ TraCITestClient::commandGetVariablePlus(int domID, int varID, const std::string 
     }
     tcpip::Storage outMsg, inMsg, tmp;
     int dataLength = setValueTypeDependant(tmp, defFile, msg);
-    string msgS = msg.str();
+    std::string msgS = msg.str();
     if (msgS!="") {
         errorMsg(msg);
     }
@@ -1436,7 +1436,7 @@ TraCITestClient::commandSubscribeVariable(int domID, const std::string &objID, i
         return;
     }
     tcpip::Storage outMsg, inMsg, tmp;
-    string msgS = msg.str();
+    std::string msgS = msg.str();
     if (msgS!="") {
         errorMsg(msg);
     }
@@ -1494,7 +1494,7 @@ TraCITestClient::commandSubscribeVariable(int domID, const std::string &objID, i
 
 int
 TraCITestClient::setValueTypeDependant(tcpip::Storage &into, std::ifstream &defFile, std::stringstream &msg) {
-    string dataTypeS, valueS;
+    std::string dataTypeS, valueS;
     defFile >> dataTypeS >> valueS;
     if (dataTypeS=="<int>") {
         into.writeUnsignedByte(TYPE_INTEGER);
@@ -1512,16 +1512,16 @@ TraCITestClient::setValueTypeDependant(tcpip::Storage &into, std::ifstream &defF
         into.writeUnsignedByte(TYPE_FLOAT);
         into.writeFloat(atof(valueS.c_str()));
         return 4 + 1;
-    } else if (dataTypeS=="<string>") {
+    } else if (dataTypeS=="<std::string>") {
         into.writeUnsignedByte(TYPE_STRING);
         into.writeString(valueS);
         return 4 + 1 + (int) valueS.length();
     } else if (dataTypeS=="<string*>") {
-        vector<string> slValue;
+        std::vector<std::string> slValue;
         int number = atoi(valueS.c_str());
         int length = 1 + 4;
         for (int i=0; i<number; ++i) {
-            string tmp;
+            std::string tmp;
             defFile >> tmp;
             slValue.push_back(tmp);
             length += 4 + tmp.length();
@@ -1558,7 +1558,7 @@ TraCITestClient::setValueTypeDependant(tcpip::Storage &into, std::ifstream &defF
         into.writeUnsignedByte(number);
         int length = 1 + 1;
         for (int i=0; i<number; ++i) {
-            string x, y;
+            std::string x, y;
             defFile >> x >> y;
             into.writeFloat(atof(x.c_str()));
             into.writeFloat(atof(y.c_str()));
@@ -1580,7 +1580,7 @@ TraCITestClient::commandSetValue(int domID, int varID, const std::string &objID,
     }
     tcpip::Storage outMsg, inMsg, tmp;
     int dataLength = setValueTypeDependant(tmp, defFile, msg);
-    string msgS = msg.str();
+    std::string msgS = msg.str();
     if (msgS!="") {
         errorMsg(msg);
     }
@@ -2274,8 +2274,8 @@ TraCITestClient::readAndReportTypeDependent(tcpip::Storage &inMsg, int valueData
         int length = inMsg.readUnsignedByte();
         answerLog << " TLPhaseListValue: length=" << length << endl;
         for (int i=0; i< length; i++) {
-            string pred = inMsg.readString();
-            string succ = inMsg.readString();
+            std::string pred = inMsg.readString();
+            std::string succ = inMsg.readString();
             int phase = inMsg.readUnsignedByte();
             answerLog << " precRoad=" << pred << " succRoad=" << succ
             << " phase=";
@@ -2295,12 +2295,12 @@ TraCITestClient::readAndReportTypeDependent(tcpip::Storage &inMsg, int valueData
             }
         }
     } else if (valueDataType == TYPE_STRING) {
-        string s = inMsg.readString();
-        answerLog << " string value: " << s << endl;
+        std::string s = inMsg.readString();
+        answerLog << " std::string value: " << s << endl;
     } else if (valueDataType == TYPE_STRINGLIST) {
-        vector<string> s = inMsg.readStringList();
-        answerLog << " string list value: [ " << endl;
-        for (vector<string>::iterator i=s.begin(); i!=s.end(); ++i) {
+        std::vector<std::string> s = inMsg.readStringList();
+        answerLog << " std::string list value: [ " << endl;
+        for (std::vector<std::string>::iterator i=s.begin(); i!=s.end(); ++i) {
             if (i!=s.begin()) {
                 answerLog << ", ";
             }

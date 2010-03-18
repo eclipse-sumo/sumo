@@ -64,12 +64,6 @@
 
 
 // ===========================================================================
-// used namespaces
-// ===========================================================================
-using namespace std;
-
-
-// ===========================================================================
 // FOX callback mapping
 // ===========================================================================
 FXDEFMAP(GUIDialog_Breakpoints) GUIDialog_BreakpointsMap[]= {
@@ -190,8 +184,8 @@ GUIDialog_Breakpoints::onCmdLoad(FXObject*,FXSelector,void*) {
     }
     if (opendialog.execute()) {
         gCurrentFolder = opendialog.getDirectory();
-        string file = opendialog.getFilename().text();
-        ifstream strm(file.c_str());
+        std::string file = opendialog.getFilename().text();
+        std::ifstream strm(file.c_str());
         while (strm.good()) {
             std::string val;
             strm >> val;
@@ -214,7 +208,7 @@ GUIDialog_Breakpoints::onCmdSave(FXObject*,FXSelector,void*) {
     if (file=="") {
         return 1;
     }
-    string content = encode2TXT();
+    std::string content = encode2TXT();
     try {
         OutputDevice &dev = OutputDevice::getDevice(file.text());
         dev << content;
@@ -229,11 +223,11 @@ GUIDialog_Breakpoints::onCmdSave(FXObject*,FXSelector,void*) {
 std::string
 GUIDialog_Breakpoints::encode2TXT() {
     std::ostringstream strm;
-    sort(gBreakpoints.begin(), gBreakpoints.end());
+    std::sort(gBreakpoints.begin(), gBreakpoints.end());
     //
     for (std::vector<int>::iterator j=gBreakpoints.begin(); j!=gBreakpoints.end(); ++j) {
         if ((*j)!=INVALID_VALUE) {
-            strm << (*j) << endl;
+            strm << (*j) << std::endl;
         }
     }
     return strm.str();
@@ -269,9 +263,9 @@ GUIDialog_Breakpoints::onUpdSave(FXObject*sender,FXSelector,void*ptr)
 long
 GUIDialog_Breakpoints::onCmdEditTable(FXObject*,FXSelector,void*data) {
     MFXEditedTableItem *i = (MFXEditedTableItem*) data;
-    string value = i->item->getText().text();
+    std::string value = i->item->getText().text();
     // check whether the inserted value is empty
-    if (value.find_first_not_of(" ")==string::npos) {
+    if (value.find_first_not_of(" ")==std::string::npos) {
         // replace by invalid if so
         value = INVALID_VALUE_STR;
     }
@@ -285,7 +279,7 @@ GUIDialog_Breakpoints::onCmdEditTable(FXObject*,FXSelector,void*data) {
         try {
             gBreakpoints[row] = TplConvert<char>::_2int(value.c_str());
         } catch (NumberFormatException &) {
-            string msg = "The value must be an int, is:" + value;
+            std::string msg = "The value must be an int, is:" + value;
             FXMessageBox::error(this, MBOX_OK, "Number format error", msg.c_str());
         }
         break;

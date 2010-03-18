@@ -549,7 +549,7 @@ TraCIServer::postProcessSimulationStep() throw(TraCIException, std::invalid_argu
         for (map<string, MSVehicle*>::const_iterator iter = vehControl.loadedVehBegin();
                 iter != vehControl.loadedVehEnd(); ++iter) {
             // selected vehicle
-            const string vehicleId   = (*iter).first;
+            const std::string vehicleId   = (*iter).first;
             const MSVehicle *vehicle = (*iter).second;
             // insert into equippedVehicleId if not contained
             std::map<std::string, int>::const_iterator equippedVeh = equippedVehicles_.find(vehicleId);
@@ -951,7 +951,7 @@ TraCIServer::commandGetAllTLIds() throw(TraCIException) {
     // create positive response message
     writeStatusCmd(CMD_GETALLTLIDS, RTYPE_OK, "");
 
-    // create a response command for each string id
+    // create a response command for each std::string id
     for (std::vector<std::string>::iterator iter = idList.begin(); iter != idList.end(); iter++) {
         // command length
         myOutputStorage.writeByte(2 + (4 + (*iter).size()));
@@ -1043,7 +1043,7 @@ TraCIServer::commandGetTLStatus() throw(TraCIException) {
                                 }
                             }
                             // remember the current edge pair and tl status
-                            writtenEdgePairs[&precEdge] = make_pair(&succEdge, nextLinkState);
+                            writtenEdgePairs[&precEdge] = std::make_pair(&succEdge, nextLinkState);
 
                             // time of the switch
                             tempMsg.writeDouble(time);
@@ -1146,7 +1146,7 @@ TraCIServer::commandCloseConnection() throw(TraCIException) {
 bool
 TraCIServer::commandSimulationParameter() throw(TraCIException) {
     bool setParameter = (myInputStorage.readByte() != 0);
-    string parameter = myInputStorage.readString();
+    std::string parameter = myInputStorage.readString();
 
     // Prepare response
     tcpip::Storage answerTmp;
@@ -1355,7 +1355,7 @@ TraCIServer::commandPositionConversion() throw(TraCIException) {
 bool
 TraCIServer::commandScenario() throw(TraCIException) {
     Storage tmpResult;
-    string warning = "";	// additional description for response
+    std::string warning = "";	// additional description for response
 
     // read/write flag
     bool isWriteCommand = myInputStorage.readUnsignedByte();
@@ -1903,8 +1903,8 @@ throw(TraCIException) {
 std::string
 TraCIServer::handleRoadMapDomain(bool isWriteCommand, tcpip::Storage& response)
 throw(TraCIException) {
-    string name = "";
-    string warning = "";	// additional description for response
+    std::string name = "";
+    std::string warning = "";	// additional description for response
     DataTypeContainer dataCont;
 
     // domain object
@@ -1937,14 +1937,14 @@ throw(TraCIException) {
     response.writeUnsignedByte(variableId);		// variable
 
     switch (variableId) {
-        // name string of the object
+        // name std::string of the object
     case DOMVAR_NAME:
         if (edge != NULL) {
             name = edge->getID();
             response.writeUnsignedByte(TYPE_STRING);
             response.writeString(name);
             if (dataType != TYPE_STRING) {
-                warning = "Warning: requested data type could not be used; using string instead!";
+                warning = "Warning: requested data type could not be used; using std::string instead!";
             }
         } else {
             throw TraCIException("Unable to retrieve road with given id");
@@ -1955,7 +1955,7 @@ throw(TraCIException) {
     case DOMVAR_EXTID:
         //if (dataType != TYPE_STRING) {
         if (dataCont.getLastValueRead() != TYPE_STRING) {
-            throw TraCIException("Internal id must be given as string value");
+            throw TraCIException("Internal id must be given as std::string value");
         }
         //name = myInputStorage.readString();
         name = dataCont.getString();
@@ -2056,7 +2056,7 @@ throw(TraCIException) {
     response.writeUnsignedByte(variableId);		// variable
 
     switch (variableId) {
-        // name string of the object
+        // name std::string of the object
     case DOMVAR_NAME:
         if (veh != NULL) {
             name = veh->getID();
@@ -2064,7 +2064,7 @@ throw(TraCIException) {
             response.writeString(name);
             // add a warning to the response if the requested data type was not correct
             if (dataType != TYPE_STRING) {
-                warning = "Warning: requested data type could not be used; using string instead!";
+                warning = "Warning: requested data type could not be used; using std::string instead!";
             }
         } else {
             throw TraCIException("Unable to retrieve node with given ID");
@@ -2075,7 +2075,7 @@ throw(TraCIException) {
     case DOMVAR_EXTID:
 //		if (dataType != TYPE_STRING) {
         if (dataCont.getLastValueRead() != TYPE_STRING) {
-            throw TraCIException("Internal id must be given as string value");
+            throw TraCIException("Internal id must be given as std::string value");
         }
 //		name = myInputStorage.readString();
         name = dataCont.getString();
@@ -2201,7 +2201,7 @@ throw(TraCIException) {
         if (veh != NULL) {
             response.writeUnsignedByte(TYPE_STRING);
             MSRoute r = veh->getRoute();
-            string strRoute = "";
+            std::string strRoute = "";
             for (MSRouteIterator it = r.begin(); it != r.end(); ++it) {
                 if (strRoute.length()) strRoute.append(" ");
                 strRoute.append((*it)->getID());
@@ -2209,7 +2209,7 @@ throw(TraCIException) {
             response.writeString(strRoute);
             // add a warning to the response if the requested data type was not correct
             if (dataType != TYPE_STRING) {
-                warning = "Warning: requested data type could not be used; using string instead!";
+                warning = "Warning: requested data type could not be used; using std::string instead!";
             }
         } else {
             throw TraCIException("Unable to retrieve node with given ID");
@@ -2431,7 +2431,7 @@ throw(TraCIException) {
     response.writeUnsignedByte(variableId);		// variable
 
     switch (variableId) {
-        // name string of the object
+        // name std::string of the object
     case DOMVAR_NAME:
         if (tlLogic != NULL) {
             name = tlLogic->getID();
@@ -2439,7 +2439,7 @@ throw(TraCIException) {
             response.writeString(name);
             // add a warning to the response if the requested data type was not correct
             if (dataType != TYPE_STRING) {
-                warning = "Warning: requested data type could not be used; using string instead!";
+                warning = "Warning: requested data type could not be used; using std::string instead!";
             }
         } else {
             throw TraCIException("Unable to retrieve traffic light with given id");
@@ -2450,7 +2450,7 @@ throw(TraCIException) {
     case DOMVAR_EXTID:
 //		if (dataType != TYPE_STRING) {
         if (dataCont.getLastValueRead() != TYPE_STRING) {
-            throw TraCIException("Internal id must be given as string value");
+            throw TraCIException("Internal id must be given as std::string value");
         }
 //		name = myInputStorage.readString();
         name = dataCont.getString();
@@ -2561,7 +2561,7 @@ throw(TraCIException) {
                         }
                     }
                     // remember the current edge pair and tl status
-                    writtenEdgePairs[&precEdge] = make_pair(&succEdge, tlState);
+                    writtenEdgePairs[&precEdge] = std::make_pair(&succEdge, tlState);
 
                     // write preceding edge
                     phaseList.writeString(precEdge.getID());
@@ -2659,7 +2659,7 @@ throw(TraCIException) {
     }
 
     switch (variableId) {
-        // name string of the object
+        // name std::string of the object
     case DOMVAR_NAME:
         if (poi != NULL) {
             name = poi->getID();
@@ -2667,7 +2667,7 @@ throw(TraCIException) {
             response.writeString(name);
             // add a warning to the response if the requested data type was not correct
             if (dataType != TYPE_STRING) {
-                warning = "Warning: requested data type could not be used; using string instead!";
+                warning = "Warning: requested data type could not be used; using std::string instead!";
             }
         } else {
             throw TraCIException("Unable to retrieve point of interest with given id");
@@ -2678,7 +2678,7 @@ throw(TraCIException) {
     case DOMVAR_EXTID:
 //		if (dataType != TYPE_STRING) {
         if (dataCont.getLastValueRead() != TYPE_STRING) {
-            throw TraCIException("Internal id must be given as string value");
+            throw TraCIException("Internal id must be given as std::string value");
         }
 //		name = myInputStorage.readString();
         name = dataCont.getString();
@@ -2728,7 +2728,7 @@ throw(TraCIException) {
         }
         // add a warning to the response if the requested data type was not correct
         if (dataType != TYPE_STRING) {
-            warning = "Warning: requested data type could not be used; using string instead!";
+            warning = "Warning: requested data type could not be used; using std::string instead!";
         }
         break;
 
@@ -2784,14 +2784,14 @@ throw(TraCIException) {
     }
 
     switch (variableId) {
-        // name string of the object
+        // name std::string of the object
     case DOMVAR_NAME:
         if (poly != NULL) {
             name = poly->getID();
             response.writeUnsignedByte(TYPE_STRING);
             response.writeString(name);
             if (dataType != TYPE_STRING) {
-                warning = "Warning: requested data type could not be used; using string instead!";
+                warning = "Warning: requested data type could not be used; using std::string instead!";
             }
         } else {
             throw TraCIException("Unable to retrieve polygon with given id");
@@ -2802,7 +2802,7 @@ throw(TraCIException) {
     case DOMVAR_EXTID:
 //		if (dataType != TYPE_STRING) {
         if (dataCont.getLastValueRead() != TYPE_STRING) {
-            throw TraCIException("Internal id must be given as string value");
+            throw TraCIException("Internal id must be given as std::string value");
         }
 //		name = myInputStorage.readString();
         name = dataCont.getString();
@@ -2852,7 +2852,7 @@ throw(TraCIException) {
         }
         // add a warning to the response if the requested data type was not correct
         if (dataType != TYPE_STRING) {
-            warning = "Warning: requested data type could not be used; using string instead!";
+            warning = "Warning: requested data type could not be used; using std::string instead!";
         }
         break;
 
@@ -2979,7 +2979,7 @@ bool
 TraCIServer::addSubscription(int commandId) throw(TraCIException) {
     double beginTime = myInputStorage.readDouble();
     double endTime = myInputStorage.readDouble();
-    string id = myInputStorage.readString();
+    std::string id = myInputStorage.readString();
     int no = myInputStorage.readUnsignedByte();
     std::vector<int> variables;
     for (int i=0; i<no; ++i) {

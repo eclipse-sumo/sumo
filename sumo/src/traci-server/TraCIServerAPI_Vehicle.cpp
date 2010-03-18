@@ -61,10 +61,10 @@ bool
 TraCIServerAPI_Vehicle::processGet(tcpip::Storage &inputStorage,
                                    tcpip::Storage &outputStorage,
                                    bool withStatus) throw(TraCIException) {
-    string warning = ""; // additional description for response
+    std::string warning = ""; // additional description for response
     // variable & id
     int variable = inputStorage.readUnsignedByte();
-    string id = inputStorage.readString();
+    std::string id = inputStorage.readString();
     // check variable
     if (variable!=ID_LIST&&variable!=VAR_SPEED&&variable!=VAR_POSITION&&variable!=VAR_ANGLE
             &&variable!=VAR_ROAD_ID&&variable!=VAR_LANE_ID&&variable!=VAR_LANE_INDEX
@@ -287,7 +287,7 @@ TraCIServerAPI_Vehicle::processGet(tcpip::Storage &inputStorage,
 bool
 TraCIServerAPI_Vehicle::processSet(tcpip::Storage &inputStorage,
                                    tcpip::Storage &outputStorage) throw(TraCIException) {
-    string warning = ""; // additional description for response
+    std::string warning = ""; // additional description for response
     // variable
     int variable = inputStorage.readUnsignedByte();
     if (variable!=CMD_SETMAXSPEED&&variable!=CMD_STOP&&variable!=CMD_CHANGELANE
@@ -300,7 +300,7 @@ TraCIServerAPI_Vehicle::processSet(tcpip::Storage &inputStorage,
         return false;
     }
     // id
-    string id = inputStorage.readString();
+    std::string id = inputStorage.readString();
     MSVehicle *v = MSNet::getInstance()->getVehicleControl().getVehicle(id);
     if (v==0) {
         TraCIServerAPIHelper::writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Vehicle '" + id + "' is not known", outputStorage);
@@ -447,7 +447,7 @@ TraCIServerAPI_Vehicle::processSet(tcpip::Storage &inputStorage,
         break;
     case CMD_CHANGETARGET: {
         if (valueDataType!=TYPE_STRING) {
-            TraCIServerAPIHelper::writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Change target requires a string containing the id of the new destination edge as parameter.", outputStorage);
+            TraCIServerAPIHelper::writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Change target requires a std::string containing the id of the new destination edge as parameter.", outputStorage);
             return false;
         }
         std::string edgeID = inputStorage.readString();
