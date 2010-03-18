@@ -74,6 +74,11 @@ def writeSUMOConf(step, options, files):
         print >> fd, '        <emissions-output value="emissions_%s.xml"/>' % step
     if not options.noTripinfo:
         print >> fd, '        <tripinfo-output value="tripinfo_%s.xml"/>' % step
+    if options.routefile == "routesonly":
+        print >> fd, '         <vehroute-output value="vehroute_%s.xml"/>' % step
+    elif options.routefile == "detailed":
+        print >> fd, '         <vehroute-output value="vehroute_%s.xml"/>' % step
+        print >> fd, '         <vehroute-output.exit-times value="True"/>'
     print >> fd, "    </output>"
     print >> fd, '    <random_number><abs-rand value="%s"/></random_number>' % options.absrand
     print >> fd, '    <time><begin value="%s"/>' % options.begin,
@@ -169,7 +174,11 @@ optParser.add_option("-F", "--freezeit",  dest="freezeit",
                      type="int", default=1000, help="define the number of iterations for stablizing the results in the DTA-calibration")
 optParser.add_option("-V", "--varscale",  dest="varscale",
                      type="float", default=1., help="define variance of the measured traffi flows for the DTA-calibration")
-                     
+
+optParser.add_option("-x", "--vehroute-file",  dest="routefile", type="choice",
+                     choices=('None', 'routesonly', 'detailed'), 
+                     default = 'None', help="choose OD type")
+
 (options, args) = optParser.parse_args()
 if not options.net or not options.trips:
     optParser.error("At least --net-file and --trips have to be given!")
