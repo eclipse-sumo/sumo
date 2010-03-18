@@ -205,19 +205,23 @@ MSVehicleControl::scheduleVehicleRemoval(MSVehicle *v) throw() {
         OutputDevice& od = OutputDevice::getDeviceByOption("vehroute-output");
         SUMOTime realDepart = (SUMOTime) v->getCORNIntValue(MSCORN::CORN_VEH_DEPART_TIME);
         SUMOTime time = net->getCurrentTimeStep();
-        od
-        << "    <vehicle id=\"" << v->getID() << "\" depart=\""
+        od.openTag("vehicle") << " id=\"" << v->getID() << "\" depart=\""
         << v->getCORNIntValue(MSCORN::CORN_VEH_DEPART_TIME)
         << "\" arrival=\"" << MSNet::getInstance()->getCurrentTimeStep()
-        << "\">" << "\n";
+        << "\">\n";
         if (v->hasCORNIntValue(MSCORN::CORN_VEH_NUMBERROUTE)) {
+            od.openTag("routeDistribution") << ">\n";
             int noReroutes = v->getCORNIntValue(MSCORN::CORN_VEH_NUMBERROUTE);
             for (int i=0; i<noReroutes; ++i) {
                 v->writeXMLRoute(od, i);
             }
         }
         v->writeXMLRoute(od);
-        od << "   </vehicle>\n\n";
+        if (v->hasCORNIntValue(MSCORN::CORN_VEH_NUMBERROUTE)) {
+            od.closeTag();
+        }
+        od.closeTag();
+        od << "\n";
     }
     // check whether to save information about the vehicle's trip
     if (MSCORN::wished(MSCORN::CORN_MEAN_VEH_TRAVELTIME)) {

@@ -212,6 +212,9 @@ MSNet::closeBuilding(MSEdgeControl *edges, MSJunctionControl *junctions,
     }
     if (OptionsCont::getOptions().isSet("vehroute-output")) {
         MSCORN::setWished(MSCORN::CORN_OUT_VEHROUTES);
+        if (OptionsCont::getOptions().getBool("vehroute-output.exit-times")) {
+            MSCORN::setWished(MSCORN::CORN_VEH_SAVE_EDGE_EXIT);
+        }
     }
 
     // initialise performance computation

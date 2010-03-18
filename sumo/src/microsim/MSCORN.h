@@ -73,7 +73,7 @@ public:
         CORN_VEH_BLINKER,
         CORN_VEH_NUMBERROUTE,
         CORN_VEH_VAPORIZED,
-
+        CORN_VEH_SAVE_EDGE_EXIT,
 
         CORN_MAX
     };
@@ -83,6 +83,7 @@ public:
         CORN_P_VEH_ARRIVAL_INFO,
         CORN_P_VEH_OLDROUTE,
         CORN_P_VEH_PASSENGER,
+        CORN_P_VEH_EXIT_TIMES,
         CORN_P_MAX
     };
 

@@ -333,6 +333,12 @@ MSVehicle::moveRoutePointer(const MSEdge* targetEdge) throw() {
         // yep, let's continue driving
         return false;
     }
+    if (MSCORN::wished(MSCORN::CORN_VEH_SAVE_EDGE_EXIT)) {
+        if (myPointerCORNMap.find(MSCORN::CORN_P_VEH_EXIT_TIMES)==myPointerCORNMap.end()) {
+            myPointerCORNMap[MSCORN::CORN_P_VEH_EXIT_TIMES] = new std::vector<SUMOTime>();
+        }
+        ((std::vector<SUMOTime>*) myPointerCORNMap[MSCORN::CORN_P_VEH_EXIT_TIMES])->push_back(MSNet::getInstance()->getCurrentTimeStep());
+    }
     // search for the target in the vehicle's route. Usually there is
     // only one iteration. Only for very short edges a vehicle can
     // "jump" over one ore more edges in one timestep.
@@ -1734,23 +1740,23 @@ MSVehicle::getBestLanes(bool forceRebuild, MSLane *startLane) const throw() {
 void
 MSVehicle::writeXMLRoute(OutputDevice &os, int index) const {
     // check if a previous route shall be written
+    os.openTag("route");
     if (index>=0) {
         std::map<MSCORN::Pointer, void*>::const_iterator i = myPointerCORNMap.find(MSCORN::CORN_P_VEH_OLDROUTE);
         assert(i!=myPointerCORNMap.end());
         const ReplacedRoutesVector *v = (const ReplacedRoutesVector *)(*i).second;
         assert((int) v->size()>index);
         // write edge on which the vehicle was when the route was valid
-        os << "        <replacedRoute replacedOnEdge=\"" << (*v)[index].edge->getID();
+        os << " replacedOnEdge=\"" << (*v)[index].edge->getID();
         // write the time at which the route was replaced
-        os << "\" replacedAtTime=\"" << (*v)[index].time << "\" edges=\"";
+        os << "\" replacedAtTime=\"" << (*v)[index].time << "\" probability=\"0\" edges=\"";
         // get the route
         for (int i=0; i<index; ++i) {
             (*v)[i].route->writeEdgeIDs(os, (*v)[i].edge);
         }
         (*v)[index].route->writeEdgeIDs(os);
-        os << "\"/>\n";
     } else {
-        os << "        <route edges=\"";
+        os << " edges=\"";
         if (hasCORNIntValue(MSCORN::CORN_VEH_NUMBERROUTE)) {
             int noReroutes = getCORNIntValue(MSCORN::CORN_VEH_NUMBERROUTE);
             std::map<MSCORN::Pointer, void*>::const_iterator it = myPointerCORNMap.find(MSCORN::CORN_P_VEH_OLDROUTE);
@@ -1762,8 +1768,18 @@ MSVehicle::writeXMLRoute(OutputDevice &os, int index) const {
             }
         }
         myRoute->writeEdgeIDs(os);
-        os << "\"/>\n";
+        if (hasCORNPointerValue(MSCORN::CORN_P_VEH_EXIT_TIMES)) {
+            os << "\" exitTimes=\"";
+            const std::vector<SUMOTime> *exits = (const std::vector<SUMOTime> *)getCORNPointerValue(MSCORN::CORN_P_VEH_EXIT_TIMES);
+            for (std::vector<SUMOTime>::const_iterator it = exits->begin(); it != exits->end(); ++it) {
+                if (it != exits->begin()) {
+                    os << " ";
+                }
+                os << (*it);
+            }
+        }
     }
+    (os << "\"").closeTag(true);
 }
 
 

@@ -118,6 +118,10 @@ MSFrame::fillOptions() {
     oc.addSynonyme("vehroute-output", "vehroutes");
     oc.addDescription("vehroute-output", "Output", "Save single vehicle route inf. into FILE");
 
+    oc.doRegister("vehroute-output.exit-times", new Option_Bool(false));
+    oc.addSynonyme("vehroute-output.exit-times", "vehroutes.exit-times");
+    oc.addDescription("vehroute-output.exit-times", "Output", "Write the exit times for all edges");
+
 #ifdef HAVE_MESOSIM
     oc.doRegister("save-state.times", new Option_IntVector(IntVector()));//!!! check, describe
     oc.addDescription("save-state.times", "Output", "Use INT[] as times at which a network state written");
@@ -289,6 +293,10 @@ MSFrame::checkOptions() {
             MsgHandler::getErrorInstance()->inform("Invalid dua step");
             ok = false;
         }
+    }
+    if (oc.getBool("vehroutes.exit-times") && !oc.isSet("vehroutes")) {
+        MsgHandler::getErrorInstance()->inform("A vehroute-output file is needed for exit times.");
+        ok = false;
     }
     return ok;
 }
