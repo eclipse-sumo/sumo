@@ -45,24 +45,18 @@
 
 
 // ===========================================================================
-// used namespaces
-// ===========================================================================
-using namespace std;
-
-
-// ===========================================================================
 // member method definitions
 // ===========================================================================
-NBOwnTLDef::NBOwnTLDef(const string &id,
-                       const vector<NBNode*> &junctions) throw()
+NBOwnTLDef::NBOwnTLDef(const std::string &id,
+                       const std::vector<NBNode*> &junctions) throw()
         : NBTrafficLightDefinition(id, junctions) {}
 
 
-NBOwnTLDef::NBOwnTLDef(const string &id, NBNode *junction) throw()
+NBOwnTLDef::NBOwnTLDef(const std::string &id, NBNode *junction) throw()
         : NBTrafficLightDefinition(id, junction) {}
 
 
-NBOwnTLDef::NBOwnTLDef(const string &id) throw()
+NBOwnTLDef::NBOwnTLDef(const std::string &id) throw()
         : NBTrafficLightDefinition(id) {}
 
 
@@ -96,14 +90,14 @@ SUMOReal
 NBOwnTLDef::computeUnblockedWeightedStreamNumber(const NBEdge * const e1, const NBEdge * const e2) throw() {
     SUMOReal val = 0;
     for (unsigned int e1l=0; e1l<e1->getNoLanes(); e1l++) {
-        vector<NBEdge::Connection> approached1 = e1->getConnectionsFromLane(e1l);
+        std::vector<NBEdge::Connection> approached1 = e1->getConnectionsFromLane(e1l);
         for (unsigned int e2l=0; e2l<e2->getNoLanes(); e2l++) {
-            vector<NBEdge::Connection> approached2 = e2->getConnectionsFromLane(e2l);
-            for (vector<NBEdge::Connection>::iterator e1c=approached1.begin(); e1c!=approached1.end(); ++e1c) {
+            std::vector<NBEdge::Connection> approached2 = e2->getConnectionsFromLane(e2l);
+            for (std::vector<NBEdge::Connection>::iterator e1c=approached1.begin(); e1c!=approached1.end(); ++e1c) {
                 if (e1->getTurnDestination()==(*e1c).toEdge) {
                     continue;
                 }
-                for (vector<NBEdge::Connection>::iterator e2c=approached2.begin(); e2c!=approached2.end(); ++e2c) {
+                for (std::vector<NBEdge::Connection>::iterator e2c=approached2.begin(); e2c!=approached2.end(); ++e2c) {
                     if (e2->getTurnDestination()==(*e2c).toEdge) {
                         continue;
                     }
@@ -119,21 +113,21 @@ NBOwnTLDef::computeUnblockedWeightedStreamNumber(const NBEdge * const e1, const 
 }
 
 
-pair<NBEdge*, NBEdge*>
-NBOwnTLDef::getBestCombination(const vector<NBEdge*> &edges) throw() {
-    pair<NBEdge*, NBEdge*> bestPair(0,0);
+std::pair<NBEdge*, NBEdge*>
+NBOwnTLDef::getBestCombination(const std::vector<NBEdge*> &edges) throw() {
+    std::pair<NBEdge*, NBEdge*> bestPair(0,0);
     SUMOReal bestValue = -1;
-    for (vector<NBEdge*>::const_iterator i=edges.begin(); i!=edges.end(); ++i) {
-        for (vector<NBEdge*>::const_iterator j=i+1; j!=edges.end(); ++j) {
+    for (std::vector<NBEdge*>::const_iterator i=edges.begin(); i!=edges.end(); ++i) {
+        for (std::vector<NBEdge*>::const_iterator j=i+1; j!=edges.end(); ++j) {
             SUMOReal value = computeUnblockedWeightedStreamNumber(*i, *j);
             if (value>bestValue) {
                 bestValue = value;
-                bestPair = pair<NBEdge*, NBEdge*>(*i, *j);
+                bestPair = std::pair<NBEdge*, NBEdge*>(*i, *j);
             } else if (value==bestValue) {
                 SUMOReal ca = GeomHelper::getMinAngleDiff((*i)->getAngle(*(*i)->getToNode()), (*j)->getAngle(*(*j)->getToNode()));
                 SUMOReal oa = GeomHelper::getMinAngleDiff(bestPair.first->getAngle(*bestPair.first->getToNode()), bestPair.second->getAngle(*bestPair.second->getToNode()));
                 if (oa<ca) {
-                    bestPair = pair<NBEdge*, NBEdge*>(*i, *j);
+                    bestPair = std::pair<NBEdge*, NBEdge*>(*i, *j);
                 }
             }
         }
@@ -142,29 +136,29 @@ NBOwnTLDef::getBestCombination(const vector<NBEdge*> &edges) throw() {
 }
 
 
-pair<NBEdge*, NBEdge*>
-NBOwnTLDef::getBestPair(vector<NBEdge*> &incoming) throw() {
+std::pair<NBEdge*, NBEdge*>
+NBOwnTLDef::getBestPair(std::vector<NBEdge*> &incoming) throw() {
     if (incoming.size()==1) {
         // only one there - return the one
-        pair<NBEdge*, NBEdge*> ret(*incoming.begin(), 0);
+        std::pair<NBEdge*, NBEdge*> ret(*incoming.begin(), 0);
         incoming.clear();
         return ret;
     }
     // determine the best combination
     //  by priority, first
-    vector<NBEdge*> used;
-    sort(incoming.begin(), incoming.end(), edge_by_incoming_priority_sorter());
+    std::vector<NBEdge*> used;
+    std::sort(incoming.begin(), incoming.end(), edge_by_incoming_priority_sorter());
     used.push_back(*incoming.begin()); // the first will definitely be used
     // get the ones with the same priority
     int prio = getToPrio(*used.begin());
-    for (vector<NBEdge*>::iterator i=incoming.begin()+1; i!=incoming.end()&&prio!=getToPrio(*i); ++i) {
+    for (std::vector<NBEdge*>::iterator i=incoming.begin()+1; i!=incoming.end()&&prio!=getToPrio(*i); ++i) {
         used.push_back(*i);
     }
     //  if there only lower priorised, use these, too
     if (used.size()<2) {
         used = incoming;
     }
-    pair<NBEdge*, NBEdge*> ret = getBestCombination(used);
+    std::pair<NBEdge*, NBEdge*> ret = getBestCombination(used);
     incoming.erase(find(incoming.begin(), incoming.end(), ret.first));
     incoming.erase(find(incoming.begin(), incoming.end(), ret.second));
     return ret;
@@ -176,8 +170,8 @@ NBOwnTLDef::myCompute(const NBEdgeCont &,
                       unsigned int brakingTime) throw() {
     // build complete lists first
     const EdgeVector &incoming = getIncomingEdges();
-    vector<NBEdge*> fromEdges, toEdges;
-    vector<bool> isLeftMoverV, isTurnaround;
+    std::vector<NBEdge*> fromEdges, toEdges;
+    std::vector<bool> isLeftMoverV, isTurnaround;
     unsigned int noLanesAll = 0;
     unsigned int noLinksAll = 0;
     for (unsigned int i1=0; i1<incoming.size(); i1++) {
@@ -185,7 +179,7 @@ NBOwnTLDef::myCompute(const NBEdgeCont &,
         noLanesAll += noLanes;
         for (unsigned int i2=0; i2<noLanes; i2++) {
             NBEdge *fromEdge = incoming[i1];
-            vector<NBEdge::Connection> approached = fromEdge->getConnectionsFromLane(i2);
+            std::vector<NBEdge::Connection> approached = fromEdge->getConnectionsFromLane(i2);
             noLinksAll += (unsigned int) approached.size();
             for (unsigned int i3=0; i3<approached.size(); i3++) {
                 if (!fromEdge->mayBeTLSControlled(i2, approached[i3].toEdge, approached[i3].toLane)) {
@@ -215,12 +209,12 @@ NBOwnTLDef::myCompute(const NBEdgeCont &,
     }
 
     NBTrafficLightLogic *logic = new NBTrafficLightLogic(getID(), "0", noLinksAll);
-    vector<NBEdge*> toProc = incoming;
+    std::vector<NBEdge*> toProc = incoming;
     // build all phases
     while (toProc.size()>0) {
-        pair<NBEdge*, NBEdge*> chosen;
+        std::pair<NBEdge*, NBEdge*> chosen;
         if (incoming.size()==2) {
-            chosen = pair<NBEdge*, NBEdge*>(toProc[0], 0);
+            chosen = std::pair<NBEdge*, NBEdge*>(toProc[0], 0);
             toProc.erase(toProc.begin());
         } else {
             chosen = getBestPair(toProc);
@@ -237,7 +231,7 @@ NBOwnTLDef::myCompute(const NBEdgeCont &,
             bool inChosen = fromEdge==chosen.first||fromEdge==chosen.second;//chosen.find(fromEdge)!=chosen.end();
             unsigned int noLanes = fromEdge->getNoLanes();
             for (unsigned int i2=0; i2<noLanes; i2++) {
-                vector<NBEdge::Connection> approached = fromEdge->getConnectionsFromLane(i2);
+                std::vector<NBEdge::Connection> approached = fromEdge->getConnectionsFromLane(i2);
                 for (unsigned int i3=0; i3<approached.size(); ++i3) {
                     if (!fromEdge->mayBeTLSControlled(i2, approached[i3].toEdge, approached[i3].toLane)) {
                         continue;
@@ -352,8 +346,8 @@ NBOwnTLDef::collectLinks() throw(ProcessError) {
         NBEdge *incoming = *i;
         unsigned int noLanes = incoming->getNoLanes();
         for (unsigned int j=0; j<noLanes; j++) {
-            vector<NBEdge::Connection> connected = incoming->getConnectionsFromLane(j);
-            for (vector<NBEdge::Connection>::iterator k=connected.begin(); k!=connected.end(); k++) {
+            std::vector<NBEdge::Connection> connected = incoming->getConnectionsFromLane(j);
+            for (std::vector<NBEdge::Connection>::iterator k=connected.begin(); k!=connected.end(); k++) {
                 const NBEdge::Connection &el = *k;
                 if (incoming->mayBeTLSControlled(el.fromLane, el.toEdge, el.toLane)) {
                     if (el.toEdge!=0&&el.toLane>=(int) el.toEdge->getNoLanes()) {

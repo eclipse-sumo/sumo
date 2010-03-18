@@ -37,12 +37,6 @@
 
 
 // ===========================================================================
-// used namespaces
-// ===========================================================================
-using namespace std;
-
-
-// ===========================================================================
 // method definitions
 // ===========================================================================
 NIVissimSingleTypeParser_Fahrverhaltendefinition::NIVissimSingleTypeParser_Fahrverhaltendefinition(NIImporter_Vissim &parent)
@@ -54,7 +48,7 @@ NIVissimSingleTypeParser_Fahrverhaltendefinition::~NIVissimSingleTypeParser_Fahr
 
 bool
 NIVissimSingleTypeParser_Fahrverhaltendefinition::parse(std::istream &from) {
-    string tmp;
+    std::string tmp;
     from >> tmp;
     // in the both next cases, we do not have to overread anything
     if (tmp=="BEHALT_ALTE_PARA" || tmp=="ANZ_VM") {

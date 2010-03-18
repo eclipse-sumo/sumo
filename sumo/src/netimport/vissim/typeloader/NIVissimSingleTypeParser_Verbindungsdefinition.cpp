@@ -40,12 +40,6 @@
 
 
 // ===========================================================================
-// used namespaces
-// ===========================================================================
-using namespace std;
-
-
-// ===========================================================================
 // method definitions
 // ===========================================================================
 NIVissimSingleTypeParser_Verbindungsdefinition::NIVissimSingleTypeParser_Verbindungsdefinition(NIImporter_Vissim &parent)
@@ -59,9 +53,9 @@ bool
 NIVissimSingleTypeParser_Verbindungsdefinition::parse(std::istream &from) {
     int id;
     from >> id; // type-checking is missing!
-    string tag;
+    std::string tag;
     // Read optional value "Name", skip optional value "Beschriftung"
-    string name;
+    std::string name;
     while (tag!="von") {
         tag = overrideOptionalLabel(from);
         if (tag=="name") {
@@ -73,8 +67,8 @@ NIVissimSingleTypeParser_Verbindungsdefinition::parse(std::istream &from) {
     Position2DVector geom;
     tag = myRead(from); // "ueber"
     while (tag!="nach") {
-        string x = myRead(from);
-        string y = myRead(from);
+        std::string x = myRead(from);
+        std::string y = myRead(from);
         if (y!="nach") {
             geom.push_back_noDoublePos(
                 Position2D(

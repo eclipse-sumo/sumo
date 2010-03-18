@@ -54,12 +54,6 @@
 
 
 // ===========================================================================
-// used namespaces
-// ===========================================================================
-using namespace std;
-
-
-// ===========================================================================
 // definitions
 // ===========================================================================
 #define C_LENGTH 10.
@@ -81,8 +75,8 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
     std::vector<OpenDriveEdge> innerEdges, outerEdges;
     NIImporter_OpenDrive handler(nb.getNodeCont(), innerEdges, outerEdges);
     // parse file(s)
-    vector<string> files = oc.getStringVector("opendrive");
-    for (vector<string>::const_iterator file=files.begin(); file!=files.end(); ++file) {
+    std::vector<std::string> files = oc.getStringVector("opendrive");
+    for (std::vector<std::string>::const_iterator file=files.begin(); file!=files.end(); ++file) {
         if (!FileHelpers::exists(*file)) {
             MsgHandler::getErrorInstance()->inform("Could not open opendrive file '" + *file + "'.");
             return;
@@ -384,7 +378,7 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
     */
     for (std::vector<Connection>::const_iterator i=connections.begin(); i!=connections.end(); ++i) {
         if ((*i).from==0 || (*i).to==0) {
-            cout << "Nope." << endl;
+            std::cout << "Nope." << std::endl;
             continue;
         }
         if ((*i).from->getID()=="-2512" && (*i).to->getID()=="-2203") {
@@ -393,16 +387,16 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
 
         (*i).from->addEdge2EdgeConnection((*i).to);
 
-        map<int, int> fromMap = fromLaneMap[(*i).from];
-        map<int, int> toMap = fromLaneMap[(*i).to];
+        std::map<int, int> fromMap = fromLaneMap[(*i).from];
+        std::map<int, int> toMap = fromLaneMap[(*i).to];
         for (std::vector<std::pair<int, int> >::const_iterator j=(*i).lanes.begin(); j!=(*i).lanes.end(); ++j) {
             int fromLane = fromMap[(*j).first];
             int toLane = toMap[(*j).second];
             if (fromLane>=(*i).from->getNoLanes()||fromLane<0) {
-                cout << "False " << endl;
+                std::cout << "False " << std::endl;
             }
             if (toLane>=(*i).to->getNoLanes()||toLane<0) {
-                cout << "False " << endl;
+                std::cout << "False " << std::endl;
             }
 
             (*i).from->addLane2LaneConnection(fromLane, (*i).to, toLane, NBEdge::L2L_VALIDATED, true);
@@ -514,10 +508,10 @@ NIImporter_OpenDrive::setLaneConnections(NIImporter_OpenDrive::Connection &c,
             continue;
         }
         if (!fromAtBegin && (*i).successor!=UNSET_CONNECTION) {
-            c.lanes.push_back(make_pair((*i).id, (*i).successor));
+            c.lanes.push_back(std::make_pair((*i).id, (*i).successor));
         }
         if (fromAtBegin && (*i).predecessor!=UNSET_CONNECTION) {
-            c.lanes.push_back(make_pair((*i).id, (*i).predecessor));
+            c.lanes.push_back(std::make_pair((*i).id, (*i).predecessor));
         }
     }
     for (std::vector<OpenDriveLane>::const_iterator i=toLanes.begin(); i!=toLanes.end(); ++i) {
@@ -525,10 +519,10 @@ NIImporter_OpenDrive::setLaneConnections(NIImporter_OpenDrive::Connection &c,
             continue;
         }
         if (!toAtEnd && (*i).predecessor!=UNSET_CONNECTION) {
-            c.lanes.push_back(make_pair((*i).predecessor, (*i).id));
+            c.lanes.push_back(std::make_pair((*i).predecessor, (*i).id));
         }
         if (toAtEnd && (*i).successor!=UNSET_CONNECTION) {
-            c.lanes.push_back(make_pair((*i).successor, (*i).id));
+            c.lanes.push_back(std::make_pair((*i).successor, (*i).id));
         }
     }
 }
@@ -551,7 +545,7 @@ NIImporter_OpenDrive::setLaneConnections(NIImporter_OpenDrive::Connection &c,
         int viaLane = (*i).second;
         for (std::vector<std::pair<int, int> >::const_iterator j=via2to.lanes.begin(); j!=via2to.lanes.end(); ++j) {
             if ((*j).first==viaLane) {
-                c.lanes.push_back(make_pair(fromLane, (*j).second));
+                c.lanes.push_back(std::make_pair(fromLane, (*j).second));
                 break;
             }
         }
@@ -856,7 +850,7 @@ NIImporter_OpenDrive::myStartElement(SumoXMLTag element,
             attrs.hasAttribute(SUMO_ATTR_OPENDRIVE_ID)
             ? attrs.getStringReporting(SUMO_ATTR_OPENDRIVE_ID, "road", 0, ok)
             : attrs.getStringReporting(SUMO_ATTR_ID, "road", 0, ok);
-        cout << "found edge '" << id << "'" << endl;
+        std::cout << "found edge '" << id << "'" << std::endl;
         std::string junction = attrs.getStringReporting(SUMO_ATTR_OPENDRIVE_JUNCTION, "road", id.c_str(), ok);
         SUMOReal length = attrs.getSUMORealReporting(SUMO_ATTR_OPENDRIVE_LENGTH, "road", id.c_str(), ok);
         myCurrentEdge = OpenDriveEdge(id, junction, length);

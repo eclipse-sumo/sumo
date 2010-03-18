@@ -50,12 +50,6 @@
 
 
 // ===========================================================================
-// used namespaces
-// ===========================================================================
-using namespace std;
-
-
-// ===========================================================================
 // method definitions
 // ===========================================================================
 // ---------------------------------------------------------------------------
@@ -70,8 +64,8 @@ NIImporter_SUMO::loadNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
     // build the handler
     NIImporter_SUMO handler(nb.getNodeCont());
     // parse file(s)
-    vector<string> files = oc.getStringVector("sumo-net");
-    for (vector<string>::const_iterator file=files.begin(); file!=files.end(); ++file) {
+    std::vector<std::string> files = oc.getStringVector("sumo-net");
+    for (std::vector<std::string>::const_iterator file=files.begin(); file!=files.end(); ++file) {
         if (!FileHelpers::exists(*file)) {
             MsgHandler::getErrorInstance()->inform("Could not open sumo-net-file '" + *file + "'.");
             return;
@@ -82,10 +76,10 @@ NIImporter_SUMO::loadNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
         MsgHandler::getMessageInstance()->endProcessMsg("done.");
     }
     // build edges
-    map<string, EdgeAttrs*> &loadedEdges = handler.myEdges;
+    std::map<std::string, EdgeAttrs*> &loadedEdges = handler.myEdges;
     NBNodeCont &nodesCont = nb.getNodeCont();
     NBEdgeCont &edgesCont = nb.getEdgeCont();
-    for (map<string, EdgeAttrs*>::const_iterator i=loadedEdges.begin(); i!=loadedEdges.end(); ++i) {
+    for (std::map<std::string, EdgeAttrs*>::const_iterator i=loadedEdges.begin(); i!=loadedEdges.end(); ++i) {
         EdgeAttrs *ed = (*i).second;
         // get and check the nodes
         NBNode *from = nodesCont.retrieve(ed->fromNode);
@@ -108,18 +102,18 @@ NIImporter_SUMO::loadNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
         ed->builtEdge = edgesCont.retrieve(ed->id);
     }
     // assign lane attributes (edges are built)
-    for (map<string, EdgeAttrs*>::const_iterator i=loadedEdges.begin(); i!=loadedEdges.end(); ++i) {
+    for (std::map<std::string, EdgeAttrs*>::const_iterator i=loadedEdges.begin(); i!=loadedEdges.end(); ++i) {
         EdgeAttrs *ed = (*i).second;
         if (ed->builtEdge==0) {
             // earlier errors
             continue;
         }
         for (unsigned int j=0; j<(unsigned int) ed->lanes.size(); ++j) {
-            const vector<EdgeLane> &connections = ed->lanes[j]->connections;
+            const std::vector<EdgeLane> &connections = ed->lanes[j]->connections;
             for (std::vector<EdgeLane>::const_iterator k=connections.begin(); k!=connections.end(); ++k) {
                 if ((*k).lane!="SUMO_NO_DESTINATION") {
-                    string lane = (*k).lane;
-                    string edge = lane.substr(0, lane.find('_'));
+                    std::string lane = (*k).lane;
+                    std::string edge = lane.substr(0, lane.find('_'));
                     int index = TplConvert<char>::_2int(lane.substr(lane.find('_')+1).c_str());
                     if (loadedEdges.find(edge)==loadedEdges.end()) {
                         MsgHandler::getErrorInstance()->inform("Unknown edge given in succlane (for lane '" + lane + "').");
@@ -136,9 +130,9 @@ NIImporter_SUMO::loadNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
         }
     }
     // clean up
-    for (map<string, EdgeAttrs*>::const_iterator i=loadedEdges.begin(); i!=loadedEdges.end(); ++i) {
+    for (std::map<std::string, EdgeAttrs*>::const_iterator i=loadedEdges.begin(); i!=loadedEdges.end(); ++i) {
         EdgeAttrs *ed = (*i).second;
-        for (vector<LaneAttrs*>::const_iterator j=ed->lanes.begin(); j!=ed->lanes.end(); ++j) {
+        for (std::vector<LaneAttrs*>::const_iterator j=ed->lanes.begin(); j!=ed->lanes.end(); ++j) {
             delete *j;
         }
         delete ed;
@@ -225,7 +219,7 @@ NIImporter_SUMO::myEndElement(SumoXMLTag element) throw(ProcessError) {
 void
 NIImporter_SUMO::addEdge(const SUMOSAXAttributes &attrs) {
     // get the id, report an error if not given or empty...
-    string id;
+    std::string id;
     if (!attrs.setIDFromAttributes("edge", id)) {
         return;
     }
@@ -259,7 +253,7 @@ NIImporter_SUMO::addLane(const SUMOSAXAttributes &attrs) {
 void
 NIImporter_SUMO::addJunction(const SUMOSAXAttributes &attrs) {
     // get the id, report an error if not given or empty...
-    string id;
+    std::string id;
     if (!attrs.setIDFromAttributes("junction", id)) {
         return;
     }
@@ -291,8 +285,8 @@ NIImporter_SUMO::addJunction(const SUMOSAXAttributes &attrs) {
 void
 NIImporter_SUMO::addSuccEdge(const SUMOSAXAttributes &attrs) {
     bool ok = true;
-    string lane = attrs.getOptStringReporting(SUMO_ATTR_LANE, 0, 0, ok, "");
-    string edge = lane.substr(0, lane.find('_'));
+    std::string lane = attrs.getOptStringReporting(SUMO_ATTR_LANE, 0, 0, ok, "");
+    std::string edge = lane.substr(0, lane.find('_'));
     int index = TplConvert<char>::_2int(lane.substr(lane.find('_')+1).c_str());
     myCurrentEdge = 0;
     myCurrentLane = 0;
@@ -317,7 +311,7 @@ NIImporter_SUMO::addSuccLane(const SUMOSAXAttributes &attrs) {
         return;
     }
     bool ok = true;
-    string lane = attrs.getOptStringReporting(SUMO_ATTR_LANE, 0, 0, ok, "");
+    std::string lane = attrs.getOptStringReporting(SUMO_ATTR_LANE, 0, 0, ok, "");
     EdgeLane el;
     el.lane = lane;
     myCurrentLane->connections.push_back(el);

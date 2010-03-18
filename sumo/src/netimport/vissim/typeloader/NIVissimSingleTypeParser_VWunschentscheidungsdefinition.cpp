@@ -42,12 +42,6 @@
 
 
 // ===========================================================================
-// used namespaces
-// ===========================================================================
-using namespace std;
-
-
-// ===========================================================================
 // method definitions
 // ===========================================================================
 NIVissimSingleTypeParser_VWunschentscheidungsdefinition::NIVissimSingleTypeParser_VWunschentscheidungsdefinition(NIImporter_Vissim &parent)
@@ -59,24 +53,24 @@ NIVissimSingleTypeParser_VWunschentscheidungsdefinition::~NIVissimSingleTypePars
 
 bool
 NIVissimSingleTypeParser_VWunschentscheidungsdefinition::parse(std::istream &from) {
-    string tag;
+    std::string tag;
     from >> tag; // id
     from >> tag; // name
     tag = readName(from);
     tag = overrideOptionalLabel(from);
     from >> tag; // strecke
-    string edgeid;
+    std::string edgeid;
     from >> edgeid;
     from >> tag; // spur
-    string lane;
+    std::string lane;
     from >> lane;
     from >> tag; // bei
-    string pos;
+    std::string pos;
     from >> pos;
     from >> tag; // fahrzeugklasse
     from >> tag; // <fahrzeugklasse>
     from >> tag; // vwunsch
-    string vwunsch;
+    std::string vwunsch;
     from >> vwunsch; // vwunsch
     std::vector<std::string> tmp;
     tmp.push_back("zeit");

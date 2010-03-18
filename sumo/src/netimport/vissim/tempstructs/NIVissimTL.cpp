@@ -152,8 +152,8 @@ NIVissimTL::NIVissimTLSignal::addTo(NBEdgeCont &ec, NBLoadedTLDef *tl) const {
         //  by which lanes
         // check whether to use the original lanes only
         if (edge->lanesWereAssigned()) {
-            vector<NBEdge::Connection> connections = edge->getConnectionsFromLane(myLane-1);
-            for (vector<NBEdge::Connection>::iterator i=connections.begin(); i!=connections.end(); i++) {
+            std::vector<NBEdge::Connection> connections = edge->getConnectionsFromLane(myLane-1);
+            for (std::vector<NBEdge::Connection>::iterator i=connections.begin(); i!=connections.end(); i++) {
                 const NBEdge::Connection &conn = *i;
                 assert(myLane-1<(int)edge->getNoLanes());
                 assignedConnections.push_back(NBConnection(edge, myLane-1, conn.toEdge, conn.toLane));
@@ -161,8 +161,8 @@ NIVissimTL::NIVissimTLSignal::addTo(NBEdgeCont &ec, NBLoadedTLDef *tl) const {
         } else {
             WRITE_WARNING("Edge : Lanes were not assigned(!)");
             for (unsigned int j=0; j<edge->getNoLanes(); j++) {
-                vector<NBEdge::Connection> connections = edge->getConnectionsFromLane(j);
-                for (vector<NBEdge::Connection>::iterator i=connections.begin(); i!=connections.end(); i++) {
+                std::vector<NBEdge::Connection> connections = edge->getConnectionsFromLane(j);
+                for (std::vector<NBEdge::Connection>::iterator i=connections.begin(); i!=connections.end(); i++) {
                     const NBEdge::Connection &conn = *i;
                     assignedConnections.push_back(NBConnection(edge, j, conn.toEdge, conn.toLane));
                 }
@@ -286,7 +286,7 @@ NIVissimTL::NIVissimTLSignalGroup::addTo(NBLoadedTLDef *tl) const {
     // get the color at the begin
     NBTrafficLightDefinition::TLColor color = myFirstIsRed
             ? NBTrafficLightDefinition::TLCOLOR_RED : NBTrafficLightDefinition::TLCOLOR_GREEN;
-    string id = toString<int>(myID);
+    std::string id = toString<int>(myID);
     tl->addSignalGroup(id); // !!! myTimes als SUMOTime
     for (DoubleVector::const_iterator i=myTimes.begin(); i!=myTimes.end(); i++) {
         tl->addSignalGroupPhaseBegin(id, (SUMOTime) *i, color);
@@ -389,7 +389,7 @@ NIVissimTL::dict_SetSignals(NBTrafficLightLogicCont &tlc,
         			ref++;
         			continue;
         		}*/
-        string id = toString<int>(tl->myID);
+        std::string id = toString<int>(tl->myID);
         NBLoadedTLDef *def = new NBLoadedTLDef(id);
         if (!tlc.insert(def)) {
             MsgHandler::getErrorInstance()->inform("Error on adding a traffic light\n Must be a multiple id ('" + id + "')");

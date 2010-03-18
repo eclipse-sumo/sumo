@@ -39,12 +39,6 @@
 
 
 // ===========================================================================
-// used namespaces
-// ===========================================================================
-using namespace std;
-
-
-// ===========================================================================
 // method definitions
 // ===========================================================================
 NIVissimSingleTypeParser_Auswertungsdefinition::NIVissimSingleTypeParser_Auswertungsdefinition(NIImporter_Vissim &parent)
@@ -56,14 +50,14 @@ NIVissimSingleTypeParser_Auswertungsdefinition::~NIVissimSingleTypeParser_Auswer
 
 bool
 NIVissimSingleTypeParser_Auswertungsdefinition::parse(std::istream &from) {
-    string id;
+    std::string id;
     from >> id; // "typ"
 
     if (id=="DATENBANK") { // !!! unverified
         return true;
     }
 
-    string type = myRead(from);
+    std::string type = myRead(from);
     if (type=="abfluss") {
         while (type!="signalgruppe") {
             type = myRead(from);

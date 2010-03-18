@@ -46,12 +46,6 @@
 
 
 // ===========================================================================
-// used namespaces
-// ===========================================================================
-using namespace std;
-
-
-// ===========================================================================
 // method definitions
 // ===========================================================================
 NIXMLTypesHandler::NIXMLTypesHandler(NBTypeCont &tc)
@@ -69,7 +63,7 @@ NIXMLTypesHandler::myStartElement(SumoXMLTag element,
         return;
     }
     // get the id, report a warning if not given or empty...
-    string id;
+    std::string id;
     if (!attrs.setIDFromAttributes("type", id), false) {
         WRITE_WARNING("No type id given... Skipping.");
         return;

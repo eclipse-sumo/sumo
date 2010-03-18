@@ -54,12 +54,6 @@
 #endif // CHECK_MEMORY_LEAKS
 
 
-// ===========================================================================
-// used namespaces
-// ===========================================================================
-using namespace std;
-
-
 
 // ===========================================================================
 // Private classes
@@ -231,11 +225,11 @@ NIImporter_OpenStreetMap::loadNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
 
     /* Parse file(s)
      * Each file is parsed twice: first for nodes, second for edges. */
-    vector<string> files = oc.getStringVector("osm-files");
+    std::vector<std::string> files = oc.getStringVector("osm-files");
     // load nodes, first
     std::map<int, NIOSMNode*> nodes;
     NodesHandler nodesHandler(nodes);
-    for (vector<string>::const_iterator file=files.begin(); file!=files.end(); ++file) {
+    for (std::vector<std::string>::const_iterator file=files.begin(); file!=files.end(); ++file) {
         // nodes
         if (!FileHelpers::exists(*file)) {
             MsgHandler::getErrorInstance()->inform("Could not open osm-file '" + *file + "'.");
@@ -249,7 +243,7 @@ NIImporter_OpenStreetMap::loadNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
     // load edges, then
     std::map<std::string, Edge*> edges;
     EdgesHandler edgesHandler(nodes, edges);
-    for (vector<string>::const_iterator file=files.begin(); file!=files.end(); ++file) {
+    for (std::vector<std::string>::const_iterator file=files.begin(); file!=files.end(); ++file) {
         // edges
         edgesHandler.setFileName(*file);
         MsgHandler::getMessageInstance()->beginProcessMsg("Parsing edges from osm-file '" + *file + "'...");
@@ -266,8 +260,8 @@ NIImporter_OpenStreetMap::loadNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
     if (nodes.size() > 1) {
         // The algorithm compares a node (it) with the remaining part
         // of the list ( [itnext; end()[ ).
-        for (map<int, NIOSMNode*>::iterator it = nodes.begin(), itnext =++nodes.begin(); itnext != nodes.end(); ++it, ++itnext) {
-            map<int, NIOSMNode*>::iterator dupNode = find_if(itnext, nodes.end(), CompareNodesInPairs(*it));
+        for (std::map<int, NIOSMNode*>::iterator it = nodes.begin(), itnext =++nodes.begin(); itnext != nodes.end(); ++it, ++itnext) {
+            std::map<int, NIOSMNode*>::iterator dupNode = find_if(itnext, nodes.end(), CompareNodesInPairs(*it));
             if (dupNode != nodes.end()) {
                 MsgHandler::getMessageInstance()->inform("Found duplicate nodes. Substitute " + toString(dupNode->second->id) + " with " + toString(it->second->id));
                 for_each(edges.begin(), edges.end(), SubstituteNode(dupNode->second, it->second));
@@ -314,7 +308,7 @@ NIImporter_OpenStreetMap::loadNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
         }
     }
     // Mark which nodes are used by traffic lights
-    for (map<int, NIOSMNode*>::const_iterator nodesIt = nodes.begin(); nodesIt != nodes.end(); ++nodesIt) {
+    for (std::map<int, NIOSMNode*>::const_iterator nodesIt = nodes.begin(); nodesIt != nodes.end(); ++nodesIt) {
         if (nodesIt->second->tlsControlled) {
             // If the key is not found in the map, the value is automatically
             // initialized with 0.
@@ -404,7 +398,7 @@ NIImporter_OpenStreetMap::insertEdge(Edge *e, int index, NBNode *from, NBNode *t
                                      const std::vector<int> &passed, const std::map<int, NIOSMNode*> &osmNodes,
                                      NBNodeCont &nc, NBEdgeCont &ec, NBTypeCont &tc) throw(ProcessError) {
     // patch the id
-    string id = e->id;
+    std::string id = e->id;
     if (index>=0) {
         id = id + "#" + toString(index);
     }
@@ -426,8 +420,8 @@ NIImporter_OpenStreetMap::insertEdge(Edge *e, int index, NBNode *from, NBNode *t
     int noLanes = tc.getNoLanes(e->myHighWayType);
     SUMOReal speed = tc.getSpeed(e->myHighWayType);
     bool defaultsToOneWay = tc.getIsOneWay(e->myHighWayType);
-    vector<SUMOVehicleClass> allowedClasses = tc.getAllowedClasses(e->myHighWayType);
-    vector<SUMOVehicleClass> disallowedClasses = tc.getDisallowedClasses(e->myHighWayType);
+    std::vector<SUMOVehicleClass> allowedClasses = tc.getAllowedClasses(e->myHighWayType);
+    std::vector<SUMOVehicleClass> disallowedClasses = tc.getDisallowedClasses(e->myHighWayType);
     // check directions
     bool addSecond = true;
     if (e->myIsOneWay=="true"||e->myIsOneWay=="yes"||e->myIsOneWay=="1"||(defaultsToOneWay && e->myIsOneWay!="no" && e->myIsOneWay!="false" && e->myIsOneWay!="0")) {
@@ -541,12 +535,12 @@ NIImporter_OpenStreetMap::NodesHandler::myStartElement(SumoXMLTag element, const
             return;
         }
         bool ok = true;
-        string key = attrs.getStringReporting(SUMO_ATTR_K, "tag", toString(myLastNodeID).c_str(), ok);
-        string value = attrs.getStringReporting(SUMO_ATTR_V, "tag", toString(myLastNodeID).c_str(), ok);
+        std::string key = attrs.getStringReporting(SUMO_ATTR_K, "tag", toString(myLastNodeID).c_str(), ok);
+        std::string value = attrs.getStringReporting(SUMO_ATTR_V, "tag", toString(myLastNodeID).c_str(), ok);
         if (!ok) {
             return;
         }
-        if (key == "highway" && value.find("traffic_signal") != string::npos) {
+        if (key == "highway" && value.find("traffic_signal") != std::string::npos) {
             myToFill[myLastNodeID]->tlsControlled = true;
         }
     }
@@ -619,8 +613,8 @@ NIImporter_OpenStreetMap::EdgesHandler::myStartElement(SumoXMLTag element,
 			return;
 		}
         bool ok = true;
-        string key = attrs.getStringReporting(SUMO_ATTR_K, "way", toString(myCurrentEdge->id).c_str(), ok);
-        string value = attrs.getStringReporting(SUMO_ATTR_V, "way", toString(myCurrentEdge->id).c_str(), ok);
+        std::string key = attrs.getStringReporting(SUMO_ATTR_K, "way", toString(myCurrentEdge->id).c_str(), ok);
+        std::string value = attrs.getStringReporting(SUMO_ATTR_V, "way", toString(myCurrentEdge->id).c_str(), ok);
         if (!ok) {
             return;
         }

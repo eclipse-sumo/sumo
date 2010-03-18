@@ -52,12 +52,6 @@
 
 
 // ===========================================================================
-// used namespaces
-// ===========================================================================
-using namespace std;
-
-
-// ===========================================================================
 // method definitions
 // ===========================================================================
 NIXMLConnectionsHandler::NIXMLConnectionsHandler(NBEdgeCont &ec) throw()
@@ -73,8 +67,8 @@ NIXMLConnectionsHandler::myStartElement(SumoXMLTag element,
                                         const SUMOSAXAttributes &attrs) throw(ProcessError) {
     if (element==SUMO_TAG_RESET) {
         bool ok = true;
-        string from = attrs.getStringReporting(SUMO_ATTR_FROM, "reset", 0, ok);
-        string to = attrs.getStringReporting(SUMO_ATTR_TO, "reset", 0, ok);
+        std::string from = attrs.getStringReporting(SUMO_ATTR_FROM, "reset", 0, ok);
+        std::string to = attrs.getStringReporting(SUMO_ATTR_TO, "reset", 0, ok);
         if (!ok) {
             return;
         }
@@ -93,9 +87,9 @@ NIXMLConnectionsHandler::myStartElement(SumoXMLTag element,
 
     if (element==SUMO_TAG_CONNECTION) {
         bool ok = true;
-        string from = attrs.getOptStringReporting(SUMO_ATTR_FROM, "connection", 0, ok, "");
-        string to = attrs.getOptStringReporting(SUMO_ATTR_TO, "connection", 0, ok, "");
-        string laneConn = attrs.getOptStringReporting(SUMO_ATTR_LANE, "connection", 0, ok, "");
+        std::string from = attrs.getOptStringReporting(SUMO_ATTR_FROM, "connection", 0, ok, "");
+        std::string to = attrs.getOptStringReporting(SUMO_ATTR_TO, "connection", 0, ok, "");
+        std::string laneConn = attrs.getOptStringReporting(SUMO_ATTR_LANE, "connection", 0, ok, "");
         if (!ok) {
             return;
         }
@@ -128,8 +122,8 @@ NIXMLConnectionsHandler::myStartElement(SumoXMLTag element,
     }
     if (element==SUMO_TAG_PROHIBITION) {
         bool ok = true;
-        string prohibitor = attrs.getOptStringReporting(SUMO_ATTR_PROHIBITOR, "prohibition", 0, ok, "");
-        string prohibited = attrs.getOptStringReporting(SUMO_ATTR_PROHIBITED, "prohibition", 0, ok, "");
+        std::string prohibitor = attrs.getOptStringReporting(SUMO_ATTR_PROHIBITOR, "prohibition", 0, ok, "");
+        std::string prohibited = attrs.getOptStringReporting(SUMO_ATTR_PROHIBITED, "prohibition", 0, ok, "");
         if (!ok) {
             return;
         }
@@ -147,22 +141,22 @@ NIXMLConnectionsHandler::myStartElement(SumoXMLTag element,
 
 NBConnection
 NIXMLConnectionsHandler::parseConnection(const std::string &defRole,
-        const string &def) throw() {
+        const std::string &def) throw() {
     // split from/to
     size_t div = def.find("->");
-    if (div==string::npos) {
+    if (div==std::string::npos) {
         MsgHandler::getErrorInstance()->inform("Missing connection divider in " + defRole + " '" + def + "'");
         return NBConnection(0, 0);
     }
-    string fromDef = def.substr(0, div);
-    string toDef = def.substr(div+2);
+    std::string fromDef = def.substr(0, div);
+    std::string toDef = def.substr(div+2);
 
     // retrieve the edges
     // check whether the definition includes a lane information (do not process it)
-    if (fromDef.find('_')!=string::npos) {
+    if (fromDef.find('_')!=std::string::npos) {
         fromDef = fromDef.substr(0, fromDef.find('_'));
     }
-    if (toDef.find('_')!=string::npos) {
+    if (toDef.find('_')!=std::string::npos) {
         toDef = toDef.substr(0, toDef.find('_'));
     }
     // retrieve them now
@@ -190,7 +184,7 @@ NIXMLConnectionsHandler::parseLaneBound(const SUMOSAXAttributes &attrs,
         return;
     }
     bool ok = true;
-    string laneConn = attrs.getOptStringReporting(SUMO_ATTR_LANE, "connection", 0, ok, "");
+    std::string laneConn = attrs.getOptStringReporting(SUMO_ATTR_LANE, "connection", 0, ok, "");
     // split the information
     StringTokenizer st(laneConn, ':');
     if (st.size()!=2) {

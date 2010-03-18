@@ -48,12 +48,6 @@
 
 
 // ===========================================================================
-// used namespaces
-// ===========================================================================
-using namespace std;
-
-
-// ===========================================================================
 // method definitions
 // ===========================================================================
 RORDLoader_SUMOBase::RORDLoader_SUMOBase(RONet &net,
@@ -162,7 +156,7 @@ void
 RORDLoader_SUMOBase::startAlternative(const SUMOSAXAttributes &attrs) {
     // try to get the id
     myCurrentIsOk = true;
-    string id;
+    std::string id;
     if (myVehicleParameter!=0) {
         id = myVehicleParameter->id;
         if (id=="") {
@@ -212,7 +206,7 @@ RORDLoader_SUMOBase::myCharacters(SumoXMLTag element,
     std::vector<const ROEdge*> *list = new std::vector<const ROEdge*>();
     StringTokenizer st(chars);
     while (myCurrentIsOk&&st.hasNext()) { // !!! too slow !!!
-        string id = st.next();
+        std::string id = st.next();
         ROEdge *edge = myNet.getEdge(id);
         if (edge!=0) {
             list->push_back(edge);

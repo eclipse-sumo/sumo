@@ -52,12 +52,6 @@
 
 
 // ===========================================================================
-// used namespaces
-// ===========================================================================
-using namespace std;
-
-
-// ===========================================================================
 // static member variables
 // ===========================================================================
 size_t NBRequest::myGoodBuilds = 0;
@@ -121,10 +115,10 @@ NBRequest::NBRequest(const NBEdgeCont &ec,
                     myGoodBuilds++;
                 }
             } else {
-                string pfID = prohibited.getFrom()!=0 ? prohibited.getFrom()->getID() : "UNKNOWN";
-                string ptID = prohibited.getTo()!=0 ? prohibited.getTo()->getID() : "UNKNOWN";
-                string bfID = sprohibiting.getFrom()!=0 ? sprohibiting.getFrom()->getID() : "UNKNOWN";
-                string btID = sprohibiting.getTo()!=0 ? sprohibiting.getTo()->getID() : "UNKNOWN";
+                std::string pfID = prohibited.getFrom()!=0 ? prohibited.getFrom()->getID() : "UNKNOWN";
+                std::string ptID = prohibited.getTo()!=0 ? prohibited.getTo()->getID() : "UNKNOWN";
+                std::string bfID = sprohibiting.getFrom()!=0 ? sprohibiting.getFrom()->getID() : "UNKNOWN";
+                std::string btID = sprohibiting.getTo()!=0 ? sprohibiting.getTo()->getID() : "UNKNOWN";
                 WRITE_WARNING("could not prohibit " + pfID + "->" + ptID+ " by "+ bfID + "->" + btID);
                 myNotBuild++;
             }
@@ -324,21 +318,21 @@ NBRequest::distanceCounterClockwise(NBEdge *from, NBEdge *to) {
 }
 
 
-string
-NBRequest::bitsetToXML(string key) {
-    ostringstream os;
+std::string
+NBRequest::bitsetToXML(std::string key) {
+    std::ostringstream os;
     // reset signalised/non-signalised dependencies
     resetSignalised();
     // init
-    pair<size_t, size_t> sizes = getSizes();
+    std::pair<size_t, size_t> sizes = getSizes();
     size_t absNoLinks = sizes.second;
     size_t absNoLanes = sizes.first;
     assert(absNoLinks>=absNoLanes);
     os << "   <row-logic id=\"" << key << "\" requestSize=\"" << absNoLinks
-    << "\" laneNumber=\"" << absNoLanes << "\">" << endl;
+    << "\" laneNumber=\"" << absNoLanes << "\">" << std::endl;
     int pos = 0;
     // save the logic
-    os << "      <logic>" << endl;
+    os << "      <logic>" << std::endl;
     EdgeVector::const_iterator i;
     for (i=myIncoming->begin(); i!=myIncoming->end(); i++) {
         unsigned int noLanes = (*i)->getNoLanes();
@@ -346,8 +340,8 @@ NBRequest::bitsetToXML(string key) {
             pos = writeLaneResponse(os, *i, k, pos);
         }
     }
-    os << "      </logic>" << endl;
-    os << "   </row-logic>" << endl;
+    os << "      </logic>" << std::endl;
+    os << "   </row-logic>" << std::endl;
     return os.str();
 }
 
@@ -358,8 +352,8 @@ NBRequest::resetSignalised() {
     for (EdgeVector::const_iterator i11=myIncoming->begin(); i11!=myIncoming->end(); i11++) {
         unsigned int noLanesEdge1 = (*i11)->getNoLanes();
         for (unsigned int j1=0; j1<noLanesEdge1; j1++) {
-            vector<NBEdge::Connection> el1 = (*i11)->getConnectionsFromLane(j1);
-            for (vector<NBEdge::Connection>::iterator i12=el1.begin(); i12!=el1.end(); ++i12) {
+            std::vector<NBEdge::Connection> el1 = (*i11)->getConnectionsFromLane(j1);
+            for (std::vector<NBEdge::Connection>::iterator i12=el1.begin(); i12!=el1.end(); ++i12) {
                 int idx1 = getIndex((*i11), (*i12).toEdge);
                 if (idx1<0) {
                     continue;
@@ -368,8 +362,8 @@ NBRequest::resetSignalised() {
                 for (EdgeVector::const_iterator i21=myIncoming->begin(); i21!=myIncoming->end(); i21++) {
                     unsigned int noLanesEdge2 = (*i21)->getNoLanes();
                     for (unsigned int j2=0; j2<noLanesEdge2; j2++) {
-                        vector<NBEdge::Connection> el2 = (*i21)->getConnectionsFromLane(j2);
-                        for (vector<NBEdge::Connection>::iterator i22=el2.begin(); i22!=el2.end(); i22++) {
+                        std::vector<NBEdge::Connection> el2 = (*i21)->getConnectionsFromLane(j2);
+                        for (std::vector<NBEdge::Connection>::iterator i22=el2.begin(); i22!=el2.end(); i22++) {
                             int idx2 = getIndex((*i21), (*i22).toEdge);
                             if (idx2<0) {
                                 continue;
@@ -412,7 +406,7 @@ NBRequest::resetSignalised() {
 }
 
 
-pair<unsigned int, unsigned int>
+std::pair<unsigned int, unsigned int>
 NBRequest::getSizes() const {
     unsigned int noLanes = 0;
     unsigned int noLinks = 0;
@@ -426,7 +420,7 @@ NBRequest::getSizes() const {
         }
         noLanes += noLanesEdge;
     }
-    return pair<size_t, size_t>(noLanes, noLinks);
+    return std::pair<size_t, size_t>(noLanes, noLinks);
 }
 
 
@@ -484,8 +478,8 @@ NBRequest::forbids(const NBEdge * const possProhibitorFrom, const NBEdge * const
 int
 NBRequest::writeLaneResponse(std::ostream &os, NBEdge *from,
                              int fromLane, int pos) {
-    vector<NBEdge::Connection> connected = from->getConnectionsFromLane(fromLane);
-    for (vector<NBEdge::Connection>::iterator j=connected.begin(); j!=connected.end(); j++) {
+    std::vector<NBEdge::Connection> connected = from->getConnectionsFromLane(fromLane);
+    for (std::vector<NBEdge::Connection>::iterator j=connected.begin(); j!=connected.end(); j++) {
         os << "         <logicitem request=\"" << pos++ << "\" response=\"";
         writeResponse(os, from, (*j).toEdge, fromLane, (*j).toLane, (*j).mayDefinitelyPass);
         os << "\" foes=\"";
@@ -498,7 +492,7 @@ NBRequest::writeLaneResponse(std::ostream &os, NBEdge *from,
                 os << " cont=\"0\"";
             }
         }
-        os << "/>" << endl;
+        os << "/>" << std::endl;
     }
     return pos;
 }
@@ -512,10 +506,10 @@ NBRequest::writeResponse(std::ostream &os, const NBEdge * const from, const NBEd
         idx = getIndex(from, to);
     }
     for (EdgeVector::const_reverse_iterator i=myIncoming->rbegin(); i!=myIncoming->rend(); i++) {
-        const vector<NBEdge::Connection> &allConnections = (*i)->getConnections();
+        const std::vector<NBEdge::Connection> &allConnections = (*i)->getConnections();
         unsigned int noLanes = (*i)->getNoLanes();
         for (int j=noLanes; j-->0;) {
-            vector<NBEdge::Connection> connected = (*i)->getConnectionsFromLane(j);
+            std::vector<NBEdge::Connection> connected = (*i)->getConnectionsFromLane(j);
             int size = (int) connected.size();
             for (int k=size; k-->0;) {
                 if (mayDefinitelyPass) {
@@ -558,7 +552,7 @@ NBRequest::writeAreFoes(std::ostream &os, NBEdge *from, NBEdge *to, bool isInner
 
         unsigned int noLanes = (*i)->getNoLanes();
         for (unsigned int j=noLanes; j-->0;) {
-            vector<NBEdge::Connection> connected = (*i)->getConnectionsFromLane(j);
+            std::vector<NBEdge::Connection> connected = (*i)->getConnectionsFromLane(j);
             int size = (int) connected.size();
             for (int k=size; k-->0;) {
                 if (to==0) {
@@ -600,9 +594,9 @@ operator<<(std::ostream &os, const NBRequest &r) {
             else
                 os << '0';
         }
-        os << endl;
+        os << std::endl;
     }
-    os << endl;
+    os << std::endl;
     return os;
 }
 

@@ -114,12 +114,6 @@
 
 
 // ===========================================================================
-// used namespaces
-// ===========================================================================
-using namespace std;
-
-
-// ===========================================================================
 // method definitions
 // ===========================================================================
 // ---------------------------------------------------------------------------
@@ -148,7 +142,7 @@ NIImporter_Vissim::VissimSingleTypeParser::~VissimSingleTypeParser() {}
 
 std::string
 NIImporter_Vissim::VissimSingleTypeParser::myRead(std::istream &from) {
-    string tmp;
+    std::string tmp;
     from >> tmp;
     return StringUtils::to_lower_case(tmp);
 }
@@ -158,8 +152,8 @@ NIImporter_Vissim::VissimSingleTypeParser::myRead(std::istream &from) {
 std::string
 NIImporter_Vissim::VissimSingleTypeParser::readEndSecure(std::istream &from,
         const std::string &excl) {
-    string myExcl = StringUtils::to_lower_case(excl);
-    string tmp = myRead(from);
+    std::string myExcl = StringUtils::to_lower_case(excl);
+    std::string tmp = myRead(from);
     if (tmp=="") {
         return "DATAEND";
     }
@@ -179,10 +173,10 @@ NIImporter_Vissim::VissimSingleTypeParser::readEndSecure(std::istream &from,
     std::vector<std::string> myExcl;
     std::vector<std::string>::const_iterator i;
     for (i=excl.begin(); i!=excl.end(); i++) {
-        string mes = StringUtils::to_lower_case(*i);
+        std::string mes = StringUtils::to_lower_case(*i);
         myExcl.push_back(mes);
     }
-    string tmp = myRead(from);
+    std::string tmp = myRead(from);
     if (tmp=="") {
         return "DATAEND";
     }
@@ -206,7 +200,7 @@ NIImporter_Vissim::VissimSingleTypeParser::readEndSecure(std::istream &from,
 std::string
 NIImporter_Vissim::VissimSingleTypeParser::overrideOptionalLabel(std::istream &from,
         const std::string &tag) {
-    string tmp;
+    std::string tmp;
     if (tag=="") {
         tmp = myRead(from);
     } else {
@@ -236,7 +230,7 @@ NIImporter_Vissim::VissimSingleTypeParser::getPosition2D(std::istream &from) {
 IntVector
 NIImporter_Vissim::VissimSingleTypeParser::parseAssignedVehicleTypes(
     std::istream &from, const std::string &next) {
-    string tmp = readEndSecure(from);
+    std::string tmp = readEndSecure(from);
     IntVector ret;
     if (tmp=="alle") {
         ret.push_back(-1);
@@ -253,7 +247,7 @@ NIImporter_Vissim::VissimSingleTypeParser::parseAssignedVehicleTypes(
 NIVissimExtendedEdgePoint
 NIImporter_Vissim::VissimSingleTypeParser::readExtEdgePointDef(
     std::istream &from) {
-    string tag;
+    std::string tag;
     from >> tag; // "Strecke"
     int edgeid;
     from >> edgeid; // type-checking is missing!
@@ -275,11 +269,11 @@ NIImporter_Vissim::VissimSingleTypeParser::readExtEdgePointDef(
 
 std::string
 NIImporter_Vissim::VissimSingleTypeParser::readName(std::istream &from) {
-    string name;
+    std::string name;
     from >> name;
     if (name[0]=='"') {
         while (name[name.length()-1]!='"') {
-            string tmp;
+            std::string tmp;
             from >> tmp;
             name = name + " " + tmp;
         }
@@ -292,7 +286,7 @@ NIImporter_Vissim::VissimSingleTypeParser::readName(std::istream &from) {
 void
 NIImporter_Vissim::VissimSingleTypeParser::readUntil(std::istream &from,
         const std::string &name) {
-    string tag;
+    std::string tag;
     while (tag!=name) {
         tag = myRead(from);
     }
@@ -301,7 +295,7 @@ NIImporter_Vissim::VissimSingleTypeParser::readUntil(std::istream &from,
 bool
 NIImporter_Vissim::VissimSingleTypeParser::skipOverreading(std::istream &from,
         const std::string &name) {
-    string tag;
+    std::string tag;
     while (tag!=name) {
         tag = myRead(from);
     }
@@ -363,7 +357,7 @@ void
 NIImporter_Vissim::load(const OptionsCont &options) {
     // load file contents
     // try to open the file
-    ifstream strm(options.getString("vissim").c_str());
+    std::ifstream strm(options.getString("vissim").c_str());
     if (!strm.good()) {
         MsgHandler::getErrorInstance()->inform("The vissim-file '" + options.getString("vissim") + "' was not found.");
         return;
@@ -387,11 +381,11 @@ NIImporter_Vissim::admitContinue(const std::string &tag) {
 
 
 bool
-NIImporter_Vissim::readContents(istream &strm) {
+NIImporter_Vissim::readContents(std::istream &strm) {
     // read contents
     bool ok = true;
     while (strm.good()&&ok) {
-        string tag;
+        std::string tag;
         if (myLastSecure!="") {
             tag = myLastSecure;
         } else {
@@ -410,7 +404,7 @@ NIImporter_Vissim::readContents(istream &strm) {
                 }
             }
             if (!parsed) {
-                string line;
+                std::string line;
                 size_t pos;
                 do {
                     pos = strm.tellg();

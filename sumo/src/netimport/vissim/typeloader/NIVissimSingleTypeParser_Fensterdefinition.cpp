@@ -39,12 +39,6 @@
 
 
 // ===========================================================================
-// used namespaces
-// ===========================================================================
-using namespace std;
-
-
-// ===========================================================================
 // method definitions
 // ===========================================================================
 NIVissimSingleTypeParser_Fensterdefinition::NIVissimSingleTypeParser_Fensterdefinition(NIImporter_Vissim &parent)
@@ -56,15 +50,15 @@ NIVissimSingleTypeParser_Fensterdefinition::~NIVissimSingleTypeParser_Fensterdef
 
 bool
 NIVissimSingleTypeParser_Fensterdefinition::parse(std::istream &from) {
-    string id;
+    std::string id;
     from >> id; // "typ"
-    string type = myRead(from);
+    std::string type = myRead(from);
     if (type=="fzinfo") {
-        string tmp;
+        std::string tmp;
         from >> tmp;
         from >> tmp;
     } else if (type=="ldp"||type=="szp") {
-        string tmp;
+        std::string tmp;
         readUntil(from, "lsa");
     }
     return true;

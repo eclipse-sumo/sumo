@@ -38,12 +38,6 @@
 
 
 // ===========================================================================
-// used namespaces
-// ===========================================================================
-using namespace std;
-
-
-// ===========================================================================
 // method definitions
 // ===========================================================================
 NIVissimSingleTypeParser_Routenentscheidungsdefinition::NIVissimSingleTypeParser_Routenentscheidungsdefinition(NIImporter_Vissim &parent)
@@ -55,7 +49,7 @@ NIVissimSingleTypeParser_Routenentscheidungsdefinition::~NIVissimSingleTypeParse
 
 bool
 NIVissimSingleTypeParser_Routenentscheidungsdefinition::parse(std::istream &from) {
-    string tag;
+    std::string tag;
     while (tag!="fahrzeugklassen") {
         tag = myRead(from);
     }

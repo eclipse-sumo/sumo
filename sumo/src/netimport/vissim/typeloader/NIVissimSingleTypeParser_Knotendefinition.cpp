@@ -45,12 +45,6 @@
 
 
 // ===========================================================================
-// used namespaces
-// ===========================================================================
-using namespace std;
-
-
-// ===========================================================================
 // method definitions
 // ===========================================================================
 NIVissimSingleTypeParser_Knotendefinition::NIVissimSingleTypeParser_Knotendefinition(NIImporter_Vissim &parent)
@@ -66,9 +60,9 @@ NIVissimSingleTypeParser_Knotendefinition::parse(std::istream &from) {
     int id;
     from >> id;
     //
-    string tag;
+    std::string tag;
     from >> tag;
-    string name = readName(from);
+    std::string name = readName(from);
     //
     tag = overrideOptionalLabel(from);
     //

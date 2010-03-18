@@ -38,12 +38,6 @@
 
 
 // ===========================================================================
-// used namespaces
-// ===========================================================================
-using namespace std;
-
-
-// ===========================================================================
 // member variables
 // ===========================================================================
 NBJoinedEdgesMap gJoinedEdges;
@@ -91,7 +85,7 @@ operator<<(std::ostream &os, const NBJoinedEdgesMap &jemap) {
         for (NBJoinedEdgesMap::MappedEdgesVector::const_iterator j=e.begin(); j!=e.end(); ++j) {
             os << (*j) << ":" << jemap.myLengths.find(*j)->second << "\t";
         }
-        os << endl;
+        os << std::endl;
     }
     return os;
 }

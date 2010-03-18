@@ -59,12 +59,6 @@
 
 
 // ===========================================================================
-// used namespaces
-// ===========================================================================
-using namespace std;
-
-
-// ===========================================================================
 // method definitions
 // ===========================================================================
 NBEdgeCont::NBEdgeCont(NBNetBuilder &tc) throw()
@@ -83,25 +77,25 @@ NBEdgeCont::applyOptions(OptionsCont &oc) {
     // set edges dismiss/accept options
     myEdgesMinSpeed = oc.isSet("edges-min-speed") ? oc.getFloat("edges-min-speed") : -1;
     myRemoveEdgesAfterJoining = OptionsCont::getOptions().getBool("keep-edges.postload");
-    myEdges2Keep = oc.isSet("keep-edges") ? oc.getStringVector("keep-edges") : vector<string>();
-    myEdges2Remove = oc.isSet("remove-edges") ? oc.getStringVector("remove-edges") : vector<string>();
+    myEdges2Keep = oc.isSet("keep-edges") ? oc.getStringVector("keep-edges") : std::vector<std::string>();
+    myEdges2Remove = oc.isSet("remove-edges") ? oc.getStringVector("remove-edges") : std::vector<std::string>();
     if (oc.isSet("remove-edges.by-vclass")) {
-        vector<string> classes = oc.getStringVector("remove-edges.by-vclass");
-        for (vector<string>::iterator i=classes.begin(); i!=classes.end(); ++i) {
+        std::vector<std::string> classes = oc.getStringVector("remove-edges.by-vclass");
+        for (std::vector<std::string>::iterator i=classes.begin(); i!=classes.end(); ++i) {
             myVehicleClasses2Remove.insert(getVehicleClassID(*i));
         }
     }
     if (oc.isSet("keep-edges.by-vclass")) {
-        vector<string> classes = oc.getStringVector("keep-edges.by-vclass");
-        for (vector<string>::iterator i=classes.begin(); i!=classes.end(); ++i) {
+        std::vector<std::string> classes = oc.getStringVector("keep-edges.by-vclass");
+        for (std::vector<std::string>::iterator i=classes.begin(); i!=classes.end(); ++i) {
             myVehicleClasses2Keep.insert(getVehicleClassID(*i));
         }
     }
     if (oc.isSet("keep-edges.in-boundary")) {
-        vector<string> polyS = oc.getStringVector("keep-edges.in-boundary");
+        std::vector<std::string> polyS = oc.getStringVector("keep-edges.in-boundary");
         // !!! throw something if length<4 || length%2!=0?
-        vector<SUMOReal> poly;
-        for (vector<string>::iterator i=polyS.begin(); i!=polyS.end(); ++i) {
+        std::vector<SUMOReal> poly;
+        for (std::vector<std::string>::iterator i=polyS.begin(); i!=polyS.end(); ++i) {
             poly.push_back(TplConvert<char>::_2SUMOReal((*i).c_str())); // !!! may throw something anyhow...
         }
         if (poly.size()==4) {
@@ -111,7 +105,7 @@ NBEdgeCont::applyOptions(OptionsCont &oc) {
             myPrunningBoundary.push_back(Position2D(poly[2], poly[3]));
             myPrunningBoundary.push_back(Position2D(poly[0], poly[3]));
         } else {
-            for (vector<SUMOReal>::iterator j=poly.begin(); j!=poly.end();) {
+            for (std::vector<SUMOReal>::iterator j=poly.begin(); j!=poly.end();) {
                 SUMOReal x = *j++;
                 SUMOReal y = *j++;
                 myPrunningBoundary.push_back(Position2D(x, y));
@@ -174,7 +168,7 @@ NBEdgeCont::insert(NBEdge *edge, bool ignorePrunning) throw() {
     if (myVehicleClasses2Remove.size()!=0) {
         int matching = 0;
         std::vector<SUMOVehicleClass> allowed = edge->getAllowedVehicleClasses();
-        for (set<SUMOVehicleClass>::const_iterator i=myVehicleClasses2Remove.begin(); i!=myVehicleClasses2Remove.end(); ++i) {
+        for (std::set<SUMOVehicleClass>::const_iterator i=myVehicleClasses2Remove.begin(); i!=myVehicleClasses2Remove.end(); ++i) {
             std::vector<SUMOVehicleClass>::iterator j = find(allowed.begin(), allowed.end(), *i);
             if (j!=allowed.end()) {
                 allowed.erase(j);
@@ -193,7 +187,7 @@ NBEdgeCont::insert(NBEdge *edge, bool ignorePrunning) throw() {
     if (myVehicleClasses2Keep.size()!=0) {
         int matching = 0;
         std::vector<SUMOVehicleClass> allowed = edge->getAllowedVehicleClasses();
-        for (set<SUMOVehicleClass>::const_iterator i=myVehicleClasses2Remove.begin(); i!=myVehicleClasses2Remove.end(); ++i) {
+        for (std::set<SUMOVehicleClass>::const_iterator i=myVehicleClasses2Remove.begin(); i!=myVehicleClasses2Remove.end(); ++i) {
             std::vector<SUMOVehicleClass>::iterator j = find(allowed.begin(), allowed.end(), *i);
             if (j!=allowed.end()) {
                 allowed.erase(j);
@@ -234,7 +228,7 @@ NBEdgeCont::insert(NBEdge *edge, bool ignorePrunning) throw() {
 
 
 NBEdge *
-NBEdgeCont::retrieve(const string &id) const throw() {
+NBEdgeCont::retrieve(const std::string &id) const throw() {
     EdgeCont::const_iterator i = myEdges.find(id);
     if (i==myEdges.end()) return 0;
     return (*i).second;
@@ -285,7 +279,7 @@ NBEdgeCont::retrievePossiblySplitted(const std::string &id, SUMOReal pos) const 
         return edge;
     }
     size_t maxLength = 0;
-    string tid = id + "[";
+    std::string tid = id + "[";
     for (EdgeCont::const_iterator i=myEdges.begin(); i!=myEdges.end(); ++i) {
         if ((*i).first.find(tid)==0) {
             maxLength = MAX2(maxLength, (*i).first.length());
@@ -293,12 +287,12 @@ NBEdgeCont::retrievePossiblySplitted(const std::string &id, SUMOReal pos) const 
     }
     // find the part of the edge which matches the position
     SUMOReal seen = 0;
-    std::vector<string> names;
+    std::vector<std::string> names;
     names.push_back(id + "[1]");
     names.push_back(id + "[0]");
     while (names.size()>0) {
         // retrieve the first subelement (to follow)
-        string cid = names.back();
+        std::string cid = names.back();
         names.pop_back();
         edge = retrieve(cid);
         // The edge was splitted; check its subparts within the
@@ -526,7 +520,7 @@ NBEdgeCont::joinSameNodeConnectingEdges(NBDistrictCont &dc,
     unsigned int nolanes = 0;
     SUMOReal speed = 0;
     int priority = 0;
-    string id;
+    std::string id;
     sort(edges.begin(), edges.end(), NBContHelper::same_connection_edge_sorter());
     // retrieve the connected nodes
     NBEdge *tpledge = *(edges.begin());
@@ -622,7 +616,7 @@ NBEdgeCont::splitGeometry(NBNodeCont &nc) throw() {
 void
 NBEdgeCont::recheckLaneSpread() throw() {
     for (EdgeCont::iterator i=myEdges.begin(); i!=myEdges.end(); ++i) {
-        string oppositeID;
+        std::string oppositeID;
         if ((*i).first[0]=='-') {
             oppositeID = (*i).first.substr(1);
         } else {
@@ -691,8 +685,8 @@ NBEdgeCont::savePlain(const std::string &efile, const std::string &cfile) throw(
         unsigned int noLanes = e->getNoLanes();
         unsigned int noWritten = 0;
         for (unsigned int lane=0; lane<noLanes; ++lane) {
-            vector<NBEdge::Connection> connections = e->getConnectionsFromLane(lane);
-            for (vector<NBEdge::Connection>::iterator c=connections.begin(); c!=connections.end(); ++c) {
+            std::vector<NBEdge::Connection> connections = e->getConnectionsFromLane(lane);
+            for (std::vector<NBEdge::Connection>::iterator c=connections.begin(); c!=connections.end(); ++c) {
                 if ((*c).toEdge!=0) {
                     cdevice << "	<connection from=\"" << e->getID()
                     << "\" to=\"" << (*c).toEdge->getID()
@@ -718,7 +712,7 @@ NBEdgeCont::getGeneratedFrom(const std::string &id) const throw() {
     size_t len = id.length();
     EdgeVector ret;
     for (EdgeCont::const_iterator i=myEdges.begin(); i!=myEdges.end(); ++i) {
-        string curr = (*i).first;
+        std::string curr = (*i).first;
         // the next check makes it possibly faster - we don not have
         //  to compare the names
         if (curr.length()<=len) {
@@ -733,7 +727,7 @@ NBEdgeCont::getGeneratedFrom(const std::string &id) const throw() {
         // ok, maybe the edge is a compound made during joining of edges
         size_t pos = curr.find(id);
         // surely not
-        if (pos==string::npos) {
+        if (pos==std::string::npos) {
             continue;
         }
         // check leading char
@@ -781,13 +775,13 @@ NBEdgeCont::guessRoundabouts(std::vector<std::set<NBEdge*> > &marked) throw() {
         bool noLoop = false;
         do {
             visited.insert(e);
-            vector<NBEdge*> edges = e->getToNode()->getEdges();
+            std::vector<NBEdge*> edges = e->getToNode()->getEdges();
             if (edges.size()<2) {
                 noLoop = true;
                 break;
             }
             sort(edges.begin(), edges.end(), NBContHelper::edge_by_junction_angle_sorter(e->getToNode()));
-            vector<NBEdge*>::const_iterator me = find(edges.begin(), edges.end(), e);
+            std::vector<NBEdge*>::const_iterator me = find(edges.begin(), edges.end(), e);
             NBContHelper::nextCW(&edges, me);
             NBEdge *left = *me;
             loopEdges.insert(left);

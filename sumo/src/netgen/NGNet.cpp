@@ -48,12 +48,6 @@
 
 
 // ===========================================================================
-// used namespaces
-// ===========================================================================
-using namespace std;
-
-
-// ===========================================================================
 // method definitions
 // ===========================================================================
 NGNet::NGNet(NBNetBuilder &nb) throw()
@@ -94,7 +88,7 @@ NGNet::createChequerBoard(int numX, int numY, SUMOReal spaceX, SUMOReal spaceY, 
     for (int ix=0; ix<numX; ix++) {
         for (int iy=0; iy<numY; iy++) {
             // create Node
-            string nodeID = toString<int>(ix) + "/" + toString<int>(iy);
+            std::string nodeID = toString<int>(ix) + "/" + toString<int>(iy);
             NGNode *node = new NGNode(nodeID, ix, iy);
             node->setX(ix * spaceX + attachLength);
             node->setY(iy * spaceY + attachLength);
@@ -197,8 +191,8 @@ NGNet::createSpiderWeb(int numRadDiv, int numCircles, SUMOReal spaceRad, bool ha
 
 void
 NGNet::connect(NGNode *node1, NGNode *node2) throw() {
-    string id1 = node1->getID() + "to" + node2->getID();
-    string id2 = node2->getID() + "to" + node1->getID();
+    std::string id1 = node1->getID() + "to" + node2->getID();
+    std::string id2 = node2->getID() + "to" + node1->getID();
     NGEdge *link1 = new NGEdge(id1, node1, node2);
     NGEdge *link2 = new NGEdge(id2, node2, node1);
     myEdgeList.push_back(link1);

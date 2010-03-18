@@ -45,12 +45,6 @@
 
 
 // ===========================================================================
-// used namespaces
-// ===========================================================================
-using namespace std;
-
-
-// ===========================================================================
 // method definitions
 // ===========================================================================
 // ---------------------------------------------------------------------------
@@ -157,11 +151,11 @@ NIImporter_VISUM::load() throw(ProcessError) {
     }
     // scan the file for data positions
     while (myLineReader.hasMore()) {
-        string line = myLineReader.readLine();
+        std::string line = myLineReader.readLine();
         if (line.length()>0 && line[0]=='$') {
             ParserVector::iterator i;
             for (i=mySingleDataParsers.begin(); i!=mySingleDataParsers.end(); i++) {
-                string dataName = "$" + (*i).name + ":";
+                std::string dataName = "$" + (*i).name + ":";
                 if (line.substr(0, dataName.length())==dataName) {
                     (*i).position = myLineReader.getPosition();
                     (*i).pattern = line.substr(dataName.length());
@@ -186,7 +180,7 @@ NIImporter_VISUM::load() throw(ProcessError) {
         // read
         bool singleDataEndFound = false;
         while (myLineReader.hasMore() && !singleDataEndFound) {
-            string line = myLineReader.readLine();
+            std::string line = myLineReader.readLine();
             if (line.length()==0||line[0]=='*'||line[0]=='$') {
                 singleDataEndFound = true;
             } else {
@@ -199,7 +193,7 @@ NIImporter_VISUM::load() throw(ProcessError) {
                 } catch (NumberFormatException &) {
                     MsgHandler::getErrorInstance()->inform("A value in " + (*i).name + " should be numeric but is not (id='" + myCurrentID + "').");
                 } catch (UnknownElement &e) {
-                    MsgHandler::getErrorInstance()->inform("A one of the needed values ('" + string(e.what()) + "') is missing in " + (*i).name + ".");
+                    MsgHandler::getErrorInstance()->inform("A one of the needed values ('" + std::string(e.what()) + "') is missing in " + (*i).name + ".");
                 }
             }
         }
@@ -211,7 +205,7 @@ NIImporter_VISUM::load() throw(ProcessError) {
         j->second->build(myNetBuilder.getTLLogicCont());
     }
     // build district shapes
-    for (map<NBDistrict*, Position2DVector>::const_iterator k=myDistrictShapes.begin(); k!=myDistrictShapes.end(); ++k) {
+    for (std::map<NBDistrict*, Position2DVector>::const_iterator k=myDistrictShapes.begin(); k!=myDistrictShapes.end(); ++k) {
         (*k).first->addShape((*k).second);
     }
 }
@@ -222,8 +216,8 @@ NIImporter_VISUM::load() throw(ProcessError) {
 
 void
 NIImporter_VISUM::parse_VSysTypes() {
-    string name = myLineParser.know("VSysCode") ? myLineParser.get("VSysCode").c_str() : myLineParser.get("CODE").c_str();
-    string type = myLineParser.know("VSysMode") ? myLineParser.get("VSysMode").c_str() : myLineParser.get("Typ").c_str();
+    std::string name = myLineParser.know("VSysCode") ? myLineParser.get("VSysCode").c_str() : myLineParser.get("CODE").c_str();
+    std::string type = myLineParser.know("VSysMode") ? myLineParser.get("VSysMode").c_str() : myLineParser.get("Typ").c_str();
     myVSysTypes[name] = type;
 }
 
@@ -322,7 +316,7 @@ NIImporter_VISUM::parse_Edges() {
         return;
     }
     // get the type
-    string type = myLineParser.know("Typ") ? myLineParser.get("Typ") : myLineParser.get("TypNr");
+    std::string type = myLineParser.know("Typ") ? myLineParser.get("Typ") : myLineParser.get("TypNr");
     // get the speed
     SUMOReal speed = myNetBuilder.getTypeCont().getSpeed(type);;
     if (!OptionsCont::getOptions().getBool("visum.use-type-speed")) {
@@ -370,7 +364,7 @@ NIImporter_VISUM::parse_Edges() {
     if (find(myTouchedEdges.begin(), myTouchedEdges.end(), myCurrentID)!=myTouchedEdges.end()) {
         oneway_checked = false;
     }
-    string tmpid = '-' + myCurrentID;
+    std::string tmpid = '-' + myCurrentID;
     if (find(myTouchedEdges.begin(), myTouchedEdges.end(), tmpid)!=myTouchedEdges.end()) {
         previous = myNetBuilder.getEdgeCont().retrieve(tmpid);
         if (previous!=0) {
@@ -416,7 +410,7 @@ NIImporter_VISUM::parse_Kante() {
     long id = TplConvert<char>::_2long(myLineParser.get("ID").c_str());
     long from = TplConvert<char>::_2long(myLineParser.get("VONPUNKTID").c_str());
     long to = TplConvert<char>::_2long(myLineParser.get("NACHPUNKTID").c_str());
-    myEdges[id] = make_pair(from, to);
+    myEdges[id] = std::make_pair(from, to);
 }
 
 
@@ -425,7 +419,7 @@ NIImporter_VISUM::parse_PartOfArea() {
     long flaecheID = TplConvert<char>::_2long(myLineParser.get("FLAECHEID").c_str());
     long flaechePartID = TplConvert<char>::_2long(myLineParser.get("TFLAECHEID").c_str());
     if (mySubPartsAreas.find(flaechePartID)==mySubPartsAreas.end()) {
-        mySubPartsAreas[flaechePartID] = vector<long>();
+        mySubPartsAreas[flaechePartID] = std::vector<long>();
     }
     mySubPartsAreas[flaechePartID].push_back(flaecheID);
 }
@@ -438,7 +432,7 @@ NIImporter_VISUM::parse_Connectors() {
         return;
     }
     // get the source district
-    string bez = NBHelpers::normalIDRepresentation(myLineParser.get("BezNr"));
+    std::string bez = NBHelpers::normalIDRepresentation(myLineParser.get("BezNr"));
     // get the destination node
     NBNode *dest = getNamedNode("KnotNr");
     if (dest==0) {
@@ -458,21 +452,21 @@ NIImporter_VISUM::parse_Connectors() {
     }
     // get the type;
     //  use a standard type with a large speed when a type is not given
-    string type = myLineParser.know("Typ")
+    std::string type = myLineParser.know("Typ")
                   ? NBHelpers::normalIDRepresentation(myLineParser.get("Typ"))
                   : "";
     // add the connectors as an edge
-    string id = bez + "-" + dest->getID();
+    std::string id = bez + "-" + dest->getID();
     // get the information whether this is a sink or a source
-    string dir = myLineParser.get("Richtung");
+    std::string dir = myLineParser.get("Richtung");
     if (dir.length()==0) {
         dir = "QZ";
     }
     // build the source when needed
-    if (dir.find('Q')!=string::npos) {
-        const vector<NBEdge*> &edges = dest->getOutgoingEdges();
+    if (dir.find('Q')!=std::string::npos) {
+        const std::vector<NBEdge*> &edges = dest->getOutgoingEdges();
         bool hasContinuation = false;
-        for (vector<NBEdge*>::const_iterator i=edges.begin(); i!=edges.end(); ++i) {
+        for (std::vector<NBEdge*>::const_iterator i=edges.begin(); i!=edges.end(); ++i) {
             if (!(*i)->isMacroscopicConnector()) {
                 hasContinuation = true;
             }
@@ -502,10 +496,10 @@ NIImporter_VISUM::parse_Connectors() {
         }
     }
     // build the sink when needed
-    if (dir.find('Z')!=string::npos) {
-        const vector<NBEdge*> &edges = dest->getIncomingEdges();
+    if (dir.find('Z')!=std::string::npos) {
+        const std::vector<NBEdge*> &edges = dest->getIncomingEdges();
         bool hasPredeccessor = false;
-        for (vector<NBEdge*>::const_iterator i=edges.begin(); i!=edges.end(); ++i) {
+        for (std::vector<NBEdge*>::const_iterator i=edges.begin(); i!=edges.end(); ++i) {
             if (!(*i)->isMacroscopicConnector()) {
                 hasPredeccessor = true;
             }
@@ -552,7 +546,7 @@ NIImporter_VISUM::parse_Turns() {
         return;
     }
     // all nodes are known
-    string type = myLineParser.know("VSysCode")
+    std::string type = myLineParser.know("VSysCode")
                   ? myLineParser.get("VSysCode")
                   : myLineParser.get("VSYSSET");
     if (myVSysTypes.find(type)!=myVSysTypes.end() && myVSysTypes.find(type)->second=="IV") {
@@ -649,7 +643,7 @@ NIImporter_VISUM::parse_Lanes() {
         return;
     }
     // get the lane
-    string laneS = NBHelpers::normalIDRepresentation(myLineParser.get("FSNR"));
+    std::string laneS = NBHelpers::normalIDRepresentation(myLineParser.get("FSNR"));
     int lane = -1;
     try {
         lane = TplConvert<char>::_2int(laneS.c_str());
@@ -663,14 +657,14 @@ NIImporter_VISUM::parse_Lanes() {
         return;
     }
     // get the direction
-    string dirS = NBHelpers::normalIDRepresentation(myLineParser.get("RICHTTYP"));
+    std::string dirS = NBHelpers::normalIDRepresentation(myLineParser.get("RICHTTYP"));
     int prevLaneNo = baseEdge->getNoLanes();
     if ((dirS=="1"&&!(node->hasIncoming(edge))) || (dirS=="0"&&!(node->hasOutgoing(edge)))) {
         // get the last part of the turnaround direction
         edge = getReversedContinuating(edge, node);
     }
     // get the length
-    string lengthS = NBHelpers::normalIDRepresentation(myLineParser.get("LAENGE"));
+    std::string lengthS = NBHelpers::normalIDRepresentation(myLineParser.get("LAENGE"));
     SUMOReal length = -1;
     try {
         length = TplConvert<char>::_2SUMOReal(lengthS.c_str());
@@ -715,7 +709,7 @@ NIImporter_VISUM::parse_Lanes() {
         while (mustRecheck) {
             if (edge->getID().substr(edge->getID().length()-node->getID().length()-1)=="_" + node->getID()) {
                 // ok, we have a previously created edge here
-                string sub = edge->getID();
+                std::string sub = edge->getID();
                 sub = sub.substr(sub.rfind('_', sub.rfind('_')-1));
                 sub = sub.substr(1, sub.find('_', 1)-1);
                 SUMOReal dist = TplConvert<char>::_2SUMOReal(sub.c_str());
@@ -744,7 +738,7 @@ NIImporter_VISUM::parse_Lanes() {
         Position2D p;
         SUMOReal useLength = length - seenLength;
         useLength = edge->getLength()-useLength;
-        string edgeID = edge->getID();
+        std::string edgeID = edge->getID();
         p = edge->getGeometry().positionAtLengthPosition(useLength);
         if (edgeID.substr(edgeID.length()-node->getID().length()-1)=="_" + node->getID()) {
             edgeID = edgeID.substr(0, edgeID.find('_'));
@@ -753,7 +747,7 @@ NIImporter_VISUM::parse_Lanes() {
         if (!myNetBuilder.getNodeCont().insert(rn)) {
             throw ProcessError("Ups - could not insert node!");
         }
-        string nid = edgeID + "_" +  toString((size_t) length) + "_" + node->getID();
+        std::string nid = edgeID + "_" +  toString((size_t) length) + "_" + node->getID();
         myNetBuilder.getEdgeCont().splitAt(myNetBuilder.getDistrictCont(), edge, useLength, rn,
                                            edge->getID(), nid, edge->getNoLanes()+0, edge->getNoLanes()+1);
         NBEdge *nedge = myNetBuilder.getEdgeCont().retrieve(nid);
@@ -786,8 +780,8 @@ NIImporter_VISUM::parse_TrafficLights() {
 
 void
 NIImporter_VISUM::parse_NodesToTrafficLights() {
-    string Node = myLineParser.get("KnotNr").c_str();
-    string TrafficLight = myLineParser.get("LsaNr").c_str();
+    std::string Node = myLineParser.get("KnotNr").c_str();
+    std::string TrafficLight = myLineParser.get("LsaNr").c_str();
     // add to the list
     myNIVisumTLs[TrafficLight]->GetNodes()->push_back(myNetBuilder.getNodeCont().retrieve(Node));
 }
@@ -797,7 +791,7 @@ void
 NIImporter_VISUM::parse_SignalGroups() {
     // get the id
     myCurrentID = NBHelpers::normalIDRepresentation(myLineParser.get("Nr"));
-    string LSAid = NBHelpers::normalIDRepresentation(myLineParser.get("LsaNr"));
+    std::string LSAid = NBHelpers::normalIDRepresentation(myLineParser.get("LsaNr"));
     // StartTime
     SUMOReal StartTime = getNamedFloat("GzStart", "GRUENANF");
     // EndTime
@@ -810,8 +804,8 @@ NIImporter_VISUM::parse_SignalGroups() {
 void
 NIImporter_VISUM::parse_TurnsToSignalGroups() {
     // get the id
-    string SGid = getNamedString("SGNR", "SIGNALGRUPPENNR");
-    string LSAid = getNamedString("LsaNr");
+    std::string SGid = getNamedString("SGNR", "SIGNALGRUPPENNR");
+    std::string LSAid = getNamedString("LsaNr");
     // nodes
     NBNode *from = myLineParser.know("VonKnot") ? getNamedNode("VonKnot") : 0;
     NBNode *via = getNamedNode("UeberKnot", "UeberKnotNr");
@@ -831,25 +825,25 @@ NIImporter_VISUM::parse_TurnsToSignalGroups() {
     SG = (*myNIVisumTLs.find(LSAid)).second->GetSignalGroup(SGid);
     if (edg1!=0 && edg2!=0) {
         if (!via->hasIncoming(edg1)) {
-            string sid;
+            std::string sid;
             if (edg1->getID()[0]=='-') {
                 sid = edg1->getID().substr(1);
             } else {
                 sid = "-" + edg1->getID();
             }
-            if (sid.find('_')!=string::npos) {
+            if (sid.find('_')!=std::string::npos) {
                 sid = sid.substr(0, sid.find('_'));
             }
             edg1 = getNamedEdgeContinuating(myNetBuilder.getEdgeCont().retrieve(sid),  via);
         }
         if (!via->hasOutgoing(edg2)) {
-            string sid;
+            std::string sid;
             if (edg2->getID()[0]=='-') {
                 sid = edg2->getID().substr(1);
             } else {
                 sid = "-" + edg2->getID();
             }
-            if (sid.find('_')!=string::npos) {
+            if (sid.find('_')!=std::string::npos) {
                 sid = sid.substr(0, sid.find('_'));
             }
             edg2 = getNamedEdgeContinuating(myNetBuilder.getEdgeCont().retrieve(sid),  via);
@@ -867,8 +861,8 @@ NIImporter_VISUM::parse_AreaSubPartElement() {
         MsgHandler::getErrorInstance()->inform("Unknown edge in TEILFLAECHENELEMENT");
         return;
     }
-    string dir = myLineParser.get("RICHTUNG");
-    string indexS = NBHelpers::normalIDRepresentation(myLineParser.get("INDEX"));
+    std::string dir = myLineParser.get("RICHTUNG");
+    std::string indexS = NBHelpers::normalIDRepresentation(myLineParser.get("INDEX"));
     int index = -1;
     try {
         index = TplConvert<char>::_2int(indexS.c_str()) - 1;
@@ -887,8 +881,8 @@ NIImporter_VISUM::parse_AreaSubPartElement() {
         return;
     }
 
-    const vector<long> &areas = mySubPartsAreas.find(id)->second;
-    for (vector<long>::const_iterator i=areas.begin(); i!=areas.end(); ++i) {
+    const std::vector<long> &areas = mySubPartsAreas.find(id)->second;
+    for (std::vector<long>::const_iterator i=areas.begin(); i!=areas.end(); ++i) {
         NBDistrict *d = myShapeDistrictMap[*i];
         if (d==0) {
             continue;
@@ -910,8 +904,8 @@ NIImporter_VISUM::parse_AreaSubPartElement() {
 void
 NIImporter_VISUM::parse_Phases() {
     // get the id
-    string Phaseid = NBHelpers::normalIDRepresentation(myLineParser.get("Nr"));
-    string LSAid = NBHelpers::normalIDRepresentation(myLineParser.get("LsaNr"));
+    std::string Phaseid = NBHelpers::normalIDRepresentation(myLineParser.get("Nr"));
+    std::string LSAid = NBHelpers::normalIDRepresentation(myLineParser.get("LsaNr"));
     // StartTime
     SUMOReal StartTime = getNamedFloat("GzStart", "GRUENANF");
     // EndTime
@@ -923,9 +917,9 @@ NIImporter_VISUM::parse_Phases() {
 
 void NIImporter_VISUM::parse_SignalGroupsToPhases() {
     // get the id
-    string Phaseid = NBHelpers::normalIDRepresentation(myLineParser.get("PsNr"));
-    string LSAid = NBHelpers::normalIDRepresentation(myLineParser.get("LsaNr"));
-    string SGid = NBHelpers::normalIDRepresentation(myLineParser.get("SGNR"));
+    std::string Phaseid = NBHelpers::normalIDRepresentation(myLineParser.get("PsNr"));
+    std::string LSAid = NBHelpers::normalIDRepresentation(myLineParser.get("LsaNr"));
+    std::string SGid = NBHelpers::normalIDRepresentation(myLineParser.get("SGNR"));
     // insert
     NIVisumTL::Phase *PH;
     NIVisumTL::SignalGroup *SG;
@@ -969,7 +963,7 @@ void NIImporter_VISUM::parse_LanesConnections() {
         toLaneOffset = tmp->getNoLanes();
     }
     // get the from-lane
-    string fromLaneS = NBHelpers::normalIDRepresentation(myLineParser.get("VONFSNR"));
+    std::string fromLaneS = NBHelpers::normalIDRepresentation(myLineParser.get("VONFSNR"));
     int fromLane = -1;
     try {
         fromLane = TplConvert<char>::_2int(fromLaneS.c_str());
@@ -983,7 +977,7 @@ void NIImporter_VISUM::parse_LanesConnections() {
         return;
     }
     // get the from-lane
-    string toLaneS = NBHelpers::normalIDRepresentation(myLineParser.get("NACHFSNR"));
+    std::string toLaneS = NBHelpers::normalIDRepresentation(myLineParser.get("NACHFSNR"));
     int toLane = -1;
     try {
         toLane = TplConvert<char>::_2int(toLaneS.c_str());
@@ -1058,7 +1052,7 @@ NIImporter_VISUM::getWeightedBool(const std::string &name) throw() {
 
 NBNode *
 NIImporter_VISUM::getNamedNode(const std::string &fieldName) throw(OutOfBoundsException, NumberFormatException, UnknownElement) {
-    string nodeS = NBHelpers::normalIDRepresentation(myLineParser.get(fieldName));
+    std::string nodeS = NBHelpers::normalIDRepresentation(myLineParser.get(fieldName));
     NBNode *node = myNetBuilder.getNodeCont().retrieve(nodeS);
     if (node==0) {
         MsgHandler::getErrorInstance()->inform("The node '" + nodeS + "' is not known.");
@@ -1079,7 +1073,7 @@ NIImporter_VISUM::getNamedNode(const std::string &fieldName1, const std::string 
 
 NBEdge *
 NIImporter_VISUM::getNamedEdge(const std::string &fieldName) throw(OutOfBoundsException, NumberFormatException, UnknownElement) {
-    string edgeS = NBHelpers::normalIDRepresentation(myLineParser.get(fieldName));
+    std::string edgeS = NBHelpers::normalIDRepresentation(myLineParser.get(fieldName));
     NBEdge *edge = myNetBuilder.getEdgeCont().retrieve(edgeS);
     if (edge==0) {
         MsgHandler::getErrorInstance()->inform("The edge '" + edgeS + "' is not known.");
@@ -1101,13 +1095,13 @@ NIImporter_VISUM::getNamedEdge(const std::string &fieldName1, const std::string 
 
 NBEdge *
 NIImporter_VISUM::getReversedContinuating(NBEdge *edge, NBNode *node) throw() {
-    string sid;
+    std::string sid;
     if (edge->getID()[0]=='-') {
         sid = edge->getID().substr(1);
     } else {
         sid = "-" + edge->getID();
     }
-    if (sid.find('_')!=string::npos) {
+    if (sid.find('_')!=std::string::npos) {
         sid = sid.substr(0, sid.find('_'));
     }
     return getNamedEdgeContinuating(myNetBuilder.getEdgeCont().retrieve(sid),  node);
@@ -1117,7 +1111,7 @@ NIImporter_VISUM::getReversedContinuating(NBEdge *edge, NBNode *node) throw() {
 NBEdge *
 NIImporter_VISUM::getNamedEdgeContinuating(NBEdge *begin, NBNode *node) throw() {
     NBEdge *ret = begin;
-    string edgeID = ret->getID();
+    std::string edgeID = ret->getID();
     // hangle forward
     while (ret!=0) {
         // ok, this is the edge we are looking for
@@ -1174,7 +1168,7 @@ NIImporter_VISUM::getNamedEdgeContinuating(NBEdge *begin, NBNode *node) throw() 
 
 NBEdge *
 NIImporter_VISUM::getNamedEdgeContinuating(const std::string &fieldName, NBNode *node) throw(OutOfBoundsException, NumberFormatException, UnknownElement) {
-    string edgeS = NBHelpers::normalIDRepresentation(myLineParser.get(fieldName));
+    std::string edgeS = NBHelpers::normalIDRepresentation(myLineParser.get(fieldName));
     NBEdge *edge = myNetBuilder.getEdgeCont().retrieve(edgeS);
     if (edge==0) {
         MsgHandler::getErrorInstance()->inform("The edge '" + edgeS + "' is not known.");
@@ -1209,7 +1203,7 @@ NIImporter_VISUM::getEdge(NBNode *FromNode, NBNode *ToNode) throw() {
 
 SUMOReal
 NIImporter_VISUM::getNamedFloat(const std::string &fieldName) throw(OutOfBoundsException, NumberFormatException, UnknownElement) {
-    string valS = NBHelpers::normalIDRepresentation(myLineParser.get(fieldName));
+    std::string valS = NBHelpers::normalIDRepresentation(myLineParser.get(fieldName));
     return TplConvert<char>::_2SUMOReal(valS.c_str());
 }
 
@@ -1217,7 +1211,7 @@ NIImporter_VISUM::getNamedFloat(const std::string &fieldName) throw(OutOfBoundsE
 SUMOReal
 NIImporter_VISUM::getNamedFloat(const std::string &fieldName, SUMOReal defaultValue) throw() {
     try {
-        string valS = NBHelpers::normalIDRepresentation(myLineParser.get(fieldName));
+        std::string valS = NBHelpers::normalIDRepresentation(myLineParser.get(fieldName));
         return TplConvert<char>::_2SUMOReal(valS.c_str());
     } catch (...) {
         return defaultValue;
@@ -1276,7 +1270,7 @@ NIImporter_VISUM::buildDistrictNode(const std::string &id, NBNode *dest,
         return 0;
     }
     // build the id
-    string nid;
+    std::string nid;
     nid = id + "-" + dest->getID();
     if (!isSource) {
         nid = "-" + nid;

@@ -47,12 +47,6 @@
 
 
 // ===========================================================================
-// used namespaces
-// ===========================================================================
-using namespace std;
-
-
-// ===========================================================================
 // method definitions
 // ===========================================================================
 NIVissimSingleTypeParser_Parkplatzdefinition::NIVissimSingleTypeParser_Parkplatzdefinition(NIImporter_Vissim &parent)
@@ -67,9 +61,9 @@ NIVissimSingleTypeParser_Parkplatzdefinition::parse(std::istream &from) {
     int id;
     from >> id;
 
-    string tag;
+    std::string tag;
     from >> tag;
-    string name = readName(from);
+    std::string name = readName(from);
 
     // parse the districts
     //  and allocate them if not done before

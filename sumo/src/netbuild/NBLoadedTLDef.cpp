@@ -43,12 +43,6 @@
 
 
 // ===========================================================================
-// used namespaces
-// ===========================================================================
-using namespace std;
-
-
-// ===========================================================================
 // method definitions
 // ===========================================================================
 /* -------------------------------------------------------------------------
@@ -485,8 +479,8 @@ NBLoadedTLDef::collectLinks() throw(ProcessError) {
         NBEdge *incoming = *i;
         unsigned int noLanes = incoming->getNoLanes();
         for (unsigned int j=0; j<noLanes; j++) {
-            vector<NBEdge::Connection> elv = incoming->getConnectionsFromLane(j);
-            for (vector<NBEdge::Connection>::iterator k=elv.begin(); k!=elv.end(); k++) {
+            std::vector<NBEdge::Connection> elv = incoming->getConnectionsFromLane(j);
+            for (std::vector<NBEdge::Connection>::iterator k=elv.begin(); k!=elv.end(); k++) {
                 NBEdge::Connection el = *k;
                 if (el.toEdge!=0) {
                     myControlledLinks.push_back(NBConnection(incoming, j, el.toEdge, el.toLane));

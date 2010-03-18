@@ -43,12 +43,6 @@
 
 
 // ===========================================================================
-// used namespaces
-// ===========================================================================
-using namespace std;
-
-
-// ===========================================================================
 // method definitions
 // ===========================================================================
 NIVissimSingleTypeParser_Signalgruppendefinition::NIVissimSingleTypeParser_Signalgruppendefinition(NIImporter_Vissim &parent)
@@ -64,9 +58,9 @@ NIVissimSingleTypeParser_Signalgruppendefinition::parse(std::istream &from) {
     int id;
     from >> id; // type-checking is missing!
     //
-    string tag;
+    std::string tag;
     tag = myRead(from);
-    string name;
+    std::string name;
     if (tag=="name") {
         name = readName(from);
         tag = myRead(from);
@@ -80,7 +74,7 @@ NIVissimSingleTypeParser_Signalgruppendefinition::parse(std::istream &from) {
                                                + "\n  TrafficLight-ID: " + toString<int>(lsaid));
         return false;
     }
-    string type = tl->getType();
+    std::string type = tl->getType();
     if (type=="festzeit") {
         return parseFixedTime(id, name, lsaid, from);
     }
@@ -117,7 +111,7 @@ NIVissimSingleTypeParser_Signalgruppendefinition::parseFixedTime(
     //
     bool isGreenBegin;
     DoubleVector times;
-    string tag = myRead(from);
+    std::string tag = myRead(from);
     if (tag=="dauergruen") {
         isGreenBegin = true;
         from >> tag;
@@ -156,7 +150,7 @@ bool
 NIVissimSingleTypeParser_Signalgruppendefinition::parseVAS(
     int /*id*/, const std::string &/*name*/, int lsaid, std::istream &from) {
     WRITE_WARNING("VAS traffic lights are not supported (lsa=" + toString<int>(lsaid) + ")");
-    string tag;
+    std::string tag;
     while (tag!="detektoren") {
         tag = myRead(from);
     }

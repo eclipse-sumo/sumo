@@ -44,12 +44,6 @@
 
 
 // ===========================================================================
-// used namespaces
-// ===========================================================================
-using namespace std;
-
-
-// ===========================================================================
 // method definitions
 // ===========================================================================
 RODFDetFlowLoader::RODFDetFlowLoader(const RODFDetectorCon &dets,
@@ -72,13 +66,13 @@ RODFDetFlowLoader::read(const std::string &file) throw(IOError, ProcessError) {
     myLineHandler.reinit(lr.readLine(), ";", ";", true, true);
     // parse values
     while (lr.hasMore()) {
-        string line = lr.readLine();
-        if (line.find(';')==string::npos) {
+        std::string line = lr.readLine();
+        if (line.find(';')==std::string::npos) {
             continue;
         }
         myLineHandler.parseLine(line);
         try {
-            string detName = myLineHandler.get("detector");
+            std::string detName = myLineHandler.get("detector");
             if (!myDetectorContainer.knows(detName)) {
                 continue;
             }

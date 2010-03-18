@@ -52,12 +52,6 @@
 
 
 // ===========================================================================
-// used namespaces
-// ===========================================================================
-using namespace std;
-
-
-// ===========================================================================
 // method definitions
 // ===========================================================================
 // ---------------------------------------------------------------------------
@@ -72,10 +66,10 @@ NIImporter_RobocupRescue::loadNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
     // build the handler
     NIImporter_RobocupRescue handler(nb.getNodeCont(), nb.getEdgeCont());
     // parse file(s)
-    vector<string> files = oc.getStringVector("robocup-net");
-    for (vector<string>::const_iterator file=files.begin(); file!=files.end(); ++file) {
+    std::vector<std::string> files = oc.getStringVector("robocup-net");
+    for (std::vector<std::string>::const_iterator file=files.begin(); file!=files.end(); ++file) {
         // nodes
-        string nodesName = (*file) + "/node.bin";
+        std::string nodesName = (*file) + "/node.bin";
         if (!FileHelpers::exists(nodesName)) {
             MsgHandler::getErrorInstance()->inform("Could not open robocup-node-file '" + nodesName + "'.");
             return;
@@ -84,7 +78,7 @@ NIImporter_RobocupRescue::loadNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
         handler.loadNodes(nodesName);
         MsgHandler::getMessageInstance()->endProcessMsg("done.");
         // edges
-        string edgesName = (*file) + "/road.bin";
+        std::string edgesName = (*file) + "/road.bin";
         if (!FileHelpers::exists(edgesName)) {
             MsgHandler::getErrorInstance()->inform("Could not open robocup-road-file '" + edgesName + "'.");
             return;
@@ -130,7 +124,7 @@ NIImporter_RobocupRescue::loadNodes(const std::string &file) {
         dev >> posY;
         dev >> numEdges;
 
-        vector<int> edges;
+        std::vector<int> edges;
         for (unsigned int j=0; j<numEdges; ++j) {
             unsigned int edge;
             dev >> edge;
@@ -140,28 +134,28 @@ NIImporter_RobocupRescue::loadNodes(const std::string &file) {
         unsigned int signal;
         dev >> signal;
 
-        vector<int> turns;
+        std::vector<int> turns;
         for (unsigned int j=0; j<numEdges; ++j) {
             unsigned int turn;
             dev >> turn;
             turns.push_back(turn);
         }
 
-        vector<pair<int, int> > conns;
+        std::vector<std::pair<int, int> > conns;
         for (unsigned int j=0; j<numEdges; ++j) {
             unsigned int connF, connT;
             dev >> connF;
             dev >> connT;
-            conns.push_back(pair<int, int>(connF, connT));
+            conns.push_back(std::pair<int, int>(connF, connT));
         }
 
-        vector<vector<int> > times;
+        std::vector<std::vector<int> > times;
         for (unsigned int j=0; j<numEdges; ++j) {
             unsigned int t1, t2, t3;
             dev >> t1;
             dev >> t2;
             dev >> t3;
-            vector<int> time;
+            std::vector<int> time;
             time.push_back(t1);
             time.push_back(t2);
             time.push_back(t3);
@@ -187,9 +181,9 @@ NIImporter_RobocupRescue::loadEdges(const std::string &file) {
     //
     unsigned int noEdges;
     dev >> noEdges;
-    cout << "Expected edge number: " << noEdges << endl;
+    std::cout << "Expected edge number: " << noEdges << std::endl;
     do {
-        cout << "  left " << (noEdges) << endl;
+        std::cout << "  left " << (noEdges) << std::endl;
         unsigned int entrySize, id, begNode, endNode, length, roadKind, carsToHead,
         carsToTail, humansToHead, humansToTail, width, block, repairCost, median,
         linesToHead, linesToTail, widthForWalkers;

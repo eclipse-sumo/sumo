@@ -49,12 +49,6 @@
 
 
 // ===========================================================================
-// used namespaces
-// ===========================================================================
-using namespace std;
-
-
-// ===========================================================================
 // static members
 // ===========================================================================
 NIVissimConnectionCluster::ContType NIVissimConnectionCluster::myClusters;
@@ -558,9 +552,9 @@ NIVissimConnectionCluster::_debugOut(std::ostream &into) {
             }
             into << *j;
         }
-        into << "(" << (*i)->myBoundary << ")" << endl;
+        into << "(" << (*i)->myBoundary << ")" << std::endl;
     }
-    into << "---------------------------" << endl;
+    into << "---------------------------" << std::endl;
 }
 
 

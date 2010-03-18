@@ -52,12 +52,6 @@
 
 
 // ===========================================================================
-// used namespaces
-// ===========================================================================
-using namespace std;
-
-
-// ===========================================================================
 // method definitions
 // ===========================================================================
 NLEdgeControlBuilder::NLEdgeControlBuilder()
@@ -75,7 +69,7 @@ NLEdgeControlBuilder::~NLEdgeControlBuilder() {
 
 
 void
-NLEdgeControlBuilder::beginEdgeParsing(const string &id,
+NLEdgeControlBuilder::beginEdgeParsing(const std::string &id,
                                        MSEdge::EdgeBasicFunction function) throw(InvalidArgument) {
     myActiveEdge = buildEdge(id);
     if (!MSEdge::dictionary(id, myActiveEdge)) {

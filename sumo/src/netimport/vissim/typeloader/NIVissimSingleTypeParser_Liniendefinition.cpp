@@ -39,12 +39,6 @@
 
 
 // ===========================================================================
-// used namespaces
-// ===========================================================================
-using namespace std;
-
-
-// ===========================================================================
 // method definitions
 // ===========================================================================
 NIVissimSingleTypeParser_Liniendefinition::NIVissimSingleTypeParser_Liniendefinition(NIImporter_Vissim &parent)
@@ -56,7 +50,7 @@ NIVissimSingleTypeParser_Liniendefinition::~NIVissimSingleTypeParser_Liniendefin
 
 bool
 NIVissimSingleTypeParser_Liniendefinition::parse(std::istream &from) {
-    string tag;
+    std::string tag;
     from >> tag;
     //cout << tag << endl;
     do {

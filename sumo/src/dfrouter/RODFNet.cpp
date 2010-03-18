@@ -45,12 +45,6 @@
 
 
 // ===========================================================================
-// used namespaces
-// ===========================================================================
-using namespace std;
-
-
-// ===========================================================================
 // method definitions
 // ===========================================================================
 RODFNet::RODFNet(bool amInHighwayMode) throw()
@@ -67,8 +61,8 @@ RODFNet::~RODFNet() throw() {
 
 void
 RODFNet::buildApproachList() {
-    const map<string, ROEdge*> &edges = getEdgeMap();
-    for (map<string, ROEdge*>::const_iterator rit = edges.begin(); rit != edges.end(); ++rit) {
+    const std::map<std::string, ROEdge*> &edges = getEdgeMap();
+    for (std::map<std::string, ROEdge*>::const_iterator rit = edges.begin(); rit != edges.end(); ++rit) {
         ROEdge *ce = (*rit).second;
         unsigned int i = 0;
         unsigned int length_size = ce->getNoFollowing();
@@ -204,7 +198,7 @@ RODFNet::computeRoutesFor(ROEdge *edge, RODFRouteDesc &base, int /*no*/,
                           int maxFollowingLength,
                           std::vector<ROEdge*> &seen) const {
     std::vector<RODFRouteDesc> unfoundEnds;
-    priority_queue<RODFRouteDesc, vector<RODFRouteDesc>, DFRouteDescByTimeComperator> toSolve;
+    std::priority_queue<RODFRouteDesc, std::vector<RODFRouteDesc>, DFRouteDescByTimeComperator> toSolve;
     std::map<ROEdge*, std::vector<ROEdge*> > dets2Follow;
     dets2Follow[edge] = std::vector<ROEdge*>();
     base.passedNo = 0;
@@ -687,7 +681,7 @@ RODFNet::reportEmptyDetectors(RODFDetectorCon &detectors,
 
 ROEdge *
 RODFNet::getDetectorEdge(const RODFDetector &det) const {
-    string edgeName = det.getLaneID();
+    std::string edgeName = det.getLaneID();
     edgeName = edgeName.substr(0, edgeName.rfind('_'));
     ROEdge *ret = getEdge(edgeName);
     if (ret==0) {
@@ -1068,10 +1062,10 @@ RODFNet::buildDetectorDependencies(RODFDetectorCon &detectors) {
             continue;
         }
         // mark current detectors
-        vector<RODFDetector*> last;
+        std::vector<RODFDetector*> last;
         {
-            const vector<string> &detNames = myDetectorsOnEdges.find((*i).second)->second;
-            for (vector<string>::const_iterator j=detNames.begin(); j!=detNames.end(); ++j) {
+            const std::vector<std::string> &detNames = myDetectorsOnEdges.find((*i).second)->second;
+            for (std::vector<std::string>::const_iterator j=detNames.begin(); j!=detNames.end(); ++j) {
                 last.push_back((RODFDetector*) &detectors.getDetector(*j));
             }
         }
@@ -1081,17 +1075,17 @@ RODFNet::buildDetectorDependencies(RODFDetectorCon &detectors) {
             const std::vector<ROEdge*> &edges2Pass = (*j).edges2Pass;
             for (std::vector<ROEdge*>::const_iterator k=edges2Pass.begin()+1; k!=edges2Pass.end(); ++k) {
                 if (myDetectorsOnEdges.find(*k)!=myDetectorsOnEdges.end()) {
-                    const vector<string> &detNames = myDetectorsOnEdges.find(*k)->second;
+                    const std::vector<std::string> &detNames = myDetectorsOnEdges.find(*k)->second;
                     // ok, consecutive detector found
-                    for (vector<RODFDetector*>::iterator l=last.begin(); l!=last.end(); ++l) {
+                    for (std::vector<RODFDetector*>::iterator l=last.begin(); l!=last.end(); ++l) {
                         // mark as follower of current
-                        for (vector<string>::const_iterator m=detNames.begin(); m!=detNames.end(); ++m) {
+                        for (std::vector<std::string>::const_iterator m=detNames.begin(); m!=detNames.end(); ++m) {
                             ((RODFDetector*) &detectors.getDetector(*m))->addPriorDetector((RODFDetector*) &(*l));
                             (*l)->addFollowingDetector((RODFDetector*) &detectors.getDetector(*m));
                         }
                     }
                     last.clear();
-                    for (vector<string>::const_iterator m=detNames.begin(); m!=detNames.end(); ++m) {
+                    for (std::vector<std::string>::const_iterator m=detNames.begin(); m!=detNames.end(); ++m) {
                         last.push_back((RODFDetector*) &detectors.getDetector(*m));
                     }
                 }
@@ -1131,15 +1125,15 @@ RODFNet::mesoJoin(RODFDetectorCon &detectors, RODFDetectorFlows &flows) {
             if (clique.size()==1) {
                 continue;
             }
-            string nid;
+            std::string nid;
             for (std::vector<std::string>::iterator n=clique.begin(); n!=clique.end(); ++n) {
-                cout << *n << " ";
+                std::cout << *n << " ";
                 if (n!=clique.begin()) {
                     nid = nid + "_";
                 }
                 nid = nid + *n;
             }
-            cout << ":" << nid << endl;
+            std::cout << ":" << nid << std::endl;
             flows.mesoJoin(nid, (*m).second);
             detectors.mesoJoin(nid, (*m).second);
         }

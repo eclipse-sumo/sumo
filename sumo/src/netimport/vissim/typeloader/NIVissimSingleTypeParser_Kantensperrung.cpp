@@ -39,12 +39,6 @@
 
 
 // ===========================================================================
-// used namespaces
-// ===========================================================================
-using namespace std;
-
-
-// ===========================================================================
 // method definitions
 // ===========================================================================
 NIVissimSingleTypeParser_Kantensperrung::NIVissimSingleTypeParser_Kantensperrung(NIImporter_Vissim &parent)
@@ -56,10 +50,10 @@ NIVissimSingleTypeParser_Kantensperrung::~NIVissimSingleTypeParser_Kantensperrun
 
 bool
 NIVissimSingleTypeParser_Kantensperrung::parse(std::istream &from) {
-    string tag;
+    std::string tag;
     from >> tag;
     //
-    string id;
+    std::string id;
     from >> id;
     //
     from >> tag;

@@ -40,12 +40,6 @@
 
 
 // ===========================================================================
-// used namespaces
-// ===========================================================================
-using namespace std;
-
-
-// ===========================================================================
 // method definitions
 // ===========================================================================
 NBConnection::NBConnection(NBEdge *from, NBEdge *to)
@@ -184,7 +178,7 @@ NBConnection::checkTo(const NBEdgeCont &ec) {
 
 std::string
 NBConnection::getID() const {
-    stringstream str;
+    std::stringstream str;
     str << myFromID << "_" << myFromLane << "->" << myToID << "_" << myToLane;
     return str.str();
 }

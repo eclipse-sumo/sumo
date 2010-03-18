@@ -39,12 +39,6 @@
 
 
 // ===========================================================================
-// used namespaces
-// ===========================================================================
-using namespace std;
-
-
-// ===========================================================================
 // method definitions
 // ===========================================================================
 NIVissimSingleTypeParser_Stauparameterdefinition::NIVissimSingleTypeParser_Stauparameterdefinition(NIImporter_Vissim &parent)

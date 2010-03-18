@@ -43,12 +43,6 @@
 
 
 // ===========================================================================
-// used namespaces
-// ===========================================================================
-using namespace std;
-
-
-// ===========================================================================
 // method definitions
 // ===========================================================================
 NIVissimSingleTypeParser_Streckendefinition::NIVissimSingleTypeParser_Streckendefinition(NIImporter_Vissim &parent)
@@ -64,10 +58,10 @@ NIVissimSingleTypeParser_Streckendefinition::parse(std::istream &from) {
     int id;
     from >> id;
     //
-    string tag;
+    std::string tag;
     // the following elements may occure: "Name", "Beschriftung", "Typ",
     //  followed by the mandatory "Laenge"
-    string name, label, type;
+    std::string name, label, type;
     SUMOReal length = -1;
     while (length<0) {
         tag = overrideOptionalLabel(from);

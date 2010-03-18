@@ -39,12 +39,6 @@
 
 
 // ===========================================================================
-// used namespaces
-// ===========================================================================
-using namespace std;
-
-
-// ===========================================================================
 // method definitions
 // ===========================================================================
 NIVissimSingleTypeParser_Simdauer::NIVissimSingleTypeParser_Simdauer(NIImporter_Vissim &parent)
@@ -56,7 +50,7 @@ NIVissimSingleTypeParser_Simdauer::~NIVissimSingleTypeParser_Simdauer() {}
 
 bool
 NIVissimSingleTypeParser_Simdauer::parse(std::istream &from) {
-    string duration;
+    std::string duration;
     from >> duration;
     // !!!
     try {

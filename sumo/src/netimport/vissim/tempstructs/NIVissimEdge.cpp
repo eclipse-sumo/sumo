@@ -57,12 +57,6 @@
 
 
 // ===========================================================================
-// used namespaces
-// ===========================================================================
-using namespace std;
-
-
-// ===========================================================================
 // static members
 // ===========================================================================
 NIVissimEdge::DictType NIVissimEdge::myDict;
@@ -522,7 +516,7 @@ NIVissimEdge::buildNBEdge(NBDistrictCont &dc, NBNodeCont &nc, NBEdgeCont &ec,
         bool cont = true;
         for (ConnectionClusters::iterator j = tmpClusters.begin(); cont && j!=tmpClusters.end(); ++j) {
             // split the edge at the previously build node
-            string nextID = buildEdge->getID() + "[1]";
+            std::string nextID = buildEdge->getID() + "[1]";
             cont = ec.splitAt(dc, buildEdge, (*j)->getNBNode());
             // !!! what to do if the edge could not be split?
             buildEdge = ec.retrieve(nextID);
@@ -533,7 +527,7 @@ NIVissimEdge::buildNBEdge(NBDistrictCont &dc, NBNodeCont &nc, NBEdgeCont &ec,
 
 SUMOReal
 NIVissimEdge::getRealSpeed(/* NBDistribution &dc */ int distNo) {
-    string id = toString<int>(distNo);
+    std::string id = toString<int>(distNo);
     Distribution *dist = NBDistribution::dictionary("speed", id);
     if (dist==0) {
         WRITE_WARNING("The referenced speed distribution '" + id + "' is not known.");
@@ -671,7 +665,7 @@ std::pair<NBNode*, NBNode*>
 NIVissimEdge::remapOneOfNodes(NBNodeCont &nc,
                               NIVissimDistrictConnection *d,
                               NBNode *fromNode, NBNode *toNode) {
-    string nid = "ParkingPlace" + toString<int>(d->getID());
+    std::string nid = "ParkingPlace" + toString<int>(d->getID());
     if (d->geomPosition().distanceTo(fromNode->getPosition())
             <
             d->geomPosition().distanceTo(toNode->getPosition())) {
@@ -706,7 +700,7 @@ NIVissimEdge::resolveSameNode(NBNodeCont &nc, SUMOReal offset,
         SUMOReal position = d->getPosition();
         // the district is at the begin of the edge
         if (myGeom.length()-position>position) {
-            string nid = "ParkingPlace" + toString<int>(d->getID());
+            std::string nid = "ParkingPlace" + toString<int>(d->getID());
             NBNode *node = nc.retrieve(nid);
             if (node==0) {
                 node = new NBNode(nid,
@@ -719,7 +713,7 @@ NIVissimEdge::resolveSameNode(NBNodeCont &nc, SUMOReal offset,
         }
         // the district is at the end of the edge
         else {
-            string nid = "ParkingPlace" + toString<int>(d->getID());
+            std::string nid = "ParkingPlace" + toString<int>(d->getID());
             NBNode *node = nc.retrieve(nid);
             if (node==0) {
                 node = new NBNode(nid,
@@ -758,7 +752,7 @@ NIVissimEdge::resolveSameNode(NBNodeCont &nc, SUMOReal offset,
                 myGeom.getBegin(),
                 NBNode::NODETYPE_NOJUNCTION);
             if (!nc.insert(beg)) {
-                cout << "nope, NIVissimDisturbance" << endl;
+                std::cout << "nope, NIVissimDisturbance" << std::endl;
                 throw 1;
             }
             return std::pair<NBNode*, NBNode*>(beg, node);
@@ -988,9 +982,9 @@ NIVissimEdge::reportUnsetSpeeds() throw() {
     if (myLanesWithMissingSpeeds.size()==0) {
         return;
     }
-    ostringstream str;
+    std::ostringstream str;
     str << "The following lanes have no explicite speed information:\n  ";
-    for (vector<string>::iterator i=myLanesWithMissingSpeeds.begin(); i!=myLanesWithMissingSpeeds.end(); ++i) {
+    for (std::vector<std::string>::iterator i=myLanesWithMissingSpeeds.begin(); i!=myLanesWithMissingSpeeds.end(); ++i) {
         if (i!=myLanesWithMissingSpeeds.begin()) {
             str << ", ";
         }

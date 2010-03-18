@@ -42,12 +42,6 @@
 
 
 // ===========================================================================
-// used namespaces
-// ===========================================================================
-using namespace std;
-
-
-// ===========================================================================
 // method definitions
 // ===========================================================================
 NBTrafficLightLogicCont::NBTrafficLightLogicCont() throw() {}
@@ -100,7 +94,7 @@ void
 NBTrafficLightLogicCont::computeLogics(NBEdgeCont &ec, OptionsCont &oc) throw() {
     unsigned int no = 0;
     for (DefinitionContType::iterator i=myDefinitions.begin(); i!=myDefinitions.end(); i++) {
-        string id = (*i).first;
+        std::string id = (*i).first;
         if (myComputed.find(id)!=myComputed.end()) {
             WRITE_WARNING("Traffic light '" + id + "' was already built.");
             continue;

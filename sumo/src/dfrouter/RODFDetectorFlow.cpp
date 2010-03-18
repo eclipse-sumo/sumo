@@ -37,12 +37,6 @@
 
 
 // ===========================================================================
-// used namespaces
-// ===========================================================================
-using namespace std;
-
-
-// ===========================================================================
 // method definitions
 // ===========================================================================
 RODFDetectorFlows::RODFDetectorFlows(SUMOTime startTime, SUMOTime endTime,
@@ -198,7 +192,7 @@ RODFDetectorFlows::mesoJoin(const std::string &nid,
 void
 RODFDetectorFlows::printAbsolute() const {
     for (std::map<std::string, std::vector<FlowDef> >::const_iterator i=myFastAccessFlows.begin(); i!=myFastAccessFlows.end(); ++i) {
-        cout << (*i).first << ":";
+        std::cout << (*i).first << ":";
         const std::vector<FlowDef> &flows = (*i).second;
         SUMOReal qPKW = 0;
         SUMOReal qLKW = 0;
@@ -206,7 +200,7 @@ RODFDetectorFlows::printAbsolute() const {
             qPKW += (*j).qPKW;
             qLKW += (*j).qLKW;
         }
-        cout << qPKW << "/" << qLKW << endl;
+        std::cout << qPKW << "/" << qLKW << std::endl;
     }
 }
 

@@ -53,12 +53,6 @@
 
 
 // ===========================================================================
-// used namespaces
-// ===========================================================================
-using namespace std;
-
-
-// ===========================================================================
 // method definitions
 // ===========================================================================
 NLJunctionControlBuilder::NLJunctionControlBuilder(MSNet &net,
@@ -317,7 +311,7 @@ NLJunctionControlBuilder::initJunctionLogic(const std::string &id, int requestSi
 
 void
 NLJunctionControlBuilder::addLogicItem(int request,
-                                       const string &response,
+                                       const std::string &response,
                                        const std::string &foes,
                                        bool cont) throw(InvalidArgument) {
     if (myCurrentHasError) {
@@ -333,11 +327,11 @@ NLJunctionControlBuilder::addLogicItem(int request,
         throw InvalidArgument("The request size, the response size or the number of lanes is not given! Contact your net supplier");
     }
     // add the read response for the given request index
-    bitset<64> use(response);
+    std::bitset<64> use(response);
     assert(myActiveLogic->size()>(size_t) request);
     (*myActiveLogic)[request] = use;
     // add the read junction-internal foes for the given request index
-    bitset<64> use2(foes);
+    std::bitset<64> use2(foes);
     assert(myActiveFoes->size()>(size_t) request);
     (*myActiveFoes)[request] = use2;
     // add whether the vehicle may drive a little bit further
@@ -475,19 +469,19 @@ NLJunctionControlBuilder::getTLLogicControlToUse() const throw() {
 }
 
 
-const string &
+const std::string &
 NLJunctionControlBuilder::getActiveID() const throw() {
     return myActiveID;
 }
 
 
-const string &
+const std::string &
 NLJunctionControlBuilder::getActiveKey() const throw() {
     return myActiveKey;
 }
 
 
-const string &
+const std::string &
 NLJunctionControlBuilder::getActiveSubKey() const throw() {
     return myActiveSubKey;
 }

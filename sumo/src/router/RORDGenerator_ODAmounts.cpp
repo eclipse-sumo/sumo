@@ -52,12 +52,6 @@
 
 
 // ===========================================================================
-// used namespaces
-// ===========================================================================
-using namespace std;
-
-
-// ===========================================================================
 // method definitions
 // ===========================================================================
 /* -------------------------------------------------------------------------
@@ -126,7 +120,7 @@ RORDGenerator_ODAmounts::FlowDef::addRoutes(RONet &net, SUMOTime t) {
 
 void
 RORDGenerator_ODAmounts::FlowDef::addSingleRoute(RONet &net, SUMOTime t) {
-    string id = myVehicle->getID() + "_" + toString<unsigned int>(myEmitted);
+    std::string id = myVehicle->getID() + "_" + toString<unsigned int>(myEmitted);
     RORouteDef *rd = myRoute->copy(id);
     net.addRouteDef(rd);
     ROVehicle *veh = myVehicle->copy(id, t, rd);
@@ -225,7 +219,7 @@ void
 RORDGenerator_ODAmounts::parseFlowAmountDef(const SUMOSAXAttributes &attrs) throw(ProcessError) {
     // get the vehicle id, the edges, the speed and position and
     //  the departure time and other information
-    string id = getVehicleID(attrs);
+    std::string id = getVehicleID(attrs);
     if (myKnownIDs.find(id)!=myKnownIDs.end()) {
         throw ProcessError("The id '" + id + "' appears twice within the flow descriptions.'");
     }

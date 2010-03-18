@@ -39,12 +39,6 @@
 
 
 // ===========================================================================
-// used namespaces
-// ===========================================================================
-using namespace std;
-
-
-// ===========================================================================
 // method definitions
 // ===========================================================================
 NIVissimSingleTypeParser_Zuflussdefinition::NIVissimSingleTypeParser_Zuflussdefinition(NIImporter_Vissim &parent)
@@ -56,9 +50,9 @@ NIVissimSingleTypeParser_Zuflussdefinition::~NIVissimSingleTypeParser_Zuflussdef
 
 bool
 NIVissimSingleTypeParser_Zuflussdefinition::parse(std::istream &from) {
-    string id, edgeid;
+    std::string id, edgeid;
     from >> id; // type-checking is missing!
-    string tag, name;
+    std::string tag, name;
     // override some optional values till q
     while (tag!="q") {
         tag = overrideOptionalLabel(from);

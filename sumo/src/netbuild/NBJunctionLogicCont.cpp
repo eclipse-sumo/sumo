@@ -44,12 +44,6 @@
 
 
 // ===========================================================================
-// used namespaces
-// ===========================================================================
-using namespace std;
-
-
-// ===========================================================================
 // method definitions
 // ===========================================================================
 NBJunctionLogicCont::NBJunctionLogicCont() {}
@@ -61,7 +55,7 @@ NBJunctionLogicCont::~NBJunctionLogicCont() {
 
 
 bool
-NBJunctionLogicCont::exists(const string &key) {
+NBJunctionLogicCont::exists(const std::string &key) {
     return myMap.find(key)!=myMap.end();
 }
 
@@ -71,7 +65,7 @@ NBJunctionLogicCont::add(const std::string &key,
                          const std::string &xmlDescription) {
     LogicMap::iterator i=myMap.find(key);
     if (i!=myMap.end()) {
-        string tmp = (*i).second;
+        std::string tmp = (*i).second;
     }
     myMap.insert(LogicMap::value_type(key, xmlDescription));
 }

@@ -48,12 +48,6 @@
 
 
 // ===========================================================================
-// used namespaces
-// ===========================================================================
-using namespace std;
-
-
-// ===========================================================================
 // method definitions
 // ===========================================================================
 NGNode::NGNode() throw()
@@ -91,7 +85,7 @@ NGNode::buildNBNode(NBNetBuilder &nb) const throw(ProcessError) {
     }
     //
     // check whether it is a traffic light junction
-    string nodeType = OptionsCont::getOptions().isSet("default-junction-type")
+    std::string nodeType = OptionsCont::getOptions().isSet("default-junction-type")
                       ? OptionsCont::getOptions().getString("default-junction-type")
                       : "";
     NBNode *node = 0;

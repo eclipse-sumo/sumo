@@ -38,12 +38,6 @@
 
 
 // ===========================================================================
-// used namespaces
-// ===========================================================================
-using namespace std;
-
-
-// ===========================================================================
 // method definitions
 // ===========================================================================
 NIVissimSingleTypeParser_Stopschilddefinition::NIVissimSingleTypeParser_Stopschilddefinition(NIImporter_Vissim &parent)
@@ -56,7 +50,7 @@ NIVissimSingleTypeParser_Stopschilddefinition::~NIVissimSingleTypeParser_Stopsch
 bool
 NIVissimSingleTypeParser_Stopschilddefinition::parse(std::istream &from) {
     readUntil(from, "strecke");
-    string tag;
+    std::string tag;
     from >> tag; // edge name
     from >> tag; // "spur"
     from >> tag; // lane no

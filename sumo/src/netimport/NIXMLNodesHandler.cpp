@@ -52,12 +52,6 @@
 
 
 // ===========================================================================
-// used namespaces
-// ===========================================================================
-using namespace std;
-
-
-// ===========================================================================
 // method definitions
 // ===========================================================================
 NIXMLNodesHandler::NIXMLNodesHandler(NBNodeCont &nc,
@@ -116,7 +110,7 @@ NIXMLNodesHandler::myStartElement(SumoXMLTag element,
         type = node->getType();
     }
     if (attrs.hasAttribute(SUMO_ATTR_TYPE)) {
-        string typeS = attrs.getOptStringReporting(SUMO_ATTR_TYPE, "node", myID.c_str(), ok, "");
+        std::string typeS = attrs.getOptStringReporting(SUMO_ATTR_TYPE, "node", myID.c_str(), ok, "");
         if (typeS=="priority") {
             type = NBNode::NODETYPE_PRIORITY_JUNCTION;
         } else if (typeS=="right_before_left") {
@@ -135,7 +129,7 @@ NIXMLNodesHandler::myStartElement(SumoXMLTag element,
         // remove previously set tls if this node is not controlled by a tls
         std::set<NBTrafficLightDefinition*> tls = node->getControllingTLS();
         node->removeTrafficLights();
-        for (set<NBTrafficLightDefinition*>::iterator i=tls.begin(); i!=tls.end(); ++i) {
+        for (std::set<NBTrafficLightDefinition*>::iterator i=tls.begin(); i!=tls.end(); ++i) {
             if ((*i)->getNodes().size()==0) {
                 myTLLogicCont.remove((*i)->getID());
             }
@@ -159,7 +153,7 @@ NIXMLNodesHandler::processTrafficLightDefinitions(const SUMOSAXAttributes &attrs
     // if no tl-id exists, we will build a tl with the node's id
     NBTrafficLightDefinition *tlDef = 0;
     bool ok = true;
-    string tlID = attrs.getOptStringReporting(SUMO_ATTR_TLID, "node", 0, ok, "");
+    std::string tlID = attrs.getOptStringReporting(SUMO_ATTR_TLID, "node", 0, ok, "");
     if (tlID!="") {
         // ok, the traffic light has a name
         tlDef = myTLLogicCont.getDefinition(tlID);

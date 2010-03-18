@@ -47,12 +47,6 @@
 
 
 // ===========================================================================
-// used namespaces
-// ===========================================================================
-using namespace std;
-
-
-// ===========================================================================
 // method definitions
 // ===========================================================================
 RONetHandler::RONetHandler(RONet &net,
@@ -111,7 +105,7 @@ RONetHandler::parseEdge(const SUMOSAXAttributes &attrs) {
     bool ok = true;
     std::string from = attrs.getStringReporting(SUMO_ATTR_FROM, "edge", myCurrentName.c_str(), ok);
     std::string to = attrs.getStringReporting(SUMO_ATTR_TO, "edge", myCurrentName.c_str(), ok);
-    string type = attrs.getStringReporting(SUMO_ATTR_FUNCTION, "edge", myCurrentName.c_str(), ok);
+    std::string type = attrs.getStringReporting(SUMO_ATTR_FUNCTION, "edge", myCurrentName.c_str(), ok);
     if (!ok) {
         return;
     }
@@ -154,7 +148,7 @@ RONetHandler::parseLane(const SUMOSAXAttributes &attrs) {
     }
     std::vector<SUMOVehicleClass> allowed, disallowed;
     // get the id, report an error if not given or empty...
-    string id;
+    std::string id;
     if (!attrs.setIDFromAttributes("lane", id)) {
         return;
     }
@@ -185,7 +179,7 @@ RONetHandler::parseLane(const SUMOSAXAttributes &attrs) {
 void
 RONetHandler::parseJunction(const SUMOSAXAttributes &attrs) {
     // get the id, report an error if not given or empty...
-    string id;
+    std::string id;
     if (!attrs.setIDFromAttributes("junction", id)) {
         return;
     }
@@ -209,7 +203,7 @@ RONetHandler::parseJunction(const SUMOSAXAttributes &attrs) {
 void
 RONetHandler::parseConnectingEdge(const SUMOSAXAttributes &attrs) throw(ProcessError) {
     bool ok = true;
-    string id = attrs.getStringReporting(SUMO_ATTR_EDGE, 0,0, ok);
+    std::string id = attrs.getStringReporting(SUMO_ATTR_EDGE, 0,0, ok);
     if (id[0]==':') {
         myCurrentEdge = 0;
         return;
@@ -228,7 +222,7 @@ RONetHandler::parseConnectedEdge(const SUMOSAXAttributes &attrs) {
         return;
     }
     bool ok = true;
-    string id = attrs.getStringReporting(SUMO_ATTR_LANE, "lane", myCurrentName.c_str(), ok);
+    std::string id = attrs.getStringReporting(SUMO_ATTR_LANE, "lane", myCurrentName.c_str(), ok);
     if (id=="SUMO_NO_DESTINATION") {
         return;
     }

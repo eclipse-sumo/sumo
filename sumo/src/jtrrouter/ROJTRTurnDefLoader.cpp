@@ -46,12 +46,6 @@
 
 
 // ===========================================================================
-// used namespaces
-// ===========================================================================
-using namespace std;
-
-
-// ===========================================================================
 // method definitions
 // ===========================================================================
 ROJTRTurnDefLoader::ROJTRTurnDefLoader(RONet &net) throw()
@@ -151,7 +145,7 @@ void
 ROJTRTurnDefLoader::beginFromEdge(const SUMOSAXAttributes &attrs) throw() {
     myEdge = 0;
     // get the id, report an error if not given or empty...
-    string id;
+    std::string id;
     if (!attrs.setIDFromAttributes("from-edge", id)) {
         return;
     }
@@ -170,7 +164,7 @@ ROJTRTurnDefLoader::addToEdge(const SUMOSAXAttributes &attrs) throw() {
         return;
     }
     // get the id, report an error if not given or empty...
-    string id;
+    std::string id;
     if (!attrs.setIDFromAttributes("to-edge", id)) {
         return;
     }

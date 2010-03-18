@@ -39,12 +39,6 @@
 
 
 // ===========================================================================
-// used namespaces
-// ===========================================================================
-using namespace std;
-
-
-// ===========================================================================
 // method definitions
 // ===========================================================================
 NIVissimSingleTypeParser_Detektordefinition::NIVissimSingleTypeParser_Detektordefinition(NIImporter_Vissim &parent)
@@ -56,7 +50,7 @@ NIVissimSingleTypeParser_Detektordefinition::~NIVissimSingleTypeParser_Detektord
 
 bool
 NIVissimSingleTypeParser_Detektordefinition::parse(std::istream &from) {
-    string tag;
+    std::string tag;
     while (tag!="strecke") {
         tag = myRead(from);
     }

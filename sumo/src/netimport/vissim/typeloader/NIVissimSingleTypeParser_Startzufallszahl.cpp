@@ -39,12 +39,6 @@
 
 
 // ===========================================================================
-// used namespaces
-// ===========================================================================
-using namespace std;
-
-
-// ===========================================================================
 // method definitions
 // ===========================================================================
 NIVissimSingleTypeParser_Startzufallszahl::NIVissimSingleTypeParser_Startzufallszahl(NIImporter_Vissim &parent)

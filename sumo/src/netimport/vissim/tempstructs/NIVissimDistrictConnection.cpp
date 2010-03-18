@@ -56,12 +56,6 @@
 
 
 // ===========================================================================
-// used namespaces
-// ===========================================================================
-using namespace std;
-
-
-// ===========================================================================
 // static member definitions
 // ===========================================================================
 NIVissimDistrictConnection::DictType NIVissimDistrictConnection::myDict;
@@ -170,7 +164,7 @@ NIVissimDistrictConnection::dict_BuildDistrictNodes(NBDistrictCont &dc,
         // get the connections
         const IntVector &connections = (*k).second;
         // retrieve the current district
-        string dsid = toString<int>((*k).first);
+        std::string dsid = toString<int>((*k).first);
         NBDistrict *district = new NBDistrict(dsid);
         dc.insert(district);
         // compute the middle of the district
@@ -185,7 +179,7 @@ NIVissimDistrictConnection::dict_BuildDistrictNodes(NBDistrictCont &dc,
         }
         district->setCenter(distCenter);
         // build the node
-        string id = "District" + district->getID();
+        std::string id = "District" + district->getID();
         NBNode *districtNode =
             new NBNode(id, district->getPosition(), district);
         if (!nc.insert(districtNode)) {
@@ -223,7 +217,7 @@ NIVissimDistrictConnection::dict_BuildDistricts(NBDistrictCont &dc,
                 MsgHandler::getWarningInstance()->inform("Could not build district '" + toString<int>((*k).first) + "' - edge '" + toString<int>(c->myEdgeID) + "' is missing.");
                 continue;
             }
-            string id = "ParkingPlace" + toString<int>(*l);
+            std::string id = "ParkingPlace" + toString<int>(*l);
             NBNode *parkingPlace = nc.retrieve(id);
             if (parkingPlace==0) {
                 SUMOReal pos = c->getPosition();
@@ -304,13 +298,13 @@ NIVissimDistrictConnection::dict_BuildDistricts(NBDistrictCont &dc,
             }
 
             // build the district-node if not yet existing
-            string id = "VissimParkingplace" + district->getID();
+            std::string id = "VissimParkingplace" + district->getID();
             NBNode *districtNode = nc.retrieve(id);
             assert(districtNode!=0);
 
             if(e->getToNode()==edgeend) {
                 // build the connection to the source
-                id = string("VissimFromParkingplace")
+                id = std::string("VissimFromParkingplace")
                     + toString<int>((*k).first) + "-"
                     + toString<int>(c->myID);
                 NBEdge *source =
@@ -323,7 +317,7 @@ NIVissimDistrictConnection::dict_BuildDistricts(NBDistrictCont &dc,
                 district->addSource(source, percNormed);
             } else {
                 // build the connection to the destination
-                id = string("VissimToParkingplace")
+                id = std::string("VissimToParkingplace")
                     + toString<int>((*k).first) + "-"
                     + toString<int>(c->myID);
                 NBEdge *destination =
@@ -389,7 +383,7 @@ NIVissimDistrictConnection::getMeanSpeed(/*NBDistribution &dc*/) const {
 
 SUMOReal
 NIVissimDistrictConnection::getRealSpeed(/*NBDistribution &dc, */int distNo) const {
-    string id = toString<int>(distNo);
+    std::string id = toString<int>(distNo);
     Distribution *dist = NBDistribution::dictionary("speed", id);
     if (dist==0) {
         WRITE_WARNING("The referenced speed distribution '" + id + "' is not known.");

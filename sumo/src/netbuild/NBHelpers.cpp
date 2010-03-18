@@ -43,12 +43,6 @@
 
 
 // ===========================================================================
-// used namespaces
-// ===========================================================================
-using namespace std;
-
-
-// ===========================================================================
 // method definitions
 // ===========================================================================
 SUMOReal
@@ -90,10 +84,10 @@ NBHelpers::normRelAngle(SUMOReal angle1, SUMOReal angle2) {
 
 std::string
 NBHelpers::normalIDRepresentation(const std::string &id) {
-    stringstream strm1(id);
+    std::stringstream strm1(id);
     long numid;
     strm1 >> numid;
-    stringstream strm2;
+    std::stringstream strm2;
     strm2 << numid;
     return strm2.str();
 }

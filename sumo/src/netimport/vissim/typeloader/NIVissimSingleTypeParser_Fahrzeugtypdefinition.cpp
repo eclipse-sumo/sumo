@@ -40,12 +40,6 @@
 
 
 // ===========================================================================
-// used namespaces
-// ===========================================================================
-using namespace std;
-
-
-// ===========================================================================
 // method definitions
 // ===========================================================================
 NIVissimSingleTypeParser_Fahrzeugtypdefinition::NIVissimSingleTypeParser_Fahrzeugtypdefinition(
@@ -63,11 +57,11 @@ NIVissimSingleTypeParser_Fahrzeugtypdefinition::parse(std::istream &from) {
     int id;
     from >> id; // type-checking is missing!
     // name
-    string tag;
+    std::string tag;
     from >> tag;
-    string name = readName(from);
+    std::string name = readName(from);
     // category
-    string category;
+    std::string category;
     from >> tag;
     from >> category;
     // color (optional) and length
@@ -75,7 +69,7 @@ NIVissimSingleTypeParser_Fahrzeugtypdefinition::parse(std::istream &from) {
     tag = myRead(from);
     while (tag!="laenge") {
         if (tag=="farbe") {
-            string colorName = myRead(from);
+            std::string colorName = myRead(from);
             NIImporter_Vissim::ColorMap::iterator i=myColorMap.find(colorName);
             if (i!=myColorMap.end()) {
                 color = (*i).second;

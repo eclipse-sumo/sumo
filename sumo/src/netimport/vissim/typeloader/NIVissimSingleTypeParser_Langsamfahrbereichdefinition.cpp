@@ -38,12 +38,6 @@
 
 
 // ===========================================================================
-// used namespaces
-// ===========================================================================
-using namespace std;
-
-
-// ===========================================================================
 // method definitions
 // ===========================================================================
 NIVissimSingleTypeParser_Langsamfahrbereichdefinition::NIVissimSingleTypeParser_Langsamfahrbereichdefinition(NIImporter_Vissim &parent)
@@ -55,10 +49,10 @@ NIVissimSingleTypeParser_Langsamfahrbereichdefinition::~NIVissimSingleTypeParser
 
 bool
 NIVissimSingleTypeParser_Langsamfahrbereichdefinition::parse(std::istream &from) {
-    string id;
+    std::string id;
     from >> id;
     readUntil(from, "fahrzeugklasse");
-    string tag = "fahrzeugklasse";
+    std::string tag = "fahrzeugklasse";
     while (tag=="fahrzeugklasse") {
         readUntil(from, "maxverzoegerung");
         tag = myRead(from);

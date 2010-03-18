@@ -39,12 +39,6 @@
 
 
 // ===========================================================================
-// used namespaces
-// ===========================================================================
-using namespace std;
-
-
-// ===========================================================================
 // method definitions
 // ===========================================================================
 NIVissimSingleTypeParser_Reisezeitmessungsdefinition::NIVissimSingleTypeParser_Reisezeitmessungsdefinition(NIImporter_Vissim &parent)
@@ -56,7 +50,7 @@ NIVissimSingleTypeParser_Reisezeitmessungsdefinition::~NIVissimSingleTypeParser_
 
 bool
 NIVissimSingleTypeParser_Reisezeitmessungsdefinition::parse(std::istream &from) {
-    string tag = myRead(from);
+    std::string tag = myRead(from);
     if (tag=="aggregationsintervall") {
         while (tag!="DATAEND") {
             tag = readEndSecure(from);

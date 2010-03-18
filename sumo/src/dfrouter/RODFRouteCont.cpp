@@ -42,12 +42,6 @@
 
 
 // ===========================================================================
-// used namespaces
-// ===========================================================================
-using namespace std;
-
-
-// ===========================================================================
 // method definitions
 // ===========================================================================
 RODFRouteCont::RODFRouteCont() throw() {}
@@ -141,8 +135,8 @@ RODFRouteCont::removeIllegal(const std::vector<std::vector<ROEdge*> > &illegals)
 
 void
 RODFRouteCont::addAllEndFollower() throw() {
-    vector<RODFRouteDesc> newRoutes;
-    for (vector<RODFRouteDesc>::iterator i=myRoutes.begin(); i!=myRoutes.end(); ++i) {
+    std::vector<RODFRouteDesc> newRoutes;
+    for (std::vector<RODFRouteDesc>::iterator i=myRoutes.begin(); i!=myRoutes.end(); ++i) {
         RODFRouteDesc &desc = *i;
         ROEdge *last = *(desc.edges2Pass.end()-1);
         if (last->getNoFollowing()==0) {
@@ -162,7 +156,7 @@ RODFRouteCont::addAllEndFollower() throw() {
 
 void
 RODFRouteCont::setID(RODFRouteDesc &desc) const throw() {
-    pair<ROEdge*, ROEdge*> c(desc.edges2Pass[0], desc.edges2Pass.back());
+    std::pair<ROEdge*, ROEdge*> c(desc.edges2Pass[0], desc.edges2Pass.back());
     desc.routename = c.first->getID() + "_to_" + c.second->getID();
     if (myConnectionOccurences.find(c)==myConnectionOccurences.end()) {
         myConnectionOccurences[c] = 0;

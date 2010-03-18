@@ -40,12 +40,6 @@
 
 
 // ===========================================================================
-// used namespaces
-// ===========================================================================
-using namespace std;
-
-
-// ===========================================================================
 // method definitions
 // ===========================================================================
 ROVehicleCont::ROVehicleCont() throw() {}
@@ -75,7 +69,7 @@ ROVehicleCont::add(const std::string &id, ROVehicle *item) throw() {
 
 void
 ROVehicleCont::clear() throw() {
-    mySorted = priority_queue<ROVehicle*, vector<ROVehicle*>, ROVehicleByDepartureComperator>();
+    mySorted = std::priority_queue<ROVehicle*, std::vector<ROVehicle*>, ROVehicleByDepartureComperator>();
     NamedObjectCont<ROVehicle*>::clear();
 }
 
@@ -98,7 +92,7 @@ ROVehicleCont::erase(const std::string &id) throw() {
 
 void
 ROVehicleCont::rebuildSorted() throw() {
-    mySorted = priority_queue<ROVehicle*, vector<ROVehicle*>, ROVehicleByDepartureComperator>();
+    mySorted = std::priority_queue<ROVehicle*, std::vector<ROVehicle*>, ROVehicleByDepartureComperator>();
     std::map<std::string, ROVehicle*>::const_iterator i;
     const std::map<std::string, ROVehicle*> &mmap = getMyMap();
     for (i=mmap.begin(); i!=mmap.end(); ++i) {

@@ -56,12 +56,6 @@
 
 
 // ===========================================================================
-// used namespaces
-// ===========================================================================
-using namespace std;
-
-
-// ===========================================================================
 // method definitions
 // ===========================================================================
 // ---------------------------------------------------------------------------
@@ -74,9 +68,9 @@ NIImporter_ArcView::loadNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
     }
     // check whether the correct set of entries is given
     //  and compute both file names
-    string dbf_file = oc.getString("arcview") + ".dbf";
-    string shp_file = oc.getString("arcview") + ".shp";
-    string shx_file = oc.getString("arcview") + ".shx";
+    std::string dbf_file = oc.getString("arcview") + ".dbf";
+    std::string shp_file = oc.getString("arcview") + ".shp";
+    std::string shx_file = oc.getString("arcview") + ".shx";
     // check whether the files do exist
     if (!FileHelpers::exists(dbf_file)) {
         MsgHandler::getErrorInstance()->inform("File not found: " + dbf_file);
@@ -156,7 +150,7 @@ NIImporter_ArcView::load() {
     poLayer->ResetReading();
     while ((poFeature = poLayer->GetNextFeature()) != NULL) {
         // read in edge attributes
-        string id =
+        std::string id =
             myOptions.isSet("arcview.street-id")
             ? poFeature->GetFieldAsString((char*)(myOptions.getString("arcview.street-id").c_str()))
             : poFeature->GetFieldAsString("LINK_ID");
@@ -165,18 +159,18 @@ NIImporter_ArcView::load() {
             MsgHandler::getErrorInstance()->inform("Could not obtain edge id.");
             return;
         }
-        string name =
+        std::string name =
             myOptions.isSet("arcview.street-id")
             ? poFeature->GetFieldAsString((char*) myOptions.getString("arcview.street-id").c_str())
             : poFeature->GetFieldAsString("ST_NAME");
         name = StringUtils::prune(StringUtils::replace(name, "&", "&amp;"));
 
-        string from_node =
+        std::string from_node =
             myOptions.isSet("arcview.from-id")
             ? poFeature->GetFieldAsString((char*)(myOptions.getString("arcview.from-id").c_str()))
             : poFeature->GetFieldAsString("REF_IN_ID");
         from_node = StringUtils::prune(from_node);
-        string to_node =
+        std::string to_node =
             myOptions.isSet("arcview.to-id")
             ? poFeature->GetFieldAsString((char*) myOptions.getString("arcview.to-id").c_str())
             : poFeature->GetFieldAsString("NREF_IN_ID");
@@ -185,7 +179,7 @@ NIImporter_ArcView::load() {
             from_node = toString(myRunningNodeID++);
             to_node = toString(myRunningNodeID++);
         }
-        string type = poFeature->GetFieldAsString("ST_TYP_AFT");
+        std::string type = poFeature->GetFieldAsString("ST_TYP_AFT");
         SUMOReal speed = getSpeed(*poFeature, id);
         unsigned int nolanes = getLaneNo(*poFeature, id, speed);
         int priority = getPriority(*poFeature, id);
@@ -258,7 +252,7 @@ NIImporter_ArcView::load() {
         }
 
         // retrieve the information whether the street is bi-directional
-        string dir;
+        std::string dir;
         int index = poFeature->GetDefnRef()->GetFieldIndex("DIR_TRAVEL");
         if (index>=0&&poFeature->IsFieldSet(index)) {
             dir = poFeature->GetFieldAsString(index);
@@ -318,7 +312,7 @@ NIImporter_ArcView::getSpeed(OGRFeature &poFeature, const std::string &edgeid) {
     // try to get the NavTech-information
     index = poFeature.GetDefnRef()->GetFieldIndex("SPEED_CAT");
     if (index>=0&&poFeature.IsFieldSet(index)) {
-        string def = poFeature.GetFieldAsString(index);
+        std::string def = poFeature.GetFieldAsString(index);
         return NINavTeqHelper::getSpeed(edgeid, def);
     }
     return -1;
@@ -347,7 +341,7 @@ NIImporter_ArcView::getLaneNo(OGRFeature &poFeature, const std::string &edgeid,
     }
     index = poFeature.GetDefnRef()->GetFieldIndex("LANE_CAT");
     if (index>=0&&poFeature.IsFieldSet(index)) {
-        string def = poFeature.GetFieldAsString(index);
+        std::string def = poFeature.GetFieldAsString(index);
         return NINavTeqHelper::getLaneNumber(edgeid, def, speed);
     }
     return 0;

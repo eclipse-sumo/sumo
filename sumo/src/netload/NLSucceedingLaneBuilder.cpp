@@ -49,12 +49,6 @@
 
 
 // ===========================================================================
-// used namespaces
-// ===========================================================================
-using namespace std;
-
-
-// ===========================================================================
 // method definitions
 // ===========================================================================
 NLSucceedingLaneBuilder::NLSucceedingLaneBuilder(NLJunctionControlBuilder &jb) throw()
@@ -70,13 +64,13 @@ NLSucceedingLaneBuilder::~NLSucceedingLaneBuilder() throw() {
 
 
 void
-NLSucceedingLaneBuilder::openSuccLane(const string &laneId) throw() {
+NLSucceedingLaneBuilder::openSuccLane(const std::string &laneId) throw() {
     myCurrentLane = laneId;
 }
 
 
 void
-NLSucceedingLaneBuilder::addSuccLane(bool yield, const string &laneId,
+NLSucceedingLaneBuilder::addSuccLane(bool yield, const std::string &laneId,
 #ifdef HAVE_INTERNAL_LANES
                                      const std::string &viaID,
                                      SUMOReal pass,

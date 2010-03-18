@@ -298,8 +298,8 @@ NIXMLEdgesHandler::setNodes(const SUMOSAXAttributes &attrs) throw() {
     // the names and the coordinates of the beginning and the end node
     // may be found, try
     bool ok = true;
-    string begNodeID = myIsUpdate ? myCurrentEdge->getFromNode()->getID() : "";
-    string endNodeID = myIsUpdate ? myCurrentEdge->getToNode()->getID() : "";
+    std::string begNodeID = myIsUpdate ? myCurrentEdge->getFromNode()->getID() : "";
+    std::string endNodeID = myIsUpdate ? myCurrentEdge->getToNode()->getID() : "";
     begNodeID = attrs.hasAttribute(SUMO_ATTR_FROMNODE) ? attrs.getStringReporting(SUMO_ATTR_FROMNODE, "edge", 0, ok) : begNodeID;
     endNodeID = attrs.hasAttribute(SUMO_ATTR_TONODE) ? attrs.getStringReporting(SUMO_ATTR_TONODE, "edge", 0, ok) : endNodeID;
     if (!ok) {
@@ -380,7 +380,7 @@ NIXMLEdgesHandler::tryGetShape(const SUMOSAXAttributes &attrs) throw() {
     }
     // try to build shape
     bool ok = true;
-    string shpdef = attrs.getOptStringReporting(SUMO_ATTR_SHAPE, "edge", 0, ok, "");
+    std::string shpdef = attrs.getOptStringReporting(SUMO_ATTR_SHAPE, "edge", 0, ok, "");
     if (shpdef=="") {
         return Position2DVector();
     }
@@ -455,12 +455,12 @@ NIXMLEdgesHandler::myEndElement(SumoXMLTag element) throw(ProcessError) {
                 const Split &exp = *i;
                 assert(exp.lanes.size()!=0);
                 if (exp.pos>0 && e->getGeometry().length()+seen>exp.pos) {
-                    string nid = edgeid + "." +  toString(exp.nameid);
+                    std::string nid = edgeid + "." +  toString(exp.nameid);
                     NBNode *rn = new NBNode(nid, exp.gpos);
                     if (myNodeCont.insert(rn)) {
                         //  split the edge
-                        string nid = myCurrentID + "." +  toString(exp.nameid);
-                        string pid = e->getID();
+                        std::string nid = myCurrentID + "." +  toString(exp.nameid);
+                        std::string pid = e->getID();
                         myEdgeCont.splitAt(myDistrictCont, e, exp.pos-seen, rn,
                                            pid, nid, e->getNoLanes(), (unsigned int) exp.lanes.size());
                         seen = exp.pos;

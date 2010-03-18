@@ -43,12 +43,6 @@
 
 
 // ===========================================================================
-// used namespaces
-// ===========================================================================
-using namespace std;
-
-
-// ===========================================================================
 // method definitions
 // ===========================================================================
 NIVissimSingleTypeParser_Signalgeberdefinition::NIVissimSingleTypeParser_Signalgeberdefinition(NIImporter_Vissim &parent)
@@ -64,7 +58,7 @@ NIVissimSingleTypeParser_Signalgeberdefinition::parse(std::istream &from) {
     int id;
     from >> id;
     //
-    string tag, name;
+    std::string tag, name;
     tag = myRead(from);
     if (tag=="name") {
         name = readName(from);

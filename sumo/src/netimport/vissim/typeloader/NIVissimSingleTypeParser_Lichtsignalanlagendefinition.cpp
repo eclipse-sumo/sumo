@@ -40,12 +40,6 @@
 
 
 // ===========================================================================
-// used namespaces
-// ===========================================================================
-using namespace std;
-
-
-// ===========================================================================
 // method definitions
 // ===========================================================================
 NIVissimSingleTypeParser_Lichtsignalanlagendefinition::NIVissimSingleTypeParser_Lichtsignalanlagendefinition(NIImporter_Vissim &parent)
@@ -61,14 +55,14 @@ NIVissimSingleTypeParser_Lichtsignalanlagendefinition::parse(std::istream &from)
     int id;
     from >> id;
     //
-    string tag, name;
+    std::string tag, name;
     tag = myRead(from);
     if (tag=="name") {
         name = readName(from);
         tag = myRead(from);
     }
     // type
-    string type;
+    std::string type;
     type = myRead(from);
     if (type=="festzeit") {
         return parseFixedTime(id, name, from);
@@ -105,8 +99,8 @@ NIVissimSingleTypeParser_Lichtsignalanlagendefinition::parse(std::istream &from)
 bool
 NIVissimSingleTypeParser_Lichtsignalanlagendefinition::parseFixedTime(
     int id, std::string name, std::istream &from) {
-    string type = "festzeit";
-    string tag;
+    std::string type = "festzeit";
+    std::string tag;
     from >> tag;
     //
     SUMOReal absdur;
@@ -130,7 +124,7 @@ NIVissimSingleTypeParser_Lichtsignalanlagendefinition::parseFixedTime(
 bool
 NIVissimSingleTypeParser_Lichtsignalanlagendefinition::parseVAS(
     int id, std::string name, std::istream &from) {
-    string tag;
+    std::string tag;
     from >> tag;
     //
     SUMOReal absdur;
@@ -148,7 +142,7 @@ NIVissimSingleTypeParser_Lichtsignalanlagendefinition::parseVAS(
 bool
 NIVissimSingleTypeParser_Lichtsignalanlagendefinition::parseRestActuated(
     int id, std::string name, std::istream &from, const std::string &type) {
-    string tag;
+    std::string tag;
     from >> tag;
     //
     SUMOReal absdur;

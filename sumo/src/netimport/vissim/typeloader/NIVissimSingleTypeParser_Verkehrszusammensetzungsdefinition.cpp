@@ -41,12 +41,6 @@
 
 
 // ===========================================================================
-// used namespaces
-// ===========================================================================
-using namespace std;
-
-
-// ===========================================================================
 // method definitions
 // ===========================================================================
 NIVissimSingleTypeParser_Verkehrszusammensetzungsdefinition::NIVissimSingleTypeParser_Verkehrszusammensetzungsdefinition(NIImporter_Vissim &parent)
@@ -62,9 +56,9 @@ NIVissimSingleTypeParser_Verkehrszusammensetzungsdefinition::parse(std::istream 
     int id;
     from >> id; // type-checking is missing!
     // name
-    string tag;
+    std::string tag;
     from >> tag;
-    string name = readName(from);
+    std::string name = readName(from);
     // assigned vehicle classes
     tag = myRead(from);
     if (tag=="temperatur") {

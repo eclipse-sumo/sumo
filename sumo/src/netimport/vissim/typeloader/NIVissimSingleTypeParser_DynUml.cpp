@@ -39,12 +39,6 @@
 
 
 // ===========================================================================
-// used namespaces
-// ===========================================================================
-using namespace std;
-
-
-// ===========================================================================
 // method definitions
 // ===========================================================================
 NIVissimSingleTypeParser_DynUml::NIVissimSingleTypeParser_DynUml(NIImporter_Vissim &parent)
@@ -60,7 +54,7 @@ NIVissimSingleTypeParser_DynUml::parse(std::istream &from) {
     tmp.push_back("reisezeit");
     tmp.push_back("kante");
     readUntil(from, "kirchhoffexponent");
-    string tag = readEndSecure(from, tmp);
+    std::string tag = readEndSecure(from, tmp);
     while (tag!="DATAEND") {
         tag = readEndSecure(from, tmp);
     }

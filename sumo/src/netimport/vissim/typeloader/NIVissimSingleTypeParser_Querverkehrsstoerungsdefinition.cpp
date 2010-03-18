@@ -41,12 +41,6 @@
 
 
 // ===========================================================================
-// used namespaces
-// ===========================================================================
-using namespace std;
-
-
-// ===========================================================================
 // method definitions
 // ===========================================================================
 NIVissimSingleTypeParser_Querverkehrsstoerungsdefinition::NIVissimSingleTypeParser_Querverkehrsstoerungsdefinition(NIImporter_Vissim &parent)
@@ -58,7 +52,7 @@ NIVissimSingleTypeParser_Querverkehrsstoerungsdefinition::~NIVissimSingleTypePar
 
 bool
 NIVissimSingleTypeParser_Querverkehrsstoerungsdefinition::parse(std::istream &from) {
-    string tag;
+    std::string tag;
     tag = myRead(from);
     if (tag=="nureigenestrecke") {
         return parseOnlyMe(from);
@@ -74,7 +68,7 @@ NIVissimSingleTypeParser_Querverkehrsstoerungsdefinition::parse(std::istream &fr
 
 bool
 NIVissimSingleTypeParser_Querverkehrsstoerungsdefinition::parseOnlyMe(std::istream &from) {
-    string tag;
+    std::string tag;
     from >> tag;
     return true;
 }
@@ -82,7 +76,7 @@ NIVissimSingleTypeParser_Querverkehrsstoerungsdefinition::parseOnlyMe(std::istre
 
 bool
 NIVissimSingleTypeParser_Querverkehrsstoerungsdefinition::parsePositionDescribed(std::istream &from) {
-    string tag = myRead(from);
+    std::string tag = myRead(from);
     NIVissimExtendedEdgePoint edge = parsePos(from);
 //    from >> tag; // "Durch"
     bool ok = true;
@@ -119,9 +113,9 @@ NIVissimSingleTypeParser_Querverkehrsstoerungsdefinition::parseNumbered(std::ist
     int id;
     from >> id;
     //
-    string tag;
+    std::string tag;
     from >> tag;
-    string name = readName(from);
+    std::string name = readName(from);
     // skip optional "Beschriftung"
     while (tag!="ort") {
         tag = myRead(from);
@@ -164,7 +158,7 @@ NIVissimSingleTypeParser_Querverkehrsstoerungsdefinition::parsePos(std::istream 
     int edgeid;
     from >> edgeid; // type-checking is missing!
     //
-    string tag;
+    std::string tag;
     from >> tag;
     from >> tag;
     IntVector lanes;

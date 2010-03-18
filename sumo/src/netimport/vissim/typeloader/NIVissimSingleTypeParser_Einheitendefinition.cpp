@@ -39,12 +39,6 @@
 
 
 // ===========================================================================
-// used namespaces
-// ===========================================================================
-using namespace std;
-
-
-// ===========================================================================
 // method definitions
 // ===========================================================================
 NIVissimSingleTypeParser_Einheitendefinition::NIVissimSingleTypeParser_Einheitendefinition(NIImporter_Vissim &parent)

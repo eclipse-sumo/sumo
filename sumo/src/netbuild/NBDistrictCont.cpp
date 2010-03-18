@@ -41,12 +41,6 @@
 
 
 // ===========================================================================
-// used namespaces
-// ===========================================================================
-using namespace std;
-
-
-// ===========================================================================
 // method definitions
 // ===========================================================================
 NBDistrictCont::NBDistrictCont() throw() {}
@@ -70,7 +64,7 @@ NBDistrictCont::insert(NBDistrict * const district) throw() {
 
 
 NBDistrict *
-NBDistrictCont::retrieve(const string &id) const throw() {
+NBDistrictCont::retrieve(const std::string &id) const throw() {
     DistrictCont::const_iterator i = myDistricts.find(id);
     if (i==myDistricts.end()) return 0;
     return (*i).second;

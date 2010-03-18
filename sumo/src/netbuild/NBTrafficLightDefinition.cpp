@@ -46,12 +46,6 @@
 
 
 // ===========================================================================
-// used namespaces
-// ===========================================================================
-using namespace std;
-
-
-// ===========================================================================
 // method definitions
 // ===========================================================================
 NBTrafficLightDefinition::NBTrafficLightDefinition(const std::string &id,
@@ -160,8 +154,8 @@ NBTrafficLightDefinition::collectLinks() throw(ProcessError) {
         NBEdge *incoming = *i;
         unsigned int noLanes = incoming->getNoLanes();
         for (unsigned int j=0; j<noLanes; j++) {
-            vector<NBEdge::Connection> connected = incoming->getConnectionsFromLane(j);
-            for (vector<NBEdge::Connection>::iterator k=connected.begin(); k!=connected.end(); k++) {
+            std::vector<NBEdge::Connection> connected = incoming->getConnectionsFromLane(j);
+            for (std::vector<NBEdge::Connection>::iterator k=connected.begin(); k!=connected.end(); k++) {
                 const NBEdge::Connection &el = *k;
                 if (incoming->mayBeTLSControlled(el.fromLane, el.toEdge, el.toLane)) {
                     myControlledLinks.push_back(NBConnection(incoming, j, el.toEdge, el.toLane));
@@ -182,7 +176,7 @@ NBTrafficLightDefinition::collectLinks() throw(ProcessError) {
 }
 
 
-pair<unsigned int, unsigned int>
+std::pair<unsigned int, unsigned int>
 NBTrafficLightDefinition::getSizes() const throw() {
     unsigned int noLanes = 0;
     unsigned int noLinks = 0;
@@ -194,7 +188,7 @@ NBTrafficLightDefinition::getSizes() const throw() {
         }
         noLanes += noLanesEdge;
     }
-    return pair<unsigned int, unsigned int>(noLanes, noLinks);
+    return std::pair<unsigned int, unsigned int>(noLanes, noLinks);
 }
 
 

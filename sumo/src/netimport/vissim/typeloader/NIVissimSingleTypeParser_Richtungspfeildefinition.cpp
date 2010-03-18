@@ -39,12 +39,6 @@
 
 
 // ===========================================================================
-// used namespaces
-// ===========================================================================
-using namespace std;
-
-
-// ===========================================================================
 // method definitions
 // ===========================================================================
 NIVissimSingleTypeParser_Richtungspfeildefinition::NIVissimSingleTypeParser_Richtungspfeildefinition(NIImporter_Vissim &parent)
@@ -56,7 +50,7 @@ NIVissimSingleTypeParser_Richtungspfeildefinition::~NIVissimSingleTypeParser_Ric
 
 bool
 NIVissimSingleTypeParser_Richtungspfeildefinition::parse(std::istream &from) {
-    string t;
+    std::string t;
     getline(from, t);
     return true;
 }

@@ -41,12 +41,6 @@
 
 
 // ===========================================================================
-// used namespaces
-// ===========================================================================
-using namespace std;
-
-
-// ===========================================================================
 // method definitions
 // ===========================================================================
 void
@@ -101,7 +95,7 @@ NBTypeCont::markAsToDiscard(const std::string &id) throw() {
 
 // ------------ Type-dependant Retrieval methods
 int
-NBTypeCont::getNoLanes(const string &type) const throw() {
+NBTypeCont::getNoLanes(const std::string &type) const throw() {
     TypesCont::const_iterator i = myTypes.find(type);
     if (i==myTypes.end()) {
         return myDefaultType.noLanes;
@@ -111,7 +105,7 @@ NBTypeCont::getNoLanes(const string &type) const throw() {
 
 
 SUMOReal
-NBTypeCont::getSpeed(const string &type) const throw() {
+NBTypeCont::getSpeed(const std::string &type) const throw() {
     TypesCont::const_iterator i = myTypes.find(type);
     if (i==myTypes.end()) {
         return myDefaultType.speed;
@@ -121,7 +115,7 @@ NBTypeCont::getSpeed(const string &type) const throw() {
 
 
 int
-NBTypeCont::getPriority(const string &type) const throw() {
+NBTypeCont::getPriority(const std::string &type) const throw() {
     TypesCont::const_iterator i = myTypes.find(type);
     if (i==myTypes.end()) {
         return myDefaultType.priority;

@@ -39,12 +39,6 @@
 
 
 // ===========================================================================
-// used namespaces
-// ===========================================================================
-using namespace std;
-
-
-// ===========================================================================
 // method definitions
 // ===========================================================================
 NIVissimSingleTypeParser_Querschnittsmessungsdefinition::NIVissimSingleTypeParser_Querschnittsmessungsdefinition(NIImporter_Vissim &parent)
@@ -56,7 +50,7 @@ NIVissimSingleTypeParser_Querschnittsmessungsdefinition::~NIVissimSingleTypePars
 
 bool
 NIVissimSingleTypeParser_Querschnittsmessungsdefinition::parse(std::istream &from) {
-    string tag = myRead(from);
+    std::string tag = myRead(from);
     if (tag=="von") {
         while (tag!="fahrzeugklassen"&&tag!="konfdatei") {
             tag = myRead(from);

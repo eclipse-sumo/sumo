@@ -41,12 +41,6 @@
 
 
 // ===========================================================================
-// used namespaces
-// ===========================================================================
-using namespace std;
-
-
-// ===========================================================================
 // method definitions
 // ===========================================================================
 NIVissimSingleTypeParser_Laengenverteilungsdefinition::NIVissimSingleTypeParser_Laengenverteilungsdefinition(NIImporter_Vissim &parent)
@@ -59,11 +53,11 @@ NIVissimSingleTypeParser_Laengenverteilungsdefinition::~NIVissimSingleTypeParser
 bool
 NIVissimSingleTypeParser_Laengenverteilungsdefinition::parse(std::istream &from) {
     // id
-    string id;
+    std::string id;
     from >> id;
     // list of points
     Position2DVector points;
-    string tag;
+    std::string tag;
     do {
         tag = readEndSecure(from);
         if (tag!="DATAEND") {
