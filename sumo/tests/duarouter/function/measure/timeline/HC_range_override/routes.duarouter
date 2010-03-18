@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 10/20/09 12:17:37 by SUMO duarouter Version dev-SVN-r7877
+<!-- generated on 03/18/10 14:24:14 by SUMO duarouter Version dev-SVN-r8460
 <configuration>
 
     <input>
@@ -18,13 +18,13 @@
 -->
 
 <routes>
-   <vehicle id="0" depart="0.00">
-      <route edges="beg beg2left left left2end end rend"/>
-   </vehicle>
-   <vehicle id="1" depart="100.00">
-      <route edges="beg middle end rend"/>
-   </vehicle>
-   <vehicle id="2" depart="200.00">
-      <route edges="beg middle end rend"/>
-   </vehicle>
+    <vehicle id="0" depart="0.00">
+        <route edges="beg beg2left left left2end end rend"/>
+    </vehicle>
+    <vehicle id="1" depart="100.00">
+        <route edges="beg middle end rend"/>
+    </vehicle>
+    <vehicle id="2" depart="200.00">
+        <route edges="beg middle end rend"/>
+    </vehicle>
 </routes>

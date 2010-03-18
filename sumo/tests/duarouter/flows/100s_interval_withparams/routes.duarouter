@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 02/11/10 13:13:09 by SUMO duarouter Version dev-SVN-r8238
+<!-- generated on 03/18/10 14:23:41 by SUMO duarouter Version dev-SVN-r8460
 <configuration>
 
     <input>
@@ -16,73 +16,73 @@
 -->
 
 <routes>
-   <vehicle id="0_0" depart="0.00">
-      <route edges="beg middle end rend"/>
-   </vehicle>
-   <vehicle id="10_0" depart="10.00" color="0.00,0.00,0.00">
-      <route color="0.00,0.00,0.00" edges="beg middle end rend"/>
-   </vehicle>
-   <vehicle id="11_0" depart="11.00" color="1.00,0.00,1.00">
-      <route color="1.00,0.00,1.00" edges="beg middle end rend"/>
-   </vehicle>
-   <vehicle id="20_0" depart="20.00" departpos="0.00">
-      <route edges="beg middle end rend"/>
-   </vehicle>
-   <vehicle id="21_0" depart="21.00" departpos="10.00">
-      <route edges="beg middle end rend"/>
-   </vehicle>
-   <vehicle id="22_0" depart="22.00" departpos="free">
-      <route edges="beg middle end rend"/>
-   </vehicle>
-   <vehicle id="23_0" depart="23.00" departpos="random">
-      <route edges="beg middle end rend"/>
-   </vehicle>
-   <vehicle id="30_0" depart="30.00" departlane="0">
-      <route edges="beg middle end rend"/>
-   </vehicle>
-   <vehicle id="31_0" depart="31.00" departlane="1">
-      <route edges="beg middle end rend"/>
-   </vehicle>
-   <vehicle id="32_0" depart="32.00" departlane="random">
-      <route edges="beg middle end rend"/>
-   </vehicle>
-   <vehicle id="33_0" depart="33.00" departlane="free">
-      <route edges="beg middle end rend"/>
-   </vehicle>
-   <vehicle id="34_0" depart="34.00" departlane="departlane">
-      <route edges="beg middle end rend"/>
-   </vehicle>
-   <vehicle id="40_0" depart="40.00" departspeed="0.00">
-      <route edges="beg middle end rend"/>
-   </vehicle>
-   <vehicle id="41_0" depart="41.00" departspeed="1.00">
-      <route edges="beg middle end rend"/>
-   </vehicle>
-   <vehicle id="42_0" depart="42.00" departspeed="max">
-      <route edges="beg middle end rend"/>
-   </vehicle>
-   <vehicle id="43_0" depart="43.00" departspeed="random">
-      <route edges="beg middle end rend"/>
-   </vehicle>
-   <vehicle id="50_0" depart="50.00" arrivallane="42">
-      <route edges="beg middle end rend"/>
-   </vehicle>
-   <vehicle id="51_0" depart="51.00" arrivallane="current">
-      <route edges="beg middle end rend"/>
-   </vehicle>
-   <vehicle id="60_0" depart="60.00" arrivalpos="42.00">
-      <route edges="beg middle end rend"/>
-   </vehicle>
-   <vehicle id="61_0" depart="61.00" arrivalpos="max">
-      <route edges="beg middle end rend"/>
-   </vehicle>
-   <vehicle id="62_0" depart="62.00" arrivalpos="random">
-      <route edges="beg middle end rend"/>
-   </vehicle>
-   <vehicle id="70_0" depart="70.00" arrivalspeed="42.00">
-      <route edges="beg middle end rend"/>
-   </vehicle>
-   <vehicle id="71_0" depart="71.00" arrivalspeed="current">
-      <route edges="beg middle end rend"/>
-   </vehicle>
+    <vehicle id="0_0" depart="0.00">
+        <route edges="beg middle end rend"/>
+    </vehicle>
+    <vehicle id="10_0" depart="10.00" color="0.00,0.00,0.00">
+        <route color="0.00,0.00,0.00" edges="beg middle end rend"/>
+    </vehicle>
+    <vehicle id="11_0" depart="11.00" color="1.00,0.00,1.00">
+        <route color="1.00,0.00,1.00" edges="beg middle end rend"/>
+    </vehicle>
+    <vehicle id="20_0" depart="20.00" departpos="0.00">
+        <route edges="beg middle end rend"/>
+    </vehicle>
+    <vehicle id="21_0" depart="21.00" departpos="10.00">
+        <route edges="beg middle end rend"/>
+    </vehicle>
+    <vehicle id="22_0" depart="22.00" departpos="free">
+        <route edges="beg middle end rend"/>
+    </vehicle>
+    <vehicle id="23_0" depart="23.00" departpos="random">
+        <route edges="beg middle end rend"/>
+    </vehicle>
+    <vehicle id="30_0" depart="30.00" departlane="0">
+        <route edges="beg middle end rend"/>
+    </vehicle>
+    <vehicle id="31_0" depart="31.00" departlane="1">
+        <route edges="beg middle end rend"/>
+    </vehicle>
+    <vehicle id="32_0" depart="32.00" departlane="random">
+        <route edges="beg middle end rend"/>
+    </vehicle>
+    <vehicle id="33_0" depart="33.00" departlane="free">
+        <route edges="beg middle end rend"/>
+    </vehicle>
+    <vehicle id="34_0" depart="34.00" departlane="departlane">
+        <route edges="beg middle end rend"/>
+    </vehicle>
+    <vehicle id="40_0" depart="40.00" departspeed="0.00">
+        <route edges="beg middle end rend"/>
+    </vehicle>
+    <vehicle id="41_0" depart="41.00" departspeed="1.00">
+        <route edges="beg middle end rend"/>
+    </vehicle>
+    <vehicle id="42_0" depart="42.00" departspeed="max">
+        <route edges="beg middle end rend"/>
+    </vehicle>
+    <vehicle id="43_0" depart="43.00" departspeed="random">
+        <route edges="beg middle end rend"/>
+    </vehicle>
+    <vehicle id="50_0" depart="50.00" arrivallane="42">
+        <route edges="beg middle end rend"/>
+    </vehicle>
+    <vehicle id="51_0" depart="51.00" arrivallane="current">
+        <route edges="beg middle end rend"/>
+    </vehicle>
+    <vehicle id="60_0" depart="60.00" arrivalpos="42.00">
+        <route edges="beg middle end rend"/>
+    </vehicle>
+    <vehicle id="61_0" depart="61.00" arrivalpos="max">
+        <route edges="beg middle end rend"/>
+    </vehicle>
+    <vehicle id="62_0" depart="62.00" arrivalpos="random">
+        <route edges="beg middle end rend"/>
+    </vehicle>
+    <vehicle id="70_0" depart="70.00" arrivalspeed="42.00">
+        <route edges="beg middle end rend"/>
+    </vehicle>
+    <vehicle id="71_0" depart="71.00" arrivalspeed="current">
+        <route edges="beg middle end rend"/>
+    </vehicle>
 </routes>

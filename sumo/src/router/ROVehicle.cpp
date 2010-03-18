@@ -71,25 +71,21 @@ ROVehicle::saveAllAsXML(SUMOAbstractRouter<ROEdge,ROVehicle> &router, OutputDevi
     }
 
     // write the vehicle (new style, with included routes)
-    os << "   ";
     myParameter.writeAs("vehicle", os, OptionsCont::getOptions());
     if (altos!=0) {
-        (*altos) << "   ";
         myParameter.writeAs("vehicle", *altos, OptionsCont::getOptions());
     }
 
     // check whether the route shall be saved
     if (!myRoute->isSaved()) {
-        os << "      ";
         myRoute->writeXMLDefinition(router, os, this, false, withExitTimes);
         if (altos!=0) {
-            (*altos) << "      ";
             myRoute->writeXMLDefinition(router, *altos, this, true, withExitTimes);
         }
     }
-    os << "   </vehicle>\n";
+    os.closeTag();
     if (altos!=0) {
-        (*altos) << "   </vehicle>\n";
+        altos->closeTag();
     }
 }
 

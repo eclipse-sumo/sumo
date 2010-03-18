@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 09/24/09 13:18:12 by SUMO duarouter Version dev-SVN-r7781
+<!-- generated on 03/18/10 14:23:59 by SUMO duarouter Version dev-SVN-r8460
 <configuration>
 
     <input>
@@ -19,9 +19,9 @@
    <vtype id="KRAUSS_DEFAULT" length="5.00" maxspeed="70.00" color="1.00,1.00,0.00">
       <carFollowing-Krauss accel="2.60" decel="4.50" sigma="0.50"/>
    </vtype>
-   <vehicle id="0" type="KRAUSS_DEFAULT" depart="0">
-      <routeDistribution last="0">
-         <route cost="125.11" probability="1.00000000" edges="beg middle end rend"/>
-      </routeDistribution>
-   </vehicle>
+    <vehicle id="0" type="KRAUSS_DEFAULT" depart="0.00">
+        <routeDistribution last="0">
+            <route cost="125.11" probability="1.00000000" edges="beg middle end rend"/>
+        </routeDistribution>
+    </vehicle>
 </route-alternatives>

@@ -1,31 +1,31 @@
 <?xml version="1.0"?>
 
-<!-- generated on 04/09/09 11:35:20 by SUMO jtrrouter Version dev-SVN-r7014
+<!-- generated on 03/18/10 14:26:51 by SUMO jtrrouter Version dev-SVN-r8460
 <configuration>
 
-   <input>
-      <net-file>input_net.net.xml</net-file>
-      <flow-definition>input_flows.flows.xml</flow-definition>
-      <turn-definition>input_turns.turns.xml</turn-definition>
-   </input>
+    <input>
+        <net-file value="input_net.net.xml"/>
+        <flow-definition value="input_flows.flows.xml"/>
+        <turn-definition value="input_turns.turns.xml"/>
+    </input>
 
-   <output>
-      <output-file>routes.rou.xml</output-file>
-   </output>
+    <output>
+        <output-file value="routes.rou.xml"/>
+    </output>
 
-   <processing>
-      <sinks>end</sinks>
-   </processing>
+    <processing>
+        <sinks value="end"/>
+    </processing>
 
-   <defaults>
-      <arrivalspeed>0</arrivalspeed>
-   </defaults>
+    <defaults>
+        <arrivalspeed value="0"/>
+    </defaults>
 
 </configuration>
 -->
 
 <routes>
-   <vehicle id="0_0" depart="0.00" arrivalspeed="0">
-      <route edges="beg beg2right right right2end -middle middle end"/>
-   </vehicle>
+    <vehicle id="0_0" depart="0.00" arrivalspeed="0">
+        <route edges="beg beg2right right right2end -middle middle end"/>
+    </vehicle>
 </routes>

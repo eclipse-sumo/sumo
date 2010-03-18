@@ -1,49 +1,49 @@
 <?xml version="1.0"?>
 
-<!-- generated on 07/11/08 10:58:22 by SUMO duarouter Version 0.9.7
+<!-- generated on 03/18/10 14:23:58 by SUMO duarouter Version dev-SVN-r8460
 <configuration>
 
-   <input>
-      <net-file>input_net.net.xml</net-file>
-      <alternatives>input_alts.rou.alt.xml</alternatives>
-   </input>
+    <input>
+        <net-file value="input_net.net.xml"/>
+        <alternatives value="input_alts.rou.alt.xml"/>
+    </input>
 
-   <output>
-      <output-file>routes.rou.xml</output-file>
-   </output>
+    <output>
+        <output-file value="routes.rou.xml"/>
+    </output>
 
 </configuration>
 -->
 
 <routes>
-   <vehicle id="0" depart="0.00" color="0.00,0.00,0.00">
-      <route edges="beg middle end rend"/>
-   </vehicle>
-   <vehicle id="1" depart="0.00" color="0.00,0.00,0.00">
-      <route edges="beg middle end rend"/>
-   </vehicle>
-   <vehicle id="2" depart="0.00" color="0.00,0.00,0.00">
-      <route edges="beg middle end rend"/>
-   </vehicle>
-   <vehicle id="3" depart="0.00" color="0.00,0.00,0.00">
-      <route edges="beg middle end rend"/>
-   </vehicle>
-   <vehicle id="4" depart="0.00" color="0.00,0.00,0.00">
-      <route edges="beg middle end rend"/>
-   </vehicle>
-   <vehicle id="5" depart="0.00" color="0.00,0.00,0.00">
-      <route edges="beg middle end rend"/>
-   </vehicle>
-   <vehicle id="6" depart="0.00" color="0.00,0.00,0.00">
-      <route edges="beg middle end rend"/>
-   </vehicle>
-   <vehicle id="7" depart="0.00" color="0.00,0.00,0.00">
-      <route edges="beg middle end rend"/>
-   </vehicle>
-   <vehicle id="8" depart="0.00" color="0.00,0.00,0.00">
-      <route edges="beg middle end rend"/>
-   </vehicle>
-   <vehicle id="9" depart="0.00" color="0.00,0.00,0.00">
-      <route edges="beg middle end rend"/>
-   </vehicle>
+    <vehicle id="0" depart="0.00" color="0.00,0.00,0.00">
+        <route edges="beg middle end rend"/>
+    </vehicle>
+    <vehicle id="1" depart="0.00" color="0.00,0.00,0.00">
+        <route edges="beg middle end rend"/>
+    </vehicle>
+    <vehicle id="2" depart="0.00" color="0.00,0.00,0.00">
+        <route edges="beg middle end rend"/>
+    </vehicle>
+    <vehicle id="3" depart="0.00" color="0.00,0.00,0.00">
+        <route edges="beg middle end rend"/>
+    </vehicle>
+    <vehicle id="4" depart="0.00" color="0.00,0.00,0.00">
+        <route edges="beg middle end rend"/>
+    </vehicle>
+    <vehicle id="5" depart="0.00" color="0.00,0.00,0.00">
+        <route edges="beg middle end rend"/>
+    </vehicle>
+    <vehicle id="6" depart="0.00" color="0.00,0.00,0.00">
+        <route edges="beg middle end rend"/>
+    </vehicle>
+    <vehicle id="7" depart="0.00" color="0.00,0.00,0.00">
+        <route edges="beg middle end rend"/>
+    </vehicle>
+    <vehicle id="8" depart="0.00" color="0.00,0.00,0.00">
+        <route edges="beg middle end rend"/>
+    </vehicle>
+    <vehicle id="9" depart="0.00" color="0.00,0.00,0.00">
+        <route edges="beg middle end rend"/>
+    </vehicle>
 </routes>

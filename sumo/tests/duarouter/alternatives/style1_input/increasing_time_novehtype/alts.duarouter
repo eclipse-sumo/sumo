@@ -1,39 +1,39 @@
 <?xml version="1.0"?>
 
-<!-- generated on 09/08/09 09:47:08 by SUMO duarouter Version dev-SVN-r7683
+<!-- generated on 03/18/10 14:23:51 by SUMO duarouter Version dev-SVN-r8460
 <configuration>
 
-    <input
-        net-file="input_net.net.xml"
-        alternatives="input_alts.rou.alt.xml"
-    />
+    <input>
+        <net-file value="input_net.net.xml"/>
+        <alternatives value="input_alts.rou.alt.xml"/>
+    </input>
 
-    <output
-        output-file="routes.rou.xml"
-    />
+    <output>
+        <output-file value="routes.rou.xml"/>
+    </output>
 
 </configuration>
 -->
 
 <route-alternatives>
-   <vehicle id="0" depart="0">
-      <routeDistribution last="0">
-         <route cost="125.11" probability="1.00000000" edges="beg middle end rend"/>
-      </routeDistribution>
-   </vehicle>
-   <vehicle id="1" depart="10">
-      <routeDistribution last="0">
-         <route cost="125.11" probability="1.00000000" color="1.00,1.00,0.00" edges="beg middle end rend"/>
-      </routeDistribution>
-   </vehicle>
-   <vehicle id="2" depart="20" color="1.00,1.00,0.00">
-      <routeDistribution last="0">
-         <route cost="125.11" probability="1.00000000" edges="beg middle end rend"/>
-      </routeDistribution>
-   </vehicle>
-   <vehicle id="3" depart="30" color="1.00,1.00,0.00">
-      <routeDistribution last="0">
-         <route cost="125.11" probability="1.00000000" color="1.00,1.00,0.00" edges="beg middle end rend"/>
-      </routeDistribution>
-   </vehicle>
+    <vehicle id="0" depart="0.00">
+        <routeDistribution last="0">
+            <route cost="125.11" probability="1.00000000" edges="beg middle end rend"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="1" depart="10.00">
+        <routeDistribution last="0">
+            <route cost="125.11" probability="1.00000000" color="1.00,1.00,0.00" edges="beg middle end rend"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="2" depart="20.00" color="1.00,1.00,0.00">
+        <routeDistribution last="0">
+            <route cost="125.11" probability="1.00000000" edges="beg middle end rend"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="3" depart="30.00" color="1.00,1.00,0.00">
+        <routeDistribution last="0">
+            <route cost="125.11" probability="1.00000000" color="1.00,1.00,0.00" edges="beg middle end rend"/>
+        </routeDistribution>
+    </vehicle>
 </route-alternatives>

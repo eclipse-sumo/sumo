@@ -1,25 +1,25 @@
 <?xml version="1.0"?>
 
-<!-- generated on 09/16/09 09:11:12 by SUMO duarouter Version dev-SVN-r7726
+<!-- generated on 03/18/10 14:24:07 by SUMO duarouter Version dev-SVN-r8460
 <configuration>
 
-    <input
-        net-file="input_net.net.xml"
-        flow-definition="input_flows.flows.xml"
-    />
+    <input>
+        <net-file value="input_net.net.xml"/>
+        <flow-definition value="input_flows.flows.xml"/>
+    </input>
 
-    <output
-        output-file="routes.rou.xml"
-    />
+    <output>
+        <output-file value="routes.rou.xml"/>
+    </output>
 
 </configuration>
 -->
 
 <route-alternatives>
    <vtype id="0" vclass=""/>
-   <vehicle id="0_0" type="0" depart="0">
-      <routeDistribution last="0">
-         <route cost="125.11" probability="1.00000000" edges="absBeg middle end absEnd"/>
-      </routeDistribution>
-   </vehicle>
+    <vehicle id="0_0" type="0" depart="0.00">
+        <routeDistribution last="0">
+            <route cost="125.11" probability="1.00000000" edges="absBeg middle end absEnd"/>
+        </routeDistribution>
+    </vehicle>
 </route-alternatives>

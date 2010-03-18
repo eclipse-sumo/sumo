@@ -1,31 +1,31 @@
 <?xml version="1.0"?>
 
-<!-- generated on 07/15/08 08:33:37 by SUMO duarouter Version 0.9.7
+<!-- generated on 03/18/10 14:23:51 by SUMO duarouter Version dev-SVN-r8460
 <configuration>
 
-   <input>
-      <net-file>input_net.net.xml</net-file>
-      <alternatives>input_alts.rou.alt.xml</alternatives>
-   </input>
+    <input>
+        <net-file value="input_net.net.xml"/>
+        <alternatives value="input_alts.rou.alt.xml"/>
+    </input>
 
-   <output>
-      <output-file>routes.rou.xml</output-file>
-   </output>
+    <output>
+        <output-file value="routes.rou.xml"/>
+    </output>
 
 </configuration>
 -->
 
 <routes>
-   <vehicle id="0" depart="0.00">
-      <route edges="beg middle end rend"/>
-   </vehicle>
-   <vehicle id="1" depart="10.00">
-      <route color="1.00,1.00,0.00" edges="beg middle end rend"/>
-   </vehicle>
-   <vehicle id="2" depart="20.00" color="1.00,1.00,0.00">
-      <route edges="beg middle end rend"/>
-   </vehicle>
-   <vehicle id="3" depart="30.00" color="1.00,1.00,0.00">
-      <route color="1.00,1.00,0.00" edges="beg middle end rend"/>
-   </vehicle>
+    <vehicle id="0" depart="0.00">
+        <route edges="beg middle end rend"/>
+    </vehicle>
+    <vehicle id="1" depart="10.00">
+        <route color="1.00,1.00,0.00" edges="beg middle end rend"/>
+    </vehicle>
+    <vehicle id="2" depart="20.00" color="1.00,1.00,0.00">
+        <route edges="beg middle end rend"/>
+    </vehicle>
+    <vehicle id="3" depart="30.00" color="1.00,1.00,0.00">
+        <route color="1.00,1.00,0.00" edges="beg middle end rend"/>
+    </vehicle>
 </routes>

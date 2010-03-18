@@ -63,7 +63,7 @@ SUMOVehicleParameter::defaultOptionOverrides(const OptionsCont &oc, const std::s
 void
 SUMOVehicleParameter::writeAs(const std::string &xmlElem, OutputDevice &dev,
                               const OptionsCont &oc) const throw(IOError) {
-    dev << "<vehicle id=\"" << id << "\"";
+    dev.openTag(xmlElem) << " id=\"" << id << "\"";
     if (wasSet(VEHPARS_VTYPE_SET)) {
         dev << " type=\"" << vtypeid << "\"";
     }

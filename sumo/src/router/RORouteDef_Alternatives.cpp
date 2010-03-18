@@ -259,11 +259,10 @@ RORouteDef_Alternatives::writeXMLDefinition(SUMOAbstractRouter<ROEdge,ROVehicle>
         bool asAlternatives, bool withExitTimes) const {
     // (optional) alternatives header
     if (asAlternatives) {
-        dev << "<routeDistribution last=\"" << myLastUsed << "\"";
-        dev << ">\n";
+        dev.openTag("routeDistribution") << " last=\"" << myLastUsed << "\">\n";
         for (size_t i=0; i!=myAlternatives.size(); i++) {
             const RORoute &alt = *(myAlternatives[i]);
-            dev << "         <route cost=\"" << alt.getCosts();
+            dev.openTag("route") << " cost=\"" << alt.getCosts();
             dev.setPrecision(8);
             dev << "\" probability=\"" << alt.getProbability();
             dev.setPrecision();
@@ -278,13 +277,16 @@ RORouteDef_Alternatives::writeXMLDefinition(SUMOAbstractRouter<ROEdge,ROVehicle>
                 dev << "\" exitTimes=\"";
                 std::vector<const ROEdge*>::const_iterator i = alt.getEdgeVector().begin();
                 for (; i!=alt.getEdgeVector().end(); ++i) {
+                    if (i != alt.getEdgeVector().begin()) {
+                        dev << " ";
+                    }
                     time += (*i)->getTravelTime(veh, (SUMOTime) time);
-                    dev << time << " ";
+                    dev << time;
                 }
             }
-            dev << "\"/>\n";
+            (dev << "\"").closeTag(true);
         }
-        dev << "      </routeDistribution>\n";
+        dev.closeTag();
         return dev;
     } else {
         return myAlternatives[myLastUsed]->writeXMLDefinition(router, dev, veh, asAlternatives, withExitTimes);

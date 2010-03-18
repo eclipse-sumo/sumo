@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 02/17/10 13:21:03 by SUMO duarouter Version dev-SVN-r8163
+<!-- generated on 03/18/10 14:24:13 by SUMO duarouter Version dev-SVN-r8460
 <configuration>
 
     <input>
@@ -18,7 +18,7 @@
 -->
 
 <routes>
-   <vehicle id="0" depart="0.00">
-      <route edges="beg b2b3 b3a3 a3a25 a25e"/>
-   </vehicle>
+    <vehicle id="0" depart="0.00">
+        <route edges="beg b2b3 b3a3 a3a25 a25e"/>
+    </vehicle>
 </routes>

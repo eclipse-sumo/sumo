@@ -1,23 +1,23 @@
 <?xml version="1.0"?>
 
-<!-- generated on 09/16/09 09:11:12 by SUMO duarouter Version dev-SVN-r7726
+<!-- generated on 03/18/10 14:24:07 by SUMO duarouter Version dev-SVN-r8460
 <configuration>
 
-    <input
-        net-file="input_net.net.xml"
-        trip-defs="input_trips.trips.xml"
-    />
+    <input>
+        <net-file value="input_net.net.xml"/>
+        <trip-defs value="input_trips.trips.xml"/>
+    </input>
 
-    <output
-        output-file="routes.rou.xml"
-    />
+    <output>
+        <output-file value="routes.rou.xml"/>
+    </output>
 
 </configuration>
 -->
 
 <routes>
    <vtype id="0" vclass=""/>
-   <vehicle id="0" type="0" depart="0.00">
-      <route edges="absBeg middle end absEnd"/>
-   </vehicle>
+    <vehicle id="0" type="0" depart="0.00">
+        <route edges="absBeg middle end absEnd"/>
+    </vehicle>
 </routes>

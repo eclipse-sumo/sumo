@@ -1,10 +1,11 @@
 <?xml version="1.0"?>
 
-<!-- generated on Mon Sep 28 15:42:23 2009 by SUMO duarouter Version dev-SVN-r7779
+<!-- generated on 03/18/10 14:24:14 by SUMO duarouter Version dev-SVN-r8460
 <configuration>
 
     <input>
         <net-file value="input_net.net.xml"/>
+        <weights value="input_weights.dump.xml"/>
         <trip-defs value="input_trips.trips.xml"/>
     </input>
 
@@ -16,9 +17,9 @@
 -->
 
 <route-alternatives>
-   <vehicle id="0" depart="0">
-      <routeDistribution last="0">
-         <route cost="94.97" probability="1.00000000" edges="beg b2b3 b3a3 a3a25 a25e"/>
-      </routeDistribution>
-   </vehicle>
+    <vehicle id="0" depart="0.00">
+        <routeDistribution last="0">
+            <route cost="94.97" probability="1.00000000" edges="beg b2b3 b3a3 a3a25 a25e"/>
+        </routeDistribution>
+    </vehicle>
 </route-alternatives>

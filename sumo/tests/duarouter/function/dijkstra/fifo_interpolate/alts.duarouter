@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 10/15/09 11:47:30 by SUMO duarouter Version dev-SVN-r7867
+<!-- generated on 03/18/10 14:24:14 by SUMO duarouter Version dev-SVN-r8460
 <configuration>
 
     <input>
@@ -27,14 +27,14 @@
 -->
 
 <route-alternatives>
-   <vehicle id="0" type="0" depart="888">
-      <routeDistribution last="0">
-         <route cost="116.92" probability="1.00000000" edges="beg beg2left left left2end end rend" exitTimes="898.00 909.00 949.00 969.00 986.93 1004.92 "/>
-      </routeDistribution>
-   </vehicle>
-   <vehicle id="1" type="0" depart="892">
-      <routeDistribution last="0">
-         <route cost="115.92" probability="1.00000000" edges="beg beg2left left left2end end rend" exitTimes="902.00 912.00 952.00 972.00 989.93 1007.92 "/>
-      </routeDistribution>
-   </vehicle>
+    <vehicle id="0" type="0" depart="888.00">
+        <routeDistribution last="0">
+            <route cost="116.92" probability="1.00000000" edges="beg beg2left left left2end end rend" exitTimes="898.00 909.00 949.00 969.00 986.93 1004.92"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="1" type="0" depart="892.00">
+        <routeDistribution last="0">
+            <route cost="115.92" probability="1.00000000" edges="beg beg2left left left2end end rend" exitTimes="902.00 912.00 952.00 972.00 989.93 1007.92"/>
+        </routeDistribution>
+    </vehicle>
 </route-alternatives>
