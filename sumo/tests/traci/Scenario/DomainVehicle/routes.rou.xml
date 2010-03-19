@@ -7,24 +7,23 @@
     </vehicle>
     
     <!-- +4 vehicles -->
-    <flow id="veh2" begin="0" end="20" period="5" type="vtype1">
+    <vehicle id="veh2.0" depart="0" type="vtype1">
         <route edges="e_o1 e_o0 e_vo0 e_m4 e_m5"/>
-    </flow>
-    
-    <!-- +0 vehicles -->
-    <vehicle id="veh3" depart="1001" type="vtype1">
+    </vehicle>
+    <vehicle id="veh2.1" depart="5" type="vtype1">
+        <route edges="e_o1 e_o0 e_vo0 e_m4 e_m5"/>
+    </vehicle>
+    <vehicle id="veh2.2" depart="10" type="vtype1">
+        <route edges="e_o1 e_o0 e_vo0 e_m4 e_m5"/>
+    </vehicle>
+    <vehicle id="veh2.3" depart="15" type="vtype1">
         <route edges="e_o1 e_o0 e_vo0 e_m4 e_m5"/>
     </vehicle>
     
-    <!-- +1 vehicles -->
-    <vehicle id="veh4" depart="1000" type="vtype1">
+    <vehicle id="veh5.0" depart="900" type="vtype1">
         <route edges="e_o1 e_o0 e_vo0 e_m4 e_m5"/>
     </vehicle>
-    
-    <!-- +2 vehicles -->
-    <flow id="veh5" depart="900" type="vtype1" no="3" period="100">
-        <route edges="e_o1 e_o0 e_vo0 e_m4 e_m5"/>
-    </flow>
-    
+
+   
 </routes>
 
