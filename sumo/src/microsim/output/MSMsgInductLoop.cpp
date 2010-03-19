@@ -48,7 +48,7 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-MSMsgInductLoop::MSMsgInductLoop(const string& id, const string& msg,
+MSMsgInductLoop::MSMsgInductLoop(const std::string& id, const std::string& msg,
                                  MSLane* lane,
                                  SUMOReal positionInMeters) throw()
         : MSMoveReminder(lane), Named(id), myMsg(msg), myCurrentVehicle(0),
