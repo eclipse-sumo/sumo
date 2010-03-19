@@ -337,10 +337,6 @@
 			Filter="cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx"
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
-			<File
-				RelativePath="..\..\..\src\utils\gui\events\GUIEvent_SimulationEnded.cpp"
-				>
-			</File>
 		</Filter>
 		<Filter
 			Name="Headerdateien"
@@ -353,10 +349,6 @@
 			</File>
 			<File
 				RelativePath="..\..\..\src\utils\gui\events\GUIEvent_Message.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\utils\gui\events\GUIEvent_SimulationEnded.h"
 				>
 			</File>
 			<File

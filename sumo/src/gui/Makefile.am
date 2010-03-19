@@ -1,7 +1,7 @@
 noinst_LIBRARIES = libgui.a
 
 libgui_a_SOURCES = GUIApplicationWindow.cpp GUIApplicationWindow.h \
-GUIEvent_SimulationLoaded.h \
+GUIEvent_SimulationEnded.h GUIEvent_SimulationLoaded.h \
 GUIGlobals.cpp GUIGlobals.h \
 GUIManipulator.h GUIManipulator.cpp \
 GUILoadThread.cpp GUILoadThread.h \

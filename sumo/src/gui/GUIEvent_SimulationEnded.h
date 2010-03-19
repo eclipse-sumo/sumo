@@ -4,7 +4,7 @@
 /// @date    Thu, 19 Jun 2003
 /// @version $Id$
 ///
-// Event send when the the simulation is over
+// Event sent when the the simulation is over
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // Copyright 2001-2010 DLR (http://www.dlr.de/) and contributors
@@ -29,50 +29,57 @@
 #include <config.h>
 #endif
 
-#include "GUIEvent.h"
+#include <utils/gui/events/GUIEvent.h>
 #include <utils/common/SUMOTime.h>
+#include <microsim/MSNet.h>
 
 
 // ===========================================================================
 // class definitions
 // ===========================================================================
 /**
- * GUIEvent_SimulationEnded
- * Throw from GUIRunThread to GUIApplicationWindow and then further to all
- * displays after a step has been performed
+ * @class GUIEvent_SimulationEnded
+ * @brief Event sent when the the simulation is over
+ *
+ * Throw from GUIRunThread to GUIApplicationWindow.
  */
 class GUIEvent_SimulationEnded : public GUIEvent {
 public:
-    enum EndReason {
-        /// the simulation has ended as all vehicles have left it
-        ER_NO_VEHICLES,
+    /** @brief Constructor
+     * @param[in] reason The reason the simulation has ended
+     * @param[in] step The time step the simulation has ended at
+     */
+    GUIEvent_SimulationEnded(MSNet::SimulationState reason, SUMOTime step) throw()
+        : GUIEvent(EVENT_SIMULATION_ENDED), myReason(reason), myStep(step) {}
 
-        /// The simulation has ended as the end time step was reached
-        ER_END_STEP_REACHED,
 
-        /// The simulation has ended due to an error
-        ER_ERROR_IN_SIM
+    /// @brief Destructor
+    ~GUIEvent_SimulationEnded() throw() { }
 
-    };
 
-    /// constructor
-    GUIEvent_SimulationEnded(EndReason reason, SUMOTime step);
+    /** @brief Returns the time step the simulation has ended at
+     * @return The time step the simulation has ended at
+     */
+    SUMOTime getTimeStep() const throw() {
+        return myStep;
+    }
 
-    /// destructor
-    ~GUIEvent_SimulationEnded();
 
-    /// Returns the time step the simulation has ended at
-    SUMOTime getTimeStep() const;
+    /** @brief Returns the reason the simulation has ended due
+     * @return The reason the simulation has ended
+     */
+    MSNet::SimulationState getReason() const {
+        return myReason;
+    }
 
-    /// Returns the reason the simulation has ended due
-    EndReason getReason() const;
 
 protected:
-    /// The reason the simulation has ended
-    EndReason myReason;
+    /// @brief The reason the simulation has ended
+    MSNet::SimulationState myReason;
 
-    /// The time step the simulation has ended at
+    /// @brief The time step the simulation has ended at
     SUMOTime myStep;
+
 
 };
 

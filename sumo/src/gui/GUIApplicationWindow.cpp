@@ -43,6 +43,8 @@
 #include "GUILoadThread.h"
 #include "GUIRunThread.h"
 #include "GUIApplicationWindow.h"
+#include "GUIEvent_SimulationLoaded.h"
+#include "GUIEvent_SimulationEnded.h"
 
 #include <utils/common/ToString.h>
 #include <utils/foxtools/MFXUtils.h>
@@ -52,8 +54,6 @@
 
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/gui/events/GUIEvent_SimulationStep.h>
-#include "GUIEvent_SimulationLoaded.h"
-#include <utils/gui/events/GUIEvent_SimulationEnded.h>
 #include <utils/gui/events/GUIEvent_Message.h>
 #include <utils/gui/div/GUIMessageWindow.h>
 #include <utils/gui/div/GUIDialog_GLChosenEditor.h>
@@ -902,14 +902,20 @@ GUIApplicationWindow::handleEvent_SimulationEnded(GUIEvent *e) {
         std::stringstream text;
         text << "The simulation has ended at time step " << ec->getTimeStep() << ".\n";
         switch (ec->getReason()) {
-        case GUIEvent_SimulationEnded::ER_NO_VEHICLES:
-            text << "Reason: All vehicles have left the simulation.";
-            break;
-        case GUIEvent_SimulationEnded::ER_END_STEP_REACHED:
+        case MSNet::SIMSTATE_END_STEP_REACHED:
             text << "Reason: The final simulation step has been reached.";
             break;
-        case GUIEvent_SimulationEnded::ER_ERROR_IN_SIM:
+        case MSNet::SIMSTATE_NO_FURTHER_VEHICLES:
+            text << "Reason: All vehicles have left the simulation.";
+            break;
+        case MSNet::SIMSTATE_CONNECTION_CLOSED:
+            text << "Reason: TraCI requested termination.";
+            break;
+        case MSNet::SIMSTATE_ERROR_IN_SIM:
             text << "Reason: An error occured (see log).";
+            break;
+        case MSNet::SIMSTATE_TOO_MANY_VEHICLES:
+            text << "Reason: Too many vehicles.";
             break;
         default:
             text << "Unknown reason!";
@@ -922,7 +928,7 @@ GUIApplicationWindow::handleEvent_SimulationEnded(GUIEvent *e) {
     }
     if (gQuitOnEnd) {
         closeAllWindows();
-        getApp()->exit(ec->getReason() == GUIEvent_SimulationEnded::ER_ERROR_IN_SIM);
+        getApp()->exit(ec->getReason() == MSNet::SIMSTATE_ERROR_IN_SIM);
     }
 }
 

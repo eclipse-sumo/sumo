@@ -40,7 +40,7 @@
 #include <microsim/MSEmitControl.h>
 #include <utils/gui/events/GUIEvent_Message.h>
 #include <utils/gui/events/GUIEvent_SimulationStep.h>
-#include <utils/gui/events/GUIEvent_SimulationEnded.h>
+#include "GUIEvent_SimulationEnded.h"
 #include "GUIApplicationWindow.h"
 #include "GUIRunThread.h"
 #include "GUIGlobals.h"
@@ -167,16 +167,10 @@ GUIRunThread::makeStep() throw() {
         MSNet::SimulationState state = myNet->simulationState(mySimEndTime);
         switch(state) {
         case MSNet::SIMSTATE_END_STEP_REACHED:
-            e = new GUIEvent_SimulationEnded(GUIEvent_SimulationEnded::ER_END_STEP_REACHED, myNet->getCurrentTimeStep()-DELTA_T);
-            break;
         case MSNet::SIMSTATE_NO_FURTHER_VEHICLES:
-            e = new GUIEvent_SimulationEnded(GUIEvent_SimulationEnded::ER_NO_VEHICLES, myNet->getCurrentTimeStep()-DELTA_T);
-            break;
         case MSNet::SIMSTATE_CONNECTION_CLOSED:
-            //quitMessage = "Simulation End: TraCI requested termination.";
-            break;
         case MSNet::SIMSTATE_TOO_MANY_VEHICLES:
-            //quitMessage = "Simulation End: Too many vehicles.";
+            e = new GUIEvent_SimulationEnded(state, myNet->getCurrentTimeStep()-DELTA_T);
             break;
         default:
             break;
@@ -200,8 +194,7 @@ GUIRunThread::makeStep() throw() {
         MsgHandler::getErrorInstance()->inform("Quitting (on error).", false);
         mySimulationLock.unlock();
         mySimulationInProgress = false;
-        e = new GUIEvent_SimulationEnded(
-            GUIEvent_SimulationEnded::ER_ERROR_IN_SIM, myNet->getCurrentTimeStep());
+        e = new GUIEvent_SimulationEnded(MSNet::SIMSTATE_ERROR_IN_SIM, myNet->getCurrentTimeStep());
         myEventQue.add(e);
         myEventThrow.signal();
         myHalting = true;
@@ -210,8 +203,7 @@ GUIRunThread::makeStep() throw() {
     } catch (...) {
         mySimulationLock.unlock();
         mySimulationInProgress = false;
-        e = new GUIEvent_SimulationEnded(
-            GUIEvent_SimulationEnded::ER_ERROR_IN_SIM, myNet->getCurrentTimeStep());
+        e = new GUIEvent_SimulationEnded(MSNet::SIMSTATE_ERROR_IN_SIM, myNet->getCurrentTimeStep());
         myEventQue.add(e);
         myEventThrow.signal();
         myHalting = true;

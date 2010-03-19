@@ -607,6 +607,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\..\src\gui\GUIEvent_SimulationEnded.h"
+				>
+			</File>
+			<File
 				RelativePath="..\..\..\src\gui\GUIEvent_SimulationLoaded.h"
 				>
 			</File>

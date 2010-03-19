@@ -52,7 +52,6 @@
 #include "GUIGlobals.h"
 #include "GUIEvent_SimulationLoaded.h"
 #include <utils/gui/events/GUIEvent_Message.h>
-#include <utils/gui/events/GUIEvent_SimulationEnded.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/gui/globjects/GUIGlObjectStorage.h>
 #include <utils/gui/windows/GUIAppGlobals.h>
