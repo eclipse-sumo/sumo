@@ -1,34 +1,34 @@
 <?xml version="1.0"?>
 
-<!-- generated on 02/03/09 22:53:05 by SUMO sumo Version dev-SVN-r6713
+<!-- generated on 03/19/10 08:40:03 by SUMO sumo Version dev-SVN-r8460
 <configuration>
 
-   <input>
-      <net-file>net.net.xml</net-file>
-      <route-files>routes.rou.xml</route-files>
-   </input>
+    <input>
+        <net-file value="net.net.xml"/>
+        <route-files value="routes.rou.xml"/>
+    </input>
 
-   <output>
-      <netstate-dump>netstate_dump.xml</netstate-dump>
-   </output>
+    <output>
+        <netstate-dump value="netstate_dump.xml"/>
+    </output>
 
-   <processing>
-      <no-step-log>true</no-step-log>
-   </processing>
+    <report>
+        <no-step-log value="true"/>
+    </report>
 
-   <traci_server>
-      <remote-port>8846</remote-port>
-      <penetration>1</penetration>
-   </traci_server>
+    <traci_server>
+        <remote-port value="8846"/>
+        <penetration value="1"/>
+    </traci_server>
 
 </configuration>
 -->
 
 <sumo-netstate>
-   <timestep time="0.00">
-   </timestep>
-   <timestep time="1.00">
-   </timestep>
-   <timestep time="2.00">
-   </timestep>
+    <timestep time="0.00">
+    </timestep>
+    <timestep time="1.00">
+    </timestep>
+    <timestep time="2.00">
+    </timestep>
 </sumo-netstate>
