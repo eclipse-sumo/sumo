@@ -1944,7 +1944,7 @@ throw(TraCIException) {
             response.writeUnsignedByte(TYPE_STRING);
             response.writeString(name);
             if (dataType != TYPE_STRING) {
-                warning = "Warning: requested data type could not be used; using std::string instead!";
+                warning = "Warning: requested data type could not be used; using string instead!";
             }
         } else {
             throw TraCIException("Unable to retrieve road with given id");
@@ -1955,7 +1955,7 @@ throw(TraCIException) {
     case DOMVAR_EXTID:
         //if (dataType != TYPE_STRING) {
         if (dataCont.getLastValueRead() != TYPE_STRING) {
-            throw TraCIException("Internal id must be given as std::string value");
+            throw TraCIException("Internal id must be given as string value");
         }
         //name = myInputStorage.readString();
         name = dataCont.getString();
@@ -2064,7 +2064,7 @@ throw(TraCIException) {
             response.writeString(name);
             // add a warning to the response if the requested data type was not correct
             if (dataType != TYPE_STRING) {
-                warning = "Warning: requested data type could not be used; using std::string instead!";
+                warning = "Warning: requested data type could not be used; using string instead!";
             }
         } else {
             throw TraCIException("Unable to retrieve node with given ID");
@@ -2075,7 +2075,7 @@ throw(TraCIException) {
     case DOMVAR_EXTID:
 //		if (dataType != TYPE_STRING) {
         if (dataCont.getLastValueRead() != TYPE_STRING) {
-            throw TraCIException("Internal id must be given as std::string value");
+            throw TraCIException("Internal id must be given as string value");
         }
 //		name = myInputStorage.readString();
         name = dataCont.getString();
@@ -2209,7 +2209,7 @@ throw(TraCIException) {
             response.writeString(strRoute);
             // add a warning to the response if the requested data type was not correct
             if (dataType != TYPE_STRING) {
-                warning = "Warning: requested data type could not be used; using std::string instead!";
+                warning = "Warning: requested data type could not be used; using string instead!";
             }
         } else {
             throw TraCIException("Unable to retrieve node with given ID");
@@ -2439,7 +2439,7 @@ throw(TraCIException) {
             response.writeString(name);
             // add a warning to the response if the requested data type was not correct
             if (dataType != TYPE_STRING) {
-                warning = "Warning: requested data type could not be used; using std::string instead!";
+                warning = "Warning: requested data type could not be used; using string instead!";
             }
         } else {
             throw TraCIException("Unable to retrieve traffic light with given id");
@@ -2450,7 +2450,7 @@ throw(TraCIException) {
     case DOMVAR_EXTID:
 //		if (dataType != TYPE_STRING) {
         if (dataCont.getLastValueRead() != TYPE_STRING) {
-            throw TraCIException("Internal id must be given as std::string value");
+            throw TraCIException("Internal id must be given as string value");
         }
 //		name = myInputStorage.readString();
         name = dataCont.getString();
@@ -2667,7 +2667,7 @@ throw(TraCIException) {
             response.writeString(name);
             // add a warning to the response if the requested data type was not correct
             if (dataType != TYPE_STRING) {
-                warning = "Warning: requested data type could not be used; using std::string instead!";
+                warning = "Warning: requested data type could not be used; using string instead!";
             }
         } else {
             throw TraCIException("Unable to retrieve point of interest with given id");
@@ -2678,7 +2678,7 @@ throw(TraCIException) {
     case DOMVAR_EXTID:
 //		if (dataType != TYPE_STRING) {
         if (dataCont.getLastValueRead() != TYPE_STRING) {
-            throw TraCIException("Internal id must be given as std::string value");
+            throw TraCIException("Internal id must be given as string value");
         }
 //		name = myInputStorage.readString();
         name = dataCont.getString();
@@ -2728,7 +2728,7 @@ throw(TraCIException) {
         }
         // add a warning to the response if the requested data type was not correct
         if (dataType != TYPE_STRING) {
-            warning = "Warning: requested data type could not be used; using std::string instead!";
+            warning = "Warning: requested data type could not be used; using string instead!";
         }
         break;
 
@@ -2791,7 +2791,7 @@ throw(TraCIException) {
             response.writeUnsignedByte(TYPE_STRING);
             response.writeString(name);
             if (dataType != TYPE_STRING) {
-                warning = "Warning: requested data type could not be used; using std::string instead!";
+                warning = "Warning: requested data type could not be used; using string instead!";
             }
         } else {
             throw TraCIException("Unable to retrieve polygon with given id");
@@ -2802,7 +2802,7 @@ throw(TraCIException) {
     case DOMVAR_EXTID:
 //		if (dataType != TYPE_STRING) {
         if (dataCont.getLastValueRead() != TYPE_STRING) {
-            throw TraCIException("Internal id must be given as std::string value");
+            throw TraCIException("Internal id must be given as string value");
         }
 //		name = myInputStorage.readString();
         name = dataCont.getString();
@@ -2852,7 +2852,7 @@ throw(TraCIException) {
         }
         // add a warning to the response if the requested data type was not correct
         if (dataType != TYPE_STRING) {
-            warning = "Warning: requested data type could not be used; using std::string instead!";
+            warning = "Warning: requested data type could not be used; using string instead!";
         }
         break;
 

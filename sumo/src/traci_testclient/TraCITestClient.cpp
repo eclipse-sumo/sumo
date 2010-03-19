@@ -1512,7 +1512,7 @@ TraCITestClient::setValueTypeDependant(tcpip::Storage &into, std::ifstream &defF
         into.writeUnsignedByte(TYPE_FLOAT);
         into.writeFloat(atof(valueS.c_str()));
         return 4 + 1;
-    } else if (dataTypeS=="<std::string>") {
+    } else if (dataTypeS=="<string>") {
         into.writeUnsignedByte(TYPE_STRING);
         into.writeString(valueS);
         return 4 + 1 + (int) valueS.length();
@@ -2296,10 +2296,10 @@ TraCITestClient::readAndReportTypeDependent(tcpip::Storage &inMsg, int valueData
         }
     } else if (valueDataType == TYPE_STRING) {
         std::string s = inMsg.readString();
-        answerLog << " std::string value: " << s << endl;
+        answerLog << " string value: " << s << endl;
     } else if (valueDataType == TYPE_STRINGLIST) {
         std::vector<std::string> s = inMsg.readStringList();
-        answerLog << " std::string list value: [ " << endl;
+        answerLog << " string list value: [ " << endl;
         for (std::vector<std::string>::iterator i=s.begin(); i!=s.end(); ++i) {
             if (i!=s.begin()) {
                 answerLog << ", ";
