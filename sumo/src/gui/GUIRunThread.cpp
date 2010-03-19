@@ -162,10 +162,26 @@ GUIRunThread::makeStep() throw() {
         e = new GUIEvent_SimulationStep();
         myEventQue.add(e);
         myEventThrow.signal();
-        // stop the simulation when the last step has been reached
-        if (myNet->getCurrentTimeStep()>=mySimEndTime) {
-            e = new GUIEvent_SimulationEnded(
-                GUIEvent_SimulationEnded::ER_END_STEP_REACHED, myNet->getCurrentTimeStep()-DELTA_T);
+
+        e = 0;
+        MSNet::SimulationState state = myNet->simulationState(mySimEndTime);
+        switch(state) {
+        case MSNet::SIMSTATE_END_STEP_REACHED:
+            e = new GUIEvent_SimulationEnded(GUIEvent_SimulationEnded::ER_END_STEP_REACHED, myNet->getCurrentTimeStep()-DELTA_T);
+            break;
+        case MSNet::SIMSTATE_NO_FURTHER_VEHICLES:
+            e = new GUIEvent_SimulationEnded(GUIEvent_SimulationEnded::ER_NO_VEHICLES, myNet->getCurrentTimeStep()-DELTA_T);
+            break;
+        case MSNet::SIMSTATE_CONNECTION_CLOSED:
+            //quitMessage = "Simulation End: TraCI requested termination.";
+            break;
+        case MSNet::SIMSTATE_TOO_MANY_VEHICLES:
+            //quitMessage = "Simulation End: Too many vehicles.";
+            break;
+        default:
+            break;
+        }
+        if(e!=0) {
             myEventQue.add(e);
             myEventThrow.signal();
             myHalting = true;
@@ -177,14 +193,6 @@ GUIRunThread::makeStep() throw() {
         }
         // simulation step is over
         mySimulationInProgress = false;
-        // check whether all vehicles loaded have left the simulation
-        if (mySimEndTime == INT_MAX && myNet->getVehicleControl().haveAllVehiclesQuit() && !myNet->getEmitControl().hasPendingFlows()) {
-            myHalting = true;
-            e = new GUIEvent_SimulationEnded(
-                GUIEvent_SimulationEnded::ER_NO_VEHICLES, myNet->getCurrentTimeStep()-DELTA_T);
-            myEventQue.add(e);
-            myEventThrow.signal();
-        }
     } catch (ProcessError &e2) {
         if (string(e2.what())!=string("Process Error") && std::string(e2.what())!=string("")) {
             MsgHandler::getErrorInstance()->inform(e2.what());

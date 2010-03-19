@@ -58,15 +58,10 @@ class MSEdgeControl;
 class MSJunctionControl;
 class MSEmitControl;
 class MSRouteLoaderControl;
-class Event;
 class MSVehicle;
 class MSRoute;
-class MSVehicleType;
 class MSLane;
 class MSTLLogicControl;
-class MSVehicleTransfer;
-class OutputDevice;
-class NLBuilder;
 class MSTrigger;
 class MSDetectorControl;
 class ShapeContainer;
@@ -87,6 +82,24 @@ class MSMessageEmitter;
  * @brief The simulated network and simulation perfomer
  */
 class MSNet {
+public:
+    /** @enum SimulationState
+     * @brief Possible states of a simulation - running or stopped with different reasons
+     */
+    enum SimulationState {
+        /// @brief The simulation is running
+        SIMSTATE_RUNNING,
+        /// @brief The final simulation step has been performed
+        SIMSTATE_END_STEP_REACHED,
+        /// @brief The simulation does not contain further vehicles
+        SIMSTATE_NO_FURTHER_VEHICLES,
+        /// @brief The connection to a client was closed by the client
+        SIMSTATE_CONNECTION_CLOSED,
+        /// @brief The simulation contains too many vehicles (@deprecated)
+        SIMSTATE_TOO_MANY_VEHICLES
+    };
+
+
 public:
     /** @brief Returns the pointer to the unique instance of MSNet (singleton).
      * @return Pointer to the unique MSNet-instance
@@ -164,6 +177,14 @@ public:
      * @todo What exceptions may occure?
      */
     void closeSimulation(SUMOTime start);
+
+
+    /** @brief Called after a simulation step, this method returns the current simulation state
+     * @param[in] stopTime The time the simulation shall stop at
+     * @return The current simulation state
+     * @see SimulationState
+     */
+    SimulationState simulationState(SUMOTime stopTime) const throw();
 
 
     /** @brief Returns the current simulation step (in s)

@@ -273,26 +273,24 @@ MSNet::simulate(SUMOTime start, SUMOTime stop) {
         if (myLogStepNumber) {
             postSimStepOutput();
         }
-        if (myTooManyVehicles>0&&(int) myVehicleControl->getRunningVehicleNo()>myTooManyVehicles) {
-            quitMessage = "Simulation End: Too many vehicles.";
-        }
-#ifndef NO_TRACI
-        if (traci::TraCIServer::wasClosed()) {
-            quitMessage = "Simulation End: TraCI requested termination.";
-        }
-        if (stop == INT_MAX && OptionsCont::getOptions().getInt("remote-port") == 0 && myVehicleControl->haveAllVehiclesQuit() && !myEmitter->hasPendingFlows()) {
-#else
-        if (stop == INT_MAX && myVehicleControl->haveAllVehiclesQuit() && !myEmitter->hasPendingFlows()) {
-#endif
-            if (myEmissionEvents->isEmpty()) {
-                quitMessage = "Simulation End: All vehicles have left the simulation.";
-            }
-        }
-        if (myStep >= stop) {
+        MSNet::SimulationState state = simulationState(stop);
+        switch(state) {
+        case MSNet::SIMSTATE_END_STEP_REACHED:
             quitMessage = "Simulation End: The final simulation step has been reached.";
+            break;
+        case MSNet::SIMSTATE_NO_FURTHER_VEHICLES:
+            quitMessage = "Simulation End: All vehicles have left the simulation.";
+            break;
+        case MSNet::SIMSTATE_CONNECTION_CLOSED:
+            quitMessage = "Simulation End: TraCI requested termination.";
+            break;
+        case MSNet::SIMSTATE_TOO_MANY_VEHICLES:
+            quitMessage = "Simulation End: Too many vehicles.";
+            break;
+        default:
+            break;
         }
-    }
-    while (quitMessage=="");
+    } while (quitMessage=="");
     WRITE_MESSAGE(quitMessage);
     // exit simulation loop
     closeSimulation(start);
@@ -423,6 +421,30 @@ MSNet::simulationStep() {
         myVehiclesMoved += myVehicleControl->getRunningVehicleNo();
     }
     myStep += DELTA_T;
+}
+
+
+MSNet::SimulationState 
+MSNet::simulationState(SUMOTime stopTime) const throw() {
+    if (myTooManyVehicles>0&&(int) myVehicleControl->getRunningVehicleNo()>myTooManyVehicles) {
+        return SIMSTATE_TOO_MANY_VEHICLES;
+    }
+#ifndef NO_TRACI
+    if (traci::TraCIServer::wasClosed()) {
+        return SIMSTATE_CONNECTION_CLOSED;
+    }
+    if (stopTime == INT_MAX && OptionsCont::getOptions().getInt("remote-port") == 0 && myVehicleControl->haveAllVehiclesQuit() && !myEmitter->hasPendingFlows()) {
+#else
+    if (stopTime == INT_MAX && myVehicleControl->haveAllVehiclesQuit() && !myEmitter->hasPendingFlows()) {
+#endif
+        if (myEmissionEvents->isEmpty()) {
+            return SIMSTATE_NO_FURTHER_VEHICLES;
+        }
+    }
+    if (myStep >= stopTime) {
+        return SIMSTATE_END_STEP_REACHED;
+    }
+    return SIMSTATE_RUNNING;
 }
 
 
