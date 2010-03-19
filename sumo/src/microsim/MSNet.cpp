@@ -274,21 +274,8 @@ MSNet::simulate(SUMOTime start, SUMOTime stop) {
             postSimStepOutput();
         }
         MSNet::SimulationState state = simulationState(stop);
-        switch(state) {
-        case MSNet::SIMSTATE_END_STEP_REACHED:
-            quitMessage = "Simulation End: The final simulation step has been reached.";
-            break;
-        case MSNet::SIMSTATE_NO_FURTHER_VEHICLES:
-            quitMessage = "Simulation End: All vehicles have left the simulation.";
-            break;
-        case MSNet::SIMSTATE_CONNECTION_CLOSED:
-            quitMessage = "Simulation End: TraCI requested termination.";
-            break;
-        case MSNet::SIMSTATE_TOO_MANY_VEHICLES:
-            quitMessage = "Simulation End: Too many vehicles.";
-            break;
-        default:
-            break;
+        if(state!=SIMSTATE_RUNNING) {
+            quitMessage = "Simulation End: " + getStateMessage(state);
         }
     } while (quitMessage=="");
     WRITE_MESSAGE(quitMessage);
@@ -445,6 +432,27 @@ MSNet::simulationState(SUMOTime stopTime) const throw() {
         return SIMSTATE_END_STEP_REACHED;
     }
     return SIMSTATE_RUNNING;
+}
+
+
+std::string 
+MSNet::getStateMessage(MSNet::SimulationState state) throw() {
+    switch(state) {
+    case MSNet::SIMSTATE_RUNNING:
+        return "";
+    case MSNet::SIMSTATE_END_STEP_REACHED:
+        return "The final simulation step has been reached.";
+    case MSNet::SIMSTATE_NO_FURTHER_VEHICLES:
+        return "All vehicles have left the simulation.";
+    case MSNet::SIMSTATE_CONNECTION_CLOSED:
+        return "TraCI requested termination.";
+    case MSNet::SIMSTATE_ERROR_IN_SIM:
+        return "Reason: An error occured (see log).";
+    case MSNet::SIMSTATE_TOO_MANY_VEHICLES:
+        return "Too many vehicles.";
+    default:
+        return "Unknown reason.";
+    }
 }
 
 

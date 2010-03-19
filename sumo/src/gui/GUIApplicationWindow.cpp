@@ -901,26 +901,8 @@ GUIApplicationWindow::handleEvent_SimulationEnded(GUIEvent *e) {
         // build the text
         std::stringstream text;
         text << "The simulation has ended at time step " << ec->getTimeStep() << ".\n";
-        switch (ec->getReason()) {
-        case MSNet::SIMSTATE_END_STEP_REACHED:
-            text << "Reason: The final simulation step has been reached.";
-            break;
-        case MSNet::SIMSTATE_NO_FURTHER_VEHICLES:
-            text << "Reason: All vehicles have left the simulation.";
-            break;
-        case MSNet::SIMSTATE_CONNECTION_CLOSED:
-            text << "Reason: TraCI requested termination.";
-            break;
-        case MSNet::SIMSTATE_ERROR_IN_SIM:
-            text << "Reason: An error occured (see log).";
-            break;
-        case MSNet::SIMSTATE_TOO_MANY_VEHICLES:
-            text << "Reason: Too many vehicles.";
-            break;
-        default:
-            text << "Unknown reason!";
-            break;
-        }
+        MSNet::SimulationState state = ec->getReason();
+        text << "Reason: " << MSNet::getStateMessage(state);
         onCmdStop(0, 0, 0);
         FXMessageBox::warning(this, MBOX_OK, "Simulation Ended", text.str().c_str());
     } else {

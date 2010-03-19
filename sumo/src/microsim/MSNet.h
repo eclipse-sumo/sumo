@@ -95,6 +95,8 @@ public:
         SIMSTATE_NO_FURTHER_VEHICLES,
         /// @brief The connection to a client was closed by the client
         SIMSTATE_CONNECTION_CLOSED,
+        /// @brief An error occured during the simulation step
+        SIMSTATE_ERROR_IN_SIM,
         /// @brief The simulation contains too many vehicles (@deprecated)
         SIMSTATE_TOO_MANY_VEHICLES
     };
@@ -185,6 +187,12 @@ public:
      * @see SimulationState
      */
     SimulationState simulationState(SUMOTime stopTime) const throw();
+
+
+    /** @brief Returns the message to show if a certain state occurs
+     * @return Readable description of the state
+     */
+    static std::string getStateMessage(SimulationState state) throw();
 
 
     /** @brief Returns the current simulation step (in s)
