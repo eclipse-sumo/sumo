@@ -1,112 +1,112 @@
 <?xml version="1.0"?>
 
-<!-- generated on 08/01/08 14:05:43 by SUMO sumo Version dev-SVN-r5892
+<!-- generated on 03/19/10 10:42:41 by SUMO sumo Version dev-SVN-r8163
 <configuration>
 
-   <input>
-      <net-file>net.net.xml</net-file>
-      <route-files>routes.rou.xml</route-files>
-   </input>
+    <input>
+        <net-file value="net.net.xml"/>
+        <route-files value="routes.rou.xml"/>
+    </input>
 
-   <output>
-      <netstate-dump>netstate_dump.xml</netstate-dump>
-   </output>
+    <output>
+        <netstate-dump value="netstate_dump.xml"/>
+    </output>
 
-   <processing>
-      <no-step-log>true</no-step-log>
-   </processing>
+    <report>
+        <no-step-log value="true"/>
+    </report>
 
-   <traci_server>
-      <remote-port>8879</remote-port>
-      <penetration>1</penetration>
-   </traci_server>
+    <traci_server>
+        <remote-port value="8879"/>
+        <penetration value="1"/>
+    </traci_server>
 
 </configuration>
 -->
 
 <sumo-netstate>
-   <timestep time="0.00">
-   </timestep>
-   <timestep time="1.00">
-   </timestep>
-   <timestep time="2.00">
-   </timestep>
-   <timestep time="3.00">
-   </timestep>
-   <timestep time="4.00">
-   </timestep>
-   <timestep time="5.00">
-   </timestep>
-   <timestep time="6.00">
-   </timestep>
-   <timestep time="7.00">
-   </timestep>
-   <timestep time="8.00">
-   </timestep>
-   <timestep time="9.00">
-   </timestep>
-   <timestep time="10.00">
-   </timestep>
-   <timestep time="11.00">
-   </timestep>
-   <timestep time="12.00">
-   </timestep>
-   <timestep time="13.00">
-   </timestep>
-   <timestep time="14.00">
-   </timestep>
-   <timestep time="15.00">
-   </timestep>
-   <timestep time="16.00">
-   </timestep>
-   <timestep time="17.00">
-   </timestep>
-   <timestep time="18.00">
-   </timestep>
-   <timestep time="19.00">
-   </timestep>
-   <timestep time="20.00">
-   </timestep>
-   <timestep time="21.00">
-   </timestep>
-   <timestep time="22.00">
-   </timestep>
-   <timestep time="23.00">
-   </timestep>
-   <timestep time="24.00">
-   </timestep>
-   <timestep time="25.00">
-   </timestep>
-   <timestep time="26.00">
-   </timestep>
-   <timestep time="27.00">
-   </timestep>
-   <timestep time="28.00">
-   </timestep>
-   <timestep time="29.00">
-   </timestep>
-   <timestep time="30.00">
-   </timestep>
-   <timestep time="31.00">
-   </timestep>
-   <timestep time="32.00">
-   </timestep>
-   <timestep time="33.00">
-   </timestep>
-   <timestep time="34.00">
-   </timestep>
-   <timestep time="35.00">
-   </timestep>
-   <timestep time="36.00">
-   </timestep>
-   <timestep time="37.00">
-   </timestep>
-   <timestep time="38.00">
-   </timestep>
-   <timestep time="39.00">
-   </timestep>
-   <timestep time="40.00">
-   </timestep>
-   <timestep time="41.00">
-   </timestep>
+    <timestep time="0.00">
+    </timestep>
+    <timestep time="1.00">
+    </timestep>
+    <timestep time="2.00">
+    </timestep>
+    <timestep time="3.00">
+    </timestep>
+    <timestep time="4.00">
+    </timestep>
+    <timestep time="5.00">
+    </timestep>
+    <timestep time="6.00">
+    </timestep>
+    <timestep time="7.00">
+    </timestep>
+    <timestep time="8.00">
+    </timestep>
+    <timestep time="9.00">
+    </timestep>
+    <timestep time="10.00">
+    </timestep>
+    <timestep time="11.00">
+    </timestep>
+    <timestep time="12.00">
+    </timestep>
+    <timestep time="13.00">
+    </timestep>
+    <timestep time="14.00">
+    </timestep>
+    <timestep time="15.00">
+    </timestep>
+    <timestep time="16.00">
+    </timestep>
+    <timestep time="17.00">
+    </timestep>
+    <timestep time="18.00">
+    </timestep>
+    <timestep time="19.00">
+    </timestep>
+    <timestep time="20.00">
+    </timestep>
+    <timestep time="21.00">
+    </timestep>
+    <timestep time="22.00">
+    </timestep>
+    <timestep time="23.00">
+    </timestep>
+    <timestep time="24.00">
+    </timestep>
+    <timestep time="25.00">
+    </timestep>
+    <timestep time="26.00">
+    </timestep>
+    <timestep time="27.00">
+    </timestep>
+    <timestep time="28.00">
+    </timestep>
+    <timestep time="29.00">
+    </timestep>
+    <timestep time="30.00">
+    </timestep>
+    <timestep time="31.00">
+    </timestep>
+    <timestep time="32.00">
+    </timestep>
+    <timestep time="33.00">
+    </timestep>
+    <timestep time="34.00">
+    </timestep>
+    <timestep time="35.00">
+    </timestep>
+    <timestep time="36.00">
+    </timestep>
+    <timestep time="37.00">
+    </timestep>
+    <timestep time="38.00">
+    </timestep>
+    <timestep time="39.00">
+    </timestep>
+    <timestep time="40.00">
+    </timestep>
+    <timestep time="41.00">
+    </timestep>
 </sumo-netstate>
