@@ -1,55 +1,55 @@
 <?xml version="1.0"?>
 
-<!-- generated on 02/03/09 22:52:29 by SUMO sumo Version dev-SVN-r6713
+<!-- generated on 03/19/10 11:15:43 by SUMO sumo Version dev-SVN-r8163
 <configuration>
 
-   <input>
-      <net-file>net.net.xml</net-file>
-      <route-files>routes.rou.xml</route-files>
-   </input>
+    <input>
+        <net-file value="net.net.xml"/>
+        <route-files value="routes.rou.xml"/>
+    </input>
 
-   <output>
-      <netstate-dump>netstate_dump.xml</netstate-dump>
-   </output>
+    <output>
+        <netstate-dump value="netstate_dump.xml"/>
+    </output>
 
-   <processing>
-      <no-step-log>true</no-step-log>
-   </processing>
+    <report>
+        <no-step-log value="true"/>
+    </report>
 
-   <traci_server>
-      <remote-port>8825</remote-port>
-      <penetration>1</penetration>
-   </traci_server>
+    <traci_server>
+        <remote-port value="8825"/>
+        <penetration value="1"/>
+    </traci_server>
 
 </configuration>
 -->
 
 <sumo-netstate>
-   <timestep time="0.00">
-      <edge id="e_m0">
-         <lane id="e_m0_0">
-            <vehicle id="veh0" pos="0.00" speed="0.00"/>
-         </lane>
-         <lane id="e_m0_1"/>
-         <lane id="e_m0_2"/>
-      </edge>
-   </timestep>
-   <timestep time="1.00">
-      <edge id="e_m0">
-         <lane id="e_m0_0">
-            <vehicle id="veh0" pos="0.80" speed="0.80"/>
-         </lane>
-         <lane id="e_m0_1"/>
-         <lane id="e_m0_2"/>
-      </edge>
-   </timestep>
-   <timestep time="2.00">
-      <edge id="e_m0">
-         <lane id="e_m0_0">
-            <vehicle id="veh0" pos="2.39" speed="1.59"/>
-         </lane>
-         <lane id="e_m0_1"/>
-         <lane id="e_m0_2"/>
-      </edge>
-   </timestep>
+    <timestep time="0.00">
+        <edge id="e_m0">
+            <lane id="e_m0_0">
+                <vehicle id="veh0" pos="0.00" speed="0.00"/>
+            </lane>
+            <lane id="e_m0_1"/>
+            <lane id="e_m0_2"/>
+        </edge>
+    </timestep>
+    <timestep time="1.00">
+        <edge id="e_m0">
+            <lane id="e_m0_0">
+                <vehicle id="veh0" pos="0.80" speed="0.80"/>
+            </lane>
+            <lane id="e_m0_1"/>
+            <lane id="e_m0_2"/>
+        </edge>
+    </timestep>
+    <timestep time="2.00">
+        <edge id="e_m0">
+            <lane id="e_m0_0">
+                <vehicle id="veh0" pos="2.39" speed="1.59"/>
+            </lane>
+            <lane id="e_m0_1"/>
+            <lane id="e_m0_2"/>
+        </edge>
+    </timestep>
 </sumo-netstate>
