@@ -52,7 +52,7 @@ MSMessageEmitter::MSMessageEmitter(std::string& file,
         writeHBEvent(false),
         myDev(OutputDevice::getDevice(file, base)) {
 #ifdef _DEBUG
-    cout << "constructing MSMessageEmitter with file '" + file + "'" << endl;
+    std::cout << "constructing MSMessageEmitter with file '" + file + "'" << std::endl;
 #endif
     MSMessageEmitter::xyCoords = xy;
     MSMessageEmitter::tableOutput = tableOut;
@@ -310,21 +310,21 @@ MSMessageEmitter::setWriteEvents(std::string &events) {
         tmp = trimmed(st.next());
         if (tmp == "lanechange") {
 #ifdef _DEBUG
-            cout << "set event '" + tmp + "' to true" << endl;
+	std::cout << "set event '" + tmp + "' to true" << std::endl;
 #endif
             MSMessageEmitter::writeLCEvent = true;
         } else if (tmp == "break") {
 #ifdef _DEBUG
-            cout << "set event '" + tmp + "' to true" << endl;
+		std::cout << "set event '" + tmp + "' to true" << std::endl;
 #endif
             MSMessageEmitter::writeBEvent = true;
         } else if (tmp == "heartbeat") {
 #ifdef _DEBUG
-            cout << "set event '" + tmp + "' to true" << endl;
+		std::cout << "set event '" + tmp + "' to true" << std::endl;
 #endif
             MSMessageEmitter::writeHBEvent = true;
         } else {
-            cout << "unknown event '" + tmp + "', skipping" << endl;
+		std::cout << "unknown event '" + tmp + "', skipping" << std::endl;
         }
     }
 }
@@ -333,11 +333,11 @@ MSMessageEmitter::setWriteEvents(std::string &events) {
 void
 MSMessageEmitter::setFile(const std::string& file) {
 #ifdef _DEBUG
-    cout << "Filename: '" + file + "'." << endl;
+	std::cout << "Filename: '" + file + "'." << std::endl;
 #endif
     myDev = OutputDevice::getDevice(file);
 #ifdef _DEBUG
-    cout << "done..." << endl;
+    std::cout << "done..." << std::endl;
 #endif
 }
 #endif

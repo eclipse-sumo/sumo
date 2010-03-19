@@ -237,11 +237,11 @@ MSNet::~MSNet() throw() {
     delete myShapeContainer;
 #ifdef _MESSAGES
 #ifdef _DEBUG
-    cout << "MSNet: clearing myMsgEmitter" << endl;
+    std::cout << "MSNet: clearing myMsgEmitter" << std::endl;
 #endif
     myMsgEmitter.clear();
 #ifdef _DEBUG
-    cout << "MSNet: clearing msgEmitVec" << endl;
+    std::cout << "MSNet: clearing msgEmitVec" << std::endl;
 #endif
     msgEmitVec.clear();
 #endif
