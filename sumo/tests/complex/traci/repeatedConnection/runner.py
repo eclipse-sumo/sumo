@@ -2,7 +2,7 @@
 
 import os,subprocess,sys,time
 import xml.dom.minidom as dom
-sys.path.append(os.path.join(os.path.abspath(os.path.dirname(sys.argv[0])), "../../../tools/traci"))
+sys.path.append(os.path.join(os.path.abspath(os.path.dirname(sys.argv[0])), "../../../../tools/traci"))
 import traciControl
 import time
 

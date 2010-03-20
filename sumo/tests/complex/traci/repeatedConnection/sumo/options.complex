@@ -1,1 +1,1 @@
-sumo tests/complex/traci/runner.py
+sumo tests/complex/traci/repeatedConnection/runner.py
