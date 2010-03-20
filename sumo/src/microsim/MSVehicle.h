@@ -847,6 +847,8 @@ public:
     SUMOReal getHarmonoise_NoiseEmissions() const throw();
     //@}
 
+    void addPerson(MSPerson* person, const MSEdge &dest) throw();
+
 #ifndef NO_TRACI
     /**
      * schedule a new stop for the vehicle; each time a stop is reached, the vehicle

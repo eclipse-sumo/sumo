@@ -459,10 +459,9 @@ MSVehicleControl::addVehicle(const std::string &id, MSVehicle *v) throw() {
 
 
 MSVehicle *
-MSVehicleControl::getVehicle(const std::string &id) throw() {
-    VehicleDictType::iterator it = myVehicleDict.find(id);
+MSVehicleControl::getVehicle(const std::string &id) const throw() {
+    VehicleDictType::const_iterator it = myVehicleDict.find(id);
     if (it == myVehicleDict.end()) {
-        // id not in myVehicleDict.
         return 0;
     }
     return it->second;
@@ -559,6 +558,12 @@ MSVehicleControl::insertVTypeIDs(std::vector<std::string> &into) const throw() {
     for (VTypeDistDictType::const_iterator i=myVTypeDistDict.begin(); i!=myVTypeDistDict.end(); ++i) {
         into.push_back((*i).first);
     }
+}
+
+
+MSVehicle *
+MSVehicleControl::getWaitingVehicle(const std::string &edge, const std::vector<std::string> &lines) const throw() {
+    return 0;
 }
 
 

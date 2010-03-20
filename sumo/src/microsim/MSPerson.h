@@ -83,11 +83,14 @@ public:
         virtual ModeType getMode() const = 0;
 
         /// proceeds to the next step
-        virtual void proceed(MSNet *net, MSPerson *person, SUMOTime now, MSEdge *previousEdge) = 0;
+        virtual void proceed(MSNet *net, MSPerson *person, SUMOTime now, const MSEdge &previousEdge) = 0;
 
     protected:
         /// the next edge to reach (either by walking or driving)
         const MSEdge &myDestination;
+
+        /// the time at which this stage started
+        SUMOTime myStart;
 
     private:
         /// @brief Invalidated copy constructor.
@@ -120,7 +123,7 @@ public:
         }
 
         /// proceeds to the next step
-        virtual void proceed(MSNet *net, MSPerson *person, SUMOTime now, MSEdge *previousEdge);
+        virtual void proceed(MSNet *net, MSPerson *person, SUMOTime now, const MSEdge &previousEdge);
 
     private:
         /// the time the person is walking
@@ -160,7 +163,7 @@ public:
         }
 
         /// proceeds to the next step
-        virtual void proceed(MSNet *net, MSPerson *person, SUMOTime now, MSEdge *previousEdge);
+        virtual void proceed(MSNet *net, MSPerson *person, SUMOTime now, const MSEdge &previousEdge);
 
     private:
         /// the lines  to choose from
@@ -196,7 +199,7 @@ public:
         }
 
         /// proceeds to the next step
-        virtual void proceed(MSNet *net, MSPerson *person, SUMOTime now, MSEdge *previousEdge);
+        virtual void proceed(MSNet *net, MSPerson *person, SUMOTime now, const MSEdge &previousEdge);
 
     private:
         /// the time the person is waiting
@@ -234,9 +237,6 @@ public:
 
     /// destructor
     ~MSPerson();
-
-    /// the current route item
-    const MSPersonStage &getCurrentStage() const;
 
     /// proceeds to the next step of the route
     void proceed(MSNet *net, SUMOTime time);

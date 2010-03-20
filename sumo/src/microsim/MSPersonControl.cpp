@@ -41,103 +41,47 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-/* -------------------------------------------------------------------------
- * MSPersonControl::SameDepartureTimeCont - methods
- * ----------------------------------------------------------------------- */
-MSPersonControl::SameDepartureTimeCont::SameDepartureTimeCont(SUMOTime time)
-        : myArrivalTime(time) {}
-
-
-MSPersonControl::SameDepartureTimeCont::~SameDepartureTimeCont() {
-    for (PersonVector::iterator i=myPersons.begin(); i!=myPersons.end(); ++i) {
-        delete(*i);
-    }
-}
-
-
-void
-MSPersonControl::SameDepartureTimeCont::add(MSPerson *person) {
-    myPersons.push_back(person);
-}
-
-
-void
-MSPersonControl::SameDepartureTimeCont::add(const PersonVector &cont) {
-    std::copy(cont.begin(), cont.end(), std::back_inserter(myPersons));
-}
-
-
-SUMOTime
-MSPersonControl::SameDepartureTimeCont::getTime() const {
-    return myArrivalTime;
-}
-
-
-const MSPersonControl::PersonVector &
-MSPersonControl::SameDepartureTimeCont::getPersons() const {
-    return myPersons;
-}
-
-
-/* -------------------------------------------------------------------------
- * MSPersonControl - methods
- * ----------------------------------------------------------------------- */
 MSPersonControl::MSPersonControl() {}
 
 
 MSPersonControl::~MSPersonControl() {
-    // !!! delete
+    for (std::map<std::string, MSPerson*>::iterator i=myPersons.begin(); i!=myPersons.end(); ++i) {
+        delete(*i).second;
+    }
+    myPersons.clear();
     myWaiting.clear();
 }
 
 
-void
-MSPersonControl::add(MSPerson *person) {
-    const SUMOTime when = person->getDesiredDepart();
-    WaitingPersons::iterator i = std::find_if(myWaiting.begin(), myWaiting.end(), equal(when));
-    if (i==myWaiting.end()) {
-        SameDepartureTimeCont cont(when);
-        cont.add(person);
-        push(cont);
-    } else {
-        (*i).add(person);
+bool
+MSPersonControl::add(const std::string &id, MSPerson *person) {
+    if (myPersons.find(id) == myPersons.end()) {
+        myPersons[id] = person;
+        return true;
     }
+    return false;
+}
+
+
+void
+MSPersonControl::setWaiting(const SUMOTime time, MSPerson *person) {
+    if (myWaiting.find(time)==myWaiting.end()) {
+        myWaiting[time] = PersonVector();
+    }
+    myWaiting[time].push_back(person);
 }
 
 
 bool
 MSPersonControl::hasWaitingPersons(SUMOTime time) const {
-    WaitingPersons::const_iterator i = std::find_if(myWaiting.begin(), myWaiting.end(), equal(time));
-    if (i==myWaiting.end()) return false;
-    return true;
+    return myWaiting.find(time)!=myWaiting.end();
 }
 
 
 const MSPersonControl::PersonVector &
 MSPersonControl::getWaitingPersons(SUMOTime time) const {
-    WaitingPersons::const_iterator i = std::find_if(myWaiting.begin(), myWaiting.end(), equal(time));
-    return (*i).getPersons();
+    return myWaiting.find(time)->second;
 }
-
-
-void
-MSPersonControl::push(SUMOTime time, const MSPersonControl::PersonVector &list) {
-    SameDepartureTimeCont toPush(time);
-    toPush.add(list);
-    push(toPush);
-}
-
-
-void
-MSPersonControl::push(const SameDepartureTimeCont &cont) {
-    WaitingPersons::iterator i = std::find_if(myWaiting.begin(), myWaiting.end(), my_greater(cont.getTime()));
-    if (i==myWaiting.end())
-        myWaiting.push_back(cont);
-    else
-        myWaiting.insert(i, cont);
-}
-
 
 
 /****************************************************************************/
-

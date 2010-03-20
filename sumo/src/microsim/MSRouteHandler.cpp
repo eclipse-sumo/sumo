@@ -552,7 +552,7 @@ MSRouteHandler::closeVehicle() throw(ProcessError) {
 void
 MSRouteHandler::closePerson() throw(ProcessError) {
     MSPerson *person = new MSPerson(myVehicleParameter, myActivePlan);
-    MSNet::getInstance()->getPersonControl().add(person);
+    MSNet::getInstance()->getPersonControl().add(myVehicleParameter->id, person);
     myVehicleParameter = 0;
     myActivePlan = 0;
 }

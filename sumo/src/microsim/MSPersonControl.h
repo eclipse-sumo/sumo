@@ -30,7 +30,6 @@
 #endif
 
 #include <vector>
-#include <microsim/MSNet.h>
 
 
 // ===========================================================================
@@ -60,95 +59,25 @@ public:
     /// destructor
     ~MSPersonControl();
 
-    /// adds a single person to the list of walking persons
-    void add(MSPerson *person);
+    /// adds a single person, returns false iff an id clash occured
+    bool add(const std::string &id, MSPerson *person);
 
-    ///
+    /// sets the arrival time for a waiting or walking person
+    void setWaiting(SUMOTime time, MSPerson *person);
+
+    /// returns whether any persons waiting or walking time is over
     bool hasWaitingPersons(SUMOTime time) const;
 
     /// returns the list of persons which waiting or walking period is over
     const PersonVector &getWaitingPersons(SUMOTime time) const;
 
-    /**
-     * The class holds the list of persons which all arrive/stop waiting at
-     *  the specified time
-     */
-    class SameDepartureTimeCont {
-    public:
-        /// constructor
-        SameDepartureTimeCont(SUMOTime time);
-
-        /// destructor
-        ~SameDepartureTimeCont();
-
-        /// adds a person to the list of walking/waiting persons
-        void add(MSPerson *person);
-
-        /// extends the list of walking/waiting persons by the given list of persons
-        void add(const std::vector<MSPerson*> &cont);
-
-        /// returns the arrival time
-        SUMOTime getTime() const;
-
-        /// returns the container of persons walking/waiting
-        const std::vector<MSPerson*> &getPersons() const;
-
-    private:
-        /// the time of the arrival at the destination / the end of the waiting
-        SUMOTime myArrivalTime;
-        /// the list of persons walking/waiting
-        std::vector<MSPerson*> myPersons;
-    };
 
 private:
-    /**
-     * The class that performs the checking whether the current item in a search
-     * is smaller or equal to a time
-     */
-    class my_greater : public std::unary_function<SameDepartureTimeCont, bool> {
-    public:
-        my_greater(SUMOTime value) : m_value(value) {}
+    /// all persons by id
+    std::map<std::string, MSPerson*> myPersons;
 
-        bool operator()(SameDepartureTimeCont arg) const {
-            return m_value > arg.getTime();
-        }
-
-    private:
-        SUMOTime m_value;
-
-    };
-
-private:
-    /**
-     * The class that performs the checking whether the current item in a search
-     * is equal to a time
-     */
-    class equal : public std::unary_function<SameDepartureTimeCont, bool> {
-    public:
-        equal(SUMOTime value) : m_value(value) {}
-        bool operator()(SameDepartureTimeCont arg) const {
-            return m_value == arg.getTime();
-        }
-    private:
-        SUMOTime m_value;
-    };
-
-public:
-    typedef std::vector<SameDepartureTimeCont> WaitingPersons;
-
-private:
-    /// the list of waiting persons
-    std::vector<SameDepartureTimeCont> myWaiting;
-
-    /// the list of walking persons
-    std::vector<SameDepartureTimeCont> myWalking;
-
-private:
-    /// adds the list of persons walking until the specified time
-    void push(SUMOTime time, const std::vector<MSPerson*> &list);
-
-    /// adds the timedlist of persons walking until the specified time
-    void push(const SameDepartureTimeCont &cont);
+    /// the lists of waiting persons
+    std::map<SUMOTime, PersonVector> myWaiting;
 
 };
 
@@ -156,4 +85,3 @@ private:
 #endif
 
 /****************************************************************************/
-

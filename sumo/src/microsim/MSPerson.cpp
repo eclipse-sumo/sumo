@@ -81,7 +81,7 @@ MSPerson::MSPersonStage_Walking::getWalkingTime() {
 void
 MSPerson::MSPersonStage_Walking::proceed(MSNet* /*net*/,
         MSPerson* /*person*/, SUMOTime /*now*/,
-        MSEdge* /*previousEdge*/) {
+        const MSEdge & /*previousEdge*/) {
 //!!!    myWalking.add(now + m_uiWalkingTime, person);
 }
 
@@ -99,14 +99,13 @@ MSPerson::MSPersonStage_Driving::~MSPersonStage_Driving() {}
 
 
 void
-MSPerson::MSPersonStage_Driving::proceed(MSNet* /*net*/,
-        MSPerson* /*person*/, SUMOTime /*now*/,
-        MSEdge* /*previousEdge*/) {
-    /*!!!
-    MSVehicle *vehicle = new MSVehicle(m_VehicleId,  (MSNet::Route*) MSNet::routeDict(m_RouteId), now, MSVehicleType::dictionary(m_VehicleType));
-    vehicle->addPerson(person, m_pDestination);
-    net->myEmitter->addStarting(vehicle);
-    */
+MSPerson::MSPersonStage_Driving::proceed(MSNet* net,
+        MSPerson* person, SUMOTime now,
+        const MSEdge &previousEdge) {
+    MSVehicle *v = MSNet::getInstance()->getVehicleControl().getWaitingVehicle(previousEdge.getID(), myLines);
+    if (v != 0) {
+        v->addPerson(person, myDestination);
+    }
 }
 
 
@@ -122,10 +121,10 @@ MSPerson::MSPersonStage_Waiting::~MSPersonStage_Waiting() {}
 
 
 void
-MSPerson::MSPersonStage_Waiting::proceed(MSNet* /*net*/,
-        MSPerson* /*person*/, SUMOTime /*now*/,
-        MSEdge* /*previousEdge*/) {
-//!!!!    net->myPersons->add(now + m_uiWaitingTime, person);
+MSPerson::MSPersonStage_Waiting::proceed(MSNet* net,
+        MSPerson* person, SUMOTime now,
+        const MSEdge & /*previousEdge*/) {
+    net->getPersonControl().setWaiting(now + myWaitingDuration, person);
 }
 
 
@@ -143,20 +142,13 @@ MSPerson::~MSPerson() {
 }
 
 
-const MSPerson::MSPersonStage &
-MSPerson::getCurrentStage() const {
-    return **myStep;
-}
-
-
 void
-MSPerson::proceed(MSNet* /*net*/, SUMOTime /*time*/) {
-    /*!!!
-    MSEdge *arrivedAt = m_pStep->getDestination();
-    m_pStep++;
-    if(m_pStep==m_pRoute->end()) return;
-    (*m_pStep).proceed(net, this, time, arrivedAt);
-    */
+MSPerson::proceed(MSNet* net, SUMOTime time) {
+    const MSEdge &arrivedAt = (*myStep)->getDestination();
+    myStep++;
+    if (myStep != myPlan->end()) {
+        (*myStep)->proceed(net, this, time, arrivedAt);
+    }
 }
 
 

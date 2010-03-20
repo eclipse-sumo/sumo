@@ -1913,9 +1913,12 @@ MSVehicle::getHarmonoise_NoiseEmissions() const throw() {
 }
 
 
+void
+MSVehicle::addPerson(MSPerson* person, const MSEdge &dest) throw() {
+}
+
 
 #ifndef NO_TRACI
-
 
 bool
 MSVehicle::startSpeedAdaption(float newSpeed, SUMOTime duration, SUMOTime currentTime) {
@@ -2042,4 +2045,3 @@ MSVehicle::addTraciStop(MSLane* lane, SUMOReal pos, SUMOReal radius, SUMOTime du
 
 
 /****************************************************************************/
-

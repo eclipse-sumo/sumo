@@ -125,7 +125,7 @@ public:
      * @param[in] id The id of the vehicle to retrieve
      * @return The vehicle with the given id, 0 if no such vehicle exists
      */
-    virtual MSVehicle *getVehicle(const std::string &id) throw();
+    virtual MSVehicle *getVehicle(const std::string &id) const throw();
 
 
     /** @brief Deletes the vehicle
@@ -314,6 +314,7 @@ public:
     void insertVTypeIDs(std::vector<std::string> &into) const throw();
     /// @}
 
+    MSVehicle *getWaitingVehicle(const std::string &edge, const std::vector<std::string> &lines) const throw();
 
 
 #ifdef HAVE_MESOSIM
