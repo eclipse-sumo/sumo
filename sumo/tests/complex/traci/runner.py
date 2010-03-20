@@ -6,14 +6,26 @@ sys.path.append(os.path.join(os.path.abspath(os.path.dirname(sys.argv[0])), "../
 import traciControl
 import time
 
-sumoBinary = os.environ.get("SUMO_BINARY", os.path.join(os.path.dirname(sys.argv[0]), '..', '..', '..', 'bin', 'sumo'))
+if sys.argv[1]=="sumo":
+    sumoBinary = os.environ.get("SUMO_BINARY", os.path.join(os.path.dirname(sys.argv[0]), '..', '..', '..', 'bin', 'sumo'))
+    addOption = ""
+else:
+    sumoBinary = os.environ.get("GUISIM_BINARY", os.path.join(os.path.dirname(sys.argv[0]), '..', '..', '..', 'bin', 'sumo-gui'))
+    addOption = "-Q"
 PORT = 8813
 
 
 def runSingle(sumoEndTime, traciEndTime):
+    fdi = open("sumo.sumo.cfg")
+    fdo = open("used.sumo.cfg", "w")
+    for line in fdi:
+        line = line.replace("%end%", str(sumoEndTime))
+        fdo.write(line)
+    fdi.close()
+    fdo.close()
     doClose = True
     step = 0
-    sumoProcess = subprocess.Popen("%s -c %s -e %s" % (sumoBinary, "sumo.sumo.cfg", str(sumoEndTime)), shell=True, stdout=sys.stdout)
+    sumoProcess = subprocess.Popen("%s -c used.sumo.cfg %s" % (sumoBinary, addOption), shell=True, stdout=sys.stdout)
     traciControl.initTraCI(PORT)
     while not step>traciEndTime:
         traciControl.cmdSimulationStep(1)
