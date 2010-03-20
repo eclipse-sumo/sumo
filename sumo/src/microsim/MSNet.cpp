@@ -274,6 +274,13 @@ MSNet::simulate(SUMOTime start, SUMOTime stop) {
             postSimStepOutput();
         }
         MSNet::SimulationState state = simulationState(stop);
+#ifndef NO_TRACI
+        if(state!=SIMSTATE_RUNNING) {
+			if(OptionsCont::getOptions().getInt("remote-port")!=0&&!traci::TraCIServer::wasClosed()) {
+				state = SIMSTATE_RUNNING;
+			}
+		}
+#endif
         if(state!=SIMSTATE_RUNNING) {
             quitMessage = "Simulation End: " + getStateMessage(state);
         }
