@@ -577,47 +577,90 @@ def cmdGetJunctionVariable_position(nodeID):
 # get state
 # ---------------------------------------------------
 def cmdGetLaneVariable_idList(laneID):
-    result = buildSendReadNew1StringParamCmd(tc.CMD_GET_LANE_VARIABLE, tc.ID_LIST, nodeID)
+    result = buildSendReadNew1StringParamCmd(tc.CMD_GET_LANE_VARIABLE, tc.ID_LIST, laneID)
     return result.readStringList()  # Variable value 
 
 def cmdGetLaneVariable_length(laneID):
-    result = buildSendReadNew1StringParamCmd(tc.CMD_GET_LANE_VARIABLE, tc.VAR_LENGTH, vehID)
+    result = buildSendReadNew1StringParamCmd(tc.CMD_GET_LANE_VARIABLE, tc.VAR_LENGTH, laneID)
     return result.read("!f")[0] # Variable value
 
 def cmdGetLaneVariable_speed(laneID):
-    result = buildSendReadNew1StringParamCmd(tc.CMD_GET_LANE_VARIABLE, tc.VAR_MAXSPEED, vehID)
+    result = buildSendReadNew1StringParamCmd(tc.CMD_GET_LANE_VARIABLE, tc.VAR_MAXSPEED, laneID)
     return result.read("!f")[0] # Variable value
 
 def cmdGetLaneVariable_allowed(laneID):
-    result = buildSendReadNew1StringParamCmd(tc.CMD_GET_LANE_VARIABLE, tc.LANE_ALLOWED, vehID)
+    result = buildSendReadNew1StringParamCmd(tc.CMD_GET_LANE_VARIABLE, tc.LANE_ALLOWED, laneID)
     return result.readStringList()  # Variable value 
 
 def cmdGetLaneVariable_disallowed(laneID):
-    result = buildSendReadNew1StringParamCmd(tc.CMD_GET_LANE_VARIABLE, tc.LANE_DISALLOWED, vehID)
+    result = buildSendReadNew1StringParamCmd(tc.CMD_GET_LANE_VARIABLE, tc.LANE_DISALLOWED, laneID)
     return result.readStringList()  # Variable value 
 
 def cmdGetLaneVariable_linkNumber(laneID):
-    result = buildSendReadNew1StringParamCmd(tc.CMD_GET_LANE_VARIABLE, tc.LANE_LINK_NUMBER, vehID)
+    result = buildSendReadNew1StringParamCmd(tc.CMD_GET_LANE_VARIABLE, tc.LANE_LINK_NUMBER, laneID)
     return result.read("!i")[0] # Variable value
 
 def cmdGetLaneVariable_edgeID(laneID):
-    result = buildSendReadNew1StringParamCmd(tc.CMD_GET_LANE_VARIABLE, tc.LANE_EDGE_ID, vehID)
+    result = buildSendReadNew1StringParamCmd(tc.CMD_GET_LANE_VARIABLE, tc.LANE_EDGE_ID, laneID)
     return result.readString() # Variable value
 
-# missing: shape, links
+def cmdGetLaneVariable_speed(laneID):
+    result = buildSendReadNew1StringParamCmd(tc.CMD_GET_LANE_VARIABLE, tc.VAR_MAXSPEED, laneID)
+    return result.read("!f")[0] # Variable value
+
+def cmdGetLaneVariable_CO2emission(laneID):
+    result = buildSendReadNew1StringParamCmd(tc.CMD_GET_LANE_VARIABLE, tc.VAR_CO2EMISSION, laneID)
+    return result.read("!f")[0] # Variable value
+
+def cmdGetLaneVariable_COemission(laneID):
+    result = buildSendReadNew1StringParamCmd(tc.CMD_GET_LANE_VARIABLE, tc.VAR_COEMISSION, laneID)
+    return result.read("!f")[0] # Variable value
+
+def cmdGetLaneVariable_HCemission(laneID):
+    result = buildSendReadNew1StringParamCmd(tc.CMD_GET_LANE_VARIABLE, tc.VAR_HCEMISSION, laneID)
+    return result.read("!f")[0] # Variable value
+
+def cmdGetLaneVariable_PMxemission(laneID):
+    result = buildSendReadNew1StringParamCmd(tc.CMD_GET_LANE_VARIABLE, tc.VAR_PMXEMISSION, laneID)
+    return result.read("!f")[0] # Variable value
+
+def cmdGetLaneVariable_NOxemission(laneID):
+    result = buildSendReadNew1StringParamCmd(tc.CMD_GET_LANE_VARIABLE, tc.VAR_NOXEMISSION, laneID)
+    return result.read("!f")[0] # Variable value
+
+def cmdGetLaneVariable_fuelConsumption(laneID):
+    result = buildSendReadNew1StringParamCmd(tc.CMD_GET_LANE_VARIABLE, tc.VAR_FUELCONSUMPTION, laneID)
+    return result.read("!f")[0] # Variable value
+
+def cmdGetLaneVariable_noiseEmission(laneID):
+    result = buildSendReadNew1StringParamCmd(tc.CMD_GET_LANE_VARIABLE, tc.VAR_NOISEEMISSION, laneID)
+    return result.read("!f")[0] # Variable value
+
+def cmdGetLaneVariable_meanSpeed(laneID):
+    result = buildSendReadNew1StringParamCmd(tc.CMD_GET_LANE_VARIABLE, tc.LAST_STEP_MEAN_SPEED, laneID)
+    return result.read("!f")[0] # Variable value
+
+def cmdGetLaneVariable_occupancy(laneID):
+    result = buildSendReadNew1StringParamCmd(tc.CMD_GET_LANE_VARIABLE, tc.LAST_STEP_OCCUPANCY, laneID)
+    return result.read("!f")[0] # Variable value
+
+def cmdGetLaneVariable_vehicleIDs(laneID):
+    result = buildSendReadNew1StringParamCmd(tc.CMD_GET_LANE_VARIABLE, tc.LAST_STEP_VEHICLE_ID_LIST, laneID)
+    return result.readStringList()  # Variable value 
+
 
 # ---------------------------------------------------
 # change state
 # ---------------------------------------------------
 def cmdChangeLaneVariable_allowed(laneID, allowedClasses):
-    beginChangeMessage(tc.CMD_SET_LANE_VARIABLE, 1+1+1+4+len(laneID)+1+4+sum(map(len, allowedClasses))+4*len(allowedClasses), tc.LANE_ALLOWED, vehID)
+    beginChangeMessage(tc.CMD_SET_LANE_VARIABLE, 1+1+1+4+len(laneID)+1+4+sum(map(len, allowedClasses))+4*len(allowedClasses), tc.LANE_ALLOWED, laneID)
     _message.string += struct.pack("!Bi", tc.TYPE_STRINGLIST, len(allowedClasses))
     for c in allowedClasses:
         _message.string += struct.pack("!i", len(c)) + c
     _sendExact()
 
 def cmdChangeLaneVariable_disallowed(laneID, disallowedClasses):
-    beginChangeMessage(tc.CMD_SET_LANE_VARIABLE, 1+1+1+4+len(laneID)+1+4+sum(map(len, disallowedClasses))+4*len(disallowedClasses), tc.LANE_DISALLOWED, vehID)
+    beginChangeMessage(tc.CMD_SET_LANE_VARIABLE, 1+1+1+4+len(laneID)+1+4+sum(map(len, disallowedClasses))+4*len(disallowedClasses), tc.LANE_DISALLOWED, laneID)
     _message.string += struct.pack("!Bi", tc.TYPE_STRINGLIST, len(disallowedClasses))
     for c in disallowedClasses:
         _message.string += struct.pack("!i", len(c)) + c
@@ -632,6 +675,19 @@ def cmdChangeLaneVariable_length(laneID, length):
     beginChangeMessage(tc.CMD_SET_LANE_VARIABLE, 1+1+1+4+len(laneID)+1+4, tc.VAR_LENGTH, laneID)
     _message.string += struct.pack("!Bf", tc.TYPE_FLOAT, length)
     _sendExact()
+
+
+
+# ===================================================
+# simulation interaction
+# ===================================================
+# ---------------------------------------------------
+# get state
+# ---------------------------------------------------
+def cmdGetSimulationVariable_currentTime():
+    result = buildSendReadNew1StringParamCmd(tc.CMD_GET_SIM_VARIABLE, tc.VAR_TIME_STEP, "x")
+    return result.read("!d")[0] # Variable value
+
 
 
 
