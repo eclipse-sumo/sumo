@@ -1,3 +1,5 @@
 # Tests whether repeated execution of client/server connections work (for both the client and the server being the one who ends first)
 repeatedConnection
 
+# Tests whether the connection is not closed by SUMO
+clientCloses
