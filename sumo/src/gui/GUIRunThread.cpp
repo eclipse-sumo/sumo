@@ -49,6 +49,10 @@
 #include <utils/common/SysUtils.h>
 #include <utils/iodevices/OutputDevice.h>
 
+#ifndef NO_TRACI
+#include <traci-server/TraCIServer.h>
+#endif
+
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
 #endif // CHECK_MEMORY_LEAKS
@@ -165,6 +169,13 @@ GUIRunThread::makeStep() throw() {
 
         e = 0;
         MSNet::SimulationState state = myNet->simulationState(mySimEndTime);
+#ifndef NO_TRACI
+        if(state!=MSNet::SIMSTATE_RUNNING) {
+			if(OptionsCont::getOptions().getInt("remote-port")!=0&&!traci::TraCIServer::wasClosed()) {
+				state = MSNet::SIMSTATE_RUNNING;
+			}
+		}
+#endif
         switch(state) {
         case MSNet::SIMSTATE_END_STEP_REACHED:
         case MSNet::SIMSTATE_NO_FURTHER_VEHICLES:
