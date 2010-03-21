@@ -3,7 +3,7 @@
 @file    patchTrafficLights.py
 @author  Michael.Behrisch@dlr.de
 @date    2010-03-11
-@version $Id: runner.py 8386 2010-03-05 22:29:33Z behrisch $
+@version $Id$
 
 This script patches the traffic lights of an input network for the gaming mode.
 
