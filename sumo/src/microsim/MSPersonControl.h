@@ -4,7 +4,7 @@
 /// @date    Mon, 9 Jul 2001
 /// @version $Id$
 ///
-// 	»missingDescription«
+// Stores all persons in the net and handles their waiting for cars.
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // Copyright 2001-2010 DLR (http://www.dlr.de/) and contributors
@@ -62,22 +62,34 @@ public:
     /// adds a single person, returns false iff an id clash occured
     bool add(const std::string &id, MSPerson *person);
 
+    /// removes a single person
+    void erase(MSPerson *person);
+
     /// sets the arrival time for a waiting or walking person
-    void setWaiting(SUMOTime time, MSPerson *person);
+    void setArrival(SUMOTime time, MSPerson *person);
 
     /// returns whether any persons waiting or walking time is over
-    bool hasWaitingPersons(SUMOTime time) const;
+    bool hasArrivedPersons(SUMOTime time) const;
 
     /// returns the list of persons which waiting or walking period is over
-    const PersonVector &getWaitingPersons(SUMOTime time) const;
+    const PersonVector popArrivedPersons(SUMOTime time);
+
+    /// adds a person to the list of persons waiting for a vehicle on the specified edge
+    void addWaiting(const MSEdge* edge, MSPerson *person) throw();
+
+    /// removes a person from the list of persons waiting for a vehicle on the specified edge
+    void removeWaiting(const MSEdge* edge, MSPerson *person) throw();
 
 
 private:
     /// all persons by id
     std::map<std::string, MSPerson*> myPersons;
 
+    /// the lists of walking / stopping persons
+    std::map<SUMOTime, PersonVector> myArrivals;
+
     /// the lists of waiting persons
-    std::map<SUMOTime, PersonVector> myWaiting;
+    std::map<const MSEdge*, PersonVector> myWaiting;
 
 };
 

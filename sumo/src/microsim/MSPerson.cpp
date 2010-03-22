@@ -4,7 +4,7 @@
 /// @date    Mon, 9 Jul 2001
 /// @version $Id$
 ///
-// missing_desc
+// The class for modelling person-movements
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // Copyright 2001-2010 DLR (http://www.dlr.de/) and contributors
@@ -102,9 +102,9 @@ void
 MSPerson::MSPersonStage_Driving::proceed(MSNet* net,
         MSPerson* person, SUMOTime now,
         const MSEdge &previousEdge) {
-    MSVehicle *v = MSNet::getInstance()->getVehicleControl().getWaitingVehicle(previousEdge.getID(), myLines);
+    MSVehicle *v = MSNet::getInstance()->getVehicleControl().getWaitingVehicle(&previousEdge, myLines);
     if (v != 0) {
-        v->addPerson(person, myDestination);
+        v->addPerson(person);
     }
 }
 
@@ -124,7 +124,7 @@ void
 MSPerson::MSPersonStage_Waiting::proceed(MSNet* net,
         MSPerson* person, SUMOTime now,
         const MSEdge & /*previousEdge*/) {
-    net->getPersonControl().setWaiting(now + myWaitingDuration, person);
+    net->getPersonControl().setArrival(now + myWaitingDuration, person);
 }
 
 
@@ -142,6 +142,12 @@ MSPerson::~MSPerson() {
 }
 
 
+const std::string&
+MSPerson::getID() const throw() {
+    return myParameter->id;
+}
+
+
 void
 MSPerson::proceed(MSNet* net, SUMOTime time) {
     const MSEdge &arrivedAt = (*myStep)->getDestination();
@@ -155,6 +161,18 @@ MSPerson::proceed(MSNet* net, SUMOTime time) {
 bool
 MSPerson::endReached() const {
     return myStep == myPlan->end();
+}
+
+
+SUMOTime
+MSPerson::getDesiredDepart() const throw() {
+    return myParameter->depart;
+}
+
+
+const MSEdge &
+MSPerson::getDestination() const {
+    return (*myStep)->getDestination();
 }
 
 

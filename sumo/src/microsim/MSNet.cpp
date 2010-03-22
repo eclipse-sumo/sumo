@@ -390,12 +390,12 @@ MSNet::simulationStep() {
 
     // persons
     if (myPersonControl!=0) {
-        if (myPersonControl->hasWaitingPersons(myStep)) {
-            const MSPersonControl::PersonVector &persons = myPersonControl->getWaitingPersons(myStep);
+        if (myPersonControl->hasArrivedPersons(myStep)) {
+            const MSPersonControl::PersonVector &persons = myPersonControl->popArrivedPersons(myStep);
             for (MSPersonControl::PersonVector::const_iterator i=persons.begin(); i!=persons.end(); ++i) {
                 MSPerson *person = *i;
                 if (person->endReached()) {
-                    delete person;
+                    myPersonControl->erase(person);
                 } else {
                     person->proceed(this, myStep);
                 }

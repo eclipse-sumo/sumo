@@ -847,7 +847,7 @@ public:
     SUMOReal getHarmonoise_NoiseEmissions() const throw();
     //@}
 
-    void addPerson(MSPerson* person, const MSEdge &dest) throw();
+    void addPerson(MSPerson* person) throw();
 
 #ifndef NO_TRACI
     /**

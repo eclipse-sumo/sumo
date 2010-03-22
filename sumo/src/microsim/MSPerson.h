@@ -238,6 +238,9 @@ public:
     /// destructor
     ~MSPerson();
 
+    /// returns the person id
+    const std::string& getID() const throw();
+
     /// proceeds to the next step of the route
     void proceed(MSNet *net, SUMOTime time);
 
@@ -245,9 +248,10 @@ public:
     bool endReached() const;
 
     /// Returns the desired departure time.
-    SUMOTime getDesiredDepart() const throw() {
-        return myParameter->depart;
-    }
+    SUMOTime getDesiredDepart() const throw();
+
+    /// Returns the current destination.
+    const MSEdge &getDestination() const;
 
 private:
     /// @brief Invalidated copy constructor.

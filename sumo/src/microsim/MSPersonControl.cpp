@@ -4,7 +4,7 @@
 /// @date    Mon, 9 Jul 2001
 /// @version $Id$
 ///
-// »missingDescription«
+// Stores all persons in the net and handles their waiting for cars.
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // Copyright 2001-2010 DLR (http://www.dlr.de/) and contributors
@@ -64,23 +64,34 @@ MSPersonControl::add(const std::string &id, MSPerson *person) {
 
 
 void
-MSPersonControl::setWaiting(const SUMOTime time, MSPerson *person) {
-    if (myWaiting.find(time)==myWaiting.end()) {
-        myWaiting[time] = PersonVector();
+MSPersonControl::erase(MSPerson *person) {
+    std::string id = person->getID();
+    if (myPersons.find(id) != myPersons.end()) {
+        delete myPersons[id];
+        myPersons.erase(id);
     }
-    myWaiting[time].push_back(person);
+ }
+
+void
+MSPersonControl::setArrival(const SUMOTime time, MSPerson *person) {
+    if (myArrivals.find(time)==myArrivals.end()) {
+        myArrivals[time] = PersonVector();
+    }
+    myArrivals[time].push_back(person);
 }
 
 
 bool
-MSPersonControl::hasWaitingPersons(SUMOTime time) const {
-    return myWaiting.find(time)!=myWaiting.end();
+MSPersonControl::hasArrivedPersons(SUMOTime time) const {
+    return myArrivals.find(time)!=myArrivals.end();
 }
 
 
-const MSPersonControl::PersonVector &
-MSPersonControl::getWaitingPersons(SUMOTime time) const {
-    return myWaiting.find(time)->second;
+const MSPersonControl::PersonVector
+MSPersonControl::popArrivedPersons(SUMOTime time) {
+    MSPersonControl::PersonVector arrived = myArrivals[time];
+    myArrivals.erase(time);
+    return arrived;
 }
 
 

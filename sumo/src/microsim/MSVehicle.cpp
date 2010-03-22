@@ -677,6 +677,7 @@ MSVehicle::processNextStop(SUMOReal currentVelocity) throw() {
                 myStops.begin()->busstop->leaveFrom(this);
             }
             // the current stop is no longer valid
+            MSNet::getInstance()->getVehicleControl().removeWaiting(&myLane->getEdge(), this);
             myStops.pop_front();
             // maybe the next stop is on the same edge; let's rebuild best lanes
             getBestLanes(true);
@@ -703,6 +704,18 @@ MSVehicle::processNextStop(SUMOReal currentVelocity) throw() {
             }
             if (myState.pos()>=endPos-BUS_STOP_OFFSET&&busStopsMustHaveSpace) {
                 // ok, we may stop (have reached the stop)
+                MSNet::getInstance()->getVehicleControl().addWaiting(&myLane->getEdge(), this);
+                if (hasCORNPointerValue(MSCORN::CORN_P_VEH_PASSENGER)) {
+                    std::vector<MSPerson*> *persons = (std::vector<MSPerson*>*) myPointerCORNMap[MSCORN::CORN_P_VEH_PASSENGER];
+                    for (std::vector<MSPerson*>::iterator i=persons->begin(); i!=persons->end();) {
+                        if (&(*i)->getDestination() == &myLane->getEdge()) {
+                            (*i)->proceed(MSNet::getInstance(), MSNet::getInstance()->getCurrentTimeStep());
+                            i = persons->erase(i);
+                        } else {
+                            ++i;
+                        }
+                    }
+                }
                 bstop.reached = true;
                 // compute stopping time
                 if (bstop.until>=0) {
@@ -1914,7 +1927,11 @@ MSVehicle::getHarmonoise_NoiseEmissions() const throw() {
 
 
 void
-MSVehicle::addPerson(MSPerson* person, const MSEdge &dest) throw() {
+MSVehicle::addPerson(MSPerson* person) throw() {
+    if (!hasCORNPointerValue(MSCORN::CORN_P_VEH_PASSENGER)) {
+        myPointerCORNMap[MSCORN::CORN_P_VEH_PASSENGER] = new std::vector<MSPerson*>();
+    }
+    ((std::vector<MSPerson*>*) myPointerCORNMap[MSCORN::CORN_P_VEH_PASSENGER])->push_back(person);
 }
 
 

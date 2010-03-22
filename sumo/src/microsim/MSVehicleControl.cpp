@@ -561,8 +561,35 @@ MSVehicleControl::insertVTypeIDs(std::vector<std::string> &into) const throw() {
 }
 
 
+void
+MSVehicleControl::addWaiting(const MSEdge* const edge, MSVehicle *vehicle) throw() {
+    if (myWaiting.find(edge) == myWaiting.end()) {
+        myWaiting[edge] = std::vector<MSVehicle*>();
+    }
+    myWaiting[edge].push_back(vehicle);
+}
+
+
+void
+MSVehicleControl::removeWaiting(const MSEdge* const edge, MSVehicle *vehicle) throw() {
+    if (myWaiting.find(edge) != myWaiting.end()) {
+        std::vector<MSVehicle*>::iterator it = std::find(myWaiting[edge].begin(), myWaiting[edge].end(), vehicle);
+        if (it != myWaiting[edge].end()) {
+            myWaiting[edge].erase(it);
+        }
+    }
+}
+
+
 MSVehicle *
-MSVehicleControl::getWaitingVehicle(const std::string &edge, const std::vector<std::string> &lines) const throw() {
+MSVehicleControl::getWaitingVehicle(const MSEdge* const edge, const std::vector<std::string> &lines) throw() {
+    if (myWaiting.find(edge) != myWaiting.end()) {
+        for (std::vector<MSVehicle*>::const_iterator it = myWaiting[edge].begin(); it != myWaiting[edge].end(); ++it) {
+            if (std::find(lines.begin(), lines.end(), (*it)->getParameter().line) != lines.end()) {
+                return (*it);
+            }
+        }
+    }
     return 0;
 }
 

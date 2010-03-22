@@ -43,6 +43,7 @@ class MSVehicle;
 class MSRoute;
 class MSVehicleType;
 class BinaryInputDevice;
+class MSEdge;
 
 
 // ===========================================================================
@@ -314,7 +315,11 @@ public:
     void insertVTypeIDs(std::vector<std::string> &into) const throw();
     /// @}
 
-    MSVehicle *getWaitingVehicle(const std::string &edge, const std::vector<std::string> &lines) const throw();
+    void addWaiting(const MSEdge* const edge, MSVehicle *vehicle) throw();
+
+    void removeWaiting(const MSEdge* const edge, MSVehicle *vehicle) throw();
+
+    MSVehicle *getWaitingVehicle(const MSEdge* const edge, const std::vector<std::string> &lines) throw();
 
 
 #ifdef HAVE_MESOSIM
@@ -395,6 +400,9 @@ protected:
 
     /// @brief Whether no vehicle type was loaded
     bool myDefaultVTypeMayBeDeleted;
+
+    /// the lists of waiting vehicles
+    std::map<const MSEdge* const, std::vector<MSVehicle*> > myWaiting;
 
 
 private:
