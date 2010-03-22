@@ -590,20 +590,35 @@
 // current time step (get: simulation)
 #define VAR_TIME_STEP 0x70
 
+// number of loaded vehicles (get: simulation)
+#define VAR_LOADED_VEHICLES_NUMBER 0x71
+
 // loaded vehicle ids (get: simulation)
-#define VAR_LOADED_VEHICLES_IDS 0x71
+#define VAR_LOADED_VEHICLES_IDS 0x72
+
+// number of departed vehicle (get: simulation)
+#define VAR_DEPARTED_VEHICLES_NUMBER 0x73
 
 // departed vehicle ids (get: simulation)
-#define VAR_DEPARTED_VEHICLES_IDS 0x72
+#define VAR_DEPARTED_VEHICLES_IDS 0x74
+
+// number of vehicles starting to teleport (get: simulation)
+#define VAR_TELEPORT_STARTING_VEHICLES_NUMBER 0x75
 
 // ids of vehicles starting to teleport (get: simulation)
-#define VAR_TELEPORT_STARTING_VEHICLES_IDS 0x73
+#define VAR_TELEPORT_STARTING_VEHICLES_IDS 0x76
+
+// number of vehicles ending to teleport (get: simulation)
+#define VAR_TELEPORT_ENDING_VEHICLES_NUMBER 0x77
 
 // ids of vehicles ending to teleport (get: simulation)
-#define VAR_TELEPORT_ENDING_VEHICLES_IDS 0x74
+#define VAR_TELEPORT_ENDING_VEHICLES_IDS 0x78
+
+// number of arrived vehicles (get: simulation)
+#define VAR_ARRIVED_VEHICLES_NUMBER 0x79
 
 // ids of arrived vehicles (get: simulation)
-#define VAR_ARRIVED_VEHICLES_IDS 0x75
+#define VAR_ARRIVED_VEHICLES_IDS 0x7a
 
 
 
