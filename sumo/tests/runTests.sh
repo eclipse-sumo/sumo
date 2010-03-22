@@ -1,7 +1,7 @@
 #!/bin/bash
 #Bash script for the test run.
 #Accepts two parameter:
-#1. Directory for SUMO binaries (defaults to <SUMO_DIST>/src)
+#1. Directory for SUMO binaries (defaults to <SUMO_DIST>/bin)
 #2. Path to texttest.py executable (default is simply texttest.py)
 
 OLDDIR=$PWD
@@ -9,7 +9,7 @@ cd `dirname $0`
 export TEXTTEST_HOME="$PWD"
 if test x"$1" = x; then
   cd ..
-  SUMO_BIN="$PWD/src"
+  SUMO_BIN="$PWD/bin"
 else
   SUMO_BIN="$1"
 fi

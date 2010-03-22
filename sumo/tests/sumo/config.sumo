@@ -75,6 +75,7 @@ c2x_edge_near_info:xml version{->}-->
 
 [floating_point_tolerance]
 detector:0.0101
+emissions:0.0101
 aggregated1:0.0101
 aggregated15:0.0101
 aggregated25:0.0101
