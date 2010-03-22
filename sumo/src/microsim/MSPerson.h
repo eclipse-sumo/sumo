@@ -114,9 +114,6 @@ public:
         /// destructor
         ~MSPersonStage_Walking();
 
-        /// returns the time the person is walking
-        SUMOTime getWalkingTime();
-
         /// returns the mode of the stage
         ModeType getMode() const {
             return PERSON_WALKING;
@@ -127,13 +124,7 @@ public:
 
     private:
         /// the time the person is walking
-        MSEdgeVector myRoute;
-
-        /// the time the person is walking
         SUMOTime myWalkingTime;
-
-        /// the speed at which the person is walking
-        SUMOReal myWalkingSpeed;
 
     private:
         /// @brief Invalidated copy constructor.

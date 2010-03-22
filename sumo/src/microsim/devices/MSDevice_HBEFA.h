@@ -107,12 +107,10 @@ public:
     /** @brief Called on writing tripinfo output
      *
      * @param[in] os The stream to write the information into
-     * @param[in] intend The string used for intendation
-     * @return Whether any information was written.
      * @exception IOError not yet implemented
      * @see MSDevice::tripInfoOutput
      */
-    bool tripInfoOutput(OutputDevice &os, const std::string &intend) const throw(IOError);
+    void tripInfoOutput(OutputDevice &os) const throw(IOError);
 
 
     /** @brief Performs rerouting after a period

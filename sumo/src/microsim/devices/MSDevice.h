@@ -139,17 +139,13 @@ public:
      *  is assumed that the written information is a valid xml-snipplet, which
      *  will be embedded within the vehicle's information.
      *
-     * The device should write the intendation string before starting its own tag
-     *
-     * The method must return whether any information was written.
+     * The device should use the openTag / closeTag methods of the OutputDevice
+     *  for correct indentation.
      *
      * @param[in] os The stream to write the information into
-     * @param[in] intend The string used for intendation
-     * @return Whether any information was written.
      * @exception IOError not yet implemented
      */
-    virtual bool tripInfoOutput(OutputDevice &os, const std::string &intend) const throw(IOError) {
-        return false;
+    virtual void tripInfoOutput(OutputDevice &os) const throw(IOError) {
     }
 
 

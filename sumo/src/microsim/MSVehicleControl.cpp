@@ -106,7 +106,7 @@ MSVehicleControl::scheduleVehicleRemoval(MSVehicle *v) throw() {
                 : 0;
         SUMOReal routeLength = v->getRoute().getLength();
         // write
-        od << "    <tripinfo id=\"" << v->getID() << "\" ";
+        od.openTag("tripinfo") << " id=\"" << v->getID() << "\" ";
         SUMOTime departTime = -1;
         if (departInfo!=0) {
             routeLength -= departInfo->pos;
@@ -183,19 +183,15 @@ MSVehicleControl::scheduleVehicleRemoval(MSVehicle *v) throw() {
         if (v->hasCORNIntValue(MSCORN::CORN_VEH_VAPORIZED)) {
             od << v->getCORNIntValue(MSCORN::CORN_VEH_VAPORIZED);
         }
-        od << "\">";
+        od << "\"";
         // write device information
-        bool hadOutput = false;
         if (devices.size()!=0) {
+            od << ">\n";
             for (std::vector<MSDevice*>::const_iterator i=devices.begin(); i!=devices.end(); ++i) {
-                hadOutput |= (*i)->tripInfoOutput(od, "\n        ");
+                (*i)->tripInfoOutput(od);
             }
         }
-        if (hadOutput) {
-            od << "\n    ";
-        }
-        // close
-        od << "</tripinfo>\n";
+        od.closeTag(devices.size()==0);
     }
 
     // check whether to generate the information about the vehicle's routes

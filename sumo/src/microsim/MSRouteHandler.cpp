@@ -122,6 +122,9 @@ MSRouteHandler::myStartElement(SumoXMLTag element,
             if (from==0) {
                 throw ProcessError("The from edge '" + fromID + "' within a ride of person '" + pid + "' is not known.");
             }
+            if (myActivePlan->empty() || &myActivePlan->back()->getDestination() != from) {
+                myActivePlan->push_back(new MSPerson::MSPersonStage_Waiting(*from, -1, myVehicleParameter->depart));
+            }
         }
         const std::string toID = attrs.getStringReporting(SUMO_ATTR_TO, "ride", pid.c_str(), ok);
         MSEdge *to = MSEdge::dictionary(toID);
@@ -552,7 +555,9 @@ MSRouteHandler::closeVehicle() throw(ProcessError) {
 void
 MSRouteHandler::closePerson() throw(ProcessError) {
     MSPerson *person = new MSPerson(myVehicleParameter, myActivePlan);
-    MSNet::getInstance()->getPersonControl().add(myVehicleParameter->id, person);
+    if (MSNet::getInstance()->getPersonControl().add(myVehicleParameter->id, person)) {
+        MSNet::getInstance()->getPersonControl().setArrival(myVehicleParameter->depart, person);
+    }
     myVehicleParameter = 0;
     myActivePlan = 0;
 }

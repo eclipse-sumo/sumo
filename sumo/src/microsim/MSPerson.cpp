@@ -31,6 +31,7 @@
 #include <vector>
 #include "MSNet.h"
 #include "MSEdge.h"
+#include "MSLane.h"
 #include "MSPerson.h"
 #include "MSPersonControl.h"
 #include "MSEdgeControl.h"
@@ -66,23 +67,25 @@ MSPerson::MSPersonStage::getDestination() const {
  * MSPerson::MSPersonStage_Walking - methods
  * ----------------------------------------------------------------------- */
 MSPerson::MSPersonStage_Walking::MSPersonStage_Walking(MSEdgeVector route, SUMOTime walkingTime, SUMOReal speed)
-        : MSPersonStage(*route.back()), myWalkingTime(walkingTime), myWalkingSpeed(speed) {}
+        : MSPersonStage(*route.back()), myWalkingTime(walkingTime) {
+    if (speed > 0) {
+        SUMOReal time = 0;
+        for (MSEdgeVector::const_iterator it = route.begin(); it != route.end(); ++it) {
+            time += ((*it)->getLanes())[0]->getLength() * speed;
+        }
+        myWalkingTime = MAX2(walkingTime, time);
+    }
+}
 
 
 MSPerson::MSPersonStage_Walking::~MSPersonStage_Walking() {}
 
 
-SUMOTime
-MSPerson::MSPersonStage_Walking::getWalkingTime() {
-    return myWalkingTime;
-}
-
-
 void
-MSPerson::MSPersonStage_Walking::proceed(MSNet* /*net*/,
-        MSPerson* /*person*/, SUMOTime /*now*/,
+MSPerson::MSPersonStage_Walking::proceed(MSNet* net,
+        MSPerson* person, SUMOTime now,
         const MSEdge & /*previousEdge*/) {
-//!!!    myWalking.add(now + m_uiWalkingTime, person);
+    net->getPersonControl().setArrival(MAX2(now, now + myWalkingTime), person);
 }
 
 
@@ -105,6 +108,10 @@ MSPerson::MSPersonStage_Driving::proceed(MSNet* net,
     MSVehicle *v = MSNet::getInstance()->getVehicleControl().getWaitingVehicle(&previousEdge, myLines);
     if (v != 0) {
         v->addPerson(person);
+        if (v->getDesiredDepart() == -1) {
+            MSNet::getInstance()->getEmitControl().add(v);
+            MSNet::getInstance()->getVehicleControl().removeWaiting(&previousEdge, v);
+        }
     }
 }
 
@@ -124,7 +131,8 @@ void
 MSPerson::MSPersonStage_Waiting::proceed(MSNet* net,
         MSPerson* person, SUMOTime now,
         const MSEdge & /*previousEdge*/) {
-    net->getPersonControl().setArrival(now + myWaitingDuration, person);
+    const SUMOReal until = MAX3(now, now + myWaitingDuration, myWaitingUntil);
+    net->getPersonControl().setArrival(until, person);
 }
 
 

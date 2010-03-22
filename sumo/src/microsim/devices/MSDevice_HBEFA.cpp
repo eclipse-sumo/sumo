@@ -141,19 +141,18 @@ MSDevice_HBEFA::wrappedComputeCommandExecute(SUMOTime currentTime) throw(Process
 }
 
 
-bool
-MSDevice_HBEFA::tripInfoOutput(OutputDevice &os, const std::string &intend) const throw(IOError) {
+void
+MSDevice_HBEFA::tripInfoOutput(OutputDevice &os) const throw(IOError) {
     os << resetiosflags(std::ios::floatfield);
-    os << intend <<
-    "<emissions CO_abs=\"" << myCO <<
+    (os.openTag("emissions") <<
+    " CO_abs=\"" << myCO <<
     "\" CO2_abs=\"" << myCO2 <<
     "\" HC_abs=\"" << myHC <<
     "\" PMx_abs=\""<< myPMx <<
     "\" NOx_abs=\""<< myNOx <<
     "\" fuel_abs=\""<< myFuel <<
-    "\"/>";
+    "\"").closeTag(true);
     os<<setiosflags(std::ios::fixed);
-    return true;
 }
 
 
