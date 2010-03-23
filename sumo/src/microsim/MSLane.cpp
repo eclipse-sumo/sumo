@@ -544,7 +544,7 @@ MSLane::setCritical(SUMOTime t, std::vector<MSLane*> &into) {
     for (i=myVehicles.begin(); i!=myVehicles.end(); ++i, ++curr) {
         (*i)->moveFirstChecked();
         MSLane *target = (*i)->getTargetLane();
-        if (target!=this&&first2pop<0) {
+        if (target!=0&&first2pop<0) {
             first2pop = curr;
         }
     }
@@ -555,11 +555,10 @@ MSLane::setCritical(SUMOTime t, std::vector<MSLane*> &into) {
             MSVehicle *p = pop(t);
             assert(v==p);
             MSLane *target = p->getTargetLane();
-            if (p->getPositionOnLane()>target->getLength()||target==this) {
-                if (target==this) {
+            if (target==0||p->getPositionOnLane()>target->getLength()) {
+                if (target==0) {
                     MsgHandler::getWarningInstance()->inform("Teleporting vehicle '" + v->getID() + "'; false leaving order, targetLane='" + getID() + "', time=" + toString(MSNet::getInstance()->getCurrentTimeStep()) + ".");
-                }
-                if (p->getPositionOnLane()>target->getLength()) {
+                } else if (p->getPositionOnLane()>target->getLength()) {
                     MsgHandler::getWarningInstance()->inform("Teleporting vehicle '" + v->getID() + "'; beyond lane (1), targetLane='" + getID() + "', time=" + toString(MSNet::getInstance()->getCurrentTimeStep()) + ".");
                 }
                 MSVehicleTransfer::getInstance()->addVeh(v);
@@ -903,7 +902,6 @@ MSLane::getFollowerOnConsecutive(SUMOReal dist, SUMOReal seen, SUMOReal leaderSp
     // ok, a vehicle has not noticed the lane about itself;
     //  iterate as long as necessary to search for an approaching one
     std::set<MSLane*> visited;
-    visited.insert((MSLane*) this);
     std::vector<std::pair<MSVehicle *, SUMOReal> > possible;
     std::vector<MSLane::IncomingLaneInfo> newFound;
     std::vector<MSLane::IncomingLaneInfo> toExamine = myIncomingLanes;

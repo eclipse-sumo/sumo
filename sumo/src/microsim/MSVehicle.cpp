@@ -685,7 +685,6 @@ MSVehicle::processNextStop(SUMOReal currentVelocity) throw() {
         } else {
             // we have to wait some more time
             myStops.begin()->duration--;
-            myTarget = myLane;
             return 0;
         }
     } else {
@@ -757,6 +756,7 @@ MSVehicle::moveRegardingCritical(SUMOTime t, const MSLane* const lane,
         int bla = 0;
     }
 #endif
+    myTarget = 0;
     myLFLinkLanes.clear();
     // check whether the vehicle is not on an appropriate lane
     if (!myLane->appropriate(this)) {
@@ -907,6 +907,7 @@ MSVehicle::moveFirstChecked() {
     // update position and speed
     myState.myPos += SPEED2DIST(vNext);
     myState.mySpeed = vNext;
+	myTarget = 0;
     std::vector<MSLane*> passedLanes;
     for (std::vector<MSLane*>::reverse_iterator i=myFurtherLanes.rbegin(); i!=myFurtherLanes.rend(); ++i) {
         passedLanes.push_back(*i);
@@ -915,11 +916,10 @@ MSVehicle::moveFirstChecked() {
         passedLanes.push_back(myLane);
     }
     // move on lane(s)
-    if (myState.myPos<myLane->getLength()) {
+    if (myState.myPos<=myLane->getLength()) {
         // we are staying at our lane
         //  there is no need to go over succeeding lanes
         workOnMoveReminders(pos, pos + SPEED2DIST(vNext), vNext);
-        myTarget = myLane;
     } else {
         // we are moving at least to the next lane (maybe pass even more than one)
         MSLane *approachedLane = myLane;
@@ -971,8 +971,7 @@ MSVehicle::moveFirstChecked() {
             ++i;
         }
     }
-    assert(myTarget!=0);
-    assert(myTarget->getLength()>=myState.myPos);
+    assert(myTarget==0||myTarget->getLength()>=myState.myPos);
     setBlinkerInformation();
 }
 
@@ -1281,7 +1280,6 @@ MSVehicle::enterLaneAtMove(MSLane* enteredLane, SUMOReal driven) {
     adaptLaneEntering2MoveReminder(*enteredLane);
     // set the entered lane as the current lane
     myLane = enteredLane;
-    myTarget = enteredLane;
     // proceed in route
     MSEdge &enteredEdge = enteredLane->getEdge();
     // internal edges are not a part of the route...
