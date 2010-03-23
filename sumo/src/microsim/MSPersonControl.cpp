@@ -29,9 +29,11 @@
 
 #include <vector>
 #include <algorithm>
-#include <microsim/MSNet.h>
+#include "MSCORN.h"
+#include "MSNet.h"
 #include "MSPerson.h"
 #include "MSPersonControl.h"
+#include <utils/iodevices/OutputDevice.h>
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -65,7 +67,28 @@ MSPersonControl::add(const std::string &id, MSPerson *person) {
 
 void
 MSPersonControl::erase(MSPerson *person) {
-    std::string id = person->getID();
+    const std::string &id = person->getID();
+    if (MSCORN::wished(MSCORN::CORN_OUT_TRIPDURATIONS)) {
+        OutputDevice& od = OutputDevice::getDeviceByOption("tripinfo-output");
+        od.openTag("personinfo") << " id=\"" << id << "\" ";
+        od << "depart=\"" << person->getDesiredDepart() << "\">\n";
+        for (MSPerson::MSPersonPlan::const_iterator i=person->getPlan().begin(); i!=person->getPlan().end(); ++i) {
+            (*i)->tripInfoOutput(od);
+        }
+        od.closeTag();
+    }
+    if (MSCORN::wished(MSCORN::CORN_OUT_VEHROUTES)) {
+        OutputDevice& od = OutputDevice::getDeviceByOption("vehroute-output");
+        od.openTag("person") << " id=\"" << id
+        << "\" depart=\"" << person->getDesiredDepart()
+        << "\" arrival=\"" << MSNet::getInstance()->getCurrentTimeStep()
+        << "\">\n";
+        for (MSPerson::MSPersonPlan::const_iterator i=person->getPlan().begin(); i!=person->getPlan().end(); ++i) {
+            (*i)->tripInfoOutput(od);
+        }
+        od.closeTag();
+        od << "\n";
+    }
     if (myPersons.find(id) != myPersons.end()) {
         delete myPersons[id];
         myPersons.erase(id);
@@ -74,10 +97,11 @@ MSPersonControl::erase(MSPerson *person) {
 
 void
 MSPersonControl::setArrival(const SUMOTime time, MSPerson *person) {
-    if (myArrivals.find(time)==myArrivals.end()) {
-        myArrivals[time] = PersonVector();
+    const SUMOTime step = ceil(time / DELTA_T) * DELTA_T;
+    if (myArrivals.find(step)==myArrivals.end()) {
+        myArrivals[step] = PersonVector();
     }
-    myArrivals[time].push_back(person);
+    myArrivals[step].push_back(person);
 }
 
 

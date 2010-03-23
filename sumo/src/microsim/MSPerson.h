@@ -38,6 +38,7 @@
 // ===========================================================================
 class MSNet;
 class MSEdge;
+class OutputDevice;
 
 typedef std::vector<const MSEdge*> MSEdgeVector;
 
@@ -53,18 +54,6 @@ typedef std::vector<const MSEdge*> MSEdgeVector;
 class MSPerson {
 public:
     /**
-     * @enum ModeType
-     * @brief Defines possible person modes
-     */
-    enum ModeType {
-        /// @brief The person walks
-        PERSON_WALKING = 0,
-        /// @brief The person waits (stops)
-        PERSON_WAITING = 1,
-        /// @brief The person drives either by car or public transport
-        PERSON_DRIVING = 2
-    };
-    /**
      * The "abstract" class for a single stage of a persons movement
      * Contains the destination of the current movement step
      */
@@ -79,18 +68,26 @@ public:
         /// returns the destination edge
         const MSEdge &getDestination() const;
 
-        /// returns the type of the stage (faster than type_id)
-        virtual ModeType getMode() const = 0;
-
         /// proceeds to the next step
         virtual void proceed(MSNet *net, MSPerson *person, SUMOTime now, const MSEdge &previousEdge) = 0;
+
+        /// logs end of the step
+        void setArrived(SUMOTime now);
+
+        /** @brief Called on writing tripinfo output
+         *
+         * @param[in] os The stream to write the information into
+         * @exception IOError not yet implemented
+         */
+        virtual void tripInfoOutput(OutputDevice &os) const throw(IOError) = 0;
+
 
     protected:
         /// the next edge to reach (either by walking or driving)
         const MSEdge &myDestination;
 
         /// the time at which this stage started
-        SUMOTime myStart;
+        SUMOTime myArrived;
 
     private:
         /// @brief Invalidated copy constructor.
@@ -114,13 +111,15 @@ public:
         /// destructor
         ~MSPersonStage_Walking();
 
-        /// returns the mode of the stage
-        ModeType getMode() const {
-            return PERSON_WALKING;
-        }
-
         /// proceeds to the next step
         virtual void proceed(MSNet *net, MSPerson *person, SUMOTime now, const MSEdge &previousEdge);
+
+        /** @brief Called on writing tripinfo output
+         *
+         * @param[in] os The stream to write the information into
+         * @exception IOError not yet implemented
+         */
+        virtual void tripInfoOutput(OutputDevice &os) const throw(IOError);
 
     private:
         /// the time the person is walking
@@ -148,13 +147,15 @@ public:
         /// destructor
         ~MSPersonStage_Driving();
 
-        /// returns the type of the stage
-        ModeType getMode() const {
-            return PERSON_DRIVING;
-        }
-
         /// proceeds to the next step
         virtual void proceed(MSNet *net, MSPerson *person, SUMOTime now, const MSEdge &previousEdge);
+
+        /** @brief Called on writing tripinfo output
+         *
+         * @param[in] os The stream to write the information into
+         * @exception IOError not yet implemented
+         */
+        virtual void tripInfoOutput(OutputDevice &os) const throw(IOError);
 
     private:
         /// the lines  to choose from
@@ -181,16 +182,15 @@ public:
         /// destructor
         ~MSPersonStage_Waiting();
 
-        /// returns the time th eperson is waiting
-        SUMOTime getWaitingTime() const;
-
-        /// returns the type of the stage
-        ModeType getMode() const {
-            return PERSON_WAITING;
-        }
-
         /// proceeds to the next step
         virtual void proceed(MSNet *net, MSPerson *person, SUMOTime now, const MSEdge &previousEdge);
+
+        /** @brief Called on writing tripinfo output
+         *
+         * @param[in] os The stream to write the information into
+         * @exception IOError not yet implemented
+         */
+        virtual void tripInfoOutput(OutputDevice &os) const throw(IOError);
 
     private:
         /// the time the person is waiting
@@ -235,14 +235,14 @@ public:
     /// proceeds to the next step of the route
     void proceed(MSNet *net, SUMOTime time);
 
-    /// returns the information whether the persons route is over
-    bool endReached() const;
-
     /// Returns the desired departure time.
     SUMOTime getDesiredDepart() const throw();
 
     /// Returns the current destination.
     const MSEdge &getDestination() const;
+
+    /// Returns the current destination.
+    const MSPersonPlan &getPlan() const;
 
 private:
     /// @brief Invalidated copy constructor.

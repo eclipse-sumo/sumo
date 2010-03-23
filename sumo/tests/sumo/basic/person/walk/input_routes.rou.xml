@@ -1,0 +1,5 @@
+<routes>
+    <person id="p1" depart="0">
+        <walk edges="beg end" speed="1"/>
+    </person>
+</routes>

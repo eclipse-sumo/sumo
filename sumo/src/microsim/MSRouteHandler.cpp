@@ -140,6 +140,12 @@ MSRouteHandler::myStartElement(SumoXMLTag element,
         myActiveRoute.clear();
         bool ok = true;
         MSEdge::parseEdgesList(attrs.getStringReporting(SUMO_ATTR_EDGES, "walk", myVehicleParameter->id.c_str(), ok), myActiveRoute, myActiveRouteID);
+        if (myActiveRoute.empty()) {
+            throw ProcessError("No edges to walk for person '" + myVehicleParameter->id + "'.");
+        }
+        if (myActivePlan->empty() || &myActivePlan->back()->getDestination() != myActiveRoute.front()) {
+            myActivePlan->push_back(new MSPerson::MSPersonStage_Waiting(*myActiveRoute.front(), -1, myVehicleParameter->depart));
+        }
         const SUMOTime duration = attrs.getOptSUMOTimeReporting(SUMO_ATTR_DURATION, "walk", 0, ok, -1);
         const SUMOReal speed = attrs.getOptSUMORealReporting(SUMO_ATTR_SPEED, "walk", 0, ok, -1);
         myActivePlan->push_back(new MSPerson::MSPersonStage_Walking(myActiveRoute, duration, speed));
@@ -344,6 +350,11 @@ MSRouteHandler::myEndElement(SumoXMLTag element) throw(ProcessError) {
     case SUMO_TAG_ROUTE:
         closeRoute();
         break;
+    case SUMO_TAG_PERSON:
+        closePerson();
+        delete myVehicleParameter;
+        myVehicleParameter = 0;
+        break;
     case SUMO_TAG_VEHICLE:
         if (myVehicleParameter->repetitionNumber>0) {
             myVehicleParameter->repetitionNumber++; // for backwards compatibility
@@ -354,11 +365,6 @@ MSRouteHandler::myEndElement(SumoXMLTag element) throw(ProcessError) {
             myVehicleParameter = 0;
             break;
         }
-    case SUMO_TAG_PERSON:
-        closePerson();
-        delete myVehicleParameter;
-        myVehicleParameter = 0;
-        break;
     case SUMO_TAG_FLOW:
         closeFlow();
         break;

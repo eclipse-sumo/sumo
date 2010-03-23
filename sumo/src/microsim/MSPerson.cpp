@@ -34,10 +34,9 @@
 #include "MSLane.h"
 #include "MSPerson.h"
 #include "MSPersonControl.h"
-#include "MSEdgeControl.h"
 #include "MSEmitControl.h"
 #include "MSVehicle.h"
-#include "MSVehicleType.h"
+#include <utils/iodevices/OutputDevice.h>
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -60,6 +59,12 @@ MSPerson::MSPersonStage::~MSPersonStage() {}
 const MSEdge &
 MSPerson::MSPersonStage::getDestination() const {
     return myDestination;
+}
+
+
+void
+MSPerson::MSPersonStage::setArrived(SUMOTime now) {
+    myArrived = now;
 }
 
 
@@ -89,9 +94,17 @@ MSPerson::MSPersonStage_Walking::proceed(MSNet* net,
 }
 
 
+void
+MSPerson::MSPersonStage_Walking::tripInfoOutput(OutputDevice &os) const throw(IOError) {
+    (os.openTag("walk") <<
+    " arrived=\"" << myArrived <<
+    "\"").closeTag(true);
+}
+
+
 
 /* -------------------------------------------------------------------------
- * MSPerson::MSPersonStage_PrivateVehicle - methods
+ * MSPerson::MSPersonStage_Driving - methods
  * ----------------------------------------------------------------------- */
 MSPerson::MSPersonStage_Driving::MSPersonStage_Driving(const MSEdge &destination,
                                                        const std::vector<std::string> &lines)
@@ -116,6 +129,14 @@ MSPerson::MSPersonStage_Driving::proceed(MSNet* net,
 }
 
 
+void
+MSPerson::MSPersonStage_Driving::tripInfoOutput(OutputDevice &os) const throw(IOError) {
+    (os.openTag("ride") <<
+    " arrived=\"" << myArrived <<
+    "\"").closeTag(true);
+}
+
+
 /* -------------------------------------------------------------------------
  * MSPerson::MSPersonStage_Waiting - methods
  * ----------------------------------------------------------------------- */
@@ -133,6 +154,14 @@ MSPerson::MSPersonStage_Waiting::proceed(MSNet* net,
         const MSEdge & /*previousEdge*/) {
     const SUMOReal until = MAX3(now, now + myWaitingDuration, myWaitingUntil);
     net->getPersonControl().setArrival(until, person);
+}
+
+
+void
+MSPerson::MSPersonStage_Waiting::tripInfoOutput(OutputDevice &os) const throw(IOError) {
+    (os.openTag("stop") <<
+    " arrived=\"" << myArrived <<
+    "\"").closeTag(true);
 }
 
 
@@ -159,16 +188,13 @@ MSPerson::getID() const throw() {
 void
 MSPerson::proceed(MSNet* net, SUMOTime time) {
     const MSEdge &arrivedAt = (*myStep)->getDestination();
+    (*myStep)->setArrived(time);
     myStep++;
     if (myStep != myPlan->end()) {
         (*myStep)->proceed(net, this, time, arrivedAt);
+    } else {
+        net->getPersonControl().erase(this);
     }
-}
-
-
-bool
-MSPerson::endReached() const {
-    return myStep == myPlan->end();
 }
 
 
@@ -181,6 +207,12 @@ MSPerson::getDesiredDepart() const throw() {
 const MSEdge &
 MSPerson::getDestination() const {
     return (*myStep)->getDestination();
+}
+
+
+const MSPerson::MSPersonPlan &
+MSPerson::getPlan() const {
+    return *myPlan;
 }
 
 

@@ -149,7 +149,7 @@ SUMOVehicleParserHelper::parseVehicleAttributes(const SUMOSAXAttributes &attrs,
     SUMOVehicleParameter *ret = new SUMOVehicleParameter();
     ret->id = id;
     parseCommonAttributes(attrs, ret, "vehicle");
-    if (!skipDepart) {
+    if (!skipDepart && attrs.hasAttribute(SUMO_ATTR_DEPART)) {
         ret->depart = attrs.getSUMOTimeReporting(SUMO_ATTR_DEPART, "vehicle", id.c_str(), ok);
         if (ok && ret->depart < 0) {
             throw ProcessError("Negative departure time in the definition of '" + id + "'.");
