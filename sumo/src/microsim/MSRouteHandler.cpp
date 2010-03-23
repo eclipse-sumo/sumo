@@ -405,14 +405,11 @@ MSRouteHandler::myEndElement(SumoXMLTag element) throw(ProcessError) {
 void
 MSRouteHandler::closeRoute() throw(ProcessError) {
     if (myActiveRoute.size()==0) {
-        throw ProcessError();
-        /*
         if (myVehicleParameter!=0) {
             throw ProcessError("Vehicle's '" + myVehicleParameter->id + "' route has no edges.");
         } else {
             throw ProcessError("Route '" + myActiveRouteID + "' has no edges.");
         }
-        */
     }
     MSRoute *route = new MSRoute(myActiveRouteID, myActiveRoute,
                                  myVehicleParameter==0||myVehicleParameter->repetitionNumber>=1,
