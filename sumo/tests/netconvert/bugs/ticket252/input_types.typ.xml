@@ -1,0 +1,13 @@
+<types>
+      <type id="highway.motorway" priority="13" nolanes="3" speed="29.1"/>
+      <type id="highway.motorway_link" priority="12" nolanes="1" speed="24.6"/>
+      <type id="highway.trunk" priority="11" nolanes="2" speed="29.1"/>
+      <type id="highway.trunk_link" priority="10" nolanes="1" speed="24.6"/>
+      <type id="highway.primary" priority="9" nolanes="2" speed="20.1"/>
+      <type id="highway.primary_link" priority="8" nolanes="1" speed="20.1"/>
+      <type id="highway.secondary" priority="7" nolanes="2" speed="17.9"/>
+      <type id="highway.tertiary" priority="6" nolanes="1" speed="17.9"/>
+      <type id="highway.unclassified" priority="5" nolanes="1" speed="13.4"/>
+      <type id="highway.residential" priority="4" nolanes="1" speed="13.4"/>
+      <type id="highway.living_street" priority="3" nolanes="1" speed="6.7"/>
+</types>

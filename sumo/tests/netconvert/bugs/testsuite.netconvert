@@ -25,3 +25,7 @@ ticket38
 
 # Test for #193 invalid traffic lights at dead ends
 ticket193
+
+# Test for #252 false offset in written network
+ticket252
+
