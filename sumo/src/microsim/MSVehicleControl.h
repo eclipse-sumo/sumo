@@ -31,6 +31,7 @@
 
 #include <string>
 #include <map>
+#include <set>
 #include <utils/common/SUMOTime.h>
 #include <utils/common/RandomDistributor.h>
 #include <utils/common/SUMOVehicleParameter.h>
@@ -319,7 +320,7 @@ public:
 
     void removeWaiting(const MSEdge* const edge, MSVehicle *vehicle) throw();
 
-    MSVehicle *getWaitingVehicle(const MSEdge* const edge, const std::vector<std::string> &lines) throw();
+    MSVehicle *getWaitingVehicle(const MSEdge* const edge, const std::set<std::string> &lines) throw();
 
 
 #ifdef HAVE_MESOSIM

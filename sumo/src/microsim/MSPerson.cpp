@@ -97,7 +97,7 @@ MSPerson::MSPersonStage_Walking::proceed(MSNet* net,
 void
 MSPerson::MSPersonStage_Walking::tripInfoOutput(OutputDevice &os) const throw(IOError) {
     (os.openTag("walk") <<
-    " arrived=\"" << myArrived <<
+    " arrival=\"" << myArrived <<
     "\"").closeTag(true);
 }
 
@@ -108,7 +108,7 @@ MSPerson::MSPersonStage_Walking::tripInfoOutput(OutputDevice &os) const throw(IO
  * ----------------------------------------------------------------------- */
 MSPerson::MSPersonStage_Driving::MSPersonStage_Driving(const MSEdge &destination,
                                                        const std::vector<std::string> &lines)
-        : MSPersonStage(destination), myLines(lines) {}
+        : MSPersonStage(destination), myLines(lines.begin(), lines.end()) {}
 
 
 MSPerson::MSPersonStage_Driving::~MSPersonStage_Driving() {}
@@ -132,7 +132,7 @@ MSPerson::MSPersonStage_Driving::proceed(MSNet* net,
 void
 MSPerson::MSPersonStage_Driving::tripInfoOutput(OutputDevice &os) const throw(IOError) {
     (os.openTag("ride") <<
-    " arrived=\"" << myArrived <<
+    " arrival=\"" << myArrived <<
     "\"").closeTag(true);
 }
 
@@ -160,7 +160,7 @@ MSPerson::MSPersonStage_Waiting::proceed(MSNet* net,
 void
 MSPerson::MSPersonStage_Waiting::tripInfoOutput(OutputDevice &os) const throw(IOError) {
     (os.openTag("stop") <<
-    " arrived=\"" << myArrived <<
+    " arrival=\"" << myArrived <<
     "\"").closeTag(true);
 }
 

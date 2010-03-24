@@ -31,6 +31,7 @@
 
 #include <string>
 #include <vector>
+#include <set>
 
 
 // ===========================================================================
@@ -159,7 +160,7 @@ public:
 
     private:
         /// the lines  to choose from
-        const std::vector<std::string> &myLines;
+        const std::set<std::string> myLines;
 
     private:
         /// @brief Invalidated copy constructor.

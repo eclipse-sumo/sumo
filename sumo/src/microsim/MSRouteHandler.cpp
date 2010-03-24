@@ -89,7 +89,9 @@ MSRouteHandler::getLastDepart() const {
 void
 MSRouteHandler::retrieveLastReadVehicle(MSEmitControl* into) {
     if (myLastReadVehicle != 0) {
-        into->add(myLastReadVehicle);
+        if (myLastReadVehicle->getDesiredDepart() >= 0) {
+            into->add(myLastReadVehicle);
+        }
         myLastReadVehicle = 0;
     }
     if (myVehicleParameter != 0 && myVehicleParameter->repetitionsDone>=0) {
@@ -479,10 +481,12 @@ MSRouteHandler::closeRouteDistribution() {
 
 void
 MSRouteHandler::closeVehicle() throw(ProcessError) {
-    myLastDepart = myVehicleParameter->depart;
-    // let's check whether this vehicle had to be emitted before the simulation starts
-    if (myVehicleParameter->depart<OptionsCont::getOptions().getInt("begin")) {
-        return;
+    if (myVehicleParameter->depart >= 0) {
+        myLastDepart = myVehicleParameter->depart;
+        // let's check whether this vehicle had to be emitted before the simulation starts
+        if (myVehicleParameter->depart<OptionsCont::getOptions().getInt("begin")) {
+            return;
+        }
     }
     // get the vehicle's type
     MSVehicleType *vtype = 0;
@@ -528,6 +532,9 @@ MSRouteHandler::closeVehicle() throw(ProcessError) {
             vehicle = MSNet::getInstance()->getVehicleControl().buildVehicle(myVehicleParameter, route, vtype);
             // add the vehicle to the vehicle control
             MSNet::getInstance()->getVehicleControl().addVehicle(myVehicleParameter->id, vehicle);
+            if (myVehicleParameter->depart < 0) {
+                MSNet::getInstance()->getVehicleControl().addWaiting(*route->begin(), vehicle);
+            }
             myVehicleParameter = 0;
         }
     } else {
@@ -548,7 +555,9 @@ MSRouteHandler::closeVehicle() throw(ProcessError) {
     // check whether the vehicle shall be added directly to the network or
     //  shall stay in the internal buffer
     if (myAddVehiclesDirectly&&vehicle!=0) {
-        MSNet::getInstance()->getEmitControl().add(vehicle);
+        if (vehicle->getDesiredDepart() >= 0) {
+            MSNet::getInstance()->getEmitControl().add(vehicle);
+        }
     } else {
         myLastReadVehicle = vehicle;
     }

@@ -578,10 +578,11 @@ MSVehicleControl::removeWaiting(const MSEdge* const edge, MSVehicle *vehicle) th
 
 
 MSVehicle *
-MSVehicleControl::getWaitingVehicle(const MSEdge* const edge, const std::vector<std::string> &lines) throw() {
+MSVehicleControl::getWaitingVehicle(const MSEdge* const edge, const std::set<std::string> &lines) throw() {
     if (myWaiting.find(edge) != myWaiting.end()) {
         for (std::vector<MSVehicle*>::const_iterator it = myWaiting[edge].begin(); it != myWaiting[edge].end(); ++it) {
-            if (std::find(lines.begin(), lines.end(), (*it)->getParameter().line) != lines.end()) {
+            const std::string &line = (*it)->getParameter().line == "" ? (*it)->getParameter().id : (*it)->getParameter().line;
+            if (lines.count(line)) {
                 return (*it);
             }
         }

@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 03/23/10 09:32:41 by SUMO sumo Version dev-SVN-r8502
+<!-- generated on 03/24/10 18:37:18 by SUMO sumo Version dev-SVN-r8511
 <configuration>
 
     <input>
@@ -26,7 +26,7 @@
 
 <tripinfos>
     <personinfo id="p1" depart="0.00">
-        <stop arrived="0.00"/>
-        <walk arrived="991.00"/>
+        <stop arrival="0.00"/>
+        <walk arrival="991.00"/>
     </personinfo>
 </tripinfos>

@@ -380,13 +380,6 @@ MSNet::simulationStep() {
 #endif
     // load routes
     myRouteLoaders->loadNext(myStep, myEmitter);
-    // emit Vehicles
-    myEmitter->emitVehicles(myStep);
-    if (MSGlobals::gCheck4Accidents) {
-        myEdges->detectCollisions(myStep);
-    }
-    MSVehicleTransfer::getInstance()->checkEmissions(myStep);
-    myEmissionEvents->execute(myStep);
 
     // persons
     if (myPersonControl!=0) {
@@ -397,6 +390,13 @@ MSNet::simulationStep() {
             }
         }
     }
+    // emit Vehicles
+    myEmitter->emitVehicles(myStep);
+    if (MSGlobals::gCheck4Accidents) {
+        myEdges->detectCollisions(myStep);
+    }
+    MSVehicleTransfer::getInstance()->checkEmissions(myStep);
+    myEmissionEvents->execute(myStep);
 
     // execute endOfTimestepEvents
     myEndOfTimestepEvents->execute(myStep);
