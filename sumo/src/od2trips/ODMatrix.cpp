@@ -117,7 +117,7 @@ ODMatrix::computeEmissions(ODCell *cell,
 
         veh.from = myDistricts.getRandomSourceFromDistrict(cell->origin);
         veh.to = myDistricts.getRandomSinkFromDistrict(cell->destination);
-        veh.type = cell->vehicleType;
+        veh.cell = cell;
         into.push_back(veh);
     }
     return cell->vehicleNumber - vehicles2emit;
@@ -177,11 +177,15 @@ ODMatrix::write(SUMOTime begin, SUMOTime end,
         std::vector<ODVehicle>::reverse_iterator i = vehicles.rbegin();
         for (; i!=vehicles.rend()&&(*i).depart==t; ++i) {
             myNoWritten++;
-            dev << "   <tripdef id=\"" << (*i).id << "\" depart=\"" << t << "\" "
+            dev.openTag("tripdef") << " id=\"" << (*i).id << "\" depart=\"" << t << "\" "
             << "from=\"" << (*i).from << "\" "
             << "to=\"" << (*i).to << "\"";
-            if (!noVtype&&(*i).type.length()!=0) {
-                dev << " type=\"" << (*i).type << "\"";
+            if (!noVtype&&(*i).cell->vehicleType.length()!=0) {
+                dev << " type=\"" << (*i).cell->vehicleType << "\"";
+            }
+            if (oc.getBool("with-taz")) {
+                dev << " fromtaz=\"" << (*i).cell->origin << "\"";
+                dev << " totaz=\"" << (*i).cell->destination << "\"";
             }
             if (oc.isSet("departlane") && oc.getString("departlane")!="default") {
                 dev << " departlane=\"" << oc.getString("departlane") << "\"";
@@ -201,7 +205,7 @@ ODMatrix::write(SUMOTime begin, SUMOTime end,
             if (oc.isSet("arrivalspeed")) {
                 dev << " arrivalspeed=\"" << oc.getString("arrivalspeed") << "\"";
             }
-            dev << "/>\n";
+            dev.closeTag(true);
         }
         while (vehicles.size()!=0&&(*vehicles.rbegin()).depart==t) {
             vehicles.pop_back();

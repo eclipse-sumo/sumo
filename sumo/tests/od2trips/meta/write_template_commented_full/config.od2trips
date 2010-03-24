@@ -16,6 +16,9 @@
         <!-- Does not save vtype information -->
         <no-vtype value="false"/>
 
+        <!-- Include origin and destination zones (districts) -->
+        <with-taz value="false"/>
+
     </output>
 
     <time>

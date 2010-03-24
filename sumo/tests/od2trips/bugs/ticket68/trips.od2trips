@@ -1,20 +1,20 @@
 <?xml version="1.0"?>
 
-<!-- generated on 04/23/09 10:55:20 by SUMO od2trips Version dev-SVN-r7052
+<!-- generated on 03/24/10 20:23:28 by SUMO od2trips Version dev-SVN-r8511
 <configuration>
 
-   <input>
-      <net-file>input_net.net.xml</net-file>
-      <od-files>input_od_v.fma</od-files>
-   </input>
+    <input>
+        <net-file value="input_net.net.xml"/>
+        <od-files value="input_od_v.fma"/>
+    </input>
 
-   <output>
-      <output-file>trips.trips.xml</output-file>
-   </output>
+    <output>
+        <output-file value="trips.trips.xml"/>
+    </output>
 
 </configuration>
 -->
 
 <tripdefs>
-   <tripdef id="0" depart="1809.00" from="131" to="204[1][1]" departlane="free" departspeed="max"/>
+    <tripdef id="0" depart="1809.00" from="131" to="204[1][1]" departlane="free" departspeed="max"/>
 </tripdefs>

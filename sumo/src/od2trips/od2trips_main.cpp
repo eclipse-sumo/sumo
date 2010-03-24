@@ -101,6 +101,9 @@ fillOptions() {
     oc.doRegister("no-vtype", new Option_Bool(false));
     oc.addDescription("no-vtype", "Output", "Does not save vtype information");
 
+    oc.doRegister("with-taz", new Option_Bool(false));
+    oc.addDescription("with-taz", "Output", "Include origin and destination zones (districts)");
+
 
     // register the time settings
     oc.doRegister("begin", 'b', new Option_Integer(0));

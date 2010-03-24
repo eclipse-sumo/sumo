@@ -177,8 +177,8 @@ protected:
         std::string id;
         /// @brief The departure time of the vehicle
         SUMOTime depart;
-        /// @brief The type of the vehicle
-        std::string type;
+        /// @brief The cell of the ODMatrix which generated the vehicle
+        ODCell* cell;
         /// @brief The edge the vehicles shall start at
         std::string from;
         /// @brief The edge the vehicles shall end at
