@@ -147,6 +147,33 @@ protected:
      * @todo No exception?
      */
     void parseConnectedEdge(const SUMOSAXAttributes &attrs);
+
+
+    /** @begin Parses a district and creates a pseudo edge for it
+     *
+     * Called on the occurence of a "district" element, this method
+     *  retrieves the id of the district and creates a district type
+     *  edge with this id.
+     *
+     * @param[in] attrs The attributes (of the "district"-element) to parse
+     * @exception ProcessError If an edge given in district@edges is not known
+     */
+    void parseDistrict(const SUMOSAXAttributes &attrs) throw(ProcessError);
+
+
+    /** @begin Parses a district edge and connects it to the district
+     *
+     * Called on the occurence of a "dsource" or "dsink" element, this method
+     *  retrieves the id of the approachable edge. If this edge is known
+     *  and valid, the approaching edge is informed about it (by calling
+     *  "ROEdge::addFollower").
+     *
+     * @param[in] attrs The attributes to parse
+     * @param[in] isSource whether a "dsource or a "dsink" was given
+     * @todo No exception?
+     */
+    void parseDistrictEdge(const SUMOSAXAttributes &attrs, bool isSource);
+
     //@}
 
 

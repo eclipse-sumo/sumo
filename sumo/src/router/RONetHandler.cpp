@@ -83,6 +83,15 @@ RONetHandler::myStartElement(SumoXMLTag element,
     case SUMO_TAG_SUCCLANE:
         parseConnectedEdge(attrs);
         break;
+    case SUMO_TAG_DISTRICT:
+        parseDistrict(attrs);
+        break;
+    case SUMO_TAG_DSOURCE:
+        parseDistrictEdge(attrs, true);
+        break;
+    case SUMO_TAG_DSINK:
+        parseDistrictEdge(attrs, false);
+        break;
     default:
         break;
     }
@@ -230,6 +239,51 @@ RONetHandler::parseConnectedEdge(const SUMOSAXAttributes &attrs) {
     if (succ!=0) {
         // connect edge
         myCurrentEdge->addFollower(succ);
+    } else {
+        MsgHandler::getErrorInstance()->inform("At edge '" + myCurrentName + "': succeeding edge '" + id + "' does not exist.");
+    }
+}
+
+
+void
+RONetHandler::parseDistrict(const SUMOSAXAttributes &attrs) throw(ProcessError) {
+    if (!attrs.setIDFromAttributes("district", myCurrentName)) {
+        return;
+    }
+    myCurrentEdge = myEdgeBuilder.buildEdge(myCurrentName, 0, 0);
+    myCurrentEdge->setType(ROEdge::ET_DISTRICT);
+    myNet.addEdge(myCurrentEdge);
+    if (attrs.hasAttribute(SUMO_ATTR_EDGES)) {
+        std::vector<std::string> desc = StringTokenizer(attrs.getString(SUMO_ATTR_EDGES)).getVector();
+        for (std::vector<std::string>::const_iterator i=desc.begin(); i!=desc.end(); ++i) {
+            ROEdge *edge = myNet.getEdge(*i);
+            // check whether the edge exists
+            if (edge==0) {
+                throw ProcessError("The edge '" + *i + "' within district '" + myCurrentName + "' is not known.");
+            }
+            myCurrentEdge->addFollower(edge);
+            edge->addFollower(myCurrentEdge);
+        }
+    }
+}
+
+
+void
+RONetHandler::parseDistrictEdge(const SUMOSAXAttributes &attrs, bool isSource) {
+    if (myCurrentEdge==0) {
+        // earlier error or internal link
+        return;
+    }
+    bool ok = true;
+    std::string id = attrs.getStringReporting(SUMO_ATTR_ID, "district", myCurrentName.c_str(), ok);
+    ROEdge *succ = myNet.getEdge(id);
+    if (succ!=0) {
+        // connect edge
+        if (isSource) {
+            myCurrentEdge->addFollower(succ);
+        } else {
+            succ->addFollower(myCurrentEdge);
+        }
     } else {
         MsgHandler::getErrorInstance()->inform("At edge '" + myCurrentName + "': succeeding edge '" + id + "' does not exist.");
     }
