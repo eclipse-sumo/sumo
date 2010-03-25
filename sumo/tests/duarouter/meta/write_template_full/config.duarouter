@@ -2,6 +2,7 @@
 
     <input>
         <net-file value=""/>
+        <districts value=""/>
         <alternatives value=""/>
         <weights value=""/>
         <lane-weights value=""/>
@@ -24,6 +25,7 @@
         <remove-loops value="false"/>
         <repair value="false"/>
         <interpolate value="false"/>
+        <with-taz value="false"/>
         <expand-weights value="false"/>
         <gBeta value="0.3"/>
         <gA value="0.05"/>

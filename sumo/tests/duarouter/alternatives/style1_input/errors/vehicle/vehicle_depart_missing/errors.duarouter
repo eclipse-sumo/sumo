@@ -1,2 +1,3 @@
+Error: Attribute 'depart' is missing in definition of a vehicle.
 Error: Attribute 'depart' is missing in definition of vehicle '1'.
 Quitting (on error).

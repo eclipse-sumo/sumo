@@ -6,7 +6,7 @@ copy_test_path:input_flows.flows.xml
 copy_test_path:input_trips.trips.xml
 copy_test_path:input_weights.dump.xml
 copy_test_path:input_net.net.xml
-copy_test_path:net.net.xml
+copy_test_path:input_districts.net.xml
 
 [collate_file]
 routes:routes.rou.xml

@@ -4,6 +4,9 @@
         <!-- Use FILE as SUMO-network to route on -->
         <net-file value=""/>
 
+        <!-- Read (additional) districts from FILE -->
+        <districts value=""/>
+
         <!-- Read alternatives from FILE -->
         <alternatives value=""/>
 
@@ -57,6 +60,9 @@
 
         <!-- Interpolate edge weights at interval boundaries -->
         <interpolate value="false"/>
+
+        <!-- Use origin and destination zones (districts) for in- and output -->
+        <with-taz value="false"/>
 
         <!-- Expand weights behind the simulation's end -->
         <expand-weights value="false"/>

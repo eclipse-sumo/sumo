@@ -1,4 +1,4 @@
-SUMO jtrrouter Version dev-SVN-r7864
+SUMO jtrrouter Version dev-SVN-r8515
  (c) DLR 2001-2009; http://sumo.sourceforge.net
  
 Router for the microscopic road traffic simulation SUMO based on junction
@@ -18,6 +18,7 @@ Usage: jtrrouter [OPTION]*
 
  Input Options:
   -n, --net-file FILE              Use FILE as SUMO-network to route on
+  -d, --districts FILE             Read (additional) districts from FILE
   -a, --alternatives FILE          Read alternatives from FILE
   -w, --weights FILE               Read network weights from FILE(s)
   --lane-weights FILE              Read lane-weights from FILE(s)
@@ -39,6 +40,8 @@ Usage: jtrrouter [OPTION]*
   --repair                         Tries to correct a false route
   --interpolate                    Interpolate edge weights at interval
                                      boundaries
+  --with-taz                       Use origin and destination zones (districts)
+                                     for in- and output
   --max-edges-factor FLOAT         
   -T, --turn-defaults STR          Use STR as default turn definition
   -s, --sinks STR                  Use STR as sink list

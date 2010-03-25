@@ -2,6 +2,7 @@
 
     <input>
         <net-file value=""/>
+        <districts value=""/>
         <alternatives value=""/>
         <weights value=""/>
         <lane-weights value=""/>
@@ -23,6 +24,7 @@
         <remove-loops value="false"/>
         <repair value="false"/>
         <interpolate value="false"/>
+        <with-taz value="false"/>
         <max-edges-factor value="2"/>
         <turn-defaults value="30,50,20"/>
         <sinks value=""/>
