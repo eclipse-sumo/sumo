@@ -89,7 +89,7 @@ MSRouteHandler::getLastDepart() const {
 void
 MSRouteHandler::retrieveLastReadVehicle(MSEmitControl* into) {
     if (myLastReadVehicle != 0) {
-        if (myLastReadVehicle->getDesiredDepart() >= 0) {
+        if (myLastReadVehicle->getParameter().departProcedure == DEPART_GIVEN) {
             into->add(myLastReadVehicle);
         }
         myLastReadVehicle = 0;
@@ -481,7 +481,7 @@ MSRouteHandler::closeRouteDistribution() {
 
 void
 MSRouteHandler::closeVehicle() throw(ProcessError) {
-    if (myVehicleParameter->depart >= 0) {
+    if (myVehicleParameter->departProcedure == DEPART_GIVEN) {
         myLastDepart = myVehicleParameter->depart;
         // let's check whether this vehicle had to be emitted before the simulation starts
         if (myVehicleParameter->depart<OptionsCont::getOptions().getInt("begin")) {
@@ -532,7 +532,7 @@ MSRouteHandler::closeVehicle() throw(ProcessError) {
             vehicle = MSNet::getInstance()->getVehicleControl().buildVehicle(myVehicleParameter, route, vtype);
             // add the vehicle to the vehicle control
             MSNet::getInstance()->getVehicleControl().addVehicle(myVehicleParameter->id, vehicle);
-            if (myVehicleParameter->depart < 0) {
+            if (myVehicleParameter->departProcedure == DEPART_TRIGGERED) {
                 MSNet::getInstance()->getVehicleControl().addWaiting(*route->begin(), vehicle);
             }
             myVehicleParameter = 0;
@@ -555,7 +555,7 @@ MSRouteHandler::closeVehicle() throw(ProcessError) {
     // check whether the vehicle shall be added directly to the network or
     //  shall stay in the internal buffer
     if (myAddVehiclesDirectly&&vehicle!=0) {
-        if (vehicle->getDesiredDepart() >= 0) {
+        if (vehicle->getParameter().departProcedure == DEPART_GIVEN) {
             MSNet::getInstance()->getEmitControl().add(vehicle);
         }
     } else {
