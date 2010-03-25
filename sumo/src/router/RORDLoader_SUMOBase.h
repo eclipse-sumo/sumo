@@ -65,7 +65,7 @@ public:
     RORDLoader_SUMOBase(RONet &net,
                         SUMOTime begin, SUMOTime end,
                         SUMOReal gawronBeta, SUMOReal gawronA,
-                        int maxRouteNumber, bool tryRepair,
+                        int maxRouteNumber, bool tryRepair, bool withTaz,
                         const std::string &file="") throw(ProcessError);
 
     /// Destructor
@@ -188,6 +188,9 @@ protected:
 
     /// @brief Information whether a read route shall be tried to be repaired
     bool myTryRepair;
+
+    /// @brief Information whether zones (districts) are used as origins / destinations
+    const bool myWithTaz;
 
     /// @brief The currently parsed route
     RORouteDef_Complete *myCurrentRoute;

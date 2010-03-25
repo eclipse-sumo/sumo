@@ -51,7 +51,8 @@ class RORDLoader_TripDefs : public ROTypedXMLRoutesLoader {
 public:
     /// Constructor
     RORDLoader_TripDefs(RONet &net, SUMOTime begin, SUMOTime end,
-                        bool emptyDestinationsAllowed, const std::string &file="") throw(ProcessError);
+                        bool emptyDestinationsAllowed, bool withTaz,
+                        const std::string &file="") throw(ProcessError);
 
     /// Destructor
     ~RORDLoader_TripDefs() throw();
@@ -149,7 +150,10 @@ protected:
     /** @brief Information whether empty destinations are allowed
         This is a feature used for the handling of explicite routes within the
         jp-router where the destination is not necessary */
-    bool myEmptyDestinationsAllowed;
+    const bool myEmptyDestinationsAllowed;
+
+    /// @brief Information whether zones (districts) are used as origins / destinations
+    const bool myWithTaz;
 
     /// The information whether the next route was read
     bool myNextRouteRead;

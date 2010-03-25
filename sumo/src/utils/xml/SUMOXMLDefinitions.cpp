@@ -242,6 +242,8 @@ GenericSAXHandler::Attr sumoattrs[] = {
     { "from",           SUMO_ATTR_FROM },
     { "to",             SUMO_ATTR_TO },
     { "period",         SUMO_ATTR_PERIOD },
+    { "fromtaz",        SUMO_ATTR_FROM_TAZ },
+    { "totaz",          SUMO_ATTR_TO_TAZ },
 
     { "function",       SUMO_ATTR_FUNCTION },
     { "pos",            SUMO_ATTR_POSITION },

@@ -123,6 +123,20 @@ ROLoader::loadNet(RONet &toFill, ROAbstractEdgeBuilder &eb) {
     } else {
         MsgHandler::getMessageInstance()->endProcessMsg("done.");
     }
+    if (myOptions.isSet("districts")) {
+        file = myOptions.getString("districts");
+        if (!FileHelpers::exists(file)) {
+            throw ProcessError("The districts file '" + file + "' could not be found.");
+        }
+        MsgHandler::getMessageInstance()->beginProcessMsg("Loading districts...");
+        handler.setFileName(file);
+        if (!XMLSubSys::runParser(handler, file)) {
+            MsgHandler::getMessageInstance()->endProcessMsg("failed.");
+            throw ProcessError();
+        } else {
+            MsgHandler::getMessageInstance()->endProcessMsg("done.");
+        }
+    }
 }
 
 
@@ -287,19 +301,19 @@ ROLoader::buildNamedHandler(const std::string &optionName,
                                        myOptions.getInt("begin"), myOptions.getInt("end"),
                                        myOptions.getFloat("gBeta"), myOptions.getFloat("gA"),
                                        myOptions.getInt("max-alternatives"), myOptions.getBool("repair"),
-                                       file);
+                                       myOptions.getBool("with-taz"), file);
     }
     if (optionName=="trip-defs") {
         return new RORDLoader_TripDefs(net,
                                        myOptions.getInt("begin"), myOptions.getInt("end"),
-                                       myEmptyDestinationsAllowed, file);
+                                       myEmptyDestinationsAllowed, myOptions.getBool("with-taz"), file);
     }
     if (optionName=="alternatives") {
         return new RORDLoader_SUMOBase(net,
                                        myOptions.getInt("begin"), myOptions.getInt("end"),
                                        myOptions.getFloat("gBeta"), myOptions.getFloat("gA"),
                                        myOptions.getInt("max-alternatives"), myOptions.getBool("repair"),
-                                       file);
+                                       myOptions.getBool("with-taz"), file);
     }
     if (optionName=="flows") {
         return new RORDGenerator_ODAmounts(net,

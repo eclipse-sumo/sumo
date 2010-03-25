@@ -82,11 +82,15 @@ recheckForLoops(std::vector<const ROEdge*> &edges) throw() {
 }
 
 std::ostream &operator<<(std::ostream &os, const std::vector<const ROEdge*> &ev) {
+    bool hadFirst = false;
     for (std::vector<const ROEdge*>::const_iterator j=ev.begin(); j!=ev.end(); j++) {
-        if (j!=ev.begin()) {
-            os << ' ';
+        if ((*j)->getType() != ROEdge::ET_DISTRICT) {
+            if (hadFirst) {
+                os << ' ';
+            }
+            os << (*j)->getID();
+            hadFirst = true;
         }
-        os << (*j)->getID();
     }
     return os;
 }

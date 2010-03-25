@@ -28,7 +28,6 @@
 #endif
 
 #include <string>
-#include <utils/options/OptionsCont.h>
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/StringTokenizer.h>
 #include <utils/common/MsgHandler.h>
@@ -51,10 +50,11 @@
 // ===========================================================================
 RORDLoader_TripDefs::RORDLoader_TripDefs(RONet &net,
         SUMOTime begin, SUMOTime end,
-        bool emptyDestinationsAllowed,
+        bool emptyDestinationsAllowed, bool withTaz,
         const std::string &fileName) throw(ProcessError)
         : ROTypedXMLRoutesLoader(net, begin, end, fileName),
         myEmptyDestinationsAllowed(emptyDestinationsAllowed),
+        myWithTaz(withTaz),
         myDepartureTime(-1), myCurrentVehicleType(0),
         myParameter(0) {}
 
@@ -72,8 +72,13 @@ RORDLoader_TripDefs::myStartElement(SumoXMLTag element,
         //  the departure time and other information
         std::string id = getVehicleID(attrs);
         myDepartureTime = attrs.getSUMOTimeReporting(SUMO_ATTR_DEPART, "tripdef", id.c_str(), ok);
-        myBeginEdge = getEdge(attrs, "origin", SUMO_ATTR_FROM, id, false);
-        myEndEdge = getEdge(attrs, "destination", SUMO_ATTR_TO, id, myEmptyDestinationsAllowed);
+        if (myWithTaz) {
+            myBeginEdge = getEdge(attrs, "origin", SUMO_ATTR_FROM_TAZ, id, false);
+            myEndEdge = getEdge(attrs, "destination", SUMO_ATTR_TO_TAZ, id, myEmptyDestinationsAllowed);
+        } else {
+            myBeginEdge = getEdge(attrs, "origin", SUMO_ATTR_FROM, id, false);
+            myEndEdge = getEdge(attrs, "destination", SUMO_ATTR_TO, id, myEmptyDestinationsAllowed);
+        }
         myParameter = SUMOVehicleParserHelper::parseVehicleAttributes(attrs, true);
         myParameter->id = id;
         // recheck attributes

@@ -144,7 +144,7 @@ RORDGenerator_ODAmounts::RORDGenerator_ODAmounts(RONet &net,
         bool emptyDestinationsAllowed,
         bool randomize,
         const std::string &fileName) throw(ProcessError)
-        : RORDLoader_TripDefs(net, begin, end, emptyDestinationsAllowed, fileName),
+        : RORDLoader_TripDefs(net, begin, end, emptyDestinationsAllowed, false, fileName),
         myRandom(randomize) {
     // read the complete file on initialisation
     myParser->parseReset(myToken);

@@ -149,10 +149,16 @@ SUMOVehicleParserHelper::parseVehicleAttributes(const SUMOSAXAttributes &attrs,
     SUMOVehicleParameter *ret = new SUMOVehicleParameter();
     ret->id = id;
     parseCommonAttributes(attrs, ret, "vehicle");
-    if (!skipDepart && attrs.hasAttribute(SUMO_ATTR_DEPART)) {
-        ret->depart = attrs.getSUMOTimeReporting(SUMO_ATTR_DEPART, "vehicle", id.c_str(), ok);
-        if (ok && ret->depart < 0) {
-            throw ProcessError("Negative departure time in the definition of '" + id + "'.");
+    if (!skipDepart) {
+        const std::string helper = attrs.getStringReporting(SUMO_ATTR_DEPART, "vehicle", 0, ok);
+        if (helper=="triggered") {
+            ret->departProcedure = DEPART_TRIGGERED;
+        } else {
+            ret->departProcedure = DEPART_GIVEN;
+            ret->depart = attrs.getSUMOTimeReporting(SUMO_ATTR_DEPART, "vehicle", id.c_str(), ok);
+            if (ok && ret->depart < 0) {
+                throw ProcessError("Negative departure time in the definition of '" + id + "'.");
+            }
         }
     }
     // parse repetition information
@@ -194,11 +200,17 @@ SUMOVehicleParserHelper::parseCommonAttributes(const SUMOSAXAttributes &attrs,
         ret->setParameter |= VEHPARS_LINE_SET; // !!! needed?
         ret->line = attrs.getStringReporting(SUMO_ATTR_LINE, "vehicle", 0, ok);
     }
+    // parse zone information
+    if (attrs.hasAttribute(SUMO_ATTR_FROM_TAZ) && attrs.hasAttribute(SUMO_ATTR_TO_TAZ)) {
+        ret->setParameter |= VEHPARS_TAZ_SET;
+        ret->fromTaz = attrs.getStringReporting(SUMO_ATTR_FROM_TAZ, "vehicle", 0, ok);
+        ret->toTaz = attrs.getStringReporting(SUMO_ATTR_TO_TAZ, "vehicle", 0, ok);
+    }
 
     // parse depart lane information
     if (attrs.hasAttribute(SUMO_ATTR_DEPARTLANE)) {
         ret->setParameter |= VEHPARS_DEPARTLANE_SET;
-        std::string helper = attrs.getStringReporting(SUMO_ATTR_DEPARTLANE, "vehicle", 0, ok);
+        const std::string helper = attrs.getStringReporting(SUMO_ATTR_DEPARTLANE, "vehicle", 0, ok);
         if (helper=="departlane") {
             ret->departLaneProcedure = DEPART_LANE_DEPARTLANE;
         } else if (helper=="random") {
@@ -222,7 +234,7 @@ SUMOVehicleParserHelper::parseCommonAttributes(const SUMOSAXAttributes &attrs,
     // parse depart position information
     if (attrs.hasAttribute(SUMO_ATTR_DEPARTPOS)) {
         ret->setParameter |= VEHPARS_DEPARTPOS_SET;
-        std::string helper = attrs.getStringReporting(SUMO_ATTR_DEPARTPOS, "vehicle", 0, ok);
+        const std::string helper = attrs.getStringReporting(SUMO_ATTR_DEPARTPOS, "vehicle", 0, ok);
         if (helper=="random") {
             ret->departPosProcedure = DEPART_POS_RANDOM;
         } else if (helper=="random_free") {

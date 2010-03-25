@@ -35,7 +35,6 @@
 #include <utils/common/MsgHandler.h>
 #include <utils/common/StringTokenizer.h>
 #include <utils/common/ToString.h>
-#include <utils/options/OptionsCont.h>
 #include "ROVehicle.h"
 #include "RORouteDef_Alternatives.h"
 #include "RORouteDef_Complete.h"
@@ -53,14 +52,14 @@
 RORDLoader_SUMOBase::RORDLoader_SUMOBase(RONet &net,
         SUMOTime begin, SUMOTime end,
         SUMOReal gawronBeta, SUMOReal gawronA,
-        int maxRouteNumber, bool tryRepair,
+        int maxRouteNumber, bool tryRepair, bool withTaz,
         const std::string &file) throw(ProcessError)
         : ROTypedXMLRoutesLoader(net, begin, end, file),
         myVehicleParameter(0), myCurrentIsOk(true), myAltIsValid(true), myHaveNextRoute(false),
         myCurrentAlternatives(0),
         myGawronBeta(gawronBeta), myGawronA(gawronA), myMaxRouteNumber(maxRouteNumber),
-        myCurrentRoute(0), myCurrentDepart(-1), myTryRepair(tryRepair), myColor(0),
-        myCurrentVType(0) {
+        myCurrentRoute(0), myCurrentDepart(-1), myTryRepair(tryRepair), myWithTaz(withTaz),
+        myColor(0), myCurrentVType(0) {
 }
 
 
@@ -204,9 +203,18 @@ RORDLoader_SUMOBase::myCharacters(SumoXMLTag element,
     }
     // build the list of edges
     std::vector<const ROEdge*> *list = new std::vector<const ROEdge*>();
+    if (myWithTaz && myVehicleParameter->wasSet(VEHPARS_TAZ_SET)) {
+        ROEdge *edge = myNet.getEdge(myVehicleParameter->fromTaz);
+        if (edge!=0) {
+            list->push_back(edge);
+        } else {
+            MsgHandler::getErrorInstance()->inform("The vehicle '" + myVehicleParameter->id + "' contains the unknown zone '" + myVehicleParameter->fromTaz + "'.");
+            myCurrentIsOk = false;
+        }
+    }
     StringTokenizer st(chars);
     while (myCurrentIsOk&&st.hasNext()) { // !!! too slow !!!
-        std::string id = st.next();
+        const std::string id = st.next();
         ROEdge *edge = myNet.getEdge(id);
         if (edge!=0) {
             list->push_back(edge);
@@ -216,6 +224,15 @@ RORDLoader_SUMOBase::myCharacters(SumoXMLTag element,
                 MsgHandler::getErrorInstance()->inform("The route '" + rid + "' contains the unknown edge '" + id + "'.");
                 myCurrentIsOk = false;
             }
+        }
+    }
+    if (myWithTaz && myVehicleParameter->wasSet(VEHPARS_TAZ_SET)) {
+        ROEdge *edge = myNet.getEdge(myVehicleParameter->toTaz);
+        if (edge!=0) {
+            list->push_back(edge);
+        } else {
+            MsgHandler::getErrorInstance()->inform("The vehicle '" + myVehicleParameter->id + "' contains the unknown zone '" + myVehicleParameter->fromTaz + "'.");
+            myCurrentIsOk = false;
         }
     }
     if (myCurrentIsOk) {

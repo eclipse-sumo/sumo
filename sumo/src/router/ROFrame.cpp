@@ -57,6 +57,9 @@ ROFrame::fillOptions(OptionsCont &oc) {
     oc.addSynonyme("net-file", "net");
     oc.addDescription("net-file", "Input", "Use FILE as SUMO-network to route on");
 
+    oc.doRegister("districts", 'd', new Option_FileName());
+    oc.addDescription("districts", "Input", "Read (additional) districts from FILE");
+
     oc.doRegister("alternatives", 'a', new Option_FileName());
     oc.addDescription("alternatives", "Input", "Read alternatives from FILE");
 
@@ -99,6 +102,9 @@ ROFrame::fillOptions(OptionsCont &oc) {
 
     oc.doRegister("interpolate", new Option_Bool(false));
     oc.addDescription("interpolate", "Processing", "Interpolate edge weights at interval boundaries");
+
+    oc.doRegister("with-taz", new Option_Bool(false));
+    oc.addDescription("with-taz", "Processing", "Use origin and destination zones (districts) for in- and output");
 
 
     // register defaults options

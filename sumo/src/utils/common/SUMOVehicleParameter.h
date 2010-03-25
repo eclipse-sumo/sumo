@@ -56,11 +56,25 @@ const int VEHPARS_ARRIVALLANE_SET = 256;
 const int VEHPARS_ARRIVALPOS_SET = 512;
 const int VEHPARS_ARRIVALSPEED_SET = 1024;
 const int VEHPARS_LINE_SET = 2048;
+const int VEHPARS_TAZ_SET = 4096;
 
 
 // ===========================================================================
 // enum definitions
 // ===========================================================================
+/**
+ * @enum DepartDefinition
+ * @brief Possible ways to depart
+ * @todo Recheck usage!!!
+ */
+enum DepartDefinition {
+    /// @brief The time is given
+    DEPART_GIVEN,
+    /// @brief The departure is person triggered
+    DEPART_TRIGGERED
+};
+
+
 /**
  * @enum DepartLaneDefinition
  * @brief Possible ways to choose a lane on depart
@@ -276,6 +290,8 @@ public:
 
     /// @brief The vehicle's departure time
     SUMOTime depart;
+    /// @brief Information how the vehicle shall choose the depart time
+    DepartDefinition departProcedure;
     /// @brief (optional) The lane the vehicle shall depart from (index in edge)
     int departLane;
     /// @brief Information how the vehicle shall choose the lane to depart from
@@ -323,6 +339,12 @@ public:
 
     /// @brief The vehicle's line (mainly for public transport)
     std::string line;
+
+    /// @brief The vehicle's origin zone (district)
+    std::string fromTaz;
+
+    /// @brief The vehicle's destination zone (district)
+    std::string toTaz;
 
     /** @struct Stop
      * @brief Definition of vehicle stop (position and duration)
