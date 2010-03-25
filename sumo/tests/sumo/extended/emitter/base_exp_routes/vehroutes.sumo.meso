@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 11/11/09 14:53:16 by SUMO sumo Version dev-SVN-r7969
+<!-- generated on 03/25/10 08:20:57 by SUMO sumo Version dev-SVN-r8511
 <configuration>
 
     <input>
@@ -25,44 +25,44 @@
 -->
 
 <routes>
-    <vehicle id="route0_0" depart="0" arrival="72">
+    <vehicle id="route0_0" depart="0" arrival="72.00">
         <route edges="beg middle end rend"/>
-   </vehicle>
+    </vehicle>
 
-    <vehicle id="route0_1" depart="2" arrival="75">
+    <vehicle id="route0_1" depart="2" arrival="75.00">
         <route edges="beg middle end rend"/>
-   </vehicle>
+    </vehicle>
 
-    <vehicle id="route0_2" depart="4" arrival="79">
+    <vehicle id="route0_2" depart="4" arrival="79.00">
         <route edges="beg middle end rend"/>
-   </vehicle>
+    </vehicle>
 
-    <vehicle id="route0_3" depart="6" arrival="83">
+    <vehicle id="route0_3" depart="6" arrival="83.00">
         <route edges="beg middle end rend"/>
-   </vehicle>
+    </vehicle>
 
-    <vehicle id="route0_4" depart="8" arrival="85">
+    <vehicle id="route0_4" depart="8" arrival="85.00">
         <route edges="beg middle end rend"/>
-   </vehicle>
+    </vehicle>
 
-    <vehicle id="route1_0" depart="1" arrival="180">
+    <vehicle id="route1_0" depart="1" arrival="180.00">
         <route edges="beg beg2left left left2end end rend"/>
-   </vehicle>
+    </vehicle>
 
-    <vehicle id="route1_1" depart="3" arrival="184">
+    <vehicle id="route1_1" depart="3" arrival="184.00">
         <route edges="beg beg2left left left2end end rend"/>
-   </vehicle>
+    </vehicle>
 
-    <vehicle id="route1_2" depart="5" arrival="188">
+    <vehicle id="route1_2" depart="5" arrival="188.00">
         <route edges="beg beg2left left left2end end rend"/>
-   </vehicle>
+    </vehicle>
 
-    <vehicle id="route1_3" depart="7" arrival="191">
+    <vehicle id="route1_3" depart="7" arrival="191.00">
         <route edges="beg beg2left left left2end end rend"/>
-   </vehicle>
+    </vehicle>
 
-    <vehicle id="route1_4" depart="9" arrival="194">
+    <vehicle id="route1_4" depart="9" arrival="194.00">
         <route edges="beg beg2left left left2end end rend"/>
-   </vehicle>
+    </vehicle>
 
 </routes>

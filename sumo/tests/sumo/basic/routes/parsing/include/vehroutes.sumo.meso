@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on Fri Oct 30 14:05:45 2009 by SUMO sumo Version dev-SVN-r7917
+<!-- generated on 03/25/10 08:17:12 by SUMO sumo Version dev-SVN-r8511
 <configuration>
 
     <input>
@@ -25,12 +25,12 @@
 -->
 
 <routes>
-    <vehicle id="0" depart="0" arrival="108">
+    <vehicle id="0" depart="0" arrival="108.00">
         <route edges="beg middle end rend"/>
-   </vehicle>
+    </vehicle>
 
-    <vehicle id="1" depart="0" arrival="109">
+    <vehicle id="1" depart="0" arrival="109.00">
         <route edges="beg middle end rend"/>
-   </vehicle>
+    </vehicle>
 
 </routes>

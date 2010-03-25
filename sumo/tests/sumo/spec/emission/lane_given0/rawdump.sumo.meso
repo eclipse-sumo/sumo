@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 11/11/09 10:40:45 by SUMO sumo Version dev-SVN-r7963
+<!-- generated on 03/25/10 08:16:37 by SUMO sumo Version dev-SVN-r8511
 <configuration>
 
     <input>
@@ -30,9 +30,9 @@
 -->
 
 <sumo-netstate>
-   <timestep time="0">
-      <edge id="beg">
-         <vehicle id="1" pos="0.00" speed="27.80"/>
-      </edge>
-   </timestep>
+    <timestep time="0.00">
+        <edge id="beg">
+            <vehicle id="1" pos="0.00" speed="27.80"/>
+        </edge>
+    </timestep>
 </sumo-netstate>
