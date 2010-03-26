@@ -90,17 +90,25 @@ def getMatrix(net, verbose, matrix, matrixSum, demandscale=None):
 # assumption: all vehilces can reach the access links within 20 min (1200 sec) from the respective traffic zone
 def getConnectionTravelTime(startVertices, endVertices):
     for vertex in startVertices:
+        weightList = []
         for edge in vertex.outEdges:
-            if float(edge.ratio) == 1.:
-                edge.freeflowtime = 1200.
-            else:
-                edge.freeflowtime = (1.-float(edge.ratio)) * 1200.
+           weightList.append(float(edge.ratio))
+        if len(weightList) > 0:
+            minWeight = min(weightList)
+
+        for edge in vertex.outEdges:
+            edge.freeflowtime = (float(edge.ratio)/minWeight) * 1200.
+            print 'freetime-in:', edge.freeflowtime
             edge.actualtime = edge.freeflowtime
 
     for vertex in endVertices:
+        weightList = []
         for edge in vertex.inEdges:
-            if float(edge.ratio) == 1.:
-                edge.freeflowtime = 1200.
-            else:
-                edge.freeflowtime = (1.-float(edge.ratio)) * 1200.
+            weightList.append(float(edge.ratio))
+        if len(weightList) > 0:
+            minWeight = min(weightList)
+
+        for edge in vertex.inEdges:
+            edge.freeflowtime = (float(edge.ratio)/minWeight) * 1200.
+            print 'freetime-out:', edge.freeflowtime
             edge.actualtime = edge.freeflowtime
