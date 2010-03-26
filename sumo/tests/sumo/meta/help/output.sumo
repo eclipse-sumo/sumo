@@ -1,4 +1,4 @@
-SUMO sumo Version dev-SVN-r8502
+SUMO sumo Version dev-SVN-r8519
  (c) DLR 2001-2009; http://sumo.sourceforge.net
  
 A microscopic road traffic simulation.
@@ -93,6 +93,8 @@ Usage: sumo [OPTION]*
   --device.routing.adaptation-weight FLOAT  The weight of prior edge weights.
   --device.routing.adaptation-interval INT  The interval for updating the edge
                                         weights.
+  --device.routing.with-taz           Use zones (districts) as routing end
+                                        points
 
  Emissions Options:
   --device.hbefa.probability FLOAT    The probability for a vehicle to have an

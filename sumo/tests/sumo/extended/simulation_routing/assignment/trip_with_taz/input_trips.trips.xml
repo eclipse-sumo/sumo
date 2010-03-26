@@ -1,0 +1,12 @@
+<tripdefs>
+	<tripdef id="0" depart="0" from="beg" to="rend" fromtaz="1" totaz="2"/>
+	<tripdef id="1" depart="20" from="beg" to="rend" fromtaz="1" totaz="2"/>
+	<tripdef id="2" depart="40" from="beg" to="rend" fromtaz="1" totaz="2"/>
+	<tripdef id="3" depart="60" from="beg" to="rend" fromtaz="1" totaz="2"/>
+	<tripdef id="4" depart="80" from="beg" to="rend" fromtaz="1" totaz="2"/>
+	<tripdef id="5" depart="100" from="beg" to="rend" fromtaz="1" totaz="2"/>
+	<tripdef id="6" depart="120" from="beg" to="rend" fromtaz="1" totaz="2"/>
+	<tripdef id="7" depart="140" from="beg" to="rend" fromtaz="1" totaz="2"/>
+	<tripdef id="8" depart="160" from="beg" to="rend" fromtaz="1" totaz="2"/>
+	<tripdef id="9" depart="180" from="beg" to="rend" fromtaz="1" totaz="2"/>
+</tripdefs>

@@ -204,7 +204,7 @@ RORDLoader_SUMOBase::myCharacters(SumoXMLTag element,
     // build the list of edges
     std::vector<const ROEdge*> *list = new std::vector<const ROEdge*>();
     if (myWithTaz && myVehicleParameter->wasSet(VEHPARS_TAZ_SET)) {
-        ROEdge *edge = myNet.getEdge(myVehicleParameter->fromTaz);
+        ROEdge *edge = myNet.getEdge(myVehicleParameter->fromTaz+"-source");
         if (edge!=0) {
             list->push_back(edge);
         } else {

@@ -119,15 +119,14 @@ RORDLoader_TripDefs::getEdge(const SUMOSAXAttributes &attrs,
                              bool emptyAllowed) {
     bool ok = true;
     std::string id = attrs.getStringReporting(which, 0, 0, ok, !emptyAllowed);
-    ROEdge *e = myNet.getEdge(id);
-    if (e!=0) {
-        return e;
-    } else {
-        if (!emptyAllowed) {
-            MsgHandler::getErrorInstance()->inform("The edge '" + id + "' is not known.\n Vehicle id='" + vid + "'.");
-        }
+    if (which == SUMO_ATTR_FROM_TAZ) {
+        id += "-source";
     }
-    return 0;
+    ROEdge *e = myNet.getEdge(id);
+    if (e==0 && !emptyAllowed) {
+        MsgHandler::getErrorInstance()->inform("The edge '" + id + "' is not known.\n Vehicle id='" + vid + "'.");
+    }
+    return e;
 }
 
 

@@ -264,7 +264,7 @@ public:
      * @param[in] simTime The time at which the route was replaced
      * @return Whether the new route was accepted
      */
-    bool replaceRoute(const MSEdgeVector &edges, SUMOTime simTime) throw();
+    bool replaceRoute(const MSEdgeVector &edges, SUMOTime simTime, bool onInit=false) throw();
 
 
     /** @brief Returns whether the vehicle wil pass the given edge
@@ -284,7 +284,7 @@ public:
      * @param[in] router The router to use
      * @see replaceRoute
      */
-    void reroute(SUMOTime t, SUMOAbstractRouter<MSEdge, SUMOVehicle> &router) throw();
+    void reroute(SUMOTime t, SUMOAbstractRouter<MSEdge, SUMOVehicle> &router, bool withTaz=false) throw();
 
 
     /** @brief Returns the vehicle's internal edge travel times/efforts container

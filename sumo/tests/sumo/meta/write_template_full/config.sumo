@@ -66,6 +66,7 @@
         <device.routing.period value="0"/>
         <device.routing.adaptation-weight value="0.5"/>
         <device.routing.adaptation-interval value="1"/>
+        <device.routing.with-taz value="false"/>
     </routing>
 
     <emissions>

@@ -95,7 +95,7 @@ public:
     virtual SUMOReal adaptMaxSpeed(SUMOReal referenceSpeed) = 0;
 
     /// Replaces the current route by the given edges
-    virtual bool replaceRoute(const MSEdgeVector &edges, SUMOTime simTime) = 0;
+    virtual bool replaceRoute(const MSEdgeVector &edges, SUMOTime simTime, bool onInit=false) = 0;
 
 };
 

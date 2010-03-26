@@ -80,11 +80,11 @@ MSEdge::~MSEdge() throw() {
 void
 MSEdge::initialize(MSLane* departLane,
                    std::vector<MSLane*>* lanes, EdgeBasicFunction function) throw() {
-    assert(lanes!=0);
+    assert(function == EDGEFUNCTION_DISTRICT || lanes!=0);
     myDepartLane = departLane;
     myLanes = lanes;
     myFunction = function;
-    if (myLanes->size() > 1 && function!=EDGEFUNCTION_INTERNAL) {
+    if (myLanes && myLanes->size() > 1 && function!=EDGEFUNCTION_INTERNAL) {
         myLaneChanger = new MSLaneChanger(myLanes);
     }
 }
@@ -386,7 +386,7 @@ MSEdge::getCurrentTravelTime() const throw() {
 
 bool
 MSEdge::prohibits(const SUMOVehicle * const vehicle) const throw() {
-    if (!myHaveClassConstraints) {
+    if (myFunction == EDGEFUNCTION_DISTRICT || !myHaveClassConstraints) {
         return false;
     }
     SUMOVehicleClass vclass = vehicle->getVehicleType().getVehicleClass();

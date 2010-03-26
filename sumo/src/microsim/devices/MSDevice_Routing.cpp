@@ -60,23 +60,26 @@ MSDevice_Routing::insertOptions() throw() {
     OptionsCont &oc = OptionsCont::getOptions();
     oc.addOptionSubTopic("Routing");
 
-    oc.doRegister("device.routing.probability", new Option_Float(0.));//!!! describe
+    oc.doRegister("device.routing.probability", new Option_Float(0.));
     oc.addDescription("device.routing.probability", "Routing", "The probability for a vehicle to have a routing device");
 
-    oc.doRegister("device.routing.knownveh", new Option_String());//!!! describe
+    oc.doRegister("device.routing.knownveh", new Option_String());
     oc.addDescription("device.routing.knownveh", "Routing", "Assign a device to named vehicles");
 
-    oc.doRegister("device.routing.deterministic", new Option_Bool(false)); //!!! describe
+    oc.doRegister("device.routing.deterministic", new Option_Bool(false));
     oc.addDescription("device.routing.deterministic", "Routing", "The devices are set deterministic using a fraction of 1000");
 
-    oc.doRegister("device.routing.period", new Option_Integer(0));//!!! describe
+    oc.doRegister("device.routing.period", new Option_Integer(0));
     oc.addDescription("device.routing.period", "Routing", "The period with which the vehicle shall be rerouted");
 
-    oc.doRegister("device.routing.adaptation-weight", new Option_Float(.5));//!!! describe
+    oc.doRegister("device.routing.adaptation-weight", new Option_Float(.5));
     oc.addDescription("device.routing.adaptation-weight", "Routing", "The weight of prior edge weights.");
 
-    oc.doRegister("device.routing.adaptation-interval", new Option_Integer(1));//!!! describe
+    oc.doRegister("device.routing.adaptation-interval", new Option_Integer(1));
     oc.addDescription("device.routing.adaptation-interval", "Routing", "The interval for updating the edge weights.");
+
+    oc.doRegister("device.routing.with-taz", new Option_Bool(false));
+    oc.addDescription("device.routing.with-taz", "Routing", "Use zones (districts) as routing end points");
 
     myVehicleIndex = 0;
     myEdgeWeightSettingCommand = 0;
@@ -121,7 +124,17 @@ MSDevice_Routing::buildVehicleDevices(MSVehicle &v, std::vector<MSDevice*> &into
         // the following is just to give the vehicle a valid route before the route is checked at init
         DijkstraRouterTT_ByProxi<MSEdge, SUMOVehicle, prohibited_withRestrictions<MSEdge, SUMOVehicle>, MSDevice_Routing>
         router(MSEdge::dictSize(), true, device, &MSDevice_Routing::getEffort);
-        v.reroute(MSNet::getInstance()->getCurrentTimeStep(), router);
+        if (oc.getBool("device.routing.with-taz")) {
+            if (MSEdge::dictionary(v.getParameter().fromTaz+"-source") == 0) {
+                WRITE_ERROR("Source district '" + v.getParameter().fromTaz + "' not known when rerouting '" + v.getID() + "'!");
+                return;
+            }
+            if (MSEdge::dictionary(v.getParameter().toTaz) == 0) {
+                WRITE_ERROR("Destination district '" + v.getParameter().toTaz + "' not known when rerouting '" + v.getID() + "'!");
+                return;
+            }
+        }
+        v.reroute(MSNet::getInstance()->getCurrentTimeStep(), router, oc.getBool("device.routing.with-taz"));
     }
     myVehicleIndex++;
 }
@@ -170,8 +183,10 @@ MSDevice_Routing::wrappedRerouteCommandExecute(SUMOTime currentTime) throw(Proce
 
 SUMOReal
 MSDevice_Routing::getEffort(const MSEdge * const e, const SUMOVehicle * const v, SUMOTime) const {
-    assert(myEdgeEfforts.find(e)!=myEdgeEfforts.end());
-    return MAX2(myEdgeEfforts.find(e)->second, e->getLanes()[0]->getLength()/v->getMaxSpeed());
+    if (myEdgeEfforts.find(e) != myEdgeEfforts.end()) {
+        return MAX2(myEdgeEfforts.find(e)->second, e->getLanes()[0]->getLength()/v->getMaxSpeed());
+    }
+    return 0;
 }
 
 

@@ -206,6 +206,15 @@ NLHandler::myStartElement(SumoXMLTag element,
         case SUMO_TAG_LOCATION:
             setLocation(attrs);
             break;
+        case SUMO_TAG_DISTRICT:
+            addDistrict(attrs);
+            break;
+        case SUMO_TAG_DSOURCE:
+            addDistrictEdge(attrs, true);
+            break;
+        case SUMO_TAG_DSINK:
+            addDistrictEdge(attrs, false);
+            break;
         default:
             break;
         }
@@ -1388,6 +1397,68 @@ NLHandler::setLocation(const SUMOSAXAttributes &attrs) {
     if (ok) {
         Position2D networkOffset = s[0];
         GeoConvHelper::init(proj, networkOffset, origBoundary, convBoundary);
+    }
+}
+
+
+void
+NLHandler::addDistrict(const SUMOSAXAttributes &attrs) throw(ProcessError) {
+    myCurrentIsBroken = false;
+    // get the id, report an error if not given or empty...
+    if (!attrs.setIDFromAttributes("district", myCurrentDistrictID)) {
+        myCurrentIsBroken = true;
+        return;
+    }
+    try {
+        MSEdge* sink = myEdgeControlBuilder.buildEdge(myCurrentDistrictID);
+        if (!MSEdge::dictionary(myCurrentDistrictID, sink)) {
+            delete sink;
+            throw InvalidArgument("Another edge with the id '" + myCurrentDistrictID + "' exists.");
+        }
+        sink->initialize(0, 0, MSEdge::EDGEFUNCTION_DISTRICT);
+        MSEdge* source = myEdgeControlBuilder.buildEdge(myCurrentDistrictID + "-source");
+        if (!MSEdge::dictionary(myCurrentDistrictID + "-source", source)) {
+            delete source;
+            throw InvalidArgument("Another edge with the id '" + myCurrentDistrictID + "-source' exists.");
+        }
+        source->initialize(0, 0, MSEdge::EDGEFUNCTION_DISTRICT);
+        if (attrs.hasAttribute(SUMO_ATTR_EDGES)) {
+            std::vector<std::string> desc = StringTokenizer(attrs.getString(SUMO_ATTR_EDGES)).getVector();
+            for (std::vector<std::string>::const_iterator i=desc.begin(); i!=desc.end(); ++i) {
+                MSEdge *edge = MSEdge::dictionary(*i);
+                // check whether the edge exists
+                if (edge==0) {
+                    throw InvalidArgument("The edge '" + *i + "' within district '" + myCurrentDistrictID + "' is not known.");
+                }
+                source->addFollower(edge);
+                edge->addFollower(sink);
+            }
+        }
+    } catch (InvalidArgument &e) {
+        MsgHandler::getErrorInstance()->inform(e.what());
+        myCurrentIsBroken = true;
+    }
+}
+
+
+void
+NLHandler::addDistrictEdge(const SUMOSAXAttributes &attrs, bool isSource) {
+    if (myCurrentIsBroken) {
+        // earlier error
+        return;
+    }
+    bool ok = true;
+    std::string id = attrs.getStringReporting(SUMO_ATTR_ID, "district", myCurrentDistrictID.c_str(), ok);
+    MSEdge *succ = MSEdge::dictionary(id);
+    if (succ!=0) {
+        // connect edge
+        if (isSource) {
+            MSEdge::dictionary(myCurrentDistrictID + "-source")->addFollower(succ);
+        } else {
+            succ->addFollower(MSEdge::dictionary(myCurrentDistrictID));
+        }
+    } else {
+        MsgHandler::getErrorInstance()->inform("At district '" + myCurrentDistrictID + "': succeeding edge '" + id + "' does not exist.");
     }
 }
 

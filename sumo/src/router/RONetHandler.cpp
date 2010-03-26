@@ -253,6 +253,9 @@ RONetHandler::parseDistrict(const SUMOSAXAttributes &attrs) throw(ProcessError) 
     myCurrentEdge = myEdgeBuilder.buildEdge(myCurrentName, 0, 0);
     myCurrentEdge->setType(ROEdge::ET_DISTRICT);
     myNet.addEdge(myCurrentEdge);
+    myCurrentEdge = myEdgeBuilder.buildEdge(myCurrentName + "-source", 0, 0);
+    myCurrentEdge->setType(ROEdge::ET_DISTRICT);
+    myNet.addEdge(myCurrentEdge);
     if (attrs.hasAttribute(SUMO_ATTR_EDGES)) {
         std::vector<std::string> desc = StringTokenizer(attrs.getString(SUMO_ATTR_EDGES)).getVector();
         for (std::vector<std::string>::const_iterator i=desc.begin(); i!=desc.end(); ++i) {
@@ -262,7 +265,7 @@ RONetHandler::parseDistrict(const SUMOSAXAttributes &attrs) throw(ProcessError) 
                 throw ProcessError("The edge '" + *i + "' within district '" + myCurrentName + "' is not known.");
             }
             myCurrentEdge->addFollower(edge);
-            edge->addFollower(myCurrentEdge);
+            edge->addFollower(myNet.getEdge(myCurrentName));
         }
     }
 }
@@ -282,10 +285,10 @@ RONetHandler::parseDistrictEdge(const SUMOSAXAttributes &attrs, bool isSource) {
         if (isSource) {
             myCurrentEdge->addFollower(succ);
         } else {
-            succ->addFollower(myCurrentEdge);
+            succ->addFollower(myNet.getEdge(myCurrentName));
         }
     } else {
-        MsgHandler::getErrorInstance()->inform("At edge '" + myCurrentName + "': succeeding edge '" + id + "' does not exist.");
+        MsgHandler::getErrorInstance()->inform("At district '" + myCurrentName + "': succeeding edge '" + id + "' does not exist.");
     }
 }
 

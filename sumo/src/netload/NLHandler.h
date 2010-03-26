@@ -283,6 +283,30 @@ private:
     /// Parses network location description
     void setLocation(const SUMOSAXAttributes &attrs);
 
+    /** @begin Parses a district and creates a pseudo edge for it
+     *
+     * Called on the occurence of a "district" element, this method
+     *  retrieves the id of the district and creates a district type
+     *  edge with this id.
+     *
+     * @param[in] attrs The attributes (of the "district"-element) to parse
+     * @exception ProcessError If an edge given in district@edges is not known
+     */
+    void addDistrict(const SUMOSAXAttributes &attrs) throw(ProcessError);
+
+
+    /** @begin Parses a district edge and connects it to the district
+     *
+     * Called on the occurence of a "dsource" or "dsink" element, this method
+     *  retrieves the id of the approachable edge. If this edge is known
+     *  and valid, the approaching edge is informed about it.
+     *
+     * @param[in] attrs The attributes to parse
+     * @param[in] isSource whether a "dsource or a "dsink" was given
+     * @todo No exception?
+     */
+    void addDistrictEdge(const SUMOSAXAttributes &attrs, bool isSource);
+
 
     /// sets the request size of the current junction logic
     void setRequestSize(const std::string &chars);
@@ -350,6 +374,9 @@ protected:
 
     /// The id of the current lane
     std::string myCurrentLaneID;
+
+    /// The id of the current district
+    std::string myCurrentDistrictID;
 
     /// The information whether the current lane is a depart lane
     bool myLaneIsDepart;

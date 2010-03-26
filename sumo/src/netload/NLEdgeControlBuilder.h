@@ -106,7 +106,7 @@ public:
     /// builds the MSEdgeControl-class which holds all edges
     MSEdgeControl *build();
 
-protected:
+
     /** @brief Builds an edge instance (MSEdge in this case)
      *
      * Builds an MSEdge-instance using the given name and the current index
@@ -116,7 +116,6 @@ protected:
      * @param[in] id The id of the edge to build
      */
     virtual MSEdge *buildEdge(const std::string &id) throw();
-
 
 
 protected:

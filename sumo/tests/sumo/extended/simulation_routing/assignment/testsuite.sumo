@@ -18,3 +18,6 @@ half_by_prob
 
 # half vehicles have the device, by naming all of them (even ones)
 half_by_name
+
+# trips as input, districts used
+trip_with_taz

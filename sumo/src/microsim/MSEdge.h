@@ -76,7 +76,9 @@ public:
         /// @brief The edge is a macroscopic connector (source/sink)
         EDGEFUNCTION_CONNECTOR = 1,
         /// @brief The edge is an internal edge
-        EDGEFUNCTION_INTERNAL = 2
+        EDGEFUNCTION_INTERNAL = 2,
+        /// @brief The edge is a district edge
+        EDGEFUNCTION_DISTRICT = 3
     };
 
 
@@ -208,8 +210,8 @@ public:
     /** @brief Returns the list of edges which may be reached from this edge
      * @return Edges reachable from this edge
      */
-    const std::vector<MSEdge*> &getFollowingEdges() const throw() {
-        return mySuccessors;
+    void addFollower(MSEdge* edge) throw() {
+        mySuccessors.push_back(edge);
     }
 
 

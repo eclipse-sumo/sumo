@@ -381,9 +381,9 @@ MSVehicle::getRoute(int index) const throw() {
 
 
 bool
-MSVehicle::replaceRoute(const MSEdgeVector &edges, SUMOTime simTime) throw() {
+MSVehicle::replaceRoute(const MSEdgeVector &edges, SUMOTime simTime, bool onInit) throw() {
     // assert the vehicle may continue (must not be "teleported" or whatever to another position)
-    if (find(edges.begin(), edges.end(), *myCurrEdge)==edges.end()) {
+    if (!onInit && find(edges.begin(), edges.end(), *myCurrEdge)==edges.end()) {
         return false;
     }
 
@@ -426,7 +426,11 @@ MSVehicle::replaceRoute(const MSEdgeVector &edges, SUMOTime simTime) throw() {
     // assign new route
     myRoute = newRoute;
     // rebuild in-vehicle route information
-    myCurrEdge = myRoute->find(currentEdge);
+    if (onInit) {
+        myCurrEdge = myRoute->begin();
+    } else {
+        myCurrEdge = myRoute->find(currentEdge);
+    }
     myLastBestLanesEdge = 0;
     // update arrival definition
     myArrivalPos = myParameter->arrivalPos;
@@ -464,10 +468,16 @@ MSVehicle::willPass(const MSEdge * const edge) const throw() {
 
 
 void
-MSVehicle::reroute(SUMOTime t, SUMOAbstractRouter<MSEdge, SUMOVehicle> &router) throw() {
+MSVehicle::reroute(SUMOTime t, SUMOAbstractRouter<MSEdge, SUMOVehicle> &router, bool withTaz) throw() {
     // check whether to reroute
     std::vector<const MSEdge*> edges;
-    router.compute(*myCurrEdge, myRoute->getLastEdge(), (const MSVehicle * const) this, t, edges);
+    if (withTaz && MSEdge::dictionary(myParameter->fromTaz+"-source") && MSEdge::dictionary(myParameter->toTaz)) {
+        router.compute(MSEdge::dictionary(myParameter->fromTaz+"-source"), MSEdge::dictionary(myParameter->toTaz), (const MSVehicle * const) this, t, edges);
+        edges.erase(edges.begin());
+        edges.pop_back();
+    } else {
+        router.compute(*myCurrEdge, myRoute->getLastEdge(), (const MSVehicle * const) this, t, edges);
+    }
     // check whether the new route is the same as the prior
     MSRouteIterator ri = myCurrEdge;
     std::vector<const MSEdge*>::iterator ri2 = edges.begin();
@@ -476,7 +486,7 @@ MSVehicle::reroute(SUMOTime t, SUMOAbstractRouter<MSEdge, SUMOVehicle> &router) 
         ++ri2;
     }
     if (ri!=myRoute->end()||ri2!=edges.end()) {
-        replaceRoute(edges, MSNet::getInstance()->getCurrentTimeStep());
+        replaceRoute(edges, MSNet::getInstance()->getCurrentTimeStep(), withTaz);
     }
 }
 
@@ -1333,7 +1343,6 @@ MSVehicle::enterLaneAtLaneChange(MSLane* enteredLane) {
         while (i!=route.begin()&&leftLength>0) {
             const MSEdge * const prev = *(--i);
             const std::vector<MSLane::IncomingLaneInfo> &incomingLanes = lane->getIncomingLanes();
-            bool found = false;
             for (std::vector<MSLane::IncomingLaneInfo>::const_iterator j=incomingLanes.begin(); j!=incomingLanes.end(); ++j) {
                 if (&(*j).lane->getEdge()==prev) {
 #ifdef HAVE_INTERNAL_LANES
@@ -1343,12 +1352,8 @@ MSVehicle::enterLaneAtLaneChange(MSLane* enteredLane) {
                     (*j).lane->setPartialOccupation(this, leftLength);
 #endif
                     leftLength -= (*j).lane->getLength();
-                    found = true;
                     break;
                 }
-            }
-            if (!found) {
-                int bla = 0;
             }
         }
     }

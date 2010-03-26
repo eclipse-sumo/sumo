@@ -160,6 +160,9 @@
         <!-- The interval for updating the edge weights. -->
         <device.routing.adaptation-interval value="1"/>
 
+        <!-- Use zones (districts) as routing end points -->
+        <device.routing.with-taz value="false"/>
+
     </routing>
 
     <emissions>

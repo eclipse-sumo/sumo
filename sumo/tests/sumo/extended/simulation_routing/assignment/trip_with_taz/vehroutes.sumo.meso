@@ -1,0 +1,106 @@
+<?xml version="1.0"?>
+
+<!-- generated on 03/25/10 08:21:22 by SUMO sumo Version dev-SVN-r8511
+<configuration>
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <additional-files value="input_trips.trips.xml"/>
+    </input>
+
+    <output>
+        <vehroute-output value="vehroutes.xml"/>
+    </output>
+
+    <time>
+        <begin value="0"/>
+    </time>
+
+    <report>
+        <no-duration-log value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+    <routing>
+        <device.routing.probability value="1"/>
+    </routing>
+
+    <mesoscopic>
+        <mesosim value="true"/>
+    </mesoscopic>
+
+</configuration>
+-->
+
+<routes>
+    <vehicle id="0" depart="0" arrival="108.00">
+        <routeDistribution>
+            <route replacedOnEdge="beg" replacedAtTime="0.00" probability="0" edges="beg rend"/>
+            <route edges="beg middle end rend"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="1" depart="20" arrival="128.00">
+        <routeDistribution>
+            <route replacedOnEdge="beg" replacedAtTime="0.00" probability="0" edges="beg rend"/>
+            <route edges="beg middle end rend"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="2" depart="40" arrival="148.00">
+        <routeDistribution>
+            <route replacedOnEdge="beg" replacedAtTime="0.00" probability="0" edges="beg rend"/>
+            <route edges="beg middle end rend"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="3" depart="60" arrival="168.00">
+        <routeDistribution>
+            <route replacedOnEdge="beg" replacedAtTime="0.00" probability="0" edges="beg rend"/>
+            <route edges="beg middle end rend"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="4" depart="80" arrival="188.00">
+        <routeDistribution>
+            <route replacedOnEdge="beg" replacedAtTime="0.00" probability="0" edges="beg rend"/>
+            <route edges="beg middle end rend"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="5" depart="100" arrival="208.00">
+        <routeDistribution>
+            <route replacedOnEdge="beg" replacedAtTime="0.00" probability="0" edges="beg rend"/>
+            <route edges="beg middle end rend"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="6" depart="120" arrival="228.00">
+        <routeDistribution>
+            <route replacedOnEdge="beg" replacedAtTime="0.00" probability="0" edges="beg rend"/>
+            <route edges="beg middle end rend"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="7" depart="140" arrival="248.00">
+        <routeDistribution>
+            <route replacedOnEdge="beg" replacedAtTime="0.00" probability="0" edges="beg rend"/>
+            <route edges="beg middle end rend"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="8" depart="160" arrival="268.00">
+        <routeDistribution>
+            <route replacedOnEdge="beg" replacedAtTime="0.00" probability="0" edges="beg rend"/>
+            <route edges="beg middle end rend"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="9" depart="180" arrival="288.00">
+        <routeDistribution>
+            <route replacedOnEdge="beg" replacedAtTime="0.00" probability="0" edges="beg rend"/>
+            <route edges="beg middle end rend"/>
+        </routeDistribution>
+    </vehicle>
+
+</routes>

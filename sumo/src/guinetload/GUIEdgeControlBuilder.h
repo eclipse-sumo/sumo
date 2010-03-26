@@ -76,7 +76,6 @@ public:
     MSEdge *closeEdge();
 
 
-protected:
     /** @brief Builds an edge instance (GUIEdge in this case)
      *
      * Builds an GUIEdge-instance using the given name, the current index
