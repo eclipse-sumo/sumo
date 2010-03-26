@@ -1,16 +1,16 @@
 #!/usr/bin/env python
 
-import os,subprocess,sys,time
-import xml.dom.minidom as dom
-sys.path.append(os.path.join(os.path.abspath(os.path.dirname(sys.argv[0])), "../../../../tools/traci"))
+import os, subprocess, sys, time
+
+sumoHome = os.path.abspath(os.path.join(os.path.dirname(sys.argv[0]), '..', '..', '..', '..'))
+sys.path.append(os.path.join(sumoHome, "tools", "traci"))
 import traciControl
-import time
 
 if sys.argv[1]=="sumo":
-    sumoBinary = os.environ.get("SUMO_BINARY", os.path.join(os.path.dirname(sys.argv[0]), '..', '..', '..', 'bin', 'sumo'))
+    sumoBinary = os.environ.get("SUMO_BINARY", os.path.join(sumoHome, 'bin', 'sumo'))
     addOption = ""
 else:
-    sumoBinary = os.environ.get("GUISIM_BINARY", os.path.join(os.path.dirname(sys.argv[0]), '..', '..', '..', 'bin', 'sumo-gui'))
+    sumoBinary = os.environ.get("GUISIM_BINARY", os.path.join(sumoHome, 'bin', 'sumo-gui'))
     addOption = "-Q"
 PORT = 8813
 
