@@ -1,5 +1,6 @@
 import_config_file:../config_all
 binary:$TEXTTEST_HOME/toolrunner.py
+use_case_record_mode:GUI
 copy_test_path:netconvert.netc.cfg
 copy_test_path:input_edges.edg.xml
 copy_test_path:input_nodes.nod.xml
