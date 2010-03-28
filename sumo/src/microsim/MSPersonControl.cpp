@@ -32,6 +32,7 @@
 #include "MSCORN.h"
 #include "MSNet.h"
 #include "MSPerson.h"
+#include "MSVehicle.h"
 #include "MSPersonControl.h"
 #include <utils/iodevices/OutputDevice.h>
 
@@ -116,6 +117,32 @@ MSPersonControl::popArrivedPersons(SUMOTime time) {
     MSPersonControl::PersonVector arrived = myArrivals[time];
     myArrivals.erase(time);
     return arrived;
+}
+
+
+void
+MSPersonControl::addWaiting(const MSEdge* const edge, MSPerson *person) throw() {
+    if (myWaiting.find(edge) == myWaiting.end()) {
+        myWaiting[edge] = std::vector<MSPerson*>();
+    }
+    myWaiting[edge].push_back(person);
+}
+
+
+void
+MSPersonControl::checkWaiting(const MSEdge* const edge, MSVehicle *vehicle) throw() {
+    if (myWaiting.find(edge) != myWaiting.end()) {
+        PersonVector &waitPersons = myWaiting[edge];
+        for (PersonVector::iterator i=waitPersons.begin(); i!=waitPersons.end(); ) {
+            const std::string &line = vehicle->getParameter().line == "" ? vehicle->getParameter().id : vehicle->getParameter().line;
+            if ((*i)->isWaitingFor(line)) {
+                vehicle->addPerson(*i);
+                i = waitPersons.erase(i);
+            } else {
+                ++i;
+            }
+        }
+    }
 }
 
 

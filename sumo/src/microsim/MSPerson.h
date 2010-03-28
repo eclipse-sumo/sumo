@@ -73,7 +73,13 @@ public:
         virtual void proceed(MSNet *net, MSPerson *person, SUMOTime now, const MSEdge &previousEdge) = 0;
 
         /// logs end of the step
+        void setDeparted(SUMOTime now);
+
+        /// logs end of the step
         void setArrived(SUMOTime now);
+
+        /// Whether the person waits for a vehicle of the line specified.
+        virtual bool isWaitingFor(const std::string &line) const;
 
         /** @brief Called on writing tripinfo output
          *
@@ -88,6 +94,9 @@ public:
         const MSEdge &myDestination;
 
         /// the time at which this stage started
+        SUMOTime myDeparted;
+
+        /// the time at which this stage ended
         SUMOTime myArrived;
 
     private:
@@ -150,6 +159,9 @@ public:
 
         /// proceeds to the next step
         virtual void proceed(MSNet *net, MSPerson *person, SUMOTime now, const MSEdge &previousEdge);
+
+        /// Whether the person waits for a vehicle of the line specified.
+        bool isWaitingFor(const std::string &line) const;
 
         /** @brief Called on writing tripinfo output
          *
@@ -244,6 +256,9 @@ public:
 
     /// Returns the current destination.
     const MSPersonPlan &getPlan() const;
+
+    /// Whether the person waits for a vehicle of the line specified.
+    bool isWaitingFor(const std::string &line) const;
 
 private:
     /// @brief Invalidated copy constructor.

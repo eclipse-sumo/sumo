@@ -77,8 +77,8 @@ public:
     /// adds a person to the list of persons waiting for a vehicle on the specified edge
     void addWaiting(const MSEdge* edge, MSPerson *person) throw();
 
-    /// removes a person from the list of persons waiting for a vehicle on the specified edge
-    void removeWaiting(const MSEdge* edge, MSPerson *person) throw();
+    /// checkls whether a person waits for the specified vehicle and if so removes it from the list
+    void checkWaiting(const MSEdge* edge, MSVehicle *vehicle) throw();
 
 
 private:

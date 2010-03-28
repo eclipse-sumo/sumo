@@ -63,10 +63,21 @@ MSPerson::MSPersonStage::getDestination() const {
 
 
 void
+MSPerson::MSPersonStage::setDeparted(SUMOTime now) {
+    myDeparted = now;
+}
+
+
+void
 MSPerson::MSPersonStage::setArrived(SUMOTime now) {
     myArrived = now;
 }
 
+
+bool
+MSPerson::MSPersonStage::isWaitingFor(const std::string &line) const {
+    return false;
+}
 
 /* -------------------------------------------------------------------------
  * MSPerson::MSPersonStage_Walking - methods
@@ -125,7 +136,15 @@ MSPerson::MSPersonStage_Driving::proceed(MSNet* net,
             MSNet::getInstance()->getEmitControl().add(v);
             MSNet::getInstance()->getVehicleControl().removeWaiting(&previousEdge, v);
         }
+    } else {
+        net->getPersonControl().addWaiting(&previousEdge, person);
     }
+}
+
+
+bool
+MSPerson::MSPersonStage_Driving::isWaitingFor(const std::string &line) const {
+    return myLines.count(line) > 0;
 }
 
 
@@ -213,6 +232,12 @@ MSPerson::getDestination() const {
 const MSPerson::MSPersonPlan &
 MSPerson::getPlan() const {
     return *myPlan;
+}
+
+
+bool
+MSPerson::isWaitingFor(const std::string &line) const {
+    return (*myStep)->isWaitingFor(line);
 }
 
 

@@ -3,3 +3,9 @@ ride
 
 # person with a single walk
 walk
+
+# person with a public transport ride
+public
+
+# person waiing for a public transport ride
+public_wait

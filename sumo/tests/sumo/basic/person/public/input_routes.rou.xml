@@ -1,0 +1,10 @@
+<routes>
+    <flow id="bus" line="l100" begin="0" period="120">
+        <route edges="beg beg2left left left2end end">
+            <stop lane="beg_0" pos="50" duration="30"/>
+        </route>
+    </flow>
+    <person id="p1" depart="20">
+        <ride from="beg" to="end" lines="l100"/>
+    </person>
+</routes>

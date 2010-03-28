@@ -713,6 +713,7 @@ MSVehicle::processNextStop(SUMOReal currentVelocity) throw() {
             }
             if (myState.pos()>=endPos-BUS_STOP_OFFSET&&busStopsMustHaveSpace) {
                 // ok, we may stop (have reached the stop)
+                MSNet::getInstance()->getPersonControl().checkWaiting(&myLane->getEdge(), this);
                 MSNet::getInstance()->getVehicleControl().addWaiting(&myLane->getEdge(), this);
                 if (hasCORNPointerValue(MSCORN::CORN_P_VEH_PASSENGER)) {
                     std::vector<MSPerson*> *persons = (std::vector<MSPerson*>*) myPointerCORNMap[MSCORN::CORN_P_VEH_PASSENGER];
