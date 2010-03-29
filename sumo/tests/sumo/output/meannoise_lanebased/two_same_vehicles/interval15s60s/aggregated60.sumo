@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 03/18/10 13:38:46 by SUMO sumo Version dev-SVN-r8460
+<!-- generated on 03/29/10 11:17:59 by SUMO sumo Version dev-SVN-r8163
 <configuration>
 
     <input>
@@ -24,21 +24,21 @@
 <netstats>
     <interval begin="0.00" end="60.00" id="dump_60">
         <edge id="3/1to2/1">
-            <lane id="3/1to2/1_0" sampledSeconds="54.90" noise="61.40"/>
+            <lane id="3/1to2/1_0" sampledSeconds="54.90" noise="61.40" traveltime="39.05"/>
         </edge>
         <edge id="4/1to3/1">
-            <lane id="4/1to3/1_0" sampledSeconds="60.10" noise="61.92"/>
+            <lane id="4/1to3/1_0" sampledSeconds="58.10" noise="61.77" traveltime="39.05"/>
         </edge>
     </interval>
     <interval begin="60.00" end="120.00" id="dump_60">
         <edge id="1/1to0/1">
-            <lane id="1/1to0/1_0" sampledSeconds="1.70" noise="47.00"/>
+            <lane id="1/1to0/1_0" sampledSeconds="1.70" noise="47.00" traveltime="39.05"/>
         </edge>
         <edge id="2/1to1/1">
-            <lane id="2/1to1/1_0" sampledSeconds="78.10" noise="63.02"/>
+            <lane id="2/1to1/1_0" sampledSeconds="78.10" noise="63.02" traveltime="39.05"/>
         </edge>
         <edge id="3/1to2/1">
-            <lane id="3/1to2/1_0" sampledSeconds="23.20" noise="57.97"/>
+            <lane id="3/1to2/1_0" sampledSeconds="23.20" noise="57.97" traveltime="39.05"/>
         </edge>
     </interval>
     <interval begin="120.00" end="150.00" id="dump_60">

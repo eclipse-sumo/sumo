@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 03/18/10 13:38:47 by SUMO sumo Version dev-SVN-r8460
+<!-- generated on 03/26/10 11:19:58 by SUMO sumo Version dev-SVN-r8163
 <configuration>
 
     <input>
@@ -24,7 +24,7 @@
 <netstats>
     <interval begin="15.00" end="30.00" id="dump_15">
         <edge id="4/1to3/1">
-            <lane id="4/1to3/1_0" sampledSeconds="30.00" noise="64.79"/>
+            <lane id="4/1to3/1_0" sampledSeconds="30.00" noise="64.79" traveltime="39.05"/>
         </edge>
     </interval>
 </netstats>
