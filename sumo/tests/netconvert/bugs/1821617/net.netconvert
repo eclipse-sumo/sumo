@@ -1,21 +1,21 @@
 <?xml version="1.0"?>
 
-<!-- generated on 06/09/09 09:19:50 by SUMO netconvert Version dev-SVN-r7268
+<!-- generated on 03/29/10 21:14:15 by SUMO netconvert Version dev-SVN-r8525
 <configuration>
 
-    <input
-        xml-node-files="input_nodes.nod.xml"
-        xml-edge-files="input_edges.edg.xml"
-    />
+    <input>
+        <xml-node-files value="input_nodes.nod.xml"/>
+        <xml-edge-files value="input_edges.edg.xml"/>
+    </input>
 
-    <processing
-        remove-geometry="true"
-        no-internal-links="true"
-    />
+    <processing>
+        <remove-geometry value="true"/>
+        <no-internal-links value="true"/>
+    </processing>
 
-    <report
-        verbose="true"
-    />
+    <report>
+        <verbose value="true"/>
+    </report>
 
 </configuration>
 -->
@@ -27,8 +27,8 @@
 
    <edge id="1" from="node104" to="node123" priority="75" type="" function="normal">
       <lanes>
-         <lane id="1_0" depart="1" maxspeed="15.00" length="365.47" shape="278.40,172.00 -4.95,172.00 -4.95,86.58"/>
-         <lane id="1_1" depart="0" maxspeed="15.00" length="365.47" shape="278.40,168.70 -1.65,168.70 -1.65,86.58"/>
+         <lane id="1_0" depart="1" maxspeed="15.00" length="366.04" shape="278.40,172.00 -4.95,172.00 -4.95,86.01"/>
+         <lane id="1_1" depart="0" maxspeed="15.00" length="366.04" shape="278.40,168.70 -1.65,168.70 -1.65,86.01"/>
       </lanes>
    </edge>
 
@@ -62,7 +62,7 @@
 
    <junction id="node104" type="DEAD_END" x="278.40" y="167.05" incLanes="" intLanes="" shape="278.40,167.10 278.40,173.60"/>
 
-   <junction id="node123" type="priority" x="0.00" y="77.96" incLanes="1_0 1_1 2_0 2_1" intLanes="" shape="-6.55,86.58 -0.05,86.58 1.45,84.51 1.45,78.01 -0.05,76.51 -6.55,76.51"/>
+   <junction id="node123" type="priority" x="0.00" y="77.96" incLanes="1_0 1_1 2_0 2_1" intLanes="" shape="-6.55,86.01 -0.05,86.01 1.45,84.51 1.45,78.01 -0.05,76.51 -6.55,76.51"/>
 
    <junction id="node125" type="DEAD_END" x="0.00" y="0.00" incLanes="3_0 3_1" intLanes="" shape="-6.55,0.00 -0.05,0.00"/>
 

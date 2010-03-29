@@ -120,7 +120,7 @@ GeomHelper::intersection_position(const Position2D &p11,
     //applies the math, but we don't need speed since this is a
     //pre-processing step
 
-    SUMOReal a1,b1,c1, // constants of linear equations
+    double a1,b1,c1, // constants of linear equations
     a2,b2,c2,
     det_inv, m1, m2;  // the inverse of the determinant of the coefficient
 
