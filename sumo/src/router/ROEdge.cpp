@@ -183,7 +183,7 @@ ROEdge::getCOEffort(const ROVehicle * const veh, SUMOTime time) const throw() {
             v = MIN2(veh->getType()->maxSpeed, mySpeed);
             c = veh->getType()->emissionClass;
         }
-        ret = HelpersHBEFA::computeCO(veh->getType()->emissionClass, v, 0);
+        ret = HelpersHBEFA::computeCO(c, v, 0) * getTravelTime(veh, time);
     }
     return ret;
 }
@@ -199,7 +199,7 @@ ROEdge::getCO2Effort(const ROVehicle * const veh, SUMOTime time) const throw() {
             v = MIN2(veh->getType()->maxSpeed, mySpeed);
             c = veh->getType()->emissionClass;
         }
-        ret = HelpersHBEFA::computeCO2(veh->getType()->emissionClass, v, 0);
+        ret = HelpersHBEFA::computeCO2(c, v, 0) * getTravelTime(veh, time);
     }
     return ret;
 }
@@ -215,7 +215,7 @@ ROEdge::getPMxEffort(const ROVehicle * const veh, SUMOTime time) const throw() {
             v = MIN2(veh->getType()->maxSpeed, mySpeed);
             c = veh->getType()->emissionClass;
         }
-        ret = HelpersHBEFA::computePMx(veh->getType()->emissionClass, v, 0);
+        ret = HelpersHBEFA::computePMx(c, v, 0) * getTravelTime(veh, time);
     }
     return ret;
 }
@@ -231,7 +231,7 @@ ROEdge::getHCEffort(const ROVehicle * const veh, SUMOTime time) const throw() {
             v = MIN2(veh->getType()->maxSpeed, mySpeed);
             c = veh->getType()->emissionClass;
         }
-        ret = HelpersHBEFA::computeHC(veh->getType()->emissionClass, v, 0);
+        ret = HelpersHBEFA::computeHC(c, v, 0) * getTravelTime(veh, time);
     }
     return ret;
 }
@@ -247,7 +247,7 @@ ROEdge::getNOxEffort(const ROVehicle * const veh, SUMOTime time) const throw() {
             v = MIN2(veh->getType()->maxSpeed, mySpeed);
             c = veh->getType()->emissionClass;
         }
-        ret = HelpersHBEFA::computeNOx(veh->getType()->emissionClass, v, 0);
+        ret = HelpersHBEFA::computeNOx(c, v, 0) * getTravelTime(veh, time);
     }
     return ret;
 }
@@ -263,7 +263,7 @@ ROEdge::getFuelEffort(const ROVehicle * const veh, SUMOTime time) const throw() 
             v = MIN2(veh->getType()->maxSpeed, mySpeed);
             c = veh->getType()->emissionClass;
         }
-        ret = HelpersHBEFA::computeFuel(veh->getType()->emissionClass, v, 0);
+        ret = HelpersHBEFA::computeFuel(c, v, 0) * getTravelTime(veh, time);
     }
     return ret;
 }
