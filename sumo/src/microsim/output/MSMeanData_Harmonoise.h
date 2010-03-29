@@ -69,7 +69,8 @@ public:
     public:
         /** @brief Constructor */
         MSLaneMeanDataValues(MSLane * const lane,
-                             const std::set<std::string>* const vTypes=0) throw();
+                             const std::set<std::string>* const vTypes=0,
+                             MSMeanData_Harmonoise *parent=0) throw();
 
         /** @brief Destructor */
         virtual ~MSLaneMeanDataValues() throw();
@@ -149,6 +150,10 @@ public:
         /// @brief Sum of produced noise over time (pow(10, (<NOISE>/10.)))
         SUMOReal meanNTemp;
         //@}
+
+
+        /// @brief The meandata parent
+        const MSMeanData_Harmonoise* myParent;
     };
 
 

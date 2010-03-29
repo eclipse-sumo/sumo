@@ -137,10 +137,13 @@ MSMeanData_HBEFA::MSLaneMeanDataValues::write(OutputDevice &dev, const SUMOReal 
     "\" fuel_normed=\""<<normFactor * fuel;
     if (sampleSeconds > myParent->myMinSamples) {
         SUMOReal vehFactor = myParent->myMaxTravelTime / sampleSeconds;
+        SUMOReal traveltime = myParent->myMaxTravelTime;
         if (travelledDistance > 0.f) {
             vehFactor = MIN2(vehFactor, length / travelledDistance);
+            traveltime = MIN2(traveltime, length * sampleSeconds / travelledDistance);
         }
-        dev<<"\"\n            CO_perVeh=\""<<CO*vehFactor<<
+        dev<<"\"\n            traveltime=\"" << traveltime<<
+        "\" CO_perVeh=\""<<CO*vehFactor<<
         "\" CO2_perVeh=\""<<CO2*vehFactor<<
         "\" HC_perVeh=\""<<HC*vehFactor<<
         "\" PMx_perVeh=\""<<PMx*vehFactor<<

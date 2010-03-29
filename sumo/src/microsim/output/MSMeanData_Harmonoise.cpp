@@ -49,9 +49,9 @@
 // MSMeanData_Harmonoise::MSLaneMeanDataValues - methods
 // ---------------------------------------------------------------------------
 MSMeanData_Harmonoise::MSLaneMeanDataValues::MSLaneMeanDataValues(MSLane * const lane,
-        const std::set<std::string>* const vTypes) throw()
+        const std::set<std::string>* const vTypes, MSMeanData_Harmonoise *parent) throw()
         : MSMeanData::MeanDataValues(lane, vTypes),
-        currentTimeN(0), meanNTemp(0) {}
+        currentTimeN(0), meanNTemp(0), myParent(parent) {}
 
 
 MSMeanData_Harmonoise::MSLaneMeanDataValues::~MSLaneMeanDataValues() throw() {
@@ -63,6 +63,7 @@ MSMeanData_Harmonoise::MSLaneMeanDataValues::reset() throw() {
     sampleSeconds = 0;
     currentTimeN = 0;
     meanNTemp = 0;
+    travelledDistance = 0;
 }
 
 
@@ -71,6 +72,7 @@ MSMeanData_Harmonoise::MSLaneMeanDataValues::add(MSMeanData::MeanDataValues &val
     MSLaneMeanDataValues& v = (MSLaneMeanDataValues&) val;
     sampleSeconds += v.sampleSeconds;
     meanNTemp += v.meanNTemp;
+    travelledDistance += v.travelledDistance;
 }
 
 
@@ -106,6 +108,7 @@ MSMeanData_Harmonoise::MSLaneMeanDataValues::isStillActive(MSVehicle& veh, SUMOR
     SUMOReal sn = HelpersHarmonoise::computeNoise(veh.getVehicleType().getEmissionClass(), (double) newSpeed, (double) a);
     currentTimeN += (SUMOReal) pow(10., (sn/10.));
     sampleSeconds += fraction;
+    travelledDistance += newSpeed * fraction;
     return ret;
 }
 
@@ -119,7 +122,15 @@ MSMeanData_Harmonoise::MSLaneMeanDataValues::notifyEnter(MSVehicle& veh, bool is
 void
 MSMeanData_Harmonoise::MSLaneMeanDataValues::write(OutputDevice &dev, const SUMOReal period,
         const SUMOReal numLanes, const SUMOReal length) const throw(IOError) {
-    dev << "\" noise=\"" << (meanNTemp!=0 ? (SUMOReal)(10. * log10(meanNTemp/period)) : (SUMOReal) 0.) << "\"/>\n";
+    dev << "\" noise=\"" << (meanNTemp!=0 ? (SUMOReal)(10. * log10(meanNTemp/period)) : (SUMOReal) 0.);
+    if (sampleSeconds > myParent->myMinSamples) {
+        SUMOReal traveltime = myParent->myMaxTravelTime;
+        if (travelledDistance > 0.f) {
+            traveltime = MIN2(traveltime, length * sampleSeconds / travelledDistance);
+        }
+        dev << "\" traveltime=\"" << traveltime;
+    }
+    dev << "\"/>\n";
 }
 
 
@@ -142,7 +153,7 @@ MSMeanData_Harmonoise::~MSMeanData_Harmonoise() throw() {}
 
 MSMeanData::MeanDataValues*
 MSMeanData_Harmonoise::createValues(MSLane * const lane) throw(IOError) {
-    return new MSLaneMeanDataValues(lane, &myVehicleTypes);
+    return new MSLaneMeanDataValues(lane, &myVehicleTypes, this);
 }
 
 
