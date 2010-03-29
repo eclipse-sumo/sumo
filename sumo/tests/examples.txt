@@ -31,6 +31,7 @@ sumo/output/examples/cross3ltl_meandata_lanes:../examples/sumo/output/cross3ltl_
 sumo/output/examples/cross3ltl_rawdump:../examples/sumo/output/cross3ltl_rawdump
 sumo/output/examples/cross3ltl_tripinfo:../examples/sumo/output/cross3ltl_tripinfo
 sumo/output/examples/cross3ltl_vehroutes:../examples/sumo/output/cross3ltl_vehroutes
+sumo/output/examples/cross3ltl_vtypeprobe:../examples/sumo/output/cross3ltl_vtypeprobe
 #sumo/output/examples/straight1:../examples/sumo/output/straight1
 sumo/basic/simple_nets/cross/cross1ltl:../examples/sumo/simple_nets/cross/cross1ltl
 sumo/basic/simple_nets/cross/cross1l:../examples/sumo/simple_nets/cross/cross1l
