@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 03/18/10 13:38:15 by SUMO sumo Version dev-SVN-r8460
+<!-- generated on 03/26/10 11:19:29 by SUMO sumo Version dev-SVN-r8163
 <configuration>
 
     <input>
@@ -25,21 +25,21 @@
     <interval begin="0.00" end="60.00" id="dump_60">
         <edge id="3/1to2/1" sampledSeconds="54.90" CO_abs="0" CO2_abs="9.2e+004" HC_abs="16" PMx_abs="5.4" NOx_abs="1.5e+002" fuel_abs="37"
             CO_normed="0" CO2_normed="1.4e+004" HC_normed="2.5" PMx_normed="0.83" NOx_normed="22" fuel_normed="5.7"
-            CO_perVeh="0" CO2_perVeh="66" HC_perVeh="0.011" PMx_perVeh="0.0038" NOx_perVeh="0.1" fuel_perVeh="0.026"/>
+            traveltime="39" CO_perVeh="0" CO2_perVeh="66" HC_perVeh="0.011" PMx_perVeh="0.0038" NOx_perVeh="0.1" fuel_perVeh="0.026"/>
         <edge id="4/1to3/1" sampledSeconds="58.10" CO_abs="0" CO2_abs="9.8e+004" HC_abs="17" PMx_abs="5.7" NOx_abs="1.5e+002" fuel_abs="39"
             CO_normed="0" CO2_normed="1.5e+004" HC_normed="2.6" PMx_normed="0.87" NOx_normed="24" fuel_normed="6"
-            CO_perVeh="0" CO2_perVeh="66" HC_perVeh="0.011" PMx_perVeh="0.0038" NOx_perVeh="0.1" fuel_perVeh="0.026"/>
+            traveltime="39" CO_perVeh="0" CO2_perVeh="66" HC_perVeh="0.011" PMx_perVeh="0.0038" NOx_perVeh="0.1" fuel_perVeh="0.026"/>
     </interval>
     <interval begin="60.00" end="120.00" id="dump_60">
         <edge id="1/1to0/1" sampledSeconds="1.70" CO_abs="0" CO2_abs="2.9e+003" HC_abs="0.5" PMx_abs="0.17" NOx_abs="4.5" fuel_abs="1.1"
             CO_normed="0" CO2_normed="4.4e+002" HC_normed="0.077" PMx_normed="0.026" NOx_normed="0.7" fuel_normed="0.17"
-            CO_perVeh="0" CO2_perVeh="66" HC_perVeh="0.011" PMx_perVeh="0.0038" NOx_perVeh="0.1" fuel_perVeh="0.026"/>
+            traveltime="39" CO_perVeh="0" CO2_perVeh="66" HC_perVeh="0.011" PMx_perVeh="0.0038" NOx_perVeh="0.1" fuel_perVeh="0.026"/>
         <edge id="2/1to1/1" sampledSeconds="78.10" CO_abs="0" CO2_abs="1.3e+005" HC_abs="23" PMx_abs="7.6" NOx_abs="2.1e+002" fuel_abs="52"
             CO_normed="0" CO2_normed="2e+004" HC_normed="3.5" PMx_normed="1.2" NOx_normed="32" fuel_normed="8"
-            CO_perVeh="0" CO2_perVeh="66" HC_perVeh="0.011" PMx_perVeh="0.0038" NOx_perVeh="0.1" fuel_perVeh="0.026"/>
+            traveltime="39" CO_perVeh="0" CO2_perVeh="66" HC_perVeh="0.011" PMx_perVeh="0.0038" NOx_perVeh="0.1" fuel_perVeh="0.026"/>
         <edge id="3/1to2/1" sampledSeconds="23.20" CO_abs="0" CO2_abs="3.9e+004" HC_abs="6.8" PMx_abs="2.3" NOx_abs="62" fuel_abs="16"
             CO_normed="0" CO2_normed="6e+003" HC_normed="1" PMx_normed="0.35" NOx_normed="9.5" fuel_normed="2.4"
-            CO_perVeh="0" CO2_perVeh="66" HC_perVeh="0.011" PMx_perVeh="0.0038" NOx_perVeh="0.1" fuel_perVeh="0.026"/>
+            traveltime="39" CO_perVeh="0" CO2_perVeh="66" HC_perVeh="0.011" PMx_perVeh="0.0038" NOx_perVeh="0.1" fuel_perVeh="0.026"/>
     </interval>
     <interval begin="120.00" end="150.00" id="dump_60">
     </interval>
