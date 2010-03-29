@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 03/18/10 13:38:31 by SUMO sumo Version dev-SVN-r8460
+<!-- generated on 03/29/10 11:17:47 by SUMO sumo Version dev-SVN-r8163
 <configuration>
 
     <input>
@@ -23,31 +23,31 @@
 
 <netstats>
     <interval begin="0.00" end="15.00" id="dump_15">
-        <edge id="4/1to3/1" sampledSeconds="25.00" noise="63.99"/>
+        <edge id="4/1to3/1" sampledSeconds="23.00" noise="63.63" traveltime="39.05"/>
     </interval>
     <interval begin="15.00" end="30.00" id="dump_15">
-        <edge id="4/1to3/1" sampledSeconds="30.00" noise="64.79"/>
+        <edge id="4/1to3/1" sampledSeconds="30.00" noise="64.79" traveltime="39.05"/>
     </interval>
     <interval begin="30.00" end="45.00" id="dump_15">
-        <edge id="3/1to2/1" sampledSeconds="24.90" noise="63.99"/>
-        <edge id="4/1to3/1" sampledSeconds="5.10" noise="58.46"/>
+        <edge id="3/1to2/1" sampledSeconds="24.90" noise="63.99" traveltime="39.05"/>
+        <edge id="4/1to3/1" sampledSeconds="5.10" noise="58.46" traveltime="39.05"/>
     </interval>
     <interval begin="45.00" end="60.00" id="dump_15">
-        <edge id="3/1to2/1" sampledSeconds="30.00" noise="64.79"/>
+        <edge id="3/1to2/1" sampledSeconds="30.00" noise="64.79" traveltime="39.05"/>
     </interval>
     <interval begin="60.00" end="75.00" id="dump_15">
-        <edge id="2/1to1/1" sampledSeconds="6.80" noise="58.46"/>
-        <edge id="3/1to2/1" sampledSeconds="23.20" noise="63.99"/>
+        <edge id="2/1to1/1" sampledSeconds="6.80" noise="58.46" traveltime="39.05"/>
+        <edge id="3/1to2/1" sampledSeconds="23.20" noise="63.99" traveltime="39.05"/>
     </interval>
     <interval begin="75.00" end="90.00" id="dump_15">
-        <edge id="2/1to1/1" sampledSeconds="30.00" noise="64.79"/>
+        <edge id="2/1to1/1" sampledSeconds="30.00" noise="64.79" traveltime="39.05"/>
     </interval>
     <interval begin="90.00" end="105.00" id="dump_15">
-        <edge id="2/1to1/1" sampledSeconds="30.00" noise="64.79"/>
+        <edge id="2/1to1/1" sampledSeconds="30.00" noise="64.79" traveltime="39.05"/>
     </interval>
     <interval begin="105.00" end="120.00" id="dump_15">
-        <edge id="1/1to0/1" sampledSeconds="1.70" noise="53.02"/>
-        <edge id="2/1to1/1" sampledSeconds="11.30" noise="61.15"/>
+        <edge id="1/1to0/1" sampledSeconds="1.70" noise="53.02" traveltime="39.05"/>
+        <edge id="2/1to1/1" sampledSeconds="11.30" noise="61.15" traveltime="39.05"/>
     </interval>
     <interval begin="120.00" end="135.00" id="dump_15">
     </interval>

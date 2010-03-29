@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 03/18/10 13:38:33 by SUMO sumo Version dev-SVN-r8460
+<!-- generated on 03/26/10 11:19:48 by SUMO sumo Version dev-SVN-r8163
 <configuration>
 
     <input>
@@ -27,15 +27,15 @@
 
 <netstats>
     <interval begin="600.00" end="615.00" id="dump_15">
-        <edge id="3/1to2/1" sampledSeconds="300.00" noise="68.95"/>
+        <edge id="3/1to2/1" sampledSeconds="300.00" noise="68.95" traveltime="100000.00"/>
     </interval>
     <interval begin="615.00" end="630.00" id="dump_15">
-        <edge id="3/1to2/1" sampledSeconds="300.00" noise="68.95"/>
+        <edge id="3/1to2/1" sampledSeconds="300.00" noise="68.95" traveltime="100000.00"/>
     </interval>
     <interval begin="630.00" end="645.00" id="dump_15">
-        <edge id="3/1to2/1" sampledSeconds="300.00" noise="68.95"/>
+        <edge id="3/1to2/1" sampledSeconds="300.00" noise="68.95" traveltime="100000.00"/>
     </interval>
     <interval begin="645.00" end="660.00" id="dump_15">
-        <edge id="3/1to2/1" sampledSeconds="300.00" noise="68.95"/>
+        <edge id="3/1to2/1" sampledSeconds="300.00" noise="68.95" traveltime="100000.00"/>
     </interval>
 </netstats>
