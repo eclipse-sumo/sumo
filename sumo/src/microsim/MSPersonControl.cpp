@@ -73,9 +73,7 @@ MSPersonControl::erase(MSPerson *person) {
         OutputDevice& od = OutputDevice::getDeviceByOption("tripinfo-output");
         od.openTag("personinfo") << " id=\"" << id << "\" ";
         od << "depart=\"" << person->getDesiredDepart() << "\">\n";
-        for (MSPerson::MSPersonPlan::const_iterator i=person->getPlan().begin(); i!=person->getPlan().end(); ++i) {
-            (*i)->tripInfoOutput(od);
-        }
+        person->tripInfoOutput(od);
         od.closeTag();
     }
     if (MSCORN::wished(MSCORN::CORN_OUT_VEHROUTES)) {
@@ -84,9 +82,6 @@ MSPersonControl::erase(MSPerson *person) {
         << "\" depart=\"" << person->getDesiredDepart()
         << "\" arrival=\"" << MSNet::getInstance()->getCurrentTimeStep()
         << "\">\n";
-        for (MSPerson::MSPersonPlan::const_iterator i=person->getPlan().begin(); i!=person->getPlan().end(); ++i) {
-            (*i)->tripInfoOutput(od);
-        }
         od.closeTag();
         od << "\n";
     }

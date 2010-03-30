@@ -276,6 +276,12 @@ MSVehicle::onDepart() throw() {
         i->speed = myState.speed();
         myPointerCORNMap[MSCORN::CORN_P_VEH_DEPART_INFO] = (void*) i;
     }
+    if (hasCORNPointerValue(MSCORN::CORN_P_VEH_PASSENGER)) {
+        std::vector<MSPerson*> *persons = (std::vector<MSPerson*>*) myPointerCORNMap[MSCORN::CORN_P_VEH_PASSENGER];
+        for (std::vector<MSPerson*>::iterator i=persons->begin(); i!=persons->end(); ++i) {
+            (*i)->setDeparted(MSNet::getInstance()->getCurrentTimeStep());
+        }
+    }
     // inform the vehicle control
     MSNet::getInstance()->getVehicleControl().vehicleEmitted(*this);
 }
@@ -688,6 +694,12 @@ MSVehicle::processNextStop(SUMOReal currentVelocity) throw() {
             }
             // the current stop is no longer valid
             MSNet::getInstance()->getVehicleControl().removeWaiting(&myLane->getEdge(), this);
+            if (hasCORNPointerValue(MSCORN::CORN_P_VEH_PASSENGER)) {
+                std::vector<MSPerson*> *persons = (std::vector<MSPerson*>*) myPointerCORNMap[MSCORN::CORN_P_VEH_PASSENGER];
+                for (std::vector<MSPerson*>::iterator i=persons->begin(); i!=persons->end(); ++i) {
+                    (*i)->setDeparted(MSNet::getInstance()->getCurrentTimeStep());
+                }
+            }
             myStops.pop_front();
             // maybe the next stop is on the same edge; let's rebuild best lanes
             getBestLanes(true);

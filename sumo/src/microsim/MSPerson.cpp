@@ -50,7 +50,7 @@
  * MSPerson::MSPersonStage - methods
  * ----------------------------------------------------------------------- */
 MSPerson::MSPersonStage::MSPersonStage(const MSEdge &destination)
-        : myDestination(destination) {}
+        : myDestination(destination), myDeparted(-1) {}
 
 
 MSPerson::MSPersonStage::~MSPersonStage() {}
@@ -64,7 +64,9 @@ MSPerson::MSPersonStage::getDestination() const {
 
 void
 MSPerson::MSPersonStage::setDeparted(SUMOTime now) {
-    myDeparted = now;
+    if (myDeparted < 0) {
+        myDeparted = now;
+    }
 }
 
 
@@ -151,7 +153,8 @@ MSPerson::MSPersonStage_Driving::isWaitingFor(const std::string &line) const {
 void
 MSPerson::MSPersonStage_Driving::tripInfoOutput(OutputDevice &os) const throw(IOError) {
     (os.openTag("ride") <<
-    " arrival=\"" << myArrived <<
+    " depart=\"" << myDeparted <<
+    "\" arrival=\"" << myArrived <<
     "\"").closeTag(true);
 }
 
@@ -223,15 +226,23 @@ MSPerson::getDesiredDepart() const throw() {
 }
 
 
+void
+MSPerson::setDeparted(SUMOTime now) {
+    (*myStep)->setDeparted(now);
+}
+
+
 const MSEdge &
 MSPerson::getDestination() const {
     return (*myStep)->getDestination();
 }
 
 
-const MSPerson::MSPersonPlan &
-MSPerson::getPlan() const {
-    return *myPlan;
+void
+MSPerson::tripInfoOutput(OutputDevice &os) const throw(IOError) {
+    for (MSPersonPlan::const_iterator i=myPlan->begin(); i!=myPlan->end(); ++i) {
+        (*i)->tripInfoOutput(os);
+    }
 }
 
 

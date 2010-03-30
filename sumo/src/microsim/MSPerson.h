@@ -251,11 +251,18 @@ public:
     /// Returns the desired departure time.
     SUMOTime getDesiredDepart() const throw();
 
+    /// logs end of the step
+    void setDeparted(SUMOTime now);
+
     /// Returns the current destination.
     const MSEdge &getDestination() const;
 
-    /// Returns the current destination.
-    const MSPersonPlan &getPlan() const;
+    /** @brief Called on writing tripinfo output
+     *
+     * @param[in] os The stream to write the information into
+     * @exception IOError not yet implemented
+     */
+    void tripInfoOutput(OutputDevice &os) const throw(IOError);
 
     /// Whether the person waits for a vehicle of the line specified.
     bool isWaitingFor(const std::string &line) const;
