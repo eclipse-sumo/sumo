@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 12/08/09 18:05:22 by SUMO netconvert Version dev-SVN-r8079
+<!-- generated on 03/30/10 06:33:12 by SUMO netconvert Version dev-SVN-r8525
 <configuration>
 
     <input>
@@ -44,9 +44,9 @@
 
    <edge id="1si" from="m1" to="0" priority="3" type="" function="normal">
       <lanes>
-         <lane id="1si_0" depart="1" maxspeed="13.89" length="237.14" shape="199751.52,-8.25 199988.66,-8.25"/>
-         <lane id="1si_1" depart="0" maxspeed="13.89" length="237.14" shape="199751.52,-4.95 199988.66,-4.95"/>
-         <lane id="1si_2" depart="0" maxspeed="13.89" length="237.14" shape="199751.52,-1.65 199988.66,-1.65"/>
+         <lane id="1si_0" depart="1" maxspeed="13.89" length="237.16" shape="199751.50,-8.25 199988.66,-8.25"/>
+         <lane id="1si_1" depart="0" maxspeed="13.89" length="237.16" shape="199751.50,-4.95 199988.66,-4.95"/>
+         <lane id="1si_2" depart="0" maxspeed="13.89" length="237.16" shape="199751.50,-1.65 199988.66,-1.65"/>
       </lanes>
    </edge>
 
@@ -59,22 +59,22 @@
 
    <edge id="2o" from="0" to="2" priority="1" type="" function="normal">
       <lanes>
-         <lane id="2o_0" depart="1" maxspeed="11.11" length="488.63" shape="200011.38,-1.65 200500.00,-1.65"/>
+         <lane id="2o_0" depart="1" maxspeed="11.11" length="488.66" shape="200011.34,-1.65 200500.00,-1.65"/>
       </lanes>
    </edge>
 
    <edge id="2si" from="m2" to="0" priority="3" type="" function="normal">
       <lanes>
-         <lane id="2si_0" depart="1" maxspeed="13.89" length="237.13" shape="200248.50,8.25 200011.38,8.25"/>
-         <lane id="2si_1" depart="0" maxspeed="13.89" length="237.13" shape="200248.50,4.95 200011.38,4.95"/>
-         <lane id="2si_2" depart="0" maxspeed="13.89" length="237.13" shape="200248.50,1.65 200011.38,1.65"/>
+         <lane id="2si_0" depart="1" maxspeed="13.89" length="237.16" shape="200248.50,8.25 200011.34,8.25"/>
+         <lane id="2si_1" depart="0" maxspeed="13.89" length="237.16" shape="200248.50,4.95 200011.34,4.95"/>
+         <lane id="2si_2" depart="0" maxspeed="13.89" length="237.16" shape="200248.50,1.65 200011.34,1.65"/>
       </lanes>
    </edge>
 
    <edge id="3fi" from="3" to="m3" priority="2" type="" function="normal">
       <lanes>
-         <lane id="3fi_0" depart="1" maxspeed="11.11" length="248.49" shape="200004.95,-500.00 200004.95,-251.50"/>
-         <lane id="3fi_1" depart="0" maxspeed="11.11" length="248.49" shape="200001.66,-499.98 200001.66,-251.50"/>
+         <lane id="3fi_0" depart="1" maxspeed="11.11" length="248.50" shape="200004.95,-500.00 200004.95,-251.50"/>
+         <lane id="3fi_1" depart="0" maxspeed="11.11" length="248.50" shape="200001.66,-500.00 200001.66,-251.50"/>
       </lanes>
    </edge>
 
@@ -193,15 +193,15 @@
 
 
 
-   <junction id="0" type="priority" x="200000.00" y="0.00" incLanes="4si_0 4si_1 4si_2 2si_0 2si_1 2si_2 3si_0 3si_1 3si_2 1si_0 1si_1 1si_2" intLanes="" shape="199990.16,11.35 200003.25,11.35 200011.36,9.85 200011.36,-3.25 200009.84,-11.35 199996.75,-11.35 199988.66,-9.85 199988.66,3.25"/>
+   <junction id="0" type="priority" x="200000.00" y="0.00" incLanes="4si_0 4si_1 4si_2 2si_0 2si_1 2si_2 3si_0 3si_1 3si_2 1si_0 1si_1 1si_2" intLanes="" shape="199990.16,11.35 200003.25,11.35 200011.34,9.85 200011.34,-3.25 200009.84,-11.35 199996.75,-11.35 199988.66,-9.85 199988.66,3.25"/>
 
    <junction id="1" type="priority" x="199500.00" y="0.00" incLanes="1o_0" intLanes="" shape="199500.00,-0.05 199500.00,-6.55 199500.00,3.25 199500.00,0.05"/>
 
    <junction id="2" type="priority" x="200500.00" y="0.00" incLanes="2o_0" intLanes="" shape="200500.00,0.05 200500.00,6.55 200500.00,-3.25 200500.00,-0.05"/>
 
-   <junction id="3" type="priority" x="200000.00" y="-500.00" incLanes="3o_0" intLanes="" shape="200000.06,-500.00 200006.55,-500.00 199996.75,-500.00 199999.95,-500.00"/>
+   <junction id="3" type="priority" x="200000.00" y="-500.00" incLanes="3o_0" intLanes="" shape="200000.06,-500.00 200006.55,-500.00 199996.75,-500.00 199999.94,-500.00"/>
 
-   <junction id="4" type="priority" x="200000.00" y="500.00" incLanes="4o_0" intLanes="" shape="199999.95,500.00 199993.45,500.00 200003.25,500.00 200000.06,500.00"/>
+   <junction id="4" type="priority" x="200000.00" y="500.00" incLanes="4o_0" intLanes="" shape="199999.94,500.00 199993.45,500.00 200003.25,500.00 200000.06,500.00"/>
 
    <junction id="m1" type="priority" x="199750.00" y="0.00" incLanes="1fi_0 1fi_1" intLanes="" shape="199751.50,-0.05 199751.50,-9.85 199748.50,-6.55 199748.50,-0.05"/>
 
