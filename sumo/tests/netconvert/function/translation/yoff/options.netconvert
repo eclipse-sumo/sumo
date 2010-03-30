@@ -1,2 +1,1 @@
---no-internal-links -v --xml-edge-files=input_edges.edg.xml --xml-node-files=input_nodes.nod.xml --output-file=net.net.xml
---y-offset-to-apply 100
+--no-internal-links -v --xml-edge-files=input_edges.edg.xml --xml-node-files=input_nodes.nod.xml --output-file=net.net.xml --y-offset-to-apply 100
