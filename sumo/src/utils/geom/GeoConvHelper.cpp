@@ -120,7 +120,7 @@ GeoConvHelper::init(OptionsCont &oc) {
         ret = init(oc.getString("proj"), oc.getInt("proj.shift"), oc.getBool("proj.inverse"));
     }
 #endif
-    if (!oc.exists("disable-normalize-node-positions") || oc.getBool("disable-normalize-node-positions")) {
+    if (!oc.exists("disable-normalize-node-positions") || oc.getBool("disable-normalize-node-positions") || !oc.isDefault("x-offset-to-apply") || !oc.isDefault("y-offset-to-apply")) {
         myBaseFound = true;
     }
     return ret;
