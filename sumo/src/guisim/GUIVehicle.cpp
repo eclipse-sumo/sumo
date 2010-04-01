@@ -394,6 +394,7 @@ drawAction_drawVehicleAsBoxPlus(const GUIVehicle &veh, SUMOReal upscale) {
 
 void
 drawPoly(double *poses, SUMOReal offset) {
+    glPushMatrix();
     glTranslated(0, 0, offset*.01);
     glPolygonOffset(0, offset);
     glBegin(GL_TRIANGLE_FAN);
@@ -403,7 +404,7 @@ drawPoly(double *poses, SUMOReal offset) {
         i = i + 2;
     }
     glEnd();
-    glTranslated(0, 0, -offset*.01);
+    glPopMatrix();
 }
 
 
@@ -817,6 +818,14 @@ drawAction_drawVehicleName(const GUIVehicle &veh, SUMOReal size) {
 
 void
 GUIVehicle::drawGL(const GUIVisualizationSettings &s) const throw() {
+    glPushMatrix();
+    Position2D p1 = myLane->getShape().positionAtLengthPosition(myState.pos());
+    Position2D p2 = myFurtherLanes.size()>0 
+        ? myFurtherLanes.front()->getShape().positionAtLengthPosition(myFurtherLanes.front()->getPartialOccupatorEnd())
+        : myLane->getShape().positionAtLengthPosition(myState.pos()-myType->getLength());
+    glTranslated(p1.x(), p1.y(), 0);
+    glRotated(atan2(p1.x()-p2.x(), p2.y()-p1.y())*180./PI, 0, 0, 1);
+
     glTranslated(0, 0, -.04);
     // set lane color
     s.vehicleColorer.setGlColor(*this);
@@ -913,7 +922,9 @@ GUIVehicle::drawGL(const GUIVisualizationSettings &s) const throw() {
     if (s.needsGlID) {
         glPopName();
     }
+    glPopMatrix();
 }
+
 
 const std::vector<MSVehicle::LaneQ> &
 GUIVehicle::getBestLanes() const throw() {

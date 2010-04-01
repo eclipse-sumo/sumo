@@ -460,29 +460,8 @@ GUILaneWrapper::drawGL(const GUIVisualizationSettings &s) const throw() {
     if (s.scale>s.minVehicleSize) {
         // retrieve vehicles from lane; disallow simulation
         const MSLane::VehCont &vehicles = myLane.getVehiclesSecure();
-        const Position2D &laneBeg = myShape[0];
-
-        glPushMatrix();
-        glTranslated(laneBeg.x(), laneBeg.y(), 0);
-        glRotated(myShapeRotations[0], 0, 0, 1);
-        // go through the vehicles
-        int shapePos = 0;
-        SUMOReal positionOffset = 0;
         for (MSLane::VehCont::const_iterator v=vehicles.begin(); v!=vehicles.end(); ++v) {
-            const GUIVehicle * const veh = static_cast<const GUIVehicle*const>(*v);
-            SUMOReal vehiclePosition = veh->getPositionOnLane();
-            while (shapePos<(int)myShapeRotations.size()-1 && vehiclePosition>positionOffset+myShapeLengths[shapePos]) {
-                glPopMatrix();
-                positionOffset += myShapeLengths[shapePos];
-                shapePos++;
-                glPushMatrix();
-                glTranslated(myShape[shapePos].x(), myShape[shapePos].y(), 0);
-                glRotated(myShapeRotations[shapePos], 0, 0, 1);
-            }
-            glPushMatrix();
-            glTranslated(0, -(vehiclePosition-positionOffset), 0);
-            veh->drawGL(s);
-            glPopMatrix();
+            static_cast<const GUIVehicle*const>(*v)->drawGL(s);
         }
         // allow lane simulation
         myLane.releaseVehicles();
