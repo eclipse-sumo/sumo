@@ -198,7 +198,7 @@ GUICompleteSchemeStorage::writeSettings(FXApp *app) throw() {
         item.save(dev);
         std::string content = dev.getString();
         app->reg().writeIntEntry(sname.c_str(), "xmlSize", content.size());
-        const unsigned maxSize = 1900; // this is a fox limitation for windows registry entries
+        const unsigned maxSize = 1500; // this is a fox limitation for registry entries
         for (unsigned int i = 0; i < content.size(); i+=maxSize) {
             const std::string b = content.substr(i, maxSize);
             app->reg().writeStringEntry(sname.c_str(), ("xml" + toString(i/maxSize)).c_str(), b.c_str());
