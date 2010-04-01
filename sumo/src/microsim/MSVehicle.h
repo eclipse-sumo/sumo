@@ -1022,6 +1022,10 @@ protected:
     /// @brief The current acceleration before dawdling
     SUMOReal myPreDawdleAcceleration;
 
+    /// @brief The information into which lanes the vehicle laps into
+    std::vector<MSLane*> myFurtherLanes;
+
+
 private:
     /// @brief The devices this vehicle has
     std::vector<MSDevice*> myDevices;
@@ -1115,9 +1119,6 @@ private:
 
     /// @brief The vehicle's knowledge about edge efforts/travel times; @see MSEdgeWeightsStorage
     MSEdgeWeightsStorage *myEdgeWeights;
-
-    /// @brief The information into which lanes the vehicle laps into
-    std::vector<MSLane*> myFurtherLanes;
 
 
 #ifndef NO_TRACI
