@@ -1207,20 +1207,19 @@ MSVehicle::vsafeCriticalCont(SUMOTime t, SUMOReal boundVSafe, SUMOReal lengthsIn
             checkRewindLinkLanes(lengthsInFront);
             return;
         }
-        // valid, when a vehicle is not on a priorised lane
+        // behaviour in front of not priorised intersections (waiting for priorised foe vehicles)
         bool setRequest = false;
         if (!(*link)->havePriority()) {
-            // if it has already decelerated to let priorised vehicles pass
-            //  and when the distance to the vehicle on the next lane allows moving
-            //  (the check whether other incoming vehicles may stop this one is done later)
-            // then let it pass
-            if ((*link)->getState()!=MSLink::LINKSTATE_TL_RED&&(myState.mySpeed<ACCEL2SPEED(myType->getMaxDecel())||seen<getCarFollowModel().approachingBrakeGap(myState.mySpeed))/*&&r_dist2Pred>0*/) {
-                vLinkPass = MIN3(vLinkPass, getCarFollowModel().maxNextSpeed(myState.mySpeed), myLane->getMaxSpeed());
-                setRequest = true;
-            } else {
-                // let it wait in the other cases
-                vLinkPass = vLinkWait;
-            }
+            // The vehicle may pass if it already has passed the decision point which is at 
+			//  distanceToIntersection("seen") == approachingBrakeGap with speed==maxDeceleration*2. == maxDeceleration
+			//  Note that we use the maximum deceleration ability as speed information (no conversion from m/s/s to m/s is necessary)
+			//  Also, after reaching this point, the speed should not be reduced
+			// Up to this time it is decelearating in order to watch out for foe traffic
+			if((*link)->getState()==MSLink::LINKSTATE_TL_RED||(seen>myType->getMaxDecel()&&myState.mySpeed>myType->getMaxDecel())) {
+				vLinkPass = vLinkWait;
+			} else {
+				vLinkPass = MIN4(vLinkPass, getCarFollowModel().maxNextSpeed(myState.mySpeed), myLane->getMaxSpeed(), myType->getMaxDecel());
+			}
         }
         // process stops
         if (!myStops.empty()&& &myStops.begin()->lane->getEdge()==&nextLane->getEdge()) {
