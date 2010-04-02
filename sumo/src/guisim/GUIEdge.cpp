@@ -142,7 +142,9 @@ GUIEdge::fill(std::vector<GUIEdge*> &netsWrappers) {
     size_t size = MSEdge::dictSize();
     netsWrappers.reserve(size);
     for (DictType::iterator i=myDict.begin(); i!=myDict.end(); ++i) {
-        netsWrappers.push_back(static_cast<GUIEdge*>((*i).second));
+        if (i->second->getPurpose() != MSEdge::EDGEFUNCTION_DISTRICT) {
+            netsWrappers.push_back(static_cast<GUIEdge*>((*i).second));
+        }
     }
 }
 
