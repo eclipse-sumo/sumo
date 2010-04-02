@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 03/18/10 13:42:35 by SUMO sumo Version dev-SVN-r8460
+<!-- generated on 04/02/10 11:42:26 by SUMO sumo Version dev-SVN-r8487
 <configuration>
 
     <input>
@@ -49,7 +49,7 @@
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="emitter_60.00_3" depart="60" arrival="241.00">
+    <vehicle id="emitter_60.00_3" depart="60" arrival="245.00">
         <routeDistribution>
             <route replacedOnEdge="beg" replacedAtTime="60.00" probability="0" edges="beg middle end rend"/>
             <route edges="beg beg2left left left2end end rend"/>
@@ -60,14 +60,14 @@
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="emitter_80.00_4" depart="80" arrival="261.00">
+    <vehicle id="emitter_80.00_4" depart="80" arrival="265.00">
         <routeDistribution>
             <route replacedOnEdge="beg" replacedAtTime="80.00" probability="0" edges="beg middle end rend"/>
             <route edges="beg beg2left left left2end end rend"/>
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="emitter_100.00_5" depart="100" arrival="281.00">
+    <vehicle id="emitter_100.00_5" depart="100" arrival="285.00">
         <routeDistribution>
             <route replacedOnEdge="beg" replacedAtTime="100.00" probability="0" edges="beg middle end rend"/>
             <route edges="beg beg2left left left2end end rend"/>
