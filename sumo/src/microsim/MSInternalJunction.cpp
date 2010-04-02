@@ -65,24 +65,24 @@ void
 MSInternalJunction::postloadInit() throw(ProcessError) {
     // inform links where they have to report approaching vehicles to
     unsigned int requestPos = 0;
-    if (myIncomingLanes.size()!=0) {
-        // for the first incoming lane
-        const MSLinkCont &links = myIncomingLanes[0]->getLinkCont();
-        // ... set information for every link
-        for (MSLinkCont::const_iterator j=links.begin(); j!=links.end(); j++) {
-            (*j)->setRequestInformation(this, &myRequest, &myNewRequest, requestPos,
-                                        &myRespond, requestPos,
-                                        MSLogicJunction::LinkFoes(), true, false);
-            requestPos++;
-        }
-    }
-    myNewRequest = std::vector<LinkApproachingVehicles>(requestPos);
     myInternalLaneFoes = myInternalLanes;
     for (std::vector<MSLane*>::const_iterator i=myIncomingLanes.begin()+1; i!=myIncomingLanes.end(); ++i) {
         MSLane *l = *i;
         const MSLinkCont &lc = l->getLinkCont();
         for (MSLinkCont::const_iterator j=lc.begin(); j!=lc.end(); ++j) {
             myInternalLinkFoes.push_back(*j);
+        }
+    }
+    if (myIncomingLanes.size()!=0) {
+        // for the first incoming lane
+        const MSLinkCont &links = myIncomingLanes[0]->getLinkCont();
+        // ... set information for every link
+        for (MSLinkCont::const_iterator j=links.begin(); j!=links.end(); j++) {
+            (*j)->setRequestInformation(&myRequest, requestPos,
+                                        &myRespond, requestPos,
+                                        MSLogicJunction::LinkFoes(), true, false,
+										myInternalLinkFoes, myInternalLaneFoes);
+            requestPos++;
         }
     }
 }
@@ -120,7 +120,7 @@ MSInternalJunction::setAllowed() {
             if (find(myInternalLanes.begin(), myInternalLanes.end(), (*j)->getViaLane())!=myInternalLanes.end()) {
                 bool approached = foe!=0&&(*j)->getApproaching()==foe;
                 approached |= ((*j)->getViaLane()!=0&&!(*j)->getViaLane()->empty());
-                if (approached&&((*j)->opened(MSNet::getInstance()->getCurrentTimeStep(), 0, 0)||(*j)->havePriority())) {
+                if (approached&&((*j)->opened(0, 0)||(*j)->havePriority())) {
                     myRespond.set(0, false);
                     return true;
                 }

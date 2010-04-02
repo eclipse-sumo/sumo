@@ -78,7 +78,6 @@ MSRightOfWayJunction::~MSRightOfWayJunction() {
 
 void
 MSRightOfWayJunction::postloadInit() throw(ProcessError) {
-    myNewRequest = std::vector<LinkApproachingVehicles>(myLogic->getLogicSize());
     // inform links where they have to report approaching vehicles to
     unsigned int requestPos = 0;
     std::vector<MSLane*>::iterator i;
@@ -108,11 +107,9 @@ MSRightOfWayJunction::postloadInit() throw(ProcessError) {
             const MSLogicJunction::LinkFoes &foeLinks = myLogic->getFoesFor(requestPos);
             const std::bitset<64> &internalFoes = myLogic->getInternalFoesFor(requestPos);
             bool cont = myLogic->getIsCont(requestPos);
-            (*j)->setRequestInformation(this, &myRequest, &myNewRequest, requestPos, &myRespond, requestPos, 
-                foeLinks, isCrossing, cont);
             myLinkFoeLinks[*j] = std::vector<MSLink*>();
             for(unsigned int c=0; c<maxNo; ++c) {
-                if(foeLinks.test(c)/*&&*i!=sortedLinks[c].first*/) {
+                if(foeLinks.test(c)) {
                     myLinkFoeLinks[*j].push_back(sortedLinks[c].second);
                 }
             }
@@ -122,6 +119,8 @@ MSRightOfWayJunction::postloadInit() throw(ProcessError) {
                     myLinkFoeInternalLanes[*j].push_back(myInternalLanes[c]);
                 }
             }
+            (*j)->setRequestInformation(&myRequest, requestPos, &myRespond, requestPos, 
+                foeLinks, isCrossing, cont, myLinkFoeLinks[*j], myLinkFoeInternalLanes[*j]);
             requestPos++;
         }
     }

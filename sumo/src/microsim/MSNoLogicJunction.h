@@ -103,7 +103,6 @@ private:
         set to true for all links.
         This dump is also used as the mask for incoming non-first vehicles */
     static std::bitset<64> myDump;
-    std::vector<LinkApproachingVehicles> myNewRequest;
 
 };
 

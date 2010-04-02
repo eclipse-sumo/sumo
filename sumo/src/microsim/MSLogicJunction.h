@@ -103,7 +103,6 @@ protected:
 #endif
     /** Current request. */
     Request myRequest;
-    std::vector<LinkApproachingVehicles> myNewRequest;
 
 
     /** Current inner state */

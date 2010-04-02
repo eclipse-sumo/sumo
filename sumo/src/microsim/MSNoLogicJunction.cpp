@@ -84,18 +84,17 @@ MSNoLogicJunction::postloadInit() throw(ProcessError) {
     for (i=myIncomingLanes.begin(); i!=myIncomingLanes.end(); ++i) {
         const MSLinkCont &links = (*i)->getLinkCont();
         for (MSLinkCont::const_iterator j=links.begin(); j!=links.end(); j++) {
-            (*j)->setRequestInformation(this, &myDump, &myNewRequest, 0, &myDump, 0, MSLogicJunction::LinkFoes(), false, false);
+            (*j)->setRequestInformation(&myDump, 0, &myDump, 0, MSLogicJunction::LinkFoes(), false, false,
+				std::vector<MSLink*>(), std::vector<MSLane*>());
         }
     }
 #ifdef HAVE_INTERNAL_LANES
     // set information for the internal lanes
     for (i=myInternalLanes.begin(); i!=myInternalLanes.end(); ++i) {
         // ... set information about participation
-        static_cast<MSInternalLane*>(*i)->setParentJunctionInformation(
-            &myDump, 0);
+        static_cast<MSInternalLane*>(*i)->setParentJunctionInformation(&myDump, 0);
     }
 #endif
-    myNewRequest = std::vector<LinkApproachingVehicles>(1);
 }
 
 

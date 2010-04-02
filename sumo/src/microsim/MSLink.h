@@ -165,10 +165,10 @@ public:
      * @param[in] foes This link's foes
      * @todo Unsecure!
      */
-    void setRequestInformation(MSJunction *junction, 
-        MSLogicJunction::Request *request, std::vector<MSJunction::LinkApproachingVehicles> *newRequest, unsigned int requestIdx,
+    void setRequestInformation(MSLogicJunction::Request *request, unsigned int requestIdx,
         MSLogicJunction::Respond *respond, unsigned int respondIdx,
-        const MSLogicJunction::LinkFoes &foes, bool isCrossing, bool isCont) throw();
+        const MSLogicJunction::LinkFoes &foes, bool isCrossing, bool isCont,
+		const std::vector<MSLink*> &foeLinks, const std::vector<MSLane*> &foeLanes) throw();
 
 
     /** @brief Sets the information about an approaching vehicle
@@ -209,9 +209,9 @@ public:
      *
      * @return Whether this link may be passed.
      */
-    bool opened(SUMOTime t, SUMOTime arrivalTime, SUMOReal arrivalSpeed) const throw();
+    bool opened(SUMOTime arrivalTime, SUMOReal arrivalSpeed) const throw();
 
-    bool blockedAtTime(SUMOTime t, SUMOTime arrivalTime, SUMOTime leaveTime) const throw();
+    bool blockedAtTime(SUMOTime arrivalTime, SUMOTime leaveTime) const throw();
 
 
     /** @brief Returns the information whether a vehicle is approaching on one of the link's foe streams
@@ -220,7 +220,7 @@ public:
      *
      * @return Whether a foe of this link is approaching
      */
-    bool hasApproachingFoe() const throw();
+    bool hasApproachingFoe(SUMOTime arrivalTime, SUMOTime leaveTime) const throw();
 
 
     /** @brief Removes the incoming vehicle's request
@@ -323,7 +323,7 @@ private:
 
     /// @brief The request to set incoming request into
     MSLogicJunction::Request *myRequest;
-    std::vector<MSJunction::LinkApproachingVehicles> *myNewRequest;
+    MSJunction::LinkApproachingVehicles myApproachingVehicles;
 
     /// @brief The position of the link within this request
     unsigned int myRequestIdx;
@@ -349,8 +349,6 @@ private:
     /// @brief Whether any foe links exist
     bool myIsCrossing;
 
-    MSJunction *myJunction;
-
     bool myAmCont;
 
 #ifdef HAVE_INTERNAL_LANES
@@ -360,6 +358,9 @@ private:
     /// @brief Information whether this link is followed by a second junction-internal link
     bool myIsInternalEnd;
 #endif
+
+	std::vector<MSLink*> myFoeLinks;
+	std::vector<MSLane*> myFoeLanes;
 
 
 private:
