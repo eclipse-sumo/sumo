@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 04/02/10 11:42:49 by SUMO sumo Version dev-SVN-r8487
+<!-- generated on 04/02/10 15:12:59 by SUMO sumo Version dev-SVN-r8487
 <configuration>
 
     <input>
@@ -33,31 +33,31 @@
         <route edges="beg beg2left left left2end end rend"/>
     </vehicle>
 
-    <vehicle id="emitter_3.00_3" depart="7" arrival="197.00">
+    <vehicle id="emitter_3.00_3" depart="7" arrival="195.00">
         <route edges="beg beg2left left left2end end rend"/>
     </vehicle>
 
-    <vehicle id="emitter_4.00_4" depart="10" arrival="200.00">
+    <vehicle id="emitter_4.00_4" depart="10" arrival="199.00">
         <route edges="beg beg2left left left2end end rend"/>
     </vehicle>
 
-    <vehicle id="emitter_5.00_5" depart="12" arrival="203.00">
+    <vehicle id="emitter_5.00_5" depart="12" arrival="200.00">
         <route edges="beg beg2left left left2end end rend"/>
     </vehicle>
 
-    <vehicle id="emitter_6.00_6" depart="15" arrival="205.00">
+    <vehicle id="emitter_6.00_6" depart="15" arrival="204.00">
         <route edges="beg beg2left left left2end end rend"/>
     </vehicle>
 
-    <vehicle id="emitter_7.00_7" depart="17" arrival="208.00">
+    <vehicle id="emitter_7.00_7" depart="17" arrival="205.00">
         <route edges="beg beg2left left left2end end rend"/>
     </vehicle>
 
-    <vehicle id="emitter_8.00_8" depart="20" arrival="211.00">
+    <vehicle id="emitter_8.00_8" depart="20" arrival="209.00">
         <route edges="beg beg2left left left2end end rend"/>
     </vehicle>
 
-    <vehicle id="emitter_9.00_9" depart="22" arrival="214.00">
+    <vehicle id="emitter_9.00_9" depart="22" arrival="210.00">
         <route edges="beg beg2left left left2end end rend"/>
     </vehicle>
 
