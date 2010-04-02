@@ -630,13 +630,15 @@ public:
 
 
 
-    /** @brief returns the number of steps waited
-        A vehicle is meant to be "waiting" when it's speed is less than 0.1
-        It is only computed for "critical" vehicles
-        The method return a size_t, now, as we assume a vehicle will not wait for
-        longer than about 50 hours which still fits into a size_t when the simulation
-        runs in ms */
-    unsigned int getWaitingTime() const;
+    /** @brief Returns the number of steps waited (speed was lesser than 0.1m/s)
+	 *
+	 * The value is reset if the vehicle moves faster than 0.1m/s
+	 * @return The time the vehicle is standing
+	 */
+	SUMOReal getWaitingTime() const throw() {
+		return myWaitingTime;
+	}
+
 
 
     void rebuildAllowedLanes(bool reinit=true);
@@ -954,21 +956,14 @@ protected:
     MSVehicle(SUMOVehicleParameter* pars, const MSRoute* route,
               const MSVehicleType* type, int vehicleIndex) throw(ProcessError);
 
-    /// information how long ago the vehicle has performed a lane-change
-    unsigned int myLastLaneChangeOffset;
-
-    /// the lane, the vehicle will be within the next time step
+	/// @brief the lane, the vehicle will be within the next time step (0 if the vehicle stays on the same it was before)
     MSLane *myTarget;
 
-    /** @brief The time the vehicle waits
-        This is the number of simulation steps the vehicle was not faster than 0.1m/s
-        It's a size_t, now, as we assume a vehicle will not wait for
-        longer than about 50 hours which still fits into a size_t when the simulation
-        runs in ms */
-    unsigned int myWaitingTime;
+    /// @brief information how long ago the vehicle has performed a lane-change
+    SUMOReal myLastLaneChangeOffset;
 
-    // The time the vehicle waits, may mean the same like myWaitingTime
-    int timeSinceStop;
+    /// @brief The time the vehicle waits (is not faster than 0.1m/s) in seconds
+    SUMOReal myWaitingTime;
 
 #ifdef _MESSAGES
     /// The message emitters

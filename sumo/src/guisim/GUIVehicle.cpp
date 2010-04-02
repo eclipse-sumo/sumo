@@ -212,12 +212,6 @@ GUIVehicle::~GUIVehicle() throw() {
 }
 
 
-SUMOReal
-GUIVehicle::getTimeSinceLastLaneChangeAsReal() const {
-    return (SUMOReal) myLastLaneChangeOffset;
-}
-
-
 GUIGLObjectPopupMenu *
 GUIVehicle::getPopUpMenu(GUIMainWindow &app,
                          GUISUMOAbstractView &parent) throw() {
@@ -271,9 +265,9 @@ GUIVehicle::getParameterWindow(GUIMainWindow &app,
         ret->mkItem("emission period [s]", false, (SUMOTime) getParameter().repetitionOffset);
     }
     ret->mkItem("waiting time [s]", true,
-                new CastingFunctionBinding<MSVehicle, SUMOReal, unsigned int>(this, &MSVehicle::getWaitingTime));
+                new FunctionBinding<GUIVehicle, SUMOReal>(this, &MSVehicle::getWaitingTime));
     ret->mkItem("last lane change [s]", true,
-                new CastingFunctionBinding<GUIVehicle, SUMOReal, unsigned int>(this, &GUIVehicle::getLastLaneChangeOffset));
+                new FunctionBinding<GUIVehicle, SUMOReal>(this, &GUIVehicle::getLastLaneChangeOffset));
     ret->mkItem("desired depart [s]", false, getDesiredDepart());
     ret->mkItem("position [m]", true,
                 new FunctionBinding<GUIVehicle, SUMOReal>(this, &GUIVehicle::getPositionOnLane));
@@ -314,12 +308,6 @@ GUIVehicle::active() const throw() {
 void
 GUIVehicle::setRemoved() {
     myLane = 0;
-}
-
-
-unsigned int
-GUIVehicle::getLastLaneChangeOffset() const {
-    return myLastLaneChangeOffset;
 }
 
 

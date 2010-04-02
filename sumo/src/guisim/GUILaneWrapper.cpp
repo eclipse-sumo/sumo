@@ -610,7 +610,7 @@ SUMOReal
 GUILaneWrapper::firstWaitingTime() const {
     return myLane.myVehicles.size()==0
            ? 0
-           : (SUMOReal)(*(myLane.myVehicles.end()-1))->getWaitingTime();
+           : (*(myLane.myVehicles.end()-1))->getWaitingTime();
 }
 
 

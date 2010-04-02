@@ -277,7 +277,7 @@ MSLaneChanger::change() {
     }
     // Candidate didn't change lane.
     myCandi->lane->myTmpVehicles.push_front(veh(myCandi));
-    vehicle->myLastLaneChangeOffset++;
+    vehicle->myLastLaneChangeOffset += DELTA_T;
     (myCandi)->dens += vehicle->getVehicleType().getLength();
     return false;
 }

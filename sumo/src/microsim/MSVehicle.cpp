@@ -1078,7 +1078,7 @@ MSVehicle::checkRewindLinkLanes(SUMOReal lengthsInFront) throw() {
             // - we must have seen at least as much place as the vehicle would need
             // - the seen space must be enough for our vehicle
             // - we should have seen at least one non-internal lane before
-            SUMOReal impatienceCorrection = MAX2(SUMOReal(0), SUMOReal(SUMOReal(myWaitingTime)));
+            SUMOReal impatienceCorrection = MAX2(SUMOReal(0), myWaitingTime);
             if (hadVehicle&&seenLanes>getVehicleType().getLength()&&seenSpace<getVehicleType().getLength()-impatienceCorrection/10.&&nextSeenNonInternal!=0) {
                 removalBegin = lastLinkToInternal;
             }
@@ -1235,13 +1235,8 @@ MSVehicle::vsafeCriticalCont(SUMOTime t, SUMOReal boundVSafe, SUMOReal lengthsIn
         //  should want to move over an intersection even though it could brake before it!?
         setRequest &= dist-seen>0;//getCarFollowModel().brakeGap(vLinkPass);
         myLFLinkLanes.push_back(DriveProcessItem(*link, vLinkPass, vLinkWait, setRequest));
-        if (vLinkPass>0&&dist-seen>0) {
-        } else if (hadNonInternal) {
-            checkRewindLinkLanes(lengthsInFront);
-            return;
-        }
         seen += nextLane->getLength();
-        if (seen>dist&&hadNonInternal) {
+        if ((vLinkPass<=0||seen>dist)&&hadNonInternal) {
             checkRewindLinkLanes(lengthsInFront);
             return;
         }
@@ -1470,12 +1465,6 @@ MSVehicle::getLaneChangeModel() {
 const MSAbstractLaneChangeModel &
 MSVehicle::getLaneChangeModel() const {
     return *myLaneChangeModel;
-}
-
-
-unsigned int
-MSVehicle::getWaitingTime() const {
-    return myWaitingTime;
 }
 
 
@@ -1814,12 +1803,12 @@ MSVehicle::writeXMLRoute(OutputDevice &os, int index) const {
 void
 MSVehicle::saveState(std::ostream &os) {
     FileHelpers::writeString(os, myParameter->id);
-    FileHelpers::writeInt(os, myLastLaneChangeOffset);
-    FileHelpers::writeUInt(os, myWaitingTime);
+    FileHelpers::writeFloat(os, myLastLaneChangeOffset);
+    FileHelpers::writeFloat(os, myWaitingTime);
     FileHelpers::writeInt(os, myParameter->repetitionNumber);
-    FileHelpers::writeInt(os, myParameter->repetitionOffset);
+    FileHelpers::writeFloat(os, myParameter->repetitionOffset);
     FileHelpers::writeString(os, myRoute->getID());
-    FileHelpers::writeUInt(os, myParameter->depart); // !!! SUMOTime
+    FileHelpers::writeFloat(os, myParameter->depart); // !!! SUMOTime
     FileHelpers::writeString(os, myType->getID());
     FileHelpers::writeUInt(os, myRoute->posInRoute(myCurrEdge));
     if (hasCORNIntValue(MSCORN::CORN_VEH_DEPART_TIME)) {

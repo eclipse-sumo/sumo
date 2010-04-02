@@ -162,14 +162,17 @@ public:
     //@}
 
 
-    /** returns a color that describes how long ago the vehicle has
-        changed the lane (is white after a lane change and becomes darker
-        with each timestep */
-    SUMOReal getTimeSinceLastLaneChangeAsReal() const;
-
     void setRemoved();
 
-    unsigned int getLastLaneChangeOffset() const;
+
+	/** @brief Returns the time since the last lane change
+	 * @see MSVehicle::myLastLaneChangeOffset
+	 * @return The time since the last lane change
+	 */
+	SUMOReal getLastLaneChangeOffset() const throw() {
+		return myLastLaneChangeOffset;
+	}
+
 
     /** @brief Returns the description of best lanes to use in order to continue the route
      *

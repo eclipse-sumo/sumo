@@ -373,15 +373,15 @@ MSVehicleControl::loadState(BinaryInputDevice &bis) throw() {
     while (size-->0) {
         SUMOVehicleParameter* p = new SUMOVehicleParameter();
         bis >> p->id;
-        SUMOTime lastLaneChangeOffset;
-        bis >> lastLaneChangeOffset; // !!! check type= FileHelpers::readInt(os);
-        unsigned int waitingTime;
+        SUMOReal lastLaneChangeOffset;
+        bis >> lastLaneChangeOffset;
+        SUMOReal waitingTime;
         bis >> waitingTime;
         bis >> p->repetitionNumber;
         bis >> p->repetitionOffset;
         bis >> p->routeid;
         const MSRoute* route;
-        unsigned int desiredDepart; // !!! SUMOTime
+        SUMOReal desiredDepart;
         bis >> desiredDepart;
         if (OptionsCont::getOptions().isSet("load-state.offset")) {
             SUMOReal offset = OptionsCont::getOptions().getFloat("load-state.offset");
