@@ -83,12 +83,25 @@ public:
 
     void postloadInit() throw(ProcessError);
 
+    const std::vector<MSLink*> &getFoeLinks(const MSLink *const srcLink) const throw() {
+        return myLinkFoeLinks.find((MSLink*) srcLink)->second;
+    }
+
+    const std::vector<MSLane*> &getFoeInternalLanes(const MSLink *const srcLink) const throw() {
+        return myLinkFoeInternalLanes.find((MSLink*) srcLink)->second;
+    }
+
+
 protected:
     /// Search for deadlock-situations and eleminate them.
     virtual void deadlockKiller();
 
     /** the type of the junction (its logic) */
     MSJunctionLogic* myLogic;
+
+    std::map<MSLink*, std::vector<MSLink*> > myLinkFoeLinks;
+    std::map<MSLink*, std::vector<MSLane*> > myLinkFoeInternalLanes;
+    
 
 private:
     /// @brief Invalidated copy constructor.

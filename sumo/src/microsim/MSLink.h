@@ -165,10 +165,10 @@ public:
      * @param[in] foes This link's foes
      * @todo Unsecure!
      */
-    void setRequestInformation(
-        MSLogicJunction::Request *request, unsigned int requestIdx,
+    void setRequestInformation(MSJunction *junction, 
+        MSLogicJunction::Request *request, std::vector<MSJunction::LinkApproachingVehicles> *newRequest, unsigned int requestIdx,
         MSLogicJunction::Respond *respond, unsigned int respondIdx,
-        const MSLogicJunction::LinkFoes &foes, bool isCrossing) throw();
+        const MSLogicJunction::LinkFoes &foes, bool isCrossing, bool isCont) throw();
 
 
     /** @brief Sets the information about an approaching vehicle
@@ -178,8 +178,9 @@ public:
      *
      * @param[in] approaching The approaching vehicle
      */
-    void setApproaching(MSVehicle *approaching) throw();
+    void setApproaching(MSVehicle *approaching, SUMOTime arrivalTime, SUMOReal speed) throw();
 
+    void removeApproaching(MSVehicle *veh);
 
     /** @brief Returns the approaching vehicle
      *
@@ -208,7 +209,9 @@ public:
      *
      * @return Whether this link may be passed.
      */
-    bool opened() const throw();
+    bool opened(SUMOTime t, SUMOTime arrivalTime, SUMOReal arrivalSpeed) const throw();
+
+    bool blockedAtTime(SUMOTime t, SUMOTime arrivalTime, SUMOTime leaveTime) const throw();
 
 
     /** @brief Returns the information whether a vehicle is approaching on one of the link's foe streams
@@ -320,6 +323,7 @@ private:
 
     /// @brief The request to set incoming request into
     MSLogicJunction::Request *myRequest;
+    std::vector<MSJunction::LinkApproachingVehicles> *myNewRequest;
 
     /// @brief The position of the link within this request
     unsigned int myRequestIdx;
@@ -344,6 +348,10 @@ private:
 
     /// @brief Whether any foe links exist
     bool myIsCrossing;
+
+    MSJunction *myJunction;
+
+    bool myAmCont;
 
 #ifdef HAVE_INTERNAL_LANES
     /// @brief The following junction-internal lane if used

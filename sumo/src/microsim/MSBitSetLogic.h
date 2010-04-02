@@ -100,17 +100,17 @@ public:
     }
 
 
-    const Foes &getInternalFoes() const {
-        return *myInternalLinksFoes;
-    }
-
-    const std::bitset<64> &getInternalConts() const {
-        return myConts;
-    }
-
     /// Returns the foes of the given link
     const MSLogicJunction::LinkFoes &getFoesFor(unsigned int linkIndex) const throw() {
         return (*myLogic)[linkIndex];
+    }
+
+    const std::bitset<64> &getInternalFoesFor(unsigned int linkIndex) const throw() {
+        return (*myInternalLinksFoes)[linkIndex];
+    }
+
+    bool getIsCont(unsigned int linkIndex) const throw() {
+        return myConts.test(linkIndex);
     }
 
     virtual bool isCrossing() const throw() {

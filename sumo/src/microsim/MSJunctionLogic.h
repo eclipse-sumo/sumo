@@ -60,6 +60,14 @@ public:
         return myDummyFoes;
     }
 
+    virtual const std::bitset<64> &getInternalFoesFor(unsigned int linkIndex) const throw() {
+        return myDummyFoes;
+    }
+    virtual bool getIsCont(unsigned int linkIndex) const throw() {
+        return false;
+    }
+
+
     unsigned int getLogicSize() const throw() {
         return myNLinks;
     }

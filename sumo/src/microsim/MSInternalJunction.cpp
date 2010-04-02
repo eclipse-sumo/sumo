@@ -70,10 +70,19 @@ MSInternalJunction::postloadInit() throw(ProcessError) {
         const MSLinkCont &links = myIncomingLanes[0]->getLinkCont();
         // ... set information for every link
         for (MSLinkCont::const_iterator j=links.begin(); j!=links.end(); j++) {
-            (*j)->setRequestInformation(&myRequest, requestPos,
+            (*j)->setRequestInformation(this, &myRequest, &myNewRequest, requestPos,
                                         &myRespond, requestPos,
-                                        MSLogicJunction::LinkFoes(), true);
+                                        MSLogicJunction::LinkFoes(), true, false);
             requestPos++;
+        }
+    }
+    myNewRequest = std::vector<LinkApproachingVehicles>(requestPos);
+    myInternalLaneFoes = myInternalLanes;
+    for (std::vector<MSLane*>::const_iterator i=myIncomingLanes.begin()+1; i!=myIncomingLanes.end(); ++i) {
+        MSLane *l = *i;
+        const MSLinkCont &lc = l->getLinkCont();
+        for (MSLinkCont::const_iterator j=lc.begin(); j!=lc.end(); ++j) {
+            myInternalLinkFoes.push_back(*j);
         }
     }
 }
@@ -111,7 +120,7 @@ MSInternalJunction::setAllowed() {
             if (find(myInternalLanes.begin(), myInternalLanes.end(), (*j)->getViaLane())!=myInternalLanes.end()) {
                 bool approached = foe!=0&&(*j)->getApproaching()==foe;
                 approached |= ((*j)->getViaLane()!=0&&!(*j)->getViaLane()->empty());
-                if (approached&&((*j)->opened()||(*j)->havePriority())) {
+                if (approached&&((*j)->opened(MSNet::getInstance()->getCurrentTimeStep(), 0, 0)||(*j)->havePriority())) {
                     myRespond.set(0, false);
                     return true;
                 }

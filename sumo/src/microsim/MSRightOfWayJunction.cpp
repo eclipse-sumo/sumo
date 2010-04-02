@@ -78,10 +78,25 @@ MSRightOfWayJunction::~MSRightOfWayJunction() {
 
 void
 MSRightOfWayJunction::postloadInit() throw(ProcessError) {
+    myNewRequest = std::vector<LinkApproachingVehicles>(myLogic->getLogicSize());
     // inform links where they have to report approaching vehicles to
     unsigned int requestPos = 0;
     std::vector<MSLane*>::iterator i;
     // going through the incoming lanes...
+    unsigned int maxNo = 0;
+    std::vector<std::pair<MSLane*, MSLink*> > sortedLinks;
+    for (i=myIncomingLanes.begin(); i!=myIncomingLanes.end(); ++i) {
+        const MSLinkCont &links = (*i)->getLinkCont();
+        // ... set information for every link
+        for (MSLinkCont::const_iterator j=links.begin(); j!=links.end(); j++) {
+            if (myLogic->getLogicSize()<=requestPos) {
+                throw ProcessError("Found invalid logic position of a link (network error)");
+            }
+            sortedLinks.push_back(std::make_pair(*i, *j));
+            ++maxNo;
+        }
+    }
+
     bool isCrossing = myLogic->isCrossing();
     for (i=myIncomingLanes.begin(); i!=myIncomingLanes.end(); ++i) {
         const MSLinkCont &links = (*i)->getLinkCont();
@@ -90,7 +105,23 @@ MSRightOfWayJunction::postloadInit() throw(ProcessError) {
             if (myLogic->getLogicSize()<=requestPos) {
                 throw ProcessError("Found invalid logic position of a link (network error)");
             }
-            (*j)->setRequestInformation(&myRequest, requestPos, &myRespond, requestPos, myLogic->getFoesFor(requestPos), isCrossing);
+            const MSLogicJunction::LinkFoes &foeLinks = myLogic->getFoesFor(requestPos);
+            const std::bitset<64> &internalFoes = myLogic->getInternalFoesFor(requestPos);
+            bool cont = myLogic->getIsCont(requestPos);
+            (*j)->setRequestInformation(this, &myRequest, &myNewRequest, requestPos, &myRespond, requestPos, 
+                foeLinks, isCrossing, cont);
+            myLinkFoeLinks[*j] = std::vector<MSLink*>();
+            for(unsigned int c=0; c<maxNo; ++c) {
+                if(foeLinks.test(c)/*&&*i!=sortedLinks[c].first*/) {
+                    myLinkFoeLinks[*j].push_back(sortedLinks[c].second);
+                }
+            }
+            myLinkFoeInternalLanes[*j] = std::vector<MSLane*>();
+            for(unsigned int c=0; c<myInternalLanes.size(); ++c) {
+                if(internalFoes.test(c)) {
+                    myLinkFoeInternalLanes[*j].push_back(myInternalLanes[c]);
+                }
+            }
             requestPos++;
         }
     }

@@ -30,6 +30,7 @@
 #endif
 
 #include "MSJunction.h"
+#include <utils/common/SUMOTime.h>
 #include <bitset>
 #include <vector>
 
@@ -51,6 +52,8 @@ class MSLane;
  */
 class MSLogicJunction : public MSJunction {
 public:
+
+
     /// Destructor.
     virtual ~MSLogicJunction();
 
@@ -100,6 +103,8 @@ protected:
 #endif
     /** Current request. */
     Request myRequest;
+    std::vector<LinkApproachingVehicles> myNewRequest;
+
 
     /** Current inner state */
     InnerState  myInnerState;

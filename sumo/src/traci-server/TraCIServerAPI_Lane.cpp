@@ -131,7 +131,7 @@ TraCIServerAPI_Lane::processGet(tcpip::Storage &inputStorage,
                 ++cnt;
                 // opened
                 tempContent.writeUnsignedByte(TYPE_UBYTE);
-                tempContent.writeUnsignedByte(link->opened() ? 1 : 0);
+                tempContent.writeUnsignedByte(link->opened(MSNet::getInstance()->getCurrentTimeStep(), MSNet::getInstance()->getCurrentTimeStep(), MSNet::getInstance()->getCurrentTimeStep()) ? 1 : 0);
                 ++cnt;
                 // approaching foe
                 tempContent.writeUnsignedByte(TYPE_UBYTE);

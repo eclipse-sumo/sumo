@@ -40,6 +40,7 @@
 // ===========================================================================
 class MSLane;
 class MSJunctionLogic;
+class MSLink;
 
 
 // ===========================================================================
@@ -76,7 +77,19 @@ public:
     /** Sets the information which vehicles may drive */
     virtual bool setAllowed();
 
+    const std::vector<MSLink*> &getFoeLinks(const MSLink *const srcLink) const throw() {
+        return myInternalLinkFoes;
+    }
+
+    const std::vector<MSLane*> &getFoeInternalLanes(const MSLink *const srcLink) const throw() {
+        return myInternalLaneFoes;
+    }
+
 private:
+
+    std::vector<MSLink*> myInternalLinkFoes;
+    std::vector<MSLane*> myInternalLaneFoes;
+
     /// @brief Invalidated copy constructor.
     MSInternalJunction(const MSInternalJunction&);
 

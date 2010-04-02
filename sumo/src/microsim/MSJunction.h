@@ -34,8 +34,13 @@
 #include <map>
 #include <utils/geom/Position2D.h>
 #include <utils/geom/Position2DVector.h>
+#include <utils/common/SUMOTime.h>
 #include <utils/common/UtilExceptions.h>
 
+
+class MSVehicle;
+class MSLink;
+class MSLane;
 
 // ===========================================================================
 // class definitions
@@ -46,6 +51,29 @@
  */
 class MSJunction {
 public:
+    struct ApproachingVehicleInformation {
+        ApproachingVehicleInformation(SUMOReal _arrivalTime, SUMOReal _leavingTime, MSVehicle *_vehicle) 
+            : arrivalTime(_arrivalTime), leavingTime(_leavingTime), vehicle(_vehicle) {}
+        SUMOReal arrivalTime;
+        SUMOReal leavingTime;
+        MSVehicle *vehicle;
+    };
+
+    typedef std::vector<ApproachingVehicleInformation> LinkApproachingVehicles;
+
+    class vehicle_in_request_finder {
+    public:
+        explicit vehicle_in_request_finder(const MSVehicle * const v) : myVehicle(v) { }
+        bool operator()(const ApproachingVehicleInformation &vo) {
+            return vo.vehicle == myVehicle;
+        }
+    private:
+        const MSVehicle * const myVehicle;
+
+    };
+
+
+
     /// @brief Destructor.
     virtual ~MSJunction();
 
@@ -81,6 +109,13 @@ public:
         return myShape;
     }
 
+    virtual const std::vector<MSLink*> &getFoeLinks(const MSLink *const srcLink) const throw() {
+        return myEmptyLinks;
+    }
+
+    virtual const std::vector<MSLane*> &getFoeInternalLanes(const MSLink *const srcLink) const throw() {
+        return myEmptyLanes;
+    }
 
 protected:
     /// @brief The id of the junction
@@ -91,6 +126,11 @@ protected:
 
     /// @brief The shape of the junction
     Position2DVector myShape;
+
+    std::vector<MSLink*> myEmptyLinks;
+    std::vector<MSLane*> myEmptyLanes;
+
+
 
 
 private:

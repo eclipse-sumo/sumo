@@ -715,14 +715,17 @@ MSVehicle::processNextStop(SUMOReal currentVelocity) throw() {
             Stop &bstop = *myStops.begin();
             // get the stopping position
             SUMOReal endPos = bstop.pos;
+//			SUMOReal offset = 0.1;
             bool busStopsMustHaveSpace = true;
             if (bstop.busstop!=0) {
                 // on bus stops, we have to wait for free place if they are in use...
+//				offset = BUS_STOP_OFFSET;
                 endPos = bstop.busstop->getLastFreePos();
                 if (endPos-5.<bstop.busstop->getBeginLanePosition()) { // !!! explicite offset
                     busStopsMustHaveSpace = false;
                 }
-            }
+			}
+//            if (myState.pos()>=endPos-offset&&busStopsMustHaveSpace) {
             if (myState.pos()>=endPos-BUS_STOP_OFFSET&&busStopsMustHaveSpace) {
                 // ok, we may stop (have reached the stop)
                 MSNet::getInstance()->getPersonControl().checkWaiting(&myLane->getEdge(), this);
@@ -780,6 +783,11 @@ MSVehicle::moveRegardingCritical(SUMOTime t, const MSLane* const lane,
     }
 #endif
     myTarget = 0;
+    for (DriveItemVector::iterator i=myLFLinkLanes.begin(); i!=myLFLinkLanes.end(); ++i) {
+        if ((*i).myLink!=0) {
+            (*i).myLink->removeApproaching(this);
+        }
+    }
     myLFLinkLanes.clear();
     // check whether the vehicle is not on an appropriate lane
     if (!myLane->appropriate(this)) {
@@ -814,7 +822,7 @@ MSVehicle::moveRegardingCritical(SUMOTime t, const MSLane* const lane,
             vWish = MIN2(vWish, vsafeStop);
         }
         vWish = MAX2((SUMOReal) 0, vWish);
-        myLFLinkLanes.push_back(DriveProcessItem(0, vWish, vWish, false));
+        myLFLinkLanes.push_back(DriveProcessItem(0, vWish, vWish, false, 0, 0));
     } else {
         // compute other values as in move
         SUMOReal vBeg = MIN2(getCarFollowModel().maxNextSpeed(myState.mySpeed), lane->getMaxSpeed());//vaccel( myState.mySpeed, lane->maxSpeed() );
@@ -870,26 +878,32 @@ MSVehicle::moveFirstChecked() {
     assert(myLFLinkLanes.size()!=0);
     DriveItemVector::iterator i;
     bool cont = true;
+    SUMOTime t = MSNet::getInstance()->getCurrentTimeStep();
     for (i=myLFLinkLanes.begin(); i!=myLFLinkLanes.end()&&cont; ++i) {
         MSLink *link = (*i).myLink;
         bool onLinkEnd = link==0;
         // the vehicle must change the lane on one of the next lanes
         if (!onLinkEnd) {
-            if (link->havePriority()&&link->opened()) {
+            /*
+            if (link->havePriority()&&link->opened(t)) {
                 vSafe = (*i).myVLinkPass;
+                //link->removeApproaching(this);
             } else {
-                if (link->opened()) {
+            */
+                if (/*(*i).myWillPass||*/link->opened(t, (*i).myArrivalTime, (*i).myArrivalSpeed)) {
                     vSafe = (*i).myVLinkPass;
+                    //link->removeApproaching(this);
                 } else {
                     bool yellow = link->getState()==MSLink::LINKSTATE_TL_YELLOW_MAJOR||link->getState()==MSLink::LINKSTATE_TL_YELLOW_MINOR;
                     if (vSafe<getSpeedAfterMaxDecel(myState.mySpeed)&&yellow) {
                         vSafe = (*i).myVLinkPass;
+                        //link->removeApproaching(this);
                     } else {
                         vSafe = (*i).myVLinkWait;
                         cont = false;
                     }
                 }
-            }
+            //}
         } else {
             vSafe = (*i).myVLinkWait;
             cont = false;
@@ -1094,7 +1108,7 @@ MSVehicle::checkRewindLinkLanes(SUMOReal lengthsInFront) throw() {
 #endif
     for (DriveItemVector::iterator i=myLFLinkLanes.begin(); i!=myLFLinkLanes.end(); ++i) {
         if ((*i).myLink!=0&&(*i).mySetRequest) {
-            (*i).myLink->setApproaching(this);
+            (*i).myLink->setApproaching(this, (*i).myArrivalTime, (*i).myArrivalSpeed);
         }
     }
 }
@@ -1114,7 +1128,7 @@ MSVehicle::vsafeCriticalCont(SUMOTime t, SUMOReal boundVSafe, SUMOReal lengthsIn
     // !!! Why is the brake gap accounted? !!!
     if (this!=myLane->getFirstVehicle() && seen - getCarFollowModel().brakeGap(myState.mySpeed) > 0) {
         // not "reaching critical"
-        myLFLinkLanes.push_back(DriveProcessItem(0, boundVSafe, boundVSafe, false));
+        myLFLinkLanes.push_back(DriveProcessItem(0, boundVSafe, boundVSafe, false, 0, 0));
         return;
     }
 
@@ -1150,8 +1164,7 @@ MSVehicle::vsafeCriticalCont(SUMOTime t, SUMOReal boundVSafe, SUMOReal lengthsIn
         if (nextLane->isLinkEnd(link)) {
             // the vehicle will not drive further
             SUMOReal laneEndVSafe = getCarFollowModel().ffeS(this, seen);
-            myLFLinkLanes.push_back(
-                DriveProcessItem(0, MIN2(vLinkPass, laneEndVSafe), MIN2(vLinkPass, laneEndVSafe), false));
+            myLFLinkLanes.push_back(DriveProcessItem(0, MIN2(vLinkPass, laneEndVSafe), MIN2(vLinkPass, laneEndVSafe), false, 0, 0));
             checkRewindLinkLanes(lengthsInFront);
             return;
         }
@@ -1203,7 +1216,7 @@ MSVehicle::vsafeCriticalCont(SUMOTime t, SUMOReal boundVSafe, SUMOReal lengthsIn
 
         bool yellow = (*link)->getState()==MSLink::LINKSTATE_TL_YELLOW_MAJOR||(*link)->getState()==MSLink::LINKSTATE_TL_YELLOW_MINOR;
         if (yellow&&SPEED2DIST(vLinkWait)+myState.myPos<laneLength) {
-            myLFLinkLanes.push_back(DriveProcessItem(*link, vLinkWait, vLinkWait, false));
+            myLFLinkLanes.push_back(DriveProcessItem(*link, vLinkWait, vLinkWait, false, 0, 0));
             checkRewindLinkLanes(lengthsInFront);
             return;
         }
@@ -1217,8 +1230,6 @@ MSVehicle::vsafeCriticalCont(SUMOTime t, SUMOReal boundVSafe, SUMOReal lengthsIn
 			// Up to this time it is decelearating in order to watch out for foe traffic
 			if((*link)->getState()==MSLink::LINKSTATE_TL_RED||(seen>myType->getMaxDecel()&&myState.mySpeed>myType->getMaxDecel())) {
 				vLinkPass = vLinkWait;
-			} else {
-				vLinkPass = MIN4(vLinkPass, getCarFollowModel().maxNextSpeed(myState.mySpeed), myLane->getMaxSpeed(), myType->getMaxDecel());
 			}
         }
         // process stops
@@ -1234,7 +1245,12 @@ MSVehicle::vsafeCriticalCont(SUMOTime t, SUMOReal boundVSafe, SUMOReal lengthsIn
         //  between critical/non-critical vehicles. Though, one should assume that a vehicle
         //  should want to move over an intersection even though it could brake before it!?
         setRequest &= dist-seen>0;//getCarFollowModel().brakeGap(vLinkPass);
-        myLFLinkLanes.push_back(DriveProcessItem(*link, vLinkPass, vLinkWait, setRequest));
+        SUMOTime arrivalTime = 0;
+        SUMOTime leaveTime = 0;
+        if(setRequest) {
+            arrivalTime = t + seen / vLinkPass;
+        }
+        myLFLinkLanes.push_back(DriveProcessItem(*link, vLinkPass, vLinkWait, setRequest, arrivalTime, vLinkPass));
         seen += nextLane->getLength();
         if ((vLinkPass<=0||seen>dist)&&hadNonInternal) {
             checkRewindLinkLanes(lengthsInFront);

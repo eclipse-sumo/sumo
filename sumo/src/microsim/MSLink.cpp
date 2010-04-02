@@ -46,7 +46,7 @@ MSLink::MSLink(MSLane* succLane, bool yield,
         :
         myLane(succLane),
         myPrio(!yield), myApproaching(0),
-        myRequest(0), myRequestIdx(0), myRespond(0), myRespondIdx(0),
+        myRequest(0), myNewRequest(0), myRequestIdx(0), myRespond(0), myRespondIdx(0),
         myState(state), myDirection(dir),  myLength(length) {}
 #else
 MSLink::MSLink(MSLane* succLane, MSLane *via, bool yield,
@@ -55,7 +55,7 @@ MSLink::MSLink(MSLane* succLane, MSLane *via, bool yield,
         :
         myLane(succLane),
         myPrio(!yield), myApproaching(0),
-        myRequest(0), myRequestIdx(0), myRespond(0), myRespondIdx(0),
+        myRequest(0), myNewRequest(0), myRequestIdx(0), myRespond(0), myRespondIdx(0),
         myState(state), myDirection(dir), myLength(length),
         myJunctionInlane(via),myIsInternalEnd(internalEnd) {}
 #endif
@@ -65,27 +65,51 @@ MSLink::~MSLink() throw() {}
 
 
 void
-MSLink::setRequestInformation(MSLogicJunction::Request *request, unsigned int requestIdx,
+MSLink::setRequestInformation(MSJunction *junction, MSLogicJunction::Request *request, std::vector<MSJunction::LinkApproachingVehicles> *newRequest, unsigned int requestIdx,
                               MSLogicJunction::Respond *respond, unsigned int respondIdx,
-                              const MSLogicJunction::LinkFoes &foes, bool isCrossing) throw() {
+                              const MSLogicJunction::LinkFoes &foes, bool isCrossing, bool isCont) throw() {
     assert(myRequest==0);
     assert(myRespond==0);
     myRequest = request;
+    myNewRequest = newRequest;
     myRequestIdx = requestIdx;
     myRespond = respond;
     myRespondIdx = respondIdx;
     myFoes = foes;
     myIsCrossing = isCrossing;
+    myJunction = junction;
+    myAmCont = isCont;
 }
 
 
 void
-MSLink::setApproaching(MSVehicle *approaching) throw() {
+MSLink::setApproaching(MSVehicle *approaching, SUMOTime arrivalTime, SUMOReal speed) throw() {
     if (myRequest==0) {
         return;
     }
     myApproaching = approaching;
     myRequest->set(myRequestIdx);
+    std::vector<MSJunction::ApproachingVehicleInformation> &approachingList = (*myNewRequest)[myRequestIdx];
+    std::vector<MSJunction::ApproachingVehicleInformation>::iterator i = find_if(approachingList.begin(), approachingList.end(), MSJunction::vehicle_in_request_finder(approaching));
+    if(i!=approachingList.end()) {
+        approachingList.erase(i);
+    }
+    MSJunction::ApproachingVehicleInformation approachInfo(arrivalTime, arrivalTime + getLength() / speed, approaching);
+    (*myNewRequest)[myRequestIdx].push_back(approachInfo);
+}
+
+
+void 
+MSLink::removeApproaching(MSVehicle *veh)
+{
+    if (myRequest==0) {
+        return;
+    }
+    std::vector<MSJunction::ApproachingVehicleInformation> &approachingList = (*myNewRequest)[myRequestIdx];
+    std::vector<MSJunction::ApproachingVehicleInformation>::iterator i = find_if(approachingList.begin(), approachingList.end(), MSJunction::vehicle_in_request_finder(veh));
+    if(i!=approachingList.end()) {
+        approachingList.erase(i);
+    }
 }
 
 
@@ -96,13 +120,52 @@ MSLink::setPriority(bool prio) throw() {
 
 
 bool
-MSLink::opened() const throw() {
+MSLink::opened(SUMOTime t, SUMOTime arrivalTime, SUMOReal arrivalSpeed) const throw() {
     if (myRespond==0) {
         // this is the case for internal lanes ending at a junction's end
         // (let the vehicle always leave the junction)
         return true;
     }
-    return myRespond->test(myRespondIdx);
+    if(myAmCont) {
+        return true;
+    }
+	if(myState==LINKSTATE_TL_RED) {
+		return false;
+	}
+#ifdef HAVE_INTERNAL_LANES
+    SUMOTime leaveTime = myJunctionInlane==0 ? arrivalTime + getLength() * arrivalSpeed : arrivalTime + this->myJunctionInlane->getLength() * arrivalSpeed;
+#else
+    SUMOTime leaveTime = arrivalTime + getLength() * arrivalSpeed;
+#endif
+    const std::vector<MSLink*> &foes = myJunction->getFoeLinks(this);
+    for(std::vector<MSLink*>::const_iterator i=foes.begin(); i!=foes.end(); ++i) {
+        if((*i)->blockedAtTime(t, arrivalTime, leaveTime)) {
+            return false;
+        }
+    }
+    const std::vector<MSLane*> &foeLanes = myJunction->getFoeInternalLanes(this);
+    for(std::vector<MSLane*>::const_iterator i=foeLanes.begin(); i!=foeLanes.end(); ++i) {
+        if((*i)->getVehicleNumber()>0||(*i)->getPartialOccupator()!=0) {
+            return false;
+        }
+    }
+    return true;
+}
+
+
+bool 
+MSLink::blockedAtTime(SUMOTime t, SUMOTime arrivalTime, SUMOTime leaveTime) const throw()
+{
+    std::vector<MSJunction::ApproachingVehicleInformation> &entries = (*myNewRequest)[myRequestIdx];
+    for(std::vector<MSJunction::ApproachingVehicleInformation>::const_iterator i=entries.begin(); i!=entries.end(); ++i) {
+        if((*i).arrivalTime-1.5<=arrivalTime&&(*i).leavingTime+1.5>=arrivalTime) {
+            return true;
+        }
+        if((*i).arrivalTime-1.5<=leaveTime&&(*i).leavingTime+1.5>=leaveTime) {
+            return true;
+        }
+    }
+    return false;
 }
 
 
@@ -156,7 +219,7 @@ MSLink::getViaLane() const throw() {
 #ifdef HAVE_INTERNAL_LANES
 void
 MSLink::resetInternalPriority() throw() {
-    myPrio = opened();
+    myPrio = opened(MSNet::getInstance()->getCurrentTimeStep(), MSNet::getInstance()->getCurrentTimeStep(), MSNet::getInstance()->getCurrentTimeStep());
     if (myJunctionInlane!=0&&myLane!=0) {
         if (myState==MSLink::LINKSTATE_TL_GREEN_MAJOR||myState==MSLink::LINKSTATE_TL_GREEN_MINOR) {
             if (myIsInternalEnd&&myJunctionInlane->getID()[0]==':') {
