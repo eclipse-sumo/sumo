@@ -466,33 +466,6 @@ public:
     //@}
 
 
-    bool hasSafeGap(SUMOReal speed, SUMOReal gap, SUMOReal predSpeed, SUMOReal laneMaxSpeed) const {
-        return getCarFollowModel().hasSafeGap(speed, gap, predSpeed, laneMaxSpeed);
-    }
-
-    /** @brief Returns the minimum gap to reserve if the leader is braking at maximum
-     *
-     */
-    SUMOReal getSecureGap(const SUMOReal speed, const SUMOReal leaderSpeedAfterDecel) const {
-        const SUMOReal speedDiff = speed - leaderSpeedAfterDecel;
-        return speedDiff * speedDiff / myType->getMaxDecel() + speed * myType->getTau();
-    }
-
-    SUMOReal getLength() const throw() {
-        return myType->getLength();
-    }
-
-    SUMOReal decelAbility() const throw() {
-        return getCarFollowModel().decelAbility(); // !!! really the speed?
-    }
-
-    SUMOReal maxNextSpeed(SUMOReal v) const throw() {
-        return getCarFollowModel().maxNextSpeed(v);
-    }
-
-    SUMOReal getSpeedAfterMaxDecel(SUMOReal v) const {
-        return myType->getSpeedAfterMaxDecel(v);
-    }
 
     SUMOReal getMaxSpeed() const {
         if (myHasIndividualMaxSpeed)
@@ -522,12 +495,6 @@ public:
 
     void setPreDawdleAcceleration(SUMOReal accel) {
         myPreDawdleAcceleration = accel;
-    }
-
-    /** */
-    SUMOReal timeHeadWayGap(SUMOReal speed) const {
-        assert(speed >= 0);
-        return SPEED2DIST(speed);
     }
 
 

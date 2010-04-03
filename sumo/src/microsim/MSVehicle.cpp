@@ -899,7 +899,7 @@ MSVehicle::moveFirstChecked() {
                     vSafe = (*i).myVLinkPass;
                 } else {
                     bool yellow = link->getState()==MSLink::LINKSTATE_TL_YELLOW_MAJOR||link->getState()==MSLink::LINKSTATE_TL_YELLOW_MINOR;
-                    if (vSafe<getSpeedAfterMaxDecel(myState.mySpeed)&&yellow) {
+                    if (vSafe<myType->getSpeedAfterMaxDecel(myState.mySpeed)&&yellow) {
                         vSafe = (*i).myVLinkPass;
                     } else {
                         vSafe = (*i).myVLinkWait;
@@ -1404,7 +1404,7 @@ MSVehicle::enterLaneAtEmit(MSLane* enteredLane, SUMOReal pos, SUMOReal speed) {
         (*dev)->enterLaneAtEmit(enteredLane, myState);
     }
     // build the list of lanes the vehicle is lapping into
-    SUMOReal leftLength = getLength() - pos;
+	SUMOReal leftLength = myType->getLength() - pos;
     MSLane *clane = enteredLane;
     while(leftLength>0) {
         const std::vector<MSLane::IncomingLaneInfo> &incoming = clane->getIncomingLanes();

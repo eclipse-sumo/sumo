@@ -57,7 +57,7 @@ MSVehicleType::MSVehicleType(const std::string &id, SUMOReal length,
                              int cfModel, const std::string &lcModel,
                              const RGBColor &c) throw()
         : myID(id), myLength(length), myMaxSpeed(maxSpeed), myAccel(accel),
-        myDecel(decel), myDawdle(dawdle), myTau(tau),
+        myDecel(decel), myTau(tau),
         myDefaultProbability(prob), mySpeedFactor(speedFactor),
         mySpeedDev(speedDev), myVehicleClass(vclass),
         myLaneChangeModel(lcModel),
@@ -67,7 +67,6 @@ MSVehicleType::MSVehicleType(const std::string &id, SUMOReal length,
     assert(getMaxSpeed() > 0);
     assert(myAccel > 0);
     assert(myDecel > 0);
-    assert(myDawdle >= 0 && myDawdle <= 1);
 }
 
 
@@ -81,7 +80,6 @@ MSVehicleType::saveState(std::ostream &os) {
     FileHelpers::writeFloat(os, getMaxSpeed());
     FileHelpers::writeFloat(os, myAccel);
     FileHelpers::writeFloat(os, myDecel);
-    FileHelpers::writeFloat(os, myDawdle);
     FileHelpers::writeFloat(os, myTau);
     FileHelpers::writeInt(os, (int) myVehicleClass);
     FileHelpers::writeInt(os, (int) myEmissionClass);

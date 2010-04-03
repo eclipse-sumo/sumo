@@ -254,6 +254,15 @@ public:
         return (SUMOReal)(myAccel *(1.0 - (v/myMaxSpeed)));
     }
 
+    /** @brief Returns the minimum gap to reserve if the leader is braking at maximum
+     *
+     */
+    SUMOReal getSecureGap(const SUMOReal speed, const SUMOReal leaderSpeedAfterDecel) const throw() {
+        const SUMOReal speedDiff = speed - leaderSpeedAfterDecel;
+        return speedDiff * speedDiff / getMaxDecel() + speed * getTau();
+    }
+
+
     /// Saves the states of a vehicle
     void saveState(std::ostream &os);
 
@@ -296,9 +305,6 @@ private:
 
     /// @brief The vehicle's maximum deceleration [m/s^2]
     SUMOReal myDecel;
-
-    /// @brief The vehicle's dawdle-parameter. 0 for no dawdling, 1 for max.
-    SUMOReal myDawdle;
 
     /// @brief The driver's reaction time [s]
     SUMOReal myTau;
