@@ -44,6 +44,7 @@ MSCFModel_Krauss::MSCFModel_Krauss(const MSVehicleType* vtype, SUMOReal dawdle, 
     myTauDecel = vtype->getMaxDecel() * myTau;
 }
 
+
 MSCFModel_Krauss::~MSCFModel_Krauss() throw() {}
 
 
@@ -117,13 +118,8 @@ MSCFModel_Krauss::brakeGap(SUMOReal speed) const throw() {
 }
 
 
-SUMOReal
-MSCFModel_Krauss::approachingBrakeGap(SUMOReal speed) const throw() {
-    return speed * speed * myInverseTwoDecel;
-}
-
-
-SUMOReal MSCFModel_Krauss::interactionGap(const MSVehicle * const veh, SUMOReal vL) const throw() {
+SUMOReal 
+MSCFModel_Krauss::interactionGap(const MSVehicle * const veh, SUMOReal vL) const throw() {
     // Resolve the vsafe equation to gap. Assume predecessor has
     // speed != 0 and that vsafe will be the current speed plus acceleration,
     // i.e that with this gap there will be no interaction.
@@ -133,7 +129,7 @@ SUMOReal MSCFModel_Krauss::interactionGap(const MSVehicle * const veh, SUMOReal 
                    vL * myTau;
 
     // Don't allow timeHeadWay < deltaT situations.
-    return MAX2(gap, timeHeadWayGap(vNext));
+    return MAX2(gap, SPEED2DIST(vNext));
 }
 
 
@@ -146,15 +142,7 @@ MSCFModel_Krauss::hasSafeGap(SUMOReal speed, SUMOReal gap, SUMOReal predSpeed, S
     SUMOReal vNext = MIN3(maxNextSpeed(speed), laneMaxSpeed, vSafe);
     return (vNext>=myType->getSpeedAfterMaxDecel(speed)
             &&
-            gap   >= timeHeadWayGap(speed));
-}
-
-
-SUMOReal
-MSCFModel_Krauss::safeEmitGap(SUMOReal speed) const throw() {
-    SUMOReal vNextMin = myType->getSpeedAfterMaxDecel(speed); // ok, minimum next speed
-    SUMOReal safeGap  = vNextMin * (speed * myInverseTwoDecel + myTau);
-    return MAX2(safeGap, timeHeadWayGap(speed)) + ACCEL2DIST(myType->getMaxAccel(speed));
+            gap   >= SPEED2DIST(speed));
 }
 
 

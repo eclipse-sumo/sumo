@@ -29,6 +29,9 @@
 #endif
 
 #include "MSCFModel.h"
+#include "MSLane.h"
+#include "MSVehicle.h"
+#include "MSVehicleType.h"
 #include <utils/xml/SUMOXMLDefinitions.h>
 
 
@@ -140,14 +143,6 @@ public:
     SUMOReal brakeGap(SUMOReal speed) const throw();
 
 
-    /** @brief Returns the distance the vehicle needs to halt excluding driver's reaction time
-     * @param[in] speed The vehicle's current speed
-     * @return The distance needed to halt
-     * @see MSCFModel::approachingBrakeGap
-     */
-    SUMOReal approachingBrakeGap(SUMOReal speed) const throw();
-
-
     /** @brief Returns the maximum gap at which an interaction between both vehicles occurs
      *
      * "interaction" means that the LEADER influences EGO's speed.
@@ -174,14 +169,6 @@ public:
     bool hasSafeGap(SUMOReal speed, SUMOReal gap, SUMOReal predSpeed, SUMOReal laneMaxSpeed) const throw();
 
 
-    /** @brief Returns the gap needed to allow a safe emission
-     * @param[in] speed The assumed speed
-     * @return The gap needed for allowing an emission
-     * @see MSCFModel::safeEmitGap
-     */
-    SUMOReal safeEmitGap(SUMOReal speed) const throw();
-
-
     /** @brief Returns the vehicle's maximum deceleration ability
      * @return The vehicle's maximum deceleration ability
      * @see MSCFModel::decelAbility
@@ -202,7 +189,9 @@ public:
 private:
     SUMOReal _updateSpeed(SUMOReal gap2pred, SUMOReal mySpeed, SUMOReal predSpeed, SUMOReal desSpeed) const throw();
 
-    SUMOReal desiredSpeed(const MSVehicle * const veh) const throw();
+	SUMOReal desiredSpeed(const MSVehicle * const veh) const throw() {
+		return MIN2(myType->getMaxSpeed(), veh->getLane().getMaxSpeed());
+	}
 
 
     /// @brief The driver's desired time headway [s]

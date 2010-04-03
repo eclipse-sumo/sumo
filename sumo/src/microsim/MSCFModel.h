@@ -2,7 +2,7 @@
 /// @file    MSCFModel.h
 /// @author  Tobias Mayer
 /// @date    Mon, 27 Jul 2009
-/// @version $Id $
+/// @version $Id$
 ///
 // The car-following model abstraction
 /****************************************************************************/
@@ -49,7 +49,6 @@ class MSLane;
  * @brief The car-following model abstraction
  *
  * MSCFModel is an interface for different car following Models to implement.
- *
  * It provides methods to compute a vehicles velocity for a simulation step.
  */
 class MSCFModel {
@@ -144,13 +143,6 @@ public:
     virtual SUMOReal brakeGap(SUMOReal speed) const throw() = 0;
 
 
-    /** @brief Returns the distance the vehicle needs to halt excluding driver's reaction time
-     * @param[in] speed The vehicle's current speed
-     * @return The distance needed to halt
-     */
-    virtual SUMOReal approachingBrakeGap(SUMOReal speed) const throw() = 0;
-
-
     /** @brief Returns the maximum gap at which an interaction between both vehicles occurs
      *
      * "interaction" means that the LEADER influences EGO's speed.
@@ -175,13 +167,6 @@ public:
     virtual bool hasSafeGap(SUMOReal speed, SUMOReal gap, SUMOReal predSpeed, SUMOReal laneMaxSpeed) const throw() = 0;
 
 
-    /** @brief Returns the gap needed to allow a safe emission
-     * @param[in] speed The assumed speed
-     * @return The gap needed for allowing an emission
-     */
-    virtual SUMOReal safeEmitGap(SUMOReal speed) const throw() = 0;
-
-
     /** @brief Returns the vehicle's maximum deceleration ability
      * @return The vehicle's maximum deceleration ability
      */
@@ -194,22 +179,11 @@ public:
     virtual void saveState(std::ostream &os);
 
 
-    /** @brief Returns the model's ID
+    /** @brief Returns the model's ID; the XML-Tag number is used
      * @return The model's ID
      */
     virtual int getModelID() const throw() = 0;
     /// @}
-
-
-    /** @brief Returns the distance the vehicle drives at the given speed
-     * @param[in] speed The vehicle's speed
-     * @return The distance the vehicle drives at the given speed
-     * @todo needed?
-     */
-    SUMOReal timeHeadWayGap(SUMOReal speed) const throw() {
-        assert(speed >= 0);
-        return SPEED2DIST(speed);
-    }
 
 
 protected:

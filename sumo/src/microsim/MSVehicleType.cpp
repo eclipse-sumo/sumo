@@ -68,8 +68,6 @@ MSVehicleType::MSVehicleType(const std::string &id, SUMOReal length,
     assert(myAccel > 0);
     assert(myDecel > 0);
     assert(myDawdle >= 0 && myDawdle <= 1);
-    myInverseTwoDecel = SUMOReal(1) / (SUMOReal(2) * myDecel);
-    myTauDecel = myDecel * myTau;
 }
 
 

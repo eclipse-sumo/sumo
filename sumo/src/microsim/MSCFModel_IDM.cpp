@@ -119,13 +119,6 @@ MSCFModel_IDM::brakeGap(SUMOReal speed) const throw() {
 
 /// @todo update logic to IDM
 SUMOReal
-MSCFModel_IDM::approachingBrakeGap(SUMOReal speed) const throw() {
-    return speed * speed * myInverseTwoDecel;
-}
-
-
-/// @todo update logic to IDM
-SUMOReal
 MSCFModel_IDM::interactionGap(const MSVehicle * const veh, SUMOReal vL) const throw() {
     // Resolve the IDM equation to gap. Assume predecessor has
     // speed != 0 and that vsafe will be the current speed plus acceleration,
@@ -137,7 +130,7 @@ MSCFModel_IDM::interactionGap(const MSVehicle * const veh, SUMOReal vL) const th
                    vL * 1;
 
     // Don't allow timeHeadWay < deltaT situations.
-    return MAX2(gap, timeHeadWayGap(vNext));
+    return MAX2(gap, SPEED2DIST(vNext));
 }
 
 
@@ -151,15 +144,7 @@ MSCFModel_IDM::hasSafeGap(SUMOReal speed, SUMOReal gap, SUMOReal predSpeed, SUMO
     SUMOReal vNext = MIN3(maxNextSpeed(speed), laneMaxSpeed, vSafe);
     return (vNext>=myType->getSpeedAfterMaxDecel(speed)
             &&
-            gap   >= timeHeadWayGap(speed));
-}
-
-// ???
-SUMOReal
-MSCFModel_IDM::safeEmitGap(SUMOReal speed) const throw() {
-    SUMOReal vNextMin = myType->getSpeedAfterMaxDecel(speed); // ok, minimum next speed
-    SUMOReal safeGap  = vNextMin * (speed * myInverseTwoDecel);
-    return MAX2(safeGap, timeHeadWayGap(speed)) + ACCEL2DIST(myType->getMaxAccel(speed));
+            gap   >= SPEED2DIST(speed));
 }
 
 
@@ -177,15 +162,10 @@ MSCFModel_IDM::_updateSpeed(SUMOReal gap2pred, SUMOReal mySpeed, SUMOReal predSp
     SUMOReal s_star_raw = myMinSpace + mySpeed*myTimeHeadWay + (mySpeed*delta_v)/(2*sqrt(a*b));
     SUMOReal s_star = MAX2(s_star_raw, myMinSpace);
     SUMOReal acc = a * (1. - pow((double)(mySpeed/desSpeed), (double) DELTA_IDM) - (s_star*s_star)/(gap2pred*gap2pred));
-    SUMOReal vNext = mySpeed + acc;
-    return vNext;
+    SUMOReal vNext = mySpeed + ACCEL2SPEED(acc);
+	return vNext;
 }
 
-
-SUMOReal
-MSCFModel_IDM::desiredSpeed(const MSVehicle * const veh) const throw() {
-    return MIN2(myType->getMaxSpeed(), veh->getLane().getMaxSpeed());
-}
 
 
 

@@ -342,22 +342,7 @@ private:
     /// @}
 
 
-
-    /// @name some precomputed values for faster computation
-    /// @{
-
-    /// The precomputed value for 1/(2*d)
-    SUMOReal myInverseTwoDecel;
-
-    /// The precomputed value for myDecel*myTau
-    SUMOReal myTauDecel;
-    /// @}
-
-
 private:
-    /// Helper function to bulid CFModel
-    void consCfModel(std::string cfModel);
-
     /// Invalidated copy constructor
     MSVehicleType(const MSVehicleType&);
 

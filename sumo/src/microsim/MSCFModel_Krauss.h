@@ -138,14 +138,6 @@ public:
     SUMOReal brakeGap(SUMOReal speed) const throw();
 
 
-    /** @brief Returns the distance the vehicle needs to halt excluding driver's reaction time
-     * @param[in] speed The vehicle's current speed
-     * @return The distance needed to halt
-     * @see MSCFModel::approachingBrakeGap
-     */
-    SUMOReal approachingBrakeGap(SUMOReal speed) const throw();
-
-
     /** @brief Returns the maximum gap at which an interaction between both vehicles occurs
      *
      * "interaction" means that the LEADER influences EGO's speed.
@@ -170,14 +162,6 @@ public:
      * @todo evaluate signature
      */
     bool hasSafeGap(SUMOReal speed, SUMOReal gap, SUMOReal predSpeed, SUMOReal laneMaxSpeed) const throw();
-
-
-    /** @brief Returns the gap needed to allow a safe emission
-     * @param[in] speed The assumed speed
-     * @return The gap needed for allowing an emission
-     * @see MSCFModel::safeEmitGap
-     */
-    SUMOReal safeEmitGap(SUMOReal speed) const throw();
 
 
     /** @brief Returns the vehicle's maximum deceleration ability
