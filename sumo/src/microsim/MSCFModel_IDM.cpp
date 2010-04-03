@@ -4,7 +4,7 @@
 /// @date    Thu, 03 Sep 2009
 /// @version $Id$
 ///
-// The IDM car-following model and parameter
+// The Intellignet Driver Model (IDM) car-following model
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // Copyright 2001-2010 DLR (http://www.dlr.de/) and contributors

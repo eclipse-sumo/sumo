@@ -181,6 +181,9 @@ private:
     SUMOReal dawdle(SUMOReal speed) const throw();
 
 private:
+    /// @name model parameter
+    /// @{
+
     /// @brief The vehicle's maximum acceleration [m/s^2]
     SUMOReal myAccel;
 

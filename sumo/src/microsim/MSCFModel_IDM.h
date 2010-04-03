@@ -4,7 +4,7 @@
 /// @date    Thu, 03 Sep 2009
 /// @version $Id$
 ///
-// The IDM car-following model and parameter
+// The Intellignet Driver Model (IDM) car-following model
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // Copyright 2001-2010 DLR (http://www.dlr.de/) and contributors
@@ -39,7 +39,7 @@
 // class definitions
 // ===========================================================================
 /** @class MSCFModel_IDM
- * @brief The IDM car-following model and parameter
+ * @brief The Intellignet Driver Model (IDM) car-following model
  * @see MSCFModel
  */
 class MSCFModel_IDM : public MSCFModel {
@@ -179,6 +179,10 @@ private:
 		return MIN2(myType->getMaxSpeed(), veh->getLane().getMaxSpeed());
 	}
 
+
+private:
+    /// @name model parameter
+    /// @{
 
     /// @brief The vehicle's maximum acceleration [m/s^2]
     SUMOReal myAccel;
