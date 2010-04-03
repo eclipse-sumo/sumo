@@ -257,7 +257,7 @@ MSEdge::getDepartLane(const MSVehicle &v) const throw() {
     }
     switch (pars.departLaneProcedure) {
     case DEPART_LANE_GIVEN:
-        if (myLanes->size() <= pars.departLane || !(*myLanes)[pars.departLane]->allowsVehicleClass(v.getVehicleType().getVehicleClass())) {
+        if ((int) myLanes->size() <= pars.departLane || !(*myLanes)[pars.departLane]->allowsVehicleClass(v.getVehicleType().getVehicleClass())) {
             return 0;
         }
         return (*myLanes)[pars.departLane];
