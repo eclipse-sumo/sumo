@@ -171,7 +171,7 @@ GUIBusStop::drawGL(const GUIVisualizationSettings &s) const throw() {
     GLHelper::drawFilledCircle((SUMOReal) 1.1, noPoints);
     if (s.scale*s.addExaggeration>=10) {
         glTranslated(0, 0, -.01);
-        glColor3f((SUMOReal)(255./255.), (SUMOReal)(235./255.), (SUMOReal)(0./255.));
+        glColor3d((SUMOReal)(255./255.), (SUMOReal)(235./255.), (SUMOReal)(0./255.));
         GLHelper::drawFilledCircle((SUMOReal) 0.9, noPoints);
         glTranslated(0, 0, .01);
         // draw the H
