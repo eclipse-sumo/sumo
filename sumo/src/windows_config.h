@@ -41,7 +41,7 @@
 #define FOXDLL 1
 
 /* defines the precision of floats */
-#define SUMOReal float
+#define SUMOReal double
 
 /* defines the epsilon to use on position comparison */
 #define POSITION_EPS 0.1

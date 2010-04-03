@@ -63,8 +63,8 @@ else
     ac_disabled="$ac_disabled InternalLanes"
 fi
 
-AC_ARG_ENABLE([double-precision], [AS_HELP_STRING([--enable-double-precision],[Use "double" instead of "float" for calculations.])])
-if test x$enable_double_precision = xyes; then
+AC_ARG_ENABLE([double-precision], [AS_HELP_STRING([--disable-double-precision],[Use "float" instead of "double" for calculations.])])
+if test x$enable_double_precision != xno; then
     AC_DEFINE([SUMOReal], [double], [defines the precision of floats])
     ac_enabled="$ac_enabled DoublePrecision"
 else
@@ -74,7 +74,7 @@ fi
 
 AC_ARG_ENABLE([subsecond], [AS_HELP_STRING([--disable-subsecond],[Disable subsecond timesteps.])])
 if test x$enable_subsecond != xno; then
-    AC_DEFINE(HAVE_SUBSECOND_TIMESTEPS, 1, [Define to 1 in order to enable subsecond timesteps.])
+    AC_DEFINE(HAVE_SUBSECOND_TIMESTEPS, 1, [Undefine for disabling subsecond timesteps.])
     ac_enabled="$ac_enabled Subsecond"
 else
     ac_disabled="$ac_disabled Subsecond"
