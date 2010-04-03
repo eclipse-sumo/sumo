@@ -43,11 +43,12 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-MSCFModel_IDM::MSCFModel_IDM(const MSVehicleType* vtype, SUMOReal dawdle,
+MSCFModel_IDM::MSCFModel_IDM(const MSVehicleType* vtype, 
+							 SUMOReal accel, SUMOReal decel, 
                              SUMOReal timeHeadWay, SUMOReal mingap) throw()
-        : MSCFModel(vtype), myTimeHeadWay(timeHeadWay), myMinSpace(mingap) {
+        : MSCFModel(vtype, decel), myAccel(accel), myTimeHeadWay(timeHeadWay), myMinSpace(mingap) {
 
-    myInverseTwoDecel = SUMOReal(1) / (SUMOReal(2) * vtype->getMaxDecel());
+    myInverseTwoDecel = SUMOReal(1) / (SUMOReal(2) * decel);
 }
 
 
@@ -59,7 +60,7 @@ MSCFModel_IDM::moveHelper(MSVehicle * const veh, const MSLane * const lane, SUMO
     SUMOReal nSpeed = vPos;
     nSpeed =
         veh->getLaneChangeModel().patchSpeed(
-            MAX2((SUMOReal) 0, veh->getSpeed()-(SUMOReal)ACCEL2SPEED(myType->getMaxDecel())), //!!! reverify
+            MAX2((SUMOReal) 0, veh->getSpeed()-(SUMOReal)ACCEL2SPEED(myDecel)), //!!! reverify
             nSpeed,
             MIN3(nSpeed, lane->getMaxSpeed(), maxNextSpeed(veh->getSpeed())),//vaccel(myState.mySpeed, myLane->maxSpeed())),
             nSpeed);
@@ -104,12 +105,6 @@ MSCFModel_IDM::ffeS(const MSVehicle * const veh, SUMOReal gap2pred) const throw(
 }
 
 
-SUMOReal
-MSCFModel_IDM::maxNextSpeed(SUMOReal speed) const throw() {
-    return MIN2(speed + (SUMOReal) ACCEL2SPEED(myType->getMaxAccel(speed)), myType->getMaxSpeed());
-}
-
-
 /// @todo update logic to IDM
 SUMOReal
 MSCFModel_IDM::brakeGap(SUMOReal speed) const throw() {
@@ -123,7 +118,7 @@ MSCFModel_IDM::interactionGap(const MSVehicle * const veh, SUMOReal vL) const th
     // Resolve the IDM equation to gap. Assume predecessor has
     // speed != 0 and that vsafe will be the current speed plus acceleration,
     // i.e that with this gap there will be no interaction.
-    SUMOReal acc = myType->getMaxAccel() * (1. - pow((double)(veh->getSpeed()/desiredSpeed(veh)), (double) DELTA_IDM));
+    SUMOReal acc = myAccel * (1. - pow((double)(veh->getSpeed()/desiredSpeed(veh)), (double) DELTA_IDM));
     SUMOReal vNext = veh->getSpeed() + acc;
     SUMOReal gap = (vNext - vL) *
                    ((veh->getSpeed() + vL) * myInverseTwoDecel) +
@@ -142,26 +137,16 @@ MSCFModel_IDM::hasSafeGap(SUMOReal speed, SUMOReal gap, SUMOReal predSpeed, SUMO
     }
     SUMOReal vSafe = _updateSpeed(speed, gap, predSpeed, laneMaxSpeed);
     SUMOReal vNext = MIN3(maxNextSpeed(speed), laneMaxSpeed, vSafe);
-    return (vNext>=myType->getSpeedAfterMaxDecel(speed)
-            &&
-            gap   >= SPEED2DIST(speed));
+    return (vNext>=getSpeedAfterMaxDecel(speed) && gap >= SPEED2DIST(speed));
 }
 
 
-SUMOReal MSCFModel_IDM::decelAbility() const throw() {
-    return ACCEL2SPEED(myType->getMaxDecel());
-}
-
-
-/**  */
 SUMOReal
 MSCFModel_IDM::_updateSpeed(SUMOReal gap2pred, SUMOReal mySpeed, SUMOReal predSpeed, SUMOReal desSpeed) const throw() {
-    SUMOReal a = myType->getMaxAccel();
-    SUMOReal b = myType->getMaxDecel();
     SUMOReal delta_v = mySpeed - predSpeed;
-    SUMOReal s_star_raw = myMinSpace + mySpeed*myTimeHeadWay + (mySpeed*delta_v)/(2*sqrt(a*b));
+    SUMOReal s_star_raw = myMinSpace + mySpeed*myTimeHeadWay + (mySpeed*delta_v)/(2*sqrt(myAccel*myDecel));
     SUMOReal s_star = MAX2(s_star_raw, myMinSpace);
-    SUMOReal acc = a * (1. - pow((double)(mySpeed/desSpeed), (double) DELTA_IDM) - (s_star*s_star)/(gap2pred*gap2pred));
+    SUMOReal acc = myAccel * (1. - pow((double)(mySpeed/desSpeed), (double) DELTA_IDM) - (s_star*s_star)/(gap2pred*gap2pred));
     SUMOReal vNext = mySpeed + ACCEL2SPEED(acc);
 	return vNext;
 }

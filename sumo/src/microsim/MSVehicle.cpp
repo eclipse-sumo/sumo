@@ -899,7 +899,7 @@ MSVehicle::moveFirstChecked() {
                     vSafe = (*i).myVLinkPass;
                 } else {
                     bool yellow = link->getState()==MSLink::LINKSTATE_TL_YELLOW_MAJOR||link->getState()==MSLink::LINKSTATE_TL_YELLOW_MINOR;
-                    if (vSafe<myType->getSpeedAfterMaxDecel(myState.mySpeed)&&yellow) {
+                    if (vSafe<getCarFollowModel().getSpeedAfterMaxDecel(myState.mySpeed)&&yellow) {
                         vSafe = (*i).myVLinkPass;
                     } else {
                         vSafe = (*i).myVLinkWait;
@@ -1231,7 +1231,7 @@ MSVehicle::vsafeCriticalCont(SUMOTime t, SUMOReal boundVSafe, SUMOReal lengthsIn
 			//  Note that we use the maximum deceleration ability as speed information (no conversion from m/s/s to m/s is necessary)
 			//  Also, after reaching this point, the speed should not be reduced
 			// Up to this time it is decelearating in order to watch out for foe traffic
-			if((*link)->getState()==MSLink::LINKSTATE_TL_RED||(seen>myType->getMaxDecel()&&myState.mySpeed>myType->getMaxDecel())) {
+			if((*link)->getState()==MSLink::LINKSTATE_TL_RED||(seen>cfModel.getMaxDecel()&&myState.mySpeed>cfModel.getMaxDecel())) {
 				vLinkPass = vLinkWait;
 			}
         }

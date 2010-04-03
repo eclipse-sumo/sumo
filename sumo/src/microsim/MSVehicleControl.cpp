@@ -304,16 +304,12 @@ MSVehicleControl::loadState(BinaryInputDevice &bis) throw() {
     bis >> size;
     while (size-->0) {
         SUMOReal r, g, b;
-        SUMOReal accel, decel, tau;
         SUMOVTypeParameter defType;
         int vehicleClass, emissionClass, shape;
 
         bis >> defType.id;
         bis >> defType.length;
         bis >> defType.maxSpeed;
-        bis >> accel;
-        bis >> decel;
-        bis >> tau;
         bis >> vehicleClass;
         defType.vehicleClass = (SUMOVehicleClass) vehicleClass;
         bis >> emissionClass;

@@ -46,9 +46,7 @@
 // method definitions
 // ===========================================================================
 MSVehicleType::MSVehicleType(const std::string &id, SUMOReal length,
-                             SUMOReal maxSpeed, SUMOReal accel,
-                             SUMOReal decel, SUMOReal dawdle,
-                             SUMOReal tau, SUMOReal prob,
+                             SUMOReal maxSpeed, SUMOReal prob,
                              SUMOReal speedFactor, SUMOReal speedDev,
                              SUMOVehicleClass vclass,
                              SUMOEmissionClass emissionClass,
@@ -56,8 +54,7 @@ MSVehicleType::MSVehicleType(const std::string &id, SUMOReal length,
                              SUMOReal guiWidth, SUMOReal guiOffset,
                              int cfModel, const std::string &lcModel,
                              const RGBColor &c) throw()
-        : myID(id), myLength(length), myMaxSpeed(maxSpeed), myAccel(accel),
-        myDecel(decel), myTau(tau),
+        : myID(id), myLength(length), myMaxSpeed(maxSpeed), 
         myDefaultProbability(prob), mySpeedFactor(speedFactor),
         mySpeedDev(speedDev), myVehicleClass(vclass),
         myLaneChangeModel(lcModel),
@@ -65,8 +62,6 @@ MSVehicleType::MSVehicleType(const std::string &id, SUMOReal length,
         myWidth(guiWidth), myOffset(guiOffset), myShape(shape) {
     assert(myLength > 0);
     assert(getMaxSpeed() > 0);
-    assert(myAccel > 0);
-    assert(myDecel > 0);
 }
 
 
@@ -78,9 +73,6 @@ MSVehicleType::saveState(std::ostream &os) {
     FileHelpers::writeString(os, myID);
     FileHelpers::writeFloat(os, myLength);
     FileHelpers::writeFloat(os, getMaxSpeed());
-    FileHelpers::writeFloat(os, myAccel);
-    FileHelpers::writeFloat(os, myDecel);
-    FileHelpers::writeFloat(os, myTau);
     FileHelpers::writeInt(os, (int) myVehicleClass);
     FileHelpers::writeInt(os, (int) myEmissionClass);
     FileHelpers::writeInt(os, (int) myShape);
@@ -112,20 +104,19 @@ MSVehicleType *
 MSVehicleType::build(SUMOVTypeParameter &from) throw(ProcessError) {
     MSVehicleType *vtype = new MSVehicleType(
         from.id, from.length, from.maxSpeed,
-        get(from.cfParameter, "accel", DEFAULT_VEH_ACCEL),
-        get(from.cfParameter, "decel", DEFAULT_VEH_DECEL),
-        get(from.cfParameter, "sigma", DEFAULT_VEH_SIGMA),
-        get(from.cfParameter, "tau", DEFAULT_VEH_TAU),
         from.defaultProbability, from.speedFactor, from.speedDev, from.vehicleClass, from.emissionClass,
         from.shape, from.width, from.offset, from.cfModel, from.lcModel, from.color);
     MSCFModel *model = 0;
     if (from.cfModel==SUMO_TAG_CF_IDM) {
         model = new MSCFModel_IDM(vtype,
-                                  get(from.cfParameter, "sigma", DEFAULT_VEH_SIGMA),
+                                  get(from.cfParameter, "accel", DEFAULT_VEH_ACCEL),
+                                  get(from.cfParameter, "decel", DEFAULT_VEH_DECEL),
                                   get(from.cfParameter, "timeHeadWay", 1.5),
                                   get(from.cfParameter, "minGap", 5.));
     } else {
         model = new MSCFModel_Krauss(vtype,
+                                     get(from.cfParameter, "accel", DEFAULT_VEH_ACCEL),
+                                     get(from.cfParameter, "decel", DEFAULT_VEH_DECEL),
                                      get(from.cfParameter, "sigma", DEFAULT_VEH_SIGMA),
                                      get(from.cfParameter, "tau", DEFAULT_VEH_TAU));
     }

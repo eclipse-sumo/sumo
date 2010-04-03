@@ -122,7 +122,7 @@ MSLCM_DK2004::wantsChangeToRight(MSAbstractLaneChangeModel::MSLCMessager &msgPas
     if ((*lastBlocked)!=0) {
         SUMOReal gap = (*lastBlocked)->getPositionOnLane()-(*lastBlocked)->getVehicleType().getLength()-myVehicle.getPositionOnLane();
         if (gap>0.1) {
-            if (myVehicle.getSpeed()<myVehicle.getCarFollowModel().decelAbility()) {
+            if (myVehicle.getSpeed()<ACCEL2SPEED(myVehicle.getCarFollowModel().getMaxDecel())) {
                 if ((*lastBlocked)->getSpeed()<0.1) {
                     ret |= LCA_AMBACKBLOCKER_STANDING;
                     myVSafe = myCarFollowModel.ffeV(&myVehicle, (SUMOReal)(gap-0.1), (*lastBlocked)->getSpeed());
@@ -349,7 +349,7 @@ MSLCM_DK2004::wantsChangeToLeft(MSAbstractLaneChangeModel::MSLCMessager &msgPass
     if ((*lastBlocked)!=0) {
         SUMOReal gap = (*lastBlocked)->getPositionOnLane()-(*lastBlocked)->getVehicleType().getLength()-myVehicle.getPositionOnLane();
         if (gap>0.1) {
-            if (myVehicle.getSpeed()<myVehicle.getCarFollowModel().decelAbility()) {
+            if (myVehicle.getSpeed()<ACCEL2SPEED(myVehicle.getCarFollowModel().getMaxDecel())) {
                 if ((*lastBlocked)->getSpeed()<0.1) {
                     ret |= LCA_AMBACKBLOCKER_STANDING;
                     myVSafe = myCarFollowModel.ffeV(&myVehicle, (SUMOReal)(gap-0.1), (*lastBlocked)->getSpeed());
@@ -636,7 +636,7 @@ MSLCM_DK2004::informBlocker(MSAbstractLaneChangeModel::MSLCMessager &msgPass,
         SUMOReal decelGap =
             neighFollow.second
             + SPEED2DIST(myVehicle.getSpeed()) * (SUMOReal) 2.0
-            - MAX2(nv->getSpeed() - (SUMOReal) ACCEL2SPEED(nv->getCarFollowModel().decelAbility()) * (SUMOReal) 2.0, (SUMOReal) 0);
+            - MAX2(nv->getSpeed() - (SUMOReal) ACCEL2DIST(nv->getCarFollowModel().getMaxDecel()) * (SUMOReal) 2.0, (SUMOReal) 0);
         if (neighFollow.second>0&&decelGap>0&&nv->getCarFollowModel().hasSafeGap(nv->getSpeed(), decelGap, myVehicle.getSpeed(), nv->getLane().getMaxSpeed())) {//isSafeChange_WithDistance(decelGap, myVehicle, &nv->getLane())) {
             SUMOReal vsafe = myCarFollowModel.ffeV(&myVehicle, neighFollow.second, neighFollow.first->getSpeed());
             msgPass.informNeighFollower(

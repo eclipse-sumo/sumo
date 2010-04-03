@@ -30,6 +30,7 @@
 
 #include <cassert>
 #include <string>
+#include <utils/common/StdDefs.h>
 #include <utils/common/FileHelpers.h>
 
 
@@ -56,7 +57,7 @@ public:
     /** @brief Constructor
      *  @param[in] rvtype a reference to the corresponding vtype
      */
-    MSCFModel(const MSVehicleType* vtype) throw();
+    MSCFModel(const MSVehicleType* vtype, SUMOReal decel) throw();
 
 
     /// @brief Destructor
@@ -122,20 +123,6 @@ public:
     virtual SUMOReal ffeS(const MSVehicle * const veh, SUMOReal gap2pred) const throw() = 0;
 
 
-    /** @brief Returns the maximum speed given the current speed
-     *
-     * The implementation of this method must take into account the time step
-     *  duration.
-     *
-     * Justification: Due to air brake or other influences, the vehicle's next maximum
-     *  speed depends on his current speed (given).
-     *
-     * @param[in] speed The vehicle's current speed
-     * @return The maximum possible speed for the next step
-     */
-    virtual SUMOReal maxNextSpeed(SUMOReal speed) const throw() = 0;
-
-
     /** @brief Returns the distance the vehicle needs to halt including driver's reaction time
      * @param[in] speed The vehicle's current speed
      * @return The distance needed to halt
@@ -167,11 +154,8 @@ public:
     virtual bool hasSafeGap(SUMOReal speed, SUMOReal gap, SUMOReal predSpeed, SUMOReal laneMaxSpeed) const throw() = 0;
 
 
-    /** @brief Returns the vehicle's maximum deceleration ability
-     * @return The vehicle's maximum deceleration ability
-     */
-    virtual SUMOReal decelAbility() const throw() = 0;
-
+    /// Get the vehicle's maximum acceleration [m/s^2]
+    virtual SUMOReal getMaxAccel(SUMOReal v) const throw() = 0;
 
     /** @brief Saves the model's definition into the state
      * @param[in] os The output to write the definition into
@@ -186,9 +170,66 @@ public:
     /// @}
 
 
+
+    /// @name Virtual methods with default implementation
+    /// @{
+
+    /** @brief Returns the maximum speed given the current speed
+     *
+     * The implementation of this method must take into account the time step
+     *  duration.
+     *
+     * Justification: Due to air brake or other influences, the vehicle's next maximum
+     *  speed may depend on the vehicle's current speed (given).
+     *
+     * @param[in] speed The vehicle's current speed
+     * @return The maximum possible speed for the next step
+     */
+    virtual SUMOReal maxNextSpeed(SUMOReal speed) const throw();
+
+
+    /** @brief Get the vehicle's maximum deceleration [m/s^2]
+     * @return The maximum deceleration (in m/s^2) of vehicles of this class
+     */
+	virtual SUMOReal getMaxDecel() const throw() {
+		return myDecel;
+	}
+	/// @}
+
+
+
+
+
+
+
+
+    SUMOReal getSpeedAfterMaxDecel(SUMOReal v) const {
+        return MAX2((SUMOReal) 0, v - (SUMOReal) ACCEL2SPEED(myDecel));
+    }
+
+    /** @brief Get the driver's reaction time [s]
+     * @return The reaction time of this class' drivers in s
+     */
+    virtual SUMOReal getTau() const throw() {
+        return 1.;
+    }
+
+   /** @brief Returns the minimum gap to reserve if the leader is braking at maximum
+     *
+     */
+    SUMOReal getSecureGap(const SUMOReal speed, const SUMOReal leaderSpeedAfterDecel) const throw() {
+        const SUMOReal speedDiff = speed - leaderSpeedAfterDecel;
+        return speedDiff * speedDiff / getMaxDecel() + speed * getTau();
+    }
+
+
 protected:
     /// @brief The type to which this model definition belongs to
     const MSVehicleType* myType;
+
+    /// @brief The vehicle's maximum deceleration [m/s^2]
+    SUMOReal myDecel;
+
 
 };
 

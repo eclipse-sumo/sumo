@@ -42,10 +42,12 @@
 class MSCFModel_Krauss : public MSCFModel {
 public:
     /** @brief Constructor
-     *  @param[in] dawdle The driver imperfection
-     *  @param[in] tau The driver's reaction time
+     * @param[in] accel The maximum acceleration
+     * @param[in] decel The maximum deceleration
+     * @param[in] dawdle The driver imperfection
+     * @param[in] tau The driver's reaction time
      */
-    MSCFModel_Krauss(const MSVehicleType* vtype, SUMOReal dawdle, SUMOReal tau) throw();
+    MSCFModel_Krauss(const MSVehicleType* vtype, SUMOReal accel, SUMOReal decel, SUMOReal dawdle, SUMOReal tau) throw();
 
 
     /// @brief Destructor
@@ -115,21 +117,6 @@ public:
     SUMOReal ffeS(const MSVehicle * const veh, SUMOReal gap2pred) const throw();
 
 
-    /** @brief Returns the maximum speed given the current speed
-     *
-     * The implementation of this method must take into account the time step
-     *  duration.
-     *
-     * Justification: Due to air brake or other influences, the vehicle's next maximum
-     *  speed depends on his current speed (given).
-     *
-     * @param[in] speed The vehicle's current speed
-     * @return The maximum possible speed for the next step
-     * @see MSCFModel::maxNextSpeed
-     */
-    SUMOReal maxNextSpeed(SUMOReal speed) const throw();
-
-
     /** @brief Returns the distance the vehicle needs to halt including driver's reaction time
      * @param[in] speed The vehicle's current speed
      * @return The distance needed to halt
@@ -164,13 +151,6 @@ public:
     bool hasSafeGap(SUMOReal speed, SUMOReal gap, SUMOReal predSpeed, SUMOReal laneMaxSpeed) const throw();
 
 
-    /** @brief Returns the vehicle's maximum deceleration ability
-     * @return The vehicle's maximum deceleration ability
-     * @see MSCFModel::decelAbility
-     */
-    SUMOReal decelAbility() const throw();
-
-
     /** @brief Returns the model's name
      * @return The model's name
      * @see MSCFModel::getModelName
@@ -179,6 +159,19 @@ public:
         return SUMO_TAG_CF_KRAUSS;
     }
     /// @}
+
+
+    /// Get the vehicle's maximum acceleration [m/s^2]
+    SUMOReal getMaxAccel(SUMOReal v) const throw() {
+		return (SUMOReal)(myAccel *(1.0 - (v/myType->getMaxSpeed())));
+    }
+
+    /** @brief Get the driver's reaction time [s]
+     * @return The reaction time of this class' drivers in s
+     */
+    SUMOReal getTau() const throw() {
+        return myTau;
+    }
 
 
 private:
@@ -190,23 +183,26 @@ private:
     SUMOReal _vsafe(SUMOReal gap, SUMOReal predSpeed) const throw();
 
 
-    /** @brief Applies driver imperfection (sawdling / sigma)
+    /** @brief Applies driver imperfection (dawdling / sigma)
      * @param[in] speed The speed with no dawdling
      * @return The speed after dawdling
      */
     SUMOReal dawdle(SUMOReal speed) const throw();
 
 private:
+    /// @brief The vehicle's maximum acceleration [m/s^2]
+    SUMOReal myAccel;
+
     /// @brief The vehicle's dawdle-parameter. 0 for no dawdling, 1 for max.
     SUMOReal myDawdle;
 
     /// @brief The driver's reaction time [s]
     SUMOReal myTau;
 
-    /// The precomputed value for 1/(2*d)
+    /// @brief The precomputed value for 1/(2*d)
     SUMOReal myInverseTwoDecel;
 
-    /// The precomputed value for myDecel*myTau
+    /// @brief The precomputed value for myDecel*myTau
     SUMOReal myTauDecel;
     /// @}
 

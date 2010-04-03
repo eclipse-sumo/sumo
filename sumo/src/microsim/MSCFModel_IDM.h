@@ -45,11 +45,12 @@
 class MSCFModel_IDM : public MSCFModel {
 public:
     /** @brief Constructor
-     *  @param[in] dawdle
-     *  @param[in] timeHeadWay
-     *  @param[in] mingap
+     * @param[in] accel The maximum acceleration
+     * @param[in] decel The maximum deceleration
+     * @param[in] timeHeadWay
+     * @param[in] mingap
      */
-    MSCFModel_IDM(const MSVehicleType* vtype, SUMOReal dawdle,
+    MSCFModel_IDM(const MSVehicleType* vtype, SUMOReal accel, SUMOReal decel, 
                   SUMOReal timeHeadWay, SUMOReal mingap) throw();
 
 
@@ -120,21 +121,6 @@ public:
     SUMOReal ffeS(const MSVehicle * const veh, SUMOReal gap2pred) const throw();
 
 
-    /** @brief Returns the maximum speed given the current speed
-     *
-     * The implementation of this method must take into account the time step
-     *  duration.
-     *
-     * Justification: Due to air brake or other influences, the vehicle's next maximum
-     *  speed depends on his current speed (given).
-     *
-     * @param[in] speed The vehicle's current speed
-     * @return The maximum possible speed for the next step
-     * @see MSCFModel::maxNextSpeed
-     */
-    SUMOReal maxNextSpeed(SUMOReal speed) const throw();
-
-
     /** @brief Returns the distance the vehicle needs to halt including driver's reaction time
      * @param[in] speed The vehicle's current speed
      * @return The distance needed to halt
@@ -169,13 +155,6 @@ public:
     bool hasSafeGap(SUMOReal speed, SUMOReal gap, SUMOReal predSpeed, SUMOReal laneMaxSpeed) const throw();
 
 
-    /** @brief Returns the vehicle's maximum deceleration ability
-     * @return The vehicle's maximum deceleration ability
-     * @see MSCFModel::decelAbility
-     */
-    SUMOReal decelAbility() const throw();
-
-
     /** @brief Returns the model's name
      * @return The model's name
      * @see MSCFModel::getModelName
@@ -185,6 +164,12 @@ public:
     }
     /// @}
 
+    /// Get the vehicle's maximum acceleration [m/s^2]
+    SUMOReal getMaxAccel(SUMOReal v) const throw() {
+        return myAccel;
+    }
+
+
 
 private:
     SUMOReal _updateSpeed(SUMOReal gap2pred, SUMOReal mySpeed, SUMOReal predSpeed, SUMOReal desSpeed) const throw();
@@ -193,6 +178,9 @@ private:
 		return MIN2(myType->getMaxSpeed(), veh->getLane().getMaxSpeed());
 	}
 
+
+    /// @brief The vehicle's maximum acceleration [m/s^2]
+    SUMOReal myAccel;
 
     /// @brief The driver's desired time headway [s]
     SUMOReal myTimeHeadWay;

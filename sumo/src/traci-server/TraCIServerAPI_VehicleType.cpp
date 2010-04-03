@@ -93,15 +93,15 @@ TraCIServerAPI_VehicleType::processGet(tcpip::Storage &inputStorage,
             break;
         case VAR_ACCEL:
             tempMsg.writeUnsignedByte(TYPE_FLOAT);
-            tempMsg.writeFloat(v->getMaxAccel(0));
+			tempMsg.writeFloat(v->getCarFollowModel().getMaxAccel(0));
             break;
         case VAR_DECEL:
             tempMsg.writeUnsignedByte(TYPE_FLOAT);
-            tempMsg.writeFloat(v->getMaxDecel());
+            tempMsg.writeFloat(v->getCarFollowModel().getMaxDecel());
             break;
         case VAR_TAU:
             tempMsg.writeUnsignedByte(TYPE_FLOAT);
-            tempMsg.writeFloat(v->getTau());
+            tempMsg.writeFloat(v->getCarFollowModel().getTau());
             break;
         case VAR_VEHICLECLASS:
             tempMsg.writeUnsignedByte(TYPE_STRING);

@@ -28,16 +28,23 @@
 #endif
 
 #include "MSCFModel.h"
+#include "MSVehicleType.h"
 
 
 // ===========================================================================
 // method definitions
 // ===========================================================================
-MSCFModel::MSCFModel(const MSVehicleType* vtype) throw()
-        : myType(vtype) {}
+MSCFModel::MSCFModel(const MSVehicleType* vtype, SUMOReal decel) throw()
+        : myType(vtype), myDecel(decel) {}
 
 
 MSCFModel::~MSCFModel() throw() {}
+
+
+SUMOReal
+MSCFModel::maxNextSpeed(SUMOReal speed) const throw() {
+    return MIN2(speed + (SUMOReal) ACCEL2SPEED(getMaxAccel(speed)), myType->getMaxSpeed());
+}
 
 
 void MSCFModel::saveState(std::ostream &os) {}

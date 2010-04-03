@@ -72,10 +72,9 @@ public:
      * @param[in] id The vehicle type's id
      * @param[in] length The length of vehicles that are of this type
      * @param[in] maxSpeed The maximum velocity vehicles of this type may drive with
-     * @param[in] accel The maximum acceleration of vehicles of this type
-     * @param[in] decel The maximum deceleration of vehicles of this type
-     * @param[in] dawdle The driver imperfection used by this vehicle type
-     * @param[in] tau The driver's reaction time used by this vehicle type
+     * @param[in] prob The probability of this vehicle type
+     * @param[in] speedFactor The speed factor to scale maximum speed with
+     * @param[in] speedDev The speed deviation
      * @param[in] vclass The class vehicles of this type belong to
      * @param[in] emissionClass The emission class vehicles of this type belong to
      * @param[in] shape How vehicles of this class shall be drawn
@@ -86,8 +85,7 @@ public:
      * @param[in] c Color of this vehicle type
      */
     MSVehicleType(const std::string &id, SUMOReal length, SUMOReal maxSpeed,
-                  SUMOReal accel, SUMOReal decel, SUMOReal dawdle,
-                  SUMOReal tau, SUMOReal prob, SUMOReal speedFactor,
+                  SUMOReal prob, SUMOReal speedFactor,
                   SUMOReal speedDev, SUMOVehicleClass vclass,
                   SUMOEmissionClass emissionClass, SUMOVehicleShape shape,
                   SUMOReal guiWidth, SUMOReal guiOffset,
@@ -134,11 +132,6 @@ public:
         return myMaxSpeed;
     }
 
-    SUMOReal getMaxAccel() const throw() {
-        return myAccel;
-    }
-
-
     /** @brief Get vehicle's maximum speed [m/s].
      * @return The maximum speed (in m/s) of vehicles of this class
      */
@@ -158,22 +151,6 @@ public:
         SUMOReal speedDev = mySpeedDev * meanSpeed;
         SUMOReal speed = MIN3(RandHelper::randNorm(meanSpeed, speedDev), meanSpeed + 2*speedDev, myMaxSpeed);
         return MAX3((SUMOReal)0.0, speed, meanSpeed - 2*speedDev);
-    }
-
-
-    /** @brief Get the vehicle's maximum deceleration [m/s^2]
-     * @return The maximum deceleration (in m/s^2) of vehicles of this class
-     */
-    SUMOReal getMaxDecel() const throw() {
-        return myDecel;
-    }
-
-
-    /** @brief Get the driver's reaction time [s]
-     * @return The reaction time of this class' drivers in s
-     */
-    SUMOReal getTau() const throw() {
-        return myTau;
     }
 
 
@@ -242,25 +219,7 @@ public:
     /// @}
 
 
-    SUMOReal getSpeedAfterMaxDecel(SUMOReal v) const {
-        return MAX2((SUMOReal) 0, v - (SUMOReal) ACCEL2SPEED(myDecel));
-    }
 
-
-
-
-    /// Get the vehicle's maximum acceleration [m/s^2]
-    inline SUMOReal getMaxAccel(SUMOReal v) const {
-        return (SUMOReal)(myAccel *(1.0 - (v/myMaxSpeed)));
-    }
-
-    /** @brief Returns the minimum gap to reserve if the leader is braking at maximum
-     *
-     */
-    SUMOReal getSecureGap(const SUMOReal speed, const SUMOReal leaderSpeedAfterDecel) const throw() {
-        const SUMOReal speedDiff = speed - leaderSpeedAfterDecel;
-        return speedDiff * speedDiff / getMaxDecel() + speed * getTau();
-    }
 
 
     /// Saves the states of a vehicle
@@ -299,15 +258,6 @@ private:
 
     /// @brief Vehicle's maximum speed [m/s]
     SUMOReal myMaxSpeed;
-
-    /// @brief The vehicle's maximum acceleration [m/s^2]
-    SUMOReal myAccel;
-
-    /// @brief The vehicle's maximum deceleration [m/s^2]
-    SUMOReal myDecel;
-
-    /// @brief The driver's reaction time [s]
-    SUMOReal myTau;
 
     /// @brief The vehicle's class
     SUMOVehicleClass myVehicleClass;
@@ -349,10 +299,10 @@ private:
 
 
 private:
-    /// Invalidated copy constructor
+    /// @brief Invalidated copy constructor
     MSVehicleType(const MSVehicleType&);
 
-    /// Invalidated assignment operator
+    /// @brief Invalidated assignment operator
     MSVehicleType& operator=(const MSVehicleType&);
 
 };
