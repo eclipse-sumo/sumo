@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 03/18/10 13:38:06 by SUMO sumo Version dev-SVN-r8460
+<!-- generated on 04/03/10 11:27:32 by SUMO sumo Version dev-SVN-r8487
 <configuration>
 
     <input>
@@ -180,12 +180,12 @@
     </interval>
     <interval begin="30.00" end="31.00" id="dump_1">
         <edge id="1si">
-            <lane id="1si_2" sampledSeconds="2.00" traveltime="1061.60" density="8.43" occupancy="4.22" waitingTime="0.50" speed="0.22" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0"/>
+            <lane id="1si_2" sampledSeconds="2.00" traveltime="1061.59" density="8.43" occupancy="4.22" waitingTime="0.50" speed="0.22" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0"/>
         </edge>
     </interval>
     <interval begin="31.00" end="32.00" id="dump_1">
         <edge id="1si">
-            <lane id="1si_2" sampledSeconds="2.00" traveltime="23512.65" density="8.43" occupancy="4.22" waitingTime="1.00" speed="0.01" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0"/>
+            <lane id="1si_2" sampledSeconds="2.00" traveltime="23507.78" density="8.43" occupancy="4.22" waitingTime="1.00" speed="0.01" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0"/>
         </edge>
     </interval>
     <interval begin="32.00" end="33.00" id="dump_1">

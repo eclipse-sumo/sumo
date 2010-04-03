@@ -1,26 +1,26 @@
 <?xml version="1.0"?>
 
-<!-- generated on 05/13/09 10:59:48 by SUMO netgen Version dev-SVN-r7152
+<!-- generated on 04/03/10 11:25:13 by SUMO netgen Version dev-SVN-r8487
 <configuration>
 
-   <spider_network>
-      <spider-net>true</spider-net>
-      <spider-arm-number>4</spider-arm-number>
-      <spider-circle-number>1</spider-circle-number>
-      <spider-space-rad>100</spider-space-rad>
-   </spider_network>
+    <spider_network>
+        <spider-net value="true"/>
+        <spider-arm-number value="4"/>
+        <spider-circle-number value="1"/>
+        <spider-space-rad value="100"/>
+    </spider_network>
 
-   <output>
-      <output-file>net.net.xml</output-file>
-   </output>
+    <output>
+        <output-file value="net.net.xml"/>
+    </output>
 
-   <building_defaults>
-      <default-junction-type>traffic_light</default-junction-type>
-   </building_defaults>
+    <building_defaults>
+        <default-junction-type value="traffic_light"/>
+    </building_defaults>
 
-   <report>
-      <verbose>true</verbose>
-   </report>
+    <report>
+        <verbose value="true"/>
+    </report>
 
 </configuration>
 -->
@@ -31,7 +31,7 @@
 
    <edge id=":1_0" function="internal">
       <lanes>
-         <lane id=":1_0_0" depart="0" maxspeed="13.90" length="5.00" shape="98.35,104.75 98.16,103.39 97.58,102.42 96.61,101.84 95.25,101.65"/>
+         <lane id=":1_0_0" depart="0" maxspeed="13.90" length="5.00" shape="98.35,104.75 98.16,103.39 97.57,102.43 96.61,101.84 95.25,101.65"/>
       </lanes>
    </edge>
 
@@ -79,7 +79,7 @@
 
    <edge id=":1_8" function="internal">
       <lanes>
-         <lane id=":1_8_0" depart="0" maxspeed="13.90" length="5.00" shape="101.65,95.25 101.84,96.61 102.43,97.58 103.39,98.16 104.75,98.35"/>
+         <lane id=":1_8_0" depart="0" maxspeed="13.90" length="5.00" shape="101.65,95.25 101.84,96.61 102.43,97.57 103.39,98.16 104.75,98.35"/>
       </lanes>
    </edge>
 
@@ -349,7 +349,7 @@
 
    <edge id=":3/1_12" function="internal">
       <lanes>
-         <lane id=":3/1_12_0" depart="0" maxspeed="13.90" length="4.72" shape="8.19,100.88 8.11,100.82 7.70,100.00 8.11,99.17 9.35,98.35"/>
+         <lane id=":3/1_12_0" depart="0" maxspeed="13.90" length="4.72" shape="8.19,100.88 8.11,100.83 7.70,100.00 8.11,99.18 9.35,98.35"/>
       </lanes>
    </edge>
 
@@ -617,40 +617,40 @@
    </row-logic>
 
 
-   <tl-logic id="1/1" type="static" programID="0" offset="0">
-      <phase duration="31" state="GggrrrGGg"/>
-      <phase duration="4" state="yggrrryyg"/>
-      <phase duration="6" state="rGGrrrrrG"/>
-      <phase duration="4" state="ryyrrrrry"/>
-      <phase duration="31" state="rrrGGgGrr"/>
-      <phase duration="4" state="rrryyyyrr"/>
+   <tl-logic id="1/1" type="static" programID="0" offset="0.00">
+      <phase duration="31.00" state="GggrrrGGg"/>
+      <phase duration="4.00" state="yggrrryyg"/>
+      <phase duration="6.00" state="rGGrrrrrG"/>
+      <phase duration="4.00" state="ryyrrrrry"/>
+      <phase duration="31.00" state="rrrGGgGrr"/>
+      <phase duration="4.00" state="rrryyyyrr"/>
    </tl-logic>
 
-   <tl-logic id="2/1" type="static" programID="0" offset="0">
-      <phase duration="31" state="GggrrrGGg"/>
-      <phase duration="4" state="yggrrryyg"/>
-      <phase duration="6" state="rGGrrrrrG"/>
-      <phase duration="4" state="ryyrrrrry"/>
-      <phase duration="31" state="rrrGGgGrr"/>
-      <phase duration="4" state="rrryyyyrr"/>
+   <tl-logic id="2/1" type="static" programID="0" offset="0.00">
+      <phase duration="31.00" state="GggrrrGGg"/>
+      <phase duration="4.00" state="yggrrryyg"/>
+      <phase duration="6.00" state="rGGrrrrrG"/>
+      <phase duration="4.00" state="ryyrrrrry"/>
+      <phase duration="31.00" state="rrrGGgGrr"/>
+      <phase duration="4.00" state="rrryyyyrr"/>
    </tl-logic>
 
-   <tl-logic id="3/1" type="static" programID="0" offset="0">
-      <phase duration="31" state="GggrrrGGg"/>
-      <phase duration="4" state="yggrrryyg"/>
-      <phase duration="6" state="rGGrrrrrG"/>
-      <phase duration="4" state="ryyrrrrry"/>
-      <phase duration="31" state="rrrGGgGrr"/>
-      <phase duration="4" state="rrryyyyrr"/>
+   <tl-logic id="3/1" type="static" programID="0" offset="0.00">
+      <phase duration="31.00" state="GggrrrGGg"/>
+      <phase duration="4.00" state="yggrrryyg"/>
+      <phase duration="6.00" state="rGGrrrrrG"/>
+      <phase duration="4.00" state="ryyrrrrry"/>
+      <phase duration="31.00" state="rrrGGgGrr"/>
+      <phase duration="4.00" state="rrryyyyrr"/>
    </tl-logic>
 
-   <tl-logic id="4/1" type="static" programID="0" offset="0">
-      <phase duration="31" state="rrrGGgGgg"/>
-      <phase duration="4" state="rrryygygg"/>
-      <phase duration="6" state="rrrrrGrGG"/>
-      <phase duration="4" state="rrrrryryy"/>
-      <phase duration="31" state="GGgGrrrrr"/>
-      <phase duration="4" state="yyyyrrrrr"/>
+   <tl-logic id="4/1" type="static" programID="0" offset="0.00">
+      <phase duration="31.00" state="rrrGGgGgg"/>
+      <phase duration="4.00" state="rrryygygg"/>
+      <phase duration="6.00" state="rrrrrGrGG"/>
+      <phase duration="4.00" state="rrrrryryy"/>
+      <phase duration="31.00" state="GGgGrrrrr"/>
+      <phase duration="4.00" state="yyyyrrrrr"/>
    </tl-logic>
 
 
@@ -679,9 +679,9 @@
 
    <junction id=":2/1_10_0" type="internal" x="107.68" y="194.58" incLanes=":2/1_2_0 3/1to2/1_0" intLanes=":2/1_7_0" shape=""/>
 
-   <junction id=":2/1_11_0" type="internal" x="101.20" y="194.65" incLanes=":2/1_4_0 3/1to2/1_0" intLanes=":2/1_7_0" shape=""/>
+   <junction id=":2/1_11_0" type="internal" x="101.20" y="194.65" incLanes=":2/1_4_0 1/1to2/1_0" intLanes=":2/1_0_0 :2/1_1_0" shape=""/>
 
-   <junction id=":2/1_12_0" type="internal" x="101.59" y="190.74" incLanes=":2/1_5_0 3/1to2/1_0" intLanes=":2/1_6_0" shape=""/>
+   <junction id=":2/1_12_0" type="internal" x="101.59" y="190.74" incLanes=":2/1_5_0 1/1to2/1_0" intLanes=":2/1_1_0" shape=""/>
 
    <junction id=":2/1_13_0" type="internal" x="94.58" y="192.32" incLanes=":2/1_8_0 1/1to2/1_0" intLanes=":2/1_0_0" shape=""/>
 

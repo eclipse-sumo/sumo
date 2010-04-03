@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 01/25/10 11:24:52 by SUMO netconvert Version dev-SVN-r8163
+<!-- generated on 04/03/10 11:24:11 by SUMO netconvert Version dev-SVN-r8487
 <configuration>
 
     <input>
@@ -24,7 +24,7 @@
 
 <net>
 
-   <location netOffset="-399345.66,-5809365.50" convBoundary="0.00,0.00,1737.68,1000.80" origBoundary="13.519603,52.425529,13.545248,52.434464" projParameter="+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
+   <location netOffset="-399345.66,-5809365.64" convBoundary="0.00,0.00,1737.68,1000.80" origBoundary="13.519602,52.425528,13.545248,52.434465" projParameter="+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
 
 
    <edge id="-22917251" from="32266936" to="32266938" priority="6" type="highway.tertiary" function="normal">
@@ -848,7 +848,7 @@
 
    <edge id="27445000" from="38919945" to="57343359" priority="6" type="highway.tertiary" function="normal">
       <lanes>
-         <lane id="27445000_0" depart="1" maxspeed="22.22" length="481.86" shape="481.29,395.12 387.27,372.75 303.84,361.55 189.83,353.29 133.74,350.94 3.18,348.50"/>
+         <lane id="27445000_0" depart="1" maxspeed="22.22" length="481.86" shape="481.29,395.12 387.27,372.75 303.84,361.55 189.83,353.29 133.74,350.94 3.17,348.50"/>
       </lanes>
    </edge>
 
@@ -1100,7 +1100,7 @@
 
    <edge id="5784968#3" from="283719904" to="38920778" priority="4" type="highway.residential" function="normal">
       <lanes>
-         <lane id="5784968#3_0" depart="1" maxspeed="13.89" length="37.97" shape="930.39,560.42 907.28,590.55"/>
+         <lane id="5784968#3_0" depart="1" maxspeed="13.89" length="37.97" shape="930.39,560.41 907.28,590.55"/>
       </lanes>
    </edge>
 
@@ -1130,7 +1130,7 @@
 
    <edge id="6137233#2" from="283018845" to="283018932" priority="4" type="highway.residential" function="normal">
       <lanes>
-         <lane id="6137233#2_0" depart="1" maxspeed="13.89" length="47.97" shape="361.20,458.08 407.75,469.65"/>
+         <lane id="6137233#2_0" depart="1" maxspeed="13.89" length="47.97" shape="361.20,458.08 407.75,469.66"/>
       </lanes>
    </edge>
 
@@ -1160,7 +1160,7 @@
 
    <edge id="6137239#2" from="38919841" to="38919808" priority="4" type="highway.residential" function="normal">
       <lanes>
-         <lane id="6137239#2_0" depart="1" maxspeed="13.89" length="92.13" shape="507.57,560.91 512.19,562.35 524.69,564.33 599.27,561.77"/>
+         <lane id="6137239#2_0" depart="1" maxspeed="13.89" length="92.12" shape="507.57,560.91 512.19,562.35 524.69,564.33 599.27,561.77"/>
       </lanes>
    </edge>
 
@@ -1212,13 +1212,13 @@
 
    <edge id="7727482" from="38920501" to="56231397" priority="6" type="highway.tertiary" function="normal">
       <lanes>
-         <lane id="7727482_0" depart="1" maxspeed="22.22" length="57.76" shape="496.67,324.11 498.65,344.10 500.25,381.73"/>
+         <lane id="7727482_0" depart="1" maxspeed="22.22" length="57.76" shape="496.67,324.11 498.64,344.10 500.25,381.73"/>
       </lanes>
    </edge>
 
    <edge id="7727483#0" from="38920501" to="294169342" priority="6" type="highway.tertiary" function="normal">
       <lanes>
-         <lane id="7727483#0_0" depart="1" maxspeed="22.22" length="12.18" shape="494.87,324.26 493.82,312.13"/>
+         <lane id="7727483#0_0" depart="1" maxspeed="22.22" length="12.17" shape="494.87,324.26 493.82,312.13"/>
       </lanes>
    </edge>
 
@@ -2231,27 +2231,27 @@
    </row-logic>
 
 
-   <tl-logic id="261599791" type="static" programID="0" offset="0">
-      <phase duration="31" state="GGgGGr"/>
-      <phase duration="9" state="yyyyyr"/>
-      <phase duration="31" state="GGrGGg"/>
-      <phase duration="9" state="yyryyy"/>
+   <tl-logic id="261599791" type="static" programID="0" offset="0.00">
+      <phase duration="31.00" state="GGgGGr"/>
+      <phase duration="9.00" state="yyyyyr"/>
+      <phase duration="31.00" state="GGrGGg"/>
+      <phase duration="9.00" state="yyryyy"/>
    </tl-logic>
 
-   <tl-logic id="32266935" type="static" programID="0" offset="0">
-      <phase duration="31" state="rrrrGGGggrrrrGGGgg"/>
-      <phase duration="9" state="rrrryyyggrrrryyygg"/>
-      <phase duration="6" state="rrrrrrrGGrrrrrrrGG"/>
-      <phase duration="9" state="rrrrrrryyrrrrrrryy"/>
-      <phase duration="31" state="GGggrrrrrGGggrrrrr"/>
-      <phase duration="9" state="yyggrrrrryyggrrrrr"/>
-      <phase duration="6" state="rrGGrrrrrrrGGrrrrr"/>
-      <phase duration="9" state="rryyrrrrrrryyrrrrr"/>
+   <tl-logic id="32266935" type="static" programID="0" offset="0.00">
+      <phase duration="31.00" state="rrrrGGGggrrrrGGGgg"/>
+      <phase duration="9.00" state="rrrryyyggrrrryyygg"/>
+      <phase duration="6.00" state="rrrrrrrGGrrrrrrrGG"/>
+      <phase duration="9.00" state="rrrrrrryyrrrrrrryy"/>
+      <phase duration="31.00" state="GGggrrrrrGGggrrrrr"/>
+      <phase duration="9.00" state="yyggrrrrryyggrrrrr"/>
+      <phase duration="6.00" state="rrGGrrrrrrrGGrrrrr"/>
+      <phase duration="9.00" state="rryyrrrrrrryyrrrrr"/>
    </tl-logic>
 
-   <tl-logic id="94487954" type="static" programID="0" offset="0">
-      <phase duration="31" state="GG"/>
-      <phase duration="9" state="yy"/>
+   <tl-logic id="94487954" type="static" programID="0" offset="0.00">
+      <phase duration="31.00" state="GG"/>
+      <phase duration="9.00" state="yy"/>
    </tl-logic>
 
 
@@ -2295,7 +2295,7 @@
 
    <junction id="283720461" type="priority" x="1021.53" y="494.52" incLanes="-5198585#7_0 5198585#6_0 26004966#3_0" intLanes="" shape="1022.95,499.95 1027.12,494.96 1019.82,488.86 1015.66,493.85 1015.78,495.90 1020.52,500.35"/>
 
-   <junction id="283721344" type="right_before_left" x="1019.45" y="531.46" incLanes="26004861#0_0 26004787#0_0 -26004861#1_0 -26004787#1_0" intLanes="" shape="1018.42,537.39 1024.41,534.87 1025.26,533.03 1023.30,526.83 1019.99,525.17 1014.15,528.02 1013.37,529.77 1015.09,536.03"/>
+   <junction id="283721344" type="right_before_left" x="1019.45" y="531.46" incLanes="26004861#0_0 26004787#0_0 -26004861#1_0 -26004787#1_0" intLanes="" shape="1018.42,537.39 1024.41,534.87 1025.26,533.03 1023.30,526.84 1019.99,525.17 1014.15,528.02 1013.37,529.77 1015.09,536.03"/>
 
    <junction id="283721348" type="priority" x="997.85" y="484.53" incLanes="26004861#2_0 5784968#0_0 -5784968#1_0" intLanes="" shape="997.44,491.76 1003.41,489.18 1002.70,484.09 997.94,479.66 991.06,487.06 995.83,491.49"/>
 
@@ -2307,9 +2307,9 @@
 
    <junction id="287944368" type="right_before_left" x="1008.30" y="508.63" incLanes="26004861#1_0 -26004966#3_0 -26004861#2_0 26004966#2_0" intLanes="" shape="1008.11,515.65 1013.96,512.80 1015.08,506.15 1010.34,501.71 1008.72,501.42 1002.76,504.01 1001.68,510.97 1006.43,515.40"/>
 
-   <junction id="287944369" type="right_before_left" x="1027.28" y="550.08" incLanes="26004868#0_0 -26004861#0_0 -26004868#1_0" intLanes="" shape="1034.14,547.21 1029.26,542.92 1027.69,542.66 1021.70,545.18 1022.52,550.61 1027.43,554.87"/>
+   <junction id="287944369" type="right_before_left" x="1027.28" y="550.08" incLanes="26004868#0_0 -26004861#0_0 -26004868#1_0" intLanes="" shape="1034.14,547.21 1029.26,542.92 1027.69,542.66 1021.69,545.18 1022.52,550.61 1027.43,554.87"/>
 
-   <junction id="294168098" type="right_before_left" x="566.45" y="321.65" incLanes="26816413#1_0 -26816553_0 -26816590#0_0" intLanes="" shape="562.14,322.11 568.76,314.88 567.44,312.46 559.63,316.75"/>
+   <junction id="294168098" type="right_before_left" x="566.45" y="321.65" incLanes="26816413#1_0 -26816553_0 -26816590#0_0" intLanes="" shape="562.14,322.11 568.76,314.88 567.45,312.46 559.63,316.75"/>
 
    <junction id="294168710" type="right_before_left" x="585.57" y="339.15" incLanes="26816413#0_0 -26816413#1+26816541_0 -26816413#1+26816541_1" intLanes="" shape="584.48,342.56 588.87,337.77 588.89,333.31 582.27,340.54"/>
 
@@ -2319,7 +2319,7 @@
 
    <junction id="294169339" type="right_before_left" x="544.28" y="302.42" incLanes="26816590#1_0 -26843133#0_0 -26816590#2_0" intLanes="" shape="546.16,306.77 548.74,300.81 547.16,297.52 540.68,298.02 539.30,299.68 539.99,306.14"/>
 
-   <junction id="294169342" type="priority" x="495.08" y="307.55" incLanes="7727483#0_0 26816590#2_0 -7727483#1_0" intLanes="" shape="492.23,312.27 498.71,311.71 500.18,310.31 499.53,303.84 497.91,302.49 491.43,303.05"/>
+   <junction id="294169342" type="priority" x="495.08" y="307.55" incLanes="7727483#0_0 26816590#2_0 -7727483#1_0" intLanes="" shape="492.23,312.27 498.71,311.71 500.18,310.30 499.53,303.84 497.91,302.49 491.43,303.05"/>
 
    <junction id="294169618" type="priority" x="541.18" y="150.49" incLanes="26816627_0" intLanes="" shape="541.23,150.48 544.41,150.14 537.95,150.84 541.13,150.49"/>
 
@@ -2363,7 +2363,7 @@
 
    <junction id="36268398" type="priority" x="891.80" y="605.66" incLanes="27437972#0_0 5784968#5_0" intLanes="" shape="895.23,609.83 896.99,607.16 896.80,605.28 892.22,600.67 888.83,601.98 887.17,604.72"/>
 
-   <junction id="36268403" type="priority" x="936.97" y="550.04" incLanes="5784968#1_0 -5198596#0_0 -5784968#2_0" intLanes="" shape="942.51,548.85 937.75,544.43 935.50,544.46 931.24,549.37 931.39,551.48 936.28,555.76"/>
+   <junction id="36268403" type="priority" x="936.97" y="550.04" incLanes="5784968#1_0 -5198596#0_0 -5784968#2_0" intLanes="" shape="942.51,548.85 937.75,544.42 935.50,544.46 931.24,549.37 931.39,551.48 936.28,555.76"/>
 
    <junction id="36268406" type="priority" x="828.36" y="455.87" incLanes="5198596#2_0 -5198586#1_0 -5198596#3_0 5198586#0_0" intLanes="" shape="829.78,461.41 834.04,456.50 833.99,454.14 828.97,450.01 826.91,450.16 822.53,454.97 822.79,457.23 827.64,461.56"/>
 

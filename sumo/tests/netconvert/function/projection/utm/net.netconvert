@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 01/06/10 16:57:06 by SUMO netconvert Version dev-SVN-r8110
+<!-- generated on 04/03/10 11:24:29 by SUMO netconvert Version dev-SVN-r8487
 <configuration>
 
     <input>
@@ -21,22 +21,22 @@
 
 <net>
 
-   <location netOffset="-277843.59,-5330206.50" convBoundary="0.00,0.00,3330.39,3904.34" origBoundary="12.014693,48.087528,12.061387,48.121456" projParameter="+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
+   <location netOffset="-277843.65,-5330206.51" convBoundary="0.00,0.00,3330.25,3904.56" origBoundary="12.014694,48.087529,12.061386,48.121459" projParameter="+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
 
 
 
    <edge id="o" from="0" to="1" priority="-1" type="" function="normal">
       <lanes>
-         <lane id="o_0" depart="1" maxspeed="13.90" length="5131.80" shape="-1.26,3903.27 3329.13,-1.07"/>
+         <lane id="o_0" depart="1" maxspeed="13.90" length="5131.88" shape="-1.26,3903.49 3328.99,-1.07"/>
       </lanes>
    </edge>
 
 
 
 
-   <junction id="0" type="DEAD_END" x="0.00" y="3904.34" incLanes="" intLanes="" shape="-0.04,3904.30 -2.47,3902.23"/>
+   <junction id="0" type="DEAD_END" x="0.00" y="3904.56" incLanes="" intLanes="" shape="-0.04,3904.53 -2.47,3902.45"/>
 
-   <junction id="1" type="DEAD_END" x="3330.39" y="0.00" incLanes="o_0" intLanes="" shape="3327.92,-2.11 3330.35,-0.03"/>
+   <junction id="1" type="DEAD_END" x="3330.25" y="0.00" incLanes="o_0" intLanes="" shape="3327.77,-2.11 3330.21,-0.03"/>
 
 
 

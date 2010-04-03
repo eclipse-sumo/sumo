@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 01/05/10 14:16:53 by SUMO polyconvert Version dev-SVN-r8106
+<!-- generated on 04/03/10 11:25:47 by SUMO polyconvert Version dev-SVN-r8487
 <configuration>
 
     <input>
@@ -24,6 +24,6 @@
 -->
 
 <shapes>
-    <poi id="1" type="unknown" color="0.20,0.50,1.00" layer="-1" x="363758.16" y="5781233.00"/>
-    <poi id="2" type="unknown" color="0.20,0.50,1.00" layer="-1" x="360180.56" y="5788909.00"/>
+    <poi id="1" type="unknown" color="0.20,0.50,1.00" layer="-1" x="363758.16" y="5781233.23"/>
+    <poi id="2" type="unknown" color="0.20,0.50,1.00" layer="-1" x="360180.57" y="5788908.83"/>
 </shapes>

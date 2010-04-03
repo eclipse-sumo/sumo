@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 01/05/10 14:16:53 by SUMO polyconvert Version dev-SVN-r8106
+<!-- generated on 04/03/10 11:25:47 by SUMO polyconvert Version dev-SVN-r8487
 <configuration>
 
     <input>
@@ -30,6 +30,6 @@
 -->
 
 <shapes>
-    <poly id="noname#0" type="unknown" color="0.20,0.50,1.00" fill="0" layer="-1" shape="38161.38,9358.00 38184.03,9311.00 38301.22,9271.00"/>
-    <poly id="noname#1" type="unknown" color="0.20,0.50,1.00" fill="0" layer="-1" shape="39893.88,3159.50 40328.84,2834.00 40363.50,2953.50 40369.97,3146.00"/>
+    <poly id="noname#0" type="unknown" color="0.20,0.50,1.00" fill="0" layer="-1" shape="38161.36,9358.13 38184.02,9310.78 38301.23,9270.89"/>
+    <poly id="noname#1" type="unknown" color="0.20,0.50,1.00" fill="0" layer="-1" shape="39893.88,3159.62 40328.85,2834.25 40363.50,2953.52 40369.96,3145.88"/>
 </shapes>

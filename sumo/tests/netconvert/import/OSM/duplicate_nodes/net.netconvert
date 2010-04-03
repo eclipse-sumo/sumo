@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 01/25/10 11:25:05 by SUMO netconvert Version dev-SVN-r8163
+<!-- generated on 04/03/10 11:24:16 by SUMO netconvert Version dev-SVN-r8487
 <configuration>
 
     <input>
@@ -41,7 +41,7 @@
 
 <net>
 
-   <location netOffset="-662333.88,-5415120.00" convBoundary="0.00,0.00,1048.06,921.35" origBoundary="11.213968,48.867634,11.228191,48.875957" projParameter="+proj=utm +zone=32 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
+   <location netOffset="-662333.88,-5415120.05" convBoundary="0.00,0.00,1048.06,921.35" origBoundary="11.213969,48.867634,11.228192,48.875956" projParameter="+proj=utm +zone=32 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
 
    <edge id=":-14_0" function="internal">
       <lanes>
@@ -63,7 +63,7 @@
 
    <edge id=":-14_3" function="internal">
       <lanes>
-         <lane id=":-14_3_0" depart="0" maxspeed="5.56" length="4.68" shape="340.84,714.86 342.06,715.24 343.20,715.30 344.28,715.04 345.28,714.46"/>
+         <lane id=":-14_3_0" depart="0" maxspeed="5.56" length="4.68" shape="340.84,714.86 342.06,715.24 343.20,715.30 344.28,715.03 345.28,714.46"/>
       </lanes>
    </edge>
 
@@ -159,7 +159,7 @@
 
    <edge id=":-15_10" function="internal">
       <lanes>
-         <lane id=":-15_10_0" depart="0" maxspeed="27.78" length="4.82" shape="301.36,700.04 302.83,700.23 303.57,700.78 303.57,701.70 302.83,702.99"/>
+         <lane id=":-15_10_0" depart="0" maxspeed="27.78" length="4.82" shape="301.36,700.04 302.84,700.23 303.57,700.78 303.57,701.70 302.83,702.99"/>
       </lanes>
    </edge>
 
@@ -201,13 +201,13 @@
 
    <edge id=":-26_1" function="internal">
       <lanes>
-         <lane id=":-26_1_0" depart="0" maxspeed="27.78" length="2.09" shape="495.10,407.20 494.96,409.28"/>
+         <lane id=":-26_1_0" depart="0" maxspeed="27.78" length="2.09" shape="495.10,407.19 494.96,409.28"/>
       </lanes>
    </edge>
 
    <edge id=":-26_2" function="internal">
       <lanes>
-         <lane id=":-26_2_0" depart="0" maxspeed="27.78" length="0.10" shape="495.10,407.20 494.40,408.39"/>
+         <lane id=":-26_2_0" depart="0" maxspeed="27.78" length="0.10" shape="495.10,407.19 494.40,408.39"/>
       </lanes>
    </edge>
 
@@ -413,8 +413,8 @@
 
    <edge id="--33#0" from="-15" to="-2" priority="9" type="highway.primary" function="normal">
       <lanes>
-         <lane id="--33#0_0" depart="1" maxspeed="27.78" length="327.23" shape="304.31,705.95 134.77,790.69 1.56,826.82"/>
-         <lane id="--33#0_1" depart="0" maxspeed="27.78" length="327.23" shape="302.83,702.99 133.59,787.59 0.70,823.64"/>
+         <lane id="--33#0_0" depart="1" maxspeed="27.78" length="327.24" shape="304.31,705.95 134.77,790.69 1.56,826.82"/>
+         <lane id="--33#0_1" depart="0" maxspeed="27.78" length="327.24" shape="302.83,702.99 133.59,787.59 0.70,823.64"/>
       </lanes>
    </edge>
 
@@ -428,7 +428,7 @@
    <edge id="--33#2" from="-29" to="-26" priority="9" type="highway.primary" function="normal">
       <lanes>
          <lane id="--33#2_0" depart="1" maxspeed="27.78" length="389.36" shape="496.81,19.74 481.26,117.27 498.40,407.00"/>
-         <lane id="--33#2_1" depart="0" maxspeed="27.78" length="389.36" shape="493.55,19.22 477.94,117.10 495.10,407.20"/>
+         <lane id="--33#2_1" depart="0" maxspeed="27.78" length="389.36" shape="493.55,19.22 477.94,117.10 495.10,407.19"/>
       </lanes>
    </edge>
 
@@ -618,33 +618,33 @@
    </row-logic>
 
 
-   <tl-logic id="-26" type="static" programID="0" offset="0">
-      <phase duration="31" state="GGgGGr"/>
-      <phase duration="9" state="yyyyyr"/>
-      <phase duration="31" state="GGrGGg"/>
-      <phase duration="9" state="yyryyy"/>
+   <tl-logic id="-26" type="static" programID="0" offset="0.00">
+      <phase duration="31.00" state="GGgGGr"/>
+      <phase duration="9.00" state="yyyyyr"/>
+      <phase duration="31.00" state="GGrGGg"/>
+      <phase duration="9.00" state="yyryyy"/>
    </tl-logic>
 
-   <tl-logic id="-29" type="static" programID="0" offset="0">
-      <phase duration="31" state="GG"/>
-      <phase duration="9" state="yy"/>
+   <tl-logic id="-29" type="static" programID="0" offset="0.00">
+      <phase duration="31.00" state="GG"/>
+      <phase duration="9.00" state="yy"/>
    </tl-logic>
 
-   <tl-logic id="-7" type="static" programID="0" offset="0">
-      <phase duration="31" state="rrrrGGggrrrrGGgg"/>
-      <phase duration="7" state="rrrryyggrrrryygg"/>
-      <phase duration="6" state="rrrrrrGGrrrrrrGG"/>
-      <phase duration="7" state="rrrrrryyrrrrrryy"/>
-      <phase duration="31" state="GGggrrrrGGggrrrr"/>
-      <phase duration="7" state="yyggrrrryyggrrrr"/>
-      <phase duration="6" state="rrGGrrrrrrGGrrrr"/>
-      <phase duration="7" state="rryyrrrrrryyrrrr"/>
+   <tl-logic id="-7" type="static" programID="0" offset="0.00">
+      <phase duration="31.00" state="rrrrGGggrrrrGGgg"/>
+      <phase duration="7.00" state="rrrryyggrrrryygg"/>
+      <phase duration="6.00" state="rrrrrrGGrrrrrrGG"/>
+      <phase duration="7.00" state="rrrrrryyrrrrrryy"/>
+      <phase duration="31.00" state="GGggrrrrGGggrrrr"/>
+      <phase duration="7.00" state="yyggrrrryyggrrrr"/>
+      <phase duration="6.00" state="rrGGrrrrrrGGrrrr"/>
+      <phase duration="7.00" state="rryyrrrrrryyrrrr"/>
    </tl-logic>
 
 
    <junction id="-14" type="right_before_left" x="343.58" y="717.82" incLanes="-38#0_0 --38#2_0 --32_0" intLanes=":-14_0_0 :-14_1_0 :-14_2_0 :-14_3_0 :-14_4_0 :-14_5_0 :-14_6_0 :-14_7_0 :-14_8_0" shape="348.25,718.35 344.31,713.18 341.47,713.39 338.92,719.37 340.28,721.46 346.78,721.55"/>
 
-   <junction id="-15" type="priority" x="303.59" y="700.77" incLanes="-38#1_0 --33#1_0 --33#1_1 -33#0_0 -33#0_1" intLanes=":-15_0_0 :-15_1_0 :-15_2_0 :-15_3_0 :-15_4_0 :-15_5_0 :-15_6_0 :-15_7_0 :-15_8_0 :-15_9_0 :-15_10_0" shape="313.57,708.56 316.12,702.58 316.04,701.25 309.60,689.85 299.17,695.66 305.02,707.38"/>
+   <junction id="-15" type="priority" x="303.59" y="700.77" incLanes="-38#1_0 --33#1_0 --33#1_1 -33#0_0 -33#0_1" intLanes=":-15_0_0 :-15_1_0 :-15_2_0 :-15_3_0 :-15_4_0 :-15_5_0 :-15_6_0 :-15_7_0 :-15_8_0 :-15_9_0 :-15_10_0" shape="313.57,708.56 316.12,702.58 316.04,701.25 309.60,689.85 299.17,695.66 305.03,707.38"/>
 
    <junction id="-19" type="priority" x="1048.06" y="682.36" incLanes="--38#0_0 --37#0_0" intLanes=":-19_0_0 :-19_1_0 :-19_2_0 :-19_3_0" shape="1045.85,674.63 1040.85,678.79 1040.57,685.28"/>
 

@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on Mon Jan  4 21:35:21 2010 by SUMO netconvert Version dev-SVN-r8105
+<!-- generated on 04/03/10 11:24:02 by SUMO netconvert Version dev-SVN-r8487
 <configuration>
 
     <input>
@@ -30,14 +30,14 @@
 
 <net>
 
-   <location netOffset="-328248.16,-5776623.00" convBoundary="0.00,0.00,39850.14,26514.76" origBoundary="1248456.000000,5211834.000000,1306826.000000,5235677.000000" projParameter="+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
+   <location netOffset="-328248.16,-5776623.10" convBoundary="0.00,0.00,39850.14,26514.76" origBoundary="1248456.000000,5211834.000000,1306826.000000,5235677.000000" projParameter="+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
 
 
    <edge id="-1" from="0" to="1" priority="-1" type="DEFAULT" function="normal">
       <lanes>
-         <lane id="-1_0" depart="1" maxspeed="55.56" length="22841.01" shape="17018.47,13397.15 39849.90,12735.60"/>
-         <lane id="-1_1" depart="0" maxspeed="55.56" length="22841.01" shape="17018.57,13400.45 39850.00,12738.90"/>
-         <lane id="-1_2" depart="0" maxspeed="55.56" length="22841.01" shape="17018.66,13403.75 39850.09,12742.19"/>
+         <lane id="-1_0" depart="1" maxspeed="55.56" length="22841.02" shape="17018.47,13397.15 39849.90,12735.60"/>
+         <lane id="-1_1" depart="0" maxspeed="55.56" length="22841.02" shape="17018.56,13400.45 39850.00,12738.90"/>
+         <lane id="-1_2" depart="0" maxspeed="55.56" length="22841.02" shape="17018.66,13403.75 39850.09,12742.19"/>
       </lanes>
    </edge>
 
@@ -59,17 +59,17 @@
 
    <edge id="-4" from="0" to="4" priority="-1" type="DEFAULT" function="normal">
       <lanes>
-         <lane id="-4_0" depart="1" maxspeed="55.56" length="13400.95" shape="16998.74,13394.66 16580.01,0.26"/>
-         <lane id="-4_1" depart="0" maxspeed="55.56" length="13400.95" shape="17002.04,13394.56 16583.31,0.15"/>
-         <lane id="-4_2" depart="0" maxspeed="55.56" length="13400.95" shape="17005.34,13394.45 16586.61,0.05"/>
+         <lane id="-4_0" depart="1" maxspeed="55.56" length="13400.94" shape="16998.74,13394.66 16580.01,0.26"/>
+         <lane id="-4_1" depart="0" maxspeed="55.56" length="13400.94" shape="17002.04,13394.55 16583.31,0.15"/>
+         <lane id="-4_2" depart="0" maxspeed="55.56" length="13400.94" shape="17005.34,13394.45 16586.60,0.05"/>
       </lanes>
    </edge>
 
    <edge id="1" from="1" to="0" priority="-1" type="DEFAULT" function="normal">
       <lanes>
-         <lane id="1_0" depart="1" maxspeed="55.56" length="22841.01" shape="39850.38,12752.09 17018.95,13413.64"/>
-         <lane id="1_1" depart="0" maxspeed="55.56" length="22841.01" shape="39850.29,12748.79 17018.85,13410.35"/>
-         <lane id="1_2" depart="0" maxspeed="55.56" length="22841.01" shape="39850.19,12745.49 17018.76,13407.05"/>
+         <lane id="1_0" depart="1" maxspeed="55.56" length="22841.02" shape="39850.38,12752.09 17018.95,13413.64"/>
+         <lane id="1_1" depart="0" maxspeed="55.56" length="22841.02" shape="39850.28,12748.79 17018.85,13410.35"/>
+         <lane id="1_2" depart="0" maxspeed="55.56" length="22841.02" shape="39850.19,12745.49 17018.76,13407.05"/>
       </lanes>
    </edge>
 
@@ -84,14 +84,14 @@
    <edge id="3" from="3" to="0" priority="-1" type="DEFAULT" function="normal">
       <lanes>
          <lane id="3_0" depart="1" maxspeed="33.33" length="13104.09" shape="17412.86,26514.92 17002.75,13417.25"/>
-         <lane id="3_1" depart="0" maxspeed="33.33" length="13104.09" shape="17416.16,26514.82 17006.05,13417.15"/>
+         <lane id="3_1" depart="0" maxspeed="33.33" length="13104.09" shape="17416.16,26514.81 17006.05,13417.15"/>
       </lanes>
    </edge>
 
    <edge id="4" from="4" to="0" priority="-1" type="DEFAULT" function="normal">
       <lanes>
-         <lane id="4_0" depart="1" maxspeed="33.33" length="13400.95" shape="16593.20,-0.15 17011.93,13394.25"/>
-         <lane id="4_1" depart="0" maxspeed="33.33" length="13400.95" shape="16589.90,-0.05 17008.63,13394.35"/>
+         <lane id="4_0" depart="1" maxspeed="33.33" length="13400.94" shape="16593.20,-0.15 17011.93,13394.25"/>
+         <lane id="4_1" depart="0" maxspeed="33.33" length="13400.94" shape="16589.90,-0.05 17008.63,13394.35"/>
       </lanes>
    </edge>
 
@@ -155,15 +155,15 @@
 
 
 
-   <junction id="0" type="priority" x="17007.34" y="13405.73" incLanes="3_0 3_1 1_0 1_1 1_2 4_0 4_1 2_0 2_1 2_2" intLanes="" shape="17001.15,13417.30 17017.54,13416.79 17019.00,13415.24 17018.43,13395.55 17013.53,13394.20 16997.14,13394.71 16995.69,13396.26 16996.34,13415.95"/>
+   <junction id="0" type="priority" x="17007.34" y="13405.73" incLanes="3_0 3_1 1_0 1_1 1_2 4_0 4_1 2_0 2_1 2_2" intLanes="" shape="17001.15,13417.30 17017.54,13416.79 17018.99,13415.24 17018.42,13395.55 17013.53,13394.20 16997.14,13394.71 16995.69,13396.26 16996.34,13415.95"/>
 
    <junction id="1" type="priority" x="39850.14" y="12743.84" incLanes="-1_0 -1_1 -1_2" intLanes="" shape="39850.14,12743.89 39850.43,12753.69 39849.86,12734.00 39850.14,12743.79"/>
 
    <junction id="2" type="priority" x="0.00" y="13967.12" incLanes="-2_0 -2_1 -2_2" intLanes="" shape="-0.00,13967.07 -0.32,13957.27 0.32,13976.96 0.00,13967.17"/>
 
-   <junction id="3" type="priority" x="17417.81" y="26514.76" incLanes="-3_0 -3_1 -3_2" intLanes="" shape="17417.76,26514.77 17411.26,26514.97 17427.66,26514.46 17417.86,26514.76"/>
+   <junction id="3" type="priority" x="17417.81" y="26514.76" incLanes="-3_0 -3_1 -3_2" intLanes="" shape="17417.76,26514.76 17411.26,26514.97 17427.66,26514.45 17417.86,26514.76"/>
 
-   <junction id="4" type="priority" x="16588.25" y="0.00" incLanes="-4_0 -4_1 -4_2" intLanes="" shape="16588.30,-0.00 16594.80,-0.20 16578.41,0.31 16588.21,0.00"/>
+   <junction id="4" type="priority" x="16588.25" y="0.00" incLanes="-4_0 -4_1 -4_2" intLanes="" shape="16588.30,-0.00 16594.80,-0.20 16578.41,0.31 16588.20,0.00"/>
 
 
    <succ edge="-1" lane="-1_0" junction="1">

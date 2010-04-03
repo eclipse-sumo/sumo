@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 04/02/10 15:12:48 by SUMO sumo Version dev-SVN-r8487
+<!-- generated on 04/03/10 11:28:04 by SUMO sumo Version dev-SVN-r8487
 <configuration>
 
     <input>
@@ -289,7 +289,7 @@
         <vehicle id="always_left.10" lane="3fi_0" pos="25.12" x="501.65" y="25.12" speed="4.87"/>
         <vehicle id="always_left.2" lane="2o_0" pos="175.57" x="686.92" y="498.35" speed="10.82"/>
         <vehicle id="always_left.3" lane="2o_0" pos="152.81" x="664.16" y="498.35" speed="10.81"/>
-        <vehicle id="always_left.4" lane="2o_0" pos="133.26" x="644.60" y="498.35" speed="10.90"/>
+        <vehicle id="always_left.4" lane="2o_0" pos="133.26" x="644.61" y="498.35" speed="10.90"/>
         <vehicle id="always_left.5" lane="2o_0" pos="76.27" x="587.62" y="498.35" speed="11.01"/>
         <vehicle id="always_left.6" lane="3si_0" pos="230.49" x="508.25" y="481.99" speed="13.73"/>
         <vehicle id="always_left.7" lane="3si_0" pos="70.93" x="508.25" y="322.43" speed="13.69"/>
@@ -366,7 +366,7 @@
         <vehicle id="horizontal.7" lane="2si_1" pos="210.11" x="538.39" y="504.95" speed="4.08"/>
         <vehicle id="horizontal.8" lane="2si_1" pos="94.50" x="654.00" y="504.95" speed="13.74"/>
         <vehicle id="horizontal.9" lane="2fi_0" pos="212.21" x="787.79" y="501.65" speed="10.88"/>
-        <vehicle id="vertical.0" lane="4o_0" pos="310.85" x="501.65" y="822.19" speed="10.87"/>
+        <vehicle id="vertical.0" lane="4o_0" pos="310.84" x="501.65" y="822.19" speed="10.87"/>
         <vehicle id="vertical.1" lane="4o_0" pos="294.30" x="501.65" y="805.65" speed="10.96"/>
         <vehicle id="vertical.10" lane="3fi_0" pos="74.39" x="501.65" y="74.39" speed="9.05"/>
         <vehicle id="vertical.11" lane="3fi_0" pos="10.00" x="501.65" y="10.00" speed="3.11"/>

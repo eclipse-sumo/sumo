@@ -1,21 +1,21 @@
 <?xml version="1.0"?>
 
-<!-- generated on 09/09/09 12:57:44 by SUMO netconvert Version dev-SVN-r7689
+<!-- generated on 04/03/10 11:24:28 by SUMO netconvert Version dev-SVN-r8487
 <configuration>
 
-    <input
-        xml-node-files="input_nodes.nod.xml"
-        xml-edge-files="input_edges.edg.xml"
-    />
+    <input>
+        <xml-node-files value="input_nodes.nod.xml"/>
+        <xml-edge-files value="input_edges.edg.xml"/>
+    </input>
 
-    <output
-        output-file="net.net.xml"
-    />
+    <output>
+        <output-file value="net.net.xml"/>
+    </output>
 
-    <processing
-        no-internal-links="true"
-        guess-roundabouts="true"
-    />
+    <processing>
+        <no-internal-links value="true"/>
+        <guess-roundabouts value="true"/>
+    </processing>
 
 </configuration>
 -->
@@ -33,13 +33,13 @@
 
    <edge id="-10405" from="10731" to="17394" priority="-1" type="" function="normal">
       <lanes>
-         <lane id="-10405_0" depart="1" maxspeed="13.90" length="24.67" shape="124.60,246.48 124.46,246.75 118.25,251.50 112.75,253.20 105.50,253.53 102.33,252.58 102.18,252.41"/>
+         <lane id="-10405_0" depart="1" maxspeed="13.90" length="24.67" shape="124.60,246.47 124.46,246.75 118.25,251.50 112.75,253.20 105.50,253.53 102.33,252.58 102.19,252.41"/>
       </lanes>
    </edge>
 
    <edge id="-10575" from="17446" to="10724" priority="-1" type="" function="normal">
       <lanes>
-         <lane id="-10575_0" depart="1" maxspeed="13.90" length="212.53" shape="107.44,205.10 106.86,199.87 95.47,143.66 73.72,88.36 60.94,45.00 59.86,34.17 59.49,22.93 60.84,8.43 60.52,4.76 61.75,-0.00"/>
+         <lane id="-10575_0" depart="1" maxspeed="13.90" length="212.55" shape="107.44,205.11 106.86,199.87 95.47,143.66 73.72,88.36 60.94,45.00 59.86,34.17 59.49,22.93 60.84,8.43 60.52,4.76 61.75,0.00"/>
       </lanes>
    </edge>
 
@@ -51,7 +51,7 @@
 
    <edge id="10404" from="13439" to="17394" priority="-1" type="" function="normal">
       <lanes>
-         <lane id="10404_0" depart="1" maxspeed="13.90" length="97.28" shape="0.00,260.50 2.55,260.23 7.73,263.69 16.14,267.57 25.91,270.85 36.14,270.97 44.68,269.26 91.51,251.78"/>
+         <lane id="10404_0" depart="1" maxspeed="13.90" length="97.29" shape="0.00,260.50 2.55,260.23 7.73,263.69 16.14,267.57 25.91,270.85 36.14,270.97 44.68,269.26 91.51,251.77"/>
       </lanes>
    </edge>
 
@@ -63,19 +63,19 @@
 
    <edge id="10573" from="17446" to="10731" priority="-1" type="" function="normal">
       <lanes>
-         <lane id="10573_0" depart="1" maxspeed="13.90" length="37.94" shape="113.52,209.89 113.82,209.85 115.68,210.43 120.18,212.45 124.46,215.85 127.77,220.57 130.40,226.85 130.34,234.97 129.25,239.25 129.12,239.39"/>
+         <lane id="10573_0" depart="1" maxspeed="13.90" length="37.95" shape="113.52,209.89 113.82,209.85 115.68,210.43 120.18,212.45 124.46,215.85 127.77,220.57 130.40,226.85 130.34,234.97 129.25,239.25 129.12,239.39"/>
       </lanes>
    </edge>
 
    <edge id="10575" from="10724" to="17446" priority="-1" type="" function="normal">
       <lanes>
-         <lane id="10575_0" depart="1" maxspeed="13.90" length="212.47" shape="61.75,-0.00 63.81,4.46 64.16,8.44 62.78,23.03 63.15,33.95 64.19,44.36 76.84,87.29 98.65,142.71 110.12,199.35 110.72,204.73"/>
+         <lane id="10575_0" depart="1" maxspeed="13.90" length="212.47" shape="61.75,0.00 63.81,4.46 64.16,8.44 62.78,23.03 63.15,33.95 64.19,44.36 76.84,87.29 98.65,142.71 110.12,199.35 110.72,204.73"/>
       </lanes>
    </edge>
 
    <edge id="4014" from="10731" to="10732" priority="-1" type="" function="normal">
       <lanes>
-         <lane id="4014_0" depart="1" maxspeed="13.90" length="62.83" shape="132.08,245.72 144.99,261.82 159.18,295.51 159.75,301.12"/>
+         <lane id="4014_0" depart="1" maxspeed="13.90" length="62.83" shape="132.09,245.72 144.99,261.82 159.18,295.51 159.75,301.12"/>
       </lanes>
    </edge>
 
@@ -127,17 +127,17 @@
 
 
 
-   <junction id="10724" type="priority" x="61.75" y="0.00" incLanes="-10575_0" intLanes="" shape="60.29,0.67 63.20,-0.67 60.20,-0.40 63.30,0.40"/>
+   <junction id="10724" type="priority" x="61.75" y="0.00" incLanes="-10575_0" intLanes="" shape="60.30,0.67 63.20,-0.67 60.20,-0.40 63.30,0.40"/>
 
-   <junction id="10731" type="priority" x="126.88" y="241.87" incLanes="-4014_0 10573_0" intLanes="" shape="127.96,248.41 131.08,247.18 133.03,244.34 130.32,240.45 127.85,238.26 123.14,245.75 126.03,247.19"/>
+   <junction id="10731" type="priority" x="126.88" y="241.87" incLanes="-4014_0 10573_0" intLanes="" shape="127.96,248.41 131.08,247.19 133.03,244.34 130.32,240.45 127.85,238.26 123.14,245.74 126.03,247.18"/>
 
-   <junction id="10732" type="priority" x="159.75" y="301.12" incLanes="4014_0" intLanes="" shape="160.98,300.10 158.52,302.14 161.34,300.96 158.15,301.28"/>
+   <junction id="10732" type="priority" x="159.75" y="301.12" incLanes="4014_0" intLanes="" shape="160.98,300.10 158.52,302.14 161.34,300.96 158.16,301.28"/>
 
    <junction id="13439" type="priority" x="0.00" y="260.50" incLanes="-10404_0" intLanes="" shape="0.17,262.09 -0.17,258.91 -1.54,260.95 1.54,260.05"/>
 
-   <junction id="17394" type="priority" x="100.31" y="250.25" incLanes="-10405_0 10404_0" intLanes="" shape="100.99,253.48 103.49,251.26 94.44,245.95 93.16,248.88 91.27,250.16 91.75,253.39 93.53,256.25"/>
+   <junction id="17394" type="priority" x="100.31" y="250.25" incLanes="-10405_0 10404_0" intLanes="" shape="100.99,253.48 103.49,251.26 94.44,245.95 93.16,248.88 91.27,250.16 91.75,253.39 93.54,256.24"/>
 
-   <junction id="17446" type="priority" x="109.70" y="210.43" incLanes="10575_0 10572_0" intLanes="" shape="113.75,211.51 113.30,208.31 112.37,205.12 109.07,204.34 108.97,204.35 105.91,205.84 105.39,208.14 104.90,211.34"/>
+   <junction id="17446" type="priority" x="109.70" y="210.43" incLanes="10575_0 10572_0" intLanes="" shape="113.75,211.50 113.30,208.31 112.37,205.12 109.07,204.34 105.91,205.84 105.40,208.14 104.90,211.34"/>
 
 
    <succ edge="-10404" lane="-10404_0" junction="13439">

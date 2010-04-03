@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 03/18/10 13:38:07 by SUMO sumo Version dev-SVN-r8460
+<!-- generated on 04/03/10 11:27:33 by SUMO sumo Version dev-SVN-r8487
 <configuration>
 
     <input>
@@ -111,7 +111,7 @@
     </interval>
     <interval begin="17.00" end="18.00" id="dump_1">
         <edge id="1si">
-            <lane id="1si_2" sampledSeconds="1.00" traveltime="5445.28" density="4.22" occupancy="2.11" waitingTime="1.00" speed="0.04" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0"/>
+            <lane id="1si_2" sampledSeconds="1.00" traveltime="5445.54" density="4.22" occupancy="2.11" waitingTime="1.00" speed="0.04" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0"/>
         </edge>
     </interval>
     <interval begin="18.00" end="19.00" id="dump_1">
