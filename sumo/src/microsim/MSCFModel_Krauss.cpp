@@ -4,7 +4,7 @@
 /// @date    Mon, 04 Aug 2009
 /// @version $Id$
 ///
-// The Krauss car-following model and parameter
+// Krauss car-following model, with acceleration decrease and faster start
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // Copyright 2001-2010 DLR (http://www.dlr.de/) and contributors
@@ -41,7 +41,6 @@ MSCFModel_Krauss::MSCFModel_Krauss(const MSVehicleType* vtype,  SUMOReal accel, 
 								   SUMOReal dawdle, SUMOReal tau) throw()
         : MSCFModel(vtype, decel), myAccel(accel), myDawdle(dawdle), myTau(tau) {
 
-    myInverseTwoDecel = SUMOReal(1) / (SUMOReal(2) * decel);
     myTauDecel = decel * myTau;
 }
 
@@ -51,14 +50,14 @@ MSCFModel_Krauss::~MSCFModel_Krauss() throw() {}
 
 SUMOReal
 MSCFModel_Krauss::moveHelper(MSVehicle * const veh, const MSLane * const lane, SUMOReal vPos) const throw() {
-    // save old v for optional acceleration computation
-    SUMOReal oldV = veh->getSpeed();
-    SUMOReal vSafe = MIN2(vPos, veh->processNextStop(vPos));
+    SUMOReal oldV = veh->getSpeed(); // save old v for optional acceleration computation
+    SUMOReal vSafe = MIN2(vPos, veh->processNextStop(vPos)); // process stops
     // we need the acceleration for emission computation;
     //  in this case, we neglect dawdling, nonetheless, using
     //  vSafe does not incorporate speed reduction due to interaction
     //  on lane changing
     veh->setPreDawdleAcceleration(SPEED2ACCEL(vSafe-oldV));
+	//
     SUMOReal vNext = dawdle(MIN3(lane->getMaxSpeed(), maxNextSpeed(oldV), vSafe));
     vNext =
         veh->getLaneChangeModel().patchSpeed(
@@ -66,20 +65,7 @@ MSCFModel_Krauss::moveHelper(MSVehicle * const veh, const MSLane * const lane, S
             vNext,
             MIN3(vSafe, veh->getLane().getMaxSpeed(), maxNextSpeed(oldV)),//vaccel(myState.mySpeed, myLane->maxSpeed())),
             vSafe);
-    vNext = MIN4(vNext, vSafe, veh->getLane().getMaxSpeed(), maxNextSpeed(oldV));
-    return vNext;
-}
-
-
-void
-MSCFModel_Krauss::leftVehicleVsafe(const MSVehicle * const ego, const MSVehicle * const neigh, SUMOReal &vSafe) const throw() {
-    if (neigh!=0&&neigh->getSpeed()>60./3.6) {
-        SUMOReal mgap = MAX2((SUMOReal) 0, neigh->getPositionOnLane()-neigh->getVehicleType().getLength()-ego->getPositionOnLane());
-        SUMOReal nVSafe = ffeV(ego, mgap, neigh->getSpeed());
-        if (mgap-neigh->getSpeed()>=0) {
-            vSafe = MIN2(vSafe, nVSafe);
-        }
-    }
+    return MIN4(vNext, vSafe, veh->getLane().getMaxSpeed(), maxNextSpeed(oldV));
 }
 
 
@@ -104,12 +90,6 @@ MSCFModel_Krauss::ffeV(const MSVehicle * const veh, const MSVehicle *pred) const
 SUMOReal
 MSCFModel_Krauss::ffeS(const MSVehicle * const veh, SUMOReal gap) const throw() {
     return MIN2(_vsafe(gap, 0), maxNextSpeed(veh->getSpeed()));
-}
-
-
-SUMOReal
-MSCFModel_Krauss::brakeGap(SUMOReal speed) const throw() {
-    return speed * speed * myInverseTwoDecel + speed * myTau;
 }
 
 

@@ -121,14 +121,6 @@ public:
     SUMOReal ffeS(const MSVehicle * const veh, SUMOReal gap2pred) const throw();
 
 
-    /** @brief Returns the distance the vehicle needs to halt including driver's reaction time
-     * @param[in] speed The vehicle's current speed
-     * @return The distance needed to halt
-     * @see MSCFModel::brakeGap
-     */
-    SUMOReal brakeGap(SUMOReal speed) const throw();
-
-
     /** @brief Returns the maximum gap at which an interaction between both vehicles occurs
      *
      * "interaction" means that the LEADER influences EGO's speed.
@@ -155,6 +147,19 @@ public:
     bool hasSafeGap(SUMOReal speed, SUMOReal gap, SUMOReal predSpeed, SUMOReal laneMaxSpeed) const throw();
 
 
+    /** @brief Get the vehicle's maximum acceleration [m/s^2]
+	 *
+	 * As some models describe that a vehicle is accelerating slower the higher its
+	 *  speed is, the velocity is given.
+	 *
+	 * @param[in] v The vehicle's velocity
+	 * @return The maximum acceleration
+	 */
+    SUMOReal getMaxAccel(SUMOReal v) const throw() {
+        return myAccel;
+    }
+
+
     /** @brief Returns the model's name
      * @return The model's name
      * @see MSCFModel::getModelName
@@ -164,10 +169,6 @@ public:
     }
     /// @}
 
-    /// Get the vehicle's maximum acceleration [m/s^2]
-    SUMOReal getMaxAccel(SUMOReal v) const throw() {
-        return myAccel;
-    }
 
 
 
@@ -187,11 +188,8 @@ private:
 
     /// @brief The desired minimum Gap to the leading vehicle (no matter the speed)
     SUMOReal myMinSpace;
-
-    /// The precomputed value for 1/(2*d)
-    SUMOReal myInverseTwoDecel;
-
     /// @}
+
 };
 
 #endif	/* MSCFMODEL_IDM_H */

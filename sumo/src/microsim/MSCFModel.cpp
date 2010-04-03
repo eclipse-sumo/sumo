@@ -29,21 +29,42 @@
 
 #include "MSCFModel.h"
 #include "MSVehicleType.h"
+#include "MSVehicle.h"
 
 
 // ===========================================================================
 // method definitions
 // ===========================================================================
 MSCFModel::MSCFModel(const MSVehicleType* vtype, SUMOReal decel) throw()
-        : myType(vtype), myDecel(decel) {}
+        : myType(vtype), myDecel(decel) {
+    myInverseTwoDecel = SUMOReal(1) / (SUMOReal(2) * decel);
+}
 
 
 MSCFModel::~MSCFModel() throw() {}
 
 
+void
+MSCFModel::leftVehicleVsafe(const MSVehicle * const ego, const MSVehicle * const neigh, SUMOReal &vSafe) const throw() {
+    if (neigh!=0&&neigh->getSpeed()>60./3.6) {
+        SUMOReal mgap = MAX2((SUMOReal) 0, neigh->getPositionOnLane()-neigh->getVehicleType().getLength()-ego->getPositionOnLane());
+        SUMOReal nVSafe = ffeV(ego, mgap, neigh->getSpeed());
+        if (mgap-neigh->getSpeed()>=0) {
+            vSafe = MIN2(vSafe, nVSafe);
+        }
+    }
+}
+
+
 SUMOReal
 MSCFModel::maxNextSpeed(SUMOReal speed) const throw() {
     return MIN2(speed + (SUMOReal) ACCEL2SPEED(getMaxAccel(speed)), myType->getMaxSpeed());
+}
+
+
+SUMOReal
+MSCFModel::brakeGap(SUMOReal speed) const throw() {
+    return speed * speed * myInverseTwoDecel + speed * getTau();
 }
 
 

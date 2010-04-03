@@ -76,14 +76,6 @@ public:
     virtual SUMOReal moveHelper(MSVehicle * const veh, const MSLane * const lane, SUMOReal vPos) const throw() = 0;
 
 
-    /** @brief Incorporates the influence of the vehicle on the left lane
-     * @param[in] ego The ego vehicle
-     * @param[in] neigh The neighbor vehicle on the left lane
-     * @param[in, out] vSafe Current vSafe; may be adapted due to the left neighbor
-     */
-    virtual void leftVehicleVsafe(const MSVehicle * const ego, const MSVehicle * const neigh, SUMOReal &vSafe) const throw() = 0;
-
-
     /** @brief Computes the vehicle's safe speed (no dawdling)
      * @param[in] veh The vehicle (EGO)
      * @param[in] speed The vehicle's speed
@@ -123,13 +115,6 @@ public:
     virtual SUMOReal ffeS(const MSVehicle * const veh, SUMOReal gap2pred) const throw() = 0;
 
 
-    /** @brief Returns the distance the vehicle needs to halt including driver's reaction time
-     * @param[in] speed The vehicle's current speed
-     * @return The distance needed to halt
-     */
-    virtual SUMOReal brakeGap(SUMOReal speed) const throw() = 0;
-
-
     /** @brief Returns the maximum gap at which an interaction between both vehicles occurs
      *
      * "interaction" means that the LEADER influences EGO's speed.
@@ -154,8 +139,16 @@ public:
     virtual bool hasSafeGap(SUMOReal speed, SUMOReal gap, SUMOReal predSpeed, SUMOReal laneMaxSpeed) const throw() = 0;
 
 
-    /// Get the vehicle's maximum acceleration [m/s^2]
+    /** @brief Get the vehicle's maximum acceleration [m/s^2]
+	 *
+	 * As some models describe that a vehicle is accelerating slower the higher its
+	 *  speed is, the velocity is given.
+	 *
+	 * @param[in] v The vehicle's velocity
+	 * @return The maximum acceleration
+	 */
     virtual SUMOReal getMaxAccel(SUMOReal v) const throw() = 0;
+
 
     /** @brief Saves the model's definition into the state
      * @param[in] os The output to write the definition into
@@ -174,6 +167,27 @@ public:
     /// @name Virtual methods with default implementation
     /// @{
 
+    /** @brief Get the driver's reaction time [s]
+     * @return The reaction time of this class' drivers in s
+     */
+    virtual SUMOReal getTau() const throw() {
+        return 1.;
+    }
+	/// @}
+
+
+
+    /// @name Currently fixed methods
+    /// @{
+
+    /** @brief Incorporates the influence of the vehicle on the left lane
+     * @param[in] ego The ego vehicle
+     * @param[in] neigh The neighbor vehicle on the left lane
+     * @param[in, out] vSafe Current vSafe; may be adapted due to the left neighbor
+     */
+    void leftVehicleVsafe(const MSVehicle * const ego, const MSVehicle * const neigh, SUMOReal &vSafe) const throw();
+
+
     /** @brief Returns the maximum speed given the current speed
      *
      * The implementation of this method must take into account the time step
@@ -185,42 +199,42 @@ public:
      * @param[in] speed The vehicle's current speed
      * @return The maximum possible speed for the next step
      */
-    virtual SUMOReal maxNextSpeed(SUMOReal speed) const throw();
+    SUMOReal maxNextSpeed(SUMOReal speed) const throw();
 
 
     /** @brief Get the vehicle's maximum deceleration [m/s^2]
      * @return The maximum deceleration (in m/s^2) of vehicles of this class
      */
-	virtual SUMOReal getMaxDecel() const throw() {
+	SUMOReal getMaxDecel() const throw() {
 		return myDecel;
 	}
-	/// @}
 
 
-
-
-
-
-
-
-    SUMOReal getSpeedAfterMaxDecel(SUMOReal v) const {
-        return MAX2((SUMOReal) 0, v - (SUMOReal) ACCEL2SPEED(myDecel));
-    }
-
-    /** @brief Get the driver's reaction time [s]
-     * @return The reaction time of this class' drivers in s
+    /** @brief Returns the distance the vehicle needs to halt including driver's reaction time
+     * @param[in] speed The vehicle's current speed
+     * @return The distance needed to halt
      */
-    virtual SUMOReal getTau() const throw() {
-        return 1.;
-    }
+    SUMOReal brakeGap(SUMOReal speed) const throw();
+
 
    /** @brief Returns the minimum gap to reserve if the leader is braking at maximum
-     *
+     * @param[in] speed EGO's speed
+	 * @param[in] leaderSpeedAfterDecel LEADER's speed after he has decelerated with max. deceleration rate
      */
     SUMOReal getSecureGap(const SUMOReal speed, const SUMOReal leaderSpeedAfterDecel) const throw() {
         const SUMOReal speedDiff = speed - leaderSpeedAfterDecel;
         return speedDiff * speedDiff / getMaxDecel() + speed * getTau();
     }
+
+
+	/** @brief Returns the velocity after maximum deceleration
+	 * @param[in] v The velocity
+	 * @return The velocity after maximum deceleration
+	 */
+    SUMOReal getSpeedAfterMaxDecel(SUMOReal v) const throw() {
+        return MAX2((SUMOReal) 0, v - (SUMOReal) ACCEL2SPEED(myDecel));
+    }
+	/// @}
 
 
 protected:
@@ -229,6 +243,9 @@ protected:
 
     /// @brief The vehicle's maximum deceleration [m/s^2]
     SUMOReal myDecel;
+
+    /// @brief The precomputed value for 1/(2*d)
+    SUMOReal myInverseTwoDecel;
 
 
 };

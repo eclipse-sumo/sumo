@@ -4,7 +4,7 @@
 /// @date    Tue, 28 Jul 2009
 /// @version $Id$
 ///
-// The Krauss car-following model and parameter
+// Krauss car-following model, with acceleration decrease and faster start
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // Copyright 2001-2010 DLR (http://www.dlr.de/) and contributors
@@ -36,7 +36,7 @@
 // class definitions
 // ===========================================================================
 /** @class MSCFModel_Krauss
- * @brief The Krauss car-following model and parameter
+ * @brief Krauss car-following model, with acceleration decrease and faster start
  * @see MSCFModel
  */
 class MSCFModel_Krauss : public MSCFModel {
@@ -64,15 +64,6 @@ public:
      * @return The velocity after applying interactions with stops and lane change model influences
      */
     SUMOReal moveHelper(MSVehicle * const veh, const MSLane * const lane, SUMOReal vPos) const throw();
-
-
-    /** @brief Incorporates the influence of the vehicle on the left lane
-     * @param[in] ego The ego vehicle
-     * @param[in] neigh The neighbor vehicle on the left lane
-     * @param[in, out] vSafe Current vSafe; may be adapted due to the left neighbor
-     * @see MSCFModel::leftVehicleVsafe
-     */
-    void leftVehicleVsafe(const MSVehicle * const ego, const MSVehicle * const neigh, SUMOReal &vSafe) const throw();
 
 
     /** @brief Computes the vehicle's safe speed (no dawdling)
@@ -117,14 +108,6 @@ public:
     SUMOReal ffeS(const MSVehicle * const veh, SUMOReal gap2pred) const throw();
 
 
-    /** @brief Returns the distance the vehicle needs to halt including driver's reaction time
-     * @param[in] speed The vehicle's current speed
-     * @return The distance needed to halt
-     * @see MSCFModel::brakeGap
-     */
-    SUMOReal brakeGap(SUMOReal speed) const throw();
-
-
     /** @brief Returns the maximum gap at which an interaction between both vehicles occurs
      *
      * "interaction" means that the LEADER influences EGO's speed.
@@ -151,6 +134,19 @@ public:
     bool hasSafeGap(SUMOReal speed, SUMOReal gap, SUMOReal predSpeed, SUMOReal laneMaxSpeed) const throw();
 
 
+    /** @brief Get the vehicle's maximum acceleration [m/s^2]
+	 *
+	 * As some models describe that a vehicle is accelerating slower the higher its
+	 *  speed is, the velocity is given.
+	 *
+	 * @param[in] v The vehicle's velocity
+	 * @return The maximum acceleration
+	 */
+    SUMOReal getMaxAccel(SUMOReal v) const throw() {
+		return (SUMOReal)(myAccel *(1.0 - (v/myType->getMaxSpeed())));
+    }
+
+
     /** @brief Returns the model's name
      * @return The model's name
      * @see MSCFModel::getModelName
@@ -158,13 +154,7 @@ public:
     int getModelID() const throw() {
         return SUMO_TAG_CF_KRAUSS;
     }
-    /// @}
 
-
-    /// Get the vehicle's maximum acceleration [m/s^2]
-    SUMOReal getMaxAccel(SUMOReal v) const throw() {
-		return (SUMOReal)(myAccel *(1.0 - (v/myType->getMaxSpeed())));
-    }
 
     /** @brief Get the driver's reaction time [s]
      * @return The reaction time of this class' drivers in s
@@ -172,6 +162,7 @@ public:
     SUMOReal getTau() const throw() {
         return myTau;
     }
+    /// @}
 
 
 private:
@@ -198,9 +189,6 @@ private:
 
     /// @brief The driver's reaction time [s]
     SUMOReal myTau;
-
-    /// @brief The precomputed value for 1/(2*d)
-    SUMOReal myInverseTwoDecel;
 
     /// @brief The precomputed value for myDecel*myTau
     SUMOReal myTauDecel;

@@ -48,7 +48,6 @@ MSCFModel_IDM::MSCFModel_IDM(const MSVehicleType* vtype,
                              SUMOReal timeHeadWay, SUMOReal mingap) throw()
         : MSCFModel(vtype, decel), myAccel(accel), myTimeHeadWay(timeHeadWay), myMinSpace(mingap) {
 
-    myInverseTwoDecel = SUMOReal(1) / (SUMOReal(2) * decel);
 }
 
 
@@ -57,26 +56,21 @@ MSCFModel_IDM::~MSCFModel_IDM() throw() {}
 
 SUMOReal
 MSCFModel_IDM::moveHelper(MSVehicle * const veh, const MSLane * const lane, SUMOReal vPos) const throw() {
-    SUMOReal nSpeed = vPos;
-    nSpeed =
+    SUMOReal oldV = veh->getSpeed(); // save old v for optional acceleration computation
+    vPos = MIN2(vPos, veh->processNextStop(vPos)); // process stops
+    // we need the acceleration for emission computation;
+    //  in this case, we neglect dawdling, nonetheless, using
+    //  vSafe does not incorporate speed reduction due to interaction
+    //  on lane changing
+    veh->setPreDawdleAcceleration(SPEED2ACCEL(vPos-oldV));
+	//
+    SUMOReal vNext = vPos;
+    return
         veh->getLaneChangeModel().patchSpeed(
             MAX2((SUMOReal) 0, veh->getSpeed()-(SUMOReal)ACCEL2SPEED(myDecel)), //!!! reverify
-            nSpeed,
-            MIN3(nSpeed, lane->getMaxSpeed(), maxNextSpeed(veh->getSpeed())),//vaccel(myState.mySpeed, myLane->maxSpeed())),
-            nSpeed);
-    return nSpeed;
-}
-
-
-void
-MSCFModel_IDM::leftVehicleVsafe(const MSVehicle * const ego, const MSVehicle * const neigh, SUMOReal &vSafe) const throw() {
-    if (neigh!=0&&neigh->getSpeed()>60./3.6) {
-        SUMOReal mgap = MAX2((SUMOReal) 0, neigh->getPositionOnLane()-neigh->getVehicleType().getLength()-ego->getPositionOnLane());
-        SUMOReal nVSafe = ffeV(ego, mgap, neigh->getSpeed());
-        if (mgap-neigh->getSpeed()>=0) {
-            vSafe = MIN2(vSafe, nVSafe);
-        }
-    }
+            vNext,
+            MIN3(vNext, lane->getMaxSpeed(), maxNextSpeed(oldV)),//vaccel(myState.mySpeed, myLane->maxSpeed())),
+            vNext);
 }
 
 
@@ -102,13 +96,6 @@ SUMOReal
 MSCFModel_IDM::ffeS(const MSVehicle * const veh, SUMOReal gap2pred) const throw() {
     SUMOReal desSpeed = desiredSpeed(veh);
     return _updateSpeed(gap2pred, veh->getSpeed(), desSpeed, desSpeed);
-}
-
-
-/// @todo update logic to IDM
-SUMOReal
-MSCFModel_IDM::brakeGap(SUMOReal speed) const throw() {
-    return speed * speed * myInverseTwoDecel;
 }
 
 
