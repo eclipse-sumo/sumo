@@ -80,13 +80,16 @@ for platform in ["Win32", "x64"]:
     shutil.rmtree(env["TEXTTEST_TMP"], True)
     shutil.rmtree(env["SUMO_REPORT"], True)
     os.mkdir(env["SUMO_REPORT"])
-    for name in ["dfrouter", "duarouter", "jtrrouter", "netconvert", "netgen", "od2trips", "sumo", "polyconvert", "guisim"]:
+    for name in ["dfrouter", "duarouter", "jtrrouter", "netconvert", "netgen", "od2trips", "sumo", "polyconvert", "sumo-gui"]:
         binary = os.path.join(options.rootDir, options.binDir, name + programSuffix + ".exe")
         if name == "sumo":
             binary = os.path.join(options.rootDir, options.binDir, options.sumoExe + programSuffix + ".exe")
-        if name == "guisim" and options.sumoExe == "meso":
-            binary = os.path.join(options.rootDir, options.binDir, "guimeso" + programSuffix + ".exe")
-        if os.path.exists(binary):
+        if name == "sumo-gui":
+            if options.sumoExe == "meso":
+                binary = os.path.join(options.rootDir, options.binDir, "meso-gui" + programSuffix + ".exe")
+            if os.path.exists(binary):
+                env["GUISIM_BINARY"] = binary
+        elif os.path.exists(binary):
             env[name.upper()+"_BINARY"] = binary
     log = open(testLog, 'w')
     subprocess.call("texttest.py -b "+env["FILEPREFIX"], stdout=log, stderr=subprocess.STDOUT, shell=True)
