@@ -327,10 +327,6 @@ MSVehicleControl::loadState(BinaryInputDevice &bis) throw() {
         defType.color = RGBColor(r,g,b);
         bis >> defType.cfModel;
         bis >> defType.lcModel;
-        defType.cfParameter["accel"] = accel;
-        defType.cfParameter["decel"] = decel;
-        defType.cfParameter["sigma"] = dawdle;
-        defType.cfParameter["tau"] = tau;
         MSVehicleType *t = MSVehicleType::build(defType);
         addVType(t);
     }
