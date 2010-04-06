@@ -550,11 +550,11 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\microsim\MSCFModel_IDM.cpp"
+				RelativePath="..\..\..\src\microsim\cfmodels\MSCFModel_IDM.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\microsim\MSCFModel_Krauss.cpp"
+				RelativePath="..\..\..\src\microsim\cfmodels\MSCFModel_Krauss.cpp"
 				>
 			</File>
 			<File
@@ -722,11 +722,11 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\microsim\MSCFModel_IDM.h"
+				RelativePath="..\..\..\src\microsim\cfmodels\MSCFModel_IDM.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\microsim\MSCFModel_Krauss.h"
+				RelativePath="..\..\..\src\microsim\cfmodels\MSCFModel_Krauss.h"
 				>
 			</File>
 			<File
