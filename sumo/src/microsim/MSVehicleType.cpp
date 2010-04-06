@@ -29,8 +29,8 @@
 
 #include "MSVehicleType.h"
 #include "MSNet.h"
-#include "MSCFModel_Krauss.h"
-#include "MSCFModel_IDM.h"
+#include "cfmodels/MSCFModel_Krauss.h"
+#include "cfmodels/MSCFModel_IDM.h"
 #include <cassert>
 #include <utils/iodevices/BinaryInputDevice.h>
 #include <utils/common/FileHelpers.h>

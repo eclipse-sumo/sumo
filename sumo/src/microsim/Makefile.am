@@ -29,8 +29,6 @@ MSVehicleControl.cpp MSVehicleControl.h \
 MSVehicleQuitReminded.h \
 MSVehicleTransfer.cpp MSVehicleTransfer.h \
 MSCFModel.cpp MSCFModel.h \
-MSCFModel_Krauss.cpp MSCFModel_Krauss.h \
-MSCFModel_IDM.cpp MSCFModel_IDM.h \
 MSVehicleType.cpp MSVehicleType.h 
 
-SUBDIRS = actions devices logging output traffic_lights trigger
+SUBDIRS = actions cfmodels devices logging output traffic_lights trigger

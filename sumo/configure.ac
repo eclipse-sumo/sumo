@@ -424,6 +424,7 @@ src/guisim/Makefile
 src/icons/Makefile
 src/microsim/Makefile
 src/microsim/actions/Makefile
+src/microsim/cfmodels/Makefile
 src/microsim/devices/Makefile
 src/microsim/logging/Makefile
 src/microsim/output/Makefile
