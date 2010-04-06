@@ -58,8 +58,8 @@ class StartDialog:
     def __init__(self):
         self.root = Tkinter.Tk()
         self.root.title("Traffic Light Game")
-        for cfg in glob.glob("*.sumo.cfg"):
-            category = cfg[:-9]
+        for cfg in glob.glob(os.path.join(base, "*.sumo.cfg")):
+            category = os.path.basename(cfg)[:-9]
             if not category in high:
                 high[category] = 10*[("", "", -1.)]
             Tkinter.Button(self.root, text=category, command=lambda cfg=cfg:self.ok(cfg)).pack()
@@ -73,8 +73,8 @@ class StartDialog:
     def ok(self, cfg):
         self.root.destroy()
         print "starting", cfg
-        self.ret = subprocess.call([guisimBinary, "-G", "-Q", "-c", cfg])
-        self.category = cfg[:-9]
+        self.ret = subprocess.call([guisimPath, "-G", "-Q", "-c", cfg])
+        self.category = os.path.basename(cfg)[:-9]
 
 class ScoreDialog:
     def __init__(self, game, points, category):
@@ -120,21 +120,34 @@ class ScoreDialog:
         self.root.destroy()
 
 
+base = os.path.dirname(sys.argv[0])
 high = loadHighscore()
 guisimBinary = "sumo-gui"
-guisimBinary = os.environ.get("GUISIM_BINARY", os.path.join(os.path.dirname(sys.argv[0]), '..', '..', 'bin', guisimBinary))
+if os.name != "posix":
+    guisimBinary += ".exe"
+if os.path.exists(os.path.join(base, guisimBinary)):
+    guisimPath = os.path.join(base, guisimBinary)
+else:
+    guisimPath = os.environ.get("GUISIM_BINARY", os.path.join(base, '..', '..', 'bin', guisimBinary))
+if not os.path.exists(guisimPath):
+    guisimPath = guisimBinary
 start = StartDialog()
 
 totalWait = 0
-for line in open("netstate.xml"):
+complete = True
+for line in open(os.path.join(base, "netstate.xml")):
+    m = re.search('<interval begin="0(.00)?" end="(\d+(.\d+)?)"', line)
+    if m and float(m.group(2)) != 180:
+        complete = False
     m = re.search('waitingTime="(\d+.\d+)"', line)
     if m:
         totalWait += float(m.group(1))
 switch = []
-for line in open("tlsstate.xml"):
-    m = re.search('tlsstate time="(\d+(.\d+)?)"', line)
+for line in open(os.path.join(base, "tlsstate.xml")):
+    m = re.search('tlsstate time="(\d+(.\d+)?)" id="([^"]*)"', line)
     if m:
-        switch += [m.group(1)]
+        switch += [m.group(3), m.group(1)]
 print switch, totalWait
-ScoreDialog(switch, totalWait, start.category)
+if complete:
+    ScoreDialog(switch, totalWait, start.category)
 sys.exit(start.ret)

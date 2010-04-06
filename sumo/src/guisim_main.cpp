@@ -141,7 +141,7 @@ main(int argc, char **argv) {
         // build the main window
         GUIApplicationWindow * window =
             new GUIApplicationWindow(&application, "*.sumo.cfg");
-        window->dependentBuild();
+        window->dependentBuild(oc.getBool("game"));
         gSchemeStorage.init(&application);
         // init simulation and visualization structures
         initGuiShapeNames();
@@ -151,7 +151,7 @@ main(int argc, char **argv) {
         // Load configuration given on command line
         if (oc.isSet("configuration-file")) {
             window->loadOnStartup(oc.getString("configuration-file"),
-                                  !oc.getBool("no-start"), oc.getBool("game"));
+                                  !oc.getBool("no-start"));
         }
         // Run
         ret = application.run();

@@ -137,7 +137,7 @@ GUIApplicationWindow::GUIApplicationWindow(FXApp* a,
 
 
 void
-GUIApplicationWindow::dependentBuild() {
+GUIApplicationWindow::dependentBuild(bool game) {
     // do this not twice
     if (hadDependentBuild) {
         return;
@@ -193,6 +193,11 @@ GUIApplicationWindow::dependentBuild() {
     myMessageWindow = new GUIMessageWindow(myMainSplitter);
     // fill menu and tool bar
     fillMenuBar();
+    if (game) {
+        onCmdGaming(0,0,0);
+        myMenuBar->hide();
+        myTopDock->hide();
+    }
     // build additional threads
     myLoadThread = new GUILoadThread(this, myEvents, myLoadThreadEvent);
     myRunThread = new GUIRunThread(this, *mySimDelayTarget, myEvents,
@@ -760,9 +765,6 @@ GUIApplicationWindow::onCmdGaming(FXObject*,FXSelector,void*) {
     myAmGaming = !myAmGaming;
     if (myAmGaming) {
         mySimDelayTarget->setValue(1000);
-        myToolBar4->hide();
-    } else {
-        myToolBar4->show();
     }
     return 1;
 }
@@ -1019,12 +1021,8 @@ GUIApplicationWindow::getCurrentSimTime() const {
 
 
 void
-GUIApplicationWindow::loadOnStartup(const std::string &config, bool run, bool game) {
+GUIApplicationWindow::loadOnStartup(const std::string &config, bool run) {
     myRunAtBegin = run;
-    if (game) {
-        mySettingsMenu->hide();
-        onCmdGaming(0, 0, 0);
-    }
     load(config, false);
 }
 /*
