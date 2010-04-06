@@ -51,6 +51,7 @@ sumo_LDFLAGS = $(XERCES_LDFLAGS) $(GDAL_LDFLAGS) $(PROJ_LDFLAGS)
 
 sumo_LDADD   = ./netload/libnetload.a \
 ./microsim/libmicrosim.a \
+./microsim/cfmodels/libmicrosimcfmodels.a \
 ./microsim/devices/libmicrosimdevs.a \
 ./microsim/output/libmicrosimoutput.a \
 ./microsim/MSMoveReminder.o \
