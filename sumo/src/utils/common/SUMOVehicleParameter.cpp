@@ -43,7 +43,7 @@
 // member method definitions
 // ===========================================================================
 SUMOVehicleParameter::SUMOVehicleParameter() throw()
-      : vtypeid(DEFAULT_VTYPE_ID), depart(-1), departProcedure(DEPART_GIVEN),
+        : vtypeid(DEFAULT_VTYPE_ID), depart(-1), departProcedure(DEPART_GIVEN),
         departLaneProcedure(DEPART_LANE_DEFAULT), departLane(0),
         departPosProcedure(DEPART_POS_DEFAULT), departSpeedProcedure(DEPART_SPEED_DEFAULT),
         arrivalLaneProcedure(ARRIVAL_LANE_DEFAULT),

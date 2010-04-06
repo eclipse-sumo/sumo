@@ -43,8 +43,8 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-MSCFModel_IDM::MSCFModel_IDM(const MSVehicleType* vtype, 
-							 SUMOReal accel, SUMOReal decel, 
+MSCFModel_IDM::MSCFModel_IDM(const MSVehicleType* vtype,
+                             SUMOReal accel, SUMOReal decel,
                              SUMOReal timeHeadWay, SUMOReal mingap) throw()
         : MSCFModel(vtype, decel), myAccel(accel), myTimeHeadWay(timeHeadWay), myMinSpace(mingap) {
 
@@ -63,7 +63,7 @@ MSCFModel_IDM::moveHelper(MSVehicle * const veh, const MSLane * const lane, SUMO
     //  vSafe does not incorporate speed reduction due to interaction
     //  on lane changing
     veh->setPreDawdleAcceleration(SPEED2ACCEL(vPos-oldV));
-	//
+    //
     SUMOReal vNext = vPos;
     return
         veh->getLaneChangeModel().patchSpeed(
@@ -135,7 +135,7 @@ MSCFModel_IDM::_updateSpeed(SUMOReal gap2pred, SUMOReal mySpeed, SUMOReal predSp
     SUMOReal s_star = MAX2(s_star_raw, myMinSpace);
     SUMOReal acc = myAccel * (1. - pow((double)(mySpeed/desSpeed), (double) DELTA_IDM) - (s_star*s_star)/(gap2pred*gap2pred));
     SUMOReal vNext = mySpeed + ACCEL2SPEED(acc);
-	return vNext;
+    return vNext;
 }
 
 

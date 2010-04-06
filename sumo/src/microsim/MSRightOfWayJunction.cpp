@@ -108,19 +108,19 @@ MSRightOfWayJunction::postloadInit() throw(ProcessError) {
             const std::bitset<64> &internalFoes = myLogic->getInternalFoesFor(requestPos);
             bool cont = myLogic->getIsCont(requestPos);
             myLinkFoeLinks[*j] = std::vector<MSLink*>();
-            for(unsigned int c=0; c<maxNo; ++c) {
-                if(foeLinks.test(c)) {
+            for (unsigned int c=0; c<maxNo; ++c) {
+                if (foeLinks.test(c)) {
                     myLinkFoeLinks[*j].push_back(sortedLinks[c].second);
                 }
             }
             myLinkFoeInternalLanes[*j] = std::vector<MSLane*>();
-            for(unsigned int c=0; c<myInternalLanes.size(); ++c) {
-                if(internalFoes.test(c)) {
+            for (unsigned int c=0; c<myInternalLanes.size(); ++c) {
+                if (internalFoes.test(c)) {
                     myLinkFoeInternalLanes[*j].push_back(myInternalLanes[c]);
                 }
             }
-            (*j)->setRequestInformation(&myRequest, requestPos, &myRespond, requestPos, 
-                foeLinks, isCrossing, cont, myLinkFoeLinks[*j], myLinkFoeInternalLanes[*j]);
+            (*j)->setRequestInformation(&myRequest, requestPos, &myRespond, requestPos,
+                                        foeLinks, isCrossing, cont, myLinkFoeLinks[*j], myLinkFoeInternalLanes[*j]);
             requestPos++;
         }
     }

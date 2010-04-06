@@ -38,7 +38,7 @@
 // method definitions
 // ===========================================================================
 MSCFModel_Krauss::MSCFModel_Krauss(const MSVehicleType* vtype,  SUMOReal accel, SUMOReal decel,
-								   SUMOReal dawdle, SUMOReal tau) throw()
+                                   SUMOReal dawdle, SUMOReal tau) throw()
         : MSCFModel(vtype, decel), myAccel(accel), myDawdle(dawdle), myTau(tau) {
 
     myTauDecel = decel * myTau;
@@ -57,7 +57,7 @@ MSCFModel_Krauss::moveHelper(MSVehicle * const veh, const MSLane * const lane, S
     //  vSafe does not incorporate speed reduction due to interaction
     //  on lane changing
     veh->setPreDawdleAcceleration(SPEED2ACCEL(vSafe-oldV));
-	//
+    //
     SUMOReal vNext = dawdle(MIN3(lane->getMaxSpeed(), maxNextSpeed(oldV), vSafe));
     vNext =
         veh->getLaneChangeModel().patchSpeed(
@@ -93,7 +93,7 @@ MSCFModel_Krauss::ffeS(const MSVehicle * const veh, SUMOReal gap) const throw() 
 }
 
 
-SUMOReal 
+SUMOReal
 MSCFModel_Krauss::interactionGap(const MSVehicle * const veh, SUMOReal vL) const throw() {
     // Resolve the vsafe equation to gap. Assume predecessor has
     // speed != 0 and that vsafe will be the current speed plus acceleration,

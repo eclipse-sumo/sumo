@@ -453,8 +453,8 @@ NIImporter_VISUM::parse_Connectors() {
     // get the type;
     //  use a standard type with a large speed when a type is not given
     std::string type = myLineParser.know("Typ")
-                  ? NBHelpers::normalIDRepresentation(myLineParser.get("Typ"))
-                  : "";
+                       ? NBHelpers::normalIDRepresentation(myLineParser.get("Typ"))
+                       : "";
     // add the connectors as an edge
     std::string id = bez + "-" + dest->getID();
     // get the information whether this is a sink or a source
@@ -547,8 +547,8 @@ NIImporter_VISUM::parse_Turns() {
     }
     // all nodes are known
     std::string type = myLineParser.know("VSysCode")
-                  ? myLineParser.get("VSysCode")
-                  : myLineParser.get("VSYSSET");
+                       ? myLineParser.get("VSysCode")
+                       : myLineParser.get("VSYSSET");
     if (myVSysTypes.find(type)!=myVSysTypes.end() && myVSysTypes.find(type)->second=="IV") {
         // try to set the turning definition
         NBEdge *src = from->getConnectionTo(via);

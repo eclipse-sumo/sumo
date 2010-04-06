@@ -189,7 +189,7 @@ PCLoaderXML::myCharacters(SumoXMLTag element,
     if (element==SUMO_TAG_POLY) {
         bool ok = true;
         Position2DVector pshape = GeomConvHelper::parseShapeReporting(chars, "poly", myCurrentID.c_str(), ok, false);
-        if(!ok) {
+        if (!ok) {
             return;
         }
         const Position2DVector::ContType &cont = pshape.getCont();

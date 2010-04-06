@@ -68,8 +68,8 @@ void
 MSLink::setRequestInformation(MSLogicJunction::Request *request, unsigned int requestIdx,
                               MSLogicJunction::Respond *respond, unsigned int respondIdx,
                               const MSLogicJunction::LinkFoes &foes, bool isCrossing, bool isCont,
-							  const std::vector<MSLink*> &foeLinks,
-							  const std::vector<MSLane*> &foeLanes) throw() {
+                              const std::vector<MSLink*> &foeLinks,
+                              const std::vector<MSLane*> &foeLanes) throw() {
     assert(myRequest==0);
     assert(myRespond==0);
     myRequest = request;
@@ -79,8 +79,8 @@ MSLink::setRequestInformation(MSLogicJunction::Request *request, unsigned int re
     myFoes = foes;
     myIsCrossing = isCrossing;
     myAmCont = isCont;
-	myFoeLinks = foeLinks;
-	myFoeLanes = foeLanes;
+    myFoeLinks = foeLinks;
+    myFoeLanes = foeLanes;
 }
 
 
@@ -92,7 +92,7 @@ MSLink::setApproaching(MSVehicle *approaching, SUMOTime arrivalTime, SUMOReal sp
     myApproaching = approaching;
     myRequest->set(myRequestIdx);
     std::vector<MSJunction::ApproachingVehicleInformation>::iterator i = find_if(myApproachingVehicles.begin(), myApproachingVehicles.end(), MSJunction::vehicle_in_request_finder(approaching));
-    if(i!=myApproachingVehicles.end()) {
+    if (i!=myApproachingVehicles.end()) {
         myApproachingVehicles.erase(i);
     }
     MSJunction::ApproachingVehicleInformation approachInfo(arrivalTime, arrivalTime + getLength() / speed, approaching);
@@ -100,14 +100,13 @@ MSLink::setApproaching(MSVehicle *approaching, SUMOTime arrivalTime, SUMOReal sp
 }
 
 
-void 
-MSLink::removeApproaching(MSVehicle *veh)
-{
+void
+MSLink::removeApproaching(MSVehicle *veh) {
     if (myRequest==0) {
         return;
     }
     std::vector<MSJunction::ApproachingVehicleInformation>::iterator i = find_if(myApproachingVehicles.begin(), myApproachingVehicles.end(), MSJunction::vehicle_in_request_finder(veh));
-    if(i!=myApproachingVehicles.end()) {
+    if (i!=myApproachingVehicles.end()) {
         myApproachingVehicles.erase(i);
     }
 }
@@ -126,24 +125,24 @@ MSLink::opened(SUMOTime arrivalTime, SUMOReal arrivalSpeed) const throw() {
         // (let the vehicle always leave the junction)
         return true;
     }
-    if(myAmCont) {
+    if (myAmCont) {
         return true;
     }
-	if(myState==LINKSTATE_TL_RED) {
-		return false;
-	}
+    if (myState==LINKSTATE_TL_RED) {
+        return false;
+    }
 #ifdef HAVE_INTERNAL_LANES
     SUMOTime leaveTime = myJunctionInlane==0 ? arrivalTime + getLength() * arrivalSpeed : arrivalTime + this->myJunctionInlane->getLength() * arrivalSpeed;
 #else
     SUMOTime leaveTime = arrivalTime + getLength() * arrivalSpeed;
 #endif
-    for(std::vector<MSLink*>::const_iterator i=myFoeLinks.begin(); i!=myFoeLinks.end(); ++i) {
-        if((*i)->blockedAtTime(arrivalTime, leaveTime)) {
+    for (std::vector<MSLink*>::const_iterator i=myFoeLinks.begin(); i!=myFoeLinks.end(); ++i) {
+        if ((*i)->blockedAtTime(arrivalTime, leaveTime)) {
             return false;
         }
     }
-    for(std::vector<MSLane*>::const_iterator i=myFoeLanes.begin(); i!=myFoeLanes.end(); ++i) {
-        if((*i)->getVehicleNumber()>0||(*i)->getPartialOccupator()!=0) {
+    for (std::vector<MSLane*>::const_iterator i=myFoeLanes.begin(); i!=myFoeLanes.end(); ++i) {
+        if ((*i)->getVehicleNumber()>0||(*i)->getPartialOccupator()!=0) {
             return false;
         }
     }
@@ -151,14 +150,13 @@ MSLink::opened(SUMOTime arrivalTime, SUMOReal arrivalSpeed) const throw() {
 }
 
 
-bool 
-MSLink::blockedAtTime(SUMOTime arrivalTime, SUMOTime leaveTime) const throw()
-{
-    for(std::vector<MSJunction::ApproachingVehicleInformation>::const_iterator i=myApproachingVehicles.begin(); i!=myApproachingVehicles.end(); ++i) {
-        if((*i).arrivalTime-1.5<=arrivalTime&&(*i).leavingTime+1.5>=arrivalTime) {
+bool
+MSLink::blockedAtTime(SUMOTime arrivalTime, SUMOTime leaveTime) const throw() {
+    for (std::vector<MSJunction::ApproachingVehicleInformation>::const_iterator i=myApproachingVehicles.begin(); i!=myApproachingVehicles.end(); ++i) {
+        if ((*i).arrivalTime-1.5<=arrivalTime&&(*i).leavingTime+1.5>=arrivalTime) {
             return true;
         }
-        if((*i).arrivalTime-1.5<=leaveTime&&(*i).leavingTime+1.5>=leaveTime) {
+        if ((*i).arrivalTime-1.5<=leaveTime&&(*i).leavingTime+1.5>=leaveTime) {
             return true;
         }
     }
@@ -171,13 +169,13 @@ MSLink::hasApproachingFoe(SUMOTime arrivalTime, SUMOTime leaveTime) const throw(
     if (myRequest==0) {
         return false;
     }
-    for(std::vector<MSLink*>::const_iterator i=myFoeLinks.begin(); i!=myFoeLinks.end(); ++i) {
-        if((*i)->blockedAtTime(arrivalTime, leaveTime)) {
+    for (std::vector<MSLink*>::const_iterator i=myFoeLinks.begin(); i!=myFoeLinks.end(); ++i) {
+        if ((*i)->blockedAtTime(arrivalTime, leaveTime)) {
             return true;
         }
     }
-    for(std::vector<MSLane*>::const_iterator i=myFoeLanes.begin(); i!=myFoeLanes.end(); ++i) {
-        if((*i)->getVehicleNumber()>0||(*i)->getPartialOccupator()!=0) {
+    for (std::vector<MSLane*>::const_iterator i=myFoeLanes.begin(); i!=myFoeLanes.end(); ++i) {
+        if ((*i)->getVehicleNumber()>0||(*i)->getPartialOccupator()!=0) {
             return true;
         }
     }

@@ -52,8 +52,8 @@ class MSLane;
 class MSJunction {
 public:
     struct ApproachingVehicleInformation {
-        ApproachingVehicleInformation(SUMOReal _arrivalTime, SUMOReal _leavingTime, MSVehicle *_vehicle) 
-            : arrivalTime(_arrivalTime), leavingTime(_leavingTime), vehicle(_vehicle) {}
+        ApproachingVehicleInformation(SUMOReal _arrivalTime, SUMOReal _leavingTime, MSVehicle *_vehicle)
+                : arrivalTime(_arrivalTime), leavingTime(_leavingTime), vehicle(_vehicle) {}
         SUMOReal arrivalTime;
         SUMOReal leavingTime;
         MSVehicle *vehicle;

@@ -166,9 +166,9 @@ public:
      * @todo Unsecure!
      */
     void setRequestInformation(MSLogicJunction::Request *request, unsigned int requestIdx,
-        MSLogicJunction::Respond *respond, unsigned int respondIdx,
-        const MSLogicJunction::LinkFoes &foes, bool isCrossing, bool isCont,
-		const std::vector<MSLink*> &foeLinks, const std::vector<MSLane*> &foeLanes) throw();
+                               MSLogicJunction::Respond *respond, unsigned int respondIdx,
+                               const MSLogicJunction::LinkFoes &foes, bool isCrossing, bool isCont,
+                               const std::vector<MSLink*> &foeLinks, const std::vector<MSLane*> &foeLanes) throw();
 
 
     /** @brief Sets the information about an approaching vehicle
@@ -359,8 +359,8 @@ private:
     bool myIsInternalEnd;
 #endif
 
-	std::vector<MSLink*> myFoeLinks;
-	std::vector<MSLane*> myFoeLanes;
+    std::vector<MSLink*> myFoeLinks;
+    std::vector<MSLane*> myFoeLanes;
 
 
 private:

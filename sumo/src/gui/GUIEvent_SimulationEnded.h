@@ -50,7 +50,7 @@ public:
      * @param[in] step The time step the simulation has ended at
      */
     GUIEvent_SimulationEnded(MSNet::SimulationState reason, SUMOTime step) throw()
-        : GUIEvent(EVENT_SIMULATION_ENDED), myReason(reason), myStep(step) {}
+            : GUIEvent(EVENT_SIMULATION_ENDED), myReason(reason), myStep(step) {}
 
 
     /// @brief Destructor

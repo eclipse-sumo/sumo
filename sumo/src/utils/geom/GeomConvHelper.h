@@ -54,8 +54,8 @@ public:
      * @param[in] report Whether errors shall be written to msg handler's error instance
      * @return The parsed position vector
      */
-    static Position2DVector parseShapeReporting(const std::string &shpdef, const char *objecttype, 
-        const char *objectid, bool &ok, bool allowEmpty, bool report=true) throw();
+    static Position2DVector parseShapeReporting(const std::string &shpdef, const char *objecttype,
+            const char *objectid, bool &ok, bool allowEmpty, bool report=true) throw();
 
 
     /** @brief Builds a boundary from its string representation, reporting occured errors
@@ -68,8 +68,8 @@ public:
      * @param[in] report Whether errors shall be written to msg handler's error instance
      * @return The parsed boundary
      */
-    static Boundary parseBoundaryReporting(const std::string &def, const char *objecttype, 
-        const char *objectid, bool &ok, bool report=true) throw();
+    static Boundary parseBoundaryReporting(const std::string &def, const char *objecttype,
+                                           const char *objectid, bool &ok, bool report=true) throw();
 
 
 private:
@@ -80,8 +80,8 @@ private:
      * @param[in] objectid The name of the parsed object type the error occured at
      * @param[out] desc Error description
      */
-    static void emitError(bool report, const std::string &what, const char *objecttype, 
-        const char *objectid, const std::string &desc) throw();
+    static void emitError(bool report, const std::string &what, const char *objecttype,
+                          const char *objectid, const std::string &desc) throw();
 
 
 };

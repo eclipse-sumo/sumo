@@ -137,7 +137,7 @@ MSRouteHandler::myStartElement(SumoXMLTag element,
         StringTokenizer st(desc);
         myActivePlan->push_back(new MSPerson::MSPersonStage_Driving(*to, st.getVector()));
         break;
-                        }
+    }
     case SUMO_TAG_WALK: {
         myActiveRoute.clear();
         bool ok = true;
@@ -153,7 +153,7 @@ MSRouteHandler::myStartElement(SumoXMLTag element,
         myActivePlan->push_back(new MSPerson::MSPersonStage_Walking(myActiveRoute, duration, speed));
         myActiveRoute.clear();
         break;
-                        }
+    }
     case SUMO_TAG_FLOW:
         delete myVehicleParameter;
         myVehicleParameter = SUMOVehicleParserHelper::parseFlowAttributes(attrs);

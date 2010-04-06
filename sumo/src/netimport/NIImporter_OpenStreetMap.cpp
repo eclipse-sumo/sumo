@@ -139,7 +139,7 @@ private:
 /** @brief Functor which compares two Edges according to all values but id
  */
 class NIImporter_OpenStreetMap::SimilarEdge : public std::unary_function<
-	std::pair<std::string, Edge*>, bool> {
+            std::pair<std::string, Edge*>, bool> {
 public:
     /** @brief Initializes the functor with the fixed comparison partner
      *
@@ -157,13 +157,13 @@ public:
      * @return true if both edges are "similar"; otherwise false.
      */
     bool operator()(const std::pair<std::string, Edge*>& p1) const {
-        return 
-			myP0.second->myNoLanes==p1.second->myNoLanes &&
-			myP0.second->myMaxSpeed==p1.second->myMaxSpeed &&
-			myP0.second->myHighWayType==p1.second->myHighWayType &&
-			myP0.second->myIsOneWay==p1.second->myIsOneWay &&
-			myP0.second->myCurrentNodes==p1.second->myCurrentNodes &&
-			myP0.second->myCurrentIsRoad==p1.second->myCurrentIsRoad;
+        return
+            myP0.second->myNoLanes==p1.second->myNoLanes &&
+            myP0.second->myMaxSpeed==p1.second->myMaxSpeed &&
+            myP0.second->myHighWayType==p1.second->myHighWayType &&
+            myP0.second->myIsOneWay==p1.second->myIsOneWay &&
+            myP0.second->myCurrentNodes==p1.second->myCurrentNodes &&
+            myP0.second->myCurrentIsRoad==p1.second->myCurrentIsRoad;
     }
 
 private:
@@ -273,20 +273,20 @@ NIImporter_OpenStreetMap::loadNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
     /* Remove duplicate edges with the same shape and attributes */
     MsgHandler::getMessageInstance()->beginProcessMsg("Removing duplicate edges...");
     if (edges.size() > 1) {
-		std::set<std::string> toRemove;
+        std::set<std::string> toRemove;
         for (std::map<std::string, Edge*>::iterator it = edges.begin(), itnext =++edges.begin(); itnext != edges.end(); ++it, ++itnext) {
-			std::map<std::string, Edge*>::iterator dupEdge = find_if(itnext, edges.end(), SimilarEdge(*it));
-			while(dupEdge != edges.end()) {
-				MsgHandler::getMessageInstance()->inform("Found duplicate edges. Removing " + toString(dupEdge->first));
-				toRemove.insert(dupEdge->first);
-				dupEdge = find_if(++dupEdge, edges.end(), SimilarEdge(*it));
+            std::map<std::string, Edge*>::iterator dupEdge = find_if(itnext, edges.end(), SimilarEdge(*it));
+            while (dupEdge != edges.end()) {
+                MsgHandler::getMessageInstance()->inform("Found duplicate edges. Removing " + toString(dupEdge->first));
+                toRemove.insert(dupEdge->first);
+                dupEdge = find_if(++dupEdge, edges.end(), SimilarEdge(*it));
             }
         }
-		for(std::set<std::string>::iterator i=toRemove.begin(); i!=toRemove.end(); ++i) {
-			std::map<std::string, Edge*>::iterator j=edges.find(*i);
-			delete (*j).second;
-			edges.erase(j);
-		}
+        for (std::set<std::string>::iterator i=toRemove.begin(); i!=toRemove.end(); ++i) {
+            std::map<std::string, Edge*>::iterator j=edges.find(*i);
+            delete(*j).second;
+            edges.erase(j);
+        }
     }
     MsgHandler::getMessageInstance()->endProcessMsg(" done.");
 
@@ -445,18 +445,18 @@ NIImporter_OpenStreetMap::insertEdge(Edge *e, int index, NBNode *from, NBNode *t
             WRITE_WARNING("New value for oneway found: " + e->myIsOneWay);
         }
         NBEdge::LaneSpreadFunction lsf = addSecond ? NBEdge::LANESPREAD_RIGHT : NBEdge::LANESPREAD_CENTER;
-		if(e->myIsOneWay!="-1") {
-	        NBEdge *nbe = new NBEdge(id, from, to, e->myHighWayType, speed, noLanes, tc.getPriority(e->myHighWayType), shape, lsf);
-		    nbe->setVehicleClasses(allowedClasses, disallowedClasses);
-			if (!ec.insert(nbe)) {
-				delete nbe;
-				throw ProcessError("Could not add edge '" + id + "'.");
-			}
-		}
+        if (e->myIsOneWay!="-1") {
+            NBEdge *nbe = new NBEdge(id, from, to, e->myHighWayType, speed, noLanes, tc.getPriority(e->myHighWayType), shape, lsf);
+            nbe->setVehicleClasses(allowedClasses, disallowedClasses);
+            if (!ec.insert(nbe)) {
+                delete nbe;
+                throw ProcessError("Could not add edge '" + id + "'.");
+            }
+        }
         if (addSecond) {
-			if(e->myIsOneWay!="-1") {
-				id = "-" + id;
-			}
+            if (e->myIsOneWay!="-1") {
+                id = "-" + id;
+            }
             NBEdge *nbe = new NBEdge(id, to, from, e->myHighWayType, speed, noLanes, tc.getPriority(e->myHighWayType), shape.reverse(), lsf);
             nbe->setVehicleClasses(allowedClasses, disallowedClasses);
             if (!ec.insert(nbe)) {
@@ -488,10 +488,10 @@ NIImporter_OpenStreetMap::NodesHandler::myStartElement(SumoXMLTag element, const
         }
         bool ok = true;
         int id = attrs.getIntReporting(SUMO_ATTR_ID, "node", 0, ok);
-		std::string action = attrs.hasAttribute("action") ? attrs.getStringSecure("action", "") : "";
-		if(action=="delete") {
-			return;
-		}
+        std::string action = attrs.hasAttribute("action") ? attrs.getStringSecure("action", "") : "";
+        if (action=="delete") {
+            return;
+        }
         if (!ok) {
             return;
         }
@@ -580,13 +580,13 @@ NIImporter_OpenStreetMap::EdgesHandler::myStartElement(SumoXMLTag element,
     if (element==SUMO_TAG_WAY) {
         bool ok = true;
         std::string id = attrs.getStringReporting(SUMO_ATTR_ID, "way", 0, ok);
-		std::string action = attrs.hasAttribute("action") ? attrs.getStringSecure("action", "") : "";
-		if(action=="delete") {
-			myCurrentEdge = 0;
-			return;
-		}
+        std::string action = attrs.hasAttribute("action") ? attrs.getStringSecure("action", "") : "";
+        if (action=="delete") {
+            myCurrentEdge = 0;
+            return;
+        }
         if (!ok) {
-			myCurrentEdge = 0;
+            myCurrentEdge = 0;
             return;
         }
         myCurrentEdge = new Edge();
@@ -609,9 +609,9 @@ NIImporter_OpenStreetMap::EdgesHandler::myStartElement(SumoXMLTag element,
     }
     // parse values
     if (element==SUMO_TAG_TAG&&myParentElements.size()>2&&myParentElements[myParentElements.size()-2]==SUMO_TAG_WAY) {
-		if(myCurrentEdge==0) {
-			return;
-		}
+        if (myCurrentEdge==0) {
+            return;
+        }
         bool ok = true;
         std::string key = attrs.getStringReporting(SUMO_ATTR_K, "way", toString(myCurrentEdge->id).c_str(), ok);
         std::string value = attrs.getStringReporting(SUMO_ATTR_V, "way", toString(myCurrentEdge->id).c_str(), ok);

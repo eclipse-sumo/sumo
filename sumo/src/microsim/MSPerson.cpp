@@ -110,8 +110,8 @@ MSPerson::MSPersonStage_Walking::proceed(MSNet* net,
 void
 MSPerson::MSPersonStage_Walking::tripInfoOutput(OutputDevice &os) const throw(IOError) {
     (os.openTag("walk") <<
-    " arrival=\"" << myArrived <<
-    "\"").closeTag(true);
+     " arrival=\"" << myArrived <<
+     "\"").closeTag(true);
 }
 
 
@@ -120,7 +120,7 @@ MSPerson::MSPersonStage_Walking::tripInfoOutput(OutputDevice &os) const throw(IO
  * MSPerson::MSPersonStage_Driving - methods
  * ----------------------------------------------------------------------- */
 MSPerson::MSPersonStage_Driving::MSPersonStage_Driving(const MSEdge &destination,
-                                                       const std::vector<std::string> &lines)
+        const std::vector<std::string> &lines)
         : MSPersonStage(destination), myLines(lines.begin(), lines.end()) {}
 
 
@@ -153,9 +153,9 @@ MSPerson::MSPersonStage_Driving::isWaitingFor(const std::string &line) const {
 void
 MSPerson::MSPersonStage_Driving::tripInfoOutput(OutputDevice &os) const throw(IOError) {
     (os.openTag("ride") <<
-    " depart=\"" << myDeparted <<
-    "\" arrival=\"" << myArrived <<
-    "\"").closeTag(true);
+     " depart=\"" << myDeparted <<
+     "\" arrival=\"" << myArrived <<
+     "\"").closeTag(true);
 }
 
 
@@ -163,7 +163,7 @@ MSPerson::MSPersonStage_Driving::tripInfoOutput(OutputDevice &os) const throw(IO
  * MSPerson::MSPersonStage_Waiting - methods
  * ----------------------------------------------------------------------- */
 MSPerson::MSPersonStage_Waiting::MSPersonStage_Waiting(const MSEdge &destination,
-                                                       SUMOTime duration, SUMOTime until)
+        SUMOTime duration, SUMOTime until)
         : MSPersonStage(destination), myWaitingDuration(duration), myWaitingUntil(until) {}
 
 
@@ -182,8 +182,8 @@ MSPerson::MSPersonStage_Waiting::proceed(MSNet* net,
 void
 MSPerson::MSPersonStage_Waiting::tripInfoOutput(OutputDevice &os) const throw(IOError) {
     (os.openTag("stop") <<
-    " arrival=\"" << myArrived <<
-    "\"").closeTag(true);
+     " arrival=\"" << myArrived <<
+     "\"").closeTag(true);
 }
 
 

@@ -170,13 +170,13 @@ GUIRunThread::makeStep() throw() {
         e = 0;
         MSNet::SimulationState state = myNet->simulationState(mySimEndTime);
 #ifndef NO_TRACI
-        if(state!=MSNet::SIMSTATE_RUNNING) {
-			if(OptionsCont::getOptions().getInt("remote-port")!=0&&!traci::TraCIServer::wasClosed()) {
-				state = MSNet::SIMSTATE_RUNNING;
-			}
-		}
+        if (state!=MSNet::SIMSTATE_RUNNING) {
+            if (OptionsCont::getOptions().getInt("remote-port")!=0&&!traci::TraCIServer::wasClosed()) {
+                state = MSNet::SIMSTATE_RUNNING;
+            }
+        }
 #endif
-        switch(state) {
+        switch (state) {
         case MSNet::SIMSTATE_END_STEP_REACHED:
         case MSNet::SIMSTATE_NO_FURTHER_VEHICLES:
         case MSNet::SIMSTATE_CONNECTION_CLOSED:
@@ -186,7 +186,7 @@ GUIRunThread::makeStep() throw() {
         default:
             break;
         }
-        if(e!=0) {
+        if (e!=0) {
             myEventQue.add(e);
             myEventThrow.signal();
             myHalting = true;

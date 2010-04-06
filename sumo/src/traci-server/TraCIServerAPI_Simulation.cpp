@@ -61,11 +61,11 @@ TraCIServerAPI_Simulation::processGet(tcpip::Storage &inputStorage,
     std::string id = inputStorage.readString();
     // check variable
     if (variable!=VAR_TIME_STEP
-        &&variable!=VAR_LOADED_VEHICLES_NUMBER&&variable!=VAR_LOADED_VEHICLES_IDS
-        &&variable!=VAR_DEPARTED_VEHICLES_NUMBER&&variable!=VAR_DEPARTED_VEHICLES_IDS
-        &&variable!=VAR_TELEPORT_STARTING_VEHICLES_NUMBER&&variable!=VAR_TELEPORT_STARTING_VEHICLES_IDS
-        &&variable!=VAR_TELEPORT_ENDING_VEHICLES_NUMBER&&variable!=VAR_TELEPORT_ENDING_VEHICLES_IDS
-        &&variable!=VAR_ARRIVED_VEHICLES_NUMBER&&variable!=VAR_ARRIVED_VEHICLES_IDS
+            &&variable!=VAR_LOADED_VEHICLES_NUMBER&&variable!=VAR_LOADED_VEHICLES_IDS
+            &&variable!=VAR_DEPARTED_VEHICLES_NUMBER&&variable!=VAR_DEPARTED_VEHICLES_IDS
+            &&variable!=VAR_TELEPORT_STARTING_VEHICLES_NUMBER&&variable!=VAR_TELEPORT_STARTING_VEHICLES_IDS
+            &&variable!=VAR_TELEPORT_ENDING_VEHICLES_NUMBER&&variable!=VAR_TELEPORT_ENDING_VEHICLES_IDS
+            &&variable!=VAR_ARRIVED_VEHICLES_NUMBER&&variable!=VAR_ARRIVED_VEHICLES_IDS
        ) {
         TraCIServerAPIHelper::writeStatusCmd(CMD_GET_SIM_VARIABLE, RTYPE_ERR, "Unsupported variable specified", outputStorage);
         return false;

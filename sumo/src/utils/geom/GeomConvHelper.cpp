@@ -44,10 +44,10 @@
 // method definitions
 // ===========================================================================
 Position2DVector
-GeomConvHelper::parseShapeReporting(const std::string &shpdef, const char *objecttype, 
-                           const char *objectid, bool &ok, bool allowEmpty, bool report) throw() {
+GeomConvHelper::parseShapeReporting(const std::string &shpdef, const char *objecttype,
+                                    const char *objectid, bool &ok, bool allowEmpty, bool report) throw() {
     if (shpdef=="") {
-        if(!allowEmpty) {
+        if (!allowEmpty) {
             emitError(report, "Shape", objecttype, objectid, "the shape is empty");
             ok = false;
         }
@@ -81,7 +81,7 @@ GeomConvHelper::parseShapeReporting(const std::string &shpdef, const char *objec
 
 
 Boundary
-GeomConvHelper::parseBoundaryReporting(const std::string &def, const char *objecttype, 
+GeomConvHelper::parseBoundaryReporting(const std::string &def, const char *objecttype,
                                        const char *objectid, bool &ok, bool report) throw() {
     StringTokenizer st(def, ",");
     if (st.size()!=4) {
@@ -105,10 +105,10 @@ GeomConvHelper::parseBoundaryReporting(const std::string &def, const char *objec
 }
 
 
-void 
-GeomConvHelper::emitError(bool report, const std::string &what, const char *objecttype, 
+void
+GeomConvHelper::emitError(bool report, const std::string &what, const char *objecttype,
                           const char *objectid, const std::string &desc) throw() {
-    if(!report) {
+    if (!report) {
         return;
     }
     std::ostringstream oss;

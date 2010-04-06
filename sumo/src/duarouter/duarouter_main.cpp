@@ -115,19 +115,19 @@ computeRoutes(RONet &net, ROLoader &loader, OptionsCont &oc) {
         }
     } else {
         DijkstraRouterEffort_Direct<ROEdge, ROVehicle, prohibited_withRestrictions<ROEdge, ROVehicle> >::Operation op;
-        if(measure=="CO") {
+        if (measure=="CO") {
             op = &ROEdge::getCOEffort;
-        } else if(measure=="CO2") {
+        } else if (measure=="CO2") {
             op = &ROEdge::getCO2Effort;
-        } else if(measure=="PMx") {
+        } else if (measure=="PMx") {
             op = &ROEdge::getPMxEffort;
-        } else if(measure=="HC") {
+        } else if (measure=="HC") {
             op = &ROEdge::getHCEffort;
-        } else if(measure=="NOx") {
+        } else if (measure=="NOx") {
             op = &ROEdge::getNOxEffort;
-        } else if(measure=="fuel") {
+        } else if (measure=="fuel") {
             op = &ROEdge::getFuelEffort;
-        } else if(measure=="noise") {
+        } else if (measure=="noise") {
             op = &ROEdge::getNoiseEffort;
         }
         if (net.hasRestrictions()) {

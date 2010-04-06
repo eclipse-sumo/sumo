@@ -734,7 +734,7 @@ MSVehicle::processNextStop(SUMOReal currentVelocity) throw() {
                 if (endPos-5.<bstop.busstop->getBeginLanePosition()) { // !!! explicite offset
                     busStopsMustHaveSpace = false;
                 }
-			}
+            }
 //            if (myState.pos()>=endPos-offset&&busStopsMustHaveSpace) {
             if (myState.pos()>=endPos-BUS_STOP_OFFSET&&busStopsMustHaveSpace) {
                 // ok, we may stop (have reached the stop)
@@ -799,7 +799,7 @@ MSVehicle::moveRegardingCritical(SUMOTime t, const MSLane* const lane,
         }
     }
     myLFLinkLanes.clear();
-	const MSCFModel &cfModel = getCarFollowModel();
+    const MSCFModel &cfModel = getCarFollowModel();
     // check whether the vehicle is not on an appropriate lane
     if (!myLane->appropriate(this)) {
         // decelerate to lane end when yes
@@ -895,17 +895,17 @@ MSVehicle::moveFirstChecked() {
         bool onLinkEnd = link==0;
         // the vehicle must change the lane on one of the next lanes
         if (!onLinkEnd) {
-                if (link->opened((*i).myArrivalTime, (*i).myArrivalSpeed)) {
+            if (link->opened((*i).myArrivalTime, (*i).myArrivalSpeed)) {
+                vSafe = (*i).myVLinkPass;
+            } else {
+                bool yellow = link->getState()==MSLink::LINKSTATE_TL_YELLOW_MAJOR||link->getState()==MSLink::LINKSTATE_TL_YELLOW_MINOR;
+                if (vSafe<getCarFollowModel().getSpeedAfterMaxDecel(myState.mySpeed)&&yellow) {
                     vSafe = (*i).myVLinkPass;
                 } else {
-                    bool yellow = link->getState()==MSLink::LINKSTATE_TL_YELLOW_MAJOR||link->getState()==MSLink::LINKSTATE_TL_YELLOW_MINOR;
-                    if (vSafe<getCarFollowModel().getSpeedAfterMaxDecel(myState.mySpeed)&&yellow) {
-                        vSafe = (*i).myVLinkPass;
-                    } else {
-                        vSafe = (*i).myVLinkWait;
-                        cont = false;
-                    }
+                    vSafe = (*i).myVLinkWait;
+                    cont = false;
                 }
+            }
         } else {
             vSafe = (*i).myVLinkWait;
             cont = false;
@@ -946,7 +946,7 @@ MSVehicle::moveFirstChecked() {
     // update position and speed
     myState.myPos += SPEED2DIST(vNext);
     myState.mySpeed = vNext;
-	myTarget = 0;
+    myTarget = 0;
     std::vector<MSLane*> passedLanes;
     for (std::vector<MSLane*>::reverse_iterator i=myFurtherLanes.rbegin(); i!=myFurtherLanes.rend(); ++i) {
         passedLanes.push_back(*i);
@@ -1109,7 +1109,7 @@ MSVehicle::checkRewindLinkLanes(SUMOReal lengthsInFront) throw() {
     }
 #endif
     for (DriveItemVector::iterator i=myLFLinkLanes.begin(); i!=myLFLinkLanes.end(); ++i) {
-		if ((*i).myLink!=0&&(*i).mySetRequest/*&&(*i).myArrivalTime+20<MSNet::getInstance()->getCurrentTimeStep()*/) {
+        if ((*i).myLink!=0&&(*i).mySetRequest/*&&(*i).myArrivalTime+20<MSNet::getInstance()->getCurrentTimeStep()*/) {
             (*i).myLink->setApproaching(this, (*i).myArrivalTime, (*i).myArrivalSpeed);
         }
     }
@@ -1124,7 +1124,7 @@ MSVehicle::vsafeCriticalCont(SUMOTime t, SUMOReal boundVSafe, SUMOReal lengthsIn
         int bla = 0;
     }
 #endif
-	const MSCFModel &cfModel = getCarFollowModel();
+    const MSCFModel &cfModel = getCarFollowModel();
     // the vehicle may have just to look into the next lane
     //  compute this information and use it only once in the next loop
     SUMOReal seen = myLane->getLength() - myState.myPos;
@@ -1226,14 +1226,14 @@ MSVehicle::vsafeCriticalCont(SUMOTime t, SUMOReal boundVSafe, SUMOReal lengthsIn
         // behaviour in front of not priorised intersections (waiting for priorised foe vehicles)
         bool setRequest = false;
         if (!(*link)->havePriority()) {
-            // The vehicle may pass if it already has passed the decision point which is at 
-			//  distanceToIntersection("seen") == approachingBrakeGap with speed==maxDeceleration*2. == maxDeceleration
-			//  Note that we use the maximum deceleration ability as speed information (no conversion from m/s/s to m/s is necessary)
-			//  Also, after reaching this point, the speed should not be reduced
-			// Up to this time it is decelearating in order to watch out for foe traffic
-			if((*link)->getState()==MSLink::LINKSTATE_TL_RED||(seen>cfModel.getMaxDecel()&&myState.mySpeed>cfModel.getMaxDecel())) {
-				vLinkPass = vLinkWait;
-			}
+            // The vehicle may pass if it already has passed the decision point which is at
+            //  distanceToIntersection("seen") == approachingBrakeGap with speed==maxDeceleration*2. == maxDeceleration
+            //  Note that we use the maximum deceleration ability as speed information (no conversion from m/s/s to m/s is necessary)
+            //  Also, after reaching this point, the speed should not be reduced
+            // Up to this time it is decelearating in order to watch out for foe traffic
+            if ((*link)->getState()==MSLink::LINKSTATE_TL_RED||(seen>cfModel.getMaxDecel()&&myState.mySpeed>cfModel.getMaxDecel())) {
+                vLinkPass = vLinkWait;
+            }
         }
         // process stops
         if (!myStops.empty()&& &myStops.begin()->lane->getEdge()==&nextLane->getEdge()) {
@@ -1250,7 +1250,7 @@ MSVehicle::vsafeCriticalCont(SUMOTime t, SUMOReal boundVSafe, SUMOReal lengthsIn
         setRequest &= dist-seen>0;
         SUMOTime arrivalTime = 0;
         SUMOTime leaveTime = 0;
-        if(setRequest) {
+        if (setRequest) {
             arrivalTime = t + seen / vLinkPass;
         }
         myLFLinkLanes.push_back(DriveProcessItem(*link, vLinkPass, vLinkWait, setRequest, arrivalTime, vLinkPass));
@@ -1404,11 +1404,11 @@ MSVehicle::enterLaneAtEmit(MSLane* enteredLane, SUMOReal pos, SUMOReal speed) {
         (*dev)->enterLaneAtEmit(enteredLane, myState);
     }
     // build the list of lanes the vehicle is lapping into
-	SUMOReal leftLength = myType->getLength() - pos;
+    SUMOReal leftLength = myType->getLength() - pos;
     MSLane *clane = enteredLane;
-    while(leftLength>0) {
+    while (leftLength>0) {
         const std::vector<MSLane::IncomingLaneInfo> &incoming = clane->getIncomingLanes();
-        if(incoming.size()==0) {
+        if (incoming.size()==0) {
             break;
         }
         clane = incoming[0].lane; // !!! just an approximation

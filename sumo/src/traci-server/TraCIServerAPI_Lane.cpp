@@ -249,7 +249,7 @@ TraCIServerAPI_Lane::processGet(tcpip::Storage &inputStorage,
             SUMOReal lengthSum = 0;
             const std::deque<MSVehicle*> &vehs = lane->getVehiclesSecure();
             for (std::deque<MSVehicle*>::const_iterator j=vehs.begin(); j!=vehs.end(); ++j) {
-				lengthSum += (*j)->getVehicleType().getLength();
+                lengthSum += (*j)->getVehicleType().getLength();
             }
             tempMsg.writeUnsignedByte(TYPE_FLOAT);
             if (vehs.size()==0) {

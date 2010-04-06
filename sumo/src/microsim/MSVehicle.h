@@ -598,13 +598,13 @@ public:
 
 
     /** @brief Returns the number of steps waited (speed was lesser than 0.1m/s)
-	 *
-	 * The value is reset if the vehicle moves faster than 0.1m/s
-	 * @return The time the vehicle is standing
-	 */
-	SUMOReal getWaitingTime() const throw() {
-		return myWaitingTime;
-	}
+     *
+     * The value is reset if the vehicle moves faster than 0.1m/s
+     * @return The time the vehicle is standing
+     */
+    SUMOReal getWaitingTime() const throw() {
+        return myWaitingTime;
+    }
 
 
 
@@ -923,7 +923,7 @@ protected:
     MSVehicle(SUMOVehicleParameter* pars, const MSRoute* route,
               const MSVehicleType* type, int vehicleIndex) throw(ProcessError);
 
-	/// @brief the lane, the vehicle will be within the next time step (0 if the vehicle stays on the same it was before)
+    /// @brief the lane, the vehicle will be within the next time step (0 if the vehicle stays on the same it was before)
     MSLane *myTarget;
 
     /// @brief information how long ago the vehicle has performed a lane-change
@@ -1007,7 +1007,7 @@ private:
         SUMOReal myArrivalSpeed;
         bool mySetRequest;
         DriveProcessItem(MSLink *link, SUMOReal vPass, SUMOReal vWait, bool setRequest,
-            SUMOTime arrivalTime, SUMOReal arrivalSpeed) :
+                         SUMOTime arrivalTime, SUMOReal arrivalSpeed) :
                 myLink(link), myVLinkPass(vPass), myVLinkWait(vWait), mySetRequest(setRequest),
                 myArrivalTime(arrivalTime), myArrivalSpeed(arrivalSpeed) { };
     };

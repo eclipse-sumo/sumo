@@ -204,8 +204,8 @@ private:
     /// @brief The maximum waiting time; vehicles waiting longer are deleted (-1: no deletion)
     SUMOTime myMaxDepartDelay;
 
-	/// @brief Whether an edge on which a vehicle could not depart should be ignored in the same step
-	bool myCheckEdgesOnce;
+    /// @brief Whether an edge on which a vehicle could not depart should be ignored in the same step
+    bool myCheckEdgesOnce;
 
 
 private:

@@ -310,21 +310,21 @@ MSMessageEmitter::setWriteEvents(std::string &events) {
         tmp = trimmed(st.next());
         if (tmp == "lanechange") {
 #ifdef _DEBUG
-	std::cout << "set event '" + tmp + "' to true" << std::endl;
+            std::cout << "set event '" + tmp + "' to true" << std::endl;
 #endif
             MSMessageEmitter::writeLCEvent = true;
         } else if (tmp == "break") {
 #ifdef _DEBUG
-		std::cout << "set event '" + tmp + "' to true" << std::endl;
+            std::cout << "set event '" + tmp + "' to true" << std::endl;
 #endif
             MSMessageEmitter::writeBEvent = true;
         } else if (tmp == "heartbeat") {
 #ifdef _DEBUG
-		std::cout << "set event '" + tmp + "' to true" << std::endl;
+            std::cout << "set event '" + tmp + "' to true" << std::endl;
 #endif
             MSMessageEmitter::writeHBEvent = true;
         } else {
-		std::cout << "unknown event '" + tmp + "', skipping" << std::endl;
+            std::cout << "unknown event '" + tmp + "', skipping" << std::endl;
         }
     }
 }
@@ -333,7 +333,7 @@ MSMessageEmitter::setWriteEvents(std::string &events) {
 void
 MSMessageEmitter::setFile(const std::string& file) {
 #ifdef _DEBUG
-	std::cout << "Filename: '" + file + "'." << std::endl;
+    std::cout << "Filename: '" + file + "'." << std::endl;
 #endif
     myDev = OutputDevice::getDevice(file);
 #ifdef _DEBUG

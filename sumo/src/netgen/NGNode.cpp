@@ -86,8 +86,8 @@ NGNode::buildNBNode(NBNetBuilder &nb) const throw(ProcessError) {
     //
     // check whether it is a traffic light junction
     std::string nodeType = OptionsCont::getOptions().isSet("default-junction-type")
-                      ? OptionsCont::getOptions().getString("default-junction-type")
-                      : "";
+                           ? OptionsCont::getOptions().getString("default-junction-type")
+                           : "";
     NBNode *node = 0;
     if (nodeType=="") {
         node = new NBNode(myID, pos);

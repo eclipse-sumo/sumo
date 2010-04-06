@@ -135,15 +135,15 @@ public:
 
 
     /** @brief Get the vehicle's maximum acceleration [m/s^2]
-	 *
-	 * As some models describe that a vehicle is accelerating slower the higher its
-	 *  speed is, the velocity is given.
-	 *
-	 * @param[in] v The vehicle's velocity
-	 * @return The maximum acceleration
-	 */
+     *
+     * As some models describe that a vehicle is accelerating slower the higher its
+     *  speed is, the velocity is given.
+     *
+     * @param[in] v The vehicle's velocity
+     * @return The maximum acceleration
+     */
     SUMOReal getMaxAccel(SUMOReal v) const throw() {
-		return (SUMOReal)(myAccel *(1.0 - (v/myType->getMaxSpeed())));
+        return (SUMOReal)(myAccel *(1.0 - (v/myType->getMaxSpeed())));
     }
 
 

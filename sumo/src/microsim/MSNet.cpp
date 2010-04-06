@@ -275,13 +275,13 @@ MSNet::simulate(SUMOTime start, SUMOTime stop) {
         }
         MSNet::SimulationState state = simulationState(stop);
 #ifndef NO_TRACI
-        if(state!=SIMSTATE_RUNNING) {
-			if(OptionsCont::getOptions().getInt("remote-port")!=0&&!traci::TraCIServer::wasClosed()) {
-				state = SIMSTATE_RUNNING;
-			}
-		}
+        if (state!=SIMSTATE_RUNNING) {
+            if (OptionsCont::getOptions().getInt("remote-port")!=0&&!traci::TraCIServer::wasClosed()) {
+                state = SIMSTATE_RUNNING;
+            }
+        }
 #endif
-        if(state!=SIMSTATE_RUNNING) {
+        if (state!=SIMSTATE_RUNNING) {
             quitMessage = "Simulation End: " + getStateMessage(state);
         }
     } while (quitMessage=="");
@@ -410,7 +410,7 @@ MSNet::simulationStep() {
 }
 
 
-MSNet::SimulationState 
+MSNet::SimulationState
 MSNet::simulationState(SUMOTime stopTime) const throw() {
     if (myTooManyVehicles>0&&(int) myVehicleControl->getRunningVehicleNo()>myTooManyVehicles) {
         return SIMSTATE_TOO_MANY_VEHICLES;
@@ -434,9 +434,9 @@ MSNet::simulationState(SUMOTime stopTime) const throw() {
 }
 
 
-std::string 
+std::string
 MSNet::getStateMessage(MSNet::SimulationState state) throw() {
-    switch(state) {
+    switch (state) {
     case MSNet::SIMSTATE_RUNNING:
         return "";
     case MSNet::SIMSTATE_END_STEP_REACHED:

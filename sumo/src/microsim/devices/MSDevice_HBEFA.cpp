@@ -145,13 +145,13 @@ void
 MSDevice_HBEFA::tripInfoOutput(OutputDevice &os) const throw(IOError) {
     os << resetiosflags(std::ios::floatfield);
     (os.openTag("emissions") <<
-    " CO_abs=\"" << myCO <<
-    "\" CO2_abs=\"" << myCO2 <<
-    "\" HC_abs=\"" << myHC <<
-    "\" PMx_abs=\""<< myPMx <<
-    "\" NOx_abs=\""<< myNOx <<
-    "\" fuel_abs=\""<< myFuel <<
-    "\"").closeTag(true);
+     " CO_abs=\"" << myCO <<
+     "\" CO2_abs=\"" << myCO2 <<
+     "\" HC_abs=\"" << myHC <<
+     "\" PMx_abs=\""<< myPMx <<
+     "\" NOx_abs=\""<< myNOx <<
+     "\" fuel_abs=\""<< myFuel <<
+     "\"").closeTag(true);
     os<<setiosflags(std::ios::fixed);
 }
 

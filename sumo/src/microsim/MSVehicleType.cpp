@@ -54,7 +54,7 @@ MSVehicleType::MSVehicleType(const std::string &id, SUMOReal length,
                              SUMOReal guiWidth, SUMOReal guiOffset,
                              int cfModel, const std::string &lcModel,
                              const RGBColor &c) throw()
-        : myID(id), myLength(length), myMaxSpeed(maxSpeed), 
+        : myID(id), myLength(length), myMaxSpeed(maxSpeed),
         myDefaultProbability(prob), mySpeedFactor(speedFactor),
         mySpeedDev(speedDev), myVehicleClass(vclass),
         myLaneChangeModel(lcModel),

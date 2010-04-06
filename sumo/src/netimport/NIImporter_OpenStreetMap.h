@@ -110,7 +110,7 @@ protected:
 private:
     class CompareNodesInPairs;
     class SubstituteNode;
-	class SimilarEdge;
+    class SimilarEdge;
 
     /** @brief Builds an NBNode
      *

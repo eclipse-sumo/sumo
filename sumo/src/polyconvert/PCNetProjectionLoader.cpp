@@ -115,7 +115,7 @@ PCNetProjectionLoader::myStartElement(SumoXMLTag element,
     }
     bool ok = true;
     Position2DVector tmp = GeomConvHelper::parseShapeReporting(attrs.getOptStringReporting(SUMO_ATTR_NET_OFFSET, "net", 0, ok, ""), "net", 0, ok, false);
-    if(ok) {
+    if (ok) {
         myNetOffset = tmp[0];
     }
     myOrigNetBoundary = GeomConvHelper::parseBoundaryReporting(attrs.getOptStringReporting(SUMO_ATTR_ORIG_BOUNDARY, "net", 0, ok, ""), "net", 0, ok);
@@ -140,12 +140,12 @@ PCNetProjectionLoader::myCharacters(SumoXMLTag element,
         break;
     case SUMO_TAG_NET_OFFSET: {
         Position2DVector tmp = GeomConvHelper::parseShapeReporting(chars, "net", 0, ok, false);
-        if(ok) {
+        if (ok) {
             myNetOffset = tmp[0];
         }
         myFoundOffset = ok;
-                              }
-        break;
+    }
+    break;
     case SUMO_TAG_ORIG_PROJ:
         myProjParameter = chars;
         myFoundProj = true;

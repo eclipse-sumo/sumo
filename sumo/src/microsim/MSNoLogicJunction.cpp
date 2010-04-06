@@ -85,7 +85,7 @@ MSNoLogicJunction::postloadInit() throw(ProcessError) {
         const MSLinkCont &links = (*i)->getLinkCont();
         for (MSLinkCont::const_iterator j=links.begin(); j!=links.end(); j++) {
             (*j)->setRequestInformation(&myDump, 0, &myDump, 0, MSLogicJunction::LinkFoes(), false, false,
-				std::vector<MSLink*>(), std::vector<MSLane*>());
+                                        std::vector<MSLink*>(), std::vector<MSLane*>());
         }
     }
 #ifdef HAVE_INTERNAL_LANES

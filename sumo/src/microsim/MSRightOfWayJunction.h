@@ -101,7 +101,7 @@ protected:
 
     std::map<MSLink*, std::vector<MSLink*> > myLinkFoeLinks;
     std::map<MSLink*, std::vector<MSLane*> > myLinkFoeInternalLanes;
-    
+
 
 private:
     /// @brief Invalidated copy constructor.

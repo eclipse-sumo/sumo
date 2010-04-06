@@ -230,9 +230,9 @@ TraCIServer::~TraCIServer() throw() {
 
 /*****************************************************************************/
 
-void 
+void
 TraCIServer::close() {
-    if(instance_!=0) {
+    if (instance_!=0) {
         delete instance_;
         instance_ = 0;
         closeConnection_ = true;

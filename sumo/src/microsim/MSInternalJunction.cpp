@@ -81,7 +81,7 @@ MSInternalJunction::postloadInit() throw(ProcessError) {
             (*j)->setRequestInformation(&myRequest, requestPos,
                                         &myRespond, requestPos,
                                         MSLogicJunction::LinkFoes(), true, false,
-										myInternalLinkFoes, myInternalLaneFoes);
+                                        myInternalLinkFoes, myInternalLaneFoes);
             requestPos++;
         }
     }

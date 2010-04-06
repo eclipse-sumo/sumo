@@ -271,16 +271,16 @@ NLHandler::myCharacters(SumoXMLTag element,
         setOffset(chars);
         break;
     case SUMO_TAG_NET_OFFSET: {
-            if (!myHaveWarnedAboutDeprecatedLocation) {
-                myHaveWarnedAboutDeprecatedLocation = true;
-                MsgHandler::getWarningInstance()->inform("Your network uses a deprecated network offset/projection definition.");
-            }
-            Position2DVector s = GeomConvHelper::parseShapeReporting(chars, "net", 0, ok, false);
-            if(ok) {
-                myNetworkOffset = s[0];
-            }
-                              }
-        break;
+        if (!myHaveWarnedAboutDeprecatedLocation) {
+            myHaveWarnedAboutDeprecatedLocation = true;
+            MsgHandler::getWarningInstance()->inform("Your network uses a deprecated network offset/projection definition.");
+        }
+        Position2DVector s = GeomConvHelper::parseShapeReporting(chars, "net", 0, ok, false);
+        if (ok) {
+            myNetworkOffset = s[0];
+        }
+    }
+    break;
     case SUMO_TAG_CONV_BOUNDARY:
         myConvBoundary = GeomConvHelper::parseBoundaryReporting(chars, "net", 0, ok);
         break;
@@ -453,7 +453,7 @@ NLHandler::addLaneShape(const std::string &chars) {
     }
     bool ok = true;
     myShape = GeomConvHelper::parseShapeReporting(chars, "lane", myCurrentLaneID.c_str(), ok, false);
-    if(!ok) {
+    if (!ok) {
         MsgHandler::getErrorInstance()->inform("Could not parse shape of lane '" + myCurrentLaneID + "'.\n Can not build according edge.");
         myCurrentIsBroken = true;
     }
@@ -1381,7 +1381,7 @@ NLHandler::addJunctionShape(const std::string &chars) {
     }
     bool ok = true;
     Position2DVector shape = GeomConvHelper::parseShapeReporting(chars, "junction", myJunctionControlBuilder.getActiveID().c_str(), ok, true);
-    if(ok) {
+    if (ok) {
         myJunctionControlBuilder.addJunctionShape(shape);
     }
 }

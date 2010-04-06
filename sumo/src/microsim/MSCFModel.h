@@ -140,13 +140,13 @@ public:
 
 
     /** @brief Get the vehicle's maximum acceleration [m/s^2]
-	 *
-	 * As some models describe that a vehicle is accelerating slower the higher its
-	 *  speed is, the velocity is given.
-	 *
-	 * @param[in] v The vehicle's velocity
-	 * @return The maximum acceleration
-	 */
+     *
+     * As some models describe that a vehicle is accelerating slower the higher its
+     *  speed is, the velocity is given.
+     *
+     * @param[in] v The vehicle's velocity
+     * @return The maximum acceleration
+     */
     virtual SUMOReal getMaxAccel(SUMOReal v) const throw() = 0;
 
 
@@ -173,7 +173,7 @@ public:
     virtual SUMOReal getTau() const throw() {
         return 1.;
     }
-	/// @}
+    /// @}
 
 
 
@@ -205,9 +205,9 @@ public:
     /** @brief Get the vehicle's maximum deceleration [m/s^2]
      * @return The maximum deceleration (in m/s^2) of vehicles of this class
      */
-	SUMOReal getMaxDecel() const throw() {
-		return myDecel;
-	}
+    SUMOReal getMaxDecel() const throw() {
+        return myDecel;
+    }
 
 
     /** @brief Returns the distance the vehicle needs to halt including driver's reaction time
@@ -217,24 +217,24 @@ public:
     SUMOReal brakeGap(SUMOReal speed) const throw();
 
 
-   /** @brief Returns the minimum gap to reserve if the leader is braking at maximum
-     * @param[in] speed EGO's speed
-	 * @param[in] leaderSpeedAfterDecel LEADER's speed after he has decelerated with max. deceleration rate
-     */
+    /** @brief Returns the minimum gap to reserve if the leader is braking at maximum
+      * @param[in] speed EGO's speed
+      * @param[in] leaderSpeedAfterDecel LEADER's speed after he has decelerated with max. deceleration rate
+      */
     SUMOReal getSecureGap(const SUMOReal speed, const SUMOReal leaderSpeedAfterDecel) const throw() {
         const SUMOReal speedDiff = speed - leaderSpeedAfterDecel;
         return speedDiff * speedDiff / getMaxDecel() + speed * getTau();
     }
 
 
-	/** @brief Returns the velocity after maximum deceleration
-	 * @param[in] v The velocity
-	 * @return The velocity after maximum deceleration
-	 */
+    /** @brief Returns the velocity after maximum deceleration
+     * @param[in] v The velocity
+     * @return The velocity after maximum deceleration
+     */
     SUMOReal getSpeedAfterMaxDecel(SUMOReal v) const throw() {
         return MAX2((SUMOReal) 0, v - (SUMOReal) ACCEL2SPEED(myDecel));
     }
-	/// @}
+    /// @}
 
 
 protected:
