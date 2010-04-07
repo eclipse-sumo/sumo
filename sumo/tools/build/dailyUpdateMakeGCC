@@ -59,9 +59,9 @@ fi
 
 echo "--" >> $STATUSLOG
 echo `basename $MAKEALLLOG`.gz >> $STATUSLOG
-export CXXFLAGS="-Wall -W -Wfloat-equal -pedantic -Wno-long-long"
+export CXXFLAGS="-Wall -W -pedantic -Wno-long-long"
 ./configure --program-suffix=D --prefix=$PREFIX/sumo \
-  --enable-double-precision --enable-traci --enable-subsecond \
+  --disable-double-precision --disable-subsecond \
   --enable-debug --enable-memcheck --enable-messages &> $MAKEALLLOG || (echo "configure with all options failed" | tee -a $STATUSLOG; tail -10 $MAKEALLLOG)
 if make >> $MAKEALLLOG 2>&1; then
   make install >> $MAKEALLLOG 2>&1 || (echo "make install with all options failed" | tee -a $STATUSLOG; tail -10 $MAKEALLLOG)
