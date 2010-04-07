@@ -1,11 +1,11 @@
 <?xml version="1.0"?>
 
-<!-- generated on 11/04/09 14:06:14 by SUMO sumo Version dev-SVN-r7945
+<!-- generated on 04/07/10 18:07:27 by SUMO sumo Version dev-SVN-r8572
 <configuration>
 
     <input>
         <net-file value="input_net.net.xml"/>
-        <load-state value="state_50.bin"/>
+        <load-state value="state_50.00.bin"/>
     </input>
 
     <output>
@@ -25,12 +25,12 @@
 -->
 
 <routes>
-    <vehicle id="0" depart="0" arrival="108">
+    <vehicle id="0" depart="0" arrival="108.00">
         <route edges="4/1to3/1 3/1to2/1 2/1to1/1 1/1to0/1"/>
-   </vehicle>
+    </vehicle>
 
-    <vehicle id="1" depart="5" arrival="113">
+    <vehicle id="1" depart="5" arrival="113.00">
         <route edges="4/1to3/1 3/1to2/1 2/1to1/1 1/1to0/1"/>
-   </vehicle>
+    </vehicle>
 
 </routes>
