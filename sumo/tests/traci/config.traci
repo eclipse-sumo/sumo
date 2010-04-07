@@ -30,3 +30,5 @@ errors:Socket
 
 [floating_point_tolerance]
 testclient_out:0.0101
+net_state:0.0101
+detector:0.0101
