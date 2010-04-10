@@ -253,13 +253,13 @@ private:
     /// @brief Unique ID
     std::string myID;
 
-    /// @brief Vehicle's length [m]
+    /// @brief Vehicles' length [m]
     SUMOReal myLength;
 
-    /// @brief Vehicle's maximum speed [m/s]
+    /// @brief Vehicles' maximum speed [m/s]
     SUMOReal myMaxSpeed;
 
-    /// @brief The vehicle's class
+    /// @brief The vehicles' class
     SUMOVehicleClass myVehicleClass;
 
     /// @brief The probability when being added to a distribution without an explicit probability
@@ -277,7 +277,7 @@ private:
     /// @brief ID of the lane change model.
     std::string myLaneChangeModel;
 
-    /// @brief The emission class of this vehicle
+    /// @brief The emission class of such vehicles
     SUMOEmissionClass myEmissionClass;
 
     /// @brief The color

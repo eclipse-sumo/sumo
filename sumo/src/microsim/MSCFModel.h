@@ -77,6 +77,8 @@ public:
 
 
     /** @brief Computes the vehicle's safe speed (no dawdling)
+	 *
+	 * Returns the velocity of the vehicle in dependence to the vehicle's and its leader's values and the distance between them.
      * @param[in] veh The vehicle (EGO)
      * @param[in] speed The vehicle's speed
      * @param[in] gap2pred The (netto) distance to the LEADER
@@ -88,6 +90,8 @@ public:
 
 
     /** @brief Computes the vehicle's safe speed (no dawdling)
+	 *
+	 * Returns the velocity of the vehicle in dependence to the vehicle's and its leader's values and the distance between them.
      * @param[in] veh The vehicle (EGO)
      * @param[in] gap2pred The (netto) distance to the LEADER
      * @param[in] predSpeed The speed of LEADER
@@ -98,6 +102,8 @@ public:
 
 
     /** @brief Computes the vehicle's safe speed (no dawdling)
+	 *
+	 * Returns the velocity of the vehicle in dependence to the vehicle's and its leader's values and the distance between them.
      * @param[in] veh The vehicle (EGO)
      * @param[in] pred The LEADER
      * @return EGO's safe speed
@@ -107,6 +113,8 @@ public:
 
 
     /** @brief Computes the vehicle's safe speed for approaching a non-moving obstacle (no dawdling)
+	 *
+	 * Returns the velocity of the vehicle when approaching a static object (such as the end of a lane) assuming no reaction time is needed.
      * @param[in] veh The vehicle (EGO)
      * @param[in] gap2pred The (netto) distance to the the obstacle
      * @return EGO's safe speed for approaching a non-moving obstacle
@@ -181,6 +189,8 @@ public:
     /// @{
 
     /** @brief Incorporates the influence of the vehicle on the left lane
+	 *
+	 * In Germany, vehicles on the right lane must not pass a vehicle on the lane left to the if the allowed velocity>60km/h
      * @param[in] ego The ego vehicle
      * @param[in] neigh The neighbor vehicle on the left lane
      * @param[in, out] vSafe Current vSafe; may be adapted due to the left neighbor
