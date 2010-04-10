@@ -70,15 +70,6 @@ public:
     SUMOReal moveHelper(MSVehicle * const veh, const MSLane * const lane, SUMOReal vPos) const throw();
 
 
-    /** @brief Incorporates the influence of the vehicle on the left lane
-     * @param[in] ego The ego vehicle
-     * @param[in] neigh The neighbor vehicle on the left lane
-     * @param[in, out] vSafe Current vSafe; may be adapted due to the left neighbor
-     * @see MSCFModel::leftVehicleVsafe
-     */
-    void leftVehicleVsafe(const MSVehicle * const ego, const MSVehicle * const neigh, SUMOReal &vSafe) const throw();
-
-
     /** @brief Computes the vehicle's safe speed (no dawdling)
      * @param[in] veh The vehicle (EGO)
      * @param[in] speed The vehicle's speed
@@ -167,6 +158,14 @@ public:
     int getModelID() const throw() {
         return SUMO_TAG_CF_IDM;
     }
+
+
+    /** @brief Get the driver's reaction time [s]
+     * @return The reaction time of this class' drivers in s
+     */
+    SUMOReal getTau() const throw() {
+        return myTau;
+    }
     /// @}
 
 
@@ -192,6 +191,9 @@ private:
 
     /// @brief The desired minimum Gap to the leading vehicle (no matter the speed)
     SUMOReal myMinSpace;
+
+    /// @brief The driver's reaction time [s]
+    SUMOReal myTau;
     /// @}
 
 };
