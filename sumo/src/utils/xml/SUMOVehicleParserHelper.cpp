@@ -420,6 +420,15 @@ SUMOVehicleParserHelper::parseVTypeEmbedded(SUMOVTypeParameter &into,
     case SUMO_TAG_CF_IDM:
         parseVTypeEmbedded_IDM(into, attrs);
         break;
+    case SUMO_TAG_CF_KRAUSS_ORIG1:
+        parseVTypeEmbedded_Krauss(into, attrs);
+        break;
+    case SUMO_TAG_CF_PWAGNER2009:
+        parseVTypeEmbedded_Krauss(into, attrs);
+        break;
+    case SUMO_TAG_CF_BKERNER:
+        parseVTypeEmbedded_BKerner(into, attrs);
+        break;
     }
     if (!fromVType) {
         into.cfModel = element;
@@ -454,27 +463,45 @@ void
 SUMOVehicleParserHelper::parseVTypeEmbedded_IDM(SUMOVTypeParameter &into,
         const SUMOSAXAttributes &attrs) throw(ProcessError) {
     bool ok = true;
-    // !!! the next should be revisited!
     if (attrs.hasAttribute(SUMO_ATTR_ACCEL)) {
         into.cfParameter["accel"] = attrs.getSUMORealReporting(SUMO_ATTR_ACCEL, "IDM", into.id.c_str(), ok);
     }
     if (attrs.hasAttribute(SUMO_ATTR_DECEL)) {
         into.cfParameter["decel"] = attrs.getSUMORealReporting(SUMO_ATTR_DECEL, "IDM", into.id.c_str(), ok);
     }
-    if (attrs.hasAttribute(SUMO_ATTR_SIGMA)) {
-        into.cfParameter["sigma"] = attrs.getSUMORealReporting(SUMO_ATTR_SIGMA, "IDM", into.id.c_str(), ok);
-    }
     if (attrs.hasAttribute(SUMO_ATTR_TAU)) {
         into.cfParameter["tau"] = attrs.getSUMORealReporting(SUMO_ATTR_TAU, "IDM", into.id.c_str(), ok);
     }
-    // !!! the prior should be revisited!
-
-
     if (attrs.hasAttribute(SUMO_ATTR_CF_IDM_TIMEHEADWAY)) {
         into.cfParameter["timeHeadWay"] = attrs.getSUMORealReporting(SUMO_ATTR_CF_IDM_TIMEHEADWAY, "IDM", into.id.c_str(), ok);
     }
     if (attrs.hasAttribute(SUMO_ATTR_CF_IDM_MINGAP)) {
         into.cfParameter["minGap"] = attrs.getSUMORealReporting(SUMO_ATTR_CF_IDM_MINGAP, "IDM", into.id.c_str(), ok);
+    }
+    if (!ok) {
+        throw ProcessError();
+    }
+}
+
+
+void
+SUMOVehicleParserHelper::parseVTypeEmbedded_BKerner(SUMOVTypeParameter &into,
+        const SUMOSAXAttributes &attrs) throw(ProcessError) {
+    bool ok = true;
+    if (attrs.hasAttribute(SUMO_ATTR_ACCEL)) {
+        into.cfParameter["accel"] = attrs.getSUMORealReporting(SUMO_ATTR_ACCEL, "BKerner", into.id.c_str(), ok);
+    }
+    if (attrs.hasAttribute(SUMO_ATTR_DECEL)) {
+        into.cfParameter["decel"] = attrs.getSUMORealReporting(SUMO_ATTR_DECEL, "BKerner", into.id.c_str(), ok);
+    }
+    if (attrs.hasAttribute(SUMO_ATTR_TAU)) {
+        into.cfParameter["tau"] = attrs.getSUMORealReporting(SUMO_ATTR_TAU, "BKerner", into.id.c_str(), ok);
+    }
+    if (attrs.hasAttribute(SUMO_ATTR_K)) {
+        into.cfParameter["k"] = attrs.getSUMORealReporting(SUMO_ATTR_K, "BKerner", into.id.c_str(), ok);
+    }
+    if (attrs.hasAttribute(SUMO_ATTR_CF_KERNER_PHI)) {
+        into.cfParameter["phi"] = attrs.getSUMORealReporting(SUMO_ATTR_CF_KERNER_PHI, "BKerner", into.id.c_str(), ok);
     }
     if (!ok) {
         throw ProcessError();

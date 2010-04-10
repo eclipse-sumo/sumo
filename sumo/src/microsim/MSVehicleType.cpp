@@ -29,8 +29,11 @@
 
 #include "MSVehicleType.h"
 #include "MSNet.h"
-#include "cfmodels/MSCFModel_Krauss.h"
 #include "cfmodels/MSCFModel_IDM.h"
+#include "cfmodels/MSCFModel_Kerner.h"
+#include "cfmodels/MSCFModel_Krauss.h"
+#include "cfmodels/MSCFModel_KraussOrig1.h"
+#include "cfmodels/MSCFModel_PWag2009.h"
 #include <cassert>
 #include <utils/iodevices/BinaryInputDevice.h>
 #include <utils/common/FileHelpers.h>
@@ -107,18 +110,43 @@ MSVehicleType::build(SUMOVTypeParameter &from) throw(ProcessError) {
         from.defaultProbability, from.speedFactor, from.speedDev, from.vehicleClass, from.emissionClass,
         from.shape, from.width, from.offset, from.cfModel, from.lcModel, from.color);
     MSCFModel *model = 0;
-    if (from.cfModel==SUMO_TAG_CF_IDM) {
+	switch(from.cfModel) {
+	case SUMO_TAG_CF_IDM:
         model = new MSCFModel_IDM(vtype,
                                   get(from.cfParameter, "accel", DEFAULT_VEH_ACCEL),
                                   get(from.cfParameter, "decel", DEFAULT_VEH_DECEL),
                                   get(from.cfParameter, "timeHeadWay", 1.5),
                                   get(from.cfParameter, "minGap", 5.));
-    } else {
+		break;
+	case SUMO_TAG_CF_BKERNER:
+        model = new MSCFModel_Kerner(vtype,
+                                  get(from.cfParameter, "accel", DEFAULT_VEH_ACCEL),
+                                  get(from.cfParameter, "decel", DEFAULT_VEH_DECEL),
+                                     get(from.cfParameter, "tau", DEFAULT_VEH_TAU),
+                                  get(from.cfParameter, "k", 1.5),
+                                  get(from.cfParameter, "phi", 5.));
+		break;
+	case SUMO_TAG_CF_PWAGNER2009:
+        model = new MSCFModel_PWag2009(vtype,
+                                     get(from.cfParameter, "accel", DEFAULT_VEH_ACCEL),
+                                     get(from.cfParameter, "decel", DEFAULT_VEH_DECEL),
+                                     get(from.cfParameter, "tau", DEFAULT_VEH_TAU));
+		break;
+	case SUMO_TAG_CF_KRAUSS_ORIG1:
+        model = new MSCFModel_KraussOrig1(vtype,
+                                     get(from.cfParameter, "accel", DEFAULT_VEH_ACCEL),
+                                     get(from.cfParameter, "decel", DEFAULT_VEH_DECEL),
+                                     get(from.cfParameter, "sigma", DEFAULT_VEH_SIGMA),
+                                     get(from.cfParameter, "tau", DEFAULT_VEH_TAU));
+		break;
+	case SUMO_TAG_CF_KRAUSS:
+	default:
         model = new MSCFModel_Krauss(vtype,
                                      get(from.cfParameter, "accel", DEFAULT_VEH_ACCEL),
                                      get(from.cfParameter, "decel", DEFAULT_VEH_DECEL),
                                      get(from.cfParameter, "sigma", DEFAULT_VEH_SIGMA),
                                      get(from.cfParameter, "tau", DEFAULT_VEH_TAU));
+		break;
     }
     vtype->myCarFollowModel = model;
     return vtype;

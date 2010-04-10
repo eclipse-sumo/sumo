@@ -104,6 +104,15 @@ SUMOVTypeParameter::write(OutputDevice &dev) const throw(IOError) {
         case SUMO_TAG_CF_IDM:
             dev << CF_MODEL_IDM;
             break;
+        case SUMO_TAG_CF_KRAUSS_ORIG1:
+            dev << CF_MODEL_KRAUSS_ORIG1;
+            break;
+        case SUMO_TAG_CF_PWAGNER2009:
+            dev << CF_MODEL_PWAGNER2009;
+            break;
+        case SUMO_TAG_CF_BKERNER:
+            dev << CF_MODEL_BKERNER;
+            break;
         case SUMO_TAG_CF_KRAUSS:
         default:
             dev << CF_MODEL_KRAUSS;

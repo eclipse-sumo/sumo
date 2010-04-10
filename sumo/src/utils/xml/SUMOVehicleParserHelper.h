@@ -113,7 +113,7 @@ public:
                                           bool fromVType=false) throw(ProcessError);
 
 
-    /** @brief Parses the Krauss definition embedded in vtype definition
+    /** @brief Parses the IDM definition embedded in vtype definition
      *
      * @param[in, filled] into The structure to fill with parsed values
      * @param[in] attr The SAX-attributes to get model parameter from
@@ -122,6 +122,17 @@ public:
      */
     static void parseVTypeEmbedded_IDM(SUMOVTypeParameter &into,
                                        const SUMOSAXAttributes &attrs) throw(ProcessError);
+
+
+    /** @brief Parses the Kerner definition embedded in vtype definition
+     *
+     * @param[in, filled] into The structure to fill with parsed values
+     * @param[in] attr The SAX-attributes to get model parameter from
+     * @exception ProcessError If an attribute's value is invalid
+     * @see SUMOVTypeParameter
+     */
+    static void parseVTypeEmbedded_BKerner(SUMOVTypeParameter &into,
+		const SUMOSAXAttributes &attrs) throw(ProcessError);
 
 
     /** @brief Closes parsing of the vehicle type

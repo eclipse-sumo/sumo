@@ -324,6 +324,12 @@ const std::string CF_MODEL_IDM = CF_MODEL_PREFIX + "IDM";
 const char * const CF_MODEL_IDM_STR = CF_MODEL_IDM.c_str();
 const std::string CF_MODEL_KRAUSS = CF_MODEL_PREFIX + "Krauss";
 const char * const CF_MODEL_KRAUSS_STR = CF_MODEL_KRAUSS.c_str();
+const std::string CF_MODEL_KRAUSS_ORIG1 = CF_MODEL_PREFIX + "KraussOrig1";
+const char * const CF_MODEL_KRAUSS_ORIG1_STR = CF_MODEL_KRAUSS_ORIG1.c_str();
+const std::string CF_MODEL_PWAGNER2009 = CF_MODEL_PREFIX + "PWagner2009";
+const char * const CF_MODEL_PWAGNER2009_STR = CF_MODEL_PWAGNER2009.c_str();
+const std::string CF_MODEL_BKERNER = CF_MODEL_PREFIX + "BKerner";
+const char * const CF_MODEL_BKERNER_STR = CF_MODEL_BKERNER.c_str();
 
 // ===========================================================================
 // default vehicle type parameter
