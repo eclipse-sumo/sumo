@@ -13,6 +13,8 @@ All rights reserved
 import sys, urllib2, xml.dom.minidom, subprocess
 from optparse import OptionParser
 
+_HEADLINES = ["h9", "h8", "h7", "h6", "h5", "h4", "h3", "h2", "h1"]
+
 def getCleanDom(url):
     request = "%s&printable=yes" % url
     if options.verbose:
@@ -36,7 +38,7 @@ def getCleanDom(url):
         n.unlink()
     return dom
 
-def retrieveList(base, node, anchorMap):
+def retrieveList(base, node, anchorMap, depth=1):
     result = []
     for child in node.childNodes:
         if child.nodeType == node.ELEMENT_NODE and child.tagName == "li":
@@ -49,11 +51,14 @@ def retrieveList(base, node, anchorMap):
                         for node in child.getElementsByTagName("div"):
                             if node.getAttribute("id") == "content":
                                 anchorMap[a] = node
-                        for node in child.getElementsByTagName("img"):
+                        for node in anchorMap[a].getElementsByTagName("img"):
                             if node.getAttribute("src")[0] == "/":
                                 node.setAttribute("src", base+node.getAttribute("src"))
+                        for idx, head in enumerate(_HEADLINES[depth:]):
+                            for node in anchorMap[a].getElementsByTagName(head):
+                                node.tagName = _HEADLINES[idx]
                 if a.nodeType == node.ELEMENT_NODE and a.tagName == "ul":
-                    result.append(retrieveList(base, a, anchorMap))
+                    result += retrieveList(base, a, anchorMap, depth+1)
     return result
 
 def retrieveDocuments(url):
@@ -72,9 +77,8 @@ def retrieveDocuments(url):
         while sib.nodeType != node.ELEMENT_NODE:
             sib = sib.nextSibling
         if sib.tagName == "ul":
-            content = retrieveList(base, sib, anchorMap)
-            for l in content:
-                if not isinstance(l, list) and l in anchorMap:
+            for l in retrieveList(base, sib, anchorMap):
+                if l in anchorMap:
                     sib.parentNode.insertBefore(anchorMap[l], sib)
     return parent.toxml('utf8')
 
