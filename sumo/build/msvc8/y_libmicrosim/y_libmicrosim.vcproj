@@ -554,7 +554,19 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\..\src\microsim\cfmodels\MSCFModel_Kerner.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\..\src\microsim\cfmodels\MSCFModel_Krauss.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\microsim\cfmodels\MSCFModel_KraussOrig1.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\microsim\cfmodels\MSCFModel_PWag2009.cpp"
 				>
 			</File>
 			<File
@@ -726,7 +738,19 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\..\src\microsim\cfmodels\MSCFModel_Kerner.h"
+				>
+			</File>
+			<File
 				RelativePath="..\..\..\src\microsim\cfmodels\MSCFModel_Krauss.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\microsim\cfmodels\MSCFModel_KraussOrig1.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\microsim\cfmodels\MSCFModel_PWag2009.h"
 				>
 			</File>
 			<File
