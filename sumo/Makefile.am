@@ -3,7 +3,7 @@ SUBDIRS = src docs unittest bin
 EXTRA_DIST = README ChangeLog AUTHORS COPYING INSTALL NEWS sumo.doxyconf
 
 doc:
-	$(MAKE) -C docs $@
+	tools/build/makeDoc.py -o docs/sumo-user.html -p docs/sumo-user.pdf
 
 dist-hook:
 	abs_distdir="`pwd`/$(distdir)" \

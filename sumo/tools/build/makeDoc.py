@@ -38,6 +38,22 @@ def getCleanDom(url):
         n.unlink()
     return dom
 
+def fixLinks(base, root, title):
+    for node in root.getElementsByTagName("img"):
+        if node.getAttribute("src")[0] == "/":
+            node.setAttribute("src", base+node.getAttribute("src"))
+    for node in root.getElementsByTagName("a"):
+        if node.getAttribute("id") == "top" and node.getAttribute("name") == "top" :
+            node.setAttribute("id", title)
+            node.setAttribute("name", title)
+        if node.hasAttribute("href"):
+            ref = node.getAttribute("href")
+            if ref[0] == '/':
+                if '#' in ref:
+                    node.setAttribute("href", '#'+ref.split('#')[-1])
+                else:
+                    node.setAttribute("href", '#'+ref.split('=')[-1])
+
 def retrieveList(base, node, anchorMap, depth=1):
     result = []
     for child in node.childNodes:
@@ -51,9 +67,7 @@ def retrieveList(base, node, anchorMap, depth=1):
                         for node in child.getElementsByTagName("div"):
                             if node.getAttribute("id") == "content":
                                 anchorMap[a] = node
-                        for node in anchorMap[a].getElementsByTagName("img"):
-                            if node.getAttribute("src")[0] == "/":
-                                node.setAttribute("src", base+node.getAttribute("src"))
+                        fixLinks(base, anchorMap[a], ref.split('=')[-1])
                         for idx, head in enumerate(_HEADLINES[depth:]):
                             for node in anchorMap[a].getElementsByTagName(head):
                                 node.tagName = _HEADLINES[idx]
@@ -80,6 +94,8 @@ def retrieveDocuments(url):
             for l in retrieveList(base, sib, anchorMap):
                 if l in anchorMap:
                     sib.parentNode.insertBefore(anchorMap[l], sib)
+            sib.parentNode.removeChild(sib)
+            sib.unlink()
     return parent.toxml('utf8')
 
 if __name__ == "__main__":
