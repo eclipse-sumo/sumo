@@ -122,11 +122,17 @@ MSFrame::fillOptions() {
     oc.addSynonyme("vehroute-output.exit-times", "vehroutes.exit-times");
     oc.addDescription("vehroute-output.exit-times", "Output", "Write the exit times for all edges");
 
+    oc.doRegister("vehroute-output.last-route", new Option_Bool(false));
+    oc.addSynonyme("vehroute-output.last-route", "vehroutes.last-route");
+    oc.addDescription("vehroute-output.last-route", "Output", "Write the last route only");
+
 #ifdef HAVE_MESOSIM
     oc.doRegister("save-state.times", new Option_IntVector(IntVector()));//!!! check, describe
     oc.addDescription("save-state.times", "Output", "Use INT[] as times at which a network state written");
     oc.doRegister("save-state.prefix", new Option_FileName());//!!! check, describe
     oc.addDescription("save-state.prefix", "Output", "Prefix for network states");
+    oc.doRegister("save-state.files", new Option_FileName());//!!! check, describe
+    oc.addDescription("save-state.files", "Output", "Files for network states");
 #endif
 
     // register the simulation settings

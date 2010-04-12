@@ -1,5 +1,8 @@
 # two vehicles saved and reloaded
 plain
 
+# two vehicles saved and reloaded with prefix file
+prefix
+
 # trying to start the loaded state at a different time
 diff_begin

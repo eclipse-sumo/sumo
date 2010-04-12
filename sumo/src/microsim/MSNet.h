@@ -141,12 +141,12 @@ public:
      * @param[in] routeLoaders The route loaders used
      * @param[in] tlc The control of traffic lights which belong to this network
      * @param[in] stateDumpTimes List of time steps at which state shall be written
-     * @param[in] stateDumpFiles Base name for states
+     * @param[in] stateDumpFiles Filenames for states
      * @todo Try to move all this to the constructor?
      */
-    void closeBuilding(MSEdgeControl *edges,
-                       MSJunctionControl *junctions, MSRouteLoaderControl *routeLoaders,
-                       MSTLLogicControl *tlc, std::vector<int> stateDumpTimes, std::string stateDumpFiles) throw();
+    void closeBuilding(MSEdgeControl *edges, MSJunctionControl *junctions,
+                       MSRouteLoaderControl *routeLoaders, MSTLLogicControl *tlc,
+                       std::vector<SUMOTime> stateDumpTimes, std::vector<std::string> stateDumpFiles) throw();
 
 
     /** @brief Clears all dictionaries
@@ -636,9 +636,9 @@ protected:
     /// @{
 
     /// @brief Times at which a state shall be written
-    std::vector<int> myStateDumpTimes;
-    /// @brief The base name for states
-    std::string myStateDumpFiles;
+    std::vector<SUMOTime> myStateDumpTimes;
+    /// @brief The names for the state files
+    std::vector<std::string> myStateDumpFiles;
     /// @}
 
 

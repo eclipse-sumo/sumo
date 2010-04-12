@@ -209,11 +209,21 @@ NLBuilder::buildNet() throw(ProcessError) {
         routeLoaders = buildRouteLoaderControl(myOptions);
         tlc = myJunctionBuilder.buildTLLogics();
         MSFrame::buildStreams();
-        std::vector<int> stateDumpTimes;
-        std::string stateDumpFiles;
+        std::vector<SUMOTime> stateDumpTimes;
+        std::vector<std::string> stateDumpFiles;
 #ifdef HAVE_MESOSIM
-        stateDumpTimes = myOptions.getIntVector("save-state.times");
-        stateDumpFiles = myOptions.getString("save-state.prefix");
+        const std::vector<int> times = myOptions.getIntVector("save-state.times");
+        for (std::vector<int>::const_iterator i = times.begin(); i != times.end(); ++i) {
+            stateDumpTimes.push_back(*i);
+        }
+        if (!myOptions.isDefault("save-state.prefix")) {
+            const std::string prefix = myOptions.getString("save-state.prefix");
+            for (std::vector<SUMOTime>::iterator i = stateDumpTimes.begin(); i != stateDumpTimes.end(); ++i) {
+                stateDumpFiles.push_back(prefix + "_" + toString(*i) + ".bin");
+            }
+        } else {
+            stateDumpFiles = StringTokenizer(myOptions.getString("save-state.files")).getVector() ;
+        }
 #endif
         myNet.closeBuilding(edges, junctions, routeLoaders, tlc, stateDumpTimes, stateDumpFiles);
     } catch (IOError &e) {

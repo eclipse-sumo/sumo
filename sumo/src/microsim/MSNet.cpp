@@ -191,8 +191,8 @@ void
 MSNet::closeBuilding(MSEdgeControl *edges, MSJunctionControl *junctions,
                      MSRouteLoaderControl *routeLoaders,
                      MSTLLogicControl *tlc,
-                     std::vector<int> stateDumpTimes,
-                     std::string stateDumpFiles) throw() {
+                     std::vector<SUMOTime> stateDumpTimes,
+                     std::vector<std::string> stateDumpFiles) throw() {
     myEdges = edges;
     myJunctions = junctions;
     myRouteLoaders = routeLoaders;
@@ -214,6 +214,9 @@ MSNet::closeBuilding(MSEdgeControl *edges, MSJunctionControl *junctions,
         MSCORN::setWished(MSCORN::CORN_OUT_VEHROUTES);
         if (OptionsCont::getOptions().getBool("vehroute-output.exit-times")) {
             MSCORN::setWished(MSCORN::CORN_VEH_SAVE_EDGE_EXIT);
+        }
+        if (!OptionsCont::getOptions().getBool("vehroute-output.last-route")) {
+            MSCORN::setWished(MSCORN::CORN_OUT_OLDROUTES);
         }
     }
 
@@ -328,9 +331,10 @@ MSNet::simulationStep() {
     }
 #ifdef HAVE_MESOSIM
     // netstate output
-    if (find(myStateDumpTimes.begin(), myStateDumpTimes.end(), myStep)!=myStateDumpTimes.end()) {
-        std::string name = myStateDumpFiles + '_' + toString(myStep) + ".bin";
-        std::ofstream strm(name.c_str(), std::fstream::out|std::fstream::binary);
+    std::vector<SUMOTime>::iterator timeIt = find(myStateDumpTimes.begin(), myStateDumpTimes.end(), myStep);
+    if (timeIt!=myStateDumpTimes.end()) {
+        const int dist = distance(myStateDumpTimes.begin(), timeIt);
+        std::ofstream strm(myStateDumpFiles[dist].c_str(), std::fstream::out|std::fstream::binary);
         saveState(strm);
     }
 #endif
