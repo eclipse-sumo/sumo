@@ -45,8 +45,9 @@
 // ===========================================================================
 MSCFModel_IDM::MSCFModel_IDM(const MSVehicleType* vtype,
                              SUMOReal accel, SUMOReal decel,
-                             SUMOReal timeHeadWay, SUMOReal mingap) throw()
-        : MSCFModel(vtype, decel), myAccel(accel), myTimeHeadWay(timeHeadWay), myMinSpace(mingap) {
+                             SUMOReal timeHeadWay, SUMOReal mingap, SUMOReal tau) throw()
+        : MSCFModel(vtype, decel), 
+		myAccel(accel), myTimeHeadWay(timeHeadWay), myMinSpace(mingap), myTau(tau) {
 
 }
 

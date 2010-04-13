@@ -1,10 +1,10 @@
 /****************************************************************************/
-/// @file    MSCFModel_IDM.h
+/// @file    MSCFModel_KraussOrig1.h
 /// @author  Tobias Mayer
-/// @date    Thu, 03 Sep 2009
-/// @version $Id$
+/// @date    Tue, 28 Jul 2009
+/// @version $Id: MSCFModel_KraussOrig1.h 8561 2010-04-03 13:10:33Z dkrajzew $
 ///
-// The Intellignet Driver Model (IDM) car-following model
+// The original Krauss (1998) car-following model and parameter
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // Copyright 2001-2010 DLR (http://www.dlr.de/) and contributors
@@ -16,8 +16,8 @@
 //   (at your option) any later version.
 //
 /****************************************************************************/
-#ifndef MSCFMODEL_IDM_H
-#define	MSCFMODEL_IDM_H
+#ifndef MSCFModel_KraussOrig1_h
+#define	MSCFModel_KraussOrig1_h
 
 // ===========================================================================
 // included modules
@@ -29,33 +29,29 @@
 #endif
 
 #include <microsim/MSCFModel.h>
-#include <microsim/MSLane.h>
-#include <microsim/MSVehicle.h>
-#include <microsim/MSVehicleType.h>
 #include <utils/xml/SUMOXMLDefinitions.h>
 
 
 // ===========================================================================
 // class definitions
 // ===========================================================================
-/** @class MSCFModel_IDM
- * @brief The Intellignet Driver Model (IDM) car-following model
+/** @class MSCFModel_KraussOrig1
+ * @brief The original Krauss (1998) car-following model and parameter
  * @see MSCFModel
  */
-class MSCFModel_IDM : public MSCFModel {
+class MSCFModel_KraussOrig1 : public MSCFModel {
 public:
     /** @brief Constructor
      * @param[in] accel The maximum acceleration
      * @param[in] decel The maximum deceleration
-     * @param[in] timeHeadWay
-     * @param[in] mingap
+     * @param[in] dawdle The driver imperfection
+     * @param[in] tau The driver's reaction time
      */
-    MSCFModel_IDM(const MSVehicleType* vtype, SUMOReal accel, SUMOReal decel, 
-                  SUMOReal timeHeadWay, SUMOReal mingap, SUMOReal tau) throw();
+    MSCFModel_KraussOrig1(const MSVehicleType* vtype, SUMOReal accel, SUMOReal decel, SUMOReal dawdle, SUMOReal tau) throw();
 
 
     /// @brief Destructor
-    ~MSCFModel_IDM() throw();
+    ~MSCFModel_KraussOrig1() throw();
 
 
     /// @name Implementations of the MSCFModel interface
@@ -118,10 +114,10 @@ public:
      * @param[in] veh The EGO vehicle
      * @param[in] vL LEADER's speed
      * @return The interaction gap
-     * @todo evaluate signature
      * @see MSCFModel::interactionGap
+     * @todo evaluate signature
      */
-    SUMOReal interactionGap(const MSVehicle * const , SUMOReal vL) const throw();
+    SUMOReal interactionGap(const MSVehicle * const veh, SUMOReal vL) const throw();
 
 
     /** @brief Returns whether the given gap is safe
@@ -132,8 +128,8 @@ public:
      * @param[in] predSpeed LEADER's speed
      * @param[in] laneMaxSpeed The maximum velocity allowed on the lane
      * @return Whether the given gap is safe
-     * @todo evaluate signature
      * @see MSCFModel::hasSafeGap
+     * @todo evaluate signature
      */
     bool hasSafeGap(SUMOReal speed, SUMOReal gap, SUMOReal predSpeed, SUMOReal laneMaxSpeed) const throw();
 
@@ -147,7 +143,7 @@ public:
 	 * @return The maximum acceleration
 	 */
     SUMOReal getMaxAccel(SUMOReal v) const throw() {
-        return myAccel;
+		return myAccel;
     }
 
 
@@ -156,7 +152,7 @@ public:
      * @see MSCFModel::getModelName
      */
     int getModelID() const throw() {
-        return SUMO_TAG_CF_IDM;
+        return SUMO_TAG_CF_KRAUSS_ORIG1;
     }
 
 
@@ -169,15 +165,20 @@ public:
     /// @}
 
 
-
-
 private:
-    SUMOReal _updateSpeed(SUMOReal gap2pred, SUMOReal mySpeed, SUMOReal predSpeed, SUMOReal desSpeed) const throw();
+    /** @brief Returns the "safe" velocity
+     * @param[in] gap2pred The (netto) distance to the LEADER
+     * @param[in] predSpeed The LEADER's speed
+     * @return the safe velocity
+     */
+    SUMOReal _vsafe(SUMOReal gap, SUMOReal predSpeed) const throw();
 
-	SUMOReal desiredSpeed(const MSVehicle * const veh) const throw() {
-		return MIN2(myType->getMaxSpeed(), veh->getLane().getMaxSpeed());
-	}
 
+    /** @brief Applies driver imperfection (dawdling / sigma)
+     * @param[in] speed The speed with no dawdling
+     * @return The speed after dawdling
+     */
+    SUMOReal dawdle(SUMOReal speed) const throw();
 
 private:
     /// @name model parameter
@@ -186,16 +187,17 @@ private:
     /// @brief The vehicle's maximum acceleration [m/s^2]
     SUMOReal myAccel;
 
-    /// @brief The driver's desired time headway [s]
-    SUMOReal myTimeHeadWay;
-
-    /// @brief The desired minimum Gap to the leading vehicle (no matter the speed)
-    SUMOReal myMinSpace;
+    /// @brief The vehicle's dawdle-parameter. 0 for no dawdling, 1 for max.
+    SUMOReal myDawdle;
 
     /// @brief The driver's reaction time [s]
     SUMOReal myTau;
+
+    /// @brief The precomputed value for myDecel*myTau
+    SUMOReal myTauDecel;
     /// @}
 
 };
 
-#endif	/* MSCFMODEL_IDM_H */
+#endif	/* MSCFModel_KraussOrig1_H */
+

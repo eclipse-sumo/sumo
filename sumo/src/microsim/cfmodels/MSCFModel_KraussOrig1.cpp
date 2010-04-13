@@ -1,10 +1,10 @@
 /****************************************************************************/
-/// @file    MSCFModel_Krauss.cpp
+/// @file    MSCFModel_KraussOrig1.cpp
 /// @author  Tobias Mayer
 /// @date    Mon, 04 Aug 2009
-/// @version $Id$
+/// @version $Id: MSCFModel_KraussOrig1.cpp 8561 2010-04-03 13:10:33Z dkrajzew $
 ///
-// Krauss car-following model, with acceleration decrease and faster start
+// The original Krauss (1998) car-following model and parameter
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // Copyright 2001-2010 DLR (http://www.dlr.de/) and contributors
@@ -29,7 +29,7 @@
 
 #include <microsim/MSVehicle.h>
 #include <microsim/MSLane.h>
-#include "MSCFModel_Krauss.h"
+#include "MSCFModel_KraussOrig1.h"
 #include <microsim/MSAbstractLaneChangeModel.h>
 #include <utils/common/RandHelper.h>
 
@@ -37,19 +37,19 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-MSCFModel_Krauss::MSCFModel_Krauss(const MSVehicleType* vtype,  SUMOReal accel, SUMOReal decel,
-                                   SUMOReal dawdle, SUMOReal tau) throw()
+MSCFModel_KraussOrig1::MSCFModel_KraussOrig1(const MSVehicleType* vtype,  SUMOReal accel, SUMOReal decel,
+								   SUMOReal dawdle, SUMOReal tau) throw()
         : MSCFModel(vtype, decel), myAccel(accel), myDawdle(dawdle), myTau(tau) {
 
     myTauDecel = decel * myTau;
 }
 
 
-MSCFModel_Krauss::~MSCFModel_Krauss() throw() {}
+MSCFModel_KraussOrig1::~MSCFModel_KraussOrig1() throw() {}
 
 
 SUMOReal
-MSCFModel_Krauss::moveHelper(MSVehicle * const veh, const MSLane * const lane, SUMOReal vPos) const throw() {
+MSCFModel_KraussOrig1::moveHelper(MSVehicle * const veh, const MSLane * const lane, SUMOReal vPos) const throw() {
     SUMOReal oldV = veh->getSpeed(); // save old v for optional acceleration computation
     SUMOReal vSafe = MIN2(vPos, veh->processNextStop(vPos)); // process stops
     // we need the acceleration for emission computation;
@@ -57,7 +57,7 @@ MSCFModel_Krauss::moveHelper(MSVehicle * const veh, const MSLane * const lane, S
     //  vSafe does not incorporate speed reduction due to interaction
     //  on lane changing
     veh->setPreDawdleAcceleration(SPEED2ACCEL(vSafe-oldV));
-    //
+	//
     SUMOReal vNext = dawdle(MIN3(lane->getMaxSpeed(), maxNextSpeed(oldV), vSafe));
     vNext =
         veh->getLaneChangeModel().patchSpeed(
@@ -70,31 +70,31 @@ MSCFModel_Krauss::moveHelper(MSVehicle * const veh, const MSLane * const lane, S
 
 
 SUMOReal
-MSCFModel_Krauss::ffeV(const MSVehicle * const veh, SUMOReal speed, SUMOReal gap, SUMOReal predSpeed) const throw() {
+MSCFModel_KraussOrig1::ffeV(const MSVehicle * const veh, SUMOReal speed, SUMOReal gap, SUMOReal predSpeed) const throw() {
     return MIN2(_vsafe(gap, predSpeed), maxNextSpeed(speed));
 }
 
 
 SUMOReal
-MSCFModel_Krauss::ffeV(const MSVehicle * const veh, SUMOReal gap, SUMOReal predSpeed) const throw() {
+MSCFModel_KraussOrig1::ffeV(const MSVehicle * const veh, SUMOReal gap, SUMOReal predSpeed) const throw() {
     return MIN2(_vsafe(gap, predSpeed), maxNextSpeed(veh->getSpeed()));
 }
 
 
 SUMOReal
-MSCFModel_Krauss::ffeV(const MSVehicle * const veh, const MSVehicle *pred) const throw() {
+MSCFModel_KraussOrig1::ffeV(const MSVehicle * const veh, const MSVehicle *pred) const throw() {
     return MIN2(_vsafe(veh->gap2pred(*pred), pred->getSpeed()), maxNextSpeed(veh->getSpeed()));
 }
 
 
 SUMOReal
-MSCFModel_Krauss::ffeS(const MSVehicle * const veh, SUMOReal gap) const throw() {
+MSCFModel_KraussOrig1::ffeS(const MSVehicle * const veh, SUMOReal gap) const throw() {
     return MIN2(_vsafe(gap, 0), maxNextSpeed(veh->getSpeed()));
 }
 
 
-SUMOReal
-MSCFModel_Krauss::interactionGap(const MSVehicle * const veh, SUMOReal vL) const throw() {
+SUMOReal 
+MSCFModel_KraussOrig1::interactionGap(const MSVehicle * const veh, SUMOReal vL) const throw() {
     // Resolve the vsafe equation to gap. Assume predecessor has
     // speed != 0 and that vsafe will be the current speed plus acceleration,
     // i.e that with this gap there will be no interaction.
@@ -109,7 +109,7 @@ MSCFModel_Krauss::interactionGap(const MSVehicle * const veh, SUMOReal vL) const
 
 
 bool
-MSCFModel_Krauss::hasSafeGap(SUMOReal speed, SUMOReal gap, SUMOReal predSpeed, SUMOReal laneMaxSpeed) const throw() {
+MSCFModel_KraussOrig1::hasSafeGap(SUMOReal speed, SUMOReal gap, SUMOReal predSpeed, SUMOReal laneMaxSpeed) const throw() {
     if (gap<0) {
         return false;
     }
@@ -120,28 +120,22 @@ MSCFModel_Krauss::hasSafeGap(SUMOReal speed, SUMOReal gap, SUMOReal predSpeed, S
 
 
 SUMOReal
-MSCFModel_Krauss::dawdle(SUMOReal speed) const throw() {
-    // generate random number out of [0,1]
-    SUMOReal random = RandHelper::rand();
-    // Dawdle.
-    if (speed < myAccel) {
-        // we should not prevent vehicles from driving just due to dawdling
-        //  if someone is starting, he should definitely start
-        // (but what about slow-to-start?)!!!
-        speed -= ACCEL2SPEED(myDawdle * speed * random);
-    } else {
-        speed -= ACCEL2SPEED(myDawdle * getMaxAccel(speed) * random);
-    }
-    return MAX2(SUMOReal(0), speed);
+MSCFModel_KraussOrig1::dawdle(SUMOReal speed) const throw() {
+    return MAX2(SUMOReal(0), speed - ACCEL2SPEED(myDawdle * myAccel * RandHelper::rand()));
 }
 
 
 /** Returns the SK-vsafe. */
-SUMOReal MSCFModel_Krauss::_vsafe(SUMOReal gap, SUMOReal predSpeed) const throw() {
+SUMOReal MSCFModel_KraussOrig1::_vsafe(SUMOReal gap, SUMOReal predSpeed) const throw() {
     if (predSpeed==0&&gap<0.01) {
         return 0;
     }
-    SUMOReal vsafe = (SUMOReal)(-1. * myTauDecel + sqrt(myTauDecel*myTauDecel + (predSpeed*predSpeed) + (2. * myDecel * gap)));
+    SUMOReal vsafe = (SUMOReal)(-1. * myTauDecel
+                                + sqrt(
+                                    myTauDecel*myTauDecel
+                                    + (predSpeed*predSpeed)
+                                    + (2. * myDecel * gap)
+                                ));
     assert(vsafe >= 0);
     return vsafe;
 }
