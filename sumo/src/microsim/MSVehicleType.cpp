@@ -33,6 +33,7 @@
 #include "cfmodels/MSCFModel_Kerner.h"
 #include "cfmodels/MSCFModel_Krauss.h"
 #include "cfmodels/MSCFModel_KraussOrig1.h"
+#include "cfmodels/MSCFModel_SKStable.h"
 #include "cfmodels/MSCFModel_PWag2009.h"
 #include <cassert>
 #include <utils/iodevices/BinaryInputDevice.h>
@@ -57,7 +58,7 @@ MSVehicleType::MSVehicleType(const std::string &id, SUMOReal length,
                              SUMOReal guiWidth, SUMOReal guiOffset,
                              int cfModel, const std::string &lcModel,
                              const RGBColor &c) throw()
-        : myID(id), myLength(length), myMaxSpeed(maxSpeed),
+        : myID(id), myLength(length), myMaxSpeed(maxSpeed), 
         myDefaultProbability(prob), mySpeedFactor(speedFactor),
         mySpeedDev(speedDev), myVehicleClass(vclass),
         myLaneChangeModel(lcModel),
@@ -116,24 +117,33 @@ MSVehicleType::build(SUMOVTypeParameter &from) throw(ProcessError) {
                                   get(from.cfParameter, "accel", DEFAULT_VEH_ACCEL),
                                   get(from.cfParameter, "decel", DEFAULT_VEH_DECEL),
                                   get(from.cfParameter, "timeHeadWay", 1.5),
-                                  get(from.cfParameter, "minGap", 5.));
+                                  get(from.cfParameter, "minGap", 5.),
+                                  get(from.cfParameter, "tau", DEFAULT_VEH_TAU));
 		break;
 	case SUMO_TAG_CF_BKERNER:
         model = new MSCFModel_Kerner(vtype,
-                                  get(from.cfParameter, "accel", DEFAULT_VEH_ACCEL),
-                                  get(from.cfParameter, "decel", DEFAULT_VEH_DECEL),
-                                     get(from.cfParameter, "tau", DEFAULT_VEH_TAU),
-                                  get(from.cfParameter, "k", 1.5),
-                                  get(from.cfParameter, "phi", 5.));
-		break;
-	case SUMO_TAG_CF_PWAGNER2009:
-        model = new MSCFModel_PWag2009(vtype,
-                                     get(from.cfParameter, "accel", DEFAULT_VEH_ACCEL),
-                                     get(from.cfParameter, "decel", DEFAULT_VEH_DECEL),
-                                     get(from.cfParameter, "tau", DEFAULT_VEH_TAU));
+			get(from.cfParameter, "accel", DEFAULT_VEH_ACCEL),
+			get(from.cfParameter, "decel", DEFAULT_VEH_DECEL),
+            get(from.cfParameter, "tau", DEFAULT_VEH_TAU),
+			get(from.cfParameter, "k", .5),
+			get(from.cfParameter, "phi", 5.));
 		break;
 	case SUMO_TAG_CF_KRAUSS_ORIG1:
         model = new MSCFModel_KraussOrig1(vtype,
+                                     get(from.cfParameter, "accel", DEFAULT_VEH_ACCEL),
+                                     get(from.cfParameter, "decel", DEFAULT_VEH_DECEL),
+                                     get(from.cfParameter, "sigma", DEFAULT_VEH_SIGMA),
+                                     get(from.cfParameter, "tau", DEFAULT_VEH_TAU));
+		break;
+	case SUMO_TAG_CF_SKSTABLE:
+        model = new MSCFModel_SKStable(vtype,
+                                     get(from.cfParameter, "accel", DEFAULT_VEH_ACCEL),
+                                     get(from.cfParameter, "decel", DEFAULT_VEH_DECEL),
+                                     get(from.cfParameter, "sigma", DEFAULT_VEH_SIGMA),
+                                     get(from.cfParameter, "tau", DEFAULT_VEH_TAU));
+		break;
+	case SUMO_TAG_CF_PWAGNER2009:
+        model = new MSCFModel_PWag2009(vtype,
                                      get(from.cfParameter, "accel", DEFAULT_VEH_ACCEL),
                                      get(from.cfParameter, "decel", DEFAULT_VEH_DECEL),
                                      get(from.cfParameter, "sigma", DEFAULT_VEH_SIGMA),
