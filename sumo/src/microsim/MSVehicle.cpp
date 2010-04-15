@@ -869,6 +869,7 @@ MSVehicle::moveRegardingCritical(SUMOTime t, const MSLane* const lane,
         myIntCORNMap[MSCORN::CORN_VEH_LASTREROUTEOFFSET] = myIntCORNMap[MSCORN::CORN_VEH_LASTREROUTEOFFSET] + 1;
     }
     //@ to be optimized (move to somewhere else)
+    checkRewindLinkLanes(lengthsInFront);
     return false;
 }
 
@@ -1145,6 +1146,8 @@ MSVehicle::vsafeCriticalCont(SUMOTime t, SUMOReal boundVSafe, SUMOReal lengthsIn
     const std::vector<MSLane*> &bestLaneConts = getBestLanesContinuation();
 #ifdef HAVE_INTERNAL_LANES
     bool hadNonInternal = false;
+    bool lastInnerHadPriority = false;
+    bool passingInner = false;
 #endif
 
     unsigned int view = 1;
@@ -1168,7 +1171,6 @@ MSVehicle::vsafeCriticalCont(SUMOTime t, SUMOReal boundVSafe, SUMOReal lengthsIn
             // the vehicle will not drive further
             SUMOReal laneEndVSafe = cfModel.ffeS(this, seen);
             myLFLinkLanes.push_back(DriveProcessItem(0, MIN2(vLinkPass, laneEndVSafe), MIN2(vLinkPass, laneEndVSafe), false, 0, 0));
-            checkRewindLinkLanes(lengthsInFront);
             return;
         }
         // the link was passed
@@ -1180,13 +1182,16 @@ MSVehicle::vsafeCriticalCont(SUMOTime t, SUMOReal boundVSafe, SUMOReal lengthsIn
 
         // get the following lane
 #ifdef HAVE_INTERNAL_LANES
+        passingInner = nextLane->getEdge().getPurpose()==MSEdge::EDGEFUNCTION_INTERNAL;
         bool nextInternal = false;
         nextLane = (*link)->getViaLane();
         if (nextLane==0) {
             nextLane = (*link)->getLane();
             hadNonInternal = true;
+            passingInner = false;
         } else {
             nextInternal = true;
+            passingInner &= nextLane->getEdge().getPurpose()==MSEdge::EDGEFUNCTION_INTERNAL;
         }
 #else
         nextLane = (*link)->getLane();
@@ -1220,21 +1225,27 @@ MSVehicle::vsafeCriticalCont(SUMOTime t, SUMOReal boundVSafe, SUMOReal lengthsIn
         bool yellow = (*link)->getState()==MSLink::LINKSTATE_TL_YELLOW_MAJOR||(*link)->getState()==MSLink::LINKSTATE_TL_YELLOW_MINOR;
         if (yellow&&SPEED2DIST(vLinkWait)+myState.myPos<laneLength) {
             myLFLinkLanes.push_back(DriveProcessItem(*link, vLinkWait, vLinkWait, false, 0, 0));
-            checkRewindLinkLanes(lengthsInFront);
             return;
         }
         // behaviour in front of not priorised intersections (waiting for priorised foe vehicles)
         bool setRequest = false;
-        if (!(*link)->havePriority()) {
-            // The vehicle may pass if it already has passed the decision point which is at
-            //  distanceToIntersection("seen") == approachingBrakeGap with speed==maxDeceleration*2. == maxDeceleration
-            //  Note that we use the maximum deceleration ability as speed information (no conversion from m/s/s to m/s is necessary)
-            //  Also, after reaching this point, the speed should not be reduced
-            // Up to this time it is decelearating in order to watch out for foe traffic
-            if ((*link)->getState()==MSLink::LINKSTATE_TL_RED||(seen>cfModel.getMaxDecel()&&myState.mySpeed>cfModel.getMaxDecel())) {
+        bool mayPass = (*link)->havePriority() || (passingInner&&lastInnerHadPriority);
+        if (!mayPass) {
+            // The vehicle will not pass a red light
+            if ((*link)->getState()==MSLink::LINKSTATE_TL_RED) {
                 vLinkPass = vLinkWait;
             }
+            // The vehicle may pass if it already has passed the decision point which is at
+            //  Also, after reaching this point, the speed should not be reduced
+            // Up to this time it is decelearating in order to watch out for foe traffic
+            if (seen>cfModel.getMaxDecel()) {
+                vLinkPass = vLinkWait;
+//                SUMOReal vDecel2Brake = cfModel.ffeV(this, seen-cfModel.getMaxDecel(), cfModel.getMaxDecel());
+//                vLinkPass = MIN2(vLinkPass, MAX2(vDecel2Brake, cfModel.getMaxDecel()));
+//                vLinkWait = MIN2(vLinkWait, MAX2(vDecel2Brake, cfModel.getMaxDecel()));
+            }
         }
+        lastInnerHadPriority = (*link)->havePriority();
         // process stops
         if (!myStops.empty()&& &myStops.begin()->lane->getEdge()==&nextLane->getEdge()) {
             SUMOReal vsafeStop = cfModel.ffeS(this, seen+myStops.begin()->pos);
@@ -1256,7 +1267,6 @@ MSVehicle::vsafeCriticalCont(SUMOTime t, SUMOReal boundVSafe, SUMOReal lengthsIn
         myLFLinkLanes.push_back(DriveProcessItem(*link, vLinkPass, vLinkWait, setRequest, arrivalTime, vLinkPass));
         seen += nextLane->getLength();
         if ((vLinkPass<=0||seen>dist)&&hadNonInternal) {
-            checkRewindLinkLanes(lengthsInFront);
             return;
         }
 #ifdef HAVE_INTERNAL_LANES
