@@ -136,10 +136,10 @@ MSCFModel_PWag2009::_v(SUMOReal speed, SUMOReal gap, SUMOReal predSpeed, SUMORea
 	SUMOReal apref = asafe;
 	if(RandHelper::rand()>.5) {
 		apref = myDecelDivTau * (gap+(predSpeed-speed)*myTau-speed*myTau) / (speed+myTauDecel);
-		apref += 1. * RandHelper::rand(-1., 1.);
+		apref += RandHelper::rand((SUMOReal)-1., (SUMOReal)1.);
 		if(apref>asafe) apref = asafe;
 	}
-	return speed+apref;//ACCEL2SPEED(apref);
+	return MAX2((SUMOReal)0, speed+apref);//ACCEL2SPEED(apref);
 }
 
 
