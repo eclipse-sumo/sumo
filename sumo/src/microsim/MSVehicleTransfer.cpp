@@ -75,7 +75,7 @@ MSVehicleTransfer::checkEmissions(SUMOTime time) throw() {
         // get the vehicle information
         VehicleInformation &desc = *i;
         const MSEdge *e = desc.myVeh->getEdge();
-        MSLane *l = e->getFreeLane(desc.myVeh->getDepartLanes());
+        MSLane *l = e->getFreeLane(desc.myVeh->getVehicleType().getVehicleClass());
         // check whether the vehicle may be emitted onto a following edge
         if (l->freeEmit(*(desc.myVeh), MIN2(l->getMaxSpeed(), desc.myVeh->getMaxSpeed()))) {
             // remove from this if so
@@ -111,7 +111,6 @@ MSVehicleTransfer::checkEmissions(SUMOTime time) throw() {
 bool
 MSVehicleTransfer::proceedVirtualReturnWhetherEnded(MSVehicle &veh, const MSEdge *const newEdge) throw() {
     veh.moveRoutePointer(newEdge);
-    veh.rebuildAllowedLanes();
     MSRouteIterator destination = veh.getRoute().end() - 1;
     return veh.getEdge() == *destination;
 }

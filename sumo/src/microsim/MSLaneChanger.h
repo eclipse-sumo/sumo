@@ -136,13 +136,6 @@ protected:
         If there is none, myChanger.end() is returned. */
     ChangerIt findCandidate();
 
-    /** Returns true if the target's lane is an allowed lane
-        for the candidate's vehicle . */
-    bool candiOnAllowed(ChangerIt target) {
-        assert(veh(myCandi) != 0);
-        return veh(myCandi)->onAllowed(target->lane);
-    }
-
     int change2right(
         const std::pair<MSVehicle * const, SUMOReal> &leader,
         const std::pair<MSVehicle * const, SUMOReal> &rLead,
@@ -154,10 +147,6 @@ protected:
         const std::pair<MSVehicle * const, SUMOReal> &rLead,
         const std::pair<MSVehicle * const, SUMOReal> &rFollow,
         const std::vector<MSVehicle::LaneQ> &preb) const throw();
-
-    /** If candidate isn't on an allowed lane, we need to find target-
-        lane that takes it closer to an allowed one. */
-    ChangerIt findTarget();
 
     void setOverlap(const std::pair<MSVehicle * const, SUMOReal> &neighLead,
                     const std::pair<MSVehicle * const, SUMOReal> &neighFollow,

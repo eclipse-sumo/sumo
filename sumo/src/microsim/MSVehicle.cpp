@@ -202,7 +202,6 @@ MSVehicle::MSVehicle(SUMOVehicleParameter* pars,
         myType(type),
         myLastBestLanesEdge(0),
         myCurrEdge(myRoute->begin()),
-        myAllowedLanes(0),
         myMoveReminders(0),
         myOldLaneMoveReminders(0),
         myOldLaneMoveReminderOffsets(0),
@@ -251,7 +250,6 @@ MSVehicle::MSVehicle(SUMOVehicleParameter* pars,
         myArrivalPos = lastLaneLength;
     }
     MSDevice_Routing::buildVehicleDevices(*this, myDevices);
-    rebuildAllowedLanes();
     myLaneChangeModel = new MSLCM_DK2004(*this);
     // init devices
     MSDevice_HBEFA::buildVehicleDevices(*this, myDevices);
@@ -266,6 +264,14 @@ MSVehicle::MSVehicle(SUMOVehicleParameter* pars,
 
 
 // ------------ interaction with the route
+void
+MSVehicle::onTryEmit() throw() {
+    for (std::vector< MSDevice* >::iterator dev=myDevices.begin(); dev != myDevices.end(); ++dev) {
+        (*dev)->onTryEmit();
+    }
+}
+
+
 void
 MSVehicle::onDepart() throw() {
     // check whether the vehicle's departure time shall be saved
@@ -367,12 +373,7 @@ MSVehicle::moveRoutePointer(const MSEdge* targetEdge) throw() {
     // Check if destination-edge is reached. Update allowedLanes makes
     // only sense if destination isn't reached.
     MSRouteIterator destination = myRoute->end() - 1;
-    if (myCurrEdge == destination && getPositionOnLane() > myArrivalPos - POSITION_EPS) {
-        return true;
-    } else {
-        rebuildAllowedLanes(false);
-        return false;
-    }
+    return myCurrEdge == destination && getPositionOnLane() > myArrivalPos - POSITION_EPS;
 }
 
 
@@ -472,7 +473,6 @@ MSVehicle::replaceRoute(const MSEdgeVector &edges, SUMOTime simTime, bool onInit
             ++iter;
         }
     }
-    rebuildAllowedLanes();
     return true;
 }
 
@@ -1295,25 +1295,6 @@ MSVehicle::getID() const throw() {
 }
 
 
-bool
-MSVehicle::onAllowed(const MSLane* lane) const {
-    if (lane->getEdge().getPurpose()==MSEdge::EDGEFUNCTION_INTERNAL) {
-        return true;
-    }
-    if (!lane->allowsVehicleClass(myType->getVehicleClass())) {
-        return false;
-    }
-    assert(myAllowedLanes.size()!=0);
-    return (find(myAllowedLanes[0]->begin(), myAllowedLanes[0]->end(), lane) != myAllowedLanes[0]->end());
-}
-
-
-bool
-MSVehicle::onAllowed() const {
-    return onAllowed(myLane);
-}
-
-
 void
 MSVehicle::enterLaneAtMove(MSLane* enteredLane, SUMOReal driven) {
 #ifndef NO_TRACI
@@ -1365,7 +1346,6 @@ MSVehicle::enterLaneAtLaneChange(MSLane* enteredLane) {
     // switch to and activate the new lane's reminders
     // keep OldLaneReminders
     myMoveReminders = enteredLane->getMoveReminders();
-    rebuildAllowedLanes();
     activateRemindersByEmitOrLaneChange(false);
     for (std::vector< MSDevice* >::iterator dev=myDevices.begin(); dev != myDevices.end(); ++dev) {
         (*dev)->enterLaneAtLaneChange(enteredLane);
@@ -1432,9 +1412,6 @@ void
 MSVehicle::leaveLaneAtMove(SUMOReal driven) {
     for (std::vector< MSDevice* >::iterator dev=myDevices.begin(); dev != myDevices.end(); ++dev) {
         (*dev)->leaveLaneAtMove(driven);
-    }
-    if (!myAllowedLanes.empty()) {
-        myAllowedLanes.pop_front();
     }
 }
 
@@ -1511,43 +1488,6 @@ MSVehicle::quitRemindedLeft(MSVehicleQuitReminded *r) {
     }
 }
 
-
-void
-MSVehicle::rebuildAllowedLanes(bool reinit) {
-    if (reinit) {
-        myAllowedLanes.clear();
-    }
-    SUMOReal dist = 0;
-    // check what was already computed
-    for (NextAllowedLanes::const_iterator i=myAllowedLanes.begin(); i!=myAllowedLanes.end(); ++i) {
-        dist += ((*(*i))[0])->getLength();
-    }
-    // compute next allowed lanes up to 1000m into the future
-    SUMOReal MIN_DIST = 1000;
-    if (dist<MIN_DIST) {
-        unsigned int pos = (unsigned int)(distance(myRoute->begin(), myCurrEdge) + myAllowedLanes.size());
-        if (pos>=myRoute->size()-1) {
-            if (pos==0&&myRoute->size()==1) {
-                myAllowedLanes.push_back((*myRoute)[0]->allowedLanes(myType->getVehicleClass()));
-            }
-            return;
-        }
-        const std::vector<MSLane*> *al = (*myRoute)[pos]->allowedLanes(*(*myRoute)[pos+1], myType->getVehicleClass());
-        while (al!=0&&dist<MIN_DIST&&pos<myRoute->size()-1) {
-            assert(al!=0);
-            myAllowedLanes.push_back(al);
-            pos++;
-            if (pos<myRoute->size()-1) {
-                dist += ((*al)[0])->getLength();
-                al = (*myRoute)[pos]->allowedLanes(*(*myRoute)[pos+1], myType->getVehicleClass());
-            }
-        }
-    }
-    if (myAllowedLanes.size()==0&&myCurrEdge!=myRoute->end()) {
-        unsigned int pos = (unsigned int) distance(myRoute->begin(), myCurrEdge);
-        throw ProcessError("Route of vehicle '" + getID() + "' is invalid:\nCould not find a valid connection between edges '" + (*myRoute)[pos]->getID() + "' and '" + (*myRoute)[pos+1]->getID() + "'.");
-    }
-}
 
 void
 MSVehicle::rebuildContinuationsFor(LaneQ &oq, MSLane *l, MSRouteIterator ce, int seen) const {

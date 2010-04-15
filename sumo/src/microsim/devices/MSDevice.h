@@ -94,6 +94,10 @@ public:
     /// @name Methods called on vehicle movement / state change
     /// @{
 
+    /** @brief Called when the vehicle tries to get into the net */
+    virtual void onTryEmit() { }
+
+
     /** @brief Update if vehicle enters a new lane in the move step.
      *
      * @param[in] enteredLane The lane the vehicle enters

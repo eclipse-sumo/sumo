@@ -203,8 +203,11 @@ MSVehicleControl::scheduleVehicleRemoval(MSVehicle *v) throw() {
         SUMOTime time = net->getCurrentTimeStep();
         od.openTag("vehicle") << " id=\"" << v->getID() << "\" depart=\""
         << v->getCORNIntValue(MSCORN::CORN_VEH_DEPART_TIME)
-        << "\" arrival=\"" << MSNet::getInstance()->getCurrentTimeStep()
-        << "\">\n";
+        << "\" arrival=\"" << MSNet::getInstance()->getCurrentTimeStep();
+        if (MSCORN::wished(MSCORN::CORN_OUT_TAZ)) {
+            od << "\" fromtaz=\"" << v->getParameter().fromTaz << "\" totaz=\"" << v->getParameter().toTaz;
+        }
+        od << "\">\n";
         if (MSCORN::wished(MSCORN::CORN_OUT_OLDROUTES) && v->hasCORNIntValue(MSCORN::CORN_VEH_NUMBERROUTE)) {
             od.openTag("routeDistribution") << ">\n";
             int noReroutes = v->getCORNIntValue(MSCORN::CORN_VEH_NUMBERROUTE);

@@ -218,6 +218,9 @@ MSNet::closeBuilding(MSEdgeControl *edges, MSJunctionControl *junctions,
         if (!OptionsCont::getOptions().getBool("vehroute-output.last-route")) {
             MSCORN::setWished(MSCORN::CORN_OUT_OLDROUTES);
         }
+        if (OptionsCont::getOptions().getBool("device.routing.with-taz")) {
+            MSCORN::setWished(MSCORN::CORN_OUT_TAZ);
+        }
     }
 
     // initialise performance computation

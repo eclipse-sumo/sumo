@@ -105,6 +105,21 @@ public:
      *  to the list of simulation step begin events which executes
      *  "wrappedRerouteCommandExecute".
      *
+     * @see MSVehicle::reroute
+     * @see MSEventHandler
+     * @see WrappingCommand
+     */
+    void onTryEmit();
+
+    /** @brief Computes a new route on vehicle emission
+     *
+     * A new route is computed by calling the vehicle's "reroute" method, supplying
+     *  "getEffort" as the edge effort retrieval method.
+     *
+     * If the reroute period is larger than 0, an event is generated and added
+     *  to the list of simulation step begin events which executes
+     *  "wrappedRerouteCommandExecute".
+     *
      * @param[in] enteredLane The lane the vehicle enters
      * @param[in] state The vehicle's state during the emission
      * @see MSVehicle::reroute
@@ -120,9 +135,11 @@ private:
      *
      * @param[in] holder The vehicle that holds this device
      * @param[in] id The ID of the device
-     * @param[in] period The period with which a new route shall be serached
+     * @param[in] period The period with which a new route shall be searched
+     * @param[in] preEmitPeriod The route search period before emit
      */
-    MSDevice_Routing(MSVehicle &holder, const std::string &id, SUMOTime period) throw();
+    MSDevice_Routing(MSVehicle &holder, const std::string &id, SUMOTime period,
+                     SUMOTime preEmitPeriod) throw();
 
 
     /// @brief Destructor.
@@ -185,6 +202,12 @@ private:
     /// @brief The period with which a vehicle shall be rerouted
     SUMOTime myPeriod;
 
+    /// @brief The period with which a vehicle shall be rerouted before emission
+    SUMOTime myPreEmitPeriod;
+
+    /// @brief The time step at which the last reroute was performed
+    SUMOTime myLastPreEmitReroute;
+
     /// @brief A static vehicle index for computing deterministic vehicle fractions
     static int myVehicleIndex;
 
@@ -202,6 +225,9 @@ private:
 
     /// @brief Information which weight prior edge efforts have
     static SUMOTime myAdaptationInterval;
+
+    /// @brief whether taz shall be used at initial rerouting
+    static bool myWithTaz;
 
 
 private:

@@ -308,17 +308,17 @@ public:
     virtual bool emit(MSVehicle &v, SUMOTime time) const throw();
 
 
-    /** @brief Finds the emptiest lane among the given ones
+    /** @brief Finds the emptiest lane allowing the vehicle class
      *
      * The emptiest lane is the one with the fewest vehicles on.
      *  If there is more than one, the first according to its
-     *  index in the given container is chosen.
+     *  index in the lane container is chosen.
      *
-     * @param[in] lanes The lanes to choose from
+     * @param[in] vclass The vehicle class to look for
      * @return the least occupied lane
      * @see MSLane::emit
      */
-    MSLane* getFreeLane(const std::vector<MSLane*> &lanes) const throw();
+    MSLane* getFreeLane(const SUMOVehicleClass vclass) const throw();
 
 
     /** @brief Finds a depart lane for the given vehicle

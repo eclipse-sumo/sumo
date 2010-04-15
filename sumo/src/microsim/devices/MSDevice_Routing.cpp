@@ -47,6 +47,7 @@ std::map<const MSEdge*, SUMOReal> MSDevice_Routing::myEdgeEfforts;
 Command *MSDevice_Routing::myEdgeWeightSettingCommand = 0;
 SUMOReal MSDevice_Routing::myAdaptationWeight;
 SUMOTime MSDevice_Routing::myAdaptationInterval;
+bool MSDevice_Routing::myWithTaz;
 
 
 // ===========================================================================
@@ -71,6 +72,9 @@ MSDevice_Routing::insertOptions() throw() {
 
     oc.doRegister("device.routing.period", new Option_Integer(0));
     oc.addDescription("device.routing.period", "Routing", "The period with which the vehicle shall be rerouted");
+
+    oc.doRegister("device.routing.pre-period", new Option_Integer(0));
+    oc.addDescription("device.routing.pre-period", "Routing", "The rerouting period before emit");
 
     oc.doRegister("device.routing.adaptation-weight", new Option_Float(.5));
     oc.addDescription("device.routing.adaptation-weight", "Routing", "The weight of prior edge weights.");
@@ -104,7 +108,9 @@ MSDevice_Routing::buildVehicleDevices(MSVehicle &v, std::vector<MSDevice*> &into
     bool haveByName = oc.isSet("device.routing.knownveh") && OptionsCont::getOptions().isInStringVector("device.routing.knownveh", v.getID());
     if (haveByNumber||haveByName) {
         // build the device
-        MSDevice_Routing* device = new MSDevice_Routing(v, "routing_" + v.getID(), (SUMOTime) oc.getInt("device.routing.period")); // !!! SUMOTime-option
+        MSDevice_Routing* device = new MSDevice_Routing(v, "routing_" + v.getID(),
+                                                        (SUMOTime) oc.getInt("device.routing.period"),
+                                                        (SUMOTime) oc.getInt("device.routing.pre-period")); // !!! SUMOTime-option
         into.push_back(device);
         // initialise edge efforts if not done before
         if (myEdgeEfforts.size()==0) {
@@ -121,10 +127,8 @@ MSDevice_Routing::buildVehicleDevices(MSVehicle &v, std::vector<MSDevice*> &into
             myAdaptationWeight = oc.getFloat("device.routing.adaptation-weight");
             myAdaptationInterval = oc.getInt("device.routing.adaptation-interval");
         }
-        // the following is just to give the vehicle a valid route before the route is checked at init
-        DijkstraRouterTT_ByProxi<MSEdge, SUMOVehicle, prohibited_withRestrictions<MSEdge, SUMOVehicle>, MSDevice_Routing>
-        router(MSEdge::dictSize(), true, device, &MSDevice_Routing::getEffort);
-        if (oc.getBool("device.routing.with-taz")) {
+        myWithTaz = oc.getBool("device.routing.with-taz");
+        if (myWithTaz) {
             if (MSEdge::dictionary(v.getParameter().fromTaz+"-source") == 0) {
                 WRITE_ERROR("Source district '" + v.getParameter().fromTaz + "' not known when rerouting '" + v.getID() + "'!");
                 return;
@@ -134,7 +138,6 @@ MSDevice_Routing::buildVehicleDevices(MSVehicle &v, std::vector<MSDevice*> &into
                 return;
             }
         }
-        v.reroute(MSNet::getInstance()->getCurrentTimeStep(), router, oc.getBool("device.routing.with-taz"));
     }
     myVehicleIndex++;
 }
@@ -144,8 +147,9 @@ MSDevice_Routing::buildVehicleDevices(MSVehicle &v, std::vector<MSDevice*> &into
 // MSDevice_Routing-methods
 // ---------------------------------------------------------------------------
 MSDevice_Routing::MSDevice_Routing(MSVehicle &holder, const std::string &id,
-                                   SUMOTime period) throw()
-        : MSDevice(holder, id), myPeriod(period), myRerouteCommand(0) {
+                                   SUMOTime period, SUMOTime preEmitPeriod) throw()
+        : MSDevice(holder, id), myPeriod(period), myPreEmitPeriod(period),
+          myLastPreEmitReroute(-1), myRerouteCommand(0) {
 }
 
 
@@ -158,10 +162,27 @@ MSDevice_Routing::~MSDevice_Routing() throw() {
 
 
 void
-MSDevice_Routing::enterLaneAtEmit(MSLane* enteredLane, const MSVehicle::State &) {
-    DijkstraRouterTT_ByProxi<MSEdge, SUMOVehicle, prohibited_withRestrictions<MSEdge, SUMOVehicle>, MSDevice_Routing>
-    router(MSEdge::dictSize(), true, this, &MSDevice_Routing::getEffort);
-    myHolder.reroute(MSNet::getInstance()->getCurrentTimeStep(), router);
+MSDevice_Routing::onTryEmit() {
+    if (myWithTaz) {
+        const SUMOTime now = MSNet::getInstance()->getCurrentTimeStep();
+        if (myLastPreEmitReroute == -1 ||
+            (myPreEmitPeriod > 0 && myLastPreEmitReroute + myPreEmitPeriod <= now)) {
+            DijkstraRouterTT_ByProxi<MSEdge, SUMOVehicle, prohibited_withRestrictions<MSEdge, SUMOVehicle>, MSDevice_Routing>
+            router(MSEdge::dictSize(), true, this, &MSDevice_Routing::getEffort);
+            myHolder.reroute(MSNet::getInstance()->getCurrentTimeStep(), router, true);
+            myLastPreEmitReroute = now;
+        }
+    }
+}
+
+
+void
+MSDevice_Routing::enterLaneAtEmit(MSLane*, const MSVehicle::State &) {
+    if (myLastPreEmitReroute == -1) {
+        DijkstraRouterTT_ByProxi<MSEdge, SUMOVehicle, prohibited_withRestrictions<MSEdge, SUMOVehicle>, MSDevice_Routing>
+        router(MSEdge::dictSize(), true, this, &MSDevice_Routing::getEffort);
+        myHolder.reroute(MSNet::getInstance()->getCurrentTimeStep(), router);
+    }
     // build repetition trigger if routing shall be done more often
     if (myPeriod>0&&myRerouteCommand==0) {
         myRerouteCommand = new WrappingCommand< MSDevice_Routing >(this, &MSDevice_Routing::wrappedRerouteCommandExecute);

@@ -60,6 +60,7 @@ public:
         CORN_OUT_EMISSIONS,
         CORN_OUT_VEHROUTES,
         CORN_OUT_OLDROUTES,
+        CORN_OUT_TAZ,
 
         CORN_VEH_DEPART_TIME,
         CORN_VEH_DEPART_DEF,

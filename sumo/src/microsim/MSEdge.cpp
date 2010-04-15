@@ -235,13 +235,16 @@ MSEdge::decVaporization(SUMOTime) throw(ProcessError) {
 
 
 MSLane *
-MSEdge::getFreeLane(const std::vector<MSLane*> &lanes) const throw() {
-    MSLane* res = lanes[0];
-    unsigned int noCars = (unsigned int) res->getVehicleNumber();
-    for (std::vector<MSLane*>::const_iterator i=lanes.begin(); i!=lanes.end(); ++i) {
-        if ((*i)->getVehicleNumber()<noCars) {
-            res = (*i);
-            noCars = (*i)->getVehicleNumber();
+MSEdge::getFreeLane(const SUMOVehicleClass vclass) const throw() {
+    const std::vector<MSLane*>* lanes = allowedLanes(vclass);
+    MSLane* res = 0;
+    if (lanes != 0) {
+        unsigned int noCars = INT_MAX;
+        for (std::vector<MSLane*>::const_iterator i=lanes->begin(); i!=lanes->end(); ++i) {
+            if ((*i)->getVehicleNumber()<noCars) {
+                res = (*i);
+                noCars = (*i)->getVehicleNumber();
+            }
         }
     }
     return res;
@@ -250,11 +253,7 @@ MSEdge::getFreeLane(const std::vector<MSLane*> &lanes) const throw() {
 
 MSLane *
 MSEdge::getDepartLane(const MSVehicle &v) const throw() {
-    const std::vector<MSLane*> &lanes = v.getDepartLanes();
     const SUMOVehicleParameter &pars = v.getParameter();
-    if (lanes.size() == 0) {
-        return 0;
-    }
     switch (pars.departLaneProcedure) {
     case DEPART_LANE_GIVEN:
         if ((int) myLanes->size() <= pars.departLane || !(*myLanes)[pars.departLane]->allowsVehicleClass(v.getVehicleType().getVehicleClass())) {
@@ -262,9 +261,9 @@ MSEdge::getDepartLane(const MSVehicle &v) const throw() {
         }
         return (*myLanes)[pars.departLane];
     case DEPART_LANE_RANDOM:
-        return RandHelper::getRandomFrom(lanes);
+        return RandHelper::getRandomFrom(*allowedLanes(v.getVehicleType().getVehicleClass()));
     case DEPART_LANE_FREE:
-        return getFreeLane(lanes);
+        return getFreeLane(v.getVehicleType().getVehicleClass());
     case DEPART_LANE_DEPARTLANE:
     case DEPART_LANE_DEFAULT:
     default:

@@ -153,15 +153,6 @@ public:
     }
 
 
-    /** @brief Returns the lanes the vehicle may be emitted onto
-     * @return Lanes that are allowed to be used for emission
-     * @todo recheck this; are these lanes on which the vehicle's class is allowed, only?
-     */
-    const std::vector<MSLane*> &getDepartLanes() const {
-        return *(myAllowedLanes[0]);
-    }
-
-
     /// Returns the desired departure time.
     SUMOTime getDesiredDepart() const throw() {
         return myParameter->depart;
@@ -173,9 +164,16 @@ public:
     /// @name insertion/removal
     //@{
 
+    /** @brief Called when the vehicle tries to get into the network
+     *
+     * Calls the appropriate device function, needed for rerouting.
+     */
+    void onTryEmit() throw();
+
+
     /** @brief Called when the vehicle is inserted into the network
      *
-     * Sets optional information about departzre time, informs the vehicle
+     * Sets optional information about departure time, informs the vehicle
      *  control about a further running vehicle.
      */
     void onDepart() throw();
@@ -501,13 +499,6 @@ public:
     /// Returns the name of the vehicle
     const std::string &getID() const throw();
 
-    /** Return true if the lane is allowed */
-    bool onAllowed(const MSLane* lane) const;
-
-    /** Return true if vehicle is on an allowed lane. */
-    bool onAllowed() const;
-
-
     /** Returns true if the two vehicles overlap. */
     static bool overlap(const MSVehicle* veh1, const MSVehicle* veh2) {
         if (veh1->myState.myPos < veh2->myState.myPos) {
@@ -608,15 +599,12 @@ public:
 
 
 
-    void rebuildAllowedLanes(bool reinit=true);
-
     void quitRemindedEntered(MSVehicleQuitReminded *r);
     void quitRemindedLeft(MSVehicleQuitReminded *r);
 
 
     MSAbstractLaneChangeModel &getLaneChangeModel();
     const MSAbstractLaneChangeModel &getLaneChangeModel() const;
-    typedef std::deque<const std::vector<MSLane*>*> NextAllowedLanes;
 
     /// @name stretegical/tactical lane choosing methods
     /// @{
@@ -994,9 +982,6 @@ private:
 
     /// @brief Iterator to current route-edge
     MSRouteIterator myCurrEdge;
-
-    /// @brief The vehicle's allowed lanes on it'S current edge to drive according to it's route
-    NextAllowedLanes myAllowedLanes;
 
 
     struct DriveProcessItem {

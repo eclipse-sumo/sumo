@@ -561,42 +561,6 @@ MSLaneChanger::change2left(const std::pair<MSVehicle * const, SUMOReal> &leader,
 }
 
 
-MSLaneChanger::ChangerIt
-MSLaneChanger::findTarget() {
-    // If candidate is on a not allowed lane, it has to search for a
-    // neighboured lane that will bring it closer to an allowed one.
-    // Certainly there is a more elegant way than looping over all lanes.
-    ChangerIt nearestTarget = myChanger.end();
-    unsigned int minDist    = (unsigned int) myChanger.size();
-
-    for (ChangerIt ce = myChanger.begin(); ce != myChanger.end(); ++ce) {
-
-        if (ce == myCandi) {
-
-            continue;
-        }
-        if (candiOnAllowed(ce)) {
-
-            unsigned int dist = abs((int)distance(myCandi, ce));
-            assert(dist > 0);
-            assert(dist < myChanger.size());
-            if (dist < minDist) {
-
-                minDist       = dist;
-                nearestTarget = ce;
-            }
-        }
-    }
-    assert(nearestTarget != myChanger.end());
-    if (distance(myCandi, nearestTarget) > 0) {
-        assert(myCandi + 1 != myChanger.end());
-        return myCandi + 1;
-    }
-    assert(myCandi != myChanger.begin());
-    return myCandi - 1;
-}
-
-
 void
 MSLaneChanger::setOverlap(const std::pair<MSVehicle * const, SUMOReal> &rLead,
                           const std::pair<MSVehicle * const, SUMOReal> &rFollow,
