@@ -90,7 +90,7 @@ optParser.add_option("-T", "--disable-tripinfos", action="store_true", dest="noT
                      default=False, help="No tripinfos are written by the simulation")
 optParser.add_option("-m", "--mesosim", action="store_true", dest="mesosim",
                      default=False, help="Whether mesosim shall be used")
-optParser.add_option("-W", "--with-taz", action="store_true", dest="withtaz",
+optParser.add_option("-w", "--with-taz", action="store_true", dest="withtaz",
                      default=False, help="Whether districts shall be used")
 optParser.add_option("-+", "--additional", dest="additional",
                      default="", help="Additional files")
