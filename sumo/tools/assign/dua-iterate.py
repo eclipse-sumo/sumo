@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+# -*- coding: utf-8 -*-
 """
 @file    dua_iterate.py
 @author  Daniel.Krajzewicz@dlr.de,Michael.Behrisch@dlr.de
@@ -31,7 +32,9 @@ def writeRouteConf(step, options, file, output, withExitTimes):
     print >> fd, """<configuration>
     <input>
         <net-file value="%s"/>""" % options.net
-    if(step==0):
+    if options.districts:
+        print >> fd, '        <districts value="%s"/>' % options.districts
+    if step==0:
         print >> fd, '        <trip-defs value="%s"/>' % file
     else:
         print >> fd, '        <alternatives value="%s"/>' % file
@@ -43,9 +46,10 @@ def writeRouteConf(step, options, file, output, withExitTimes):
     </output>""" % (output, withExitTimes)
     print >> fd, """    <processing>
         <continue-on-unbuild value="%s"/>
+        <with-taz value="%s"/>
         <gBeta value="%s"/>
         <gA value="%s"/>
-    </processing>""" % (options.continueOnUnbuild, options.gBeta, options.gA)
+    </processing>""" % (options.continueOnUnbuild, bool(options.districts), options.gBeta, options.gA)
     print >> fd, '    <random_number><abs-rand value="%s"/></random_number>' % options.absrand
     print >> fd, '    <time><begin value="%s"/>' % options.begin,
     if options.end:
@@ -157,6 +161,7 @@ optParser.add_option("-p", "--path", dest="path",
 
 optParser.add_option("-d", "--detector-values", dest="detvals",
                      help="adapt to the flow on the given edges", metavar="FILE")
+optParser.add_option("-D", "--districts", help="use districts as sources and targets", metavar="FILE")
 optParser.add_option("-c", "--classpath", dest="classpath",
                      default=os.path.join(os.path.dirname(sys.argv[0]), "..", "contributed", "calibration", "Cadyts.jar"),
                      help="classpath for the calibrator [default: %default]")

@@ -48,12 +48,13 @@ def writeSUMOConf(step, options, files):
     print >> fd, """        <device.routing.probability value="1"/>
         <device.routing.period value="%s"/>
         <device.routing.adaptation-interval value="%s"/>
+        <device.routing.with-taz value="%s"/>
     </process>
     <reports>
         <verbose value="True"/>
         <suppress-warnings value="%s"/>
     </reports>
-</configuration>""" % (step, options.updateInterval, not options.withWarnings)
+</configuration>""" % (step, options.updateInterval, options.withtaz, not options.withWarnings)
     fd.close()
     fd = open("dump_%s.add.xml" % step, "w")
     print >> fd, """<a>
@@ -89,6 +90,8 @@ optParser.add_option("-T", "--disable-tripinfos", action="store_true", dest="noT
                      default=False, help="No tripinfos are written by the simulation")
 optParser.add_option("-m", "--mesosim", action="store_true", dest="mesosim",
                      default=False, help="Whether mesosim shall be used")
+optParser.add_option("-W", "--with-taz", action="store_true", dest="withtaz",
+                     default=False, help="Whether districts shall be used")
 optParser.add_option("-+", "--additional", dest="additional",
                      default="", help="Additional files")
 
