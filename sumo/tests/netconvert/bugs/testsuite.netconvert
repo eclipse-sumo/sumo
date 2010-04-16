@@ -29,3 +29,6 @@ ticket193
 # Test for #252 false offset in written network
 ticket252
 
+# Test for #267 keep-edges (postload) breaks on connections given for a removed edge
+ticket267
+

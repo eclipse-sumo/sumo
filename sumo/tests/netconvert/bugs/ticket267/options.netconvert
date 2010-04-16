@@ -1,0 +1,2 @@
+--xml-edge-files=input_edges.edg.xml --xml-connection-files=input_connections.con.xml --xml-node-files=input_nodes.nod.xml --output-file=net.net.xml --speed-in-kmh --keep-edges 4si,1o,1si,3o,3si,2si,2o,2fi,4fi,1fi,3fi --keep-edges.postload
+
