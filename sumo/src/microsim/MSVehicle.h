@@ -808,6 +808,13 @@ public:
 
 #ifndef NO_TRACI
     /**
+     * Get speed before influence of TraCI settings takes place.
+     */
+    SUMOReal getSpeedWithoutTraciInfluence() const throw() {
+        return speedWithoutTraciInfluence;
+    }
+
+    /**
      * schedule a new stop for the vehicle; each time a stop is reached, the vehicle
      * will wait for the given duration before continuing on its route
      * @param lane		lane on wich to stop
@@ -1079,6 +1086,9 @@ private:
 
     /* speed of the vehicle before any speed adaption began */
     SUMOReal speedBeforeAdaption;
+
+    /* speed of the vehicle before influence of TraCI settings takes place */
+    SUMOReal speedWithoutTraciInfluence;
 
     /* the amount by wich the speed shall be reduced */
     SUMOReal speedReduction;

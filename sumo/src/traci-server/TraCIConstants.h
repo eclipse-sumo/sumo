@@ -484,6 +484,9 @@
 // speed (get: vehicle)
 #define VAR_SPEED 0x40
 
+// speed without TraCI influence (get: vehicle)
+#define VAR_SPEED_WITHOUT_TRACI 0x41
+
 // maximum allowed/possible speed (get: vehicle types, lanes, set: edges, lanes)
 #define VAR_MAXSPEED 0x41
 

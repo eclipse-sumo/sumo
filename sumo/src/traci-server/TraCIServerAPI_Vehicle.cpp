@@ -66,7 +66,9 @@ TraCIServerAPI_Vehicle::processGet(tcpip::Storage &inputStorage,
     int variable = inputStorage.readUnsignedByte();
     std::string id = inputStorage.readString();
     // check variable
-    if (variable!=ID_LIST&&variable!=VAR_SPEED&&variable!=VAR_POSITION&&variable!=VAR_ANGLE
+const int vXyz = VAR_SPEED_WITHOUT_TRACI;
+//     if (variable!=ID_LIST&&variable!=VAR_SPEED&&variable!=VAR_SPEED_WITHOUT_TRACI&&variable!=VAR_POSITION&&variable!=VAR_ANGLE
+    if (variable!=ID_LIST&&variable!=VAR_SPEED&&variable!=vXyz&&variable!=VAR_POSITION&&variable!=VAR_ANGLE
             &&variable!=VAR_ROAD_ID&&variable!=VAR_LANE_ID&&variable!=VAR_LANE_INDEX
             &&variable!=VAR_TYPE&&variable!=VAR_ROUTE_ID&&variable!=VAR_COLOR
             &&variable!=VAR_LANEPOSITION
@@ -75,7 +77,7 @@ TraCIServerAPI_Vehicle::processGet(tcpip::Storage &inputStorage,
             &&variable!=VAR_EDGE_TRAVELTIME&&variable!=VAR_EDGE_EFFORT
             &&variable!=VAR_ROUTE_VALID&&variable!=VAR_EDGES
        ) {
-        TraCIServerAPIHelper::writeStatusCmd(CMD_GET_VEHICLE_VARIABLE, RTYPE_ERR, "Unsupported variable specified", outputStorage);
+        TraCIServerAPIHelper::writeStatusCmd(CMD_GET_VEHICLE_VARIABLE, RTYPE_ERR, "Get Vehicle Variable: unsupported variable specified", outputStorage);
         return false;
     }
     // begin response building
@@ -105,6 +107,10 @@ TraCIServerAPI_Vehicle::processGet(tcpip::Storage &inputStorage,
         case VAR_SPEED:
             tempMsg.writeUnsignedByte(TYPE_FLOAT);
             tempMsg.writeFloat(v->getSpeed());
+            break;
+        case VAR_SPEED_WITHOUT_TRACI:
+            tempMsg.writeUnsignedByte(TYPE_FLOAT);
+            tempMsg.writeFloat(v->getSpeedWithoutTraciInfluence());
             break;
         case VAR_POSITION:
             tempMsg.writeUnsignedByte(TYPE_POSITION2D);
@@ -296,7 +302,7 @@ TraCIServerAPI_Vehicle::processSet(tcpip::Storage &inputStorage,
             &&variable!=VAR_EDGE_TRAVELTIME&&variable!=VAR_EDGE_EFFORT
             &&variable!=CMD_REROUTE_TRAVELTIME&&variable!=CMD_REROUTE_EFFORT
        ) {
-        TraCIServerAPIHelper::writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Unsupported variable specified", outputStorage);
+        TraCIServerAPIHelper::writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Change Vehicle State: unsupported variable specified", outputStorage);
         return false;
     }
     // id

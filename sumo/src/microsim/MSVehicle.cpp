@@ -212,6 +212,7 @@ MSVehicle::MSVehicle(SUMOVehicleParameter* pars,
         ,adaptingSpeed(false),
         isLastAdaption(false),
         speedBeforeAdaption(0),
+        speedWithoutTraciInfluence(0),
         timeBeforeAdaption(0),
         speedReduction(0),
         adaptDuration(0),
@@ -927,7 +928,9 @@ MSVehicle::moveFirstChecked() {
     }
     // call reminders after vNext is set
     SUMOReal pos = myState.myPos;
-
+#ifndef NO_TRACI
+    speedWithoutTraciInfluence = MIN2(vNext, myType->getMaxSpeed());
+#endif
     vNext = MIN2(vNext, getMaxSpeed());
 
 #ifdef _MESSAGES
