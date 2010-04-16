@@ -1,4 +1,4 @@
-SUMO sumo Version dev-SVN-r8519
+SUMO sumo Version dev-SVN-r8163
  (c) DLR 2001-2009; http://sumo.sourceforge.net
  
 A microscopic road traffic simulation.
@@ -33,6 +33,7 @@ Usage: sumo [OPTION]*
   --tripinfo-output FILE              Save single vehicle trip inf. into FILE
   --vehroute-output FILE              Save single vehicle route inf. into FILE
   --vehroute-output.exit-times        Write the exit times for all edges
+  --vehroute-output.last-route        Write the last route only
 
  Time Options:
   -b, --begin INT                     Defines the begin time;
@@ -90,6 +91,7 @@ Usage: sumo [OPTION]*
                                         fraction of 1000
   --device.routing.period INT         The period with which the vehicle shall
                                         be rerouted
+  --device.routing.pre-period INT     The rerouting period before emit
   --device.routing.adaptation-weight FLOAT  The weight of prior edge weights.
   --device.routing.adaptation-interval INT  The interval for updating the edge
                                         weights.

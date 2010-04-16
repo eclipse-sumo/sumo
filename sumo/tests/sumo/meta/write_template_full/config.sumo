@@ -15,6 +15,7 @@
         <tripinfo-output value=""/>
         <vehroute-output value=""/>
         <vehroute-output.exit-times value="false"/>
+        <vehroute-output.last-route value="false"/>
     </output>
 
     <time>
@@ -64,6 +65,7 @@
         <device.routing.knownveh value=""/>
         <device.routing.deterministic value="false"/>
         <device.routing.period value="0"/>
+        <device.routing.pre-period value="0"/>
         <device.routing.adaptation-weight value="0.5"/>
         <device.routing.adaptation-interval value="1"/>
         <device.routing.with-taz value="false"/>

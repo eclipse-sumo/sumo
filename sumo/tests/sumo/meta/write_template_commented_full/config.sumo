@@ -37,6 +37,9 @@
         <!-- Write the exit times for all edges -->
         <vehroute-output.exit-times value="false"/>
 
+        <!-- Write the last route only -->
+        <vehroute-output.last-route value="false"/>
+
     </output>
 
     <time>
@@ -153,6 +156,9 @@
 
         <!-- The period with which the vehicle shall be rerouted -->
         <device.routing.period value="0"/>
+
+        <!-- The rerouting period before emit -->
+        <device.routing.pre-period value="0"/>
 
         <!-- The weight of prior edge weights. -->
         <device.routing.adaptation-weight value="0.5"/>
