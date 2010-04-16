@@ -1577,6 +1577,9 @@ NBNode::removeOutgoing(NBEdge *edge) {
         myOutgoingEdges->erase(i);
         i = find(myAllEdges.begin(), myAllEdges.end(), edge);
         myAllEdges.erase(i);
+        for(i=myAllEdges.begin(); i!=myAllEdges.end(); ++i) {
+            (*i)->removeFromConnections(edge);
+        }
     }
 }
 
@@ -1588,6 +1591,9 @@ NBNode::removeIncoming(NBEdge *edge) {
         myIncomingEdges->erase(i);
         i = find(myAllEdges.begin(), myAllEdges.end(), edge);
         myAllEdges.erase(i);
+        for(i=myAllEdges.begin(); i!=myAllEdges.end(); ++i) {
+            (*i)->removeFromConnections(edge);
+        }
     }
 }
 
