@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+
+<!-- generated on Wed Apr 14 05:43:38 2010 by SUMO sumo Version dev-SVN-r8585
+<configuration>
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <additional-files value="input_routes.rou.xml,input_additional.add.xml"/>
+    </input>
+
+    <output>
+        <netstate-dump value="rawdump.xml"/>
+    </output>
+
+    <time>
+        <begin value="0"/>
+        <end value="0"/>
+    </time>
+
+    <report>
+        <no-duration-log value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+</configuration>
+-->
+
+<sumo-netstate>
+</sumo-netstate>

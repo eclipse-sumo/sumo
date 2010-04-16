@@ -78,3 +78,6 @@ speed_random__lanelimit
 
 # checks using the random speed (bounded by veh's vmax)
 speed_random__vehlimit
+
+# Errors on emission
+errors
