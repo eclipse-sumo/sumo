@@ -152,6 +152,8 @@ private:
 
     bool commandScenario() throw(TraCIException);
 
+    bool commandAddVehicle() throw(TraCIException);
+
     bool commandDistanceRequest() throw(TraCIException);
 
     bool commandSubscribeLifecycles() throw(TraCIException);

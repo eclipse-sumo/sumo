@@ -397,6 +397,9 @@ throw(TraCIException, std::invalid_argument) {
     case CMD_SCENARIO:
         success = commandScenario();
         break;
+    case CMD_ADDVEHICLE:
+    	success = commandAddVehicle();
+    	break;
     case CMD_DISTANCEREQUEST:
         success = commandDistanceRequest();
         break;
@@ -1404,6 +1407,89 @@ TraCIServer::commandScenario() throw(TraCIException) {
             myOutputStorage.writeStorage(tmpResult);	// variable dependant part
         }
     }
+    return true;
+}
+
+/*****************************************************************************/
+
+bool
+TraCIServer::commandAddVehicle() throw(TraCIException) {
+
+    // read parameters
+    std::string vehicleId = myInputStorage.readString();
+    std::string vehicleTypeId = myInputStorage.readString();
+    std::string routeId = myInputStorage.readString();
+    std::string laneId = myInputStorage.readString();
+    SUMOReal emitPosition = myInputStorage.readFloat();
+    SUMOReal emitSpeed = myInputStorage.readFloat();
+
+    // find vehicleType
+    MSVehicleType *vehicleType = MSNet::getInstance()->getVehicleControl().getVType(vehicleTypeId);
+    if (!vehicleType) {
+        writeStatusCmd(CMD_ADDVEHICLE, RTYPE_ERR, "Invalid vehicleTypeId: '"+vehicleTypeId+"'");
+        return false;
+    }
+
+    // find route
+    const MSRoute *route = MSRoute::dictionary(routeId);
+    if (!route) {
+        writeStatusCmd(CMD_ADDVEHICLE, RTYPE_ERR, "Invalid routeId: '"+routeId+"'");
+        return false;
+    }
+
+    // find lane
+    MSLane *lane;
+    if (laneId != "") {
+        lane = MSLane::dictionary(laneId);
+        if (!lane) {
+            writeStatusCmd(CMD_ADDVEHICLE, RTYPE_ERR, "Invalid laneId: '"+laneId+"'");
+            return false;
+        }
+    } else {
+        lane = route->getEdges()[0]->getLanes()[0];
+        if (!lane) {
+            writeStatusCmd(CMD_STOP, RTYPE_ERR, "Could not find first lane of first edge in routeId '"+routeId+"'");
+            return false;
+        }
+    }
+
+    // build vehicle
+    SUMOVehicleParameter* vehicleParams = new SUMOVehicleParameter();
+    vehicleParams->id = vehicleId;
+    vehicleParams->depart = MSNet::getInstance()->getCurrentTimeStep()+1;
+    MSVehicle *vehicle = MSNet::getInstance()->getVehicleControl().buildVehicle(vehicleParams, route, vehicleType);
+    if (vehicle == NULL) {
+        writeStatusCmd(CMD_STOP, RTYPE_ERR, "Could not build vehicle");
+        return false;
+    }
+
+    // calculate speed
+    float clippedEmitSpeed;
+    if (emitSpeed<0) {
+        clippedEmitSpeed = MIN2(lane->getMaxSpeed(), vehicle->getMaxSpeed());
+    } else {
+        clippedEmitSpeed = MIN3(lane->getMaxSpeed(), vehicle->getMaxSpeed(), emitSpeed);
+    }
+
+    // insert vehicle into the dictionary
+    if (!MSNet::getInstance()->getVehicleControl().addVehicle(vehicle->getID(), vehicle)) {
+        writeStatusCmd(CMD_ADDVEHICLE, RTYPE_ERR, "Could not add vehicle to VehicleControl");
+        return false;
+    }
+
+    // try to emit
+    if (!lane->isEmissionSuccess(vehicle, clippedEmitSpeed, emitPosition, true)) {
+        MSNet::getInstance()->getVehicleControl().deleteVehicle(vehicle);
+        writeStatusCmd(CMD_ADDVEHICLE, RTYPE_ERR, "Could not emit vehicle");
+        return false;
+    }
+
+    // exec callback
+    vehicle->onDepart();
+
+    // create a reply message
+    writeStatusCmd(CMD_ADDVEHICLE, RTYPE_OK, "");
+
     return true;
 }
 

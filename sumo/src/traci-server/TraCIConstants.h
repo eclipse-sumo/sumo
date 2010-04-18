@@ -80,6 +80,9 @@
 // command: Scenario
 #define CMD_SCENARIO 0x73
 
+// command: add vehicle
+#define CMD_ADDVEHICLE 0x74
+
 // command: move node
 #define CMD_MOVENODE 0x80
 
