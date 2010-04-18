@@ -80,6 +80,95 @@ MSMeanData::MeanDataValues::update() throw() {
 }
 
 
+// ---------------------------------------------------------------------------
+// MSMeanData::MeanDataValueTracker - methods
+// ---------------------------------------------------------------------------
+MSMeanData::MeanDataValueTracker::MeanDataValueTracker(MSLane * const lane,
+        const std::set<std::string>* const vTypes,
+        const MSMeanData* const parent) throw()
+        : MSMeanData::MeanDataValues(lane, vTypes), myParent(parent) {
+        myCurrentData.push_back(new TrackerEntry(parent->createValues(lane)));
+}
+
+
+MSMeanData::MeanDataValueTracker::~MeanDataValueTracker() throw() {
+}
+
+
+void
+MSMeanData::MeanDataValueTracker::reset() throw() {
+    myCurrentData.push_back(new TrackerEntry(myParent->createValues(myLane)));
+}
+
+
+void
+MSMeanData::MeanDataValueTracker::addTo(MSMeanData::MeanDataValues &val) const throw() {
+    myCurrentData.front()->myValues->addTo(val);
+}
+
+
+bool
+MSMeanData::MeanDataValueTracker::isStillActive(MSVehicle& veh, SUMOReal oldPos, SUMOReal newPos, SUMOReal newSpeed) throw() {
+    if (vehicleApplies(veh)) {
+        return myTrackedData[&veh]->myValues->isStillActive(veh, oldPos, newPos, newSpeed);
+    }
+    return false;
+}
+
+
+void
+MSMeanData::MeanDataValueTracker::notifyLeave(MSVehicle& veh, bool isArrival, bool isLaneChange) throw() {
+    if (vehicleApplies(veh)) {
+        myTrackedData[&veh]->myNumVehicleLeft++;
+        myTrackedData[&veh]->myValues->notifyLeave(veh, isArrival, isLaneChange);
+    }
+}
+
+
+bool
+MSMeanData::MeanDataValueTracker::notifyEnter(MSVehicle& veh, bool isEmit, bool isLaneChange) throw() {
+    if (vehicleApplies(veh)) {
+        myTrackedData[&veh] = myCurrentData.back();
+        myTrackedData[&veh]->myNumVehicleEntered++;
+        return myTrackedData[&veh]->myValues->notifyEnter(veh, isEmit, isLaneChange);
+    }
+    return false;
+}
+
+
+bool
+MSMeanData::MeanDataValueTracker::isEmpty() const throw() {
+    return myCurrentData.front()->myValues->isEmpty();
+}
+
+
+void
+MSMeanData::MeanDataValueTracker::write(OutputDevice &dev, const SUMOReal period,
+        const SUMOReal numLanes, const SUMOReal length, const int numVehicles) const throw(IOError) {
+    myCurrentData.front()->myValues->write(dev, period, numLanes, length, myCurrentData.front()->myNumVehicleEntered);
+}
+
+
+int
+MSMeanData::MeanDataValueTracker::getNumReady() const throw() {
+    int result = 0;
+    for (std::list<TrackerEntry*>::const_iterator it = myCurrentData.begin(); it != myCurrentData.end(); ++it) {
+        if ((*it)->myNumVehicleEntered == (*it)->myNumVehicleLeft) {
+            result++;
+        } else {
+            break;
+        }
+    }
+    return result;
+}
+
+
+void
+MSMeanData::MeanDataValueTracker::clearFirst() throw() {
+    myCurrentData.pop_front();
+}
+
+
 
 // ---------------------------------------------------------------------------
 // MSMeanData - methods
@@ -87,10 +176,12 @@ MSMeanData::MeanDataValues::update() throw() {
 MSMeanData::MSMeanData(const std::string &id,
                        const SUMOTime dumpBegin, const SUMOTime dumpEnd,
                        const bool useLanes, const bool withEmpty,
+                       const bool trackVehicles,
                        const SUMOReal maxTravelTime, const SUMOReal minSamples,
                        const std::set<std::string> vTypes) throw()
         : myID(id), myAmEdgeBased(!useLanes), myDumpBegin(dumpBegin), myDumpEnd(dumpEnd),
-        myDumpEmpty(withEmpty), myMaxTravelTime(maxTravelTime), myMinSamples(minSamples), myVehicleTypes(vTypes) {
+        myDumpEmpty(withEmpty), myTrackVehicles(trackVehicles),
+        myMaxTravelTime(maxTravelTime), myMinSamples(minSamples), myVehicleTypes(vTypes) {
 }
 
 
@@ -113,7 +204,11 @@ MSMeanData::init(const std::vector<MSEdge*> &edges, const bool withInternal) thr
 #endif
             const std::vector<MSLane*> &lanes = (*e)->getLanes();
             for (std::vector<MSLane*>::const_iterator lane = lanes.begin(); lane != lanes.end(); ++lane) {
-                myMeasures.back().push_back(createValues(*lane));
+                if (myTrackVehicles) {
+                    myMeasures.back().push_back(new MeanDataValueTracker(*lane, &myVehicleTypes, this));
+                } else {
+                    myMeasures.back().push_back(createValues(*lane));
+                }
             }
         }
     }
@@ -164,21 +259,23 @@ MSMeanData::writeEdge(OutputDevice &dev,
         }
         if (writeCheck) {
             dev.openTag("edge")<<" id=\""<<edge->getID()<<"\">\n";
-            for (lane = edgeValues.begin(); lane != edgeValues.end(); ++lane) {
-                MeanDataValues& meanData = **lane;
-                if (writePrefix(dev, meanData, "<lane id=\""+meanData.getLane()->getID())) {
-                    meanData.write(dev, (SUMOReal)(stopTime - startTime),
-                                   1.f, meanData.getLane()->getLength());
-                }
-                meanData.reset();
+        }
+        for (lane = edgeValues.begin(); lane != edgeValues.end(); ++lane) {
+            MeanDataValues& meanData = **lane;
+            if (writePrefix(dev, meanData, "<lane id=\""+meanData.getLane()->getID())) {
+                meanData.write(dev, (SUMOReal)(stopTime - startTime),
+                                1.f, meanData.getLane()->getLength());
             }
+            meanData.reset();
+        }
+        if (writeCheck) {
             dev.closeTag();
         }
     } else {
         MeanDataValues* sumData = createValues(0);
         for (lane = edgeValues.begin(); lane != edgeValues.end(); ++lane) {
             MeanDataValues& meanData = **lane;
-            sumData->add(meanData);
+            meanData.addTo(*sumData);
             meanData.reset();
         }
         if (writePrefix(dev, *sumData, "<edge id=\""+edge->getID())) {
@@ -204,7 +301,31 @@ void
 MSMeanData::writeXMLOutput(OutputDevice &dev,
                            SUMOTime startTime, SUMOTime stopTime) throw(IOError) {
     // check whether this dump shall be written for the current time
-    if (myDumpBegin < stopTime && myDumpEnd-DELTA_T >= startTime) {
+    int numReady = myDumpBegin < stopTime && myDumpEnd-DELTA_T >= startTime;
+    if (myTrackVehicles && myDumpBegin < stopTime) {
+        myPendingIntervals.push_back(std::make_pair(startTime, stopTime));
+        numReady = myPendingIntervals.size();
+        for (std::vector<std::vector<MeanDataValues*> >::const_iterator i=myMeasures.begin(); i!=myMeasures.end(); ++i) {
+            for (std::vector<MeanDataValues*>::const_iterator j=(*i).begin(); j!=(*i).end(); ++j) {
+                numReady = MIN2(numReady, ((MeanDataValueTracker*)*j)->getNumReady());
+                if (numReady == 0) {
+                    break;
+                }
+            }
+            if (numReady == 0) {
+                break;
+            }
+        }
+    }
+    if (numReady == 0) {
+        resetOnly(stopTime);
+    }
+    while (numReady-- > 0) {
+        if (!myPendingIntervals.empty()) {
+            startTime = myPendingIntervals.front().first;
+            stopTime = myPendingIntervals.front().second;
+            myPendingIntervals.pop_front();
+        }
         dev.openTag("interval")<<" begin=\""<<startTime<<"\" end=\""<<
         stopTime<<"\" "<<"id=\""<<myID<<"\">\n";
         std::vector<MSEdge*>::iterator edge = myEdges.begin();
@@ -212,8 +333,13 @@ MSMeanData::writeXMLOutput(OutputDevice &dev,
             writeEdge(dev, (*i), *edge, startTime, stopTime);
         }
         dev.closeTag();
-    } else {
-        resetOnly(stopTime);
+        if (myTrackVehicles) {
+            for (std::vector<std::vector<MeanDataValues*> >::const_iterator i=myMeasures.begin(); i!=myMeasures.end(); ++i) {
+                for (std::vector<MeanDataValues*>::const_iterator j=(*i).begin(); j!=(*i).end(); ++j) {
+                    ((MeanDataValueTracker*)(*j))->clearFirst();
+                }
+            }
+        }
     }
 }
 

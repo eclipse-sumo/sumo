@@ -31,10 +31,12 @@
 
 #include <vector>
 #include <set>
+#include <list>
 #include <cassert>
+#include <limits>
 #include <microsim/output/MSDetectorFileOutput.h>
 #include <microsim/MSMoveReminder.h>
-#include <limits>
+#include <utils/common/SUMOTime.h>
 
 
 // ===========================================================================
@@ -82,9 +84,11 @@ public:
          */
         virtual void reset() throw() = 0;
 
-        /** @brief Add the values to this meanData
+        /** @brief Add the values of this to the given one and store them there
+         *
+         * @param[in] val The meandata to add to
          */
-        virtual void add(MeanDataValues& val) throw() = 0;
+        virtual void addTo(MeanDataValues& val) const throw() = 0;
 
         /// @name Methods inherited from MSMoveReminder.
         /// @{
@@ -118,7 +122,8 @@ public:
          * @exception IOError If an error on writing occurs (!!! not yet implemented)
          */
         virtual void write(OutputDevice &dev, const SUMOReal period,
-                           const SUMOReal numLanes, const SUMOReal length) const throw(IOError) = 0;
+                           const SUMOReal numLanes, const SUMOReal length,
+                           const int numVehicles=-1) const throw(IOError) = 0;
 
     public:
         /// @name Collected values
@@ -136,6 +141,122 @@ public:
     };
 
 
+    /**
+     * @class MeanDataValueTracker
+     * @brief Data structure for mean (aggregated) edge/lane values for tracked vehicles
+     */
+    class MeanDataValueTracker : public MeanDataValues {
+    public:
+        /** @brief Constructor */
+        MeanDataValueTracker(MSLane * const lane, const std::set<std::string>* const vTypes=0,
+                             const MSMeanData* const parent=0) throw();
+
+        /** @brief Destructor */
+        virtual ~MeanDataValueTracker() throw();
+
+        /** @brief Resets values so they may be used for the next interval
+         */
+        void reset() throw();
+
+        /** @brief Add the values of this to the given one and store them there
+         *
+         * @param[in] val The meandata to add to
+         */
+        void addTo(MSMeanData::MeanDataValues& val) const throw();
+
+        /// @name Methods inherited from MSMoveReminder
+        /// @{
+
+        /** @brief Computes current values and adds them to their sums
+         *
+         * The fraction of time the vehicle is on the lane is computed and
+         *  used as a weight for the vehicle's current values.
+         *
+         * Additionally, if the vehicle has entered this lane, "nVehEnteredLane"
+         *  is incremented, and if the vehicle has left the lane, "nVehLeftLane".
+         *
+         * @param[in] veh The regarded vehicle
+         * @param[in] oldPos Position before the move-micro-timestep.
+         * @param[in] newPos Position after the move-micro-timestep.
+         * @param[in] newSpeed The vehicle's current speed
+         * @return false, if the vehicle is beyond the lane, true otherwise
+         * @see MSMoveReminder
+         * @see MSMoveReminder::isStillActive
+         */
+        bool isStillActive(MSVehicle& veh, SUMOReal oldPos, SUMOReal newPos, SUMOReal newSpeed) throw();
+
+
+        /** @brief Called if the vehicle leaves the reminder's lane
+         *
+         * @param veh The leaving vehicle.
+         * @see MSMoveReminder
+         * @see MSMoveReminder::notifyLeave
+         */
+        void notifyLeave(MSVehicle& veh, bool isArrival, bool isLaneChange) throw();
+
+
+        /** @brief Computes current values and adds them to their sums
+         *
+         * The fraction of time the vehicle is on the lane is computed and
+         *  used as a weight for the vehicle's current values.
+         *  The "emitted" field is incremented, additionally.
+         *
+         * @param[in] veh The vehicle that enters the lane
+         * @param[in] isEmit whether the vehicle was just emitted into the net
+         * @param[in] isLaneChange whether the vehicle changed to the lane
+         * @see MSMoveReminder::notifyEnter
+         * @return Always true
+         */
+        bool notifyEnter(MSVehicle& veh, bool isEmit, bool isLaneChange) throw();
+        //@}
+
+        bool isEmpty() const throw();
+
+        /** @brief Writes output values into the given stream
+         *
+         * @param[in] dev The output device to write the data into
+         * @param[in] period Length of the period the data were gathered
+         * @param[in] numLanes The total number of lanes for which the data was collected
+         * @param[in] length The length of the object for which the data was collected
+         * @exception IOError If an error on writing occurs (!!! not yet implemented)
+         */
+        void write(OutputDevice &dev, const SUMOReal period,
+                   const SUMOReal numLanes, const SUMOReal length,
+                   const int numVehicles=-1) const throw(IOError);
+
+        int getNumReady() const throw();
+
+        void clearFirst() throw();
+
+    private:
+        class TrackerEntry {
+        public:
+            /** @brief Constructor */
+            TrackerEntry(MeanDataValues* const values) throw()
+                    : myNumVehicleEntered(0), myNumVehicleLeft(0), myValues(values) {}
+
+            /// @brief The number of vehicles which entered in the current interval
+            int myNumVehicleEntered;
+
+            /// @brief The number of vehicles which left in the current interval
+            int myNumVehicleLeft;
+
+            /// @brief The number of vehicles which left in the current interval
+            MeanDataValues* myValues;
+        };
+
+        /// @brief The map of vehicles to data entries
+        std::map<MSVehicle*, TrackerEntry*> myTrackedData;
+
+        /// @brief The currently active meandata "intervals"
+        std::list<TrackerEntry*> myCurrentData;
+
+        /// @brief The meandata parent
+        const MSMeanData* myParent;
+
+    };
+
+
 public:
     /** @brief Constructor
      *
@@ -144,6 +265,7 @@ public:
      * @param[in] dumpEnd End time of dump
      * @param[in] useLanes Information whether lane-based or edge-based dump shall be generated
      * @param[in] withEmpty Information whether empty lanes/edges shall be written
+     * @param[in] trackVehicles Information whether vehicles shall be tracked
      * @param[in] maxTravelTime the maximum travel time to use when calculating per vehicle output
      * @param[in] minSamples the minimum number of sample seconds before the values are valid
      * @param[in] vTypes the set of vehicle types to consider
@@ -151,6 +273,7 @@ public:
     MSMeanData(const std::string &id,
                const SUMOTime dumpBegin, const SUMOTime dumpEnd,
                const bool useLanes, const bool withEmpty,
+               const bool trackVehicles,
                const SUMOReal minSamples, const SUMOReal maxTravelTime,
                const std::set<std::string> vTypes) throw();
 
@@ -203,7 +326,7 @@ protected:
      *
      * @param[in] lane The lane to create for
      */
-    virtual MSMeanData::MeanDataValues* createValues(MSLane * const lane) throw(IOError) = 0;
+    virtual MSMeanData::MeanDataValues* createValues(MSLane * const lane) const throw(IOError) = 0;
 
     /** @brief Resets network value in order to allow processing of the next interval
      *
@@ -268,6 +391,12 @@ private:
 
     /// @brief Whether empty lanes/edges shall be written
     const bool myDumpEmpty;
+
+    /// @brief Whether vehicles are tracked
+    const bool myTrackVehicles;
+
+    /// @brief The intervals for which output still has to be generated (only in the tracking case)
+    std::list< std::pair<SUMOTime, SUMOTime> > myPendingIntervals;
 
 private:
     /// @brief Invalidated copy constructor.

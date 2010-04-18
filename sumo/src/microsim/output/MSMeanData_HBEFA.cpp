@@ -49,7 +49,7 @@
 // ---------------------------------------------------------------------------
 MSMeanData_HBEFA::MSLaneMeanDataValues::MSLaneMeanDataValues(MSLane * const lane,
         const std::set<std::string>* const vTypes,
-        MSMeanData_HBEFA *parent) throw()
+        const MSMeanData_HBEFA *parent) throw()
         : MSMeanData::MeanDataValues(lane, vTypes), myParent(parent), CO2(0), CO(0), HC(0), NOx(0), PMx(0), fuel(0) {}
 
 
@@ -71,16 +71,16 @@ MSMeanData_HBEFA::MSLaneMeanDataValues::reset() throw() {
 
 
 void
-MSMeanData_HBEFA::MSLaneMeanDataValues::add(MSMeanData::MeanDataValues &val) throw() {
+MSMeanData_HBEFA::MSLaneMeanDataValues::addTo(MSMeanData::MeanDataValues &val) const throw() {
     MSLaneMeanDataValues& v = (MSLaneMeanDataValues&) val;
-    sampleSeconds += v.sampleSeconds;
-    travelledDistance += v.travelledDistance;
-    CO2 += v.CO2;
-    CO += v.CO;
-    HC += v.HC;
-    NOx += v.NOx;
-    PMx += v.PMx;
-    fuel += v.fuel;
+    v.sampleSeconds += sampleSeconds;
+    v.travelledDistance += travelledDistance;
+    v.CO2 += CO2;
+    v.CO += CO;
+    v.HC += HC;
+    v.NOx += NOx;
+    v.PMx += PMx;
+    v.fuel += fuel;
 }
 
 
@@ -120,7 +120,7 @@ MSMeanData_HBEFA::MSLaneMeanDataValues::isStillActive(MSVehicle& veh, SUMOReal o
 
 void
 MSMeanData_HBEFA::MSLaneMeanDataValues::write(OutputDevice &dev, const SUMOReal period,
-        const SUMOReal numLanes, const SUMOReal length) const throw(IOError) {
+        const SUMOReal numLanes, const SUMOReal length, const int numVehicles) const throw(IOError) {
     dev<<std::resetiosflags(std::ios::floatfield);
     const SUMOReal normFactor = SUMOReal(3600. * 1000. / period / length);
     dev << "\" CO_abs=\""<<SUMOReal(CO*1000.) <<
@@ -162,9 +162,10 @@ MSMeanData_HBEFA::MSLaneMeanDataValues::write(OutputDevice &dev, const SUMOReal 
 MSMeanData_HBEFA::MSMeanData_HBEFA(const std::string &id,
                                    const SUMOTime dumpBegin, const SUMOTime dumpEnd,
                                    const bool useLanes, const bool withEmpty,
+                                   const bool trackVehicles,
                                    const SUMOReal maxTravelTime, const SUMOReal minSamples,
                                    const std::set<std::string> vTypes) throw()
-        : MSMeanData(id, dumpBegin, dumpEnd, useLanes, withEmpty, maxTravelTime, minSamples, vTypes) {
+        : MSMeanData(id, dumpBegin, dumpEnd, useLanes, withEmpty, trackVehicles, maxTravelTime, minSamples, vTypes) {
 }
 
 
@@ -172,7 +173,7 @@ MSMeanData_HBEFA::~MSMeanData_HBEFA() throw() {}
 
 
 MSMeanData::MeanDataValues*
-MSMeanData_HBEFA::createValues(MSLane * const lane) throw(IOError) {
+MSMeanData_HBEFA::createValues(MSLane * const lane) const throw(IOError) {
     return new MSLaneMeanDataValues(lane, &myVehicleTypes, this);
 }
 

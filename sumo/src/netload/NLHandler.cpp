@@ -26,10 +26,6 @@
 #endif
 
 #include <string>
-#include <xercesc/sax/HandlerBase.hpp>
-#include <xercesc/sax/AttributeList.hpp>
-#include <xercesc/sax/SAXParseException.hpp>
-#include <xercesc/sax/SAXException.hpp>
 #include "NLHandler.h"
 #include "NLEdgeControlBuilder.h"
 #include "NLJunctionControlBuilder.h"
@@ -1114,23 +1110,24 @@ NLHandler::addEdgeMeanData(const SUMOSAXAttributes &attrs) {
         return;
     }
     bool ok = true;
-    SUMOReal maxTravelTime = attrs.getOptSUMORealReporting(SUMO_ATTR_MAX_TRAVELTIME, "meandata_edge", id.c_str(), ok, 100000);
-    SUMOReal minSamples = attrs.getOptSUMORealReporting(SUMO_ATTR_MIN_SAMPLES, "meandata_edge", id.c_str(), ok, 0);
-    SUMOReal haltingSpeedThreshold = attrs.getOptSUMORealReporting(SUMO_ATTR_HALTING_SPEED_THRESHOLD, "meandata_edge", id.c_str(), ok, POSITION_EPS);
-    bool excludeEmpty = attrs.getOptBoolReporting(SUMO_ATTR_EXCLUDE_EMPTY, "meandata_edge", id.c_str(), ok, false);
-    bool withInternal = attrs.getOptBoolReporting(SUMO_ATTR_WITH_INTERNAL, "meandata_edge", id.c_str(), ok, false);
-    std::string file = attrs.getStringReporting(SUMO_ATTR_FILE, "meandata_edge", id.c_str(), ok);
-    std::string type = attrs.getOptStringReporting(SUMO_ATTR_TYPE, "meandata_edge", id.c_str(), ok, "performance");
-    std::string vtypes = attrs.getOptStringReporting(SUMO_ATTR_VTYPES, "meandata_edge", id.c_str(), ok, "");
-    SUMOTime frequency = attrs.getOptSUMOTimeReporting(SUMO_ATTR_FREQUENCY, "meandata_edge", id.c_str(), ok, -1);
-    SUMOTime begin = attrs.getOptSUMOTimeReporting(SUMO_ATTR_BEGIN, "meandata_edge", id.c_str(), ok, OptionsCont::getOptions().getInt("begin"));
-    SUMOTime end = attrs.getOptSUMOTimeReporting(SUMO_ATTR_END, "meandata_edge", id.c_str(), ok, OptionsCont::getOptions().getInt("end"));
+    const SUMOReal maxTravelTime = attrs.getOptSUMORealReporting(SUMO_ATTR_MAX_TRAVELTIME, "meandata_edge", id.c_str(), ok, 100000);
+    const SUMOReal minSamples = attrs.getOptSUMORealReporting(SUMO_ATTR_MIN_SAMPLES, "meandata_edge", id.c_str(), ok, 0);
+    const SUMOReal haltingSpeedThreshold = attrs.getOptSUMORealReporting(SUMO_ATTR_HALTING_SPEED_THRESHOLD, "meandata_edge", id.c_str(), ok, POSITION_EPS);
+    const bool excludeEmpty = attrs.getOptBoolReporting(SUMO_ATTR_EXCLUDE_EMPTY, "meandata_edge", id.c_str(), ok, false);
+    const bool withInternal = attrs.getOptBoolReporting(SUMO_ATTR_WITH_INTERNAL, "meandata_edge", id.c_str(), ok, false);
+    const bool trackVehicles = attrs.getOptBoolReporting(SUMO_ATTR_TRACK_VEHICLES, "meandata_edge", id.c_str(), ok, false);
+    const std::string file = attrs.getStringReporting(SUMO_ATTR_FILE, "meandata_edge", id.c_str(), ok);
+    const std::string type = attrs.getOptStringReporting(SUMO_ATTR_TYPE, "meandata_edge", id.c_str(), ok, "performance");
+    const std::string vtypes = attrs.getOptStringReporting(SUMO_ATTR_VTYPES, "meandata_edge", id.c_str(), ok, "");
+    const SUMOTime frequency = attrs.getOptSUMOTimeReporting(SUMO_ATTR_FREQUENCY, "meandata_edge", id.c_str(), ok, -1);
+    const SUMOTime begin = attrs.getOptSUMOTimeReporting(SUMO_ATTR_BEGIN, "meandata_edge", id.c_str(), ok, OptionsCont::getOptions().getInt("begin"));
+    const SUMOTime end = attrs.getOptSUMOTimeReporting(SUMO_ATTR_END, "meandata_edge", id.c_str(), ok, OptionsCont::getOptions().getInt("end"));
     if (!ok) {
         return;
     }
     try {
         myDetectorBuilder.createEdgeLaneMeanData(id, frequency, begin, end,
-                type, false, !excludeEmpty, withInternal,
+                type, false, !excludeEmpty, withInternal, trackVehicles,
                 maxTravelTime, minSamples, haltingSpeedThreshold, vtypes,
                 OutputDevice::getDevice(file, getFileName()));
     } catch (InvalidArgument &e) {
@@ -1149,23 +1146,24 @@ NLHandler::addLaneMeanData(const SUMOSAXAttributes &attrs) {
         return;
     }
     bool ok = true;
-    SUMOReal maxTravelTime = attrs.getOptSUMORealReporting(SUMO_ATTR_MAX_TRAVELTIME, "meandata_lane", id.c_str(), ok, 100000);
-    SUMOReal minSamples = attrs.getOptSUMORealReporting(SUMO_ATTR_MIN_SAMPLES, "meandata_lane", id.c_str(), ok, 0);
-    SUMOReal haltingSpeedThreshold = attrs.getOptSUMORealReporting(SUMO_ATTR_HALTING_SPEED_THRESHOLD, "meandata_lane", id.c_str(), ok, POSITION_EPS);
-    bool excludeEmpty = attrs.getOptBoolReporting(SUMO_ATTR_EXCLUDE_EMPTY, "meandata_lane", id.c_str(), ok, false);
-    bool withInternal = attrs.getOptBoolReporting(SUMO_ATTR_WITH_INTERNAL, "meandata_lane", id.c_str(), ok, false);
-    std::string file = attrs.getStringReporting(SUMO_ATTR_FILE, "meandata_lane", id.c_str(), ok);
-    std::string type = attrs.getOptStringReporting(SUMO_ATTR_TYPE, "meandata_lane", id.c_str(), ok, "performance");
-    std::string vtypes = attrs.getOptStringReporting(SUMO_ATTR_VTYPES, "meandata_lane", id.c_str(), ok, "");
-    SUMOTime frequency = attrs.getOptSUMOTimeReporting(SUMO_ATTR_FREQUENCY, "meandata_lane", id.c_str(), ok, -1);
-    SUMOTime begin = attrs.getOptSUMOTimeReporting(SUMO_ATTR_BEGIN, "meandata_lane", id.c_str(), ok, OptionsCont::getOptions().getInt("begin"));
-    SUMOTime end = attrs.getOptSUMOTimeReporting(SUMO_ATTR_END, "meandata_lane", id.c_str(), ok, OptionsCont::getOptions().getInt("end"));
+    const SUMOReal maxTravelTime = attrs.getOptSUMORealReporting(SUMO_ATTR_MAX_TRAVELTIME, "meandata_lane", id.c_str(), ok, 100000);
+    const SUMOReal minSamples = attrs.getOptSUMORealReporting(SUMO_ATTR_MIN_SAMPLES, "meandata_lane", id.c_str(), ok, 0);
+    const SUMOReal haltingSpeedThreshold = attrs.getOptSUMORealReporting(SUMO_ATTR_HALTING_SPEED_THRESHOLD, "meandata_lane", id.c_str(), ok, POSITION_EPS);
+    const bool excludeEmpty = attrs.getOptBoolReporting(SUMO_ATTR_EXCLUDE_EMPTY, "meandata_lane", id.c_str(), ok, false);
+    const bool withInternal = attrs.getOptBoolReporting(SUMO_ATTR_WITH_INTERNAL, "meandata_lane", id.c_str(), ok, false);
+    const bool trackVehicles = attrs.getOptBoolReporting(SUMO_ATTR_TRACK_VEHICLES, "meandata_edge", id.c_str(), ok, false);
+    const std::string file = attrs.getStringReporting(SUMO_ATTR_FILE, "meandata_lane", id.c_str(), ok);
+    const std::string type = attrs.getOptStringReporting(SUMO_ATTR_TYPE, "meandata_lane", id.c_str(), ok, "performance");
+    const std::string vtypes = attrs.getOptStringReporting(SUMO_ATTR_VTYPES, "meandata_lane", id.c_str(), ok, "");
+    const SUMOTime frequency = attrs.getOptSUMOTimeReporting(SUMO_ATTR_FREQUENCY, "meandata_lane", id.c_str(), ok, -1);
+    const SUMOTime begin = attrs.getOptSUMOTimeReporting(SUMO_ATTR_BEGIN, "meandata_lane", id.c_str(), ok, OptionsCont::getOptions().getInt("begin"));
+    const SUMOTime end = attrs.getOptSUMOTimeReporting(SUMO_ATTR_END, "meandata_lane", id.c_str(), ok, OptionsCont::getOptions().getInt("end"));
     if (!ok) {
         return;
     }
     try {
         myDetectorBuilder.createEdgeLaneMeanData(id, frequency, begin, end,
-                type, true, !excludeEmpty, withInternal,
+                type, true, !excludeEmpty, withInternal, trackVehicles,
                 maxTravelTime, minSamples, haltingSpeedThreshold, vtypes,
                 OutputDevice::getDevice(file, getFileName()));
     } catch (InvalidArgument &e) {

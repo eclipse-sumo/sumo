@@ -560,7 +560,7 @@ NLDetectorBuilder::getPositionChecking(SUMOReal pos, MSLane *lane, bool friendly
 void
 NLDetectorBuilder::createEdgeLaneMeanData(const std::string &id, SUMOTime frequency,
         SUMOTime begin, SUMOTime end, const std::string &type,
-        const bool useLanes, const bool withEmpty, const bool withInternal,
+        const bool useLanes, const bool withEmpty, const bool withInternal, const bool trackVehicles,
         const SUMOReal maxTravelTime, const SUMOReal minSamples,
         const SUMOReal haltSpeed, const std::string &vTypes,
         OutputDevice& device) throw(InvalidArgument) {
@@ -577,13 +577,13 @@ NLDetectorBuilder::createEdgeLaneMeanData(const std::string &id, SUMOTime freque
     }
     MSMeanData *det = 0;
     if (type==""||type=="performance"||type=="traffic") {
-        det = new MSMeanData_Net(id, begin, end, useLanes, withEmpty,
+        det = new MSMeanData_Net(id, begin, end, useLanes, withEmpty, trackVehicles,
                                  maxTravelTime, minSamples, haltSpeed, vt);
     } else if (type=="hbefa") {
-        det = new MSMeanData_HBEFA(id, begin, end, useLanes, withEmpty,
+        det = new MSMeanData_HBEFA(id, begin, end, useLanes, withEmpty, trackVehicles,
                                    maxTravelTime, minSamples, vt);
     } else if (type=="harmonoise") {
-        det = new MSMeanData_Harmonoise(id, begin, end, useLanes, withEmpty,
+        det = new MSMeanData_Harmonoise(id, begin, end, useLanes, withEmpty, trackVehicles,
                                         maxTravelTime, minSamples, vt);
     }
     if (det!=0) {
