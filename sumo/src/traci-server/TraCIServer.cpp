@@ -2059,10 +2059,10 @@ throw(TraCIException) {
         // net boundaries
     case DOMVAR_BOUNDINGBOX:
         response.writeUnsignedByte(TYPE_BOUNDINGBOX);
-        response.writeFloat(0.0);
-        response.writeFloat(0.0);
-        response.writeFloat(getNetBoundary().getWidth());
-        response.writeFloat(getNetBoundary().getHeight());
+        response.writeFloat(getNetBoundary().xmin());
+        response.writeFloat(getNetBoundary().ymin());
+        response.writeFloat(getNetBoundary().xmax());
+        response.writeFloat(getNetBoundary().ymax());
         // add a warning to the response if the requested data type was not correct
         if (dataType != TYPE_BOUNDINGBOX) {
             warning = "Warning: requested data type could not be used; using boundary box type instead!";
@@ -3042,8 +3042,8 @@ throw(TraCIException) {
                 }
                 if ((variableId == DOMVAR_POSITION) && (dataType == POSITION_2D)) {
                     Position2D pos = vehicle->getPosition();
-                    tempMsg.writeFloat(pos.x() - getNetBoundary().xmin());
-                    tempMsg.writeFloat(pos.y() - getNetBoundary().ymin());
+                    tempMsg.writeFloat(pos.x());
+                    tempMsg.writeFloat(pos.y());
                 }
                 if ((variableId == DOMVAR_POSITION) && (dataType == POSITION_ROADMAP)) {
                     tempMsg.writeString(vehicle->getEdge()->getID());
