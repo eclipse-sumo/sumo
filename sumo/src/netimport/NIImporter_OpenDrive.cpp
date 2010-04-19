@@ -317,17 +317,11 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
                 predC = l.contactPoint;
             }
         }
-                if(e.id=="2217") {
-                    int bla = 0;
-                }
 
         if(e.getMaxLaneNumber(SUMO_TAG_OPENDRIVE_LEFT)!=0&&e.getMaxLaneNumber(SUMO_TAG_OPENDRIVE_RIGHT)!=0) {
             cout << "Both dirs given!" << endl;
         }
 
-        if(e.id=="2209") {
-            int bla = 0;
-        }
         bool isReversed = false;
         if(e.getMaxLaneNumber(SUMO_TAG_OPENDRIVE_LEFT)!=0) {
     //            std::swap(pred, succ);
@@ -366,9 +360,6 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
         if(c.from==0||c.to==0||c.from==c.to) {
             throw ProcessError("Something's false");
         }
-                if(e.id=="2217") {
-                    int bla = 0;
-                }
         setLaneConnections(c,
             *predEdge, c.from->getID()[0]!='-', c.from->getID()[0]=='-' ? SUMO_TAG_OPENDRIVE_RIGHT : SUMO_TAG_OPENDRIVE_LEFT,
             e, isReversed, !isReversed ? SUMO_TAG_OPENDRIVE_RIGHT : SUMO_TAG_OPENDRIVE_LEFT,
@@ -381,12 +372,7 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
             std::cout << "Nope." << std::endl;
             continue;
         }
-        if ((*i).from->getID()=="-2512" && (*i).to->getID()=="-2203") {
-            int bla = 0;
-        }
-
         (*i).from->addEdge2EdgeConnection((*i).to);
-
         std::map<int, int> fromMap = fromLaneMap[(*i).from];
         std::map<int, int> toMap = fromLaneMap[(*i).to];
         for (std::vector<std::pair<int, int> >::const_iterator j=(*i).lanes.begin(); j!=(*i).lanes.end(); ++j) {
@@ -410,9 +396,6 @@ NIImporter_OpenDrive::addViaConnectionSecure(const NBEdgeCont &ec,
         const NBNode * const node, const OpenDriveEdge &e,
         LinkType lt, const std::string &via,
         std::vector<NIImporter_OpenDrive::Connection> &connections) {
-    if (e.id=="2277" && via=="2201") {
-        int bla = 0;
-    }
     NBEdge *from = 0;
     NBEdge *to = 0;
     if (node==e.to) {
@@ -448,9 +431,6 @@ void
 NIImporter_OpenDrive::addE2EConnectionsSecure(const NBEdgeCont &ec, const NBNode * const node,
         const NIImporter_OpenDrive::OpenDriveEdge &from, const NIImporter_OpenDrive::OpenDriveEdge &to,
         std::vector<NIImporter_OpenDrive::Connection> &connections) {
-    if (from.id=="2203"||to.id=="2203") {
-        int bla = 0;
-    }
     // positive direction (from is incoming, to is outgoing)
     NBEdge *fromEdge = ec.retrieve("-" + from.id);
     if (fromEdge==0||!node->hasIncoming(fromEdge)) {
@@ -490,12 +470,6 @@ void
 NIImporter_OpenDrive::setLaneConnections(NIImporter_OpenDrive::Connection &c,
         const OpenDriveEdge &from, bool fromAtBegin, SumoXMLTag fromLaneDir,
         const OpenDriveEdge &to, bool toAtEnd, SumoXMLTag toLaneDir) {
-    if (from.id=="2203"||to.id=="2203") {
-        int bla = 0;
-    }
-    if (c.from->getID()=="2115"||c.to->getID()=="2111") {
-        int bla = 0;
-    }
     const OpenDriveLaneSection &fromLS = fromAtBegin ? from.laneSections[0] : from.laneSections.back();
     const std::vector<OpenDriveLane> &fromLanes = fromLS.lanesByDir.find(fromLaneDir)->second;
     const OpenDriveLaneSection &toLS = toAtEnd ? to.laneSections.back() : to.laneSections[0];
@@ -533,9 +507,6 @@ NIImporter_OpenDrive::setLaneConnections(NIImporter_OpenDrive::Connection &c,
         const OpenDriveEdge &from, bool fromAtBegin, SumoXMLTag fromLaneDir,
         const OpenDriveEdge &via, bool viaIsReversed, SumoXMLTag viaLaneDir,
         const OpenDriveEdge &to, bool toAtEnd, SumoXMLTag toLaneDir) {
-    if (from.id=="2212"||to.id=="2212"||via.id=="2212") {
-        int bla = 0;
-    }
     Connection from2via(0, "", 0);
     setLaneConnections(from2via, from, fromAtBegin, fromLaneDir, via, viaIsReversed, viaLaneDir);
     Connection via2to(0, "", 0);
