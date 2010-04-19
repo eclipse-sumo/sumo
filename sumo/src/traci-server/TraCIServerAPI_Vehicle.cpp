@@ -66,9 +66,7 @@ TraCIServerAPI_Vehicle::processGet(tcpip::Storage &inputStorage,
     int variable = inputStorage.readUnsignedByte();
     std::string id = inputStorage.readString();
     // check variable
-const int vXyz = VAR_SPEED_WITHOUT_TRACI;
-//     if (variable!=ID_LIST&&variable!=VAR_SPEED&&variable!=VAR_SPEED_WITHOUT_TRACI&&variable!=VAR_POSITION&&variable!=VAR_ANGLE
-    if (variable!=ID_LIST&&variable!=VAR_SPEED&&variable!=vXyz&&variable!=VAR_POSITION&&variable!=VAR_ANGLE
+    if (variable!=ID_LIST&&variable!=VAR_SPEED&&variable!=VAR_SPEED_WITHOUT_TRACI&&variable!=VAR_POSITION&&variable!=VAR_ANGLE
             &&variable!=VAR_ROAD_ID&&variable!=VAR_LANE_ID&&variable!=VAR_LANE_INDEX
             &&variable!=VAR_TYPE&&variable!=VAR_ROUTE_ID&&variable!=VAR_COLOR
             &&variable!=VAR_LANEPOSITION
