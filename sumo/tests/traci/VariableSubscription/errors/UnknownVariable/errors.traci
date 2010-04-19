@@ -1,2 +1,2 @@
-Error: Answered with error to command 164: Unsupported variable specified
-Error: Answered with error to command 212: Could not add subscription (Unsupported variable specified).
+Error: Answered with error to command 164: Get Vehicle Variable: unsupported variable specified
+Error: Answered with error to command 212: Could not add subscription (Get Vehicle Variable: unsupported variable specified).

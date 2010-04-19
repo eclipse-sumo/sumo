@@ -1,4 +1,4 @@
-TraCITestClient output file. Date: Mon Feb 01 11:04:46 2010
+TraCITestClient output file. Date: Mon Apr 19 09:31:30 2010
 
 
 -> Command sent: <SimulationStep2>:
@@ -6,7 +6,7 @@ TraCITestClient output file. Date: Mon Feb 01 11:04:46 2010
 
 -> Command sent: <SubscribeVariable>:
   domID=212 objID=0 with 1 variables
-.. Answered with error to command (212), [description: Could not add subscription (Unsupported variable specified).]
+.. Answered with error to command (212), [description: Could not add subscription (Get Vehicle Variable: unsupported variable specified).]
 
 -> Command sent: <SimulationStep2>:
 .. Command acknowledged (2), [description: ]

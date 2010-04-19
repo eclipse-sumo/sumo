@@ -1,4 +1,4 @@
-TraCITestClient output file. Date: Tue Mar 10 14:58:25 2009
+TraCITestClient output file. Date: Mon Apr 19 09:32:07 2010
 
 
 -> Command sent: <SimulationStep>:
@@ -7,7 +7,7 @@ TraCITestClient output file. Date: Tue Mar 10 14:58:25 2009
 
 -> Command sent: <SetValue>:
   domID=194 varID=255 objID=dummy
-.. Answered with error to command (194), [description: Unsupported variable specified]
+.. Answered with error to command (194), [description: Change TLS State: unsupported variable specified]
 
 -> Command sent: <SimulationStep>:
   TargetTime=49.00 PosFormat=1

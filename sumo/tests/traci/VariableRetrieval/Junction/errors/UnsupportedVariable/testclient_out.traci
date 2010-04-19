@@ -1,4 +1,4 @@
-TraCITestClient output file. Date: Wed May 20 16:31:15 2009
+TraCITestClient output file. Date: Mon Apr 19 09:30:28 2010
 
 
 -> Command sent: <SimulationStep>:
@@ -7,7 +7,7 @@ TraCITestClient output file. Date: Wed May 20 16:31:15 2009
 
 -> Command sent: <GetVariable>:
   domID=169 varID=255 objID=1/1
-.. Answered with error to command (169), [description: Unsupported variable specified]
+.. Answered with error to command (169), [description: Get Junction Variable: unsupported variable specified]
 
 -> Command sent: <SimulationStep>:
   TargetTime=6.00 PosFormat=1

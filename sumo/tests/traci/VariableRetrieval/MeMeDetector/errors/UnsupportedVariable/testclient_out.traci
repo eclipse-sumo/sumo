@@ -1,4 +1,4 @@
-TraCITestClient output file. Date: Tue Mar 10 14:58:17 2009
+TraCITestClient output file. Date: Mon Apr 19 09:28:58 2010
 
 
 -> Command sent: <SimulationStep>:
@@ -7,7 +7,7 @@ TraCITestClient output file. Date: Tue Mar 10 14:58:17 2009
 
 -> Command sent: <GetVariable>:
   domID=161 varID=255 objID=dummy
-.. Answered with error to command (161), [description: Unsupported variable specified]
+.. Answered with error to command (161), [description: Get MeMeDetector Variable: unsupported variable specified]
 
 -> Command sent: <SimulationStep>:
   TargetTime=49.00 PosFormat=1

@@ -1,4 +1,4 @@
-TraCITestClient output file. Date: Fri Nov 06 11:24:10 2009
+TraCITestClient output file. Date: Mon Apr 19 09:30:59 2010
 
 
 -> Command sent: <SimulationStep>:
@@ -7,7 +7,7 @@ TraCITestClient output file. Date: Fri Nov 06 11:24:10 2009
 
 -> Command sent: <GetVariable>:
   domID=170 varID=255 objID=dummy
-.. Answered with error to command (170), [description: Unsupported variable specified]
+.. Answered with error to command (170), [description: Get Edge Variable: unsupported variable specified]
 
 -> Command sent: <SimulationStep>:
   TargetTime=6.00 PosFormat=1
