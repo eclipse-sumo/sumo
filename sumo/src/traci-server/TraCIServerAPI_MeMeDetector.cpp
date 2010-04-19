@@ -60,7 +60,7 @@ TraCIServerAPI_MeMeDetector::processGet(tcpip::Storage &inputStorage,
     // check variable
     if (variable!=ID_LIST&&variable!=LAST_STEP_VEHICLE_NUMBER&&variable!=LAST_STEP_MEAN_SPEED
             &&variable!=LAST_STEP_VEHICLE_ID_LIST&&variable!=LAST_STEP_VEHICLE_HALTING_NUMBER) {
-        TraCIServerAPIHelper::writeStatusCmd(CMD_GET_MULTI_ENTRY_EXIT_DETECTOR_VARIABLE, RTYPE_ERR, "Unsupported variable specified", outputStorage);
+        TraCIServerAPIHelper::writeStatusCmd(CMD_GET_MULTI_ENTRY_EXIT_DETECTOR_VARIABLE, RTYPE_ERR, "Get MeMeDetector Variable: unsupported variable specified", outputStorage);
         return false;
     }
     // begin response building

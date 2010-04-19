@@ -61,7 +61,7 @@ TraCIServerAPI_Junction::processGet(tcpip::Storage &inputStorage,
     std::string id = inputStorage.readString();
     // check variable
     if (variable!=ID_LIST&&variable!=VAR_POSITION) {
-        TraCIServerAPIHelper::writeStatusCmd(CMD_GET_JUNCTION_VARIABLE, RTYPE_ERR, "Unsupported variable specified", outputStorage);
+        TraCIServerAPIHelper::writeStatusCmd(CMD_GET_JUNCTION_VARIABLE, RTYPE_ERR, "Get Junction Variable: unsupported variable specified", outputStorage);
         return false;
     }
     // begin response building

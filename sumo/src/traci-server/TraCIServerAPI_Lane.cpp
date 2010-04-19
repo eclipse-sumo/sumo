@@ -66,7 +66,7 @@ TraCIServerAPI_Lane::processGet(tcpip::Storage &inputStorage,
             &&variable!=LAST_STEP_VEHICLE_ID_LIST&&variable!=LAST_STEP_OCCUPANCY&&variable!=LAST_STEP_VEHICLE_HALTING_NUMBER
             &&variable!=LAST_STEP_LENGTH&&variable!=VAR_CURRENT_TRAVELTIME
             &&variable!=LANE_ALLOWED&&variable!=LANE_DISALLOWED) {
-        TraCIServerAPIHelper::writeStatusCmd(CMD_GET_LANE_VARIABLE, RTYPE_ERR, "Unsupported variable specified", outputStorage);
+        TraCIServerAPIHelper::writeStatusCmd(CMD_GET_LANE_VARIABLE, RTYPE_ERR, "Get Lane Variable: unsupported variable specified", outputStorage);
         return false;
     }
     // begin response building
@@ -292,7 +292,7 @@ TraCIServerAPI_Lane::processSet(tcpip::Storage &inputStorage,
     // variable
     int variable = inputStorage.readUnsignedByte();
     if (variable!=VAR_MAXSPEED&&variable!=VAR_LENGTH&&variable!=LANE_ALLOWED&&variable!=LANE_DISALLOWED) {
-        TraCIServerAPIHelper::writeStatusCmd(CMD_SET_LANE_VARIABLE, RTYPE_ERR, "Unsupported variable specified", outputStorage);
+        TraCIServerAPIHelper::writeStatusCmd(CMD_SET_LANE_VARIABLE, RTYPE_ERR, "Change Lane State: unsupported variable specified", outputStorage);
         return false;
     }
     // id

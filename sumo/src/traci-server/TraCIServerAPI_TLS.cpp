@@ -69,7 +69,7 @@ TraCIServerAPI_TLS::processGet(tcpip::Storage &inputStorage,
             &&variable!=TL_CONTROLLED_LANES&&variable!=TL_CONTROLLED_LINKS
             &&variable!=TL_CURRENT_PHASE&&variable!=TL_CURRENT_PROGRAM
             &&variable!=TL_NEXT_SWITCH&&variable!=TL_PHASE_DURATION) {
-        TraCIServerAPIHelper::writeStatusCmd(CMD_GET_TL_VARIABLE, RTYPE_ERR, "Unsupported variable specified", outputStorage);
+        TraCIServerAPIHelper::writeStatusCmd(CMD_GET_TL_VARIABLE, RTYPE_ERR, "Get TLS Variable: unsupported variable specified", outputStorage);
         return false;
     }
     // begin response building
@@ -319,7 +319,7 @@ TraCIServerAPI_TLS::processSet(tcpip::Storage &inputStorage,
     int variable = inputStorage.readUnsignedByte();
     if (variable!=TL_PHASE_BRAKE_YELLOW_STATE&&variable!=TL_PHASE_INDEX&&variable!=TL_PROGRAM
             &&variable!=TL_PHASE_DURATION&&variable!=TL_RED_YELLOW_GREEN_STATE&&variable!=TL_COMPLETE_PROGRAM_RYG) {
-        TraCIServerAPIHelper::writeStatusCmd(CMD_SET_TL_VARIABLE, RTYPE_ERR, "Unsupported variable specified", outputStorage);
+        TraCIServerAPIHelper::writeStatusCmd(CMD_SET_TL_VARIABLE, RTYPE_ERR, "Change TLS State: unsupported variable specified", outputStorage);
         return false;
     }
     std::string id = inputStorage.readString();

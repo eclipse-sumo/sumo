@@ -70,7 +70,7 @@ TraCIServerAPI_Edge::processGet(tcpip::Storage &inputStorage,
             &&variable!=LAST_STEP_VEHICLE_NUMBER&&variable!=LAST_STEP_MEAN_SPEED&&variable!=LAST_STEP_OCCUPANCY
             &&variable!=LAST_STEP_VEHICLE_HALTING_NUMBER&&variable!=LAST_STEP_LENGTH
             &&variable!=LAST_STEP_VEHICLE_ID_LIST) {
-        TraCIServerAPIHelper::writeStatusCmd(CMD_GET_EDGE_VARIABLE, RTYPE_ERR, "Unsupported variable specified", outputStorage);
+        TraCIServerAPIHelper::writeStatusCmd(CMD_GET_EDGE_VARIABLE, RTYPE_ERR, "Get Edge Variable: unsupported variable specified", outputStorage);
         return false;
     }
     // begin response building
@@ -304,7 +304,7 @@ TraCIServerAPI_Edge::processSet(tcpip::Storage &inputStorage,
     // variable
     int variable = inputStorage.readUnsignedByte();
     if (variable!=VAR_EDGE_TRAVELTIME&&variable!=VAR_EDGE_EFFORT&&variable!=VAR_MAXSPEED) {
-        TraCIServerAPIHelper::writeStatusCmd(CMD_SET_EDGE_VARIABLE, RTYPE_ERR, "Unsupported variable specified", outputStorage);
+        TraCIServerAPIHelper::writeStatusCmd(CMD_SET_EDGE_VARIABLE, RTYPE_ERR, "Change Edge State: unsupported variable specified", outputStorage);
         return false;
     }
     // id
