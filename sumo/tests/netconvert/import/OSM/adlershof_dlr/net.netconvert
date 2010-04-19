@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 04/03/10 11:24:11 by SUMO netconvert Version dev-SVN-r8487
+<!-- generated on 04/06/10 10:23:58 by SUMO netconvert Version dev-SVN-r8163
 <configuration>
 
     <input>
@@ -528,7 +528,7 @@
 
    <edge id="-7727483#0" from="294169342" to="38920501" priority="6" type="highway.tertiary" function="normal">
       <lanes>
-         <lane id="-7727483#0_0" depart="1" maxspeed="22.22" length="4.46" shape="496.73,307.41 497.11,311.85"/>
+         <lane id="-7727483#0_0" depart="1" maxspeed="22.22" length="4.81" shape="496.73,307.41 497.14,312.20"/>
       </lanes>
    </edge>
 
