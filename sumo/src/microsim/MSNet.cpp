@@ -351,7 +351,6 @@ MSNet::simulationStep() {
         MSGlobals::gMesoNet->simulate(myStep);
     } else {
 #endif
-        myJunctions->resetRequests();
         // check whether the tls shall be switched
         myLogics->check2Switch(myStep);
         // set information about which vehicles may drive at all
