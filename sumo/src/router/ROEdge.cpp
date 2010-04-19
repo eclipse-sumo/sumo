@@ -299,7 +299,8 @@ ROEdge::getStoredEffort(SUMOTime time, SUMOReal &ret) const throw() {
             SUMOReal inTT = myTravelTimes.getValue(time);
             SUMOReal ratio = (SUMOReal)(myEfforts.getSplitTime(time, time + (SUMOTime)inTT) - time) / inTT;
             if (ratio >= 0) {
-                return ratio * myEfforts.getValue(time) + (1-ratio)*myEfforts.getValue(time + (SUMOTime)inTT);
+                ret = ratio * myEfforts.getValue(time) + (1-ratio)*myEfforts.getValue(time + (SUMOTime)inTT);
+				return true;
             }
         }
         ret = myEfforts.getValue(time);
