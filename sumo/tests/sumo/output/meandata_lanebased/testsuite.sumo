@@ -22,6 +22,9 @@ lane_change_single
 # Testing begin/end attributes usage
 begin_end
 
+# two vehicles are moving; the first runs with 10m/s, the second with 9m/s
+tracking
+
 # Testing error cases
 errors
 
