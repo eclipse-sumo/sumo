@@ -30,7 +30,7 @@ dist-tests:
 	tar -czf $(PACKAGE)-tests-$(VERSION).tar.gz $(distdir)
 	$(am__remove_distdir)
 
-dist-complete: dist dist-tests
+dist-complete: dist dist-doc dist-tests
 	mv $(PACKAGE)-$(VERSION).tar.gz $(PACKAGE)-src-$(VERSION).tar.gz
 	mv $(PACKAGE)-$(VERSION).zip $(PACKAGE)-src-$(VERSION).zip
 
