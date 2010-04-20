@@ -880,14 +880,14 @@ protected:
     /** @brief "Activates" all current move reminder
      *
      * For all move reminder stored in "myMoveReminders", their method
-     *  "MSMoveReminder::notifyEnter" is called. The reminder
-     *  removed if the call returns false.
+     *  "MSMoveReminder::notifyEnter" is called.
      *
-     * @param[in] isEmit true means emit, false: lane change
+     * @param[in] isEmit true means the vehicle was emitted
+     * @param[in] isLaneChange true means the vehicle entered via lane change
      * @see MSMoveReminder
      * @see MSMoveReminder::notifyEnter
      */
-    void activateRemindersByEmitOrLaneChange(bool isEmit) throw();
+    void activateReminders(bool isEmit, bool isLaneChange) throw();
 
 
     /** @brief Adapts the vehicle's entering of a new lane

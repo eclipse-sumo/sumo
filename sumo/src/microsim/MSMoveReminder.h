@@ -84,13 +84,13 @@ public:
     /// @name Interface methods, to be derived by subclasses
     /// @{
 
-    /** @brief Checks whether the reminder still has to be notified aboutthe vehicle moves
+    /** @brief Checks whether the reminder still has to be notified about the vehicle moves
      *
      * Indicator if the reminders is still active for the passed
      * vehicle/parameters. If false, the vehicle will erase this reminder
      * from it's reminder-container.
      *
-     * @param veh Vehicle that asks this remider.
+     * @param veh Vehicle that asks this reminder.
      * @param oldPos Position before move.
      * @param newPos Position after move with newSpeed.
      * @param newSpeed Moving speed.
@@ -100,7 +100,9 @@ public:
     virtual bool isStillActive(MSVehicle& veh,
                                SUMOReal oldPos,
                                SUMOReal newPos,
-                               SUMOReal newSpeed) throw() = 0;
+                               SUMOReal newSpeed) throw() {
+        return true;
+    }
 
 
     /** @brief Called if the vehicle leaves the reminder's lane

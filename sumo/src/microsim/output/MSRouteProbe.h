@@ -81,24 +81,6 @@ public:
         /// @name Methods inherited from MSMoveReminder
         /// @{
 
-        /** @brief Checks whether the vehicle enters
-         *
-         * As soon as the reported vehicle enters the detector area (position>myPosition)
-         *  the entering time is computed and both are added to the parent detector using
-         *  "enter".
-         *
-         * @param[in] veh The vehicle in question.
-         * @param[in] oldPos Position before the move-micro-timestep.
-         * @param[in] newPos Position after the move-micro-timestep.
-         * @param[in] newSpeed Unused here.
-         * @return False, if vehicle passed the detector entierly, else true.
-         * @see MSMoveReminder
-         * @see MSMoveReminder::isStillActive
-         * @see MSE3Collector::enter
-         */
-        bool isStillActive(MSVehicle& veh, SUMOReal , SUMOReal newPos, SUMOReal) throw();
-
-
         /** @brief Returns whether the vehicle shall be aware of this entry
          *
          * Returns true if the vehicle is in front of the entry, so that it

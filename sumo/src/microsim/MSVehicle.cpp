@@ -628,11 +628,11 @@ MSVehicle::adaptLaneEntering2MoveReminder(const MSLane &enteredLane) throw() {
 
 
 void
-MSVehicle::activateRemindersByEmitOrLaneChange(bool isEmit) throw() {
+MSVehicle::activateReminders(bool isEmit, bool isLaneChange) throw() {
     // This erasure-idiom works for all stl-sequence-containers
     // See Meyers: Effective STL, Item 9
     for (std::vector< MSMoveReminder* >::iterator rem=myMoveReminders.begin(); rem!=myMoveReminders.end();) {
-        if (!(*rem)->notifyEnter(*this, isEmit, !isEmit)) {
+        if (!(*rem)->notifyEnter(*this, isEmit, isLaneChange)) {
             rem = myMoveReminders.erase(rem);
         } else {
             ++rem;
@@ -1326,6 +1326,7 @@ MSVehicle::enterLaneAtMove(MSLane* enteredLane, SUMOReal driven) {
 
     // may be optimized: compute only, if the current or the next have more than one lane...!!!
     getBestLanes(true);
+    activateReminders(false, false);
     for (std::vector< MSDevice* >::iterator dev=myDevices.begin(); dev != myDevices.end(); ++dev) {
         (*dev)->enterLaneAtMove(enteredLane, driven);
     }
@@ -1349,7 +1350,7 @@ MSVehicle::enterLaneAtLaneChange(MSLane* enteredLane) {
     // switch to and activate the new lane's reminders
     // keep OldLaneReminders
     myMoveReminders = enteredLane->getMoveReminders();
-    activateRemindersByEmitOrLaneChange(false);
+    activateReminders(false, true);
     for (std::vector< MSDevice* >::iterator dev=myDevices.begin(); dev != myDevices.end(); ++dev) {
         (*dev)->enterLaneAtLaneChange(enteredLane);
     }
@@ -1392,7 +1393,7 @@ MSVehicle::enterLaneAtEmit(MSLane* enteredLane, SUMOReal pos, SUMOReal speed) {
     myLane = enteredLane;
     // set and activate the new lane's reminders
     myMoveReminders = enteredLane->getMoveReminders();
-    activateRemindersByEmitOrLaneChange(true);
+    activateReminders(true, false);
     for (std::vector< MSDevice* >::iterator dev=myDevices.begin(); dev != myDevices.end(); ++dev) {
         (*dev)->enterLaneAtEmit(enteredLane, myState);
     }
@@ -1413,6 +1414,10 @@ MSVehicle::enterLaneAtEmit(MSLane* enteredLane, SUMOReal pos, SUMOReal speed) {
 
 void
 MSVehicle::leaveLaneAtMove(SUMOReal driven) {
+    std::vector< MSMoveReminder* >::iterator rem;
+    for (rem=myMoveReminders.begin(); rem != myMoveReminders.end(); ++rem) {
+        (*rem)->notifyLeave(*this, false, false);
+    }
     for (std::vector< MSDevice* >::iterator dev=myDevices.begin(); dev != myDevices.end(); ++dev) {
         (*dev)->leaveLaneAtMove(driven);
     }

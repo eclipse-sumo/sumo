@@ -54,18 +54,8 @@ MSRouteProbe::EntryReminder::EntryReminder(MSLane * const lane, MSRouteProbe& co
 
 
 bool
-MSRouteProbe::EntryReminder::isStillActive(MSVehicle& veh, SUMOReal oldPos,
-        SUMOReal newPos, SUMOReal newSpeed) throw() {
-    myCollector.addRoute(veh.getRoute());
-    return false;
-}
-
-
-bool
 MSRouteProbe::EntryReminder::notifyEnter(MSVehicle& veh, bool isEmit, bool isLaneChange) throw() {
-    if (isEmit) {
-        myCollector.addRoute(veh.getRoute());
-    }
+    myCollector.addRoute(veh.getRoute());
     return false;
 }
 
