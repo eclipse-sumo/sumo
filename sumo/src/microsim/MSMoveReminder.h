@@ -62,9 +62,10 @@ public:
     /** @brief Constructor.
      *
      * @param[in] lane Lane on which the reminder will work.
+     * @param[in] doAdd whether to add the reminder to the lane
      * @todo Why is the lane not given as a reference?
      */
-    MSMoveReminder(MSLane * const lane) throw();
+    MSMoveReminder(MSLane * const lane, const bool doAdd=true) throw();
 
 
     /** @brief Destructor

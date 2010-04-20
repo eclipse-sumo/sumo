@@ -74,7 +74,7 @@ public:
     class MeanDataValues : public MSMoveReminder {
     public:
         /** @brief Constructor */
-        MeanDataValues(MSLane * const lane, const std::set<std::string>* const vTypes=0) throw();
+        MeanDataValues(MSLane * const lane, const bool doAdd, const std::set<std::string>* const vTypes=0) throw();
 
         /** @brief Destructor */
         virtual ~MeanDataValues() throw();
@@ -325,8 +325,9 @@ protected:
     /** @brief Create an instance of MeanDataValues
      *
      * @param[in] lane The lane to create for
+     * @param[in] doAdd whether to add the values as reminder to the lane
      */
-    virtual MSMeanData::MeanDataValues* createValues(MSLane * const lane) const throw(IOError) = 0;
+    virtual MSMeanData::MeanDataValues* createValues(MSLane * const lane, const bool doAdd) const throw(IOError) = 0;
 
     /** @brief Resets network value in order to allow processing of the next interval
      *

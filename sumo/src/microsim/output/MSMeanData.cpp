@@ -54,8 +54,8 @@
 // ---------------------------------------------------------------------------
 // MSMeanData::MeanDataValues - methods
 // ---------------------------------------------------------------------------
-MSMeanData::MeanDataValues::MeanDataValues(MSLane * const lane, const std::set<std::string>* const vTypes) throw()
-        : MSMoveReminder(lane), sampleSeconds(0), travelledDistance(0), myVehicleTypes(vTypes) {}
+MSMeanData::MeanDataValues::MeanDataValues(MSLane * const lane, const bool doAdd, const std::set<std::string>* const vTypes) throw()
+        : MSMoveReminder(lane, doAdd), sampleSeconds(0), travelledDistance(0), myVehicleTypes(vTypes) {}
 
 
 MSMeanData::MeanDataValues::~MeanDataValues() throw() {
@@ -87,7 +87,7 @@ MSMeanData::MeanDataValueTracker::MeanDataValueTracker(MSLane * const lane,
         const std::set<std::string>* const vTypes,
         const MSMeanData* const parent) throw()
         : MSMeanData::MeanDataValues(lane, vTypes), myParent(parent) {
-        myCurrentData.push_back(new TrackerEntry(parent->createValues(lane)));
+        myCurrentData.push_back(new TrackerEntry(parent->createValues(lane, false)));
 }
 
 
@@ -97,7 +97,7 @@ MSMeanData::MeanDataValueTracker::~MeanDataValueTracker() throw() {
 
 void
 MSMeanData::MeanDataValueTracker::reset() throw() {
-    myCurrentData.push_back(new TrackerEntry(myParent->createValues(myLane)));
+    myCurrentData.push_back(new TrackerEntry(myParent->createValues(myLane, false)));
 }
 
 
@@ -207,7 +207,7 @@ MSMeanData::init(const std::vector<MSEdge*> &edges, const bool withInternal) thr
                 if (myTrackVehicles) {
                     myMeasures.back().push_back(new MeanDataValueTracker(*lane, &myVehicleTypes, this));
                 } else {
-                    myMeasures.back().push_back(createValues(*lane));
+                    myMeasures.back().push_back(createValues(*lane, true));
                 }
             }
         }
@@ -272,7 +272,7 @@ MSMeanData::writeEdge(OutputDevice &dev,
             dev.closeTag();
         }
     } else {
-        MeanDataValues* sumData = createValues(0);
+        MeanDataValues* sumData = createValues(0, false);
         for (lane = edgeValues.begin(); lane != edgeValues.end(); ++lane) {
             MeanDataValues& meanData = **lane;
             meanData.addTo(*sumData);

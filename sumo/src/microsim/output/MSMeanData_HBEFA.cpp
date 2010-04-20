@@ -47,10 +47,10 @@
 // ---------------------------------------------------------------------------
 // MSMeanData_HBEFA::MSLaneMeanDataValues - methods
 // ---------------------------------------------------------------------------
-MSMeanData_HBEFA::MSLaneMeanDataValues::MSLaneMeanDataValues(MSLane * const lane,
+MSMeanData_HBEFA::MSLaneMeanDataValues::MSLaneMeanDataValues(MSLane * const lane, const bool doAdd,
         const std::set<std::string>* const vTypes,
         const MSMeanData_HBEFA *parent) throw()
-        : MSMeanData::MeanDataValues(lane, vTypes), myParent(parent), CO2(0), CO(0), HC(0), NOx(0), PMx(0), fuel(0) {}
+        : MSMeanData::MeanDataValues(lane, doAdd, vTypes), myParent(parent), CO2(0), CO(0), HC(0), NOx(0), PMx(0), fuel(0) {}
 
 
 MSMeanData_HBEFA::MSLaneMeanDataValues::~MSLaneMeanDataValues() throw() {
@@ -173,8 +173,8 @@ MSMeanData_HBEFA::~MSMeanData_HBEFA() throw() {}
 
 
 MSMeanData::MeanDataValues*
-MSMeanData_HBEFA::createValues(MSLane * const lane) const throw(IOError) {
-    return new MSLaneMeanDataValues(lane, &myVehicleTypes, this);
+MSMeanData_HBEFA::createValues(MSLane * const lane, const bool doAdd) const throw(IOError) {
+    return new MSLaneMeanDataValues(lane, doAdd, &myVehicleTypes, this);
 }
 
 

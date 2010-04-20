@@ -69,7 +69,7 @@ public:
     class MSLaneMeanDataValues : public MSMeanData::MeanDataValues {
     public:
         /** @brief Constructor */
-        MSLaneMeanDataValues(MSLane * const lane,
+        MSLaneMeanDataValues(MSLane * const lane, const bool doAdd,
                              const std::set<std::string>* const vTypes=0,
                              const MSMeanData_HBEFA *parent=0) throw();
 
@@ -170,8 +170,9 @@ protected:
     /** @brief Create an instance of MeanDataValues
      *
      * @param[in] lane The lane to create for
+     * @param[in] doAdd whether to add the values as reminder to the lane
      */
-    MSMeanData::MeanDataValues* createValues(MSLane * const lane) const throw(IOError);
+    MSMeanData::MeanDataValues* createValues(MSLane * const lane, const bool doAdd) const throw(IOError);
 
 private:
     /// @brief Invalidated copy constructor.

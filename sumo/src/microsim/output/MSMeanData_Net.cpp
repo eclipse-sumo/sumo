@@ -54,10 +54,10 @@
 // ---------------------------------------------------------------------------
 // MSMeanData_Net::MSLaneMeanDataValues - methods
 // ---------------------------------------------------------------------------
-MSMeanData_Net::MSLaneMeanDataValues::MSLaneMeanDataValues(MSLane * const lane,
+MSMeanData_Net::MSLaneMeanDataValues::MSLaneMeanDataValues(MSLane * const lane, const bool doAdd,
         const std::set<std::string>* const vTypes,
         const MSMeanData_Net *parent) throw()
-        : MSMeanData::MeanDataValues(lane, vTypes), myParent(parent),
+        : MSMeanData::MeanDataValues(lane, doAdd, vTypes), myParent(parent),
         nVehDeparted(0), nVehArrived(0), nVehEntered(0), nVehLeft(0),
         nVehLaneChangeFrom(0), nVehLaneChangeTo(0), waitSeconds(0), vehLengthSum(0) {}
 
@@ -187,13 +187,16 @@ MSMeanData_Net::MSLaneMeanDataValues::write(OutputDevice &dev, const SUMOReal pe
             traveltime = MIN2(traveltime, length * sampleSeconds / travelledDistance);
         }
         if (numVehicles > 0) {
-            traveltime = sampleSeconds / numVehicles;
+            dev << "\" traveltime=\"" << sampleSeconds / numVehicles <<
+            "\" waitingTime=\"" << waitSeconds <<
+            "\" speed=\"" << travelledDistance / sampleSeconds;
+        } else {
+            dev << "\" traveltime=\"" << traveltime <<
+            "\" density=\"" << sampleSeconds / period *(SUMOReal) 1000 / length <<
+            "\" occupancy=\"" << vehLengthSum / period / length / numLanes *(SUMOReal) 100 <<
+            "\" waitingTime=\"" << waitSeconds <<
+            "\" speed=\"" << travelledDistance / sampleSeconds;
         }
-        dev << "\" traveltime=\"" << traveltime <<
-        "\" density=\"" << sampleSeconds / period *(SUMOReal) 1000 / length <<
-        "\" occupancy=\"" << vehLengthSum / period / length / numLanes *(SUMOReal) 100 <<
-        "\" waitingTime=\"" << waitSeconds <<
-        "\" speed=\"" << travelledDistance / sampleSeconds;
     }
     dev<<"\" departed=\""<<nVehDeparted<<
     "\" arrived=\""<<nVehArrived<<
@@ -257,8 +260,8 @@ MSMeanData_Net::~MSMeanData_Net() throw() {}
 
 
 MSMeanData::MeanDataValues*
-MSMeanData_Net::createValues(MSLane * const lane) const throw(IOError) {
-    return new MSLaneMeanDataValues(lane, &myVehicleTypes, this);
+MSMeanData_Net::createValues(MSLane * const lane, const bool doAdd) const throw(IOError) {
+    return new MSLaneMeanDataValues(lane, doAdd, &myVehicleTypes, this);
 }
 
 
