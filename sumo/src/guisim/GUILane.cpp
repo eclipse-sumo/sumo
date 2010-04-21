@@ -67,7 +67,7 @@ GUILane::~GUILane() throw() {
 // ------ Vehicle emission ------
 bool
 GUILane::isEmissionSuccess(MSVehicle* aVehicle, SUMOReal speed, SUMOReal pos,
-                           bool recheckNextLanes) throw() {
+                           bool recheckNextLanes) throw(ProcessError) {
     myLock.lock();
     bool ret = MSLane::isEmissionSuccess(aVehicle, speed, pos, recheckNextLanes);
     myLock.unlock();

@@ -1,3 +1,2 @@
-Error: Route of vehicle '0' is invalid:
-Could not find a valid connection between edges 'beg' and 'end'.
+Error: Vehicle '0' has no valid route. No connection between 'beg' and 'end'.
 Quitting (on error).

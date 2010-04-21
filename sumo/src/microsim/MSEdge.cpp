@@ -277,7 +277,7 @@ MSEdge::getDepartLane(const MSVehicle &v) const throw() {
 
 
 bool
-MSEdge::emit(MSVehicle &v, SUMOTime time) const throw() {
+MSEdge::emit(MSVehicle &v, SUMOTime time) const throw(ProcessError) {
     // when vaporizing, no vehicles are emitted...
     if (isVaporizing()) {
         return false;

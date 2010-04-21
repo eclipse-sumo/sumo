@@ -100,7 +100,7 @@ public:
      * @see MSLane::isEmissionSuccess
      */
     virtual bool isEmissionSuccess(MSVehicle* vehicle, SUMOReal speed, SUMOReal pos,
-                                   bool recheckNextLanes) throw();
+                                   bool recheckNextLanes) throw(ProcessError);
     ///@}
 
 

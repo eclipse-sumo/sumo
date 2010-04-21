@@ -68,7 +68,7 @@ GUIInternalLane::~GUIInternalLane() throw() {
 // ------ Vehicle emission ------
 bool
 GUIInternalLane::isEmissionSuccess(MSVehicle* aVehicle, SUMOReal speed, SUMOReal pos,
-                                   bool recheckNextLanes) throw() {
+                                   bool recheckNextLanes) throw(ProcessError) {
     myLock.lock();
     bool ret = MSInternalLane::isEmissionSuccess(aVehicle, speed, pos, recheckNextLanes);
     myLock.unlock();

@@ -490,10 +490,16 @@ MSVehicle::reroute(SUMOTime t, SUMOAbstractRouter<MSEdge, SUMOVehicle> &router, 
     std::vector<const MSEdge*> edges;
     if (withTaz && MSEdge::dictionary(myParameter->fromTaz+"-source") && MSEdge::dictionary(myParameter->toTaz)) {
         router.compute(MSEdge::dictionary(myParameter->fromTaz+"-source"), MSEdge::dictionary(myParameter->toTaz), (const MSVehicle * const) this, t, edges);
-        edges.erase(edges.begin());
-        edges.pop_back();
+        if (edges.size() >= 2) {
+            edges.erase(edges.begin());
+            edges.pop_back();
+        }
     } else {
         router.compute(*myCurrEdge, myRoute->getLastEdge(), (const MSVehicle * const) this, t, edges);
+    }
+    if (edges.empty()) {
+        WRITE_WARNING("No route for vehicle '" + getID() + "' found.");
+        return;
     }
     // check whether the new route is the same as the prior
     MSRouteIterator ri = myCurrEdge;
@@ -1392,11 +1398,15 @@ MSVehicle::enterLaneAtEmit(MSLane* enteredLane, SUMOReal pos, SUMOReal speed) {
     myWaitingTime = 0;
     myLane = enteredLane;
     // set and activate the new lane's reminders
-    myMoveReminders = enteredLane->getMoveReminders();
-    activateReminders(true, false);
     for (std::vector< MSDevice* >::iterator dev=myDevices.begin(); dev != myDevices.end(); ++dev) {
         (*dev)->enterLaneAtEmit(enteredLane, myState);
     }
+    std::string msg;
+    if (!hasValidRoute(msg)) {
+        throw ProcessError("Vehicle '" + getID() + "' has no valid route. " + msg);
+    }
+    myMoveReminders = enteredLane->getMoveReminders();
+    activateReminders(true, false);
     // build the list of lanes the vehicle is lapping into
     SUMOReal leftLength = myType->getLength() - pos;
     MSLane *clane = enteredLane;

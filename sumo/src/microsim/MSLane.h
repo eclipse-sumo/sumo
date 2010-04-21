@@ -172,7 +172,7 @@ public:
      * @see MSVehicle::getDepartureDefinition
      * @see MSVehicle::DepartArrivalDefinition
      */
-    bool emit(MSVehicle& v) throw();
+    bool emit(MSVehicle& v) throw(ProcessError);
 
 
     /** @brief Tries to emit the given vehicle with the given state (speed and pos)
@@ -194,7 +194,7 @@ public:
      * @see MSVehicle::enterLaneAtEmit
      */
     virtual bool isEmissionSuccess(MSVehicle* vehicle, SUMOReal speed, SUMOReal pos,
-                                   bool recheckNextLanes) throw();
+                                   bool recheckNextLanes) throw(ProcessError);
 
 
     /** @brief Tries to emit the given vehicle on any place

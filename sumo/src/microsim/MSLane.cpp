@@ -168,7 +168,7 @@ MSLane::freeEmit(MSVehicle& veh, SUMOReal mspeed) throw() {
 
 
 bool
-MSLane::emit(MSVehicle& veh) throw() {
+MSLane::emit(MSVehicle& veh) throw(ProcessError) {
     SUMOReal pos = 0;
     SUMOReal speed = 0;
     bool patchSpeed = true; // whether the speed shall be adapted to infrastructure/traffic in front
@@ -235,7 +235,7 @@ MSLane::emit(MSVehicle& veh) throw() {
 bool
 MSLane::isEmissionSuccess(MSVehicle* aVehicle,
                           SUMOReal speed, SUMOReal pos,
-                          bool patchSpeed) throw() {
+                          bool patchSpeed) throw(ProcessError) {
     //  and the speed is not too high (vehicle should decelerate)
     // try to get a leader on consecutive lanes
     //  we have to do this even if we have found a leader on our lane because it may

@@ -148,7 +148,7 @@ private:
      * @return The number of emitted vehicles (0 or 1)
      */
     unsigned int tryEmit(SUMOTime time, MSVehicle *veh,
-                         MSVehicleContainer::VehicleVector &refusedEmits) throw();
+                         MSVehicleContainer::VehicleVector &refusedEmits) throw(ProcessError);
 
 
     /** @brief Checks whether any flow is blocked due to this vehicle and clears the block
