@@ -106,13 +106,15 @@ class Net:
                 target.add(end)
         return target
         
-    def checkRoute(self, startVertex, endVertex, start, end, totalCounts, subCounts, P, odPairSet, matrix, skipList):
+    def checkRoute(self, startVertex, endVertex, totalCounts, subCounts, P, odPairSet, matrixEntry, skipList):
         totalCounts += 1
         vertex = endVertex
         if startVertex.label not in skipList and endVertex.label not in skipList:
             if vertex not in P:
                 subCounts += 1
-                odPairSet.append((startVertex.label, endVertex.label, matrix[start][end]))
+                odPairSet.append((startVertex.label, endVertex.label, matrixEntry))
+                if options.verbose:
+                    print "no connection to", endVertex.label
 
         return totalCounts, subCounts, odPairSet
         
@@ -264,7 +266,6 @@ def main():
     tripDir = os.getcwd()
     dataDir = options.datadir
     districts = os.path.join(dataDir, options.districtfile)
-    matrix = os.path.join(dataDir, options.mtxfile)
     netfile = os.path.join(dataDir, options.netfile)
     sumDemand = 0.
     count = 0
@@ -289,26 +290,39 @@ def main():
     if options.skipList:
         for elem in options.skipList.split(','):
             skipList.append(elem)
-    matrixPshort, startVertices, endVertices = getMatrix(net, options.verbose, matrix, MatrixSum)
+    if options.mtxfile:
+        matrixPshort, startVertices, endVertices = getMatrix(net, options.verbose, os.path.join(dataDir, options.mtxfile), MatrixSum)
+    else:
+        matrixPshort = None
+        startVertices = net._startVertices
+        endVertices = net._endVertices
     
-    print len(net._edges), "edges read"
-    print len(startVertices), "start vertices read"
-    print len(endVertices), "target vertices read"    
+    if options.verbose:
+        print len(net._edges), "edges read"
+        print len(startVertices), "start vertices read"
+        print len(endVertices), "target vertices read"    
 
     for start, startVertex in enumerate(startVertices):
         if startVertex not in separateZones:
             targets = net.getTargets(separateZones)
+            if options.verbose:
+                print "checking start vertex", startVertex.label
             D, P = dijkstraPlain(startVertex, targets)
 
             for end, endVertex in enumerate(endVertices):
-                if startVertex.label != endVertex.label and endVertex not in separateZones and matrixPshort[start][end] > 0.:
-                    totalCounts, subCounts, odPairSet = net.checkRoute(startVertex, endVertex, start, end, totalCounts, subCounts, P, odPairSet, matrixPshort, skipList)
+                if startVertex.label != endVertex.label and endVertex not in separateZones:
+                    if matrixPshort:
+                        entry = matrixPshort[start][end]
+                    else:
+                        entry = 1
+                    if entry > 0.:
+                        totalCounts, subCounts, odPairSet = net.checkRoute(startVertex, endVertex, totalCounts, subCounts, P, odPairSet, entry, skipList)
         else:
             for endVertex in separateZones:
                 if startVertex.label != endVertex.label:
-                    totalCounts, subCounts, odPairSet = net.checkRoute(startVertex, endVertex, start, end, totalCounts, subCounts, P, odPairSet, matrixPshort, skipList)
+                    totalCounts, subCounts, odPairSet = net.checkRoute(startVertex, endVertex, totalCounts, subCounts, P, odPairSet, matrixPshort[start][end], skipList)
 
-    print 'total OD connnetions:', totalCounts
+    print 'total OD connections:', totalCounts
     if len(odPairSet) > 0:
         foutzones = file('absentConnections.txt', 'w')
         for pair in odPairSet:
@@ -316,7 +330,7 @@ def main():
             foutzones.write('from: %s   to: %s; demand:%s\n' %(pair[0], pair[1], pair[2]))
         foutzones.close()
         print subCounts, 'connections are absent!' 
-        print sumDemand, 'vehilces are absent.'
+        print sumDemand, 'vehicles are absent.'
     else:
         print 'all connections exist! '
     
@@ -341,7 +355,7 @@ optParser.add_option("-b", "--debug", action="store_true", dest="debug",
                                     
 (options, args) = optParser.parse_args()
 
-if not options.datadir or not options.netfile or not options.mtxfile or not options.districtfile:
+if not options.netfile or not options.districtfile:
     optParser.print_help()
     sys.exit()
 
