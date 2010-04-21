@@ -195,7 +195,7 @@ MSMeanData::init(const std::vector<MSEdge*> &edges, const bool withInternal) thr
             if (MSGlobals::gUseMesoSim) {
                 MESegment *s = MSGlobals::gMesoNet->getSegmentForEdge(**e);
                 while (s!=0) {
-                    myMeasures.back().push_back(createValues(0));
+                    myMeasures.back().push_back(createValues(0, false));
                     s->addDetector(myMeasures.back().back());
                     s = s->getNextSegment();
                 }

@@ -271,7 +271,7 @@ MSMeanData_Net::writeEdge(OutputDevice &dev,
                           MSEdge *edge, SUMOTime startTime, SUMOTime stopTime) throw(IOError) {
 #ifdef HAVE_MESOSIM
     if (MSGlobals::gUseMesoSim) {
-        MSLaneMeanDataValues* sumData = (MSLaneMeanDataValues*)createValues(0);
+        MSLaneMeanDataValues* sumData = (MSLaneMeanDataValues*)createValues(0, false);
         unsigned entered;
         bool isFirst = true;
         MESegment *s = MSGlobals::gMesoNet->getSegmentForEdge(*edge);
