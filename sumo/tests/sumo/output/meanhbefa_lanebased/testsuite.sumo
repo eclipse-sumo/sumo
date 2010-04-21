@@ -4,6 +4,9 @@ no_vehicles
 # one vehicle is moving
 one_vehicle
 
+# one vehicle is moving, subseconds
+one_vehicle_subsecond
+
 # two vehicles are moving which have same properties
 two_same_vehicles
 
