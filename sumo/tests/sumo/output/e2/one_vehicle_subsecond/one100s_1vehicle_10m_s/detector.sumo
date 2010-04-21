@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+
+<!-- generated on 08/03/09 15:04:50 by SUMO sumo Version dev-SVN-r7598
+<configuration>
+
+    <input
+        net-file="net.net.xml"
+        additional-files="input_routes.rou.xml,input_additional.add.xml,input_additional2.add.xml"
+    />
+
+    <time
+        begin="0"
+        end="100"
+    />
+
+    <report
+        no-duration-log="true"
+        no-step-log="true"
+    />
+
+</configuration>
+-->
+
+<detector>
+   <interval begin="0.00" end="100.00" id="3/1to2/1" nSamples="20" meanSpeed="10.00" meanOccupancy="0.50" maxOccupancy="2.50" meanMaxJamLengthInVehicles="0.00" meanMaxJamLengthInMeters="0.00" maxJamLengthInVehicles="0" maxJamLengthInMeters="0.00" jamLengthInVehiclesSum="0" jamLengthInMetersSum="0.00" meanHaltingDuration="0.00" maxHaltingDuration="0.00" haltingDurationSum="0.00" meanIntervalHaltingDuration="0.00" maxIntervalHaltingDuration="0.00" intervalHaltingDurationSum="0.00" startedHalts="0.00" meanVehicleNumber="0.20" maxVehicleNumber="1" />
+</detector>
