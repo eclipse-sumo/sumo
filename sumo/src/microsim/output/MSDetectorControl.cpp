@@ -223,15 +223,22 @@ MSDetectorControl::updateDetectors(SUMOTime step) throw() {
     }
 }
 
-
 void
 MSDetectorControl::writeOutput(SUMOTime step, bool closing) throw(IOError) {
     for (Intervals::iterator i=myIntervals.begin(); i!=myIntervals.end(); ++i) {
         IntervalsKey interval = (*i).first;
-        if (myLastCalls[interval] + interval.first <= step || (closing && myLastCalls[interval] < step)) {
+		//initialise myIntervalTimeStep 
+		if (step >1 && myLastCalls[interval]+myIntervalTimestep[interval]== 0){
+			myIntervalTimestep[interval]= (int)(step -myLastCalls[interval]+ 0.5)-1;
+		}
+		if (myLastCalls[interval] != step) {
+			myIntervalTimestep[interval]++;  
+		}
+		if (interval.first/DELTA_T <=  myIntervalTimestep[interval]|| (closing && myIntervalTimestep[interval] >= 1 /DELTA_T)) {
+			myIntervalTimestep[interval] = 0;
             DetectorFileVec dfVec = (*i).second;
             SUMOTime startTime = myLastCalls[interval];
-            // check whether at the end the output was already generated
+            // check whether the output was already generated at the end
             for (DetectorFileVec::iterator it = dfVec.begin(); it!=dfVec.end(); ++it) {
                 MSDetectorFileOutput* det = it->first;
                 det->writeXMLOutput(*(it->second), startTime, step);

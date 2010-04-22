@@ -159,7 +159,8 @@ MSE3Collector::enter(MSVehicle& veh, SUMOReal entryTimestep) throw() {
         return;
     }
     veh.quitRemindedEntered(this);
-    SUMOReal entryTimestepFraction = (SUMOReal)((int) entryTimestep) + DELTA_T - entryTimestep;
+    SUMOReal entryTimestepFraction = (SUMOReal)((int) (entryTimestep/DELTA_T)) + 1/DELTA_T - (entryTimestep/ DELTA_T);
+	entryTimestepFraction = entryTimestepFraction * DELTA_T;
     SUMOReal speedFraction = (veh.getSpeed() * entryTimestepFraction);
     E3Values v;
     v.entryTime = entryTimestep;
@@ -241,7 +242,7 @@ MSE3Collector::writeXMLOutput(OutputDevice &dev,
         meanSpeed += ((*i).second.speedSum / steps);
     }
     meanTravelTime = vehicleSum!=0 ? meanTravelTime / (SUMOReal) vehicleSum : -1;
-    meanSpeed = vehicleSum!=0 ?  meanSpeed / (SUMOReal) vehicleSum : -1;
+    meanSpeed = vehicleSum!=0 ?  (meanSpeed * DELTA_T) / (SUMOReal) vehicleSum : -1;
     meanHaltsPerVehicle = vehicleSum!=0 ? meanHaltsPerVehicle / (SUMOReal) vehicleSum : -1;
     // clear container
     myLeftContainer.clear();
@@ -268,10 +269,10 @@ MSE3Collector::writeXMLOutput(OutputDevice &dev,
         (*i).second.intervalSpeedSum = 0;
     }
     myLastResetTime = stopTime;
-    meanSpeedWithin = vehicleSumWithin!=0 ?  meanSpeedWithin / (SUMOReal) vehicleSumWithin : -1;
+    meanSpeedWithin = vehicleSumWithin!=0 ?  (meanSpeedWithin * DELTA_T) / (SUMOReal) vehicleSumWithin : -1;
     meanHaltsPerVehicleWithin = vehicleSumWithin!=0 ? meanHaltsPerVehicleWithin / (SUMOReal) vehicleSumWithin : -1;
     meanDurationWithin = vehicleSumWithin!=0 ? meanDurationWithin / (SUMOReal) vehicleSumWithin : -1;
-    meanIntervalSpeedWithin = vehicleSumWithin!=0 ?  meanIntervalSpeedWithin / (SUMOReal) vehicleSumWithin : -1;
+    meanIntervalSpeedWithin = vehicleSumWithin!=0 ?  (meanIntervalSpeedWithin * DELTA_T) / (SUMOReal) vehicleSumWithin : -1;
     meanIntervalHaltsPerVehicleWithin = vehicleSumWithin!=0 ? meanIntervalHaltsPerVehicleWithin / (SUMOReal) vehicleSumWithin : -1;
     meanIntervalDurationWithin = vehicleSumWithin!=0 ? meanIntervalDurationWithin / (SUMOReal) vehicleSumWithin : -1;
 
