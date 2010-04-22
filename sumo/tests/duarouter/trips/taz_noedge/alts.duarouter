@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+
+<!-- generated on 03/25/10 12:01:48 by SUMO duarouter Version dev-SVN-r8515
+<configuration>
+
+    <input>
+        <net-file value="input_net.net.xml"/>
+        <districts value="input_districts.net.xml"/>
+        <trip-defs value="input_trips.trips.xml"/>
+    </input>
+
+    <output>
+        <output-file value="routes.rou.xml"/>
+    </output>
+
+    <processing>
+        <with-taz value="true"/>
+    </processing>
+
+</configuration>
+-->
+
+<route-alternatives>
+    <vehicle id="0" depart="3.00" fromtaz="1" totaz="2">
+        <routeDistribution last="0">
+            <route cost="91.30" probability="1.00000000" edges="beg2left left left2end end"/>
+        </routeDistribution>
+    </vehicle>
+</route-alternatives>
