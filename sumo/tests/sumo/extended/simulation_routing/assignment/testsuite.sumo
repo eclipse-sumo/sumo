@@ -21,3 +21,9 @@ half_by_name
 
 # trips as input, districts used
 trip_with_taz
+
+# trips as input, no edges, districts used
+trip_taz_noedge
+
+# Errors on assignment
+errors

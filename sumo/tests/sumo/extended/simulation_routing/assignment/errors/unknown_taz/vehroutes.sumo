@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+
+<!-- generated on 04/22/10 12:45:26 by SUMO sumo Version dev-SVN-r8619
+<configuration>
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <additional-files value="input_districts.net.xml,input_trips.trips.xml"/>
+    </input>
+
+    <output>
+        <vehroute-output value="vehroutes.xml"/>
+    </output>
+
+    <time>
+        <begin value="0"/>
+    </time>
+
+    <report>
+        <no-duration-log value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+    <routing>
+        <device.routing.probability value="1"/>
+        <device.routing.with-taz value="true"/>
+    </routing>
+
+</configuration>
+-->
+
+<routes>
+</routes>
