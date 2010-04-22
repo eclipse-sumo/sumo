@@ -46,5 +46,8 @@ increasing_time_typedefined_withclass
 # using zones for start / end
 with_taz
 
+# using zones for start / end with no edge specified
+taz_noedge
+
 # Tests false input
 errors
