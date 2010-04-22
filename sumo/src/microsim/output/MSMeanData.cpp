@@ -80,13 +80,19 @@ MSMeanData::MeanDataValues::update() throw() {
 }
 
 
+SUMOReal
+MSMeanData::MeanDataValues::getSamples() const throw() {
+    return sampleSeconds;
+}
+
+
 // ---------------------------------------------------------------------------
 // MSMeanData::MeanDataValueTracker - methods
 // ---------------------------------------------------------------------------
 MSMeanData::MeanDataValueTracker::MeanDataValueTracker(MSLane * const lane,
         const std::set<std::string>* const vTypes,
         const MSMeanData* const parent) throw()
-        : MSMeanData::MeanDataValues(lane, vTypes), myParent(parent) {
+        : MSMeanData::MeanDataValues(lane, true, vTypes), myParent(parent) {
         myCurrentData.push_back(new TrackerEntry(parent->createValues(lane, false)));
 }
 
@@ -149,9 +155,9 @@ MSMeanData::MeanDataValueTracker::write(OutputDevice &dev, const SUMOReal period
 }
 
 
-int
+size_t
 MSMeanData::MeanDataValueTracker::getNumReady() const throw() {
-    int result = 0;
+    size_t result = 0;
     for (std::list<TrackerEntry*>::const_iterator it = myCurrentData.begin(); it != myCurrentData.end(); ++it) {
         if ((*it)->myNumVehicleEntered == (*it)->myNumVehicleLeft) {
             result++;
@@ -165,9 +171,18 @@ MSMeanData::MeanDataValueTracker::getNumReady() const throw() {
 
 void
 MSMeanData::MeanDataValueTracker::clearFirst() throw() {
-    myCurrentData.pop_front();
+    if (myCurrentData.size() == 1) {
+        myCurrentData.front()->reset();
+    } else {
+        myCurrentData.pop_front();
+    }
 }
 
+
+SUMOReal
+MSMeanData::MeanDataValueTracker::getSamples() const throw() {
+    return myCurrentData.front()->myValues->getSamples();
+}
 
 
 // ---------------------------------------------------------------------------
@@ -266,7 +281,11 @@ MSMeanData::writeEdge(OutputDevice &dev,
                 meanData.write(dev, (SUMOReal)(stopTime - startTime),
                                 1.f, meanData.getLane()->getLength());
             }
-            meanData.reset();
+            if (myTrackVehicles) {
+                ((MeanDataValueTracker&)meanData).clearFirst();
+            } else {
+                meanData.reset();
+            }
         }
         if (writeCheck) {
             dev.closeTag();
@@ -276,7 +295,11 @@ MSMeanData::writeEdge(OutputDevice &dev,
         for (lane = edgeValues.begin(); lane != edgeValues.end(); ++lane) {
             MeanDataValues& meanData = **lane;
             meanData.addTo(*sumData);
-            meanData.reset();
+            if (myTrackVehicles) {
+                ((MeanDataValueTracker&)meanData).clearFirst();
+            } else {
+                meanData.reset();
+            }
         }
         if (writePrefix(dev, *sumData, "<edge id=\""+edge->getID())) {
             sumData->write(dev, (SUMOReal)(stopTime - startTime),
@@ -290,7 +313,7 @@ MSMeanData::writeEdge(OutputDevice &dev,
 bool
 MSMeanData::writePrefix(OutputDevice &dev, const MeanDataValues &values, const std::string prefix) const throw(IOError) {
     if (myDumpEmpty || !values.isEmpty()) {
-        dev.indent() << prefix << "\" sampledSeconds=\"" << values.sampleSeconds;
+        dev.indent() << prefix << "\" sampledSeconds=\"" << values.getSamples();
         return true;
     }
     return false;
@@ -301,7 +324,7 @@ void
 MSMeanData::writeXMLOutput(OutputDevice &dev,
                            SUMOTime startTime, SUMOTime stopTime) throw(IOError) {
     // check whether this dump shall be written for the current time
-    int numReady = myDumpBegin < stopTime && myDumpEnd-DELTA_T >= startTime;
+    size_t numReady = myDumpBegin < stopTime && myDumpEnd-DELTA_T >= startTime;
     if (myTrackVehicles && myDumpBegin < stopTime) {
         myPendingIntervals.push_back(std::make_pair(startTime, stopTime));
         numReady = myPendingIntervals.size();
@@ -333,13 +356,6 @@ MSMeanData::writeXMLOutput(OutputDevice &dev,
             writeEdge(dev, (*i), *edge, startTime, stopTime);
         }
         dev.closeTag();
-        if (myTrackVehicles) {
-            for (std::vector<std::vector<MeanDataValues*> >::const_iterator i=myMeasures.begin(); i!=myMeasures.end(); ++i) {
-                for (std::vector<MeanDataValues*>::const_iterator j=(*i).begin(); j!=(*i).end(); ++j) {
-                    ((MeanDataValueTracker*)(*j))->clearFirst();
-                }
-            }
-        }
     }
 }
 

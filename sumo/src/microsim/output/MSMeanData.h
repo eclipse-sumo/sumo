@@ -125,7 +125,9 @@ public:
                            const SUMOReal numLanes, const SUMOReal length,
                            const int numVehicles=-1) const throw(IOError) = 0;
 
-    public:
+        virtual SUMOReal getSamples() const throw();
+
+    protected:
         /// @name Collected values
         /// @{
         /// @brief The number of sampled vehicle movements (in s)
@@ -224,9 +226,11 @@ public:
                    const SUMOReal numLanes, const SUMOReal length,
                    const int numVehicles=-1) const throw(IOError);
 
-        int getNumReady() const throw();
+        size_t getNumReady() const throw();
 
         void clearFirst() throw();
+
+        SUMOReal getSamples() const throw();
 
     private:
         class TrackerEntry {
@@ -243,6 +247,12 @@ public:
 
             /// @brief The number of vehicles which left in the current interval
             MeanDataValues* myValues;
+
+            void reset() {
+                myNumVehicleEntered = 0;
+                myNumVehicleLeft = 0;
+                myValues->reset();
+            }
         };
 
         /// @brief The map of vehicles to data entries
