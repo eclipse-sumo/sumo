@@ -96,9 +96,9 @@ TraCIServerAPI_Polygon::processGet(tcpip::Storage &inputStorage,
             break;
         case VAR_COLOR:
             tempMsg.writeUnsignedByte(TYPE_COLOR);
-            tempMsg.writeUnsignedByte((int)(p->getColor().red()*255.));
-            tempMsg.writeUnsignedByte((int)(p->getColor().green()*255.));
-            tempMsg.writeUnsignedByte((int)(p->getColor().blue()*255.));
+            tempMsg.writeUnsignedByte(static_cast<int>(p->getColor().red()*255.+.5));
+            tempMsg.writeUnsignedByte(static_cast<int>(p->getColor().green()*255.+.5));
+            tempMsg.writeUnsignedByte(static_cast<int>(p->getColor().blue()*255.+.5));
             tempMsg.writeUnsignedByte(255);
             break;
         case VAR_SHAPE:
