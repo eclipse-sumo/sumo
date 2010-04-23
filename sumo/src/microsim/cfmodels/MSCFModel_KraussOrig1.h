@@ -2,7 +2,7 @@
 /// @file    MSCFModel_KraussOrig1.h
 /// @author  Tobias Mayer
 /// @date    Tue, 28 Jul 2009
-/// @version $Id: MSCFModel_KraussOrig1.h 8561 2010-04-03 13:10:33Z dkrajzew $
+/// @version $Id$
 ///
 // The original Krauss (1998) car-following model and parameter
 /****************************************************************************/

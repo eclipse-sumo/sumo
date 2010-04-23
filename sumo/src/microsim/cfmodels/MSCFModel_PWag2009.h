@@ -2,7 +2,7 @@
 /// @file    MSCFModel_PWag2009.h
 /// @author  Daniel Krajzewicz
 /// @date    03.04.2010
-/// @version $Id: MSCFModel_PWag2009.h 8561 2010-04-03 13:10:33Z dkrajzew $
+/// @version $Id$
 ///
 // Scalable model based on Krauﬂ by Peter Wagner
 /****************************************************************************/

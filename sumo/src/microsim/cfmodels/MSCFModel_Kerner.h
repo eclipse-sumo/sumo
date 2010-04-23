@@ -2,7 +2,7 @@
 /// @file    MSCFModel_Kerner.h
 /// @author  Daniel Krajzewicz
 /// @date    03.04.2010
-/// @version $Id: MSCFModel_Kerner.h 8561 2010-04-03 13:10:33Z dkrajzew $
+/// @version $Id$
 ///
 // car-following model by B. Kerner
 /****************************************************************************/

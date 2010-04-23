@@ -3,7 +3,7 @@
 @file    makeDoc.py
 @author  Michael.Behrisch@dlr.de
 @date    2010-04-03
-@version $Id: costFunctionChecker.py 8428 2010-03-11 07:28:20Z dkrajzew $
+@version $Id$
 
 Grab the Mediawiki pages and fit them into a big html page and a pdf.
 
