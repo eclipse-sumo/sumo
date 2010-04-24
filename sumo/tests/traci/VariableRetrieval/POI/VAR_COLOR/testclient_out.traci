@@ -8,7 +8,7 @@ TraCITestClient output file. Date: Thu May 07 08:33:50 2009
 -> Command sent: <GetVariable>:
   domID=167 varID=69 objID=p1
 .. Command acknowledged (167), [description: ]
-  CommandID=183  VariableID=69  ObjectID=p1 valueDataType=17 color value: (51,127,255,255)
+  CommandID=183  VariableID=69  ObjectID=p1 valueDataType=17 color value: (51,128,255,255)
 
 -> Command sent: <GetVariable>:
   domID=167 varID=69 objID=p2
