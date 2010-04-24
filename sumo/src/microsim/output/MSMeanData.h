@@ -133,6 +133,7 @@ public:
         /// @brief The number of sampled vehicle movements (in s)
         SUMOReal sampleSeconds;
         /// @brief The sum of the distances the vehicles travelled
+    public:
         SUMOReal travelledDistance;
         //@}
 
