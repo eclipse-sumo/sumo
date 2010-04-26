@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 03/19/10 08:39:37 by SUMO sumo Version dev-SVN-r8460
+<!-- generated on 04/26/10 12:46:30 by SUMO sumo Version dev-SVN-r8163
 <configuration>
 
     <input>
@@ -658,7 +658,7 @@
     <timestep time="70.00">
         <edge id="e_shape0">
             <lane id="e_shape0_0">
-                <vehicle id="veh0" pos="293.73" speed="32.19"/>
+                <vehicle id="veh0" pos="293.72" speed="32.19"/>
             </lane>
             <lane id="e_shape0_1"/>
             <lane id="e_shape0_2"/>
@@ -721,7 +721,7 @@
     <timestep time="77.00">
         <edge id="e_shape0">
             <lane id="e_shape0_0">
-                <vehicle id="veh0" pos="529.26" speed="34.77"/>
+                <vehicle id="veh0" pos="529.25" speed="34.77"/>
             </lane>
             <lane id="e_shape0_1"/>
             <lane id="e_shape0_2"/>
@@ -739,7 +739,7 @@
     <timestep time="79.00">
         <edge id="e_shape0">
             <lane id="e_shape0_0">
-                <vehicle id="veh0" pos="599.82" speed="35.41"/>
+                <vehicle id="veh0" pos="599.81" speed="35.41"/>
             </lane>
             <lane id="e_shape0_1"/>
             <lane id="e_shape0_2"/>
@@ -1000,7 +1000,7 @@
     <timestep time="108.00">
         <edge id="e_o0">
             <lane id="e_o0_0">
-                <vehicle id="veh0" pos="409.92" speed="42.99"/>
+                <vehicle id="veh0" pos="409.91" speed="42.99"/>
             </lane>
             <lane id="e_o0_1"/>
             <lane id="e_o0_2"/>
