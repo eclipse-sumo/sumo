@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 03/18/10 13:35:12 by SUMO sumo Version dev-SVN-r8460
+<!-- generated on 04/26/10 10:02:22 by SUMO sumo Version dev-SVN-r8163
 <configuration>
 
     <input>
@@ -21,407 +21,407 @@
 -->
 
 <routes>
-    <vehicle id="0.0" depart="0" arrival="123.00">
+    <vehicle id="0.0" depart="0.00" arrival="123.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="0.1" depart="10" arrival="131.00">
+    <vehicle id="0.1" depart="10.00" arrival="131.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="0.2" depart="20" arrival="142.00">
+    <vehicle id="0.2" depart="20.00" arrival="142.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="0.3" depart="30" arrival="152.00">
+    <vehicle id="0.3" depart="30.00" arrival="152.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="0.4" depart="40" arrival="162.00">
+    <vehicle id="0.4" depart="40.00" arrival="162.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="0.5" depart="50" arrival="172.00">
+    <vehicle id="0.5" depart="50.00" arrival="172.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="0.6" depart="60" arrival="182.00">
+    <vehicle id="0.6" depart="60.00" arrival="182.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="0.7" depart="70" arrival="192.00">
+    <vehicle id="0.7" depart="70.00" arrival="192.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="0.8" depart="80" arrival="202.00">
+    <vehicle id="0.8" depart="80.00" arrival="202.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="0.9" depart="90" arrival="213.00">
+    <vehicle id="0.9" depart="90.00" arrival="213.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="0.10" depart="100" arrival="222.00">
+    <vehicle id="0.10" depart="100.00" arrival="222.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="0.11" depart="110" arrival="232.00">
+    <vehicle id="0.11" depart="110.00" arrival="232.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="0.12" depart="120" arrival="243.00">
+    <vehicle id="0.12" depart="120.00" arrival="243.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="0.13" depart="130" arrival="252.00">
+    <vehicle id="0.13" depart="130.00" arrival="252.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="0.14" depart="140" arrival="262.00">
+    <vehicle id="0.14" depart="140.00" arrival="262.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="0.15" depart="150" arrival="272.00">
+    <vehicle id="0.15" depart="150.00" arrival="272.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="0.16" depart="160" arrival="283.00">
+    <vehicle id="0.16" depart="160.00" arrival="283.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="0.17" depart="170" arrival="293.00">
+    <vehicle id="0.17" depart="170.00" arrival="293.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="0.18" depart="180" arrival="301.00">
+    <vehicle id="0.18" depart="180.00" arrival="301.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="0.19" depart="190" arrival="311.00">
+    <vehicle id="0.19" depart="190.00" arrival="311.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="0.20" depart="200" arrival="322.00">
+    <vehicle id="0.20" depart="200.00" arrival="322.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="0.21" depart="210" arrival="331.00">
+    <vehicle id="0.21" depart="210.00" arrival="331.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="0.22" depart="220" arrival="342.00">
+    <vehicle id="0.22" depart="220.00" arrival="342.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="0.23" depart="230" arrival="352.00">
+    <vehicle id="0.23" depart="230.00" arrival="352.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="0.24" depart="240" arrival="362.00">
+    <vehicle id="0.24" depart="240.00" arrival="362.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="0.25" depart="250" arrival="372.00">
+    <vehicle id="0.25" depart="250.00" arrival="372.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="0.26" depart="260" arrival="381.00">
+    <vehicle id="0.26" depart="260.00" arrival="381.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="0.27" depart="270" arrival="391.00">
+    <vehicle id="0.27" depart="270.00" arrival="391.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="0.28" depart="280" arrival="402.00">
+    <vehicle id="0.28" depart="280.00" arrival="402.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="0.29" depart="290" arrival="412.00">
+    <vehicle id="0.29" depart="290.00" arrival="412.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="0.30" depart="300" arrival="423.00">
+    <vehicle id="0.30" depart="300.00" arrival="423.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="0.31" depart="310" arrival="433.00">
+    <vehicle id="0.31" depart="310.00" arrival="433.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="0.32" depart="320" arrival="441.00">
+    <vehicle id="0.32" depart="320.00" arrival="441.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="0.33" depart="330" arrival="452.00">
+    <vehicle id="0.33" depart="330.00" arrival="452.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="0.34" depart="340" arrival="462.00">
+    <vehicle id="0.34" depart="340.00" arrival="462.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="0.35" depart="350" arrival="472.00">
+    <vehicle id="0.35" depart="350.00" arrival="472.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="0.36" depart="360" arrival="481.00">
+    <vehicle id="0.36" depart="360.00" arrival="481.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="0.37" depart="370" arrival="492.00">
+    <vehicle id="0.37" depart="370.00" arrival="492.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="0.38" depart="380" arrival="503.00">
+    <vehicle id="0.38" depart="380.00" arrival="503.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="0.39" depart="390" arrival="512.00">
+    <vehicle id="0.39" depart="390.00" arrival="512.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="0.40" depart="400" arrival="522.00">
+    <vehicle id="0.40" depart="400.00" arrival="522.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="0.41" depart="410" arrival="532.00">
+    <vehicle id="0.41" depart="410.00" arrival="532.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="0.42" depart="420" arrival="543.00">
+    <vehicle id="0.42" depart="420.00" arrival="543.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="0.43" depart="430" arrival="552.00">
+    <vehicle id="0.43" depart="430.00" arrival="552.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="0.44" depart="440" arrival="562.00">
+    <vehicle id="0.44" depart="440.00" arrival="562.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="0.45" depart="450" arrival="572.00">
+    <vehicle id="0.45" depart="450.00" arrival="572.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="0.46" depart="460" arrival="581.00">
+    <vehicle id="0.46" depart="460.00" arrival="581.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="0.47" depart="470" arrival="592.00">
+    <vehicle id="0.47" depart="470.00" arrival="592.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="0.48" depart="480" arrival="603.00">
+    <vehicle id="0.48" depart="480.00" arrival="603.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="0.49" depart="490" arrival="612.00">
+    <vehicle id="0.49" depart="490.00" arrival="612.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="0.50" depart="500" arrival="623.00">
+    <vehicle id="0.50" depart="500.00" arrival="623.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="0.51" depart="510" arrival="633.00">
+    <vehicle id="0.51" depart="510.00" arrival="633.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="0.52" depart="520" arrival="642.00">
+    <vehicle id="0.52" depart="520.00" arrival="642.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="0.53" depart="530" arrival="653.00">
+    <vehicle id="0.53" depart="530.00" arrival="653.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="0.54" depart="540" arrival="661.00">
+    <vehicle id="0.54" depart="540.00" arrival="661.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="0.55" depart="550" arrival="672.00">
+    <vehicle id="0.55" depart="550.00" arrival="672.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="0.56" depart="560" arrival="683.00">
+    <vehicle id="0.56" depart="560.00" arrival="683.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="0.57" depart="570" arrival="691.00">
+    <vehicle id="0.57" depart="570.00" arrival="691.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="0.58" depart="580" arrival="702.00">
+    <vehicle id="0.58" depart="580.00" arrival="702.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="0.59" depart="590" arrival="711.00">
+    <vehicle id="0.59" depart="590.00" arrival="711.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="0.60" depart="600" arrival="722.00">
+    <vehicle id="0.60" depart="600.00" arrival="722.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="0.61" depart="610" arrival="732.00">
+    <vehicle id="0.61" depart="610.00" arrival="732.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="0.62" depart="620" arrival="742.00">
+    <vehicle id="0.62" depart="620.00" arrival="742.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="0.63" depart="630" arrival="752.00">
+    <vehicle id="0.63" depart="630.00" arrival="752.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="0.64" depart="640" arrival="762.00">
+    <vehicle id="0.64" depart="640.00" arrival="762.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="0.65" depart="650" arrival="773.00">
+    <vehicle id="0.65" depart="650.00" arrival="773.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="0.66" depart="660" arrival="782.00">
+    <vehicle id="0.66" depart="660.00" arrival="782.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="0.67" depart="670" arrival="792.00">
+    <vehicle id="0.67" depart="670.00" arrival="792.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="0.68" depart="680" arrival="803.00">
+    <vehicle id="0.68" depart="680.00" arrival="803.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="0.69" depart="690" arrival="812.00">
+    <vehicle id="0.69" depart="690.00" arrival="812.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="0.70" depart="700" arrival="823.00">
+    <vehicle id="0.70" depart="700.00" arrival="823.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="0.71" depart="710" arrival="832.00">
+    <vehicle id="0.71" depart="710.00" arrival="832.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="0.72" depart="720" arrival="842.00">
+    <vehicle id="0.72" depart="720.00" arrival="842.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="0.73" depart="730" arrival="854.00">
+    <vehicle id="0.73" depart="730.00" arrival="854.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="0.74" depart="740" arrival="862.00">
+    <vehicle id="0.74" depart="740.00" arrival="862.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="0.75" depart="750" arrival="873.00">
+    <vehicle id="0.75" depart="750.00" arrival="873.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="0.76" depart="760" arrival="883.00">
+    <vehicle id="0.76" depart="760.00" arrival="883.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="0.77" depart="770" arrival="892.00">
+    <vehicle id="0.77" depart="770.00" arrival="892.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="0.78" depart="780" arrival="902.00">
+    <vehicle id="0.78" depart="780.00" arrival="902.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="0.79" depart="790" arrival="912.00">
+    <vehicle id="0.79" depart="790.00" arrival="912.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="0.80" depart="800" arrival="923.00">
+    <vehicle id="0.80" depart="800.00" arrival="923.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="0.81" depart="810" arrival="932.00">
+    <vehicle id="0.81" depart="810.00" arrival="932.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="0.82" depart="820" arrival="942.00">
+    <vehicle id="0.82" depart="820.00" arrival="942.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="0.83" depart="830" arrival="952.00">
+    <vehicle id="0.83" depart="830.00" arrival="952.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="0.84" depart="840" arrival="963.00">
+    <vehicle id="0.84" depart="840.00" arrival="963.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="0.85" depart="850" arrival="972.00">
+    <vehicle id="0.85" depart="850.00" arrival="972.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="0.86" depart="860" arrival="983.00">
+    <vehicle id="0.86" depart="860.00" arrival="983.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="0.87" depart="870" arrival="991.00">
+    <vehicle id="0.87" depart="870.00" arrival="991.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="0.88" depart="880" arrival="1002.00">
+    <vehicle id="0.88" depart="880.00" arrival="1002.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="0.89" depart="890" arrival="1011.00">
+    <vehicle id="0.89" depart="890.00" arrival="1011.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="0.90" depart="900" arrival="1022.00">
+    <vehicle id="0.90" depart="900.00" arrival="1022.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="0.91" depart="910" arrival="1032.00">
+    <vehicle id="0.91" depart="910.00" arrival="1032.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="0.92" depart="920" arrival="1042.00">
+    <vehicle id="0.92" depart="920.00" arrival="1042.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="0.93" depart="930" arrival="1053.00">
+    <vehicle id="0.93" depart="930.00" arrival="1053.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="0.94" depart="940" arrival="1063.00">
+    <vehicle id="0.94" depart="940.00" arrival="1063.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="0.95" depart="950" arrival="1072.00">
+    <vehicle id="0.95" depart="950.00" arrival="1072.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="0.96" depart="960" arrival="1081.00">
+    <vehicle id="0.96" depart="960.00" arrival="1081.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="0.97" depart="970" arrival="1092.00">
+    <vehicle id="0.97" depart="970.00" arrival="1092.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="0.98" depart="980" arrival="1102.00">
+    <vehicle id="0.98" depart="980.00" arrival="1102.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="0.99" depart="990" arrival="1113.00">
+    <vehicle id="0.99" depart="990.00" arrival="1113.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="0.100" depart="1000" arrival="1122.00">
+    <vehicle id="0.100" depart="1000.00" arrival="1122.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
