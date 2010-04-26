@@ -80,7 +80,7 @@ MSPersonControl::erase(MSPerson *person) {
         OutputDevice& od = OutputDevice::getDeviceByOption("vehroute-output");
         od.openTag("person") << " id=\"" << id
         << "\" depart=\"" << person->getDesiredDepart()
-        << "\" arrival=\"" << MSNet::getInstance()->getCurrentTimeStep()
+        << "\" arrival=\"" << (SUMOTime) MSNet::getInstance()->getCurrentTimeStep()
         << "\">\n";
         od.closeTag();
         od << "\n";

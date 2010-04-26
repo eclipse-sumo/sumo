@@ -202,7 +202,7 @@ MSVehicleControl::scheduleVehicleRemoval(MSVehicle *v) throw() {
         SUMOTime realDepart = (SUMOTime) v->getCORNIntValue(MSCORN::CORN_VEH_DEPART_TIME);
         SUMOTime time = net->getCurrentTimeStep();
         od.openTag("vehicle") << " id=\"" << v->getID() << "\" depart=\""
-        << v->getCORNIntValue(MSCORN::CORN_VEH_DEPART_TIME)
+        << (SUMOTime) v->getCORNIntValue(MSCORN::CORN_VEH_DEPART_TIME)
         << "\" arrival=\"" << MSNet::getInstance()->getCurrentTimeStep();
         if (MSCORN::wished(MSCORN::CORN_OUT_TAZ)) {
             od << "\" fromtaz=\"" << v->getParameter().fromTaz << "\" totaz=\"" << v->getParameter().toTaz;
