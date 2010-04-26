@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 03/18/10 13:37:30 by SUMO sumo Version dev-SVN-r8460
+<!-- generated on 04/26/10 10:07:38 by SUMO sumo Version dev-SVN-r8163
 <configuration>
 
     <input>
@@ -15,6 +15,7 @@
     <time>
         <begin value="0"/>
         <end value="1000"/>
+        <step-length value="0.1"/>
     </time>
 
     <report>
@@ -26,7 +27,7 @@
 -->
 
 <routes>
-    <vehicle id="0" depart="0" arrival="107.20">
+    <vehicle id="0" depart="0.00" arrival="107.20">
         <route edges="4/1to3/1 3/1to2/1 2/1to1/1 1/1to0/1"/>
     </vehicle>
 
