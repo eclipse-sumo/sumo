@@ -124,8 +124,6 @@ public:
     float vehicleExaggeration;
     /// @brief Information whether vehicle blinkers shall be drawn
     bool showBlinker;
-    /// @brief Information whether the c2c radius shall be drawn
-    bool drawcC2CRadius;
     /// @brief Information whether the lane change preference shall be drawn
     bool drawLaneChangePreference;
     /// @brief Information whether the vehicle's name shall be drawn

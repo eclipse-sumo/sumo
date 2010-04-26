@@ -53,7 +53,7 @@ GUIVisualizationSettings::GUIVisualizationSettings() throw()
         internalEdgeNameColor(RGBColor((SUMOReal) .5, (SUMOReal) .25, (SUMOReal) 0)),
         hideConnectors(false),
         minVehicleSize(1), vehicleExaggeration(1), showBlinker(true),
-        drawcC2CRadius(false), drawLaneChangePreference(false),
+        drawLaneChangePreference(false),
         drawVehicleName(false), vehicleNameSize(50),
         vehicleNameColor(RGBColor((SUMOReal) .8, (SUMOReal) .6, (SUMOReal) 0)),
         junctionMode(0), drawLinkTLIndex(false), drawLinkJunctionIndex(false),
@@ -182,7 +182,6 @@ GUIVisualizationSettings::operator==(const GUIVisualizationSettings &v2) {
     if (minVehicleSize!=v2.minVehicleSize) return false;
     if (vehicleExaggeration!=v2.vehicleExaggeration) return false;
     if (showBlinker!=v2.showBlinker) return false;
-    if (drawcC2CRadius!=v2.drawcC2CRadius) return false;
     if (drawLaneChangePreference!=v2.drawLaneChangePreference) return false;
     if (drawVehicleName!=v2.drawVehicleName) return false;
     if (vehicleNameSize!=v2.vehicleNameSize) return false;

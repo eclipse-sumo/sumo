@@ -74,7 +74,7 @@ public:
 
     /** @brief Build devices for the given vehicle, if needed
      *
-     * The options are read and evaluated whether c2c-devices shall be built
+     * The options are read and evaluated whether rerouting-devices shall be built
      *  for the given vehicle.
      *
      * When the first device is built, the static container of edge weights

@@ -305,9 +305,6 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(
         myShowBlinker->setCheck(mySettings->showBlinker);
         new FXLabel(m33, " ", 0, LAYOUT_CENTER_Y);
         /*
-        myShowC2CRadius = new FXCheckButton(m33, "Show C2C radius", this, MID_SIMPLE_VIEW_COLORCHANGE);
-        myShowC2CRadius->setCheck(mySettings->drawcC2CRadius);
-        new FXLabel(m33, " ", 0, LAYOUT_CENTER_Y);
         myShowLaneChangePreference = new FXCheckButton(m33, "Show lane change preference", this, MID_SIMPLE_VIEW_COLORCHANGE);
         myShowLaneChangePreference->setCheck(mySettings->drawLaneChangePreference);
         new FXLabel(m33, " ", 0, LAYOUT_CENTER_Y);
@@ -608,7 +605,6 @@ GUIDialog_ViewSettings::onCmdNameChange(FXObject*,FXSelector,void*data) {
     myVehicleMinSizeDialer->setValue(mySettings->minVehicleSize);
     myShowBlinker->setCheck(mySettings->showBlinker);
     /*
-    myShowC2CRadius->setCheck(mySettings->drawcC2CRadius);
     myShowLaneChangePreference->setCheck(mySettings->drawLaneChangePreference);
     */
     myShowVehicleName->setCheck(mySettings->drawVehicleName);
@@ -684,7 +680,6 @@ GUIDialog_ViewSettings::onCmdColorChange(FXObject*sender,FXSelector,void*val) {
     tmpSettings.minVehicleSize = (SUMOReal) myVehicleMinSizeDialer->getValue();
     tmpSettings.showBlinker = myShowBlinker->getCheck()!=0;
     /*
-    tmpSettings.drawcC2CRadius = myShowC2CRadius->getCheck()!=0;
     tmpSettings.drawLaneChangePreference = myShowLaneChangePreference->getCheck()!=0;
     */
     tmpSettings.drawVehicleName = myShowVehicleName->getCheck()!=0;

@@ -222,7 +222,7 @@ private:
     std::vector<FXButton *> myVehicleButtons;
     FXCheckButton *myVehicleColorInterpolation;
     FXRealSpinDial *myVehicleMinSizeDialer, *myVehicleUpscaleDialer;
-    FXCheckButton *myShowBlinker, /* *myShowC2CRadius, *myShowLaneChangePreference,*/ *myShowVehicleName;
+    FXCheckButton *myShowBlinker, /* *myShowLaneChangePreference,*/ *myShowVehicleName;
     FXRealSpinDial *myVehicleNameSizeDialer;
     FXColorWell *myVehicleNameColor;
 
