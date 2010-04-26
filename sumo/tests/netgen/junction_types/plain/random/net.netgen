@@ -1,21 +1,21 @@
 <?xml version="1.0"?>
 
-<!-- generated on 03/30/09 13:55:29 by SUMO netgen Version dev-SVN-r6961
+<!-- generated on 04/26/10 12:38:22 by SUMO netgen Version dev-SVN-r8163
 <configuration>
 
-   <random_network>
-      <random-net>true</random-net>
-      <rand-iterations>10</rand-iterations>
-      <rand-bidi-probability>0</rand-bidi-probability>
-   </random_network>
+    <random_network>
+        <random-net value="true"/>
+        <rand-iterations value="10"/>
+        <rand-bidi-probability value="0"/>
+    </random_network>
 
-   <output>
-      <output-file>net.net.xml</output-file>
-   </output>
+    <output>
+        <output-file value="net.net.xml"/>
+    </output>
 
-   <report>
-      <verbose>true</verbose>
-   </report>
+    <report>
+        <verbose value="true"/>
+    </report>
 
 </configuration>
 -->
@@ -163,7 +163,7 @@
 
    <junction id="18" type="DEAD_END" x="554.80" y="297.91" incLanes="19_0" intLanes="" shape="553.58,294.90 554.78,297.87"/>
 
-   <junction id="2" type="priority" x="107.74" y="135.58" incLanes="3_0" intLanes=":2_0_0 :2_1_0" shape="105.00,138.08 108.11,137.33 109.06,136.05 110.24,133.08 106.23,132.31 103.31,133.61"/>
+   <junction id="2" type="priority" x="107.74" y="135.58" incLanes="3_0" intLanes=":2_0_0 :2_1_0" shape="105.00,138.08 108.11,137.34 109.06,136.05 110.24,133.08 106.23,132.31 103.31,133.61"/>
 
    <junction id="24" type="DEAD_END" x="489.95" y="551.41" incLanes="25_0" intLanes="" shape="492.68,549.65 489.99,551.38"/>
 

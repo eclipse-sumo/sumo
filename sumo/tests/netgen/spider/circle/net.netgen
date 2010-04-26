@@ -1,17 +1,17 @@
 <?xml version="1.0"?>
 
-<!-- generated on 01/02/09 23:24:11 by SUMO netgen Version 0.9.7
+<!-- generated on 04/26/10 12:37:54 by SUMO netgen Version dev-SVN-r8163
 <configuration>
 
-   <spider_network>
-      <spider-net>true</spider-net>
-      <spider-circle-number>1</spider-circle-number>
-      <spider-omit-center>true</spider-omit-center>
-   </spider_network>
+    <spider_network>
+        <spider-net value="true"/>
+        <spider-circle-number value="1"/>
+        <spider-omit-center value="true"/>
+    </spider_network>
 
-   <output>
-      <output-file>net.net.xml</output-file>
-   </output>
+    <output>
+        <output-file value="net.net.xml"/>
+    </output>
 
 </configuration>
 -->
@@ -280,7 +280,7 @@
 
    <edge id=":7/1_3" function="internal">
       <lanes>
-         <lane id=":7/1_3_0" depart="0" maxspeed="13.90" length="4.82" shape="1.65,122.40 0.82,123.64 -0.00,124.05 -0.83,123.64 -1.65,122.40"/>
+         <lane id=":7/1_3_0" depart="0" maxspeed="13.90" length="4.82" shape="1.65,122.40 0.83,123.64 0.00,124.05 -0.82,123.64 -1.65,122.40"/>
       </lanes>
    </edge>
 

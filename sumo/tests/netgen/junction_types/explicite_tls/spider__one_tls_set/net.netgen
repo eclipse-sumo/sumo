@@ -1,26 +1,26 @@
 <?xml version="1.0"?>
 
-<!-- generated on 05/13/09 10:59:53 by SUMO netgen Version dev-SVN-r7152
+<!-- generated on 04/26/10 12:38:26 by SUMO netgen Version dev-SVN-r8163
 <configuration>
 
-   <spider_network>
-      <spider-net>true</spider-net>
-      <spider-arm-number>4</spider-arm-number>
-      <spider-circle-number>1</spider-circle-number>
-      <spider-space-rad>100</spider-space-rad>
-   </spider_network>
+    <spider_network>
+        <spider-net value="true"/>
+        <spider-arm-number value="4"/>
+        <spider-circle-number value="1"/>
+        <spider-space-rad value="100"/>
+    </spider_network>
 
-   <output>
-      <output-file>net.net.xml</output-file>
-   </output>
+    <output>
+        <output-file value="net.net.xml"/>
+    </output>
 
-   <tls_building>
-      <explicite-tls>1/1</explicite-tls>
-   </tls_building>
+    <tls_building>
+        <explicite-tls value="1/1"/>
+    </tls_building>
 
-   <report>
-      <verbose>true</verbose>
-   </report>
+    <report>
+        <verbose value="true"/>
+    </report>
 
 </configuration>
 -->
@@ -31,7 +31,7 @@
 
    <edge id=":1_0" function="internal">
       <lanes>
-         <lane id=":1_0_0" depart="0" maxspeed="13.90" length="5.00" shape="98.35,104.75 98.16,103.39 97.58,102.42 96.61,101.84 95.25,101.65"/>
+         <lane id=":1_0_0" depart="0" maxspeed="13.90" length="5.00" shape="98.35,104.75 98.16,103.39 97.57,102.43 96.61,101.84 95.25,101.65"/>
       </lanes>
    </edge>
 
@@ -79,7 +79,7 @@
 
    <edge id=":1_8" function="internal">
       <lanes>
-         <lane id=":1_8_0" depart="0" maxspeed="13.90" length="5.00" shape="101.65,95.25 101.84,96.61 102.43,97.58 103.39,98.16 104.75,98.35"/>
+         <lane id=":1_8_0" depart="0" maxspeed="13.90" length="5.00" shape="101.65,95.25 101.84,96.61 102.43,97.57 103.39,98.16 104.75,98.35"/>
       </lanes>
    </edge>
 
@@ -295,7 +295,7 @@
 
    <edge id=":3/1_5" function="internal">
       <lanes>
-         <lane id=":3/1_5_0" depart="0" maxspeed="13.90" length="4.82" shape="9.35,101.65 8.11,100.82 7.70,100.00 8.11,99.17 9.35,98.35"/>
+         <lane id=":3/1_5_0" depart="0" maxspeed="13.90" length="4.82" shape="9.35,101.65 8.11,100.83 7.70,100.00 8.11,99.18 9.35,98.35"/>
       </lanes>
    </edge>
 
@@ -527,13 +527,13 @@
    </row-logic>
 
 
-   <tl-logic id="1/1" type="static" programID="0" offset="0">
-      <phase duration="31" state="GggrrrGGg"/>
-      <phase duration="4" state="yggrrryyg"/>
-      <phase duration="6" state="rGGrrrrrG"/>
-      <phase duration="4" state="ryyrrrrry"/>
-      <phase duration="31" state="rrrGGgGrr"/>
-      <phase duration="4" state="rrryyyyrr"/>
+   <tl-logic id="1/1" type="static" programID="0" offset="0.00">
+      <phase duration="31.00" state="GggrrrGGg"/>
+      <phase duration="4.00" state="yggrrryyg"/>
+      <phase duration="6.00" state="rGGrrrrrG"/>
+      <phase duration="4.00" state="ryyrrrrry"/>
+      <phase duration="31.00" state="rrrGGgGrr"/>
+      <phase duration="4.00" state="rrryyyyrr"/>
    </tl-logic>
 
 

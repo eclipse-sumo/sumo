@@ -1,18 +1,18 @@
 <?xml version="1.0"?>
 
-<!-- generated on 01/02/09 23:24:20 by SUMO netgen Version 0.9.7
+<!-- generated on 04/26/10 12:38:02 by SUMO netgen Version dev-SVN-r8163
 <configuration>
 
-   <spider_network>
-      <spider-net>true</spider-net>
-      <spider-arm-number>3</spider-arm-number>
-      <spider-circle-number>1</spider-circle-number>
-      <spider-space-rad>10</spider-space-rad>
-   </spider_network>
+    <spider_network>
+        <spider-net value="true"/>
+        <spider-arm-number value="3"/>
+        <spider-circle-number value="1"/>
+        <spider-space-rad value="10"/>
+    </spider_network>
 
-   <output>
-      <output-file>net.net.xml</output-file>
-   </output>
+    <output>
+        <output-file value="net.net.xml"/>
+    </output>
 
 </configuration>
 -->
@@ -161,7 +161,7 @@
 
    <edge id=":2/1_5" function="internal">
       <lanes>
-         <lane id=":2/1_5_0" depart="0" maxspeed="13.90" length="4.82" shape="2.18,16.85 0.85,17.51 -0.08,17.45 -0.58,16.68 -0.68,15.20"/>
+         <lane id=":2/1_5_0" depart="0" maxspeed="13.90" length="4.82" shape="2.18,16.85 0.85,17.51 -0.07,17.45 -0.58,16.68 -0.68,15.20"/>
       </lanes>
    </edge>
 

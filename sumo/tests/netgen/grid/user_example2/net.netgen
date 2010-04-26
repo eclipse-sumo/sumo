@@ -1,23 +1,23 @@
 <?xml version="1.0"?>
 
-<!-- generated on 01/02/09 23:23:12 by SUMO netgen Version 0.9.7
+<!-- generated on 04/26/10 12:37:33 by SUMO netgen Version dev-SVN-r8163
 <configuration>
 
-   <grid_network>
-      <grid-net>true</grid-net>
-      <grid-x-number>20</grid-x-number>
-      <grid-y-number>5</grid-y-number>
-      <grid-x-length>200</grid-x-length>
-      <grid-y-length>40</grid-y-length>
-   </grid_network>
+    <grid_network>
+        <grid-net value="true"/>
+        <grid-x-number value="20"/>
+        <grid-y-number value="5"/>
+        <grid-x-length value="200"/>
+        <grid-y-length value="40"/>
+    </grid_network>
 
-   <output>
-      <output-file>net.net.xml</output-file>
-   </output>
+    <output>
+        <output-file value="net.net.xml"/>
+    </output>
 
-   <building_defaults>
-      <lanenumber>3</lanenumber>
-   </building_defaults>
+    <building_defaults>
+        <lanenumber value="3"/>
+    </building_defaults>
 
 </configuration>
 -->
@@ -28,25 +28,25 @@
 
    <edge id=":0/0_0" function="internal">
       <lanes>
-         <lane id=":0/0_0_0" depart="0" maxspeed="13.90" length="29.19" shape="-8.25,9.85 -7.12,1.93 -3.73,-3.73 1.93,-7.12 9.85,-8.25"/>
+         <lane id=":0/0_0_0" depart="0" maxspeed="13.90" length="29.19" shape="-8.25,9.85 -7.12,1.93 -3.72,-3.73 1.93,-7.12 9.85,-8.25"/>
       </lanes>
    </edge>
 
    <edge id=":0/0_1" function="internal">
       <lanes>
-         <lane id=":0/0_1_0" depart="0" maxspeed="13.90" length="23.87" shape="-4.95,9.85 -4.03,3.37 -1.25,-1.25 3.37,-4.03 9.85,-4.95"/>
+         <lane id=":0/0_1_0" depart="0" maxspeed="13.90" length="23.87" shape="-4.95,9.85 -4.03,3.37 -1.25,-1.25 3.38,-4.03 9.85,-4.95"/>
       </lanes>
    </edge>
 
    <edge id=":0/0_2" function="internal">
       <lanes>
-         <lane id=":0/0_2_0" depart="0" maxspeed="13.90" length="18.55" shape="-1.65,9.85 -0.93,4.82 1.22,1.22 4.82,-0.93 9.85,-1.65"/>
+         <lane id=":0/0_2_0" depart="0" maxspeed="13.90" length="18.55" shape="-1.65,9.85 -0.93,4.82 1.23,1.22 4.82,-0.93 9.85,-1.65"/>
       </lanes>
    </edge>
 
    <edge id=":0/0_3" function="internal">
       <lanes>
-         <lane id=":0/0_3_0" depart="0" maxspeed="13.90" length="4.82" shape="-1.65,9.85 -0.82,8.61 0.00,8.20 0.83,8.61 1.65,9.85"/>
+         <lane id=":0/0_3_0" depart="0" maxspeed="13.90" length="4.82" shape="-1.65,9.85 -0.83,8.61 -0.00,8.20 0.82,8.61 1.65,9.85"/>
       </lanes>
    </edge>
 
@@ -70,7 +70,7 @@
 
    <edge id=":0/0_7" function="internal">
       <lanes>
-         <lane id=":0/0_7_0" depart="0" maxspeed="13.90" length="4.82" shape="9.85,1.65 8.61,0.83 8.20,0.00 8.61,-0.82 9.85,-1.65"/>
+         <lane id=":0/0_7_0" depart="0" maxspeed="13.90" length="4.82" shape="9.85,1.65 8.61,0.82 8.20,-0.00 8.61,-0.83 9.85,-1.65"/>
       </lanes>
    </edge>
 
@@ -106,19 +106,19 @@
 
    <edge id=":0/1_5" function="internal">
       <lanes>
-         <lane id=":0/1_5_0" depart="0" maxspeed="13.90" length="4.82" shape="-1.65,51.35 -0.82,50.11 0.00,49.70 0.83,50.11 1.65,51.35"/>
+         <lane id=":0/1_5_0" depart="0" maxspeed="13.90" length="4.82" shape="-1.65,51.35 -0.83,50.11 -0.00,49.70 0.82,50.11 1.65,51.35"/>
       </lanes>
    </edge>
 
    <edge id=":0/1_6" function="internal">
       <lanes>
-         <lane id=":0/1_6_0" depart="0" maxspeed="13.90" length="5.00" shape="11.35,48.25 9.99,48.44 9.03,49.03 8.44,49.99 8.25,51.35"/>
+         <lane id=":0/1_6_0" depart="0" maxspeed="13.90" length="5.00" shape="11.35,48.25 9.99,48.44 9.03,49.02 8.44,49.99 8.25,51.35"/>
       </lanes>
    </edge>
 
    <edge id=":0/1_7" function="internal">
       <lanes>
-         <lane id=":0/1_7_0" depart="0" maxspeed="13.90" length="26.29" shape="11.35,44.95 4.22,43.93 -0.87,40.88 -3.93,35.78 -4.95,28.65"/>
+         <lane id=":0/1_7_0" depart="0" maxspeed="13.90" length="26.29" shape="11.35,44.95 4.22,43.93 -0.88,40.88 -3.93,35.78 -4.95,28.65"/>
       </lanes>
    </edge>
 
@@ -160,7 +160,7 @@
 
    <edge id=":0/1_14" function="internal">
       <lanes>
-         <lane id=":0/1_14_0" depart="0" maxspeed="13.90" length="4.82" shape="1.65,28.65 0.82,29.89 -0.00,30.30 -0.83,29.89 -1.65,28.65"/>
+         <lane id=":0/1_14_0" depart="0" maxspeed="13.90" length="4.82" shape="1.65,28.65 0.83,29.89 0.00,30.30 -0.82,29.89 -1.65,28.65"/>
       </lanes>
    </edge>
 
@@ -196,7 +196,7 @@
 
    <edge id=":0/2_5" function="internal">
       <lanes>
-         <lane id=":0/2_5_0" depart="0" maxspeed="13.90" length="4.82" shape="-1.65,91.35 -0.82,90.11 0.00,89.70 0.83,90.11 1.65,91.35"/>
+         <lane id=":0/2_5_0" depart="0" maxspeed="13.90" length="4.82" shape="-1.65,91.35 -0.83,90.11 -0.00,89.70 0.82,90.11 1.65,91.35"/>
       </lanes>
    </edge>
 
@@ -208,7 +208,7 @@
 
    <edge id=":0/2_7" function="internal">
       <lanes>
-         <lane id=":0/2_7_0" depart="0" maxspeed="13.90" length="26.29" shape="11.35,84.95 4.22,83.93 -0.87,80.88 -3.93,75.78 -4.95,68.65"/>
+         <lane id=":0/2_7_0" depart="0" maxspeed="13.90" length="26.29" shape="11.35,84.95 4.22,83.93 -0.88,80.88 -3.93,75.78 -4.95,68.65"/>
       </lanes>
    </edge>
 
@@ -250,7 +250,7 @@
 
    <edge id=":0/2_14" function="internal">
       <lanes>
-         <lane id=":0/2_14_0" depart="0" maxspeed="13.90" length="4.82" shape="1.65,68.65 0.82,69.89 -0.00,70.30 -0.83,69.89 -1.65,68.65"/>
+         <lane id=":0/2_14_0" depart="0" maxspeed="13.90" length="4.82" shape="1.65,68.65 0.83,69.89 0.00,70.30 -0.82,69.89 -1.65,68.65"/>
       </lanes>
    </edge>
 
@@ -286,19 +286,19 @@
 
    <edge id=":0/3_5" function="internal">
       <lanes>
-         <lane id=":0/3_5_0" depart="0" maxspeed="13.90" length="4.82" shape="-1.65,131.35 -0.82,130.11 0.00,129.70 0.83,130.11 1.65,131.35"/>
+         <lane id=":0/3_5_0" depart="0" maxspeed="13.90" length="4.82" shape="-1.65,131.35 -0.83,130.11 -0.00,129.70 0.82,130.11 1.65,131.35"/>
       </lanes>
    </edge>
 
    <edge id=":0/3_6" function="internal">
       <lanes>
-         <lane id=":0/3_6_0" depart="0" maxspeed="13.90" length="5.00" shape="11.35,128.25 9.99,128.44 9.03,129.02 8.44,129.99 8.25,131.35"/>
+         <lane id=":0/3_6_0" depart="0" maxspeed="13.90" length="5.00" shape="11.35,128.25 9.99,128.44 9.03,129.03 8.44,129.99 8.25,131.35"/>
       </lanes>
    </edge>
 
    <edge id=":0/3_7" function="internal">
       <lanes>
-         <lane id=":0/3_7_0" depart="0" maxspeed="13.90" length="26.29" shape="11.35,124.95 4.22,123.93 -0.87,120.87 -3.93,115.78 -4.95,108.65"/>
+         <lane id=":0/3_7_0" depart="0" maxspeed="13.90" length="26.29" shape="11.35,124.95 4.22,123.93 -0.88,120.88 -3.93,115.78 -4.95,108.65"/>
       </lanes>
    </edge>
 
@@ -310,7 +310,7 @@
 
    <edge id=":0/3_9" function="internal">
       <lanes>
-         <lane id=":0/3_9_0" depart="0" maxspeed="13.90" length="4.82" shape="11.35,121.65 10.11,120.82 9.70,120.00 10.11,119.18 11.35,118.35"/>
+         <lane id=":0/3_9_0" depart="0" maxspeed="13.90" length="4.82" shape="11.35,121.65 10.11,120.83 9.70,120.00 10.11,119.18 11.35,118.35"/>
       </lanes>
    </edge>
 
@@ -340,25 +340,25 @@
 
    <edge id=":0/3_14" function="internal">
       <lanes>
-         <lane id=":0/3_14_0" depart="0" maxspeed="13.90" length="4.82" shape="1.65,108.65 0.82,109.89 -0.00,110.30 -0.83,109.89 -1.65,108.65"/>
+         <lane id=":0/3_14_0" depart="0" maxspeed="13.90" length="4.82" shape="1.65,108.65 0.83,109.89 0.00,110.30 -0.82,109.89 -1.65,108.65"/>
       </lanes>
    </edge>
 
    <edge id=":0/4_0" function="internal">
       <lanes>
-         <lane id=":0/4_0_0" depart="0" maxspeed="13.90" length="29.19" shape="9.85,168.25 1.93,167.12 -3.72,163.73 -7.12,158.07 -8.25,150.15"/>
+         <lane id=":0/4_0_0" depart="0" maxspeed="13.90" length="29.19" shape="9.85,168.25 1.93,167.12 -3.73,163.72 -7.12,158.07 -8.25,150.15"/>
       </lanes>
    </edge>
 
    <edge id=":0/4_1" function="internal">
       <lanes>
-         <lane id=":0/4_1_0" depart="0" maxspeed="13.90" length="23.87" shape="9.85,164.95 3.38,164.02 -1.25,161.25 -4.02,156.63 -4.95,150.15"/>
+         <lane id=":0/4_1_0" depart="0" maxspeed="13.90" length="23.87" shape="9.85,164.95 3.37,164.03 -1.25,161.25 -4.03,156.63 -4.95,150.15"/>
       </lanes>
    </edge>
 
    <edge id=":0/4_2" function="internal">
       <lanes>
-         <lane id=":0/4_2_0" depart="0" maxspeed="13.90" length="18.55" shape="9.85,161.65 4.82,160.93 1.23,158.77 -0.93,155.18 -1.65,150.15"/>
+         <lane id=":0/4_2_0" depart="0" maxspeed="13.90" length="18.55" shape="9.85,161.65 4.82,160.93 1.22,158.78 -0.93,155.18 -1.65,150.15"/>
       </lanes>
    </edge>
 
@@ -388,7 +388,7 @@
 
    <edge id=":0/4_7" function="internal">
       <lanes>
-         <lane id=":0/4_7_0" depart="0" maxspeed="13.90" length="4.82" shape="1.65,150.15 0.82,151.39 -0.00,151.80 -0.83,151.39 -1.65,150.15"/>
+         <lane id=":0/4_7_0" depart="0" maxspeed="13.90" length="4.82" shape="1.65,150.15 0.83,151.39 0.00,151.80 -0.82,151.39 -1.65,150.15"/>
       </lanes>
    </edge>
 
@@ -418,7 +418,7 @@
 
    <edge id=":1/0_4" function="internal">
       <lanes>
-         <lane id=":1/0_4_0" depart="0" maxspeed="13.90" length="5.00" shape="211.35,8.25 209.99,8.44 209.02,9.02 208.44,9.99 208.25,11.35"/>
+         <lane id=":1/0_4_0" depart="0" maxspeed="13.90" length="5.00" shape="211.35,8.25 209.99,8.44 209.03,9.02 208.44,9.99 208.25,11.35"/>
       </lanes>
    </edge>
 
@@ -442,7 +442,7 @@
 
    <edge id=":1/0_8" function="internal">
       <lanes>
-         <lane id=":1/0_8_0" depart="0" maxspeed="13.90" length="4.82" shape="211.35,1.65 210.11,0.82 209.70,-0.00 210.11,-0.83 211.35,-1.65"/>
+         <lane id=":1/0_8_0" depart="0" maxspeed="13.90" length="4.82" shape="211.35,1.65 210.11,0.83 209.70,0.00 210.11,-0.82 211.35,-1.65"/>
       </lanes>
    </edge>
 
@@ -484,7 +484,7 @@
 
    <edge id=":1/1_0" function="internal">
       <lanes>
-         <lane id=":1/1_0_0" depart="0" maxspeed="13.90" length="5.00" shape="191.75,51.35 191.56,49.99 190.98,49.03 190.01,48.44 188.65,48.25"/>
+         <lane id=":1/1_0_0" depart="0" maxspeed="13.90" length="5.00" shape="191.75,51.35 191.56,49.99 190.97,49.02 190.01,48.44 188.65,48.25"/>
       </lanes>
    </edge>
 
@@ -520,7 +520,7 @@
 
    <edge id=":1/1_6" function="internal">
       <lanes>
-         <lane id=":1/1_6_0" depart="0" maxspeed="13.90" length="5.00" shape="211.35,48.25 209.99,48.44 209.02,49.03 208.44,49.99 208.25,51.35"/>
+         <lane id=":1/1_6_0" depart="0" maxspeed="13.90" length="5.00" shape="211.35,48.25 209.99,48.44 209.03,49.02 208.44,49.99 208.25,51.35"/>
       </lanes>
    </edge>
 
@@ -538,7 +538,7 @@
 
    <edge id=":1/1_9" function="internal">
       <lanes>
-         <lane id=":1/1_9_0" depart="0" maxspeed="13.90" length="4.82" shape="211.35,41.65 210.11,40.82 209.70,40.00 210.11,39.17 211.35,38.35"/>
+         <lane id=":1/1_9_0" depart="0" maxspeed="13.90" length="4.82" shape="211.35,41.65 210.11,40.83 209.70,40.00 210.11,39.18 211.35,38.35"/>
       </lanes>
    </edge>
 
@@ -604,7 +604,7 @@
 
    <edge id=":1/2_0" function="internal">
       <lanes>
-         <lane id=":1/2_0_0" depart="0" maxspeed="13.90" length="5.00" shape="191.75,91.35 191.56,89.99 190.98,89.03 190.01,88.44 188.65,88.25"/>
+         <lane id=":1/2_0_0" depart="0" maxspeed="13.90" length="5.00" shape="191.75,91.35 191.56,89.99 190.97,89.03 190.01,88.44 188.65,88.25"/>
       </lanes>
    </edge>
 
@@ -640,7 +640,7 @@
 
    <edge id=":1/2_6" function="internal">
       <lanes>
-         <lane id=":1/2_6_0" depart="0" maxspeed="13.90" length="5.00" shape="211.35,88.25 209.99,88.44 209.02,89.03 208.44,89.99 208.25,91.35"/>
+         <lane id=":1/2_6_0" depart="0" maxspeed="13.90" length="5.00" shape="211.35,88.25 209.99,88.44 209.03,89.03 208.44,89.99 208.25,91.35"/>
       </lanes>
    </edge>
 
@@ -724,7 +724,7 @@
 
    <edge id=":1/3_0" function="internal">
       <lanes>
-         <lane id=":1/3_0_0" depart="0" maxspeed="13.90" length="5.00" shape="191.75,131.35 191.56,129.99 190.98,129.02 190.01,128.44 188.65,128.25"/>
+         <lane id=":1/3_0_0" depart="0" maxspeed="13.90" length="5.00" shape="191.75,131.35 191.56,129.99 190.97,129.03 190.01,128.44 188.65,128.25"/>
       </lanes>
    </edge>
 
@@ -760,7 +760,7 @@
 
    <edge id=":1/3_6" function="internal">
       <lanes>
-         <lane id=":1/3_6_0" depart="0" maxspeed="13.90" length="5.00" shape="211.35,128.25 209.99,128.44 209.02,129.02 208.44,129.99 208.25,131.35"/>
+         <lane id=":1/3_6_0" depart="0" maxspeed="13.90" length="5.00" shape="211.35,128.25 209.99,128.44 209.03,129.03 208.44,129.99 208.25,131.35"/>
       </lanes>
    </edge>
 
@@ -778,7 +778,7 @@
 
    <edge id=":1/3_9" function="internal">
       <lanes>
-         <lane id=":1/3_9_0" depart="0" maxspeed="13.90" length="4.82" shape="211.35,121.65 210.11,120.82 209.70,120.00 210.11,119.18 211.35,118.35"/>
+         <lane id=":1/3_9_0" depart="0" maxspeed="13.90" length="4.82" shape="211.35,121.65 210.11,120.83 209.70,120.00 210.11,119.18 211.35,118.35"/>
       </lanes>
    </edge>
 
@@ -862,7 +862,7 @@
 
    <edge id=":1/4_3" function="internal">
       <lanes>
-         <lane id=":1/4_3_0" depart="0" maxspeed="13.90" length="23.69" shape="211.35,161.65 204.22,160.84 199.13,158.40 196.07,154.34 195.05,148.65"/>
+         <lane id=":1/4_3_0" depart="0" maxspeed="13.90" length="23.69" shape="211.35,161.65 204.22,160.84 199.12,158.40 196.07,154.34 195.05,148.65"/>
       </lanes>
    </edge>
 
@@ -880,13 +880,13 @@
 
    <edge id=":1/4_6" function="internal">
       <lanes>
-         <lane id=":1/4_6_0" depart="0" maxspeed="13.90" length="5.00" shape="208.25,148.65 208.44,150.01 209.02,150.98 209.99,151.56 211.35,151.75"/>
+         <lane id=":1/4_6_0" depart="0" maxspeed="13.90" length="5.00" shape="208.25,148.65 208.44,150.01 209.02,150.97 209.99,151.56 211.35,151.75"/>
       </lanes>
    </edge>
 
    <edge id=":1/4_7" function="internal">
       <lanes>
-         <lane id=":1/4_7_0" depart="0" maxspeed="13.90" length="26.29" shape="204.95,148.65 203.93,155.78 200.88,160.88 195.78,163.93 188.65,164.95"/>
+         <lane id=":1/4_7_0" depart="0" maxspeed="13.90" length="26.29" shape="204.95,148.65 203.93,155.78 200.87,160.88 195.78,163.93 188.65,164.95"/>
       </lanes>
    </edge>
 
@@ -904,7 +904,7 @@
 
    <edge id=":1/4_10" function="internal">
       <lanes>
-         <lane id=":1/4_10_0" depart="0" maxspeed="13.90" length="5.00" shape="188.65,151.75 190.01,151.56 190.97,150.98 191.56,150.01 191.75,148.65"/>
+         <lane id=":1/4_10_0" depart="0" maxspeed="13.90" length="5.00" shape="188.65,151.75 190.01,151.56 190.97,150.97 191.56,150.01 191.75,148.65"/>
       </lanes>
    </edge>
 
@@ -952,7 +952,7 @@
 
    <edge id=":10/0_3" function="internal">
       <lanes>
-         <lane id=":10/0_3_0" depart="0" maxspeed="13.90" length="4.82" shape="1998.35,11.35 1999.18,10.11 2000.00,9.70 2000.82,10.11 2001.65,11.35"/>
+         <lane id=":10/0_3_0" depart="0" maxspeed="13.90" length="4.82" shape="1998.35,11.35 1999.18,10.11 2000.00,9.70 2000.83,10.11 2001.65,11.35"/>
       </lanes>
    </edge>
 
@@ -982,7 +982,7 @@
 
    <edge id=":10/0_8" function="internal">
       <lanes>
-         <lane id=":10/0_8_0" depart="0" maxspeed="13.90" length="4.82" shape="2011.35,1.65 2010.11,0.82 2009.70,-0.00 2010.11,-0.83 2011.35,-1.65"/>
+         <lane id=":10/0_8_0" depart="0" maxspeed="13.90" length="4.82" shape="2011.35,1.65 2010.11,0.83 2009.70,0.00 2010.11,-0.82 2011.35,-1.65"/>
       </lanes>
    </edge>
 
@@ -1018,13 +1018,13 @@
 
    <edge id=":10/0_14" function="internal">
       <lanes>
-         <lane id=":10/0_14_0" depart="0" maxspeed="13.90" length="4.82" shape="1988.65,-1.65 1989.89,-0.82 1990.30,0.00 1989.89,0.83 1988.65,1.65"/>
+         <lane id=":10/0_14_0" depart="0" maxspeed="13.90" length="4.82" shape="1988.65,-1.65 1989.89,-0.83 1990.30,-0.00 1989.89,0.82 1988.65,1.65"/>
       </lanes>
    </edge>
 
    <edge id=":10/1_0" function="internal">
       <lanes>
-         <lane id=":10/1_0_0" depart="0" maxspeed="13.90" length="5.00" shape="1991.75,51.35 1991.56,49.99 1990.98,49.03 1990.01,48.44 1988.65,48.25"/>
+         <lane id=":10/1_0_0" depart="0" maxspeed="13.90" length="5.00" shape="1991.75,51.35 1991.56,49.99 1990.97,49.02 1990.01,48.44 1988.65,48.25"/>
       </lanes>
    </edge>
 
@@ -1054,13 +1054,13 @@
 
    <edge id=":10/1_5" function="internal">
       <lanes>
-         <lane id=":10/1_5_0" depart="0" maxspeed="13.90" length="4.82" shape="1998.35,51.35 1999.18,50.11 2000.00,49.70 2000.82,50.11 2001.65,51.35"/>
+         <lane id=":10/1_5_0" depart="0" maxspeed="13.90" length="4.82" shape="1998.35,51.35 1999.18,50.11 2000.00,49.70 2000.83,50.11 2001.65,51.35"/>
       </lanes>
    </edge>
 
    <edge id=":10/1_6" function="internal">
       <lanes>
-         <lane id=":10/1_6_0" depart="0" maxspeed="13.90" length="5.00" shape="2011.35,48.25 2009.99,48.44 2009.03,49.03 2008.44,49.99 2008.25,51.35"/>
+         <lane id=":10/1_6_0" depart="0" maxspeed="13.90" length="5.00" shape="2011.35,48.25 2009.99,48.44 2009.03,49.02 2008.44,49.99 2008.25,51.35"/>
       </lanes>
    </edge>
 
@@ -1078,13 +1078,13 @@
 
    <edge id=":10/1_9" function="internal">
       <lanes>
-         <lane id=":10/1_9_0" depart="0" maxspeed="13.90" length="4.82" shape="2011.35,41.65 2010.11,40.82 2009.70,40.00 2010.11,39.17 2011.35,38.35"/>
+         <lane id=":10/1_9_0" depart="0" maxspeed="13.90" length="4.82" shape="2011.35,41.65 2010.11,40.83 2009.70,40.00 2010.11,39.18 2011.35,38.35"/>
       </lanes>
    </edge>
 
    <edge id=":10/1_10" function="internal">
       <lanes>
-         <lane id=":10/1_10_0" depart="0" maxspeed="13.90" length="5.00" shape="2008.25,28.65 2008.44,30.01 2009.03,30.98 2009.99,31.56 2011.35,31.75"/>
+         <lane id=":10/1_10_0" depart="0" maxspeed="13.90" length="5.00" shape="2008.25,28.65 2008.44,30.01 2009.02,30.98 2009.99,31.56 2011.35,31.75"/>
       </lanes>
    </edge>
 
@@ -1114,13 +1114,13 @@
 
    <edge id=":10/1_15" function="internal">
       <lanes>
-         <lane id=":10/1_15_0" depart="0" maxspeed="13.90" length="4.82" shape="2001.65,28.65 2000.82,29.89 2000.00,30.30 1999.18,29.89 1998.35,28.65"/>
+         <lane id=":10/1_15_0" depart="0" maxspeed="13.90" length="4.82" shape="2001.65,28.65 2000.83,29.89 2000.00,30.30 1999.17,29.89 1998.35,28.65"/>
       </lanes>
    </edge>
 
    <edge id=":10/1_16" function="internal">
       <lanes>
-         <lane id=":10/1_16_0" depart="0" maxspeed="13.90" length="5.00" shape="1988.65,31.75 1990.01,31.56 1990.98,30.98 1991.56,30.01 1991.75,28.65"/>
+         <lane id=":10/1_16_0" depart="0" maxspeed="13.90" length="5.00" shape="1988.65,31.75 1990.01,31.56 1990.97,30.98 1991.56,30.01 1991.75,28.65"/>
       </lanes>
    </edge>
 
@@ -1138,13 +1138,13 @@
 
    <edge id=":10/1_19" function="internal">
       <lanes>
-         <lane id=":10/1_19_0" depart="0" maxspeed="13.90" length="4.82" shape="1988.65,38.35 1989.89,39.18 1990.30,40.00 1989.89,40.83 1988.65,41.65"/>
+         <lane id=":10/1_19_0" depart="0" maxspeed="13.90" length="4.82" shape="1988.65,38.35 1989.89,39.17 1990.30,40.00 1989.89,40.82 1988.65,41.65"/>
       </lanes>
    </edge>
 
    <edge id=":10/2_0" function="internal">
       <lanes>
-         <lane id=":10/2_0_0" depart="0" maxspeed="13.90" length="5.00" shape="1991.75,91.35 1991.56,89.99 1990.98,89.03 1990.01,88.44 1988.65,88.25"/>
+         <lane id=":10/2_0_0" depart="0" maxspeed="13.90" length="5.00" shape="1991.75,91.35 1991.56,89.99 1990.97,89.03 1990.01,88.44 1988.65,88.25"/>
       </lanes>
    </edge>
 
@@ -1174,7 +1174,7 @@
 
    <edge id=":10/2_5" function="internal">
       <lanes>
-         <lane id=":10/2_5_0" depart="0" maxspeed="13.90" length="4.82" shape="1998.35,91.35 1999.18,90.11 2000.00,89.70 2000.82,90.11 2001.65,91.35"/>
+         <lane id=":10/2_5_0" depart="0" maxspeed="13.90" length="4.82" shape="1998.35,91.35 1999.18,90.11 2000.00,89.70 2000.83,90.11 2001.65,91.35"/>
       </lanes>
    </edge>
 
@@ -1204,7 +1204,7 @@
 
    <edge id=":10/2_10" function="internal">
       <lanes>
-         <lane id=":10/2_10_0" depart="0" maxspeed="13.90" length="5.00" shape="2008.25,68.65 2008.44,70.01 2009.03,70.97 2009.99,71.56 2011.35,71.75"/>
+         <lane id=":10/2_10_0" depart="0" maxspeed="13.90" length="5.00" shape="2008.25,68.65 2008.44,70.01 2009.02,70.97 2009.99,71.56 2011.35,71.75"/>
       </lanes>
    </edge>
 
@@ -1234,13 +1234,13 @@
 
    <edge id=":10/2_15" function="internal">
       <lanes>
-         <lane id=":10/2_15_0" depart="0" maxspeed="13.90" length="4.82" shape="2001.65,68.65 2000.82,69.89 2000.00,70.30 1999.18,69.89 1998.35,68.65"/>
+         <lane id=":10/2_15_0" depart="0" maxspeed="13.90" length="4.82" shape="2001.65,68.65 2000.83,69.89 2000.00,70.30 1999.17,69.89 1998.35,68.65"/>
       </lanes>
    </edge>
 
    <edge id=":10/2_16" function="internal">
       <lanes>
-         <lane id=":10/2_16_0" depart="0" maxspeed="13.90" length="5.00" shape="1988.65,71.75 1990.01,71.56 1990.98,70.97 1991.56,70.01 1991.75,68.65"/>
+         <lane id=":10/2_16_0" depart="0" maxspeed="13.90" length="5.00" shape="1988.65,71.75 1990.01,71.56 1990.97,70.97 1991.56,70.01 1991.75,68.65"/>
       </lanes>
    </edge>
 
@@ -1264,7 +1264,7 @@
 
    <edge id=":10/3_0" function="internal">
       <lanes>
-         <lane id=":10/3_0_0" depart="0" maxspeed="13.90" length="5.00" shape="1991.75,131.35 1991.56,129.99 1990.98,129.02 1990.01,128.44 1988.65,128.25"/>
+         <lane id=":10/3_0_0" depart="0" maxspeed="13.90" length="5.00" shape="1991.75,131.35 1991.56,129.99 1990.97,129.03 1990.01,128.44 1988.65,128.25"/>
       </lanes>
    </edge>
 
@@ -1294,13 +1294,13 @@
 
    <edge id=":10/3_5" function="internal">
       <lanes>
-         <lane id=":10/3_5_0" depart="0" maxspeed="13.90" length="4.82" shape="1998.35,131.35 1999.18,130.11 2000.00,129.70 2000.82,130.11 2001.65,131.35"/>
+         <lane id=":10/3_5_0" depart="0" maxspeed="13.90" length="4.82" shape="1998.35,131.35 1999.18,130.11 2000.00,129.70 2000.83,130.11 2001.65,131.35"/>
       </lanes>
    </edge>
 
    <edge id=":10/3_6" function="internal">
       <lanes>
-         <lane id=":10/3_6_0" depart="0" maxspeed="13.90" length="5.00" shape="2011.35,128.25 2009.99,128.44 2009.03,129.02 2008.44,129.99 2008.25,131.35"/>
+         <lane id=":10/3_6_0" depart="0" maxspeed="13.90" length="5.00" shape="2011.35,128.25 2009.99,128.44 2009.03,129.03 2008.44,129.99 2008.25,131.35"/>
       </lanes>
    </edge>
 
@@ -1318,13 +1318,13 @@
 
    <edge id=":10/3_9" function="internal">
       <lanes>
-         <lane id=":10/3_9_0" depart="0" maxspeed="13.90" length="4.82" shape="2011.35,121.65 2010.11,120.82 2009.70,120.00 2010.11,119.18 2011.35,118.35"/>
+         <lane id=":10/3_9_0" depart="0" maxspeed="13.90" length="4.82" shape="2011.35,121.65 2010.11,120.83 2009.70,120.00 2010.11,119.18 2011.35,118.35"/>
       </lanes>
    </edge>
 
    <edge id=":10/3_10" function="internal">
       <lanes>
-         <lane id=":10/3_10_0" depart="0" maxspeed="13.90" length="5.00" shape="2008.25,108.65 2008.44,110.01 2009.03,110.97 2009.99,111.56 2011.35,111.75"/>
+         <lane id=":10/3_10_0" depart="0" maxspeed="13.90" length="5.00" shape="2008.25,108.65 2008.44,110.01 2009.02,110.97 2009.99,111.56 2011.35,111.75"/>
       </lanes>
    </edge>
 
@@ -1354,13 +1354,13 @@
 
    <edge id=":10/3_15" function="internal">
       <lanes>
-         <lane id=":10/3_15_0" depart="0" maxspeed="13.90" length="4.82" shape="2001.65,108.65 2000.82,109.89 2000.00,110.30 1999.18,109.89 1998.35,108.65"/>
+         <lane id=":10/3_15_0" depart="0" maxspeed="13.90" length="4.82" shape="2001.65,108.65 2000.83,109.89 2000.00,110.30 1999.17,109.89 1998.35,108.65"/>
       </lanes>
    </edge>
 
    <edge id=":10/3_16" function="internal">
       <lanes>
-         <lane id=":10/3_16_0" depart="0" maxspeed="13.90" length="5.00" shape="1988.65,111.75 1990.01,111.56 1990.98,110.97 1991.56,110.01 1991.75,108.65"/>
+         <lane id=":10/3_16_0" depart="0" maxspeed="13.90" length="5.00" shape="1988.65,111.75 1990.01,111.56 1990.97,110.97 1991.56,110.01 1991.75,108.65"/>
       </lanes>
    </edge>
 
@@ -1378,7 +1378,7 @@
 
    <edge id=":10/3_19" function="internal">
       <lanes>
-         <lane id=":10/3_19_0" depart="0" maxspeed="13.90" length="4.82" shape="1988.65,118.35 1989.89,119.18 1990.30,120.00 1989.89,120.82 1988.65,121.65"/>
+         <lane id=":10/3_19_0" depart="0" maxspeed="13.90" length="4.82" shape="1988.65,118.35 1989.89,119.17 1990.30,120.00 1989.89,120.82 1988.65,121.65"/>
       </lanes>
    </edge>
 
@@ -1402,7 +1402,7 @@
 
    <edge id=":10/4_3" function="internal">
       <lanes>
-         <lane id=":10/4_3_0" depart="0" maxspeed="13.90" length="23.69" shape="2011.35,161.65 2004.22,160.84 1999.13,158.40 1996.07,154.34 1995.05,148.65"/>
+         <lane id=":10/4_3_0" depart="0" maxspeed="13.90" length="23.69" shape="2011.35,161.65 2004.22,160.84 1999.12,158.40 1996.07,154.34 1995.05,148.65"/>
       </lanes>
    </edge>
 
@@ -1420,13 +1420,13 @@
 
    <edge id=":10/4_6" function="internal">
       <lanes>
-         <lane id=":10/4_6_0" depart="0" maxspeed="13.90" length="5.00" shape="2008.25,148.65 2008.44,150.01 2009.03,150.98 2009.99,151.56 2011.35,151.75"/>
+         <lane id=":10/4_6_0" depart="0" maxspeed="13.90" length="5.00" shape="2008.25,148.65 2008.44,150.01 2009.02,150.97 2009.99,151.56 2011.35,151.75"/>
       </lanes>
    </edge>
 
    <edge id=":10/4_7" function="internal">
       <lanes>
-         <lane id=":10/4_7_0" depart="0" maxspeed="13.90" length="26.29" shape="2004.95,148.65 2003.93,155.78 2000.88,160.88 1995.78,163.93 1988.65,164.95"/>
+         <lane id=":10/4_7_0" depart="0" maxspeed="13.90" length="26.29" shape="2004.95,148.65 2003.93,155.78 2000.87,160.88 1995.78,163.93 1988.65,164.95"/>
       </lanes>
    </edge>
 
@@ -1438,13 +1438,13 @@
 
    <edge id=":10/4_9" function="internal">
       <lanes>
-         <lane id=":10/4_9_0" depart="0" maxspeed="13.90" length="4.82" shape="2001.65,148.65 2000.82,149.89 2000.00,150.30 1999.18,149.89 1998.35,148.65"/>
+         <lane id=":10/4_9_0" depart="0" maxspeed="13.90" length="4.82" shape="2001.65,148.65 2000.83,149.89 2000.00,150.30 1999.17,149.89 1998.35,148.65"/>
       </lanes>
    </edge>
 
    <edge id=":10/4_10" function="internal">
       <lanes>
-         <lane id=":10/4_10_0" depart="0" maxspeed="13.90" length="5.00" shape="1988.65,151.75 1990.01,151.56 1990.98,150.98 1991.56,150.01 1991.75,148.65"/>
+         <lane id=":10/4_10_0" depart="0" maxspeed="13.90" length="5.00" shape="1988.65,151.75 1990.01,151.56 1990.97,150.97 1991.56,150.01 1991.75,148.65"/>
       </lanes>
    </edge>
 
@@ -1492,7 +1492,7 @@
 
    <edge id=":11/0_3" function="internal">
       <lanes>
-         <lane id=":11/0_3_0" depart="0" maxspeed="13.90" length="4.82" shape="2198.35,11.35 2199.17,10.11 2200.00,9.70 2200.82,10.11 2201.65,11.35"/>
+         <lane id=":11/0_3_0" depart="0" maxspeed="13.90" length="4.82" shape="2198.35,11.35 2199.17,10.11 2200.00,9.70 2200.83,10.11 2201.65,11.35"/>
       </lanes>
    </edge>
 
@@ -1522,7 +1522,7 @@
 
    <edge id=":11/0_8" function="internal">
       <lanes>
-         <lane id=":11/0_8_0" depart="0" maxspeed="13.90" length="4.82" shape="2211.35,1.65 2210.11,0.82 2209.70,-0.00 2210.11,-0.83 2211.35,-1.65"/>
+         <lane id=":11/0_8_0" depart="0" maxspeed="13.90" length="4.82" shape="2211.35,1.65 2210.11,0.83 2209.70,0.00 2210.11,-0.82 2211.35,-1.65"/>
       </lanes>
    </edge>
 
@@ -1558,13 +1558,13 @@
 
    <edge id=":11/0_14" function="internal">
       <lanes>
-         <lane id=":11/0_14_0" depart="0" maxspeed="13.90" length="4.82" shape="2188.65,-1.65 2189.89,-0.82 2190.30,0.00 2189.89,0.83 2188.65,1.65"/>
+         <lane id=":11/0_14_0" depart="0" maxspeed="13.90" length="4.82" shape="2188.65,-1.65 2189.89,-0.83 2190.30,-0.00 2189.89,0.82 2188.65,1.65"/>
       </lanes>
    </edge>
 
    <edge id=":11/1_0" function="internal">
       <lanes>
-         <lane id=":11/1_0_0" depart="0" maxspeed="13.90" length="5.00" shape="2191.75,51.35 2191.56,49.99 2190.98,49.03 2190.01,48.44 2188.65,48.25"/>
+         <lane id=":11/1_0_0" depart="0" maxspeed="13.90" length="5.00" shape="2191.75,51.35 2191.56,49.99 2190.97,49.02 2190.01,48.44 2188.65,48.25"/>
       </lanes>
    </edge>
 
@@ -1594,13 +1594,13 @@
 
    <edge id=":11/1_5" function="internal">
       <lanes>
-         <lane id=":11/1_5_0" depart="0" maxspeed="13.90" length="4.82" shape="2198.35,51.35 2199.17,50.11 2200.00,49.70 2200.82,50.11 2201.65,51.35"/>
+         <lane id=":11/1_5_0" depart="0" maxspeed="13.90" length="4.82" shape="2198.35,51.35 2199.17,50.11 2200.00,49.70 2200.83,50.11 2201.65,51.35"/>
       </lanes>
    </edge>
 
    <edge id=":11/1_6" function="internal">
       <lanes>
-         <lane id=":11/1_6_0" depart="0" maxspeed="13.90" length="5.00" shape="2211.35,48.25 2209.99,48.44 2209.03,49.03 2208.44,49.99 2208.25,51.35"/>
+         <lane id=":11/1_6_0" depart="0" maxspeed="13.90" length="5.00" shape="2211.35,48.25 2209.99,48.44 2209.03,49.02 2208.44,49.99 2208.25,51.35"/>
       </lanes>
    </edge>
 
@@ -1618,13 +1618,13 @@
 
    <edge id=":11/1_9" function="internal">
       <lanes>
-         <lane id=":11/1_9_0" depart="0" maxspeed="13.90" length="4.82" shape="2211.35,41.65 2210.11,40.82 2209.70,40.00 2210.11,39.17 2211.35,38.35"/>
+         <lane id=":11/1_9_0" depart="0" maxspeed="13.90" length="4.82" shape="2211.35,41.65 2210.11,40.83 2209.70,40.00 2210.11,39.18 2211.35,38.35"/>
       </lanes>
    </edge>
 
    <edge id=":11/1_10" function="internal">
       <lanes>
-         <lane id=":11/1_10_0" depart="0" maxspeed="13.90" length="5.00" shape="2208.25,28.65 2208.44,30.01 2209.03,30.98 2209.99,31.56 2211.35,31.75"/>
+         <lane id=":11/1_10_0" depart="0" maxspeed="13.90" length="5.00" shape="2208.25,28.65 2208.44,30.01 2209.02,30.98 2209.99,31.56 2211.35,31.75"/>
       </lanes>
    </edge>
 
@@ -1654,13 +1654,13 @@
 
    <edge id=":11/1_15" function="internal">
       <lanes>
-         <lane id=":11/1_15_0" depart="0" maxspeed="13.90" length="4.82" shape="2201.65,28.65 2200.83,29.89 2200.00,30.30 2199.18,29.89 2198.35,28.65"/>
+         <lane id=":11/1_15_0" depart="0" maxspeed="13.90" length="4.82" shape="2201.65,28.65 2200.83,29.89 2200.00,30.30 2199.17,29.89 2198.35,28.65"/>
       </lanes>
    </edge>
 
    <edge id=":11/1_16" function="internal">
       <lanes>
-         <lane id=":11/1_16_0" depart="0" maxspeed="13.90" length="5.00" shape="2188.65,31.75 2190.01,31.56 2190.98,30.98 2191.56,30.01 2191.75,28.65"/>
+         <lane id=":11/1_16_0" depart="0" maxspeed="13.90" length="5.00" shape="2188.65,31.75 2190.01,31.56 2190.97,30.98 2191.56,30.01 2191.75,28.65"/>
       </lanes>
    </edge>
 
@@ -1678,13 +1678,13 @@
 
    <edge id=":11/1_19" function="internal">
       <lanes>
-         <lane id=":11/1_19_0" depart="0" maxspeed="13.90" length="4.82" shape="2188.65,38.35 2189.89,39.18 2190.30,40.00 2189.89,40.83 2188.65,41.65"/>
+         <lane id=":11/1_19_0" depart="0" maxspeed="13.90" length="4.82" shape="2188.65,38.35 2189.89,39.17 2190.30,40.00 2189.89,40.82 2188.65,41.65"/>
       </lanes>
    </edge>
 
    <edge id=":11/2_0" function="internal">
       <lanes>
-         <lane id=":11/2_0_0" depart="0" maxspeed="13.90" length="5.00" shape="2191.75,91.35 2191.56,89.99 2190.98,89.03 2190.01,88.44 2188.65,88.25"/>
+         <lane id=":11/2_0_0" depart="0" maxspeed="13.90" length="5.00" shape="2191.75,91.35 2191.56,89.99 2190.97,89.03 2190.01,88.44 2188.65,88.25"/>
       </lanes>
    </edge>
 
@@ -1714,7 +1714,7 @@
 
    <edge id=":11/2_5" function="internal">
       <lanes>
-         <lane id=":11/2_5_0" depart="0" maxspeed="13.90" length="4.82" shape="2198.35,91.35 2199.17,90.11 2200.00,89.70 2200.82,90.11 2201.65,91.35"/>
+         <lane id=":11/2_5_0" depart="0" maxspeed="13.90" length="4.82" shape="2198.35,91.35 2199.17,90.11 2200.00,89.70 2200.83,90.11 2201.65,91.35"/>
       </lanes>
    </edge>
 
@@ -1744,7 +1744,7 @@
 
    <edge id=":11/2_10" function="internal">
       <lanes>
-         <lane id=":11/2_10_0" depart="0" maxspeed="13.90" length="5.00" shape="2208.25,68.65 2208.44,70.01 2209.03,70.97 2209.99,71.56 2211.35,71.75"/>
+         <lane id=":11/2_10_0" depart="0" maxspeed="13.90" length="5.00" shape="2208.25,68.65 2208.44,70.01 2209.02,70.97 2209.99,71.56 2211.35,71.75"/>
       </lanes>
    </edge>
 
@@ -1774,13 +1774,13 @@
 
    <edge id=":11/2_15" function="internal">
       <lanes>
-         <lane id=":11/2_15_0" depart="0" maxspeed="13.90" length="4.82" shape="2201.65,68.65 2200.83,69.89 2200.00,70.30 2199.18,69.89 2198.35,68.65"/>
+         <lane id=":11/2_15_0" depart="0" maxspeed="13.90" length="4.82" shape="2201.65,68.65 2200.83,69.89 2200.00,70.30 2199.17,69.89 2198.35,68.65"/>
       </lanes>
    </edge>
 
    <edge id=":11/2_16" function="internal">
       <lanes>
-         <lane id=":11/2_16_0" depart="0" maxspeed="13.90" length="5.00" shape="2188.65,71.75 2190.01,71.56 2190.98,70.97 2191.56,70.01 2191.75,68.65"/>
+         <lane id=":11/2_16_0" depart="0" maxspeed="13.90" length="5.00" shape="2188.65,71.75 2190.01,71.56 2190.97,70.97 2191.56,70.01 2191.75,68.65"/>
       </lanes>
    </edge>
 
@@ -1804,7 +1804,7 @@
 
    <edge id=":11/3_0" function="internal">
       <lanes>
-         <lane id=":11/3_0_0" depart="0" maxspeed="13.90" length="5.00" shape="2191.75,131.35 2191.56,129.99 2190.98,129.02 2190.01,128.44 2188.65,128.25"/>
+         <lane id=":11/3_0_0" depart="0" maxspeed="13.90" length="5.00" shape="2191.75,131.35 2191.56,129.99 2190.97,129.03 2190.01,128.44 2188.65,128.25"/>
       </lanes>
    </edge>
 
@@ -1834,13 +1834,13 @@
 
    <edge id=":11/3_5" function="internal">
       <lanes>
-         <lane id=":11/3_5_0" depart="0" maxspeed="13.90" length="4.82" shape="2198.35,131.35 2199.17,130.11 2200.00,129.70 2200.82,130.11 2201.65,131.35"/>
+         <lane id=":11/3_5_0" depart="0" maxspeed="13.90" length="4.82" shape="2198.35,131.35 2199.17,130.11 2200.00,129.70 2200.83,130.11 2201.65,131.35"/>
       </lanes>
    </edge>
 
    <edge id=":11/3_6" function="internal">
       <lanes>
-         <lane id=":11/3_6_0" depart="0" maxspeed="13.90" length="5.00" shape="2211.35,128.25 2209.99,128.44 2209.03,129.02 2208.44,129.99 2208.25,131.35"/>
+         <lane id=":11/3_6_0" depart="0" maxspeed="13.90" length="5.00" shape="2211.35,128.25 2209.99,128.44 2209.03,129.03 2208.44,129.99 2208.25,131.35"/>
       </lanes>
    </edge>
 
@@ -1858,13 +1858,13 @@
 
    <edge id=":11/3_9" function="internal">
       <lanes>
-         <lane id=":11/3_9_0" depart="0" maxspeed="13.90" length="4.82" shape="2211.35,121.65 2210.11,120.82 2209.70,120.00 2210.11,119.18 2211.35,118.35"/>
+         <lane id=":11/3_9_0" depart="0" maxspeed="13.90" length="4.82" shape="2211.35,121.65 2210.11,120.83 2209.70,120.00 2210.11,119.18 2211.35,118.35"/>
       </lanes>
    </edge>
 
    <edge id=":11/3_10" function="internal">
       <lanes>
-         <lane id=":11/3_10_0" depart="0" maxspeed="13.90" length="5.00" shape="2208.25,108.65 2208.44,110.01 2209.03,110.97 2209.99,111.56 2211.35,111.75"/>
+         <lane id=":11/3_10_0" depart="0" maxspeed="13.90" length="5.00" shape="2208.25,108.65 2208.44,110.01 2209.02,110.97 2209.99,111.56 2211.35,111.75"/>
       </lanes>
    </edge>
 
@@ -1894,13 +1894,13 @@
 
    <edge id=":11/3_15" function="internal">
       <lanes>
-         <lane id=":11/3_15_0" depart="0" maxspeed="13.90" length="4.82" shape="2201.65,108.65 2200.83,109.89 2200.00,110.30 2199.18,109.89 2198.35,108.65"/>
+         <lane id=":11/3_15_0" depart="0" maxspeed="13.90" length="4.82" shape="2201.65,108.65 2200.83,109.89 2200.00,110.30 2199.17,109.89 2198.35,108.65"/>
       </lanes>
    </edge>
 
    <edge id=":11/3_16" function="internal">
       <lanes>
-         <lane id=":11/3_16_0" depart="0" maxspeed="13.90" length="5.00" shape="2188.65,111.75 2190.01,111.56 2190.98,110.97 2191.56,110.01 2191.75,108.65"/>
+         <lane id=":11/3_16_0" depart="0" maxspeed="13.90" length="5.00" shape="2188.65,111.75 2190.01,111.56 2190.97,110.97 2191.56,110.01 2191.75,108.65"/>
       </lanes>
    </edge>
 
@@ -1918,7 +1918,7 @@
 
    <edge id=":11/3_19" function="internal">
       <lanes>
-         <lane id=":11/3_19_0" depart="0" maxspeed="13.90" length="4.82" shape="2188.65,118.35 2189.89,119.18 2190.30,120.00 2189.89,120.82 2188.65,121.65"/>
+         <lane id=":11/3_19_0" depart="0" maxspeed="13.90" length="4.82" shape="2188.65,118.35 2189.89,119.17 2190.30,120.00 2189.89,120.82 2188.65,121.65"/>
       </lanes>
    </edge>
 
@@ -1942,7 +1942,7 @@
 
    <edge id=":11/4_3" function="internal">
       <lanes>
-         <lane id=":11/4_3_0" depart="0" maxspeed="13.90" length="23.69" shape="2211.35,161.65 2204.22,160.84 2199.13,158.40 2196.07,154.34 2195.05,148.65"/>
+         <lane id=":11/4_3_0" depart="0" maxspeed="13.90" length="23.69" shape="2211.35,161.65 2204.22,160.84 2199.12,158.40 2196.07,154.34 2195.05,148.65"/>
       </lanes>
    </edge>
 
@@ -1960,13 +1960,13 @@
 
    <edge id=":11/4_6" function="internal">
       <lanes>
-         <lane id=":11/4_6_0" depart="0" maxspeed="13.90" length="5.00" shape="2208.25,148.65 2208.44,150.01 2209.03,150.98 2209.99,151.56 2211.35,151.75"/>
+         <lane id=":11/4_6_0" depart="0" maxspeed="13.90" length="5.00" shape="2208.25,148.65 2208.44,150.01 2209.02,150.97 2209.99,151.56 2211.35,151.75"/>
       </lanes>
    </edge>
 
    <edge id=":11/4_7" function="internal">
       <lanes>
-         <lane id=":11/4_7_0" depart="0" maxspeed="13.90" length="26.29" shape="2204.95,148.65 2203.93,155.78 2200.88,160.88 2195.78,163.93 2188.65,164.95"/>
+         <lane id=":11/4_7_0" depart="0" maxspeed="13.90" length="26.29" shape="2204.95,148.65 2203.93,155.78 2200.87,160.88 2195.78,163.93 2188.65,164.95"/>
       </lanes>
    </edge>
 
@@ -1978,13 +1978,13 @@
 
    <edge id=":11/4_9" function="internal">
       <lanes>
-         <lane id=":11/4_9_0" depart="0" maxspeed="13.90" length="4.82" shape="2201.65,148.65 2200.83,149.89 2200.00,150.30 2199.18,149.89 2198.35,148.65"/>
+         <lane id=":11/4_9_0" depart="0" maxspeed="13.90" length="4.82" shape="2201.65,148.65 2200.83,149.89 2200.00,150.30 2199.17,149.89 2198.35,148.65"/>
       </lanes>
    </edge>
 
    <edge id=":11/4_10" function="internal">
       <lanes>
-         <lane id=":11/4_10_0" depart="0" maxspeed="13.90" length="5.00" shape="2188.65,151.75 2190.01,151.56 2190.98,150.98 2191.56,150.01 2191.75,148.65"/>
+         <lane id=":11/4_10_0" depart="0" maxspeed="13.90" length="5.00" shape="2188.65,151.75 2190.01,151.56 2190.97,150.97 2191.56,150.01 2191.75,148.65"/>
       </lanes>
    </edge>
 
@@ -2038,7 +2038,7 @@
 
    <edge id=":12/0_4" function="internal">
       <lanes>
-         <lane id=":12/0_4_0" depart="0" maxspeed="13.90" length="5.00" shape="2411.35,8.25 2409.99,8.44 2409.02,9.02 2408.44,9.99 2408.25,11.35"/>
+         <lane id=":12/0_4_0" depart="0" maxspeed="13.90" length="5.00" shape="2411.35,8.25 2409.99,8.44 2409.03,9.02 2408.44,9.99 2408.25,11.35"/>
       </lanes>
    </edge>
 
@@ -2062,7 +2062,7 @@
 
    <edge id=":12/0_8" function="internal">
       <lanes>
-         <lane id=":12/0_8_0" depart="0" maxspeed="13.90" length="4.82" shape="2411.35,1.65 2410.11,0.82 2409.70,-0.00 2410.11,-0.83 2411.35,-1.65"/>
+         <lane id=":12/0_8_0" depart="0" maxspeed="13.90" length="4.82" shape="2411.35,1.65 2410.11,0.83 2409.70,0.00 2410.11,-0.82 2411.35,-1.65"/>
       </lanes>
    </edge>
 
@@ -2098,13 +2098,13 @@
 
    <edge id=":12/0_14" function="internal">
       <lanes>
-         <lane id=":12/0_14_0" depart="0" maxspeed="13.90" length="4.82" shape="2388.65,-1.65 2389.89,-0.82 2390.30,0.00 2389.89,0.83 2388.65,1.65"/>
+         <lane id=":12/0_14_0" depart="0" maxspeed="13.90" length="4.82" shape="2388.65,-1.65 2389.89,-0.83 2390.30,-0.00 2389.89,0.82 2388.65,1.65"/>
       </lanes>
    </edge>
 
    <edge id=":12/1_0" function="internal">
       <lanes>
-         <lane id=":12/1_0_0" depart="0" maxspeed="13.90" length="5.00" shape="2391.75,51.35 2391.56,49.99 2390.98,49.03 2390.01,48.44 2388.65,48.25"/>
+         <lane id=":12/1_0_0" depart="0" maxspeed="13.90" length="5.00" shape="2391.75,51.35 2391.56,49.99 2390.97,49.02 2390.01,48.44 2388.65,48.25"/>
       </lanes>
    </edge>
 
@@ -2140,7 +2140,7 @@
 
    <edge id=":12/1_6" function="internal">
       <lanes>
-         <lane id=":12/1_6_0" depart="0" maxspeed="13.90" length="5.00" shape="2411.35,48.25 2409.99,48.44 2409.02,49.03 2408.44,49.99 2408.25,51.35"/>
+         <lane id=":12/1_6_0" depart="0" maxspeed="13.90" length="5.00" shape="2411.35,48.25 2409.99,48.44 2409.03,49.02 2408.44,49.99 2408.25,51.35"/>
       </lanes>
    </edge>
 
@@ -2158,7 +2158,7 @@
 
    <edge id=":12/1_9" function="internal">
       <lanes>
-         <lane id=":12/1_9_0" depart="0" maxspeed="13.90" length="4.82" shape="2411.35,41.65 2410.11,40.82 2409.70,40.00 2410.11,39.17 2411.35,38.35"/>
+         <lane id=":12/1_9_0" depart="0" maxspeed="13.90" length="4.82" shape="2411.35,41.65 2410.11,40.83 2409.70,40.00 2410.11,39.18 2411.35,38.35"/>
       </lanes>
    </edge>
 
@@ -2200,7 +2200,7 @@
 
    <edge id=":12/1_16" function="internal">
       <lanes>
-         <lane id=":12/1_16_0" depart="0" maxspeed="13.90" length="5.00" shape="2388.65,31.75 2390.01,31.56 2390.98,30.98 2391.56,30.01 2391.75,28.65"/>
+         <lane id=":12/1_16_0" depart="0" maxspeed="13.90" length="5.00" shape="2388.65,31.75 2390.01,31.56 2390.97,30.98 2391.56,30.01 2391.75,28.65"/>
       </lanes>
    </edge>
 
@@ -2218,13 +2218,13 @@
 
    <edge id=":12/1_19" function="internal">
       <lanes>
-         <lane id=":12/1_19_0" depart="0" maxspeed="13.90" length="4.82" shape="2388.65,38.35 2389.89,39.18 2390.30,40.00 2389.89,40.83 2388.65,41.65"/>
+         <lane id=":12/1_19_0" depart="0" maxspeed="13.90" length="4.82" shape="2388.65,38.35 2389.89,39.17 2390.30,40.00 2389.89,40.82 2388.65,41.65"/>
       </lanes>
    </edge>
 
    <edge id=":12/2_0" function="internal">
       <lanes>
-         <lane id=":12/2_0_0" depart="0" maxspeed="13.90" length="5.00" shape="2391.75,91.35 2391.56,89.99 2390.98,89.03 2390.01,88.44 2388.65,88.25"/>
+         <lane id=":12/2_0_0" depart="0" maxspeed="13.90" length="5.00" shape="2391.75,91.35 2391.56,89.99 2390.97,89.03 2390.01,88.44 2388.65,88.25"/>
       </lanes>
    </edge>
 
@@ -2260,7 +2260,7 @@
 
    <edge id=":12/2_6" function="internal">
       <lanes>
-         <lane id=":12/2_6_0" depart="0" maxspeed="13.90" length="5.00" shape="2411.35,88.25 2409.99,88.44 2409.02,89.03 2408.44,89.99 2408.25,91.35"/>
+         <lane id=":12/2_6_0" depart="0" maxspeed="13.90" length="5.00" shape="2411.35,88.25 2409.99,88.44 2409.03,89.03 2408.44,89.99 2408.25,91.35"/>
       </lanes>
    </edge>
 
@@ -2320,7 +2320,7 @@
 
    <edge id=":12/2_16" function="internal">
       <lanes>
-         <lane id=":12/2_16_0" depart="0" maxspeed="13.90" length="5.00" shape="2388.65,71.75 2390.01,71.56 2390.98,70.97 2391.56,70.01 2391.75,68.65"/>
+         <lane id=":12/2_16_0" depart="0" maxspeed="13.90" length="5.00" shape="2388.65,71.75 2390.01,71.56 2390.97,70.97 2391.56,70.01 2391.75,68.65"/>
       </lanes>
    </edge>
 
@@ -2344,7 +2344,7 @@
 
    <edge id=":12/3_0" function="internal">
       <lanes>
-         <lane id=":12/3_0_0" depart="0" maxspeed="13.90" length="5.00" shape="2391.75,131.35 2391.56,129.99 2390.98,129.02 2390.01,128.44 2388.65,128.25"/>
+         <lane id=":12/3_0_0" depart="0" maxspeed="13.90" length="5.00" shape="2391.75,131.35 2391.56,129.99 2390.97,129.03 2390.01,128.44 2388.65,128.25"/>
       </lanes>
    </edge>
 
@@ -2380,7 +2380,7 @@
 
    <edge id=":12/3_6" function="internal">
       <lanes>
-         <lane id=":12/3_6_0" depart="0" maxspeed="13.90" length="5.00" shape="2411.35,128.25 2409.99,128.44 2409.02,129.02 2408.44,129.99 2408.25,131.35"/>
+         <lane id=":12/3_6_0" depart="0" maxspeed="13.90" length="5.00" shape="2411.35,128.25 2409.99,128.44 2409.03,129.03 2408.44,129.99 2408.25,131.35"/>
       </lanes>
    </edge>
 
@@ -2398,7 +2398,7 @@
 
    <edge id=":12/3_9" function="internal">
       <lanes>
-         <lane id=":12/3_9_0" depart="0" maxspeed="13.90" length="4.82" shape="2411.35,121.65 2410.11,120.82 2409.70,120.00 2410.11,119.18 2411.35,118.35"/>
+         <lane id=":12/3_9_0" depart="0" maxspeed="13.90" length="4.82" shape="2411.35,121.65 2410.11,120.83 2409.70,120.00 2410.11,119.18 2411.35,118.35"/>
       </lanes>
    </edge>
 
@@ -2440,7 +2440,7 @@
 
    <edge id=":12/3_16" function="internal">
       <lanes>
-         <lane id=":12/3_16_0" depart="0" maxspeed="13.90" length="5.00" shape="2388.65,111.75 2390.01,111.56 2390.98,110.97 2391.56,110.01 2391.75,108.65"/>
+         <lane id=":12/3_16_0" depart="0" maxspeed="13.90" length="5.00" shape="2388.65,111.75 2390.01,111.56 2390.97,110.97 2391.56,110.01 2391.75,108.65"/>
       </lanes>
    </edge>
 
@@ -2458,7 +2458,7 @@
 
    <edge id=":12/3_19" function="internal">
       <lanes>
-         <lane id=":12/3_19_0" depart="0" maxspeed="13.90" length="4.82" shape="2388.65,118.35 2389.89,119.18 2390.30,120.00 2389.89,120.82 2388.65,121.65"/>
+         <lane id=":12/3_19_0" depart="0" maxspeed="13.90" length="4.82" shape="2388.65,118.35 2389.89,119.17 2390.30,120.00 2389.89,120.82 2388.65,121.65"/>
       </lanes>
    </edge>
 
@@ -2482,7 +2482,7 @@
 
    <edge id=":12/4_3" function="internal">
       <lanes>
-         <lane id=":12/4_3_0" depart="0" maxspeed="13.90" length="23.69" shape="2411.35,161.65 2404.22,160.84 2399.13,158.40 2396.07,154.34 2395.05,148.65"/>
+         <lane id=":12/4_3_0" depart="0" maxspeed="13.90" length="23.69" shape="2411.35,161.65 2404.22,160.84 2399.12,158.40 2396.07,154.34 2395.05,148.65"/>
       </lanes>
    </edge>
 
@@ -2500,13 +2500,13 @@
 
    <edge id=":12/4_6" function="internal">
       <lanes>
-         <lane id=":12/4_6_0" depart="0" maxspeed="13.90" length="5.00" shape="2408.25,148.65 2408.44,150.01 2409.02,150.98 2409.99,151.56 2411.35,151.75"/>
+         <lane id=":12/4_6_0" depart="0" maxspeed="13.90" length="5.00" shape="2408.25,148.65 2408.44,150.01 2409.02,150.97 2409.99,151.56 2411.35,151.75"/>
       </lanes>
    </edge>
 
    <edge id=":12/4_7" function="internal">
       <lanes>
-         <lane id=":12/4_7_0" depart="0" maxspeed="13.90" length="26.29" shape="2404.95,148.65 2403.93,155.78 2400.88,160.88 2395.78,163.93 2388.65,164.95"/>
+         <lane id=":12/4_7_0" depart="0" maxspeed="13.90" length="26.29" shape="2404.95,148.65 2403.93,155.78 2400.87,160.88 2395.78,163.93 2388.65,164.95"/>
       </lanes>
    </edge>
 
@@ -2524,7 +2524,7 @@
 
    <edge id=":12/4_10" function="internal">
       <lanes>
-         <lane id=":12/4_10_0" depart="0" maxspeed="13.90" length="5.00" shape="2388.65,151.75 2390.01,151.56 2390.98,150.98 2391.56,150.01 2391.75,148.65"/>
+         <lane id=":12/4_10_0" depart="0" maxspeed="13.90" length="5.00" shape="2388.65,151.75 2390.01,151.56 2390.97,150.97 2391.56,150.01 2391.75,148.65"/>
       </lanes>
    </edge>
 
@@ -2578,7 +2578,7 @@
 
    <edge id=":13/0_4" function="internal">
       <lanes>
-         <lane id=":13/0_4_0" depart="0" maxspeed="13.90" length="5.00" shape="2611.35,8.25 2609.99,8.44 2609.02,9.02 2608.44,9.99 2608.25,11.35"/>
+         <lane id=":13/0_4_0" depart="0" maxspeed="13.90" length="5.00" shape="2611.35,8.25 2609.99,8.44 2609.03,9.02 2608.44,9.99 2608.25,11.35"/>
       </lanes>
    </edge>
 
@@ -2602,7 +2602,7 @@
 
    <edge id=":13/0_8" function="internal">
       <lanes>
-         <lane id=":13/0_8_0" depart="0" maxspeed="13.90" length="4.82" shape="2611.35,1.65 2610.11,0.82 2609.70,-0.00 2610.11,-0.83 2611.35,-1.65"/>
+         <lane id=":13/0_8_0" depart="0" maxspeed="13.90" length="4.82" shape="2611.35,1.65 2610.11,0.83 2609.70,0.00 2610.11,-0.82 2611.35,-1.65"/>
       </lanes>
    </edge>
 
@@ -2638,13 +2638,13 @@
 
    <edge id=":13/0_14" function="internal">
       <lanes>
-         <lane id=":13/0_14_0" depart="0" maxspeed="13.90" length="4.82" shape="2588.65,-1.65 2589.89,-0.82 2590.30,0.00 2589.89,0.83 2588.65,1.65"/>
+         <lane id=":13/0_14_0" depart="0" maxspeed="13.90" length="4.82" shape="2588.65,-1.65 2589.89,-0.83 2590.30,-0.00 2589.89,0.82 2588.65,1.65"/>
       </lanes>
    </edge>
 
    <edge id=":13/1_0" function="internal">
       <lanes>
-         <lane id=":13/1_0_0" depart="0" maxspeed="13.90" length="5.00" shape="2591.75,51.35 2591.56,49.99 2590.98,49.03 2590.01,48.44 2588.65,48.25"/>
+         <lane id=":13/1_0_0" depart="0" maxspeed="13.90" length="5.00" shape="2591.75,51.35 2591.56,49.99 2590.97,49.02 2590.01,48.44 2588.65,48.25"/>
       </lanes>
    </edge>
 
@@ -2680,7 +2680,7 @@
 
    <edge id=":13/1_6" function="internal">
       <lanes>
-         <lane id=":13/1_6_0" depart="0" maxspeed="13.90" length="5.00" shape="2611.35,48.25 2609.99,48.44 2609.02,49.03 2608.44,49.99 2608.25,51.35"/>
+         <lane id=":13/1_6_0" depart="0" maxspeed="13.90" length="5.00" shape="2611.35,48.25 2609.99,48.44 2609.03,49.02 2608.44,49.99 2608.25,51.35"/>
       </lanes>
    </edge>
 
@@ -2698,7 +2698,7 @@
 
    <edge id=":13/1_9" function="internal">
       <lanes>
-         <lane id=":13/1_9_0" depart="0" maxspeed="13.90" length="4.82" shape="2611.35,41.65 2610.11,40.82 2609.70,40.00 2610.11,39.17 2611.35,38.35"/>
+         <lane id=":13/1_9_0" depart="0" maxspeed="13.90" length="4.82" shape="2611.35,41.65 2610.11,40.83 2609.70,40.00 2610.11,39.18 2611.35,38.35"/>
       </lanes>
    </edge>
 
@@ -2740,7 +2740,7 @@
 
    <edge id=":13/1_16" function="internal">
       <lanes>
-         <lane id=":13/1_16_0" depart="0" maxspeed="13.90" length="5.00" shape="2588.65,31.75 2590.01,31.56 2590.98,30.98 2591.56,30.01 2591.75,28.65"/>
+         <lane id=":13/1_16_0" depart="0" maxspeed="13.90" length="5.00" shape="2588.65,31.75 2590.01,31.56 2590.97,30.98 2591.56,30.01 2591.75,28.65"/>
       </lanes>
    </edge>
 
@@ -2758,13 +2758,13 @@
 
    <edge id=":13/1_19" function="internal">
       <lanes>
-         <lane id=":13/1_19_0" depart="0" maxspeed="13.90" length="4.82" shape="2588.65,38.35 2589.89,39.18 2590.30,40.00 2589.89,40.83 2588.65,41.65"/>
+         <lane id=":13/1_19_0" depart="0" maxspeed="13.90" length="4.82" shape="2588.65,38.35 2589.89,39.17 2590.30,40.00 2589.89,40.82 2588.65,41.65"/>
       </lanes>
    </edge>
 
    <edge id=":13/2_0" function="internal">
       <lanes>
-         <lane id=":13/2_0_0" depart="0" maxspeed="13.90" length="5.00" shape="2591.75,91.35 2591.56,89.99 2590.98,89.03 2590.01,88.44 2588.65,88.25"/>
+         <lane id=":13/2_0_0" depart="0" maxspeed="13.90" length="5.00" shape="2591.75,91.35 2591.56,89.99 2590.97,89.03 2590.01,88.44 2588.65,88.25"/>
       </lanes>
    </edge>
 
@@ -2800,7 +2800,7 @@
 
    <edge id=":13/2_6" function="internal">
       <lanes>
-         <lane id=":13/2_6_0" depart="0" maxspeed="13.90" length="5.00" shape="2611.35,88.25 2609.99,88.44 2609.02,89.03 2608.44,89.99 2608.25,91.35"/>
+         <lane id=":13/2_6_0" depart="0" maxspeed="13.90" length="5.00" shape="2611.35,88.25 2609.99,88.44 2609.03,89.03 2608.44,89.99 2608.25,91.35"/>
       </lanes>
    </edge>
 
@@ -2860,7 +2860,7 @@
 
    <edge id=":13/2_16" function="internal">
       <lanes>
-         <lane id=":13/2_16_0" depart="0" maxspeed="13.90" length="5.00" shape="2588.65,71.75 2590.01,71.56 2590.98,70.97 2591.56,70.01 2591.75,68.65"/>
+         <lane id=":13/2_16_0" depart="0" maxspeed="13.90" length="5.00" shape="2588.65,71.75 2590.01,71.56 2590.97,70.97 2591.56,70.01 2591.75,68.65"/>
       </lanes>
    </edge>
 
@@ -2884,7 +2884,7 @@
 
    <edge id=":13/3_0" function="internal">
       <lanes>
-         <lane id=":13/3_0_0" depart="0" maxspeed="13.90" length="5.00" shape="2591.75,131.35 2591.56,129.99 2590.98,129.02 2590.01,128.44 2588.65,128.25"/>
+         <lane id=":13/3_0_0" depart="0" maxspeed="13.90" length="5.00" shape="2591.75,131.35 2591.56,129.99 2590.97,129.03 2590.01,128.44 2588.65,128.25"/>
       </lanes>
    </edge>
 
@@ -2920,7 +2920,7 @@
 
    <edge id=":13/3_6" function="internal">
       <lanes>
-         <lane id=":13/3_6_0" depart="0" maxspeed="13.90" length="5.00" shape="2611.35,128.25 2609.99,128.44 2609.02,129.02 2608.44,129.99 2608.25,131.35"/>
+         <lane id=":13/3_6_0" depart="0" maxspeed="13.90" length="5.00" shape="2611.35,128.25 2609.99,128.44 2609.03,129.03 2608.44,129.99 2608.25,131.35"/>
       </lanes>
    </edge>
 
@@ -2938,7 +2938,7 @@
 
    <edge id=":13/3_9" function="internal">
       <lanes>
-         <lane id=":13/3_9_0" depart="0" maxspeed="13.90" length="4.82" shape="2611.35,121.65 2610.11,120.82 2609.70,120.00 2610.11,119.18 2611.35,118.35"/>
+         <lane id=":13/3_9_0" depart="0" maxspeed="13.90" length="4.82" shape="2611.35,121.65 2610.11,120.83 2609.70,120.00 2610.11,119.18 2611.35,118.35"/>
       </lanes>
    </edge>
 
@@ -2980,7 +2980,7 @@
 
    <edge id=":13/3_16" function="internal">
       <lanes>
-         <lane id=":13/3_16_0" depart="0" maxspeed="13.90" length="5.00" shape="2588.65,111.75 2590.01,111.56 2590.98,110.97 2591.56,110.01 2591.75,108.65"/>
+         <lane id=":13/3_16_0" depart="0" maxspeed="13.90" length="5.00" shape="2588.65,111.75 2590.01,111.56 2590.97,110.97 2591.56,110.01 2591.75,108.65"/>
       </lanes>
    </edge>
 
@@ -2998,7 +2998,7 @@
 
    <edge id=":13/3_19" function="internal">
       <lanes>
-         <lane id=":13/3_19_0" depart="0" maxspeed="13.90" length="4.82" shape="2588.65,118.35 2589.89,119.18 2590.30,120.00 2589.89,120.82 2588.65,121.65"/>
+         <lane id=":13/3_19_0" depart="0" maxspeed="13.90" length="4.82" shape="2588.65,118.35 2589.89,119.17 2590.30,120.00 2589.89,120.82 2588.65,121.65"/>
       </lanes>
    </edge>
 
@@ -3022,7 +3022,7 @@
 
    <edge id=":13/4_3" function="internal">
       <lanes>
-         <lane id=":13/4_3_0" depart="0" maxspeed="13.90" length="23.69" shape="2611.35,161.65 2604.22,160.84 2599.13,158.40 2596.07,154.34 2595.05,148.65"/>
+         <lane id=":13/4_3_0" depart="0" maxspeed="13.90" length="23.69" shape="2611.35,161.65 2604.22,160.84 2599.12,158.40 2596.07,154.34 2595.05,148.65"/>
       </lanes>
    </edge>
 
@@ -3040,13 +3040,13 @@
 
    <edge id=":13/4_6" function="internal">
       <lanes>
-         <lane id=":13/4_6_0" depart="0" maxspeed="13.90" length="5.00" shape="2608.25,148.65 2608.44,150.01 2609.02,150.98 2609.99,151.56 2611.35,151.75"/>
+         <lane id=":13/4_6_0" depart="0" maxspeed="13.90" length="5.00" shape="2608.25,148.65 2608.44,150.01 2609.02,150.97 2609.99,151.56 2611.35,151.75"/>
       </lanes>
    </edge>
 
    <edge id=":13/4_7" function="internal">
       <lanes>
-         <lane id=":13/4_7_0" depart="0" maxspeed="13.90" length="26.29" shape="2604.95,148.65 2603.93,155.78 2600.88,160.88 2595.78,163.93 2588.65,164.95"/>
+         <lane id=":13/4_7_0" depart="0" maxspeed="13.90" length="26.29" shape="2604.95,148.65 2603.93,155.78 2600.87,160.88 2595.78,163.93 2588.65,164.95"/>
       </lanes>
    </edge>
 
@@ -3064,7 +3064,7 @@
 
    <edge id=":13/4_10" function="internal">
       <lanes>
-         <lane id=":13/4_10_0" depart="0" maxspeed="13.90" length="5.00" shape="2588.65,151.75 2590.01,151.56 2590.98,150.98 2591.56,150.01 2591.75,148.65"/>
+         <lane id=":13/4_10_0" depart="0" maxspeed="13.90" length="5.00" shape="2588.65,151.75 2590.01,151.56 2590.97,150.97 2591.56,150.01 2591.75,148.65"/>
       </lanes>
    </edge>
 
@@ -3118,7 +3118,7 @@
 
    <edge id=":14/0_4" function="internal">
       <lanes>
-         <lane id=":14/0_4_0" depart="0" maxspeed="13.90" length="5.00" shape="2811.35,8.25 2809.99,8.44 2809.02,9.02 2808.44,9.99 2808.25,11.35"/>
+         <lane id=":14/0_4_0" depart="0" maxspeed="13.90" length="5.00" shape="2811.35,8.25 2809.99,8.44 2809.03,9.02 2808.44,9.99 2808.25,11.35"/>
       </lanes>
    </edge>
 
@@ -3142,7 +3142,7 @@
 
    <edge id=":14/0_8" function="internal">
       <lanes>
-         <lane id=":14/0_8_0" depart="0" maxspeed="13.90" length="4.82" shape="2811.35,1.65 2810.11,0.82 2809.70,-0.00 2810.11,-0.83 2811.35,-1.65"/>
+         <lane id=":14/0_8_0" depart="0" maxspeed="13.90" length="4.82" shape="2811.35,1.65 2810.11,0.83 2809.70,0.00 2810.11,-0.82 2811.35,-1.65"/>
       </lanes>
    </edge>
 
@@ -3178,13 +3178,13 @@
 
    <edge id=":14/0_14" function="internal">
       <lanes>
-         <lane id=":14/0_14_0" depart="0" maxspeed="13.90" length="4.82" shape="2788.65,-1.65 2789.89,-0.82 2790.30,0.00 2789.89,0.83 2788.65,1.65"/>
+         <lane id=":14/0_14_0" depart="0" maxspeed="13.90" length="4.82" shape="2788.65,-1.65 2789.89,-0.83 2790.30,-0.00 2789.89,0.82 2788.65,1.65"/>
       </lanes>
    </edge>
 
    <edge id=":14/1_0" function="internal">
       <lanes>
-         <lane id=":14/1_0_0" depart="0" maxspeed="13.90" length="5.00" shape="2791.75,51.35 2791.56,49.99 2790.98,49.03 2790.01,48.44 2788.65,48.25"/>
+         <lane id=":14/1_0_0" depart="0" maxspeed="13.90" length="5.00" shape="2791.75,51.35 2791.56,49.99 2790.97,49.02 2790.01,48.44 2788.65,48.25"/>
       </lanes>
    </edge>
 
@@ -3220,7 +3220,7 @@
 
    <edge id=":14/1_6" function="internal">
       <lanes>
-         <lane id=":14/1_6_0" depart="0" maxspeed="13.90" length="5.00" shape="2811.35,48.25 2809.99,48.44 2809.02,49.03 2808.44,49.99 2808.25,51.35"/>
+         <lane id=":14/1_6_0" depart="0" maxspeed="13.90" length="5.00" shape="2811.35,48.25 2809.99,48.44 2809.03,49.02 2808.44,49.99 2808.25,51.35"/>
       </lanes>
    </edge>
 
@@ -3238,7 +3238,7 @@
 
    <edge id=":14/1_9" function="internal">
       <lanes>
-         <lane id=":14/1_9_0" depart="0" maxspeed="13.90" length="4.82" shape="2811.35,41.65 2810.11,40.82 2809.70,40.00 2810.11,39.17 2811.35,38.35"/>
+         <lane id=":14/1_9_0" depart="0" maxspeed="13.90" length="4.82" shape="2811.35,41.65 2810.11,40.83 2809.70,40.00 2810.11,39.18 2811.35,38.35"/>
       </lanes>
    </edge>
 
@@ -3280,7 +3280,7 @@
 
    <edge id=":14/1_16" function="internal">
       <lanes>
-         <lane id=":14/1_16_0" depart="0" maxspeed="13.90" length="5.00" shape="2788.65,31.75 2790.01,31.56 2790.98,30.98 2791.56,30.01 2791.75,28.65"/>
+         <lane id=":14/1_16_0" depart="0" maxspeed="13.90" length="5.00" shape="2788.65,31.75 2790.01,31.56 2790.97,30.98 2791.56,30.01 2791.75,28.65"/>
       </lanes>
    </edge>
 
@@ -3298,13 +3298,13 @@
 
    <edge id=":14/1_19" function="internal">
       <lanes>
-         <lane id=":14/1_19_0" depart="0" maxspeed="13.90" length="4.82" shape="2788.65,38.35 2789.89,39.18 2790.30,40.00 2789.89,40.83 2788.65,41.65"/>
+         <lane id=":14/1_19_0" depart="0" maxspeed="13.90" length="4.82" shape="2788.65,38.35 2789.89,39.17 2790.30,40.00 2789.89,40.82 2788.65,41.65"/>
       </lanes>
    </edge>
 
    <edge id=":14/2_0" function="internal">
       <lanes>
-         <lane id=":14/2_0_0" depart="0" maxspeed="13.90" length="5.00" shape="2791.75,91.35 2791.56,89.99 2790.98,89.03 2790.01,88.44 2788.65,88.25"/>
+         <lane id=":14/2_0_0" depart="0" maxspeed="13.90" length="5.00" shape="2791.75,91.35 2791.56,89.99 2790.97,89.03 2790.01,88.44 2788.65,88.25"/>
       </lanes>
    </edge>
 
@@ -3340,7 +3340,7 @@
 
    <edge id=":14/2_6" function="internal">
       <lanes>
-         <lane id=":14/2_6_0" depart="0" maxspeed="13.90" length="5.00" shape="2811.35,88.25 2809.99,88.44 2809.02,89.03 2808.44,89.99 2808.25,91.35"/>
+         <lane id=":14/2_6_0" depart="0" maxspeed="13.90" length="5.00" shape="2811.35,88.25 2809.99,88.44 2809.03,89.03 2808.44,89.99 2808.25,91.35"/>
       </lanes>
    </edge>
 
@@ -3400,7 +3400,7 @@
 
    <edge id=":14/2_16" function="internal">
       <lanes>
-         <lane id=":14/2_16_0" depart="0" maxspeed="13.90" length="5.00" shape="2788.65,71.75 2790.01,71.56 2790.98,70.97 2791.56,70.01 2791.75,68.65"/>
+         <lane id=":14/2_16_0" depart="0" maxspeed="13.90" length="5.00" shape="2788.65,71.75 2790.01,71.56 2790.97,70.97 2791.56,70.01 2791.75,68.65"/>
       </lanes>
    </edge>
 
@@ -3424,7 +3424,7 @@
 
    <edge id=":14/3_0" function="internal">
       <lanes>
-         <lane id=":14/3_0_0" depart="0" maxspeed="13.90" length="5.00" shape="2791.75,131.35 2791.56,129.99 2790.98,129.02 2790.01,128.44 2788.65,128.25"/>
+         <lane id=":14/3_0_0" depart="0" maxspeed="13.90" length="5.00" shape="2791.75,131.35 2791.56,129.99 2790.97,129.03 2790.01,128.44 2788.65,128.25"/>
       </lanes>
    </edge>
 
@@ -3460,7 +3460,7 @@
 
    <edge id=":14/3_6" function="internal">
       <lanes>
-         <lane id=":14/3_6_0" depart="0" maxspeed="13.90" length="5.00" shape="2811.35,128.25 2809.99,128.44 2809.02,129.02 2808.44,129.99 2808.25,131.35"/>
+         <lane id=":14/3_6_0" depart="0" maxspeed="13.90" length="5.00" shape="2811.35,128.25 2809.99,128.44 2809.03,129.03 2808.44,129.99 2808.25,131.35"/>
       </lanes>
    </edge>
 
@@ -3478,7 +3478,7 @@
 
    <edge id=":14/3_9" function="internal">
       <lanes>
-         <lane id=":14/3_9_0" depart="0" maxspeed="13.90" length="4.82" shape="2811.35,121.65 2810.11,120.82 2809.70,120.00 2810.11,119.18 2811.35,118.35"/>
+         <lane id=":14/3_9_0" depart="0" maxspeed="13.90" length="4.82" shape="2811.35,121.65 2810.11,120.83 2809.70,120.00 2810.11,119.18 2811.35,118.35"/>
       </lanes>
    </edge>
 
@@ -3520,7 +3520,7 @@
 
    <edge id=":14/3_16" function="internal">
       <lanes>
-         <lane id=":14/3_16_0" depart="0" maxspeed="13.90" length="5.00" shape="2788.65,111.75 2790.01,111.56 2790.98,110.97 2791.56,110.01 2791.75,108.65"/>
+         <lane id=":14/3_16_0" depart="0" maxspeed="13.90" length="5.00" shape="2788.65,111.75 2790.01,111.56 2790.97,110.97 2791.56,110.01 2791.75,108.65"/>
       </lanes>
    </edge>
 
@@ -3538,7 +3538,7 @@
 
    <edge id=":14/3_19" function="internal">
       <lanes>
-         <lane id=":14/3_19_0" depart="0" maxspeed="13.90" length="4.82" shape="2788.65,118.35 2789.89,119.18 2790.30,120.00 2789.89,120.82 2788.65,121.65"/>
+         <lane id=":14/3_19_0" depart="0" maxspeed="13.90" length="4.82" shape="2788.65,118.35 2789.89,119.17 2790.30,120.00 2789.89,120.82 2788.65,121.65"/>
       </lanes>
    </edge>
 
@@ -3562,7 +3562,7 @@
 
    <edge id=":14/4_3" function="internal">
       <lanes>
-         <lane id=":14/4_3_0" depart="0" maxspeed="13.90" length="23.69" shape="2811.35,161.65 2804.22,160.84 2799.13,158.40 2796.07,154.34 2795.05,148.65"/>
+         <lane id=":14/4_3_0" depart="0" maxspeed="13.90" length="23.69" shape="2811.35,161.65 2804.22,160.84 2799.12,158.40 2796.07,154.34 2795.05,148.65"/>
       </lanes>
    </edge>
 
@@ -3580,13 +3580,13 @@
 
    <edge id=":14/4_6" function="internal">
       <lanes>
-         <lane id=":14/4_6_0" depart="0" maxspeed="13.90" length="5.00" shape="2808.25,148.65 2808.44,150.01 2809.02,150.98 2809.99,151.56 2811.35,151.75"/>
+         <lane id=":14/4_6_0" depart="0" maxspeed="13.90" length="5.00" shape="2808.25,148.65 2808.44,150.01 2809.02,150.97 2809.99,151.56 2811.35,151.75"/>
       </lanes>
    </edge>
 
    <edge id=":14/4_7" function="internal">
       <lanes>
-         <lane id=":14/4_7_0" depart="0" maxspeed="13.90" length="26.29" shape="2804.95,148.65 2803.93,155.78 2800.88,160.88 2795.78,163.93 2788.65,164.95"/>
+         <lane id=":14/4_7_0" depart="0" maxspeed="13.90" length="26.29" shape="2804.95,148.65 2803.93,155.78 2800.87,160.88 2795.78,163.93 2788.65,164.95"/>
       </lanes>
    </edge>
 
@@ -3604,7 +3604,7 @@
 
    <edge id=":14/4_10" function="internal">
       <lanes>
-         <lane id=":14/4_10_0" depart="0" maxspeed="13.90" length="5.00" shape="2788.65,151.75 2790.01,151.56 2790.98,150.98 2791.56,150.01 2791.75,148.65"/>
+         <lane id=":14/4_10_0" depart="0" maxspeed="13.90" length="5.00" shape="2788.65,151.75 2790.01,151.56 2790.97,150.97 2791.56,150.01 2791.75,148.65"/>
       </lanes>
    </edge>
 
@@ -3658,7 +3658,7 @@
 
    <edge id=":15/0_4" function="internal">
       <lanes>
-         <lane id=":15/0_4_0" depart="0" maxspeed="13.90" length="5.00" shape="3011.35,8.25 3009.99,8.44 3009.02,9.02 3008.44,9.99 3008.25,11.35"/>
+         <lane id=":15/0_4_0" depart="0" maxspeed="13.90" length="5.00" shape="3011.35,8.25 3009.99,8.44 3009.03,9.02 3008.44,9.99 3008.25,11.35"/>
       </lanes>
    </edge>
 
@@ -3682,7 +3682,7 @@
 
    <edge id=":15/0_8" function="internal">
       <lanes>
-         <lane id=":15/0_8_0" depart="0" maxspeed="13.90" length="4.82" shape="3011.35,1.65 3010.11,0.82 3009.70,-0.00 3010.11,-0.83 3011.35,-1.65"/>
+         <lane id=":15/0_8_0" depart="0" maxspeed="13.90" length="4.82" shape="3011.35,1.65 3010.11,0.83 3009.70,0.00 3010.11,-0.82 3011.35,-1.65"/>
       </lanes>
    </edge>
 
@@ -3718,13 +3718,13 @@
 
    <edge id=":15/0_14" function="internal">
       <lanes>
-         <lane id=":15/0_14_0" depart="0" maxspeed="13.90" length="4.82" shape="2988.65,-1.65 2989.89,-0.82 2990.30,0.00 2989.89,0.83 2988.65,1.65"/>
+         <lane id=":15/0_14_0" depart="0" maxspeed="13.90" length="4.82" shape="2988.65,-1.65 2989.89,-0.83 2990.30,-0.00 2989.89,0.82 2988.65,1.65"/>
       </lanes>
    </edge>
 
    <edge id=":15/1_0" function="internal">
       <lanes>
-         <lane id=":15/1_0_0" depart="0" maxspeed="13.90" length="5.00" shape="2991.75,51.35 2991.56,49.99 2990.98,49.03 2990.01,48.44 2988.65,48.25"/>
+         <lane id=":15/1_0_0" depart="0" maxspeed="13.90" length="5.00" shape="2991.75,51.35 2991.56,49.99 2990.97,49.02 2990.01,48.44 2988.65,48.25"/>
       </lanes>
    </edge>
 
@@ -3760,7 +3760,7 @@
 
    <edge id=":15/1_6" function="internal">
       <lanes>
-         <lane id=":15/1_6_0" depart="0" maxspeed="13.90" length="5.00" shape="3011.35,48.25 3009.99,48.44 3009.02,49.03 3008.44,49.99 3008.25,51.35"/>
+         <lane id=":15/1_6_0" depart="0" maxspeed="13.90" length="5.00" shape="3011.35,48.25 3009.99,48.44 3009.03,49.02 3008.44,49.99 3008.25,51.35"/>
       </lanes>
    </edge>
 
@@ -3778,7 +3778,7 @@
 
    <edge id=":15/1_9" function="internal">
       <lanes>
-         <lane id=":15/1_9_0" depart="0" maxspeed="13.90" length="4.82" shape="3011.35,41.65 3010.11,40.82 3009.70,40.00 3010.11,39.17 3011.35,38.35"/>
+         <lane id=":15/1_9_0" depart="0" maxspeed="13.90" length="4.82" shape="3011.35,41.65 3010.11,40.83 3009.70,40.00 3010.11,39.18 3011.35,38.35"/>
       </lanes>
    </edge>
 
@@ -3820,7 +3820,7 @@
 
    <edge id=":15/1_16" function="internal">
       <lanes>
-         <lane id=":15/1_16_0" depart="0" maxspeed="13.90" length="5.00" shape="2988.65,31.75 2990.01,31.56 2990.98,30.98 2991.56,30.01 2991.75,28.65"/>
+         <lane id=":15/1_16_0" depart="0" maxspeed="13.90" length="5.00" shape="2988.65,31.75 2990.01,31.56 2990.97,30.98 2991.56,30.01 2991.75,28.65"/>
       </lanes>
    </edge>
 
@@ -3838,13 +3838,13 @@
 
    <edge id=":15/1_19" function="internal">
       <lanes>
-         <lane id=":15/1_19_0" depart="0" maxspeed="13.90" length="4.82" shape="2988.65,38.35 2989.89,39.18 2990.30,40.00 2989.89,40.83 2988.65,41.65"/>
+         <lane id=":15/1_19_0" depart="0" maxspeed="13.90" length="4.82" shape="2988.65,38.35 2989.89,39.17 2990.30,40.00 2989.89,40.82 2988.65,41.65"/>
       </lanes>
    </edge>
 
    <edge id=":15/2_0" function="internal">
       <lanes>
-         <lane id=":15/2_0_0" depart="0" maxspeed="13.90" length="5.00" shape="2991.75,91.35 2991.56,89.99 2990.98,89.03 2990.01,88.44 2988.65,88.25"/>
+         <lane id=":15/2_0_0" depart="0" maxspeed="13.90" length="5.00" shape="2991.75,91.35 2991.56,89.99 2990.97,89.03 2990.01,88.44 2988.65,88.25"/>
       </lanes>
    </edge>
 
@@ -3880,7 +3880,7 @@
 
    <edge id=":15/2_6" function="internal">
       <lanes>
-         <lane id=":15/2_6_0" depart="0" maxspeed="13.90" length="5.00" shape="3011.35,88.25 3009.99,88.44 3009.02,89.03 3008.44,89.99 3008.25,91.35"/>
+         <lane id=":15/2_6_0" depart="0" maxspeed="13.90" length="5.00" shape="3011.35,88.25 3009.99,88.44 3009.03,89.03 3008.44,89.99 3008.25,91.35"/>
       </lanes>
    </edge>
 
@@ -3940,7 +3940,7 @@
 
    <edge id=":15/2_16" function="internal">
       <lanes>
-         <lane id=":15/2_16_0" depart="0" maxspeed="13.90" length="5.00" shape="2988.65,71.75 2990.01,71.56 2990.98,70.97 2991.56,70.01 2991.75,68.65"/>
+         <lane id=":15/2_16_0" depart="0" maxspeed="13.90" length="5.00" shape="2988.65,71.75 2990.01,71.56 2990.97,70.97 2991.56,70.01 2991.75,68.65"/>
       </lanes>
    </edge>
 
@@ -3964,7 +3964,7 @@
 
    <edge id=":15/3_0" function="internal">
       <lanes>
-         <lane id=":15/3_0_0" depart="0" maxspeed="13.90" length="5.00" shape="2991.75,131.35 2991.56,129.99 2990.98,129.02 2990.01,128.44 2988.65,128.25"/>
+         <lane id=":15/3_0_0" depart="0" maxspeed="13.90" length="5.00" shape="2991.75,131.35 2991.56,129.99 2990.97,129.03 2990.01,128.44 2988.65,128.25"/>
       </lanes>
    </edge>
 
@@ -4000,7 +4000,7 @@
 
    <edge id=":15/3_6" function="internal">
       <lanes>
-         <lane id=":15/3_6_0" depart="0" maxspeed="13.90" length="5.00" shape="3011.35,128.25 3009.99,128.44 3009.02,129.02 3008.44,129.99 3008.25,131.35"/>
+         <lane id=":15/3_6_0" depart="0" maxspeed="13.90" length="5.00" shape="3011.35,128.25 3009.99,128.44 3009.03,129.03 3008.44,129.99 3008.25,131.35"/>
       </lanes>
    </edge>
 
@@ -4018,7 +4018,7 @@
 
    <edge id=":15/3_9" function="internal">
       <lanes>
-         <lane id=":15/3_9_0" depart="0" maxspeed="13.90" length="4.82" shape="3011.35,121.65 3010.11,120.82 3009.70,120.00 3010.11,119.18 3011.35,118.35"/>
+         <lane id=":15/3_9_0" depart="0" maxspeed="13.90" length="4.82" shape="3011.35,121.65 3010.11,120.83 3009.70,120.00 3010.11,119.18 3011.35,118.35"/>
       </lanes>
    </edge>
 
@@ -4060,7 +4060,7 @@
 
    <edge id=":15/3_16" function="internal">
       <lanes>
-         <lane id=":15/3_16_0" depart="0" maxspeed="13.90" length="5.00" shape="2988.65,111.75 2990.01,111.56 2990.98,110.97 2991.56,110.01 2991.75,108.65"/>
+         <lane id=":15/3_16_0" depart="0" maxspeed="13.90" length="5.00" shape="2988.65,111.75 2990.01,111.56 2990.97,110.97 2991.56,110.01 2991.75,108.65"/>
       </lanes>
    </edge>
 
@@ -4078,7 +4078,7 @@
 
    <edge id=":15/3_19" function="internal">
       <lanes>
-         <lane id=":15/3_19_0" depart="0" maxspeed="13.90" length="4.82" shape="2988.65,118.35 2989.89,119.18 2990.30,120.00 2989.89,120.82 2988.65,121.65"/>
+         <lane id=":15/3_19_0" depart="0" maxspeed="13.90" length="4.82" shape="2988.65,118.35 2989.89,119.17 2990.30,120.00 2989.89,120.82 2988.65,121.65"/>
       </lanes>
    </edge>
 
@@ -4102,7 +4102,7 @@
 
    <edge id=":15/4_3" function="internal">
       <lanes>
-         <lane id=":15/4_3_0" depart="0" maxspeed="13.90" length="23.69" shape="3011.35,161.65 3004.22,160.84 2999.13,158.40 2996.07,154.34 2995.05,148.65"/>
+         <lane id=":15/4_3_0" depart="0" maxspeed="13.90" length="23.69" shape="3011.35,161.65 3004.22,160.84 2999.12,158.40 2996.07,154.34 2995.05,148.65"/>
       </lanes>
    </edge>
 
@@ -4120,13 +4120,13 @@
 
    <edge id=":15/4_6" function="internal">
       <lanes>
-         <lane id=":15/4_6_0" depart="0" maxspeed="13.90" length="5.00" shape="3008.25,148.65 3008.44,150.01 3009.02,150.98 3009.99,151.56 3011.35,151.75"/>
+         <lane id=":15/4_6_0" depart="0" maxspeed="13.90" length="5.00" shape="3008.25,148.65 3008.44,150.01 3009.02,150.97 3009.99,151.56 3011.35,151.75"/>
       </lanes>
    </edge>
 
    <edge id=":15/4_7" function="internal">
       <lanes>
-         <lane id=":15/4_7_0" depart="0" maxspeed="13.90" length="26.29" shape="3004.95,148.65 3003.93,155.78 3000.88,160.88 2995.78,163.93 2988.65,164.95"/>
+         <lane id=":15/4_7_0" depart="0" maxspeed="13.90" length="26.29" shape="3004.95,148.65 3003.93,155.78 3000.87,160.88 2995.78,163.93 2988.65,164.95"/>
       </lanes>
    </edge>
 
@@ -4144,7 +4144,7 @@
 
    <edge id=":15/4_10" function="internal">
       <lanes>
-         <lane id=":15/4_10_0" depart="0" maxspeed="13.90" length="5.00" shape="2988.65,151.75 2990.01,151.56 2990.98,150.98 2991.56,150.01 2991.75,148.65"/>
+         <lane id=":15/4_10_0" depart="0" maxspeed="13.90" length="5.00" shape="2988.65,151.75 2990.01,151.56 2990.97,150.97 2991.56,150.01 2991.75,148.65"/>
       </lanes>
    </edge>
 
@@ -4222,7 +4222,7 @@
 
    <edge id=":16/0_8" function="internal">
       <lanes>
-         <lane id=":16/0_8_0" depart="0" maxspeed="13.90" length="4.82" shape="3211.35,1.65 3210.11,0.82 3209.70,-0.00 3210.11,-0.83 3211.35,-1.65"/>
+         <lane id=":16/0_8_0" depart="0" maxspeed="13.90" length="4.82" shape="3211.35,1.65 3210.11,0.83 3209.70,0.00 3210.11,-0.82 3211.35,-1.65"/>
       </lanes>
    </edge>
 
@@ -4258,13 +4258,13 @@
 
    <edge id=":16/0_14" function="internal">
       <lanes>
-         <lane id=":16/0_14_0" depart="0" maxspeed="13.90" length="4.82" shape="3188.65,-1.65 3189.89,-0.82 3190.30,0.00 3189.89,0.83 3188.65,1.65"/>
+         <lane id=":16/0_14_0" depart="0" maxspeed="13.90" length="4.82" shape="3188.65,-1.65 3189.89,-0.83 3190.30,-0.00 3189.89,0.82 3188.65,1.65"/>
       </lanes>
    </edge>
 
    <edge id=":16/1_0" function="internal">
       <lanes>
-         <lane id=":16/1_0_0" depart="0" maxspeed="13.90" length="5.00" shape="3191.75,51.35 3191.56,49.99 3190.98,49.03 3190.01,48.44 3188.65,48.25"/>
+         <lane id=":16/1_0_0" depart="0" maxspeed="13.90" length="5.00" shape="3191.75,51.35 3191.56,49.99 3190.97,49.02 3190.01,48.44 3188.65,48.25"/>
       </lanes>
    </edge>
 
@@ -4300,7 +4300,7 @@
 
    <edge id=":16/1_6" function="internal">
       <lanes>
-         <lane id=":16/1_6_0" depart="0" maxspeed="13.90" length="5.00" shape="3211.35,48.25 3209.99,48.44 3209.03,49.03 3208.44,49.99 3208.25,51.35"/>
+         <lane id=":16/1_6_0" depart="0" maxspeed="13.90" length="5.00" shape="3211.35,48.25 3209.99,48.44 3209.03,49.02 3208.44,49.99 3208.25,51.35"/>
       </lanes>
    </edge>
 
@@ -4318,13 +4318,13 @@
 
    <edge id=":16/1_9" function="internal">
       <lanes>
-         <lane id=":16/1_9_0" depart="0" maxspeed="13.90" length="4.82" shape="3211.35,41.65 3210.11,40.82 3209.70,40.00 3210.11,39.17 3211.35,38.35"/>
+         <lane id=":16/1_9_0" depart="0" maxspeed="13.90" length="4.82" shape="3211.35,41.65 3210.11,40.83 3209.70,40.00 3210.11,39.18 3211.35,38.35"/>
       </lanes>
    </edge>
 
    <edge id=":16/1_10" function="internal">
       <lanes>
-         <lane id=":16/1_10_0" depart="0" maxspeed="13.90" length="5.00" shape="3208.25,28.65 3208.44,30.01 3209.03,30.98 3209.99,31.56 3211.35,31.75"/>
+         <lane id=":16/1_10_0" depart="0" maxspeed="13.90" length="5.00" shape="3208.25,28.65 3208.44,30.01 3209.02,30.98 3209.99,31.56 3211.35,31.75"/>
       </lanes>
    </edge>
 
@@ -4360,7 +4360,7 @@
 
    <edge id=":16/1_16" function="internal">
       <lanes>
-         <lane id=":16/1_16_0" depart="0" maxspeed="13.90" length="5.00" shape="3188.65,31.75 3190.01,31.56 3190.98,30.98 3191.56,30.01 3191.75,28.65"/>
+         <lane id=":16/1_16_0" depart="0" maxspeed="13.90" length="5.00" shape="3188.65,31.75 3190.01,31.56 3190.97,30.98 3191.56,30.01 3191.75,28.65"/>
       </lanes>
    </edge>
 
@@ -4378,13 +4378,13 @@
 
    <edge id=":16/1_19" function="internal">
       <lanes>
-         <lane id=":16/1_19_0" depart="0" maxspeed="13.90" length="4.82" shape="3188.65,38.35 3189.89,39.18 3190.30,40.00 3189.89,40.83 3188.65,41.65"/>
+         <lane id=":16/1_19_0" depart="0" maxspeed="13.90" length="4.82" shape="3188.65,38.35 3189.89,39.17 3190.30,40.00 3189.89,40.82 3188.65,41.65"/>
       </lanes>
    </edge>
 
    <edge id=":16/2_0" function="internal">
       <lanes>
-         <lane id=":16/2_0_0" depart="0" maxspeed="13.90" length="5.00" shape="3191.75,91.35 3191.56,89.99 3190.98,89.03 3190.01,88.44 3188.65,88.25"/>
+         <lane id=":16/2_0_0" depart="0" maxspeed="13.90" length="5.00" shape="3191.75,91.35 3191.56,89.99 3190.97,89.03 3190.01,88.44 3188.65,88.25"/>
       </lanes>
    </edge>
 
@@ -4444,7 +4444,7 @@
 
    <edge id=":16/2_10" function="internal">
       <lanes>
-         <lane id=":16/2_10_0" depart="0" maxspeed="13.90" length="5.00" shape="3208.25,68.65 3208.44,70.01 3209.03,70.97 3209.99,71.56 3211.35,71.75"/>
+         <lane id=":16/2_10_0" depart="0" maxspeed="13.90" length="5.00" shape="3208.25,68.65 3208.44,70.01 3209.02,70.97 3209.99,71.56 3211.35,71.75"/>
       </lanes>
    </edge>
 
@@ -4480,7 +4480,7 @@
 
    <edge id=":16/2_16" function="internal">
       <lanes>
-         <lane id=":16/2_16_0" depart="0" maxspeed="13.90" length="5.00" shape="3188.65,71.75 3190.01,71.56 3190.98,70.97 3191.56,70.01 3191.75,68.65"/>
+         <lane id=":16/2_16_0" depart="0" maxspeed="13.90" length="5.00" shape="3188.65,71.75 3190.01,71.56 3190.97,70.97 3191.56,70.01 3191.75,68.65"/>
       </lanes>
    </edge>
 
@@ -4504,7 +4504,7 @@
 
    <edge id=":16/3_0" function="internal">
       <lanes>
-         <lane id=":16/3_0_0" depart="0" maxspeed="13.90" length="5.00" shape="3191.75,131.35 3191.56,129.99 3190.98,129.02 3190.01,128.44 3188.65,128.25"/>
+         <lane id=":16/3_0_0" depart="0" maxspeed="13.90" length="5.00" shape="3191.75,131.35 3191.56,129.99 3190.97,129.03 3190.01,128.44 3188.65,128.25"/>
       </lanes>
    </edge>
 
@@ -4540,7 +4540,7 @@
 
    <edge id=":16/3_6" function="internal">
       <lanes>
-         <lane id=":16/3_6_0" depart="0" maxspeed="13.90" length="5.00" shape="3211.35,128.25 3209.99,128.44 3209.03,129.02 3208.44,129.99 3208.25,131.35"/>
+         <lane id=":16/3_6_0" depart="0" maxspeed="13.90" length="5.00" shape="3211.35,128.25 3209.99,128.44 3209.03,129.03 3208.44,129.99 3208.25,131.35"/>
       </lanes>
    </edge>
 
@@ -4558,13 +4558,13 @@
 
    <edge id=":16/3_9" function="internal">
       <lanes>
-         <lane id=":16/3_9_0" depart="0" maxspeed="13.90" length="4.82" shape="3211.35,121.65 3210.11,120.82 3209.70,120.00 3210.11,119.18 3211.35,118.35"/>
+         <lane id=":16/3_9_0" depart="0" maxspeed="13.90" length="4.82" shape="3211.35,121.65 3210.11,120.83 3209.70,120.00 3210.11,119.18 3211.35,118.35"/>
       </lanes>
    </edge>
 
    <edge id=":16/3_10" function="internal">
       <lanes>
-         <lane id=":16/3_10_0" depart="0" maxspeed="13.90" length="5.00" shape="3208.25,108.65 3208.44,110.01 3209.03,110.97 3209.99,111.56 3211.35,111.75"/>
+         <lane id=":16/3_10_0" depart="0" maxspeed="13.90" length="5.00" shape="3208.25,108.65 3208.44,110.01 3209.02,110.97 3209.99,111.56 3211.35,111.75"/>
       </lanes>
    </edge>
 
@@ -4600,7 +4600,7 @@
 
    <edge id=":16/3_16" function="internal">
       <lanes>
-         <lane id=":16/3_16_0" depart="0" maxspeed="13.90" length="5.00" shape="3188.65,111.75 3190.01,111.56 3190.98,110.97 3191.56,110.01 3191.75,108.65"/>
+         <lane id=":16/3_16_0" depart="0" maxspeed="13.90" length="5.00" shape="3188.65,111.75 3190.01,111.56 3190.97,110.97 3191.56,110.01 3191.75,108.65"/>
       </lanes>
    </edge>
 
@@ -4618,7 +4618,7 @@
 
    <edge id=":16/3_19" function="internal">
       <lanes>
-         <lane id=":16/3_19_0" depart="0" maxspeed="13.90" length="4.82" shape="3188.65,118.35 3189.89,119.18 3190.30,120.00 3189.89,120.82 3188.65,121.65"/>
+         <lane id=":16/3_19_0" depart="0" maxspeed="13.90" length="4.82" shape="3188.65,118.35 3189.89,119.17 3190.30,120.00 3189.89,120.82 3188.65,121.65"/>
       </lanes>
    </edge>
 
@@ -4642,7 +4642,7 @@
 
    <edge id=":16/4_3" function="internal">
       <lanes>
-         <lane id=":16/4_3_0" depart="0" maxspeed="13.90" length="23.69" shape="3211.35,161.65 3204.22,160.84 3199.13,158.40 3196.07,154.34 3195.05,148.65"/>
+         <lane id=":16/4_3_0" depart="0" maxspeed="13.90" length="23.69" shape="3211.35,161.65 3204.22,160.84 3199.12,158.40 3196.07,154.34 3195.05,148.65"/>
       </lanes>
    </edge>
 
@@ -4660,13 +4660,13 @@
 
    <edge id=":16/4_6" function="internal">
       <lanes>
-         <lane id=":16/4_6_0" depart="0" maxspeed="13.90" length="5.00" shape="3208.25,148.65 3208.44,150.01 3209.03,150.98 3209.99,151.56 3211.35,151.75"/>
+         <lane id=":16/4_6_0" depart="0" maxspeed="13.90" length="5.00" shape="3208.25,148.65 3208.44,150.01 3209.02,150.97 3209.99,151.56 3211.35,151.75"/>
       </lanes>
    </edge>
 
    <edge id=":16/4_7" function="internal">
       <lanes>
-         <lane id=":16/4_7_0" depart="0" maxspeed="13.90" length="26.29" shape="3204.95,148.65 3203.93,155.78 3200.88,160.88 3195.78,163.93 3188.65,164.95"/>
+         <lane id=":16/4_7_0" depart="0" maxspeed="13.90" length="26.29" shape="3204.95,148.65 3203.93,155.78 3200.87,160.88 3195.78,163.93 3188.65,164.95"/>
       </lanes>
    </edge>
 
@@ -4684,7 +4684,7 @@
 
    <edge id=":16/4_10" function="internal">
       <lanes>
-         <lane id=":16/4_10_0" depart="0" maxspeed="13.90" length="5.00" shape="3188.65,151.75 3190.01,151.56 3190.98,150.98 3191.56,150.01 3191.75,148.65"/>
+         <lane id=":16/4_10_0" depart="0" maxspeed="13.90" length="5.00" shape="3188.65,151.75 3190.01,151.56 3190.97,150.97 3191.56,150.01 3191.75,148.65"/>
       </lanes>
    </edge>
 
@@ -4738,7 +4738,7 @@
 
    <edge id=":17/0_4" function="internal">
       <lanes>
-         <lane id=":17/0_4_0" depart="0" maxspeed="13.90" length="5.00" shape="3411.35,8.25 3409.99,8.44 3409.02,9.02 3408.44,9.99 3408.25,11.35"/>
+         <lane id=":17/0_4_0" depart="0" maxspeed="13.90" length="5.00" shape="3411.35,8.25 3409.99,8.44 3409.03,9.02 3408.44,9.99 3408.25,11.35"/>
       </lanes>
    </edge>
 
@@ -4762,7 +4762,7 @@
 
    <edge id=":17/0_8" function="internal">
       <lanes>
-         <lane id=":17/0_8_0" depart="0" maxspeed="13.90" length="4.82" shape="3411.35,1.65 3410.11,0.82 3409.70,-0.00 3410.11,-0.83 3411.35,-1.65"/>
+         <lane id=":17/0_8_0" depart="0" maxspeed="13.90" length="4.82" shape="3411.35,1.65 3410.11,0.83 3409.70,0.00 3410.11,-0.82 3411.35,-1.65"/>
       </lanes>
    </edge>
 
@@ -4798,13 +4798,13 @@
 
    <edge id=":17/0_14" function="internal">
       <lanes>
-         <lane id=":17/0_14_0" depart="0" maxspeed="13.90" length="4.82" shape="3388.65,-1.65 3389.89,-0.82 3390.30,0.00 3389.89,0.83 3388.65,1.65"/>
+         <lane id=":17/0_14_0" depart="0" maxspeed="13.90" length="4.82" shape="3388.65,-1.65 3389.89,-0.83 3390.30,-0.00 3389.89,0.82 3388.65,1.65"/>
       </lanes>
    </edge>
 
    <edge id=":17/1_0" function="internal">
       <lanes>
-         <lane id=":17/1_0_0" depart="0" maxspeed="13.90" length="5.00" shape="3391.75,51.35 3391.56,49.99 3390.98,49.03 3390.01,48.44 3388.65,48.25"/>
+         <lane id=":17/1_0_0" depart="0" maxspeed="13.90" length="5.00" shape="3391.75,51.35 3391.56,49.99 3390.97,49.02 3390.01,48.44 3388.65,48.25"/>
       </lanes>
    </edge>
 
@@ -4840,7 +4840,7 @@
 
    <edge id=":17/1_6" function="internal">
       <lanes>
-         <lane id=":17/1_6_0" depart="0" maxspeed="13.90" length="5.00" shape="3411.35,48.25 3409.99,48.44 3409.02,49.03 3408.44,49.99 3408.25,51.35"/>
+         <lane id=":17/1_6_0" depart="0" maxspeed="13.90" length="5.00" shape="3411.35,48.25 3409.99,48.44 3409.03,49.02 3408.44,49.99 3408.25,51.35"/>
       </lanes>
    </edge>
 
@@ -4858,7 +4858,7 @@
 
    <edge id=":17/1_9" function="internal">
       <lanes>
-         <lane id=":17/1_9_0" depart="0" maxspeed="13.90" length="4.82" shape="3411.35,41.65 3410.11,40.82 3409.70,40.00 3410.11,39.17 3411.35,38.35"/>
+         <lane id=":17/1_9_0" depart="0" maxspeed="13.90" length="4.82" shape="3411.35,41.65 3410.11,40.83 3409.70,40.00 3410.11,39.18 3411.35,38.35"/>
       </lanes>
    </edge>
 
@@ -4900,7 +4900,7 @@
 
    <edge id=":17/1_16" function="internal">
       <lanes>
-         <lane id=":17/1_16_0" depart="0" maxspeed="13.90" length="5.00" shape="3388.65,31.75 3390.01,31.56 3390.98,30.98 3391.56,30.01 3391.75,28.65"/>
+         <lane id=":17/1_16_0" depart="0" maxspeed="13.90" length="5.00" shape="3388.65,31.75 3390.01,31.56 3390.97,30.98 3391.56,30.01 3391.75,28.65"/>
       </lanes>
    </edge>
 
@@ -4918,13 +4918,13 @@
 
    <edge id=":17/1_19" function="internal">
       <lanes>
-         <lane id=":17/1_19_0" depart="0" maxspeed="13.90" length="4.82" shape="3388.65,38.35 3389.89,39.18 3390.30,40.00 3389.89,40.83 3388.65,41.65"/>
+         <lane id=":17/1_19_0" depart="0" maxspeed="13.90" length="4.82" shape="3388.65,38.35 3389.89,39.17 3390.30,40.00 3389.89,40.82 3388.65,41.65"/>
       </lanes>
    </edge>
 
    <edge id=":17/2_0" function="internal">
       <lanes>
-         <lane id=":17/2_0_0" depart="0" maxspeed="13.90" length="5.00" shape="3391.75,91.35 3391.56,89.99 3390.98,89.03 3390.01,88.44 3388.65,88.25"/>
+         <lane id=":17/2_0_0" depart="0" maxspeed="13.90" length="5.00" shape="3391.75,91.35 3391.56,89.99 3390.97,89.03 3390.01,88.44 3388.65,88.25"/>
       </lanes>
    </edge>
 
@@ -4960,7 +4960,7 @@
 
    <edge id=":17/2_6" function="internal">
       <lanes>
-         <lane id=":17/2_6_0" depart="0" maxspeed="13.90" length="5.00" shape="3411.35,88.25 3409.99,88.44 3409.02,89.03 3408.44,89.99 3408.25,91.35"/>
+         <lane id=":17/2_6_0" depart="0" maxspeed="13.90" length="5.00" shape="3411.35,88.25 3409.99,88.44 3409.03,89.03 3408.44,89.99 3408.25,91.35"/>
       </lanes>
    </edge>
 
@@ -5020,7 +5020,7 @@
 
    <edge id=":17/2_16" function="internal">
       <lanes>
-         <lane id=":17/2_16_0" depart="0" maxspeed="13.90" length="5.00" shape="3388.65,71.75 3390.01,71.56 3390.98,70.97 3391.56,70.01 3391.75,68.65"/>
+         <lane id=":17/2_16_0" depart="0" maxspeed="13.90" length="5.00" shape="3388.65,71.75 3390.01,71.56 3390.97,70.97 3391.56,70.01 3391.75,68.65"/>
       </lanes>
    </edge>
 
@@ -5044,7 +5044,7 @@
 
    <edge id=":17/3_0" function="internal">
       <lanes>
-         <lane id=":17/3_0_0" depart="0" maxspeed="13.90" length="5.00" shape="3391.75,131.35 3391.56,129.99 3390.98,129.02 3390.01,128.44 3388.65,128.25"/>
+         <lane id=":17/3_0_0" depart="0" maxspeed="13.90" length="5.00" shape="3391.75,131.35 3391.56,129.99 3390.97,129.03 3390.01,128.44 3388.65,128.25"/>
       </lanes>
    </edge>
 
@@ -5080,7 +5080,7 @@
 
    <edge id=":17/3_6" function="internal">
       <lanes>
-         <lane id=":17/3_6_0" depart="0" maxspeed="13.90" length="5.00" shape="3411.35,128.25 3409.99,128.44 3409.02,129.02 3408.44,129.99 3408.25,131.35"/>
+         <lane id=":17/3_6_0" depart="0" maxspeed="13.90" length="5.00" shape="3411.35,128.25 3409.99,128.44 3409.03,129.03 3408.44,129.99 3408.25,131.35"/>
       </lanes>
    </edge>
 
@@ -5098,7 +5098,7 @@
 
    <edge id=":17/3_9" function="internal">
       <lanes>
-         <lane id=":17/3_9_0" depart="0" maxspeed="13.90" length="4.82" shape="3411.35,121.65 3410.11,120.82 3409.70,120.00 3410.11,119.18 3411.35,118.35"/>
+         <lane id=":17/3_9_0" depart="0" maxspeed="13.90" length="4.82" shape="3411.35,121.65 3410.11,120.83 3409.70,120.00 3410.11,119.18 3411.35,118.35"/>
       </lanes>
    </edge>
 
@@ -5140,7 +5140,7 @@
 
    <edge id=":17/3_16" function="internal">
       <lanes>
-         <lane id=":17/3_16_0" depart="0" maxspeed="13.90" length="5.00" shape="3388.65,111.75 3390.01,111.56 3390.98,110.97 3391.56,110.01 3391.75,108.65"/>
+         <lane id=":17/3_16_0" depart="0" maxspeed="13.90" length="5.00" shape="3388.65,111.75 3390.01,111.56 3390.97,110.97 3391.56,110.01 3391.75,108.65"/>
       </lanes>
    </edge>
 
@@ -5158,7 +5158,7 @@
 
    <edge id=":17/3_19" function="internal">
       <lanes>
-         <lane id=":17/3_19_0" depart="0" maxspeed="13.90" length="4.82" shape="3388.65,118.35 3389.89,119.18 3390.30,120.00 3389.89,120.82 3388.65,121.65"/>
+         <lane id=":17/3_19_0" depart="0" maxspeed="13.90" length="4.82" shape="3388.65,118.35 3389.89,119.17 3390.30,120.00 3389.89,120.82 3388.65,121.65"/>
       </lanes>
    </edge>
 
@@ -5182,7 +5182,7 @@
 
    <edge id=":17/4_3" function="internal">
       <lanes>
-         <lane id=":17/4_3_0" depart="0" maxspeed="13.90" length="23.69" shape="3411.35,161.65 3404.22,160.84 3399.13,158.40 3396.07,154.34 3395.05,148.65"/>
+         <lane id=":17/4_3_0" depart="0" maxspeed="13.90" length="23.69" shape="3411.35,161.65 3404.22,160.84 3399.12,158.40 3396.07,154.34 3395.05,148.65"/>
       </lanes>
    </edge>
 
@@ -5200,13 +5200,13 @@
 
    <edge id=":17/4_6" function="internal">
       <lanes>
-         <lane id=":17/4_6_0" depart="0" maxspeed="13.90" length="5.00" shape="3408.25,148.65 3408.44,150.01 3409.02,150.98 3409.99,151.56 3411.35,151.75"/>
+         <lane id=":17/4_6_0" depart="0" maxspeed="13.90" length="5.00" shape="3408.25,148.65 3408.44,150.01 3409.02,150.97 3409.99,151.56 3411.35,151.75"/>
       </lanes>
    </edge>
 
    <edge id=":17/4_7" function="internal">
       <lanes>
-         <lane id=":17/4_7_0" depart="0" maxspeed="13.90" length="26.29" shape="3404.95,148.65 3403.93,155.78 3400.88,160.88 3395.78,163.93 3388.65,164.95"/>
+         <lane id=":17/4_7_0" depart="0" maxspeed="13.90" length="26.29" shape="3404.95,148.65 3403.93,155.78 3400.87,160.88 3395.78,163.93 3388.65,164.95"/>
       </lanes>
    </edge>
 
@@ -5224,7 +5224,7 @@
 
    <edge id=":17/4_10" function="internal">
       <lanes>
-         <lane id=":17/4_10_0" depart="0" maxspeed="13.90" length="5.00" shape="3388.65,151.75 3390.01,151.56 3390.98,150.98 3391.56,150.01 3391.75,148.65"/>
+         <lane id=":17/4_10_0" depart="0" maxspeed="13.90" length="5.00" shape="3388.65,151.75 3390.01,151.56 3390.97,150.97 3391.56,150.01 3391.75,148.65"/>
       </lanes>
    </edge>
 
@@ -5302,7 +5302,7 @@
 
    <edge id=":18/0_8" function="internal">
       <lanes>
-         <lane id=":18/0_8_0" depart="0" maxspeed="13.90" length="4.82" shape="3611.35,1.65 3610.11,0.82 3609.70,-0.00 3610.11,-0.83 3611.35,-1.65"/>
+         <lane id=":18/0_8_0" depart="0" maxspeed="13.90" length="4.82" shape="3611.35,1.65 3610.11,0.83 3609.70,0.00 3610.11,-0.82 3611.35,-1.65"/>
       </lanes>
    </edge>
 
@@ -5326,7 +5326,7 @@
 
    <edge id=":18/0_12" function="internal">
       <lanes>
-         <lane id=":18/0_12_0" depart="0" maxspeed="13.90" length="23.69" shape="3588.65,-1.65 3595.78,-0.84 3600.87,1.60 3603.93,5.66 3604.95,11.35"/>
+         <lane id=":18/0_12_0" depart="0" maxspeed="13.90" length="23.69" shape="3588.65,-1.65 3595.78,-0.84 3600.88,1.60 3603.93,5.66 3604.95,11.35"/>
       </lanes>
    </edge>
 
@@ -5338,13 +5338,13 @@
 
    <edge id=":18/0_14" function="internal">
       <lanes>
-         <lane id=":18/0_14_0" depart="0" maxspeed="13.90" length="4.82" shape="3588.65,-1.65 3589.89,-0.82 3590.30,0.00 3589.89,0.83 3588.65,1.65"/>
+         <lane id=":18/0_14_0" depart="0" maxspeed="13.90" length="4.82" shape="3588.65,-1.65 3589.89,-0.83 3590.30,-0.00 3589.89,0.82 3588.65,1.65"/>
       </lanes>
    </edge>
 
    <edge id=":18/1_0" function="internal">
       <lanes>
-         <lane id=":18/1_0_0" depart="0" maxspeed="13.90" length="5.00" shape="3591.75,51.35 3591.56,49.99 3590.98,49.03 3590.01,48.44 3588.65,48.25"/>
+         <lane id=":18/1_0_0" depart="0" maxspeed="13.90" length="5.00" shape="3591.75,51.35 3591.56,49.99 3590.97,49.02 3590.01,48.44 3588.65,48.25"/>
       </lanes>
    </edge>
 
@@ -5380,7 +5380,7 @@
 
    <edge id=":18/1_6" function="internal">
       <lanes>
-         <lane id=":18/1_6_0" depart="0" maxspeed="13.90" length="5.00" shape="3611.35,48.25 3609.99,48.44 3609.03,49.03 3608.44,49.99 3608.25,51.35"/>
+         <lane id=":18/1_6_0" depart="0" maxspeed="13.90" length="5.00" shape="3611.35,48.25 3609.99,48.44 3609.03,49.02 3608.44,49.99 3608.25,51.35"/>
       </lanes>
    </edge>
 
@@ -5398,13 +5398,13 @@
 
    <edge id=":18/1_9" function="internal">
       <lanes>
-         <lane id=":18/1_9_0" depart="0" maxspeed="13.90" length="4.82" shape="3611.35,41.65 3610.11,40.82 3609.70,40.00 3610.11,39.17 3611.35,38.35"/>
+         <lane id=":18/1_9_0" depart="0" maxspeed="13.90" length="4.82" shape="3611.35,41.65 3610.11,40.83 3609.70,40.00 3610.11,39.18 3611.35,38.35"/>
       </lanes>
    </edge>
 
    <edge id=":18/1_10" function="internal">
       <lanes>
-         <lane id=":18/1_10_0" depart="0" maxspeed="13.90" length="5.00" shape="3608.25,28.65 3608.44,30.01 3609.03,30.98 3609.99,31.56 3611.35,31.75"/>
+         <lane id=":18/1_10_0" depart="0" maxspeed="13.90" length="5.00" shape="3608.25,28.65 3608.44,30.01 3609.02,30.98 3609.99,31.56 3611.35,31.75"/>
       </lanes>
    </edge>
 
@@ -5440,7 +5440,7 @@
 
    <edge id=":18/1_16" function="internal">
       <lanes>
-         <lane id=":18/1_16_0" depart="0" maxspeed="13.90" length="5.00" shape="3588.65,31.75 3590.01,31.56 3590.98,30.98 3591.56,30.01 3591.75,28.65"/>
+         <lane id=":18/1_16_0" depart="0" maxspeed="13.90" length="5.00" shape="3588.65,31.75 3590.01,31.56 3590.97,30.98 3591.56,30.01 3591.75,28.65"/>
       </lanes>
    </edge>
 
@@ -5458,13 +5458,13 @@
 
    <edge id=":18/1_19" function="internal">
       <lanes>
-         <lane id=":18/1_19_0" depart="0" maxspeed="13.90" length="4.82" shape="3588.65,38.35 3589.89,39.18 3590.30,40.00 3589.89,40.83 3588.65,41.65"/>
+         <lane id=":18/1_19_0" depart="0" maxspeed="13.90" length="4.82" shape="3588.65,38.35 3589.89,39.17 3590.30,40.00 3589.89,40.82 3588.65,41.65"/>
       </lanes>
    </edge>
 
    <edge id=":18/2_0" function="internal">
       <lanes>
-         <lane id=":18/2_0_0" depart="0" maxspeed="13.90" length="5.00" shape="3591.75,91.35 3591.56,89.99 3590.98,89.03 3590.01,88.44 3588.65,88.25"/>
+         <lane id=":18/2_0_0" depart="0" maxspeed="13.90" length="5.00" shape="3591.75,91.35 3591.56,89.99 3590.97,89.03 3590.01,88.44 3588.65,88.25"/>
       </lanes>
    </edge>
 
@@ -5524,7 +5524,7 @@
 
    <edge id=":18/2_10" function="internal">
       <lanes>
-         <lane id=":18/2_10_0" depart="0" maxspeed="13.90" length="5.00" shape="3608.25,68.65 3608.44,70.01 3609.03,70.97 3609.99,71.56 3611.35,71.75"/>
+         <lane id=":18/2_10_0" depart="0" maxspeed="13.90" length="5.00" shape="3608.25,68.65 3608.44,70.01 3609.02,70.97 3609.99,71.56 3611.35,71.75"/>
       </lanes>
    </edge>
 
@@ -5560,7 +5560,7 @@
 
    <edge id=":18/2_16" function="internal">
       <lanes>
-         <lane id=":18/2_16_0" depart="0" maxspeed="13.90" length="5.00" shape="3588.65,71.75 3590.01,71.56 3590.98,70.97 3591.56,70.01 3591.75,68.65"/>
+         <lane id=":18/2_16_0" depart="0" maxspeed="13.90" length="5.00" shape="3588.65,71.75 3590.01,71.56 3590.97,70.97 3591.56,70.01 3591.75,68.65"/>
       </lanes>
    </edge>
 
@@ -5584,7 +5584,7 @@
 
    <edge id=":18/3_0" function="internal">
       <lanes>
-         <lane id=":18/3_0_0" depart="0" maxspeed="13.90" length="5.00" shape="3591.75,131.35 3591.56,129.99 3590.98,129.02 3590.01,128.44 3588.65,128.25"/>
+         <lane id=":18/3_0_0" depart="0" maxspeed="13.90" length="5.00" shape="3591.75,131.35 3591.56,129.99 3590.97,129.03 3590.01,128.44 3588.65,128.25"/>
       </lanes>
    </edge>
 
@@ -5620,7 +5620,7 @@
 
    <edge id=":18/3_6" function="internal">
       <lanes>
-         <lane id=":18/3_6_0" depart="0" maxspeed="13.90" length="5.00" shape="3611.35,128.25 3609.99,128.44 3609.03,129.02 3608.44,129.99 3608.25,131.35"/>
+         <lane id=":18/3_6_0" depart="0" maxspeed="13.90" length="5.00" shape="3611.35,128.25 3609.99,128.44 3609.03,129.03 3608.44,129.99 3608.25,131.35"/>
       </lanes>
    </edge>
 
@@ -5638,13 +5638,13 @@
 
    <edge id=":18/3_9" function="internal">
       <lanes>
-         <lane id=":18/3_9_0" depart="0" maxspeed="13.90" length="4.82" shape="3611.35,121.65 3610.11,120.82 3609.70,120.00 3610.11,119.18 3611.35,118.35"/>
+         <lane id=":18/3_9_0" depart="0" maxspeed="13.90" length="4.82" shape="3611.35,121.65 3610.11,120.83 3609.70,120.00 3610.11,119.18 3611.35,118.35"/>
       </lanes>
    </edge>
 
    <edge id=":18/3_10" function="internal">
       <lanes>
-         <lane id=":18/3_10_0" depart="0" maxspeed="13.90" length="5.00" shape="3608.25,108.65 3608.44,110.01 3609.03,110.97 3609.99,111.56 3611.35,111.75"/>
+         <lane id=":18/3_10_0" depart="0" maxspeed="13.90" length="5.00" shape="3608.25,108.65 3608.44,110.01 3609.02,110.97 3609.99,111.56 3611.35,111.75"/>
       </lanes>
    </edge>
 
@@ -5680,7 +5680,7 @@
 
    <edge id=":18/3_16" function="internal">
       <lanes>
-         <lane id=":18/3_16_0" depart="0" maxspeed="13.90" length="5.00" shape="3588.65,111.75 3590.01,111.56 3590.98,110.97 3591.56,110.01 3591.75,108.65"/>
+         <lane id=":18/3_16_0" depart="0" maxspeed="13.90" length="5.00" shape="3588.65,111.75 3590.01,111.56 3590.97,110.97 3591.56,110.01 3591.75,108.65"/>
       </lanes>
    </edge>
 
@@ -5698,7 +5698,7 @@
 
    <edge id=":18/3_19" function="internal">
       <lanes>
-         <lane id=":18/3_19_0" depart="0" maxspeed="13.90" length="4.82" shape="3588.65,118.35 3589.89,119.18 3590.30,120.00 3589.89,120.82 3588.65,121.65"/>
+         <lane id=":18/3_19_0" depart="0" maxspeed="13.90" length="4.82" shape="3588.65,118.35 3589.89,119.17 3590.30,120.00 3589.89,120.82 3588.65,121.65"/>
       </lanes>
    </edge>
 
@@ -5722,7 +5722,7 @@
 
    <edge id=":18/4_3" function="internal">
       <lanes>
-         <lane id=":18/4_3_0" depart="0" maxspeed="13.90" length="23.69" shape="3611.35,161.65 3604.22,160.84 3599.13,158.40 3596.07,154.34 3595.05,148.65"/>
+         <lane id=":18/4_3_0" depart="0" maxspeed="13.90" length="23.69" shape="3611.35,161.65 3604.22,160.84 3599.12,158.40 3596.07,154.34 3595.05,148.65"/>
       </lanes>
    </edge>
 
@@ -5740,13 +5740,13 @@
 
    <edge id=":18/4_6" function="internal">
       <lanes>
-         <lane id=":18/4_6_0" depart="0" maxspeed="13.90" length="5.00" shape="3608.25,148.65 3608.44,150.01 3609.03,150.98 3609.99,151.56 3611.35,151.75"/>
+         <lane id=":18/4_6_0" depart="0" maxspeed="13.90" length="5.00" shape="3608.25,148.65 3608.44,150.01 3609.02,150.97 3609.99,151.56 3611.35,151.75"/>
       </lanes>
    </edge>
 
    <edge id=":18/4_7" function="internal">
       <lanes>
-         <lane id=":18/4_7_0" depart="0" maxspeed="13.90" length="26.29" shape="3604.95,148.65 3603.93,155.78 3600.88,160.88 3595.78,163.93 3588.65,164.95"/>
+         <lane id=":18/4_7_0" depart="0" maxspeed="13.90" length="26.29" shape="3604.95,148.65 3603.93,155.78 3600.87,160.88 3595.78,163.93 3588.65,164.95"/>
       </lanes>
    </edge>
 
@@ -5764,7 +5764,7 @@
 
    <edge id=":18/4_10" function="internal">
       <lanes>
-         <lane id=":18/4_10_0" depart="0" maxspeed="13.90" length="5.00" shape="3588.65,151.75 3590.01,151.56 3590.98,150.98 3591.56,150.01 3591.75,148.65"/>
+         <lane id=":18/4_10_0" depart="0" maxspeed="13.90" length="5.00" shape="3588.65,151.75 3590.01,151.56 3590.97,150.97 3591.56,150.01 3591.75,148.65"/>
       </lanes>
    </edge>
 
@@ -5830,19 +5830,19 @@
 
    <edge id=":19/0_6" function="internal">
       <lanes>
-         <lane id=":19/0_6_0" depart="0" maxspeed="13.90" length="18.55" shape="3790.15,-1.65 3795.18,-0.93 3798.77,1.22 3800.93,4.82 3801.65,9.85"/>
+         <lane id=":19/0_6_0" depart="0" maxspeed="13.90" length="18.55" shape="3790.15,-1.65 3795.18,-0.93 3798.78,1.22 3800.93,4.82 3801.65,9.85"/>
       </lanes>
    </edge>
 
    <edge id=":19/0_7" function="internal">
       <lanes>
-         <lane id=":19/0_7_0" depart="0" maxspeed="13.90" length="4.82" shape="3790.15,-1.65 3791.39,-0.82 3791.80,0.00 3791.39,0.83 3790.15,1.65"/>
+         <lane id=":19/0_7_0" depart="0" maxspeed="13.90" length="4.82" shape="3790.15,-1.65 3791.39,-0.83 3791.80,-0.00 3791.39,0.82 3790.15,1.65"/>
       </lanes>
    </edge>
 
    <edge id=":19/1_0" function="internal">
       <lanes>
-         <lane id=":19/1_0_0" depart="0" maxspeed="13.90" length="5.00" shape="3791.75,51.35 3791.56,49.99 3790.98,49.03 3790.01,48.44 3788.65,48.25"/>
+         <lane id=":19/1_0_0" depart="0" maxspeed="13.90" length="5.00" shape="3791.75,51.35 3791.56,49.99 3790.97,49.02 3790.01,48.44 3788.65,48.25"/>
       </lanes>
    </edge>
 
@@ -5926,13 +5926,13 @@
 
    <edge id=":19/1_14" function="internal">
       <lanes>
-         <lane id=":19/1_14_0" depart="0" maxspeed="13.90" length="4.82" shape="3788.65,38.35 3789.89,39.18 3790.30,40.00 3789.89,40.83 3788.65,41.65"/>
+         <lane id=":19/1_14_0" depart="0" maxspeed="13.90" length="4.82" shape="3788.65,38.35 3789.89,39.17 3790.30,40.00 3789.89,40.82 3788.65,41.65"/>
       </lanes>
    </edge>
 
    <edge id=":19/2_0" function="internal">
       <lanes>
-         <lane id=":19/2_0_0" depart="0" maxspeed="13.90" length="5.00" shape="3791.75,91.35 3791.56,89.99 3790.98,89.03 3790.01,88.44 3788.65,88.25"/>
+         <lane id=":19/2_0_0" depart="0" maxspeed="13.90" length="5.00" shape="3791.75,91.35 3791.56,89.99 3790.97,89.03 3790.01,88.44 3788.65,88.25"/>
       </lanes>
    </edge>
 
@@ -6022,7 +6022,7 @@
 
    <edge id=":19/3_0" function="internal">
       <lanes>
-         <lane id=":19/3_0_0" depart="0" maxspeed="13.90" length="5.00" shape="3791.75,131.35 3791.56,129.99 3790.98,129.02 3790.01,128.44 3788.65,128.25"/>
+         <lane id=":19/3_0_0" depart="0" maxspeed="13.90" length="5.00" shape="3791.75,131.35 3791.56,129.99 3790.97,129.03 3790.01,128.44 3788.65,128.25"/>
       </lanes>
    </edge>
 
@@ -6106,25 +6106,25 @@
 
    <edge id=":19/3_14" function="internal">
       <lanes>
-         <lane id=":19/3_14_0" depart="0" maxspeed="13.90" length="4.82" shape="3788.65,118.35 3789.89,119.18 3790.30,120.00 3789.89,120.82 3788.65,121.65"/>
+         <lane id=":19/3_14_0" depart="0" maxspeed="13.90" length="4.82" shape="3788.65,118.35 3789.89,119.17 3790.30,120.00 3789.89,120.82 3788.65,121.65"/>
       </lanes>
    </edge>
 
    <edge id=":19/4_0" function="internal">
       <lanes>
-         <lane id=":19/4_0_0" depart="0" maxspeed="13.90" length="29.19" shape="3808.25,150.15 3807.12,158.07 3803.73,163.73 3798.07,167.12 3790.15,168.25"/>
+         <lane id=":19/4_0_0" depart="0" maxspeed="13.90" length="29.19" shape="3808.25,150.15 3807.12,158.07 3803.72,163.72 3798.07,167.12 3790.15,168.25"/>
       </lanes>
    </edge>
 
    <edge id=":19/4_1" function="internal">
       <lanes>
-         <lane id=":19/4_1_0" depart="0" maxspeed="13.90" length="23.87" shape="3804.95,150.15 3804.02,156.63 3801.25,161.25 3796.63,164.02 3790.15,164.95"/>
+         <lane id=":19/4_1_0" depart="0" maxspeed="13.90" length="23.87" shape="3804.95,150.15 3804.03,156.63 3801.25,161.25 3796.62,164.03 3790.15,164.95"/>
       </lanes>
    </edge>
 
    <edge id=":19/4_2" function="internal">
       <lanes>
-         <lane id=":19/4_2_0" depart="0" maxspeed="13.90" length="18.55" shape="3801.65,150.15 3800.93,155.18 3798.77,158.77 3795.18,160.93 3790.15,161.65"/>
+         <lane id=":19/4_2_0" depart="0" maxspeed="13.90" length="18.55" shape="3801.65,150.15 3800.93,155.18 3798.78,158.78 3795.18,160.93 3790.15,161.65"/>
       </lanes>
    </edge>
 
@@ -6154,7 +6154,7 @@
 
    <edge id=":19/4_7" function="internal">
       <lanes>
-         <lane id=":19/4_7_0" depart="0" maxspeed="13.90" length="4.82" shape="3790.15,158.35 3791.39,159.17 3791.80,160.00 3791.39,160.82 3790.15,161.65"/>
+         <lane id=":19/4_7_0" depart="0" maxspeed="13.90" length="4.82" shape="3790.15,158.35 3791.39,159.18 3791.80,160.00 3791.39,160.83 3790.15,161.65"/>
       </lanes>
    </edge>
 
@@ -6166,7 +6166,7 @@
 
    <edge id=":2/0_1" function="internal">
       <lanes>
-         <lane id=":2/0_1_0" depart="0" maxspeed="13.90" length="26.29" shape="395.05,11.35 396.07,4.22 399.12,-0.88 404.22,-3.93 411.35,-4.95"/>
+         <lane id=":2/0_1_0" depart="0" maxspeed="13.90" length="26.29" shape="395.05,11.35 396.07,4.22 399.13,-0.88 404.22,-3.93 411.35,-4.95"/>
       </lanes>
    </edge>
 
@@ -6178,7 +6178,7 @@
 
    <edge id=":2/0_3" function="internal">
       <lanes>
-         <lane id=":2/0_3_0" depart="0" maxspeed="13.90" length="4.82" shape="398.35,11.35 399.18,10.11 400.00,9.70 400.83,10.11 401.65,11.35"/>
+         <lane id=":2/0_3_0" depart="0" maxspeed="13.90" length="4.82" shape="398.35,11.35 399.17,10.11 400.00,9.70 400.82,10.11 401.65,11.35"/>
       </lanes>
    </edge>
 
@@ -6208,7 +6208,7 @@
 
    <edge id=":2/0_8" function="internal">
       <lanes>
-         <lane id=":2/0_8_0" depart="0" maxspeed="13.90" length="4.82" shape="411.35,1.65 410.11,0.82 409.70,-0.00 410.11,-0.83 411.35,-1.65"/>
+         <lane id=":2/0_8_0" depart="0" maxspeed="13.90" length="4.82" shape="411.35,1.65 410.11,0.83 409.70,0.00 410.11,-0.82 411.35,-1.65"/>
       </lanes>
    </edge>
 
@@ -6244,13 +6244,13 @@
 
    <edge id=":2/0_14" function="internal">
       <lanes>
-         <lane id=":2/0_14_0" depart="0" maxspeed="13.90" length="4.82" shape="388.65,-1.65 389.89,-0.82 390.30,0.00 389.89,0.83 388.65,1.65"/>
+         <lane id=":2/0_14_0" depart="0" maxspeed="13.90" length="4.82" shape="388.65,-1.65 389.89,-0.83 390.30,-0.00 389.89,0.82 388.65,1.65"/>
       </lanes>
    </edge>
 
    <edge id=":2/1_0" function="internal">
       <lanes>
-         <lane id=":2/1_0_0" depart="0" maxspeed="13.90" length="5.00" shape="391.75,51.35 391.56,49.99 390.98,49.03 390.01,48.44 388.65,48.25"/>
+         <lane id=":2/1_0_0" depart="0" maxspeed="13.90" length="5.00" shape="391.75,51.35 391.56,49.99 390.97,49.02 390.01,48.44 388.65,48.25"/>
       </lanes>
    </edge>
 
@@ -6280,13 +6280,13 @@
 
    <edge id=":2/1_5" function="internal">
       <lanes>
-         <lane id=":2/1_5_0" depart="0" maxspeed="13.90" length="4.82" shape="398.35,51.35 399.18,50.11 400.00,49.70 400.83,50.11 401.65,51.35"/>
+         <lane id=":2/1_5_0" depart="0" maxspeed="13.90" length="4.82" shape="398.35,51.35 399.17,50.11 400.00,49.70 400.82,50.11 401.65,51.35"/>
       </lanes>
    </edge>
 
    <edge id=":2/1_6" function="internal">
       <lanes>
-         <lane id=":2/1_6_0" depart="0" maxspeed="13.90" length="5.00" shape="411.35,48.25 409.99,48.44 409.03,49.03 408.44,49.99 408.25,51.35"/>
+         <lane id=":2/1_6_0" depart="0" maxspeed="13.90" length="5.00" shape="411.35,48.25 409.99,48.44 409.03,49.02 408.44,49.99 408.25,51.35"/>
       </lanes>
    </edge>
 
@@ -6304,7 +6304,7 @@
 
    <edge id=":2/1_9" function="internal">
       <lanes>
-         <lane id=":2/1_9_0" depart="0" maxspeed="13.90" length="4.82" shape="411.35,41.65 410.11,40.82 409.70,40.00 410.11,39.17 411.35,38.35"/>
+         <lane id=":2/1_9_0" depart="0" maxspeed="13.90" length="4.82" shape="411.35,41.65 410.11,40.83 409.70,40.00 410.11,39.18 411.35,38.35"/>
       </lanes>
    </edge>
 
@@ -6340,13 +6340,13 @@
 
    <edge id=":2/1_15" function="internal">
       <lanes>
-         <lane id=":2/1_15_0" depart="0" maxspeed="13.90" length="4.82" shape="401.65,28.65 400.82,29.89 400.00,30.30 399.17,29.89 398.35,28.65"/>
+         <lane id=":2/1_15_0" depart="0" maxspeed="13.90" length="4.82" shape="401.65,28.65 400.83,29.89 400.00,30.30 399.18,29.89 398.35,28.65"/>
       </lanes>
    </edge>
 
    <edge id=":2/1_16" function="internal">
       <lanes>
-         <lane id=":2/1_16_0" depart="0" maxspeed="13.90" length="5.00" shape="388.65,31.75 390.01,31.56 390.98,30.98 391.56,30.01 391.75,28.65"/>
+         <lane id=":2/1_16_0" depart="0" maxspeed="13.90" length="5.00" shape="388.65,31.75 390.01,31.56 390.97,30.98 391.56,30.01 391.75,28.65"/>
       </lanes>
    </edge>
 
@@ -6364,13 +6364,13 @@
 
    <edge id=":2/1_19" function="internal">
       <lanes>
-         <lane id=":2/1_19_0" depart="0" maxspeed="13.90" length="4.82" shape="388.65,38.35 389.89,39.18 390.30,40.00 389.89,40.83 388.65,41.65"/>
+         <lane id=":2/1_19_0" depart="0" maxspeed="13.90" length="4.82" shape="388.65,38.35 389.89,39.17 390.30,40.00 389.89,40.82 388.65,41.65"/>
       </lanes>
    </edge>
 
    <edge id=":2/2_0" function="internal">
       <lanes>
-         <lane id=":2/2_0_0" depart="0" maxspeed="13.90" length="5.00" shape="391.75,91.35 391.56,89.99 390.98,89.03 390.01,88.44 388.65,88.25"/>
+         <lane id=":2/2_0_0" depart="0" maxspeed="13.90" length="5.00" shape="391.75,91.35 391.56,89.99 390.97,89.03 390.01,88.44 388.65,88.25"/>
       </lanes>
    </edge>
 
@@ -6400,7 +6400,7 @@
 
    <edge id=":2/2_5" function="internal">
       <lanes>
-         <lane id=":2/2_5_0" depart="0" maxspeed="13.90" length="4.82" shape="398.35,91.35 399.18,90.11 400.00,89.70 400.83,90.11 401.65,91.35"/>
+         <lane id=":2/2_5_0" depart="0" maxspeed="13.90" length="4.82" shape="398.35,91.35 399.17,90.11 400.00,89.70 400.82,90.11 401.65,91.35"/>
       </lanes>
    </edge>
 
@@ -6460,13 +6460,13 @@
 
    <edge id=":2/2_15" function="internal">
       <lanes>
-         <lane id=":2/2_15_0" depart="0" maxspeed="13.90" length="4.82" shape="401.65,68.65 400.82,69.89 400.00,70.30 399.17,69.89 398.35,68.65"/>
+         <lane id=":2/2_15_0" depart="0" maxspeed="13.90" length="4.82" shape="401.65,68.65 400.83,69.89 400.00,70.30 399.18,69.89 398.35,68.65"/>
       </lanes>
    </edge>
 
    <edge id=":2/2_16" function="internal">
       <lanes>
-         <lane id=":2/2_16_0" depart="0" maxspeed="13.90" length="5.00" shape="388.65,71.75 390.01,71.56 390.98,70.97 391.56,70.01 391.75,68.65"/>
+         <lane id=":2/2_16_0" depart="0" maxspeed="13.90" length="5.00" shape="388.65,71.75 390.01,71.56 390.97,70.97 391.56,70.01 391.75,68.65"/>
       </lanes>
    </edge>
 
@@ -6490,7 +6490,7 @@
 
    <edge id=":2/3_0" function="internal">
       <lanes>
-         <lane id=":2/3_0_0" depart="0" maxspeed="13.90" length="5.00" shape="391.75,131.35 391.56,129.99 390.98,129.02 390.01,128.44 388.65,128.25"/>
+         <lane id=":2/3_0_0" depart="0" maxspeed="13.90" length="5.00" shape="391.75,131.35 391.56,129.99 390.97,129.03 390.01,128.44 388.65,128.25"/>
       </lanes>
    </edge>
 
@@ -6520,13 +6520,13 @@
 
    <edge id=":2/3_5" function="internal">
       <lanes>
-         <lane id=":2/3_5_0" depart="0" maxspeed="13.90" length="4.82" shape="398.35,131.35 399.18,130.11 400.00,129.70 400.83,130.11 401.65,131.35"/>
+         <lane id=":2/3_5_0" depart="0" maxspeed="13.90" length="4.82" shape="398.35,131.35 399.17,130.11 400.00,129.70 400.82,130.11 401.65,131.35"/>
       </lanes>
    </edge>
 
    <edge id=":2/3_6" function="internal">
       <lanes>
-         <lane id=":2/3_6_0" depart="0" maxspeed="13.90" length="5.00" shape="411.35,128.25 409.99,128.44 409.03,129.02 408.44,129.99 408.25,131.35"/>
+         <lane id=":2/3_6_0" depart="0" maxspeed="13.90" length="5.00" shape="411.35,128.25 409.99,128.44 409.03,129.03 408.44,129.99 408.25,131.35"/>
       </lanes>
    </edge>
 
@@ -6544,7 +6544,7 @@
 
    <edge id=":2/3_9" function="internal">
       <lanes>
-         <lane id=":2/3_9_0" depart="0" maxspeed="13.90" length="4.82" shape="411.35,121.65 410.11,120.82 409.70,120.00 410.11,119.18 411.35,118.35"/>
+         <lane id=":2/3_9_0" depart="0" maxspeed="13.90" length="4.82" shape="411.35,121.65 410.11,120.83 409.70,120.00 410.11,119.18 411.35,118.35"/>
       </lanes>
    </edge>
 
@@ -6580,13 +6580,13 @@
 
    <edge id=":2/3_15" function="internal">
       <lanes>
-         <lane id=":2/3_15_0" depart="0" maxspeed="13.90" length="4.82" shape="401.65,108.65 400.82,109.89 400.00,110.30 399.17,109.89 398.35,108.65"/>
+         <lane id=":2/3_15_0" depart="0" maxspeed="13.90" length="4.82" shape="401.65,108.65 400.83,109.89 400.00,110.30 399.18,109.89 398.35,108.65"/>
       </lanes>
    </edge>
 
    <edge id=":2/3_16" function="internal">
       <lanes>
-         <lane id=":2/3_16_0" depart="0" maxspeed="13.90" length="5.00" shape="388.65,111.75 390.01,111.56 390.98,110.97 391.56,110.01 391.75,108.65"/>
+         <lane id=":2/3_16_0" depart="0" maxspeed="13.90" length="5.00" shape="388.65,111.75 390.01,111.56 390.97,110.97 391.56,110.01 391.75,108.65"/>
       </lanes>
    </edge>
 
@@ -6604,7 +6604,7 @@
 
    <edge id=":2/3_19" function="internal">
       <lanes>
-         <lane id=":2/3_19_0" depart="0" maxspeed="13.90" length="4.82" shape="388.65,118.35 389.89,119.18 390.30,120.00 389.89,120.82 388.65,121.65"/>
+         <lane id=":2/3_19_0" depart="0" maxspeed="13.90" length="4.82" shape="388.65,118.35 389.89,119.17 390.30,120.00 389.89,120.82 388.65,121.65"/>
       </lanes>
    </edge>
 
@@ -6628,7 +6628,7 @@
 
    <edge id=":2/4_3" function="internal">
       <lanes>
-         <lane id=":2/4_3_0" depart="0" maxspeed="13.90" length="23.69" shape="411.35,161.65 404.22,160.84 399.13,158.40 396.07,154.34 395.05,148.65"/>
+         <lane id=":2/4_3_0" depart="0" maxspeed="13.90" length="23.69" shape="411.35,161.65 404.22,160.84 399.12,158.40 396.07,154.34 395.05,148.65"/>
       </lanes>
    </edge>
 
@@ -6646,13 +6646,13 @@
 
    <edge id=":2/4_6" function="internal">
       <lanes>
-         <lane id=":2/4_6_0" depart="0" maxspeed="13.90" length="5.00" shape="408.25,148.65 408.44,150.01 409.02,150.98 409.99,151.56 411.35,151.75"/>
+         <lane id=":2/4_6_0" depart="0" maxspeed="13.90" length="5.00" shape="408.25,148.65 408.44,150.01 409.02,150.97 409.99,151.56 411.35,151.75"/>
       </lanes>
    </edge>
 
    <edge id=":2/4_7" function="internal">
       <lanes>
-         <lane id=":2/4_7_0" depart="0" maxspeed="13.90" length="26.29" shape="404.95,148.65 403.93,155.78 400.88,160.88 395.78,163.93 388.65,164.95"/>
+         <lane id=":2/4_7_0" depart="0" maxspeed="13.90" length="26.29" shape="404.95,148.65 403.93,155.78 400.87,160.88 395.78,163.93 388.65,164.95"/>
       </lanes>
    </edge>
 
@@ -6664,13 +6664,13 @@
 
    <edge id=":2/4_9" function="internal">
       <lanes>
-         <lane id=":2/4_9_0" depart="0" maxspeed="13.90" length="4.82" shape="401.65,148.65 400.82,149.89 400.00,150.30 399.17,149.89 398.35,148.65"/>
+         <lane id=":2/4_9_0" depart="0" maxspeed="13.90" length="4.82" shape="401.65,148.65 400.83,149.89 400.00,150.30 399.18,149.89 398.35,148.65"/>
       </lanes>
    </edge>
 
    <edge id=":2/4_10" function="internal">
       <lanes>
-         <lane id=":2/4_10_0" depart="0" maxspeed="13.90" length="5.00" shape="388.65,151.75 390.01,151.56 390.98,150.98 391.56,150.01 391.75,148.65"/>
+         <lane id=":2/4_10_0" depart="0" maxspeed="13.90" length="5.00" shape="388.65,151.75 390.01,151.56 390.97,150.97 391.56,150.01 391.75,148.65"/>
       </lanes>
    </edge>
 
@@ -6748,7 +6748,7 @@
 
    <edge id=":3/0_8" function="internal">
       <lanes>
-         <lane id=":3/0_8_0" depart="0" maxspeed="13.90" length="4.82" shape="611.35,1.65 610.11,0.82 609.70,-0.00 610.11,-0.83 611.35,-1.65"/>
+         <lane id=":3/0_8_0" depart="0" maxspeed="13.90" length="4.82" shape="611.35,1.65 610.11,0.83 609.70,0.00 610.11,-0.82 611.35,-1.65"/>
       </lanes>
    </edge>
 
@@ -6784,13 +6784,13 @@
 
    <edge id=":3/0_14" function="internal">
       <lanes>
-         <lane id=":3/0_14_0" depart="0" maxspeed="13.90" length="4.82" shape="588.65,-1.65 589.89,-0.82 590.30,0.00 589.89,0.83 588.65,1.65"/>
+         <lane id=":3/0_14_0" depart="0" maxspeed="13.90" length="4.82" shape="588.65,-1.65 589.89,-0.83 590.30,-0.00 589.89,0.82 588.65,1.65"/>
       </lanes>
    </edge>
 
    <edge id=":3/1_0" function="internal">
       <lanes>
-         <lane id=":3/1_0_0" depart="0" maxspeed="13.90" length="5.00" shape="591.75,51.35 591.56,49.99 590.98,49.03 590.01,48.44 588.65,48.25"/>
+         <lane id=":3/1_0_0" depart="0" maxspeed="13.90" length="5.00" shape="591.75,51.35 591.56,49.99 590.97,49.02 590.01,48.44 588.65,48.25"/>
       </lanes>
    </edge>
 
@@ -6826,7 +6826,7 @@
 
    <edge id=":3/1_6" function="internal">
       <lanes>
-         <lane id=":3/1_6_0" depart="0" maxspeed="13.90" length="5.00" shape="611.35,48.25 609.99,48.44 609.03,49.03 608.44,49.99 608.25,51.35"/>
+         <lane id=":3/1_6_0" depart="0" maxspeed="13.90" length="5.00" shape="611.35,48.25 609.99,48.44 609.03,49.02 608.44,49.99 608.25,51.35"/>
       </lanes>
    </edge>
 
@@ -6844,13 +6844,13 @@
 
    <edge id=":3/1_9" function="internal">
       <lanes>
-         <lane id=":3/1_9_0" depart="0" maxspeed="13.90" length="4.82" shape="611.35,41.65 610.11,40.82 609.70,40.00 610.11,39.17 611.35,38.35"/>
+         <lane id=":3/1_9_0" depart="0" maxspeed="13.90" length="4.82" shape="611.35,41.65 610.11,40.83 609.70,40.00 610.11,39.18 611.35,38.35"/>
       </lanes>
    </edge>
 
    <edge id=":3/1_10" function="internal">
       <lanes>
-         <lane id=":3/1_10_0" depart="0" maxspeed="13.90" length="5.00" shape="608.25,28.65 608.44,30.01 609.03,30.98 609.99,31.56 611.35,31.75"/>
+         <lane id=":3/1_10_0" depart="0" maxspeed="13.90" length="5.00" shape="608.25,28.65 608.44,30.01 609.02,30.98 609.99,31.56 611.35,31.75"/>
       </lanes>
    </edge>
 
@@ -6886,7 +6886,7 @@
 
    <edge id=":3/1_16" function="internal">
       <lanes>
-         <lane id=":3/1_16_0" depart="0" maxspeed="13.90" length="5.00" shape="588.65,31.75 590.01,31.56 590.98,30.98 591.56,30.01 591.75,28.65"/>
+         <lane id=":3/1_16_0" depart="0" maxspeed="13.90" length="5.00" shape="588.65,31.75 590.01,31.56 590.97,30.98 591.56,30.01 591.75,28.65"/>
       </lanes>
    </edge>
 
@@ -6904,13 +6904,13 @@
 
    <edge id=":3/1_19" function="internal">
       <lanes>
-         <lane id=":3/1_19_0" depart="0" maxspeed="13.90" length="4.82" shape="588.65,38.35 589.89,39.18 590.30,40.00 589.89,40.83 588.65,41.65"/>
+         <lane id=":3/1_19_0" depart="0" maxspeed="13.90" length="4.82" shape="588.65,38.35 589.89,39.17 590.30,40.00 589.89,40.82 588.65,41.65"/>
       </lanes>
    </edge>
 
    <edge id=":3/2_0" function="internal">
       <lanes>
-         <lane id=":3/2_0_0" depart="0" maxspeed="13.90" length="5.00" shape="591.75,91.35 591.56,89.99 590.98,89.03 590.01,88.44 588.65,88.25"/>
+         <lane id=":3/2_0_0" depart="0" maxspeed="13.90" length="5.00" shape="591.75,91.35 591.56,89.99 590.97,89.03 590.01,88.44 588.65,88.25"/>
       </lanes>
    </edge>
 
@@ -6970,7 +6970,7 @@
 
    <edge id=":3/2_10" function="internal">
       <lanes>
-         <lane id=":3/2_10_0" depart="0" maxspeed="13.90" length="5.00" shape="608.25,68.65 608.44,70.01 609.03,70.97 609.99,71.56 611.35,71.75"/>
+         <lane id=":3/2_10_0" depart="0" maxspeed="13.90" length="5.00" shape="608.25,68.65 608.44,70.01 609.02,70.97 609.99,71.56 611.35,71.75"/>
       </lanes>
    </edge>
 
@@ -7006,7 +7006,7 @@
 
    <edge id=":3/2_16" function="internal">
       <lanes>
-         <lane id=":3/2_16_0" depart="0" maxspeed="13.90" length="5.00" shape="588.65,71.75 590.01,71.56 590.98,70.97 591.56,70.01 591.75,68.65"/>
+         <lane id=":3/2_16_0" depart="0" maxspeed="13.90" length="5.00" shape="588.65,71.75 590.01,71.56 590.97,70.97 591.56,70.01 591.75,68.65"/>
       </lanes>
    </edge>
 
@@ -7030,7 +7030,7 @@
 
    <edge id=":3/3_0" function="internal">
       <lanes>
-         <lane id=":3/3_0_0" depart="0" maxspeed="13.90" length="5.00" shape="591.75,131.35 591.56,129.99 590.98,129.02 590.01,128.44 588.65,128.25"/>
+         <lane id=":3/3_0_0" depart="0" maxspeed="13.90" length="5.00" shape="591.75,131.35 591.56,129.99 590.97,129.03 590.01,128.44 588.65,128.25"/>
       </lanes>
    </edge>
 
@@ -7066,7 +7066,7 @@
 
    <edge id=":3/3_6" function="internal">
       <lanes>
-         <lane id=":3/3_6_0" depart="0" maxspeed="13.90" length="5.00" shape="611.35,128.25 609.99,128.44 609.03,129.02 608.44,129.99 608.25,131.35"/>
+         <lane id=":3/3_6_0" depart="0" maxspeed="13.90" length="5.00" shape="611.35,128.25 609.99,128.44 609.03,129.03 608.44,129.99 608.25,131.35"/>
       </lanes>
    </edge>
 
@@ -7084,13 +7084,13 @@
 
    <edge id=":3/3_9" function="internal">
       <lanes>
-         <lane id=":3/3_9_0" depart="0" maxspeed="13.90" length="4.82" shape="611.35,121.65 610.11,120.82 609.70,120.00 610.11,119.18 611.35,118.35"/>
+         <lane id=":3/3_9_0" depart="0" maxspeed="13.90" length="4.82" shape="611.35,121.65 610.11,120.83 609.70,120.00 610.11,119.18 611.35,118.35"/>
       </lanes>
    </edge>
 
    <edge id=":3/3_10" function="internal">
       <lanes>
-         <lane id=":3/3_10_0" depart="0" maxspeed="13.90" length="5.00" shape="608.25,108.65 608.44,110.01 609.03,110.97 609.99,111.56 611.35,111.75"/>
+         <lane id=":3/3_10_0" depart="0" maxspeed="13.90" length="5.00" shape="608.25,108.65 608.44,110.01 609.02,110.97 609.99,111.56 611.35,111.75"/>
       </lanes>
    </edge>
 
@@ -7126,7 +7126,7 @@
 
    <edge id=":3/3_16" function="internal">
       <lanes>
-         <lane id=":3/3_16_0" depart="0" maxspeed="13.90" length="5.00" shape="588.65,111.75 590.01,111.56 590.98,110.97 591.56,110.01 591.75,108.65"/>
+         <lane id=":3/3_16_0" depart="0" maxspeed="13.90" length="5.00" shape="588.65,111.75 590.01,111.56 590.97,110.97 591.56,110.01 591.75,108.65"/>
       </lanes>
    </edge>
 
@@ -7144,7 +7144,7 @@
 
    <edge id=":3/3_19" function="internal">
       <lanes>
-         <lane id=":3/3_19_0" depart="0" maxspeed="13.90" length="4.82" shape="588.65,118.35 589.89,119.18 590.30,120.00 589.89,120.82 588.65,121.65"/>
+         <lane id=":3/3_19_0" depart="0" maxspeed="13.90" length="4.82" shape="588.65,118.35 589.89,119.17 590.30,120.00 589.89,120.82 588.65,121.65"/>
       </lanes>
    </edge>
 
@@ -7168,7 +7168,7 @@
 
    <edge id=":3/4_3" function="internal">
       <lanes>
-         <lane id=":3/4_3_0" depart="0" maxspeed="13.90" length="23.69" shape="611.35,161.65 604.22,160.84 599.13,158.40 596.07,154.34 595.05,148.65"/>
+         <lane id=":3/4_3_0" depart="0" maxspeed="13.90" length="23.69" shape="611.35,161.65 604.22,160.84 599.12,158.40 596.07,154.34 595.05,148.65"/>
       </lanes>
    </edge>
 
@@ -7186,13 +7186,13 @@
 
    <edge id=":3/4_6" function="internal">
       <lanes>
-         <lane id=":3/4_6_0" depart="0" maxspeed="13.90" length="5.00" shape="608.25,148.65 608.44,150.01 609.03,150.98 609.99,151.56 611.35,151.75"/>
+         <lane id=":3/4_6_0" depart="0" maxspeed="13.90" length="5.00" shape="608.25,148.65 608.44,150.01 609.02,150.97 609.99,151.56 611.35,151.75"/>
       </lanes>
    </edge>
 
    <edge id=":3/4_7" function="internal">
       <lanes>
-         <lane id=":3/4_7_0" depart="0" maxspeed="13.90" length="26.29" shape="604.95,148.65 603.93,155.78 600.88,160.88 595.78,163.93 588.65,164.95"/>
+         <lane id=":3/4_7_0" depart="0" maxspeed="13.90" length="26.29" shape="604.95,148.65 603.93,155.78 600.87,160.88 595.78,163.93 588.65,164.95"/>
       </lanes>
    </edge>
 
@@ -7210,7 +7210,7 @@
 
    <edge id=":3/4_10" function="internal">
       <lanes>
-         <lane id=":3/4_10_0" depart="0" maxspeed="13.90" length="5.00" shape="588.65,151.75 590.01,151.56 590.98,150.98 591.56,150.01 591.75,148.65"/>
+         <lane id=":3/4_10_0" depart="0" maxspeed="13.90" length="5.00" shape="588.65,151.75 590.01,151.56 590.97,150.97 591.56,150.01 591.75,148.65"/>
       </lanes>
    </edge>
 
@@ -7240,7 +7240,7 @@
 
    <edge id=":4/0_0" function="internal">
       <lanes>
-         <lane id=":4/0_0_0" depart="0" maxspeed="13.90" length="5.00" shape="791.75,11.35 791.56,9.99 790.97,9.02 790.01,8.44 788.65,8.25"/>
+         <lane id=":4/0_0_0" depart="0" maxspeed="13.90" length="5.00" shape="791.75,11.35 791.56,9.99 790.98,9.02 790.01,8.44 788.65,8.25"/>
       </lanes>
    </edge>
 
@@ -7288,7 +7288,7 @@
 
    <edge id=":4/0_8" function="internal">
       <lanes>
-         <lane id=":4/0_8_0" depart="0" maxspeed="13.90" length="4.82" shape="811.35,1.65 810.11,0.82 809.70,-0.00 810.11,-0.83 811.35,-1.65"/>
+         <lane id=":4/0_8_0" depart="0" maxspeed="13.90" length="4.82" shape="811.35,1.65 810.11,0.83 809.70,0.00 810.11,-0.82 811.35,-1.65"/>
       </lanes>
    </edge>
 
@@ -7324,13 +7324,13 @@
 
    <edge id=":4/0_14" function="internal">
       <lanes>
-         <lane id=":4/0_14_0" depart="0" maxspeed="13.90" length="4.82" shape="788.65,-1.65 789.89,-0.82 790.30,0.00 789.89,0.83 788.65,1.65"/>
+         <lane id=":4/0_14_0" depart="0" maxspeed="13.90" length="4.82" shape="788.65,-1.65 789.89,-0.83 790.30,-0.00 789.89,0.82 788.65,1.65"/>
       </lanes>
    </edge>
 
    <edge id=":4/1_0" function="internal">
       <lanes>
-         <lane id=":4/1_0_0" depart="0" maxspeed="13.90" length="5.00" shape="791.75,51.35 791.56,49.99 790.97,49.03 790.01,48.44 788.65,48.25"/>
+         <lane id=":4/1_0_0" depart="0" maxspeed="13.90" length="5.00" shape="791.75,51.35 791.56,49.99 790.97,49.02 790.01,48.44 788.65,48.25"/>
       </lanes>
    </edge>
 
@@ -7366,7 +7366,7 @@
 
    <edge id=":4/1_6" function="internal">
       <lanes>
-         <lane id=":4/1_6_0" depart="0" maxspeed="13.90" length="5.00" shape="811.35,48.25 809.99,48.44 809.03,49.03 808.44,49.99 808.25,51.35"/>
+         <lane id=":4/1_6_0" depart="0" maxspeed="13.90" length="5.00" shape="811.35,48.25 809.99,48.44 809.03,49.02 808.44,49.99 808.25,51.35"/>
       </lanes>
    </edge>
 
@@ -7384,13 +7384,13 @@
 
    <edge id=":4/1_9" function="internal">
       <lanes>
-         <lane id=":4/1_9_0" depart="0" maxspeed="13.90" length="4.82" shape="811.35,41.65 810.11,40.82 809.70,40.00 810.11,39.17 811.35,38.35"/>
+         <lane id=":4/1_9_0" depart="0" maxspeed="13.90" length="4.82" shape="811.35,41.65 810.11,40.83 809.70,40.00 810.11,39.18 811.35,38.35"/>
       </lanes>
    </edge>
 
    <edge id=":4/1_10" function="internal">
       <lanes>
-         <lane id=":4/1_10_0" depart="0" maxspeed="13.90" length="5.00" shape="808.25,28.65 808.44,30.01 809.03,30.98 809.99,31.56 811.35,31.75"/>
+         <lane id=":4/1_10_0" depart="0" maxspeed="13.90" length="5.00" shape="808.25,28.65 808.44,30.01 809.02,30.98 809.99,31.56 811.35,31.75"/>
       </lanes>
    </edge>
 
@@ -7444,7 +7444,7 @@
 
    <edge id=":4/1_19" function="internal">
       <lanes>
-         <lane id=":4/1_19_0" depart="0" maxspeed="13.90" length="4.82" shape="788.65,38.35 789.89,39.18 790.30,40.00 789.89,40.83 788.65,41.65"/>
+         <lane id=":4/1_19_0" depart="0" maxspeed="13.90" length="4.82" shape="788.65,38.35 789.89,39.17 790.30,40.00 789.89,40.82 788.65,41.65"/>
       </lanes>
    </edge>
 
@@ -7510,7 +7510,7 @@
 
    <edge id=":4/2_10" function="internal">
       <lanes>
-         <lane id=":4/2_10_0" depart="0" maxspeed="13.90" length="5.00" shape="808.25,68.65 808.44,70.01 809.03,70.97 809.99,71.56 811.35,71.75"/>
+         <lane id=":4/2_10_0" depart="0" maxspeed="13.90" length="5.00" shape="808.25,68.65 808.44,70.01 809.02,70.97 809.99,71.56 811.35,71.75"/>
       </lanes>
    </edge>
 
@@ -7570,7 +7570,7 @@
 
    <edge id=":4/3_0" function="internal">
       <lanes>
-         <lane id=":4/3_0_0" depart="0" maxspeed="13.90" length="5.00" shape="791.75,131.35 791.56,129.99 790.97,129.02 790.01,128.44 788.65,128.25"/>
+         <lane id=":4/3_0_0" depart="0" maxspeed="13.90" length="5.00" shape="791.75,131.35 791.56,129.99 790.97,129.03 790.01,128.44 788.65,128.25"/>
       </lanes>
    </edge>
 
@@ -7606,7 +7606,7 @@
 
    <edge id=":4/3_6" function="internal">
       <lanes>
-         <lane id=":4/3_6_0" depart="0" maxspeed="13.90" length="5.00" shape="811.35,128.25 809.99,128.44 809.03,129.02 808.44,129.99 808.25,131.35"/>
+         <lane id=":4/3_6_0" depart="0" maxspeed="13.90" length="5.00" shape="811.35,128.25 809.99,128.44 809.03,129.03 808.44,129.99 808.25,131.35"/>
       </lanes>
    </edge>
 
@@ -7624,13 +7624,13 @@
 
    <edge id=":4/3_9" function="internal">
       <lanes>
-         <lane id=":4/3_9_0" depart="0" maxspeed="13.90" length="4.82" shape="811.35,121.65 810.11,120.82 809.70,120.00 810.11,119.18 811.35,118.35"/>
+         <lane id=":4/3_9_0" depart="0" maxspeed="13.90" length="4.82" shape="811.35,121.65 810.11,120.83 809.70,120.00 810.11,119.18 811.35,118.35"/>
       </lanes>
    </edge>
 
    <edge id=":4/3_10" function="internal">
       <lanes>
-         <lane id=":4/3_10_0" depart="0" maxspeed="13.90" length="5.00" shape="808.25,108.65 808.44,110.01 809.03,110.97 809.99,111.56 811.35,111.75"/>
+         <lane id=":4/3_10_0" depart="0" maxspeed="13.90" length="5.00" shape="808.25,108.65 808.44,110.01 809.02,110.97 809.99,111.56 811.35,111.75"/>
       </lanes>
    </edge>
 
@@ -7684,7 +7684,7 @@
 
    <edge id=":4/3_19" function="internal">
       <lanes>
-         <lane id=":4/3_19_0" depart="0" maxspeed="13.90" length="4.82" shape="788.65,118.35 789.89,119.18 790.30,120.00 789.89,120.82 788.65,121.65"/>
+         <lane id=":4/3_19_0" depart="0" maxspeed="13.90" length="4.82" shape="788.65,118.35 789.89,119.17 790.30,120.00 789.89,120.82 788.65,121.65"/>
       </lanes>
    </edge>
 
@@ -7708,7 +7708,7 @@
 
    <edge id=":4/4_3" function="internal">
       <lanes>
-         <lane id=":4/4_3_0" depart="0" maxspeed="13.90" length="23.69" shape="811.35,161.65 804.22,160.84 799.13,158.40 796.07,154.34 795.05,148.65"/>
+         <lane id=":4/4_3_0" depart="0" maxspeed="13.90" length="23.69" shape="811.35,161.65 804.22,160.84 799.12,158.40 796.07,154.34 795.05,148.65"/>
       </lanes>
    </edge>
 
@@ -7726,13 +7726,13 @@
 
    <edge id=":4/4_6" function="internal">
       <lanes>
-         <lane id=":4/4_6_0" depart="0" maxspeed="13.90" length="5.00" shape="808.25,148.65 808.44,150.01 809.03,150.98 809.99,151.56 811.35,151.75"/>
+         <lane id=":4/4_6_0" depart="0" maxspeed="13.90" length="5.00" shape="808.25,148.65 808.44,150.01 809.02,150.97 809.99,151.56 811.35,151.75"/>
       </lanes>
    </edge>
 
    <edge id=":4/4_7" function="internal">
       <lanes>
-         <lane id=":4/4_7_0" depart="0" maxspeed="13.90" length="26.29" shape="804.95,148.65 803.93,155.78 800.88,160.88 795.78,163.93 788.65,164.95"/>
+         <lane id=":4/4_7_0" depart="0" maxspeed="13.90" length="26.29" shape="804.95,148.65 803.93,155.78 800.87,160.88 795.78,163.93 788.65,164.95"/>
       </lanes>
    </edge>
 
@@ -7750,7 +7750,7 @@
 
    <edge id=":4/4_10" function="internal">
       <lanes>
-         <lane id=":4/4_10_0" depart="0" maxspeed="13.90" length="5.00" shape="788.65,151.75 790.01,151.56 790.97,150.98 791.56,150.01 791.75,148.65"/>
+         <lane id=":4/4_10_0" depart="0" maxspeed="13.90" length="5.00" shape="788.65,151.75 790.01,151.56 790.97,150.97 791.56,150.01 791.75,148.65"/>
       </lanes>
    </edge>
 
@@ -7780,7 +7780,7 @@
 
    <edge id=":5/0_0" function="internal">
       <lanes>
-         <lane id=":5/0_0_0" depart="0" maxspeed="13.90" length="5.00" shape="991.75,11.35 991.56,9.99 990.97,9.02 990.01,8.44 988.65,8.25"/>
+         <lane id=":5/0_0_0" depart="0" maxspeed="13.90" length="5.00" shape="991.75,11.35 991.56,9.99 990.98,9.02 990.01,8.44 988.65,8.25"/>
       </lanes>
    </edge>
 
@@ -7828,7 +7828,7 @@
 
    <edge id=":5/0_8" function="internal">
       <lanes>
-         <lane id=":5/0_8_0" depart="0" maxspeed="13.90" length="4.82" shape="1011.35,1.65 1010.11,0.82 1009.70,-0.00 1010.11,-0.83 1011.35,-1.65"/>
+         <lane id=":5/0_8_0" depart="0" maxspeed="13.90" length="4.82" shape="1011.35,1.65 1010.11,0.83 1009.70,0.00 1010.11,-0.82 1011.35,-1.65"/>
       </lanes>
    </edge>
 
@@ -7864,13 +7864,13 @@
 
    <edge id=":5/0_14" function="internal">
       <lanes>
-         <lane id=":5/0_14_0" depart="0" maxspeed="13.90" length="4.82" shape="988.65,-1.65 989.89,-0.82 990.30,0.00 989.89,0.83 988.65,1.65"/>
+         <lane id=":5/0_14_0" depart="0" maxspeed="13.90" length="4.82" shape="988.65,-1.65 989.89,-0.83 990.30,-0.00 989.89,0.82 988.65,1.65"/>
       </lanes>
    </edge>
 
    <edge id=":5/1_0" function="internal">
       <lanes>
-         <lane id=":5/1_0_0" depart="0" maxspeed="13.90" length="5.00" shape="991.75,51.35 991.56,49.99 990.97,49.03 990.01,48.44 988.65,48.25"/>
+         <lane id=":5/1_0_0" depart="0" maxspeed="13.90" length="5.00" shape="991.75,51.35 991.56,49.99 990.97,49.02 990.01,48.44 988.65,48.25"/>
       </lanes>
    </edge>
 
@@ -7906,7 +7906,7 @@
 
    <edge id=":5/1_6" function="internal">
       <lanes>
-         <lane id=":5/1_6_0" depart="0" maxspeed="13.90" length="5.00" shape="1011.35,48.25 1009.99,48.44 1009.03,49.03 1008.44,49.99 1008.25,51.35"/>
+         <lane id=":5/1_6_0" depart="0" maxspeed="13.90" length="5.00" shape="1011.35,48.25 1009.99,48.44 1009.03,49.02 1008.44,49.99 1008.25,51.35"/>
       </lanes>
    </edge>
 
@@ -7924,13 +7924,13 @@
 
    <edge id=":5/1_9" function="internal">
       <lanes>
-         <lane id=":5/1_9_0" depart="0" maxspeed="13.90" length="4.82" shape="1011.35,41.65 1010.11,40.82 1009.70,40.00 1010.11,39.17 1011.35,38.35"/>
+         <lane id=":5/1_9_0" depart="0" maxspeed="13.90" length="4.82" shape="1011.35,41.65 1010.11,40.83 1009.70,40.00 1010.11,39.18 1011.35,38.35"/>
       </lanes>
    </edge>
 
    <edge id=":5/1_10" function="internal">
       <lanes>
-         <lane id=":5/1_10_0" depart="0" maxspeed="13.90" length="5.00" shape="1008.25,28.65 1008.44,30.01 1009.03,30.98 1009.99,31.56 1011.35,31.75"/>
+         <lane id=":5/1_10_0" depart="0" maxspeed="13.90" length="5.00" shape="1008.25,28.65 1008.44,30.01 1009.02,30.98 1009.99,31.56 1011.35,31.75"/>
       </lanes>
    </edge>
 
@@ -7984,7 +7984,7 @@
 
    <edge id=":5/1_19" function="internal">
       <lanes>
-         <lane id=":5/1_19_0" depart="0" maxspeed="13.90" length="4.82" shape="988.65,38.35 989.89,39.18 990.30,40.00 989.89,40.83 988.65,41.65"/>
+         <lane id=":5/1_19_0" depart="0" maxspeed="13.90" length="4.82" shape="988.65,38.35 989.89,39.17 990.30,40.00 989.89,40.82 988.65,41.65"/>
       </lanes>
    </edge>
 
@@ -8050,7 +8050,7 @@
 
    <edge id=":5/2_10" function="internal">
       <lanes>
-         <lane id=":5/2_10_0" depart="0" maxspeed="13.90" length="5.00" shape="1008.25,68.65 1008.44,70.01 1009.03,70.97 1009.99,71.56 1011.35,71.75"/>
+         <lane id=":5/2_10_0" depart="0" maxspeed="13.90" length="5.00" shape="1008.25,68.65 1008.44,70.01 1009.02,70.97 1009.99,71.56 1011.35,71.75"/>
       </lanes>
    </edge>
 
@@ -8110,7 +8110,7 @@
 
    <edge id=":5/3_0" function="internal">
       <lanes>
-         <lane id=":5/3_0_0" depart="0" maxspeed="13.90" length="5.00" shape="991.75,131.35 991.56,129.99 990.97,129.02 990.01,128.44 988.65,128.25"/>
+         <lane id=":5/3_0_0" depart="0" maxspeed="13.90" length="5.00" shape="991.75,131.35 991.56,129.99 990.97,129.03 990.01,128.44 988.65,128.25"/>
       </lanes>
    </edge>
 
@@ -8146,7 +8146,7 @@
 
    <edge id=":5/3_6" function="internal">
       <lanes>
-         <lane id=":5/3_6_0" depart="0" maxspeed="13.90" length="5.00" shape="1011.35,128.25 1009.99,128.44 1009.03,129.02 1008.44,129.99 1008.25,131.35"/>
+         <lane id=":5/3_6_0" depart="0" maxspeed="13.90" length="5.00" shape="1011.35,128.25 1009.99,128.44 1009.03,129.03 1008.44,129.99 1008.25,131.35"/>
       </lanes>
    </edge>
 
@@ -8164,13 +8164,13 @@
 
    <edge id=":5/3_9" function="internal">
       <lanes>
-         <lane id=":5/3_9_0" depart="0" maxspeed="13.90" length="4.82" shape="1011.35,121.65 1010.11,120.82 1009.70,120.00 1010.11,119.18 1011.35,118.35"/>
+         <lane id=":5/3_9_0" depart="0" maxspeed="13.90" length="4.82" shape="1011.35,121.65 1010.11,120.83 1009.70,120.00 1010.11,119.18 1011.35,118.35"/>
       </lanes>
    </edge>
 
    <edge id=":5/3_10" function="internal">
       <lanes>
-         <lane id=":5/3_10_0" depart="0" maxspeed="13.90" length="5.00" shape="1008.25,108.65 1008.44,110.01 1009.03,110.97 1009.99,111.56 1011.35,111.75"/>
+         <lane id=":5/3_10_0" depart="0" maxspeed="13.90" length="5.00" shape="1008.25,108.65 1008.44,110.01 1009.02,110.97 1009.99,111.56 1011.35,111.75"/>
       </lanes>
    </edge>
 
@@ -8224,7 +8224,7 @@
 
    <edge id=":5/3_19" function="internal">
       <lanes>
-         <lane id=":5/3_19_0" depart="0" maxspeed="13.90" length="4.82" shape="988.65,118.35 989.89,119.18 990.30,120.00 989.89,120.82 988.65,121.65"/>
+         <lane id=":5/3_19_0" depart="0" maxspeed="13.90" length="4.82" shape="988.65,118.35 989.89,119.17 990.30,120.00 989.89,120.82 988.65,121.65"/>
       </lanes>
    </edge>
 
@@ -8248,7 +8248,7 @@
 
    <edge id=":5/4_3" function="internal">
       <lanes>
-         <lane id=":5/4_3_0" depart="0" maxspeed="13.90" length="23.69" shape="1011.35,161.65 1004.22,160.84 999.13,158.40 996.07,154.34 995.05,148.65"/>
+         <lane id=":5/4_3_0" depart="0" maxspeed="13.90" length="23.69" shape="1011.35,161.65 1004.22,160.84 999.12,158.40 996.07,154.34 995.05,148.65"/>
       </lanes>
    </edge>
 
@@ -8266,13 +8266,13 @@
 
    <edge id=":5/4_6" function="internal">
       <lanes>
-         <lane id=":5/4_6_0" depart="0" maxspeed="13.90" length="5.00" shape="1008.25,148.65 1008.44,150.01 1009.03,150.98 1009.99,151.56 1011.35,151.75"/>
+         <lane id=":5/4_6_0" depart="0" maxspeed="13.90" length="5.00" shape="1008.25,148.65 1008.44,150.01 1009.02,150.97 1009.99,151.56 1011.35,151.75"/>
       </lanes>
    </edge>
 
    <edge id=":5/4_7" function="internal">
       <lanes>
-         <lane id=":5/4_7_0" depart="0" maxspeed="13.90" length="26.29" shape="1004.95,148.65 1003.93,155.78 1000.88,160.88 995.78,163.93 988.65,164.95"/>
+         <lane id=":5/4_7_0" depart="0" maxspeed="13.90" length="26.29" shape="1004.95,148.65 1003.93,155.78 1000.87,160.88 995.78,163.93 988.65,164.95"/>
       </lanes>
    </edge>
 
@@ -8290,7 +8290,7 @@
 
    <edge id=":5/4_10" function="internal">
       <lanes>
-         <lane id=":5/4_10_0" depart="0" maxspeed="13.90" length="5.00" shape="988.65,151.75 990.01,151.56 990.97,150.98 991.56,150.01 991.75,148.65"/>
+         <lane id=":5/4_10_0" depart="0" maxspeed="13.90" length="5.00" shape="988.65,151.75 990.01,151.56 990.97,150.97 991.56,150.01 991.75,148.65"/>
       </lanes>
    </edge>
 
@@ -8320,7 +8320,7 @@
 
    <edge id=":6/0_0" function="internal">
       <lanes>
-         <lane id=":6/0_0_0" depart="0" maxspeed="13.90" length="5.00" shape="1191.75,11.35 1191.56,9.99 1190.97,9.02 1190.01,8.44 1188.65,8.25"/>
+         <lane id=":6/0_0_0" depart="0" maxspeed="13.90" length="5.00" shape="1191.75,11.35 1191.56,9.99 1190.98,9.02 1190.01,8.44 1188.65,8.25"/>
       </lanes>
    </edge>
 
@@ -8338,7 +8338,7 @@
 
    <edge id=":6/0_3" function="internal">
       <lanes>
-         <lane id=":6/0_3_0" depart="0" maxspeed="13.90" length="4.82" shape="1198.35,11.35 1199.17,10.11 1200.00,9.70 1200.82,10.11 1201.65,11.35"/>
+         <lane id=":6/0_3_0" depart="0" maxspeed="13.90" length="4.82" shape="1198.35,11.35 1199.18,10.11 1200.00,9.70 1200.83,10.11 1201.65,11.35"/>
       </lanes>
    </edge>
 
@@ -8368,7 +8368,7 @@
 
    <edge id=":6/0_8" function="internal">
       <lanes>
-         <lane id=":6/0_8_0" depart="0" maxspeed="13.90" length="4.82" shape="1211.35,1.65 1210.11,0.82 1209.70,-0.00 1210.11,-0.83 1211.35,-1.65"/>
+         <lane id=":6/0_8_0" depart="0" maxspeed="13.90" length="4.82" shape="1211.35,1.65 1210.11,0.83 1209.70,0.00 1210.11,-0.82 1211.35,-1.65"/>
       </lanes>
    </edge>
 
@@ -8404,13 +8404,13 @@
 
    <edge id=":6/0_14" function="internal">
       <lanes>
-         <lane id=":6/0_14_0" depart="0" maxspeed="13.90" length="4.82" shape="1188.65,-1.65 1189.89,-0.82 1190.30,0.00 1189.89,0.83 1188.65,1.65"/>
+         <lane id=":6/0_14_0" depart="0" maxspeed="13.90" length="4.82" shape="1188.65,-1.65 1189.89,-0.83 1190.30,-0.00 1189.89,0.82 1188.65,1.65"/>
       </lanes>
    </edge>
 
    <edge id=":6/1_0" function="internal">
       <lanes>
-         <lane id=":6/1_0_0" depart="0" maxspeed="13.90" length="5.00" shape="1191.75,51.35 1191.56,49.99 1190.97,49.03 1190.01,48.44 1188.65,48.25"/>
+         <lane id=":6/1_0_0" depart="0" maxspeed="13.90" length="5.00" shape="1191.75,51.35 1191.56,49.99 1190.97,49.02 1190.01,48.44 1188.65,48.25"/>
       </lanes>
    </edge>
 
@@ -8440,13 +8440,13 @@
 
    <edge id=":6/1_5" function="internal">
       <lanes>
-         <lane id=":6/1_5_0" depart="0" maxspeed="13.90" length="4.82" shape="1198.35,51.35 1199.17,50.11 1200.00,49.70 1200.82,50.11 1201.65,51.35"/>
+         <lane id=":6/1_5_0" depart="0" maxspeed="13.90" length="4.82" shape="1198.35,51.35 1199.18,50.11 1200.00,49.70 1200.83,50.11 1201.65,51.35"/>
       </lanes>
    </edge>
 
    <edge id=":6/1_6" function="internal">
       <lanes>
-         <lane id=":6/1_6_0" depart="0" maxspeed="13.90" length="5.00" shape="1211.35,48.25 1209.99,48.44 1209.03,49.03 1208.44,49.99 1208.25,51.35"/>
+         <lane id=":6/1_6_0" depart="0" maxspeed="13.90" length="5.00" shape="1211.35,48.25 1209.99,48.44 1209.03,49.02 1208.44,49.99 1208.25,51.35"/>
       </lanes>
    </edge>
 
@@ -8464,13 +8464,13 @@
 
    <edge id=":6/1_9" function="internal">
       <lanes>
-         <lane id=":6/1_9_0" depart="0" maxspeed="13.90" length="4.82" shape="1211.35,41.65 1210.11,40.82 1209.70,40.00 1210.11,39.17 1211.35,38.35"/>
+         <lane id=":6/1_9_0" depart="0" maxspeed="13.90" length="4.82" shape="1211.35,41.65 1210.11,40.83 1209.70,40.00 1210.11,39.18 1211.35,38.35"/>
       </lanes>
    </edge>
 
    <edge id=":6/1_10" function="internal">
       <lanes>
-         <lane id=":6/1_10_0" depart="0" maxspeed="13.90" length="5.00" shape="1208.25,28.65 1208.44,30.01 1209.03,30.98 1209.99,31.56 1211.35,31.75"/>
+         <lane id=":6/1_10_0" depart="0" maxspeed="13.90" length="5.00" shape="1208.25,28.65 1208.44,30.01 1209.02,30.98 1209.99,31.56 1211.35,31.75"/>
       </lanes>
    </edge>
 
@@ -8500,7 +8500,7 @@
 
    <edge id=":6/1_15" function="internal">
       <lanes>
-         <lane id=":6/1_15_0" depart="0" maxspeed="13.90" length="4.82" shape="1201.65,28.65 1200.83,29.89 1200.00,30.30 1199.18,29.89 1198.35,28.65"/>
+         <lane id=":6/1_15_0" depart="0" maxspeed="13.90" length="4.82" shape="1201.65,28.65 1200.82,29.89 1200.00,30.30 1199.18,29.89 1198.35,28.65"/>
       </lanes>
    </edge>
 
@@ -8524,7 +8524,7 @@
 
    <edge id=":6/1_19" function="internal">
       <lanes>
-         <lane id=":6/1_19_0" depart="0" maxspeed="13.90" length="4.82" shape="1188.65,38.35 1189.89,39.18 1190.30,40.00 1189.89,40.83 1188.65,41.65"/>
+         <lane id=":6/1_19_0" depart="0" maxspeed="13.90" length="4.82" shape="1188.65,38.35 1189.89,39.17 1190.30,40.00 1189.89,40.82 1188.65,41.65"/>
       </lanes>
    </edge>
 
@@ -8560,7 +8560,7 @@
 
    <edge id=":6/2_5" function="internal">
       <lanes>
-         <lane id=":6/2_5_0" depart="0" maxspeed="13.90" length="4.82" shape="1198.35,91.35 1199.17,90.11 1200.00,89.70 1200.82,90.11 1201.65,91.35"/>
+         <lane id=":6/2_5_0" depart="0" maxspeed="13.90" length="4.82" shape="1198.35,91.35 1199.18,90.11 1200.00,89.70 1200.83,90.11 1201.65,91.35"/>
       </lanes>
    </edge>
 
@@ -8590,7 +8590,7 @@
 
    <edge id=":6/2_10" function="internal">
       <lanes>
-         <lane id=":6/2_10_0" depart="0" maxspeed="13.90" length="5.00" shape="1208.25,68.65 1208.44,70.01 1209.03,70.97 1209.99,71.56 1211.35,71.75"/>
+         <lane id=":6/2_10_0" depart="0" maxspeed="13.90" length="5.00" shape="1208.25,68.65 1208.44,70.01 1209.02,70.97 1209.99,71.56 1211.35,71.75"/>
       </lanes>
    </edge>
 
@@ -8620,7 +8620,7 @@
 
    <edge id=":6/2_15" function="internal">
       <lanes>
-         <lane id=":6/2_15_0" depart="0" maxspeed="13.90" length="4.82" shape="1201.65,68.65 1200.83,69.89 1200.00,70.30 1199.18,69.89 1198.35,68.65"/>
+         <lane id=":6/2_15_0" depart="0" maxspeed="13.90" length="4.82" shape="1201.65,68.65 1200.82,69.89 1200.00,70.30 1199.18,69.89 1198.35,68.65"/>
       </lanes>
    </edge>
 
@@ -8650,7 +8650,7 @@
 
    <edge id=":6/3_0" function="internal">
       <lanes>
-         <lane id=":6/3_0_0" depart="0" maxspeed="13.90" length="5.00" shape="1191.75,131.35 1191.56,129.99 1190.97,129.02 1190.01,128.44 1188.65,128.25"/>
+         <lane id=":6/3_0_0" depart="0" maxspeed="13.90" length="5.00" shape="1191.75,131.35 1191.56,129.99 1190.97,129.03 1190.01,128.44 1188.65,128.25"/>
       </lanes>
    </edge>
 
@@ -8680,13 +8680,13 @@
 
    <edge id=":6/3_5" function="internal">
       <lanes>
-         <lane id=":6/3_5_0" depart="0" maxspeed="13.90" length="4.82" shape="1198.35,131.35 1199.17,130.11 1200.00,129.70 1200.82,130.11 1201.65,131.35"/>
+         <lane id=":6/3_5_0" depart="0" maxspeed="13.90" length="4.82" shape="1198.35,131.35 1199.18,130.11 1200.00,129.70 1200.83,130.11 1201.65,131.35"/>
       </lanes>
    </edge>
 
    <edge id=":6/3_6" function="internal">
       <lanes>
-         <lane id=":6/3_6_0" depart="0" maxspeed="13.90" length="5.00" shape="1211.35,128.25 1209.99,128.44 1209.03,129.02 1208.44,129.99 1208.25,131.35"/>
+         <lane id=":6/3_6_0" depart="0" maxspeed="13.90" length="5.00" shape="1211.35,128.25 1209.99,128.44 1209.03,129.03 1208.44,129.99 1208.25,131.35"/>
       </lanes>
    </edge>
 
@@ -8704,13 +8704,13 @@
 
    <edge id=":6/3_9" function="internal">
       <lanes>
-         <lane id=":6/3_9_0" depart="0" maxspeed="13.90" length="4.82" shape="1211.35,121.65 1210.11,120.82 1209.70,120.00 1210.11,119.18 1211.35,118.35"/>
+         <lane id=":6/3_9_0" depart="0" maxspeed="13.90" length="4.82" shape="1211.35,121.65 1210.11,120.83 1209.70,120.00 1210.11,119.18 1211.35,118.35"/>
       </lanes>
    </edge>
 
    <edge id=":6/3_10" function="internal">
       <lanes>
-         <lane id=":6/3_10_0" depart="0" maxspeed="13.90" length="5.00" shape="1208.25,108.65 1208.44,110.01 1209.03,110.97 1209.99,111.56 1211.35,111.75"/>
+         <lane id=":6/3_10_0" depart="0" maxspeed="13.90" length="5.00" shape="1208.25,108.65 1208.44,110.01 1209.02,110.97 1209.99,111.56 1211.35,111.75"/>
       </lanes>
    </edge>
 
@@ -8740,7 +8740,7 @@
 
    <edge id=":6/3_15" function="internal">
       <lanes>
-         <lane id=":6/3_15_0" depart="0" maxspeed="13.90" length="4.82" shape="1201.65,108.65 1200.83,109.89 1200.00,110.30 1199.18,109.89 1198.35,108.65"/>
+         <lane id=":6/3_15_0" depart="0" maxspeed="13.90" length="4.82" shape="1201.65,108.65 1200.82,109.89 1200.00,110.30 1199.18,109.89 1198.35,108.65"/>
       </lanes>
    </edge>
 
@@ -8764,7 +8764,7 @@
 
    <edge id=":6/3_19" function="internal">
       <lanes>
-         <lane id=":6/3_19_0" depart="0" maxspeed="13.90" length="4.82" shape="1188.65,118.35 1189.89,119.18 1190.30,120.00 1189.89,120.82 1188.65,121.65"/>
+         <lane id=":6/3_19_0" depart="0" maxspeed="13.90" length="4.82" shape="1188.65,118.35 1189.89,119.17 1190.30,120.00 1189.89,120.82 1188.65,121.65"/>
       </lanes>
    </edge>
 
@@ -8788,7 +8788,7 @@
 
    <edge id=":6/4_3" function="internal">
       <lanes>
-         <lane id=":6/4_3_0" depart="0" maxspeed="13.90" length="23.69" shape="1211.35,161.65 1204.22,160.84 1199.13,158.40 1196.07,154.34 1195.05,148.65"/>
+         <lane id=":6/4_3_0" depart="0" maxspeed="13.90" length="23.69" shape="1211.35,161.65 1204.22,160.84 1199.12,158.40 1196.07,154.34 1195.05,148.65"/>
       </lanes>
    </edge>
 
@@ -8806,13 +8806,13 @@
 
    <edge id=":6/4_6" function="internal">
       <lanes>
-         <lane id=":6/4_6_0" depart="0" maxspeed="13.90" length="5.00" shape="1208.25,148.65 1208.44,150.01 1209.03,150.98 1209.99,151.56 1211.35,151.75"/>
+         <lane id=":6/4_6_0" depart="0" maxspeed="13.90" length="5.00" shape="1208.25,148.65 1208.44,150.01 1209.02,150.97 1209.99,151.56 1211.35,151.75"/>
       </lanes>
    </edge>
 
    <edge id=":6/4_7" function="internal">
       <lanes>
-         <lane id=":6/4_7_0" depart="0" maxspeed="13.90" length="26.29" shape="1204.95,148.65 1203.93,155.78 1200.88,160.88 1195.78,163.93 1188.65,164.95"/>
+         <lane id=":6/4_7_0" depart="0" maxspeed="13.90" length="26.29" shape="1204.95,148.65 1203.93,155.78 1200.87,160.88 1195.78,163.93 1188.65,164.95"/>
       </lanes>
    </edge>
 
@@ -8824,13 +8824,13 @@
 
    <edge id=":6/4_9" function="internal">
       <lanes>
-         <lane id=":6/4_9_0" depart="0" maxspeed="13.90" length="4.82" shape="1201.65,148.65 1200.83,149.89 1200.00,150.30 1199.18,149.89 1198.35,148.65"/>
+         <lane id=":6/4_9_0" depart="0" maxspeed="13.90" length="4.82" shape="1201.65,148.65 1200.82,149.89 1200.00,150.30 1199.18,149.89 1198.35,148.65"/>
       </lanes>
    </edge>
 
    <edge id=":6/4_10" function="internal">
       <lanes>
-         <lane id=":6/4_10_0" depart="0" maxspeed="13.90" length="5.00" shape="1188.65,151.75 1190.01,151.56 1190.97,150.98 1191.56,150.01 1191.75,148.65"/>
+         <lane id=":6/4_10_0" depart="0" maxspeed="13.90" length="5.00" shape="1188.65,151.75 1190.01,151.56 1190.97,150.97 1191.56,150.01 1191.75,148.65"/>
       </lanes>
    </edge>
 
@@ -8860,7 +8860,7 @@
 
    <edge id=":7/0_0" function="internal">
       <lanes>
-         <lane id=":7/0_0_0" depart="0" maxspeed="13.90" length="5.00" shape="1391.75,11.35 1391.56,9.99 1390.97,9.02 1390.01,8.44 1388.65,8.25"/>
+         <lane id=":7/0_0_0" depart="0" maxspeed="13.90" length="5.00" shape="1391.75,11.35 1391.56,9.99 1390.98,9.02 1390.01,8.44 1388.65,8.25"/>
       </lanes>
    </edge>
 
@@ -8878,7 +8878,7 @@
 
    <edge id=":7/0_3" function="internal">
       <lanes>
-         <lane id=":7/0_3_0" depart="0" maxspeed="13.90" length="4.82" shape="1398.35,11.35 1399.17,10.11 1400.00,9.70 1400.82,10.11 1401.65,11.35"/>
+         <lane id=":7/0_3_0" depart="0" maxspeed="13.90" length="4.82" shape="1398.35,11.35 1399.18,10.11 1400.00,9.70 1400.83,10.11 1401.65,11.35"/>
       </lanes>
    </edge>
 
@@ -8908,7 +8908,7 @@
 
    <edge id=":7/0_8" function="internal">
       <lanes>
-         <lane id=":7/0_8_0" depart="0" maxspeed="13.90" length="4.82" shape="1411.35,1.65 1410.11,0.82 1409.70,-0.00 1410.11,-0.83 1411.35,-1.65"/>
+         <lane id=":7/0_8_0" depart="0" maxspeed="13.90" length="4.82" shape="1411.35,1.65 1410.11,0.83 1409.70,0.00 1410.11,-0.82 1411.35,-1.65"/>
       </lanes>
    </edge>
 
@@ -8944,13 +8944,13 @@
 
    <edge id=":7/0_14" function="internal">
       <lanes>
-         <lane id=":7/0_14_0" depart="0" maxspeed="13.90" length="4.82" shape="1388.65,-1.65 1389.89,-0.82 1390.30,0.00 1389.89,0.83 1388.65,1.65"/>
+         <lane id=":7/0_14_0" depart="0" maxspeed="13.90" length="4.82" shape="1388.65,-1.65 1389.89,-0.83 1390.30,-0.00 1389.89,0.82 1388.65,1.65"/>
       </lanes>
    </edge>
 
    <edge id=":7/1_0" function="internal">
       <lanes>
-         <lane id=":7/1_0_0" depart="0" maxspeed="13.90" length="5.00" shape="1391.75,51.35 1391.56,49.99 1390.97,49.03 1390.01,48.44 1388.65,48.25"/>
+         <lane id=":7/1_0_0" depart="0" maxspeed="13.90" length="5.00" shape="1391.75,51.35 1391.56,49.99 1390.97,49.02 1390.01,48.44 1388.65,48.25"/>
       </lanes>
    </edge>
 
@@ -8980,13 +8980,13 @@
 
    <edge id=":7/1_5" function="internal">
       <lanes>
-         <lane id=":7/1_5_0" depart="0" maxspeed="13.90" length="4.82" shape="1398.35,51.35 1399.17,50.11 1400.00,49.70 1400.82,50.11 1401.65,51.35"/>
+         <lane id=":7/1_5_0" depart="0" maxspeed="13.90" length="4.82" shape="1398.35,51.35 1399.18,50.11 1400.00,49.70 1400.83,50.11 1401.65,51.35"/>
       </lanes>
    </edge>
 
    <edge id=":7/1_6" function="internal">
       <lanes>
-         <lane id=":7/1_6_0" depart="0" maxspeed="13.90" length="5.00" shape="1411.35,48.25 1409.99,48.44 1409.03,49.03 1408.44,49.99 1408.25,51.35"/>
+         <lane id=":7/1_6_0" depart="0" maxspeed="13.90" length="5.00" shape="1411.35,48.25 1409.99,48.44 1409.03,49.02 1408.44,49.99 1408.25,51.35"/>
       </lanes>
    </edge>
 
@@ -9004,13 +9004,13 @@
 
    <edge id=":7/1_9" function="internal">
       <lanes>
-         <lane id=":7/1_9_0" depart="0" maxspeed="13.90" length="4.82" shape="1411.35,41.65 1410.11,40.82 1409.70,40.00 1410.11,39.17 1411.35,38.35"/>
+         <lane id=":7/1_9_0" depart="0" maxspeed="13.90" length="4.82" shape="1411.35,41.65 1410.11,40.83 1409.70,40.00 1410.11,39.18 1411.35,38.35"/>
       </lanes>
    </edge>
 
    <edge id=":7/1_10" function="internal">
       <lanes>
-         <lane id=":7/1_10_0" depart="0" maxspeed="13.90" length="5.00" shape="1408.25,28.65 1408.44,30.01 1409.03,30.98 1409.99,31.56 1411.35,31.75"/>
+         <lane id=":7/1_10_0" depart="0" maxspeed="13.90" length="5.00" shape="1408.25,28.65 1408.44,30.01 1409.02,30.98 1409.99,31.56 1411.35,31.75"/>
       </lanes>
    </edge>
 
@@ -9040,7 +9040,7 @@
 
    <edge id=":7/1_15" function="internal">
       <lanes>
-         <lane id=":7/1_15_0" depart="0" maxspeed="13.90" length="4.82" shape="1401.65,28.65 1400.83,29.89 1400.00,30.30 1399.18,29.89 1398.35,28.65"/>
+         <lane id=":7/1_15_0" depart="0" maxspeed="13.90" length="4.82" shape="1401.65,28.65 1400.82,29.89 1400.00,30.30 1399.18,29.89 1398.35,28.65"/>
       </lanes>
    </edge>
 
@@ -9064,7 +9064,7 @@
 
    <edge id=":7/1_19" function="internal">
       <lanes>
-         <lane id=":7/1_19_0" depart="0" maxspeed="13.90" length="4.82" shape="1388.65,38.35 1389.89,39.18 1390.30,40.00 1389.89,40.83 1388.65,41.65"/>
+         <lane id=":7/1_19_0" depart="0" maxspeed="13.90" length="4.82" shape="1388.65,38.35 1389.89,39.17 1390.30,40.00 1389.89,40.82 1388.65,41.65"/>
       </lanes>
    </edge>
 
@@ -9100,7 +9100,7 @@
 
    <edge id=":7/2_5" function="internal">
       <lanes>
-         <lane id=":7/2_5_0" depart="0" maxspeed="13.90" length="4.82" shape="1398.35,91.35 1399.17,90.11 1400.00,89.70 1400.82,90.11 1401.65,91.35"/>
+         <lane id=":7/2_5_0" depart="0" maxspeed="13.90" length="4.82" shape="1398.35,91.35 1399.18,90.11 1400.00,89.70 1400.83,90.11 1401.65,91.35"/>
       </lanes>
    </edge>
 
@@ -9130,7 +9130,7 @@
 
    <edge id=":7/2_10" function="internal">
       <lanes>
-         <lane id=":7/2_10_0" depart="0" maxspeed="13.90" length="5.00" shape="1408.25,68.65 1408.44,70.01 1409.03,70.97 1409.99,71.56 1411.35,71.75"/>
+         <lane id=":7/2_10_0" depart="0" maxspeed="13.90" length="5.00" shape="1408.25,68.65 1408.44,70.01 1409.02,70.97 1409.99,71.56 1411.35,71.75"/>
       </lanes>
    </edge>
 
@@ -9160,7 +9160,7 @@
 
    <edge id=":7/2_15" function="internal">
       <lanes>
-         <lane id=":7/2_15_0" depart="0" maxspeed="13.90" length="4.82" shape="1401.65,68.65 1400.83,69.89 1400.00,70.30 1399.18,69.89 1398.35,68.65"/>
+         <lane id=":7/2_15_0" depart="0" maxspeed="13.90" length="4.82" shape="1401.65,68.65 1400.82,69.89 1400.00,70.30 1399.18,69.89 1398.35,68.65"/>
       </lanes>
    </edge>
 
@@ -9190,7 +9190,7 @@
 
    <edge id=":7/3_0" function="internal">
       <lanes>
-         <lane id=":7/3_0_0" depart="0" maxspeed="13.90" length="5.00" shape="1391.75,131.35 1391.56,129.99 1390.97,129.02 1390.01,128.44 1388.65,128.25"/>
+         <lane id=":7/3_0_0" depart="0" maxspeed="13.90" length="5.00" shape="1391.75,131.35 1391.56,129.99 1390.97,129.03 1390.01,128.44 1388.65,128.25"/>
       </lanes>
    </edge>
 
@@ -9220,13 +9220,13 @@
 
    <edge id=":7/3_5" function="internal">
       <lanes>
-         <lane id=":7/3_5_0" depart="0" maxspeed="13.90" length="4.82" shape="1398.35,131.35 1399.17,130.11 1400.00,129.70 1400.82,130.11 1401.65,131.35"/>
+         <lane id=":7/3_5_0" depart="0" maxspeed="13.90" length="4.82" shape="1398.35,131.35 1399.18,130.11 1400.00,129.70 1400.83,130.11 1401.65,131.35"/>
       </lanes>
    </edge>
 
    <edge id=":7/3_6" function="internal">
       <lanes>
-         <lane id=":7/3_6_0" depart="0" maxspeed="13.90" length="5.00" shape="1411.35,128.25 1409.99,128.44 1409.03,129.02 1408.44,129.99 1408.25,131.35"/>
+         <lane id=":7/3_6_0" depart="0" maxspeed="13.90" length="5.00" shape="1411.35,128.25 1409.99,128.44 1409.03,129.03 1408.44,129.99 1408.25,131.35"/>
       </lanes>
    </edge>
 
@@ -9244,13 +9244,13 @@
 
    <edge id=":7/3_9" function="internal">
       <lanes>
-         <lane id=":7/3_9_0" depart="0" maxspeed="13.90" length="4.82" shape="1411.35,121.65 1410.11,120.82 1409.70,120.00 1410.11,119.18 1411.35,118.35"/>
+         <lane id=":7/3_9_0" depart="0" maxspeed="13.90" length="4.82" shape="1411.35,121.65 1410.11,120.83 1409.70,120.00 1410.11,119.18 1411.35,118.35"/>
       </lanes>
    </edge>
 
    <edge id=":7/3_10" function="internal">
       <lanes>
-         <lane id=":7/3_10_0" depart="0" maxspeed="13.90" length="5.00" shape="1408.25,108.65 1408.44,110.01 1409.03,110.97 1409.99,111.56 1411.35,111.75"/>
+         <lane id=":7/3_10_0" depart="0" maxspeed="13.90" length="5.00" shape="1408.25,108.65 1408.44,110.01 1409.02,110.97 1409.99,111.56 1411.35,111.75"/>
       </lanes>
    </edge>
 
@@ -9280,7 +9280,7 @@
 
    <edge id=":7/3_15" function="internal">
       <lanes>
-         <lane id=":7/3_15_0" depart="0" maxspeed="13.90" length="4.82" shape="1401.65,108.65 1400.83,109.89 1400.00,110.30 1399.18,109.89 1398.35,108.65"/>
+         <lane id=":7/3_15_0" depart="0" maxspeed="13.90" length="4.82" shape="1401.65,108.65 1400.82,109.89 1400.00,110.30 1399.18,109.89 1398.35,108.65"/>
       </lanes>
    </edge>
 
@@ -9304,7 +9304,7 @@
 
    <edge id=":7/3_19" function="internal">
       <lanes>
-         <lane id=":7/3_19_0" depart="0" maxspeed="13.90" length="4.82" shape="1388.65,118.35 1389.89,119.18 1390.30,120.00 1389.89,120.82 1388.65,121.65"/>
+         <lane id=":7/3_19_0" depart="0" maxspeed="13.90" length="4.82" shape="1388.65,118.35 1389.89,119.17 1390.30,120.00 1389.89,120.82 1388.65,121.65"/>
       </lanes>
    </edge>
 
@@ -9328,7 +9328,7 @@
 
    <edge id=":7/4_3" function="internal">
       <lanes>
-         <lane id=":7/4_3_0" depart="0" maxspeed="13.90" length="23.69" shape="1411.35,161.65 1404.22,160.84 1399.13,158.40 1396.07,154.34 1395.05,148.65"/>
+         <lane id=":7/4_3_0" depart="0" maxspeed="13.90" length="23.69" shape="1411.35,161.65 1404.22,160.84 1399.12,158.40 1396.07,154.34 1395.05,148.65"/>
       </lanes>
    </edge>
 
@@ -9346,7 +9346,7 @@
 
    <edge id=":7/4_6" function="internal">
       <lanes>
-         <lane id=":7/4_6_0" depart="0" maxspeed="13.90" length="5.00" shape="1408.25,148.65 1408.44,150.01 1409.03,150.98 1409.99,151.56 1411.35,151.75"/>
+         <lane id=":7/4_6_0" depart="0" maxspeed="13.90" length="5.00" shape="1408.25,148.65 1408.44,150.01 1409.02,150.97 1409.99,151.56 1411.35,151.75"/>
       </lanes>
    </edge>
 
@@ -9364,13 +9364,13 @@
 
    <edge id=":7/4_9" function="internal">
       <lanes>
-         <lane id=":7/4_9_0" depart="0" maxspeed="13.90" length="4.82" shape="1401.65,148.65 1400.83,149.89 1400.00,150.30 1399.18,149.89 1398.35,148.65"/>
+         <lane id=":7/4_9_0" depart="0" maxspeed="13.90" length="4.82" shape="1401.65,148.65 1400.82,149.89 1400.00,150.30 1399.18,149.89 1398.35,148.65"/>
       </lanes>
    </edge>
 
    <edge id=":7/4_10" function="internal">
       <lanes>
-         <lane id=":7/4_10_0" depart="0" maxspeed="13.90" length="5.00" shape="1388.65,151.75 1390.01,151.56 1390.97,150.98 1391.56,150.01 1391.75,148.65"/>
+         <lane id=":7/4_10_0" depart="0" maxspeed="13.90" length="5.00" shape="1388.65,151.75 1390.01,151.56 1390.97,150.97 1391.56,150.01 1391.75,148.65"/>
       </lanes>
    </edge>
 
@@ -9400,7 +9400,7 @@
 
    <edge id=":8/0_0" function="internal">
       <lanes>
-         <lane id=":8/0_0_0" depart="0" maxspeed="13.90" length="5.00" shape="1591.75,11.35 1591.56,9.99 1590.97,9.02 1590.01,8.44 1588.65,8.25"/>
+         <lane id=":8/0_0_0" depart="0" maxspeed="13.90" length="5.00" shape="1591.75,11.35 1591.56,9.99 1590.98,9.02 1590.01,8.44 1588.65,8.25"/>
       </lanes>
    </edge>
 
@@ -9418,7 +9418,7 @@
 
    <edge id=":8/0_3" function="internal">
       <lanes>
-         <lane id=":8/0_3_0" depart="0" maxspeed="13.90" length="4.82" shape="1598.35,11.35 1599.17,10.11 1600.00,9.70 1600.82,10.11 1601.65,11.35"/>
+         <lane id=":8/0_3_0" depart="0" maxspeed="13.90" length="4.82" shape="1598.35,11.35 1599.18,10.11 1600.00,9.70 1600.83,10.11 1601.65,11.35"/>
       </lanes>
    </edge>
 
@@ -9448,7 +9448,7 @@
 
    <edge id=":8/0_8" function="internal">
       <lanes>
-         <lane id=":8/0_8_0" depart="0" maxspeed="13.90" length="4.82" shape="1611.35,1.65 1610.11,0.82 1609.70,-0.00 1610.11,-0.83 1611.35,-1.65"/>
+         <lane id=":8/0_8_0" depart="0" maxspeed="13.90" length="4.82" shape="1611.35,1.65 1610.11,0.83 1609.70,0.00 1610.11,-0.82 1611.35,-1.65"/>
       </lanes>
    </edge>
 
@@ -9484,13 +9484,13 @@
 
    <edge id=":8/0_14" function="internal">
       <lanes>
-         <lane id=":8/0_14_0" depart="0" maxspeed="13.90" length="4.82" shape="1588.65,-1.65 1589.89,-0.82 1590.30,0.00 1589.89,0.83 1588.65,1.65"/>
+         <lane id=":8/0_14_0" depart="0" maxspeed="13.90" length="4.82" shape="1588.65,-1.65 1589.89,-0.83 1590.30,-0.00 1589.89,0.82 1588.65,1.65"/>
       </lanes>
    </edge>
 
    <edge id=":8/1_0" function="internal">
       <lanes>
-         <lane id=":8/1_0_0" depart="0" maxspeed="13.90" length="5.00" shape="1591.75,51.35 1591.56,49.99 1590.97,49.03 1590.01,48.44 1588.65,48.25"/>
+         <lane id=":8/1_0_0" depart="0" maxspeed="13.90" length="5.00" shape="1591.75,51.35 1591.56,49.99 1590.97,49.02 1590.01,48.44 1588.65,48.25"/>
       </lanes>
    </edge>
 
@@ -9520,13 +9520,13 @@
 
    <edge id=":8/1_5" function="internal">
       <lanes>
-         <lane id=":8/1_5_0" depart="0" maxspeed="13.90" length="4.82" shape="1598.35,51.35 1599.17,50.11 1600.00,49.70 1600.82,50.11 1601.65,51.35"/>
+         <lane id=":8/1_5_0" depart="0" maxspeed="13.90" length="4.82" shape="1598.35,51.35 1599.18,50.11 1600.00,49.70 1600.83,50.11 1601.65,51.35"/>
       </lanes>
    </edge>
 
    <edge id=":8/1_6" function="internal">
       <lanes>
-         <lane id=":8/1_6_0" depart="0" maxspeed="13.90" length="5.00" shape="1611.35,48.25 1609.99,48.44 1609.03,49.03 1608.44,49.99 1608.25,51.35"/>
+         <lane id=":8/1_6_0" depart="0" maxspeed="13.90" length="5.00" shape="1611.35,48.25 1609.99,48.44 1609.03,49.02 1608.44,49.99 1608.25,51.35"/>
       </lanes>
    </edge>
 
@@ -9544,13 +9544,13 @@
 
    <edge id=":8/1_9" function="internal">
       <lanes>
-         <lane id=":8/1_9_0" depart="0" maxspeed="13.90" length="4.82" shape="1611.35,41.65 1610.11,40.82 1609.70,40.00 1610.11,39.17 1611.35,38.35"/>
+         <lane id=":8/1_9_0" depart="0" maxspeed="13.90" length="4.82" shape="1611.35,41.65 1610.11,40.83 1609.70,40.00 1610.11,39.18 1611.35,38.35"/>
       </lanes>
    </edge>
 
    <edge id=":8/1_10" function="internal">
       <lanes>
-         <lane id=":8/1_10_0" depart="0" maxspeed="13.90" length="5.00" shape="1608.25,28.65 1608.44,30.01 1609.03,30.98 1609.99,31.56 1611.35,31.75"/>
+         <lane id=":8/1_10_0" depart="0" maxspeed="13.90" length="5.00" shape="1608.25,28.65 1608.44,30.01 1609.02,30.98 1609.99,31.56 1611.35,31.75"/>
       </lanes>
    </edge>
 
@@ -9580,7 +9580,7 @@
 
    <edge id=":8/1_15" function="internal">
       <lanes>
-         <lane id=":8/1_15_0" depart="0" maxspeed="13.90" length="4.82" shape="1601.65,28.65 1600.83,29.89 1600.00,30.30 1599.18,29.89 1598.35,28.65"/>
+         <lane id=":8/1_15_0" depart="0" maxspeed="13.90" length="4.82" shape="1601.65,28.65 1600.82,29.89 1600.00,30.30 1599.18,29.89 1598.35,28.65"/>
       </lanes>
    </edge>
 
@@ -9604,7 +9604,7 @@
 
    <edge id=":8/1_19" function="internal">
       <lanes>
-         <lane id=":8/1_19_0" depart="0" maxspeed="13.90" length="4.82" shape="1588.65,38.35 1589.89,39.18 1590.30,40.00 1589.89,40.83 1588.65,41.65"/>
+         <lane id=":8/1_19_0" depart="0" maxspeed="13.90" length="4.82" shape="1588.65,38.35 1589.89,39.17 1590.30,40.00 1589.89,40.82 1588.65,41.65"/>
       </lanes>
    </edge>
 
@@ -9640,7 +9640,7 @@
 
    <edge id=":8/2_5" function="internal">
       <lanes>
-         <lane id=":8/2_5_0" depart="0" maxspeed="13.90" length="4.82" shape="1598.35,91.35 1599.17,90.11 1600.00,89.70 1600.82,90.11 1601.65,91.35"/>
+         <lane id=":8/2_5_0" depart="0" maxspeed="13.90" length="4.82" shape="1598.35,91.35 1599.18,90.11 1600.00,89.70 1600.83,90.11 1601.65,91.35"/>
       </lanes>
    </edge>
 
@@ -9670,7 +9670,7 @@
 
    <edge id=":8/2_10" function="internal">
       <lanes>
-         <lane id=":8/2_10_0" depart="0" maxspeed="13.90" length="5.00" shape="1608.25,68.65 1608.44,70.01 1609.03,70.97 1609.99,71.56 1611.35,71.75"/>
+         <lane id=":8/2_10_0" depart="0" maxspeed="13.90" length="5.00" shape="1608.25,68.65 1608.44,70.01 1609.02,70.97 1609.99,71.56 1611.35,71.75"/>
       </lanes>
    </edge>
 
@@ -9700,7 +9700,7 @@
 
    <edge id=":8/2_15" function="internal">
       <lanes>
-         <lane id=":8/2_15_0" depart="0" maxspeed="13.90" length="4.82" shape="1601.65,68.65 1600.83,69.89 1600.00,70.30 1599.18,69.89 1598.35,68.65"/>
+         <lane id=":8/2_15_0" depart="0" maxspeed="13.90" length="4.82" shape="1601.65,68.65 1600.82,69.89 1600.00,70.30 1599.18,69.89 1598.35,68.65"/>
       </lanes>
    </edge>
 
@@ -9730,7 +9730,7 @@
 
    <edge id=":8/3_0" function="internal">
       <lanes>
-         <lane id=":8/3_0_0" depart="0" maxspeed="13.90" length="5.00" shape="1591.75,131.35 1591.56,129.99 1590.97,129.02 1590.01,128.44 1588.65,128.25"/>
+         <lane id=":8/3_0_0" depart="0" maxspeed="13.90" length="5.00" shape="1591.75,131.35 1591.56,129.99 1590.97,129.03 1590.01,128.44 1588.65,128.25"/>
       </lanes>
    </edge>
 
@@ -9760,13 +9760,13 @@
 
    <edge id=":8/3_5" function="internal">
       <lanes>
-         <lane id=":8/3_5_0" depart="0" maxspeed="13.90" length="4.82" shape="1598.35,131.35 1599.17,130.11 1600.00,129.70 1600.82,130.11 1601.65,131.35"/>
+         <lane id=":8/3_5_0" depart="0" maxspeed="13.90" length="4.82" shape="1598.35,131.35 1599.18,130.11 1600.00,129.70 1600.83,130.11 1601.65,131.35"/>
       </lanes>
    </edge>
 
    <edge id=":8/3_6" function="internal">
       <lanes>
-         <lane id=":8/3_6_0" depart="0" maxspeed="13.90" length="5.00" shape="1611.35,128.25 1609.99,128.44 1609.03,129.02 1608.44,129.99 1608.25,131.35"/>
+         <lane id=":8/3_6_0" depart="0" maxspeed="13.90" length="5.00" shape="1611.35,128.25 1609.99,128.44 1609.03,129.03 1608.44,129.99 1608.25,131.35"/>
       </lanes>
    </edge>
 
@@ -9784,13 +9784,13 @@
 
    <edge id=":8/3_9" function="internal">
       <lanes>
-         <lane id=":8/3_9_0" depart="0" maxspeed="13.90" length="4.82" shape="1611.35,121.65 1610.11,120.82 1609.70,120.00 1610.11,119.18 1611.35,118.35"/>
+         <lane id=":8/3_9_0" depart="0" maxspeed="13.90" length="4.82" shape="1611.35,121.65 1610.11,120.83 1609.70,120.00 1610.11,119.18 1611.35,118.35"/>
       </lanes>
    </edge>
 
    <edge id=":8/3_10" function="internal">
       <lanes>
-         <lane id=":8/3_10_0" depart="0" maxspeed="13.90" length="5.00" shape="1608.25,108.65 1608.44,110.01 1609.03,110.97 1609.99,111.56 1611.35,111.75"/>
+         <lane id=":8/3_10_0" depart="0" maxspeed="13.90" length="5.00" shape="1608.25,108.65 1608.44,110.01 1609.02,110.97 1609.99,111.56 1611.35,111.75"/>
       </lanes>
    </edge>
 
@@ -9820,7 +9820,7 @@
 
    <edge id=":8/3_15" function="internal">
       <lanes>
-         <lane id=":8/3_15_0" depart="0" maxspeed="13.90" length="4.82" shape="1601.65,108.65 1600.83,109.89 1600.00,110.30 1599.18,109.89 1598.35,108.65"/>
+         <lane id=":8/3_15_0" depart="0" maxspeed="13.90" length="4.82" shape="1601.65,108.65 1600.82,109.89 1600.00,110.30 1599.18,109.89 1598.35,108.65"/>
       </lanes>
    </edge>
 
@@ -9844,7 +9844,7 @@
 
    <edge id=":8/3_19" function="internal">
       <lanes>
-         <lane id=":8/3_19_0" depart="0" maxspeed="13.90" length="4.82" shape="1588.65,118.35 1589.89,119.18 1590.30,120.00 1589.89,120.82 1588.65,121.65"/>
+         <lane id=":8/3_19_0" depart="0" maxspeed="13.90" length="4.82" shape="1588.65,118.35 1589.89,119.17 1590.30,120.00 1589.89,120.82 1588.65,121.65"/>
       </lanes>
    </edge>
 
@@ -9868,7 +9868,7 @@
 
    <edge id=":8/4_3" function="internal">
       <lanes>
-         <lane id=":8/4_3_0" depart="0" maxspeed="13.90" length="23.69" shape="1611.35,161.65 1604.22,160.84 1599.13,158.40 1596.07,154.34 1595.05,148.65"/>
+         <lane id=":8/4_3_0" depart="0" maxspeed="13.90" length="23.69" shape="1611.35,161.65 1604.22,160.84 1599.12,158.40 1596.07,154.34 1595.05,148.65"/>
       </lanes>
    </edge>
 
@@ -9886,7 +9886,7 @@
 
    <edge id=":8/4_6" function="internal">
       <lanes>
-         <lane id=":8/4_6_0" depart="0" maxspeed="13.90" length="5.00" shape="1608.25,148.65 1608.44,150.01 1609.03,150.98 1609.99,151.56 1611.35,151.75"/>
+         <lane id=":8/4_6_0" depart="0" maxspeed="13.90" length="5.00" shape="1608.25,148.65 1608.44,150.01 1609.02,150.97 1609.99,151.56 1611.35,151.75"/>
       </lanes>
    </edge>
 
@@ -9904,13 +9904,13 @@
 
    <edge id=":8/4_9" function="internal">
       <lanes>
-         <lane id=":8/4_9_0" depart="0" maxspeed="13.90" length="4.82" shape="1601.65,148.65 1600.83,149.89 1600.00,150.30 1599.18,149.89 1598.35,148.65"/>
+         <lane id=":8/4_9_0" depart="0" maxspeed="13.90" length="4.82" shape="1601.65,148.65 1600.82,149.89 1600.00,150.30 1599.18,149.89 1598.35,148.65"/>
       </lanes>
    </edge>
 
    <edge id=":8/4_10" function="internal">
       <lanes>
-         <lane id=":8/4_10_0" depart="0" maxspeed="13.90" length="5.00" shape="1588.65,151.75 1590.01,151.56 1590.97,150.98 1591.56,150.01 1591.75,148.65"/>
+         <lane id=":8/4_10_0" depart="0" maxspeed="13.90" length="5.00" shape="1588.65,151.75 1590.01,151.56 1590.97,150.97 1591.56,150.01 1591.75,148.65"/>
       </lanes>
    </edge>
 
@@ -9958,7 +9958,7 @@
 
    <edge id=":9/0_3" function="internal">
       <lanes>
-         <lane id=":9/0_3_0" depart="0" maxspeed="13.90" length="4.82" shape="1798.35,11.35 1799.17,10.11 1800.00,9.70 1800.82,10.11 1801.65,11.35"/>
+         <lane id=":9/0_3_0" depart="0" maxspeed="13.90" length="4.82" shape="1798.35,11.35 1799.18,10.11 1800.00,9.70 1800.83,10.11 1801.65,11.35"/>
       </lanes>
    </edge>
 
@@ -9988,7 +9988,7 @@
 
    <edge id=":9/0_8" function="internal">
       <lanes>
-         <lane id=":9/0_8_0" depart="0" maxspeed="13.90" length="4.82" shape="1811.35,1.65 1810.11,0.82 1809.70,-0.00 1810.11,-0.83 1811.35,-1.65"/>
+         <lane id=":9/0_8_0" depart="0" maxspeed="13.90" length="4.82" shape="1811.35,1.65 1810.11,0.83 1809.70,0.00 1810.11,-0.82 1811.35,-1.65"/>
       </lanes>
    </edge>
 
@@ -10024,13 +10024,13 @@
 
    <edge id=":9/0_14" function="internal">
       <lanes>
-         <lane id=":9/0_14_0" depart="0" maxspeed="13.90" length="4.82" shape="1788.65,-1.65 1789.89,-0.82 1790.30,0.00 1789.89,0.83 1788.65,1.65"/>
+         <lane id=":9/0_14_0" depart="0" maxspeed="13.90" length="4.82" shape="1788.65,-1.65 1789.89,-0.83 1790.30,-0.00 1789.89,0.82 1788.65,1.65"/>
       </lanes>
    </edge>
 
    <edge id=":9/1_0" function="internal">
       <lanes>
-         <lane id=":9/1_0_0" depart="0" maxspeed="13.90" length="5.00" shape="1791.75,51.35 1791.56,49.99 1790.98,49.03 1790.01,48.44 1788.65,48.25"/>
+         <lane id=":9/1_0_0" depart="0" maxspeed="13.90" length="5.00" shape="1791.75,51.35 1791.56,49.99 1790.97,49.02 1790.01,48.44 1788.65,48.25"/>
       </lanes>
    </edge>
 
@@ -10060,13 +10060,13 @@
 
    <edge id=":9/1_5" function="internal">
       <lanes>
-         <lane id=":9/1_5_0" depart="0" maxspeed="13.90" length="4.82" shape="1798.35,51.35 1799.17,50.11 1800.00,49.70 1800.82,50.11 1801.65,51.35"/>
+         <lane id=":9/1_5_0" depart="0" maxspeed="13.90" length="4.82" shape="1798.35,51.35 1799.18,50.11 1800.00,49.70 1800.83,50.11 1801.65,51.35"/>
       </lanes>
    </edge>
 
    <edge id=":9/1_6" function="internal">
       <lanes>
-         <lane id=":9/1_6_0" depart="0" maxspeed="13.90" length="5.00" shape="1811.35,48.25 1809.99,48.44 1809.03,49.03 1808.44,49.99 1808.25,51.35"/>
+         <lane id=":9/1_6_0" depart="0" maxspeed="13.90" length="5.00" shape="1811.35,48.25 1809.99,48.44 1809.03,49.02 1808.44,49.99 1808.25,51.35"/>
       </lanes>
    </edge>
 
@@ -10084,13 +10084,13 @@
 
    <edge id=":9/1_9" function="internal">
       <lanes>
-         <lane id=":9/1_9_0" depart="0" maxspeed="13.90" length="4.82" shape="1811.35,41.65 1810.11,40.82 1809.70,40.00 1810.11,39.17 1811.35,38.35"/>
+         <lane id=":9/1_9_0" depart="0" maxspeed="13.90" length="4.82" shape="1811.35,41.65 1810.11,40.83 1809.70,40.00 1810.11,39.18 1811.35,38.35"/>
       </lanes>
    </edge>
 
    <edge id=":9/1_10" function="internal">
       <lanes>
-         <lane id=":9/1_10_0" depart="0" maxspeed="13.90" length="5.00" shape="1808.25,28.65 1808.44,30.01 1809.03,30.98 1809.99,31.56 1811.35,31.75"/>
+         <lane id=":9/1_10_0" depart="0" maxspeed="13.90" length="5.00" shape="1808.25,28.65 1808.44,30.01 1809.02,30.98 1809.99,31.56 1811.35,31.75"/>
       </lanes>
    </edge>
 
@@ -10120,13 +10120,13 @@
 
    <edge id=":9/1_15" function="internal">
       <lanes>
-         <lane id=":9/1_15_0" depart="0" maxspeed="13.90" length="4.82" shape="1801.65,28.65 1800.83,29.89 1800.00,30.30 1799.18,29.89 1798.35,28.65"/>
+         <lane id=":9/1_15_0" depart="0" maxspeed="13.90" length="4.82" shape="1801.65,28.65 1800.82,29.89 1800.00,30.30 1799.18,29.89 1798.35,28.65"/>
       </lanes>
    </edge>
 
    <edge id=":9/1_16" function="internal">
       <lanes>
-         <lane id=":9/1_16_0" depart="0" maxspeed="13.90" length="5.00" shape="1788.65,31.75 1790.01,31.56 1790.98,30.98 1791.56,30.01 1791.75,28.65"/>
+         <lane id=":9/1_16_0" depart="0" maxspeed="13.90" length="5.00" shape="1788.65,31.75 1790.01,31.56 1790.97,30.98 1791.56,30.01 1791.75,28.65"/>
       </lanes>
    </edge>
 
@@ -10144,13 +10144,13 @@
 
    <edge id=":9/1_19" function="internal">
       <lanes>
-         <lane id=":9/1_19_0" depart="0" maxspeed="13.90" length="4.82" shape="1788.65,38.35 1789.89,39.18 1790.30,40.00 1789.89,40.83 1788.65,41.65"/>
+         <lane id=":9/1_19_0" depart="0" maxspeed="13.90" length="4.82" shape="1788.65,38.35 1789.89,39.17 1790.30,40.00 1789.89,40.82 1788.65,41.65"/>
       </lanes>
    </edge>
 
    <edge id=":9/2_0" function="internal">
       <lanes>
-         <lane id=":9/2_0_0" depart="0" maxspeed="13.90" length="5.00" shape="1791.75,91.35 1791.56,89.99 1790.98,89.03 1790.01,88.44 1788.65,88.25"/>
+         <lane id=":9/2_0_0" depart="0" maxspeed="13.90" length="5.00" shape="1791.75,91.35 1791.56,89.99 1790.97,89.03 1790.01,88.44 1788.65,88.25"/>
       </lanes>
    </edge>
 
@@ -10180,7 +10180,7 @@
 
    <edge id=":9/2_5" function="internal">
       <lanes>
-         <lane id=":9/2_5_0" depart="0" maxspeed="13.90" length="4.82" shape="1798.35,91.35 1799.17,90.11 1800.00,89.70 1800.82,90.11 1801.65,91.35"/>
+         <lane id=":9/2_5_0" depart="0" maxspeed="13.90" length="4.82" shape="1798.35,91.35 1799.18,90.11 1800.00,89.70 1800.83,90.11 1801.65,91.35"/>
       </lanes>
    </edge>
 
@@ -10210,7 +10210,7 @@
 
    <edge id=":9/2_10" function="internal">
       <lanes>
-         <lane id=":9/2_10_0" depart="0" maxspeed="13.90" length="5.00" shape="1808.25,68.65 1808.44,70.01 1809.03,70.97 1809.99,71.56 1811.35,71.75"/>
+         <lane id=":9/2_10_0" depart="0" maxspeed="13.90" length="5.00" shape="1808.25,68.65 1808.44,70.01 1809.02,70.97 1809.99,71.56 1811.35,71.75"/>
       </lanes>
    </edge>
 
@@ -10240,13 +10240,13 @@
 
    <edge id=":9/2_15" function="internal">
       <lanes>
-         <lane id=":9/2_15_0" depart="0" maxspeed="13.90" length="4.82" shape="1801.65,68.65 1800.83,69.89 1800.00,70.30 1799.18,69.89 1798.35,68.65"/>
+         <lane id=":9/2_15_0" depart="0" maxspeed="13.90" length="4.82" shape="1801.65,68.65 1800.82,69.89 1800.00,70.30 1799.18,69.89 1798.35,68.65"/>
       </lanes>
    </edge>
 
    <edge id=":9/2_16" function="internal">
       <lanes>
-         <lane id=":9/2_16_0" depart="0" maxspeed="13.90" length="5.00" shape="1788.65,71.75 1790.01,71.56 1790.98,70.97 1791.56,70.01 1791.75,68.65"/>
+         <lane id=":9/2_16_0" depart="0" maxspeed="13.90" length="5.00" shape="1788.65,71.75 1790.01,71.56 1790.97,70.97 1791.56,70.01 1791.75,68.65"/>
       </lanes>
    </edge>
 
@@ -10270,7 +10270,7 @@
 
    <edge id=":9/3_0" function="internal">
       <lanes>
-         <lane id=":9/3_0_0" depart="0" maxspeed="13.90" length="5.00" shape="1791.75,131.35 1791.56,129.99 1790.98,129.02 1790.01,128.44 1788.65,128.25"/>
+         <lane id=":9/3_0_0" depart="0" maxspeed="13.90" length="5.00" shape="1791.75,131.35 1791.56,129.99 1790.97,129.03 1790.01,128.44 1788.65,128.25"/>
       </lanes>
    </edge>
 
@@ -10300,13 +10300,13 @@
 
    <edge id=":9/3_5" function="internal">
       <lanes>
-         <lane id=":9/3_5_0" depart="0" maxspeed="13.90" length="4.82" shape="1798.35,131.35 1799.17,130.11 1800.00,129.70 1800.82,130.11 1801.65,131.35"/>
+         <lane id=":9/3_5_0" depart="0" maxspeed="13.90" length="4.82" shape="1798.35,131.35 1799.18,130.11 1800.00,129.70 1800.83,130.11 1801.65,131.35"/>
       </lanes>
    </edge>
 
    <edge id=":9/3_6" function="internal">
       <lanes>
-         <lane id=":9/3_6_0" depart="0" maxspeed="13.90" length="5.00" shape="1811.35,128.25 1809.99,128.44 1809.03,129.02 1808.44,129.99 1808.25,131.35"/>
+         <lane id=":9/3_6_0" depart="0" maxspeed="13.90" length="5.00" shape="1811.35,128.25 1809.99,128.44 1809.03,129.03 1808.44,129.99 1808.25,131.35"/>
       </lanes>
    </edge>
 
@@ -10324,13 +10324,13 @@
 
    <edge id=":9/3_9" function="internal">
       <lanes>
-         <lane id=":9/3_9_0" depart="0" maxspeed="13.90" length="4.82" shape="1811.35,121.65 1810.11,120.82 1809.70,120.00 1810.11,119.18 1811.35,118.35"/>
+         <lane id=":9/3_9_0" depart="0" maxspeed="13.90" length="4.82" shape="1811.35,121.65 1810.11,120.83 1809.70,120.00 1810.11,119.18 1811.35,118.35"/>
       </lanes>
    </edge>
 
    <edge id=":9/3_10" function="internal">
       <lanes>
-         <lane id=":9/3_10_0" depart="0" maxspeed="13.90" length="5.00" shape="1808.25,108.65 1808.44,110.01 1809.03,110.97 1809.99,111.56 1811.35,111.75"/>
+         <lane id=":9/3_10_0" depart="0" maxspeed="13.90" length="5.00" shape="1808.25,108.65 1808.44,110.01 1809.02,110.97 1809.99,111.56 1811.35,111.75"/>
       </lanes>
    </edge>
 
@@ -10360,13 +10360,13 @@
 
    <edge id=":9/3_15" function="internal">
       <lanes>
-         <lane id=":9/3_15_0" depart="0" maxspeed="13.90" length="4.82" shape="1801.65,108.65 1800.83,109.89 1800.00,110.30 1799.18,109.89 1798.35,108.65"/>
+         <lane id=":9/3_15_0" depart="0" maxspeed="13.90" length="4.82" shape="1801.65,108.65 1800.82,109.89 1800.00,110.30 1799.18,109.89 1798.35,108.65"/>
       </lanes>
    </edge>
 
    <edge id=":9/3_16" function="internal">
       <lanes>
-         <lane id=":9/3_16_0" depart="0" maxspeed="13.90" length="5.00" shape="1788.65,111.75 1790.01,111.56 1790.98,110.97 1791.56,110.01 1791.75,108.65"/>
+         <lane id=":9/3_16_0" depart="0" maxspeed="13.90" length="5.00" shape="1788.65,111.75 1790.01,111.56 1790.97,110.97 1791.56,110.01 1791.75,108.65"/>
       </lanes>
    </edge>
 
@@ -10384,7 +10384,7 @@
 
    <edge id=":9/3_19" function="internal">
       <lanes>
-         <lane id=":9/3_19_0" depart="0" maxspeed="13.90" length="4.82" shape="1788.65,118.35 1789.89,119.18 1790.30,120.00 1789.89,120.82 1788.65,121.65"/>
+         <lane id=":9/3_19_0" depart="0" maxspeed="13.90" length="4.82" shape="1788.65,118.35 1789.89,119.17 1790.30,120.00 1789.89,120.82 1788.65,121.65"/>
       </lanes>
    </edge>
 
@@ -10408,7 +10408,7 @@
 
    <edge id=":9/4_3" function="internal">
       <lanes>
-         <lane id=":9/4_3_0" depart="0" maxspeed="13.90" length="23.69" shape="1811.35,161.65 1804.22,160.84 1799.13,158.40 1796.07,154.34 1795.05,148.65"/>
+         <lane id=":9/4_3_0" depart="0" maxspeed="13.90" length="23.69" shape="1811.35,161.65 1804.22,160.84 1799.12,158.40 1796.07,154.34 1795.05,148.65"/>
       </lanes>
    </edge>
 
@@ -10426,13 +10426,13 @@
 
    <edge id=":9/4_6" function="internal">
       <lanes>
-         <lane id=":9/4_6_0" depart="0" maxspeed="13.90" length="5.00" shape="1808.25,148.65 1808.44,150.01 1809.03,150.98 1809.99,151.56 1811.35,151.75"/>
+         <lane id=":9/4_6_0" depart="0" maxspeed="13.90" length="5.00" shape="1808.25,148.65 1808.44,150.01 1809.02,150.97 1809.99,151.56 1811.35,151.75"/>
       </lanes>
    </edge>
 
    <edge id=":9/4_7" function="internal">
       <lanes>
-         <lane id=":9/4_7_0" depart="0" maxspeed="13.90" length="26.29" shape="1804.95,148.65 1803.93,155.78 1800.88,160.88 1795.78,163.93 1788.65,164.95"/>
+         <lane id=":9/4_7_0" depart="0" maxspeed="13.90" length="26.29" shape="1804.95,148.65 1803.93,155.78 1800.87,160.88 1795.78,163.93 1788.65,164.95"/>
       </lanes>
    </edge>
 
@@ -10444,13 +10444,13 @@
 
    <edge id=":9/4_9" function="internal">
       <lanes>
-         <lane id=":9/4_9_0" depart="0" maxspeed="13.90" length="4.82" shape="1801.65,148.65 1800.83,149.89 1800.00,150.30 1799.18,149.89 1798.35,148.65"/>
+         <lane id=":9/4_9_0" depart="0" maxspeed="13.90" length="4.82" shape="1801.65,148.65 1800.82,149.89 1800.00,150.30 1799.18,149.89 1798.35,148.65"/>
       </lanes>
    </edge>
 
    <edge id=":9/4_10" function="internal">
       <lanes>
-         <lane id=":9/4_10_0" depart="0" maxspeed="13.90" length="5.00" shape="1788.65,151.75 1790.01,151.56 1790.98,150.98 1791.56,150.01 1791.75,148.65"/>
+         <lane id=":9/4_10_0" depart="0" maxspeed="13.90" length="5.00" shape="1788.65,151.75 1790.01,151.56 1790.97,150.97 1791.56,150.01 1791.75,148.65"/>
       </lanes>
    </edge>
 

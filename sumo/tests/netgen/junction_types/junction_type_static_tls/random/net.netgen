@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 01/25/10 12:38:56 by SUMO netgen Version dev-SVN-r8163
+<!-- generated on 04/26/10 12:38:24 by SUMO netgen Version dev-SVN-r8163
 <configuration>
 
     <random_network>
@@ -156,51 +156,51 @@
    </row-logic>
 
 
-   <tl-logic id="10" type="static" programID="0" offset="0">
-      <phase duration="31" state="G"/>
-      <phase duration="4" state="y"/>
+   <tl-logic id="10" type="static" programID="0" offset="0.00">
+      <phase duration="31.00" state="G"/>
+      <phase duration="4.00" state="y"/>
    </tl-logic>
 
-   <tl-logic id="12" type="static" programID="0" offset="0">
-      <phase duration="31" state="Gr"/>
-      <phase duration="4" state="yr"/>
-      <phase duration="31" state="rG"/>
-      <phase duration="4" state="ry"/>
+   <tl-logic id="12" type="static" programID="0" offset="0.00">
+      <phase duration="31.00" state="Gr"/>
+      <phase duration="4.00" state="yr"/>
+      <phase duration="31.00" state="rG"/>
+      <phase duration="4.00" state="ry"/>
    </tl-logic>
 
-   <tl-logic id="14" type="static" programID="0" offset="0">
-      <phase duration="31" state="G"/>
-      <phase duration="4" state="y"/>
+   <tl-logic id="14" type="static" programID="0" offset="0.00">
+      <phase duration="31.00" state="G"/>
+      <phase duration="4.00" state="y"/>
    </tl-logic>
 
-   <tl-logic id="18" type="static" programID="0" offset="0">
-      <phase duration="31" state="G"/>
-      <phase duration="4" state="y"/>
+   <tl-logic id="18" type="static" programID="0" offset="0.00">
+      <phase duration="31.00" state="G"/>
+      <phase duration="4.00" state="y"/>
    </tl-logic>
 
-   <tl-logic id="2" type="static" programID="0" offset="0">
-      <phase duration="31" state="GG"/>
-      <phase duration="4" state="yy"/>
+   <tl-logic id="2" type="static" programID="0" offset="0.00">
+      <phase duration="31.00" state="GG"/>
+      <phase duration="4.00" state="yy"/>
    </tl-logic>
 
-   <tl-logic id="24" type="static" programID="0" offset="0">
-      <phase duration="31" state="G"/>
-      <phase duration="4" state="y"/>
+   <tl-logic id="24" type="static" programID="0" offset="0.00">
+      <phase duration="31.00" state="G"/>
+      <phase duration="4.00" state="y"/>
    </tl-logic>
 
-   <tl-logic id="37" type="static" programID="0" offset="0">
-      <phase duration="31" state="G"/>
-      <phase duration="4" state="y"/>
+   <tl-logic id="37" type="static" programID="0" offset="0.00">
+      <phase duration="31.00" state="G"/>
+      <phase duration="4.00" state="y"/>
    </tl-logic>
 
-   <tl-logic id="6" type="static" programID="0" offset="0">
-      <phase duration="31" state="G"/>
-      <phase duration="4" state="y"/>
+   <tl-logic id="6" type="static" programID="0" offset="0.00">
+      <phase duration="31.00" state="G"/>
+      <phase duration="4.00" state="y"/>
    </tl-logic>
 
-   <tl-logic id="8" type="static" programID="0" offset="0">
-      <phase duration="31" state="GGG"/>
-      <phase duration="4" state="yyy"/>
+   <tl-logic id="8" type="static" programID="0" offset="0.00">
+      <phase duration="31.00" state="GGG"/>
+      <phase duration="4.00" state="yyy"/>
    </tl-logic>
 
 
@@ -214,7 +214,7 @@
 
    <junction id="18" type="DEAD_END" x="554.80" y="297.91" incLanes="19_0" intLanes="" shape="553.58,294.90 554.78,297.87"/>
 
-   <junction id="2" type="priority" x="107.74" y="135.58" incLanes="3_0" intLanes=":2_0_0 :2_1_0" shape="105.00,138.08 108.11,137.33 109.06,136.05 110.24,133.08 106.23,132.31 103.31,133.61"/>
+   <junction id="2" type="priority" x="107.74" y="135.58" incLanes="3_0" intLanes=":2_0_0 :2_1_0" shape="105.00,138.08 108.11,137.34 109.06,136.05 110.24,133.08 106.23,132.31 103.31,133.61"/>
 
    <junction id="24" type="DEAD_END" x="489.95" y="551.41" incLanes="25_0" intLanes="" shape="492.68,549.65 489.99,551.38"/>
 
