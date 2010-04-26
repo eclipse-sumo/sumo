@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 04/02/10 11:42:49 by SUMO sumo Version dev-SVN-r8487
+<!-- generated on 04/26/10 10:10:09 by SUMO sumo Version dev-SVN-r8163
 <configuration>
 
     <input>
@@ -21,43 +21,43 @@
 -->
 
 <routes>
-    <vehicle id="route0_0" depart="0" arrival="74.00">
+    <vehicle id="route0_0" depart="0.00" arrival="74.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="route0_1" depart="5" arrival="80.00">
+    <vehicle id="route0_1" depart="5.00" arrival="80.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="route0_2" depart="10" arrival="85.00">
+    <vehicle id="route0_2" depart="10.00" arrival="85.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="route0_3" depart="15" arrival="90.00">
+    <vehicle id="route0_3" depart="15.00" arrival="90.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="route0_4" depart="20" arrival="95.00">
+    <vehicle id="route0_4" depart="20.00" arrival="95.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="route1_0" depart="2" arrival="190.00">
+    <vehicle id="route1_0" depart="2.00" arrival="190.00">
         <route edges="beg beg2left left left2end end rend"/>
     </vehicle>
 
-    <vehicle id="route1_1" depart="7" arrival="195.00">
+    <vehicle id="route1_1" depart="7.00" arrival="195.00">
         <route edges="beg beg2left left left2end end rend"/>
     </vehicle>
 
-    <vehicle id="route1_2" depart="12" arrival="200.00">
+    <vehicle id="route1_2" depart="12.00" arrival="200.00">
         <route edges="beg beg2left left left2end end rend"/>
     </vehicle>
 
-    <vehicle id="route1_3" depart="17" arrival="205.00">
+    <vehicle id="route1_3" depart="17.00" arrival="205.00">
         <route edges="beg beg2left left left2end end rend"/>
     </vehicle>
 
-    <vehicle id="route1_4" depart="22" arrival="210.00">
+    <vehicle id="route1_4" depart="22.00" arrival="210.00">
         <route edges="beg beg2left left left2end end rend"/>
     </vehicle>
 
