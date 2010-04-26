@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 03/19/10 11:30:11 by SUMO sumo Version dev-SVN-r8163
+<!-- generated on 04/26/10 10:06:19 by SUMO sumo Version dev-SVN-r8163
 <configuration>
 
     <input>
@@ -26,7 +26,7 @@
 -->
 
 <routes>
-    <vehicle id="veh0" depart="0" arrival="61.00">
+    <vehicle id="veh0" depart="0.00" arrival="61.00">
         <routeDistribution>
             <route replacedOnEdge="e_m5" replacedAtTime="30.00" probability="0" edges="e_m5 e_m6 e_shape1"/>
             <route edges="e_m5 e_m6 e_shape0"/>
