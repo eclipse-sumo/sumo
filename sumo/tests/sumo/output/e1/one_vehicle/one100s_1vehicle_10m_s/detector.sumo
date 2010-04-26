@@ -1,26 +1,26 @@
 <?xml version="1.0"?>
 
-<!-- generated on 05/07/09 12:21:23 by SUMO sumo Version dev-SVN-r7121
+<!-- generated on 04/26/10 12:54:06 by SUMO sumo Version dev-SVN-r8163
 <configuration>
 
-   <input>
-      <net-file>net.net.xml</net-file>
-      <additional-files>input_routes.rou.xml,input_additional.add.xml,input_additional2.add.xml</additional-files>
-   </input>
+    <input>
+        <net-file value="net.net.xml"/>
+        <additional-files value="input_routes.rou.xml,input_additional.add.xml,input_additional2.add.xml"/>
+    </input>
 
-   <time>
-      <begin>0</begin>
-      <end>100</end>
-   </time>
+    <time>
+        <begin value="0"/>
+        <end value="100"/>
+    </time>
 
-   <processing>
-      <no-duration-log>true</no-duration-log>
-      <no-step-log>true</no-step-log>
-   </processing>
+    <report>
+        <no-duration-log value="true"/>
+        <no-step-log value="true"/>
+    </report>
 
 </configuration>
 -->
 
 <detector>
-   <interval begin="0" end="100" id="3/1to2/1" nVehContrib="1" flow="36.00" occupancy="0.50" speed="10.00" length="5.00" nVehEntered="1"/>
+   <interval begin="0.00" end="100.00" id="3/1to2/1" nVehContrib="1" flow="36.00" occupancy="0.50" speed="10.00" length="5.00" nVehEntered="1"/>
 </detector>

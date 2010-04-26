@@ -1,26 +1,26 @@
 <?xml version="1.0"?>
 
-<!-- generated on 08/03/09 15:04:52 by SUMO sumo Version dev-SVN-r7598
+<!-- generated on 04/26/10 12:54:28 by SUMO sumo Version dev-SVN-r8163
 <configuration>
 
-    <input
-        net-file="net.net.xml"
-        additional-files="input_routes.rou.xml,input_additional.add.xml,input_additional2.add.xml"
-    />
+    <input>
+        <net-file value="net.net.xml"/>
+        <additional-files value="input_routes.rou.xml,input_additional.add.xml,input_additional2.add.xml"/>
+    </input>
 
-    <time
-        begin="0"
-        end="100"
-    />
+    <time>
+        <begin value="0"/>
+        <end value="100"/>
+    </time>
 
-    <report
-        no-duration-log="true"
-        no-step-log="true"
-    />
+    <report>
+        <no-duration-log value="true"/>
+        <no-step-log value="true"/>
+    </report>
 
 </configuration>
 -->
 
 <detector>
-   <interval begin="0" end="100" id="3/1to2/1" nSamples="40" meanSpeed="10.00" meanOccupancy="1.00" maxOccupancy="5.00" meanMaxJamLengthInVehicles="0.00" meanMaxJamLengthInMeters="0.00" maxJamLengthInVehicles="0" maxJamLengthInMeters="0.00" jamLengthInVehiclesSum="0" jamLengthInMetersSum="0.00" meanHaltingDuration="0.00" maxHaltingDuration="0.00" haltingDurationSum="0.00" meanIntervalHaltingDuration="0.00" maxIntervalHaltingDuration="0.00" intervalHaltingDurationSum="0.00" startedHalts="0.00" meanVehicleNumber="0.40" maxVehicleNumber="2" />
+   <interval begin="0.00" end="100.00" id="3/1to2/1" nSamples="40" meanSpeed="10.00" meanOccupancy="1.00" maxOccupancy="5.00" meanMaxJamLengthInVehicles="0.00" meanMaxJamLengthInMeters="0.00" maxJamLengthInVehicles="0" maxJamLengthInMeters="0.00" jamLengthInVehiclesSum="0" jamLengthInMetersSum="0.00" meanHaltingDuration="0.00" maxHaltingDuration="0.00" haltingDurationSum="0.00" meanIntervalHaltingDuration="0.00" maxIntervalHaltingDuration="0.00" intervalHaltingDurationSum="0.00" startedHalts="0.00" meanVehicleNumber="0.40" maxVehicleNumber="2" />
 </detector>

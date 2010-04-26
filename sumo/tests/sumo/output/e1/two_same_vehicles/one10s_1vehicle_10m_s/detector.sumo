@@ -1,35 +1,35 @@
 <?xml version="1.0"?>
 
-<!-- generated on 05/07/09 12:21:24 by SUMO sumo Version dev-SVN-r7121
+<!-- generated on 04/26/10 12:54:10 by SUMO sumo Version dev-SVN-r8163
 <configuration>
 
-   <input>
-      <net-file>net.net.xml</net-file>
-      <additional-files>input_routes.rou.xml,input_additional.add.xml,input_additional2.add.xml</additional-files>
-   </input>
+    <input>
+        <net-file value="net.net.xml"/>
+        <additional-files value="input_routes.rou.xml,input_additional.add.xml,input_additional2.add.xml"/>
+    </input>
 
-   <time>
-      <begin>0</begin>
-      <end>100</end>
-   </time>
+    <time>
+        <begin value="0"/>
+        <end value="100"/>
+    </time>
 
-   <processing>
-      <no-duration-log>true</no-duration-log>
-      <no-step-log>true</no-step-log>
-   </processing>
+    <report>
+        <no-duration-log value="true"/>
+        <no-step-log value="true"/>
+    </report>
 
 </configuration>
 -->
 
 <detector>
-   <interval begin="0" end="10" id="3/1to2/1" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" length="-1.00" nVehEntered="0"/>
-   <interval begin="10" end="20" id="3/1to2/1" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" length="-1.00" nVehEntered="0"/>
-   <interval begin="20" end="30" id="3/1to2/1" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" length="-1.00" nVehEntered="0"/>
-   <interval begin="30" end="40" id="3/1to2/1" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" length="-1.00" nVehEntered="0"/>
-   <interval begin="40" end="50" id="3/1to2/1" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" length="-1.00" nVehEntered="0"/>
-   <interval begin="50" end="60" id="3/1to2/1" nVehContrib="2" flow="720.00" occupancy="10.00" speed="10.00" length="5.00" nVehEntered="2"/>
-   <interval begin="60" end="70" id="3/1to2/1" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" length="-1.00" nVehEntered="0"/>
-   <interval begin="70" end="80" id="3/1to2/1" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" length="-1.00" nVehEntered="0"/>
-   <interval begin="80" end="90" id="3/1to2/1" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" length="-1.00" nVehEntered="0"/>
-   <interval begin="90" end="100" id="3/1to2/1" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" length="-1.00" nVehEntered="0"/>
+   <interval begin="0.00" end="10.00" id="3/1to2/1" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" length="-1.00" nVehEntered="0"/>
+   <interval begin="10.00" end="20.00" id="3/1to2/1" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" length="-1.00" nVehEntered="0"/>
+   <interval begin="20.00" end="30.00" id="3/1to2/1" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" length="-1.00" nVehEntered="0"/>
+   <interval begin="30.00" end="40.00" id="3/1to2/1" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" length="-1.00" nVehEntered="0"/>
+   <interval begin="40.00" end="50.00" id="3/1to2/1" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" length="-1.00" nVehEntered="0"/>
+   <interval begin="50.00" end="60.00" id="3/1to2/1" nVehContrib="2" flow="720.00" occupancy="10.00" speed="10.00" length="5.00" nVehEntered="2"/>
+   <interval begin="60.00" end="70.00" id="3/1to2/1" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" length="-1.00" nVehEntered="0"/>
+   <interval begin="70.00" end="80.00" id="3/1to2/1" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" length="-1.00" nVehEntered="0"/>
+   <interval begin="80.00" end="90.00" id="3/1to2/1" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" length="-1.00" nVehEntered="0"/>
+   <interval begin="90.00" end="100.00" id="3/1to2/1" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" length="-1.00" nVehEntered="0"/>
 </detector>
