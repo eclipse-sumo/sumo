@@ -1,28 +1,28 @@
 <?xml version="1.0"?>
 
-<!-- generated on 01/04/09 00:36:24 by SUMO netconvert Version 0.9.7
+<!-- generated on 04/26/10 12:35:20 by SUMO netconvert Version dev-SVN-r8163
 <configuration>
 
-   <input>
-      <xml-node-files>input_nodes.nod.xml</xml-node-files>
-      <xml-edge-files>input_edges.edg.xml</xml-edge-files>
-   </input>
+    <input>
+        <xml-node-files value="input_nodes.nod.xml"/>
+        <xml-edge-files value="input_edges.edg.xml"/>
+    </input>
 
-   <output>
-      <output-file>net.net.xml</output-file>
-   </output>
+    <output>
+        <output-file value="net.net.xml"/>
+    </output>
 
-   <edge_removal>
-      <keep-edges>1fi,1si,1o,2fi,2si,2o,3fi,3si,3o,4fi,4si,4o</keep-edges>
-   </edge_removal>
+    <edge_removal>
+        <keep-edges value="1fi,1si,1o,2fi,2si,2o,3fi,3si,3o,4fi,4si,4o"/>
+    </edge_removal>
 
-   <processing>
-      <no-internal-links>true</no-internal-links>
-   </processing>
+    <processing>
+        <no-internal-links value="true"/>
+    </processing>
 
-   <report>
-      <verbose>true</verbose>
-   </report>
+    <report>
+        <verbose value="true"/>
+    </report>
 
 </configuration>
 -->
@@ -198,11 +198,11 @@
 
    <junction id="0" type="priority" x="500.00" y="500.00" incLanes="4si_0 4si_1 4si_2 2si_0 2si_1 2si_2 3si_0 3si_1 3si_2 1si_0 1si_1 1si_2" intLanes="" shape="490.15,511.35 503.25,511.35 511.35,509.85 511.35,496.75 509.85,488.65 496.75,488.65 488.65,490.15 488.65,503.25"/>
 
-   <junction id="1" type="priority" x="0.00" y="500.00" incLanes="1o_0" intLanes="" shape="-0.00,499.95 -0.00,493.45 0.00,503.25 0.00,500.05"/>
+   <junction id="1" type="priority" x="0.00" y="500.00" incLanes="1o_0" intLanes="" shape="0.00,499.95 0.00,493.45 -0.00,503.25 -0.00,500.05"/>
 
    <junction id="2" type="priority" x="1000.00" y="500.00" incLanes="2o_0" intLanes="" shape="1000.00,500.05 1000.00,506.55 1000.00,496.75 1000.00,499.95"/>
 
-   <junction id="3" type="priority" x="500.00" y="0.00" incLanes="3o_0" intLanes="" shape="500.05,-0.00 506.55,-0.00 496.75,0.00 499.95,0.00"/>
+   <junction id="3" type="priority" x="500.00" y="0.00" incLanes="3o_0" intLanes="" shape="500.05,0.00 506.55,0.00 496.75,-0.00 499.95,-0.00"/>
 
    <junction id="4" type="priority" x="500.00" y="1000.00" incLanes="4o_0" intLanes="" shape="499.95,1000.00 493.45,1000.00 503.25,1000.00 500.05,1000.00"/>
 

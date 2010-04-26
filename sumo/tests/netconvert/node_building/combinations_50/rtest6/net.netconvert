@@ -1,16 +1,16 @@
 <?xml version="1.0"?>
 
-<!-- generated on 01/02/09 23:24:31 by SUMO netconvert Version 0.9.7
+<!-- generated on 04/26/10 12:34:06 by SUMO netconvert Version dev-SVN-r8163
 <configuration>
 
-   <input>
-      <xml-node-files>input_nodes.nod.xml</xml-node-files>
-      <xml-edge-files>input_edges.edg.xml</xml-edge-files>
-   </input>
+    <input>
+        <xml-node-files value="input_nodes.nod.xml"/>
+        <xml-edge-files value="input_edges.edg.xml"/>
+    </input>
 
-   <processing>
-      <speed-in-kmh>true</speed-in-kmh>
-   </processing>
+    <processing>
+        <speed-in-kmh value="true"/>
+    </processing>
 
 </configuration>
 -->
@@ -21,7 +21,7 @@
 
    <edge id=":0_0" function="internal">
       <lanes>
-         <lane id=":0_0_0" depart="0" maxspeed="15.28" length="5.00" shape="48.35,61.35 48.16,59.99 47.58,59.03 46.61,58.44 45.25,58.25"/>
+         <lane id=":0_0_0" depart="0" maxspeed="15.28" length="5.00" shape="48.35,61.35 48.16,59.99 47.57,59.02 46.61,58.44 45.25,58.25"/>
       </lanes>
    </edge>
 
@@ -39,7 +39,7 @@
 
    <edge id=":0_3" function="internal">
       <lanes>
-         <lane id=":0_3_0" depart="0" maxspeed="15.28" length="5.00" shape="54.75,58.25 53.39,58.44 52.43,59.03 51.84,59.99 51.65,61.35"/>
+         <lane id=":0_3_0" depart="0" maxspeed="15.28" length="5.00" shape="54.75,58.25 53.39,58.44 52.43,59.02 51.84,59.99 51.65,61.35"/>
       </lanes>
    </edge>
 
@@ -172,11 +172,11 @@
 
    <junction id="0" type="priority" x="50.00" y="50.00" incLanes="4i_0 2i_0 2i_1 2i_2 3i_0" intLanes=":0_0_0 :0_1_0 :0_2_0 :0_3_0 :0_4_0 :0_5_0 :0_6_0 :0_7_0 :0_8_0 :0_9_0 :0_10_0" shape="46.75,61.35 53.25,61.35 54.75,59.85 54.75,50.05 53.25,48.55 46.75,48.55 45.25,50.05 45.25,59.85"/>
 
-   <junction id="1" type="DEAD_END" x="0.00" y="50.00" incLanes="1o_0 1o_1 1o_2" intLanes="" shape="0.00,59.85 0.00,50.05"/>
+   <junction id="1" type="DEAD_END" x="0.00" y="50.00" incLanes="1o_0 1o_1 1o_2" intLanes="" shape="-0.00,59.85 -0.00,50.05"/>
 
    <junction id="2" type="DEAD_END" x="100.00" y="50.00" incLanes="" intLanes="" shape="100.00,50.05 100.00,59.85"/>
 
-   <junction id="3" type="priority" x="50.00" y="0.00" incLanes="3o_0" intLanes=":3_0_0" shape="50.05,-0.00 53.25,-0.00 46.75,0.00 49.95,0.00"/>
+   <junction id="3" type="priority" x="50.00" y="0.00" incLanes="3o_0" intLanes=":3_0_0" shape="50.05,0.00 53.25,0.00 46.75,-0.00 49.95,-0.00"/>
 
    <junction id="4" type="priority" x="50.00" y="100.00" incLanes="4o_0" intLanes=":4_0_0" shape="49.95,100.00 46.75,100.00 53.25,100.00 50.05,100.00"/>
 

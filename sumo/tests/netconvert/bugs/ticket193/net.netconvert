@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 01/25/10 11:25:32 by SUMO netconvert Version dev-SVN-r8163
+<!-- generated on 04/26/10 12:35:42 by SUMO netconvert Version dev-SVN-r8163
 <configuration>
 
     <input>
@@ -33,13 +33,13 @@
 
 
 
-   <tl-logic id="0" type="static" programID="0" offset="0">
-      <phase duration="31" state="G"/>
-      <phase duration="4" state="y"/>
+   <tl-logic id="0" type="static" programID="0" offset="0.00">
+      <phase duration="31.00" state="G"/>
+      <phase duration="4.00" state="y"/>
    </tl-logic>
 
 
-   <junction id="0" type="DEAD_END" x="0.00" y="0.00" incLanes="1o_0" intLanes="" shape="0.00,3.25 0.00,0.05"/>
+   <junction id="0" type="DEAD_END" x="0.00" y="0.00" incLanes="1o_0" intLanes="" shape="-0.00,3.25 -0.00,0.05"/>
 
    <junction id="1" type="DEAD_END" x="500.00" y="0.00" incLanes="" intLanes="" shape="500.00,0.05 500.00,3.25"/>
 

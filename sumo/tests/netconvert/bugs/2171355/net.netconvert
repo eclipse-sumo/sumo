@@ -1,21 +1,21 @@
 <?xml version="1.0"?>
 
-<!-- generated on 01/04/09 01:17:16 by SUMO netconvert Version 0.9.7
+<!-- generated on 04/26/10 12:35:42 by SUMO netconvert Version dev-SVN-r8163
 <configuration>
 
-   <input>
-      <xml-node-files>input_nodes.nod.xml</xml-node-files>
-      <xml-edge-files>input_edges.edg.xml</xml-edge-files>
-   </input>
+    <input>
+        <xml-node-files value="input_nodes.nod.xml"/>
+        <xml-edge-files value="input_edges.edg.xml"/>
+    </input>
 
-   <output>
-      <output-file>net.net.xml</output-file>
-   </output>
+    <output>
+        <output-file value="net.net.xml"/>
+    </output>
 
-   <processing>
-      <speed-in-kmh>true</speed-in-kmh>
-      <no-turnarounds>true</no-turnarounds>
-   </processing>
+    <processing>
+        <speed-in-kmh value="true"/>
+        <no-turnarounds value="true"/>
+    </processing>
 
 </configuration>
 -->
@@ -26,7 +26,7 @@
 
    <edge id=":0_0" function="internal">
       <lanes>
-         <lane id=":0_0_0" depart="0" maxspeed="12.50" length="5.00" shape="491.75,511.35 491.56,509.99 490.98,509.02 490.01,508.44 488.65,508.25"/>
+         <lane id=":0_0_0" depart="0" maxspeed="12.50" length="5.00" shape="491.75,511.35 491.56,509.99 490.97,509.02 490.01,508.44 488.65,508.25"/>
       </lanes>
    </edge>
 
@@ -56,7 +56,7 @@
 
    <edge id=":0_5" function="internal">
       <lanes>
-         <lane id=":0_5_0" depart="0" maxspeed="12.50" length="5.00" shape="511.35,508.25 509.99,508.44 509.02,509.02 508.44,509.99 508.25,511.35"/>
+         <lane id=":0_5_0" depart="0" maxspeed="12.50" length="5.00" shape="511.35,508.25 509.99,508.44 509.03,509.02 508.44,509.99 508.25,511.35"/>
       </lanes>
    </edge>
 
@@ -74,7 +74,7 @@
 
    <edge id=":0_8" function="internal">
       <lanes>
-         <lane id=":0_8_0" depart="0" maxspeed="12.50" length="5.00" shape="508.25,488.65 508.44,490.01 509.02,490.98 509.99,491.56 511.35,491.75"/>
+         <lane id=":0_8_0" depart="0" maxspeed="12.50" length="5.00" shape="508.25,488.65 508.44,490.01 509.03,490.98 509.99,491.56 511.35,491.75"/>
       </lanes>
    </edge>
 
@@ -104,7 +104,7 @@
 
    <edge id=":0_13" function="internal">
       <lanes>
-         <lane id=":0_13_0" depart="0" maxspeed="12.50" length="5.00" shape="488.65,491.75 490.01,491.56 490.98,490.98 491.56,490.01 491.75,488.65"/>
+         <lane id=":0_13_0" depart="0" maxspeed="12.50" length="5.00" shape="488.65,491.75 490.01,491.56 490.97,490.98 491.56,490.01 491.75,488.65"/>
       </lanes>
    </edge>
 
@@ -380,11 +380,11 @@
 
    <junction id="0" type="priority" x="500.00" y="500.00" incLanes="4si_0 4si_1 4si_2 2si_0 2si_1 2si_2 3si_0 3si_1 3si_2 1si_0 1si_1 1si_2" intLanes=":0_0_0 :0_1_0 :0_2_0 :0_3_0 :0_4_0 :0_5_0 :0_6_0 :0_7_0 :0_8_0 :0_9_0 :0_10_0 :0_11_0 :0_12_0 :0_13_0 :0_14_0 :0_15_0" shape="490.15,511.35 509.85,511.35 511.35,509.85 511.35,490.15 509.85,488.65 490.15,488.65 488.65,490.15 488.65,509.85"/>
 
-   <junction id="1" type="priority" x="0.00" y="500.00" incLanes="1o_0 1o_1 1o_2" intLanes="" shape="-0.00,499.95 -0.00,490.15 0.00,509.85 0.00,500.05"/>
+   <junction id="1" type="priority" x="0.00" y="500.00" incLanes="1o_0 1o_1 1o_2" intLanes="" shape="0.00,499.95 0.00,490.15 -0.00,509.85 -0.00,500.05"/>
 
    <junction id="2" type="priority" x="1000.00" y="500.00" incLanes="2o_0 2o_1 2o_2" intLanes="" shape="1000.00,500.05 1000.00,509.85 1000.00,490.15 1000.00,499.95"/>
 
-   <junction id="3" type="priority" x="500.00" y="0.00" incLanes="3o_0 3o_1 3o_2" intLanes="" shape="500.05,-0.00 509.85,-0.00 490.15,0.00 499.95,0.00"/>
+   <junction id="3" type="priority" x="500.00" y="0.00" incLanes="3o_0 3o_1 3o_2" intLanes="" shape="500.05,0.00 509.85,0.00 490.15,-0.00 499.95,-0.00"/>
 
    <junction id="4" type="priority" x="500.00" y="1000.00" incLanes="4o_0 4o_1 4o_2" intLanes="" shape="499.95,1000.00 490.15,1000.00 509.85,1000.00 500.05,1000.00"/>
 

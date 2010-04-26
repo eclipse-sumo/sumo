@@ -1,28 +1,28 @@
 <?xml version="1.0"?>
 
-<!-- generated on 03/18/09 09:44:46 by SUMO netconvert Version dev-SVN-r6918
+<!-- generated on 04/26/10 12:35:23 by SUMO netconvert Version dev-SVN-r8163
 <configuration>
 
-   <input>
-      <xml-node-files>input_nodes.nod.xml</xml-node-files>
-      <xml-edge-files>input_edges.edg.xml</xml-edge-files>
-   </input>
+    <input>
+        <xml-node-files value="input_nodes.nod.xml"/>
+        <xml-edge-files value="input_edges.edg.xml"/>
+    </input>
 
-   <output>
-      <output-file>net.net.xml</output-file>
-   </output>
+    <output>
+        <output-file value="net.net.xml"/>
+    </output>
 
-   <edge_removal>
-      <keep-edges.in-boundary>-1000,0,1000,1000</keep-edges.in-boundary>
-   </edge_removal>
+    <edge_removal>
+        <keep-edges.in-boundary value="-1000,0,1000,1000"/>
+    </edge_removal>
 
-   <processing>
-      <no-internal-links>true</no-internal-links>
-   </processing>
+    <processing>
+        <no-internal-links value="true"/>
+    </processing>
 
-   <report>
-      <verbose>true</verbose>
-   </report>
+    <report>
+        <verbose value="true"/>
+    </report>
 
 </configuration>
 -->
@@ -205,7 +205,7 @@
 
    <junction id="1" type="priority" x="500.00" y="1000.00" incLanes="1o_0 1fi_0 1fi_1" intLanes="" shape="500.00,1003.25 500.00,993.45 500.00,1003.25"/>
 
-   <junction id="1f" type="priority" x="0.00" y="1000.00" incLanes="1fo_0" intLanes="" shape="-0.00,999.95 -0.00,993.45 0.00,1003.25 0.00,1000.05"/>
+   <junction id="1f" type="priority" x="0.00" y="1000.00" incLanes="1fo_0" intLanes="" shape="0.00,999.95 0.00,993.45 -0.00,1003.25 -0.00,1000.05"/>
 
    <junction id="2" type="priority" x="1500.00" y="1000.00" incLanes="2fi_0 2fi_1 2o_0" intLanes="" shape="1500.00,1006.55 1500.00,996.75 1500.00,1006.55"/>
 

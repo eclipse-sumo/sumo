@@ -1,15 +1,15 @@
 <?xml version="1.0"?>
 
-<!-- generated on 01/02/09 23:27:19 by SUMO netconvert Version 0.9.7
+<!-- generated on 04/26/10 12:35:40 by SUMO netconvert Version dev-SVN-r8163
 <configuration>
 
-   <input>
-      <xml-edge-files>input_edges.edg.xml</xml-edge-files>
-   </input>
+    <input>
+        <xml-edge-files value="input_edges.edg.xml"/>
+    </input>
 
-   <processing>
-      <no-internal-links>true</no-internal-links>
-   </processing>
+    <processing>
+        <no-internal-links value="true"/>
+    </processing>
 
 </configuration>
 -->
@@ -34,7 +34,7 @@
 
 
 
-   <junction id="SUMOGenerated0" type="DEAD_END" x="0.00" y="0.00" incLanes="" intLanes="" shape="-0.00,-0.05 -0.00,-3.25"/>
+   <junction id="SUMOGenerated0" type="DEAD_END" x="0.00" y="0.00" incLanes="" intLanes="" shape="0.00,-0.05 0.00,-3.25"/>
 
    <junction id="SUMOGenerated1" type="DEAD_END" x="1000.00" y="0.00" incLanes="1to2_0" intLanes="" shape="1000.00,-3.25 1000.00,-0.05"/>
 

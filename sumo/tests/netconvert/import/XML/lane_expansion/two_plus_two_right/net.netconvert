@@ -1,15 +1,15 @@
 <?xml version="1.0"?>
 
-<!-- generated on 09/02/09 12:44:12 by SUMO netconvert Version dev-SVN-r7645
+<!-- generated on 04/26/10 12:34:24 by SUMO netconvert Version dev-SVN-r8163
 <configuration>
 
-    <input
-        xml-edge-files="input_edges.edg.xml"
-    />
+    <input>
+        <xml-edge-files value="input_edges.edg.xml"/>
+    </input>
 
-    <output
-        output-file="net.net.xml"
-    />
+    <output>
+        <output-file value="net.net.xml"/>
+    </output>
 
 </configuration>
 -->
@@ -74,7 +74,7 @@
 
    <junction id="1.50" type="priority" x="50.00" y="0.00" incLanes="1_0 1_1" intLanes=":1.50_0_0 :1.50_1_0 :1.50_2_0 :1.50_3_0" shape="51.50,-0.05 51.50,-13.15 48.50,-6.55 48.50,-0.05"/>
 
-   <junction id="SUMOGenerated0" type="DEAD_END" x="0.00" y="0.00" incLanes="" intLanes="" shape="-0.00,-0.05 -0.00,-6.55"/>
+   <junction id="SUMOGenerated0" type="DEAD_END" x="0.00" y="0.00" incLanes="" intLanes="" shape="0.00,-0.05 0.00,-6.55"/>
 
    <junction id="SUMOGenerated1" type="DEAD_END" x="100.00" y="0.00" incLanes="1.50_0 1.50_1 1.50_2 1.50_3" intLanes="" shape="100.00,-13.15 100.00,-0.05"/>
 

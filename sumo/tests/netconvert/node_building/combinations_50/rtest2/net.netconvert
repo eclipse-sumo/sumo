@@ -1,17 +1,17 @@
 <?xml version="1.0"?>
 
-<!-- generated on 01/02/09 23:24:22 by SUMO netconvert Version 0.9.7
+<!-- generated on 04/26/10 12:34:05 by SUMO netconvert Version dev-SVN-r8163
 <configuration>
 
-   <input>
-      <xml-node-files>input_nodes.nod.xml</xml-node-files>
-      <xml-edge-files>input_edges.edg.xml</xml-edge-files>
-   </input>
+    <input>
+        <xml-node-files value="input_nodes.nod.xml"/>
+        <xml-edge-files value="input_edges.edg.xml"/>
+    </input>
 
-   <processing>
-      <speed-in-kmh>true</speed-in-kmh>
-      <no-turnarounds>true</no-turnarounds>
-   </processing>
+    <processing>
+        <speed-in-kmh value="true"/>
+        <no-turnarounds value="true"/>
+    </processing>
 
 </configuration>
 -->
@@ -34,7 +34,7 @@
 
    <edge id=":0_2" function="internal">
       <lanes>
-         <lane id=":0_2_0" depart="0" maxspeed="9.73" length="5.00" shape="54.75,51.65 53.39,51.84 52.43,52.43 51.84,53.39 51.65,54.75"/>
+         <lane id=":0_2_0" depart="0" maxspeed="9.73" length="5.00" shape="54.75,51.65 53.39,51.84 52.43,52.42 51.84,53.39 51.65,54.75"/>
       </lanes>
    </edge>
 
@@ -46,7 +46,7 @@
 
    <edge id=":0_4" function="internal">
       <lanes>
-         <lane id=":0_4_0" depart="0" maxspeed="7.65" length="5.00" shape="51.65,45.25 51.84,46.61 52.43,47.57 53.39,48.16 54.75,48.35"/>
+         <lane id=":0_4_0" depart="0" maxspeed="7.65" length="5.00" shape="51.65,45.25 51.84,46.61 52.42,47.57 53.39,48.16 54.75,48.35"/>
       </lanes>
    </edge>
 
@@ -132,7 +132,7 @@
 
    <junction id="2" type="priority" x="100.00" y="50.00" incLanes="2o_0" intLanes="" shape="100.00,50.05 100.00,53.25 100.00,46.75 100.00,49.95"/>
 
-   <junction id="3" type="priority" x="50.00" y="0.00" incLanes="3o_0" intLanes="" shape="50.05,-0.00 53.25,-0.00 46.75,0.00 49.95,0.00"/>
+   <junction id="3" type="priority" x="50.00" y="0.00" incLanes="3o_0" intLanes="" shape="50.05,0.00 53.25,0.00 46.75,-0.00 49.95,-0.00"/>
 
    <junction id="4" type="priority" x="50.00" y="100.00" incLanes="4o_0" intLanes="" shape="49.95,100.00 46.75,100.00 53.25,100.00 50.05,100.00"/>
 

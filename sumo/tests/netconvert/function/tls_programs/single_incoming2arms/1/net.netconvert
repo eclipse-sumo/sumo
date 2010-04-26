@@ -1,20 +1,20 @@
 <?xml version="1.0"?>
 
-<!-- generated on 07/10/09 11:45:23 by SUMO netconvert Version dev-SVN-r7409
+<!-- generated on 04/26/10 12:35:29 by SUMO netconvert Version dev-SVN-r8163
 <configuration>
 
-    <input
-        xml-node-files="input_nodes.nod.xml"
-        xml-edge-files="input_edges.edg.xml"
-    />
+    <input>
+        <xml-node-files value="input_nodes.nod.xml"/>
+        <xml-edge-files value="input_edges.edg.xml"/>
+    </input>
 
-    <tls_building
-        explicite-tls="15030102"
-    />
+    <tls_building>
+        <explicite-tls value="15030102"/>
+    </tls_building>
 
-    <report
-        verbose="true"
-    />
+    <report>
+        <verbose value="true"/>
+    </report>
 
 </configuration>
 -->
@@ -37,19 +37,19 @@
 
    <edge id=":15030102_2" function="internal">
       <lanes>
-         <lane id=":15030102_2_0" depart="0" maxspeed="13.19" length="7.86" shape="231.93,150.02 234.16,151.71 235.52,153.30 235.99,154.77 235.59,156.13"/>
+         <lane id=":15030102_2_0" depart="0" maxspeed="13.20" length="7.86" shape="231.93,150.02 234.16,151.71 235.52,153.30 235.99,154.77 235.59,156.13"/>
       </lanes>
    </edge>
 
    <edge id=":15030102_3" function="internal">
       <lanes>
-         <lane id=":15030102_3_0" depart="0" maxspeed="13.19" length="3.04" shape="232.82,154.35 233.89,153.41 237.36,153.83"/>
+         <lane id=":15030102_3_0" depart="0" maxspeed="13.20" length="3.04" shape="232.82,154.35 233.89,153.41 237.36,153.83"/>
       </lanes>
    </edge>
 
    <edge id=":15030102_5" function="internal">
       <lanes>
-         <lane id=":15030102_5_0" depart="0" maxspeed="13.19" length="4.83" shape="237.36,153.83 237.42,153.85 239.88,155.22"/>
+         <lane id=":15030102_5_0" depart="0" maxspeed="13.20" length="4.83" shape="237.36,153.83 237.42,153.85 239.88,155.22"/>
       </lanes>
    </edge>
 
@@ -117,11 +117,11 @@
    </row-logic>
 
 
-   <tl-logic id="15030102" type="static" programID="0" offset="0">
-      <phase duration="31" state="GGGrr"/>
-      <phase duration="4" state="yyyrr"/>
-      <phase duration="31" state="rrrGG"/>
-      <phase duration="4" state="rrryy"/>
+   <tl-logic id="15030102" type="static" programID="0" offset="0.00">
+      <phase duration="31.00" state="GGGrr"/>
+      <phase duration="4.00" state="yyyrr"/>
+      <phase duration="31.00" state="rrrGG"/>
+      <phase duration="4.00" state="rrryy"/>
    </tl-logic>
 
 

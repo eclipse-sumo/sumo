@@ -1,24 +1,24 @@
 <?xml version="1.0"?>
 
-<!-- generated on 01/02/09 23:27:12 by SUMO netconvert Version 0.9.7
+<!-- generated on 04/26/10 12:35:31 by SUMO netconvert Version dev-SVN-r8163
 <configuration>
 
-   <input>
-      <xml-node-files>input_nodes.nod.xml</xml-node-files>
-      <xml-edge-files>input_edges.edg.xml</xml-edge-files>
-   </input>
+    <input>
+        <xml-node-files value="input_nodes.nod.xml"/>
+        <xml-edge-files value="input_edges.edg.xml"/>
+    </input>
 
-   <output>
-      <output-file>net.net.xml</output-file>
-   </output>
+    <output>
+        <output-file value="net.net.xml"/>
+    </output>
 
-   <ramp_guessing>
-      <guess-ramps>true</guess-ramps>
-   </ramp_guessing>
+    <ramp_guessing>
+        <guess-ramps value="true"/>
+    </ramp_guessing>
 
-   <processing>
-      <no-internal-links>true</no-internal-links>
-   </processing>
+    <processing>
+        <no-internal-links value="true"/>
+    </processing>
 
 </configuration>
 -->
@@ -137,7 +137,7 @@
 
 
 
-   <junction id="1" type="DEAD_END" x="0.00" y="0.00" incLanes="s4_0 s4_1 s4_2" intLanes="" shape="0.00,9.85 0.00,0.05"/>
+   <junction id="1" type="DEAD_END" x="0.00" y="0.00" incLanes="s4_0 s4_1 s4_2" intLanes="" shape="-0.00,9.85 -0.00,0.05"/>
 
    <junction id="2" type="priority" x="500.00" y="0.00" incLanes="s3-AddedOffRampEdge_0 s3-AddedOffRampEdge_1 s3-AddedOffRampEdge_2 s3-AddedOffRampEdge_3" intLanes="" shape="487.63,13.15 487.63,0.05 483.82,0.05 483.82,9.85 483.11,11.32 484.89,13.98"/>
 

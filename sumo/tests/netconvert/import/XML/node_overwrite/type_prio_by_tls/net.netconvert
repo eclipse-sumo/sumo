@@ -1,16 +1,16 @@
 <?xml version="1.0"?>
 
-<!-- generated on 01/04/09 00:35:13 by SUMO netconvert Version 0.9.7
+<!-- generated on 04/26/10 12:34:34 by SUMO netconvert Version dev-SVN-r8163
 <configuration>
 
-   <input>
-      <xml-node-files>input_nodes.nod.xml</xml-node-files>
-      <xml-edge-files>input_edges.edg.xml</xml-edge-files>
-   </input>
+    <input>
+        <xml-node-files value="input_nodes.nod.xml,input_nodes2.nod.xml"/>
+        <xml-edge-files value="input_edges.edg.xml"/>
+    </input>
 
-   <report>
-      <verbose>true</verbose>
-   </report>
+    <report>
+        <verbose value="true"/>
+    </report>
 
 </configuration>
 -->
@@ -33,7 +33,7 @@
 
    <edge id=":0_2" function="internal">
       <lanes>
-         <lane id=":0_2_0" depart="0" maxspeed="16.00" length="11.50" shape="498.35,508.05 498.96,503.81 500.78,500.77 507.91,498.37"/>
+         <lane id=":0_2_0" depart="0" maxspeed="16.00" length="11.50" shape="498.35,508.05 498.96,503.81 500.77,500.77 507.91,498.37"/>
       </lanes>
    </edge>
 
@@ -51,7 +51,7 @@
 
    <edge id=":0_17" function="internal">
       <lanes>
-         <lane id=":0_17_0" depart="0" maxspeed="16.00" length="4.72" shape="499.12,506.90 499.17,506.81 500.00,506.40 500.83,506.81 501.65,508.05"/>
+         <lane id=":0_17_0" depart="0" maxspeed="16.00" length="4.72" shape="499.12,506.90 499.18,506.81 500.00,506.40 500.82,506.81 501.65,508.05"/>
       </lanes>
    </edge>
 
@@ -75,7 +75,7 @@
 
    <edge id=":0_18" function="internal">
       <lanes>
-         <lane id=":0_18_0" depart="0" maxspeed="16.00" length="10.90" shape="501.17,499.46 500.77,499.22 498.96,496.19 498.35,491.95"/>
+         <lane id=":0_18_0" depart="0" maxspeed="16.00" length="10.90" shape="501.17,499.46 500.77,499.23 498.96,496.19 498.35,491.95"/>
       </lanes>
    </edge>
 
@@ -87,7 +87,7 @@
 
    <edge id=":0_19" function="internal">
       <lanes>
-         <lane id=":0_19_0" depart="0" maxspeed="16.00" length="4.72" shape="506.90,500.88 506.81,500.83 506.40,500.00 506.81,499.17 508.05,498.35"/>
+         <lane id=":0_19_0" depart="0" maxspeed="16.00" length="4.72" shape="506.90,500.88 506.81,500.83 506.40,500.00 506.81,499.18 508.05,498.35"/>
       </lanes>
    </edge>
 
@@ -105,7 +105,7 @@
 
    <edge id=":0_10" function="internal">
       <lanes>
-         <lane id=":0_10_0" depart="0" maxspeed="16.00" length="11.50" shape="501.65,491.95 501.04,496.19 499.22,499.23 492.09,501.63"/>
+         <lane id=":0_10_0" depart="0" maxspeed="16.00" length="11.50" shape="501.65,491.95 501.04,496.19 499.23,499.23 492.09,501.63"/>
       </lanes>
    </edge>
 
@@ -123,13 +123,13 @@
 
    <edge id=":0_21" function="internal">
       <lanes>
-         <lane id=":0_21_0" depart="0" maxspeed="16.00" length="4.72" shape="500.88,493.10 500.83,493.19 500.00,493.60 499.17,493.19 498.35,491.95"/>
+         <lane id=":0_21_0" depart="0" maxspeed="16.00" length="4.72" shape="500.88,493.10 500.82,493.19 500.00,493.60 499.18,493.19 498.35,491.95"/>
       </lanes>
    </edge>
 
    <edge id=":0_12" function="internal">
       <lanes>
-         <lane id=":0_12_0" depart="0" maxspeed="16.00" length="7.85" shape="491.95,495.05 494.75,494.86 496.75,494.27 497.95,493.31 498.35,491.95"/>
+         <lane id=":0_12_0" depart="0" maxspeed="16.00" length="7.85" shape="491.95,495.05 494.75,494.86 496.75,494.28 497.95,493.31 498.35,491.95"/>
       </lanes>
    </edge>
 
@@ -159,31 +159,31 @@
 
    <edge id=":0_23" function="internal">
       <lanes>
-         <lane id=":0_23_0" depart="0" maxspeed="16.00" length="4.72" shape="493.10,499.12 493.19,499.17 493.60,500.00 493.19,500.83 491.95,501.65"/>
+         <lane id=":0_23_0" depart="0" maxspeed="16.00" length="4.72" shape="493.10,499.12 493.19,499.17 493.60,500.00 493.19,500.82 491.95,501.65"/>
       </lanes>
    </edge>
 
    <edge id=":1_0" function="internal">
       <lanes>
-         <lane id=":1_0_0" depart="0" maxspeed="16.00" length="4.82" shape="0.00,501.65 -1.24,500.83 -1.65,500.00 -1.24,499.17 0.00,498.35"/>
+         <lane id=":1_0_0" depart="0" maxspeed="16.00" length="4.82" shape="0.00,501.65 -1.24,500.82 -1.65,500.00 -1.24,499.18 0.00,498.35"/>
       </lanes>
    </edge>
 
    <edge id=":2_0" function="internal">
       <lanes>
-         <lane id=":2_0_0" depart="0" maxspeed="16.00" length="4.82" shape="1000.00,498.35 1001.24,499.17 1001.65,500.00 1001.24,500.83 1000.00,501.65"/>
+         <lane id=":2_0_0" depart="0" maxspeed="16.00" length="4.82" shape="1000.00,498.35 1001.24,499.17 1001.65,500.00 1001.24,500.82 1000.00,501.65"/>
       </lanes>
    </edge>
 
    <edge id=":3_0" function="internal">
       <lanes>
-         <lane id=":3_0_0" depart="0" maxspeed="16.00" length="4.82" shape="498.35,0.00 499.17,-1.24 500.00,-1.65 500.83,-1.24 501.65,0.00"/>
+         <lane id=":3_0_0" depart="0" maxspeed="16.00" length="4.82" shape="498.35,0.00 499.18,-1.24 500.00,-1.65 500.82,-1.24 501.65,0.00"/>
       </lanes>
    </edge>
 
    <edge id=":4_0" function="internal">
       <lanes>
-         <lane id=":4_0_0" depart="0" maxspeed="16.00" length="4.82" shape="501.65,1000.00 500.83,1001.24 500.00,1001.65 499.17,1001.24 498.35,1000.00"/>
+         <lane id=":4_0_0" depart="0" maxspeed="16.00" length="4.82" shape="501.65,1000.00 500.82,1001.24 500.00,1001.65 499.18,1001.24 498.35,1000.00"/>
       </lanes>
    </edge>
 
@@ -288,25 +288,25 @@
    </row-logic>
 
 
-   <tl-logic id="0" type="static" programID="0" offset="0">
-      <phase duration="31" state="GGggrrrrGGggrrrr"/>
-      <phase duration="5" state="yyggrrrryyggrrrr"/>
-      <phase duration="6" state="rrGGrrrrrrGGrrrr"/>
-      <phase duration="5" state="rryyrrrrrryyrrrr"/>
-      <phase duration="31" state="rrrrGGggrrrrGGgg"/>
-      <phase duration="5" state="rrrryyggrrrryygg"/>
-      <phase duration="6" state="rrrrrrGGrrrrrrGG"/>
-      <phase duration="5" state="rrrrrryyrrrrrryy"/>
+   <tl-logic id="0" type="static" programID="0" offset="0.00">
+      <phase duration="31.00" state="GGggrrrrGGggrrrr"/>
+      <phase duration="5.00" state="yyggrrrryyggrrrr"/>
+      <phase duration="6.00" state="rrGGrrrrrrGGrrrr"/>
+      <phase duration="5.00" state="rryyrrrrrryyrrrr"/>
+      <phase duration="31.00" state="rrrrGGggrrrrGGgg"/>
+      <phase duration="5.00" state="rrrryyggrrrryygg"/>
+      <phase duration="6.00" state="rrrrrrGGrrrrrrGG"/>
+      <phase duration="5.00" state="rrrrrryyrrrrrryy"/>
    </tl-logic>
 
 
    <junction id="0" type="priority" x="500.00" y="500.00" incLanes="4fi_0 4fi_1 2fi_0 2fi_1 3fi_0 3fi_1 1fi_0 1fi_1" intLanes=":0_0_0 :0_1_0 :0_16_0 :0_17_0 :0_4_0 :0_5_0 :0_18_0 :0_19_0 :0_8_0 :0_9_0 :0_20_0 :0_21_0 :0_12_0 :0_13_0 :0_22_0 :0_23_0" shape="493.45,508.05 503.25,508.05 508.05,506.55 508.05,496.75 506.55,491.95 496.75,491.95 491.95,493.45 491.95,503.25"/>
 
-   <junction id="1" type="priority" x="0.00" y="500.00" incLanes="1o_0" intLanes=":1_0_0" shape="-0.00,499.95 -0.00,493.45 0.00,503.25 0.00,500.05"/>
+   <junction id="1" type="priority" x="0.00" y="500.00" incLanes="1o_0" intLanes=":1_0_0" shape="0.00,499.95 0.00,493.45 -0.00,503.25 -0.00,500.05"/>
 
    <junction id="2" type="priority" x="1000.00" y="500.00" incLanes="2o_0" intLanes=":2_0_0" shape="1000.00,500.05 1000.00,506.55 1000.00,496.75 1000.00,499.95"/>
 
-   <junction id="3" type="priority" x="500.00" y="0.00" incLanes="3o_0" intLanes=":3_0_0" shape="500.05,-0.00 506.55,-0.00 496.75,0.00 499.95,0.00"/>
+   <junction id="3" type="priority" x="500.00" y="0.00" incLanes="3o_0" intLanes=":3_0_0" shape="500.05,0.00 506.55,0.00 496.75,-0.00 499.95,-0.00"/>
 
    <junction id="4" type="priority" x="500.00" y="1000.00" incLanes="4o_0" intLanes=":4_0_0" shape="499.95,1000.00 493.45,1000.00 503.25,1000.00 500.05,1000.00"/>
 

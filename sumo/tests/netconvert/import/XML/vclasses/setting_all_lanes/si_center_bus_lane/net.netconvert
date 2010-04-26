@@ -1,20 +1,20 @@
 <?xml version="1.0"?>
 
-<!-- generated on 01/04/09 00:35:39 by SUMO netconvert Version 0.9.7
+<!-- generated on 04/26/10 12:34:30 by SUMO netconvert Version dev-SVN-r8163
 <configuration>
 
-   <input>
-      <xml-node-files>input_nodes.nod.xml</xml-node-files>
-      <xml-edge-files>input_edges.edg.xml</xml-edge-files>
-   </input>
+    <input>
+        <xml-node-files value="input_nodes.nod.xml"/>
+        <xml-edge-files value="input_edges.edg.xml"/>
+    </input>
 
-   <output>
-      <output-file>net.net.xml</output-file>
-   </output>
+    <output>
+        <output-file value="net.net.xml"/>
+    </output>
 
-   <processing>
-      <speed-in-kmh>true</speed-in-kmh>
-   </processing>
+    <processing>
+        <speed-in-kmh value="true"/>
+    </processing>
 
 </configuration>
 -->
@@ -25,7 +25,7 @@
 
    <edge id=":0_0" function="internal">
       <lanes>
-         <lane id=":0_0_0" depart="0" maxspeed="12.50" length="10.88" shape="491.75,511.35 491.56,507.11 490.98,504.08 490.01,502.26 488.65,501.65"/>
+         <lane id=":0_0_0" depart="0" maxspeed="12.50" length="10.88" shape="491.75,511.35 491.56,507.11 490.97,504.08 490.01,502.26 488.65,501.65"/>
       </lanes>
    </edge>
 
@@ -43,7 +43,7 @@
 
    <edge id=":0_3" function="internal">
       <lanes>
-         <lane id=":0_3_0" depart="0" maxspeed="12.50" length="4.82" shape="498.35,511.35 499.17,510.11 500.00,509.70 500.83,510.11 501.65,511.35"/>
+         <lane id=":0_3_0" depart="0" maxspeed="12.50" length="4.82" shape="498.35,511.35 499.18,510.11 500.00,509.70 500.82,510.11 501.65,511.35"/>
       </lanes>
    </edge>
 
@@ -67,13 +67,13 @@
 
    <edge id=":0_7" function="internal">
       <lanes>
-         <lane id=":0_7_0" depart="0" maxspeed="12.50" length="4.82" shape="511.35,501.65 510.11,500.83 509.70,500.00 510.11,499.17 511.35,498.35"/>
+         <lane id=":0_7_0" depart="0" maxspeed="12.50" length="4.82" shape="511.35,501.65 510.11,500.83 509.70,500.00 510.11,499.18 511.35,498.35"/>
       </lanes>
    </edge>
 
    <edge id=":0_8" function="internal">
       <lanes>
-         <lane id=":0_8_0" depart="0" maxspeed="12.50" length="10.88" shape="508.25,488.65 508.44,492.89 509.02,495.92 509.99,497.74 511.35,498.35"/>
+         <lane id=":0_8_0" depart="0" maxspeed="12.50" length="10.88" shape="508.25,488.65 508.44,492.89 509.03,495.93 509.99,497.74 511.35,498.35"/>
       </lanes>
    </edge>
 
@@ -91,7 +91,7 @@
 
    <edge id=":0_11" function="internal">
       <lanes>
-         <lane id=":0_11_0" depart="0" maxspeed="12.50" length="4.82" shape="501.65,488.65 500.83,489.89 500.00,490.30 499.17,489.89 498.35,488.65"/>
+         <lane id=":0_11_0" depart="0" maxspeed="12.50" length="4.82" shape="501.65,488.65 500.82,489.89 500.00,490.30 499.18,489.89 498.35,488.65"/>
       </lanes>
    </edge>
 
@@ -115,31 +115,31 @@
 
    <edge id=":0_15" function="internal">
       <lanes>
-         <lane id=":0_15_0" depart="0" maxspeed="12.50" length="4.82" shape="488.65,498.35 489.89,499.17 490.30,500.00 489.89,500.83 488.65,501.65"/>
+         <lane id=":0_15_0" depart="0" maxspeed="12.50" length="4.82" shape="488.65,498.35 489.89,499.17 490.30,500.00 489.89,500.82 488.65,501.65"/>
       </lanes>
    </edge>
 
    <edge id=":1_0" function="internal">
       <lanes>
-         <lane id=":1_0_0" depart="0" maxspeed="11.11" length="4.82" shape="0.00,501.65 -1.24,500.83 -1.65,500.00 -1.24,499.17 0.00,498.35"/>
+         <lane id=":1_0_0" depart="0" maxspeed="11.11" length="4.82" shape="0.00,501.65 -1.24,500.82 -1.65,500.00 -1.24,499.18 0.00,498.35"/>
       </lanes>
    </edge>
 
    <edge id=":2_0" function="internal">
       <lanes>
-         <lane id=":2_0_0" depart="0" maxspeed="11.11" length="4.82" shape="1000.00,498.35 1001.24,499.17 1001.65,500.00 1001.24,500.83 1000.00,501.65"/>
+         <lane id=":2_0_0" depart="0" maxspeed="11.11" length="4.82" shape="1000.00,498.35 1001.24,499.17 1001.65,500.00 1001.24,500.82 1000.00,501.65"/>
       </lanes>
    </edge>
 
    <edge id=":3_0" function="internal">
       <lanes>
-         <lane id=":3_0_0" depart="0" maxspeed="11.11" length="4.82" shape="498.35,0.00 499.17,-1.24 500.00,-1.65 500.83,-1.24 501.65,0.00"/>
+         <lane id=":3_0_0" depart="0" maxspeed="11.11" length="4.82" shape="498.35,0.00 499.18,-1.24 500.00,-1.65 500.82,-1.24 501.65,0.00"/>
       </lanes>
    </edge>
 
    <edge id=":4_0" function="internal">
       <lanes>
-         <lane id=":4_0_0" depart="0" maxspeed="11.11" length="4.82" shape="501.65,1000.00 500.83,1001.24 500.00,1001.65 499.17,1001.24 498.35,1000.00"/>
+         <lane id=":4_0_0" depart="0" maxspeed="11.11" length="4.82" shape="501.65,1000.00 500.82,1001.24 500.00,1001.65 499.18,1001.24 498.35,1000.00"/>
       </lanes>
    </edge>
 
@@ -383,11 +383,11 @@
 
    <junction id="0" type="priority" x="500.00" y="500.00" incLanes="4si_0 4si_1 4si_2 2si_0 2si_1 2si_2 3si_0 3si_1 3si_2 1si_0 1si_1 1si_2" intLanes=":0_0_0 :0_1_0 :0_2_0 :0_3_0 :0_4_0 :0_5_0 :0_6_0 :0_7_0 :0_8_0 :0_9_0 :0_10_0 :0_11_0 :0_12_0 :0_13_0 :0_14_0 :0_15_0" shape="490.15,511.35 503.25,511.35 511.35,509.85 511.35,496.75 509.85,488.65 496.75,488.65 488.65,490.15 488.65,503.25"/>
 
-   <junction id="1" type="priority" x="0.00" y="500.00" incLanes="1o_0" intLanes=":1_0_0" shape="-0.00,499.95 -0.00,493.45 0.00,503.25 0.00,500.05"/>
+   <junction id="1" type="priority" x="0.00" y="500.00" incLanes="1o_0" intLanes=":1_0_0" shape="0.00,499.95 0.00,493.45 -0.00,503.25 -0.00,500.05"/>
 
    <junction id="2" type="priority" x="1000.00" y="500.00" incLanes="2o_0" intLanes=":2_0_0" shape="1000.00,500.05 1000.00,506.55 1000.00,496.75 1000.00,499.95"/>
 
-   <junction id="3" type="priority" x="500.00" y="0.00" incLanes="3o_0" intLanes=":3_0_0" shape="500.05,-0.00 506.55,-0.00 496.75,0.00 499.95,0.00"/>
+   <junction id="3" type="priority" x="500.00" y="0.00" incLanes="3o_0" intLanes=":3_0_0" shape="500.05,0.00 506.55,0.00 496.75,-0.00 499.95,-0.00"/>
 
    <junction id="4" type="priority" x="500.00" y="1000.00" incLanes="4o_0" intLanes=":4_0_0" shape="499.95,1000.00 493.45,1000.00 503.25,1000.00 500.05,1000.00"/>
 

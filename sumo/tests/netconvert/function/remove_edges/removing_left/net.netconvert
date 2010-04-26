@@ -1,28 +1,28 @@
 <?xml version="1.0"?>
 
-<!-- generated on 01/04/09 00:36:30 by SUMO netconvert Version 0.9.7
+<!-- generated on 04/26/10 12:35:25 by SUMO netconvert Version dev-SVN-r8163
 <configuration>
 
-   <input>
-      <xml-node-files>input_nodes.nod.xml</xml-node-files>
-      <xml-edge-files>input_edges.edg.xml</xml-edge-files>
-   </input>
+    <input>
+        <xml-node-files value="input_nodes.nod.xml"/>
+        <xml-edge-files value="input_edges.edg.xml"/>
+    </input>
 
-   <output>
-      <output-file>net.net.xml</output-file>
-   </output>
+    <output>
+        <output-file value="net.net.xml"/>
+    </output>
 
-   <edge_removal>
-      <remove-edges>1fi,1si,1o</remove-edges>
-   </edge_removal>
+    <edge_removal>
+        <remove-edges value="1fi,1si,1o"/>
+    </edge_removal>
 
-   <processing>
-      <no-internal-links>true</no-internal-links>
-   </processing>
+    <processing>
+        <no-internal-links value="true"/>
+    </processing>
 
-   <report>
-      <verbose>true</verbose>
-   </report>
+    <report>
+        <verbose value="true"/>
+    </report>
 
 </configuration>
 -->
@@ -158,7 +158,7 @@
 
    <junction id="2" type="priority" x="1000.00" y="500.00" incLanes="2o_0" intLanes="" shape="1000.00,500.05 1000.00,506.55 1000.00,496.75 1000.00,499.95"/>
 
-   <junction id="3" type="priority" x="500.00" y="0.00" incLanes="3o_0" intLanes="" shape="500.05,-0.00 506.55,-0.00 496.75,0.00 499.95,0.00"/>
+   <junction id="3" type="priority" x="500.00" y="0.00" incLanes="3o_0" intLanes="" shape="500.05,0.00 506.55,0.00 496.75,-0.00 499.95,-0.00"/>
 
    <junction id="4" type="priority" x="500.00" y="1000.00" incLanes="4o_0" intLanes="" shape="499.95,1000.00 493.45,1000.00 503.25,1000.00 500.05,1000.00"/>
 

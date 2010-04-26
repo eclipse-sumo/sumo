@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 12/18/09 13:13:48 by SUMO netconvert Version dev-SVN-r8086
+<!-- generated on 04/26/10 12:35:34 by SUMO netconvert Version dev-SVN-r8163
 <configuration>
 
     <input>
@@ -44,7 +44,7 @@
 
    <edge id=":0_3" function="internal">
       <lanes>
-         <lane id=":0_3_0" depart="0" maxspeed="12.50" length="4.82" shape="501.65,500.00 500.83,501.24 500.00,501.65 499.17,501.24 498.35,500.00"/>
+         <lane id=":0_3_0" depart="0" maxspeed="12.50" length="4.82" shape="501.65,500.00 500.82,501.24 500.00,501.65 499.18,501.24 498.35,500.00"/>
       </lanes>
    </edge>
 
@@ -68,7 +68,7 @@
 
    <edge id=":0_7" function="internal">
       <lanes>
-         <lane id=":0_7_0" depart="0" maxspeed="12.50" length="4.82" shape="500.00,498.35 501.24,499.17 501.65,500.00 501.24,500.83 500.00,501.65"/>
+         <lane id=":0_7_0" depart="0" maxspeed="12.50" length="4.82" shape="500.00,498.35 501.24,499.18 501.65,500.00 501.24,500.82 500.00,501.65"/>
       </lanes>
    </edge>
 
@@ -92,7 +92,7 @@
 
    <edge id=":0_11" function="internal">
       <lanes>
-         <lane id=":0_11_0" depart="0" maxspeed="12.50" length="4.82" shape="498.35,500.00 499.17,498.76 500.00,498.35 500.83,498.76 501.65,500.00"/>
+         <lane id=":0_11_0" depart="0" maxspeed="12.50" length="4.82" shape="498.35,500.00 499.18,498.76 500.00,498.35 500.82,498.76 501.65,500.00"/>
       </lanes>
    </edge>
 
@@ -116,31 +116,31 @@
 
    <edge id=":0_15" function="internal">
       <lanes>
-         <lane id=":0_15_0" depart="0" maxspeed="12.50" length="4.82" shape="500.00,501.65 498.76,500.83 498.35,500.00 498.76,499.17 500.00,498.35"/>
+         <lane id=":0_15_0" depart="0" maxspeed="12.50" length="4.82" shape="500.00,501.65 498.76,500.82 498.35,500.00 498.76,499.18 500.00,498.35"/>
       </lanes>
    </edge>
 
    <edge id=":1_0" function="internal">
       <lanes>
-         <lane id=":1_0_0" depart="0" maxspeed="11.11" length="4.82" shape="0.00,498.35 1.24,499.17 1.65,500.00 1.24,500.83 0.00,501.65"/>
+         <lane id=":1_0_0" depart="0" maxspeed="11.11" length="4.82" shape="0.00,498.35 1.24,499.18 1.65,500.00 1.24,500.82 0.00,501.65"/>
       </lanes>
    </edge>
 
    <edge id=":2_0" function="internal">
       <lanes>
-         <lane id=":2_0_0" depart="0" maxspeed="11.11" length="4.82" shape="1000.00,501.65 998.76,500.83 998.35,500.00 998.76,499.17 1000.00,498.35"/>
+         <lane id=":2_0_0" depart="0" maxspeed="11.11" length="4.82" shape="1000.00,501.65 998.76,500.83 998.35,500.00 998.76,499.18 1000.00,498.35"/>
       </lanes>
    </edge>
 
    <edge id=":3_0" function="internal">
       <lanes>
-         <lane id=":3_0_0" depart="0" maxspeed="11.11" length="4.82" shape="501.65,0.00 500.83,1.24 500.00,1.65 499.17,1.24 498.35,0.00"/>
+         <lane id=":3_0_0" depart="0" maxspeed="11.11" length="4.82" shape="501.65,0.00 500.82,1.24 500.00,1.65 499.18,1.24 498.35,0.00"/>
       </lanes>
    </edge>
 
    <edge id=":4_0" function="internal">
       <lanes>
-         <lane id=":4_0_0" depart="0" maxspeed="11.11" length="4.82" shape="498.35,1000.00 499.17,998.76 500.00,998.35 500.83,998.76 501.65,1000.00"/>
+         <lane id=":4_0_0" depart="0" maxspeed="11.11" length="4.82" shape="498.35,1000.00 499.18,998.76 500.00,998.35 500.82,998.76 501.65,1000.00"/>
       </lanes>
    </edge>
 
@@ -384,11 +384,11 @@
 
    <junction id="0" type="priority" x="500.00" y="500.00" incLanes="4si_0 4si_1 4si_2 2si_0 2si_1 2si_2 3si_0 3si_1 3si_2 1si_0 1si_1 1si_2" intLanes=":0_0_0 :0_1_0 :0_2_0 :0_3_0 :0_4_0 :0_5_0 :0_6_0 :0_7_0 :0_8_0 :0_9_0 :0_10_0 :0_11_0 :0_12_0 :0_13_0 :0_14_0 :0_15_0" shape="500.05,501.45 501.45,499.95 499.95,498.55 498.55,500.05"/>
 
-   <junction id="1" type="priority" x="0.00" y="500.00" incLanes="1o_0" intLanes=":1_0_0" shape="-0.00,499.95 -0.00,496.75 0.00,506.55 0.00,500.05"/>
+   <junction id="1" type="priority" x="0.00" y="500.00" incLanes="1o_0" intLanes=":1_0_0" shape="0.00,499.95 0.00,496.75 -0.00,506.55 -0.00,500.05"/>
 
    <junction id="2" type="priority" x="1000.00" y="500.00" incLanes="2o_0" intLanes=":2_0_0" shape="1000.00,500.05 1000.00,503.25 1000.00,493.45 1000.00,499.95"/>
 
-   <junction id="3" type="priority" x="500.00" y="0.00" incLanes="3o_0" intLanes=":3_0_0" shape="500.05,-0.00 503.25,-0.00 493.45,0.00 499.95,0.00"/>
+   <junction id="3" type="priority" x="500.00" y="0.00" incLanes="3o_0" intLanes=":3_0_0" shape="500.05,0.00 503.25,0.00 493.45,-0.00 499.95,-0.00"/>
 
    <junction id="4" type="priority" x="500.00" y="1000.00" incLanes="4o_0" intLanes=":4_0_0" shape="499.95,1000.00 496.75,1000.00 506.55,1000.00 500.05,1000.00"/>
 
