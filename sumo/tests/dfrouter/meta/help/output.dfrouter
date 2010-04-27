@@ -1,4 +1,4 @@
-SUMO dfrouter Version dev-SVN-r7082
+SUMO dfrouter Version dev-SVN-r8163
  (c) DLR 2001-2009; http://sumo.sourceforge.net
  
 Builds vehicle routes for SUMO using detector values.
@@ -54,7 +54,7 @@ Usage: dfrouter [OPTION]*
   --keep-turnarounds                 Allow turnarounds as route continuations
   --min-distance FLOAT               According sink must be at least that far
                                        away
-  --time-offset INT                  Subtracts INT from flow times
+  --time-offset TIME                 Subtracts INT from flow times
   --write-calibrators                
   --include-unused-routes            
   --revalidate-flows                 
@@ -64,9 +64,9 @@ Usage: dfrouter [OPTION]*
   --scale FLOAT                      Scale factor for flows
 
  Time Options:
-  -b, --begin INT                    Defines the begin time;
+  -b, --begin TIME                   Defines the begin time;
                                        Previous defs will be discarded
-  -e, --end INT                      Defines the end time;
+  -e, --end TIME                     Defines the end time;
                                        Later defs will be discarded
 
  Report Options:
