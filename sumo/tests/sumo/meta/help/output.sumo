@@ -36,11 +36,11 @@ Usage: sumo [OPTION]*
   --vehroute-output.last-route        Write the last route only
 
  Time Options:
-  -b, --begin INT                     Defines the begin time;
+  -b, --begin TIME                    Defines the begin time;
                                         The simulation starts at this time
-  -e, --end INT                       Defines the end time;
+  -e, --end TIME                      Defines the end time;
                                         The simulation ends at this time
-  --step-length FLOAT                 Defines the step duration
+  --step-length TIME                  Defines the step duration
 
  Processing Options:
   -s, --route-steps INT               Load routes for the next INT steps ahead
@@ -52,7 +52,7 @@ Usage: sumo [OPTION]*
   --incremental-dua-step INT          Perform the simulation as a step in
                                         incremental DUA
   --incremental-dua-base INT          Base value for incremental DUA
-  --time-to-teleport INT              Specify how long a vehicle may wait until
+  --time-to-teleport TIME             Specify how long a vehicle may wait until
                                         being teleported
   --max-depart-delay INT              How long vehicles wait for departure
                                         before being skipped
@@ -93,7 +93,7 @@ Usage: sumo [OPTION]*
                                         be rerouted
   --device.routing.pre-period INT     The rerouting period before emit
   --device.routing.adaptation-weight FLOAT  The weight of prior edge weights.
-  --device.routing.adaptation-interval INT  The interval for updating the edge
+  --device.routing.adaptation-interval STR  The interval for updating the edge
                                         weights.
   --device.routing.with-taz           Use zones (districts) as routing end
                                         points
