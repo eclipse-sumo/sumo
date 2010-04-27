@@ -111,16 +111,16 @@ MSVehicleControl::scheduleVehicleRemoval(MSVehicle *v) throw() {
         if (departInfo!=0) {
             routeLength -= departInfo->pos;
             std::string laneID = departInfo->lane!=0 ? departInfo->lane->getID() : "";
-            od << "depart=\"" << departInfo->time << "\" "
+            od << "depart=\"" << time2string(departInfo->time) << "\" "
             << "departLane=\"" << laneID << "\" "
             << "departPos=\"" << departInfo->pos << "\" "
             << "departSpeed=\"" << departInfo->speed << "\" "
-            << "departDelay=\"" << departInfo->time - v->getDesiredDepart() << "\" ";
+            << "departDelay=\"" << time2string(departInfo->time - v->getDesiredDepart()) << "\" ";
             departTime = departInfo->time;
         } else {
             if (v->hasCORNIntValue(MSCORN::CORN_VEH_DEPART_TIME)) {
                 departTime = v->getCORNIntValue(MSCORN::CORN_VEH_DEPART_TIME);
-                od << "depart=\"" << departTime << "\" ";
+                od << "depart=\"" << time2string(departTime) << "\" ";
             } else {
                 od << "depart=\"\" ";
             }
@@ -136,20 +136,20 @@ MSVehicleControl::scheduleVehicleRemoval(MSVehicle *v) throw() {
                 routeLength -= arrivalInfo->lane->getLength() - arrivalInfo->pos;
                 laneID = arrivalInfo->lane->getID();
             }
-            od << "arrival=\"" << arrivalInfo->time << "\" "
+            od << "arrival=\"" << time2string(arrivalInfo->time) << "\" "
             << "arrivalLane=\"" << laneID << "\" "
             << "arrivalPos=\"" << arrivalInfo->pos << "\" "
             << "arrivalSpeed=\"" << arrivalInfo->speed << "\" ";
             arrivalTime = arrivalInfo->time;
         } else {
             arrivalTime = MSNet::getInstance()->getCurrentTimeStep();
-            od << "arrival=\"" << arrivalTime << "\" "
+            od << "arrival=\"" << time2string(arrivalTime) << "\" "
             << "arrivalLane=\"\" "
             << "arrivalPos=\"\" "
             << "arrivalSpeed=\"\" ";
         }
         if (departTime!=-1&&arrivalTime!=-1) {
-            od << "duration=\"" << arrivalTime - departTime << "\" ";
+            od << "duration=\"" << time2string(arrivalTime - departTime) << "\" ";
         } else {
             od << "duration=\"\" ";
         }
@@ -202,8 +202,8 @@ MSVehicleControl::scheduleVehicleRemoval(MSVehicle *v) throw() {
         SUMOTime realDepart = (SUMOTime) v->getCORNIntValue(MSCORN::CORN_VEH_DEPART_TIME);
         SUMOTime time = net->getCurrentTimeStep();
         od.openTag("vehicle") << " id=\"" << v->getID() << "\" depart=\""
-        << (SUMOTime) v->getCORNIntValue(MSCORN::CORN_VEH_DEPART_TIME)
-        << "\" arrival=\"" << MSNet::getInstance()->getCurrentTimeStep();
+        << time2string(v->getCORNIntValue(MSCORN::CORN_VEH_DEPART_TIME))
+        << "\" arrival=\"" << time2string(MSNet::getInstance()->getCurrentTimeStep());
         if (MSCORN::wished(MSCORN::CORN_OUT_TAZ)) {
             od << "\" fromtaz=\"" << v->getParameter().fromTaz << "\" totaz=\"" << v->getParameter().toTaz;
         }

@@ -85,13 +85,14 @@ MSInductLoop::isStillActive(MSVehicle& veh, SUMOReal oldPos,
     }
     if (myVehiclesOnDet.find(&veh) == myVehiclesOnDet.end()) {
         // entered the detector by move
-        SUMOReal entryTimestep = newSpeed!=0
-                                 ? (SUMOReal)((SUMOReal) MSNet::getInstance()->getCurrentTimeStep() + ((myPosition - oldPos) / newSpeed))
-                                 : (SUMOReal) MSNet::getInstance()->getCurrentTimeStep();
+        SUMOReal entryTimestep = (SUMOReal) MSNet::getInstance()->getCurrentTimeStep();
+        if(newSpeed!=0) {
+            entryTimestep += ((((myPosition - oldPos) / newSpeed)) * (SUMOReal) DELTA_T);
+        }
         if (newPos - veh.getVehicleType().getLength() > myPosition) {
             // entered and passed detector in a single timestep
-            SUMOReal leaveTimestep = (SUMOReal)
-                                     ((SUMOReal) MSNet::getInstance()->getCurrentTimeStep() + ((myPosition - oldPos + veh.getVehicleType().getLength()) / newSpeed));
+            SUMOReal leaveTimestep = (SUMOReal) MSNet::getInstance()->getCurrentTimeStep();
+            leaveTimestep += (((myPosition - oldPos + veh.getVehicleType().getLength()) / newSpeed) * (SUMOReal) DELTA_T);
             enterDetectorByMove(veh, entryTimestep);
             leaveDetectorByMove(veh, leaveTimestep);
             return false;
@@ -103,8 +104,8 @@ MSInductLoop::isStillActive(MSVehicle& veh, SUMOReal oldPos,
         // vehicle has been on the detector the previous timestep
         if (newPos - veh.getVehicleType().getLength() >= myPosition) {
             // vehicle passed the detector
-            SUMOReal leaveTimestep = (SUMOReal)
-                                     ((SUMOReal) MSNet::getInstance()->getCurrentTimeStep() + ((myPosition - oldPos + veh.getVehicleType().getLength()) / newSpeed));
+            SUMOReal leaveTimestep = (SUMOReal) MSNet::getInstance()->getCurrentTimeStep();
+            leaveTimestep += (((myPosition - oldPos + veh.getVehicleType().getLength()) / newSpeed) * (SUMOReal) DELTA_T);
             leaveDetectorByMove(veh, leaveTimestep);
             return false;
         }
@@ -204,18 +205,18 @@ MSInductLoop::writeXMLDetectorProlog(OutputDevice &dev) const throw(IOError) {
 void
 MSInductLoop::writeXMLOutput(OutputDevice &dev,
                              SUMOTime startTime, SUMOTime stopTime) throw(IOError) {
-    SUMOTime t(stopTime-startTime);
+    SUMOReal t(((SUMOReal) (stopTime-startTime))/(SUMOReal)1000.);
     unsigned nVehCrossed = (unsigned) myVehicleDataCont.size() + myDismissedVehicleNumber;
-	SUMOReal flow = ((SUMOReal) myVehicleDataCont.size() / (SUMOReal) t) / DELTA_T * (SUMOReal) 3600.0 * DELTA_T;
-    SUMOReal occupancy = accumulate(myVehicleDataCont.begin(), myVehicleDataCont.end(), (SUMOReal) 0.0, occupancySum) / (SUMOReal) t * (SUMOReal) 100.;
+    SUMOReal flow = ((SUMOReal) myVehicleDataCont.size() / (SUMOReal) t) * (SUMOReal) 3600.0;
+    SUMOReal occupancy = accumulate(myVehicleDataCont.begin(), myVehicleDataCont.end(), (SUMOReal) 0.0, occupancySum) / (SUMOReal) t * (SUMOReal) 100. / (SUMOReal) (1000./DELTA_T);
     SUMOReal meanSpeed = myVehicleDataCont.size()!=0
-                         ? accumulate(myVehicleDataCont.begin(), myVehicleDataCont.end(), (SUMOReal) 0.0, speedSum) / (SUMOReal) myVehicleDataCont.size()
+                         ? accumulate(myVehicleDataCont.begin(), myVehicleDataCont.end(), (SUMOReal) 0.0, speedSum) / (SUMOReal) myVehicleDataCont.size() * (SUMOReal) (1000./DELTA_T)
                          : -1;
     SUMOReal meanLength = myVehicleDataCont.size()!=0
                           ? accumulate(myVehicleDataCont.begin(), myVehicleDataCont.end(), (SUMOReal) 0.0, lengthSum) / (SUMOReal) myVehicleDataCont.size()
                           : -1;
-    dev<<"   <interval begin=\""<<startTime<<"\" end=\""<<
-    stopTime<<"\" "<<"id=\""<<StringUtils::escapeXML(getID())<<"\" ";
+    dev<<"   <interval begin=\""<<time2string(startTime)<<"\" end=\""<<
+    time2string(stopTime)<<"\" "<<"id=\""<<StringUtils::escapeXML(getID())<<"\" ";
     dev<<"nVehContrib=\""<<myVehicleDataCont.size()<<"\" flow=\""<<flow<<
     "\" occupancy=\""<<occupancy<<"\" speed=\""<<meanSpeed<<
     "\" length=\""<<meanLength<<

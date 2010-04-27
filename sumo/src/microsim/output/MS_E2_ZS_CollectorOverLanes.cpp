@@ -206,8 +206,8 @@ void
 MS_E2_ZS_CollectorOverLanes::writeXMLOutput(OutputDevice &dev,
         SUMOTime startTime, SUMOTime stopTime) throw(IOError) {
     /*
-    dev<<"<interval begin=\""<<toString(startTime)<<"\" end=\""<<
-    toString(stopTime)<<"\" "<<"id=\""<<myID<<"\" ";
+    dev<<"<interval begin=\""<<time2string(startTime)<<"\" end=\""<<
+    time2string(stopTime)<<"\" "<<"id=\""<<myID<<"\" ";
     if (hasDetector(E2::QUEUE_LENGTH_AHEAD_OF_TRAFFIC_LIGHTS_IN_VEHICLES)) {
         dev<<"collQueueLengthAheadOfTrafficLightsInVehiclesMax=\"";
         dev<<toString(getCurrent(E2::QUEUE_LENGTH_AHEAD_OF_TRAFFIC_LIGHTS_IN_VEHICLES));

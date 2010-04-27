@@ -476,9 +476,6 @@ protected:
     /// @brief The map that holds the last call for each sample interval
     std::map<IntervalsKey, SUMOTime> myLastCalls;
 
-    /// @brief The map that holds the passed timestep for each interval
-    std::map<IntervalsKey, int> myIntervalTimestep;
-
     /// @brief List of harmonoise detectors
     std::vector<MSMeanData_Harmonoise*> myHarmonoiseDetectors;
 

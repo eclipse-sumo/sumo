@@ -349,8 +349,8 @@ MSMeanData::writeXMLOutput(OutputDevice &dev,
             stopTime = myPendingIntervals.front().second;
             myPendingIntervals.pop_front();
         }
-        dev.openTag("interval")<<" begin=\""<<startTime<<"\" end=\""<<
-        stopTime<<"\" "<<"id=\""<<myID<<"\">\n";
+        dev.openTag("interval")<<" begin=\""<<time2string(startTime)<<"\" end=\""<<
+        time2string(stopTime)<<"\" "<<"id=\""<<myID<<"\">\n";
         std::vector<MSEdge*>::iterator edge = myEdges.begin();
         for (std::vector<std::vector<MeanDataValues*> >::const_iterator i=myMeasures.begin(); i!=myMeasures.end(); ++i, ++edge) {
             writeEdge(dev, (*i), *edge, startTime, stopTime);

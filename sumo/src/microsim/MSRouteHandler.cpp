@@ -495,7 +495,7 @@ MSRouteHandler::closeVehicle() throw(ProcessError) {
     if (myVehicleParameter->departProcedure == DEPART_GIVEN) {
         myLastDepart = myVehicleParameter->depart;
         // let's check whether this vehicle had to be emitted before the simulation starts
-        if (myVehicleParameter->depart<OptionsCont::getOptions().getInt("begin")) {
+        if (myVehicleParameter->depart<string2time(OptionsCont::getOptions().getString("begin"))) {
             return;
         }
     }
@@ -590,7 +590,7 @@ void
 MSRouteHandler::closeFlow() throw(ProcessError) {
     // let's check whether vehicles had to be emitted before the simulation starts
     myVehicleParameter->repetitionsDone = 0;
-    SUMOReal offsetToBegin = OptionsCont::getOptions().getInt("begin") - myVehicleParameter->depart;
+    SUMOReal offsetToBegin = string2time(OptionsCont::getOptions().getString("begin")) - myVehicleParameter->depart;
     while (myVehicleParameter->repetitionsDone * myVehicleParameter->repetitionOffset < offsetToBegin) {
         myVehicleParameter->repetitionsDone++;
         if (myVehicleParameter->repetitionsDone == myVehicleParameter->repetitionNumber) {

@@ -177,7 +177,7 @@ ODMatrix::write(SUMOTime begin, SUMOTime end,
         std::vector<ODVehicle>::reverse_iterator i = vehicles.rbegin();
         for (; i!=vehicles.rend()&&(*i).depart==t; ++i) {
             myNoWritten++;
-            dev.openTag("tripdef") << " id=\"" << (*i).id << "\" depart=\"" << t << "\" "
+            dev.openTag("tripdef") << " id=\"" << (*i).id << "\" depart=\"" << t << ".00\" "
             << "from=\"" << (*i).from << "\" "
             << "to=\"" << (*i).to << "\"";
             if (!noVtype&&(*i).cell->vehicleType.length()!=0) {

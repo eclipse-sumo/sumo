@@ -310,20 +310,20 @@ protected:
          */
         VehicleData(const std::string &id, SUMOReal vehLength, SUMOReal entryTimestep, SUMOReal leaveTimestep) throw()
                 : idM(id), lengthM(vehLength), entryTimeM(entryTimestep), leaveTimeM(leaveTimestep),
-                speedM(lengthM / (leaveTimeM - entryTimeM)),
-                occupancyM(leaveTimeM - entryTimeM) {}
+                speedM(lengthM / ((leaveTimeM - entryTimeM) / (SUMOReal) DELTA_T)),
+                occupancyM((leaveTimeM - entryTimeM) / (SUMOReal) DELTA_T) {}
 
         /** @brief The id of the vehicle */
         std::string idM;
         /** @brief Length of the vehicle. */
         SUMOReal lengthM;
-        /** @brief Entry-time of the vehicle in [s]. */
+        /** @brief Entry-time of the vehicle in [ms]. */
         SUMOReal entryTimeM;
-        /** @brief Leave-time of the vehicle in [s]. */
+        /** @brief Leave-time of the vehicle in [ms]. */
         SUMOReal leaveTimeM;
         /** @brief Speed of the vehicle in [m/s]. */
         SUMOReal speedM;
-        /** @brief Occupancy of the detector in [s]. */
+        /** @brief Occupancy of the detector in [ms]. */
         SUMOReal occupancyM;
     };
 

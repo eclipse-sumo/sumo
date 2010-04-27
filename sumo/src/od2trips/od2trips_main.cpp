@@ -106,10 +106,10 @@ fillOptions() {
 
 
     // register the time settings
-    oc.doRegister("begin", 'b', new Option_Integer(0));
+    oc.doRegister("begin", 'b', new Option_String("0", "TIME"));
     oc.addDescription("begin", "Time", "Defines the begin time; Previous trips will be discarded");
 
-    oc.doRegister("end", 'e', new Option_Integer(86400));
+    oc.doRegister("end", 'e', new Option_String("86400", "TIME"));
     oc.addDescription("end", "Time", "Defines the end time; Later trips will be discarded");
 
 
@@ -499,7 +499,7 @@ main(int argc, char **argv) {
             throw ProcessError("No output name is given.");
         }
         OutputDevice& dev = OutputDevice::getDeviceByOption("output");
-        matrix.write((SUMOTime) oc.getInt("begin"), (SUMOTime) oc.getInt("end"),
+        matrix.write(string2time(oc.getString("begin"))/1000., string2time(oc.getString("end"))/1000.,
                      dev, oc.getBool("spread.uniform"), oc.getBool("no-vtype"), oc.getString("prefix"));
         MsgHandler::getMessageInstance()->inform(toString(matrix.getNoDiscarded()) + " vehicles discarded.");
         MsgHandler::getMessageInstance()->inform(toString(matrix.getNoWritten()) + " vehicles written.");

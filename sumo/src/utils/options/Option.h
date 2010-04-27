@@ -382,7 +382,7 @@ public:
      *
      * @param[in] value This option's default value
      */
-    Option_String(const std::string &value) throw();
+    Option_String(const std::string &value, std::string typeName="STR") throw();
 
 
     /** @brief Copy constructor */

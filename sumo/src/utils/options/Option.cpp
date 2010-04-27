@@ -242,9 +242,9 @@ Option_String::Option_String() throw()
 }
 
 
-Option_String::Option_String(const std::string &value) throw()
+Option_String::Option_String(const std::string &value, std::string typeName) throw()
         : Option(true), myValue(value) {
-    myTypeName = "STR";
+    myTypeName = typeName;
 }
 
 

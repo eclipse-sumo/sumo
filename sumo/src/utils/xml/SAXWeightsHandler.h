@@ -195,10 +195,10 @@ private:
     std::vector<ToRetrieveDefinition*> myDefinitions;
 
     /// the begin of the time period that is currently processed
-    SUMOTime myCurrentTimeBeg;
+    SUMOReal myCurrentTimeBeg;
 
     /// the end of the time period that is currently processed
-    SUMOTime myCurrentTimeEnd;
+    SUMOReal myCurrentTimeEnd;
 
     /// the edge which is currently being processed
     std::string myCurrentEdgeID;

@@ -4,7 +4,7 @@
 /// @date    Fri, 29.04.2005
 /// @version $Id$
 ///
-//
+// Variables, methods, and tools for internal time representation
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // Copyright 2001-2010 DLR (http://www.dlr.de/) and contributors
@@ -28,6 +28,9 @@
 #else
 #include <config.h>
 #endif
+
+#include <string>
+#include "UtilExceptions.h"
 
 
 // ===========================================================================
@@ -56,27 +59,36 @@ typedef int SUMOTime;
 
 #else
 
-typedef SUMOReal SUMOTime;
-extern SUMOReal DELTA_T;
+typedef int SUMOTime;
+extern SUMOTime DELTA_T;
+
+#define TS ((SUMOReal) DELTA_T/1000.)
 
 // x*deltaT
-#define SPEED2DIST(x) ((x)*DELTA_T)
+#define SPEED2DIST(x) ((x)*TS)
 // x/deltaT
-#define DIST2SPEED(x) ((x)/DELTA_T)
+#define DIST2SPEED(x) ((x)/TS)
 // x*deltaT*deltaT
-#define ACCEL2DIST(x) ((x)*DELTA_T*DELTA_T)
+#define ACCEL2DIST(x) ((x)*TS*TS)
 // x*deltaT
-#define ACCEL2SPEED(x) ((x)*DELTA_T)
+#define ACCEL2SPEED(x) ((x)*TS)
 // x*deltaT
-#define SPEED2ACCEL(x) ((x)/DELTA_T)
+#define SPEED2ACCEL(x) ((x)/TS)
 // x*deltaT
-#define STEP2TIME(x) ((int) ((x)*DELTA_T))
-#define STEPS2SECONDS(x) ((int) ((x)*DELTA_T))
-#define TIME2STEPS(x) ((int) ((x)/DELTA_T))
-#define TMOD(x,y) (fmod(x,y))
+#define STEP2TIME(x) ((int) ((x)*TS))
+#define STEPS2SECONDS(x) ((int) ((x)*TS))
+#define TIME2STEPS(x) ((int) ((x)/TS))
+#define TMOD(x,y) (x%y) 
+//(fmod(x,y))
 
 #endif
 
+
+// ===========================================================================
+// method declarations
+// ===========================================================================
+SUMOTime string2time(const std::string &r) throw(EmptyData, NumberFormatException);
+std::string time2string(SUMOTime t) throw();
 
 
 #endif

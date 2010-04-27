@@ -124,7 +124,7 @@ NLTriggerBuilder::buildVaporizer(const SUMOSAXAttributes &attrs) throw() {
         MsgHandler::getErrorInstance()->inform("A vaporization ends before it starts (edge id='" + id + "').");
         return;
     }
-    if (end>=OptionsCont::getOptions().getInt("begin")) {
+    if (end>=string2time(OptionsCont::getOptions().getString("begin"))) {
         Command* cb = new WrappingCommand< MSEdge >(e, &MSEdge::incVaporization);
         MSNet::getInstance()->getBeginOfTimestepEvents().addEvent(cb, begin, MSEventControl::ADAPT_AFTER_EXECUTION);
         Command* ce = new WrappingCommand< MSEdge >(e, &MSEdge::decVaporization);

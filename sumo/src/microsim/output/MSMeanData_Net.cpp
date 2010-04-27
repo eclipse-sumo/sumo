@@ -103,7 +103,7 @@ MSMeanData_Net::MSLaneMeanDataValues::isStillActive(MSVehicle& veh, SUMOReal old
         return false;
     }
     bool ret = true;
-    SUMOReal timeOnLane = DELTA_T;
+    SUMOReal timeOnLane = 1.;
     if (oldPos<0&&newSpeed!=0) {
         timeOnLane = (oldPos+SPEED2DIST(newSpeed)) / newSpeed;
     }
@@ -118,11 +118,12 @@ MSMeanData_Net::MSLaneMeanDataValues::isStillActive(MSVehicle& veh, SUMOReal old
     if (timeOnLane==0) {
         return false;
     }
-    sampleSeconds += timeOnLane;
-    travelledDistance += newSpeed * timeOnLane;
-    vehLengthSum += veh.getVehicleType().getLength() * timeOnLane;
+	SUMOReal secondsOnLane = timeOnLane / (1000. / (SUMOReal) DELTA_T);
+    sampleSeconds += secondsOnLane;
+    travelledDistance += newSpeed * secondsOnLane;
+    vehLengthSum += veh.getVehicleType().getLength() * secondsOnLane;
     if (newSpeed<myParent->myHaltSpeed) {
-        waitSeconds += timeOnLane;
+        waitSeconds += secondsOnLane;
     }
     return ret;
 }
@@ -169,8 +170,8 @@ MSMeanData_Net::MSLaneMeanDataValues::write(OutputDevice &dev, const SUMOReal pe
         const SUMOReal numLanes, const SUMOReal length, const int numVehicles) const throw(IOError) {
     if (myParent == 0) {
         if (sampleSeconds > 0) {
-            dev << "\" density=\"" << sampleSeconds / period *(SUMOReal) 1000 / length <<
-            "\" occupancy=\"" << vehLengthSum / period / length / numLanes *(SUMOReal) 100 <<
+            dev << "\" density=\"" << sampleSeconds / (period / 1000.) * (SUMOReal) 1000 / length <<
+            "\" occupancy=\"" << vehLengthSum / (period / 1000.) / length / numLanes *(SUMOReal) 100 <<
             "\" waitingTime=\"" << waitSeconds <<
             "\" speed=\"" << travelledDistance / sampleSeconds;
         }
@@ -192,8 +193,8 @@ MSMeanData_Net::MSLaneMeanDataValues::write(OutputDevice &dev, const SUMOReal pe
             "\" speed=\"" << travelledDistance / sampleSeconds;
         } else {
             dev << "\" traveltime=\"" << traveltime <<
-            "\" density=\"" << sampleSeconds / period *(SUMOReal) 1000 / length <<
-            "\" occupancy=\"" << vehLengthSum / period / length / numLanes *(SUMOReal) 100 <<
+            "\" density=\"" << sampleSeconds / (period / 1000.) *(SUMOReal) 1000 / length <<
+            "\" occupancy=\"" << vehLengthSum / (period / 1000.) / length / numLanes *(SUMOReal) 100 <<
             "\" waitingTime=\"" << waitSeconds <<
             "\" speed=\"" << travelledDistance / sampleSeconds;
         }

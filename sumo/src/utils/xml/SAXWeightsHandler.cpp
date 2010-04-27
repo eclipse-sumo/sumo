@@ -90,8 +90,8 @@ void SAXWeightsHandler::myStartElement(SumoXMLTag element,
     switch (element) {
     case SUMO_TAG_INTERVAL: {
         bool ok = true;
-        myCurrentTimeBeg = attrs.getSUMOTimeReporting(SUMO_ATTR_BEGIN, "weights/interval", 0, ok);
-        myCurrentTimeEnd = attrs.getSUMOTimeReporting(SUMO_ATTR_END, "weights/interval", 0, ok);
+        myCurrentTimeBeg = attrs.getSUMORealReporting(SUMO_ATTR_BEGIN, "weights/interval", 0, ok);
+        myCurrentTimeEnd = attrs.getSUMORealReporting(SUMO_ATTR_END, "weights/interval", 0, ok);
     }
     break;
     case SUMO_TAG_EDGE: {

@@ -69,7 +69,7 @@ public:
     MSPhaseDefinition(SUMOTime durationArg, const std::string &stateArg) throw()
             : duration(durationArg), minDuration(durationArg), maxDuration(durationArg),
             myLastSwitch(0), state(stateArg) {
-        myLastSwitch = OptionsCont::getOptions().getInt("begin"); // SUMOTime-option
+        myLastSwitch = string2time(OptionsCont::getOptions().getString("begin"));
     }
 
 
@@ -84,7 +84,7 @@ public:
                       const std::string &stateArg) throw()
             : duration(durationArg),
             myLastSwitch(0), state(stateArg) {
-        myLastSwitch = OptionsCont::getOptions().getInt("begin"); // SUMOTime-option
+        myLastSwitch = string2time(OptionsCont::getOptions().getString("begin"));
         minDuration = minDurationArg<0 ? durationArg : minDurationArg;
         maxDuration = maxDurationArg<0 ? durationArg : maxDurationArg;
     }

@@ -79,7 +79,7 @@ MSDevice_Routing::insertOptions() throw() {
     oc.doRegister("device.routing.adaptation-weight", new Option_Float(.5));
     oc.addDescription("device.routing.adaptation-weight", "Routing", "The weight of prior edge weights.");
 
-    oc.doRegister("device.routing.adaptation-interval", new Option_Integer(1));
+    oc.doRegister("device.routing.adaptation-interval", new Option_String("1"));
     oc.addDescription("device.routing.adaptation-interval", "Routing", "The interval for updating the edge weights.");
 
     oc.doRegister("device.routing.with-taz", new Option_Bool(false));
@@ -125,7 +125,7 @@ MSDevice_Routing::buildVehicleDevices(MSVehicle &v, std::vector<MSDevice*> &into
             MSNet::getInstance()->getEndOfTimestepEvents().addEvent(
                 myEdgeWeightSettingCommand, 0, MSEventControl::ADAPT_AFTER_EXECUTION);
             myAdaptationWeight = oc.getFloat("device.routing.adaptation-weight");
-            myAdaptationInterval = oc.getInt("device.routing.adaptation-interval");
+            myAdaptationInterval = string2time(oc.getString("device.routing.adaptation-interval"));
         }
         myWithTaz = oc.getBool("device.routing.with-taz");
         if (myWithTaz) {

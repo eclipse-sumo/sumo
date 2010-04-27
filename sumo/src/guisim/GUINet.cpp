@@ -472,9 +472,9 @@ GUINet::getParameterWindow(GUIMainWindow &app,
                 new FunctionBinding<MSVehicleControl, unsigned int>(&getVehicleControl(), &MSVehicleControl::getLoadedVehicleNo));
     ret->mkItem("vehicles waiting [#]", true,
                 new FunctionBinding<MSEmitControl, unsigned int>(&getEmitControl(), &MSEmitControl::getWaitingVehicleNo));
-    ret->mkItem("end time [s]", false, (SUMOTime) OptionsCont::getOptions().getInt("end"));
-    ret->mkItem("begin time [s]", false, (SUMOTime) OptionsCont::getOptions().getInt("begin"));
-    ret->mkItem("time step [s]", true, new FunctionBinding<GUINet, SUMOTime>(this, &GUINet::getCurrentTimeStep));
+    ret->mkItem("end time [s]", false, OptionsCont::getOptions().getString("end"));
+    ret->mkItem("begin time [s]", false, OptionsCont::getOptions().getString("begin"));
+//    ret->mkItem("time step [s]", true, new FunctionBinding<GUINet, SUMOTime>(this, &GUINet::getCurrentTimeStep));
     if (logSimulationDuration()) {
         ret->mkItem("step duration [ms]", true, new FunctionBinding<GUINet, unsigned int>(this, &GUINet::getWholeDuration));
         ret->mkItem("simulation duration [ms]", true, new FunctionBinding<GUINet, unsigned int>(this, &GUINet::getSimDuration));

@@ -210,7 +210,7 @@ RONet::computeRoute(OptionsCont &options, SUMOAbstractRouter<ROEdge,ROVehicle> &
 }
 
 
-void
+SUMOTime
 RONet::saveAndRemoveRoutesUntil(OptionsCont &options, SUMOAbstractRouter<ROEdge,ROVehicle> &router,
                                 SUMOTime time) {
     SUMOTime lastTime = -1;
@@ -221,6 +221,7 @@ RONet::saveAndRemoveRoutesUntil(OptionsCont &options, SUMOAbstractRouter<ROEdge,
         SUMOTime currentTime = veh->getDepartureTime();
         // check whether it shall not yet be computed
         if (currentTime>time) {
+            lastTime = currentTime;
             break;
         }
         // check whether to print the output
@@ -249,6 +250,7 @@ RONet::saveAndRemoveRoutesUntil(OptionsCont &options, SUMOAbstractRouter<ROEdge,
         // and the vehicle
         myVehicles.erase(veh->getID());
     }
+    return lastTime;
 }
 
 

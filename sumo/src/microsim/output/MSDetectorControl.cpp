@@ -227,18 +227,10 @@ void
 MSDetectorControl::writeOutput(SUMOTime step, bool closing) throw(IOError) {
     for (Intervals::iterator i=myIntervals.begin(); i!=myIntervals.end(); ++i) {
         IntervalsKey interval = (*i).first;
-		//initialise myIntervalTimeStep 
-		if (step >1 && myLastCalls[interval]+myIntervalTimestep[interval]== 0){
-			myIntervalTimestep[interval]= (int)(step -myLastCalls[interval]+ 0.5)-1;
-		}
-		if (myLastCalls[interval] != step) {
-			myIntervalTimestep[interval]++;  
-		}
-		if (interval.first/DELTA_T <=  myIntervalTimestep[interval]|| (closing && myIntervalTimestep[interval] >= 1 /DELTA_T)) {
-			myIntervalTimestep[interval] = 0;
+        if (myLastCalls[interval] + interval.first <= step || (closing && myLastCalls[interval] < step)) {
             DetectorFileVec dfVec = (*i).second;
             SUMOTime startTime = myLastCalls[interval];
-            // check whether the output was already generated at the end
+            // check whether at the end the output was already generated
             for (DetectorFileVec::iterator it = dfVec.begin(); it!=dfVec.end(); ++it) {
                 MSDetectorFileOutput* det = it->first;
                 det->writeXMLOutput(*(it->second), startTime, step);
@@ -255,7 +247,7 @@ MSDetectorControl::addDetectorAndInterval(MSDetectorFileOutput* det,
         SUMOTime interval,
         SUMOTime begin) throw() {
     if (begin == -1) {
-        begin = OptionsCont::getOptions().getInt("begin");
+        begin = string2time(OptionsCont::getOptions().getString("begin"));
     }
     IntervalsKey key = std::make_pair(interval, begin);
     Intervals::iterator it = myIntervals.find(key);

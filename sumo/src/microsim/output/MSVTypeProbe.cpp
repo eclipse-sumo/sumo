@@ -57,7 +57,7 @@ void
 MSVTypeProbe::writeXMLOutput(OutputDevice &dev,
                              SUMOTime startTime, SUMOTime) throw(IOError) {
     const std::string indent("    ");
-    dev << indent << "<timestep time=\"" << startTime << "\" id=\"" << getID() << "\" vtype=\"" << myVType << "\">" << "\n";
+    dev << indent << "<timestep time=\"" <<time2string(startTime)<< "\" id=\"" << getID() << "\" vtype=\"" << myVType << "\">" << "\n";
     MSVehicleControl &vc = MSNet::getInstance()->getVehicleControl();
     std::map<std::string, MSVehicle*>::const_iterator it = vc.loadedVehBegin();
     std::map<std::string, MSVehicle*>::const_iterator end = vc.loadedVehEnd();

@@ -82,15 +82,15 @@ Command_SaveTLSSwitches::execute(SUMOTime currentTime) throw(ProcessError) {
                 << "\" subid=\"" << light->getSubID()
                 << "\" fromLane=\"" << currLanes[j]->getID()
                 << "\" toLane=\"" << link->getLane()->getID()
-                << "\" begin=\"" << lastOn
-                << "\" end=\"" << currentTime
-                << "\" duration=\"" << (currentTime-lastOn)
+                << "\" begin=\"" << time2string(lastOn)
+                << "\" end=\"" << time2string(currentTime)
+                << "\" duration=\"" << time2string(currentTime-lastOn)
                 << "\"/>\n";
             }
             myPreviousLinkStates.erase(myPreviousLinkStates.find(i));
         }
     }
-    return 1;
+    return DELTA_T;
 }
 
 

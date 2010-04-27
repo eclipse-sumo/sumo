@@ -143,8 +143,8 @@ GUILoadThread::run() {
             throw ProcessError();
         } else {
             net->initGUIStructures();
-            simStartTime = oc.getInt("begin");
-            simEndTime = oc.getInt("end");
+            simStartTime = string2time(oc.getString("begin"));
+            simEndTime = string2time(oc.getString("end"));
         }
     } catch (ProcessError &e) {
         if (std::string(e.what())!=std::string("Process Error") && std::string(e.what())!=std::string("")) {

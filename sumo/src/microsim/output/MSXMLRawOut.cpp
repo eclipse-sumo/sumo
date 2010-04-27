@@ -50,7 +50,7 @@
 void
 MSXMLRawOut::write(OutputDevice &of, const MSEdgeControl &ec,
                    SUMOTime timestep) throw(IOError) {
-    of.openTag("timestep") << " time=\"" << timestep << "\">\n";
+    of.openTag("timestep") << " time=\"" << time2string(timestep) << "\">\n";
     const std::vector<MSEdge*> &edges = ec.getEdges();
     for (std::vector<MSEdge*>::const_iterator e=edges.begin(); e!=edges.end(); ++e) {
         writeEdge(of, **e);

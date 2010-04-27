@@ -95,7 +95,8 @@ MSLink::setApproaching(MSVehicle *approaching, SUMOTime arrivalTime, SUMOReal sp
     if (i!=myApproachingVehicles.end()) {
         myApproachingVehicles.erase(i);
     }
-    MSJunction::ApproachingVehicleInformation approachInfo(arrivalTime, arrivalTime + getLength() / speed, approaching);
+	SUMOReal leaveTime = arrivalTime + getLength() / speed * 1000.;
+    MSJunction::ApproachingVehicleInformation approachInfo(arrivalTime, leaveTime, approaching);
     myApproachingVehicles.push_back(approachInfo);
 }
 
@@ -149,14 +150,15 @@ MSLink::opened(SUMOTime arrivalTime, SUMOReal arrivalSpeed) const throw() {
     return true;
 }
 
+#define VIEW 3000
 
 bool
 MSLink::blockedAtTime(SUMOTime arrivalTime, SUMOTime leaveTime) const throw() {
     for (std::vector<MSJunction::ApproachingVehicleInformation>::const_iterator i=myApproachingVehicles.begin(); i!=myApproachingVehicles.end(); ++i) {
-        if ((*i).arrivalTime-1.5<=arrivalTime&&(*i).leavingTime+1.5>=arrivalTime) {
+        if ((*i).arrivalTime-VIEW<=arrivalTime&&(*i).leavingTime+VIEW>=arrivalTime) {
             return true;
         }
-        if ((*i).arrivalTime-1.5<=leaveTime&&(*i).leavingTime+1.5>=leaveTime) {
+        if ((*i).arrivalTime-VIEW<=leaveTime&&(*i).leavingTime+VIEW>=leaveTime) {
             return true;
         }
     }

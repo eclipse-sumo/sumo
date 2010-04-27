@@ -76,7 +76,7 @@ SUMOVehicleParserHelper::parseFlowAttributes(const SUMOSAXAttributes &attrs) thr
     // parse repetition information
     if (attrs.hasAttribute(SUMO_ATTR_PERIOD)) {
         ret->setParameter |= VEHPARS_PERIODFREQ_SET;
-        ret->repetitionOffset = attrs.getSUMORealReporting(SUMO_ATTR_PERIOD, "flow", id.c_str(), ok);
+		ret->repetitionOffset = attrs.getSUMOTimeReporting(SUMO_ATTR_PERIOD, "flow", id.c_str(), ok);
     }
     if (attrs.hasAttribute(SUMO_ATTR_VEHSPERHOUR)) {
         ret->setParameter |= VEHPARS_PERIODFREQ_SET;
@@ -86,11 +86,11 @@ SUMOVehicleParserHelper::parseFlowAttributes(const SUMOSAXAttributes &attrs) thr
             throw ProcessError("Invalid repetition rate in the definition of flow '" + id + "'.");
         }
         if (ok && vph != 0) {
-            ret->repetitionOffset = 3600/vph;
+            ret->repetitionOffset = 3600./vph*1000.;
         }
     }
 
-    ret->depart = OptionsCont::getOptions().getInt("begin");
+    ret->depart = string2time(OptionsCont::getOptions().getString("begin"));
     if (attrs.hasAttribute(SUMO_ATTR_BEGIN)) {
         ret->depart = attrs.getSUMOTimeReporting(SUMO_ATTR_BEGIN, "flow", id.c_str(), ok);
     }
@@ -98,7 +98,8 @@ SUMOVehicleParserHelper::parseFlowAttributes(const SUMOSAXAttributes &attrs) thr
         delete ret;
         throw ProcessError("Negative begin time in the definition of flow '" + id + "'.");
     }
-    SUMOTime end = OptionsCont::getOptions().getInt("end");
+    SUMOTime end = string2time(OptionsCont::getOptions().getString("end"));
+if(end<0) end=INT_MAX;
     if (attrs.hasAttribute(SUMO_ATTR_END)) {
         end = attrs.getSUMOTimeReporting(SUMO_ATTR_END, "flow", id.c_str(), ok);
     }
@@ -385,14 +386,6 @@ SUMOVehicleParserHelper::beginVTypeParsing(const SUMOSAXAttributes &attrs) throw
     } else {
         vtype->color = RGBColor(1,1,0);
     }
-    /*
-    if (attrs.hasAttribute(SUMO_ATTR_CAR_FOLLOW_MODEL)) {
-        vtype->cfModel = attrs.getStringReporting(SUMO_ATTR_CAR_FOLLOW_MODEL, "vtype", vtype->id.c_str(), ok);
-    }
-    if (attrs.hasAttribute(SUMO_ATTR_LANE_CHANGE_MODEL)) {
-        vtype->lcModel = attrs.getStringReporting(SUMO_ATTR_LANE_CHANGE_MODEL, "vtype", vtype->id.c_str(), ok);
-    }
-    */
     if (attrs.hasAttribute(SUMO_ATTR_PROB)) {
         vtype->defaultProbability = attrs.getSUMORealReporting(SUMO_ATTR_PROB, "vtype", vtype->id.c_str(), ok);
         vtype->setParameter |= VTYPEPARS_PROBABILITY_SET;

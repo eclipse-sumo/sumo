@@ -79,13 +79,13 @@ MSTriggeredReader::wrappedExecute(SUMOTime current) throw(ProcessError) {
             }
         } else {
             // action could not been accomplished; try next time step
-            return 1;
+            return DELTA_T;
         }
     }
     // come back if the next action shall be executed
     if (myOffset - current<=0) {
         // current is delayed;
-        return 1;
+        return DELTA_T;
     }
     return myOffset - current;
 }

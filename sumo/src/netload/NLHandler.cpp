@@ -750,7 +750,7 @@ NLHandler::initTrafficLightLogic(const SUMOSAXAttributes &attrs) {
         return;
     }
     std::string id = attrs.getStringReporting(SUMO_ATTR_ID, "tl-logic", 0, ok);
-    int offset = attrs.getOptSUMORealReporting(SUMO_ATTR_OFFSET, "tl-logic", id.c_str(), ok, 0);
+    int offset = attrs.getOptSUMOTimeReporting(SUMO_ATTR_OFFSET, "tl-logic", id.c_str(), ok, 0);
     if (!ok) {
         return;
     }
@@ -1120,8 +1120,8 @@ NLHandler::addEdgeMeanData(const SUMOSAXAttributes &attrs) {
     const std::string type = attrs.getOptStringReporting(SUMO_ATTR_TYPE, "meandata_edge", id.c_str(), ok, "performance");
     const std::string vtypes = attrs.getOptStringReporting(SUMO_ATTR_VTYPES, "meandata_edge", id.c_str(), ok, "");
     const SUMOTime frequency = attrs.getOptSUMOTimeReporting(SUMO_ATTR_FREQUENCY, "meandata_edge", id.c_str(), ok, -1);
-    const SUMOTime begin = attrs.getOptSUMOTimeReporting(SUMO_ATTR_BEGIN, "meandata_edge", id.c_str(), ok, OptionsCont::getOptions().getInt("begin"));
-    const SUMOTime end = attrs.getOptSUMOTimeReporting(SUMO_ATTR_END, "meandata_edge", id.c_str(), ok, OptionsCont::getOptions().getInt("end"));
+    const SUMOTime begin = attrs.getOptSUMOTimeReporting(SUMO_ATTR_BEGIN, "meandata_edge", id.c_str(), ok, string2time(OptionsCont::getOptions().getString("begin")));
+    const SUMOTime end = attrs.getOptSUMOTimeReporting(SUMO_ATTR_END, "meandata_edge", id.c_str(), ok, string2time(OptionsCont::getOptions().getString("end")));
     if (!ok) {
         return;
     }
@@ -1156,8 +1156,8 @@ NLHandler::addLaneMeanData(const SUMOSAXAttributes &attrs) {
     const std::string type = attrs.getOptStringReporting(SUMO_ATTR_TYPE, "meandata_lane", id.c_str(), ok, "performance");
     const std::string vtypes = attrs.getOptStringReporting(SUMO_ATTR_VTYPES, "meandata_lane", id.c_str(), ok, "");
     const SUMOTime frequency = attrs.getOptSUMOTimeReporting(SUMO_ATTR_FREQUENCY, "meandata_lane", id.c_str(), ok, -1);
-    const SUMOTime begin = attrs.getOptSUMOTimeReporting(SUMO_ATTR_BEGIN, "meandata_lane", id.c_str(), ok, OptionsCont::getOptions().getInt("begin"));
-    const SUMOTime end = attrs.getOptSUMOTimeReporting(SUMO_ATTR_END, "meandata_lane", id.c_str(), ok, OptionsCont::getOptions().getInt("end"));
+    const SUMOTime begin = attrs.getOptSUMOTimeReporting(SUMO_ATTR_BEGIN, "meandata_lane", id.c_str(), ok, string2time(OptionsCont::getOptions().getString("begin")));
+    const SUMOTime end = attrs.getOptSUMOTimeReporting(SUMO_ATTR_END, "meandata_lane", id.c_str(), ok, string2time(OptionsCont::getOptions().getString("end")));
     if (!ok) {
         return;
     }
@@ -1361,7 +1361,7 @@ void
 NLHandler::setOffset(const std::string &chars) {
     // @deprecated: assuming a net could still use characters for the offset
     try {
-        myJunctionControlBuilder.setOffset(TplConvertSec<char>::_2intSec(chars.c_str(), 0));
+        myJunctionControlBuilder.setOffset(string2time(chars));
     } catch (NumberFormatException &) {
         MsgHandler::getErrorInstance()->inform("The offset for a junction is not numeric.");
     } catch (EmptyData &) {

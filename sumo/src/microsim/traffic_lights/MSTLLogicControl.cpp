@@ -737,7 +737,7 @@ MSTLLogicControl::addWAUTSwitch(const std::string &wautid,
     // build and save the waut switch definition
     WAUTSwitch s;
     s.to = to;
-    s.when = (SUMOTime) TMOD((myWAUTs[wautid]->refTime + when),86400);
+    s.when = (SUMOTime) TMOD((myWAUTs[wautid]->refTime + when),86400000);
     myWAUTs[wautid]->switches.push_back(s);
 }
 

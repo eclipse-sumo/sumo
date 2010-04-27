@@ -257,7 +257,26 @@ SUMOTime
 SUMOSAXAttributes::getSUMOTimeReporting(SumoXMLAttr attr, const char *objecttype, const char *objectid,
                                         bool &ok, bool report) const throw() {
 #ifdef HAVE_SUBSECOND_TIMESTEPS
-    return getSUMORealReporting(attr, objecttype, objectid, ok, report);
+    if (!hasAttribute(attr)) {
+        if (report) {
+            emitUngivenError(getName(attr), objecttype, objectid);
+        }
+        ok = false;
+        return -1;
+    }
+    try {
+        return (SUMOTime) (getFloat(attr) * 1000.);
+    } catch (NumberFormatException &) {
+        if (report) {
+            emitFormatError(getName(attr), "a time value", objecttype, objectid);
+        }
+    } catch (EmptyData &) {
+        if (report) {
+            emitEmptyError(getName(attr), objecttype, objectid);
+        }
+    }
+    ok = false;
+    return (SUMOTime) -1;
 #else
     return getIntReporting(attr, objecttype, objectid, ok, report);
 #endif
@@ -268,7 +287,22 @@ SUMOTime
 SUMOSAXAttributes::getOptSUMOTimeReporting(SumoXMLAttr attr, const char *objecttype, const char *objectid,
         bool &ok, SUMOTime defaultValue, bool report) const throw() {
 #ifdef HAVE_SUBSECOND_TIMESTEPS
-    return getOptSUMORealReporting(attr, objecttype, objectid, ok, defaultValue, report);
+    if (!hasAttribute(attr)) {
+        return defaultValue;
+    }
+    try {
+        return (SUMOTime) (getFloat(attr)*1000.);
+    } catch (NumberFormatException &) {
+        if (report) {
+            emitFormatError(getName(attr), "a real number", objecttype, objectid);
+        }
+    } catch (EmptyData &) {
+        if (report) {
+            emitEmptyError(getName(attr), objecttype, objectid);
+        }
+    }
+    ok = false;
+    return (SUMOTime) -1;
 #else
     return getOptIntReporting(attr, objecttype, objectid, ok, defaultValue, report);
 #endif

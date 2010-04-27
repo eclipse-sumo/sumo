@@ -157,7 +157,7 @@ MSNet::MSNet(MSVehicleControl *vc, MSEventControl *beginOfTimestepEvents,
     }
     MSCORN::init();
     OptionsCont &oc = OptionsCont::getOptions();
-    myStep = (SUMOTime) oc.getInt("begin"); // !!! SUMOTime-option
+    myStep = string2time(oc.getString("begin"));
     myLogExecutionTime = !oc.getBool("no-duration-log");
     myLogStepNumber = !oc.getBool("no-step-log");
     myTooManyVehicles = oc.getInt("too-many-vehicles");
@@ -425,15 +425,15 @@ MSNet::simulationState(SUMOTime stopTime) const throw() {
     if (traci::TraCIServer::wasClosed()) {
         return SIMSTATE_CONNECTION_CLOSED;
     }
-    if (stopTime == INT_MAX && OptionsCont::getOptions().getInt("remote-port") == 0 && myVehicleControl->haveAllVehiclesQuit() && !myEmitter->hasPendingFlows()) {
+    if (stopTime < 0 && OptionsCont::getOptions().getInt("remote-port") == 0 && myVehicleControl->haveAllVehiclesQuit() && !myEmitter->hasPendingFlows()) {
 #else
-    if (stopTime == INT_MAX && myVehicleControl->haveAllVehiclesQuit() && !myEmitter->hasPendingFlows()) {
+    if (stopTime < 0 && myVehicleControl->haveAllVehiclesQuit() && !myEmitter->hasPendingFlows()) {
 #endif
         if (myEmissionEvents->isEmpty()) {
             return SIMSTATE_NO_FURTHER_VEHICLES;
         }
     }
-    if (myStep >= stopTime) {
+    if (stopTime >= 0 && myStep >= stopTime) {
         return SIMSTATE_END_STEP_REACHED;
     }
     return SIMSTATE_RUNNING;
@@ -487,15 +487,17 @@ MSNet::writeOutput() {
     }
     // emission output
     if (OptionsCont::getOptions().isSet("emissions-output")) {
+        std::string wt = myVehicleControl->getMeanWaitingTime() ? "-1" : time2string(myVehicleControl->getMeanWaitingTime());
+        std::string tt = myVehicleControl->getMeanTravelTime()<0 ? "-1" : time2string(myVehicleControl->getMeanTravelTime());
         OutputDevice::getDeviceByOption("emissions-output")
-        << "    <emission-state time=\"" << myStep << "\" "
+        << "    <emission-state time=\"" << time2string(myStep) << "\" "
         << "loaded=\"" << myVehicleControl->getLoadedVehicleNo() << "\" "
         << "emitted=\"" << myVehicleControl->getEmittedVehicleNo() << "\" "
         << "running=\"" << myVehicleControl->getRunningVehicleNo() << "\" "
         << "waiting=\"" << myEmitter->getWaitingVehicleNo() << "\" "
         << "ended=\"" << myVehicleControl->getEndedVehicleNo() << "\" "
-        << "meanWaitingTime=\"" << myVehicleControl->getMeanWaitingTime() << "\" "
-        << "meanTravelTime=\"" << myVehicleControl->getMeanTravelTime() << "\" ";
+        << "meanWaitingTime=\"" << wt << "\" "
+        << "meanTravelTime=\"" << tt << "\" ";
         if (myLogExecutionTime) {
             OutputDevice::getDeviceByOption("emissions-output")
             << "duration=\"" << mySimStepDuration << "\" ";
@@ -579,7 +581,7 @@ MSNet::getWeightsStorage() throw() {
 void
 MSNet::preSimStepOutput() const throw() {
     std::cout << std::setprecision(OUTPUT_ACCURACY);
-    std::cout << "Step #" << myStep;
+    std::cout << "Step #" << time2string(myStep);
 }
 
 
@@ -603,7 +605,7 @@ MSNet::postSimStepOutput() const throw() {
         << " ACT " << myVehicleControl->getRunningVehicleNo()
         << ")                                              ";
         msg = oss.str();
-        std::string prev = "Step #" + toString(myStep-DELTA_T);
+        std::string prev = "Step #" + time2string(myStep-DELTA_T);
         msg = msg.substr(0, 78 - prev.length());
         std::cout << msg;
     }

@@ -68,8 +68,8 @@ TraCIHandler::openVehicleTag(const SUMOSAXAttributes& attributes) {
     int period;
     int depart;
     OptionsCont& optCont = OptionsCont::getOptions();
-    int simStart = optCont.getInt("begin");
-    int simEnd = optCont.getInt("end");
+    int simStart = string2time(optCont.getString("begin"));
+    int simEnd = string2time(optCont.getString("end"));
 
     // every found vehicle tag counts for one vehicle
     currentVehCount = 1;

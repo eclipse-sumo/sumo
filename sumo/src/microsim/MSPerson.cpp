@@ -91,7 +91,7 @@ MSPerson::MSPersonStage_Walking::MSPersonStage_Walking(MSEdgeVector route, SUMOT
         for (MSEdgeVector::const_iterator it = route.begin(); it != route.end(); ++it) {
             time += ((*it)->getLanes())[0]->getLength() * speed;
         }
-        myWalkingTime = MAX2(walkingTime, (SUMOTime)time);
+        myWalkingTime = MAX2(walkingTime, (SUMOTime)time) * 1000.;
     }
 }
 
@@ -110,7 +110,7 @@ MSPerson::MSPersonStage_Walking::proceed(MSNet* net,
 void
 MSPerson::MSPersonStage_Walking::tripInfoOutput(OutputDevice &os) const throw(IOError) {
     (os.openTag("walk") <<
-     " arrival=\"" << myArrived <<
+     " arrival=\"" << time2string(myArrived) <<
      "\"").closeTag(true);
 }
 
@@ -153,8 +153,8 @@ MSPerson::MSPersonStage_Driving::isWaitingFor(const std::string &line) const {
 void
 MSPerson::MSPersonStage_Driving::tripInfoOutput(OutputDevice &os) const throw(IOError) {
     (os.openTag("ride") <<
-     " depart=\"" << myDeparted <<
-     "\" arrival=\"" << myArrived <<
+     " depart=\"" << time2string(myDeparted) <<
+     "\" arrival=\"" << time2string(myArrived) <<
      "\"").closeTag(true);
 }
 
@@ -182,7 +182,7 @@ MSPerson::MSPersonStage_Waiting::proceed(MSNet* net,
 void
 MSPerson::MSPersonStage_Waiting::tripInfoOutput(OutputDevice &os) const throw(IOError) {
     (os.openTag("stop") <<
-     " arrival=\"" << myArrived <<
+     " arrival=\"" << time2string(myArrived) <<
      "\"").closeTag(true);
 }
 

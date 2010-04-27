@@ -137,7 +137,7 @@ MSDevice_HBEFA::wrappedComputeCommandExecute(SUMOTime currentTime) throw(Process
     myPMx += HelpersHBEFA::computePMx(c, v, a);
     myNOx += HelpersHBEFA::computeNOx(c, v, a);
     myFuel += HelpersHBEFA::computeFuel(c, v, a);
-    return 1;
+    return DELTA_T;
 }
 
 

@@ -89,7 +89,7 @@ public:
      * @see MSTrafficLightLogic::trySwitch
      */
     SUMOTime trySwitch(bool isActive) throw() {
-        return 120;
+        return 120*DELTA_T;
     }
 
 

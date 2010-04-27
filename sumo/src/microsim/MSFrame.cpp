@@ -136,14 +136,14 @@ MSFrame::fillOptions() {
 #endif
 
     // register the simulation settings
-    oc.doRegister("begin", 'b', new Option_Integer(0));
+    oc.doRegister("begin", 'b', new Option_String("0", "TIME"));
     oc.addDescription("begin", "Time", "Defines the begin time; The simulation starts at this time");
 
-    oc.doRegister("end", 'e', new Option_Integer(INT_MAX));
+    oc.doRegister("end", 'e', new Option_String("-1", "TIME"));
     oc.addDescription("end", "Time", "Defines the end time; The simulation ends at this time");
 
 #ifdef HAVE_SUBSECOND_TIMESTEPS
-    oc.doRegister("step-length", new Option_Float((SUMOReal) 1.));
+    oc.doRegister("step-length", new Option_String("1", "TIME"));
     oc.addDescription("step-length", "Time", "Defines the step duration");
 #endif
 
@@ -168,7 +168,7 @@ MSFrame::fillOptions() {
     oc.doRegister("incremental-dua-base", new Option_Integer(10));//!!! check, describe
     oc.addDescription("incremental-dua-base", "Processing", "Base value for incremental DUA");
 
-    oc.doRegister("time-to-teleport", new Option_Integer(300));
+    oc.doRegister("time-to-teleport", new Option_String("300", "TIME"));
     oc.addDescription("time-to-teleport", "Processing", "Specify how long a vehicle may wait until being teleported");
 
     oc.doRegister("max-depart-delay", new Option_Integer(-1));
@@ -320,7 +320,7 @@ MSFrame::setMSGlobals(OptionsCont &oc) {
     MSGlobals::gUsingInternalLanes = false;
 #endif
     // set the grid lock time
-    MSGlobals::gTimeToGridlock = oc.getInt("time-to-teleport")<0 ? 0 : oc.getInt("time-to-teleport");
+    MSGlobals::gTimeToGridlock = string2time(oc.getString("time-to-teleport"))<0 ? 0 : string2time(oc.getString("time-to-teleport"));
     //
     MSGlobals::gCheck4Accidents = !oc.getBool("ignore-accidents");
 #ifdef HAVE_MESOSIM
@@ -328,7 +328,7 @@ MSFrame::setMSGlobals(OptionsCont &oc) {
 #endif
     //
 #ifdef HAVE_SUBSECOND_TIMESTEPS
-    DELTA_T = oc.getFloat("step-length");
+    DELTA_T = string2time(oc.getString("step-length"));
 #endif
     //
 #ifdef HAVE_MESOSIM

@@ -67,7 +67,7 @@ SUMOVehicleParameter::writeAs(const std::string &xmlElem, OutputDevice &dev,
     if (wasSet(VEHPARS_VTYPE_SET)) {
         dev << " type=\"" << vtypeid << "\"";
     }
-    dev << " depart=\"" << depart << "\"";
+    dev << " depart=\"" << time2string(depart) << "\"";
 
     // optional parameter
     //  departlane

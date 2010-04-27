@@ -90,7 +90,7 @@ MSMeanData_HBEFA::MSLaneMeanDataValues::isStillActive(MSVehicle& veh, SUMOReal o
         return false;
     }
     bool ret = true;
-    SUMOReal timeOnLane = DELTA_T;
+    SUMOReal timeOnLane = 1.;
     if (oldPos<0&&newSpeed!=0) {
         timeOnLane = (oldPos+SPEED2DIST(newSpeed)) / newSpeed;
     }
@@ -105,15 +105,16 @@ MSMeanData_HBEFA::MSLaneMeanDataValues::isStillActive(MSVehicle& veh, SUMOReal o
     if (timeOnLane==0) {
         return false;
     }
-    sampleSeconds += timeOnLane;
-    travelledDistance += newSpeed * timeOnLane;
+	SUMOReal secondsOnLane = timeOnLane / (1000. / (SUMOReal) DELTA_T);
+    sampleSeconds += secondsOnLane;
+    travelledDistance += newSpeed * secondsOnLane;
     SUMOReal a = veh.getPreDawdleAcceleration();
-    CO += (timeOnLane * HelpersHBEFA::computeCO(veh.getVehicleType().getEmissionClass(), (double) newSpeed, (double) a));
-    CO2 += (timeOnLane * HelpersHBEFA::computeCO2(veh.getVehicleType().getEmissionClass(), (double) newSpeed, (double) a));
-    HC += (timeOnLane * HelpersHBEFA::computeHC(veh.getVehicleType().getEmissionClass(), (double) newSpeed, (double) a));
-    NOx += (timeOnLane * HelpersHBEFA::computeNOx(veh.getVehicleType().getEmissionClass(), (double) newSpeed, (double) a));
-    PMx += (timeOnLane * HelpersHBEFA::computePMx(veh.getVehicleType().getEmissionClass(), (double) newSpeed, (double) a));
-    fuel += (timeOnLane * HelpersHBEFA::computeFuel(veh.getVehicleType().getEmissionClass(), (double) newSpeed, (double) a));
+    CO += (secondsOnLane * HelpersHBEFA::computeCO(veh.getVehicleType().getEmissionClass(), (double) newSpeed, (double) a));
+    CO2 += (secondsOnLane * HelpersHBEFA::computeCO2(veh.getVehicleType().getEmissionClass(), (double) newSpeed, (double) a));
+    HC += (secondsOnLane * HelpersHBEFA::computeHC(veh.getVehicleType().getEmissionClass(), (double) newSpeed, (double) a));
+    NOx += (secondsOnLane * HelpersHBEFA::computeNOx(veh.getVehicleType().getEmissionClass(), (double) newSpeed, (double) a));
+    PMx += (secondsOnLane * HelpersHBEFA::computePMx(veh.getVehicleType().getEmissionClass(), (double) newSpeed, (double) a));
+    fuel += (secondsOnLane * HelpersHBEFA::computeFuel(veh.getVehicleType().getEmissionClass(), (double) newSpeed, (double) a));
     return ret;
 }
 
@@ -122,7 +123,7 @@ void
 MSMeanData_HBEFA::MSLaneMeanDataValues::write(OutputDevice &dev, const SUMOReal period,
         const SUMOReal numLanes, const SUMOReal length, const int numVehicles) const throw(IOError) {
     dev<<std::resetiosflags(std::ios::floatfield);
-    const SUMOReal normFactor = SUMOReal(3600. * 1000. / period / length);
+    const SUMOReal normFactor = SUMOReal(3600. * 1000. / (period / 1000.) / length);
     dev << "\" CO_abs=\""<<SUMOReal(CO*1000.) <<
     "\" CO2_abs=\""<<SUMOReal(CO2*1000.) <<
     "\" HC_abs=\""<<SUMOReal(HC*1000.) <<

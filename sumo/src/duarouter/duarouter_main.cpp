@@ -142,11 +142,11 @@ computeRoutes(RONet &net, ROLoader &loader, OptionsCont &oc) {
     try {
         // the routes are sorted - process stepwise
         if (!oc.getBool("unsorted")) {
-            loader.processRoutesStepWise(oc.getInt("begin"), oc.getInt("end"), net, *router);
+            loader.processRoutesStepWise(string2time(oc.getString("begin")), string2time(oc.getString("end")), net, *router);
         }
         // the routes are not sorted: load all and process
         else {
-            loader.processAllRoutes(oc.getInt("begin"), oc.getInt("end"), net, *router);
+            loader.processAllRoutes(string2time(oc.getString("begin")), string2time(oc.getString("end")), net, *router);
         }
         // end the processing
         net.closeOutput();

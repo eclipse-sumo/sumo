@@ -72,7 +72,7 @@ RORDGenerator_ODAmounts::FlowDef::FlowDef(ROVehicle *vehicle,
         SUMOTime period = myIntervalEnd - myIntervalBegin;
         myDepartures.reserve(myVehicle2EmitNumber);
         for (size_t i=0; i<myVehicle2EmitNumber; ++i) {
-            SUMOTime departure = RandHelper::rand(period);
+            SUMOTime departure = ((int) (RandHelper::rand(period) / DELTA_T)) * DELTA_T;
             myDepartures.push_back(departure);
         }
         sort(myDepartures.begin(), myDepartures.end());
@@ -97,20 +97,17 @@ RORDGenerator_ODAmounts::FlowDef::addRoutes(RONet &net, SUMOTime t) {
     assert(myIntervalBegin<=t&&myIntervalEnd>=t);
     //
     if (!myRandom) {
-        unsigned int absPerEachStep = myVehicle2EmitNumber / (myIntervalEnd-myIntervalBegin);
+        unsigned int absPerEachStep = myVehicle2EmitNumber / ((myIntervalEnd-myIntervalBegin) / DELTA_T);
         for (unsigned int i=0; i<absPerEachStep; i++) {
             addSingleRoute(net, t);
         }
         // fraction
-        SUMOReal toEmit =
-            (SUMOReal) myVehicle2EmitNumber
-            / (SUMOReal)(myIntervalEnd-myIntervalBegin)
-            * (SUMOReal)(t-myIntervalBegin+.5);
+        SUMOReal toEmit = (SUMOReal) myVehicle2EmitNumber / (SUMOReal)(myIntervalEnd-myIntervalBegin) * (SUMOReal)(t-myIntervalBegin+(SUMOReal)DELTA_T/2.);
         if (toEmit>myEmitted) {
             addSingleRoute(net, t);
         }
     } else {
-        while (myDepartures.size()>0&&*(myDepartures.end()-1)<t) {
+        while (myDepartures.size()>0&&*(myDepartures.end()-1)<t+DELTA_T) {
             addSingleRoute(net, t);
             myDepartures.pop_back();
         }
@@ -176,7 +173,7 @@ RORDGenerator_ODAmounts::readRoutesAtLeastUntil(SUMOTime until, bool skipping) t
 void
 RORDGenerator_ODAmounts::buildRoutes(SUMOTime until) throw() {
     SUMOTime t;
-    for (t=myDepartureTime; t<until+1; t++) {
+    for (t=myDepartureTime; t<until+1; t+=DELTA_T) {
         buildForTimeStep(t);
     }
     myDepartureTime = t;

@@ -207,7 +207,7 @@ MSEmitter::MSEmitter_FileTriggeredChild::myStartElement(SumoXMLTag element,
             pars->id = "";
         }
         if (pars->id=="") {
-            pars->id = myParent.getID() +  "_" + toString(pars->depart) +  "_" + toString(myRunningID++);
+            pars->id = myParent.getID() +  "_" + time2string(pars->depart) +  "_" + toString(myRunningID++);
             if (myVehicleControl.getVehicle(pars->id)!=0) {
                 WRITE_WARNING("MSTriggeredSource " + myParent.getID()+ ": Vehicle " + pars->id + " already exists.\n Continuing with next element.");
                 delete pars;

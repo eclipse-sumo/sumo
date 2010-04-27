@@ -159,9 +159,9 @@ ROLoader::openRoutes(RONet &net) {
     if (ok&&!myOptions.getBool("unsorted")) {
         MsgHandler::getMessageInstance()->inform("Skipping...");
         for (RouteLoaderCont::iterator i=myHandler.begin(); ok&&i!=myHandler.end(); i++) {
-            ok &= (*i)->readRoutesAtLeastUntil(myOptions.getInt("begin"), true);
+            ok &= (*i)->readRoutesAtLeastUntil(string2time(myOptions.getString("begin")), true);
         }
-        MsgHandler::getMessageInstance()->inform("Skipped until: " + toString<SUMOTime>(getMinTimeStep()));
+        MsgHandler::getMessageInstance()->inform("Skipped until: " + time2string(getMinTimeStep()));
     }
     // check whether everything's ok
     if (!ok) {
@@ -183,7 +183,7 @@ ROLoader::processRoutesStepWise(SUMOTime start, SUMOTime end,
     SUMOTime time = myHandler.size()!=0 ? getMinTimeStep() : start;
     SUMOTime firstStep = time;
     SUMOTime lastStep = time;
-    for (; time<end&&!errorOccured&&!endReached; time++) {
+    for (; time<end&&!errorOccured&&!endReached; time+=DELTA_T) {
         writeStats(time, start, absNo);
         makeSingleStep(time, net, router);
         // check whether further data exist
@@ -194,12 +194,9 @@ ROLoader::processRoutesStepWise(SUMOTime start, SUMOTime end,
                 endReached = false;
             }
         }
-        errorOccured =
-            MsgHandler::getErrorInstance()->wasInformed()
-            &&
-            !myOptions.getBool("continue-on-unbuild");
+        errorOccured = MsgHandler::getErrorInstance()->wasInformed() && !myOptions.getBool("continue-on-unbuild");
     }
-    MsgHandler::getMessageInstance()->inform("Routes found between time steps " + toString<int>(firstStep) + " and " + toString<int>(lastStep) + ".");
+    MsgHandler::getMessageInstance()->inform("Routes found between time steps " + time2string(firstStep) + " and " + time2string(lastStep) + ".");
 }
 
 
@@ -249,9 +246,12 @@ ROLoader::processAllRoutes(SUMOTime start, SUMOTime end,
     }
     // save the routes
     SUMOTime time = start;
-    for (; time<end; time++) {
+    for (; time<end; ) {
         writeStats(time, start, absNo);
-        net.saveAndRemoveRoutesUntil(myOptions, router, time);
+        time = net.saveAndRemoveRoutesUntil(myOptions, router, time);
+        if(time<0) {
+            time = end;
+        }
     }
 }
 
@@ -298,26 +298,26 @@ ROLoader::buildNamedHandler(const std::string &optionName,
                             RONet &net) throw(ProcessError) {
     if (optionName=="sumo-input") {
         return new RORDLoader_SUMOBase(net,
-                                       myOptions.getInt("begin"), myOptions.getInt("end"),
+                                       string2time(myOptions.getString("begin")), string2time(myOptions.getString("end")),
                                        myOptions.getFloat("gBeta"), myOptions.getFloat("gA"),
                                        myOptions.getInt("max-alternatives"), myOptions.getBool("repair"),
                                        myOptions.getBool("with-taz"), file);
     }
     if (optionName=="trip-defs") {
         return new RORDLoader_TripDefs(net,
-                                       myOptions.getInt("begin"), myOptions.getInt("end"),
+                                       string2time(myOptions.getString("begin")), string2time(myOptions.getString("end")),
                                        myEmptyDestinationsAllowed, myOptions.getBool("with-taz"), file);
     }
     if (optionName=="alternatives") {
         return new RORDLoader_SUMOBase(net,
-                                       myOptions.getInt("begin"), myOptions.getInt("end"),
+                                       string2time(myOptions.getString("begin")), string2time(myOptions.getString("end")),
                                        myOptions.getFloat("gBeta"), myOptions.getFloat("gA"),
                                        myOptions.getInt("max-alternatives"), myOptions.getBool("repair"),
                                        myOptions.getBool("with-taz"), file);
     }
     if (optionName=="flows") {
         return new RORDGenerator_ODAmounts(net,
-                                           myOptions.getInt("begin"), myOptions.getInt("end"),
+                                           string2time(myOptions.getString("begin")), string2time(myOptions.getString("end")),
                                            myEmptyDestinationsAllowed, myOptions.getBool("randomize-flows"), file);
     }
     return 0;
@@ -374,10 +374,9 @@ ROLoader::writeStats(SUMOTime time, SUMOTime start, int absNo) throw() {
         std::cout.setf(std::ios::fixed, std::ios::floatfield); // use decimal format
         std::cout.setf(std::ios::showpoint); // print decimal point
         std::cout << std::setprecision(OUTPUT_ACCURACY);
-        MsgHandler::getMessageInstance()->progressMsg("Reading time step: " + toString(time) + "  (" + toString(time-start) + "/" + toString(absNo) + " = " + toString(perc * 100) + "% done)       ");
+        MsgHandler::getMessageInstance()->progressMsg("Reading time step: " + time2string(time) + "  (" + time2string(time-start) + "/" + time2string(absNo) + " = " + toString(perc * 100) + "% done)       ");
     }
 }
-
 
 
 void

@@ -95,12 +95,12 @@ MSRouteProbe::writeXMLOutput(OutputDevice &dev,
                              SUMOTime startTime, SUMOTime stopTime) throw(IOError) {
     if (myCurrentRouteDistribution->getOverallProb() > 0) {
         const std::string indent("    ");
-        dev << indent << "<routeDistribution id=\"" << getID() + "_" + toString(startTime) << "\">\n";
+        dev << indent << "<routeDistribution id=\"" << getID() + "_" + time2string(startTime) << "\">\n";
         const std::vector<const MSRoute*> &routes = myCurrentRouteDistribution->getVals();
         const std::vector<SUMOReal> &probs = myCurrentRouteDistribution->getProbs();
         for (unsigned int j=0; j<routes.size(); ++j) {
             const MSRoute *r = routes[j];
-            dev << indent << indent << "<route id=\"" << r->getID() << "_" << startTime << "\" edges=\"";
+            dev << indent << indent << "<route id=\"" << r->getID() << "_" <<time2string(startTime)<< "\" edges=\"";
             MSRouteIterator i = r->begin();
             for (; i!=r->end(); ++i) {
                 const MSEdge *e = *i;

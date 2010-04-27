@@ -723,7 +723,7 @@ MSVehicle::processNextStop(SUMOReal currentVelocity) throw() {
             // continue as wished...
         } else {
             // we have to wait some more time
-            myStops.begin()->duration--;
+            myStops.begin()->duration -= DELTA_T;
             return 0;
         }
     } else {
@@ -1753,7 +1753,7 @@ MSVehicle::writeXMLRoute(OutputDevice &os, int index) const {
         // write edge on which the vehicle was when the route was valid
         os << " replacedOnEdge=\"" << (*v)[index].edge->getID();
         // write the time at which the route was replaced
-        os << "\" replacedAtTime=\"" << (*v)[index].time << "\" probability=\"0\" edges=\"";
+        os << "\" replacedAtTime=\"" << time2string((*v)[index].time) << "\" probability=\"0\" edges=\"";
         // get the route
         for (int i=0; i<index; ++i) {
             (*v)[i].route->writeEdgeIDs(os, (*v)[i].edge);
@@ -1779,7 +1779,7 @@ MSVehicle::writeXMLRoute(OutputDevice &os, int index) const {
                 if (it != exits->begin()) {
                     os << " ";
                 }
-                os << (*it);
+                os << time2string(*it);
             }
         }
     }

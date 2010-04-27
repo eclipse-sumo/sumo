@@ -74,10 +74,10 @@ ROFrame::fillOptions(OptionsCont &oc) {
     oc.addDescription("measure", "Input", "Name of the xml attribute which gives the edge weight");
 
     // register the time settings
-    oc.doRegister("begin", 'b', new Option_Integer(0));
+    oc.doRegister("begin", 'b', new Option_String("0", "TIME"));
     oc.addDescription("begin", "Time", "Defines the begin time; Previous trips will be discarded");
 
-    oc.doRegister("end", 'e', new Option_Integer(86400));
+    oc.doRegister("end", 'e', new Option_String("86400", "TIME"));
     oc.addDescription("end", "Time", "Defines the end time; Later trips will be discarded");
 
 

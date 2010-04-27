@@ -214,7 +214,7 @@ MSMsgInductLoop::writeXMLOutput(OutputDevice &dev,
                           : -1;
     //dev<<"   <interval begin=\""<<startTime<<"\" end=\""<<
     //stopTime<<"\" "<<"id=\""<<getID()<<"\" ";
-    dev << "   <message timestep=\"" << startTime <<"\" "<<"vID=\""<<myCurrentID<<"\" ";//<<getID()<<"\" ";
+    dev << "   <message timestep=\"" <<time2string(startTime)<<"\" "<<"vID=\""<<myCurrentID<<"\" ";//<<getID()<<"\" ";
     dev<<"nVehContrib=\""<<myVehicleDataCont.size()<<"\" flow=\""<<flow<<
     "\" occupancy=\""<<occupancy<<"\" speed=\""<<meanSpeed<<
     "\" length=\""<<meanLength<<

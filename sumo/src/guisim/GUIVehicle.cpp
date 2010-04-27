@@ -262,13 +262,13 @@ GUIVehicle::getParameterWindow(GUIMainWindow &app,
         ret->mkItem("left same route [#]", false, (unsigned int) getParameter().repetitionNumber);
     }
     if (getParameter().repetitionOffset>0) {
-        ret->mkItem("emission period [s]", false, (SUMOTime) getParameter().repetitionOffset);
+        ret->mkItem("emission period [s]", false, time2string(getParameter().repetitionOffset));
     }
     ret->mkItem("waiting time [s]", true,
                 new FunctionBinding<GUIVehicle, SUMOReal>(this, &MSVehicle::getWaitingTime));
     ret->mkItem("last lane change [s]", true,
                 new FunctionBinding<GUIVehicle, SUMOReal>(this, &GUIVehicle::getLastLaneChangeOffset));
-    ret->mkItem("desired depart [s]", false, getDesiredDepart());
+    ret->mkItem("desired depart [s]", false, time2string(getDesiredDepart()));
     ret->mkItem("position [m]", true,
                 new FunctionBinding<GUIVehicle, SUMOReal>(this, &GUIVehicle::getPositionOnLane));
     ret->mkItem("speed [m/s]", true,

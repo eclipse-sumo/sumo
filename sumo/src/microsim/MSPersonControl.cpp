@@ -72,15 +72,15 @@ MSPersonControl::erase(MSPerson *person) {
     if (MSCORN::wished(MSCORN::CORN_OUT_TRIPDURATIONS)) {
         OutputDevice& od = OutputDevice::getDeviceByOption("tripinfo-output");
         od.openTag("personinfo") << " id=\"" << id << "\" ";
-        od << "depart=\"" << person->getDesiredDepart() << "\">\n";
+        od << "depart=\"" << time2string(person->getDesiredDepart()) << "\">\n";
         person->tripInfoOutput(od);
         od.closeTag();
     }
     if (MSCORN::wished(MSCORN::CORN_OUT_VEHROUTES)) {
         OutputDevice& od = OutputDevice::getDeviceByOption("vehroute-output");
         od.openTag("person") << " id=\"" << id
-        << "\" depart=\"" << person->getDesiredDepart()
-        << "\" arrival=\"" << (SUMOTime) MSNet::getInstance()->getCurrentTimeStep()
+        << "\" depart=\"" << time2string(person->getDesiredDepart())
+        << "\" arrival=\"" << time2string(MSNet::getInstance()->getCurrentTimeStep())
         << "\">\n";
         od.closeTag();
         od << "\n";
@@ -93,7 +93,7 @@ MSPersonControl::erase(MSPerson *person) {
 
 void
 MSPersonControl::setArrival(const SUMOTime time, MSPerson *person) {
-    const SUMOTime step = ceil(time / DELTA_T) * DELTA_T;
+    const SUMOTime step = ceil((double) (time / DELTA_T)) * DELTA_T;
     if (myArrivals.find(step)==myArrivals.end()) {
         myArrivals[step] = PersonVector();
     }
