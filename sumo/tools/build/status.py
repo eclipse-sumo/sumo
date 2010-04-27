@@ -18,7 +18,7 @@ def printStatus(makeLog, makeAllLog, textTestTmp, smtpServer, out):
         if ("svn: Working copy" in l and "locked" in l) or "svn: Failed" in l:
             svnLocked = True
             failed += l
-        if "warning " in l.lower():
+        if "warning " in l.lower() or "warnung" in l.lower():
             warnings += 1
         if "error " in l.lower():
             errors += 1
@@ -43,7 +43,7 @@ def printStatus(makeLog, makeAllLog, textTestTmp, smtpServer, out):
     warnings = 0
     errors = 0
     for l in file(makeAllLog):
-        if "warning " in l.lower():
+        if "warning " in l.lower() or "warnung" in l.lower():
             warnings += 1
         if "error " in l.lower():
             errors += 1
@@ -56,7 +56,7 @@ def printStatus(makeLog, makeAllLog, textTestTmp, smtpServer, out):
     
     if failed:
         fromAddr = "michael.behrisch@dlr.de"
-        toAddr = "michael.behrisch@dlr.de,daniel.krajzewicz@dlr.de"
+        toAddr = "michael.behrisch@dlr.de,daniel.krajzewicz@dlr.de,laura.bieker@dlr.de"
         message = """From: "%s" <%s>
 To: %s
 Subject: Error occurred while building

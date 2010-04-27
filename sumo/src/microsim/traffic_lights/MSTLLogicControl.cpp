@@ -240,7 +240,7 @@ MSTLLogicControl::WAUTSwitchProcedure::isPosAtGSP(SUMOTime step, MSSimpleTraffic
     if (gspFrom == CycleTime)	{
         gspFrom = 0;
     }
-    ///compare the position of the given programm with the GSP (GSP = "G�nstigerSchaltPunkt")
+    ///compare the position of the given programm with the GSP (GSP = "GuenstigerSchaltPunkt")
     if (gspFrom == posFrom) {
         return true;
     } else {
@@ -256,7 +256,7 @@ MSTLLogicControl::WAUTSwitchProcedure::getDiffToStartOfPhase(MSSimpleTrafficLigh
     unsigned int stepOfMyPos = myLogic->getIndexFromOffset(myPos);
     unsigned int startOfPhase = myLogic->getOffsetFromIndex(stepOfMyPos);
     MSPhaseDefinition myPhase = myLogic->getPhase(stepOfMyPos);
-    unsigned int durOfPhase = myPhase.duration;
+    unsigned int durOfPhase = (unsigned int)myPhase.duration;
 
     assert(myPos >= startOfPhase);
     unsigned int diff = myPos - startOfPhase;
@@ -272,7 +272,7 @@ MSTLLogicControl::WAUTSwitchProcedure::switchToPos(SUMOTime simStep, MSSimpleTra
     unsigned int stepTo = myLogic->getIndexFromOffset(posTo);
     unsigned int diff = getDiffToStartOfPhase(myLogic, posTo);
     MSPhaseDefinition myPhase = myLogic->getPhase(stepTo);
-    unsigned int dur = myPhase.duration - diff;
+    unsigned int dur = (unsigned int)myPhase.duration - diff;
     myLogic->changeStepAndDuration(myControl ,simStep, stepTo, dur);
 }
 
@@ -344,7 +344,7 @@ MSTLLogicControl::WAUTSwitchProcedure_GSP::adaptLogic(SUMOTime step) {
     } else {
         deltaToStretch = (size_t)(cycleTimeTo - actPosTo + gspTo);
     }
-    unsigned int newdur = LogicTo->getPhase(stepTo).duration - diff + deltaToStretch;
+    unsigned int newdur = (unsigned int) LogicTo->getPhase(stepTo).duration - diff + deltaToStretch;
     LogicTo->changeStepAndDuration(myControl, simStep, stepTo, newdur);
 }
 
