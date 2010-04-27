@@ -1,2 +1,2 @@
-Error: Attribute 'depart' in definition of vehicle '1' is not a real number.
+Error: Attribute 'depart' in definition of vehicle '1' is not a time value.
 Quitting (on error).

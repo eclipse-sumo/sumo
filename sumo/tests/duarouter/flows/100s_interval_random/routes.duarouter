@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 03/18/10 14:23:40 by SUMO duarouter Version dev-SVN-r8460
+<!-- generated on 04/26/10 15:42:46 by SUMO duarouter Version dev-SVN-r8163
 <configuration>
 
     <input>
@@ -20,34 +20,34 @@
 -->
 
 <routes>
-    <vehicle id="0_0" depart="5.00">
+    <vehicle id="0_0" depart="7.00">
         <route edges="beg middle end rend"/>
     </vehicle>
-    <vehicle id="0_1" depart="5.00">
+    <vehicle id="0_1" depart="9.00">
         <route edges="beg middle end rend"/>
     </vehicle>
-    <vehicle id="0_2" depart="25.00">
+    <vehicle id="0_2" depart="9.00">
         <route edges="beg middle end rend"/>
     </vehicle>
-    <vehicle id="0_3" depart="50.00">
+    <vehicle id="0_3" depart="12.00">
         <route edges="beg middle end rend"/>
     </vehicle>
-    <vehicle id="0_4" depart="55.00">
+    <vehicle id="0_4" depart="35.00">
         <route edges="beg middle end rend"/>
     </vehicle>
-    <vehicle id="0_5" depart="59.00">
+    <vehicle id="0_5" depart="75.00">
         <route edges="beg middle end rend"/>
     </vehicle>
-    <vehicle id="0_6" depart="72.00">
+    <vehicle id="0_6" depart="75.00">
         <route edges="beg middle end rend"/>
     </vehicle>
-    <vehicle id="0_7" depart="75.00">
+    <vehicle id="0_7" depart="83.00">
         <route edges="beg middle end rend"/>
     </vehicle>
-    <vehicle id="0_8" depart="75.00">
+    <vehicle id="0_8" depart="88.00">
         <route edges="beg middle end rend"/>
     </vehicle>
-    <vehicle id="0_9" depart="90.00">
+    <vehicle id="0_9" depart="99.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 </routes>
