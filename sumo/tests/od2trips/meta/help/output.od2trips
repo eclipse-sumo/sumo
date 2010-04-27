@@ -1,4 +1,4 @@
-SUMO od2trips Version dev-SVN-r8511
+SUMO od2trips Version dev-SVN-r8163
  (c) DLR 2001-2009; http://sumo.sourceforge.net
  
 Importer of O/D-matrices for the road traffic simulation SUMO.
@@ -26,9 +26,9 @@ Usage: od2trips [OPTION]*
                                      (districts)
 
  Time Options:
-  -b, --begin INT                  Defines the begin time;
+  -b, --begin TIME                 Defines the begin time;
                                      Previous trips will be discarded
-  -e, --end INT                    Defines the end time;
+  -e, --end TIME                   Defines the end time;
                                      Later trips will be discarded
 
  Processing Options:
