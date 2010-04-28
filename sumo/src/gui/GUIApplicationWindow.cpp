@@ -204,18 +204,11 @@ GUIApplicationWindow::dependentBuild(bool game) {
                                    myRunThreadEvent);
     // set the status bar
     myStatusbar->getStatusLine()->setText("Ready.");
-    /*
-    myProgressBar =
-        new FXProgressBar(myStatusbar, 0, 0, PROGRESSBAR_NORMAL|LAYOUT_FILL_X, 200);
-    */
     // set the caption
     setTitle(MFXUtils::getTitleText(("SUMO " + std::string(VERSION_STRING)).c_str()));
 
-    // start the simulation-thread
-    //  (it will loop until the application ends deciding by itself whether
-    //        to perform a step or not)
+    // start the simulation-thread (it will loop until the application ends deciding by itself whether to perform a step or not)
     myRunThread->start();
-    //}
     setIcon(GUIIconSubSys::getIcon(ICON_APP));
 }
 
@@ -248,9 +241,6 @@ GUIApplicationWindow::create() {
         maximize();
     }
 }
-
-
-
 
 
 GUIApplicationWindow::~GUIApplicationWindow() {
@@ -376,11 +366,6 @@ GUIApplicationWindow::fillMenuBar() {
     new FXMenuCheck(myWindowsMenu,
                     "Show Message Window\t\tToggle the Message Window on/off.",
                     myMessageWindow,FXWindow::ID_TOGGLESHOWN);
-    /*
-    new FXMenuCheck(myWindowsMenu,
-        "Show Toolbar\t\tToggle the Toolbar on/off.",
-        myToolBar1, FXWindow::ID_TOGGLESHOWN);
-        */
     new FXMenuCheck(myWindowsMenu,
                     "Show Simulation Time\t\tToggle the Simulation Time on/off.",
                     myToolBar3, FXWindow::ID_TOGGLESHOWN);
@@ -458,12 +443,6 @@ GUIApplicationWindow::buildToolBars() {
         new FXButton(myToolBar2,"\t\tPerform a single simulation step.",
                      GUIIconSubSys::getIcon(ICON_STEP), this, MID_STEP,
                      ICON_ABOVE_TEXT|BUTTON_TOOLBAR|FRAME_RAISED|LAYOUT_TOP|LAYOUT_LEFT);
-        /*
-                new FXButton(myToolBar2,"\t\tCompute strategies.",
-                    GUIIconSubSys::getIcon(ICON_CUT_SWELL), this, MID_CUTSWELL,
-                    ICON_ABOVE_TEXT|BUTTON_TOOLBAR|FRAME_RAISED|LAYOUT_TOP|LAYOUT_LEFT);
-        */
-
     }
     {
         // Simulation Step Display
@@ -865,10 +844,9 @@ GUIApplicationWindow::handleEvent_SimulationLoaded(GUIEvent *e) {
         // set simulation name on the caption
         std::string caption = "SUMO " + std::string(VERSION_STRING);
         setTitle(MFXUtils::getTitleText(caption.c_str(), ec->myFile.c_str()));
-        std::ostringstream str;
         // set simulation step begin information
-        str << (int) ec->myNet->getCurrentTimeStep();
-        myLCDLabel->setText(str.str().c_str());
+        std::string t = time2string(ec->myNet->getCurrentTimeStep());
+        myLCDLabel->setText(t.substr(0, t.length()-3).c_str());
     }
     getApp()->endWaitCursor();
     // start if wished
@@ -882,9 +860,8 @@ GUIApplicationWindow::handleEvent_SimulationLoaded(GUIEvent *e) {
 void
 GUIApplicationWindow::handleEvent_SimulationStep(GUIEvent *) {
     updateChildren();
-    std::ostringstream str;
-    str << (int) myRunThread->getNet().getCurrentTimeStep();
-    myLCDLabel->setText(str.str().c_str());
+    std::string t = time2string(myRunThread->getNet().getCurrentTimeStep());
+    myLCDLabel->setText(t.substr(0, t.length()-3).c_str());
     update();
 }
 
