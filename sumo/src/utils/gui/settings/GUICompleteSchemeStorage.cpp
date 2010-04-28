@@ -148,7 +148,7 @@ GUICompleteSchemeStorage::init(FXApp *app) throw() {
         vs.minVehicleSize = 0;
         gSchemeStorage.add(vs);
     }
-    myNumInitialSettings = mySortedSchemeNames.size();
+    myNumInitialSettings = (unsigned int) mySortedSchemeNames.size();
     // add saved settings
     int noSaved = app->reg().readIntEntry("VisualizationSettings", "settingNo", 0);
     for (int i=0; i<noSaved; ++i) {
@@ -170,7 +170,7 @@ GUICompleteSchemeStorage::init(FXApp *app) throw() {
                     break;
                 }
                 content += part;
-                xmlSize -= part.size();
+                xmlSize -= (int) part.size();
                 index++;
             }
             if (content != "" && xmlSize == 0) {

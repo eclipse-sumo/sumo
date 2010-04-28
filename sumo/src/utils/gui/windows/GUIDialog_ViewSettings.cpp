@@ -105,7 +105,7 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(
         for (std::vector<std::string>::const_iterator i=names.begin(); i!=names.end(); ++i) {
             size_t index = mySchemeName->appendItem((*i).c_str());
             if ((*i) == mySettings->name) {
-                mySchemeName->setCurrentItem(index);
+                mySchemeName->setCurrentItem((FXint) index);
             }
         }
         mySchemeName->setNumVisible(5);
@@ -587,7 +587,7 @@ GUIDialog_ViewSettings::onCmdNameChange(FXObject*,FXSelector,void*data) {
 
     myBackgroundColor->setRGBA(convert(mySettings->backgroundColor));
 
-    myLaneEdgeColorMode->setCurrentItem(mySettings->getLaneEdgeMode());
+    myLaneEdgeColorMode->setCurrentItem((FXint) mySettings->getLaneEdgeMode());
     myShowLaneBorders->setCheck(mySettings->laneShowBorders);
     myShowLaneDecals->setCheck(mySettings->showLinkDecals);
     myShowRails->setCheck(mySettings->showRails);
@@ -599,7 +599,7 @@ GUIDialog_ViewSettings::onCmdNameChange(FXObject*,FXSelector,void*data) {
     myInternalEdgeNameColor->setRGBA(convert(mySettings->internalEdgeNameColor));
     myHideMacroConnectors->setCheck(mySettings->hideConnectors);
 
-    myVehicleColorMode->setCurrentItem(mySettings->vehicleColorer.getActive());
+    myVehicleColorMode->setCurrentItem((FXint) mySettings->vehicleColorer.getActive());
     myVehicleShapeDetail->setCurrentItem(mySettings->vehicleQuality);
     myVehicleUpscaleDialer->setValue(mySettings->vehicleExaggeration);
     myVehicleMinSizeDialer->setValue(mySettings->minVehicleSize);
@@ -831,7 +831,7 @@ GUIDialog_ViewSettings::onCmdColorChange(FXObject*sender,FXSelector,void*val) {
     }
     gSchemeStorage.add(tmpSettings);
     int index = mySchemeName->getCurrentItem();
-    if (index<gSchemeStorage.getNumInitialSettings()) {
+    if (index<(int) gSchemeStorage.getNumInitialSettings()) {
         index = mySchemeName->appendItem(tmpSettings.name.c_str());
         gSchemeStorage.add(tmpSettings);
         mySchemeName->setCurrentItem(index);
@@ -906,7 +906,7 @@ GUIDialog_ViewSettings::loadDecals(const std::string &file) throw() {
 long
 GUIDialog_ViewSettings::onCmdSaveSetting(FXObject*,FXSelector,void*data) {
     int index = mySchemeName->getCurrentItem();
-    if (index<gSchemeStorage.getNumInitialSettings()) {
+    if (index<(int) gSchemeStorage.getNumInitialSettings()) {
         return 1;
     }
     // get the name
@@ -956,7 +956,7 @@ GUIDialog_ViewSettings::onCmdSaveSetting(FXObject*,FXSelector,void*data) {
 long
 GUIDialog_ViewSettings::onUpdSaveSetting(FXObject*sender,FXSelector,void*ptr) {
     sender->handle(this,
-                   mySchemeName->getCurrentItem()<gSchemeStorage.getNumInitialSettings()
+                   mySchemeName->getCurrentItem()<(int) gSchemeStorage.getNumInitialSettings()
                    ? FXSEL(SEL_COMMAND,ID_DISABLE) : FXSEL(SEL_COMMAND,ID_ENABLE),
                    ptr);
     return 1;
@@ -966,7 +966,7 @@ GUIDialog_ViewSettings::onUpdSaveSetting(FXObject*sender,FXSelector,void*ptr) {
 long
 GUIDialog_ViewSettings::onCmdDeleteSetting(FXObject*,FXSelector,void*data) {
     int index = mySchemeName->getCurrentItem();
-    if (index<gSchemeStorage.getNumInitialSettings()) {
+    if (index<(int) gSchemeStorage.getNumInitialSettings()) {
         return 1;
     }
     std::string name = mySchemeName->getItem(index).text();
@@ -981,7 +981,7 @@ GUIDialog_ViewSettings::onCmdDeleteSetting(FXObject*,FXSelector,void*data) {
 long
 GUIDialog_ViewSettings::onUpdDeleteSetting(FXObject*sender,FXSelector,void*ptr) {
     sender->handle(this,
-                   mySchemeName->getCurrentItem()<gSchemeStorage.getNumInitialSettings()
+                   mySchemeName->getCurrentItem()<(int) gSchemeStorage.getNumInitialSettings()
                    ? FXSEL(SEL_COMMAND,ID_DISABLE) : FXSEL(SEL_COMMAND,ID_ENABLE),
                    ptr);
     return 1;
@@ -1014,7 +1014,7 @@ GUIDialog_ViewSettings::onCmdExportSetting(FXObject*,FXSelector,void*data) {
 long
 GUIDialog_ViewSettings::onUpdExportSetting(FXObject*sender,FXSelector,void*ptr) {
     sender->handle(this,
-                   mySchemeName->getCurrentItem()<gSchemeStorage.getNumInitialSettings()
+                   mySchemeName->getCurrentItem()<(int) gSchemeStorage.getNumInitialSettings()
                    ? FXSEL(SEL_COMMAND,ID_DISABLE) : FXSEL(SEL_COMMAND,ID_ENABLE),
                    ptr);
     return 1;
