@@ -103,12 +103,12 @@ MSMeanData_Net::MSLaneMeanDataValues::isStillActive(MSVehicle& veh, SUMOReal old
         return false;
     }
     bool ret = true;
-    SUMOReal timeOnLane = 1.;
+    SUMOReal timeOnLane = (SUMOReal) DELTA_T / 1000.;
     if (oldPos<0&&newSpeed!=0) {
-        timeOnLane = (oldPos+SPEED2DIST(newSpeed)) / newSpeed;
+        timeOnLane = (oldPos+SPEED2DIST(newSpeed)) / (newSpeed);
     }
     if (oldPos+SPEED2DIST(newSpeed)>getLane()->getLength()&&newSpeed!=0) {
-        timeOnLane -= (oldPos+SPEED2DIST(newSpeed) - getLane()->getLength()) / newSpeed;
+        timeOnLane -= (oldPos+SPEED2DIST(newSpeed) - getLane()->getLength()) / (newSpeed);
         ret = false;
     }
     if (timeOnLane<0) {
@@ -118,12 +118,11 @@ MSMeanData_Net::MSLaneMeanDataValues::isStillActive(MSVehicle& veh, SUMOReal old
     if (timeOnLane==0) {
         return false;
     }
-	SUMOReal secondsOnLane = timeOnLane / (1000. / (SUMOReal) DELTA_T);
-    sampleSeconds += secondsOnLane;
-    travelledDistance += newSpeed * secondsOnLane;
-    vehLengthSum += veh.getVehicleType().getLength() * secondsOnLane;
+    sampleSeconds += timeOnLane;
+    travelledDistance += newSpeed * timeOnLane;
+    vehLengthSum += veh.getVehicleType().getLength() * timeOnLane;
     if (newSpeed<myParent->myHaltSpeed) {
-        waitSeconds += secondsOnLane;
+        waitSeconds += timeOnLane;
     }
     return ret;
 }
