@@ -156,32 +156,33 @@ TraCITestClient::run(std::string fileName, int port, std::string host) {
         }
         if (lineCommand.compare("simstep") == 0) {
             // read parameter for command simulation step and trigger command
-            double time;
+            std::string time;
             int posFormat;
 
             defFile >> time;
             defFile >> posFormat;
             for (int i=0; i < repNo; i++) {
-                commandSimulationStep(time, posFormat);
+                commandSimulationStep(string2time(time), posFormat);
             }
         } else if (lineCommand.compare("simstep2") == 0) {
             // read parameter for command simulation step and trigger command
-            double time;
+            std::string time;
             defFile >> time;
             for (int i=0; i < repNo; i++) {
-                commandSimulationStep2(time);
+                commandSimulationStep2(string2time(time));
             }
         } else if (lineCommand.compare("simstep_repeat") == 0) {
             // read parameter for command simulation step and trigger command
             // repeat the command with increasing target times
-            double time;
-            double time_last;
-            double increment;
+            std::string timeStr, time_lastStr, incrementStr;
             int posFormat;
 
-            defFile >> time;
-            defFile >> time_last;
-            defFile >> increment;
+            defFile >> timeStr;
+            SUMOTime time(string2time(timeStr));
+            defFile >> time_lastStr;
+            SUMOTime time_last(string2time(time_lastStr));
+            defFile >> incrementStr;
+            SUMOTime increment(string2time(incrementStr));
             defFile >> posFormat;
             for (int i=0; i < repNo; i++) {
                 while (time <= time_last) {
@@ -521,7 +522,7 @@ TraCITestClient::reportResultState(tcpip::Storage& inMsg, int command, bool igno
 
 
 void
-TraCITestClient::commandSimulationStep(double time, int posFormat) {
+TraCITestClient::commandSimulationStep(SUMOTime time, int posFormat) {
     tcpip::Storage outMsg;
     tcpip::Storage inMsg;
     std::stringstream msg;
@@ -537,7 +538,7 @@ TraCITestClient::commandSimulationStep(double time, int posFormat) {
     // command id
     outMsg.writeUnsignedByte(CMD_SIMSTEP);
     // simulation time
-    outMsg.writeDouble(time);
+    outMsg.writeInt(time);
     // position result format
     outMsg.writeUnsignedByte(posFormat);
 
@@ -550,7 +551,7 @@ TraCITestClient::commandSimulationStep(double time, int posFormat) {
         return;
     }
 
-    answerLog << endl << "-> Command sent: <SimulationStep>:" << endl << "  TargetTime=" << time
+    answerLog << endl << "-> Command sent: <SimulationStep>:" << endl << "  TargetTime=" << time2string(time)
     << " PosFormat=" << posFormat << endl;
 
     // receive answer message
@@ -573,7 +574,7 @@ TraCITestClient::commandSimulationStep(double time, int posFormat) {
 
 
 void
-TraCITestClient::commandSimulationStep2(double time) {
+TraCITestClient::commandSimulationStep2(SUMOTime time) {
     tcpip::Storage outMsg;
     tcpip::Storage inMsg;
     std::stringstream msg;
@@ -588,7 +589,7 @@ TraCITestClient::commandSimulationStep2(double time) {
     outMsg.writeUnsignedByte(1 + 1 + 8);
     // command id
     outMsg.writeUnsignedByte(CMD_SIMSTEP2);
-    outMsg.writeDouble(time);
+    outMsg.writeInt(time);
     // send request message
     try {
         socket->sendExact(outMsg);
@@ -1840,7 +1841,7 @@ TraCITestClient::validateSimulationStep(tcpip::Storage &inMsg) {
     int cmdId;
     int cmdLength;
     int nodeId;
-    double targetTime;
+    SUMOTime targetTime;
     int posType;
     int cmdStart;
     testclient::Position2D pos2D;
@@ -1860,8 +1861,8 @@ TraCITestClient::validateSimulationStep(tcpip::Storage &inMsg) {
             answerLog << ".. Received Response <MoveNode>:" << endl;
             nodeId = inMsg.readInt();
             answerLog << "  nodeId=" << nodeId << " ";
-            targetTime = inMsg.readDouble();
-            answerLog << "targetTime=" << targetTime << " ";
+            targetTime = inMsg.readInt();
+            answerLog << "targetTime=" << time2string(targetTime) << " ";
             posType = inMsg.readUnsignedByte();
             switch (posType) {
             case POSITION_2D:

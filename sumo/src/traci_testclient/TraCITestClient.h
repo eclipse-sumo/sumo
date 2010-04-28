@@ -27,6 +27,7 @@
 #include <vector>
 
 #include <foreign/tcpip/socket.h>
+#include <utils/common/SUMOTime.h>
 
 namespace testclient {
 // ===========================================================================
@@ -84,8 +85,8 @@ public:
     bool close();
 
     // simulation commands
-    void commandSimulationStep(double time, int posFormat);
-    void commandSimulationStep2(double time);
+    void commandSimulationStep(SUMOTime time, int posFormat);
+    void commandSimulationStep2(SUMOTime time);
 
     void commandSetMaximumSpeed(int nodeId, float speed);
 

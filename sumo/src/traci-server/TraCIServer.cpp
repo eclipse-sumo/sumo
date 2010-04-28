@@ -352,10 +352,10 @@ throw(TraCIException, std::invalid_argument) {
         success = commandSetMaximumSpeed();
         break;
     case CMD_SIMSTEP:
-        success = targetTime_ = static_cast<SUMOTime>(myInputStorage.readDouble());
+        success = targetTime_ = static_cast<SUMOTime>(myInputStorage.readInt());
         return commandId;
     case CMD_SIMSTEP2: {
-        double nextT = myInputStorage.readDouble();
+        SUMOTime nextT = myInputStorage.readInt();
         success = true;
         if (nextT!=0) {
             targetTime_ = (SUMOReal) nextT;
@@ -640,7 +640,7 @@ TraCIServer::postProcessSimulationStep() throw(TraCIException, std::invalid_argu
                 // node id
                 tempMsg.writeInt(extId);
                 // end time
-                tempMsg.writeDouble(targetTime_);
+                tempMsg.writeInt(targetTime_);
 
                 if (resType == POSITION_ROADMAP) {
                     // return type
