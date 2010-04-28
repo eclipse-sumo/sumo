@@ -108,7 +108,7 @@ MSNet* MSNet::myInstance = 0;
 SUMOReal
 MSNet::EdgeWeightsProxi::getEffort(const MSEdge * const e,
                                    const SUMOVehicle * const v,
-                                   SUMOTime t) const {
+                                   SUMOReal t) const {
     SUMOReal value;
     if (myVehicleKnowledge.retrieveExistingEffort(e, v, t, value)) {
         return value;
@@ -123,7 +123,7 @@ MSNet::EdgeWeightsProxi::getEffort(const MSEdge * const e,
 SUMOReal
 MSNet::EdgeWeightsProxi::getTravelTime(const MSEdge * const e,
                                        const SUMOVehicle * const v,
-                                       SUMOTime t) const {
+                                       SUMOReal t) const {
     SUMOReal value;
     if (myVehicleKnowledge.retrieveExistingTravelTime(e, v, t, value)) {
         return value;
@@ -487,8 +487,8 @@ MSNet::writeOutput() {
     }
     // emission output
     if (OptionsCont::getOptions().isSet("emissions-output")) {
-        std::string wt = myVehicleControl->getMeanWaitingTime() ? "-1.00" : time2string(myVehicleControl->getMeanWaitingTime());
-        std::string tt = myVehicleControl->getMeanTravelTime()<0 ? "-1.00" : time2string(myVehicleControl->getMeanTravelTime());
+        std::string wt = myVehicleControl->getMeanWaitingTime() ? "-1.00" : time2string((SUMOTime) myVehicleControl->getMeanWaitingTime());
+        std::string tt = myVehicleControl->getMeanTravelTime()<0 ? "-1.00" : time2string((SUMOTime) myVehicleControl->getMeanTravelTime());
         OutputDevice::getDeviceByOption("emissions-output")
         << "    <emission-state time=\"" << time2string(myStep) << "\" "
         << "loaded=\"" << myVehicleControl->getLoadedVehicleNo() << "\" "

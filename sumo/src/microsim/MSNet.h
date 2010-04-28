@@ -515,21 +515,21 @@ public:
         /** @brief Returns the travel time to pass an edge
          * @param[in] e The edge for which the travel time to be passed shall be returned
          * @param[in] v The vehicle that is rerouted
-         * @param[in] t The time for which the travel time shall be returned
+         * @param[in] t The time for which the travel time shall be returned [s]
          * @return The travel time for an edge
          * @see DijkstraRouterTT_ByProxi
          */
-        SUMOReal getTravelTime(const MSEdge * const e, const SUMOVehicle * const v, SUMOTime t) const;
+        SUMOReal getTravelTime(const MSEdge * const e, const SUMOVehicle * const v, SUMOReal t) const;
 
 
         /** @brief Returns the effort to pass an edge
          * @param[in] e The edge for which the effort to be passed shall be returned
          * @param[in] v The vehicle that is rerouted
-         * @param[in] t The time for which the effort shall be returned
+         * @param[in] t The time for which the effort shall be returned [s]
          * @return The effort (abstract) for an edge
          * @see DijkstraRouterTT_ByProxi
          */
-        SUMOReal getEffort(const MSEdge * const e, const SUMOVehicle * const v, SUMOTime t) const;
+        SUMOReal getEffort(const MSEdge * const e, const SUMOVehicle * const v, SUMOReal t) const;
 
     private:
         /// @brief The vehicle's knownledge

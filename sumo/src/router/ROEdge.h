@@ -236,19 +236,19 @@ public:
     /** @brief Adds a weight value
      *
      * @param[in] value The value to add
-     * @param[in] timeBegin The begin time of the interval the given value is valid for
-     * @param[in] timeEnd The end time of the interval the given value is valid for
+     * @param[in] timeBegin The begin time of the interval the given value is valid for [s]
+     * @param[in] timeEnd The end time of the interval the given value is valid for [s]
      */
-    void addEffort(SUMOReal value, SUMOTime timeBegin, SUMOTime timeEnd) throw();
+    void addEffort(SUMOReal value, SUMOReal timeBegin, SUMOReal timeEnd) throw();
 
 
     /** @brief Adds a travel time value
      *
      * @param[in] value The value to add
-     * @param[in] timeBegin The begin time of the interval the given value is valid for
-     * @param[in] timeEnd The end time of the interval the given value is valid for
+     * @param[in] timeBegin The begin time of the interval the given value is valid for [s]
+     * @param[in] timeEnd The end time of the interval the given value is valid for [s]
      */
-    void addTravelTime(SUMOReal value, SUMOTime timeBegin, SUMOTime timeEnd) throw();
+    void addTravelTime(SUMOReal value, SUMOReal timeBegin, SUMOReal timeEnd) throw();
 
 
     /** @brief Returns the number of edges this edge is connected to
@@ -273,30 +273,30 @@ public:
     /** @brief Returns the effort for this edge
      *
      * @param[in] veh The vehicle for which the effort on this edge shall be retrieved
-     * @param[in] time The tim for which the effort shall be returned
+     * @param[in] time The tim for which the effort shall be returned [s]
      * @return The effort needed by the given vehicle to pass the edge at the given time
      * @todo Recheck whether the vehicle's maximum speed is considered
      */
-    SUMOReal getEffort(const ROVehicle * const veh, SUMOTime time) const throw();
+    SUMOReal getEffort(const ROVehicle * const veh, SUMOReal time) const throw();
 
 
     /** @brief Returns the travel time for this edge
      *
      * @param[in] veh The vehicle for which the effort on this edge shall be retrieved
-     * @param[in] time The tim for which the effort shall be returned
+     * @param[in] time The time for which the effort shall be returned [s]
      * @return The effort needed by the given vehicle to pass the edge at the given time
      * @todo Recheck whether the vehicle's maximum speed is considered
      */
-    SUMOReal getTravelTime(const ROVehicle * const veh, SUMOTime time) const throw();
+    SUMOReal getTravelTime(const ROVehicle * const veh, SUMOReal time) const throw();
 
 
-    SUMOReal getCOEffort(const ROVehicle * const veh, SUMOTime time) const throw();
-    SUMOReal getCO2Effort(const ROVehicle * const veh, SUMOTime time) const throw();
-    SUMOReal getPMxEffort(const ROVehicle * const veh, SUMOTime time) const throw();
-    SUMOReal getHCEffort(const ROVehicle * const veh, SUMOTime time) const throw();
-    SUMOReal getNOxEffort(const ROVehicle * const veh, SUMOTime time) const throw();
-    SUMOReal getFuelEffort(const ROVehicle * const veh, SUMOTime time) const throw();
-    SUMOReal getNoiseEffort(const ROVehicle * const veh, SUMOTime time) const throw();
+    SUMOReal getCOEffort(const ROVehicle * const veh, SUMOReal time) const throw();
+    SUMOReal getCO2Effort(const ROVehicle * const veh, SUMOReal time) const throw();
+    SUMOReal getPMxEffort(const ROVehicle * const veh, SUMOReal time) const throw();
+    SUMOReal getHCEffort(const ROVehicle * const veh, SUMOReal time) const throw();
+    SUMOReal getNOxEffort(const ROVehicle * const veh, SUMOReal time) const throw();
+    SUMOReal getFuelEffort(const ROVehicle * const veh, SUMOReal time) const throw();
+    SUMOReal getNoiseEffort(const ROVehicle * const veh, SUMOReal time) const throw();
     //@}
 
     /** @brief Returns the ROEdge at the index */
@@ -310,7 +310,7 @@ protected:
      * @param[in] time The tim for which the effort shall be returned
      * @return Whether the effort is given
      */
-    bool getStoredEffort(SUMOTime time, SUMOReal &ret) const throw();
+    bool getStoredEffort(SUMOReal time, SUMOReal &ret) const throw();
 
 
 

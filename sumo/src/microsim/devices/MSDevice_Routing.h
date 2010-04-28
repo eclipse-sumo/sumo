@@ -177,7 +177,7 @@ private:
      * @return The effort (time to pass in this case) for an edge
      * @see DijkstraRouterTT_ByProxi
      */
-    SUMOReal getEffort(const MSEdge * const e, const SUMOVehicle * const v, SUMOTime t) const;
+    SUMOReal getEffort(const MSEdge * const e, const SUMOVehicle * const v, SUMOReal t) const;
 
 
     /// @name Network state adaptation

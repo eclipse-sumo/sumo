@@ -113,7 +113,7 @@ public:
         }
     };
 
-    virtual SUMOReal getEffort(const E * const e, const V * const v, SUMOTime t) = 0;
+    virtual SUMOReal getEffort(const E * const e, const V * const v, SUMOReal t) = 0;
 
 
     /** @brief Builds the route between the given edges using the minimum afford at the given time
@@ -221,13 +221,13 @@ template<class E, class V, class PF, class EC>
 class DijkstraRouterTT_ByProxi : public DijkstraRouterTTBase<E, V, PF> {
 public:
     /// Type of the function that is used to retrieve the edge effort.
-    typedef SUMOReal(EC::* Operation)(const E * const, const V * const, SUMOTime) const;
+    typedef SUMOReal(EC::* Operation)(const E * const, const V * const, SUMOReal) const;
 
     DijkstraRouterTT_ByProxi(size_t noE, bool unbuildIsWarningOnly, EC* receiver, Operation operation)
             : DijkstraRouterTTBase<E, V, PF>(noE, unbuildIsWarningOnly),
             myReceiver(receiver), myOperation(operation) {}
 
-    inline SUMOReal getEffort(const E * const e, const V * const v, SUMOTime t) {
+    inline SUMOReal getEffort(const E * const e, const V * const v, SUMOReal t) {
         return (myReceiver->*myOperation)(e, v, t);
     }
 
@@ -246,12 +246,12 @@ template<class E, class V, class PF>
 class DijkstraRouterTT_Direct : public DijkstraRouterTTBase<E, V, PF> {
 public:
     /// Type of the function that is used to retrieve the edge effort.
-    typedef SUMOReal(E::* Operation)(const V * const, SUMOTime) const;
+    typedef SUMOReal(E::* Operation)(const V * const, SUMOReal) const;
 
     DijkstraRouterTT_Direct(size_t noE, bool unbuildIsWarningOnly, Operation operation)
             : DijkstraRouterTTBase<E, V, PF>(noE, unbuildIsWarningOnly), myOperation(operation) {}
 
-    inline SUMOReal getEffort(const E * const e, const V * const v, SUMOTime t) {
+    inline SUMOReal getEffort(const E * const e, const V * const v, SUMOReal t) {
         return (e->*myOperation)(v, t);
     }
 

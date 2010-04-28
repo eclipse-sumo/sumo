@@ -129,21 +129,21 @@ ROEdge::addFollower(ROEdge *s) throw() {
 
 
 void
-ROEdge::addEffort(SUMOReal value, SUMOTime timeBegin, SUMOTime timeEnd) throw() {
+ROEdge::addEffort(SUMOReal value, SUMOReal timeBegin, SUMOReal timeEnd) throw() {
     myEfforts.add(timeBegin, timeEnd, value);
     myUsingETimeLine = true;
 }
 
 
 void
-ROEdge::addTravelTime(SUMOReal value, SUMOTime timeBegin, SUMOTime timeEnd) throw() {
+ROEdge::addTravelTime(SUMOReal value, SUMOReal timeBegin, SUMOReal timeEnd) throw() {
     myTravelTimes.add(timeBegin, timeEnd, value);
     myUsingTTTimeLine = true;
 }
 
 
 SUMOReal
-ROEdge::getEffort(const ROVehicle *const veh, SUMOTime time) const throw() {
+ROEdge::getEffort(const ROVehicle *const veh, SUMOReal time) const throw() {
     SUMOReal ret = 0;
     if (!getStoredEffort(time, ret)) {
         return (SUMOReal)(myLength / mySpeed);
@@ -153,10 +153,10 @@ ROEdge::getEffort(const ROVehicle *const veh, SUMOTime time) const throw() {
 
 
 SUMOReal
-ROEdge::getTravelTime(const ROVehicle *const, SUMOTime time) const throw() {
+ROEdge::getTravelTime(const ROVehicle *const, SUMOReal time) const throw() {
     if (myUsingTTTimeLine) {
         if (!myHaveTTWarned && !myTravelTimes.describesTime(time)) {
-            WRITE_WARNING("No interval matches passed time "+ toString<SUMOTime>(time)  + " in edge '" + myID + "'.\n Using edge's length / edge's speed.");
+            WRITE_WARNING("No interval matches passed time "+ toString(time)  + " in edge '" + myID + "'.\n Using edge's length / edge's speed.");
             myHaveTTWarned = true;
         }
         if (myInterpolate) {
@@ -174,7 +174,7 @@ ROEdge::getTravelTime(const ROVehicle *const, SUMOTime time) const throw() {
 
 
 SUMOReal
-ROEdge::getCOEffort(const ROVehicle * const veh, SUMOTime time) const throw() {
+ROEdge::getCOEffort(const ROVehicle * const veh, SUMOReal time) const throw() {
     SUMOReal ret = 0;
     if (!getStoredEffort(time, ret)) {
         SUMOReal v = mySpeed;
@@ -190,7 +190,7 @@ ROEdge::getCOEffort(const ROVehicle * const veh, SUMOTime time) const throw() {
 
 
 SUMOReal
-ROEdge::getCO2Effort(const ROVehicle * const veh, SUMOTime time) const throw() {
+ROEdge::getCO2Effort(const ROVehicle * const veh, SUMOReal time) const throw() {
     SUMOReal ret = 0;
     if (!getStoredEffort(time, ret)) {
         SUMOReal v = mySpeed;
@@ -206,7 +206,7 @@ ROEdge::getCO2Effort(const ROVehicle * const veh, SUMOTime time) const throw() {
 
 
 SUMOReal
-ROEdge::getPMxEffort(const ROVehicle * const veh, SUMOTime time) const throw() {
+ROEdge::getPMxEffort(const ROVehicle * const veh, SUMOReal time) const throw() {
     SUMOReal ret = 0;
     if (!getStoredEffort(time, ret)) {
         SUMOReal v = mySpeed;
@@ -222,7 +222,7 @@ ROEdge::getPMxEffort(const ROVehicle * const veh, SUMOTime time) const throw() {
 
 
 SUMOReal
-ROEdge::getHCEffort(const ROVehicle * const veh, SUMOTime time) const throw() {
+ROEdge::getHCEffort(const ROVehicle * const veh, SUMOReal time) const throw() {
     SUMOReal ret = 0;
     if (!getStoredEffort(time, ret)) {
         SUMOReal v = mySpeed;
@@ -238,7 +238,7 @@ ROEdge::getHCEffort(const ROVehicle * const veh, SUMOTime time) const throw() {
 
 
 SUMOReal
-ROEdge::getNOxEffort(const ROVehicle * const veh, SUMOTime time) const throw() {
+ROEdge::getNOxEffort(const ROVehicle * const veh, SUMOReal time) const throw() {
     SUMOReal ret = 0;
     if (!getStoredEffort(time, ret)) {
         SUMOReal v = mySpeed;
@@ -254,7 +254,7 @@ ROEdge::getNOxEffort(const ROVehicle * const veh, SUMOTime time) const throw() {
 
 
 SUMOReal
-ROEdge::getFuelEffort(const ROVehicle * const veh, SUMOTime time) const throw() {
+ROEdge::getFuelEffort(const ROVehicle * const veh, SUMOReal time) const throw() {
     SUMOReal ret = 0;
     if (!getStoredEffort(time, ret)) {
         SUMOReal v = mySpeed;
@@ -270,7 +270,7 @@ ROEdge::getFuelEffort(const ROVehicle * const veh, SUMOTime time) const throw() 
 
 
 SUMOReal
-ROEdge::getNoiseEffort(const ROVehicle * const veh, SUMOTime time) const throw() {
+ROEdge::getNoiseEffort(const ROVehicle * const veh, SUMOReal time) const throw() {
     SUMOReal ret = 0;
     if (!getStoredEffort(time, ret)) {
         SUMOReal v = mySpeed;
@@ -286,11 +286,11 @@ ROEdge::getNoiseEffort(const ROVehicle * const veh, SUMOTime time) const throw()
 
 
 bool
-ROEdge::getStoredEffort(SUMOTime time, SUMOReal &ret) const throw() {
+ROEdge::getStoredEffort(SUMOReal time, SUMOReal &ret) const throw() {
     if (myUsingETimeLine) {
         if (!myEfforts.describesTime(time)) {
             if (!myHaveEWarned) {
-                WRITE_WARNING("No interval matches passed time "+ toString<SUMOTime>(time)  + " in edge '" + myID + "'.\n Using edge's length / edge's speed.");
+                WRITE_WARNING("No interval matches passed time "+ toString(time)  + " in edge '" + myID + "'.\n Using edge's length / edge's speed.");
                 myHaveEWarned = true;
             }
             return false;
