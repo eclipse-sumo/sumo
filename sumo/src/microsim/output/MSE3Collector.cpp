@@ -167,7 +167,6 @@ MSE3Collector::enter(MSVehicle& veh, SUMOReal entryTimestep) throw() {
     v.entryTime = entryTimestep;
     v.leaveTime = 0;
     v.speedSum = speedFraction / (1000. / (SUMOReal) DELTA_T);
-    v.samples = entryTimestepFraction;
     v.haltingBegin = veh.getSpeed() < myHaltingSpeedThreshold ? entryTimestep : -1;
     v.intervalSpeedSum = speedFraction / (1000. / (SUMOReal) DELTA_T);
     v.haltings = 0;
@@ -336,7 +335,6 @@ MSE3Collector::update(SUMOTime execTime) throw() {
         } else {
             values.haltingBegin = -1;
         }
-        values.samples++;
         myCurrentMeanSpeed /= myCurrentTouchedVehicles;
     }
 }
