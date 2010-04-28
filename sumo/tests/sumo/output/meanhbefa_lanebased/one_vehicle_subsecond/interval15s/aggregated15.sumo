@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 03/26/10 11:19:35 by SUMO sumo Version dev-SVN-r8163
+<!-- generated on 04/28/10 11:27:14 by SUMO sumo Version dev-SVN-r8163
 <configuration>
 
     <input>
@@ -11,6 +11,7 @@
     <time>
         <begin value="0"/>
         <end value="150"/>
+        <step-length value="0.1"/>
     </time>
 
     <report>
@@ -83,8 +84,8 @@
     </interval>
     <interval begin="105.00" end="120.00" id="dump_15">
         <edge id="1/1to0/1">
-            <lane id="1/1to0/1_0" sampledSeconds="0.85" CO_abs="0" CO2_abs="1.4e+003" HC_abs="0.25" PMx_abs="0.083" NOx_abs="2.3" fuel_abs="0.57"
-            CO_normed="0" CO2_normed="8.8e+002" HC_normed="0.15" PMx_normed="0.051" NOx_normed="1.4" fuel_normed="0.35"
+            <lane id="1/1to0/1_0" sampledSeconds="0.05" CO_abs="0" CO2_abs="84" HC_abs="0.015" PMx_abs="0.0049" NOx_abs="0.13" fuel_abs="0.033"
+            CO_normed="0" CO2_normed="52" HC_normed="0.009" PMx_normed="0.003" NOx_normed="0.082" fuel_normed="0.021"
             traveltime="39" CO_perVeh="0" CO2_perVeh="66" HC_perVeh="0.011" PMx_perVeh="0.0038" NOx_perVeh="0.1" fuel_perVeh="0.026"/>
         </edge>
         <edge id="2/1to1/1">

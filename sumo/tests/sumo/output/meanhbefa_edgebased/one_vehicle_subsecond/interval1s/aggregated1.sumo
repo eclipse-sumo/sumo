@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 03/26/10 11:19:26 by SUMO sumo Version dev-SVN-r8163
+<!-- generated on 04/28/10 11:27:02 by SUMO sumo Version dev-SVN-r8163
 <configuration>
 
     <input>
@@ -11,6 +11,7 @@
     <time>
         <begin value="0"/>
         <end value="150"/>
+        <step-length value="0.1"/>
     </time>
 
     <report>
@@ -566,8 +567,8 @@
             traveltime="39" CO_perVeh="0" CO2_perVeh="66" HC_perVeh="0.011" PMx_perVeh="0.0038" NOx_perVeh="0.1" fuel_perVeh="0.026"/>
     </interval>
     <interval begin="108.00" end="109.00" id="dump_1">
-        <edge id="1/1to0/1" sampledSeconds="0.85" CO_abs="0" CO2_abs="1.4e+003" HC_abs="0.25" PMx_abs="0.083" NOx_abs="2.3" fuel_abs="0.57"
-            CO_normed="0" CO2_normed="1.3e+004" HC_normed="2.3" PMx_normed="0.77" NOx_normed="21" fuel_normed="5.2"
+        <edge id="1/1to0/1" sampledSeconds="0.05" CO_abs="0" CO2_abs="84" HC_abs="0.015" PMx_abs="0.0049" NOx_abs="0.13" fuel_abs="0.033"
+            CO_normed="0" CO2_normed="7.7e+002" HC_normed="0.14" PMx_normed="0.045" NOx_normed="1.2" fuel_normed="0.31"
             traveltime="39" CO_perVeh="0" CO2_perVeh="66" HC_perVeh="0.011" PMx_perVeh="0.0038" NOx_perVeh="0.1" fuel_perVeh="0.026"/>
         <edge id="2/1to1/1" sampledSeconds="0.15" CO_abs="0" CO2_abs="2.5e+002" HC_abs="0.044" PMx_abs="0.015" NOx_abs="0.4" fuel_abs="0.1"
             CO_normed="0" CO2_normed="2.3e+003" HC_normed="0.41" PMx_normed="0.14" NOx_normed="3.7" fuel_normed="0.93"

@@ -89,27 +89,26 @@ MSMeanData_Harmonoise::MSLaneMeanDataValues::isStillActive(MSVehicle& veh, SUMOR
         return false;
     }
     bool ret = true;
-    SUMOReal fraction = 1.;
+    SUMOReal timeOnLane = (SUMOReal) DELTA_T / 1000.;
     if (oldPos<0&&newSpeed!=0) {
-        fraction = (oldPos+SPEED2DIST(newSpeed)) / newSpeed;
+        timeOnLane = (oldPos+SPEED2DIST(newSpeed)) / newSpeed;
     }
     if (oldPos+SPEED2DIST(newSpeed)>getLane()->getLength()&&newSpeed!=0) {
-        fraction -= (oldPos+SPEED2DIST(newSpeed) - getLane()->getLength()) / newSpeed;
+        timeOnLane -= (oldPos+SPEED2DIST(newSpeed) - getLane()->getLength()) / newSpeed;
         ret = false;
     }
-    if (fraction<0) {
+    if (timeOnLane<0) {
         MsgHandler::getErrorInstance()->inform("Negative vehicle step fraction on lane '" + getLane()->getID() + "'.");
         return false;
     }
-    if (fraction==0) {
+    if (timeOnLane==0) {
         return false;
     }
-	SUMOReal secondsOnLane = fraction / (1000. / (SUMOReal) DELTA_T);
     SUMOReal a = veh.getPreDawdleAcceleration();
     SUMOReal sn = HelpersHarmonoise::computeNoise(veh.getVehicleType().getEmissionClass(), (double) newSpeed, (double) a);
     currentTimeN += (SUMOReal) pow(10., (sn/10.));
-    sampleSeconds += secondsOnLane;
-    travelledDistance += newSpeed * secondsOnLane;
+    sampleSeconds += timeOnLane;
+    travelledDistance += newSpeed * timeOnLane;
     return ret;
 }
 

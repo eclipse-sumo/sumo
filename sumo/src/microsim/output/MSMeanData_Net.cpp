@@ -105,10 +105,10 @@ MSMeanData_Net::MSLaneMeanDataValues::isStillActive(MSVehicle& veh, SUMOReal old
     bool ret = true;
     SUMOReal timeOnLane = (SUMOReal) DELTA_T / 1000.;
     if (oldPos<0&&newSpeed!=0) {
-        timeOnLane = (oldPos+SPEED2DIST(newSpeed)) / (newSpeed);
+        timeOnLane = (oldPos+SPEED2DIST(newSpeed)) / newSpeed;
     }
     if (oldPos+SPEED2DIST(newSpeed)>getLane()->getLength()&&newSpeed!=0) {
-        timeOnLane -= (oldPos+SPEED2DIST(newSpeed) - getLane()->getLength()) / (newSpeed);
+        timeOnLane -= (oldPos+SPEED2DIST(newSpeed) - getLane()->getLength()) / newSpeed;
         ret = false;
     }
     if (timeOnLane<0) {
