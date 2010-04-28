@@ -61,7 +61,7 @@ MSVehicleContainer::DepartFinder::DepartFinder(SUMOTime time)
 bool
 MSVehicleContainer::DepartFinder::operator()
 (const VehicleDepartureVector& e) const {
-    return myTime == e.first;
+    return myTime+DELTA_T > e.first && myTime<=e.first;
 }
 
 
