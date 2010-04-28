@@ -77,7 +77,7 @@ MSRouteLoaderControl::loadNext(SUMOTime step, MSEmitControl* into) {
     bool furtherAvailable = true;
     for (;
             furtherAvailable &&
-            (myLoadAll||run<=step+myInAdvanceStepNo);
+            (myLoadAll||run<=step+(SUMOTime) myInAdvanceStepNo);
             run++) {
         furtherAvailable = false;
         for (LoaderVector::iterator i=myRouteLoaders.begin();
