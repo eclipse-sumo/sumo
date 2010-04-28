@@ -62,7 +62,7 @@ MSE3Collector::MSE3EntryReminder::isStillActive(MSVehicle& veh, SUMOReal oldPos,
     }
     SUMOReal entryTimestep = (SUMOReal) MSNet::getInstance()->getCurrentTimeStep();
     if(newSpeed!=0) {
-        entryTimestep += ((((myPosition - oldPos) / newSpeed)) * (SUMOReal) DELTA_T);
+        entryTimestep += ((((myPosition - oldPos) / newSpeed)) * (SUMOReal) 1000.);
     }
     myCollector.enter(veh, entryTimestep / (SUMOReal) 1000.);
     return false;
@@ -98,7 +98,7 @@ MSE3Collector::MSE3LeaveReminder::isStillActive(MSVehicle& veh, SUMOReal oldPos,
     }
     // crossSection left
     SUMOReal leaveTimestep = (SUMOReal) MSNet::getInstance()->getCurrentTimeStep();
-    leaveTimestep += (((myPosition - oldPos) / newSpeed) * (SUMOReal) DELTA_T);
+    leaveTimestep += (((myPosition - oldPos) / newSpeed) * (SUMOReal) 1000.);
     myCollector.leave(veh, leaveTimestep / (SUMOReal) 1000.);
     return false;
 }
@@ -161,15 +161,15 @@ MSE3Collector::enter(MSVehicle& veh, SUMOReal entryTimestep) throw() {
         return;
     }
     veh.quitRemindedEntered(this);
-    SUMOReal entryTimestepFraction = 1. - fmod((entryTimestep * 1000.)+DELTA_T, DELTA_T) / (1000.);
-    SUMOReal speedFraction = (veh.getSpeed() * entryTimestepFraction);//entryTimestepFraction);
+    SUMOReal entryTimestepFraction = ((SUMOReal) DELTA_T - fmod(entryTimestep * 1000., 1000.)) / (SUMOReal) DELTA_T;
+    SUMOReal speedFraction = (veh.getSpeed() * entryTimestepFraction);
     E3Values v;
     v.entryTime = entryTimestep;
     v.leaveTime = 0;
-    v.speedSum = speedFraction;
+    v.speedSum = speedFraction / (1000. / (SUMOReal) DELTA_T);
     v.samples = entryTimestepFraction;
     v.haltingBegin = veh.getSpeed() < myHaltingSpeedThreshold ? entryTimestep : -1;
-    v.intervalSpeedSum = speedFraction;
+    v.intervalSpeedSum = speedFraction / (1000. / (SUMOReal) DELTA_T);
     v.haltings = 0;
     v.intervalHaltings = 0;
     if (veh.getSpeed() < myHaltingSpeedThreshold) {
@@ -191,18 +191,19 @@ MSE3Collector::leave(MSVehicle& veh, SUMOReal leaveTimestep) throw() {
         E3Values values = myEnteredContainer[&veh];
         values.leaveTime = leaveTimestep;
         SUMOReal leaveTimestepFraction = leaveTimestep - (SUMOReal)((int) leaveTimestep);
+        leaveTimestepFraction = fmod(leaveTimestep * 1000., 1000.) / (SUMOReal) DELTA_T;
         if (values.hadUpdate) {
             SUMOReal speedFraction = (veh.getSpeed() * leaveTimestepFraction);
-            values.speedSum += speedFraction;
-            values.intervalSpeedSum += speedFraction;
+            values.speedSum += speedFraction / (1000. / (SUMOReal) DELTA_T);
+            values.intervalSpeedSum += speedFraction / (1000. / (SUMOReal) DELTA_T);
             if (veh.getSpeed() < myHaltingSpeedThreshold && values.haltingBegin!=-1 && leaveTimestep-values.haltingBegin>myHaltingTimeThreshold) {
                 values.haltings++;
                 values.intervalHaltings++;
             }
         } else {
             SUMOReal speedFraction = (veh.getSpeed() * SUMOReal(1. - leaveTimestepFraction));
-            values.speedSum -= speedFraction;
-            values.intervalSpeedSum -= speedFraction;
+            values.speedSum -= speedFraction / (1000. / (SUMOReal) DELTA_T);
+            values.intervalSpeedSum -= speedFraction / (1000. / (SUMOReal) DELTA_T);
         }
         myEnteredContainer.erase(&veh);
         myLeftContainer[&veh] = values;
@@ -240,7 +241,7 @@ MSE3Collector::writeXMLOutput(OutputDevice &dev,
         meanHaltsPerVehicle += (SUMOReal)(*i).second.haltings;
         SUMOReal steps = (*i).second.leaveTime-(*i).second.entryTime;
         meanTravelTime += steps;
-        meanSpeed += ((*i).second.speedSum / steps / (1000. / (SUMOReal) DELTA_T));
+        meanSpeed += ((*i).second.speedSum / steps);
     }
     meanTravelTime = vehicleSum!=0 ? meanTravelTime / (SUMOReal) vehicleSum : -1;
     meanSpeed = vehicleSum!=0 ?  meanSpeed / (SUMOReal) vehicleSum : -1;
@@ -259,14 +260,13 @@ MSE3Collector::writeXMLOutput(OutputDevice &dev,
     for (std::map<MSVehicle*, E3Values>::iterator i=myEnteredContainer.begin(); i!=myEnteredContainer.end(); ++i) {
         meanHaltsPerVehicleWithin += (SUMOReal)(*i).second.haltings;
         meanIntervalHaltsPerVehicleWithin += (SUMOReal)(*i).second.intervalHaltings;
-        SUMOReal z1 = fmod((stopTime - (*i).second.entryTime*1000. + DELTA_T) / 1000., 1.);
-        SUMOReal z2 = (int) ((stopTime - (*i).second.entryTime*1000) / DELTA_T);
-        SUMOReal steps = z1 + z2;
-        SUMOReal stepsWithin = (*i).second.entryTime>(SUMOReal) startTime/1000. ? steps : (SUMOReal)(stopTime - startTime) / 1000. / ((SUMOReal) DELTA_T / 1000.);
-        meanSpeedWithin += ((*i).second.speedSum / steps);
-        meanIntervalSpeedWithin += ((*i).second.intervalSpeedSum / stepsWithin);
-        meanDurationWithin += steps / (1000./(SUMOReal) DELTA_T);
-        meanIntervalDurationWithin += stepsWithin / (1000./(SUMOReal) DELTA_T);
+        SUMOReal time = (SUMOReal)stopTime/1000. - (*i).second.entryTime;
+        SUMOReal intLength = (SUMOReal)(stopTime - startTime) / 1000.;
+        SUMOReal timeWithin = MIN2(time, intLength);
+        meanSpeedWithin += ((*i).second.speedSum / time);
+        meanIntervalSpeedWithin += ((*i).second.intervalSpeedSum / timeWithin);
+        meanDurationWithin += time;
+        meanIntervalDurationWithin += timeWithin;
         // reset interval values
         (*i).second.intervalHaltings = 0;
         (*i).second.intervalSpeedSum = 0;
@@ -320,8 +320,8 @@ MSE3Collector::update(SUMOTime execTime) throw() {
             }
             continue;
         }
-        values.speedSum += veh->getSpeed();
-        values.intervalSpeedSum += veh->getSpeed();
+        values.speedSum += veh->getSpeed() / (1000. / (SUMOReal) DELTA_T);
+        values.intervalSpeedSum += veh->getSpeed() / (1000. / (SUMOReal) DELTA_T);
         myCurrentMeanSpeed += veh->getSpeed();
         myCurrentTouchedVehicles += 1;
         if (veh->getSpeed() < myHaltingSpeedThreshold) {
