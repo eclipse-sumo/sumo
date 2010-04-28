@@ -487,8 +487,8 @@ MSNet::writeOutput() {
     }
     // emission output
     if (OptionsCont::getOptions().isSet("emissions-output")) {
-        std::string wt = myVehicleControl->getMeanWaitingTime() ? "-1" : time2string(myVehicleControl->getMeanWaitingTime());
-        std::string tt = myVehicleControl->getMeanTravelTime()<0 ? "-1" : time2string(myVehicleControl->getMeanTravelTime());
+        std::string wt = myVehicleControl->getMeanWaitingTime() ? "-1.00" : time2string(myVehicleControl->getMeanWaitingTime());
+        std::string tt = myVehicleControl->getMeanTravelTime()<0 ? "-1.00" : time2string(myVehicleControl->getMeanTravelTime());
         OutputDevice::getDeviceByOption("emissions-output")
         << "    <emission-state time=\"" << time2string(myStep) << "\" "
         << "loaded=\"" << myVehicleControl->getLoadedVehicleNo() << "\" "

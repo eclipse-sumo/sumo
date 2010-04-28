@@ -256,7 +256,7 @@ void
 MSVehicleControl::vehicleEmitted(const MSVehicle &v) throw() {
     ++myRunningVehNo;
     if (MSCORN::wished(MSCORN::CORN_MEAN_VEH_WAITINGTIME)) {
-        myAbsVehWaitingTime += (v.getCORNIntValue(MSCORN::CORN_VEH_DEPART_TIME) - v.getDesiredDepart());
+        myAbsVehWaitingTime += MAX2(v.getCORNIntValue(MSCORN::CORN_VEH_DEPART_TIME) - v.getDesiredDepart(), (int) 0);
     }
     MSNet::getInstance()->informVehicleStateListener(&v, MSNet::VEHICLE_STATE_DEPARTED);
 }
