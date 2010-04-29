@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 03/25/10 08:16:55 by SUMO sumo Version dev-SVN-r8511
+<!-- generated on 04/29/10 11:21:55 by SUMO sumo Version dev-SVN-r8657
 <configuration>
 
     <input>
@@ -27,82 +27,82 @@
 <sumo-netstate>
     <timestep time="0.00">
         <edge id="beg">
-            <vehicle id="1" pos="0.00" speed="31.72"/>
+            <vehicle id="1" pos="0.00" speed="31.73"/>
         </edge>
     </timestep>
     <timestep time="1.00">
         <edge id="beg">
-            <vehicle id="1" pos="0.00" speed="31.72"/>
+            <vehicle id="1" pos="0.00" speed="31.73"/>
         </edge>
     </timestep>
     <timestep time="2.00">
         <edge id="beg">
-            <vehicle id="1" pos="0.00" speed="31.72"/>
+            <vehicle id="1" pos="0.00" speed="31.73"/>
         </edge>
     </timestep>
     <timestep time="3.00">
         <edge id="beg">
-            <vehicle id="1" pos="0.00" speed="31.72"/>
+            <vehicle id="1" pos="0.00" speed="31.73"/>
         </edge>
     </timestep>
     <timestep time="4.00">
         <edge id="beg">
-            <vehicle id="1" pos="100.00" speed="31.72"/>
+            <vehicle id="1" pos="100.00" speed="31.73"/>
         </edge>
     </timestep>
     <timestep time="5.00">
         <edge id="beg">
-            <vehicle id="1" pos="100.00" speed="31.72"/>
+            <vehicle id="1" pos="100.00" speed="31.73"/>
         </edge>
     </timestep>
     <timestep time="6.00">
         <edge id="beg">
-            <vehicle id="1" pos="100.00" speed="31.72"/>
+            <vehicle id="1" pos="100.00" speed="31.73"/>
         </edge>
     </timestep>
     <timestep time="7.00">
         <edge id="beg">
-            <vehicle id="1" pos="200.00" speed="31.72"/>
+            <vehicle id="1" pos="200.00" speed="31.73"/>
         </edge>
     </timestep>
     <timestep time="8.00">
         <edge id="beg">
-            <vehicle id="1" pos="200.00" speed="31.72"/>
+            <vehicle id="1" pos="200.00" speed="31.73"/>
         </edge>
     </timestep>
     <timestep time="9.00">
         <edge id="beg">
-            <vehicle id="1" pos="200.00" speed="31.72"/>
+            <vehicle id="1" pos="200.00" speed="31.73"/>
         </edge>
     </timestep>
     <timestep time="10.00">
         <edge id="beg">
-            <vehicle id="1" pos="300.00" speed="31.72"/>
+            <vehicle id="1" pos="300.00" speed="31.73"/>
         </edge>
     </timestep>
     <timestep time="11.00">
         <edge id="beg">
-            <vehicle id="1" pos="300.00" speed="31.72"/>
+            <vehicle id="1" pos="300.00" speed="31.73"/>
         </edge>
     </timestep>
     <timestep time="12.00">
         <edge id="beg">
-            <vehicle id="1" pos="300.00" speed="31.72"/>
+            <vehicle id="1" pos="300.00" speed="31.73"/>
         </edge>
     </timestep>
     <timestep time="13.00">
         <edge id="beg">
-            <vehicle id="1" pos="400.00" speed="31.72"/>
+            <vehicle id="1" pos="400.00" speed="31.73"/>
         </edge>
     </timestep>
     <timestep time="14.00">
         <edge id="beg">
-            <vehicle id="1" pos="400.00" speed="31.72"/>
+            <vehicle id="1" pos="400.00" speed="31.73"/>
         </edge>
     </timestep>
     <timestep time="15.00">
         <edge id="beg">
-            <vehicle id="1" pos="400.00" speed="31.72"/>
+            <vehicle id="1" pos="400.00" speed="31.73"/>
         </edge>
     </timestep>
     <timestep time="16.00">

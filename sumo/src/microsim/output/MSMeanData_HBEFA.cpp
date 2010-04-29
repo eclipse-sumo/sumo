@@ -119,10 +119,10 @@ MSMeanData_HBEFA::MSLaneMeanDataValues::isStillActive(MSVehicle& veh, SUMOReal o
 
 
 void
-MSMeanData_HBEFA::MSLaneMeanDataValues::write(OutputDevice &dev, const SUMOReal period,
+MSMeanData_HBEFA::MSLaneMeanDataValues::write(OutputDevice &dev, const SUMOTime period,
         const SUMOReal numLanes, const SUMOReal length, const int numVehicles) const throw(IOError) {
     dev<<std::resetiosflags(std::ios::floatfield);
-    const SUMOReal normFactor = SUMOReal(3600. * 1000. / (period / 1000.) / length);
+    const SUMOReal normFactor = SUMOReal(3600. * 1000. / STEPS2TIME(period) / length);
     dev << "\" CO_abs=\""<<SUMOReal(CO*1000.) <<
     "\" CO2_abs=\""<<SUMOReal(CO2*1000.) <<
     "\" HC_abs=\""<<SUMOReal(HC*1000.) <<

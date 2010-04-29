@@ -149,7 +149,7 @@ MSMeanData::MeanDataValueTracker::isEmpty() const throw() {
 
 
 void
-MSMeanData::MeanDataValueTracker::write(OutputDevice &dev, const SUMOReal period,
+MSMeanData::MeanDataValueTracker::write(OutputDevice &dev, const SUMOTime period,
         const SUMOReal numLanes, const SUMOReal length, const int numVehicles) const throw(IOError) {
     myCurrentData.front()->myValues->write(dev, period, numLanes, length, myCurrentData.front()->myNumVehicleEntered);
 }
@@ -241,7 +241,7 @@ MSMeanData::resetOnly(SUMOTime stopTime) throw() {
         for (std::vector<std::vector<MeanDataValues*> >::const_iterator i=myMeasures.begin(); i!=myMeasures.end(); ++i, ++edge) {
             MESegment *s = MSGlobals::gMesoNet->getSegmentForEdge(**edge);
             for (std::vector<MeanDataValues*>::const_iterator j=(*i).begin(); j!=(*i).end(); ++j) {
-                s->prepareMeanDataForWriting(*(*j), (SUMOReal) stopTime);
+                s->prepareMeanDataForWriting(*(*j), stopTime);
                 (*j)->reset();
                 s = s->getNextSegment();
             }
@@ -278,7 +278,7 @@ MSMeanData::writeEdge(OutputDevice &dev,
         for (lane = edgeValues.begin(); lane != edgeValues.end(); ++lane) {
             MeanDataValues& meanData = **lane;
             if (writePrefix(dev, meanData, "<lane id=\""+meanData.getLane()->getID())) {
-                meanData.write(dev, (SUMOReal)(stopTime - startTime),
+                meanData.write(dev, stopTime - startTime,
                                 1.f, meanData.getLane()->getLength());
             }
             if (myTrackVehicles) {
@@ -302,7 +302,7 @@ MSMeanData::writeEdge(OutputDevice &dev,
             }
         }
         if (writePrefix(dev, *sumData, "<edge id=\""+edge->getID())) {
-            sumData->write(dev, (SUMOReal)(stopTime - startTime),
+            sumData->write(dev, stopTime - startTime,
                            (SUMOReal)edge->getLanes().size(), edge->getLanes()[0]->getLength());
         }
         delete sumData;

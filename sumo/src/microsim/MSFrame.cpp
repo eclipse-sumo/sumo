@@ -94,7 +94,7 @@ MSFrame::fillOptions() {
 #ifdef HAVE_MESOSIM
     oc.doRegister("load-state", new Option_FileName());//!!! check, describe
     oc.addDescription("load-state", "Input", "Loads a network state from FILE");
-    oc.doRegister("load-state.offset", new Option_Float(0.f));//!!! check, describe
+    oc.doRegister("load-state.offset", new Option_String("0", "TIME"));//!!! check, describe
     oc.addDescription("load-state.offset", "Input", "Sets the time offset for vehicle segment exit times.");
 #endif
 
@@ -240,13 +240,13 @@ MSFrame::fillOptions() {
     oc.addDescription("mesosim", "Mesoscopic", "Enables mesoscopic simulation");
     oc.doRegister("meso-edgelength", new Option_Float(98.0f));
     oc.addDescription("meso-edgelength", "Mesoscopic", "Length of an edge segment in mesoscopic simulation");
-    oc.doRegister("meso-tauff", new Option_Float(1.4f));
+    oc.doRegister("meso-tauff", new Option_String("1.4", "TIME"));
     oc.addDescription("meso-tauff", "Mesoscopic", "Factor for calculating the free-free headway time");
-    oc.doRegister("meso-taufj", new Option_Float(1.4f));
+    oc.doRegister("meso-taufj", new Option_String("1.4", "TIME"));
     oc.addDescription("meso-taufj", "Mesoscopic", "Factor for calculating the free-jam headway time");
-    oc.doRegister("meso-taujf", new Option_Float(2.0f));
+    oc.doRegister("meso-taujf", new Option_String("2", "TIME"));
     oc.addDescription("meso-taujf", "Mesoscopic", "Factor for calculating the jam-free headway time");
-    oc.doRegister("meso-taujj", new Option_Float(2.0f));
+    oc.doRegister("meso-taujj", new Option_String("2", "TIME"));
     oc.addDescription("meso-taujj", "Mesoscopic", "Factor for calculating the jam-jam headway time");
     oc.doRegister("meso-jam-threshold", new Option_Float(0.29f));
     oc.addDescription("meso-jam-threshold", "Mesoscopic", "Minimum percentage of occupied space to consider a segment jammed");

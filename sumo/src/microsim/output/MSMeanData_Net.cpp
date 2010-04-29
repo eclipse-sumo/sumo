@@ -165,12 +165,12 @@ MSMeanData_Net::MSLaneMeanDataValues::isEmpty() const throw() {
 
 
 void
-MSMeanData_Net::MSLaneMeanDataValues::write(OutputDevice &dev, const SUMOReal period,
+MSMeanData_Net::MSLaneMeanDataValues::write(OutputDevice &dev, const SUMOTime period,
         const SUMOReal numLanes, const SUMOReal length, const int numVehicles) const throw(IOError) {
     if (myParent == 0) {
         if (sampleSeconds > 0) {
-            dev << "\" density=\"" << sampleSeconds / (period / 1000.) * (SUMOReal) 1000 / length <<
-            "\" occupancy=\"" << vehLengthSum / (period / 1000.) / length / numLanes *(SUMOReal) 100 <<
+            dev << "\" density=\"" << sampleSeconds / STEPS2TIME(period) * (SUMOReal) 1000 / length <<
+            "\" occupancy=\"" << vehLengthSum / STEPS2TIME(period) / length / numLanes *(SUMOReal) 100 <<
             "\" waitingTime=\"" << waitSeconds <<
             "\" speed=\"" << travelledDistance / sampleSeconds;
         }
@@ -192,8 +192,8 @@ MSMeanData_Net::MSLaneMeanDataValues::write(OutputDevice &dev, const SUMOReal pe
             "\" speed=\"" << travelledDistance / sampleSeconds;
         } else {
             dev << "\" traveltime=\"" << traveltime <<
-            "\" density=\"" << sampleSeconds / (period / 1000.) *(SUMOReal) 1000 / length <<
-            "\" occupancy=\"" << vehLengthSum / (period / 1000.) / length / numLanes *(SUMOReal) 100 <<
+            "\" density=\"" << sampleSeconds / STEPS2TIME(period) *(SUMOReal) 1000 / length <<
+            "\" occupancy=\"" << vehLengthSum / STEPS2TIME(period) / length / numLanes *(SUMOReal) 100 <<
             "\" waitingTime=\"" << waitSeconds <<
             "\" speed=\"" << travelledDistance / sampleSeconds;
         }
@@ -224,11 +224,11 @@ MSMeanData_Net::MSLaneMeanDataValues::addData(const MEVehicle& veh, const SUMORe
 
 
 void
-MSMeanData_Net::MSLaneMeanDataValues::getLastReported(MEVehicle *v, SUMOReal &lastReportedTime, SUMOReal &lastReportedPos) throw() {
-    std::map<MEVehicle*, std::pair<SUMOReal, SUMOReal> >::iterator j=myLastVehicleUpdateValues.find(v);
+MSMeanData_Net::MSLaneMeanDataValues::getLastReported(MEVehicle *v, SUMOTime &lastReportedTime, SUMOReal &lastReportedPos) throw() {
+    std::map<MEVehicle*, std::pair<SUMOTime, SUMOReal> >::iterator j=myLastVehicleUpdateValues.find(v);
     if (j!=myLastVehicleUpdateValues.end()) {
         // the vehicle already has reported its values before; use these
-        std::pair<SUMOReal, SUMOReal> &vals = (*j).second;
+        std::pair<SUMOTime, SUMOReal> &vals = (*j).second;
         lastReportedTime = vals.first;
         lastReportedPos = vals.second;
         myLastVehicleUpdateValues.erase(j);
@@ -237,8 +237,8 @@ MSMeanData_Net::MSLaneMeanDataValues::getLastReported(MEVehicle *v, SUMOReal &la
 
 
 void
-MSMeanData_Net::MSLaneMeanDataValues::setLastReported(MEVehicle *v, SUMOReal lastReportedTime, SUMOReal lastReportedPos) throw() {
-    myLastVehicleUpdateValues[v] = std::pair<SUMOReal, SUMOReal>(lastReportedTime, lastReportedPos);
+MSMeanData_Net::MSLaneMeanDataValues::setLastReported(MEVehicle *v, SUMOTime lastReportedTime, SUMOReal lastReportedPos) throw() {
+    myLastVehicleUpdateValues[v] = std::pair<SUMOTime, SUMOReal>(lastReportedTime, lastReportedPos);
 }
 #endif
 
@@ -278,7 +278,7 @@ MSMeanData_Net::writeEdge(OutputDevice &dev,
         std::vector<MeanDataValues*>::const_iterator data;
         for (data = edgeValues.begin(); data != edgeValues.end(); ++data) {
             MSLaneMeanDataValues& meanData = (MSLaneMeanDataValues&)**data;
-            s->prepareMeanDataForWriting(meanData, (SUMOReal) stopTime);
+            s->prepareMeanDataForWriting(meanData, stopTime);
             meanData.addTo(*sumData);
             if (isFirst) {
                 entered = meanData.nVehEntered;
@@ -290,7 +290,7 @@ MSMeanData_Net::writeEdge(OutputDevice &dev,
         }
         sumData->nVehEntered = entered;
         if (writePrefix(dev, *sumData, "<edge id=\""+edge->getID())) {
-            sumData->write(dev, (SUMOReal)(stopTime - startTime),
+            sumData->write(dev, stopTime - startTime,
                            (SUMOReal)edge->getLanes().size(), edge->getLanes()[0]->getLength());
         }
         delete sumData;

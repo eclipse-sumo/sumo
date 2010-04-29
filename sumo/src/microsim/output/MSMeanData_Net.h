@@ -148,14 +148,14 @@ public:
          * @param[in] length The length of the object for which the data was collected
          * @exception IOError If an error on writing occurs (!!! not yet implemented)
          */
-        void write(OutputDevice &dev, const SUMOReal period,
+        void write(OutputDevice &dev, const SUMOTime period,
                    const SUMOReal numLanes, const SUMOReal length,
                    const int numVehicles=-1) const throw(IOError);
 
 #ifdef HAVE_MESOSIM
         void addData(const MEVehicle& veh, const SUMOReal timeOnLane, const SUMOReal dist) throw();
-        void getLastReported(MEVehicle *v, SUMOReal &lastReportedTime, SUMOReal &lastReportedPos) throw();
-        void setLastReported(MEVehicle *v, SUMOReal lastReportedTime, SUMOReal lastReportedPos) throw();
+        void getLastReported(MEVehicle *v, SUMOTime &lastReportedTime, SUMOReal &lastReportedPos) throw();
+        void setLastReported(MEVehicle *v, SUMOTime lastReportedTime, SUMOReal lastReportedPos) throw();
 #endif
 
         /// @name Collected values
@@ -190,7 +190,7 @@ public:
         const MSMeanData_Net* myParent;
 
 #ifdef HAVE_MESOSIM
-        std::map<MEVehicle*, std::pair<SUMOReal, SUMOReal> > myLastVehicleUpdateValues;
+        std::map<MEVehicle*, std::pair<SUMOTime, SUMOReal> > myLastVehicleUpdateValues;
 #endif
 
     };

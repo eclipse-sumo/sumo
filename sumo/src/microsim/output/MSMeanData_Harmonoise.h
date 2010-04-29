@@ -137,7 +137,7 @@ public:
          * @param[in] length The length of the object for which the data was collected
          * @exception IOError If an error on writing occurs (!!! not yet implemented)
          */
-        void write(OutputDevice &dev, const SUMOReal period,
+        void write(OutputDevice &dev, const SUMOTime period,
                    const SUMOReal numLanes, const SUMOReal length,
                    const int numVehicles=-1) const throw(IOError);
 
