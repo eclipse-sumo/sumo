@@ -25,43 +25,43 @@
 -->
 
 <routes>
-    <vehicle id="route0_0" depart="0" arrival="72.00">
+    <vehicle id="route0_0" depart="0.00" arrival="72.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="route0_1" depart="2" arrival="75.00">
+    <vehicle id="route0_1" depart="2.00" arrival="75.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="route0_2" depart="4" arrival="79.00">
+    <vehicle id="route0_2" depart="4.00" arrival="79.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="route0_3" depart="6" arrival="83.00">
+    <vehicle id="route0_3" depart="6.00" arrival="83.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="route0_4" depart="8" arrival="85.00">
+    <vehicle id="route0_4" depart="8.00" arrival="85.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="route1_0" depart="1" arrival="180.00">
+    <vehicle id="route1_0" depart="1.00" arrival="180.00">
         <route edges="beg beg2left left left2end end rend"/>
     </vehicle>
 
-    <vehicle id="route1_1" depart="3" arrival="184.00">
+    <vehicle id="route1_1" depart="3.00" arrival="184.00">
         <route edges="beg beg2left left left2end end rend"/>
     </vehicle>
 
-    <vehicle id="route1_2" depart="5" arrival="188.00">
+    <vehicle id="route1_2" depart="5.00" arrival="188.00">
         <route edges="beg beg2left left left2end end rend"/>
     </vehicle>
 
-    <vehicle id="route1_3" depart="7" arrival="191.00">
+    <vehicle id="route1_3" depart="7.00" arrival="191.00">
         <route edges="beg beg2left left left2end end rend"/>
     </vehicle>
 
-    <vehicle id="route1_4" depart="9" arrival="194.00">
+    <vehicle id="route1_4" depart="9.00" arrival="194.00">
         <route edges="beg beg2left left left2end end rend"/>
     </vehicle>
 

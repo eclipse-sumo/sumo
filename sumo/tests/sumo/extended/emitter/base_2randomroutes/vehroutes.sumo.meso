@@ -25,43 +25,43 @@
 -->
 
 <routes>
-    <vehicle id="emitter_2.00_2" depart="2" arrival="75.00">
+    <vehicle id="emitter_2.00_2" depart="2.00" arrival="75.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="emitter_3.00_3" depart="3" arrival="77.00">
+    <vehicle id="emitter_3.00_3" depart="3.00" arrival="77.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="emitter_5.00_5" depart="5" arrival="81.00">
+    <vehicle id="emitter_5.00_5" depart="5.00" arrival="81.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="emitter_7.00_7" depart="7" arrival="84.00">
+    <vehicle id="emitter_7.00_7" depart="7.00" arrival="84.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="emitter_0.00_0" depart="0" arrival="179.00">
+    <vehicle id="emitter_0.00_0" depart="0.00" arrival="179.00">
         <route edges="beg beg2left left left2end end rend"/>
     </vehicle>
 
-    <vehicle id="emitter_1.00_1" depart="1" arrival="180.00">
+    <vehicle id="emitter_1.00_1" depart="1.00" arrival="180.00">
         <route edges="beg beg2left left left2end end rend"/>
     </vehicle>
 
-    <vehicle id="emitter_4.00_4" depart="4" arrival="186.00">
+    <vehicle id="emitter_4.00_4" depart="4.00" arrival="186.00">
         <route edges="beg beg2left left left2end end rend"/>
     </vehicle>
 
-    <vehicle id="emitter_6.00_6" depart="6" arrival="190.00">
+    <vehicle id="emitter_6.00_6" depart="6.00" arrival="190.00">
         <route edges="beg beg2left left left2end end rend"/>
     </vehicle>
 
-    <vehicle id="emitter_8.00_8" depart="8" arrival="192.00">
+    <vehicle id="emitter_8.00_8" depart="8.00" arrival="192.00">
         <route edges="beg beg2left left left2end end rend"/>
     </vehicle>
 
-    <vehicle id="emitter_9.00_9" depart="9" arrival="194.00">
+    <vehicle id="emitter_9.00_9" depart="9.00" arrival="194.00">
         <route edges="beg beg2left left left2end end rend"/>
     </vehicle>
 

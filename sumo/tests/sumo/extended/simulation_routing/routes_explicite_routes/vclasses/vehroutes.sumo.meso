@@ -33,7 +33,7 @@
 -->
 
 <routes>
-    <vehicle id="0_0" depart="0" arrival="108.00">
+    <vehicle id="0_0" depart="0.00" arrival="108.00">
         <routeDistribution>
             <route replacedOnEdge="absBeg" replacedAtTime="0.00" probability="0" edges="absBeg middle end absEnd"/>
             <route edges="absBeg beg2left left left2end end absEnd"/>
