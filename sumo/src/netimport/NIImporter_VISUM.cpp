@@ -193,7 +193,7 @@ NIImporter_VISUM::load() throw(ProcessError) {
                 } catch (NumberFormatException &) {
                     MsgHandler::getErrorInstance()->inform("A value in " + (*i).name + " should be numeric but is not (id='" + myCurrentID + "').");
                 } catch (UnknownElement &e) {
-                    MsgHandler::getErrorInstance()->inform("A one of the needed values ('" + std::string(e.what()) + "') is missing in " + (*i).name + ".");
+                    MsgHandler::getErrorInstance()->inform("One of the needed values ('" + std::string(e.what()) + "') is missing in " + (*i).name + ".");
                 }
             }
         }
@@ -797,6 +797,10 @@ NIImporter_VISUM::parse_SignalGroups() {
     // EndTime
     SUMOReal EndTime = getNamedFloat("GzEnd", "GRUENENDE");
     // add to the list
+    if(myNIVisumTLs.find(LSAid)==myNIVisumTLs.end()) {
+        MsgHandler::getErrorInstance()->inform("Could not find TLS '" + LSAid + "' for setting the signal group.");
+        return;
+    }
     (*myNIVisumTLs.find(LSAid)).second->AddSignalGroup(myCurrentID, (SUMOTime) StartTime, (SUMOTime) EndTime);
 }
 
@@ -1110,6 +1114,9 @@ NIImporter_VISUM::getReversedContinuating(NBEdge *edge, NBNode *node) throw() {
 
 NBEdge *
 NIImporter_VISUM::getNamedEdgeContinuating(NBEdge *begin, NBNode *node) throw() {
+    if(begin==0) {
+        return 0;
+    }
     NBEdge *ret = begin;
     std::string edgeID = ret->getID();
     // hangle forward
