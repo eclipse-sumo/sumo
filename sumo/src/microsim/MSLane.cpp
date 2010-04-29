@@ -307,11 +307,11 @@ MSLane::isEmissionSuccess(MSVehicle* aVehicle,
                 }
             }
             // check traffic on next junctions
-            SUMOTime arrivalTime = (SUMOTime) (MSNet::getInstance()->getCurrentTimeStep() + seen / speed * 1000.);
+            const SUMOTime arrivalTime = MSNet::getInstance()->getCurrentTimeStep() + TIME2STEPS(seen / speed);
 #ifdef HAVE_INTERNAL_LANES
-            SUMOTime leaveTime = (*link)->getViaLane()==0 ? arrivalTime + (*link)->getLength() * speed * 1000. : arrivalTime + (*link)->getViaLane()->getLength() * speed * 1000.;
+            const SUMOTime leaveTime = (*link)->getViaLane()==0 ? arrivalTime + TIME2STEPS((*link)->getLength() * speed) : arrivalTime + TIME2STEPS((*link)->getViaLane()->getLength() * speed);
 #else
-            SUMOTime leaveTime = arrivalTime + (*link)->getLength() * speed * 1000.;
+            const SUMOTime leaveTime = arrivalTime + TIME2STEPS((*link)->getLength() * speed);
 #endif
             if ((*link)->hasApproachingFoe(arrivalTime, leaveTime)) {
                 SUMOReal nspeed = cfModel.ffeV(aVehicle, speed, seen, 0);

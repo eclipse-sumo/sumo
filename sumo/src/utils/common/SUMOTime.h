@@ -52,8 +52,8 @@ typedef int SUMOTime;
 // x/deltaT
 #define SPEED2ACCEL(x) (x)
 
-#define STEPS2TIME(x) ((SUMOReal)x)
-#define TIME2STEPS(x) (x)
+#define STEPS2TIME(x) (static_cast<SUMOReal>(x))
+#define TIME2STEPS(x) (static_cast<SUMOTime>(x))
 #define TMOD(x,y) (x%y)
 
 #else
@@ -74,8 +74,8 @@ extern SUMOTime DELTA_T;
 // x*deltaT
 #define SPEED2ACCEL(x) ((x)/TS)
 
-#define STEPS2TIME(x) ((SUMOReal) ((x)/1000.))
-#define TIME2STEPS(x) ((SUMOTime) ((x)*1000))
+#define STEPS2TIME(x) (static_cast<SUMOReal>((x)/1000.))
+#define TIME2STEPS(x) (static_cast<SUMOTime>((x)*1000))
 #define TMOD(x,y) (x%y) 
 //(fmod(x,y))
 

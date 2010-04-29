@@ -264,7 +264,7 @@ NLTriggerBuilder::parseAndBuildCalibrator(MSNet &net, const SUMOSAXAttributes &a
     MSLane *lane = getLane(attrs, "calibrator", id);
     SUMOReal pos = getPosition(attrs, lane, "calibrator", id);
     bool ok = true;
-    SUMOTime freq = attrs.getOptSUMOTimeReporting(SUMO_ATTR_FREQUENCY, "meandata_lane", id.c_str(), ok, 1); // !!! no error handling
+    SUMOTime freq = attrs.getOptSUMOTimeReporting(SUMO_ATTR_FREQUENCY, "meandata_lane", id.c_str(), ok, DELTA_T); // !!! no error handling
 #ifdef HAVE_MESOSIM
     if (MSGlobals::gUseMesoSim) {
         std::string file = getFileName(attrs, base, true);
