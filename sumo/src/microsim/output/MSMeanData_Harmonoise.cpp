@@ -122,7 +122,7 @@ MSMeanData_Harmonoise::MSLaneMeanDataValues::notifyEnter(MSVehicle& veh, bool is
 void
 MSMeanData_Harmonoise::MSLaneMeanDataValues::write(OutputDevice &dev, const SUMOReal period,
         const SUMOReal numLanes, const SUMOReal length, const int numVehicles) const throw(IOError) {
-    dev << "\" noise=\"" << (meanNTemp!=0 ? (SUMOReal)(10. * log10(meanNTemp/period)) : (SUMOReal) 0.);
+    dev << "\" noise=\"" << (meanNTemp!=0 ? (SUMOReal)(10. * log10(meanNTemp/(period/1000.))) : (SUMOReal) 0.);
     if (sampleSeconds > myParent->myMinSamples) {
         SUMOReal traveltime = myParent->myMaxTravelTime;
         if (travelledDistance > 0.f) {
