@@ -6,6 +6,7 @@ import traciControl
 
 
 PORT = 8813
+DELTA_T = 1000
 
 netconvertBinary = os.environ.get("NETCONVERT_BINARY", os.path.join(os.path.dirname(sys.argv[0]), '..', '..', '..', '..', 'bin', 'netconvert'))
 sumoBinary = os.environ.get("SUMO_BINARY", os.path.join(os.path.dirname(sys.argv[0]), '..', '..', '..', '..', 'bin', 'sumo'))
@@ -18,8 +19,8 @@ def runSingle(addOption):
     traciControl.initTraCI(PORT)
     while not step>10000:
         try:
-            traciControl.cmdSimulationStep(1)
-            vehs = traciControl.cmdGetVehicleVariable_idList("x")
+            traciControl.cmdSimulationStep(DELTA_T)
+            vehs = traciControl.cmdGetVehicleVariable_idList()
             timeline.append({})
             for v in vehs:
                 timeline[-1][v] = traciControl.cmdGetVehicleVariable_speed(v)
