@@ -89,9 +89,9 @@ Usage: sumo [OPTION]*
   --device.routing.knownveh STR       Assign a device to named vehicles
   --device.routing.deterministic      The devices are set deterministic using a
                                         fraction of 1000
-  --device.routing.period INT         The period with which the vehicle shall
+  --device.routing.period STR         The period with which the vehicle shall
                                         be rerouted
-  --device.routing.pre-period INT     The rerouting period before emit
+  --device.routing.pre-period STR     The rerouting period before emit
   --device.routing.adaptation-weight FLOAT  The weight of prior edge weights.
   --device.routing.adaptation-interval STR  The interval for updating the edge
                                         weights.
