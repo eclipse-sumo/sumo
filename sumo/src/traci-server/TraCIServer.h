@@ -322,13 +322,13 @@ private:
     class Subscription {
     public:
         Subscription(int commandIdArg, const std::string &idArg, const std::vector<int> &variablesArg,
-                     double beginTimeArg, double endTimeArg)
+                     SUMOTime beginTimeArg, SUMOTime endTimeArg)
                 : commandId(commandIdArg), id(idArg), variables(variablesArg), beginTime(beginTimeArg), endTime(endTimeArg) {}
         int commandId;
         std::string id;
         std::vector<int> variables;
-        double beginTime;
-        double endTime;
+        SUMOTime beginTime;
+        SUMOTime endTime;
 
     };
 

@@ -446,11 +446,12 @@ TraCITestClient::run(std::string fileName, int port, std::string host) {
             defFile >> domID >> varID >> objID;
             commandGetVariablePlus(domID, varID, objID, defFile);
         } else if (lineCommand.compare("subscribevariable") == 0) {
-            // trigger command GetXXXVariable
-            int domID, varNo, beginTime, endTime;
+            // trigger command SubscribeXXXVariable
+            int domID, varNo;
+            std::string beginTime, endTime;
             std::string objID;
             defFile >> domID >> objID >> beginTime >> endTime >> varNo;
-            commandSubscribeVariable(domID, objID, beginTime, endTime, varNo, defFile);
+            commandSubscribeVariable(domID, objID, string2time(beginTime), string2time(endTime), varNo, defFile);
         }  else if (lineCommand.compare("setvalue") == 0) {
             // trigger command SetXXXValue
             int domID, varID;
@@ -1442,12 +1443,12 @@ TraCITestClient::commandSubscribeVariable(int domID, const std::string &objID, i
     }
     // command length (domID, beginTime, endTime, objID, varNo, <vars>)
     outMsg.writeUnsignedByte(0);
-    outMsg.writeInt(/*1 + 4 +*/ 5 + 1 + 8 + 8 + 4 + (int) objID.length() + 1 + varNo);
+    outMsg.writeInt(/*1 + 4 +*/ 5 + 1 + 4 + 4 + 4 + (int) objID.length() + 1 + varNo);
     // command id
     outMsg.writeUnsignedByte(domID);
     // time
-    outMsg.writeDouble(beginTime);
-    outMsg.writeDouble(endTime);
+    outMsg.writeInt(beginTime);
+    outMsg.writeInt(endTime);
     // object id
     outMsg.writeString(objID);
     // command id
