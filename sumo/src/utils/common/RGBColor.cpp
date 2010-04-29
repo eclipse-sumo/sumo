@@ -29,8 +29,10 @@
 
 #include <cmath>
 #include <string>
+#include <sstream>
 #include <utils/common/StringTokenizer.h>
 #include <utils/common/TplConvert.h>
+#include <utils/common/MsgHandler.h>
 #include "RGBColor.h"
 
 #ifdef CHECK_MEMORY_LEAKS
@@ -106,6 +108,39 @@ RGBColor::parseColor(const std::string &coldef) throw(EmptyData, NumberFormatExc
     SUMOReal g = TplConvert<char>::_2SUMOReal(st.next().c_str());
     SUMOReal b = TplConvert<char>::_2SUMOReal(st.next().c_str());
     return RGBColor(r, g, b);
+}
+
+
+RGBColor
+RGBColor::parseColorReporting(const std::string &coldef, const char *objecttype, const char *objectid, bool report, bool &ok) throw() {
+    try {
+        return parseColor(coldef);
+    } catch (NumberFormatException &) {
+    } catch (EmptyData &) {
+    }
+    ok = false;
+    std::ostringstream oss;
+    oss << "Attribute 'color' in definition of ";
+    if (objectid==0) {
+        oss << "a ";
+    }
+    if (objecttype!=0) {
+        oss << objecttype;
+    } else {
+        oss << "<unknown type>";
+    }
+    if (objectid!=0) {
+        oss << " '" << objectid << "'";
+    }
+    oss << " is not a valid color.";
+    MsgHandler::getErrorInstance()->inform(oss.str());
+    return RGBColor();
+}
+
+
+RGBColor
+RGBColor::getDefaultColor() throw() {
+    return parseColor(RGBColor::DEFAULT_COLOR_STRING);
 }
 
 

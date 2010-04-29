@@ -330,7 +330,13 @@ SUMOVehicleParserHelper::parseCommonAttributes(const SUMOSAXAttributes &attrs,
     // parse color
     if (attrs.hasAttribute(SUMO_ATTR_COLOR)) {
         ret->setParameter |= VEHPARS_COLOR_SET;
-        ret->color = RGBColor::parseColor(attrs.getStringReporting(SUMO_ATTR_COLOR, "vehicle", 0, ok));
+        try {
+            ret->color = RGBColor::parseColor(attrs.getStringReporting(SUMO_ATTR_COLOR, "vehicle", 0, ok));
+        } catch (NumberFormatException &) {
+            throw ProcessError("Invalid color definition for " + element + " '" + ret->id + "'");
+        } catch (EmptyData &) {
+            throw ProcessError("Invalid color definition for " + element + " '" + ret->id + "'");
+        }
     } else {
         ret->color = RGBColor::DEFAULT_COLOR;
     }
@@ -381,7 +387,7 @@ SUMOVehicleParserHelper::beginVTypeParsing(const SUMOSAXAttributes &attrs) throw
         vtype->setParameter |= VTYPEPARS_SHAPE_SET;
     }
     if (attrs.hasAttribute(SUMO_ATTR_COLOR)) {
-        vtype->color = RGBColor::parseColor(attrs.getStringReporting(SUMO_ATTR_COLOR, "vtype", vtype->id.c_str(), ok));
+        vtype->color = RGBColor::parseColorReporting(attrs.getString(SUMO_ATTR_COLOR), "vtype", vtype->id.c_str(), true, ok);
         vtype->setParameter |= VTYPEPARS_COLOR_SET;
     } else {
         vtype->color = RGBColor(1,1,0);

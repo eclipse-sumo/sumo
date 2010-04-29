@@ -121,7 +121,7 @@ RORDLoader_SUMOBase::startRoute(const SUMOSAXAttributes &attrs) {
         return;
     }
     if (attrs.hasAttribute(SUMO_ATTR_COLOR)) {
-        myColor = new RGBColor(RGBColor::parseColor(attrs.getStringReporting(SUMO_ATTR_COLOR, "route", 0, myCurrentIsOk)));
+        myColor = new RGBColor(RGBColor::parseColorReporting(attrs.getString(SUMO_ATTR_COLOR), "route", 0, true, myCurrentIsOk));
     }
     if (myCurrentAlternatives==0) {
         myCurrentIsOk = true;

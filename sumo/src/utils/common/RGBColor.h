@@ -122,6 +122,28 @@ public:
     static RGBColor parseColor(const std::string &coldef) throw(EmptyData, NumberFormatException);
 
 
+    /** @brief Parses a color information
+     *
+     * It is assumed that the color is stored as "<RED>,<GREEN>,<BLUE>"
+     * And each color is represented as a SUMOReal.
+     * @param[in] coldef The color definition to parse
+     * @param[in] objecttype The type of the currently parsed object
+     * @param[in] objectid The id of the currently parsed object
+     * @param[in] report Whether errors shall be reported
+     * @param[in, out] ok Whether parsing was successful
+     * @return The parsed color
+     * @exception EmptyData If the definition has less than three entries
+     * @exception NumberFormatException If one of the components is not numeric
+     */
+    static RGBColor parseColorReporting(const std::string &coldef, const char *objecttype, const char *objectid, bool report, bool &ok) throw();
+
+
+    /** @brief Returns the default color by parsing DEFAULT_COLOR_STRING
+     * @return The default color
+     */
+    static RGBColor getDefaultColor() throw();
+
+
     /** @brief Interpolates between two colors
      *
      * The interpolated color is calculated as a weighted average of

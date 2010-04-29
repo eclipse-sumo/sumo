@@ -639,14 +639,14 @@ NLHandler::addPOI(const SUMOSAXAttributes &attrs) {
     SUMOReal lanePos = attrs.getOptSUMORealReporting(SUMO_ATTR_POSITION, "poi", id.c_str(), ok, INVALID_POSITION);
     int layer = attrs.getOptIntReporting(SUMO_ATTR_LAYER, "poi", id.c_str(), ok, 1);
     std::string type = attrs.getOptStringReporting(SUMO_ATTR_TYPE, "poi", id.c_str(), ok, "");
-    std::string color = attrs.getOptStringReporting(SUMO_ATTR_COLOR, "poi", id.c_str(), ok, "1,0,0");
     std::string lane = attrs.getOptStringReporting(SUMO_ATTR_LANE, "poi", id.c_str(), ok, "");
+    std::string colorStr = attrs.getOptStringReporting(SUMO_ATTR_COLOR, "poi", id.c_str(), ok, "1,0,0");
+    RGBColor color = RGBColor::parseColorReporting(colorStr, "poi", id.c_str(), true, ok);
     if (!ok) {
         return;
     }
     try {
-        myShapeBuilder.addPoint(id, layer, type, RGBColor::parseColor(color),
-                                x, y, lane, lanePos);
+        myShapeBuilder.addPoint(id, layer, type, color, x, y, lane, lanePos);
     } catch (InvalidArgument &e) {
         MsgHandler::getErrorInstance()->inform(e.what());
     } catch (OutOfBoundsException &) {
@@ -668,19 +668,12 @@ NLHandler::addPoly(const SUMOSAXAttributes &attrs) {
     int layer = attrs.getOptIntReporting(SUMO_ATTR_LAYER, "poly", id.c_str(), ok, 1);
     bool fill = attrs.getOptBoolReporting(SUMO_ATTR_FILL, "poly", id.c_str(), ok, false);
     std::string type = attrs.getOptStringReporting(SUMO_ATTR_TYPE, "poly", id.c_str(), ok, "");
-    std::string color = attrs.getStringReporting(SUMO_ATTR_COLOR, "poly", id.c_str(), ok);
+    std::string colorStr = attrs.getStringReporting(SUMO_ATTR_COLOR, "poly", id.c_str(), ok);
+    RGBColor color = RGBColor::parseColorReporting(colorStr, "poi", id.c_str(), true, ok);
     if (!ok) {
         return;
     }
-    try {
-        myShapeBuilder.polygonBegin(id, layer, type, RGBColor::parseColor(color), fill);
-    } catch (NumberFormatException &) {
-        MsgHandler::getErrorInstance()->inform("The color of polygon '" + id + "' could not be parsed.");
-    } catch (BoolFormatException &) {
-        MsgHandler::getErrorInstance()->inform("The attribute 'fill' of polygon '" + id + "' is not a valid bool.");
-    } catch (EmptyData &) {
-        MsgHandler::getErrorInstance()->inform("Polygon '" + id + "' misses an attribute.");
-    }
+    myShapeBuilder.polygonBegin(id, layer, type, color, fill);
     if (attrs.hasAttribute(SUMO_ATTR_SHAPE)) {
         // @deprecated; at some time, this is mandatory (no character usage)
         myShapeBuilder.polygonEnd(GeomConvHelper::parseShapeReporting(attrs.getStringReporting(SUMO_ATTR_SHAPE, "poly", id.c_str(), ok), "poly", id.c_str(), ok, false));

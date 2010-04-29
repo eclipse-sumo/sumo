@@ -323,7 +323,7 @@ MSRouteHandler::openRoute(const SUMOSAXAttributes &attrs) {
         MSEdge::parseEdgesList(attrs.getStringReporting(SUMO_ATTR_EDGES, "route", myActiveRouteID.c_str(), ok), myActiveRoute, myActiveRouteID);
     }
     myActiveRouteProbability = attrs.getOptSUMORealReporting(SUMO_ATTR_PROB, "route", myActiveRouteID.c_str(), ok, DEFAULT_VEH_PROB);
-    myActiveRouteColor = RGBColor::parseColor(attrs.getOptStringReporting(SUMO_ATTR_COLOR, "route", myActiveRouteID.c_str(), ok, RGBColor::DEFAULT_COLOR_STRING));
+    myActiveRouteColor = attrs.hasAttribute(SUMO_ATTR_COLOR) ? RGBColor::parseColorReporting(attrs.getString(SUMO_ATTR_COLOR), "route", myActiveRouteID.c_str(), true, ok) : RGBColor::getDefaultColor();
 }
 
 

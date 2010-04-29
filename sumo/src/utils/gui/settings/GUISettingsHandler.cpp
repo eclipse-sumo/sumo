@@ -96,23 +96,26 @@ GUISettingsHandler::myStartElement(SumoXMLTag element,
         mySettings.antialiase = TplConvert<char>::_2bool(attrs.getStringSecure("antialiase", toString(mySettings.antialiase)).c_str());
         mySettings.dither = TplConvert<char>::_2bool(attrs.getStringSecure("dither", toString(mySettings.dither)).c_str());
         break;
-    case SUMO_TAG_VIEWSETTINGS_BACKGROUND:
-        mySettings.backgroundColor = RGBColor::parseColor(attrs.getStringSecure("backgroundColor", toString(mySettings.backgroundColor)));
+    case SUMO_TAG_VIEWSETTINGS_BACKGROUND: {
+        bool ok = true;
+        mySettings.backgroundColor = RGBColor::parseColorReporting(attrs.getStringSecure("backgroundColor", toString(mySettings.backgroundColor)), "background", 0, true, ok);
         mySettings.showGrid = TplConvert<char>::_2bool(attrs.getStringSecure("showGrid", toString(mySettings.showGrid)).c_str());
         mySettings.gridXSize = TplConvert<char>::_2SUMOReal(attrs.getStringSecure("gridXSize", toString(mySettings.gridXSize)).c_str());
         mySettings.gridYSize = TplConvert<char>::_2SUMOReal(attrs.getStringSecure("gridYSize", toString(mySettings.gridYSize)).c_str());
+                                           }
         break;
     case SUMO_TAG_VIEWSETTINGS_EDGES: {
+        bool ok = true;
         int laneEdgeMode = TplConvert<char>::_2int(attrs.getStringSecure("laneEdgeMode", "0").c_str());
         mySettings.laneShowBorders = TplConvert<char>::_2bool(attrs.getStringSecure("laneShowBorders", toString(mySettings.laneShowBorders)).c_str());
         mySettings.showLinkDecals = TplConvert<char>::_2bool(attrs.getStringSecure("showLinkDecals", toString(mySettings.showLinkDecals)).c_str());
         mySettings.showRails = TplConvert<char>::_2bool(attrs.getStringSecure("showRails", toString(mySettings.showRails)).c_str());
         mySettings.drawEdgeName = TplConvert<char>::_2bool(attrs.getStringSecure("drawEdgeName", toString(mySettings.drawEdgeName)).c_str());
         mySettings.edgeNameSize = TplConvert<char>::_2SUMOReal(attrs.getStringSecure("edgeNameSize", toString(mySettings.edgeNameSize)).c_str());
-        mySettings.edgeNameColor = RGBColor::parseColor(attrs.getStringSecure("edgeNameColor", toString(mySettings.edgeNameColor)));
+        mySettings.edgeNameColor = RGBColor::parseColorReporting(attrs.getStringSecure("edgeNameColor", toString(mySettings.edgeNameColor)), "edges", 0, true, ok);
         mySettings.drawInternalEdgeName = TplConvert<char>::_2bool(attrs.getStringSecure("drawInternalEdgeName", toString(mySettings.drawInternalEdgeName)).c_str());
         mySettings.internalEdgeNameSize = TplConvert<char>::_2SUMOReal(attrs.getStringSecure("internalEdgeNameSize", toString(mySettings.internalEdgeNameSize)).c_str());
-        mySettings.internalEdgeNameColor = RGBColor::parseColor(attrs.getStringSecure("internalEdgeNameColor", toString(mySettings.internalEdgeNameColor)));
+        mySettings.internalEdgeNameColor = RGBColor::parseColorReporting(attrs.getStringSecure("internalEdgeNameColor", toString(mySettings.internalEdgeNameColor)), "edges", 0, true, ok);
         mySettings.hideConnectors = TplConvert<char>::_2bool(attrs.getStringSecure("hideConnectors", toString(mySettings.hideConnectors)).c_str());
         myCurrentColorer = element;
 #ifdef HAVE_MESOSIM
@@ -143,12 +146,12 @@ GUISettingsHandler::myStartElement(SumoXMLTag element,
     case SUMO_TAG_ENTRY:
         if (myCurrentScheme) {
             bool ok = true;
-            std::string color = attrs.getStringReporting(SUMO_ATTR_COLOR, "entry", 0, ok);
+            std::string colorStr = attrs.getStringReporting(SUMO_ATTR_COLOR, "entry", 0, ok);
+            RGBColor color = RGBColor::parseColorReporting(colorStr, "edgeColoring", 0, true, ok);
             if (myCurrentScheme->isFixed()) {
-                myCurrentScheme->setColor(attrs.getStringSecure(SUMO_ATTR_NAME, ""),
-                                          RGBColor::parseColor(color));
+                myCurrentScheme->setColor(attrs.getStringSecure(SUMO_ATTR_NAME, ""), color);
             } else {
-                myCurrentScheme->addColor(RGBColor::parseColor(color),
+                myCurrentScheme->addColor(color,
                                           attrs.getSUMORealReporting(SUMO_ATTR_THRESHOLD, "entry", 0, ok));
             }
         }
@@ -161,7 +164,7 @@ GUISettingsHandler::myStartElement(SumoXMLTag element,
         mySettings.showBlinker = TplConvert<char>::_2bool(attrs.getStringSecure("showBlinker", toString(mySettings.showBlinker)).c_str());
         mySettings.drawVehicleName = TplConvert<char>::_2bool(attrs.getStringSecure("drawVehicleName", toString(mySettings.drawVehicleName)).c_str());
         mySettings.vehicleNameSize = TplConvert<char>::_2SUMOReal(attrs.getStringSecure("vehicleNameSize", toString(mySettings.vehicleNameSize)).c_str());
-        mySettings.vehicleNameColor = RGBColor::parseColor(attrs.getStringSecure("vehicleNameColor", toString(mySettings.vehicleNameColor)));
+        mySettings.vehicleNameColor = RGBColor::parseColorReporting(attrs.getStringSecure("vehicleNameColor", toString(mySettings.vehicleNameColor)), "vehicles", 0, true, ok);
         myCurrentColorer = element;
         break;
     case SUMO_TAG_VIEWSETTINGS_JUNCTIONS:
@@ -170,7 +173,7 @@ GUISettingsHandler::myStartElement(SumoXMLTag element,
         mySettings.drawLinkJunctionIndex = TplConvert<char>::_2bool(attrs.getStringSecure("drawLinkJunctionIndex", toString(mySettings.drawLinkJunctionIndex)).c_str());
         mySettings.drawJunctionName = TplConvert<char>::_2bool(attrs.getStringSecure("drawJunctionName", toString(mySettings.drawJunctionName)).c_str());
         mySettings.junctionNameSize = TplConvert<char>::_2SUMOReal(attrs.getStringSecure("junctionNameSize", toString(mySettings.junctionNameSize)).c_str());
-        mySettings.junctionNameColor = RGBColor::parseColor(attrs.getStringSecure("junctionNameColor", toString(mySettings.junctionNameColor)));
+        mySettings.junctionNameColor = RGBColor::parseColorReporting(attrs.getStringSecure("junctionNameColor", toString(mySettings.junctionNameColor)), "junctions", 0, true, ok);
         mySettings.showLane2Lane = TplConvert<char>::_2bool(attrs.getStringSecure("showLane2Lane", toString(mySettings.showLane2Lane)).c_str());
         break;
     case SUMO_TAG_VIEWSETTINGS_ADDITIONALS:
@@ -185,7 +188,7 @@ GUISettingsHandler::myStartElement(SumoXMLTag element,
         mySettings.minPOISize = TplConvert<char>::_2SUMOReal(attrs.getStringSecure("minPOISize", toString(mySettings.minPOISize)).c_str());
         mySettings.drawPOIName = TplConvert<char>::_2bool(attrs.getStringSecure("drawPOIName", toString(mySettings.drawPOIName)).c_str());
         mySettings.poiNameSize = TplConvert<char>::_2SUMOReal(attrs.getStringSecure("poiNameSize", toString(mySettings.poiNameSize)).c_str());
-        mySettings.poiNameColor = RGBColor::parseColor(attrs.getStringSecure("poiNameColor", toString(mySettings.poiNameColor)));
+        mySettings.poiNameColor = RGBColor::parseColorReporting(attrs.getStringSecure("poiNameColor", toString(mySettings.poiNameColor)), "pois", 0, true, ok);
         break;
     case SUMO_TAG_VIEWSETTINGS_LEGEND:
         mySettings.showSizeLegend = TplConvert<char>::_2bool(attrs.getStringSecure("showSizeLegend", toString(mySettings.showSizeLegend)).c_str());
