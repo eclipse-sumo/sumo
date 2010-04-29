@@ -367,8 +367,8 @@ protected:
     /// @brief Detector's position on lane [m]
     const SUMOReal myPosition;
 
-    /// @brief Leave-timestep of the last vehicle detected.
-    SUMOReal myLastLeaveTimestep;
+    /// @brief Leave-time of the last vehicle detected [s]
+    SUMOReal myLastLeaveTime;
 
     /// @brief Occupancy by the last vehicle detected.
     SUMOReal myLastOccupancy;

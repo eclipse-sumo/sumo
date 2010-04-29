@@ -52,11 +52,11 @@ MSInductLoop::MSInductLoop(const std::string& id,
                            MSLane * const lane,
                            SUMOReal positionInMeters) throw()
         : MSMoveReminder(lane), Named(id), myCurrentVehicle(0),
-        myPosition(positionInMeters), myLastLeaveTimestep(0),
+        myPosition(positionInMeters), myLastLeaveTime(0),
         myVehiclesOnDet(), myVehicleDataCont() {
     assert(myPosition >= 0 && myPosition <= myLane->getLength());
     reset();
-    myLastLeaveTimestep = (SUMOReal) MSNet::getInstance()->getCurrentTimeStep();
+    myLastLeaveTime = (SUMOReal) MSNet::getInstance()->getCurrentTimeStep() / 1000.;
 }
 
 
@@ -192,7 +192,7 @@ MSInductLoop::getTimestepsSinceLastDetection() const throw() {
         // detector is occupied
         return 0;
     }
-    return MSNet::getInstance()->getCurrentTimeStep() - myLastLeaveTimestep;
+    return (SUMOReal) MSNet::getInstance()->getCurrentTimeStep() / 1000. - myLastLeaveTime;
 }
 
 
@@ -253,7 +253,7 @@ MSInductLoop::leaveDetectorByMove(MSVehicle& veh,
     assert(entryTimestep < leaveTimestep);
     myVehicleDataCont.push_back(VehicleData(veh.getID(), veh.getVehicleType().getLength(), entryTimestep, leaveTimestep));
     myLastOccupancy = leaveTimestep - entryTimestep;
-    myLastLeaveTimestep = leaveTimestep;
+    myLastLeaveTime = leaveTimestep / 1000.;
     myCurrentVehicle = 0;
     veh.quitRemindedLeft(this);
 }

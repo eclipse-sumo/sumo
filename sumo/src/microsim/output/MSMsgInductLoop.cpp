@@ -53,11 +53,11 @@ MSMsgInductLoop::MSMsgInductLoop(const std::string& id, const std::string& msg,
                                  SUMOReal positionInMeters) throw()
         : MSMoveReminder(lane), Named(id), myMsg(msg), myCurrentVehicle(0),
         myCurrentID(""),
-        myPosition(positionInMeters), myLastLeaveTimestep(0),
+        myPosition(positionInMeters), myLastLeaveTime(0),
         myVehiclesOnDet(), myVehicleDataCont() {
     assert(myPosition >= 0 && myPosition <= lane->getLength());
     reset();
-    myLastLeaveTimestep = (SUMOReal) MSNet::getInstance()->getCurrentTimeStep();
+    myLastLeaveTime = (SUMOReal) MSNet::getInstance()->getCurrentTimeStep() / 1000.;
 }
 
 
@@ -157,7 +157,7 @@ MSMsgInductLoop::getCurrentOccupancy() const throw() {
     if (myCurrentVehicle!=0) {
         return 1.;
     }
-    if (myLastLeaveTimestep>MSNet::getInstance()->getCurrentTimeStep()-DELTA_T) {
+    if (myLastLeaveTime*1000.>MSNet::getInstance()->getCurrentTimeStep()-DELTA_T) {
         return 0.;
     }
     return myLastOccupancy;
@@ -169,7 +169,7 @@ MSMsgInductLoop::getCurrentPassedNumber() const throw() {
     if (myCurrentVehicle!=0) {
         return 1.;
     }
-    if (myLastLeaveTimestep>MSNet::getInstance()->getCurrentTimeStep()-DELTA_T) {
+    if (myLastLeaveTimestep*1000.>MSNet::getInstance()->getCurrentTimeStep()-DELTA_T) {
         return 0.;
     }
     return 1.;
@@ -188,7 +188,7 @@ MSMsgInductLoop::getTimestepsSinceLastDetection() const throw() {
         // detector is occupied
         return 0;
     }
-    return MSNet::getInstance()->getCurrentTimeStep() - myLastLeaveTimestep;
+    return MSNet::getInstance()->getCurrentTimeStep() / 1000. - myLastLeaveTimestep;
 }
 
 
@@ -242,7 +242,7 @@ MSMsgInductLoop::leaveDetectorByMove(MSVehicle& veh,
     assert(entryTimestep < leaveTimestep);
     myVehicleDataCont.push_back(VehicleData(veh.getVehicleType().getLength(), entryTimestep, leaveTimestep));
     myLastOccupancy = leaveTimestep - entryTimestep;
-    myLastLeaveTimestep = leaveTimestep;
+    myLastLeaveTime = leaveTimestep;
     myCurrentID = myCurrentVehicle->getID();
     myCurrentVehicle = 0;
     veh.quitRemindedLeft(this);
