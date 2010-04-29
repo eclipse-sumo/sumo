@@ -205,20 +205,20 @@ TraCITestClient::run(std::string fileName, int port, std::string host) {
             int nodeId;
             testclient::Position2D pos;
             float radius;
-            double waitTime;
+            std::string waitTime;
 
             defFile >> nodeId;
             defFile >> pos.x;
             defFile >> pos.y;
             defFile >> radius;
             defFile >> waitTime;
-            commandStopNode(nodeId, pos, radius, waitTime);
+            commandStopNode(nodeId, pos, radius, string2time(waitTime));
         } else if (lineCommand.compare("stopnode3d") == 0) {
             // trigger command StopNode with 3d position
             int nodeId;
             testclient::Position3D pos;
             float radius;
-            double waitTime;
+            std::string waitTime;
 
             defFile >> nodeId;
             defFile >> pos.x;
@@ -226,13 +226,13 @@ TraCITestClient::run(std::string fileName, int port, std::string host) {
             defFile >> pos.z;
             defFile >> radius;
             defFile >> waitTime;
-            commandStopNode(nodeId, pos, radius, waitTime);
+            commandStopNode(nodeId, pos, radius, string2time(waitTime));
         } else if (lineCommand.compare("stopnode_roadpos") == 0) {
             // trigger command StopNode with road map position
             int nodeId;
             testclient::PositionRoadMap pos;
             float radius;
-            double waitTime;
+            std::string waitTime;
 
             defFile >> nodeId;
             defFile >> pos.roadId;
@@ -240,27 +240,27 @@ TraCITestClient::run(std::string fileName, int port, std::string host) {
             defFile >> pos.laneId;
             defFile >> radius;
             defFile >> waitTime;
-            commandStopNode(nodeId, pos, radius, waitTime);
+            commandStopNode(nodeId, pos, radius, string2time(waitTime));
         } else if (lineCommand.compare("slowdown") == 0) {
             // trigger command slowDown
             int nodeId;
             float speed;
-            double timeInterval;
+            std::string timeInterval;
 
             defFile >> nodeId;
             defFile >> speed;
             defFile >> timeInterval;
-            commandSlowDown(nodeId, speed, timeInterval);
+            commandSlowDown(nodeId, speed, string2time(timeInterval));
         } else if (lineCommand.compare("changelane") == 0) {
             // trigger command ChangeLane
             int nodeId;
             int laneId;
-            float fixTime;
+            std::string fixTime;
 
             defFile >> nodeId;
             defFile >> laneId;
             defFile >> fixTime;
-            commandChangeLane(nodeId, laneId, fixTime);
+            commandChangeLane(nodeId, laneId, string2time(fixTime));
         } else if (lineCommand.compare("changetarget") == 0) {
             // trigger command ChangeTarget
             int nodeId;
@@ -665,19 +665,19 @@ TraCITestClient::commandSetMaximumSpeed(int nodeId, float speed) {
 
 
 void
-TraCITestClient::commandStopNode(int nodeId, testclient::Position2D pos, float radius, double waitTime) {
+TraCITestClient::commandStopNode(int nodeId, testclient::Position2D pos, float radius, SUMOTime waitTime) {
     commandStopNode(nodeId, &pos, NULL, NULL, radius, waitTime);
 }
 
 
 void
-TraCITestClient::commandStopNode(int nodeId, testclient::Position3D pos, float radius, double waitTime) {
+TraCITestClient::commandStopNode(int nodeId, testclient::Position3D pos, float radius, SUMOTime waitTime) {
     commandStopNode(nodeId, NULL, &pos, NULL, radius, waitTime);
 }
 
 
 void
-TraCITestClient::commandStopNode(int nodeId, testclient::PositionRoadMap pos, float radius, double waitTime) {
+TraCITestClient::commandStopNode(int nodeId, testclient::PositionRoadMap pos, float radius, SUMOTime waitTime) {
     commandStopNode(nodeId, NULL, NULL, &pos, radius, waitTime);
 }
 
@@ -686,7 +686,7 @@ void
 TraCITestClient::commandStopNode(int nodeId, testclient::Position2D* pos2D,
                                  testclient::Position3D* pos3D,
                                  testclient::PositionRoadMap* posRoad,
-                                 float radius, double waitTime) {
+                                 float radius, SUMOTime waitTime) {
     tcpip::Storage outMsg;
     tcpip::Storage inMsg;
     tcpip::Storage tempMsg;
@@ -724,7 +724,7 @@ TraCITestClient::commandStopNode(int nodeId, testclient::Position2D* pos2D,
     // radius
     tempMsg.writeFloat(radius);
     // waittime
-    tempMsg.writeDouble(waitTime);
+    tempMsg.writeInt(waitTime);
     // command length
     outMsg.writeUnsignedByte(1 + (int) tempMsg.size());
     outMsg.writeStorage(tempMsg);
@@ -746,7 +746,7 @@ TraCITestClient::commandStopNode(int nodeId, testclient::Position2D* pos2D,
     } else if (posRoad != NULL) {
         answerLog << " Position-RoadMap: roadId=" << posRoad->roadId << " pos=" << posRoad->pos << " laneId=" << (int)posRoad->laneId ;
     }
-    answerLog << " radius=" << radius << " waitTime=" << waitTime << endl;
+    answerLog << " radius=" << radius << " waitTime=" << time2string(waitTime) << endl;
 
     // receive answer message
     try {
@@ -768,7 +768,7 @@ TraCITestClient::commandStopNode(int nodeId, testclient::Position2D* pos2D,
 
 
 void
-TraCITestClient::commandChangeLane(int nodeId, int laneId, float fixTime) {
+TraCITestClient::commandChangeLane(int nodeId, int laneId, SUMOTime fixTime) {
     tcpip::Storage outMsg;
     tcpip::Storage inMsg;
     std::stringstream msg;
@@ -788,7 +788,7 @@ TraCITestClient::commandChangeLane(int nodeId, int laneId, float fixTime) {
     // lane id
     outMsg.writeUnsignedByte(laneId);
     // fix time
-    outMsg.writeFloat(fixTime);
+    outMsg.writeInt(fixTime);
 
     // send request message
     try {
@@ -800,7 +800,7 @@ TraCITestClient::commandChangeLane(int nodeId, int laneId, float fixTime) {
     }
 
     answerLog << endl << "-> Command sent: <ChangeLane>:" << endl << "  NodeId=" << nodeId
-    << " LaneId=" << laneId << " fixTime=" << fixTime << endl;
+    << " LaneId=" << laneId << " fixTime=" << time2string(fixTime) << endl;
 
     // receive answer message
     try {
@@ -819,7 +819,7 @@ TraCITestClient::commandChangeLane(int nodeId, int laneId, float fixTime) {
 
 
 void
-TraCITestClient::commandSlowDown(int nodeId, float minSpeed, double timeInterval) {
+TraCITestClient::commandSlowDown(int nodeId, float minSpeed, SUMOTime timeInterval) {
     tcpip::Storage outMsg;
     tcpip::Storage inMsg;
     std::stringstream msg;
@@ -831,7 +831,7 @@ TraCITestClient::commandSlowDown(int nodeId, float minSpeed, double timeInterval
     }
 
     // command length
-    outMsg.writeUnsignedByte(1 + 1 + 4 + 4 + 8);
+    outMsg.writeUnsignedByte(1 + 1 + 4 + 4 + 4);
     // command id
     outMsg.writeUnsignedByte(CMD_SLOWDOWN);
     // node id
@@ -839,7 +839,7 @@ TraCITestClient::commandSlowDown(int nodeId, float minSpeed, double timeInterval
     // min speed
     outMsg.writeFloat(minSpeed);
     // time interval
-    outMsg.writeDouble(timeInterval);
+    outMsg.writeInt(timeInterval);
 
     // send request message
     try {
@@ -851,7 +851,7 @@ TraCITestClient::commandSlowDown(int nodeId, float minSpeed, double timeInterval
     }
 
     answerLog << endl << "-> Command sent: <SlowDown>:" << endl << "  NodeId=" << nodeId
-    << " MinSpeed=" << minSpeed << " timeInterval" << timeInterval << endl;
+    << " MinSpeed=" << minSpeed << " timeInterval" << time2string(timeInterval) << endl;
 
     // receive answer message
     try {
@@ -1965,7 +1965,6 @@ TraCITestClient::validateStopNode(tcpip::Storage &inMsg) {
     int cmdLength;
     int rNodeId;
     float rRadius;
-    double rWaitTime;
     int rPosType;
     int cmdStart;
     testclient::PositionRoadMap rRoadPos;
@@ -1999,8 +1998,8 @@ TraCITestClient::validateStopNode(tcpip::Storage &inMsg) {
         rRadius = inMsg.readFloat();
         answerLog << " radius=" << rRadius;
         // read wait time
-        rWaitTime = inMsg.readDouble();
-        answerLog << " wait time=" << rWaitTime << endl;
+        SUMOTime rWaitTime = inMsg.readInt();
+        answerLog << " wait time=" << time2string(rWaitTime) << endl;
         // check command length
         if ((cmdStart + cmdLength) != inMsg.position()) {
             answerLog << "#Error: command at position " << cmdStart << " has wrong length" << endl;

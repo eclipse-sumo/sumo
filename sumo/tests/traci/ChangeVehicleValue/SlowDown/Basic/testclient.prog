@@ -1,7 +1,7 @@
 simstep_repeat 1 25 1 1
-setvalue 196 20 veh0 <compound> 2 <float> 5 <float> 40
+setvalue 196 20 veh0 <compound> 2 <float> 5 <int> 40000
 simstep_repeat 26 50 1 1
-setvalue 196 20 veh0 <compound> 2 <float> 10.5 <float> 20
+setvalue 196 20 veh0 <compound> 2 <float> 10.5 <int> 20000
 simstep_repeat 51 100 1 1
-setvalue 196 20 veh0 <compound> 2 <float> 0 <float> 10
+setvalue 196 20 veh0 <compound> 2 <float> 0 <int> 10000
 simstep_repeat 101 150 1 1

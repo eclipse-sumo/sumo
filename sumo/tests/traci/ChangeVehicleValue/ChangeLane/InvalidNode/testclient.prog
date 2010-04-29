@@ -1,3 +1,3 @@
 simstep 1 1
-setvalue 196 19 xxx <compound> 2 <byte> 0 <float> 100
+setvalue 196 19 xxx <compound> 2 <byte> 0 <int> 100000
 simstep 1 1

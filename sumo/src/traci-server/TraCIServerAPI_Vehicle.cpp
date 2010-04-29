@@ -356,11 +356,11 @@ TraCIServerAPI_Vehicle::processSet(tcpip::Storage &inputStorage,
         char laneIndex = inputStorage.readByte();
         // waitTime
         valueDataType = inputStorage.readUnsignedByte();
-        if (valueDataType!=TYPE_FLOAT) {
-            TraCIServerAPIHelper::writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "The fourth stop parameter must be the waiting time given as a float.", outputStorage);
+        if (valueDataType!=TYPE_INTEGER) {
+            TraCIServerAPIHelper::writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "The fourth stop parameter must be the waiting time given as an integer.", outputStorage);
             return false;
         }
-        SUMOReal waitTime = inputStorage.readFloat();
+        SUMOTime waitTime = inputStorage.readInt();
         // check
         if (pos < 0) {
             TraCIServerAPIHelper::writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Position on lane must not be negative", outputStorage);
@@ -402,11 +402,11 @@ TraCIServerAPI_Vehicle::processSet(tcpip::Storage &inputStorage,
         char laneIndex = inputStorage.readByte();
         // stickyTime
         valueDataType = inputStorage.readUnsignedByte();
-        if (valueDataType!=TYPE_FLOAT) {
-            TraCIServerAPIHelper::writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "The second lane change parameter must be the duration given as a float.", outputStorage);
+        if (valueDataType!=TYPE_INTEGER) {
+            TraCIServerAPIHelper::writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "The second lane change parameter must be the duration given as an integer.", outputStorage);
             return false;
         }
-        SUMOReal stickyTime = inputStorage.readFloat();
+        SUMOTime stickyTime = inputStorage.readInt();
         if ((laneIndex < 0) || (laneIndex >= v->getEdge()->getLanes().size())) {
             TraCIServerAPIHelper::writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "No lane existing with given id on the current road", outputStorage);
             return false;
@@ -431,12 +431,11 @@ TraCIServerAPI_Vehicle::processSet(tcpip::Storage &inputStorage,
         }
         SUMOReal newSpeed = MAX2(inputStorage.readFloat(), 0.0f);
         valueDataType = inputStorage.readUnsignedByte();
-        if (valueDataType!=TYPE_FLOAT) {
-            TraCIServerAPIHelper::writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "The second slow down parameter must be the duration given as a float.", outputStorage);
+        if (valueDataType!=TYPE_INTEGER) {
+            TraCIServerAPIHelper::writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "The second slow down parameter must be the duration given as an integer.", outputStorage);
             return false;
         }
-        // time interval
-        SUMOReal duration = inputStorage.readFloat();
+        SUMOTime duration = inputStorage.readInt();
         if (duration <= 0) {
             TraCIServerAPIHelper::writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Invalid time interval", outputStorage);
             return false;

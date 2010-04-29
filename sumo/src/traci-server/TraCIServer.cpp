@@ -758,7 +758,7 @@ TraCIServer::commandStopNode() throw(TraCIException, std::invalid_argument) {
     // Radius
     float radius = myInputStorage.readFloat();
     // waitTime
-    double waitTime = myInputStorage.readDouble();
+    SUMOTime waitTime = myInputStorage.readInt();
 
     if (roadPos.pos < 0) {
         writeStatusCmd(CMD_STOP, RTYPE_ERR, "Position on lane must not be negative");
@@ -804,7 +804,7 @@ TraCIServer::commandStopNode() throw(TraCIException, std::invalid_argument) {
     // create a reply message
     writeStatusCmd(CMD_STOP, RTYPE_OK, "");
     // add a stopnode command containging the actually used road map position to the reply
-    int length = 1 + 1 + 4 + 1 + (4+roadPos.roadId.length()) + 4 + 1 + 4 + 8;
+    int length = 1 + 1 + 4 + 1 + (4+roadPos.roadId.length()) + 4 + 1 + 4 + 4;
     myOutputStorage.writeUnsignedByte(length);				// lenght
     myOutputStorage.writeUnsignedByte(CMD_STOP);			// command id
     myOutputStorage.writeInt(nodeId);						// node id
@@ -813,7 +813,7 @@ TraCIServer::commandStopNode() throw(TraCIException, std::invalid_argument) {
     myOutputStorage.writeFloat(roadPos.pos);					// pos
     myOutputStorage.writeUnsignedByte(roadPos.laneId);			// lane id
     myOutputStorage.writeFloat(radius);						// radius
-    myOutputStorage.writeDouble(waitTime);					// wait time
+    myOutputStorage.writeInt(waitTime);					// wait time
 
     return true;
 }
@@ -826,7 +826,7 @@ TraCIServer::commandChangeLane() throw(TraCIException, std::invalid_argument) {
     // Lane ID
     char laneIndex = myInputStorage.readByte();
     // stickyTime
-    float stickyTime = myInputStorage.readFloat();
+    SUMOTime stickyTime = myInputStorage.readInt();
 
     if (veh == NULL) {
         writeStatusCmd(CMD_CHANGELANE, RTYPE_ERR, "Can not retrieve node with given ID");
@@ -869,7 +869,7 @@ TraCIServer::commandChangeRoute() throw(TraCIException, std::invalid_argument) {
         return false;
     }
     //
-    SUMOTime currentTime = MSNet::getInstance()->getCurrentTimeStep();
+    SUMOTime currentTime = MSNet::getInstance()->getCurrentTimeStep() / 1000.;
     MSNet::EdgeWeightsProxi proxi(veh->getWeightsStorage(), MSNet::getInstance()->getWeightsStorage());
     SUMOReal effortBefore = proxi.getTravelTime(edge, veh, currentTime);
     bool hadError = false;
@@ -879,7 +879,7 @@ TraCIServer::commandChangeRoute() throw(TraCIException, std::invalid_argument) {
         }
         veh->getWeightsStorage().removeTravelTime(edge);
     } else {
-        veh->getWeightsStorage().addTravelTime(edge, currentTime, OptionsCont::getOptions().getInt("end")+1, travelTime);
+        veh->getWeightsStorage().addTravelTime(edge, currentTime, (string2time(OptionsCont::getOptions().getString("end"))+DELTA_T) / 1000., travelTime);
     }
     SUMOReal effortAfter = proxi.getTravelTime(edge, veh, currentTime);
     if (myVehiclesToReroute.find(veh)==myVehiclesToReroute.end() && (effortBefore != effortAfter)) {
@@ -1109,7 +1109,7 @@ TraCIServer::commandSlowDown() throw(TraCIException) {
     // speed
     float newSpeed = MAX2(myInputStorage.readFloat(), 0.0f);
     // time interval
-    double duration = myInputStorage.readDouble();
+    SUMOTime duration = myInputStorage.readInt();
 
     if (veh == NULL) {
         writeStatusCmd(CMD_SLOWDOWN, RTYPE_ERR, "Can not retrieve node with given ID");
@@ -1124,7 +1124,7 @@ TraCIServer::commandSlowDown() throw(TraCIException) {
         return false;
     }
 
-    if (!veh->startSpeedAdaption(newSpeed, static_cast<SUMOTime>(duration), MSNet::getInstance()->getCurrentTimeStep())) {
+    if (!veh->startSpeedAdaption(newSpeed, duration, MSNet::getInstance()->getCurrentTimeStep())) {
         writeStatusCmd(CMD_SLOWDOWN, RTYPE_ERR, "Could not slow down");
         return false;
     }

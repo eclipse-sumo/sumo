@@ -90,13 +90,13 @@ public:
 
     void commandSetMaximumSpeed(int nodeId, float speed);
 
-    void commandStopNode(int nodeId, testclient::Position2D pos, float radius, double waitTime);
-    void commandStopNode(int nodeId, testclient::Position3D pos, float radius, double waitTime);
-    void commandStopNode(int nodeId, testclient::PositionRoadMap pos, float radius, double waitTime);
+    void commandStopNode(int nodeId, testclient::Position2D pos, float radius, SUMOTime waitTime);
+    void commandStopNode(int nodeId, testclient::Position3D pos, float radius, SUMOTime waitTime);
+    void commandStopNode(int nodeId, testclient::PositionRoadMap pos, float radius, SUMOTime waitTime);
 
-    void commandChangeLane(int nodeId, int laneId, float fixTime);
+    void commandChangeLane(int nodeId, int laneId, SUMOTime fixTime);
 
-    void commandSlowDown(int nodeId, float minSpeed, double timeInterval);
+    void commandSlowDown(int nodeId, float minSpeed, SUMOTime timeInterval);
 
     void commandChangeRoute(int nodeId, std::string roadId, double travelTime);
 
@@ -137,7 +137,7 @@ private:
     void commandStopNode(int nodeId, testclient::Position2D* pos2D,
                          testclient::Position3D* pos3D,
                          testclient::PositionRoadMap* posRoad,
-                         float radius, double waitTime);
+                         float radius, SUMOTime waitTime);
 
     void commandPositionConversion(testclient::Position2D* pos2D,
                                    testclient::Position3D* pos3D,
