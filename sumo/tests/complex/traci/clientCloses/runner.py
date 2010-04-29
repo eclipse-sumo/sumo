@@ -13,6 +13,7 @@ else:
     sumoBinary = os.environ.get("GUISIM_BINARY", os.path.join(sumoHome, 'bin', 'sumo-gui'))
     addOption = "-Q"
 PORT = 8813
+DELTA_T = 1000
 
 def patchFile(ifile, ofile, replacements):
     fdi = open(ifile)
@@ -29,9 +30,9 @@ def runSingle(traciEndTime):
     sumoProcess = subprocess.Popen("%s -c used.sumo.cfg %s" % (sumoBinary, addOption), shell=True, stdout=sys.stdout)
     traciControl.initTraCI(PORT)
     while not step>traciEndTime:
-        traciControl.cmdSimulationStep(1)
+        traciControl.cmdSimulationStep(DELTA_T)
         step += 1
-    print "Print ended at step %s" % traciControl.cmdGetSimulationVariable_currentTime()
+    print "Print ended at step %s" % (traciControl.cmdGetSimulationVariable_currentTime() / DELTA_T)
     traciControl.cmdClose()
     sys.stdout.flush()
     

@@ -13,7 +13,7 @@ else:
     sumoBinary = os.environ.get("GUISIM_BINARY", os.path.join(sumoHome, 'bin', 'sumo-gui'))
     addOption = "-Q"
 PORT = 8813
-
+DELTA_T = 1000
 
 def runSingle(sumoEndTime, traciEndTime):
     fdi = open("sumo.sumo.cfg")
@@ -28,12 +28,12 @@ def runSingle(sumoEndTime, traciEndTime):
     sumoProcess = subprocess.Popen("%s -c used.sumo.cfg %s" % (sumoBinary, addOption), shell=True, stdout=sys.stdout)
     traciControl.initTraCI(PORT)
     while not step>traciEndTime:
-        traciControl.cmdSimulationStep(1)
-        vehs = traciControl.cmdGetVehicleVariable_idList("x")
+        traciControl.cmdSimulationStep(DELTA_T)
+        vehs = traciControl.cmdGetVehicleVariable_idList()
         if vehs.index("horiz")<0 or len(vehs)>1:
             print "Something is false"
         step += 1
-    print "Print ended at step %s" % traciControl.cmdGetSimulationVariable_currentTime()
+    print "Print ended at step %s" % (traciControl.cmdGetSimulationVariable_currentTime()/DELTA_T)
     traciControl.cmdClose()
     sys.stdout.flush()
     
@@ -48,3 +48,4 @@ sys.stdout.flush()
 for i in range(0, 10):
     print " Run %s" % i
     runSingle(101, 99)
+
