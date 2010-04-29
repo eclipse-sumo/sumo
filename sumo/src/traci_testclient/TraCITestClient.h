@@ -121,7 +121,7 @@ public:
     void commandScenario(int flag, int domain, int domainId, int variable, testclient::Position3D pos3dVal);
     void commandScenario(int flag, int domain, int domainId, int variable, testclient::PositionRoadMap roadPosVal);
 
-    void commandGetTLStatus(int tlId, double intervalStart, double intervalEnd);
+    void commandGetTLStatus(int tlId, SUMOTime intervalStart, SUMOTime intervalEnd);
     void commandGetVariable(int domID, int varID, const std::string &objID);
     void commandGetVariablePlus(int domID, int varID, const std::string &objID, std::ifstream &defFile);
     void commandSubscribeVariable(int domID, const std::string &objID, int beginTime, int endTime, int varNo, std::ifstream &defFile);

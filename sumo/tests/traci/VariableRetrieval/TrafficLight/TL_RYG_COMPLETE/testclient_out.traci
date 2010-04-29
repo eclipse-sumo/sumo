@@ -1,4 +1,4 @@
-TraCITestClient output file. Date: Tue Jun 16 09:41:11 2009
+TraCITestClient output file. Date: Thu Apr 29 08:57:59 2010
 
 
 -> Command sent: <SimulationStep>:
@@ -16,37 +16,37 @@ TraCITestClient output file. Date: Tue Jun 16 09:41:11 2009
  ]
  valueDataType=9 Int value: 0
  valueDataType=9 Int value: 8
- valueDataType=9 Int value: 31
- valueDataType=9 Int value: 31
- valueDataType=9 Int value: 31
+ valueDataType=9 Int value: 31000
+ valueDataType=9 Int value: 31000
+ valueDataType=9 Int value: 31000
  valueDataType=12 string value: GGggrrrrGGggrrrr
- valueDataType=9 Int value: 4
- valueDataType=9 Int value: 4
- valueDataType=9 Int value: 4
+ valueDataType=9 Int value: 4000
+ valueDataType=9 Int value: 4000
+ valueDataType=9 Int value: 4000
  valueDataType=12 string value: yyggrrrryyggrrrr
- valueDataType=9 Int value: 6
- valueDataType=9 Int value: 6
- valueDataType=9 Int value: 6
+ valueDataType=9 Int value: 6000
+ valueDataType=9 Int value: 6000
+ valueDataType=9 Int value: 6000
  valueDataType=12 string value: rrGGrrrrrrGGrrrr
- valueDataType=9 Int value: 4
- valueDataType=9 Int value: 4
- valueDataType=9 Int value: 4
+ valueDataType=9 Int value: 4000
+ valueDataType=9 Int value: 4000
+ valueDataType=9 Int value: 4000
  valueDataType=12 string value: rryyrrrrrryyrrrr
- valueDataType=9 Int value: 31
- valueDataType=9 Int value: 31
- valueDataType=9 Int value: 31
+ valueDataType=9 Int value: 31000
+ valueDataType=9 Int value: 31000
+ valueDataType=9 Int value: 31000
  valueDataType=12 string value: rrrrGGggrrrrGGgg
- valueDataType=9 Int value: 4
- valueDataType=9 Int value: 4
- valueDataType=9 Int value: 4
+ valueDataType=9 Int value: 4000
+ valueDataType=9 Int value: 4000
+ valueDataType=9 Int value: 4000
  valueDataType=12 string value: rrrryyggrrrryygg
- valueDataType=9 Int value: 6
- valueDataType=9 Int value: 6
- valueDataType=9 Int value: 6
+ valueDataType=9 Int value: 6000
+ valueDataType=9 Int value: 6000
+ valueDataType=9 Int value: 6000
  valueDataType=12 string value: rrrrrrGGrrrrrrGG
- valueDataType=9 Int value: 4
- valueDataType=9 Int value: 4
- valueDataType=9 Int value: 4
+ valueDataType=9 Int value: 4000
+ valueDataType=9 Int value: 4000
+ valueDataType=9 Int value: 4000
  valueDataType=12 string value: rrrrrryyrrrrrryy
  ]
 

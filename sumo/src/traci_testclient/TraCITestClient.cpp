@@ -427,13 +427,12 @@ TraCITestClient::run(std::string fileName, int port, std::string host) {
         } else if (lineCommand.compare("gettlstatus") == 0) {
             // trigger command GetTrafficLightStatus
             int tlId;
-            double intervalStart;
-            double intervalEnd;
+            std::string intervalStart, intervalEnd;
 
             defFile >> tlId;
             defFile >> intervalStart;
             defFile >> intervalEnd;
-            commandGetTLStatus(tlId, intervalStart, intervalEnd);
+            commandGetTLStatus(tlId, string2time(intervalStart), string2time(intervalEnd));
         } else if (lineCommand.compare("getvariable") == 0) {
             // trigger command GetXXXVariable
             int domID, varID;
@@ -1235,7 +1234,7 @@ TraCITestClient::commandDistanceRequest(testclient::Position2D* pos1_2D,
 
 
 void
-TraCITestClient::commandGetTLStatus(int tlId, double intervalStart, double intervalEnd) {
+TraCITestClient::commandGetTLStatus(int tlId, SUMOTime intervalStart, SUMOTime intervalEnd) {
     tcpip::Storage outMsg;
     tcpip::Storage inMsg;
     std::stringstream msg;
@@ -1247,15 +1246,15 @@ TraCITestClient::commandGetTLStatus(int tlId, double intervalStart, double inter
     }
 
     // command length
-    outMsg.writeUnsignedByte(1 + 1 + 4 + 8 + 8);
+    outMsg.writeUnsignedByte(1 + 1 + 4 + 4 + 4);
     // command id
     outMsg.writeUnsignedByte(CMD_GETTLSTATUS);
     // tl id
     outMsg.writeInt(tlId);
     // interval start
-    outMsg.writeDouble(intervalStart);
+    outMsg.writeInt(intervalStart);
     // interval end
-    outMsg.writeDouble(intervalEnd);
+    outMsg.writeInt(intervalEnd);
 
     // send request message
     try {
@@ -1267,8 +1266,8 @@ TraCITestClient::commandGetTLStatus(int tlId, double intervalStart, double inter
     }
 
     answerLog << endl << "-> Command sent: <GetTLStatus>:" << endl
-    << "  TLId=" << tlId << " IntervalStart=" << intervalStart
-    << " IntervalEnd=" << intervalEnd << endl;
+    << "  TLId=" << tlId << " IntervalStart=" << time2string(intervalStart)
+    << " IntervalEnd=" << time2string(intervalEnd) << endl;
 
     // receive answer message
     try {
@@ -2340,12 +2339,10 @@ TraCITestClient::validateGetTLStatus(tcpip::Storage &inMsg) {
     int cmdId;
     int cmdLength;
     int cmdStart;
-    double switchTime;
     std::string precEdge;
     std::string succEdge;
     float posOnEdge;
     int newPhase;
-    double yellowTime;
 
     while (inMsg.valid_pos()) {
         try {
@@ -2360,8 +2357,8 @@ TraCITestClient::validateGetTLStatus(tcpip::Storage &inMsg) {
             }
             answerLog << ".. Received Response <TrafficLightSwitch>:" << endl;
             // read switch time
-            switchTime = inMsg.readDouble();
-            answerLog << "  SwitchTime=" << switchTime;
+            SUMOTime switchTime = inMsg.readInt();
+            answerLog << "  SwitchTime=" << time2string(switchTime);
             // read preceeding edge id
             precEdge = inMsg.readString();
             answerLog << " PrecEdge=" << precEdge;
@@ -2375,8 +2372,8 @@ TraCITestClient::validateGetTLStatus(tcpip::Storage &inMsg) {
             newPhase = inMsg.readUnsignedByte();
             answerLog << " NewPhase=" << newPhase;
             // read yellow time
-            yellowTime = inMsg.readDouble();
-            answerLog << " YellowTime=" << yellowTime << endl;
+            SUMOTime yellowTime = inMsg.readInt();
+            answerLog << " YellowTime=" << time2string(yellowTime) << endl;
             // check command length
             if ((cmdStart + cmdLength) != inMsg.position()) {
                 answerLog << "#Error: command at position " << cmdStart << " has wrong length" << endl;

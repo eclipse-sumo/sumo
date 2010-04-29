@@ -290,8 +290,8 @@ TraCIServerAPI_TLS::processGet(tcpip::Storage &inputStorage,
             tempMsg.writeInt((int) vars.getActive()->getCurrentPhaseDef().duration);
             break;
         case TL_NEXT_SWITCH:
-            tempMsg.writeUnsignedByte(TYPE_FLOAT);
-            tempMsg.writeFloat((float) vars.getActive()->getNextSwitchTime());
+            tempMsg.writeUnsignedByte(TYPE_INTEGER);
+            tempMsg.writeInt((int) vars.getActive()->getNextSwitchTime());
             break;
         case TL_CONTROLLED_JUNCTIONS: {
         }
@@ -344,13 +344,13 @@ TraCIServerAPI_TLS::processSet(tcpip::Storage &inputStorage,
         }
         // build only once...
         std::string state = MSPhaseDefinition::old2new(defs[0], defs[1], defs[2]);
-        MSPhaseDefinition *phase = new MSPhaseDefinition(1, state);
+        MSPhaseDefinition *phase = new MSPhaseDefinition(DELTA_T, state);
         std::vector<MSPhaseDefinition*> phases;
         phases.push_back(phase);
-        MSTrafficLightLogic *logic = new MSSimpleTrafficLightLogic(tlsControl, id, "online", phases, 0, cTime+1);
+        MSTrafficLightLogic *logic = new MSSimpleTrafficLightLogic(tlsControl, id, "online", phases, 0, cTime+DELTA_T);
         if (!vars.addLogic("online", logic, true, true)) {
             delete logic;
-            MSPhaseDefinition nphase(1, state);
+            MSPhaseDefinition nphase(DELTA_T, state);
             *(static_cast<MSSimpleTrafficLightLogic*>(vars.getLogic("online"))->getPhases()[0]) = nphase;
             vars.getActive()->setLinkPriorities();
         }
@@ -405,15 +405,15 @@ TraCIServerAPI_TLS::processSet(tcpip::Storage &inputStorage,
         }
         // build only once...
         std::string state = inputStorage.readString();
-        MSPhaseDefinition *phase = new MSPhaseDefinition(1, state);
+        MSPhaseDefinition *phase = new MSPhaseDefinition(DELTA_T, state);
         std::vector<MSPhaseDefinition*> phases;
         phases.push_back(phase);
         if (vars.getLogic("online")==0) {
-            MSTrafficLightLogic *logic = new MSSimpleTrafficLightLogic(tlsControl, id, "online", phases, 0, cTime+1);
+            MSTrafficLightLogic *logic = new MSSimpleTrafficLightLogic(tlsControl, id, "online", phases, 0, cTime+DELTA_T);
             vars.addLogic("online", logic, true, true);
             vars.getActive()->setLinkPriorities();
         } else {
-            MSPhaseDefinition nphase(1, state);
+            MSPhaseDefinition nphase(DELTA_T, state);
             *(static_cast<MSSimpleTrafficLightLogic*>(vars.getLogic("online"))->getPhases()[0]) = nphase;
             vars.getActive()->setLinkPriorities();
         }

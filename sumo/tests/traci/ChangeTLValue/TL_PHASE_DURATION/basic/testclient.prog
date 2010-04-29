@@ -1,3 +1,3 @@
 simstep 10 1
-setvalue 194 36 1/1 <int> 40
+setvalue 194 36 1/1 <int> 40000
 simstep 55 1

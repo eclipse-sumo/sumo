@@ -969,16 +969,16 @@ TraCIServer::commandGetAllTLIds() throw(TraCIException) {
 /*****************************************************************************/
 bool
 TraCIServer::commandGetTLStatus() throw(TraCIException) {
-    SUMOTime lookback = 60; // Time to look in history for recognizing yellowTimes
+    SUMOTime lookback = 60*1000.; // Time to look in history for recognizing yellowTimes
 
     tcpip::Storage tempMsg;
 
     // trafic light id
     int extId = myInputStorage.readInt();
     // start of time interval
-    double timeFrom = myInputStorage.readDouble();
+    SUMOTime timeFrom = myInputStorage.readInt();
     // end of time interval
-    double timeTo = myInputStorage.readDouble();
+    SUMOTime timeTo = myInputStorage.readInt();
 
     // get the running programm of the traffic light
     MSTrafficLightLogic* const tlLogic = getTLLogicByExtId(extId);
@@ -1008,7 +1008,7 @@ TraCIServer::commandGetTLStatus() throw(TraCIException) {
     }
 
     // check every second of the given time interval for a switch in the traffic light's phases
-    for (SUMOTime time = static_cast<SUMOTime>(timeFrom) - lookback; time <= static_cast<SUMOTime>(timeTo); time++) {
+    for (SUMOTime time = timeFrom - lookback; time <= timeTo; time+=DELTA_T) {
         if (time < 0) time = 0;
         size_t position = tlLogic->getPhaseIndexAtTime(time);
         size_t currentStep = tlLogic->getIndexFromOffset(position);
@@ -1049,7 +1049,7 @@ TraCIServer::commandGetTLStatus() throw(TraCIException) {
                             writtenEdgePairs[&precEdge] = std::make_pair(&succEdge, nextLinkState);
 
                             // time of the switch
-                            tempMsg.writeDouble(time);
+                            tempMsg.writeInt(time);
                             // preceeding edge id
                             tempMsg.writeString(precEdge.getID());
                             // traffic light's position on preceeding edge
@@ -1075,7 +1075,7 @@ TraCIServer::commandGetTLStatus() throw(TraCIException) {
                                 tempMsg.writeUnsignedByte(TLPHASE_NOSIGNAL);
                             }
                             //yellow time
-                            tempMsg.writeDouble(yellowTimes[i]<0 ? 0 : time - yellowTimes[i]);
+                            tempMsg.writeInt(yellowTimes[i]<0 ? 0 : time - yellowTimes[i]);
 
                             if (tempMsg.size() <= 253) {
                                 // command length

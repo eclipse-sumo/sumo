@@ -1,4 +1,4 @@
-TraCITestClient output file. Date: Fri Feb 12 13:04:04 2010
+TraCITestClient output file. Date: Thu Apr 29 08:57:59 2010
 
 
 -> Command sent: <SimulationStep>:
@@ -16,44 +16,44 @@ TraCITestClient output file. Date: Fri Feb 12 13:04:04 2010
  ]
  valueDataType=9 Int value: 0
  valueDataType=9 Int value: 8
- valueDataType=9 Int value: 31
- valueDataType=9 Int value: 31
- valueDataType=9 Int value: 31
+ valueDataType=9 Int value: 31000
+ valueDataType=9 Int value: 31000
+ valueDataType=9 Int value: 31000
  valueDataType=14 string list value: [ 
 "0000111100001111", "0000001100000011", "0000000000000000" ]
- valueDataType=9 Int value: 4
- valueDataType=9 Int value: 4
- valueDataType=9 Int value: 4
+ valueDataType=9 Int value: 4000
+ valueDataType=9 Int value: 4000
+ valueDataType=9 Int value: 4000
  valueDataType=14 string list value: [ 
 "0000110000001100", "0000000000000000", "0000001100000011" ]
- valueDataType=9 Int value: 6
- valueDataType=9 Int value: 6
- valueDataType=9 Int value: 6
+ valueDataType=9 Int value: 6000
+ valueDataType=9 Int value: 6000
+ valueDataType=9 Int value: 6000
  valueDataType=14 string list value: [ 
 "0000110000001100", "0000110000001100", "0000000000000000" ]
- valueDataType=9 Int value: 4
- valueDataType=9 Int value: 4
- valueDataType=9 Int value: 4
+ valueDataType=9 Int value: 4000
+ valueDataType=9 Int value: 4000
+ valueDataType=9 Int value: 4000
  valueDataType=14 string list value: [ 
 "0000000000000000", "0000000000000000", "0000110000001100" ]
- valueDataType=9 Int value: 31
- valueDataType=9 Int value: 31
- valueDataType=9 Int value: 31
+ valueDataType=9 Int value: 31000
+ valueDataType=9 Int value: 31000
+ valueDataType=9 Int value: 31000
  valueDataType=14 string list value: [ 
 "1111000011110000", "0011000000110000", "0000000000000000" ]
- valueDataType=9 Int value: 4
- valueDataType=9 Int value: 4
- valueDataType=9 Int value: 4
+ valueDataType=9 Int value: 4000
+ valueDataType=9 Int value: 4000
+ valueDataType=9 Int value: 4000
  valueDataType=14 string list value: [ 
 "1100000011000000", "0000000000000000", "0011000000110000" ]
- valueDataType=9 Int value: 6
- valueDataType=9 Int value: 6
- valueDataType=9 Int value: 6
+ valueDataType=9 Int value: 6000
+ valueDataType=9 Int value: 6000
+ valueDataType=9 Int value: 6000
  valueDataType=14 string list value: [ 
 "1100000011000000", "1100000011000000", "0000000000000000" ]
- valueDataType=9 Int value: 4
- valueDataType=9 Int value: 4
- valueDataType=9 Int value: 4
+ valueDataType=9 Int value: 4000
+ valueDataType=9 Int value: 4000
+ valueDataType=9 Int value: 4000
  valueDataType=14 string list value: [ 
 "0000000000000000", "0000000000000000", "1100000011000000" ]
  ]
