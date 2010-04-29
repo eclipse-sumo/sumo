@@ -79,8 +79,8 @@ TraCIServerAPI_Simulation::processGet(tcpip::Storage &inputStorage,
     // process request
     switch (variable) {
     case VAR_TIME_STEP:
-        tempMsg.writeUnsignedByte(TYPE_DOUBLE);
-        tempMsg.writeDouble(MSNet::getInstance()->getCurrentTimeStep()/1000.);
+        tempMsg.writeUnsignedByte(TYPE_INTEGER);
+        tempMsg.writeInt(MSNet::getInstance()->getCurrentTimeStep());
         break;
     case VAR_LOADED_VEHICLES_NUMBER: {
         const std::vector<std::string> &ids = infos.find(MSNet::VEHICLE_STATE_BUILT)->second;
