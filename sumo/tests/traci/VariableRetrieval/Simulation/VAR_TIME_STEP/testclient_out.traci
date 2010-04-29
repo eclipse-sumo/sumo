@@ -1,10 +1,10 @@
-TraCITestClient output file. Date: Mon Feb 01 12:51:30 2010
+TraCITestClient output file. Date: Thu Apr 29 15:01:34 2010
 
 
 -> Command sent: <GetVariable>:
   domID=171 varID=112 objID=0
 .. Command acknowledged (171), [description: ]
-  CommandID=187  VariableID=112  ObjectID=0 valueDataType=11 Double value: 0.00
+  CommandID=187  VariableID=112  ObjectID=0 valueDataType=9 Int value: 0
 
 -> Command sent: <SimulationStep>:
   TargetTime=1.00 PosFormat=1
@@ -13,7 +13,7 @@ TraCITestClient output file. Date: Mon Feb 01 12:51:30 2010
 -> Command sent: <GetVariable>:
   domID=171 varID=112 objID=0
 .. Command acknowledged (171), [description: ]
-  CommandID=187  VariableID=112  ObjectID=0 valueDataType=11 Double value: 1.00
+  CommandID=187  VariableID=112  ObjectID=0 valueDataType=9 Int value: 1000
 
 -> Command sent: <SimulationStep>:
   TargetTime=2.00 PosFormat=1
