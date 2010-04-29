@@ -70,10 +70,10 @@ MSDevice_Routing::insertOptions() throw() {
     oc.doRegister("device.routing.deterministic", new Option_Bool(false));
     oc.addDescription("device.routing.deterministic", "Routing", "The devices are set deterministic using a fraction of 1000");
 
-    oc.doRegister("device.routing.period", new Option_Integer(0));
+    oc.doRegister("device.routing.period", new Option_String("0"));
     oc.addDescription("device.routing.period", "Routing", "The period with which the vehicle shall be rerouted");
 
-    oc.doRegister("device.routing.pre-period", new Option_Integer(0));
+    oc.doRegister("device.routing.pre-period", new Option_String("0"));
     oc.addDescription("device.routing.pre-period", "Routing", "The rerouting period before emit");
 
     oc.doRegister("device.routing.adaptation-weight", new Option_Float(.5));
@@ -109,8 +109,8 @@ MSDevice_Routing::buildVehicleDevices(MSVehicle &v, std::vector<MSDevice*> &into
     if (haveByNumber||haveByName) {
         // build the device
         MSDevice_Routing* device = new MSDevice_Routing(v, "routing_" + v.getID(),
-                                                        (SUMOTime) oc.getInt("device.routing.period"),
-                                                        (SUMOTime) oc.getInt("device.routing.pre-period")); // !!! SUMOTime-option
+                                                        string2time(oc.getString("device.routing.period")),
+                                                        string2time(oc.getString("device.routing.pre-period")));
         into.push_back(device);
         // initialise edge efforts if not done before
         if (myEdgeEfforts.size()==0) {
