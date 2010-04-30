@@ -1,0 +1,5 @@
+<additional>
+
+   <e2-detector id="3/1to2/1" lane="3/1to2/1_0" pos="100" length="200" freq=".1" file="detector.xml"/>
+
+</additional>
