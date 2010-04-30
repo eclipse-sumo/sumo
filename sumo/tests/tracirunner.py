@@ -18,7 +18,7 @@ clientParams = sys.argv[numParams:]
 
 sumoDir, serverParams[0] = os.path.split(sys.argv[1])
 if os.name == 'posix':
-    clientParams[0] = 'traci-testclient'
+    clientParams[0] = 'TraCITestClient'
 
 #start sumo as server    
 serverprocess = subprocess.Popen(os.path.join(sumoDir, " ".join(serverParams)), 

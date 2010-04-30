@@ -1,3 +1,13 @@
-noinst_LIBRARIES = libtracitestclient.a
+if CHECK_MEMORY_LEAKS
+MEM_LIBS  = ../foreign/nvwa/libnvwa.a
+endif
 
-libtracitestclient_a_SOURCES = TraCITestClient.cpp TraCITestClient.h
+if TRACI
+bin_PROGRAMS = TraCITestClient
+
+TraCITestClient_SOURCES = tracitestclient_main.cpp TraCITestClient.cpp TraCITestClient.h
+
+TraCITestClient_LDADD = ../utils/common/libcommon.a \
+../foreign/tcpip/libtcpip.a \
+$(MEM_LIBS)
+endif

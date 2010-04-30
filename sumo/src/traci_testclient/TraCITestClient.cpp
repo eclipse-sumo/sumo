@@ -23,6 +23,7 @@
 // ===========================================================================
 #include "TraCITestClient.h"
 
+#include <vector>
 #include <iostream>
 #include <iomanip>
 #include <fstream>
@@ -31,6 +32,7 @@
 #include <cstdlib>
 
 #include <traci-server/TraCIConstants.h>
+#include <utils/common/SUMOTime.h>
 
 #define BUILD_TCPIP
 #include <foreign/tcpip/storage.h>
@@ -40,7 +42,6 @@
 // ===========================================================================
 // used namespaces
 // ===========================================================================
-using namespace std;
 using namespace tcpip;
 using namespace testclient;
 
@@ -71,11 +72,11 @@ TraCITestClient::writeResult() {
 
     std::ofstream outFile(outputFileName.c_str());
     if (!outFile) {
-        cerr << "Unable to write result file" << endl;
+        std::cerr << "Unable to write result file" << std::endl;
     }
     time(&seconds);
     locTime = localtime(&seconds);
-    outFile << "TraCITestClient output file. Date: " << asctime(locTime) << endl;
+    outFile << "TraCITestClient output file. Date: " << asctime(locTime) << std::endl;
     outFile << answerLog.str();
     outFile.close();
 }
@@ -83,8 +84,8 @@ TraCITestClient::writeResult() {
 
 void
 TraCITestClient::errorMsg(std::stringstream& msg) {
-    cerr << msg.str() << endl;
-    answerLog << "----" << endl << msg.str() << endl;
+    std::cerr << msg.str() << std::endl;
+    answerLog << "----" << std::endl << msg.str() << std::endl;
 }
 
 
@@ -134,7 +135,7 @@ TraCITestClient::run(std::string fileName, int port, std::string host) {
     defFile.open(fileName.c_str());
 
     if (!defFile) {
-        msg << "Can not open definition file " << fileName << endl;
+        msg << "Can not open definition file " << fileName << std::endl;
         errorMsg(msg);
         return false;
     }
@@ -488,32 +489,32 @@ TraCITestClient::reportResultState(tcpip::Storage& inMsg, int command, bool igno
         cmdId = inMsg.readUnsignedByte();
         if (cmdId != command && !ignoreCommandId) {
             answerLog << "#Error: received status response to command: " << cmdId
-            << " but expected: " << command << endl;
+            << " but expected: " << command << std::endl;
             return false;
         }
         resultType = inMsg.readUnsignedByte();
         msg = inMsg.readString();
     } catch (std::invalid_argument e) {
-        answerLog << "#Error: an exception was thrown while reading result state message" << endl;
+        answerLog << "#Error: an exception was thrown while reading result state message" << std::endl;
         return false;
     }
     switch (resultType) {
     case RTYPE_ERR:
-        answerLog << ".. Answered with error to command (" << cmdId << "), [description: " << msg << "]" << endl;
+        answerLog << ".. Answered with error to command (" << cmdId << "), [description: " << msg << "]" << std::endl;
         return false;
     case RTYPE_NOTIMPLEMENTED:
-        answerLog << ".. Sent command is not implemented (" << cmdId << "), [description: " << msg << "]" << endl;
+        answerLog << ".. Sent command is not implemented (" << cmdId << "), [description: " << msg << "]" << std::endl;
         return false;
     case RTYPE_OK:
-        answerLog << ".. Command acknowledged (" << cmdId << "), [description: " << msg << "]" << endl;
+        answerLog << ".. Command acknowledged (" << cmdId << "), [description: " << msg << "]" << std::endl;
         break;
     default:
         answerLog << ".. Answered with unknown result code(" << resultType << ") to command(" << cmdId
-        << "), [description: " << msg << "]" << endl;
+        << "), [description: " << msg << "]" << std::endl;
         return false;
     }
     if ((cmdStart + cmdLength) != inMsg.position()) {
-        answerLog << "#Error: command at position " << cmdStart << " has wrong length" << endl;
+        answerLog << "#Error: command at position " << cmdStart << " has wrong length" << std::endl;
         return false;
     }
 
@@ -551,8 +552,8 @@ TraCITestClient::commandSimulationStep(SUMOTime time, int posFormat) {
         return;
     }
 
-    answerLog << endl << "-> Command sent: <SimulationStep>:" << endl << "  TargetTime=" << time2string(time)
-    << " PosFormat=" << posFormat << endl;
+    answerLog << std::endl << "-> Command sent: <SimulationStep>:" << std::endl << "  TargetTime=" << time2string(time)
+    << " PosFormat=" << posFormat << std::endl;
 
     // receive answer message
     try {
@@ -598,7 +599,7 @@ TraCITestClient::commandSimulationStep2(SUMOTime time) {
         errorMsg(msg);
         return;
     }
-    answerLog << endl << "-> Command sent: <SimulationStep2>:" << endl;
+    answerLog << std::endl << "-> Command sent: <SimulationStep2>:" << std::endl;
     // receive answer message
     try {
         socket->receiveExact(inMsg);
@@ -646,8 +647,8 @@ TraCITestClient::commandSetMaximumSpeed(int nodeId, float speed) {
         return;
     }
 
-    answerLog << endl << "-> Command sent: <SetMaximumSpeed>:" << endl << "  NodeId=" << nodeId
-    << " MaxSpeed=" << speed << endl;
+    answerLog << std::endl << "-> Command sent: <SetMaximumSpeed>:" << std::endl << "  NodeId=" << nodeId
+    << " MaxSpeed=" << speed << std::endl;
 
     // receive answer message
     try {
@@ -719,7 +720,7 @@ TraCITestClient::commandStopNode(int nodeId, testclient::Position2D* pos2D,
         tempMsg.writeFloat(posRoad->pos);
         tempMsg.writeUnsignedByte(posRoad->laneId);
     } else {
-        cerr << "Error in method commandStopNode: position is NULL" << endl;
+        std::cerr << "Error in method commandStopNode: position is NULL" << std::endl;
         return;
     }
     // radius
@@ -739,7 +740,7 @@ TraCITestClient::commandStopNode(int nodeId, testclient::Position2D* pos2D,
         return;
     }
 
-    answerLog << endl << "-> Command sent: <StopNode>:" << endl << "  NodeId=" << nodeId;
+    answerLog << std::endl << "-> Command sent: <StopNode>:" << std::endl << "  NodeId=" << nodeId;
     if (pos2D != NULL) {
         answerLog << " Position-2D: x=" << pos2D->x << " y=" << pos2D->y ;
     } else if (pos3D != NULL) {
@@ -747,7 +748,7 @@ TraCITestClient::commandStopNode(int nodeId, testclient::Position2D* pos2D,
     } else if (posRoad != NULL) {
         answerLog << " Position-RoadMap: roadId=" << posRoad->roadId << " pos=" << posRoad->pos << " laneId=" << (int)posRoad->laneId ;
     }
-    answerLog << " radius=" << radius << " waitTime=" << time2string(waitTime) << endl;
+    answerLog << " radius=" << radius << " waitTime=" << time2string(waitTime) << std::endl;
 
     // receive answer message
     try {
@@ -800,8 +801,8 @@ TraCITestClient::commandChangeLane(int nodeId, int laneId, SUMOTime fixTime) {
         return;
     }
 
-    answerLog << endl << "-> Command sent: <ChangeLane>:" << endl << "  NodeId=" << nodeId
-    << " LaneId=" << laneId << " fixTime=" << time2string(fixTime) << endl;
+    answerLog << std::endl << "-> Command sent: <ChangeLane>:" << std::endl << "  NodeId=" << nodeId
+    << " LaneId=" << laneId << " fixTime=" << time2string(fixTime) << std::endl;
 
     // receive answer message
     try {
@@ -851,8 +852,8 @@ TraCITestClient::commandSlowDown(int nodeId, float minSpeed, SUMOTime timeInterv
         return;
     }
 
-    answerLog << endl << "-> Command sent: <SlowDown>:" << endl << "  NodeId=" << nodeId
-    << " MinSpeed=" << minSpeed << " timeInterval" << time2string(timeInterval) << endl;
+    answerLog << std::endl << "-> Command sent: <SlowDown>:" << std::endl << "  NodeId=" << nodeId
+    << " MinSpeed=" << minSpeed << " timeInterval" << time2string(timeInterval) << std::endl;
 
     // receive answer message
     try {
@@ -893,8 +894,8 @@ TraCITestClient::commandChangeRoute(int nodeId, std::string roadId, double trave
     // travel time
     outMsg.writeDouble(travelTime);
 
-    answerLog << endl << "-> Command sent: <ChangeRoute>:" << endl << "  NodeId=" << nodeId
-    << " RoadId=" << roadId << " travelTime=" << travelTime << endl;
+    answerLog << std::endl << "-> Command sent: <ChangeRoute>:" << std::endl << "  NodeId=" << nodeId
+    << " RoadId=" << roadId << " travelTime=" << travelTime << std::endl;
 
     // send request message
     try {
@@ -951,8 +952,8 @@ TraCITestClient::commandChangeTarget(int nodeId, std::string roadId) {
         return;
     }
 
-    answerLog << endl << "-> Command sent: <ChangeTarget>:" << endl << "  NodeId=" << nodeId
-    << " RoadId=" << roadId << endl;
+    answerLog << std::endl << "-> Command sent: <ChangeTarget>:" << std::endl << "  NodeId=" << nodeId
+    << " RoadId=" << roadId << std::endl;
 
     // receive answer message
     try {
@@ -1022,7 +1023,7 @@ TraCITestClient::commandPositionConversion(testclient::Position2D* pos2D,
         tempMsg.writeFloat(posRoad->pos);
         tempMsg.writeUnsignedByte(posRoad->laneId);
     } else {
-        cerr << "Error in method commandPositionConversion: position is NULL" << endl;
+        std::cerr << "Error in method commandPositionConversion: position is NULL" << std::endl;
         return;
     }
     // destination position id
@@ -1040,7 +1041,7 @@ TraCITestClient::commandPositionConversion(testclient::Position2D* pos2D,
         return;
     }
 
-    answerLog << endl << "-> Command sent: <PositionConversion>:" << endl;
+    answerLog << std::endl << "-> Command sent: <PositionConversion>:" << std::endl;
     if (pos2D != NULL) {
         answerLog << " DestPosition-2D: x=" << pos2D->x << " y=" << pos2D->y ;
     } else if (pos3D != NULL) {
@@ -1048,7 +1049,7 @@ TraCITestClient::commandPositionConversion(testclient::Position2D* pos2D,
     } else if (posRoad != NULL) {
         answerLog << " DestPosition-RoadMap: roadId=" << posRoad->roadId << " pos=" << posRoad->pos << " laneId=" << (int)posRoad->laneId ;
     }
-    answerLog << " posId=" << posId << endl;
+    answerLog << " posId=" << posId << std::endl;
 
     // receive answer message
     try {
@@ -1161,7 +1162,7 @@ TraCITestClient::commandDistanceRequest(testclient::Position2D* pos1_2D,
         tempMsg.writeFloat(pos1_Road->pos);
         tempMsg.writeUnsignedByte(pos1_Road->laneId);
     } else {
-        cerr << "Error in method commandDistanceRequest: position1 is NULL" << endl;
+        std::cerr << "Error in method commandDistanceRequest: position1 is NULL" << std::endl;
         return;
     }
     // position2
@@ -1180,7 +1181,7 @@ TraCITestClient::commandDistanceRequest(testclient::Position2D* pos1_2D,
         tempMsg.writeFloat(pos2_Road->pos);
         tempMsg.writeUnsignedByte(pos2_Road->laneId);
     } else {
-        cerr << "Error in method commandDistanceRequest: position2 is NULL" << endl;
+        std::cerr << "Error in method commandDistanceRequest: position2 is NULL" << std::endl;
         return;
     }
     // flag
@@ -1198,7 +1199,7 @@ TraCITestClient::commandDistanceRequest(testclient::Position2D* pos1_2D,
         return;
     }
 
-    answerLog << endl << "-> Command sent: <DistanceRequest>:" << endl;
+    answerLog << std::endl << "-> Command sent: <DistanceRequest>:" << std::endl;
     if (pos1_2D != NULL) {
         answerLog << " FirstPosition-2D: x=" << pos1_2D->x << " y=" << pos1_2D->y ;
     } else if (pos1_3D != NULL) {
@@ -1213,7 +1214,7 @@ TraCITestClient::commandDistanceRequest(testclient::Position2D* pos1_2D,
     } else if (pos2_Road != NULL) {
         answerLog << " SecondPosition-RoadMap: roadId=" << pos2_Road->roadId << " pos=" << pos2_Road->pos << " laneId=" << (int)pos2_Road->laneId ;
     }
-    answerLog << " Flag=" << flag << endl;
+    answerLog << " Flag=" << flag << std::endl;
 
     // receive answer message
     try {
@@ -1266,9 +1267,9 @@ TraCITestClient::commandGetTLStatus(int tlId, SUMOTime intervalStart, SUMOTime i
         return;
     }
 
-    answerLog << endl << "-> Command sent: <GetTLStatus>:" << endl
+    answerLog << std::endl << "-> Command sent: <GetTLStatus>:" << std::endl
     << "  TLId=" << tlId << " IntervalStart=" << time2string(intervalStart)
-    << " IntervalEnd=" << time2string(intervalEnd) << endl;
+    << " IntervalEnd=" << time2string(intervalEnd) << std::endl;
 
     // receive answer message
     try {
@@ -1316,9 +1317,9 @@ TraCITestClient::commandGetVariable(int domID, int varID, const std::string &obj
         errorMsg(msg);
         return;
     }
-    answerLog << endl << "-> Command sent: <GetVariable>:" << endl
+    answerLog << std::endl << "-> Command sent: <GetVariable>:" << std::endl
     << "  domID=" << domID << " varID=" << varID
-    << " objID=" << objID << endl;
+    << " objID=" << objID << std::endl;
 
     // receive answer message
     try {
@@ -1339,7 +1340,7 @@ TraCITestClient::commandGetVariable(int domID, int varID, const std::string &obj
         int cmdId = inMsg.readUnsignedByte();
         if (cmdId != (domID+0x10)) {
             answerLog << "#Error: received response with command id: " << cmdId
-            << "but expected: " << (int)(domID+0x10) << endl;
+            << "but expected: " << (int)(domID+0x10) << std::endl;
             return;
         }
         answerLog << "  CommandID=" << cmdId;
@@ -1388,9 +1389,9 @@ TraCITestClient::commandGetVariablePlus(int domID, int varID, const std::string 
         errorMsg(msg);
         return;
     }
-    answerLog << endl << "-> Command sent: <GetVariable>:" << endl
+    answerLog << std::endl << "-> Command sent: <GetVariable>:" << std::endl
     << "  domID=" << domID << " varID=" << varID
-    << " objID=" << objID << endl;
+    << " objID=" << objID << std::endl;
 
     // receive answer message
     try {
@@ -1411,7 +1412,7 @@ TraCITestClient::commandGetVariablePlus(int domID, int varID, const std::string 
         int cmdId = inMsg.readUnsignedByte();
         if (cmdId != (domID+0x10)) {
             answerLog << "#Error: received response with command id: " << cmdId
-            << "but expected: " << (int)(domID+0x10) << endl;
+            << "but expected: " << (int)(domID+0x10) << std::endl;
             return;
         }
         answerLog << "  CommandID=" << cmdId;
@@ -1467,8 +1468,8 @@ TraCITestClient::commandSubscribeVariable(int domID, const std::string &objID, i
         errorMsg(msg);
         return;
     }
-    answerLog << endl << "-> Command sent: <SubscribeVariable>:" << endl
-    << "  domID=" << domID << " objID=" << objID << " with " << varNo << " variables" << endl;
+    answerLog << std::endl << "-> Command sent: <SubscribeVariable>:" << std::endl
+    << "  domID=" << domID << " objID=" << objID << " with " << varNo << " variables" << std::endl;
 
     // receive answer message
     try {
@@ -1603,9 +1604,9 @@ TraCITestClient::commandSetValue(int domID, int varID, const std::string &objID,
         errorMsg(msg);
         return;
     }
-    answerLog << endl << "-> Command sent: <SetValue>:" << endl
+    answerLog << std::endl << "-> Command sent: <SetValue>:" << std::endl
     << "  domID=" << domID << " varID=" << varID
-    << " objID=" << objID << endl;
+    << " objID=" << objID << std::endl;
 
     // receive answer message
     try {
@@ -1649,7 +1650,7 @@ TraCITestClient::commandClose() {
         return;
     }
 
-    answerLog << endl << "-> Command sent: <Close>:" << endl;
+    answerLog << std::endl << "-> Command sent: <Close>:" << std::endl;
 
     // receive answer message
     try {
@@ -1811,10 +1812,10 @@ TraCITestClient::commandScenario(int flag, int domain, int domainId, int variabl
         return;
     }
 
-    answerLog << endl << "-> Command sent: <Scenario>:" << endl << "  flag=" << flag
+    answerLog << std::endl << "-> Command sent: <Scenario>:" << std::endl << "  flag=" << flag
     << " domain=" << domain << " domainId=" << domainId
     << " variable=" << variable << " valueDataType=" << valueDataType
-    << valueString.str() << endl;
+    << valueString.str() << std::endl;
     writeResult();
 
     // receive answer message
@@ -1855,10 +1856,10 @@ TraCITestClient::validateSimulationStep(tcpip::Storage &inMsg) {
             cmdId = inMsg.readUnsignedByte();
             if (cmdId != CMD_MOVENODE) {
                 answerLog << "#Error: received response with command id: " << cmdId
-                << "but expected: " << (int)CMD_MOVENODE << endl;
+                << "but expected: " << (int)CMD_MOVENODE << std::endl;
                 return false;
             }
-            answerLog << ".. Received Response <MoveNode>:" << endl;
+            answerLog << ".. Received Response <MoveNode>:" << std::endl;
             nodeId = inMsg.readInt();
             answerLog << "  nodeId=" << nodeId << " ";
             targetTime = inMsg.readInt();
@@ -1868,7 +1869,7 @@ TraCITestClient::validateSimulationStep(tcpip::Storage &inMsg) {
             case POSITION_2D:
                 pos2D.x = inMsg.readFloat();
                 pos2D.y = inMsg.readFloat();
-                answerLog << "2D-Position: x=" << pos2D.x << " y=" << pos2D.y << endl;
+                answerLog << "2D-Position: x=" << pos2D.x << " y=" << pos2D.y << std::endl;
                 break;
             case POSITION_3D:
             case POSITION_2_5D:
@@ -1880,25 +1881,25 @@ TraCITestClient::validateSimulationStep(tcpip::Storage &inMsg) {
                 pos3D.x = inMsg.readFloat();
                 pos3D.y = inMsg.readFloat();
                 pos3D.z = inMsg.readFloat();
-                answerLog << "x=" << pos3D.x << " y=" << pos3D.y << " z=" << pos3D.z << endl;
+                answerLog << "x=" << pos3D.x << " y=" << pos3D.y << " z=" << pos3D.z << std::endl;
                 break;
             case POSITION_ROADMAP:
                 roadPos.roadId = inMsg.readString();
                 roadPos.pos = inMsg.readFloat();
                 roadPos.laneId = inMsg.readUnsignedByte();
                 answerLog << "RoadMap-Position: roadId=" << roadPos.roadId << " pos=" << roadPos.pos
-                << " laneId=" << (int)roadPos.laneId << endl;
+                << " laneId=" << (int)roadPos.laneId << std::endl;
                 break;
             default:
-                answerLog << "#Error: received unknown position format" << endl;
+                answerLog << "#Error: received unknown position format" << std::endl;
                 return false;
             }
             if ((cmdStart + cmdLength) != inMsg.position()) {
-                answerLog << "#Warning: command at position " << cmdStart << " has wrong length" << endl;
+                answerLog << "#Warning: command at position " << cmdStart << " has wrong length" << std::endl;
                 //return false;
             }
         } catch (std::invalid_argument e) {
-            answerLog << "#Error while reading message:" << e.what() << endl;
+            answerLog << "#Error while reading message:" << e.what() << std::endl;
             return false;
         }
     }
@@ -1922,7 +1923,7 @@ TraCITestClient::validateSimulationStep2(tcpip::Storage &inMsg) {
             }
         }
     } catch (std::invalid_argument e) {
-        answerLog << "#Error while reading message:" << e.what() << endl;
+        answerLog << "#Error while reading message:" << e.what() << std::endl;
         return false;
     }
     return true;
@@ -1937,13 +1938,13 @@ TraCITestClient::validateSubscription(tcpip::Storage &inMsg) {
         int respLength = inMsg.readInt();
         int cmdId = inMsg.readUnsignedByte();
         if (cmdId<0xe0||cmdId>0xef) {
-            answerLog << "#Error: received response with command id: " << cmdId << " but expected a subscription response (0xe0-0xef)" << endl;
+            answerLog << "#Error: received response with command id: " << cmdId << " but expected a subscription response (0xe0-0xef)" << std::endl;
             return false;
         }
         answerLog << "  CommandID=" << cmdId;
         answerLog << "  ObjectID=" << inMsg.readString();
         unsigned int varNo = inMsg.readUnsignedByte();
-        answerLog << "  #variables=" << varNo << endl;
+        answerLog << "  #variables=" << varNo << std::endl;
         for (int i=0; i<varNo; ++i) {
             answerLog << "      VariableID=" << inMsg.readUnsignedByte();
             bool ok = inMsg.readUnsignedByte()==RTYPE_OK;
@@ -1953,7 +1954,7 @@ TraCITestClient::validateSubscription(tcpip::Storage &inMsg) {
             readAndReportTypeDependent(inMsg, valueDataType);
         }
     } catch (std::invalid_argument e) {
-        answerLog << "#Error while reading message:" << e.what() << endl;
+        answerLog << "#Error while reading message:" << e.what() << std::endl;
         return false;
     }
     return true;
@@ -1977,17 +1978,17 @@ TraCITestClient::validateStopNode(tcpip::Storage &inMsg) {
         cmdId = inMsg.readUnsignedByte();
         if (cmdId != CMD_STOP) {
             answerLog << "#Error: received response with command id: " << cmdId
-            << "but expected: " << (int)CMD_STOP << endl;
+            << "but expected: " << (int)CMD_STOP << std::endl;
             return false;
         }
-        answerLog << ".. Received Response <StopNode>:" << endl;
+        answerLog << ".. Received Response <StopNode>:" << std::endl;
         // read nodeID
         rNodeId = inMsg.readInt();
         answerLog << "  nodeId=" << rNodeId << " ";
         // read stop position
         rPosType = inMsg.readUnsignedByte();
         if (rPosType != POSITION_ROADMAP) {
-            answerLog << "#Error: received position was not in road map format" << endl;
+            answerLog << "#Error: received position was not in road map format" << std::endl;
             return false;
         }
         rRoadPos.roadId = inMsg.readString();
@@ -2000,14 +2001,14 @@ TraCITestClient::validateStopNode(tcpip::Storage &inMsg) {
         answerLog << " radius=" << rRadius;
         // read wait time
         SUMOTime rWaitTime = inMsg.readInt();
-        answerLog << " wait time=" << time2string(rWaitTime) << endl;
+        answerLog << " wait time=" << time2string(rWaitTime) << std::endl;
         // check command length
         if ((cmdStart + cmdLength) != inMsg.position()) {
-            answerLog << "#Error: command at position " << cmdStart << " has wrong length" << endl;
+            answerLog << "#Error: command at position " << cmdStart << " has wrong length" << std::endl;
             return false;
         }
     } catch (std::invalid_argument e) {
-        answerLog << "#Error while reading message:" << e.what() << endl;
+        answerLog << "#Error while reading message:" << e.what() << std::endl;
         return false;
     }
 
@@ -2033,17 +2034,17 @@ TraCITestClient::validatePositionConversion(tcpip::Storage &inMsg) {
         cmdId = inMsg.readUnsignedByte();
         if (cmdId != CMD_POSITIONCONVERSION) {
             answerLog << "#Error: received response with command id: " << cmdId
-            << "but expected: " << (int)CMD_POSITIONCONVERSION << endl;
+            << "but expected: " << (int)CMD_POSITIONCONVERSION << std::endl;
             return false;
         }
-        answerLog << ".. Received Response <PositionConversion>:" << endl;
+        answerLog << ".. Received Response <PositionConversion>:" << std::endl;
         // read converted position
         posType = inMsg.readUnsignedByte();
         switch (posType) {
         case POSITION_2D:
             pos2D.x = inMsg.readFloat();
             pos2D.y = inMsg.readFloat();
-            answerLog << "2D-Position: x=" << pos2D.x << " y=" << pos2D.y << endl;
+            answerLog << "2D-Position: x=" << pos2D.x << " y=" << pos2D.y << std::endl;
             break;
         case POSITION_3D:
         case POSITION_2_5D:
@@ -2055,32 +2056,32 @@ TraCITestClient::validatePositionConversion(tcpip::Storage &inMsg) {
             pos3D.x = inMsg.readFloat();
             pos3D.y = inMsg.readFloat();
             pos3D.z = inMsg.readFloat();
-            answerLog << "x=" << pos3D.x << " y=" << pos3D.y << " z=" << pos3D.z << endl;
+            answerLog << "x=" << pos3D.x << " y=" << pos3D.y << " z=" << pos3D.z << std::endl;
             break;
         case POSITION_ROADMAP:
             roadPos.roadId = inMsg.readString();
             roadPos.pos = inMsg.readFloat();
             roadPos.laneId = inMsg.readUnsignedByte();
             answerLog << "RoadMap-Position: roadId=" << roadPos.roadId << " pos=" << roadPos.pos
-            << " laneId=" << (int)roadPos.laneId << endl;
+            << " laneId=" << (int)roadPos.laneId << std::endl;
             break;
         default:
-            answerLog << "#Error: received unknown position format" << endl;
+            answerLog << "#Error: received unknown position format" << std::endl;
             return false;
         }
         // read requested position type
         reqPosType = inMsg.readUnsignedByte();
         if (reqPosType != posType) {
             answerLog << "#Warning: requested position type (" << reqPosType
-            << ") and received position type (" << posType << ") do not match" << endl;
+            << ") and received position type (" << posType << ") do not match" << std::endl;
         }
         // check command length
         if ((cmdStart + cmdLength) != inMsg.position()) {
-            answerLog << "#Error: command at position " << cmdStart << " has wrong length" << endl;
+            answerLog << "#Error: command at position " << cmdStart << " has wrong length" << std::endl;
             return false;
         }
     } catch (std::invalid_argument e) {
-        answerLog << "#Error while reading message:" << e.what() << endl;
+        answerLog << "#Error while reading message:" << e.what() << std::endl;
         return false;
     }
 
@@ -2106,16 +2107,16 @@ TraCITestClient::validateDistanceRequest(tcpip::Storage& inMsg) {
         cmdId = inMsg.readUnsignedByte();
         if (cmdId != CMD_DISTANCEREQUEST) {
             answerLog << "#Error: received response with command id: " << cmdId
-            << "but expected: " << (int)CMD_DISTANCEREQUEST << endl;
+            << "but expected: " << (int)CMD_DISTANCEREQUEST << std::endl;
             return false;
         }
-        answerLog << ".. Received Response <DistanceRequest>:" << endl;
+        answerLog << ".. Received Response <DistanceRequest>:" << std::endl;
         // read flag
         flag = inMsg.readUnsignedByte();
         answerLog << " flag=" << flag;
         // read computed distance
         distance = inMsg.readFloat();
-        answerLog << " distance=" << distance << endl;
+        answerLog << " distance=" << distance << std::endl;
         //// read computed position
         //posType = inMsg.readUnsignedByte();
         //switch (posType) {
@@ -2144,16 +2145,16 @@ TraCITestClient::validateDistanceRequest(tcpip::Storage& inMsg) {
         //		<< " laneId=" << (int)roadPos.laneId;
         //	break;
         //default:
-        //	answerLog << "#Error: received unknown position format: " << posType << endl;
+        //	answerLog << "#Error: received unknown position format: " << posType << std::endl;
         //	return false;
         //}
         // check command length
         if ((cmdStart + cmdLength) != inMsg.position()) {
-            answerLog << "#Error: command at position " << cmdStart << " has wrong length" << endl;
+            answerLog << "#Error: command at position " << cmdStart << " has wrong length" << std::endl;
             return false;
         }
     } catch (std::invalid_argument e) {
-        answerLog << "#Error while reading message:" << e.what() << endl;
+        answerLog << "#Error while reading message:" << e.what() << std::endl;
         return false;
     }
 
@@ -2180,10 +2181,10 @@ TraCITestClient::validateScenario(tcpip::Storage &inMsg) {
         cmdId = inMsg.readUnsignedByte();
         if (cmdId != CMD_SCENARIO) {
             answerLog << "#Error: received response with command id: " << cmdId
-            << "but expected: " << (int)CMD_SCENARIO << endl;
+            << "but expected: " << (int)CMD_SCENARIO << std::endl;
             return false;
         }
-        answerLog << ".. Received Response <Scenario>:" << endl;
+        answerLog << ".. Received Response <Scenario>:" << std::endl;
         // read flag
         flag = inMsg.readUnsignedByte();
         answerLog << "  flag=" << flag << " ";
@@ -2205,11 +2206,11 @@ TraCITestClient::validateScenario(tcpip::Storage &inMsg) {
         }
         // check command length
         if ((cmdStart + cmdLength) != inMsg.position()) {
-            answerLog << "#Error: command at position " << cmdStart << " has wrong length" << endl;
+            answerLog << "#Error: command at position " << cmdStart << " has wrong length" << std::endl;
             return false;
         }
     } catch (std::invalid_argument e) {
-        answerLog << "#Error while reading message:" << e.what() << endl;
+        answerLog << "#Error while reading message:" << e.what() << std::endl;
         return false;
     }
     return true;
@@ -2219,25 +2220,25 @@ bool
 TraCITestClient::readAndReportTypeDependent(tcpip::Storage &inMsg, int valueDataType) {
     if (valueDataType == TYPE_UBYTE) {
         int ubyte = inMsg.readUnsignedByte();
-        answerLog << " Unsigned Byte Value: " << ubyte << endl;
+        answerLog << " Unsigned Byte Value: " << ubyte << std::endl;
     } else if (valueDataType == TYPE_BYTE) {
         int byte = inMsg.readByte();
-        answerLog << " Byte value: " << byte << endl;
+        answerLog << " Byte value: " << byte << std::endl;
     } else if (valueDataType == TYPE_INTEGER) {
         int integer = inMsg.readInt();
-        answerLog << " Int value: " << integer << endl;
+        answerLog << " Int value: " << integer << std::endl;
     } else if (valueDataType == TYPE_FLOAT) {
         float floatv = inMsg.readFloat();
         if (floatv<0.1&&floatv>0) {
             answerLog.setf(std::ios::scientific, std::ios::floatfield);
         }
-        answerLog << " float value: " << floatv << endl;
+        answerLog << " float value: " << floatv << std::endl;
         answerLog.setf(std::ios::fixed , std::ios::floatfield); // use decimal format
         answerLog.setf(std::ios::showpoint); // print decimal point
         answerLog << std::setprecision(2);
     } else if (valueDataType == TYPE_DOUBLE) {
         double doublev = inMsg.readDouble();
-        answerLog << " Double value: " << doublev << endl;
+        answerLog << " Double value: " << doublev << std::endl;
     } else if (valueDataType == TYPE_BOUNDINGBOX) {
         testclient::BoundingBox box;
         box.lowerLeft.x = inMsg.readFloat();
@@ -2246,7 +2247,7 @@ TraCITestClient::readAndReportTypeDependent(tcpip::Storage &inMsg, int valueData
         box.upperRight.y = inMsg.readFloat();
         answerLog << " BoundaryBoxValue: lowerLeft x="<< box.lowerLeft.x
         << " y=" << box.lowerLeft.y << " upperRight x=" << box.upperRight.x
-        << " y=" << box.upperRight.y << endl;
+        << " y=" << box.upperRight.y << std::endl;
     } else if (valueDataType == TYPE_POLYGON) {
         int length = inMsg.readUnsignedByte();
         answerLog << " PolygonValue: ";
@@ -2255,7 +2256,7 @@ TraCITestClient::readAndReportTypeDependent(tcpip::Storage &inMsg, int valueData
             float y = inMsg.readFloat();
             answerLog << "(" << x << "," << y << ") ";
         }
-        answerLog << endl;
+        answerLog << std::endl;
     } else if (valueDataType == POSITION_3D) {
         float x = inMsg.readFloat();
         float y = inMsg.readFloat();
@@ -2272,7 +2273,7 @@ TraCITestClient::readAndReportTypeDependent(tcpip::Storage &inMsg, int valueData
         << " laneId=" << laneId << std::endl;
     } else if (valueDataType == TYPE_TLPHASELIST) {
         int length = inMsg.readUnsignedByte();
-        answerLog << " TLPhaseListValue: length=" << length << endl;
+        answerLog << " TLPhaseListValue: length=" << length << std::endl;
         for (int i=0; i< length; i++) {
             std::string pred = inMsg.readString();
             std::string succ = inMsg.readString();
@@ -2281,53 +2282,53 @@ TraCITestClient::readAndReportTypeDependent(tcpip::Storage &inMsg, int valueData
             << " phase=";
             switch (phase) {
             case TLPHASE_RED:
-                answerLog << "red" << endl;
+                answerLog << "red" << std::endl;
                 break;
             case TLPHASE_YELLOW:
-                answerLog << "yellow" << endl;
+                answerLog << "yellow" << std::endl;
                 break;
             case TLPHASE_GREEN:
-                answerLog << "green" << endl;
+                answerLog << "green" << std::endl;
                 break;
             default:
-                answerLog << "#Error: unknown phase value" << (int)phase << endl;
+                answerLog << "#Error: unknown phase value" << (int)phase << std::endl;
                 return false;
             }
         }
     } else if (valueDataType == TYPE_STRING) {
         std::string s = inMsg.readString();
-        answerLog << " string value: " << s << endl;
+        answerLog << " string value: " << s << std::endl;
     } else if (valueDataType == TYPE_STRINGLIST) {
         std::vector<std::string> s = inMsg.readStringList();
-        answerLog << " string list value: [ " << endl;
+        answerLog << " string list value: [ " << std::endl;
         for (std::vector<std::string>::iterator i=s.begin(); i!=s.end(); ++i) {
             if (i!=s.begin()) {
                 answerLog << ", ";
             }
             answerLog << '"' << *i << '"';
         }
-        answerLog << " ]" << endl;
+        answerLog << " ]" << std::endl;
     } else if (valueDataType == TYPE_COMPOUND) {
         int no = inMsg.readInt();
-        answerLog << " compound value with " << no << " members: [ " << endl;
+        answerLog << " compound value with " << no << " members: [ " << std::endl;
         for (int i=0; i<no; ++i) {
             int currentValueDataType = inMsg.readUnsignedByte();
             answerLog << " valueDataType=" << currentValueDataType;
             readAndReportTypeDependent(inMsg, currentValueDataType);
         }
-        answerLog << " ]" << endl;
+        answerLog << " ]" << std::endl;
     } else if (valueDataType == TYPE_POSITION2D) {
         float xv = inMsg.readFloat();
         float yv = inMsg.readFloat();
-        answerLog << " position value: (" << xv << "," << yv << ")" << endl;
+        answerLog << " position value: (" << xv << "," << yv << ")" << std::endl;
     } else if (valueDataType == TYPE_COLOR) {
         int r = inMsg.readUnsignedByte();
         int g = inMsg.readUnsignedByte();
         int b = inMsg.readUnsignedByte();
         int a = inMsg.readUnsignedByte();
-        answerLog << " color value: (" << r << "," << g << "," << b << "," << a << ")" << endl;
+        answerLog << " color value: (" << r << "," << g << "," << b << "," << a << ")" << std::endl;
     } else {
-        answerLog << "#Error: unknown valueDataType!" << endl;
+        answerLog << "#Error: unknown valueDataType!" << std::endl;
         return false;
     }
     return true;
@@ -2352,10 +2353,10 @@ TraCITestClient::validateGetTLStatus(tcpip::Storage &inMsg) {
             cmdId = inMsg.readUnsignedByte();
             if (cmdId != CMD_TLSWITCH) {
                 answerLog << "#Error: received response with command id: " << cmdId
-                << "but expected: " << (int)CMD_TLSWITCH << endl;
+                << "but expected: " << (int)CMD_TLSWITCH << std::endl;
                 return false;
             }
-            answerLog << ".. Received Response <TrafficLightSwitch>:" << endl;
+            answerLog << ".. Received Response <TrafficLightSwitch>:" << std::endl;
             // read switch time
             SUMOTime switchTime = inMsg.readInt();
             answerLog << "  SwitchTime=" << time2string(switchTime);
@@ -2373,14 +2374,14 @@ TraCITestClient::validateGetTLStatus(tcpip::Storage &inMsg) {
             answerLog << " NewPhase=" << newPhase;
             // read yellow time
             SUMOTime yellowTime = inMsg.readInt();
-            answerLog << " YellowTime=" << time2string(yellowTime) << endl;
+            answerLog << " YellowTime=" << time2string(yellowTime) << std::endl;
             // check command length
             if ((cmdStart + cmdLength) != inMsg.position()) {
-                answerLog << "#Error: command at position " << cmdStart << " has wrong length" << endl;
+                answerLog << "#Error: command at position " << cmdStart << " has wrong length" << std::endl;
                 return false;
             }
         } catch (std::invalid_argument e) {
-            answerLog << "#Error while reading message:" << e.what() << endl;
+            answerLog << "#Error while reading message:" << e.what() << std::endl;
             return false;
         }
     }

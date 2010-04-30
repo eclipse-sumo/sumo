@@ -25,15 +25,9 @@ endif
 if TRACI
 TRACI_LIBS = ./traci-server/libtraciserver.a
 TRACI_DIRS = traci-server traci_testclient
-
-TRACI_TESTCLIENT_APPS = traci-testclient
-traci_testclient_SOURCES = ./traci_testclient/tracitestclient_main.cpp
-traci_testclient_LDADD = ./traci_testclient/libtracitestclient.a\
-./foreign/tcpip/libtcpip.a
 endif
 
-bin_PROGRAMS = sumo netconvert \
-$(GUI_APPS) $(TRACI_TESTCLIENT_APPS)
+bin_PROGRAMS = sumo netconvert $(GUI_APPS)
 
 COMMON_LIBS = ./utils/options/liboptions.a \
 ./utils/common/libcommon.a \
