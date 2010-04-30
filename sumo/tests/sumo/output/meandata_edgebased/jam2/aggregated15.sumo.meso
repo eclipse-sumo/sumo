@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 03/25/10 08:19:34 by SUMO sumo Version dev-SVN-r8511
+<!-- generated on 04/30/10 09:56:51 by SUMO sumo Version dev-SVN-r8698
 <configuration>
 
     <input>
@@ -33,21 +33,21 @@
     <interval begin="600.00" end="615.00" id="dump_15">
         <edge id="1/1to0/1" sampledSeconds="0.00" departed="0" arrived="2" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0"/>
         <edge id="2/1to1/1" sampledSeconds="432.71" traveltime="392.66" density="73.87" occupancy="55.40" waitingTime="0.00" speed="0.99" departed="0" arrived="0" entered="1" left="2" laneChangedFrom="0" laneChangedTo="0"/>
-        <edge id="3/1to2/1" sampledSeconds="527.96" traveltime="1240.49" density="90.13" occupancy="67.60" waitingTime="0.56" speed="0.31" departed="0" arrived="0" entered="0" left="1" laneChangedFrom="0" laneChangedTo="0"/>
+        <edge id="3/1to2/1" sampledSeconds="527.96" traveltime="1240.48" density="90.13" occupancy="67.60" waitingTime="19.84" speed="0.31" departed="0" arrived="0" entered="0" left="1" laneChangedFrom="0" laneChangedTo="0"/>
     </interval>
     <interval begin="615.00" end="630.00" id="dump_15">
         <edge id="1/1to0/1" sampledSeconds="0.00" departed="0" arrived="1" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0"/>
         <edge id="2/1to1/1" sampledSeconds="428.88" traveltime="392.67" density="73.22" occupancy="54.91" waitingTime="0.00" speed="0.99" departed="0" arrived="0" entered="1" left="1" laneChangedFrom="0" laneChangedTo="0"/>
-        <edge id="3/1to2/1" sampledSeconds="511.96" traveltime="760.10" density="87.40" occupancy="65.55" waitingTime="0.35" speed="0.51" departed="0" arrived="0" entered="0" left="1" laneChangedFrom="0" laneChangedTo="0"/>
+        <edge id="3/1to2/1" sampledSeconds="511.96" traveltime="760.10" density="87.40" occupancy="65.55" waitingTime="11.88" speed="0.51" departed="0" arrived="0" entered="0" left="1" laneChangedFrom="0" laneChangedTo="0"/>
     </interval>
     <interval begin="630.00" end="645.00" id="dump_15">
         <edge id="1/1to0/1" sampledSeconds="0.00" departed="0" arrived="1" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0"/>
-        <edge id="2/1to1/1" sampledSeconds="426.91" traveltime="392.68" density="72.88" occupancy="54.66" waitingTime="0.00" speed="0.99" departed="0" arrived="0" entered="2" left="1" laneChangedFrom="0" laneChangedTo="0"/>
-        <edge id="3/1to2/1" sampledSeconds="495.93" traveltime="6088.87" density="84.66" occupancy="63.50" waitingTime="0.81" speed="0.06" departed="0" arrived="0" entered="0" left="2" laneChangedFrom="0" laneChangedTo="0"/>
+        <edge id="2/1to1/1" sampledSeconds="426.92" traveltime="392.68" density="72.88" occupancy="54.66" waitingTime="0.00" speed="0.99" departed="0" arrived="0" entered="2" left="1" laneChangedFrom="0" laneChangedTo="0"/>
+        <edge id="3/1to2/1" sampledSeconds="495.92" traveltime="6093.49" density="84.66" occupancy="63.50" waitingTime="26.79" speed="0.06" departed="0" arrived="0" entered="0" left="2" laneChangedFrom="0" laneChangedTo="0"/>
     </interval>
     <interval begin="645.00" end="660.00" id="dump_15">
         <edge id="1/1to0/1" sampledSeconds="0.00" departed="0" arrived="1" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0"/>
-        <edge id="2/1to1/1" sampledSeconds="425.88" traveltime="392.69" density="72.71" occupancy="54.53" waitingTime="0.07" speed="0.99" departed="0" arrived="0" entered="1" left="1" laneChangedFrom="0" laneChangedTo="0"/>
-        <edge id="3/1to2/1" sampledSeconds="478.96" traveltime="1520.48" density="81.77" occupancy="61.33" waitingTime="1.00" speed="0.26" departed="0" arrived="0" entered="0" left="1" laneChangedFrom="0" laneChangedTo="0"/>
+        <edge id="2/1to1/1" sampledSeconds="425.88" traveltime="392.69" density="72.71" occupancy="54.53" waitingTime="1.96" speed="0.99" departed="0" arrived="0" entered="1" left="1" laneChangedFrom="0" laneChangedTo="0"/>
+        <edge id="3/1to2/1" sampledSeconds="478.96" traveltime="1520.53" density="81.77" occupancy="61.33" waitingTime="31.84" speed="0.26" departed="0" arrived="0" entered="0" left="1" laneChangedFrom="0" laneChangedTo="0"/>
     </interval>
 </netstats>
