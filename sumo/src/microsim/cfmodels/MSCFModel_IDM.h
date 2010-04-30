@@ -50,7 +50,7 @@ public:
      * @param[in] timeHeadWay
      * @param[in] mingap
      */
-    MSCFModel_IDM(const MSVehicleType* vtype, SUMOReal accel, SUMOReal decel, 
+    MSCFModel_IDM(const MSVehicleType* vtype, SUMOReal accel, SUMOReal decel,
                   SUMOReal timeHeadWay, SUMOReal mingap, SUMOReal tau) throw();
 
 
@@ -139,13 +139,13 @@ public:
 
 
     /** @brief Get the vehicle's maximum acceleration [m/s^2]
-	 *
-	 * As some models describe that a vehicle is accelerating slower the higher its
-	 *  speed is, the velocity is given.
-	 *
-	 * @param[in] v The vehicle's velocity
-	 * @return The maximum acceleration
-	 */
+     *
+     * As some models describe that a vehicle is accelerating slower the higher its
+     *  speed is, the velocity is given.
+     *
+     * @param[in] v The vehicle's velocity
+     * @return The maximum acceleration
+     */
     SUMOReal getMaxAccel(SUMOReal v) const throw() {
         return myAccel;
     }
@@ -174,9 +174,9 @@ public:
 private:
     SUMOReal _updateSpeed(SUMOReal gap2pred, SUMOReal mySpeed, SUMOReal predSpeed, SUMOReal desSpeed) const throw();
 
-	SUMOReal desiredSpeed(const MSVehicle * const veh) const throw() {
-		return MIN2(myType->getMaxSpeed(), veh->getLane().getMaxSpeed());
-	}
+    SUMOReal desiredSpeed(const MSVehicle * const veh) const throw() {
+        return MIN2(myType->getMaxSpeed(), veh->getLane().getMaxSpeed());
+    }
 
 
 private:

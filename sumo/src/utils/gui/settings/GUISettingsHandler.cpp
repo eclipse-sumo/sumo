@@ -102,8 +102,8 @@ GUISettingsHandler::myStartElement(SumoXMLTag element,
         mySettings.showGrid = TplConvert<char>::_2bool(attrs.getStringSecure("showGrid", toString(mySettings.showGrid)).c_str());
         mySettings.gridXSize = TplConvert<char>::_2SUMOReal(attrs.getStringSecure("gridXSize", toString(mySettings.gridXSize)).c_str());
         mySettings.gridYSize = TplConvert<char>::_2SUMOReal(attrs.getStringSecure("gridYSize", toString(mySettings.gridYSize)).c_str());
-                                           }
-        break;
+    }
+    break;
     case SUMO_TAG_VIEWSETTINGS_EDGES: {
         bool ok = true;
         int laneEdgeMode = TplConvert<char>::_2int(attrs.getStringSecure("laneEdgeMode", "0").c_str());

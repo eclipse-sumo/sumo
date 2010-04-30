@@ -398,8 +398,8 @@ throw(TraCIException, std::invalid_argument) {
         success = commandScenario();
         break;
     case CMD_ADDVEHICLE:
-    	success = commandAddVehicle();
-    	break;
+        success = commandAddVehicle();
+        break;
     case CMD_DISTANCEREQUEST:
         success = commandDistanceRequest();
         break;

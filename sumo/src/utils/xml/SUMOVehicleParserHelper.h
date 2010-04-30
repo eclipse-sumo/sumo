@@ -132,7 +132,7 @@ public:
      * @see SUMOVTypeParameter
      */
     static void parseVTypeEmbedded_BKerner(SUMOVTypeParameter &into,
-		const SUMOSAXAttributes &attrs) throw(ProcessError);
+                                           const SUMOSAXAttributes &attrs) throw(ProcessError);
 
 
     /** @brief Closes parsing of the vehicle type

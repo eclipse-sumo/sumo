@@ -246,10 +246,10 @@ ROLoader::processAllRoutes(SUMOTime start, SUMOTime end,
     }
     // save the routes
     SUMOTime time = start;
-    for (; time<end; ) {
+    for (; time<end;) {
         writeStats(time, start, absNo);
         time = net.saveAndRemoveRoutesUntil(myOptions, router, time);
-        if(time<0) {
+        if (time<0) {
             time = end;
         }
     }

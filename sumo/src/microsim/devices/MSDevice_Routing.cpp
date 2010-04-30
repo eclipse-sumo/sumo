@@ -109,8 +109,8 @@ MSDevice_Routing::buildVehicleDevices(MSVehicle &v, std::vector<MSDevice*> &into
     if (haveByNumber||haveByName) {
         // build the device
         MSDevice_Routing* device = new MSDevice_Routing(v, "routing_" + v.getID(),
-                                                        string2time(oc.getString("device.routing.period")),
-                                                        string2time(oc.getString("device.routing.pre-period")));
+                string2time(oc.getString("device.routing.period")),
+                string2time(oc.getString("device.routing.pre-period")));
         into.push_back(device);
         // initialise edge efforts if not done before
         if (myEdgeEfforts.size()==0) {
@@ -149,7 +149,7 @@ MSDevice_Routing::buildVehicleDevices(MSVehicle &v, std::vector<MSDevice*> &into
 MSDevice_Routing::MSDevice_Routing(MSVehicle &holder, const std::string &id,
                                    SUMOTime period, SUMOTime preEmitPeriod) throw()
         : MSDevice(holder, id), myPeriod(period), myPreEmitPeriod(period),
-          myLastPreEmitReroute(-1), myRerouteCommand(0) {
+        myLastPreEmitReroute(-1), myRerouteCommand(0) {
 }
 
 
@@ -166,7 +166,7 @@ MSDevice_Routing::onTryEmit() {
     if (myWithTaz) {
         const SUMOTime now = MSNet::getInstance()->getCurrentTimeStep();
         if (myLastPreEmitReroute == -1 ||
-            (myPreEmitPeriod > 0 && myLastPreEmitReroute + myPreEmitPeriod <= now)) {
+                (myPreEmitPeriod > 0 && myLastPreEmitReroute + myPreEmitPeriod <= now)) {
             DijkstraRouterTT_ByProxi<MSEdge, SUMOVehicle, prohibited_withRestrictions<MSEdge, SUMOVehicle>, MSDevice_Routing>
             router(MSEdge::dictSize(), true, this, &MSDevice_Routing::getEffort);
             myHolder.reroute(MSNet::getInstance()->getCurrentTimeStep(), router, true);

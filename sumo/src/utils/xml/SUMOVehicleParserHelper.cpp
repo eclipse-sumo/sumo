@@ -76,7 +76,7 @@ SUMOVehicleParserHelper::parseFlowAttributes(const SUMOSAXAttributes &attrs) thr
     // parse repetition information
     if (attrs.hasAttribute(SUMO_ATTR_PERIOD)) {
         ret->setParameter |= VEHPARS_PERIODFREQ_SET;
-		ret->repetitionOffset = attrs.getSUMOTimeReporting(SUMO_ATTR_PERIOD, "flow", id.c_str(), ok);
+        ret->repetitionOffset = attrs.getSUMOTimeReporting(SUMO_ATTR_PERIOD, "flow", id.c_str(), ok);
     }
     if (attrs.hasAttribute(SUMO_ATTR_VEHSPERHOUR)) {
         ret->setParameter |= VEHPARS_PERIODFREQ_SET;
@@ -99,7 +99,7 @@ SUMOVehicleParserHelper::parseFlowAttributes(const SUMOSAXAttributes &attrs) thr
         throw ProcessError("Negative begin time in the definition of flow '" + id + "'.");
     }
     SUMOTime end = string2time(OptionsCont::getOptions().getString("end"));
-if(end<0) end=INT_MAX;
+    if (end<0) end=INT_MAX;
     if (attrs.hasAttribute(SUMO_ATTR_END)) {
         end = attrs.getSUMOTimeReporting(SUMO_ATTR_END, "flow", id.c_str(), ok);
     }

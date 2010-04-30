@@ -797,7 +797,7 @@ NIImporter_VISUM::parse_SignalGroups() {
     // EndTime
     SUMOReal EndTime = getNamedFloat("GzEnd", "GRUENENDE");
     // add to the list
-    if(myNIVisumTLs.find(LSAid)==myNIVisumTLs.end()) {
+    if (myNIVisumTLs.find(LSAid)==myNIVisumTLs.end()) {
         MsgHandler::getErrorInstance()->inform("Could not find TLS '" + LSAid + "' for setting the signal group.");
         return;
     }
@@ -1114,7 +1114,7 @@ NIImporter_VISUM::getReversedContinuating(NBEdge *edge, NBNode *node) throw() {
 
 NBEdge *
 NIImporter_VISUM::getNamedEdgeContinuating(NBEdge *begin, NBNode *node) throw() {
-    if(begin==0) {
+    if (begin==0) {
         return 0;
     }
     NBEdge *ret = begin;

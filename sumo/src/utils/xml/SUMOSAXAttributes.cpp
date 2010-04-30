@@ -265,7 +265,7 @@ SUMOSAXAttributes::getSUMOTimeReporting(SumoXMLAttr attr, const char *objecttype
         return -1;
     }
     try {
-        return (SUMOTime) (getFloat(attr) * 1000.);
+        return (SUMOTime)(getFloat(attr) * 1000.);
     } catch (NumberFormatException &) {
         if (report) {
             emitFormatError(getName(attr), "a time value", objecttype, objectid);
@@ -291,7 +291,7 @@ SUMOSAXAttributes::getOptSUMOTimeReporting(SumoXMLAttr attr, const char *objectt
         return defaultValue;
     }
     try {
-        return (SUMOTime) (getFloat(attr)*1000.);
+        return (SUMOTime)(getFloat(attr)*1000.);
     } catch (NumberFormatException &) {
         if (report) {
             emitFormatError(getName(attr), "a real number", objecttype, objectid);

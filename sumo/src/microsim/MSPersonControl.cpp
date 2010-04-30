@@ -93,7 +93,7 @@ MSPersonControl::erase(MSPerson *person) {
 
 void
 MSPersonControl::setArrival(const SUMOTime time, MSPerson *person) {
-    const SUMOTime step = ceil((double) (time / DELTA_T)) * DELTA_T;
+    const SUMOTime step = ceil((double)(time / DELTA_T)) * DELTA_T;
     if (myArrivals.find(step)==myArrivals.end()) {
         myArrivals[step] = PersonVector();
     }

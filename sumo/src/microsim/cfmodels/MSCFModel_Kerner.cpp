@@ -37,8 +37,8 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-MSCFModel_Kerner::MSCFModel_Kerner(const MSVehicleType* vtype, SUMOReal accel, 
-								   SUMOReal decel, SUMOReal tau, SUMOReal k, SUMOReal phi) throw()
+MSCFModel_Kerner::MSCFModel_Kerner(const MSVehicleType* vtype, SUMOReal accel,
+                                   SUMOReal decel, SUMOReal tau, SUMOReal k, SUMOReal phi) throw()
         : MSCFModel(vtype, decel), myAccel(accel), myTau(tau), myK(k), myPhi(phi) {
 
     myTauDecel = decel * myTau;
@@ -57,7 +57,7 @@ MSCFModel_Kerner::moveHelper(MSVehicle * const veh, const MSLane * const lane, S
     //  vSafe does not incorporate speed reduction due to interaction
     //  on lane changing
     veh->setPreDawdleAcceleration(SPEED2ACCEL(vSafe-oldV));
-	//
+    //
     SUMOReal vNext =
         veh->getLaneChangeModel().patchSpeed(
             MAX2((SUMOReal) 0, oldV-(SUMOReal)ACCEL2SPEED(myDecel)), //!!! reverify
@@ -76,26 +76,26 @@ MSCFModel_Kerner::ffeV(const MSVehicle * const veh, SUMOReal speed, SUMOReal gap
 
 SUMOReal
 MSCFModel_Kerner::ffeV(const MSVehicle * const veh, SUMOReal gap, SUMOReal predSpeed) const throw() {
-	SUMOReal speed = veh->getSpeed();
+    SUMOReal speed = veh->getSpeed();
     return MIN2(_v(speed, maxNextSpeed(speed), gap, predSpeed), maxNextSpeed(speed));
 }
 
 
 SUMOReal
 MSCFModel_Kerner::ffeV(const MSVehicle * const veh, const MSVehicle *pred) const throw() {
-	SUMOReal speed = veh->getSpeed();
+    SUMOReal speed = veh->getSpeed();
     return MIN2(_v(speed, maxNextSpeed(speed), veh->gap2pred(*pred), pred->getSpeed()), maxNextSpeed(speed));
 }
 
 
 SUMOReal
 MSCFModel_Kerner::ffeS(const MSVehicle * const veh, SUMOReal gap) const throw() {
-	SUMOReal speed = veh->getSpeed();
+    SUMOReal speed = veh->getSpeed();
     return MIN2(_v(speed, maxNextSpeed(speed), gap, 0), maxNextSpeed(speed));
 }
 
 
-SUMOReal 
+SUMOReal
 MSCFModel_Kerner::interactionGap(const MSVehicle * const veh, SUMOReal vL) const throw() {
     // Resolve the vsafe equation to gap. Assume predecessor has
     // speed != 0 and that vsafe will be the current speed plus acceleration,
@@ -121,17 +121,17 @@ MSCFModel_Kerner::hasSafeGap(SUMOReal speed, SUMOReal gap, SUMOReal predSpeed, S
 }
 
 
-SUMOReal 
+SUMOReal
 MSCFModel_Kerner::_v(SUMOReal speed, SUMOReal vfree, SUMOReal gap, SUMOReal predSpeed) const throw() {
     if (predSpeed==0&&gap<0.01) {
         return 0;
     }
-	// !!! in the following, the prior step is not considered!!!
-	SUMOReal G = MAX2((SUMOReal) 0, (SUMOReal) (SPEED2DIST(myK*speed)+myPhi/myAccel*speed*(speed-predSpeed)));
-	SUMOReal vcond = gap>G ? speed+ACCEL2SPEED(myAccel) : speed+MAX2(ACCEL2SPEED(-myDecel), MIN2(ACCEL2SPEED(myAccel), predSpeed-speed));
-	SUMOReal vsafe = (SUMOReal)(-1. * myTauDecel + sqrt(myTauDecel*myTauDecel + (predSpeed*predSpeed) + (2. * myDecel * gap)));
-	SUMOReal va = MAX2((SUMOReal) 0, MIN3(vfree, vsafe, vcond)) + RandHelper::rand();
-	SUMOReal v = MAX2((SUMOReal) 0, MIN4(vfree, va, speed+ACCEL2SPEED(myAccel), vsafe));
+    // !!! in the following, the prior step is not considered!!!
+    SUMOReal G = MAX2((SUMOReal) 0, (SUMOReal)(SPEED2DIST(myK*speed)+myPhi/myAccel*speed*(speed-predSpeed)));
+    SUMOReal vcond = gap>G ? speed+ACCEL2SPEED(myAccel) : speed+MAX2(ACCEL2SPEED(-myDecel), MIN2(ACCEL2SPEED(myAccel), predSpeed-speed));
+    SUMOReal vsafe = (SUMOReal)(-1. * myTauDecel + sqrt(myTauDecel*myTauDecel + (predSpeed*predSpeed) + (2. * myDecel * gap)));
+    SUMOReal va = MAX2((SUMOReal) 0, MIN3(vfree, vsafe, vcond)) + RandHelper::rand();
+    SUMOReal v = MAX2((SUMOReal) 0, MIN4(vfree, va, speed+ACCEL2SPEED(myAccel), vsafe));
     return v;
 }
 

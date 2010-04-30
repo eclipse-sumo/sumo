@@ -76,7 +76,7 @@ extern SUMOTime DELTA_T;
 
 #define STEPS2TIME(x) (static_cast<SUMOReal>((x)/1000.))
 #define TIME2STEPS(x) (static_cast<SUMOTime>((x)*1000))
-#define TMOD(x,y) (x%y) 
+#define TMOD(x,y) (x%y)
 //(fmod(x,y))
 
 #endif

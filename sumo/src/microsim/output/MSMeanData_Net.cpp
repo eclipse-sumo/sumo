@@ -169,7 +169,7 @@ MSMeanData_Net::MSLaneMeanDataValues::write(OutputDevice &dev, const SUMOTime pe
         const SUMOReal numLanes, const SUMOReal length, const int numVehicles) const throw(IOError) {
     if (myParent == 0) {
         if (sampleSeconds > 0) {
-            dev << "\" density=\"" << sampleSeconds / STEPS2TIME(period) * (SUMOReal) 1000 / length <<
+            dev << "\" density=\"" << sampleSeconds / STEPS2TIME(period) *(SUMOReal) 1000 / length <<
             "\" occupancy=\"" << vehLengthSum / STEPS2TIME(period) / length / numLanes *(SUMOReal) 100 <<
             "\" waitingTime=\"" << waitSeconds <<
             "\" speed=\"" << travelledDistance / sampleSeconds;

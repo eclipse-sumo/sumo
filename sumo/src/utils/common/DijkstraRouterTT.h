@@ -121,7 +121,7 @@ public:
     virtual void compute(const E *from, const E *to, const V * const vehicle,
                          SUMOTime msTime, std::vector<const E*> &into) {
 
-SUMOReal time = (SUMOReal) msTime / 1000.;
+        SUMOReal time = (SUMOReal) msTime / 1000.;
         for (typename std::vector<EdgeInfo>::iterator i=myEdgeInfos.begin(); i!=myEdgeInfos.end(); i++) {
             (*i).traveltime = std::numeric_limits<SUMOReal>::max();
             (*i).visited = false;
@@ -181,7 +181,7 @@ SUMOReal time = (SUMOReal) msTime / 1000.;
 
 
     SUMOReal recomputeCosts(const std::vector<const E*> &edges, const V * const v, SUMOTime msTime) throw() {
-		SUMOReal time = (SUMOReal) msTime / 1000.;
+        SUMOReal time = (SUMOReal) msTime / 1000.;
         SUMOReal costs = 0;
         for (typename std::vector<const E*>::const_iterator i=edges.begin(); i!=edges.end(); ++i) {
             if (PF::operator()(*i, v)) {

@@ -61,7 +61,7 @@ MSE3Collector::MSE3EntryReminder::isStillActive(MSVehicle& veh, SUMOReal oldPos,
         return false;
     }
     SUMOReal entryTimestep = (SUMOReal) MSNet::getInstance()->getCurrentTimeStep();
-    if(newSpeed!=0) {
+    if (newSpeed!=0) {
         entryTimestep += ((((myPosition - oldPos) / newSpeed)) * (SUMOReal) 1000.);
     }
     myCollector.enter(veh, entryTimestep / (SUMOReal) 1000.);

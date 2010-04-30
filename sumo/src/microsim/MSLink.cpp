@@ -95,7 +95,7 @@ MSLink::setApproaching(MSVehicle *approaching, SUMOTime arrivalTime, SUMOReal sp
     if (i!=myApproachingVehicles.end()) {
         myApproachingVehicles.erase(i);
     }
-	SUMOReal leaveTime = arrivalTime + getLength() / speed * 1000.;
+    SUMOReal leaveTime = arrivalTime + getLength() / speed * 1000.;
     MSJunction::ApproachingVehicleInformation approachInfo(arrivalTime, leaveTime, approaching);
     myApproachingVehicles.push_back(approachInfo);
 }

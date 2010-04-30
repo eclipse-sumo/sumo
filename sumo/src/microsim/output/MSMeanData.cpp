@@ -93,7 +93,7 @@ MSMeanData::MeanDataValueTracker::MeanDataValueTracker(MSLane * const lane,
         const std::set<std::string>* const vTypes,
         const MSMeanData* const parent) throw()
         : MSMeanData::MeanDataValues(lane, true, vTypes), myParent(parent) {
-        myCurrentData.push_back(new TrackerEntry(parent->createValues(lane, false)));
+    myCurrentData.push_back(new TrackerEntry(parent->createValues(lane, false)));
 }
 
 
@@ -150,7 +150,7 @@ MSMeanData::MeanDataValueTracker::isEmpty() const throw() {
 
 void
 MSMeanData::MeanDataValueTracker::write(OutputDevice &dev, const SUMOTime period,
-        const SUMOReal numLanes, const SUMOReal length, const int numVehicles) const throw(IOError) {
+                                        const SUMOReal numLanes, const SUMOReal length, const int numVehicles) const throw(IOError) {
     myCurrentData.front()->myValues->write(dev, period, numLanes, length, myCurrentData.front()->myNumVehicleEntered);
 }
 
@@ -279,7 +279,7 @@ MSMeanData::writeEdge(OutputDevice &dev,
             MeanDataValues& meanData = **lane;
             if (writePrefix(dev, meanData, "<lane id=\""+meanData.getLane()->getID())) {
                 meanData.write(dev, stopTime - startTime,
-                                1.f, meanData.getLane()->getLength());
+                               1.f, meanData.getLane()->getLength());
             }
             if (myTrackVehicles) {
                 ((MeanDataValueTracker&)meanData).clearFirst();

@@ -86,7 +86,7 @@ MSInductLoop::isStillActive(MSVehicle& veh, SUMOReal oldPos,
     if (myVehiclesOnDet.find(&veh) == myVehiclesOnDet.end()) {
         // entered the detector by move
         SUMOReal entryTimestep = (SUMOReal) MSNet::getInstance()->getCurrentTimeStep();
-        if(newSpeed!=0) {
+        if (newSpeed!=0) {
             entryTimestep += ((((myPosition - oldPos) / newSpeed)) * (SUMOReal) DELTA_T);
         }
         if (newPos - veh.getVehicleType().getLength() > myPosition) {
@@ -205,12 +205,12 @@ MSInductLoop::writeXMLDetectorProlog(OutputDevice &dev) const throw(IOError) {
 void
 MSInductLoop::writeXMLOutput(OutputDevice &dev,
                              SUMOTime startTime, SUMOTime stopTime) throw(IOError) {
-    SUMOReal t(((SUMOReal) (stopTime-startTime))/(SUMOReal)1000.);
+    SUMOReal t(((SUMOReal)(stopTime-startTime))/(SUMOReal)1000.);
     unsigned nVehCrossed = (unsigned) myVehicleDataCont.size() + myDismissedVehicleNumber;
     SUMOReal flow = ((SUMOReal) myVehicleDataCont.size() / (SUMOReal) t) * (SUMOReal) 3600.0;
-    SUMOReal occupancy = accumulate(myVehicleDataCont.begin(), myVehicleDataCont.end(), (SUMOReal) 0.0, occupancySum) / (SUMOReal) t * (SUMOReal) 100. / (SUMOReal) (1000./DELTA_T);
+    SUMOReal occupancy = accumulate(myVehicleDataCont.begin(), myVehicleDataCont.end(), (SUMOReal) 0.0, occupancySum) / (SUMOReal) t * (SUMOReal) 100. / (SUMOReal)(1000./DELTA_T);
     SUMOReal meanSpeed = myVehicleDataCont.size()!=0
-                         ? accumulate(myVehicleDataCont.begin(), myVehicleDataCont.end(), (SUMOReal) 0.0, speedSum) / (SUMOReal) myVehicleDataCont.size() * (SUMOReal) (1000./DELTA_T)
+                         ? accumulate(myVehicleDataCont.begin(), myVehicleDataCont.end(), (SUMOReal) 0.0, speedSum) / (SUMOReal) myVehicleDataCont.size() * (SUMOReal)(1000./DELTA_T)
                          : -1;
     SUMOReal meanLength = myVehicleDataCont.size()!=0
                           ? accumulate(myVehicleDataCont.begin(), myVehicleDataCont.end(), (SUMOReal) 0.0, lengthSum) / (SUMOReal) myVehicleDataCont.size()
