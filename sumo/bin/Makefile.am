@@ -3,7 +3,7 @@ GUI_APPS = sumo-gui
 endif
 
 if TRACI
-TRACI_TESTCLIENT_APPS = traci-testclient
+TRACI_TESTCLIENT_APPS = TraCITestClient
 endif
 
 DISTCLEANFILES = sumo dfrouter duarouter jtrrouter netconvert netgen od2trips polyconvert $(GUI_APPS) $(TRACI_TESTCLIENT_APPS)
@@ -27,5 +27,5 @@ polyconvert: ../src/polyconvert/polyconvert
 	cp ../src/polyconvert/polyconvert .
 $(GUI_APPS): ../src/$(GUI_APPS)
 	cp ../src/$(GUI_APPS) .
-$(TRACI_TESTCLIENT_APPS): ../src/$(TRACI_TESTCLIENT_APPS)
-	cp ../src/$(TRACI_TESTCLIENT_APPS) .
+$(TRACI_TESTCLIENT_APPS): ../src/traci_testclient/$(TRACI_TESTCLIENT_APPS)
+	cp ../src/traci_testclient/$(TRACI_TESTCLIENT_APPS) .
