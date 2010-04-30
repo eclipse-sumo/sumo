@@ -169,7 +169,7 @@ MSMsgInductLoop::getCurrentPassedNumber() const throw() {
     if (myCurrentVehicle!=0) {
         return 1.;
     }
-    if (myLastLeaveTimestep*1000.>MSNet::getInstance()->getCurrentTimeStep()-DELTA_T) {
+    if (myLastLeaveTime*1000.>MSNet::getInstance()->getCurrentTimeStep()-DELTA_T) {
         return 0.;
     }
     return 1.;
@@ -188,7 +188,7 @@ MSMsgInductLoop::getTimestepsSinceLastDetection() const throw() {
         // detector is occupied
         return 0;
     }
-    return MSNet::getInstance()->getCurrentTimeStep() / 1000. - myLastLeaveTimestep;
+    return MSNet::getInstance()->getCurrentTimeStep() / 1000. - myLastLeaveTime;
 }
 
 
