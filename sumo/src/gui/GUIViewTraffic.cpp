@@ -450,13 +450,15 @@ GUIViewTraffic::onGamingClick(Position2D pos) {
         const MSTLLogicControl::TLSLogicVariants &vars = tlsControl.get(minTll->getID());
         const std::vector<MSTrafficLightLogic*> logics = vars.getAllLogics();
         if (logics.size() > 1) {
-            MSSimpleTrafficLightLogic *l = 0;
-            if (minTll->getSubID() == logics[0]->getSubID()) {
-                tlsControl.switchTo(minTll->getID(), logics[1]->getSubID());
-                l = (MSSimpleTrafficLightLogic*) logics[1];
-            } else {
-                tlsControl.switchTo(minTll->getID(), logics[0]->getSubID());
-                l = (MSSimpleTrafficLightLogic*) logics[0];
+            MSSimpleTrafficLightLogic *l = (MSSimpleTrafficLightLogic*) logics[0];
+            for (int i = 0; i < logics.size()-1; i++) {
+                if (minTll->getSubID() == logics[i]->getSubID()) {
+                    l = (MSSimpleTrafficLightLogic*) logics[i+1];
+                    tlsControl.switchTo(minTll->getID(), l->getSubID());
+                }
+            }
+            if (l == logics[0]) {
+                tlsControl.switchTo(minTll->getID(), l->getSubID());
             }
             l->changeStepAndDuration(tlsControl, MSNet::getInstance()->getCurrentTimeStep(), 0, l->getPhase(0).duration);
             update();
