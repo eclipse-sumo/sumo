@@ -310,8 +310,7 @@ protected:
          */
         VehicleData(const std::string &id, SUMOReal vehLength, SUMOReal entryTimestep, SUMOReal leaveTimestep) throw()
                 : idM(id), lengthM(vehLength), entryTimeM(entryTimestep), leaveTimeM(leaveTimestep),
-                speedM(lengthM / ((leaveTimeM - entryTimeM) / (SUMOReal) DELTA_T)),
-                occupancyM((leaveTimeM - entryTimeM) / (SUMOReal) DELTA_T) {}
+                speedM(lengthM / ((leaveTimeM - entryTimeM))) {}
 
         /** @brief The id of the vehicle */
         std::string idM;
@@ -323,8 +322,6 @@ protected:
         SUMOReal leaveTimeM;
         /** @brief Speed of the vehicle in [m/s]. */
         SUMOReal speedM;
-        /** @brief Occupancy of the detector in [ms]. */
-        SUMOReal occupancyM;
     };
 
 
@@ -335,11 +332,6 @@ protected:
     /// @brief Adds up VehicleData::speedM
     static inline SUMOReal speedSum(SUMOReal sumSoFar, const MSInductLoop::VehicleData& data) throw() {
         return sumSoFar + data.speedM;
-    }
-
-    /// @brief Adds up VehicleData::occupancyM
-    static inline SUMOReal occupancySum(SUMOReal sumSoFar, const MSInductLoop::VehicleData& data) throw() {
-        return sumSoFar + data.occupancyM;
     }
 
     /// @brief Adds up VehicleData::lengthM

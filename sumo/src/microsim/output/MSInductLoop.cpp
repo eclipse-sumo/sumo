@@ -56,7 +56,7 @@ MSInductLoop::MSInductLoop(const std::string& id,
         myVehiclesOnDet(), myVehicleDataCont() {
     assert(myPosition >= 0 && myPosition <= myLane->getLength());
     reset();
-    myLastLeaveTime = (SUMOReal) MSNet::getInstance()->getCurrentTimeStep() / 1000.;
+    myLastLeaveTime = STEPS2TIME(MSNet::getInstance()->getCurrentTimeStep());
 }
 
 
@@ -93,12 +93,12 @@ MSInductLoop::isStillActive(MSVehicle& veh, SUMOReal oldPos,
             // entered and passed detector in a single timestep
             SUMOReal leaveTimestep = (SUMOReal) MSNet::getInstance()->getCurrentTimeStep();
             leaveTimestep += (((myPosition - oldPos + veh.getVehicleType().getLength()) / newSpeed) * (SUMOReal) DELTA_T);
-            enterDetectorByMove(veh, entryTimestep);
-            leaveDetectorByMove(veh, leaveTimestep);
+            enterDetectorByMove(veh, STEPS2TIME(entryTimestep));
+            leaveDetectorByMove(veh, STEPS2TIME(leaveTimestep));
             return false;
         }
         // entered detector, but not passed
-        enterDetectorByMove(veh, entryTimestep);
+        enterDetectorByMove(veh, STEPS2TIME(entryTimestep));
         return true;
     } else {
         // vehicle has been on the detector the previous timestep
@@ -106,7 +106,7 @@ MSInductLoop::isStillActive(MSVehicle& veh, SUMOReal oldPos,
             // vehicle passed the detector
             SUMOReal leaveTimestep = (SUMOReal) MSNet::getInstance()->getCurrentTimeStep();
             leaveTimestep += (((myPosition - oldPos + veh.getVehicleType().getLength()) / newSpeed) * (SUMOReal) DELTA_T);
-            leaveDetectorByMove(veh, leaveTimestep);
+            leaveDetectorByMove(veh, STEPS2TIME(leaveTimestep));
             return false;
         }
         // vehicle stays on the detector
@@ -155,10 +155,18 @@ MSInductLoop::getCurrentLength() const throw() {
 
 SUMOReal
 MSInductLoop::getCurrentOccupancy() const throw() {
-    std::vector<VehicleData> d = collectVehiclesOnDet(MSNet::getInstance()->getCurrentTimeStep()-DELTA_T);
-    return d.size()!=0
-           ? accumulate(d.begin(), d.end(), (SUMOReal) 0.0, occupancySum) / (SUMOReal) d.size()
-           : -1;
+    SUMOReal tbeg = MSNet::getInstance()->getCurrentTimeStep()-DELTA_T;
+    std::vector<VehicleData> d = collectVehiclesOnDet(tbeg);
+    if(d.size()==0) {
+        return -1;
+    }
+    SUMOReal occupancy = 0;
+    for(std::vector< VehicleData >::const_iterator i=d.begin(); i!=d.end(); ++i) {
+        SUMOReal timeOnDetDuringInterval = (*i).leaveTimeM - MAX2(STEPS2TIME(tbeg), (*i).entryTimeM);
+        timeOnDetDuringInterval = MIN2(timeOnDetDuringInterval, (SUMOReal) DELTA_T);
+        occupancy += timeOnDetDuringInterval;
+    }
+    return occupancy / TS * (SUMOReal) 100.;
 }
 
 
@@ -192,7 +200,7 @@ MSInductLoop::getTimestepsSinceLastDetection() const throw() {
         // detector is occupied
         return 0;
     }
-    return (SUMOReal) MSNet::getInstance()->getCurrentTimeStep() / 1000. - myLastLeaveTime;
+    return STEPS2TIME(MSNet::getInstance()->getCurrentTimeStep()) - myLastLeaveTime;
 }
 
 
@@ -205,12 +213,22 @@ MSInductLoop::writeXMLDetectorProlog(OutputDevice &dev) const throw(IOError) {
 void
 MSInductLoop::writeXMLOutput(OutputDevice &dev,
                              SUMOTime startTime, SUMOTime stopTime) throw(IOError) {
-    SUMOReal t(((SUMOReal)(stopTime-startTime))/(SUMOReal)1000.);
+    SUMOReal t(STEPS2TIME(stopTime-startTime));
     unsigned nVehCrossed = (unsigned) myVehicleDataCont.size() + myDismissedVehicleNumber;
     SUMOReal flow = ((SUMOReal) myVehicleDataCont.size() / (SUMOReal) t) * (SUMOReal) 3600.0;
-    SUMOReal occupancy = accumulate(myVehicleDataCont.begin(), myVehicleDataCont.end(), (SUMOReal) 0.0, occupancySum) / (SUMOReal) t * (SUMOReal) 100. / (SUMOReal)(1000./DELTA_T);
+    SUMOReal occupancy = 0;
+    for(std::deque< VehicleData >::const_iterator i=myVehicleDataCont.begin(); i!=myVehicleDataCont.end(); ++i) {
+        SUMOReal timeOnDetDuringInterval = (*i).leaveTimeM - MAX2(STEPS2TIME(startTime), (*i).entryTimeM);
+        timeOnDetDuringInterval = MIN2(timeOnDetDuringInterval, t);
+        occupancy += timeOnDetDuringInterval;
+    }
+    for(std::map< MSVehicle*, SUMOReal >::const_iterator i=myVehiclesOnDet.begin(); i!=myVehiclesOnDet.end(); ++i) {
+        SUMOReal timeOnDetDuringInterval = STEPS2TIME(stopTime) - MAX2(STEPS2TIME(startTime), (*i).second);
+        occupancy += timeOnDetDuringInterval;
+    }
+    occupancy = occupancy / t * (SUMOReal) 100.;
     SUMOReal meanSpeed = myVehicleDataCont.size()!=0
-                         ? accumulate(myVehicleDataCont.begin(), myVehicleDataCont.end(), (SUMOReal) 0.0, speedSum) / (SUMOReal) myVehicleDataCont.size() * (SUMOReal)(1000./DELTA_T)
+                         ? accumulate(myVehicleDataCont.begin(), myVehicleDataCont.end(), (SUMOReal) 0.0, speedSum) / (SUMOReal) myVehicleDataCont.size()
                          : -1;
     SUMOReal meanLength = myVehicleDataCont.size()!=0
                           ? accumulate(myVehicleDataCont.begin(), myVehicleDataCont.end(), (SUMOReal) 0.0, lengthSum) / (SUMOReal) myVehicleDataCont.size()
@@ -253,7 +271,7 @@ MSInductLoop::leaveDetectorByMove(MSVehicle& veh,
     assert(entryTimestep < leaveTimestep);
     myVehicleDataCont.push_back(VehicleData(veh.getID(), veh.getVehicleType().getLength(), entryTimestep, leaveTimestep));
     myLastOccupancy = leaveTimestep - entryTimestep;
-    myLastLeaveTime = leaveTimestep / 1000.;
+    myLastLeaveTime = leaveTimestep;
     myCurrentVehicle = 0;
     veh.quitRemindedLeft(this);
 }
@@ -277,7 +295,8 @@ MSInductLoop::removeOnTripEnd(MSVehicle *veh) throw() {
 
 
 std::vector<MSInductLoop::VehicleData>
-MSInductLoop::collectVehiclesOnDet(SUMOTime t) const throw() {
+MSInductLoop::collectVehiclesOnDet(SUMOTime tMS) const throw() {
+    SUMOReal t = STEPS2TIME(tMS);
     std::vector<VehicleData> ret;
     for (VehicleDataCont::const_iterator i=myVehicleDataCont.begin(); i!=myVehicleDataCont.end(); ++i) {
         if ((*i).leaveTimeM>=t) {
@@ -292,7 +311,7 @@ MSInductLoop::collectVehiclesOnDet(SUMOTime t) const throw() {
     SUMOTime ct = MSNet::getInstance()->getCurrentTimeStep();
     for (VehicleMap::const_iterator i=myVehiclesOnDet.begin(); i!=myVehiclesOnDet.end(); ++i) {
         MSVehicle *v = (*i).first;
-        VehicleData d(v->getID(), v->getVehicleType().getLength(), (*i).second, (SUMOReal) ct);
+        VehicleData d(v->getID(), v->getVehicleType().getLength(), (*i).second, STEPS2TIME(ct));
         d.speedM = v->getSpeed();
         ret.push_back(d);
     }

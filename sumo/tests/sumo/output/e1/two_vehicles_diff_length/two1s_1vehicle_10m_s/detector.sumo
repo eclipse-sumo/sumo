@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 04/26/10 12:54:15 by SUMO sumo Version dev-SVN-r8163
+<!-- generated on 05/03/10 12:33:35 by SUMO sumo Version dev-SVN-r8163
 <configuration>
 
     <input>
@@ -55,9 +55,9 @@
    <interval begin="15.00" end="16.00" id="3/1to2/1" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" length="-1.00" nVehEntered="0"/>
    <interval begin="15.00" end="16.00" id="4/1to3/1" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" length="-1.00" nVehEntered="0"/>
    <interval begin="16.00" end="17.00" id="3/1to2/1" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" length="-1.00" nVehEntered="0"/>
-   <interval begin="16.00" end="17.00" id="4/1to3/1" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" length="-1.00" nVehEntered="0"/>
+   <interval begin="16.00" end="17.00" id="4/1to3/1" nVehContrib="0" flow="0.00" occupancy="100.00" speed="-1.00" length="-1.00" nVehEntered="0"/>
    <interval begin="17.00" end="18.00" id="3/1to2/1" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" length="-1.00" nVehEntered="0"/>
-   <interval begin="17.00" end="18.00" id="4/1to3/1" nVehContrib="1" flow="3600.00" occupancy="150.00" speed="10.00" length="15.00" nVehEntered="1"/>
+   <interval begin="17.00" end="18.00" id="4/1to3/1" nVehContrib="1" flow="3600.00" occupancy="50.00" speed="10.00" length="15.00" nVehEntered="1"/>
    <interval begin="18.00" end="19.00" id="3/1to2/1" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" length="-1.00" nVehEntered="0"/>
    <interval begin="18.00" end="19.00" id="4/1to3/1" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" length="-1.00" nVehEntered="0"/>
    <interval begin="19.00" end="20.00" id="3/1to2/1" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" length="-1.00" nVehEntered="0"/>
@@ -132,9 +132,9 @@
    <interval begin="53.00" end="54.00" id="4/1to3/1" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" length="-1.00" nVehEntered="0"/>
    <interval begin="54.00" end="55.00" id="3/1to2/1" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" length="-1.00" nVehEntered="0"/>
    <interval begin="54.00" end="55.00" id="4/1to3/1" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" length="-1.00" nVehEntered="0"/>
-   <interval begin="55.00" end="56.00" id="3/1to2/1" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" length="-1.00" nVehEntered="0"/>
+   <interval begin="55.00" end="56.00" id="3/1to2/1" nVehContrib="0" flow="0.00" occupancy="95.00" speed="-1.00" length="-1.00" nVehEntered="0"/>
    <interval begin="55.00" end="56.00" id="4/1to3/1" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" length="-1.00" nVehEntered="0"/>
-   <interval begin="56.00" end="57.00" id="3/1to2/1" nVehContrib="1" flow="3600.00" occupancy="150.00" speed="10.00" length="15.00" nVehEntered="1"/>
+   <interval begin="56.00" end="57.00" id="3/1to2/1" nVehContrib="1" flow="3600.00" occupancy="55.00" speed="10.00" length="15.00" nVehEntered="1"/>
    <interval begin="56.00" end="57.00" id="4/1to3/1" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" length="-1.00" nVehEntered="0"/>
    <interval begin="57.00" end="58.00" id="3/1to2/1" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" length="-1.00" nVehEntered="0"/>
    <interval begin="57.00" end="58.00" id="4/1to3/1" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" length="-1.00" nVehEntered="0"/>

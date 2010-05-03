@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 04/26/10 12:54:13 by SUMO sumo Version dev-SVN-r8163
+<!-- generated on 05/03/10 12:33:33 by SUMO sumo Version dev-SVN-r8163
 <configuration>
 
     <input>
@@ -142,9 +142,9 @@
    <interval begin="58.00" end="59.00" id="4/1to3/1" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" length="-1.00" nVehEntered="0"/>
    <interval begin="59.00" end="60.00" id="3/1to2/1" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" length="-1.00" nVehEntered="0"/>
    <interval begin="59.00" end="60.00" id="4/1to3/1" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" length="-1.00" nVehEntered="0"/>
-   <interval begin="60.00" end="61.00" id="3/1to2/1" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" length="-1.00" nVehEntered="0"/>
+   <interval begin="60.00" end="61.00" id="3/1to2/1" nVehContrib="0" flow="0.00" occupancy="50.00" speed="-1.00" length="-1.00" nVehEntered="0"/>
    <interval begin="60.00" end="61.00" id="4/1to3/1" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" length="-1.00" nVehEntered="0"/>
-   <interval begin="61.00" end="62.00" id="3/1to2/1" nVehContrib="1" flow="3600.00" occupancy="55.56" speed="9.00" length="5.00" nVehEntered="1"/>
+   <interval begin="61.00" end="62.00" id="3/1to2/1" nVehContrib="1" flow="3600.00" occupancy="5.56" speed="9.00" length="5.00" nVehEntered="1"/>
    <interval begin="61.00" end="62.00" id="4/1to3/1" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" length="-1.00" nVehEntered="0"/>
    <interval begin="62.00" end="63.00" id="3/1to2/1" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" length="-1.00" nVehEntered="0"/>
    <interval begin="62.00" end="63.00" id="4/1to3/1" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" length="-1.00" nVehEntered="0"/>
