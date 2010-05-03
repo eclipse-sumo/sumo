@@ -63,6 +63,7 @@ class StartDialog:
             if not category in high:
                 high[category] = 10*[("", "", -1.)]
             Tkinter.Button(self.root, text=category, command=lambda cfg=cfg:self.ok(cfg)).pack()
+        Tkinter.Button(self.root, text="quit", command=sys.exit).pack()
         # The following three commands are needed so the window pops
         # up on top on Windows...
         self.root.iconify()
@@ -131,23 +132,25 @@ else:
     guisimPath = os.environ.get("GUISIM_BINARY", os.path.join(base, '..', '..', 'bin', guisimBinary))
 if not os.path.exists(guisimPath):
     guisimPath = guisimBinary
-start = StartDialog()
 
-totalWait = 0
-complete = True
-for line in open(os.path.join(base, "netstate.xml")):
-    m = re.search('<interval begin="0(.00)?" end="(\d+(.\d+)?)"', line)
-    if m and float(m.group(2)) != 180:
-        complete = False
-    m = re.search('waitingTime="(\d+.\d+)"', line)
-    if m:
-        totalWait += float(m.group(1))
-switch = []
-for line in open(os.path.join(base, "tlsstate.xml")):
-    m = re.search('tlsstate time="(\d+(.\d+)?)" id="([^"]*)"', line)
-    if m:
-        switch += [m.group(3), m.group(1)]
-print switch, totalWait
-if complete:
-    ScoreDialog(switch, totalWait, start.category)
-sys.exit(start.ret)
+while True:
+    start = StartDialog()
+    totalWait = 0
+    complete = True
+    for line in open(os.path.join(base, "netstate.xml")):
+        m = re.search('<interval begin="0(.00)?" end="(\d+(.\d+)?)"', line)
+        if m and float(m.group(2)) != 180:
+            complete = False
+        m = re.search('waitingTime="(\d+.\d+)"', line)
+        if m:
+            totalWait += float(m.group(1))
+    switch = []
+    for line in open(os.path.join(base, "tlsstate.xml")):
+        m = re.search('tlsstate time="(\d+(.\d+)?)" id="([^"]*)"', line)
+        if m:
+            switch += [m.group(3), m.group(1)]
+    print switch, totalWait
+    if complete:
+        ScoreDialog(switch, totalWait, start.category)
+    if start.ret != 0:
+        sys.exit(start.ret)
