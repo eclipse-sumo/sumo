@@ -105,9 +105,18 @@ public:
     const std::vector<GUISUMOAbstractView::Decal>& getDecals() const throw();
 
 
+    /** @brief Returns the parsed delay
+     * @return the parsed delay
+     */
+    SUMOReal getDelay() const throw();
+
+
 private:
     /// @brief The settings to fill
     GUIVisualizationSettings mySettings;
+
+    /// @brief The delay loaded
+    SUMOReal myDelay;
 
     /// @brief The viewport loaded
     SUMOReal myZoom, myXPos, myYPos;

@@ -142,6 +142,7 @@ GenericSAXHandler::Tag sumotags[] = {
     { "legend",           SUMO_TAG_VIEWSETTINGS_LEGEND },
     { "include",          SUMO_TAG_INCLUDE },
     { "xi:include",       SUMO_TAG_INCLUDE },
+    { "delay",            SUMO_TAG_DELAY },
     { "viewport",         SUMO_TAG_VIEWPORT },
     { "snapshot",         SUMO_TAG_SNAPSHOT },
     { "location",         SUMO_TAG_LOCATION },

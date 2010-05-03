@@ -840,6 +840,9 @@ GUIApplicationWindow::handleEvent_SimulationLoaded(GUIEvent *e) {
             view->addDecals(settings.getDecals());
             settings.setViewport(view);
             settings.setSnapshots(view);
+            if (settings.getDelay() > 0) {
+                mySimDelayTarget->setValue(settings.getDelay());
+            }
         }
         // set simulation name on the caption
         std::string caption = "SUMO " + std::string(VERSION_STRING);

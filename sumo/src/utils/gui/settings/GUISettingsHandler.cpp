@@ -48,7 +48,7 @@
 // method definitions
 // ===========================================================================
 GUISettingsHandler::GUISettingsHandler(const std::string &content, bool isFile) throw()
-        : SUMOSAXHandler(content), myZoom(-1), myXPos(-1), myYPos(-1), myCurrentColorer(SUMO_TAG_NOTHING), myCurrentScheme(0) {
+        : SUMOSAXHandler(content), myDelay(-1), myZoom(-1), myXPos(-1), myYPos(-1), myCurrentColorer(SUMO_TAG_NOTHING), myCurrentScheme(0) {
     if (isFile) {
         XMLSubSys::runParser(*this, content);
     } else {
@@ -70,6 +70,9 @@ GUISettingsHandler::myStartElement(SumoXMLTag element,
                                    const SUMOSAXAttributes &attrs) throw(ProcessError) {
     bool ok = true;
     switch (element) {
+    case SUMO_TAG_DELAY:
+        myDelay = attrs.getOptSUMORealReporting(SUMO_ATTR_VALUE, "delay", 0, ok, myDelay);
+        break;
     case SUMO_TAG_VIEWPORT:
         myZoom = attrs.getOptSUMORealReporting(SUMO_ATTR_ZOOM, "viewport", 0, ok, myZoom);
         myXPos = attrs.getOptSUMORealReporting(SUMO_ATTR_X, "viewport", 0, ok, myXPos);
@@ -259,6 +262,12 @@ GUISettingsHandler::hasDecals() const throw() {
 const std::vector<GUISUMOAbstractView::Decal>&
 GUISettingsHandler::getDecals() const throw() {
     return myDecals;
+}
+
+
+SUMOReal
+GUISettingsHandler::getDelay() const throw() {
+    return myDelay;
 }
 
 
