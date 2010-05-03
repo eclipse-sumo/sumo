@@ -25,6 +25,9 @@ lane_change_single
 # Testing begin/end attributes usage
 begin_end
 
+# two vehicles with different speed, tracked
+tracking
+
 # Testing error cases
 errors
 

@@ -217,10 +217,17 @@ MSMeanData::init(const std::vector<MSEdge*> &edges, const bool withInternal) thr
                 continue;
             }
 #endif
+            if (myAmEdgeBased && myTrackVehicles) {
+                myMeasures.back().push_back(new MeanDataValueTracker(0, &myVehicleTypes, this));
+            }
             const std::vector<MSLane*> &lanes = (*e)->getLanes();
             for (std::vector<MSLane*>::const_iterator lane = lanes.begin(); lane != lanes.end(); ++lane) {
                 if (myTrackVehicles) {
-                    myMeasures.back().push_back(new MeanDataValueTracker(*lane, &myVehicleTypes, this));
+                    if (myAmEdgeBased) {
+                        (*lane)->addMoveReminder(myMeasures.back().back());
+                    } else {
+                        myMeasures.back().push_back(new MeanDataValueTracker(*lane, &myVehicleTypes, this));
+                    }
                 } else {
                     myMeasures.back().push_back(createValues(*lane, true));
                 }
@@ -291,21 +298,25 @@ MSMeanData::writeEdge(OutputDevice &dev,
             dev.closeTag();
         }
     } else {
-        MeanDataValues* sumData = createValues(0, false);
-        for (lane = edgeValues.begin(); lane != edgeValues.end(); ++lane) {
-            MeanDataValues& meanData = **lane;
-            meanData.addTo(*sumData);
-            if (myTrackVehicles) {
-                ((MeanDataValueTracker&)meanData).clearFirst();
-            } else {
+        if (myTrackVehicles) {
+            MeanDataValues& meanData = **edgeValues.begin();
+            if (writePrefix(dev, meanData, "<edge id=\""+edge->getID())) {
+                meanData.write(dev, stopTime - startTime,
+                               (SUMOReal)edge->getLanes().size(), edge->getLanes()[0]->getLength());
+            }
+        } else {
+            MeanDataValues* sumData = createValues(0, false);
+            for (lane = edgeValues.begin(); lane != edgeValues.end(); ++lane) {
+                MeanDataValues& meanData = **lane;
+                meanData.addTo(*sumData);
                 meanData.reset();
             }
+            if (writePrefix(dev, *sumData, "<edge id=\""+edge->getID())) {
+                sumData->write(dev, stopTime - startTime,
+                               (SUMOReal)edge->getLanes().size(), edge->getLanes()[0]->getLength());
+            }
+            delete sumData;
         }
-        if (writePrefix(dev, *sumData, "<edge id=\""+edge->getID())) {
-            sumData->write(dev, stopTime - startTime,
-                           (SUMOReal)edge->getLanes().size(), edge->getLanes()[0]->getLength());
-        }
-        delete sumData;
     }
 }
 
