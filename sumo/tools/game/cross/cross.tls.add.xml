@@ -1,0 +1,16 @@
+<add>
+    <tl-logic id="0" type="static" programID="0" offset="0.00">
+      <phase duration="20.00" state="rrrGGrrrrGGr"/>
+      <phase duration="3.00" state="rrryyrrrryyr"/>
+      <phase duration="3.00" state="rrrrrrrrrrrr"/>
+      <phase duration="5.00" state="rrrrrGrrrrrG"/>
+      <phase duration="3.00" state="rrrrryrrrrry"/>
+      <phase duration="3.00" state="rrrrrrrrrrrr"/>
+      <phase duration="26.00" state="GGrrrrGGrrrr"/>
+      <phase duration="3.00" state="yyrrrryyrrrr"/>
+      <phase duration="3.00" state="rrrrrrrrrrrr"/>
+      <phase duration="5.00" state="rrGrrrrrGrrr"/>
+      <phase duration="3.00" state="rryrrrrryrrr"/>
+      <phase duration="3.00" state="rrrrrrrrrrrr"/>
+   </tl-logic>
+</add>

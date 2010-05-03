@@ -1,0 +1,31 @@
+<routes>
+   <vtype id="SUMO_DEFAULT_TYPE" accel="0.8" decel="4.5" sigma="0.5" length="5" maxspeed="70"/>
+   <route id="1_right" multi_ref="x" edges="1fi 1si 3o 3fo"/>
+   <flow id="1_right" type="SUMO_DEFAULT_TYPE" route="1_right" begin="0" end="3030" period="30"/>
+   <route id="2_right" multi_ref="x" edges="2fi 2si 4o 4fo"/>
+   <flow id="2_right" type="SUMO_DEFAULT_TYPE" route="2_right" begin="0" end="3030" period="30"/>
+   <route id="3_right" multi_ref="x" edges="3fi 3si 2o 2fo"/>
+   <flow id="3_right" type="SUMO_DEFAULT_TYPE" route="3_right" begin="0" end="3030" period="30"/>
+   <route id="4_right" multi_ref="x" edges="4fi 4si 1o 1fo"/>
+   <flow id="4_right" type="SUMO_DEFAULT_TYPE" route="4_right" begin="0" end="3030" period="30"/>
+   
+   <route id="1_left" multi_ref="x" edges="1fi 1si 4o 4fo"/>
+   <flow id="1_left" type="SUMO_DEFAULT_TYPE" route="1_left" begin="0" end="3030" period="45"/>
+   <route id="2_left" multi_ref="x" edges="2fi 2si 3o 3fo"/>
+   <flow id="2_left" type="SUMO_DEFAULT_TYPE" route="2_left" begin="0" end="3030" period="45"/>
+   <route id="3_left" multi_ref="x" edges="3fi 3si 1o 1fo"/>
+   <flow id="3_left" type="SUMO_DEFAULT_TYPE" route="3_left" begin="0" end="3030" period="45"/>
+   <route id="4_left" multi_ref="x" edges="4fi 4si 2o 2fo"/>
+   <flow id="4_left" type="SUMO_DEFAULT_TYPE" route="4_left" begin="0" end="3030" period="45"/>
+      
+   <route id="1_horizontal" multi_ref="x" edges="1fi 1si 2o 2fo"/>
+   <flow id="1_horizontal" type="SUMO_DEFAULT_TYPE" route="1_horizontal" begin="0" end="3030" period="10"/>
+   <route id="2_horizontal" multi_ref="x" edges="2fi 2si 1o 1fo"/>
+   <flow id="2_horizontal" type="SUMO_DEFAULT_TYPE" route="2_horizontal" begin="0" end="3030" period="10"/>
+   
+   <route id="3_vertical" multi_ref="x" edges="3fi 3si 4o 4fo"/>
+   <flow id="3_vertical" type="SUMO_DEFAULT_TYPE" route="3_vertical" begin="0" end="3030" period="10"/>
+   <route id="4_vertical" multi_ref="x" edges="4fi 4si 3o 3fo"/>
+   <flow id="4_vertical" type="SUMO_DEFAULT_TYPE" route="4_vertical" begin="0" end="3030" period="10"/>
+   
+</routes>

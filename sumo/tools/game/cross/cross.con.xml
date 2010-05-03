@@ -1,0 +1,13 @@
+
+
+<connections>
+	
+	<connection from="3si" to="4o" lane="0:0"/>
+	<connection from="3si" to="2o" lane="0:0"/>
+	<connection from="3si" to="1o" lane="1:0"/>
+
+	<connection from="4si" to="3o" lane="0:0"/>
+	<connection from="4si" to="1o" lane="0:0"/>
+	<connection from="4si" to="2o" lane="1:0"/>
+
+</connections>
