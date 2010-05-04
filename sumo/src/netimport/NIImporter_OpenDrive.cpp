@@ -682,7 +682,6 @@ NIImporter_OpenDrive::geomFromArc(const OpenDriveEdge &e, const OpenDriveGeometr
     int index1 = 0;
     bool end = false;
     do {
-        SUMOReal startds, endds;
         geo_posE += C_LENGTH;
         // Berechnung eines Punktes auf der Kurve abhängig von der Länge (Konstante)
         if (geo_posE - g.s > g.length) {

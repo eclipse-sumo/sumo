@@ -92,7 +92,7 @@ public:
          * @param[in] end The end of the interval the weight is valid for
          */
         virtual void addEdgeWeight(const std::string &id,
-                                   SUMOReal val, SUMOTime beg, SUMOTime end) const throw() = 0;
+                                   SUMOReal val, SUMOReal beg, SUMOReal end) const throw() = 0;
 
     };
 

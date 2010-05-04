@@ -74,7 +74,7 @@
 // ---------------------------------------------------------------------------
 void
 NLBuilder::EdgeFloatTimeLineRetriever_EdgeEffort::addEdgeWeight(const std::string &id,
-        SUMOReal value, SUMOTime begTime, SUMOTime endTime) const throw() {
+        SUMOReal value, SUMOReal begTime, SUMOReal endTime) const throw() {
     MSEdge *edge = MSEdge::dictionary(id);
     if (edge!=0) {
         myNet.getWeightsStorage().addEffort(edge, begTime, endTime, value);
@@ -89,7 +89,7 @@ NLBuilder::EdgeFloatTimeLineRetriever_EdgeEffort::addEdgeWeight(const std::strin
 // ---------------------------------------------------------------------------
 void
 NLBuilder::EdgeFloatTimeLineRetriever_EdgeTravelTime::addEdgeWeight(const std::string &id,
-        SUMOReal value, SUMOTime begTime, SUMOTime endTime) const throw() {
+        SUMOReal value, SUMOReal begTime, SUMOReal endTime) const throw() {
     MSEdge *edge = MSEdge::dictionary(id);
     if (edge!=0) {
         myNet.getWeightsStorage().addTravelTime(edge, begTime, endTime, value);
