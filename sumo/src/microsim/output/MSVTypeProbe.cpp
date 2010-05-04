@@ -44,20 +44,22 @@
 // method definitions
 // ===========================================================================
 MSVTypeProbe::MSVTypeProbe(const std::string &id,
-                           const std::string &vType) throw()
-        : Named(id), myVType(vType) {
+                           const std::string &vType,
+                           OutputDevice &od, SUMOTime frequency) throw()
+        : Named(id), myVType(vType), myOutputDevice(od), myFrequency(frequency) {
+    MSNet::getInstance()->getEndOfTimestepEvents().addEvent(this, 0, MSEventControl::ADAPT_AFTER_EXECUTION);
+    myOutputDevice.writeXMLHeader("vehicle-type-probes");
 }
 
 
 MSVTypeProbe::~MSVTypeProbe() throw() {
 }
 
-
-void
-MSVTypeProbe::writeXMLOutput(OutputDevice &dev,
-                             SUMOTime startTime, SUMOTime) throw(IOError) {
+SUMOTime 
+MSVTypeProbe::execute(SUMOTime currentTime) throw(ProcessError)
+{
     const std::string indent("    ");
-    dev << indent << "<timestep time=\"" <<time2string(startTime)<< "\" id=\"" << getID() << "\" vtype=\"" << myVType << "\">" << "\n";
+    myOutputDevice << indent << "<timestep time=\"" <<time2string(currentTime)<< "\" id=\"" << getID() << "\" vtype=\"" << myVType << "\">" << "\n";
     MSVehicleControl &vc = MSNet::getInstance()->getVehicleControl();
     std::map<std::string, MSVehicle*>::const_iterator it = vc.loadedVehBegin();
     std::map<std::string, MSVehicle*>::const_iterator end = vc.loadedVehEnd();
@@ -68,30 +70,25 @@ MSVTypeProbe::writeXMLOutput(OutputDevice &dev,
                 continue;
             }
             Position2D pos = veh->getPosition();
-            dev << indent << indent
+            myOutputDevice << indent << indent
             << "<vehicle id=\"" << veh->getID()
-//                << "\" edge=\"" << veh->getEdge()->getID()
             << "\" lane=\"" << veh->getLane().getID()
             << "\" pos=\"" << veh->getPositionOnLane()
             << "\" x=\"" << pos.x()
             << "\" y=\"" << pos.y();
             if (GeoConvHelper::usingGeoProjection()) {
                 GeoConvHelper::cartesian2geo(pos);
-                dev.setPrecision(GEO_OUTPUT_ACCURACY);
-                dev << "\" lat=\"" << pos.y() << "\" lon=\"" << pos.x();
-                dev.setPrecision();
+                myOutputDevice.setPrecision(GEO_OUTPUT_ACCURACY);
+                myOutputDevice << "\" lat=\"" << pos.y() << "\" lon=\"" << pos.x();
+                myOutputDevice.setPrecision();
             }
-            dev << "\" speed=\"" << veh->getSpeed() << "\"/>" << "\n";
+            myOutputDevice << "\" speed=\"" << veh->getSpeed() << "\"/>" << "\n";
         }
 
     }
-    dev << indent << "</timestep>" << "\n";
+    myOutputDevice << indent << "</timestep>" << "\n";
+    return myFrequency;
 }
 
 
-void
-MSVTypeProbe::writeXMLDetectorProlog(OutputDevice &dev) const throw(IOError) {
-    dev.writeXMLHeader("vehicle-type-probes");
-}
-
-
+/****************************************************************************/

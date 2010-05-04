@@ -30,9 +30,10 @@
 #endif
 
 #include <string>
-#include <microsim/output/MSDetectorFileOutput.h>
+#include <utils/common/Command.h>
 #include <utils/iodevices/OutputDevice.h>
 #include <utils/common/Named.h>
+#include <utils/common/SUMOTime.h>
 
 
 // ===========================================================================
@@ -47,22 +48,23 @@
  *  on lane, x/y coordinates and speed.
  *
  * A frequency can be specified to generate the output in certain intervals,
- *  (e.g. every 10 seconds) and is used via the detector control by
- *  calling the appropriate methods derived from MSDetectorFileOutput.
+ *  (e.g. every 10 seconds).
  *
- * @see MSDetectorFileOutput
+ * @see Command
  * @see Named
  */
 
-class MSVTypeProbe : public MSDetectorFileOutput, public Named {
+class MSVTypeProbe : public Named, public Command {
 public:
     /** @brief Constructor
      *
      * @param[in] id The id of the vehicle type probe
      * @param[in] vType The vtype of which vehicles to report must be ("" for all vehicles)
+     * @param[in] od The output device to write into
+     * @param[in] frequency The output frequency [ms]
      */
-    MSVTypeProbe(const std::string &id,
-                 const std::string &vType) throw();
+    MSVTypeProbe(const std::string &id, const std::string &vType,
+                 OutputDevice &od, SUMOTime frequency) throw();
 
 
     /// @brief Destructor
@@ -70,7 +72,7 @@ public:
 
 
 
-    /// @name Methods inherited from MSDetectorFileOutput.
+    /// @name Derived from Command
     /// @{
 
     /** @brief Writes values into the given stream
@@ -79,30 +81,24 @@ public:
      *  has a type with the same id as the wished one, it is reported.
      * When the type "" is wished, all vehicles are reported
      *
-     * @param[in] dev The output device to write the data into
-     * @param[in] startTime First time step the data were gathered
-     * @param[in] stopTime Last time step the data were gathered
-     * @see MSDetectorFileOutput::writeXMLOutput
-     * @exception IOError If an error on writing occurs (!!! not yet implemented)
+     * @param[in] currentTime The current simulation time (unused)
+     * @return Always myFrequency (time till next output)
+     * @exception ProcessError not here
+     * @see Command
      */
-    void writeXMLOutput(OutputDevice &dev,
-                        SUMOTime startTime, SUMOTime stopTime) throw(IOError);
-
-
-    /** @brief Opens the XML-output using "detector" as root element
-     *
-     * @param[in] dev The output device to write the root into
-     * @see MSDetectorFileOutput::writeXMLDetectorProlog
-     * @todo What happens with the additional information if several detectors use the same output?
-     * @exception IOError If an error on writing occurs (!!! not yet implemented)
-     */
-    void writeXMLDetectorProlog(OutputDevice &dev) const throw(IOError);
+    SUMOTime execute(SUMOTime currentTime) throw(ProcessError);
     /// @}
 
 
 private:
     /// @brief The id of the vehicle type vehicles must have to be reported
     std::string myVType;
+
+    /// @brief The device to write into
+    OutputDevice &myOutputDevice;
+
+    /// @brief The frequency of reporting
+    SUMOTime myFrequency;
 
 
 private:

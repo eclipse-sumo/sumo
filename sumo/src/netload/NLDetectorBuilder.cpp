@@ -409,9 +409,7 @@ NLDetectorBuilder::buildVTypeProbe(const std::string &id,
     if (frequency==0) {
         throw InvalidArgument("Frequency must not be zero (in vtypeprobe '" + id + "').");
     }
-    MSVTypeProbe *probe = new MSVTypeProbe(id, vtype);
-    // add the file output
-    myNet.getDetectorControl().add(probe, device, frequency);
+    new MSVTypeProbe(id, vtype, device, frequency);
 }
 
 

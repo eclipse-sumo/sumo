@@ -1,71 +1,72 @@
 <?xml version="1.0"?>
 
-<!-- generated on 09/01/09 15:08:17 by SUMO sumo Version dev-SVN-r7635
+<!-- generated on 05/03/10 14:15:41 by SUMO sumo Version dev-SVN-r8163
 <configuration>
 
-    <input
-        net-file="net.net.xml"
-        additional-files="input_additional.add.xml,input_routes.rou.xml,input_additional2.add.xml"
-    />
+    <input>
+        <net-file value="net.net.xml"/>
+        <additional-files value="input_additional.add.xml,input_routes.rou.xml,input_additional2.add.xml"/>
+    </input>
 
-    <time
-        begin="0"
-        end="130"
-    />
+    <time>
+        <begin value="0"/>
+        <end value="130"/>
+    </time>
 
-    <report
-        no-duration-log="true"
-        no-step-log="true"
-    />
+    <report>
+        <no-duration-log value="true"/>
+        <no-step-log value="true"/>
+    </report>
 
 </configuration>
 -->
 
 <vehicle-type-probes>
     <timestep time="0.00" id="test1" vtype="">
-        <vehicle id="0" lane="4/1to3/1_0" pos="190.00" x="1405.25" y="401.65" speed="10.00"/>
-        <vehicle id="1" lane="4/1to3/1_0" pos="140.00" x="1455.25" y="401.65" speed="10.00"/>
+        <vehicle id="0" lane="4/1to3/1_0" pos="100.00" x="1495.25" y="401.65" speed="10.00"/>
     </timestep>
     <timestep time="10.00" id="test1" vtype="">
-        <vehicle id="0" lane="4/1to3/1_0" pos="290.00" x="1305.25" y="401.65" speed="10.00"/>
-        <vehicle id="1" lane="4/1to3/1_0" pos="240.00" x="1355.25" y="401.65" speed="10.00"/>
+        <vehicle id="0" lane="4/1to3/1_0" pos="200.00" x="1395.25" y="401.65" speed="10.00"/>
+        <vehicle id="1" lane="4/1to3/1_0" pos="150.00" x="1445.25" y="401.65" speed="10.00"/>
     </timestep>
     <timestep time="20.00" id="test1" vtype="">
-        <vehicle id="0" lane="4/1to3/1_0" pos="390.00" x="1205.25" y="401.65" speed="10.00"/>
-        <vehicle id="1" lane="4/1to3/1_0" pos="340.00" x="1255.25" y="401.65" speed="10.00"/>
+        <vehicle id="0" lane="4/1to3/1_0" pos="300.00" x="1295.25" y="401.65" speed="10.00"/>
+        <vehicle id="1" lane="4/1to3/1_0" pos="250.00" x="1345.25" y="401.65" speed="10.00"/>
     </timestep>
     <timestep time="30.00" id="test1" vtype="">
-        <vehicle id="0" lane="3/1to2/1_0" pos="99.50" x="1095.75" y="401.65" speed="10.00"/>
-        <vehicle id="1" lane="3/1to2/1_0" pos="49.50" x="1145.75" y="401.65" speed="10.00"/>
+        <vehicle id="0" lane="3/1to2/1_0" pos="9.50" x="1185.75" y="401.65" speed="10.00"/>
+        <vehicle id="1" lane="4/1to3/1_0" pos="350.00" x="1245.25" y="401.65" speed="10.00"/>
     </timestep>
     <timestep time="40.00" id="test1" vtype="">
-        <vehicle id="0" lane="3/1to2/1_0" pos="199.50" x="995.75" y="401.65" speed="10.00"/>
-        <vehicle id="1" lane="3/1to2/1_0" pos="149.50" x="1045.75" y="401.65" speed="10.00"/>
+        <vehicle id="0" lane="3/1to2/1_0" pos="109.50" x="1085.75" y="401.65" speed="10.00"/>
+        <vehicle id="1" lane="3/1to2/1_0" pos="59.50" x="1135.75" y="401.65" speed="10.00"/>
     </timestep>
     <timestep time="50.00" id="test1" vtype="">
-        <vehicle id="0" lane="3/1to2/1_0" pos="299.50" x="895.75" y="401.65" speed="10.00"/>
-        <vehicle id="1" lane="3/1to2/1_0" pos="249.50" x="945.75" y="401.65" speed="10.00"/>
+        <vehicle id="0" lane="3/1to2/1_0" pos="209.50" x="985.75" y="401.65" speed="10.00"/>
+        <vehicle id="1" lane="3/1to2/1_0" pos="159.50" x="1035.75" y="401.65" speed="10.00"/>
     </timestep>
     <timestep time="60.00" id="test1" vtype="">
-        <vehicle id="0" lane="2/1to1/1_0" pos="9.00" x="786.25" y="401.65" speed="10.00"/>
-        <vehicle id="1" lane="3/1to2/1_0" pos="349.50" x="845.75" y="401.65" speed="10.00"/>
+        <vehicle id="0" lane="3/1to2/1_0" pos="309.50" x="885.75" y="401.65" speed="10.00"/>
+        <vehicle id="1" lane="3/1to2/1_0" pos="259.50" x="935.75" y="401.65" speed="10.00"/>
     </timestep>
     <timestep time="70.00" id="test1" vtype="">
-        <vehicle id="0" lane="2/1to1/1_0" pos="109.00" x="686.25" y="401.65" speed="10.00"/>
-        <vehicle id="1" lane="2/1to1/1_0" pos="59.00" x="736.25" y="401.65" speed="10.00"/>
+        <vehicle id="0" lane="2/1to1/1_0" pos="19.00" x="776.25" y="401.65" speed="10.00"/>
+        <vehicle id="1" lane="3/1to2/1_0" pos="359.50" x="835.75" y="401.65" speed="10.00"/>
     </timestep>
     <timestep time="80.00" id="test1" vtype="">
-        <vehicle id="0" lane="2/1to1/1_0" pos="209.00" x="586.25" y="401.65" speed="10.00"/>
-        <vehicle id="1" lane="2/1to1/1_0" pos="159.00" x="636.25" y="401.65" speed="10.00"/>
+        <vehicle id="0" lane="2/1to1/1_0" pos="119.00" x="676.25" y="401.65" speed="10.00"/>
+        <vehicle id="1" lane="2/1to1/1_0" pos="69.00" x="726.25" y="401.65" speed="10.00"/>
     </timestep>
     <timestep time="90.00" id="test1" vtype="">
-        <vehicle id="0" lane="2/1to1/1_0" pos="309.00" x="486.25" y="401.65" speed="10.00"/>
-        <vehicle id="1" lane="2/1to1/1_0" pos="259.00" x="536.25" y="401.65" speed="10.00"/>
+        <vehicle id="0" lane="2/1to1/1_0" pos="219.00" x="576.25" y="401.65" speed="10.00"/>
+        <vehicle id="1" lane="2/1to1/1_0" pos="169.00" x="626.25" y="401.65" speed="10.00"/>
     </timestep>
     <timestep time="100.00" id="test1" vtype="">
-        <vehicle id="1" lane="2/1to1/1_0" pos="359.00" x="436.25" y="401.65" speed="10.00"/>
+        <vehicle id="0" lane="2/1to1/1_0" pos="319.00" x="476.25" y="401.65" speed="10.00"/>
+        <vehicle id="1" lane="2/1to1/1_0" pos="269.00" x="526.25" y="401.65" speed="10.00"/>
     </timestep>
     <timestep time="110.00" id="test1" vtype="">
+        <vehicle id="1" lane="2/1to1/1_0" pos="369.00" x="426.25" y="401.65" speed="10.00"/>
     </timestep>
     <timestep time="120.00" id="test1" vtype="">
     </timestep>

@@ -36,7 +36,6 @@
 #include <microsim/output/MS_E2_ZS_CollectorOverLanes.h>
 #include <microsim/output/MSE3Collector.h>
 #include <microsim/output/MSInductLoop.h>
-#include <microsim/output/MSVTypeProbe.h>
 #include <microsim/output/MSRouteProbe.h>
 
 #ifdef _MESSAGES
@@ -82,9 +81,6 @@ public:
 
     /// @brief Map of MS_E2_ZS_CollectorOverLanes by ID
     typedef NamedObjectCont< MS_E2_ZS_CollectorOverLanes* > E2ZSOLDict;
-
-    /// @brief Map of MSVTypeProbe by ID
-    typedef NamedObjectCont< MSVTypeProbe* > VTypeProbeDict;
 
     /// @brief Map of MSRouteProbe by ID
     typedef NamedObjectCont< MSRouteProbe* > RouteProbeDict;
@@ -221,20 +217,6 @@ public:
      * @exception ProcessError If the detector is already known
      */
     void add(MSE3Collector *e3, OutputDevice& device, int splInterval) throw(ProcessError);
-
-
-    /** @brief Adds a vytpeprobe into the containers
-     *
-     * The Detector2File-mechanism is instantiated for the detector.
-     *
-     * Please note, that the detector control gets responsible for the detector.
-     *
-     * @param[in] vp The vytpeprobe to add
-     * @param[in] device The device the vytpeprobe uses
-     * @param[in] frequency The frequency of calling this vtypeprobe
-     * @exception ProcessError If the detector is already known
-     */
-    void add(MSVTypeProbe *vp, OutputDevice& device, int frequency) throw(ProcessError);
 
 
     /** @brief Adds a routeprobe into the containers
@@ -457,9 +439,6 @@ protected:
 
     /// @brief MS_E2_ZS_CollectorOverLanes dictionary
     E2ZSOLDict myE2OverLanesDetectors;
-
-    /// @brief MSVTypeProbe dictionary
-    VTypeProbeDict myVTypeProbeDetectors;
 
     /// @brief MSRouteProbe dictionary
     RouteProbeDict myRouteProbeDetectors;
