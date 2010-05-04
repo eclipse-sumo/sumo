@@ -184,15 +184,10 @@ protected:
      */
     virtual void addRouteProbeDetector(const SUMOSAXAttributes &attrs);
 
-    /** @brief Builds edge base mean data collector using the given specification
+    /** @brief Builds edge or lane base mean data collector using the given specification
      * @param[in] attrs The attributes that define the detector
      */
-    virtual void addEdgeMeanData(const SUMOSAXAttributes &attrs);
-
-    /** @brief Builds lane base mean data collector using the given specification
-     * @param[in] attrs The attributes that define the detector
-     */
-    virtual void addLaneMeanData(const SUMOSAXAttributes &attrs);
+    virtual void addEdgeLaneMeanData(const SUMOSAXAttributes &attrs, const char* objecttype);
 
     /** @brief Ends the detector building
      * @todo Remove this
