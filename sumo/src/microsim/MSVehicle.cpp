@@ -927,7 +927,7 @@ MSVehicle::moveFirstChecked() {
     if (vNext<=0.1) {
         myWaitingTime += DELTA_T;
         if (MSCORN::wished(MSCORN::CORN_VEH_WAITINGTIME)) {
-            myIntCORNMap[MSCORN::CORN_VEH_WAITINGTIME] = myIntCORNMap[MSCORN::CORN_VEH_WAITINGTIME] + 1;
+            myIntCORNMap[MSCORN::CORN_VEH_WAITINGTIME]++;
         }
     } else {
         myWaitingTime = 0;
@@ -1104,7 +1104,7 @@ MSVehicle::checkRewindLinkLanes(SUMOReal lengthsInFront) throw() {
             // - we must have seen at least as much place as the vehicle would need
             // - the seen space must be enough for our vehicle
             // - we should have seen at least one non-internal lane before
-            SUMOReal impatienceCorrection = MAX2(SUMOReal(0), myWaitingTime);
+            SUMOReal impatienceCorrection = MAX2(0, myWaitingTime);
             if (hadVehicle&&seenLanes>getVehicleType().getLength()&&seenSpace<getVehicleType().getLength()-impatienceCorrection/10.&&nextSeenNonInternal!=0) {
                 removalBegin = lastLinkToInternal;
             }
@@ -1795,7 +1795,7 @@ MSVehicle::saveState(std::ostream &os) {
     FileHelpers::writeInt(os, myParameter->repetitionNumber);
     FileHelpers::writeFloat(os, myParameter->repetitionOffset);
     FileHelpers::writeString(os, myRoute->getID());
-    FileHelpers::writeFloat(os, myParameter->depart); // !!! SUMOTime
+    FileHelpers::writeTime(os, myParameter->depart);
     FileHelpers::writeString(os, myType->getID());
     FileHelpers::writeUInt(os, myRoute->posInRoute(myCurrEdge));
     if (hasCORNIntValue(MSCORN::CORN_VEH_DEPART_TIME)) {
@@ -1811,8 +1811,8 @@ MSVehicle::saveState(std::ostream &os) {
         FileHelpers::writeUInt(os, mySegment->getIndex());
     }
     FileHelpers::writeUInt(os, getQueIndex());
-    FileHelpers::writeFloat(os, myEventTime);
-    FileHelpers::writeFloat(os, myLastEntryTime);
+    FileHelpers::writeTime(os, myEventTime);
+    FileHelpers::writeTime(os, myLastEntryTime);
 #endif
 }
 

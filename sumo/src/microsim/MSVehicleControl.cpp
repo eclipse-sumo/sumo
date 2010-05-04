@@ -295,6 +295,7 @@ MSVehicleControl::saveState(std::ostream &os) throw() {
 
 void
 MSVehicleControl::loadState(BinaryInputDevice &bis) throw() {
+    const SUMOTime offset = string2time(OptionsCont::getOptions().getString("load-state.offset"));
     bis >> myRunningVehNo;
     bis >> myEndedVehNo;
     myLoadedVehNo = myEndedVehNo;
@@ -377,11 +378,7 @@ MSVehicleControl::loadState(BinaryInputDevice &bis) throw() {
         const MSRoute* route;
         SUMOTime desiredDepart;
         bis >> desiredDepart;
-        if (OptionsCont::getOptions().isSet("load-state.offset")) {
-            const SUMOTime offset = string2time(OptionsCont::getOptions().getString("load-state.offset"));
-            desiredDepart -= (unsigned int) offset;
-        }
-        p->depart = desiredDepart;
+        p->depart = desiredDepart - offset;
         bis >> p->vtypeid;
         const MSVehicleType* type;
         unsigned int routeOffset;
@@ -397,11 +394,6 @@ MSVehicleControl::loadState(BinaryInputDevice &bis) throw() {
         bis >> tEvent;
         SUMOTime tLastEntry;
         bis >> tLastEntry;
-        if (OptionsCont::getOptions().isSet("load-state.offset")) {
-            const SUMOTime offset = string2time(OptionsCont::getOptions().getString("load-state.offset"));
-            tEvent -= offset;
-            tLastEntry -= offset;
-        }
 #endif
         route = MSRoute::dictionary(p->routeid);
         assert(route!=0);
@@ -424,8 +416,8 @@ MSVehicleControl::loadState(BinaryInputDevice &bis) throw() {
                 v->mySegment = MSGlobals::gMesoNet->next_segment(v->mySegment, v);
             }
             v->myQueIndex = queIndex;
-            v->myEventTime = tEvent;
-            v->myLastEntryTime = tLastEntry;
+            v->myEventTime = tEvent - offset;
+            v->myLastEntryTime = tLastEntry - offset;
         }
 #endif
         if (!addVehicle(p->id, v)) {

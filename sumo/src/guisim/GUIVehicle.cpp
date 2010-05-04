@@ -265,7 +265,7 @@ GUIVehicle::getParameterWindow(GUIMainWindow &app,
         ret->mkItem("emission period [s]", false, time2string(getParameter().repetitionOffset));
     }
     ret->mkItem("waiting time [s]", true,
-                new FunctionBinding<GUIVehicle, SUMOReal>(this, &MSVehicle::getWaitingTime));
+                new FunctionBinding<GUIVehicle, SUMOReal>(this, &MSVehicle::getWaitingSeconds));
     ret->mkItem("last lane change [s]", true,
                 new FunctionBinding<GUIVehicle, SUMOReal>(this, &GUIVehicle::getLastLaneChangeOffset));
     ret->mkItem("desired depart [s]", false, time2string(getDesiredDepart()));
@@ -1053,7 +1053,7 @@ GUIVehicle::Colorer::getColorValue(const GUIVehicle& vehicle) const {
     case 7:
         return vehicle.getSpeed();
     case 8:
-        return vehicle.getWaitingTime();
+        return vehicle.getWaitingSeconds();
     case 9:
         return vehicle.getLastLaneChangeOffset();
     case 10:

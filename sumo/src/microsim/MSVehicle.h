@@ -588,13 +588,23 @@ public:
 
 
 
-    /** @brief Returns the number of steps waited (speed was lesser than 0.1m/s)
+    /** @brief Returns the SUMOTime waited (speed was lesser than 0.1m/s)
      *
      * The value is reset if the vehicle moves faster than 0.1m/s
      * @return The time the vehicle is standing
      */
-    SUMOReal getWaitingTime() const throw() {
+    SUMOTime getWaitingTime() const throw() {
         return myWaitingTime;
+    }
+
+
+    /** @brief Returns the number of seconds waited (speed was lesser than 0.1m/s)
+     *
+     * The value is reset if the vehicle moves faster than 0.1m/s
+     * @return The time the vehicle is standing
+     */
+    SUMOReal getWaitingSeconds() const throw() {
+        return STEPS2TIME(myWaitingTime);
     }
 
 
@@ -925,7 +935,7 @@ protected:
     SUMOReal myLastLaneChangeOffset;
 
     /// @brief The time the vehicle waits (is not faster than 0.1m/s) in seconds
-    SUMOReal myWaitingTime;
+    SUMOTime myWaitingTime;
 
 #ifdef _MESSAGES
     /// The message emitters

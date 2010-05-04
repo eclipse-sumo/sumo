@@ -41,7 +41,7 @@ bool MSGlobals::gOmitEmptyEdgesOnDump;
 
 bool MSGlobals::gUsingInternalLanes;
 
-size_t MSGlobals::gTimeToGridlock = 300 * 1000;
+SUMOTime MSGlobals::gTimeToGridlock = TIME2STEPS(300);
 
 bool MSGlobals::gCheck4Accidents;
 

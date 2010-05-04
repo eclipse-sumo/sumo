@@ -56,7 +56,7 @@ public:
 
     /** Information how long the simulation shall wait until it recognizes
         a vehicle as a grid lock participant */
-    static size_t gTimeToGridlock;
+    static SUMOTime gTimeToGridlock;
 
     /// Information whether the simulation regards internal lanes
     static bool gUsingInternalLanes;
