@@ -85,28 +85,28 @@ MSInductLoop::isStillActive(MSVehicle& veh, SUMOReal oldPos,
     }
     if (myVehiclesOnDet.find(&veh) == myVehiclesOnDet.end()) {
         // entered the detector by move
-        SUMOReal entryTimestep = (SUMOReal) MSNet::getInstance()->getCurrentTimeStep();
+        SUMOReal entryTime = STEPS2TIME(MSNet::getInstance()->getCurrentTimeStep());
         if (newSpeed!=0) {
-            entryTimestep += ((((myPosition - oldPos) / newSpeed)) * (SUMOReal) DELTA_T);
+            entryTime += (myPosition - oldPos) / newSpeed;
         }
         if (newPos - veh.getVehicleType().getLength() > myPosition) {
             // entered and passed detector in a single timestep
-            SUMOReal leaveTimestep = (SUMOReal) MSNet::getInstance()->getCurrentTimeStep();
-            leaveTimestep += (((myPosition - oldPos + veh.getVehicleType().getLength()) / newSpeed) * (SUMOReal) DELTA_T);
-            enterDetectorByMove(veh, STEPS2TIME(entryTimestep));
-            leaveDetectorByMove(veh, STEPS2TIME(leaveTimestep));
+            SUMOReal leaveTime = STEPS2TIME(MSNet::getInstance()->getCurrentTimeStep());
+            leaveTime += (myPosition - oldPos + veh.getVehicleType().getLength()) / newSpeed;
+            enterDetectorByMove(veh, entryTime);
+            leaveDetectorByMove(veh, leaveTime);
             return false;
         }
         // entered detector, but not passed
-        enterDetectorByMove(veh, STEPS2TIME(entryTimestep));
+        enterDetectorByMove(veh, entryTime);
         return true;
     } else {
         // vehicle has been on the detector the previous timestep
         if (newPos - veh.getVehicleType().getLength() >= myPosition) {
             // vehicle passed the detector
-            SUMOReal leaveTimestep = (SUMOReal) MSNet::getInstance()->getCurrentTimeStep();
-            leaveTimestep += (((myPosition - oldPos + veh.getVehicleType().getLength()) / newSpeed) * (SUMOReal) DELTA_T);
-            leaveDetectorByMove(veh, STEPS2TIME(leaveTimestep));
+            SUMOReal leaveTime = STEPS2TIME(MSNet::getInstance()->getCurrentTimeStep());
+            leaveTime += (myPosition - oldPos + veh.getVehicleType().getLength()) / newSpeed;
+            leaveDetectorByMove(veh, leaveTime);
             return false;
         }
         // vehicle stays on the detector
@@ -163,7 +163,7 @@ MSInductLoop::getCurrentOccupancy() const throw() {
     SUMOReal occupancy = 0;
     for(std::vector< VehicleData >::const_iterator i=d.begin(); i!=d.end(); ++i) {
         SUMOReal timeOnDetDuringInterval = (*i).leaveTimeM - MAX2(STEPS2TIME(tbeg), (*i).entryTimeM);
-        timeOnDetDuringInterval = MIN2(timeOnDetDuringInterval, (SUMOReal) DELTA_T);
+        timeOnDetDuringInterval = MIN2(timeOnDetDuringInterval, TS);
         occupancy += timeOnDetDuringInterval;
     }
     return occupancy / TS * (SUMOReal) 100.;
