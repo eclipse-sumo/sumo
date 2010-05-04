@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 03/29/10 11:17:57 by SUMO sumo Version dev-SVN-r8163
+<!-- generated on 05/04/10 12:51:01 by SUMO sumo Version dev-SVN-r8163
 <configuration>
 
     <input>
@@ -11,6 +11,7 @@
     <time>
         <begin value="0"/>
         <end value="150"/>
+        <step-length value="0.1"/>
     </time>
 
     <report>
@@ -37,7 +38,7 @@
             <lane id="3/1to2/1_0" sampledSeconds="14.95" noise="61.77" traveltime="39.05"/>
         </edge>
         <edge id="4/1to3/1">
-            <lane id="4/1to3/1_0" sampledSeconds="0.05" noise="50.01" traveltime="39.05"/>
+            <lane id="4/1to3/1_0" sampledSeconds="0.05" noise="40.01" traveltime="39.05"/>
         </edge>
     </interval>
     <interval begin="45.00" end="60.00" id="dump_15">
@@ -47,10 +48,10 @@
     </interval>
     <interval begin="60.00" end="75.00" id="dump_15">
         <edge id="2/1to1/1">
-            <lane id="2/1to1/1_0" sampledSeconds="5.90" noise="57.80" traveltime="39.05"/>
+            <lane id="2/1to1/1_0" sampledSeconds="5.90" noise="57.72" traveltime="39.05"/>
         </edge>
         <edge id="3/1to2/1">
-            <lane id="3/1to2/1_0" sampledSeconds="9.10" noise="60.01" traveltime="39.05"/>
+            <lane id="3/1to2/1_0" sampledSeconds="9.10" noise="59.60" traveltime="39.05"/>
         </edge>
     </interval>
     <interval begin="75.00" end="90.00" id="dump_15">
@@ -65,10 +66,10 @@
     </interval>
     <interval begin="105.00" end="120.00" id="dump_15">
         <edge id="1/1to0/1">
-            <lane id="1/1to0/1_0" sampledSeconds="0.85" noise="50.01" traveltime="39.05"/>
+            <lane id="1/1to0/1_0" sampledSeconds="0.05" noise="40.01" traveltime="39.05"/>
         </edge>
         <edge id="2/1to1/1">
-            <lane id="2/1to1/1_0" sampledSeconds="3.15" noise="56.03" traveltime="39.05"/>
+            <lane id="2/1to1/1_0" sampledSeconds="3.15" noise="55.07" traveltime="39.05"/>
         </edge>
     </interval>
     <interval begin="120.00" end="135.00" id="dump_15">

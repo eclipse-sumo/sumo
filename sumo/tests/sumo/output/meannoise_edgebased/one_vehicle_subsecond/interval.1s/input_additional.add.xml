@@ -1,0 +1,5 @@
+<add>
+
+	<meandata-edge id="dump_1" type="harmonoise" freq=".1" file="aggregated_1.xml" excludeEmpty="true"/>
+
+</add>

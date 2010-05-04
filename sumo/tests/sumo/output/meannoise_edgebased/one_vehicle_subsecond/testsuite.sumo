@@ -2,14 +2,14 @@
 interval1s
 
 # One output; sampling at 15s in subseconds
-
 interval15s
 
 # One output; sampling at 60s in subseconds
-
 interval60s
 
 # Two outputs; one sampling at 15s, one at 60s in subseconds
-
 interval15s60s
+
+# One output; sampling at .1s in subseconds
+interval.1s
 

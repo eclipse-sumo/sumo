@@ -71,7 +71,7 @@ void
 MSMeanData_Harmonoise::MSLaneMeanDataValues::addTo(MSMeanData::MeanDataValues &val) const throw() {
     MSLaneMeanDataValues& v = (MSLaneMeanDataValues&) val;
     v.sampleSeconds += sampleSeconds;
-    v.meanNTemp += meanNTemp;
+    v.meanNTemp += (SUMOReal) pow(10., HelpersHarmonoise::sum(meanNTemp)/10.);
     v.travelledDistance += travelledDistance;
 }
 
@@ -89,7 +89,7 @@ MSMeanData_Harmonoise::MSLaneMeanDataValues::isStillActive(MSVehicle& veh, SUMOR
         return false;
     }
     bool ret = true;
-    SUMOReal timeOnLane = (SUMOReal) DELTA_T / 1000.;
+    SUMOReal timeOnLane = TS;
     if (oldPos<0&&newSpeed!=0) {
         timeOnLane = (oldPos+SPEED2DIST(newSpeed)) / newSpeed;
     }
@@ -122,7 +122,7 @@ MSMeanData_Harmonoise::MSLaneMeanDataValues::notifyEnter(MSVehicle& veh, bool is
 void
 MSMeanData_Harmonoise::MSLaneMeanDataValues::write(OutputDevice &dev, const SUMOTime period,
         const SUMOReal numLanes, const SUMOReal length, const int numVehicles) const throw(IOError) {
-    dev << "\" noise=\"" << (meanNTemp!=0 ? (SUMOReal)(10. * log10(meanNTemp/(period/1000.))) : (SUMOReal) 0.);
+    dev << "\" noise=\"" << (meanNTemp!=0 ? (SUMOReal)(10. * log10(meanNTemp*TS/STEPS2TIME(period))) : (SUMOReal) 0.);
     if (sampleSeconds > myParent->myMinSamples) {
         SUMOReal traveltime = myParent->myMaxTravelTime;
         if (travelledDistance > 0.f) {
