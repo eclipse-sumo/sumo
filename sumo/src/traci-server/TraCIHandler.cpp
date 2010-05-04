@@ -68,13 +68,13 @@ TraCIHandler::openVehicleTag(const SUMOSAXAttributes& attributes) {
     int period;
     int depart;
     OptionsCont& optCont = OptionsCont::getOptions();
-    int simStart = string2time(optCont.getString("begin"));
-    int simEnd = string2time(optCont.getString("end"));
-
+    SUMOTime simStart = string2time(optCont.getString("begin"));
+    SUMOTime simEnd = string2time(optCont.getString("end"));
+    if(simEnd<0) {
+        simEnd = SUMOTime_MAX;
+    }
     // every found vehicle tag counts for one vehicle
     currentVehCount = 1;
-//	std::cerr << "1 vehicle found, sim time: " << simStart << "-" << simEnd << std::endl;
-
     // read value for emit period and number (if any)
     try {
         repNo = attributes.getInt(SUMO_ATTR_REPNUMBER);

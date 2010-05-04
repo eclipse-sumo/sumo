@@ -72,8 +72,6 @@ FXDEFMAP(GUIDialog_Breakpoints) GUIDialog_BreakpointsMap[]= {
     FXMAPFUNC(SEL_COMMAND,  MID_CHOOSEN_CLEAR,                  GUIDialog_Breakpoints::onCmdClear),
     FXMAPFUNC(SEL_COMMAND,  MID_CANCEL,                         GUIDialog_Breakpoints::onCmdClose),
     FXMAPFUNC(SEL_CHANGED,  MFXAddEditTypedTable::ID_TEXT_CHANGED,  GUIDialog_Breakpoints::onCmdEditTable),
-
-    //    FXMAPFUNC(SEL_UPDATE,   MID_CHOOSEN_SAVE,       GUIDialog_Breakpoints::onUpdSave),
 };
 
 
@@ -83,28 +81,28 @@ FXIMPLEMENT(GUIDialog_Breakpoints, FXMainWindow, GUIDialog_BreakpointsMap, ARRAY
 // ===========================================================================
 // method definitions
 // ===========================================================================
-GUIDialog_Breakpoints::GUIDialog_Breakpoints(GUIMainWindow *parent)
+GUIDialog_Breakpoints::GUIDialog_Breakpoints(GUIMainWindow *parent) throw()
         : FXMainWindow(parent->getApp(), "Breakpoints Editor", NULL, NULL, DECOR_ALL, 20,20,300, 300),
         myParent(parent) {
-    FXHorizontalFrame *hbox =
-        new FXHorizontalFrame(this, LAYOUT_FILL_X|LAYOUT_FILL_Y,0,0,0,0,
-                              0,0,0,0);
+    FXHorizontalFrame *hbox = new FXHorizontalFrame(this, LAYOUT_FILL_X|LAYOUT_FILL_Y,0,0,0,0, 0,0,0,0);
 
     // build the table
-    myTable = new MFXAddEditTypedTable(hbox, this, MID_TABLE,
-                                       LAYOUT_FILL_X|LAYOUT_FILL_Y);
+    myTable = new MFXAddEditTypedTable(hbox, this, MID_TABLE, LAYOUT_FILL_X|LAYOUT_FILL_Y);
     myTable->setVisibleRows(20);
     myTable->setVisibleColumns(1);
     myTable->setTableSize(20,1);
     myTable->setBackColor(FXRGB(255,255,255));
     myTable->setCellType(0, CT_INT);
-    myTable->setNumberCellParams(0, OptionsCont::getOptions().getInt("begin"), OptionsCont::getOptions().getInt("end"),
-                                 1, 10, 100, "%.0f");
+    SUMOTime begin = string2time(OptionsCont::getOptions().getString("begin"));
+    SUMOTime end = string2time(OptionsCont::getOptions().getString("end"));
+    if(end<0) {
+        end = SUMOTime_MAX;
+    }
+    myTable->setNumberCellParams(0, begin, end, 1, 10, 100, "%.0f");
     myTable->getRowHeader()->setWidth(0);
     rebuildList();
     // build the layout
-    FXVerticalFrame *layout = new FXVerticalFrame(hbox, LAYOUT_TOP,0,0,0,0,
-            4,4,4,4);
+    FXVerticalFrame *layout = new FXVerticalFrame(hbox, LAYOUT_TOP,0,0,0,0, 4,4,4,4);
     // "Load"
     new FXButton(layout, "Load\t\t", 0, this, MID_CHOOSEN_LOAD,
                  ICON_BEFORE_TEXT|LAYOUT_FILL_X|FRAME_THICK|FRAME_RAISED,
@@ -113,39 +111,29 @@ GUIDialog_Breakpoints::GUIDialog_Breakpoints(GUIMainWindow *parent)
     new FXButton(layout, "Save\t\t", 0, this, MID_CHOOSEN_SAVE,
                  ICON_BEFORE_TEXT|LAYOUT_FILL_X|FRAME_THICK|FRAME_RAISED,
                  0, 0, 0, 0, 4, 4, 3, 3);
-
     new FXHorizontalSeparator(layout,SEPARATOR_GROOVE|LAYOUT_FILL_X);
-
-    // "Deselect Chosen"
-    /*
-    new FXButton(layout, "Deselect Chosen\t\t", 0, this, MID_CHOOSEN_DESELECT,
-        ICON_BEFORE_TEXT|LAYOUT_FILL_X|FRAME_THICK|FRAME_RAISED,
-        0, 0, 0, 0, 4, 4, 3, 3);
-        */
     // "Clear List"
     new FXButton(layout, "Clear\t\t", 0, this, MID_CHOOSEN_CLEAR,
                  ICON_BEFORE_TEXT|LAYOUT_FILL_X|FRAME_THICK|FRAME_RAISED,
                  0, 0, 0, 0, 4, 4, 3, 3);
-
     new FXHorizontalSeparator(layout,SEPARATOR_GROOVE|LAYOUT_FILL_X);
-
     // "Close"
     new FXButton(layout, "Close\t\t", 0, this, MID_CANCEL,
                  ICON_BEFORE_TEXT|LAYOUT_FILL_X|FRAME_THICK|FRAME_RAISED,
                  0, 0, 0, 0, 4, 4, 3, 3);
-
+    //
     setIcon(GUIIconSubSys::getIcon(ICON_APP_BREAKPOINTS));
     myParent->addChild(this);
 }
 
 
-GUIDialog_Breakpoints::~GUIDialog_Breakpoints() {
+GUIDialog_Breakpoints::~GUIDialog_Breakpoints() throw() {
     myParent->removeChild(this);
 }
 
 
 void
-GUIDialog_Breakpoints::rebuildList() {
+GUIDialog_Breakpoints::rebuildList() throw() {
     myTable->clearItems();
     sort(gBreakpoints.begin(), gBreakpoints.end());
 
@@ -221,7 +209,7 @@ GUIDialog_Breakpoints::onCmdSave(FXObject*,FXSelector,void*) {
 
 
 std::string
-GUIDialog_Breakpoints::encode2TXT() {
+GUIDialog_Breakpoints::encode2TXT() throw() {
     std::ostringstream strm;
     std::sort(gBreakpoints.begin(), gBreakpoints.end());
     //
@@ -249,17 +237,7 @@ GUIDialog_Breakpoints::onCmdClose(FXObject*,FXSelector,void*) {
     return 1;
 }
 
-/*
-long
-GUIDialog_Breakpoints::onUpdSave(FXObject*sender,FXSelector,void*ptr)
-{
-    sender->handle(this,
-        myEntriesAreValid?FXSEL(SEL_COMMAND,ID_DISABLE):FXSEL(SEL_COMMAND,ID_ENABLE),
-        ptr);
-    return 1;
-}
 
-*/
 long
 GUIDialog_Breakpoints::onCmdEditTable(FXObject*,FXSelector,void*data) {
     MFXEditedTableItem *i = (MFXEditedTableItem*) data;
@@ -291,7 +269,6 @@ GUIDialog_Breakpoints::onCmdEditTable(FXObject*,FXSelector,void*data) {
     }
     return 1;
 }
-
 
 
 /****************************************************************************/

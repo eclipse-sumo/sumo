@@ -48,7 +48,7 @@ class MFXAddEditTypedTable;
  * @class GUIDialog_Breakpoints
  * @brief Editor for simulation breakpoints
  *
- * This dialog shows and lets the user edit the list of breakpoint - simulation
+ * This dialog shows and lets the user edit the list of breakpoints - simulation
  *  time steps where the simulation halts.
  * @todo Use a LineReader instead of >> while reading
  */
@@ -56,41 +56,48 @@ class GUIDialog_Breakpoints : public FXMainWindow {
     // FOX-declarations
     FXDECLARE(GUIDialog_Breakpoints)
 public:
-    /// constructor
-    GUIDialog_Breakpoints(GUIMainWindow *parent);
+    /** @brief Constructor
+     * @param[in] parent The parent window
+     */
+    GUIDialog_Breakpoints(GUIMainWindow *parent) throw();
 
-    /// destructor
-    ~GUIDialog_Breakpoints();
+    /// @brief Destructor
+    ~GUIDialog_Breakpoints() throw();
 
-    /// Called when the user presses the Load-button
+
+    /// @brief Called when the user presses the Load-button
     long onCmdLoad(FXObject*,FXSelector,void*);
 
-    /// Called when the user presses the Save-button
+    /// @brief Called when the user presses the Save-button
     long onCmdSave(FXObject*,FXSelector,void*);
 
-    /// Called when the user presses the Clear-button
+    /// @brief Called when the user presses the Clear-button
     long onCmdClear(FXObject*,FXSelector,void*);
 
-    /// Called when the user presses the Close-button
+    /// @brief Called when the user presses the Close-button
     long onCmdClose(FXObject*,FXSelector,void*);
 
-    /// Called when the table was changed
+    /// @brief Called when the table was changed
     long onCmdEditTable(FXObject*,FXSelector,void*);
-//    long onUpdSave(FXObject*,FXSelector,void*);
+
 
 private:
-    /// Rebuilds the entire list
-    void rebuildList();
+    /// @brief Rebuilds the entire list
+    void rebuildList() throw();
 
-    /// Builds a text representation of the items in the list
-    std::string encode2TXT();
+    /** @brief Builds a text representation of the items in the list
+     * @return Breakpoints encoded as a string
+     */
+    std::string encode2TXT() throw();
+
 
 private:
-    /// the list that holds the ids
+    /// @brief The list that holds the ids
     MFXAddEditTypedTable *myTable;
 
-    /// the parent window
+    /// @brief The parent window
     GUIMainWindow *myParent;
+
 
 protected:
     /// FOX needs this

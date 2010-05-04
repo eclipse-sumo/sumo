@@ -879,7 +879,11 @@ TraCIServer::commandChangeRoute() throw(TraCIException, std::invalid_argument) {
         }
         veh->getWeightsStorage().removeTravelTime(edge);
     } else {
-        veh->getWeightsStorage().addTravelTime(edge, currentTime, (string2time(OptionsCont::getOptions().getString("end"))+DELTA_T) / 1000., travelTime);
+        SUMOTime end = string2time(OptionsCont::getOptions().getString("end"));
+        if(end<0) {
+            end = SUMOTime_MAX;
+        }
+        veh->getWeightsStorage().addTravelTime(edge, currentTime, (SUMOReal) end / 1000., travelTime);
     }
     SUMOReal effortAfter = proxi.getTravelTime(edge, veh, currentTime);
     if (myVehiclesToReroute.find(veh)==myVehiclesToReroute.end() && (effortBefore != effortAfter)) {
