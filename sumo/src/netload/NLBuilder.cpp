@@ -214,7 +214,7 @@ NLBuilder::buildNet() throw(ProcessError) {
 #ifdef HAVE_MESOSIM
         const std::vector<int> times = myOptions.getIntVector("save-state.times");
         for (std::vector<int>::const_iterator i = times.begin(); i != times.end(); ++i) {
-            stateDumpTimes.push_back(*i);
+            stateDumpTimes.push_back(TIME2STEPS(*i));
         }
         if (!myOptions.isDefault("save-state.prefix")) {
             const std::string prefix = myOptions.getString("save-state.prefix");
