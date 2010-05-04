@@ -112,7 +112,7 @@ GUIJunctionWrapper::drawGL(const GUIVisualizationSettings &s) const throw() {
     if (s.needsGlID) {
         glPushName(getGlID());
     }
-    glColor3f(0, 0, 0);
+    glColor3d(0, 0, 0);
     glTranslated(0, 0, .01);
     GLHelper::drawFilledPoly(myJunction.getShape(), true);
     glTranslated(0, 0, -.01);
@@ -125,7 +125,7 @@ GUIJunctionWrapper::drawGL(const GUIVisualizationSettings &s) const throw() {
         glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
         pfSetPosition(0, 0);
         pfSetScale(s.junctionNameSize / s.scale);
-        glColor3f(s.junctionNameColor.red(), s.junctionNameColor.green(), s.junctionNameColor.blue());
+        glColor3d(s.junctionNameColor.red(), s.junctionNameColor.green(), s.junctionNameColor.blue());
         SUMOReal w = pfdkGetStringWidth(getMicrosimID().c_str());
         glRotated(180, 1, 0, 0);
         glTranslated(-w/2., 0.4, 0);

@@ -305,7 +305,7 @@ GUITriggeredRerouter::drawGL(const GUIVisualizationSettings &s) const throw() {
         glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
         glBegin(GL_TRIANGLES);
-        glColor3f(1, .8f, 0);
+        glColor3d(1, .8f, 0);
         // base
         glVertex2d(0-1.4, 0);
         glVertex2d(0-1.4, 6);
@@ -316,7 +316,7 @@ GUITriggeredRerouter::drawGL(const GUIVisualizationSettings &s) const throw() {
         glEnd();
 
         glTranslated(0, 0, -.01);
-        glColor3f(0, 0, 0);
+        glColor3d(0, 0, 0);
         pfSetPosition(0, 0);
         pfSetScale(3.f);
         SUMOReal w = pfdkGetStringWidth("U");
@@ -363,13 +363,13 @@ GUITriggeredRerouter::drawGL(const GUIVisualizationSettings &s) const throw() {
                     }
                 }
                 glTranslated(0, 0, -.03);
-                glColor3f((SUMOReal) 0.7, (SUMOReal) 0, (SUMOReal) 0);
+                glColor3d(0.7, 0, 0);
                 GLHelper::drawFilledCircle((SUMOReal) 1.3, noPoints);
                 glTranslated(0, 0, -.01);
-                glColor3f(1, 0, 0);
+                glColor3d(1, 0, 0);
                 GLHelper::drawFilledCircle((SUMOReal) 1.3, noPoints, 0, prob);
                 glTranslated(0, 0, -.01);
-                glColor3f(1, 1, 1);
+                glColor3d(1, 1, 1);
                 glRotated(-90, 0, 0, 1);
                 glBegin(GL_TRIANGLES);
                 glVertex2d(0-.3, -1.);

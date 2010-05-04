@@ -133,13 +133,13 @@ GUIBusStop::drawGL(const GUIVisualizationSettings &s) const throw() {
     }
     glTranslated(0, 0, -.03);
     // draw the area
-    glColor3f((SUMOReal)(76./255.), (SUMOReal)(170./255.), (SUMOReal)(50./255.));
+    glColor3d(76./255., 170./255., 50./255.);
     size_t i;
     GLHelper::drawBoxLines(myFGShape, myFGShapeRotations, myFGShapeLengths, 1.0);
     // draw the lines
     if (s.scale*s.addExaggeration>=10) {
         glTranslated(0, 0, -.01);
-        glColor3f((SUMOReal)(76./255.), (SUMOReal)(170./255.), (SUMOReal)(50./255.));
+        glColor3d(76./255., 170./255., 50./255.);
         for (i=0; i!=myLines.size(); ++i) {
             glPushMatrix();
             glTranslated(myFGSignPos.x(), myFGSignPos.y(), 0);
@@ -167,17 +167,17 @@ GUIBusStop::drawGL(const GUIVisualizationSettings &s) const throw() {
         }
     }
     glScaled(s.addExaggeration, s.addExaggeration, 1);
-    glColor3f((SUMOReal)(76./255.), (SUMOReal)(170./255.), (SUMOReal)(50./255.));
+    glColor3d(76./255., 170./255., 50./255.);
     GLHelper::drawFilledCircle((SUMOReal) 1.1, noPoints);
     if (s.scale*s.addExaggeration>=10) {
         glTranslated(0, 0, -.01);
-        glColor3d((SUMOReal)(255./255.), (SUMOReal)(235./255.), (SUMOReal)(0./255.));
+        glColor3d(255./255., 235./255., 0./255.);
         GLHelper::drawFilledCircle((SUMOReal) 0.9, noPoints);
         glTranslated(0, 0, .01);
         // draw the H
         // not if scale to low
         if (s.scale*s.addExaggeration>=4.5) {
-            glColor3f((SUMOReal)(76./255.), (SUMOReal)(170./255.), (SUMOReal)(50./255.));
+            glColor3d(76./255., 170./255., 50./255.);
             glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
             glRotated(180, 1, 0, 0);
             glRotated(myFGSignRot, 0, 0, 1);

@@ -141,7 +141,7 @@ GUIInductLoop::MyWrapper::drawGL(const GUIVisualizationSettings &s) const throw(
     SUMOReal width = (SUMOReal) 2.0 * s.scale;
     glLineWidth(1.0);
     // shape
-    glColor3f(1, 1, 0);
+    glColor3d(1, 1, 0);
     glPushMatrix();
     glTranslated(0, 0, -.03);
     glTranslated(myFGPosition.x(), myFGPosition.y(), 0);
@@ -161,7 +161,7 @@ GUIInductLoop::MyWrapper::drawGL(const GUIVisualizationSettings &s) const throw(
 
     // outline
     if (width*s.addExaggeration>1) {
-        glColor3f(1, 1, 1);
+        glColor3d(1, 1, 1);
         glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
         glBegin(GL_QUADS);
         glVertex2f(0-1.0, 2);
@@ -175,7 +175,7 @@ GUIInductLoop::MyWrapper::drawGL(const GUIVisualizationSettings &s) const throw(
     // position indicator
     if (width*s.addExaggeration>1) {
         glRotated(90, 0, 0, -1);
-        glColor3f(1, 1, 1);
+        glColor3d(1, 1, 1);
         glBegin(GL_LINES);
         glVertex2d(0, 1.7);
         glVertex2d(0, -1.7);

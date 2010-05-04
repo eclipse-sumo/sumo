@@ -396,7 +396,7 @@ GUIParameterTracker::GUIParameterTrackerPanel::drawValue(TrackerValueDesc &desc,
     }
 
     // draw value bounderies and descriptions
-    glColor3f(red, green, blue);
+    glColor3d(red, green, blue);
 //    GUITexturesHelper::getFontRenderer().SetColor(red*0.5f, green*0.5f, blue*0.5f);
 
     // draw min time

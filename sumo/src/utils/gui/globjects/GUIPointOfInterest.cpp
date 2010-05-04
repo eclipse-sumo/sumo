@@ -119,7 +119,7 @@ GUIPointOfInterest::drawGL(const GUIVisualizationSettings &s) const throw() {
     glTranslated(x(), y(), 0);
     GLHelper::drawFilledCircle((SUMOReal) 1.3*s.poiExaggeration, 16);
     if (s.drawPOIName) {
-        glColor3f(s.poiNameColor.red(), s.poiNameColor.green(), s.poiNameColor.blue());
+        glColor3d(s.poiNameColor.red(), s.poiNameColor.green(), s.poiNameColor.blue());
         glPushMatrix();
         glTranslated((SUMOReal) 1.32*s.poiExaggeration, (SUMOReal) 1.32*s.poiExaggeration, 0);
         glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);

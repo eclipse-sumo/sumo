@@ -210,7 +210,7 @@ ROWdrawAction_drawLinkRules(const GUINet &net, const GUILaneWrapper &lane,
             glPushName(lane.getGlID());
         }
         // draw a grey bar if no links are on the street
-        glColor3f(0.5, 0.5, 0.5);
+        glColor3d(0.5, 0.5, 0.5);
         glPushMatrix();
         glTranslated(end.x(), end.y(), 0);
         glRotated(rot, 0, 0, 1);
@@ -316,7 +316,7 @@ ROWdrawAction_drawArrows(const GUILaneWrapper &lane, bool showToolTips) {
     if (showToolTips) {
         glPushName(0);
     }
-    glColor3f(1, 1, 1);
+    glColor3d(1, 1, 1);
     glEnable(GL_TEXTURE_2D);
     glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
     glDisable(GL_CULL_FACE);

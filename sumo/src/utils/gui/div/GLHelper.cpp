@@ -280,8 +280,8 @@ GLHelper::drawOutlineCircle(SUMOReal width, SUMOReal iwidth, int steps,
 
 
 void
-GLHelper::drawTriangleAtEnd(const Line2D &l, float tLength,
-                            float tWidth) throw() {
+GLHelper::drawTriangleAtEnd(const Line2D &l, SUMOReal tLength,
+                            SUMOReal tWidth) throw() {
     if (l.length()<tLength) {
         tWidth = tWidth * l.length() / tLength;
         tLength = l.length();

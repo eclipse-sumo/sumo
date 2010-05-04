@@ -379,7 +379,7 @@ GUISUMOAbstractView::paintGLGrid() {
     SUMOReal yend = myGrid->ymax();
 
     glTranslated(0, 0, .55);
-    glColor3f(0.5, 0.5, 0.5);
+    glColor3d(0.5, 0.5, 0.5);
     // draw horizontal lines
     glBegin(GL_LINES);
     for (; ypos<yend;) {
@@ -504,7 +504,7 @@ GUISUMOAbstractView::displayLegend() throw() {
     glEnable(GL_DEPTH_TEST);
 
     SUMOReal len = (SUMOReal) pixelSize / (SUMOReal)(myWidthInPixels-1) * (SUMOReal) 2.0;
-    glColor3f(0, 0, 0);
+    glColor3d(0, 0, 0);
     double o = double(15) / double(myHeightInPixels);
     double o2 = o + o;
     double oo = double(5) / double(myHeightInPixels);

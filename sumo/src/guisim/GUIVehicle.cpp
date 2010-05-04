@@ -422,7 +422,7 @@ drawAction_drawVehicleAsPoly(const GUIVehicle &veh, SUMOReal upscale) {
         drawPoly(vehiclePoly_PassengerCarBody, -4);
         glColor3dv(lighter);
         drawPoly(vehiclePoly_PassengerCarBodyFront, -4.5);
-        glColor3f(0, 0, 0);
+        glColor3d(0, 0, 0);
         drawPoly(vehiclePoly_PassengerFrontGlass, -4.5);
         break;
     case SVS_PEDESTRIAN:
@@ -460,14 +460,14 @@ drawAction_drawVehicleAsPoly(const GUIVehicle &veh, SUMOReal upscale) {
         drawPoly(vehiclePoly_PassengerCarBody, -4);
         glColor3dv(lighter);
         drawPoly(vehiclePoly_PassengerCarBodyFront, -4.5);
-        glColor3f(0, 0, 0);
+        glColor3d(0, 0, 0);
         drawPoly(vehiclePoly_PassengerFrontGlass, -4.5);
         break;
     case SVS_PASSENGER_VAN:
         drawPoly(vehiclePoly_PassengerVanBody, -4);
         glColor3dv(lighter);
         drawPoly(vehiclePoly_PassengerVanBodyFront, -4.5);
-        glColor3f(0, 0, 0);
+        glColor3d(0, 0, 0);
         drawPoly(vehiclePoly_PassengerVanFrontGlass, -4.5);
         drawPoly(vehiclePoly_PassengerVanRightGlass, -4.5);
         drawPoly(vehiclePoly_PassengerVanLeftGlass, -4.5);
@@ -477,7 +477,7 @@ drawAction_drawVehicleAsPoly(const GUIVehicle &veh, SUMOReal upscale) {
         drawPoly(vehiclePoly_PassengerVanBody, -4);
         glColor3dv(lighter);
         drawPoly(vehiclePoly_PassengerVanBodyFront, -4.5);
-        glColor3f(0, 0, 0);
+        glColor3d(0, 0, 0);
         drawPoly(vehiclePoly_PassengerVanFrontGlass, -4.5);
         drawPoly(vehiclePoly_DeliveryMediumRightGlass, -4.5);
         drawPoly(vehiclePoly_DeliveryMediumLeftGlass, -4.5);
@@ -487,7 +487,7 @@ drawAction_drawVehicleAsPoly(const GUIVehicle &veh, SUMOReal upscale) {
     case SVS_TRANSPORT_1TRAILER:
         glScaled(1./(length-veh.getVehicleType().getGuiOffset()), 1, 1.);
         drawPoly(vehiclePoly_TransportBody, -4);
-        glColor3f(0, 0, 0);
+        glColor3d(0, 0, 0);
         drawPoly(vehiclePoly_TransportFrontGlass, -4.5);
         drawPoly(vehiclePoly_TransportRightGlass, -4.5);
         drawPoly(vehiclePoly_TransportLeftGlass, -4.5);
@@ -513,7 +513,7 @@ drawAction_drawVehicleAsPoly(const GUIVehicle &veh, SUMOReal upscale) {
         glTranslated(0, 0, .04);
 
         glTranslated(0, 0, -.045);
-        glColor3f(0, 0, 0);
+        glColor3d(0, 0, 0);
         glBegin(GL_QUADS);
         glVertex2d(0+.05, .48);
         glVertex2d(0+.05, -.48);
@@ -571,7 +571,7 @@ drawAction_drawVehicleAsPoly(const GUIVehicle &veh, SUMOReal upscale) {
         break;
     case SVS_E_VEHICLE:
         drawPoly(vehiclePoly_EVehicleBody, -4);
-        glColor3f(0, 0, 0);
+        glColor3d(0, 0, 0);
         drawPoly(vehiclePoly_EVehicleFrontGlass, -4.5);
         glTranslated(0, 0, -.048);
         glColor3dv(current);
@@ -596,9 +596,9 @@ drawAction_drawVehicleAsPoly(const GUIVehicle &veh, SUMOReal upscale) {
         break;
     default: // same as passenger
         drawPoly(vehiclePoly_PassengerCarBody, -4);
-        glColor3f(1, 1, 1);
+        glColor3d(1, 1, 1);
         drawPoly(vehiclePoly_PassengerCarBodyFront, -4.5);
-        glColor3f(0, 0, 0);
+        glColor3d(0, 0, 0);
         drawPoly(vehiclePoly_PassengerFrontGlass, -4.5);
         break;
     }
@@ -709,7 +709,7 @@ drawAction_drawVehicleAsPoly(const GUIVehicle &veh, SUMOReal upscale) {
     glEnd();
 
     glPolygonOffset(0, -4.5);
-    glColor3f(1, 1, 1); // front
+    glColor3d(1, 1, 1); // front
     glBegin(GL_TRIANGLE_FAN);
     glVertex2d(0.1,0.5);
     glVertex2d(0.025,0.5);
@@ -720,7 +720,7 @@ drawAction_drawVehicleAsPoly(const GUIVehicle &veh, SUMOReal upscale) {
     glVertex2d(0.025,0.5);
     glEnd();
 
-    glColor3f(0, 0, 0); // front glass
+    glColor3d(0, 0, 0); // front glass
     glBegin(GL_TRIANGLE_FAN);
     glVertex2d(0.35,0.5);
     glVertex2d(0.3,0.5);
@@ -776,7 +776,7 @@ drawAction_drawVehicleBlinker(const GUIVehicle &veh) {
     if (veh.getVehicleType().getGuiWidth()<.5) {
         return;
     }
-    glColor3f(1.f, .8f, 0);
+    glColor3d(1.f, .8f, 0);
     glPushMatrix();
     glTranslated(dir, BLINKER_POS_FRONT+veh.getVehicleType().getGuiOffset(), 0);
     GLHelper::drawFilledCircle(.5, 6);
@@ -824,11 +824,11 @@ GUIVehicle::drawGL(const GUIVisualizationSettings &s) const throw() {
     /*
         MSLCM_DK2004 &m2 = static_cast<MSLCM_DK2004&>(veh->getLaneChangeModel());
         if((m2.getState()&LCA_URGENT)!=0) {
-            glColor3f(1, .4, .4);
+            glColor3d(1, .4, .4);
         } else if((m2.getState()&LCA_SPEEDGAIN)!=0) {
-            glColor3f(.4, .4, 1);
+            glColor3d(.4, .4, 1);
         } else {
-            glColor3f(.4, 1, .4);
+            glColor3d(.4, 1, .4);
         }
         */
     // draw the vehicle
@@ -857,19 +857,19 @@ GUIVehicle::drawGL(const GUIVisualizationSettings &s) const throw() {
         /*
                 if(gSelected.isSelected(GLO_VEHICLE, veh->getGlID())) {
                 MSLCM_DK2004 &m = static_cast<MSLCM_DK2004&>(veh->getLaneChangeModel());
-                glColor3f(.5, .5, 1);
+                glColor3d(.5, .5, 1);
                 glBegin(GL_LINES);
                 glVertex2f(0, 0);
                 glVertex2f(m.getChangeProbability(), .5);
                 glEnd();
 
-                glColor3f(1, 0, 0);
+                glColor3d(1, 0, 0);
                 glBegin(GL_LINES);
                 glVertex2f(0.1, 0);
                 glVertex2f(0.1, m.myMaxJam1);
                 glEnd();
 
-                glColor3f(0, 1, 0);
+                glColor3d(0, 1, 0);
                 glBegin(GL_LINES);
                 glVertex2f(-0.1, 0);
                 glVertex2f(-0.1, m.myTDist);
@@ -902,7 +902,7 @@ GUIVehicle::drawGL(const GUIVisualizationSettings &s) const throw() {
     if (s.drawVehicleName) {
         glTranslated(0, 0, -.06);
         // compute name colors
-        glColor3f(s.vehicleNameColor.red(), s.vehicleNameColor.green(), s.vehicleNameColor.blue());
+        glColor3d(s.vehicleNameColor.red(), s.vehicleNameColor.green(), s.vehicleNameColor.blue());
         drawAction_drawVehicleName(*this, s.vehicleNameSize / s.scale);
         glTranslated(0, 0, .06);
     }
@@ -1017,7 +1017,7 @@ GUIVehicle::Colorer::setFunctionalColor(const GUIVehicle& vehicle) const {
         SUMOReal hue = 180. + atan2(center.x()-p.x(), center.y()-p.y()) * 180. / PI;
         SUMOReal sat = p.distanceTo(center) / center.distanceTo(Position2D(b.xmin(), b.ymin()));
         RGBColor c = RGBColor::fromHSV(hue, sat, 1.);
-        glColor3f(c.red(), c.green(), c.blue());
+        glColor3d(c.red(), c.green(), c.blue());
         return true;
     }
     case 5: {
@@ -1027,7 +1027,7 @@ GUIVehicle::Colorer::setFunctionalColor(const GUIVehicle& vehicle) const {
         SUMOReal hue = 180. + atan2(center.x()-p.x(), center.y()-p.y()) * 180. / PI;
         SUMOReal sat = p.distanceTo(center) / center.distanceTo(Position2D(b.xmin(), b.ymin()));
         RGBColor c = RGBColor::fromHSV(hue, sat, 1.);
-        glColor3f(c.red(), c.green(), c.blue());
+        glColor3d(c.red(), c.green(), c.blue());
         return true;
     }
     case 6: {
@@ -1039,7 +1039,7 @@ GUIVehicle::Colorer::setFunctionalColor(const GUIVehicle& vehicle) const {
         Position2D maxp(b.xmax(), b.ymax());
         SUMOReal sat = pb.distanceTo(pe) / minp.distanceTo(maxp);
         RGBColor c = RGBColor::fromHSV(hue, sat, 1.);
-        glColor3f(c.red(), c.green(), c.blue());
+        glColor3d(c.red(), c.green(), c.blue());
         return true;
     }
     }

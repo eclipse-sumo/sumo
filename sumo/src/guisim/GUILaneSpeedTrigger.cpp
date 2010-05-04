@@ -361,11 +361,11 @@ GUILaneSpeedTrigger::drawGL(const GUIVisualizationSettings &s) const throw() {
                 noPoints = 36;
             }
         }
-        glColor3f(1, 0, 0);
+        glColor3d(1, 0, 0);
         GLHelper::drawFilledCircle((SUMOReal) 1.3, noPoints);
         if (s.scale>=5) {
             glTranslated(0, 0, -.01);
-            glColor3f(0, 0, 0);
+            glColor3d(0, 0, 0);
             GLHelper::drawFilledCircle((SUMOReal) 1.1, noPoints);
             // draw the speed string
             // not if scale to low
@@ -389,7 +389,7 @@ GUILaneSpeedTrigger::drawGL(const GUIVisualizationSettings &s) const throw() {
                 }
             }
             //draw
-            glColor3f(1, 1, 0);
+            glColor3d(1, 1, 0);
             glTranslated(0, 0, -.01);
             glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
             pfSetPosition(0, 0);

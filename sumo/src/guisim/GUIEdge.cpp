@@ -294,9 +294,9 @@ GUIEdge::drawGL(const GUIVisualizationSettings &s) const throw() {
     if ((s.drawEdgeName && myFunction == EDGEFUNCTION_NORMAL) || (s.drawInternalEdgeName && myFunction != EDGEFUNCTION_NORMAL)) {
         float nameSize = s.edgeNameSize;
         if (myFunction == EDGEFUNCTION_NORMAL) {
-            glColor3f(s.edgeNameColor.red(), s.edgeNameColor.green(), s.edgeNameColor.blue());
+            glColor3d(s.edgeNameColor.red(), s.edgeNameColor.green(), s.edgeNameColor.blue());
         } else {
-            glColor3f(s.internalEdgeNameColor.red(), s.internalEdgeNameColor.green(), s.internalEdgeNameColor.blue());
+            glColor3d(s.internalEdgeNameColor.red(), s.internalEdgeNameColor.green(), s.internalEdgeNameColor.blue());
             nameSize = s.internalEdgeNameSize;
         }
         GUILaneWrapper *lane1 = myLaneGeoms[0];

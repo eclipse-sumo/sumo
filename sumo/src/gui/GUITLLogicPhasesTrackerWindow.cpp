@@ -371,7 +371,7 @@ GUITLLogicPhasesTrackerWindow::drawValues(GUITLLogicPhasesTrackerPanel &caller) 
             switch (state) {
             case MSLink::LINKSTATE_TL_GREEN_MAJOR:
             case MSLink::LINKSTATE_TL_GREEN_MINOR:
-                glColor3f(0, 1.0, 0);
+                glColor3d(0, 1.0, 0);
                 glBegin(GL_QUADS);
                 glVertex2d(x, h - h16);
                 glVertex2d(x, h - h4);
@@ -381,7 +381,7 @@ GUITLLogicPhasesTrackerWindow::drawValues(GUITLLogicPhasesTrackerPanel &caller) 
                 break;
             case MSLink::LINKSTATE_TL_YELLOW_MAJOR:
             case MSLink::LINKSTATE_TL_YELLOW_MINOR:
-                glColor3f(1.0, 1.0, 0);
+                glColor3d(1.0, 1.0, 0);
                 glBegin(GL_QUADS);
                 glVertex2d(x, h - h16);
                 glVertex2d(x, h - h4);
@@ -390,7 +390,7 @@ GUITLLogicPhasesTrackerWindow::drawValues(GUITLLogicPhasesTrackerPanel &caller) 
                 glEnd();
                 break;
             case MSLink::LINKSTATE_TL_RED:
-                glColor3f(1.0, 0, 0);
+                glColor3d(1.0, 0, 0);
                 glBegin(GL_LINES);
                 glVertex2d(x, h - h10);
                 glVertex2d(x2, h - h10);

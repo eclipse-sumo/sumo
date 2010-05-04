@@ -416,7 +416,7 @@ GUIEmitter::drawGL(const GUIVisualizationSettings &s) const throw() {
     glScaled(s.addExaggeration, s.addExaggeration, 1);
     glRotated(myFGRotation, 0, 0, 1);
 
-    glColor3f(1, 0, 0);
+    glColor3d(1, 0, 0);
     // base
     glTranslated(0, 0, -.03);
     glBegin(GL_TRIANGLES);
@@ -431,7 +431,7 @@ GUIEmitter::drawGL(const GUIVisualizationSettings &s) const throw() {
     // arrows
     glTranslated(0, 0, -.01);
     glBegin(GL_TRIANGLES);
-    glColor3f(1, 1, 0);
+    glColor3d(1, 1, 0);
     glVertex2d(0, 1-.5);
     glVertex2d(0-1.25, 1+2-.5);
     glVertex2d(0+1.25, 1+2-.5);

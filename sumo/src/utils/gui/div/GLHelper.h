@@ -224,8 +224,8 @@ public:
      * @param[in] tLength The length of the triangle
      * @param[in] tWidth The width of the triangle
      */
-    static void drawTriangleAtEnd(const Line2D &l, float tLength,
-                                  float tWidth) throw();
+    static void drawTriangleAtEnd(const Line2D &l, SUMOReal tLength,
+                                  SUMOReal tWidth) throw();
 
 private:
     /// @brief Storage for precomputed sin/cos-values describing a circle
