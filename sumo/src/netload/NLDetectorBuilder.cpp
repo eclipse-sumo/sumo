@@ -566,7 +566,7 @@ NLDetectorBuilder::createEdgeLaneMeanData(const std::string &id, SUMOTime freque
         throw InvalidArgument("Negative begin time for meandata dump '" + id + "'.");
     }
     if (end < 0) {
-        end = INT_MAX;
+        end = SUMOTime_MAX;
     }
     if (end <= begin) {
         throw InvalidArgument("End before or at begin for meandata dump '" + id + "'.");

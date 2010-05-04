@@ -133,9 +133,9 @@ MSLink::opened(SUMOTime arrivalTime, SUMOReal arrivalSpeed) const throw() {
         return false;
     }
 #ifdef HAVE_INTERNAL_LANES
-    SUMOTime leaveTime = myJunctionInlane==0 ? arrivalTime + getLength() * arrivalSpeed : arrivalTime + this->myJunctionInlane->getLength() * arrivalSpeed;
+    SUMOTime leaveTime = myJunctionInlane==0 ? arrivalTime + TIME2STEPS(getLength() * arrivalSpeed) : arrivalTime + TIME2STEPS(this->myJunctionInlane->getLength() * arrivalSpeed);
 #else
-    SUMOTime leaveTime = arrivalTime + getLength() * arrivalSpeed;
+    SUMOTime leaveTime = arrivalTime + TIME2STEPS(getLength() * arrivalSpeed);
 #endif
     for (std::vector<MSLink*>::const_iterator i=myFoeLinks.begin(); i!=myFoeLinks.end(); ++i) {
         if ((*i)->blockedAtTime(arrivalTime, leaveTime)) {

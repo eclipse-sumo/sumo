@@ -1271,7 +1271,7 @@ MSVehicle::vsafeCriticalCont(SUMOTime t, SUMOReal boundVSafe, SUMOReal lengthsIn
         SUMOTime arrivalTime = 0;
         SUMOTime leaveTime = 0;
         if (setRequest) {
-            arrivalTime = t + seen / vLinkPass;
+            arrivalTime = t + TIME2STEPS(seen / vLinkPass);
         }
         myLFLinkLanes.push_back(DriveProcessItem(*link, vLinkPass, vLinkWait, setRequest, arrivalTime, vLinkPass));
         seen += nextLane->getLength();

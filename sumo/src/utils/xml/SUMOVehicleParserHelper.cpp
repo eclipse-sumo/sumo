@@ -99,7 +99,9 @@ SUMOVehicleParserHelper::parseFlowAttributes(const SUMOSAXAttributes &attrs) thr
         throw ProcessError("Negative begin time in the definition of flow '" + id + "'.");
     }
     SUMOTime end = string2time(OptionsCont::getOptions().getString("end"));
-    if (end<0) end=INT_MAX;
+    if (end<0) {
+        end=SUMOTime_MAX;
+    }
     if (attrs.hasAttribute(SUMO_ATTR_END)) {
         end = attrs.getSUMOTimeReporting(SUMO_ATTR_END, "flow", id.c_str(), ok);
     }
@@ -122,7 +124,7 @@ SUMOVehicleParserHelper::parseFlowAttributes(const SUMOSAXAttributes &attrs) thr
             delete ret;
             throw ProcessError("Invalid repetition rate in the definition of flow '" + id + "'.");
         }
-        if (end == INT_MAX) {
+        if (end == SUMOTime_MAX) {
             ret->repetitionNumber = INT_MAX;
         } else {
             ret->repetitionNumber = (int)((end - ret->depart) / ret->repetitionOffset + 0.5);

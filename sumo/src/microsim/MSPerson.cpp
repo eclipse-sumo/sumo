@@ -174,7 +174,7 @@ void
 MSPerson::MSPersonStage_Waiting::proceed(MSNet* net,
         MSPerson* person, SUMOTime now,
         const MSEdge & /*previousEdge*/) {
-    const SUMOReal until = MAX3(now, now + myWaitingDuration, myWaitingUntil);
+    const SUMOTime until = MAX3(now, now + myWaitingDuration, myWaitingUntil);
     net->getPersonControl().setArrival(until, person);
 }
 

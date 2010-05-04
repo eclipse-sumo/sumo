@@ -242,7 +242,7 @@ ROLoader::processAllRoutes(SUMOTime start, SUMOTime end,
     long absNo = end - start;
     bool ok = true;
     for (RouteLoaderCont::iterator i=myHandler.begin(); ok&&i!=myHandler.end(); i++) {
-        ok &= (*i)->readRoutesAtLeastUntil(INT_MAX, false);
+        ok &= (*i)->readRoutesAtLeastUntil(SUMOTime_MAX, false);
     }
     // save the routes
     SUMOTime time = start;

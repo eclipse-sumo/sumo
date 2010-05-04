@@ -36,11 +36,15 @@
 // ===========================================================================
 // type definitions
 // ===========================================================================
-#ifndef HAVE_SUBSECOND_TIMESTEPS
-
 typedef int SUMOTime;
+#define SUMOTime_MAX INT_MAX
+
+#ifndef HAVE_SUBSECOND_TIMESTEPS
 // the step length in s
 #define DELTA_T 1
+
+#define TS (static_cast<SUMOReal>(1.))
+
 // x*deltaT
 #define SPEED2DIST(x) (x)
 // x/deltaT
@@ -54,14 +58,13 @@ typedef int SUMOTime;
 
 #define STEPS2TIME(x) (static_cast<SUMOReal>(x))
 #define TIME2STEPS(x) (static_cast<SUMOTime>(x))
-#define TMOD(x,y) (x%y)
 
 #else
 
-typedef int SUMOTime;
+// the step length in s
 extern SUMOTime DELTA_T;
 
-#define TS ((SUMOReal) DELTA_T/1000.)
+#define TS (static_cast<SUMOReal>(DELTA_T/1000.))
 
 // x*deltaT
 #define SPEED2DIST(x) ((x)*TS)
@@ -76,8 +79,6 @@ extern SUMOTime DELTA_T;
 
 #define STEPS2TIME(x) (static_cast<SUMOReal>((x)/1000.))
 #define TIME2STEPS(x) (static_cast<SUMOTime>((x)*1000))
-#define TMOD(x,y) (x%y)
-//(fmod(x,y))
 
 #endif
 

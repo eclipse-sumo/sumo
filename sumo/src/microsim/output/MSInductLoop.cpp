@@ -155,7 +155,7 @@ MSInductLoop::getCurrentLength() const throw() {
 
 SUMOReal
 MSInductLoop::getCurrentOccupancy() const throw() {
-    SUMOReal tbeg = MSNet::getInstance()->getCurrentTimeStep()-DELTA_T;
+    SUMOTime tbeg = MSNet::getInstance()->getCurrentTimeStep()-DELTA_T;
     std::vector<VehicleData> d = collectVehiclesOnDet(tbeg);
     if(d.size()==0) {
         return -1;

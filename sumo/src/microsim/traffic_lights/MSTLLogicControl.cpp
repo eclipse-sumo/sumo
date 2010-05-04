@@ -496,15 +496,14 @@ MSTLLogicControl::WAUTSwitchProcedure_Stretch::stretchLogic(SUMOTime step, unsig
     size_t remainingStretchTime = allStretchTime;
     int StretchTimeOfPhase = 0;
     size_t stretchUmlaufAnz = (size_t) TplConvert<char>::_2SUMOReal(LogicTo->getParameterValue("StretchUmlaufAnz").c_str());
-    float facSum = 0;
+    SUMOReal facSum = 0;
     int noBereiche = getStretchBereicheNo(myTo);
     int x;
     for (x=0; x<noBereiche; x++) {
         StretchBereichDef def = getStretchBereichDef(myTo, x+1);
-        size_t fac = (size_t) def.fac;
-        facSum = facSum + fac;
+        facSum += def.fac;
     }
-    facSum = facSum * stretchUmlaufAnz;
+    facSum *= stretchUmlaufAnz;
 
 
     //switch to startPos and stretch this phase, if there is a end of "bereich" between startpos and end of phase
@@ -514,8 +513,8 @@ MSTLLogicControl::WAUTSwitchProcedure_Stretch::stretchLogic(SUMOTime step, unsig
         size_t end = (size_t) def.end;
         size_t endOfPhase = (size_t)(currPos + durOfPhase - diffToStart);
         if (end <= endOfPhase && end >= currPos) {
-            float fac = def.fac;
-            float actualfac = fac / facSum;
+            SUMOReal fac = def.fac;
+            SUMOReal actualfac = fac / facSum;
             facSum = facSum - fac;
             StretchTimeOfPhase = (int)((float)remainingStretchTime * actualfac + 0.5);
             remainingStretchTime = allStretchTime - StretchTimeOfPhase;
@@ -540,11 +539,11 @@ MSTLLogicControl::WAUTSwitchProcedure_Stretch::stretchLogic(SUMOTime step, unsig
                 size_t end = (size_t) def.end;
                 SUMOReal fac = def.fac;
                 if ((beginOfPhase <= end) && (endOfPhase >= end)) {
-                    float actualfac = fac / facSum;
+                    SUMOReal actualfac = fac / facSum;
                     StretchTimeOfPhase = (int)((float)remainingStretchTime * actualfac + 0.5) ;
-                    facSum = facSum - fac;
-                    durOfPhase = durOfPhase + StretchTimeOfPhase;
-                    remainingStretchTime = remainingStretchTime - StretchTimeOfPhase;
+                    facSum -= fac;
+                    durOfPhase += StretchTimeOfPhase;
+                    remainingStretchTime -= StretchTimeOfPhase;
                 }
             }
             LogicTo->addOverridingDuration(durOfPhase);
@@ -737,7 +736,7 @@ MSTLLogicControl::addWAUTSwitch(const std::string &wautid,
     // build and save the waut switch definition
     WAUTSwitch s;
     s.to = to;
-    s.when = (SUMOTime) TMOD((myWAUTs[wautid]->refTime + when),86400000);
+    s.when = (myWAUTs[wautid]->refTime + when) % 86400000;
     myWAUTs[wautid]->switches.push_back(s);
 }
 
