@@ -586,6 +586,8 @@ NLDetectorBuilder::createEdgeLaneMeanData(const std::string &id, SUMOTime freque
     } else if (type=="harmonoise") {
         det = new MSMeanData_Harmonoise(id, begin, end, useLanes, withEmpty, trackVehicles,
                                         maxTravelTime, minSamples, vt);
+    } else {
+        throw InvalidArgument("Invalid type '" + type + "' for meandata dump '" + id + "'.");
     }
     if (det!=0) {
         det->init(MSNet::getInstance()->getEdgeControl().getEdges(), withInternal);

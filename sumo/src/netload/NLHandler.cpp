@@ -1110,7 +1110,7 @@ NLHandler::addEdgeLaneMeanData(const SUMOSAXAttributes &attrs, const char* objec
     const bool withInternal = attrs.getOptBoolReporting(SUMO_ATTR_WITH_INTERNAL, objecttype, id.c_str(), ok, false);
     const bool trackVehicles = attrs.getOptBoolReporting(SUMO_ATTR_TRACK_VEHICLES, objecttype, id.c_str(), ok, false);
     const std::string file = attrs.getStringReporting(SUMO_ATTR_FILE, objecttype, id.c_str(), ok);
-    const std::string type = attrs.getOptStringReporting(SUMO_ATTR_TYPE, objecttype, id.c_str(), ok, objecttype);
+    const std::string type = attrs.getOptStringReporting(SUMO_ATTR_TYPE, objecttype, id.c_str(), ok, "performance");
     const std::string vtypes = attrs.getOptStringReporting(SUMO_ATTR_VTYPES, objecttype, id.c_str(), ok, "");
     const SUMOTime frequency = attrs.getOptSUMOTimeReporting(SUMO_ATTR_FREQUENCY, objecttype, id.c_str(), ok, -1);
     const SUMOTime begin = attrs.getOptSUMOTimeReporting(SUMO_ATTR_BEGIN, objecttype, id.c_str(), ok, string2time(OptionsCont::getOptions().getString("begin")));
