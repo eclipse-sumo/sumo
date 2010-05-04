@@ -990,15 +990,15 @@ NLHandler::addE2Detector(const SUMOSAXAttributes &attrs) {
     }
     //
     try {
-        SUMOReal haltingTimeThreshold = attrs.getOptSUMORealReporting(SUMO_ATTR_HALTING_TIME_THRESHOLD, "e2-detector", id.c_str(), ok, 1.0f);
-        SUMOReal haltingSpeedThreshold = attrs.getOptSUMORealReporting(SUMO_ATTR_HALTING_SPEED_THRESHOLD, "e2-detector", id.c_str(), ok, 5.0f/3.6f);
-        SUMOReal jamDistThreshold = attrs.getOptSUMORealReporting(SUMO_ATTR_JAM_DIST_THRESHOLD, "e2-detector", id.c_str(), ok, 10.0f);
-        SUMOReal position = attrs.getSUMORealReporting(SUMO_ATTR_POSITION, "e2-detector", id.c_str(), ok);
-        SUMOReal length = attrs.getSUMORealReporting(SUMO_ATTR_LENGTH, "e2-detector", id.c_str(), ok);
-        bool friendlyPos = attrs.getOptBoolReporting(SUMO_ATTR_FRIENDLY_POS, "e2-detector", id.c_str(), ok, false);
-        bool cont = attrs.getOptBoolReporting(SUMO_ATTR_CONT, "e2-detector", id.c_str(), ok, false);
-        std::string lane = attrs.getStringReporting(SUMO_ATTR_LANE, "e2-detector", id.c_str(), ok);
-        std::string file = attrs.getStringReporting(SUMO_ATTR_FILE, "e2-detector", id.c_str(), ok);
+        const SUMOTime haltingTimeThreshold = attrs.getOptSUMOTimeReporting(SUMO_ATTR_HALTING_TIME_THRESHOLD, "e2-detector", id.c_str(), ok, TIME2STEPS(1));
+        const SUMOReal haltingSpeedThreshold = attrs.getOptSUMORealReporting(SUMO_ATTR_HALTING_SPEED_THRESHOLD, "e2-detector", id.c_str(), ok, 5.0f/3.6f);
+        const SUMOReal jamDistThreshold = attrs.getOptSUMORealReporting(SUMO_ATTR_JAM_DIST_THRESHOLD, "e2-detector", id.c_str(), ok, 10.0f);
+        const SUMOReal position = attrs.getSUMORealReporting(SUMO_ATTR_POSITION, "e2-detector", id.c_str(), ok);
+        const SUMOReal length = attrs.getSUMORealReporting(SUMO_ATTR_LENGTH, "e2-detector", id.c_str(), ok);
+        const bool friendlyPos = attrs.getOptBoolReporting(SUMO_ATTR_FRIENDLY_POS, "e2-detector", id.c_str(), ok, false);
+        const bool cont = attrs.getOptBoolReporting(SUMO_ATTR_CONT, "e2-detector", id.c_str(), ok, false);
+        const std::string lane = attrs.getStringReporting(SUMO_ATTR_LANE, "e2-detector", id.c_str(), ok);
+        const std::string file = attrs.getStringReporting(SUMO_ATTR_FILE, "e2-detector", id.c_str(), ok);
         if (!ok) {
             return;
         }
@@ -1050,10 +1050,10 @@ NLHandler::beginE3Detector(const SUMOSAXAttributes &attrs) {
     if (attrs.getOptStringReporting(SUMO_ATTR_STYLE, "e3-detector", id.c_str(), ok, "<invalid>")!="<invalid>") {
         MsgHandler::getWarningInstance()->inform("While parsing E3-detector '" + id + "': 'style' is deprecated.");
     }
-    SUMOTime frequency = attrs.getSUMOTimeReporting(SUMO_ATTR_FREQUENCY, "e3-detector", id.c_str(), ok);
-    SUMOReal haltingTimeThreshold = attrs.getOptSUMORealReporting(SUMO_ATTR_HALTING_TIME_THRESHOLD, "e3-detector", id.c_str(), ok, 1.0f);
-    SUMOReal haltingSpeedThreshold = attrs.getOptSUMORealReporting(SUMO_ATTR_HALTING_SPEED_THRESHOLD, "e3-detector", id.c_str(), ok, 5.0f/3.6f);
-    std::string file = attrs.getStringReporting(SUMO_ATTR_FILE, "e3-detector", id.c_str(), ok);
+    const SUMOTime frequency = attrs.getSUMOTimeReporting(SUMO_ATTR_FREQUENCY, "e3-detector", id.c_str(), ok);
+    const SUMOTime haltingTimeThreshold = attrs.getOptSUMOTimeReporting(SUMO_ATTR_HALTING_TIME_THRESHOLD, "e3-detector", id.c_str(), ok, TIME2STEPS(1));
+    const SUMOReal haltingSpeedThreshold = attrs.getOptSUMORealReporting(SUMO_ATTR_HALTING_SPEED_THRESHOLD, "e3-detector", id.c_str(), ok, 5.0f/3.6f);
+    const std::string file = attrs.getStringReporting(SUMO_ATTR_FILE, "e3-detector", id.c_str(), ok);
     if (!ok) {
         return;
     }
@@ -1072,9 +1072,9 @@ NLHandler::beginE3Detector(const SUMOSAXAttributes &attrs) {
 void
 NLHandler::addE3Entry(const SUMOSAXAttributes &attrs) {
     bool ok = true;
-    SUMOReal position = attrs.getSUMORealReporting(SUMO_ATTR_POSITION, "e3-detector/entry", myDetectorBuilder.getCurrentE3ID().c_str(), ok);
-    bool friendlyPos = attrs.getOptBoolReporting(SUMO_ATTR_FRIENDLY_POS, "e3-detector/entry", myDetectorBuilder.getCurrentE3ID().c_str(), ok, false);
-    std::string lane = attrs.getStringReporting(SUMO_ATTR_LANE, "e3-detector/entry", myDetectorBuilder.getCurrentE3ID().c_str(), ok);
+    const SUMOReal position = attrs.getSUMORealReporting(SUMO_ATTR_POSITION, "e3-detector/entry", myDetectorBuilder.getCurrentE3ID().c_str(), ok);
+    const bool friendlyPos = attrs.getOptBoolReporting(SUMO_ATTR_FRIENDLY_POS, "e3-detector/entry", myDetectorBuilder.getCurrentE3ID().c_str(), ok, false);
+    const std::string lane = attrs.getStringReporting(SUMO_ATTR_LANE, "e3-detector/entry", myDetectorBuilder.getCurrentE3ID().c_str(), ok);
     if (!ok) {
         return;
     }
@@ -1085,9 +1085,9 @@ NLHandler::addE3Entry(const SUMOSAXAttributes &attrs) {
 void
 NLHandler::addE3Exit(const SUMOSAXAttributes &attrs) {
     bool ok = true;
-    SUMOReal position = attrs.getSUMORealReporting(SUMO_ATTR_POSITION, "e3-detector/exit", myDetectorBuilder.getCurrentE3ID().c_str(), ok);
-    bool friendlyPos = attrs.getOptBoolReporting(SUMO_ATTR_FRIENDLY_POS, "e3-detector/exit", myDetectorBuilder.getCurrentE3ID().c_str(), ok, false);
-    std::string lane = attrs.getStringReporting(SUMO_ATTR_LANE, "e3-detector/exit", myDetectorBuilder.getCurrentE3ID().c_str(), ok);
+    const SUMOReal position = attrs.getSUMORealReporting(SUMO_ATTR_POSITION, "e3-detector/exit", myDetectorBuilder.getCurrentE3ID().c_str(), ok);
+    const bool friendlyPos = attrs.getOptBoolReporting(SUMO_ATTR_FRIENDLY_POS, "e3-detector/exit", myDetectorBuilder.getCurrentE3ID().c_str(), ok, false);
+    const std::string lane = attrs.getStringReporting(SUMO_ATTR_LANE, "e3-detector/exit", myDetectorBuilder.getCurrentE3ID().c_str(), ok);
     if (!ok) {
         return;
     }

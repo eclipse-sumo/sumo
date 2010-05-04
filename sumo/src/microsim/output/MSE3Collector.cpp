@@ -319,8 +319,8 @@ MSE3Collector::update(SUMOTime execTime) throw() {
             }
             continue;
         }
-        values.speedSum += veh->getSpeed() / (1000. / (SUMOReal) DELTA_T);
-        values.intervalSpeedSum += veh->getSpeed() / (1000. / (SUMOReal) DELTA_T);
+        values.speedSum += veh->getSpeed() * TS;
+        values.intervalSpeedSum += veh->getSpeed() * TS;
         myCurrentMeanSpeed += veh->getSpeed();
         myCurrentTouchedVehicles += 1;
         if (veh->getSpeed() < myHaltingSpeedThreshold) {
