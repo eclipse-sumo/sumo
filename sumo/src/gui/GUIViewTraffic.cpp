@@ -451,7 +451,7 @@ GUIViewTraffic::onGamingClick(Position2D pos) {
         const std::vector<MSTrafficLightLogic*> logics = vars.getAllLogics();
         if (logics.size() > 1) {
             MSSimpleTrafficLightLogic *l = (MSSimpleTrafficLightLogic*) logics[0];
-            for (int i = 0; i < logics.size()-1; i++) {
+            for (unsigned int i = 0; i < logics.size()-1; i++) {
                 if (minTll->getSubID() == logics[i]->getSubID()) {
                     l = (MSSimpleTrafficLightLogic*) logics[i+1];
                     tlsControl.switchTo(minTll->getID(), l->getSubID());
