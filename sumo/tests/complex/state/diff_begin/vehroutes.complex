@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 04/07/10 18:10:00 by SUMO sumo Version dev-SVN-r8572
+<!-- generated on 05/05/10 15:41:13 by SUMO sumo Version dev-SVN-r8725
 <configuration>
 
     <input>
@@ -29,11 +29,11 @@
 -->
 
 <routes>
-    <vehicle id="0" depart="0" arrival="108.00">
+    <vehicle id="0" depart="0.00" arrival="108.00">
         <route edges="4/1to3/1 3/1to2/1 2/1to1/1 1/1to0/1"/>
     </vehicle>
 
-    <vehicle id="1" depart="5" arrival="113.00">
+    <vehicle id="1" depart="5.00" arrival="113.00">
         <route edges="4/1to3/1 3/1to2/1 2/1to1/1 1/1to0/1"/>
     </vehicle>
 
