@@ -29,6 +29,7 @@
 #include <config.h>
 #endif
 
+#include <climits>
 #include <string>
 #include "UtilExceptions.h"
 
