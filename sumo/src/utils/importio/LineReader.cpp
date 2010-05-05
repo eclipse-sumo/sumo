@@ -87,7 +87,7 @@ LineReader::readLine(LineHandler &lh) throw(ProcessError) {
         if (idx!=std::string::npos) {
             toReport = myStrBuffer.substr(0, idx);
             myStrBuffer = myStrBuffer.substr(idx+1);
-            myRread += idx+1;
+            myRread += (unsigned int)idx+1;
         } else {
             if (myRead<myAvailable) {
                 myStrm.read(myBuffer,
@@ -139,7 +139,7 @@ LineReader::readLine() throw() {
         if (idx!=std::string::npos) {
             toReport = myStrBuffer.substr(0, idx);
             myStrBuffer = myStrBuffer.substr(idx+1);
-            myRread += idx+1;
+            myRread += (unsigned int) idx+1;
         } else {
             if (myRead<myAvailable) {
                 myStrm.read(myBuffer,

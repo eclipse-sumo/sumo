@@ -260,7 +260,7 @@ NIXMLEdgesHandler::myStartElement(SumoXMLTag element,
         if (e.pos<0) {
             e.pos = myCurrentEdge->getGeometry().length() - e.pos;
         }
-        e.nameid = e.pos;
+        e.nameid = (int)e.pos;
         if (ok) {
             if (myCurrentEdge==0) {
                 if (!OptionsCont::getOptions().isInStringVector("remove-edges", myCurrentID)) {

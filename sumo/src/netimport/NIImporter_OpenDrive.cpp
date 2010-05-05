@@ -153,7 +153,7 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
             std::string nid = id1+"."+id2;
             if (nb.getNodeCont().retrieve(nid)==0) {
                 // not yet seen, build
-                Position2D pos = l.linkType==OPENDRIVE_LT_SUCCESSOR ? e.geom[e.geom.size()-1] : e.geom[0];
+                Position2D pos = l.linkType==OPENDRIVE_LT_SUCCESSOR ? e.geom[(int)e.geom.size()-1] : e.geom[0];
                 if (!nb.getNodeCont().insert(nid, pos)) {
                     throw ProcessError("Could not build node '" + nid + "'.");
                 }
@@ -210,7 +210,7 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
         if (e.to==0) {
             std::string nid = e.id + ".end";
             Position2D pos(e.geometries[e.geometries.size()-1].x, e.geometries[e.geometries.size()-1].y);
-            e.to = getOrBuildNode(nid, e.geom[e.geom.size()-1], nb.getNodeCont());
+            e.to = getOrBuildNode(nid, e.geom[(int)e.geom.size()-1], nb.getNodeCont());
         }
     }
 
