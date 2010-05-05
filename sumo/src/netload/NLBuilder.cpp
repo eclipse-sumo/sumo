@@ -134,10 +134,10 @@ NLBuilder::build() throw(ProcessError) {
             MsgHandler::getMessageInstance()->beginProcessMsg("Loading state from '" + myOptions.getString("load-state") + "'...");
             unsigned int step = myNet.loadState(strm);
             if (myOptions.isDefault("begin")) {
-                myOptions.set("begin", toString(step));
+                myOptions.set("begin", time2string(step));
             }
-            if (step != myOptions.getInt("begin")) {
-                WRITE_WARNING("State was written at a different time " + toString(step) + " than the begin time " + toString(myOptions.getInt("begin")) + "!");
+            if (step != string2time(myOptions.getString("begin"))) {
+                WRITE_WARNING("State was written at a different time " + time2string(step) + " than the begin time " + myOptions.getString("begin") + "!");
             }
         }
         if (MsgHandler::getErrorInstance()->wasInformed()) {
@@ -219,7 +219,7 @@ NLBuilder::buildNet() throw(ProcessError) {
         if (!myOptions.isDefault("save-state.prefix")) {
             const std::string prefix = myOptions.getString("save-state.prefix");
             for (std::vector<SUMOTime>::iterator i = stateDumpTimes.begin(); i != stateDumpTimes.end(); ++i) {
-                stateDumpFiles.push_back(prefix + "_" + toString(*i) + ".bin");
+                stateDumpFiles.push_back(prefix + "_" + time2string(*i) + ".bin");
             }
         } else {
             stateDumpFiles = StringTokenizer(myOptions.getString("save-state.files")).getVector() ;
