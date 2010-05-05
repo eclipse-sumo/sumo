@@ -43,7 +43,7 @@
 TrackerValueDesc::TrackerValueDesc(const std::string &name,
                                    const RGBColor &col,
                                    GUIGlObject *o,
-                                   size_t recordBegin)
+                                   SUMOTime recordBegin)
         : myName(name), myObject(o),
         myActiveCol(col), myInactiveCol(col),
         myMin(0), myMax(0),
@@ -62,41 +62,27 @@ TrackerValueDesc::~TrackerValueDesc() {
 void
 TrackerValueDesc::addValue(SUMOReal value) {
     if (myValues.size()==0) {
-        myMin = (SUMOReal) value;
-        myMax = (SUMOReal) value;
+        myMin = value;
+        myMax = value;
     } else {
-        myMin = (SUMOReal) value < myMin ? (SUMOReal) value : myMin;
-        myMax = (SUMOReal) value > myMax ? (SUMOReal) value : myMax;
+        myMin = value < myMin ? value : myMin;
+        myMax = value > myMax ? value : myMax;
     }
     myLock.lock();
-    myValues.push_back((SUMOReal) value);
+    myValues.push_back(value);
     if (value!=myInvalidValue) {
-        myTmpLastAggValue += (SUMOReal) value;
+        myTmpLastAggValue += value;
         myValidNo++;
     }
-    // check what to do with aggregated values
-    if (myValues.size()!=0&&myValues.size()%myAggregationInterval==0) {
-        // ok, a new aggregation is filled completely. Set.
-        if (myValidNo!=0) {
-            myAggregatedValues.push_back(
-                myTmpLastAggValue / (SUMOReal) myValidNo);
-        } else {
-            myAggregatedValues.push_back(0);
-        }
+    const SUMOReal avg = myValidNo==0 ? static_cast<SUMOReal>(0) : myTmpLastAggValue / static_cast<SUMOReal>(myValidNo);
+    if (myAggregationInterval==1 || myValues.size()%myAggregationInterval==1) {
+        myAggregatedValues.push_back(avg);
+    } else {
+        myAggregatedValues.back() = avg;
+    }
+    if (myValues.size()%myAggregationInterval==0) {
         myTmpLastAggValue = 0;
         myValidNo = 0;
-    } else {
-        // remove the one previously set
-        if (myAggregatedValues.size()!=0) {
-            myAggregatedValues.erase(myAggregatedValues.end()-1);
-        }
-        // append newly computed
-        if (myValidNo!=0) {
-            myAggregatedValues.push_back(
-                myTmpLastAggValue / (SUMOReal) myValidNo);
-        } else {
-            myAggregatedValues.push_back(0);
-        }
     }
     myLock.unlock();
 }
@@ -104,8 +90,6 @@ TrackerValueDesc::addValue(SUMOReal value) {
 
 SUMOReal
 TrackerValueDesc::getRange() const {
-    getMin();
-    getMax();
     return myMax - myMin;
 }
 
@@ -124,8 +108,6 @@ TrackerValueDesc::getMax() const {
 
 SUMOReal
 TrackerValueDesc::getYCenter() const {
-    getMin();
-    getMax();
     return (myMin + myMax) / 2.0f;
 }
 
@@ -162,43 +144,41 @@ TrackerValueDesc::unlockValues() {
 
 
 void
-TrackerValueDesc::setAggregationSpan(size_t as) {
+TrackerValueDesc::setAggregationSpan(SUMOTime as) {
     myLock.lock();
-    if (myAggregationInterval!=as) {
+    if (myAggregationInterval != as/DELTA_T) {
+        myAggregationInterval = as/DELTA_T;
         // ok, the aggregation has changed,
         //  let's recompute the list of aggregated values
         myAggregatedValues.clear();
-        std::vector<SUMOReal>::iterator i;
-        for (i=myValues.begin(); i!=myValues.end();) {
-            SUMOReal value = 0;
+        std::vector<SUMOReal>::const_iterator i=myValues.begin();
+        while (i!=myValues.end()) {
+            myTmpLastAggValue = 0;
             myValidNo = 0;
-            for (size_t j=0; j<as&&i!=myValues.end(); j++, ++i) {
+            for (size_t j=0; j<myAggregationInterval&&i!=myValues.end(); j++, ++i) {
                 if ((*i)!=myInvalidValue) {
-                    value += (*i);
+                    myTmpLastAggValue += (*i);
                     myValidNo++;
                 }
             }
             if (myValidNo==0) {
                 myAggregatedValues.push_back(0);
-                myTmpLastAggValue = 0;
             } else {
-                myAggregatedValues.push_back(value / (SUMOReal) myValidNo);
-                myTmpLastAggValue = value / (SUMOReal) myValidNo;
+                myAggregatedValues.push_back(myTmpLastAggValue / static_cast<SUMOReal>(myValidNo));
             }
         }
     }
-    myAggregationInterval = as;
     myLock.unlock();
 }
 
 
-size_t
+SUMOTime
 TrackerValueDesc::getAggregationSpan() const {
-    return myAggregationInterval;
+    return myAggregationInterval * DELTA_T;
 }
 
 
-size_t
+SUMOTime
 TrackerValueDesc::getRecordingBegin() const {
     return myRecordingBegin;
 }

@@ -207,7 +207,7 @@ SUMOVehicleParameter::writeAs(const std::string &xmlElem, OutputDevice &dev,
         dev << " repno=\"" << repetitionNumber << "\"";
     }
     if (wasSet(VEHPARS_PERIODFREQ_SET)) {
-        dev << " period=\"" << repetitionOffset << "\"";
+        dev << " period=\"" << time2string(repetitionOffset) << "\"";
     }
     if (wasSet(VEHPARS_LINE_SET)) {
         dev << " line=\"" << line << "\"";

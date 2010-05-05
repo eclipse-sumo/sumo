@@ -201,10 +201,10 @@ MSEmitControl::checkFlows(SUMOTime time,
             continue;
         }
         while (pars->repetitionsDone < pars->repetitionNumber &&
-                pars->depart + pars->repetitionsDone * pars->repetitionOffset < time + DELTA_T) {
+               pars->depart + pars->repetitionsDone * pars->repetitionOffset < time + DELTA_T) {
             SUMOVehicleParameter* newPars = new SUMOVehicleParameter(*pars);
             newPars->id = pars->id + "." + toString(pars->repetitionsDone);
-            newPars->depart = (SUMOTime)(pars->depart + pars->repetitionsDone * pars->repetitionOffset);
+            newPars->depart = static_cast<SUMOTime>(pars->depart + pars->repetitionsDone * pars->repetitionOffset);
             pars->repetitionsDone++;
             // try to build the vehicle
             if (MSNet::getInstance()->getVehicleControl().getVehicle(newPars->id)==0) {

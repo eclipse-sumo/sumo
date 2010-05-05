@@ -86,7 +86,7 @@ SUMOVehicleParserHelper::parseFlowAttributes(const SUMOSAXAttributes &attrs) thr
             throw ProcessError("Invalid repetition rate in the definition of flow '" + id + "'.");
         }
         if (ok && vph != 0) {
-            ret->repetitionOffset = 3600./vph*1000.;
+            ret->repetitionOffset = TIME2STEPS(3600./vph);
         }
     }
 
@@ -117,7 +117,7 @@ SUMOVehicleParserHelper::parseFlowAttributes(const SUMOSAXAttributes &attrs) thr
             throw ProcessError("Negative repetition number in the definition of flow '" + id + "'.");
         }
         if (ok && ret->repetitionOffset < 0) {
-            ret->repetitionOffset = (end - ret->depart) / (SUMOReal)ret->repetitionNumber;
+            ret->repetitionOffset = (end - ret->depart) / ret->repetitionNumber;
         }
     } else {
         if (ok && ret->repetitionOffset <= 0) {
@@ -168,7 +168,7 @@ SUMOVehicleParserHelper::parseVehicleAttributes(const SUMOSAXAttributes &attrs,
     if (attrs.hasAttribute(SUMO_ATTR_PERIOD)) {
         WRITE_WARNING("period and repno are deprecated in vehicle '" + id + "', use flows instead.");
         ret->setParameter |= VEHPARS_PERIODFREQ_SET;
-        ret->repetitionOffset = attrs.getSUMORealReporting(SUMO_ATTR_PERIOD, "vehicle", id.c_str(), ok);
+        ret->repetitionOffset = attrs.getSUMOTimeReporting(SUMO_ATTR_PERIOD, "vehicle", id.c_str(), ok);
     }
     if (attrs.hasAttribute(SUMO_ATTR_REPNUMBER)) {
         ret->setParameter |= VEHPARS_PERIODNUM_SET;

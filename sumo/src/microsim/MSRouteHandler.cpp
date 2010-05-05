@@ -590,7 +590,7 @@ void
 MSRouteHandler::closeFlow() throw(ProcessError) {
     // let's check whether vehicles had to be emitted before the simulation starts
     myVehicleParameter->repetitionsDone = 0;
-    SUMOReal offsetToBegin = string2time(OptionsCont::getOptions().getString("begin")) - myVehicleParameter->depart;
+    SUMOTime offsetToBegin = string2time(OptionsCont::getOptions().getString("begin")) - myVehicleParameter->depart;
     while (myVehicleParameter->repetitionsDone * myVehicleParameter->repetitionOffset < offsetToBegin) {
         myVehicleParameter->repetitionsDone++;
         if (myVehicleParameter->repetitionsDone == myVehicleParameter->repetitionNumber) {

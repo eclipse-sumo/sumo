@@ -89,10 +89,6 @@ public:
     long onCmdSave(FXObject*,FXSelector,void*);
 
 
-protected:
-    /// Adds a further variable to display
-    void addVariable(GUIGlObject *o, const std::string &name, size_t recordBegin);
-
 public:
     /**
      * @class GUIParameterTrackerPanel

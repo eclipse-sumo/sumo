@@ -1793,7 +1793,11 @@ MSVehicle::saveState(std::ostream &os) {
     FileHelpers::writeFloat(os, myLastLaneChangeOffset);
     FileHelpers::writeFloat(os, myWaitingTime);
     FileHelpers::writeInt(os, myParameter->repetitionNumber);
+#ifdef HAVE_SUBSECOND_TIMESTEPS
+    FileHelpers::writeTime(os, myParameter->repetitionOffset);
+#else
     FileHelpers::writeFloat(os, myParameter->repetitionOffset);
+#endif
     FileHelpers::writeString(os, myRoute->getID());
     FileHelpers::writeTime(os, myParameter->depart);
     FileHelpers::writeString(os, myType->getID());

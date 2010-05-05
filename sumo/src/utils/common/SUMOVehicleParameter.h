@@ -333,7 +333,11 @@ public:
     /// @brief The number of times the vehicle was already inserted
     int repetitionsDone;
     /// @brief The time offset between vehicle reinsertions
+#ifdef HAVE_SUBSECOND_TIMESTEPS
+    SUMOTime repetitionOffset;
+#else
     SUMOReal repetitionOffset;
+#endif
     /// @}
 
 

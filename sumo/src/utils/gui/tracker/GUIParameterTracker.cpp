@@ -130,15 +130,6 @@ GUIParameterTracker::create() {
 
 
 void
-GUIParameterTracker::addVariable(GUIGlObject *o, const std::string &name,
-                                 size_t recordBegin) {
-    TrackerValueDesc *newTracked =
-        new TrackerValueDesc(name, RGBColor(0, 0, 0), o, recordBegin);
-    myTracked.push_back(newTracked);
-}
-
-
-void
 GUIParameterTracker::buildToolBar() {
     myToolBarDrag = new FXToolBarShell(this,FRAME_NORMAL);
     myToolBar = new FXToolBar(this,myToolBarDrag, LAYOUT_SIDE_TOP|LAYOUT_FILL_X|FRAME_RAISED);
@@ -222,7 +213,7 @@ GUIParameterTracker::onCmdChangeAggregation(FXObject*,FXSelector,void*) {
     }
     TrackedVarsVector::iterator i1;
     for (i1=myTracked.begin(); i1!=myTracked.end(); i1++) {
-        (*i1)->setAggregationSpan(aggInt);
+        (*i1)->setAggregationSpan(TIME2STEPS(aggInt));
     }
     return 1;
 }
@@ -401,7 +392,7 @@ GUIParameterTracker::GUIParameterTrackerPanel::drawValue(TrackerValueDesc &desc,
 
     // draw min time
     SUMOTime beginStep = desc.getRecordingBegin();
-    std::string begStr = toString((SUMOReal) beginStep);
+    std::string begStr = time2string(beginStep);
     SUMOReal w = pfdkGetStringWidth(begStr.c_str());
     glRotated(180, 1, 0, 0);
     pfSetPosition(0, 0);
@@ -414,8 +405,7 @@ GUIParameterTracker::GUIParameterTrackerPanel::drawValue(TrackerValueDesc &desc,
     glRotated(180, 1, 0, 0);
     pfSetPosition(0, 0);
     glTranslated(0.75, 0.88, 0);
-    pfDrawString(toString(
-                     (SUMOReal) beginStep + (SUMOReal) values.size() *(SUMOReal) desc.getAggregationSpan()).c_str());
+    pfDrawString(time2string(beginStep + static_cast<SUMOTime>(values.size() * desc.getAggregationSpan())).c_str());
     glTranslated(-0.75, -0.88, 0);
     glRotated(-180, 1, 0, 0);
 

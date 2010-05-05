@@ -31,6 +31,7 @@
 #include <string>
 #include <vector>
 #include <utils/common/RGBColor.h>
+#include <utils/common/SUMOTime.h>
 #include <utils/common/ValueRetriever.h>
 #include <utils/foxtools/MFXMutex.h>
 
@@ -55,7 +56,7 @@ class TrackerValueDesc : public ValueRetriever<SUMOReal> {
 public:
     /// Constructor
     TrackerValueDesc(const std::string &name, const RGBColor &col,
-                     GUIGlObject *o, size_t recordBegin);
+                     GUIGlObject *o, SUMOTime recordBegin);
 
     /// Destructor
     ~TrackerValueDesc();
@@ -95,13 +96,13 @@ public:
     void unlockValues();
 
     /// set the aggregation amount
-    void setAggregationSpan(size_t as);
+    void setAggregationSpan(SUMOTime as);
 
     /// get the aggregation amount
-    size_t getAggregationSpan() const;
+    SUMOTime getAggregationSpan() const;
 
     /// Returns the timestep the recording started
-    size_t getRecordingBegin() const;
+    SUMOTime getRecordingBegin() const;
 
 
 private:
@@ -129,7 +130,7 @@ private:
     // Mutex to avoid parallel drawing and insertion of new items
     MFXMutex myLock;
 
-    /// The aggregation interval
+    /// The aggregation interval in simulation steps
     size_t myAggregationInterval;
 
     /// Values like this shall not be counted on aggregation
@@ -139,7 +140,7 @@ private:
     size_t myValidNo;
 
     /// The time step the values are added from
-    size_t myRecordingBegin;
+    SUMOTime myRecordingBegin;
 
     /// Temporary storage for the last aggregation interval
     SUMOReal myTmpLastAggValue;
