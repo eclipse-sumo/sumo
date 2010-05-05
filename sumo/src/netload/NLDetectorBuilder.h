@@ -30,7 +30,6 @@
 #endif
 
 #include <string>
-#include <utils/common/PhysicalTypeDefs.h>
 #include <microsim/MSNet.h>
 #include <microsim/output/MSE2Collector.h>
 #include <microsim/output/MSE3Collector.h>
@@ -145,7 +144,7 @@ public:
      */
     void buildE2Detector(const std::string &id, const std::string &lane, SUMOReal pos, SUMOReal length,
                          bool cont, int splInterval, OutputDevice& device, SUMOTime haltingTimeThreshold,
-                         MetersPerSecond haltingSpeedThreshold, SUMOReal jamDistThreshold,
+                         SUMOReal haltingSpeedThreshold, SUMOReal jamDistThreshold,
                          bool friendlyPos) throw(InvalidArgument);
 
 
@@ -176,7 +175,7 @@ public:
     void buildE2Detector(const std::string &id, const std::string &lane, SUMOReal pos, SUMOReal length,
                          bool cont, MSTLLogicControl::TLSLogicVariants &tlls,
                          OutputDevice& device, SUMOTime haltingTimeThreshold,
-                         MetersPerSecond haltingSpeedThreshold, SUMOReal jamDistThreshold,
+                         SUMOReal haltingSpeedThreshold, SUMOReal jamDistThreshold,
                          bool friendlyPos) throw(InvalidArgument);
 
 
@@ -208,7 +207,7 @@ public:
     void buildE2Detector(const std::string &id, const std::string &lane, SUMOReal pos, SUMOReal length,
                          bool cont, MSTLLogicControl::TLSLogicVariants &tlls, const std::string &tolane,
                          OutputDevice& device, SUMOTime haltingTimeThreshold,
-                         MetersPerSecond haltingSpeedThreshold, SUMOReal jamDistThreshold,
+                         SUMOReal haltingSpeedThreshold, SUMOReal jamDistThreshold,
                          bool friendlyPos) throw(InvalidArgument);
 
 
@@ -226,7 +225,7 @@ public:
      * @exception InvalidArgument If one of the values is invalid
      */
     void beginE3Detector(const std::string &id, OutputDevice& device, int splInterval,
-                         MetersPerSecond haltingSpeedThreshold, SUMOTime haltingTimeThreshold) throw(InvalidArgument);
+                         SUMOReal haltingSpeedThreshold, SUMOTime haltingTimeThreshold) throw(InvalidArgument);
 
 
     /** @brief Builds an entry point of an e3 detector
@@ -376,7 +375,7 @@ public:
     virtual MSE2Collector *createSingleLaneE2Detector(const std::string &id,
             DetectorUsage usage, MSLane *lane, SUMOReal pos, SUMOReal length,
             SUMOTime haltingTimeThreshold,
-            MetersPerSecond haltingSpeedThreshold,
+            SUMOReal haltingSpeedThreshold,
             SUMOReal jamDistThreshold) throw();
 
 
@@ -395,7 +394,7 @@ public:
      */
     virtual MS_E2_ZS_CollectorOverLanes *createMultiLaneE2Detector(
         const std::string &id, DetectorUsage usage, MSLane *lane, SUMOReal pos,
-        SUMOTime haltingTimeThreshold, MetersPerSecond haltingSpeedThreshold,
+        SUMOTime haltingTimeThreshold, SUMOReal haltingSpeedThreshold,
         SUMOReal jamDistThreshold) throw();
 
 
@@ -411,7 +410,7 @@ public:
      */
     virtual MSE3Collector *createE3Detector(const std::string &id,
                                             const CrossSectionVector &entries, const CrossSectionVector &exits,
-                                            MetersPerSecond haltingSpeedThreshold, SUMOTime haltingTimeThreshold) throw();
+                                            SUMOReal haltingSpeedThreshold, SUMOTime haltingTimeThreshold) throw();
 
 
     /** @brief Creates edge based mean data collector using the given specification
@@ -455,7 +454,7 @@ public:
      */
     MSE2Collector *buildSingleLaneE2Det(const std::string &id,
                                         DetectorUsage usage, MSLane *lane, SUMOReal pos, SUMOReal length,
-                                        SUMOTime haltingTimeThreshold, MetersPerSecond haltingSpeedThreshold,
+                                        SUMOTime haltingTimeThreshold, SUMOReal haltingSpeedThreshold,
                                         SUMOReal jamDistThreshold) throw();
 
 
@@ -472,7 +471,7 @@ public:
      * @todo Check whether this method is really needful
      */
     MS_E2_ZS_CollectorOverLanes *buildMultiLaneE2Det(const std::string &id, DetectorUsage usage, MSLane *lane, SUMOReal pos, SUMOReal length,
-            SUMOTime haltingTimeThreshold, MetersPerSecond haltingSpeedThreshold,
+            SUMOTime haltingTimeThreshold, SUMOReal haltingSpeedThreshold,
             SUMOReal jamDistThreshold) throw();
 
 
@@ -493,7 +492,7 @@ protected:
          * @param[in] splInterval The aggregation time span the detector shall use
          */
         E3DetectorDefinition(const std::string &id,
-                             OutputDevice& device, MetersPerSecond haltingSpeedThreshold,
+                             OutputDevice& device, SUMOReal haltingSpeedThreshold,
                              SUMOTime haltingTimeThreshold, int splInterval) throw();
 
         /// @brief Destructor
@@ -504,7 +503,7 @@ protected:
         /// @brief The device the detector shall use
         OutputDevice& myDevice;
         /// @brief The speed a vehicle's speed must be below to be assigned as jammed
-        MetersPerSecond myHaltingSpeedThreshold;
+        SUMOReal myHaltingSpeedThreshold;
         /// @brief The time a vehicle's speed must be below haltingSpeedThreshold to be assigned as jammed
         SUMOTime myHaltingTimeThreshold;
         /// @brief List of detector's entries

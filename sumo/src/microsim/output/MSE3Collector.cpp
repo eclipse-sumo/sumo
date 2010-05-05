@@ -117,7 +117,7 @@ MSE3Collector::MSE3LeaveReminder::notifyEnter(MSVehicle& veh, bool, bool) throw(
 MSE3Collector::MSE3Collector(const std::string &id,
                              const CrossSectionVector &entries,
                              const CrossSectionVector &exits,
-                             MetersPerSecond haltingSpeedThreshold,
+                             SUMOReal haltingSpeedThreshold,
                              SUMOTime haltingTimeThreshold) throw()
         : myID(id), myEntries(entries), myExits(exits),
         myHaltingTimeThreshold(haltingTimeThreshold), myHaltingSpeedThreshold(haltingSpeedThreshold),

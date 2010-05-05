@@ -57,7 +57,7 @@
 GUI_E2_ZS_CollectorOverLanes::GUI_E2_ZS_CollectorOverLanes(std::string id,
         DetectorUsage usage, MSLane* lane, SUMOReal startPos,
         SUMOTime haltingTimeThreshold,
-        MetersPerSecond haltingSpeedThreshold,
+        SUMOReal haltingSpeedThreshold,
         SUMOReal jamDistThreshold) throw()
         : MS_E2_ZS_CollectorOverLanes(id, usage, lane, startPos,
                                       haltingTimeThreshold, haltingSpeedThreshold, jamDistThreshold) {}

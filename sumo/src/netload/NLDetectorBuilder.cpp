@@ -70,7 +70,7 @@
  * NLDetectorBuilder::E3DetectorDefinition-methods
  * ----------------------------------------------------------------------- */
 NLDetectorBuilder::E3DetectorDefinition::E3DetectorDefinition(const std::string &id,
-        OutputDevice& device, MetersPerSecond haltingSpeedThreshold,
+        OutputDevice& device, SUMOReal haltingSpeedThreshold,
         SUMOTime haltingTimeThreshold, int splInterval) throw()
         : myID(id), myDevice(device),
         myHaltingSpeedThreshold(haltingSpeedThreshold),
@@ -176,7 +176,7 @@ NLDetectorBuilder::buildE2Detector(const std::string &id,
                                    bool cont, int splInterval,
                                    OutputDevice& device,
                                    SUMOTime haltingTimeThreshold,
-                                   MetersPerSecond haltingSpeedThreshold,
+                                   SUMOReal haltingSpeedThreshold,
                                    SUMOReal jamDistThreshold, bool friendlyPos) throw(InvalidArgument) {
     if (splInterval<0) {
         throw InvalidArgument("Negative sampling frequency (in e2-detector '" + id + "').");
@@ -214,7 +214,7 @@ NLDetectorBuilder::buildE2Detector(const std::string &id,
                                    MSTLLogicControl::TLSLogicVariants &tlls,
                                    OutputDevice& device,
                                    SUMOTime haltingTimeThreshold,
-                                   MetersPerSecond haltingSpeedThreshold,
+                                   SUMOReal haltingSpeedThreshold,
                                    SUMOReal jamDistThreshold, bool friendlyPos) throw(InvalidArgument) {
     if (tlls.getActive()==0) {
         throw InvalidArgument("The detector '" + id + "' refers to the unknown lsa.");
@@ -253,7 +253,7 @@ NLDetectorBuilder::buildE2Detector(const std::string &id,
                                    const std::string &tolane,
                                    OutputDevice& device,
                                    SUMOTime haltingTimeThreshold,
-                                   MetersPerSecond haltingSpeedThreshold,
+                                   SUMOReal haltingSpeedThreshold,
                                    SUMOReal jamDistThreshold, bool friendlyPos) throw(InvalidArgument) {
     if (tlls.getActive()==0) {
         throw InvalidArgument("The detector '" + id + "' refers to the unknown lsa.");
@@ -331,7 +331,7 @@ NLDetectorBuilder::convContE2PosLength(const std::string &id, MSLane * clane,
 void
 NLDetectorBuilder::beginE3Detector(const std::string &id,
                                    OutputDevice& device, int splInterval,
-                                   MetersPerSecond haltingSpeedThreshold,
+                                   SUMOReal haltingSpeedThreshold,
                                    SUMOTime haltingTimeThreshold) throw(InvalidArgument) {
     if (splInterval<0) {
         throw InvalidArgument("Negative sampling frequency (in e3-detector '" + id + "').");
@@ -436,7 +436,7 @@ NLDetectorBuilder::buildSingleLaneE2Det(const std::string &id,
                                         DetectorUsage usage,
                                         MSLane *lane, SUMOReal pos, SUMOReal length,
                                         SUMOTime haltingTimeThreshold,
-                                        MetersPerSecond haltingSpeedThreshold,
+                                        SUMOReal haltingSpeedThreshold,
                                         SUMOReal jamDistThreshold) throw() {
     return createSingleLaneE2Detector(id, usage, lane, pos,
                                       length, haltingTimeThreshold, haltingSpeedThreshold,
@@ -448,7 +448,7 @@ MS_E2_ZS_CollectorOverLanes *
 NLDetectorBuilder::buildMultiLaneE2Det(const std::string &id, DetectorUsage usage,
                                        MSLane *lane, SUMOReal pos, SUMOReal length,
                                        SUMOTime haltingTimeThreshold,
-                                       MetersPerSecond haltingSpeedThreshold,
+                                       SUMOReal haltingSpeedThreshold,
                                        SUMOReal jamDistThreshold) throw() {
     MS_E2_ZS_CollectorOverLanes *ret = createMultiLaneE2Detector(id, usage,
                                        lane, pos, haltingTimeThreshold, haltingSpeedThreshold,
@@ -486,7 +486,7 @@ MSE2Collector *
 NLDetectorBuilder::createSingleLaneE2Detector(const std::string &id,
         DetectorUsage usage, MSLane *lane, SUMOReal pos, SUMOReal length,
         SUMOTime haltingTimeThreshold,
-        MetersPerSecond haltingSpeedThreshold,
+        SUMOReal haltingSpeedThreshold,
         SUMOReal jamDistThreshold) throw() {
     return new MSE2Collector(id, usage, lane, pos, length,
                              haltingTimeThreshold, haltingSpeedThreshold,
@@ -499,7 +499,7 @@ MS_E2_ZS_CollectorOverLanes *
 NLDetectorBuilder::createMultiLaneE2Detector(const std::string &id,
         DetectorUsage usage, MSLane *lane, SUMOReal pos,
         SUMOTime haltingTimeThreshold,
-        MetersPerSecond haltingSpeedThreshold,
+        SUMOReal haltingSpeedThreshold,
         SUMOReal jamDistThreshold) throw() {
     return new MS_E2_ZS_CollectorOverLanes(id, usage, lane, pos,
                                            haltingTimeThreshold, haltingSpeedThreshold,
@@ -511,7 +511,7 @@ MSE3Collector *
 NLDetectorBuilder::createE3Detector(const std::string &id,
                                     const CrossSectionVector &entries,
                                     const CrossSectionVector &exits,
-                                    MetersPerSecond haltingSpeedThreshold,
+                                    SUMOReal haltingSpeedThreshold,
                                     SUMOTime haltingTimeThreshold) throw() {
     return new MSE3Collector(id, entries, exits, haltingSpeedThreshold, haltingTimeThreshold);
 }

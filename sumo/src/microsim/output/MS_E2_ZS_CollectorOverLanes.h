@@ -29,7 +29,6 @@
 #include <config.h>
 #endif
 
-#include <utils/common/PhysicalTypeDefs.h>
 #include "MSE2Collector.h"
 #include <utils/iodevices/OutputDevice.h>
 
@@ -71,7 +70,7 @@ public:
      */
     MS_E2_ZS_CollectorOverLanes(const std::string &id,
                                 DetectorUsage usage, MSLane* lane, SUMOReal startPos,
-                                SUMOTime haltingTimeThreshold, MetersPerSecond haltingSpeedThreshold,
+                                SUMOTime haltingTimeThreshold, SUMOReal haltingSpeedThreshold,
                                 SUMOReal jamDistThreshold) throw();
 
 
@@ -193,7 +192,7 @@ protected:
     SUMOTime haltingTimeThresholdM;
 
     /// @brief Describes how slow a vehicle must be before being assigned to a jam
-    MetersPerSecond haltingSpeedThresholdM;
+    SUMOReal haltingSpeedThresholdM;
 
     /// @brief Describes how long a jam must be before being recognized
     SUMOReal jamDistThresholdM;

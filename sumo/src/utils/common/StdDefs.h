@@ -42,12 +42,6 @@ const SUMOReal SUMO_const_halfLaneAndOffset = (SUMOReal)(3.2/2.+.1);
 
 
 /* -------------------------------------------------------------------------
- * definitions of common used conversions
- * ----------------------------------------------------------------------- */
-#define mBYs2kmBYh(x) ((SUMOReal) (x/3.6))
-
-
-/* -------------------------------------------------------------------------
  * templates for mathematical functions missing in some c++-implementations
  * ----------------------------------------------------------------------- */
 template<typename T>

@@ -29,7 +29,6 @@
 #include <config.h>
 #endif
 
-#include <utils/common/PhysicalTypeDefs.h>
 #include <microsim/MSMoveReminder.h>
 #include <microsim/output/MSDetectorFileOutput.h>
 #include <microsim/output/MSCrossSection.h>
@@ -206,7 +205,7 @@ public:
      */
     MSE3Collector(const std::string &id,
                   const CrossSectionVector &entries, const CrossSectionVector &exits,
-                  MetersPerSecond haltingSpeedThreshold,
+                  SUMOReal haltingSpeedThreshold,
                   SUMOTime haltingTimeThreshold) throw();
 
 
@@ -355,7 +354,7 @@ protected:
     SUMOTime myHaltingTimeThreshold;
 
     /// @brief Speed-threshold to determine if a vehicle is halting.
-    MetersPerSecond myHaltingSpeedThreshold;
+    SUMOReal myHaltingSpeedThreshold;
 
     /**
      * @struct E3Values

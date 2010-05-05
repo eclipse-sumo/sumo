@@ -29,7 +29,6 @@
 #include <config.h>
 #endif
 
-#include <utils/common/PhysicalTypeDefs.h>
 #include <microsim/output/MSE2Collector.h>
 #include <microsim/MSNet.h>
 #include <utils/geom/Position2D.h>

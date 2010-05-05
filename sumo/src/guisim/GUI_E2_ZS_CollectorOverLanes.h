@@ -29,7 +29,6 @@
 #include <config.h>
 #endif
 
-#include <utils/common/PhysicalTypeDefs.h>
 #include <microsim/output/MS_E2_ZS_CollectorOverLanes.h>
 #include <microsim/MSNet.h>
 #include <utils/geom/Position2D.h>
@@ -67,7 +66,7 @@ public:
     GUI_E2_ZS_CollectorOverLanes(std::string id, DetectorUsage usage,
                                  MSLane* lane, SUMOReal startPos,
                                  SUMOTime haltingTimeThreshold,
-                                 MetersPerSecond haltingSpeedThreshold,
+                                 SUMOReal haltingSpeedThreshold,
                                  SUMOReal jamDistThreshold) throw();
 
     /// Destructor

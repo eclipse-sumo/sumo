@@ -43,7 +43,7 @@ MS_E2_ZS_CollectorOverLanes::MS_E2_ZS_CollectorOverLanes(const std::string &id,
         MSLane* lane,
         SUMOReal startPos,
         SUMOTime haltingTimeThreshold,
-        MetersPerSecond haltingSpeedThreshold,
+        SUMOReal haltingSpeedThreshold,
         SUMOReal jamDistThreshold) throw()
         : startPosM(startPos), haltingTimeThresholdM(haltingTimeThreshold),
         haltingSpeedThresholdM(haltingSpeedThreshold), jamDistThresholdM(jamDistThreshold),

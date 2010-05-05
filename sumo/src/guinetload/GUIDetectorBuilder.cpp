@@ -79,7 +79,7 @@ MSE2Collector *
 GUIDetectorBuilder::createSingleLaneE2Detector(const std::string &id,
         DetectorUsage usage, MSLane *lane, SUMOReal pos, SUMOReal length,
         SUMOTime haltingTimeThreshold,
-        MetersPerSecond haltingSpeedThreshold,
+        SUMOReal haltingSpeedThreshold,
         SUMOReal jamDistThreshold) throw() {
     return new GUI_E2_ZS_Collector(id, usage, lane, pos, length,
                                    haltingTimeThreshold, haltingSpeedThreshold,
@@ -92,7 +92,7 @@ MS_E2_ZS_CollectorOverLanes *
 GUIDetectorBuilder::createMultiLaneE2Detector(const std::string &id,
         DetectorUsage usage, MSLane *lane, SUMOReal pos,
         SUMOTime haltingTimeThreshold,
-        MetersPerSecond haltingSpeedThreshold,
+        SUMOReal haltingSpeedThreshold,
         SUMOReal jamDistThreshold) throw() {
     return new GUI_E2_ZS_CollectorOverLanes(id, usage, lane, pos,
                                             haltingTimeThreshold, haltingSpeedThreshold,
@@ -104,7 +104,7 @@ MSE3Collector *
 GUIDetectorBuilder::createE3Detector(const std::string &id,
                                      const CrossSectionVector &entries,
                                      const CrossSectionVector &exits,
-                                     MetersPerSecond haltingSpeedThreshold,
+                                     SUMOReal haltingSpeedThreshold,
                                      SUMOTime haltingTimeThreshold) throw() {
     return new GUIE3Collector(id, entries, exits, haltingSpeedThreshold, haltingTimeThreshold);
 }
