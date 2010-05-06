@@ -172,11 +172,7 @@ MSMeanData::MeanDataValueTracker::getNumReady() const throw() {
 
 void
 MSMeanData::MeanDataValueTracker::clearFirst() throw() {
-    if (myCurrentData.size() == 1) {
-        myCurrentData.front()->reset();
-    } else {
-        myCurrentData.pop_front();
-    }
+    myCurrentData.pop_front();
 }
 
 
@@ -377,7 +373,7 @@ MSMeanData::writeXMLOutput(OutputDevice &dev,
             }
         }
     }
-    if (numReady == 0) {
+    if (numReady == 0 || myTrackVehicles) {
         resetOnly(stopTime);
     }
     while (numReady-- > 0) {
