@@ -72,12 +72,6 @@ public:
     /** Here, do nothing. */
     bool clearRequests();
 
-    /** @brief does nothing
-        Implementation of MSJunction */
-    bool setAllowed() {
-        return true;
-    };
-
     /** Initialises the junction after the net was completely loaded */
     void postloadInit() throw(ProcessError);
 

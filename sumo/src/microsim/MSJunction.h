@@ -93,9 +93,6 @@ public:
         iteration. */
     virtual bool clearRequests() = 0;
 
-    /// Sets the responds
-    virtual bool setAllowed() = 0;
-
     /** returns the junction's position */
     const Position2D &getPosition() const;
 

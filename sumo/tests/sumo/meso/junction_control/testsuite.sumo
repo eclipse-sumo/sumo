@@ -1,5 +1,8 @@
 # the basic cross net with junction control
 plain
 
+# the basic cross net with tls off and junction control
+no_tls
+
 # the cross net without junction control
 no_control

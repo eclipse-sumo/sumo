@@ -345,17 +345,16 @@ MSNet::simulationStep() {
     if (MSGlobals::gCheck4Accidents) {
         myEdges->detectCollisions(myStep);
     }
+    // check whether the tls programs need to be switched
+    myLogics->check2Switch(myStep);
+    // set the signals
+    myLogics->setTrafficLightSignals();
+
 #ifdef HAVE_MESOSIM
     if (MSGlobals::gUseMesoSim) {
-        myJunctions->setAllowed();
         MSGlobals::gMesoNet->simulate(myStep);
     } else {
 #endif
-        // check whether the tls shall be switched
-        myLogics->check2Switch(myStep);
-        // set information about which vehicles may drive at all
-        myLogics->setTrafficLightSignals();
-
 
         // assure all lanes with vehicles are 'active'
         myEdges->patchActiveLanes();

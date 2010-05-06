@@ -78,9 +78,6 @@ public:
         iteration. */
     bool clearRequests();
 
-    /** Sets the information which vehicles may drive */
-    virtual bool setAllowed();
-
     void postloadInit() throw(ProcessError);
 
     const std::vector<MSLink*> &getFoeLinks(const MSLink *const srcLink) const throw() {
@@ -93,9 +90,6 @@ public:
 
 
 protected:
-    /// Search for deadlock-situations and eleminate them.
-    virtual void deadlockKiller();
-
     /** the type of the junction (its logic) */
     MSJunctionLogic* myLogic;
 

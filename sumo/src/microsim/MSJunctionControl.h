@@ -77,14 +77,6 @@ public:
     void resetRequests() throw();
 
 
-    /** @brief Sets the responds
-     *
-     * Calls "setAllowed" for all stored junctions.
-     * @see MSJunction::setAllowed
-     */
-    void setAllowed() throw();
-
-
 private:
     /// @brief Invalidated copy constructor.
     MSJunctionControl(const MSJunctionControl&);

@@ -88,68 +88,6 @@ MSInternalJunction::postloadInit() throw(ProcessError) {
 }
 
 
-bool
-MSInternalJunction::setAllowed() {
-    // Get myRespond from logic and check for deadlocks.
-    myRespond.set(0, true);
-    std::vector<MSLane*>::iterator i;
-    if (myIncomingLanes.size()==0) {
-        return true;
-    }
-
-    // do nothing if there is no vehicle
-    if (!myRequest.test(0)) {
-        return true;
-    }
-
-    // do not move if any other internal (foe) lane is set
-    for (i=myInternalLanes.begin(); i!=myInternalLanes.end(); ++i) {
-        if (!(*i)->empty()) {
-            myRespond.set(0, false);
-            return true;
-        }
-    }
-    // do not move if a vehicle is approaching on a link from foe lanes
-    //  the first entry is our lane itself, the following should be those that feed
-    //  the internal lanes
-    for (i=myIncomingLanes.begin()+1; i!=myIncomingLanes.end(); ++i) {
-        MSLane *l = *i;
-        const MSVehicle * const foe = l->getFirstVehicle();
-        const MSLinkCont &lc = l->getLinkCont();
-        for (MSLinkCont::const_iterator j=lc.begin(); j!=lc.end(); ++j) {
-            if (find(myInternalLanes.begin(), myInternalLanes.end(), (*j)->getViaLane())!=myInternalLanes.end()) {
-                bool approached = foe!=0&&(*j)->getApproaching()==foe;
-                approached |= ((*j)->getViaLane()!=0&&!(*j)->getViaLane()->empty());
-                if (approached&&((*j)->opened(0, 0)||(*j)->havePriority())) {
-                    myRespond.set(0, false);
-                    return true;
-                }
-            }
-        }
-    }
-    /*
-    // do not move if the destination lane is full
-    // get the next lane
-    // - recheck whether this is really needed !!!
-    MSLane *l = myIncomingLanes[0];
-    const MSLinkCont &lc1 = l->getLinkCont();
-    MSLink *link = lc1[0];
-    MSLane *dest = link->getLane();
-    if (dest==0) {
-        return true;
-    }
-    const MSVehicle * const lastOnDest = dest->getLastVehicle();
-    if (lastOnDest!=0) {
-        if (lastOnDest->getPositionOnLane()-lastOnDest->getLength()<5) { // !!! explcite vehicle length
-            myRespond.set(0, false);
-            return true;
-        }
-    }
-    */
-    return true;
-}
-
-
 #endif
 
 

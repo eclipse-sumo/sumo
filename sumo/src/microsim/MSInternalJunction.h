@@ -74,9 +74,6 @@ public:
     bool clearRequests();
     void postloadInit() throw(ProcessError);
 
-    /** Sets the information which vehicles may drive */
-    virtual bool setAllowed();
-
     const std::vector<MSLink*> &getFoeLinks(const MSLink *const srcLink) const throw() {
         return myInternalLinkFoes;
     }

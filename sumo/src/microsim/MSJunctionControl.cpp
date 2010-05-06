@@ -63,12 +63,5 @@ MSJunctionControl::resetRequests() throw() {
 }
 
 
-void
-MSJunctionControl::setAllowed() throw() {
-    const std::vector<MSJunction*> &junctions = buildAndGetStaticVector();
-    std::for_each(junctions.begin(), junctions.end(), std::mem_fun(& MSJunction::setAllowed));
-}
-
-
 /****************************************************************************/
 
