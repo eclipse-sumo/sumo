@@ -47,7 +47,7 @@ TrackerValueDesc::TrackerValueDesc(const std::string &name,
         : myName(name), myObject(o),
         myActiveCol(col), myInactiveCol(col),
         myMin(0), myMax(0),
-        myAggregationInterval(1), myInvalidValue(-1), myValidNo(0),
+        myAggregationInterval(time2steps(1)/DELTA_T), myInvalidValue(-1), myValidNo(0),
         myRecordingBegin(recordBegin), myTmpLastAggValue(0) {}
 
 
