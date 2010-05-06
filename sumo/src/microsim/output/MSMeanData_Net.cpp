@@ -210,7 +210,7 @@ MSMeanData_Net::MSLaneMeanDataValues::write(OutputDevice &dev, const SUMOTime pe
 
 #ifdef HAVE_MESOSIM
 void
-MSMeanData_Net::MSLaneMeanDataValues::addData(const MEVehicle& veh, const SUMOReal timeOnLane,
+MSMeanData_Net::MSLaneMeanDataValues::addData(const SUMOVehicle& veh, const SUMOReal timeOnLane,
         const SUMOReal dist) throw() {
     if (vehicleApplies(veh)) {
         sampleSeconds += timeOnLane;
@@ -224,8 +224,8 @@ MSMeanData_Net::MSLaneMeanDataValues::addData(const MEVehicle& veh, const SUMORe
 
 
 void
-MSMeanData_Net::MSLaneMeanDataValues::getLastReported(MEVehicle *v, SUMOTime &lastReportedTime, SUMOReal &lastReportedPos) throw() {
-    std::map<MEVehicle*, std::pair<SUMOTime, SUMOReal> >::iterator j=myLastVehicleUpdateValues.find(v);
+MSMeanData_Net::MSLaneMeanDataValues::getLastReported(SUMOVehicle *v, SUMOTime &lastReportedTime, SUMOReal &lastReportedPos) throw() {
+    std::map<SUMOVehicle*, std::pair<SUMOTime, SUMOReal> >::iterator j=myLastVehicleUpdateValues.find(v);
     if (j!=myLastVehicleUpdateValues.end()) {
         // the vehicle already has reported its values before; use these
         std::pair<SUMOTime, SUMOReal> &vals = (*j).second;
@@ -237,7 +237,7 @@ MSMeanData_Net::MSLaneMeanDataValues::getLastReported(MEVehicle *v, SUMOTime &la
 
 
 void
-MSMeanData_Net::MSLaneMeanDataValues::setLastReported(MEVehicle *v, SUMOTime lastReportedTime, SUMOReal lastReportedPos) throw() {
+MSMeanData_Net::MSLaneMeanDataValues::setLastReported(SUMOVehicle *v, SUMOTime lastReportedTime, SUMOReal lastReportedPos) throw() {
     myLastVehicleUpdateValues[v] = std::pair<SUMOTime, SUMOReal>(lastReportedTime, lastReportedPos);
 }
 #endif

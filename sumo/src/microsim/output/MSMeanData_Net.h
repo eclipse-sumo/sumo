@@ -43,9 +43,6 @@ class OutputDevice;
 class MSEdgeControl;
 class MSEdge;
 class MSLane;
-#ifdef HAVE_MESOSIM
-class MEVehicle;
-#endif
 
 
 // ===========================================================================
@@ -153,9 +150,9 @@ public:
                    const int numVehicles=-1) const throw(IOError);
 
 #ifdef HAVE_MESOSIM
-        void addData(const MEVehicle& veh, const SUMOReal timeOnLane, const SUMOReal dist) throw();
-        void getLastReported(MEVehicle *v, SUMOTime &lastReportedTime, SUMOReal &lastReportedPos) throw();
-        void setLastReported(MEVehicle *v, SUMOTime lastReportedTime, SUMOReal lastReportedPos) throw();
+        void addData(const SUMOVehicle& veh, const SUMOReal timeOnLane, const SUMOReal dist) throw();
+        void getLastReported(SUMOVehicle *v, SUMOTime &lastReportedTime, SUMOReal &lastReportedPos) throw();
+        void setLastReported(SUMOVehicle *v, SUMOTime lastReportedTime, SUMOReal lastReportedPos) throw();
 #endif
 
         /// @name Collected values
@@ -190,7 +187,7 @@ public:
         const MSMeanData_Net* myParent;
 
 #ifdef HAVE_MESOSIM
-        std::map<MEVehicle*, std::pair<SUMOTime, SUMOReal> > myLastVehicleUpdateValues;
+        std::map<SUMOVehicle*, std::pair<SUMOTime, SUMOReal> > myLastVehicleUpdateValues;
 #endif
 
     };

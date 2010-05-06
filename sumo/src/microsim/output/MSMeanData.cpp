@@ -124,9 +124,10 @@ MSMeanData::MeanDataValueTracker::isStillActive(MSVehicle& veh, SUMOReal oldPos,
 
 void
 MSMeanData::MeanDataValueTracker::notifyLeave(MSVehicle& veh, bool isArrival, bool isLaneChange) throw() {
-    if (vehicleApplies(veh)) {
+    if (vehicleApplies(veh) && myTrackedData.find(&veh)!=myTrackedData.end()) { // !!! the second check is a workaround for meso
         myTrackedData[&veh]->myNumVehicleLeft++;
         myTrackedData[&veh]->myValues->notifyLeave(veh, isArrival, isLaneChange);
+        // !!! cleanup myTrackedData table
     }
 }
 
@@ -185,6 +186,27 @@ MSMeanData::MeanDataValueTracker::getSamples() const throw() {
 }
 
 
+#ifdef HAVE_MESOSIM
+void
+MSMeanData::MeanDataValueTracker::addData(const SUMOVehicle& veh, const SUMOReal timeOnLane,
+        const SUMOReal dist) throw() {
+    myCurrentData.front()->myValues->addData(veh, timeOnLane, dist);
+}
+
+
+void
+MSMeanData::MeanDataValueTracker::getLastReported(SUMOVehicle *v, SUMOTime &lastReportedTime, SUMOReal &lastReportedPos) throw() {
+    myCurrentData.front()->myValues->getLastReported(v, lastReportedTime, lastReportedPos);
+}
+
+
+void
+MSMeanData::MeanDataValueTracker::setLastReported(SUMOVehicle *v, SUMOTime lastReportedTime, SUMOReal lastReportedPos) throw() {
+    myCurrentData.front()->myValues->setLastReported(v, lastReportedTime, lastReportedPos);
+}
+#endif
+
+
 // ---------------------------------------------------------------------------
 // MSMeanData - methods
 // ---------------------------------------------------------------------------
@@ -210,7 +232,11 @@ MSMeanData::init(const std::vector<MSEdge*> &edges, const bool withInternal) thr
             if (MSGlobals::gUseMesoSim) {
                 MESegment *s = MSGlobals::gMesoNet->getSegmentForEdge(**e);
                 while (s!=0) {
-                    myMeasures.back().push_back(createValues(0, false));
+                    if (myTrackVehicles) {
+                        myMeasures.back().push_back(new MeanDataValueTracker(0, &myVehicleTypes, this));
+                    } else {
+                        myMeasures.back().push_back(createValues(0, false));
+                    }
                     s->addDetector(myMeasures.back().back());
                     s = s->getNextSegment();
                 }
