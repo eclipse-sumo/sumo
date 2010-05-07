@@ -1,7 +1,7 @@
 <viewsettings>
     <delay value="500"/>
-    <viewport zoom="200" x="0" y="0"/>
-    <decal filename="dlr.gif" centerX="370" centerY="640" width="146.61" height="235.13" rotation="0.00"/>
+    <viewport zoom="300" x="0" y="0"/>
+    <decal filename="dlr.gif" centerX="240" centerY="350" width="50" height="50" rotation="0.00"/>
     <scheme name="*real world">
         <opengl antialiase="0" dither="0"/>
         <background backgroundColor="0.20,0.50,0.20"
@@ -93,7 +93,7 @@
                 <entry color="1.00,0.00,0.00" threshold="5000.00"/>
             </colorScheme>
         </edges>
-        <vehicles vehicleMode="0" vehicleQuality="2" minVehicleSize="0.00" vehicleExaggeration="1.00" showBlinker="1"
+        <vehicles vehicleMode="8" vehicleQuality="2" minVehicleSize="0.00" vehicleExaggeration="1.00" showBlinker="1"
                   drawVehicleName="0" vehicleNameSize="50.00" vehicleNameColor="0.80,0.60,0.00">
             <colorScheme name="uniform">
                 <entry color="1.00,1.00,0.00"/>
@@ -121,8 +121,8 @@
                 <entry color="0.00,0.00,1.00" threshold="41.67"/>
             </colorScheme>
             <colorScheme name="by waiting time" interpolated="1">
-                <entry color="0.00,0.00,1.00" threshold="0.00"/>
-                <entry color="1.00,0.00,0.00" threshold="300.00"/>
+                <entry color="1.00,1.00,0.00" threshold="0.00"/>
+                <entry color="1.00,0.00,0.00" threshold="20.00"/>
             </colorScheme>
             <colorScheme name="by time since last lanechange" interpolated="1">
                 <entry color="1.00,1.00,1.00" threshold="0.00"/>

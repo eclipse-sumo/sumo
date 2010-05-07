@@ -196,7 +196,10 @@ GUIApplicationWindow::dependentBuild(bool game) {
     if (game) {
         onCmdGaming(0,0,0);
         myMenuBar->hide();
-        myTopDock->hide();
+        myToolBar1->hide();
+        myToolBar2->hide();
+        myToolBar4->hide();
+        myToolBar5->hide();
     }
     // build additional threads
     myLoadThread = new GUILoadThread(this, myEvents, myLoadThreadEvent);
