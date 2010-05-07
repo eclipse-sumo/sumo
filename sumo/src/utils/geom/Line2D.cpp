@@ -117,7 +117,7 @@ Line2D::intersectsAtLengths(const Position2DVector &v) {
     Position2DVector p = v.intersectsAtPoints(myP1, myP2);
     DoubleVector ret;
     for (size_t i=0; i<p.size(); i++) {
-        ret.push_back(myP1.distanceTo(p[i]));
+        ret.push_back(myP1.distanceTo(p[int(i)]));
     }
     return ret;
 }

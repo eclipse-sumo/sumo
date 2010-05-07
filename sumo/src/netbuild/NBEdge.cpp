@@ -1213,9 +1213,9 @@ NBEdge::divideOnEdges(const std::vector<NBEdge*> *outgoing) {
         const std::vector<unsigned int> lanes = (*i).second;
         for (std::vector<unsigned int>::const_iterator j=lanes.begin(); j!=lanes.end(); ++j) {
             if (myAmLeftHand) {
-                myConnections.push_back(Connection(myLanes.size() - 1 - *j, (*i).first, -1));
+                myConnections.push_back(Connection(int(myLanes.size() - 1 - *j), (*i).first, -1));
             } else {
-                myConnections.push_back(Connection(*j, (*i).first, -1));
+                myConnections.push_back(Connection(int(*j), (*i).first, -1));
             }
         }
     }
@@ -1269,7 +1269,7 @@ unsigned int
 NBEdge::computePrioritySum(std::vector<unsigned int> *priorities) {
     unsigned int sum = 0;
     for (std::vector<unsigned int>::iterator i=priorities->begin(); i!=priorities->end(); i++) {
-        sum += (*i);
+        sum += int(*i);
     }
     return sum;
 }

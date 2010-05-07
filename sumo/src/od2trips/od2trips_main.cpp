@@ -499,7 +499,7 @@ main(int argc, char **argv) {
             throw ProcessError("No output name is given.");
         }
         OutputDevice& dev = OutputDevice::getDeviceByOption("output");
-        matrix.write(string2time(oc.getString("begin"))/1000., string2time(oc.getString("end"))/1000.,
+        matrix.write(SUMOTime(string2time(oc.getString("begin"))/1000.), SUMOTime(string2time(oc.getString("end"))/1000.),
                      dev, oc.getBool("spread.uniform"), oc.getBool("no-vtype"), oc.getString("prefix"));
         MsgHandler::getMessageInstance()->inform(toString(matrix.getNoDiscarded()) + " vehicles discarded.");
         MsgHandler::getMessageInstance()->inform(toString(matrix.getNoWritten()) + " vehicles written.");

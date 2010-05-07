@@ -378,10 +378,10 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
         for (std::vector<std::pair<int, int> >::const_iterator j=(*i).lanes.begin(); j!=(*i).lanes.end(); ++j) {
             int fromLane = fromMap[(*j).first];
             int toLane = toMap[(*j).second];
-            if (fromLane>=(*i).from->getNoLanes()||fromLane<0) {
+            if (unsigned int(fromLane)>=(*i).from->getNoLanes()||fromLane<0) {
                 std::cout << "False " << std::endl;
             }
-            if (toLane>=(*i).to->getNoLanes()||toLane<0) {
+            if (unsigned int(toLane)>=(*i).to->getNoLanes()||toLane<0) {
                 std::cout << "False " << std::endl;
             }
 

@@ -110,7 +110,7 @@ readDetectorFlows(RODFDetectorFlows &flows, OptionsCont &oc, RODFDetectorCon &dc
         }
         // parse
         MsgHandler::getMessageInstance()->beginProcessMsg("Loading flows from '" + *fileIt + "'...");
-        RODFDetFlowLoader dfl(dc, flows, string2time(oc.getString("begin"))/1000., string2time(oc.getString("end"))/1000., string2time(oc.getString("time-offset"))/1000.);
+        RODFDetFlowLoader dfl(dc, flows, int(string2time(oc.getString("begin"))/1000.), int(string2time(oc.getString("end"))/1000.), SUMOTime(string2time(oc.getString("time-offset"))/1000.));
         dfl.read(*fileIt);
         MsgHandler::getMessageInstance()->endProcessMsg("done.");
     }
@@ -127,7 +127,7 @@ startComputation(RODFNet *optNet, RODFDetectorFlows &flows, RODFDetectorCon &det
     if (optNet!=0) {
         if (oc.getBool("remove-empty-detectors")) {
             MsgHandler::getMessageInstance()->beginProcessMsg("Removing empty detectors...");
-            optNet->removeEmptyDetectors(detectors, flows, string2time(oc.getString("begin"))/1000., string2time(oc.getString("end"))/1000., 60);
+            optNet->removeEmptyDetectors(detectors, flows, SUMOTime(string2time(oc.getString("begin"))/1000.), SUMOTime(string2time(oc.getString("end"))/1000.), 60);
             MsgHandler::getMessageInstance()->endProcessMsg("done.");
         } else  if (oc.getBool("report-empty-detectors")) {
             MsgHandler::getMessageInstance()->beginProcessMsg("Scanning for empty detectors...");
@@ -181,16 +181,16 @@ startComputation(RODFNet *optNet, RODFDetectorFlows &flows, RODFDetectorCon &det
 
     // save emitters if wished
     if (oc.isSet("emitters-output")||oc.isSet("emitters-poi-output")) {
-        optNet->buildEdgeFlowMap(flows, detectors, string2time(oc.getString("begin"))/1000., string2time(oc.getString("end"))/1000., 60); // !!!
+        optNet->buildEdgeFlowMap(flows, detectors, SUMOTime(string2time(oc.getString("begin"))/1000.), SUMOTime(string2time(oc.getString("end"))/1000.), 60); // !!!
         if (oc.getBool("revalidate-flows")) {
             MsgHandler::getMessageInstance()->beginProcessMsg("Rechecking loaded flows...");
-            optNet->revalidateFlows(detectors, flows, string2time(oc.getString("begin"))/1000., string2time(oc.getString("end"))/1000., 60);
+            optNet->revalidateFlows(detectors, flows, SUMOTime(string2time(oc.getString("begin"))/1000.), SUMOTime(string2time(oc.getString("end"))/1000.), 60);
             MsgHandler::getMessageInstance()->endProcessMsg("done.");
         }
         if (oc.isSet("emitters-output")) {
             MsgHandler::getMessageInstance()->beginProcessMsg("Writing emitters...");
             detectors.writeEmitters(oc.getString("emitters-output"), flows,
-                                    string2time(oc.getString("begin"))/1000., string2time(oc.getString("end"))/1000., 60,
+                                    SUMOTime(string2time(oc.getString("begin"))/1000.), SUMOTime(string2time(oc.getString("end"))/1000.), 60,
                                     *optNet,
                                     oc.getBool("write-calibrators"),
                                     oc.getBool("include-unused-routes"),
@@ -202,7 +202,7 @@ startComputation(RODFNet *optNet, RODFDetectorFlows &flows, RODFDetectorCon &det
         if (oc.isSet("emitters-poi-output")) {
             MsgHandler::getMessageInstance()->beginProcessMsg("Writing emitter pois...");
             detectors.writeEmitterPOIs(oc.getString("emitters-poi-output"), flows,
-                                       string2time(oc.getString("begin"))/1000., string2time(oc.getString("end"))/1000., 60);
+                                       SUMOTime(string2time(oc.getString("begin"))/1000.), SUMOTime(string2time(oc.getString("end"))/1000.), 60);
             MsgHandler::getMessageInstance()->endProcessMsg("done.");
         }
     }
@@ -210,7 +210,7 @@ startComputation(RODFNet *optNet, RODFDetectorFlows &flows, RODFDetectorCon &det
     if (oc.isSet("speed-trigger-output")) {
         MsgHandler::getMessageInstance()->beginProcessMsg("Writing speed triggers...");
         detectors.writeSpeedTrigger(optNet, oc.getString("speed-trigger-output"), flows,
-                                    string2time(oc.getString("begin"))/1000., string2time(oc.getString("end"))/1000., 60);
+                                    SUMOTime(string2time(oc.getString("begin"))/1000.), SUMOTime(string2time(oc.getString("end"))/1000.), 60);
         MsgHandler::getMessageInstance()->endProcessMsg("done.");
     }
     // save checking detectors if wished
@@ -271,7 +271,7 @@ main(int argc, char **argv) {
         detectors = new RODFDetectorCon();
         readDetectors(*detectors, oc, net);
         // load detector values
-        flows = new RODFDetectorFlows(string2time(oc.getString("begin"))/1000., string2time(oc.getString("end"))/1000., 60); // !!!
+        flows = new RODFDetectorFlows(SUMOTime(string2time(oc.getString("begin"))/1000.), SUMOTime(string2time(oc.getString("end"))/1000.), 60); // !!!
         readDetectorFlows(*flows, oc, *detectors);
         // build routes
         startComputation(net, *flows, *detectors, oc);

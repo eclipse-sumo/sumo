@@ -164,11 +164,11 @@ RGBColor::fromHSV(SUMOReal h, SUMOReal s, SUMOReal v) throw() {
     h /= 60.;
     int i;
     //if (h == UNDEFINED) RETURN_RGB(v, v, v);
-    i = floor(h);
-    f = h - i;
+    i = int(floor(h));
+    f = float(h - i);
     if (!(i&1)) f = 1 - f;   // if i is even
-    m = v * (1 - s);
-    n = v * (1 - s * f);
+    m = float(v * (1 - s));
+    n = float(v * (1 - s * f));
     switch (i) {
     case 6:
     case 0:

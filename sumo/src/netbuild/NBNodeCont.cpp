@@ -599,7 +599,7 @@ NBNodeCont::removeIsolatedRoads(NBDistrictCont &dc, NBEdgeCont &ec, NBTrafficLig
             }
         } while (!hasJunction && eOld != e);
         if (!hasJunction) {
-            edgeCounter += road.size();
+            edgeCounter +=  int(road.size());
             std::string warningString =
                 "Removed a road without junctions: ";
             for (std::vector<NBEdge*>::iterator roadIt = road.begin(); roadIt

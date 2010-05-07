@@ -51,11 +51,11 @@ std::string StringUtils::emptyString;
 std::string
 StringUtils::prune(std::string str) {
     int idx = 0;
-    while (idx<str.length()&&str[idx]<=32) ++idx;
-    if (idx<str.length()&&idx!=0) {
+    while (unsigned int(idx)<str.length()&&str[idx]<=32) ++idx;
+    if (unsigned int(idx)<str.length()&&idx!=0) {
         str = str.substr(idx);
     }
-    idx = str.length() - 1;
+    idx = int(str.length() - 1);
     while (idx>=0&&str[idx]<=32) --idx;
     if (idx!=str.length() - 1) {
         str = str.substr(0, idx+1);

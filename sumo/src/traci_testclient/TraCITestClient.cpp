@@ -1512,7 +1512,7 @@ TraCITestClient::setValueTypeDependant(tcpip::Storage &into, std::ifstream &defF
         return 1 + 1;
     } else if (dataTypeS=="<float>") {
         into.writeUnsignedByte(TYPE_FLOAT);
-        into.writeFloat(atof(valueS.c_str()));
+        into.writeFloat(float(atof(valueS.c_str())));
         return 4 + 1;
     } else if (dataTypeS=="<string>") {
         into.writeUnsignedByte(TYPE_STRING);
@@ -1526,7 +1526,7 @@ TraCITestClient::setValueTypeDependant(tcpip::Storage &into, std::ifstream &defF
             std::string tmp;
             defFile >> tmp;
             slValue.push_back(tmp);
-            length += 4 + tmp.length();
+            length += 4 + int(tmp.length());
         }
         into.writeUnsignedByte(TYPE_STRINGLIST);
         into.writeStringList(slValue);
@@ -1550,9 +1550,9 @@ TraCITestClient::setValueTypeDependant(tcpip::Storage &into, std::ifstream &defF
         return 1 + 4;
     } else if (dataTypeS=="<position2D>") {
         into.writeUnsignedByte(TYPE_POSITION2D);
-        into.writeFloat(atof(valueS.c_str()));
+        into.writeFloat(float(atof(valueS.c_str())));
         defFile >> valueS;
-        into.writeFloat(atof(valueS.c_str()));
+        into.writeFloat(float(atof(valueS.c_str())));
         return 1 + 8;
     } else if (dataTypeS=="<shape>") {
         into.writeUnsignedByte(TYPE_POLYGON);
@@ -1562,8 +1562,8 @@ TraCITestClient::setValueTypeDependant(tcpip::Storage &into, std::ifstream &defF
         for (int i=0; i<number; ++i) {
             std::string x, y;
             defFile >> x >> y;
-            into.writeFloat(atof(x.c_str()));
-            into.writeFloat(atof(y.c_str()));
+            into.writeFloat(float(atof(x.c_str())));
+            into.writeFloat(float(atof(y.c_str())));
             length += 8;
         }
         return length;
@@ -1945,7 +1945,7 @@ TraCITestClient::validateSubscription(tcpip::Storage &inMsg) {
         answerLog << "  ObjectID=" << inMsg.readString();
         unsigned int varNo = inMsg.readUnsignedByte();
         answerLog << "  #variables=" << varNo << std::endl;
-        for (int i=0; i<varNo; ++i) {
+        for (int i=0; unsigned int (i)<varNo; ++i) {
             answerLog << "      VariableID=" << inMsg.readUnsignedByte();
             bool ok = inMsg.readUnsignedByte()==RTYPE_OK;
             answerLog << "      ok=" << ok;
