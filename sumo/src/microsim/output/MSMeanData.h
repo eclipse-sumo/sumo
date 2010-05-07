@@ -127,11 +127,6 @@ public:
 
         virtual SUMOReal getSamples() const throw();
 
-#ifdef HAVE_MESOSIM
-        virtual void addData(const SUMOVehicle& veh, const SUMOReal timeOnLane, const SUMOReal dist) throw() {};
-        virtual void getLastReported(SUMOVehicle *v, SUMOTime &lastReportedTime, SUMOReal &lastReportedPos) throw() {};
-        virtual void setLastReported(SUMOVehicle *v, SUMOTime lastReportedTime, SUMOReal lastReportedPos) throw() {};
-#endif
     protected:
         /// @name Collected values
         /// @{
@@ -238,11 +233,6 @@ public:
 
         SUMOReal getSamples() const throw();
 
-#ifdef HAVE_MESOSIM
-        void addData(const SUMOVehicle& veh, const SUMOReal timeOnLane, const SUMOReal dist) throw();
-        void getLastReported(SUMOVehicle *v, SUMOTime &lastReportedTime, SUMOReal &lastReportedPos) throw();
-        void setLastReported(SUMOVehicle *v, SUMOTime lastReportedTime, SUMOReal lastReportedPos) throw();
-#endif
     private:
         class TrackerEntry {
         public:

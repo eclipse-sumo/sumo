@@ -82,6 +82,7 @@
 
 #ifdef HAVE_MESOSIM
 #include <mesosim/MELoop.h>
+#include <utils/iodevices/BinaryInputDevice.h>
 #endif
 
 #ifndef NO_TRACI
@@ -550,9 +551,10 @@ MSNet::loadState(BinaryInputDevice &bis) throw() {
     if (numEdges != MSEdge::dictSize()) {
         WRITE_WARNING("State was written for a different net!");
     }
-    myVehicleControl->loadState(bis);
+    const SUMOTime offset = string2time(OptionsCont::getOptions().getString("load-state.offset"));
+    myVehicleControl->loadState(bis, offset);
     if (MSGlobals::gUseMesoSim) {
-        MSGlobals::gMesoNet->loadState(bis, *myVehicleControl);
+        MSGlobals::gMesoNet->loadState(bis, *myVehicleControl, offset);
     }
     return step;
 }

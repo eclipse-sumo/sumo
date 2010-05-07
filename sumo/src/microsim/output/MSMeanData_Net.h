@@ -152,7 +152,6 @@ public:
 #ifdef HAVE_MESOSIM
         void addData(const SUMOVehicle& veh, const SUMOReal timeOnLane, const SUMOReal dist) throw();
         void getLastReported(SUMOVehicle *v, SUMOTime &lastReportedTime, SUMOReal &lastReportedPos) throw();
-        void setLastReported(SUMOVehicle *v, SUMOTime lastReportedTime, SUMOReal lastReportedPos) throw();
 #endif
 
         /// @name Collected values
@@ -187,7 +186,7 @@ public:
         const MSMeanData_Net* myParent;
 
 #ifdef HAVE_MESOSIM
-        std::map<SUMOVehicle*, std::pair<SUMOTime, SUMOReal> > myLastVehicleUpdateValues;
+        std::map<SUMOVehicle*, std::pair<SUMOReal, SUMOReal> > myLastVehicleUpdateValues;
 #endif
 
     };

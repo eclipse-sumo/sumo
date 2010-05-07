@@ -30,6 +30,7 @@
 #endif
 
 #include <vector>
+#include <utils/common/SUMOTime.h>
 
 
 // ===========================================================================

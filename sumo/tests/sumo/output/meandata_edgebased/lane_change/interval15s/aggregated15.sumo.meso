@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 03/25/10 08:19:22 by SUMO sumo Version dev-SVN-r8511
+<!-- generated on 05/07/10 13:40:42 by SUMO sumo Version dev-SVN-r8739
 <configuration>
 
     <input>
@@ -27,18 +27,18 @@
 
 <netstats>
     <interval begin="0.00" end="15.00" id="dump_15">
-        <edge id="1si" sampledSeconds="23.00" traveltime="43.42" density="6.47" occupancy="1.08" waitingTime="0.00" speed="5.46" departed="2" arrived="0" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0"/>
+        <edge id="1si" sampledSeconds="23.00" traveltime="43.41" density="6.47" occupancy="1.08" waitingTime="0.00" speed="5.46" departed="2" arrived="0" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0"/>
     </interval>
     <interval begin="15.00" end="30.00" id="dump_15">
         <edge id="1si" sampledSeconds="30.00" traveltime="38.22" density="8.43" occupancy="1.41" waitingTime="0.00" speed="6.20" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0"/>
     </interval>
     <interval begin="30.00" end="45.00" id="dump_15">
         <edge id="1si" sampledSeconds="22.04" traveltime="35.95" density="6.20" occupancy="1.03" waitingTime="0.00" speed="6.60" departed="0" arrived="0" entered="0" left="1" laneChangedFrom="0" laneChangedTo="0"/>
-        <edge id="4o" sampledSeconds="0.00" departed="0" arrived="1" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0"/>
+        <edge id="4o" sampledSeconds="0.00" departed="0" arrived="1" entered="1" left="0" laneChangedFrom="0" laneChangedTo="0"/>
     </interval>
     <interval begin="45.00" end="60.00" id="dump_15">
         <edge id="1si" sampledSeconds="3.43" traveltime="47.43" density="0.96" occupancy="0.16" waitingTime="0.00" speed="5.00" departed="0" arrived="0" entered="0" left="1" laneChangedFrom="0" laneChangedTo="0"/>
-        <edge id="4o" sampledSeconds="0.00" departed="0" arrived="1" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0"/>
+        <edge id="4o" sampledSeconds="0.00" departed="0" arrived="1" entered="1" left="0" laneChangedFrom="0" laneChangedTo="0"/>
     </interval>
     <interval begin="60.00" end="75.00" id="dump_15">
     </interval>

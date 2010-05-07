@@ -103,25 +103,44 @@ MSMeanData_Net::MSLaneMeanDataValues::isStillActive(MSVehicle& veh, SUMOReal old
         return false;
     }
     bool ret = true;
-    SUMOReal timeOnLane = (SUMOReal) DELTA_T / 1000.;
-    if (oldPos<0&&newSpeed!=0) {
-        timeOnLane = (oldPos+SPEED2DIST(newSpeed)) / newSpeed;
+    SUMOReal timeOnLane = TS;
+#ifdef HAVE_MESOSIM
+    if (MSGlobals::gUseMesoSim) {
+        const SUMOReal currentTime = newPos / newSpeed + STEPS2TIME(veh.getLastEntryTime());
+        SUMOReal lastReportedTime = STEPS2TIME(veh.getLastEntryTime());
+        SUMOReal lastReportedPos = 0;
+        std::map<SUMOVehicle*, std::pair<SUMOReal, SUMOReal> >::iterator j=myLastVehicleUpdateValues.find(&veh);
+        if (j!=myLastVehicleUpdateValues.end()) {
+            // the vehicle already has reported its values before; use these
+            lastReportedTime = (*j).second.first;
+            lastReportedPos = (*j).second.second;
+            myLastVehicleUpdateValues.erase(j);
+        }
+        timeOnLane = currentTime - lastReportedTime;
+        myLastVehicleUpdateValues[&veh] = std::pair<SUMOReal, SUMOReal>(currentTime, lastReportedPos+newSpeed*timeOnLane);
+    } else {
+#endif
+        if (oldPos<0&&newSpeed!=0) {
+            timeOnLane = (oldPos+SPEED2DIST(newSpeed)) / newSpeed;
+        }
+        if (getLane() != 0 && oldPos+SPEED2DIST(newSpeed)>getLane()->getLength() && newSpeed != 0) {
+            timeOnLane -= (oldPos+SPEED2DIST(newSpeed) - getLane()->getLength()) / newSpeed;
+            ret = false;
+        }
+        if (timeOnLane<0) {
+            MsgHandler::getErrorInstance()->inform("Negative vehicle step fraction on lane '" + getLane()->getID() + "'.");
+            return false;
+        }
+        if (timeOnLane==0) {
+            return false;
+        }
+#ifdef HAVE_MESOSIM
     }
-    if (getLane() != 0 && oldPos+SPEED2DIST(newSpeed)>getLane()->getLength() && newSpeed != 0) {
-        timeOnLane -= (oldPos+SPEED2DIST(newSpeed) - getLane()->getLength()) / newSpeed;
-        ret = false;
-    }
-    if (timeOnLane<0) {
-        MsgHandler::getErrorInstance()->inform("Negative vehicle step fraction on lane '" + getLane()->getID() + "'.");
-        return false;
-    }
-    if (timeOnLane==0) {
-        return false;
-    }
+#endif
     sampleSeconds += timeOnLane;
     travelledDistance += newSpeed * timeOnLane;
     vehLengthSum += veh.getVehicleType().getLength() * timeOnLane;
-    if (newSpeed<myParent->myHaltSpeed) {
+    if (myParent!=0&&newSpeed<myParent->myHaltSpeed) {
         waitSeconds += timeOnLane;
     }
     return ret;
@@ -206,41 +225,6 @@ MSMeanData_Net::MSLaneMeanDataValues::write(OutputDevice &dev, const SUMOTime pe
     "\" laneChangedTo=\""<<nVehLaneChangeTo<<
     "\"/>\n";
 }
-
-
-#ifdef HAVE_MESOSIM
-void
-MSMeanData_Net::MSLaneMeanDataValues::addData(const SUMOVehicle& veh, const SUMOReal timeOnLane,
-        const SUMOReal dist) throw() {
-    if (vehicleApplies(veh)) {
-        sampleSeconds += timeOnLane;
-        travelledDistance += dist;
-        vehLengthSum += veh.getVehicleType().getLength() * timeOnLane;
-        if (myParent!=0&&dist/timeOnLane<myParent->myHaltSpeed) {
-            waitSeconds += timeOnLane;
-        }
-    }
-}
-
-
-void
-MSMeanData_Net::MSLaneMeanDataValues::getLastReported(SUMOVehicle *v, SUMOTime &lastReportedTime, SUMOReal &lastReportedPos) throw() {
-    std::map<SUMOVehicle*, std::pair<SUMOTime, SUMOReal> >::iterator j=myLastVehicleUpdateValues.find(v);
-    if (j!=myLastVehicleUpdateValues.end()) {
-        // the vehicle already has reported its values before; use these
-        std::pair<SUMOTime, SUMOReal> &vals = (*j).second;
-        lastReportedTime = vals.first;
-        lastReportedPos = vals.second;
-        myLastVehicleUpdateValues.erase(j);
-    }
-}
-
-
-void
-MSMeanData_Net::MSLaneMeanDataValues::setLastReported(SUMOVehicle *v, SUMOTime lastReportedTime, SUMOReal lastReportedPos) throw() {
-    myLastVehicleUpdateValues[v] = std::pair<SUMOTime, SUMOReal>(lastReportedTime, lastReportedPos);
-}
-#endif
 
 // ---------------------------------------------------------------------------
 // MSMeanData_Net - methods

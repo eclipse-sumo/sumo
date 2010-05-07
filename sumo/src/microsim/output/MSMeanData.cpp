@@ -116,7 +116,11 @@ MSMeanData::MeanDataValueTracker::addTo(MSMeanData::MeanDataValues &val) const t
 bool
 MSMeanData::MeanDataValueTracker::isStillActive(MSVehicle& veh, SUMOReal oldPos, SUMOReal newPos, SUMOReal newSpeed) throw() {
     if (vehicleApplies(veh)) {
-        return myTrackedData[&veh]->myValues->isStillActive(veh, oldPos, newPos, newSpeed);
+        if (!myTrackedData[&veh]->myValues->isStillActive(veh, oldPos, newPos, newSpeed)) {
+            myTrackedData.erase(&veh);
+            return false;
+        }
+        return true;
     }
     return false;
 }
@@ -124,10 +128,9 @@ MSMeanData::MeanDataValueTracker::isStillActive(MSVehicle& veh, SUMOReal oldPos,
 
 void
 MSMeanData::MeanDataValueTracker::notifyLeave(MSVehicle& veh, bool isArrival, bool isLaneChange) throw() {
-    if (vehicleApplies(veh) && myTrackedData.find(&veh)!=myTrackedData.end()) { // !!! the second check is a workaround for meso
+    if (vehicleApplies(veh)) {
         myTrackedData[&veh]->myNumVehicleLeft++;
         myTrackedData[&veh]->myValues->notifyLeave(veh, isArrival, isLaneChange);
-        // !!! cleanup myTrackedData table
     }
 }
 
@@ -137,7 +140,12 @@ MSMeanData::MeanDataValueTracker::notifyEnter(MSVehicle& veh, bool isEmit, bool 
     if (vehicleApplies(veh)) {
         myTrackedData[&veh] = myCurrentData.back();
         myTrackedData[&veh]->myNumVehicleEntered++;
-        return myTrackedData[&veh]->myValues->notifyEnter(veh, isEmit, isLaneChange);
+        if (!myTrackedData[&veh]->myValues->notifyEnter(veh, isEmit, isLaneChange)) {
+            myTrackedData[&veh]->myNumVehicleLeft++;
+            myTrackedData.erase(&veh);
+            return false;
+        }
+        return true;
     }
     return false;
 }
@@ -180,27 +188,6 @@ SUMOReal
 MSMeanData::MeanDataValueTracker::getSamples() const throw() {
     return myCurrentData.front()->myValues->getSamples();
 }
-
-
-#ifdef HAVE_MESOSIM
-void
-MSMeanData::MeanDataValueTracker::addData(const SUMOVehicle& veh, const SUMOReal timeOnLane,
-        const SUMOReal dist) throw() {
-    myCurrentData.front()->myValues->addData(veh, timeOnLane, dist);
-}
-
-
-void
-MSMeanData::MeanDataValueTracker::getLastReported(SUMOVehicle *v, SUMOTime &lastReportedTime, SUMOReal &lastReportedPos) throw() {
-    myCurrentData.front()->myValues->getLastReported(v, lastReportedTime, lastReportedPos);
-}
-
-
-void
-MSMeanData::MeanDataValueTracker::setLastReported(SUMOVehicle *v, SUMOTime lastReportedTime, SUMOReal lastReportedPos) throw() {
-    myCurrentData.front()->myValues->setLastReported(v, lastReportedTime, lastReportedPos);
-}
-#endif
 
 
 // ---------------------------------------------------------------------------

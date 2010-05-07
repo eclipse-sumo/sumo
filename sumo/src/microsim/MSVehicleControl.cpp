@@ -36,7 +36,6 @@
 #include <utils/common/FileHelpers.h>
 #include <utils/common/RGBColor.h>
 #include <utils/common/SUMOVTypeParameter.h>
-#include <utils/options/OptionsCont.h>
 #include <utils/iodevices/BinaryInputDevice.h>
 #include <utils/iodevices/OutputDevice.h>
 
@@ -294,8 +293,7 @@ MSVehicleControl::saveState(std::ostream &os) throw() {
 }
 
 void
-MSVehicleControl::loadState(BinaryInputDevice &bis) throw() {
-    const SUMOTime offset = string2time(OptionsCont::getOptions().getString("load-state.offset"));
+MSVehicleControl::loadState(BinaryInputDevice &bis, const SUMOTime offset) throw() {
     bis >> myRunningVehNo;
     bis >> myEndedVehNo;
     myLoadedVehNo = myEndedVehNo;

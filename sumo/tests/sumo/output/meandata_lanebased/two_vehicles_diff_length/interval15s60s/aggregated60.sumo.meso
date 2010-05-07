@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 03/25/10 08:19:50 by SUMO sumo Version dev-SVN-r8511
+<!-- generated on 05/07/10 13:41:04 by SUMO sumo Version dev-SVN-r8739
 <configuration>
 
     <input>
@@ -31,9 +31,9 @@
         <edge id="4/1to3/1" sampledSeconds="58.57" traveltime="39.05" density="2.50" occupancy="2.50" waitingTime="0.00" speed="10.00" departed="2" arrived="0" entered="0" left="2" laneChangedFrom="0" laneChangedTo="0"/>
     </interval>
     <interval begin="60.00" end="120.00" id="dump_60">
-        <edge id="1/1to0/1" sampledSeconds="0.00" departed="0" arrived="2" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0"/>
+        <edge id="1/1to0/1" sampledSeconds="0.00" departed="0" arrived="2" entered="2" left="0" laneChangedFrom="0" laneChangedTo="0"/>
         <edge id="2/1to1/1" sampledSeconds="78.10" traveltime="39.05" density="3.33" occupancy="3.33" waitingTime="0.00" speed="10.00" departed="0" arrived="0" entered="2" left="2" laneChangedFrom="0" laneChangedTo="0"/>
-        <edge id="3/1to2/1" sampledSeconds="23.68" traveltime="39.05" density="1.01" occupancy="1.12" waitingTime="0.00" speed="10.00" departed="0" arrived="0" entered="0" left="2" laneChangedFrom="0" laneChangedTo="0"/>
+        <edge id="3/1to2/1" sampledSeconds="23.67" traveltime="39.05" density="1.01" occupancy="1.12" waitingTime="0.00" speed="10.00" departed="0" arrived="0" entered="0" left="2" laneChangedFrom="0" laneChangedTo="0"/>
     </interval>
     <interval begin="120.00" end="150.00" id="dump_60">
     </interval>

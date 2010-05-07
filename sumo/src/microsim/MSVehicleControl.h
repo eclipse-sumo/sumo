@@ -335,7 +335,7 @@ public:
     /** @brief Saves the current state into the given stream
      * @todo Does not work for microsim
      */
-    void loadState(BinaryInputDevice &bis) throw();
+    void loadState(BinaryInputDevice &bis, const SUMOTime offset) throw();
     /// @}
 #endif
 
