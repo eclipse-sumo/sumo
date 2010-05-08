@@ -202,7 +202,7 @@ NIXMLConnectionsHandler::parseLaneBound(const SUMOSAXAttributes &attrs,
     try {
         fromLane = TplConvertSec<char>::_2intSec(st.next().c_str(), -1);
         toLane = TplConvertSec<char>::_2intSec(st.next().c_str(), -1);
-        if (fromLane<0 || unsigned int(fromLane)>=from->getNoLanes() || toLane<0 || unsigned int(toLane)>=to->getNoLanes()) {
+        if (fromLane<0 || static_cast<unsigned int>(fromLane)>=from->getNoLanes() || toLane<0 || static_cast<unsigned int>(toLane)>=to->getNoLanes()) {
             MsgHandler::getErrorInstance()->inform("False lane index in connection from '" + from->getID() + "' to '" + to->getID() + "'.");
             return;
         }
