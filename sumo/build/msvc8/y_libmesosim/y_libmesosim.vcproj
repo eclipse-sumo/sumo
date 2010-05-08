@@ -342,6 +342,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\..\src\mesosim\MESegment.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\..\src\mesosim\METriggeredCalibrator.cpp"
 				>
 			</File>
