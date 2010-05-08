@@ -1945,7 +1945,7 @@ TraCITestClient::validateSubscription(tcpip::Storage &inMsg) {
         answerLog << "  ObjectID=" << inMsg.readString();
         unsigned int varNo = inMsg.readUnsignedByte();
         answerLog << "  #variables=" << varNo << std::endl;
-        for (int i=0; unsigned int (i)<varNo; ++i) {
+        for (unsigned int i=0; i<varNo; ++i) {
             answerLog << "      VariableID=" << inMsg.readUnsignedByte();
             bool ok = inMsg.readUnsignedByte()==RTYPE_OK;
             answerLog << "      ok=" << ok;
