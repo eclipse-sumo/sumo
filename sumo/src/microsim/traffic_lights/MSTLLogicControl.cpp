@@ -93,11 +93,11 @@ MSTLLogicControl::TLSLogicVariants::saveInitialStates() {
 
 
 bool
-MSTLLogicControl::TLSLogicVariants::addLogic(const std::string &subID,
+MSTLLogicControl::TLSLogicVariants::addLogic(const std::string &programID,
         MSTrafficLightLogic*logic,
         bool netWasLoaded,
         bool isNewDefault) throw(ProcessError) {
-    if (myVariants.find(subID)!=myVariants.end()) {
+    if (myVariants.find(programID)!=myVariants.end()) {
         return false;
     }
     // assert the links are set
@@ -108,7 +108,7 @@ MSTLLogicControl::TLSLogicVariants::addLogic(const std::string &subID,
         }
         logic->adaptLinkInformationFrom(*myCurrentProgram);
         if (logic->getLinks().size()!=logic->getPhase(0).getState().size()) {
-            throw ProcessError("Mismatching phase size in tls '" + logic->getID() + "', program '" + subID + "'.");
+            throw ProcessError("Mismatching phase size in tls '" + logic->getID() + "', program '" + programID + "'.");
         }
     }
     // add to the list of active
@@ -116,26 +116,26 @@ MSTLLogicControl::TLSLogicVariants::addLogic(const std::string &subID,
         myCurrentProgram = logic;
     }
     // add to the list of logic
-    myVariants[subID] = logic;
+    myVariants[programID] = logic;
     logic->setLinkPriorities();
     return true;
 }
 
 
 MSTrafficLightLogic*
-MSTLLogicControl::TLSLogicVariants::getLogic(const std::string &subid) const {
-    if (myVariants.find(subid)==myVariants.end()) {
+MSTLLogicControl::TLSLogicVariants::getLogic(const std::string &programID) const {
+    if (myVariants.find(programID)==myVariants.end()) {
         return 0;
     }
-    return myVariants.find(subid)->second;
+    return myVariants.find(programID)->second;
 }
 
 
 MSTrafficLightLogic*
 MSTLLogicControl::TLSLogicVariants::getLogicInstantiatingOff(MSTLLogicControl &tlc,
-        const std::string &subid) {
-    if (myVariants.find(subid)==myVariants.end()) {
-        if (subid=="off") {
+        const std::string &programID) {
+    if (myVariants.find(programID)==myVariants.end()) {
+        if (programID=="off") {
             // build an off-tll if this switch indicates it
             if (!addLogic("off", new MSOffTrafficLightLogic(tlc, myCurrentProgram->getID()), true, false)) {
                 // inform the user if this fails
@@ -143,10 +143,10 @@ MSTLLogicControl::TLSLogicVariants::getLogicInstantiatingOff(MSTLLogicControl &t
             }
         } else {
             // inform the user about a missing logic
-            throw ProcessError("Can not switch tls '" + myCurrentProgram->getID() + "' to program '" + subid + "';\n The program is not known.");
+            throw ProcessError("Can not switch tls '" + myCurrentProgram->getID() + "' to program '" + programID + "';\n The program is not known.");
         }
     }
-    return getLogic(subid);
+    return getLogic(programID);
 }
 
 
@@ -180,11 +180,11 @@ MSTLLogicControl::TLSLogicVariants::getActive() const {
 
 
 bool
-MSTLLogicControl::TLSLogicVariants::switchTo(MSTLLogicControl &tlc, const std::string &subid) {
+MSTLLogicControl::TLSLogicVariants::switchTo(MSTLLogicControl &tlc, const std::string &programID) {
     // set the found wished sub-program as this tls' current one
-    myCurrentProgram = getLogicInstantiatingOff(tlc, subid);
+    myCurrentProgram = getLogicInstantiatingOff(tlc, programID);
     // in the case we have switched to an off-state, we'll reset the links
-    if (subid=="off") {
+    if (programID=="off") {
         myCurrentProgram->resetLinkStates(myOriginalLinkStates);
     }
     return true;
@@ -621,12 +621,12 @@ MSTLLogicControl::get(const std::string &id) const throw(InvalidArgument) {
 
 
 MSTrafficLightLogic * const
-    MSTLLogicControl::get(const std::string &id, const std::string &subid) const {
+    MSTLLogicControl::get(const std::string &id, const std::string &programID) const {
     std::map<std::string, TLSLogicVariants*>::const_iterator i = myLogics.find(id);
     if (i==myLogics.end()) {
         return 0;
     }
-    return (*i).second->getLogic(subid);
+    return (*i).second->getLogic(programID);
 }
 
 
@@ -644,14 +644,14 @@ MSTLLogicControl::getAllTLIds() const {
 
 
 bool
-MSTLLogicControl::add(const std::string &id, const std::string &subID,
+MSTLLogicControl::add(const std::string &id, const std::string &programID,
                       MSTrafficLightLogic *logic, bool newDefault) throw(ProcessError) {
     if (myLogics.find(id)==myLogics.end()) {
         myLogics[id] = new TLSLogicVariants();
     }
     std::map<std::string, TLSLogicVariants*>::iterator i = myLogics.find(id);
     TLSLogicVariants *tlmap = (*i).second;
-    return tlmap->addLogic(subID, logic, myNetWasLoaded, newDefault);
+    return tlmap->addLogic(programID, logic, myNetWasLoaded, newDefault);
 }
 
 
@@ -698,14 +698,14 @@ MSTrafficLightLogic * const
 
 
 bool
-MSTLLogicControl::switchTo(const std::string &id, const std::string &subid) {
+MSTLLogicControl::switchTo(const std::string &id, const std::string &programID) {
     // try to get the tls program definitions
     std::map<std::string, TLSLogicVariants*>::iterator i = myLogics.find(id);
     // handle problems
     if (i==myLogics.end()) {
-        throw ProcessError("Could not switch tls '" + id + "' to program '" + subid + "':\n No such tls exists.");
+        throw ProcessError("Could not switch tls '" + id + "' to program '" + programID + "':\n No such tls exists.");
     }
-    return (*i).second->switchTo(*this, subid);
+    return (*i).second->switchTo(*this, programID);
 }
 
 
@@ -856,7 +856,7 @@ MSTLLogicControl::check2Switch(SUMOTime step) {
         const WAUTSwitchProcess &proc = *i;
         if (proc.proc->trySwitch(step)) {
             delete proc.proc;
-            switchTo((*i).to->getID(), (*i).to->getSubID());
+            switchTo((*i).to->getID(), (*i).to->getProgramID());
             i = myCurrentlySwitched.erase(i);
         } else {
             ++i;

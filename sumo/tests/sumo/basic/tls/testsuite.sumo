@@ -13,6 +13,9 @@ begin50
 # Simulation starts at 100
 begin100
 
+# switch tls off
+off
+
 # Checks whether usage of deprecated tls works
 _deprecated_
 

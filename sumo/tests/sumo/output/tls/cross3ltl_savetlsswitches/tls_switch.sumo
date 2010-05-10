@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on Mon Mar 15 07:00:25 2010 by SUMO sumo Version dev-SVN-r8442
+<!-- generated on Mon May 10 15:43:12 2010 by SUMO sumo Version dev-SVN-r8744
 <configuration>
 
     <input>
@@ -23,36 +23,36 @@
 -->
 
 <tls-switches>
-   <tlsswitch id="0" subid="0" fromLane="4si_0" toLane="1o_0" begin="0.00" end="31.00" duration="31.00"/>
-   <tlsswitch id="0" subid="0" fromLane="4si_1" toLane="3o_0" begin="0.00" end="31.00" duration="31.00"/>
-   <tlsswitch id="0" subid="0" fromLane="3si_0" toLane="2o_0" begin="0.00" end="31.00" duration="31.00"/>
-   <tlsswitch id="0" subid="0" fromLane="3si_1" toLane="4o_0" begin="0.00" end="31.00" duration="31.00"/>
-   <tlsswitch id="0" subid="0" fromLane="4si_2" toLane="2o_0" begin="0.00" end="41.00" duration="41.00"/>
-   <tlsswitch id="0" subid="0" fromLane="4si_2" toLane="4o_0" begin="0.00" end="41.00" duration="41.00"/>
-   <tlsswitch id="0" subid="0" fromLane="3si_2" toLane="1o_0" begin="0.00" end="41.00" duration="41.00"/>
-   <tlsswitch id="0" subid="0" fromLane="3si_2" toLane="3o_0" begin="0.00" end="41.00" duration="41.00"/>
-   <tlsswitch id="0" subid="0" fromLane="2si_0" toLane="4o_0" begin="45.00" end="76.00" duration="31.00"/>
-   <tlsswitch id="0" subid="0" fromLane="2si_1" toLane="1o_0" begin="45.00" end="76.00" duration="31.00"/>
-   <tlsswitch id="0" subid="0" fromLane="1si_0" toLane="3o_0" begin="45.00" end="76.00" duration="31.00"/>
-   <tlsswitch id="0" subid="0" fromLane="1si_1" toLane="2o_0" begin="45.00" end="76.00" duration="31.00"/>
-   <tlsswitch id="0" subid="0" fromLane="2si_2" toLane="3o_0" begin="45.00" end="86.00" duration="41.00"/>
-   <tlsswitch id="0" subid="0" fromLane="2si_2" toLane="2o_0" begin="45.00" end="86.00" duration="41.00"/>
-   <tlsswitch id="0" subid="0" fromLane="1si_2" toLane="4o_0" begin="45.00" end="86.00" duration="41.00"/>
-   <tlsswitch id="0" subid="0" fromLane="1si_2" toLane="1o_0" begin="45.00" end="86.00" duration="41.00"/>
-   <tlsswitch id="0" subid="0" fromLane="4si_0" toLane="1o_0" begin="90.00" end="121.00" duration="31.00"/>
-   <tlsswitch id="0" subid="0" fromLane="4si_1" toLane="3o_0" begin="90.00" end="121.00" duration="31.00"/>
-   <tlsswitch id="0" subid="0" fromLane="3si_0" toLane="2o_0" begin="90.00" end="121.00" duration="31.00"/>
-   <tlsswitch id="0" subid="0" fromLane="3si_1" toLane="4o_0" begin="90.00" end="121.00" duration="31.00"/>
-   <tlsswitch id="0" subid="0" fromLane="4si_2" toLane="2o_0" begin="90.00" end="131.00" duration="41.00"/>
-   <tlsswitch id="0" subid="0" fromLane="4si_2" toLane="4o_0" begin="90.00" end="131.00" duration="41.00"/>
-   <tlsswitch id="0" subid="0" fromLane="3si_2" toLane="1o_0" begin="90.00" end="131.00" duration="41.00"/>
-   <tlsswitch id="0" subid="0" fromLane="3si_2" toLane="3o_0" begin="90.00" end="131.00" duration="41.00"/>
-   <tlsswitch id="0" subid="0" fromLane="2si_0" toLane="4o_0" begin="135.00" end="166.00" duration="31.00"/>
-   <tlsswitch id="0" subid="0" fromLane="2si_1" toLane="1o_0" begin="135.00" end="166.00" duration="31.00"/>
-   <tlsswitch id="0" subid="0" fromLane="1si_0" toLane="3o_0" begin="135.00" end="166.00" duration="31.00"/>
-   <tlsswitch id="0" subid="0" fromLane="1si_1" toLane="2o_0" begin="135.00" end="166.00" duration="31.00"/>
-   <tlsswitch id="0" subid="0" fromLane="2si_2" toLane="3o_0" begin="135.00" end="176.00" duration="41.00"/>
-   <tlsswitch id="0" subid="0" fromLane="2si_2" toLane="2o_0" begin="135.00" end="176.00" duration="41.00"/>
-   <tlsswitch id="0" subid="0" fromLane="1si_2" toLane="4o_0" begin="135.00" end="176.00" duration="41.00"/>
-   <tlsswitch id="0" subid="0" fromLane="1si_2" toLane="1o_0" begin="135.00" end="176.00" duration="41.00"/>
+   <tlsswitch id="0" programID="0" fromLane="4si_0" toLane="1o_0" begin="0.00" end="31.00" duration="31.00"/>
+   <tlsswitch id="0" programID="0" fromLane="4si_1" toLane="3o_0" begin="0.00" end="31.00" duration="31.00"/>
+   <tlsswitch id="0" programID="0" fromLane="3si_0" toLane="2o_0" begin="0.00" end="31.00" duration="31.00"/>
+   <tlsswitch id="0" programID="0" fromLane="3si_1" toLane="4o_0" begin="0.00" end="31.00" duration="31.00"/>
+   <tlsswitch id="0" programID="0" fromLane="4si_2" toLane="2o_0" begin="0.00" end="41.00" duration="41.00"/>
+   <tlsswitch id="0" programID="0" fromLane="4si_2" toLane="4o_0" begin="0.00" end="41.00" duration="41.00"/>
+   <tlsswitch id="0" programID="0" fromLane="3si_2" toLane="1o_0" begin="0.00" end="41.00" duration="41.00"/>
+   <tlsswitch id="0" programID="0" fromLane="3si_2" toLane="3o_0" begin="0.00" end="41.00" duration="41.00"/>
+   <tlsswitch id="0" programID="0" fromLane="2si_0" toLane="4o_0" begin="45.00" end="76.00" duration="31.00"/>
+   <tlsswitch id="0" programID="0" fromLane="2si_1" toLane="1o_0" begin="45.00" end="76.00" duration="31.00"/>
+   <tlsswitch id="0" programID="0" fromLane="1si_0" toLane="3o_0" begin="45.00" end="76.00" duration="31.00"/>
+   <tlsswitch id="0" programID="0" fromLane="1si_1" toLane="2o_0" begin="45.00" end="76.00" duration="31.00"/>
+   <tlsswitch id="0" programID="0" fromLane="2si_2" toLane="3o_0" begin="45.00" end="86.00" duration="41.00"/>
+   <tlsswitch id="0" programID="0" fromLane="2si_2" toLane="2o_0" begin="45.00" end="86.00" duration="41.00"/>
+   <tlsswitch id="0" programID="0" fromLane="1si_2" toLane="4o_0" begin="45.00" end="86.00" duration="41.00"/>
+   <tlsswitch id="0" programID="0" fromLane="1si_2" toLane="1o_0" begin="45.00" end="86.00" duration="41.00"/>
+   <tlsswitch id="0" programID="0" fromLane="4si_0" toLane="1o_0" begin="90.00" end="121.00" duration="31.00"/>
+   <tlsswitch id="0" programID="0" fromLane="4si_1" toLane="3o_0" begin="90.00" end="121.00" duration="31.00"/>
+   <tlsswitch id="0" programID="0" fromLane="3si_0" toLane="2o_0" begin="90.00" end="121.00" duration="31.00"/>
+   <tlsswitch id="0" programID="0" fromLane="3si_1" toLane="4o_0" begin="90.00" end="121.00" duration="31.00"/>
+   <tlsswitch id="0" programID="0" fromLane="4si_2" toLane="2o_0" begin="90.00" end="131.00" duration="41.00"/>
+   <tlsswitch id="0" programID="0" fromLane="4si_2" toLane="4o_0" begin="90.00" end="131.00" duration="41.00"/>
+   <tlsswitch id="0" programID="0" fromLane="3si_2" toLane="1o_0" begin="90.00" end="131.00" duration="41.00"/>
+   <tlsswitch id="0" programID="0" fromLane="3si_2" toLane="3o_0" begin="90.00" end="131.00" duration="41.00"/>
+   <tlsswitch id="0" programID="0" fromLane="2si_0" toLane="4o_0" begin="135.00" end="166.00" duration="31.00"/>
+   <tlsswitch id="0" programID="0" fromLane="2si_1" toLane="1o_0" begin="135.00" end="166.00" duration="31.00"/>
+   <tlsswitch id="0" programID="0" fromLane="1si_0" toLane="3o_0" begin="135.00" end="166.00" duration="31.00"/>
+   <tlsswitch id="0" programID="0" fromLane="1si_1" toLane="2o_0" begin="135.00" end="166.00" duration="31.00"/>
+   <tlsswitch id="0" programID="0" fromLane="2si_2" toLane="3o_0" begin="135.00" end="176.00" duration="41.00"/>
+   <tlsswitch id="0" programID="0" fromLane="2si_2" toLane="2o_0" begin="135.00" end="176.00" duration="41.00"/>
+   <tlsswitch id="0" programID="0" fromLane="1si_2" toLane="4o_0" begin="135.00" end="176.00" duration="41.00"/>
+   <tlsswitch id="0" programID="0" fromLane="1si_2" toLane="1o_0" begin="135.00" end="176.00" duration="41.00"/>
 </tls-switches>

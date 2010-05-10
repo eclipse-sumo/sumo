@@ -74,7 +74,7 @@ public:
     /** @brief Constructor
      * @param[in] tlcontrol The tls control responsible for this tls
      * @param[in] id This tls' id
-     * @param[in] subid This tls' sub-id (program id)
+     * @param[in] programID This tls' sub-id (program id)
      * @param[in] phases Definitions of the phases
      * @param[in] step The initial phase index
      * @param[in] delay The time to wait before the first switch
@@ -84,7 +84,7 @@ public:
      * @param[in] tcycle !!!
      */
     MSAgentbasedTrafficLightLogic(MSTLLogicControl &tlcontrol,
-                                  const std::string &id, const std::string &subid,
+                                  const std::string &id, const std::string &programID,
                                   const MSSimpleTrafficLightLogic::Phases &phases,
                                   unsigned int step, SUMOTime delay, int learnHorizon, int decHorizon,
                                   SUMOReal minDiff, int tcycle) throw();

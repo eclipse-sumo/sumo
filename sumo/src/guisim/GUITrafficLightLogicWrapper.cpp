@@ -146,7 +146,7 @@ GUITrafficLightLogicWrapper::getPopUpMenu(GUIMainWindow &app,
         size_t index = 0;
         for (i=logics.begin(); i!=logics.end(); ++i, ++index) {
             if (!vars.isActive(*i)) {
-                new FXMenuCommand(ret, ("Switch to '" + (*i)->getSubID() + "'").c_str(),
+                new FXMenuCommand(ret, ("Switch to '" + (*i)->getProgramID() + "'").c_str(),
                                   GUIIconSubSys::getIcon(ICON_FLAG_MINUS), ret, (FXSelector)(MID_SWITCH+index));
             }
         }
@@ -222,7 +222,7 @@ GUITrafficLightLogicWrapper::switchTLSLogic(int to) {
     }
     const MSTLLogicControl::TLSLogicVariants &vars = myTLLogicControl.get(myTLLogic.getID());
     std::vector<MSTrafficLightLogic*> logics = vars.getAllLogics();
-    myTLLogicControl.switchTo(myTLLogic.getID(), logics[to]->getSubID());
+    myTLLogicControl.switchTo(myTLLogic.getID(), logics[to]->getProgramID());
 }
 
 

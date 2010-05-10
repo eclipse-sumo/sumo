@@ -123,7 +123,7 @@ TraCIServerAPI_TLS::processGet(tcpip::Storage &inputStorage,
             for (unsigned int i=0; i<logics.size(); ++i) {
                 MSTrafficLightLogic *logic = logics[i];
                 tempContent.writeUnsignedByte(TYPE_STRING);
-                tempContent.writeString(logic->getSubID());
+                tempContent.writeString(logic->getProgramID());
                 ++cnt;
                 // type (always 0 by now)
                 tempContent.writeUnsignedByte(TYPE_INTEGER);
@@ -183,7 +183,7 @@ TraCIServerAPI_TLS::processGet(tcpip::Storage &inputStorage,
             for (unsigned int i=0; i<logics.size(); ++i) {
                 MSTrafficLightLogic *logic = logics[i];
                 tempContent.writeUnsignedByte(TYPE_STRING);
-                tempContent.writeString(logic->getSubID());
+                tempContent.writeString(logic->getProgramID());
                 ++cnt;
                 // type (always 0 by now)
                 tempContent.writeUnsignedByte(TYPE_INTEGER);
@@ -283,7 +283,7 @@ TraCIServerAPI_TLS::processGet(tcpip::Storage &inputStorage,
             break;
         case TL_CURRENT_PROGRAM:
             tempMsg.writeUnsignedByte(TYPE_STRING);
-            tempMsg.writeString(vars.getActive()->getSubID());
+            tempMsg.writeString(vars.getActive()->getProgramID());
             break;
         case TL_PHASE_DURATION:
             tempMsg.writeUnsignedByte(TYPE_INTEGER);

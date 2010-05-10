@@ -80,11 +80,11 @@ public:
     /** @brief Constructor
      * @param[in] tlcontrol The tls control responsible for this tls
      * @param[in] id This tls' id
-     * @param[in] subid This tls' sub-id (program id)
+     * @param[in] programID This tls' sub-id (program id)
      * @param[in] delay The time to wait before the first switch
      */
     MSTrafficLightLogic(MSTLLogicControl &tlcontrol,
-                        const std::string &id, const std::string &subid, SUMOTime delay) throw();
+                        const std::string &id, const std::string &programID, SUMOTime delay) throw();
 
 
     /** @brief Initialises the tls with information about incoming lanes
@@ -173,8 +173,8 @@ public:
     /** @brief Returns this tl-logic's id
      * @return This program's id
      */
-    const std::string &getSubID() const throw() {
-        return mySubID;
+    const std::string &getProgramID() const throw() {
+        return myProgramID;
     }
 
 
@@ -412,7 +412,7 @@ protected:
     std::map<std::string, std::string> myParameter;
 
     /// @brief The id of the logic
-    std::string myID, mySubID;
+    std::string myID, myProgramID;
 
     /// @brief The list of links which do participate in this traffic light
     LinkVectorVector myLinks;

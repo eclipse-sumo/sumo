@@ -43,6 +43,7 @@
 #include <microsim/MSGlobals.h>
 #include "NLBuilder.h"
 #include <microsim/traffic_lights/MSAgentbasedTrafficLightLogic.h>
+#include <microsim/traffic_lights/MSOffTrafficLightLogic.h>
 #include <utils/common/UtilExceptions.h>
 #include "NLJunctionControlBuilder.h"
 #include <microsim/traffic_lights/MSTLLogicControl.h>
@@ -229,8 +230,18 @@ NLJunctionControlBuilder::getTLLogic(const std::string &id) const throw(InvalidA
 
 void
 NLJunctionControlBuilder::closeTrafficLightLogic() throw(InvalidArgument, ProcessError) {
+    if (myActiveProgram=="off") {
+        if (myAbsDuration>0) {
+            throw InvalidArgument("The off program for TLS '" + myActiveKey + "' has phases.");
+        }
+        if (!getTLLogicControlToUse().add(myActiveKey, myActiveProgram,
+                                          new MSOffTrafficLightLogic(getTLLogicControlToUse(), myActiveKey))) {
+            throw InvalidArgument("Another logic with id '" + myActiveKey + "' and subid '" + myActiveProgram + "' exists.");
+        }
+        return;
+    }
     if (myAbsDuration==0) {
-        throw InvalidArgument("TLS program '" + myActiveSubKey + "' for TLS '" + myActiveKey + "' has a duration of 0.");
+        throw InvalidArgument("TLS program '" + myActiveProgram + "' for TLS '" + myActiveKey + "' has a duration of 0.");
     }
     // compute the initial step and first switch time of the tls-logic
     unsigned int step = 0;
@@ -245,8 +256,8 @@ NLJunctionControlBuilder::closeTrafficLightLogic() throw(InvalidArgument, Proces
     firstEventOffset = (*i)->duration - offset + myNet.getCurrentTimeStep();
 
     //
-    if (myActiveSubKey=="") {
-        myActiveSubKey = "default";
+    if (myActiveProgram=="") {
+        myActiveProgram = "default";
     }
     MSTrafficLightLogic *tlLogic = 0;
     // build the tls-logic in dependance to its type
@@ -254,21 +265,21 @@ NLJunctionControlBuilder::closeTrafficLightLogic() throw(InvalidArgument, Proces
         // build an actuated logic
         tlLogic =
             new MSActuatedTrafficLightLogic(getTLLogicControlToUse(),
-                                            myActiveKey, myActiveSubKey,
+                                            myActiveKey, myActiveProgram,
                                             myActivePhases, step, firstEventOffset, myStdActuatedMaxGap,
                                             myStdActuatedPassingTime, myStdActuatedDetectorGap);
     } else if (myLogicType=="agentbased") {
         // build an agentbased logic
         tlLogic =
             new MSAgentbasedTrafficLightLogic(getTLLogicControlToUse(),
-                                              myActiveKey, myActiveSubKey,
+                                              myActiveKey, myActiveProgram,
                                               myActivePhases, step, firstEventOffset, myStdLearnHorizon,
                                               myStdDecisionHorizon, myStdDeltaLimit, myStdTCycle);
     } else {
         // build a fixed tls-logic
         tlLogic =
             new MSSimpleTrafficLightLogic(getTLLogicControlToUse(),
-                                          myActiveKey, myActiveSubKey,
+                                          myActiveKey, myActiveProgram,
                                           myActivePhases, step, firstEventOffset);
         tlLogic->setParameter(myAdditionalParameter);
     }
@@ -280,8 +291,8 @@ NLJunctionControlBuilder::closeTrafficLightLogic() throw(InvalidArgument, Proces
     myActivePhases.clear();
     if (tlLogic!=0) {
         try {
-            if (!getTLLogicControlToUse().add(myActiveKey, myActiveSubKey, tlLogic)) {
-                throw InvalidArgument("Another logic with id '" + myActiveKey + "' and subid '" + myActiveSubKey + "' exists.");
+            if (!getTLLogicControlToUse().add(myActiveKey, myActiveProgram, tlLogic)) {
+                throw InvalidArgument("Another logic with id '" + myActiveKey + "' and subid '" + myActiveProgram + "' exists.");
             }
         } catch (InvalidArgument &) {
             delete tlLogic;
@@ -294,7 +305,7 @@ NLJunctionControlBuilder::closeTrafficLightLogic() throw(InvalidArgument, Proces
 void
 NLJunctionControlBuilder::initJunctionLogic(const std::string &id, int requestSize, int laneNumber) throw() {
     myActiveKey = id;
-    myActiveSubKey = "";
+    myActiveProgram = "";
     myActiveLogic = new MSBitsetLogic::Logic();
     myActiveFoes = new MSBitsetLogic::Foes();
     myActiveConts.reset();
@@ -345,7 +356,7 @@ void
 NLJunctionControlBuilder::initTrafficLightLogic(const std::string &id, const std::string &programID,
         const std::string &type, int offset, SUMOReal detectorOffset) throw() {
     myActiveKey = id;
-    myActiveSubKey = programID;
+    myActiveProgram = programID;
     myActivePhases.clear();
     myAbsDuration = 0;
     myRequestSize = -1;
@@ -411,7 +422,7 @@ NLJunctionControlBuilder::setKey(const std::string &key) throw() {
 void
 NLJunctionControlBuilder::setSubKey(const std::string &subkey) throw() {
     // @deprecated: assuming a net could still use characters for the sub id
-    myActiveSubKey = subkey;
+    myActiveProgram = subkey;
 }
 
 
@@ -483,7 +494,7 @@ NLJunctionControlBuilder::getActiveKey() const throw() {
 
 const std::string &
 NLJunctionControlBuilder::getActiveSubKey() const throw() {
-    return myActiveSubKey;
+    return myActiveProgram;
 }
 
 

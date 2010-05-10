@@ -48,10 +48,10 @@
 // ===========================================================================
 MSAgentbasedTrafficLightLogic::MSAgentbasedTrafficLightLogic(
     MSTLLogicControl &tlcontrol,
-    const std::string &id, const std::string &subid,
+    const std::string &id, const std::string &programID,
     const Phases &phases, unsigned int step, SUMOTime delay,
     int learnHorizon, int decHorizon, SUMOReal minDiff, int tcycle) throw()
-        : MSSimpleTrafficLightLogic(tlcontrol, id, subid, phases, step, delay),
+        : MSSimpleTrafficLightLogic(tlcontrol, id, programID, phases, step, delay),
         tDecide(decHorizon), tSinceLastDecision(0), stepOfLastDecision(0),
         numberOfValues(learnHorizon), tCycle(tcycle), deltaLimit(minDiff) {}
 
@@ -67,7 +67,7 @@ MSAgentbasedTrafficLightLogic::init(NLDetectorBuilder &nb) throw(ProcessError) {
         for (i=lanes.begin(); i!=lanes.end(); i++) {
             MSLane *lane = (*i);
             // Build the lane state detetcor and set it into the container
-            std::string id = "TL_" + myID + "_" + mySubID + "_E2OverLanesDetectorStartingAt_" + lane->getID();
+            std::string id = "TL_" + myID + "_" + myProgramID + "_E2OverLanesDetectorStartingAt_" + lane->getID();
 
             if (myE2Detectors.find(lane)==myE2Detectors.end()) {
                 MS_E2_ZS_CollectorOverLanes* det =

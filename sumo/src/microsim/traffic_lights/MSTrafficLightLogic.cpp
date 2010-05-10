@@ -97,9 +97,9 @@ MSTrafficLightLogic::SwitchCommand::deschedule(MSTrafficLightLogic *tlLogic) thr
  * member method definitions
  * ----------------------------------------------------------------------- */
 MSTrafficLightLogic::MSTrafficLightLogic(MSTLLogicControl &tlcontrol,
-        const std::string &id, const std::string &subid,
+        const std::string &id, const std::string &programID,
         SUMOTime delay) throw()
-        : myID(id), mySubID(subid), myCurrentDurationIncrement(-1),
+        : myID(id), myProgramID(programID), myCurrentDurationIncrement(-1),
         myDefaultCycleTime(0) {
     mySwitchCommand = new SwitchCommand(tlcontrol, this, delay);
     MSNet::getInstance()->getBeginOfTimestepEvents().addEvent(

@@ -57,14 +57,14 @@ Command_SaveTLSSwitchStates::~Command_SaveTLSSwitchStates() throw() {
 SUMOTime
 Command_SaveTLSSwitchStates::execute(SUMOTime currentTime) throw(ProcessError) {
     const std::string &state = myLogics.getActive()->getCurrentPhaseDef().getState();
-    if (state!=myPreviousState||myLogics.getActive()->getSubID()!=myPreviousSubID) {
+    if (state!=myPreviousState||myLogics.getActive()->getProgramID()!=myPreviousProgramID) {
         myOutputDevice << "    <tlsstate time=\"" << time2string(currentTime)
         << "\" id=\"" << myLogics.getActive()->getID()
-        << "\" subid=\"" << myLogics.getActive()->getSubID()
+        << "\" programID=\"" << myLogics.getActive()->getProgramID()
         << "\" phase=\"" << myLogics.getActive()->getCurrentPhaseIndex()
         << "\" state=\"" << state << "\"/>\n";
         myPreviousState = state;
-        myPreviousSubID = myLogics.getActive()->getSubID();
+        myPreviousProgramID = myLogics.getActive()->getProgramID();
     }
     return DELTA_T;
 }

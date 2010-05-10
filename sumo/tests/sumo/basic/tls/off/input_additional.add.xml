@@ -1,0 +1,4 @@
+<additional>
+    <timed_event dest="tls_state_switch.xml" source="0" type="SaveTLSSwitchStates"/>
+    <tl-logic id="0" type="static" programID="off"/>
+</additional>

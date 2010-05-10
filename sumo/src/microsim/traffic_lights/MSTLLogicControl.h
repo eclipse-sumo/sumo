@@ -101,26 +101,26 @@ public:
 
         /** @brief Adds a logic (program)
          *
-         * @param[in] subID The sub-id of this program
+         * @param[in] programID The sub-id of this program
          * @param[in] logic The logic to add
          * @param[in] netWasLoaded Whether the network has already been loaded (the links have been assigned)
          * @param[in] isNewDefault Whether this logic shall be treated as the currently active logic
          */
-        bool addLogic(const std::string &subID, MSTrafficLightLogic*logic, bool netWasLoaded,
+        bool addLogic(const std::string &programID, MSTrafficLightLogic*logic, bool netWasLoaded,
                       bool isNewDefault=true) throw(ProcessError);
 
 
 
-        MSTrafficLightLogic* getLogic(const std::string &subid) const;
+        MSTrafficLightLogic* getLogic(const std::string &programID) const;
         void addSwitchCommand(OnSwitchAction *c);
         std::vector<MSTrafficLightLogic*> getAllLogics() const;
         void saveInitialStates();
         bool isActive(const MSTrafficLightLogic *tl) const;
         MSTrafficLightLogic* getActive() const;
-        bool switchTo(MSTLLogicControl &tlc, const std::string &subid);
+        bool switchTo(MSTLLogicControl &tlc, const std::string &programID);
         bool setTrafficLightSignals();
         MSTrafficLightLogic*getLogicInstantiatingOff(MSTLLogicControl &tlc,
-                const std::string &subid);
+                const std::string &programID);
         void executeOnSwitchActions() const;
         void addLink(MSLink *link, MSLane *lane, unsigned int pos) throw();
 
@@ -200,13 +200,13 @@ public:
     TLSLogicVariants &get(const std::string &id) const throw(InvalidArgument);
 
 
-    /** @brief Returns a single program (variant) defined by the tls id and the program subid
+    /** @brief Returns a single program (variant) defined by the tls id and the program programID
      *
      * @param[in] id The id of the tls to get program of
-     * @param[in] subid The program id of the tls program to get
+     * @param[in] programID The program id of the tls program to get
      * @return The defined tls program if existing, 0 otherwise
      */
-    MSTrafficLightLogic * const get(const std::string &id, const std::string &subid) const;
+    MSTrafficLightLogic * const get(const std::string &id, const std::string &programID) const;
 
 
     /** @brief Returns the active program of a named tls
@@ -240,12 +240,12 @@ public:
      *  tls is replaced within the according TLSLogicVariants structure.
      *
      * @param[in] id The id of the tls (program) to add
-     * @param[in] subID The program id of the tls (program) to add
+     * @param[in] programID The program id of the tls (program) to add
      * @param[in] logic The tls logic to insert
      * @exception ProcessError In the case an additional tls program is loaded and no one for the tls existed in the network
      * @return true if the tls program could be added, false otherwise
      */
-    bool add(const std::string &id, const std::string &subID,
+    bool add(const std::string &id, const std::string &programID,
              MSTrafficLightLogic *logic, bool newDefault=true) throw(ProcessError);
 
 
@@ -255,12 +255,12 @@ public:
     /// Returns the information whether the given tls program is the currently active for his tls
     bool isActive(const MSTrafficLightLogic *tl) const;
 
-    /** @brief Switches the named (id) tls to the named (subid) program
+    /** @brief Switches the named (id) tls to the named (programID) program
      *
-     * The program with the used subid must be previously added.
+     * The program with the used programID must be previously added.
      * If the tls itself or the program to switch to is not known, false is returned.
      */
-    bool switchTo(const std::string &id, const std::string &subid);
+    bool switchTo(const std::string &id, const std::string &programID);
 
 
     /// @name WAUT definition methods

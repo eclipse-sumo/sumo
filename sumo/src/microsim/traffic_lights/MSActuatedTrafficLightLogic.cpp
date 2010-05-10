@@ -48,11 +48,11 @@
 // method definitions
 // ===========================================================================
 MSActuatedTrafficLightLogic::MSActuatedTrafficLightLogic(MSTLLogicControl &tlcontrol,
-        const std::string &id, const std::string &subid,
+        const std::string &id, const std::string &programID,
         const Phases &phases,
         unsigned int step, SUMOTime delay, SUMOReal maxGap, SUMOReal passingTime,
         SUMOReal detectorGap) throw()
-        : MSSimpleTrafficLightLogic(tlcontrol, id, subid, phases, step, delay),
+        : MSSimpleTrafficLightLogic(tlcontrol, id, programID, phases, step, delay),
         myContinue(false),
         myMaxGap(maxGap), myPassingTime(passingTime), myDetectorGap(detectorGap) {}
 
@@ -78,7 +78,7 @@ MSActuatedTrafficLightLogic::init(NLDetectorBuilder &nb) throw(ProcessError) {
                 ilpos = 0;
             }
             // Build the induct loop and set it into the container
-            std::string id = "TLS" + myID + "_" + mySubID + "_InductLoopOn_" + lane->getID();
+            std::string id = "TLS" + myID + "_" + myProgramID + "_InductLoopOn_" + lane->getID();
             if (myInductLoops.find(lane)==myInductLoops.end()) {
                 myInductLoops[lane] =
                     nb.createInductLoop(id, lane, ilpos);

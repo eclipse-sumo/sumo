@@ -1,32 +1,32 @@
 <?xml version="1.0"?>
 
-<!-- generated on 05/14/09 12:19:16 by SUMO sumo Version dev-SVN-r7168
+<!-- generated on Mon May 10 15:47:18 2010 by SUMO sumo Version dev-SVN-r8744
 <configuration>
 
-   <input>
-      <net-file>net.net.xml</net-file>
-      <route-files>input_routes.rou.xml</route-files>
-      <additional-files>input_additional.add.xml</additional-files>
-   </input>
+    <input>
+        <net-file value="net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+        <additional-files value="input_additional.add.xml"/>
+    </input>
 
-   <time>
-      <begin>150</begin>
-      <end>300</end>
-   </time>
+    <time>
+        <begin value="150"/>
+        <end value="300"/>
+    </time>
 
-   <processing>
-      <no-duration-log>true</no-duration-log>
-      <no-step-log>true</no-step-log>
-   </processing>
+    <report>
+        <no-duration-log value="true"/>
+        <no-step-log value="true"/>
+    </report>
 
 </configuration>
 -->
 
 <tls-switch-states>
-    <tlsstate time="150.00" id="0" subid="0" phase="4" state="rrrrGGggrrrrGGgg"/>
-    <tlsstate time="166.00" id="0" subid="0" phase="5" state="rrrryyggrrrryygg"/>
-    <tlsstate time="170.00" id="0" subid="0" phase="6" state="rrrrrrGGrrrrrrGG"/>
-    <tlsstate time="176.00" id="0" subid="0" phase="7" state="rrrrrryyrrrrrryy"/>
-    <tlsstate time="180.00" id="0" subid="0" phase="0" state="GGggrrrrGGggrrrr"/>
-    <tlsstate time="200.00" id="0" subid="S1" phase="0" state="GGggrrrrGGggrrrr"/>
+    <tlsstate time="150.00" id="0" programID="0" phase="4" state="rrrrGGggrrrrGGgg"/>
+    <tlsstate time="166.00" id="0" programID="0" phase="5" state="rrrryyggrrrryygg"/>
+    <tlsstate time="170.00" id="0" programID="0" phase="6" state="rrrrrrGGrrrrrrGG"/>
+    <tlsstate time="176.00" id="0" programID="0" phase="7" state="rrrrrryyrrrrrryy"/>
+    <tlsstate time="180.00" id="0" programID="0" phase="0" state="GGggrrrrGGggrrrr"/>
+    <tlsstate time="200.00" id="0" programID="S1" phase="0" state="GGggrrrrGGggrrrr"/>
 </tls-switch-states>

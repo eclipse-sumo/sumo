@@ -460,7 +460,7 @@ protected:
     std::string myActiveID;
 
     /// @brief The key of the currently chosen junction
-    std::string myActiveKey, myActiveSubKey;
+    std::string myActiveKey, myActiveProgram;
 
     /// @brief The type of the currently chosen junction
     JunctionType myType;

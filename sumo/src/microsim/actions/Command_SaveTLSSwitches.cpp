@@ -79,7 +79,7 @@ Command_SaveTLSSwitches::execute(SUMOTime currentTime) throw(ProcessError) {
             for (int j=0; j<(int) currLinks.size(); j++) {
                 MSLink *link = currLinks[j];
                 myOutputDevice << "   <tlsswitch id=\"" << light->getID()
-                << "\" subid=\"" << light->getSubID()
+                << "\" programID=\"" << light->getProgramID()
                 << "\" fromLane=\"" << currLanes[j]->getID()
                 << "\" toLane=\"" << link->getLane()->getID()
                 << "\" begin=\"" << time2string(lastOn)

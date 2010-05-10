@@ -452,13 +452,13 @@ GUIViewTraffic::onGamingClick(Position2D pos) {
         if (logics.size() > 1) {
             MSSimpleTrafficLightLogic *l = (MSSimpleTrafficLightLogic*) logics[0];
             for (unsigned int i = 0; i < logics.size()-1; i++) {
-                if (minTll->getSubID() == logics[i]->getSubID()) {
+                if (minTll->getProgramID() == logics[i]->getProgramID()) {
                     l = (MSSimpleTrafficLightLogic*) logics[i+1];
-                    tlsControl.switchTo(minTll->getID(), l->getSubID());
+                    tlsControl.switchTo(minTll->getID(), l->getProgramID());
                 }
             }
             if (l == logics[0]) {
-                tlsControl.switchTo(minTll->getID(), l->getSubID());
+                tlsControl.switchTo(minTll->getID(), l->getProgramID());
             }
             l->changeStepAndDuration(tlsControl, MSNet::getInstance()->getCurrentTimeStep(), 0, l->getPhase(0).duration);
             update();

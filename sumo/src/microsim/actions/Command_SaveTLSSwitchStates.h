@@ -97,7 +97,7 @@ private:
     std::string myPreviousState;
 
     /// @brief Storage for prior sub-id
-    std::string myPreviousSubID;
+    std::string myPreviousProgramID;
 
 
 private:
