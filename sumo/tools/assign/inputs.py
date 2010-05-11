@@ -98,7 +98,6 @@ def getConnectionTravelTime(startVertices, endVertices):
 
         for edge in vertex.outEdges:
             edge.freeflowtime = (float(edge.ratio)/minWeight) * 1200.
-            print 'freetime-in:', edge.freeflowtime
             edge.actualtime = edge.freeflowtime
 
     for vertex in endVertices:
@@ -110,5 +109,4 @@ def getConnectionTravelTime(startVertices, endVertices):
 
         for edge in vertex.inEdges:
             edge.freeflowtime = (float(edge.ratio)/minWeight) * 1200.
-            print 'freetime-out:', edge.freeflowtime
             edge.actualtime = edge.freeflowtime
