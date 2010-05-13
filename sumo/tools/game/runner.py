@@ -145,10 +145,15 @@ while True:
         if m:
             totalWait += float(m.group(1))
     switch = []
+    lastProg = {}
     for line in open(os.path.join(base, "tlsstate.xml")):
-        m = re.search('tlsstate time="(\d+(.\d+)?)" id="([^"]*)"', line)
+        m = re.search('tlsstate time="(\d+(.\d+)?)" id="([^"]*)" programID="([^"]*)"', line)
         if m:
-            switch += [m.group(3), m.group(1)]
+            tls = m.group(3)
+            program = m.group(4)
+            if tls not in lastProg or lastProg[tls] != program:
+                lastProg[tls] = program
+                switch += [m.group(3), m.group(1)]
     print switch, totalWait
     if complete:
         ScoreDialog(switch, totalWait, start.category)

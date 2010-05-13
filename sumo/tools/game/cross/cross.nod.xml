@@ -1,14 +1,14 @@
 <nodes>
    <node id="0" x="0.0" y="0.0" type="traffic_light"/>
 
-   <node id="1" x="-300.0" y="0.0" type="priority"/>
-   <node id="2" x="+300.0" y="0.0" type="priority"/>
-   <node id="3" x="0.0" y="-300.0" type="priority"/>
-   <node id="4" x="0.0" y="+300.0" type="priority"/>
+   <node id="1" x="-200.0" y="0.0" type="priority"/>
+   <node id="2" x="+200.0" y="0.0" type="priority"/>
+   <node id="3" x="0.0" y="-200.0" type="priority"/>
+   <node id="4" x="0.0" y="+200.0" type="priority"/>
 
-   <node id="m1" x="-250.0" y="0.0" type="priority"/>
-   <node id="m2" x="+250.0" y="0.0" type="priority"/>
-   <node id="m3" x="0.0" y="-250.0" type="priority"/>
-   <node id="m4" x="0.0" y="+250.0" type="priority"/>
+   <node id="m1" x="-150.0" y="0.0" type="priority"/>
+   <node id="m2" x="+150.0" y="0.0" type="priority"/>
+   <node id="m3" x="0.0" y="-150.0" type="priority"/>
+   <node id="m4" x="0.0" y="+150.0" type="priority"/>
 
 </nodes>
