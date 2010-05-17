@@ -509,41 +509,85 @@ TraCIServerAPI_Vehicle::processSet(tcpip::Storage &inputStorage,
             TraCIServerAPIHelper::writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Setting travel time requires a compund object.", outputStorage);
             return false;
         }
-        if (inputStorage.readInt()!=4) {
-            TraCIServerAPIHelper::writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Setting travel time requires begin time, end time, edge, and value as parameter.", outputStorage);
+        int parameterCount = inputStorage.readInt();
+        if (parameterCount==4) {
+            // begin time
+            if (inputStorage.readUnsignedByte()!=TYPE_INTEGER) {
+                TraCIServerAPIHelper::writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Setting travel time using 4 parameters requires the begin time as first parameter.", outputStorage);
+                return false;
+            }
+            SUMOTime begTime = inputStorage.readInt();
+            // begin time
+            if (inputStorage.readUnsignedByte()!=TYPE_INTEGER) {
+                TraCIServerAPIHelper::writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Setting travel time using 4 parameters requires the end time as second parameter.", outputStorage);
+                return false;
+            }
+            SUMOTime endTime = inputStorage.readInt();
+            // edge
+            if (inputStorage.readUnsignedByte()!=TYPE_STRING) {
+                TraCIServerAPIHelper::writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Setting travel time using 4 parameters requires the referenced edge as third parameter.", outputStorage);
+                return false;
+            }
+            std::string edgeID = inputStorage.readString();
+            MSEdge *edge = MSEdge::dictionary(edgeID);
+            if (edge==0) {
+                TraCIServerAPIHelper::writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Referenced edge '" + edgeID + "' is not known.", outputStorage);
+                return false;
+            }
+            // value
+            if (inputStorage.readUnsignedByte()!=TYPE_FLOAT) {
+                TraCIServerAPIHelper::writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Setting travel time using 4 parameters requires the travel time as fourth parameter.", outputStorage);
+                return false;
+            }
+            SUMOReal value = inputStorage.readFloat();
+            // retrieve
+            v->getWeightsStorage().addTravelTime(edge, begTime, endTime, value);
+        }
+        else if (parameterCount==2) {
+            // edge
+            if (inputStorage.readUnsignedByte()!=TYPE_STRING) {
+                TraCIServerAPIHelper::writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Setting travel time using 2 parameters requires the referenced edge as first parameter.", outputStorage);
+                return false;
+            }
+            std::string edgeID = inputStorage.readString();
+            MSEdge *edge = MSEdge::dictionary(edgeID);
+            if (edge==0) {
+                TraCIServerAPIHelper::writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Referenced edge '" + edgeID + "' is not known.", outputStorage);
+                return false;
+            }
+            // value
+            if (inputStorage.readUnsignedByte()!=TYPE_FLOAT) {
+                TraCIServerAPIHelper::writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Setting travel time using 2 parameters requires the travel time as second parameter.", outputStorage);
+                return false;
+            }
+            SUMOReal value = inputStorage.readFloat();
+            // retrieve
+            while (v->getWeightsStorage().knowsTravelTime(edge)) {
+                v->getWeightsStorage().removeTravelTime(edge);
+            }
+            v->getWeightsStorage().addTravelTime(edge, 0, SUMOTime_MAX, value);
+        }
+        else if (parameterCount==1) {
+            // edge
+            if (inputStorage.readUnsignedByte()!=TYPE_STRING) {
+                TraCIServerAPIHelper::writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Setting travel time using 1 parameter requires the referenced edge as first parameter.", outputStorage);
+                return false;
+            }
+            std::string edgeID = inputStorage.readString();
+            MSEdge *edge = MSEdge::dictionary(edgeID);
+            if (edge==0) {
+                TraCIServerAPIHelper::writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Referenced edge '" + edgeID + "' is not known.", outputStorage);
+                return false;
+            }
+            // retrieve
+            while (v->getWeightsStorage().knowsTravelTime(edge)) {
+                v->getWeightsStorage().removeTravelTime(edge);
+            }
+        }
+        else {
+            TraCIServerAPIHelper::writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Setting travel time requires 1, 2, or 4 parameters.", outputStorage);
             return false;
         }
-        // begin time
-        if (inputStorage.readUnsignedByte()!=TYPE_INTEGER) {
-            TraCIServerAPIHelper::writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Setting travel time requires the begin time as first parameter.", outputStorage);
-            return false;
-        }
-        SUMOTime begTime = inputStorage.readInt();
-        // begin time
-        if (inputStorage.readUnsignedByte()!=TYPE_INTEGER) {
-            TraCIServerAPIHelper::writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Setting travel time requires the end time as second parameter.", outputStorage);
-            return false;
-        }
-        SUMOTime endTime = inputStorage.readInt();
-        // edge
-        if (inputStorage.readUnsignedByte()!=TYPE_STRING) {
-            TraCIServerAPIHelper::writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Setting travel time requires the referenced edge as third parameter.", outputStorage);
-            return false;
-        }
-        std::string edgeID = inputStorage.readString();
-        MSEdge *edge = MSEdge::dictionary(edgeID);
-        if (edge==0) {
-            TraCIServerAPIHelper::writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Referenced edge '" + edgeID + "' is not known.", outputStorage);
-            return false;
-        }
-        // value
-        if (inputStorage.readUnsignedByte()!=TYPE_FLOAT) {
-            TraCIServerAPIHelper::writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Setting travel time requires the travel time as fourth parameter.", outputStorage);
-            return false;
-        }
-        SUMOReal value = inputStorage.readFloat();
-        // retrieve
-        v->getWeightsStorage().addTravelTime(edge, begTime, endTime, value);
     }
     break;
     case VAR_EDGE_EFFORT: {
@@ -551,41 +595,85 @@ TraCIServerAPI_Vehicle::processSet(tcpip::Storage &inputStorage,
             TraCIServerAPIHelper::writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Setting effort requires a compund object.", outputStorage);
             return false;
         }
-        if (inputStorage.readInt()!=4) {
-            TraCIServerAPIHelper::writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Setting effort requires begin time, end time, edge, and value as parameter.", outputStorage);
+        int parameterCount = inputStorage.readInt();
+        if (parameterCount==4) {
+            // begin time
+            if (inputStorage.readUnsignedByte()!=TYPE_INTEGER) {
+                TraCIServerAPIHelper::writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Setting effort using 4 parameters requires the begin time as first parameter.", outputStorage);
+                return false;
+            }
+            SUMOTime begTime = inputStorage.readInt();
+            // begin time
+            if (inputStorage.readUnsignedByte()!=TYPE_INTEGER) {
+                TraCIServerAPIHelper::writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Setting effort using 4 parameters requires the end time as second parameter.", outputStorage);
+                return false;
+            }
+            SUMOTime endTime = inputStorage.readInt();
+            // edge
+            if (inputStorage.readUnsignedByte()!=TYPE_STRING) {
+                TraCIServerAPIHelper::writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Setting effort using 4 parameters requires the referenced edge as third parameter.", outputStorage);
+                return false;
+            }
+            std::string edgeID = inputStorage.readString();
+            MSEdge *edge = MSEdge::dictionary(edgeID);
+            if (edge==0) {
+                TraCIServerAPIHelper::writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Referenced edge '" + edgeID + "' is not known.", outputStorage);
+                return false;
+            }
+            // value
+            if (inputStorage.readUnsignedByte()!=TYPE_FLOAT) {
+                TraCIServerAPIHelper::writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Setting effort using 4 parameters requires the travel time as fourth parameter.", outputStorage);
+                return false;
+            }
+            SUMOReal value = inputStorage.readFloat();
+            // retrieve
+            v->getWeightsStorage().addEffort(edge, begTime, endTime, value);
+        }
+        else if (parameterCount==2) {
+            // edge
+            if (inputStorage.readUnsignedByte()!=TYPE_STRING) {
+                TraCIServerAPIHelper::writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Setting effort using 2 parameters requires the referenced edge as first parameter.", outputStorage);
+                return false;
+            }
+            std::string edgeID = inputStorage.readString();
+            MSEdge *edge = MSEdge::dictionary(edgeID);
+            if (edge==0) {
+                TraCIServerAPIHelper::writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Referenced edge '" + edgeID + "' is not known.", outputStorage);
+                return false;
+            }
+            // value
+            if (inputStorage.readUnsignedByte()!=TYPE_FLOAT) {
+                TraCIServerAPIHelper::writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Setting effort using 2 parameters requires the travel time as second parameter.", outputStorage);
+                return false;
+            }
+            SUMOReal value = inputStorage.readFloat();
+            // retrieve
+            while (v->getWeightsStorage().knowsEffort(edge)) {
+                v->getWeightsStorage().removeEffort(edge);
+            }
+            v->getWeightsStorage().addEffort(edge, 0, SUMOTime_MAX, value);
+        }
+        else if (parameterCount==1) {
+            // edge
+            if (inputStorage.readUnsignedByte()!=TYPE_STRING) {
+                TraCIServerAPIHelper::writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Setting effort using 1 parameter requires the referenced edge as first parameter.", outputStorage);
+                return false;
+            }
+            std::string edgeID = inputStorage.readString();
+            MSEdge *edge = MSEdge::dictionary(edgeID);
+            if (edge==0) {
+                TraCIServerAPIHelper::writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Referenced edge '" + edgeID + "' is not known.", outputStorage);
+                return false;
+            }
+            // retrieve
+            while (v->getWeightsStorage().knowsEffort(edge)) {
+                v->getWeightsStorage().removeEffort(edge);
+            }
+        }
+        else {
+            TraCIServerAPIHelper::writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Setting effort requires 1, 2, or 4 parameters.", outputStorage);
             return false;
         }
-        // begin time
-        if (inputStorage.readUnsignedByte()!=TYPE_INTEGER) {
-            TraCIServerAPIHelper::writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Setting effort requires the begin time as first parameter.", outputStorage);
-            return false;
-        }
-        SUMOTime begTime = inputStorage.readInt();
-        // begin time
-        if (inputStorage.readUnsignedByte()!=TYPE_INTEGER) {
-            TraCIServerAPIHelper::writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Setting effort requires the end time as second parameter.", outputStorage);
-            return false;
-        }
-        SUMOTime endTime = inputStorage.readInt();
-        // edge
-        if (inputStorage.readUnsignedByte()!=TYPE_STRING) {
-            TraCIServerAPIHelper::writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Setting effort requires the referenced edge as third parameter.", outputStorage);
-            return false;
-        }
-        std::string edgeID = inputStorage.readString();
-        MSEdge *edge = MSEdge::dictionary(edgeID);
-        if (edge==0) {
-            TraCIServerAPIHelper::writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Referenced edge '" + edgeID + "' is not known.", outputStorage);
-            return false;
-        }
-        // value
-        if (inputStorage.readUnsignedByte()!=TYPE_FLOAT) {
-            TraCIServerAPIHelper::writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Setting effort requires the travel time as fourth parameter.", outputStorage);
-            return false;
-        }
-        SUMOReal value = inputStorage.readFloat();
-        // retrieve
-        v->getWeightsStorage().addEffort(edge, begTime, endTime, value);
     }
     break;
     case CMD_REROUTE_TRAVELTIME: {
