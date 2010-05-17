@@ -885,9 +885,8 @@ GUIApplicationWindow::handleEvent_SimulationEnded(GUIEvent *e) {
     if (!gQuitOnEnd) {
         // build the text
         std::stringstream text;
-        text << "The simulation has ended at time step " << ec->getTimeStep() << ".\n";
-        MSNet::SimulationState state = ec->getReason();
-        text << "Reason: " << MSNet::getStateMessage(state);
+        text << "The simulation has ended at time step " << time2string(ec->getTimeStep()) << ".\n";
+        text << "Reason: " << MSNet::getStateMessage(ec->getReason());
         onCmdStop(0, 0, 0);
         FXMessageBox::warning(this, MBOX_OK, "Simulation Ended", text.str().c_str());
     } else {
