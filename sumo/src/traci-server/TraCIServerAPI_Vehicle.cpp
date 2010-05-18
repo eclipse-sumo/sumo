@@ -542,8 +542,7 @@ TraCIServerAPI_Vehicle::processSet(tcpip::Storage &inputStorage,
             SUMOReal value = inputStorage.readFloat();
             // retrieve
             v->getWeightsStorage().addTravelTime(edge, begTime, endTime, value);
-        }
-        else if (parameterCount==2) {
+        } else if (parameterCount==2) {
             // edge
             if (inputStorage.readUnsignedByte()!=TYPE_STRING) {
                 TraCIServerAPIHelper::writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Setting travel time using 2 parameters requires the referenced edge as first parameter.", outputStorage);
@@ -566,8 +565,7 @@ TraCIServerAPI_Vehicle::processSet(tcpip::Storage &inputStorage,
                 v->getWeightsStorage().removeTravelTime(edge);
             }
             v->getWeightsStorage().addTravelTime(edge, 0, SUMOTime_MAX, value);
-        }
-        else if (parameterCount==1) {
+        } else if (parameterCount==1) {
             // edge
             if (inputStorage.readUnsignedByte()!=TYPE_STRING) {
                 TraCIServerAPIHelper::writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Setting travel time using 1 parameter requires the referenced edge as first parameter.", outputStorage);
@@ -583,8 +581,7 @@ TraCIServerAPI_Vehicle::processSet(tcpip::Storage &inputStorage,
             while (v->getWeightsStorage().knowsTravelTime(edge)) {
                 v->getWeightsStorage().removeTravelTime(edge);
             }
-        }
-        else {
+        } else {
             TraCIServerAPIHelper::writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Setting travel time requires 1, 2, or 4 parameters.", outputStorage);
             return false;
         }
@@ -628,8 +625,7 @@ TraCIServerAPI_Vehicle::processSet(tcpip::Storage &inputStorage,
             SUMOReal value = inputStorage.readFloat();
             // retrieve
             v->getWeightsStorage().addEffort(edge, begTime, endTime, value);
-        }
-        else if (parameterCount==2) {
+        } else if (parameterCount==2) {
             // edge
             if (inputStorage.readUnsignedByte()!=TYPE_STRING) {
                 TraCIServerAPIHelper::writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Setting effort using 2 parameters requires the referenced edge as first parameter.", outputStorage);
@@ -652,8 +648,7 @@ TraCIServerAPI_Vehicle::processSet(tcpip::Storage &inputStorage,
                 v->getWeightsStorage().removeEffort(edge);
             }
             v->getWeightsStorage().addEffort(edge, 0, SUMOTime_MAX, value);
-        }
-        else if (parameterCount==1) {
+        } else if (parameterCount==1) {
             // edge
             if (inputStorage.readUnsignedByte()!=TYPE_STRING) {
                 TraCIServerAPIHelper::writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Setting effort using 1 parameter requires the referenced edge as first parameter.", outputStorage);
@@ -669,8 +664,7 @@ TraCIServerAPI_Vehicle::processSet(tcpip::Storage &inputStorage,
             while (v->getWeightsStorage().knowsEffort(edge)) {
                 v->getWeightsStorage().removeEffort(edge);
             }
-        }
-        else {
+        } else {
             TraCIServerAPIHelper::writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Setting effort requires 1, 2, or 4 parameters.", outputStorage);
             return false;
         }

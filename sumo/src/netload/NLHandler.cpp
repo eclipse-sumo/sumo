@@ -1120,7 +1120,7 @@ NLHandler::addEdgeLaneMeanData(const SUMOSAXAttributes &attrs, const char* objec
     }
     try {
         myDetectorBuilder.createEdgeLaneMeanData(id, frequency, begin, end,
-            type, std::string(objecttype)=="meandata_lane", !excludeEmpty, withInternal, trackVehicles,
+                type, std::string(objecttype)=="meandata_lane", !excludeEmpty, withInternal, trackVehicles,
                 maxTravelTime, minSamples, haltingSpeedThreshold, vtypes,
                 OutputDevice::getDevice(file, getFileName()));
     } catch (InvalidArgument &e) {

@@ -880,7 +880,7 @@ TraCIServer::commandChangeRoute() throw(TraCIException, std::invalid_argument) {
         veh->getWeightsStorage().removeTravelTime(edge);
     } else {
         SUMOTime end = string2time(OptionsCont::getOptions().getString("end"));
-        if(end<0) {
+        if (end<0) {
             end = SUMOTime_MAX;
         }
         veh->getWeightsStorage().addTravelTime(edge, currentTime, (SUMOReal) end / 1000., travelTime);
