@@ -85,19 +85,35 @@ MSLink::setRequestInformation(MSLogicJunction::Request *request, unsigned int re
 
 
 void
-MSLink::setApproaching(MSVehicle *approaching, SUMOTime arrivalTime, SUMOReal speed) throw() {
+MSLink::setApproaching(MSVehicle *approaching, SUMOTime arrivalTime, SUMOReal speed, bool setRequest) throw() {
     if (myRequest==0) {
         return;
     }
     myApproaching = approaching;
-    myRequest->set(myRequestIdx);
     std::vector<MSJunction::ApproachingVehicleInformation>::iterator i = find_if(myApproachingVehicles.begin(), myApproachingVehicles.end(), MSJunction::vehicle_in_request_finder(approaching));
     if (i!=myApproachingVehicles.end()) {
         myApproachingVehicles.erase(i);
     }
     SUMOReal leaveTime = arrivalTime + getLength() / speed * 1000.;
-    MSJunction::ApproachingVehicleInformation approachInfo(arrivalTime, leaveTime, approaching);
+    MSJunction::ApproachingVehicleInformation approachInfo(arrivalTime, leaveTime, approaching, setRequest);
     myApproachingVehicles.push_back(approachInfo);
+}
+
+void
+MSLink::addBlockedLink(MSLink *link) throw() {
+    myBlockedFoeLinks.insert(link);
+}
+
+
+
+bool
+MSLink::willHaveBlockedFoe() const throw() {
+    for (std::set<MSLink*>::const_iterator i=myBlockedFoeLinks.begin(); i!=myBlockedFoeLinks.end(); ++i) {
+        if ((*i)->isBlockingAnyone()) {
+            return true;
+        }
+    }
+    return false;
 }
 
 
@@ -126,11 +142,11 @@ MSLink::opened(SUMOTime arrivalTime, SUMOReal arrivalSpeed) const throw() {
         // (let the vehicle always leave the junction)
         return true;
     }
-    if (myAmCont) {
-        return true;
-    }
     if (myState==LINKSTATE_TL_RED) {
         return false;
+    }
+    if (myAmCont) {
+        return true;
     }
 #ifdef HAVE_INTERNAL_LANES
     SUMOTime leaveTime = myJunctionInlane==0 ? arrivalTime + TIME2STEPS(getLength() * arrivalSpeed) : arrivalTime + TIME2STEPS(this->myJunctionInlane->getLength() * arrivalSpeed);
@@ -155,10 +171,10 @@ MSLink::opened(SUMOTime arrivalTime, SUMOReal arrivalSpeed) const throw() {
 bool
 MSLink::blockedAtTime(SUMOTime arrivalTime, SUMOTime leaveTime) const throw() {
     for (std::vector<MSJunction::ApproachingVehicleInformation>::const_iterator i=myApproachingVehicles.begin(); i!=myApproachingVehicles.end(); ++i) {
-        if ((*i).arrivalTime-VIEW<=arrivalTime&&(*i).leavingTime+VIEW>=arrivalTime) {
-            return true;
+        if (!(*i).willPass) {
+            continue;
         }
-        if ((*i).arrivalTime-VIEW<=leaveTime&&(*i).leavingTime+VIEW>=leaveTime) {
+        if (!(((*i).leavingTime+VIEW < arrivalTime) || ((*i).arrivalTime-VIEW > leaveTime))) {
             return true;
         }
     }

@@ -668,6 +668,10 @@ public:
     /// @}
 
 
+    bool wasBraking() const throw() {
+        return myWasBraking;
+    }
+
 
     /** @brief Returns the vehicle's type definition
      * @return The vehicle's type definition
@@ -992,6 +996,7 @@ protected:
     /// @brief The information into which lanes the vehicle laps into
     std::vector<MSLane*> myFurtherLanes;
 
+    bool myWasBraking;
 
 private:
     /// @brief The devices this vehicle has
@@ -1007,11 +1012,12 @@ private:
         SUMOReal myVLinkWait;
         SUMOTime myArrivalTime;
         SUMOReal myArrivalSpeed;
+        SUMOReal myDistance;
         bool mySetRequest;
         DriveProcessItem(MSLink *link, SUMOReal vPass, SUMOReal vWait, bool setRequest,
-                         SUMOTime arrivalTime, SUMOReal arrivalSpeed) :
+                         SUMOTime arrivalTime, SUMOReal arrivalSpeed, SUMOReal distance) :
                 myLink(link), myVLinkPass(vPass), myVLinkWait(vWait), mySetRequest(setRequest),
-                myArrivalTime(arrivalTime), myArrivalSpeed(arrivalSpeed) { };
+                myArrivalTime(arrivalTime), myArrivalSpeed(arrivalSpeed), myDistance(distance) { };
     };
 
     typedef std::vector< DriveProcessItem > DriveItemVector;

@@ -207,7 +207,8 @@ MSVehicle::MSVehicle(SUMOVehicleParameter* pars,
         myOldLaneMoveReminderOffsets(0),
         myArrivalPos(pars->arrivalPos),
         myPreDawdleAcceleration(0),
-        myEdgeWeights(0)
+        myEdgeWeights(0),
+        myWasBraking(false)
 #ifndef NO_TRACI
         ,adaptingSpeed(false),
         isLastAdaption(false),
@@ -810,7 +811,8 @@ MSVehicle::moveRegardingCritical(SUMOTime t, const MSLane* const lane,
     // check whether the vehicle is not on an appropriate lane
     if (!myLane->appropriate(this)) {
         // decelerate to lane end when yes
-        SUMOReal vWish = MIN2(cfModel.ffeS(this, myLane->getLength()-myState.myPos), myLane->getMaxSpeed());
+        SUMOReal seen = myLane->getLength()-myState.myPos;
+        SUMOReal vWish = MIN2(cfModel.ffeS(this, seen), myLane->getMaxSpeed());
         if (pred!=0) {
             // interaction with leader if one exists on same lane
             SUMOReal gap = gap2pred(*pred);
@@ -840,7 +842,7 @@ MSVehicle::moveRegardingCritical(SUMOTime t, const MSLane* const lane,
             vWish = MIN2(vWish, vsafeStop);
         }
         vWish = MAX2((SUMOReal) 0, vWish);
-        myLFLinkLanes.push_back(DriveProcessItem(0, vWish, vWish, false, 0, 0));
+        myLFLinkLanes.push_back(DriveProcessItem(0, vWish, vWish, false, 0, 0, myLane->getLength()-myState.myPos));
     } else {
         // compute other values as in move
         SUMOReal vBeg = MIN2(cfModel.maxNextSpeed(myState.mySpeed), lane->getMaxSpeed());//vaccel( myState.mySpeed, lane->maxSpeed() );
@@ -896,27 +898,44 @@ MSVehicle::moveFirstChecked() {
 
     assert(myLFLinkLanes.size()!=0);
     DriveItemVector::iterator i;
-    bool cont = true;
     SUMOTime t = MSNet::getInstance()->getCurrentTimeStep();
-    for (i=myLFLinkLanes.begin(); i!=myLFLinkLanes.end()&&cont; ++i) {
+    myWasBraking = false;
+    bool lastWasGreenCont = false;
+    for (i=myLFLinkLanes.begin(); i!=myLFLinkLanes.end(); ++i) {
         MSLink *link = (*i).myLink;
         bool onLinkEnd = link==0;
         // the vehicle must change the lane on one of the next lanes
-        if (!onLinkEnd) {
-            if (link->opened((*i).myArrivalTime, (*i).myArrivalSpeed)) {
+        if (!onLinkEnd&&(*i).mySetRequest) {
+            // vehicles should brake when running onto a yellow light if the distance allows to halt in front
+            bool yellow = link->getState()==MSLink::LINKSTATE_TL_YELLOW_MAJOR||link->getState()==MSLink::LINKSTATE_TL_YELLOW_MINOR;
+            if (yellow&&(*i).myDistance>getCarFollowModel().getSpeedAfterMaxDecel(myState.mySpeed)) {
+                vSafe = (*i).myVLinkWait;
+                myWasBraking = true;
+                lastWasGreenCont = false;
+                break;
+            }
+            //
+            bool opened = link->opened((*i).myArrivalTime, (*i).myArrivalSpeed);
+            // vehicles should decelerate when approaching a minor link
+            if (opened&&!lastWasGreenCont&&!link->havePriority()&&(*i).myDistance>getCarFollowModel().getMaxDecel()) {
+                vSafe = (*i).myVLinkWait;
+                myWasBraking = true;
+                lastWasGreenCont = false;
+                break; // could be revalidated
+            }
+            // have waited; may pass if opened...
+            if (opened) {
                 vSafe = (*i).myVLinkPass;
+                lastWasGreenCont = link->isCont()&&(link->getState()==MSLink::LINKSTATE_TL_GREEN_MAJOR);
             } else {
-                bool yellow = link->getState()==MSLink::LINKSTATE_TL_YELLOW_MAJOR||link->getState()==MSLink::LINKSTATE_TL_YELLOW_MINOR;
-                if (vSafe<getCarFollowModel().getSpeedAfterMaxDecel(myState.mySpeed)&&yellow) {
-                    vSafe = (*i).myVLinkPass;
-                } else {
-                    vSafe = (*i).myVLinkWait;
-                    cont = false;
-                }
+                vSafe = (*i).myVLinkWait;
+                myWasBraking = true;
+                lastWasGreenCont = false;
+                break;
             }
         } else {
             vSafe = (*i).myVLinkWait;
-            cont = false;
+            myWasBraking = true;
             break;
         }
     }
@@ -929,8 +948,12 @@ MSVehicle::moveFirstChecked() {
         if (MSCORN::wished(MSCORN::CORN_VEH_WAITINGTIME)) {
             myIntCORNMap[MSCORN::CORN_VEH_WAITINGTIME]++;
         }
+        myWasBraking = true;
     } else {
         myWaitingTime = 0;
+    }
+    if (myState.mySpeed<vNext) {
+        myWasBraking = false;
     }
     // call reminders after vNext is set
     SUMOReal pos = myState.myPos;
@@ -1029,6 +1052,9 @@ MSVehicle::checkRewindLinkLanes(SUMOReal lengthsInFront) throw() {
 #ifdef DEBUG_VEHICLE_GUI_SELECTION
     if (gSelected.isSelected(GLO_VEHICLE, static_cast<const GUIVehicle*>(this)->getGlID())) {
         int bla = 0;
+        if (MSNet::getInstance()->getCurrentTimeStep()==152000) {
+            bla = 0;
+        }
     }
 #endif
 #ifdef HAVE_INTERNAL_LANES
@@ -1037,90 +1063,97 @@ MSVehicle::checkRewindLinkLanes(SUMOReal lengthsInFront) throw() {
         bool hadVehicle = false;
         SUMOReal seenLanes = 0;
         SUMOReal seenSpace = -lengthsInFront;
-        MSLane *nextSeenNonInternal = 0;
-        MSLane *approachedLane = myLane;
-        int lastLinkToInternal = -1;
-        MSVehicle *leader = 0;
 
-        for (unsigned int i=0; i<myLFLinkLanes.size()&&removalBegin<0; ++i) {
+        std::vector<SUMOReal> availableSpace;
+        std::vector<bool> hadVehicles;
+
+        for (unsigned int i=0; i<myLFLinkLanes.size(); ++i) {
+            // skip unset links
+            DriveProcessItem &item = myLFLinkLanes[i];
+            if (item.myLink==0) {
+                availableSpace.push_back(seenSpace);
+                hadVehicles.push_back(hadVehicle);
+                continue;
+            }
+            // get the next lane, determine whether it is an internal lane
+            MSLane *approachedLane = item.myLink->getViaLane();
+            if (approachedLane!=0) {
+                if (item.myLink->isCrossing()&&item.myLink->willHaveBlockedFoe()) {
+                    seenSpace = seenSpace - approachedLane->getVehLenSum();
+                    hadVehicle |= approachedLane->getVehicleNumber()!=0;
+                } else {
+                    seenSpace = seenSpace - approachedLane->getVehLenSum() + approachedLane->getLength();
+                    hadVehicle |= approachedLane->getVehicleNumber()!=0;
+                }
+                availableSpace.push_back(seenSpace);
+                hadVehicles.push_back(hadVehicle);
+                continue;
+            }
+            approachedLane = item.myLink->getLane();
+            MSVehicle *last = approachedLane->getLastVehicle();
+            if (last==0) {
+                last = approachedLane->getPartialOccupator();
+                if (last!=0) {
+                    SUMOReal m = MAX2(seenSpace, seenSpace + approachedLane->getPartialOccupatorEnd() - approachedLane->getLength() + last->getCarFollowModel().brakeGap(last->getSpeed()));
+                    availableSpace.push_back(m);
+                    hadVehicle = true;
+                    seenSpace = seenSpace - approachedLane->getVehLenSum() + approachedLane->getLength();
+                } else {
+                    seenSpace = seenSpace - approachedLane->getVehLenSum() + approachedLane->getLength();
+                    availableSpace.push_back(seenSpace);
+                }
+            } else {
+                if (last->wasBraking()) {
+                    SUMOReal lastBrakeGap = last->getCarFollowModel().brakeGap(approachedLane->getLastVehicle()->getSpeed());
+                    SUMOReal lastGap = last->getPositionOnLane() - last->getVehicleType().getLength() + lastBrakeGap - last->getSpeed()*last->getCarFollowModel().getTau();
+                    SUMOReal m = MAX2(seenSpace, seenSpace + lastGap);
+                    availableSpace.push_back(m);
+                    seenSpace = seenSpace - approachedLane->getVehLenSum() + approachedLane->getLength();
+                } else {
+                    seenSpace = seenSpace - approachedLane->getVehLenSum() + approachedLane->getLength();
+                    availableSpace.push_back(seenSpace);
+                }
+                hadVehicle = true;
+            }
+            hadVehicles.push_back(hadVehicle);
+        }
+#ifdef DEBUG_VEHICLE_GUI_SELECTION
+        if (gSelected.isSelected(GLO_VEHICLE, static_cast<const GUIVehicle*>(this)->getGlID())) {
+            int bla = 0;
+        }
+#endif
+        SUMOTime t = MSNet::getInstance()->getCurrentTimeStep();
+        for (int i=myLFLinkLanes.size()-1; i>0; --i) {
+            DriveProcessItem &item = myLFLinkLanes[i-1];
+            if (item.myLink==0||item.myLink->isCont()||item.myLink->opened(t, .1)||!hadVehicles[i]) {
+                availableSpace[i-1] = availableSpace[i];
+            }
+        }
+
+        for (unsigned int i=0; hadVehicle&&i<myLFLinkLanes.size()&&removalBegin<0; ++i) {
             // skip unset links
             DriveProcessItem &item = myLFLinkLanes[i];
             if (item.myLink==0) {
                 continue;
             }
-            if (approachedLane->getEdge().getPurpose()!=MSEdge::EDGEFUNCTION_INTERNAL) {
-                lastLinkToInternal = i;
-            }
-
-            //
-
-            // get the next lane, determine whether it is an internal lane
-            approachedLane = item.myLink->getViaLane();
-            bool nextIsInternal = true;
-            if (approachedLane==0) {
-                approachedLane = item.myLink->getLane();
-                nextIsInternal = false;
-            }
-            MSEdge::EdgeBasicFunction ef = approachedLane->getEdge().getPurpose();
-            hadVehicle |= approachedLane->getVehicleNumber()!=0;
-            nextIsInternal &= item.myLink->isCrossing();
-            //
-            if (nextIsInternal) {
-                // the free place on internal lanes is not counted - vehicles must keep them free
-                seenSpace = seenSpace - approachedLane->getVehLenSum();
-                if (leader==0&&approachedLane->getLastVehicle()!=0) {
-                    leader = approachedLane->getLastVehicle();
-                    seenSpace += leader->getCarFollowModel().brakeGap(leader->getSpeed());
-                }
-            } else {
-                MSVehicle *pred = approachedLane->getLastVehicle();
-                bool nextDisallows1 = /*myState.mySpeed<.1 &&*/ pred!=0 && seenSpace<.1;
-                if (nextDisallows1) {
-                    SUMOReal brakeGap = pred->getVehicleType().getCarFollowModel().brakeGap(pred->getSpeed());
-                    nextDisallows1 &= pred->getPositionOnLane()+brakeGap < pred->getVehicleType().getLength();
-                }
-                // the free space on plain lanes is counted
-                // !!!: on longer lanes, only the place some meters in front... (next extension)
-                seenSpace = seenSpace + approachedLane->getLength() - approachedLane->getVehLenSum();
-                if (leader==0&&approachedLane->getLastVehicle()!=0) {
-                    leader = approachedLane->getLastVehicle();
-                    seenSpace += leader->getCarFollowModel().brakeGap(leader->getSpeed());
-                }
-                seenLanes += approachedLane->getLength();
-                // we also do not want the vehicle continue if there is not enough place
-                //  behind the last vehicle on the approached lane (and we are currently standing)
-                bool nextDisallows2 = /*myState.mySpeed<.1 &&*/ approachedLane->getLastVehicle()!=0 && approachedLane->getLastVehicle()->getSpeed()<.1;
-                if (nextDisallows2) {
-                    nextDisallows2 &= approachedLane->getLastVehicle()->getPositionOnLane() < approachedLane->getLastVehicle()->getVehicleType().getLength();
-                }
-                if ((nextDisallows1||nextDisallows2)&&lastLinkToInternal>=0) {
-                    removalBegin = lastLinkToInternal;
-                }
-                nextSeenNonInternal = approachedLane;
-            }
-            // now we check whether the vehicle should not continue because
-            //  there is no space on approached lanes
-            // - we must have seen at least one vehicle
-            // - we must have seen at least as much place as the vehicle would need
-            // - the seen space must be enough for our vehicle
-            // - we should have seen at least one non-internal lane before
-            SUMOReal impatienceCorrection = MAX2(0, myWaitingTime);
-            if (hadVehicle&&seenLanes>getVehicleType().getLength()&&seenSpace<getVehicleType().getLength()-impatienceCorrection/10.&&nextSeenNonInternal!=0) {
-                removalBegin = lastLinkToInternal;
+            if (!item.myLink->isCont()
+                    &&availableSpace[i]-getVehicleType().getLength()<0
+                    &&item.myLink->willHaveBlockedFoe()) {
+                removalBegin = i;
             }
         }
-        if (removalBegin!=-1) {
-            myLFLinkLanes[removalBegin].myVLinkPass = myLFLinkLanes[removalBegin].myVLinkWait;
-            myLFLinkLanes[removalBegin].mySetRequest = false;
-            if (removalBegin+1<(int)myLFLinkLanes.size()) {
-                myLFLinkLanes.erase(myLFLinkLanes.begin()+removalBegin+1, myLFLinkLanes.end());
+        if (removalBegin!=-1&&!(removalBegin==0&&myLane->getEdge().getPurpose()==MSEdge::EDGEFUNCTION_INTERNAL)) {
+            while (removalBegin<myLFLinkLanes.size()) {
+                myLFLinkLanes[removalBegin].myVLinkPass = myLFLinkLanes[removalBegin].myVLinkWait;
+                myLFLinkLanes[removalBegin].mySetRequest = false;
+                ++removalBegin;
             }
         }
     }
 #endif
     for (DriveItemVector::iterator i=myLFLinkLanes.begin(); i!=myLFLinkLanes.end(); ++i) {
-        if ((*i).myLink!=0&&(*i).mySetRequest/*&&(*i).myArrivalTime+20<MSNet::getInstance()->getCurrentTimeStep()*/) {
-            (*i).myLink->setApproaching(this, (*i).myArrivalTime, (*i).myArrivalSpeed);
+        if ((*i).myLink!=0) {
+            (*i).myLink->setApproaching(this, (*i).myArrivalTime, (*i).myArrivalSpeed, (*i).mySetRequest);
         }
     }
 }
@@ -1138,10 +1171,11 @@ MSVehicle::vsafeCriticalCont(SUMOTime t, SUMOReal boundVSafe, SUMOReal lengthsIn
     // the vehicle may have just to look into the next lane
     //  compute this information and use it only once in the next loop
     SUMOReal seen = myLane->getLength() - myState.myPos;
+    SUMOReal seenNonInternal = 0;//myLane->getEdge().getPurpose()==MSEdge::EDGEFUNCTION_INTERNAL ? 0 : seen;
     // !!! Why is the brake gap accounted? !!!
     if (this!=myLane->getFirstVehicle() && seen - cfModel.brakeGap(myState.mySpeed) > 0) {
         // not "reaching critical"
-        myLFLinkLanes.push_back(DriveProcessItem(0, boundVSafe, boundVSafe, false, 0, 0));
+        myLFLinkLanes.push_back(DriveProcessItem(0, boundVSafe, boundVSafe, false, 0, 0, seen));
         return;
     }
 
@@ -1155,8 +1189,6 @@ MSVehicle::vsafeCriticalCont(SUMOTime t, SUMOReal boundVSafe, SUMOReal lengthsIn
     const std::vector<MSLane*> &bestLaneConts = getBestLanesContinuation();
 #ifdef HAVE_INTERNAL_LANES
     bool hadNonInternal = false;
-    bool lastInnerHadPriority = false;
-    bool passingInner = false;
 #endif
 
     unsigned int view = 1;
@@ -1179,7 +1211,7 @@ MSVehicle::vsafeCriticalCont(SUMOTime t, SUMOReal boundVSafe, SUMOReal lengthsIn
         if (nextLane->isLinkEnd(link)) {
             // the vehicle will not drive further
             SUMOReal laneEndVSafe = cfModel.ffeS(this, seen);
-            myLFLinkLanes.push_back(DriveProcessItem(0, MIN2(vLinkPass, laneEndVSafe), MIN2(vLinkPass, laneEndVSafe), false, 0, 0));
+            myLFLinkLanes.push_back(DriveProcessItem(0, MIN2(vLinkPass, laneEndVSafe), MIN2(vLinkPass, laneEndVSafe), false, 0, 0, seen));
             return;
         }
         // the link was passed
@@ -1191,16 +1223,14 @@ MSVehicle::vsafeCriticalCont(SUMOTime t, SUMOReal boundVSafe, SUMOReal lengthsIn
 
         // get the following lane
 #ifdef HAVE_INTERNAL_LANES
-        passingInner = nextLane->getEdge().getPurpose()==MSEdge::EDGEFUNCTION_INTERNAL;
+        SUMOReal lastLength = nextLane->getLength();
         bool nextInternal = false;
         nextLane = (*link)->getViaLane();
         if (nextLane==0) {
             nextLane = (*link)->getLane();
             hadNonInternal = true;
-            passingInner = false;
         } else {
             nextInternal = true;
-            passingInner &= nextLane->getEdge().getPurpose()==MSEdge::EDGEFUNCTION_INTERNAL;
         }
 #else
         nextLane = (*link)->getLane();
@@ -1231,51 +1261,30 @@ MSVehicle::vsafeCriticalCont(SUMOTime t, SUMOReal boundVSafe, SUMOReal lengthsIn
         //  vehicle decelerate until the end of the street
         vLinkWait = MIN3(vLinkPass, vLinkWait, cfModel.ffeS(this, seen));
 
-        bool yellow = (*link)->getState()==MSLink::LINKSTATE_TL_YELLOW_MAJOR||(*link)->getState()==MSLink::LINKSTATE_TL_YELLOW_MINOR;
-        if (yellow&&SPEED2DIST(vLinkWait)+myState.myPos<laneLength) {
-            myLFLinkLanes.push_back(DriveProcessItem(*link, vLinkWait, vLinkWait, false, 0, 0));
-            return;
-        }
         // behaviour in front of not priorised intersections (waiting for priorised foe vehicles)
         bool setRequest = false;
-        bool mayPass = (*link)->havePriority() || (passingInner&&lastInnerHadPriority);
-        if (!mayPass) {
-            // The vehicle will not pass a red light
-            if ((*link)->getState()==MSLink::LINKSTATE_TL_RED) {
-                vLinkPass = vLinkWait;
-            }
-            // The vehicle may pass if it already has passed the decision point which is at
-            //  Also, after reaching this point, the speed should not be reduced
-            // Up to this time it is decelearating in order to watch out for foe traffic
-            if (seen>cfModel.getMaxDecel()) {
-                vLinkPass = vLinkWait;
-//                SUMOReal vDecel2Brake = cfModel.ffeV(this, seen-cfModel.getMaxDecel(), cfModel.getMaxDecel());
-//                vLinkPass = MIN2(vLinkPass, MAX2(vDecel2Brake, cfModel.getMaxDecel()));
-//                vLinkWait = MIN2(vLinkWait, MAX2(vDecel2Brake, cfModel.getMaxDecel()));
-            }
-        }
-        lastInnerHadPriority = (*link)->havePriority();
         // process stops
         if (!myStops.empty()&& &myStops.begin()->lane->getEdge()==&nextLane->getEdge()) {
             SUMOReal vsafeStop = cfModel.ffeS(this, seen+myStops.begin()->pos);
             vLinkPass = MIN2(vLinkPass, vsafeStop);
             vLinkWait = MIN2(vLinkWait, vsafeStop);
+        }
+        setRequest |= ((*link)->getState()!=MSLink::LINKSTATE_TL_RED&&(vLinkPass>0&&dist-seen>0));
+        bool yellow = (*link)->getState()==MSLink::LINKSTATE_TL_YELLOW_MAJOR||(*link)->getState()==MSLink::LINKSTATE_TL_YELLOW_MINOR;
+        bool red = (*link)->getState()==MSLink::LINKSTATE_TL_RED;
+        if ((yellow||red)&&seen>cfModel.brakeGap(myState.mySpeed)-SPEED2DIST(myState.mySpeed)*cfModel.getTau()) { // !!! we should reuse brakeGap with no reaction time...
+            vLinkPass = vLinkWait;
             setRequest = false;
-        } else {
-            setRequest |= ((*link)->getState()!=MSLink::LINKSTATE_TL_RED&&(vLinkPass>0&&dist-seen>0));
+            myLFLinkLanes.push_back(DriveProcessItem(*link, vLinkWait, vLinkWait, false, t+TIME2STEPS(seen / vLinkPass), vLinkPass, seen));
         }
         // the next condition matches the previously one used for determining the difference
         //  between critical/non-critical vehicles. Though, one should assume that a vehicle
         //  should want to move over an intersection even though it could brake before it!?
         setRequest &= dist-seen>0;
-        SUMOTime arrivalTime = 0;
-        SUMOTime leaveTime = 0;
-        if (setRequest) {
-            arrivalTime = t + TIME2STEPS(seen / vLinkPass);
-        }
-        myLFLinkLanes.push_back(DriveProcessItem(*link, vLinkPass, vLinkWait, setRequest, arrivalTime, vLinkPass));
+        myLFLinkLanes.push_back(DriveProcessItem(*link, vLinkPass, vLinkWait, setRequest, t + TIME2STEPS(seen / vLinkPass), vLinkPass, seen));
         seen += nextLane->getLength();
-        if ((vLinkPass<=0||seen>dist)&&hadNonInternal) {
+        seenNonInternal += nextLane->getEdge().getPurpose()==MSEdge::EDGEFUNCTION_INTERNAL ? 0 : nextLane->getLength();
+        if ((vLinkPass<=0||seen>dist)&&hadNonInternal&&seenNonInternal>50) {
             return;
         }
 #ifdef HAVE_INTERNAL_LANES

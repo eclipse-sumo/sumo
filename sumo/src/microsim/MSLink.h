@@ -29,6 +29,8 @@
 #include <config.h>
 #endif
 
+#include <vector>
+#include <set>
 #include "MSLogicJunction.h"
 
 
@@ -178,7 +180,11 @@ public:
      *
      * @param[in] approaching The approaching vehicle
      */
-    void setApproaching(MSVehicle *approaching, SUMOTime arrivalTime, SUMOReal speed) throw();
+    void setApproaching(MSVehicle *approaching, SUMOTime arrivalTime, SUMOReal speed, bool setRequest) throw();
+
+    void addBlockedLink(MSLink *link) throw();
+
+
 
     void removeApproaching(MSVehicle *veh);
 
@@ -212,6 +218,12 @@ public:
     bool opened(SUMOTime arrivalTime, SUMOReal arrivalSpeed) const throw();
 
     bool blockedAtTime(SUMOTime arrivalTime, SUMOTime leaveTime) const throw();
+    bool isBlockingAnyone() const throw() {
+        return myApproachingVehicles.size()!=0;
+    }
+
+    bool willHaveBlockedFoe() const throw();
+
 
 
     /** @brief Returns the information whether a vehicle is approaching on one of the link's foe streams
@@ -293,6 +305,10 @@ public:
     }
 
 
+    bool isCont() const throw() {
+        return myAmCont;
+    }
+
 #ifdef HAVE_INTERNAL_LANES
     /** @brief Returns the following inner lane
      *
@@ -324,6 +340,7 @@ private:
     /// @brief The request to set incoming request into
     MSLogicJunction::Request *myRequest;
     MSJunction::LinkApproachingVehicles myApproachingVehicles;
+    std::set<MSLink*> myBlockedFoeLinks;
 
     /// @brief The position of the link within this request
     unsigned int myRequestIdx;

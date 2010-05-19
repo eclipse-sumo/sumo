@@ -52,11 +52,12 @@ class MSLane;
 class MSJunction {
 public:
     struct ApproachingVehicleInformation {
-        ApproachingVehicleInformation(SUMOReal _arrivalTime, SUMOReal _leavingTime, MSVehicle *_vehicle)
-                : arrivalTime(_arrivalTime), leavingTime(_leavingTime), vehicle(_vehicle) {}
+        ApproachingVehicleInformation(SUMOReal _arrivalTime, SUMOReal _leavingTime, MSVehicle *_vehicle, bool _willPass)
+                : arrivalTime(_arrivalTime), leavingTime(_leavingTime), vehicle(_vehicle), willPass(_willPass) {}
         SUMOReal arrivalTime;
         SUMOReal leavingTime;
         MSVehicle *vehicle;
+        bool willPass;
     };
 
     typedef std::vector<ApproachingVehicleInformation> LinkApproachingVehicles;

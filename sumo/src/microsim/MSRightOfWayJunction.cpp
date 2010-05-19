@@ -113,6 +113,24 @@ MSRightOfWayJunction::postloadInit() throw(ProcessError) {
                     myLinkFoeLinks[*j].push_back(sortedLinks[c].second);
                 }
             }
+            std::vector<MSLink*> foes;
+            for (unsigned int c=0; c<maxNo; ++c) {
+                if (internalFoes.test(c)) {
+                    MSLink *foe = sortedLinks[c].second;
+                    foes.push_back(foe);
+                    MSLane *l = foe->getViaLane();
+                    if (l==0) {
+                        continue;
+                    }
+                    const MSLinkCont &lc = l->getLinkCont();
+                    for (MSLinkCont::const_iterator q=lc.begin(); q!=lc.end(); ++q) {
+                        if ((*q)->getViaLane()!=0) {
+                            foes.push_back(*q);
+                        }
+                    }
+                }
+            }
+
             myLinkFoeInternalLanes[*j] = std::vector<MSLane*>();
             for (unsigned int c=0; c<myInternalLanes.size(); ++c) {
                 if (internalFoes.test(c)) {
@@ -121,6 +139,10 @@ MSRightOfWayJunction::postloadInit() throw(ProcessError) {
             }
             (*j)->setRequestInformation(&myRequest, requestPos, &myRespond, requestPos,
                                         foeLinks, isCrossing, cont, myLinkFoeLinks[*j], myLinkFoeInternalLanes[*j]);
+            for (std::vector<MSLink*>::const_iterator k=foes.begin(); k!=foes.end(); ++k) {
+                (*j)->addBlockedLink(*k);
+                (*k)->addBlockedLink(*j);
+            }
             requestPos++;
         }
     }

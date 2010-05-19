@@ -83,6 +83,10 @@ MSInternalJunction::postloadInit() throw(ProcessError) {
                                         MSLogicJunction::LinkFoes(), true, false,
                                         myInternalLinkFoes, myInternalLaneFoes);
             requestPos++;
+            for (std::vector<MSLink*>::const_iterator k=myInternalLinkFoes.begin(); k!=myInternalLinkFoes.end(); ++k) {
+                (*j)->addBlockedLink(*k);
+                (*k)->addBlockedLink(*j);
+            }
         }
     }
 }
