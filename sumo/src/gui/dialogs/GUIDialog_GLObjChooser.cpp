@@ -76,9 +76,7 @@ FXIMPLEMENT(GUIDialog_GLObjChooser, FXMainWindow, GUIDialog_GLObjChooserMap, ARR
 // method definitions
 // ===========================================================================
 GUIDialog_GLObjChooser::GUIDialog_GLObjChooser(GUISUMOViewParent *parent,
-        FXIcon *icon, const FXString &title,
-        GUIGlObjectType type,
-        GUIGlObjectStorage &glStorage)
+        FXIcon *icon, const FXString &title, GUIGlObjectType type, GUIGlObjectStorage &glStorage) throw()
         : FXMainWindow(parent->getApp(), title, icon, NULL, DECOR_ALL, 20,20,300, 300),
         myObjectType(type), myParent(parent), mySelected(0) {
     FXHorizontalFrame *hbox = new FXHorizontalFrame(this, LAYOUT_FILL_X|LAYOUT_FILL_Y, 0,0,0,0, 0,0,0,0);
@@ -151,7 +149,7 @@ GUIDialog_GLObjChooser::GUIDialog_GLObjChooser(GUISUMOViewParent *parent,
 }
 
 
-GUIDialog_GLObjChooser::~GUIDialog_GLObjChooser() {
+GUIDialog_GLObjChooser::~GUIDialog_GLObjChooser() throw() {
     myParent->getParent()->removeChild(this);
 }
 
