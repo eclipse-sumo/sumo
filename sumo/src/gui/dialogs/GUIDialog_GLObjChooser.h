@@ -65,11 +65,11 @@ public:
      * @param[in] glStorage The storage to retrieve ids from
      */
     GUIDialog_GLObjChooser(GUISUMOViewParent *parent, FXIcon *icon, const FXString &title,
-                           GUIGlObjectType type, GUIGlObjectStorage &glStorage);
+                           GUIGlObjectType type, GUIGlObjectStorage &glStorage) throw();
 
 
     /// @brief Destructor
-    ~GUIDialog_GLObjChooser();
+    ~GUIDialog_GLObjChooser() throw();
 
 
     /** @brief Returns the chosen (selected) object
@@ -79,6 +79,10 @@ public:
         return static_cast<GUIGlObject*>(mySelected);
     }
 
+
+
+    /// @name FOX-callbacks
+    /// @{
 
     /// @brief Callback: The selected item shall be centered within the calling view
     long onCmdCenter(FXObject*,FXSelector,void*);
@@ -94,6 +98,7 @@ public:
 
     /// @brief Callback: Selects to current item if enter is pressed
     long onListKeyPress(FXObject*,FXSelector,void*);
+    /// @}
 
 
 private:

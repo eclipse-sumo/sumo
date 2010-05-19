@@ -65,6 +65,10 @@ public:
     ~GUIDialog_Breakpoints() throw();
 
 
+    
+    /// @name FOX-callbacks
+    /// @{
+
     /// @brief Called when the user presses the Load-button
     long onCmdLoad(FXObject*,FXSelector,void*);
 
@@ -79,6 +83,7 @@ public:
 
     /// @brief Called when the table was changed
     long onCmdEditTable(FXObject*,FXSelector,void*);
+    /// @}
 
 
 private:

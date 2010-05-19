@@ -95,32 +95,24 @@ GUIDialog_Breakpoints::GUIDialog_Breakpoints(GUIMainWindow *parent) throw()
     myTable->setCellType(0, CT_INT);
     SUMOTime begin = string2time(OptionsCont::getOptions().getString("begin"));
     SUMOTime end = string2time(OptionsCont::getOptions().getString("end"));
-    if(end<0) {
+    if (end<0) {
         end = SUMOTime_MAX;
     }
-    myTable->setNumberCellParams(0, begin, end, 1, 10, 100, "%.0f");
+    myTable->setNumberCellParams(0, begin, end, 1, 10, 100, "%.2f");
     myTable->getRowHeader()->setWidth(0);
     rebuildList();
     // build the layout
     FXVerticalFrame *layout = new FXVerticalFrame(hbox, LAYOUT_TOP,0,0,0,0, 4,4,4,4);
     // "Load"
-    new FXButton(layout, "Load\t\t", 0, this, MID_CHOOSEN_LOAD,
-                 ICON_BEFORE_TEXT|LAYOUT_FILL_X|FRAME_THICK|FRAME_RAISED,
-                 0, 0, 0, 0, 4, 4, 3, 3);
+    new FXButton(layout, "Load\t\t", 0, this, MID_CHOOSEN_LOAD, ICON_BEFORE_TEXT|LAYOUT_FILL_X|FRAME_THICK|FRAME_RAISED, 0, 0, 0, 0, 4, 4, 3, 3);
     // "Save"
-    new FXButton(layout, "Save\t\t", 0, this, MID_CHOOSEN_SAVE,
-                 ICON_BEFORE_TEXT|LAYOUT_FILL_X|FRAME_THICK|FRAME_RAISED,
-                 0, 0, 0, 0, 4, 4, 3, 3);
+    new FXButton(layout, "Save\t\t", 0, this, MID_CHOOSEN_SAVE, ICON_BEFORE_TEXT|LAYOUT_FILL_X|FRAME_THICK|FRAME_RAISED, 0, 0, 0, 0, 4, 4, 3, 3);
     new FXHorizontalSeparator(layout,SEPARATOR_GROOVE|LAYOUT_FILL_X);
     // "Clear List"
-    new FXButton(layout, "Clear\t\t", 0, this, MID_CHOOSEN_CLEAR,
-                 ICON_BEFORE_TEXT|LAYOUT_FILL_X|FRAME_THICK|FRAME_RAISED,
-                 0, 0, 0, 0, 4, 4, 3, 3);
+    new FXButton(layout, "Clear\t\t", 0, this, MID_CHOOSEN_CLEAR, ICON_BEFORE_TEXT|LAYOUT_FILL_X|FRAME_THICK|FRAME_RAISED, 0, 0, 0, 0, 4, 4, 3, 3);
     new FXHorizontalSeparator(layout,SEPARATOR_GROOVE|LAYOUT_FILL_X);
     // "Close"
-    new FXButton(layout, "Close\t\t", 0, this, MID_CANCEL,
-                 ICON_BEFORE_TEXT|LAYOUT_FILL_X|FRAME_THICK|FRAME_RAISED,
-                 0, 0, 0, 0, 4, 4, 3, 3);
+    new FXButton(layout, "Close\t\t", 0, this, MID_CANCEL, ICON_BEFORE_TEXT|LAYOUT_FILL_X|FRAME_THICK|FRAME_RAISED, 0, 0, 0, 0, 4, 4, 3, 3);
     //
     setIcon(GUIIconSubSys::getIcon(ICON_APP_BREAKPOINTS));
     myParent->addChild(this);
@@ -136,7 +128,6 @@ void
 GUIDialog_Breakpoints::rebuildList() throw() {
     myTable->clearItems();
     sort(gBreakpoints.begin(), gBreakpoints.end());
-
     // set table attributes
     myTable->setTableSize((FXint) gBreakpoints.size()+1, 1);
     myTable->setColumnText(0, "Time");
@@ -146,12 +137,11 @@ GUIDialog_Breakpoints::rebuildList() throw() {
     for (k=0; k<1; k++) {
         header->setItemJustify(k, JUSTIFY_CENTER_X);
     }
-
     // insert into table
     FXint row = 0;
     std::vector<int>::iterator j;
     for (j=gBreakpoints.begin(); j!=gBreakpoints.end(); ++j) {
-        myTable->setItemText(row, 0, toString<int>(*j).c_str());
+        myTable->setItemText(row, 0, time2string(*j).c_str());
         row++;
     }
     // insert dummy last field
@@ -178,7 +168,7 @@ GUIDialog_Breakpoints::onCmdLoad(FXObject*,FXSelector,void*) {
             std::string val;
             strm >> val;
             try {
-                int value = TplConvert<char>::_2int(val.c_str());
+                SUMOTime value = string2time(val);
                 gBreakpoints.push_back(value);
             } catch (NumberFormatException&) {
                 MsgHandler::getErrorInstance()->inform(" A breakpoint-value must be an int, is:" + val);
@@ -212,10 +202,9 @@ std::string
 GUIDialog_Breakpoints::encode2TXT() throw() {
     std::ostringstream strm;
     std::sort(gBreakpoints.begin(), gBreakpoints.end());
-    //
     for (std::vector<int>::iterator j=gBreakpoints.begin(); j!=gBreakpoints.end(); ++j) {
         if ((*j)!=INVALID_VALUE) {
-            strm << (*j) << std::endl;
+            strm << time2string(*j) << std::endl;
         }
     }
     return strm.str();
@@ -255,7 +244,7 @@ GUIDialog_Breakpoints::onCmdEditTable(FXObject*,FXSelector,void*data) {
     switch (i->col) {
     case 0:
         try {
-            gBreakpoints[row] = TplConvert<char>::_2int(value.c_str());
+            gBreakpoints[row] = string2time(value);
         } catch (NumberFormatException &) {
             std::string msg = "The value must be an int, is:" + value;
             FXMessageBox::error(this, MBOX_OK, "Number format error", msg.c_str());

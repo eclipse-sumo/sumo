@@ -42,31 +42,43 @@
 class GUIDialog_AppSettings : public FXDialogBox {
     // is a FOX-object with an own mapping
     FXDECLARE(GUIDialog_AppSettings)
+
 public:
-    /// constructor
-    GUIDialog_AppSettings(FXMainWindow* parent);
+    /** @brief Constructor
+     *
+     * @param[in] parent The parent window
+     */
+    GUIDialog_AppSettings(FXMainWindow* parent) throw();
 
-    /// destructor
-    ~GUIDialog_AppSettings();
+    /// @brief Destructor
+    ~GUIDialog_AppSettings() throw();
 
-    /// Called on OK-button pressure
+
+
+    /// @name FOX-callbacks
+    /// @{
+
+    /// @brief Called on OK-button pressure
     long onCmdOk(FXObject*,FXSelector,void*);
 
-    /// Called on Cancel-button pressure
+    /// @brief Called on Cancel-button pressure
     long onCmdCancel(FXObject*,FXSelector,void*);
 
-    /// Called on "Quit on end"-button change
+    /// @brief Called on "Quit on end"-button change
     long onCmdQuitOnEnd(FXObject*,FXSelector,void*);
 
-    /// Called on "Allow textures"-button change
+    /// @brief Called on "Allow textures"-button change
     long onCmdAllowTextures(FXObject*,FXSelector,void*);
+    /// @}
+
 
 private:
-    /// Information whether the application shall be quit
+    /// @brief Information whether the application shall be quit
     bool myAppQuitOnEnd;
 
-    /// Information whether textures may be used
+    /// @brief Information whether textures may be used
     bool myAllowTextures;
+
 
 protected:
     /// default constructor (needed by FOX)
