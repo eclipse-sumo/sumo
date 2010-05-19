@@ -31,6 +31,7 @@
 
 #include <vector>
 #include <fx.h>
+#include <utils/common/SUMOTime.h>
 #include <utils/gui/globjects/GUIGlObjectStorage.h>
 
 
@@ -47,7 +48,7 @@ class GUINet;
 extern bool gQuitOnEnd;
 
 /// List of breakpoint
-extern std::vector<int> gBreakpoints;
+extern std::vector<SUMOTime> gBreakpoints;
 
 
 #endif
