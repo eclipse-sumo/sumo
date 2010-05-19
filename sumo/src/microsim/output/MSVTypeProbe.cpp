@@ -55,9 +55,8 @@ MSVTypeProbe::MSVTypeProbe(const std::string &id,
 MSVTypeProbe::~MSVTypeProbe() throw() {
 }
 
-SUMOTime 
-MSVTypeProbe::execute(SUMOTime currentTime) throw(ProcessError)
-{
+SUMOTime
+MSVTypeProbe::execute(SUMOTime currentTime) throw(ProcessError) {
     const std::string indent("    ");
     myOutputDevice << indent << "<timestep time=\"" <<time2string(currentTime)<< "\" id=\"" << getID() << "\" vtype=\"" << myVType << "\">" << "\n";
     MSVehicleControl &vc = MSNet::getInstance()->getVehicleControl();
