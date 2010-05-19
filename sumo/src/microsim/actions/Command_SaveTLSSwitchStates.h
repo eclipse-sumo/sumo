@@ -74,10 +74,8 @@ public:
      * If the state or the active program has changed, the state is written
      *  to the output device.
      *
-     * Returns always 1.
-     *
      * @param[in] currentTime The current simulation time
-     * @return Always 1 (will be executed in next time step)
+     * @return Always DELTA_T (will be executed in next time step)
      * @exception ProcessError not here
      * @see Command
      * @todo Here, a discrete even (on switch / program change) would be appropriate

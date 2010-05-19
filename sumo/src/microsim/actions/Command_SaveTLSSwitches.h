@@ -79,7 +79,7 @@ public:
      *  "myPreviousLinkStates".
      *
      * @param[in] currentTime The current simulation time
-     * @return Always 1 (will be executed in next time step)
+     * @return Always DELTA_T (will be executed in next time step)
      * @exception ProcessError not here
      * @see Command
      */

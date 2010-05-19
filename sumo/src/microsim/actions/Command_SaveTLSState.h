@@ -72,7 +72,7 @@ public:
      * Returns always 1.
      *
      * @param[in] currentTime The current simulation time (unused)
-     * @return Always 1 (will be executed in next time step)
+     * @return Always DELTA_T (will be executed in next time step)
      * @exception ProcessError not here
      * @see Command
      */
