@@ -31,7 +31,8 @@ def loadHighscore():
                 category, values = line.split()
                 scores[category] = 10*[("", "", -1.)]
                 for idx, item in enumerate(values.split(':')):
-                    scores[category][idx] = item.split(',')
+                    name, game, points = item.split(',')
+                    scores[category][idx] = (name, game, float(points))
             return scores
     except:
         pass
@@ -89,7 +90,7 @@ class ScoreDialog:
 
         idx = 0
         for n, g, p in high[category]:
-            if not haveHigh and (p == -1 or p < points):
+            if not haveHigh and p < points:
                 self.name = Tkinter.Entry(self.root)
                 self.name.grid(row=idx, sticky=Tkinter.W)
                 self.idx = idx
@@ -135,15 +136,23 @@ if not os.path.exists(guisimPath):
 
 while True:
     start = StartDialog()
-    totalWait = 0
+    totalDistance = 0
+    totalFuel = 0
+    totalArrived = 0
     complete = True
     for line in open(os.path.join(base, "netstate.xml")):
-        m = re.search('<interval begin="0(.00)?" end="(\d+(.\d+)?)"', line)
+        m = re.search('<interval begin="0(.00)?" end="([^"]*)"', line)
         if m and float(m.group(2)) != 180:
             complete = False
-        m = re.search('waitingTime="(\d+.\d+)"', line)
+        m = re.search('sampledSeconds="([^"]*)".*speed="([^"]*)"', line)
         if m:
-            totalWait += float(m.group(1))
+            totalDistance += float(m.group(1)) * float(m.group(2))
+        m = re.search('fuel_abs="([^"]*)"', line)
+        if m:
+            totalFuel += float(m.group(1))
+        m = re.search('arrived="([^"]*)"', line)
+        if m:
+            totalArrived += float(m.group(1))
     switch = []
     lastProg = {}
     for line in open(os.path.join(base, "tlsstate.xml")):
@@ -154,8 +163,9 @@ while True:
             if tls not in lastProg or lastProg[tls] != program:
                 lastProg[tls] = program
                 switch += [m.group(3), m.group(1)]
-    print switch, totalWait
+    score = 25000 - 100000 * totalFuel / totalDistance
+    print switch, score, totalArrived
     if complete:
-        ScoreDialog(switch, totalWait, start.category)
+        ScoreDialog(switch, score, start.category)
     if start.ret != 0:
         sys.exit(start.ret)

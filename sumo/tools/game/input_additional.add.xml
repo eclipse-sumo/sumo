@@ -2,5 +2,4 @@
     <timed_event type="SaveTLSSwitchStates" dest="tlsstate.xml"/>
     <meandata-edge id="dump" file="netstate.xml" excludeEmpty="true"/>
     <meandata-edge id="hbefa" type="hbefa" file="netstate.xml" excludeEmpty="true"/>
-    <meandata-edge id="hbefaTracked" type="hbefa" file="netstate.xml" excludeEmpty="true" tracked="true"/>
 </add>
