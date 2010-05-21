@@ -46,14 +46,20 @@ def loadHighscore():
 def save(idx, category, name, game, points):
     high[category].insert(idx, (name, game, points))
     high[category].pop()
-    f = open(_SCOREFILE, 'w')
-    pickle.dump(high, f)
-    f.close()
-    conn = httplib.HTTPConnection(_SCORESERVER)
-    conn.request("GET", _SCORESCRIPT + "category=%s&name=%s&instance=%s&points=%s" % (category, name, "_".join(game), points))
-    if _DEBUG:
-        r1 = conn.getresponse()
-        print r1.status, r1.reason, r1.read()
+    try:
+        f = open(_SCOREFILE, 'w')
+        pickle.dump(high, f)
+        f.close()
+    except:
+        pass
+    try:
+        conn = httplib.HTTPConnection(_SCORESERVER)
+        conn.request("GET", _SCORESCRIPT + "category=%s&name=%s&instance=%s&points=%s" % (category, name, "_".join(game), points))
+        if _DEBUG:
+            r1 = conn.getresponse()
+            print r1.status, r1.reason, r1.read()
+    except:
+        pass
 
 class StartDialog:
     def __init__(self):
@@ -61,10 +67,9 @@ class StartDialog:
         self.root.title("Traffic Light Game")
         for cfg in glob.glob(os.path.join(base, "*.sumo.cfg")):
             category = os.path.basename(cfg)[:-9]
-            if not category in high:
-                high[category] = 10*[("", "", -1.)]
             Tkinter.Button(self.root, text=category, command=lambda cfg=cfg:self.ok(cfg)).pack()
-        Tkinter.Button(self.root, text="quit", command=sys.exit).pack()
+        Tkinter.Button(self.root, text="Clear Highscore", command=high.clear).pack()
+        Tkinter.Button(self.root, text="Quit", command=sys.exit).pack()
         # The following three commands are needed so the window pops
         # up on top on Windows...
         self.root.iconify()
@@ -88,6 +93,8 @@ class ScoreDialog:
         haveHigh = False
         self.root.title("High score")
 
+        if not category in high:
+            high[category] = 10*[("", "", -1.)]
         idx = 0
         for n, g, p in high[category]:
             if not haveHigh and p < points:
@@ -164,7 +171,8 @@ while True:
                 lastProg[tls] = program
                 switch += [m.group(3), m.group(1)]
     score = 25000 - 100000 * totalFuel / totalDistance
-    print switch, score, totalArrived
+    if _DEBUG:
+        print switch, score, totalArrived
     if complete:
         ScoreDialog(switch, score, start.category)
     if start.ret != 0:

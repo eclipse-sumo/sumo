@@ -5,12 +5,12 @@
         <route id="right0" edges="right0to1/0 1/0to0/0 0/0toleft0"/>
         <route id="right1" edges="right1to1/1 1/1to0/1 0/1toleft1"/>
     </routeDistribution>
-    <flow id="horiz" route="horizontal" depart="0" no="200" period="2"/>
+    <flow id="horiz" route="horizontal" depart="0" no="200" period="2" arrivalpos="-10"/>
     <routeDistribution id="vertical">
         <route id="bottom0" edges="bottom0to0/0 0/0to0/1 0/1totop0"/>
         <route id="bottom1" edges="bottom1to1/0 1/0to1/1 1/1totop1"/>
         <route id="top0" edges="top0to0/1 0/1to0/0 0/0tobottom0"/>
         <route id="top1" edges="top1to1/1 1/1to1/0 1/0tobottom1"/>
     </routeDistribution>
-    <flow id="vertic" route="vertical" depart="0" no="100" period="4"/>
+    <flow id="vertic" route="vertical" depart="0" no="100" period="4" arrivalpos="-10"/>
 </routes>
