@@ -27,8 +27,11 @@ for retry in range(10):
     clientProcess = subprocess.Popen(os.path.join(sumoDir, " ".join(clientParams)),
                                      shell=True, stdout=sys.stdout, stderr=sys.stderr)
     if serverprocess.poll() != None and clientProcess.poll() == None:
-        print >> sys.stderr, "Server terminated for unknown reason"
-        break
+        time.sleep(10)
+        if serverprocess.poll() != None and clientProcess.poll() == None:
+            print >> sys.stderr, "Client hangs but server terminated for unknown reason"
+            clientProcess.kill()
+            break
     if clientProcess.wait() == 0:
         break
     time.sleep(1)
