@@ -25,3 +25,7 @@ errors:attribute '(.*)' is already specified for element '(.*)'{REPLACE The attr
 meso:$TEXTTEST_HOME/meso_filter
 msvc8mesox64:$TEXTTEST_HOME/meso_filter
 msvc8mesoWin32:$TEXTTEST_HOME/meso_filter
+
+[bug_system_location]
+trac:http://sourceforge.net/apps/trac/sumo/
+
