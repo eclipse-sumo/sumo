@@ -399,6 +399,16 @@ MSLane::isEmissionSuccess(MSVehicle* aVehicle,
                 return false;
             }
         }
+		// check for in-lapping vehicle
+		MSVehicle* leader = getPartialOccupator();
+		if(leader!=0) {
+			SUMOReal frontGapNeeded = aVehicle->getCarFollowModel().getSecureGap(speed, leader->getCarFollowModel().getSpeedAfterMaxDecel(leader->getSpeed()));
+			SUMOReal gap = getPartialOccupatorEnd() - pos;
+			if (gap<=frontGapNeeded) {
+				// too close to the leader on this lane
+				return false;
+			}
+		}
     }
 
     // may got negative while adaptation
