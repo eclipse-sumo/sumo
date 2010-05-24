@@ -63,9 +63,9 @@ routes.close()
     
 
 
-sumoExe = "guisim"
+sumoExe = "sumo-gui"
 if "SUMO" in os.environ:
-    sumoExe = os.path.join(os.environ["SUMO"], "guisim")
+    sumoExe = os.path.join(os.environ["SUMO"], "sumo-gui")
 sumoConfig = "cross.sumo.cfg"
 sumoProcess = subprocess.Popen("%s -c %s" % (sumoExe, sumoConfig), shell=True, stdout=sys.stdout)
 
