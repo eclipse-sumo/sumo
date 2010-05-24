@@ -923,9 +923,11 @@ MSLane::getFollowerOnConsecutive(SUMOReal dist, SUMOReal seen, SUMOReal leaderSp
     std::vector<MSLane::IncomingLaneInfo> toExamine = myIncomingLanes;
     while (toExamine.size()!=0) {
         for (std::vector<MSLane::IncomingLaneInfo>::iterator i=toExamine.begin(); i!=toExamine.end(); ++i) {
+			/*
             if ((*i).viaLink->getState()==MSLink::LINKSTATE_TL_RED) {
                 continue;
             }
+			*/
             MSLane *next = (*i).lane;
             if (next->getFirstVehicle()!=0) {
                 MSVehicle * v = (MSVehicle*) next->getFirstVehicle();
