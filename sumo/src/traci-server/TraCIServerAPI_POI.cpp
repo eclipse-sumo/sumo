@@ -101,7 +101,7 @@ TraCIServerAPI_POI::processGet(tcpip::Storage &inputStorage,
             tempMsg.writeUnsignedByte(255);
             break;
         case VAR_POSITION:
-            tempMsg.writeUnsignedByte(TYPE_POSITION2D);
+            tempMsg.writeUnsignedByte(POSITION_2D);
             tempMsg.writeFloat(p->x());
             tempMsg.writeFloat(p->y());
             break;
@@ -169,7 +169,7 @@ TraCIServerAPI_POI::processSet(tcpip::Storage &inputStorage,
     }
     break;
     case VAR_POSITION: {
-        if (valueDataType!=TYPE_POSITION2D) {
+        if (valueDataType!=POSITION_2D) {
             TraCIServerAPIHelper::writeStatusCmd(CMD_SET_POI_VARIABLE, RTYPE_ERR, "The position must be given using an accoring type.", outputStorage);
             return false;
         }
@@ -206,7 +206,7 @@ TraCIServerAPI_POI::processSet(tcpip::Storage &inputStorage,
         }
         int layer = inputStorage.readInt();
         // pos
-        if (inputStorage.readUnsignedByte()!=TYPE_POSITION2D) {
+        if (inputStorage.readUnsignedByte()!=POSITION_2D) {
             TraCIServerAPIHelper::writeStatusCmd(CMD_SET_POI_VARIABLE, RTYPE_ERR, "The fourth PoI parameter must be the position.", outputStorage);
             return false;
         }

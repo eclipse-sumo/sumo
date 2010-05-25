@@ -85,7 +85,7 @@ TraCIServerAPI_Junction::processGet(tcpip::Storage &inputStorage,
         case ID_LIST:
             break;
         case VAR_POSITION:
-            tempMsg.writeUnsignedByte(TYPE_POSITION2D);
+            tempMsg.writeUnsignedByte(POSITION_2D);
             tempMsg.writeFloat(j->getPosition().x());
             tempMsg.writeFloat(j->getPosition().y());
             break;

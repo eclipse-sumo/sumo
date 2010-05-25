@@ -1549,7 +1549,7 @@ TraCITestClient::setValueTypeDependant(tcpip::Storage &into, std::ifstream &defF
         }
         return 1 + 4;
     } else if (dataTypeS=="<position2D>") {
-        into.writeUnsignedByte(TYPE_POSITION2D);
+        into.writeUnsignedByte(POSITION_2D);
         into.writeFloat(float(atof(valueS.c_str())));
         defFile >> valueS;
         into.writeFloat(float(atof(valueS.c_str())));
@@ -2317,7 +2317,7 @@ TraCITestClient::readAndReportTypeDependent(tcpip::Storage &inMsg, int valueData
             readAndReportTypeDependent(inMsg, currentValueDataType);
         }
         answerLog << " ]" << std::endl;
-    } else if (valueDataType == TYPE_POSITION2D) {
+    } else if (valueDataType == POSITION_2D) {
         float xv = inMsg.readFloat();
         float yv = inMsg.readFloat();
         answerLog << " position value: (" << xv << "," << yv << ")" << std::endl;

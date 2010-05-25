@@ -111,7 +111,7 @@ TraCIServerAPI_Vehicle::processGet(tcpip::Storage &inputStorage,
             tempMsg.writeFloat(v->getSpeedWithoutTraciInfluence());
             break;
         case VAR_POSITION:
-            tempMsg.writeUnsignedByte(TYPE_POSITION2D);
+            tempMsg.writeUnsignedByte(POSITION_2D);
             tempMsg.writeFloat(v->getPosition().x());
             tempMsg.writeFloat(v->getPosition().y());
             break;

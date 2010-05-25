@@ -275,8 +275,6 @@
 #define TYPE_STRINGLIST 0x0E
 // compound object
 #define TYPE_COMPOUND 0x0F
-// 2D-position (two floats)
-#define TYPE_POSITION2D 0x10
 // color (four ubytes)
 #define TYPE_COLOR 0x11
 
