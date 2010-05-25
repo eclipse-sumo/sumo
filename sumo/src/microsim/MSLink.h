@@ -378,6 +378,7 @@ private:
 
     std::vector<MSLink*> myFoeLinks;
     std::vector<MSLane*> myFoeLanes;
+    static SUMOTime myLookaheadTime;
 
 
 private:

@@ -37,6 +37,16 @@
 
 
 // ===========================================================================
+// static member variables
+// ===========================================================================
+#ifndef HAVE_SUBSECOND_TIMESTEPS
+SUMOTime MSLink::myLookaheadTime = 3;
+#else
+SUMOTime MSLink::myLookaheadTime = 3000;
+#endif
+
+
+// ===========================================================================
 // member method definitions
 // ===========================================================================
 #ifndef HAVE_INTERNAL_LANES
@@ -166,7 +176,6 @@ MSLink::opened(SUMOTime arrivalTime, SUMOReal arrivalSpeed) const throw() {
     return true;
 }
 
-#define VIEW 3000
 
 bool
 MSLink::blockedAtTime(SUMOTime arrivalTime, SUMOTime leaveTime) const throw() {
@@ -174,7 +183,7 @@ MSLink::blockedAtTime(SUMOTime arrivalTime, SUMOTime leaveTime) const throw() {
         if (!(*i).willPass) {
             continue;
         }
-        if (!(((*i).leavingTime+VIEW < arrivalTime) || ((*i).arrivalTime-VIEW > leaveTime))) {
+        if (!(((*i).leavingTime+myLookaheadTime < arrivalTime) || ((*i).arrivalTime-myLookaheadTime > leaveTime))) {
             return true;
         }
     }
