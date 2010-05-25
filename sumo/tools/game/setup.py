@@ -6,14 +6,19 @@ nightlyDir="N:\\Daten\\Sumo\\Nightly"
 if len(sys.argv) == 1:
     sys.argv.append("py2exe")
 
-#setup(console=['runner.py'])
-
 base = os.path.dirname(sys.argv[0])
 dist = os.path.join(base, "dist")
+shutil.rmtree(dist, True)
+
+setup(console=['runner.py'])
+
 for f in glob.glob(os.path.join(base, "square.*")) + ["cross.sumo.cfg", "dlr.gif", "input_additional.add.xml",
                                                       "input_additional.add.xml", "settings.xml"]:
     shutil.copy2(f, dist)
-shutil.copytree("cross", os.path.join(dist, "cross"))
+cross = os.path.join(dist, "cross")
+os.mkdir(cross)
+for f in glob.glob(os.path.join(base, "cross", "cross.*")):
+    shutil.copy2(f, cross)
 for dll in glob.glob(os.path.join(nightlyDir, "*.dll")):
     shutil.copy2(dll, dist)
 shutil.copy2(os.path.join(nightlyDir, "sumo-gui.exe"), dist)

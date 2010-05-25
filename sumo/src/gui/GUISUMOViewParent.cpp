@@ -100,6 +100,9 @@ GUISUMOViewParent::init(FXGLCanvas *share, GUINet &net) {
     myView = new GUIViewTraffic(myContentFrame, *myParent, this, net,
                                 myParent->getGLVisual(), share);
     myView->buildViewToolBars(*this);
+    if (myParent->isGaming()) {
+        myNavigationToolBar->hide();
+    }
     return myView;
 }
 

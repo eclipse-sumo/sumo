@@ -686,7 +686,7 @@ long
 GUISUMOAbstractView::onRightBtnRelease(FXObject *,FXSelector ,void *data) {
     delete myPopup;
     myPopup = 0;
-    if (!myChanger->onRightBtnRelease(data)) {
+    if (!myChanger->onRightBtnRelease(data) && !myApp->isGaming()) {
         openObjectDialog();
     }
     ungrab();
