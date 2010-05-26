@@ -454,8 +454,8 @@ GUIApplicationWindow::buildToolBars() {
                                    LAYOUT_DOCK_SAME|LAYOUT_SIDE_TOP|FRAME_RAISED);
         new FXToolBarGrip(myToolBar3, myToolBar3, FXToolBar::ID_TOOLBARGRIP,
                           TOOLBARGRIP_DOUBLE);
-        new FXLabel(myToolBar3, "Next Step:", 0, LAYOUT_CENTER_Y);
-        myLCDLabel = new FXEX::FXLCDLabel(myToolBar3, 6, 0, 0,
+        new FXLabel(myToolBar3, "Time:", 0, LAYOUT_CENTER_Y);
+        myLCDLabel = new FXEX::FXLCDLabel(myToolBar3, 9, 0, 0,
                                           FXEX::LCDLABEL_LEADING_ZEROS);
         myLCDLabel->setHorizontal(2);
         myLCDLabel->setVertical(6);
@@ -852,7 +852,11 @@ GUIApplicationWindow::handleEvent_SimulationLoaded(GUIEvent *e) {
         setTitle(MFXUtils::getTitleText(caption.c_str(), ec->myFile.c_str()));
         // set simulation step begin information
         std::string t = time2string(ec->myNet->getCurrentTimeStep());
-        myLCDLabel->setText(t.substr(0, t.length()-3).c_str());
+        if (myAmGaming || fmod(TS, 1.) == 0.) {
+            myLCDLabel->setText(t.substr(0, t.length()-3).c_str());
+        } else {
+            myLCDLabel->setText(t.c_str());
+        }
     }
     getApp()->endWaitCursor();
     // start if wished
@@ -867,7 +871,11 @@ void
 GUIApplicationWindow::handleEvent_SimulationStep(GUIEvent *) {
     updateChildren();
     std::string t = time2string(myRunThread->getNet().getCurrentTimeStep());
-    myLCDLabel->setText(t.substr(0, t.length()-3).c_str());
+    if (myAmGaming || fmod(TS, 1.) == 0.) {
+        myLCDLabel->setText(t.substr(0, t.length()-3).c_str());
+    } else {
+        myLCDLabel->setText(t.c_str());
+    }
     update();
 }
 
