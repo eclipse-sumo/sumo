@@ -584,6 +584,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\..\src\utils\common\StaticCommand.h"
+				>
+			</File>
+			<File
 				RelativePath="..\..\..\src\utils\common\StdDefs.h"
 				>
 			</File>
