@@ -65,7 +65,7 @@ public:
     ~GUIDialog_Breakpoints() throw();
 
 
-    
+
     /// @name FOX-callbacks
     /// @{
 

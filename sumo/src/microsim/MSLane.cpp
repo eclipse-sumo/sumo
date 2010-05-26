@@ -399,16 +399,16 @@ MSLane::isEmissionSuccess(MSVehicle* aVehicle,
                 return false;
             }
         }
-		// check for in-lapping vehicle
-		MSVehicle* leader = getPartialOccupator();
-		if(leader!=0) {
-			SUMOReal frontGapNeeded = aVehicle->getCarFollowModel().getSecureGap(speed, leader->getCarFollowModel().getSpeedAfterMaxDecel(leader->getSpeed()));
-			SUMOReal gap = getPartialOccupatorEnd() - pos;
-			if (gap<=frontGapNeeded) {
-				// too close to the leader on this lane
-				return false;
-			}
-		}
+        // check for in-lapping vehicle
+        MSVehicle* leader = getPartialOccupator();
+        if (leader!=0) {
+            SUMOReal frontGapNeeded = aVehicle->getCarFollowModel().getSecureGap(speed, leader->getCarFollowModel().getSpeedAfterMaxDecel(leader->getSpeed()));
+            SUMOReal gap = getPartialOccupatorEnd() - pos;
+            if (gap<=frontGapNeeded) {
+                // too close to the leader on this lane
+                return false;
+            }
+        }
     }
 
     // may got negative while adaptation
@@ -923,11 +923,11 @@ MSLane::getFollowerOnConsecutive(SUMOReal dist, SUMOReal seen, SUMOReal leaderSp
     std::vector<MSLane::IncomingLaneInfo> toExamine = myIncomingLanes;
     while (toExamine.size()!=0) {
         for (std::vector<MSLane::IncomingLaneInfo>::iterator i=toExamine.begin(); i!=toExamine.end(); ++i) {
-			/*
+            /*
             if ((*i).viaLink->getState()==MSLink::LINKSTATE_TL_RED) {
                 continue;
             }
-			*/
+            */
             MSLane *next = (*i).lane;
             if (next->getFirstVehicle()!=0) {
                 MSVehicle * v = (MSVehicle*) next->getFirstVehicle();
