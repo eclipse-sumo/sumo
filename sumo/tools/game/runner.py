@@ -18,7 +18,7 @@ import os, subprocess, sys, re, pickle, httplib, glob, Tkinter
 _SCOREFILE = "scores.pkl"
 _SCORESERVER = "sumo.sourceforge.net"
 _SCORESCRIPT = "/scores.php?game=TLS&"
-_DEBUG = True
+_DEBUG = False
 
 def loadHighscore():
     try:
@@ -66,10 +66,14 @@ class StartDialog:
         self.root = Tkinter.Tk()
         self.root.title("Traffic Light Game")
         for cfg in glob.glob(os.path.join(base, "*.sumo.cfg")):
-            category = os.path.basename(cfg)[:-9]
-            Tkinter.Button(self.root, text=category, command=lambda cfg=cfg:self.ok(cfg)).pack()
-        Tkinter.Button(self.root, text="Clear Highscore", command=high.clear).pack()
-        Tkinter.Button(self.root, text="Quit", command=sys.exit).pack()
+            text = category = os.path.basename(cfg)[:-9]
+            if text == "cross":
+                text = "Einfache Kreuzung" 
+            elif text == "square":
+                text = "Vier Kreuzungen" 
+            Tkinter.Button(self.root, text=text, command=lambda cfg=cfg:self.ok(cfg)).pack()
+        Tkinter.Button(self.root, text="Bestenliste loeschen", command=high.clear).pack()
+        Tkinter.Button(self.root, text="Ende", command=sys.exit).pack()
         # The following three commands are needed so the window pops
         # up on top on Windows...
         self.root.iconify()
@@ -91,7 +95,7 @@ class ScoreDialog:
         self.points = points
         self.category = category
         haveHigh = False
-        self.root.title("High score")
+        self.root.title("Bestenliste")
 
         if not category in high:
             high[category] = 10*[("", "", -1.)]
@@ -103,7 +107,7 @@ class ScoreDialog:
                 self.idx = idx
                 p = points
                 haveHigh = True
-                self.root.title("Congratulations")
+                self.root.title("Glueckwunsch")
             else:
                 if p == -1:
                     break
