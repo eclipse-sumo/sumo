@@ -53,11 +53,11 @@
 #define GEO_OUTPUT_ACCURACY 6
 
 /* Define if auto-generated version.h should be used. */
-#define HAVE_VERSION_H 1
+//#define HAVE_VERSION_H 1
 
 /* Version number of package */
 #ifndef HAVE_VERSION_H
-#define VERSION_STRING "0.11.1"
+#define VERSION_STRING "0.12.0"
 #endif
 
 #define HAVE_INTERNAL_LANES 1
