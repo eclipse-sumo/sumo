@@ -46,7 +46,7 @@ public:
     /// Type of the function to execute.
     typedef R(T::* Operation)() const;
 
-    FunctionBinding(T* source, Operation operation) :
+    FunctionBinding(T* const source, Operation operation) :
             mySource(source),
             myOperation(operation) {}
 
