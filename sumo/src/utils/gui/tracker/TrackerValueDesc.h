@@ -37,12 +37,6 @@
 
 
 // ===========================================================================
-// class declarations
-// ===========================================================================
-class GUIGlObject;
-
-
-// ===========================================================================
 // class definitions
 // ===========================================================================
 /**
@@ -56,7 +50,7 @@ class TrackerValueDesc : public ValueRetriever<SUMOReal> {
 public:
     /// Constructor
     TrackerValueDesc(const std::string &name, const RGBColor &col,
-                     GUIGlObject *o, SUMOTime recordBegin);
+                     SUMOTime recordBegin);
 
     /// Destructor
     ~TrackerValueDesc();
@@ -108,9 +102,6 @@ public:
 private:
     /// The name of the value
     std::string myName;
-
-    /// The object to retrieve the information from
-    GUIGlObject *myObject;
 
     /// The color to use when the value is set as "active"
     RGBColor myActiveCol;

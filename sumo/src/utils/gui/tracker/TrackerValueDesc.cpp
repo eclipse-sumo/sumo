@@ -42,10 +42,8 @@
 // ===========================================================================
 TrackerValueDesc::TrackerValueDesc(const std::string &name,
                                    const RGBColor &col,
-                                   GUIGlObject *o,
                                    SUMOTime recordBegin)
-        : myName(name), myObject(o),
-        myActiveCol(col), myInactiveCol(col),
+        : myName(name), myActiveCol(col), myInactiveCol(col),
         myMin(0), myMax(0),
         myAggregationInterval(TIME2STEPS(1)/DELTA_T), myInvalidValue(-1), myValidNo(0),
         myRecordingBegin(recordBegin), myTmpLastAggValue(0) {}

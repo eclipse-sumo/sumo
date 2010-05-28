@@ -76,7 +76,7 @@ GUIParam_PopupMenuInterface::onCmdOpenTracker(FXObject*,FXSelector,void*) {
     GUIParameterTracker *tr = new GUIParameterTracker(*myApplication,
             trackerName, *myObject, 0, 0);
     TrackerValueDesc *newTracked = new TrackerValueDesc(
-        myVarName, RGBColor(0, 0, 0), myObject, myApplication->getCurrentSimTime());
+        myVarName, RGBColor(0, 0, 0), myApplication->getCurrentSimTime());
     tr->addTracked(*myObject, mySource->copy(), newTracked);
     tr->create();
     tr->show();
