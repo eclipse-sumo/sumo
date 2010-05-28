@@ -1,0 +1,175 @@
+<viewsettings>
+    <delay value="100"/>
+    <viewport zoom="300" x="0" y="0"/>
+    <decal filename="cross.gif" centerX="218" centerY="200" width="343" height="240" rotation="0.00"/>
+    <scheme name="*real world">
+        <opengl antialiase="0" dither="0"/>
+        <background backgroundColor="1.00,1.00,1.00"
+                    showGrid="0" gridXSize="100.00" gridYSize="100.00"/>
+        <edges laneEdgeMode="0" laneShowBorders="1" showLinkDecals="1" showRails="1"
+               drawEdgeName="0" edgeNameSize="50.00" edgeNameColor="1.00,0.50,0.00"
+               drawInternalEdgeName="0" internalEdgeNameSize="25.00" internalEdgeNameColor="0.50,0.25,0.00" hideConnectors="1">
+            <colorScheme name="uniform">
+                <entry color="0.00,0.00,0.00"/>
+            </colorScheme>
+            <colorScheme name="by selection (lane-/streetwise)">
+                <entry color="0.70,0.70,0.70" name="unselected"/>
+                <entry color="0.00,0.40,0.80" name="selected"/>
+            </colorScheme>
+            <colorScheme name="by vclass">
+                <entry color="0.00,0.00,0.00" name="all"/>
+                <entry color="0.00,0.10,0.50" name="public"/>
+            </colorScheme>
+            <colorScheme name="by allowed speed (lanewise)" interpolated="1">
+                <entry color="1.00,0.00,0.00" threshold="0.00"/>
+                <entry color="0.00,0.00,1.00" threshold="41.67"/>
+            </colorScheme>
+            <colorScheme name="by current occupancy (lanewise)" interpolated="1">
+                <entry color="0.00,0.00,1.00" threshold="0.00"/>
+                <entry color="1.00,0.00,0.00" threshold="0.95"/>
+            </colorScheme>
+            <colorScheme name="by first vehicle waiting time (lanewise)" interpolated="1">
+                <entry color="0.00,1.00,0.00" threshold="0.00"/>
+                <entry color="1.00,0.00,0.00" threshold="200.00"/>
+            </colorScheme>
+            <colorScheme name="by lane number (streetwise)" interpolated="1">
+                <entry color="1.00,0.00,0.00" threshold="0.00"/>
+                <entry color="0.00,0.00,1.00" threshold="5.00"/>
+            </colorScheme>
+            <colorScheme name="by CO2 emissions (HBEFA)" interpolated="1">
+                <entry color="0.00,1.00,0.00" threshold="0.00"/>
+                <entry color="1.00,0.00,0.00" threshold="0.27"/>
+            </colorScheme>
+            <colorScheme name="by CO emissions (HBEFA)" interpolated="1">
+                <entry color="0.00,1.00,0.00" threshold="0.00"/>
+                <entry color="1.00,0.00,0.00" threshold="0.00"/>
+            </colorScheme>
+            <colorScheme name="by PMx emissions (HBEFA)" interpolated="1">
+                <entry color="0.00,1.00,0.00" threshold="0.00"/>
+                <entry color="1.00,0.00,0.00" threshold="0.00"/>
+            </colorScheme>
+            <colorScheme name="by NOx emissions (HBEFA)" interpolated="1">
+                <entry color="0.00,1.00,0.00" threshold="0.00"/>
+                <entry color="1.00,0.00,0.00" threshold="0.00"/>
+            </colorScheme>
+            <colorScheme name="by HC emissions (HBEFA)" interpolated="1">
+                <entry color="0.00,1.00,0.00" threshold="0.00"/>
+                <entry color="1.00,0.00,0.00" threshold="0.00"/>
+            </colorScheme>
+            <colorScheme name="by fuel consumption (HBEFA)" interpolated="1">
+                <entry color="0.00,1.00,0.00" threshold="0.00"/>
+                <entry color="1.00,0.00,0.00" threshold="0.07"/>
+            </colorScheme>
+            <colorScheme name="by noise emissions (Harmonoise)" interpolated="1">
+                <entry color="0.00,1.00,0.00" threshold="0.00"/>
+                <entry color="1.00,0.00,0.00" threshold="100.00"/>
+            </colorScheme>
+            <colorScheme name="uniform (streetwise)">
+                <entry color="0.00,0.00,0.00"/>
+            </colorScheme>
+            <colorScheme name="by selection (streetwise)">
+                <entry color="0.70,0.70,0.70" name="unselected"/>
+                <entry color="0.00,0.40,0.80" name="selected"/>
+            </colorScheme>
+            <colorScheme name="by purpose (streetwise)">
+                <entry color="0.00,0.00,0.00" name="normal"/>
+                <entry color="0.50,0.00,0.50" name="connector"/>
+                <entry color="0.00,0.00,1.00" name="internal"/>
+            </colorScheme>
+            <colorScheme name="by allowed speed (streetwise)" interpolated="1">
+                <entry color="1.00,0.00,0.00" threshold="0.00"/>
+                <entry color="0.00,0.00,1.00" threshold="41.67"/>
+            </colorScheme>
+            <colorScheme name="by current occupancy (streetwise)" interpolated="1">
+                <entry color="0.00,0.00,1.00" threshold="0.00"/>
+                <entry color="1.00,0.00,0.00" threshold="0.95"/>
+            </colorScheme>
+            <colorScheme name="by current speed (streetwise)" interpolated="1">
+                <entry color="1.00,0.00,0.00" threshold="0.00"/>
+                <entry color="0.00,0.00,1.00" threshold="41.67"/>
+            </colorScheme>
+            <colorScheme name="by current flow (streetwise)" interpolated="1">
+                <entry color="0.00,0.00,1.00" threshold="0.00"/>
+                <entry color="1.00,0.00,0.00" threshold="5000.00"/>
+            </colorScheme>
+        </edges>
+        <vehicles vehicleMode="8" vehicleQuality="2" minVehicleSize="0.00" vehicleExaggeration="1.00" showBlinker="1"
+                  drawVehicleName="0" vehicleNameSize="50.00" vehicleNameColor="0.80,0.60,0.00">
+            <colorScheme name="uniform">
+                <entry color="1.00,1.00,0.00"/>
+            </colorScheme>
+            <colorScheme name="given/assigned vehicle color">
+                <entry color="1.00,1.00,0.00"/>
+            </colorScheme>
+            <colorScheme name="given/assigned type color">
+                <entry color="1.00,1.00,0.00"/>
+            </colorScheme>
+            <colorScheme name="given/assigned route color">
+                <entry color="1.00,1.00,0.00"/>
+            </colorScheme>
+            <colorScheme name="depart position as HSV">
+                <entry color="1.00,1.00,0.00"/>
+            </colorScheme>
+            <colorScheme name="arrival position as HSV">
+                <entry color="1.00,1.00,0.00"/>
+            </colorScheme>
+            <colorScheme name="direction/distance as HSV">
+                <entry color="1.00,1.00,0.00"/>
+            </colorScheme>
+            <colorScheme name="by speed" interpolated="1">
+                <entry color="1.00,0.00,0.00" threshold="0.00"/>
+                <entry color="0.00,0.00,1.00" threshold="41.67"/>
+            </colorScheme>
+            <colorScheme name="by waiting time" interpolated="1">
+                <entry color="1.00,1.00,0.00" threshold="0.00"/>
+                <entry color="1.00,0.00,0.00" threshold="20.00"/>
+            </colorScheme>
+            <colorScheme name="by time since last lanechange" interpolated="1">
+                <entry color="1.00,1.00,1.00" threshold="0.00"/>
+                <entry color="0.50,0.50,0.50" threshold="300.00"/>
+            </colorScheme>
+            <colorScheme name="by max speed" interpolated="1">
+                <entry color="1.00,0.00,0.00" threshold="0.00"/>
+                <entry color="0.00,0.00,1.00" threshold="41.67"/>
+            </colorScheme>
+            <colorScheme name="by CO2 emissions (HBEFA)" interpolated="1">
+                <entry color="0.00,1.00,0.00" threshold="0.00"/>
+                <entry color="1.00,0.00,0.00" threshold="5.00"/>
+            </colorScheme>
+            <colorScheme name="by CO emissions (HBEFA)" interpolated="1">
+                <entry color="0.00,1.00,0.00" threshold="0.00"/>
+                <entry color="1.00,0.00,0.00" threshold="0.05"/>
+            </colorScheme>
+            <colorScheme name="by PMx emissions (HBEFA)" interpolated="1">
+                <entry color="0.00,1.00,0.00" threshold="0.00"/>
+                <entry color="1.00,0.00,0.00" threshold="0.01"/>
+            </colorScheme>
+            <colorScheme name="by NOx emissions (HBEFA)" interpolated="1">
+                <entry color="0.00,1.00,0.00" threshold="0.00"/>
+                <entry color="1.00,0.00,0.00" threshold="0.12"/>
+            </colorScheme>
+            <colorScheme name="by HC emissions (HBEFA)" interpolated="1">
+                <entry color="0.00,1.00,0.00" threshold="0.00"/>
+                <entry color="1.00,0.00,0.00" threshold="0.02"/>
+            </colorScheme>
+            <colorScheme name="by fuel consumption (HBEFA)" interpolated="1">
+                <entry color="0.00,1.00,0.00" threshold="0.00"/>
+                <entry color="1.00,0.00,0.00" threshold="0.01"/>
+            </colorScheme>
+            <colorScheme name="by noise emissions (Harmonoise)" interpolated="1">
+                <entry color="0.00,1.00,0.00" threshold="0.00"/>
+                <entry color="1.00,0.00,0.00" threshold="100.00"/>
+            </colorScheme>
+            <colorScheme name="by reroute number" interpolated="1">
+                <entry color="1.00,0.00,0.00" threshold="0.00"/>
+                <entry color="1.00,1.00,0.00" threshold="1.00"/>
+                <entry color="1.00,1.00,1.00" threshold="10.00"/>
+            </colorScheme>
+        </vehicles>
+        <junctions junctionMode="0" drawLinkTLIndex="0" drawLinkJunctionIndex="0"
+                   drawJunctionName="0" junctionNameSize="50.00" junctionNameColor="0.00,1.00,0.50" showLane2Lane="0"/>
+        <additionals addMode="0" minAddSize="1.00" addExaggeration="1.00" drawAddName="0" addNameSize="50.00"/>
+        <pois poiExaggeration="1.00" minPOISize="0.00" drawPOIName="0" poiNameSize="50.00" poiNameColor="1.00,0.00,0.50"/>
+        <legend showSizeLegend="1"/>
+    </scheme>
+</viewsettings>
