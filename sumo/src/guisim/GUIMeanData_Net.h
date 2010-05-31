@@ -94,7 +94,7 @@ public:
      *
      * @return The total number of entered vehicles
      */
-    unsigned int getTotalEntered() throw();
+    unsigned int getTotalEntered() const throw();
 
 
 private:

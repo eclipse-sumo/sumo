@@ -46,7 +46,8 @@ GUIMeanData_Net::GUIMeanData_Net(const std::string &id,
                                  const bool trackVehicles,
                                  const SUMOReal maxTravelTime, const SUMOReal minSamples,
                                  const SUMOReal haltSpeed, const std::set<std::string> vTypes) throw()
-        : MSMeanData_Net(id, dumpBegin, dumpEnd, useLanes, withEmpty, trackVehicles, maxTravelTime, minSamples, haltSpeed, vTypes) {
+        : MSMeanData_Net(id, dumpBegin, dumpEnd, useLanes, withEmpty, trackVehicles,
+                         maxTravelTime, minSamples, haltSpeed, vTypes) {
 }
 
 
@@ -59,11 +60,16 @@ GUIMeanData_Net::getParameterWindow(GUIMainWindow &app,
     GUIParameterTableWindow *ret =
         new GUIParameterTableWindow(app, *(GUINet*)MSNet::getInstance(), 13);
     // add items
-//    ret->mkItem("vehicles entered [#]", true,
-//                new FunctionBinding<GUIMeanData_Net, unsigned int>(this, &GUIMeanData_Net::getTotalEntered));
+    ret->mkItem("vehicles entered [#]", true,
+                new FunctionBinding<GUIMeanData_Net, unsigned int>(this, &GUIMeanData_Net::getTotalEntered));
     ret->closeBuilding();
     return ret;
 }
 
+
+unsigned int
+GUIMeanData_Net::getTotalEntered() const throw() {
+    return 0;
+}
 
 /****************************************************************************/
