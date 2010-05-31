@@ -49,12 +49,13 @@ def writeSUMOConf(step, options, files):
         <device.routing.period value="%s"/>
         <device.routing.adaptation-interval value="%s"/>
         <device.routing.with-taz value="%s"/>
+        <vehroute-output.last-route value="%s"/>
     </process>
     <reports>
         <verbose value="True"/>
         <suppress-warnings value="%s"/>
     </reports>
-</configuration>""" % (step, options.updateInterval, options.withtaz, not options.withWarnings)
+</configuration>""" % (step, options.updateInterval, options.withtaz, options.lastRoutes, not options.withWarnings)
     fd.close()
     fd = open("dump_%s.add.xml" % step, "w")
     print >> fd, """<a>
@@ -94,7 +95,8 @@ optParser.add_option("-w", "--with-taz", action="store_true", dest="withtaz",
                      default=False, help="Whether districts shall be used")
 optParser.add_option("-+", "--additional", dest="additional",
                      default="", help="Additional files")
-
+optParser.add_option("-L", "--lastRoutes", action="store_true", dest="lastRoutes",
+                     default=False, help="only save the last routes in the vehroute-output")
 
 optParser.add_option("-p", "--path", dest="path",
                      default=os.environ.get("SUMO", ""), help="Path to binaries")
