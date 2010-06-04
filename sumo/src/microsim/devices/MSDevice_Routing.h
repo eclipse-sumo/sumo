@@ -229,6 +229,9 @@ private:
     /// @brief whether taz shall be used at initial rerouting
     static bool myWithTaz;
 
+    /// @brief The container of pre-calculated routes
+    static std::map<std::pair<const MSEdge*, const MSEdge*>, const MSRoute*> myCachedRoutes;
+
 
 private:
     /// @brief Invalidated copy constructor.

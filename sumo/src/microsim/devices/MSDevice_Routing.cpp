@@ -48,6 +48,7 @@ Command *MSDevice_Routing::myEdgeWeightSettingCommand = 0;
 SUMOReal MSDevice_Routing::myAdaptationWeight;
 SUMOTime MSDevice_Routing::myAdaptationInterval;
 bool MSDevice_Routing::myWithTaz;
+std::map<std::pair<const MSEdge*, const MSEdge*>, const MSRoute*> MSDevice_Routing::myCachedRoutes;
 
 
 // ===========================================================================
@@ -167,10 +168,20 @@ MSDevice_Routing::onTryEmit() {
         const SUMOTime now = MSNet::getInstance()->getCurrentTimeStep();
         if (myLastPreEmitReroute == -1 ||
                 (myPreEmitPeriod > 0 && myLastPreEmitReroute + myPreEmitPeriod <= now)) {
-            DijkstraRouterTT_ByProxi<MSEdge, SUMOVehicle, prohibited_withRestrictions<MSEdge, SUMOVehicle>, MSDevice_Routing>
-            router(MSEdge::dictSize(), true, this, &MSDevice_Routing::getEffort);
-            myHolder.reroute(MSNet::getInstance()->getCurrentTimeStep(), router, true);
-            myLastPreEmitReroute = now;
+            const MSEdge* source = MSEdge::dictionary(myHolder.getParameter().fromTaz+"-source");
+            const MSEdge* dest = MSEdge::dictionary(myHolder.getParameter().toTaz);
+            if (source && dest) {
+                const std::pair<const MSEdge*, const MSEdge*> key = std::make_pair(source, dest);
+                if (myCachedRoutes.find(key) == myCachedRoutes.end()) {
+                    DijkstraRouterTT_ByProxi<MSEdge, SUMOVehicle, prohibited_withRestrictions<MSEdge, SUMOVehicle>, MSDevice_Routing>
+                    router(MSEdge::dictSize(), true, this, &MSDevice_Routing::getEffort);
+                    myHolder.reroute(MSNet::getInstance()->getCurrentTimeStep(), router, true);
+                    myLastPreEmitReroute = now;
+                    myCachedRoutes[key] = &myHolder.getRoute();
+                } else {
+                    myHolder.replaceRoute(myCachedRoutes[key]->getEdges(), now, true);
+                }
+            }
         }
     }
 }
@@ -213,6 +224,7 @@ MSDevice_Routing::getEffort(const MSEdge * const e, const SUMOVehicle * const v,
 
 SUMOTime
 MSDevice_Routing::adaptEdgeEfforts(SUMOTime currentTime) throw(ProcessError) {
+    myCachedRoutes.clear();
     SUMOReal newWeight = (SUMOReal)(1. - myAdaptationWeight);
     const std::vector<MSEdge*> &edges = MSNet::getInstance()->getEdgeControl().getEdges();
     for (std::vector<MSEdge*>::const_iterator i=edges.begin(); i!=edges.end(); ++i) {
