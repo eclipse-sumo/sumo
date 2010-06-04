@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 04/01/10 22:15:54 by SUMO sumo Version dev-SVN-r8538
+<!-- generated on 06/03/10 13:09:33 by SUMO sumo Version dev-SVN-r8794
 <configuration>
 
     <input>
@@ -34,72 +34,72 @@
 -->
 
 <routes>
-    <vehicle id="0" depart="0.00" arrival="72.00">
+    <vehicle id="0" depart="0.00" arrival="72.00" fromtaz="1" totaz="2">
         <routeDistribution>
-            <route replacedOnEdge="beg" replacedAtTime="0.00" probability="0" edges="beg rend"/>
+            <route replacedOnEdge="beg" replacedAtTime="0.00" probability="0" edges="beg"/>
             <route edges="beg2left left left2end end"/>
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="1" depart="20.00" arrival="92.00">
+    <vehicle id="1" depart="20.00" arrival="92.00" fromtaz="1" totaz="2">
         <routeDistribution>
-            <route replacedOnEdge="beg" replacedAtTime="0.00" probability="0" edges="beg rend"/>
+            <route replacedOnEdge="beg" replacedAtTime="20.00" probability="0" edges="beg"/>
             <route edges="beg2left left left2end end"/>
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="2" depart="40.00" arrival="112.00">
+    <vehicle id="2" depart="40.00" arrival="112.00" fromtaz="1" totaz="2">
         <routeDistribution>
-            <route replacedOnEdge="beg" replacedAtTime="0.00" probability="0" edges="beg rend"/>
+            <route replacedOnEdge="beg" replacedAtTime="40.00" probability="0" edges="beg"/>
             <route edges="beg2left left left2end end"/>
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="3" depart="60.00" arrival="132.00">
+    <vehicle id="3" depart="60.00" arrival="132.00" fromtaz="1" totaz="2">
         <routeDistribution>
-            <route replacedOnEdge="beg" replacedAtTime="0.00" probability="0" edges="beg rend"/>
+            <route replacedOnEdge="beg" replacedAtTime="60.00" probability="0" edges="beg"/>
             <route edges="beg2left left left2end end"/>
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="4" depart="80.00" arrival="152.00">
+    <vehicle id="4" depart="80.00" arrival="152.00" fromtaz="1" totaz="2">
         <routeDistribution>
-            <route replacedOnEdge="beg" replacedAtTime="0.00" probability="0" edges="beg rend"/>
+            <route replacedOnEdge="beg" replacedAtTime="80.00" probability="0" edges="beg"/>
             <route edges="beg2left left left2end end"/>
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="5" depart="100.00" arrival="172.00">
+    <vehicle id="5" depart="100.00" arrival="172.00" fromtaz="1" totaz="2">
         <routeDistribution>
-            <route replacedOnEdge="beg" replacedAtTime="0.00" probability="0" edges="beg rend"/>
+            <route replacedOnEdge="beg" replacedAtTime="100.00" probability="0" edges="beg"/>
             <route edges="beg2left left left2end end"/>
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="6" depart="120.00" arrival="192.00">
+    <vehicle id="6" depart="120.00" arrival="192.00" fromtaz="1" totaz="2">
         <routeDistribution>
-            <route replacedOnEdge="beg" replacedAtTime="0.00" probability="0" edges="beg rend"/>
+            <route replacedOnEdge="beg" replacedAtTime="120.00" probability="0" edges="beg"/>
             <route edges="beg2left left left2end end"/>
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="7" depart="140.00" arrival="212.00">
+    <vehicle id="7" depart="140.00" arrival="212.00" fromtaz="1" totaz="2">
         <routeDistribution>
-            <route replacedOnEdge="beg" replacedAtTime="0.00" probability="0" edges="beg rend"/>
+            <route replacedOnEdge="beg" replacedAtTime="140.00" probability="0" edges="beg"/>
             <route edges="beg2left left left2end end"/>
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="8" depart="160.00" arrival="232.00">
+    <vehicle id="8" depart="160.00" arrival="232.00" fromtaz="1" totaz="2">
         <routeDistribution>
-            <route replacedOnEdge="beg" replacedAtTime="0.00" probability="0" edges="beg rend"/>
+            <route replacedOnEdge="beg" replacedAtTime="160.00" probability="0" edges="beg"/>
             <route edges="beg2left left left2end end"/>
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="9" depart="180.00" arrival="252.00">
+    <vehicle id="9" depart="180.00" arrival="252.00" fromtaz="1" totaz="2">
         <routeDistribution>
-            <route replacedOnEdge="beg" replacedAtTime="0.00" probability="0" edges="beg rend"/>
+            <route replacedOnEdge="beg" replacedAtTime="180.00" probability="0" edges="beg"/>
             <route edges="beg2left left left2end end"/>
         </routeDistribution>
     </vehicle>
