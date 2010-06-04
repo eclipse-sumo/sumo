@@ -486,7 +486,7 @@ OptionsCont::processMetaOptions(bool missingOptions) throw(ProcessError) {
     if (missingOptions) {
         // no options are given
         std::cout << myFullName << std::endl;
-        std::cout << " (c) DLR 2001-2009; http://sumo.sourceforge.net" << std::endl;
+        std::cout << " (c) DLR 2001-2010; http://sumo.sourceforge.net" << std::endl;
         std::cout << " Use --help to get the list of options." << std::endl;
         return true;
     }
@@ -495,7 +495,7 @@ OptionsCont::processMetaOptions(bool missingOptions) throw(ProcessError) {
     // check whether the help shall be printed
     if (oc.getBool("help")) {
         std::cout << myFullName << std::endl;
-        std::cout << " (c) DLR 2001-2009; http://sumo.sourceforge.net" << std::endl;
+        std::cout << " (c) DLR 2001-2010; http://sumo.sourceforge.net" << std::endl;
         oc.printHelp(std::cout);
         return true;
     }

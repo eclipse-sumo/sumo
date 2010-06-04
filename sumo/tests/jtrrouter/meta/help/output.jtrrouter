@@ -1,5 +1,5 @@
-SUMO jtrrouter Version dev-SVN-r8163
- (c) DLR 2001-2009; http://sumo.sourceforge.net
+SUMO jtrrouter Version dev-SVN-r8794
+ (c) DLR 2001-2010; http://sumo.sourceforge.net
  
 Router for the microscopic road traffic simulation SUMO based on junction
   turning ratios.
