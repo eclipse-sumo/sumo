@@ -61,7 +61,14 @@
 <h1>SUMO - <u>S</u>imulation of <u>U</u>rban <u>MO</u>bility</h1>
 <h2>Das Spiel</h2>
 <p>Auf dieser Seite pr&auml;sentieren wir das Ampelspiel zur Langen Nacht der Wissenschaften.</p>
-<p>Sie k&ouml;nnen das vollst&auml;ndige <a href="sumogame.zip">Spiel herunterladen</a> und unten auch die globale Highscoreliste sehen
+<p>Sie k&ouml;nnen das vollst&auml;ndige <a href="sumogame.zip">Spiel herunterladen</a> und unten
+auch die globale Highscoreliste sehen.
+Zum Spielen sollte das heruntergeladene Archiv in einen Ordner entpackt werden und die darin enthaltene 
+Datei runner.exe gestartet werden.
+Anschließend geht ein winziges Fensterchen auf in dem die Sie wählen können, ob eine Einzelkreuzung oder vier Kreuzungen gespielt werden.
+Durch einen Mausklick in der Nähe der gewählten Ampel wird die nächste Fahrtrichtung freigegeben.
+Spielzeit sind 180 Simulationssekunden, danach gibt es für jeden Milliliter gesparten Kraftstoff einen Punkt
+und man kommt in die Highscores (oder eben nicht).
 </p>
 
 <hr class="thin"/>
