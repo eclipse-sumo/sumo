@@ -587,7 +587,7 @@ TraCITestClient::commandSimulationStep2(SUMOTime time) {
     }
 
     // command length
-    outMsg.writeUnsignedByte(1 + 1 + 8);
+    outMsg.writeUnsignedByte(1 + 1 + 4);
     // command id
     outMsg.writeUnsignedByte(CMD_SIMSTEP2);
     outMsg.writeInt(time);
