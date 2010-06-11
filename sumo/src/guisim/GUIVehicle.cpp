@@ -765,6 +765,7 @@ drawAction_drawVehicleAsPoly(const GUIVehicle &veh, SUMOReal upscale) {
 
 #define BLINKER_POS_FRONT .5
 #define BLINKER_POS_BACK .5
+#define BRAKELIGHT_POS 1.2
 
 inline void
 drawAction_drawBlinker(const GUIVehicle &veh, double dir) {
@@ -798,6 +799,23 @@ drawAction_drawVehicleBlinker(const GUIVehicle &veh) {
 	    drawAction_drawBlinker(veh, (double) -1.*veh.getVehicleType().getGuiWidth()*.5);
 	    drawAction_drawBlinker(veh, (double) 1.*veh.getVehicleType().getGuiWidth()*.5);
 	}
+}
+
+
+inline void
+drawAction_drawVehicleBrakeLight(const GUIVehicle &veh) {
+	if(!veh.signalSet(MSVehicle::VEH_SIGNAL_BRAKELIGHT)) {
+		return;
+	}
+    glColor3f(1.f, .2f, 0);
+    glPushMatrix();
+    glTranslated(-veh.getVehicleType().getGuiWidth()+BRAKELIGHT_POS, veh.getVehicleType().getLength(), 0);
+    GLHelper::drawFilledCircle(.5, 6);
+    glPopMatrix();
+    glPushMatrix();
+    glTranslated(veh.getVehicleType().getGuiWidth()-BRAKELIGHT_POS, veh.getVehicleType().getLength(), 0);
+    GLHelper::drawFilledCircle(.5, 6);
+    glPopMatrix();
 }
 
 
@@ -863,6 +881,7 @@ GUIVehicle::drawGL(const GUIVisualizationSettings &s) const throw() {
     if (s.showBlinker) {
         glTranslated(0, 0, -.05);
         drawAction_drawVehicleBlinker(*this);
+		drawAction_drawVehicleBrakeLight(*this);
         glTranslated(0, 0, .05);
     }
     // draw the wish to change the lane
