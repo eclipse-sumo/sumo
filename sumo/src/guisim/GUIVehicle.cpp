@@ -200,7 +200,6 @@ GUIVehicle::GUIVehicle(GUIGlObjectStorage &idStorage,
                        int vehicleIndex) throw(ProcessError)
         : MSVehicle(pars, route, type, vehicleIndex),
         GUIGlObject(idStorage, "vehicle:"+pars->id) {
-    myIntCORNMap[MSCORN::CORN_VEH_BLINKER] = 0;
 }
 
 
@@ -768,14 +767,7 @@ drawAction_drawVehicleAsPoly(const GUIVehicle &veh, SUMOReal upscale) {
 #define BLINKER_POS_BACK .5
 
 inline void
-drawAction_drawVehicleBlinker(const GUIVehicle &veh) {
-    double dir = (double) veh.getCORNIntValue(MSCORN::CORN_VEH_BLINKER)*veh.getVehicleType().getGuiWidth()*.5;
-    if (dir==0) {
-        return;
-    }
-    if (veh.getVehicleType().getGuiWidth()<.5) {
-        return;
-    }
+drawAction_drawBlinker(const GUIVehicle &veh, double dir) {
     glColor3d(1.f, .8f, 0);
     glPushMatrix();
     glTranslated(dir, BLINKER_POS_FRONT+veh.getVehicleType().getGuiOffset(), 0);
@@ -785,6 +777,27 @@ drawAction_drawVehicleBlinker(const GUIVehicle &veh) {
     glTranslated(dir, veh.getVehicleType().getLength()-BLINKER_POS_BACK, 0);
     GLHelper::drawFilledCircle(.5, 6);
     glPopMatrix();
+}
+
+
+inline void
+drawAction_drawVehicleBlinker(const GUIVehicle &veh) {
+    if (veh.getVehicleType().getGuiWidth()<.5) {
+        return;
+    }
+	if(!veh.signalSet(MSVehicle::VEH_SIGNAL_BLINKER_RIGHT|MSVehicle::VEH_SIGNAL_BLINKER_LEFT|MSVehicle::VEH_SIGNAL_BLINKER_EMERGENCY)) {
+		return;
+	}
+	if(veh.signalSet(MSVehicle::VEH_SIGNAL_BLINKER_RIGHT)) {
+	    drawAction_drawBlinker(veh, (double) -1.*veh.getVehicleType().getGuiWidth()*.5);
+	}
+	if(veh.signalSet(MSVehicle::VEH_SIGNAL_BLINKER_LEFT)) {
+	    drawAction_drawBlinker(veh, (double) 1.*veh.getVehicleType().getGuiWidth()*.5);
+	}
+	if(veh.signalSet(MSVehicle::VEH_SIGNAL_BLINKER_EMERGENCY)) {
+	    drawAction_drawBlinker(veh, (double) -1.*veh.getVehicleType().getGuiWidth()*.5);
+	    drawAction_drawBlinker(veh, (double) 1.*veh.getVehicleType().getGuiWidth()*.5);
+	}
 }
 
 
@@ -920,39 +933,6 @@ GUIVehicle::getBestLanes() const throw() {
     const std::vector<MSVehicle::LaneQ> &ret = MSVehicle::getBestLanes();
     myLock.unlock();
     return ret;
-}
-
-
-void
-GUIVehicle::setBlinkerInformation() {
-    if (hasCORNIntValue(MSCORN::CORN_VEH_BLINKER)) {
-        int blinker = 0;
-        int state = getLaneChangeModel().getState();
-        if ((state&LCA_LEFT)!=0) {
-            blinker = 1;
-        } else if ((state&LCA_RIGHT)!=0) {
-            blinker = -1;
-        } else {
-            const MSLane &lane = getLane();
-            MSLinkCont::const_iterator link = lane.succLinkSec(*this, 1, lane, getBestLanesContinuation());
-            if (link!=lane.getLinkCont().end()&&lane.getLength()-getPositionOnLane()<lane.getMaxSpeed()*(SUMOReal) 7.) {
-                switch ((*link)->getDirection()) {
-                case MSLink::LINKDIR_TURN:
-                case MSLink::LINKDIR_LEFT:
-                case MSLink::LINKDIR_PARTLEFT:
-                    blinker = 1;
-                    break;
-                case MSLink::LINKDIR_RIGHT:
-                case MSLink::LINKDIR_PARTRIGHT:
-                    blinker = -1;
-                    break;
-                default:
-                    break;
-                }
-            }
-        }
-        myIntCORNMap[MSCORN::CORN_VEH_BLINKER] = blinker;
-    }
 }
 
 

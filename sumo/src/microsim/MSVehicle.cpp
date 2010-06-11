@@ -208,7 +208,7 @@ MSVehicle::MSVehicle(SUMOVehicleParameter* pars,
         myArrivalPos(pars->arrivalPos),
         myPreDawdleAcceleration(0),
         myEdgeWeights(0),
-        myWasBraking(false)
+		mySignals(0)
 #ifndef NO_TRACI
         ,adaptingSpeed(false),
         isLastAdaption(false),
@@ -899,7 +899,7 @@ MSVehicle::moveFirstChecked() {
     assert(myLFLinkLanes.size()!=0);
     DriveItemVector::iterator i;
     SUMOTime t = MSNet::getInstance()->getCurrentTimeStep();
-    myWasBraking = false;
+    bool braking = false;
     bool lastWasGreenCont = false;
     for (i=myLFLinkLanes.begin(); i!=myLFLinkLanes.end(); ++i) {
         MSLink *link = (*i).myLink;
@@ -910,7 +910,7 @@ MSVehicle::moveFirstChecked() {
             bool yellow = link->getState()==MSLink::LINKSTATE_TL_YELLOW_MAJOR||link->getState()==MSLink::LINKSTATE_TL_YELLOW_MINOR;
             if (yellow&&(*i).myDistance>getCarFollowModel().getSpeedAfterMaxDecel(myState.mySpeed)) {
                 vSafe = (*i).myVLinkWait;
-                myWasBraking = true;
+                braking = true;
                 lastWasGreenCont = false;
                 break;
             }
@@ -919,7 +919,7 @@ MSVehicle::moveFirstChecked() {
             // vehicles should decelerate when approaching a minor link
             if (opened&&!lastWasGreenCont&&!link->havePriority()&&(*i).myDistance>getCarFollowModel().getMaxDecel()) {
                 vSafe = (*i).myVLinkWait;
-                myWasBraking = true;
+                braking = true;
                 lastWasGreenCont = false;
                 break; // could be revalidated
             }
@@ -929,13 +929,13 @@ MSVehicle::moveFirstChecked() {
                 lastWasGreenCont = link->isCont()&&(link->getState()==MSLink::LINKSTATE_TL_GREEN_MAJOR);
             } else {
                 vSafe = (*i).myVLinkWait;
-                myWasBraking = true;
+                braking = true;
                 lastWasGreenCont = false;
                 break;
             }
         } else {
             vSafe = (*i).myVLinkWait;
-            myWasBraking = true;
+            braking = true;
             break;
         }
     }
@@ -948,13 +948,18 @@ MSVehicle::moveFirstChecked() {
         if (MSCORN::wished(MSCORN::CORN_VEH_WAITINGTIME)) {
             myIntCORNMap[MSCORN::CORN_VEH_WAITINGTIME]++;
         }
-        myWasBraking = true;
+        braking = true;
     } else {
         myWaitingTime = 0;
     }
     if (myState.mySpeed<vNext) {
-        myWasBraking = false;
+        braking = false;
     }
+	if(braking) {
+		switchOnSignal(VEH_SIGNAL_BRAKELIGHT);
+	} else {
+		switchOffSignal(VEH_SIGNAL_BRAKELIGHT);
+	}
     // call reminders after vNext is set
     SUMOReal pos = myState.myPos;
 #ifndef NO_TRACI
@@ -1047,6 +1052,7 @@ MSVehicle::moveFirstChecked() {
     setBlinkerInformation();
 }
 
+
 void
 MSVehicle::checkRewindLinkLanes(SUMOReal lengthsInFront) throw() {
 #ifdef DEBUG_VEHICLE_GUI_SELECTION
@@ -1103,7 +1109,7 @@ MSVehicle::checkRewindLinkLanes(SUMOReal lengthsInFront) throw() {
                     availableSpace.push_back(seenSpace);
                 }
             } else {
-                if (last->wasBraking()) {
+                if (last->signalSet(VEH_SIGNAL_BRAKELIGHT)) {
                     SUMOReal lastBrakeGap = last->getCarFollowModel().brakeGap(approachedLane->getLastVehicle()->getSpeed());
                     SUMOReal lastGap = last->getPositionOnLane() - last->getVehicleType().getLength() + lastBrakeGap - last->getSpeed()*last->getCarFollowModel().getTau();
                     SUMOReal m = MAX2(seenSpace, seenSpace + lastGap);
@@ -1936,6 +1942,37 @@ MSVehicle::addPerson(MSPerson* person) throw() {
         myPointerCORNMap[MSCORN::CORN_P_VEH_PASSENGER] = new std::vector<MSPerson*>();
     }
     ((std::vector<MSPerson*>*) myPointerCORNMap[MSCORN::CORN_P_VEH_PASSENGER])->push_back(person);
+}
+
+
+void
+MSVehicle::setBlinkerInformation() throw() {
+		switchOffSignal(VEH_SIGNAL_BLINKER_RIGHT|VEH_SIGNAL_BLINKER_LEFT);
+        int state = getLaneChangeModel().getState();
+        if ((state&LCA_LEFT)!=0) {
+            switchOnSignal(VEH_SIGNAL_BLINKER_LEFT);
+        } else if ((state&LCA_RIGHT)!=0) {
+			switchOnSignal(VEH_SIGNAL_BLINKER_RIGHT);
+        } else {
+            const MSLane &lane = getLane();
+            MSLinkCont::const_iterator link = lane.succLinkSec(*this, 1, lane, getBestLanesContinuation());
+            if (link!=lane.getLinkCont().end()&&lane.getLength()-getPositionOnLane()<lane.getMaxSpeed()*(SUMOReal) 7.) {
+                switch ((*link)->getDirection()) {
+                case MSLink::LINKDIR_TURN:
+                case MSLink::LINKDIR_LEFT:
+                case MSLink::LINKDIR_PARTLEFT:
+		            switchOnSignal(VEH_SIGNAL_BLINKER_LEFT);
+                    break;
+                case MSLink::LINKDIR_RIGHT:
+                case MSLink::LINKDIR_PARTRIGHT:
+					switchOnSignal(VEH_SIGNAL_BLINKER_RIGHT);
+                    break;
+                default:
+                    break;
+                }
+            }
+        }
+
 }
 
 

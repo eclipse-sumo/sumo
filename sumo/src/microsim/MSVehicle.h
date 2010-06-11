@@ -668,11 +668,6 @@ public:
     /// @}
 
 
-    bool wasBraking() const throw() {
-        return myWasBraking;
-    }
-
-
     /** @brief Returns the vehicle's type definition
      * @return The vehicle's type definition
      */
@@ -820,6 +815,83 @@ public:
 
     void addPerson(MSPerson* person) throw();
 
+
+
+	/// @name Access to bool signals
+	/// @{
+
+	/** @enum Signalling
+	 * @brief Some boolean values which describe the state of some vehicle parts
+	 */
+	enum Signalling {
+		/// @brief Everything is switched off
+		VEH_SIGNAL_NONE = 0,
+		/// @brief Right blinker lights are switched on
+		VEH_SIGNAL_BLINKER_RIGHT = 1,
+		/// @brief Left blinker lights are switched on
+		VEH_SIGNAL_BLINKER_LEFT = 2,
+		/// @brief Blinker lights on both sides are switched on
+		VEH_SIGNAL_BLINKER_EMERGENCY = 4,
+		/// @brief The brake lights are on
+		VEH_SIGNAL_BRAKELIGHT = 8,
+		/// @brief The front lights are on (no visualisation)
+		VEH_SIGNAL_FRONTLIGHT = 16,
+		/// @brief The fog lights are on (no visualisation)
+		VEH_SIGNAL_FOGLIGHT = 32,
+		/// @brief The high beam lights are on (no visualisation)
+		VEH_SIGNAL_HIGHBEAM = 64,
+		/// @brief The backwards driving lights are on (no visualisation)
+		VEH_SIGNAL_BACKDRIVE = 128,
+		/// @brief The wipers are on
+		VEH_SIGNAL_WIPER = 256,
+		/// @brief One of the left doors is opened
+		VEH_SIGNAL_DOOR_OPEN_LEFT = 512,
+		/// @brief One of the right doors is opened
+		VEH_SIGNAL_DOOR_OPEN_RIGHT = 1024,
+		/// @brief A blue emergency light is on
+		VEH_SIGNAL_EMERGENCY_BLUE = 2048,
+		/// @brief A red emergency light is on
+		VEH_SIGNAL_EMERGENCY_RED = 4096,
+		/// @brief A yellow emergency light is on
+		VEH_SIGNAL_EMERGENCY_YELLOW = 8192
+	};
+
+
+	/** @brief Switches the given signal on
+	 * @param[in] signal The signal to mark as being switched on
+	 */
+	void switchOnSignal(int signal) throw() {
+		mySignals |= signal;
+	}
+
+
+	/** @brief Switches the given signal off
+	 * @param[in] signal The signal to mark as being switched off
+	 */
+	void switchOffSignal(int signal) throw() {
+		mySignals &= ~signal;
+	}
+
+
+	/** @brief Returns the signals
+	 * @return The signals' states
+	 */
+	int getSignals() const throw() {
+		return mySignals;
+	}
+
+
+	/** @brief Returns whether the given signal is on
+	 * @param[in] signal The signal to return the value of
+	 * @return Whether the given signal is on
+	 */
+	bool signalSet(int which) const throw() {
+		return (mySignals&which)!=0;
+	}
+	/// @}
+
+
+
 #ifndef NO_TRACI
     /**
      * Get speed before influence of TraCI settings takes place.
@@ -925,7 +997,7 @@ protected:
 
 
     void rebuildContinuationsFor(LaneQ &q, MSLane *l, MSRouteIterator ce, int seen) const;
-    virtual void setBlinkerInformation() { }
+    void setBlinkerInformation() throw();
 
 
     /// Use this constructor only.
@@ -996,7 +1068,9 @@ protected:
     /// @brief The information into which lanes the vehicle laps into
     std::vector<MSLane*> myFurtherLanes;
 
-    bool myWasBraking;
+	/// @brief State of things of the vehicle that can be on or off
+	int mySignals;
+
 
 private:
     /// @brief The devices this vehicle has
