@@ -566,6 +566,9 @@
 // last step travel time (get: edge, lane)
 #define VAR_CURRENT_TRAVELTIME 0x5a
 
+// signals state (get/set: vehicle)
+#define VAR_SIGNALS 0x5b
+
 
 
 // current CO2 emission of a node (get: vehicle, lane, edge)

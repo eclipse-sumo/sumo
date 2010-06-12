@@ -74,6 +74,7 @@ TraCIServerAPI_Vehicle::processGet(tcpip::Storage &inputStorage,
             &&variable!=VAR_NOXEMISSION&&variable!=VAR_FUELCONSUMPTION&&variable!=VAR_NOISEEMISSION
             &&variable!=VAR_EDGE_TRAVELTIME&&variable!=VAR_EDGE_EFFORT
             &&variable!=VAR_ROUTE_VALID&&variable!=VAR_EDGES
+			&&variable!=VAR_SIGNALS
        ) {
         TraCIServerAPIHelper::writeStatusCmd(CMD_GET_VEHICLE_VARIABLE, RTYPE_ERR, "Get Vehicle Variable: unsupported variable specified", outputStorage);
         return false;
@@ -272,6 +273,10 @@ TraCIServerAPI_Vehicle::processGet(tcpip::Storage &inputStorage,
                 tempMsg.writeString((*i)->getID());
             }
         }
+        case VAR_SIGNALS: {
+            tempMsg.writeUnsignedByte(TYPE_INTEGER);
+			tempMsg.writeInt(v->getSignals());
+        }
         break;
         default:
             break;
@@ -299,6 +304,7 @@ TraCIServerAPI_Vehicle::processSet(tcpip::Storage &inputStorage,
             &&variable!=VAR_ROUTE_ID&&variable!=VAR_ROUTE
             &&variable!=VAR_EDGE_TRAVELTIME&&variable!=VAR_EDGE_EFFORT
             &&variable!=CMD_REROUTE_TRAVELTIME&&variable!=CMD_REROUTE_EFFORT
+			&&variable!=VAR_SIGNALS
        ) {
         TraCIServerAPIHelper::writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Change Vehicle State: unsupported variable specified", outputStorage);
         return false;
@@ -698,6 +704,14 @@ TraCIServerAPI_Vehicle::processSet(tcpip::Storage &inputStorage,
         v->reroute(MSNet::getInstance()->getCurrentTimeStep(), router);
     }
     break;
+	case VAR_SIGNALS: {
+        if (valueDataType!=TYPE_INTEGER) {
+            TraCIServerAPIHelper::writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Setting signals requires an integer.", outputStorage);
+            return false;
+        }
+        v->switchOffSignal(0x0fffffff);
+		v->switchOnSignal(inputStorage.readInt());
+	}
     default:
         break;
     }
