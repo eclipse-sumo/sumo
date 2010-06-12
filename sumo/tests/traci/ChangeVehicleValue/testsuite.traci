@@ -25,6 +25,9 @@ EdgeTravelTimeInfo
 # for changing edge efforts
 EdgeEffortInfo
 
+# for changing signals' state
+Signalling
+
 
 # rerouting tests
 rerouting
