@@ -132,20 +132,6 @@ GUILane::push(MSVehicle* veh) {
 
 
 MSVehicle *
-GUILane::removeFirstVehicle() {
-    myLock.lock();
-    try {
-        MSVehicle *ret = MSLane::removeFirstVehicle();
-        myLock.unlock();
-        return ret;
-    } catch (ProcessError &) {
-        myLock.unlock();
-        throw;
-    }
-}
-
-
-MSVehicle *
 GUILane::removeVehicle(MSVehicle * remVehicle) {
     myLock.lock();
     try {

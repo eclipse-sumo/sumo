@@ -152,7 +152,6 @@ public:
 
 
     GUILaneWrapper *buildLaneWrapper(GUIGlObjectStorage &idStorage);
-    MSVehicle *removeFirstVehicle();
     MSVehicle *removeVehicle(MSVehicle *remVehicle);
 
 protected:

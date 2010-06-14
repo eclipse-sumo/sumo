@@ -146,7 +146,6 @@ public:
     GUILaneWrapper *buildLaneWrapper(GUIGlObjectStorage &idStorage);
 
     void detectCollisions(SUMOTime timestep);
-    MSVehicle *removeFirstVehicle();
     MSVehicle *removeVehicle(MSVehicle *remVehicle);
 
 protected:

@@ -450,7 +450,6 @@ public:
     // valid for gui-version only
     virtual GUILaneWrapper *buildLaneWrapper(GUIGlObjectStorage &idStorage);
 
-    virtual MSVehicle *removeFirstVehicle();
     virtual MSVehicle *removeVehicle(MSVehicle *remVehicle);
 
     /// The shape of the lane

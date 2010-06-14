@@ -136,20 +136,6 @@ GUIInternalLane::push(MSVehicle* veh) {
 
 
 MSVehicle *
-GUIInternalLane::removeFirstVehicle() {
-    myLock.lock();
-    try {
-        MSVehicle *ret = MSLane::removeFirstVehicle();
-        myLock.unlock();
-        return ret;
-    } catch (ProcessError &) {
-        myLock.unlock();
-        throw;
-    }
-}
-
-
-MSVehicle *
 GUIInternalLane::removeVehicle(MSVehicle * remVehicle) {
     myLock.lock();
     try {
