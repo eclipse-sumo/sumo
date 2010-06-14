@@ -78,28 +78,6 @@ public:
     }
 
 
-    /// Modifies the passed respond according to the request.
-    void respond(const MSLogicJunction::Request& request,
-                 const MSLogicJunction::InnerState& innerState,
-                 MSLogicJunction::Respond& respond) const {
-        size_t i;
-        // calculate respond
-        for (i = 0; i < myNLinks; ++i) {
-            if (myConts.test(i)) {
-                respond.set(i, request.test(i));
-            } else {
-                bool linkPermit = request.test(i)
-                                  &&
-                                  ((request&(*myLogic)[i]).none() || myConts.test(i));
-#ifdef HAVE_INTERNAL_LANES
-                linkPermit &= (innerState&(*myInternalLinksFoes)[i]).none();
-#endif
-                respond.set(i, linkPermit);
-            }
-        }
-    }
-
-
     /// Returns the foes of the given link
     const MSLogicJunction::LinkFoes &getFoesFor(unsigned int linkIndex) const throw() {
         return (*myLogic)[linkIndex];

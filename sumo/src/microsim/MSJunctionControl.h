@@ -69,14 +69,6 @@ public:
     void postloadInitContainer() throw(ProcessError);
 
 
-    /** @brief Resets the requests for all lanes
-     *
-     * Calls "clearRequests" for all stored junctions.
-     * @see MSJunction::clearRequests
-     */
-    void resetRequests() throw();
-
-
 private:
     /// @brief Invalidated copy constructor.
     MSJunctionControl(const MSJunctionControl&);

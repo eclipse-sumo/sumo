@@ -66,16 +66,8 @@ MSNoLogicJunction::MSNoLogicJunction(const std::string &id,
 }
 
 
-bool
-MSNoLogicJunction::clearRequests() {
-    return true;
-}
-
-//-------------------------------------------------------------------------//
-
 MSNoLogicJunction::~MSNoLogicJunction() {}
 
-//-------------------------------------------------------------------------//
 
 void
 MSNoLogicJunction::postloadInit() throw(ProcessError) {
@@ -84,8 +76,7 @@ MSNoLogicJunction::postloadInit() throw(ProcessError) {
     for (i=myIncomingLanes.begin(); i!=myIncomingLanes.end(); ++i) {
         const MSLinkCont &links = (*i)->getLinkCont();
         for (MSLinkCont::const_iterator j=links.begin(); j!=links.end(); j++) {
-            (*j)->setRequestInformation(&myDump, 0, &myDump, 0, MSLogicJunction::LinkFoes(), false, false,
-                                        std::vector<MSLink*>(), std::vector<MSLane*>());
+            (*j)->setRequestInformation(0, 0, false, false, std::vector<MSLink*>(), std::vector<MSLane*>());
         }
     }
 #ifdef HAVE_INTERNAL_LANES

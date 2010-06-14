@@ -55,7 +55,7 @@ MSLogicJunction::MSLogicJunction(const std::string &id,
 #ifdef HAVE_INTERNAL_LANES
         myInternalLanes(internal),
 #endif
-        myRequest(false), myInnerState(false), myRespond(false) {}
+        myInnerState(false) {}
 
 
 MSLogicJunction::~MSLogicJunction() {}

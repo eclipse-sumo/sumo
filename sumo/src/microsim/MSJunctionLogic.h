@@ -44,11 +44,6 @@ public:
     /// Destructor.
     virtual ~MSJunctionLogic();
 
-    /// Modifies the passed respond according to the request.
-    virtual void respond(const MSLogicJunction::Request& request,
-                         const MSLogicJunction::InnerState& innerState,
-                         MSLogicJunction::Respond& respond) const = 0;
-
     /// Returns the logic's number of links.
     unsigned int nLinks();
 

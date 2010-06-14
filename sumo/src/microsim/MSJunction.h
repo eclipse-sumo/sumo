@@ -90,9 +90,6 @@ public:
         (e.g., link map computation) */
     virtual void postloadInit() throw(ProcessError);
 
-    /** Clears junction's and lane's requests to prepare for the next
-        iteration. */
-    virtual bool clearRequests() = 0;
 
     /** returns the junction's position */
     const Position2D &getPosition() const;

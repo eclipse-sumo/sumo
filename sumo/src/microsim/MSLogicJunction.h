@@ -57,15 +57,6 @@ public:
     /// Destructor.
     virtual ~MSLogicJunction();
 
-    /** @brief Container for vehicle requests.
-        Each element of this container represents one particular
-        link from one lane to another. */
-    typedef std::bitset<64> Request;
-
-    /** @brief Container for the request responds.
-        The respond is link-bound */
-    typedef std::bitset<64> Respond;
-
     /** @brief Container for link foes */
     typedef std::bitset<64> LinkFoes;
 
@@ -101,15 +92,10 @@ protected:
     /// list of incoming lanes
     std::vector<MSLane*> myInternalLanes;
 #endif
-    /** Current request. */
-    Request myRequest;
-
 
     /** Current inner state */
     InnerState  myInnerState;
 
-    /** Current respond */
-    Respond myRespond;
 
 private:
     /// @brief Invalidated copy constructor.

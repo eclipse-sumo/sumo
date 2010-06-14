@@ -56,12 +56,5 @@ MSJunctionControl::postloadInitContainer() throw(ProcessError) {
 }
 
 
-void
-MSJunctionControl::resetRequests() throw() {
-    const std::vector<MSJunction*> &junctions = buildAndGetStaticVector();
-    std::for_each(junctions.begin(), junctions.end(), std::mem_fun(& MSJunction::clearRequests));
-}
-
-
 /****************************************************************************/
 

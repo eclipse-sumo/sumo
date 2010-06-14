@@ -63,14 +63,6 @@ MSRightOfWayJunction::MSRightOfWayJunction(const std::string &id,
         myLogic(logic) {}
 
 
-bool
-MSRightOfWayJunction::clearRequests() {
-    myRequest.reset();
-    myInnerState.reset();
-    return true;
-}
-
-
 MSRightOfWayJunction::~MSRightOfWayJunction() {
     delete myLogic;
 }
@@ -137,8 +129,7 @@ MSRightOfWayJunction::postloadInit() throw(ProcessError) {
                     myLinkFoeInternalLanes[*j].push_back(myInternalLanes[c]);
                 }
             }
-            (*j)->setRequestInformation(&myRequest, requestPos, &myRespond, requestPos,
-                                        foeLinks, isCrossing, cont, myLinkFoeLinks[*j], myLinkFoeInternalLanes[*j]);
+            (*j)->setRequestInformation(requestPos, requestPos, isCrossing, cont, myLinkFoeLinks[*j], myLinkFoeInternalLanes[*j]);
             for (std::vector<MSLink*>::const_iterator k=foes.begin(); k!=foes.end(); ++k) {
                 (*j)->addBlockedLink(*k);
                 (*k)->addBlockedLink(*j);

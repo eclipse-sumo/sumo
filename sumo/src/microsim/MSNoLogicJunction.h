@@ -69,9 +69,6 @@ public:
 #endif
                      ) throw();
 
-    /** Here, do nothing. */
-    bool clearRequests();
-
     /** Initialises the junction after the net was completely loaded */
     void postloadInit() throw(ProcessError);
 

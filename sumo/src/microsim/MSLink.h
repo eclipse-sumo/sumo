@@ -160,16 +160,12 @@ public:
      *  we have to assign the information about the right-of-way
      *  requests and responses after the initialisation.
      *
-     * @param[in] request The request of this link
      * @param[in] requestIdx This link's index within this request
-     * @param[in] respond The respond of this link
      * @param[in] respondIdx This link's index within this respond
      * @param[in] foes This link's foes
      * @todo Unsecure!
      */
-    void setRequestInformation(MSLogicJunction::Request *request, unsigned int requestIdx,
-                               MSLogicJunction::Respond *respond, unsigned int respondIdx,
-                               const MSLogicJunction::LinkFoes &foes, bool isCrossing, bool isCont,
+    void setRequestInformation(unsigned int requestIdx, unsigned int respondIdx, bool isCrossing, bool isCont,
                                const std::vector<MSLink*> &foeLinks, const std::vector<MSLane*> &foeLanes) throw();
 
 
@@ -233,13 +229,6 @@ public:
      * @return Whether a foe of this link is approaching
      */
     bool hasApproachingFoe(SUMOTime arrivalTime, SUMOTime leaveTime) const throw();
-
-
-    /** @brief Removes the incoming vehicle's request
-     *
-     * Necessary to mask out vehicles having yellow or red.
-     */
-    void deleteRequest() throw();
 
 
     /** @brief Returns the current state of the link
@@ -317,14 +306,6 @@ public:
     MSLane * const getViaLane() const throw();
 
 
-    /** @brief Checks whether the link may drive
-     *
-     * Use for inner-lane simulation. Has to be rechecked/described
-     *
-     * @todo Recheck/describe
-     */
-    void resetInternalPriority() throw();
-
 #endif
 
 private:
@@ -337,16 +318,11 @@ private:
     /// @brief The approaching vehicle
     MSVehicle *myApproaching;
 
-    /// @brief The request to set incoming request into
-    MSLogicJunction::Request *myRequest;
     MSJunction::LinkApproachingVehicles myApproachingVehicles;
     std::set<MSLink*> myBlockedFoeLinks;
 
     /// @brief The position of the link within this request
     unsigned int myRequestIdx;
-
-    /// @brief The respond to read whether the car may drive from
-    MSLogicJunction::Respond *myRespond;
 
     /// @brief The position within this respond
     unsigned int myRespondIdx;
@@ -359,9 +335,6 @@ private:
 
     /// @brief The length of the link
     SUMOReal myLength;
-
-    /// @brief This links foes
-    MSLogicJunction::LinkFoes myFoes;
 
     /// @brief Whether any foe links exist
     bool myIsCrossing;

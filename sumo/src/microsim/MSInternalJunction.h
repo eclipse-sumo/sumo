@@ -69,10 +69,8 @@ public:
     /// Destructor.
     virtual ~MSInternalJunction();
 
-    /** Clears junction's and lane's requests to prepare for the next
-        iteration. */
-    bool clearRequests();
-    void postloadInit() throw(ProcessError);
+
+	void postloadInit() throw(ProcessError);
 
     const std::vector<MSLink*> &getFoeLinks(const MSLink *const srcLink) const throw() {
         return myInternalLinkFoes;
