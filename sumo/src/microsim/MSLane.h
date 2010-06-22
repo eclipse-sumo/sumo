@@ -559,6 +559,8 @@ public:
     /// @}
 
 
+	void forceVehicleInsertion(MSVehicle *veh, SUMOReal pos) throw();
+
 protected:
     /** @brief Insert a vehicle into the lane's vehicle buffer.
         After processing done from moveCritical, when a vehicle exits it's lane.

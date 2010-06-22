@@ -603,13 +603,14 @@ MSLane::setCritical(SUMOTime t, std::vector<MSLane*> &into) {
     // check for vehicle removal
     for (VehCont::iterator veh = myVehicles.begin(); veh != myVehicles.end();) {
         MSVehicle *vehV = *veh;
-		myVehicleLengthSum -= vehV->getVehicleType().getLength();
         if (vehV->getPositionOnLane()>getLength()) {
             MsgHandler::getWarningInstance()->inform("Teleporting vehicle '" + vehV->getID() + "'; beyond lane (2), targetLane='" + getID() + "', time=" + time2string(MSNet::getInstance()->getCurrentTimeStep()) + ".");
+		myVehicleLengthSum -= vehV->getVehicleType().getLength();
             MSVehicleTransfer::getInstance()->addVeh(vehV);
             veh = myVehicles.erase(veh); // remove current vehicle
         } else if (vehV->ends()) {
             vehV->onRemovalFromNet(false);
+		myVehicleLengthSum -= vehV->getVehicleType().getLength();
             MSNet::getInstance()->getVehicleControl().scheduleVehicleRemoval(vehV);
             veh = myVehicles.erase(veh); // remove current vehicle
         } else {
@@ -1142,6 +1143,25 @@ MSLane::getHarmonoise_NoiseEmissions() const throw() {
     releaseVehicles();
     return HelpersHarmonoise::sum(ret);
 }
+
+
+void 
+MSLane::forceVehicleInsertion(MSVehicle *veh, SUMOReal pos) throw()
+{
+	veh->enterLaneAtEmit(this, pos, veh->getSpeed());
+    bool wasInactive = myVehicles.size()==0;
+    MSLane::VehCont::iterator predIt = find_if(myVehicles.begin(), myVehicles.end(), bind2nd(VehPosition(), pos));
+    if (predIt==myVehicles.end()) {
+        myVehicles.push_back(veh);
+    } else {
+        myVehicles.insert(predIt, veh);
+    }
+    myVehicleLengthSum += veh->getVehicleType().getLength();
+    if (wasInactive) {
+        MSNet::getInstance()->getEdgeControl().gotActive(this);
+    }
+}
+
 
 
 /****************************************************************************/
