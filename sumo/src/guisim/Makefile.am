@@ -10,7 +10,6 @@ GUIJunctionWrapper.cpp GUIJunctionWrapper.h \
 GUILane.cpp GUILane.h \
 GUILaneSpeedTrigger.cpp GUILaneSpeedTrigger.h \
 GUILaneWrapper.cpp GUILaneWrapper.h \
-GUIMeanData_Net.cpp GUIMeanData_Net.h \
 GUINet.cpp GUINet.h \
 GUISelectionLoader.cpp GUISelectionLoader.h \
 GUIShapeContainer.cpp GUIShapeContainer.h \
