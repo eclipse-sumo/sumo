@@ -137,9 +137,7 @@ MSVehicle::~MSVehicle() throw() {
         (*i)->removeOnTripEnd(this);
     }
     // delete the route
-    if (!myRoute->inFurtherUse()) {
-        MSRoute::erase(myRoute->getID());
-    }
+    myRoute->release();
     // delete values in CORN
     if (myPointerCORNMap.find(MSCORN::CORN_P_VEH_OLDROUTE)!=myPointerCORNMap.end()) {
         ReplacedRoutesVector *v = (ReplacedRoutesVector*) myPointerCORNMap[MSCORN::CORN_P_VEH_OLDROUTE];
@@ -262,6 +260,7 @@ MSVehicle::MSVehicle(SUMOVehicleParameter* pars,
     if ((*myCurrEdge)->getDepartLane(*this) == 0) {
         throw ProcessError("Invalid departlane definition for vehicle '" + pars->id + "'");
     }
+    myRoute->addReference();
 }
 
 
@@ -401,12 +400,6 @@ MSVehicle::getRoute(int index) const throw() {
 
 bool
 MSVehicle::replaceRoute(const MSEdgeVector &edges, SUMOTime simTime, bool onInit) throw() {
-    // assert the vehicle may continue (must not be "teleported" or whatever to another position)
-    if (!onInit && find(edges.begin(), edges.end(), *myCurrEdge)==edges.end()) {
-        return false;
-    }
-
-    // build a new one
     // build a new id, first
     std::string id = getID();
     if (id[0]!='!') {
@@ -417,11 +410,20 @@ MSVehicle::replaceRoute(const MSEdgeVector &edges, SUMOTime simTime, bool onInit
     } else {
         id = id + "!var#1";
     }
-    // build the route
-    MSRoute *newRoute = new MSRoute(id, edges, onInit, myRoute->getColor(), myRoute->getStops());
-    // and add it to the container (!!!what for? It will never be used again!?)
-    if (!MSRoute::dictionary(id, newRoute)) {
+    MSRoute *newRoute = new MSRoute(id, edges, 0, myRoute->getColor(), myRoute->getStops());
+    if (!MSRoute::dictionary(id, newRoute) || !replaceRoute(newRoute, simTime, onInit)) {
         delete newRoute;
+        return false;
+    }
+    return true;
+}
+
+
+bool
+MSVehicle::replaceRoute(const MSRoute* newRoute, SUMOTime simTime, bool onInit) throw() {
+    const MSEdgeVector &edges = newRoute->getEdges();
+    // assert the vehicle may continue (must not be "teleported" or whatever to another position)
+    if (!onInit && find(edges.begin(), edges.end(), *myCurrEdge)==edges.end()) {
         return false;
     }
 
@@ -438,9 +440,8 @@ MSVehicle::replaceRoute(const MSEdgeVector &edges, SUMOTime simTime, bool onInit
     }
 
     // check whether the old route may be deleted (is not used by anyone else)
-    if (!myRoute->inFurtherUse()) {
-        MSRoute::erase(myRoute->getID());
-    }
+    myRoute->release();
+    newRoute->addReference();
 
     // assign new route
     myRoute = newRoute;

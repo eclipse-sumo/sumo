@@ -178,8 +178,9 @@ MSDevice_Routing::onTryEmit() {
                     myHolder.reroute(MSNet::getInstance()->getCurrentTimeStep(), router, true);
                     myLastPreEmitReroute = now;
                     myCachedRoutes[key] = &myHolder.getRoute();
+                    myHolder.getRoute().addReference();
                 } else {
-                    myHolder.replaceRoute(myCachedRoutes[key]->getEdges(), now, true);
+                    myHolder.replaceRoute(myCachedRoutes[key], now, true);
                 }
             }
         }
@@ -224,6 +225,10 @@ MSDevice_Routing::getEffort(const MSEdge * const e, const SUMOVehicle * const v,
 
 SUMOTime
 MSDevice_Routing::adaptEdgeEfforts(SUMOTime currentTime) throw(ProcessError) {
+    std::map<std::pair<const MSEdge*, const MSEdge*>, const MSRoute*>::iterator it = myCachedRoutes.begin();
+    for (;it != myCachedRoutes.end(); ++it) {
+        it->second->release();
+    }
     myCachedRoutes.clear();
     SUMOReal newWeight = (SUMOReal)(1. - myAdaptationWeight);
     const std::vector<MSEdge*> &edges = MSNet::getInstance()->getEdgeControl().getEdges();

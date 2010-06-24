@@ -60,7 +60,7 @@ class MSRoute : public Named {
 public:
     /// Constructor
     MSRoute(const std::string &id, const MSEdgeVector &edges,
-            bool multipleReferenced, const RGBColor &c,
+            unsigned int references, const RGBColor &c,
             const std::vector<SUMOVehicleParameter::Stop> &stops) throw();
 
     /// Destructor
@@ -78,9 +78,11 @@ public:
     /// returns the destination edge
     const MSEdge *getLastEdge() const;
 
-    /** @brief Returns the information whether the route is needed in the future
-        This may be the case, when more than a single vehicle use the same route */
-    bool inFurtherUse() const;
+    /** @brief increments the reference counter for the route */
+    void addReference() const;
+
+    /** @brief deletes the route if there are no further references to it*/
+    void release() const;
 
     /// output the edge ids up to but not including the id of the given edge
     void writeEdgeIDs(OutputDevice &os, const MSEdge *upTo=0) const;
@@ -194,8 +196,8 @@ private:
     /// The list of edges to pass
     MSEdgeVector myEdges;
 
-    /// Information whether the route is used by more than a single vehicle
-    bool myMultipleReferenced;
+    /// Information by how many vehicles the route is used
+    mutable unsigned int myReferenceCounter;
 
     /// The color
     RGBColor myColor;

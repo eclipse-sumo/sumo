@@ -265,6 +265,18 @@ public:
     bool replaceRoute(const MSEdgeVector &edges, SUMOTime simTime, bool onInit=false) throw();
 
 
+    /** @brief Replaces the current route by the given one
+     *
+     * It is possible that the new route is not accepted, if it does not
+     *  contain the vehicle's current edge.
+     *
+     * @param[in] route The new route to pass
+     * @param[in] simTime The time at which the route was replaced
+     * @return Whether the new route was accepted
+     */
+    bool replaceRoute(const MSRoute* route, SUMOTime simTime, bool onInit=false) throw();
+
+
     /** @brief Returns whether the vehicle wil pass the given edge
      * @param[in] The edge to find in the vehicle's current route
      * @return Whether the given edge will be passed by the vehicle

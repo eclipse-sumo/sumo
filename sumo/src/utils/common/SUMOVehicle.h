@@ -98,6 +98,9 @@ public:
     /// Replaces the current route by the given edges
     virtual bool replaceRoute(const MSEdgeVector &edges, SUMOTime simTime, bool onInit=false) = 0;
 
+    /// Replaces the current route by the given one
+    virtual bool replaceRoute(const MSRoute* route, SUMOTime simTime, bool onInit=false) = 0;
+
 };
 
 

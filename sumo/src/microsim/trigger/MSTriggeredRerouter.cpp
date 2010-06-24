@@ -304,7 +304,7 @@ MSTriggeredRerouter::reroute(SUMOVehicle &veh, const MSEdge &src) {
     const MSRoute *newRoute = rerouteDef.routeProbs.getOverallProb()>0 ? rerouteDef.routeProbs.get() : 0;
     // we will use the route if given rather than calling our own dijsktra...
     if (newRoute!=0) {
-        veh.replaceRoute(newRoute->getEdges(), time);
+        veh.replaceRoute(newRoute, time);
         return;
     }
     // ok, try using a new destination

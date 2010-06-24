@@ -55,10 +55,10 @@ MSRoute::RouteDistDict MSRoute::myDistDict;
 // ===========================================================================
 MSRoute::MSRoute(const std::string &id,
                  const MSEdgeVector &edges,
-                 bool multipleReferenced, const RGBColor &c,
+                 unsigned int references, const RGBColor &c,
                  const std::vector<SUMOVehicleParameter::Stop> &stops) throw()
         : Named(id), myEdges(edges),
-        myMultipleReferenced(multipleReferenced),
+        myReferenceCounter(references),
         myColor(c), myStops(stops) {}
 
 
@@ -85,6 +85,22 @@ MSRoute::getLastEdge() const {
     assert(myEdges.size()>0);
     return myEdges[myEdges.size()-1];
 }
+
+
+void
+MSRoute::addReference() const {
+    myReferenceCounter++;
+}
+
+
+void
+MSRoute::release() const {
+    myReferenceCounter--;
+    if (myReferenceCounter == 0) {
+        MSRoute::erase(getID());
+    }
+}
+
 
 bool
 MSRoute::dictionary(const std::string &id, const MSRoute* route) {
@@ -145,12 +161,6 @@ MSRoute::erase(std::string id) {
     assert(i!=myDict.end());
     delete(*i).second;
     myDict.erase(id);
-}
-
-
-bool
-MSRoute::inFurtherUse() const {
-    return myMultipleReferenced;
 }
 
 
@@ -218,7 +228,7 @@ MSRoute::dict_saveState(std::ostream &os) throw() {
     for (RouteDict::iterator it = myDict.begin(); it!=myDict.end(); ++it) {
         FileHelpers::writeString(os, (*it).second->getID());
         FileHelpers::writeUInt(os, (unsigned int)(*it).second->myEdges.size());
-        FileHelpers::writeByte(os, (*it).second->myMultipleReferenced);
+        FileHelpers::writeUInt(os, (*it).second->myReferenceCounter);
         for (MSEdgeVector::const_iterator i = (*it).second->myEdges.begin(); i!=(*it).second->myEdges.end(); ++i) {
             FileHelpers::writeUInt(os, (*i)->getNumericalID());
         }
@@ -245,8 +255,8 @@ MSRoute::dict_loadState(BinaryInputDevice &bis) throw() {
         bis >> id;
         unsigned int no;
         bis >> no;
-        bool multipleReferenced;
-        bis >> multipleReferenced;
+        unsigned int references;
+        bis >> references;
         if (dictionary(id)==0) {
             MSEdgeVector edges;
             edges.reserve(no);
@@ -257,7 +267,7 @@ MSRoute::dict_loadState(BinaryInputDevice &bis) throw() {
                 assert(e!=0);
                 edges.push_back(e);
             }
-            MSRoute *r = new MSRoute(id, edges, multipleReferenced,
+            MSRoute *r = new MSRoute(id, edges, references,
                                      RGBColor::DEFAULT_COLOR, std::vector<SUMOVehicleParameter::Stop>());
             dictionary(id, r);
         } else {
