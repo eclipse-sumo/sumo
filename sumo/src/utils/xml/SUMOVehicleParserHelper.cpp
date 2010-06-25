@@ -127,7 +127,7 @@ SUMOVehicleParserHelper::parseFlowAttributes(const SUMOSAXAttributes &attrs) thr
         if (end == SUMOTime_MAX) {
             ret->repetitionNumber = INT_MAX;
         } else {
-            ret->repetitionNumber = (int)((end - ret->depart) / ret->repetitionOffset + 0.5);
+            ret->repetitionNumber = static_cast<int>(static_cast<SUMOReal>(end - ret->depart) / ret->repetitionOffset + 0.5);
         }
     }
     if (!ok) {
