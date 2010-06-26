@@ -189,7 +189,7 @@ MSDevice_Routing::onTryEmit() {
 
 
 void
-MSDevice_Routing::enterLaneAtEmit(MSLane*, const MSVehicle::State &) {
+MSDevice_Routing::enterLaneAtEmit() {
     if (myLastPreEmitReroute == -1) {
         DijkstraRouterTT_ByProxi<MSEdge, SUMOVehicle, prohibited_withRestrictions<MSEdge, SUMOVehicle>, MSDevice_Routing>
         router(MSEdge::dictSize(), true, this, &MSDevice_Routing::getEffort);

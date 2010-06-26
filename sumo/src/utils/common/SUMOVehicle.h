@@ -39,6 +39,7 @@
 class MSVehicleType;
 class MSRoute;
 class MSEdge;
+class MSDevice;
 
 typedef std::vector<const MSEdge*> MSEdgeVector;
 
@@ -79,6 +80,8 @@ public:
 
     /// Returns the current route
     virtual const MSRoute &getRoute() const = 0;
+
+    virtual const std::vector<MSDevice*> &getDevices() const = 0;
 
     /** @brief Returns the nSuccs'th successor of edge the vehicle is currently at
      *

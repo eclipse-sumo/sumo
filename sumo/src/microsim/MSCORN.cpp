@@ -65,8 +65,8 @@ MSCORN::wished(Function f) {
 
 
 void
-MSCORN::setWished(Function f) {
-    myWished[(int) f] = true;
+MSCORN::setWished(Function f, bool value) {
+    myWished[(int) f] = value;
     switch (f) {
     case CORN_OUT_TRIPDURATIONS:
         setWished(CORN_VEH_DEPART_INFO);

@@ -112,7 +112,7 @@ MSDevice_HBEFA::~MSDevice_HBEFA() throw() {
 
 
 void
-MSDevice_HBEFA::enterLaneAtEmit(MSLane* enteredLane, const MSVehicle::State &) {
+MSDevice_HBEFA::enterLaneAtEmit() {
     if (myComputeAndCollectCommand!=0) {
         return;
     }

@@ -212,12 +212,13 @@ MSNet::closeBuilding(MSEdgeControl *edges, MSJunctionControl *junctions,
         MSCORN::setWished(MSCORN::CORN_OUT_TRIPDURATIONS);
     }
     if (OptionsCont::getOptions().isSet("vehroute-output")) {
+        const bool oldReroutingVal = MSCORN::wished(MSCORN::CORN_VEH_SAVEREROUTING);
         MSCORN::setWished(MSCORN::CORN_OUT_VEHROUTES);
         if (OptionsCont::getOptions().getBool("vehroute-output.exit-times")) {
             MSCORN::setWished(MSCORN::CORN_VEH_SAVE_EDGE_EXIT);
         }
-        if (!OptionsCont::getOptions().getBool("vehroute-output.last-route")) {
-            MSCORN::setWished(MSCORN::CORN_OUT_OLDROUTES);
+        if (OptionsCont::getOptions().getBool("vehroute-output.last-route")) {
+            MSCORN::setWished(MSCORN::CORN_VEH_SAVEREROUTING, oldReroutingVal);
         }
         if (OptionsCont::getOptions().getBool("device.routing.with-taz")) {
             MSCORN::setWished(MSCORN::CORN_OUT_TAZ);

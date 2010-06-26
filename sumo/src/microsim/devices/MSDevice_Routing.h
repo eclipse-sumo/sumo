@@ -120,13 +120,11 @@ public:
      *  to the list of simulation step begin events which executes
      *  "wrappedRerouteCommandExecute".
      *
-     * @param[in] enteredLane The lane the vehicle enters
-     * @param[in] state The vehicle's state during the emission
      * @see MSVehicle::reroute
      * @see MSEventHandler
      * @see WrappingCommand
      */
-    void enterLaneAtEmit(MSLane* enteredLane, const MSVehicle::State &state);
+    void enterLaneAtEmit();
     /// @}
 
 

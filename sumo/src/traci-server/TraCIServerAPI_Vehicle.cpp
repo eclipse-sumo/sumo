@@ -490,7 +490,7 @@ TraCIServerAPI_Vehicle::processSet(tcpip::Storage &inputStorage,
             TraCIServerAPIHelper::writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "The route '" + rid + "' is not known.", outputStorage);
             return false;
         }
-        if (!v->replaceRoute(r->getEdges(), MSNet::getInstance()->getCurrentTimeStep())) {
+        if (!v->replaceRoute(r, MSNet::getInstance()->getCurrentTimeStep())) {
             TraCIServerAPIHelper::writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Route replacement failed for " + v->getID(), outputStorage);
             return false;
         }

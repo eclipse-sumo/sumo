@@ -207,7 +207,7 @@ MSVehicleControl::scheduleVehicleRemoval(MSVehicle *v) throw() {
             od << "\" fromtaz=\"" << v->getParameter().fromTaz << "\" totaz=\"" << v->getParameter().toTaz;
         }
         od << "\">\n";
-        if (MSCORN::wished(MSCORN::CORN_OUT_OLDROUTES) && v->hasCORNIntValue(MSCORN::CORN_VEH_NUMBERROUTE)) {
+        if (v->hasCORNIntValue(MSCORN::CORN_VEH_NUMBERROUTE)) {
             od.openTag("routeDistribution") << ">\n";
             int noReroutes = v->getCORNIntValue(MSCORN::CORN_VEH_NUMBERROUTE);
             for (int i=0; i<noReroutes; ++i) {
@@ -215,7 +215,7 @@ MSVehicleControl::scheduleVehicleRemoval(MSVehicle *v) throw() {
             }
         }
         v->writeXMLRoute(od);
-        if (MSCORN::wished(MSCORN::CORN_OUT_OLDROUTES) && v->hasCORNIntValue(MSCORN::CORN_VEH_NUMBERROUTE)) {
+        if (v->hasCORNIntValue(MSCORN::CORN_VEH_NUMBERROUTE)) {
             od.closeTag();
         }
         od.closeTag();

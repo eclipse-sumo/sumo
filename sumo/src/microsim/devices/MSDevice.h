@@ -107,11 +107,8 @@ public:
 
 
     /** @brief Update of members if vehicle enters a new lane in the emit step
-     *
-     * @param[in] enteredLane The lane the vehicle enters
-     * @param[in] state The vehicle's state during the emission
      */
-    virtual void enterLaneAtEmit(MSLane* enteredLane, const MSVehicle::State &state) { }
+    virtual void enterLaneAtEmit() { }
 
 
     /** @brief Update of members if vehicle enters a new lane in the laneChange step.

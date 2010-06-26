@@ -94,13 +94,11 @@ public:
      * An event is created and added to the list of simulation step end
      *  events which executes "wrappedComputeCommandExecute".
      *
-     * @param[in] enteredLane The lane the vehicle enters
-     * @param[in] state The vehicle's state during the emission
      * @see MSVehicle::reroute
      * @see MSEventHandler
      * @see WrappingCommand
      */
-    void enterLaneAtEmit(MSLane* enteredLane, const MSVehicle::State &state);
+    void enterLaneAtEmit();
     /// @}
 
 

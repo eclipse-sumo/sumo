@@ -1148,20 +1148,20 @@ private:
     class RouteReplaceInfo {
     public:
         /// Constructor
-        RouteReplaceInfo(const MSEdge * const edge_, SUMOTime time_, MSRoute *route_)
+        RouteReplaceInfo(const MSEdge * const edge_, const SUMOTime time_, const MSRoute * const route_)
                 : edge(edge_), time(time_), route(route_) {}
 
         /// Destructor
         ~RouteReplaceInfo() { }
 
         /// The edge the vehicle was on when the route was replaced
-        const MSEdge *edge;
+        const MSEdge * edge;
 
         /// The time the route was replaced
         SUMOTime time;
 
         /// The prior route
-        MSRoute *route;
+        const MSRoute * route;
 
     };
 

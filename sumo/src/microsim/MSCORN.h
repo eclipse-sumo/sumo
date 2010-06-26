@@ -59,7 +59,6 @@ public:
         CORN_OUT_TRIPDURATIONS,
         CORN_OUT_EMISSIONS,
         CORN_OUT_VEHROUTES,
-        CORN_OUT_OLDROUTES,
         CORN_OUT_TAZ,
 
         CORN_VEH_DEPART_TIME,
@@ -88,7 +87,7 @@ public:
 
     static void init();
     static bool wished(Function f);
-    static void setWished(Function f);
+    static void setWished(Function f, bool value=true);
 
 
 private:

@@ -142,7 +142,7 @@ MSVehicle::~MSVehicle() throw() {
     if (myPointerCORNMap.find(MSCORN::CORN_P_VEH_OLDROUTE)!=myPointerCORNMap.end()) {
         ReplacedRoutesVector *v = (ReplacedRoutesVector*) myPointerCORNMap[MSCORN::CORN_P_VEH_OLDROUTE];
         for (ReplacedRoutesVector::iterator i=v->begin(); i!=v->end(); ++i) {
-            delete(*i).route;
+            (*i).route->release();
         }
         delete v;
     }
@@ -411,8 +411,12 @@ MSVehicle::replaceRoute(const MSEdgeVector &edges, SUMOTime simTime, bool onInit
         id = id + "!var#1";
     }
     MSRoute *newRoute = new MSRoute(id, edges, 0, myRoute->getColor(), myRoute->getStops());
-    if (!MSRoute::dictionary(id, newRoute) || !replaceRoute(newRoute, simTime, onInit)) {
+    if (!MSRoute::dictionary(id, newRoute)) {
         delete newRoute;
+        return false;
+    }
+    if (!replaceRoute(newRoute, simTime, onInit)) {
+        MSRoute::erase(id);
         return false;
     }
     return true;
@@ -423,34 +427,41 @@ bool
 MSVehicle::replaceRoute(const MSRoute* newRoute, SUMOTime simTime, bool onInit) throw() {
     const MSEdgeVector &edges = newRoute->getEdges();
     // assert the vehicle may continue (must not be "teleported" or whatever to another position)
-    if (!onInit && find(edges.begin(), edges.end(), *myCurrEdge)==edges.end()) {
+    MSRouteIterator currEdge2 = find(edges.begin(), edges.end(), *myCurrEdge);
+    if (!onInit && currEdge2==edges.end()) {
         return false;
     }
-
-    // save information about the current edge
-    const MSEdge *currentEdge = *myCurrEdge;
+    // check whether the new route is the same as the prior
+    MSRouteIterator ri = myCurrEdge;
+    while (ri!=myRoute->end()&&currEdge2!=edges.end()&&*ri==*currEdge2) {
+        ++ri;
+        ++currEdge2;
+    }
+    if (ri==myRoute->end()&&currEdge2==edges.end()) {
+        return true;
+    }
 
     // ... maybe the route information shall be saved for output?
     if (MSCORN::wished(MSCORN::CORN_VEH_SAVEREROUTING)) {
-        RouteReplaceInfo rri(*myCurrEdge, simTime, new MSRoute(*myRoute));//new MSRoute("!", myRoute->getEdges(), false));
+        myRoute->addReference();
+        RouteReplaceInfo rri(*myCurrEdge, simTime, myRoute);
         if (myPointerCORNMap.find(MSCORN::CORN_P_VEH_OLDROUTE)==myPointerCORNMap.end()) {
             myPointerCORNMap[MSCORN::CORN_P_VEH_OLDROUTE] = new ReplacedRoutesVector();
         }
         ((ReplacedRoutesVector*) myPointerCORNMap[MSCORN::CORN_P_VEH_OLDROUTE])->push_back(rri);
     }
 
+    // rebuild in-vehicle route information
+    if (onInit) {
+        myCurrEdge = newRoute->begin();
+    } else {
+        myCurrEdge = newRoute->find(*myCurrEdge);
+    }
     // check whether the old route may be deleted (is not used by anyone else)
     myRoute->release();
     newRoute->addReference();
-
     // assign new route
     myRoute = newRoute;
-    // rebuild in-vehicle route information
-    if (onInit) {
-        myCurrEdge = myRoute->begin();
-    } else {
-        myCurrEdge = myRoute->find(currentEdge);
-    }
     myLastBestLanesEdge = 0;
     // update arrival definition
     myArrivalPos = myParameter->arrivalPos;
@@ -503,16 +514,7 @@ MSVehicle::reroute(SUMOTime t, SUMOAbstractRouter<MSEdge, SUMOVehicle> &router, 
         WRITE_WARNING("No route for vehicle '" + getID() + "' found.");
         return;
     }
-    // check whether the new route is the same as the prior
-    MSRouteIterator ri = myCurrEdge;
-    std::vector<const MSEdge*>::iterator ri2 = edges.begin();
-    while (ri!=myRoute->end()&&ri2!=edges.end()&&*ri==*ri2) {
-        ++ri;
-        ++ri2;
-    }
-    if (ri!=myRoute->end()||ri2!=edges.end()) {
-        replaceRoute(edges, MSNet::getInstance()->getCurrentTimeStep(), withTaz);
-    }
+    replaceRoute(edges, MSNet::getInstance()->getCurrentTimeStep(), withTaz);
 }
 
 
@@ -1415,7 +1417,7 @@ MSVehicle::enterLaneAtEmit(MSLane* enteredLane, SUMOReal pos, SUMOReal speed) {
     myLane = enteredLane;
     // set and activate the new lane's reminders
     for (std::vector< MSDevice* >::iterator dev=myDevices.begin(); dev != myDevices.end(); ++dev) {
-        (*dev)->enterLaneAtEmit(enteredLane, myState);
+        (*dev)->enterLaneAtEmit();
     }
     std::string msg;
     if (!hasValidRoute(msg)) {
