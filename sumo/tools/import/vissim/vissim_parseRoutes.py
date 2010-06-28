@@ -207,7 +207,7 @@ fdo.write("<routes>\n")
 for emission in emissions:
     if len(emission[2])<2:
         continue;
-    fdo.write('    <vehicle id="' + emission[1] + '" depart="' + str(emission[0]) + '"><route>' + " ".join(emission[2]) + '</route></vehicle>\n');
+	fdo.write('    <vehicle id="' + emission[1] + '" depart="' + str(emission[0]) + '"><route edges="' + " ".join(emission[2]) + '"/></vehicle>\n');
 fdo.write("</routes>\n")
 fdo.close()
 
