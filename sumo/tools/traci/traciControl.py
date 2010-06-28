@@ -441,6 +441,11 @@ def cmdChangeVehicleVariable_maxSpeed(vehID, speed):
     _message.string += struct.pack("!Bf", tc.TYPE_FLOAT, speed)
     _sendExact()
 
+def cmdChangeVehicleVariable_speed(vehID, speed):
+    beginChangeMessage(tc.CMD_SET_VEHICLE_VARIABLE, 1+1+1+4+len(vehID)+1+8, tc.VAR_SPEED, vehID)
+    _message.string += struct.pack("!Bd", tc.TYPE_DOUBLE, speed)
+    _sendExact()
+
 def cmdChangeVehicleVariable_stop(vehID, edgeID, pos, laneIndex, duration):
     beginChangeMessage(tc.CMD_SET_VEHICLE_VARIABLE, 1+1+1+4+len(vehID)+1+4+1+4+len(edgeID)+1+4+1+1+1+4, tc.CMD_STOP, vehID)
     _message.string += struct.pack("!Bi", tc.TYPE_COMPOUND, 4)

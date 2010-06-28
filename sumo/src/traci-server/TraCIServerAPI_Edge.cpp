@@ -348,7 +348,7 @@ TraCIServerAPI_Edge::processSet(tcpip::Storage &inputStorage,
     break;
     case VAR_EDGE_TRAVELTIME: {
         if (valueDataType!=TYPE_COMPOUND) {
-            TraCIServerAPIHelper::writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Setting travel time requires a compund object.", outputStorage);
+            TraCIServerAPIHelper::writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Setting travel time requires a compound object.", outputStorage);
             return false;
         }
         if (inputStorage.readInt()!=3) {
@@ -379,7 +379,7 @@ TraCIServerAPI_Edge::processSet(tcpip::Storage &inputStorage,
     break;
     case VAR_EDGE_EFFORT: {
         if (valueDataType!=TYPE_COMPOUND) {
-            TraCIServerAPIHelper::writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Setting effort requires a compund object.", outputStorage);
+            TraCIServerAPIHelper::writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Setting effort requires a compound object.", outputStorage);
             return false;
         }
         if (inputStorage.readInt()!=3) {

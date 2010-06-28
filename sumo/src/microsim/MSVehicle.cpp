@@ -218,6 +218,7 @@ MSVehicle::MSVehicle(SUMOVehicleParameter* pars,
         timeBeforeLaneChange(0),
         laneChangeStickyTime(0),
         laneChangeConstraintActive(false),
+		myTraCISpeed(-1),
         myDestinationLane(0)
 #endif
 {
@@ -945,6 +946,11 @@ MSVehicle::moveFirstChecked() {
 
     SUMOReal vNext = getCarFollowModel().moveHelper(this, myLane, vSafe);
     vNext = MAX2(vNext, (SUMOReal) 0.);
+#ifndef NO_TRACI
+	if(myTraCISpeed>=0) {
+		vNext = myTraCISpeed;
+	}
+#endif
     // visit waiting time
     if (vNext<=0.1) {
         myWaitingTime += DELTA_T;
@@ -1489,12 +1495,6 @@ const MSEdge * const
 MSLane *
 MSVehicle::getTargetLane() const {
     return myTarget;
-}
-
-
-const MSLane &
-MSVehicle::getLane() const {
-    return *myLane;
 }
 
 
@@ -2101,6 +2101,12 @@ MSVehicle::addTraciStop(MSLane* lane, SUMOReal pos, SUMOReal radius, SUMOTime du
     return addStop(newStop);
 }
 
+
+void 
+MSVehicle::setTraCISpeed(SUMOReal speed) throw()
+{
+	myTraCISpeed = speed;
+}
 
 #endif
 

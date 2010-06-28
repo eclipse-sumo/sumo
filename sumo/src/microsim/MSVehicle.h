@@ -584,7 +584,9 @@ public:
     MSLane *getTargetLane() const;
 
     /// Returns the lane the vehicle is on
-    const MSLane &getLane() const;
+	MSLane &getLane() const throw() {
+		return *myLane;
+	}
 
     /** @brief Returns the information whether the vehicle is on a road (is simulated)
      * @return Whether the vehicle is simulated
@@ -963,6 +965,8 @@ public:
      * @param time the current simulation time
      */
     void processTraCICommands(SUMOTime time);
+
+	void setTraCISpeed(SUMOReal speed) throw();
 #endif
 
 protected:
@@ -1213,10 +1217,12 @@ private:
     /* true if any forced lane change is in effect*/
     bool laneChangeConstraintActive;
 
+	SUMOReal myTraCISpeed;
+
 #endif
 
 private:
-    /// @brief invalidated efault constructor
+    /// @brief invalidated default constructor
     MSVehicle();
 
     /// @brief invalidated copy constructor

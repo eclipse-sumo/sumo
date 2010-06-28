@@ -183,7 +183,7 @@ TraCIServerAPI_Vehicle::processGet(tcpip::Storage &inputStorage,
             break;
         case VAR_EDGE_TRAVELTIME: {
             if (inputStorage.readUnsignedByte()!=TYPE_COMPOUND) {
-                TraCIServerAPIHelper::writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Retrieval of travel time requires a compund object.", outputStorage);
+                TraCIServerAPIHelper::writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Retrieval of travel time requires a compound object.", outputStorage);
                 return false;
             }
             if (inputStorage.readInt()!=2) {
@@ -220,7 +220,7 @@ TraCIServerAPI_Vehicle::processGet(tcpip::Storage &inputStorage,
         break;
         case VAR_EDGE_EFFORT: {
             if (inputStorage.readUnsignedByte()!=TYPE_COMPOUND) {
-                TraCIServerAPIHelper::writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Retrieval of travel time requires a compund object.", outputStorage);
+                TraCIServerAPIHelper::writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Retrieval of travel time requires a compound object.", outputStorage);
                 return false;
             }
             if (inputStorage.readInt()!=2) {
@@ -273,11 +273,10 @@ TraCIServerAPI_Vehicle::processGet(tcpip::Storage &inputStorage,
                 tempMsg.writeString((*i)->getID());
             }
         }
-        case VAR_SIGNALS: {
+        case VAR_SIGNALS:
             tempMsg.writeUnsignedByte(TYPE_INTEGER);
 			tempMsg.writeInt(v->getSignals());
-        }
-        break;
+			break;
         default:
             break;
         }
@@ -305,6 +304,7 @@ TraCIServerAPI_Vehicle::processSet(tcpip::Storage &inputStorage,
             &&variable!=VAR_EDGE_TRAVELTIME&&variable!=VAR_EDGE_EFFORT
             &&variable!=CMD_REROUTE_TRAVELTIME&&variable!=CMD_REROUTE_EFFORT
 			&&variable!=VAR_SIGNALS
+			&&variable!=VAR_SPEED
        ) {
         TraCIServerAPIHelper::writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Change Vehicle State: unsupported variable specified", outputStorage);
         return false;
@@ -512,7 +512,7 @@ TraCIServerAPI_Vehicle::processSet(tcpip::Storage &inputStorage,
     break;
     case VAR_EDGE_TRAVELTIME: {
         if (valueDataType!=TYPE_COMPOUND) {
-            TraCIServerAPIHelper::writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Setting travel time requires a compund object.", outputStorage);
+            TraCIServerAPIHelper::writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Setting travel time requires a compound object.", outputStorage);
             return false;
         }
         int parameterCount = inputStorage.readInt();
@@ -595,7 +595,7 @@ TraCIServerAPI_Vehicle::processSet(tcpip::Storage &inputStorage,
     break;
     case VAR_EDGE_EFFORT: {
         if (valueDataType!=TYPE_COMPOUND) {
-            TraCIServerAPIHelper::writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Setting effort requires a compund object.", outputStorage);
+            TraCIServerAPIHelper::writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Setting effort requires a compound object.", outputStorage);
             return false;
         }
         int parameterCount = inputStorage.readInt();
@@ -678,11 +678,11 @@ TraCIServerAPI_Vehicle::processSet(tcpip::Storage &inputStorage,
     break;
     case CMD_REROUTE_TRAVELTIME: {
         if (valueDataType!=TYPE_COMPOUND) {
-            TraCIServerAPIHelper::writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Rerouting requires a compund object.", outputStorage);
+            TraCIServerAPIHelper::writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Rerouting requires a compound object.", outputStorage);
             return false;
         }
         if (inputStorage.readInt()!=0) {
-            TraCIServerAPIHelper::writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Rerouting should obtain an empty compund object.", outputStorage);
+            TraCIServerAPIHelper::writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Rerouting should obtain an empty compound object.", outputStorage);
             return false;
         }
         MSNet::EdgeWeightsProxi proxi(v->getWeightsStorage(), MSNet::getInstance()->getWeightsStorage());
@@ -692,11 +692,11 @@ TraCIServerAPI_Vehicle::processSet(tcpip::Storage &inputStorage,
     break;
     case CMD_REROUTE_EFFORT: {
         if (valueDataType!=TYPE_COMPOUND) {
-            TraCIServerAPIHelper::writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Rerouting requires a compund object.", outputStorage);
+            TraCIServerAPIHelper::writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Rerouting requires a compound object.", outputStorage);
             return false;
         }
         if (inputStorage.readInt()!=0) {
-            TraCIServerAPIHelper::writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Rerouting should obtain an empty compund object.", outputStorage);
+            TraCIServerAPIHelper::writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Rerouting should obtain an empty compound object.", outputStorage);
             return false;
         }
         MSNet::EdgeWeightsProxi proxi(v->getWeightsStorage(), MSNet::getInstance()->getWeightsStorage());
@@ -712,6 +712,13 @@ TraCIServerAPI_Vehicle::processSet(tcpip::Storage &inputStorage,
         v->switchOffSignal(0x0fffffff);
 		v->switchOnSignal(inputStorage.readInt());
 	}
+	case VAR_SPEED:
+        if (valueDataType!=TYPE_DOUBLE) {
+            TraCIServerAPIHelper::writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Setting speed requires a float.", outputStorage);
+            return false;
+        }
+        v->setTraCISpeed(inputStorage.readDouble());
+		break;
     default:
         break;
     }
