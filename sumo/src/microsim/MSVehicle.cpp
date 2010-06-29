@@ -1435,11 +1435,10 @@ MSVehicle::enterLaneAtEmit(MSLane* enteredLane, SUMOReal pos, SUMOReal speed) {
     SUMOReal leftLength = myType->getLength() - pos;
     MSLane *clane = enteredLane;
     while (leftLength>0) {
-        const std::vector<MSLane::IncomingLaneInfo> &incoming = clane->getIncomingLanes();
-        if (incoming.size()==0) {
+        clane = clane->getLogicalPredecessorLane();
+        if(clane==0) {
             break;
         }
-        clane = incoming[0].lane; // !!! just an approximation
         myFurtherLanes.push_back(clane);
         leftLength -= (clane)->setPartialOccupation(this, leftLength);
     }

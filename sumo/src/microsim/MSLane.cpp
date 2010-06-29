@@ -75,6 +75,7 @@ MSLane::MSLane(const std::string &id, SUMOReal maxSpeed, SUMOReal length, MSEdge
         : myShape(shape), myID(id), myNumericalID(numericalID),
         myVehicles(), myLength(length), myEdge(edge), myMaxSpeed(maxSpeed),
         myAllowedClasses(allowed), myNotAllowedClasses(disallowed),
+        myLogicalPredecessorLane(0),
         myVehicleLengthSum(0), myInlappingVehicleEnd(10000), myInlappingVehicle(0) {
 }
 
@@ -1012,6 +1013,35 @@ MSLane::getLeaderOnConsecutive(SUMOReal dist, SUMOReal seen, SUMOReal speed, con
         view++;
 #endif
     }
+}
+
+
+MSLane * const
+MSLane::getLogicalPredecessorLane() const throw()
+{
+    if(myLogicalPredecessorLane!=0) {
+        return myLogicalPredecessorLane;
+    }
+    if(myLogicalPredecessorLane==0) {
+        std::vector<MSEdge*> pred = myEdge->getIncomingEdges();
+        // get only those edges which connect to this lane
+        for(std::vector<MSEdge*>::iterator i=pred.begin(); i!=pred.end(); ) {
+            std::vector<IncomingLaneInfo>::const_iterator j = find_if(myIncomingLanes.begin(), myIncomingLanes.end(), edge_finder(*i));
+            if(j==myIncomingLanes.end()) {
+                i = pred.erase(i);
+            } else {
+                ++i;
+            }
+        }
+        // get the edge with the most connections to this lane's edge
+        if(pred.size()!=0) {
+            std::sort(pred.begin(), pred.end(), by_connections_to_sorter(&getEdge()));
+            MSEdge *best = *pred.begin();
+            std::vector<IncomingLaneInfo>::const_iterator j = find_if(myIncomingLanes.begin(), myIncomingLanes.end(), edge_finder(best));
+            myLogicalPredecessorLane = (*j).lane;
+        }
+    }
+    return myLogicalPredecessorLane;
 }
 
 
