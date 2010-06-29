@@ -388,7 +388,7 @@ MSLane::isEmissionSuccess(MSVehicle* aVehicle,
         // in order to look back, we'd need the minimum braking ability of vehicles in the net...
         //  we'll assume it to be 4m/s^2
         //   !!!revisit
-        SUMOReal dist = lspeed * lspeed * SUMOReal(1./2.*4.) + SPEED2DIST(lspeed);
+        SUMOReal dist = lspeed * lspeed / (2.*4.) + SPEED2DIST(lspeed);
         std::pair<const MSVehicle * const, SUMOReal> approaching = getFollowerOnConsecutive(dist, 0, speed, pos - aVehicle->getVehicleType().getLength());
         if (approaching.first!=0) {
             const MSVehicle *const follower = approaching.first;

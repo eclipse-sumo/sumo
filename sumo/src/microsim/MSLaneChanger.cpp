@@ -393,7 +393,7 @@ MSLaneChanger::getRealFollower(const ChangerIt &target) const throw() {
         // in order to look back, we'd need the minimum braking ability of vehicles in the net...
         // we'll assume it to be 4m/s^2
         // !!!revisit
-        SUMOReal dist = speed * speed * SUMOReal(1./2.*4.) + SPEED2DIST(speed);
+        SUMOReal dist = speed * speed / (2.*4.) + SPEED2DIST(speed);
         dist = MIN2(dist, (SUMOReal) 500.);
         MSVehicle *candi = veh(myCandi);
         SUMOReal seen = candi->getPositionOnLane()-candi->getVehicleType().getLength();
