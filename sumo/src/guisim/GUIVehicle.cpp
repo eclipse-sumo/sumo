@@ -881,7 +881,7 @@ GUIVehicle::drawGL(const GUIVisualizationSettings &s) const throw() {
     if (s.showBlinker) {
         glTranslated(0, 0, -.05);
         drawAction_drawVehicleBlinker(*this);
-		drawAction_drawVehicleBrakeLight(*this);
+        drawAction_drawVehicleBrakeLight(*this);
         glTranslated(0, 0, .05);
     }
     // draw the wish to change the lane
