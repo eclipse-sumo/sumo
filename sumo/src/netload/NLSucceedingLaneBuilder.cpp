@@ -135,22 +135,16 @@ NLSucceedingLaneBuilder::addSuccLane(bool yield, const std::string &laneId,
     MSLink *link = new MSLink(lane, yield, dir, state, length);
 #endif
 
-    if (MSLane::dictionary(myCurrentLane)!=0) {
+    MSLane *clane = MSLane::dictionary(myCurrentLane);
+    if (clane!=0) {
 #ifdef HAVE_INTERNAL_LANES
-        if (via!=0) {
-            // from a normal in to a normal out via
-            //  --> via incomes in out
-            lane->addIncomingLane(via, link);
-            //  --> in incomes in via
-            via->addIncomingLane(MSLane::dictionary(myCurrentLane), link);
+        if(via!=0) {
+            via->addIncomingLane(clane, link);
         } else {
-            if (myCurrentLane[0]!=':') {
-                // internal not wished; other case already set
-                lane->addIncomingLane(MSLane::dictionary(myCurrentLane), link);
-            }
+            lane->addIncomingLane(clane, link);
         }
 #else
-        lane->addIncomingLane(MSLane::dictionary(myCurrentLane), link);
+        lane->addIncomingLane(clane, link);
 #endif
     }
     // if a traffic light is responsible for it, inform the traffic light
