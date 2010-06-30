@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 03/18/10 13:31:11 by SUMO sumo Version dev-SVN-r8460
+<!-- generated on 06/30/10 09:03:16 by SUMO sumo Version dev-SVN-r8163
 <configuration>
 
     <input>
@@ -29,7 +29,7 @@
     <timestep time="0.00">
         <edge id="beg">
             <lane id="beg_0">
-                <vehicle id="1" pos="0.00" speed="1.00"/>
+                <vehicle id="1" pos="7.60" speed="1.00"/>
             </lane>
             <lane id="beg_1"/>
             <lane id="beg_2"/>
