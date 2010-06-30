@@ -1,7 +1,7 @@
 <routes>
    <vtype id="SUMO_DEFAULT_TYPE" accel="0.8" decel="4.5" sigma="0" length="5" maxspeed="10"/>
 
-   <vehicle id="veh0" type="SUMO_DEFAULT_TYPE" depart="0">
+   <vehicle id="veh0" type="SUMO_DEFAULT_TYPE" depart="0" departpos="0">
        <route id="always_right" edges="1fi 1si 2o 2fi 2si 3o 3fi 3si 1o 1fi"/>
    </vehicle>
 

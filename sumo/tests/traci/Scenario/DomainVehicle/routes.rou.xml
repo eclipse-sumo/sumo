@@ -2,25 +2,25 @@
     <vtype id="vtype1" accel="0.8" decel="4.5" sigma="0.5" length="5" maxspeed="70"/>
     
     <!-- +1 vehicles -->
-    <vehicle id="veh0" depart="0" type="vtype1">
+    <vehicle id="veh0" depart="0" type="vtype1" departpos="0">
         <route edges="e_m0 e_m1 e_m2 e_m3 e_m4 e_m5 e_m6"/>
     </vehicle>
     
     <!-- +4 vehicles -->
-    <vehicle id="veh2.0" depart="0" type="vtype1">
+    <vehicle id="veh2.0" depart="0" type="vtype1" departpos="0">
         <route edges="e_o1 e_o0 e_vo0 e_m4 e_m5"/>
     </vehicle>
-    <vehicle id="veh2.1" depart="5" type="vtype1">
+    <vehicle id="veh2.1" depart="5" type="vtype1" departpos="0">
         <route edges="e_o1 e_o0 e_vo0 e_m4 e_m5"/>
     </vehicle>
-    <vehicle id="veh2.2" depart="10" type="vtype1">
+    <vehicle id="veh2.2" depart="10" type="vtype1" departpos="0">
         <route edges="e_o1 e_o0 e_vo0 e_m4 e_m5"/>
     </vehicle>
-    <vehicle id="veh2.3" depart="15" type="vtype1">
+    <vehicle id="veh2.3" depart="15" type="vtype1" departpos="0">
         <route edges="e_o1 e_o0 e_vo0 e_m4 e_m5"/>
     </vehicle>
     
-    <vehicle id="veh5.0" depart="900" type="vtype1">
+    <vehicle id="veh5.0" depart="900" type="vtype1" departpos="0">
         <route edges="e_o1 e_o0 e_vo0 e_m4 e_m5"/>
     </vehicle>
 
