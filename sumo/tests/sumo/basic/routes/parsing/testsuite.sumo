@@ -27,3 +27,6 @@ repeat
 
 # Tests whether the include mechanism works
 include
+
+# Tests whether vehicles can have aroute of one edge only
+one_edge

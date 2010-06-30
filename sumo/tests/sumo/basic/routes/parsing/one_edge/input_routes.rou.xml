@@ -1,0 +1,4 @@
+<routes>
+    <route id="blub" edges="beg"/>
+    <vehicle id="0" depart="0" departpos="0" arrivalpos="-1" route="blub"/>
+</routes>
