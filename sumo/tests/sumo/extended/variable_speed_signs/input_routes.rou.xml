@@ -1,5 +1,5 @@
 <routes>
    <route id="0" multi_ref="x" edges="beg middle end rend"/>
    <vtype id="KRAUSS_DEFAULT" accel="2.6" decel="4.5" sigma="0.5" length="5" maxspeed="70" color="1,1,0"/>
-   <flow id="0" type="KRAUSS_DEFAULT" route="0" begin="0" end="101" period="1"/>
+   <flow id="0" type="KRAUSS_DEFAULT" route="0" begin="0" end="101" period="1" departpos="0"/>
 </routes>

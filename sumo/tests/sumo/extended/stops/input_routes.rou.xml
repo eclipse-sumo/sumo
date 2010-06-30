@@ -5,8 +5,8 @@
 
   <route id="route0" edges="1to2 out"/>
 
-  <vehicle depart="1" id="veh0" route="route0" type="Car">
+  <vehicle depart="1" id="veh0" route="route0" type="Car" departpos="0">
       <stop lane="1to2_0" pos="4" duration="50"/>
   </vehicle>
-  <vehicle depart="10" id="veh1" route="route0" type="Car"/>
+  <vehicle depart="10" id="veh1" route="route0" type="Car" departpos="0"/>
 </routes>

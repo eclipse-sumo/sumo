@@ -48,140 +48,140 @@
 	<vtype id="P_14_14" accel="2.6" decel="4.5" sigma="0" length="5" maxspeed="19.44" emissionClass="P_14_14"/>
 
 
-	<vehicle id="HDV_3_1" depart="0" departspeed="19.44" type="HDV_3_1">
+	<vehicle departpos="0" id="HDV_3_1" depart="0" departspeed="19.44" type="HDV_3_1">
 		<route edges="beg beg2right right right2end end rend"/>
 	</vehicle>
-	<vehicle id="HDV_3_2" depart="20" departspeed="19.44" type="HDV_3_2">
+	<vehicle departpos="0" id="HDV_3_2" depart="20" departspeed="19.44" type="HDV_3_2">
 		<route edges="beg beg2right right right2end end rend"/>
 	</vehicle>
-	<vehicle id="HDV_3_3" depart="40" departspeed="19.44" type="HDV_3_3">
-		<route edges="beg beg2right right right2end end rend"/>
-	</vehicle>
-
-
-	<vehicle id="HDV_6_1" depart="100" departspeed="19.44" type="HDV_6_1">
-		<route edges="beg beg2right right right2end end rend"/>
-	</vehicle>
-	<vehicle id="HDV_6_2" depart="120" departspeed="19.44" type="HDV_6_2">
-		<route edges="beg beg2right right right2end end rend"/>
-	</vehicle>
-	<vehicle id="HDV_6_3" depart="140" departspeed="19.44" type="HDV_6_3">
-		<route edges="beg beg2right right right2end end rend"/>
-	</vehicle>
-	<vehicle id="HDV_6_4" depart="160" departspeed="19.44" type="HDV_6_4">
-		<route edges="beg beg2right right right2end end rend"/>
-	</vehicle>
-	<vehicle id="HDV_6_5" depart="180" departspeed="19.44" type="HDV_6_5">
-		<route edges="beg beg2right right right2end end rend"/>
-	</vehicle>
-	<vehicle id="HDV_6_6" depart="200" departspeed="19.44" type="HDV_6_6">
+	<vehicle departpos="0" id="HDV_3_3" depart="40" departspeed="19.44" type="HDV_3_3">
 		<route edges="beg beg2right right right2end end rend"/>
 	</vehicle>
 
 
-	<vehicle id="HDV_12_1" depart="300" departspeed="19.44" type="HDV_12_1">
+	<vehicle departpos="0" id="HDV_6_1" depart="100" departspeed="19.44" type="HDV_6_1">
 		<route edges="beg beg2right right right2end end rend"/>
 	</vehicle>
-	<vehicle id="HDV_12_2" depart="320" departspeed="19.44" type="HDV_12_2">
+	<vehicle departpos="0" id="HDV_6_2" depart="120" departspeed="19.44" type="HDV_6_2">
 		<route edges="beg beg2right right right2end end rend"/>
 	</vehicle>
-	<vehicle id="HDV_12_3" depart="340" departspeed="19.44" type="HDV_12_3">
+	<vehicle departpos="0" id="HDV_6_3" depart="140" departspeed="19.44" type="HDV_6_3">
 		<route edges="beg beg2right right right2end end rend"/>
 	</vehicle>
-	<vehicle id="HDV_12_4" depart="360" departspeed="19.44" type="HDV_12_4">
+	<vehicle departpos="0" id="HDV_6_4" depart="160" departspeed="19.44" type="HDV_6_4">
 		<route edges="beg beg2right right right2end end rend"/>
 	</vehicle>
-	<vehicle id="HDV_12_5" depart="380" departspeed="19.44" type="HDV_12_5">
+	<vehicle departpos="0" id="HDV_6_5" depart="180" departspeed="19.44" type="HDV_6_5">
 		<route edges="beg beg2right right right2end end rend"/>
 	</vehicle>
-	<vehicle id="HDV_12_6" depart="400" departspeed="19.44" type="HDV_12_6">
+	<vehicle departpos="0" id="HDV_6_6" depart="200" departspeed="19.44" type="HDV_6_6">
 		<route edges="beg beg2right right right2end end rend"/>
 	</vehicle>
-	<vehicle id="HDV_12_7" depart="420" departspeed="19.44" type="HDV_12_7">
+
+
+	<vehicle departpos="0" id="HDV_12_1" depart="300" departspeed="19.44" type="HDV_12_1">
 		<route edges="beg beg2right right right2end end rend"/>
 	</vehicle>
-	<vehicle id="HDV_12_8" depart="440" departspeed="19.44" type="HDV_12_8">
+	<vehicle departpos="0" id="HDV_12_2" depart="320" departspeed="19.44" type="HDV_12_2">
 		<route edges="beg beg2right right right2end end rend"/>
 	</vehicle>
-	<vehicle id="HDV_12_9" depart="460" departspeed="19.44" type="HDV_12_9">
+	<vehicle departpos="0" id="HDV_12_3" depart="340" departspeed="19.44" type="HDV_12_3">
 		<route edges="beg beg2right right right2end end rend"/>
 	</vehicle>
-	<vehicle id="HDV_12_10" depart="480" departspeed="19.44" type="HDV_12_10">
+	<vehicle departpos="0" id="HDV_12_4" depart="360" departspeed="19.44" type="HDV_12_4">
 		<route edges="beg beg2right right right2end end rend"/>
 	</vehicle>
-	<vehicle id="HDV_12_11" depart="500" departspeed="19.44" type="HDV_12_11">
+	<vehicle departpos="0" id="HDV_12_5" depart="380" departspeed="19.44" type="HDV_12_5">
 		<route edges="beg beg2right right right2end end rend"/>
 	</vehicle>
-	<vehicle id="HDV_12_12" depart="520" departspeed="19.44" type="HDV_12_12">
+	<vehicle departpos="0" id="HDV_12_6" depart="400" departspeed="19.44" type="HDV_12_6">
+		<route edges="beg beg2right right right2end end rend"/>
+	</vehicle>
+	<vehicle departpos="0" id="HDV_12_7" depart="420" departspeed="19.44" type="HDV_12_7">
+		<route edges="beg beg2right right right2end end rend"/>
+	</vehicle>
+	<vehicle departpos="0" id="HDV_12_8" depart="440" departspeed="19.44" type="HDV_12_8">
+		<route edges="beg beg2right right right2end end rend"/>
+	</vehicle>
+	<vehicle departpos="0" id="HDV_12_9" depart="460" departspeed="19.44" type="HDV_12_9">
+		<route edges="beg beg2right right right2end end rend"/>
+	</vehicle>
+	<vehicle departpos="0" id="HDV_12_10" depart="480" departspeed="19.44" type="HDV_12_10">
+		<route edges="beg beg2right right right2end end rend"/>
+	</vehicle>
+	<vehicle departpos="0" id="HDV_12_11" depart="500" departspeed="19.44" type="HDV_12_11">
+		<route edges="beg beg2right right right2end end rend"/>
+	</vehicle>
+	<vehicle departpos="0" id="HDV_12_12" depart="520" departspeed="19.44" type="HDV_12_12">
 		<route edges="beg beg2right right right2end end rend"/>
 	</vehicle>
 
 
 
 
-	<vehicle id="P_7_1" depart="600" departspeed="19.44" type="P_7_1">
+	<vehicle departpos="0" id="P_7_1" depart="600" departspeed="19.44" type="P_7_1">
 		<route edges="beg beg2right right right2end end rend"/>
 	</vehicle>
-	<vehicle id="P_7_2" depart="620" departspeed="19.44" type="P_7_2">
+	<vehicle departpos="0" id="P_7_2" depart="620" departspeed="19.44" type="P_7_2">
 		<route edges="beg beg2right right right2end end rend"/>
 	</vehicle>
-	<vehicle id="P_7_3" depart="640" departspeed="19.44" type="P_7_3">
+	<vehicle departpos="0" id="P_7_3" depart="640" departspeed="19.44" type="P_7_3">
 		<route edges="beg beg2right right right2end end rend"/>
 	</vehicle>
-	<vehicle id="P_7_4" depart="660" departspeed="19.44" type="P_7_4">
+	<vehicle departpos="0" id="P_7_4" depart="660" departspeed="19.44" type="P_7_4">
 		<route edges="beg beg2right right right2end end rend"/>
 	</vehicle>
-	<vehicle id="P_7_5" depart="680" departspeed="19.44" type="P_7_5">
+	<vehicle departpos="0" id="P_7_5" depart="680" departspeed="19.44" type="P_7_5">
 		<route edges="beg beg2right right right2end end rend"/>
 	</vehicle>
-	<vehicle id="P_7_6" depart="700" departspeed="19.44" type="P_7_6">
+	<vehicle departpos="0" id="P_7_6" depart="700" departspeed="19.44" type="P_7_6">
 		<route edges="beg beg2right right right2end end rend"/>
 	</vehicle>
-	<vehicle id="P_7_7" depart="720" departspeed="19.44" type="P_7_7">
+	<vehicle departpos="0" id="P_7_7" depart="720" departspeed="19.44" type="P_7_7">
 		<route edges="beg beg2right right right2end end rend"/>
 	</vehicle>
 
 
-	<vehicle id="P_14_1" depart="800" departspeed="19.44" type="P_14_1">
+	<vehicle departpos="0" id="P_14_1" depart="800" departspeed="19.44" type="P_14_1">
 		<route edges="beg beg2right right right2end end rend"/>
 	</vehicle>
-	<vehicle id="P_14_2" depart="820" departspeed="19.44" type="P_14_2">
+	<vehicle departpos="0" id="P_14_2" depart="820" departspeed="19.44" type="P_14_2">
 		<route edges="beg beg2right right right2end end rend"/>
 	</vehicle>
-	<vehicle id="P_14_3" depart="840" departspeed="19.44" type="P_14_3">
+	<vehicle departpos="0" id="P_14_3" depart="840" departspeed="19.44" type="P_14_3">
 		<route edges="beg beg2right right right2end end rend"/>
 	</vehicle>
-	<vehicle id="P_14_4" depart="860" departspeed="19.44" type="P_14_4">
+	<vehicle departpos="0" id="P_14_4" depart="860" departspeed="19.44" type="P_14_4">
 		<route edges="beg beg2right right right2end end rend"/>
 	</vehicle>
-	<vehicle id="P_14_5" depart="880" departspeed="19.44" type="P_14_5">
+	<vehicle departpos="0" id="P_14_5" depart="880" departspeed="19.44" type="P_14_5">
 		<route edges="beg beg2right right right2end end rend"/>
 	</vehicle>
-	<vehicle id="P_14_6" depart="900" departspeed="19.44" type="P_14_6">
+	<vehicle departpos="0" id="P_14_6" depart="900" departspeed="19.44" type="P_14_6">
 		<route edges="beg beg2right right right2end end rend"/>
 	</vehicle>
-	<vehicle id="P_14_7" depart="920" departspeed="19.44" type="P_14_7">
+	<vehicle departpos="0" id="P_14_7" depart="920" departspeed="19.44" type="P_14_7">
 		<route edges="beg beg2right right right2end end rend"/>
 	</vehicle>
-	<vehicle id="P_14_8" depart="940" departspeed="19.44" type="P_14_8">
+	<vehicle departpos="0" id="P_14_8" depart="940" departspeed="19.44" type="P_14_8">
 		<route edges="beg beg2right right right2end end rend"/>
 	</vehicle>
-	<vehicle id="P_14_9" depart="960" departspeed="19.44" type="P_14_9">
+	<vehicle departpos="0" id="P_14_9" depart="960" departspeed="19.44" type="P_14_9">
 		<route edges="beg beg2right right right2end end rend"/>
 	</vehicle>
-	<vehicle id="P_14_10" depart="980" departspeed="19.44" type="P_14_10">
+	<vehicle departpos="0" id="P_14_10" depart="980" departspeed="19.44" type="P_14_10">
 		<route edges="beg beg2right right right2end end rend"/>
 	</vehicle>
-	<vehicle id="P_14_11" depart="1000" departspeed="19.44" type="P_14_11">
+	<vehicle departpos="0" id="P_14_11" depart="1000" departspeed="19.44" type="P_14_11">
 		<route edges="beg beg2right right right2end end rend"/>
 	</vehicle>
-	<vehicle id="P_14_12" depart="1020" departspeed="19.44" type="P_14_12">
+	<vehicle departpos="0" id="P_14_12" depart="1020" departspeed="19.44" type="P_14_12">
 		<route edges="beg beg2right right right2end end rend"/>
 	</vehicle>
-	<vehicle id="P_14_13" depart="1040" departspeed="19.44" type="P_14_13">
+	<vehicle departpos="0" id="P_14_13" depart="1040" departspeed="19.44" type="P_14_13">
 		<route edges="beg beg2right right right2end end rend"/>
 	</vehicle>
-	<vehicle id="P_14_14" depart="1060" departspeed="19.44" type="P_14_14">
+	<vehicle departpos="0" id="P_14_14" depart="1060" departspeed="19.44" type="P_14_14">
 		<route edges="beg beg2right right right2end end rend"/>
 	</vehicle>
 
