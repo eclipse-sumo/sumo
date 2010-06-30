@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 04/02/10 15:10:44 by SUMO sumo Version dev-SVN-r8487
+<!-- generated on 06/30/10 09:03:46 by SUMO sumo Version dev-SVN-r8163
 <configuration>
 
     <input>
@@ -26,14 +26,14 @@
 -->
 
 <tripinfos>
-    <tripinfo id="0" depart="0.00" departLane="beg_0" departPos="0.00" departSpeed="0.00" departDelay="0.00" arrival="120.00" arrivalLane="rend_0" arrivalPos="25.63" arrivalSpeed="27.80" duration="120.00" routeLength="2013.23" waitSteps="0" rerouteNo="0" devices="" vtype="t1" vaporized=""/>
-    <tripinfo id="1" depart="10.00" departLane="beg_0" departPos="0.00" departSpeed="0.00" departDelay="0.00" arrival="130.00" arrivalLane="rend_0" arrivalPos="25.63" arrivalSpeed="27.80" duration="120.00" routeLength="2013.23" waitSteps="0" rerouteNo="0" devices="" vtype="t1" vaporized=""/>
-    <tripinfo id="2" depart="20.00" departLane="beg_0" departPos="0.00" departSpeed="0.00" departDelay="0.00" arrival="140.00" arrivalLane="rend_0" arrivalPos="25.63" arrivalSpeed="27.80" duration="120.00" routeLength="2013.23" waitSteps="0" rerouteNo="0" devices="" vtype="t1" vaporized=""/>
-    <tripinfo id="3" depart="30.00" departLane="beg_0" departPos="0.00" departSpeed="0.00" departDelay="0.00" arrival="150.00" arrivalLane="rend_0" arrivalPos="25.63" arrivalSpeed="27.80" duration="120.00" routeLength="2013.23" waitSteps="0" rerouteNo="0" devices="" vtype="t1" vaporized=""/>
-    <tripinfo id="4" depart="40.00" departLane="beg_0" departPos="0.00" departSpeed="0.00" departDelay="0.00" arrival="160.00" arrivalLane="rend_0" arrivalPos="25.63" arrivalSpeed="27.80" duration="120.00" routeLength="2013.23" waitSteps="0" rerouteNo="0" devices="" vtype="t1" vaporized=""/>
-    <tripinfo id="5" depart="50.00" departLane="beg_0" departPos="0.00" departSpeed="0.00" departDelay="0.00" arrival="170.00" arrivalLane="rend_0" arrivalPos="25.63" arrivalSpeed="27.80" duration="120.00" routeLength="2013.23" waitSteps="0" rerouteNo="0" devices="" vtype="t1" vaporized=""/>
-    <tripinfo id="6" depart="60.00" departLane="beg_0" departPos="0.00" departSpeed="0.00" departDelay="0.00" arrival="180.00" arrivalLane="rend_0" arrivalPos="25.63" arrivalSpeed="27.80" duration="120.00" routeLength="2013.23" waitSteps="0" rerouteNo="0" devices="" vtype="t1" vaporized=""/>
-    <tripinfo id="7" depart="70.00" departLane="beg_0" departPos="0.00" departSpeed="0.00" departDelay="0.00" arrival="190.00" arrivalLane="rend_0" arrivalPos="25.63" arrivalSpeed="27.80" duration="120.00" routeLength="2013.23" waitSteps="0" rerouteNo="0" devices="" vtype="t1" vaporized=""/>
-    <tripinfo id="8" depart="80.00" departLane="beg_0" departPos="0.00" departSpeed="0.00" departDelay="0.00" arrival="200.00" arrivalLane="rend_0" arrivalPos="25.63" arrivalSpeed="27.80" duration="120.00" routeLength="2013.23" waitSteps="0" rerouteNo="0" devices="" vtype="t1" vaporized=""/>
-    <tripinfo id="9" depart="90.00" departLane="beg_0" departPos="0.00" departSpeed="0.00" departDelay="0.00" arrival="210.00" arrivalLane="rend_0" arrivalPos="25.63" arrivalSpeed="27.80" duration="120.00" routeLength="2013.23" waitSteps="0" rerouteNo="0" devices="" vtype="t1" vaporized=""/>
+    <tripinfo id="0" depart="0.00" departLane="beg_0" departPos="7.60" departSpeed="0.00" departDelay="0.00" arrival="120.00" arrivalLane="rend_0" arrivalPos="18.36" arrivalSpeed="27.80" duration="120.00" routeLength="1998.36" waitSteps="0" rerouteNo="0" devices="" vtype="t1" vaporized=""/>
+    <tripinfo id="1" depart="10.00" departLane="beg_0" departPos="7.60" departSpeed="0.00" departDelay="0.00" arrival="130.00" arrivalLane="rend_0" arrivalPos="18.36" arrivalSpeed="27.80" duration="120.00" routeLength="1998.36" waitSteps="0" rerouteNo="0" devices="" vtype="t1" vaporized=""/>
+    <tripinfo id="2" depart="20.00" departLane="beg_0" departPos="7.60" departSpeed="0.00" departDelay="0.00" arrival="140.00" arrivalLane="rend_0" arrivalPos="18.36" arrivalSpeed="27.80" duration="120.00" routeLength="1998.36" waitSteps="0" rerouteNo="0" devices="" vtype="t1" vaporized=""/>
+    <tripinfo id="3" depart="30.00" departLane="beg_0" departPos="7.60" departSpeed="0.00" departDelay="0.00" arrival="150.00" arrivalLane="rend_0" arrivalPos="18.36" arrivalSpeed="27.80" duration="120.00" routeLength="1998.36" waitSteps="0" rerouteNo="0" devices="" vtype="t1" vaporized=""/>
+    <tripinfo id="4" depart="40.00" departLane="beg_0" departPos="7.60" departSpeed="0.00" departDelay="0.00" arrival="160.00" arrivalLane="rend_0" arrivalPos="18.36" arrivalSpeed="27.80" duration="120.00" routeLength="1998.36" waitSteps="0" rerouteNo="0" devices="" vtype="t1" vaporized=""/>
+    <tripinfo id="5" depart="50.00" departLane="beg_0" departPos="7.60" departSpeed="0.00" departDelay="0.00" arrival="170.00" arrivalLane="rend_0" arrivalPos="18.36" arrivalSpeed="27.80" duration="120.00" routeLength="1998.36" waitSteps="0" rerouteNo="0" devices="" vtype="t1" vaporized=""/>
+    <tripinfo id="6" depart="60.00" departLane="beg_0" departPos="7.60" departSpeed="0.00" departDelay="0.00" arrival="180.00" arrivalLane="rend_0" arrivalPos="18.36" arrivalSpeed="27.80" duration="120.00" routeLength="1998.36" waitSteps="0" rerouteNo="0" devices="" vtype="t1" vaporized=""/>
+    <tripinfo id="7" depart="70.00" departLane="beg_0" departPos="7.60" departSpeed="0.00" departDelay="0.00" arrival="190.00" arrivalLane="rend_0" arrivalPos="18.36" arrivalSpeed="27.80" duration="120.00" routeLength="1998.36" waitSteps="0" rerouteNo="0" devices="" vtype="t1" vaporized=""/>
+    <tripinfo id="8" depart="80.00" departLane="beg_0" departPos="7.60" departSpeed="0.00" departDelay="0.00" arrival="200.00" arrivalLane="rend_0" arrivalPos="18.36" arrivalSpeed="27.80" duration="120.00" routeLength="1998.36" waitSteps="0" rerouteNo="0" devices="" vtype="t1" vaporized=""/>
+    <tripinfo id="9" depart="90.00" departLane="beg_0" departPos="7.60" departSpeed="0.00" departDelay="0.00" arrival="210.00" arrivalLane="rend_0" arrivalPos="18.36" arrivalSpeed="27.80" duration="120.00" routeLength="1998.36" waitSteps="0" rerouteNo="0" devices="" vtype="t1" vaporized=""/>
 </tripinfos>
