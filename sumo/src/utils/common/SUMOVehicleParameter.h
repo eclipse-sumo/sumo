@@ -107,6 +107,8 @@ enum DepartPosDefinition {
     DEPART_POS_RANDOM,
     /// @brief A free position is chosen
     DEPART_POS_FREE,
+    /// @brief Back-at-zero position
+    DEPART_POS_BASE,
     /// @brief If a fixed number of random choices fails, a free position is chosen
     DEPART_POS_RANDOM_FREE
 };

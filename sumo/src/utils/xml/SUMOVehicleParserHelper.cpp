@@ -244,6 +244,8 @@ SUMOVehicleParserHelper::parseCommonAttributes(const SUMOSAXAttributes &attrs,
             ret->departPosProcedure = DEPART_POS_RANDOM_FREE;
         } else if (helper=="free") {
             ret->departPosProcedure = DEPART_POS_FREE;
+        } else if (helper=="base") {
+            ret->departPosProcedure = DEPART_POS_BASE;
         } else {
             try {
                 ret->departPos = TplConvert<char>::_2SUMOReal(helper.c_str());

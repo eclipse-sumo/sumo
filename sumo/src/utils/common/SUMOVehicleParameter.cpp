@@ -110,6 +110,9 @@ SUMOVehicleParameter::writeAs(const std::string &xmlElem, OutputDevice &dev,
         case DEPART_POS_FREE:
             val = "free";
             break;
+        case DEPART_POS_BASE:
+            val = "base";
+            break;
         case DEPART_POS_DEFAULT:
         default:
             break;

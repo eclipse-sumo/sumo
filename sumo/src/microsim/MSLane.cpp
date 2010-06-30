@@ -222,12 +222,12 @@ MSLane::emit(MSVehicle& veh) throw(ProcessError) {
     break;
     case DEPART_POS_FREE:
         return freeEmit(veh, speed);
+    case DEPART_POS_BASE:
     case DEPART_POS_DEFAULT:
     default:
-        // pos = 0 was set before
+        pos = veh.getVehicleType().getLength() + POSITION_EPS;
         break;
     }
-
     // try to emit
     return isEmissionSuccess(&veh, speed, pos, patchSpeed);
 }
