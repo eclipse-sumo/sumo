@@ -1,5 +1,5 @@
 <routes>
-    <vehicle id="v1" depart="triggered">
+    <vehicle id="v1" depart="triggered" departpos="0">
         <route edges="beg middle end"/>
     </vehicle>
     <person id="p1" depart="0">
