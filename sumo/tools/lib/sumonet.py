@@ -223,7 +223,12 @@ class NetTLSProgram:
     def addPhase(self, state, duration):
         self._phases.append( (state, duration) )
 
+class NetRoundabout:
+    def __init__(self, nodes):
+        self._nodes = nodes
 
+    def getNodes(self):
+        return self._nodes
 
 class Net:
     """The whole sumo network."""
@@ -235,6 +240,7 @@ class Net:
         self._edges = []
         self._tlss = []
         self._ranges = [ [10000, -10000], [10000, -10000] ]
+        self._roundabouts = []
 
     def addNode(self, id, coord=None, incLanes=None):
         if id not in self._id2node:
@@ -264,6 +270,14 @@ class Net:
         lane = NetLane(edge, speed, length)
         return lane
 
+    def addRoundabout(self, nodes):
+        roundabout = NetRoundabout(nodes)
+        self._roundabouts.append(roundabout)
+        return roundabout
+    
+    def getRoundabouts(self):
+        return self._roundabouts
+        
     def getEdge(self, id):
         return self._id2edge[id]
 
@@ -328,10 +342,7 @@ class Net:
                 toProc.extend(mn)
         return ret
 
-
-
-
-
+    
 class NetReader(handler.ContentHandler):
     """Reads a network, storing the edge geometries, lane numbers and max. speeds"""
 
@@ -396,6 +407,10 @@ class NetReader(handler.ContentHandler):
             self._currentProgram = self._net.addTLSProgram(attrs['id'], attrs['programID'], int(attrs['offset']), attrs['type'])
         if self._withPhases and name=='phase':
             self._currentProgram.addPhase(attrs['state'], int(attrs['duration']))
+        if name == 'roundabout':
+            ra= str(attrs['nodes'])
+            ra =ra.split(' ')
+            self._net.addRoundabout(ra)
 
     def characters(self, content):
         if self._currentLane!=None:
