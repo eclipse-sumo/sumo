@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 04/03/10 11:24:14 by SUMO netconvert Version dev-SVN-r8487
+<!-- generated on 07/01/10 12:46:06 by SUMO netconvert Version dev-SVN-r8163
 <configuration>
 
     <input>
@@ -18380,11 +18380,11 @@
 
    <row-logic id="297063801" requestSize="9" laneNumber="3">
       <logic>
-         <logicitem request="0" response="000000000" foes="100010000"/>
-         <logicitem request="1" response="011000000" foes="011110000"/>
+         <logicitem request="0" response="000010000" foes="100010000"/>
+         <logicitem request="1" response="011010000" foes="011110000"/>
          <logicitem request="2" response="010001000" foes="010001000"/>
          <logicitem request="3" response="000000000" foes="010000100"/>
-         <logicitem request="4" response="000000011" foes="110000011"/>
+         <logicitem request="4" response="000000000" foes="110000011"/>
          <logicitem request="5" response="001000010" foes="001000010"/>
          <logicitem request="6" response="000000000" foes="000100010"/>
          <logicitem request="7" response="000011000" foes="000011110"/>
@@ -20247,11 +20247,11 @@
 
    <row-logic id="297082767" requestSize="9" laneNumber="3">
       <logic>
-         <logicitem request="0" response="000000000" foes="100010000"/>
-         <logicitem request="1" response="011000000" foes="011110000"/>
+         <logicitem request="0" response="000010000" foes="100010000"/>
+         <logicitem request="1" response="011010000" foes="011110000"/>
          <logicitem request="2" response="010001000" foes="010001000"/>
          <logicitem request="3" response="000000000" foes="010000100"/>
-         <logicitem request="4" response="000000011" foes="110000011"/>
+         <logicitem request="4" response="000000000" foes="110000011"/>
          <logicitem request="5" response="001000010" foes="001000010"/>
          <logicitem request="6" response="000000000" foes="000100010"/>
          <logicitem request="7" response="000011000" foes="000011110"/>
@@ -28656,44 +28656,44 @@
    </row-logic>
 
 
-   <tl-logic id="26698813" type="static" programID="0" offset="0.00">
-      <phase duration="31.00" state="GGGggrrrrGGGggrrrr"/>
-      <phase duration="9.00" state="yyyggrrrryyyggrrrr"/>
-      <phase duration="6.00" state="rrrGGrrrrrrrGGrrrr"/>
-      <phase duration="9.00" state="rrryyrrrrrrryyrrrr"/>
-      <phase duration="31.00" state="rrrrrGGggrrrrrGGgg"/>
-      <phase duration="9.00" state="rrrrryyggrrrrryygg"/>
-      <phase duration="6.00" state="rrrrrrrGGrrrrrrrGG"/>
-      <phase duration="9.00" state="rrrrrrryyrrrrrrryy"/>
+   <tl-logic id="26698813" type="static" programID="0" offset="0">
+      <phase duration="31" state="GGGggrrrrGGGggrrrr"/>
+      <phase duration="9" state="yyyggrrrryyyggrrrr"/>
+      <phase duration="6" state="rrrGGrrrrrrrGGrrrr"/>
+      <phase duration="9" state="rrryyrrrrrrryyrrrr"/>
+      <phase duration="31" state="rrrrrGGggrrrrrGGgg"/>
+      <phase duration="9" state="rrrrryyggrrrrryygg"/>
+      <phase duration="6" state="rrrrrrrGGrrrrrrrGG"/>
+      <phase duration="9" state="rrrrrrryyrrrrrrryy"/>
    </tl-logic>
 
-   <tl-logic id="27229880" type="static" programID="0" offset="0.00">
-      <phase duration="31.00" state="GGGggrrrrGGGggrrrr"/>
-      <phase duration="9.00" state="yyyggrrrryyyggrrrr"/>
-      <phase duration="6.00" state="rrrGGrrrrrrrGGrrrr"/>
-      <phase duration="9.00" state="rrryyrrrrrrryyrrrr"/>
-      <phase duration="31.00" state="rrrrrGGggrrrrrGGgg"/>
-      <phase duration="9.00" state="rrrrryyggrrrrryygg"/>
-      <phase duration="6.00" state="rrrrrrrGGrrrrrrrGG"/>
-      <phase duration="9.00" state="rrrrrrryyrrrrrrryy"/>
+   <tl-logic id="27229880" type="static" programID="0" offset="0">
+      <phase duration="31" state="GGGggrrrrGGGggrrrr"/>
+      <phase duration="9" state="yyyggrrrryyyggrrrr"/>
+      <phase duration="6" state="rrrGGrrrrrrrGGrrrr"/>
+      <phase duration="9" state="rrryyrrrrrrryyrrrr"/>
+      <phase duration="31" state="rrrrrGGggrrrrrGGgg"/>
+      <phase duration="9" state="rrrrryyggrrrrryygg"/>
+      <phase duration="6" state="rrrrrrrGGrrrrrrrGG"/>
+      <phase duration="9" state="rrrrrrryyrrrrrrryy"/>
    </tl-logic>
 
-   <tl-logic id="307478324" type="static" programID="0" offset="0.00">
-      <phase duration="31.00" state="GGgGGr"/>
-      <phase duration="9.00" state="yyyyyr"/>
-      <phase duration="31.00" state="GGrGGg"/>
-      <phase duration="9.00" state="yyryyy"/>
+   <tl-logic id="307478324" type="static" programID="0" offset="0">
+      <phase duration="31" state="GGgGGr"/>
+      <phase duration="9" state="yyyyyr"/>
+      <phase duration="31" state="GGrGGg"/>
+      <phase duration="9" state="yyryyy"/>
    </tl-logic>
 
-   <tl-logic id="89112352" type="static" programID="0" offset="0.00">
-      <phase duration="31.00" state="rrrrGGGggrrrrGGGgg"/>
-      <phase duration="9.00" state="rrrryyyggrrrryyygg"/>
-      <phase duration="6.00" state="rrrrrrrGGrrrrrrrGG"/>
-      <phase duration="9.00" state="rrrrrrryyrrrrrrryy"/>
-      <phase duration="31.00" state="GGggrrrrrGGggrrrrr"/>
-      <phase duration="9.00" state="yyggrrrrryyggrrrrr"/>
-      <phase duration="6.00" state="rrGGrrrrrrrGGrrrrr"/>
-      <phase duration="9.00" state="rryyrrrrrrryyrrrrr"/>
+   <tl-logic id="89112352" type="static" programID="0" offset="0">
+      <phase duration="31" state="rrrrGGGggrrrrGGGgg"/>
+      <phase duration="9" state="rrrryyyggrrrryyygg"/>
+      <phase duration="6" state="rrrrrrrGGrrrrrrrGG"/>
+      <phase duration="9" state="rrrrrrryyrrrrrrryy"/>
+      <phase duration="31" state="GGggrrrrrGGggrrrrr"/>
+      <phase duration="9" state="yyggrrrrryyggrrrrr"/>
+      <phase duration="6" state="rrGGrrrrrrrGGrrrrr"/>
+      <phase duration="9" state="rryyrrrrrrryyrrrrr"/>
    </tl-logic>
 
 
@@ -29091,7 +29091,7 @@
 
    <junction id="297063798" type="priority" x="7876.26" y="7267.96" incLanes="27077605_0 -27077606_0" intLanes="" shape="7878.80,7265.39 7872.67,7267.54 7878.15,7271.04"/>
 
-   <junction id="297063801" type="right_before_left" x="7861.59" y="7290.99" incLanes="27101087#0_0 27077606_0 -27101087#1_0" intLanes="" shape="7859.94,7295.28 7865.88,7292.63 7866.59,7289.19 7861.10,7285.70 7858.91,7286.40 7856.47,7292.42"/>
+   <junction id="297063801" type="priority" x="7861.59" y="7290.99" incLanes="27101087#0_0 27077606_0 -27101087#1_0" intLanes="" shape="7859.94,7295.28 7865.88,7292.63 7866.59,7289.19 7861.10,7285.70 7858.91,7286.40 7856.47,7292.42"/>
 
    <junction id="297063802" type="priority" x="8199.48" y="6562.62" incLanes="24217370_0 -27077607_0" intLanes="" shape="8196.37,6563.59 8202.57,6561.62 8202.60,6561.74 8196.36,6563.54"/>
 
@@ -29375,7 +29375,7 @@
 
    <junction id="297082761" type="priority" x="8000.67" y="7263.76" incLanes="27142681_0 -23951780#5_0 23951780#4_0" intLanes="" shape="8003.16,7269.59 8006.98,7264.33 8005.04,7261.14 7998.90,7258.99 7995.42,7267.31 8001.31,7270.06"/>
 
-   <junction id="297082767" type="right_before_left" x="8015.64" y="7282.00" incLanes="-27079454_0 -27142681_0 27142680_0" intLanes="" shape="8015.21,7287.59 8020.78,7284.24 8019.54,7279.51 8013.20,7278.07 8010.94,7280.80 8013.25,7287.23"/>
+   <junction id="297082767" type="priority" x="8015.64" y="7282.00" incLanes="-27079454_0 -27142681_0 27142680_0" intLanes="" shape="8015.21,7287.59 8020.78,7284.24 8019.54,7279.51 8013.20,7278.07 8010.94,7280.80 8013.25,7287.23"/>
 
    <junction id="297082770" type="priority" x="8083.49" y="7022.17" incLanes="-27079455_0 27077552#0_0" intLanes="" shape="8086.61,7018.44 8083.62,7017.30 8081.33,7018.24 8079.67,7024.53 8080.74,7026.36 8083.84,7027.17"/>
 
@@ -33652,9 +33652,9 @@
    </succ>
 
    <succ edge="-27079454" lane="-27079454_0" junction="297082767">
-      <succlane lane="-27142680_0" yield="0" dir="r" state="="/>
-      <succlane lane="27142681_0" yield="1" dir="s" state="="/>
-      <succlane lane="27079454_0" yield="1" dir="t" state="="/>
+      <succlane lane="-27142680_0" yield="1" dir="r" state="m"/>
+      <succlane lane="27142681_0" yield="1" dir="s" state="m"/>
+      <succlane lane="27079454_0" yield="1" dir="t" state="m"/>
    </succ>
 
    <succ edge="-27079455" lane="-27079455_0" junction="297082770">
@@ -33750,9 +33750,9 @@
    </succ>
 
    <succ edge="-27101087#1" lane="-27101087#1_0" junction="297063801">
-      <succlane lane="-27077606_0" yield="0" dir="r" state="="/>
-      <succlane lane="-27101087#0_0" yield="1" dir="s" state="="/>
-      <succlane lane="27101087#1_0" yield="1" dir="t" state="="/>
+      <succlane lane="-27077606_0" yield="0" dir="r" state="M"/>
+      <succlane lane="-27101087#0_0" yield="1" dir="s" state="m"/>
+      <succlane lane="27101087#1_0" yield="1" dir="t" state="m"/>
    </succ>
 
    <succ edge="-27101088" lane="-27101088_0" junction="297342162">
@@ -33901,9 +33901,9 @@
    </succ>
 
    <succ edge="-27142681" lane="-27142681_0" junction="297082767">
-      <succlane lane="27079454_0" yield="0" dir="s" state="="/>
-      <succlane lane="-27142680_0" yield="1" dir="l" state="="/>
-      <succlane lane="27142681_0" yield="1" dir="t" state="="/>
+      <succlane lane="27079454_0" yield="0" dir="s" state="M"/>
+      <succlane lane="-27142680_0" yield="0" dir="l" state="M"/>
+      <succlane lane="27142681_0" yield="1" dir="t" state="m"/>
    </succ>
 
    <succ edge="-27142683" lane="-27142683_0" junction="262209287">
@@ -40515,9 +40515,9 @@
    </succ>
 
    <succ edge="27077606" lane="27077606_0" junction="297063801">
-      <succlane lane="-27101087#0_0" yield="0" dir="r" state="="/>
-      <succlane lane="27101087#1_0" yield="1" dir="l" state="="/>
-      <succlane lane="-27077606_0" yield="1" dir="t" state="="/>
+      <succlane lane="-27101087#0_0" yield="0" dir="r" state="M"/>
+      <succlane lane="27101087#1_0" yield="0" dir="l" state="M"/>
+      <succlane lane="-27077606_0" yield="1" dir="t" state="m"/>
    </succ>
 
    <succ edge="27077607" lane="27077607_0" junction="259648769">
@@ -41864,9 +41864,9 @@
    </succ>
 
    <succ edge="27101087#0" lane="27101087#0_0" junction="297063801">
-      <succlane lane="27101087#1_0" yield="0" dir="s" state="="/>
-      <succlane lane="-27077606_0" yield="1" dir="l" state="="/>
-      <succlane lane="-27101087#0_0" yield="1" dir="t" state="="/>
+      <succlane lane="27101087#1_0" yield="1" dir="s" state="m"/>
+      <succlane lane="-27077606_0" yield="1" dir="l" state="m"/>
+      <succlane lane="-27101087#0_0" yield="1" dir="t" state="m"/>
    </succ>
 
    <succ edge="27101087#1" lane="27101087#1_0" junction="297342148">
@@ -42017,9 +42017,9 @@
    </succ>
 
    <succ edge="27142680" lane="27142680_0" junction="297082767">
-      <succlane lane="27142681_0" yield="0" dir="r" state="="/>
-      <succlane lane="27079454_0" yield="1" dir="l" state="="/>
-      <succlane lane="-27142680_0" yield="1" dir="t" state="="/>
+      <succlane lane="27142681_0" yield="0" dir="r" state="M"/>
+      <succlane lane="27079454_0" yield="1" dir="l" state="m"/>
+      <succlane lane="-27142680_0" yield="1" dir="t" state="m"/>
    </succ>
 
    <succ edge="27142681" lane="27142681_0" junction="297082761">

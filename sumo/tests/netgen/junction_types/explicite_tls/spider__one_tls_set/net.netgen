@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 04/26/10 12:38:26 by SUMO netgen Version dev-SVN-r8163
+<!-- generated on 07/01/10 12:46:48 by SUMO netgen Version dev-SVN-r8163
 <configuration>
 
     <spider_network>
@@ -527,13 +527,13 @@
    </row-logic>
 
 
-   <tl-logic id="1/1" type="static" programID="0" offset="0.00">
-      <phase duration="31.00" state="GggrrrGGg"/>
-      <phase duration="4.00" state="yggrrryyg"/>
-      <phase duration="6.00" state="rGGrrrrrG"/>
-      <phase duration="4.00" state="ryyrrrrry"/>
-      <phase duration="31.00" state="rrrGGgGrr"/>
-      <phase duration="4.00" state="rrryyyyrr"/>
+   <tl-logic id="1/1" type="static" programID="0" offset="0">
+      <phase duration="31" state="GggrrrGGg"/>
+      <phase duration="4" state="yggrrryyg"/>
+      <phase duration="6" state="rGGrrrrrG"/>
+      <phase duration="4" state="ryyrrrrry"/>
+      <phase duration="31" state="rrrGGgGrr"/>
+      <phase duration="4" state="rrryyyyrr"/>
    </tl-logic>
 
 
@@ -552,9 +552,9 @@
 
    <junction id=":1/1_10_0" type="internal" x="194.58" y="92.32" incLanes=":1/1_2_0 2/1to1/1_0" intLanes=":1/1_7_0" shape=""/>
 
-   <junction id=":1/1_11_0" type="internal" x="194.65" y="98.80" incLanes=":1/1_4_0 4/1to1/1_0" intLanes=":1/1_0_0 :1/1_1_0" shape=""/>
+   <junction id=":1/1_11_0" type="internal" x="194.65" y="98.80" incLanes=":1/1_4_0 2/1to1/1_0" intLanes=":1/1_7_0" shape=""/>
 
-   <junction id=":1/1_12_0" type="internal" x="190.74" y="98.41" incLanes=":1/1_5_0 4/1to1/1_0" intLanes=":1/1_1_0" shape=""/>
+   <junction id=":1/1_12_0" type="internal" x="190.74" y="98.41" incLanes=":1/1_5_0 2/1to1/1_0" intLanes=":1/1_6_0" shape=""/>
 
    <junction id=":1/1_13_0" type="internal" x="192.32" y="105.42" incLanes=":1/1_8_0 4/1to1/1_0" intLanes=":1/1_0_0" shape=""/>
 
