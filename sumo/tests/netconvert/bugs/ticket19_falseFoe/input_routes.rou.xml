@@ -1,0 +1,10 @@
+<routes>
+
+    <route id="l" edges="-1570 -1841"/>
+    <route id="r" edges="1816 -1841"/>
+
+    <flow id="r" period="2" begin="0" end="10" departpos="0" arrivalpos="-10" route="r"/>
+    <flow id="l" period="2" begin="0" end="10" departpos="0" arrivalpos="-10" route="l"/>
+
+
+</routes>
