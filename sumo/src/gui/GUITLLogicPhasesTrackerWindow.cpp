@@ -355,7 +355,7 @@ GUITLLogicPhasesTrackerWindow::drawValues(GUITLLogicPhasesTrackerPanel &caller) 
     size_t fpo = myFirstPhaseOffset;
 
     // start drawing
-    for (i=30; /*i<width&&*/pd!=myDurations.end();) {
+    for (i=30; pd!=myDurations.end();) {
         // the first phase may be drawn incompletely
         size_t duration = *pd - fpo;
         // compute the heigh and the width of the phase
