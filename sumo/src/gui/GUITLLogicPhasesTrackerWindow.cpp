@@ -259,17 +259,18 @@ GUITLLogicPhasesTrackerWindow::drawValues(GUITLLogicPhasesTrackerPanel &caller) 
             myLastTime += (*j)->duration;
         }
     } else {
-        myBeginTime = myLastTime - (SUMOTime) myBeginOffset->getValue();
+        SUMOTime beginOffset = (SUMOTime) TIME2STEPS(myBeginOffset->getValue());
+        myBeginTime = myLastTime - beginOffset;
         myFirstTime2Show = myBeginTime;
         // check whether no phases are known at all
         if (myDurations.size()!=0) {
             size_t durs = 0;
             size_t phaseOffset = myDurations.size() - 1;
             DurationsVector::reverse_iterator i=myDurations.rbegin();
-            while (/*noSecs>=0&&*/i!=myDurations.rend()) {
-                if (durs+(*i)>(size_t) myBeginOffset->getValue()) {
+            while (i!=myDurations.rend()) {
+                if (durs+(*i)>beginOffset) {
                     myFirstPhase2Show = phaseOffset;
-                    myFirstPhaseOffset = (durs+(*i)) - (size_t) myBeginOffset->getValue();
+                    myFirstPhaseOffset = (durs+(*i)) - beginOffset;
                     break;
                 }
                 durs += (*i);
@@ -280,7 +281,7 @@ GUITLLogicPhasesTrackerWindow::drawValues(GUITLLogicPhasesTrackerPanel &caller) 
                 // there are too few information stored;
                 myFirstPhase2Show = 0;
                 myFirstPhaseOffset = 0;
-                leftOffset = (size_t) myBeginOffset->getValue() - durs;
+                leftOffset = beginOffset - durs;
             }
         }
     }
@@ -354,7 +355,7 @@ GUITLLogicPhasesTrackerWindow::drawValues(GUITLLogicPhasesTrackerPanel &caller) 
     size_t fpo = myFirstPhaseOffset;
 
     // start drawing
-    for (i=30; i<width&&pd!=myDurations.end();) {
+    for (i=30; /*i<width&&*/pd!=myDurations.end();) {
         // the first phase may be drawn incompletely
         size_t duration = *pd - fpo;
         // compute the heigh and the width of the phase
@@ -417,7 +418,7 @@ GUITLLogicPhasesTrackerWindow::drawValues(GUITLLogicPhasesTrackerPanel &caller) 
     if (myPhases.size()!=0) {
         int tickDist = 10;
         // patch distances - hack
-        SUMOReal t = myBeginOffset!=0 ? (SUMOReal) myBeginOffset->getValue() : (SUMOReal)(myLastTime - myBeginTime);
+        SUMOReal t = myBeginOffset!=0 ? (SUMOReal) myBeginOffset->getValue() : (SUMOReal)STEPS2TIME(myLastTime - myBeginTime);
         while (t>(width-31.)/4.) {
             tickDist += 10;
             t -= (SUMOReal)((width-31.)/4.);
@@ -426,11 +427,9 @@ GUITLLogicPhasesTrackerWindow::drawValues(GUITLLogicPhasesTrackerPanel &caller) 
         h = (SUMOReal)(myTLLogic->getLinks().size() * 20 + 12);
         SUMOReal glh = (SUMOReal)(1.0 - myTLLogic->getLinks().size() * h20 - h10);
         // current begin time
-        //string timeStr = toString<SUMOTime>(myFirstTime2Show);
-        //SUMOReal w = pfdkGetStringWidth(timeStr.c_str());
         pfSetScaleXY((SUMOReal)(.05*300./width), (SUMOReal)(.05*300./height));
         // time ticks
-        SUMOTime currTime = myFirstTime2Show;
+        SUMOTime currTime = STEPS2TIME(myFirstTime2Show);
         int pos = 31;// + /*!!!currTime*/ - myFirstTime2Show;
         SUMOReal glpos = (SUMOReal) pos / (SUMOReal) width;
         while (pos<width+50) {
@@ -449,10 +448,10 @@ GUITLLogicPhasesTrackerWindow::drawValues(GUITLLogicPhasesTrackerPanel &caller) 
             glEnd();
 
             SUMOReal a = (SUMOReal) tickDist / width;
-            a *= (SUMOReal)(((width-31.0) / ((SUMOReal)(myLastTime - myBeginTime))));
+            a *= (SUMOReal)(((width-31.0) / ((SUMOReal)STEPS2TIME(myLastTime - myBeginTime))));
             glpos += a;
             SUMOReal a2 = (SUMOReal) tickDist;
-            a2 *= (SUMOReal)(((width-31.0) / ((SUMOReal)(myLastTime - myBeginTime))));
+            a2 *= (SUMOReal)(((width-31.0) / ((SUMOReal)STEPS2TIME(myLastTime - myBeginTime))));
             pos += (int) a2;
             currTime += tickDist;
         }
@@ -471,9 +470,9 @@ GUITLLogicPhasesTrackerWindow::addValue(std::pair<SUMOTime, MSPhaseDefinition> d
     // append or set the phase
     if (myPhases.size()==0||*(myPhases.end()-1)!=def.second) {
         myPhases.push_back(def.second);
-        myDurations.push_back(1);
+        myDurations.push_back(DELTA_T);
     } else {
-        *(myDurations.end()-1) += 1;
+        *(myDurations.end()-1) += DELTA_T;
     }
     // set the last time a phase was added at
     myLastTime = def.first;
