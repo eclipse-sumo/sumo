@@ -146,45 +146,71 @@ public:
         }
     };
 
+    // ---------------------------
+
     /**
-     * edge_opposite_direction_sorter
-     * Class to sort edges by their angle in relation to the given edge
-     * The resulting list should have the edge in the most opposite direction
-     * to the given edge as her first entry
+     * @class edge_opposite_direction_sorter
+     * @brief Class to sort edges by their angle in relation to the given edge
+     *
+     * The resulting sorted list has the edge in the most opposite direction
+     *  to the given edge as her first entry.
      */
     class edge_opposite_direction_sorter {
     public:
-        /// constructor
-        explicit edge_opposite_direction_sorter(NBEdge *e)
-                : myAngle(e->getAngle()), myEdge(e) {}
-
-    public:
-        /// comparing operation
-        int operator()(NBEdge *e1, NBEdge *e2) const {
-            SUMOReal d1 = getDiff(e1);
-            SUMOReal d2 = getDiff(e2);
-            return d1 < d2;
+        /** @brief Constructor
+         * @param[in] e The edge to which the sorting relates
+         * @param[in] n The node to consider
+         */
+        explicit edge_opposite_direction_sorter(const NBEdge * const e, const NBNode * const n) throw()
+            : myNode(n) {
+                myAngle = getEdgeAngleAt(e, n);
         }
 
-        /** helping method for the computation of the absolut difference
-         * between the edges' angles
+        /** @brief Comparing operation
+         * @param[in] e1 The first edge to compare
+         * @param[in] e2 The second edge to compare
+         * @return Which edge is more opposite to the related one
          */
-        SUMOReal getDiff(NBEdge *e) const {
-            SUMOReal d = e->getAngle()+180;
-            if (d>=360) {
-                d -= 360;
-            }
+        int operator()(NBEdge *e1, NBEdge *e2) const throw() {
+            SUMOReal d1 = getDiff(e1);
+            SUMOReal d2 = getDiff(e2);
+            return d1 > d2;
+        }
+
+    protected:
+        /** @brief Computes the angle difference between the related and the given edge
+         * @param[in] e The edge to compare the angle difference of
+         * @return The angle difference
+         */
+        SUMOReal getDiff(const NBEdge * const e) const throw() {
+            SUMOReal d = getEdgeAngleAt(e, myNode);
             return GeomHelper::getMinAngleDiff(d, myAngle);
         }
 
+        /** @brief Returns the given edge's angle at the given node
+         *
+         * Please note that we always consider the "outgoing direction".
+         * @param[in] e The edge to which the sorting relates
+         * @param[in] n The node to consider
+         */
+        SUMOReal getEdgeAngleAt(const NBEdge * const e, const NBNode * const n) const throw() {
+            if(e->getFromNode()==n) {
+                return e->getGeometry().getBegLine().atan2DegreeAngle();
+            } else {
+                return e->getGeometry().getEndLine().reverse().atan2DegreeAngle();
+            }
+        }
+
     private:
-        /// the angle to find the edge with the opposite direction
+        /// @brief The angle of the related edge at the given node
         SUMOReal myAngle;
 
-        /// the edge - to avoid comparison of an edge with itself
-        NBEdge *myEdge;
+        /// @brief The related node
+        const NBNode * const myNode;
 
     };
+
+    // ---------------------------
 
     /**
      * edge_similar_direction_sorter

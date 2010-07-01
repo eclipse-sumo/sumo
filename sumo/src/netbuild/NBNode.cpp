@@ -447,9 +447,9 @@ NBNode::setPriorityJunctionPriorities() {
     incoming = *myIncomingEdges;
     outgoing = *myOutgoingEdges;
     for (i=bestIncoming.begin(); i!=bestIncoming.end(); ++i) {
-        std::sort(incoming.begin(), incoming.end(), NBContHelper::edge_opposite_direction_sorter(*i));
+        std::sort(incoming.begin(), incoming.end(), NBContHelper::edge_opposite_direction_sorter(*i, this));
         counterIncomingEdges[*i] = *incoming.begin();
-        std::sort(outgoing.begin(), outgoing.end(), NBContHelper::edge_opposite_direction_sorter(*i));
+        std::sort(outgoing.begin(), outgoing.end(), NBContHelper::edge_opposite_direction_sorter(*i, this));
         counterOutgoingEdges[*i] = *outgoing.begin();
     }
     // ok, let's try
@@ -1473,7 +1473,7 @@ NBNode::getOppositeIncoming(NBEdge *e) const {
         edges.erase(find(edges.begin(), edges.end(), e));
     }
     if (e->getToNode()==this) {
-        sort(edges.begin(), edges.end(), NBContHelper::edge_opposite_direction_sorter(e));
+        sort(edges.begin(), edges.end(), NBContHelper::edge_opposite_direction_sorter(e, this));
     } else {
         sort(edges.begin(), edges.end(), NBContHelper::edge_similar_direction_sorter(e));
     }
