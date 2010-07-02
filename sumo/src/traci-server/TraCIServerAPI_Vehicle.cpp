@@ -704,14 +704,14 @@ TraCIServerAPI_Vehicle::processSet(tcpip::Storage &inputStorage,
         v->reroute(MSNet::getInstance()->getCurrentTimeStep(), router);
     }
     break;
-	case VAR_SIGNALS: {
+	case VAR_SIGNALS:
         if (valueDataType!=TYPE_INTEGER) {
             TraCIServerAPIHelper::writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Setting signals requires an integer.", outputStorage);
             return false;
         }
         v->switchOffSignal(0x0fffffff);
 		v->switchOnSignal(inputStorage.readInt());
-	}
+	    break;
 	case VAR_SPEED:
         if (valueDataType!=TYPE_DOUBLE) {
             TraCIServerAPIHelper::writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Setting speed requires a float.", outputStorage);
