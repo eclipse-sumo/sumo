@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+
+<!-- generated on 07/02/10 12:31:36 by SUMO duarouter Version dev-SVN-r8822
+<configuration>
+
+    <input>
+        <net-file value="input_net.net.xml"/>
+        <trip-defs value="input_trips.trips.xml"/>
+    </input>
+
+    <output>
+        <output-file value="routes.rou.xml"/>
+    </output>
+
+</configuration>
+-->
+
+<route-alternatives>
+    <vehicle id="0" type="0" depart="0.00">
+        <routeDistribution last="0">
+            <route cost="17.93" probability="1.00000000" edges="beg"/>
+        </routeDistribution>
+    </vehicle>
+</route-alternatives>

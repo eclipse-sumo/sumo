@@ -49,5 +49,8 @@ with_taz
 # using zones for start / end with no edge specified
 taz_noedge
 
+# Test with vehicle having same source and destination
+same_edge
+
 # Tests false input
 errors

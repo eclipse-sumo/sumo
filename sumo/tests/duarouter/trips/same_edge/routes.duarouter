@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+
+<!-- generated on 07/02/10 12:31:36 by SUMO duarouter Version dev-SVN-r8822
+<configuration>
+
+    <input>
+        <net-file value="input_net.net.xml"/>
+        <trip-defs value="input_trips.trips.xml"/>
+    </input>
+
+    <output>
+        <output-file value="routes.rou.xml"/>
+    </output>
+
+</configuration>
+-->
+
+<routes>
+    <vehicle id="0" type="0" depart="0.00">
+        <route edges="beg"/>
+    </vehicle>
+</routes>
