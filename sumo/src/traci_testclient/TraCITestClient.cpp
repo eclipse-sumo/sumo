@@ -139,6 +139,7 @@ TraCITestClient::run(std::string fileName, int port, std::string host) {
         errorMsg(msg);
         return false;
     }
+    defFile.unsetf(std::ios::dec);
 
     while (defFile >> lineCommand) {
         repNo = 1;
