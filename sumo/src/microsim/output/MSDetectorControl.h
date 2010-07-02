@@ -302,8 +302,6 @@ public:
 
     /** @brief Adds one of the detectors as a new MSDetectorFileOutput
      *
-     * This method is used within the TrafficTower-extension of SUMO
-     *
      * @param[in] det The generator to add
      * @param[in] device The device to use
      * @param[in] interval The sample interval to use

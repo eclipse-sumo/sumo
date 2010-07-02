@@ -594,7 +594,7 @@ NLDetectorBuilder::createEdgeLaneMeanData(const std::string &id, SUMOTime freque
         if (frequency < 0) {
             frequency = end - begin;
         }
-        MSNet::getInstance()->getDetectorControl().addDetectorAndInterval(det, &device, frequency);
+        MSNet::getInstance()->getDetectorControl().addDetectorAndInterval(det, &device, frequency, begin);
     }
 }
 
