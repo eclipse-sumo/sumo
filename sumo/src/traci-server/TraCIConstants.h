@@ -23,6 +23,9 @@
 // ****************************************
 // COMMANDS
 // ****************************************
+// command: get version
+#define CMD_GETVERSION 0x00
+
 // command: simulation step
 #define CMD_SIMSTEP 0x01
 

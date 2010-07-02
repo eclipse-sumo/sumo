@@ -126,6 +126,8 @@ private:
 
     bool commandChangeTarget() throw(TraCIException, std::invalid_argument);
 
+    bool commandGetVersion() throw(TraCIException);
+
     bool commandCloseConnection() throw(TraCIException);
 
     bool commandSimulationParameter() throw(TraCIException);

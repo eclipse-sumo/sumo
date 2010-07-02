@@ -348,6 +348,9 @@ throw(TraCIException, std::invalid_argument) {
     bool success = false;
     // dispatch commands
     switch (commandId) {
+    case CMD_GETVERSION:
+        success = commandGetVersion();
+        break;
     case CMD_SETMAXSPEED:
         success = commandSetMaximumSpeed();
         break;
@@ -1135,6 +1138,32 @@ TraCIServer::commandSlowDown() throw(TraCIException) {
 
     // create positive response message
     writeStatusCmd(CMD_SLOWDOWN, RTYPE_OK, "");
+    return true;
+}
+
+/*****************************************************************************/
+
+bool
+TraCIServer::commandGetVersion() throw(TraCIException) {
+
+    int apiVersion = 1;
+    std::string sumoVersion = VERSION_STRING;
+
+    // Prepare response
+    tcpip::Storage answerTmp;
+
+    answerTmp.writeInt(apiVersion);
+    answerTmp.writeString(sumoVersion);
+
+    // When we get here, the response is stored in answerTmp -> put into myOutputStorage
+    writeStatusCmd(CMD_GETVERSION, RTYPE_OK, "");
+
+    // command length
+    myOutputStorage.writeUnsignedByte(1 + 1 + static_cast<int>(answerTmp.size()));
+    // command type
+    myOutputStorage.writeUnsignedByte(CMD_GETVERSION);
+    // and the parameter dependant part
+    myOutputStorage.writeStorage(answerTmp);
     return true;
 }
 
