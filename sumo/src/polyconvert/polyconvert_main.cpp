@@ -165,6 +165,9 @@ fillOptions() throw() {
 
     oc.doRegister("layer", new Option_Integer(-1));
     oc.addDescription("layer", "Building Defaults", "Sets INT as default layer");
+
+    oc.doRegister("discard", new Option_Bool(false));
+    oc.addDescription("discard", "Building Defaults", "Sets default action to discard");
 }
 
 

@@ -150,7 +150,7 @@ PCLoaderDlrNavteq::loadPOIFile(const std::string &file,
         }
 
         // patch the values
-        bool discard = false;
+        bool discard = oc.getBool("discard");
         int layer = oc.getInt("layer");
         RGBColor color;
         if (tm.has(type)) {
@@ -243,7 +243,7 @@ PCLoaderDlrNavteq::loadPolyFile(const std::string &file,
 
         // patch the values
         bool fill = vec.getBegin()==vec.getEnd();
-        bool discard = false;
+        bool discard = oc.getBool("discard");
         int layer = oc.getInt("layer");
         RGBColor color;
         if (tm.has(type)) {

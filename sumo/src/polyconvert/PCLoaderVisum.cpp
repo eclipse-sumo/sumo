@@ -236,7 +236,7 @@ PCLoaderVisum::load(const std::string &file, OptionsCont &oc, PCPolyContainer &t
             // check the poi
             name = num;
             // patch the values
-            bool discard = false;
+            bool discard = oc.getBool("discard");
             int layer = oc.getInt("layer");
             RGBColor color;
             if (tm.has(type)) {
@@ -269,7 +269,7 @@ PCLoaderVisum::load(const std::string &file, OptionsCont &oc, PCPolyContainer &t
                 // we have parsed a polygon completely
                 RGBColor color;
                 int layer = oc.getInt("layer");
-                bool discard = false;
+                bool discard = oc.getBool("discard");
                 if (tm.has(polyType)) {
                     const PCTypeMap::TypeDef &def = tm.get(polyType);
                     id = def.prefix + id;
@@ -318,7 +318,7 @@ PCLoaderVisum::load(const std::string &file, OptionsCont &oc, PCPolyContainer &t
             // patch the values
             std::string type = "district";
             name = num;
-            bool discard = false;
+            bool discard = oc.getBool("discard");
             int layer = oc.getInt("layer");
             RGBColor color;
             if (tm.has(type)) {

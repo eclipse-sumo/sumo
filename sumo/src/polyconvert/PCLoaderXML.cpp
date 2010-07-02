@@ -115,7 +115,7 @@ PCLoaderXML::myStartElement(SumoXMLTag element,
             MsgHandler::getWarningInstance()->inform("Unable to project coordinates for POI '" + id + "'.");
         }
         // patch the values
-        bool discard = false;
+        bool discard = myOptions.getBool("discard");
         int layer = myOptions.getInt("layer");
         RGBColor color;
         if (myTypeMap.has(type)) {
@@ -143,7 +143,7 @@ PCLoaderXML::myStartElement(SumoXMLTag element,
         }
     }
     if (element==SUMO_TAG_POLY) {
-        bool discard = false;
+        bool discard = myOptions.getBool("discard");
         int layer = myOptions.getInt("layer");
         bool ok = true;
         std::string id = attrs.getOptStringReporting(SUMO_ATTR_ID, "poly", myCurrentID.c_str(), ok, "");

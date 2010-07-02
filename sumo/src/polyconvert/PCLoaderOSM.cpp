@@ -112,7 +112,7 @@ PCLoaderOSM::loadIfSet(OptionsCont &oc, PCPolyContainer &toFill,
         std::string type;
         RGBColor color;
         bool fill = vec.getBegin()==vec.getEnd();
-        bool discard = false;
+        bool discard = oc.getBool("discard");
         int layer = oc.getInt("layer");
         if (tm.has(e->myType)) {
             const PCTypeMap::TypeDef &def = tm.get(e->myType);
@@ -154,7 +154,7 @@ PCLoaderOSM::loadIfSet(OptionsCont &oc, PCPolyContainer &toFill,
         }
 
         // patch the values
-        bool discard = false;
+        bool discard = oc.getBool("discard");
         int layer = oc.getInt("layer");
         std::string name = toString(n->id);
         std::string type;
