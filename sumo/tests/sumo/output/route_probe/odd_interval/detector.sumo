@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+
+<!-- generated on 07/02/10 12:13:41 by SUMO sumo Version dev-SVN-r8822
+<configuration>
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <additional-files value="input_routes.rou.xml,input_additional.add.xml"/>
+    </input>
+
+    <time>
+        <begin value="0"/>
+        <end value="1000"/>
+    </time>
+
+    <report>
+        <no-duration-log value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+</configuration>
+-->
+
+<route-probes>
+    <routeDistribution id="r3/1to2/1_42.00">
+        <route id="r1_42.00" edges="4/1to3/1 3/1to2/1 2/1to1/1 1/1to0/1" probability="2.00"/>
+    </routeDistribution>
+</route-probes>

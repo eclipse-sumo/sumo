@@ -94,21 +94,22 @@ void
 MSRouteProbe::writeXMLOutput(OutputDevice &dev,
                              SUMOTime startTime, SUMOTime stopTime) throw(IOError) {
     if (myCurrentRouteDistribution->getOverallProb() > 0) {
-        const std::string indent("    ");
-        dev << indent << "<routeDistribution id=\"" << getID() + "_" + time2string(startTime) << "\">\n";
+        dev.openTag("routeDistribution") << " id=\"" << getID() + "_" + time2string(startTime) << "\">\n";
         const std::vector<const MSRoute*> &routes = myCurrentRouteDistribution->getVals();
         const std::vector<SUMOReal> &probs = myCurrentRouteDistribution->getProbs();
         for (unsigned int j=0; j<routes.size(); ++j) {
             const MSRoute *r = routes[j];
-            dev << indent << indent << "<route id=\"" << r->getID() << "_" <<time2string(startTime)<< "\" edges=\"";
-            MSRouteIterator i = r->begin();
-            for (; i!=r->end(); ++i) {
-                const MSEdge *e = *i;
-                dev << e->getID() << " ";
+            dev.openTag("route") << " id=\"" << r->getID() + "_" + time2string(startTime) << "\" edges=\"";
+            for (MSRouteIterator i = r->begin(); i!=r->end(); ++i) {
+                if (i != r->begin()) {
+                    dev << " ";
+                }
+                dev << (*i)->getID();
             }
-            dev << "\" probability=\"" << probs[j] << "\"/>\n";
+            dev << "\" probability=\"" << probs[j] << "\"";
+            dev.closeTag(true);
         }
-        dev << indent << "</routeDistribution>\n";
+        dev.closeTag();
         myCurrentRouteDistribution = new RandomDistributor<const MSRoute*>();
         MSRoute::dictionary(getID() + "_" + toString(stopTime), myCurrentRouteDistribution);
     }

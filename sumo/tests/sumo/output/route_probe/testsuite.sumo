@@ -12,3 +12,6 @@ null_output
 
 # Output to null file (Posix)
 devnull_output
+
+# Output at odd times
+odd_interval
