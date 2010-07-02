@@ -492,10 +492,15 @@ MSRouteHandler::closeRouteDistribution() {
 
 void
 MSRouteHandler::closeVehicle() throw(ProcessError) {
+    // get nested route
+    const MSRoute *route = MSRoute::dictionary("!" + myVehicleParameter->id);
     if (myVehicleParameter->departProcedure == DEPART_GIVEN) {
         myLastDepart = myVehicleParameter->depart;
         // let's check whether this vehicle had to be emitted before the simulation starts
         if (myVehicleParameter->depart<string2time(OptionsCont::getOptions().getString("begin"))) {
+            if (route!=0) {
+                MSRoute::erase(route->getID());
+            }
             return;
         }
     }
@@ -510,11 +515,8 @@ MSRouteHandler::closeVehicle() throw(ProcessError) {
         // there should be one (at least the default one)
         vtype = MSNet::getInstance()->getVehicleControl().getVType();
     }
-    // get the vehicle's route
-    //  maybe it was explicitely assigned to the vehicle
-    const MSRoute *route = MSRoute::dictionary("!" + myVehicleParameter->id);
     if (route==0) {
-        // if not, try via the (hopefully) given route-id
+        // if there is no nested route, try via the (hopefully) given route-id
         route = MSRoute::dictionary(myVehicleParameter->routeid);
     }
     if (route==0) {

@@ -176,12 +176,12 @@ MSDevice_Routing::onTryEmit() {
                     DijkstraRouterTT_ByProxi<MSEdge, SUMOVehicle, prohibited_withRestrictions<MSEdge, SUMOVehicle>, MSDevice_Routing>
                     router(MSEdge::dictSize(), true, this, &MSDevice_Routing::getEffort);
                     myHolder.reroute(MSNet::getInstance()->getCurrentTimeStep(), router, true);
-                    myLastPreEmitReroute = now;
                     myCachedRoutes[key] = &myHolder.getRoute();
                     myHolder.getRoute().addReference();
                 } else {
                     myHolder.replaceRoute(myCachedRoutes[key], now, true);
                 }
+                myLastPreEmitReroute = now;
             }
         }
     }
