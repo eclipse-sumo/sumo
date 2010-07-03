@@ -2,8 +2,8 @@ The subfolders contain additional libraries used by SUMO:
 
 - nvwa
  Memory checks library
- Used Version: 0.7
- Modifications: none
+ Used Version: 0.8.2
+ Modifications: unused files removed
  Original Page: http://sourceforge.net/projects/nvwa
 
 - Mersenne Twister Random Number Generator

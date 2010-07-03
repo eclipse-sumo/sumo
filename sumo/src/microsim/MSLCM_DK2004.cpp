@@ -640,19 +640,19 @@ MSLCM_DK2004::informBlocker(MSAbstractLaneChangeModel::MSLCMessager &msgPass,
         if (neighFollow.second>0&&decelGap>0&&nv->getCarFollowModel().hasSafeGap(nv->getSpeed(), decelGap, myVehicle.getSpeed(), nv->getLane().getMaxSpeed())) {//isSafeChange_WithDistance(decelGap, myVehicle, &nv->getLane())) {
             SUMOReal vsafe = myCarFollowModel.ffeV(&myVehicle, neighFollow.second, neighFollow.first->getSpeed());
             msgPass.informNeighFollower(
-                (void*) new Info(vsafe, dir|LCA_AMBLOCKINGFOLLOWER), &myVehicle);
+                new Info(vsafe, dir|LCA_AMBLOCKINGFOLLOWER), &myVehicle);
         } else {
             SUMOReal vsafe = neighFollow.second<=0
                              ? 0
                              : myCarFollowModel.ffeV(&myVehicle, neighFollow.second, neighFollow.first->getSpeed());
             msgPass.informNeighFollower(
-                (void*) new Info(vsafe, dir|LCA_AMBLOCKINGFOLLOWER_DONTBRAKE), &myVehicle);
+                new Info(vsafe, dir|LCA_AMBLOCKINGFOLLOWER_DONTBRAKE), &myVehicle);
         }
     }
     if ((blocked&LCA_BLOCKEDBY_LEADER)!=0) {
         if (neighLead.first!=0&&neighLead.second>0) {
             msgPass.informNeighLeader(
-                (void*) new Info(0, dir|LCA_AMBLOCKINGLEADER), &myVehicle);
+                new Info(0, dir|LCA_AMBLOCKINGLEADER), &myVehicle);
         }
     }
 }

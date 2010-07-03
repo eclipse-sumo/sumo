@@ -2,7 +2,7 @@
 // vim:tabstop=4:shiftwidth=4:expandtab:
 
 /*
- * Copyright (C) 2004-2005 Wu Yongwei <adah at users dot sourceforge dot net>
+ * Copyright (C) 2004-2008 Wu Yongwei <adah at users dot sourceforge dot net>
  *
  * This software is provided 'as-is', without any express or implied
  * warranty.  In no event will the authors be held liable for any
@@ -13,8 +13,8 @@
  * it freely, subject to the following restrictions:
  *
  * 1. The origin of this software must not be misrepresented; you must
- *    not claim that you wrote the original software. If you use this
- *    software in a product, an acknowledgment in the product
+ *    not claim that you wrote the original software.  If you use this
+ *    software in a product, an acknowledgement in the product
  *    documentation would be appreciated but is not required.
  * 2. Altered source versions must be plainly marked as such, and must
  *    not be misrepresented as being the original software.
@@ -31,7 +31,7 @@
  *
  * Header file for checking leaks caused by unmatched new/delete.
  *
- * @version 3.4, 2005/09/13
+ * @version 4.4, 2007/12/31
  * @author  Wu Yongwei
  *
  */
@@ -43,7 +43,7 @@
 #include <stdio.h>
 
 /**
- * @def HAS_PLACEMENT_DELETE
+ * @def HAVE_PLACEMENT_DELETE
  *
  * Macro to indicate whether placement delete operators are supported on
  * a certain compiler.  Some compilers, like Borland C++ Compiler 5.5.1
@@ -53,8 +53,8 @@
  * thrown in the initialization (constructor) of a dynamically created
  * object.
  */
-#ifndef HAS_PLACEMENT_DELETE
-#define HAS_PLACEMENT_DELETE 1
+#ifndef HAVE_PLACEMENT_DELETE
+#define HAVE_PLACEMENT_DELETE 1
 #endif
 
 /**
@@ -87,9 +87,10 @@
 
 /* Prototypes */
 int check_leaks();
+int check_mem_corruption();
 void* operator new(size_t size, const char* file, int line);
 void* operator new[](size_t size, const char* file, int line);
-#if HAS_PLACEMENT_DELETE
+#if HAVE_PLACEMENT_DELETE
 void operator delete(void* pointer, const char* file, int line) throw();
 void operator delete[](void* pointer, const char* file, int line) throw();
 #endif
@@ -109,12 +110,12 @@ extern const char* new_progname;// default to NULL; should be assigned argv[0]
 /**
  * @def DEBUG_NEW
  *
- * The macro to catch file/line information on allocation.  If
- * #_DEBUG_NEW_REDEFINE_NEW is not defined, one can use this macro
- * directly; otherwise \c new will be defined to it, and one must use
- * \c new instead.
+ * Macro to catch file/line information on allocation.  If
+ * #_DEBUG_NEW_REDEFINE_NEW is \c 0, one can use this macro directly;
+ * otherwise \c new will be defined to it, and one must use \c new
+ * instead.
  */
-#define DEBUG_NEW new(__FILE__, __LINE__)
+#define DEBUG_NEW __debug_new_recorder(__FILE__, __LINE__) ->* new
 
 # if _DEBUG_NEW_REDEFINE_NEW
 #   define new DEBUG_NEW
@@ -129,10 +130,45 @@ extern const char* new_progname;// default to NULL; should be assigned argv[0]
 #   define free(p) delete[] (char*)(p)
 # endif
 
-/** Counter class for on-exit leakage check. */
+/**
+ * Recorder class to remember the call context.
+ *
+ * The idea comes from <a href="http://groups.google.com/group/comp.lang.c++.moderated/browse_thread/thread/7089382e3bc1c489/85f9107a1dc79ee9?#85f9107a1dc79ee9">Greg Herlihy's post</a> in comp.lang.c++.moderated.
+ */
+class __debug_new_recorder
+{
+    const char* _M_file;
+    const int   _M_line;
+    void _M_process(void* pointer);
+public:
+    /**
+     * Constructor to remember the call context.  The information will
+     * be used in __debug_new_recorder::operator->*.
+     */
+    __debug_new_recorder(const char* file, int line)
+        : _M_file(file), _M_line(line) {}
+    /**
+     * Operator to write the context information to memory.
+     * <code>operator->*</code> is chosen because it has the right
+     * precedence, it is rarely used, and it looks good: so people can
+     * tell the special usage more quickly.
+     */
+    template <class _Tp> _Tp* operator->*(_Tp* pointer)
+    { _M_process(pointer); return pointer; }
+private:
+    __debug_new_recorder(const __debug_new_recorder&);
+    __debug_new_recorder& operator=(const __debug_new_recorder&);
+};
+
+/**
+ * Counter class for on-exit leakage check.
+ *
+ * This technique is learnt from <em>The C++ Programming Language</em> by
+ * Bjarne Stroustup.
+ */
 class __debug_new_counter
 {
-    static int _count;
+    static int _S_count;
 public:
     __debug_new_counter();
     ~__debug_new_counter();

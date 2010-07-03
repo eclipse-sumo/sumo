@@ -2,7 +2,7 @@
 // vim:tabstop=4:shiftwidth=4:expandtab:
 
 /*
- * Copyright (C) 2004-2005 Wu Yongwei <adah at users dot sourceforge dot net>
+ * Copyright (C) 2004-2008 Wu Yongwei <adah at users dot sourceforge dot net>
  *
  * This software is provided 'as-is', without any express or implied
  * warranty.  In no event will the authors be held liable for any
@@ -13,8 +13,8 @@
  * it freely, subject to the following restrictions:
  *
  * 1. The origin of this software must not be misrepresented; you must
- *    not claim that you wrote the original software. If you use this
- *    software in a product, an acknowledgment in the product
+ *    not claim that you wrote the original software.  If you use this
+ *    software in a product, an acknowledgement in the product
  *    documentation would be appreciated but is not required.
  * 2. Altered source versions must be plainly marked as such, and must
  *    not be misrepresented as being the original software.
