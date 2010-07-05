@@ -1,6 +1,6 @@
 // -*- Mode: C++; tab-width: 4; c-basic-offset: 4; indent-tabs-mode: nil -*-
 // vim:tabstop=4:shiftwidth=4:expandtab:
-
+#ifdef CHECK_MEMORY_LEAKS // SUMO-internal change
 /*
  * Copyright (C) 2004-2008 Wu Yongwei <adah at users dot sourceforge dot net>
  *
@@ -309,3 +309,7 @@ private:
 };
 
 #endif // _FAST_MUTEX_H
+
+
+#endif
+
