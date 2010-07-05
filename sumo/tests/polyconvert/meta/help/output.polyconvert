@@ -1,4 +1,4 @@
-SUMO polyconvert Version dev-SVN-r8794
+SUMO polyconvert Version dev-SVN-r8163
  (c) DLR 2001-2010; http://sumo.sourceforge.net
  
 Importer of polygons and POIs for the road traffic simulation SUMO.
@@ -69,6 +69,7 @@ Usage: polyconvert [OPTION]*
   --prefix STR                     Sets STR as default prefix
   --type STR                       Sets STR as default type
   --layer INT                      Sets INT as default layer
+  --discard                        Sets default action to discard
 
  Report Options:
   -v, --verbose                    Switches to verbose output
