@@ -28,6 +28,9 @@ EdgeEffortInfo
 # for changing signals' state
 Signalling
 
+# for setting vehicle speed
+SetSpeed
+
 
 # rerouting tests
 rerouting
