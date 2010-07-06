@@ -141,17 +141,22 @@ SUMOVehicleParserHelper::parseFlowAttributes(const SUMOSAXAttributes &attrs) thr
 SUMOVehicleParameter *
 SUMOVehicleParserHelper::parseVehicleAttributes(const SUMOSAXAttributes &attrs,
         bool skipID, bool skipDepart) throw(ProcessError) {
-    std::string id;
+    std::string id, errorMsg;
     if (!skipID && !attrs.setIDFromAttributes("vehicle", id)) {
         throw ProcessError();
     }
     if (attrs.hasAttribute(SUMO_ATTR_PERIOD) ^ attrs.hasAttribute(SUMO_ATTR_REPNUMBER)) {
         throw ProcessError("The attributes '" + attrs.getName(SUMO_ATTR_PERIOD) + "' and '" + attrs.getName(SUMO_ATTR_REPNUMBER) + "' have to be given both in the definition of '" + id + "'.");
     }
-    bool ok = true;
     SUMOVehicleParameter *ret = new SUMOVehicleParameter();
     ret->id = id;
-    parseCommonAttributes(attrs, ret, "vehicle");
+    try {
+        parseCommonAttributes(attrs, ret, "vehicle");
+    } catch (ProcessError &) {
+        delete ret;
+        throw;
+    }
+    bool ok = true;
     if (!skipDepart) {
         const std::string helper = attrs.getStringReporting(SUMO_ATTR_DEPART, "vehicle", 0, ok);
         if (helper=="triggered") {
@@ -160,7 +165,8 @@ SUMOVehicleParserHelper::parseVehicleAttributes(const SUMOSAXAttributes &attrs,
             ret->departProcedure = DEPART_GIVEN;
             ret->depart = attrs.getSUMOTimeReporting(SUMO_ATTR_DEPART, "vehicle", id.c_str(), ok);
             if (ok && ret->depart < 0) {
-                throw ProcessError("Negative departure time in the definition of '" + id + "'.");
+                errorMsg = "Negative departure time in the definition of '" + id + "'.";
+                ok = false;
             }
         }
     }
@@ -177,7 +183,7 @@ SUMOVehicleParserHelper::parseVehicleAttributes(const SUMOSAXAttributes &attrs,
 
     if (!ok) {
         delete ret;
-        throw ProcessError();
+        throw ProcessError(errorMsg);
     }
     return ret;
 }
