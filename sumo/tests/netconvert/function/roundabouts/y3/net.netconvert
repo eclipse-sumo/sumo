@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 04/03/10 11:24:28 by SUMO netconvert Version dev-SVN-r8487
+<!-- generated on 07/06/10 13:13:07 by SUMO netconvert Version dev-SVN-r8163
 <configuration>
 
     <input>
@@ -80,12 +80,11 @@
    </edge>
 
 
-   <row-logic id="10724" requestSize="4" laneNumber="2">
+   <row-logic id="10724" requestSize="3" laneNumber="2">
       <logic>
-         <logicitem request="0" response="0000" foes="1000"/>
-         <logicitem request="1" response="0000" foes="0100"/>
-         <logicitem request="2" response="0010" foes="0010"/>
-         <logicitem request="3" response="0001" foes="0001"/>
+         <logicitem request="0" response="000" foes="000"/>
+         <logicitem request="1" response="000" foes="100"/>
+         <logicitem request="2" response="010" foes="010"/>
       </logic>
    </row-logic>
 
@@ -101,21 +100,19 @@
       </logic>
    </row-logic>
 
-   <row-logic id="17391" requestSize="4" laneNumber="2">
+   <row-logic id="17391" requestSize="3" laneNumber="2">
       <logic>
-         <logicitem request="0" response="1000" foes="1000"/>
-         <logicitem request="1" response="0100" foes="0100"/>
-         <logicitem request="2" response="0000" foes="0010"/>
-         <logicitem request="3" response="0000" foes="0001"/>
+         <logicitem request="0" response="100" foes="100"/>
+         <logicitem request="1" response="000" foes="000"/>
+         <logicitem request="2" response="000" foes="001"/>
       </logic>
    </row-logic>
 
-   <row-logic id="17393" requestSize="4" laneNumber="2">
+   <row-logic id="17393" requestSize="3" laneNumber="2">
       <logic>
-         <logicitem request="0" response="1000" foes="1000"/>
-         <logicitem request="1" response="0100" foes="0100"/>
-         <logicitem request="2" response="0000" foes="0010"/>
-         <logicitem request="3" response="0000" foes="0001"/>
+         <logicitem request="0" response="100" foes="100"/>
+         <logicitem request="1" response="000" foes="000"/>
+         <logicitem request="2" response="000" foes="001"/>
       </logic>
    </row-logic>
 
@@ -142,7 +139,6 @@
 
    <succ edge="-10397" lane="-10397_0" junction="17391">
       <succlane lane="10402_0" yield="1" dir="r" state="m"/>
-      <succlane lane="10397_0" yield="1" dir="t" state="m"/>
    </succ>
 
    <succ edge="-10400" lane="-10400_0" junction="10724">
@@ -152,12 +148,10 @@
 
    <succ edge="-10403" lane="-10403_0" junction="17393">
       <succlane lane="-10400_0" yield="1" dir="r" state="m"/>
-      <succlane lane="10403_0" yield="1" dir="t" state="m"/>
    </succ>
 
    <succ edge="-10575" lane="-10575_0" junction="10724">
       <succlane lane="10396_0" yield="1" dir="r" state="m"/>
-      <succlane lane="10575_0" yield="1" dir="t" state="m"/>
    </succ>
 
    <succ edge="10396" lane="10396_0" junction="17391">
