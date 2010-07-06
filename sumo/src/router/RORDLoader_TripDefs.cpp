@@ -167,6 +167,7 @@ RORDLoader_TripDefs::myEndElement(SumoXMLTag element) throw(ProcessError) {
             !MsgHandler::getErrorInstance()->wasInformed()) {
 
         if (myDepartureTime<myBegin||myDepartureTime>=myEnd) {
+            delete myParameter;
             return;
         }
         RGBColor *col = myParameter->wasSet(VEHPARS_COLOR_SET) ? new RGBColor(myParameter->color) : 0;
@@ -176,11 +177,15 @@ RORDLoader_TripDefs::myEndElement(SumoXMLTag element) throw(ProcessError) {
         if (MsgHandler::getErrorInstance()->wasInformed()) {
             return;
         }
-        myNet.addRouteDef(route);
-        myNextRouteRead = true;
-        // build the vehicle
-        ROVehicle *veh = new ROVehicle(*myParameter, route, type);
-        myNet.addVehicle(myParameter->id, veh);
+        if(myNet.addRouteDef(route)) {
+            myNextRouteRead = true;
+            // build the vehicle
+            ROVehicle *veh = new ROVehicle(*myParameter, route, type);
+            myNet.addVehicle(myParameter->id, veh);
+        } else {
+            MsgHandler::getErrorInstance()->inform("The vehicle '" + myParameter->id + "' occurs at least twice.");
+            delete route;
+        }
         delete myParameter;
         myParameter = 0;
     }

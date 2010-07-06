@@ -285,12 +285,16 @@ RORDGenerator_ODAmounts::myEndFlowAmountDef() {
             return;
         }
         // build the vehicle
-        myNet.addRouteDef(route);
-        myNextRouteRead = true;
-        ROVehicle *vehicle = new ROVehicle(*myParameter, route, type);
-        // add to the container
-        FlowDef *fd = new FlowDef(vehicle, type, route, myIntervalBegin, myIntervalEnd, myVehicle2EmitNumber, myRandom);
-        myFlows.push_back(fd);
+        if(myNet.addRouteDef(route)) {
+            myNextRouteRead = true;
+            ROVehicle *vehicle = new ROVehicle(*myParameter, route, type);
+            // add to the container
+            FlowDef *fd = new FlowDef(vehicle, type, route, myIntervalBegin, myIntervalEnd, myVehicle2EmitNumber, myRandom);
+            myFlows.push_back(fd);
+        } else {
+            MsgHandler::getErrorInstance()->inform("The vehicle '" + myParameter->id + "' occurs at least twice.");
+            delete route;
+        }
         delete myParameter;
         myParameter = 0;
     }
