@@ -1205,7 +1205,7 @@ NBEdge::divideOnEdges(const std::vector<NBEdge*> *outgoing) {
 
     // assign lanes to edges
     //  (conversion from virtual to real edges is done)
-    ToEdgeConnectionsAdder adder(/*&myToEdges, */transition);
+    ToEdgeConnectionsAdder adder(transition);
     Bresenham::compute(&adder, (SUMOReal) myLanes.size(), (SUMOReal) noVirtual);
     const std::map<NBEdge*, std::vector<unsigned int> > &l2eConns = adder.getBuiltConnections();
     myConnections.clear();
