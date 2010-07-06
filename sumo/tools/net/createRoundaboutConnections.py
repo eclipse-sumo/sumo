@@ -29,6 +29,8 @@ def writeConnections(net):
             for edgeOut in edgesOut:
                 outNumber= edgeOut.getLaneNumber() 
                 for edgeIn in edgesIn:
+                    if not edgeOut in edgeIn._outgoing:
+                        continue
                     inNumber= edgeIn.getLaneNumber() 
                     for x in range(inNumber):
                         if x < inNumber and x < outNumber:
