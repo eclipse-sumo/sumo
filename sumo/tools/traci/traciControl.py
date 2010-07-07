@@ -559,7 +559,7 @@ def cmdGetLaneVariable_disallowed(laneID):
 
 def cmdGetLaneVariable_linkNumber(laneID):
     result = buildSendReadNew1StringParamCmd(tc.CMD_GET_LANE_VARIABLE, tc.LANE_LINK_NUMBER, laneID)
-    return result.read("!i")[0] # Variable value
+    return result.read("!B")[0] # Variable value
 
 def cmdGetLaneVariable_edgeID(laneID):
     result = buildSendReadNew1StringParamCmd(tc.CMD_GET_LANE_VARIABLE, tc.LANE_EDGE_ID, laneID)
