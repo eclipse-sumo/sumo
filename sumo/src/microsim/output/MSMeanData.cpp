@@ -195,20 +195,21 @@ MSMeanData::MeanDataValueTracker::getSamples() const throw() {
 // ---------------------------------------------------------------------------
 MSMeanData::MSMeanData(const std::string &id,
                        const SUMOTime dumpBegin, const SUMOTime dumpEnd,
-                       const bool useLanes, const bool withEmpty,
+                       const bool useLanes, const bool withEmpty, const bool withInternal,
                        const bool trackVehicles,
                        const SUMOReal maxTravelTime, const SUMOReal minSamples,
                        const std::set<std::string> vTypes) throw()
         : myID(id), myAmEdgeBased(!useLanes), myDumpBegin(dumpBegin), myDumpEnd(dumpEnd),
-        myDumpEmpty(withEmpty), myTrackVehicles(trackVehicles),
+        myDumpEmpty(withEmpty), myDumpInternal(withInternal), myTrackVehicles(trackVehicles),
         myMaxTravelTime(maxTravelTime), myMinSamples(minSamples), myVehicleTypes(vTypes) {
 }
 
 
 void
-MSMeanData::init(const std::vector<MSEdge*> &edges, const bool withInternal) throw() {
+MSMeanData::init() throw() {
+    const std::vector<MSEdge*> &edges = MSNet::getInstance()->getEdgeControl().getEdges();
     for (std::vector<MSEdge*>::const_iterator e = edges.begin(); e != edges.end(); ++e) {
-        if (withInternal || (*e)->getPurpose() != MSEdge::EDGEFUNCTION_INTERNAL) {
+        if (myDumpInternal || (*e)->getPurpose() != MSEdge::EDGEFUNCTION_INTERNAL) {
             myEdges.push_back(*e);
             myMeasures.push_back(std::vector<MeanDataValues*>());
 #ifdef HAVE_MESOSIM
@@ -387,12 +388,9 @@ MSMeanData::writeXMLDetectorProlog(OutputDevice &dev) const throw(IOError) {
 
 
 void
-MSMeanData::update() throw() {
-    for (std::vector<std::vector<MeanDataValues*> >::const_iterator i=myMeasures.begin(); i!=myMeasures.end(); ++i) {
-        const std::vector<MeanDataValues*> &lm = *i;
-        for (std::vector<MeanDataValues*>::const_iterator j=lm.begin(); j!=lm.end(); ++j) {
-            (*j)->update();
-        }
+MSMeanData::update(const SUMOTime step) throw() {
+    if (step + DELTA_T == myDumpBegin) {
+        init();
     }
 }
 

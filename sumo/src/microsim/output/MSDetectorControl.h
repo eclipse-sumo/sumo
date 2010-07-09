@@ -50,7 +50,7 @@
 // ===========================================================================
 // class declarations
 // ===========================================================================
-class MSMeanData_Harmonoise;
+class MSMeanData;
 
 
 // ===========================================================================
@@ -287,15 +287,19 @@ public:
     void add(MS_E2_ZS_CollectorOverLanes *e2ol) throw(ProcessError);
 
 
-    /** @brief Adds a harmonoise mean data object
+    /** @brief Adds a mean data object
      *
      * The detector is pushed into the internal list.
      *
      * Please note, that the detector control does NOT get responsible for the detector.
      *
-     * @param[in] mn The mean noise-detector to add
+     * @param[in] mn The mean data to add
+     * @param[in] device The output device to use
+     * @param[in] frequency The frequency for output generation
+     * @param[in] begin The begin of the first interval
      */
-    void add(MSMeanData_Harmonoise *mn) throw();
+    void add(MSMeanData *mn, OutputDevice& device,
+             SUMOTime frequency, SUMOTime begin) throw();
 
     /// @}
 
@@ -365,7 +369,7 @@ public:
      * @arg MSE2Collector
      * @arg MSE3Collector
      */
-    void updateDetectors(SUMOTime step) throw();
+    void updateDetectors(const SUMOTime step) throw();
 
 
     /** @brief Writes the output to be generated within the given time step
@@ -454,7 +458,7 @@ protected:
     std::map<IntervalsKey, SUMOTime> myLastCalls;
 
     /// @brief List of harmonoise detectors
-    std::vector<MSMeanData_Harmonoise*> myHarmonoiseDetectors;
+    std::vector<MSMeanData*> myMeanData;
 
 
 private:

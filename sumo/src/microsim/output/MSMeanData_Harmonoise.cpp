@@ -140,12 +140,11 @@ MSMeanData_Harmonoise::MSLaneMeanDataValues::write(OutputDevice &dev, const SUMO
 // ---------------------------------------------------------------------------
 MSMeanData_Harmonoise::MSMeanData_Harmonoise(const std::string &id,
         const SUMOTime dumpBegin, const SUMOTime dumpEnd,
-        const bool useLanes, const bool withEmpty,
+        const bool useLanes, const bool withEmpty, const bool withInternal,
         const bool trackVehicles,
         const SUMOReal maxTravelTime, const SUMOReal minSamples,
         const std::set<std::string> vTypes) throw()
-        : MSMeanData(id, dumpBegin, dumpEnd, useLanes, withEmpty, trackVehicles, maxTravelTime, minSamples, vTypes) {
-    MSNet::getInstance()->getDetectorControl().add(this);
+        : MSMeanData(id, dumpBegin, dumpEnd, useLanes, withEmpty, withInternal, trackVehicles, maxTravelTime, minSamples, vTypes) {
 }
 
 
@@ -155,6 +154,18 @@ MSMeanData_Harmonoise::~MSMeanData_Harmonoise() throw() {}
 MSMeanData::MeanDataValues*
 MSMeanData_Harmonoise::createValues(MSLane * const lane, const bool doAdd) const throw(IOError) {
     return new MSLaneMeanDataValues(lane, doAdd, &myVehicleTypes, this);
+}
+
+
+void
+MSMeanData_Harmonoise::update(const SUMOTime step) throw() {
+    MSMeanData::update(step);
+    for (std::vector<std::vector<MeanDataValues*> >::const_iterator i=myMeasures.begin(); i!=myMeasures.end(); ++i) {
+        const std::vector<MeanDataValues*> &lm = *i;
+        for (std::vector<MeanDataValues*>::const_iterator j=lm.begin(); j!=lm.end(); ++j) {
+            (*j)->update();
+        }
+    }
 }
 
 

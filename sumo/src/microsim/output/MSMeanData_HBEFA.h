@@ -150,6 +150,7 @@ public:
      * @param[in] dumpEnd End time of dump
      * @param[in] useLanes Information whether lane-based or edge-based dump shall be generated
      * @param[in] withEmpty Information whether empty lanes/edges shall be written
+     * @param[in] withInternal Information whether internal lanes/edges shall be written
      * @param[in] trackVehicles Information whether vehicles shall be tracked
      * @param[in] maxTravelTime the maximum travel time to use when calculating per vehicle output
      * @param[in] minSamples the minimum number of sample seconds before the values are valid
@@ -157,7 +158,7 @@ public:
      */
     MSMeanData_HBEFA(const std::string &id,
                      const SUMOTime dumpBegin, const SUMOTime dumpEnd,
-                     const bool useLanes, const bool withEmpty,
+                     const bool useLanes, const bool withEmpty, const bool withInternal,
                      const bool trackVehicles,
                      const SUMOReal minSamples, const SUMOReal maxTravelTime,
                      const std::set<std::string> vTypes) throw();

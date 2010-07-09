@@ -98,6 +98,9 @@ MSLane::initialize(MSLinkCont* links) {
 void
 MSLane::addMoveReminder(MSMoveReminder* rem) throw() {
     myMoveReminders.push_back(rem);
+    for (VehCont::iterator veh=myVehicles.begin(); veh != myVehicles.end(); ++veh) {
+        (*veh)->addReminder(rem);
+    }
 }
 
 

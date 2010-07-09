@@ -161,11 +161,11 @@ MSMeanData_HBEFA::MSLaneMeanDataValues::write(OutputDevice &dev, const SUMOTime 
 // ---------------------------------------------------------------------------
 MSMeanData_HBEFA::MSMeanData_HBEFA(const std::string &id,
                                    const SUMOTime dumpBegin, const SUMOTime dumpEnd,
-                                   const bool useLanes, const bool withEmpty,
+                                   const bool useLanes, const bool withEmpty, const bool withInternal,
                                    const bool trackVehicles,
                                    const SUMOReal maxTravelTime, const SUMOReal minSamples,
                                    const std::set<std::string> vTypes) throw()
-        : MSMeanData(id, dumpBegin, dumpEnd, useLanes, withEmpty, trackVehicles, maxTravelTime, minSamples, vTypes) {
+        : MSMeanData(id, dumpBegin, dumpEnd, useLanes, withEmpty, withInternal, trackVehicles, maxTravelTime, minSamples, vTypes) {
 }
 
 

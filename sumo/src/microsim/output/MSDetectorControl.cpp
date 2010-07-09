@@ -149,8 +149,13 @@ MSDetectorControl::add(MS_E2_ZS_CollectorOverLanes *e2ol) throw(ProcessError) {
 
 
 void
-MSDetectorControl::add(MSMeanData_Harmonoise *mn) throw() {
-    myHarmonoiseDetectors.push_back(mn);
+MSDetectorControl::add(MSMeanData *mn, OutputDevice& device,
+                       SUMOTime frequency, SUMOTime begin) throw() {
+    myMeanData.push_back(mn);
+    addDetectorAndInterval(mn, &device, frequency, begin);
+    if (begin == string2time(OptionsCont::getOptions().getString("begin"))) {
+        mn->init();
+    }
 }
 
 
@@ -191,7 +196,7 @@ MSDetectorControl::add(MEInductLoop *meil, OutputDevice& device, int splInterval
 
 
 void
-MSDetectorControl::updateDetectors(SUMOTime step) throw() {
+MSDetectorControl::updateDetectors(const SUMOTime step) throw() {
     // update all detectors with inner containers
     // e2-detectors
     const std::vector<MSE2Collector*> &e2s = myE2Detectors.buildAndGetStaticVector();
@@ -205,9 +210,9 @@ MSDetectorControl::updateDetectors(SUMOTime step) throw() {
     }
     // induct loops do not need to be updated...
     // vtypeprobes do not need to be updated...
-    // ... but harmonoise
-    for (std::vector<MSMeanData_Harmonoise*>::const_iterator i=myHarmonoiseDetectors.begin(); i!=myHarmonoiseDetectors.end(); ++i) {
-        (*i)->update();
+    // ... but meandata
+    for (std::vector<MSMeanData*>::const_iterator i=myMeanData.begin(); i!=myMeanData.end(); ++i) {
+        (*i)->update(step);
     }
 }
 

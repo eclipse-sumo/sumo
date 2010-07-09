@@ -357,17 +357,17 @@ MSVehicle::moveRoutePointer(const MSEdge* targetEdge) throw() {
         // yep, let's continue driving
         return false;
     }
-    if (MSCORN::wished(MSCORN::CORN_VEH_SAVE_EDGE_EXIT)) {
-        if (myPointerCORNMap.find(MSCORN::CORN_P_VEH_EXIT_TIMES)==myPointerCORNMap.end()) {
-            myPointerCORNMap[MSCORN::CORN_P_VEH_EXIT_TIMES] = new std::vector<SUMOTime>();
-        }
-        ((std::vector<SUMOTime>*) myPointerCORNMap[MSCORN::CORN_P_VEH_EXIT_TIMES])->push_back(MSNet::getInstance()->getCurrentTimeStep());
-    }
     // search for the target in the vehicle's route. Usually there is
     // only one iteration. Only for very short edges a vehicle can
     // "jump" over one ore more edges in one timestep.
     MSRouteIterator edgeIt = myCurrEdge;
     while (*edgeIt != targetEdge) {
+        if (MSCORN::wished(MSCORN::CORN_VEH_SAVE_EDGE_EXIT)) {
+            if (myPointerCORNMap.find(MSCORN::CORN_P_VEH_EXIT_TIMES)==myPointerCORNMap.end()) {
+                myPointerCORNMap[MSCORN::CORN_P_VEH_EXIT_TIMES] = new std::vector<SUMOTime>();
+            }
+            ((std::vector<SUMOTime>*) myPointerCORNMap[MSCORN::CORN_P_VEH_EXIT_TIMES])->push_back(MSNet::getInstance()->getCurrentTimeStep());
+        }
         ++edgeIt;
         assert(edgeIt != myRoute->end());
     }
@@ -650,6 +650,12 @@ MSVehicle::activateReminders(bool isEmit, bool isLaneChange) throw() {
             ++rem;
         }
     }
+}
+
+
+void
+MSVehicle::addReminder(MSMoveReminder* rem) throw() {
+    myMoveReminders.push_back(rem);
 }
 
 
