@@ -19,5 +19,8 @@ two_vehicles_diff_length
 # one vehicle is moving with exit times
 exit_times
 
+# one vehicle is moving with exit times over a short edge
+exit_times_short
+
 # Testing error cases
 errors
