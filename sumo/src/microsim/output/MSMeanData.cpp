@@ -247,7 +247,13 @@ MSMeanData::init() throw() {
 }
 
 
-MSMeanData::~MSMeanData() throw() {}
+MSMeanData::~MSMeanData() throw() {
+    for (std::vector<std::vector<MeanDataValues*> >::const_iterator i=myMeasures.begin(); i!=myMeasures.end(); ++i) {
+        for (std::vector<MeanDataValues*>::const_iterator j=(*i).begin(); j!=(*i).end(); ++j) {
+            delete *j;
+        }
+    }
+}
 
 
 void

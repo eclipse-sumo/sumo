@@ -259,6 +259,7 @@ MSVehicle::MSVehicle(SUMOVehicleParameter* pars,
         myIntCORNMap[MSCORN::CORN_VEH_WAITINGTIME] = 0;
     }
     if ((*myCurrEdge)->getDepartLane(*this) == 0) {
+        delete myLaneChangeModel;
         throw ProcessError("Invalid departlane definition for vehicle '" + pars->id + "'");
     }
     myRoute->addReference();

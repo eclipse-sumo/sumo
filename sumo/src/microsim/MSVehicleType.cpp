@@ -68,7 +68,9 @@ MSVehicleType::MSVehicleType(const std::string &id, SUMOReal length,
 }
 
 
-MSVehicleType::~MSVehicleType() throw() {}
+MSVehicleType::~MSVehicleType() throw() {
+    delete myCarFollowModel;
+}
 
 
 void
