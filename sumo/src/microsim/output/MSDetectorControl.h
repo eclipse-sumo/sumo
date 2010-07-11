@@ -291,7 +291,7 @@ public:
      *
      * The detector is pushed into the internal list.
      *
-     * Please note, that the detector control does NOT get responsible for the detector.
+     * Please note, that the detector control gets responsible for the detector.
      *
      * @param[in] mn The mean data to add
      * @param[in] device The output device to use

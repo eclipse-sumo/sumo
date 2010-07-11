@@ -73,6 +73,9 @@ MSDetectorControl::~MSDetectorControl() throw() {
     myE3Detectors.clear();
     myE2OverLanesDetectors.clear();
     myRouteProbeDetectors.clear();
+    for (std::vector<MSMeanData*>::const_iterator i=myMeanData.begin(); i!=myMeanData.end(); ++i) {
+        delete *i;
+    }
 }
 
 
