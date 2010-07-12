@@ -1,0 +1,5 @@
+# test setting the speed for a vehicle
+SetSpeed
+
+# Test error on specifying an invalid node id
+InvalidNodeId

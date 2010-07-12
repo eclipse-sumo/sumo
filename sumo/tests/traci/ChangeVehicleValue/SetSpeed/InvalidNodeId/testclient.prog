@@ -1,0 +1,3 @@
+simstep 1 1
+setvalue 196 64 xxx <float> 10
+simstep 1 1
