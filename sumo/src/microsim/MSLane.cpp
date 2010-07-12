@@ -561,10 +561,14 @@ MSLane::setCritical(SUMOTime t, std::vector<MSLane*> &into) {
     int curr = 0;
     bool hadProblem = false;
     VehCont::iterator i;
+    std::vector<MSVehicle*> vaporized;
     for (i=myVehicles.begin(); i!=myVehicles.end(); ++i, ++curr) {
-        (*i)->moveFirstChecked();
+        bool removed = (*i)->moveFirstChecked();
+        if(removed) {
+            vaporized.push_back(*i);
+        }
         MSLane *target = (*i)->getTargetLane();
-        if (target!=0&&first2pop<0) {
+        if ((removed||target!=0)&&first2pop<0) {
             first2pop = curr;
         }
     }
@@ -574,6 +578,11 @@ MSLane::setCritical(SUMOTime t, std::vector<MSLane*> &into) {
             MSVehicle *v = *(myVehicles.end() - 1);
             MSVehicle *p = pop(t);
             assert(v==p);
+            if(find(vaporized.begin(), vaporized.end(), v)!=vaporized.end()) {
+                v->onRemovalFromNet(false);
+                MSNet::getInstance()->getVehicleControl().scheduleVehicleRemoval(v);
+                continue;
+            }
             MSLane *target = p->getTargetLane();
             if (target==0||p->getPositionOnLane()>target->getLength()) {
                 if (target==0) {
@@ -671,6 +680,19 @@ MSLane::push(MSVehicle* veh) {
     //  and it does not collide with previous
     // check whether the vehicle has ended his route
     // Add to mean data (edge/lane state dump)
+    veh->enterLaneAtMove(this, SPEED2DIST(veh->getSpeed()) - veh->getPositionOnLane());
+    if (! veh->moveRoutePointer(myEdge)) {     // adjusts vehicles routeIterator
+        myVehBuffer.push_back(veh);
+        SUMOReal pspeed = veh->getSpeed();
+        SUMOReal oldPos = veh->getPositionOnLane() - SPEED2DIST(veh->getSpeed());
+        veh->workOnMoveReminders(oldPos, veh->getPositionOnLane(), pspeed);
+        return false;
+    } else {
+        veh->onRemovalFromNet(false);
+        MSNet::getInstance()->getVehicleControl().scheduleVehicleRemoval(veh);
+        return true;
+    }
+    /*
     if (! veh->moveRoutePointer(myEdge)) {     // adjusts vehicles routeIterator
         myVehBuffer.push_back(veh);
         veh->enterLaneAtMove(this, SPEED2DIST(veh->getSpeed()) - veh->getPositionOnLane());
@@ -684,6 +706,7 @@ MSLane::push(MSVehicle* veh) {
         MSNet::getInstance()->getVehicleControl().scheduleVehicleRemoval(veh);
         return true;
     }
+    */
 }
 
 

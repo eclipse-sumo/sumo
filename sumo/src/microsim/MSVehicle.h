@@ -318,7 +318,7 @@ public:
 
 
     /// moves the vehicles after their responds (right-of-way rules) are known
-    void moveFirstChecked();
+    bool moveFirstChecked();
 
 
     /** @brief Returns the gap between pred and this vehicle.

@@ -362,17 +362,17 @@ MSVehicle::moveRoutePointer(const MSEdge* targetEdge) throw() {
     // only one iteration. Only for very short edges a vehicle can
     // "jump" over one ore more edges in one timestep.
     MSRouteIterator edgeIt = myCurrEdge;
-    while (*edgeIt != targetEdge) {
+    //while (*edgeIt != targetEdge) {
         if (MSCORN::wished(MSCORN::CORN_VEH_SAVE_EDGE_EXIT)) {
             if (myPointerCORNMap.find(MSCORN::CORN_P_VEH_EXIT_TIMES)==myPointerCORNMap.end()) {
                 myPointerCORNMap[MSCORN::CORN_P_VEH_EXIT_TIMES] = new std::vector<SUMOTime>();
             }
             ((std::vector<SUMOTime>*) myPointerCORNMap[MSCORN::CORN_P_VEH_EXIT_TIMES])->push_back(MSNet::getInstance()->getCurrentTimeStep());
         }
-        ++edgeIt;
+        //++edgeIt;
         assert(edgeIt != myRoute->end());
-    }
-    myCurrEdge = edgeIt;
+    //}
+    //myCurrEdge = edgeIt;
     // Check if destination-edge is reached. Update allowedLanes makes
     // only sense if destination isn't reached.
     MSRouteIterator destination = myRoute->end() - 1;
@@ -895,7 +895,7 @@ MSVehicle::moveRegardingCritical(SUMOTime t, const MSLane* const lane,
 }
 
 
-void
+bool
 MSVehicle::moveFirstChecked() {
 #ifdef DEBUG_VEHICLE_GUI_SELECTION
     if (gSelected.isSelected(GLO_VEHICLE, static_cast<const GUIVehicle*>(this)->getGlID())) {
@@ -1034,6 +1034,9 @@ MSVehicle::moveFirstChecked() {
             assert(myState.myPos>0);
             if (approachedLane!=myLane) {
                 enterLaneAtMove(approachedLane, driven);
+                if(moveRoutePointer((MSEdge*) &approachedLane->getEdge())) {
+                    return true;
+                }
                 driven += approachedLane->getLength();
             }
             // proceed to the next lane
@@ -1067,6 +1070,7 @@ MSVehicle::moveFirstChecked() {
     }
     assert(myTarget==0||myTarget->getLength()>=myState.myPos);
     setBlinkerInformation();
+    return false;
 }
 
 
@@ -1338,12 +1342,9 @@ MSVehicle::getID() const throw() {
 
 void
 MSVehicle::enterLaneAtMove(MSLane* enteredLane, SUMOReal driven) {
-#ifndef NO_TRACI
-    // remove all Stops that were added by Traci and were not reached for any reason
-    while (!myStops.empty()&&myStops.begin()->lane==myLane) {
-        myStops.pop_front();
+    if(enteredLane==0) {
+        return;
     }
-#endif
     // move mover reminder one lane further
     adaptLaneEntering2MoveReminder(*enteredLane);
     // set the entered lane as the current lane
@@ -1352,6 +1353,7 @@ MSVehicle::enterLaneAtMove(MSLane* enteredLane, SUMOReal driven) {
     MSEdge &enteredEdge = enteredLane->getEdge();
     // internal edges are not a part of the route...
     if (enteredEdge.getPurpose()!=MSEdge::EDGEFUNCTION_INTERNAL) {
+        /*
         // we may have to skip edges, as the vehicle may have past them in one step
         //  (and, of course, at least one edge is passed)
         MSRouteIterator edgeIt = myCurrEdge;
@@ -1359,7 +1361,8 @@ MSVehicle::enterLaneAtMove(MSLane* enteredLane, SUMOReal driven) {
             ++edgeIt;
             assert(edgeIt != myRoute->end());
         }
-        myCurrEdge = edgeIt;
+        */
+        ++myCurrEdge;// = edgeIt;
     }
 
     // may be optimized: compute only, if the current or the next have more than one lane...!!!

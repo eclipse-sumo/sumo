@@ -1,0 +1,4 @@
+<routes>
+    <route id="r1" edges="beg middle end"/>
+    <vehicle id="0" depart="0" arrivalpos="400" route="r1"/>
+</routes>
