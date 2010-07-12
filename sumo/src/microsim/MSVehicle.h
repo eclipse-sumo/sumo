@@ -220,16 +220,6 @@ public:
     const MSEdge* succEdge(unsigned int nSuccs) const throw();
 
 
-    /** @brief Moves the vehicle's route pointer to given edge
-     *
-     * Returns true if vehicle is going to enter it's destination edge, false otherwise.
-     *  Adjusts in both cases the route iterator and the allowedLanes-container.
-     * @param[in] targetEdge The edge the vehicle enters
-     * @return Whether the final edge was reached
-     */
-    bool moveRoutePointer(const MSEdge* targetEdge) throw();
-
-
     /** @brief Returns the information whether the vehicle should end now
      * @return Whether the route ends
      */
@@ -545,8 +535,10 @@ public:
      *
      * @param[in] enteredLane The lane the vehicle enters
      * @param[in] driven The distance driven by the vehicle within this time step
+     * @param[in] onTeleporting Whether the lane was entered while being teleported
+     * @return Whether the vehicle's route has ended (due to vaporization, or because the destination was reached)
      */
-    void enterLaneAtMove(MSLane* enteredLane, SUMOReal driven);
+    bool enterLaneAtMove(MSLane* enteredLane, SUMOReal driven, bool onTeleporting=false);
 
 
 

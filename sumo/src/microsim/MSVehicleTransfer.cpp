@@ -56,7 +56,7 @@ MSVehicleTransfer::addVeh(MSVehicle *veh) throw() {
     MSEdge *e = MSEdge::dictionary(veh->getEdge()->getID());
     // let the vehicle be on the one
     veh->onRemovalFromNet(true);
-    if (!veh->hasSuccEdge(1)||proceedVirtualReturnWhetherEnded(*veh, MSEdge::dictionary(veh->succEdge(1)->getID()))) {
+    if (!veh->hasSuccEdge(1)||veh->enterLaneAtMove(veh->succEdge(1)->getLanes()[0],0, true)) {
         MSNet::getInstance()->getVehicleControl().scheduleVehicleRemoval(veh);
         return;
     }
@@ -89,9 +89,9 @@ MSVehicleTransfer::checkEmissions(SUMOTime time) throw() {
                 //  virtually on after all these computations)
                 MSLane *tmp = *(e->getLanes().begin());
                 // get the one beyond the one the vehicle moved to
-                MSEdge *nextEdge = MSEdge::dictionary(desc.myVeh->succEdge(1)->getID());
+                const MSEdge *nextEdge = desc.myVeh->succEdge(1);
                 // let the vehicle move to the next edge
-                if (proceedVirtualReturnWhetherEnded(*desc.myVeh, nextEdge)) {
+                if (desc.myVeh->enterLaneAtMove(nextEdge->getLanes()[0],0, true)) {
                     WRITE_WARNING("Vehicle '" + desc.myVeh->getID()+ "' ends teleporting on end edge '" + e->getID()+ "'.");
                     MSNet::getInstance()->getVehicleControl().scheduleVehicleRemoval(desc.myVeh);
                     i = myVehicles.erase(i);
@@ -105,15 +105,6 @@ MSVehicleTransfer::checkEmissions(SUMOTime time) throw() {
         }
 
     }
-}
-
-
-bool
-MSVehicleTransfer::proceedVirtualReturnWhetherEnded(MSVehicle &veh, const MSEdge *const newEdge) throw() {
-    veh.enterLaneAtMove(0, 0);
-    veh.moveRoutePointer(newEdge);
-    MSRouteIterator destination = veh.getRoute().end() - 1;
-    return veh.getEdge() == *destination;
 }
 
 

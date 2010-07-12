@@ -346,41 +346,6 @@ MSVehicle::succEdge(unsigned int nSuccs) const throw() {
 
 
 bool
-MSVehicle::moveRoutePointer(const MSEdge* targetEdge) throw() {
-    // vaporizing edge?
-    if (targetEdge->isVaporizing()) {
-        // yep, let's do the vaporization...
-        setWasVaporized(false);
-        return true;
-    }
-    // internal edge?
-    if (targetEdge->getPurpose()==MSEdge::EDGEFUNCTION_INTERNAL) {
-        // yep, let's continue driving
-        return false;
-    }
-    // search for the target in the vehicle's route. Usually there is
-    // only one iteration. Only for very short edges a vehicle can
-    // "jump" over one ore more edges in one timestep.
-    MSRouteIterator edgeIt = myCurrEdge;
-    //while (*edgeIt != targetEdge) {
-        if (MSCORN::wished(MSCORN::CORN_VEH_SAVE_EDGE_EXIT)) {
-            if (myPointerCORNMap.find(MSCORN::CORN_P_VEH_EXIT_TIMES)==myPointerCORNMap.end()) {
-                myPointerCORNMap[MSCORN::CORN_P_VEH_EXIT_TIMES] = new std::vector<SUMOTime>();
-            }
-            ((std::vector<SUMOTime>*) myPointerCORNMap[MSCORN::CORN_P_VEH_EXIT_TIMES])->push_back(MSNet::getInstance()->getCurrentTimeStep());
-        }
-        //++edgeIt;
-        assert(edgeIt != myRoute->end());
-    //}
-    //myCurrEdge = edgeIt;
-    // Check if destination-edge is reached. Update allowedLanes makes
-    // only sense if destination isn't reached.
-    MSRouteIterator destination = myRoute->end() - 1;
-    return myCurrEdge == destination && getPositionOnLane() > myArrivalPos - POSITION_EPS;
-}
-
-
-bool
 MSVehicle::ends() const throw() {
     return myCurrEdge==myRoute->end()-1 && myState.myPos > myArrivalPos - POSITION_EPS;
 }
@@ -1033,8 +998,8 @@ MSVehicle::moveFirstChecked() {
             myState.myPos -= approachedLane->getLength();
             assert(myState.myPos>0);
             if (approachedLane!=myLane) {
-                enterLaneAtMove(approachedLane, driven);
-                if(moveRoutePointer((MSEdge*) &approachedLane->getEdge())) {
+                if(enterLaneAtMove(approachedLane, driven)) {
+                    myLane = approachedLane;
                     return true;
                 }
                 driven += approachedLane->getLength();
@@ -1340,31 +1305,32 @@ MSVehicle::getID() const throw() {
 }
 
 
-void
-MSVehicle::enterLaneAtMove(MSLane* enteredLane, SUMOReal driven) {
-    if(enteredLane==0) {
-        return;
+bool
+MSVehicle::enterLaneAtMove(MSLane* enteredLane, SUMOReal driven, bool onTeleporting) {
+    // vaporizing edge?
+    if (enteredLane->getEdge().isVaporizing()) {
+        // yep, let's do the vaporization...
+        setWasVaporized(false);
+        return true;
     }
+    if(!onTeleporting) {
     // move mover reminder one lane further
     adaptLaneEntering2MoveReminder(*enteredLane);
     // set the entered lane as the current lane
     myLane = enteredLane;
-    // proceed in route
-    MSEdge &enteredEdge = enteredLane->getEdge();
-    // internal edges are not a part of the route...
-    if (enteredEdge.getPurpose()!=MSEdge::EDGEFUNCTION_INTERNAL) {
-        /*
-        // we may have to skip edges, as the vehicle may have past them in one step
-        //  (and, of course, at least one edge is passed)
-        MSRouteIterator edgeIt = myCurrEdge;
-        while (*edgeIt != &enteredEdge) {
-            ++edgeIt;
-            assert(edgeIt != myRoute->end());
-        }
-        */
-        ++myCurrEdge;// = edgeIt;
     }
 
+    // internal edges are not a part of the route...
+    if (enteredLane->getEdge().getPurpose()!=MSEdge::EDGEFUNCTION_INTERNAL) {
+        if (MSCORN::wished(MSCORN::CORN_VEH_SAVE_EDGE_EXIT)) {
+            if (myPointerCORNMap.find(MSCORN::CORN_P_VEH_EXIT_TIMES)==myPointerCORNMap.end()) {
+                myPointerCORNMap[MSCORN::CORN_P_VEH_EXIT_TIMES] = new std::vector<SUMOTime>();
+            }
+            ((std::vector<SUMOTime>*) myPointerCORNMap[MSCORN::CORN_P_VEH_EXIT_TIMES])->push_back(MSNet::getInstance()->getCurrentTimeStep());
+        }
+        ++myCurrEdge;
+    }
+    if(!onTeleporting) {
     // may be optimized: compute only, if the current or the next have more than one lane...!!!
     getBestLanes(true);
     activateReminders(false, false);
@@ -1375,6 +1341,9 @@ MSVehicle::enterLaneAtMove(MSLane* enteredLane, SUMOReal driven) {
 #ifndef NO_TRACI
     checkForLaneChanges();
 #endif
+    }
+    MSRouteIterator destination = myRoute->end() - 1;
+    return myCurrEdge == destination && getPositionOnLane() > myArrivalPos - POSITION_EPS;
 }
 
 

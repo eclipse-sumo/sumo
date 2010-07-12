@@ -95,19 +95,6 @@ private:
     MSVehicleTransfer() throw();
 
 
-    /** @brief Moves the vehicle one edge further returning whether the destination is reached
-     *
-     * The vehicle is not inserted into the next edge, only internal variables
-     *  are adapted.
-     *
-     * @param[in, out] veh The vehicle to move
-     * @param[in] newEdge The next to move the vehicle to (virually)
-     * @return Whether the vehicle has reached his destination
-     * @todo The edges are compared by pointers only; this will not work if the seen edge occurs twice in the vehicle's route
-     */
-    bool proceedVirtualReturnWhetherEnded(MSVehicle &veh, const MSEdge *const newEdge) throw();
-
-
 protected:
     /**
      * @struct VehicleInformation
