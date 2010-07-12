@@ -242,6 +242,9 @@ MSNet::~MSNet() throw() {
     delete myLogics;
     delete myRouteLoaders;
     delete myVehicleControl;
+    if (myPersonControl!=0) {
+        delete myPersonControl;
+    }
     delete myShapeContainer;
 #ifdef _MESSAGES
 #ifdef _DEBUG

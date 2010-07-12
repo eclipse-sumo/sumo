@@ -54,7 +54,7 @@ class MSLane;
  * responsible for from a file and sets it.
  * Lanes with variable speeds are so possible.
  */
-class MSLaneSpeedTrigger : public MSTrigger, public SUMOSAXHandler {
+class MSLaneSpeedTrigger : public MSTrigger, public SUMOSAXHandler, public Command {
 public:
     /** @brief Constructor
      *

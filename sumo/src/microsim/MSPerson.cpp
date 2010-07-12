@@ -197,7 +197,11 @@ MSPerson::MSPerson(const SUMOVehicleParameter* pars, MSPersonPlan *plan)
 
 
 MSPerson::~MSPerson() {
+    for (MSPersonPlan::const_iterator i=myPlan->begin(); i!=myPlan->end(); ++i) {
+        delete *i;
+    }
     delete myPlan;
+    delete myParameter;
 }
 
 
