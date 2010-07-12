@@ -85,9 +85,10 @@ MSPersonControl::erase(MSPerson *person) {
         od.closeTag();
         od << "\n";
     }
-    if (myPersons.find(id) != myPersons.end()) {
-        delete myPersons[id];
-        myPersons.erase(id);
+    const std::map<std::string, MSPerson*>::iterator i = myPersons.find(id);
+    if (i != myPersons.end()) {
+        delete i->second;
+        myPersons.erase(i);
     }
 }
 
