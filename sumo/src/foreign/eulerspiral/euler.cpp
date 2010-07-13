@@ -28,10 +28,10 @@ EulerSpiralLookupTable* EulerSpiralLookupTable::get_globalEulerSpiralLookupTable
 
 EulerSpiralLookupTable::EulerSpiralLookupTable()
 {
+/*
   int i,j;
 
   //read in the tables from data files if available
-/*
   vcl_ifstream fp_k0_in("ES_k0.dat", vcl_ios::in | vcl_ios::binary);
   vcl_ifstream fp_gamma_in("ES_gamma.dat", vcl_ios::in | vcl_ios::binary);
   vcl_ifstream fp_L_in("ES_L.dat", vcl_ios::in | vcl_ios::binary);
