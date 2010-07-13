@@ -1,0 +1,69 @@
+TraCITestClient output file. Date: Tue Jul 13 10:47:52 2010
+
+
+-> Command sent: <SimulationStep>:
+  TargetTime=1.00 PosFormat=1
+.. Command acknowledged (1), [description: ]
+.. Received Response <MoveNode>:
+  nodeId=0 targetTime=1.00 2D-Position: x=0.00 y=491.75
+
+-> Command sent: <SimulationStep>:
+  TargetTime=2.00 PosFormat=1
+.. Command acknowledged (1), [description: ]
+.. Received Response <MoveNode>:
+  nodeId=0 targetTime=2.00 2D-Position: x=0.80 y=491.75
+
+-> Command sent: <SimulationStep>:
+  TargetTime=3.00 PosFormat=1
+.. Command acknowledged (1), [description: ]
+.. Received Response <MoveNode>:
+  nodeId=0 targetTime=3.00 2D-Position: x=2.39 y=491.75
+
+-> Command sent: <SimulationStep>:
+  TargetTime=4.00 PosFormat=1
+.. Command acknowledged (1), [description: ]
+.. Received Response <MoveNode>:
+  nodeId=0 targetTime=4.00 2D-Position: x=4.76 y=491.75
+
+-> Command sent: <SimulationStep>:
+  TargetTime=5.00 PosFormat=1
+.. Command acknowledged (1), [description: ]
+.. Received Response <MoveNode>:
+  nodeId=0 targetTime=5.00 2D-Position: x=7.91 y=491.75
+
+-> Command sent: <SetValue>:
+  domID=196 varID=92 objID=veh0
+.. Answered with error to command (196), [description: Unknown lane 'xxx'.]
+
+-> Command sent: <SimulationStep>:
+  TargetTime=6.00 PosFormat=1
+.. Command acknowledged (1), [description: ]
+.. Received Response <MoveNode>:
+  nodeId=0 targetTime=6.00 2D-Position: x=11.82 y=491.75
+
+-> Command sent: <SimulationStep>:
+  TargetTime=7.00 PosFormat=1
+.. Command acknowledged (1), [description: ]
+.. Received Response <MoveNode>:
+  nodeId=0 targetTime=7.00 2D-Position: x=16.48 y=491.75
+
+-> Command sent: <SimulationStep>:
+  TargetTime=8.00 PosFormat=1
+.. Command acknowledged (1), [description: ]
+.. Received Response <MoveNode>:
+  nodeId=0 targetTime=8.00 2D-Position: x=21.90 y=491.75
+
+-> Command sent: <SimulationStep>:
+  TargetTime=9.00 PosFormat=1
+.. Command acknowledged (1), [description: ]
+.. Received Response <MoveNode>:
+  nodeId=0 targetTime=9.00 2D-Position: x=28.05 y=491.75
+
+-> Command sent: <SimulationStep>:
+  TargetTime=10.00 PosFormat=1
+.. Command acknowledged (1), [description: ]
+.. Received Response <MoveNode>:
+  nodeId=0 targetTime=10.00 2D-Position: x=34.92 y=491.75
+
+-> Command sent: <Close>:
+.. Command acknowledged (127), [description: Goodbye]

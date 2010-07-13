@@ -1,0 +1,7 @@
+simstep_repeat 1 5 1 1
+setvalue 196 92 veh0 <compound> 2 <string> e_m0_1 <double> 10
+simstep_repeat 6 10 1 1
+setvalue 196 92 veh0 <compound> 2 <string> e_m2_0 <double> 20
+simstep_repeat 11 15 1 1
+setvalue 196 92 veh0 <compound> 2 <string> e_m4_1 <double> 10
+simstep_repeat 16 20 1 1

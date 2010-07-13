@@ -1,0 +1,3 @@
+simstep_repeat 1 5 1 1
+setvalue 196 92 veh0 <compound> 2 <string> e_vu0_0 <double> 10
+simstep_repeat 6 10 1 1
