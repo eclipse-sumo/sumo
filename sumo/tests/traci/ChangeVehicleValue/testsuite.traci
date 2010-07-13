@@ -31,6 +31,8 @@ Signalling
 # for setting vehicle speed
 SetSpeed
 
+# for moving the vehicle to a different place
+MoveTo
 
 # rerouting tests
 rerouting
