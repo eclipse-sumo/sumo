@@ -206,6 +206,16 @@ public:
      * @return Whether the vehicle could be emitted
      */
     bool freeEmit(MSVehicle& veh, SUMOReal speed) throw();
+
+
+    /** @brief Inserts the given vehicle at the given position
+     *
+     * No checks are done, vehicle insertion using this method may
+     *  generate collisions or a situation which yields in these.
+     * @param[in] veh The vehicle to insert
+     * @param[in] pos The position at which the vehicle shall be inserted
+     */
+	void forceVehicleInsertion(MSVehicle *veh, SUMOReal pos) throw();
     /// @}
 
 
@@ -562,8 +572,6 @@ public:
     SUMOReal getHarmonoise_NoiseEmissions() const throw();
     /// @}
 
-
-	void forceVehicleInsertion(MSVehicle *veh, SUMOReal pos) throw();
 
 protected:
     /** @brief Insert a vehicle into the lane's vehicle buffer.

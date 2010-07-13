@@ -303,7 +303,7 @@ TraCIServerAPI_Vehicle::processSet(tcpip::Storage &inputStorage,
             &&variable!=VAR_ROUTE_ID&&variable!=VAR_ROUTE
             &&variable!=VAR_EDGE_TRAVELTIME&&variable!=VAR_EDGE_EFFORT
             &&variable!=CMD_REROUTE_TRAVELTIME&&variable!=CMD_REROUTE_EFFORT
-			&&variable!=VAR_SIGNALS
+			&&variable!=VAR_SIGNALS&&variable!=VAR_MOVE_TO
 			&&variable!=VAR_SPEED
        ) {
         TraCIServerAPIHelper::writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Change Vehicle State: unsupported variable specified", outputStorage);
@@ -711,7 +711,52 @@ TraCIServerAPI_Vehicle::processSet(tcpip::Storage &inputStorage,
         }
         v->switchOffSignal(0x0fffffff);
 		v->switchOnSignal(inputStorage.readInt());
-	    break;
+		break;
+	case VAR_MOVE_TO: {
+        if (valueDataType!=TYPE_COMPOUND) {
+            TraCIServerAPIHelper::writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Setting position requires a compound object.", outputStorage);
+            return false;
+        }
+        if (inputStorage.readInt()!=2) {
+            TraCIServerAPIHelper::writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Setting position should obtain the lane id and the position.", outputStorage);
+            return false;
+        }
+		// lane ID
+		if (inputStorage.readUnsignedByte()!=TYPE_STRING) {
+			TraCIServerAPIHelper::writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "The first parameter for setting a position must be the lane ID given as a string.", outputStorage);
+            return false;
+		}
+		std::string laneID = inputStorage.readString();
+		// position on lane
+		if (inputStorage.readUnsignedByte()!=TYPE_DOUBLE) {
+			TraCIServerAPIHelper::writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "The second parameter for setting a position must be the position given as a double.", outputStorage);
+            return false;
+		}
+		float position = inputStorage.readDouble();
+		// process
+		MSLane *l = MSLane::dictionary(laneID);
+		if(l==0) {
+	           TraCIServerAPIHelper::writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Unknown lane '" + laneID + "'.", outputStorage);
+	        return false;
+		}
+        MSEdge &destinationEdge = l->getEdge();
+        if(!v->willPass(&destinationEdge)) {
+	           TraCIServerAPIHelper::writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Vehicle '" + laneID + "' may be set onto an edge to pass only.", outputStorage);
+	        return false;
+        }
+		v->onRemovalFromNet(true);
+		v->getLane().removeVehicle(v);
+        while(v->getEdge()!=&destinationEdge) {
+            const MSEdge *nextEdge = v->succEdge(1);
+            // let the vehicle move to the next edge
+            if (v->enterLaneAtMove(nextEdge->getLanes()[0],0, true)) {
+                MSNet::getInstance()->getVehicleControl().scheduleVehicleRemoval(v);
+                continue;
+            }
+        }
+		l->forceVehicleInsertion(v, position);
+					  }
+		break;
 	case VAR_SPEED:
         if (valueDataType!=TYPE_DOUBLE) {
             TraCIServerAPIHelper::writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Setting speed requires a float.", outputStorage);

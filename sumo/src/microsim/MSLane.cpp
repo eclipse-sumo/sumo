@@ -436,6 +436,24 @@ MSLane::isEmissionSuccess(MSVehicle* aVehicle,
 }
 
 
+void 
+MSLane::forceVehicleInsertion(MSVehicle *veh, SUMOReal pos) throw()
+{
+	veh->enterLaneAtEmit(this, pos, veh->getSpeed());
+    bool wasInactive = myVehicles.size()==0;
+    MSLane::VehCont::iterator predIt = find_if(myVehicles.begin(), myVehicles.end(), bind2nd(VehPosition(), pos));
+    if (predIt==myVehicles.end()) {
+        myVehicles.push_back(veh);
+    } else {
+        myVehicles.insert(predIt, veh);
+    }
+    myVehicleLengthSum += veh->getVehicleType().getLength();
+    if (wasInactive) {
+        MSNet::getInstance()->getEdgeControl().gotActive(this);
+    }
+}
+
+
 // ------ Handling vehicles lapping into lanes ------
 SUMOReal
 MSLane::setPartialOccupation(MSVehicle *v, SUMOReal leftVehicleLength) throw() {
@@ -1182,24 +1200,6 @@ MSLane::getHarmonoise_NoiseEmissions() const throw() {
     }
     releaseVehicles();
     return HelpersHarmonoise::sum(ret);
-}
-
-
-void 
-MSLane::forceVehicleInsertion(MSVehicle *veh, SUMOReal pos) throw()
-{
-	veh->enterLaneAtEmit(this, pos, veh->getSpeed());
-    bool wasInactive = myVehicles.size()==0;
-    MSLane::VehCont::iterator predIt = find_if(myVehicles.begin(), myVehicles.end(), bind2nd(VehPosition(), pos));
-    if (predIt==myVehicles.end()) {
-        myVehicles.push_back(veh);
-    } else {
-        myVehicles.insert(predIt, veh);
-    }
-    myVehicleLengthSum += veh->getVehicleType().getLength();
-    if (wasInactive) {
-        MSNet::getInstance()->getEdgeControl().gotActive(this);
-    }
 }
 
 

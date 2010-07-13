@@ -572,6 +572,9 @@
 // signals state (get/set: vehicle)
 #define VAR_SIGNALS 0x5b
 
+// new lane/position along (set: vehicle)
+#define VAR_MOVE_TO 0x5c
+
 
 
 // current CO2 emission of a node (get: vehicle, lane, edge)
