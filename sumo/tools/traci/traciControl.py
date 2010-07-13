@@ -486,6 +486,13 @@ def cmdChangeVehicleVariable_changeRoute(vehID, edgeList):
         _message.string += struct.pack("!i", len(edge)) + edge
     _sendExact()
 
+def cmdChangeVehicleVariable_moveTo(vehID, laneID, pos):
+    beginChangeMessage(tc.CMD_SET_VEHICLE_VARIABLE, 1+1+1+4+len(vehID)+1+4+1+4+len(laneID)+8, tc.VAR_MOVE_TO, vehID)
+    _message.string += struct.pack("!Bi", tc.TYPE_COMPOUND, 2)
+    _message.string += struct.pack("!Bi", tc.TYPE_STRING, len(laneID)) + laneID
+    _message.string += struct.pack("!Bd", tc.TYPE_DOUBLE, pos)
+    _sendExact()
+
 
 # ===================================================
 # vehicle type interaction
