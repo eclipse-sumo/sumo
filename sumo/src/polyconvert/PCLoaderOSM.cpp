@@ -255,8 +255,9 @@ PCLoaderOSM::NodesHandler::myStartElement(SumoXMLTag element, const SUMOSAXAttri
         if (!ok) {
             return;
         }
-        if (key=="waterway"||key=="aeroway"||key=="aerialway"||key=="power"||key=="man_made"||key=="building"||key=="leisure"||key=="amenity"||key=="shop"
-                ||key=="tourism"||key=="historic"||key=="landuse"||key=="natural"||key=="military"||key=="boundary"||key=="sport") {
+        if (key=="waterway"||key=="aeroway"||key=="aerialway"||key=="power"||key=="man_made"||key=="building"
+            ||key=="leisure"||key=="amenity"||key=="shop"||key=="tourism"||key=="historic"||key=="landuse"
+            ||key=="natural"||key=="military"||key=="boundary"||key=="sport"||key=="polygon") {
             if (myLastNodeID>=0) {
                 myToFill[myLastNodeID]->myType = key + "." + value;
                 myToFill[myLastNodeID]->myIsAdditional = true;
