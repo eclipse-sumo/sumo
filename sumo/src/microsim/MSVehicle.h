@@ -375,6 +375,7 @@ public:
     //@}
 
 
+
     /// @name Interaction with move reminders
     //@{
 
@@ -423,14 +424,6 @@ public:
 
     /// @name state setter/getter
     //@{
-
-    /** @brief Returns the vehicle state
-     * @return The state of the vehicle
-     * @see State
-     */
-    const State &getState() const throw() {
-        return myState;
-    }
 
     /** @brief Get the vehicle's position along the lane
      * @return The position of the vehicle (in m from the lane's begin)
