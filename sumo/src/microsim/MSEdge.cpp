@@ -235,12 +235,14 @@ MSEdge::decVaporization(SUMOTime) throw(ProcessError) {
 
 
 MSLane *
-MSEdge::getFreeLane(const SUMOVehicleClass vclass) const throw() {
-    const std::vector<MSLane*>* lanes = allowedLanes(vclass);
+MSEdge::getFreeLane(const std::vector<MSLane*>* allowed, const SUMOVehicleClass vclass) const throw() {
+    if(allowed==0) {
+        allowed = allowedLanes(vclass);
+    }
     MSLane* res = 0;
-    if (lanes != 0) {
+    if (allowed != 0) {
         unsigned int noCars = INT_MAX;
-        for (std::vector<MSLane*>::const_iterator i=lanes->begin(); i!=lanes->end(); ++i) {
+        for (std::vector<MSLane*>::const_iterator i=allowed->begin(); i!=allowed->end(); ++i) {
             if ((*i)->getVehicleNumber()<noCars) {
                 res = (*i);
                 noCars = (*i)->getVehicleNumber();
@@ -263,7 +265,7 @@ MSEdge::getDepartLane(const MSVehicle &v) const throw() {
     case DEPART_LANE_RANDOM:
         return RandHelper::getRandomFrom(*allowedLanes(v.getVehicleType().getVehicleClass()));
     case DEPART_LANE_FREE:
-        return getFreeLane(v.getVehicleType().getVehicleClass());
+        return getFreeLane(0, v.getVehicleType().getVehicleClass());
     case DEPART_LANE_DEPARTLANE:
     case DEPART_LANE_DEFAULT:
     default:
@@ -319,7 +321,7 @@ MSEdge::emit(MSVehicle &v, SUMOTime time) const throw(ProcessError) {
     }
 #endif
     MSLane* emitLane = getDepartLane(v);
-    return emitLane != 0 && /*emitLane->getVehLenSum() + v.getLength() < emitLane->getLength() && */emitLane->emit(v);
+    return emitLane != 0 && emitLane->emit(v);
 }
 
 

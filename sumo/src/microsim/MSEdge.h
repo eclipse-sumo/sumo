@@ -314,11 +314,16 @@ public:
      *  If there is more than one, the first according to its
      *  index in the lane container is chosen.
      *
+     * If allowed==0, the lanes allowed for the given vehicle class
+     *  will be user
+     *
+     * @param[in] allowed The lanes to choose from
      * @param[in] vclass The vehicle class to look for
      * @return the least occupied lane
      * @see MSLane::emit
+     * @see allowedLanes
      */
-    MSLane* getFreeLane(const SUMOVehicleClass vclass) const throw();
+    MSLane* getFreeLane(const std::vector<MSLane*>* allowed, const SUMOVehicleClass vclass) const throw();
 
 
     /** @brief Finds a depart lane for the given vehicle

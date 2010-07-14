@@ -105,15 +105,16 @@ protected:
         MSVehicle *myVeh;
         /// @brief The time the vehicle was inserted at
         SUMOTime myInsertTime;
-        /// @brief The time the vehicle should be moved virtually one lane further
+        /// @brief The time at which the vehicle should be moved virtually one edge further
         SUMOTime myProceedTime;
 
         /** @brief Constructor
          * @param[in] veh The teleported vehicle
          * @param[in] insertTime The time the vehicle was inserted at
+         * @param[in] proceedTime The time at which the vehicle should be moved virtually one edge further
          */
-        VehicleInformation(MSVehicle *veh, SUMOTime insertTime) throw()
-                : myVeh(veh), myInsertTime(insertTime), myProceedTime(insertTime) { }
+        VehicleInformation(MSVehicle *veh, SUMOTime insertTime, SUMOTime proceedTime) throw()
+                : myVeh(veh), myInsertTime(insertTime), myProceedTime(proceedTime) { }
 
     };
 

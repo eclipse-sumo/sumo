@@ -63,7 +63,9 @@ MSVehicleTransfer::addVeh(MSVehicle *veh) throw() {
     // mark the next one
     myNoTransfered++;
     // save information
-    myVehicles.push_back(VehicleInformation(veh, MSNet::getInstance()->getCurrentTimeStep()));
+    SUMOTime ctime = MSNet::getInstance()->getCurrentTimeStep();
+    SUMOTime ntime = ctime + TIME2STEPS(e->getCurrentTravelTime());
+    myVehicles.push_back(VehicleInformation(veh, ctime, ntime));
     MSNet::getInstance()->informVehicleStateListener(veh, MSNet::VEHICLE_STATE_STARTING_TELEPORT);
 }
 
@@ -75,7 +77,16 @@ MSVehicleTransfer::checkEmissions(SUMOTime time) throw() {
         // get the vehicle information
         VehicleInformation &desc = *i;
         const MSEdge *e = desc.myVeh->getEdge();
-        MSLane *l = e->getFreeLane(desc.myVeh->getVehicleType().getVehicleClass());
+        // get the lanes the vehicle may use
+        SUMOVehicleClass vclass = desc.myVeh->getVehicleType().getVehicleClass();
+        const MSEdge *nextEdge = desc.myVeh->succEdge(1);
+        const std::vector<MSLane*> *allowed = 0;
+        if(nextEdge!=0) {
+            allowed = e->allowedLanes(*nextEdge, vclass);
+        } else {
+            allowed = e->allowedLanes(vclass);
+        }
+        MSLane *l = e->getFreeLane(allowed, vclass);
         // check whether the vehicle may be emitted onto a following edge
         if (l->freeEmit(*(desc.myVeh), MIN2(l->getMaxSpeed(), desc.myVeh->getMaxSpeed()))) {
             // remove from this if so
@@ -91,15 +102,14 @@ MSVehicleTransfer::checkEmissions(SUMOTime time) throw() {
                 // get the one beyond the one the vehicle moved to
                 const MSEdge *nextEdge = desc.myVeh->succEdge(1);
                 // let the vehicle move to the next edge
-                if (desc.myVeh->enterLaneAtMove(nextEdge->getLanes()[0],0, true)) {
+                if (nextEdge==0) {
                     WRITE_WARNING("Vehicle '" + desc.myVeh->getID()+ "' ends teleporting on end edge '" + e->getID()+ "'.");
                     MSNet::getInstance()->getVehicleControl().scheduleVehicleRemoval(desc.myVeh);
                     i = myVehicles.erase(i);
                     continue;
                 }
-                // get the time the vehicle needs to pass the current edge
-                //  !!! maybe, the time should be compued in other ways
-                desc.myProceedTime = time + (SUMOTime)(tmp->getLength() / tmp->getMaxSpeed() * 2.0);
+                // use current travel time to determine when to move the vehicle forward
+                desc.myProceedTime = time + TIME2STEPS(tmp->getEdge().getCurrentTravelTime());
             }
             ++i;
         }
