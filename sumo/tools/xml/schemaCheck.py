@@ -14,7 +14,7 @@ All rights reserved
 import os, sys, subprocess
 
 def main(srcRoot, err):
-    toCheck = [ "input_edges.edg.xml" ]
+    toCheck = [ "input_edges.edg.xml", "input_nodes.nod.xml", "input_connections.con.xml", "input_types.typ.xml" ]
     sax2count = "SAX2Count.exe"
     if 'XERCES_64' in os.environ:
         sax2count = os.path.join(os.environ['XERCES_64'], "bin", sax2count)
