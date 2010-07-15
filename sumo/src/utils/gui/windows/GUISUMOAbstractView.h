@@ -346,6 +346,7 @@ protected:
     GUIDialog_EditViewport *myViewportChooser;
     GUIDialog_ViewSettings *myVisualizationChanger;
 
+
     /// @name Optionally shown decals
     /// @{
 
@@ -355,6 +356,7 @@ protected:
     /// @brief The mutex to use before accessing the decals list in order to avoid thread conficts
     MFXMutex myDecalsLock;
     /// @}
+
 
     std::map<SUMOTime, std::string> mySnapshots;
 
