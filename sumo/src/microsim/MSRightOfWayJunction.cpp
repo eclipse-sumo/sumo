@@ -124,11 +124,20 @@ MSRightOfWayJunction::postloadInit() throw(ProcessError) {
             }
 
             myLinkFoeInternalLanes[*j] = std::vector<MSLane*>();
-            for (unsigned int c=0; c<myInternalLanes.size(); ++c) {
-                if (internalFoes.test(c)) {
-                    myLinkFoeInternalLanes[*j].push_back(myInternalLanes[c]);
+#ifdef HAVE_INTERNAL_LANES
+            if (MSGlobals::gUsingInternalLanes&&myInternalLanes.size()>0) {
+                int li = 0;
+                for (unsigned int c=0; c<sortedLinks.size(); ++c) {
+                    if (sortedLinks[c].second->getLane()==0) { // dead end
+                        continue;
+                    }
+                    if (internalFoes.test(c)) {
+                        myLinkFoeInternalLanes[*j].push_back(myInternalLanes[li]);
+                    }
+                    ++li;
                 }
             }
+#endif
             (*j)->setRequestInformation(requestPos, requestPos, isCrossing, cont, myLinkFoeLinks[*j], myLinkFoeInternalLanes[*j]);
             for (std::vector<MSLink*>::const_iterator k=foes.begin(); k!=foes.end(); ++k) {
                 (*j)->addBlockedLink(*k);
