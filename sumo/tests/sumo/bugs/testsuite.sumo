@@ -19,3 +19,5 @@ ticket138
 # Tests for ticket#235 (simulation breaks on routes with one edge)
 ticket235
 
+# Tests for ticket#19 (teleports)
+ticket19

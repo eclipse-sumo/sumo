@@ -1,0 +1,89 @@
+<?xml version="1.0"?>
+
+<!-- generated on 07/15/10 14:52:17 by SUMO netconvert Version dev-SVN-r8163
+<configuration>
+
+    <input>
+        <xml-node-files value="visumadd_nodes.nod.xml,nodes.nod.xml,nodes_patches.nod.xml"/>
+        <xml-edge-files value="visumadd_edges.edg.xml,edges.edg.xml,edges_patches.edg.xml"/>
+        <xml-connection-files value="connections.con.xml,connections_ronald.con.xml,roundabout-connection.con.xml"/>
+    </input>
+
+    <output>
+        <output-file value="prunned.net.xml"/>
+        <plain-output value="p"/>
+    </output>
+
+    <ramp_guessing>
+        <guess-ramps value="true"/>
+    </ramp_guessing>
+
+    <edge_removal>
+        <keep-edges value="-9458,9458,-9917,-9916,-9908,9908,-9915,-9914,-9910,9910,9912,-9912,-7783,-4312,4312,"/>
+        <keep-edges.input-file value="keep.txt"/>
+        <keep-edges.postload value="true"/>
+    </edge_removal>
+
+    <processing>
+        <guess-roundabouts value="true"/>
+    </processing>
+
+    <report>
+        <verbose value="true"/>
+    </report>
+
+</configuration>
+-->
+
+<connections>
+	<connection from="-4312" to="9910" lane="0:0"/>
+	<connection from="-4312" to="9910" lane="1:1"/>
+	<connection from="-4312" to="-7783" lane="1:0"/>
+	<connection from="-4312" to="4312" lane="1:1"/>
+
+	<connection from="-9458" to="-9916" lane="0:0"/>
+	<connection from="-9458" to="-9916" lane="1:1"/>
+
+	<connection from="-9908" to="9908" lane="1:1"/>
+
+	<connection from="-9910" to="-7783" lane="0:0"/>
+	<connection from="-9910" to="4312" lane="0:0"/>
+	<connection from="-9910" to="4312" lane="1:1"/>
+	<connection from="-9910" to="9910" lane="1:1"/>
+
+	<connection from="-9912" to="9912" lane="1:2"/>
+
+	<connection from="-9914" to="-9910" lane="0:0"/>
+	<connection from="-9914" to="-9917" lane="0:0"/>
+	<connection from="-9914" to="-9910" lane="1:1"/>
+	<connection from="-9914" to="-9917" lane="1:1"/>
+
+	<connection from="-9915" to="-9912" lane="0:0"/>
+	<connection from="-9915" to="-9914" lane="0:0"/>
+	<connection from="-9915" to="-9912" lane="1:1"/>
+	<connection from="-9915" to="-9914" lane="1:1"/>
+
+	<connection from="-9916" to="-9908" lane="0:0"/>
+	<connection from="-9916" to="-9915" lane="0:0"/>
+	<connection from="-9916" to="-9908" lane="1:1"/>
+	<connection from="-9916" to="-9915" lane="1:1"/>
+
+	<connection from="-9917" to="9458" lane="0:0"/>
+	<connection from="-9917" to="-9916" lane="0:0"/>
+	<connection from="-9917" to="9458" lane="1:1"/>
+	<connection from="-9917" to="-9916" lane="1:1"/>
+
+	<connection from="4312" to="-4312" lane="1:1"/>
+
+	<connection from="9458" to="-9458" lane="1:2"/>
+
+	<connection from="9908" to="-9915" lane="0:0"/>
+	<connection from="9908" to="-9915" lane="1:1"/>
+
+	<connection from="9910" to="-9917" lane="0:0"/>
+	<connection from="9910" to="-9917" lane="1:1"/>
+
+	<connection from="9912" to="-9914" lane="0:0"/>
+	<connection from="9912" to="-9914" lane="1:1"/>
+
+</connections>

@@ -1,0 +1,49 @@
+<?xml version="1.0"?>
+
+<!-- generated on 07/15/10 14:52:17 by SUMO netconvert Version dev-SVN-r8163
+<configuration>
+
+    <input>
+        <xml-node-files value="visumadd_nodes.nod.xml,nodes.nod.xml,nodes_patches.nod.xml"/>
+        <xml-edge-files value="visumadd_edges.edg.xml,edges.edg.xml,edges_patches.edg.xml"/>
+        <xml-connection-files value="connections.con.xml,connections_ronald.con.xml,roundabout-connection.con.xml"/>
+    </input>
+
+    <output>
+        <output-file value="prunned.net.xml"/>
+        <plain-output value="p"/>
+    </output>
+
+    <ramp_guessing>
+        <guess-ramps value="true"/>
+    </ramp_guessing>
+
+    <edge_removal>
+        <keep-edges value="-9458,9458,-9917,-9916,-9908,9908,-9915,-9914,-9910,9910,9912,-9912,-7783,-4312,4312,"/>
+        <keep-edges.input-file value="keep.txt"/>
+        <keep-edges.postload value="true"/>
+    </edge_removal>
+
+    <processing>
+        <guess-roundabouts value="true"/>
+    </processing>
+
+    <report>
+        <verbose value="true"/>
+    </report>
+
+</configuration>
+-->
+
+<nodes>
+   <node id="15750" x="52391.53" y="52398.32"/>
+   <node id="15891" x="52632.08" y="52555.29"/>
+   <node id="17208" x="52560.69" y="52409.40"/>
+   <node id="17209" x="52542.60" y="52372.54"/>
+   <node id="17210" x="52534.57" y="52397.98"/>
+   <node id="5838" x="52479.96" y="51826.21" type="traffic_light" tl="427"/>
+   <node id="5887" x="52416.97" y="52461.02"/>
+   <node id="6691" x="52524.78" y="52331.03"/>
+   <node id="6699" x="52885.98" y="52218.19" type="traffic_light" tl="437"/>
+   <node id="6728" x="52570.84" y="52378.88"/>
+</nodes>
