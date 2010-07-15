@@ -76,7 +76,7 @@ programPointer = len(PROGRAM)-1
 veh = []
 step = 0
 while not (step > lastVeh and veh == []):
-    veh = cmdSimulationStep(1)
+    veh = cmdSimulationStep(1000)
     programPointer = min(programPointer+1, len(PROGRAM)-1)
     no = cmdGetInductionLoopVariable_lastStepVehicleNumber("0")
     if no > 0:
