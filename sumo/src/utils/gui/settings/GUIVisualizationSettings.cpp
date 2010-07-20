@@ -49,7 +49,7 @@ GUIVisualizationSettings::GUIVisualizationSettings() throw()
         laneShowBorders(false), showLinkDecals(true), showRails(true),
         drawEdgeName(false), edgeNameSize(50),
         edgeNameColor(RGBColor((SUMOReal) 1, (SUMOReal) .5, (SUMOReal) 0)),
-        drawInternalEdgeName(false), internalEdgeNameSize(25),
+        drawInternalEdgeName(false), internalEdgeNameSize(40),
         internalEdgeNameColor(RGBColor((SUMOReal) .5, (SUMOReal) .25, (SUMOReal) 0)),
         hideConnectors(false),
         minVehicleSize(1), vehicleExaggeration(1), showBlinker(true),
