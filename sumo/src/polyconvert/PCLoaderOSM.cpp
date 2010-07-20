@@ -108,7 +108,7 @@ PCLoaderOSM::loadIfSet(OptionsCont &oc, PCPolyContainer &toFill,
             vec.push_back_noDoublePos(pos);
         }
         // set type etc.
-        std::string name = e->id;
+        std::string name = oc.getBool("osm.use-name")&&e->name!="" ? e->name : e->id;
         std::string type;
         RGBColor color;
         bool fill = vec.getBegin()==vec.getEnd();
@@ -263,6 +263,9 @@ PCLoaderOSM::NodesHandler::myStartElement(SumoXMLTag element, const SUMOSAXAttri
                 myToFill[myLastNodeID]->myIsAdditional = true;
             }
         }
+        if (key=="name") {
+            myToFill[myLastNodeID]->myType = key + "." + value;
+        }
     }
 }
 
@@ -326,12 +329,14 @@ PCLoaderOSM::EdgesHandler::myStartElement(SumoXMLTag element, const SUMOSAXAttri
         if (!ok) {
             return;
         }
-        if (key=="waterway"||key=="aeroway"||key=="aerialway"||key=="power"||key=="man_made"||key=="building"||key=="leisure"||key=="amenity"||key=="shop"
-                ||key=="tourism"||key=="historic"||key=="landuse"||key=="natural"||key=="military"||key=="boundary"||key=="sport") {
+        if (key=="waterway"||key=="aeroway"||key=="aerialway"||key=="power"||key=="man_made"
+            ||key=="building"||key=="leisure"||key=="amenity"||key=="shop"||key=="tourism"
+            ||key=="historic"||key=="landuse"||key=="natural"||key=="military"||key=="boundary"
+            ||key=="sport"||key=="polygon") {
             myCurrentEdge->myType = key + "." + value;
             myCurrentEdge->myIsAdditional = true;
-        } else if (key=="area") {
-            myCurrentEdge->myIsClosed = true;
+        } else if (key=="name") {
+            myCurrentEdge->name = value;
         }
     }
 }

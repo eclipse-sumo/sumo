@@ -89,6 +89,8 @@ protected:
     struct PCOSMEdge {
         /// @brief The edge's id
         std::string id;
+        /// @brief The edge's name (if any)
+        std::string name;
         /// @brief The type (<KEY>"."<VALUE>)
         std::string myType;
         /// @brief Information whether this area is closed

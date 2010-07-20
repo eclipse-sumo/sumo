@@ -107,6 +107,8 @@ fillOptions() throw() {
     oc.addDescription("osm-files", "Input", "Reads pois from FILE+ assuming they're coded in OSM");
     oc.doRegister("osm.keep-full-type", new Option_Bool(false));
     oc.addDescription("osm.keep-full-type", "Input", "The type will be made of the key-value - pair.");
+    oc.doRegister("osm.use-name", new Option_Bool(false));
+    oc.addDescription("osm.use-name", "Input", "The id will be set from the given 'name' attribute.");
 
     // arcview import
     oc.doRegister("shapefile", new Option_FileName());
