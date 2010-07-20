@@ -30,6 +30,8 @@ Usage: polyconvert [OPTION]*
                                      in OSM
   --osm.keep-full-type             The type will be made of the key-value -
                                      pair.
+  --osm.use-name                   The id will be set from the given 'name'
+                                     attribute.
   --shapefile FILE                 Reads shapes from shape-files FILE+
   --shapefile.guess-projection     Guesses the shapefile's projection
   --shapefile.id-name FILE         Defines where to find the id

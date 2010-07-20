@@ -1,0 +1,11 @@
+# whether using the name works
+use_name
+
+# same but without the osm.use-name option
+use_name.plain
+
+
+# using type name made from key/value pair
+keep_full_type
+
+

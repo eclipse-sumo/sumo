@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+
+<!-- generated on 07/20/10 13:52:00 by SUMO polyconvert Version dev-SVN-r8163
+<configuration>
+
+    <input>
+        <osm-files value="osm.xml"/>
+        <osm.use-name value="true"/>
+    </input>
+
+    <output>
+        <output value="pois.poi.xml"/>
+    </output>
+
+    <projection>
+        <proj.utm value="true"/>
+    </projection>
+
+    <report>
+        <verbose value="true"/>
+    </report>
+
+</configuration>
+-->
+
+<shapes>
+    <poly id="p0045" type="unknown" color="0.20,0.50,1.00" fill="0" layer="-1" shape="399863.40,5809422.23 399824.64,5809486.66 399823.45,5809472.85 399862.26,5809457.18 399986.69,5809471.75"/>
+</shapes>

@@ -7,6 +7,9 @@ bugs
 # tests typemap usage
 typemap
 
+# importing formats
+import
+
 # testing XML-import
 #XML
 
