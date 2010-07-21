@@ -890,6 +890,10 @@ public:
 	/// @}
 
 
+    SUMOTime getLastGreenTime() const throw() {
+        return myLastGreenTime;
+    }
+
 
 #ifndef NO_TRACI
     /**
@@ -1209,6 +1213,8 @@ private:
     bool laneChangeConstraintActive;
 
 	SUMOReal myTraCISpeed;
+
+    SUMOTime myLastGreenTime;
 
 #endif
 

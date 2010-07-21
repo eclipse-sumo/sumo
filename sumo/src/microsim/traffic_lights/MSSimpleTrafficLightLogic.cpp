@@ -115,7 +115,7 @@ MSSimpleTrafficLightLogic::setTrafficLightSignals() const throw() {
         const LinkVector &currGroup = myLinks[i];
         MSLink::LinkState ls = (MSLink::LinkState) state[i];
         for (LinkVector::const_iterator j=currGroup.begin(); j!=currGroup.end(); j++) {
-            (*j)->setTLState(ls);
+            (*j)->setTLState(ls, MSNet::getInstance()->getCurrentTimeStep());
         }
     }
     return true;

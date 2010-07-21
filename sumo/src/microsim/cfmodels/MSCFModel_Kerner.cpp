@@ -110,17 +110,6 @@ MSCFModel_Kerner::interactionGap(const MSVehicle * const veh, SUMOReal vL) const
 }
 
 
-bool
-MSCFModel_Kerner::hasSafeGap(SUMOReal speed, SUMOReal gap, SUMOReal predSpeed, SUMOReal laneMaxSpeed) const throw() {
-    if (gap<0) {
-        return false;
-    }
-    SUMOReal vSafe = MIN2(_v(speed, maxNextSpeed(speed), gap, predSpeed), maxNextSpeed(speed));
-    SUMOReal vNext = MIN3(maxNextSpeed(speed), laneMaxSpeed, vSafe);
-    return (vNext>=getSpeedAfterMaxDecel(speed) && gap>= SPEED2DIST(speed));
-}
-
-
 SUMOReal
 MSCFModel_Kerner::_v(SUMOReal speed, SUMOReal vfree, SUMOReal gap, SUMOReal predSpeed) const throw() {
     if (predSpeed==0&&gap<0.01) {

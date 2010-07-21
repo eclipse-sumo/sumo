@@ -397,7 +397,7 @@ MSLaneChanger::getRealFollower(const ChangerIt &target) const throw() {
         dist = MIN2(dist, (SUMOReal) 500.);
         MSVehicle *candi = veh(myCandi);
         SUMOReal seen = candi->getPositionOnLane()-candi->getVehicleType().getLength();
-        return target->lane->getFollowerOnConsecutive(dist, seen, candi->getSpeed(), candi->getPositionOnLane() - candi->getVehicleType().getLength());
+        return target->lane->getFollowerOnConsecutive(dist, seen, candi->getSpeed(), candi->getPositionOnLane() - candi->getVehicleType().getLength(), 4.5);
     } else {
         MSVehicle *candi = veh(myCandi);
         return std::pair<MSVehicle * const, SUMOReal>(neighFollow,
@@ -597,7 +597,7 @@ MSLaneChanger::setIsSafeChange(const std::pair<MSVehicle * const, SUMOReal> &nei
         if (neighFollow.first!=0) {
             MSLane* targetLane = target->lane;
             // !!! eigentlich: vsafe braucht die Max. Geschwindigkeit beider Spuren
-            if (!neighFollow.first->getCarFollowModel().hasSafeGap(neighFollow.first->getSpeed(), neighFollow.second, vehicle->getSpeed(), targetLane->getMaxSpeed())) {
+            if (neighFollow.second<neighFollow.first->getCarFollowModel().getSecureGap(neighFollow.first->getSpeed(), vehicle->getSpeed(), vehicle->getCarFollowModel().getMaxDecel())) {
                 blocked |= LCA_BLOCKEDBY_FOLLOWER;
             }
         }
@@ -608,7 +608,7 @@ MSLaneChanger::setIsSafeChange(const std::pair<MSVehicle * const, SUMOReal> &nei
         if (neighLead.first!=0) {
             MSLane* targetLane = target->lane;
             // !!! eigentlich: vsafe braucht die Max. Geschwindigkeit beider Spuren
-            if (!vehicle->getCarFollowModel().hasSafeGap(vehicle->getSpeed(), neighLead.second, neighLead.first->getSpeed(), targetLane->getMaxSpeed())) {
+            if (neighLead.second<vehicle->getCarFollowModel().getSecureGap(vehicle->getSpeed(), neighLead.first->getSpeed(), neighLead.first->getCarFollowModel().getMaxDecel())) {
                 blocked |= LCA_BLOCKEDBY_LEADER;
             }
         }

@@ -118,17 +118,6 @@ MSCFModel_IDM::interactionGap(const MSVehicle * const veh, SUMOReal vL) const th
 
 
 /// @todo update logic to IDM
-bool
-MSCFModel_IDM::hasSafeGap(SUMOReal speed, SUMOReal gap, SUMOReal predSpeed, SUMOReal laneMaxSpeed) const throw() {
-    if (gap<0) {
-        return false;
-    }
-    SUMOReal vSafe = _updateSpeed(speed, gap, predSpeed, laneMaxSpeed);
-    SUMOReal vNext = MIN3(maxNextSpeed(speed), laneMaxSpeed, vSafe);
-    return (vNext>=getSpeedAfterMaxDecel(speed) && gap >= SPEED2DIST(speed));
-}
-
-
 SUMOReal
 MSCFModel_IDM::_updateSpeed(SUMOReal gap2pred, SUMOReal mySpeed, SUMOReal predSpeed, SUMOReal desSpeed) const throw() {
     SUMOReal delta_v = mySpeed - predSpeed;

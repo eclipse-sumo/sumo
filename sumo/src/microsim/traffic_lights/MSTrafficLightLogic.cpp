@@ -162,7 +162,7 @@ MSTrafficLightLogic::resetLinkStates(const std::map<MSLink*, std::pair<MSLink::L
         for (LinkVector::const_iterator i2=l.begin(); i2!=l.end(); ++i2) {
             assert(vals.find(*i2)!=vals.end());
             const std::pair<MSLink::LinkState, bool> &lvals = vals.find(*i2)->second;
-            (*i2)->setTLState(lvals.first);
+            (*i2)->setTLState(lvals.first, MSNet::getInstance()->getCurrentTimeStep());
             (*i2)->setPriority(lvals.second);
         }
     }

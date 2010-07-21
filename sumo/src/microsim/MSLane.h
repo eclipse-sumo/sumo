@@ -501,7 +501,7 @@ public:
     }
 
     std::pair<MSVehicle * const, SUMOReal> getFollowerOnConsecutive(SUMOReal dist, SUMOReal seen,
-            SUMOReal leaderSpeed, SUMOReal backOffset) const;
+            SUMOReal leaderSpeed, SUMOReal backOffset, SUMOReal predMaxDecel) const;
 
     std::pair<MSVehicle * const, SUMOReal> getLeaderOnConsecutive(SUMOReal dist, SUMOReal seen,
             SUMOReal leaderSpeed, const MSVehicle &veh, const std::vector<MSLane*> &bestLaneConts) const;

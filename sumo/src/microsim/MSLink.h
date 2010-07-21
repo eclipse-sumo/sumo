@@ -219,7 +219,11 @@ public:
     }
 
     bool willHaveBlockedFoe() const throw();
+    SUMOTime getSwitchToGreenTime() const throw() {
+        return myLastSwitchGreenTime;
+    }
 
+    bool hasEarlierGreenVehicle(SUMOTime otherGreenTime, MSLink::LinkState otherState) const throw();
 
 
     /** @brief Returns the information whether a vehicle is approaching on one of the link's foe streams
@@ -251,7 +255,7 @@ public:
      *
      * @param[in] state The current state of the link
      */
-    void setTLState(LinkState state) throw();
+    void setTLState(LinkState state, SUMOTime t) throw();
 
 
     /** @brief Returns the connected lane
@@ -268,12 +272,11 @@ public:
     unsigned int getRespondIndex() const throw();
 
 
-    /** @brief Returns whether this link is a major lin
-     *
+    /** @brief Returns whether this link is a major link
      * @return Whether the link has a large priority
      */
     bool havePriority() const throw() {
-        return myPrio;
+        return myState>='A'&&myState<='Z';
     }
 
 
@@ -340,6 +343,8 @@ private:
     bool myIsCrossing;
 
     bool myAmCont;
+
+    SUMOTime myLastSwitchGreenTime;
 
 #ifdef HAVE_INTERNAL_LANES
     /// @brief The following junction-internal lane if used

@@ -206,7 +206,8 @@ MSVehicle::MSVehicle(SUMOVehicleParameter* pars,
         myArrivalPos(pars->arrivalPos),
         myPreDawdleAcceleration(0),
         myEdgeWeights(0),
-		mySignals(0)
+		mySignals(0),
+        myLastGreenTime(86400*1000)
 #ifndef NO_TRACI
         ,adaptingSpeed(false),
         isLastAdaption(false),
@@ -883,8 +884,12 @@ MSVehicle::moveFirstChecked() {
         bool onLinkEnd = link==0;
         // the vehicle must change the lane on one of the next lanes
         if (!onLinkEnd&&(*i).mySetRequest) {
+                MSLink::LinkState ls = link->getState();
+                if(ls==MSLink::LINKSTATE_TL_GREEN_MAJOR||ls==MSLink::LINKSTATE_TL_GREEN_MINOR||ls==MSLink::LINKSTATE_TL_YELLOW_MAJOR||ls==MSLink::LINKSTATE_TL_YELLOW_MINOR) {
+                    myLastGreenTime = link->getSwitchToGreenTime();
+                }
             // vehicles should brake when running onto a yellow light if the distance allows to halt in front
-            bool yellow = link->getState()==MSLink::LINKSTATE_TL_YELLOW_MAJOR||link->getState()==MSLink::LINKSTATE_TL_YELLOW_MINOR;
+            bool yellow = ls==MSLink::LINKSTATE_TL_YELLOW_MAJOR||ls==MSLink::LINKSTATE_TL_YELLOW_MINOR;
             if (yellow&&(*i).myDistance>getCarFollowModel().getSpeedAfterMaxDecel(myState.mySpeed)) {
                 vSafe = (*i).myVLinkWait;
                 braking = true;
@@ -903,7 +908,7 @@ MSVehicle::moveFirstChecked() {
             // have waited; may pass if opened...
             if (opened) {
                 vSafe = (*i).myVLinkPass;
-                lastWasGreenCont = link->isCont()&&(link->getState()==MSLink::LINKSTATE_TL_GREEN_MAJOR);
+                lastWasGreenCont = link->isCont()&&(ls==MSLink::LINKSTATE_TL_GREEN_MAJOR);
             } else {
                 vSafe = (*i).myVLinkWait;
                 braking = true;
@@ -1086,7 +1091,7 @@ MSVehicle::checkRewindLinkLanes(SUMOReal lengthsInFront) throw() {
             if (last==0) {
                 last = approachedLane->getPartialOccupator();
                 if (last!=0) {
-                    SUMOReal m = MAX2(seenSpace, seenSpace + approachedLane->getPartialOccupatorEnd() - approachedLane->getLength() + last->getCarFollowModel().brakeGap(last->getSpeed()));
+                    SUMOReal m = MAX2(seenSpace, seenSpace + approachedLane->getPartialOccupatorEnd() + last->getCarFollowModel().brakeGap(last->getSpeed()));
                     availableSpace.push_back(m);
                     hadVehicle = true;
                     seenSpace = seenSpace - approachedLane->getVehLenSum() + approachedLane->getLength();
@@ -1128,8 +1133,8 @@ MSVehicle::checkRewindLinkLanes(SUMOReal lengthsInFront) throw() {
             if (item.myLink==0) {
                 continue;
             }
-            if (!item.myLink->isCont()
-                    &&availableSpace[i]-getVehicleType().getLength()<0
+            if (/*!item.myLink->isCont()
+                    &&*/availableSpace[i]-getVehicleType().getLength()<0
                     &&item.myLink->willHaveBlockedFoe()) {
                 removalBegin = i;
             }

@@ -108,17 +108,6 @@ MSCFModel_KraussOrig1::interactionGap(const MSVehicle * const veh, SUMOReal vL) 
 }
 
 
-bool
-MSCFModel_KraussOrig1::hasSafeGap(SUMOReal speed, SUMOReal gap, SUMOReal predSpeed, SUMOReal laneMaxSpeed) const throw() {
-    if (gap<0) {
-        return false;
-    }
-    SUMOReal vSafe = MIN2(_vsafe(gap, predSpeed), maxNextSpeed(speed));
-    SUMOReal vNext = MIN3(maxNextSpeed(speed), laneMaxSpeed, vSafe);
-    return (vNext>=getSpeedAfterMaxDecel(speed) && gap>= SPEED2DIST(speed));
-}
-
-
 SUMOReal
 MSCFModel_KraussOrig1::dawdle(SUMOReal speed) const throw() {
     return MAX2(SUMOReal(0), speed - ACCEL2SPEED(myDawdle * myAccel * RandHelper::rand()));

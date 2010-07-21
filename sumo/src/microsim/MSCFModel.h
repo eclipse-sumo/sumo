@@ -134,19 +134,6 @@ public:
     virtual SUMOReal interactionGap(const MSVehicle * const veh, SUMOReal vL) const throw() = 0;
 
 
-    /** @brief Returns whether the given gap is safe
-     *
-     * "safe" means that no collision occur when using the gap, given other values.
-     * @param[in] speed EGO's speed
-     * @param[in] gap The (netto) gap between LEADER and EGO
-     * @param[in] predSpeed LEADER's speed
-     * @param[in] laneMaxSpeed The maximum velocity allowed on the lane
-     * @return Whether the given gap is safe
-     * @todo evaluate signature
-     */
-    virtual bool hasSafeGap(SUMOReal speed, SUMOReal gap, SUMOReal predSpeed, SUMOReal laneMaxSpeed) const throw() = 0;
-
-
     /** @brief Get the vehicle's maximum acceleration [m/s^2]
      *
      * As some models describe that a vehicle is accelerating slower the higher its
@@ -231,9 +218,12 @@ public:
       * @param[in] speed EGO's speed
       * @param[in] leaderSpeedAfterDecel LEADER's speed after he has decelerated with max. deceleration rate
       */
-    SUMOReal getSecureGap(const SUMOReal speed, const SUMOReal leaderSpeedAfterDecel) const throw() {
-        const SUMOReal speedDiff = speed - leaderSpeedAfterDecel;
-        return speedDiff * speedDiff / getMaxDecel() + speed * getTau();
+    SUMOReal getSecureGap(const SUMOReal speed, const SUMOReal leaderSpeed, const SUMOReal leaderMaxDecel) const throw() {
+        const SUMOReal speedDiff1 = speed - leaderSpeed;
+        SUMOReal g1 = speedDiff1 * speedDiff1 / getMaxDecel() + speed * getTau();
+        const SUMOReal speedDiff2 = speed - MAX2((SUMOReal) 0, leaderSpeed - ACCEL2SPEED(leaderMaxDecel));
+        SUMOReal g2 = speedDiff2 * speedDiff2 / getMaxDecel() + speed * getTau();
+        return MAX2(g1, g2);
     }
 
 

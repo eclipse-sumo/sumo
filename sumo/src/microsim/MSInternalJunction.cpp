@@ -73,8 +73,7 @@ MSInternalJunction::postloadInit() throw(ProcessError) {
         const MSLinkCont &links = myIncomingLanes[0]->getLinkCont();
         // ... set information for every link
         for (MSLinkCont::const_iterator j=links.begin(); j!=links.end(); j++) {
-            (*j)->setRequestInformation(requestPos, requestPos, true, false,
-                                        myInternalLinkFoes, myInternalLaneFoes);
+            (*j)->setRequestInformation(requestPos, requestPos, true, false, myInternalLinkFoes, myInternalLaneFoes);
             requestPos++;
             for (std::vector<MSLink*>::const_iterator k=myInternalLinkFoes.begin(); k!=myInternalLinkFoes.end(); ++k) {
                 (*j)->addBlockedLink(*k);

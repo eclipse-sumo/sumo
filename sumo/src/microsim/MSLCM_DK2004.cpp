@@ -637,22 +637,17 @@ MSLCM_DK2004::informBlocker(MSAbstractLaneChangeModel::MSLCMessager &msgPass,
             neighFollow.second
             + SPEED2DIST(myVehicle.getSpeed()) * (SUMOReal) 2.0
             - MAX2(nv->getSpeed() - (SUMOReal) ACCEL2DIST(nv->getCarFollowModel().getMaxDecel()) * (SUMOReal) 2.0, (SUMOReal) 0);
-        if (neighFollow.second>0&&decelGap>0&&nv->getCarFollowModel().hasSafeGap(nv->getSpeed(), decelGap, myVehicle.getSpeed(), nv->getLane().getMaxSpeed())) {//isSafeChange_WithDistance(decelGap, myVehicle, &nv->getLane())) {
+        if (neighFollow.second>0&&decelGap>0&&decelGap>=nv->getCarFollowModel().getSecureGap(nv->getSpeed(), myVehicle.getSpeed(), myVehicle.getCarFollowModel().getMaxDecel())) {
             SUMOReal vsafe = myCarFollowModel.ffeV(&myVehicle, neighFollow.second, neighFollow.first->getSpeed());
-            msgPass.informNeighFollower(
-                new Info(vsafe, dir|LCA_AMBLOCKINGFOLLOWER), &myVehicle);
+            msgPass.informNeighFollower(new Info(vsafe, dir|LCA_AMBLOCKINGFOLLOWER), &myVehicle);
         } else {
-            SUMOReal vsafe = neighFollow.second<=0
-                             ? 0
-                             : myCarFollowModel.ffeV(&myVehicle, neighFollow.second, neighFollow.first->getSpeed());
-            msgPass.informNeighFollower(
-                new Info(vsafe, dir|LCA_AMBLOCKINGFOLLOWER_DONTBRAKE), &myVehicle);
+            SUMOReal vsafe = neighFollow.second<=0 ? 0 : myCarFollowModel.ffeV(&myVehicle, neighFollow.second, neighFollow.first->getSpeed());
+            msgPass.informNeighFollower(new Info(vsafe, dir|LCA_AMBLOCKINGFOLLOWER_DONTBRAKE), &myVehicle);
         }
     }
     if ((blocked&LCA_BLOCKEDBY_LEADER)!=0) {
         if (neighLead.first!=0&&neighLead.second>0) {
-            msgPass.informNeighLeader(
-                new Info(0, dir|LCA_AMBLOCKINGLEADER), &myVehicle);
+            msgPass.informNeighLeader(new Info(0, dir|LCA_AMBLOCKINGLEADER), &myVehicle);
         }
     }
 }

@@ -57,7 +57,7 @@ MSLink::MSLink(MSLane* succLane, bool yield,
         myLane(succLane),
         myPrio(!yield), myApproaching(0),
         myRequestIdx(0), myRespondIdx(0),
-        myState(state), myDirection(dir),  myLength(length) {}
+        myState(state), myDirection(dir),  myLength(length), myLastSwitchGreenTime(86400*1000) {}
 #else
 MSLink::MSLink(MSLane* succLane, MSLane *via, bool yield,
                LinkDirection dir, LinkState state, bool internalEnd,
@@ -67,7 +67,7 @@ MSLink::MSLink(MSLane* succLane, MSLane *via, bool yield,
         myPrio(!yield), myApproaching(0),
         myRequestIdx(0), myRespondIdx(0),
         myState(state), myDirection(dir), myLength(length),
-        myJunctionInlane(via),myIsInternalEnd(internalEnd) {}
+        myJunctionInlane(via),myIsInternalEnd(internalEnd), myLastSwitchGreenTime(86400*1000) {}
 #endif
 
 
@@ -155,6 +155,18 @@ MSLink::opened(SUMOTime arrivalTime, SUMOReal arrivalSpeed) const throw() {
             return false;
         }
     }
+
+    bool isSignalControlled = myState!=MSLink::LINKSTATE_MAJOR&&myState!=MSLink::LINKSTATE_MINOR&&myState!=MSLink::LINKSTATE_EQUAL;
+    // if this link either had no switch to green, yet,
+    //  or is signal controlled, we will not examine any effects on the other traffic
+    // this should be done by plainly following the lights
+    if(myLastSwitchGreenTime>=0&&!isSignalControlled) {
+        for (std::set<MSLink*>::const_iterator i=myBlockedFoeLinks.begin(); i!=myBlockedFoeLinks.end(); ++i) {
+            if ((*i)->getState()!=LINKSTATE_TL_RED&&(*i)->hasEarlierGreenVehicle(myLastSwitchGreenTime, myState)) {
+                return false;
+            }
+        } 
+    }
     return true;
 }
 
@@ -167,6 +179,25 @@ MSLink::blockedAtTime(SUMOTime arrivalTime, SUMOTime leaveTime) const throw() {
         }
         if (!(((*i).leavingTime+myLookaheadTime < arrivalTime) || ((*i).arrivalTime-myLookaheadTime > leaveTime))) {
             return true;
+        }
+    }
+    return false;
+}
+
+
+bool 
+MSLink::hasEarlierGreenVehicle(SUMOTime otherGreenTime, MSLink::LinkState otherState) const throw()
+{
+    bool thisIsGreen = myState==MSLink::LINKSTATE_TL_GREEN_MAJOR||myState==MSLink::LINKSTATE_TL_GREEN_MINOR;
+    for (std::vector<MSJunction::ApproachingVehicleInformation>::const_iterator i=myApproachingVehicles.begin(); i!=myApproachingVehicles.end(); ++i) {
+        if ((*i).willPass) {
+            SUMOTime lastGreenTime = (*i).vehicle->getLastGreenTime();
+            if(lastGreenTime<otherGreenTime&&thisIsGreen) {
+                return true;
+            }
+            if(lastGreenTime==otherGreenTime&&thisIsGreen) {
+                return true;
+            }
         }
     }
     return false;
@@ -196,7 +227,12 @@ MSLink::getDirection() const throw() {
 
 
 void
-MSLink::setTLState(LinkState state) throw() {
+MSLink::setTLState(LinkState state, SUMOTime t) throw() {
+    if(state==LINKSTATE_TL_GREEN_MAJOR||state==LINKSTATE_TL_GREEN_MINOR) {
+        if(myState!=LINKSTATE_TL_GREEN_MAJOR&&myState!=LINKSTATE_TL_GREEN_MINOR) {
+            myLastSwitchGreenTime = t;
+        }
+    }
     myState = state;
 }
 

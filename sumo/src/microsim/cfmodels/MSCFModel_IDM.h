@@ -124,20 +124,6 @@ public:
     SUMOReal interactionGap(const MSVehicle * const , SUMOReal vL) const throw();
 
 
-    /** @brief Returns whether the given gap is safe
-     *
-     * "safe" means that no collision occur when using the gap, given other values.
-     * @param[in] speed EGO's speed
-     * @param[in] gap The (netto) gap between LEADER and EGO
-     * @param[in] predSpeed LEADER's speed
-     * @param[in] laneMaxSpeed The maximum velocity allowed on the lane
-     * @return Whether the given gap is safe
-     * @todo evaluate signature
-     * @see MSCFModel::hasSafeGap
-     */
-    bool hasSafeGap(SUMOReal speed, SUMOReal gap, SUMOReal predSpeed, SUMOReal laneMaxSpeed) const throw();
-
-
     /** @brief Get the vehicle's maximum acceleration [m/s^2]
      *
      * As some models describe that a vehicle is accelerating slower the higher its
