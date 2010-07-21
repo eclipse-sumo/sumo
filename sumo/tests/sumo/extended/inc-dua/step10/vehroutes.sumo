@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 04/26/10 10:10:20 by SUMO sumo Version dev-SVN-r8163
+<!-- generated on 07/21/10 12:30:42 by SUMO sumo Version dev-SVN-r8163
 <configuration>
 
     <input>
@@ -33,39 +33,39 @@
         <route edges="2fi 2si 1o 1fi 1si 2o 2fi"/>
     </vehicle>
 
-    <vehicle id="horizontal02" depart="102.00" arrival="272.00">
+    <vehicle id="horizontal02" depart="105.00" arrival="275.00">
         <route edges="2fi 2si 1o 1fi 1si 2o 2fi"/>
     </vehicle>
 
-    <vehicle id="horizontal03" depart="105.00" arrival="275.00">
+    <vehicle id="horizontal03" depart="110.00" arrival="280.00">
         <route edges="2fi 2si 1o 1fi 1si 2o 2fi"/>
     </vehicle>
 
-    <vehicle id="horizontal04" depart="107.00" arrival="277.00">
+    <vehicle id="horizontal04" depart="115.00" arrival="285.00">
         <route edges="2fi 2si 1o 1fi 1si 2o 2fi"/>
     </vehicle>
 
-    <vehicle id="horizontal05" depart="110.00" arrival="280.00">
+    <vehicle id="horizontal05" depart="120.00" arrival="290.00">
         <route edges="2fi 2si 1o 1fi 1si 2o 2fi"/>
     </vehicle>
 
-    <vehicle id="horizontal06" depart="112.00" arrival="282.00">
+    <vehicle id="horizontal06" depart="125.00" arrival="360.00">
         <route edges="2fi 2si 1o 1fi 1si 2o 2fi"/>
     </vehicle>
 
-    <vehicle id="horizontal07" depart="115.00" arrival="285.00">
+    <vehicle id="horizontal07" depart="130.00" arrival="362.00">
         <route edges="2fi 2si 1o 1fi 1si 2o 2fi"/>
     </vehicle>
 
-    <vehicle id="horizontal08" depart="117.00" arrival="287.00">
+    <vehicle id="horizontal08" depart="135.00" arrival="364.00">
         <route edges="2fi 2si 1o 1fi 1si 2o 2fi"/>
     </vehicle>
 
-    <vehicle id="horizontal09" depart="120.00" arrival="290.00">
+    <vehicle id="horizontal09" depart="140.00" arrival="365.00">
         <route edges="2fi 2si 1o 1fi 1si 2o 2fi"/>
     </vehicle>
 
-    <vehicle id="horizontal10" depart="122.00" arrival="292.00">
+    <vehicle id="horizontal10" depart="145.00" arrival="367.00">
         <route edges="2fi 2si 1o 1fi 1si 2o 2fi"/>
     </vehicle>
 

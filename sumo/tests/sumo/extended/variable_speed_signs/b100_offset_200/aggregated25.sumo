@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 05/25/10 09:22:58 by SUMO sumo Version dev-SVN-r8163
+<!-- generated on 07/21/10 12:30:32 by SUMO sumo Version dev-SVN-r8163
 <configuration>
 
     <input>
@@ -24,105 +24,116 @@
 
 <netstats>
     <interval begin="0.00" end="25.00" id="dump_25">
-        <edge id="beg" sampledSeconds="136.00" traveltime="34.16" density="10.91" occupancy="5.46" waitingTime="0.00" speed="14.60" departed="11" arrived="0" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0"/>
+        <edge id="beg" sampledSeconds="84.00" traveltime="33.15" density="6.74" occupancy="3.37" waitingTime="0.00" speed="15.04" departed="7" arrived="0" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0"/>
     </interval>
     <interval begin="25.00" end="50.00" id="dump_25">
-        <edge id="beg" sampledSeconds="283.46" traveltime="26.98" density="22.74" occupancy="11.37" waitingTime="0.00" speed="18.48" departed="11" arrived="0" entered="0" left="10" laneChangedFrom="0" laneChangedTo="0"/>
-        <edge id="middle" sampledSeconds="111.97" traveltime="74.15" density="4.52" occupancy="2.26" waitingTime="0.00" speed="13.36" departed="0" arrived="0" entered="10" left="0" laneChangedFrom="0" laneChangedTo="0"/>
+        <edge id="beg" sampledSeconds="167.26" traveltime="26.72" density="13.42" occupancy="6.71" waitingTime="0.00" speed="18.66" departed="6" arrived="0" entered="0" left="6" laneChangedFrom="0" laneChangedTo="0"/>
+        <edge id="middle" sampledSeconds="71.94" traveltime="73.98" density="2.91" occupancy="1.45" waitingTime="0.00" speed="13.39" departed="0" arrived="0" entered="6" left="0" laneChangedFrom="0" laneChangedTo="0"/>
     </interval>
     <interval begin="50.00" end="75.00" id="dump_25">
-        <edge id="beg" sampledSeconds="287.14" traveltime="26.93" density="23.04" occupancy="11.52" waitingTime="0.00" speed="18.51" departed="10" arrived="0" entered="0" left="10" laneChangedFrom="0" laneChangedTo="0"/>
-        <edge id="middle" sampledSeconds="374.27" traveltime="74.07" density="15.11" occupancy="7.56" waitingTime="0.00" speed="13.37" departed="0" arrived="0" entered="10" left="0" laneChangedFrom="0" laneChangedTo="0"/>
+        <edge id="beg" sampledSeconds="177.68" traveltime="26.95" density="14.26" occupancy="7.13" waitingTime="0.00" speed="18.50" departed="7" arrived="0" entered="0" left="6" laneChangedFrom="0" laneChangedTo="0"/>
+        <edge id="middle" sampledSeconds="227.63" traveltime="74.03" density="9.19" occupancy="4.60" waitingTime="0.00" speed="13.38" departed="0" arrived="0" entered="6" left="0" laneChangedFrom="0" laneChangedTo="0"/>
     </interval>
     <interval begin="75.00" end="100.00" id="dump_25">
-        <edge id="beg" sampledSeconds="285.13" traveltime="26.82" density="22.88" occupancy="11.44" waitingTime="0.00" speed="18.59" departed="10" arrived="0" entered="0" left="11" laneChangedFrom="0" laneChangedTo="0"/>
-        <edge id="middle" sampledSeconds="640.83" traveltime="73.97" density="25.88" occupancy="12.94" waitingTime="0.00" speed="13.39" departed="0" arrived="0" entered="11" left="0" laneChangedFrom="0" laneChangedTo="0"/>
+        <edge id="beg" sampledSeconds="173.18" traveltime="27.04" density="13.90" occupancy="6.95" waitingTime="0.00" speed="18.44" departed="6" arrived="0" entered="0" left="7" laneChangedFrom="0" laneChangedTo="0"/>
+        <edge id="middle" sampledSeconds="392.60" traveltime="74.04" density="15.85" occupancy="7.93" waitingTime="0.00" speed="13.38" departed="0" arrived="0" entered="7" left="0" laneChangedFrom="0" laneChangedTo="0"/>
     </interval>
     <interval begin="100.00" end="125.00" id="dump_25">
-        <edge id="beg" sampledSeconds="276.84" traveltime="26.95" density="22.21" occupancy="11.11" waitingTime="0.00" speed="18.50" departed="11" arrived="0" entered="0" left="11" laneChangedFrom="0" laneChangedTo="0"/>
-        <edge id="end" sampledSeconds="82.08" traveltime="28.26" density="6.59" occupancy="3.29" waitingTime="0.00" speed="17.64" departed="0" arrived="0" entered="8" left="0" laneChangedFrom="0" laneChangedTo="0"/>
-        <edge id="middle" sampledSeconds="816.43" traveltime="77.30" density="32.97" occupancy="16.49" waitingTime="0.00" speed="12.81" departed="0" arrived="0" entered="10" left="8" laneChangedFrom="0" laneChangedTo="0"/>
+        <edge id="beg" sampledSeconds="171.37" traveltime="26.50" density="13.75" occupancy="6.87" waitingTime="0.00" speed="18.81" departed="6" arrived="0" entered="0" left="7" laneChangedFrom="0" laneChangedTo="0"/>
+        <edge id="end" sampledSeconds="60.94" traveltime="27.52" density="4.89" occupancy="2.44" waitingTime="0.00" speed="18.11" departed="0" arrived="0" entered="6" left="0" laneChangedFrom="0" laneChangedTo="0"/>
+        <edge id="middle" sampledSeconds="487.00" traveltime="75.69" density="19.67" occupancy="9.83" waitingTime="0.00" speed="13.09" departed="0" arrived="0" entered="6" left="6" laneChangedFrom="0" laneChangedTo="0"/>
     </interval>
     <interval begin="125.00" end="150.00" id="dump_25">
-        <edge id="beg" sampledSeconds="270.17" traveltime="27.16" density="21.68" occupancy="10.84" waitingTime="0.00" speed="18.35" departed="10" arrived="0" entered="0" left="10" laneChangedFrom="0" laneChangedTo="0"/>
-        <edge id="end" sampledSeconds="218.67" traveltime="22.87" density="17.54" occupancy="8.77" waitingTime="0.00" speed="21.80" departed="0" arrived="0" entered="10" left="9" laneChangedFrom="0" laneChangedTo="0"/>
-        <edge id="middle" sampledSeconds="833.14" traveltime="79.63" density="33.65" occupancy="16.82" waitingTime="0.00" speed="12.44" departed="0" arrived="0" entered="10" left="10" laneChangedFrom="0" laneChangedTo="0"/>
-        <edge id="rend" sampledSeconds="4.84" traveltime="18.21" density="0.39" occupancy="0.19" waitingTime="0.00" speed="27.46" departed="0" arrived="9" entered="9" left="0" laneChangedFrom="0" laneChangedTo="0"/>
+        <edge id="beg" sampledSeconds="165.75" traveltime="26.44" density="13.30" occupancy="6.65" waitingTime="0.00" speed="18.86" departed="6" arrived="0" entered="0" left="6" laneChangedFrom="0" laneChangedTo="0"/>
+        <edge id="end" sampledSeconds="143.77" traveltime="22.42" density="11.54" occupancy="5.77" waitingTime="0.00" speed="22.24" departed="0" arrived="0" entered="6" left="6" laneChangedFrom="0" laneChangedTo="0"/>
+        <edge id="middle" sampledSeconds="490.90" traveltime="75.75" density="19.82" occupancy="9.91" waitingTime="0.00" speed="13.08" departed="0" arrived="0" entered="7" left="6" laneChangedFrom="0" laneChangedTo="0"/>
+        <edge id="rend" sampledSeconds="4.13" traveltime="18.15" density="0.33" occupancy="0.17" waitingTime="0.00" speed="27.55" departed="0" arrived="6" entered="6" left="0" laneChangedFrom="0" laneChangedTo="0"/>
     </interval>
     <interval begin="150.00" end="175.00" id="dump_25">
-        <edge id="beg" sampledSeconds="281.86" traveltime="26.95" density="22.61" occupancy="11.31" waitingTime="0.00" speed="18.50" departed="10" arrived="0" entered="0" left="10" laneChangedFrom="0" laneChangedTo="0"/>
-        <edge id="end" sampledSeconds="237.55" traveltime="22.62" density="19.06" occupancy="9.53" waitingTime="0.00" speed="22.04" departed="0" arrived="0" entered="10" left="10" laneChangedFrom="0" laneChangedTo="0"/>
-        <edge id="middle" sampledSeconds="822.90" traveltime="80.01" density="33.23" occupancy="16.62" waitingTime="0.00" speed="12.38" departed="0" arrived="0" entered="11" left="11" laneChangedFrom="0" laneChangedTo="0"/>
-        <edge id="rend" sampledSeconds="4.29" traveltime="18.16" density="0.34" occupancy="0.17" waitingTime="0.00" speed="27.54" departed="0" arrived="10" entered="10" left="0" laneChangedFrom="0" laneChangedTo="0"/>
+        <edge id="beg" sampledSeconds="160.12" traveltime="26.39" density="12.85" occupancy="6.42" waitingTime="0.00" speed="18.89" departed="7" arrived="0" entered="0" left="6" laneChangedFrom="0" laneChangedTo="0"/>
+        <edge id="end" sampledSeconds="146.90" traveltime="22.92" density="11.79" occupancy="5.89" waitingTime="0.00" speed="21.75" departed="0" arrived="0" entered="6" left="7" laneChangedFrom="0" laneChangedTo="0"/>
+        <edge id="middle" sampledSeconds="485.56" traveltime="76.14" density="19.61" occupancy="9.80" waitingTime="0.00" speed="13.01" departed="0" arrived="0" entered="6" left="7" laneChangedFrom="0" laneChangedTo="0"/>
+        <edge id="rend" sampledSeconds="2.51" traveltime="18.40" density="0.20" occupancy="0.10" waitingTime="0.00" speed="27.17" departed="0" arrived="7" entered="7" left="0" laneChangedFrom="0" laneChangedTo="0"/>
     </interval>
     <interval begin="175.00" end="200.00" id="dump_25">
-        <edge id="beg" sampledSeconds="285.56" traveltime="27.13" density="22.91" occupancy="11.46" waitingTime="0.00" speed="18.37" departed="10" arrived="0" entered="0" left="10" laneChangedFrom="0" laneChangedTo="0"/>
-        <edge id="end" sampledSeconds="222.31" traveltime="22.76" density="17.84" occupancy="8.92" waitingTime="0.00" speed="21.90" departed="0" arrived="0" entered="10" left="10" laneChangedFrom="0" laneChangedTo="0"/>
-        <edge id="middle" sampledSeconds="837.63" traveltime="82.43" density="33.83" occupancy="16.91" waitingTime="0.00" speed="12.02" departed="0" arrived="0" entered="10" left="9" laneChangedFrom="0" laneChangedTo="0"/>
-        <edge id="rend" sampledSeconds="6.06" traveltime="18.26" density="0.48" occupancy="0.24" waitingTime="0.00" speed="27.38" departed="0" arrived="10" entered="10" left="0" laneChangedFrom="0" laneChangedTo="0"/>
+        <edge id="beg" sampledSeconds="164.80" traveltime="26.63" density="13.22" occupancy="6.61" waitingTime="0.00" speed="18.72" departed="6" arrived="0" entered="0" left="6" laneChangedFrom="0" laneChangedTo="0"/>
+        <edge id="end" sampledSeconds="146.92" traveltime="22.74" density="11.79" occupancy="5.89" waitingTime="0.00" speed="21.92" departed="0" arrived="0" entered="7" left="6" laneChangedFrom="0" laneChangedTo="0"/>
+        <edge id="middle" sampledSeconds="475.59" traveltime="76.04" density="19.21" occupancy="9.60" waitingTime="0.00" speed="13.03" departed="0" arrived="0" entered="6" left="6" laneChangedFrom="0" laneChangedTo="0"/>
+        <edge id="rend" sampledSeconds="2.88" traveltime="18.21" density="0.23" occupancy="0.12" waitingTime="0.00" speed="27.46" departed="0" arrived="6" entered="6" left="0" laneChangedFrom="0" laneChangedTo="0"/>
     </interval>
     <interval begin="200.00" end="225.00" id="dump_25">
-        <edge id="beg" sampledSeconds="322.40" traveltime="33.00" density="25.87" occupancy="12.93" waitingTime="0.00" speed="15.11" departed="11" arrived="0" entered="0" left="7" laneChangedFrom="0" laneChangedTo="0"/>
-        <edge id="end" sampledSeconds="160.68" traveltime="22.45" density="12.89" occupancy="6.45" waitingTime="0.00" speed="22.20" departed="0" arrived="0" entered="5" left="9" laneChangedFrom="0" laneChangedTo="0"/>
-        <edge id="middle" sampledSeconds="860.10" traveltime="456.42" density="34.73" occupancy="17.37" waitingTime="0.00" speed="2.17" departed="0" arrived="0" entered="6" left="5" laneChangedFrom="0" laneChangedTo="0"/>
-        <edge id="rend" sampledSeconds="4.44" traveltime="18.26" density="0.36" occupancy="0.18" waitingTime="0.00" speed="27.38" departed="0" arrived="9" entered="9" left="0" laneChangedFrom="0" laneChangedTo="0"/>
+        <edge id="beg" sampledSeconds="171.37" traveltime="28.30" density="13.75" occupancy="6.87" waitingTime="0.00" speed="17.62" departed="5" arrived="0" entered="0" left="6" laneChangedFrom="0" laneChangedTo="0"/>
+        <edge id="end" sampledSeconds="96.79" traveltime="21.38" density="7.77" occupancy="3.88" waitingTime="0.00" speed="23.32" departed="0" arrived="0" entered="2" left="6" laneChangedFrom="0" laneChangedTo="0"/>
+        <edge id="middle" sampledSeconds="502.12" traveltime="452.53" density="20.28" occupancy="10.14" waitingTime="0.00" speed="2.19" departed="0" arrived="0" entered="5" left="2" laneChangedFrom="0" laneChangedTo="0"/>
+        <edge id="rend" sampledSeconds="4.95" traveltime="18.29" density="0.40" occupancy="0.20" waitingTime="0.00" speed="27.34" departed="0" arrived="6" entered="6" left="0" laneChangedFrom="0" laneChangedTo="0"/>
     </interval>
     <interval begin="225.00" end="250.00" id="dump_25">
-        <edge id="beg" sampledSeconds="410.65" traveltime="41.83" density="32.95" occupancy="16.47" waitingTime="0.00" speed="11.92" departed="7" arrived="0" entered="0" left="6" laneChangedFrom="0" laneChangedTo="0"/>
-        <edge id="end" sampledSeconds="89.66" traveltime="22.28" density="7.19" occupancy="3.60" waitingTime="0.00" speed="22.38" departed="0" arrived="0" entered="2" left="5" laneChangedFrom="0" laneChangedTo="0"/>
-        <edge id="middle" sampledSeconds="922.84" traveltime="461.68" density="37.27" occupancy="18.63" waitingTime="0.00" speed="2.15" departed="0" arrived="0" entered="6" left="2" laneChangedFrom="0" laneChangedTo="0"/>
-        <edge id="rend" sampledSeconds="2.18" traveltime="18.32" density="0.17" occupancy="0.09" waitingTime="0.00" speed="27.30" departed="0" arrived="5" entered="5" left="0" laneChangedFrom="0" laneChangedTo="0"/>
+        <edge id="beg" sampledSeconds="169.57" traveltime="29.62" density="13.61" occupancy="6.80" waitingTime="0.00" speed="16.83" departed="7" arrived="0" entered="0" left="5" laneChangedFrom="0" laneChangedTo="0"/>
+        <edge id="end" sampledSeconds="22.04" traveltime="21.87" density="1.77" occupancy="0.88" waitingTime="0.00" speed="22.80" departed="0" arrived="0" entered="1" left="2" laneChangedFrom="0" laneChangedTo="0"/>
+        <edge id="middle" sampledSeconds="624.10" traveltime="457.88" density="25.20" occupancy="12.60" waitingTime="0.00" speed="2.16" departed="0" arrived="0" entered="6" left="1" laneChangedFrom="0" laneChangedTo="0"/>
+        <edge id="rend" sampledSeconds="1.05" traveltime="18.42" density="0.08" occupancy="0.04" waitingTime="0.00" speed="27.15" departed="0" arrived="2" entered="2" left="0" laneChangedFrom="0" laneChangedTo="0"/>
     </interval>
     <interval begin="250.00" end="275.00" id="dump_25">
-        <edge id="beg" sampledSeconds="324.13" traveltime="88.51" density="26.01" occupancy="13.00" waitingTime="0.00" speed="5.63" departed="0" arrived="0" entered="0" left="6" laneChangedFrom="0" laneChangedTo="0"/>
-        <edge id="end" sampledSeconds="40.44" traveltime="22.74" density="3.24" occupancy="1.62" waitingTime="0.00" speed="21.92" departed="0" arrived="0" entered="2" left="2" laneChangedFrom="0" laneChangedTo="0"/>
-        <edge id="middle" sampledSeconds="1032.86" traveltime="472.76" density="41.71" occupancy="20.86" waitingTime="0.00" speed="2.10" departed="0" arrived="0" entered="6" left="2" laneChangedFrom="0" laneChangedTo="0"/>
-        <edge id="rend" sampledSeconds="1.26" traveltime="18.42" density="0.10" occupancy="0.05" waitingTime="0.00" speed="27.14" departed="0" arrived="2" entered="2" left="0" laneChangedFrom="0" laneChangedTo="0"/>
+        <edge id="beg" sampledSeconds="182.88" traveltime="29.81" density="14.67" occupancy="7.34" waitingTime="0.00" speed="16.73" departed="6" arrived="0" entered="0" left="6" laneChangedFrom="0" laneChangedTo="0"/>
+        <edge id="end" sampledSeconds="25.51" traveltime="24.56" density="2.05" occupancy="1.02" waitingTime="0.00" speed="20.30" departed="0" arrived="0" entered="1" left="1" laneChangedFrom="0" laneChangedTo="0"/>
+        <edge id="middle" sampledSeconds="739.20" traveltime="463.40" density="29.85" occupancy="14.93" waitingTime="0.00" speed="2.14" departed="0" arrived="0" entered="6" left="1" laneChangedFrom="0" laneChangedTo="0"/>
+        <edge id="rend" sampledSeconds="0.50" traveltime="18.28" density="0.04" occupancy="0.02" waitingTime="0.00" speed="27.35" departed="0" arrived="1" entered="1" left="0" laneChangedFrom="0" laneChangedTo="0"/>
     </interval>
     <interval begin="275.00" end="300.00" id="dump_25">
-        <edge id="beg" sampledSeconds="173.40" traveltime="269.23" density="13.91" occupancy="6.96" waitingTime="0.00" speed="1.85" departed="0" arrived="0" entered="0" left="6" laneChangedFrom="0" laneChangedTo="0"/>
-        <edge id="end" sampledSeconds="37.34" traveltime="22.97" density="3.00" occupancy="1.50" waitingTime="0.00" speed="21.71" departed="0" arrived="0" entered="1" left="2" laneChangedFrom="0" laneChangedTo="0"/>
-        <edge id="middle" sampledSeconds="1143.99" traveltime="471.14" density="46.20" occupancy="23.10" waitingTime="0.00" speed="2.10" departed="0" arrived="0" entered="6" left="1" laneChangedFrom="0" laneChangedTo="0"/>
-        <edge id="rend" sampledSeconds="0.63" traveltime="18.12" density="0.05" occupancy="0.03" waitingTime="0.00" speed="27.60" departed="0" arrived="2" entered="2" left="0" laneChangedFrom="0" laneChangedTo="0"/>
+        <edge id="beg" sampledSeconds="184.25" traveltime="29.54" density="14.78" occupancy="7.39" waitingTime="0.00" speed="16.88" departed="6" arrived="0" entered="0" left="7" laneChangedFrom="0" laneChangedTo="0"/>
+        <edge id="end" sampledSeconds="25.59" traveltime="24.62" density="2.05" occupancy="1.03" waitingTime="0.00" speed="20.25" departed="0" arrived="0" entered="1" left="1" laneChangedFrom="0" laneChangedTo="0"/>
+        <edge id="middle" sampledSeconds="864.20" traveltime="461.20" density="34.90" occupancy="17.45" waitingTime="0.00" speed="2.15" departed="0" arrived="0" entered="6" left="1" laneChangedFrom="0" laneChangedTo="0"/>
+        <edge id="rend" sampledSeconds="1.00" traveltime="18.22" density="0.08" occupancy="0.04" waitingTime="0.00" speed="27.44" departed="0" arrived="1" entered="1" left="0" laneChangedFrom="0" laneChangedTo="0"/>
     </interval>
     <interval begin="300.00" end="325.00" id="dump_25">
-        <edge id="beg" sampledSeconds="27.86" traveltime="230.66" density="2.24" occupancy="1.12" waitingTime="0.00" speed="2.16" departed="0" arrived="0" entered="0" left="4" laneChangedFrom="0" laneChangedTo="0"/>
-        <edge id="end" sampledSeconds="103.46" traveltime="26.40" density="8.30" occupancy="4.15" waitingTime="0.00" speed="18.89" departed="0" arrived="0" entered="8" left="1" laneChangedFrom="0" laneChangedTo="0"/>
-        <edge id="middle" sampledSeconds="1186.27" traveltime="91.90" density="47.91" occupancy="23.95" waitingTime="0.00" speed="10.78" departed="0" arrived="0" entered="5" left="9" laneChangedFrom="0" laneChangedTo="0"/>
-        <edge id="rend" sampledSeconds="0.33" traveltime="18.29" density="0.03" occupancy="0.01" waitingTime="0.00" speed="27.34" departed="0" arrived="1" entered="1" left="0" laneChangedFrom="0" laneChangedTo="0"/>
+        <edge id="beg" sampledSeconds="173.15" traveltime="28.72" density="13.89" occupancy="6.95" waitingTime="0.00" speed="17.36" departed="6" arrived="0" entered="0" left="6" laneChangedFrom="0" laneChangedTo="0"/>
+        <edge id="end" sampledSeconds="68.72" traveltime="25.79" density="5.51" occupancy="2.76" waitingTime="0.00" speed="19.33" departed="0" arrived="0" entered="6" left="1" laneChangedFrom="0" laneChangedTo="0"/>
+        <edge id="middle" sampledSeconds="954.88" traveltime="86.80" density="38.56" occupancy="19.28" waitingTime="0.00" speed="11.41" departed="0" arrived="0" entered="7" left="6" laneChangedFrom="0" laneChangedTo="0"/>
+        <edge id="rend" sampledSeconds="0.03" traveltime="18.26" density="0.00" occupancy="0.00" waitingTime="0.00" speed="27.38" departed="0" arrived="1" entered="1" left="0" laneChangedFrom="0" laneChangedTo="0"/>
     </interval>
     <interval begin="325.00" end="350.00" id="dump_25">
-        <edge id="end" sampledSeconds="229.23" traveltime="22.95" density="18.39" occupancy="9.20" waitingTime="0.00" speed="21.72" departed="0" arrived="0" entered="10" left="9" laneChangedFrom="0" laneChangedTo="0"/>
-        <edge id="middle" sampledSeconds="978.07" traveltime="66.86" density="39.50" occupancy="19.75" waitingTime="0.00" speed="14.81" departed="0" arrived="0" entered="0" left="10" laneChangedFrom="0" laneChangedTo="0"/>
-        <edge id="rend" sampledSeconds="5.85" traveltime="18.31" density="0.47" occupancy="0.23" waitingTime="0.00" speed="27.30" departed="0" arrived="9" entered="9" left="0" laneChangedFrom="0" laneChangedTo="0"/>
+        <edge id="beg" sampledSeconds="169.19" traveltime="26.86" density="13.57" occupancy="6.79" waitingTime="0.00" speed="18.56" departed="6" arrived="0" entered="0" left="6" laneChangedFrom="0" laneChangedTo="0"/>
+        <edge id="end" sampledSeconds="199.13" traveltime="23.68" density="15.98" occupancy="7.99" waitingTime="0.00" speed="21.05" departed="0" arrived="0" entered="10" left="7" laneChangedFrom="0" laneChangedTo="0"/>
+        <edge id="middle" sampledSeconds="906.50" traveltime="54.86" density="36.61" occupancy="18.30" waitingTime="0.00" speed="18.06" departed="0" arrived="0" entered="6" left="10" laneChangedFrom="0" laneChangedTo="0"/>
+        <edge id="rend" sampledSeconds="3.65" traveltime="18.25" density="0.29" occupancy="0.15" waitingTime="0.00" speed="27.39" departed="0" arrived="7" entered="7" left="0" laneChangedFrom="0" laneChangedTo="0"/>
     </interval>
     <interval begin="350.00" end="375.00" id="dump_25">
-        <edge id="end" sampledSeconds="219.52" traveltime="22.94" density="17.61" occupancy="8.81" waitingTime="0.00" speed="21.74" departed="0" arrived="0" entered="10" left="11" laneChangedFrom="0" laneChangedTo="0"/>
-        <edge id="middle" sampledSeconds="736.27" traveltime="143.32" density="29.73" occupancy="14.87" waitingTime="0.00" speed="6.91" departed="0" arrived="0" entered="0" left="10" laneChangedFrom="0" laneChangedTo="0"/>
-        <edge id="rend" sampledSeconds="5.55" traveltime="18.35" density="0.44" occupancy="0.22" waitingTime="0.00" speed="27.25" departed="0" arrived="11" entered="11" left="0" laneChangedFrom="0" laneChangedTo="0"/>
+        <edge id="beg" sampledSeconds="166.30" traveltime="26.47" density="13.34" occupancy="6.67" waitingTime="0.00" speed="18.84" departed="7" arrived="0" entered="0" left="7" laneChangedFrom="0" laneChangedTo="0"/>
+        <edge id="end" sampledSeconds="241.85" traveltime="22.96" density="19.40" occupancy="9.70" waitingTime="0.00" speed="21.72" departed="0" arrived="0" entered="10" left="10" laneChangedFrom="0" laneChangedTo="0"/>
+        <edge id="middle" sampledSeconds="808.36" traveltime="71.19" density="32.64" occupancy="16.32" waitingTime="0.00" speed="13.91" departed="0" arrived="0" entered="7" left="11" laneChangedFrom="0" laneChangedTo="0"/>
+        <edge id="rend" sampledSeconds="4.56" traveltime="18.33" density="0.36" occupancy="0.18" waitingTime="0.00" speed="27.28" departed="0" arrived="10" entered="10" left="0" laneChangedFrom="0" laneChangedTo="0"/>
     </interval>
     <interval begin="375.00" end="400.00" id="dump_25">
-        <edge id="end" sampledSeconds="240.23" traveltime="22.77" density="19.27" occupancy="9.64" waitingTime="0.00" speed="21.89" departed="0" arrived="0" entered="11" left="9" laneChangedFrom="0" laneChangedTo="0"/>
-        <edge id="middle" sampledSeconds="474.00" traveltime="226.71" density="19.14" occupancy="9.57" waitingTime="0.00" speed="4.37" departed="0" arrived="0" entered="0" left="11" laneChangedFrom="0" laneChangedTo="0"/>
-        <edge id="rend" sampledSeconds="2.84" traveltime="18.34" density="0.23" occupancy="0.11" waitingTime="0.00" speed="27.27" departed="0" arrived="9" entered="9" left="0" laneChangedFrom="0" laneChangedTo="0"/>
+        <edge id="beg" sampledSeconds="171.64" traveltime="26.03" density="13.77" occupancy="6.89" waitingTime="0.00" speed="19.15" departed="6" arrived="0" entered="0" left="7" laneChangedFrom="0" laneChangedTo="0"/>
+        <edge id="end" sampledSeconds="228.65" traveltime="22.78" density="18.35" occupancy="9.17" waitingTime="0.00" speed="21.88" departed="0" arrived="0" entered="10" left="10" laneChangedFrom="0" laneChangedTo="0"/>
+        <edge id="middle" sampledSeconds="715.18" traveltime="97.36" density="28.88" occupancy="14.44" waitingTime="0.00" speed="10.17" departed="0" arrived="0" entered="6" left="10" laneChangedFrom="0" laneChangedTo="0"/>
+        <edge id="rend" sampledSeconds="4.57" traveltime="18.20" density="0.37" occupancy="0.18" waitingTime="0.00" speed="27.47" departed="0" arrived="10" entered="10" left="0" laneChangedFrom="0" laneChangedTo="0"/>
     </interval>
     <interval begin="400.00" end="425.00" id="dump_25">
-        <edge id="end" sampledSeconds="237.78" traveltime="22.54" density="19.08" occupancy="9.54" waitingTime="0.00" speed="22.12" departed="0" arrived="0" entered="10" left="11" laneChangedFrom="0" laneChangedTo="0"/>
-        <edge id="middle" sampledSeconds="210.60" traveltime="215.67" density="8.50" occupancy="4.25" waitingTime="0.00" speed="4.59" departed="0" arrived="0" entered="0" left="9" laneChangedFrom="0" laneChangedTo="0"/>
-        <edge id="rend" sampledSeconds="6.19" traveltime="18.27" density="0.50" occupancy="0.25" waitingTime="0.00" speed="27.37" departed="0" arrived="11" entered="11" left="0" laneChangedFrom="0" laneChangedTo="0"/>
+        <edge id="beg" sampledSeconds="104.41" traveltime="21.91" density="8.38" occupancy="4.19" waitingTime="0.00" speed="22.75" departed="1" arrived="0" entered="0" left="6" laneChangedFrom="0" laneChangedTo="0"/>
+        <edge id="end" sampledSeconds="230.69" traveltime="22.81" density="18.51" occupancy="9.25" waitingTime="0.00" speed="21.86" departed="0" arrived="0" entered="10" left="10" laneChangedFrom="0" laneChangedTo="0"/>
+        <edge id="middle" sampledSeconds="627.88" traveltime="86.21" density="25.36" occupancy="12.68" waitingTime="0.00" speed="11.49" departed="0" arrived="0" entered="7" left="10" laneChangedFrom="0" laneChangedTo="0"/>
+        <edge id="rend" sampledSeconds="5.31" traveltime="18.26" density="0.43" occupancy="0.21" waitingTime="0.00" speed="27.39" departed="0" arrived="10" entered="10" left="0" laneChangedFrom="0" laneChangedTo="0"/>
     </interval>
     <interval begin="425.00" end="450.00" id="dump_25">
-        <edge id="end" sampledSeconds="181.52" traveltime="21.35" density="14.56" occupancy="7.28" waitingTime="0.00" speed="23.35" departed="0" arrived="0" entered="4" left="10" laneChangedFrom="0" laneChangedTo="0"/>
-        <edge id="middle" sampledSeconds="14.98" traveltime="227.97" density="0.61" occupancy="0.30" waitingTime="0.00" speed="4.34" departed="0" arrived="0" entered="0" left="4" laneChangedFrom="0" laneChangedTo="0"/>
-        <edge id="rend" sampledSeconds="4.68" traveltime="18.28" density="0.37" occupancy="0.19" waitingTime="0.00" speed="27.35" departed="0" arrived="10" entered="10" left="0" laneChangedFrom="0" laneChangedTo="0"/>
+        <edge id="beg" sampledSeconds="2.08" traveltime="22.24" density="0.17" occupancy="0.08" waitingTime="0.00" speed="22.42" departed="0" arrived="0" entered="0" left="1" laneChangedFrom="0" laneChangedTo="0"/>
+        <edge id="end" sampledSeconds="228.19" traveltime="22.99" density="18.31" occupancy="9.15" waitingTime="0.00" speed="21.69" departed="0" arrived="0" entered="10" left="10" laneChangedFrom="0" laneChangedTo="0"/>
+        <edge id="middle" sampledSeconds="483.56" traveltime="89.60" density="19.53" occupancy="9.76" waitingTime="0.00" speed="11.05" departed="0" arrived="0" entered="1" left="10" laneChangedFrom="0" laneChangedTo="0"/>
+        <edge id="rend" sampledSeconds="5.37" traveltime="18.23" density="0.43" occupancy="0.21" waitingTime="0.00" speed="27.43" departed="0" arrived="10" entered="10" left="0" laneChangedFrom="0" laneChangedTo="0"/>
     </interval>
     <interval begin="450.00" end="475.00" id="dump_25">
-        <edge id="end" sampledSeconds="11.00" traveltime="18.21" density="0.88" occupancy="0.44" waitingTime="0.00" speed="27.38" departed="0" arrived="0" entered="0" left="3" laneChangedFrom="0" laneChangedTo="0"/>
-        <edge id="rend" sampledSeconds="1.99" traveltime="18.17" density="0.16" occupancy="0.08" waitingTime="0.00" speed="27.52" departed="0" arrived="3" entered="3" left="0" laneChangedFrom="0" laneChangedTo="0"/>
+        <edge id="end" sampledSeconds="242.05" traveltime="22.70" density="19.42" occupancy="9.71" waitingTime="0.00" speed="21.97" departed="0" arrived="0" entered="11" left="11" laneChangedFrom="0" laneChangedTo="0"/>
+        <edge id="middle" sampledSeconds="223.65" traveltime="190.33" density="9.03" occupancy="4.52" waitingTime="0.00" speed="5.20" departed="0" arrived="0" entered="0" left="10" laneChangedFrom="0" laneChangedTo="0"/>
+        <edge id="rend" sampledSeconds="6.86" traveltime="18.17" density="0.55" occupancy="0.27" waitingTime="0.00" speed="27.52" departed="0" arrived="11" entered="11" left="0" laneChangedFrom="0" laneChangedTo="0"/>
     </interval>
     <interval begin="475.00" end="500.00" id="dump_25">
+        <edge id="end" sampledSeconds="187.52" traveltime="21.39" density="15.04" occupancy="7.52" waitingTime="0.00" speed="23.31" departed="0" arrived="0" entered="4" left="10" laneChangedFrom="0" laneChangedTo="0"/>
+        <edge id="middle" sampledSeconds="16.50" traveltime="209.64" density="0.67" occupancy="0.33" waitingTime="0.00" speed="4.72" departed="0" arrived="0" entered="0" left="4" laneChangedFrom="0" laneChangedTo="0"/>
+        <edge id="rend" sampledSeconds="7.04" traveltime="18.22" density="0.56" occupancy="0.28" waitingTime="0.00" speed="27.44" departed="0" arrived="10" entered="10" left="0" laneChangedFrom="0" laneChangedTo="0"/>
     </interval>
     <interval begin="500.00" end="525.00" id="dump_25">
+        <edge id="end" sampledSeconds="14.01" traveltime="18.20" density="1.12" occupancy="0.56" waitingTime="0.00" speed="27.39" departed="0" arrived="0" entered="0" left="3" laneChangedFrom="0" laneChangedTo="0"/>
+        <edge id="rend" sampledSeconds="1.97" traveltime="18.33" density="0.16" occupancy="0.08" waitingTime="0.00" speed="27.27" departed="0" arrived="3" entered="3" left="0" laneChangedFrom="0" laneChangedTo="0"/>
     </interval>
     <interval begin="525.00" end="550.00" id="dump_25">
     </interval>
