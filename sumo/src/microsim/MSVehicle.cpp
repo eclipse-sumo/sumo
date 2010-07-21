@@ -794,7 +794,7 @@ MSVehicle::moveRegardingCritical(SUMOTime t, const MSLane* const lane,
         if (pred!=0) {
             // interaction with leader if one exists on same lane
             SUMOReal gap = gap2pred(*pred);
-            if (MSGlobals::gCheck4Accidents && gap<0) {
+            if (MSGlobals::gCheck4Accidents && gap < 0/*-POSITION_EPS*/) {
                 // collision occured!
                 return true;
             }
@@ -804,7 +804,7 @@ MSVehicle::moveRegardingCritical(SUMOTime t, const MSLane* const lane,
             MSVehicle *predP = myLane->getPartialOccupator();
             if (predP!=0) {
                 SUMOReal gap = myLane->getPartialOccupatorEnd() - myState.myPos;
-                if (MSGlobals::gCheck4Accidents && gap<0) {
+                if (MSGlobals::gCheck4Accidents && gap < 0/*-POSITION_EPS*/) {
                     // collision occured!
                     return true;
                 }
@@ -826,7 +826,7 @@ MSVehicle::moveRegardingCritical(SUMOTime t, const MSLane* const lane,
         SUMOReal vBeg = MIN2(cfModel.maxNextSpeed(myState.mySpeed), lane->getMaxSpeed());//vaccel( myState.mySpeed, lane->maxSpeed() );
         if (pred!=0) {
             SUMOReal gap = gap2pred(*pred);
-            if (MSGlobals::gCheck4Accidents && gap<0) {
+            if (MSGlobals::gCheck4Accidents && gap < 0/*-POSITION_EPS*/) {
                 // collision occured!
                 return true;
             }
@@ -839,7 +839,7 @@ MSVehicle::moveRegardingCritical(SUMOTime t, const MSLane* const lane,
             MSVehicle *predP = myLane->getPartialOccupator();
             if (predP!=0) {
                 SUMOReal gap = myLane->getPartialOccupatorEnd() - myState.myPos;
-                if (MSGlobals::gCheck4Accidents && gap<0) {
+                if (MSGlobals::gCheck4Accidents && gap < 0/*-POSITION_EPS*/) {
                     // collision occured!
                     return true;
                 }
