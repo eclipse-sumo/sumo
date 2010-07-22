@@ -93,21 +93,16 @@ public:
     }
 
 
-    /** @brief Applies the priorities resulting from the current phase to controlled links
+    /** @brief Applies the current signal states to controlled links
      *
-     * This method is overridded, as in off-state, a tls does not change rows.
+     * Actually, this method does nothing; the tls stays in the last state
      *
-     * @todo Check whether this can be integrated into "setTrafficLightSignals"
-     * @see MSTrafficLightLogic::setLinkPriorities
-     */
-    void setLinkPriorities() const throw() { }
-
-
-    /** @brief Clears all incoming vehicle information on links that have red
+     * @param[in] t The current time
      * @return Always true
-     * @see MSTrafficLightLogic::setTrafficLightSignals
+     * @see MSLink::LinkState
+     * @see MSLink::setTLState
      */
-    bool setTrafficLightSignals() const throw() {
+    bool setTrafficLightSignals(SUMOTime /*t*/) const throw() {
         return true;
     }
     /// @}

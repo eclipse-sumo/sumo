@@ -117,7 +117,8 @@ MSTLLogicControl::TLSLogicVariants::addLogic(const std::string &programID,
     }
     // add to the list of logic
     myVariants[programID] = logic;
-    logic->setLinkPriorities();
+    logic->setTrafficLightSignals(MSNet::getInstance()->getCurrentTimeStep());
+    executeOnSwitchActions();
     return true;
 }
 
@@ -191,18 +192,10 @@ MSTLLogicControl::TLSLogicVariants::switchTo(MSTLLogicControl &tlc, const std::s
 }
 
 
-bool
-MSTLLogicControl::TLSLogicVariants::setTrafficLightSignals() {
-    myCurrentProgram->setTrafficLightSignals();
-    return true;
-}
-
-
 void
 MSTLLogicControl::TLSLogicVariants::executeOnSwitchActions() const {
-    for (std::vector<OnSwitchAction*>::const_iterator i=mySwitchActions.begin(); i!=mySwitchActions.end();) {
+    for (std::vector<OnSwitchAction*>::const_iterator i=mySwitchActions.begin(); i!=mySwitchActions.end(); ++i) {
         (*i)->execute();
-        ++i;
     }
 }
 
@@ -592,9 +585,9 @@ MSTLLogicControl::~MSTLLogicControl() throw() {
 
 
 void
-MSTLLogicControl::setTrafficLightSignals() {
-    for (std::map<std::string, TLSLogicVariants*>::iterator i=myLogics.begin(); i!=myLogics.end(); ++i) {
-        (*i).second->setTrafficLightSignals();
+MSTLLogicControl::setTrafficLightSignals(SUMOTime t) const throw() {
+    for (std::map<std::string, TLSLogicVariants*>::const_iterator i=myLogics.begin(); i!=myLogics.end(); ++i) {
+        (*i).second->getActive()->setTrafficLightSignals(t);
     }
 }
 

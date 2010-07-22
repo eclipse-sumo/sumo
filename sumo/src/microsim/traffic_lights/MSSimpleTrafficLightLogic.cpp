@@ -93,21 +93,8 @@ MSSimpleTrafficLightLogic::trySwitch(bool) throw() {
 }
 
 
-void
-MSSimpleTrafficLightLogic::setLinkPriorities() const throw() {
-    const std::string &state = myPhases[myStep]->getState();
-    for (size_t i=0; i<myLinks.size(); i++) {
-        bool hasPriority = (state[i]>='A'&&state[i]<='Z');
-        const LinkVector &currGroup = myLinks[i];
-        for (LinkVector::const_iterator j=currGroup.begin(); j!=currGroup.end(); j++) {
-            (*j)->setPriority(hasPriority);
-        }
-    }
-}
-
-
 bool
-MSSimpleTrafficLightLogic::setTrafficLightSignals() const throw() {
+MSSimpleTrafficLightLogic::setTrafficLightSignals(SUMOTime t) const throw() {
     // get the current traffic light signal combination
     const std::string &state = myPhases[myStep]->getState();
     // go through the links
@@ -115,7 +102,7 @@ MSSimpleTrafficLightLogic::setTrafficLightSignals() const throw() {
         const LinkVector &currGroup = myLinks[i];
         MSLink::LinkState ls = (MSLink::LinkState) state[i];
         for (LinkVector::const_iterator j=currGroup.begin(); j!=currGroup.end(); j++) {
-            (*j)->setTLState(ls, MSNet::getInstance()->getCurrentTimeStep());
+            (*j)->setTLState(ls, t);
         }
     }
     return true;

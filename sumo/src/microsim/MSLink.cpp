@@ -50,21 +50,19 @@ SUMOTime MSLink::myLookaheadTime = 3000;
 // member method definitions
 // ===========================================================================
 #ifndef HAVE_INTERNAL_LANES
-MSLink::MSLink(MSLane* succLane, bool yield,
+MSLink::MSLink(MSLane* succLane, 
                LinkDirection dir, LinkState state,
                SUMOReal length) throw()
         :
         myLane(succLane),
-        myPrio(!yield), myApproaching(0),
         myRequestIdx(0), myRespondIdx(0),
         myState(state), myDirection(dir),  myLength(length), myLastSwitchGreenTime(86400*1000) {}
 #else
-MSLink::MSLink(MSLane* succLane, MSLane *via, bool yield,
+MSLink::MSLink(MSLane* succLane, MSLane *via, 
                LinkDirection dir, LinkState state, bool internalEnd,
                SUMOReal length) throw()
         :
         myLane(succLane),
-        myPrio(!yield), myApproaching(0),
         myRequestIdx(0), myRespondIdx(0),
         myState(state), myDirection(dir), myLength(length),
         myJunctionInlane(via),myIsInternalEnd(internalEnd), myLastSwitchGreenTime(86400*1000) {}
@@ -89,7 +87,6 @@ MSLink::setRequestInformation(unsigned int requestIdx, unsigned int respondIdx, 
 
 void
 MSLink::setApproaching(MSVehicle *approaching, SUMOTime arrivalTime, SUMOReal speed, bool setRequest) throw() {
-    myApproaching = approaching;
     std::vector<MSJunction::ApproachingVehicleInformation>::iterator i = find_if(myApproachingVehicles.begin(), myApproachingVehicles.end(), MSJunction::vehicle_in_request_finder(approaching));
     if (i!=myApproachingVehicles.end()) {
         myApproachingVehicles.erase(i);
@@ -98,6 +95,7 @@ MSLink::setApproaching(MSVehicle *approaching, SUMOTime arrivalTime, SUMOReal sp
     MSJunction::ApproachingVehicleInformation approachInfo(arrivalTime, leaveTime, approaching, setRequest);
     myApproachingVehicles.push_back(approachInfo);
 }
+
 
 void
 MSLink::addBlockedLink(MSLink *link) throw() {
@@ -123,12 +121,6 @@ MSLink::removeApproaching(MSVehicle *veh) {
     if (i!=myApproachingVehicles.end()) {
         myApproachingVehicles.erase(i);
     }
-}
-
-
-void
-MSLink::setPriority(bool prio) throw() {
-    myPrio = prio;
 }
 
 

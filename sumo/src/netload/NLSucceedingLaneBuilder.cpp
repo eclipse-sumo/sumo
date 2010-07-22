@@ -70,7 +70,7 @@ NLSucceedingLaneBuilder::openSuccLane(const std::string &laneId) throw() {
 
 
 void
-NLSucceedingLaneBuilder::addSuccLane(bool yield, const std::string &laneId,
+NLSucceedingLaneBuilder::addSuccLane(const std::string &laneId,
 #ifdef HAVE_INTERNAL_LANES
                                      const std::string &viaID,
                                      SUMOReal pass,
@@ -83,9 +83,9 @@ NLSucceedingLaneBuilder::addSuccLane(bool yield, const std::string &laneId,
     if (laneId=="SUMO_NO_DESTINATION") {
         // build the dead link and add it to the container
 #ifdef HAVE_INTERNAL_LANES
-        MSLink *link = new MSLink(0, 0, yield, MSLink::LINKDIR_NODIR, MSLink::LINKSTATE_DEADEND, false, 0.);
+        MSLink *link = new MSLink(0, 0, MSLink::LINKDIR_NODIR, MSLink::LINKSTATE_DEADEND, false, 0.);
 #else
-        MSLink *link = new MSLink(0, yield, MSLink::LINKDIR_NODIR, MSLink::LINKSTATE_DEADEND, 0.);
+        MSLink *link = new MSLink(0, MSLink::LINKDIR_NODIR, MSLink::LINKSTATE_DEADEND, 0.);
 #endif
         mySuccLanes->push_back(link);
         if (tlid!="") {
@@ -130,9 +130,9 @@ NLSucceedingLaneBuilder::addSuccLane(bool yield, const std::string &laneId,
     if (via!=0) {
         length = via->getLength();
     }
-    MSLink *link = new MSLink(lane, via, yield, dir, state, internalEnd, length);
+    MSLink *link = new MSLink(lane, via, dir, state, internalEnd, length);
 #else
-    MSLink *link = new MSLink(lane, yield, dir, state, length);
+    MSLink *link = new MSLink(lane, dir, state, length);
 #endif
 
     MSLane *clane = MSLane::dictionary(myCurrentLane);

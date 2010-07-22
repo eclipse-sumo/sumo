@@ -82,17 +82,13 @@ public:
     SUMOTime trySwitch(bool isActive) throw();
 
 
-    /** @brief Applies the priorities resulting from the current phase to controlled links
-     * @todo Check whether this can be integrated into "setTrafficLightSignals"
-     * @see MSTrafficLightLogic::setLinkPriorities
-     */
-    void setLinkPriorities() const throw();
-
-
-    /** @brief Clears all incoming vehicle information on links that have red
+    /** @brief Applies the current signal states to controlled links
+     * @param[in] t The current time
      * @return Always true
+     * @see MSLink::LinkState
+     * @see MSLink::setTLState
      */
-    bool setTrafficLightSignals() const throw();
+    bool setTrafficLightSignals(SUMOTime t) const throw();
     /// @}
 
 

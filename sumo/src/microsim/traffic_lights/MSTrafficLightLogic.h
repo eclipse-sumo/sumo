@@ -124,13 +124,13 @@ public:
     /** @brief Returns the (uncontrolled) states of the controlled links
      * @return The controlled link's states
      */
-    std::map<MSLink*, std::pair<MSLink::LinkState, bool> > collectLinkStates() const throw();
+    std::map<MSLink*, MSLink::LinkState> collectLinkStates() const throw();
 
 
     /** @brief Resets the states of controlled links
-     * @param[in] The state of controlled links to use
+     * @param[in] vals The state of controlled links to use
      */
-    void resetLinkStates(const std::map<MSLink*, std::pair<MSLink::LinkState, bool> > &vals) const throw();
+    void resetLinkStates(const std::map<MSLink*, MSLink::LinkState> &vals) const throw();
     /// @}
 
 
@@ -145,16 +145,13 @@ public:
     virtual SUMOTime trySwitch(bool isActive) throw() = 0;
 
 
-    /** @brief Applies the priorities resulting from the current phase to controlled links
-     * @todo Check whether this can be integrated into "setTrafficLightSignals"
-     */
-    virtual void setLinkPriorities() const throw() = 0;
-
-
-    /** @brief Clears all incoming vehicle information on links that have red
+    /** @brief Applies the current signal states to controlled links
+     * @param[in] t The current time
      * @return Always true
+     * @see MSLink::LinkState
+     * @see MSLink::setTLState
      */
-    virtual bool setTrafficLightSignals() const throw() = 0;
+    virtual bool setTrafficLightSignals(SUMOTime t) const throw() = 0;
     /// @}
 
 

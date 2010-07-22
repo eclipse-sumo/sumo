@@ -118,7 +118,6 @@ public:
         bool isActive(const MSTrafficLightLogic *tl) const;
         MSTrafficLightLogic* getActive() const;
         bool switchTo(MSTLLogicControl &tlc, const std::string &programID);
-        bool setTrafficLightSignals();
         MSTrafficLightLogic*getLogicInstantiatingOff(MSTLLogicControl &tlc,
                 const std::string &programID);
         void executeOnSwitchActions() const;
@@ -134,7 +133,7 @@ public:
         std::map<std::string, MSTrafficLightLogic*> myVariants;
 
         /// @brief Originally loaded link states
-        std::map<MSLink*, std::pair<MSLink::LinkState, bool> > myOriginalLinkStates;
+        std::map<MSLink*, MSLink::LinkState> myOriginalLinkStates;
 
         /// @brief The list of actions/commands to execute on switch
         std::vector<OnSwitchAction*> mySwitchActions;
@@ -179,9 +178,13 @@ public:
     bool closeNetworkReading() throw();
 
 
-    /** @brief For all traffic lights, the requests are masked away if they have red light (not yellow)
+    /** @brief Lets all running (current) tls programs apply their current signal states to links they control
+     * @param[in] t The current time
+     * @see MSTrafficLightLogic::setTrafficLightSignals
+     * @see MSLink::LinkState
+     * @see MSLink::setTLState
      */
-    void setTrafficLightSignals();
+    void setTrafficLightSignals(SUMOTime t) const throw();
 
 
     /** @brief Returns a vector which contains all logics

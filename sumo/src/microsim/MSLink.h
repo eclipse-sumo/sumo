@@ -48,8 +48,6 @@ class MSTrafficLightLogic;
  * @class MSLinks
  * @brief A connnection between lanes
  *
- * Each link lies within a junction.
- *
  * A link is basically a connection between two lanes, stored within the
  *  originating (the one that is being left) lane and pointing to the
  *  approached lane. When using inner-junction simulation, additionally
@@ -63,9 +61,8 @@ class MSTrafficLightLogic;
  *
  * Because a link is a connection over a junction, it basically also has a
  *  length. This length is needed to assure that vehicles have the correct halting
- *  distance before approaching the link.
- *
- * @todo Check whether links with via-lanes should be subclassed
+ *  distance before approaching the link. In the case of using internal lanes,
+ *  the link's length is 0.
  */
 class MSLink {
 public:
@@ -126,27 +123,27 @@ public:
 
 
 #ifndef HAVE_INTERNAL_LANES
-    /** @brief Constructor for simulation not using internal lanes
-     *
-     * @param[in] succLane The lane approached by this link
-     * @param[in] yield Information whether vehicles have to decelerate in front of this link
-     * @param[in] dir The direction of this link
-     * @param[in] state The state of this link
-     */
-    MSLink(MSLane* succLane,
-           bool yield, LinkDirection dir, LinkState state, SUMOReal length) throw();
+   /** @brief Constructor for simulation not using internal lanes
+    *
+    * @param[in] succLane The lane approached by this link
+    * @param[in] dir The direction of this link
+    * @param[in] state The state of this link
+    * @param[in] length The length of this link
+    */
+   MSLink(MSLane* succLane,
+          LinkDirection dir, LinkState state, SUMOReal length) throw();
 #else
-    /** @brief Constructor for simulation which uses internal lanes
+   /** @brief Constructor for simulation which uses internal lanes
     *
     * @param[in] succLane The lane approached by this link
     * @param[in] via The lane to use within the junction
-    * @param[in] yield Information whether vehicles have to decelerate in front of this link
     * @param[in] dir The direction of this link
     * @param[in] state The state of this link
     * @param[in] internalEnd Information whether this link is followed by a second junction-internal link
+    * @param[in] length The length of this link
     */
     MSLink(MSLane* succLane, MSLane *via,
-           bool yield, LinkDirection dir, LinkState state, bool internalEnd,
+           LinkDirection dir, LinkState state, bool internalEnd,
            SUMOReal length) throw();
 #endif
 
@@ -171,8 +168,7 @@ public:
 
     /** @brief Sets the information about an approaching vehicle
      *
-     * Stores the approaching vehicle in myApproaching, sets the information
-     *  that a vehicle is approaching in request.
+     * The information is stored in myApproachingVehicles.
      *
      * @param[in] approaching The approaching vehicle
      */
@@ -184,25 +180,6 @@ public:
 
     void removeApproaching(MSVehicle *veh);
 
-    /** @brief Returns the approaching vehicle
-     *
-     * May be 0 if no vehicle is approaching.
-     *
-     * @return The approaching vehicle if any, 0 otherwise
-     * @todo Unsecure!
-     */
-    MSVehicle *getApproaching() const throw() {
-        return myApproaching;
-    };
-
-
-    /** @brief Resets this link priority (information whether it is yield)
-     *
-     * Some Junctions need to switch the priority.
-     *
-     * @param[in] prio The current priority of the link
-     */
-    void setPriority(bool prio) throw();
 
 
     /** @brief Returns the information whether the link may be passed
@@ -307,19 +284,11 @@ public:
      * @return The inner lane to use to cross the junction
      */
     MSLane * const getViaLane() const throw();
-
-
 #endif
 
 private:
     /// @brief The lane approached by this link
     MSLane* myLane;
-
-    /// @brief The right of way
-    bool myPrio;
-
-    /// @brief The approaching vehicle
-    MSVehicle *myApproaching;
 
     MSJunction::LinkApproachingVehicles myApproachingVehicles;
     std::set<MSLink*> myBlockedFoeLinks;

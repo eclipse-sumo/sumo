@@ -75,7 +75,6 @@ public:
      *  is thrown (with the proper message). Also if a tls-logic is referenced, but
      *  not known to the junction control builder, an InvalidArgument is thrown.
      *
-     * @param[in] yield Whether the vehicles on the link have to wait
      * @param[in] laneId ID of the lane to add a connection to (from the last opened lane)
      * @param[in] viaID The junction-internal lane to use to reach the destination lane
      * @param[in] pass Theoretically: the maximum filling rate at the internal link; unused currently
@@ -90,7 +89,7 @@ public:
      * @see MSLink::LinkState
      * @see MSLink
      */
-    void addSuccLane(bool yield, const std::string &laneId,
+    void addSuccLane(const std::string &laneId,
 #ifdef HAVE_INTERNAL_LANES
                      const std::string &viaID, SUMOReal pass,
 #endif

@@ -59,7 +59,7 @@ MSTrafficLightLogic::SwitchCommand::~SwitchCommand() throw() {}
 
 
 SUMOTime
-MSTrafficLightLogic::SwitchCommand::execute(SUMOTime) throw(ProcessError) {
+MSTrafficLightLogic::SwitchCommand::execute(SUMOTime t) throw(ProcessError) {
     // check whether this command has been descheduled
     if (!myAmValid) {
         return 0;
@@ -74,7 +74,7 @@ MSTrafficLightLogic::SwitchCommand::execute(SUMOTime) throw(ProcessError) {
             // execute any action connected to this tls
             const MSTLLogicControl::TLSLogicVariants &vars = myTLControl.get(myTLLogic->getID());
             // set link priorities
-            myTLLogic->setLinkPriorities();
+            myTLLogic->setTrafficLightSignals(t);
             // execute switch actions
             vars.executeOnSwitchActions();
         }
@@ -132,6 +132,7 @@ MSTrafficLightLogic::addLink(MSLink *link, MSLane *lane, unsigned int pos) throw
         myLanes.push_back(LaneVector());
     }
     myLanes[pos].push_back(lane);
+    link->setTLState((MSLink::LinkState) getCurrentPhaseDef().getState()[pos], MSNet::getInstance()->getCurrentTimeStep());
 }
 
 
@@ -142,13 +143,13 @@ MSTrafficLightLogic::adaptLinkInformationFrom(const MSTrafficLightLogic &logic) 
 }
 
 
-std::map<MSLink*, std::pair<MSLink::LinkState, bool> >
+std::map<MSLink*, MSLink::LinkState>
 MSTrafficLightLogic::collectLinkStates() const throw() {
-    std::map<MSLink*, std::pair<MSLink::LinkState, bool> > ret;
+    std::map<MSLink*, MSLink::LinkState> ret;
     for (LinkVectorVector::const_iterator i1=myLinks.begin(); i1!=myLinks.end(); ++i1) {
         const LinkVector &l = (*i1);
         for (LinkVector::const_iterator i2=l.begin(); i2!=l.end(); ++i2) {
-            ret[*i2] = std::make_pair((*i2)->getState(), (*i2)->havePriority());
+            ret[*i2] = (*i2)->getState();
         }
     }
     return ret;
@@ -156,14 +157,12 @@ MSTrafficLightLogic::collectLinkStates() const throw() {
 
 
 void
-MSTrafficLightLogic::resetLinkStates(const std::map<MSLink*, std::pair<MSLink::LinkState, bool> > &vals) const throw() {
+MSTrafficLightLogic::resetLinkStates(const std::map<MSLink*, MSLink::LinkState> &vals) const throw() {
     for (LinkVectorVector::const_iterator i1=myLinks.begin(); i1!=myLinks.end(); ++i1) {
         const LinkVector &l = (*i1);
         for (LinkVector::const_iterator i2=l.begin(); i2!=l.end(); ++i2) {
             assert(vals.find(*i2)!=vals.end());
-            const std::pair<MSLink::LinkState, bool> &lvals = vals.find(*i2)->second;
-            (*i2)->setTLState(lvals.first, MSNet::getInstance()->getCurrentTimeStep());
-            (*i2)->setPriority(lvals.second);
+            (*i2)->setTLState(vals.find(*i2)->second, MSNet::getInstance()->getCurrentTimeStep());
         }
     }
 }

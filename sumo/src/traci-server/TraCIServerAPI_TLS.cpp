@@ -352,7 +352,8 @@ TraCIServerAPI_TLS::processSet(tcpip::Storage &inputStorage,
             delete logic;
             MSPhaseDefinition nphase(DELTA_T, state);
             *(static_cast<MSSimpleTrafficLightLogic*>(vars.getLogic("online"))->getPhases()[0]) = nphase;
-            vars.getActive()->setLinkPriorities();
+            vars.getActive()->setTrafficLightSignals(MSNet::getInstance()->getCurrentTimeStep());
+            vars.executeOnSwitchActions();
         }
         if (!myHaveWarnedAboutDeprecatedPhases) {
             myHaveWarnedAboutDeprecatedPhases = true;
@@ -411,11 +412,13 @@ TraCIServerAPI_TLS::processSet(tcpip::Storage &inputStorage,
         if (vars.getLogic("online")==0) {
             MSTrafficLightLogic *logic = new MSSimpleTrafficLightLogic(tlsControl, id, "online", phases, 0, cTime+DELTA_T);
             vars.addLogic("online", logic, true, true);
-            vars.getActive()->setLinkPriorities();
+            vars.getActive()->setTrafficLightSignals(MSNet::getInstance()->getCurrentTimeStep());
+            vars.executeOnSwitchActions();
         } else {
             MSPhaseDefinition nphase(DELTA_T, state);
             *(static_cast<MSSimpleTrafficLightLogic*>(vars.getLogic("online"))->getPhases()[0]) = nphase;
-            vars.getActive()->setLinkPriorities();
+            vars.getActive()->setTrafficLightSignals(MSNet::getInstance()->getCurrentTimeStep());
+            vars.executeOnSwitchActions();
         }
     }
     break;
@@ -478,10 +481,12 @@ TraCIServerAPI_TLS::processSet(tcpip::Storage &inputStorage,
         if (vars.getLogic(subid)==0) {
             MSTrafficLightLogic *logic = new MSSimpleTrafficLightLogic(tlsControl, id, subid, phases, index, 0);
             vars.addLogic(subid, logic, true, true);
-            vars.getActive()->setLinkPriorities();
+            vars.getActive()->setTrafficLightSignals(MSNet::getInstance()->getCurrentTimeStep());
+            vars.executeOnSwitchActions();
         } else {
             static_cast<MSSimpleTrafficLightLogic*>(vars.getLogic(subid))->getPhases() = phases;
-            vars.getActive()->setLinkPriorities();
+            vars.getActive()->setTrafficLightSignals(MSNet::getInstance()->getCurrentTimeStep());
+            vars.executeOnSwitchActions();
         }
     }
     break;

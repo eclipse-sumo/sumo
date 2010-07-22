@@ -1202,13 +1202,13 @@ NLHandler::addSuccLane(const SUMOSAXAttributes &attrs) {
             if (!ok) {
                 return;
             }
-            mySucceedingLaneBuilder.addSuccLane(yield, lane,
+            mySucceedingLaneBuilder.addSuccLane(lane,
 #ifdef HAVE_INTERNAL_LANES
                                                 via, pass,
 #endif
                                                 parseLinkDir(dir[0]), parseLinkState(state[0]), internalEnd, tlID, linkNumber);
         } else {
-            mySucceedingLaneBuilder.addSuccLane(yield, lane,
+            mySucceedingLaneBuilder.addSuccLane(lane,
 #ifdef HAVE_INTERNAL_LANES
                                                 via, pass,
 #endif
