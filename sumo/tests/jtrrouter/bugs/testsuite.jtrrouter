@@ -7,3 +7,5 @@
 # Tests for ticket99 (correct duarouter report behaviour)
 ticket99
 
+# Tests for ticket328 (incorrect calculations of exit times in *.rou.alt.xml)
+ticket328

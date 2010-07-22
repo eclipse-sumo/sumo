@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+
+<!-- generated on 07/22/10 09:28:34 by SUMO jtrrouter Version dev-SVN-r8896
+<configuration>
+
+    <input>
+        <net-file value="input_net.net.xml"/>
+        <flow-definition value="input_flows.flows.xml"/>
+        <turn-definition value="input_turns.turns.xml"/>
+    </input>
+
+    <output>
+        <output-file value="routes.rou.xml"/>
+    </output>
+
+    <processing>
+        <continue-on-unbuild value="true"/>
+        <sinks value="end"/>
+    </processing>
+
+</configuration>
+-->
+
+<routes>
+    <vehicle id="0_0" depart="10.00">
+        <route edges="beg beg2right right right2end -middle middle end"/>
+    </vehicle>
+    <vehicle id="0_1" depart="15.00">
+        <route edges="beg beg2right right right2end -middle middle end"/>
+    </vehicle>
+</routes>
