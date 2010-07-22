@@ -18,3 +18,6 @@ ticket221_flow
 
 # Test for heap bug in dijkstra
 dijkstra
+
+# Tests for ticket328 (incorrect calculations of exit times in *.rou.alt.xml)
+ticket328

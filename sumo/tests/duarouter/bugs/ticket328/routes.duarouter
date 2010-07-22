@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+
+<!-- generated on 07/22/10 09:28:51 by SUMO duarouter Version dev-SVN-r8896
+<configuration>
+
+    <input>
+        <net-file value="input_net.net.xml"/>
+        <sumo-input value="input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <output-file value="routes.rou.xml"/>
+        <exit-times value="true"/>
+    </output>
+
+</configuration>
+-->
+
+<routes>
+    <vehicle id="0" depart="10.00">
+        <route edges="beg middle end rend" exitTimes="27.93 99.19 117.13 135.11"/>
+    </vehicle>
+    <vehicle id="1" depart="20.00">
+        <route edges="beg middle end rend" exitTimes="37.93 109.19 127.13 145.11"/>
+    </vehicle>
+</routes>
