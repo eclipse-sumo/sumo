@@ -263,7 +263,7 @@ PCLoaderOSM::NodesHandler::myStartElement(SumoXMLTag element, const SUMOSAXAttri
                 myToFill[myLastNodeID]->myIsAdditional = true;
             }
         }
-        if (key=="name") {
+        if (key=="name"&&myLastNodeID!=-1) {
             myToFill[myLastNodeID]->myType = key + "." + value;
         }
     }
