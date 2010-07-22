@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 07/21/10 12:30:34 by SUMO sumo Version dev-SVN-r8163
+<!-- generated on 07/22/10 09:21:39 by SUMO sumo Version dev-SVN-r8163
 <configuration>
 
     <input>
@@ -26,39 +26,39 @@
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="emitter_1.00_1" depart="7.00" arrival="81.00">
+    <vehicle id="emitter_1.00_1" depart="2.00" arrival="76.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="emitter_2.00_2" depart="14.00" arrival="88.00">
+    <vehicle id="emitter_2.00_2" depart="5.00" arrival="79.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="emitter_3.00_3" depart="21.00" arrival="95.00">
+    <vehicle id="emitter_3.00_3" depart="7.00" arrival="81.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="emitter_4.00_4" depart="28.00" arrival="102.00">
+    <vehicle id="emitter_4.00_4" depart="10.00" arrival="84.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="emitter_5.00_5" depart="35.00" arrival="109.00">
+    <vehicle id="emitter_5.00_5" depart="12.00" arrival="86.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="emitter_6.00_6" depart="42.00" arrival="116.00">
+    <vehicle id="emitter_6.00_6" depart="15.00" arrival="89.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="emitter_7.00_7" depart="49.00" arrival="123.00">
+    <vehicle id="emitter_7.00_7" depart="17.00" arrival="91.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="emitter_8.00_8" depart="56.00" arrival="130.00">
+    <vehicle id="emitter_8.00_8" depart="20.00" arrival="94.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="emitter_9.00_9" depart="63.00" arrival="137.00">
+    <vehicle id="emitter_9.00_9" depart="22.00" arrival="96.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
