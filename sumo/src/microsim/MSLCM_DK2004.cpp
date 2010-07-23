@@ -133,6 +133,7 @@ MSLCM_DK2004::wantsChangeToRight(MSAbstractLaneChangeModel::MSLCMessager &msgPas
                     (*lastBlocked) = 0;
                 }
             }
+            return ret;
         }
     }
 
@@ -360,6 +361,7 @@ MSLCM_DK2004::wantsChangeToLeft(MSAbstractLaneChangeModel::MSLCMessager &msgPass
                     (*lastBlocked) = 0;
                 }
             }
+            return ret;
         }
     }
 
