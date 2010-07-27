@@ -39,8 +39,6 @@
 #include <exception>
 #include <functional>
 #include <typeinfo>
-#include <boost/lambda/lambda.hpp>
-#include <boost/lambda/bind.hpp>
 #include <xercesc/sax/SAXException.hpp>
 #include <xercesc/sax/SAXParseException.hpp>
 #include <utils/options/OptionsCont.h>
@@ -74,7 +72,6 @@
 // used namespaces
 // ===========================================================================
 using namespace std;
-using namespace boost::lambda;
 
 
 void initAndOptions(int argc, char *argv[]) {

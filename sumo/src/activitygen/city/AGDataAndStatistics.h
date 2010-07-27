@@ -11,7 +11,7 @@ class AGDataAndStatistics
 public:
 	AGDataAndStatistics()
 	{
-		srand((unsigned int)time(NULL));
+		//srand((unsigned int)time(NULL));
 	};
 
 	/**

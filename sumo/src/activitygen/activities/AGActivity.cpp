@@ -10,7 +10,9 @@ AGActivity::isGenerated()
 }
 
 bool
-AGActivity::generateTrips() {}
+AGActivity::generateTrips() {
+	return true;
+}
 
 int
 AGActivity::possibleTranspMean(AGPosition destination)

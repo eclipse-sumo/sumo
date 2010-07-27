@@ -11,6 +11,7 @@ int
 AGTime::convert(int days, int hours, int minutes, int seconds)
 {
 	sec = seconds +60*( minutes + 60*( hours + 24*(days) ) );
+	return sec;
 }
 
 int
@@ -26,7 +27,7 @@ AGTime::operator==(const AGTime &time)
 	if(this->sec == time.sec)
 		return true;
 	else
-		false;
+		return false;
 }
 
 bool
@@ -35,7 +36,7 @@ AGTime::operator<(const AGTime &time)
 	if(this->sec < time.sec)
 		return true;
 	else
-		false;
+		return false;
 }
 
 bool
@@ -44,7 +45,7 @@ AGTime::operator<=(const AGTime &time)
 	if(this->sec <= time.sec)
 		return true;
 	else
-		false;
+		return false;
 }
 
 void
