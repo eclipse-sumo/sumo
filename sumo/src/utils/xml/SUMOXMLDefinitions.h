@@ -229,7 +229,41 @@ enum SumoXMLTag {
 
     SUMO_TAG_PERSON,
     SUMO_TAG_RIDE,
-    SUMO_TAG_WALK
+    SUMO_TAG_WALK,
+
+	/**
+	 * ActivityGen Tags
+	 **/
+	AGEN_TAG_GENERAL,
+	/* streets object */
+	AGEN_TAG_STREET,
+
+	/* workingHours object */
+	AGEN_TAG_WORKHOURS,
+	AGEN_TAG_OPENING,
+	AGEN_TAG_CLOSING,
+
+	/* school object */
+	AGEN_TAG_SCHOOLS,
+	AGEN_TAG_SCHOOL,
+
+	/* busStation and bus objects */
+	AGEN_TAG_BUSSTATION,
+	AGEN_TAG_BUSLINE,
+	AGEN_TAG_STATION,
+	AGEN_TAG_FREQUENCY,
+
+	/* population and children accompaniment brackets */
+	AGEN_TAG_POPULATION,
+	AGEN_TAG_BRACKET,
+	//AGEN_TAG_CHILD_ACOMP,
+
+	/* city entrances */
+	AGEN_TAG_CITYGATES,
+	AGEN_TAG_ENTRANCE,
+
+	/* parameters */
+	AGEN_TAG_PARAM
 
 };
 
@@ -479,7 +513,52 @@ enum SumoXMLAttr {
     SUMO_ATTR_OPENDRIVE_TYPE,
     SUMO_ATTR_OPENDRIVE_LEVEL,
 
-    SUMO_ATTR_GENERATE_WALKS
+    SUMO_ATTR_GENERATE_WALKS,
+
+	/**
+	 * ActivityGen Tags
+	 **/
+	/* general object */
+	AGEN_ATTR_INHABITANTS,
+	AGEN_ATTR_HOUSEHOLDS,
+	AGEN_ATTR_CHILDREN,
+	AGEN_ATTR_RETIREMENT,
+	AGEN_ATTR_CARS,
+	AGEN_ATTR_UNEMPLOYEMENT,
+	AGEN_ATTR_MAX_FOOT_DIST,
+	AGEN_ATTR_IN_TRAFFIC,
+	AGEN_ATTR_OUT_TRAFFIC,
+
+	/* streets object */
+	//SUMO_ATTR_EDGE already defined
+	AGEN_ATTR_POPULATION,
+	AGEN_ATTR_OUT_WORKPOSITION,
+
+	/* workHours object */
+	AGEN_ATTR_HOUR,
+	AGEN_ATTR_PROP,
+
+	/* school object */
+	//SUMO_ATTR_EDGE, SUMO_ATTR_POSITION, SUMO_ATTR_TYPE already defined
+	AGEN_ATTR_CAPACITY,
+	AGEN_ATTR_OPENING,
+	AGEN_ATTR_CLOSING,
+
+	/* busStation and Bus objects */
+	// ID, EDGE, POSITION, REFID, BEGIN and END are already defined
+	AGEN_ATTR_MAX_TRIP_DURATION,
+	//AGEN_ATTR_ORDER,
+	AGEN_ATTR_RATE,
+
+	/* population and children accompaniment brackets */
+	AGEN_ATTR_BEGINAGE,
+	AGEN_ATTR_ENDAGE,
+	AGEN_ATTR_PEOPLENBR,
+
+	/* parameters */
+	AGEN_ATTR_CARPREF,
+	AGEN_ATTR_CITYSPEED,
+	AGEN_ATTR_FREETIMERATE
 
 };
 

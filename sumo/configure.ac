@@ -410,6 +410,7 @@ dnl ---------------------------------------------
 dnl add here all your Makefiles. These will be created by configure
 AC_CONFIG_FILES([
 src/Makefile
+src/activitygen/Makefile
 src/foreign/Makefile
 src/foreign/eulerspiral/Makefile
 src/foreign/mersenne/Makefile

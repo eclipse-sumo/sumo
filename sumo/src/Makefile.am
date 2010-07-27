@@ -103,7 +103,7 @@ endif
 
 
 SUBDIRS = foreign utils microsim netbuild netgen netimport netload \
-od2trips polyconvert router dfrouter duarouter jtrrouter \
+od2trips polyconvert router dfrouter duarouter jtrrouter activitygen  \
 $(GUI_DIRS) $(MESO_DIRS) $(TRACI_DIRS)
 
 EXTRA_DIST = config.h config.h.in \
