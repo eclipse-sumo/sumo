@@ -2,6 +2,7 @@
 #include <vector>
 //#include <fstream>
 #include <iomanip>
+#include <utils/common/RandHelper.h>
 #include "AGStreet.h"
 #include "AGWorkPosition.h"
 #include "AGCity.h"
@@ -290,7 +291,7 @@ AGCity::getRandomStreet()
 {
 	if(streets.empty())
 		return NULL;
-	int alea = rand() % streets.size();
+	int alea = RandHelper::rand(streets.size());
 	return &(streets.at(alea));
 }
 

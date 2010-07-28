@@ -1,4 +1,5 @@
 #include <iostream>
+#include <utils/common/RandHelper.h>
 #include "AGWorkPosition.h"
 #include "AGStreet.h"
 #include "AGPosition.h"
@@ -18,7 +19,7 @@ AGWorkPosition::print()
 int
 AGWorkPosition::generateOpeningTime(AGDataAndStatistics* ds)
 {
-	float choice = ((float)(rand()%1000))/1000.0;
+	float choice = (float)RandHelper::rand(); //((float)(rand()%1000))/1000.0;
 	float cumul = 0;
 	map<int,float>::iterator it = ds->beginWorkHours.begin();
 	while(it!=ds->beginWorkHours.end())
@@ -35,7 +36,7 @@ AGWorkPosition::generateOpeningTime(AGDataAndStatistics* ds)
 int
 AGWorkPosition::generateClosingTime(AGDataAndStatistics* ds)
 {
-	float choice = ((float)(rand()%1000))/1000.0;
+	float choice = (float)RandHelper::rand(); //((float)(rand()%1000))/1000.0;
 	float cumul = 0;
 	map<int,float>::iterator it = ds->endWorkHours.begin();
 	while(it!=ds->endWorkHours.end())

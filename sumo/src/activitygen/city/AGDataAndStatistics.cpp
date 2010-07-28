@@ -1,4 +1,5 @@
 #include "AGDataAndStatistics.h"
+#include <utils/common/RandHelper.h>
 #include <cmath>
 #include <iomanip>
 #define RAND_PRECISION 10000
@@ -19,7 +20,7 @@ AGDataAndStatistics::getRandom(int n, int m)
 {
 	if(m<n)
 		return 0;
-	int num = rand() % (m - n);
+	int num = RandHelper::rand(m - n);
 	num += n;
 	return num;
 }
@@ -31,7 +32,7 @@ AGDataAndStatistics::getRandomPopDistributed(int n, int m)
 		return -1;
 	if(m>limitEndAge)
 		m=limitEndAge;
-	float alea = ((float)(rand()%RAND_PRECISION))/(float)RAND_PRECISION;
+	float alea = (float)(RandHelper::rand());
 	float beginProp = getPropYoungerThan(n);
 	float total = getPropYoungerThan(m) - beginProp;
 	if(total <= 0)
@@ -52,7 +53,7 @@ AGDataAndStatistics::getRandomPopDistributed(int n, int m)
 int
 AGDataAndStatistics::getPoissonsNumberOfChildren(float mean)
 {
-	float alea = ((float)(rand()%RAND_PRECISION))/(float)RAND_PRECISION;
+	float alea = (float)(RandHelper::rand());
 	float cumul = 0;
 	for(int nbr = 0 ; nbr < LIMIT_CHILDREN_NUMBER ; ++nbr)
 	{
@@ -158,7 +159,7 @@ AGDataAndStatistics::getInverseExpRandomValue(float mean, float maxVar)
 {
 	if(maxVar <= 0)
 		return mean;
-	float p = (((float)(rand()%10000))+1)/10000.0; // val from 0.0001 to 1.0000
+	float p = (float)(RandHelper::rand(0.9999)) + 0.0001f; // (((float)(rand()%10000))+1)/10000.0; // val from 0.0001 to 1.0000
 	//we have to scale the distribution because maxVar is different from INF
 	float scale = exp((-1)*maxVar);
 	//new p: scaled
@@ -166,7 +167,7 @@ AGDataAndStatistics::getInverseExpRandomValue(float mean, float maxVar)
 
 	float variation = (-1)*log(p);
 	//decide the side of the mean value
-	if(rand()%1000 < 500)
+	if(RandHelper::rand(1000) < 500)
 		return mean + variation;
 	else
 		return mean - variation;

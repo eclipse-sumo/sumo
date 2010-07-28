@@ -1,3 +1,4 @@
+#include <utils/common/RandHelper.h>
 #include "AGActivity.h"
 #include "../city/AGTime.h"
 
@@ -109,7 +110,7 @@ AGActivity::randomTimeBetween(int begin, int end)
 		return -1;
 	if(begin == end)
 		return begin;
-	int tAlea = rand() % (end - begin);
+	int tAlea = RandHelper::rand(end - begin);
 	return (begin + tAlea);
 }
 

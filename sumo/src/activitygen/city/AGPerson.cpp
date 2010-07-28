@@ -1,6 +1,7 @@
 #include <iostream>
 #include <cstdlib>
 #include <ctime>
+#include <utils/common/RandHelper.h>
 #include "AGPerson.h"
 
 using namespace std;
@@ -20,7 +21,7 @@ AGPerson::getAge()
 bool
 AGPerson::decision(float proba)
 {
-	if(rand() % 1000 < (int)(1000 * proba))
+	if(RandHelper::rand(1000) < (int)(1000 * proba))
 		return true;
 	else
 		return false;

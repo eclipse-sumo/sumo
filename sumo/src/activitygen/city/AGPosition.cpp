@@ -2,6 +2,7 @@
 #include <cstdlib>
 #include <ctime>
 #include <limits>
+#include <utils/common/RandHelper.h>
 #include "AGPosition.h"
 
 using namespace std;
@@ -73,7 +74,7 @@ float
 AGPosition::randomPositionInStreet()
 {
 	int len = (int)(*street).getLength();
-	position = (float)( rand() % len);
+	position = (float)RandHelper::rand(len);//( rand() % len);
 	return position;
 }
 

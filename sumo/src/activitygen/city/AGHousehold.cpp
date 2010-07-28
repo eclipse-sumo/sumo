@@ -1,3 +1,4 @@
+#include <utils/common/RandHelper.h>
 #include "AGHousehold.h"
 #include "AGCar.h"
 
@@ -154,7 +155,7 @@ AGHousehold::allocateAdultsWork()
 bool
 AGHousehold::decisionProba(float p)
 {
-	double q = (double)(rand()%10000)/(double)10000;
+	double q = RandHelper::rand(); //(double)(rand()%10000)/(double)10000;
 	//cout << " p=" << p << " q=" << q;
 	return (q<p);
 }

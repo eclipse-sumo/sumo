@@ -44,7 +44,6 @@
 #include <utils/options/OptionsCont.h>
 #include <utils/options/OptionsIO.h>
 #include <utils/common/SystemFrame.h>
-#include <utils/common/RandHelper.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/ToString.h>
 #include <router/RONet.h>
@@ -58,7 +57,6 @@
 #include <utils/common/DijkstraRouterEffort.h>
 #include <router/RONetHandler.h>
 #include <router/ROFrame.h>
-//#include "DTPerson.h"
 //ActivityGen
 #include "AGActivityGen.h"
 #include "city/AGTime.h"
@@ -101,9 +99,9 @@ void initAndOptions(int argc, char *argv[]) {
 	// add rand options
 
 	// Options of the ActivityGen
-	//oc.doRegister("debug", new Option_Bool(false));
-	//oc.addDescription("debug", "Report",
-	//		"Detailled messages about every single step");
+	oc.doRegister("debug", new Option_Bool(false));
+	oc.addDescription("debug", "Report",
+			"Detailled messages about every single step");
 
 	oc.doRegister("stat-file", 's', new Option_FileName());
 	oc.addDescription("stat-file", "Input", "Loads the SUMO-statistics FILE");
@@ -112,13 +110,13 @@ void initAndOptions(int argc, char *argv[]) {
 	//oc.addDescription("duration-s", "duration", "OPTIONAL sets the duration of the simulation in seconds");
 
 	oc.doRegister("duration-d", new Option_Integer());
-	oc.addDescription("duration-d", "duration", "OPTIONAL sets the duration of the simulation in days");
+	oc.addDescription("duration-d", "Time", "OPTIONAL sets the duration of the simulation in days");
 
 	oc.doRegister("time-begin", new Option_Integer());
-	oc.addDescription("time-begin", "begin", "OPTIONAL sets the time of beginning of the simulation during the first day (in seconds)");
+	oc.addDescription("time-begin", "Time", "OPTIONAL sets the time of beginning of the simulation during the first day (in seconds)");
 
 	oc.doRegister("time-end", new Option_Integer());
-	oc.addDescription("time-end", "end", "OPTIONAL sets the time of ending of the simulation during the last day (in seconds)");
+	oc.addDescription("time-end", "Time", "OPTIONAL sets the time of ending of the simulation during the last day (in seconds)");
 
 	RandHelper::insertRandOptions();
 	OptionsIO::getOptions(true, argc, argv);
@@ -249,7 +247,7 @@ int main(int argc, char *argv[]) {
     std::cout << "\n\t ---- begin AcitivtyGen ----\n" << std::endl;
     string statFile = oc.getString("stat-file");
     string routeFile = oc.getString("output-file");
-    AGTime duration(0);
+    AGTime duration(1,0,0);
     AGTime begin(0);
     AGTime end(0);
     //if(oc.exists("duration-s"))
@@ -258,7 +256,7 @@ int main(int argc, char *argv[]) {
     //}
     if(oc.isSet("duration-d"))
     {
-    	duration.addDays(oc.getInt("duration-d"));
+    	duration.setDay(oc.getInt("duration-d"));
     }
     if(oc.isSet("time-begin"))
     {
@@ -270,22 +268,7 @@ int main(int argc, char *argv[]) {
     }
     AGActivityGen actiGen(statFile, routeFile, net);
     actiGen.importInfoCity();
-    actiGen.makeActivityTrips(duration.getDay()+1, begin.getTime(), end.getTime());
-
-    //AGTime instant(439506);
-    //cout << "Time: " << instant.getTime() << endl;
-    //cout << "day,hour,min,sec: " << instant.getDay() << ", " << instant.getHour() << ", " << instant.getMinute() << ", " << instant.getSecond() << endl;
-
-    //DijkstraRouterTTBase<ROEdge, ROVehicle, prohibited_withRestrictions<ROEdge, ROVehicle> > dijk(net->getEdgeNo(), false);
-    ROEdge* from = net->getEdge("--2989");
-    ROEdge* to = net->getEdge("--2985#2");
-    //RORouteDef* routeDef = net->getRouteDef("");
-    ROVehicle* vehicle;
-    SUMOTime time(0);
-    std::vector<ROEdge*> into;
-    //router->compute(&*from, &*to, &*vehicle, time, into);
-
-    //router->
+    actiGen.makeActivityTrips(duration.getDay(), begin.getTime(), end.getTime());
 
     std::cout << "\n\t ---- end of ActivityGen ---- \n" << std::endl;
 	return 0;

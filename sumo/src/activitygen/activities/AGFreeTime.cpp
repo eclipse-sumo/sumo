@@ -1,6 +1,7 @@
 #include "AGFreeTime.h"
 #include "../city/AGTime.h"
 #include <math.h>
+#include <utils/common/RandHelper.h>
 
 using namespace std;
 
@@ -30,7 +31,7 @@ AGFreeTime::decideTypeOfTrip()
 
 		if(num_poss == 0)
 			return 0;
-		float alea = (float)(rand() % 1000) / 1000.0;
+		float alea = (float)RandHelper::rand(); //(float)(rand() % 1000) / 1000.0;
 		int decision = (int)floor(alea * (float)num_poss);
 
 		if(possibleType & DAY)
