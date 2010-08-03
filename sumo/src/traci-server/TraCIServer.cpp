@@ -700,7 +700,8 @@ TraCIServer::postProcessSimulationStep2() throw(TraCIException, std::invalid_arg
     int noActive = 0;
     for (std::vector<Subscription>::iterator i=mySubscriptions.begin(); i!=mySubscriptions.end();) {
         const Subscription &s = *i;
-        if (s.endTime<t) {
+        bool isArrivedVehicle = (s.commandId == CMD_SUBSCRIBE_VEHICLE_VARIABLE) && (find(myVehicleStateChanges[MSNet::VEHICLE_STATE_ARRIVED].begin(), myVehicleStateChanges[MSNet::VEHICLE_STATE_ARRIVED].end(), s.id) != myVehicleStateChanges[MSNet::VEHICLE_STATE_ARRIVED].end());
+        if ((s.endTime<t) || isArrivedVehicle) {
             i = mySubscriptions.erase(i);
             continue;
         }
