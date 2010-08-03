@@ -1,4 +1,5 @@
 set TEXTTEST_HOME=%CD%
+set ACTIVITYGEN_BINARY=%CD%\..\bin\activitygen%1.exe
 set DFROUTER_BINARY=%CD%\..\bin\dfrouter%1.exe
 set DUAROUTER_BINARY=%CD%\..\bin\duarouter%1.exe
 set JTRROUTER_BINARY=%CD%\..\bin\jtrrouter%1.exe

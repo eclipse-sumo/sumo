@@ -1,0 +1,82 @@
+SUMO activitygen Version dev-SVN-r8487
+ (c) DLR 2001-2010; http://sumo.sourceforge.net
+ 
+Generates routes of persons throughout a day for the microscopic road traffic
+  simulation SUMO.
+
+Usage: activitygen.exe [OPTION]*
+ 
+ Example:
+  activitygen.exe -c <CONFIGURATION>
+ 
+ Configuration Options:
+  -c, --configuration-file FILE    Loads the named config on startup
+  --save-configuration FILE        Saves current configuration into FILE
+  --save-template FILE             Saves a configuration template (empty) into
+                                     FILE
+  --save-template.commented        Adds comments to saved template
+
+ Input Options:
+  -n, --net-file FILE              Use FILE as SUMO-network to route on
+  -d, --districts FILE             Read (additional) districts from FILE
+  -a, --alternatives FILE          Read alternatives from FILE
+  -w, --weights FILE               Read network weights from FILE(s)
+  --lane-weights FILE              Read lane-weights from FILE(s)
+  -x, --measure STR                Name of the xml attribute which gives the
+                                     edge weight
+  -s, --stat-file FILE             Loads the SUMO-statistics FILE
+
+ Output Options:
+  -o, --output-file FILE           Write generated routes to FILE
+
+ Processing Options:
+  --continue-on-unbuild            Continue if a route could not be build
+  --unsorted                       Assume input is unsorted
+  --randomize-flows                
+  --max-alternatives INT           Prune the number of alternatives to INT
+  --remove-loops                   Remove loops at start and end of the route
+  --repair                         Tries to correct a false route
+  --interpolate                    Interpolate edge weights at interval
+                                     boundaries
+  --with-taz                       Use origin and destination zones (districts)
+                                     for in- and output
+  --expand-weights                 Expand weights behind the simulation's end
+
+ Defaults Options:
+  --departlane STR                 Assigns a default depart lane
+  --departpos STR                  Assigns a default depart position
+  --departspeed STR                Assigns a default depart speed
+  --arrivallane STR                Assigns a default arrival lane
+  --arrivalpos STR                 Assigns a default arrival position
+  --arrivalspeed STR               Assigns a default arrival speed
+  --defaults-override              Defaults will override given values
+
+ Time Options:
+  -b, --begin TIME                 Defines the begin time;
+                                     Previous trips will be discarded
+  -e, --end TIME                   Defines the end time;
+                                     Later trips will be discarded
+  --duration-d INT                 OPTIONAL sets the duration of the simulation
+                                     in days
+  --time-begin INT                 OPTIONAL sets the time of beginning of the
+                                     simulation during the first day (in
+                                     seconds)
+  --time-end INT                   OPTIONAL sets the time of ending of the
+                                     simulation during the last day (in seconds)
+
+ Report Options:
+  -v, --verbose                    Switches to verbose output
+  -p, --print-options              Prints option values before processing
+  -?, --help                       Prints this screen
+  -W, --suppress-warnings          Disables output of warnings
+  -l, --log-file FILE              Writes all messages to FILE
+  --stats-period INT               Defines how often statistics shall be
+                                     printed
+  --debug                          Detailled messages about every single step
+
+ Random Number Options:
+  --srand INT                      Initialises the random number generator with
+                                     the given value
+  --abs-rand                       Initialises the random number generator with
+                                     the current system time
+

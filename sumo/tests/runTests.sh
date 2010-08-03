@@ -14,6 +14,7 @@ else
   SUMO_BIN="$1"
 fi
 cd $OLDDIR
+export ACTIVITYGEN_BINARY="$SUMO_BIN/activitygen"
 export DFROUTER_BINARY="$SUMO_BIN/dfrouter"
 export DUAROUTER_BINARY="$SUMO_BIN/duarouter"
 export JTRROUTER_BINARY="$SUMO_BIN/jtrrouter"
