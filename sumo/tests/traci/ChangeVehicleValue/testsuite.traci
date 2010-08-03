@@ -34,5 +34,9 @@ SetSpeed
 # for moving the vehicle to a different place
 MoveTo
 
+# for changing the color
+VAR_COLOR
+
+
 # rerouting tests
 rerouting
