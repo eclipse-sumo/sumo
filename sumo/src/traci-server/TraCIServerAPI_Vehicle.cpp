@@ -304,7 +304,7 @@ TraCIServerAPI_Vehicle::processSet(tcpip::Storage &inputStorage,
             &&variable!=VAR_EDGE_TRAVELTIME&&variable!=VAR_EDGE_EFFORT
             &&variable!=CMD_REROUTE_TRAVELTIME&&variable!=CMD_REROUTE_EFFORT
 			&&variable!=VAR_SIGNALS&&variable!=VAR_MOVE_TO
-			&&variable!=VAR_SPEED
+			&&variable!=VAR_SPEED&&variable!=VAR_COLOR
        ) {
         TraCIServerAPIHelper::writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Change Vehicle State: unsupported variable specified", outputStorage);
         return false;
@@ -764,6 +764,18 @@ TraCIServerAPI_Vehicle::processSet(tcpip::Storage &inputStorage,
         }
         v->setTraCISpeed(inputStorage.readDouble());
 		break;
+	case VAR_COLOR: {
+        if (valueDataType!=TYPE_COLOR) {
+            TraCIServerAPIHelper::writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "The color must be given using an accoring type.", outputStorage);
+            return false;
+        }
+        SUMOReal r = (SUMOReal) inputStorage.readUnsignedByte() / 255.;
+        SUMOReal g = (SUMOReal) inputStorage.readUnsignedByte() / 255.;
+        SUMOReal b = (SUMOReal) inputStorage.readUnsignedByte() / 255.;
+        SUMOReal a = (SUMOReal) inputStorage.readUnsignedByte() / 255.;
+		v->getParameter().color.set(r, g, b);
+					}
+        break;
     default:
         break;
     }

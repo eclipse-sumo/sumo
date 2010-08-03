@@ -284,7 +284,7 @@ public:
     /// @brief The vehicle's type id
     std::string vtypeid;
     /// @brief The vehicle's color
-    RGBColor color;
+    mutable RGBColor color;
 
 
     /// @name Departure definition
