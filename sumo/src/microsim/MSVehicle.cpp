@@ -1120,7 +1120,7 @@ MSVehicle::checkRewindLinkLanes(SUMOReal lengthsInFront) throw() {
         }
 #endif
         SUMOTime t = MSNet::getInstance()->getCurrentTimeStep();
-        for (int i=myLFLinkLanes.size()-1; i>0; --i) {
+        for (int i= (int)(myLFLinkLanes.size()-1); i>0; --i) {
             DriveProcessItem &item = myLFLinkLanes[i-1];
             if (item.myLink==0||item.myLink->isCont()||item.myLink->opened(t, .1)||!hadVehicles[i]) {
                 availableSpace[i-1] = availableSpace[i];
@@ -1140,7 +1140,7 @@ MSVehicle::checkRewindLinkLanes(SUMOReal lengthsInFront) throw() {
             }
         }
         if (removalBegin!=-1&&!(removalBegin==0&&myLane->getEdge().getPurpose()==MSEdge::EDGEFUNCTION_INTERNAL)) {
-            while (removalBegin<myLFLinkLanes.size()) {
+            while (removalBegin< (int) (myLFLinkLanes.size())) {
                 myLFLinkLanes[removalBegin].myVLinkPass = myLFLinkLanes[removalBegin].myVLinkWait;
                 myLFLinkLanes[removalBegin].mySetRequest = false;
                 ++removalBegin;

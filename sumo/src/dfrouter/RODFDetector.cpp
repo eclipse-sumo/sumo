@@ -301,7 +301,7 @@ RODFDetector::writeEmitterDefinition(const std::string &file,
             }
             const FlowDef &srcFD = mflows[(int)(time/stepOffset) - startTime];  // !!! check stepOffset
             // get flows at end
-            RandomDistributor<size_t> *destDist = dists.size()>time ? dists.find(time)->second : 0;
+            RandomDistributor<size_t> *destDist = (int)(dists.size())> time ? dists.find(time)->second : 0;
             // go through the cars
             size_t carNo = (size_t)((srcFD.qPKW + srcFD.qLKW) * scale);
             for (size_t car=0; car<carNo; ++car) {

@@ -571,7 +571,7 @@ MFXAddEditTypedTable::setNumberCellParams(size_t pos, double min, double max,
         myNumberCellParams.push_back(np);
     }
     NumberCellParams np;
-    np.pos = pos;
+    np.pos = (int)(pos);
     np.min = min;
     np.max = max;
     np.steps1 = steps1;

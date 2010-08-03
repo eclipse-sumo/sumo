@@ -220,7 +220,7 @@ GUISettingsHandler::addSettings(GUISUMOAbstractView* view) const throw() {
     if (mySettings.name != "") {
         gSchemeStorage.add(mySettings);
         if (view) {
-            size_t index = view->getColoringSchemesCombo().appendItem(mySettings.name.c_str());
+            FXint index = view->getColoringSchemesCombo().appendItem(mySettings.name.c_str());
             view->getColoringSchemesCombo().setCurrentItem(index);
             view->setColorScheme(mySettings.name);
         }
