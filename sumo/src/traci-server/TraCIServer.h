@@ -103,7 +103,8 @@ public:
     // return polygon that is referenced by the given external id
     Polygon2D* getPolygonByExtId(int extId);
 
-    void writeStatusCmd(int commandId, int status, std::string description);
+    void writeStatusCmd(int commandId, int status, const std::string &description);
+    void writeStatusCmd(int commandId, int status, const std::string &description, tcpip::Storage &outputStorage);
     /**
      * Converts a cartesian position to the closest road map position
      *

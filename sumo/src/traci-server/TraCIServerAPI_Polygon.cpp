@@ -32,7 +32,6 @@
 #include <utils/shapes/PointOfInterest.h>
 #include <utils/shapes/ShapeContainer.h>
 #include "TraCIConstants.h"
-#include "TraCIServerAPIHelper.h"
 #include "TraCIServerAPI_Polygon.h"
 
 #ifdef CHECK_MEMORY_LEAKS
@@ -60,7 +59,7 @@ TraCIServerAPI_Polygon::processGet(TraCIServer &server, tcpip::Storage &inputSto
     std::string id = inputStorage.readString();
     // check variable
     if (variable!=ID_LIST&&variable!=VAR_TYPE&&variable!=VAR_COLOR&&variable!=VAR_SHAPE&&variable!=VAR_FILL) {
-        TraCIServerAPIHelper::writeStatusCmd(CMD_GET_POLYGON_VARIABLE, RTYPE_ERR, "Get Polygon Variable: unsupported variable specified", outputStorage);
+        server.writeStatusCmd(CMD_GET_POLYGON_VARIABLE, RTYPE_ERR, "Get Polygon Variable: unsupported variable specified", outputStorage);
         return false;
     }
     // begin response building
@@ -85,7 +84,7 @@ TraCIServerAPI_Polygon::processGet(TraCIServer &server, tcpip::Storage &inputSto
             p = shapeCont.getPolygonCont(i).get(id);
         }
         if (p==0) {
-            TraCIServerAPIHelper::writeStatusCmd(CMD_GET_POLYGON_VARIABLE, RTYPE_ERR, "Polygon '" + id + "' is not known", outputStorage);
+            server.writeStatusCmd(CMD_GET_POLYGON_VARIABLE, RTYPE_ERR, "Polygon '" + id + "' is not known", outputStorage);
             return false;
         }
         switch (variable) {
@@ -116,7 +115,7 @@ TraCIServerAPI_Polygon::processGet(TraCIServer &server, tcpip::Storage &inputSto
             break;
         }
     }
-        TraCIServerAPIHelper::writeStatusCmd(CMD_GET_POLYGON_VARIABLE, RTYPE_OK, warning, outputStorage);
+        server.writeStatusCmd(CMD_GET_POLYGON_VARIABLE, RTYPE_OK, warning, outputStorage);
     // send response
     outputStorage.writeUnsignedByte(0); // command length -> extended
     outputStorage.writeInt(1 + 4 + tempMsg.size());
@@ -133,7 +132,7 @@ TraCIServerAPI_Polygon::processSet(TraCIServer &server, tcpip::Storage &inputSto
     int variable = inputStorage.readUnsignedByte();
     if (variable!=VAR_TYPE&&variable!=VAR_COLOR&&variable!=VAR_SHAPE&&variable!=VAR_FILL
             &&variable!=ADD&&variable!=REMOVE) {
-        TraCIServerAPIHelper::writeStatusCmd(CMD_SET_POLYGON_VARIABLE, RTYPE_ERR, "Change Polygon State: unsupported variable specified", outputStorage);
+        server.writeStatusCmd(CMD_SET_POLYGON_VARIABLE, RTYPE_ERR, "Change Polygon State: unsupported variable specified", outputStorage);
         return false;
     }
     // id
@@ -145,7 +144,7 @@ TraCIServerAPI_Polygon::processSet(TraCIServer &server, tcpip::Storage &inputSto
             p = shapeCont.getPolygonCont(i).get(id);
         }
         if (p==0) {
-            TraCIServerAPIHelper::writeStatusCmd(CMD_SET_POLYGON_VARIABLE, RTYPE_ERR, "Polygon '" + id + "' is not known", outputStorage);
+            server.writeStatusCmd(CMD_SET_POLYGON_VARIABLE, RTYPE_ERR, "Polygon '" + id + "' is not known", outputStorage);
             return false;
         }
     }
@@ -154,7 +153,7 @@ TraCIServerAPI_Polygon::processSet(TraCIServer &server, tcpip::Storage &inputSto
     switch (variable) {
     case VAR_TYPE: {
         if (valueDataType!=TYPE_STRING) {
-            TraCIServerAPIHelper::writeStatusCmd(CMD_SET_POLYGON_VARIABLE, RTYPE_ERR, "The type must be given as a string.", outputStorage);
+            server.writeStatusCmd(CMD_SET_POLYGON_VARIABLE, RTYPE_ERR, "The type must be given as a string.", outputStorage);
             return false;
         }
         std::string type = inputStorage.readString();
@@ -163,7 +162,7 @@ TraCIServerAPI_Polygon::processSet(TraCIServer &server, tcpip::Storage &inputSto
     break;
     case VAR_COLOR: {
         if (valueDataType!=TYPE_COLOR) {
-            TraCIServerAPIHelper::writeStatusCmd(CMD_SET_POLYGON_VARIABLE, RTYPE_ERR, "The color must be given using an accoring type.", outputStorage);
+            server.writeStatusCmd(CMD_SET_POLYGON_VARIABLE, RTYPE_ERR, "The color must be given using an accoring type.", outputStorage);
             return false;
         }
         SUMOReal r = (SUMOReal) inputStorage.readUnsignedByte() / 255.;
@@ -175,7 +174,7 @@ TraCIServerAPI_Polygon::processSet(TraCIServer &server, tcpip::Storage &inputSto
     break;
     case VAR_SHAPE: {
         if (valueDataType!=TYPE_POLYGON) {
-            TraCIServerAPIHelper::writeStatusCmd(CMD_SET_POLYGON_VARIABLE, RTYPE_ERR, "The shape must be given using an accoring type.", outputStorage);
+            server.writeStatusCmd(CMD_SET_POLYGON_VARIABLE, RTYPE_ERR, "The shape must be given using an accoring type.", outputStorage);
             return false;
         }
         unsigned int noEntries = inputStorage.readUnsignedByte();
@@ -190,7 +189,7 @@ TraCIServerAPI_Polygon::processSet(TraCIServer &server, tcpip::Storage &inputSto
     break;
     case VAR_FILL: {
         if (valueDataType!=TYPE_UBYTE) {
-            TraCIServerAPIHelper::writeStatusCmd(CMD_SET_POLYGON_VARIABLE, RTYPE_ERR, "'fill' must be defined using an unsigned byte.", outputStorage);
+            server.writeStatusCmd(CMD_SET_POLYGON_VARIABLE, RTYPE_ERR, "'fill' must be defined using an unsigned byte.", outputStorage);
             return false;
         }
         bool fill = inputStorage.readUnsignedByte()!=0;
@@ -199,19 +198,19 @@ TraCIServerAPI_Polygon::processSet(TraCIServer &server, tcpip::Storage &inputSto
     break;
     case ADD: {
         if (valueDataType!=TYPE_COMPOUND) {
-            TraCIServerAPIHelper::writeStatusCmd(CMD_SET_POLYGON_VARIABLE, RTYPE_ERR, "A compound object is needed for setting a new polygon.", outputStorage);
+            server.writeStatusCmd(CMD_SET_POLYGON_VARIABLE, RTYPE_ERR, "A compound object is needed for setting a new polygon.", outputStorage);
             return false;
         }
         unsigned int itemNo = inputStorage.readInt();
         // type
         if (inputStorage.readUnsignedByte()!=TYPE_STRING) {
-            TraCIServerAPIHelper::writeStatusCmd(CMD_SET_POLYGON_VARIABLE, RTYPE_ERR, "The first polygon parameter must be the type encoded as a string.", outputStorage);
+            server.writeStatusCmd(CMD_SET_POLYGON_VARIABLE, RTYPE_ERR, "The first polygon parameter must be the type encoded as a string.", outputStorage);
             return false;
         }
         std::string type = inputStorage.readString();
         // color
         if (inputStorage.readUnsignedByte()!=TYPE_COLOR) {
-            TraCIServerAPIHelper::writeStatusCmd(CMD_SET_POLYGON_VARIABLE, RTYPE_ERR, "The second polygon parameter must be the color.", outputStorage);
+            server.writeStatusCmd(CMD_SET_POLYGON_VARIABLE, RTYPE_ERR, "The second polygon parameter must be the color.", outputStorage);
             return false;
         }
         SUMOReal r = (SUMOReal) inputStorage.readUnsignedByte() / 255.;
@@ -220,19 +219,19 @@ TraCIServerAPI_Polygon::processSet(TraCIServer &server, tcpip::Storage &inputSto
         SUMOReal a = (SUMOReal) inputStorage.readUnsignedByte() / 255.;
         // fill
         if (inputStorage.readUnsignedByte()!=TYPE_UBYTE) {
-            TraCIServerAPIHelper::writeStatusCmd(CMD_SET_POLYGON_VARIABLE, RTYPE_ERR, "The third polygon parameter must be 'fill' encoded as ubyte.", outputStorage);
+            server.writeStatusCmd(CMD_SET_POLYGON_VARIABLE, RTYPE_ERR, "The third polygon parameter must be 'fill' encoded as ubyte.", outputStorage);
             return false;
         }
         bool fill = inputStorage.readUnsignedByte()!=0;
         // layer
         if (inputStorage.readUnsignedByte()!=TYPE_INTEGER) {
-            TraCIServerAPIHelper::writeStatusCmd(CMD_SET_POLYGON_VARIABLE, RTYPE_ERR, "The fourth polygon parameter must be the layer encoded as int.", outputStorage);
+            server.writeStatusCmd(CMD_SET_POLYGON_VARIABLE, RTYPE_ERR, "The fourth polygon parameter must be the layer encoded as int.", outputStorage);
             return false;
         }
         int layer = inputStorage.readInt();
         // shape
         if (inputStorage.readUnsignedByte()!=TYPE_POLYGON) {
-            TraCIServerAPIHelper::writeStatusCmd(CMD_SET_POLYGON_VARIABLE, RTYPE_ERR, "The fifth polygon parameter must be the shape.", outputStorage);
+            server.writeStatusCmd(CMD_SET_POLYGON_VARIABLE, RTYPE_ERR, "The fifth polygon parameter must be the shape.", outputStorage);
             return false;
         }
         unsigned int noEntries = inputStorage.readUnsignedByte();
@@ -246,14 +245,14 @@ TraCIServerAPI_Polygon::processSet(TraCIServer &server, tcpip::Storage &inputSto
         p = new Polygon2D(id, type, RGBColor(r, g, b), shape, fill);
         if (!shapeCont.add(layer, p)) {
             delete p;
-            TraCIServerAPIHelper::writeStatusCmd(CMD_SET_POLYGON_VARIABLE, RTYPE_ERR, "Could not add polygon.", outputStorage);
+            server.writeStatusCmd(CMD_SET_POLYGON_VARIABLE, RTYPE_ERR, "Could not add polygon.", outputStorage);
             return false;
         }
     }
     break;
     case REMOVE: {
         if (valueDataType!=TYPE_INTEGER) {
-            TraCIServerAPIHelper::writeStatusCmd(CMD_SET_POI_VARIABLE, RTYPE_ERR, "The layer must be given using an int.", outputStorage);
+            server.writeStatusCmd(CMD_SET_POI_VARIABLE, RTYPE_ERR, "The layer must be given using an int.", outputStorage);
             return false;
         }
         int layer = inputStorage.readInt();
@@ -263,7 +262,7 @@ TraCIServerAPI_Polygon::processSet(TraCIServer &server, tcpip::Storage &inputSto
                 removed |= shapeCont.removePolygon(i, id);
             }
             if (!removed) {
-                TraCIServerAPIHelper::writeStatusCmd(CMD_SET_POI_VARIABLE, RTYPE_ERR, "Could not remove PoI '" + id + "'", outputStorage);
+                server.writeStatusCmd(CMD_SET_POI_VARIABLE, RTYPE_ERR, "Could not remove PoI '" + id + "'", outputStorage);
                 return false;
             }
         }
@@ -272,7 +271,7 @@ TraCIServerAPI_Polygon::processSet(TraCIServer &server, tcpip::Storage &inputSto
     default:
         break;
     }
-    TraCIServerAPIHelper::writeStatusCmd(CMD_SET_POLYGON_VARIABLE, RTYPE_OK, warning, outputStorage);
+    server.writeStatusCmd(CMD_SET_POLYGON_VARIABLE, RTYPE_OK, warning, outputStorage);
     return true;
 }
 

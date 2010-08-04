@@ -30,7 +30,6 @@
 #include <microsim/MSNet.h>
 #include <microsim/MSVehicleType.h>
 #include "TraCIConstants.h"
-#include "TraCIServerAPIHelper.h"
 #include "TraCIServerAPI_VehicleType.h"
 
 #ifdef CHECK_MEMORY_LEAKS
@@ -60,7 +59,7 @@ TraCIServerAPI_VehicleType::processGet(TraCIServer &server, tcpip::Storage &inpu
     if (variable!=ID_LIST&&variable!=VAR_LENGTH&&variable!=VAR_MAXSPEED&&variable!=VAR_ACCEL&&variable!=VAR_DECEL
             &&variable!=VAR_TAU&&variable!=VAR_VEHICLECLASS&&variable!=VAR_EMISSIONCLASS&&variable!=VAR_SHAPECLASS
             &&variable!=VAR_GUIOFFSET&&variable!=VAR_WIDTH&&variable!=VAR_COLOR) {
-        TraCIServerAPIHelper::writeStatusCmd(CMD_GET_VEHICLETYPE_VARIABLE, RTYPE_ERR, "Get Vehicle Type Variable: unsupported variable specified", outputStorage);
+        server.writeStatusCmd(CMD_GET_VEHICLETYPE_VARIABLE, RTYPE_ERR, "Get Vehicle Type Variable: unsupported variable specified", outputStorage);
         return false;
     }
     // begin response building
@@ -78,7 +77,7 @@ TraCIServerAPI_VehicleType::processGet(TraCIServer &server, tcpip::Storage &inpu
     } else {
         MSVehicleType *v = MSNet::getInstance()->getVehicleControl().getVType(id);
         if (v==0) {
-            TraCIServerAPIHelper::writeStatusCmd(CMD_GET_VEHICLETYPE_VARIABLE, RTYPE_ERR, "Vehicle type '" + id + "' is not known", outputStorage);
+            server.writeStatusCmd(CMD_GET_VEHICLETYPE_VARIABLE, RTYPE_ERR, "Vehicle type '" + id + "' is not known", outputStorage);
             return false;
         }
         switch (variable) {
@@ -133,7 +132,7 @@ TraCIServerAPI_VehicleType::processGet(TraCIServer &server, tcpip::Storage &inpu
             break;
         }
     }
-        TraCIServerAPIHelper::writeStatusCmd(CMD_GET_VEHICLETYPE_VARIABLE, RTYPE_OK, warning, outputStorage);
+        server.writeStatusCmd(CMD_GET_VEHICLETYPE_VARIABLE, RTYPE_OK, warning, outputStorage);
     // send response
     outputStorage.writeUnsignedByte(0); // command length -> extended
     outputStorage.writeInt(1 + 4 + tempMsg.size());

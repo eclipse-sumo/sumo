@@ -31,7 +31,6 @@
 #include <microsim/MSJunction.h>
 #include <microsim/MSJunctionControl.h>
 #include <microsim/MSNet.h>
-#include "TraCIServerAPIHelper.h"
 #include "TraCIServerAPI_Junction.h"
 
 #ifdef CHECK_MEMORY_LEAKS
@@ -60,7 +59,7 @@ TraCIServerAPI_Junction::processGet(TraCIServer &server, tcpip::Storage &inputSt
     std::string id = inputStorage.readString();
     // check variable
     if (variable!=ID_LIST&&variable!=VAR_POSITION) {
-        TraCIServerAPIHelper::writeStatusCmd(CMD_GET_JUNCTION_VARIABLE, RTYPE_ERR, "Get Junction Variable: unsupported variable specified", outputStorage);
+        server.writeStatusCmd(CMD_GET_JUNCTION_VARIABLE, RTYPE_ERR, "Get Junction Variable: unsupported variable specified", outputStorage);
         return false;
     }
     // begin response building
@@ -77,7 +76,7 @@ TraCIServerAPI_Junction::processGet(TraCIServer &server, tcpip::Storage &inputSt
     } else {
         MSJunction *j = MSNet::getInstance()->getJunctionControl().get(id);
         if (j==0) {
-            TraCIServerAPIHelper::writeStatusCmd(CMD_GET_JUNCTION_VARIABLE, RTYPE_ERR, "Junction '" + id + "' is not known", outputStorage);
+            server.writeStatusCmd(CMD_GET_JUNCTION_VARIABLE, RTYPE_ERR, "Junction '" + id + "' is not known", outputStorage);
             return false;
         }
         switch (variable) {
@@ -92,7 +91,7 @@ TraCIServerAPI_Junction::processGet(TraCIServer &server, tcpip::Storage &inputSt
             break;
         }
     }
-        TraCIServerAPIHelper::writeStatusCmd(CMD_GET_JUNCTION_VARIABLE, RTYPE_OK, warning, outputStorage);
+        server.writeStatusCmd(CMD_GET_JUNCTION_VARIABLE, RTYPE_OK, warning, outputStorage);
     // send response
     outputStorage.writeUnsignedByte(0); // command length -> extended
     outputStorage.writeInt(1 + 4 + tempMsg.size());

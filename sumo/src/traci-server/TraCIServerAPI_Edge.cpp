@@ -33,7 +33,6 @@
 #include <microsim/MSLane.h>
 #include <microsim/MSVehicle.h>
 #include "TraCIConstants.h"
-#include "TraCIServerAPIHelper.h"
 #include "TraCIServerAPI_Edge.h"
 #include <microsim/MSEdgeWeightsStorage.h>
 #include <utils/common/HelpersHarmonoise.h>
@@ -69,7 +68,7 @@ TraCIServerAPI_Edge::processGet(TraCIServer &server, tcpip::Storage &inputStorag
             &&variable!=LAST_STEP_VEHICLE_NUMBER&&variable!=LAST_STEP_MEAN_SPEED&&variable!=LAST_STEP_OCCUPANCY
             &&variable!=LAST_STEP_VEHICLE_HALTING_NUMBER&&variable!=LAST_STEP_LENGTH
             &&variable!=LAST_STEP_VEHICLE_ID_LIST) {
-        TraCIServerAPIHelper::writeStatusCmd(CMD_GET_EDGE_VARIABLE, RTYPE_ERR, "Get Edge Variable: unsupported variable specified", outputStorage);
+        server.writeStatusCmd(CMD_GET_EDGE_VARIABLE, RTYPE_ERR, "Get Edge Variable: unsupported variable specified", outputStorage);
         return false;
     }
     // begin response building
@@ -87,14 +86,14 @@ TraCIServerAPI_Edge::processGet(TraCIServer &server, tcpip::Storage &inputStorag
     } else {
         MSEdge *e = MSEdge::dictionary(id);
         if (e==0) {
-            TraCIServerAPIHelper::writeStatusCmd(CMD_GET_EDGE_VARIABLE, RTYPE_ERR, "Edge '" + id + "' is not known", outputStorage);
+            server.writeStatusCmd(CMD_GET_EDGE_VARIABLE, RTYPE_ERR, "Edge '" + id + "' is not known", outputStorage);
             return false;
         }
         switch (variable) {
         case VAR_EDGE_TRAVELTIME: {
             // time
             if (inputStorage.readUnsignedByte()!=TYPE_INTEGER) {
-                TraCIServerAPIHelper::writeStatusCmd(CMD_GET_EDGE_VARIABLE, RTYPE_ERR, "The message must contain the time definition.", outputStorage);
+                server.writeStatusCmd(CMD_GET_EDGE_VARIABLE, RTYPE_ERR, "The message must contain the time definition.", outputStorage);
                 return false;
             }
             SUMOTime time = inputStorage.readInt();
@@ -110,7 +109,7 @@ TraCIServerAPI_Edge::processGet(TraCIServer &server, tcpip::Storage &inputStorag
         case VAR_EDGE_EFFORT: {
             // time
             if (inputStorage.readUnsignedByte()!=TYPE_INTEGER) {
-                TraCIServerAPIHelper::writeStatusCmd(CMD_GET_EDGE_VARIABLE, RTYPE_ERR, "The message must contain the time definition.", outputStorage);
+                server.writeStatusCmd(CMD_GET_EDGE_VARIABLE, RTYPE_ERR, "The message must contain the time definition.", outputStorage);
                 return false;
             }
             SUMOTime time = inputStorage.readInt();
@@ -285,7 +284,7 @@ TraCIServerAPI_Edge::processGet(TraCIServer &server, tcpip::Storage &inputStorag
             break;
         }
     }
-        TraCIServerAPIHelper::writeStatusCmd(CMD_GET_EDGE_VARIABLE, RTYPE_OK, warning, outputStorage);
+        server.writeStatusCmd(CMD_GET_EDGE_VARIABLE, RTYPE_OK, warning, outputStorage);
     // send response
     outputStorage.writeUnsignedByte(0); // command length -> extended
     outputStorage.writeInt(1 + 4 + tempMsg.size());
@@ -301,14 +300,14 @@ TraCIServerAPI_Edge::processSet(TraCIServer &server, tcpip::Storage &inputStorag
     // variable
     int variable = inputStorage.readUnsignedByte();
     if (variable!=VAR_EDGE_TRAVELTIME&&variable!=VAR_EDGE_EFFORT&&variable!=VAR_MAXSPEED) {
-        TraCIServerAPIHelper::writeStatusCmd(CMD_SET_EDGE_VARIABLE, RTYPE_ERR, "Change Edge State: unsupported variable specified", outputStorage);
+        server.writeStatusCmd(CMD_SET_EDGE_VARIABLE, RTYPE_ERR, "Change Edge State: unsupported variable specified", outputStorage);
         return false;
     }
     // id
     std::string id = inputStorage.readString();
     MSEdge *e = MSEdge::dictionary(id);
     if (e==0) {
-        TraCIServerAPIHelper::writeStatusCmd(CMD_SET_EDGE_VARIABLE, RTYPE_ERR, "Edge '" + id + "' is not known", outputStorage);
+        server.writeStatusCmd(CMD_SET_EDGE_VARIABLE, RTYPE_ERR, "Edge '" + id + "' is not known", outputStorage);
         return false;
     }
     // process
@@ -316,7 +315,7 @@ TraCIServerAPI_Edge::processSet(TraCIServer &server, tcpip::Storage &inputStorag
     switch (variable) {
     case LANE_ALLOWED: {
         if (inputStorage.readUnsignedByte()!=TYPE_STRINGLIST) {
-            TraCIServerAPIHelper::writeStatusCmd(CMD_GET_EDGE_VARIABLE, RTYPE_ERR, "Allowed vehicle classes must be given as a list of strings.", outputStorage);
+            server.writeStatusCmd(CMD_GET_EDGE_VARIABLE, RTYPE_ERR, "Allowed vehicle classes must be given as a list of strings.", outputStorage);
             return false;
         }
         std::vector<SUMOVehicleClass> allowed;
@@ -331,7 +330,7 @@ TraCIServerAPI_Edge::processSet(TraCIServer &server, tcpip::Storage &inputStorag
     case LANE_DISALLOWED: {
         // time
         if (inputStorage.readUnsignedByte()!=TYPE_STRINGLIST) {
-            TraCIServerAPIHelper::writeStatusCmd(CMD_GET_EDGE_VARIABLE, RTYPE_ERR, "Not allowed vehicle classes must be given as a list of strings.", outputStorage);
+            server.writeStatusCmd(CMD_GET_EDGE_VARIABLE, RTYPE_ERR, "Not allowed vehicle classes must be given as a list of strings.", outputStorage);
             return false;
         }
         std::vector<SUMOVehicleClass> disallowed;
@@ -345,28 +344,28 @@ TraCIServerAPI_Edge::processSet(TraCIServer &server, tcpip::Storage &inputStorag
     break;
     case VAR_EDGE_TRAVELTIME: {
         if (valueDataType!=TYPE_COMPOUND) {
-            TraCIServerAPIHelper::writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Setting travel time requires a compound object.", outputStorage);
+            server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Setting travel time requires a compound object.", outputStorage);
             return false;
         }
         if (inputStorage.readInt()!=3) {
-            TraCIServerAPIHelper::writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Setting travel time requires begin time, end time, and value as parameter.", outputStorage);
+            server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Setting travel time requires begin time, end time, and value as parameter.", outputStorage);
             return false;
         }
         // begin
         if (inputStorage.readUnsignedByte()!=TYPE_INTEGER) {
-            TraCIServerAPIHelper::writeStatusCmd(CMD_SET_EDGE_VARIABLE, RTYPE_ERR, "The first variable must be the begin time given as int.", outputStorage);
+            server.writeStatusCmd(CMD_SET_EDGE_VARIABLE, RTYPE_ERR, "The first variable must be the begin time given as int.", outputStorage);
             return false;
         }
         SUMOTime begTime = inputStorage.readInt();
         // end
         if (inputStorage.readUnsignedByte()!=TYPE_INTEGER) {
-            TraCIServerAPIHelper::writeStatusCmd(CMD_SET_EDGE_VARIABLE, RTYPE_ERR, "The second variable must be the end time given as int.", outputStorage);
+            server.writeStatusCmd(CMD_SET_EDGE_VARIABLE, RTYPE_ERR, "The second variable must be the end time given as int.", outputStorage);
             return false;
         }
         SUMOTime endTime = inputStorage.readInt();
         // value
         if (inputStorage.readUnsignedByte()!=TYPE_FLOAT) {
-            TraCIServerAPIHelper::writeStatusCmd(CMD_SET_EDGE_VARIABLE, RTYPE_ERR, "The second variable must be the value given as float", outputStorage);
+            server.writeStatusCmd(CMD_SET_EDGE_VARIABLE, RTYPE_ERR, "The second variable must be the value given as float", outputStorage);
             return false;
         }
         SUMOReal value = inputStorage.readFloat();
@@ -376,28 +375,28 @@ TraCIServerAPI_Edge::processSet(TraCIServer &server, tcpip::Storage &inputStorag
     break;
     case VAR_EDGE_EFFORT: {
         if (valueDataType!=TYPE_COMPOUND) {
-            TraCIServerAPIHelper::writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Setting effort requires a compound object.", outputStorage);
+            server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Setting effort requires a compound object.", outputStorage);
             return false;
         }
         if (inputStorage.readInt()!=3) {
-            TraCIServerAPIHelper::writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Setting effort requires begin time, end time, and value as parameter.", outputStorage);
+            server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Setting effort requires begin time, end time, and value as parameter.", outputStorage);
             return false;
         }
         // begin
         if (inputStorage.readUnsignedByte()!=TYPE_INTEGER) {
-            TraCIServerAPIHelper::writeStatusCmd(CMD_SET_EDGE_VARIABLE, RTYPE_ERR, "The first variable must be the begin time given as int.", outputStorage);
+            server.writeStatusCmd(CMD_SET_EDGE_VARIABLE, RTYPE_ERR, "The first variable must be the begin time given as int.", outputStorage);
             return false;
         }
         SUMOTime begTime = inputStorage.readInt();
         // end
         if (inputStorage.readUnsignedByte()!=TYPE_INTEGER) {
-            TraCIServerAPIHelper::writeStatusCmd(CMD_SET_EDGE_VARIABLE, RTYPE_ERR, "The second variable must be the end time given as int.", outputStorage);
+            server.writeStatusCmd(CMD_SET_EDGE_VARIABLE, RTYPE_ERR, "The second variable must be the end time given as int.", outputStorage);
             return false;
         }
         SUMOTime endTime = inputStorage.readInt();
         // value
         if (inputStorage.readUnsignedByte()!=TYPE_FLOAT) {
-            TraCIServerAPIHelper::writeStatusCmd(CMD_SET_EDGE_VARIABLE, RTYPE_ERR, "The second variable must be the value given as float", outputStorage);
+            server.writeStatusCmd(CMD_SET_EDGE_VARIABLE, RTYPE_ERR, "The second variable must be the value given as float", outputStorage);
             return false;
         }
         SUMOReal value = inputStorage.readFloat();
@@ -408,7 +407,7 @@ TraCIServerAPI_Edge::processSet(TraCIServer &server, tcpip::Storage &inputStorag
     case VAR_MAXSPEED: {
         // speed
         if (valueDataType!=TYPE_FLOAT) {
-            TraCIServerAPIHelper::writeStatusCmd(CMD_SET_EDGE_VARIABLE, RTYPE_ERR, "The speed must be given as a float.", outputStorage);
+            server.writeStatusCmd(CMD_SET_EDGE_VARIABLE, RTYPE_ERR, "The speed must be given as a float.", outputStorage);
             return false;
         }
         SUMOReal val = inputStorage.readFloat();
@@ -421,7 +420,7 @@ TraCIServerAPI_Edge::processSet(TraCIServer &server, tcpip::Storage &inputStorag
     default:
         break;
     }
-    TraCIServerAPIHelper::writeStatusCmd(CMD_SET_EDGE_VARIABLE, RTYPE_OK, warning, outputStorage);
+    server.writeStatusCmd(CMD_SET_EDGE_VARIABLE, RTYPE_OK, warning, outputStorage);
     return true;
 }
 

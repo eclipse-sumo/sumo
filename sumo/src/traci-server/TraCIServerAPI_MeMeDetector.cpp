@@ -30,7 +30,6 @@
 #include "TraCIConstants.h"
 #include <microsim/output/MSDetectorControl.h>
 #include <microsim/output/MSE3Collector.h>
-#include "TraCIServerAPIHelper.h"
 #include "TraCIServerAPI_MeMeDetector.h"
 
 #ifdef CHECK_MEMORY_LEAKS
@@ -59,7 +58,7 @@ TraCIServerAPI_MeMeDetector::processGet(TraCIServer &server, tcpip::Storage &inp
     // check variable
     if (variable!=ID_LIST&&variable!=LAST_STEP_VEHICLE_NUMBER&&variable!=LAST_STEP_MEAN_SPEED
             &&variable!=LAST_STEP_VEHICLE_ID_LIST&&variable!=LAST_STEP_VEHICLE_HALTING_NUMBER) {
-        TraCIServerAPIHelper::writeStatusCmd(CMD_GET_MULTI_ENTRY_EXIT_DETECTOR_VARIABLE, RTYPE_ERR, "Get MeMeDetector Variable: unsupported variable specified", outputStorage);
+        server.writeStatusCmd(CMD_GET_MULTI_ENTRY_EXIT_DETECTOR_VARIABLE, RTYPE_ERR, "Get MeMeDetector Variable: unsupported variable specified", outputStorage);
         return false;
     }
     // begin response building
@@ -76,7 +75,7 @@ TraCIServerAPI_MeMeDetector::processGet(TraCIServer &server, tcpip::Storage &inp
     } else {
         MSE3Collector *e3 = MSNet::getInstance()->getDetectorControl().getE3Detectors().get(id);
         if (e3==0) {
-            TraCIServerAPIHelper::writeStatusCmd(CMD_GET_MULTI_ENTRY_EXIT_DETECTOR_VARIABLE, RTYPE_ERR, "Areal detector '" + id + "' is not known", outputStorage);
+            server.writeStatusCmd(CMD_GET_MULTI_ENTRY_EXIT_DETECTOR_VARIABLE, RTYPE_ERR, "Areal detector '" + id + "' is not known", outputStorage);
             return false;
         }
         switch (variable) {
@@ -104,7 +103,7 @@ TraCIServerAPI_MeMeDetector::processGet(TraCIServer &server, tcpip::Storage &inp
             break;
         }
     }
-        TraCIServerAPIHelper::writeStatusCmd(CMD_GET_MULTI_ENTRY_EXIT_DETECTOR_VARIABLE, RTYPE_OK, warning, outputStorage);
+        server.writeStatusCmd(CMD_GET_MULTI_ENTRY_EXIT_DETECTOR_VARIABLE, RTYPE_OK, warning, outputStorage);
     // send response
     outputStorage.writeUnsignedByte(0); // command length -> extended
     outputStorage.writeInt(1 + 4 + tempMsg.size());

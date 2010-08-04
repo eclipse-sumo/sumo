@@ -72,7 +72,6 @@
 #include "TraCIServerAPI_Polygon.h"
 #include "TraCIServerAPI_Edge.h"
 #include "TraCIServerAPI_Simulation.h"
-#include "TraCIServerAPIHelper.h"
 
 
 
@@ -1146,25 +1145,22 @@ TraCIServer::commandDistanceRequest() throw(TraCIException) {
 /*****************************************************************************/
 
 void
-TraCIServer::writeStatusCmd(int commandId, int status, std::string description) {
+TraCIServer::writeStatusCmd(int commandId, int status, const std::string &description) {
+	writeStatusCmd(commandId, status, description, myOutputStorage);
+}
+
+
+void
+TraCIServer::writeStatusCmd(int commandId, int status, const std::string &description, tcpip::Storage &outputStorage) {
     if (status == RTYPE_ERR) {
-        MsgHandler::getErrorInstance()->inform("Answered with error to command " + toString(commandId) +
-                                               ": " + description);
+        MsgHandler::getErrorInstance()->inform("Answered with error to command " + toString(commandId) + ": " + description);
     } else if (status == RTYPE_NOTIMPLEMENTED) {
-        MsgHandler::getErrorInstance()->inform("Requested command not implemented (" + toString(commandId) +
-                                               "): " + description);
+        MsgHandler::getErrorInstance()->inform("Requested command not implemented (" + toString(commandId) + "): " + description);
     }
-
-    // command length
-    myOutputStorage.writeUnsignedByte(1 + 1 + 1 + 4 + static_cast<int>(description.length()));
-    // command type
-    myOutputStorage.writeUnsignedByte(commandId);
-    // status
-    myOutputStorage.writeUnsignedByte(status);
-    // description
-    myOutputStorage.writeString(description);
-
-    return;
+    outputStorage.writeUnsignedByte(1 + 1 + 1 + 4 + static_cast<int>(description.length())); // command length
+    outputStorage.writeUnsignedByte(commandId); // command type
+    outputStorage.writeUnsignedByte(status); // status
+    outputStorage.writeString(description); // description
 }
 
 /*****************************************************************************/
@@ -2532,7 +2528,7 @@ TraCIServer::processSingleSubscription(const Subscription &s, tcpip::Storage &wr
 		if(myExecutors.find(getId)!=myExecutors.end()) {
 			ok &= myExecutors[getId](*this, message, tmpOutput);
 		} else {
-            TraCIServerAPIHelper::writeStatusCmd(s.commandId, RTYPE_NOTIMPLEMENTED, "Unsupported command specified", tmpOutput);
+            writeStatusCmd(s.commandId, RTYPE_NOTIMPLEMENTED, "Unsupported command specified", tmpOutput);
             ok = false;
         }
         // copy response part

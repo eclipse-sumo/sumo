@@ -14,6 +14,6 @@ TraCIServerAPI_Route.h TraCIServerAPI_Route.cpp \
 TraCIServerAPI_Simulation.h TraCIServerAPI_Simulation.cpp \
 TraCIServerAPI_TLS.h TraCIServerAPI_TLS.cpp \
 TraCIServerAPI_Vehicle.h TraCIServerAPI_Vehicle.cpp \
-TraCIServerAPI_VehicleType.h TraCIServerAPI_VehicleType.cpp \
-TraCIServerAPIHelper.h TraCIServerAPIHelper.cpp
+TraCIServerAPI_VehicleType.h TraCIServerAPI_VehicleType.cpp
+
 

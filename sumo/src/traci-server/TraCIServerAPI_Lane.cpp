@@ -29,7 +29,6 @@
 
 #include "TraCIConstants.h"
 #include <microsim/MSLane.h>
-#include "TraCIServerAPIHelper.h"
 #include "TraCIServerAPI_Lane.h"
 
 #ifdef CHECK_MEMORY_LEAKS
@@ -65,7 +64,7 @@ TraCIServerAPI_Lane::processGet(TraCIServer &server, tcpip::Storage &inputStorag
             &&variable!=LAST_STEP_VEHICLE_ID_LIST&&variable!=LAST_STEP_OCCUPANCY&&variable!=LAST_STEP_VEHICLE_HALTING_NUMBER
             &&variable!=LAST_STEP_LENGTH&&variable!=VAR_CURRENT_TRAVELTIME
             &&variable!=LANE_ALLOWED&&variable!=LANE_DISALLOWED) {
-        TraCIServerAPIHelper::writeStatusCmd(CMD_GET_LANE_VARIABLE, RTYPE_ERR, "Get Lane Variable: unsupported variable specified", outputStorage);
+        server.writeStatusCmd(CMD_GET_LANE_VARIABLE, RTYPE_ERR, "Get Lane Variable: unsupported variable specified", outputStorage);
         return false;
     }
     // begin response building
@@ -82,7 +81,7 @@ TraCIServerAPI_Lane::processGet(TraCIServer &server, tcpip::Storage &inputStorag
     } else {
         MSLane *lane = MSLane::dictionary(id);
         if (lane==0) {
-            TraCIServerAPIHelper::writeStatusCmd(CMD_GET_LANE_VARIABLE, RTYPE_ERR, "Lane '" + id + "' is not known", outputStorage);
+            server.writeStatusCmd(CMD_GET_LANE_VARIABLE, RTYPE_ERR, "Lane '" + id + "' is not known", outputStorage);
             return false;
         }
         switch (variable) {
@@ -273,7 +272,7 @@ TraCIServerAPI_Lane::processGet(TraCIServer &server, tcpip::Storage &inputStorag
             break;
         }
     }
-        TraCIServerAPIHelper::writeStatusCmd(CMD_GET_LANE_VARIABLE, RTYPE_OK, warning, outputStorage);
+        server.writeStatusCmd(CMD_GET_LANE_VARIABLE, RTYPE_OK, warning, outputStorage);
     // send response
     outputStorage.writeUnsignedByte(0); // command length -> extended
     outputStorage.writeInt(1 + 4 + tempMsg.size());
@@ -289,14 +288,14 @@ TraCIServerAPI_Lane::processSet(TraCIServer &server, tcpip::Storage &inputStorag
     // variable
     int variable = inputStorage.readUnsignedByte();
     if (variable!=VAR_MAXSPEED&&variable!=VAR_LENGTH&&variable!=LANE_ALLOWED&&variable!=LANE_DISALLOWED) {
-        TraCIServerAPIHelper::writeStatusCmd(CMD_SET_LANE_VARIABLE, RTYPE_ERR, "Change Lane State: unsupported variable specified", outputStorage);
+        server.writeStatusCmd(CMD_SET_LANE_VARIABLE, RTYPE_ERR, "Change Lane State: unsupported variable specified", outputStorage);
         return false;
     }
     // id
     std::string id = inputStorage.readString();
     MSLane *l = MSLane::dictionary(id);
     if (l==0) {
-        TraCIServerAPIHelper::writeStatusCmd(CMD_SET_LANE_VARIABLE, RTYPE_ERR, "Lane '" + id + "' is not known", outputStorage);
+        server.writeStatusCmd(CMD_SET_LANE_VARIABLE, RTYPE_ERR, "Lane '" + id + "' is not known", outputStorage);
         return false;
     }
     // process
@@ -305,7 +304,7 @@ TraCIServerAPI_Lane::processSet(TraCIServer &server, tcpip::Storage &inputStorag
     case VAR_MAXSPEED: {
         // speed
         if (valueDataType!=TYPE_FLOAT) {
-            TraCIServerAPIHelper::writeStatusCmd(CMD_SET_LANE_VARIABLE, RTYPE_ERR, "The speed must be given as a float.", outputStorage);
+            server.writeStatusCmd(CMD_SET_LANE_VARIABLE, RTYPE_ERR, "The speed must be given as a float.", outputStorage);
             return false;
         }
         SUMOReal val = inputStorage.readFloat();
@@ -315,7 +314,7 @@ TraCIServerAPI_Lane::processSet(TraCIServer &server, tcpip::Storage &inputStorag
     case VAR_LENGTH: {
         // speed
         if (valueDataType!=TYPE_FLOAT) {
-            TraCIServerAPIHelper::writeStatusCmd(CMD_SET_LANE_VARIABLE, RTYPE_ERR, "The length must be given as a float.", outputStorage);
+            server.writeStatusCmd(CMD_SET_LANE_VARIABLE, RTYPE_ERR, "The length must be given as a float.", outputStorage);
             return false;
         }
         SUMOReal val = inputStorage.readFloat();
@@ -324,7 +323,7 @@ TraCIServerAPI_Lane::processSet(TraCIServer &server, tcpip::Storage &inputStorag
     break;
     case LANE_ALLOWED: {
         if (valueDataType!=TYPE_STRINGLIST) {
-            TraCIServerAPIHelper::writeStatusCmd(CMD_SET_LANE_VARIABLE, RTYPE_ERR, "Allowed classes must be given as a list of strings.", outputStorage);
+            server.writeStatusCmd(CMD_SET_LANE_VARIABLE, RTYPE_ERR, "Allowed classes must be given as a list of strings.", outputStorage);
             return false;
         }
         std::vector<SUMOVehicleClass> allowed;
@@ -335,7 +334,7 @@ TraCIServerAPI_Lane::processSet(TraCIServer &server, tcpip::Storage &inputStorag
     break;
     case LANE_DISALLOWED: {
         if (valueDataType!=TYPE_STRINGLIST) {
-            TraCIServerAPIHelper::writeStatusCmd(CMD_SET_LANE_VARIABLE, RTYPE_ERR, "Not allowed classes must be given as a list of strings.", outputStorage);
+            server.writeStatusCmd(CMD_SET_LANE_VARIABLE, RTYPE_ERR, "Not allowed classes must be given as a list of strings.", outputStorage);
             return false;
         }
         std::vector<SUMOVehicleClass> disallowed;
@@ -347,7 +346,7 @@ TraCIServerAPI_Lane::processSet(TraCIServer &server, tcpip::Storage &inputStorag
     default:
         break;
     }
-    TraCIServerAPIHelper::writeStatusCmd(CMD_SET_LANE_VARIABLE, RTYPE_OK, warning, outputStorage);
+    server.writeStatusCmd(CMD_SET_LANE_VARIABLE, RTYPE_OK, warning, outputStorage);
     return true;
 }
 

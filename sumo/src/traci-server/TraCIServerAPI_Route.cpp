@@ -31,7 +31,6 @@
 #include <microsim/MSRoute.h>
 #include <microsim/MSEdge.h>
 #include "TraCIConstants.h"
-#include "TraCIServerAPIHelper.h"
 #include "TraCIServerAPI_Route.h"
 
 #ifdef CHECK_MEMORY_LEAKS
@@ -59,7 +58,7 @@ TraCIServerAPI_Route::processGet(TraCIServer &server, tcpip::Storage &inputStora
     std::string id = inputStorage.readString();
     // check variable
     if (variable!=ID_LIST&&variable!=VAR_EDGES) {
-        TraCIServerAPIHelper::writeStatusCmd(CMD_GET_ROUTE_VARIABLE, RTYPE_ERR, "Get Route Variable: unsupported variable specified", outputStorage);
+        server.writeStatusCmd(CMD_GET_ROUTE_VARIABLE, RTYPE_ERR, "Get Route Variable: unsupported variable specified", outputStorage);
         return false;
     }
     // begin response building
@@ -77,7 +76,7 @@ TraCIServerAPI_Route::processGet(TraCIServer &server, tcpip::Storage &inputStora
     } else {
         const MSRoute *r = MSRoute::dictionary(id);
         if (r==0) {
-            TraCIServerAPIHelper::writeStatusCmd(CMD_GET_ROUTE_VARIABLE, RTYPE_ERR, "Route '" + id + "' is not known", outputStorage);
+            server.writeStatusCmd(CMD_GET_ROUTE_VARIABLE, RTYPE_ERR, "Route '" + id + "' is not known", outputStorage);
             return false;
         }
         switch (variable) {
@@ -92,7 +91,7 @@ TraCIServerAPI_Route::processGet(TraCIServer &server, tcpip::Storage &inputStora
             break;
         }
     }
-        TraCIServerAPIHelper::writeStatusCmd(CMD_GET_ROUTE_VARIABLE, RTYPE_OK, warning, outputStorage);
+        server.writeStatusCmd(CMD_GET_ROUTE_VARIABLE, RTYPE_OK, warning, outputStorage);
     // send response
     outputStorage.writeUnsignedByte(0); // command length -> extended
     outputStorage.writeInt(1 + 4 + tempMsg.size());

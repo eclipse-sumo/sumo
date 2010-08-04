@@ -419,10 +419,6 @@
 				RelativePath="..\..\..\src\traci-server\TraCIServerAPI_VehicleType.cpp"
 				>
 			</File>
-			<File
-				RelativePath="..\..\..\src\traci-server\TraCIServerAPIHelper.cpp"
-				>
-			</File>
 		</Filter>
 		<Filter
 			Name="Headerdateien"
@@ -491,10 +487,6 @@
 			</File>
 			<File
 				RelativePath="..\..\..\src\traci-server\TraCIServerAPI_VehicleType.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\traci-server\TraCIServerAPIHelper.h"
 				>
 			</File>
 		</Filter>
