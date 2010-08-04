@@ -88,6 +88,28 @@ public:
 
     void vehicleStateChanged(const MSVehicle * const vehicle, MSNet::VehicleState to) throw();
 
+    // return vehicle that is referenced by the given external id
+    MSVehicle* getVehicleByExtId(int extId);
+
+    // return traffic light logic that is referenced by the given external id
+    MSTrafficLightLogic* getTLLogicByExtId(int extId);
+
+    // return point of interest that is referenced by the given external id
+    PointOfInterest* getPoiByExtId(int extId);
+
+    // return polygon that is referenced by the given external id
+    Polygon2D* getPolygonByExtId(int extId);
+
+    void writeStatusCmd(int commandId, int status, std::string description);
+    /**
+     * Converts a cartesian position to the closest road map position
+     *
+     * @param pos	cartesian position that is to be converted
+     * @return the closest road map position to the cartesian position
+     */
+    TraCIServer::RoadMapPos convertCartesianToRoadMap(Position2D pos);
+
+
 private:
 
     // Constructor
@@ -100,14 +122,6 @@ private:
 
     int dispatchCommand() throw(TraCIException, std::invalid_argument);
 
-    // process command setMaximumSpeed
-    // This command causes the node given by nodeId to limit its speed to a maximum speed (float).
-    // If maximum speed is set to a negative value, the individual speed limit for that node gets annihilated.
-    // @param in contains unparsed parameters targetTime, ResultType
-    // @param out contains node positions ready for output
-    // @param length message length
-    bool commandSetMaximumSpeed() throw(TraCIException, std::invalid_argument);
-
     // process command simStep
     // This is the basic comman that encourage the mobility generator to simulate up to the given TargetTime.
     // Normaly, the network simulator sends this command every time unit to gain actual node positions.
@@ -118,13 +132,7 @@ private:
     void postProcessSimulationStep() throw(TraCIException, std::invalid_argument);
     void postProcessSimulationStep2() throw(TraCIException, std::invalid_argument);
 
-    bool commandStopNode() throw(TraCIException, std::invalid_argument);
 
-    bool commandChangeLane() throw(TraCIException, std::invalid_argument);
-
-    bool commandChangeRoute() throw(TraCIException, std::invalid_argument);
-
-    bool commandChangeTarget() throw(TraCIException, std::invalid_argument);
 
     bool commandGetVersion() throw(TraCIException);
 
@@ -132,10 +140,6 @@ private:
 
     bool commandSimulationParameter() throw(TraCIException);
 
-    // process command getTLStatus
-    // The traffic light with the given id is asked for all state transitions, that will occur  within
-    // a given time interval. Each status change is returned by a TLSwitch command.
-    bool commandGetTLStatus() throw(TraCIException);
 
     // process command slowDown
     // Tell the node given by nodeID to slow down to the given speed (float) within the time intervall
@@ -144,9 +148,6 @@ private:
     // @param in contains nodeID(integer), speed (float), duration(double)
     bool commandSlowDown() throw(TraCIException);
 
-    // command getAllTLIds
-    // Returns a list of strings representing the ids of all traffic lights in the simulation
-    bool commandGetAllTLIds() throw(TraCIException);
 
     bool commandUpdateCalibrator() throw(TraCIException);
 
@@ -158,16 +159,8 @@ private:
 
     bool commandDistanceRequest() throw(TraCIException);
 
-    bool commandSubscribeLifecycles() throw(TraCIException);
-
-    bool commandUnsubscribeLifecycles() throw(TraCIException);
-
-    bool commandSubscribeDomain() throw(TraCIException);
-
-    bool commandUnsubscribeDomain() throw(TraCIException);
 
 
-    void writeStatusCmd(int commandId, int status, std::string description);
 
     /**
      * Handles the request of a Scenario Command for obtaining information on
@@ -221,14 +214,6 @@ private:
     bool addSubscription(int commandId) throw(TraCIException);
 
     /**
-     * Converts a cartesian position to the closest road map position
-     *
-     * @param pos	cartesian position that is to be converted
-     * @return the closest road map position to the cartesian position
-     */
-    TraCIServer::RoadMapPos convertCartesianToRoadMap(Position2D pos);
-
-    /**
      * Converts a road map position to a cartesian position
      *
      * @param pos road map position that is to be convertes
@@ -276,18 +261,6 @@ private:
     // maps all external polygon ids to internal ids
     std::map<std::string, int> polygonInt2ExtId;
 
-    // return vehicle that is referenced by the given external id
-    MSVehicle* getVehicleByExtId(int extId);
-
-    // return traffic light logic that is referenced by the given external id
-    MSTrafficLightLogic* getTLLogicByExtId(int extId);
-
-    // return point of interest that is referenced by the given external id
-    PointOfInterest* getPoiByExtId(int extId);
-
-    // return polygon that is referenced by the given external id
-    Polygon2D* getPolygonByExtId(int extId);
-
     // hold number of all equipped vehicles
     int numEquippedVehicles_;
 
@@ -319,7 +292,6 @@ private:
     bool myDoingSimStep;
     int simStepCommand;
 
-    std::set<MSVehicle*> myVehiclesToReroute;
 
     class Subscription {
     public:

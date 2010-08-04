@@ -256,11 +256,6 @@ TraCIServer::vehicleStateChanged(const MSVehicle * const vehicle, MSNet::Vehicle
     if (closeConnection_ || OptionsCont::getOptions().getInt("remote-port") == 0) {
         return;
     }
-    /*
-    if(myVehicleStateChanges.find(to)==myVehicleStateChanges.end()) {
-    	myVehicleStateChanges[to] = std::vector<std::string>();
-    }
-    */
     myVehicleStateChanges[to].push_back(vehicle->getID());
 }
 
@@ -362,7 +357,7 @@ throw(TraCIException, std::invalid_argument) {
         success = commandGetVersion();
         break;
     case CMD_SETMAXSPEED:
-        success = commandSetMaximumSpeed();
+        success = TraCIServerAPI_Vehicle::commandSetMaximumSpeed(*this, myInputStorage, myOutputStorage);
         break;
     case CMD_SIMSTEP:
         success = targetTime_ = static_cast<SUMOTime>(myInputStorage.readInt());
@@ -378,22 +373,22 @@ throw(TraCIException, std::invalid_argument) {
         return commandId;
     }
     case CMD_STOP:
-        success = commandStopNode();
+        success = TraCIServerAPI_Vehicle::commandStopNode(*this, myInputStorage, myOutputStorage);
         break;
     case CMD_CHANGELANE:
-        success = commandChangeLane();
+        success = TraCIServerAPI_Vehicle::commandChangeLane(*this, myInputStorage, myOutputStorage);
         break;
     case CMD_CHANGEROUTE:
-        success = commandChangeRoute();
+        success = TraCIServerAPI_Vehicle::commandChangeRoute(*this, myInputStorage, myOutputStorage);
         break;
     case CMD_CHANGETARGET:
-        success = commandChangeTarget();
+        success = TraCIServerAPI_Vehicle::commandChangeTarget(*this, myInputStorage, myOutputStorage);
         break;
     case CMD_GETALLTLIDS:
-        success = commandGetAllTLIds();
+		success = TraCIServerAPI_TLS::commandGetAllTLIds(*this, myInputStorage, myOutputStorage);
         break;
     case CMD_GETTLSTATUS:
-        success = commandGetTLStatus();
+        success = TraCIServerAPI_TLS::commandGetTLStatus(*this, myInputStorage, myOutputStorage);
         break;
     case CMD_CLOSE:
         success = commandCloseConnection();
@@ -405,7 +400,7 @@ throw(TraCIException, std::invalid_argument) {
         success = commandPositionConversion();
         break;
     case CMD_SLOWDOWN:
-        success = commandSlowDown();
+        success = TraCIServerAPI_Vehicle::commandSlowDown(*this, myInputStorage, myOutputStorage);
         break;
     case CMD_SCENARIO:
         success = commandScenario();
@@ -417,16 +412,20 @@ throw(TraCIException, std::invalid_argument) {
         success = commandDistanceRequest();
         break;
     case CMD_SUBSCRIBELIFECYCLES:
-        success = commandSubscribeLifecycles();
+        success = TraCIServerAPI_Vehicle::commandSubscribeLifecycles(*this, myInputStorage, myOutputStorage);
+    myCreatedVehicles.clear();
+    myDestroyedVehicles.clear();
         break;
     case CMD_UNSUBSCRIBELIFECYCLES:
-        success = commandUnsubscribeLifecycles();
+        success = TraCIServerAPI_Vehicle::commandUnsubscribeLifecycles(*this, myInputStorage, myOutputStorage);
+    myCreatedVehicles.clear();
+    myDestroyedVehicles.clear();
         break;
     case CMD_SUBSCRIBEDOMAIN:
-        success = commandSubscribeDomain();
+        success = TraCIServerAPI_Vehicle::commandSubscribeDomain(*this, myInputStorage, myOutputStorage);
         break;
     case CMD_UNSUBSCRIBEDOMAIN:
-        success = commandUnsubscribeDomain();
+        success = TraCIServerAPI_Vehicle::commandUnsubscribeDomain(*this, myInputStorage, myOutputStorage);
         break;
     case CMD_GET_INDUCTIONLOOP_VARIABLE:
         success = TraCIServerAPI_InductionLoop::processGet(myInputStorage, myOutputStorage);
@@ -517,30 +516,6 @@ throw(TraCIException, std::invalid_argument) {
 
 /*****************************************************************************/
 
-bool
-TraCIServer::commandSetMaximumSpeed() throw(TraCIException, std::invalid_argument) {
-    MSVehicle* veh = getVehicleByExtId(myInputStorage.readInt());   // external node id (equipped vehicle number)
-    float maxspeed = myInputStorage.readFloat();
-
-    if (veh == NULL) {
-        writeStatusCmd(CMD_SETMAXSPEED, RTYPE_ERR, "Can not retrieve node with given ID");
-        return false;
-    }
-
-    if (maxspeed>=0.0) {
-        veh->setIndividualMaxSpeed(maxspeed);
-    } else {
-        veh->unsetIndividualMaxSpeed();
-    }
-
-    // create a reply message
-    writeStatusCmd(CMD_SETMAXSPEED, RTYPE_OK, "");
-
-    return true;
-}
-
-/*****************************************************************************/
-
 void
 TraCIServer::postProcessSimulationStep() throw(TraCIException, std::invalid_argument) {
     // Position representation
@@ -620,15 +595,7 @@ TraCIServer::postProcessSimulationStep() throw(TraCIException, std::invalid_argu
                 iter != equippedVehicles_.end(); ++iter) {
             if ((*iter).second != -1) { // Look only at equipped vehicles
                 MSVehicle* veh = net->getVehicleControl().getVehicle((*iter).first);
-                if (myVehiclesToReroute.find(veh)!=myVehiclesToReroute.end()) {
-                    // check rerouting
-                    if (!veh->hasStops() && veh->isOnRoad() && veh->getLane().getEdge().getPurpose()!=MSEdge::EDGEFUNCTION_INTERNAL) {
-                        MSNet::EdgeWeightsProxi proxi(veh->getWeightsStorage(), MSNet::getInstance()->getWeightsStorage());
-                        DijkstraRouterTT_ByProxi<MSEdge, SUMOVehicle, prohibited_withRestrictions<MSEdge, SUMOVehicle>, MSNet::EdgeWeightsProxi> router(MSEdge::dictSize(), true, &proxi, &MSNet::EdgeWeightsProxi::getTravelTime);
-                        veh->reroute(MSNet::getInstance()->getCurrentTimeStep(), router);
-                    }
-                    myVehiclesToReroute.erase(veh);
-                }
+				TraCIServerAPI_Vehicle::checkReroute(veh);
                 if (veh != NULL) {
                     veh->processTraCICommands(targetTime_);
                 }
@@ -724,433 +691,11 @@ TraCIServer::postProcessSimulationStep2() throw(TraCIException, std::invalid_arg
     }
 }
 
-/*****************************************************************************/
 
-bool
-TraCIServer::commandStopNode() throw(TraCIException, std::invalid_argument) {
-    //std::string roadID;
-    //float lanePos;
-    //unsigned char laneIndex;
-    RoadMapPos roadPos;
-    MSLane* actLane;
-
-    // NodeId
-    int nodeId = myInputStorage.readInt();
-    MSVehicle* veh = getVehicleByExtId(nodeId);   // external node id (equipped vehicle number)
-
-    if (veh == NULL) {
-        writeStatusCmd(CMD_STOP, RTYPE_ERR, "Can not retrieve node with given ID");
-        return false;
-    }
-
-    // StopPosition
-    unsigned char posType = myInputStorage.readUnsignedByte();	// position type
-    switch (posType) {
-    case POSITION_ROADMAP:
-        // read road map position
-        roadPos.roadId = myInputStorage.readString();
-        roadPos.pos = myInputStorage.readFloat();
-        roadPos.laneId = myInputStorage.readUnsignedByte();
-        break;
-    case POSITION_2D:
-    case POSITION_3D:
-        // convert other position type to road map position
-    {
-        float x = myInputStorage.readFloat();
-        float y = myInputStorage.readFloat();
-        roadPos = convertCartesianToRoadMap(Position2D(x,y));
-    }
-    if (posType == POSITION_3D) {
-        myInputStorage.readFloat();	// z value is ignored
-    }
-    break;
-    default:
-        writeStatusCmd(CMD_STOP, RTYPE_ERR, "Not supported or unknown Position Format");
-        return false;
-    }
-
-    // Radius
-    float radius = myInputStorage.readFloat();
-    // waitTime
-    SUMOTime waitTime = myInputStorage.readInt();
-
-    if (roadPos.pos < 0) {
-        writeStatusCmd(CMD_STOP, RTYPE_ERR, "Position on lane must not be negative");
-        return false;
-    }
-
-    // get the actual lane that is referenced by laneIndex
-    MSEdge* road = MSEdge::dictionary(roadPos.roadId);
-    if (road == NULL) {
-        writeStatusCmd(CMD_STOP, RTYPE_ERR, "Unable to retrieve road with given id");
-        return false;
-    }
-
-    const std::vector<MSLane*> &allLanes = road->getLanes();
-    if (roadPos.laneId >= allLanes.size()) {
-        writeStatusCmd(CMD_STOP, RTYPE_ERR, "No lane existing with such id on the given road");
-        return false;
-    }
-
-    actLane = allLanes[0];
-    int index = 0;
-    while (road->rightLane(actLane) != NULL) {
-        actLane = road->rightLane(actLane);
-        index++;
-    }
-    actLane = allLanes[0];
-    if (index < roadPos.laneId) {
-        for (int i=0; i < (roadPos.laneId - index); i++) {
-            actLane = road->leftLane(actLane);
-        }
-    } else {
-        for (int i=0; i < (index - roadPos.laneId); i++) {
-            actLane = road->rightLane(actLane);
-        }
-    }
-
-    // Forward command to vehicle
-    if (!veh->addTraciStop(actLane, roadPos.pos, radius, waitTime)) {
-        writeStatusCmd(CMD_STOP, RTYPE_ERR, "Vehicle is too close or behind the stop on " + actLane->getID());
-        return false;
-    }
-
-    // create a reply message
-    writeStatusCmd(CMD_STOP, RTYPE_OK, "");
-    // add a stopnode command containging the actually used road map position to the reply
-    int length = 1 + 1 + 4 + 1 + (4+roadPos.roadId.length()) + 4 + 1 + 4 + 4;
-    myOutputStorage.writeUnsignedByte(length);				// lenght
-    myOutputStorage.writeUnsignedByte(CMD_STOP);			// command id
-    myOutputStorage.writeInt(nodeId);						// node id
-    myOutputStorage.writeUnsignedByte(POSITION_ROADMAP);	// pos format
-    myOutputStorage.writeString(roadPos.roadId);					// road id
-    myOutputStorage.writeFloat(roadPos.pos);					// pos
-    myOutputStorage.writeUnsignedByte(roadPos.laneId);			// lane id
-    myOutputStorage.writeFloat(radius);						// radius
-    myOutputStorage.writeInt(waitTime);					// wait time
-
-    return true;
-}
-
-/*****************************************************************************/
-bool
-TraCIServer::commandChangeLane() throw(TraCIException, std::invalid_argument) {
-    // NodeId
-    MSVehicle* veh = getVehicleByExtId(myInputStorage.readInt());   // external node id (equipped vehicle number)
-    // Lane ID
-    char laneIndex = myInputStorage.readByte();
-    // stickyTime
-    SUMOTime stickyTime = myInputStorage.readInt();
-
-    if (veh == NULL) {
-        writeStatusCmd(CMD_CHANGELANE, RTYPE_ERR, "Can not retrieve node with given ID");
-        return false;
-    }
-
-    /*const MSEdge* const road = veh->getEdge();
-    const std::vector<MSLane*> &allLanes = road->getLanes();*/
-    if ((laneIndex < 0) || (laneIndex >= veh->getEdge()->getLanes().size())) {
-        writeStatusCmd(CMD_CHANGELANE, RTYPE_ERR, "No lane existing with given id on the current road");
-        return false;
-    }
-
-    // Forward command to vehicle
-    veh->startLaneChange(static_cast<unsigned>(laneIndex), static_cast<SUMOTime>(stickyTime));
-
-    // create a reply message
-    writeStatusCmd(CMD_CHANGELANE, RTYPE_OK, "");
-
-    return true;
-}
-
-/*****************************************************************************/
-bool
-TraCIServer::commandChangeRoute() throw(TraCIException, std::invalid_argument) {
-    // NodeId
-    int vehId = myInputStorage.readInt();
-    MSVehicle* veh = getVehicleByExtId(vehId);   // external node id (equipped vehicle number)
-    // edgeID
-    std::string edgeId = myInputStorage.readString();
-    MSEdge* edge = MSEdge::dictionary(edgeId);
-    // travelTime
-    double travelTime = myInputStorage.readDouble();
-    if (veh == NULL) {
-        writeStatusCmd(CMD_CHANGEROUTE, RTYPE_ERR, "Can not retrieve node with ID " + toString(vehId));
-        return false;
-    }
-    if (edge == NULL) {
-        writeStatusCmd(CMD_CHANGEROUTE, RTYPE_ERR, "Can not retrieve edge with ID " + edgeId);
-        return false;
-    }
-    //
-    SUMOTime currentTime = MSNet::getInstance()->getCurrentTimeStep() / 1000.;
-    MSNet::EdgeWeightsProxi proxi(veh->getWeightsStorage(), MSNet::getInstance()->getWeightsStorage());
-    SUMOReal effortBefore = proxi.getTravelTime(edge, veh, currentTime);
-    bool hadError = false;
-    if (travelTime < 0) {
-        if (!veh->getWeightsStorage().knowsTravelTime(edge)) {
-            hadError = true;
-        }
-        veh->getWeightsStorage().removeTravelTime(edge);
-    } else {
-        SUMOTime end = string2time(OptionsCont::getOptions().getString("end"));
-        if (end<0) {
-            end = SUMOTime_MAX;
-        }
-        veh->getWeightsStorage().addTravelTime(edge, currentTime, (SUMOReal) end / 1000., travelTime);
-    }
-    SUMOReal effortAfter = proxi.getTravelTime(edge, veh, currentTime);
-    if (myVehiclesToReroute.find(veh)==myVehiclesToReroute.end() && (effortBefore != effortAfter)) {
-        // there is only a need to reroute if either the weight decreases or the edge is on our current route
-        if ((effortBefore > effortAfter) ^ veh->willPass(edge)) {
-            myVehiclesToReroute.insert(veh);
-        }
-    }
-    if (!hadError) {
-        writeStatusCmd(CMD_CHANGEROUTE, RTYPE_OK, "");
-        return true;
-    } else {
-        writeStatusCmd(CMD_CHANGEROUTE, RTYPE_ERR, "Could not (re-)set travel time properly");
-        return false;
-    }
-}
-
-/*****************************************************************************/
-bool
-TraCIServer::commandChangeTarget() throw(TraCIException, std::invalid_argument) {
-    // NodeId
-    MSVehicle* veh = getVehicleByExtId(myInputStorage.readInt());   // external node id (equipped vehicle number)
-    // EdgeId
-    std::string edgeID = myInputStorage.readString();
-
-    // destination edge
-    const MSEdge* destEdge = MSEdge::dictionary(edgeID);
-
-    if (veh == NULL) {
-        writeStatusCmd(CMD_CHANGETARGET, RTYPE_ERR, "Can not retrieve node with given ID");
-        return false;
-    }
-
-    if (destEdge == NULL) {
-        writeStatusCmd(CMD_CHANGETARGET, RTYPE_ERR, "Can not retrieve road with ID " + edgeID);
-        return false;
-    }
-
-    // build a new route between the vehicle's current edge and destination edge
-    MSEdgeVector newRoute;
-    const MSEdge* currentEdge = veh->getEdge();
-    MSNet::EdgeWeightsProxi proxi(veh->getWeightsStorage(), MSNet::getInstance()->getWeightsStorage());
-    DijkstraRouterTT_ByProxi<MSEdge, SUMOVehicle, prohibited_withRestrictions<MSEdge, SUMOVehicle>, MSNet::EdgeWeightsProxi> router(MSEdge::dictSize(), true, &proxi, &MSNet::EdgeWeightsProxi::getTravelTime);
-    router.compute(currentEdge, destEdge, (const MSVehicle* const) veh,
-                   MSNet::getInstance()->getCurrentTimeStep(), newRoute);
-    // replace the vehicle's route by the new one
-    if (veh->replaceRoute(newRoute, MSNet::getInstance()->getCurrentTimeStep())) {
-        writeStatusCmd(CMD_CHANGETARGET, RTYPE_OK, "");
-        return true;
-    } else {
-        writeStatusCmd(CMD_CHANGETARGET, RTYPE_ERR, "Route replacement failed for " + veh->getID());
-        return false;
-    }
-}
-
-/*****************************************************************************/
-bool
-TraCIServer::commandGetAllTLIds() throw(TraCIException) {
-    tcpip::Storage tempMsg;
-
-    // get the TLLogicControl
-    MSTLLogicControl &tlsControl = MSNet::getInstance()->getTLSControl();
-    // get the ids
-    std::vector<std::string> idList = tlsControl.getAllTLIds();
-
-    if (idList.size() == 0) {
-        // create negative response message
-        writeStatusCmd(CMD_GETALLTLIDS, RTYPE_ERR, "Could not retrieve any traffic light id");
-        return false;
-    }
-
-    // create positive response message
-    writeStatusCmd(CMD_GETALLTLIDS, RTYPE_OK, "");
-
-    // create a response command for each std::string id
-    for (std::vector<std::string>::iterator iter = idList.begin(); iter != idList.end(); iter++) {
-        // command length
-        myOutputStorage.writeByte(2 + (4 + (*iter).size()));
-        // command type
-        myOutputStorage.writeByte(CMD_TLIDLIST);
-        // id string
-        myOutputStorage.writeString((*iter));
-    }
-    return true;
-}
-
-/*****************************************************************************/
-bool
-TraCIServer::commandGetTLStatus() throw(TraCIException) {
-    SUMOTime lookback = 60*1000.; // Time to look in history for recognizing yellowTimes
-
-    tcpip::Storage tempMsg;
-
-    // trafic light id
-    int extId = myInputStorage.readInt();
-    // start of time interval
-    SUMOTime timeFrom = myInputStorage.readInt();
-    // end of time interval
-    SUMOTime timeTo = myInputStorage.readInt();
-
-    // get the running programm of the traffic light
-    MSTrafficLightLogic* const tlLogic = getTLLogicByExtId(extId);
-
-    // error checking
-    if (tlLogic == NULL) {
-        writeStatusCmd(CMD_GETTLSTATUS, RTYPE_ERR, "Could not retrieve traffic light with given id");
-        return false;
-    }
-    if ((timeTo < timeFrom) || (timeTo < 0) || (timeFrom < 0)) {
-        writeStatusCmd(CMD_GETTLSTATUS, RTYPE_ERR, "The given time interval is not valid");
-        return false;
-    }
-
-    // acknowledge the request
-    writeStatusCmd(CMD_GETTLSTATUS, RTYPE_OK, "");
-    std::vector<MSLink::LinkState> linkStates;
-    std::vector<double> yellowTimes;
-    size_t lastStep = tlLogic->getCurrentPhaseIndex();
-    MSPhaseDefinition phase = tlLogic->getCurrentPhaseDef();
-    MSTrafficLightLogic::LinkVectorVector affectedLinks = tlLogic->getLinks();
-
-    // save the current link states
-    for (int i = 0; i < affectedLinks.size(); i++) {
-        linkStates.push_back(phase.getSignalState(i));
-        yellowTimes.push_back(-1);
-    }
-
-    // check every second of the given time interval for a switch in the traffic light's phases
-    for (SUMOTime time = timeFrom - lookback; time <= timeTo; time+=DELTA_T) {
-        if (time < 0) time = 0;
-        size_t position = tlLogic->getPhaseIndexAtTime(time);
-        size_t currentStep = tlLogic->getIndexFromOffset(position);
-
-        if (currentStep != lastStep) {
-            lastStep = currentStep;
-            phase = tlLogic->getPhase(currentStep);
-
-            // for every link of the tl's junction, compare the actual and the last red/green state
-            // for each link with new red/green status, write a TLSWITCH command
-            std::map<const MSEdge*, pair<const MSEdge*, int> > writtenEdgePairs;
-            for (int i = 0; i < linkStates.size(); i++) {
-                MSLink::LinkState nextLinkState = phase.getSignalState(i);
-
-                if (nextLinkState == MSLink::LINKSTATE_TL_YELLOW_MAJOR || nextLinkState == MSLink::LINKSTATE_TL_YELLOW_MINOR) {
-                    if (yellowTimes[i] < 0) yellowTimes[i] = time;
-                } else {
-                    if (nextLinkState != linkStates[i] && time >= timeFrom) {
-                        linkStates[i] = nextLinkState;
-
-                        // get the group of links that is affected by the changed light status
-                        MSTrafficLightLogic::LinkVector linkGroup = affectedLinks[i];
-                        // get the group of preceding lanes of the link group
-                        MSTrafficLightLogic::LaneVector laneGroup = tlLogic->getLanesAt(i);
-
-                        for (int j = 0; j < linkGroup.size(); j++) {
-                            MSEdge &precEdge = laneGroup[j]->getEdge();
-                            MSEdge &succEdge = linkGroup[j]->getLane()->getEdge();
-
-                            // for each pair of edges and every different tl state, write only one tl switch command
-                            std::map<const MSEdge*, pair<const MSEdge*, int> >::iterator itPair = writtenEdgePairs.find(&precEdge);
-                            if (itPair != writtenEdgePairs.end()) {
-                                if (itPair->second.first == &succEdge && itPair->second.second == nextLinkState) {
-                                    continue;
-                                }
-                            }
-                            // remember the current edge pair and tl status
-                            writtenEdgePairs[&precEdge] = std::make_pair(&succEdge, nextLinkState);
-
-                            // time of the switch
-                            tempMsg.writeInt(time);
-                            // preceeding edge id
-                            tempMsg.writeString(precEdge.getID());
-                            // traffic light's position on preceeding edge
-                            tempMsg.writeFloat(laneGroup[j]->getShape().length());
-                            // succeeding edge id
-                            tempMsg.writeString(succEdge.getID());
-                            // new status
-                            switch (nextLinkState) {
-                            case MSLink::LINKSTATE_TL_GREEN_MAJOR:
-                            case MSLink::LINKSTATE_TL_GREEN_MINOR:
-                                tempMsg.writeUnsignedByte(TLPHASE_GREEN);
-                                break;
-                            case MSLink::LINKSTATE_TL_RED:
-                                tempMsg.writeUnsignedByte(TLPHASE_RED);
-                                break;
-                            case MSLink::LINKSTATE_TL_OFF_BLINKING:
-                                tempMsg.writeUnsignedByte(TLPHASE_BLINKING);
-                                break;
-                            case MSLink::LINKSTATE_TL_OFF_NOSIGNAL:
-                                tempMsg.writeUnsignedByte(TLPHASE_NOSIGNAL);
-                                break;
-                            default:
-                                tempMsg.writeUnsignedByte(TLPHASE_NOSIGNAL);
-                            }
-                            //yellow time
-                            tempMsg.writeInt(yellowTimes[i]<0 ? 0 : time - yellowTimes[i]);
-
-                            if (tempMsg.size() <= 253) {
-                                // command length
-                                myOutputStorage.writeUnsignedByte(1 + 1 + tempMsg.size());
-                            } else {
-                                // command length extended
-                                myOutputStorage.writeUnsignedByte(0);
-                                myOutputStorage.writeInt(1 + 4 + 1 + tempMsg.size());
-                            }
-                            // command type
-                            myOutputStorage.writeUnsignedByte(CMD_TLSWITCH);
-                            // command content
-                            myOutputStorage.writeStorage(tempMsg);
-                            tempMsg.reset();
-                        }
-                    }
-                    yellowTimes[i] = -1;
-                }
-            }
-        }
-    }
-    return true;
-}
 
 /*****************************************************************************/
 
-bool
-TraCIServer::commandSlowDown() throw(TraCIException) {
-    // NodeId
-    MSVehicle* veh = getVehicleByExtId(myInputStorage.readInt());   // external node id (equipped vehicle number)
-    // speed
-    float newSpeed = MAX2(myInputStorage.readFloat(), 0.0f);
-    // time interval
-    SUMOTime duration = myInputStorage.readInt();
 
-    if (veh == NULL) {
-        writeStatusCmd(CMD_SLOWDOWN, RTYPE_ERR, "Can not retrieve node with given ID");
-        return false;
-    }
-    /*if (newSpeed < 0) {
-        writeStatusCmd(CMD_SLOWDOWN, RTYPE_ERR, "Negative speed value");
-        return false;
-    }*/
-    if (duration <= 0) {
-        writeStatusCmd(CMD_SLOWDOWN, RTYPE_ERR, "Invalid time interval");
-        return false;
-    }
-
-    if (!veh->startSpeedAdaption(newSpeed, duration, MSNet::getInstance()->getCurrentTimeStep())) {
-        writeStatusCmd(CMD_SLOWDOWN, RTYPE_ERR, "Could not slow down");
-        return false;
-    }
-
-    // create positive response message
-    writeStatusCmd(CMD_SLOWDOWN, RTYPE_OK, "");
-    return true;
-}
 
 /*****************************************************************************/
 
@@ -1647,139 +1192,6 @@ TraCIServer::commandDistanceRequest() throw(TraCIException) {
 
 /*****************************************************************************/
 
-bool
-TraCIServer::commandSubscribeLifecycles() throw(TraCIException) {
-    // domain
-    int domain = myInputStorage.readUnsignedByte();
-
-    if (domain != DOM_VEHICLE) {
-        // send negative command response
-        writeStatusCmd(CMD_SUBSCRIBELIFECYCLES, RTYPE_NOTIMPLEMENTED, "Can only subscribe to lifecycle of DOM_VEHICLE at this time");
-        return false;
-    }
-
-    myLifecycleSubscriptions.insert(domain);
-
-    if (domain == DOM_VEHICLE) {
-        myCreatedVehicles.clear();
-        myDestroyedVehicles.clear();
-    }
-
-    // send positive command response
-    writeStatusCmd(CMD_SUBSCRIBELIFECYCLES, RTYPE_OK, "");
-    return true;
-}
-
-/*****************************************************************************/
-
-bool
-TraCIServer::commandUnsubscribeLifecycles() throw(TraCIException) {
-    // domain
-    int domain = myInputStorage.readUnsignedByte();
-
-    if (domain != DOM_VEHICLE) {
-        // send negative command response
-        writeStatusCmd(CMD_UNSUBSCRIBELIFECYCLES, RTYPE_NOTIMPLEMENTED, "Can only subscribe to lifecycle of DOM_VEHICLE at this time");
-        return false;
-    }
-
-    myLifecycleSubscriptions.erase(domain);
-
-    if (domain == DOM_VEHICLE) {
-        myCreatedVehicles.clear();
-        myDestroyedVehicles.clear();
-    }
-
-    // send positive command response
-    writeStatusCmd(CMD_UNSUBSCRIBELIFECYCLES, RTYPE_OK, "");
-    return true;
-}
-
-/*****************************************************************************/
-
-bool
-TraCIServer::commandSubscribeDomain() throw(TraCIException) {
-    // domain
-    int domainId = myInputStorage.readUnsignedByte();
-
-    if (domainId != DOM_VEHICLE) {
-        // send negative command response
-        writeStatusCmd(CMD_SUBSCRIBEDOMAIN, RTYPE_NOTIMPLEMENTED, "Can only subscribe to DOM_VEHICLE at this time");
-        return false;
-    }
-
-    // variable count
-    int variableCount = myInputStorage.readUnsignedByte();
-
-    // list of variable ids and types
-    std::list<std::pair<int, int> > subscribedVariables;
-    for (int i = 0; i < variableCount; i++) {
-        // variable id
-        int variableId = myInputStorage.readUnsignedByte();
-
-        // value data type
-        int dataType = myInputStorage.readUnsignedByte();
-
-        if (!(
-                    ((domainId == DOM_VEHICLE) && (variableId == DOMVAR_SIMTIME) && (dataType == TYPE_DOUBLE))
-                    ||
-                    ((domainId == DOM_VEHICLE) && (variableId == DOMVAR_SPEED) && (dataType == TYPE_FLOAT))
-                    ||
-                    ((domainId == DOM_VEHICLE) && (variableId == DOMVAR_ALLOWED_SPEED) && (dataType == TYPE_FLOAT))
-                    ||
-                    ((domainId == DOM_VEHICLE) && (variableId == DOMVAR_POSITION) && (dataType == POSITION_2D))
-                    ||
-                    ((domainId == DOM_VEHICLE) && (variableId == DOMVAR_POSITION) && (dataType == POSITION_ROADMAP))
-                    ||
-                    ((domainId == DOM_VEHICLE) && (variableId == DOMVAR_ANGLE) && (dataType == TYPE_FLOAT))
-                    ||
-                    ((domainId == DOM_VEHICLE) && (variableId == DOMVAR_CO2EMISSION) && (dataType == TYPE_FLOAT))
-                    ||
-                    ((domainId == DOM_VEHICLE) && (variableId == DOMVAR_COEMISSION) && (dataType == TYPE_FLOAT))
-                    ||
-                    ((domainId == DOM_VEHICLE) && (variableId == DOMVAR_HCEMISSION) && (dataType == TYPE_FLOAT))
-                    ||
-                    ((domainId == DOM_VEHICLE) && (variableId == DOMVAR_PMXEMISSION) && (dataType == TYPE_FLOAT))
-                    ||
-                    ((domainId == DOM_VEHICLE) && (variableId == DOMVAR_NOXEMISSION) && (dataType == TYPE_FLOAT))
-                    ||
-                    ((domainId == DOM_VEHICLE) && (variableId == DOMVAR_FUELCONSUMPTION) && (dataType == TYPE_FLOAT))
-                )) {
-            // send negative command response
-            writeStatusCmd(CMD_SUBSCRIBEDOMAIN, RTYPE_NOTIMPLEMENTED, "Can not subscribe to this domain/variable/type combination");
-            return false;
-        }
-
-        subscribedVariables.push_back(std::pair<int, int>(variableId, dataType));
-    }
-
-    // store subscription
-    myDomainSubscriptions[domainId] = subscribedVariables;
-
-    // send positive command response
-    writeStatusCmd(CMD_SUBSCRIBEDOMAIN, RTYPE_OK, "");
-    return true;
-}
-
-/*****************************************************************************/
-
-bool
-TraCIServer::commandUnsubscribeDomain() throw(TraCIException) {
-    // domain
-    int domain = myInputStorage.readUnsignedByte();
-
-    if (domain != DOM_VEHICLE) {
-        // send negative command response
-        writeStatusCmd(CMD_UNSUBSCRIBEDOMAIN, RTYPE_NOTIMPLEMENTED, "Can only subscribe to lifecycle of DOM_VEHICLE at this time");
-        return false;
-    }
-
-    myDomainSubscriptions.erase(domain);
-
-    // send positive command response
-    writeStatusCmd(CMD_UNSUBSCRIBEDOMAIN, RTYPE_OK, "");
-    return true;
-}
 
 /*****************************************************************************/
 

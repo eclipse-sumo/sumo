@@ -30,6 +30,7 @@
 #endif
 
 #include "TraCIException.h"
+#include "TraCIServer.h"
 #include <foreign/tcpip/storage.h>
 
 
@@ -59,6 +60,24 @@ public:
      */
     static bool processSet(tcpip::Storage &inputStorage, tcpip::Storage &outputStorage) throw(traci::TraCIException);
 
+
+
+	/// @name "old" API functions
+	/// @{
+
+	/** @brief Processes command getTLStatus
+	 *
+	 * The traffic light with the given id is asked for all state transitions, that will occur within
+	 *  a given time interval. Each status change is returned by a TLSwitch command.
+	 */
+    static bool commandGetTLStatus(traci::TraCIServer &server, tcpip::Storage &inputStorage, tcpip::Storage &outputStorage) throw(traci::TraCIException);
+
+    /** @brief Processes command getAllTLIds
+	 *
+	 * Returns a list of strings representing the ids of all traffic lights in the simulation
+	 */
+    static bool commandGetAllTLIds(traci::TraCIServer &server, tcpip::Storage &inputStorage, tcpip::Storage &outputStorage) throw(traci::TraCIException);
+	/// @}
 
 protected:
     /// @brief Whether deprecated definition of phases was already reported
