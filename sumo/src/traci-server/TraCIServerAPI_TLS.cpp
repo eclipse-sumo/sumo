@@ -57,8 +57,7 @@ bool TraCIServerAPI_TLS::myHaveWarnedAboutDeprecatedPhases = false;
 // ===========================================================================
 bool
 TraCIServerAPI_TLS::processGet(tcpip::Storage &inputStorage,
-                               tcpip::Storage &outputStorage,
-                               bool withStatus) throw(TraCIException, std::invalid_argument) {
+                               tcpip::Storage &outputStorage) throw(TraCIException, std::invalid_argument) {
     std::string warning = ""; // additional description for response
     // variable & id
     int variable = inputStorage.readUnsignedByte();
@@ -300,9 +299,7 @@ TraCIServerAPI_TLS::processGet(tcpip::Storage &inputStorage,
             break;
         }
     }
-    if (withStatus) {
         TraCIServerAPIHelper::writeStatusCmd(CMD_GET_TL_VARIABLE, RTYPE_OK, warning, outputStorage);
-    }
     // send response
     outputStorage.writeUnsignedByte(0); // command length -> extended
     outputStorage.writeInt(1 + 4 + tempMsg.size());

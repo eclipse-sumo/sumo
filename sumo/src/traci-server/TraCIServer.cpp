@@ -2581,40 +2581,40 @@ TraCIServer::processSingleSubscription(const Subscription &s, tcpip::Storage &wr
         switch (s.commandId) {
             // generate response
         case CMD_SUBSCRIBE_INDUCTIONLOOP_VARIABLE:
-            ok &= TraCIServerAPI_InductionLoop::processGet(message, tmpOutput, false);
+            ok &= TraCIServerAPI_InductionLoop::processGet(message, tmpOutput);
             break;
         case CMD_SUBSCRIBE_MULTI_ENTRY_EXIT_DETECTOR_VARIABLE:
-            ok &= TraCIServerAPI_MeMeDetector::processGet(message, tmpOutput, false);
+            ok &= TraCIServerAPI_MeMeDetector::processGet(message, tmpOutput);
             break;
         case CMD_SUBSCRIBE_TL_VARIABLE:
-            ok &= TraCIServerAPI_TLS::processGet(message, tmpOutput, false);
+            ok &= TraCIServerAPI_TLS::processGet(message, tmpOutput);
             break;
         case CMD_SUBSCRIBE_LANE_VARIABLE:
-            ok &= TraCIServerAPI_Lane::processGet(message, tmpOutput, false);
+            ok &= TraCIServerAPI_Lane::processGet(message, tmpOutput);
             break;
         case CMD_SUBSCRIBE_VEHICLE_VARIABLE:
-            ok &= TraCIServerAPI_Vehicle::processGet(message, tmpOutput, false);
+            ok &= TraCIServerAPI_Vehicle::processGet(message, tmpOutput);
             break;
         case CMD_SUBSCRIBE_VEHICLETYPE_VARIABLE:
-            ok &= TraCIServerAPI_VehicleType::processGet(message, tmpOutput, false);
+            ok &= TraCIServerAPI_VehicleType::processGet(message, tmpOutput);
             break;
         case CMD_SUBSCRIBE_ROUTE_VARIABLE:
-            ok &= TraCIServerAPI_Route::processGet(message, tmpOutput, false);
+            ok &= TraCIServerAPI_Route::processGet(message, tmpOutput);
             break;
         case CMD_SUBSCRIBE_POI_VARIABLE:
-            ok &= TraCIServerAPI_POI::processGet(message, tmpOutput, false);
+            ok &= TraCIServerAPI_POI::processGet(message, tmpOutput);
             break;
         case CMD_SUBSCRIBE_POLYGON_VARIABLE:
-            ok &= TraCIServerAPI_Polygon::processGet(message, tmpOutput, false);
+            ok &= TraCIServerAPI_Polygon::processGet(message, tmpOutput);
             break;
         case CMD_SUBSCRIBE_JUNCTION_VARIABLE:
-            ok &= TraCIServerAPI_Junction::processGet(message, tmpOutput, false);
+            ok &= TraCIServerAPI_Junction::processGet(message, tmpOutput);
             break;
         case CMD_SUBSCRIBE_EDGE_VARIABLE:
-            ok &= TraCIServerAPI_Edge::processGet(message, tmpOutput, false);
+            ok &= TraCIServerAPI_Edge::processGet(message, tmpOutput);
             break;
         case CMD_SUBSCRIBE_SIM_VARIABLE:
-            ok &= TraCIServerAPI_Simulation::processGet(message, tmpOutput, myVehicleStateChanges, false);
+            ok &= TraCIServerAPI_Simulation::processGet(message, tmpOutput, myVehicleStateChanges);
             break;
         default:
             TraCIServerAPIHelper::writeStatusCmd(s.commandId, RTYPE_NOTIMPLEMENTED, "Unsupported command specified", tmpOutput);
@@ -2624,15 +2624,16 @@ TraCIServer::processSingleSubscription(const Subscription &s, tcpip::Storage &wr
         // copy response part
         if (ok) {
             int length = tmpOutput.readUnsignedByte();
+			while(--length>0) tmpOutput.readUnsignedByte();
+            length = tmpOutput.readUnsignedByte();
             length = tmpOutput.readInt();
             int responseType = tmpOutput.readUnsignedByte();
             int variable = tmpOutput.readUnsignedByte();
             std::string id = tmpOutput.readString();
-            size_t p = 1 + 4 + 1 + 1 + 4 + id.length(); // cmd, var, id, type, value
-            wholeSize += (length - p);
             outputStorage.writeUnsignedByte(variable);
             outputStorage.writeUnsignedByte(RTYPE_OK);
-            while (p++<tmpOutput.size()) {
+			length -= (1+4+1+4+id.length());
+            while (--length>0) {
                 outputStorage.writeUnsignedByte(tmpOutput.readUnsignedByte());
             }
         } else {

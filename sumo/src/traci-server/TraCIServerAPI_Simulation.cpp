@@ -53,8 +53,7 @@ using namespace tcpip;
 bool
 TraCIServerAPI_Simulation::processGet(tcpip::Storage &inputStorage,
                                       tcpip::Storage &outputStorage,
-                                      const std::map<MSNet::VehicleState, std::vector<std::string> > &infos,
-                                      bool withStatus) throw(TraCIException, std::invalid_argument) {
+                                      const std::map<MSNet::VehicleState, std::vector<std::string> > &infos) throw(TraCIException, std::invalid_argument) {
     std::string warning = ""; // additional description for response
     // variable & id
     int variable = inputStorage.readUnsignedByte();
@@ -145,9 +144,7 @@ TraCIServerAPI_Simulation::processGet(tcpip::Storage &inputStorage,
     default:
         break;
     }
-    if (withStatus) {
         TraCIServerAPIHelper::writeStatusCmd(CMD_GET_SIM_VARIABLE, RTYPE_OK, warning, outputStorage);
-    }
     // send response
     outputStorage.writeUnsignedByte(0); // command length -> extended
     outputStorage.writeInt(1 + 4 + tempMsg.size());

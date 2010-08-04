@@ -50,8 +50,7 @@ using namespace tcpip;
 // ===========================================================================
 bool
 TraCIServerAPI_Lane::processGet(tcpip::Storage &inputStorage,
-                                tcpip::Storage &outputStorage,
-                                bool withStatus) throw(TraCIException, std::invalid_argument) {
+                                tcpip::Storage &outputStorage) throw(TraCIException, std::invalid_argument) {
     Storage tmpResult;
     std::string warning = "";	// additional description for response
     // variable
@@ -274,9 +273,7 @@ TraCIServerAPI_Lane::processGet(tcpip::Storage &inputStorage,
             break;
         }
     }
-    if (withStatus) {
         TraCIServerAPIHelper::writeStatusCmd(CMD_GET_LANE_VARIABLE, RTYPE_OK, warning, outputStorage);
-    }
     // send response
     outputStorage.writeUnsignedByte(0); // command length -> extended
     outputStorage.writeInt(1 + 4 + tempMsg.size());

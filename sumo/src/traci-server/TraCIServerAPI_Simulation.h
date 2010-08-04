@@ -49,11 +49,9 @@ public:
      *
      * @param[in] inputStorage The storage to read the command from
      * @param[out] outputStorage The storage to write the result to
-     * @param[in] withStatus Whether the status message shall be written (not in subscription)
      */
     static bool processGet(tcpip::Storage &inputStorage, tcpip::Storage &outputStorage,
-                           const std::map<MSNet::VehicleState, std::vector<std::string> > &info,
-                           bool withStatus=true) throw(traci::TraCIException, std::invalid_argument);
+                           const std::map<MSNet::VehicleState, std::vector<std::string> > &info) throw(traci::TraCIException, std::invalid_argument);
 
 private:
     /// @brief invalidated copy constructor
