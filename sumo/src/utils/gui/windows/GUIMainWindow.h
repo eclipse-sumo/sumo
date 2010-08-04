@@ -31,6 +31,7 @@
 
 #include <fx.h>
 #include <vector>
+#include <string>
 #include <utils/foxtools/MFXMutex.h>
 #include <utils/common/SUMOTime.h>
 
@@ -52,6 +53,9 @@ public:
     /// removes the given child window from the list
     void removeChild(FXMDIChild *child);
     void removeChild(FXMainWindow  *child);
+
+	std::vector<std::string> getViewIDs() const throw();
+	FXMDIChild *getViewByID(const std::string &id) const throw();
 
     void updateChildren();
 

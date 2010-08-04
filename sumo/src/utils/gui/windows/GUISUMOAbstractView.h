@@ -114,6 +114,10 @@ public:
     /// returns true, if the edit button was pressed
     bool isInEditMode();
 
+	GUIPerspectiveChanger &getChanger() const throw() {
+		return *myChanger;
+	}
+
 
 
     long onConfigure(FXObject*,FXSelector,void*);

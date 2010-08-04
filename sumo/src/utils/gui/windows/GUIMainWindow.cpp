@@ -77,8 +77,7 @@ GUIMainWindow::addChild(FXMDIChild *child, bool /*updateOnSimStep !!!*/) {
 
 void
 GUIMainWindow::removeChild(FXMDIChild *child) {
-    std::vector<FXMDIChild*>::iterator i =
-        std::find(mySubWindows.begin(), mySubWindows.end(), child);
+    std::vector<FXMDIChild*>::iterator i = std::find(mySubWindows.begin(), mySubWindows.end(), child);
     if (i!=mySubWindows.end()) {
         mySubWindows.erase(i);
     }
@@ -96,10 +95,30 @@ GUIMainWindow::addChild(FXMainWindow *child, bool /*updateOnSimStep !!!*/) {
 void
 GUIMainWindow::removeChild(FXMainWindow *child) {
     myTrackerLock.lock();
-    std::vector<FXMainWindow*>::iterator i =
-        std::find(myTrackerWindows.begin(), myTrackerWindows.end(), child);
+    std::vector<FXMainWindow*>::iterator i = std::find(myTrackerWindows.begin(), myTrackerWindows.end(), child);
     myTrackerWindows.erase(i);
     myTrackerLock.unlock();
+}
+
+
+std::vector<std::string> 
+GUIMainWindow::getViewIDs() const throw() {
+	std::vector<std::string> ret;
+	for(std::vector<FXMDIChild*>::const_iterator i = mySubWindows.begin(); i!=mySubWindows.end(); ++i) {
+		ret.push_back((*i)->getTitle().text());
+	}
+	return ret;
+}
+
+
+FXMDIChild *
+GUIMainWindow::getViewByID(const std::string &id) const throw() {
+	for(std::vector<FXMDIChild*>::const_iterator i = mySubWindows.begin(); i!=mySubWindows.end(); ++i) {
+		if (std::string((*i)->getTitle().text())==id) {
+			return *i;
+		}
+	}
+	return 0;
 }
 
 

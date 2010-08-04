@@ -72,6 +72,11 @@
 #include <utils/gui/settings/GUISettingsHandler.h>
 #include <guisim/GUISelectionLoader.h>
 
+#ifndef NO_TRACI
+#include <traci-server/TraCIServer.h>
+#include "TraCIServerAPI_GUI.h"
+#endif
+
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
 #endif
@@ -831,6 +836,12 @@ GUIApplicationWindow::handleEvent_SimulationLoaded(GUIEvent *e) {
     } else {
         // report success
         setStatusBarText("'" + ec->myFile + "' loaded.");
+#ifndef NO_TRACI
+		std::map<int, traci::TraCIServer::CmdExecutor> execs;
+		execs[CMD_GET_GUI_VARIABLE] = &TraCIServerAPI_GUI::processGet;
+		execs[CMD_SET_GUI_VARIABLE] = &TraCIServerAPI_GUI::processSet;
+	    traci::TraCIServer::jt(execs);
+#endif
         // initialise simulation thread
         myRunThread->init(ec->myNet, ec->myBegin, ec->myEnd);
         myWasStarted = false;

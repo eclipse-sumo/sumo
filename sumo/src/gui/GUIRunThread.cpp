@@ -121,8 +121,7 @@ GUIRunThread::run() {
                 }
             }
             // check whether we shall stop at this step
-            bool haltAfter =
-                find(gBreakpoints.begin(), gBreakpoints.end(), myNet->getCurrentTimeStep())!=gBreakpoints.end();
+            bool haltAfter = find(gBreakpoints.begin(), gBreakpoints.end(), myNet->getCurrentTimeStep())!=gBreakpoints.end();
             // do the step
             makeStep();
             // stop if wished
