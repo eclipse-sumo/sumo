@@ -50,7 +50,7 @@ public:
      * @param[in] withStatus Whether the status message shall be written (not in subscription)
      */
     static bool processGet(tcpip::Storage &inputStorage, tcpip::Storage &outputStorage,
-                           bool withStatus=true) throw(traci::TraCIException);
+                           bool withStatus=true) throw(traci::TraCIException, std::invalid_argument);
 
 
     /** @brief Processes a set value command (Command 0xc2: Change Traffic Lights State)
@@ -70,13 +70,13 @@ public:
 	 * The traffic light with the given id is asked for all state transitions, that will occur within
 	 *  a given time interval. Each status change is returned by a TLSwitch command.
 	 */
-    static bool commandGetTLStatus(traci::TraCIServer &server, tcpip::Storage &inputStorage, tcpip::Storage &outputStorage) throw(traci::TraCIException);
+    static bool commandGetTLStatus(traci::TraCIServer &server, tcpip::Storage &inputStorage, tcpip::Storage &outputStorage) throw(traci::TraCIException, std::invalid_argument);
 
     /** @brief Processes command getAllTLIds
 	 *
 	 * Returns a list of strings representing the ids of all traffic lights in the simulation
 	 */
-    static bool commandGetAllTLIds(traci::TraCIServer &server, tcpip::Storage &inputStorage, tcpip::Storage &outputStorage) throw(traci::TraCIException);
+    static bool commandGetAllTLIds(traci::TraCIServer &server, tcpip::Storage &inputStorage, tcpip::Storage &outputStorage) throw(traci::TraCIException, std::invalid_argument);
 	/// @}
 
 protected:

@@ -52,7 +52,7 @@ using namespace tcpip;
 bool
 TraCIServerAPI_MeMeDetector::processGet(tcpip::Storage &inputStorage,
                                         tcpip::Storage &outputStorage,
-                                        bool withStatus) throw(TraCIException) {
+                                        bool withStatus) throw(TraCIException, std::invalid_argument) {
     std::string warning = ""; // additional description for response
     // variable & id
     int variable = inputStorage.readUnsignedByte();

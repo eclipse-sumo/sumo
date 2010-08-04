@@ -53,7 +53,7 @@ public:
      */
     static bool processGet(tcpip::Storage &inputStorage, tcpip::Storage &outputStorage,
                            const std::map<MSNet::VehicleState, std::vector<std::string> > &info,
-                           bool withStatus=true) throw(traci::TraCIException);
+                           bool withStatus=true) throw(traci::TraCIException, std::invalid_argument);
 
 private:
     /// @brief invalidated copy constructor

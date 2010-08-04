@@ -58,7 +58,7 @@ bool TraCIServerAPI_TLS::myHaveWarnedAboutDeprecatedPhases = false;
 bool
 TraCIServerAPI_TLS::processGet(tcpip::Storage &inputStorage,
                                tcpip::Storage &outputStorage,
-                               bool withStatus) throw(TraCIException) {
+                               bool withStatus) throw(TraCIException, std::invalid_argument) {
     std::string warning = ""; // additional description for response
     // variable & id
     int variable = inputStorage.readUnsignedByte();
@@ -313,7 +313,7 @@ TraCIServerAPI_TLS::processGet(tcpip::Storage &inputStorage,
 
 bool
 TraCIServerAPI_TLS::processSet(tcpip::Storage &inputStorage,
-                               tcpip::Storage &outputStorage) throw(TraCIException) {
+                               tcpip::Storage &outputStorage) throw(TraCIException, std::invalid_argument) {
     std::string warning = ""; // additional description for response
     // variable
     int variable = inputStorage.readUnsignedByte();
@@ -501,7 +501,7 @@ TraCIServerAPI_TLS::processSet(tcpip::Storage &inputStorage,
 
 // ------ "old" API functions ------
 bool
-TraCIServerAPI_TLS::commandGetAllTLIds(TraCIServer &server, tcpip::Storage &inputStorage, tcpip::Storage &outputStorage) throw(TraCIException) {
+TraCIServerAPI_TLS::commandGetAllTLIds(TraCIServer &server, tcpip::Storage &inputStorage, tcpip::Storage &outputStorage) throw(TraCIException, std::invalid_argument) {
     // get the TLLogicControl
     MSTLLogicControl &tlsControl = MSNet::getInstance()->getTLSControl();
     // get the ids
@@ -524,7 +524,7 @@ TraCIServerAPI_TLS::commandGetAllTLIds(TraCIServer &server, tcpip::Storage &inpu
 
 
 bool
-TraCIServerAPI_TLS::commandGetTLStatus(TraCIServer &server, tcpip::Storage &inputStorage, tcpip::Storage &outputStorage) throw(TraCIException) {
+TraCIServerAPI_TLS::commandGetTLStatus(TraCIServer &server, tcpip::Storage &inputStorage, tcpip::Storage &outputStorage) throw(TraCIException, std::invalid_argument) {
     SUMOTime lookback = 60*1000.; // Time to look in history for recognizing yellowTimes
     tcpip::Storage tempMsg;
     

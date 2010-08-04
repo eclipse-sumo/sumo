@@ -68,7 +68,7 @@ std::map<int, std::list<std::pair<int, int> > > TraCIServerAPI_Vehicle::myDomain
 bool
 TraCIServerAPI_Vehicle::processGet(tcpip::Storage &inputStorage,
                                    tcpip::Storage &outputStorage,
-                                   bool withStatus) throw(TraCIException) {
+                                   bool withStatus) throw(TraCIException, std::invalid_argument) {
     std::string warning = ""; // additional description for response
     // variable & id
     int variable = inputStorage.readUnsignedByte();
@@ -302,7 +302,7 @@ TraCIServerAPI_Vehicle::processGet(tcpip::Storage &inputStorage,
 
 bool
 TraCIServerAPI_Vehicle::processSet(tcpip::Storage &inputStorage,
-                                   tcpip::Storage &outputStorage) throw(TraCIException) {
+                                   tcpip::Storage &outputStorage) throw(TraCIException, std::invalid_argument) {
     std::string warning = ""; // additional description for response
     // variable
     int variable = inputStorage.readUnsignedByte();

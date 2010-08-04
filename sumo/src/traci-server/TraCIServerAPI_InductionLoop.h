@@ -49,7 +49,7 @@ public:
      * @param[in] withStatus Whether the status message shall be written (not in subscription)
      */
     static bool processGet(tcpip::Storage &inputStorage, tcpip::Storage &outputStorage,
-                           bool withStatus=true) throw(traci::TraCIException);
+                           bool withStatus=true) throw(traci::TraCIException, std::invalid_argument);
 
 
 private:

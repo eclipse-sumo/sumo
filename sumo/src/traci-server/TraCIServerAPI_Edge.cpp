@@ -57,7 +57,7 @@ using namespace tcpip;
 bool
 TraCIServerAPI_Edge::processGet(tcpip::Storage &inputStorage,
                                 tcpip::Storage &outputStorage,
-                                bool withStatus) throw(TraCIException) {
+                                bool withStatus) throw(TraCIException, std::invalid_argument) {
     std::string warning = ""; // additional description for response
     // variable & id
     int variable = inputStorage.readUnsignedByte();
@@ -299,7 +299,7 @@ TraCIServerAPI_Edge::processGet(tcpip::Storage &inputStorage,
 
 bool
 TraCIServerAPI_Edge::processSet(tcpip::Storage &inputStorage,
-                                tcpip::Storage &outputStorage) throw(TraCIException) {
+                                tcpip::Storage &outputStorage) throw(TraCIException, std::invalid_argument) {
     std::string warning = ""; // additional description for response
     // variable
     int variable = inputStorage.readUnsignedByte();

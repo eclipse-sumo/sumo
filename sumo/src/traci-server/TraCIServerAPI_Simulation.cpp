@@ -54,7 +54,7 @@ bool
 TraCIServerAPI_Simulation::processGet(tcpip::Storage &inputStorage,
                                       tcpip::Storage &outputStorage,
                                       const std::map<MSNet::VehicleState, std::vector<std::string> > &infos,
-                                      bool withStatus) throw(TraCIException) {
+                                      bool withStatus) throw(TraCIException, std::invalid_argument) {
     std::string warning = ""; // additional description for response
     // variable & id
     int variable = inputStorage.readUnsignedByte();
