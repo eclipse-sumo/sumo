@@ -597,6 +597,10 @@
 				RelativePath="..\..\..\src\gui\GUIViewTraffic.cpp"
 				>
 			</File>
+			<File
+				RelativePath="..\..\..\src\gui\TraCIServerAPI_GUI.cpp"
+				>
+			</File>
 		</Filter>
 		<Filter
 			Name="Header-Dateien"
@@ -640,6 +644,10 @@
 			</File>
 			<File
 				RelativePath="..\..\..\src\gui\GUIViewTraffic.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\gui\TraCIServerAPI_GUI.h"
 				>
 			</File>
 		</Filter>

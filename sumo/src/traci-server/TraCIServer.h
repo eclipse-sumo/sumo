@@ -128,6 +128,8 @@ public:
 		return myExecutors;
 	}
 
+	static void jt(const std::map<int, CmdExecutor> &execs) throw();
+
 
 private:
 

@@ -113,6 +113,16 @@ bool TraCIServer::closeConnection_ = false;
 // ===========================================================================
 // method definitions
 // ===========================================================================
+void TraCIServer::jt(const std::map<int, CmdExecutor> &execs) throw() {
+        if (instance_ == 0) {
+            if (!closeConnection_ && OptionsCont::getOptions().getInt("remote-port") != 0) {
+                instance_ = new traci::TraCIServer();
+				instance_->myExecutors = execs;
+            } else {
+                return;
+            }
+        }
+	}
 
 /*****************************************************************************/
 

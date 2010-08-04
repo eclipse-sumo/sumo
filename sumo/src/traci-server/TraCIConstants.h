@@ -235,6 +235,17 @@
 // response: subscribe simulation variable
 #define RESPONSE_SUBSCRIBE_SIM_VARIABLE 0xeb
 
+// command: get GUI variable
+#define CMD_GET_GUI_VARIABLE 0xac
+// response: get GUI variable
+#define RESPONSE_GET_GUI_VARIABLE 0xbc
+// command: set GUI variable
+#define CMD_SET_GUI_VARIABLE 0xcc
+// command: subscribe GUI variable
+#define CMD_SUBSCRIBE_GUI_VARIABLE 0xdc
+// response: subscribe GUI variable
+#define RESPONSE_SUBSCRIBE_GUI_VARIABLE 0xec
+
 
 
 // ****************************************
@@ -654,6 +665,23 @@
 
 // validates current route (vehicles)
 #define VAR_ROUTE_VALID 0x92
+
+
+
+// zoom
+#define VAR_VIEW_ZOOM 0xa0
+// view position
+#define VAR_VIEW_OFFSET 0xa1
+// view schema
+#define VAR_VIEW_SCHEMA 0xa2
+// view by boundary
+#define VAR_VIEW_BOUNDARY 0xa3
+// background color
+#define VAR_VIEW_BACKGROUNDCOLOR 0xa4
+// screenshot
+#define VAR_SCREENSHOT 0xa5
+
+
 
 
 #endif

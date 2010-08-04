@@ -8,7 +8,8 @@ GUILoadThread.cpp GUILoadThread.h \
 GUIRunThread.cpp GUIRunThread.h \
 GUISUMOViewParent.cpp GUISUMOViewParent.h \
 GUITLLogicPhasesTrackerWindow.cpp GUITLLogicPhasesTrackerWindow.h \
-GUIViewTraffic.cpp GUIViewTraffic.h
+GUIViewTraffic.cpp GUIViewTraffic.h \
+TraCIServerAPI_GUI.cpp TraCIServerAPI_GUI.h          
 
 SUBDIRS = dialogs
 
