@@ -1,12 +1,25 @@
 #ifndef AGACTIVITYTRIPWRITER_H
 #define AGACTIVITYTRIPWRITER_H
 
+// ===========================================================================
+// included modules
+// ===========================================================================
+#ifdef _MSC_VER
+#include <windows_config.h>
+#else
+#include <config.h>
+#endif
+
 #include "activities/AGTrip.h"
 #include <iostream>
 #include <fstream>
 #include <map>
 #include <string>
 
+
+// ===========================================================================
+// class definitions
+// ===========================================================================
 class AGActivityTripWriter
 {
 public:
@@ -31,3 +44,5 @@ private:
 
 
 #endif
+
+/****************************************************************************/

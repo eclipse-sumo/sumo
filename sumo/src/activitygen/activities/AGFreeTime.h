@@ -1,9 +1,22 @@
 #ifndef AGFREETIME_H
 #define AGFREETIME_H
 
+// ===========================================================================
+// included modules
+// ===========================================================================
+#ifdef _MSC_VER
+#include <windows_config.h>
+#else
+#include <config.h>
+#endif
+
 #include "../city/AGHousehold.h"
 #include "AGActivity.h"
 
+
+// ===========================================================================
+// class definitions
+// ===========================================================================
 class AGFreeTime : public AGActivity
 {
 public:
@@ -92,3 +105,5 @@ private:
 };
 
 #endif
+
+/****************************************************************************/

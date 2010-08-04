@@ -17,9 +17,16 @@
 //
 /****************************************************************************/
 
+
 // ===========================================================================
 // included modules
 // ===========================================================================
+#ifdef _MSC_VER
+#include <windows_config.h>
+#else
+#include <config.h>
+#endif
+
 #include <iostream>
 #include <utils/xml/XMLSubSys.h>
 #include <utils/common/MsgHandler.h>
@@ -31,6 +38,10 @@
 #include "AGActivityTripWriter.h"
 #include "city/AGTime.h"
 
+
+// ===========================================================================
+// used namespaces
+// ===========================================================================
 using namespace std;
 
 int
@@ -39,6 +50,10 @@ test()
 	return 0;
 }
 
+
+// ===========================================================================
+// method definitions
+// ===========================================================================
 void
 AGActivityGen::importInfoCity()
 {
@@ -231,3 +246,4 @@ AGActivityGen::makeActivityTrips(int days, int beginSec, int endSec)
 	generateOutputFile(expTrips);
 }
 
+/****************************************************************************/

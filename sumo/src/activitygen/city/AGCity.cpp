@@ -1,6 +1,14 @@
+// ===========================================================================
+// included modules
+// ===========================================================================
+#ifdef _MSC_VER
+#include <windows_config.h>
+#else
+#include <config.h>
+#endif
+
 #include <iostream>
 #include <vector>
-//#include <fstream>
 #include <iomanip>
 #include <utils/common/RandHelper.h>
 #include "AGStreet.h"
@@ -8,8 +16,16 @@
 #include "AGCity.h"
 //#define DRIVING_LICENSE_AGE 18
 
+
+// ===========================================================================
+// used namespaces
+// ===========================================================================
 using namespace std;
 
+
+// ===========================================================================
+// method definitions
+// ===========================================================================
 void
 AGCity::completeStreets()
 {
@@ -295,3 +311,4 @@ AGCity::getRandomStreet()
 	return &(streets.at(alea));
 }
 
+/****************************************************************************/

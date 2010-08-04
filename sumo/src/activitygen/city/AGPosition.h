@@ -1,12 +1,25 @@
 #ifndef POSITION_H
 #define POSITION_H
 
+// ===========================================================================
+// included modules
+// ===========================================================================
+#ifdef _MSC_VER
+#include <windows_config.h>
+#else
+#include <config.h>
+#endif
+
 #include <iostream>
 #include <list>
 #include <map>
 #include "AGStreet.h"
 #include "../../utils/geom/Position2D.h"
 
+
+// ===========================================================================
+// class definitions
+// ===========================================================================
 class AGPosition
 {
 public:
@@ -42,3 +55,4 @@ private:
 
 #endif
 
+/****************************************************************************/

@@ -1,12 +1,25 @@
 #ifndef AGCHILD_H
 #define AGCHILD_H
 
+// ===========================================================================
+// included modules
+// ===========================================================================
+#ifdef _MSC_VER
+#include <windows_config.h>
+#else
+#include <config.h>
+#endif
+
 #include <iostream>
 #include <vector>
 #include "AGPerson.h"
 #include "AGPosition.h"
 #include "AGSchool.h"
 
+
+// ===========================================================================
+// class definitions
+// ===========================================================================
 class AGChild : public AGPerson
 {
 public:
@@ -37,3 +50,4 @@ private:
 
 #endif
 
+/****************************************************************************/

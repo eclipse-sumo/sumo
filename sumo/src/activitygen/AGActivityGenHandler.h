@@ -17,7 +17,6 @@
 
 #include <string>
 #include <utils/xml/SUMOSAXHandler.h>
-//#include <utils/common/SUMOVehicleClass.h>
 #include <utils/common/UtilExceptions.h>
 #include "city/AGCity.h"
 #include "city/AGBusLine.h"
@@ -27,9 +26,6 @@
 // class declarations
 // ===========================================================================
 class RONet;
-//class OptionsCont;
-//class ROEdge;
-//class ROAbstractEdgeBuilder;
 
 
 // ===========================================================================
@@ -62,7 +58,7 @@ protected:
     virtual void myStartElement(SumoXMLTag element,
                                 const SUMOSAXAttributes &attrs) throw(ProcessError);
     //@}
-//------------------------------------------------------------------------------------------------------------------------------------------------------
+
 protected:
     /// @name called from myStartElement
     //@{

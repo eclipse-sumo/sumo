@@ -11,8 +11,8 @@
 #else
 #include <config.h>
 #endif
-#include "AGActivityGenHandler.h"
 
+#include "AGActivityGenHandler.h"
 #include <iostream>
 #include <utility>
 #include <map>

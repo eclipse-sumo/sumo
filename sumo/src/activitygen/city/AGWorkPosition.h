@@ -1,14 +1,31 @@
 #ifndef AGWORKPOSITION_H
 #define AGWORKPOSITION_H
 
+// ===========================================================================
+// included modules
+// ===========================================================================
+#ifdef _MSC_VER
+#include <windows_config.h>
+#else
+#include <config.h>
+#endif
+
 #include <iostream>
 #include "AGStreet.h"
 #include "AGPosition.h"
 #include "AGDataAndStatistics.h"
 #include "AGAdult.h"
 
+
+// ===========================================================================
+// class declarations
+// ===========================================================================
 class AGAdult;
 
+
+// ===========================================================================
+// class definitions
+// ===========================================================================
 class AGWorkPosition
 {
 public:
@@ -63,3 +80,4 @@ private:
 
 #endif
 
+/****************************************************************************/

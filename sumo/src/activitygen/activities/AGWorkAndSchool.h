@@ -1,10 +1,23 @@
 #ifndef AGWORKANDSCHOOL_H
 #define AGWORKANDSCHOOL_H
 
+// ===========================================================================
+// included modules
+// ===========================================================================
+#ifdef _MSC_VER
+#include <windows_config.h>
+#else
+#include <config.h>
+#endif
+
 #include "../city/AGHousehold.h"
 #include "../city/AGPosition.h"
 #include "AGActivity.h"
 
+
+// ===========================================================================
+// class definitions
+// ===========================================================================
 class AGWorkAndSchool : public AGActivity
 {
 public:
@@ -109,3 +122,5 @@ private:
 };
 
 #endif
+
+/****************************************************************************/

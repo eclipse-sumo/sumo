@@ -1,3 +1,12 @@
+// ===========================================================================
+// included modules
+// ===========================================================================
+#ifdef _MSC_VER
+#include <windows_config.h>
+#else
+#include <config.h>
+#endif
+
 #include "AGDataAndStatistics.h"
 #include <utils/common/RandHelper.h>
 #include <cmath>
@@ -5,6 +14,10 @@
 #define RAND_PRECISION 10000
 #define LIMIT_CHILDREN_NUMBER 3
 
+
+// ===========================================================================
+// used namespaces
+// ===========================================================================
 using namespace std;
 
 /*int
@@ -15,6 +28,9 @@ AGDataAndStatistics::getRandom()
 	return randomNbr;
 }*/
 
+// ===========================================================================
+// method definitions
+// ===========================================================================
 int
 AGDataAndStatistics::getRandom(int n, int m)
 {
@@ -174,3 +190,4 @@ AGDataAndStatistics::getInverseExpRandomValue(float mean, float maxVar)
 
 }
 
+/****************************************************************************/

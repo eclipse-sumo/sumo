@@ -1,6 +1,15 @@
 #ifndef AGBUSLINE_H
 #define AGBUSLINE_H
 
+// ===========================================================================
+// included modules
+// ===========================================================================
+#ifdef _MSC_VER
+#include <windows_config.h>
+#else
+#include <config.h>
+#endif
+
 #include <iostream>
 #include <string>
 #include <list>
@@ -8,6 +17,10 @@
 #include "AGPosition.h"
 #include "AGDataAndStatistics.h"
 
+
+// ===========================================================================
+// class definitions
+// ===========================================================================
 class AGBusLine
 {
 public:
@@ -44,3 +57,4 @@ private:
 
 #endif
 
+/****************************************************************************/

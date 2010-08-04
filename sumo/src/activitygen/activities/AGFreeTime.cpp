@@ -1,8 +1,21 @@
+// ===========================================================================
+// included modules
+// ===========================================================================
+#ifdef _MSC_VER
+#include <windows_config.h>
+#else
+#include <config.h>
+#endif
+
 #include "AGFreeTime.h"
 #include "../city/AGTime.h"
 #include <math.h>
 #include <utils/common/RandHelper.h>
 
+
+// ===========================================================================
+// used namespaces
+// ===========================================================================
 using namespace std;
 
 const int AGFreeTime::DAY = 1;
@@ -16,6 +29,10 @@ const int AGFreeTime::TE_EVENING = (new AGTime(0,23,59))->getTime();
 const int AGFreeTime::TB_NIGHT = (new AGTime(0,23,0))->getTime();
 const int AGFreeTime::TE_NIGHT = (new AGTime(1,5,0))->getTime();
 
+
+// ===========================================================================
+// method definitions
+// ===========================================================================
 int
 AGFreeTime::decideTypeOfTrip()
 {
@@ -241,3 +258,5 @@ AGFreeTime::whenBeginActivityNextDay(int day)
 	timeBack.addDays(1); // this the beginning of activities of the next day
 	return timeBack.getTime();
 }
+
+/****************************************************************************/

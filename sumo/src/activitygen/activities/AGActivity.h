@@ -1,10 +1,23 @@
 #ifndef AGACTIVITY_H
 #define AGACTIVITY_H
 
+// ===========================================================================
+// included modules
+// ===========================================================================
+#ifdef _MSC_VER
+#include <windows_config.h>
+#else
+#include <config.h>
+#endif
+
 #include "AGTrip.h"
 #include "../city/AGHousehold.h"
 #include "../city/AGDataAndStatistics.h"
 
+
+// ===========================================================================
+// class definitions
+// ===========================================================================
 class AGActivity
 {
 public:
@@ -86,3 +99,5 @@ public:
 };
 
 #endif
+
+/****************************************************************************/

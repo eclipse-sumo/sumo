@@ -1,11 +1,24 @@
 #ifndef AGTRIP_H
 #define AGTRIP_H
 
+// ===========================================================================
+// included modules
+// ===========================================================================
+#ifdef _MSC_VER
+#include <windows_config.h>
+#else
+#include <config.h>
+#endif
+
 #include <list>
 #include "../city/AGPosition.h"
 #include "../city/AGCar.h"
 #include "../city/AGBus.h"
 
+
+// ===========================================================================
+// class definitions
+// ===========================================================================
 class AGTrip
 {
 public:
@@ -116,3 +129,4 @@ private:
 
 #endif
 
+/****************************************************************************/

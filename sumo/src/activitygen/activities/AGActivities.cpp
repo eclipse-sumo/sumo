@@ -1,3 +1,12 @@
+// ===========================================================================
+// included modules
+// ===========================================================================
+#ifdef _MSC_VER
+#include <windows_config.h>
+#else
+#include <config.h>
+#endif
+
 #include "AGActivities.h"
 #include "AGWorkAndSchool.h"
 #include "AGFreeTime.h"
@@ -5,8 +14,16 @@
 
 #define REBUILD_ITERATION_LIMIT 2
 
+
+// ===========================================================================
+// used namespaces
+// ===========================================================================
 using namespace std;
 
+
+// ===========================================================================
+// method definitions
+// ===========================================================================
 void
 AGActivities::addTrip(AGTrip t, list<AGTrip> *tripSet)
 {
@@ -179,3 +196,4 @@ AGActivities::generateIncomingName(int i)
 	return "carIn" + os.str();
 }
 
+/****************************************************************************/

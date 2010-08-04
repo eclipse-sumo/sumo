@@ -1,3 +1,12 @@
+// ===========================================================================
+// included modules
+// ===========================================================================
+#ifdef _MSC_VER
+#include <windows_config.h>
+#else
+#include <config.h>
+#endif
+
 #include <iostream>
 #include <utils/common/RandHelper.h>
 #include "AGWorkPosition.h"
@@ -6,8 +15,16 @@
 #include "AGDataAndStatistics.h"
 #include "AGAdult.h"
 
+
+// ===========================================================================
+// used namespaces
+// ===========================================================================
 using namespace std;
 
+
+// ===========================================================================
+// method definitions
+// ===========================================================================
 void
 AGWorkPosition::print()
 {
@@ -97,3 +114,4 @@ AGWorkPosition::getOpening()
 	return openingTime;
 }
 
+/****************************************************************************/

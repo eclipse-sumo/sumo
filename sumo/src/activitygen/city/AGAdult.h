@@ -1,14 +1,31 @@
 #ifndef AGADULT_H
 #define AGADULT_H
 
+// ===========================================================================
+// included modules
+// ===========================================================================
+#ifdef _MSC_VER
+#include <windows_config.h>
+#else
+#include <config.h>
+#endif
+
 #include <iostream>
 #include <vector>
 #include <string>
 #include "AGPerson.h"
 #include "AGWorkPosition.h"
 
+
+// ===========================================================================
+// class declarations
+// ===========================================================================
 class AGWorkPosition;
 
+
+// ===========================================================================
+// class definitions
+// ===========================================================================
 class AGAdult : public AGPerson
 {
 public:
@@ -51,3 +68,4 @@ private:
 
 #endif
 
+/****************************************************************************/
