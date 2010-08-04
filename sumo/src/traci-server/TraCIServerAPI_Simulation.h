@@ -33,6 +33,7 @@
 #include <map>
 #include <vector>
 #include "TraCIException.h"
+#include "TraCIServer.h"
 #include <foreign/tcpip/storage.h>
 
 
@@ -47,11 +48,12 @@ class TraCIServerAPI_Simulation {
 public:
     /** @brief Processes a get value command (Command 0xaa: Get Edge Variable)
      *
+     * @param[in] server The TraCI-server-instance which schedules this request
      * @param[in] inputStorage The storage to read the command from
      * @param[out] outputStorage The storage to write the result to
      */
-    static bool processGet(tcpip::Storage &inputStorage, tcpip::Storage &outputStorage,
-                           const std::map<MSNet::VehicleState, std::vector<std::string> > &info) throw(traci::TraCIException, std::invalid_argument);
+    static bool processGet(traci::TraCIServer &server, tcpip::Storage &inputStorage, 
+		tcpip::Storage &outputStorage) throw(traci::TraCIException, std::invalid_argument);
 
 private:
     /// @brief invalidated copy constructor

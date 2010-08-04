@@ -52,7 +52,7 @@ using namespace tcpip;
 // method definitions
 // ===========================================================================
 bool
-TraCIServerAPI_Polygon::processGet(tcpip::Storage &inputStorage,
+TraCIServerAPI_Polygon::processGet(TraCIServer &server, tcpip::Storage &inputStorage,
                                    tcpip::Storage &outputStorage) throw(TraCIException, std::invalid_argument) {
     std::string warning = ""; // additional description for response
     // variable & id
@@ -126,7 +126,7 @@ TraCIServerAPI_Polygon::processGet(tcpip::Storage &inputStorage,
 
 
 bool
-TraCIServerAPI_Polygon::processSet(tcpip::Storage &inputStorage,
+TraCIServerAPI_Polygon::processSet(TraCIServer &server, tcpip::Storage &inputStorage,
                                    tcpip::Storage &outputStorage) throw(TraCIException, std::invalid_argument) {
     std::string warning = ""; // additional description for response
     // variable

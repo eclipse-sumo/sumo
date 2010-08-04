@@ -51,7 +51,7 @@ using namespace tcpip;
 // method definitions
 // ===========================================================================
 bool
-TraCIServerAPI_Route::processGet(tcpip::Storage &inputStorage,
+TraCIServerAPI_Route::processGet(TraCIServer &server, tcpip::Storage &inputStorage,
                                  tcpip::Storage &outputStorage) throw(TraCIException, std::invalid_argument) {
     std::string warning = ""; // additional description for response
     // variable & id
@@ -102,7 +102,7 @@ TraCIServerAPI_Route::processGet(tcpip::Storage &inputStorage,
 
 
 bool
-TraCIServerAPI_Route::processSet(tcpip::Storage &inputStorage,
+TraCIServerAPI_Route::processSet(TraCIServer &server, tcpip::Storage &inputStorage,
                                  tcpip::Storage &outputStorage) throw(TraCIException, std::invalid_argument) {
     return true;
 }

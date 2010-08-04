@@ -428,58 +428,58 @@ throw(TraCIException, std::invalid_argument) {
         success = TraCIServerAPI_Vehicle::commandUnsubscribeDomain(*this, myInputStorage, myOutputStorage);
         break;
     case CMD_GET_INDUCTIONLOOP_VARIABLE:
-        success = TraCIServerAPI_InductionLoop::processGet(myInputStorage, myOutputStorage);
+        success = TraCIServerAPI_InductionLoop::processGet(*this, myInputStorage, myOutputStorage);
         break;
     case CMD_GET_MULTI_ENTRY_EXIT_DETECTOR_VARIABLE:
-        success = TraCIServerAPI_MeMeDetector::processGet(myInputStorage, myOutputStorage);
+        success = TraCIServerAPI_MeMeDetector::processGet(*this, myInputStorage, myOutputStorage);
         break;
     case CMD_GET_TL_VARIABLE:
-        success = TraCIServerAPI_TLS::processGet(myInputStorage, myOutputStorage);
+        success = TraCIServerAPI_TLS::processGet(*this, myInputStorage, myOutputStorage);
         break;
     case CMD_SET_TL_VARIABLE:
-        success = TraCIServerAPI_TLS::processSet(myInputStorage, myOutputStorage);
+        success = TraCIServerAPI_TLS::processSet(*this, myInputStorage, myOutputStorage);
         break;
     case CMD_GET_LANE_VARIABLE:
-        success = TraCIServerAPI_Lane::processGet(myInputStorage, myOutputStorage);
+        success = TraCIServerAPI_Lane::processGet(*this, myInputStorage, myOutputStorage);
         break;
     case CMD_SET_LANE_VARIABLE:
-        success = TraCIServerAPI_Lane::processSet(myInputStorage, myOutputStorage);
+        success = TraCIServerAPI_Lane::processSet(*this, myInputStorage, myOutputStorage);
         break;
     case CMD_GET_VEHICLE_VARIABLE:
-        success = TraCIServerAPI_Vehicle::processGet(myInputStorage, myOutputStorage);
+        success = TraCIServerAPI_Vehicle::processGet(*this, myInputStorage, myOutputStorage);
         break;
     case CMD_SET_VEHICLE_VARIABLE:
-        success = TraCIServerAPI_Vehicle::processSet(myInputStorage, myOutputStorage);
+        success = TraCIServerAPI_Vehicle::processSet(*this, myInputStorage, myOutputStorage);
         break;
     case CMD_GET_VEHICLETYPE_VARIABLE:
-        success = TraCIServerAPI_VehicleType::processGet(myInputStorage, myOutputStorage);
+        success = TraCIServerAPI_VehicleType::processGet(*this, myInputStorage, myOutputStorage);
         break;
     case CMD_GET_ROUTE_VARIABLE:
-        success = TraCIServerAPI_Route::processGet(myInputStorage, myOutputStorage);
+        success = TraCIServerAPI_Route::processGet(*this, myInputStorage, myOutputStorage);
         break;
     case CMD_GET_POI_VARIABLE:
-        success = TraCIServerAPI_POI::processGet(myInputStorage, myOutputStorage);
+        success = TraCIServerAPI_POI::processGet(*this, myInputStorage, myOutputStorage);
         break;
     case CMD_SET_POI_VARIABLE:
-        success = TraCIServerAPI_POI::processSet(myInputStorage, myOutputStorage);
+        success = TraCIServerAPI_POI::processSet(*this, myInputStorage, myOutputStorage);
         break;
     case CMD_GET_POLYGON_VARIABLE:
-        success = TraCIServerAPI_Polygon::processGet(myInputStorage, myOutputStorage);
+        success = TraCIServerAPI_Polygon::processGet(*this, myInputStorage, myOutputStorage);
         break;
     case CMD_SET_POLYGON_VARIABLE:
-        success = TraCIServerAPI_Polygon::processSet(myInputStorage, myOutputStorage);
+        success = TraCIServerAPI_Polygon::processSet(*this, myInputStorage, myOutputStorage);
         break;
     case CMD_GET_JUNCTION_VARIABLE:
-        success = TraCIServerAPI_Junction::processGet(myInputStorage, myOutputStorage);
+        success = TraCIServerAPI_Junction::processGet(*this, myInputStorage, myOutputStorage);
         break;
     case CMD_GET_EDGE_VARIABLE:
-        success = TraCIServerAPI_Edge::processGet(myInputStorage, myOutputStorage);
+        success = TraCIServerAPI_Edge::processGet(*this, myInputStorage, myOutputStorage);
         break;
     case CMD_SET_EDGE_VARIABLE:
-        success = TraCIServerAPI_Edge::processSet(myInputStorage, myOutputStorage);
+        success = TraCIServerAPI_Edge::processSet(*this, myInputStorage, myOutputStorage);
         break;
     case CMD_GET_SIM_VARIABLE:
-        success = TraCIServerAPI_Simulation::processGet(myInputStorage, myOutputStorage, myVehicleStateChanges);
+        success = TraCIServerAPI_Simulation::processGet(*this, myInputStorage, myOutputStorage);
         break;
     case CMD_SUBSCRIBE_INDUCTIONLOOP_VARIABLE:
     case CMD_SUBSCRIBE_MULTI_ENTRY_EXIT_DETECTOR_VARIABLE:
@@ -2581,40 +2581,40 @@ TraCIServer::processSingleSubscription(const Subscription &s, tcpip::Storage &wr
         switch (s.commandId) {
             // generate response
         case CMD_SUBSCRIBE_INDUCTIONLOOP_VARIABLE:
-            ok &= TraCIServerAPI_InductionLoop::processGet(message, tmpOutput);
+            ok &= TraCIServerAPI_InductionLoop::processGet(*this, message, tmpOutput);
             break;
         case CMD_SUBSCRIBE_MULTI_ENTRY_EXIT_DETECTOR_VARIABLE:
-            ok &= TraCIServerAPI_MeMeDetector::processGet(message, tmpOutput);
+            ok &= TraCIServerAPI_MeMeDetector::processGet(*this, message, tmpOutput);
             break;
         case CMD_SUBSCRIBE_TL_VARIABLE:
-            ok &= TraCIServerAPI_TLS::processGet(message, tmpOutput);
+            ok &= TraCIServerAPI_TLS::processGet(*this, message, tmpOutput);
             break;
         case CMD_SUBSCRIBE_LANE_VARIABLE:
-            ok &= TraCIServerAPI_Lane::processGet(message, tmpOutput);
+            ok &= TraCIServerAPI_Lane::processGet(*this, message, tmpOutput);
             break;
         case CMD_SUBSCRIBE_VEHICLE_VARIABLE:
-            ok &= TraCIServerAPI_Vehicle::processGet(message, tmpOutput);
+            ok &= TraCIServerAPI_Vehicle::processGet(*this, message, tmpOutput);
             break;
         case CMD_SUBSCRIBE_VEHICLETYPE_VARIABLE:
-            ok &= TraCIServerAPI_VehicleType::processGet(message, tmpOutput);
+            ok &= TraCIServerAPI_VehicleType::processGet(*this, message, tmpOutput);
             break;
         case CMD_SUBSCRIBE_ROUTE_VARIABLE:
-            ok &= TraCIServerAPI_Route::processGet(message, tmpOutput);
+            ok &= TraCIServerAPI_Route::processGet(*this, message, tmpOutput);
             break;
         case CMD_SUBSCRIBE_POI_VARIABLE:
-            ok &= TraCIServerAPI_POI::processGet(message, tmpOutput);
+            ok &= TraCIServerAPI_POI::processGet(*this, message, tmpOutput);
             break;
         case CMD_SUBSCRIBE_POLYGON_VARIABLE:
-            ok &= TraCIServerAPI_Polygon::processGet(message, tmpOutput);
+            ok &= TraCIServerAPI_Polygon::processGet(*this, message, tmpOutput);
             break;
         case CMD_SUBSCRIBE_JUNCTION_VARIABLE:
-            ok &= TraCIServerAPI_Junction::processGet(message, tmpOutput);
+            ok &= TraCIServerAPI_Junction::processGet(*this, message, tmpOutput);
             break;
         case CMD_SUBSCRIBE_EDGE_VARIABLE:
-            ok &= TraCIServerAPI_Edge::processGet(message, tmpOutput);
+            ok &= TraCIServerAPI_Edge::processGet(*this, message, tmpOutput);
             break;
         case CMD_SUBSCRIBE_SIM_VARIABLE:
-            ok &= TraCIServerAPI_Simulation::processGet(message, tmpOutput, myVehicleStateChanges);
+            ok &= TraCIServerAPI_Simulation::processGet(*this, message, tmpOutput);
             break;
         default:
             TraCIServerAPIHelper::writeStatusCmd(s.commandId, RTYPE_NOTIMPLEMENTED, "Unsupported command specified", tmpOutput);
@@ -2648,7 +2648,6 @@ TraCIServer::processSingleSubscription(const Subscription &s, tcpip::Storage &wr
             errors = errors + msg;
         }
     }
-    //writeStatusCmd(s.commandId, RTYPE_OK, "");
     writeInto.writeUnsignedByte(0); // command length -> extended
     writeInto.writeInt(1 + 4 + s.id.length() + 1 + outputStorage.size()); // extended length, length, cmd, id, varsize, return (x*1+size)
     writeInto.writeUnsignedByte(s.commandId + 0x10);

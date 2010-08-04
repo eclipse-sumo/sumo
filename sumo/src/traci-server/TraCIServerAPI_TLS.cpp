@@ -56,7 +56,7 @@ bool TraCIServerAPI_TLS::myHaveWarnedAboutDeprecatedPhases = false;
 // method definitions
 // ===========================================================================
 bool
-TraCIServerAPI_TLS::processGet(tcpip::Storage &inputStorage,
+TraCIServerAPI_TLS::processGet(TraCIServer &server, tcpip::Storage &inputStorage,
                                tcpip::Storage &outputStorage) throw(TraCIException, std::invalid_argument) {
     std::string warning = ""; // additional description for response
     // variable & id
@@ -309,7 +309,7 @@ TraCIServerAPI_TLS::processGet(tcpip::Storage &inputStorage,
 
 
 bool
-TraCIServerAPI_TLS::processSet(tcpip::Storage &inputStorage,
+TraCIServerAPI_TLS::processSet(TraCIServer &server, tcpip::Storage &inputStorage,
                                tcpip::Storage &outputStorage) throw(TraCIException, std::invalid_argument) {
     std::string warning = ""; // additional description for response
     // variable

@@ -51,9 +51,8 @@ using namespace tcpip;
 // method definitions
 // ===========================================================================
 bool
-TraCIServerAPI_Simulation::processGet(tcpip::Storage &inputStorage,
-                                      tcpip::Storage &outputStorage,
-                                      const std::map<MSNet::VehicleState, std::vector<std::string> > &infos) throw(TraCIException, std::invalid_argument) {
+TraCIServerAPI_Simulation::processGet(TraCIServer &server, tcpip::Storage &inputStorage,
+                                      tcpip::Storage &outputStorage) throw(TraCIException, std::invalid_argument) {
     std::string warning = ""; // additional description for response
     // variable & id
     int variable = inputStorage.readUnsignedByte();
@@ -82,61 +81,61 @@ TraCIServerAPI_Simulation::processGet(tcpip::Storage &inputStorage,
         tempMsg.writeInt(MSNet::getInstance()->getCurrentTimeStep());
         break;
     case VAR_LOADED_VEHICLES_NUMBER: {
-        const std::vector<std::string> &ids = infos.find(MSNet::VEHICLE_STATE_BUILT)->second;
+        const std::vector<std::string> &ids = server.getVehicleStateChanges().find(MSNet::VEHICLE_STATE_BUILT)->second;
         tempMsg.writeUnsignedByte(TYPE_INTEGER);
         tempMsg.writeInt((int) ids.size());
     }
     break;
     case VAR_LOADED_VEHICLES_IDS: {
-        const std::vector<std::string> &ids = infos.find(MSNet::VEHICLE_STATE_BUILT)->second;
+        const std::vector<std::string> &ids = server.getVehicleStateChanges().find(MSNet::VEHICLE_STATE_BUILT)->second;
         tempMsg.writeUnsignedByte(TYPE_STRINGLIST);
         tempMsg.writeStringList(ids);
     }
     break;
     case VAR_DEPARTED_VEHICLES_NUMBER: {
-        const std::vector<std::string> &ids = infos.find(MSNet::VEHICLE_STATE_DEPARTED)->second;
+        const std::vector<std::string> &ids = server.getVehicleStateChanges().find(MSNet::VEHICLE_STATE_DEPARTED)->second;
         tempMsg.writeUnsignedByte(TYPE_INTEGER);
         tempMsg.writeInt((int) ids.size());
     }
     break;
     case VAR_DEPARTED_VEHICLES_IDS: {
-        const std::vector<std::string> &ids = infos.find(MSNet::VEHICLE_STATE_DEPARTED)->second;
+        const std::vector<std::string> &ids = server.getVehicleStateChanges().find(MSNet::VEHICLE_STATE_DEPARTED)->second;
         tempMsg.writeUnsignedByte(TYPE_STRINGLIST);
         tempMsg.writeStringList(ids);
     }
     break;
     case VAR_TELEPORT_STARTING_VEHICLES_NUMBER: {
-        const std::vector<std::string> &ids = infos.find(MSNet::VEHICLE_STATE_STARTING_TELEPORT)->second;
+        const std::vector<std::string> &ids = server.getVehicleStateChanges().find(MSNet::VEHICLE_STATE_STARTING_TELEPORT)->second;
         tempMsg.writeUnsignedByte(TYPE_INTEGER);
         tempMsg.writeInt((int) ids.size());
     }
     break;
     case VAR_TELEPORT_STARTING_VEHICLES_IDS: {
-        const std::vector<std::string> &ids = infos.find(MSNet::VEHICLE_STATE_STARTING_TELEPORT)->second;
+        const std::vector<std::string> &ids = server.getVehicleStateChanges().find(MSNet::VEHICLE_STATE_STARTING_TELEPORT)->second;
         tempMsg.writeUnsignedByte(TYPE_STRINGLIST);
         tempMsg.writeStringList(ids);
     }
     break;
     case VAR_TELEPORT_ENDING_VEHICLES_NUMBER: {
-        const std::vector<std::string> &ids = infos.find(MSNet::VEHICLE_STATE_ENDING_TELEPORT)->second;
+        const std::vector<std::string> &ids = server.getVehicleStateChanges().find(MSNet::VEHICLE_STATE_ENDING_TELEPORT)->second;
         tempMsg.writeUnsignedByte(TYPE_INTEGER);
         tempMsg.writeInt((int) ids.size());
     }
     break;
     case VAR_TELEPORT_ENDING_VEHICLES_IDS: {
-        const std::vector<std::string> &ids = infos.find(MSNet::VEHICLE_STATE_ENDING_TELEPORT)->second;
+        const std::vector<std::string> &ids = server.getVehicleStateChanges().find(MSNet::VEHICLE_STATE_ENDING_TELEPORT)->second;
         tempMsg.writeUnsignedByte(TYPE_STRINGLIST);
         tempMsg.writeStringList(ids);
     }
     break;
     case VAR_ARRIVED_VEHICLES_NUMBER: {
-        const std::vector<std::string> &ids = infos.find(MSNet::VEHICLE_STATE_ARRIVED)->second;
+        const std::vector<std::string> &ids = server.getVehicleStateChanges().find(MSNet::VEHICLE_STATE_ARRIVED)->second;
         tempMsg.writeUnsignedByte(TYPE_INTEGER);
         tempMsg.writeInt((int) ids.size());
     }
     break;
     case VAR_ARRIVED_VEHICLES_IDS: {
-        const std::vector<std::string> &ids = infos.find(MSNet::VEHICLE_STATE_ARRIVED)->second;
+        const std::vector<std::string> &ids = server.getVehicleStateChanges().find(MSNet::VEHICLE_STATE_ARRIVED)->second;
         tempMsg.writeUnsignedByte(TYPE_STRINGLIST);
         tempMsg.writeStringList(ids);
     }

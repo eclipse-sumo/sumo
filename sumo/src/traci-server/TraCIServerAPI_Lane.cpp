@@ -49,7 +49,7 @@ using namespace tcpip;
 // method definitions
 // ===========================================================================
 bool
-TraCIServerAPI_Lane::processGet(tcpip::Storage &inputStorage,
+TraCIServerAPI_Lane::processGet(TraCIServer &server, tcpip::Storage &inputStorage,
                                 tcpip::Storage &outputStorage) throw(TraCIException, std::invalid_argument) {
     Storage tmpResult;
     std::string warning = "";	// additional description for response
@@ -283,7 +283,7 @@ TraCIServerAPI_Lane::processGet(tcpip::Storage &inputStorage,
 
 
 bool
-TraCIServerAPI_Lane::processSet(tcpip::Storage &inputStorage,
+TraCIServerAPI_Lane::processSet(TraCIServer &server, tcpip::Storage &inputStorage,
                                 tcpip::Storage &outputStorage) throw(TraCIException, std::invalid_argument) {
     std::string warning = ""; // additional description for response
     // variable

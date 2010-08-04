@@ -51,7 +51,7 @@ using namespace tcpip;
 // method definitions
 // ===========================================================================
 bool
-TraCIServerAPI_POI::processGet(tcpip::Storage &inputStorage,
+TraCIServerAPI_POI::processGet(TraCIServer &server, tcpip::Storage &inputStorage,
                                tcpip::Storage &outputStorage) throw(TraCIException, std::invalid_argument) {
     std::string warning = ""; // additional description for response
     // variable & id
@@ -118,7 +118,7 @@ TraCIServerAPI_POI::processGet(tcpip::Storage &inputStorage,
 
 
 bool
-TraCIServerAPI_POI::processSet(tcpip::Storage &inputStorage,
+TraCIServerAPI_POI::processSet(TraCIServer &server, tcpip::Storage &inputStorage,
                                tcpip::Storage &outputStorage) throw(TraCIException, std::invalid_argument) {
     std::string warning = ""; // additional description for response
     // variable

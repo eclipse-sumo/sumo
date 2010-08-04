@@ -66,7 +66,7 @@ std::map<int, std::list<std::pair<int, int> > > TraCIServerAPI_Vehicle::myDomain
 // method definitions
 // ===========================================================================
 bool
-TraCIServerAPI_Vehicle::processGet(tcpip::Storage &inputStorage,
+TraCIServerAPI_Vehicle::processGet(TraCIServer &server, tcpip::Storage &inputStorage,
                                    tcpip::Storage &outputStorage) throw(TraCIException, std::invalid_argument) {
     std::string warning = ""; // additional description for response
     // variable & id
@@ -298,7 +298,7 @@ TraCIServerAPI_Vehicle::processGet(tcpip::Storage &inputStorage,
 
 
 bool
-TraCIServerAPI_Vehicle::processSet(tcpip::Storage &inputStorage,
+TraCIServerAPI_Vehicle::processSet(TraCIServer &server, tcpip::Storage &inputStorage,
                                    tcpip::Storage &outputStorage) throw(TraCIException, std::invalid_argument) {
     std::string warning = ""; // additional description for response
     // variable

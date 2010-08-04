@@ -109,6 +109,11 @@ public:
      */
     TraCIServer::RoadMapPos convertCartesianToRoadMap(Position2D pos);
 
+	const std::map<MSNet::VehicleState, std::vector<std::string> > &getVehicleStateChanges() const throw() {
+		return myVehicleStateChanges;
+	}
+
+
 
 private:
 

@@ -50,7 +50,7 @@ using namespace tcpip;
 // method definitions
 // ===========================================================================
 bool
-TraCIServerAPI_InductionLoop::processGet(tcpip::Storage &inputStorage,
+TraCIServerAPI_InductionLoop::processGet(TraCIServer &server, tcpip::Storage &inputStorage,
         tcpip::Storage &outputStorage) throw(TraCIException, std::invalid_argument) {
     std::string warning = ""; // additional description for response
     // variable & id
