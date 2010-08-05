@@ -1,3 +1,6 @@
+SUBDIRS = activities city
+
+
 XERCES_LIBS = -l$(LIB_XERCES)
 
 if CHECK_MEMORY_LEAKS
