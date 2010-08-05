@@ -69,7 +69,7 @@ namespace traci {
 class TraCIServer : public MSNet::VehicleStateListener {
 public:
 	/// @brief Definition of a method to be called for serving an associated commandID
-    typedef bool(*CmdExecutor)(traci::TraCIServer &server, tcpip::Storage &inputStorage, tcpip::Storage &outputStorage) throw(traci::TraCIException, std::invalid_argument);
+    typedef bool(*CmdExecutor)(traci::TraCIServer &server, tcpip::Storage &inputStorage, tcpip::Storage &outputStorage);
 
 
     struct RoadMapPos {

@@ -51,7 +51,7 @@ using namespace tcpip;
 // ===========================================================================
 bool
 TraCIServerAPI_Junction::processGet(TraCIServer &server, tcpip::Storage &inputStorage,
-                                    tcpip::Storage &outputStorage) throw(TraCIException, std::invalid_argument) {
+                                    tcpip::Storage &outputStorage) {
     Storage tmpResult;
     std::string warning = "";	// additional description for response
     // variable

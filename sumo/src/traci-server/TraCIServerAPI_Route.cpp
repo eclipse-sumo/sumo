@@ -51,7 +51,7 @@ using namespace tcpip;
 // ===========================================================================
 bool
 TraCIServerAPI_Route::processGet(TraCIServer &server, tcpip::Storage &inputStorage,
-                                 tcpip::Storage &outputStorage) throw(TraCIException, std::invalid_argument) {
+                                 tcpip::Storage &outputStorage) {
     std::string warning = ""; // additional description for response
     // variable & id
     int variable = inputStorage.readUnsignedByte();
@@ -102,7 +102,7 @@ TraCIServerAPI_Route::processGet(TraCIServer &server, tcpip::Storage &inputStora
 
 bool
 TraCIServerAPI_Route::processSet(TraCIServer &server, tcpip::Storage &inputStorage,
-                                 tcpip::Storage &outputStorage) throw(TraCIException, std::invalid_argument) {
+                                 tcpip::Storage &outputStorage) {
     return true;
 }
 

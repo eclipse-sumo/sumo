@@ -51,7 +51,7 @@ public:
      * @param[out] outputStorage The storage to write the result to
      */
     static bool processGet(traci::TraCIServer &server, tcpip::Storage &inputStorage, 
-		tcpip::Storage &outputStorage) throw(traci::TraCIException, std::invalid_argument);
+		tcpip::Storage &outputStorage);
 
 
     /** @brief Processes a set value command (Command 0xc4: Change Vehicle State)
@@ -61,7 +61,7 @@ public:
      * @param[out] outputStorage The storage to write the result to
      */
     static bool processSet(traci::TraCIServer &server, tcpip::Storage &inputStorage, 
-		tcpip::Storage &outputStorage) throw(traci::TraCIException, std::invalid_argument);
+		tcpip::Storage &outputStorage);
 
 
 	/// @name "old" API functions
@@ -76,26 +76,26 @@ public:
      * @param[in] inputStorage The storage to read the command from
      * @param[out] outputStorage The storage to write the result to
 	 */
-	static bool commandSetMaximumSpeed(traci::TraCIServer &server, tcpip::Storage &inputStorage, tcpip::Storage &outputStorage) throw(traci::TraCIException, std::invalid_argument);
+	static bool commandSetMaximumSpeed(traci::TraCIServer &server, tcpip::Storage &inputStorage, tcpip::Storage &outputStorage);
 
-    static bool commandStopNode(traci::TraCIServer &server, tcpip::Storage &inputStorage, tcpip::Storage &outputStorage) throw(traci::TraCIException, std::invalid_argument);
+    static bool commandStopNode(traci::TraCIServer &server, tcpip::Storage &inputStorage, tcpip::Storage &outputStorage);
 
-    static bool commandChangeLane(traci::TraCIServer &server, tcpip::Storage &inputStorage, tcpip::Storage &outputStorage) throw(traci::TraCIException, std::invalid_argument);
+    static bool commandChangeLane(traci::TraCIServer &server, tcpip::Storage &inputStorage, tcpip::Storage &outputStorage);
 
-    static bool commandChangeRoute(traci::TraCIServer &server, tcpip::Storage &inputStorage, tcpip::Storage &outputStorage) throw(traci::TraCIException, std::invalid_argument);
+    static bool commandChangeRoute(traci::TraCIServer &server, tcpip::Storage &inputStorage, tcpip::Storage &outputStorage);
 
-    static bool commandChangeTarget(traci::TraCIServer &server, tcpip::Storage &inputStorage, tcpip::Storage &outputStorage) throw(traci::TraCIException, std::invalid_argument);
+    static bool commandChangeTarget(traci::TraCIServer &server, tcpip::Storage &inputStorage, tcpip::Storage &outputStorage);
 
-	static bool commandSlowDown(traci::TraCIServer &server, tcpip::Storage &inputStorage, tcpip::Storage &outputStorage) throw(traci::TraCIException, std::invalid_argument);
+	static bool commandSlowDown(traci::TraCIServer &server, tcpip::Storage &inputStorage, tcpip::Storage &outputStorage);
 
 
-    static bool commandSubscribeLifecycles(traci::TraCIServer &server, tcpip::Storage &inputStorage, tcpip::Storage &outputStorage) throw(traci::TraCIException, std::invalid_argument);
+    static bool commandSubscribeLifecycles(traci::TraCIServer &server, tcpip::Storage &inputStorage, tcpip::Storage &outputStorage);
 
-    static bool commandUnsubscribeLifecycles(traci::TraCIServer &server, tcpip::Storage &inputStorage, tcpip::Storage &outputStorage) throw(traci::TraCIException, std::invalid_argument);
+    static bool commandUnsubscribeLifecycles(traci::TraCIServer &server, tcpip::Storage &inputStorage, tcpip::Storage &outputStorage);
 
-    static bool commandSubscribeDomain(traci::TraCIServer &server, tcpip::Storage &inputStorage, tcpip::Storage &outputStorage) throw(traci::TraCIException, std::invalid_argument);
+    static bool commandSubscribeDomain(traci::TraCIServer &server, tcpip::Storage &inputStorage, tcpip::Storage &outputStorage);
 
-    static bool commandUnsubscribeDomain(traci::TraCIServer &server, tcpip::Storage &inputStorage, tcpip::Storage &outputStorage) throw(traci::TraCIException, std::invalid_argument);
+    static bool commandUnsubscribeDomain(traci::TraCIServer &server, tcpip::Storage &inputStorage, tcpip::Storage &outputStorage);
 	static void checkReroute(MSVehicle *veh) throw();
 	/// @}
 
