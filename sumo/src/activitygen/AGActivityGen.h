@@ -33,8 +33,6 @@
 #include "city/AGStreet.h"
 #include "city/AGPosition.h"
 
-int test();
-
 
 // ===========================================================================
 // class definitions
