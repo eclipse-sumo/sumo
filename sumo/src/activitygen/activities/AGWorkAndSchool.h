@@ -1,3 +1,21 @@
+/****************************************************************************/
+/// @file    AGWorkAndSchool.h
+/// @author  Piotr Woznica
+/// @date    July 2010
+/// @version $Id: AGWorkAndSchool.h 8236 2010-02-10 11:16:41Z behrisch $
+///
+// Child object of AGActivity: Generates trips to work and to school
+/****************************************************************************/
+// SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+// Copyright 2010 TUM (Technische Universität München, http://www.tum.de/)
+/****************************************************************************/
+//
+//   This program is free software; you can redistribute it and/or modify
+//   it under the terms of the GNU General Public License as published by
+//   the Free Software Foundation; either version 2 of the License, or
+//   (at your option) any later version.
+//
+/****************************************************************************/
 #ifndef AGWORKANDSCHOOL_H
 #define AGWORKANDSCHOOL_H
 
