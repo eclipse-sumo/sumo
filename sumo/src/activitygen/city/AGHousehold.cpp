@@ -2,7 +2,7 @@
 /// @file    AGHousehold.cpp
 /// @author  Piotr Woznica
 /// @date    July 2010
-/// @version $Id: AGHousehold.cpp 8236 2010-02-10 11:16:41Z behrisch $
+/// @version $Id$
 ///
 // container of people and cars of the city: roughly represents families with
 // their address, cars, adults and possibly children

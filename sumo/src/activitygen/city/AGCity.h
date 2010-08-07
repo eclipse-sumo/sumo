@@ -2,7 +2,7 @@
 /// @file    AGCity.h
 /// @author  Piotr Woznica
 /// @date    July 2010
-/// @version $Id: AGCity.h 8236 2010-02-10 11:16:41Z behrisch $
+/// @version $Id$
 ///
 // Main object containing all others of the city: in particular
 // streets, households, bus lines, work positions and schools

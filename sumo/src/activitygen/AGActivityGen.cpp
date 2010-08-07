@@ -2,7 +2,7 @@
 /// @file    AGActivityGen.cpp
 /// @author  Piotr Woznica
 /// @date    July 2010
-/// @version $Id: AGActivityGen.cpp 8236 2010-02-10 11:16:41Z behrisch $
+/// @version $Id$
 ///
 // Central object handling City, Activities and Trips
 /****************************************************************************/
@@ -37,6 +37,10 @@
 #include "activities/AGActivities.h"
 #include "AGActivityTripWriter.h"
 #include "city/AGTime.h"
+
+#ifdef CHECK_MEMORY_LEAKS
+#include <foreign/nvwa/debug_new.h>
+#endif // CHECK_MEMORY_LEAKS
 
 
 // ===========================================================================

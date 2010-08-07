@@ -2,7 +2,7 @@
 /// @file    AGWorkAndSchool.h
 /// @author  Piotr Woznica
 /// @date    July 2010
-/// @version $Id: AGWorkAndSchool.h 8236 2010-02-10 11:16:41Z behrisch $
+/// @version $Id$
 ///
 // Child object of AGActivity: Generates trips to work and to school
 /****************************************************************************/

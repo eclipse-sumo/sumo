@@ -2,7 +2,7 @@
 /// @file    AGActivities.h
 /// @author  Piotr Woznica
 /// @date    July 2010
-/// @version $Id: AGActivities.h 8236 2010-02-10 11:16:41Z behrisch $
+/// @version $Id$
 ///
 // Main object managing activities taken in account and generating the city
 // inhabitants' trip list.

@@ -2,7 +2,7 @@
 /// @file    AGActivityTripWriter.cpp
 /// @author  Piotr Woznica
 /// @date    July 2010
-/// @version $Id: AGActivityTripWriter.cpp 8236 2010-02-10 11:16:41Z behrisch $
+/// @version $Id$
 ///
 // Object writing Trip objects in a SUMO-route file.
 /****************************************************************************/

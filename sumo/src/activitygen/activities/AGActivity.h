@@ -2,7 +2,7 @@
 /// @file    AGActivity.h
 /// @author  Piotr Woznica
 /// @date    July 2010
-/// @version $Id: AGActivity.h 8236 2010-02-10 11:16:41Z behrisch $
+/// @version $Id$
 ///
 // Parent object for all activities. For each Household, children objects
 // generate trips corresponding to this activity

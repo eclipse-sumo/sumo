@@ -2,7 +2,7 @@
 /// @file    AGPosition.cpp
 /// @author  Piotr Woznica
 /// @date    July 2010
-/// @version $Id: AGPosition.cpp 8236 2010-02-10 11:16:41Z behrisch $
+/// @version $Id$
 ///
 // references a street of the city and defines a position in this street
 /****************************************************************************/

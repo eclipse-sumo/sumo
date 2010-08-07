@@ -2,7 +2,7 @@
 /// @file    AGChild.cpp
 /// @author  Piotr Woznica
 /// @date    July 2010
-/// @version $Id: AGChild.cpp 8236 2010-02-10 11:16:41Z behrisch $
+/// @version $Id$
 ///
 // Person in age to go to school: linked to a school object
 /****************************************************************************/

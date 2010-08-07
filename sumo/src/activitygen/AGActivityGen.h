@@ -2,7 +2,7 @@
 /// @file    AGActivityGen.h
 /// @author  Piotr Woznica
 /// @date    July 2010
-/// @version $Id: AGActivityGen.h 8236 2010-02-10 11:16:41Z behrisch $
+/// @version $Id$
 ///
 // Central object handling City, Activities and Trips
 /****************************************************************************/

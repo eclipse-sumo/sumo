@@ -2,7 +2,7 @@
 /// @file    AGPerson.h
 /// @author  Piotr Woznica
 /// @date    July 2010
-/// @version $Id: AGPerson.h 8236 2010-02-10 11:16:41Z behrisch $
+/// @version $Id$
 ///
 // Parent object of every person, contains age and any natural characteristic
 /****************************************************************************/

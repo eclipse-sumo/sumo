@@ -2,7 +2,7 @@
 /// @file    AGTime.cpp
 /// @author  Piotr Woznica
 /// @date    July 2010
-/// @version $Id: AGTime.cpp 8236 2010-02-10 11:16:41Z behrisch $
+/// @version $Id$
 ///
 // Time manager: able to manipulate the time using Sumo's format (seconds)
 /****************************************************************************/

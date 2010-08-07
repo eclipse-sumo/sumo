@@ -2,7 +2,7 @@
 /// @file    AGMain.cpp
 /// @author  Piotr Woznica & Walter Bamberger
 /// @date    Tue, 20 Jul 2010
-/// @version $Id: AGMain.cpp 8236 2010-02-10 11:16:41Z behrisch $
+/// @version $Id$
 ///
 // Main object of the ActivityGen application
 /****************************************************************************/
@@ -62,9 +62,8 @@
 #include "city/AGTime.h"
 
 #ifdef CHECK_MEMORY_LEAKS
-#include <utils/dev/debug_new.h>
-#include <router/ROFrame.h>
-#endif
+#include <foreign/nvwa/debug_new.h>
+#endif // CHECK_MEMORY_LEAKS
 
 
 // ===========================================================================

@@ -2,7 +2,7 @@
 /// @file    AGAdult.cpp
 /// @author  Piotr Woznica
 /// @date    July 2010
-/// @version $Id: AGAdult.cpp 8236 2010-02-10 11:16:41Z behrisch $
+/// @version $Id$
 ///
 // Person in working age: can be liked to a work position.
 /****************************************************************************/

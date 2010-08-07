@@ -2,7 +2,7 @@
 /// @file    AGFreeTime.cpp
 /// @author  Piotr Woznica
 /// @date    July 2010
-/// @version $Id: AGFreeTime.cpp 8236 2010-02-10 11:16:41Z behrisch $
+/// @version $Id$
 ///
 // Child object of AGActivity: generates Trips corresponding to after-work
 // activities like visiting family or party

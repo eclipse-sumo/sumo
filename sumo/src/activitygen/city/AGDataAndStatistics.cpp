@@ -2,7 +2,7 @@
 /// @file    AGDataAndStatistics.cpp
 /// @author  Piotr Woznica
 /// @date    July 2010
-/// @version $Id: AGDataAndStatistics.cpp 8236 2010-02-10 11:16:41Z behrisch $
+/// @version $Id$
 ///
 // Contains various data, statistical values and functions from input used
 // by various objects

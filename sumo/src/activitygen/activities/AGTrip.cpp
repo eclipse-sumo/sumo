@@ -2,7 +2,7 @@
 /// @file    AGTrip.cpp
 /// @author  Piotr Woznica
 /// @date    July 2010
-/// @version $Id: AGTrip.cpp 8236 2010-02-10 11:16:41Z behrisch $
+/// @version $Id$
 ///
 // Object containing all information of a given trip (car, bus)
 /****************************************************************************/
