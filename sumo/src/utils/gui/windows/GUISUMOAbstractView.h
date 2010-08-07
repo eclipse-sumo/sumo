@@ -31,6 +31,7 @@
 
 #include <string>
 #include <vector>
+#include <map>
 #include <fx.h>
 #include <fx3d.h>
 #include <utils/geom/Boundary.h>
@@ -160,26 +161,10 @@ public:
     }
 
 
+	// @todo: check why this is here
     SUMOReal getGridWidth() const;
+	// @todo: check why this is here
     SUMOReal getGridHeight() const;
-
-    /** @brief Shows a vehicle's route(s)
-     * @param[in] v The vehicle to show routes for
-     * @param[in] index The index of the route to show (-1: "all routes")
-     */
-    virtual void showRoute(GUIVehicle * /*v*/, int /*index=-1*/) throw() { }
-
-    /// shows
-    virtual void showBestLanes(GUIVehicle * /*v*/) { }
-
-    /** @brief Stops showing a vehicle's routes
-     * @param[in] v The vehicle to stop showing routes for
-     * @param[in] index The index of the route to hide (-1: "all routes")
-     */
-    virtual void hideRoute(GUIVehicle * /*v*/, int index=-1) throw() { }
-
-    /// hides
-    virtual void hideBestLanes(GUIVehicle * /*v*/) { }
 
     virtual void startTrack(int /*id*/) { }
     virtual void stopTrack() { }
@@ -188,20 +173,30 @@ public:
     }
 
 
-    /** @brief Returns the information whether the given route of the given vehicle is shown
-     * @param[in] v The vehicle which route may be shown
-     * @param[in] index The index of the route (-1: "all routes")
-     * @return Whether the route with the given index is shown
-     */
-    virtual bool amShowingRouteFor(GUIVehicle * /*v*/, int /*index=-1*/) throw() {
-        return false;
-    }
-
-    virtual bool amShowingBestLanesFor(GUIVehicle * /*v*/) {
-        return false;
-    }
-
     virtual void onGamingClick(Position2D /*pos*/) { }
+
+
+
+	/// @name Additional visualisations
+	/// @{
+	
+	/** @brief Adds an object to call its additional visualisation method
+	 * @param[in] which The object to add
+	 * @return Always true
+	 * @see GUIGlObject::drawGLAdditional
+	 */
+	bool addAdditionalGLVisualisation(GUIGlObject * const which) throw();
+
+
+	/** @brief Removes an object from the list of objects that show additional things
+	 * @param[in] which The object to remoe
+	 * @return True if the object was known, false otherwise
+	 * @see GUIGlObject::drawGLAdditional
+	 */
+	bool removeAdditionalGLVisualisation(GUIGlObject * const which) throw();
+	/// @}
+
+
 
 public:
     /**
@@ -366,40 +361,11 @@ protected:
 
     mutable MFXMutex myPolyDrawLock;
 
-    enum VehicleOperationType {
-        VO_TRACK,
-        VO_SHOW_BEST_LANES,
-        VO_SHOW_ROUTE
-    };
+	/// @brief List of objects for which GUIGlObject::drawGLAdditional is called
+	std::map<GUIGlObject*, int> myAdditionallyDrawn;
 
-    struct VehicleOps {
-        VehicleOperationType type;
-        GUIVehicle *vehicle;
-        int routeNo;
-    };
 
-    /// List of vehicles for which something has to be done with
-    std::vector<VehicleOps> myVehicleOps;
 
-    /**
-     * A class to find the matching lane wrapper
-     */
-    class vehicle_in_ops_finder {
-    public:
-        /** constructor */
-        explicit vehicle_in_ops_finder(const GUIVehicle * const v)
-                : myVehicle(v) { }
-
-        /** the comparing function */
-        bool operator()(const VehicleOps &vo) {
-            return vo.vehicle == myVehicle;
-        }
-
-    private:
-        /// The vehicle to search for
-        const GUIVehicle * const myVehicle;
-
-    };
 
 protected:
     GUISUMOAbstractView() { }

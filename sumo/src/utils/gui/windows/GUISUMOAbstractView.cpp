@@ -62,7 +62,6 @@
 #include <fxkeys.h>
 #include <utils/foxtools/MFXImageHelper.h>
 
-#include <guisim/GUINet.h>
 #include <microsim/MSNet.h>
 
 
@@ -596,7 +595,6 @@ GUISUMOAbstractView::makeCurrent() {
 }
 
 
-
 long
 GUISUMOAbstractView::onConfigure(FXObject*,FXSelector,void*) {
     if (makeCurrent()) {
@@ -970,6 +968,35 @@ GUISUMOAbstractView::drawDecals() throw() {
     }
     myDecalsLock.unlock();
     glTranslated(0, 0, -.99);
+}
+
+
+// ------------ Additional visualisations
+bool 
+GUISUMOAbstractView::addAdditionalGLVisualisation(GUIGlObject * const which) throw() {
+	if(myAdditionallyDrawn.find(which)==myAdditionallyDrawn.end()) {
+		myAdditionallyDrawn[which] = 1;
+	} else {
+		myAdditionallyDrawn[which] = myAdditionallyDrawn[which] + 1;
+	}
+	update();
+	return true;
+}
+
+
+bool 
+GUISUMOAbstractView::removeAdditionalGLVisualisation(GUIGlObject * const which) throw() {
+	if(myAdditionallyDrawn.find(which)==myAdditionallyDrawn.end()) {
+		return false;
+	}
+	int cnt = myAdditionallyDrawn[which];
+	if(cnt==1) {
+		myAdditionallyDrawn.erase(which);
+	} else {
+		myAdditionallyDrawn[which] = myAdditionallyDrawn[which] - 1;
+	}
+	update();
+	return true;
 }
 
 

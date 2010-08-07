@@ -90,7 +90,6 @@ public:
         glColor3d(col.red(), col.green(), col.blue());
     }
 
-    static void initShapes() throw();
 
 
 
@@ -159,10 +158,49 @@ public:
      * @see GUIGlObject::active
      */
     bool active() const throw();
+
+
+    /** @brief Draws additionally triggered visualisations
+     * @param[in] parent The view
+     * @param[in] s The settings for the current view (may influence drawing)
+     */
+	virtual void drawGLAdditional(GUISUMOAbstractView * const parent, const GUIVisualizationSettings &s) const throw();
     //@}
 
 
     void setRemoved();
+
+
+
+	/// @name Additional visualisations
+	/// @{
+	
+	/** @brief Returns whether the named feature is enabled in the given view
+	 * @param[in] parent The view for which the feature may be enabled
+	 * @param[in] which The visualisation feature
+	 * @return see comment
+	 */
+	bool hasActiveAddVisualisation(GUISUMOAbstractView * const parent, int which) const throw();
+
+
+	/** @brief Adds the named visualisation feature to the given view
+	 * @param[in] parent The view for which the feature shall be enabled
+	 * @param[in] which The visualisation feature to enable
+	 * @return Always true
+	 * @see GUISUMOAbstractView::addAdditionalGLVisualisation
+	 */
+	bool addActiveAddVisualisation(GUISUMOAbstractView * const parent, int which) throw();
+
+
+	/** @brief Adds the named visualisation feature to the given view
+	 * @param[in] parent The view for which the feature shall be enabled
+	 * @param[in] which The visualisation feature to enable
+	 * @return Whether the vehicle was known to the view
+	 * @see GUISUMOAbstractView::removeAdditionalGLVisualisation
+	 */
+	bool removeActiveAddVisualisation(GUISUMOAbstractView * const parent, int which) throw();
+	/// @}
+
 
 
     /** @brief Returns the time since the last lane change
@@ -192,52 +230,92 @@ public:
 
     /**
      * @class GUIVehiclePopupMenu
+	 *
      * A popup-menu for vehicles. In comparison to the normal popup-menu, this one
-     *  also allows to:
-     * - show/hide the vehicle route
+     *  also allows to trigger further visualisations and to track the vehicle.
      */
     class GUIVehiclePopupMenu : public GUIGLObjectPopupMenu {
         FXDECLARE(GUIVehiclePopupMenu)
     public:
-        /// Constructor
+	    /** @brief Constructor
+	     * @param[in] app The main window for instantiation of other windows
+	     * @param[in] parent The parent view for changing it
+	     * @param[in] o The object of interest
+	     * @param[in, out] additionalVisualizations Information which additional visualisations are enabled (per view)
+	     */
         GUIVehiclePopupMenu(GUIMainWindow &app,
-                            GUISUMOAbstractView &parent, GUIGlObject &o);
+                            GUISUMOAbstractView &parent, GUIGlObject &o, std::map<GUISUMOAbstractView*, int> &additionalVisualizations);
 
-        /// Destructor
+        /// @brief Destructor
         ~GUIVehiclePopupMenu() throw();
 
-        /// Called if all routes of the vehicle shall be shown
+        /// @brief Called if all routes of the vehicle shall be shown
         long onCmdShowAllRoutes(FXObject*,FXSelector,void*);
-
-        /// Called if all routes of the vehicle shall be hidden
+        /// @brief Called if all routes of the vehicle shall be hidden
         long onCmdHideAllRoutes(FXObject*,FXSelector,void*);
-
-        /// Called if the current route of the vehicle shall be shown
+        /// @brief Called if the current route of the vehicle shall be shown
         long onCmdShowCurrentRoute(FXObject*,FXSelector,void*);
-
-        /// Called if the current route of the vehicle shall be hidden
+        /// @brief Called if the current route of the vehicle shall be hidden
         long onCmdHideCurrentRoute(FXObject*,FXSelector,void*);
-
-        /// Called if the current route of the vehicle shall be shown
+        /// @brief Called if the vehicle's best lanes shall be shown
         long onCmdShowBestLanes(FXObject*,FXSelector,void*);
-
-        /// Called if the current route of the vehicle shall be hidden
+        /// @brief Called if the vehicle's best lanes shall be hidden
         long onCmdHideBestLanes(FXObject*,FXSelector,void*);
-
-        /// Called if the vehicle shall be tracked
+        /// @brief Called if the vehicle shall be tracked
         long onCmdStartTrack(FXObject*,FXSelector,void*);
-
-        /// Called if the current shall not be tracked any longer
+        /// @brief Called if the current shall not be tracked any longer
         long onCmdStopTrack(FXObject*,FXSelector,void*);
 
+	protected:
+		/// @brief Information which additional visualisations are enabled (per view)
+		std::map<GUISUMOAbstractView*, int> &myVehiclesAdditionalVisualizations;
+		/// @brief Needed for parameterless instantiation
+		std::map<GUISUMOAbstractView*, int> dummy;
+
     protected:
-        GUIVehiclePopupMenu() { }
+		/// @brief default constructor needed by FOX
+		GUIVehiclePopupMenu() : myVehiclesAdditionalVisualizations(dummy) { }
 
     };
 
 
-protected:
-    void setBlinkerInformation();
+	/// @name Additional visualisations
+	/// @{
+
+	/** @brief Additional visualisation feature ids
+	 */
+    enum VisualisationFeatures {
+		/// @brief show vehicle's best lanes
+        VO_SHOW_BEST_LANES = 1,
+		/// @brief show vehicle's current route
+        VO_SHOW_ROUTE = 2,
+		/// @brief show all vehicle's routes
+        VO_SHOW_ALL_ROUTES = 4
+    };
+
+	/// @brief Enabled visualisations, per view
+	std::map<GUISUMOAbstractView*, int> myAdditionalVisualizations;
+
+
+	/** @brief Draws the route
+	 * @param[in] r The route to draw
+	 */
+	void draw(const MSRoute &r) const throw();
+
+
+	/** @brief Chooses the route to draw and draws it, darkening it as given
+	 * @param[in] s The visualisation settings, needed to determine the vehicle's color
+	 * @param[in] routeNo The route to show (0: the current, >0: prior)
+	 * @param[in] darken The amount to darken the route by
+	 */
+	void drawRoute(const GUIVisualizationSettings &s, int routeNo, SUMOReal darken) const throw();
+
+
+	/** @brief Draws the vehicle's best lanes
+	 */
+	void drawBestLanes() const throw();
+	/// @}
+
 
 private:
     /// The mutex used to avoid concurrent updates of the vehicle buffer

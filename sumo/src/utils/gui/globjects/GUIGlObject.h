@@ -173,6 +173,13 @@ public:
     }
 
 
+    /** @brief Draws additional, user-triggered visualisations
+     * @param[in] parent The view
+     * @param[in] s The settings for the current view (may influence drawing)
+     */
+	virtual void drawGLAdditional(GUISUMOAbstractView * const parent, const GUIVisualizationSettings &s) const throw() { };
+
+
 protected:
     /// @name helper methods for building popup-menus
     //@{

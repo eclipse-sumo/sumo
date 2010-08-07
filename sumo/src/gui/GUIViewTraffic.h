@@ -94,50 +94,15 @@ public:
     void setColorScheme(const std::string &name);
 
 
-    /** @brief Shows a vehicle's route(s)
-     * @param[in] v The vehicle to show routes for
-     * @param[in] index The index of the route to show (-1: "all routes")
-     * @see GUISUMOAbstractView::showRoute
-     */
-    void showRoute(GUIVehicle * v, int index=-1) throw();
-
-    ///
-    void showBestLanes(GUIVehicle *v);
-
-    /** @brief Stops showing a vehicle's routes
-     * @param[in] v The vehicle to stop showing routes for
-     * @param[in] index The index of the route to hide (-1: "all routes")
-     * @see GUISUMOAbstractView::hideRoute
-     */
-    void hideRoute(GUIVehicle * v, int index=-1) throw();
-
-    ///
-    void hideBestLanes(GUIVehicle *v);
-
     void showViewschemeEditor();
 
 
-
-    /** @brief Returns the information whether the given route of the given vehicle is shown
-     * @param[in] v The vehicle which route may be shown
-     * @param[in] index The index of the route (-1: "all routes")
-     * @return Whether the route with the given index is shown
-     * @see GUISUMOAbstractView::amShowingRouteFor
-     */
-    bool amShowingRouteFor(GUIVehicle * v, int index=-1) throw();
-
-    /// Returns the information whether the route of the given vehicle is shown
-    bool amShowingBestLanesFor(GUIVehicle *v);
 
     void onGamingClick(Position2D pos);
 
 protected:
     int doPaintGL(int mode, SUMOReal scale);
 
-    void drawRoute(const VehicleOps &vo, int routeNo, SUMOReal darken);
-    void drawBestLanes(const VehicleOps &vo);
-
-    void draw(const MSRoute &r);
 
 private:
     int myTrackedID;

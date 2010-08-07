@@ -122,8 +122,8 @@ double vehiclePoly_EVehicleBackGlass[] =  { 0.65,0,  0.9,0,  0.9,0.4,  0.57,0.3,
  * ----------------------------------------------------------------------- */
 GUIVehicle::GUIVehiclePopupMenu::GUIVehiclePopupMenu(
     GUIMainWindow &app, GUISUMOAbstractView &parent,
-    GUIGlObject &o)
-        : GUIGLObjectPopupMenu(app, parent, o) {
+    GUIGlObject &o, std::map<GUISUMOAbstractView*, int> &additionalVisualizations)
+        : GUIGLObjectPopupMenu(app, parent, o), myVehiclesAdditionalVisualizations(additionalVisualizations) {
 }
 
 
@@ -133,7 +133,9 @@ GUIVehicle::GUIVehiclePopupMenu::~GUIVehiclePopupMenu() throw() {}
 long
 GUIVehicle::GUIVehiclePopupMenu::onCmdShowAllRoutes(FXObject*,FXSelector,void*) {
     assert(myObject->getType()==GLO_VEHICLE);
-    myParent->showRoute(static_cast<GUIVehicle*>(myObject), -1);
+	if (!static_cast<GUIVehicle*>(myObject)->hasActiveAddVisualisation(myParent, VO_SHOW_ALL_ROUTES)) {
+		static_cast<GUIVehicle*>(myObject)->addActiveAddVisualisation(myParent, VO_SHOW_ALL_ROUTES);
+	}
     return 1;
 }
 
@@ -141,7 +143,7 @@ GUIVehicle::GUIVehiclePopupMenu::onCmdShowAllRoutes(FXObject*,FXSelector,void*) 
 long
 GUIVehicle::GUIVehiclePopupMenu::onCmdHideAllRoutes(FXObject*,FXSelector,void*) {
     assert(myObject->getType()==GLO_VEHICLE);
-    myParent->hideRoute(static_cast<GUIVehicle*>(myObject), -1);
+	static_cast<GUIVehicle*>(myObject)->removeActiveAddVisualisation(myParent, VO_SHOW_ALL_ROUTES);
     return 1;
 }
 
@@ -149,7 +151,9 @@ GUIVehicle::GUIVehiclePopupMenu::onCmdHideAllRoutes(FXObject*,FXSelector,void*) 
 long
 GUIVehicle::GUIVehiclePopupMenu::onCmdShowCurrentRoute(FXObject*,FXSelector,void*) {
     assert(myObject->getType()==GLO_VEHICLE);
-    myParent->showRoute(static_cast<GUIVehicle*>(myObject), 0);
+	if (!static_cast<GUIVehicle*>(myObject)->hasActiveAddVisualisation(myParent, VO_SHOW_ROUTE)) {
+		static_cast<GUIVehicle*>(myObject)->addActiveAddVisualisation(myParent, VO_SHOW_ROUTE);
+	}
     return 1;
 }
 
@@ -157,7 +161,9 @@ GUIVehicle::GUIVehiclePopupMenu::onCmdShowCurrentRoute(FXObject*,FXSelector,void
 long
 GUIVehicle::GUIVehiclePopupMenu::onCmdShowBestLanes(FXObject*,FXSelector,void*) {
     assert(myObject->getType()==GLO_VEHICLE);
-    myParent->showBestLanes(static_cast<GUIVehicle*>(myObject));
+	if (!static_cast<GUIVehicle*>(myObject)->hasActiveAddVisualisation(myParent, VO_SHOW_BEST_LANES)) {
+		static_cast<GUIVehicle*>(myObject)->addActiveAddVisualisation(myParent, VO_SHOW_BEST_LANES);
+	}
     return 1;
 }
 
@@ -165,16 +171,17 @@ GUIVehicle::GUIVehiclePopupMenu::onCmdShowBestLanes(FXObject*,FXSelector,void*) 
 long
 GUIVehicle::GUIVehiclePopupMenu::onCmdHideCurrentRoute(FXObject*,FXSelector,void*) {
     assert(myObject->getType()==GLO_VEHICLE);
-    myParent->hideRoute(static_cast<GUIVehicle*>(myObject), 0);
+	static_cast<GUIVehicle*>(myObject)->removeActiveAddVisualisation(myParent, VO_SHOW_ROUTE);
     return 1;
 }
 
 long
 GUIVehicle::GUIVehiclePopupMenu::onCmdHideBestLanes(FXObject*,FXSelector,void*) {
     assert(myObject->getType()==GLO_VEHICLE);
-    myParent->hideBestLanes(static_cast<GUIVehicle*>(myObject));
+	static_cast<GUIVehicle*>(myObject)->removeActiveAddVisualisation(myParent, VO_SHOW_BEST_LANES);
     return 1;
 }
+
 
 long
 GUIVehicle::GUIVehiclePopupMenu::onCmdStartTrack(FXObject*,FXSelector,void*) {
@@ -204,33 +211,34 @@ GUIVehicle::GUIVehicle(GUIGlObjectStorage &idStorage,
 
 
 GUIVehicle::~GUIVehicle() throw() {
-    // just to quit cleanly on a failure
-    if (myLock.locked()) {
-        myLock.unlock();
-    }
+	myLock.lock();
+	for(std::map<GUISUMOAbstractView*, int>::iterator i=myAdditionalVisualizations.begin(); i!=myAdditionalVisualizations.end(); ++i) {
+		while(i->first->removeAdditionalGLVisualisation(this));
+	}
+	myLock.unlock();
 }
 
 
 GUIGLObjectPopupMenu *
 GUIVehicle::getPopUpMenu(GUIMainWindow &app,
                          GUISUMOAbstractView &parent) throw() {
-    GUIGLObjectPopupMenu *ret = new GUIVehiclePopupMenu(app, parent, *this);
+    GUIGLObjectPopupMenu *ret = new GUIVehiclePopupMenu(app, parent, *this, myAdditionalVisualizations);
     buildPopupHeader(ret, app);
     buildCenterPopupEntry(ret);
     buildNameCopyPopupEntry(ret);
     buildSelectionPopupEntry(ret);
     //
-    if (parent.amShowingRouteFor(this, 0)) {
+	if (hasActiveAddVisualisation(&parent, VO_SHOW_ROUTE)) {
         new FXMenuCommand(ret, "Hide Current Route", 0, ret, MID_HIDE_CURRENTROUTE);
     } else {
         new FXMenuCommand(ret, "Show Current Route", 0, ret, MID_SHOW_CURRENTROUTE);
     }
-    if (parent.amShowingRouteFor(this, -1)) {
+	if (hasActiveAddVisualisation(&parent, VO_SHOW_ALL_ROUTES)) {
         new FXMenuCommand(ret, "Hide All Routes", 0, ret, MID_HIDE_ALLROUTES);
     } else {
         new FXMenuCommand(ret, "Show All Routes", 0, ret, MID_SHOW_ALLROUTES);
     }
-    if (parent.amShowingBestLanesFor(this)) {
+	if (hasActiveAddVisualisation(&parent, VO_SHOW_BEST_LANES)) {
         new FXMenuCommand(ret, "Hide Best Lanes", 0, ret, MID_HIDE_BEST_LANES);
     } else {
         new FXMenuCommand(ret, "Show Best Lanes", 0, ret, MID_SHOW_BEST_LANES);
@@ -946,17 +954,40 @@ GUIVehicle::drawGL(const GUIVisualizationSettings &s) const throw() {
 }
 
 
+void 
+GUIVehicle::drawGLAdditional(GUISUMOAbstractView * const parent, const GUIVisualizationSettings &s) const throw() {
+    if (s.needsGlID) {
+        glPushName(getGlID());
+    }
+	if(hasActiveAddVisualisation(parent, VO_SHOW_BEST_LANES)) {
+		drawBestLanes();
+	}
+	if(hasActiveAddVisualisation(parent, VO_SHOW_ROUTE)) {
+		drawRoute(s, 0, 0.25);
+	}
+	if(hasActiveAddVisualisation(parent, VO_SHOW_ALL_ROUTES)) {
+		if (hasCORNIntValue(MSCORN::CORN_VEH_NUMBERROUTE)) {
+			int noReroutePlus1 = getCORNIntValue(MSCORN::CORN_VEH_NUMBERROUTE) + 1;
+            for (int i=noReroutePlus1-1; i>=0; i--) {
+				SUMOReal darken = SUMOReal(0.4) / SUMOReal(noReroutePlus1) * SUMOReal(i);
+                drawRoute(s, i, darken);
+			}
+		} else {
+			drawRoute(s, 0, 0.25);
+		}
+	}
+    if (s.needsGlID) {
+        glPopName();
+    }
+}
+
+
 const std::vector<MSVehicle::LaneQ> &
 GUIVehicle::getBestLanes() const throw() {
     myLock.lock();
     const std::vector<MSVehicle::LaneQ> &ret = MSVehicle::getBestLanes();
     myLock.unlock();
     return ret;
-}
-
-
-void
-GUIVehicle::initShapes() throw() {
 }
 
 
@@ -1078,6 +1109,96 @@ GUIVehicle::Colorer::getColorValue(const GUIVehicle& vehicle) const {
         return vehicle.getCORNIntValue(MSCORN::CORN_VEH_NUMBERROUTE);
     }
     return 0;
+}
+
+
+// ------------ Additional visualisations
+bool 
+GUIVehicle::hasActiveAddVisualisation(GUISUMOAbstractView * const parent, int which) const throw() {
+	return myAdditionalVisualizations.find(parent)!=myAdditionalVisualizations.end()&&(myAdditionalVisualizations.find(parent)->second&which)!=0;
+}
+
+
+bool 
+GUIVehicle::addActiveAddVisualisation(GUISUMOAbstractView * const parent, int which) throw() {
+	if(myAdditionalVisualizations.find(parent)==myAdditionalVisualizations.end()) {
+		myAdditionalVisualizations[parent] = 0;
+	}
+	myAdditionalVisualizations[parent] |= which;
+	return parent->addAdditionalGLVisualisation(this);
+}
+
+
+bool 
+GUIVehicle::removeActiveAddVisualisation(GUISUMOAbstractView * const parent, int which) throw() {
+	myAdditionalVisualizations[parent] &= ~which;
+	return parent->removeAdditionalGLVisualisation(this);
+}
+
+
+void
+GUIVehicle::drawRoute(const GUIVisualizationSettings &s, int routeNo, SUMOReal darken) const throw() {
+    s.vehicleColorer.setGlColor(*this);
+    GLdouble colors[4];
+    glGetDoublev(GL_CURRENT_COLOR, colors);
+    colors[0] -= darken;
+    if (colors[0]<0) colors[0] = 0;
+    colors[1] -= darken;
+    if (colors[1]<0) colors[1] = 0;
+    colors[2] -= darken;
+    if (colors[2]<0) colors[2] = 0;
+    colors[3] -= darken;
+    if (colors[3]<0) colors[3] = 0;
+    glColor3dv(colors);
+    draw(getRoute(routeNo));
+}
+
+
+void
+GUIVehicle::drawBestLanes() const throw() {
+    const std::vector<MSVehicle::LaneQ> &lanes = getBestLanes();
+    SUMOReal gmax = -1;
+    SUMOReal rmax = -1;
+    for (std::vector<MSVehicle::LaneQ>::const_iterator i=lanes.begin(); i!=lanes.end(); ++i) {
+        gmax = MAX2((*i).length, gmax);
+        rmax = MAX2((*i).occupied, rmax);
+    }
+    for (std::vector<MSVehicle::LaneQ>::const_iterator i=lanes.begin(); i!=lanes.end(); ++i) {
+        const Position2DVector &shape = (*i).lane->getShape();
+        SUMOReal g = (*i).length / gmax;
+        SUMOReal r = (*i).occupied / rmax;
+        glColor3d(r, g, 0);
+        GLHelper::drawBoxLines(shape, 0.5);
+
+        Position2DVector s1 = shape;
+        s1.move2side((SUMOReal) .1);
+        glColor3d(r, 0, 0);
+        GLHelper::drawLine(s1);
+        s1.move2side((SUMOReal) -.2);
+        glColor3d(0, g, 0);
+        GLHelper::drawLine(s1);
+
+        glColor3d(r, g, 0);
+        Position2D lastPos = shape[-1];
+        for (std::vector<MSLane*>::const_iterator j=(*i).joined.begin(); j!=(*i).joined.end(); ++j) {
+            const Position2DVector &shape = (*j)->getShape();
+            GLHelper::drawLine(lastPos, shape[0]);
+            GLHelper::drawBoxLines(shape, (SUMOReal) 0.2);
+            lastPos = shape[-1];
+        }
+    }
+}
+
+
+void
+GUIVehicle::draw(const MSRoute &r) const throw() {
+    MSRouteIterator i = r.begin();
+    for (; i!=r.end(); ++i) {
+        const MSEdge *e = *i;
+        const GUIEdge *ge = static_cast<const GUIEdge*>(e);
+        const GUILaneWrapper &lane = ge->getLaneGeometry((size_t) 0);
+        GLHelper::drawBoxLines(lane.getShape(), lane.getShapeRotations(), lane.getShapeLengths(), 1.0);
+    }
 }
 
 
