@@ -29,6 +29,8 @@
 #include <config.h>
 #endif
 
+#ifndef NO_TRACI
+
 #include <traci-server/TraCIException.h>
 #include <traci-server/TraCIServer.h>
 #include <foreign/tcpip/storage.h>
@@ -73,6 +75,8 @@ private:
 
 };
 
+
+#endif
 
 #endif
 

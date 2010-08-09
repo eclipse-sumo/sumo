@@ -1319,10 +1319,10 @@ MSVehicle::enterLaneAtMove(MSLane* enteredLane, SUMOReal driven, bool onTeleport
         return true;
     }
     if(!onTeleporting) {
-    // move mover reminder one lane further
-    adaptLaneEntering2MoveReminder(*enteredLane);
-    // set the entered lane as the current lane
-    myLane = enteredLane;
+        // move mover reminder one lane further
+        adaptLaneEntering2MoveReminder(*enteredLane);
+        // set the entered lane as the current lane
+        myLane = enteredLane;
     }
 
     // internal edges are not a part of the route...
@@ -1336,15 +1336,15 @@ MSVehicle::enterLaneAtMove(MSLane* enteredLane, SUMOReal driven, bool onTeleport
         ++myCurrEdge;
     }
     if(!onTeleporting) {
-    // may be optimized: compute only, if the current or the next have more than one lane...!!!
-    getBestLanes(true);
-    activateReminders(false, false);
-    for (std::vector< MSDevice* >::iterator dev=myDevices.begin(); dev != myDevices.end(); ++dev) {
-        (*dev)->enterLaneAtMove(enteredLane, driven);
-    }
+        // may be optimized: compute only, if the current or the next have more than one lane...!!!
+        getBestLanes(true);
+        activateReminders(false, false);
+        for (std::vector< MSDevice* >::iterator dev=myDevices.begin(); dev != myDevices.end(); ++dev) {
+            (*dev)->enterLaneAtMove(enteredLane, driven);
+        }
 
 #ifndef NO_TRACI
-    checkForLaneChanges();
+        checkForLaneChanges();
 #endif
     }
     MSRouteIterator destination = myRoute->end() - 1;

@@ -1180,6 +1180,8 @@ private:
     MSEdgeWeightsStorage *myEdgeWeights;
 
 
+    SUMOTime myLastGreenTime;
+
 #ifndef NO_TRACI
     /* indicates whether the vehicle is adapting its speed caused by the TraCI command slowDown*/
     bool adaptingSpeed;
@@ -1213,8 +1215,6 @@ private:
     bool laneChangeConstraintActive;
 
 	SUMOReal myTraCISpeed;
-
-    SUMOTime myLastGreenTime;
 
 #endif
 

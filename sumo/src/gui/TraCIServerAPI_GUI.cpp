@@ -27,6 +27,8 @@
 #include <config.h>
 #endif
 
+#ifndef NO_TRACI
+
 #include <fx.h>
 #include <utils/gui/windows/GUIMainWindow.h>
 #include <utils/gui/windows/GUIGlChildWindow.h>
@@ -167,6 +169,8 @@ TraCIServerAPI_GUI::processSet(TraCIServer &server, tcpip::Storage &inputStorage
     return true;
 }
 
+
+#endif
 
 
 /****************************************************************************/
