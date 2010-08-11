@@ -35,6 +35,7 @@
 #include <microsim/MSVehicle.h>
 #include "GUINet.h"
 #include "GUIVehicle.h"
+#include "GLObjectValuePassConnector.h"
 #include <gui/GUIApplicationWindow.h>
 #include <utils/gui/windows/GUISUMOAbstractView.h>
 #include <gui/GUIGlobals.h>
@@ -216,6 +217,7 @@ GUIVehicle::~GUIVehicle() throw() {
 		while(i->first->removeAdditionalGLVisualisation(this));
 	}
 	myLock.unlock();
+	GLObjectValuePassConnector<SUMOReal>::removeObject(*this);
 }
 
 
@@ -303,18 +305,6 @@ GUIVehicle::getParameterWindow(GUIMainWindow &app,
 const std::string &
 GUIVehicle::getMicrosimID() const throw() {
     return getID();
-}
-
-
-bool
-GUIVehicle::active() const throw() {
-    return isOnRoad();
-}
-
-
-void
-GUIVehicle::setRemoved() {
-    myLane = 0;
 }
 
 

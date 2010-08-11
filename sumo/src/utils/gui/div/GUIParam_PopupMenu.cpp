@@ -57,9 +57,8 @@ FXIMPLEMENT(GUIParam_PopupMenuInterface, FXMenuPane, GUIParam_PopupMenuInterface
 // method definitions
 // ===========================================================================
 GUIParam_PopupMenuInterface::GUIParam_PopupMenuInterface(GUIMainWindow &app,
-        GUIParameterTableWindow &parentWindow,
-        GUIGlObject &o, const std::string &varName,
-        ValueSource<SUMOReal> *src)  throw()
+        GUIParameterTableWindow &parentWindow, GUIGlObject &o, const std::string &varName,
+        ValueSource<SUMOReal> *src) throw()
         : FXMenuPane(&parentWindow), myObject(&o), myParentWindow(&parentWindow),
         myApplication(&app), myVarName(varName), mySource(src) {
 }
@@ -73,10 +72,8 @@ GUIParam_PopupMenuInterface::~GUIParam_PopupMenuInterface() throw() {
 long
 GUIParam_PopupMenuInterface::onCmdOpenTracker(FXObject*,FXSelector,void*) {
     std::string trackerName = myVarName + " from " + myObject->getFullName();
-    GUIParameterTracker *tr = new GUIParameterTracker(*myApplication,
-            trackerName, *myObject, 0, 0);
-    TrackerValueDesc *newTracked = new TrackerValueDesc(
-        myVarName, RGBColor(0, 0, 0), myApplication->getCurrentSimTime());
+    GUIParameterTracker *tr = new GUIParameterTracker(*myApplication, trackerName, *myObject, 0, 0);
+    TrackerValueDesc *newTracked = new TrackerValueDesc(myVarName, RGBColor(0, 0, 0), myApplication->getCurrentSimTime());
     tr->addTracked(*myObject, mySource->copy(), newTracked);
     tr->create();
     tr->show();

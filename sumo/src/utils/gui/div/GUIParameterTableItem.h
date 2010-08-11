@@ -194,14 +194,11 @@ public:
         myTable->setItemText(myTablePosition, 0, myName.c_str());
         myTable->setItemText(myTablePosition, 1, value.c_str());
         if (dynamic) {
-            myTable->setItemIcon(myTablePosition, 2,
-                                 GUIIconSubSys::getIcon(ICON_YES));
+            myTable->setItemIcon(myTablePosition, 2, GUIIconSubSys::getIcon(ICON_YES));
         } else {
-            myTable->setItemIcon(myTablePosition, 2,
-                                 GUIIconSubSys::getIcon(ICON_NO));
+            myTable->setItemIcon(myTablePosition, 2, GUIIconSubSys::getIcon(ICON_NO));
         }
-        myTable->setItemJustify(myTablePosition, 2,
-                                FXTableItem::CENTER_X|FXTableItem::CENTER_Y);
+        myTable->setItemJustify(myTablePosition, 2, FXTableItem::CENTER_X|FXTableItem::CENTER_Y);
     }
 
 

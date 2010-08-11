@@ -85,22 +85,6 @@ public:
 
 
 
-    /// @name Insertion, deletion and retrieal of vehicles
-    /// @{
-
-    /** @brief Deletes the vehicle
-     *
-     * We are destroying this vehicle only if it is not in use
-     *  with the visualization.
-     *
-     * @param[in] v The vehicle to delete
-     * @todo Isn't this quite insecure?
-     * @see MSVehicleControl::deleteVehicle
-     */
-    virtual void deleteVehicle(MSVehicle *v) throw();
-    /// @}
-
-
     /** @brief Returns the list of all known vehicles by gl-id
      * @param[fill] into The list to fill with vehicle ids
      * @todo Well, what about concurrent modifications?

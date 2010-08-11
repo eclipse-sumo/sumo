@@ -27,6 +27,8 @@
 
 #include <utility>
 #include <set>
+#include <vector>
+#include <map>
 #include <microsim/MSNet.h>
 #include <microsim/MSJunction.h>
 #include <microsim/output/MSDetectorControl.h>
@@ -52,7 +54,6 @@
 #include <guisim/GUIJunctionWrapper.h>
 #include <guisim/GUIVehicleControl.h>
 #include <gui/GUIGlobals.h>
-#include <microsim/MSUpdateEachTimestepContainer.h>
 #include <microsim/MSRouteLoader.h>
 #include "GUIVehicle.h"
 #include "GUINet.h"
@@ -63,10 +64,21 @@
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
 #include <utils/gui/div/GUIParameterTableWindow.h>
 #include <utils/common/StringUtils.h>
+#include "GLObjectValuePassConnector.h"
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
 #endif // CHECK_MEMORY_LEAKS
+
+
+// ===========================================================================
+// definition of static variables used for visualisation of objects' values
+// ===========================================================================
+std::vector< GLObjectValuePassConnector<SUMOReal>* > GLObjectValuePassConnector<SUMOReal>::myContainer;
+MFXMutex GLObjectValuePassConnector<SUMOReal>::myLock;
+
+std::vector< GLObjectValuePassConnector<std::pair<int,class MSPhaseDefinition> >* > GLObjectValuePassConnector<std::pair<int,class MSPhaseDefinition> >::myContainer;
+MFXMutex GLObjectValuePassConnector<std::pair<int,class MSPhaseDefinition> >::myLock;
 
 
 // ===========================================================================
@@ -104,6 +116,8 @@ GUINet::~GUINet() throw() {
     }
     // the visualization tree
     delete myGrid;
+    GLObjectValuePassConnector<SUMOReal>::clear();
+    GLObjectValuePassConnector<std::pair<SUMOTime, MSPhaseDefinition> >::clear();
 }
 
 
@@ -248,8 +262,8 @@ GUINet::getLinkTLIndex(MSLink *link) const {
 
 void
 GUINet::guiSimulationStep() {
-    MSUpdateEachTimestepContainer<MSUpdateEachTimestep<GLObjectValuePassConnector<SUMOReal> > >::getInstance()->updateAll();
-    MSUpdateEachTimestepContainer<MSUpdateEachTimestep<GLObjectValuePassConnector<std::pair<SUMOTime, MSPhaseDefinition> > > >::getInstance()->updateAll();
+    GLObjectValuePassConnector<SUMOReal>::updateAll();
+    GLObjectValuePassConnector<std::pair<SUMOTime, MSPhaseDefinition> >::updateAll();
 }
 
 

@@ -218,6 +218,7 @@ GUISUMOAbstractView::paintGL() {
             Boundary b = o->getCenteringBoundary();
             myChanger->centerTo(*myGrid, b, false);
         }
+		GUIGlObjectStorage::gIDStorage.unblockObject(getTrackedID());
     }
 
     unsigned int id = 0;
@@ -754,6 +755,7 @@ GUISUMOAbstractView::openObjectDialog() {
             myPopup->create();
             myPopup->show();
             myChanger->onRightBtnRelease(0);
+			GUIGlObjectStorage::gIDStorage.unblockObject(id);
         }
         makeNonCurrent();
     }

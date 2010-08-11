@@ -80,10 +80,8 @@ GUIParameterTracker::GUIParameterTracker(GUIMainWindow &app,
         myApplication(&app) {
     buildToolBar();
     app.addChild(this, true);
-    FXVerticalFrame *glcanvasFrame =
-        new FXVerticalFrame(this,FRAME_SUNKEN|LAYOUT_SIDE_TOP|LAYOUT_FILL_X|LAYOUT_FILL_Y,0,0,0,0,0,0,0,0);
-    myPanel = new GUIParameterTrackerPanel(glcanvasFrame,
-                                           *myApplication, *this);
+    FXVerticalFrame *glcanvasFrame = new FXVerticalFrame(this, FRAME_SUNKEN|LAYOUT_SIDE_TOP|LAYOUT_FILL_X|LAYOUT_FILL_Y, 0,0,0,0,0,0,0,0);
+    myPanel = new GUIParameterTrackerPanel(glcanvasFrame, *myApplication, *this);
     setTitle(name.c_str());
     setIcon(GUIIconSubSys::getIcon(ICON_APP_TRACKER));
 }
@@ -97,12 +95,8 @@ GUIParameterTracker::GUIParameterTracker(GUIMainWindow &app,
         myApplication(&app) {
     buildToolBar();
     app.addChild(this, true);
-    FXVerticalFrame *glcanvasFrame =
-        new FXVerticalFrame(this,
-                            FRAME_SUNKEN|LAYOUT_SIDE_TOP|LAYOUT_FILL_X|LAYOUT_FILL_Y,
-                            0,0,0,0,0,0,0,0);
-    myPanel = new GUIParameterTrackerPanel(glcanvasFrame,
-                                           *myApplication, *this);
+    FXVerticalFrame *glcanvasFrame = new FXVerticalFrame(this, FRAME_SUNKEN|LAYOUT_SIDE_TOP|LAYOUT_FILL_X|LAYOUT_FILL_Y, 0,0,0,0,0,0,0,0);
+    myPanel = new GUIParameterTrackerPanel(glcanvasFrame, *myApplication, *this);
     setTitle(name.c_str());
     setIcon(GUIIconSubSys::getIcon(ICON_APP_TRACKER));
 }
@@ -153,13 +147,11 @@ GUIParameterTracker::buildToolBar() {
 
 
 void
-GUIParameterTracker::addTracked(GUIGlObject &o,
-                                ValueSource<SUMOReal> *src,
+GUIParameterTracker::addTracked(GUIGlObject &o, ValueSource<SUMOReal> *src,
                                 TrackerValueDesc *newTracked) {
     myTracked.push_back(newTracked);
     // build connection (is automatically set into an execution map)
-    myValuePassers.push_back(new GLObjectValuePassConnector<SUMOReal>(o,
-                             src, newTracked));
+    myValuePassers.push_back(new GLObjectValuePassConnector<SUMOReal>(o, src, newTracked));
 }
 
 

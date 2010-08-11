@@ -30,6 +30,7 @@
 #endif
 
 #include <string>
+#include <set>
 #include "GUIGlObjectTypes.h"
 #include <utils/geom/Boundary.h>
 
@@ -65,8 +66,7 @@ public:
      * @param[in] fullName The complete name, including a type-prefix
      * @see GUIGlObjectStorage
      */
-    GUIGlObject(GUIGlObjectStorage &idStorage,
-                std::string fullName) throw();
+    GUIGlObject(GUIGlObjectStorage &idStorage, std::string fullName) throw();
 
 
     /** @brief Constructor
@@ -121,8 +121,7 @@ public:
      * @param[in] parent The parent window needed to build the popup-menu
      * @return The built popup-menu
      */
-    virtual GUIGLObjectPopupMenu *getPopUpMenu(
-        GUIMainWindow &app, GUISUMOAbstractView &parent) throw() = 0;
+    virtual GUIGLObjectPopupMenu *getPopUpMenu(GUIMainWindow &app, GUISUMOAbstractView &parent) throw() = 0;
 
 
     /** @brief Returns an own parameter window
@@ -131,8 +130,7 @@ public:
      * @param[in] parent The parent window needed to build the parameter window
      * @return The built parameter window
      */
-    virtual GUIParameterTableWindow *getParameterWindow(
-        GUIMainWindow &app, GUISUMOAbstractView &parent) throw() = 0;
+    virtual GUIParameterTableWindow *getParameterWindow(GUIMainWindow &app, GUISUMOAbstractView &parent) throw() = 0;
 
 
     /** @brief Returns the id of the object as known to microsim
@@ -163,21 +161,29 @@ public:
     //@}
 
 
-
-    /** @brief Returns the information whether this object is still active
-     *
-     * @return Whether this object is active (always true in this case)
-     */
-    virtual bool active() const throw() {
-        return true;
-    }
-
-
     /** @brief Draws additional, user-triggered visualisations
      * @param[in] parent The view
      * @param[in] s The settings for the current view (may influence drawing)
      */
 	virtual void drawGLAdditional(GUISUMOAbstractView * const parent, const GUIVisualizationSettings &s) const throw() { };
+
+
+
+	/// @name Parameter table window I/O
+	/// @{
+
+	/** @brief Lets this object know a parameter window showing the object's values was opened
+	 * @param[in] w The opened parameter window
+	 */
+	void addParameterTable(GUIParameterTableWindow *w) throw();
+
+
+	/** @brief Lets this object know a parameter window showing the object's values was closed
+	 * @param[in] w The closed parameter window
+	 */
+	void removeParameterTable(GUIParameterTableWindow *w) throw();
+	/// @}
+
 
 
 protected:
@@ -186,16 +192,13 @@ protected:
 
     /** @brief Builds the header
      * @param[in, filled] ret The popup menu to add the entry to
-     * @param[in] app The application, needed for callbacks
      * @param[in] addSeparator Whether a separator shall be added, too
      */
-    void buildPopupHeader(GUIGLObjectPopupMenu *ret,
-                          GUIMainWindow &app, bool addSeparator=true) throw();
+    void buildPopupHeader(GUIGLObjectPopupMenu *ret, GUIMainWindow &app, bool addSeparator=true) throw();
 
 
     /** @brief Builds an entry which allows to center to the object
      * @param[in, filled] ret The popup menu to add the entry to
-     * @param[in] app The application, needed for callbacks
      * @param[in] addSeparator Whether a separator shall be added, too
      */
     void buildCenterPopupEntry(GUIGLObjectPopupMenu *ret, bool addSeparator=true) throw();
@@ -203,48 +206,39 @@ protected:
 
     /** @brief Builds entries which allow to copy the name / typed name into the clipboard
      * @param[in, filled] ret The popup menu to add the entry to
-     * @param[in] app The application, needed for callbacks
      * @param[in] addSeparator Whether a separator shall be added, too
      */
-    void buildNameCopyPopupEntry(GUIGLObjectPopupMenu *ret,
-                                 bool addSeparator=true) throw();
+    void buildNameCopyPopupEntry(GUIGLObjectPopupMenu *ret, bool addSeparator=true) throw();
 
 
     /** @brief Builds an entry which allows to (de)select the object
      * @param[in, filled] ret The popup menu to add the entry to
-     * @param[in] app The application, needed for callbacks
      * @param[in] addSeparator Whether a separator shall be added, too
      */
-    void buildSelectionPopupEntry(GUIGLObjectPopupMenu *ret,
-                                  bool addSeparator=true) throw();
+    void buildSelectionPopupEntry(GUIGLObjectPopupMenu *ret, bool addSeparator=true) throw();
 
 
     /** @brief Builds an entry which allows to open the parameter window
      * @param[in, filled] ret The popup menu to add the entry to
-     * @param[in] app The application, needed for callbacks
      * @param[in] addSeparator Whether a separator shall be added, too
      */
-    void buildShowParamsPopupEntry(GUIGLObjectPopupMenu *ret,
-                                   bool addSeparator=true) throw();
+    void buildShowParamsPopupEntry(GUIGLObjectPopupMenu *ret, bool addSeparator=true) throw();
 
 
     /** @brief Builds an entry which allows to copy the cursor position
      * @param[in, filled] ret The popup menu to add the entry to
-     * @param[in] app The application, needed for callbacks
      * @param[in] addSeparator Whether a separator shall be added, too
      */
-    void buildPositionCopyEntry(GUIGLObjectPopupMenu *ret,
-                                bool addSeparator=true) throw();
+    void buildPositionCopyEntry(GUIGLObjectPopupMenu *ret, bool addSeparator=true) throw();
 
 
     /** @brief Builds an entry which allows to open the manipulator window
      * @param[in, filled] ret The popup menu to add the entry to
-     * @param[in] app The application, needed for callbacks
      * @param[in] addSeparator Whether a separator shall be added, too
      */
-    void buildShowManipulatorPopupEntry(GUIGLObjectPopupMenu *ret,
-                                        bool addSeparator=true) throw();
+    void buildShowManipulatorPopupEntry(GUIGLObjectPopupMenu *ret, bool addSeparator=true) throw();
     //@}
+
 
 private:
     /** @brief Sets the id of the object
@@ -261,6 +255,10 @@ private:
 
     /// @brief The name of the object
     std::string myFullName;
+
+	/// @brief Parameter table windows which refer to this object
+	std::set<GUIParameterTableWindow*> myParamWindows;
+	
 
 };
 

@@ -60,15 +60,6 @@ GUIVehicleControl::buildVehicle(SUMOVehicleParameter* defs,
 
 
 void
-GUIVehicleControl::deleteVehicle(MSVehicle *veh) throw() {
-    static_cast<GUIVehicle*>(veh)->setRemoved();
-    if (GUIGlObjectStorage::gIDStorage.remove(static_cast<GUIVehicle*>(veh)->getGlID())) {
-        MSVehicleControl::deleteVehicle(veh);
-    }
-}
-
-
-void
 GUIVehicleControl::insertVehicleIDs(std::vector<GLuint> &into) throw() {
     into.reserve(myVehicleDict.size());
     for (VehicleDictType::iterator i=myVehicleDict.begin(); i!=myVehicleDict.end(); ++i) {

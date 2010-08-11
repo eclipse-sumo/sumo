@@ -103,8 +103,7 @@ public:
      * @return The built popup-menu
      * @see GUIGlObject::getPopUpMenu
      */
-    GUIGLObjectPopupMenu *getPopUpMenu(GUIMainWindow &app,
-                                       GUISUMOAbstractView &parent) throw();
+    GUIGLObjectPopupMenu *getPopUpMenu(GUIMainWindow &app, GUISUMOAbstractView &parent) throw();
 
 
     /** @brief Returns an own parameter window
@@ -114,8 +113,7 @@ public:
      * @return The built parameter window
      * @see GUIGlObject::getParameterWindow
      */
-    GUIParameterTableWindow *getParameterWindow(
-        GUIMainWindow &app, GUISUMOAbstractView &parent) throw();
+    GUIParameterTableWindow *getParameterWindow(GUIMainWindow &app, GUISUMOAbstractView &parent) throw();
 
 
     /** @brief Returns the id of the object as known to microsim
@@ -152,13 +150,6 @@ public:
     void drawGL(const GUIVisualizationSettings &s) const throw();
 
 
-    /** @brief Returns the information whether this object is still active
-     *
-     * @return Whether this vehicle is active (has not left the simulation)
-     * @see GUIGlObject::active
-     */
-    bool active() const throw();
-
 
     /** @brief Draws additionally triggered visualisations
      * @param[in] parent The view
@@ -166,9 +157,6 @@ public:
      */
 	virtual void drawGLAdditional(GUISUMOAbstractView * const parent, const GUIVisualizationSettings &s) const throw();
     //@}
-
-
-    void setRemoved();
 
 
 

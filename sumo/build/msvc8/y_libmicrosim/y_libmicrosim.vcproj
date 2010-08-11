@@ -882,14 +882,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\microsim\MSUpdateEachTimestep.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\microsim\MSUpdateEachTimestepContainer.h"
-				>
-			</File>
-			<File
 				RelativePath="..\..\..\src\microsim\MSVehicle.h"
 				>
 			</File>
