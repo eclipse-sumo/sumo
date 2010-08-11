@@ -72,12 +72,14 @@ RONet::~RONet() throw() {
 }
 
 
-void
+bool
 RONet::addEdge(ROEdge *edge) throw() {
     if (!myEdges.add(edge->getID(), edge)) {
         MsgHandler::getErrorInstance()->inform("The edge '" + edge->getID() + "' occurs at least twice.");
         delete edge;
+		return false;
     }
+	return true;
 }
 
 

@@ -130,22 +130,24 @@ RONetHandler::parseEdge(const SUMOSAXAttributes &attrs) {
     }
     // build the edge
     myCurrentEdge = myEdgeBuilder.buildEdge(myCurrentName, fromNode, toNode);
-    myNet.addEdge(myCurrentEdge); // !!! where is the edge deleted when failing?
-    // !!! secure??
-    // get the type of the edge
-    myProcess = true;
-    if (type=="normal"||type=="connector") {
-        myCurrentEdge->setType(ROEdge::ET_NORMAL);
-    } else if (type=="source") {
-        myCurrentEdge->setType(ROEdge::ET_SOURCE);
-    } else if (type=="sink") {
-        myCurrentEdge->setType(ROEdge::ET_SINK);
-    } else if (type=="internal") {
-        myProcess = false;
-    } else {
-        MsgHandler::getErrorInstance()->inform("Edge '" + myCurrentName + "' has an unknown type.");
-        return;
-    }
+	if(myNet.addEdge(myCurrentEdge)) {
+	    // get the type of the edge
+	    myProcess = true;
+		if (type=="normal"||type=="connector") {
+			myCurrentEdge->setType(ROEdge::ET_NORMAL);
+		} else if (type=="source") {
+			myCurrentEdge->setType(ROEdge::ET_SOURCE);
+		} else if (type=="sink") {
+			myCurrentEdge->setType(ROEdge::ET_SINK);
+		} else if (type=="internal") {
+			myProcess = false;
+		} else {
+			MsgHandler::getErrorInstance()->inform("Edge '" + myCurrentName + "' has an unknown type.");
+			return;
+		}
+	} else {
+		myCurrentEdge = 0;
+	}
 }
 
 

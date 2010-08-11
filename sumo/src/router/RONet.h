@@ -80,11 +80,12 @@ public:
      *
      * If the edge is already known (another one with the same id exists),
      *  an error is generated and given to msg-error-handler. The edge
-     *  is deleted in this case
+     *  is deleted in this case and false is returned.
      *
      * @param[in] edge The edge to add
+	 * @return Whether the edge was added (if not, it was deleted, too)
      */
-    virtual void addEdge(ROEdge *edge) throw();
+    virtual bool addEdge(ROEdge *edge) throw();
 
 
     /** @brief Retrieves an edge from the network
