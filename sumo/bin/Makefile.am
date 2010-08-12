@@ -6,9 +6,9 @@ if TRACI
 TRACI_TESTCLIENT_APPS = TraCITestClient
 endif
 
-DISTCLEANFILES = sumo dfrouter duarouter jtrrouter netconvert netgen od2trips polyconvert $(GUI_APPS) $(TRACI_TESTCLIENT_APPS)
+DISTCLEANFILES = sumo dfrouter duarouter jtrrouter netconvert netgen od2trips polyconvert activitygen $(GUI_APPS) $(TRACI_TESTCLIENT_APPS)
 
-all: sumo dfrouter duarouter jtrrouter netconvert netgen od2trips polyconvert $(GUI_APPS) $(TRACI_TESTCLIENT_APPS)
+all: sumo dfrouter duarouter jtrrouter netconvert netgen od2trips polyconvert activitygen $(GUI_APPS) $(TRACI_TESTCLIENT_APPS)
 sumo: ../src/sumo
 	cp ../src/sumo .
 dfrouter: ../src/dfrouter/dfrouter
@@ -25,6 +25,8 @@ od2trips: ../src/od2trips/od2trips
 	cp ../src/od2trips/od2trips .
 polyconvert: ../src/polyconvert/polyconvert
 	cp ../src/polyconvert/polyconvert .
+activitygen: ../src/activitygen/activitygen
+	cp ../src/activitygen/activitygen .
 $(GUI_APPS): ../src/$(GUI_APPS)
 	cp ../src/$(GUI_APPS) .
 $(TRACI_TESTCLIENT_APPS): ../src/traci_testclient/$(TRACI_TESTCLIENT_APPS)
