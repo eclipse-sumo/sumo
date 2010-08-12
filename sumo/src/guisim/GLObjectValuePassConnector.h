@@ -162,6 +162,12 @@ protected:
 };
 
 
+template<typename T>
+std::vector< GLObjectValuePassConnector<T>* > GLObjectValuePassConnector<T>::myContainer;
+template<typename T>
+MFXMutex GLObjectValuePassConnector<T>::myLock;
+
+
 #endif
 
 /****************************************************************************/

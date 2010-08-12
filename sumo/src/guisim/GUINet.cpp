@@ -74,11 +74,11 @@
 // ===========================================================================
 // definition of static variables used for visualisation of objects' values
 // ===========================================================================
-std::vector< GLObjectValuePassConnector<SUMOReal>* > GLObjectValuePassConnector<SUMOReal>::myContainer;
-MFXMutex GLObjectValuePassConnector<SUMOReal>::myLock;
+template std::vector< GLObjectValuePassConnector<SUMOReal>* > GLObjectValuePassConnector<SUMOReal>::myContainer;
+template MFXMutex GLObjectValuePassConnector<SUMOReal>::myLock;
 
-std::vector< GLObjectValuePassConnector<std::pair<int,class MSPhaseDefinition> >* > GLObjectValuePassConnector<std::pair<int,class MSPhaseDefinition> >::myContainer;
-MFXMutex GLObjectValuePassConnector<std::pair<int,class MSPhaseDefinition> >::myLock;
+template std::vector< GLObjectValuePassConnector<std::pair<int,class MSPhaseDefinition> >* > GLObjectValuePassConnector<std::pair<int,class MSPhaseDefinition> >::myContainer;
+template MFXMutex GLObjectValuePassConnector<std::pair<int,class MSPhaseDefinition> >::myLock;
 
 
 // ===========================================================================
