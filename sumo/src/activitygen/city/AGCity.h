@@ -53,8 +53,10 @@ class AGHousehold;
 class AGCity
 {
 public:
-	AGCity() :
-	  statData()
+	AGCity(RONet* net) :
+	  statData(),
+	  net(net),
+	  streetsCompleted(false)
 	  {};
 
 	/**
@@ -97,6 +99,14 @@ private:
 	 * generates people from outside the city for incoming traffic generation
 	 */
 	void generateIncomingPopulation();
+
+	// @brief network of the city
+	RONet* net;
+	/**
+	 * false until the function completeStreets is called
+	 * this function completes streets and turn this parameter to true
+	 */
+	bool streetsCompleted;
 
 	int NrStreets;
 	int nbrCars;

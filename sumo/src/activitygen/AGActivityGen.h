@@ -44,7 +44,7 @@
 class AGActivityGen
 {
 public:
-	AGActivityGen() {};
+	//AGActivityGen() {};
 	/** @brief Constructor
 	 *
 	 * @param[in] input input stat-file name (containing information about the city)
@@ -56,7 +56,7 @@ public:
 		outputFile(output),
 		net(net),
 		//activities(),
-		city()
+		city(net)
 	{};
 	/** @brief build the internal city
 	 *

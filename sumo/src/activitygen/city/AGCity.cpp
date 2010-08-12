@@ -29,8 +29,12 @@
 
 #include <iostream>
 #include <vector>
+#include <string>
+#include <map>
 #include <iomanip>
 #include <utils/common/RandHelper.h>
+#include <router/RONet.h>
+#include <router/ROEdge.h>
 #include "AGStreet.h"
 #include "AGWorkPosition.h"
 #include "AGCity.h"
@@ -49,6 +53,11 @@ using namespace std;
 void
 AGCity::completeStreets()
 {
+	if(streetsCompleted)
+		return;
+	else
+		streetsCompleted = true;
+
 	NrStreets = 0;
 	int pop=0, work=0;
 	std::vector<AGStreet>::iterator it;
@@ -81,6 +90,31 @@ AGCity::completeStreets()
 		it->setPopulation((int)(it->getPopDensity() * statData.factorInhabitants));
 		it->setWorkPositions((int)(it->getWorkDensity() * statData.factorWorkPositions));
 		it->print();
+	}
+
+	//completing streets from edges of the network not handled/present in STAT file (no population no work position)
+	map<string, ROEdge*>::const_iterator itE;
+	vector<AGStreet>::iterator itS;
+
+	cout << "taille Edges: " << net->getEdgeMap().size() << endl;
+	cout << "taille Streets: " << streets.size() << endl;
+
+	for(itE = net->getEdgeMap().begin() ; itE != net->getEdgeMap().end() ; ++itE)
+	{
+		for(itS = streets.begin() ; itS != streets.end() ; ++itS)
+		{
+			if(itS->getName() == itE->second->getID())
+			{
+				break;
+			}
+		}
+		//if this edge isn't represented by a street
+		if(itS == streets.end())
+		{
+			cout << "ajout: " << itE->second->getID() << endl;
+			AGStreet str(itE->second->getID(), net);
+			streets.push_back(str);
+		}
 	}
 }
 
@@ -311,6 +345,17 @@ AGCity::carAllocation()
 AGStreet*
 AGCity::getStreet(string edge)
 {
+	/**
+	 * verify if it is the first time this function is called
+	 * in this case, we have to complete the streets with the
+	 * network edges this means that streets are completely
+	 * loaded (no any more to be read from stat-file)
+	 */
+	if(!streetsCompleted)
+	{
+		completeStreets();
+	}
+	//rest of the function
 	vector<AGStreet>::iterator it = streets.begin();
 	while(it != streets.end())
 	{
@@ -318,7 +363,7 @@ AGCity::getStreet(string edge)
 			return &*it;
 		++it;
 	}
-	cout << "===> ERROR: WRONG STREET EDGE given and not found in street set." << endl;
+	cout << "===> ERROR: WRONG STREET EDGE (" << edge << ") given and not found in street set." << endl;
 	return NULL;
 }
 
