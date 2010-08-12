@@ -77,7 +77,7 @@ public:
     /// @brief Destructor
     virtual ~GLObjectValuePassConnector() throw() {
 		myLock.lock();
-		std::vector< GLObjectValuePassConnector<T>* >::iterator i = std::find(myContainer.begin(), myContainer.end(), this);
+		typename std::vector< GLObjectValuePassConnector<T>* >::iterator i = std::find(myContainer.begin(), myContainer.end(), this);
         if (i!=myContainer.end()) {
             myContainer.erase(i);
         }
@@ -102,7 +102,7 @@ public:
 	 */
     static void clear() throw() {
 		myLock.lock();
-        for (std::vector< GLObjectValuePassConnector<T>* >::iterator i=myContainer.begin(); i!=myContainer.end(); ++i) {
+        for (typename std::vector< GLObjectValuePassConnector<T>* >::iterator i=myContainer.begin(); i!=myContainer.end(); ++i) {
             delete(*i);
         }
         myContainer.clear();
@@ -117,7 +117,7 @@ public:
 	 */
 	static void removeObject(GUIGlObject &o) throw() {
 		myLock.lock();
-		for(std::vector< GLObjectValuePassConnector<T>* >::iterator i=myContainer.begin(); i!=myContainer.end(); ) {
+		for(typename std::vector< GLObjectValuePassConnector<T>* >::iterator i=myContainer.begin(); i!=myContainer.end(); ) {
 			if((*i)->myObject.getGlID()==o.getGlID()) {
 				i = myContainer.erase(i);
 			} else {
