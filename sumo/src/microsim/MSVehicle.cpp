@@ -469,8 +469,8 @@ void
 MSVehicle::reroute(SUMOTime t, SUMOAbstractRouter<MSEdge, SUMOVehicle> &router, bool withTaz) throw() {
     // check whether to reroute
     std::vector<const MSEdge*> edges;
-    if (withTaz && MSEdge::dictionary(myParameter->fromTaz+"-source") && MSEdge::dictionary(myParameter->toTaz)) {
-        router.compute(MSEdge::dictionary(myParameter->fromTaz+"-source"), MSEdge::dictionary(myParameter->toTaz), (const MSVehicle * const) this, t, edges);
+    if (withTaz && MSEdge::dictionary(myParameter->fromTaz+"-source") && MSEdge::dictionary(myParameter->toTaz+"-sink")) {
+        router.compute(MSEdge::dictionary(myParameter->fromTaz+"-source"), MSEdge::dictionary(myParameter->toTaz+"-sink"), (const MSVehicle * const) this, t, edges);
         if (edges.size() >= 2) {
             edges.erase(edges.begin());
             edges.pop_back();

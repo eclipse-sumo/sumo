@@ -50,7 +50,7 @@ SUMOVehicleParameter::SUMOVehicleParameter() throw()
         arrivalPosProcedure(ARRIVAL_POS_DEFAULT), arrivalSpeedProcedure(ARRIVAL_SPEED_DEFAULT),
         arrivalPos(0), arrivalSpeed(-1),
         repetitionNumber(-1), repetitionsDone(-1), repetitionOffset(-1),
-        line(""), fromTaz(""), toTaz(""), setParameter(0), color(RGBColor::DEFAULT_COLOR) {
+        line(), fromTaz(), toTaz(), setParameter(0), color(RGBColor::DEFAULT_COLOR) {
 }
 
 

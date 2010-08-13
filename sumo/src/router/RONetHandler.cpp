@@ -249,15 +249,16 @@ RONetHandler::parseConnectedEdge(const SUMOSAXAttributes &attrs) {
 
 void
 RONetHandler::parseDistrict(const SUMOSAXAttributes &attrs) throw(ProcessError) {
+	myCurrentEdge = 0;
     if (!attrs.setIDFromAttributes("district", myCurrentName)) {
         return;
     }
-    myCurrentEdge = myEdgeBuilder.buildEdge(myCurrentName, 0, 0);
-    myCurrentEdge->setType(ROEdge::ET_DISTRICT);
-    myNet.addEdge(myCurrentEdge);
-    myCurrentEdge = myEdgeBuilder.buildEdge(myCurrentName + "-source", 0, 0);
-    myCurrentEdge->setType(ROEdge::ET_DISTRICT);
-    myNet.addEdge(myCurrentEdge);
+    ROEdge *sink = myEdgeBuilder.buildEdge(myCurrentName + "-sink", 0, 0);
+    sink->setType(ROEdge::ET_DISTRICT);
+    myNet.addEdge(sink);
+    ROEdge *source = myEdgeBuilder.buildEdge(myCurrentName + "-source", 0, 0);
+    source->setType(ROEdge::ET_DISTRICT);
+    myNet.addEdge(source);
     if (attrs.hasAttribute(SUMO_ATTR_EDGES)) {
         std::vector<std::string> desc = StringTokenizer(attrs.getString(SUMO_ATTR_EDGES)).getVector();
         for (std::vector<std::string>::const_iterator i=desc.begin(); i!=desc.end(); ++i) {
@@ -266,8 +267,8 @@ RONetHandler::parseDistrict(const SUMOSAXAttributes &attrs) throw(ProcessError) 
             if (edge==0) {
                 throw ProcessError("The edge '" + *i + "' within district '" + myCurrentName + "' is not known.");
             }
-            myCurrentEdge->addFollower(edge);
-            edge->addFollower(myNet.getEdge(myCurrentName));
+            source->addFollower(edge);
+            edge->addFollower(sink);
         }
     }
 }
@@ -275,19 +276,15 @@ RONetHandler::parseDistrict(const SUMOSAXAttributes &attrs) throw(ProcessError) 
 
 void
 RONetHandler::parseDistrictEdge(const SUMOSAXAttributes &attrs, bool isSource) {
-    if (myCurrentEdge==0) {
-        // earlier error or internal link
-        return;
-    }
     bool ok = true;
     std::string id = attrs.getStringReporting(SUMO_ATTR_ID, "district", myCurrentName.c_str(), ok);
     ROEdge *succ = myNet.getEdge(id);
     if (succ!=0) {
         // connect edge
         if (isSource) {
-            myCurrentEdge->addFollower(succ);
+            myNet.getEdge(myCurrentName+"-source")->addFollower(succ);
         } else {
-            succ->addFollower(myNet.getEdge(myCurrentName));
+            succ->addFollower(myNet.getEdge(myCurrentName+"-sink"));
         }
     } else {
         MsgHandler::getErrorInstance()->inform("At district '" + myCurrentName + "': succeeding edge '" + id + "' does not exist.");

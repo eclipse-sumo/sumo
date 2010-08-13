@@ -134,7 +134,7 @@ MSDevice_Routing::buildVehicleDevices(MSVehicle &v, std::vector<MSDevice*> &into
                 WRITE_ERROR("Source district '" + v.getParameter().fromTaz + "' not known when rerouting '" + v.getID() + "'!");
                 return;
             }
-            if (MSEdge::dictionary(v.getParameter().toTaz) == 0) {
+            if (MSEdge::dictionary(v.getParameter().toTaz+"-sink") == 0) {
                 WRITE_ERROR("Destination district '" + v.getParameter().toTaz + "' not known when rerouting '" + v.getID() + "'!");
                 return;
             }
@@ -169,7 +169,7 @@ MSDevice_Routing::onTryEmit() {
         if (myLastPreEmitReroute == -1 ||
                 (myPreEmitPeriod > 0 && myLastPreEmitReroute + myPreEmitPeriod <= now)) {
             const MSEdge* source = MSEdge::dictionary(myHolder.getParameter().fromTaz+"-source");
-            const MSEdge* dest = MSEdge::dictionary(myHolder.getParameter().toTaz);
+            const MSEdge* dest = MSEdge::dictionary(myHolder.getParameter().toTaz+"-sink");
             if (source && dest) {
                 const std::pair<const MSEdge*, const MSEdge*> key = std::make_pair(source, dest);
                 if (myCachedRoutes.find(key) == myCachedRoutes.end()) {

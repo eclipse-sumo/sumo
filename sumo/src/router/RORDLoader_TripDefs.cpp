@@ -122,6 +122,9 @@ RORDLoader_TripDefs::getEdge(const SUMOSAXAttributes &attrs,
     if (which == SUMO_ATTR_FROM_TAZ) {
         id += "-source";
     }
+    if (which == SUMO_ATTR_TO_TAZ) {
+        id += "-sink";
+    }
     ROEdge *e = myNet.getEdge(id);
     if (e==0 && !emptyAllowed) {
         MsgHandler::getErrorInstance()->inform("The edge '" + id + "' is not known.\n Vehicle id='" + vid + "'.");

@@ -227,11 +227,11 @@ RORDLoader_SUMOBase::myCharacters(SumoXMLTag element,
         }
     }
     if (myWithTaz && myVehicleParameter->wasSet(VEHPARS_TAZ_SET)) {
-        ROEdge *edge = myNet.getEdge(myVehicleParameter->toTaz);
+        ROEdge *edge = myNet.getEdge(myVehicleParameter->toTaz+"-sink");
         if (edge!=0) {
             list->push_back(edge);
         } else {
-            MsgHandler::getErrorInstance()->inform("The vehicle '" + myVehicleParameter->id + "' contains the unknown zone '" + myVehicleParameter->fromTaz + "'.");
+            MsgHandler::getErrorInstance()->inform("The vehicle '" + myVehicleParameter->id + "' contains the unknown zone '" + myVehicleParameter->toTaz + "'.");
             myCurrentIsOk = false;
         }
     }
