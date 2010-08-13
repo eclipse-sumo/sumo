@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 04/26/10 12:35:30 by SUMO netconvert Version dev-SVN-r8163
+<!-- generated on 08/13/10 09:41:16 by SUMO netconvert Version dev-SVN-r8487
 <configuration>
 
     <input>
@@ -23,13 +23,11 @@
 
    <location netOffset="1000.00,0.00" convBoundary="0.00,0.00,2000.00,200.00" origBoundary="-1000.00,0.00,1000.00,200.00" projParameter="!"/>
 
-
    <edge id="off" from="2" to="2a" priority="-1" type="" function="normal">
       <lanes>
          <lane id="off_0" depart="1" maxspeed="30.00" length="341.37" shape="484.95,12.01 200.92,201.37"/>
       </lanes>
    </edge>
-
    <edge id="s1" from="5" to="4" priority="-1" type="" function="normal">
       <lanes>
          <lane id="s1_0" depart="1" maxspeed="30.00" length="500.00" shape="2000.00,8.25 1500.00,8.25"/>
@@ -37,7 +35,6 @@
          <lane id="s1_2" depart="0" maxspeed="30.00" length="500.00" shape="2000.00,1.65 1500.00,1.65"/>
       </lanes>
    </edge>
-
    <edge id="s2" from="4" to="3" priority="-1" type="" function="normal">
       <lanes>
          <lane id="s2_0" depart="1" maxspeed="30.00" length="500.00" shape="1500.00,8.25 1000.00,8.25"/>
@@ -45,7 +42,6 @@
          <lane id="s2_2" depart="0" maxspeed="30.00" length="500.00" shape="1500.00,1.65 1000.00,1.65"/>
       </lanes>
    </edge>
-
    <edge id="s3" from="3" to="2" priority="-1" type="" function="normal">
       <lanes>
          <lane id="s3_0" depart="1" maxspeed="30.00" length="507.42" shape="1000.00,8.25 492.58,8.25"/>
@@ -53,7 +49,6 @@
          <lane id="s3_2" depart="0" maxspeed="30.00" length="507.42" shape="1000.00,1.65 492.58,1.65"/>
       </lanes>
    </edge>
-
    <edge id="s4" from="2" to="1" priority="-1" type="" function="normal">
       <lanes>
          <lane id="s4_0" depart="1" maxspeed="30.00" length="483.82" shape="483.82,8.25 0.00,8.25"/>
@@ -61,7 +56,6 @@
          <lane id="s4_2" depart="0" maxspeed="30.00" length="483.82" shape="483.82,1.65 0.00,1.65"/>
       </lanes>
    </edge>
-
 
    <row-logic id="2" requestSize="4" laneNumber="3">
       <logic>
@@ -71,7 +65,6 @@
          <logicitem request="3" response="0000" foes="0000"/>
       </logic>
    </row-logic>
-
    <row-logic id="3" requestSize="3" laneNumber="3">
       <logic>
          <logicitem request="0" response="000" foes="000"/>
@@ -79,7 +72,6 @@
          <logicitem request="2" response="000" foes="000"/>
       </logic>
    </row-logic>
-
    <row-logic id="4" requestSize="3" laneNumber="3">
       <logic>
          <logicitem request="0" response="000" foes="000"/>
@@ -88,75 +80,53 @@
       </logic>
    </row-logic>
 
-
-
    <junction id="1" type="DEAD_END" x="0.00" y="0.00" incLanes="s4_0 s4_1 s4_2" intLanes="" shape="-0.00,9.85 -0.00,0.05"/>
-
    <junction id="2" type="priority" x="500.00" y="0.00" incLanes="s3_0 s3_1 s3_2" intLanes="" shape="492.58,9.85 492.58,0.05 483.82,0.05 483.82,9.85 484.07,10.68 485.84,13.34"/>
-
    <junction id="2a" type="DEAD_END" x="200.00" y="200.00" incLanes="off_0" intLanes="" shape="201.80,202.70 200.03,200.04"/>
-
    <junction id="3" type="priority" x="1000.00" y="0.00" incLanes="s2_0 s2_1 s2_2" intLanes="" shape="1000.00,9.85 1000.00,0.05 1000.00,9.85"/>
-
    <junction id="4" type="priority" x="1500.00" y="0.00" incLanes="s1_0 s1_1 s1_2" intLanes="" shape="1500.00,9.85 1500.00,0.05 1500.00,9.85"/>
-
    <junction id="4a" type="DEAD_END" x="1800.00" y="200.00" incLanes="" intLanes="" shape=""/>
-
    <junction id="5" type="DEAD_END" x="2000.00" y="0.00" incLanes="" intLanes="" shape="2000.00,0.05 2000.00,9.85"/>
-
 
    <succ edge="off" lane="off_0" junction="2a">
       <succlane lane="SUMO_NO_DESTINATION" yield="1" dir="s" state="O"/>
    </succ>
-
    <succ edge="s1" lane="s1_0" junction="4">
       <succlane lane="s2_0" yield="0" dir="s" state="M"/>
    </succ>
-
    <succ edge="s1" lane="s1_1" junction="4">
       <succlane lane="s2_1" yield="0" dir="s" state="M"/>
    </succ>
-
    <succ edge="s1" lane="s1_2" junction="4">
       <succlane lane="s2_2" yield="0" dir="s" state="M"/>
    </succ>
-
    <succ edge="s2" lane="s2_0" junction="3">
       <succlane lane="s3_0" yield="0" dir="s" state="M"/>
    </succ>
-
    <succ edge="s2" lane="s2_1" junction="3">
       <succlane lane="s3_1" yield="0" dir="s" state="M"/>
    </succ>
-
    <succ edge="s2" lane="s2_2" junction="3">
       <succlane lane="s3_2" yield="0" dir="s" state="M"/>
    </succ>
-
    <succ edge="s3" lane="s3_0" junction="2">
       <succlane lane="off_0" yield="0" dir="s" state="M"/>
       <succlane lane="s4_0" yield="0" dir="s" state="M"/>
    </succ>
-
    <succ edge="s3" lane="s3_1" junction="2">
       <succlane lane="s4_1" yield="0" dir="s" state="M"/>
    </succ>
-
    <succ edge="s3" lane="s3_2" junction="2">
       <succlane lane="s4_2" yield="0" dir="s" state="M"/>
    </succ>
-
    <succ edge="s4" lane="s4_0" junction="1">
       <succlane lane="SUMO_NO_DESTINATION" yield="1" dir="s" state="O"/>
    </succ>
-
    <succ edge="s4" lane="s4_1" junction="1">
       <succlane lane="SUMO_NO_DESTINATION" yield="1" dir="s" state="O"/>
    </succ>
-
    <succ edge="s4" lane="s4_2" junction="1">
       <succlane lane="SUMO_NO_DESTINATION" yield="1" dir="s" state="O"/>
    </succ>
-
 
 </net>

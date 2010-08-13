@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 04/26/10 12:35:27 by SUMO netconvert Version dev-SVN-r8163
+<!-- generated on 08/13/10 09:41:14 by SUMO netconvert Version dev-SVN-r8487
 <configuration>
 
     <input>
@@ -28,160 +28,133 @@
          <lane id=":n1_0_0" depart="0" maxspeed="13.89" length="4.82" shape="0.78,267.45 -0.70,267.31 -1.45,266.78 -1.48,265.86 -0.78,264.55"/>
       </lanes>
    </edge>
-
    <edge id=":n11_0" function="internal">
       <lanes>
          <lane id=":n11_0_0" depart="0" maxspeed="13.89" length="4.82" shape="63.49,0.51 63.90,-0.92 64.55,-1.57 65.47,-1.43 66.63,-0.51"/>
       </lanes>
    </edge>
-
    <edge id=":n12_0" function="internal">
       <lanes>
          <lane id=":n12_0_0" depart="0" maxspeed="13.89" length="4.82" shape="225.76,155.97 227.22,156.27 227.91,156.88 227.84,157.80 227.00,159.03"/>
       </lanes>
    </edge>
-
    <edge id=":n6_0" function="internal">
       <lanes>
          <lane id=":n6_0_0" depart="0" maxspeed="13.89" length="9.01" shape="133.81,196.66 125.63,200.44"/>
       </lanes>
    </edge>
-
    <edge id=":n6_1" function="internal">
       <lanes>
          <lane id=":n6_1_0" depart="0" maxspeed="13.89" length="6.85" shape="133.81,196.66 130.93,197.37 127.91,196.38"/>
       </lanes>
    </edge>
-
    <edge id=":n6_9" function="internal">
       <lanes>
          <lane id=":n6_9_0" depart="0" maxspeed="13.89" length="3.84" shape="127.91,196.38 126.76,195.41 125.46,192.75"/>
       </lanes>
    </edge>
-
    <edge id=":n6_2" function="internal">
       <lanes>
          <lane id=":n6_2_0" depart="0" maxspeed="13.89" length="0.10" shape="133.81,196.66 132.45,196.38"/>
       </lanes>
    </edge>
-
    <edge id=":n6_10" function="internal">
       <lanes>
          <lane id=":n6_10_0" depart="0" maxspeed="13.89" length="4.72" shape="132.45,196.38 132.35,196.36 131.66,195.75 131.73,194.83 132.57,193.60"/>
       </lanes>
    </edge>
-
    <edge id=":n6_3" function="internal">
       <lanes>
          <lane id=":n6_3_0" depart="0" maxspeed="13.89" length="5.09" shape="128.60,191.74 129.22,193.01 130.09,193.74 131.20,193.94 132.57,193.60"/>
       </lanes>
    </edge>
-
    <edge id=":n6_4" function="internal">
       <lanes>
          <lane id=":n6_4_0" depart="0" maxspeed="13.89" length="3.54" shape="128.60,191.74 128.92,196.28"/>
       </lanes>
    </edge>
-
    <edge id=":n6_11" function="internal">
       <lanes>
          <lane id=":n6_11_0" depart="0" maxspeed="13.89" length="6.57" shape="128.92,196.28 128.83,196.95 127.66,198.91 125.63,200.44"/>
       </lanes>
    </edge>
-
    <edge id=":n6_5" function="internal">
       <lanes>
          <lane id=":n6_5_0" depart="0" maxspeed="13.89" length="0.10" shape="128.60,191.74 128.22,193.08"/>
       </lanes>
    </edge>
-
    <edge id=":n6_12" function="internal">
       <lanes>
          <lane id=":n6_12_0" depart="0" maxspeed="13.89" length="4.72" shape="128.22,193.08 128.19,193.17 127.53,193.82 126.62,193.68 125.46,192.75"/>
       </lanes>
    </edge>
-
    <edge id=":n6_6" function="internal">
       <lanes>
          <lane id=":n6_6_0" depart="0" maxspeed="13.89" length="5.46" shape="124.07,197.54 125.09,196.74 125.67,195.67 125.79,194.34 125.46,192.75"/>
       </lanes>
    </edge>
-
    <edge id=":n6_7" function="internal">
       <lanes>
          <lane id=":n6_7_0" depart="0" maxspeed="13.89" length="9.37" shape="124.07,197.54 132.57,193.60"/>
       </lanes>
    </edge>
-
    <edge id=":n6_8" function="internal">
       <lanes>
          <lane id=":n6_8_0" depart="0" maxspeed="13.89" length="0.10" shape="124.07,197.54 125.45,197.67"/>
       </lanes>
    </edge>
-
    <edge id=":n6_13" function="internal">
       <lanes>
          <lane id=":n6_13_0" depart="0" maxspeed="13.89" length="4.72" shape="125.45,197.67 125.55,197.68 126.30,198.21 126.33,199.13 125.63,200.44"/>
       </lanes>
    </edge>
 
-
-
    <edge id="e14" from="n6" to="n1" priority="-1" type="" function="normal">
       <lanes>
          <lane id="e14_0" depart="1" maxspeed="13.89" length="141.70" shape="125.63,200.44 0.78,267.45"/>
       </lanes>
    </edge>
-
    <edge id="e15" from="n1" to="n6" priority="-1" type="" function="normal">
       <lanes>
          <lane id="e15_0" depart="1" maxspeed="13.89" length="141.70" shape="-0.78,264.55 124.07,197.54"/>
       </lanes>
    </edge>
-
    <edge id="e17" from="n11" to="n6" priority="-1" type="" function="normal">
       <lanes>
          <lane id="e17_0" depart="1" maxspeed="13.89" length="201.99" shape="66.63,-0.51 128.60,191.74"/>
       </lanes>
    </edge>
-
    <edge id="e18" from="n12" to="n6" priority="-1" type="" function="normal">
       <lanes>
          <lane id="e18_0" depart="1" maxspeed="13.89" length="100.50" shape="227.00,159.03 133.81,196.66"/>
       </lanes>
    </edge>
-
    <edge id="e19" from="n6" to="n11" priority="-1" type="" function="normal">
       <lanes>
          <lane id="e19_0" depart="1" maxspeed="13.89" length="201.99" shape="125.46,192.75 63.49,0.51"/>
       </lanes>
    </edge>
-
    <edge id="e20" from="n6" to="n12" priority="-1" type="" function="normal">
       <lanes>
          <lane id="e20_0" depart="1" maxspeed="13.89" length="100.50" shape="132.57,193.60 225.76,155.97"/>
       </lanes>
    </edge>
 
-
    <row-logic id="n1" requestSize="1" laneNumber="1">
       <logic>
          <logicitem request="0" response="0" foes="0" cont="0"/>
       </logic>
    </row-logic>
-
    <row-logic id="n11" requestSize="1" laneNumber="1">
       <logic>
          <logicitem request="0" response="0" foes="0" cont="0"/>
       </logic>
    </row-logic>
-
    <row-logic id="n12" requestSize="1" laneNumber="1">
       <logic>
          <logicitem request="0" response="0" foes="0" cont="0"/>
       </logic>
    </row-logic>
-
    <row-logic id="n6" requestSize="9" laneNumber="3">
       <logic>
          <logicitem request="0" response="000000000" foes="100010000" cont="0"/>
@@ -196,67 +169,50 @@
       </logic>
    </row-logic>
 
-
-   <tl-logic id="n6" type="static" programID="0" offset="0.00">
-      <phase duration="31.00" state="GggrrrGGg"/>
-      <phase duration="4.00" state="yggrrryyg"/>
-      <phase duration="6.00" state="rGGrrrrrG"/>
-      <phase duration="4.00" state="ryyrrrrry"/>
-      <phase duration="31.00" state="rrrGGgGrr"/>
-      <phase duration="4.00" state="rrryyyyrr"/>
+   <tl-logic id="n6" type="static" programID="0" offset="0">
+      <phase duration="31" state="GggrrrGGg"/>
+      <phase duration="4" state="yggrrryyg"/>
+      <phase duration="6" state="rGGrrrrrG"/>
+      <phase duration="4" state="ryyrrrrry"/>
+      <phase duration="31" state="rrrGGgGrr"/>
+      <phase duration="4" state="rrryyyyrr"/>
    </tl-logic>
 
-
    <junction id="n1" type="priority" x="0.00" y="266.00" incLanes="e14_0" intLanes=":n1_0_0" shape="-0.02,265.96 -1.54,263.14 1.54,268.86 0.02,266.04"/>
-
    <junction id="n11" type="priority" x="65.06" y="0.00" incLanes="e19_0" intLanes=":n11_0_0" shape="65.11,-0.02 68.15,-1.00 61.97,1.00 65.01,0.02"/>
-
    <junction id="n12" type="priority" x="226.38" y="157.50" incLanes="e20_0" intLanes=":n12_0_0" shape="226.40,157.55 227.60,160.51 225.16,154.49 226.36,157.45"/>
-
    <junction id="n6" type="priority" x="128.56" y="197.00" incLanes="e18_0 e17_0 e15_0" intLanes=":n6_0_0 :n6_9_0 :n6_10_0 :n6_3_0 :n6_11_0 :n6_12_0 :n6_6_0 :n6_7_0 :n6_13_0" shape="134.41,198.14 131.97,192.12 130.12,191.25 123.94,193.25 123.31,196.13 126.39,201.85"/>
 
-
    <junction id=":n6_9_0" type="internal" x="127.43" y="195.98" incLanes=":n6_1_0 e15_0" intLanes=":n6_6_0 :n6_7_0" shape=""/>
-
    <junction id=":n6_10_0" type="internal" x="133.71" y="196.64" incLanes=":n6_2_0 e15_0" intLanes=":n6_7_0" shape=""/>
-
    <junction id=":n6_11_0" type="internal" x="129.06" y="195.23" incLanes=":n6_4_0 e15_0" intLanes=":n6_7_0" shape=""/>
-
    <junction id=":n6_12_0" type="internal" x="128.57" y="191.84" incLanes=":n6_5_0 e15_0" intLanes=":n6_6_0" shape=""/>
-
    <junction id=":n6_13_0" type="internal" x="124.17" y="197.55" incLanes=":n6_8_0 e18_0" intLanes=":n6_0_0" shape=""/>
-
 
    <succ edge="e14" lane="e14_0" junction="n1">
       <succlane lane="e15_0" via=":n1_0_0" yield="0" dir="t" state="M"/>
    </succ>
-
    <succ edge="e15" lane="e15_0" junction="n6">
       <succlane lane="e19_0" via=":n6_6_0" tl="n6" linkno="6" yield="1" dir="r" state="t"/>
       <succlane lane="e20_0" via=":n6_7_0" tl="n6" linkno="7" yield="1" dir="s" state="t"/>
       <succlane lane="e14_0" via=":n6_8_0" tl="n6" linkno="8" yield="1" dir="t" state="t" int_end="x"/>
    </succ>
-
    <succ edge="e17" lane="e17_0" junction="n6">
       <succlane lane="e20_0" via=":n6_3_0" tl="n6" linkno="3" yield="1" dir="r" state="t"/>
       <succlane lane="e14_0" via=":n6_4_0" tl="n6" linkno="4" yield="1" dir="l" state="t" int_end="x"/>
       <succlane lane="e19_0" via=":n6_5_0" tl="n6" linkno="5" yield="1" dir="t" state="t" int_end="x"/>
    </succ>
-
    <succ edge="e18" lane="e18_0" junction="n6">
       <succlane lane="e14_0" via=":n6_0_0" tl="n6" linkno="0" yield="1" dir="s" state="t"/>
       <succlane lane="e19_0" via=":n6_1_0" tl="n6" linkno="1" yield="1" dir="l" state="t" int_end="x"/>
       <succlane lane="e20_0" via=":n6_2_0" tl="n6" linkno="2" yield="1" dir="t" state="t" int_end="x"/>
    </succ>
-
    <succ edge="e19" lane="e19_0" junction="n11">
       <succlane lane="e17_0" via=":n11_0_0" yield="0" dir="t" state="M"/>
    </succ>
-
    <succ edge="e20" lane="e20_0" junction="n12">
       <succlane lane="e18_0" via=":n12_0_0" yield="0" dir="t" state="M"/>
    </succ>
-
 
    <succ edge=":n1_0" lane=":n1_0_0" junction="n1">
       <succlane lane="e15_0" tl="" linkno="" yield="0" dir="s" state="M"/>

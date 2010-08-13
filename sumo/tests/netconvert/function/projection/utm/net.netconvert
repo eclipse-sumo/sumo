@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 04/03/10 11:24:29 by SUMO netconvert Version dev-SVN-r8487
+<!-- generated on 08/13/10 20:46:54 by SUMO netconvert Version dev-SVN-r8487
 <configuration>
 
     <input>
@@ -23,27 +23,17 @@
 
    <location netOffset="-277843.65,-5330206.51" convBoundary="0.00,0.00,3330.25,3904.56" origBoundary="12.014694,48.087529,12.061386,48.121459" projParameter="+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
 
-
-
    <edge id="o" from="0" to="1" priority="-1" type="" function="normal">
       <lanes>
          <lane id="o_0" depart="1" maxspeed="13.90" length="5131.88" shape="-1.26,3903.49 3328.99,-1.07"/>
       </lanes>
    </edge>
 
-
-
-
    <junction id="0" type="DEAD_END" x="0.00" y="3904.56" incLanes="" intLanes="" shape="-0.04,3904.53 -2.47,3902.45"/>
-
    <junction id="1" type="DEAD_END" x="3330.25" y="0.00" incLanes="o_0" intLanes="" shape="3327.77,-2.11 3330.21,-0.03"/>
-
-
 
    <succ edge="o" lane="o_0" junction="1">
       <succlane lane="SUMO_NO_DESTINATION" yield="1" dir="s" state="O"/>
    </succ>
-
-
 
 </net>

@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 07/01/10 13:57:37 by SUMO netconvert Version dev-SVN-r8163
+<!-- generated on 08/13/10 09:41:23 by SUMO netconvert Version dev-SVN-r8487
 <configuration>
 
     <input>
@@ -24,123 +24,102 @@
          <lane id=":6365_0_0" depart="0" maxspeed="13.90" length="5.03" shape="151.64,251.36 150.26,251.42 149.24,251.90 148.58,252.82 148.28,254.18"/>
       </lanes>
    </edge>
-
    <edge id=":6365_1" function="internal">
       <lanes>
          <lane id=":6365_1_0" depart="0" maxspeed="13.90" length="3.18" shape="151.64,251.36 147.23,249.78"/>
       </lanes>
    </edge>
-
    <edge id=":6365_8" function="internal">
       <lanes>
          <lane id=":6365_8_0" depart="0" maxspeed="13.90" length="6.17" shape="147.23,249.78 146.94,249.60 145.87,247.90 145.66,245.65"/>
       </lanes>
    </edge>
-
    <edge id=":6365_2" function="internal">
       <lanes>
          <lane id=":6365_2_0" depart="0" maxspeed="13.90" length="8.27" shape="148.95,245.94 148.28,254.18"/>
       </lanes>
    </edge>
-
    <edge id=":6365_3" function="internal">
       <lanes>
          <lane id=":6365_3_0" depart="0" maxspeed="13.90" length="0.10" shape="148.95,245.94 148.08,247.02"/>
       </lanes>
    </edge>
-
    <edge id=":6365_9" function="internal">
       <lanes>
          <lane id=":6365_9_0" depart="0" maxspeed="13.90" length="4.72" shape="148.08,247.02 148.02,247.10 147.16,247.44 146.38,246.96 145.66,245.65"/>
       </lanes>
    </edge>
-
    <edge id=":6365_4" function="internal">
       <lanes>
          <lane id=":6365_4_0" depart="0" maxspeed="13.90" length="5.22" shape="141.76,247.60 143.37,247.89 144.56,247.66 145.32,246.92 145.66,245.65"/>
       </lanes>
    </edge>
-
    <edge id=":6365_5" function="internal">
       <lanes>
          <lane id=":6365_5_0" depart="0" maxspeed="13.90" length="3.98" shape="141.76,247.60 146.19,249.83"/>
       </lanes>
    </edge>
-
    <edge id=":6365_10" function="internal">
       <lanes>
          <lane id=":6365_10_0" depart="0" maxspeed="13.90" length="6.05" shape="146.19,249.83 146.82,250.28 148.00,252.08 148.28,254.18"/>
       </lanes>
    </edge>
-
    <edge id=":6365_6" function="internal">
       <lanes>
          <lane id=":6365_6_0" depart="0" maxspeed="13.90" length="8.31" shape="144.99,253.93 145.66,245.65"/>
       </lanes>
    </edge>
-
    <edge id=":6365_7" function="internal">
       <lanes>
          <lane id=":6365_7_0" depart="0" maxspeed="13.90" length="0.10" shape="144.99,253.93 145.84,252.84"/>
       </lanes>
    </edge>
-
    <edge id=":6365_11" function="internal">
       <lanes>
          <lane id=":6365_11_0" depart="0" maxspeed="13.90" length="4.72" shape="145.84,252.84 145.90,252.76 146.76,252.41 147.55,252.88 148.28,254.18"/>
       </lanes>
    </edge>
-
    <edge id=":6454_0" function="internal">
       <lanes>
          <lane id=":6454_0_0" depart="0" maxspeed="13.90" length="4.82" shape="157.38,109.12 158.30,107.96 159.16,107.62 159.95,108.10 160.66,109.40"/>
       </lanes>
    </edge>
-
    <edge id=":6562_0" function="internal">
       <lanes>
          <lane id=":6562_0_0" depart="0" maxspeed="13.90" length="4.82" shape="135.66,423.97 134.74,425.15 133.89,425.50 133.10,425.02 132.36,423.73"/>
       </lanes>
    </edge>
 
-
-
    <edge id="-1570" from="6366" to="6365" priority="-1" type="" function="normal">
       <lanes>
          <lane id="-1570_0" depart="1" maxspeed="13.90" length="292.14" shape="0.00,0.00 1.75,1.30 2.23,7.92 121.83,241.60 141.76,247.60"/>
       </lanes>
    </edge>
-
    <edge id="-1839" from="6454" to="6365" priority="-1" type="" function="normal">
       <lanes>
          <lane id="-1839_0" depart="1" maxspeed="13.90" length="137.04" shape="160.66,109.40 148.95,245.94"/>
       </lanes>
    </edge>
-
    <edge id="-1841" from="6365" to="6562" priority="-1" type="" function="normal">
       <lanes>
          <lane id="-1841_0" depart="1" maxspeed="13.90" length="170.26" shape="148.28,254.18 135.66,423.97"/>
       </lanes>
    </edge>
-
    <edge id="1816" from="6564" to="6365" priority="-1" type="" function="normal">
       <lanes>
          <lane id="1816_0" depart="1" maxspeed="13.90" length="79.16" shape="224.35,221.05 220.91,224.24 162.04,248.16 154.71,250.79 152.01,251.40 151.64,251.36"/>
       </lanes>
    </edge>
-
    <edge id="1839" from="6365" to="6454" priority="-1" type="" function="normal">
       <lanes>
          <lane id="1839_0" depart="1" maxspeed="13.90" length="137.04" shape="145.66,245.65 157.38,109.12"/>
       </lanes>
    </edge>
-
    <edge id="1841" from="6562" to="6365" priority="-1" type="" function="normal">
       <lanes>
          <lane id="1841_0" depart="1" maxspeed="13.90" length="170.26" shape="132.36,423.73 144.99,253.93"/>
       </lanes>
    </edge>
-
 
    <row-logic id="6365" requestSize="8" laneNumber="4">
       <logic>
@@ -154,19 +133,16 @@
          <logicitem request="7" response="00100101" foes="00100101" cont="1"/>
       </logic>
    </row-logic>
-
    <row-logic id="6454" requestSize="1" laneNumber="1">
       <logic>
          <logicitem request="0" response="0" foes="0" cont="0"/>
       </logic>
    </row-logic>
-
    <row-logic id="6562" requestSize="1" laneNumber="1">
       <logic>
          <logicitem request="0" response="0" foes="0" cont="0"/>
       </logic>
    </row-logic>
-
 
    <tl-logic id="6365" type="static" programID="0" offset="0">
       <phase duration="31" state="rrGgrrGg"/>
@@ -177,55 +153,39 @@
       <phase duration="4" state="ryrrryrr"/>
    </tl-logic>
 
-
    <junction id="6365" type="priority" x="146.87" y="250.87" incLanes="1816_0 -1839_0 -1570_0 1841_0" intLanes=":6365_0_0 :6365_8_0 :6365_2_0 :6365_9_0 :6365_4_0 :6365_10_0 :6365_6_0 :6365_11_0" shape="151.48,252.95 151.81,249.77 150.54,246.07 144.07,245.52 142.68,246.21 140.85,249.00 143.39,253.81 149.87,254.30"/>
-
    <junction id="6366" type="DEAD_END" x="0.00" y="0.00" incLanes="" intLanes="" shape="-0.95,1.28 0.95,-1.28"/>
-
    <junction id="6454" type="priority" x="159.02" y="109.26" incLanes="1839_0" intLanes=":6454_0_0" shape="159.07,109.26 162.26,109.54 155.78,108.98 158.97,109.26"/>
-
    <junction id="6562" type="priority" x="134.01" y="423.85" incLanes="-1841_0" intLanes=":6562_0_0" shape="133.96,423.85 130.77,423.61 137.25,424.09 134.06,423.85"/>
-
    <junction id="6564" type="DEAD_END" x="224.35" y="221.05" incLanes="" intLanes="" shape="223.26,219.88 225.44,222.22"/>
 
-
    <junction id=":6365_8_0" type="internal" x="148.57" y="250.58" incLanes=":6365_1_0 -1570_0" intLanes=":6365_4_0" shape=""/>
-
    <junction id=":6365_9_0" type="internal" x="148.89" y="246.01" incLanes=":6365_3_0 1841_0" intLanes=":6365_6_0" shape=""/>
-
    <junction id=":6365_10_0" type="internal" x="145.37" y="249.24" incLanes=":6365_5_0 1816_0" intLanes=":6365_0_0" shape=""/>
-
    <junction id=":6365_11_0" type="internal" x="145.05" y="253.85" incLanes=":6365_7_0 -1839_0" intLanes=":6365_2_0" shape=""/>
-
 
    <succ edge="-1570" lane="-1570_0" junction="6365">
       <succlane lane="1839_0" via=":6365_4_0" tl="6365" linkno="4" yield="1" dir="r" state="t"/>
       <succlane lane="-1841_0" via=":6365_5_0" tl="6365" linkno="5" yield="1" dir="l" state="t" int_end="x"/>
    </succ>
-
    <succ edge="-1839" lane="-1839_0" junction="6365">
       <succlane lane="-1841_0" via=":6365_2_0" tl="6365" linkno="2" yield="1" dir="s" state="t"/>
       <succlane lane="1839_0" via=":6365_3_0" tl="6365" linkno="3" yield="1" dir="t" state="t" int_end="x"/>
    </succ>
-
    <succ edge="-1841" lane="-1841_0" junction="6562">
       <succlane lane="1841_0" via=":6562_0_0" yield="0" dir="t" state="M"/>
    </succ>
-
    <succ edge="1816" lane="1816_0" junction="6365">
       <succlane lane="-1841_0" via=":6365_0_0" tl="6365" linkno="0" yield="1" dir="r" state="t"/>
       <succlane lane="1839_0" via=":6365_1_0" tl="6365" linkno="1" yield="1" dir="l" state="t" int_end="x"/>
    </succ>
-
    <succ edge="1839" lane="1839_0" junction="6454">
       <succlane lane="-1839_0" via=":6454_0_0" yield="0" dir="t" state="M"/>
    </succ>
-
    <succ edge="1841" lane="1841_0" junction="6365">
       <succlane lane="1839_0" via=":6365_6_0" tl="6365" linkno="6" yield="1" dir="s" state="t"/>
       <succlane lane="-1841_0" via=":6365_7_0" tl="6365" linkno="7" yield="1" dir="t" state="t" int_end="x"/>
    </succ>
-
 
    <succ edge=":6365_0" lane=":6365_0_0" junction="6365">
       <succlane lane="-1841_0" tl="" linkno="" yield="0" dir="s" state="M"/>

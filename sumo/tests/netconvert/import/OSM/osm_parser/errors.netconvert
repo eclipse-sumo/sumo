@@ -2,6 +2,6 @@ Error: Attribute 'lat' is missing in definition of node '-4'.
 Error: Tag element on wrong XML hierarchy level.
 Error: Attribute 'id' is missing in definition of a node.
 Error: Attribute 'lon' is missing in definition of node '-122'.
-Error: Node element on wrong XML hierarchy level (id='1', level='3').
+Error: Node element on wrong XML hierarchy level.
 Error: The referenced geometry information (ref='-4') is not known
 Error: The referenced geometry information (ref='-24') is not known

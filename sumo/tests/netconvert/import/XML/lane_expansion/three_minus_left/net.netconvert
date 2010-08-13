@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 04/26/10 12:34:20 by SUMO netconvert Version dev-SVN-r8163
+<!-- generated on 08/13/10 09:47:18 by SUMO netconvert Version dev-SVN-r8487
 <configuration>
 
     <input>
@@ -23,14 +23,11 @@
          <lane id=":1.50_0_0" depart="0" maxspeed="28.00" length="3.00" shape="48.50,-8.25 51.50,-8.25"/>
       </lanes>
    </edge>
-
    <edge id=":1.50_1" function="internal">
       <lanes>
          <lane id=":1.50_1_0" depart="0" maxspeed="28.00" length="3.00" shape="48.50,-4.95 51.50,-4.95"/>
       </lanes>
    </edge>
-
-
 
    <edge id="1" from="SUMOGenerated0" to="1.50" priority="-1" type="" function="normal">
       <lanes>
@@ -39,14 +36,12 @@
          <lane id="1_2" depart="0" maxspeed="28.00" length="48.50" shape="0.00,-1.65 48.50,-1.65"/>
       </lanes>
    </edge>
-
    <edge id="1.50" from="1.50" to="SUMOGenerated1" priority="-1" type="" function="normal">
       <lanes>
          <lane id="1.50_0" depart="1" maxspeed="28.00" length="48.50" shape="51.50,-8.25 100.00,-8.25"/>
          <lane id="1.50_1" depart="0" maxspeed="28.00" length="48.50" shape="51.50,-4.95 100.00,-4.95"/>
       </lanes>
    </edge>
-
 
    <row-logic id="1.50" requestSize="3" laneNumber="3">
       <logic>
@@ -56,36 +51,25 @@
       </logic>
    </row-logic>
 
-
-
    <junction id="1.50" type="priority" x="50.00" y="0.00" incLanes="1_0 1_1 1_2" intLanes=":1.50_0_0 :1.50_1_0" shape="51.50,-3.35 51.50,-9.85 48.50,-9.85 48.50,-0.05"/>
-
    <junction id="SUMOGenerated0" type="DEAD_END" x="0.00" y="0.00" incLanes="" intLanes="" shape="0.00,-0.05 0.00,-9.85"/>
-
    <junction id="SUMOGenerated1" type="DEAD_END" x="100.00" y="0.00" incLanes="1.50_0 1.50_1" intLanes="" shape="100.00,-9.85 100.00,-3.35"/>
-
-
 
    <succ edge="1" lane="1_0" junction="1.50">
       <succlane lane="1.50_0" via=":1.50_0_0" yield="0" dir="s" state="M"/>
    </succ>
-
    <succ edge="1" lane="1_1" junction="1.50">
       <succlane lane="1.50_1" via=":1.50_1_0" yield="0" dir="s" state="M"/>
    </succ>
-
    <succ edge="1" lane="1_2" junction="1.50">
       <succlane lane="SUMO_NO_DESTINATION" yield="1" dir="s" state="O"/>
    </succ>
-
    <succ edge="1.50" lane="1.50_0" junction="SUMOGenerated1">
       <succlane lane="SUMO_NO_DESTINATION" yield="1" dir="s" state="O"/>
    </succ>
-
    <succ edge="1.50" lane="1.50_1" junction="SUMOGenerated1">
       <succlane lane="SUMO_NO_DESTINATION" yield="1" dir="s" state="O"/>
    </succ>
-
 
    <succ edge=":1.50_0" lane=":1.50_0_0" junction="1.50">
       <succlane lane="1.50_0" tl="" linkno="" yield="0" dir="s" state="M"/>

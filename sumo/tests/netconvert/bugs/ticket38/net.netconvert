@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 04/26/10 12:35:42 by SUMO netconvert Version dev-SVN-r8163
+<!-- generated on 08/13/10 09:41:22 by SUMO netconvert Version dev-SVN-r8487
 <configuration>
 
     <input>
@@ -23,7 +23,6 @@
 
    <location netOffset="-500.00,0.00" convBoundary="0.00,0.00,500.00,0.00" origBoundary="500.00,0.00,1000.00,0.00" projParameter="!"/>
 
-
    <edge id="1" from="1" to="2" priority="-1" type="" function="normal">
       <lanes>
          <lane id="1_0" depart="1" maxspeed="30.00" length="500.00" shape="500.00,8.25 0.00,8.25"/>
@@ -32,25 +31,17 @@
       </lanes>
    </edge>
 
-
-
-
    <junction id="1" type="DEAD_END" x="500.00" y="0.00" incLanes="" intLanes="" shape="500.00,0.05 500.00,9.85"/>
-
    <junction id="2" type="DEAD_END" x="0.00" y="0.00" incLanes="1_0 1_1 1_2" intLanes="" shape="-0.00,9.85 -0.00,0.05"/>
-
 
    <succ edge="1" lane="1_0" junction="2">
       <succlane lane="SUMO_NO_DESTINATION" yield="1" dir="s" state="O"/>
    </succ>
-
    <succ edge="1" lane="1_1" junction="2">
       <succlane lane="SUMO_NO_DESTINATION" yield="1" dir="s" state="O"/>
    </succ>
-
    <succ edge="1" lane="1_2" junction="2">
       <succlane lane="SUMO_NO_DESTINATION" yield="1" dir="s" state="O"/>
    </succ>
-
 
 </net>
