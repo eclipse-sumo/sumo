@@ -633,7 +633,7 @@ NBEdge::writeXMLStep1(OutputDevice &into) {
         }
     }
     // close the edge
-    into << "   </edge>\n\n";
+    into << "   </edge>\n";
 }
 
 
@@ -833,7 +833,7 @@ NBEdge::writeSucceeding(OutputDevice &into, unsigned int lane, bool includeInter
     if (count==0) {
         into << "      <succlane lane=\"SUMO_NO_DESTINATION\" yield=\"1\"/>\n";
     }
-    into << "   </succ>\n\n";
+    into << "   </succ>\n";
 }
 
 

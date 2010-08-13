@@ -421,28 +421,37 @@ NBNodeCont::sortNodesEdges(bool leftHand, const NBTypeCont &tc) {
 
 void
 NBNodeCont::writeXMLInternalLinks(OutputDevice &into) {
+	bool hadAny = false;
     for (NodeCont::iterator i=myNodes.begin(); i!=myNodes.end(); i++) {
-        (*i).second->writeXMLInternalLinks(into);
+        hadAny |= (*i).second->writeXMLInternalLinks(into);
     }
-    into << "\n";
+	if(hadAny) {
+		into << "\n";
+	}
 }
 
 
 void
 NBNodeCont::writeXMLInternalSuccInfos(OutputDevice &into) {
+	bool hadAny = false;
     for (NodeCont::iterator i=myNodes.begin(); i!=myNodes.end(); i++) {
-        (*i).second->writeXMLInternalSuccInfos(into);
+        hadAny |= (*i).second->writeXMLInternalSuccInfos(into);
     }
-    into << "\n";
+	if(hadAny) {
+		into << "\n";
+	}
 }
 
 
 void
 NBNodeCont::writeXMLInternalNodes(OutputDevice &into) {
+	bool hadAny = false;
     for (NodeCont::iterator i=myNodes.begin(); i!=myNodes.end(); i++) {
-        (*i).second->writeXMLInternalNodes(into);
+        hadAny |= (*i).second->writeXMLInternalNodes(into);
     }
-    into << "\n";
+	if(hadAny) {
+		into << "\n";
+	}
 }
 
 

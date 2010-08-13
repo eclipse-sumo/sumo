@@ -72,7 +72,7 @@ NBTrafficLightLogic::writeXML(OutputDevice &into) const throw() {
     for (PhaseDefinitionVector::const_iterator i=myPhases.begin(); i!=myPhases.end(); i++) {
         into << "      <phase duration=\"" << (*i).duration << "\" state=\"" << (*i).state << "\"/>\n";
     }
-    into << "   </tl-logic>\n\n";
+    into << "   </tl-logic>\n";
 }
 
 

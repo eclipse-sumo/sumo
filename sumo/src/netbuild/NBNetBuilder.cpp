@@ -280,8 +280,6 @@ NBNetBuilder::save(OutputDevice &device, OptionsCont &oc) throw(IOError) {
         myNodeCont.writeXMLInternalLinks(device);
     }
 
-    // write the districts
-    myDistrictCont.writeXML(device);
     // write edges with lanes and connected edges
     myEdgeCont.writeXMLStep1(device);
     // write the logics
@@ -321,6 +319,8 @@ NBNetBuilder::save(OutputDevice &device, OptionsCont &oc) throw(IOError) {
     if (myRoundabouts.size()!=0) {
         device << "\n";
     }
+    // write the districts
+    myDistrictCont.writeXML(device);
     device.close();
 }
 

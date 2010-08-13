@@ -127,7 +127,9 @@ NBTrafficLightLogicCont::writeXML(OutputDevice &into) throw(IOError) {
     for (ComputedContType::iterator i=myComputed.begin(); i!=myComputed.end(); i++) {
         (*i).second->writeXML(into);
     }
-    into << "\n";
+	if(myComputed.size()!=0) {
+		into << "\n";
+	}
 }
 
 

@@ -265,9 +265,9 @@ public:
     /// adds an outgoing edge
     void addOutgoingEdge(NBEdge *edge);
 
-    void writeXMLInternalLinks(OutputDevice &into);
-    void writeXMLInternalSuccInfos(OutputDevice &into);
-    void writeXMLInternalNodes(OutputDevice &into);
+    bool writeXMLInternalLinks(OutputDevice &into);
+    bool writeXMLInternalSuccInfos(OutputDevice &into);
+    bool writeXMLInternalNodes(OutputDevice &into);
 
 
 

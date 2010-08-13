@@ -549,15 +549,16 @@ NBNode::countInternalLanes(bool includeSplits) {
 }
 
 
-void
+bool
 NBNode::writeXMLInternalLinks(OutputDevice &into) {
     unsigned int noInternalNoSplits = countInternalLanes(false);
     if (noInternalNoSplits==0) {
-        return;
+        return false;
     }
     std::string id = ":" + myID;
     unsigned int lno = 0;
     unsigned int splitNo = 0;
+	bool ret = false;
     EdgeVector::iterator i;
     for (i=myIncomingEdges->begin(); i!=myIncomingEdges->end(); i++) {
         unsigned int noLanesEdge = (*i)->getNoLanes();
@@ -612,7 +613,7 @@ NBNode::writeXMLInternalLinks(OutputDevice &into) {
                     << toString<SUMOReal>(cross.first) << "\""
                     << " shape=\"" << split.first << "\"/>\n"
                     << "      </lanes>\n"
-                    << "   </edge>\n\n";
+                    << "   </edge>\n";
                     lno++;
 
                     std::string id = ":" + myID + "_" + toString(splitNo+noInternalNoSplits);
@@ -624,7 +625,7 @@ NBNode::writeXMLInternalLinks(OutputDevice &into) {
                     << toString<SUMOReal>(length-cross.first) << "\""
                     << " shape=\"" << split.second << "\"/>\n"
                     << "      </lanes>\n"
-                    << "   </edge>\n\n";
+                    << "   </edge>\n";
                     splitNo++;
                 } else {
                     into << "   <edge id=\"" << id
@@ -635,12 +636,14 @@ NBNode::writeXMLInternalLinks(OutputDevice &into) {
                     << toString<SUMOReal>(length) << "\""
                     << " shape=\"" << shape << "\"/>\n"
                     << "      </lanes>\n"
-                    << "   </edge>\n\n";
+                    << "   </edge>\n";
                     lno++;
                 }
+				ret = true;
             }
         }
     }
+	return ret;
 }
 
 
@@ -915,12 +918,13 @@ NBNode::getCrossingSourcesNames_dividedBySpace(NBEdge *fromE, unsigned int fromL
 }
 
 
-void
+bool
 NBNode::writeXMLInternalSuccInfos(OutputDevice &into) {
     unsigned int noInternalNoSplits = countInternalLanes(false);
     if (noInternalNoSplits==0) {
-        return;
+        return false;
     }
+	bool ret = false;
     unsigned int lno = 0;
     unsigned int splitNo = 0;
     for (EdgeVector::iterator i=myIncomingEdges->begin(); i!=myIncomingEdges->end(); i++) {
@@ -968,18 +972,21 @@ NBNode::writeXMLInternalSuccInfos(OutputDevice &into) {
                     splitNo++;
                 }
                 lno++;
+				ret = true;
             }
         }
     }
+	return ret;
 }
 
 
-void
+bool
 NBNode::writeXMLInternalNodes(OutputDevice &into) {
     unsigned int noInternalNoSplits = countInternalLanes(false);
     if (noInternalNoSplits==0) {
-        return;
+        return false;
     }
+	bool ret = false;
     unsigned int lno = 0;
     unsigned int splitNo = 0;
     for (EdgeVector::iterator i=myIncomingEdges->begin(); i!=myIncomingEdges->end(); i++) {
@@ -1012,12 +1019,14 @@ NBNode::writeXMLInternalNodes(OutputDevice &into) {
                 }
                 into << "\"";
                 into << " intLanes=\"" << getCrossingNames_dividedBySpace(*i, j, (*k).toEdge, (*k).toLane) << "\"";
-                into << " shape=\"\"/>\n\n";
+                into << " shape=\"\"/>\n";
                 splitNo++;
                 lno++;
+				ret = true;
             }
         }
     }
+	return ret;
 }
 
 
@@ -1098,7 +1107,7 @@ NBNode::writeXML(OutputDevice &into) {
     }
     into << "\"";
     // close writing
-    into << " shape=\"" << myPoly << "\"/>\n\n";
+    into << " shape=\"" << myPoly << "\"/>\n";
 }
 
 

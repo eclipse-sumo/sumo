@@ -109,7 +109,7 @@ NBDistrict::writeXML(OutputDevice &into) throw() {
         into << "      <dsink id=\"" << mySinks[i]->getID() << "\" weight=\"" << mySinkWeights[i] << "\"/>\n";
     }
     // write the tail
-    into << "   </district>\n\n";
+    into << "   </district>\n";
 }
 
 

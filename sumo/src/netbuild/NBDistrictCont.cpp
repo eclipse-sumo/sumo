@@ -76,7 +76,9 @@ NBDistrictCont::writeXML(OutputDevice &into) const throw() {
     for (DistrictCont::const_iterator i=myDistricts.begin(); i!=myDistricts.end(); i++) {
         (*i).second->writeXML(into);
     }
-    into << "\n";
+	if(myDistricts.size()!=0) {
+		into << "\n";
+	}
 }
 
 
