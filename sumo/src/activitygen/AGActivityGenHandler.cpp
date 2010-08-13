@@ -47,10 +47,8 @@ AGActivityGenHandler::~AGActivityGenHandler() throw() {}
 
 
 void
-AGActivityGenHandler::myStartElement(SumoXMLTag element,
-                             const SUMOSAXAttributes &attrs) throw(ProcessError) {
-	std::cout << element << std::endl;
-
+AGActivityGenHandler::myStartElement(SumoXMLTag element, const SUMOSAXAttributes &attrs)
+throw(ProcessError) {
     switch (element) {
     case AGEN_TAG_GENERAL:
     	parseGeneralCityInfo(attrs);
@@ -109,7 +107,6 @@ AGActivityGenHandler::myStartElement(SumoXMLTag element,
 void
 AGActivityGenHandler::parseGeneralCityInfo(const SUMOSAXAttributes &attrs)
 {
-	//if(attrs.hasAttribute(AGEN_ATTR_INHABITANTS))
 	myCity.statData.inhabitants = attrs.getInt(AGEN_ATTR_INHABITANTS);
 	myCity.statData.households = attrs.getInt(AGEN_ATTR_HOUSEHOLDS);
 	myCity.statData.limitAgeChildren = attrs.getInt(AGEN_ATTR_CHILDREN);
@@ -215,9 +212,9 @@ AGActivityGenHandler::parseBusStation(const SUMOSAXAttributes &attrs)
 {
 	AGPosition posi(myCity.getStreet(attrs.getString(SUMO_ATTR_EDGE)), attrs.getFloat(SUMO_ATTR_POSITION));
 	myCity.statData.busStations.insert(std::pair<int, AGPosition>(attrs.getInt(SUMO_ATTR_ID), posi));
-	std::cout << "bus station: ";
+	/*std::cout << "bus station: ";
 	posi.print();
-	std::cout << std::endl;
+	std::cout << std::endl;*/
 }
 
 void
@@ -237,7 +234,7 @@ AGActivityGenHandler::parseStation(const SUMOSAXAttributes &attrs)
 	if(myCurrentObject != "busLine")
 		return;
 	currentBusLine->locateStation(myCity.statData.busStations.find(attrs.getInt(SUMO_ATTR_REFID))->second);
-	std::cout << "_";
+	//std::cout << "_";
 }
 
 void
@@ -249,7 +246,7 @@ AGActivityGenHandler::parseFrequency(const SUMOSAXAttributes &attrs)
 	int endB = attrs.getInt(SUMO_ATTR_END);
 	int rateB = attrs.getInt(AGEN_ATTR_RATE);
 	currentBusLine->generateBuses(beginB, endB, rateB);
-	std::cout << "|";
+	//std::cout << "|";
 }
 
 void

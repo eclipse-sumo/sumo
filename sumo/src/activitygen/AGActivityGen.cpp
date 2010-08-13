@@ -119,20 +119,20 @@ AGActivityGen::importInfoCity()
 bool
 AGActivityGen::timeTripValidation(AGTrip trip)
 {
-	if(trip.getDay() > this->durationInDays+1)
+	if(trip.getDay() > durationInDays+1)
 		return false;
 	if(trip.getDay() == 1) //first day
 	{
-		if(trip.getTime() < this->beginTime)
+		if(trip.getTime() < beginTime)
 			return false;
-		if(this->durationInDays == 0 && trip.getTime() > this->endTime)
+		if(durationInDays == 0 && trip.getTime() > endTime)
 			return false;
 	}
-	if(trip.getDay() == this->durationInDays+1) //last day
+	if(trip.getDay() == durationInDays+1) //last day
 	{
-		if(trip.getTime() > this->endTime)
+		if(trip.getTime() > endTime)
 			return false;
-		if(this->durationInDays == 0 && trip.getTime() < this->beginTime)
+		if(durationInDays == 0 && trip.getTime() < beginTime)
 			return false;
 	}
 	return true;
@@ -141,11 +141,14 @@ AGActivityGen::timeTripValidation(AGTrip trip)
 void
 AGActivityGen::generateOutputFile(std::list<AGTrip>& trips)
 {
-	AGActivityTripWriter atw(this->outputFile);
+	AGActivityTripWriter atw(outputFile);
 	list<AGTrip>::iterator it;
 	//variables for TESTS:
 	int firstTrip = trips.front().getTime() + trips.front().getDay()*86400;
 	int lastTrip = trips.front().getTime() + trips.front().getDay()*86400;
+	map<int, int> histogram;
+	for(int i=0 ; i<100 ; ++i)
+		histogram[i] = 0;
 	//END var TESTS
 	for(it=trips.begin() ; it!=trips.end() ; ++it)
 	{
@@ -155,6 +158,8 @@ AGActivityGen::generateOutputFile(std::list<AGTrip>& trips)
 			lastTrip = it->getTime() + 86400*it->getDay();
 		if(it->getTime() + 86400*it->getDay() < firstTrip)
 			firstTrip = it->getTime() + 86400*it->getDay();
+		//++histogram[((it->getDay()-1)*86400 + it->getTime())/3600];
+		++histogram[(it->getTime())/3600];
 		//END TEST
 	}
 	//PRINT TEST
@@ -162,6 +167,13 @@ AGActivityGen::generateOutputFile(std::list<AGTrip>& trips)
 	AGTime last(lastTrip);
 	cout << "first real trip: " << first.getDay() << ", " << first.getHour() << ":" << first.getMinute() << ":" << first.getSecond() << endl;
 	cout << "last real trip: " << last.getDay() << ", " << last.getHour() << ":" << last.getMinute() << ":" << last.getSecond() << endl;
+	for(int i=0 ; i<100 ; ++i)
+	{
+		if(histogram[i] > 0)
+		{
+			cout << "histogram[ hour " << i << " ] = " << histogram[i] << endl;
+		}
+	}
 	//END TEST
 	atw.writeOutputFile();
 }
@@ -190,7 +202,7 @@ AGActivityGen::makeActivityTrips(int days, int beginSec, int endSec)
 	{
 		if(it->isDaily())
 		{
-			for(int currday=1 ; currday<this->durationInDays+2 ; ++currday)
+			for(int currday=1 ; currday<durationInDays+2 ; ++currday)
 			{
 				AGTrip tr(it->getDep(), it->getArr(), it->getVehicleName(), it->getTime(), currday);
 				tr.setType(it->getType());

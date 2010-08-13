@@ -81,7 +81,8 @@ void initAndOptions(int argc, char *argv[]) {
 	XMLSubSys::init(false);
 
 	// Options handling
-	oc.addCallExample("-c <CONFIGURATION>");
+	oc.addCallExample("--net-file <INPUT>.net.xml --stat-file <INPUT>.stat.xml --output-file <OUTPUT>.rou.xml");
+	oc.addCallExample("--net-file <INPUT>.net.xml --stat-file <INPUT>.stat.xml --output-file <OUTPUT>.rou.xml --duration-d <NBR_OF_DAYS>");
 
 	// insert options sub-topics
 	SystemFrame::addConfigurationOptions(oc); // fill this subtopic, too
@@ -101,16 +102,13 @@ void initAndOptions(int argc, char *argv[]) {
 	//        addDUAOptions();
 	// add rand options
 
-	// Options of the ActivityGen
+	// Options of ActivityGen
 	oc.doRegister("debug", new Option_Bool(false));
 	oc.addDescription("debug", "Report",
 			"Detailled messages about every single step");
 
 	oc.doRegister("stat-file", 's', new Option_FileName());
 	oc.addDescription("stat-file", "Input", "Loads the SUMO-statistics FILE");
-
-	//oc.doRegister("duration-s", new Option_Integer());
-	//oc.addDescription("duration-s", "duration", "OPTIONAL sets the duration of the simulation in seconds");
 
 	oc.doRegister("duration-d", new Option_Integer());
 	oc.addDescription("duration-d", "Time", "OPTIONAL sets the duration of the simulation in days");
@@ -164,7 +162,7 @@ int main(int argc, char *argv[]) {
 #endif
 	RONet *net = 0;
 	try {
-		// Initialise subsystems and process options
+		// Initialize subsystems and process options
 		initAndOptions(argc, argv);
 		if (oc.processMetaOptions(argc < 2)) {
 			SystemFrame::close();
@@ -177,7 +175,6 @@ int main(int argc, char *argv[]) {
 		loadNet(*net, builder);
 		MsgHandler::getMessageInstance()->inform("Loaded " + toString(
 				net->getEdgeNo()) + " edges.");
-		std::cout << "--- Nr d Edge: " << net->getEdgeNo() << endl;
 
 	} catch (ProcessError &pe) {
 		cout << typeid(pe).name() << ": " << pe.what() << endl;
@@ -194,69 +191,13 @@ int main(int argc, char *argv[]) {
 	}
 
 	cout << setprecision(1);
-	// build the router
-	/*
-	SUMOAbstractRouter<ROEdge, ROVehicle> *router;
-    std::string measure = oc.getString("measure");
-    if (measure=="traveltime") {
-        if (net->hasRestrictions()) {
-            router = new DijkstraRouterTT_Direct<ROEdge, ROVehicle, prohibited_withRestrictions<ROEdge, ROVehicle> >(
-                net->getEdgeNo(), oc.getBool("continue-on-unbuild"), &ROEdge::getTravelTime);
-        } else {
-            router = new DijkstraRouterTT_Direct<ROEdge, ROVehicle, prohibited_noRestrictions<ROEdge, ROVehicle> >(
-                net->getEdgeNo(), oc.getBool("continue-on-unbuild"), &ROEdge::getTravelTime);
-        }
-    } else {
-        DijkstraRouterEffort_Direct<ROEdge, ROVehicle, prohibited_withRestrictions<ROEdge, ROVehicle> >::Operation op;
-        if (measure=="CO") {
-            op = &ROEdge::getCOEffort;
-        } else if (measure=="CO2") {
-            op = &ROEdge::getCO2Effort;
-        } else if (measure=="PMx") {
-            op = &ROEdge::getPMxEffort;
-        } else if (measure=="HC") {
-            op = &ROEdge::getHCEffort;
-        } else if (measure=="NOx") {
-            op = &ROEdge::getNOxEffort;
-        } else if (measure=="fuel") {
-            op = &ROEdge::getFuelEffort;
-        } else if (measure=="noise") {
-            op = &ROEdge::getNoiseEffort;
-        }
-        if (net->hasRestrictions()) {
-            router = new DijkstraRouterEffort_Direct<ROEdge, ROVehicle, prohibited_withRestrictions<ROEdge, ROVehicle> >(
-                net->getEdgeNo(), oc.getBool("continue-on-unbuild"), op, &ROEdge::getTravelTime);
-        } else {
-            router = new DijkstraRouterEffort_Direct<ROEdge, ROVehicle, prohibited_noRestrictions<ROEdge, ROVehicle> >(
-                net->getEdgeNo(), oc.getBool("continue-on-unbuild"), op, &ROEdge::getTravelTime);
-        }
-    }
-    */
-//here execution of dailyTripsGenerator...
-	//DailyTripsGenerator dtGenerator;
-	//dtGenerator.generateTrips(*net, *router);
 
-/*
-    std::cout << "--- Nr d Edge: " << net->getEdgeNo() << endl;
-    std::cout << "longueur de l'edge: " << (net->getEdgeMap()).begin()->second->getID() << " = " << (net->getEdgeMap()).begin()->second->getLength() << endl;
-    cout << net->getEdge("--2630#2")->getLength() << endl;
-    const map<string, ROEdge*> &edgeMap = net->getEdgeMap();
-    ROEdge* rue = edgeMap.find("--2630#2")->second;
-    std::cout << "edge particuliere: " << rue->getID() << " = " << rue->getLength() << endl;
-*/
-
-
-//here execution of ActivityGen:
     std::cout << "\n\t ---- begin AcitivtyGen ----\n" << std::endl;
     string statFile = oc.getString("stat-file");
     string routeFile = oc.getString("output-file");
     AGTime duration(1,0,0);
     AGTime begin(0);
     AGTime end(0);
-    //if(oc.exists("duration-s"))
-    //{
-    //	duration.addSeconds(oc.getInt("duration-s"));
-    //}
     if(oc.isSet("duration-d"))
     {
     	duration.setDay(oc.getInt("duration-d"));

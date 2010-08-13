@@ -111,7 +111,7 @@ AGCity::completeStreets()
 		//if this edge isn't represented by a street
 		if(itS == streets.end())
 		{
-			cout << "ajout: " << itE->second->getID() << endl;
+			//cout << "ajout: " << itE->second->getID() << endl;
 			AGStreet str(itE->second->getID(), net);
 			streets.push_back(str);
 		}
