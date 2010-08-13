@@ -2,3 +2,4 @@ generateE2Detectors
 generateTLSE3Detectors
 
 generateITetrisIntersectionMetrics
+generateITetrisNetworkMetrics

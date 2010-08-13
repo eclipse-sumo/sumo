@@ -1,0 +1,94 @@
+mean number of lanes per street : 1.0
+
+total number of vehicles : 337.0
+
+travel time
+===========
+total       : 254634.0
+mean        : 755.590504451
+std         : 396.338828943
+1/4-quantil : 334.0
+median      : 777.0
+3/4-quantil : 1111.0
+
+travel speed
+============
+mean        : 4.69216900341
+std         : 2.07482601155
+1/4-quantil : 3.03488514548
+median      : 4.20184322034
+3/4-quantil : 6.25589905363
+
+waiting time
+============
+total       : 120519.0
+mean        : 357.623145401
+std         : 239.694855095
+1/4-quantil : 125.0
+median      : 368.0
+3/4-quantil : 577.0
+
+distance travelled
+==================
+total       : 966800.25
+mean        : 2868.84347181
+std         : 985.494125495
+1/4-quantil : 1980.24
+median      : 1985.95
+3/4-quantil : 3962.08
+
+fuel consumption
+================
+total       : 0.0
+mean        : 0.0
+std         : 0.0
+1/4-quantil : 0.0
+median      : 0.0
+3/4-quantil : 0.0
+
+CO emissions
+============
+total       : 0.0
+mean        : 0.0
+std         : 0.0
+1/4-quantil : 0.0
+median      : 0.0
+3/4-quantil : 0.0
+
+CO2 emissions
+=============
+total       : 0.0
+mean        : 0.0
+std         : 0.0
+1/4-quantil : 0.0
+median      : 0.0
+3/4-quantil : 0.0
+
+HC emissions
+============
+total       : 0.0
+mean        : 0.0
+std         : 0.0
+1/4-quantil : 0.0
+median      : 0.0
+3/4-quantil : 0.0
+
+PMx emissions
+=============
+total       : 0.0
+mean        : 0.0
+std         : 0.0
+1/4-quantil : 0.0
+median      : 0.0
+3/4-quantil : 0.0
+
+NOx emissions
+=============
+total       : 0.0
+mean        : 0.0
+std         : 0.0
+1/4-quantil : 0.0
+median      : 0.0
+3/4-quantil : 0.0
+
+The calculation is done!

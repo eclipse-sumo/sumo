@@ -11,6 +11,8 @@ copy_test_path:input_weights.dump.xml
 copy_test_path:e2_output.xml
 copy_test_path:costFunction.py
 copy_test_path:lsa_def.csv
+copy_test_path:vehroutes.xml
+copy_test_path:tripinfos.xml
 
 [collate_file]
 detectors:e2.add.xml
