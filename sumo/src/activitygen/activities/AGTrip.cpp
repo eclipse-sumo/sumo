@@ -68,6 +68,16 @@ AGTrip::addLayOver(AGTrip &trip)
 	passBy.push_back(trip.to);
 }
 
+void
+AGTrip::addLayOverWithoutDestination(AGTrip & trip)
+{
+	list<AGPosition>::iterator it;
+	for(it=trip.passBy.begin() ; it!=trip.passBy.end() ; ++it)
+	{
+		passBy.push_back(*it);
+	}
+}
+
 std::list<AGPosition>*
 AGTrip::getPassed()
 {

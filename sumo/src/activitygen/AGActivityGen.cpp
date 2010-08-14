@@ -217,6 +217,7 @@ AGActivityGen::makeActivityTrips(int days, int beginSec, int endSec)
 				std::ostringstream os;
 				os << tr.getVehicleName() << ":" << carUsed.find(tr.getVehicleName())->second;
 				tr.setVehicleName(os.str());
+				tr.addLayOverWithoutDestination(*it); //intermediate destinations are taken in account too
 				if(timeTripValidation(tr))
 					expTrips.push_back(tr);
 				//else
@@ -238,6 +239,7 @@ AGActivityGen::makeActivityTrips(int days, int beginSec, int endSec)
 			std::ostringstream os;
 			os << tr.getVehicleName() << ":" << carUsed.find(tr.getVehicleName())->second;
 			tr.setVehicleName(os.str());
+			tr.addLayOverWithoutDestination(*it); //intermediate destinations are taken in account too
 			if(timeTripValidation(tr))
 				expTrips.push_back(tr);
 			//else

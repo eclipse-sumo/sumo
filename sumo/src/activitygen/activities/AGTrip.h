@@ -85,6 +85,7 @@ public:
 	void print();
 	void addLayOver(AGPosition by);
 	void addLayOver(AGTrip &trip);
+	void addLayOverWithoutDestination(AGTrip &trip);
 
 	AGPosition getDep();
 	AGPosition getArr();
