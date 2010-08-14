@@ -29,6 +29,7 @@
 
 #include <iostream>
 #include <vector>
+#include <utils/common/RandHelper.h>
 #include "AGAdult.h"
 #include "AGWorkPosition.h"
 
@@ -76,7 +77,7 @@ AGWorkPosition*
 AGAdult::pickWork(vector<AGWorkPosition> *wps)
 {
 	//vector<AGWorkPosition>::iterator it;
-	int init = rand() % (wps->size());
+	int init = RandHelper::rand(wps->size()); //rand() % (wps->size());
 	//it += init;
 
 	//int offset = 0;

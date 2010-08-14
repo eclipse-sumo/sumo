@@ -66,7 +66,7 @@ AGChild::alocateASchool(list<AGSchool> *schools, AGPosition housePos)
 	AGSchool *sch = NULL;
 	if(schools->size() == 0)
 		return false;
-	list<AGSchool>::iterator it = schools->begin();
+	list<AGSchool>::iterator it;
 
 	for(it = schools->begin() ; it!=schools->end() ; ++it)
 	{

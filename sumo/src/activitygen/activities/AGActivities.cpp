@@ -30,7 +30,9 @@
 #include "AGActivities.h"
 #include "AGWorkAndSchool.h"
 #include "AGFreeTime.h"
+#include "../city/AGTime.h"
 #include <sstream>
+#include <utils/common/RandHelper.h>
 
 #define REBUILD_ITERATION_LIMIT 2
 
@@ -108,6 +110,16 @@ AGActivities::generateActivityTrips()
 		cout << "no problem during in/out traffic generation..." << endl;
 
 	cout << "after incoming/outgoing traffic: " << trips.size() << endl;
+	/**
+	 * random traffic trips
+	 * @NOTICE: this includes uniform and proportional random traffic
+	 */
+	if( ! generateRandomTraffic() )
+		cerr << "ERROR while generating random traffic..." << endl;
+	else
+		cout << "no problem during random traffic generation..." << endl;
+
+	cout << "after random traffic: " << trips.size() << endl;
 }
 
 bool
@@ -191,7 +203,7 @@ AGActivities::generateInOutTraffic()
 	{
 		if(itP == myCity->cityGates.end())
 			itP = myCity->cityGates.begin();
-		string nom(generateIncomingName(num));
+		string nom(generateName(num, "carIn"));
 		if(! itA->assocWork(1, &(myCity->workPositions), myCity->statData.workPositions))
 		{
 			//shouldn't happen
@@ -209,11 +221,54 @@ AGActivities::generateInOutTraffic()
 }
 
 string
-AGActivities::generateIncomingName(int i)
+AGActivities::generateName(int i, string prefix)
 {
 	std::ostringstream os;
 	os << i;
-	return "carIn" + os.str();
+	return prefix + os.str();
+}
+
+bool
+AGActivities::generateRandomTraffic()
+{
+	//total number of trips during the whole simulation
+	int totalTrips = 0, ttOneDayTrips = 0, ttDailyTrips = 0;
+	list<AGTrip>::iterator it;
+	for(it = trips.begin() ; it != trips.end() ; ++it)
+	{
+		if(it->isDaily())
+			++ttDailyTrips;
+		else
+			++ttOneDayTrips;
+	}
+	totalTrips = ttOneDayTrips + ttDailyTrips * nbrDays;
+	//TESTS
+	cout << "Before Random traffic generation (days are still entire):" << endl;
+	cout << "- Total number of trips: " << totalTrips << endl;
+	cout << "- Total daily trips: " << ttDailyTrips << endl;
+	cout << "- Total one-day trips: " << ttOneDayTrips << endl;
+	//END OF TESTS
+
+	//random uniform distribution:
+	int nbrRandUni = (int)((float)totalTrips * myCity->statData.uniformRandomTrafficRate / (1.0f - myCity->statData.uniformRandomTrafficRate));
+	//TESTS
+	cout << "added uniform random trips: " << nbrRandUni << endl;
+	//END OF TESTS
+	for(int i=0 ; i<nbrRandUni ; ++i)
+	{
+		AGPosition dep(myCity->getRandomStreet());
+		AGPosition arr(myCity->getRandomStreet());
+		AGTime depTime(RandHelper::rand(nbrDays*86400));
+		AGTrip rdtr(dep, arr, generateName(i, "randUni"), depTime.getTime()%86400, depTime.getDay()+1);
+		rdtr.setType("random");
+		trips.push_back(rdtr);
+	}
+
+	//random proportional distribution:
+	float proportionalPercentage = 0.05f;
+	//TODO generate a proportionally distributed random traffic
+
+	return true;
 }
 
 /****************************************************************************/

@@ -62,11 +62,12 @@ private:
 	bool generateTrips(AGHousehold &hh);
 	bool generateBusTraffic(AGBusLine bl);
 	bool generateInOutTraffic();
+	bool generateRandomTraffic();
 
 	/**
-	 * generates names for incoming cars, given there unique number
+	 * generates car names, given the unique (number, prefix)
 	 */
-	std::string generateIncomingName(int i);
+	std::string generateName(int i, std::string prefix);
 	
 	AGCity *myCity;
 

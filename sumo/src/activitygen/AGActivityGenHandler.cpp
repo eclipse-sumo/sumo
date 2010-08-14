@@ -138,6 +138,12 @@ AGActivityGenHandler::parseParameters(const SUMOSAXAttributes &attrs)
 	else
 		myCity.statData.freeTimeActivityRate = 0.15;
 	std::cout << "free time activity rate: " << myCity.statData.freeTimeActivityRate << std::endl;
+
+	if(attrs.hasAttribute(AGEN_ATTR_UNI_RAND_TRAFFIC))
+		myCity.statData.uniformRandomTrafficRate = attrs.getFloat(AGEN_ATTR_UNI_RAND_TRAFFIC);
+	else
+		myCity.statData.uniformRandomTrafficRate = 0.0;
+	std::cout << "uniform random traffic proportion: " << myCity.statData.uniformRandomTrafficRate << std::endl;
 }
 
 void

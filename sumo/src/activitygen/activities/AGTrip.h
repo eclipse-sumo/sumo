@@ -141,7 +141,7 @@ private:
 	int day;
 	/**
 	 * indicates if it is a bus or a car (or any type)
-	 * "bus", "default"
+	 * "bus", "default" or "random" (which is a kind of default)
 	 */
 	std::string type;
 };
