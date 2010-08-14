@@ -429,6 +429,7 @@ GenericSAXHandler::Attr sumoattrs[] = {
 	{ "carPreference",  AGEN_ATTR_CARPREF },
 	{ "meanTimePerKmInCity", AGEN_ATTR_CITYSPEED },
 	{ "freeTimeActivityRate", AGEN_ATTR_FREETIMERATE },
+	{ "uniformRandomTraffic", AGEN_ATTR_UNI_RAND_TRAFFIC},
 
     { "",               SUMO_ATTR_NOTHING }
 };
