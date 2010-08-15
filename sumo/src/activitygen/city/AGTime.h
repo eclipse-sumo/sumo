@@ -47,11 +47,15 @@ public:
 	AGTime(int day, int hour, int min) :
 		sec(convert(day, hour, min, 0))
 	{};
+	AGTime(int day, int hour, int min, int sec) :
+		sec(convert(day, hour, min, sec))
+	{};
 	AGTime(const AGTime& time);
 	bool operator==(const AGTime &time);
 	bool operator<(const AGTime &time);
 	bool operator<=(const AGTime &time);
 	void operator+=(const AGTime &time);
+	void operator+=(int seconds);
 	void operator-=(const AGTime &time);
 	AGTime operator+(const AGTime &time);
 
@@ -62,6 +66,7 @@ public:
 	int getHour();
 	int getMinute();
 	int getSecond();
+	int getSecondsInCurrentDay();
 	/**
 	 * @brief: returns the number of seconds from the beginning of the first day of simulation
 	 * this includes

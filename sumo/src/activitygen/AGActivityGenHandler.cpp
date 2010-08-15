@@ -144,6 +144,12 @@ AGActivityGenHandler::parseParameters(const SUMOSAXAttributes &attrs)
 	else
 		myCity.statData.uniformRandomTrafficRate = 0.0;
 	std::cout << "uniform random traffic proportion: " << myCity.statData.uniformRandomTrafficRate << std::endl;
+
+	if(attrs.hasAttribute(AGEN_ATTR_DEP_VARIATION))
+		myCity.statData.departureVariation = attrs.getFloat(AGEN_ATTR_DEP_VARIATION);
+	else
+		myCity.statData.departureVariation = 0.0;
+	std::cout << "variance in trip departure time variation: " << myCity.statData.departureVariation << std::endl;
 }
 
 void

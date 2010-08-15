@@ -30,6 +30,7 @@
 #include <iostream>
 #include <utils/xml/XMLSubSys.h>
 #include <utils/common/MsgHandler.h>
+#include <utils/common/RandHelper.h>
 #include <sstream>
 #include "AGActivityGen.h"
 #include "AGActivityGenHandler.h"
@@ -250,7 +251,28 @@ AGActivityGen::makeActivityTrips(int days, int beginSec, int endSec)
 	cout << "total trips generated: " << acts.trips.size() << endl;
 	cout << "total trips finally taken: " << expTrips.size() << endl;
 
-	//TODO add slight variation in trips
+	/**
+	 * generation of slight variation on each car (not buses which are on time)
+	 */
+	for(it = expTrips.begin() ; it != expTrips.end() ; ++it)
+	{
+		if(it->getType() != "default")
+			continue;
+		//buses are on time and random are already spread
+		int variation = (int)RandHelper::randNorm(0, city.statData.departureVariation);
+		AGTime depTime(it->getDay(), 0, 0, it->getTime());
+		depTime += variation;
+		if(depTime.getDay() > 0)
+		{
+			it->setDay(depTime.getDay());
+			it->setDepTime(depTime.getSecondsInCurrentDay());
+		}
+		else
+		{
+			it->setDay(1);
+			it->setDepTime(0);
+		}
+	}
 
 	/**
 	 * re-ordering of trips: SUMO needs routes ordered by departure time.
@@ -258,6 +280,7 @@ AGActivityGen::makeActivityTrips(int days, int beginSec, int endSec)
 	cout << expTrips.size() << " trips to sort..." << endl;
 	expTrips.sort(); //natural order of trips
 	cout << "...sorted.\n" << endl;
+
 	/**
 	 * trip file generation
 	 */

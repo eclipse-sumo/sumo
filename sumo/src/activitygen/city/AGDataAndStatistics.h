@@ -67,6 +67,7 @@ public:
 	int outgoingTraffic;
 	float freeTimeActivityRate;
 	float uniformRandomTrafficRate;
+	double departureVariation;
 
 	std::map<int, float> beginWorkHours;				//<hour, probability> (number only used in term of PROPORTION: it should be normalized)
 	std::map<int, float> endWorkHours;					//<hour, probability> (number only used in term of PROPORTION: it should be normalized)

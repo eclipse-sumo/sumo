@@ -91,6 +91,12 @@ AGTime::operator+=(const AGTime &time)
 }
 
 void
+AGTime::operator+=(int seconds)
+{
+	this->sec += seconds;
+}
+
+void
 AGTime::operator-=(const AGTime &time)
 {
 	this->sec -= time.sec;
@@ -125,6 +131,12 @@ int
 AGTime::getSecond()
 {
 	return (sec % 60);
+}
+
+int
+AGTime::getSecondsInCurrentDay()
+{
+	return (sec % 86400);
 }
 
 int
