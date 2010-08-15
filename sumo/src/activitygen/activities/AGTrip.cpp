@@ -34,10 +34,20 @@
 // ===========================================================================
 using namespace std;
 
-
 // ===========================================================================
 // method definitions
 // ===========================================================================
+bool
+AGTrip::operator <(AGTrip & trip)
+{
+	if(getDay() < trip.getDay())
+		return true;
+	if(getDay() == trip.getDay())
+		if(getTime() < trip.getTime())
+			return true;
+	return false;
+}
+
 void
 AGTrip::print()
 {

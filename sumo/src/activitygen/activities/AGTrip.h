@@ -83,6 +83,8 @@ public:
 		day(day)
 	{};
 	void print();
+	bool operator<(AGTrip & trip);
+
 	void addLayOver(AGPosition by);
 	void addLayOver(AGTrip &trip);
 	void addLayOverWithoutDestination(AGTrip &trip);

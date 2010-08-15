@@ -253,6 +253,12 @@ AGActivityGen::makeActivityTrips(int days, int beginSec, int endSec)
 	//TODO add slight variation in trips
 
 	/**
+	 * re-ordering of trips: SUMO needs routes ordered by departure time.
+	 */
+	cout << expTrips.size() << " trips to sort..." << endl;
+	expTrips.sort(); //natural order of trips
+	cout << "...sorted.\n" << endl;
+	/**
 	 * trip file generation
 	 */
 	generateOutputFile(expTrips);

@@ -43,7 +43,6 @@ void
 AGActivityTripWriter::initialize()
 {
 	routes << "<?xml version=\"1.0\"?>" << endl << endl;
-	//TODO: variables
 	routes << "<routes>" << endl;
 	vtypes();
 }
