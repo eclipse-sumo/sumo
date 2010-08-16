@@ -154,12 +154,7 @@ int main(int argc, char *argv[]) {
 	// give some application descriptions
 	oc.setApplicationDescription(
 			"Generates routes of persons throughout a day for the microscopic road traffic simulation SUMO.");
-#ifdef WIN32
-	oc.setApplicationName("activitygen.exe", "SUMO activitygen Version " + (std::string)VERSION_STRING);
-#else
-	oc.setApplicationName("sumo-activitygen", "SUMO activitygen Version "
-			+ (std::string) VERSION_STRING);
-#endif
+	oc.setApplicationName("activitygen", "SUMO activitygen Version " + (std::string)VERSION_STRING);
 	RONet *net = 0;
 	try {
 		// Initialize subsystems and process options
