@@ -4,4 +4,29 @@ routecompare
 # Tests for <SUMO_DIST>/tools/route_tools/routecheck.py
 routecheck
 
+# Tests for <SUMO_DIST>/tools/route_tools/route2alts.py
+route2alts
+
+# Tests for <SUMO_DIST>/tools/route_tools/route_departOffset.py
+route_departOffset
+
+# Tests for <SUMO_DIST>/tools/route_tools/kShortest.py
+kShortest
+
+# Tests for <SUMO_DIST>/tools/route_tools/route_1htoDay.py
+route_1htoDay
+
+# Tests for <SUMO_DIST>/tools/route_tools/routes2OD.py
+routes2OD
+
+# Tests for <SUMO_DIST>/tools/route_tools/findUTurns.py
+findUTurns
+
+
+
+
+
+
+
+
 
