@@ -4,11 +4,11 @@ SUMO activitygen Version dev-SVN-r8952
 Generates routes of persons throughout a day for the microscopic road traffic
   simulation SUMO.
 
-Usage: activitygen.exe [OPTION]*
+Usage: activitygen [OPTION]*
  
  Examples:
-  activitygen.exe --net-file <INPUT>.net.xml --stat-file <INPUT>.stat.xml --output-file <OUTPUT>.rou.xml
-  activitygen.exe --net-file <INPUT>.net.xml --stat-file <INPUT>.stat.xml --output-file <OUTPUT>.rou.xml --duration-d <NBR_OF_DAYS>
+  activitygen --net-file <INPUT>.net.xml --stat-file <INPUT>.stat.xml --output-file <OUTPUT>.rou.xml
+  activitygen --net-file <INPUT>.net.xml --stat-file <INPUT>.stat.xml --output-file <OUTPUT>.rou.xml --duration-d <NBR_OF_DAYS>
  
  Configuration Options:
   -c, --configuration-file FILE    Loads the named config on startup
