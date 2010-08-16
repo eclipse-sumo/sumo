@@ -1,0 +1,10 @@
+<tripinfos >
+<tripinfo arrival="108.00" waitSteps="0" vtype="DEFAULT_VEHTYPE" depart="0.00" routeLength="1080.00" vaporized="" duration="108.00" arrivalSpeed="10.00" devices="" departPos="100.00" departDelay="0.00" departLane="4/1to3/1_0" departSpeed="10.00" arrivalPos="8.50" rerouteNo="0" id="0" arrivalLane="1/1to0/1_0" >
+</tripinfo>
+</tripinfos>
+<routes >
+<route edges="a b c d" id="1" >
+</route>
+<route edges="c e f g" id="2" >
+</route>
+</routes>

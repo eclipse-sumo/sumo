@@ -13,6 +13,9 @@ copy_test_path:costFunction.py
 copy_test_path:lsa_def.csv
 copy_test_path:vehroutes.xml
 copy_test_path:tripinfos.xml
+copy_test_path:map.txt
+copy_test_path:routes.rou.xml
+copy_test_path:tripinfos.sumo
 
 [collate_file]
 detectors:e2.add.xml
