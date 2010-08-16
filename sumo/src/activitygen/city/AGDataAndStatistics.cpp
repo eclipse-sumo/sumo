@@ -194,7 +194,7 @@ AGDataAndStatistics::getInverseExpRandomValue(float mean, float maxVar)
 {
 	if(maxVar <= 0)
 		return mean;
-	float p = (float)(RandHelper::rand(0.9999)) + 0.0001f; // (((float)(rand()%10000))+1)/10000.0; // val from 0.0001 to 1.0000
+	SUMOReal p = RandHelper::rand(static_cast<SUMOReal>(0.0001), static_cast<SUMOReal>(1));
 	//we have to scale the distribution because maxVar is different from INF
 	float scale = exp((-1)*maxVar);
 	//new p: scaled
