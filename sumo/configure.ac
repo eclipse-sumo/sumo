@@ -466,8 +466,6 @@ src/utils/iodevices/Makefile
 src/utils/options/Makefile
 src/utils/shapes/Makefile
 src/utils/xml/Makefile
-src/dailytrips/Makefile
-src/_ActivityGen_/Makefile
 docs/Makefile
 docs/docbook/Makefile
 docs/docbook/xslt/Makefile
