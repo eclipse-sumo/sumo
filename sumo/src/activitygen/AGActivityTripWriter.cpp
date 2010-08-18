@@ -70,11 +70,15 @@ AGActivityTripWriter::addTrip(AGTrip trip)
 	routes << " id=\"" << trip.getVehicleName();
 	routes << "\" type=\"" << trip.getType();
 	routes << "\" depart=\"" << time;
+	routes << "\" departpos=\"" << trip.getDep().position;
+	routes << "\" arrivalpos=\"" << trip.getArr().position;
+	routes << "\" departspeed=\"" << 0;
+	routes << "\" arrivalspeed=\"" << 0;
 	routes << "\" color=\"" << colors[trip.getType()];
 	routes << "\">" << endl;
 
 	//the route
-	routes << "\t\t<route edges=\""; //TODO the exact position
+	routes << "\t\t<route edges=\"";
 	routes << trip.getDep().street->getName();
 	for(it=trip.getPassed()->begin() ; it!=trip.getPassed()->end() ; ++it)
 	{

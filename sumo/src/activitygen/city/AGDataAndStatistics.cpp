@@ -30,7 +30,6 @@
 #include <utils/common/RandHelper.h>
 #include <cmath>
 #include <iomanip>
-#define RAND_PRECISION 10000
 #define LIMIT_CHILDREN_NUMBER 3
 
 
