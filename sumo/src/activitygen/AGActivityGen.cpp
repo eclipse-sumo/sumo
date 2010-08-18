@@ -140,6 +140,27 @@ AGActivityGen::timeTripValidation(AGTrip trip)
 }
 
 void
+AGActivityGen::varDepTime(AGTrip & trip)
+{
+	if(trip.getType() != "default")
+		return;
+	//buses are on time and random are already spread
+	int variation = (int)RandHelper::randNorm(0, city.statData.departureVariation);
+	AGTime depTime(trip.getDay(), 0, 0, trip.getTime());
+	depTime += variation;
+	if(depTime.getDay() > 0)
+	{
+		trip.setDay(depTime.getDay());
+		trip.setDepTime(depTime.getSecondsInCurrentDay());
+	}
+	else
+	{
+		trip.setDay(1);
+		trip.setDepTime(0);
+	}
+}
+
+void
 AGActivityGen::generateOutputFile(std::list<AGTrip>& trips)
 {
 	AGActivityTripWriter atw(outputFile);
@@ -219,6 +240,7 @@ AGActivityGen::makeActivityTrips(int days, int beginSec, int endSec)
 				os << tr.getVehicleName() << ":" << carUsed.find(tr.getVehicleName())->second;
 				tr.setVehicleName(os.str());
 				tr.addLayOverWithoutDestination(*it); //intermediate destinations are taken in account too
+				varDepTime(tr); //slight variation on each "default" car
 				if(timeTripValidation(tr))
 					expTrips.push_back(tr);
 				//else
@@ -241,6 +263,7 @@ AGActivityGen::makeActivityTrips(int days, int beginSec, int endSec)
 			os << tr.getVehicleName() << ":" << carUsed.find(tr.getVehicleName())->second;
 			tr.setVehicleName(os.str());
 			tr.addLayOverWithoutDestination(*it); //intermediate destinations are taken in account too
+			varDepTime(tr); //slight variation on each "default" car
 			if(timeTripValidation(tr))
 				expTrips.push_back(tr);
 			//else
@@ -252,34 +275,10 @@ AGActivityGen::makeActivityTrips(int days, int beginSec, int endSec)
 	cout << "total trips finally taken: " << expTrips.size() << endl;
 
 	/**
-	 * generation of slight variation on each car (not buses which are on time)
-	 */
-	for(it = expTrips.begin() ; it != expTrips.end() ; ++it)
-	{
-		if(it->getType() != "default")
-			continue;
-		//buses are on time and random are already spread
-		int variation = (int)RandHelper::randNorm(0, city.statData.departureVariation);
-		AGTime depTime(it->getDay(), 0, 0, it->getTime());
-		depTime += variation;
-		if(depTime.getDay() > 0)
-		{
-			it->setDay(depTime.getDay());
-			it->setDepTime(depTime.getSecondsInCurrentDay());
-		}
-		else
-		{
-			it->setDay(1);
-			it->setDepTime(0);
-		}
-	}
-
-	/**
 	 * re-ordering of trips: SUMO needs routes ordered by departure time.
 	 */
-	cout << expTrips.size() << " trips to sort..." << endl;
 	expTrips.sort(); //natural order of trips
-	cout << "...sorted.\n" << endl;
+	cout << "...sorted by departure time.\n" << endl;
 
 	/**
 	 * trip file generation
