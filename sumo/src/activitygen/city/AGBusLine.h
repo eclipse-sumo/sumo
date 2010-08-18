@@ -49,10 +49,12 @@ public:
 	void setBusNames();
 	int nbrBuses();
 	void locateStation(AGPosition pos);
+	void locateRevStation(AGPosition pos);
 	void generateBuses(int start, int stop, int rate);
 	void printBuses();
 
 	std::list<AGPosition> stations;
+	std::list<AGPosition> revStations;
 	std::list<AGBus> buses;
 	std::list<AGBus> revBuses;
 

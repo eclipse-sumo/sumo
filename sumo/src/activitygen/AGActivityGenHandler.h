@@ -112,6 +112,8 @@ protected:
      */
     void parseBusStation(const SUMOSAXAttributes &attrs);
     void parseBusLine(const SUMOSAXAttributes &attrs);
+    void parseStations();
+    void parseRevStations();
     void parseStation(const SUMOSAXAttributes &attrs);
     void parseFrequency(const SUMOSAXAttributes &attrs);
 
@@ -131,6 +133,9 @@ protected:
     /// @brief The name of the object that is currently processed
     std::string myCurrentObject;
     AGBusLine* currentBusLine;
+
+    /// @brief indicator whether the current station (in bus line context) is a reverse station or not.
+    bool isRevStation;
 
     /// @brief The loaded network
     RONet *net;

@@ -151,6 +151,12 @@ AGBusLine::locateStation(AGPosition pos)
 }
 
 void
+AGBusLine::locateRevStation(AGPosition pos)
+{
+	revStations.push_back(pos);
+}
+
+void
 AGBusLine::generateBuses(int start, int stop, int rate)
 {
 	int t = start;

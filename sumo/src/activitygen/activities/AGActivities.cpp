@@ -78,7 +78,7 @@ AGActivities::generateActivityTrips()
 			++numbErr;
 	}
 	if(numbErr != 0)
-		cerr << "ERROR: " << numbErr << " bus lines couldn't been generated ( " << (float)numbErr*100.0/(float)myCity->busLines.size() << "% )..." << endl;
+		cerr << "ERROR: " << numbErr << " bus lines couldn't been completely generated ( " << (float)numbErr*100.0/(float)myCity->busLines.size() << "% )..." << endl;
 	else
 		cout << "no problem during bus line trip generation..." << endl;
 
@@ -165,12 +165,34 @@ AGActivities::generateBusTraffic(AGBusLine bl)
 {
 	list<AGBus>::iterator itB;
 	list<AGPosition>::iterator itS;
+	/**
+	 * Buses in the first direction
+	 */
 	for(itB=bl.buses.begin() ; itB!=bl.buses.end() ; ++itB)
 	{
 		if(bl.stations.size() < 1)
 			return false;
 		AGTrip t(bl.stations.front(), bl.stations.back(), *itB, itB->getDeparture());
 		for(itS=bl.stations.begin() ; itS!=bl.stations.end() ; ++itS)
+		{
+			if(*itS == t.getDep() || *itS == t.getArr())
+				continue;
+			t.addLayOver(*itS);
+		}
+		trips.push_back(t);
+	}
+	/**
+	 * Buses in the return direction
+	 */
+	//verify that buses return back to the beginning
+	if(bl.revStations.empty())
+		return true; //in this case, no return way: everything is ok.
+	for(itB=bl.revBuses.begin() ; itB!=bl.revBuses.end() ; ++itB)
+	{
+		if(bl.revStations.size() < 1)
+			return false;
+		AGTrip t(bl.revStations.back(), bl.revStations.front(), *itB, itB->getDeparture());
+		for(itS=bl.revStations.begin() ; itS!=bl.revStations.end() ; ++itS)
 		{
 			if(*itS == t.getDep() || *itS == t.getArr())
 				continue;

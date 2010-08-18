@@ -77,6 +77,12 @@ throw(ProcessError) {
     case AGEN_TAG_BUSLINE:
     	parseBusLine(attrs);
     	break;
+    case AGEN_TAG_STATIONS:
+    	parseStations();
+    	break;
+    case AGEN_TAG_REV_STATIONS:
+    	parseRevStations();
+    	break;
     case AGEN_TAG_STATION:
     	parseStation(attrs);
     	break;
@@ -241,11 +247,26 @@ AGActivityGenHandler::parseBusLine(const SUMOSAXAttributes &attrs)
 }
 
 void
+AGActivityGenHandler::parseStations()
+{
+	isRevStation = false;
+}
+
+void
+AGActivityGenHandler::parseRevStations()
+{
+	isRevStation = true;
+}
+
+void
 AGActivityGenHandler::parseStation(const SUMOSAXAttributes &attrs)
 {
 	if(myCurrentObject != "busLine")
 		return;
-	currentBusLine->locateStation(myCity.statData.busStations.find(attrs.getInt(SUMO_ATTR_REFID))->second);
+	if(!isRevStation)
+		currentBusLine->locateStation(myCity.statData.busStations.find(attrs.getInt(SUMO_ATTR_REFID))->second);
+	else
+		currentBusLine->locateRevStation(myCity.statData.busStations.find(attrs.getInt(SUMO_ATTR_REFID))->second);
 	//std::cout << "_";
 }
 
