@@ -184,6 +184,8 @@ GenericSAXHandler::Tag sumotags[] = {
 	{ "school",           AGEN_TAG_SCHOOL },
 	{ "busStation",       AGEN_TAG_BUSSTATION },
 	{ "busLine",          AGEN_TAG_BUSLINE },
+	{ "stations",         AGEN_TAG_STATIONS },
+	{ "revStations",      AGEN_TAG_REV_STATIONS },
 	{ "station",          AGEN_TAG_STATION },
 	{ "frequency",        AGEN_TAG_FREQUENCY },
 	{ "population",       AGEN_TAG_POPULATION },
