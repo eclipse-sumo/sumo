@@ -80,7 +80,7 @@ for platform in ["Win32", "x64"]:
     shutil.rmtree(env["TEXTTEST_TMP"], True)
     shutil.rmtree(env["SUMO_REPORT"], True)
     os.mkdir(env["SUMO_REPORT"])
-    for name in ["dfrouter", "duarouter", "jtrrouter", "netconvert", "netgen", "od2trips", "sumo", "polyconvert", "sumo-gui"]:
+    for name in ["dfrouter", "duarouter", "jtrrouter", "netconvert", "netgen", "od2trips", "sumo", "polyconvert", "sumo-gui", "activitygen"]:
         binary = os.path.join(options.rootDir, options.binDir, name + programSuffix + ".exe")
         if name == "sumo":
             binary = os.path.join(options.rootDir, options.binDir, options.sumoExe + programSuffix + ".exe")
