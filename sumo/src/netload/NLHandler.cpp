@@ -1363,10 +1363,10 @@ NLHandler::addDistrict(const SUMOSAXAttributes &attrs) throw(ProcessError) {
         return;
     }
     try {
-        MSEdge* sink = myEdgeControlBuilder.buildEdge(myCurrentDistrictID);
-        if (!MSEdge::dictionary(myCurrentDistrictID, sink)) {
+        MSEdge* sink = myEdgeControlBuilder.buildEdge(myCurrentDistrictID + "-sink");
+        if (!MSEdge::dictionary(myCurrentDistrictID + "-sink", sink)) {
             delete sink;
-            throw InvalidArgument("Another edge with the id '" + myCurrentDistrictID + "' exists.");
+            throw InvalidArgument("Another edge with the id '" + myCurrentDistrictID + "-sink' exists.");
         }
         sink->initialize(0, 0, MSEdge::EDGEFUNCTION_DISTRICT);
         MSEdge* source = myEdgeControlBuilder.buildEdge(myCurrentDistrictID + "-source");
@@ -1408,7 +1408,7 @@ NLHandler::addDistrictEdge(const SUMOSAXAttributes &attrs, bool isSource) {
         if (isSource) {
             MSEdge::dictionary(myCurrentDistrictID + "-source")->addFollower(succ);
         } else {
-            succ->addFollower(MSEdge::dictionary(myCurrentDistrictID));
+            succ->addFollower(MSEdge::dictionary(myCurrentDistrictID + "-sink"));
         }
     } else {
         MsgHandler::getErrorInstance()->inform("At district '" + myCurrentDistrictID + "': succeeding edge '" + id + "' does not exist.");
