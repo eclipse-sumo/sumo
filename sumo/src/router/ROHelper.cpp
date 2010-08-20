@@ -56,6 +56,8 @@ recomputeCosts(SUMOAbstractRouter<ROEdge,ROVehicle> &router,
 
 void
 recheckForLoops(std::vector<const ROEdge*> &edges) throw() {
+	// remove loops at the route's begin
+	//  (vehicle makes a turnaround to get into the right direction at an already passed node)
     RONode* start = edges[0]->getFromNode();
     unsigned lastStart = 0;
     for (unsigned i=1; i<edges.size(); i++) {
@@ -66,6 +68,8 @@ recheckForLoops(std::vector<const ROEdge*> &edges) throw() {
     if (lastStart > 0) {
         edges.erase(edges.begin(), edges.begin() + lastStart - 1);
     }
+	// remove loops at the route's end
+	//  (vehicle makes a turnaround to get into the right direction at an already passed node)
     RONode* end = edges.back()->getToNode();
     size_t firstEnd = edges.size()-1;
     for (unsigned i=0; i<firstEnd; i++) {
@@ -76,6 +80,28 @@ recheckForLoops(std::vector<const ROEdge*> &edges) throw() {
     if (firstEnd < edges.size()-1) {
         edges.erase(edges.begin() + firstEnd + 2, edges.end());
     }
+	// remove loops within the route
+	std::vector<RONode*> nodes;
+	for(std::vector<const ROEdge*>::iterator i=edges.begin(); i!=edges.end(); ++i) {
+		nodes.push_back((*i)->getFromNode());
+	}
+	nodes.push_back(edges.back()->getToNode());
+	bool changed = false;
+	do {
+		changed = false;
+		for(unsigned int b=0; b<nodes.size()&&!changed; ++b) {
+			RONode *bn = nodes[b];
+			for(unsigned int e=b+1; e<nodes.size()&&!changed; ++e) {
+				if(bn==nodes[e]) {
+					changed = true;
+					nodes.erase(nodes.begin()+b, nodes.begin()+e);
+					edges.erase(edges.begin()+b, edges.begin()+e);
+				}
+			}
+		}
+	} while(changed);
+	/*
+	*/
 }
 
 

@@ -191,8 +191,7 @@ RONet::computeRoute(OptionsCont &options, SUMOAbstractRouter<ROEdge,ROVehicle> &
         return true;
     }
     //
-    RORoute *current =
-        routeDef->buildCurrentRoute(router, veh->getDepartureTime(), *veh);
+    RORoute *current = routeDef->buildCurrentRoute(router, veh->getDepartureTime(), *veh);
     if (current==0||current->size()==0) {
         delete current;
         return false;

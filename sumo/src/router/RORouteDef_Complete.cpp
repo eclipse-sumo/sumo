@@ -100,6 +100,7 @@ void
 RORouteDef_Complete::addAlternative(SUMOAbstractRouter<ROEdge,ROVehicle> &,
                                     const ROVehicle *const, RORoute *current, SUMOTime begin) {
     myStartTime = begin;
+	myEdges = current->getEdgeVector();
     delete current;
 }
 
