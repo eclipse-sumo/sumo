@@ -1316,6 +1316,7 @@ MSVehicle::enterLaneAtMove(MSLane* enteredLane, SUMOReal driven, bool onTeleport
     if (enteredLane->getEdge().isVaporizing()) {
         // yep, let's do the vaporization...
         setWasVaporized(false);
+        myLane = enteredLane;
         return true;
     }
     if(!onTeleporting) {
