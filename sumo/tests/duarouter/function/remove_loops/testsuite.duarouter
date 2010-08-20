@@ -1,5 +1,5 @@
 # removing loop at begin and end
-begin_end
+trip_begin_end
 
 # Testing broken Kleinnetz removal
 bug2042630
