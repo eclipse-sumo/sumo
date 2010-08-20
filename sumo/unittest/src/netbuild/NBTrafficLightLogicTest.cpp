@@ -15,7 +15,7 @@ TEST(NBTrafficLightLogic, test_method_writeXML) {
 	edge->addStep(3,"a");
 	OutputDeviceMock *mock = new OutputDeviceMock();
 	edge->writeXML(*mock);
-	string expect = "   <tl-logic id=\"1\" type=\"static\" programID=\"11\" offset=\"0\">\n      <phase duration=\"3\" state=\"a\"/>\n   </tl-logic>\n\n";
+	string expect = "   <tl-logic id=\"1\" type=\"static\" programID=\"11\" offset=\"0\">\n      <phase duration=\"3\" state=\"a\"/>\n   </tl-logic>\n";
 	EXPECT_EQ(expect, mock->getString());
 }
 
