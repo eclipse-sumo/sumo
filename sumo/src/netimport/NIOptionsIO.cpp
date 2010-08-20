@@ -201,7 +201,10 @@ NIOptionsIO::fillOptions() {
     oc.addDescription("visum.no-connectors", "Processing", "Excludes connectors");
 
     oc.doRegister("visum.recompute-laneno", new Option_Bool(false));
-    oc.addDescription("visum.recompute-laneno", "Processing", "Excludes connectors");
+    oc.addDescription("visum.recompute-laneno", "Processing", "Computes the number of lanes from the edges' capacities");
+
+    oc.doRegister("visum.verbose-warnings", new Option_Bool(false));
+    oc.addDescription("visum.verbose-warnings", "Processing", "Prints all warnings, some of which are due to VISUM misbehaviour");
 
 
     // add netbuilding options
