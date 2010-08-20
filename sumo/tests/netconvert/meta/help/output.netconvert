@@ -1,4 +1,4 @@
-SUMO netconvert Version dev-SVN-r8794
+SUMO netconvert Version dev-SVN-r8487
  (c) DLR 2001-2010; http://sumo.sourceforge.net
  
 Road network importer / builder for the road traffic simulation SUMO.
@@ -129,7 +129,10 @@ Usage: netconvert [OPTION]*
   --visum.connector-speeds FLOAT       Sets connector speed
   --visum.connector-laneno INT         Sets connector lane number
   --visum.no-connectors                Excludes connectors
-  --visum.recompute-laneno             Excludes connectors
+  --visum.recompute-laneno             Computes the number of lanes from the
+                                         edges' capacities
+  --visum.verbose-warnings             Prints all warnings, some of which are
+                                         due to VISUM misbehaviour
   --flip-y                             Flips the y-coordinate along zero
   --dismiss-vclasses                   
   -R, --remove-geometry                Removes geometry information from edges

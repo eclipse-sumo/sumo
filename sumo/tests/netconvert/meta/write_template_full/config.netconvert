@@ -98,6 +98,7 @@
         <visum.connector-laneno value="3"/>
         <visum.no-connectors value="false"/>
         <visum.recompute-laneno value="false"/>
+        <visum.verbose-warnings value="false"/>
         <flip-y value="false"/>
         <dismiss-vclasses value="false"/>
         <remove-geometry value="false"/>

@@ -247,8 +247,11 @@
         <!-- Excludes connectors -->
         <visum.no-connectors value="false"/>
 
-        <!-- Excludes connectors -->
+        <!-- Computes the number of lanes from the edges' capacities -->
         <visum.recompute-laneno value="false"/>
+
+        <!-- Prints all warnings, some of which are due to VISUM misbehaviour -->
+        <visum.verbose-warnings value="false"/>
 
         <!-- Flips the y-coordinate along zero -->
         <flip-y value="false"/>
