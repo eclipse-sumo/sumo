@@ -2,7 +2,7 @@
 /// @file    TraCIServerAPI_GUI.h
 /// @author  Daniel Krajzewicz
 /// @date    07.05.2009
-/// @version $Id: TraCIServerAPI_GUI.h 8236 2010-02-10 11:16:41Z behrisch $
+/// @version $Id$
 ///
 // APIs for getting/setting GUI values via TraCI
 /****************************************************************************/

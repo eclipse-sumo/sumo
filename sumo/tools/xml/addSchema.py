@@ -1,14 +1,13 @@
 #!/usr/bin/env python
 """
-@file    apply_astyle.py
-@author  Michael.Behrisch@dlr.de
-@date    2007
-@version $Id: apply_astyle.py 7559 2009-07-28 20:29:48Z behrisch $
+@file    addSchema.py
+@author  Daniel.Krajzewicz@dlr.de
+@date    2010
+@version $Id$
 
-Applies astyle with the proper settings used in SUMO on all
- files in src.
+Inserts XML schema references.
 
-Copyright (C) 2008 DLR/TS, Germany
+Copyright (C) 2010 DLR/TS, Germany
 All rights reserved
 """
 

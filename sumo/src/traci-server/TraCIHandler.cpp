@@ -26,6 +26,7 @@
 
 #include "utils/options/OptionsCont.h"
 #include "utils/common/StdDefs.h"
+#include "utils/common/SUMOTime.h"
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>

@@ -3,7 +3,7 @@
 @file    createRoundaboutConnections.py
 @author  Laura.Bieker@dlr.de
 @date    2007-02-21
-@version $Id: createRoundaboutConnections.py 8378 2010-03-04 14:34:06Z bieker $
+@version $Id$
 
 This script reads in the network given as
  first parameter and generates additional connections for roundabouts.
