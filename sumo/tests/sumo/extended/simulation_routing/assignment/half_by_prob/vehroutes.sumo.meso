@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 03/25/10 08:21:27 by SUMO sumo Version dev-SVN-r8511
+<!-- generated on 08/20/10 14:57:51 by SUMO sumo Version dev-SVN-r8970
 <configuration>
 
     <input>
@@ -35,21 +35,21 @@
 <routes>
     <vehicle id="2" depart="40.00" arrival="112.00">
         <routeDistribution>
-            <route replacedOnEdge="beg" replacedAtTime="0.00" probability="0" edges="beg beg2right right right2end end rend"/>
+            <route replacedOnEdge="beg" replacedAtTime="40.00" probability="0" edges="beg beg2right right right2end end rend"/>
             <route edges="beg middle end rend"/>
         </routeDistribution>
     </vehicle>
 
     <vehicle id="3" depart="60.00" arrival="132.00">
         <routeDistribution>
-            <route replacedOnEdge="beg" replacedAtTime="0.00" probability="0" edges="beg beg2right right right2end end rend"/>
+            <route replacedOnEdge="beg" replacedAtTime="60.00" probability="0" edges="beg beg2right right right2end end rend"/>
             <route edges="beg middle end rend"/>
         </routeDistribution>
     </vehicle>
 
     <vehicle id="5" depart="100.00" arrival="172.00">
         <routeDistribution>
-            <route replacedOnEdge="beg" replacedAtTime="0.00" probability="0" edges="beg beg2right right right2end end rend"/>
+            <route replacedOnEdge="beg" replacedAtTime="100.00" probability="0" edges="beg beg2right right right2end end rend"/>
             <route edges="beg middle end rend"/>
         </routeDistribution>
     </vehicle>
@@ -64,7 +64,7 @@
 
     <vehicle id="7" depart="140.00" arrival="212.00">
         <routeDistribution>
-            <route replacedOnEdge="beg" replacedAtTime="0.00" probability="0" edges="beg beg2right right right2end end rend"/>
+            <route replacedOnEdge="beg" replacedAtTime="140.00" probability="0" edges="beg beg2right right right2end end rend"/>
             <route edges="beg middle end rend"/>
         </routeDistribution>
     </vehicle>
