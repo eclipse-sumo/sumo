@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+
+<!-- generated on 03/18/10 14:23:33 by SUMO duarouter Version dev-SVN-r8460
+<configuration>
+
+    <input>
+        <net-file value="input_net.net.xml"/>
+        <trip-defs value="input_trips.trips.xml"/>
+    </input>
+
+    <output>
+        <output-file value="routes.rou.xml"/>
+    </output>
+
+    <processing>
+        <remove-loops value="true"/>
+    </processing>
+
+</configuration>
+-->
+
+<route-alternatives>
+    <vehicle id="0" type="0" depart="0.00">
+        <routeDistribution last="0">
+            <route cost="19.64" probability="1.00000000" edges="0/0to1/0 1/0to2/0 2/0to3/0"/>
+        </routeDistribution>
+    </vehicle>
+</route-alternatives>

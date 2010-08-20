@@ -1,6 +1,15 @@
-# removing loop at begin and end
+# removing loop at begin and end from a trip
 trip_begin_end
 
 # Testing broken Kleinnetz removal
 bug2042630
+
+# removing a turnaround at the begin of a route
+route_begin
+
+# removing a turnaround at the end of a route
+route_end
+
+# removing a loop in the middle of a route
+route_middle
 
