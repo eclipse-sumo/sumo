@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+
+<!-- generated on 08/21/10 19:12:29 by SUMO netconvert Version dev-SVN-r8487
+<configuration>
+
+    <input>
+        <xml-edge-files value="input_edges.edg.xml"/>
+    </input>
+
+    <output>
+        <output-file value="net.net.xml"/>
+    </output>
+
+</configuration>
+-->
+
+<net>
+
+   <location netOffset="1.00,0.00" convBoundary="0.00,0.00,11.00,0.00" origBoundary="-1.00,0.00,10.00,0.00" projParameter="!"/>
+
+   <edge id="0" from="SUMOGenerated0" to="SUMOGenerated1" priority="-1" type="" function="normal">
+      <lanes>
+         <lane id="0_0" depart="1" maxspeed="13.89" length="2.00" shape="0.00,-1.65 2.00,-1.65"/>
+      </lanes>
+   </edge>
+   <edge id="1" from="SUMOGenerated2" to="SUMOGenerated3" priority="-1" type="" function="normal">
+      <lanes>
+         <lane id="1_0" depart="1" maxspeed="13.89" length="9.00" shape="2.00,-1.65 11.00,-1.65"/>
+      </lanes>
+   </edge>
+
+   <junction id="SUMOGenerated0" type="DEAD_END" x="0.00" y="0.00" incLanes="" intLanes="" shape="0.00,-0.05 0.00,-3.25"/>
+   <junction id="SUMOGenerated1" type="DEAD_END" x="2.00" y="0.00" incLanes="0_0" intLanes="" shape="2.00,-3.25 2.00,-0.05"/>
+   <junction id="SUMOGenerated2" type="DEAD_END" x="2.00" y="0.00" incLanes="" intLanes="" shape="2.00,-0.05 2.00,-3.25"/>
+   <junction id="SUMOGenerated3" type="DEAD_END" x="11.00" y="0.00" incLanes="1_0" intLanes="" shape="11.00,-3.25 11.00,-0.05"/>
+
+   <succ edge="0" lane="0_0" junction="SUMOGenerated1">
+      <succlane lane="SUMO_NO_DESTINATION" yield="1" dir="s" state="O"/>
+   </succ>
+   <succ edge="1" lane="1_0" junction="SUMOGenerated3">
+      <succlane lane="SUMO_NO_DESTINATION" yield="1" dir="s" state="O"/>
+   </succ>
+
+</net>

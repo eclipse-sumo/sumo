@@ -1,0 +1,4 @@
+<edges>
+   <edge id="0" xfrom="-1" yfrom="0" xto="1" yto="0" speed="13.89" nolanes="1"/>
+   <edge id="1" xfrom="1" yfrom="0" xto="10" yto="0" speed="13.89" nolanes="1"/>
+</edges>

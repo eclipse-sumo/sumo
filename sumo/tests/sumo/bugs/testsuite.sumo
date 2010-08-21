@@ -21,3 +21,6 @@ ticket235
 
 # Tests for ticket#19 (teleports)
 ticket19
+
+# Tests for ticket#331 (vehicles are emitted beyond the lane's end)
+ticket331
