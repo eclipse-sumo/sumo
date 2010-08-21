@@ -229,7 +229,7 @@ MSLane::emit(MSVehicle& veh) throw(ProcessError) {
     case DEPART_POS_BASE:
     case DEPART_POS_DEFAULT:
     default:
-        pos = veh.getVehicleType().getLength() + POSITION_EPS;
+        pos = MIN2(veh.getVehicleType().getLength() + POSITION_EPS, myLength);
         break;
     }
     // try to emit
