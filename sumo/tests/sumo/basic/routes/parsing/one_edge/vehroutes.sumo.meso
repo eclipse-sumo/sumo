@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 06/30/10 09:15:07 by SUMO sumo Version dev-SVN-r8821
+<!-- generated on 08/23/10 14:37:25 by SUMO sumo Version dev-SVN-r8970
 <configuration>
 
     <input>
@@ -9,6 +9,7 @@
     </input>
 
     <output>
+        <tripinfo-output value="tripinfos.xml"/>
         <vehroute-output value="vehroutes.xml"/>
     </output>
 
@@ -25,7 +26,7 @@
 -->
 
 <routes>
-    <vehicle id="0" depart="0.00" arrival="30.00">
+    <vehicle id="0" depart="0.00" arrival="18.00">
         <route edges="beg"/>
     </vehicle>
 
