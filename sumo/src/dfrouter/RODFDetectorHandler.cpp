@@ -93,7 +93,7 @@ RODFDetectorHandler::myStartElement(SumoXMLTag element,
                 delete detector;
                 throw ProcessError("Could not add detector '" + id + "' (probably the id is already used).");
             }
-        } catch (ProcessError e) {
+        } catch (ProcessError &e) {
             if (myIgnoreErrors) {
                 MsgHandler::getWarningInstance()->inform(e.what());
             } else {

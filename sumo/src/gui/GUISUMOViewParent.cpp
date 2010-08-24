@@ -134,7 +134,7 @@ GUISUMOViewParent::onCmdMakeSnapshot(FXObject*,FXSelector,void*) {
     // save
     try {
         MFXImageHelper::saveImage(file, myView->getWidth(), myView->getHeight(), buf);
-    } catch (InvalidArgument e) {
+    } catch (InvalidArgument &e) {
         std::string msg = "Could not save '" + file + "'.\n" + e.what();
         FXMessageBox::error(this, MBOX_OK, "Saving failed.", msg.c_str());
     }

@@ -495,7 +495,7 @@ TraCITestClient::reportResultState(tcpip::Storage& inMsg, int command, bool igno
         }
         resultType = inMsg.readUnsignedByte();
         msg = inMsg.readString();
-    } catch (std::invalid_argument e) {
+    } catch (std::invalid_argument &e) {
         answerLog << "#Error: an exception was thrown while reading result state message" << std::endl;
         return false;
     }
@@ -1903,7 +1903,7 @@ TraCITestClient::validateSimulationStep(tcpip::Storage &inMsg) {
                 answerLog << "#Warning: command at position " << cmdStart << " has wrong length" << std::endl;
                 //return false;
             }
-        } catch (std::invalid_argument e) {
+        } catch (std::invalid_argument &e) {
             answerLog << "#Error while reading message:" << e.what() << std::endl;
             return false;
         }
@@ -1927,7 +1927,7 @@ TraCITestClient::validateSimulationStep2(tcpip::Storage &inMsg) {
                 return false;
             }
         }
-    } catch (std::invalid_argument e) {
+    } catch (std::invalid_argument &e) {
         answerLog << "#Error while reading message:" << e.what() << std::endl;
         return false;
     }
@@ -1958,7 +1958,7 @@ TraCITestClient::validateSubscription(tcpip::Storage &inMsg) {
             answerLog << " valueDataType=" << valueDataType;
             readAndReportTypeDependent(inMsg, valueDataType);
         }
-    } catch (std::invalid_argument e) {
+    } catch (std::invalid_argument &e) {
         answerLog << "#Error while reading message:" << e.what() << std::endl;
         return false;
     }
@@ -2012,7 +2012,7 @@ TraCITestClient::validateStopNode(tcpip::Storage &inMsg) {
             answerLog << "#Error: command at position " << cmdStart << " has wrong length" << std::endl;
             return false;
         }
-    } catch (std::invalid_argument e) {
+    } catch (std::invalid_argument &e) {
         answerLog << "#Error while reading message:" << e.what() << std::endl;
         return false;
     }
@@ -2085,7 +2085,7 @@ TraCITestClient::validatePositionConversion(tcpip::Storage &inMsg) {
             answerLog << "#Error: command at position " << cmdStart << " has wrong length" << std::endl;
             return false;
         }
-    } catch (std::invalid_argument e) {
+    } catch (std::invalid_argument &e) {
         answerLog << "#Error while reading message:" << e.what() << std::endl;
         return false;
     }
@@ -2158,7 +2158,7 @@ TraCITestClient::validateDistanceRequest(tcpip::Storage& inMsg) {
             answerLog << "#Error: command at position " << cmdStart << " has wrong length" << std::endl;
             return false;
         }
-    } catch (std::invalid_argument e) {
+    } catch (std::invalid_argument &e) {
         answerLog << "#Error while reading message:" << e.what() << std::endl;
         return false;
     }
@@ -2214,7 +2214,7 @@ TraCITestClient::validateScenario(tcpip::Storage &inMsg) {
             answerLog << "#Error: command at position " << cmdStart << " has wrong length" << std::endl;
             return false;
         }
-    } catch (std::invalid_argument e) {
+    } catch (std::invalid_argument &e) {
         answerLog << "#Error while reading message:" << e.what() << std::endl;
         return false;
     }
@@ -2385,7 +2385,7 @@ TraCITestClient::validateGetTLStatus(tcpip::Storage &inMsg) {
                 answerLog << "#Error: command at position " << cmdStart << " has wrong length" << std::endl;
                 return false;
             }
-        } catch (std::invalid_argument e) {
+        } catch (std::invalid_argument &e) {
             answerLog << "#Error while reading message:" << e.what() << std::endl;
             return false;
         }

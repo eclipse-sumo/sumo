@@ -91,7 +91,7 @@ void OptionsLoader::setValue(const std::string &key,
                 MsgHandler::getErrorInstance()->inform("Could not set option '" + key + "' (probably defined twice).");
                 myError = true;
             }
-        } catch (InvalidArgument e) {
+        } catch (InvalidArgument &e) {
             MsgHandler::getErrorInstance()->inform(e.what());
             myError = true;
         }
