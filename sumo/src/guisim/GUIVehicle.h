@@ -58,6 +58,7 @@ class GUIGLObjectPopupMenu;
 // ===========================================================================
 /**
  * @class GUIVehicle
+ * @brief A MSVehicle extended by some values for usage within the gui
  *
  * A visualisable MSVehicle. Extended by the possibility to retrieve names
  * of all available vehicles (static) and the possibility to retrieve the
@@ -66,30 +67,49 @@ class GUIGLObjectPopupMenu;
  */
 class GUIVehicle : public MSVehicle, public GUIGlObject {
 public:
-    /// Use this constructor only.
+    /** @brief Constructor
+     * @param[in] idStorage The storage of gl-IDs to retrieve the ID from
+     * @param[in] pars The vehicle description
+     * @param[in] route The vehicle's route
+     * @param[in] type The vehicle's type
+     * @param[in] vehicleIndex The vehicle's running index
+     * @exception ProcessError If a value is wrong
+     */
     GUIVehicle(GUIGlObjectStorage &idStorage,
                SUMOVehicleParameter* pars, const MSRoute* route,
-               const MSVehicleType* type,
-               int vehicleIndex) throw(ProcessError);
+               const MSVehicleType* type, int vehicleIndex) throw(ProcessError);
 
-    /// destructor
+
+    /// @brief destructor
     ~GUIVehicle() throw();
 
-    inline void setOwnDefinedColor() const {
+
+    /// @name Setting vehicle color
+    /// @{
+
+    /** @brief Sets the vehicle's given color
+     */
+    inline void setOwnDefinedColor() const throw() {
         const RGBColor &col = myParameter->color;
         glColor3d(col.red(), col.green(), col.blue());
     }
 
-    inline void setOwnTypeColor() const {
+
+    /** @brief Sets the vehicle type's given color
+     */
+    inline void setOwnTypeColor() const throw() {
         const RGBColor &col = myType->getColor();
         glColor3d(col.red(), col.green(), col.blue());
     }
 
-    inline void setOwnRouteColor() const {
+
+    /** @brief Sets the vehicle routes's given color
+     */
+    inline void setOwnRouteColor() const throw() {
         const RGBColor &col = myRoute->getColor();
         glColor3d(col.red(), col.green(), col.blue());
     }
-
+    /// @}
 
 
 
