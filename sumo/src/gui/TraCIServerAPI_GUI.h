@@ -31,9 +31,16 @@
 
 #ifndef NO_TRACI
 
+#include <string>
 #include <traci-server/TraCIException.h>
 #include <traci-server/TraCIServer.h>
 #include <foreign/tcpip/storage.h>
+
+
+// ===========================================================================
+// class definitions
+// ===========================================================================
+class GUIGlChildWindow;
 
 
 // ===========================================================================
@@ -64,6 +71,19 @@ public:
     static bool processSet(traci::TraCIServer &server, tcpip::Storage &inputStorage, 
 		tcpip::Storage &outputStorage) throw(traci::TraCIException, std::invalid_argument);
 
+
+protected:
+    /** @brief Returns the main window
+     * @return The main window (should exist)
+     */
+    static GUIMainWindow *getMainWindow() throw();
+
+
+    /** @brief Returns the named view
+     * @param[in] viewName The name of the view
+     * @return The named view if existing, 0 otherwise
+     */
+    static GUISUMOAbstractView * const getNamedView(const std::string &id) throw();
 
 private:
     /// @brief invalidated copy constructor

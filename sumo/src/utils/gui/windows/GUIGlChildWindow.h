@@ -55,8 +55,8 @@ public:
     virtual FXGLCanvas *getBuildGLCanvas() const;
     virtual void create();
 
-	GUISUMOAbstractView &getView() const throw() {
-		return *myView;
+	GUISUMOAbstractView * const getView() const throw() {
+		return myView;
 	}
 
     long onCmdRecenterView(FXObject*,FXSelector,void*);

@@ -837,7 +837,7 @@ GUIApplicationWindow::handleEvent_SimulationLoaded(GUIEvent *e) {
         // report success
         setStatusBarText("'" + ec->myFile + "' loaded.");
 #ifndef NO_TRACI
-		std::map<int, traci::TraCIServer::CmdExecutor> execs;
+        std::map<int, traci::TraCIServer::CmdExecutor> execs;
 		execs[CMD_GET_GUI_VARIABLE] = &TraCIServerAPI_GUI::processGet;
 		execs[CMD_SET_GUI_VARIABLE] = &TraCIServerAPI_GUI::processSet;
 	    traci::TraCIServer::jt(execs);

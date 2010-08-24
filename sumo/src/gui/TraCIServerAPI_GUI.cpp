@@ -34,6 +34,7 @@
 #include <utils/gui/windows/GUIGlChildWindow.h>
 #include <utils/gui/windows/GUISUMOAbstractView.h>
 #include <utils/gui/windows/GUIPerspectiveChanger.h>
+#include <utils/foxtools/MFXImageHelper.h>
 #include <traci-server/TraCIConstants.h>
 #include "TraCIServerAPI_GUI.h"
 
@@ -76,25 +77,24 @@ TraCIServerAPI_GUI::processGet(TraCIServer &server, tcpip::Storage &inputStorage
     tempMsg.writeString(id);
     // process request
     if (variable==ID_LIST) {
-        std::vector<std::string> ids = ((GUIMainWindow*) FXApp::instance()->getActiveWindow())->getViewIDs();
+        std::vector<std::string> ids = getMainWindow()->getViewIDs();
         tempMsg.writeUnsignedByte(TYPE_STRINGLIST);
         tempMsg.writeStringList(ids);
     } else {
-		GUIGlChildWindow *w = (GUIGlChildWindow*) ((GUIMainWindow*) FXApp::instance()->getActiveWindow())->getViewByID(id);
-        if (w==0) {
+        GUISUMOAbstractView *v = getNamedView(id);
+        if (v==0) {
             server.writeStatusCmd(CMD_GET_GUI_VARIABLE, RTYPE_ERR, "View '" + id + "' is not known", outputStorage);
             return false;
         }
-		GUISUMOAbstractView &v = w->getView();
         switch (variable) {
         case VAR_VIEW_ZOOM:
             tempMsg.writeUnsignedByte(TYPE_FLOAT);
-			tempMsg.writeFloat(v.getChanger().getZoom());
+			tempMsg.writeFloat(v->getChanger().getZoom());
             break;
         case VAR_VIEW_OFFSET:
             tempMsg.writeUnsignedByte(POSITION_2D);
-			tempMsg.writeFloat(v.getChanger().getXPos());
-			tempMsg.writeFloat(v.getChanger().getYPos());
+			tempMsg.writeFloat(v->getChanger().getXPos());
+			tempMsg.writeFloat(v->getChanger().getYPos());
             break;
         case VAR_VIEW_SCHEMA:
             break;
@@ -129,12 +129,11 @@ TraCIServerAPI_GUI::processSet(TraCIServer &server, tcpip::Storage &inputStorage
     }
     // id
     std::string id = inputStorage.readString();
-	GUIGlChildWindow *w = (GUIGlChildWindow*) ((GUIMainWindow*) FXApp::instance()->getActiveWindow())->getViewByID(id);
-    if (w==0) {
+    GUISUMOAbstractView *v = getNamedView(id);
+    if (v==0) {
         server.writeStatusCmd(CMD_SET_GUI_VARIABLE, RTYPE_ERR, "View '" + id + "' is not known", outputStorage);
         return false;
     }
-	GUISUMOAbstractView &v = w->getView();
     // process
     int valueDataType = inputStorage.readUnsignedByte();
     switch (variable) {
@@ -143,30 +142,73 @@ TraCIServerAPI_GUI::processSet(TraCIServer &server, tcpip::Storage &inputStorage
             server.writeStatusCmd(CMD_SET_GUI_VARIABLE, RTYPE_ERR, "The zoom must be given as a float.", outputStorage);
             return false;
         }
-		v.setViewport(inputStorage.readFloat(), v.getChanger().getXPos(), v.getChanger().getYPos());
-    break;
+		v->setViewport(inputStorage.readFloat(), v->getChanger().getXPos(), v->getChanger().getYPos());
+		break;
     case VAR_VIEW_OFFSET: {
         if (valueDataType!=POSITION_2D) {
             server.writeStatusCmd(CMD_SET_GUI_VARIABLE, RTYPE_ERR, "The view port must be given as a position.", outputStorage);
             return false;
         }
-		v.setViewport(v.getChanger().getZoom(), inputStorage.readFloat(), v.getChanger().getYPos());
-		v.setViewport(v.getChanger().getZoom(), v.getChanger().getXPos(), inputStorage.readFloat());
+		v->setViewport(v->getChanger().getZoom(), inputStorage.readFloat(), v->getChanger().getYPos());
+		v->setViewport(v->getChanger().getZoom(), v->getChanger().getXPos(), inputStorage.readFloat());
     }
     break;
     case VAR_VIEW_SCHEMA:
+        if (valueDataType!=TYPE_STRING) {
+            server.writeStatusCmd(CMD_SET_GUI_VARIABLE, RTYPE_ERR, "The scheme must be specified by a string.", outputStorage);
+            return false;
+        }
+		v->setColorScheme(inputStorage.readString());
     break;
     case VAR_VIEW_BOUNDARY:
     break;
     case VAR_VIEW_BACKGROUNDCOLOR:
     break;
-    case VAR_SCREENSHOT:
+	case VAR_SCREENSHOT: {
+        if (valueDataType!=TYPE_STRING) {
+            server.writeStatusCmd(CMD_SET_GUI_VARIABLE, RTYPE_ERR, "Making a snapshot requires a file name.", outputStorage);
+            return false;
+        }
+		std::string filename = inputStorage.readString();
+	    FXColor *buf = v->getSnapshot();
+		// save
+		try {
+			MFXImageHelper::saveImage(filename, v->getWidth(), v->getHeight(), buf);
+		} catch (InvalidArgument &e) {
+			std::string msg = "Could not save '" + filename + "'.\n" + e.what();
+            server.writeStatusCmd(CMD_SET_GUI_VARIABLE, RTYPE_ERR, msg, outputStorage);
+            return false;
+		}
+		FXFREE(&buf);
+	}
     break;
     default:
         break;
     }
     server.writeStatusCmd(CMD_SET_GUI_VARIABLE, RTYPE_OK, warning, outputStorage);
     return true;
+}
+
+
+GUIMainWindow *
+TraCIServerAPI_GUI::getMainWindow() throw() {
+    FXWindow *w = FXApp::instance()->getRootWindow()->getFirst();
+    while(w!=0&&dynamic_cast<GUIMainWindow*>(w)==0) {
+        w = w->getNext();
+    }
+    if(w==0) {
+        // main window not found
+        return 0;
+    }
+    return dynamic_cast<GUIMainWindow*>(w);
+}
+
+
+GUISUMOAbstractView * const
+TraCIServerAPI_GUI::getNamedView(const std::string &id) throw() {
+    GUIMainWindow *mw = static_cast<GUIMainWindow*>(getMainWindow());
+    GUIGlChildWindow *c = static_cast<GUIGlChildWindow*>(mw->getViewByID(id));
+    return c->getView();
 }
 
 
