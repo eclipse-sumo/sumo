@@ -83,6 +83,8 @@ def writeSUMOConf(step, options, files):
     elif options.routefile == "detailed":
         print >> fd, '         <vehroute-output value="vehroute_%s.xml"/>' % step
         print >> fd, '         <vehroute-output.exit-times value="True"/>'
+    if options.lastroute:
+        print >> fd, '          <vehroute-output.last-route value="%s"/>' % options.lastroute
     print >> fd, "    </output>"
     print >> fd, '    <random_number><abs-rand value="%s"/></random_number>' % options.absrand
     print >> fd, '    <time><begin value="%s"/>' % options.begin,
@@ -93,6 +95,7 @@ def writeSUMOConf(step, options, files):
     print >> fd, """</time>
     <processing>
         <route-steps value="%s"/>""" % options.routeSteps
+    print >> fd, '   <no-internal-links value="%s"/>' % options.internallink
     if options.incBase>0:
         print >> fd, """        <incremental-dua-step value="%s"/>
         <incremental-dua-base value="%s"/>""" % (options.incValue*(step+1), options.incBase)
@@ -151,7 +154,6 @@ optParser.add_option("--incrementation", dest="incValue",
 optParser.add_option("--time-inc", dest="timeInc",
                      type="int", default=0, help="Give the time incrementation")
 
-
 optParser.add_option("-f", "--first-step", dest="firstStep",
                      type="int", default=0, help="First DUA step [default: %default]")
 optParser.add_option("-l", "--last-step", dest="lastStep",
@@ -183,6 +185,12 @@ optParser.add_option("-V", "--varscale",  dest="varscale",
 optParser.add_option("-x", "--vehroute-file",  dest="routefile", type="choice",
                      choices=('None', 'routesonly', 'detailed'), 
                      default = 'None', help="choose OD type")
+optParser.add_option("-z", "--output-lastRoute",  action="store_true", dest="lastroute",
+                     default = False, help="output the last routes")
+optParser.add_option("-M", "--minflowstddev",  action="store_true", dest="minflowstddev",
+                     help="minimal flow standard deviation")
+optParser.add_option("-I", "--nointernal-link",  action="store_true", dest="internallink",
+                     default = False, help="not to simulate internal link: true or false")
 
 (options, args) = optParser.parse_args()
 if not options.net or not options.trips:
@@ -197,6 +205,7 @@ calibrator = ["java", "-cp", options.classpath, "cadyts.interfaces.sumo.SumoCont
 log = open("dua-log.txt", "w+")
 tripFiles = options.trips.split(",")
 starttime = datetime.now()
+
 for step in range(options.firstStep, options.lastStep):
     btimeA = datetime.now()
     print "> Executing step %s" % step
@@ -210,7 +219,7 @@ for step in range(options.firstStep, options.lastStep):
                   "-odmatrix", options.odmatrix, "-demandscale", options.demandscale], log)
         else:
             call(calibrator + ["INIT", "-varscale", options.varscale, "-freezeit", options.freezeit,
-                  "-measfile", options.detvals, "-binsize", options.aggregation], log)
+                  "-measfile", options.detvals, "-binsize", options.aggregation, "-minflowstddev", options.minflowstddev], log)
     # router
     files = []
     for tripFile in tripFiles:
