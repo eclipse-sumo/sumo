@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 10/21/09 17:55:41 by SUMO sumo Version dev-SVN-r7871
+<!-- generated on 08/25/10 15:40:01 by SUMO sumo Version dev-SVN-r8982
 <configuration>
 
     <input>
@@ -26,7 +26,7 @@
 -->
 
 <route-probes>
-    <routeDistribution id="r3/1to2/1_30">
-        <route id="r1_30" edges="4/1to3/1 3/1to2/1 2/1to1/1 1/1to0/1 " probability="2.00"/>
+    <routeDistribution id="r3/1to2/1_30.00">
+        <route id="r1_30.00" edges="4/1to3/1 3/1to2/1 2/1to1/1 1/1to0/1" probability="2.00"/>
     </routeDistribution>
 </route-probes>
