@@ -138,7 +138,7 @@ class Net:
                     vertex = pred.edge.source
                     pred = pred.pred
                 if lastEdge != firstEdge:
-                    print '    <route id="route%s_%s_%s" %s="%s">%s</route>'\
+                    print '    <route id="route%s_%s_%s" %s="%s" edges="%s"/>'\
                           % (num, firstEdge.label, lastEdge.label,
                              weight, startPred.distance, route[:-1])
             print
@@ -153,6 +153,7 @@ class NetReader(handler.ContentHandler):
 
     def startElement(self, name, attrs):
         if name == 'edge' and (not attrs.has_key('function') or attrs['function'] != 'internal'):
+            self._edge = attrs['id']
             self._net.addIsolatedRealEdge(attrs['id'])
         elif name == 'succ':
             self._edge = attrs['edge']
