@@ -221,101 +221,106 @@ def getBasicStats(vehicles):
 
 
 # output the network statistics based on the sumo-simulation results
+def writeStatistics(assignments, out):
+    out.write('mean number of lanes per street : %f\n\n' % assignments['avgNrLanes'])
+    
+    out.write('total number of vehicles : %f\n\n' % assignments['totalVeh'])
+    
+    out.write('travel time\n')
+    out.write('===========\n')
+    out.write('total       : %f\n' % assignments['totalTravelTime'])
+    out.write('mean        : %f\n' % assignments['avgTravelTime'])
+    out.write('std         : %f\n' % assignments['SDTravelTime'])
+    out.write('1/4-quantil : %f\n' % assignments['quartil25TravelTime'])
+    out.write('median      : %f\n' % assignments['medianTravelTime'])
+    out.write('3/4-quantil : %f\n\n' % assignments['quartil75TravelTime'])
+    
+    out.write('travel speed\n')
+    out.write('============\n')
+    out.write('mean        : %f\n' % assignments['avgTravelSpeed'])
+    out.write('std         : %f\n' % assignments['SDSpeed'])
+    out.write('1/4-quantil : %f\n' % assignments['quartil25Speed'])
+    out.write('median      : %f\n' % assignments['medianSpeed'])
+    out.write('3/4-quantil : %f\n\n' % assignments['quartil75Speed'])
+    
+    out.write('waiting time\n')
+    out.write('============\n')
+    out.write('total       : %f\n' % assignments['totalWaitTime'])
+    out.write('mean        : %f\n' % assignments['avgWaitTime'])
+    out.write('std         : %f\n' % assignments['SDWaitTime'])
+    out.write('1/4-quantil : %f\n' % assignments['quartil25WaitTime'])
+    out.write('median      : %f\n' % assignments['medianWaitTime'])
+    out.write('3/4-quantil : %f\n\n' % assignments['quartil75WaitTime'])
+    
+    out.write('distance travelled\n')
+    out.write('==================\n')
+    out.write('total       : %f\n' % assignments['totalTravelLength'])
+    out.write('mean        : %f\n' % assignments['avgTravelLength'])
+    out.write('std         : %f\n' % assignments['SDLength'])
+    out.write('1/4-quantil : %f\n' % assignments['quartil25Length'])
+    out.write('median      : %f\n' % assignments['medianLength'])
+    out.write('3/4-quantil : %f\n\n' % assignments['quartil75Length'])    
+    
+    out.write('fuel consumption\n')
+    out.write('================\n')
+    out.write('total       : %f\n' % assignments['totalFuelConsumption'])
+    out.write('mean        : %f\n' % assignments['avgFuelConsumption'])
+    out.write('std         : %f\n' % assignments['SDFuelConsumption'])
+    out.write('1/4-quantil : %f\n' % assignments['quartil25FuelConsumption'])
+    out.write('median      : %f\n' % assignments['medianFuelConsumption'])
+    out.write('3/4-quantil : %f\n\n' % assignments['quartil75FuelConsumption'])      
+    
+    out.write('CO emissions\n')
+    out.write('============\n')
+    out.write('total       : %f\n' % assignments['totalCO'])
+    out.write('mean        : %f\n' % assignments['avgCO'])
+    out.write('std         : %f\n' % assignments['SDCO'])
+    out.write('1/4-quantil : %f\n' % assignments['quartil25CO'])
+    out.write('median      : %f\n' % assignments['medianCO'])
+    out.write('3/4-quantil : %f\n\n' % assignments['quartil75CO'])      
+    
+    out.write('CO2 emissions\n')
+    out.write('=============\n')
+    out.write('total       : %f\n' % assignments['totalCO2'])
+    out.write('mean        : %f\n' % assignments['avgCO2'])
+    out.write('std         : %f\n' % assignments['SDCO2'])
+    out.write('1/4-quantil : %f\n' % assignments['quartil25CO2'])
+    out.write('median      : %f\n' % assignments['medianCO2'])
+    out.write('3/4-quantil : %f\n\n' % assignments['quartil75CO2'])   
+    
+    out.write('HC emissions\n')
+    out.write('============\n')
+    out.write('total       : %f\n' % assignments['totalHC'])
+    out.write('mean        : %f\n' % assignments['avgHC'])
+    out.write('std         : %f\n' % assignments['SDHC'])
+    out.write('1/4-quantil : %f\n' % assignments['quartil25HC'])
+    out.write('median      : %f\n' % assignments['medianHC'])
+    out.write('3/4-quantil : %f\n\n' % assignments['quartil75HC']) 
+    
+    out.write('PMx emissions\n')
+    out.write('=============\n')
+    out.write('total       : %f\n' % assignments['totalPMx'])
+    out.write('mean        : %f\n' % assignments['avgPMx'])
+    out.write('std         : %f\n' % assignments['SDPMx'])
+    out.write('1/4-quantil : %f\n' % assignments['quartil25PMx'])
+    out.write('median      : %f\n' % assignments['medianPMx'])
+    out.write('3/4-quantil : %f\n\n' % assignments['quartil75PMx'])     
+    
+    out.write('NOx emissions\n')
+    out.write('=============\n')
+    out.write('total       : %f\n' % assignments['totalNOx'])
+    out.write('mean        : %f\n' % assignments['avgNOx'])
+    out.write('std         : %f\n' % assignments['SDNOx'])
+    out.write('1/4-quantil : %f\n' % assignments['quartil25NOx'])
+    out.write('median      : %f\n' % assignments['medianNOx'])
+    out.write('3/4-quantil : %f\n\n' % assignments['quartil75NOx'])
+    
+
+
+# output the network statistics based on the sumo-simulation results
 def getStatisticsOutput(assignments, outputfile):
     foutveh = file(outputfile, 'w')
-    foutveh.write('mean number of lanes per street : %s\n\n' % assignments['avgNrLanes'])
-    
-    foutveh.write('total number of vehicles : %s\n\n' % assignments['totalVeh'])
-    
-    foutveh.write('travel time\n')
-    foutveh.write('===========\n')
-    foutveh.write('total       : %s\n' % assignments['totalTravelTime'])
-    foutveh.write('mean        : %s\n' % assignments['avgTravelTime'])
-    foutveh.write('std         : %s\n' % assignments['SDTravelTime'])
-    foutveh.write('1/4-quantil : %s\n' % assignments['quartil25TravelTime'])
-    foutveh.write('median      : %s\n' % assignments['medianTravelTime'])
-    foutveh.write('3/4-quantil : %s\n\n' % assignments['quartil75TravelTime'])
-    
-    foutveh.write('travel speed\n')
-    foutveh.write('============\n')
-    foutveh.write('mean        : %s\n' % assignments['avgTravelSpeed'])
-    foutveh.write('std         : %s\n' % assignments['SDSpeed'])
-    foutveh.write('1/4-quantil : %s\n' % assignments['quartil25Speed'])
-    foutveh.write('median      : %s\n' % assignments['medianSpeed'])
-    foutveh.write('3/4-quantil : %s\n\n' % assignments['quartil75Speed'])
-    
-    foutveh.write('waiting time\n')
-    foutveh.write('============\n')
-    foutveh.write('total       : %s\n' % assignments['totalWaitTime'])
-    foutveh.write('mean        : %s\n' % assignments['avgWaitTime'])
-    foutveh.write('std         : %s\n' % assignments['SDWaitTime'])
-    foutveh.write('1/4-quantil : %s\n' % assignments['quartil25WaitTime'])
-    foutveh.write('median      : %s\n' % assignments['medianWaitTime'])
-    foutveh.write('3/4-quantil : %s\n\n' % assignments['quartil75WaitTime'])
-    
-    foutveh.write('distance travelled\n')
-    foutveh.write('==================\n')
-    foutveh.write('total       : %s\n' % assignments['totalTravelLength'])
-    foutveh.write('mean        : %s\n' % assignments['avgTravelLength'])
-    foutveh.write('std         : %s\n' % assignments['SDLength'])
-    foutveh.write('1/4-quantil : %s\n' % assignments['quartil25Length'])
-    foutveh.write('median      : %s\n' % assignments['medianLength'])
-    foutveh.write('3/4-quantil : %s\n\n' % assignments['quartil75Length'])    
-    
-    foutveh.write('fuel consumption\n')
-    foutveh.write('================\n')
-    foutveh.write('total       : %s\n' % assignments['totalFuelConsumption'])
-    foutveh.write('mean        : %s\n' % assignments['avgFuelConsumption'])
-    foutveh.write('std         : %s\n' % assignments['SDFuelConsumption'])
-    foutveh.write('1/4-quantil : %s\n' % assignments['quartil25FuelConsumption'])
-    foutveh.write('median      : %s\n' % assignments['medianFuelConsumption'])
-    foutveh.write('3/4-quantil : %s\n\n' % assignments['quartil75FuelConsumption'])      
-    
-    foutveh.write('CO emissions\n')
-    foutveh.write('============\n')
-    foutveh.write('total       : %s\n' % assignments['totalCO'])
-    foutveh.write('mean        : %s\n' % assignments['avgCO'])
-    foutveh.write('std         : %s\n' % assignments['SDCO'])
-    foutveh.write('1/4-quantil : %s\n' % assignments['quartil25CO'])
-    foutveh.write('median      : %s\n' % assignments['medianCO'])
-    foutveh.write('3/4-quantil : %s\n\n' % assignments['quartil75CO'])      
-    
-    foutveh.write('CO2 emissions\n')
-    foutveh.write('=============\n')
-    foutveh.write('total       : %s\n' % assignments['totalCO2'])
-    foutveh.write('mean        : %s\n' % assignments['avgCO2'])
-    foutveh.write('std         : %s\n' % assignments['SDCO2'])
-    foutveh.write('1/4-quantil : %s\n' % assignments['quartil25CO2'])
-    foutveh.write('median      : %s\n' % assignments['medianCO2'])
-    foutveh.write('3/4-quantil : %s\n\n' % assignments['quartil75CO2'])   
-    
-    foutveh.write('HC emissions\n')
-    foutveh.write('============\n')
-    foutveh.write('total       : %s\n' % assignments['totalHC'])
-    foutveh.write('mean        : %s\n' % assignments['avgHC'])
-    foutveh.write('std         : %s\n' % assignments['SDHC'])
-    foutveh.write('1/4-quantil : %s\n' % assignments['quartil25HC'])
-    foutveh.write('median      : %s\n' % assignments['medianHC'])
-    foutveh.write('3/4-quantil : %s\n\n' % assignments['quartil75HC']) 
-    
-    foutveh.write('PMx emissions\n')
-    foutveh.write('=============\n')
-    foutveh.write('total       : %s\n' % assignments['totalPMx'])
-    foutveh.write('mean        : %s\n' % assignments['avgPMx'])
-    foutveh.write('std         : %s\n' % assignments['SDPMx'])
-    foutveh.write('1/4-quantil : %s\n' % assignments['quartil25PMx'])
-    foutveh.write('median      : %s\n' % assignments['medianPMx'])
-    foutveh.write('3/4-quantil : %s\n\n' % assignments['quartil75PMx'])     
-    
-    foutveh.write('NOx emissions\n')
-    foutveh.write('=============\n')
-    foutveh.write('total       : %s\n' % assignments['totalNOx'])
-    foutveh.write('mean        : %s\n' % assignments['avgNOx'])
-    foutveh.write('std         : %s\n' % assignments['SDNOx'])
-    foutveh.write('1/4-quantil : %s\n' % assignments['quartil25NOx'])
-    foutveh.write('median      : %s\n' % assignments['medianNOx'])
-    foutveh.write('3/4-quantil : %s\n\n' % assignments['quartil75NOx'])
-    
+    writeStatistics(assignments, foutveh)
     foutveh.write('\n\nRoute distribution:\n')
     foutveh.write('==================:\n')
     startEnd = assignment['routeDistr']
@@ -324,100 +329,9 @@ def getStatisticsOutput(assignments, outputfile):
             foutveh.write('%s: Number of vehicles: %d, Avg Travel Time: %d\n' % (r, startEnd[se][r][0], 1.0 * startEnd[se][r][1] / startEnd[se][r][0]))
         foutveh.write('\n')
     foutveh.close()
-    
-    print 'mean number of lanes per street : %s\n' % assignments['avgNrLanes']
-    
-    print 'total number of vehicles : %s\n' % assignments['totalVeh']
-    
-    print 'travel time'
-    print '==========='
-    print 'total       : %s' % assignments['totalTravelTime']
-    print 'mean        : %s' % assignments['avgTravelTime']
-    print 'std         : %s' % assignments['SDTravelTime']
-    print '1/4-quantil : %s' % assignments['quartil25TravelTime']
-    print 'median      : %s' % assignments['medianTravelTime']
-    print '3/4-quantil : %s\n' % assignments['quartil75TravelTime']
-    
-    print 'travel speed'
-    print '============'
-    print 'mean        : %s' % assignments['avgTravelSpeed']
-    print 'std         : %s' % assignments['SDSpeed']
-    print '1/4-quantil : %s' % assignments['quartil25Speed']
-    print 'median      : %s' % assignments['medianSpeed']
-    print '3/4-quantil : %s\n' % assignments['quartil75Speed']
-    
-    print 'waiting time'
-    print '============'
-    print 'total       : %s' % assignments['totalWaitTime']
-    print 'mean        : %s' % assignments['avgWaitTime']
-    print 'std         : %s' % assignments['SDWaitTime']
-    print '1/4-quantil : %s' % assignments['quartil25WaitTime']
-    print 'median      : %s' % assignments['medianWaitTime']
-    print '3/4-quantil : %s\n' % assignments['quartil75WaitTime']
-    
-    print 'distance travelled'
-    print '=================='
-    print 'total       : %s' % assignments['totalTravelLength']
-    print 'mean        : %s' % assignments['avgTravelLength']
-    print 'std         : %s' % assignments['SDLength']
-    print '1/4-quantil : %s' % assignments['quartil25Length']
-    print 'median      : %s' % assignments['medianLength']
-    print '3/4-quantil : %s\n' % assignments['quartil75Length']    
-    
-    print 'fuel consumption'
-    print '================'
-    print 'total       : %s' % assignments['totalFuelConsumption']
-    print 'mean        : %s' % assignments['avgFuelConsumption']
-    print 'std         : %s' % assignments['SDFuelConsumption']
-    print '1/4-quantil : %s' % assignments['quartil25FuelConsumption']
-    print 'median      : %s' % assignments['medianFuelConsumption']
-    print '3/4-quantil : %s\n' % assignments['quartil75FuelConsumption']      
-    
-    print 'CO emissions'
-    print '============'
-    print 'total       : %s' % assignments['totalCO']
-    print 'mean        : %s' % assignments['avgCO']
-    print 'std         : %s' % assignments['SDCO']
-    print '1/4-quantil : %s' % assignments['quartil25CO']
-    print 'median      : %s' % assignments['medianCO']
-    print '3/4-quantil : %s\n' % assignments['quartil75CO']      
-    
-    print 'CO2 emissions'
-    print '============='
-    print 'total       : %s' % assignments['totalCO2']
-    print 'mean        : %s' % assignments['avgCO2']
-    print 'std         : %s' % assignments['SDCO2']
-    print '1/4-quantil : %s' % assignments['quartil25CO2']
-    print 'median      : %s' % assignments['medianCO2']
-    print '3/4-quantil : %s\n' % assignments['quartil75CO2']   
-    
-    print 'HC emissions'
-    print '============'
-    print 'total       : %s' % assignments['totalHC']
-    print 'mean        : %s' % assignments['avgHC']
-    print 'std         : %s' % assignments['SDHC']
-    print '1/4-quantil : %s' % assignments['quartil25HC']
-    print 'median      : %s' % assignments['medianHC']
-    print '3/4-quantil : %s\n' % assignments['quartil75HC'] 
-    
-    print 'PMx emissions'
-    print '============='
-    print 'total       : %s' % assignments['totalPMx']
-    print 'mean        : %s' % assignments['avgPMx']
-    print 'std         : %s' % assignments['SDPMx']
-    print '1/4-quantil : %s' % assignments['quartil25PMx']
-    print 'median      : %s' % assignments['medianPMx']
-    print '3/4-quantil : %s\n' % assignments['quartil75PMx']     
-    
-    print 'NOx emissions'
-    print '============='
-    print 'total       : %s' % assignments['totalNOx']
-    print 'mean        : %s' % assignments['avgNOx']
-    print 'std         : %s' % assignments['SDNOx']
-    print '1/4-quantil : %s' % assignments['quartil25NOx']
-    print 'median      : %s' % assignments['medianNOx']
-    print '3/4-quantil : %s\n' % assignments['quartil75NOx']
-    
+    writeStatistics(assignments, sys.stdout)
+
+
 def getCSVOutput(assignments, path, veh_types, interval):
     f_mean_travel_time = file(os.path.join(options.path, 'mean_travel_time.csv'), 'w')
     f_mean_speed = file(os.path.join(options.path, 'mean_speed.csv'), 'w')

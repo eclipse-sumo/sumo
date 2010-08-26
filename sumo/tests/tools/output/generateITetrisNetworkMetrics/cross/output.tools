@@ -1,94 +1,94 @@
-mean number of lanes per street : 1.0
+mean number of lanes per street : 1.000000
 
-total number of vehicles : 337.0
+total number of vehicles : 337.000000
 
 travel time
 ===========
-total       : 254634.0
-mean        : 755.590504451
-std         : 396.338828943
-1/4-quantil : 334.0
-median      : 777.0
-3/4-quantil : 1111.0
+total       : 254634.000000
+mean        : 755.590504
+std         : 396.338829
+1/4-quantil : 334.000000
+median      : 777.000000
+3/4-quantil : 1111.000000
 
 travel speed
 ============
-mean        : 4.69216900341
-std         : 2.07482601155
-1/4-quantil : 3.03488514548
-median      : 4.20184322034
-3/4-quantil : 6.25589905363
+mean        : 4.692169
+std         : 2.074826
+1/4-quantil : 3.034885
+median      : 4.201843
+3/4-quantil : 6.255899
 
 waiting time
 ============
-total       : 120519.0
-mean        : 357.623145401
-std         : 239.694855095
-1/4-quantil : 125.0
-median      : 368.0
-3/4-quantil : 577.0
+total       : 120519.000000
+mean        : 357.623145
+std         : 239.694855
+1/4-quantil : 125.000000
+median      : 368.000000
+3/4-quantil : 577.000000
 
 distance travelled
 ==================
-total       : 966800.25
-mean        : 2868.84347181
-std         : 985.494125495
-1/4-quantil : 1980.24
-median      : 1985.95
-3/4-quantil : 3962.08
+total       : 966800.250000
+mean        : 2868.843472
+std         : 985.494125
+1/4-quantil : 1980.240000
+median      : 1985.950000
+3/4-quantil : 3962.080000
 
 fuel consumption
 ================
-total       : 0.0
-mean        : 0.0
-std         : 0.0
-1/4-quantil : 0.0
-median      : 0.0
-3/4-quantil : 0.0
+total       : 0.000000
+mean        : 0.000000
+std         : 0.000000
+1/4-quantil : 0.000000
+median      : 0.000000
+3/4-quantil : 0.000000
 
 CO emissions
 ============
-total       : 0.0
-mean        : 0.0
-std         : 0.0
-1/4-quantil : 0.0
-median      : 0.0
-3/4-quantil : 0.0
+total       : 0.000000
+mean        : 0.000000
+std         : 0.000000
+1/4-quantil : 0.000000
+median      : 0.000000
+3/4-quantil : 0.000000
 
 CO2 emissions
 =============
-total       : 0.0
-mean        : 0.0
-std         : 0.0
-1/4-quantil : 0.0
-median      : 0.0
-3/4-quantil : 0.0
+total       : 0.000000
+mean        : 0.000000
+std         : 0.000000
+1/4-quantil : 0.000000
+median      : 0.000000
+3/4-quantil : 0.000000
 
 HC emissions
 ============
-total       : 0.0
-mean        : 0.0
-std         : 0.0
-1/4-quantil : 0.0
-median      : 0.0
-3/4-quantil : 0.0
+total       : 0.000000
+mean        : 0.000000
+std         : 0.000000
+1/4-quantil : 0.000000
+median      : 0.000000
+3/4-quantil : 0.000000
 
 PMx emissions
 =============
-total       : 0.0
-mean        : 0.0
-std         : 0.0
-1/4-quantil : 0.0
-median      : 0.0
-3/4-quantil : 0.0
+total       : 0.000000
+mean        : 0.000000
+std         : 0.000000
+1/4-quantil : 0.000000
+median      : 0.000000
+3/4-quantil : 0.000000
 
 NOx emissions
 =============
-total       : 0.0
-mean        : 0.0
-std         : 0.0
-1/4-quantil : 0.0
-median      : 0.0
-3/4-quantil : 0.0
+total       : 0.000000
+mean        : 0.000000
+std         : 0.000000
+1/4-quantil : 0.000000
+median      : 0.000000
+3/4-quantil : 0.000000
 
 The calculation is done!
