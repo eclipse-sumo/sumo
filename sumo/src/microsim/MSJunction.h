@@ -104,11 +104,11 @@ public:
         return myShape;
     }
 
-    virtual const std::vector<MSLink*> &getFoeLinks(const MSLink *const srcLink) const throw() {
+    virtual const std::vector<MSLink*> &getFoeLinks(const MSLink *const /*srcLink*/) const throw() {
         return myEmptyLinks;
     }
 
-    virtual const std::vector<MSLane*> &getFoeInternalLanes(const MSLink *const srcLink) const throw() {
+    virtual const std::vector<MSLane*> &getFoeInternalLanes(const MSLink *const /*srcLink*/) const throw() {
         return myEmptyLanes;
     }
 

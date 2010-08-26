@@ -47,10 +47,10 @@
 // ---------------------------------------------------------------------------
 // MSMeanData_HBEFA::MSLaneMeanDataValues - methods
 // ---------------------------------------------------------------------------
-MSMeanData_HBEFA::MSLaneMeanDataValues::MSLaneMeanDataValues(MSLane * const lane, const bool doAdd,
+MSMeanData_HBEFA::MSLaneMeanDataValues::MSLaneMeanDataValues(MSLane * const lane, const SUMOReal length, const bool doAdd,
         const std::set<std::string>* const vTypes,
         const MSMeanData_HBEFA *parent) throw()
-        : MSMeanData::MeanDataValues(lane, doAdd, vTypes), myParent(parent), CO2(0), CO(0), HC(0), NOx(0), PMx(0), fuel(0) {}
+        : MSMeanData::MeanDataValues(lane, length, doAdd, vTypes), myParent(parent), CO2(0), CO(0), HC(0), NOx(0), PMx(0), fuel(0) {}
 
 
 MSMeanData_HBEFA::MSLaneMeanDataValues::~MSLaneMeanDataValues() throw() {
@@ -120,9 +120,9 @@ MSMeanData_HBEFA::MSLaneMeanDataValues::isStillActive(MSVehicle& veh, SUMOReal o
 
 void
 MSMeanData_HBEFA::MSLaneMeanDataValues::write(OutputDevice &dev, const SUMOTime period,
-        const SUMOReal numLanes, const SUMOReal length, const int numVehicles) const throw(IOError) {
+        const SUMOReal numLanes, const int numVehicles) const throw(IOError) {
     dev<<std::resetiosflags(std::ios::floatfield);
-    const SUMOReal normFactor = SUMOReal(3600. * 1000. / STEPS2TIME(period) / length);
+    const SUMOReal normFactor = SUMOReal(3600. * 1000. / STEPS2TIME(period) / myLaneLength);
     dev << "\" CO_abs=\""<<SUMOReal(CO*1000.) <<
     "\" CO2_abs=\""<<SUMOReal(CO2*1000.) <<
     "\" HC_abs=\""<<SUMOReal(HC*1000.) <<
@@ -139,8 +139,8 @@ MSMeanData_HBEFA::MSLaneMeanDataValues::write(OutputDevice &dev, const SUMOTime 
         SUMOReal vehFactor = myParent->myMaxTravelTime / sampleSeconds;
         SUMOReal traveltime = myParent->myMaxTravelTime;
         if (travelledDistance > 0.f) {
-            vehFactor = MIN2(vehFactor, length / travelledDistance);
-            traveltime = MIN2(traveltime, length * sampleSeconds / travelledDistance);
+            vehFactor = MIN2(vehFactor, myLaneLength / travelledDistance);
+            traveltime = MIN2(traveltime, myLaneLength * sampleSeconds / travelledDistance);
         }
         dev<<"\"\n            traveltime=\"" << traveltime<<
         "\" CO_perVeh=\""<<CO*vehFactor<<
@@ -173,8 +173,8 @@ MSMeanData_HBEFA::~MSMeanData_HBEFA() throw() {}
 
 
 MSMeanData::MeanDataValues*
-MSMeanData_HBEFA::createValues(MSLane * const lane, const bool doAdd) const throw(IOError) {
-    return new MSLaneMeanDataValues(lane, doAdd, &myVehicleTypes, this);
+MSMeanData_HBEFA::createValues(MSLane * const lane, const SUMOReal length, const bool doAdd) const throw(IOError) {
+    return new MSLaneMeanDataValues(lane, length, doAdd, &myVehicleTypes, this);
 }
 
 

@@ -54,8 +54,8 @@
 // ---------------------------------------------------------------------------
 // MSMeanData::MeanDataValues - methods
 // ---------------------------------------------------------------------------
-MSMeanData::MeanDataValues::MeanDataValues(MSLane * const lane, const bool doAdd, const std::set<std::string>* const vTypes) throw()
-        : MSMoveReminder(lane, doAdd), sampleSeconds(0), travelledDistance(0), myVehicleTypes(vTypes) {}
+MSMeanData::MeanDataValues::MeanDataValues(MSLane * const lane, const SUMOReal length, const bool doAdd, const std::set<std::string>* const vTypes) throw()
+        : MSMoveReminder(lane, doAdd), myLaneLength(length), sampleSeconds(0), travelledDistance(0), myVehicleTypes(vTypes) {}
 
 
 MSMeanData::MeanDataValues::~MeanDataValues() throw() {
@@ -90,10 +90,11 @@ MSMeanData::MeanDataValues::getSamples() const throw() {
 // MSMeanData::MeanDataValueTracker - methods
 // ---------------------------------------------------------------------------
 MSMeanData::MeanDataValueTracker::MeanDataValueTracker(MSLane * const lane,
+        const SUMOReal length,
         const std::set<std::string>* const vTypes,
         const MSMeanData* const parent) throw()
-        : MSMeanData::MeanDataValues(lane, true, vTypes), myParent(parent) {
-    myCurrentData.push_back(new TrackerEntry(parent->createValues(lane, false)));
+        : MSMeanData::MeanDataValues(lane, length, true, vTypes), myParent(parent) {
+    myCurrentData.push_back(new TrackerEntry(parent->createValues(lane, length, false)));
 }
 
 
@@ -103,7 +104,7 @@ MSMeanData::MeanDataValueTracker::~MeanDataValueTracker() throw() {
 
 void
 MSMeanData::MeanDataValueTracker::reset() throw() {
-    myCurrentData.push_back(new TrackerEntry(myParent->createValues(myLane, false)));
+    myCurrentData.push_back(new TrackerEntry(myParent->createValues(myLane, myLaneLength, false)));
 }
 
 
@@ -159,8 +160,8 @@ MSMeanData::MeanDataValueTracker::isEmpty() const throw() {
 
 void
 MSMeanData::MeanDataValueTracker::write(OutputDevice &dev, const SUMOTime period,
-                                        const SUMOReal numLanes, const SUMOReal length, const int numVehicles) const throw(IOError) {
-    myCurrentData.front()->myValues->write(dev, period, numLanes, length, myCurrentData.front()->myNumVehicleEntered);
+                                        const SUMOReal numLanes, const int numVehicles) const throw(IOError) {
+    myCurrentData.front()->myValues->write(dev, period, numLanes, myCurrentData.front()->myNumVehicleEntered);
 }
 
 
@@ -212,14 +213,15 @@ MSMeanData::init() throw() {
         if (myDumpInternal || (*e)->getPurpose() != MSEdge::EDGEFUNCTION_INTERNAL) {
             myEdges.push_back(*e);
             myMeasures.push_back(std::vector<MeanDataValues*>());
+            const std::vector<MSLane*> &lanes = (*e)->getLanes();
 #ifdef HAVE_MESOSIM
             if (MSGlobals::gUseMesoSim) {
                 MESegment *s = MSGlobals::gMesoNet->getSegmentForEdge(**e);
                 while (s!=0) {
                     if (myTrackVehicles) {
-                        myMeasures.back().push_back(new MeanDataValueTracker(0, &myVehicleTypes, this));
+                        myMeasures.back().push_back(new MeanDataValueTracker(0, lanes[0]->getLength(), &myVehicleTypes, this));
                     } else {
-                        myMeasures.back().push_back(createValues(0, false));
+                        myMeasures.back().push_back(createValues(0, lanes[0]->getLength(), false));
                     }
                     s->addDetector(myMeasures.back().back());
                     s = s->getNextSegment();
@@ -228,18 +230,17 @@ MSMeanData::init() throw() {
             }
 #endif
             if (myAmEdgeBased && myTrackVehicles) {
-                myMeasures.back().push_back(new MeanDataValueTracker(0, &myVehicleTypes, this));
+                myMeasures.back().push_back(new MeanDataValueTracker(0, lanes[0]->getLength(), &myVehicleTypes, this));
             }
-            const std::vector<MSLane*> &lanes = (*e)->getLanes();
             for (std::vector<MSLane*>::const_iterator lane = lanes.begin(); lane != lanes.end(); ++lane) {
                 if (myTrackVehicles) {
                     if (myAmEdgeBased) {
                         (*lane)->addMoveReminder(myMeasures.back().back());
                     } else {
-                        myMeasures.back().push_back(new MeanDataValueTracker(*lane, &myVehicleTypes, this));
+                        myMeasures.back().push_back(new MeanDataValueTracker(*lane, (*lane)->getLength(), &myVehicleTypes, this));
                     }
                 } else {
-                    myMeasures.back().push_back(createValues(*lane, true));
+                    myMeasures.back().push_back(createValues(*lane, (*lane)->getLength(), true));
                 }
             }
         }
@@ -301,8 +302,7 @@ MSMeanData::writeEdge(OutputDevice &dev,
         for (lane = edgeValues.begin(); lane != edgeValues.end(); ++lane) {
             MeanDataValues& meanData = **lane;
             if (writePrefix(dev, meanData, "<lane id=\""+meanData.getLane()->getID())) {
-                meanData.write(dev, stopTime - startTime,
-                               1.f, meanData.getLane()->getLength());
+                meanData.write(dev, stopTime - startTime, 1.f);
             }
             if (myTrackVehicles) {
                 ((MeanDataValueTracker&)meanData).clearFirst();
@@ -317,19 +317,18 @@ MSMeanData::writeEdge(OutputDevice &dev,
         if (myTrackVehicles) {
             MeanDataValues& meanData = **edgeValues.begin();
             if (writePrefix(dev, meanData, "<edge id=\""+edge->getID())) {
-                meanData.write(dev, stopTime - startTime,
-                               (SUMOReal)edge->getLanes().size(), edge->getLanes()[0]->getLength());
+                meanData.write(dev, stopTime - startTime, (SUMOReal)edge->getLanes().size());
             }
+            ((MeanDataValueTracker&)meanData).clearFirst();
         } else {
-            MeanDataValues* sumData = createValues(0, false);
+            MeanDataValues* sumData = createValues(0, edge->getLanes()[0]->getLength(), false);
             for (lane = edgeValues.begin(); lane != edgeValues.end(); ++lane) {
                 MeanDataValues& meanData = **lane;
                 meanData.addTo(*sumData);
                 meanData.reset();
             }
             if (writePrefix(dev, *sumData, "<edge id=\""+edge->getID())) {
-                sumData->write(dev, stopTime - startTime,
-                               (SUMOReal)edge->getLanes().size(), edge->getLanes()[0]->getLength());
+                sumData->write(dev, stopTime - startTime, (SUMOReal)edge->getLanes().size());
             }
             delete sumData;
         }

@@ -68,7 +68,7 @@ public:
     class MSLaneMeanDataValues : public MSMeanData::MeanDataValues {
     public:
         /** @brief Constructor */
-        MSLaneMeanDataValues(MSLane * const lane, const bool doAdd,
+        MSLaneMeanDataValues(MSLane * const lane, const SUMOReal length, const bool doAdd,
                              const std::set<std::string>* const vTypes=0,
                              const MSMeanData_Harmonoise *parent=0) throw();
 
@@ -138,7 +138,7 @@ public:
          * @exception IOError If an error on writing occurs (!!! not yet implemented)
          */
         void write(OutputDevice &dev, const SUMOTime period,
-                   const SUMOReal numLanes, const SUMOReal length,
+                   const SUMOReal numLanes,
                    const int numVehicles=-1) const throw(IOError);
 
 
@@ -194,7 +194,7 @@ protected:
      * @param[in] lane The lane to create for
      * @param[in] doAdd whether to add the values as reminder to the lane
      */
-    MSMeanData::MeanDataValues* createValues(MSLane * const lane, const bool doAdd) const throw(IOError);
+    MSMeanData::MeanDataValues* createValues(MSLane * const lane, const SUMOReal length, const bool doAdd) const throw(IOError);
 
 private:
     /// @brief Invalidated copy constructor.

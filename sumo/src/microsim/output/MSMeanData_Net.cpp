@@ -54,10 +54,12 @@
 // ---------------------------------------------------------------------------
 // MSMeanData_Net::MSLaneMeanDataValues - methods
 // ---------------------------------------------------------------------------
-MSMeanData_Net::MSLaneMeanDataValues::MSLaneMeanDataValues(MSLane * const lane, const bool doAdd,
+MSMeanData_Net::MSLaneMeanDataValues::MSLaneMeanDataValues(MSLane * const lane,
+        const SUMOReal length,
+        const bool doAdd,
         const std::set<std::string>* const vTypes,
         const MSMeanData_Net *parent) throw()
-        : MSMeanData::MeanDataValues(lane, doAdd, vTypes), myParent(parent),
+        : MSMeanData::MeanDataValues(lane, length, doAdd, vTypes), myParent(parent),
         nVehDeparted(0), nVehArrived(0), nVehEntered(0), nVehLeft(0),
         nVehLaneChangeFrom(0), nVehLaneChangeTo(0), waitSeconds(0), vehLengthSum(0) {}
 
@@ -120,11 +122,11 @@ MSMeanData_Net::MSLaneMeanDataValues::isStillActive(MSVehicle& veh, SUMOReal old
         myLastVehicleUpdateValues[&veh] = std::pair<SUMOReal, SUMOReal>(currentTime, lastReportedPos+newSpeed*timeOnLane);
     } else {
 #endif
-        if (oldPos<0&&newSpeed!=0) {
+        if (oldPos < 0 && newSpeed != 0) {
             timeOnLane = (oldPos+SPEED2DIST(newSpeed)) / newSpeed;
         }
-        if (getLane() != 0 && oldPos+SPEED2DIST(newSpeed)>getLane()->getLength() && newSpeed != 0) {
-            timeOnLane -= (oldPos+SPEED2DIST(newSpeed) - getLane()->getLength()) / newSpeed;
+        if (oldPos + SPEED2DIST(newSpeed) > myLaneLength && newSpeed != 0) {
+            timeOnLane -= (oldPos + SPEED2DIST(newSpeed) - myLaneLength) / newSpeed;
             ret = false;
         }
         if (timeOnLane<0) {
@@ -185,11 +187,11 @@ MSMeanData_Net::MSLaneMeanDataValues::isEmpty() const throw() {
 
 void
 MSMeanData_Net::MSLaneMeanDataValues::write(OutputDevice &dev, const SUMOTime period,
-        const SUMOReal numLanes, const SUMOReal length, const int numVehicles) const throw(IOError) {
+        const SUMOReal numLanes, const int numVehicles) const throw(IOError) {
     if (myParent == 0) {
         if (sampleSeconds > 0) {
-            dev << "\" density=\"" << sampleSeconds / STEPS2TIME(period) *(SUMOReal) 1000 / length <<
-            "\" occupancy=\"" << vehLengthSum / STEPS2TIME(period) / length / numLanes *(SUMOReal) 100 <<
+            dev << "\" density=\"" << sampleSeconds / STEPS2TIME(period) *(SUMOReal) 1000 / myLaneLength <<
+            "\" occupancy=\"" << vehLengthSum / STEPS2TIME(period) / myLaneLength / numLanes *(SUMOReal) 100 <<
             "\" waitingTime=\"" << waitSeconds <<
             "\" speed=\"" << travelledDistance / sampleSeconds;
         }
@@ -203,7 +205,7 @@ MSMeanData_Net::MSLaneMeanDataValues::write(OutputDevice &dev, const SUMOTime pe
     if (sampleSeconds > myParent->myMinSamples) {
         SUMOReal traveltime = myParent->myMaxTravelTime;
         if (travelledDistance > 0.f) {
-            traveltime = MIN2(traveltime, length * sampleSeconds / travelledDistance);
+            traveltime = MIN2(traveltime, myLaneLength * sampleSeconds / travelledDistance);
         }
         if (numVehicles > 0) {
             dev << "\" traveltime=\"" << sampleSeconds / numVehicles <<
@@ -211,8 +213,8 @@ MSMeanData_Net::MSLaneMeanDataValues::write(OutputDevice &dev, const SUMOTime pe
             "\" speed=\"" << travelledDistance / sampleSeconds;
         } else {
             dev << "\" traveltime=\"" << traveltime <<
-            "\" density=\"" << sampleSeconds / STEPS2TIME(period) *(SUMOReal) 1000 / length <<
-            "\" occupancy=\"" << vehLengthSum / STEPS2TIME(period) / length / numLanes *(SUMOReal) 100 <<
+            "\" density=\"" << sampleSeconds / STEPS2TIME(period) *(SUMOReal) 1000 / myLaneLength <<
+            "\" occupancy=\"" << vehLengthSum / STEPS2TIME(period) / myLaneLength / numLanes *(SUMOReal) 100 <<
             "\" waitingTime=\"" << waitSeconds <<
             "\" speed=\"" << travelledDistance / sampleSeconds;
         }
@@ -244,8 +246,8 @@ MSMeanData_Net::~MSMeanData_Net() throw() {}
 
 
 MSMeanData::MeanDataValues*
-MSMeanData_Net::createValues(MSLane * const lane, const bool doAdd) const throw(IOError) {
-    return new MSLaneMeanDataValues(lane, doAdd, &myVehicleTypes, this);
+MSMeanData_Net::createValues(MSLane * const lane, const SUMOReal length, const bool doAdd) const throw(IOError) {
+    return new MSLaneMeanDataValues(lane, length, doAdd, &myVehicleTypes, this);
 }
 
 
@@ -255,7 +257,8 @@ MSMeanData_Net::writeEdge(OutputDevice &dev,
                           MSEdge *edge, SUMOTime startTime, SUMOTime stopTime) throw(IOError) {
 #ifdef HAVE_MESOSIM
     if (MSGlobals::gUseMesoSim) {
-        MSLaneMeanDataValues* sumData = (MSLaneMeanDataValues*)createValues(0, false);
+        const SUMOReal edgeLength = edge->getLanes()[0]->getLength();
+        MSLaneMeanDataValues* sumData = (MSLaneMeanDataValues*)createValues(0, edgeLength, false);
         unsigned entered;
         bool isFirst = true;
         MESegment *s = MSGlobals::gMesoNet->getSegmentForEdge(*edge);
@@ -275,7 +278,7 @@ MSMeanData_Net::writeEdge(OutputDevice &dev,
         sumData->nVehEntered = entered;
         if (writePrefix(dev, *sumData, "<edge id=\""+edge->getID())) {
             sumData->write(dev, stopTime - startTime,
-                           (SUMOReal)edge->getLanes().size(), edge->getLanes()[0]->getLength());
+                           (SUMOReal)edge->getLanes().size());
         }
         delete sumData;
         return;

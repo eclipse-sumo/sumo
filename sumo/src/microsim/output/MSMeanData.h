@@ -74,7 +74,7 @@ public:
     class MeanDataValues : public MSMoveReminder {
     public:
         /** @brief Constructor */
-        MeanDataValues(MSLane * const lane, const bool doAdd, const std::set<std::string>* const vTypes=0) throw();
+        MeanDataValues(MSLane * const lane, const SUMOReal length, const bool doAdd, const std::set<std::string>* const vTypes=0) throw();
 
         /** @brief Destructor */
         virtual ~MeanDataValues() throw();
@@ -118,22 +118,24 @@ public:
          * @param[in] dev The output device to write the data into
          * @param[in] period Length of the period the data were gathered
          * @param[in] numLanes The total number of lanes for which the data was collected
-         * @param[in] length The length of the object for which the data was collected
          * @exception IOError If an error on writing occurs (!!! not yet implemented)
          */
         virtual void write(OutputDevice &dev, const SUMOTime period,
-                           const SUMOReal numLanes, const SUMOReal length,
+                           const SUMOReal numLanes,
                            const int numVehicles=-1) const throw(IOError) = 0;
 
         virtual SUMOReal getSamples() const throw();
 
     protected:
+        /// @brief The length of the lane / edge the data collector is on
+        const SUMOReal myLaneLength;
+
         /// @name Collected values
         /// @{
         /// @brief The number of sampled vehicle movements (in s)
         SUMOReal sampleSeconds;
-        /// @brief The sum of the distances the vehicles travelled
     public:
+        /// @brief The sum of the distances the vehicles travelled
         SUMOReal travelledDistance;
         //@}
 
@@ -151,7 +153,8 @@ public:
     class MeanDataValueTracker : public MeanDataValues {
     public:
         /** @brief Constructor */
-        MeanDataValueTracker(MSLane * const lane, const std::set<std::string>* const vTypes=0,
+        MeanDataValueTracker(MSLane * const lane, const SUMOReal length,
+                             const std::set<std::string>* const vTypes=0,
                              const MSMeanData* const parent=0) throw();
 
         /** @brief Destructor */
@@ -220,11 +223,10 @@ public:
          * @param[in] dev The output device to write the data into
          * @param[in] period Length of the period the data were gathered
          * @param[in] numLanes The total number of lanes for which the data was collected
-         * @param[in] length The length of the object for which the data was collected
          * @exception IOError If an error on writing occurs (!!! not yet implemented)
          */
         void write(OutputDevice &dev, const SUMOTime period,
-                   const SUMOReal numLanes, const SUMOReal length,
+                   const SUMOReal numLanes,
                    const int numVehicles=-1) const throw(IOError);
 
         size_t getNumReady() const throw();
@@ -336,7 +338,7 @@ protected:
      * @param[in] lane The lane to create for
      * @param[in] doAdd whether to add the values as reminder to the lane
      */
-    virtual MSMeanData::MeanDataValues* createValues(MSLane * const lane, const bool doAdd) const throw(IOError) = 0;
+    virtual MSMeanData::MeanDataValues* createValues(MSLane * const lane, const SUMOReal length, const bool doAdd) const throw(IOError) = 0;
 
     /** @brief Resets network value in order to allow processing of the next interval
      *

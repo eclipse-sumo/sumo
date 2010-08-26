@@ -48,9 +48,9 @@
 // ---------------------------------------------------------------------------
 // MSMeanData_Harmonoise::MSLaneMeanDataValues - methods
 // ---------------------------------------------------------------------------
-MSMeanData_Harmonoise::MSLaneMeanDataValues::MSLaneMeanDataValues(MSLane * const lane, const bool doAdd,
+MSMeanData_Harmonoise::MSLaneMeanDataValues::MSLaneMeanDataValues(MSLane * const lane, const SUMOReal length, const bool doAdd,
         const std::set<std::string>* const vTypes, const MSMeanData_Harmonoise *parent) throw()
-        : MSMeanData::MeanDataValues(lane, doAdd, vTypes),
+        : MSMeanData::MeanDataValues(lane, length, doAdd, vTypes),
         currentTimeN(0), meanNTemp(0), myParent(parent) {}
 
 
@@ -121,12 +121,12 @@ MSMeanData_Harmonoise::MSLaneMeanDataValues::notifyEnter(MSVehicle& veh, bool is
 
 void
 MSMeanData_Harmonoise::MSLaneMeanDataValues::write(OutputDevice &dev, const SUMOTime period,
-        const SUMOReal numLanes, const SUMOReal length, const int numVehicles) const throw(IOError) {
+        const SUMOReal numLanes, const int numVehicles) const throw(IOError) {
     dev << "\" noise=\"" << (meanNTemp!=0 ? (SUMOReal)(10. * log10(meanNTemp*TS/STEPS2TIME(period))) : (SUMOReal) 0.);
     if (sampleSeconds > myParent->myMinSamples) {
         SUMOReal traveltime = myParent->myMaxTravelTime;
         if (travelledDistance > 0.f) {
-            traveltime = MIN2(traveltime, length * sampleSeconds / travelledDistance);
+            traveltime = MIN2(traveltime, myLaneLength * sampleSeconds / travelledDistance);
         }
         dev << "\" traveltime=\"" << traveltime;
     }
@@ -152,8 +152,8 @@ MSMeanData_Harmonoise::~MSMeanData_Harmonoise() throw() {}
 
 
 MSMeanData::MeanDataValues*
-MSMeanData_Harmonoise::createValues(MSLane * const lane, const bool doAdd) const throw(IOError) {
-    return new MSLaneMeanDataValues(lane, doAdd, &myVehicleTypes, this);
+MSMeanData_Harmonoise::createValues(MSLane * const lane, const SUMOReal length, const bool doAdd) const throw(IOError) {
+    return new MSLaneMeanDataValues(lane, length, doAdd, &myVehicleTypes, this);
 }
 
 

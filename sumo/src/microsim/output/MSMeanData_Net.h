@@ -71,8 +71,10 @@ public:
      */
     class MSLaneMeanDataValues : public MSMeanData::MeanDataValues {
     public:
-        /** @brief Constructor */
-        MSLaneMeanDataValues(MSLane * const lane, const bool doAdd,
+        /** @brief Constructor
+         * @param[in] length The length of the object for which the data gets collected
+         */
+        MSLaneMeanDataValues(MSLane * const lane, const SUMOReal length, const bool doAdd,
                              const std::set<std::string>* const vTypes=0,
                              const MSMeanData_Net *parent=0) throw();
 
@@ -142,17 +144,10 @@ public:
          * @param[in] dev The output device to write the data into
          * @param[in] period Length of the period the data were gathered
          * @param[in] numLanes The total number of lanes for which the data was collected
-         * @param[in] length The length of the object for which the data was collected
          * @exception IOError If an error on writing occurs (!!! not yet implemented)
          */
         void write(OutputDevice &dev, const SUMOTime period,
-                   const SUMOReal numLanes, const SUMOReal length,
-                   const int numVehicles=-1) const throw(IOError);
-
-#ifdef HAVE_MESOSIM
-        void addData(const SUMOVehicle& veh, const SUMOReal timeOnLane, const SUMOReal dist) throw();
-        void getLastReported(SUMOVehicle *v, SUMOTime &lastReportedTime, SUMOReal &lastReportedPos) throw();
-#endif
+                   const SUMOReal numLanes, const int numVehicles=-1) const throw(IOError);
 
         /// @name Collected values
         /// @{
@@ -162,10 +157,10 @@ public:
         /// @brief The number of vehicles that finished on the lane
         unsigned nVehArrived;
 
-        /// @brief The number of vehicles that entered this lane within the sample intervall
+        /// @brief The number of vehicles that entered this lane within the sample interval
         unsigned nVehEntered;
 
-        /// @brief The number of vehicles that left this lane within the sample intervall
+        /// @brief The number of vehicles that left this lane within the sample interval
         unsigned nVehLeft;
 
     private:
@@ -224,7 +219,7 @@ protected:
      * @param[in] lane The lane to create for
      * @param[in] doAdd whether to add the values as reminder to the lane
      */
-    MSMeanData::MeanDataValues* createValues(MSLane * const lane, const bool doAdd) const throw(IOError);
+    MSMeanData::MeanDataValues* createValues(MSLane * const lane, const SUMOReal length, const bool doAdd) const throw(IOError);
 
     /** @brief Writes edge values into the given stream
      *
