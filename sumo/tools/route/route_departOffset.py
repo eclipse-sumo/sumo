@@ -36,12 +36,14 @@ class RouteReader(handler.ContentHandler):
     def characters(self, content):
         self._out.write(content)
 
+def main(infile, outfile, offset):
+    out = open(outfile, "w")
+    parser = make_parser()
+    parser.setContentHandler(RouteReader(offset, out))
+    parser.parse(infile)
 
-if len(sys.argv) < 4:
-    print "Usage: route_departOffset.py <INPUT_FILE> <OUTPUT_FILE> <OFFSET>"
-    sys.exit()
-out = open(sys.argv[2], "w")
-parser = make_parser()
-parser.setContentHandler(RouteReader(int(sys.argv[3]), out))
-parser.parse(sys.argv[1])
-
+if __name__ == "__main__":
+    if len(sys.argv) < 4:
+        print "Usage: route_departOffset.py <INPUT_FILE> <OUTPUT_FILE> <OFFSET>"
+        sys.exit()
+    main(sys.argv[1], sys.argv[2], int(sys.argv[3]))
