@@ -1,7 +1,9 @@
+#!/usr/bin/env python
 """
 @file    routes2OD.py
 @author  Julia.Ringel@dlr.de
 @date    2009-04-15
+@version $Id$
 
 Creates an OD-matrix in visum format $O from a route.xml file
 when starting the programm the name for the inputfile and the outputfile
@@ -24,8 +26,8 @@ class InputDataHandler(ContentHandler):
                 if myTimes.Start > depart:
                     myTimes.Start = depart
                 if myTimes.End < depart:
-                    myTimes.End = depart    
-            
+                    myTimes.End = depart
+
             if i == 'edges':
                 route = attrs.getValue(i).split()
                 start = route [0]
@@ -37,18 +39,18 @@ class InputDataHandler(ContentHandler):
                         myData[start][end] = 1
                 else:
                     myData[start]={end:1}
-        
-class Times:                    
+
+class Times:
     def __init__(self):
         self.Start = 86400
         self.End = 0
-                
+
     def seconds2TimeOfDay(self, seconds):
         hours = seconds/3600
         minutes = (seconds - (hours*3600))/60
         seconds_remaining = seconds - (hours*3600) - (minutes*60)
         if seconds_remaining > 29:
-            minutes = minutes +1            
+            minutes = minutes +1
         if minutes == 60:
             hours = hours + 1
             minutes = 0
