@@ -482,11 +482,11 @@ void
 NIImporter_OpenStreetMap::NodesHandler::myStartElement(SumoXMLTag element, const SUMOSAXAttributes &attrs) throw(ProcessError) {
     ++myHierarchyLevel;
     if (element == SUMO_TAG_NODE) {
+        bool ok = true;
         if (myHierarchyLevel != 2) {
-            MsgHandler::getErrorInstance()->inform("Node element on wrong XML hierarchy level.");
+            MsgHandler::getErrorInstance()->inform("Node element on wrong XML hierarchy level (id='" + toString(attrs.getIntReporting(SUMO_ATTR_ID, "node", 0, ok)) + "', level='" + toString(myHierarchyLevel) + "').");
             return;
         }
-        bool ok = true;
         int id = attrs.getIntReporting(SUMO_ATTR_ID, "node", 0, ok);
         std::string action = attrs.hasAttribute("action") ? attrs.getStringSecure("action", "") : "";
         if (action=="delete") {
