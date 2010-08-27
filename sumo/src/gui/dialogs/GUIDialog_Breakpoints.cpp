@@ -92,13 +92,13 @@ GUIDialog_Breakpoints::GUIDialog_Breakpoints(GUIMainWindow *parent) throw()
     myTable->setVisibleColumns(1);
     myTable->setTableSize(20,1);
     myTable->setBackColor(FXRGB(255,255,255));
-    myTable->setCellType(0, CT_INT);
+    myTable->setCellType(0, CT_REAL);
     SUMOTime begin = string2time(OptionsCont::getOptions().getString("begin"));
     SUMOTime end = string2time(OptionsCont::getOptions().getString("end"));
     if (end<0) {
         end = SUMOTime_MAX;
     }
-    myTable->setNumberCellParams(0, begin, end, 1, 10, 100, "%.2f");
+    myTable->setNumberCellParams(0, begin/1000, end/1000, 1, 10, 100, "%.2f");
     myTable->getRowHeader()->setWidth(0);
     rebuildList();
     // build the layout
