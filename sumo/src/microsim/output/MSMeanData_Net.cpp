@@ -108,8 +108,10 @@ MSMeanData_Net::MSLaneMeanDataValues::isStillActive(MSVehicle& veh, SUMOReal old
     SUMOReal timeOnLane = TS;
 #ifdef HAVE_MESOSIM
     if (MSGlobals::gUseMesoSim) {
-        const SUMOReal currentTime = newPos / newSpeed + STEPS2TIME(veh.getLastEntryTime());
-        SUMOReal lastReportedTime = STEPS2TIME(veh.getLastEntryTime());
+        const SUMOReal lastEntryTime = STEPS2TIME(veh.getLastEntryTime());
+        const SUMOReal currentTime = newPos / newSpeed + lastEntryTime;
+        const SUMOReal exitTime = veh.getSegment()->getLength() / newSpeed + lastEntryTime;
+        SUMOReal lastReportedTime = lastEntryTime;
         SUMOReal lastReportedPos = 0;
         std::map<SUMOVehicle*, std::pair<SUMOReal, SUMOReal> >::iterator j=myLastVehicleUpdateValues.find(&veh);
         if (j!=myLastVehicleUpdateValues.end()) {
@@ -119,6 +121,7 @@ MSMeanData_Net::MSLaneMeanDataValues::isStillActive(MSVehicle& veh, SUMOReal old
             myLastVehicleUpdateValues.erase(j);
         }
         timeOnLane = currentTime - lastReportedTime;
+        newSpeed = (veh.getSegment()->getLength() - lastReportedPos) / (exitTime - lastReportedTime);
         myLastVehicleUpdateValues[&veh] = std::pair<SUMOReal, SUMOReal>(currentTime, lastReportedPos+newSpeed*timeOnLane);
     } else {
 #endif
@@ -152,6 +155,11 @@ MSMeanData_Net::MSLaneMeanDataValues::isStillActive(MSVehicle& veh, SUMOReal old
 void
 MSMeanData_Net::MSLaneMeanDataValues::notifyLeave(MSVehicle& veh, bool isArrival, bool isLaneChange) throw() {
     if (vehicleApplies(veh)) {
+#ifdef HAVE_MESOSIM
+        if (MSGlobals::gUseMesoSim) {
+            myLastVehicleUpdateValues.erase(&veh);
+        }
+#endif
         if (isArrival) {
             ++nVehArrived;
         } else if (isLaneChange) {
