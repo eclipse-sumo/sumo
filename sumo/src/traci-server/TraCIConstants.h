@@ -680,6 +680,8 @@
 #define VAR_VIEW_BACKGROUNDCOLOR 0xa4
 // screenshot
 #define VAR_SCREENSHOT 0xa5
+// track vehicle
+#define VAR_TRACK_VEHICLE 0xa6
 
 
 

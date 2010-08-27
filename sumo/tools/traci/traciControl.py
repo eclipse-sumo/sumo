@@ -158,10 +158,10 @@ def beginChangeMessage(domainID, length, cmdID, objID):
     else:
         _message.string += struct.pack("!BiBBi", 0, length+4, domainID, cmdID, len(objID)) + objID
 
-def initTraCI(port):
+def initTraCI(port, numRetries=10):
     global _socket
     _socket = socket.socket()
-    for wait in range(10):
+    for wait in range(numRetries):
         try:
             _socket.connect(("localhost", port))
             _socket.setsockopt(socket.IPPROTO_TCP, socket.TCP_NODELAY, 1)
@@ -498,6 +498,11 @@ def cmdChangeVehicleVariable_moveTo(vehID, laneID, pos):
     _message.string += struct.pack("!Bd", tc.TYPE_DOUBLE, pos)
     _sendExact()
 
+def cmdChangeVehicleVariable_color(vehID, color):
+    beginChangeMessage(tc.CMD_SET_VEHICLE_VARIABLE, 1+1+1+4+len(vehID)+1+4, tc.VAR_COLOR, vehID)
+    _message.string += struct.pack("!BBBBB", tc.TYPE_COLOR, int(color[0]), int(color[1]), int(color[2]), int(color[3]))
+    _sendExact()
+
 
 # ===================================================
 # vehicle type interaction
@@ -661,6 +666,66 @@ def cmdGetSimulationVariable_currentTime():
     result = buildSendReadNew1StringParamCmd(tc.CMD_GET_SIM_VARIABLE, tc.VAR_TIME_STEP, "x")
     return result.read("!i")[0] # Variable value
 
+def cmdGetSimulationVariable_departedIDList():
+    result = buildSendReadNew1StringParamCmd(tc.CMD_GET_SIM_VARIABLE, tc.VAR_DEPARTED_VEHICLES_IDS, "x")
+    return result.readStringList()  # Variable value 
+
+def cmdGetSimulationVariable_arrivedIDList():
+    result = buildSendReadNew1StringParamCmd(tc.CMD_GET_SIM_VARIABLE, tc.VAR_ARRIVED_VEHICLES_IDS, "x")
+    return result.readStringList()  # Variable value 
+
+def cmdGetSimulationVariable_startingTeleportIDList():
+    result = buildSendReadNew1StringParamCmd(tc.CMD_GET_SIM_VARIABLE, tc.VAR_TELEPORT_STARTING_VEHICLES_IDS, "x")
+    return result.readStringList()  # Variable value 
+
+def cmdGetSimulationVariable_endingTeleportIDList():
+    result = buildSendReadNew1StringParamCmd(tc.CMD_GET_SIM_VARIABLE, tc.VAR_TELEPORT_ENDING_VEHICLES_IDS, "x")
+    return result.readStringList()  # Variable value 
+
+
+
+# ===================================================
+# view interaction
+# ===================================================
+# ---------------------------------------------------
+# get state
+# ---------------------------------------------------
+def cmdGetViewVariable_zoom(viewID):
+    result = buildSendReadNew1StringParamCmd(tc.CMD_GET_GUI_VARIABLE, tc.VAR_VIEW_ZOOM, viewID)
+    return result.read("!f")[0] # Variable value
+
+def cmdGetViewVariable_offset(viewID):
+    result = buildSendReadNew1StringParamCmd(tc.CMD_GET_GUI_VARIABLE, tc.VAR_VIEW_OFFSET, viewID)
+    return result.read("!ff") # Variable value
+
+
+# ---------------------------------------------------
+# change state
+# ---------------------------------------------------
+def cmdChangeViewVariable_scheme(viewID, schemeName):
+    beginChangeMessage(tc.CMD_SET_GUI_VARIABLE, 1+1+1+4+len(viewID)+1+4+len(schemeName), tc.VAR_VIEW_SCHEMA, viewID)
+    _message.string += struct.pack("!Bi", tc.TYPE_STRING, len(schemeName)) + schemeName
+    _sendExact()
+
+def cmdChangeViewVariable_zoom(viewID, zoom):
+    beginChangeMessage(tc.CMD_SET_GUI_VARIABLE, 1+1+1+4+len(viewID)+1+4, tc.VAR_VIEW_ZOOM, viewID)
+    _message.string += struct.pack("!Bf", tc.TYPE_FLOAT, zoom)
+    _sendExact()
+
+def cmdChangeViewVariable_offset(viewID, offset):
+    beginChangeMessage(tc.CMD_SET_GUI_VARIABLE, 1+1+1+4+len(viewID)+1+4+4, tc.VAR_VIEW_OFFSET, viewID)
+    _message.string += struct.pack("!Bff", tc.POSITION_2D, offset[0], offset[1])
+    _sendExact()
+
+def cmdChangeViewVariable_screenshot(viewID, filename):
+    beginChangeMessage(tc.CMD_SET_GUI_VARIABLE, 1+1+1+4+len(viewID)+1+4+len(filename), tc.VAR_SCREENSHOT, viewID)
+    _message.string += struct.pack("!Bi", tc.TYPE_STRING, len(filename)) + filename
+    _sendExact()
+
+def cmdChangeViewVariable_track(viewID, vehID):
+    beginChangeMessage(tc.CMD_SET_GUI_VARIABLE, 1+1+1+4+len(viewID)+1+4+len(vehID), tc.VAR_TRACK_VEHICLE, viewID)
+    _message.string += struct.pack("!Bi", tc.TYPE_STRING, len(vehID)) + vehID
+    _sendExact()
 
 
 

@@ -122,7 +122,7 @@ TraCIServerAPI_GUI::processSet(TraCIServer &server, tcpip::Storage &inputStorage
     // variable
     int variable = inputStorage.readUnsignedByte();
     if (variable!=VAR_VIEW_ZOOM&&variable!=VAR_VIEW_OFFSET&&variable!=VAR_VIEW_SCHEMA&&variable!=VAR_VIEW_BOUNDARY
-		&&variable!=VAR_VIEW_BACKGROUNDCOLOR&&variable!=VAR_SCREENSHOT
+		&&variable!=VAR_VIEW_BACKGROUNDCOLOR&&variable!=VAR_SCREENSHOT&&variable!=VAR_TRACK_VEHICLE
        ) {
         server.writeStatusCmd(CMD_SET_GUI_VARIABLE, RTYPE_ERR, "Change GUI State: unsupported variable specified", outputStorage);
         return false;
@@ -182,6 +182,31 @@ TraCIServerAPI_GUI::processSet(TraCIServer &server, tcpip::Storage &inputStorage
 		FXFREE(&buf);
 	}
     break;
+    case VAR_TRACK_VEHICLE: {
+        if (valueDataType!=TYPE_STRING) {
+            server.writeStatusCmd(CMD_SET_GUI_VARIABLE, RTYPE_ERR, "Tracking requires a string vehicle ID.", outputStorage);
+            return false;
+        }
+        std::cout << "a1" << std::endl;
+		std::string id = inputStorage.readString();
+        std::cout << "a2 " << id << std::endl;
+        if(id=="") {
+            std::cout << "a3" << std::endl;
+            v->stopTrack();
+        } else {
+            std::cout << "a4" << std::endl;
+            MSVehicle *veh = MSNet::getInstance()->getVehicleControl().getVehicle(id);
+            std::cout << "a5 " << veh << std::endl;
+            std::cout << "a6 " << veh->getID() << std::endl;
+            if(veh==0) {
+                std::cout << "a7" << std::endl;
+                server.writeStatusCmd(CMD_SET_GUI_VARIABLE, RTYPE_ERR, "Could not find vehicle '" + id + "'.", outputStorage);
+                return false;
+            }
+            std::cout << "a8" << std::endl;
+            v->startTrack(static_cast<GUIVehicle*>(veh)->getGlID());
+        }
+    }
     default:
         break;
     }
@@ -207,7 +232,13 @@ TraCIServerAPI_GUI::getMainWindow() throw() {
 GUISUMOAbstractView * const
 TraCIServerAPI_GUI::getNamedView(const std::string &id) throw() {
     GUIMainWindow *mw = static_cast<GUIMainWindow*>(getMainWindow());
+    if(mw==0) {
+        return 0;
+    }
     GUIGlChildWindow *c = static_cast<GUIGlChildWindow*>(mw->getViewByID(id));
+    if(c==0) {
+        return 0;
+    }
     return c->getView();
 }
 
