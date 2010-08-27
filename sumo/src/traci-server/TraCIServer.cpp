@@ -221,33 +221,33 @@ TraCIServer::TraCIServer() {
     TraCIHandler xmlHandler;
     SAX2XMLReader* xmlParser = XMLSubSys::getSAXReader(xmlHandler);
 
-    // parse route files
-    if (oc.isSet("route-files")) {
-        std::vector<std::string> fileList = oc.getStringVector("route-files");
-        for (std::vector<std::string>::iterator file=fileList.begin(); file != fileList.end(); file++) {
-            if (oc.isUsableFileList("route-files")) {
-                xmlHandler.setFileName((*file));
-                xmlHandler.resetTotalVehicleCount();
-                xmlParser->parse(file->c_str());
-
-                if (!MsgHandler::getErrorInstance()->wasInformed()) {
-                    totalNumVehicles_ += xmlHandler.getTotalVehicleCount();
+    if(OptionsCont::getOptions().getFloat("penetration")!=0) {
+        // parse route files
+        if (oc.isSet("route-files")) {
+            std::vector<std::string> fileList = oc.getStringVector("route-files");
+            for (std::vector<std::string>::iterator file=fileList.begin(); file != fileList.end(); file++) {
+                if (oc.isUsableFileList("route-files")) {
+                    xmlHandler.setFileName((*file));
+                    xmlHandler.resetTotalVehicleCount();
+                    xmlParser->parse(file->c_str());
+                    if (!MsgHandler::getErrorInstance()->wasInformed()) {
+                        totalNumVehicles_ += xmlHandler.getTotalVehicleCount();
+                    }
                 }
             }
         }
-    }
 
-    // parse additional files
-    if (oc.isSet("additional-files")) {
-        std::vector<std::string> fileList = oc.getStringVector("additional-files");
-        for (std::vector<std::string>::iterator file = fileList.begin(); file != fileList.end(); file++) {
-            if (oc.isUsableFileList("additional-files")) {
-                xmlHandler.setFileName((*file));
-                xmlHandler.resetTotalVehicleCount();
-                xmlParser->parse(file->c_str());
-
-                if (!MsgHandler::getErrorInstance()->wasInformed()) {
-                    totalNumVehicles_ += xmlHandler.getTotalVehicleCount();
+        // parse additional files
+        if (oc.isSet("additional-files")) {
+            std::vector<std::string> fileList = oc.getStringVector("additional-files");
+            for (std::vector<std::string>::iterator file = fileList.begin(); file != fileList.end(); file++) {
+                if (oc.isUsableFileList("additional-files")) {
+                    xmlHandler.setFileName((*file));
+                    xmlHandler.resetTotalVehicleCount();
+                    xmlParser->parse(file->c_str());
+                    if (!MsgHandler::getErrorInstance()->wasInformed()) {
+                        totalNumVehicles_ += xmlHandler.getTotalVehicleCount();
+                    }
                 }
             }
         }
