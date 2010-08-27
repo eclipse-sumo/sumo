@@ -187,23 +187,15 @@ TraCIServerAPI_GUI::processSet(TraCIServer &server, tcpip::Storage &inputStorage
             server.writeStatusCmd(CMD_SET_GUI_VARIABLE, RTYPE_ERR, "Tracking requires a string vehicle ID.", outputStorage);
             return false;
         }
-        std::cout << "a1" << std::endl;
 		std::string id = inputStorage.readString();
-        std::cout << "a2 " << id << std::endl;
         if(id=="") {
-            std::cout << "a3" << std::endl;
             v->stopTrack();
         } else {
-            std::cout << "a4" << std::endl;
             MSVehicle *veh = MSNet::getInstance()->getVehicleControl().getVehicle(id);
-            std::cout << "a5 " << veh << std::endl;
-            std::cout << "a6 " << veh->getID() << std::endl;
             if(veh==0) {
-                std::cout << "a7" << std::endl;
                 server.writeStatusCmd(CMD_SET_GUI_VARIABLE, RTYPE_ERR, "Could not find vehicle '" + id + "'.", outputStorage);
                 return false;
             }
-            std::cout << "a8" << std::endl;
             v->startTrack(static_cast<GUIVehicle*>(veh)->getGlID());
         }
     }
