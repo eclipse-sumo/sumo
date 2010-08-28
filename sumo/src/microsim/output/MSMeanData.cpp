@@ -103,8 +103,12 @@ MSMeanData::MeanDataValueTracker::~MeanDataValueTracker() throw() {
 
 
 void
-MSMeanData::MeanDataValueTracker::reset() throw() {
-    myCurrentData.push_back(new TrackerEntry(myParent->createValues(myLane, myLaneLength, false)));
+MSMeanData::MeanDataValueTracker::reset(bool afterWrite) throw() {
+    if (afterWrite) {
+        myCurrentData.pop_front();
+    } else {
+        myCurrentData.push_back(new TrackerEntry(myParent->createValues(myLane, myLaneLength, false)));
+    }
 }
 
 
@@ -179,12 +183,6 @@ MSMeanData::MeanDataValueTracker::getNumReady() const throw() {
 }
 
 
-void
-MSMeanData::MeanDataValueTracker::clearFirst() throw() {
-    myCurrentData.pop_front();
-}
-
-
 SUMOReal
 MSMeanData::MeanDataValueTracker::getSamples() const throw() {
     return myCurrentData.front()->myValues->getSamples();
@@ -229,7 +227,8 @@ MSMeanData::init() throw() {
                     s->prepareMeanDataForWriting(*data, MSNet::getInstance()->getCurrentTimeStep() + DELTA_T);
                     s = s->getNextSegment();
                 }
-                data->reset();     
+                data->reset();
+                data->reset(true);
                 continue;
             }
 #endif
@@ -302,11 +301,7 @@ MSMeanData::writeEdge(OutputDevice &dev,
             data->write(dev, stopTime - startTime,
                         (SUMOReal)edge->getLanes().size());
         }
-        if (myTrackVehicles) {
-            ((MeanDataValueTracker*)data)->clearFirst();
-        } else {
-            data->reset();
-        }
+        data->reset(true);
         return;
     }
 #endif
@@ -329,11 +324,7 @@ MSMeanData::writeEdge(OutputDevice &dev,
             if (writePrefix(dev, meanData, "<lane id=\""+meanData.getLane()->getID())) {
                 meanData.write(dev, stopTime - startTime, 1.f);
             }
-            if (myTrackVehicles) {
-                ((MeanDataValueTracker&)meanData).clearFirst();
-            } else {
-                meanData.reset();
-            }
+            meanData.reset(true);
         }
         if (writeCheck) {
             dev.closeTag();
@@ -344,7 +335,7 @@ MSMeanData::writeEdge(OutputDevice &dev,
             if (writePrefix(dev, meanData, "<edge id=\""+edge->getID())) {
                 meanData.write(dev, stopTime - startTime, (SUMOReal)edge->getLanes().size());
             }
-            ((MeanDataValueTracker&)meanData).clearFirst();
+            meanData.reset(true);
         } else {
             MeanDataValues* sumData = createValues(0, edge->getLanes()[0]->getLength(), false);
             for (lane = edgeValues.begin(); lane != edgeValues.end(); ++lane) {

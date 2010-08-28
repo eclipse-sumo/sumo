@@ -82,7 +82,7 @@ public:
 
         /** @brief Resets values so they may be used for the next interval
          */
-        virtual void reset() throw() = 0;
+        virtual void reset(bool afterWrite=false) throw() = 0;
 
         /** @brief Add the values of this to the given one and store them there
          *
@@ -162,7 +162,7 @@ public:
 
         /** @brief Resets values so they may be used for the next interval
          */
-        void reset() throw();
+        void reset(bool afterWrite) throw();
 
         /** @brief Add the values of this to the given one and store them there
          *
@@ -250,12 +250,6 @@ public:
 
             /// @brief The number of vehicles which left in the current interval
             MeanDataValues* myValues;
-
-            void reset() {
-                myNumVehicleEntered = 0;
-                myNumVehicleLeft = 0;
-                myValues->reset();
-            }
         };
 
         /// @brief The map of vehicles to data entries

@@ -78,7 +78,7 @@ public:
 
         /** @brief Resets values so they may be used for the next interval
          */
-        void reset() throw();
+        void reset(bool afterWrite=false) throw();
 
         /** @brief Add the values to this meanData
          */

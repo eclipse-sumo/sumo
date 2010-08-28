@@ -59,7 +59,7 @@ MSMeanData_Harmonoise::MSLaneMeanDataValues::~MSLaneMeanDataValues() throw() {
 
 
 void
-MSMeanData_Harmonoise::MSLaneMeanDataValues::reset() throw() {
+MSMeanData_Harmonoise::MSLaneMeanDataValues::reset(bool) throw() {
     sampleSeconds = 0;
     currentTimeN = 0;
     meanNTemp = 0;

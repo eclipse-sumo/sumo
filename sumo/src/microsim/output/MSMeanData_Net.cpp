@@ -69,7 +69,7 @@ MSMeanData_Net::MSLaneMeanDataValues::~MSLaneMeanDataValues() throw() {
 
 
 void
-MSMeanData_Net::MSLaneMeanDataValues::reset() throw() {
+MSMeanData_Net::MSLaneMeanDataValues::reset(bool) throw() {
     nVehDeparted = 0;
     nVehArrived = 0;
     nVehEntered = 0;

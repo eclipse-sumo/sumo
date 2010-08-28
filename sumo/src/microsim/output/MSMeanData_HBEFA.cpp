@@ -58,7 +58,7 @@ MSMeanData_HBEFA::MSLaneMeanDataValues::~MSLaneMeanDataValues() throw() {
 
 
 void
-MSMeanData_HBEFA::MSLaneMeanDataValues::reset() throw() {
+MSMeanData_HBEFA::MSLaneMeanDataValues::reset(bool) throw() {
     sampleSeconds = 0.;
     travelledDistance = 0.;
     CO2 = 0;
