@@ -361,8 +361,8 @@ protected:
      * @param[in] stopTime Last time step the data were gathered
      * @exception IOError If an error on writing occurs (!!! not yet implemented)
      */
-    virtual void writeEdge(OutputDevice &dev, const std::vector<MeanDataValues*> &edgeValues,
-                           MSEdge *edge, SUMOTime startTime, SUMOTime stopTime) throw(IOError);
+    void writeEdge(OutputDevice &dev, const std::vector<MeanDataValues*> &edgeValues,
+                   MSEdge *edge, SUMOTime startTime, SUMOTime stopTime) throw(IOError);
 
     /** @brief Checks for emptiness and writes prefix into the given stream
      *

@@ -221,24 +221,6 @@ protected:
      */
     MSMeanData::MeanDataValues* createValues(MSLane * const lane, const SUMOReal length, const bool doAdd) const throw(IOError);
 
-    /** @brief Writes edge values into the given stream
-     *
-     * microsim: It is checked whether the dump shall be generated edge-
-     *  or lane-wise. In the first case, the lane-data are collected
-     *  and aggregated and written directly. In the second case, "writeLane"
-     *  is used to write each lane's state.
-     *
-     * @param[in] dev The output device to write the data into
-     * @param[in] edgeValues List of this edge's value collectors
-     * @param[in] edge The edge to write the dump of
-     * @param[in] startTime First time step the data were gathered
-     * @param[in] stopTime Last time step the data were gathered
-     * @exception IOError If an error on writing occurs (!!! not yet implemented)
-     */
-    void writeEdge(OutputDevice &dev, const std::vector<MSMeanData::MeanDataValues*> &edgeValues,
-                   MSEdge *edge, SUMOTime startTime, SUMOTime stopTime) throw(IOError);
-
-
     /** @brief Resets network value in order to allow processing of the next interval
      *
      * Goes through the lists of edges and starts "resetOnly" for each edge.
