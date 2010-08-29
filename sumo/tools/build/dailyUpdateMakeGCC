@@ -23,6 +23,7 @@ if test `wc -l < $MAKELOG` -le 5; then
 #  echo "no changes since last run, skipping build and test"
   exit
 fi
+tools/build/checkSvnProps.py
 make -f Makefile.cvs >> $MAKELOG 2>&1 || (echo "autoreconf failed" | tee -a $STATUSLOG; tail -10 $MAKELOG)
 ./configure --prefix=$PREFIX/sumo \
  --with-gtest=$PREFIX >> $MAKELOG 2>&1 || (echo "configure failed" | tee -a $STATUSLOG; tail -10 $MAKELOG)
