@@ -133,6 +133,13 @@ MSMeanData::MeanDataValueTracker::isStillActive(MSVehicle& veh, SUMOReal oldPos,
 
 void
 MSMeanData::MeanDataValueTracker::notifyLeave(MSVehicle& veh, bool isArrival, bool isLaneChange) throw() {
+#ifdef HAVE_MESOSIM
+    if (MSGlobals::gUseMesoSim && myParent != 0) {
+        if (!isArrival && !isLaneChange && veh.getSegment()->getNextSegment() != 0) {
+            return;
+        }
+    }
+#endif
     if (vehicleApplies(veh)) {
         myTrackedData[&veh]->myNumVehicleLeft++;
         myTrackedData[&veh]->myValues->notifyLeave(veh, isArrival, isLaneChange);
@@ -142,6 +149,13 @@ MSMeanData::MeanDataValueTracker::notifyLeave(MSVehicle& veh, bool isArrival, bo
 
 bool
 MSMeanData::MeanDataValueTracker::notifyEnter(MSVehicle& veh, bool isEmit, bool isLaneChange) throw() {
+#ifdef HAVE_MESOSIM
+    if (MSGlobals::gUseMesoSim && myParent != 0) {
+        if (!isEmit && !isLaneChange && veh.getSegment()->getIndex() > 0) {
+            return true;
+        }
+    }
+#endif
     if (vehicleApplies(veh)) {
         myTrackedData[&veh] = myCurrentData.back();
         myTrackedData[&veh]->myNumVehicleEntered++;
