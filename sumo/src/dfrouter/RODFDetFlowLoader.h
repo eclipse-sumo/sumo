@@ -99,6 +99,9 @@ private:
     /// @brief Whether a warning about overriding boundaries was already written
     bool myHaveWarnedAboutOverridingBoundaries;
 
+    /// @brief Whether a warning about partial definitions was already written
+    bool myHaveWarnedAboutPartialDefs;
+
 
 private:
     /// @brief Invalidated copy constructor

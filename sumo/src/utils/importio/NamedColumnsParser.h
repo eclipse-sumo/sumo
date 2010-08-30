@@ -136,6 +136,13 @@ public:
     bool know(const std::string &name) const throw();
 
 
+    /** @brief Returns whether the number of named columns matches the actual number
+     *
+     * @return Whether the number of named columns matches the actual number
+     */
+    bool hasFullDefinition() const throw();
+
+
 private:
     /** @brief Rebuilds the map of attribute names to their positions in a table
      *

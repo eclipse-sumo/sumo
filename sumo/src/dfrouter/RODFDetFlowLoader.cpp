@@ -52,7 +52,7 @@ RODFDetFlowLoader::RODFDetFlowLoader(const RODFDetectorCon &dets,
                                      int timeOffset) throw()
         : myStorage(into), myTimeOffset(timeOffset),
         myStartTime(startTime/60), myEndTime((endTime+59)/60), myDetectorContainer(dets),
-        myHaveWarnedAboutOverridingBoundaries(false) {}
+        myHaveWarnedAboutOverridingBoundaries(false), myHaveWarnedAboutPartialDefs(false) {}
 
 
 
@@ -104,6 +104,10 @@ RODFDetFlowLoader::read(const std::string &file) throw(IOError, ProcessError) {
                 fd.qPKW = 0;
             }
             myStorage.addFlow(detName, time, fd);
+            if (!myHaveWarnedAboutPartialDefs && !myLineHandler.hasFullDefinition()) {
+                myHaveWarnedAboutPartialDefs = true;
+                MsgHandler::getWarningInstance()->inform("At least one line does not contain the correct number of columns.");
+            }
             continue;
         } catch (UnknownElement &) {} catch (OutOfBoundsException &) {} catch (NumberFormatException &) {}
         throw ProcessError("The detector-flow-file '" + lr.getFileName() + "' is corrupt;\n"

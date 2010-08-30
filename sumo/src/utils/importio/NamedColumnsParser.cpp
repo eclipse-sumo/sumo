@@ -110,6 +110,12 @@ NamedColumnsParser::know(const std::string &name) const throw() {
 }
 
 
+bool
+NamedColumnsParser::hasFullDefinition() const throw() {
+    return myDefinitionsMap.size() == myLineParser.size();
+}
+
+
 void
 NamedColumnsParser::reinitMap(std::string s,
                               const std::string &delim,
