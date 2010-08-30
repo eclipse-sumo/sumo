@@ -80,17 +80,17 @@ StringUtils::to_lower_case(std::string str) {
 
 std::string
 StringUtils::convertUmlaute(std::string str) {
-    str = replace(str, "ï¿½", "ae");
-    str = replace(str, "ï¿½", "Ae");
-    str = replace(str, "ï¿½", "oe");
-    str = replace(str, "ï¿½", "Oe");
-    str = replace(str, "ï¿½", "ue");
-    str = replace(str, "ï¿½", "Ue");
-    str = replace(str, "ï¿½", "ss");
-    str = replace(str, "ï¿½", "E");
-    str = replace(str, "ï¿½", "e");
-    str = replace(str, "ï¿½", "E");
-    str = replace(str, "ï¿½", "e");
+    str = replace(str, "ä", "ae");
+    str = replace(str, "Ä", "Ae");
+    str = replace(str, "ö", "oe");
+    str = replace(str, "Ö", "Oe");
+    str = replace(str, "ü", "ue");
+    str = replace(str, "Ü", "Ue");
+    str = replace(str, "ß", "ss");
+    str = replace(str, "É", "E");
+    str = replace(str, "é", "e");
+    str = replace(str, "È", "E");
+    str = replace(str, "è", "e");
     return str;
 }
 

@@ -41,17 +41,17 @@ TEST(StringUtils, test_method_to_lower_case) {
 
 /* Tests the method convertUmlaute.*/
 TEST(StringUtils, test_method_convertUmlaute) {
-	EXPECT_EQ("ae", StringUtils::convertUmlaute("ï¿½"));
-	EXPECT_EQ("Ae", StringUtils::convertUmlaute("ï¿½"));
-	EXPECT_EQ("oe", StringUtils::convertUmlaute("ï¿½"));
-	EXPECT_EQ("Oe", StringUtils::convertUmlaute("ï¿½"));
-	EXPECT_EQ("ue", StringUtils::convertUmlaute("ï¿½"));
-	EXPECT_EQ("Ue", StringUtils::convertUmlaute("ï¿½"));
-	EXPECT_EQ("ss", StringUtils::convertUmlaute("ï¿½"));
-	EXPECT_EQ("E", StringUtils::convertUmlaute("ï¿½"));
-	EXPECT_EQ("e", StringUtils::convertUmlaute("ï¿½"));
-	EXPECT_EQ("E", StringUtils::convertUmlaute("ï¿½"));
-	EXPECT_EQ("e", StringUtils::convertUmlaute("ï¿½"));
+	EXPECT_EQ("ae", StringUtils::convertUmlaute("ä"));
+	EXPECT_EQ("Ae", StringUtils::convertUmlaute("Ä"));
+	EXPECT_EQ("oe", StringUtils::convertUmlaute("ö"));
+	EXPECT_EQ("Oe", StringUtils::convertUmlaute("Ö"));
+	EXPECT_EQ("ue", StringUtils::convertUmlaute("ü"));
+	EXPECT_EQ("Ue", StringUtils::convertUmlaute("Ü"));
+	EXPECT_EQ("ss", StringUtils::convertUmlaute("ß"));
+	EXPECT_EQ("E", StringUtils::convertUmlaute("É"));
+	EXPECT_EQ("e", StringUtils::convertUmlaute("é"));
+	EXPECT_EQ("E", StringUtils::convertUmlaute("È"));
+	EXPECT_EQ("e", StringUtils::convertUmlaute("è"));
 }
 
 /* Tests the method replace. */
