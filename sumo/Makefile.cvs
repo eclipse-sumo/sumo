@@ -4,6 +4,6 @@ all:
 	autoreconf -i
 
 clean:
-	rm -r aclocal.m4 autom4te.cache/ config.* configure depcomp install-sh missing src/config.h.in ltmain.sh INSTALL ; \
+	rm -r aclocal.m4 autom4te.cache/ config.* configure depcomp install-sh missing src/config.h.in ltmain.sh INSTALL src/version.h ; \
 	find . -name Makefile.in -exec rm '{}' ';'
  
