@@ -43,7 +43,7 @@ using namespace std;
 void
 AGStreet::print()
 {
-	cout << "- AGStreet: Name=" << edgeName << " Length=" << length << " pop=" << popDensity << " work=" << workDensity << endl;
+	cout << "- AGStreet: Name=" << edgeName << " Length=" << length << " pop=" << pop << " work=" << work << endl;
 }
 
 float
@@ -61,31 +61,38 @@ AGStreet::getName()
 int
 AGStreet::getPopDensity()
 {
-	return this->popDensity;
+	return this->pop;
 }
 
 int
 AGStreet::getWorkDensity()
 {
-	return this->workDensity;
+	return this->work;
 }
 
 void
-AGStreet::setPopulation(int pop)
+AGStreet::setPopulation(int population)
 {
-	popDensity = pop;
+	pop = population;
 }
 
 void
-AGStreet::setWorkPositions(int work)
+AGStreet::setWorkPositions(int workPositions)
 {
-	workDensity = work;
+	work = workPositions;
 }
 
 void
 AGStreet::computeLength()
 {
 	length = net->getEdge(edgeName)->getLength();
+}
+
+void
+AGStreet::computeDesnsityEquivalents()
+{
+	pop = (int) (popDensity * length);
+	work = (int) (workDensity * length);
 }
 
 /****************************************************************************/

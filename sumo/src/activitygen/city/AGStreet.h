@@ -39,13 +39,14 @@
 class AGStreet
 {
 public:
-	AGStreet(const std::string edg, RONet* net, int popD = 0, int workD = 0) :
+	AGStreet(const std::string edg, RONet* net, float popD = 0, float workD = 0) :
 	  edgeName(edg),
 		  net(net),
 		  popDensity(popD),
 		  workDensity(workD)
 	  {
 		computeLength();
+		computeDesnsityEquivalents();
 	  };
 	void print();
 	float getLength();
@@ -60,10 +61,13 @@ public:
 
 private:
 	void computeLength();
+	void computeDesnsityEquivalents();
 
 	std::string edgeName;
-	int popDensity;
-	int workDensity;
+	float popDensity;
+	float workDensity;
+	int pop;
+	int work;
 	float length;
 };
 
