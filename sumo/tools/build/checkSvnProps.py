@@ -19,7 +19,7 @@ _VS_EXT = [".vsprops", ".sln", ".vcproj"]
 _KEYWORDS = "HeadURL Id LastChangedBy LastChangedDate LastChangedRevision"
 
 class PropertyReader(xml.sax.handler.ContentHandler):
-    """Reads a network, storing the edge geometries, lane numbers and max. speeds"""
+    """Reads the svn properties of files as written by svn pl -v --xml"""
 
     def __init__(self, doFix):
         self._fix = doFix
