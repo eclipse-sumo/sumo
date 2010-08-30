@@ -17,7 +17,8 @@ doFix = len(sys.argv) == 2 and sys.argv[1] in ["-f" , "--fix"]
 srcRoot = os.path.normpath(os.path.join(os.path.dirname(sys.argv[0]), "../../src/"))
 testsRoot = os.path.normpath(os.path.join(os.path.dirname(sys.argv[0]), "../../tests/"))
 toolsRoot = os.path.normpath(os.path.join(os.path.dirname(sys.argv[0]), "../../tools/"))
-for rootDir in [srcRoot, testsRoot, toolsRoot]:
+unittestSrcRoot = os.path.normpath(os.path.join(os.path.dirname(sys.argv[0]), "../../unittest/src/"))
+for rootDir in [srcRoot, testsRoot, toolsRoot, unittestSrcRoot]:
     for root, dirs, files in os.walk(rootDir):
         for name in files:
             ext = os.path.splitext(name)[1]
@@ -26,16 +27,16 @@ for rootDir in [srcRoot, testsRoot, toolsRoot]:
                 output = subprocess.Popen(["svn", "pl", "-v", fullName], stdout=subprocess.PIPE).communicate()[0]
                 for line in output.splitlines():
                     l = line.split()
-                    if l[0] == "svn:eol-style" and l[2] != "LF":
+                    if len(l) > 2 and l[0] == "svn:eol-style" and l[2] != "LF":
                         print fullName, line
                         if doFix:#it might be necessary to call: sed -i 's/\r$//'
                             subprocess.call(["svn", "ps", "svn:eol-style", "LF", fullName])
-                    if l[0] == "svn:keywords" and sorted(l[2:]) != ["HeadURL", "Id", "LastChangedBy",
+                    if len(l) > 2 and l[0] == "svn:keywords" and sorted(l[2:]) != ["HeadURL", "Id", "LastChangedBy",
                                                                     "LastChangedDate", "LastChangedRevision"]:
                         print fullName, line
                         if doFix:
                             subprocess.call(["svn", "ps", "svn:keywords", "HeadURL Id LastChangedBy LastChangedDate LastChangedRevision", fullName])
-                    if l[0] == "svn:executable" and ext in [".h", ".cpp", ".java"]:
+                    if l and l[0] == "svn:executable" and ext in [".h", ".cpp", ".java"]:
                         print fullName, line
                         if doFix:
                             subprocess.call(["svn", "pd", "svn:executable", fullName])
@@ -51,11 +52,11 @@ for root, dirs, files in os.walk(testsRoot):
             output = subprocess.Popen(["svn", "pl", "-v", fullName], stdout=subprocess.PIPE).communicate()[0]
             for line in output.splitlines():
                 l = line.split()
-                if l[0] == "svn:eol-style" and l[2] != "LF":
+                if len(l) > 2 and l[0] == "svn:eol-style" and l[2] != "LF":
                     print fullName, line
                     if doFix:
                         subprocess.call(["svn", "ps", "svn:eol-style", "LF", fullName])
-                if l[0] == "svn:executable":
+                if l and l[0] == "svn:executable":
                     print fullName, line
                     if doFix:
                         subprocess.call(["svn", "pd", "svn:executable", fullName])
