@@ -1,16 +1,11 @@
 # Tests what happens if the output can not be written
 false_output
 
-# Tests what happens if no output is given
-no_output
-
 # Tests what happens if an unknown option is given
 unknown_option
 
 # Test for not buildable plain output
 false_plain_output
-
-
 
 # Tests for using more than one input type
 multiple_types
