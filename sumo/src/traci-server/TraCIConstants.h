@@ -650,6 +650,7 @@
 
 
 
+
 // add an instance (poi, polygon)
 #define ADD 0x80
 
@@ -682,6 +683,8 @@
 #define VAR_SCREENSHOT 0xa5
 // track vehicle
 #define VAR_TRACK_VEHICLE 0xa6
+// network size (get: )
+#define VAR_NET_SIZE 0xa7
 
 
 

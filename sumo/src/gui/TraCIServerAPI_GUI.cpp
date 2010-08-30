@@ -37,6 +37,7 @@
 #include <utils/foxtools/MFXImageHelper.h>
 #include <traci-server/TraCIConstants.h>
 #include "TraCIServerAPI_GUI.h"
+#include <guisim/GUINet.h>
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -64,7 +65,7 @@ TraCIServerAPI_GUI::processGet(TraCIServer &server, tcpip::Storage &inputStorage
     // check variable
     if (variable!=ID_LIST
 		&&variable!=VAR_VIEW_ZOOM&&variable!=VAR_VIEW_OFFSET&&variable!=VAR_VIEW_SCHEMA&&variable!=VAR_VIEW_BOUNDARY
-		&&variable!=VAR_VIEW_BACKGROUNDCOLOR
+		&&variable!=VAR_VIEW_BACKGROUNDCOLOR&&variable!=VAR_NET_SIZE
        ) {
         server.writeStatusCmd(CMD_GET_GUI_VARIABLE, RTYPE_ERR, "Get GUI Variable: unsupported variable specified", outputStorage);
         return false;
@@ -101,6 +102,13 @@ TraCIServerAPI_GUI::processGet(TraCIServer &server, tcpip::Storage &inputStorage
         case VAR_VIEW_BOUNDARY:
             break;
         case VAR_VIEW_BACKGROUNDCOLOR:
+            break;
+		case VAR_NET_SIZE: {
+			GUINet *net = static_cast<GUINet*>(MSNet::getInstance());
+            tempMsg.writeUnsignedByte(POSITION_2D);
+			tempMsg.writeFloat(net->getBoundary().getWidth());
+			tempMsg.writeFloat(net->getBoundary().getHeight());
+						   }
             break;
         default:
             break;

@@ -698,6 +698,10 @@ def cmdGetViewVariable_offset(viewID):
     result = buildSendReadNew1StringParamCmd(tc.CMD_GET_GUI_VARIABLE, tc.VAR_VIEW_OFFSET, viewID)
     return result.read("!ff") # Variable value
 
+def cmdGetViewVariable_netSize(viewID):
+    result = buildSendReadNew1StringParamCmd(tc.CMD_GET_GUI_VARIABLE, tc.VAR_NET_SIZE, viewID)
+    return result.read("!ff") # Variable value
+
 
 # ---------------------------------------------------
 # change state
