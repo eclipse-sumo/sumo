@@ -46,20 +46,6 @@ GUIPerspectiveChanger::~GUIPerspectiveChanger() {}
 
 
 void
-GUIPerspectiveChanger::setNetSizes(size_t width, size_t height) {
-    myNetWidth = width;
-    myNetHeight = height;
-}
-
-
-void
-GUIPerspectiveChanger::applyCanvasSize(size_t width, size_t height) {
-    myCanvasWidth = width;
-    myCanvasHeight = height;
-}
-
-
-void
 GUIPerspectiveChanger::onLeftBtnPress(void*) {}
 
 

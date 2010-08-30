@@ -73,6 +73,7 @@
 
 #include <GL/gl.h>
 #include <GL/glu.h>
+#include <utils/foxtools/FXSingleEventThread.h>
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -134,7 +135,6 @@ GUISUMOAbstractView::GUISUMOAbstractView(FXComposite *p,
     myNetScale = (nw < nh ? nh : nw);
     // show the middle at the beginning
     myChanger = new GUIDanielPerspectiveChanger(*this);
-    myChanger->setNetSizes((size_t) nw, (size_t) nh);
     gSchemeStorage.setViewport(this);
     myToolTip = new GUIGLObjectToolTip(myApp);
     myVisualizationSettings = &gSchemeStorage.getDefault();
@@ -608,7 +608,6 @@ GUISUMOAbstractView::onConfigure(FXObject*,FXSelector,void*) {
             myVisualizationSettings->backgroundColor.green(),
             myVisualizationSettings->backgroundColor.blue(),
             1);
-        myChanger->applyCanvasSize(width, height);
         doInit();
         myAmInitialised = true;
         makeNonCurrent();
@@ -811,7 +810,7 @@ GUISUMOAbstractView::checkSnapshots() {
             if (!MFXImageHelper::saveImage(snapIt->second, getWidth(), getHeight(), buf)) {
                 MsgHandler::getWarningInstance()->inform("Could not save '" + snapIt->second + "'.");
             }
-        } catch (InvalidArgument e) {
+        } catch (InvalidArgument &e) {
             MsgHandler::getWarningInstance()->inform("Could not save '" + snapIt->second + "'.\n" + e.what());
         }
         FXFREE(&buf);
@@ -827,7 +826,10 @@ GUISUMOAbstractView::setSnapshots(std::map<SUMOTime, std::string> snaps) {
 
 FXColor *
 GUISUMOAbstractView::getSnapshot() {
-    makeCurrent();
+	for(int i=0; i<10&&!makeCurrent(); ++i) {
+		FXSingleEventThread::sleep(100);
+	}
+    //makeCurrent();
     // draw
     // draw
     glClearColor(
@@ -952,7 +954,7 @@ GUISUMOAbstractView::drawDecals() throw() {
                 }
                 d.glID = GUITexturesHelper::add(i);
                 d.initialised = true;
-            } catch (InvalidArgument e) {
+            } catch (InvalidArgument &e) {
                 MsgHandler::getErrorInstance()->inform("Could not load '" + d.filename + "'.\n" + e.what());
                 l = myDecals.erase(l);
                 continue;

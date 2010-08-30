@@ -112,21 +112,9 @@ public:
     /// Returns the last mouse y-position an event occured at
     FXint getMouseYPosition() const;
 
-    /// Sets the sizes of the network
-    void setNetSizes(size_t width, size_t height);
-
-    /// Informs the changer aboud the size of the canvas
-    void applyCanvasSize(size_t width, size_t height);
-
 protected:
     /// The parent window (canvas to scale)
     GUISUMOAbstractView &myCallback;
-
-    /// The sizes of the network
-    size_t myNetWidth, myNetHeight;
-
-    /// The sizes of the canvas
-    size_t myCanvasWidth, myCanvasHeight;
 
     /// the current mouse position
     FXint myMouseXPosition, myMouseYPosition;
