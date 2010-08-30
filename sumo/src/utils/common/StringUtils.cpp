@@ -80,17 +80,17 @@ StringUtils::to_lower_case(std::string str) {
 
 std::string
 StringUtils::convertUmlaute(std::string str) {
-    str = replace(str, "ä", "ae");
-    str = replace(str, "Ä", "Ae");
-    str = replace(str, "ö", "oe");
-    str = replace(str, "Ö", "Oe");
-    str = replace(str, "ü", "ue");
-    str = replace(str, "Ü", "Ue");
-    str = replace(str, "ß", "ss");
-    str = replace(str, "É", "E");
-    str = replace(str, "é", "e");
-    str = replace(str, "È", "E");
-    str = replace(str, "è", "e");
+    str = replace(str, "ï¿½", "ae");
+    str = replace(str, "ï¿½", "Ae");
+    str = replace(str, "ï¿½", "oe");
+    str = replace(str, "ï¿½", "Oe");
+    str = replace(str, "ï¿½", "ue");
+    str = replace(str, "ï¿½", "Ue");
+    str = replace(str, "ï¿½", "ss");
+    str = replace(str, "ï¿½", "E");
+    str = replace(str, "ï¿½", "e");
+    str = replace(str, "ï¿½", "E");
+    str = replace(str, "ï¿½", "e");
     return str;
 }
 
@@ -99,14 +99,16 @@ StringUtils::convertUmlaute(std::string str) {
 std::string
 StringUtils::replace(std::string str, const char *what,
                      const char *by) {
-    std::string what_tmp(what);
-    std::string by_tmp(by);
+    const std::string what_tmp(what);
+    const std::string by_tmp(by);
     size_t idx = str.find(what);
-    size_t what_len = what_tmp.length();
-    size_t by_len = by_tmp.length();
-    while (idx!=std::string::npos) {
-        str = str.replace(idx, what_len, by);
-        idx = str.find(what, idx+by_len-what_len);
+    const size_t what_len = what_tmp.length();
+    if (what_len > 0) {
+        const size_t by_len = by_tmp.length();
+        while (idx != std::string::npos) {
+            str = str.replace(idx, what_len, by);
+            idx = str.find(what, idx+by_len-what_len);
+        }
     }
     return str;
 }
@@ -125,7 +127,11 @@ StringUtils::upper(std::string &str) {
 std::string
 StringUtils::toTimeString(int time) {
     std::ostringstream oss;
-    char buffer[4];
+    if (time < 0) {
+        oss << "-";
+        time = -time;
+    }
+    char buffer[10];
     sprintf(buffer, "%02i:",(time/3600));
     oss << buffer;
     time=time%3600;
