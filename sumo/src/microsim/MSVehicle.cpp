@@ -384,7 +384,8 @@ MSVehicle::replaceRoute(const MSEdgeVector &edges, SUMOTime simTime, bool onInit
         return false;
     }
     if (!replaceRoute(newRoute, simTime, onInit)) {
-        MSRoute::erase(id);
+        newRoute->addReference();
+        newRoute->release();
         return false;
     }
     return true;
