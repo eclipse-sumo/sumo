@@ -499,7 +499,8 @@ MSRouteHandler::closeVehicle() throw(ProcessError) {
         // let's check whether this vehicle had to be emitted before the simulation starts
         if (myVehicleParameter->depart<string2time(OptionsCont::getOptions().getString("begin"))) {
             if (route!=0) {
-                MSRoute::erase(route->getID());
+                route->addReference();
+                route->release();
             }
             return;
         }
