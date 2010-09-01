@@ -136,7 +136,7 @@ AGActivityGenHandler::parseParameters(const SUMOSAXAttributes &attrs)
 	if(attrs.hasAttribute(AGEN_ATTR_CITYSPEED))
 		myCity.statData.speedTimePerKm = attrs.getFloat(AGEN_ATTR_CITYSPEED);
 	else
-		myCity.statData.speedTimePerKm = 6;
+		myCity.statData.speedTimePerKm = 360;
 	std::cout << "time per kilometer in city: " << myCity.statData.speedTimePerKm << std::endl;
 
 	if(attrs.hasAttribute(AGEN_ATTR_FREETIMERATE))

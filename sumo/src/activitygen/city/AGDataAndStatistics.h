@@ -49,8 +49,8 @@ public:
 	/**
 	 * parameters
 	 */
-	float speedTimePerKm;
-	float carPreference;
+	float speedTimePerKm;							//number of seconds for one km
+	float carPreference;							//prob. to choose the car (compared to the bus)
 
 	/**
 	 * from General element from XML file.
