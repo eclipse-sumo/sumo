@@ -16,3 +16,8 @@ vehroutes:vehroutes.xml
 
 [run_dependent_text]
 vehroutes:xml version{->}-->
+
+[batch_extra_version]
+meso:meso
+msvc8mesox64:meso
+msvc8mesoWin32:meso
