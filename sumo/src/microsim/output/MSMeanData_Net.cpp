@@ -130,6 +130,9 @@ MSMeanData_Net::MSLaneMeanDataValues::isStillActive(MSVehicle& veh, SUMOReal old
         }
         if (oldPos + SPEED2DIST(newSpeed) > myLaneLength && newSpeed != 0) {
             timeOnLane -= (oldPos + SPEED2DIST(newSpeed) - myLaneLength) / newSpeed;
+            if (fabs(timeOnLane) < 0.001) { // reduce rounding errors
+                timeOnLane = 0.;
+            }
             ret = false;
         }
         if (timeOnLane<0) {
