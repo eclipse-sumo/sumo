@@ -94,7 +94,8 @@ AGHousehold::generateCars(float rate)
 void
 AGHousehold::addACar()
 {
-	cars.push_back(*(new AGCar()));
+	int numCar = cars.size() + 1;
+	cars.push_back(*(new AGCar(idHH, numCar)));
 }
 
 int

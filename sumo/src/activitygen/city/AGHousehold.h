@@ -52,13 +52,15 @@ class AGCity;
 class AGHousehold
 {
 public:
-	AGHousehold(AGPosition pos, AGCity *city) :
+	AGHousehold(AGPosition pos, AGCity *city, int idHouseholds) :
 	  location(pos),
-	  myCity(city)
+	  myCity(city),
+	  idHH(idHouseholds)
 	  {};
-	AGHousehold(AGStreet *str, AGCity *city) :
+	AGHousehold(AGStreet *str, AGCity *city, int idHouseholds) :
 	  location(str),
-	  myCity(city)
+	  myCity(city),
+	  idHH(idHouseholds)
 	  {};
 	/**
 	 * - function generating one first Adult.
@@ -123,6 +125,7 @@ private:
 	AGPosition location;
 	int numberOfPeople;
 	int numberOfCars;
+	int idHH;
 };
 
 #endif

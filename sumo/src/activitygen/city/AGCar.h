@@ -42,15 +42,15 @@ public:
 	AGCar(std::string name) :
 		idName(name)
 	{};
-	AGCar() :
-		idName(createName())
+	AGCar(int idHH, int idCar) :
+		idName(createName(idHH, idCar))
 	{};
 	bool associateTo(AGAdult *pers);
 	bool isAssociated();
 	std::string getName();
 
 private:
-	std::string createName();
+	std::string createName(int idHH, int idCar);
 
 	std::string idName;
 	AGAdult* currentUser;

@@ -42,11 +42,11 @@ using namespace std;
 // ===========================================================================
 // method definitions
 // ===========================================================================
-string AGCar::createName()
+string AGCar::createName(int idHH, int idCar)
 {
 	std::ostringstream os;
-	os << this;
-	return "c" + os.str();
+	os << "h" << idHH << "c" << idCar;
+	return os.str();
 }
 
 bool AGCar::associateTo(AGAdult *pers)

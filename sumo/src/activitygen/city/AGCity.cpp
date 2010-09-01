@@ -185,13 +185,15 @@ AGCity::generatePopulation()
 	vector<AGStreet>::iterator it;
 	int people;
 	nbrCars = 0;
+	int idHouseholds = 0;
 
 	for(it=streets.begin() ; it!=streets.end() ; ++it)
 	{
 		people = it->getPopDensity();
 		while(people > 0)
 		{
-			households.push_back(*(new AGHousehold(&*it, this)));
+			++idHouseholds;
+			households.push_back(*(new AGHousehold(&*it, this, idHouseholds)));
 			households.back().generatePeople(); //&statData
 			//households.back().generateCars(statData.carRate);
 			people -= households.back().getPeopleNbr();
