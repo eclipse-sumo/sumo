@@ -18,3 +18,6 @@ second_near_end1
 
 # As second_near_end1, but the last stop is on a lane which can not be used to continue the route
 second_near_end2
+
+# stop on position 0 of a lane
+at_start
