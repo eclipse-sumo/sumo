@@ -1,8 +1,0 @@
-Warning: Teleporting vehicle 'pedestrian'; waited too long, lane=':0_14_0', time=340.
-Warning: Vehicle 'pedestrian' ends teleporting on edge '4i', simulation time 342.
-Warning: Teleporting vehicle 'bicycle'; waited too long, lane=':0_14_0', time=642.
-Warning: Vehicle 'bicycle' ends teleporting on edge '4i', simulation time 644.
-Warning: Teleporting vehicle 'pedestrian'; waited too long, lane='4i_0', time=674.
-Warning: Vehicle 'pedestrian' ends teleporting on edge '2o', simulation time 674.
-Warning: Teleporting vehicle 'motorcycle'; waited too long, lane=':0_14_0', time=947.
-Warning: Vehicle 'motorcycle' ends teleporting on edge '4i', simulation time 949.

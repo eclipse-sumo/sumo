@@ -537,6 +537,12 @@ drawAction_drawVehicleAsPoly(const GUIVehicle &veh, SUMOReal upscale) {
     }
     break;
     case SVS_BUS_OVERLAND:
+    case SVS_RAIL:
+    case SVS_RAIL_LIGHT:
+    case SVS_RAIL_CITY:
+    case SVS_RAIL_SLOW:
+    case SVS_RAIL_FAST:
+    case SVS_RAIL_CARGO:
         glScaled(1./(length-veh.getVehicleType().getGuiOffset()), 1, 1.);
         glTranslated(0, 0, -.04);
         glBegin(GL_TRIANGLE_FAN);
@@ -553,18 +559,6 @@ drawAction_drawVehicleAsPoly(const GUIVehicle &veh, SUMOReal upscale) {
         glVertex2d(0, 0);
         glEnd();
         glTranslated(0, 0, .04);
-        break;
-    case SVS_RAIL:
-        break;
-    case SVS_RAIL_LIGHT:
-        break;
-    case SVS_RAIL_CITY:
-        break;
-    case SVS_RAIL_SLOW:
-        break;
-    case SVS_RAIL_FAST:
-        break;
-    case SVS_RAIL_CARGO:
         break;
     case SVS_E_VEHICLE:
         drawPoly(vehiclePoly_EVehicleBody, -4);
