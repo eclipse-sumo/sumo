@@ -97,10 +97,8 @@ void
 MSRoute::release() const {
     myReferenceCounter--;
     if (myReferenceCounter == 0) {
-        RouteDict::iterator i=myDict.find(myID);
-        assert(i!=myDict.end());
-        delete(*i).second;
         myDict.erase(myID);
+        delete this;
     }
 }
 
