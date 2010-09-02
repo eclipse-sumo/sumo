@@ -24,3 +24,5 @@ ticket19
 
 # Tests for ticket#331 (vehicles are emitted beyond the lane's end)
 ticket331
+
+collision
