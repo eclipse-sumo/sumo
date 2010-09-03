@@ -87,12 +87,12 @@ MSLink::setRequestInformation(unsigned int requestIdx, unsigned int respondIdx, 
 
 void
 MSLink::setApproaching(MSVehicle *approaching, SUMOTime arrivalTime, SUMOReal speed, bool setRequest) throw() {
-    std::vector<MSJunction::ApproachingVehicleInformation>::iterator i = find_if(myApproachingVehicles.begin(), myApproachingVehicles.end(), MSJunction::vehicle_in_request_finder(approaching));
+    LinkApproachingVehicles::iterator i = find_if(myApproachingVehicles.begin(), myApproachingVehicles.end(), vehicle_in_request_finder(approaching));
     if (i!=myApproachingVehicles.end()) {
         myApproachingVehicles.erase(i);
     }
-    SUMOReal leaveTime = arrivalTime + getLength() / speed * 1000.;
-    MSJunction::ApproachingVehicleInformation approachInfo(arrivalTime, leaveTime, approaching, setRequest);
+    const SUMOTime leaveTime = arrivalTime + TIME2STEPS(getLength() / speed);
+    ApproachingVehicleInformation approachInfo(arrivalTime, leaveTime, approaching, setRequest);
     myApproachingVehicles.push_back(approachInfo);
 }
 
@@ -117,7 +117,7 @@ MSLink::willHaveBlockedFoe() const throw() {
 
 void
 MSLink::removeApproaching(MSVehicle *veh) {
-    std::vector<MSJunction::ApproachingVehicleInformation>::iterator i = find_if(myApproachingVehicles.begin(), myApproachingVehicles.end(), MSJunction::vehicle_in_request_finder(veh));
+    LinkApproachingVehicles::iterator i = find_if(myApproachingVehicles.begin(), myApproachingVehicles.end(), vehicle_in_request_finder(veh));
     if (i!=myApproachingVehicles.end()) {
         myApproachingVehicles.erase(i);
     }
@@ -133,9 +133,9 @@ MSLink::opened(SUMOTime arrivalTime, SUMOReal arrivalSpeed) const throw() {
         return true;
     }
 #ifdef HAVE_INTERNAL_LANES
-    SUMOTime leaveTime = myJunctionInlane==0 ? arrivalTime + TIME2STEPS(getLength() * arrivalSpeed) : arrivalTime + TIME2STEPS(this->myJunctionInlane->getLength() * arrivalSpeed);
+    const SUMOTime leaveTime = myJunctionInlane==0 ? arrivalTime + TIME2STEPS(getLength() / arrivalSpeed) : arrivalTime + TIME2STEPS(this->myJunctionInlane->getLength() / arrivalSpeed);
 #else
-    SUMOTime leaveTime = arrivalTime + TIME2STEPS(getLength() * arrivalSpeed);
+    const SUMOTime leaveTime = arrivalTime + TIME2STEPS(getLength() / arrivalSpeed);
 #endif
     for (std::vector<MSLink*>::const_iterator i=myFoeLinks.begin(); i!=myFoeLinks.end(); ++i) {
         if ((*i)->blockedAtTime(arrivalTime, leaveTime)) {
@@ -165,7 +165,7 @@ MSLink::opened(SUMOTime arrivalTime, SUMOReal arrivalSpeed) const throw() {
 
 bool
 MSLink::blockedAtTime(SUMOTime arrivalTime, SUMOTime leaveTime) const throw() {
-    for (std::vector<MSJunction::ApproachingVehicleInformation>::const_iterator i=myApproachingVehicles.begin(); i!=myApproachingVehicles.end(); ++i) {
+    for (LinkApproachingVehicles::const_iterator i=myApproachingVehicles.begin(); i!=myApproachingVehicles.end(); ++i) {
         if (!(*i).willPass) {
             continue;
         }
@@ -181,7 +181,7 @@ bool
 MSLink::hasEarlierGreenVehicle(SUMOTime otherGreenTime, MSLink::LinkState otherState) const throw()
 {
     bool thisIsGreen = myState==MSLink::LINKSTATE_TL_GREEN_MAJOR||myState==MSLink::LINKSTATE_TL_GREEN_MINOR;
-    for (std::vector<MSJunction::ApproachingVehicleInformation>::const_iterator i=myApproachingVehicles.begin(); i!=myApproachingVehicles.end(); ++i) {
+    for (LinkApproachingVehicles::const_iterator i=myApproachingVehicles.begin(); i!=myApproachingVehicles.end(); ++i) {
         if ((*i).willPass) {
             SUMOTime lastGreenTime = (*i).vehicle->getLastGreenTime();
             if(lastGreenTime<otherGreenTime&&thisIsGreen) {

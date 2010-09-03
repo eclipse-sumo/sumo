@@ -30,6 +30,7 @@
 #include <string>
 #include <utility>
 #include <microsim/MSLane.h>
+#include <microsim/MSJunction.h>
 #include <utils/geom/Position2D.h>
 #include <microsim/MSNet.h>
 #include <gui/GUIApplicationWindow.h>

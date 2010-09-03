@@ -31,12 +31,13 @@
 
 #include <vector>
 #include <set>
-#include "MSLogicJunction.h"
+#include <utils/common/SUMOTime.h>
 
 
 // ===========================================================================
 // class declarations
 // ===========================================================================
+class MSLane;
 class MSVehicle;
 class MSTrafficLightLogic;
 
@@ -287,10 +288,34 @@ public:
 #endif
 
 private:
+    struct ApproachingVehicleInformation {
+        ApproachingVehicleInformation(const SUMOTime _arrivalTime, const SUMOTime _leavingTime, MSVehicle *_vehicle, const bool _willPass)
+                : arrivalTime(_arrivalTime), leavingTime(_leavingTime), vehicle(_vehicle), willPass(_willPass) {}
+        SUMOTime arrivalTime;
+        SUMOTime leavingTime;
+        MSVehicle *vehicle;
+        bool willPass;
+    };
+
+    typedef std::vector<ApproachingVehicleInformation> LinkApproachingVehicles;
+
+    class vehicle_in_request_finder {
+    public:
+        explicit vehicle_in_request_finder(const MSVehicle * const v) : myVehicle(v) { }
+        bool operator()(const ApproachingVehicleInformation &vo) {
+            return vo.vehicle == myVehicle;
+        }
+    private:
+        const MSVehicle * const myVehicle;
+
+    };
+
+
+private:
     /// @brief The lane approached by this link
     MSLane* myLane;
 
-    MSJunction::LinkApproachingVehicles myApproachingVehicles;
+    LinkApproachingVehicles myApproachingVehicles;
     std::set<MSLink*> myBlockedFoeLinks;
 
     /// @brief The position of the link within this request

@@ -51,30 +51,6 @@ class MSLane;
  */
 class MSJunction {
 public:
-    struct ApproachingVehicleInformation {
-        ApproachingVehicleInformation(SUMOReal _arrivalTime, SUMOReal _leavingTime, MSVehicle *_vehicle, bool _willPass)
-                : arrivalTime(_arrivalTime), leavingTime(_leavingTime), vehicle(_vehicle), willPass(_willPass) {}
-        SUMOReal arrivalTime;
-        SUMOReal leavingTime;
-        MSVehicle *vehicle;
-        bool willPass;
-    };
-
-    typedef std::vector<ApproachingVehicleInformation> LinkApproachingVehicles;
-
-    class vehicle_in_request_finder {
-    public:
-        explicit vehicle_in_request_finder(const MSVehicle * const v) : myVehicle(v) { }
-        bool operator()(const ApproachingVehicleInformation &vo) {
-            return vo.vehicle == myVehicle;
-        }
-    private:
-        const MSVehicle * const myVehicle;
-
-    };
-
-
-
     /// @brief Destructor.
     virtual ~MSJunction();
 
