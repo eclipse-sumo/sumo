@@ -1,7 +1,23 @@
-/**********************************************************************************************
- * File adapted by Piotr Woznica from the code of RONetHandler.h written by Daniel Krajzewicz
- * see RONetHandler.h/cpp - GenericSAXHandler.h/cpp
- **********************************************************************************************/
+/****************************************************************************/
+/// @file    AGActivityGenHandler.h
+/// @author  Piotr Woznica and Daniel Krajzewicz
+/// @date    July 2010
+/// @version $Id$
+///
+// The handler for parsing the statistics file.
+/****************************************************************************/
+// SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+// Copyright 2001-2010 DLR (http://www.dlr.de/) and contributors
+// activitygen module
+// Copyright 2010 TUM (Technische Universitaet Muenchen, http://www.tum.de/)
+/****************************************************************************/
+//
+//   This program is free software; you can redistribute it and/or modify
+//   it under the terms of the GNU General Public License as published by
+//   the Free Software Foundation; either version 2 of the License, or
+//   (at your option) any later version.
+//
+/****************************************************************************/
 #ifndef AGACTIVITYGENHANDLER_H
 #define AGACTIVITYGENHANDLER_H
 

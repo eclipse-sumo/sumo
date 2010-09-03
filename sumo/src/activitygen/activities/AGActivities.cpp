@@ -4,11 +4,13 @@
 /// @date    July 2010
 /// @version $Id$
 ///
-// Main object managing activities taken in account and generating the city
+// Main class that manages activities taken in account and generates the
 // inhabitants' trip list.
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
-// Copyright 2010 TUM (Technische Universität München, http://www.tum.de/)
+// Copyright 2001-2010 DLR (http://www.dlr.de/) and contributors
+// activitygen module
+// Copyright 2010 TUM (Technische Universitaet Muenchen, http://www.tum.de/)
 /****************************************************************************/
 //
 //   This program is free software; you can redistribute it and/or modify
@@ -17,6 +19,7 @@
 //   (at your option) any later version.
 //
 /****************************************************************************/
+
 
 // ===========================================================================
 // included modules

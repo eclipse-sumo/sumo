@@ -8,6 +8,8 @@
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // Copyright 2001-2010 DLR (http://www.dlr.de/) and contributors
+// activitygen module
+// Copyright 2010 TUM (Technische Universitaet Muenchen, http://www.tum.de/)
 /****************************************************************************/
 //
 //   This program is free software; you can redistribute it and/or modify
@@ -105,7 +107,7 @@ void initAndOptions(int argc, char *argv[]) {
 	// Options of ActivityGen
 	oc.doRegister("debug", new Option_Bool(false));
 	oc.addDescription("debug", "Report",
-			"Detailled messages about every single step");
+			"Detailed messages about every single step");
 
 	oc.doRegister("stat-file", 's', new Option_FileName());
 	oc.addDescription("stat-file", "Input", "Loads the SUMO-statistics FILE");
@@ -155,6 +157,7 @@ int main(int argc, char *argv[]) {
 	oc.setApplicationDescription(
 			"Generates routes of persons throughout a day for the microscopic road traffic simulation SUMO.");
 	oc.setApplicationName("activitygen", "SUMO activitygen Version " + (std::string)VERSION_STRING);
+	oc.addCopyrightNotice("(c) Technische Universitaet Muenchen, 2010");
 	RONet *net = 0;
 	try {
 		// Initialize subsystems and process options

@@ -4,10 +4,12 @@
 /// @date    July 2010
 /// @version $Id$
 ///
-// Child object of AGActivity: Generates trips to work and to school
+// Generates trips to work and to school
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
-// Copyright 2010 TUM (Technische Universität München, http://www.tum.de/)
+// Copyright 2001-2010 DLR (http://www.dlr.de/) and contributors
+// activitygen module
+// Copyright 2010 TUM (Technische Universitaet Muenchen, http://www.tum.de/)
 /****************************************************************************/
 //
 //   This program is free software; you can redistribute it and/or modify
@@ -16,6 +18,7 @@
 //   (at your option) any later version.
 //
 /****************************************************************************/
+
 
 // ===========================================================================
 // included modules

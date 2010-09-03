@@ -147,6 +147,11 @@ public:
      */
     void setAdditionalHelpMessage(const std::string &add) throw();
 
+    /** @brief Adds a copyright notice to the help output
+     *
+     * @param[in] copyrightLine The line to put out as a copyright notice
+     */
+    void addCopyrightNotice(const std::string &copyrightLine) throw();
 
     /** @brief Adds an option subtopic
      *
@@ -646,8 +651,8 @@ private:
     /// some information on the application
     std::string myAppName, myFullName, myAppDescription, myAdditionalMessage;
 
-    /// lists of call examples and option subtopics
-    std::vector<std::string> myCallExamples, mySubTopics;
+    /// lists of call examples, option subtopics and copyright notices
+    std::vector<std::string> myCallExamples, mySubTopics, myCopyrightNotices;
 
     /// A map from subtopic to option
     std::map<std::string, std::vector<std::string> > mySubTopicEntries;

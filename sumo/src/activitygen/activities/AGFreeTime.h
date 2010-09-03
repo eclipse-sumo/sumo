@@ -4,11 +4,13 @@
 /// @date    July 2010
 /// @version $Id$
 ///
-// Child object of AGActivity: generates Trips corresponding to after-work
-// activities like visiting family or party
+// Generates trips related to after-work activities
+// like visiting the family or party.
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
-// Copyright 2010 TUM (Technische Universität München, http://www.tum.de/)
+// Copyright 2001-2010 DLR (http://www.dlr.de/) and contributors
+// activitygen module
+// Copyright 2010 TUM (Technische Universitaet Muenchen, http://www.tum.de/)
 /****************************************************************************/
 //
 //   This program is free software; you can redistribute it and/or modify
@@ -19,6 +21,7 @@
 /****************************************************************************/
 #ifndef AGFREETIME_H
 #define AGFREETIME_H
+
 
 // ===========================================================================
 // included modules

@@ -4,10 +4,12 @@
 /// @date    July 2010
 /// @version $Id$
 ///
-// references a street of the city and defines a position in this street
+// References a street of the city and defines a position in this street
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
-// Copyright 2010 TUM (Technische Universität München, http://www.tum.de/)
+// Copyright 2001-2010 DLR (http://www.dlr.de/) and contributors
+// activitygen module
+// Copyright 2010 TUM (Technische Universitaet Muenchen, http://www.tum.de/)
 /****************************************************************************/
 //
 //   This program is free software; you can redistribute it and/or modify
@@ -18,6 +20,7 @@
 /****************************************************************************/
 #ifndef POSITION_H
 #define POSITION_H
+
 
 // ===========================================================================
 // included modules
