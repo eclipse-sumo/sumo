@@ -58,6 +58,9 @@ const int VEHPARS_ARRIVALSPEED_SET = 1024;
 const int VEHPARS_LINE_SET = 2048;
 const int VEHPARS_TAZ_SET = 4096;
 
+const int STOP_INDEX_END = -1;
+const int STOP_INDEX_FIT = -2;
+
 
 // ===========================================================================
 // enum definitions
@@ -360,12 +363,20 @@ public:
         std::string lane;
         /// @brief (Optional) bus stop if one is assigned to the stop
         std::string busstop;
-        /// @brief The stopping position
-        SUMOReal pos;
+        /// @brief The stopping position start
+        SUMOReal startPos;
+        /// @brief The stopping position end
+        SUMOReal endPos;
         /// @brief The stopping duration
         SUMOTime duration;
         /// @brief The time at which the vehicle may continue its journey
         SUMOTime until;
+        /// @brief whether an arriving person lets the vehicle continue
+        bool triggered;
+        /// @brief whether the vehicle is removed from the net while stopping
+        bool parking;
+        /// @brief at which position in the stops list
+        int index;
     };
 
     /// @brief List of the stops the vehicle will make

@@ -354,6 +354,11 @@ GenericSAXHandler::Attr sumoattrs[] = {
     { "guiOffset",      SUMO_ATTR_GUIOFFSET },
     { "guiShape",       SUMO_ATTR_GUISHAPE },
     { "emissionClass",  SUMO_ATTR_EMISSIONCLASS },
+    { "startPos",       SUMO_ATTR_STARTPOS },
+    { "endPos",         SUMO_ATTR_ENDPOS },
+    { "triggered",      SUMO_ATTR_TRIGGERED },
+    { "parking",        SUMO_ATTR_PARKING },
+    { "index",          SUMO_ATTR_INDEX },
 
     { "entering",       SUMO_ATTR_ENTERING },
     { "excludeEmpty",   SUMO_ATTR_EXCLUDE_EMPTY },

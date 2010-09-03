@@ -1,9 +1,9 @@
 <routes>
    <route id="1" edges="beg end"/>
   <vehicle depart="1" id="veh0" route="1" arrivalpos="1000">
-      <stop lane="beg_0" pos="50" duration="50"/>
-      <stop lane="beg_2" pos="100" duration="50"/>
-      <stop lane="beg_1" pos="150" duration="50"/>
-      <stop lane="beg_0" pos="200" duration="50"/>
+      <stop lane="beg_0" endPos="50" duration="50"/>
+      <stop lane="beg_2" endPos="100" duration="50"/>
+      <stop lane="beg_1" endPos="150" duration="50"/>
+      <stop lane="beg_0" endPos="200" duration="50"/>
   </vehicle>
 </routes>

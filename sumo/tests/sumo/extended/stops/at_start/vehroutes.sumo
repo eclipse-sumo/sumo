@@ -1,16 +1,20 @@
 <?xml version="1.0"?>
 
-<!-- generated on 04/26/10 10:10:49 by SUMO sumo Version dev-SVN-r8163
+<!-- generated on 09/03/10 13:55:38 by SUMO sumo Version dev-SVN-r9027
 <configuration>
 
     <input>
-        <net-file value="net.net.xml"/>
+        <net-file value="three_split.net.xml"/>
         <route-files value="input_routes.rou.xml"/>
     </input>
 
     <output>
         <vehroute-output value="vehroutes.xml"/>
     </output>
+
+    <processing>
+        <time-to-teleport value="-1"/>
+    </processing>
 
     <report>
         <no-duration-log value="true"/>
@@ -21,8 +25,8 @@
 -->
 
 <routes>
-    <vehicle id="veh0" depart="1.00" arrival="291.00">
-        <route edges="beg end"/>
+    <vehicle id="p" depart="0.00" arrival="1077.00">
+        <route edges="beg middle end"/>
     </vehicle>
 
 </routes>

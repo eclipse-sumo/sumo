@@ -171,16 +171,16 @@ private:
     /// @{
 
     /// @brief The vehicle's maximum acceleration [m/s^2]
-    SUMOReal myAccel;
+    const SUMOReal myAccel;
 
     /// @brief The vehicle's dawdle-parameter. 0 for no dawdling, 1 for max.
-    SUMOReal myDawdle;
+    const SUMOReal myDawdle;
 
     /// @brief The driver's reaction time [s]
-    SUMOReal myTau;
+    const SUMOReal myTau;
 
     /// @brief The precomputed value for myDecel*myTau
-    SUMOReal myTauDecel;
+    const SUMOReal myTauDecel;
     /// @}
 
 };

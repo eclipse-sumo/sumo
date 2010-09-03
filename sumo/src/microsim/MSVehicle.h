@@ -701,12 +701,18 @@ public:
         const MSLane *lane;
         /// @brief (Optional) bus stop if one is assigned to the stop
         MSBusStop *busstop;
-        /// @brief The stopping position
-        SUMOReal pos;
+        /// @brief The stopping position start
+        SUMOReal startPos;
+        /// @brief The stopping position end
+        SUMOReal endPos;
         /// @brief The stopping duration
         SUMOTime duration;
         /// @brief The time at which the vehicle may continue its journey
         SUMOTime until;
+        /// @brief whether an arriving person lets the vehicle continue
+        bool triggered;
+        /// @brief whether the vehicle is removed from the net while stopping
+        bool parking;
         /// @brief Information whether the stop has been reached
         bool reached;
     };

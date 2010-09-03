@@ -633,38 +633,47 @@ MSVehicle::addStop(const SUMOVehicleParameter::Stop &stopPar, SUMOTime untilOffs
     Stop stop;
     stop.lane = MSLane::dictionary(stopPar.lane);
     stop.busstop = MSNet::getInstance()->getBusStop(stopPar.busstop);
-    stop.pos = stopPar.pos;
+    stop.startPos = stopPar.startPos;
+    stop.endPos = stopPar.endPos;
     stop.duration = stopPar.duration;
     stop.until = stopPar.until;
     if (stop.until != -1) {
         stop.until += untilOffset;
     }
+    stop.triggered = stopPar.triggered;
+    stop.parking = stopPar.parking;
     stop.reached = false;
+    if (stop.startPos < 0 || stop.endPos > stop.lane->getLength()) {
+        return false;
+    }
     MSRouteIterator stopEdge = myRoute->find(&stop.lane->getEdge(), myCurrEdge);
-    if (myCurrEdge > stopEdge || (myCurrEdge == stopEdge && myState.myPos > stop.pos - getCarFollowModel().brakeGap(myState.mySpeed))) {
+    if (myCurrEdge > stopEdge || (myCurrEdge == stopEdge && myState.myPos > stop.endPos - getCarFollowModel().brakeGap(myState.mySpeed))) {
         // do not add the stop if the vehicle is already behind it or cannot break
         return false;
     }
-    // check whether the stop lies at the end of a route
-    std::list<Stop>::iterator iter = myStops.begin();
-    MSRouteIterator last = myRoute->begin();
-    if (myStops.size()>0) {
-        last = myRoute->find(&myStops.back().lane->getEdge());
-        last = myRoute->find(&stop.lane->getEdge(), last);
-        if (last!=myRoute->end()) {
-            iter = myStops.end();
-            stopEdge = last;
+    // where to insert the stop
+    if (stopPar.index == STOP_INDEX_END || stopPar.index >= myStops.size()) {
+        myStops.push_back(stop);
+    } else if (stopPar.index == STOP_INDEX_FIT) {
+        std::list<Stop>::iterator iter = myStops.begin();
+        while ((iter != myStops.end()) && (myRoute->find(&iter->lane->getEdge()) <= stopEdge)) {
+            ++iter;
         }
+        while ((iter != myStops.end())
+                && (stop.endPos > iter->endPos)
+                && (myRoute->find(&iter->lane->getEdge()) == stopEdge)) {
+            ++iter;
+        }
+        myStops.insert(iter, stop);
+    } else {
+        std::list<Stop>::iterator iter = myStops.begin();
+        int index = stopPar.index;
+        while (index > 0) {
+            ++iter;
+            --index;
+        }
+        myStops.insert(iter, stop);
     }
-    while ((iter != myStops.end()) && (myRoute->find(&iter->lane->getEdge()) <= stopEdge)) {
-        iter++;
-    }
-    while ((iter != myStops.end())
-            && (stop.pos > iter->pos)
-            && (myRoute->find(&iter->lane->getEdge()) == stopEdge)) {
-        iter++;
-    }
-    myStops.insert(iter, stop);
     return true;
 }
 
@@ -711,7 +720,7 @@ MSVehicle::processNextStop(SUMOReal currentVelocity) throw() {
         if (myStops.begin()->lane==myLane) {
             Stop &bstop = *myStops.begin();
             // get the stopping position
-            SUMOReal endPos = bstop.pos;
+            SUMOReal endPos = bstop.endPos;
 //			SUMOReal offset = 0.1;
             bool busStopsMustHaveSpace = true;
             if (bstop.busstop!=0) {
@@ -817,7 +826,7 @@ MSVehicle::moveRegardingCritical(SUMOTime t, const MSLane* const lane,
         // check whether the vehicle wants to stop somewhere
         if (!myStops.empty()&& &myStops.begin()->lane->getEdge()==&lane->getEdge()) {
             SUMOReal seen = lane->getLength() - myState.pos();
-            SUMOReal vsafeStop = cfModel.ffeS(this, seen-(lane->getLength()-myStops.begin()->pos));
+            SUMOReal vsafeStop = cfModel.ffeS(this, seen-(lane->getLength()-myStops.begin()->endPos));
             vWish = MIN2(vWish, vsafeStop);
         }
         vWish = MAX2((SUMOReal) 0, vWish);
@@ -1194,7 +1203,7 @@ MSVehicle::vsafeCriticalCont(SUMOTime t, SUMOReal boundVSafe, SUMOReal lengthsIn
     while (true) {
         // process stops
         if (!myStops.empty()&& &myStops.begin()->lane->getEdge()==&nextLane->getEdge()) {
-            SUMOReal vsafeStop = cfModel.ffeS(this, seen-(nextLane->getLength()-myStops.begin()->pos));
+            SUMOReal vsafeStop = cfModel.ffeS(this, seen-(nextLane->getLength()-myStops.begin()->endPos));
             vLinkPass = MIN2(vLinkPass, vsafeStop);
             vLinkWait = MIN2(vLinkWait, vsafeStop);
         }
@@ -1243,8 +1252,10 @@ MSVehicle::vsafeCriticalCont(SUMOTime t, SUMOReal boundVSafe, SUMOReal lengthsIn
         SUMOReal vsafePredNextLane = 100000;
         std::pair<MSVehicle*, SUMOReal> lastOnNext = nextLane->getLastVehicleInformation();
         if (lastOnNext.first!=0) {
-            if (seen+lastOnNext.second>0) {
+            if (seen+lastOnNext.second>=0) {
                 vsafePredNextLane = cfModel.ffeV(this, seen+lastOnNext.second, lastOnNext.first->getSpeed());
+            } else {
+                vsafePredNextLane = cfModel.ffeS(this, seen);
             }
         }
 #ifdef DEBUG_VEHICLE_GUI_SELECTION
@@ -1263,7 +1274,7 @@ MSVehicle::vsafeCriticalCont(SUMOTime t, SUMOReal boundVSafe, SUMOReal lengthsIn
         bool setRequest = false;
         // process stops
         if (!myStops.empty()&& &myStops.begin()->lane->getEdge()==&nextLane->getEdge()) {
-            SUMOReal vsafeStop = cfModel.ffeS(this, seen+myStops.begin()->pos);
+            SUMOReal vsafeStop = cfModel.ffeS(this, seen+myStops.begin()->endPos);
             vLinkPass = MIN2(vLinkPass, vsafeStop);
             vLinkWait = MIN2(vLinkWait, vsafeStop);
         }
@@ -1561,7 +1572,7 @@ MSVehicle::rebuildContinuationsFor(LaneQ &oq, MSLane *l, MSRouteIterator ce, int
             } else {
                 q.occupied = qqq->getVehLenSum();
                 const Stop &s = myStops.front();
-                SUMOReal endPos = s.pos;
+                SUMOReal endPos = s.endPos;
                 if (s.busstop!=0) {
                     // on bus stops, we have to wait for free place if they are in use...
                     endPos = s.busstop->getLastFreePos();
@@ -1703,7 +1714,7 @@ MSVehicle::getBestLanes(bool forceRebuild, MSLane *startLane) const throw() {
                 q.allowsContinuation = false;
                 q.occupied = q.lane->getVehLenSum();
                 const Stop &s = myStops.front();
-                SUMOReal endPos = s.pos;
+                SUMOReal endPos = s.endPos;
                 if (s.busstop!=0) {
                     // on bus stops, we have to wait for free place if they are in use...
                     endPos = s.busstop->getLastFreePos();
@@ -2064,7 +2075,7 @@ bool
 MSVehicle::addTraciStop(MSLane* lane, SUMOReal pos, SUMOReal radius, SUMOTime duration) {
     //if the stop exists update the duration
     for (std::list<Stop>::iterator iter = myStops.begin(); iter != myStops.end(); iter++) {
-        if (iter->lane == lane && fabs(iter->pos - pos) < POSITION_EPS) {
+        if (iter->lane == lane && fabs(iter->endPos - pos) < POSITION_EPS) {
             if (duration == 0 && !iter->reached) {
                 myStops.erase(iter);
             } else {
@@ -2076,10 +2087,14 @@ MSVehicle::addTraciStop(MSLane* lane, SUMOReal pos, SUMOReal radius, SUMOTime du
 
     SUMOVehicleParameter::Stop newStop;
     newStop.lane = lane->getID();
-    newStop.pos = pos;
+    newStop.busstop = MSNet::getInstance()->getBusStopID(lane, pos);
+    newStop.startPos = pos - POSITION_EPS;
+    newStop.endPos = pos;
     newStop.duration = duration;
     newStop.until = -1;
-    newStop.busstop = MSNet::getInstance()->getBusStopID(lane, pos);
+    newStop.triggered = false;
+    newStop.parking = false;
+    newStop.index = STOP_INDEX_END;
     return addStop(newStop);
 }
 

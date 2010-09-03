@@ -39,9 +39,7 @@
 // ===========================================================================
 MSCFModel_Krauss::MSCFModel_Krauss(const MSVehicleType* vtype,  SUMOReal accel, SUMOReal decel,
                                    SUMOReal dawdle, SUMOReal tau) throw()
-        : MSCFModel(vtype, decel), myAccel(accel), myDawdle(dawdle), myTau(tau) {
-
-    myTauDecel = decel * myTau;
+        : MSCFModel(vtype, decel), myAccel(accel), myDawdle(dawdle), myTau(tau), myTauDecel(decel*tau) {
 }
 
 

@@ -1,5 +1,5 @@
 <routes>
 	<flow id="f1" period="1" route="1" arrivalpos="10">
-        <stop lane="end_0" pos="5" duration="1"/>
+        <stop lane="end_0" endPos="5" duration="1"/>
     </flow>
 </routes>

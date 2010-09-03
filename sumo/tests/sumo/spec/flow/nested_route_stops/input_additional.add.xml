@@ -1,7 +1,7 @@
 <routes>
 	<flow id="f1" period="1" arrivalpos="10">
 	    <route edges="beg end">
-	        <stop lane="end_0" pos="5" duration="1"/>
+	        <stop lane="end_0" endPos="5" duration="1"/>
 	    </route>
 	</flow>
 </routes>

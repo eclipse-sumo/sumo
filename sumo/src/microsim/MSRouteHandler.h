@@ -70,6 +70,10 @@ public:
     /// Returns the last loaded vehicle
     void retrieveLastReadVehicle(MSEmitControl* into);
 
+    /// check start and end position of a stop
+    bool checkStopPos(SUMOReal &startPos, SUMOReal &endPos, const SUMOReal laneLength,
+                      const SUMOReal minLength, const bool friendlyPos);
+
 protected:
     /// @name inherited from GenericSAXHandler
     //@{
@@ -136,6 +140,9 @@ protected:
 
     /// Ends the processing of a flow
     void closeFlow() throw(ProcessError);
+
+    /// Processing of a stop
+    void addStop(const SUMOSAXAttributes &attrs) throw(ProcessError);
 
 protected:
     SUMOVehicleParameter *myVehicleParameter;

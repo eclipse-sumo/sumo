@@ -212,37 +212,16 @@ NLTriggerBuilder::parseAndBuildBusStop(MSNet &net, const SUMOSAXAttributes &attr
     MSLane *lane = getLane(attrs, "bus_stop", id);
     // get the positions
     bool ok = true;
-    SUMOReal frompos = attrs.getSUMORealReporting(SUMO_ATTR_FROM, "busstop", id.c_str(), ok);
-    SUMOReal topos = attrs.getSUMORealReporting(SUMO_ATTR_TO, "busstop", id.c_str(), ok);
-    bool friendlyPos = attrs.getOptBoolReporting(SUMO_ATTR_FRIENDLY_POS, "busstop", id.c_str(), ok, false);
-    if (!ok) {
-        throw InvalidArgument("Error on parsing a bus stop.");
+    SUMOReal frompos = attrs.getOptSUMORealReporting(SUMO_ATTR_STARTPOS, "busstop", id.c_str(), ok, 0);
+    SUMOReal topos = attrs.getOptSUMORealReporting(SUMO_ATTR_ENDPOS, "busstop", id.c_str(), ok, lane->getLength());
+    if (attrs.hasAttribute(SUMO_ATTR_FROM) || attrs.hasAttribute(SUMO_ATTR_TO)) {
+        WRITE_WARNING("Deprecated attribute 'from' or 'to' in description of bus stop '" + id + "'.");
+        frompos = attrs.getOptSUMORealReporting(SUMO_ATTR_FROM, "busstop", id.c_str(), ok, 0);
+        topos = attrs.getOptSUMORealReporting(SUMO_ATTR_TO, "busstop", id.c_str(), ok, lane->getLength());
     }
-    if (frompos<0) {
-        frompos = lane->getLength() + frompos;
-    }
-    if (topos<0) {
-        topos = lane->getLength() + topos;
-    }
-    // check positions
-    if (topos<0 || topos>lane->getLength()) {
-        if (!friendlyPos) {
-            throw InvalidArgument("Bus stop '" + id + "' ends after the lane's end.");
-        } else {
-            MsgHandler::getWarningInstance()->inform("Bus stop '" + id + "' ends after the lane's end (moving to the end).");
-            topos = lane->getLength() - (SUMOReal) .1;
-        }
-    }
-    if (frompos<0 || frompos>lane->getLength()) {
-        if (!friendlyPos) {
-            throw InvalidArgument("Bus stop '" + id + "' begins after the lane's end.");
-        } else {
-            MsgHandler::getWarningInstance()->inform("Bus stop '" + id + "' begins after the lane's end (moving to the begin-10m).");
-            frompos = MAX2(SUMOReal(0), SUMOReal(topos-10.));
-        }
-    }
-    if (topos<frompos) {
-        throw InvalidArgument("Bus stop's '" + id + "' end is in front of its begin.");
+    if (!ok || !myHandler->checkStopPos(frompos, topos, lane->getLength(), 10.,
+                                        attrs.getOptBoolReporting(SUMO_ATTR_FRIENDLY_POS, "busstop", id.c_str(), ok, false))) {
+        throw InvalidArgument("Invalid position for bus stop '" + id + "'.");
     }
     // get the lines
     std::vector<std::string> lines;

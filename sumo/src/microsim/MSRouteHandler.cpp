@@ -177,6 +177,9 @@ MSRouteHandler::myStartElement(SumoXMLTag element,
     case SUMO_TAG_ROUTE_DISTRIBUTION:
         openRouteDistribution(attrs);
         break;
+    case SUMO_TAG_STOP:
+        addStop(attrs);
+        break;
     case SUMO_TAG_TRIPDEF: {
         bool ok = true;
         myVehicleParameter = SUMOVehicleParserHelper::parseVehicleAttributes(attrs);
@@ -205,66 +208,6 @@ MSRouteHandler::myStartElement(SumoXMLTag element,
     if (myCurrentVType!=0&&element!=SUMO_TAG_VTYPE) {
         SUMOVehicleParserHelper::parseVTypeEmbedded(*myCurrentVType, element, attrs);
         return;
-    }
-
-    if (element==SUMO_TAG_STOP) {
-        bool ok = true;
-        SUMOVehicleParameter::Stop stop;
-        // try to parse the assigne bus stop
-        stop.busstop = attrs.getOptStringReporting(SUMO_ATTR_BUS_STOP, "stop", 0, ok, "");
-        if (stop.busstop!="") {
-            // ok, we have obviously a bus stop
-            MSBusStop *bs = MSNet::getInstance()->getBusStop(stop.busstop);
-            if (bs!=0) {
-                const MSLane &l = bs->getLane();
-                stop.lane = l.getID();
-                stop.pos = bs->getEndLanePosition();
-            } else {
-                MsgHandler::getErrorInstance()->inform("The bus stop '" + stop.busstop + "' is not known.");
-                return;
-            }
-        } else {
-            // no, the lane and the position should be given
-            // get the lane
-            stop.lane = attrs.getOptStringReporting(SUMO_ATTR_LANE, "stop", 0, ok, "");
-            if (stop.lane!="") {
-                if (MSLane::dictionary(stop.lane)==0) {
-                    MsgHandler::getErrorInstance()->inform("The lane '" + stop.lane + "' for a stop is not known.");
-                    return;
-                }
-            } else {
-                MsgHandler::getErrorInstance()->inform("A stop must be placed on a bus stop or a lane.");
-                return;
-            }
-            // get the position
-            bool ok = true;
-            stop.pos = attrs.getSUMORealReporting(SUMO_ATTR_POSITION, "stop", 0, ok);
-            if (!ok) {
-                return;
-            }
-        }
-
-        // get the standing duration
-        if (!attrs.hasAttribute(SUMO_ATTR_DURATION) && !attrs.hasAttribute(SUMO_ATTR_UNTIL)) {
-            MsgHandler::getErrorInstance()->inform("The duration of a stop is not defined.");
-            return;
-        } else {
-            bool ok = true;
-            stop.duration = attrs.getOptSUMOTimeReporting(SUMO_ATTR_DURATION, "stop", 0, ok, -1);
-            stop.until = attrs.getOptSUMOTimeReporting(SUMO_ATTR_UNTIL, "stop", 0, ok, -1);
-            if (!ok) {
-                return;
-            }
-            if (stop.duration<0&&stop.until<0) {
-                MsgHandler::getErrorInstance()->inform("Neither the duration nor the end time is given for a stop.");
-                return;
-            }
-        }
-        if (myActiveRouteID != "") {
-            myActiveRouteStops.push_back(stop);
-        } else {
-            myVehicleParameter->stops.push_back(stop);
-        }
     }
 }
 
@@ -625,6 +568,129 @@ MSRouteHandler::closeFlow() throw(ProcessError) {
     }
 }
 
+bool
+MSRouteHandler::checkStopPos(SUMOReal &startPos, SUMOReal &endPos, const SUMOReal laneLength,
+                             const SUMOReal minLength, const bool friendlyPos) {
+    if (minLength > laneLength) {
+        return false;
+    }
+    if (startPos < 0) {
+        startPos += laneLength;
+    }
+    if (endPos < 0) {
+        endPos += laneLength;
+    }
+    if (endPos < minLength || endPos > laneLength) {
+        if (!friendlyPos) {
+            return false;
+        }
+        if (endPos < minLength) {
+            endPos = minLength;
+        }
+        if (endPos > laneLength) {
+            endPos = laneLength;
+        }
+    }
+    if (startPos < 0 || startPos > endPos - minLength) {
+        if (!friendlyPos) {
+            return false;
+        }
+        if (startPos < 0) {
+            startPos = 0;
+        }
+        if (startPos > endPos - minLength) {
+            startPos = endPos - minLength;
+        }
+    }
+    return true;
+}
+
+
+void
+MSRouteHandler::addStop(const SUMOSAXAttributes &attrs) throw(ProcessError) {
+    bool ok = true;
+    std::string errorSuffix;
+    if (myActiveRouteID != "") {
+        errorSuffix = " in route '" + myActiveRouteID + "'.";
+    } else {
+        errorSuffix = " in vehicle '" + myVehicleParameter->id + "'.";
+    }
+    SUMOVehicleParameter::Stop stop;
+    // try to parse the assigned bus stop
+    stop.busstop = attrs.getOptStringReporting(SUMO_ATTR_BUS_STOP, "stop", 0, ok, "");
+    if (stop.busstop!="") {
+        // ok, we have obviously a bus stop
+        MSBusStop *bs = MSNet::getInstance()->getBusStop(stop.busstop);
+        if (bs!=0) {
+            const MSLane &l = bs->getLane();
+            stop.lane = l.getID();
+            stop.endPos = bs->getEndLanePosition();
+            stop.startPos = bs->getBeginLanePosition();
+        } else {
+            MsgHandler::getErrorInstance()->inform("The bus stop '" + stop.busstop + "' is not known" + errorSuffix);
+            return;
+        }
+    } else {
+        // no, the lane and the position should be given
+        // get the lane
+        stop.lane = attrs.getOptStringReporting(SUMO_ATTR_LANE, "stop", 0, ok, "");
+        if (ok && stop.lane!="") {
+            if (MSLane::dictionary(stop.lane)==0) {
+                MsgHandler::getErrorInstance()->inform("The lane '" + stop.lane + "' for a stop is not known" + errorSuffix);
+                return;
+            }
+        } else {
+            MsgHandler::getErrorInstance()->inform("A stop must be placed on a bus stop or a lane" + errorSuffix);
+            return;
+        }
+        stop.endPos = attrs.getOptSUMORealReporting(SUMO_ATTR_ENDPOS, "stop", 0, ok, MSLane::dictionary(stop.lane)->getLength());
+        if (attrs.hasAttribute(SUMO_ATTR_POSITION)) {
+            WRITE_WARNING("Deprecated attribute 'pos' in description of stop" + errorSuffix);
+            stop.endPos = attrs.getOptSUMORealReporting(SUMO_ATTR_POSITION, "stop", 0, ok, stop.endPos);
+        }
+        stop.startPos = attrs.getOptSUMORealReporting(SUMO_ATTR_STARTPOS, "stop", 0, ok, stop.endPos - POSITION_EPS);
+        if (!ok || !checkStopPos(stop.startPos, stop.endPos, MSLane::dictionary(stop.lane)->getLength(), POSITION_EPS,
+                                 attrs.getOptBoolReporting(SUMO_ATTR_FRIENDLY_POS, "stop", 0, ok, false))) {
+            MsgHandler::getErrorInstance()->inform("Invalid start or end position for stop" + errorSuffix);
+            return;
+        }
+    }
+
+    // get the standing duration
+    if (!attrs.hasAttribute(SUMO_ATTR_DURATION) && !attrs.hasAttribute(SUMO_ATTR_UNTIL)) {
+        stop.triggered = attrs.getOptBoolReporting(SUMO_ATTR_TRIGGERED, "stop", 0, ok, true);
+    } else {
+        stop.duration = attrs.getOptSUMOTimeReporting(SUMO_ATTR_DURATION, "stop", 0, ok, -1);
+        stop.until = attrs.getOptSUMOTimeReporting(SUMO_ATTR_UNTIL, "stop", 0, ok, -1);
+        if (!ok || (stop.duration<0&&stop.until<0)) {
+            MsgHandler::getErrorInstance()->inform("Invalid duration or end time is given for a stop" + errorSuffix);
+            return;
+        }
+        stop.triggered = attrs.getOptBoolReporting(SUMO_ATTR_TRIGGERED, "stop", 0, ok, false);
+    }
+    stop.parking = attrs.getOptBoolReporting(SUMO_ATTR_PARKING, "stop", 0, ok, false);
+    if (!ok) {
+        MsgHandler::getErrorInstance()->inform("Invalid bool for 'triggered' or 'parking' for stop" + errorSuffix);
+        return;
+    }
+    const std::string idx = attrs.getOptStringReporting(SUMO_ATTR_INDEX, "stop", 0, ok, "end");
+    if (idx == "end") {
+        stop.index = STOP_INDEX_END;
+    } else if (idx == "fit") {
+        stop.index = STOP_INDEX_FIT;
+    } else {
+        stop.index = attrs.getIntReporting(SUMO_ATTR_INDEX, "stop", 0, ok);
+        if (!ok || stop.index < 0) {
+            MsgHandler::getErrorInstance()->inform("Invalid 'index' for stop" + errorSuffix);
+            return;
+        }
+    }
+    if (myActiveRouteID != "") {
+        myActiveRouteStops.push_back(stop);
+    } else {
+        myVehicleParameter->stops.push_back(stop);
+    }
+}
 
 
 /****************************************************************************/

@@ -1,7 +1,7 @@
 <routes>
    <route id="1" edges="beg end"/>
   <vehicle depart="1" id="veh0" route="1" arrivalpos="1000">
-      <stop lane="beg_0" pos="490" duration="50"/>
-      <stop lane="beg_2" pos="499" duration="50"/>
+      <stop lane="beg_0" endPos="490" duration="50"/>
+      <stop lane="beg_2" endPos="499" duration="50"/>
   </vehicle>
 </routes>
