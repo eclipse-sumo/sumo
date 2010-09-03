@@ -484,7 +484,7 @@ MSLane::getLastVehicleInformation() const throw() {
     if (myVehicles.size()!=0) {
         // the last vehicle is the one in scheduled by this lane
         MSVehicle *last = *myVehicles.begin();
-        SUMOReal pos = MAX2(SUMOReal(0), last->getPositionOnLane()-last->getVehicleType().getLength());
+        const SUMOReal pos = last->getPositionOnLane()-last->getVehicleType().getLength();
         return std::make_pair(last, pos);
     }
     if (myInlappingVehicle!=0) {
