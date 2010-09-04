@@ -1,0 +1,258 @@
+
+	 ---- begin AcitivtyGen ----
+
+carPreference: 0.5
+time per kilometer in city: 6.0
+free time activity rate: 0.2
+uniform random traffic proportion: 0.2
+variance in trip departure time variation: 300.0
+population
+- people: [0-30] = 30
+- people: [30-60] = 40
+- people: [60-90] = 30
+workHours
+- AGStreet: Name=e01t11 Length=278.6 pop=2786 work=27863
+- AGStreet: Name=e11t12 Length=183.9 pop=1838 work=18389
+- AGStreet: Name=e12t13 Length=183.9 pop=1838 work=18389
+- AGStreet: Name=e13t14 Length=185.4 pop=1853 work=18539
+- AGStreet: Name=e11t21 Length=183.9 pop=1838 work=18389
+- AGStreet: Name=e12t22 Length=183.9 pop=1838 work=18389
+- AGStreet: Name=e13t23 Length=183.9 pop=1838 work=18389
+- AGStreet: Name=e14t24 Length=185.4 pop=1853 work=18539
+- AGStreet: Name=e21t22 Length=183.9 pop=1838 work=18389
+- AGStreet: Name=e22t23 Length=183.9 pop=1838 work=18389
+- AGStreet: Name=e23t24 Length=183.9 pop=1838 work=18389
+- AGStreet: Name=e21t31 Length=183.9 pop=1838 work=18389
+- AGStreet: Name=e22t32 Length=183.9 pop=18389 work=1838
+- AGStreet: Name=e23t33 Length=183.9 pop=18389 work=1838
+- AGStreet: Name=e24t34 Length=183.9 pop=18389 work=1838
+- AGStreet: Name=e31t32 Length=183.9 pop=18389 work=1838
+- AGStreet: Name=e32t33 Length=183.9 pop=18389 work=1838
+- AGStreet: Name=e33t34 Length=183.9 pop=18389 work=1838
+- AGStreet: Name=e31t41 Length=185.4 pop=18539 work=1853
+- AGStreet: Name=e32t42 Length=183.9 pop=18389 work=1838
+- AGStreet: Name=e33t43 Length=183.9 pop=18389 work=1838
+- AGStreet: Name=e34t44 Length=183.9 pop=18389 work=1838
+- AGStreet: Name=e41t42 Length=185.4 pop=18539 work=1853
+- AGStreet: Name=e42t43 Length=183.9 pop=18389 work=1838
+- AGStreet: Name=e43t44 Length=183.9 pop=18389 work=1838
+- AGStreet: Name=e44t51 Length=278.6 pop=27863 work=2786
+- AGStreet: Name=e01t11 Length=278.6 pop=9 work=27863
+- AGStreet: Name=e11t12 Length=183.9 pop=6 work=18389
+- AGStreet: Name=e12t13 Length=183.9 pop=6 work=18389
+- AGStreet: Name=e13t14 Length=185.4 pop=6 work=18539
+- AGStreet: Name=e11t21 Length=183.9 pop=6 work=18389
+- AGStreet: Name=e12t22 Length=183.9 pop=6 work=18389
+- AGStreet: Name=e13t23 Length=183.9 pop=6 work=18389
+- AGStreet: Name=e14t24 Length=185.4 pop=6 work=18539
+- AGStreet: Name=e21t22 Length=183.9 pop=6 work=18389
+- AGStreet: Name=e22t23 Length=183.9 pop=6 work=18389
+- AGStreet: Name=e23t24 Length=183.9 pop=6 work=18389
+- AGStreet: Name=e21t31 Length=183.9 pop=6 work=18389
+- AGStreet: Name=e22t32 Length=183.9 pop=63 work=1838
+- AGStreet: Name=e23t33 Length=183.9 pop=63 work=1838
+- AGStreet: Name=e24t34 Length=183.9 pop=63 work=1838
+- AGStreet: Name=e31t32 Length=183.9 pop=63 work=1838
+- AGStreet: Name=e32t33 Length=183.9 pop=63 work=1838
+- AGStreet: Name=e33t34 Length=183.9 pop=63 work=1838
+- AGStreet: Name=e31t41 Length=185.4 pop=63 work=1853
+- AGStreet: Name=e32t42 Length=183.9 pop=63 work=1838
+- AGStreet: Name=e33t43 Length=183.9 pop=63 work=1838
+- AGStreet: Name=e34t44 Length=183.9 pop=63 work=1838
+- AGStreet: Name=e41t42 Length=185.4 pop=63 work=1853
+- AGStreet: Name=e42t43 Length=183.9 pop=63 work=1838
+- AGStreet: Name=e43t44 Length=183.9 pop=63 work=1838
+- AGStreet: Name=e44t51 Length=278.6 pop=95 work=2786
+taille Edges: 52
+taille Streets: 26
+schools
+busLine
+busLine
+
+
+
+
+
+/______| lecture XML: fait |______\
+
+
+
+
+
+
+
+
+/______| --consolidation-- |______\
+
+
+
+- Normalization:  + 0.3 + 0.7 = 1.00
+- Normalization:  + 0.2 + 0.2 + 0.6 = 1.00
+- Normalization:  + 0.3 + 0.4 + 0.3 = 1.00
+ --> oldAgeHhProb = 0.296  - retAge? 240 adAge? 810
+ --> secondPersProb = 0.620  - adAge? 810 hh?500
+ --> meanNbrChildren = 0.540  - chAge? 190
+
+
+
+
+
+/______| consolidation: fait |______\
+
+
+
+
+
+
+
+
+/______| streets: fait |______\
+
+
+
+ cou 52
+outgoing traffic: 50
+total number of workers in the city: 541.500
+work positions out side the city: 23744
+work positions in and out of the city: 280896
+
+
+
+
+
+/______| workpositions: fait |______\
+
+
+
+
+
+
+
+
+/______| Manque plus que la population |______\
+
+
+
+incoming population: 200
+number hh: 494
+number single: 199
+number couple: 590
+number 3 or more: 0
+number adults: 789
+number children: 217
+number people: 1006
+
+
+
+
+
+/______| VILLE TERMINEE |______\
+
+
+
+
+
+
+
+
+/______| ALLOCATIONS |______\
+
+
+
+
+
+
+
+
+/______| schools: fait |______\
+
+
+
+beginning work
+-> Before --> Working people: 0 - work positions: 280896
+-> After --> Working people: 745 - work positions: 280151
+ number of working people: 745
+ number of Adults: 789
+ testing employment rate: 0.944 ( stat: 0.950 )
+
+
+
+
+
+/______| work positions: fait |______\
+
+
+
+ - 0.537
+number of cars: 472
+number of adults: 810
+real number of adults: 789
+number of people far from public transport: 76
+original rate: 0.5800
+new rate: 0.5365
+real rate: 0.5827
+
+
+
+
+
+/______| cars: fait |______\
+
+
+
+
+
+
+
+
+/______| Fin de la construction de la ville |______\
+
+
+
+beginning: 0
+no problem during bus line trip generation...
+after public transportation: 248
+no problem during households' trips generation...
+after household activities: 1086
+no problem during in/out traffic generation...
+after incoming/outgoing traffic: 1486
+Before Random traffic generation (days are still entire):
+- Total number of trips: 2734
+- Total daily trips: 1248
+- Total one-day trips: 238
+added uniform random trips: 683
+no problem during random traffic generation...
+after random traffic: 2169
+total trips generated: 2169
+total trips finally taken: 1721
+...sorted by departure time.
+
+first real trip: 1, 0:0:38
+last real trip: 1, 23:58:9
+histogram[ hour 0 ] = 12
+histogram[ hour 1 ] = 14
+histogram[ hour 2 ] = 21
+histogram[ hour 3 ] = 23
+histogram[ hour 4 ] = 15
+histogram[ hour 5 ] = 13
+histogram[ hour 6 ] = 41
+histogram[ hour 7 ] = 40
+histogram[ hour 8 ] = 370
+histogram[ hour 9 ] = 223
+histogram[ hour 10 ] = 20
+histogram[ hour 11 ] = 83
+histogram[ hour 12 ] = 79
+histogram[ hour 13 ] = 18
+histogram[ hour 14 ] = 17
+histogram[ hour 15 ] = 17
+histogram[ hour 16 ] = 55
+histogram[ hour 17 ] = 283
+histogram[ hour 18 ] = 175
+histogram[ hour 19 ] = 19
+histogram[ hour 20 ] = 41
+histogram[ hour 21 ] = 39
+histogram[ hour 22 ] = 39
+histogram[ hour 23 ] = 64
+
+	 ---- end of ActivityGen ---- 
+

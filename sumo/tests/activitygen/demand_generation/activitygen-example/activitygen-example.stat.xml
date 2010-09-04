@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+	TITLE:	test1.stat.xml
+	AUTHOR:	Piotr Woznica - sf.contact@web-pw.com
+	DATE:	04/08/2010
+-->
+
+<city>
+	<general inhabitants="1000" households="500" childrenAgeLimit="19" retirementAgeLimit="66" carRate="0.58" unemploymentRate="0.05" footDistanceLimit="250" incomingTraffic="200" outgoingTraffic="50" />
+	<parameters carPreference="0.50" meanTimePerKmInCity="6" freeTimeActivityRate="0.15" uniformRandomTraffic="0.20" departureVariation="300" />
+	
+	<population>
+		<bracket beginAge="0" endAge="30" peopleNbr="30" />
+		<bracket beginAge="30" endAge="60" peopleNbr="40" />
+		<bracket beginAge="60" endAge="90" peopleNbr="30" />
+	</population>
+	
+	<workHours>
+		<opening hour="30600" proportion="0.30" />
+		<opening hour="32400" proportion="0.70" />
+		<closing hour="43200" proportion="0.20" />
+		<closing hour="63000" proportion="0.20" />
+		<closing hour="64800" proportion="0.60" />
+	</workHours>
+	
+	<streets>
+		<street edge="e01t11" population="10" workPosition="100" />
+		<street edge="e11t12" population="10" workPosition="100" />
+		<street edge="e12t13" population="10" workPosition="100" />
+		<street edge="e13t14" population="10" workPosition="100" />
+		<street edge="e11t21" population="10" workPosition="100" />
+		<street edge="e12t22" population="10" workPosition="100" />
+		<street edge="e13t23" population="10" workPosition="100" />
+		<street edge="e14t24" population="10" workPosition="100" />
+		<street edge="e21t22" population="10" workPosition="100" />
+		<street edge="e22t23" population="10" workPosition="100" />
+		<street edge="e23t24" population="10" workPosition="100" />
+		<street edge="e21t31" population="10" workPosition="100" />
+		<street edge="e22t32" population="100" workPosition="10" />
+		<street edge="e23t33" population="100" workPosition="10" />
+		<street edge="e24t34" population="100" workPosition="10" />
+		<street edge="e31t32" population="100" workPosition="10" />
+		<street edge="e32t33" population="100" workPosition="10" />
+		<street edge="e33t34" population="100" workPosition="10" />
+		<street edge="e31t41" population="100" workPosition="10" />
+		<street edge="e32t42" population="100" workPosition="10" />
+		<street edge="e33t43" population="100" workPosition="10" />
+		<street edge="e34t44" population="100" workPosition="10" />
+		<street edge="e41t42" population="100" workPosition="10" />
+		<street edge="e42t43" population="100" workPosition="10" />
+		<street edge="e43t44" population="100" workPosition="10" />
+		<street edge="e44t51" population="100" workPosition="10" />
+	</streets>
+	
+	<cityGates>
+		<entrance edge="e01t11" pos="1" />
+		<entrance edge="e44t51" pos="280" />
+	</cityGates>
+	
+	<schools>
+		<school edge="e11t12" pos="20" beginAge="0" endAge="6" capacity="200" opening="32400" closing="64800" />
+		<school edge="e33t34" pos="100" beginAge="3" endAge="12" capacity="150" opening="30600" closing="64800" />
+		<school edge="e41t42" pos="50" beginAge="10" endAge="20" capacity="300" opening="32400" closing="61200" />
+	</schools>
+	
+	<busStations>
+		<busStation id="1" edge="e11t12" pos="10" />
+		<busStation id="2" edge="e12t13" pos="10" />
+		<busStation id="3" edge="e13t14" pos="10" />
+		<busStation id="4" edge="e14t24" pos="10" />
+		<busStation id="5" edge="e24t23" pos="10" />
+		<busStation id="6" edge="e23t33" pos="10" />
+		<busStation id="7" edge="e33t32" pos="10" />
+		<busStation id="8" edge="e32t31" pos="10" />
+		<busStation id="9" edge="e31t21" pos="10" />
+		<busStation id="10" edge="e21t11" pos="10" />
+
+		<busStation id="101" edge="e12t11" pos="10" />
+		<busStation id="102" edge="e13t12" pos="10" />
+		<busStation id="103" edge="e14t13" pos="10" />
+		<busStation id="104" edge="e24t14" pos="10" />
+		<busStation id="105" edge="e23t24" pos="10" />
+		<busStation id="106" edge="e33t23" pos="10" />
+		<busStation id="107" edge="e32t33" pos="10" />
+		<busStation id="108" edge="e31t32" pos="10" />
+		<busStation id="109" edge="e21t31" pos="10" />
+		<busStation id="110" edge="e11t21" pos="10" />
+
+		<busStation id="11" edge="e12t22" pos="10" />
+		<busStation id="12" edge="e22t32" pos="10" />
+		<busStation id="13" edge="e32t42" pos="10" />
+		<busStation id="14" edge="e42t41" pos="10" />
+		<busStation id="15" edge="e41t31" pos="10" />
+
+		<busStation id="111" edge="e22t12" pos="10" />
+		<busStation id="112" edge="e32t22" pos="10" />
+		<busStation id="113" edge="e42t32" pos="10" />
+		<busStation id="114" edge="e41t42" pos="10" />
+		<busStation id="115" edge="e31t41" pos="10" />
+	</busStations>
+	
+	<busLines>
+		<busLine id="101" maxTripDuration="10">
+			<stations>
+				<station refid="1" />
+				<station refid="3" />
+				<station refid="4" />
+				<station refid="5" />
+				<station refid="6" />
+				<station refid="7" />
+				<station refid="8" />
+				<station refid="9" />
+			</stations>
+			<revStations>
+				<station refid="109" />
+				<station refid="108" />
+				<station refid="107" />
+				<station refid="106" />
+				<station refid="105" />
+				<station refid="104" />
+				<station refid="103" />
+				<station refid="102" />
+			</revStations>
+			<frequencies>
+				<frequency begin="21600" end="36000" rate="300" />
+				<frequency begin="36000" end="57600" rate="1800" />
+				<frequency begin="57600" end="68400" rate="300" />
+				<frequency begin="68400" end="86399" rate="1800" />
+			</frequencies>
+		</busLine>
+		
+		<busLine id="102" maxTripDuration="7">
+			<stations>
+				<station refid="15" />
+				<station refid="9" />
+				<station refid="10" />
+				<station refid="1" />
+				<station refid="11" />
+				<station refid="12" />
+				<station refid="13" />
+				<station refid="14" />
+			</stations>
+			<revStations>
+				<station refid="114" />
+				<station refid="113" />
+				<station refid="112" />
+				<station refid="111" />
+				<station refid="101" />
+				<station refid="110" />
+				<station refid="109" />
+				<station refid="115" />
+			</revStations>
+			<frequencies>
+				<frequency begin="28800" end="32400" rate="600" />
+				<frequency begin="57600" end="64800" rate="600" />
+			</frequencies>
+		</busLine>
+	</busLines>
+	
+</city>
