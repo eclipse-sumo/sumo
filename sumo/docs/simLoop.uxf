@@ -20,19 +20,22 @@
 //////////////////////////////////////////////////////////////////////////////////////////////
 
 
-// This text will be stored with each diagram;  use it for notes.</help_text><zoom_level>10</zoom_level><element><type>com.umlet.element.base.SequenceDiagram</type><coordinates><x>10</x><y>10</y><w>750</w><h>500</h></coordinates><panel_attributes>title: MSNet::simulationStep
+// This text will be stored with each diagram;  use it for notes.</help_text><zoom_level>10</zoom_level><element><type>com.umlet.element.custom.SeqObjectActive</type><coordinates><x>1650</x><y>170</y><w>20</w><h>60</h></coordinates><panel_attributes/><additional_attributes/></element><element><type>com.umlet.element.base.SequenceDiagram</type><coordinates><x>20</x><y>20</y><w>770</w><h>590</h></coordinates><panel_attributes>title: MSNet::simulationStep
 MSNet~net|MSEdgeControl~ec|MSLane~lane|MSVehicle~veh
 1-&gt;&gt;&gt;2:net,ec:patchActiveLanes()
 2-&gt;1:net,ec
 1-&gt;&gt;&gt;2:net,ec:moveCritical(t)
-2-&gt;&gt;&gt;3:ec,lane:moveCritical(t)
-3-&gt;&gt;&gt;4:moveRegardingCritical(t)
-4-&gt;&gt;&gt;4:vsafeCriticalCont(t)
-1-&gt;&gt;&gt;2:moveFirst(t)
-2-&gt;&gt;&gt;3:setCritical(t)
-3-&gt;&gt;&gt;4:moveFirstChecked(t)
-3-&gt;&gt;&gt;3:pop(veh)
-3-&gt;&gt;&gt;3:push(veh)
-2-&gt;&gt;&gt;3:integrateNewVehicle(t)
-1-&gt;&gt;&gt;2:changeLanes(t)
+2-&gt;&gt;&gt;3:net,ec,lane:moveCritical(t)
+3-&gt;&gt;&gt;4:net,ec,lane,veh:moveRegardingCritical(t)
+4-&gt;&gt;&gt;4:net,ec,lane,veh:vsafeCriticalCont(t)
+4-&gt;3:net,ec,veh,lane
+3-&gt;2:net,ec,lane,ec
+2-&gt;1:ec,net
+1-&gt;&gt;&gt;2:net,ec:moveFirst(t)
+2-&gt;&gt;&gt;3:net,ec,lane:setCritical(t)
+3-&gt;&gt;&gt;4:net,ec,lane,veh:moveFirstChecked(t)
+3-&gt;&gt;&gt;3:net,ec,lane,lane:pop(veh)
+3-&gt;&gt;&gt;3:net,ec,lane,lane:push(veh)
+2-&gt;&gt;&gt;3:net,ec,lane:integrateNewVehicle(t)
+1-&gt;&gt;&gt;2:net,ec:changeLanes(t)
 </panel_attributes><additional_attributes/></element></umlet_diagram>
