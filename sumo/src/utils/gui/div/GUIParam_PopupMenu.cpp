@@ -72,7 +72,7 @@ GUIParam_PopupMenuInterface::~GUIParam_PopupMenuInterface() throw() {
 long
 GUIParam_PopupMenuInterface::onCmdOpenTracker(FXObject*,FXSelector,void*) {
     std::string trackerName = myVarName + " from " + myObject->getFullName();
-    GUIParameterTracker *tr = new GUIParameterTracker(*myApplication, trackerName, *myObject, 0, 0);
+    GUIParameterTracker *tr = new GUIParameterTracker(*myApplication, trackerName);
     TrackerValueDesc *newTracked = new TrackerValueDesc(myVarName, RGBColor(0, 0, 0), myApplication->getCurrentSimTime());
     tr->addTracked(*myObject, mySource->copy(), newTracked);
     tr->create();

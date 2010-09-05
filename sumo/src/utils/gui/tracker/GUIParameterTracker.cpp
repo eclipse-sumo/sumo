@@ -75,7 +75,7 @@ FXIMPLEMENT(GUIParameterTracker,FXMainWindow,GUIParameterTrackerMap,ARRAYNUMBER(
 // method definitions
 // ===========================================================================
 GUIParameterTracker::GUIParameterTracker(GUIMainWindow &app,
-        const std::string &name)
+        const std::string &name) throw()
         : FXMainWindow(app.getApp(),"Tracker",NULL,NULL,DECOR_ALL,20,20,300,200),
         myApplication(&app) {
     buildToolBar();
@@ -87,28 +87,13 @@ GUIParameterTracker::GUIParameterTracker(GUIMainWindow &app,
 }
 
 
-GUIParameterTracker::GUIParameterTracker(GUIMainWindow &app,
-        const std::string &name,
-        GUIGlObject &/*o*/,
-        int /*xpos*/, int /*ypos*/)
-        : FXMainWindow(app.getApp(),"Tracker",NULL,NULL,DECOR_ALL,20, 20,300,200),
-        myApplication(&app) {
-    buildToolBar();
-    app.addChild(this, true);
-    FXVerticalFrame *glcanvasFrame = new FXVerticalFrame(this, FRAME_SUNKEN|LAYOUT_SIDE_TOP|LAYOUT_FILL_X|LAYOUT_FILL_Y, 0,0,0,0,0,0,0,0);
-    myPanel = new GUIParameterTrackerPanel(glcanvasFrame, *myApplication, *this);
-    setTitle(name.c_str());
-    setIcon(GUIIconSubSys::getIcon(ICON_APP_TRACKER));
-}
-
-
-GUIParameterTracker::~GUIParameterTracker() {
+GUIParameterTracker::~GUIParameterTracker() throw() {
     myApplication->removeChild(this);
-    for (TrackedVarsVector::iterator i1=myTracked.begin(); i1!=myTracked.end(); i1++) {
+    for (std::vector<TrackerValueDesc*>::iterator i1=myTracked.begin(); i1!=myTracked.end(); i1++) {
         delete(*i1);
     }
     // deleted by GUINet
-    for (ValuePasserVector::iterator i2=myValuePassers.begin(); i2!=myValuePassers.end(); i2++) {
+    for (std::vector<GLObjectValuePassConnector<SUMOReal>*>::iterator i2=myValuePassers.begin(); i2!=myValuePassers.end(); i2++) {
         delete(*i2);
     }
     delete myToolBarDrag;
@@ -124,7 +109,7 @@ GUIParameterTracker::create() {
 
 
 void
-GUIParameterTracker::buildToolBar() {
+GUIParameterTracker::buildToolBar() throw() {
     myToolBarDrag = new FXToolBarShell(this,FRAME_NORMAL);
     myToolBar = new FXToolBar(this,myToolBarDrag, LAYOUT_SIDE_TOP|LAYOUT_FILL_X|FRAME_RAISED);
     new FXToolBarGrip(myToolBar, myToolBar, FXToolBar::ID_TOOLBARGRIP, TOOLBARGRIP_DOUBLE);
@@ -148,7 +133,7 @@ GUIParameterTracker::buildToolBar() {
 
 void
 GUIParameterTracker::addTracked(GUIGlObject &o, ValueSource<SUMOReal> *src,
-                                TrackerValueDesc *newTracked) {
+                                TrackerValueDesc *newTracked) throw() {
     myTracked.push_back(newTracked);
     // build connection (is automatically set into an execution map)
     myValuePassers.push_back(new GLObjectValuePassConnector<SUMOReal>(o, src, newTracked));
@@ -203,8 +188,7 @@ GUIParameterTracker::onCmdChangeAggregation(FXObject*,FXSelector,void*) {
         throw 1;
         break;
     }
-    TrackedVarsVector::iterator i1;
-    for (i1=myTracked.begin(); i1!=myTracked.end(); i1++) {
+	for (std::vector<TrackerValueDesc*>::iterator i1=myTracked.begin(); i1!=myTracked.end(); i1++) {
         (*i1)->setAggregationSpan(TIME2STEPS(aggInt));
     }
     return 1;
@@ -220,7 +204,7 @@ GUIParameterTracker::onCmdSave(FXObject*,FXSelector,void*) {
     try {
         OutputDevice &dev = OutputDevice::getDevice(file.text());
         // write header
-        TrackedVarsVector::iterator i;
+        std::vector<TrackerValueDesc*>::iterator i;
         dev << "# ";
         for (i=myTracked.begin(); i!=myTracked.end(); ++i) {
             if (i!=myTracked.begin()) {
@@ -276,26 +260,18 @@ FXIMPLEMENT(GUIParameterTracker::GUIParameterTrackerPanel,FXGLCanvas,GUIParamete
 
 GUIParameterTracker::GUIParameterTrackerPanel::GUIParameterTrackerPanel(
     FXComposite *c, GUIMainWindow &app,
-    GUIParameterTracker &parent)
+    GUIParameterTracker &parent) throw()
         : FXGLCanvas(c, app.getGLVisual(), app.getBuildGLCanvas(), (FXObject*) 0, (FXSelector) 0, LAYOUT_SIDE_TOP|LAYOUT_FILL_X|LAYOUT_FILL_Y, 0, 0, 300, 200),
         myParent(&parent), myApplication(&app) {}
 
 
-GUIParameterTracker::GUIParameterTrackerPanel::~GUIParameterTrackerPanel() {}
+GUIParameterTracker::GUIParameterTrackerPanel::~GUIParameterTrackerPanel() throw() {}
 
 
 void
-GUIParameterTracker::GUIParameterTrackerPanel::drawValues() {
-    // compute which font to use
-    /*
-    SUMOReal fontIdx = ((SUMOReal) myWidthInPixels-300.) / 10.;
-    if(fontIdx<=0) fontIdx = 1;
-    if(fontIdx>4) fontIdx = 4;
-    */
+GUIParameterTracker::GUIParameterTrackerPanel::drawValues() throw() {
     pfSetScale((SUMOReal) 0.1);
     pfSetScaleXY((SUMOReal)(.1*300./myWidthInPixels), (SUMOReal)(.1*300./(SUMOReal) myHeightInPixels));
-
-//    GUITexturesHelper::getFontRenderer().SetActiveFont(4-fontIdx);
     //
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
@@ -303,19 +279,18 @@ GUIParameterTracker::GUIParameterTrackerPanel::drawValues() {
     glLoadIdentity();
     glDisable(GL_TEXTURE_2D);
     size_t run = 0;
-    for (TrackedVarsVector::iterator i=myParent->myTracked.begin(); i!=myParent->myTracked.end(); i++) {
+    for (std::vector<TrackerValueDesc*>::iterator i=myParent->myTracked.begin(); i!=myParent->myTracked.end(); i++) {
         TrackerValueDesc *desc = *i;
         drawValue(*desc,
                   (SUMOReal) myWidthInPixels / (SUMOReal) myParent->myTracked.size() *(SUMOReal) run);
         run++;
     }
-//    GUITexturesHelper::getFontRenderer().Draw(myWidthInPixels, myHeightInPixels);//this, width, height);
 }
 
 
 void
 GUIParameterTracker::GUIParameterTrackerPanel::drawValue(TrackerValueDesc &desc,
-        SUMOReal /*namePos*/) {
+        SUMOReal /*namePos*/) throw() {
     // apply scaling
     glPushMatrix();
 
@@ -380,7 +355,6 @@ GUIParameterTracker::GUIParameterTrackerPanel::drawValue(TrackerValueDesc &desc,
 
     // draw value bounderies and descriptions
     glColor3d(red, green, blue);
-//    GUITexturesHelper::getFontRenderer().SetColor(red*0.5f, green*0.5f, blue*0.5f);
 
     // draw min time
     SUMOTime beginStep = desc.getRecordingBegin();
@@ -434,89 +408,6 @@ GUIParameterTracker::GUIParameterTrackerPanel::drawValue(TrackerValueDesc &desc,
     pfDrawString(desc.getName().c_str());
     glTranslated(0.98, .92, 0);
     glRotated(-180, 1, 0, 0);
-
-    /*
-
-    GUITexturesHelper::getFontRenderer().StringOut(3,
-        patchHeightVal(desc, desc.getMin()),
-        toString(desc.getMin()));
-        // draw maximum boundary
-    GUITexturesHelper::getFontRenderer().StringOut(3,
-        patchHeightVal(desc, desc.getMax()),
-        toString(desc.getMax()));
-        // draw some further lines
-    glColor4f(red, green, blue, 0.3f);
-    for(int a=1; a<6; a++) {
-        SUMOReal ypos = (desc.getRange()) / 6.0 * (SUMOReal) a + desc.getMin();
-        glBegin( GL_LINES );
-        glVertex2d(0, ypos);
-        glVertex2d(2.0, ypos);
-        glEnd();
-    }
-
-    const std::vector<SUMOReal> &values = desc.getAggregatedValues();
-    if(values.size()<2) {
-        glPopMatrix();
-        desc.unlockValues();
-        return;
-    }
-
-    SUMOTime beginStep = desc.getRecordingBegin();
-
-    // init values
-    SUMOReal xStep = 2.0 / ((SUMOReal) values.size());
-    std::vector<SUMOReal>::const_iterator i = values.begin();
-    SUMOReal yp = (*i);
-    SUMOReal xp = 0;
-    i++;
-    // set color
-    glColor4f(red, green, blue, 1.0f);
-    for(; i!=values.end(); i++) {
-        SUMOReal yn = (*i);
-        SUMOReal xn = xp + xStep;
-        glBegin( GL_LINES );
-        glVertex2d(xp, yp);
-        glVertex2d(xn, yn);
-        glEnd();
-        yp = yn;
-        xp = xn;
-    }
-    desc.unlockValues();
-    glPopMatrix();
-    // set the begin and the end time step
-        // begin
-    std::string val = toString(beginStep);
-    GUITexturesHelper::getFontRenderer().StringOut(
-        (SUMOReal) (getWidth()/10.0*1.0
-            - GUITexturesHelper::getFontRenderer().GetStringWidth(val)/2),
-        (SUMOReal) (patchHeightVal(desc, desc.getMin())
-            + GUITexturesHelper::getFontRenderer().GetHeight()),
-        val);
-        // end
-    val = toString(beginStep + values.size()*desc.getAggregationSpan());
-    GUITexturesHelper::getFontRenderer().StringOut(
-        (SUMOReal) (getWidth()/10.0*9.0
-            - GUITexturesHelper::getFontRenderer().GetStringWidth(val)/2),
-        (SUMOReal) (patchHeightVal(desc, desc.getMin())
-            + GUITexturesHelper::getFontRenderer().GetHeight()),
-        val);
-    // add current value string
-    GUITexturesHelper::getFontRenderer().StringOut(3,
-        patchHeightVal(desc, yp), toString(yp));
-    GUITexturesHelper::getFontRenderer().StringOut(namePos+3, 0,
-        desc.getName());
-        */
-}
-
-
-SUMOReal
-GUIParameterTracker::GUIParameterTrackerPanel::patchHeightVal(TrackerValueDesc &desc,
-        SUMOReal d) {
-    SUMOReal height = (SUMOReal) myHeightInPixels;
-    SUMOReal range = (SUMOReal) desc.getRange();
-    SUMOReal yoff = (SUMOReal) desc.getYCenter();
-    SUMOReal abs = (height) * (((SUMOReal)d-yoff)/range) * 0.8f;
-    return (height * 0.5f) - abs - 6;
 }
 
 

@@ -45,48 +45,65 @@
 // ===========================================================================
 // class definitions
 // ===========================================================================
-/**
- *
+/** @class GUIParameterTracker
+ * @brief A window which displays the time line of one (or more) value(s)
  */
 class GUIParameterTracker : public FXMainWindow {
     FXDECLARE(GUIParameterTracker)
 public:
+	/// @brief callback-enumerations
     enum {
+		/// @brief Change aggregation interval
         MID_AGGREGATIONINTERVAL = FXMainWindow::ID_LAST,
+		/// @brief Save the current values
         MID_SAVE,
+		/// @brief end-of-enum
         ID_LAST
     };
-    /// Constructor (one value is defined)
-    GUIParameterTracker(GUIMainWindow &app, const std::string &name,
-                        GUIGlObject &o, int xpos, int ypos);
 
-    /// Constructor (the tracker is empty)
-    GUIParameterTracker(GUIMainWindow &app, const std::string &name);
 
-    /// Destructor
-    ~GUIParameterTracker();
+    /** @brief Constructor (the tracker is empty)
+	 * @param[in] app The main application window
+	 * @param[in] name The title of the tracker
+	 */
+    GUIParameterTracker(GUIMainWindow &app, const std::string &name) throw();
 
-    /// Creates the window
+
+    /// @brief Destructor
+    ~GUIParameterTracker() throw();
+
+
+    /// @brief Creates the window
     void create();
 
-    /// Adds a further time line to display
-    void addTracked(GUIGlObject &o, ValueSource<SUMOReal> *src,
-                    TrackerValueDesc *newTracked);
 
-    /// Called on window resizing
+    /** @brief Adds a further time line to display
+	 * @param[in] o The object to get values from
+	 * @param[in] src The value source of the object
+	 * @param[in] newTracked The description of the tracked value
+	 */
+    void addTracked(GUIGlObject &o, ValueSource<SUMOReal> *src,
+                    TrackerValueDesc *newTracked) throw();
+
+
+	/// @name FOX-callbacks
+	/// @{
+
+    /// @brief Called on window resizing
     long onConfigure(FXObject*,FXSelector,void*);
 
-    /// Called if the window shall be repainted
+    /// @brief Called if the window shall be repainted
     long onPaint(FXObject*,FXSelector,void*);
 
-    /// Called on a simulation step
+    /// @brief Called on a simulation step
     long onSimStep(FXObject*,FXSelector,void*);
 
-    /// Called when the aggregation interval (combo) has been changed
+    /// @brief Called when the aggregation interval (combo) has been changed
     long onCmdChangeAggregation(FXObject*,FXSelector,void*);
 
-    /// Called when the data shall be saved
+    /// @brief Called when the data shall be saved
     long onCmdSave(FXObject*,FXSelector,void*);
+	/// @}
 
 
 public:
@@ -99,17 +116,25 @@ public:
     class GUIParameterTrackerPanel : public FXGLCanvas {
         FXDECLARE(GUIParameterTrackerPanel)
     public:
-        /// Constructor
+        /** @brief Constructor
+		 * @param[in] c The parent composite
+		 * @param[in] app The main window
+		 * @param[in] parent The parent tracker window this view belongs to
+		 */
         GUIParameterTrackerPanel(FXComposite *c, GUIMainWindow &app,
-                                 GUIParameterTracker &parent);
+                                 GUIParameterTracker &parent) throw();
 
-        /// Destructor
-        ~GUIParameterTrackerPanel();
+        /// @brief Destructor
+        ~GUIParameterTrackerPanel() throw();
 
-        /// needed to update
+        /// @brief needed to update
         friend class GUIParameterTracker;
 
-        /// Called on window resizing
+
+		/// @name FOX-callbacks
+		/// @{
+
+		/// Called on window resizing
         long onConfigure(FXObject*,FXSelector,void*);
 
         /// Called if the window shall be repainted
@@ -117,25 +142,29 @@ public:
 
         /// Called on a simulation step
         long onSimStep(FXObject*sender,FXSelector,void*);
+		/// @}
+
 
     private:
-        /// Draws all values
-        void drawValues();
+        /** @brief Draws all values
+		 */
+        void drawValues() throw();
 
-        /// Draws a single value
-        void drawValue(TrackerValueDesc &desc, SUMOReal namePos);
+        /** @brief Draws a single value
+		 * @param[in] desc The tracked values to draw
+		 * @param[in] namePos Position to display the name at (currently unused)
+		 */
+        void drawValue(TrackerValueDesc &desc, SUMOReal namePos) throw();
 
-        /// Applies the max and min of the value(t) to the current size of the panel
-        SUMOReal patchHeightVal(TrackerValueDesc &desc, SUMOReal d);
 
     private:
-        /// The parent window
+        /// @brief The parent window
         GUIParameterTracker *myParent;
 
-        /// the sizes of the window
+        /// @brief the sizes of the window
         int myWidthInPixels, myHeightInPixels;
 
-        /// The main application
+        /// @brief The main application
         GUIMainWindow *myApplication;
 
     protected:
@@ -144,43 +173,37 @@ public:
     };
 
 public:
-    /// the panel may change some things
+    /// @brief the panel may change some things
     friend class GUIParameterTrackerPanel;
 
 private:
-    /// Builds the tool bar
-    void buildToolBar();
+    /// @brief Builds the tool bar
+    void buildToolBar() throw();
 
 
 protected:
-    /// The main application
+    /// @brief The main application
     GUIMainWindow *myApplication;
 
-    /// Definition of the container for logged values
-    typedef std::vector<TrackerValueDesc*> TrackedVarsVector;
+    /// @brief The list of tracked values
+    std::vector<TrackerValueDesc*> myTracked;
 
-    /// The list of tracked values
-    TrackedVarsVector myTracked;
-
-    /// The panel to display the values in
+    /// @brief The panel to display the values in
     GUIParameterTrackerPanel *myPanel;
 
-    /// Definition of a list of value passing objects
-    typedef std::vector<GLObjectValuePassConnector<SUMOReal>*> ValuePasserVector;
+    /// @brief The value sources
+    std::vector<GLObjectValuePassConnector<SUMOReal>*> myValuePassers;
 
-    /// The value sources
-    ValuePasserVector myValuePassers;
-
-    /// for some menu detaching fun
+    /// @brief for some menu detaching fun
     FXToolBarShell *myToolBarDrag;
 
-    /// A combo box to select an aggregation interval
+    /// @brief A combo box to select an aggregation interval
     FXComboBox *myAggregationInterval;
 
-    /// The simulation delay
+    /// @brief The simulation delay
     FXdouble myAggregationDelay;
 
-    /// The tracker tool bar
+    /// @brief The tracker tool bar
     FXToolBar *myToolBar;
 
 protected:

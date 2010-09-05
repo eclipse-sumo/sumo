@@ -116,8 +116,8 @@ GUINet::~GUINet() throw() {
     }
     // the visualization tree
     delete myGrid;
-    GLObjectValuePassConnector<SUMOReal>::clear();
-    GLObjectValuePassConnector<std::pair<SUMOTime, MSPhaseDefinition> >::clear();
+//    GLObjectValuePassConnector<SUMOReal>::clear();
+//    GLObjectValuePassConnector<std::pair<SUMOTime, MSPhaseDefinition> >::clear();
 }
 
 

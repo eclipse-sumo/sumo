@@ -102,8 +102,8 @@ public:
 	 */
     static void clear() throw() {
 		myLock.lock();
-        for (typename std::vector< GLObjectValuePassConnector<T>* >::iterator i=myContainer.begin(); i!=myContainer.end(); ++i) {
-            delete(*i);
+		while (!myContainer.empty()) {
+            delete (*myContainer.begin());
         }
         myContainer.clear();
 		myLock.unlock();
