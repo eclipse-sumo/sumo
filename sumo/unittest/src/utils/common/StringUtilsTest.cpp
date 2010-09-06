@@ -2,7 +2,7 @@
 /// @file    StringUtilsTests.cpp
 /// @author  Matthias Heppner
 /// @date    2009
-/// @version $Id: MESegment.cpp 3081 2010-08-28 06:52:54Z behr_mi $
+/// @version $Id$
 ///
 // Tests StringUtils class from <SUMO>/src/utils/common
 /****************************************************************************/

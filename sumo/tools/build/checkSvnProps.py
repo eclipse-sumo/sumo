@@ -3,7 +3,7 @@
 @file    checkSvnProps.py
 @author  Michael.Behrisch@dlr.de
 @date    2010
-@version $Id: apply_astyle.py 8385 2010-03-05 20:51:30Z behrisch $
+@version $Id$
 
 Checks svn property settings for all files.
 
@@ -23,9 +23,11 @@ class PropertyReader(xml.sax.handler.ContentHandler):
 
     def __init__(self, doFix):
         self._fix = doFix
-        self._file = None
+        self._file = ""
         self._property = None
         self._value = ""
+        self._hadEOL = False
+        self._hadKeywords = False
 
     def startElement(self, name, attrs):
         if name == 'target':
@@ -39,29 +41,46 @@ class PropertyReader(xml.sax.handler.ContentHandler):
 
 
     def endElement(self, name):
+        ext = os.path.splitext(self._file)[1]
+        if name == 'property' and self._property == "svn:eol-style":
+            self._hadEOL = True
+        if name == 'property' and self._property == "svn:keywords":
+            self._hadKeywords = True
+        if ext in _SOURCE_EXT or ext in _TESTDATA_EXT or ext in _VS_EXT:
+            if name == 'property' and self._property == "svn:executable" and ext not in [".py", ".pl"]:
+                print self._file, self._property, self._value
+                if self._fix:
+                    subprocess.call(["svn", "pd", "svn:executable", self._file])
+            if name == 'property' and self._property == "svn:mime-type":
+                print self._file, self._property, self._value
+                if self._fix:
+                    subprocess.call(["svn", "pd", "svn:mime-type", self._file])
+        if ext in _SOURCE_EXT or ext in _TESTDATA_EXT:
+            if name == 'property' and self._property == "svn:eol-style" and self._value != "LF"\
+               or name == "target" and not self._hadEOL:
+                print self._file, "svn:eol-style", self._value
+                if self._fix:
+                    if os.name == "posix":
+                        subprocess.call(["sed", "-i", 's/\r$//', self._file])
+                    subprocess.call(["svn", "ps", "svn:eol-style", "LF", self._file])
+        if ext in _SOURCE_EXT:
+            if name == 'property' and self._property == "svn:keywords" and self._value != _KEYWORDS\
+               or name == "target" and not self._hadKeywords:
+                print self._file, "svn:keywords", self._value
+                if self._fix:
+                    subprocess.call(["svn", "ps", "svn:keywords", _KEYWORDS, self._file])
+        if ext in _VS_EXT:
+            if name == 'property' and self._property == "svn:eol-style" and self._value != "CRLF"\
+               or name == "target" and not self._hadEOL:
+                print self._file, "svn:eol-style", self._value
+                if self._fix:
+                    subprocess.call(["svn", "ps", "svn:eol-style", "CRLF", self._file])
         if name == 'property':
-            ext = os.path.splitext(self._file)[1]
-            if ext in _SOURCE_EXT or ext in _TESTDATA_EXT:
-                if self._property == "svn:eol-style" and self._value != "LF":
-                    print self._file, self._property, self._value
-                    if self._fix:#it might be necessary to call: sed -i 's/\r$//'
-                        subprocess.call(["svn", "ps", "svn:eol-style", "LF", self._file])
-                if self._property == "svn:executable" and ext not in [".py", ".pl"]:
-                    print self._file, self._property, self._value
-                    if self._fix:
-                        subprocess.call(["svn", "pd", "svn:executable", self._file])
-            if ext in _SOURCE_EXT:
-                if self._property == "svn:keywords" and self._value != _KEYWORDS:
-                    print self._file, self._property, self._value
-                    if self._fix:
-                        subprocess.call(["svn", "ps", "svn:keywords", _KEYWORDS, self._file])
-            if ext in _VS_EXT:
-                if self._property == "svn:eol-style" and self._value != "CRLF":
-                    print self._file, self._property, self._value
-                    if self._fix:
-                        subprocess.call(["svn", "ps", "svn:eol-style", "CRLF", self._file])
             self._value = ""
             self._property = None
+        if name == 'target':
+            self._hadEOL = False
+            self._hadKeywords = False
 
 
 doFix = len(sys.argv) == 2 and sys.argv[1] in ["-f" , "--fix"]
