@@ -54,6 +54,7 @@
 #include "trigger/MSBusStop.h"
 #include <utils/common/DijkstraRouterTT.h>
 #include "MSPerson.h"
+#include "MSPersonControl.h"
 #include <utils/common/RandHelper.h>
 #include "devices/MSDevice_Routing.h"
 #include <microsim/devices/MSDevice_HBEFA.h>
@@ -744,7 +745,9 @@ MSVehicle::processNextStop(SUMOReal currentVelocity) throw() {
 //            if (myState.pos()>=endPos-offset&&busStopsMustHaveSpace) {
             if (myState.pos()>=endPos-BUS_STOP_OFFSET&&busStopsMustHaveSpace) {
                 // ok, we may stop (have reached the stop)
-                MSNet::getInstance()->getPersonControl().checkWaiting(&myLane->getEdge(), this);
+                if (MSNet::getInstance()->getPersonControl().checkWaiting(&myLane->getEdge(), this) && bstop.triggered) {
+                    bstop.duration = 0;
+                }
                 MSNet::getInstance()->getVehicleControl().addWaiting(&myLane->getEdge(), this);
                 if (hasCORNPointerValue(MSCORN::CORN_P_VEH_PASSENGER)) {
                     std::vector<MSPerson*> *persons = (std::vector<MSPerson*>*) myPointerCORNMap[MSCORN::CORN_P_VEH_PASSENGER];

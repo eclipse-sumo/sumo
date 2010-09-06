@@ -40,6 +40,7 @@
 #include <sstream>
 #include <utils/common/UtilExceptions.h>
 #include "MSNet.h"
+#include "MSPersonControl.h"
 #include "MSEdgeControl.h"
 #include "MSJunctionControl.h"
 #include "MSEmitControl.h"
@@ -390,12 +391,7 @@ MSNet::simulationStep() {
 
     // persons
     if (myPersonControl!=0) {
-        while (myPersonControl->hasArrivedPersons(myStep)) {
-            const MSPersonControl::PersonVector &persons = myPersonControl->popArrivedPersons(myStep);
-            for (MSPersonControl::PersonVector::const_iterator i=persons.begin(); i!=persons.end(); ++i) {
-                (*i)->proceed(this, myStep);
-            }
-        }
+        myPersonControl->checkArrivedPersons(this, myStep);
     }
     // emit Vehicles
     myEmitter->emitVehicles(myStep);

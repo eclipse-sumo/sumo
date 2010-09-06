@@ -102,17 +102,15 @@ MSPersonControl::setArrival(const SUMOTime time, MSPerson *person) {
 }
 
 
-bool
-MSPersonControl::hasArrivedPersons(SUMOTime time) const {
-    return myArrivals.find(time)!=myArrivals.end();
-}
-
-
-const MSPersonControl::PersonVector
-MSPersonControl::popArrivedPersons(SUMOTime time) {
-    MSPersonControl::PersonVector arrived = myArrivals[time];
-    myArrivals.erase(time);
-    return arrived;
+void
+MSPersonControl::checkArrivedPersons(MSNet* net, const SUMOTime time) {
+    while (myArrivals.find(time)!=myArrivals.end()) {
+        const PersonVector &persons = myArrivals[time];
+        myArrivals.erase(time);
+        for (PersonVector::const_iterator i=persons.begin(); i!=persons.end(); ++i) {
+            (*i)->proceed(net, time);
+        }
+    }
 }
 
 
@@ -125,8 +123,9 @@ MSPersonControl::addWaiting(const MSEdge* const edge, MSPerson *person) throw() 
 }
 
 
-void
+bool
 MSPersonControl::checkWaiting(const MSEdge* const edge, MSVehicle *vehicle) throw() {
+    bool ret = false;
     if (myWaiting.find(edge) != myWaiting.end()) {
         PersonVector &waitPersons = myWaiting[edge];
         for (PersonVector::iterator i=waitPersons.begin(); i!=waitPersons.end();) {
@@ -134,11 +133,13 @@ MSPersonControl::checkWaiting(const MSEdge* const edge, MSVehicle *vehicle) thro
             if ((*i)->isWaitingFor(line)) {
                 vehicle->addPerson(*i);
                 i = waitPersons.erase(i);
+                ret = true;
             } else {
                 ++i;
             }
         }
     }
+    return ret;
 }
 
 

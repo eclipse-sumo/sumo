@@ -36,6 +36,7 @@
 // class declarations
 // ===========================================================================
 class MSPerson;
+class MSNet;
 
 
 // ===========================================================================
@@ -68,17 +69,14 @@ public:
     /// sets the arrival time for a waiting or walking person
     void setArrival(SUMOTime time, MSPerson *person);
 
-    /// returns whether any persons waiting or walking time is over
-    bool hasArrivedPersons(SUMOTime time) const;
-
-    /// returns the list of persons which waiting or walking period is over
-    const PersonVector popArrivedPersons(SUMOTime time);
+    /// checks whether any persons waiting or walking time is over
+    void checkArrivedPersons(MSNet* net, const SUMOTime time);
 
     /// adds a person to the list of persons waiting for a vehicle on the specified edge
     void addWaiting(const MSEdge* edge, MSPerson *person) throw();
 
-    /// checkls whether a person waits for the specified vehicle and if so removes it from the list
-    void checkWaiting(const MSEdge* edge, MSVehicle *vehicle) throw();
+    /// checks whether a person waits for the specified vehicle and if so removes it from the list
+    bool checkWaiting(const MSEdge* edge, MSVehicle *vehicle) throw();
 
 
 private:

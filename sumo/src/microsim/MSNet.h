@@ -38,7 +38,6 @@
 #include <cmath>
 #include <iomanip>
 #include "MSVehicleControl.h"
-#include "MSPersonControl.h"
 #include "MSEventControl.h"
 #include <utils/geom/Boundary.h>
 #include <utils/geom/Position2D.h>
@@ -58,6 +57,7 @@ class MSEdgeControl;
 class MSJunctionControl;
 class MSEmitControl;
 class MSRouteLoaderControl;
+class MSPersonControl;
 class MSVehicle;
 class MSRoute;
 class MSLane;

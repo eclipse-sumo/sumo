@@ -9,3 +9,9 @@ public
 
 # person waiing for a public transport ride
 public_wait
+
+# person waiting to get a lift
+triggered
+
+# car waiting for person
+vehicle_triggered

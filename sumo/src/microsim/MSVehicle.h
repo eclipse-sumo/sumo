@@ -30,7 +30,6 @@
 #endif
 
 #include "MSEdge.h"
-#include "MSNet.h"
 #include "MSRoute.h"
 #include "MSCORN.h"
 #include "MSGlobals.h"
@@ -61,9 +60,11 @@ class MSLaneChanger;
 class MSVehicleTransfer;
 class MSAbstractLaneChangeModel;
 class MSBusStop;
-class OutputDevice;
+class MSPerson;
 class MSDevice;
 class MSEdgeWeightsStorage;
+class OutputDevice;
+class Position2D;
 #ifdef _MESSAGES
 class MSMessageEmitter;
 #endif

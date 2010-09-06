@@ -39,6 +39,7 @@
 #include <microsim/MSVehicleControl.h>
 #include <microsim/MSLane.h>
 #include "MSRouteHandler.h"
+#include "MSPersonControl.h"
 #include <utils/xml/SUMOSAXHandler.h>
 #include <utils/xml/SUMOXMLDefinitions.h>
 #include <utils/common/MsgHandler.h>
