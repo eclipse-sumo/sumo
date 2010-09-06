@@ -14,7 +14,7 @@ All rights reserved
 import os, subprocess, sys, xml.sax
 
 _SOURCE_EXT = [".h", ".cpp", ".py", ".pl", ".java", ".am"]
-_TESTDATA_EXT = [".xml", ".complex", ".dfrouter", ".duarouter", ".jtrrouter", ".netconvert", ".netgen", ".od2trips", ".polyconvert", ".sumo", ".meso", ".tools", ".traci", ".activitygen"]
+_TESTDATA_EXT = [".xml", ".cfg", ".complex", ".dfrouter", ".duarouter", ".jtrrouter", ".netconvert", ".netgen", ".od2trips", ".polyconvert", ".sumo", ".meso", ".tools", ".traci", ".activitygen"]
 _VS_EXT = [".vsprops", ".sln", ".vcproj"]
 _KEYWORDS = "HeadURL Id LastChangedBy LastChangedDate LastChangedRevision"
 
