@@ -648,7 +648,7 @@ MSRouteHandler::addStop(const SUMOSAXAttributes &attrs) throw(ProcessError) {
             WRITE_WARNING("Deprecated attribute 'pos' in description of stop" + errorSuffix);
             stop.endPos = attrs.getOptSUMORealReporting(SUMO_ATTR_POSITION, "stop", 0, ok, stop.endPos);
         }
-        stop.startPos = attrs.getOptSUMORealReporting(SUMO_ATTR_STARTPOS, "stop", 0, ok, stop.endPos - POSITION_EPS);
+        stop.startPos = attrs.getOptSUMORealReporting(SUMO_ATTR_STARTPOS, "stop", 0, ok, stop.endPos - 2 * POSITION_EPS);
         if (!ok || !checkStopPos(stop.startPos, stop.endPos, MSLane::dictionary(stop.lane)->getLength(), POSITION_EPS,
                                  attrs.getOptBoolReporting(SUMO_ATTR_FRIENDLY_POS, "stop", 0, ok, false))) {
             MsgHandler::getErrorInstance()->inform("Invalid start or end position for stop" + errorSuffix);
