@@ -2,7 +2,7 @@
 <routes>
   <vehicle depart="1" id="veh0">
      <route edges="1to2 out"/>
-     <stop lane="1to2_0" pos="999990" duration="30000"/>
+     <stop lane="1to2_0" endPos="999990" duration="30000"/>
   </vehicle>
   <flow begin="2" id="v" no="20000" period="2">
      <route edges="1to2 out"/>
