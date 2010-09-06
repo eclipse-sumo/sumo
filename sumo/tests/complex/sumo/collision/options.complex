@@ -1,0 +1,1 @@
+-c sumo.sumo.cfg tests/complex/sumo/collision/runner.py

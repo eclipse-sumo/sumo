@@ -1,3 +1,5 @@
+# variation on depart times and stop positions may induce collisions
+collision
 # Whether vehicles driving on a ringway do not brake
 ringNoBrake
 
