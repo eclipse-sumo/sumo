@@ -175,10 +175,10 @@ public:
      * @param[in] parent The view
      * @param[in] s The settings for the current view (may influence drawing)
      */
-	virtual void drawGLAdditional(GUISUMOAbstractView * const parent, const GUIVisualizationSettings &s) const throw();
+    virtual void drawGLAdditional(GUISUMOAbstractView * const parent, const GUIVisualizationSettings &s) const throw();
     //@}
 
-
+ 
 
 	/// @name Additional visualisations
 	/// @{
@@ -290,15 +290,17 @@ public:
 	/// @name Additional visualisations
 	/// @{
 
-	/** @brief Additional visualisation feature ids
-	 */
+    /** @brief Additional visualisation feature ids
+     */
     enum VisualisationFeatures {
-		/// @brief show vehicle's best lanes
+        /// @brief show vehicle's best lanes
         VO_SHOW_BEST_LANES = 1,
-		/// @brief show vehicle's current route
+        /// @brief show vehicle's current route
         VO_SHOW_ROUTE = 2,
-		/// @brief show all vehicle's routes
-        VO_SHOW_ALL_ROUTES = 4
+        /// @brief show all vehicle's routes
+        VO_SHOW_ALL_ROUTES = 4,
+        /// @brief track vehicle
+        VO_TRACKED = 8
     };
 
 	/// @brief Enabled visualisations, per view

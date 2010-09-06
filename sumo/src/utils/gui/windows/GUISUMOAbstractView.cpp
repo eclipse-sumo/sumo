@@ -990,6 +990,9 @@ GUISUMOAbstractView::addAdditionalGLVisualisation(GUIGlObject * const which) thr
 
 bool 
 GUISUMOAbstractView::removeAdditionalGLVisualisation(GUIGlObject * const which) throw() {
+    if(getTrackedID()==which->getGlID()) {
+        stopTrack();
+    }
 	if(myAdditionallyDrawn.find(which)==myAdditionallyDrawn.end()) {
 		return false;
 	}

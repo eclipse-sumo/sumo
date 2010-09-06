@@ -187,13 +187,17 @@ GUIVehicle::GUIVehiclePopupMenu::onCmdHideBestLanes(FXObject*,FXSelector,void*) 
 long
 GUIVehicle::GUIVehiclePopupMenu::onCmdStartTrack(FXObject*,FXSelector,void*) {
     assert(myObject->getType()==GLO_VEHICLE);
-    myParent->startTrack(static_cast<GUIVehicle*>(myObject)->getGlID());
+    if (!static_cast<GUIVehicle*>(myObject)->hasActiveAddVisualisation(myParent, VO_TRACKED)) {
+        myParent->startTrack(static_cast<GUIVehicle*>(myObject)->getGlID());
+        static_cast<GUIVehicle*>(myObject)->addActiveAddVisualisation(myParent, VO_TRACKED);
+    }
     return 1;
 }
 
 long
 GUIVehicle::GUIVehiclePopupMenu::onCmdStopTrack(FXObject*,FXSelector,void*) {
     assert(myObject->getType()==GLO_VEHICLE);
+     static_cast<GUIVehicle*>(myObject)->removeActiveAddVisualisation(myParent, VO_TRACKED);
     myParent->stopTrack();
     return 1;
 }
