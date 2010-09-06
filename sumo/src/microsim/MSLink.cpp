@@ -39,11 +39,7 @@
 // ===========================================================================
 // static member variables
 // ===========================================================================
-#ifndef HAVE_SUBSECOND_TIMESTEPS
-SUMOTime MSLink::myLookaheadTime = 3;
-#else
-SUMOTime MSLink::myLookaheadTime = 3000;
-#endif
+SUMOTime MSLink::myLookaheadTime = TIME2STEPS(3);
 
 
 // ===========================================================================
@@ -56,7 +52,7 @@ MSLink::MSLink(MSLane* succLane,
         :
         myLane(succLane),
         myRequestIdx(0), myRespondIdx(0),
-        myState(state), myDirection(dir),  myLength(length), myLastSwitchGreenTime(86400*1000) {}
+        myState(state), myDirection(dir),  myLength(length), myLastSwitchGreenTime(SUMOTime_MAX) {}
 #else
 MSLink::MSLink(MSLane* succLane, MSLane *via, 
                LinkDirection dir, LinkState state, bool internalEnd,
@@ -65,7 +61,7 @@ MSLink::MSLink(MSLane* succLane, MSLane *via,
         myLane(succLane),
         myRequestIdx(0), myRespondIdx(0),
         myState(state), myDirection(dir), myLength(length),
-        myJunctionInlane(via),myIsInternalEnd(internalEnd), myLastSwitchGreenTime(86400*1000) {}
+        myJunctionInlane(via),myIsInternalEnd(internalEnd), myLastSwitchGreenTime(SUMOTime_MAX) {}
 #endif
 
 
@@ -91,7 +87,7 @@ MSLink::setApproaching(MSVehicle *approaching, SUMOTime arrivalTime, SUMOReal sp
     if (i!=myApproachingVehicles.end()) {
         myApproachingVehicles.erase(i);
     }
-    const SUMOTime leaveTime = arrivalTime + TIME2STEPS(getLength() / speed);
+    const SUMOTime leaveTime = arrivalTime + TIME2STEPS((approaching->getVehicleType().getLength() + getLength()) / speed);
     ApproachingVehicleInformation approachInfo(arrivalTime, leaveTime, approaching, setRequest);
     myApproachingVehicles.push_back(approachInfo);
 }
@@ -125,7 +121,7 @@ MSLink::removeApproaching(MSVehicle *veh) {
 
 
 bool
-MSLink::opened(SUMOTime arrivalTime, SUMOReal arrivalSpeed) const throw() {
+MSLink::opened(SUMOTime arrivalTime, SUMOReal arrivalSpeed, SUMOReal vehicleLength) const throw() {
     if (myState==LINKSTATE_TL_RED) {
         return false;
     }
@@ -133,10 +129,11 @@ MSLink::opened(SUMOTime arrivalTime, SUMOReal arrivalSpeed) const throw() {
         return true;
     }
 #ifdef HAVE_INTERNAL_LANES
-    const SUMOTime leaveTime = myJunctionInlane==0 ? arrivalTime + TIME2STEPS(getLength() / arrivalSpeed) : arrivalTime + TIME2STEPS(this->myJunctionInlane->getLength() / arrivalSpeed);
+    const SUMOReal length = myJunctionInlane==0 ? getLength() : myJunctionInlane->getLength();
 #else
-    const SUMOTime leaveTime = arrivalTime + TIME2STEPS(getLength() / arrivalSpeed);
+    const SUMOReal length = getLength();
 #endif
+    const SUMOTime leaveTime = arrivalTime + TIME2STEPS((length + vehicleLength) / arrivalSpeed);
     for (std::vector<MSLink*>::const_iterator i=myFoeLinks.begin(); i!=myFoeLinks.end(); ++i) {
         if ((*i)->blockedAtTime(arrivalTime, leaveTime)) {
             return false;

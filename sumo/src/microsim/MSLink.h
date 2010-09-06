@@ -189,7 +189,7 @@ public:
      *
      * @return Whether this link may be passed.
      */
-    bool opened(SUMOTime arrivalTime, SUMOReal arrivalSpeed) const throw();
+    bool opened(SUMOTime arrivalTime, SUMOReal arrivalSpeed, SUMOReal vehicleLength) const throw();
 
     bool blockedAtTime(SUMOTime arrivalTime, SUMOTime leaveTime) const throw();
     bool isBlockingAnyone() const throw() {

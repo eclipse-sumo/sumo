@@ -907,7 +907,7 @@ MSVehicle::moveFirstChecked() {
                 break;
             }
             //
-            bool opened = link->opened((*i).myArrivalTime, (*i).myArrivalSpeed);
+            const bool opened = link->opened((*i).myArrivalTime, (*i).myArrivalSpeed, getVehicleType().getLength());
             // vehicles should decelerate when approaching a minor link
             if (opened&&!lastWasGreenCont&&!link->havePriority()&&(*i).myDistance>getCarFollowModel().getMaxDecel()) {
                 vSafe = (*i).myVLinkWait;
@@ -1132,7 +1132,7 @@ MSVehicle::checkRewindLinkLanes(SUMOReal lengthsInFront) throw() {
         SUMOTime t = MSNet::getInstance()->getCurrentTimeStep();
         for (int i= (int)(myLFLinkLanes.size()-1); i>0; --i) {
             DriveProcessItem &item = myLFLinkLanes[i-1];
-            if (item.myLink==0||item.myLink->isCont()||item.myLink->opened(t, .1)||!hadVehicles[i]) {
+            if (item.myLink==0||item.myLink->isCont()||item.myLink->opened(t, .1, getVehicleType().getLength())||!hadVehicles[i]) {
                 availableSpace[i-1] = availableSpace[i];
             }
         }
