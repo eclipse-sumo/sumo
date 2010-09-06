@@ -1,3 +1,4 @@
+kill_timeout:15000
 performance_variation_%:60
 
 [run_dependent_text]

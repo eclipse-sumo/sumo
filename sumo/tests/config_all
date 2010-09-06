@@ -1,4 +1,6 @@
 home_operating_system:posix
+kill_timeout:300
+
 batch_result_repository:$SUMO_BATCH_RESULT
 historical_report_location:$SUMO_REPORT
 smtp_server:$SMTP_SERVER

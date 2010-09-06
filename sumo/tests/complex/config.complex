@@ -8,8 +8,6 @@ copy_test_path:input_routes.rou.xml
 copy_test_path:input_net.net.xml
 copy_test_path:input_additional.add.xml
 copy_test_path:sumo.sumo.cfg
-#kill_timeout:5
-#kill_command:taskkill /F /T /PID
 
 [collate_file]
 vehroutes:vehroutes.xml
