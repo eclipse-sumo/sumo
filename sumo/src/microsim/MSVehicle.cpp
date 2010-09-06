@@ -646,34 +646,44 @@ MSVehicle::addStop(const SUMOVehicleParameter::Stop &stopPar, SUMOTime untilOffs
     if (stop.startPos < 0 || stop.endPos > stop.lane->getLength()) {
         return false;
     }
-    MSRouteIterator stopEdge = myRoute->find(&stop.lane->getEdge(), myCurrEdge);
-    if (myCurrEdge > stopEdge || (myCurrEdge == stopEdge && myState.myPos > stop.endPos - getCarFollowModel().brakeGap(myState.mySpeed))) {
-        // do not add the stop if the vehicle is already behind it or cannot break
+    stop.edge = myRoute->find(&stop.lane->getEdge(), myCurrEdge);
+    MSRouteIterator prevStopEdge = myCurrEdge;
+    SUMOReal prevStopPos = myState.myPos;
+    // where to insert the stop
+    std::list<Stop>::iterator iter = myStops.begin();
+    if (stopPar.index == STOP_INDEX_END || stopPar.index >= static_cast<int>(myStops.size())) {
+        if (myStops.size() > 0) {
+            prevStopEdge = myStops.back().edge;
+            prevStopPos = myStops.back().endPos;
+            iter = myStops.end();
+            stop.edge = myRoute->find(&stop.lane->getEdge(), prevStopEdge);
+        }
+    } else {
+        if (stopPar.index == STOP_INDEX_FIT) {
+            while (iter != myStops.end() && (iter->edge < stop.edge ||
+                                             (iter->endPos < stop.endPos && iter->edge == stop.edge))) {
+                prevStopEdge = iter->edge;
+                prevStopPos = iter->endPos;
+                ++iter;
+            }
+        } else {
+            int index = stopPar.index;
+            while (index > 0) {
+                prevStopEdge = iter->edge;
+                prevStopPos = iter->endPos;
+                ++iter;
+                --index;
+            }
+            stop.edge = myRoute->find(&stop.lane->getEdge(), prevStopEdge);
+        }
+    }
+    if (stop.edge == myRoute->end() || prevStopEdge > stop.edge || prevStopEdge == stop.edge && prevStopPos > stop.endPos) {
         return false;
     }
-    // where to insert the stop
-    if (stopPar.index == STOP_INDEX_END || stopPar.index >= myStops.size()) {
-        myStops.push_back(stop);
-    } else if (stopPar.index == STOP_INDEX_FIT) {
-        std::list<Stop>::iterator iter = myStops.begin();
-        while ((iter != myStops.end()) && (myRoute->find(&iter->lane->getEdge()) <= stopEdge)) {
-            ++iter;
-        }
-        while ((iter != myStops.end())
-                && (stop.endPos > iter->endPos)
-                && (myRoute->find(&iter->lane->getEdge()) == stopEdge)) {
-            ++iter;
-        }
-        myStops.insert(iter, stop);
-    } else {
-        std::list<Stop>::iterator iter = myStops.begin();
-        int index = stopPar.index;
-        while (index > 0) {
-            ++iter;
-            --index;
-        }
-        myStops.insert(iter, stop);
+    if (myCurrEdge == stop.edge && myState.myPos > stop.endPos - getCarFollowModel().brakeGap(myState.mySpeed)) {
+        return false;
     }
+    myStops.insert(iter, stop);
     return true;
 }
 
@@ -717,7 +727,7 @@ MSVehicle::processNextStop(SUMOReal currentVelocity) throw() {
         }
     } else {
         // is the next stop on the current lane?
-        if (myStops.begin()->lane==myLane) {
+        if (myStops.begin()->edge==myCurrEdge && myStops.begin()->lane==myLane) {
             Stop &bstop = *myStops.begin();
             // get the stopping position
             SUMOReal endPos = bstop.endPos;

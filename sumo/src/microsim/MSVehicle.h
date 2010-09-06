@@ -697,6 +697,8 @@ public:
      * @brief Definition of vehicle stop (position and duration)
      */
     struct Stop {
+        /// @brief The edge in the route to stop at
+        MSRouteIterator edge;
         /// @brief The lane to stop at
         const MSLane *lane;
         /// @brief (Optional) bus stop if one is assigned to the stop
