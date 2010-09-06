@@ -184,13 +184,19 @@ optParser.add_option("-V", "--varscale",  dest="varscale",
 
 optParser.add_option("-x", "--vehroute-file",  dest="routefile", type="choice",
                      choices=('None', 'routesonly', 'detailed'), 
-                     default = 'None', help="choose OD type")
+                     default = 'None', help="choose the format of the route file")
 optParser.add_option("-z", "--output-lastRoute",  action="store_true", dest="lastroute",
                      default = False, help="output the last routes")
-optParser.add_option("-M", "--minflowstddev",  action="store_true", dest="minflowstddev",
-                     help="minimal flow standard deviation")
+optParser.add_option("-M", "--minflowstddev", type="float", dest="minflowstddev",
+                     default = 25, help="minimal flow standard deviation")
 optParser.add_option("-I", "--nointernal-link",  action="store_true", dest="internallink",
                      default = False, help="not to simulate internal link: true or false")
+optParser.add_option("-P", "--PREPITS",  type="int", dest="PREPITS",
+                     default = 5, help="number of preparatory iterations")
+optParser.add_option("-X", "--measformat",  type="choice", dest="measformat",
+                     choices=('SUMO', 'Cadyts'), 
+                     default = 'SUMO',help="choose measurement format: SUMO or Cadyts")
+
 
 (options, args) = optParser.parse_args()
 if not options.net or not options.trips:
@@ -205,7 +211,7 @@ calibrator = ["java", "-cp", options.classpath, "cadyts.interfaces.sumo.SumoCont
 log = open("dua-log.txt", "w+")
 tripFiles = options.trips.split(",")
 starttime = datetime.now()
-
+check = 0
 for step in range(options.firstStep, options.lastStep):
     btimeA = datetime.now()
     print "> Executing step %s" % step
@@ -214,12 +220,16 @@ for step in range(options.firstStep, options.lastStep):
     doCalibration = options.detvals != None and step >= options.calibStep
     if options.detvals and step == options.calibStep:
         if options.odmatrix:
-            call(calibrator + ["INIT", "-varscale", options.varscale, "-freezeit", options.freezeit,
+            check = call(calibrator + ["INIT", "-varscale", options.varscale, "-freezeit", options.freezeit,
                   "-measfile", options.detvals, "-binsize", options.aggregation,
                   "-odmatrix", options.odmatrix, "-demandscale", options.demandscale], log)
         else:
-            call(calibrator + ["INIT", "-varscale", options.varscale, "-freezeit", options.freezeit,
-                  "-measfile", options.detvals, "-binsize", options.aggregation, "-minflowstddev", options.minflowstddev], log)
+            check = call(calibrator + ["INIT", "-varscale", options.varscale, "-freezeit", options.freezeit,
+                  "-measfile", options.detvals, "-binsize", options.aggregation, "-minflowstddev", options.minflowstddev,
+                  "-PREPITS", options.PREPITS, "-measformat", options.measformat], log)
+    if check != 0 and check != None:
+        print 'KATASTROPHE! calibration exit code = ', check
+        break 
     # router
     files = []
     for tripFile in tripFiles:
@@ -227,6 +237,8 @@ for step in range(options.firstStep, options.lastStep):
         tripFile = os.path.basename(tripFile)
         if step>0:
             file = tripFile[:tripFile.find(".")] + "_%s.rou.alt.xml" % (step-1)
+            if doCalibration and options.calibStep < step:
+                file = tripFile[:tripFile.find(".")] + "_%s.rou.modalt.xml" % (step-1)  #use the route alternatives from Cadyts
         output = tripFile[:tripFile.find(".")] + "_%s.rou.xml" % step
         print ">> Running router with " + file
         btime = datetime.now()
@@ -237,17 +249,22 @@ for step in range(options.firstStep, options.lastStep):
         print ">>> End time: %s" % etime
         print ">>> Duration: %s" % (etime-btime)
         print "<<"
+        
         # calibration choice
         if doCalibration:
             alts = output[:-4] + ".alt.xml"
+            modalts = output[:-4] + ".modalt.xml"
+
             if options.odmatrix:
                 import addTaz
                 fd = open(output[:-4] + ".taz.xml", 'w')
                 addTaz.parse(tripFile, alts, fd)
                 fd.close()
                 alts = fd.name
-            call(calibrator + ["CHOICE", "-choicesetfile", alts, "-choicefile", "%s.cal.xml" % output[:-4]], log)
+
+            call(calibrator + ["CHOICE", "-choicesetfile", alts, "-alternativefile", modalts,"-choicefile", "%s.cal.xml" % output[:-4]], log)
             output = output[:-4] + ".cal.xml"
+
         files.append(output)
     # simulation
     print ">> Running simulation"
