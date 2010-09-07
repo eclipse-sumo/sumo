@@ -189,14 +189,15 @@ optParser.add_option("-z", "--output-lastRoute",  action="store_true", dest="las
                      default = False, help="output the last routes")
 optParser.add_option("-M", "--minflowstddev", type="float", dest="minflowstddev",
                      default = 25, help="minimal flow standard deviation")
-optParser.add_option("-I", "--nointernal-link",  action="store_true", dest="internallink",
+optParser.add_option("-I", "--nointernal-link", action="store_true", dest="internallink",
                      default = False, help="not to simulate internal link: true or false")
 optParser.add_option("-P", "--PREPITS",  type="int", dest="PREPITS",
                      default = 5, help="number of preparatory iterations")
 optParser.add_option("-X", "--measformat",  type="choice", dest="measformat",
                      choices=('SUMO', 'Cadyts'), 
                      default = 'SUMO',help="choose measurement format: SUMO or Cadyts")
-
+optParser.add_option("-Y", "--bruteforce", action="store_true", dest="bruteforce",
+                     default = False, help="fit the traffic counts as accurate as possible")
 
 (options, args) = optParser.parse_args()
 if not options.net or not options.trips:
@@ -212,6 +213,10 @@ log = open("dua-log.txt", "w+")
 tripFiles = options.trips.split(",")
 starttime = datetime.now()
 check = 0
+if options.bruteforce:
+    bruteforce = "true"
+else:
+    bruteforce = "false"
 for step in range(options.firstStep, options.lastStep):
     btimeA = datetime.now()
     print "> Executing step %s" % step
@@ -221,14 +226,16 @@ for step in range(options.firstStep, options.lastStep):
     if options.detvals and step == options.calibStep:
         if options.odmatrix:
             check = call(calibrator + ["INIT", "-varscale", options.varscale, "-freezeit", options.freezeit,
-                  "-measfile", options.detvals, "-binsize", options.aggregation,
+                  "-measfile", options.detvals, "-binsize", options.aggregation, "-minflowstddev", options.minflowstddev,
+                  "-PREPITS", options.PREPITS, "-measformat", options.measformat, "-bruteforce", bruteforce,
                   "-odmatrix", options.odmatrix, "-demandscale", options.demandscale], log)
         else:
             check = call(calibrator + ["INIT", "-varscale", options.varscale, "-freezeit", options.freezeit,
                   "-measfile", options.detvals, "-binsize", options.aggregation, "-minflowstddev", options.minflowstddev,
-                  "-PREPITS", options.PREPITS, "-measformat", options.measformat], log)
+                  "-PREPITS", options.PREPITS, "-measformat", options.measformat, "-bruteforce", bruteforce], log)
     if check != 0 and check != None:
         print 'KATASTROPHE! calibration exit code = ', check
+        log.write("** KATASTROPHE! calibration exit code = %s\n" % check)
         break 
     # router
     files = []
