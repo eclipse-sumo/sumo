@@ -107,6 +107,7 @@ NIImporter_VISUM::NIImporter_VISUM(NBNetBuilder &nb,
     addParser("SIGNALANLAGE", &NIImporter_VISUM::parse_TrafficLights);
     // two types of knotenzulsa
     addParser("KNOTENZULSA", &NIImporter_VISUM::parse_NodesToTrafficLights);
+    addParser("LSAZUKNOTEN", &NIImporter_VISUM::parse_NodesToTrafficLights);
     addParser("SIGNALANLAGEZUKNOTEN", &NIImporter_VISUM::parse_NodesToTrafficLights);
     // two types of signalgruppe
     addParser("LSASIGNALGRUPPE", &NIImporter_VISUM::parse_SignalGroups);
@@ -114,6 +115,7 @@ NIImporter_VISUM::NIImporter_VISUM(NBNetBuilder &nb,
     // two types of ABBZULSASIGNALGRUPPE
     addParser("ABBZULSASIGNALGRUPPE", &NIImporter_VISUM::parse_TurnsToSignalGroups);
     addParser("SIGNALGRUPPEZUABBIEGER", &NIImporter_VISUM::parse_TurnsToSignalGroups);
+    addParser("SIGNALGRUPPEZUFSABBIEGER", &NIImporter_VISUM::parse_TurnsToSignalGroups);
 
     addParser("TEILFLAECHENELEMENT", &NIImporter_VISUM::parse_AreaSubPartElement);
 
@@ -649,7 +651,9 @@ NIImporter_VISUM::parse_Lanes() {
         return;
     }
     // get the lane
-    std::string laneS = NBHelpers::normalIDRepresentation(myLineParser.get("FSNR"));
+    std::string laneS = myLineParser.know("FSNR") 
+        ? NBHelpers::normalIDRepresentation(myLineParser.get("FSNR")) 
+        : NBHelpers::normalIDRepresentation(myLineParser.get("NR"));
     int lane = -1;
     try {
         lane = TplConvert<char>::_2int(laneS.c_str());
