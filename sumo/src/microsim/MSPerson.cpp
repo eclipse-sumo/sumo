@@ -131,12 +131,12 @@ void
 MSPerson::MSPersonStage_Driving::proceed(MSNet* net,
         MSPerson* person, SUMOTime now,
         const MSEdge &previousEdge) {
-    MSVehicle *v = MSNet::getInstance()->getVehicleControl().getWaitingVehicle(&previousEdge, myLines);
+    MSVehicle *v = net->getVehicleControl().getWaitingVehicle(&previousEdge, myLines);
     if (v != 0) {
         v->addPerson(person);
         if (v->getDesiredDepart() == -1) {
-            MSNet::getInstance()->getEmitControl().add(v);
-            MSNet::getInstance()->getVehicleControl().removeWaiting(&previousEdge, v);
+            net->getEmitControl().add(v);
+            net->getVehicleControl().removeWaiting(&previousEdge, v);
         }
     } else {
         net->getPersonControl().addWaiting(&previousEdge, person);

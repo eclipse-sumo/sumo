@@ -729,7 +729,7 @@ MSVehicle::processNextStop(SUMOReal currentVelocity) throw() {
     } else {
         // is the next stop on the current lane?
         if (myStops.begin()->edge==myCurrEdge && myStops.begin()->lane==myLane) {
-            Stop &bstop = *myStops.begin();
+            Stop &bstop = myStops.front();
             // get the stopping position
             SUMOReal endPos = bstop.endPos;
 //			SUMOReal offset = 0.1;
@@ -1951,6 +1951,9 @@ MSVehicle::addPerson(MSPerson* person) throw() {
         myPointerCORNMap[MSCORN::CORN_P_VEH_PASSENGER] = new std::vector<MSPerson*>();
     }
     ((std::vector<MSPerson*>*) myPointerCORNMap[MSCORN::CORN_P_VEH_PASSENGER])->push_back(person);
+    if (myStops.size() > 0 && myStops.front().reached && myStops.front().triggered) {
+        myStops.front().duration = 0;
+    }
 }
 
 

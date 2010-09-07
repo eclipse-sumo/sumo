@@ -106,10 +106,10 @@ void
 MSPersonControl::checkArrivedPersons(MSNet* net, const SUMOTime time) {
     while (myArrivals.find(time)!=myArrivals.end()) {
         const PersonVector &persons = myArrivals[time];
-        myArrivals.erase(time);
         for (PersonVector::const_iterator i=persons.begin(); i!=persons.end(); ++i) {
             (*i)->proceed(net, time);
         }
+        myArrivals.erase(time);
     }
 }
 
