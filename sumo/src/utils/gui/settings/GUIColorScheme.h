@@ -29,7 +29,9 @@
 #include <config.h>
 #endif
 
+#include <cassert>
 #include <vector>
+#include <utils/common/RGBColor.h>
 #include <utils/iodevices/OutputDevice.h>
 
 

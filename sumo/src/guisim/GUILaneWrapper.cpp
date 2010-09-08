@@ -100,12 +100,6 @@ GUILaneWrapper::GUILaneWrapper(GUIGlObjectStorage &idStorage,
 GUILaneWrapper::~GUILaneWrapper() throw() {}
 
 
-MSEdge::EdgeBasicFunction
-GUILaneWrapper::getPurpose() const {
-    return myLane.myEdge->getPurpose();
-}
-
-
 SUMOReal
 GUILaneWrapper::getOverallMaxSpeed() {
     return myAllMaxSpeed;
@@ -140,7 +134,7 @@ ROWdrawAction_drawLinkNo(const GUILaneWrapper &lane) {
     glRotated(rot, 0, 0, 1);
     for (unsigned int i=0; i<noLinks; ++i) {
         SUMOReal x2 = x1 - (SUMOReal)(w/2.);
-        int linkNo = lane.getLinkRespondIndex(i);
+        int linkNo = lane.getLane().getLinkCont()[i]->getRespondIndex();
         glPushMatrix();
         glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
         pfSetPosition(0, 0);
@@ -177,7 +171,7 @@ ROWdrawAction_drawTLSLinkNo(const GUINet &net, const GUILaneWrapper &lane) {
     glRotated(rot, 0, 0, 1);
     for (unsigned int i=0; i<noLinks; ++i) {
         SUMOReal x2 = x1 - (SUMOReal)(w/2.);
-        int linkNo = lane.getLinkTLIndex(net, i);
+        int linkNo = net.getLinkTLIndex(lane.getLane().getLinkCont()[i]);
         if (linkNo<0) {
             continue;
         }
@@ -234,7 +228,7 @@ ROWdrawAction_drawLinkRules(const GUINet &net, const GUILaneWrapper &lane,
     glRotated(rot, 0, 0, 1);
     for (unsigned int i=0; i<noLinks; ++i) {
         SUMOReal x2 = x1 + w;
-        MSLink::LinkState state = lane.getLinkState(i);
+        MSLink::LinkState state = lane.getLane().getLinkCont()[i]->getState();;
         if (showToolTips) {
             switch (state) {
             case MSLink::LINKSTATE_TL_GREEN_MAJOR:
@@ -243,7 +237,7 @@ ROWdrawAction_drawLinkRules(const GUINet &net, const GUILaneWrapper &lane,
             case MSLink::LINKSTATE_TL_YELLOW_MAJOR:
             case MSLink::LINKSTATE_TL_YELLOW_MINOR:
             case MSLink::LINKSTATE_TL_OFF_BLINKING:
-                glPushName(lane.getLinkTLID(net, i));
+                glPushName(net.getLinkTLID(lane.getLane().getLinkCont()[i]));
                 break;
             case MSLink::LINKSTATE_MAJOR:
             case MSLink::LINKSTATE_MINOR:
@@ -332,8 +326,8 @@ ROWdrawAction_drawArrows(const GUILaneWrapper &lane, bool showToolTips) {
     glTranslated(end.x(), end.y(), 0);
     glRotated(rot, 0, 0, 1);
     for (unsigned int i=0; i<noLinks; ++i) {
-        MSLink::LinkDirection dir = lane.getLinkDirection(i);
-        MSLink::LinkState state = lane.getLinkState(i);
+        MSLink::LinkDirection dir = lane.getLane().getLinkCont()[i]->getDirection();
+        MSLink::LinkState state = lane.getLane().getLinkCont()[i]->getState();
         if (state==MSLink::LINKSTATE_TL_OFF_NOSIGNAL||dir==MSLink::LINKDIR_NODIR) {
             continue;
         }
@@ -351,8 +345,8 @@ void
 ROWdrawAction_drawLane2LaneConnections(const GUILaneWrapper &lane) {
     unsigned int noLinks = lane.getLinkNumber();
     for (unsigned int i=0; i<noLinks; ++i) {
-        MSLink::LinkState state = lane.getLinkState(i);
-        const MSLane *connected = lane.getLinkLane(i);
+        MSLink::LinkState state = lane.getLane().getLinkCont()[i]->getState();
+        const MSLane *connected = lane.getLane().getLinkCont()[i]->getLane();
         if (connected==0) {
             continue;
         }
@@ -419,7 +413,7 @@ GUILaneWrapper::drawGL(const GUIVisualizationSettings &s) const throw() {
             glPopName();
         }
     } else {
-        if (getPurpose()!=MSEdge::EDGEFUNCTION_INTERNAL) {
+        if (getLane().getEdge().getPurpose()!=MSEdge::EDGEFUNCTION_INTERNAL) {
             glTranslated(0, 0, .005);
             GLHelper::drawBoxLines(myShape, myShapeRotations, myShapeLengths, SUMO_const_halfLaneWidth);
             glTranslated(0, 0, -.005);
@@ -431,7 +425,7 @@ GUILaneWrapper::drawGL(const GUIVisualizationSettings &s) const throw() {
             glPopName();
         }
         // draw ROWs (not for inner lanes)
-        if (getPurpose()!=MSEdge::EDGEFUNCTION_INTERNAL) {// !!! getPurpose()
+        if (getLane().getEdge().getPurpose()!=MSEdge::EDGEFUNCTION_INTERNAL) {// !!! getPurpose()
             glTranslated(0, 0, -.02);
             GUINet *net = (GUINet*) MSNet::getInstance();
             ROWdrawAction_drawLinkRules(*net, *this, s.needsGlID);
@@ -558,30 +552,6 @@ GUILaneWrapper::getLinkNumber() const {
 }
 
 
-MSLink::LinkState
-GUILaneWrapper::getLinkState(unsigned int pos) const throw() {
-    return myLane.getLinkCont()[pos]->getState();
-}
-
-
-MSLink::LinkDirection
-GUILaneWrapper::getLinkDirection(unsigned int pos) const {
-    return myLane.getLinkCont()[pos]->getDirection();
-}
-
-
-MSLane *
-GUILaneWrapper::getLinkLane(unsigned int pos) const {
-    return myLane.getLinkCont()[pos]->getLane();
-}
-
-
-int
-GUILaneWrapper::getLinkRespondIndex(unsigned int pos) const {
-    return myLane.getLinkCont()[pos]->getRespondIndex();
-}
-
-
 const DoubleVector &
 GUILaneWrapper::getShapeRotations() const {
     return myShapeRotations;
@@ -591,18 +561,6 @@ GUILaneWrapper::getShapeRotations() const {
 const DoubleVector &
 GUILaneWrapper::getShapeLengths() const {
     return myShapeLengths;
-}
-
-
-unsigned int
-GUILaneWrapper::getLinkTLID(const GUINet &net, unsigned int pos) const {
-    return net.getLinkTLID(myLane.getLinkCont()[pos]);
-}
-
-
-int
-GUILaneWrapper::getLinkTLIndex(const GUINet &net, unsigned int pos) const {
-    return net.getLinkTLIndex(myLane.getLinkCont()[pos]);
 }
 
 

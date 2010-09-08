@@ -29,24 +29,21 @@
 #include <config.h>
 #endif
 
-#include <utils/common/VectorHelper.h>
 #include <string>
 #include <utility>
-#include <microsim/MSEdge.h>
-#include <microsim/MSLane.h>
-#include <microsim/output/MSE2Collector.h>
-#include <microsim/MSLink.h>
-#include <utils/geom/Position2D.h>
 #include <utils/gui/globjects/GUIGlObject.h>
 #include <utils/gui/settings/GUIColorer.h>
+#include <utils/common/VectorHelper.h>
 
 
 // ===========================================================================
 // class declarations
 // ===========================================================================
 class GUINet;
-class Position2DVector;
 class GUIGLObjectPopupMenu;
+class MSLane;
+class MSEdge;
+class Position2DVector;
 
 
 // ===========================================================================
@@ -150,9 +147,6 @@ public:
     const DoubleVector &getShapeRotations() const;
     const DoubleVector &getShapeLengths() const;
 
-    /** returns the purpose (source, sink, normal) of the parent edge */
-    MSEdge::EdgeBasicFunction getPurpose() const;
-
     SUMOReal firstWaitingTime() const;
 
 
@@ -165,32 +159,9 @@ public:
 
     void drawBordersGL(const GUIVisualizationSettings &s) const throw();
 
-    /// @name access to a lane's links
-    //@{
 
     /// Returns the number of links
     unsigned int getLinkNumber() const;
-
-    /// Returns the state of the numbered link
-    MSLink::LinkState getLinkState(unsigned int pos) const throw();
-
-    /// Returns the direction of the numbered link
-    MSLink::LinkDirection getLinkDirection(unsigned int pos) const;
-
-    /// Returns the lane approached by the numbered link
-    MSLane *getLinkLane(unsigned int pos) const;
-
-    /// Returns the numbered link's respond (junction) index
-    int getLinkRespondIndex(unsigned int pos) const;
-
-    /// Returns the tl-logic's gl-id the numbered link is controlled by
-    unsigned int getLinkTLID(const GUINet &net, unsigned int pos) const;
-
-    /// Returns the numbered link's tls index
-    int getLinkTLIndex(const GUINet &net, unsigned int pos) const;
-    //@}
-
-
 
 
     /// @name Current state retrieval
