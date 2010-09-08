@@ -1,0 +1,11 @@
+<routes>
+    <vtype id="g" sigma="0" /> 
+    <route id="up" edges="1i 2o"/>
+    <vehicle id="u" type="g" route="up" depart="0" departpos="400"/>
+    <route id="right" edges="3i 4o"/>
+    <vehicle id="r" type="g" route="right" depart="0" departpos="405"/>
+    <route id="left" edges="4i 3o"/>
+    <vehicle id="l" type="g" route="left" depart="0" departpos="405"/>
+    <route id="down" edges="2i 1o"/>
+    <vehicle id="d" type="g" route="down" depart="0" departpos="400"/>
+</routes>

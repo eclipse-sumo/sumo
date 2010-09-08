@@ -27,7 +27,11 @@ ticket331
 collision
 
 # collision of long vehicles
-collision_long_veh
+# collision_long_veh (automatically commented due to no test directory being found)
+
 
 # lanechanging in front of crossing
 lanechange_cross
+
+# Deadlocking at junctions
+right_before_left_deadlock
