@@ -1,5 +1,5 @@
 simstep 1 1
-getvariable 168 0 xxx
-setvalue 200 129 p1 <int> -2
-getvariable 168 0 xxx
+getvariable 0xa8 0x0 xxx
+setvalue 0xc8 0x81 p1 <int> -2
+getvariable 0xa8 0x0 xxx
 simstep 2 1

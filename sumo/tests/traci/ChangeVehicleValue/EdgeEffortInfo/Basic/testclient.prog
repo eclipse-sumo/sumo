@@ -1,6 +1,6 @@
 simstep 5 1
-getvariable_plus 164 89 0 <compound> 2 <int> 0 <string> 1/1to0/1
-setvalue 196 89 0 <compound> 4 <int> 0 <int> 10 <string> 1/1to0/1 <float> 10
-getvariable_plus 164 89 0 <compound> 2 <int> 0 <string> 1/1to0/1
+getvariable_plus 0xa4 0x59 0 <compound> 2 <int> 0 <string> 1/1to0/1
+setvalue 0xc4 0x59 0 <compound> 4 <int> 0 <int> 10 <string> 1/1to0/1 <float> 10
+getvariable_plus 0xa4 0x59 0 <compound> 2 <int> 0 <string> 1/1to0/1
 simstep 1 1
 

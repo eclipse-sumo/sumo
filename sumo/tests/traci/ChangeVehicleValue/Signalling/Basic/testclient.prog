@@ -1,8 +1,8 @@
 simstep 1 1
 
-setvalue 196 91 0 <int> 16
-getvariable 164 91 0
-setvalue 196 91 0 <int> 32
-getvariable 164 91 0
+setvalue 0xc4 0x5b 0 <int> 16
+getvariable 0xa4 0x5b 0
+setvalue 0xc4 0x5b 0 <int> 32
+getvariable 0xa4 0x5b 0
 
 simstep_repeat 2 5 1 1

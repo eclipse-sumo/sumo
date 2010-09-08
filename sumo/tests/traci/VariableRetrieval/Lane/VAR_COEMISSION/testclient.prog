@@ -1,7 +1,7 @@
 simstep 5 1
-getvariable 163 97 3/1to2/1_0
+getvariable 0xa3 0x61 3/1to2/1_0
 simstep 51 1
-getvariable 163 97 3/1to2/1_0
+getvariable 0xa3 0x61 3/1to2/1_0
 simstep 55 1
 
 

@@ -1,4 +1,4 @@
 simstep 1 1
-setvalue 199 79 xxx <string> new
+setvalue 0xc7 0x4f xxx <string> new
 simstep 2 1
 

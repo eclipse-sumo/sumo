@@ -1,4 +1,4 @@
 simstep 1 1
-setvalue 199 79 p1 <float> 1
+setvalue 0xc7 0x4f p1 <float> 1
 simstep 2 1
 

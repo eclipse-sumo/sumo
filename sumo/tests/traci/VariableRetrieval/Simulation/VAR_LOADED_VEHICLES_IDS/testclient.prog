@@ -1,4 +1,4 @@
-getvariable 171 114 0
+getvariable 0xab 0x72 0
 simstep 1 1
-getvariable 171 114 0
+getvariable 0xab 0x72 0
 simstep 2 1

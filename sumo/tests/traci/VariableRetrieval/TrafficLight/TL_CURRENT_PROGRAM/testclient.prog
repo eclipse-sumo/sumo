@@ -1,9 +1,9 @@
 simstep 10 1
-getvariable 162 41 1/1
-setvalue 194 35 1/1 <string> 0
-getvariable 162 41 1/1
+getvariable 0xa2 0x29 1/1
+setvalue 0xc2 0x23 1/1 <string> 0
+getvariable 0xa2 0x29 1/1
 simstep 31 1
-getvariable 162 41 1/1
-setvalue 194 35 1/1 <string> prog1
-getvariable 162 41 1/1
+getvariable 0xa2 0x29 1/1
+setvalue 0xc2 0x23 1/1 <string> prog1
+getvariable 0xa2 0x29 1/1
 simstep 51 1

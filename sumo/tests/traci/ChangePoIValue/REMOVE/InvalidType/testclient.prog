@@ -1,6 +1,6 @@
 simstep 1 1
-getvariable 167 0 xxx
-setvalue 199 129 p1 <string> -1
-getvariable 167 0 xxx
+getvariable 0xa7 0x0 xxx
+setvalue 0xc7 0x81 p1 <string> -1
+getvariable 0xa7 0x0 xxx
 simstep 2 1
 

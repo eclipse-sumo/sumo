@@ -1,6 +1,6 @@
 simstep 1 1
-getvariable 163 68 2/1to2/0_0
-setvalue 195 68 2/1to2/0_0 <float> 10
-getvariable 163 68 2/1to2/0_0
+getvariable 0xa3 0x44 2/1to2/0_0
+setvalue 0xc3 0x44 2/1to2/0_0 <float> 10
+getvariable 0xa3 0x44 2/1to2/0_0
 simstep 2 1
 

@@ -1,5 +1,5 @@
 simstep 10 1
-setvalue 194 34 1/1 <int> 0
+setvalue 0xc2 0x22 1/1 <int> 0
 simstep 31 1
-setvalue 194 34 1/1 <int> 4
+setvalue 0xc2 0x22 1/1 <int> 4
 simstep 51 1

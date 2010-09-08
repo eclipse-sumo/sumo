@@ -1,5 +1,5 @@
 simstep 1 1
-getvariable 167 79 p1
-setvalue 199 79 p1 <string> new
-getvariable 167 79 p1
+getvariable 0xa7 0x4f p1
+setvalue 0xc7 0x4f p1 <string> new
+getvariable 0xa7 0x4f p1
 simstep 2 1

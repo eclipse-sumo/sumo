@@ -1,7 +1,7 @@
 simstep 1 1
-getvariable 163 65 2/1to2/0_0
-setvalue 195 65 2/1to2/0_0 <string> s
-getvariable 163 65 2/1to2/0_0
+getvariable 0xa3 0x41 2/1to2/0_0
+setvalue 0xc3 0x41 2/1to2/0_0 <string> s
+getvariable 0xa3 0x41 2/1to2/0_0
 simstep 2 1
 
 

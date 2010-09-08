@@ -1,3 +1,3 @@
 simstep 5 1
-getvariable 167 255 dummy
+getvariable 0xa7 0xff dummy
 simstep 6 1

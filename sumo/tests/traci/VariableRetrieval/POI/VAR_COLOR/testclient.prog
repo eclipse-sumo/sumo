@@ -1,4 +1,4 @@
 simstep 5 1
-getvariable 167 69 p1
-getvariable 167 69 p2
+getvariable 0xa7 0x45 p1
+getvariable 0xa7 0x45 p2
 simstep 6 1

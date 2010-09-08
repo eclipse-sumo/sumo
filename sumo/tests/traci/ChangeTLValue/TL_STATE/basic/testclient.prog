@@ -1,5 +1,5 @@
 simstep 10 1
-setvalue 194 32 1/1 <string> gggggggggggggggg
+setvalue 0xc2 0x20 1/1 <string> gggggggggggggggg
 simstep 20 1
-setvalue 194 32 1/1 <string> rrrrrrrrrrrrrrrr
+setvalue 0xc2 0x20 1/1 <string> rrrrrrrrrrrrrrrr
 simstep 30 1

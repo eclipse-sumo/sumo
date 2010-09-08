@@ -1,3 +1,3 @@
 simstep 5 1
-getvariable 164 81 0
+getvariable 0xa4 0x51 0
 simstep 6 1

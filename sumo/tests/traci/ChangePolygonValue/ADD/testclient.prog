@@ -1,5 +1,5 @@
 simstep 1 1
-getvariable 168 0 xxx
-setvalue 200 128 newID <compound> 5 <string> newType <color> 1 2 3 4 <ubyte> 0 <int> 10 <shape> 3 10 11 12 13 14 15
-getvariable 168 0 xxx
+getvariable 0xa8 0x0 xxx
+setvalue 0xc8 0x80 newID <compound> 5 <string> newType <color> 1 2 3 4 <ubyte> 0 <int> 10 <shape> 3 10 11 12 13 14 15
+getvariable 0xa8 0x0 xxx
 simstep 2 1

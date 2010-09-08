@@ -1,7 +1,7 @@
 simstep 10 1
-getvariable 162 45 0
+getvariable 0xa2 0x2d 0
 simstep 31 1
-getvariable 162 45 0
+getvariable 0xa2 0x2d 0
 simstep 35 1
-getvariable 162 45 0
+getvariable 0xa2 0x2d 0
 simstep 40 1
