@@ -1,5 +1,6 @@
-SUMO activitygen Version dev-SVN-r8952
+SUMO activitygen Version dev-SVN-r9058
  (c) DLR 2001-2010; http://sumo.sourceforge.net
+ (c) Technische Universitaet Muenchen, 2010
  
 Generates routes of persons throughout a day for the microscopic road traffic
   simulation SUMO.
@@ -73,7 +74,7 @@ Usage: activitygen [OPTION]*
   -l, --log-file FILE              Writes all messages to FILE
   --stats-period INT               Defines how often statistics shall be
                                      printed
-  --debug                          Detailled messages about every single step
+  --debug                          Detailed messages about every single step
 
  Random Number Options:
   --srand INT                      Initialises the random number generator with
