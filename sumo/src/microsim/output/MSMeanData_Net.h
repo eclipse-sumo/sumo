@@ -110,7 +110,7 @@ public:
          * @see MSMoveReminder
          * @see MSMoveReminder::isStillActive
          */
-        bool isStillActive(MSVehicle& veh, SUMOReal oldPos, SUMOReal newPos, SUMOReal newSpeed) throw();
+        bool isStillActive(SUMOVehicle& veh, SUMOReal oldPos, SUMOReal newPos, SUMOReal newSpeed) throw();
 
 
         /** @brief Called if the vehicle leaves the reminder's lane
@@ -119,7 +119,7 @@ public:
          * @see MSMoveReminder
          * @see MSMoveReminder::notifyLeave
          */
-        void notifyLeave(MSVehicle& veh, bool isArrival, bool isLaneChange) throw();
+        void notifyLeave(SUMOVehicle& veh, bool isArrival, bool isLaneChange) throw();
 
 
         /** @brief Computes current values and adds them to their sums
@@ -134,7 +134,7 @@ public:
          * @see MSMoveReminder::notifyEnter
          * @return Always true
          */
-        bool notifyEnter(MSVehicle& veh, bool isEmit, bool isLaneChange) throw();
+        bool notifyEnter(SUMOVehicle& veh, bool isEmit, bool isLaneChange) throw();
         //@}
 
         bool isEmpty() const throw();

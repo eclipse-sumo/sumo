@@ -38,8 +38,7 @@
 // class declarations
 // ===========================================================================
 class MSLane;
-class MSVehicle;
-class MSTrafficLightLogic;
+class SUMOVehicle;
 
 
 // ===========================================================================
@@ -173,13 +172,13 @@ public:
      *
      * @param[in] approaching The approaching vehicle
      */
-    void setApproaching(MSVehicle *approaching, SUMOTime arrivalTime, SUMOReal speed, bool setRequest) throw();
+    void setApproaching(SUMOVehicle *approaching, SUMOTime arrivalTime, SUMOReal speed, bool setRequest) throw();
 
     void addBlockedLink(MSLink *link) throw();
 
 
 
-    void removeApproaching(MSVehicle *veh);
+    void removeApproaching(SUMOVehicle *veh);
 
 
 
@@ -289,11 +288,11 @@ public:
 
 private:
     struct ApproachingVehicleInformation {
-        ApproachingVehicleInformation(const SUMOTime _arrivalTime, const SUMOTime _leavingTime, MSVehicle *_vehicle, const bool _willPass)
+        ApproachingVehicleInformation(const SUMOTime _arrivalTime, const SUMOTime _leavingTime, SUMOVehicle *_vehicle, const bool _willPass)
                 : arrivalTime(_arrivalTime), leavingTime(_leavingTime), vehicle(_vehicle), willPass(_willPass) {}
         SUMOTime arrivalTime;
         SUMOTime leavingTime;
-        MSVehicle *vehicle;
+        SUMOVehicle *vehicle;
         bool willPass;
     };
 
@@ -301,12 +300,12 @@ private:
 
     class vehicle_in_request_finder {
     public:
-        explicit vehicle_in_request_finder(const MSVehicle * const v) : myVehicle(v) { }
+        explicit vehicle_in_request_finder(const SUMOVehicle * const v) : myVehicle(v) { }
         bool operator()(const ApproachingVehicleInformation &vo) {
             return vo.vehicle == myVehicle;
         }
     private:
-        const MSVehicle * const myVehicle;
+        const SUMOVehicle * const myVehicle;
 
     };
 

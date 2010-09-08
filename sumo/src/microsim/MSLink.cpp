@@ -82,7 +82,7 @@ MSLink::setRequestInformation(unsigned int requestIdx, unsigned int respondIdx, 
 
 
 void
-MSLink::setApproaching(MSVehicle *approaching, SUMOTime arrivalTime, SUMOReal speed, bool setRequest) throw() {
+MSLink::setApproaching(SUMOVehicle *approaching, SUMOTime arrivalTime, SUMOReal speed, bool setRequest) throw() {
     LinkApproachingVehicles::iterator i = find_if(myApproachingVehicles.begin(), myApproachingVehicles.end(), vehicle_in_request_finder(approaching));
     if (i!=myApproachingVehicles.end()) {
         myApproachingVehicles.erase(i);
@@ -112,7 +112,7 @@ MSLink::willHaveBlockedFoe() const throw() {
 
 
 void
-MSLink::removeApproaching(MSVehicle *veh) {
+MSLink::removeApproaching(SUMOVehicle *veh) {
     LinkApproachingVehicles::iterator i = find_if(myApproachingVehicles.begin(), myApproachingVehicles.end(), vehicle_in_request_finder(veh));
     if (i!=myApproachingVehicles.end()) {
         myApproachingVehicles.erase(i);
@@ -177,14 +177,9 @@ MSLink::blockedAtTime(SUMOTime arrivalTime, SUMOTime leaveTime) const throw() {
 bool 
 MSLink::hasEarlierGreenVehicle(SUMOTime otherGreenTime, MSLink::LinkState otherState) const throw()
 {
-    bool thisIsGreen = myState==MSLink::LINKSTATE_TL_GREEN_MAJOR||myState==MSLink::LINKSTATE_TL_GREEN_MINOR;
-    for (LinkApproachingVehicles::const_iterator i=myApproachingVehicles.begin(); i!=myApproachingVehicles.end(); ++i) {
-        if ((*i).willPass) {
-            SUMOTime lastGreenTime = (*i).vehicle->getLastGreenTime();
-            if(lastGreenTime<otherGreenTime&&thisIsGreen) {
-                return true;
-            }
-            if(lastGreenTime==otherGreenTime&&thisIsGreen) {
+    if (myState==MSLink::LINKSTATE_TL_GREEN_MAJOR || myState==MSLink::LINKSTATE_TL_GREEN_MINOR) {
+        for (LinkApproachingVehicles::const_iterator i=myApproachingVehicles.begin(); i!=myApproachingVehicles.end(); ++i) {
+            if (i->willPass && i->vehicle->getLastGreenTime() <= otherGreenTime) {
                 return true;
             }
         }

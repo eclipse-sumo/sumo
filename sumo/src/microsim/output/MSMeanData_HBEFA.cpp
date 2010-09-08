@@ -85,7 +85,7 @@ MSMeanData_HBEFA::MSLaneMeanDataValues::addTo(MSMeanData::MeanDataValues &val) c
 
 
 bool
-MSMeanData_HBEFA::MSLaneMeanDataValues::isStillActive(MSVehicle& veh, SUMOReal oldPos, SUMOReal newPos, SUMOReal newSpeed) throw() {
+MSMeanData_HBEFA::MSLaneMeanDataValues::isStillActive(SUMOVehicle& veh, SUMOReal oldPos, SUMOReal newPos, SUMOReal newSpeed) throw() {
     if (!vehicleApplies(veh)) {
         return false;
     }

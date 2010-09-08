@@ -33,7 +33,7 @@
 // ===========================================================================
 // class declarations
 // ===========================================================================
-class MSVehicle;
+class SUMOVehicle;
 class MSLane;
 
 
@@ -98,7 +98,7 @@ public:
      *
      * @return True if vehicle hasn't passed the reminder completely.
      */
-    virtual bool isStillActive(MSVehicle& veh,
+    virtual bool isStillActive(SUMOVehicle& veh,
                                SUMOReal oldPos,
                                SUMOReal newPos,
                                SUMOReal newSpeed) throw() {
@@ -116,7 +116,7 @@ public:
      * @param[in] isArrival whether the vehicle arrived at its destination
      * @param[in] isLaneChange whether the vehicle changed from the lane
      */
-    virtual void notifyLeave(MSVehicle& veh, bool isArrival, bool isLaneChange) throw() {};
+    virtual void notifyLeave(SUMOVehicle& veh, bool isArrival, bool isLaneChange) throw() {};
 
 
     /** @brief Checks whether the reminder is activated by the vehicle's emission on lane change
@@ -130,7 +130,7 @@ public:
      *
      * @return True if vehicle enters the reminder.
      */
-    virtual bool notifyEnter(MSVehicle& veh, bool isEmit, bool isLaneChange) throw() {
+    virtual bool notifyEnter(SUMOVehicle& veh, bool isEmit, bool isLaneChange) throw() {
         return true;
     }
     /// @}

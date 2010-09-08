@@ -103,7 +103,7 @@ public:
          * @see MSMoveReminder::isStillActive
          * @see HelpersHarmonoise
          */
-        bool isStillActive(MSVehicle& veh, SUMOReal oldPos, SUMOReal newPos, SUMOReal newSpeed) throw();
+        bool isStillActive(SUMOVehicle& veh, SUMOReal oldPos, SUMOReal newPos, SUMOReal newSpeed) throw();
 
 
         /** @brief Computes current emission values and adds them to their sums
@@ -118,7 +118,7 @@ public:
          * @see MSMoveReminder::notifyEnter
          * @return Always true
          */
-        bool notifyEnter(MSVehicle& veh, bool isEmit, bool isLaneChange) throw();
+        bool notifyEnter(SUMOVehicle& veh, bool isEmit, bool isLaneChange) throw();
         //@}
 
 

@@ -121,7 +121,7 @@ public:
      * @see enterDetectorByMove
      * @see leaveDetectorByMove
      */
-    bool isStillActive(MSVehicle& veh, SUMOReal oldPos, SUMOReal newPos, SUMOReal newSpeed) throw();
+    bool isStillActive(SUMOVehicle& veh, SUMOReal oldPos, SUMOReal newPos, SUMOReal newSpeed) throw();
 
 
     /** @brief Dismisses the vehicle if it is on the detector due to a lane change
@@ -137,7 +137,7 @@ public:
      * @see MSMoveReminder
      * @see MSMoveReminder::notifyLeave
      */
-    void notifyLeave(MSVehicle& veh, bool isArrival, bool isLaneChange) throw();
+    void notifyLeave(SUMOVehicle& veh, bool isArrival, bool isLaneChange) throw();
 
 
     /** @brief Returns whether the detector may has to be concerned during the vehicle's further movement
@@ -153,7 +153,7 @@ public:
      * @see MSMoveReminder
      * @see MSMoveReminder::notifyEnter
      */
-    bool notifyEnter(MSVehicle& veh, bool isEmit, bool isLaneChange) throw();
+    bool notifyEnter(SUMOVehicle& veh, bool isEmit, bool isLaneChange) throw();
     //@}
 
 
@@ -254,7 +254,7 @@ public:
      *
      * @param[in] veh The vehicle that was on the detector and leaves the simuation
      */
-    void removeOnTripEnd(MSVehicle *veh) throw();
+    void removeOnTripEnd(SUMOVehicle *veh) throw();
     /// @}
 
 

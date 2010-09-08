@@ -105,7 +105,7 @@ public:
          * @see MSMoveReminder::isStillActive
          * @see HelpersHBEFA
          */
-        bool isStillActive(MSVehicle& veh, SUMOReal oldPos, SUMOReal newPos, SUMOReal newSpeed) throw();
+        bool isStillActive(SUMOVehicle& veh, SUMOReal oldPos, SUMOReal newPos, SUMOReal newSpeed) throw();
         //@}
 
         /** @brief Writes output values into the given stream

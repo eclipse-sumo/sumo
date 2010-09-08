@@ -50,7 +50,7 @@ MSE3Collector::MSE3EntryReminder::MSE3EntryReminder(
 
 
 bool
-MSE3Collector::MSE3EntryReminder::isStillActive(MSVehicle& veh, SUMOReal oldPos,
+MSE3Collector::MSE3EntryReminder::isStillActive(SUMOVehicle& veh, SUMOReal oldPos,
         SUMOReal newPos, SUMOReal newSpeed) throw() {
     if (newPos <= myPosition) {
         // crossSection not yet reached
@@ -70,7 +70,7 @@ MSE3Collector::MSE3EntryReminder::isStillActive(MSVehicle& veh, SUMOReal oldPos,
 
 
 bool
-MSE3Collector::MSE3EntryReminder::notifyEnter(MSVehicle& veh, bool, bool) throw() {
+MSE3Collector::MSE3EntryReminder::notifyEnter(SUMOVehicle& veh, bool, bool) throw() {
     return veh.getPositionOnLane() <= myPosition;
 }
 
@@ -86,7 +86,7 @@ MSE3Collector::MSE3LeaveReminder::MSE3LeaveReminder(
 
 
 bool
-MSE3Collector::MSE3LeaveReminder::isStillActive(MSVehicle& veh, SUMOReal oldPos,
+MSE3Collector::MSE3LeaveReminder::isStillActive(SUMOVehicle& veh, SUMOReal oldPos,
         SUMOReal newPos, SUMOReal newSpeed) throw() {
     if (newPos <= myPosition) {
         // crossSection not yet reached
@@ -105,7 +105,7 @@ MSE3Collector::MSE3LeaveReminder::isStillActive(MSVehicle& veh, SUMOReal oldPos,
 
 
 bool
-MSE3Collector::MSE3LeaveReminder::notifyEnter(MSVehicle& veh, bool, bool) throw() {
+MSE3Collector::MSE3LeaveReminder::notifyEnter(SUMOVehicle& veh, bool, bool) throw() {
     return veh.getPositionOnLane() - veh.getVehicleType().getLength() <= myPosition;
 }
 
@@ -135,7 +135,7 @@ MSE3Collector::MSE3Collector(const std::string &id,
 
 
 MSE3Collector::~MSE3Collector() throw() {
-    for (std::map<MSVehicle*, E3Values>::iterator pair = myEnteredContainer.begin(); pair!=myEnteredContainer.end(); ++pair) {
+    for (std::map<SUMOVehicle*, E3Values>::iterator pair = myEnteredContainer.begin(); pair!=myEnteredContainer.end(); ++pair) {
         pair->first->quitRemindedLeft(this);
     }
     for (std::vector<MSE3EntryReminder*>::iterator i = myEntryReminders.begin(); i!=myEntryReminders.end(); ++i) {
@@ -155,7 +155,7 @@ MSE3Collector::reset() throw() {
 
 
 void
-MSE3Collector::enter(MSVehicle& veh, SUMOReal entryTimestep) throw() {
+MSE3Collector::enter(SUMOVehicle& veh, SUMOReal entryTimestep) throw() {
     if (myEnteredContainer.find(&veh)!=myEnteredContainer.end()) {
         MsgHandler::getWarningInstance()->inform("Vehicle '" + veh.getID() + "' reentered E3-detector '" + getID() + "'.");
         return;
@@ -183,7 +183,7 @@ MSE3Collector::enter(MSVehicle& veh, SUMOReal entryTimestep) throw() {
 
 
 void
-MSE3Collector::leave(MSVehicle& veh, SUMOReal leaveTimestep) throw() {
+MSE3Collector::leave(SUMOVehicle& veh, SUMOReal leaveTimestep) throw() {
     if (myEnteredContainer.find(&veh)==myEnteredContainer.end()) {
         MsgHandler::getWarningInstance()->inform("Vehicle '" + veh.getID() + "' left E3-detector '" + getID() + "' before entering it.");
     } else {
@@ -218,7 +218,7 @@ MSE3Collector::getID() const throw() {
 
 
 void
-MSE3Collector::removeOnTripEnd(MSVehicle *veh) throw() {
+MSE3Collector::removeOnTripEnd(SUMOVehicle *veh) throw() {
     if (myEnteredContainer.find(veh)==myEnteredContainer.end()) {
         MsgHandler::getWarningInstance()->inform("Vehicle '" + veh->getID() + "' left E3-detector '" + getID() + "' before entering it.");
     } else {
@@ -236,7 +236,7 @@ MSE3Collector::writeXMLOutput(OutputDevice &dev,
     SUMOReal meanTravelTime = 0.;
     SUMOReal meanSpeed = 0.;
     SUMOReal meanHaltsPerVehicle = 0.;
-    for (std::map<MSVehicle*, E3Values>::iterator i=myLeftContainer.begin(); i!=myLeftContainer.end(); ++i) {
+    for (std::map<SUMOVehicle*, E3Values>::iterator i=myLeftContainer.begin(); i!=myLeftContainer.end(); ++i) {
         meanHaltsPerVehicle += (SUMOReal)(*i).second.haltings;
         SUMOReal steps = (*i).second.leaveTime-(*i).second.entryTime;
         meanTravelTime += steps;
@@ -256,7 +256,7 @@ MSE3Collector::writeXMLOutput(OutputDevice &dev,
     SUMOReal meanIntervalSpeedWithin = 0.;
     SUMOReal meanIntervalHaltsPerVehicleWithin = 0.;
     SUMOReal meanIntervalDurationWithin = 0.;
-    for (std::map<MSVehicle*, E3Values>::iterator i=myEnteredContainer.begin(); i!=myEnteredContainer.end(); ++i) {
+    for (std::map<SUMOVehicle*, E3Values>::iterator i=myEnteredContainer.begin(); i!=myEnteredContainer.end(); ++i) {
         meanHaltsPerVehicleWithin += (SUMOReal)(*i).second.haltings;
         meanIntervalHaltsPerVehicleWithin += (SUMOReal)(*i).second.intervalHaltings;
         SUMOReal time = (SUMOReal)stopTime/1000. - (*i).second.entryTime;
@@ -305,8 +305,8 @@ MSE3Collector::update(SUMOTime execTime) throw() {
     myCurrentMeanSpeed = 0;
     myCurrentHaltingsNumber = 0;
     myCurrentTouchedVehicles = 0;
-    for (std::map<MSVehicle*, E3Values>::iterator pair = myEnteredContainer.begin(); pair!=myEnteredContainer.end(); ++pair) {
-        MSVehicle* veh = pair->first;
+    for (std::map<SUMOVehicle*, E3Values>::iterator pair = myEnteredContainer.begin(); pair!=myEnteredContainer.end(); ++pair) {
+        SUMOVehicle* veh = pair->first;
         E3Values& values = pair->second;
         values.hadUpdate = true;
         if (values.entryTime*1000.>=execTime) {
@@ -346,7 +346,7 @@ MSE3Collector::getCurrentMeanSpeed() const throw() {
     if (myEnteredContainer.size()==0) {
         return -1;
     }
-    for (std::map<MSVehicle*, E3Values>::const_iterator pair = myEnteredContainer.begin(); pair!=myEnteredContainer.end(); ++pair) {
+    for (std::map<SUMOVehicle*, E3Values>::const_iterator pair = myEnteredContainer.begin(); pair!=myEnteredContainer.end(); ++pair) {
         ret += (*pair).first->getSpeed();
     }
     return ret / SUMOReal(myEnteredContainer.size());
@@ -368,7 +368,7 @@ MSE3Collector::getVehiclesWithin() const throw() {
 std::vector<std::string>
 MSE3Collector::getCurrentVehicleIDs() const throw() {
     std::vector<std::string> ret;
-    for (std::map<MSVehicle*, E3Values>::const_iterator pair = myEnteredContainer.begin(); pair!=myEnteredContainer.end(); ++pair) {
+    for (std::map<SUMOVehicle*, E3Values>::const_iterator pair = myEnteredContainer.begin(); pair!=myEnteredContainer.end(); ++pair) {
         ret.push_back((*pair).first->getID());
     }
     std::sort(ret.begin(), ret.end());

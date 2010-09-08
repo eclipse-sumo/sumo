@@ -84,7 +84,7 @@ MSMeanData_Harmonoise::MSLaneMeanDataValues::update() throw() {
 
 
 bool
-MSMeanData_Harmonoise::MSLaneMeanDataValues::isStillActive(MSVehicle& veh, SUMOReal oldPos, SUMOReal newPos, SUMOReal newSpeed) throw() {
+MSMeanData_Harmonoise::MSLaneMeanDataValues::isStillActive(SUMOVehicle& veh, SUMOReal oldPos, SUMOReal newPos, SUMOReal newSpeed) throw() {
     if (!vehicleApplies(veh)) {
         return false;
     }
@@ -114,7 +114,7 @@ MSMeanData_Harmonoise::MSLaneMeanDataValues::isStillActive(MSVehicle& veh, SUMOR
 
 
 bool
-MSMeanData_Harmonoise::MSLaneMeanDataValues::notifyEnter(MSVehicle& veh, bool isEmit, bool isLaneChange) throw() {
+MSMeanData_Harmonoise::MSLaneMeanDataValues::notifyEnter(SUMOVehicle& veh, bool isEmit, bool isLaneChange) throw() {
     return vehicleApplies(veh);
 }
 

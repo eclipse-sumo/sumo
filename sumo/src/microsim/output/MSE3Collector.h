@@ -44,6 +44,12 @@
 
 
 // ===========================================================================
+// class declarations
+// ===========================================================================
+class MSVehicle;
+
+
+// ===========================================================================
 // class definitions
 // ===========================================================================
 /**
@@ -90,7 +96,7 @@ public:
          * @see MSMoveReminder::isStillActive
          * @see MSE3Collector::enter
          */
-        bool isStillActive(MSVehicle& veh, SUMOReal , SUMOReal newPos, SUMOReal) throw();
+        bool isStillActive(SUMOVehicle& veh, SUMOReal , SUMOReal newPos, SUMOReal) throw();
 
 
         /** @brief Returns whether the vehicle shall be aware of this entry
@@ -104,7 +110,7 @@ public:
          * @see MSMoveReminder::notifyEnter
          * @return False, if vehicle passed the entry, else true.
          */
-        bool notifyEnter(MSVehicle& veh, bool isEmit, bool isLaneChange) throw();
+        bool notifyEnter(SUMOVehicle& veh, bool isEmit, bool isLaneChange) throw();
         /// @}
 
 
@@ -158,7 +164,7 @@ public:
          * @see MSMoveReminder::isStillActive
          * @see MSE3Collector::leave
          */
-        bool isStillActive(MSVehicle& veh, SUMOReal , SUMOReal newPos, SUMOReal) throw();
+        bool isStillActive(SUMOVehicle& veh, SUMOReal , SUMOReal newPos, SUMOReal) throw();
 
 
         /** @brief Returns whether the vehicle shall be aware of this entry
@@ -172,7 +178,7 @@ public:
          * @see MSMoveReminder::notifyEnter
          * @return False, if vehicle passed the exit completely, else true.
          */
-        bool notifyEnter(MSVehicle& veh, bool isEmit, bool isLaneChange) throw();
+        bool notifyEnter(SUMOVehicle& veh, bool isEmit, bool isLaneChange) throw();
         //@}
 
 
@@ -225,7 +231,7 @@ public:
      *  @param[in] veh The vehicle that entered the area
      *  @param[in] entryTimestep The time step the vehicle entered the area
      */
-    void enter(MSVehicle& veh, SUMOReal entryTimestep) throw();
+    void enter(SUMOVehicle& veh, SUMOReal entryTimestep) throw();
 
 
     /** @brief Called if a vehicle passes a leave-cross-section.
@@ -235,7 +241,7 @@ public:
      *  @param[in] veh The vehicle that left the area
      *  @param[in] entryTimestep The time step the vehicle left the area
      */
-    void leave(MSVehicle& veh, SUMOReal leaveTimestep) throw();
+    void leave(SUMOVehicle& veh, SUMOReal leaveTimestep) throw();
 
 
     /** @brief Returns the id of the detector
@@ -255,7 +261,7 @@ public:
      *
      * @param[in] veh The vehicle to remove
      */
-    void removeOnTripEnd(MSVehicle *veh) throw();
+    void removeOnTripEnd(SUMOVehicle *veh) throw();
     /// @}
 
 
@@ -384,10 +390,10 @@ protected:
     };
 
     /// @brief Container for vehicles that have entered the area
-    std::map<MSVehicle*, E3Values> myEnteredContainer;
+    std::map<SUMOVehicle*, E3Values> myEnteredContainer;
 
     /// @brief Container for vehicles that have left the area
-    std::map<MSVehicle*, E3Values> myLeftContainer;
+    std::map<SUMOVehicle*, E3Values> myLeftContainer;
 
 
     /// @name Storages for current values

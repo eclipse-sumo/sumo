@@ -31,6 +31,7 @@
 
 #include <microsim/MSMoveReminder.h>
 #include <microsim/MSLane.h>
+#include <microsim/MSVehicleQuitReminded.h>
 #include <microsim/output/MSDetectorFileOutput.h>
 #include <utils/common/ToString.h>
 #include <string>
@@ -123,7 +124,7 @@ public:
      * @see MSMoveReminder
      * @see MSMoveReminder::isStillActive
      */
-    bool isStillActive(MSVehicle& veh, SUMOReal oldPos, SUMOReal newPos,
+    bool isStillActive(SUMOVehicle& veh, SUMOReal oldPos, SUMOReal newPos,
                        SUMOReal newSpeed) throw();
 
 
@@ -137,7 +138,7 @@ public:
      * @param[in] isLaneChange whether the vehicle changed from the lane
      * @see MSMoveReminder::notifyLeave
      */
-    void notifyLeave(MSVehicle& veh, bool isArrival, bool isLaneChange) throw();
+    void notifyLeave(SUMOVehicle& veh, bool isArrival, bool isLaneChange) throw();
 
 
     /** @brief Adds the vehicle to known vehicles if not beyond the dector
@@ -152,7 +153,7 @@ public:
      * @see MSMoveReminder::notifyEnter
      * @return False, if vehicle passed the detector entirely, else true.
      */
-    bool notifyEnter(MSVehicle& veh, bool isEmit, bool isLaneChange) throw();
+    bool notifyEnter(SUMOVehicle& veh, bool isEmit, bool isLaneChange) throw();
     /// @}
 
 
@@ -201,7 +202,7 @@ public:
      *
      * @param[in] veh The vehicle that was on the detector and leaves the simuation
      */
-    void removeOnTripEnd(MSVehicle *veh) throw();
+    void removeOnTripEnd(SUMOVehicle *veh) throw();
     /// @}
 
 
@@ -275,10 +276,10 @@ protected:
      */
     struct JamInfo {
         /// @brief The first standing vehicle
-        std::list<MSVehicle*>::const_iterator firstStandingVehicle;
+        std::list<SUMOVehicle*>::const_iterator firstStandingVehicle;
 
         /// @brief The last standing vehicle
-        std::list<MSVehicle*>::const_iterator lastStandingVehicle;
+        std::list<SUMOVehicle*>::const_iterator lastStandingVehicle;
     };
 
 
@@ -316,7 +317,7 @@ protected:
          * @param[in] v2 Second vehicle to compare
          * @return Whether the position of the first vehicles is smaller than the one of the second
          */
-        int operator()(const MSVehicle *v1, const MSVehicle *v2) throw() {
+        int operator()(const SUMOVehicle *v1, const SUMOVehicle *v2) throw() {
             return v1->getPositionOnActiveMoveReminderLane(myLane)>v2->getPositionOnActiveMoveReminderLane(myLane);
         }
 
@@ -346,13 +347,13 @@ private:
     DetectorUsage myUsage;
 
     /// @brief List of known vehicles
-    std::list<MSVehicle*> myKnownVehicles;
+    std::list<SUMOVehicle*> myKnownVehicles;
 
     /// @brief Storage for halting durations of known vehicles (for halting vehicles)
-    std::map<MSVehicle*, SUMOReal> myHaltingVehicleDurations;
+    std::map<SUMOVehicle*, SUMOReal> myHaltingVehicleDurations;
 
     /// @brief Storage for halting durations of known vehicles (current interval)
-    std::map<MSVehicle*, SUMOReal> myIntervalHaltingVehicleDurations;
+    std::map<SUMOVehicle*, SUMOReal> myIntervalHaltingVehicleDurations;
 
     /// @brief Halting durations of ended halts [s]
     std::vector<SUMOReal> myPastStandingDurations;

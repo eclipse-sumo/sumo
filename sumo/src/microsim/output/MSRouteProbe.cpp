@@ -54,7 +54,7 @@ MSRouteProbe::EntryReminder::EntryReminder(MSLane * const lane, MSRouteProbe& co
 
 
 bool
-MSRouteProbe::EntryReminder::notifyEnter(MSVehicle& veh, bool isEmit, bool isLaneChange) throw() {
+MSRouteProbe::EntryReminder::notifyEnter(SUMOVehicle& veh, bool isEmit, bool isLaneChange) throw() {
     myCollector.addRoute(veh.getRoute());
     return false;
 }

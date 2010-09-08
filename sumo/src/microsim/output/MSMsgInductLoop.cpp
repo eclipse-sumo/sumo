@@ -78,7 +78,7 @@ MSMsgInductLoop::reset() throw() {
 
 
 bool
-MSMsgInductLoop::isStillActive(MSVehicle& veh, SUMOReal oldPos,
+MSMsgInductLoop::isStillActive(SUMOVehicle& veh, SUMOReal oldPos,
                                SUMOReal newPos, SUMOReal newSpeed) throw() {
     if (newPos < myPosition) {
         // detector not reached yet
@@ -115,7 +115,7 @@ MSMsgInductLoop::isStillActive(MSVehicle& veh, SUMOReal oldPos,
 
 
 void
-MSMsgInductLoop::notifyLeave(MSVehicle& veh, bool isArrival, bool isLaneChange) throw() {
+MSMsgInductLoop::notifyLeave(SUMOVehicle& veh, bool isArrival, bool isLaneChange) throw() {
     if (veh.getPositionOnLane() > myPosition && veh.getPositionOnLane() - veh.getVehicleType().getLength() <= myPosition) {
         // vehicle is on detector during lane change
         leaveDetectorByLaneChange(veh);
@@ -124,7 +124,7 @@ MSMsgInductLoop::notifyLeave(MSVehicle& veh, bool isArrival, bool isLaneChange) 
 
 
 bool
-MSMsgInductLoop::notifyEnter(MSVehicle& veh, bool, bool) throw() {
+MSMsgInductLoop::notifyEnter(SUMOVehicle& veh, bool, bool) throw() {
     if (veh.getPositionOnLane() - veh.getVehicleType().getLength() > myPosition) {
         // vehicle-front is beyond detector. Ignore
         return false;
@@ -261,7 +261,7 @@ MSMsgInductLoop::leaveDetectorByLaneChange(MSVehicle& veh) throw() {
 
 
 void
-MSMsgInductLoop::removeOnTripEnd(MSVehicle *veh) throw() {
+MSMsgInductLoop::removeOnTripEnd(SUMOVehicle *veh) throw() {
     myCurrentVehicle = 0;
     myVehiclesOnDet.erase(veh);
 }

@@ -33,7 +33,7 @@
 // ===========================================================================
 // class declarations
 // ===========================================================================
-class MSVehicle;
+class SUMOVehicle;
 
 
 // ===========================================================================
@@ -68,7 +68,7 @@ public:
      *
      * @param[in] veh The vehicle that quits the simulation
      */
-    virtual void removeOnTripEnd(MSVehicle *veh) throw() = 0;
+    virtual void removeOnTripEnd(SUMOVehicle *veh) throw() = 0;
     /// @}
 
 };

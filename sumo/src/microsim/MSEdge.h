@@ -33,7 +33,6 @@
 #include <map>
 #include <string>
 #include <iostream>
-#include "MSLinkCont.h"
 #include <utils/common/SUMOTime.h>
 #include <utils/common/SUMOVehicleClass.h>
 #include <utils/common/ValueTimeLine.h>
@@ -47,6 +46,7 @@ class MSLane;
 class MSLaneChanger;
 class OutputDevice;
 class SUMOVehicle;
+class MSVehicle;
 
 
 // ===========================================================================

@@ -1847,13 +1847,6 @@ MSVehicle::saveState(std::ostream &os) {
 
 
 
-void
-MSVehicle::removeOnTripEnd(MSVehicle *veh) throw() {
-    quitRemindedLeft(veh);
-}
-
-
-
 const std::vector<MSLane*> &
 MSVehicle::getBestLanesContinuation() const throw() {
     if (myBestLanes.empty()||myBestLanes[0].empty()||myLane->getEdge().getPurpose()==MSEdge::EDGEFUNCTION_INTERNAL) {

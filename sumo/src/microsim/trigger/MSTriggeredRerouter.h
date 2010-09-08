@@ -115,7 +115,7 @@ public:
          * @see MSMoveReminder::isStillActive
          * @see MSTriggeredRerouter::reroute
          */
-        bool isStillActive(MSVehicle& veh, SUMOReal oldPos, SUMOReal newPos,
+        bool isStillActive(SUMOVehicle& veh, SUMOReal oldPos, SUMOReal newPos,
                            SUMOReal newSpeed) throw();
 
 
@@ -131,7 +131,7 @@ public:
          * @see MSMoveReminder::notifyEnter
          * @see MSTriggeredRerouter::reroute
          */
-        bool notifyEnter(MSVehicle& veh, bool isEmit, bool isLaneChange) throw();
+        bool notifyEnter(SUMOVehicle& veh, bool isEmit, bool isLaneChange) throw();
         /// @}
 
 

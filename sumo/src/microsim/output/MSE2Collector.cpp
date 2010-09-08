@@ -61,7 +61,7 @@ MSE2Collector::MSE2Collector(const std::string &id, DetectorUsage usage,
 
 
 MSE2Collector::~MSE2Collector() throw() {
-    for (std::list<MSVehicle*>::iterator i=myKnownVehicles.begin(); i!=myKnownVehicles.end(); ++i) {
+    for (std::list<SUMOVehicle*>::iterator i=myKnownVehicles.begin(); i!=myKnownVehicles.end(); ++i) {
         (*i)->quitRemindedLeft(this);
     }
     myKnownVehicles.clear();
@@ -69,7 +69,7 @@ MSE2Collector::~MSE2Collector() throw() {
 
 
 bool
-MSE2Collector::isStillActive(MSVehicle& veh, SUMOReal oldPos,
+MSE2Collector::isStillActive(SUMOVehicle& veh, SUMOReal oldPos,
                              SUMOReal newPos, SUMOReal) throw() {
     if (newPos <= myStartPos) {
         // detector not yet reached
@@ -83,7 +83,7 @@ MSE2Collector::isStillActive(MSVehicle& veh, SUMOReal oldPos,
     }
     if (newPos - veh.getVehicleType().getLength() > myEndPos) {
         veh.quitRemindedLeft(this);
-        std::list<MSVehicle*>::iterator i = find(myKnownVehicles.begin(), myKnownVehicles.end(), &veh);
+        std::list<SUMOVehicle*>::iterator i = find(myKnownVehicles.begin(), myKnownVehicles.end(), &veh);
         if (i!=myKnownVehicles.end()) {
             myKnownVehicles.erase(i);
         }
@@ -94,9 +94,9 @@ MSE2Collector::isStillActive(MSVehicle& veh, SUMOReal oldPos,
 
 
 void
-MSE2Collector::notifyLeave(MSVehicle& veh, bool isArrival, bool isLaneChange) throw() {
+MSE2Collector::notifyLeave(SUMOVehicle& veh, bool isArrival, bool isLaneChange) throw() {
     if (veh.getPositionOnLane() >= myStartPos && veh.getPositionOnLane() - veh.getVehicleType().getLength() < myEndPos) {
-        std::list<MSVehicle*>::iterator i = find(myKnownVehicles.begin(), myKnownVehicles.end(), &veh);
+        std::list<SUMOVehicle*>::iterator i = find(myKnownVehicles.begin(), myKnownVehicles.end(), &veh);
         if (i!=myKnownVehicles.end()) {
             myKnownVehicles.erase(i);
         }
@@ -106,7 +106,7 @@ MSE2Collector::notifyLeave(MSVehicle& veh, bool isArrival, bool isLaneChange) th
 
 
 bool
-MSE2Collector::notifyEnter(MSVehicle& veh, bool, bool) throw() {
+MSE2Collector::notifyEnter(SUMOVehicle& veh, bool, bool) throw() {
     if (veh.getPositionOnLane() >= myStartPos && veh.getPositionOnLane() - veh.getVehicleType().getLength() < myEndPos) {
         // vehicle is on detector
         veh.quitRemindedEntered(this);
@@ -138,7 +138,7 @@ MSE2Collector::reset() throw() {
     myTimeSamples = 0;
     myMeanVehicleNumber = 0;
     myMaxVehicleNumber = 0;
-    for (std::map<MSVehicle*, SUMOReal>::iterator i=myIntervalHaltingVehicleDurations.begin(); i!=myIntervalHaltingVehicleDurations.end(); ++i) {
+    for (std::map<SUMOVehicle*, SUMOReal>::iterator i=myIntervalHaltingVehicleDurations.begin(); i!=myIntervalHaltingVehicleDurations.end(); ++i) {
         (*i).second = 0;
     }
     myPastStandingDurations.clear();
@@ -150,8 +150,8 @@ MSE2Collector::reset() throw() {
 void
 MSE2Collector::update(SUMOTime) throw() {
     JamInfo *currentJam = 0;
-    std::map<MSVehicle*, SUMOReal> haltingVehicles;
-    std::map<MSVehicle*, SUMOReal> intervalHaltingVehicles;
+    std::map<SUMOVehicle*, SUMOReal> haltingVehicles;
+    std::map<SUMOVehicle*, SUMOReal> intervalHaltingVehicles;
     std::vector<JamInfo*> jams;
 
     SUMOReal lengthSum = 0;
@@ -162,8 +162,8 @@ MSE2Collector::update(SUMOTime) throw() {
     // go through the (sorted) list of vehicles positioned on the detector
     //  sum up values and prepare the list of jams
     myKnownVehicles.sort(by_vehicle_position_sorter(getLane()));
-    for (std::list<MSVehicle*>::const_iterator i=myKnownVehicles.begin(); i!=myKnownVehicles.end(); ++i) {
-        MSVehicle *veh = *i;
+    for (std::list<SUMOVehicle*>::const_iterator i=myKnownVehicles.begin(); i!=myKnownVehicles.end(); ++i) {
+        SUMOVehicle *veh = *i;
 
         SUMOReal length = veh->getVehicleType().getLength();
         if (&(veh->getLane())==getLane()) {
@@ -211,7 +211,7 @@ MSE2Collector::update(SUMOTime) throw() {
             }
         } else {
             // is not standing anymore; keep duration information
-            std::map<MSVehicle*, SUMOReal>::iterator v = myHaltingVehicleDurations.find(veh);
+            std::map<SUMOVehicle*, SUMOReal>::iterator v = myHaltingVehicleDurations.find(veh);
             if (v!=myHaltingVehicleDurations.end()) {
                 myPastStandingDurations.push_back((*v).second);
                 myHaltingVehicleDurations.erase(v);
@@ -330,7 +330,7 @@ MSE2Collector::writeXMLOutput(OutputDevice &dev, SUMOTime startTime, SUMOTime st
         maxHaltingDuration = MAX2(maxHaltingDuration, (*i));
         haltingNo = haltingNo + 1;
     }
-    for (std::map<MSVehicle*, SUMOReal> ::iterator i=myHaltingVehicleDurations.begin(); i!=myHaltingVehicleDurations.end(); ++i) {
+    for (std::map<SUMOVehicle*, SUMOReal> ::iterator i=myHaltingVehicleDurations.begin(); i!=myHaltingVehicleDurations.end(); ++i) {
         haltingDurationSum += (*i).second;
         maxHaltingDuration = MAX2(maxHaltingDuration, (*i).second);
         haltingNo = haltingNo + 1;
@@ -345,7 +345,7 @@ MSE2Collector::writeXMLOutput(OutputDevice &dev, SUMOTime startTime, SUMOTime st
         intervalMaxHaltingDuration = MAX2(intervalMaxHaltingDuration, (*i));
         intervalHaltingNo = intervalHaltingNo + 1;
     }
-    for (std::map<MSVehicle*, SUMOReal> ::iterator i=myIntervalHaltingVehicleDurations.begin(); i!=myIntervalHaltingVehicleDurations.end(); ++i) {
+    for (std::map<SUMOVehicle*, SUMOReal> ::iterator i=myIntervalHaltingVehicleDurations.begin(); i!=myIntervalHaltingVehicleDurations.end(); ++i) {
         intervalHaltingDurationSum += (*i).second;
         intervalMaxHaltingDuration = MAX2(intervalMaxHaltingDuration, (*i).second);
         intervalHaltingNo = intervalHaltingNo + 1;
@@ -443,7 +443,7 @@ MSE2Collector::getCurrentStartedHalts() const throw() {
 
 
 void
-MSE2Collector::removeOnTripEnd(MSVehicle *veh) throw() {
+MSE2Collector::removeOnTripEnd(SUMOVehicle *veh) throw() {
     myKnownVehicles.erase(find(myKnownVehicles.begin(), myKnownVehicles.end(), veh));
 }
 

@@ -100,7 +100,7 @@ MSMeanData_Net::MSLaneMeanDataValues::addTo(MSMeanData::MeanDataValues &val) con
 
 
 bool
-MSMeanData_Net::MSLaneMeanDataValues::isStillActive(MSVehicle& veh, SUMOReal oldPos, SUMOReal newPos, SUMOReal newSpeed) throw() {
+MSMeanData_Net::MSLaneMeanDataValues::isStillActive(SUMOVehicle& veh, SUMOReal oldPos, SUMOReal newPos, SUMOReal newSpeed) throw() {
     if (!vehicleApplies(veh)) {
         return false;
     }
@@ -110,7 +110,7 @@ MSMeanData_Net::MSLaneMeanDataValues::isStillActive(MSVehicle& veh, SUMOReal old
     if (MSGlobals::gUseMesoSim) {
         const SUMOReal lastEntryTime = STEPS2TIME(veh.getLastEntryTime());
         const SUMOReal currentTime = newPos / newSpeed + lastEntryTime;
-        const SUMOReal exitTime = veh.getSegment()->getLength() / newSpeed + lastEntryTime;
+        const SUMOReal exitTime = veh.getSegmentLength() / newSpeed + lastEntryTime;
         SUMOReal lastReportedTime = lastEntryTime;
         SUMOReal lastReportedPos = 0;
         std::map<SUMOVehicle*, std::pair<SUMOReal, SUMOReal> >::iterator j=myLastVehicleUpdateValues.find(&veh);
@@ -121,7 +121,7 @@ MSMeanData_Net::MSLaneMeanDataValues::isStillActive(MSVehicle& veh, SUMOReal old
             myLastVehicleUpdateValues.erase(j);
         }
         timeOnLane = currentTime - lastReportedTime;
-        newSpeed = (veh.getSegment()->getLength() - lastReportedPos) / (exitTime - lastReportedTime);
+        newSpeed = (veh.getSegmentLength() - lastReportedPos) / (exitTime - lastReportedTime);
         myLastVehicleUpdateValues[&veh] = std::pair<SUMOReal, SUMOReal>(currentTime, lastReportedPos+newSpeed*timeOnLane);
     } else {
 #endif
@@ -156,7 +156,7 @@ MSMeanData_Net::MSLaneMeanDataValues::isStillActive(MSVehicle& veh, SUMOReal old
 
 
 void
-MSMeanData_Net::MSLaneMeanDataValues::notifyLeave(MSVehicle& veh, bool isArrival, bool isLaneChange) throw() {
+MSMeanData_Net::MSLaneMeanDataValues::notifyLeave(SUMOVehicle& veh, bool isArrival, bool isLaneChange) throw() {
     if (vehicleApplies(veh)) {
 #ifdef HAVE_MESOSIM
         if (MSGlobals::gUseMesoSim) {
@@ -170,7 +170,7 @@ MSMeanData_Net::MSLaneMeanDataValues::notifyLeave(MSVehicle& veh, bool isArrival
         } else {
 #ifdef HAVE_MESOSIM
             if (MSGlobals::gUseMesoSim && myParent != 0) {
-                if (veh.getSegment()->getNextSegment() == 0) {
+                if (veh.isOnLast()) {
                     ++nVehLeft;
                 }
                 return;
@@ -183,7 +183,7 @@ MSMeanData_Net::MSLaneMeanDataValues::notifyLeave(MSVehicle& veh, bool isArrival
 
 
 bool
-MSMeanData_Net::MSLaneMeanDataValues::notifyEnter(MSVehicle& veh, bool isEmit, bool isLaneChange) throw() {
+MSMeanData_Net::MSLaneMeanDataValues::notifyEnter(SUMOVehicle& veh, bool isEmit, bool isLaneChange) throw() {
     if (vehicleApplies(veh)) {
         if (isEmit) {
             ++nVehDeparted;
@@ -192,7 +192,7 @@ MSMeanData_Net::MSLaneMeanDataValues::notifyEnter(MSVehicle& veh, bool isEmit, b
         } else {
 #ifdef HAVE_MESOSIM
             if (MSGlobals::gUseMesoSim && myParent != 0) {
-                if (veh.getSegment()->getIndex() == 0) {
+                if (veh.isOnFirst()) {
                     ++nVehEntered;
                 }
                 return true;

@@ -40,7 +40,6 @@
 #include <vector>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/ToString.h>
-#include "MSVehicleQuitReminded.h"
 #include <utils/common/SUMOVehicle.h>
 #include <utils/common/SUMOVehicleClass.h>
 #include "MSVehicleType.h"
@@ -55,6 +54,7 @@
 // class declarations
 // ===========================================================================
 class MSLane;
+class MSLink;
 class MSMoveReminder;
 class MSLaneChanger;
 class MSVehicleTransfer;
@@ -77,11 +77,11 @@ class MSMessageEmitter;
  * @class MSVehicle
  * @brief Representation of a vehicle in the micro simulation
  */
-class MSVehicle : public MSVehicleQuitReminded
+class MSVehicle :
 #ifdef HAVE_MESOSIM
-        , public MEVehicle
+        public MEVehicle
 #else
-        , public SUMOVehicle
+        public SUMOVehicle
 #endif
 {
 public:
@@ -191,13 +191,6 @@ public:
      */
     void onRemovalFromNet(bool forTeleporting) throw();
     //@}
-
-
-
-
-
-    void removeOnTripEnd(MSVehicle *veh) throw();
-
 
 
     /// @name interaction with the route
@@ -1018,6 +1011,20 @@ protected:
 
     void rebuildContinuationsFor(LaneQ &q, MSLane *l, MSRouteIterator ce, int seen) const;
     void setBlinkerInformation() throw();
+#ifndef HAVE_MESOSIM
+    SUMOTime getLastEntryTime() const throw() {
+        return 0;
+    }
+    SUMOReal getSegmentLength() const throw() {
+        return 0;
+    }
+    bool isOnFirst() const throw() {
+        return false;
+    }
+    bool isOnLast() const throw() {
+        return false;
+    }
+#endif
 
 
     /// Use this constructor only.

@@ -68,7 +68,7 @@ MSTriggeredRerouter::Setter::~Setter() throw() {}
 
 
 bool
-MSTriggeredRerouter::Setter::isStillActive(MSVehicle& veh, SUMOReal /*oldPos*/,
+MSTriggeredRerouter::Setter::isStillActive(SUMOVehicle& veh, SUMOReal /*oldPos*/,
         SUMOReal /*newPos*/, SUMOReal /*newSpeed*/) throw() {
     myParent->reroute(veh, myLane->getEdge());
     return false;
@@ -76,7 +76,7 @@ MSTriggeredRerouter::Setter::isStillActive(MSVehicle& veh, SUMOReal /*oldPos*/,
 
 
 bool
-MSTriggeredRerouter::Setter::notifyEnter(MSVehicle& veh, bool, bool) throw() {
+MSTriggeredRerouter::Setter::notifyEnter(SUMOVehicle& veh, bool, bool) throw() {
     myParent->reroute(veh, myLane->getEdge());
     return false;
 }

@@ -30,6 +30,7 @@
 #endif
 
 #include "MSEdge.h"
+#include "MSLinkCont.h"
 #include "MSVehicle.h"
 #include "MSEdgeControl.h"
 #include <bitset>

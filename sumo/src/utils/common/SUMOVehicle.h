@@ -39,7 +39,9 @@
 class MSVehicleType;
 class MSRoute;
 class MSEdge;
+class MSLane;
 class MSDevice;
+class MSVehicleQuitReminded;
 
 typedef std::vector<const MSEdge*> MSEdgeVector;
 
@@ -103,6 +105,35 @@ public:
 
     /// Replaces the current route by the given one
     virtual bool replaceRoute(const MSRoute* route, SUMOTime simTime, bool onInit=false) = 0;
+
+    /** @brief Update when the vehicle enters a new lane in the move step.
+     *
+     * @param[in] enteredLane The lane the vehicle enters
+     * @param[in] driven The distance driven by the vehicle within this time step
+     * @param[in] onTeleporting Whether the lane was entered while being teleported
+     * @return Whether the vehicle's route has ended (due to vaporization, or because the destination was reached)
+     */
+    virtual bool enterLaneAtMove(MSLane* enteredLane, SUMOReal driven, bool onTeleporting=false) = 0;
+
+    virtual SUMOReal getPreDawdleAcceleration() const throw() = 0;
+
+    virtual SUMOTime getLastGreenTime() const throw() = 0;
+
+    virtual void quitRemindedEntered(MSVehicleQuitReminded *r) = 0;
+
+    virtual void quitRemindedLeft(MSVehicleQuitReminded *r) = 0;
+
+   	virtual MSLane &getLane() const throw() = 0;
+
+    virtual SUMOReal getPositionOnActiveMoveReminderLane(const MSLane * const searchedLane) const throw() = 0;
+
+    virtual SUMOTime getLastEntryTime() const throw() = 0;
+
+    virtual SUMOReal getSegmentLength() const throw() = 0;
+
+    virtual bool isOnFirst() const throw() = 0;
+
+    virtual bool isOnLast() const throw() = 0;
 
 };
 

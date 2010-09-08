@@ -77,7 +77,7 @@ MSInductLoop::reset() throw() {
 
 
 bool
-MSInductLoop::isStillActive(MSVehicle& veh, SUMOReal oldPos,
+MSInductLoop::isStillActive(SUMOVehicle& veh, SUMOReal oldPos,
                             SUMOReal newPos, SUMOReal newSpeed) throw() {
     if (newPos < myPosition) {
         // detector not reached yet
@@ -116,7 +116,7 @@ MSInductLoop::isStillActive(MSVehicle& veh, SUMOReal oldPos,
 
 
 void
-MSInductLoop::notifyLeave(MSVehicle& veh, bool isArrival, bool isLaneChange) throw() {
+MSInductLoop::notifyLeave(SUMOVehicle& veh, bool isArrival, bool isLaneChange) throw() {
     if (veh.getPositionOnLane() > myPosition && veh.getPositionOnLane() - veh.getVehicleType().getLength() <= myPosition) {
         // vehicle is on detector during lane change
         leaveDetectorByLaneChange(veh);
@@ -125,7 +125,7 @@ MSInductLoop::notifyLeave(MSVehicle& veh, bool isArrival, bool isLaneChange) thr
 
 
 bool
-MSInductLoop::notifyEnter(MSVehicle& veh, bool, bool) throw() {
+MSInductLoop::notifyEnter(SUMOVehicle& veh, bool, bool) throw() {
     if (veh.getPositionOnLane() - veh.getVehicleType().getLength() > myPosition) {
         // vehicle-front is beyond detector. Ignore
         return false;
@@ -222,7 +222,7 @@ MSInductLoop::writeXMLOutput(OutputDevice &dev,
         timeOnDetDuringInterval = MIN2(timeOnDetDuringInterval, t);
         occupancy += timeOnDetDuringInterval;
     }
-    for (std::map< MSVehicle*, SUMOReal >::const_iterator i=myVehiclesOnDet.begin(); i!=myVehiclesOnDet.end(); ++i) {
+    for (std::map< SUMOVehicle*, SUMOReal >::const_iterator i=myVehiclesOnDet.begin(); i!=myVehiclesOnDet.end(); ++i) {
         SUMOReal timeOnDetDuringInterval = STEPS2TIME(stopTime) - MAX2(STEPS2TIME(startTime), (*i).second);
         occupancy += timeOnDetDuringInterval;
     }
@@ -244,7 +244,7 @@ MSInductLoop::writeXMLOutput(OutputDevice &dev,
 
 
 void
-MSInductLoop::enterDetectorByMove(MSVehicle& veh,
+MSInductLoop::enterDetectorByMove(SUMOVehicle& veh,
                                   SUMOReal entryTimestep) throw() {
     myVehiclesOnDet.insert(std::make_pair(&veh, entryTimestep));
     veh.quitRemindedEntered(this);
@@ -262,7 +262,7 @@ MSInductLoop::enterDetectorByMove(MSVehicle& veh,
 
 
 void
-MSInductLoop::leaveDetectorByMove(MSVehicle& veh,
+MSInductLoop::leaveDetectorByMove(SUMOVehicle& veh,
                                   SUMOReal leaveTimestep) throw() {
     VehicleMap::iterator it = myVehiclesOnDet.find(&veh);
     assert(it != myVehiclesOnDet.end());
@@ -278,7 +278,7 @@ MSInductLoop::leaveDetectorByMove(MSVehicle& veh,
 
 
 void
-MSInductLoop::leaveDetectorByLaneChange(MSVehicle& veh) throw() {
+MSInductLoop::leaveDetectorByLaneChange(SUMOVehicle& veh) throw() {
     // Discard entry data
     myVehiclesOnDet.erase(&veh);
     myDismissedVehicleNumber++;
@@ -288,7 +288,7 @@ MSInductLoop::leaveDetectorByLaneChange(MSVehicle& veh) throw() {
 
 
 void
-MSInductLoop::removeOnTripEnd(MSVehicle *veh) throw() {
+MSInductLoop::removeOnTripEnd(SUMOVehicle *veh) throw() {
     myCurrentVehicle = 0;
     myVehiclesOnDet.erase(veh);
 }
@@ -310,7 +310,7 @@ MSInductLoop::collectVehiclesOnDet(SUMOTime tMS) const throw() {
     }
     SUMOTime ct = MSNet::getInstance()->getCurrentTimeStep();
     for (VehicleMap::const_iterator i=myVehiclesOnDet.begin(); i!=myVehiclesOnDet.end(); ++i) {
-        MSVehicle *v = (*i).first;
+        SUMOVehicle *v = (*i).first;
         VehicleData d(v->getID(), v->getVehicleType().getLength(), (*i).second, STEPS2TIME(ct));
         d.speedM = v->getSpeed();
         ret.push_back(d);
