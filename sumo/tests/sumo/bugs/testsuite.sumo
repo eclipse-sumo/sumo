@@ -24,5 +24,10 @@ ticket19
 
 # Tests for ticket#331 (vehicles are emitted beyond the lane's end)
 ticket331
-
 collision
+
+# collision of long vehicles
+collision_long_veh
+
+# lanechanging in front of crossing
+lanechange_cross
