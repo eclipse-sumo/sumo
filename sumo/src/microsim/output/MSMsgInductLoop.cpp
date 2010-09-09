@@ -224,7 +224,7 @@ MSMsgInductLoop::writeXMLOutput(OutputDevice &dev,
 
 
 void
-MSMsgInductLoop::enterDetectorByMove(MSVehicle& veh,
+MSMsgInductLoop::enterDetectorByMove(SUMOVehicle& veh,
                                      SUMOReal entryTimestep) throw() {
     myVehiclesOnDet.insert(std::make_pair(&veh, entryTimestep));
     veh.quitRemindedEntered(this);
@@ -233,7 +233,7 @@ MSMsgInductLoop::enterDetectorByMove(MSVehicle& veh,
 
 
 void
-MSMsgInductLoop::leaveDetectorByMove(MSVehicle& veh,
+MSMsgInductLoop::leaveDetectorByMove(SUMOVehicle& veh,
                                      SUMOReal leaveTimestep) throw() {
     VehicleMap::iterator it = myVehiclesOnDet.find(&veh);
     assert(it != myVehiclesOnDet.end());
@@ -250,7 +250,7 @@ MSMsgInductLoop::leaveDetectorByMove(MSVehicle& veh,
 
 
 void
-MSMsgInductLoop::leaveDetectorByLaneChange(MSVehicle& veh) throw() {
+MSMsgInductLoop::leaveDetectorByLaneChange(SUMOVehicle& veh) throw() {
     // Discard entry data
     myVehiclesOnDet.erase(&veh);
     myDismissedVehicleNumber++;

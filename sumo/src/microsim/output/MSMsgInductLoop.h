@@ -35,8 +35,7 @@
 #include <map>
 #include <functional>
 #include <microsim/MSMoveReminder.h>
-#include <microsim/MSVehicle.h>
-#include <microsim/MSNet.h>
+#include <microsim/MSVehicleQuitReminded.h>
 #include <microsim/output/MSDetectorFileOutput.h>
 #include <utils/iodevices/OutputDevice.h>
 #include <utils/common/Named.h>
@@ -46,9 +45,7 @@
 // class declarations
 // ===========================================================================
 class MSLane;
-class GUIDetectorWrapper;
-class GUIGlObjectStorage;
-class GUILaneWrapper;
+class SUMOVehicle;
 
 
 // ===========================================================================
@@ -266,7 +263,7 @@ protected:
      * @param veh The entering vehicle.
      * @param entryTimestep Timestep (not necessary integer) of entrance.
      */
-    void enterDetectorByMove(MSVehicle& veh, SUMOReal entryTimestep) throw();
+    void enterDetectorByMove(SUMOVehicle& veh, SUMOReal entryTimestep) throw();
 
 
     /** @brief Processes a vehicle that leaves the detector
@@ -277,13 +274,13 @@ protected:
      * @param veh The leaving vehicle.
      * @param leaveTimestep Timestep (not necessary integer) of leaving.
      */
-    void leaveDetectorByMove(MSVehicle& veh, SUMOReal leaveTimestep) throw();
+    void leaveDetectorByMove(SUMOVehicle& veh, SUMOReal leaveTimestep) throw();
 
 
     /** @brief Removes a vehicle from the detector's map myVehiclesOnDet.
      * @param veh The leaving vehicle.
      */
-    void leaveDetectorByLaneChange(MSVehicle& veh) throw();
+    void leaveDetectorByLaneChange(SUMOVehicle& veh) throw();
     /// @}
 
 
@@ -344,7 +341,7 @@ protected:
 
 protected:
     /// @brief The vehicle that is currently on the detector
-    MSVehicle *myCurrentVehicle;
+    SUMOVehicle *myCurrentVehicle;
 
     /// @brief Detector's position on lane [m]
     const SUMOReal myPosition;
@@ -367,7 +364,7 @@ protected:
 
 
     /// @brief Type of myVehiclesOnDet
-    typedef std::map< MSVehicle*, SUMOReal > VehicleMap;
+    typedef std::map< SUMOVehicle*, SUMOReal > VehicleMap;
 
     /// @brief Data for vehicles that have entered the detector
     VehicleMap myVehiclesOnDet;
