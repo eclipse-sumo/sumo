@@ -14,8 +14,8 @@ All rights reserved
 import os, subprocess, sys, xml.sax
 
 _SOURCE_EXT = [".h", ".cpp", ".py", ".pl", ".java", ".am"]
-_TESTDATA_EXT = [".xml", ".cfg", ".complex", ".dfrouter", ".duarouter", ".jtrrouter", ".netconvert", ".netgen", ".od2trips", ".polyconvert", ".sumo", ".meso", ".tools", ".traci", ".activitygen"]
-_VS_EXT = [".vsprops", ".sln", ".vcproj"]
+_TESTDATA_EXT = [".xml", ".cfg", ".prog", ".complex", ".dfrouter", ".duarouter", ".jtrrouter", ".netconvert", ".netgen", ".od2trips", ".polyconvert", ".sumo", ".meso", ".tools", ".traci", ".activitygen"]
+_VS_EXT = [".vsprops", ".sln", ".vcproj", ".bat"]
 _KEYWORDS = "HeadURL Id LastChangedBy LastChangedDate LastChangedRevision"
 
 class PropertyReader(xml.sax.handler.ContentHandler):
@@ -47,7 +47,7 @@ class PropertyReader(xml.sax.handler.ContentHandler):
         if name == 'property' and self._property == "svn:keywords":
             self._hadKeywords = True
         if ext in _SOURCE_EXT or ext in _TESTDATA_EXT or ext in _VS_EXT:
-            if name == 'property' and self._property == "svn:executable" and ext not in [".py", ".pl"]:
+            if name == 'property' and self._property == "svn:executable" and ext not in [".py", ".pl", ".bat"]:
                 print self._file, self._property, self._value
                 if self._fix:
                     subprocess.call(["svn", "pd", "svn:executable", self._file])
