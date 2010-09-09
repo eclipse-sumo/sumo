@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 05/07/10 14:00:10 by SUMO sumo Version dev-SVN-r8739
+<!-- generated on 09/08/10 14:12:46 by SUMO sumo Version dev-SVN-r9062
 <configuration>
 
     <input>
@@ -26,5 +26,5 @@
 -->
 
 <calibratorstats>
-   <interval begin="0.00" end="100.00" id="calibtest" nVehContrib="4" removed="22" inserted="0" flow="144.00" aspiredFlow="200.00" speed="28.19" aspiredSpeed="-1.00"/>
+   <interval begin="0.00" end="100.00" id="calibtest" nVehContrib="4" removed="22" inserted="0" flow="144.00" aspiredFlow="200.00" speed="31.46" aspiredSpeed="-1.00"/>
 </calibratorstats>
