@@ -29,6 +29,7 @@
 
 #include <algorithm>
 #include <cassert>
+#include <iterator>
 #include "MSVehicle.h"
 #include "MSVehicleContainer.h"
 

@@ -28,6 +28,7 @@
 #include <vector>
 #include <algorithm>
 #include <cassert>
+#include <iterator>
 #include "MSTrafficLightLogic.h"
 #include "MSSimpleTrafficLightLogic.h"
 #include "MSTLLogicControl.h"

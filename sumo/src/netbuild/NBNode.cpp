@@ -35,6 +35,7 @@
 #include <deque>
 #include <set>
 #include <cmath>
+#include <iterator>
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/StringUtils.h>
 #include <utils/options/OptionsCont.h>

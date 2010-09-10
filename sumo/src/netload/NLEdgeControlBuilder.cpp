@@ -31,6 +31,7 @@
 #include <string>
 #include <map>
 #include <algorithm>
+#include <iterator>
 #include <microsim/MSLane.h>
 #include <microsim/MSInternalLane.h>
 #include <microsim/MSEdge.h>

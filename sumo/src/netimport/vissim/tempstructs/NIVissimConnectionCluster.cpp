@@ -30,6 +30,7 @@
 #include <algorithm>
 #include <iostream>
 #include <cassert>
+#include <iterator>
 #include <utils/geom/Boundary.h>
 #include <utils/geom/GeomHelper.h>
 #include <utils/common/VectorHelper.h>

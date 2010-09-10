@@ -34,6 +34,7 @@
 #include <cstdlib>
 #include <cassert>
 #include <ctime>
+#include <iterator>
 #include "Option.h"
 #include "OptionsCont.h"
 #include <utils/common/UtilExceptions.h>

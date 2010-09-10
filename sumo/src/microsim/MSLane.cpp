@@ -979,7 +979,7 @@ MSLane::getFollowerOnConsecutive(SUMOReal dist, SUMOReal seen, SUMOReal leaderSp
         swap(newFound, toExamine);
     }
     if (possible.size()==0) {
-        return std::pair<MSVehicle * const, SUMOReal>(0, -1);
+        return std::pair<MSVehicle * const, SUMOReal>(static_cast<MSVehicle *>(0), -1);
     }
     sort(possible.begin(), possible.end(), by_second_sorter());
     return *(possible.begin());
@@ -990,7 +990,7 @@ std::pair<MSVehicle * const, SUMOReal>
 MSLane::getLeaderOnConsecutive(SUMOReal dist, SUMOReal seen, SUMOReal speed, const MSVehicle &veh,
                                const std::vector<MSLane*> &bestLaneConts) const {
     if (seen>dist) {
-        return std::pair<MSVehicle * const, SUMOReal>(0, -1);
+        return std::pair<MSVehicle * const, SUMOReal>(static_cast<MSVehicle *>(0), -1);
     }
     unsigned int view = 1;
     // loop over following lanes
@@ -1005,7 +1005,7 @@ MSLane::getLeaderOnConsecutive(SUMOReal dist, SUMOReal seen, SUMOReal speed, con
         // get the next link used
         MSLinkCont::const_iterator link = targetLane->succLinkSec(veh, view, *nextLane, bestLaneConts);
         if (nextLane->isLinkEnd(link) || !(*link)->opened(arrivalTime, speed, veh.getVehicleType().getLength()) || (*link)->getState()==MSLink::LINKSTATE_TL_RED) {
-            return std::pair<MSVehicle * const, SUMOReal>(0, -1);
+            return std::pair<MSVehicle * const, SUMOReal>(static_cast<MSVehicle *>(0), -1);
         }
 #ifdef HAVE_INTERNAL_LANES
         bool nextInternal = false;
@@ -1019,7 +1019,7 @@ MSLane::getLeaderOnConsecutive(SUMOReal dist, SUMOReal seen, SUMOReal speed, con
         nextLane = (*link)->getLane();
 #endif
         if (nextLane==0) {
-            return std::pair<MSVehicle * const, SUMOReal>(0, -1);
+            return std::pair<MSVehicle * const, SUMOReal>(static_cast<MSVehicle *>(0), -1);
         }
         arrivalTime += TIME2STEPS(nextLane->getLength()/speed);
         MSVehicle * leader = nextLane->getLastVehicle();
@@ -1036,7 +1036,7 @@ MSLane::getLeaderOnConsecutive(SUMOReal dist, SUMOReal seen, SUMOReal speed, con
         }
         seen += nextLane->getLength();
         if (seen>dist) {
-            return std::pair<MSVehicle * const, SUMOReal>(0, -1);
+            return std::pair<MSVehicle * const, SUMOReal>(static_cast<MSVehicle *>(0), -1);
         }
 #ifdef HAVE_INTERNAL_LANES
         if (!nextInternal) {

@@ -29,6 +29,7 @@
 #include <vector>
 #include <set>
 #include <cassert>
+#include <iterator>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/ToString.h>
 #include <utils/options/OptionsCont.h>

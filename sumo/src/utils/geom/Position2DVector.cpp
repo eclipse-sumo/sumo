@@ -32,6 +32,7 @@
 #include <iostream>
 #include <algorithm>
 #include <cassert>
+#include <iterator>
 #include "AbstractPoly.h"
 #include "Position2D.h"
 #include "Position2DVector.h"

@@ -29,6 +29,7 @@
 
 #include <string>
 #include <deque>
+#include <iterator>
 #include "ROEdge.h"
 #include "RORouteDef.h"
 #include "RORoute.h"

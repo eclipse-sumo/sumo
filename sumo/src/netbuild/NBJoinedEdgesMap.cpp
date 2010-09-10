@@ -31,6 +31,7 @@
 #include "NBEdgeCont.h"
 #include "NBEdge.h"
 #include <algorithm>
+#include <iterator>
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>

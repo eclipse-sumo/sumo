@@ -35,6 +35,7 @@
 #include <iostream>
 #include <algorithm>
 #include <list>
+#include <iterator>
 #include <utils/common/RandHelper.h>
 #include <utils/iodevices/OutputDevice.h>
 

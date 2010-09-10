@@ -30,6 +30,7 @@
 #include <string>
 #include <map>
 #include <vector>
+#include <iterator>
 #include <microsim/MSLane.h>
 #include <microsim/MSInternalLane.h>
 #include <microsim/MSLink.h>

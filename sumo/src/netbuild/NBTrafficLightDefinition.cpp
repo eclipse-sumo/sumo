@@ -31,6 +31,7 @@
 #include <string>
 #include <algorithm>
 #include <cassert>
+#include <iterator>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/ToString.h>
 #include "NBTrafficLightDefinition.h"

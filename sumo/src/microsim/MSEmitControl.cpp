@@ -30,6 +30,7 @@
 #include <iostream>
 #include <algorithm>
 #include <cassert>
+#include <iterator>
 #include "MSEmitControl.h"
 #include "MSVehicle.h"
 #include "MSLane.h"

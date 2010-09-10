@@ -35,6 +35,7 @@
 #include <cmath>
 #include <iostream>
 #include <sstream>
+#include <iterator>
 #include <utils/common/ToString.h>
 #include <utils/geom/Position2DVector.h>
 #include <utils/geom/GeomHelper.h>
@@ -602,7 +603,7 @@ NIVissimEdge::getFromNode(NBNodeCont &nc, ConnectionClusters &clusters) {
             while (myDistrictConnections.size()>0&&*(myDistrictConnections.begin())<10) {
                 myDistrictConnections.erase(myDistrictConnections.begin());
             }
-            return std::pair<NIVissimConnectionCluster*, NBNode*>(0, node);
+            return std::pair<NIVissimConnectionCluster*, NBNode*>(static_cast<NIVissimConnectionCluster*>(0), node);
         }
     }
     // build a new node for the edge's begin otherwise
@@ -610,7 +611,7 @@ NIVissimEdge::getFromNode(NBNodeCont &nc, ConnectionClusters &clusters) {
     if (!nc.insert(node)) {
         throw 1;
     }
-    return std::pair<NIVissimConnectionCluster*, NBNode*>(0, node);
+    return std::pair<NIVissimConnectionCluster*, NBNode*>(static_cast<NIVissimConnectionCluster*>(0), node);
 }
 
 
@@ -638,7 +639,7 @@ NIVissimEdge::getToNode(NBNodeCont &nc, ConnectionClusters &clusters) {
             while (myDistrictConnections.size()>0&&*(myDistrictConnections.end()-1)<myGeom.length()-10) {
                 myDistrictConnections.erase(myDistrictConnections.end()-1);
             }
-            return std::pair<NIVissimConnectionCluster*, NBNode*>(0, node);
+            return std::pair<NIVissimConnectionCluster*, NBNode*>(static_cast<NIVissimConnectionCluster*>(0), node);
         }
     }
 
@@ -647,7 +648,7 @@ NIVissimEdge::getToNode(NBNodeCont &nc, ConnectionClusters &clusters) {
     if (!nc.insert(node)) {
         throw 1;
     }
-    return std::pair<NIVissimConnectionCluster*, NBNode *>(0, node);
+    return std::pair<NIVissimConnectionCluster*, NBNode *>(static_cast<NIVissimConnectionCluster*>(0), node);
     /*
     if (clusters.size()>0) {
     NIVissimConnectionCluster *c = *(clusters.end()-1);
@@ -655,7 +656,7 @@ NIVissimEdge::getToNode(NBNodeCont &nc, ConnectionClusters &clusters) {
     return std::pair<NIVissimConnectionCluster*, NBNode*>(c, c->getNBNode());
     } else {
     // !!! dummy edge?!
-    return std::pair<NIVissimConnectionCluster*, NBNode*>(0, (*(myConnectionClusters.begin()))->getNBNode());
+    return std::pair<NIVissimConnectionCluster*, NBNode*>(static_cast<NIVissimConnectionCluster*>(0), (*(myConnectionClusters.begin()))->getNBNode());
     }
     */
 }

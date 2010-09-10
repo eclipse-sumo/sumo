@@ -115,7 +115,7 @@ NBOwnTLDef::computeUnblockedWeightedStreamNumber(const NBEdge * const e1, const 
 
 std::pair<NBEdge*, NBEdge*>
 NBOwnTLDef::getBestCombination(const std::vector<NBEdge*> &edges) throw() {
-    std::pair<NBEdge*, NBEdge*> bestPair(0,0);
+    std::pair<NBEdge*, NBEdge*> bestPair(static_cast<NBEdge*>(0), static_cast<NBEdge*>(0));
     SUMOReal bestValue = -1;
     for (std::vector<NBEdge*>::const_iterator i=edges.begin(); i!=edges.end(); ++i) {
         for (std::vector<NBEdge*>::const_iterator j=i+1; j!=edges.end(); ++j) {
@@ -140,7 +140,7 @@ std::pair<NBEdge*, NBEdge*>
 NBOwnTLDef::getBestPair(std::vector<NBEdge*> &incoming) throw() {
     if (incoming.size()==1) {
         // only one there - return the one
-        std::pair<NBEdge*, NBEdge*> ret(*incoming.begin(), 0);
+        std::pair<NBEdge*, NBEdge*> ret(*incoming.begin(), static_cast<NBEdge*>(0));
         incoming.clear();
         return ret;
     }
@@ -214,7 +214,7 @@ NBOwnTLDef::myCompute(const NBEdgeCont &,
     while (toProc.size()>0) {
         std::pair<NBEdge*, NBEdge*> chosen;
         if (incoming.size()==2) {
-            chosen = std::pair<NBEdge*, NBEdge*>(toProc[0], 0);
+            chosen = std::pair<NBEdge*, NBEdge*>(toProc[0], static_cast<NBEdge*>(0));
             toProc.erase(toProc.begin());
         } else {
             chosen = getBestPair(toProc);

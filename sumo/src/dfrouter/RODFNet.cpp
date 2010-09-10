@@ -28,6 +28,7 @@
 #include <iostream>
 #include <map>
 #include <vector>
+#include <iterator>
 #include "RODFNet.h"
 #include "RODFDetector.h"
 #include "RODFRouteDesc.h"
