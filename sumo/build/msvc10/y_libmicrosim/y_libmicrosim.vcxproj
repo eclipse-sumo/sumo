@@ -1,0 +1,341 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Fastbuild|Win32">
+      <Configuration>Fastbuild</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Fastbuild|x64">
+      <Configuration>Fastbuild</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="MesoDebug|Win32">
+      <Configuration>MesoDebug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="MesoDebug|x64">
+      <Configuration>MesoDebug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="MesoRelease|Win32">
+      <Configuration>MesoRelease</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="MesoRelease|x64">
+      <Configuration>MesoRelease</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{2A069662-6B6F-40D7-A808-211F9C9A4AAE}</ProjectGuid>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Fastbuild|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='MesoDebug|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='MesoRelease|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Fastbuild|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='MesoDebug|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='MesoRelease|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Fastbuild|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="..\Win32.props" />
+    <Import Project="..\Fastbuild.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='MesoDebug|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="..\Win32.props" />
+    <Import Project="..\meso.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='MesoRelease|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="..\Win32.props" />
+    <Import Project="..\Release.props" />
+    <Import Project="..\meso.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="..\Win32.props" />
+    <Import Project="..\Release.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="..\Win32.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Fastbuild|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="..\x64.props" />
+    <Import Project="..\Fastbuild.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='MesoDebug|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="..\x64.props" />
+    <Import Project="..\meso.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='MesoRelease|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="..\x64.props" />
+    <Import Project="..\Release.props" />
+    <Import Project="..\meso.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="..\x64.props" />
+    <Import Project="..\Release.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="..\x64.props" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.30319.1</_ProjectFileVersion>
+    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" />
+    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" />
+    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" />
+    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" />
+    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='Fastbuild|Win32'">AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='Fastbuild|Win32'" />
+    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='Fastbuild|Win32'" />
+    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='Fastbuild|x64'">AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='Fastbuild|x64'" />
+    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='Fastbuild|x64'" />
+    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='MesoDebug|Win32'">AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='MesoDebug|Win32'" />
+    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='MesoDebug|Win32'" />
+    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='MesoDebug|x64'">AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='MesoDebug|x64'" />
+    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='MesoDebug|x64'" />
+    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='MesoRelease|Win32'">AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='MesoRelease|Win32'" />
+    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='MesoRelease|Win32'" />
+    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='MesoRelease|x64'">AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='MesoRelease|x64'" />
+    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='MesoRelease|x64'" />
+    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" />
+    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" />
+    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='Release|x64'">AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='Release|x64'" />
+    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='Release|x64'" />
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ResourceCompile>
+      <Culture>0x0407</Culture>
+    </ResourceCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ResourceCompile>
+      <Culture>0x0407</Culture>
+    </ResourceCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='MesoRelease|Win32'">
+    <ResourceCompile>
+      <Culture>0x0407</Culture>
+    </ResourceCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='MesoDebug|Win32'">
+    <ResourceCompile>
+      <Culture>0x0407</Culture>
+    </ResourceCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Fastbuild|Win32'">
+    <ResourceCompile>
+      <Culture>0x0407</Culture>
+    </ResourceCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ResourceCompile>
+      <Culture>0x0407</Culture>
+    </ResourceCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ResourceCompile>
+      <Culture>0x0407</Culture>
+    </ResourceCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='MesoRelease|x64'">
+    <ResourceCompile>
+      <Culture>0x0407</Culture>
+    </ResourceCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='MesoDebug|x64'">
+    <ResourceCompile>
+      <Culture>0x0407</Culture>
+    </ResourceCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Fastbuild|x64'">
+    <Midl>
+      <TargetEnvironment>X64</TargetEnvironment>
+    </Midl>
+    <ResourceCompile>
+      <Culture>0x0407</Culture>
+    </ResourceCompile>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\src\microsim\MSCFModel.cpp" />
+    <ClCompile Include="..\..\..\src\microsim\cfmodels\MSCFModel_IDM.cpp" />
+    <ClCompile Include="..\..\..\src\microsim\cfmodels\MSCFModel_Kerner.cpp" />
+    <ClCompile Include="..\..\..\src\microsim\cfmodels\MSCFModel_Krauss.cpp" />
+    <ClCompile Include="..\..\..\src\microsim\cfmodels\MSCFModel_KraussOrig1.cpp" />
+    <ClCompile Include="..\..\..\src\microsim\cfmodels\MSCFModel_PWag2009.cpp" />
+    <ClCompile Include="..\..\..\src\microsim\MSCORN.cpp" />
+    <ClCompile Include="..\..\..\src\microsim\devices\MSDevice_HBEFA.cpp" />
+    <ClCompile Include="..\..\..\src\microsim\devices\MSDevice_Routing.cpp" />
+    <ClCompile Include="..\..\..\src\microsim\MSEdge.cpp" />
+    <ClCompile Include="..\..\..\src\microsim\MSEdgeControl.cpp" />
+    <ClCompile Include="..\..\..\src\microsim\MSEdgeWeightsStorage.cpp" />
+    <ClCompile Include="..\..\..\src\microsim\MSEmitControl.cpp" />
+    <ClCompile Include="..\..\..\src\microsim\MSEventControl.cpp" />
+    <ClCompile Include="..\..\..\src\microsim\MSFrame.cpp" />
+    <ClCompile Include="..\..\..\src\microsim\MSGlobals.cpp" />
+    <ClCompile Include="..\..\..\src\microsim\MSInternalJunction.cpp" />
+    <ClCompile Include="..\..\..\src\microsim\MSInternalLane.cpp" />
+    <ClCompile Include="..\..\..\src\microsim\MSJunction.cpp" />
+    <ClCompile Include="..\..\..\src\microsim\MSJunctionControl.cpp" />
+    <ClCompile Include="..\..\..\src\microsim\MSJunctionLogic.cpp" />
+    <ClCompile Include="..\..\..\src\microsim\MSLane.cpp" />
+    <ClCompile Include="..\..\..\src\microsim\MSLaneChanger.cpp" />
+    <ClCompile Include="..\..\..\src\microsim\MSLCM_DK2004.cpp" />
+    <ClCompile Include="..\..\..\src\microsim\MSLink.cpp" />
+    <ClCompile Include="..\..\..\src\microsim\MSLinkCont.cpp" />
+    <ClCompile Include="..\..\..\src\microsim\MSLogicJunction.cpp" />
+    <ClCompile Include="..\..\..\src\microsim\MSMessageEmitter.cpp" />
+    <ClCompile Include="..\..\..\src\microsim\MSMoveReminder.cpp" />
+    <ClCompile Include="..\..\..\src\microsim\MSNet.cpp" />
+    <ClCompile Include="..\..\..\src\microsim\MSNoLogicJunction.cpp" />
+    <ClCompile Include="..\..\..\src\microsim\MSPerson.cpp" />
+    <ClCompile Include="..\..\..\src\microsim\MSPersonControl.cpp" />
+    <ClCompile Include="..\..\..\src\microsim\MSRightOfWayJunction.cpp" />
+    <ClCompile Include="..\..\..\src\microsim\MSRoute.cpp" />
+    <ClCompile Include="..\..\..\src\microsim\MSRouteHandler.cpp" />
+    <ClCompile Include="..\..\..\src\microsim\MSRouteLoader.cpp" />
+    <ClCompile Include="..\..\..\src\microsim\MSRouteLoaderControl.cpp" />
+    <ClCompile Include="..\..\..\src\microsim\MSVehicle.cpp" />
+    <ClCompile Include="..\..\..\src\microsim\MSVehicleContainer.cpp" />
+    <ClCompile Include="..\..\..\src\microsim\MSVehicleControl.cpp" />
+    <ClCompile Include="..\..\..\src\microsim\MSVehicleTransfer.cpp" />
+    <ClCompile Include="..\..\..\src\microsim\MSVehicleType.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\src\microsim\MSAbstractLaneChangeModel.h" />
+    <ClInclude Include="..\..\..\src\microsim\MSBitSetLogic.h" />
+    <ClInclude Include="..\..\..\src\microsim\MSCFModel.h" />
+    <ClInclude Include="..\..\..\src\microsim\cfmodels\MSCFModel_IDM.h" />
+    <ClInclude Include="..\..\..\src\microsim\cfmodels\MSCFModel_Kerner.h" />
+    <ClInclude Include="..\..\..\src\microsim\cfmodels\MSCFModel_Krauss.h" />
+    <ClInclude Include="..\..\..\src\microsim\cfmodels\MSCFModel_KraussOrig1.h" />
+    <ClInclude Include="..\..\..\src\microsim\cfmodels\MSCFModel_PWag2009.h" />
+    <ClInclude Include="..\..\..\src\microsim\MSCORN.h" />
+    <ClInclude Include="..\..\..\src\microsim\devices\MSDevice.h" />
+    <ClInclude Include="..\..\..\src\microsim\devices\MSDevice_HBEFA.h" />
+    <ClInclude Include="..\..\..\src\microsim\devices\MSDevice_Routing.h" />
+    <ClInclude Include="..\..\..\src\microsim\MSEdge.h" />
+    <ClInclude Include="..\..\..\src\microsim\MSEdgeControl.h" />
+    <ClInclude Include="..\..\..\src\microsim\MSEdgeWeightsStorage.h" />
+    <ClInclude Include="..\..\..\src\microsim\MSEmitControl.h" />
+    <ClInclude Include="..\..\..\src\microsim\MSEventControl.h" />
+    <ClInclude Include="..\..\..\src\microsim\MSFrame.h" />
+    <ClInclude Include="..\..\..\src\microsim\MSGlobals.h" />
+    <ClInclude Include="..\..\..\src\microsim\MSInternalJunction.h" />
+    <ClInclude Include="..\..\..\src\microsim\MSInternalLane.h" />
+    <ClInclude Include="..\..\..\src\microsim\MSJunction.h" />
+    <ClInclude Include="..\..\..\src\microsim\MSJunctionControl.h" />
+    <ClInclude Include="..\..\..\src\microsim\MSJunctionLogic.h" />
+    <ClInclude Include="..\..\..\src\microsim\MSLane.h" />
+    <ClInclude Include="..\..\..\src\microsim\MSLaneChanger.h" />
+    <ClInclude Include="..\..\..\src\microsim\MSLCM_DK2004.h" />
+    <ClInclude Include="..\..\..\src\microsim\MSLink.h" />
+    <ClInclude Include="..\..\..\src\microsim\MSLinkCont.h" />
+    <ClInclude Include="..\..\..\src\microsim\MSLogicJunction.h" />
+    <ClInclude Include="..\..\..\src\microsim\MSMoveReminder.h" />
+    <ClInclude Include="..\..\..\src\microsim\MSNet.h" />
+    <ClInclude Include="..\..\..\src\microsim\MSNoLogicJunction.h" />
+    <ClInclude Include="..\..\..\src\microsim\MSPerson.h" />
+    <ClInclude Include="..\..\..\src\microsim\MSPersonControl.h" />
+    <ClInclude Include="..\..\..\src\microsim\MSRightOfWayJunction.h" />
+    <ClInclude Include="..\..\..\src\microsim\MSRoute.h" />
+    <ClInclude Include="..\..\..\src\microsim\MSRouteHandler.h" />
+    <ClInclude Include="..\..\..\src\microsim\MSRouteLoader.h" />
+    <ClInclude Include="..\..\..\src\microsim\MSRouteLoaderControl.h" />
+    <ClInclude Include="..\..\..\src\microsim\MSVehicle.h" />
+    <ClInclude Include="..\..\..\src\microsim\MSVehicleContainer.h" />
+    <ClInclude Include="..\..\..\src\microsim\MSVehicleControl.h" />
+    <ClInclude Include="..\..\..\src\microsim\MSVehicleQuitReminded.h" />
+    <ClInclude Include="..\..\..\src\microsim\MSVehicleTransfer.h" />
+    <ClInclude Include="..\..\..\src\microsim\MSVehicleType.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\zz_foreign_nvwa\zz_foreign_nvwa.vcxproj">
+      <Project>{fc5b65e0-a0b1-40d7-8687-c2fc79e3da47}</Project>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+    <ProjectReference Include="..\z_libmicrosim_actions\z_libmicrosim_actions.vcxproj">
+      <Project>{a54d4a8b-9520-40f0-b8cb-152bf506cb47}</Project>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+    <ProjectReference Include="..\z_libmicrosim_output\z_libmicrosim_output.vcxproj">
+      <Project>{cc278de5-d3d8-4bd8-b8a4-bd76cb8fb4f1}</Project>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+    <ProjectReference Include="..\z_libmicrosim_traffic_lights\z_libmicrosim_traffic_lights.vcxproj">
+      <Project>{af2015d2-2412-4355-87fb-e0d88b0a5fba}</Project>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+    <ProjectReference Include="..\z_libmicrosim_trigger\z_libmicrosim_trigger.vcxproj">
+      <Project>{26f88652-2664-4ce7-8292-6bd37ee6c3ad}</Project>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+    <ProjectReference Include="..\z_optional_libtraciserver\z_optional_libtraciserver.vcxproj">
+      <Project>{00a244e4-0f0d-49b9-a557-5ef1f8b98d7c}</Project>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
