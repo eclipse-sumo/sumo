@@ -452,7 +452,7 @@ MSNet::getStateMessage(MSNet::SimulationState state) throw() {
     case MSNet::SIMSTATE_CONNECTION_CLOSED:
         return "TraCI requested termination.";
     case MSNet::SIMSTATE_ERROR_IN_SIM:
-        return "Reason: An error occured (see log).";
+        return "An error occured (see log).";
     case MSNet::SIMSTATE_TOO_MANY_VEHICLES:
         return "Too many vehicles.";
     default:
