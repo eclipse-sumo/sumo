@@ -13,6 +13,9 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "od2trips", "od2trips\od2trips.vcxproj", "{39392259-4561-44C0-98F1-64CA4396C025}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "sumo", "sumo\sumo.vcxproj", "{08C90F3F-95F3-46C7-8D87-63AF6DF5558C}"
+	ProjectSection(ProjectDependencies) = postProject
+		{26F88652-2664-4CE7-8292-6BD37EE6C3AD} = {26F88652-2664-4CE7-8292-6BD37EE6C3AD}
+	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "y_libgui", "y_libgui\y_libgui.vcxproj", "{C9CC8A55-BCF5-44D8-9E22-55EA09757C60}"
 EndProject
@@ -93,6 +96,9 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "zz_foreign_eulerspiral", "zz_foreign_eulerspiral\zz_foreign_eulerspiral.vcxproj", "{50B2C273-2B6A-4A3A-BE24-83E3202DE180}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "activitygen", "activitygen\activitygen.vcxproj", "{3DAC2EC1-D265-4F66-8442-A006E50DC95F}"
+	ProjectSection(ProjectDependencies) = postProject
+		{492B0B5A-0BBE-49BA-82E6-70A82DBC242F} = {492B0B5A-0BBE-49BA-82E6-70A82DBC242F}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

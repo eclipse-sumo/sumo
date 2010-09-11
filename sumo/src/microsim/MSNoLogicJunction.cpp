@@ -42,7 +42,7 @@
 // ===========================================================================
 // static member definitions
 // ===========================================================================
-std::bitset<64> MSNoLogicJunction::myDump((unsigned long) 0xffffffff);
+std::bitset<64> MSNoLogicJunction::myDump((unsigned long long) 0xffffffff);
 
 
 

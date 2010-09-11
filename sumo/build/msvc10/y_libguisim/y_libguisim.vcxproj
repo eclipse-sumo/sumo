@@ -309,6 +309,10 @@
     <ProjectReference Include="..\y_libmicrosim\y_libmicrosim.vcxproj">
       <Project>{2a069662-6b6f-40d7-a808-211f9c9a4aae}</Project>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+      <Private>true</Private>
+      <CopyLocalSatelliteAssemblies>false</CopyLocalSatelliteAssemblies>
+      <LinkLibraryDependencies>true</LinkLibraryDependencies>
+      <UseLibraryDependencyInputs>false</UseLibraryDependencyInputs>
     </ProjectReference>
     <ProjectReference Include="..\zz_foreign_nvwa\zz_foreign_nvwa.vcxproj">
       <Project>{fc5b65e0-a0b1-40d7-8687-c2fc79e3da47}</Project>

@@ -45,6 +45,7 @@
   <PropertyGroup Label="Globals">
     <ProjectGuid>{F1904C42-F231-4B9D-AD80-E2971969AFA0}</ProjectGuid>
     <Keyword>MFCProj</Keyword>
+    <ProjectName>sumo-gui</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Fastbuild|Win32'" Label="Configuration">

@@ -317,6 +317,10 @@
     <ProjectReference Include="..\z_libmicrosim_actions\z_libmicrosim_actions.vcxproj">
       <Project>{a54d4a8b-9520-40f0-b8cb-152bf506cb47}</Project>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+      <Private>true</Private>
+      <CopyLocalSatelliteAssemblies>false</CopyLocalSatelliteAssemblies>
+      <LinkLibraryDependencies>true</LinkLibraryDependencies>
+      <UseLibraryDependencyInputs>false</UseLibraryDependencyInputs>
     </ProjectReference>
     <ProjectReference Include="..\z_libmicrosim_output\z_libmicrosim_output.vcxproj">
       <Project>{cc278de5-d3d8-4bd8-b8a4-bd76cb8fb4f1}</Project>
@@ -329,6 +333,10 @@
     <ProjectReference Include="..\z_libmicrosim_trigger\z_libmicrosim_trigger.vcxproj">
       <Project>{26f88652-2664-4ce7-8292-6bd37ee6c3ad}</Project>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+      <Private>true</Private>
+      <CopyLocalSatelliteAssemblies>false</CopyLocalSatelliteAssemblies>
+      <LinkLibraryDependencies>true</LinkLibraryDependencies>
+      <UseLibraryDependencyInputs>false</UseLibraryDependencyInputs>
     </ProjectReference>
     <ProjectReference Include="..\z_optional_libtraciserver\z_optional_libtraciserver.vcxproj">
       <Project>{00a244e4-0f0d-49b9-a557-5ef1f8b98d7c}</Project>
