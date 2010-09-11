@@ -157,7 +157,7 @@ int main(int argc, char *argv[]) {
 	oc.setApplicationDescription(
 			"Generates routes of persons throughout a day for the microscopic road traffic simulation SUMO.");
 	oc.setApplicationName("activitygen", "SUMO activitygen Version " + (std::string)VERSION_STRING);
-	oc.addCopyrightNotice("(c) Technische Universitaet Muenchen, 2010");
+	//oc.addCopyrightNotice("(c) Technische Universitaet Muenchen, 2010");
 	RONet *net = 0;
 	try {
 		// Initialize subsystems and process options

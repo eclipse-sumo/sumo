@@ -69,54 +69,20 @@ AGActivityGen::importInfoCity()
 		MsgHandler::getMessageInstance()->endProcessMsg("done.");
 	}
 
-	cout << "\n\n\n\n\n/______| lecture XML: fait |______\\\n\n\n" << endl;
-	cout << "\n\n\n\n\n/______| --consolidation-- |______\\\n\n\n" << endl;
+	cout << "read input done." << endl;
 	city.statData.consolidateStat();
-	cout << "\n\n\n\n\n/______| consolidation: fait |______\\\n\n\n" << endl;
+	cout << "pre-processing done." << endl;
 	city.completeStreets();
-	cout << "\n\n\n\n\n/______| streets: fait |______\\\n\n\n" << endl;
-	cout << " cou " << city.streets.size() << endl;
 	city.generateWorkPositions();
-	cout << "\n\n\n\n\n/______| workpositions: fait |______\\\n\n\n" << endl;
 	city.completeBusLines();
-	//test:
-	//city.busLines.front().printBuses();
-	//end test
 
-	cout << "\n\n\n\n\n/______| Manque plus que la population |______\\\n\n\n" << endl;
 	city.generatePopulation();
-	cout << "\n\n\n\n\n/______| VILLE TERMINEE |______\\\n\n\n" << endl;
+	cout << "city built." << endl;
 
-	//ALOCATIONS
-	cout << "\n\n\n\n\n/______| ALLOCATIONS |______\\\n\n\n" << endl;
 	city.schoolAllocation();
-	cout << "\n\n\n\n\n/______| schools: fait |______\\\n\n\n" << endl;
 	city.workAllocation();
-	cout << "\n\n\n\n\n/______| work positions: fait |______\\\n\n\n" << endl;
 	city.carAllocation();
-	cout << "\n\n\n\n\n/______| cars: fait |______\\\n\n\n" << endl;
-	cout << "\n\n\n\n\n/______| Fin de la construction de la ville |______\\\n\n\n" << endl;
-
-	/*cout << "streets: " << city.streets.size() << endl;
-	if(city.streets.size() >= 2)
-	{
-		city.streets.front().print();
-		city.streets.back().print();
-		cout << " distance entre les deux extremes: " << endl;
-		cout << " ---> " << city.streets.front().net->getEdge(city.streets.front().getName())->getFromNode()->getPosition().distanceTo(city.streets.front().net->getEdge(city.streets.front().getName())->getToNode()->getPosition()) << endl;
-		cout << " ---> " << city.streets.back().net->getEdge(city.streets.back().getName())->getFromNode()->getPosition().distanceTo(city.streets.back().net->getEdge(city.streets.back().getName())->getToNode()->getPosition()) << endl;
-
-		cout << " distance croisées des deux extremes: " << endl;
-		cout << " ---> " << city.streets.back().net->getEdge(city.streets.back().getName())->getFromNode()->getPosition().distanceTo(city.streets.front().net->getEdge(city.streets.front().getName())->getToNode()->getPosition()) << endl;
-		cout << " ---> " << city.streets.front().net->getEdge(city.streets.front().getName())->getFromNode()->getPosition().distanceTo(city.streets.back().net->getEdge(city.streets.back().getName())->getToNode()->getPosition()) << endl;
-
-		Position *pos = new Position(&city.streets.front());
-		pos->print();
-		cout << " Position: " << pos->pos2d.x() << " , " << pos->pos2d.y() << endl;
-		cout << " node From: " << pos->street->net->getEdge(pos->street->getName())->getFromNode()->getPosition().x() << " , " << pos->street->net->getEdge(pos->street->getName())->getFromNode()->getPosition().y() << endl;
-		cout << " node To: " << pos->street->net->getEdge(pos->street->getName())->getToNode()->getPosition().x() << " , " << pos->street->net->getEdge(pos->street->getName())->getToNode()->getPosition().y() << endl;
-	}*/
-
+	cout << "allocation done." << endl;
 }
 
 bool

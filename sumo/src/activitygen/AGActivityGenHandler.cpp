@@ -188,7 +188,7 @@ AGActivityGenHandler::parseStreets(const SUMOSAXAttributes &attrs)
 
 	AGStreet str(attrs.getString(SUMO_ATTR_EDGE), net, pop, work);
 	myCity.streets.push_back(str);
-	str.print();
+	//str.print();
 }
 
 void
@@ -203,7 +203,7 @@ void
 AGActivityGenHandler::parseWorkHours()
 {
 	myCurrentObject = "workHours";
-	std::cout << myCurrentObject << std::endl;
+	//std::cout << myCurrentObject << std::endl;
 }
 
 void
@@ -226,7 +226,7 @@ void
 AGActivityGenHandler::parseSchools()
 {
 	myCurrentObject = "schools";
-	std::cout << myCurrentObject << std::endl;
+	//std::cout << myCurrentObject << std::endl;
 }
 
 void
@@ -247,16 +247,12 @@ AGActivityGenHandler::parseBusStation(const SUMOSAXAttributes &attrs)
 {
 	AGPosition posi(myCity.getStreet(attrs.getString(SUMO_ATTR_EDGE)), attrs.getFloat(SUMO_ATTR_POSITION));
 	myCity.statData.busStations.insert(std::pair<int, AGPosition>(attrs.getInt(SUMO_ATTR_ID), posi));
-	/*std::cout << "bus station: ";
-	posi.print();
-	std::cout << std::endl;*/
 }
 
 void
 AGActivityGenHandler::parseBusLine(const SUMOSAXAttributes &attrs)
 {
 	myCurrentObject = "busLine";
-	std::cout << myCurrentObject << std::endl;
 	AGBusLine busL(attrs.getString(SUMO_ATTR_ID));
 	busL.setMaxTripTime(attrs.getInt(AGEN_ATTR_MAX_TRIP_DURATION));
 	myCity.busLines.push_front(busL);
@@ -284,7 +280,6 @@ AGActivityGenHandler::parseStation(const SUMOSAXAttributes &attrs)
 		currentBusLine->locateStation(myCity.statData.busStations.find(attrs.getInt(SUMO_ATTR_REFID))->second);
 	else
 		currentBusLine->locateRevStation(myCity.statData.busStations.find(attrs.getInt(SUMO_ATTR_REFID))->second);
-	//std::cout << "_";
 }
 
 void
@@ -296,22 +291,14 @@ AGActivityGenHandler::parseFrequency(const SUMOSAXAttributes &attrs)
 	int endB = attrs.getInt(SUMO_ATTR_END);
 	int rateB = attrs.getInt(AGEN_ATTR_RATE);
 	currentBusLine->generateBuses(beginB, endB, rateB);
-	//std::cout << "|";
 }
 
 void
 AGActivityGenHandler::parsePopulation()
 {
 	myCurrentObject = "population";
-	std::cout << myCurrentObject << std::endl;
+	//std::cout << myCurrentObject << std::endl;
 }
-
-/*void
-AGActivityGenHandler::parseChildrenAccompaniment()
-{
-	myCurrentObject = "childrenAccompaniment";
-	std::cout << myCurrentObject << std::endl;
-}*/
 
 void
 AGActivityGenHandler::parseBracket(const SUMOSAXAttributes &attrs)
@@ -323,11 +310,6 @@ AGActivityGenHandler::parseBracket(const SUMOSAXAttributes &attrs)
 		myCity.statData.population[endAge] = attrs.getInt(AGEN_ATTR_PEOPLENBR);
 		std::cout << "- people: [" << beginAge << "-" << endAge << "] = " << attrs.getInt(AGEN_ATTR_PEOPLENBR) << std::endl;
 	}
-	/*else if(myCurrentObject == "childrenAccompaniment")
-	{
-		myCity.statData.childrenAccompagniment[endAge] = attrs.getFloat(AGEN_ATTR_RATE);
-		std::cout << "- childrenAcomp.Rate: [" << beginAge << "-" << endAge << "] = " << attrs.getFloat(AGEN_ATTR_RATE) << std::endl;
-	}*/
 }
 
 /****************************************************************************/

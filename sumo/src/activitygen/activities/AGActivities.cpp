@@ -194,7 +194,7 @@ AGActivities::generateBusTraffic(AGBusLine bl)
 	{
 		if(bl.revStations.size() < 1)
 			return false;
-		AGTrip t(bl.revStations.back(), bl.revStations.front(), *itB, itB->getDeparture());
+		AGTrip t(bl.revStations.front(), bl.revStations.back(), *itB, itB->getDeparture());
 		for(itS=bl.revStations.begin() ; itS!=bl.revStations.end() ; ++itS)
 		{
 			if(*itS == t.getDep() || *itS == t.getArr())

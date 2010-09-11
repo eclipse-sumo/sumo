@@ -39,7 +39,7 @@
 #include "AGPosition.h"
 #include "AGTime.h"
 
-#define PAUSE_TIME 20		//time (in minutes) a bus waits before going in the opposite direction.
+#define PAUSE_TIME 15		//time (in minutes) a bus waits before going in the opposite direction.
 
 
 // ===========================================================================
