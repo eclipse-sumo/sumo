@@ -73,11 +73,14 @@ AGActivityGen::importInfoCity()
 	city.statData.consolidateStat();
 	cout << "pre-processing done." << endl;
 	city.completeStreets();
+	cout << "- streets done..." << endl;
 	city.generateWorkPositions();
+	cout << "- work done..." << endl;
 	city.completeBusLines();
+	cout << "- bus lines done..." << endl;
 
 	city.generatePopulation();
-	cout << "city built." << endl;
+	cout << "...city built." << endl;
 
 	city.schoolAllocation();
 	city.workAllocation();

@@ -324,6 +324,8 @@ AGWorkAndSchool::generateListTrips()
 					{
 						//there is enough time to accompany people and go back home before going to work
 						itAccT->setVehicleName(itDriT->getVehicleName());
+						itAccT->addLayOver(itAccT->getArr());	//final destination is the last accompaniment stop: not the destination of the course
+						itAccT->setArr(hh->getPosition());		//final destination of the whole trip: home
 						partialActivityTrips.push_back(*itAccT);
 						alreadyDone = true;
 					}
@@ -352,7 +354,7 @@ AGWorkAndSchool::generateListTrips()
 					itAccT->addLayOver(itAccT->getArr());
 					itAccT->setArr(hh->getPosition());
 					partialActivityTrips.push_back(*itAccT);
-					alreadyDone  =true;
+					alreadyDone = true;
 				}
 			}
 			else if(itAccT->getRideBackArrTime(this->timePerKm) < itA->getWorkOpening() && !alreadyDone)
