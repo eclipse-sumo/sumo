@@ -186,7 +186,7 @@ AGActivityGenHandler::parseStreets(const SUMOSAXAttributes &attrs)
 	if(attrs.hasAttribute(AGEN_ATTR_OUT_WORKPOSITION))
 		work = attrs.getFloat(AGEN_ATTR_OUT_WORKPOSITION);
 
-	AGStreet str(attrs.getString(SUMO_ATTR_EDGE), net, pop, work);
+	AGStreet str(net->getEdge(attrs.getString(SUMO_ATTR_EDGE)), pop, work);
 	myCity.streets.push_back(str);
 	//str.print();
 }

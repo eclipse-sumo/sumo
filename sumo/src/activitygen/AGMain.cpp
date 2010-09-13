@@ -34,32 +34,22 @@
 #endif
 
 #include <iostream>
-#include <sstream>
-#include <vector>
-#include <list>
-#include <iterator>
 #include <exception>
-#include <functional>
 #include <typeinfo>
-#include <xercesc/sax/SAXException.hpp>
-#include <xercesc/sax/SAXParseException.hpp>
-#include <utils/options/OptionsCont.h>
-#include <utils/options/OptionsIO.h>
-#include <utils/common/SystemFrame.h>
-#include <utils/common/MsgHandler.h>
-#include <utils/common/ToString.h>
 #include <router/RONet.h>
 #include <router/ROLoader.h>
-#include <duarouter/RODUAFrame.h>
+#include <router/RONetHandler.h>
 #include <duarouter/RODUAEdgeBuilder.h>
+#include <utils/options/OptionsIO.h>
+#include <utils/common/MsgHandler.h>
+#include <utils/common/ToString.h>
 #include <utils/xml/XMLSubSys.h>
 #include <utils/common/FileHelpers.h>
 #include <utils/common/RandHelper.h>
-#include <utils/common/DijkstraRouterTT.h>
-#include <utils/common/DijkstraRouterEffort.h>
-#include <router/RONetHandler.h>
-#include <router/ROFrame.h>
+#include <utils/common/SystemFrame.h>
+#include <utils/options/OptionsCont.h>
 //ActivityGen
+#include "AGFrame.h"
 #include "AGActivityGen.h"
 #include "city/AGTime.h"
 
@@ -77,56 +67,6 @@ using namespace std;
 // ===========================================================================
 // method definitions
 // ===========================================================================
-void initAndOptions(int argc, char *argv[]) {
-	OptionsCont &oc = OptionsCont::getOptions();
-
-	XMLSubSys::init(false);
-
-	// Options handling
-	oc.addCallExample("--net-file <INPUT>.net.xml --stat-file <INPUT>.stat.xml --output-file <OUTPUT>.rou.xml");
-	oc.addCallExample("--net-file <INPUT>.net.xml --stat-file <INPUT>.stat.xml --output-file <OUTPUT>.rou.xml --duration-d <NBR_OF_DAYS>");
-
-	// insert options sub-topics
-	SystemFrame::addConfigurationOptions(oc); // fill this subtopic, too
-	oc.addOptionSubTopic("Input");
-	oc.addOptionSubTopic("Output");
-	oc.addOptionSubTopic("Processing");
-	oc.addOptionSubTopic("Defaults");
-	oc.addOptionSubTopic("Time");
-	SystemFrame::addReportOptions(oc); // fill this subtopic, too
-
-	// insert options
-	ROFrame::fillOptions(oc);
-	oc.doRegister("expand-weights", new Option_Bool(false));
-	oc.addDescription("expand-weights", "Processing",
-			"Expand weights behind the simulation's end");
-	//        addImportOptions();
-	//        addDUAOptions();
-	// add rand options
-
-	// Options of ActivityGen
-	oc.doRegister("debug", new Option_Bool(false));
-	oc.addDescription("debug", "Report",
-			"Detailed messages about every single step");
-
-	oc.doRegister("stat-file", 's', new Option_FileName());
-	oc.addDescription("stat-file", "Input", "Loads the SUMO-statistics FILE");
-
-	oc.doRegister("duration-d", new Option_Integer());
-	oc.addDescription("duration-d", "Time", "OPTIONAL sets the duration of the simulation in days");
-
-	oc.doRegister("time-begin", new Option_Integer());
-	oc.addDescription("time-begin", "Time", "OPTIONAL sets the time of beginning of the simulation during the first day (in seconds)");
-
-	oc.doRegister("time-end", new Option_Integer());
-	oc.addDescription("time-end", "Time", "OPTIONAL sets the time of ending of the simulation during the last day (in seconds)");
-
-	RandHelper::insertRandOptions();
-	OptionsIO::getOptions(true, argc, argv);
-	MsgHandler::initOutputOptions();
-	//if (!RODUAFrame::checkOptions()) throw ProcessError();
-	RandHelper::initRandGlobal();
-}
 
 /// Loads the network
 void loadNet(RONet &toFill, ROAbstractEdgeBuilder &eb) throw (ProcessError) {
@@ -150,18 +90,18 @@ void loadNet(RONet &toFill, ROAbstractEdgeBuilder &eb) throw (ProcessError) {
 	}
 }
 
+/****************************************************************************/
 
 int main(int argc, char *argv[]) {
 	OptionsCont &oc = OptionsCont::getOptions();
-	// give some application descriptions
-	oc.setApplicationDescription(
-			"Generates routes of persons throughout a day for the microscopic road traffic simulation SUMO.");
-	oc.setApplicationName("activitygen", "SUMO activitygen Version " + (std::string)VERSION_STRING);
-	//oc.addCopyrightNotice("(c) Technische Universitaet Muenchen, 2010");
 	RONet *net = 0;
 	try {
-		// Initialize subsystems and process options
-		initAndOptions(argc, argv);
+		// Initialise subsystems and process options
+		XMLSubSys::init(false);
+		AGFrame::fillOptions();
+		OptionsIO::getOptions(true, argc, argv);
+		MsgHandler::initOutputOptions();
+		RandHelper::initRandGlobal();
 		if (oc.processMetaOptions(argc < 2)) {
 			SystemFrame::close();
 			return 0;
@@ -175,22 +115,27 @@ int main(int argc, char *argv[]) {
 				net->getEdgeNo()) + " edges.");
 
 	} catch (ProcessError &pe) {
+		// TODO Switch to MessageHandler as soon as the operator<< works
 		cout << typeid(pe).name() << ": " << pe.what() << endl;
 		return 1;
 
 	} catch (exception &e) {
+		// TODO Switch to MessageHandler as soon as the operator<< works
 		cout << "Unknown Exception " << typeid(e).name() << ": " << e.what()
 				<< endl;
 		return 1;
 
+#ifndef _DEBUG
 	} catch (...) {
 		cout << "Unknown Exception" << endl;
 		return 1;
+#endif
 	}
 
-	cout << setprecision(1);
+	if (oc.getBool("debug")) {
+		MsgHandler::getMessageInstance()->inform("\n\t ---- begin AcitivtyGen ----\n");
+	}
 
-    std::cout << "\n\t ---- begin AcitivtyGen ----\n" << std::endl;
     string statFile = oc.getString("stat-file");
     string routeFile = oc.getString("output-file");
     AGTime duration(1,0,0);
@@ -200,19 +145,21 @@ int main(int argc, char *argv[]) {
     {
     	duration.setDay(oc.getInt("duration-d"));
     }
-    if(oc.isSet("time-begin"))
+    if(oc.isSet("begin"))
     {
-    	begin.addSeconds(oc.getInt("time-begin") % 86400);
+    	begin.addSeconds(oc.getInt("begin") % 86400);
     }
-    if(oc.isSet("time-end"))
+    if(oc.isSet("end"))
     {
-    	end.addSeconds(oc.getInt("time-end") % 86400);
+    	end.addSeconds(oc.getInt("end") % 86400);
     }
     AGActivityGen actiGen(statFile, routeFile, net);
     actiGen.importInfoCity();
     actiGen.makeActivityTrips(duration.getDay(), begin.getTime(), end.getTime());
 
-    std::cout << "\n\t ---- end of ActivityGen ---- \n" << std::endl;
+	if (oc.getBool("debug")) {
+		MsgHandler::getMessageInstance()->inform("\n\t ---- end of ActivityGen ----\n");
+	}
 	return 0;
 }
 

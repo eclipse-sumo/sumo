@@ -29,9 +29,9 @@
 #include <config.h>
 #endif
 
-#include <iostream>
-#include <string>
 #include "AGStreet.h"
+#include "router/ROEdge.h"
+#include <iostream>
 
 
 // ===========================================================================
@@ -43,59 +43,75 @@ using namespace std;
 // ===========================================================================
 // method definitions
 // ===========================================================================
-void
-AGStreet::print()
-{
-	cout << "- AGStreet: Name=" << edgeName << " Length=" << length << " pop=" << pop << " work=" << work << endl;
-}
+AGStreet::AGStreet(const ROEdge* edge, float popDensity, float workDensity) :
+  edge(edge)
+  {
+	pop = static_cast<int>(popDensity * edge->getLength());
+	work = static_cast<int>(workDensity * edge->getLength());
+  }
 
-float
-AGStreet::getLength()
-{
-	return length;
-}
-
-string
-AGStreet::getName()
-{
-	return edgeName;
-}
-
-int
-AGStreet::getPopDensity()
-{
-	return this->pop;
-}
-
-int
-AGStreet::getWorkDensity()
-{
-	return this->work;
-}
+/****************************************************************************/
 
 void
-AGStreet::setPopulation(int population)
+AGStreet::print() const throw()
+{
+	cout << "- AGStreet: Name=" << edge->getID() << " Length=" << edge->getLength() << " pop=" << pop << " work=" << work << endl;
+}
+
+/****************************************************************************/
+
+SUMOReal
+AGStreet::getLength() const throw()
+{
+	return edge->getLength();
+}
+
+/****************************************************************************/
+
+const string&
+AGStreet::getName() const throw()
+{
+	return edge->getID();
+}
+
+/****************************************************************************/
+
+int
+AGStreet::getPopulation() const throw()
+{
+	return pop;
+}
+
+/****************************************************************************/
+
+void
+AGStreet::setPopulation(int population) throw()
 {
 	pop = population;
 }
 
+/****************************************************************************/
+
+int
+AGStreet::getWorkplaceNumber() const throw()
+{
+	return work;
+}
+
+/****************************************************************************/
+
 void
-AGStreet::setWorkPositions(int workPositions)
+AGStreet::setWorkplaceNumber(int workPositions) throw()
 {
 	work = workPositions;
 }
 
-void
-AGStreet::computeLength()
-{
-	length = net->getEdge(edgeName)->getLength();
-}
+/****************************************************************************/
 
-void
-AGStreet::computeDesnsityEquivalents()
+const ROEdge*
+AGStreet::getEdge() const throw()
 {
-	pop = (int) (popDensity * length);
-	work = (int) (workDensity * length);
+	return edge;
 }
 
 /****************************************************************************/

@@ -166,10 +166,8 @@ AGBusLine::generateBuses(int start, int stop, int rate)
 	AGBus* bus;
 	while(t < stop)
 	{
-		bus = new AGBus(t);
-		buses.push_back(*bus); //one direction
-		bus = new AGBus(t);
-		revBuses.push_back(*bus); //return direction
+		buses.push_back(AGBus(t)); //one direction
+		revBuses.push_back(AGBus(t)); //return direction
 		t += rate;
 	}
 }

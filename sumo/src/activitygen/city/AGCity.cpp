@@ -67,8 +67,8 @@ AGCity::completeStreets()
 
 	for(it = streets.begin() ; it!=streets.end() ; ++it)
 	{
-		pop += (int)(it->getPopDensity());
-		work += (int)(it->getWorkDensity());
+		pop += (int)(it->getPopulation());
+		work += (int)(it->getWorkplaceNumber());
 		++NrStreets;
 	}
 	statData.workPositions = work;
@@ -90,8 +90,8 @@ AGCity::completeStreets()
 
 	for(it = streets.begin() ; it!=streets.end() ; ++it)
 	{
-		it->setPopulation((int)(it->getPopDensity() * statData.factorInhabitants));
-		it->setWorkPositions((int)(it->getWorkDensity() * statData.factorWorkPositions));
+		it->setPopulation((int)(it->getPopulation() * statData.factorInhabitants));
+		it->setWorkplaceNumber((int)(it->getWorkplaceNumber() * statData.factorWorkPositions));
 		it->print();
 	}
 
@@ -115,8 +115,7 @@ AGCity::completeStreets()
 		if(itS == streets.end())
 		{
 			//cout << "ajout: " << itE->second->getID() << endl;
-			AGStreet str(itE->second->getID(), net);
-			streets.push_back(str);
+			streets.push_back(AGStreet(itE->second));
 		}
 	}
 }
@@ -126,20 +125,25 @@ AGCity::generateWorkPositions()
 {
 	vector<AGStreet>::iterator it;
 	statData.workPositions = 0;
-	AGWorkPosition *wp;
+	int workPositionCounter = 0;
 
-	for(it = streets.begin() ; it != streets.end() ; ++it)
+	try
 	{
-		for(int i=0 ; i<it->getWorkDensity() ; ++i)
+		for(it = streets.begin() ; it != streets.end() ; ++it)
 		{
-			//cout << "wp1 " << i << " etat: " << workPositions.size() << " - " << statData.workPositions << endl;
-			wp = new AGWorkPosition(&*it, &statData);
-			//wp->print();
-			workPositions.push_back(*wp);
-			//cout << "wp2" << endl;
+			for(int i=0 ; i<it->getWorkplaceNumber() ; ++i)
+			{
+				workPositions.push_back(AGWorkPosition(&*it, &statData));
+				++workPositionCounter;
+			}
 		}
+	} catch (const bad_alloc& e) {
+		cout << "Number of work positions at bad_alloc exception: " << workPositionCounter << endl;
+		throw(e);
 	}
-	//workpositionsOutside the city
+	cout << "Inner work positions done. " << workPositionCounter << " generated." << endl;
+
+	// Work positions outside the city
 	generateOutgoingWP();
 }
 
@@ -147,22 +151,21 @@ void
 AGCity::generateOutgoingWP()
 {
 	// work positions outside the city
-	AGWorkPosition *wp;
-	float nbrWorkers = (float)statData.getPeopleYoungerThan(statData.limitAgeRetirement) - (float)statData.getPeopleYoungerThan(statData.limitAgeChildren);
+	float nbrWorkers = static_cast<float>(statData.getPeopleYoungerThan(statData.limitAgeRetirement) - statData.getPeopleYoungerThan(statData.limitAgeChildren));
 	if(nbrWorkers <= 0)
 		return;
 	nbrWorkers *= (1.0f - statData.unemployement);
-	int nbrOutWorkPositions = (int)((float)workPositions.size() * ((float)statData.outgoingTraffic / nbrWorkers));
+	int nbrOutWorkPositions = static_cast<int>(workPositions.size() * (static_cast<float>(statData.outgoingTraffic) / nbrWorkers));
 
 	list<AGPosition>::iterator itP = cityGates.begin();
 	if(cityGates.empty())
 		return;
+
 	for(int i=0 ; i<nbrOutWorkPositions ; ++i)
 	{
 		if(itP == cityGates.end())
 			itP = cityGates.begin();
-		wp = new AGWorkPosition(itP->street, itP->position, &statData);
-		workPositions.push_back(*wp);
+		workPositions.push_back(AGWorkPosition(itP->street, itP->position, &statData));
 		++itP;
 	}
 	cout << "outgoing traffic: " << statData.outgoingTraffic << endl;
@@ -192,11 +195,11 @@ AGCity::generatePopulation()
 
 	for(it=streets.begin() ; it!=streets.end() ; ++it)
 	{
-		people = it->getPopDensity();
+		people = it->getPopulation();
 		while(people > 0)
 		{
 			++idHouseholds;
-			households.push_back(*(new AGHousehold(&*it, this, idHouseholds)));
+			households.push_back(AGHousehold(&*it, this, idHouseholds));
 			households.back().generatePeople(); //&statData
 			//households.back().generateCars(statData.carRate);
 			people -= households.back().getPeopleNbr();

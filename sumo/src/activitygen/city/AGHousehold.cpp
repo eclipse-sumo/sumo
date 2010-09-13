@@ -98,7 +98,7 @@ void
 AGHousehold::addACar()
 {
 	int numCar = cars.size() + 1;
-	cars.push_back(*(new AGCar(idHH, numCar)));
+	cars.push_back(AGCar(idHH, numCar));
 }
 
 int

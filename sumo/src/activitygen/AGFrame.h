@@ -1,10 +1,10 @@
 /****************************************************************************/
-/// @file    AGPosition.h
-/// @author  Piotr Woznica
-/// @date    July 2010
-/// @version $Id$
+/// @file    AGFrame.cpp
+/// @author  Walter Bamberger & Daniel Krajzewicz
+/// @date    Mon, 13 Sept 2010
+/// @version $Id: AGMain.cpp 9036 2010-09-03 02:50:45Z simsiem $
 ///
-// References a street of the city and defines a position in this street
+// Configuration of the options of ActivityGen
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // Copyright 2001-2010 DLR (http://www.dlr.de/) and contributors
@@ -18,8 +18,8 @@
 //   (at your option) any later version.
 //
 /****************************************************************************/
-#ifndef POSITION_H
-#define POSITION_H
+#ifndef AGFRAME_H
+#define AGFRAME_H
 
 
 // ===========================================================================
@@ -31,49 +31,29 @@
 #include <config.h>
 #endif
 
-#include <iostream>
-#include <list>
-#include <map>
-#include "AGStreet.h"
-#include "../../utils/geom/Position2D.h"
-
 
 // ===========================================================================
 // class definitions
 // ===========================================================================
-class AGPosition
-{
+/**
+ * @class AGFrame
+ * @brief Sets and checks options for ActivityGen
+ */
+class AGFrame {
 public:
-	AGPosition(AGStreet *str, float pos) :
-	  street(str), position(pos), pos2d()
-	  {
-		compute2dPosition();
-	  };
-	AGPosition(AGStreet *str) :
-	  street(str), position(randomPositionInStreet(*str)), pos2d()
-	  {
-		compute2dPosition();
-	  };
-	
-	bool operator==(const AGPosition &pos) const throw();
+    /** @brief Inserts options used by ActivityGen into the OptionsCont singleton
+     */
+    static void fillOptions();
 
-	void print() const throw();
-	float getDistanceTo(AGPosition *otherPos) const throw();
-	float getDistanceTo(AGPosition otherPos) const throw();
-	float getDistanceTo(std::list<AGPosition> *positions) const throw();
-	float getDistanceTo(std::map<int, AGPosition> *myPositions) const throw();
 
-	AGStreet *street;
-	float position;
-	Position2D pos2d;
-
-private:
-	static float randomPositionInStreet(const AGStreet& street) throw();
-	void compute2dPosition();
-
+    /** @brief Checks set options from the OptionsCont singleton for being valid
+     * for usage within ActivityGen
+     *
+     * @return Whether all needed options are set
+     * @todo Not implemented yet
+     */
+    static bool checkOptions();
 
 };
 
-#endif
-
-/****************************************************************************/
+#endif /* AGFRAME_H */

@@ -20,7 +20,8 @@ bin_PROGRAMS = activitygen
 activitygen_SOURCES = AGMain.cpp \
 AGActivityGen.cpp AGActivityGen.h \
 AGActivityGenHandler.cpp AGActivityGenHandler.h \
-AGActivityTripWriter.cpp AGActivityTripWriter.h
+AGActivityTripWriter.cpp AGActivityTripWriter.h \
+AGFrame.cpp AGFrame.h
 
 activitygen_LDFLAGS = $(XERCES_LDFLAGS)
 activitygen_LDADD = ./activities/libagactivities.a \

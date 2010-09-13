@@ -29,12 +29,13 @@
 #include <config.h>
 #endif
 
+#include "AGPosition.h"
+#include "router/ROEdge.h"
+#include "utils/common/RandHelper.h"
 #include <iostream>
 #include <cstdlib>
 #include <ctime>
 #include <limits>
-#include <utils/common/RandHelper.h>
-#include "AGPosition.h"
 
 
 // ===========================================================================
@@ -47,13 +48,13 @@ using namespace std;
 // method definitions
 // ===========================================================================
 void
-AGPosition::print()
+AGPosition::print() const throw()
 {
 	cout << "- AGPosition: *Street=" << street << " position=" << position << "/" << street->getLength() << endl;
 }
 
 bool
-AGPosition::operator==(const AGPosition &pos)
+AGPosition::operator==(const AGPosition &pos) const throw()
 {
 	if(street == pos.street && position < pos.position+0.1 && position > pos.position-0.1)
 		return true;
@@ -62,19 +63,19 @@ AGPosition::operator==(const AGPosition &pos)
 }
 
 float
-AGPosition::getDistanceTo(AGPosition *otherPos)
+AGPosition::getDistanceTo(AGPosition *otherPos) const throw()
 {
 	return pos2d.distanceTo(otherPos->pos2d);
 }
 
 float
-AGPosition::getDistanceTo(AGPosition otherPos)
+AGPosition::getDistanceTo(AGPosition otherPos) const throw()
 {
 	return getDistanceTo(&otherPos);
 }
 
 float
-AGPosition::getDistanceTo(list<AGPosition> *myPositions)
+AGPosition::getDistanceTo(list<AGPosition> *myPositions) const throw()
 {
 	float minDist = std::numeric_limits<float>::infinity();
 	float tempDist;
@@ -92,7 +93,7 @@ AGPosition::getDistanceTo(list<AGPosition> *myPositions)
 }
 
 float
-AGPosition::getDistanceTo(map<int, AGPosition> *myPositions)
+AGPosition::getDistanceTo(map<int, AGPosition> *myPositions) const throw()
 {
 	float minDist = std::numeric_limits<float>::infinity();
 	float tempDist;
@@ -110,19 +111,17 @@ AGPosition::getDistanceTo(map<int, AGPosition> *myPositions)
 }
 
 float
-AGPosition::randomPositionInStreet()
+AGPosition::randomPositionInStreet(const AGStreet& s) throw()
 {
-	int len = (int)(*street).getLength();
-	position = (float)RandHelper::rand(len);//( rand() % len);
-	return position;
+	return RandHelper::rand(0.0, s.getLength());
 }
 
 void
 AGPosition::compute2dPosition()
 {
 	// P = From + pos*(To - From) = pos*To + (1-pos)*From
-	Position2D From = street->net->getEdge(street->getName())->getFromNode()->getPosition();
-	Position2D To = street->net->getEdge(street->getName())->getToNode()->getPosition();
+	Position2D From = street->getEdge()->getFromNode()->getPosition();
+	Position2D To = street->getEdge()->getToNode()->getPosition();
 
 	pos2d.set(0,0);
 	pos2d.add(To);
