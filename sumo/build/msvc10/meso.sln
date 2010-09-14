@@ -1,114 +1,68 @@
-Microsoft Visual Studio Solution File, Format Version 9.00
-# Visual Studio 2005
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "guisim", "guisim\guisim.vcproj", "{F1904C42-F231-4B9D-AD80-E2971969AFA0}"
-	ProjectSection(ProjectDependencies) = postProject
-		{E3AB9C37-6B5A-4D8C-88F3-DF750A493511} = {E3AB9C37-6B5A-4D8C-88F3-DF750A493511}
-		{8C2F733C-1C8E-45C9-A546-17EF0146718D} = {8C2F733C-1C8E-45C9-A546-17EF0146718D}
-		{334DF447-D0B3-4CEA-9693-F755EB11C18F} = {334DF447-D0B3-4CEA-9693-F755EB11C18F}
-		{3CD3D44A-7809-485C-B7A9-D5FDE0C31684} = {3CD3D44A-7809-485C-B7A9-D5FDE0C31684}
-		{26F88652-2664-4CE7-8292-6BD37EE6C3AD} = {26F88652-2664-4CE7-8292-6BD37EE6C3AD}
-		{C9CC8A55-BCF5-44D8-9E22-55EA09757C60} = {C9CC8A55-BCF5-44D8-9E22-55EA09757C60}
-		{492B0B5A-0BBE-49BA-82E6-70A82DBC242F} = {492B0B5A-0BBE-49BA-82E6-70A82DBC242F}
-		{2A069662-6B6F-40D7-A808-211F9C9A4AAE} = {2A069662-6B6F-40D7-A808-211F9C9A4AAE}
-		{EE29AF87-7317-488D-BF6D-EC422D1DBAD6} = {EE29AF87-7317-488D-BF6D-EC422D1DBAD6}
-		{FC588F88-FFC4-4EBD-A790-1B1FE06E1FC8} = {FC588F88-FFC4-4EBD-A790-1B1FE06E1FC8}
-		{A54D4A8B-9520-40F0-B8CB-152BF506CB47} = {A54D4A8B-9520-40F0-B8CB-152BF506CB47}
-		{5EA5CB8F-2B57-4FAB-A769-E9A64B3B9C36} = {5EA5CB8F-2B57-4FAB-A769-E9A64B3B9C36}
-		{306768A4-B73E-4B81-9EC0-B4836EFE0504} = {306768A4-B73E-4B81-9EC0-B4836EFE0504}
-		{9FCF1CAF-0189-4242-88BA-47706E741119} = {9FCF1CAF-0189-4242-88BA-47706E741119}
-		{B2AD8EB4-16B1-4BDC-9CF5-F7ADADBD316D} = {B2AD8EB4-16B1-4BDC-9CF5-F7ADADBD316D}
-		{ECAEBBBD-18B0-4E40-9507-4AD2B018C1CD} = {ECAEBBBD-18B0-4E40-9507-4AD2B018C1CD}
-		{AF2015D2-2412-4355-87FB-E0D88B0A5FBA} = {AF2015D2-2412-4355-87FB-E0D88B0A5FBA}
-		{FC5B65E0-A0B1-40D7-8687-C2FC79E3DA47} = {FC5B65E0-A0B1-40D7-8687-C2FC79E3DA47}
-		{CC278DE5-D3D8-4BD8-B8A4-BD76CB8FB4F1} = {CC278DE5-D3D8-4BD8-B8A4-BD76CB8FB4F1}
-		{5F818AF6-963E-40B3-93F3-35E145FDE30B} = {5F818AF6-963E-40B3-93F3-35E145FDE30B}
-		{508F0BFF-83FE-444C-9509-A359BCA83BC4} = {508F0BFF-83FE-444C-9509-A359BCA83BC4}
-		{80AC8A07-6702-4D2E-AF75-F8DB7FDA169A} = {80AC8A07-6702-4D2E-AF75-F8DB7FDA169A}
-		{39F2DFDE-76C6-46FD-A20A-6C8FD52C9DB1} = {39F2DFDE-76C6-46FD-A20A-6C8FD52C9DB1}
-		{308BEB29-142B-4088-BD41-80E273E20D3A} = {308BEB29-142B-4088-BD41-80E273E20D3A}
-		{67E76D22-3C3E-44FC-9253-3FE583DB7848} = {67E76D22-3C3E-44FC-9253-3FE583DB7848}
-		{72CDB11A-EC19-4BE2-BBE9-1FA33DECCB20} = {72CDB11A-EC19-4BE2-BBE9-1FA33DECCB20}
-		{9046260E-78AA-4458-BE80-0747860A0F70} = {9046260E-78AA-4458-BE80-0747860A0F70}
-		{25AF2C06-8B08-4B33-8775-657E27C304D9} = {25AF2C06-8B08-4B33-8775-657E27C304D9}
-	EndProjectSection
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "sumo-gui", "guisim\guisim.vcxproj", "{F1904C42-F231-4B9D-AD80-E2971969AFA0}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "sumo", "sumo\sumo.vcproj", "{08C90F3F-95F3-46C7-8D87-63AF6DF5558C}"
-	ProjectSection(ProjectDependencies) = postProject
-		{72CDB11A-EC19-4BE2-BBE9-1FA33DECCB20} = {72CDB11A-EC19-4BE2-BBE9-1FA33DECCB20}
-		{308BEB29-142B-4088-BD41-80E273E20D3A} = {308BEB29-142B-4088-BD41-80E273E20D3A}
-		{334DF447-D0B3-4CEA-9693-F755EB11C18F} = {334DF447-D0B3-4CEA-9693-F755EB11C18F}
-		{26F88652-2664-4CE7-8292-6BD37EE6C3AD} = {26F88652-2664-4CE7-8292-6BD37EE6C3AD}
-		{492B0B5A-0BBE-49BA-82E6-70A82DBC242F} = {492B0B5A-0BBE-49BA-82E6-70A82DBC242F}
-		{2A069662-6B6F-40D7-A808-211F9C9A4AAE} = {2A069662-6B6F-40D7-A808-211F9C9A4AAE}
-		{EE29AF87-7317-488D-BF6D-EC422D1DBAD6} = {EE29AF87-7317-488D-BF6D-EC422D1DBAD6}
-		{FC588F88-FFC4-4EBD-A790-1B1FE06E1FC8} = {FC588F88-FFC4-4EBD-A790-1B1FE06E1FC8}
-		{A54D4A8B-9520-40F0-B8CB-152BF506CB47} = {A54D4A8B-9520-40F0-B8CB-152BF506CB47}
-		{5EA5CB8F-2B57-4FAB-A769-E9A64B3B9C36} = {5EA5CB8F-2B57-4FAB-A769-E9A64B3B9C36}
-		{AF2015D2-2412-4355-87FB-E0D88B0A5FBA} = {AF2015D2-2412-4355-87FB-E0D88B0A5FBA}
-		{FC5B65E0-A0B1-40D7-8687-C2FC79E3DA47} = {FC5B65E0-A0B1-40D7-8687-C2FC79E3DA47}
-		{CC278DE5-D3D8-4BD8-B8A4-BD76CB8FB4F1} = {CC278DE5-D3D8-4BD8-B8A4-BD76CB8FB4F1}
-		{508F0BFF-83FE-444C-9509-A359BCA83BC4} = {508F0BFF-83FE-444C-9509-A359BCA83BC4}
-	EndProjectSection
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "sumo", "sumo\sumo.vcxproj", "{08C90F3F-95F3-46C7-8D87-63AF6DF5558C}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "y_libgui", "y_libgui\y_libgui.vcproj", "{C9CC8A55-BCF5-44D8-9E22-55EA09757C60}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "y_libgui", "y_libgui\y_libgui.vcxproj", "{C9CC8A55-BCF5-44D8-9E22-55EA09757C60}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "y_libguinetload", "y_libguinetload\y_libguinetload.vcproj", "{B2AD8EB4-16B1-4BDC-9CF5-F7ADADBD316D}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "y_libguinetload", "y_libguinetload\y_libguinetload.vcxproj", "{B2AD8EB4-16B1-4BDC-9CF5-F7ADADBD316D}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "y_libguisim", "y_libguisim\y_libguisim.vcproj", "{9046260E-78AA-4458-BE80-0747860A0F70}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "y_libguisim", "y_libguisim\y_libguisim.vcxproj", "{9046260E-78AA-4458-BE80-0747860A0F70}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "y_libmesogui", "y_libmesogui\y_libmesogui.vcproj", "{3CD3D44A-7809-485C-B7A9-D5FDE0C31684}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "y_libmesogui", "y_libmesogui\y_libmesogui.vcxproj", "{3CD3D44A-7809-485C-B7A9-D5FDE0C31684}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "y_libmesosim", "y_libmesosim\y_libmesosim.vcproj", "{308BEB29-142B-4088-BD41-80E273E20D3A}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "y_libmesosim", "y_libmesosim\y_libmesosim.vcxproj", "{308BEB29-142B-4088-BD41-80E273E20D3A}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "y_libmicrosim", "y_libmicrosim\y_libmicrosim.vcproj", "{2A069662-6B6F-40D7-A808-211F9C9A4AAE}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "y_libmicrosim", "y_libmicrosim\y_libmicrosim.vcxproj", "{2A069662-6B6F-40D7-A808-211F9C9A4AAE}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "y_libnetload", "y_libnetload\y_libnetload.vcproj", "{5EA5CB8F-2B57-4FAB-A769-E9A64B3B9C36}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "y_libnetload", "y_libnetload\y_libnetload.vcxproj", "{5EA5CB8F-2B57-4FAB-A769-E9A64B3B9C36}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "z_libmicrosim_output", "z_libmicrosim_output\z_libmicrosim_output.vcproj", "{CC278DE5-D3D8-4BD8-B8A4-BD76CB8FB4F1}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "z_libmicrosim_output", "z_libmicrosim_output\z_libmicrosim_output.vcxproj", "{CC278DE5-D3D8-4BD8-B8A4-BD76CB8FB4F1}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "z_libmicrosim_traffic_lights", "z_libmicrosim_traffic_lights\z_libmicrosim_traffic_lights.vcproj", "{AF2015D2-2412-4355-87FB-E0D88B0A5FBA}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "z_libmicrosim_traffic_lights", "z_libmicrosim_traffic_lights\z_libmicrosim_traffic_lights.vcxproj", "{AF2015D2-2412-4355-87FB-E0D88B0A5FBA}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "z_libutils_common", "z_libutils_common\z_libutils_common.vcproj", "{72CDB11A-EC19-4BE2-BBE9-1FA33DECCB20}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "z_libutils_common", "z_libutils_common\z_libutils_common.vcxproj", "{72CDB11A-EC19-4BE2-BBE9-1FA33DECCB20}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "z_libutils_foxtools", "z_libutils_foxtools\z_libutils_foxtools.vcproj", "{ECAEBBBD-18B0-4E40-9507-4AD2B018C1CD}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "z_libutils_foxtools", "z_libutils_foxtools\z_libutils_foxtools.vcxproj", "{ECAEBBBD-18B0-4E40-9507-4AD2B018C1CD}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "z_libutils_geom", "z_libutils_geom\z_libutils_geom.vcproj", "{334DF447-D0B3-4CEA-9693-F755EB11C18F}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "z_libutils_geom", "z_libutils_geom\z_libutils_geom.vcxproj", "{334DF447-D0B3-4CEA-9693-F755EB11C18F}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "z_libutils_iodevices", "z_libutils_iodevices\z_libutils_iodevices.vcproj", "{FC588F88-FFC4-4EBD-A790-1B1FE06E1FC8}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "z_libutils_iodevices", "z_libutils_iodevices\z_libutils_iodevices.vcxproj", "{FC588F88-FFC4-4EBD-A790-1B1FE06E1FC8}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "z_libutils_options", "z_libutils_options\z_libutils_options.vcproj", "{EE29AF87-7317-488D-BF6D-EC422D1DBAD6}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "z_libutils_options", "z_libutils_options\z_libutils_options.vcxproj", "{EE29AF87-7317-488D-BF6D-EC422D1DBAD6}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "z_libutils_xml", "z_libutils_xml\z_libutils_xml.vcproj", "{508F0BFF-83FE-444C-9509-A359BCA83BC4}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "z_libutils_xml", "z_libutils_xml\z_libutils_xml.vcxproj", "{508F0BFF-83FE-444C-9509-A359BCA83BC4}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "z_libutils_importio", "z_libutils_importio\z_libutils_importio.vcproj", "{9FCF1CAF-0189-4242-88BA-47706E741119}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "z_libutils_importio", "z_libutils_importio\z_libutils_importio.vcxproj", "{9FCF1CAF-0189-4242-88BA-47706E741119}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "z_libmicrosim_actions", "z_libmicrosim_actions\z_libmicrosim_actions.vcproj", "{A54D4A8B-9520-40F0-B8CB-152BF506CB47}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "z_libmicrosim_actions", "z_libmicrosim_actions\z_libmicrosim_actions.vcxproj", "{A54D4A8B-9520-40F0-B8CB-152BF506CB47}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "z_libmicrosim_logging", "z_libmicrosim_logging\z_libmicrosim_logging.vcproj", "{0716FBE6-18CE-4ED5-B5EC-0B358991A8EF}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "z_libmicrosim_logging", "z_libmicrosim_logging\z_libmicrosim_logging.vcxproj", "{0716FBE6-18CE-4ED5-B5EC-0B358991A8EF}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "z_libmicrosim_trigger", "z_libmicrosim_trigger\z_libmicrosim_trigger.vcproj", "{26F88652-2664-4CE7-8292-6BD37EE6C3AD}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "z_libmicrosim_trigger", "z_libmicrosim_trigger\z_libmicrosim_trigger.vcxproj", "{26F88652-2664-4CE7-8292-6BD37EE6C3AD}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "z_libutils_gui_div", "z_libutils_gui_div\z_libutils_gui_div.vcproj", "{E3AB9C37-6B5A-4D8C-88F3-DF750A493511}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "z_libutils_gui_div", "z_libutils_gui_div\z_libutils_gui_div.vcxproj", "{E3AB9C37-6B5A-4D8C-88F3-DF750A493511}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "z_libutils_gui_settings", "z_libutils_gui_settings\z_libutils_gui_settings.vcproj", "{8C2F733C-1C8E-45C9-A546-17EF0146718D}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "z_libutils_gui_settings", "z_libutils_gui_settings\z_libutils_gui_settings.vcxproj", "{8C2F733C-1C8E-45C9-A546-17EF0146718D}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "z_libutils_gui_images", "z_libutils_gui_images\z_libutils_gui_images.vcproj", "{5F818AF6-963E-40B3-93F3-35E145FDE30B}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "z_libutils_gui_images", "z_libutils_gui_images\z_libutils_gui_images.vcxproj", "{5F818AF6-963E-40B3-93F3-35E145FDE30B}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "zz_foreign_nvwa", "zz_foreign_nvwa\zz_foreign_nvwa.vcproj", "{FC5B65E0-A0B1-40D7-8687-C2FC79E3DA47}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "zz_foreign_nvwa", "zz_foreign_nvwa\zz_foreign_nvwa.vcxproj", "{FC5B65E0-A0B1-40D7-8687-C2FC79E3DA47}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "zz_foreign_tcpip", "zz_foreign_tcpip\zz_foreign_tcpip.vcproj", "{492B0B5A-0BBE-49BA-82E6-70A82DBC242F}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "zz_foreign_tcpip", "zz_foreign_tcpip\zz_foreign_tcpip.vcxproj", "{492B0B5A-0BBE-49BA-82E6-70A82DBC242F}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "zz_foreign_polyfonts", "zz_foreign_polyfonts\zz_foreign_polyfonts.vcproj", "{306768A4-B73E-4B81-9EC0-B4836EFE0504}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "zz_foreign_polyfonts", "zz_foreign_polyfonts\zz_foreign_polyfonts.vcxproj", "{306768A4-B73E-4B81-9EC0-B4836EFE0504}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "z_libutils_gui_windows", "z_libutils_gui_windows\z_libutils_gui_windows.vcproj", "{25AF2C06-8B08-4B33-8775-657E27C304D9}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "z_libutils_gui_windows", "z_libutils_gui_windows\z_libutils_gui_windows.vcxproj", "{25AF2C06-8B08-4B33-8775-657E27C304D9}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "z_libutils_gui_tracker", "z_libutils_gui_tracker\z_libutils_gui_tracker.vcproj", "{67E76D22-3C3E-44FC-9253-3FE583DB7848}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "z_libutils_gui_tracker", "z_libutils_gui_tracker\z_libutils_gui_tracker.vcxproj", "{67E76D22-3C3E-44FC-9253-3FE583DB7848}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "z_libutils_gui_globjects", "z_libutils_gui_globjects\z_libutils_gui_globjects.vcproj", "{39F2DFDE-76C6-46FD-A20A-6C8FD52C9DB1}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "z_libutils_gui_globjects", "z_libutils_gui_globjects\z_libutils_gui_globjects.vcxproj", "{39F2DFDE-76C6-46FD-A20A-6C8FD52C9DB1}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "z_libutils_gui_events", "z_libutils_gui_events\z_libutils_gui_events.vcproj", "{F574684D-2052-46AB-99B9-AFD5DA2174A6}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "z_libutils_gui_events", "z_libutils_gui_events\z_libutils_gui_events.vcxproj", "{F574684D-2052-46AB-99B9-AFD5DA2174A6}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "z_libgui_dialogs", "z_libgui_dialogs\z_libgui_dialogs.vcproj", "{80AC8A07-6702-4D2E-AF75-F8DB7FDA169A}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "z_libgui_dialogs", "z_libgui_dialogs\z_libgui_dialogs.vcxproj", "{80AC8A07-6702-4D2E-AF75-F8DB7FDA169A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

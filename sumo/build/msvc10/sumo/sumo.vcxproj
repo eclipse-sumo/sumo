@@ -177,6 +177,7 @@
     <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='Release|x64'">AllRules.ruleset</CodeAnalysisRuleSet>
     <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='Release|x64'" />
     <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='Release|x64'" />
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='MesoRelease|Win32'">meso</TargetName>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ResourceCompile>
@@ -293,6 +294,10 @@
     <ClInclude Include="..\..\..\src\windows_config.h" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\y_libmesosim\y_libmesosim.vcxproj">
+      <Project>{308beb29-142b-4088-bd41-80e273e20d3a}</Project>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
     <ProjectReference Include="..\y_libmicrosim\y_libmicrosim.vcxproj">
       <Project>{2a069662-6b6f-40d7-a808-211f9c9a4aae}</Project>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
@@ -309,12 +314,20 @@
       <Project>{492b0b5a-0bbe-49ba-82e6-70a82dbc242f}</Project>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
     </ProjectReference>
+    <ProjectReference Include="..\z_libmicrosim_actions\z_libmicrosim_actions.vcxproj">
+      <Project>{a54d4a8b-9520-40f0-b8cb-152bf506cb47}</Project>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
     <ProjectReference Include="..\z_libmicrosim_output\z_libmicrosim_output.vcxproj">
       <Project>{cc278de5-d3d8-4bd8-b8a4-bd76cb8fb4f1}</Project>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
     </ProjectReference>
     <ProjectReference Include="..\z_libmicrosim_traffic_lights\z_libmicrosim_traffic_lights.vcxproj">
       <Project>{af2015d2-2412-4355-87fb-e0d88b0a5fba}</Project>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+    <ProjectReference Include="..\z_libmicrosim_trigger\z_libmicrosim_trigger.vcxproj">
+      <Project>{26f88652-2664-4ce7-8292-6bd37ee6c3ad}</Project>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
     </ProjectReference>
     <ProjectReference Include="..\z_libutils_common\z_libutils_common.vcxproj">
