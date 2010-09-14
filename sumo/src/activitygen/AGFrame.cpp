@@ -2,7 +2,7 @@
 /// @file    AGFrame.cpp
 /// @author  Walter Bamberger & Daniel Krajzewicz
 /// @date    Mo, 13 Sept 2010
-/// @version $Id: AGMain.cpp 9036 2010-09-03 02:50:45Z simsiem $
+/// @version $Id$
 ///
 // Configuration of the options of ActivityGen
 /****************************************************************************/

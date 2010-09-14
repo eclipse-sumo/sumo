@@ -15,7 +15,7 @@ import os, subprocess, sys, xml.sax
 
 _SOURCE_EXT = [".h", ".cpp", ".py", ".pl", ".java", ".am"]
 _TESTDATA_EXT = [".xml", ".cfg", ".prog", ".complex", ".dfrouter", ".duarouter", ".jtrrouter", ".netconvert", ".netgen", ".od2trips", ".polyconvert", ".sumo", ".meso", ".tools", ".traci", ".activitygen"]
-_VS_EXT = [".vsprops", ".sln", ".vcproj", ".bat"]
+_VS_EXT = [".vsprops", ".sln", ".vcproj", ".bat", ".props", ".vcxproj", ".filters"]
 _KEYWORDS = "HeadURL Id LastChangedBy LastChangedDate LastChangedRevision"
 
 class PropertyReader(xml.sax.handler.ContentHandler):
