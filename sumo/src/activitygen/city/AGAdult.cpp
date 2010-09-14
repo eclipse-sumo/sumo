@@ -54,7 +54,7 @@ AGAdult::print()
 bool
 AGAdult::assocWork(float rate, vector<AGWorkPosition>* wps, int hasStillWork)
 {
-	if(decision(rate) && hasStillWork>0)
+	if(decide(rate) && hasStillWork>0)
 	{
 		AGWorkPosition* wp = pickWork(wps);
 		while(!assocWork(wp))

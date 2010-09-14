@@ -59,7 +59,7 @@ const int AGFreeTime::TE_NIGHT = (new AGTime(1,5,0))->getTime();
 int
 AGFreeTime::decideTypeOfTrip()
 {
-	if(hh->adults.front().decision(freqOut))
+	if(hh->adults.front().decide(freqOut))
 	{
 		int num_poss = 0; //(possibleType % 2) + (possibleType / 4) + ((possibleType / 2) % 2);
 		if(possibleType & DAY)

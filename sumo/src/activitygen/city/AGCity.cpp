@@ -133,7 +133,7 @@ AGCity::generateWorkPositions()
 		{
 			for(int i=0 ; i<it->getWorkplaceNumber() ; ++i)
 			{
-				workPositions.push_back(AGWorkPosition(&*it, &statData));
+				workPositions.push_back(AGWorkPosition(*it, &statData));
 				++workPositionCounter;
 			}
 		}
@@ -165,7 +165,7 @@ AGCity::generateOutgoingWP()
 	{
 		if(itP == cityGates.end())
 			itP = cityGates.begin();
-		workPositions.push_back(AGWorkPosition(itP->street, itP->position, &statData));
+		workPositions.push_back(AGWorkPosition(itP->getStreet(), itP->getPosition(), &statData));
 		++itP;
 	}
 	cout << "outgoing traffic: " << statData.outgoingTraffic << endl;
@@ -350,8 +350,8 @@ AGCity::carAllocation()
 	//END TEST RESULTS
 }
 
-AGStreet*
-AGCity::getStreet(string edge)
+const AGStreet&
+AGCity::getStreet(const string& edge)
 {
 	/**
 	 * verify if it is the first time this function is called
@@ -368,20 +368,20 @@ AGCity::getStreet(string edge)
 	while(it != streets.end())
 	{
 		if(it->getName() == edge)
-			return &*it;
+			return *it;
 		++it;
 	}
 	cout << "===> ERROR: WRONG STREET EDGE (" << edge << ") given and not found in street set." << endl;
-	return NULL;
+	throw(runtime_error("Street not found with edge id " + edge));
 }
 
-AGStreet*
+const AGStreet&
 AGCity::getRandomStreet()
 {
 	if(streets.empty())
-		return NULL;
+		throw(runtime_error("No street found in this city"));
 	int alea = RandHelper::rand(streets.size());
-	return &(streets.at(alea));
+	return streets.at(alea);
 }
 
 /****************************************************************************/

@@ -61,7 +61,7 @@ public:
 	  idHH(idHouseholds)
 	  {};
 	AGHousehold(AGStreet *str, AGCity *city, int idHouseholds) :
-	  location(str),
+	  location(*str),
 	  myCity(city),
 	  idHH(idHouseholds)
 	  {};

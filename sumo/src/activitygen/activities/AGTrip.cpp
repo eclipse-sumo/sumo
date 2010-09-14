@@ -149,7 +149,7 @@ AGTrip::getTimeTrip(float secPerKm)
 			temp = &*it;
 			continue;
 		}
-		dist += temp->getDistanceTo(*it);
+		dist += temp->distanceTo(*it);
 		temp = &*it;
 	}
 	return (int)( secPerKm * (dist / 1000.0) );
@@ -166,7 +166,7 @@ int
 AGTrip::getRideBackArrTime(float secPerKm)
 {
 	int arrAtTime = getArrTime(secPerKm);
-	int time = (int)( secPerKm * to.getDistanceTo(from) /1000.0 );
+	int time = (int)( secPerKm * to.distanceTo(from) /1000.0 );
 	int arrTime = arrAtTime + time;
 	return arrTime;
 }
@@ -199,13 +199,13 @@ AGTrip::setVehicleName(string name)
 void
 AGTrip::setArr(AGPosition arrival)
 {
-	to = *new AGPosition(arrival.street, arrival.position);
+	to = *new AGPosition(arrival.getStreet(), arrival.getPosition());
 }
 
 void
 AGTrip::setDep(AGPosition departure)
 {
-	from = *new AGPosition(departure.street, departure.position);
+	from = *new AGPosition(departure.getStreet(), departure.getPosition());
 }
 
 bool

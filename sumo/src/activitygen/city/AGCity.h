@@ -77,11 +77,11 @@ public:
 	/**
 	 * manipulation functions
 	 */
-	AGStreet* getStreet(std::string edge);
+	const AGStreet& getStreet(const std::string& edge);
 	/**
 	 * returns a random street
 	 */
-	AGStreet* getRandomStreet();
+	const AGStreet& getRandomStreet();
 
 	AGDataAndStatistics statData;
 	std::vector<AGStreet> streets;

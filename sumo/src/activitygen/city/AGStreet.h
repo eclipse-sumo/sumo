@@ -1,6 +1,6 @@
 /****************************************************************************/
 /// @file    AGStreet.h
-/// @author  Piotr Woznica
+/// @author  Piotr Woznica & Walter Bamberger
 /// @date    July 2010
 /// @version $Id$
 ///
@@ -38,6 +38,7 @@
 // class declarations
 // ===========================================================================
 class ROEdge;
+class AGPosition;
 
 
 // ===========================================================================
@@ -77,7 +78,7 @@ public:
 	 *
 	 * @param[in] pop the new number of inhabitants
 	 */
-	void setPopulation(int pop) throw();
+	void setPopulation(const int& pop) throw();
 
 	/** @brief Provides the number of work places in this street.
 	 *
@@ -89,13 +90,7 @@ public:
 	 *
 	 * @param[in] work the new number of work places
 	 */
-	void setWorkplaceNumber(int work) throw();
-
-	/** @brief Offers access to the underlying ROEdge object.
-	 *
-	 * @return the associated ROEdge
-	 */
-	const ROEdge* getEdge() const throw();
+	void setWorkplaceNumber(const int& work) throw();
 
 	/** @brief Prints a summary of the properties of this street to standard
 	 * output.
@@ -103,6 +98,8 @@ public:
 	void print() const throw();
 
 private:
+	friend class AGPosition;
+
 	const ROEdge* edge;
 	int pop;
 	int work;

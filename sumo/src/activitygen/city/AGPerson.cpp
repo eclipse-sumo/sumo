@@ -58,7 +58,7 @@ AGPerson::getAge()
 }
 
 bool
-AGPerson::decision(float proba)
+AGPerson::decide(float proba)
 {
 	if(RandHelper::rand(1000) < (int)(1000 * proba))
 		return true;

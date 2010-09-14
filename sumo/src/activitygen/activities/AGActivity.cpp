@@ -64,19 +64,19 @@ AGActivity::possibleTranspMean(AGPosition destination)
 
 	int transp = 0;
 
-	if(destination.getDistanceTo(hh->getPosition()) <= ds->maxFootDistance)
+	if(destination.distanceTo(hh->getPosition()) <= ds->maxFootDistance)
 	{
 		transp = FOOT;
 		if(hh->getCarNbr() != 0)
 			transp += CAR;
-		if(destination.getDistanceTo(&(ds->busStations)) <= ds->maxFootDistance
-				&& hh->getPosition().getDistanceTo(&(ds->busStations)) <= ds->maxFootDistance)
+		if(destination.minDistanceTo(ds->busStations) <= ds->maxFootDistance
+				&& hh->getPosition().minDistanceTo(ds->busStations) <= ds->maxFootDistance)
 			transp += BUS;
 	}
 	else if(hh->getCarNbr() == 0)
 	{
-		float d1 = destination.getDistanceTo(hh->getPosition());
-		float d2 = destination.getDistanceTo(&(ds->busStations)) + hh->getPosition().getDistanceTo(&(ds->busStations));
+		float d1 = destination.distanceTo(hh->getPosition());
+		float d2 = destination.minDistanceTo(ds->busStations) + hh->getPosition().minDistanceTo(ds->busStations);
 
 		if(d1 > d2)
 		{
@@ -89,8 +89,8 @@ AGActivity::possibleTranspMean(AGPosition destination)
 	}
 	else if(hh->getCarNbr() != 0) //all other cases
 	{
-		if(destination.getDistanceTo(&(ds->busStations)) > ds->maxFootDistance
-				|| hh->getPosition().getDistanceTo(&(ds->busStations)) > ds->maxFootDistance)
+		if(destination.minDistanceTo(ds->busStations) > ds->maxFootDistance
+				|| hh->getPosition().minDistanceTo(ds->busStations) > ds->maxFootDistance)
 		{
 			transp = CAR;
 		}
@@ -110,12 +110,12 @@ AGActivity::availableTranspMeans(AGPosition from, AGPosition to)
 
 	int available = 0;
 
-	if(from.getDistanceTo(to) <= ds->maxFootDistance)
+	if(from.distanceTo(to) <= ds->maxFootDistance)
 	{
 		available += FOOT;
 	}
-	if(from.getDistanceTo(&(ds->busStations)) <= ds->maxFootDistance
-			&& to.getDistanceTo(&(ds->busStations)) <= ds->maxFootDistance)
+	if(from.minDistanceTo(ds->busStations) <= ds->maxFootDistance
+			&& to.minDistanceTo(ds->busStations) <= ds->maxFootDistance)
 	{
 		available += BUS;
 	}
@@ -125,7 +125,7 @@ AGActivity::availableTranspMeans(AGPosition from, AGPosition to)
 int
 AGActivity::timeToDrive(AGPosition from, AGPosition to)
 {
-	float dist = from.getDistanceTo(to);
+	float dist = from.distanceTo(to);
 	return (int) (timePerKm * dist / 1000.0);
 }
 

@@ -73,9 +73,9 @@ AGChild::alocateASchool(list<AGSchool> *schools, AGPosition housePos)
 
 	for(it = schools->begin() ; it!=schools->end() ; ++it)
 	{
-		if(it->acceptThisAge(age) && it->getPlaces()>0 && housePos.getDistanceTo(it->getPosition()) < minDist)
+		if(it->acceptThisAge(age) && it->getPlaces()>0 && housePos.distanceTo(it->getPosition()) < minDist)
 		{
-			minDist = housePos.getDistanceTo(it->getPosition());
+			minDist = housePos.distanceTo(it->getPosition());
 			sch = &(*it);
 		}
 	}

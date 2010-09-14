@@ -126,7 +126,7 @@ AGWorkAndSchool::buildWorkDestinations()
 		if(possibleTranspMean(it->getWorkLocation()) == 6 && hh->getCarNbr() > personsDrivingCars.size())
 		{
 			//car or bus (always because of workDestinations' construction) AND at least one car not used
-			if(hh->adults.front().decision(this->carPreference))
+			if(hh->adults.front().decide(this->carPreference))
 			{
 				personsDrivingCars.push_back(*it);
 			}

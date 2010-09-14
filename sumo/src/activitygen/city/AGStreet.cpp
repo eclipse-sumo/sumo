@@ -1,6 +1,6 @@
 /****************************************************************************/
 /// @file    AGStreet.cpp
-/// @author  Piotr Woznica
+/// @author  Piotr Woznica & Walter Bamberger
 /// @date    July 2010
 /// @version $Id$
 ///
@@ -85,7 +85,7 @@ AGStreet::getPopulation() const throw()
 /****************************************************************************/
 
 void
-AGStreet::setPopulation(int population) throw()
+AGStreet::setPopulation(const int& population) throw()
 {
 	pop = population;
 }
@@ -101,17 +101,9 @@ AGStreet::getWorkplaceNumber() const throw()
 /****************************************************************************/
 
 void
-AGStreet::setWorkplaceNumber(int workPositions) throw()
+AGStreet::setWorkplaceNumber(const int& workPositions) throw()
 {
 	work = workPositions;
-}
-
-/****************************************************************************/
-
-const ROEdge*
-AGStreet::getEdge() const throw()
-{
-	return edge;
 }
 
 /****************************************************************************/

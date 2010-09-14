@@ -50,7 +50,7 @@ class AGAdult;
 class AGWorkPosition
 {
 public:
-	AGWorkPosition(AGStreet *inStreet, int opening, int closing, AGDataAndStatistics* ds) :
+	AGWorkPosition(const AGStreet& inStreet, int opening, int closing, AGDataAndStatistics* ds) :
 			location(inStreet),
 			openingTime(opening),
 			closingTime(closing),
@@ -59,7 +59,7 @@ public:
 		{
 			ds->workPositions++;
 		};
-	AGWorkPosition(AGStreet *inStreet, AGDataAndStatistics* ds) :
+	AGWorkPosition(const AGStreet& inStreet, AGDataAndStatistics* ds) :
 			location(inStreet),
 			openingTime(generateOpeningTime(ds)),
 			closingTime(generateClosingTime(ds)),
@@ -68,7 +68,7 @@ public:
 		{
 			ds->workPositions++;
 		};
-	AGWorkPosition(AGStreet *inStreet, float pos, AGDataAndStatistics* ds) :
+	AGWorkPosition(const AGStreet& inStreet, SUMOReal pos, AGDataAndStatistics* ds) :
 			location(inStreet, pos),
 			openingTime(generateOpeningTime(ds)),
 			closingTime(generateClosingTime(ds)),

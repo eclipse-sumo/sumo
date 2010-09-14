@@ -72,8 +72,8 @@ AGActivityTripWriter::addTrip(AGTrip trip)
 	routes << " id=\"" << trip.getVehicleName();
 	routes << "\" type=\"" << trip.getType();
 	routes << "\" depart=\"" << time;
-	routes << "\" departpos=\"" << trip.getDep().position;
-	routes << "\" arrivalpos=\"" << trip.getArr().position;
+	routes << "\" departpos=\"" << trip.getDep().getPosition();
+	routes << "\" arrivalpos=\"" << trip.getArr().getPosition();
 	routes << "\" departspeed=\"" << 0;
 	routes << "\" arrivalspeed=\"" << 0;
 	routes << "\" color=\"" << colors[trip.getType()];
@@ -81,12 +81,12 @@ AGActivityTripWriter::addTrip(AGTrip trip)
 
 	//the route
 	routes << "\t\t<route edges=\"";
-	routes << trip.getDep().street->getName();
+	routes << trip.getDep().getStreet().getName();
 	for(it=trip.getPassed()->begin() ; it!=trip.getPassed()->end() ; ++it)
 	{
-		routes << " " << it->street->getName();
+		routes << " " << it->getStreet().getName();
 	}
-	routes << " " << trip.getArr().street->getName();
+	routes << " " << trip.getArr().getStreet().getName();
 	routes << "\" />" << endl;
 
 	routes << "\t</vehicle>" << endl;

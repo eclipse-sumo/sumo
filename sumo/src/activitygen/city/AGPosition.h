@@ -1,6 +1,6 @@
 /****************************************************************************/
 /// @file    AGPosition.h
-/// @author  Piotr Woznica
+/// @author  Piotr Woznica & Walter Bamberger
 /// @date    July 2010
 /// @version $Id$
 ///
@@ -18,8 +18,8 @@
 //   (at your option) any later version.
 //
 /****************************************************************************/
-#ifndef POSITION_H
-#define POSITION_H
+#ifndef AGPOSITION_H
+#define AGPOSITION_H
 
 
 // ===========================================================================
@@ -31,11 +31,15 @@
 #include <config.h>
 #endif
 
-#include <iostream>
 #include <list>
 #include <map>
-#include "AGStreet.h"
 #include "../../utils/geom/Position2D.h"
+
+
+// ===========================================================================
+// class declarations
+// ===========================================================================
+class AGStreet;
 
 
 // ===========================================================================
@@ -44,36 +48,101 @@
 class AGPosition
 {
 public:
-	AGPosition(AGStreet *str, float pos) :
-	  street(str), position(pos), pos2d()
-	  {
-		compute2dPosition();
-	  };
-	AGPosition(AGStreet *str) :
-	  street(str), position(randomPositionInStreet(*str)), pos2d()
-	  {
-		compute2dPosition();
-	  };
+	/** @brief Constructs an AGPosition at a certain point on a street.
+	 *
+	 * An AGPosition is determined by a street and the relative position
+	 * on the street. This relative position is the distance from the
+	 * from node of the street.
+	 *
+	 * param[in] str the street on which the AGPosition is located
+	 * param[in] pos the distance from the from node of the street
+	 */
+	AGPosition(const AGStreet& str, SUMOReal pos);
+	/** @brief Constructs an AGPosition at a random point on a street.
+	 *
+	 * This constructor determines the distance from the from node with
+	 * a random number based on a uniform density.
+	 *
+	 * param[in] str the street on which the AGPosition is located
+	 */
+	AGPosition(const AGStreet& str);
 	
+	/** @brief Provides the street this AGPosition is located on.
+	 *
+	 * @return the street
+	 */
+	const AGStreet& getStreet() const throw();
+
+	/** @brief Provides the relative position of this AGPosition on the street.
+	 *
+	 * This relative position is the distance from the from node
+	 * of the associated street.
+	 *
+	 * @return the relative position
+	 */
+	SUMOReal getPosition() const throw();
+
+	/** @brief Tests whether two positions are at the same place.
+	 *
+	 * Compares the x and y coordinates with a threshold
+	 * (see Position2D::almostSame)
+	 *
+	 * @param[in] pos the position with which the comparison is done
+	 * @return true if both AGPositions are (almost) at the same place
+	 */
 	bool operator==(const AGPosition &pos) const throw();
 
-	void print() const throw();
-	float getDistanceTo(AGPosition *otherPos) const throw();
-	float getDistanceTo(AGPosition otherPos) const throw();
-	float getDistanceTo(std::list<AGPosition> *positions) const throw();
-	float getDistanceTo(std::map<int, AGPosition> *myPositions) const throw();
+	/** @brief Computes the distance between two AGPosition objects.
+	 *
+	 * @param[in] the other position the distance in computed to
+	 * @return the distance
+	 */
+	SUMOReal distanceTo(const AGPosition& otherPos) const throw();
 
-	AGStreet *street;
-	float position;
-	Position2D pos2d;
+	/** @brief Computes the distance to the closest position in a list.
+	 *
+	 * minDistanceTo computes the distance to all positions in the given list
+	 * and returns the minimal distance.
+	 *
+	 * @param[in] positions the list of positions the distances are computed to
+	 * @return the minimal distance
+	 */
+	SUMOReal minDistanceTo(const std::list<AGPosition>& positions) const throw();
+
+	/** @brief Computes the distance to the closest position in a map.
+	 *
+	 * minDistanceTo computes the distance to all positions given as the second
+	 * elements of a map and returns the minimal distance.
+	 *
+	 * @param[in] positions the map of positions the distances are computed to
+	 * @return the minimal distance
+	 */
+	SUMOReal minDistanceTo(const std::map<int, AGPosition>& positions) const throw();
+
+	/** @brief Prints out a summary of the properties of this class
+	 * on standard output.
+	 */
+	void print() const throw();
 
 private:
-	static float randomPositionInStreet(const AGStreet& street) throw();
-	void compute2dPosition();
+	const AGStreet* street;
+	SUMOReal position;
+	Position2D pos2d;
 
+	/** @brief Determines a random relative position on a street.
+	 *
+	 * @return the random relative position
+	 */
+	static SUMOReal randomPositionInStreet(const AGStreet& street) throw();
 
+	/** Creates a Position2D object to the street and position attribute of
+	 * this class.
+	 *
+	 * @return the Position2D object
+	 */
+	Position2D compute2dPosition() const throw();
 };
 
-#endif
+#endif /* AGPOSITION_H */
 
 /****************************************************************************/

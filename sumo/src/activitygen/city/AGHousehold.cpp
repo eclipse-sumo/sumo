@@ -122,7 +122,7 @@ AGHousehold::getAdultNbr()
 bool
 AGHousehold::isCloseFromPubTransport(list<AGPosition> *pubTransport)
 {
-	float distToPT = location.getDistanceTo(pubTransport);
+	float distToPT = location.minDistanceTo(*pubTransport);
 	if(distToPT > myCity->statData.maxFootDistance)
 		return false;
 	return true;
@@ -131,7 +131,7 @@ AGHousehold::isCloseFromPubTransport(list<AGPosition> *pubTransport)
 bool
 AGHousehold::isCloseFromPubTransport(map<int, AGPosition> *pubTransport)
 {
-	float distToPT = location.getDistanceTo(pubTransport);
+	float distToPT = location.minDistanceTo(*pubTransport);
 	if(distToPT > myCity->statData.maxFootDistance)
 		return false;
 	return true;
