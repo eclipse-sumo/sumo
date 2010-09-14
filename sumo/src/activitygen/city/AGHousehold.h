@@ -113,6 +113,10 @@ public:
 	 */
 	AGCity* getTheCity();
 	/**
+	 * returns if adults are retired or in working age
+	 */
+	bool retiredHouseholders();
+	/**
 	 * returns the position of the household and other private entities
 	 */
 	AGPosition getPosition();

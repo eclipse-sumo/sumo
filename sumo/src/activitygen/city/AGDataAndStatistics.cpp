@@ -130,9 +130,9 @@ AGDataAndStatistics::consolidateStat()
 	oldAgeHhProb = (float)getPeopleOlderThan(limitAgeRetirement) / (float)getPeopleOlderThan(limitAgeChildren);
 	secondPersProb = (float)(getPeopleOlderThan(limitAgeChildren) - households) / (float)households;
 	meanNbrChildren = (float)getPeopleYoungerThan(limitAgeChildren) / ((1 - oldAgeHhProb) * (float)households);
-	cout << " --> oldAgeHhProb = " << setprecision(3) << oldAgeHhProb << "  - retAge? " << getPeopleOlderThan(limitAgeRetirement) << " adAge? " << getPeopleOlderThan(limitAgeChildren) << endl;
-	cout << " --> secondPersProb = " << setprecision(3) << secondPersProb << "  - adAge? " << getPeopleOlderThan(limitAgeChildren) << " hh?" << households << endl;
-	cout << " --> meanNbrChildren = " << setprecision(3) << meanNbrChildren << "  - chAge? " << getPeopleYoungerThan(limitAgeChildren) << endl;
+	//cout << " --> oldAgeHhProb = " << setprecision(3) << oldAgeHhProb << "  - retAge? " << getPeopleOlderThan(limitAgeRetirement) << " adAge? " << getPeopleOlderThan(limitAgeChildren) << endl;
+	//cout << " --> secondPersProb = " << setprecision(3) << secondPersProb << "  - adAge? " << getPeopleOlderThan(limitAgeChildren) << " hh?" << households << endl;
+	//cout << " --> meanNbrChildren = " << setprecision(3) << meanNbrChildren << "  - chAge? " << getPeopleYoungerThan(limitAgeChildren) << endl;
 }
 
 float
@@ -175,7 +175,7 @@ AGDataAndStatistics::getPeopleOlderThan(int age)
 void
 AGDataAndStatistics::normalizeMapProb(map<int, float> *myMap)
 {
-	cout << "- Normalization: ";
+	//cout << "- Normalization: ";
 	float sum = 0;
 	map<int, float>::iterator it;
 	for(it = myMap->begin() ; it != myMap->end() ; ++it)
@@ -187,9 +187,9 @@ AGDataAndStatistics::normalizeMapProb(map<int, float> *myMap)
 	for(it = myMap->begin() ; it != myMap->end() ; ++it)
 	{
 		it->second = it->second / sum;
-		cout << " + " << it->second;
+		//cout << " + " << it->second;
 	}
-	cout << " = 1.00" << endl;
+	//cout << " = 1.00" << endl;
 }
 
 float

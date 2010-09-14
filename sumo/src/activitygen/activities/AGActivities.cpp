@@ -68,7 +68,6 @@ AGActivities::addTrips(list<AGTrip> t, list<AGTrip> *tripSet)
 void
 AGActivities::generateActivityTrips()
 {
-	cout << "beginning: " << trips.size() << endl;
 	int numbErr;
 	/**
 	 * trips due to public transportation
@@ -218,7 +217,6 @@ AGActivities::generateInOutTraffic()
 		return true;
 	if(myCity->cityGates.empty())
 		return false;
-
 	int num = 1;
 	bool employed;
 	list<AGPosition>::iterator itP = myCity->cityGates.begin();

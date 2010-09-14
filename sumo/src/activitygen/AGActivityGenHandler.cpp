@@ -148,31 +148,31 @@ AGActivityGenHandler::parseParameters(const SUMOSAXAttributes &attrs)
 		myCity.statData.carPreference = attrs.getFloat(AGEN_ATTR_CARPREF);
 	else
 		myCity.statData.carPreference = 0;
-	std::cout << "carPreference: " << myCity.statData.carPreference << std::endl;
+	//std::cout << "carPreference: " << myCity.statData.carPreference << std::endl;
 
 	if(attrs.hasAttribute(AGEN_ATTR_CITYSPEED))
 		myCity.statData.speedTimePerKm = attrs.getFloat(AGEN_ATTR_CITYSPEED);
 	else
 		myCity.statData.speedTimePerKm = 360;
-	std::cout << "time per kilometer in city: " << myCity.statData.speedTimePerKm << std::endl;
+	//std::cout << "time per kilometer in city: " << myCity.statData.speedTimePerKm << std::endl;
 
 	if(attrs.hasAttribute(AGEN_ATTR_FREETIMERATE))
 		myCity.statData.freeTimeActivityRate = attrs.getFloat(AGEN_ATTR_FREETIMERATE);
 	else
 		myCity.statData.freeTimeActivityRate = 0.15;
-	std::cout << "free time activity rate: " << myCity.statData.freeTimeActivityRate << std::endl;
+	//std::cout << "free time activity rate: " << myCity.statData.freeTimeActivityRate << std::endl;
 
 	if(attrs.hasAttribute(AGEN_ATTR_UNI_RAND_TRAFFIC))
 		myCity.statData.uniformRandomTrafficRate = attrs.getFloat(AGEN_ATTR_UNI_RAND_TRAFFIC);
 	else
 		myCity.statData.uniformRandomTrafficRate = 0.0;
-	std::cout << "uniform random traffic proportion: " << myCity.statData.uniformRandomTrafficRate << std::endl;
+	//std::cout << "uniform random traffic proportion: " << myCity.statData.uniformRandomTrafficRate << std::endl;
 
 	if(attrs.hasAttribute(AGEN_ATTR_DEP_VARIATION))
 		myCity.statData.departureVariation = attrs.getFloat(AGEN_ATTR_DEP_VARIATION);
 	else
 		myCity.statData.departureVariation = 0.0;
-	std::cout << "variance in trip departure time variation: " << myCity.statData.departureVariation << std::endl;
+	//std::cout << "variance in trip departure time variation: " << myCity.statData.departureVariation << std::endl;
 }
 
 void
@@ -308,7 +308,7 @@ AGActivityGenHandler::parseBracket(const SUMOSAXAttributes &attrs)
 	if(myCurrentObject == "population")
 	{
 		myCity.statData.population[endAge] = attrs.getInt(AGEN_ATTR_PEOPLENBR);
-		std::cout << "- people: [" << beginAge << "-" << endAge << "] = " << attrs.getInt(AGEN_ATTR_PEOPLENBR) << std::endl;
+		//std::cout << "- people: [" << beginAge << "-" << endAge << "] = " << attrs.getInt(AGEN_ATTR_PEOPLENBR) << std::endl;
 	}
 }
 

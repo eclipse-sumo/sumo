@@ -69,23 +69,23 @@ AGActivityGen::importInfoCity()
 		MsgHandler::getMessageInstance()->endProcessMsg("done.");
 	}
 
-	cout << "read input done." << endl;
+	cout << "### read input done." << endl;
 	city.statData.consolidateStat();
-	cout << "pre-processing done." << endl;
+	cout << "### pre-processing done." << endl;
 	city.completeStreets();
-	cout << "- streets done..." << endl;
+	cout << "### - streets done..." << endl;
 	city.generateWorkPositions();
-	cout << "- work done..." << endl;
+	cout << "### - work done..." << endl;
 	city.completeBusLines();
-	cout << "- bus lines done..." << endl;
+	cout << "### - bus lines done..." << endl;
 
 	city.generatePopulation();
-	cout << "...city built." << endl;
+	cout << "### ...city built." << endl;
 
 	city.schoolAllocation();
 	city.workAllocation();
 	city.carAllocation();
-	cout << "allocation done." << endl;
+	cout << "### allocation done." << endl;
 }
 
 bool

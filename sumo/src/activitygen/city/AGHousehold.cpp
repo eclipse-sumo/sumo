@@ -213,4 +213,10 @@ AGHousehold::getTheCity()
 	return myCity;
 }
 
+bool
+AGHousehold::retiredHouseholders()
+{
+	return (adults.front().getAge() >= myCity->statData.limitAgeRetirement);
+}
+
 /****************************************************************************/
