@@ -158,6 +158,7 @@
     <ClCompile Include="..\..\..\src\activitygen\AGActivityGen.cpp" />
     <ClCompile Include="..\..\..\src\activitygen\AGActivityGenHandler.cpp" />
     <ClCompile Include="..\..\..\src\activitygen\AGActivityTripWriter.cpp" />
+    <ClCompile Include="..\..\..\src\activitygen\AGFrame.cpp" />
     <ClCompile Include="..\..\..\src\activitygen\city\AGAdult.cpp" />
     <ClCompile Include="..\..\..\src\activitygen\city\AGBus.cpp" />
     <ClCompile Include="..\..\..\src\activitygen\city\AGBusLine.cpp" />
@@ -184,6 +185,7 @@
     <ClInclude Include="..\..\..\src\activitygen\AGActivityGen.h" />
     <ClInclude Include="..\..\..\src\activitygen\AGActivityGenHandler.h" />
     <ClInclude Include="..\..\..\src\activitygen\AGActivityTripWriter.h" />
+    <ClInclude Include="..\..\..\src\activitygen\AGFrame.h" />
     <ClInclude Include="..\..\..\src\activitygen\city\AGAdult.h" />
     <ClInclude Include="..\..\..\src\activitygen\city\AGBus.h" />
     <ClInclude Include="..\..\..\src\activitygen\city\AGBusLine.h" />
