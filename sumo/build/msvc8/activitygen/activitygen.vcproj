@@ -452,6 +452,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\..\src\activitygen\AGFrame.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\..\src\activitygen\activities\AGFreeTime.cpp"
 				>
 			</File>
@@ -550,6 +554,10 @@
 			</File>
 			<File
 				RelativePath="..\..\..\src\activitygen\city\AGDataAndStatistics.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\activitygen\AGFrame.h"
 				>
 			</File>
 			<File
