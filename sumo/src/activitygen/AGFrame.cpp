@@ -23,13 +23,22 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
+#ifdef _MSC_VER
+#include <windows_config.h>
+#else
+#include <config.h>
+#endif
+
+#ifdef HAVE_VERSION_H
+#include <version.h>
+#endif
+
 #include "AGFrame.h"
 #include <router/ROFrame.h>
 #include <duarouter/RODUAFrame.h>
 #include <utils/common/SystemFrame.h>
 #include <utils/common/RandHelper.h>
 #include <utils/options/OptionsCont.h>
-#include <version.h>
 
 
 // ===========================================================================
