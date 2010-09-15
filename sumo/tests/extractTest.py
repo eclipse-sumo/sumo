@@ -60,7 +60,7 @@ for source, target in targets.iteritems():
         continue
     if target == "":
         target = source[len(os.path.commonprefix([curDir, source])):].replace(os.sep, '_')
-    testPath = join(options.output, target)
+    testPath = os.path.abspath(join(options.output, target))
     if not os.path.exists(testPath):
         os.makedirs(testPath)
     for line in open(config):
