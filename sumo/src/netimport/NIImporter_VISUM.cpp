@@ -822,7 +822,9 @@ NIImporter_VISUM::parse_TurnsToSignalGroups() {
     std::string LSAid = getNamedString("LsaNr");
     // nodes
     NBNode *from = myLineParser.know("VonKnot") ? getNamedNode("VonKnot") : 0;
-    NBNode *via = getNamedNode("UeberKnot", "UeberKnotNr");
+    NBNode *via = myLineParser.know("KNOTNR") 
+        ? getNamedNode("KNOTNR")
+        : getNamedNode("UeberKnot", "UeberKnotNr");
     NBNode *to = myLineParser.know("NachKnot") ? getNamedNode("NachKnot") : 0;
     // edges
     NBEdge *edg1 = 0;

@@ -74,7 +74,7 @@ MSTLLogicControl::TLSLogicVariants::checkOriginalTLS() const throw() {
         unsigned int linkNo = (unsigned int)(*j).second->getLinks().size();
         bool hadProgramErrors = false;
         for (MSTrafficLightLogic::Phases::const_iterator i=phases.begin(); i!=phases.end(); ++i) {
-            if ((*i)->getState().length()!=linkNo) {
+            if ((*i)->getState().length()<linkNo) {
                 hadProgramErrors = true;
             }
         }
@@ -108,7 +108,7 @@ MSTLLogicControl::TLSLogicVariants::addLogic(const std::string &programID,
             throw ProcessError("No initial signal plan loaded for tls '" + logic->getID() + "'.");
         }
         logic->adaptLinkInformationFrom(*myCurrentProgram);
-        if (logic->getLinks().size()!=logic->getPhase(0).getState().size()) {
+        if (logic->getLinks().size()>logic->getPhase(0).getState().size()) {
             throw ProcessError("Mismatching phase size in tls '" + logic->getID() + "', program '" + programID + "'.");
         }
     }
