@@ -40,7 +40,7 @@ for i in range(0,num):
     if i!=0:
         call = call + ","
     call = call + prefix + str(i) + "_" + str(num) + ".osm.xml"
-call = "%SUMO%\\netconvert --osm " + call + " --proj.utm -o " + sys.argv[3] + " -v " + add
+call = "%SUMO%\\netconvert --osm " + call + " -o " + sys.argv[3] + " -v " + add
 print call
 os.system(call)
 
