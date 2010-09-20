@@ -253,10 +253,13 @@
         <!-- Prints all warnings, some of which are due to VISUM misbehaviour -->
         <visum.verbose-warnings value="false"/>
 
+        <!-- Skips the check for duplicate nodes and edges. -->
+        <osm.skip-duplicates-check value="false"/>
+
         <!-- Flips the y-coordinate along zero -->
         <flip-y value="false"/>
 
-        <!--  -->
+        <!-- Removes vehicle class restrictions from imported edges. -->
         <dismiss-vclasses value="false"/>
 
         <!-- Removes geometry information from edges -->
