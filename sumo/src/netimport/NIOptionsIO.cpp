@@ -207,6 +207,10 @@ NIOptionsIO::fillOptions() {
     oc.addDescription("visum.verbose-warnings", "Processing", "Prints all warnings, some of which are due to VISUM misbehaviour");
 
 
+    oc.doRegister("osm.skip-duplicates-check", new Option_Bool(false));
+    oc.addDescription("osm.skip-duplicates-check", "Processing", "Skips the check for duplicate nodes and edges.");
+
+
     // add netbuilding options
     NBNetBuilder::insertNetBuildOptions(oc);
 

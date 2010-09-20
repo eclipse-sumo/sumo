@@ -35,6 +35,7 @@
 #include <utils/common/TplConvert.h>
 #include <utils/common/ToString.h>
 #include <utils/common/MsgHandler.h>
+#include <utils/common/StringUtils.h>
 #include <netbuild/NBEdge.h>
 #include <netbuild/NBEdgeCont.h>
 #include <netbuild/NBNode.h>
@@ -258,39 +259,43 @@ NIImporter_OpenStreetMap::loadNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
      * Without that, insertEdge can fail, if both nodes start
      * the shape of an edge. (NBEdge::init calls Position2DVector::push_front
      * with the second, which has the same coordinates as the first.) */
-    MsgHandler::getMessageInstance()->beginProcessMsg("Removing duplicate nodes...");
-    if (nodes.size() > 1) {
-        // The algorithm compares a node (it) with the remaining part
-        // of the list ( [itnext; end()[ ).
-        for (std::map<int, NIOSMNode*>::iterator it = nodes.begin(), itnext =++nodes.begin(); itnext != nodes.end(); ++it, ++itnext) {
-            std::map<int, NIOSMNode*>::iterator dupNode = find_if(itnext, nodes.end(), CompareNodesInPairs(*it));
-            if (dupNode != nodes.end()) {
-                MsgHandler::getMessageInstance()->inform("Found duplicate nodes. Substitute " + toString(dupNode->second->id) + " with " + toString(it->second->id));
-                for_each(edges.begin(), edges.end(), SubstituteNode(dupNode->second, it->second));
+    if(!OptionsCont::getOptions().getBool("osm.skip-duplicates-check")) {
+        MsgHandler::getMessageInstance()->beginProcessMsg("Removing duplicate nodes...");
+        if (nodes.size() > 1) {
+            // The algorithm compares a node (it) with the remaining part
+            // of the list ( [itnext; end()[ ).
+            for (std::map<int, NIOSMNode*>::iterator it = nodes.begin(), itnext =++nodes.begin(); itnext != nodes.end(); ++it, ++itnext) {
+                std::map<int, NIOSMNode*>::iterator dupNode = find_if(itnext, nodes.end(), CompareNodesInPairs(*it));
+                if (dupNode != nodes.end()) {
+                    MsgHandler::getMessageInstance()->inform("Found duplicate nodes. Substitute " + toString(dupNode->second->id) + " with " + toString(it->second->id));
+                    for_each(edges.begin(), edges.end(), SubstituteNode(dupNode->second, it->second));
+                }
             }
         }
+        MsgHandler::getMessageInstance()->endProcessMsg(" done.");
     }
-    MsgHandler::getMessageInstance()->endProcessMsg(" done.");
 
     /* Remove duplicate edges with the same shape and attributes */
-    MsgHandler::getMessageInstance()->beginProcessMsg("Removing duplicate edges...");
-    if (edges.size() > 1) {
-        std::set<std::string> toRemove;
-        for (std::map<std::string, Edge*>::iterator it = edges.begin(), itnext =++edges.begin(); itnext != edges.end(); ++it, ++itnext) {
-            std::map<std::string, Edge*>::iterator dupEdge = find_if(itnext, edges.end(), SimilarEdge(*it));
-            while (dupEdge != edges.end()) {
-                MsgHandler::getMessageInstance()->inform("Found duplicate edges. Removing " + toString(dupEdge->first));
-                toRemove.insert(dupEdge->first);
-                dupEdge = find_if(++dupEdge, edges.end(), SimilarEdge(*it));
+    if(!OptionsCont::getOptions().getBool("osm.skip-duplicates-check")) {
+        MsgHandler::getMessageInstance()->beginProcessMsg("Removing duplicate edges...");
+        if (edges.size() > 1) {
+            std::set<std::string> toRemove;
+            for (std::map<std::string, Edge*>::iterator it = edges.begin(), itnext =++edges.begin(); itnext != edges.end(); ++it, ++itnext) {
+                std::map<std::string, Edge*>::iterator dupEdge = find_if(itnext, edges.end(), SimilarEdge(*it));
+                while (dupEdge != edges.end()) {
+                    MsgHandler::getMessageInstance()->inform("Found duplicate edges. Removing " + toString(dupEdge->first));
+                    toRemove.insert(dupEdge->first);
+                    dupEdge = find_if(++dupEdge, edges.end(), SimilarEdge(*it));
+                }
+            }
+            for (std::set<std::string>::iterator i=toRemove.begin(); i!=toRemove.end(); ++i) {
+                std::map<std::string, Edge*>::iterator j=edges.find(*i);
+                delete(*j).second;
+                edges.erase(j);
             }
         }
-        for (std::set<std::string>::iterator i=toRemove.begin(); i!=toRemove.end(); ++i) {
-            std::map<std::string, Edge*>::iterator j=edges.find(*i);
-            delete(*j).second;
-            edges.erase(j);
-        }
+        MsgHandler::getMessageInstance()->endProcessMsg(" done.");
     }
-    MsgHandler::getMessageInstance()->endProcessMsg(" done.");
 
     /* Mark which nodes are used (by edges or traffic lights).
      * This is necessary to detect which OpenStreetMap nodes are for
@@ -437,7 +442,7 @@ NIImporter_OpenStreetMap::insertEdge(Edge *e, int index, NBNode *from, NBNode *t
             noLanes = e->myNoLanes / 2;
         }
     }
-    // if we had been able to extract the maximum speed, override the highway type default
+    // if we had been able to extract the maximum speed, override the type's default
     if (e->myMaxSpeed >= 0) {
         speed = (SUMOReal)(e->myMaxSpeed / 3.6);
     }
@@ -474,7 +479,9 @@ NIImporter_OpenStreetMap::insertEdge(Edge *e, int index, NBNode *from, NBNode *t
 // definitions of NIImporter_OpenStreetMap::NodesHandler-methods
 // ---------------------------------------------------------------------------
 NIImporter_OpenStreetMap::NodesHandler::NodesHandler(std::map<int, NIOSMNode*> &toFill) throw()
-        : SUMOSAXHandler("osm - file"), myToFill(toFill), myLastNodeID(-1), myIsInValidNodeTag(false), myHierarchyLevel(0) {}
+        : SUMOSAXHandler("osm - file"), myToFill(toFill), myLastNodeID(-1), myIsInValidNodeTag(false), myHierarchyLevel(0) 
+{
+}
 
 
 NIImporter_OpenStreetMap::NodesHandler::~NodesHandler() throw() {}
@@ -567,6 +574,11 @@ NIImporter_OpenStreetMap::EdgesHandler::EdgesHandler(
     std::map<std::string, Edge*> &toFill) throw()
         : SUMOSAXHandler("osm - file"),
         myOSMNodes(osmNodes), myEdgeMap(toFill) {
+    mySpeedMap["none"] = 300.;
+    mySpeedMap["walk"] = 5.;
+    mySpeedMap["DE:rural"] = 50.;
+    mySpeedMap["DE:living_street"] = 10.;
+    
 }
 
 
@@ -630,10 +642,17 @@ NIImporter_OpenStreetMap::EdgesHandler::myStartElement(SumoXMLTag element,
                 MsgHandler::getErrorInstance()->inform("Value of key '" + key + "' is not numeric ('" + value + "') in edge '" + myCurrentEdge->id + "'.");
             }
         } else if (key=="maxspeed") {
-            try {
-                myCurrentEdge->myMaxSpeed = TplConvert<char>::_2SUMOReal(value.c_str());
-            } catch (NumberFormatException &) {
-                WRITE_WARNING("Value of key '" + key + "' is not numeric ('" + value + "') in edge '" + myCurrentEdge->id + "'.");
+            if(mySpeedMap.find(value)!=mySpeedMap.end()) {
+                myCurrentEdge->myMaxSpeed = mySpeedMap[value];
+            } else {
+                if(value.find("km/h")!=std::string::npos) {
+                    value = StringUtils::prune(value.substr(0, value.find_first_not_of("0123456789")));
+                }
+                try {
+                    myCurrentEdge->myMaxSpeed = TplConvert<char>::_2SUMOReal(value.c_str());
+                } catch (NumberFormatException &) {
+                    WRITE_WARNING("Value of key '" + key + "' is not numeric ('" + value + "') in edge '" + myCurrentEdge->id + "'.");
+                }
             }
         } else if (key=="junction") {
             if ((value == "roundabout") && (myCurrentEdge->myIsOneWay == "")) {

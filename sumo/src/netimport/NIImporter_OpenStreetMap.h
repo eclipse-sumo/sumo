@@ -194,9 +194,15 @@ private:
         /// @brief The nodes container to fill
         std::map<int, NIOSMNode*> &myToFill;
 
+        /// @brief ID of the currently parsed node, for reporting mainly
         int myLastNodeID;
+
+        /// @brief Hierarchy helper for parsing a node's tags
         bool myIsInValidNodeTag;
+
+        /// @brief The current hierarchy level
         int myHierarchyLevel;
+
 
     private:
         /** @brief invalidated copy constructor */
@@ -264,6 +270,9 @@ private:
 
         /// @brief The element stack
         std::vector<SumoXMLTag> myParentElements;
+
+        /// @brief A map of non-numeric speed descriptions to their numeric values
+        std::map<std::string, SUMOReal> mySpeedMap;
 
 
     private:
