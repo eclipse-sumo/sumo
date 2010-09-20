@@ -265,14 +265,6 @@
       <Project>{c9cc8a55-bcf5-44d8-9e22-55ea09757c60}</Project>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
     </ProjectReference>
-    <ProjectReference Include="..\y_libmesogui\y_libmesogui.vcxproj">
-      <Project>{3cd3d44a-7809-485c-b7a9-d5fde0c31684}</Project>
-      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
-    </ProjectReference>
-    <ProjectReference Include="..\y_libmesosim\y_libmesosim.vcxproj">
-      <Project>{308beb29-142b-4088-bd41-80e273e20d3a}</Project>
-      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
-    </ProjectReference>
     <ProjectReference Include="..\y_libmicrosim\y_libmicrosim.vcxproj">
       <Project>{2a069662-6b6f-40d7-a808-211f9c9a4aae}</Project>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
