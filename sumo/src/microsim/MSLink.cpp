@@ -146,10 +146,7 @@ MSLink::opened(SUMOTime arrivalTime, SUMOReal arrivalSpeed, SUMOReal vehicleLeng
     }
 
     bool isSignalControlled = myState!=MSLink::LINKSTATE_MAJOR&&myState!=MSLink::LINKSTATE_MINOR&&myState!=MSLink::LINKSTATE_EQUAL;
-    // if this link either had no switch to green, yet,
-    //  or is signal controlled, we will not examine any effects on the other traffic
-    // this should be done by plainly following the lights
-    if(myLastSwitchGreenTime>=0&&!isSignalControlled) {
+    if(myLastSwitchGreenTime>=0) {
         for (std::set<MSLink*>::const_iterator i=myBlockedFoeLinks.begin(); i!=myBlockedFoeLinks.end(); ++i) {
             if ((*i)->getState()!=LINKSTATE_TL_RED&&(*i)->hasEarlierGreenVehicle(myLastSwitchGreenTime, myState)) {
                 return false;
