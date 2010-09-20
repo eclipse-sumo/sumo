@@ -237,7 +237,9 @@ NIImporter_OpenStreetMap::loadNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
         }
         nodesHandler.setFileName(*file);
         MsgHandler::getMessageInstance()->beginProcessMsg("Parsing nodes from osm-file '" + *file + "'...");
-        XMLSubSys::runParser(nodesHandler, *file);
+        if (!XMLSubSys::runParser(nodesHandler, *file)) {
+            return;
+        }
         MsgHandler::getMessageInstance()->endProcessMsg("done.");
     }
     // load edges, then
