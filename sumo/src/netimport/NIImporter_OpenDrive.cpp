@@ -666,10 +666,10 @@ NIImporter_OpenDrive::geomFromArc(const OpenDriveEdge &e, const OpenDriveGeometr
     SUMOReal dist = 0.0;
     SUMOReal centerX = g.x;
     SUMOReal centerY = g.y;
-    //Positiv Linkskurve; Negativ Rechtskurve
+    // left: positive value
     SUMOReal curvature = g.params[0];
     SUMOReal radius = 1. / curvature;
-    // Berechnung des Mittelpunktes
+    // center point
     calculateCurveCenter(&centerX, &centerY, radius, g.hdg);
     SUMOReal endX = g.x;
     SUMOReal endY = g.y;
@@ -683,7 +683,6 @@ NIImporter_OpenDrive::geomFromArc(const OpenDriveEdge &e, const OpenDriveGeometr
     bool end = false;
     do {
         geo_posE += C_LENGTH;
-        // Berechnung eines Punktes auf der Kurve abhängig von der Länge (Konstante)
         if (geo_posE - g.s > g.length) {
             geo_posE = g.s + g.length;
         }
@@ -691,7 +690,7 @@ NIImporter_OpenDrive::geomFromArc(const OpenDriveEdge &e, const OpenDriveGeometr
             geo_posE = g.s + g.length;
         }
         calcPointOnCurve(&endX, &endY, centerX, centerY, radius, geo_posE - geo_posS);
-        //Berechnen des Richtungswinkels des Berechneten Punktes
+
         dist += (geo_posE - geo_posS);
         if (curvature > 0.0) {
             hdgE = g.hdg + dist/fabs(radius);
@@ -733,7 +732,6 @@ NIImporter_OpenDrive::calculateStraightEndPoint(double hdg, double length, const
 }
 
 
-//Berechnung des Mittelpunkts einer Kurve
 void
 NIImporter_OpenDrive::calculateCurveCenter(SUMOReal *ad_x, SUMOReal *ad_y, SUMOReal ad_radius, SUMOReal ad_hdg) throw() {
     SUMOReal normX = 1.0;
@@ -744,46 +742,39 @@ NIImporter_OpenDrive::calculateCurveCenter(SUMOReal *ad_x, SUMOReal *ad_y, SUMOR
         turn = -1.0;
     else
         turn = 1.0;
-    //Rotation um den Richtungswinkel (KEINE BEACHTUNG DER RICHTUNG !!!!!)
+
     tmpX = normX;
     normX = normX * cos(ad_hdg) + normY * sin(ad_hdg);
     normY = tmpX * sin(ad_hdg) + normY * cos(ad_hdg);
 
-    //Rotation um 90° (Beachtung der Richtung)
     tmpX = normX;
     normX = normX * cos(90 * PI / 180) + turn * normY * sin(90 * PI / 180);
     normY = -1 * turn * tmpX * sin(90 * PI / 180) + normY * cos(90 * PI / 180);
 
-    //Verlängern um den Radius
     normX = abs(ad_radius) * normX;
     normY = abs(ad_radius) * normY;
 
-    //Verschieben der Punkte
     *ad_x += normX;
     *ad_y += normY;
 }
 
-//Berechnung eines Punktes auf der Kurve in Abhängigkeit von ad_length
+
 void
 NIImporter_OpenDrive::calcPointOnCurve(SUMOReal *ad_x, SUMOReal *ad_y, SUMOReal ad_centerX, SUMOReal ad_centerY,
                                        SUMOReal ad_r, SUMOReal ad_length) throw() {
-    //Mittelpunktswinkel
     double rotAngle = ad_length/abs(ad_r);
-    //Vektor vom Mittelpunkt zum Startpunkt
     double vx = *ad_x - ad_centerX;
     double vy = *ad_y - ad_centerY;
     double tmpx;
 
     double turn;
     if (ad_r > 0)
-        turn = -1; //Links
+        turn = -1; //left
     else
-        turn = 1; //Rechts
+        turn = 1; //right
     tmpx = vx;
-    //Rotation (Beachtung der Richtung)
     vx = vx * cos(rotAngle) + turn * vy * sin(rotAngle);
     vy = -1 * turn * tmpx * sin(rotAngle) + vy * cos(rotAngle);
-    //Verschiebung
     *ad_x = vx + ad_centerX;
     *ad_y = vy + ad_centerY;
 }
