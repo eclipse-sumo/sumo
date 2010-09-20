@@ -214,7 +214,7 @@
         <!-- Flips the y-coordinate along zero -->
         <flip-y value="false"/>
 
-        <!--  -->
+        <!-- Removes vehicle class restrictions from imported edges. -->
         <dismiss-vclasses value="false"/>
 
         <!-- Removes geometry information from edges -->
