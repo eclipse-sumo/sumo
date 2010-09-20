@@ -367,7 +367,7 @@ NBNetBuilder::insertNetBuildOptions(OptionsCont &oc) {
     oc.addDescription("flip-y", "Processing", "Flips the y-coordinate along zero");
 
     oc.doRegister("dismiss-vclasses", new Option_Bool(false));
-    oc.addDescription("dismiss-vclasses", "Processing", "");
+    oc.addDescription("dismiss-vclasses", "Processing", "Removes vehicle class restrictions from imported edges.");
 
     oc.doRegister("remove-geometry", 'R', new Option_Bool(false));
     oc.addDescription("remove-geometry", "Processing", "Removes geometry information from edges");
