@@ -108,7 +108,7 @@ protected:
 
 
 private:
-    class CompareNodesInPairs;
+    class CompareNodes;
     class SubstituteNode;
     class SimilarEdge;
 
