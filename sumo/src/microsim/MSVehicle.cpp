@@ -899,20 +899,18 @@ MSVehicle::moveFirstChecked() {
 
     assert(myLFLinkLanes.size()!=0);
     DriveItemVector::iterator i;
-    SUMOTime t = MSNet::getInstance()->getCurrentTimeStep();
     bool braking = false;
     bool lastWasGreenCont = false;
     for (i=myLFLinkLanes.begin(); i!=myLFLinkLanes.end(); ++i) {
         MSLink *link = (*i).myLink;
-        bool onLinkEnd = link==0;
         // the vehicle must change the lane on one of the next lanes
-        if (!onLinkEnd&&(*i).mySetRequest) {
-                MSLink::LinkState ls = link->getState();
-                if(ls==MSLink::LINKSTATE_TL_GREEN_MAJOR||ls==MSLink::LINKSTATE_TL_GREEN_MINOR||ls==MSLink::LINKSTATE_TL_YELLOW_MAJOR||ls==MSLink::LINKSTATE_TL_YELLOW_MINOR) {
-                    myLastGreenTime = link->getSwitchToGreenTime();
-                }
+        if (link!=0&&(*i).mySetRequest) {
+            const MSLink::LinkState ls = link->getState();
+            if(ls==MSLink::LINKSTATE_TL_GREEN_MAJOR||ls==MSLink::LINKSTATE_TL_GREEN_MINOR||ls==MSLink::LINKSTATE_TL_YELLOW_MAJOR||ls==MSLink::LINKSTATE_TL_YELLOW_MINOR) {
+                myLastGreenTime = link->getSwitchToGreenTime();
+            }
             // vehicles should brake when running onto a yellow light if the distance allows to halt in front
-            bool yellow = ls==MSLink::LINKSTATE_TL_YELLOW_MAJOR||ls==MSLink::LINKSTATE_TL_YELLOW_MINOR;
+            const bool yellow = ls==MSLink::LINKSTATE_TL_YELLOW_MAJOR||ls==MSLink::LINKSTATE_TL_YELLOW_MINOR;
             if (yellow&&(*i).myDistance>getCarFollowModel().getSpeedAfterMaxDecel(myState.mySpeed)) {
                 vSafe = (*i).myVLinkWait;
                 braking = true;
