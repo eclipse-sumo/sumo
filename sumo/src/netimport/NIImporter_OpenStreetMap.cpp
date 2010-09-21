@@ -240,10 +240,10 @@ NIImporter_OpenStreetMap::loadNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
         if (nodes.size() > 1) {
             std::set<const NIOSMNode*, CompareNodes> dupsFinder;
             for (std::map<int, NIOSMNode*>::iterator it = nodes.begin(); it != nodes.end(); ++it) {
-                const std::set<const NIOSMNode*, CompareNodes>::iterator dupNode = dupsFinder.find(it->second);
-                if (dupNode != dupsFinder.end()) {
-                    MsgHandler::getMessageInstance()->inform("Found duplicate nodes. Substitute " + toString((*dupNode)->id) + " with " + toString(it->second->id));
-                    for_each(edges.begin(), edges.end(), SubstituteNode(*dupNode, it->second));
+                const std::set<const NIOSMNode*, CompareNodes>::iterator origNode = dupsFinder.find(it->second);
+                if (origNode != dupsFinder.end()) {
+                    MsgHandler::getMessageInstance()->inform("Found duplicate nodes. Substituting " + toString(it->second->id) + " with " + toString((*origNode)->id));
+                    for_each(edges.begin(), edges.end(), SubstituteNode(it->second, *origNode));
                 } else {
                     dupsFinder.insert(it->second);
                 }
@@ -260,7 +260,7 @@ NIImporter_OpenStreetMap::loadNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
             for (std::map<std::string, Edge*>::iterator it = edges.begin(), itnext =++edges.begin(); itnext != edges.end(); ++it, ++itnext) {
                 std::map<std::string, Edge*>::iterator dupEdge = find_if(itnext, edges.end(), SimilarEdge(*it));
                 while (dupEdge != edges.end()) {
-                    MsgHandler::getMessageInstance()->inform("Found duplicate edges. Removing " + toString(dupEdge->first));
+                    MsgHandler::getMessageInstance()->inform("Found duplicate edges. Removing " + dupEdge->first);
                     toRemove.insert(dupEdge->first);
                     dupEdge = find_if(++dupEdge, edges.end(), SimilarEdge(*it));
                 }

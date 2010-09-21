@@ -1,7 +1,7 @@
 Parsing nodes from osm-file 'osm.xml'... done.
 Parsing edges from osm-file 'osm.xml'... done.
 Removing duplicate nodes... 
-Found duplicate nodes. Substitute -4 with -7
+Found duplicate nodes. Substituting -4 with -7
  done.
 Removing duplicate edges...  done.
  Import done:
