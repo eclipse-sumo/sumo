@@ -135,6 +135,13 @@ MSLink::opened(SUMOTime arrivalTime, SUMOReal arrivalSpeed, SUMOReal vehicleLeng
 #endif
     const SUMOTime leaveTime = arrivalTime + TIME2STEPS((length + vehicleLength) / arrivalSpeed);
     for (std::vector<MSLink*>::const_iterator i=myFoeLinks.begin(); i!=myFoeLinks.end(); ++i) {
+#ifdef HAVE_MESOSIM
+        if (MSGlobals::gUseMesoSim) {
+            if ((*i)->getState() == LINKSTATE_TL_RED) {
+                continue;
+            }
+        }
+#endif
         if ((*i)->blockedAtTime(arrivalTime, leaveTime)) {
             return false;
         }
@@ -145,10 +152,9 @@ MSLink::opened(SUMOTime arrivalTime, SUMOReal arrivalSpeed, SUMOReal vehicleLeng
         }
     }
 
-    bool isSignalControlled = myState!=MSLink::LINKSTATE_MAJOR&&myState!=MSLink::LINKSTATE_MINOR&&myState!=MSLink::LINKSTATE_EQUAL;
     if(myLastSwitchGreenTime>=0) {
         for (std::set<MSLink*>::const_iterator i=myBlockedFoeLinks.begin(); i!=myBlockedFoeLinks.end(); ++i) {
-            if ((*i)->getState()!=LINKSTATE_TL_RED&&(*i)->hasEarlierGreenVehicle(myLastSwitchGreenTime, myState)) {
+            if ((*i)->getState()!=LINKSTATE_TL_RED&&(*i)->hasEarlierGreenVehicle(myLastSwitchGreenTime)) {
                 return false;
             }
         } 
@@ -172,7 +178,7 @@ MSLink::blockedAtTime(SUMOTime arrivalTime, SUMOTime leaveTime) const throw() {
 
 
 bool 
-MSLink::hasEarlierGreenVehicle(SUMOTime otherGreenTime, MSLink::LinkState otherState) const throw()
+MSLink::hasEarlierGreenVehicle(SUMOTime otherGreenTime) const throw()
 {
     if (myState==MSLink::LINKSTATE_TL_GREEN_MAJOR || myState==MSLink::LINKSTATE_TL_GREEN_MINOR) {
         for (LinkApproachingVehicles::const_iterator i=myApproachingVehicles.begin(); i!=myApproachingVehicles.end(); ++i) {

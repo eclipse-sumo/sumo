@@ -200,7 +200,7 @@ public:
         return myLastSwitchGreenTime;
     }
 
-    bool hasEarlierGreenVehicle(SUMOTime otherGreenTime, MSLink::LinkState otherState) const throw();
+    bool hasEarlierGreenVehicle(SUMOTime otherGreenTime) const throw();
 
 
     /** @brief Returns the information whether a vehicle is approaching on one of the link's foe streams
