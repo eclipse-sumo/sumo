@@ -315,7 +315,7 @@ PCLoaderOSM::EdgesHandler::myStartElement(SumoXMLTag element, const SUMOSAXAttri
         int ref = attrs.getIntReporting(SUMO_ATTR_REF, "nd", 0, ok);
         if (ok) {
             if (myOSMNodes.find(ref)==myOSMNodes.end()) {
-                MsgHandler::getErrorInstance()->inform("The referenced geometry information (ref='" + toString(ref) + "') is not known");
+                WRITE_WARNING("The referenced geometry information (ref='" + toString(ref) + "') is not known");
                 return;
             }
             myCurrentEdge->myCurrentNodes.push_back(ref);

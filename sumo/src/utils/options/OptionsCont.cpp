@@ -697,17 +697,15 @@ OptionsCont::writeConfiguration(std::ostream &os, bool filled,
 
 
 void
-OptionsCont::writeXMLHeader(std::ostream &os, const bool writeConfig) throw() {
+OptionsCont::writeXMLHeader(std::ostream &os, const std::string xmlParams) throw() {
     time_t rawtime;
     char buffer [80];
 
-    os << "<?xml version=\"1.0\"?>\n\n";
+    os << "<?xml version=\"1.0\"" << xmlParams << "?>\n\n";
     time(&rawtime);
     strftime(buffer, 80, "<!-- generated on %c by ", localtime(&rawtime));
     os << buffer << myFullName << "\n";
-    if (writeConfig) {
-        writeConfiguration(os, true, false, false);
-    }
+    writeConfiguration(os, true, false, false);
     os << "-->\n\n";
 }
 

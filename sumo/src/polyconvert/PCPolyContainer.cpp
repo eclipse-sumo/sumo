@@ -145,25 +145,26 @@ PCPolyContainer::report() throw() {
 void
 PCPolyContainer::save(const std::string &file) throw(IOError) {
     OutputDevice& out = OutputDevice::getDevice(file);
-    out.writeXMLHeader("shapes");
+    out.writeXMLHeader("shapes", " encoding=\"iso-8859-1\"");
     // write polygons
     for (PolyCont::iterator i=myPolyCont.begin(); i!=myPolyCont.end(); ++i) {
-        out << "    <poly id=\"" << StringUtils::escapeXML((*i).second->getID()) << "\" type=\""
-        << (*i).second->getType() << "\" color=\""
-        << (*i).second->getColor() << "\" fill=\""
-        << (*i).second->fill() << "\"";
-        out << " layer=\"" << myPolyLayerMap[(*i).second] << "\"";
-        out << " shape=\"" << (*i).second->getShape() << "\"/>\n";
+        out.openTag("poly") << " id=\"" << StringUtils::escapeXML((*i).second->getID())
+            << "\" type=\"" << (*i).second->getType()
+            << "\" color=\"" << (*i).second->getColor()
+            << "\" fill=\"" << (*i).second->fill()
+            << "\" layer=\"" << myPolyLayerMap[(*i).second]
+            << "\" shape=\"" << (*i).second->getShape() << "\"";
+        out.closeTag(true);
     }
     // write pois
     for (POICont::iterator i=myPOICont.begin(); i!=myPOICont.end(); ++i) {
-        out << "    <poi id=\"" << StringUtils::escapeXML((*i).second->getID()) << "\" type=\""
-        << (*i).second->getType() << "\" color=\""
-        << *static_cast<RGBColor*>((*i).second) << '"';
-        out << " layer=\"" << myPOILayerMap[(*i).second] << "\"";
-        out << " x=\"" << (*i).second->x() << "\""
-        << " y=\"" << (*i).second->y() << "\""
-        << "/>\n";
+        out.openTag("poi") << " id=\"" << StringUtils::escapeXML((*i).second->getID())
+            << "\" type=\"" << StringUtils::escapeXML((*i).second->getType())
+            << "\" color=\"" << *static_cast<RGBColor*>((*i).second)
+            << "\" layer=\"" << myPOILayerMap[(*i).second]
+            << "\" x=\"" << (*i).second->x()
+            << "\" y=\"" << (*i).second->y() << "\"";
+        out.closeTag(true);
     }
     out.close();
 }

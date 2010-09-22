@@ -191,9 +191,9 @@ public:
      *  the current date and time and optionally the application configuration (set values).
      *
      * @param[in] os The stream to write the header into
-     * @param[in] writeConfig Whether the current configuration shall be written, too
+     * @param[in] xmlParams Additional parameters (such as encoding) to include in the <?xml> declaration
      */
-    void writeXMLHeader(std::ostream &os, const bool writeConfig=true) throw();
+    void writeXMLHeader(std::ostream &os, const std::string xmlParams="") throw();
     /// @}
 
 

@@ -149,10 +149,10 @@ OutputDevice::setPrecision(unsigned int precision) throw() {
 
 
 bool
-OutputDevice::writeXMLHeader(const std::string &rootElement, const bool writeConfig,
+OutputDevice::writeXMLHeader(const std::string &rootElement, const std::string xmlParams,
                              const std::string &attrs, const std::string &comment) throw() {
     if (myXMLStack.empty()) {
-        OptionsCont::getOptions().writeXMLHeader(getOStream(), writeConfig);
+        OptionsCont::getOptions().writeXMLHeader(getOStream(), xmlParams);
         if (comment != "") {
             getOStream() << comment << "\n";
         }
