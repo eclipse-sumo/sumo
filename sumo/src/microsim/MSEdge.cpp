@@ -472,7 +472,7 @@ MSEdge::parseEdgesList(const std::vector<std::string> &desc, std::vector<const M
         const MSEdge *edge = MSEdge::dictionary(*i);
         // check whether the edge exists
         if (edge==0) {
-            throw ProcessError("The edge '" + *i + "' within route '" + rid + "' is not known."
+            throw ProcessError("The edge '" + *i + "' within the route " + rid + " is not known."
                                + "\n The route can not be build.");
         }
         into.push_back(edge);

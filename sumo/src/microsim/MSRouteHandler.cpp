@@ -161,8 +161,10 @@ MSRouteHandler::myStartElement(SumoXMLTag element,
         if (attrs.hasAttribute(SUMO_ATTR_FROM) && attrs.hasAttribute(SUMO_ATTR_TO)) {
             myActiveRouteID = "!" + myVehicleParameter->id;
             bool ok = true;
-            MSEdge::parseEdgesList(attrs.getStringReporting(SUMO_ATTR_FROM, "flow", myVehicleParameter->id.c_str(), ok), myActiveRoute, myActiveRouteID);
-            MSEdge::parseEdgesList(attrs.getStringReporting(SUMO_ATTR_TO, "flow", myVehicleParameter->id.c_str(), ok), myActiveRoute, myActiveRouteID);
+            MSEdge::parseEdgesList(attrs.getStringReporting(SUMO_ATTR_FROM, "flow", myVehicleParameter->id.c_str(), ok),
+                                   myActiveRoute, "for vehicle '" + myVehicleParameter->id + "'");
+            MSEdge::parseEdgesList(attrs.getStringReporting(SUMO_ATTR_TO, "flow", myVehicleParameter->id.c_str(), ok),
+                                   myActiveRoute, "for vehicle '" + myVehicleParameter->id + "'");
             closeRoute();
         }
         break;
@@ -186,8 +188,10 @@ MSRouteHandler::myStartElement(SumoXMLTag element,
         myVehicleParameter = SUMOVehicleParserHelper::parseVehicleAttributes(attrs);
         myActiveRouteID = "!" + myVehicleParameter->id;
         if (attrs.hasAttribute(SUMO_ATTR_FROM) || !myVehicleParameter->wasSet(VEHPARS_TAZ_SET)) {
-            MSEdge::parseEdgesList(attrs.getStringReporting(SUMO_ATTR_FROM, "tripdef", myVehicleParameter->id.c_str(), ok), myActiveRoute, myActiveRouteID);
-            MSEdge::parseEdgesList(attrs.getStringReporting(SUMO_ATTR_TO, "tripdef", myVehicleParameter->id.c_str(), ok), myActiveRoute, myActiveRouteID);
+            MSEdge::parseEdgesList(attrs.getStringReporting(SUMO_ATTR_FROM, "tripdef", myVehicleParameter->id.c_str(), ok),
+                                   myActiveRoute, "for vehicle '" + myVehicleParameter->id + "'");
+            MSEdge::parseEdgesList(attrs.getStringReporting(SUMO_ATTR_TO, "tripdef", myVehicleParameter->id.c_str(), ok),
+                                   myActiveRoute, "for vehicle '" + myVehicleParameter->id + "'");
         } else {
             const MSEdge* fromTaz = MSEdge::dictionary(myVehicleParameter->fromTaz+"-source");
             if (fromTaz == 0) {
@@ -264,7 +268,11 @@ MSRouteHandler::openRoute(const SUMOSAXAttributes &attrs) {
     }
     bool ok = true;
     if (attrs.hasAttribute(SUMO_ATTR_EDGES)) {
-        MSEdge::parseEdgesList(attrs.getStringReporting(SUMO_ATTR_EDGES, "route", myActiveRouteID.c_str(), ok), myActiveRoute, myActiveRouteID);
+        std::string rid = "'" + myActiveRouteID + "'";
+        if (myVehicleParameter!=0) {
+            rid =  "for vehicle '" + myVehicleParameter->id + "'";
+        }
+        MSEdge::parseEdgesList(attrs.getStringReporting(SUMO_ATTR_EDGES, "route", myActiveRouteID.c_str(), ok), myActiveRoute, rid);
     }
     myActiveRouteProbability = attrs.getOptSUMORealReporting(SUMO_ATTR_PROB, "route", myActiveRouteID.c_str(), ok, DEFAULT_VEH_PROB);
     myActiveRouteColor = attrs.hasAttribute(SUMO_ATTR_COLOR) ? RGBColor::parseColorReporting(attrs.getString(SUMO_ATTR_COLOR), "route", myActiveRouteID.c_str(), true, ok) : RGBColor::getDefaultColor();
