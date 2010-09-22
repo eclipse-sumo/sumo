@@ -28,6 +28,7 @@
 #endif
 
 #include <string>
+#include <iostream>
 #include <cstdio>
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/TplConvert.h>
@@ -107,7 +108,7 @@ StringUtils::replace(std::string str, const char *what,
         const size_t by_len = by_tmp.length();
         while (idx != std::string::npos) {
             str = str.replace(idx, what_len, by);
-            idx = str.find(what, idx+by_len-what_len);
+            idx = str.find(what, idx + by_len);
         }
     }
     return str;
@@ -150,6 +151,9 @@ StringUtils::escapeXML(const std::string &orig) throw() {
     result = replace(result, ">", "&gt;");
     result = replace(result, "<", "&lt;");
     result = replace(result, "\"", "&quot;");
+    for (char invalid = '\1'; invalid < ' '; invalid++) {
+        result = replace(result, std::string(1, invalid).c_str(), "");
+    }
     return replace(result, "'", "&apos;");
 }
 

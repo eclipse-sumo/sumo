@@ -74,6 +74,9 @@ TEST(StringUtils, test_method_replace_empty_second_argument ) {
 /* Tests the method replace with empty third_argument */
 TEST(StringUtils, test_method_replace_empty_third_argument ) {
 	EXPECT_EQ("hello", StringUtils::replace("hello","a",""));
+	EXPECT_EQ("heo", StringUtils::replace("hello","l",""));
+	EXPECT_EQ("he", StringUtils::replace("hell","l",""));
+	EXPECT_EQ("test", StringUtils::replace("ltestl","l",""));
 }
 
 
@@ -107,4 +110,5 @@ TEST(StringUtils, test_method_escapeXML) {
 	EXPECT_EQ("2&gt;1", StringUtils::escapeXML("2>1"))<< "> must be replaced.";
 	EXPECT_EQ("M&amp;M", StringUtils::escapeXML("M&M"))<< "& must be replaced.";
 	EXPECT_EQ("&quot;test&quot;", StringUtils::escapeXML("\"test\""))<< "\" must be replaced.";
+	EXPECT_EQ("test", StringUtils::escapeXML("\01test\01"));
 }
