@@ -118,8 +118,10 @@ MSTLLogicControl::TLSLogicVariants::addLogic(const std::string &programID,
     }
     // add to the list of logic
     myVariants[programID] = logic;
-    logic->setTrafficLightSignals(MSNet::getInstance()->getCurrentTimeStep());
-    executeOnSwitchActions();
+    if (myVariants.size()==1||isNewDefault) {
+        logic->setTrafficLightSignals(MSNet::getInstance()->getCurrentTimeStep());
+        executeOnSwitchActions();
+    }
     return true;
 }
 
