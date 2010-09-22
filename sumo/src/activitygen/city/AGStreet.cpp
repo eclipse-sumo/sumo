@@ -43,7 +43,7 @@ using namespace std;
 // ===========================================================================
 // method definitions
 // ===========================================================================
-AGStreet::AGStreet(const ROEdge* edge, float popDensity, float workDensity) :
+AGStreet::AGStreet(const ROEdge* edge, float popDensity, float workDensity) throw() :
   edge(edge)
   {
 	pop = static_cast<int>(popDensity * edge->getLength());

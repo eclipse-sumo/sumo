@@ -1,6 +1,6 @@
 /****************************************************************************/
 /// @file    AGAdult.h
-/// @author  Piotr Woznica
+/// @author  Piotr Woznica & Walter Bamberger
 /// @date    July 2010
 /// @version $Id$
 ///
@@ -31,11 +31,9 @@
 #include <config.h>
 #endif
 
-#include <iostream>
 #include <vector>
-#include <string>
+#include <stdexcept>
 #include "AGPerson.h"
-#include "AGWorkPosition.h"
 
 
 // ===========================================================================
@@ -47,46 +45,88 @@ class AGWorkPosition;
 // ===========================================================================
 // class definitions
 // ===========================================================================
+/**
+ * @class AGAdult
+ * @brief An adult person who can have a job.
+ *
+ * AGAdult extends AGPerson by various methods to handle work life.
+ */
 class AGAdult : public AGPerson
 {
 public:
-	AGAdult(int age) : AGPerson(age, true), employed(false) {};
-	void print();
-	/**
-	 * @param[in]: rate is the employment rate (1-unemployment)
-	 * @param[in]: wps is the list of workpositions (available or not) from City object.
-	 * @param[in]: hasStillWork is the number of work positions not yet allocated (from DataAndStatistics object)
+	/** @brief Initialises the base class and the own attributes.
+	 *
+	 * @param[in] the age of the AGPerson
 	 */
-	bool assocWork(float rate, std::vector<AGWorkPosition> *wps, int hasStillWork);
-	bool assocWork(AGWorkPosition *wp);
-	bool isWorking();
-	/**
-	 * in case of workposition suppression (fired)
-	 * called from the workposition when the person leaves the job
+	AGAdult(int age) throw();
+
+	/** @brief Puts out a summary of the attributes.
 	 */
-	void loseHisJob();
+	void print() const throw();
+
+	/** @brief States whether this person occupies a work position at present.
+	 *
+	 * @return true if she has a work position
+	 */
+	bool isWorking() const throw();
+
+	/** @brief Tries to get a new work position.
+	 *
+	 * Depending on the employment rate, this adult randomly gets unemployed
+	 * or employed. If it gets employed, it randomly chooses one of the free
+	 * work positions and occupies it.
+	 *
+	 * The new state (employed or unemployed) is chosen independently from the
+	 * previous state. If the adult was employed, her previous job is given up.
+	 * @TODO is that as intended?
+	 *
+	 * @param[in]: employmentRate (1 - unemploymentRate)
+	 * @param[in]: wps the list of work positions (open or not) in the city
+	 */
+	void tryToWork(float employmentRate, std::vector<AGWorkPosition>* wps) throw();
+
+	/** @brief Called when the adult has lost her job.
+	 *
+	 * This method is called from AGWorkPosition, whenever the adult lost
+	 * her job, be it because it got fired or because its ?? has been accepted.
+	 *
+	 * @TODO What is "kuendigen"?
+	 */
+	void lostWorkPosition() throw();
+
 	/**
 	 * when the adult gives up with his job, this function is used
 	 * (not the previous one)
+	 *
+	 * @TODO What is "kuendigen"?
 	 */
-	bool quiteHisJob();
-	AGWorkPosition* pickWork(std::vector<AGWorkPosition>* wps);
+	void quiteHisJob() throw();
 
-	/**
-	 * returns the location of his work (when employed)
+	/** @brief Provides the work position of the adult.
+	 *
+	 * You should test before, whether the adult has a job. If you call this
+	 * method and the adult has no job, then a runtime exception is thrown.
+	 *
+	 * @return the work position
+	 * @throw runtime_error the adult has no work position
 	 */
-	AGPosition getWorkLocation();
-	/**
-	 * returns the work beginning hour and closing hour
-	 */
-	int getWorkOpening();
-	int getWorkClosing();
+	const AGWorkPosition& getWorkPosition() const throw(std::runtime_error);
 
 private:
-	AGWorkPosition *work;
-	bool employed;
+	/** The work position of this adult.
+	 *
+	 * A pointer to the work position or 0 if the adult is unemployed at present.
+	 */
+	AGWorkPosition* work;
+
+	/** @brief Randomly selects a free work position from the list.
+	 *
+	 * @param[in] the list of work positions (free or not)
+	 * @return the chosen free work position
+	 */
+	static AGWorkPosition* randomFreeWorkPosition(std::vector<AGWorkPosition>* wps) throw();
 };
 
-#endif
+#endif /* AGADULT_H */
 
 /****************************************************************************/

@@ -1,6 +1,6 @@
 /****************************************************************************/
 /// @file    AGAdult.cpp
-/// @author  Piotr Woznica
+/// @author  Piotr Woznica & Walter Bamberger
 /// @date    July 2010
 /// @version $Id$
 ///
@@ -29,11 +29,10 @@
 #include <config.h>
 #endif
 
-#include <iostream>
-#include <vector>
-#include <utils/common/RandHelper.h>
 #include "AGAdult.h"
 #include "AGWorkPosition.h"
+#include <utils/common/RandHelper.h>
+#include <iostream>
 
 
 // ===========================================================================
@@ -45,118 +44,96 @@ using namespace std;
 // ===========================================================================
 // method definitions
 // ===========================================================================
+AGWorkPosition*
+AGAdult::randomFreeWorkPosition(vector<AGWorkPosition> *wps) throw()
+{
+	size_t wpsIndex = 0;
+
+	// TODO: Could end up in an endless loop
+	do {
+		wpsIndex = RandHelper::rand(wps->size());
+	} while (wps->at(wpsIndex).isTaken());
+
+	return &wps->at(wpsIndex);
+}
+
+/****************************************************************************/
+
+AGAdult::AGAdult(int age) throw()
+: AGPerson(age), work(0)
+{}
+
+/****************************************************************************/
+
 void
-AGAdult::print()
+AGAdult::print() const throw()
 {
 	cout << "- AGAdult: Age=" << age << " Work=" << work << endl;
 }
 
-bool
-AGAdult::assocWork(float rate, vector<AGWorkPosition>* wps, int hasStillWork)
-{
-	if(decide(rate) && hasStillWork>0)
-	{
-		AGWorkPosition* wp = pickWork(wps);
-		while(!assocWork(wp))
-		{
-			wp = pickWork(wps);
-		}
-		//employed = true;
-	}
-	else
-	{
-		if(employed)
-		{
-			work->let();
-		}
-		employed = false;
-		work = NULL;
-	}
-	return employed;
-}
-
-AGWorkPosition*
-AGAdult::pickWork(vector<AGWorkPosition> *wps)
-{
-	//vector<AGWorkPosition>::iterator it;
-	int init = RandHelper::rand(wps->size()); //rand() % (wps->size());
-	//it += init;
-
-	//int offset = 0;
-	//bool positive = false;
-	//while(init>=0 && init<wps->size())//it!= wps->end() && it->isTaken())
-	//{
-		if(!wps->at(init).isTaken())
-			return &(wps->at(init));
-		else
-			return pickWork(wps);
-		//offset++;
-		//if(positive)
-		//	init += offset;
-		//else
-		//	init -= offset;
-	//}
-	return pickWork(wps);
-}
-
-bool
-AGAdult::assocWork(AGWorkPosition *wp)
-{
-	if(wp->isTaken())
-	{
-		return false;
-	}
-	else
-	{
-		if(employed)
-		{
-			work->let();
-			employed = false;
-		}
-		work = wp;
-		work->take(this);
-		employed = true;
-		return true;
-	}
-}
-
-bool
-AGAdult::isWorking()
-{
-	return employed;
-}
+/****************************************************************************/
 
 void
-AGAdult::loseHisJob()
+AGAdult::tryToWork(float rate, vector<AGWorkPosition>* wps) throw()
 {
-	employed = false;
+	if(decide(rate))
+	{
+		// Select the new work position before giving up the current one.
+		// This avoids that the current one is the same as the new one.
+		AGWorkPosition* newWork = randomFreeWorkPosition(wps);
+
+		if(work != 0)
+		{
+			work->let();
+		}
+		work = newWork;
+		work->take(this);
+	}
+	else
+	{
+		if(work != 0)
+		{
+			// Also sets work = 0 with the call back lostWorkPosition
+			work->let();
+		}
+	}
 }
+
+/****************************************************************************/
 
 bool
-AGAdult::quiteHisJob()
+AGAdult::isWorking() const throw()
 {
-	if(!isWorking())
-		return true;
+	return (work != 0);
+}
+
+/****************************************************************************/
+
+void
+AGAdult::lostWorkPosition() throw()
+{
+	work = 0;
+}
+
+/****************************************************************************/
+
+void
+AGAdult::quiteHisJob() throw()
+{
+	if(work != 0)
+		work->let();
+}
+
+/****************************************************************************/
+
+const AGWorkPosition&
+AGAdult::getWorkPosition() const throw(runtime_error)
+{
+	if (work != 0)
+		return *work;
+
 	else
-		return work->let();
-}
-
-AGPosition
-AGAdult::getWorkLocation()
-{
-	return work->getPosition();
-}
-
-int
-AGAdult::getWorkOpening()
-{
-	return work->getOpening();
-}
-
-int
-AGAdult::getWorkClosing()
-{
-	return work->getClosing();
+		throw(runtime_error("AGAdult::getWorkPosition: Adult is unemployed."));
 }
 
 /****************************************************************************/

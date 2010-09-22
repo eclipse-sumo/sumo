@@ -156,12 +156,14 @@ AGHousehold::regenerate()
 	for(itA=adults.begin() ; itA!=adults.end() ; ++itA)
 	{
 		if(itA->isWorking())
-		{
-			if(itA->quiteHisJob())
-				itA->assocWork(1-myCity->statData.unemployement, &(myCity->workPositions), myCity->statData.workPositions);
+			itA->quiteHisJob();
+
+		if (myCity->statData.workPositions > 0){
+			itA->tryToWork(1-myCity->statData.unemployement, &(myCity->workPositions));
+
+		} else {
+			cout << "Not enough work positions in AGHousehold::regenerate. Should not happen!" << endl;
 		}
-		else
-			itA->assocWork(1-myCity->statData.unemployement, &(myCity->workPositions), myCity->statData.workPositions);
 	}
 }
 
@@ -185,10 +187,15 @@ AGHousehold::allocateAdultsWork()
 	list<AGAdult>::iterator it;
 	for(it=adults.begin() ; it!=adults.end() ; ++it)
 	{
-		if(myCity->statData.workPositions <= 0)
+		if(myCity->statData.workPositions <= 0){
+			cout << "Not enough free work positions in AGHousehold::allocateAdultsWork. Should not happen." << endl;
 			return false;
-		if( it->assocWork(1-myCity->statData.unemployement, &(myCity->workPositions), myCity->statData.workPositions) )
+
+		} else {
+			it->tryToWork(1-myCity->statData.unemployement, &(myCity->workPositions));
+			// TODO: workingPeople is used inconsistently!
 			myCity->statData.workingPeople++;
+		}
 	}
 	return true;
 }

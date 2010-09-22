@@ -46,14 +46,14 @@ using namespace std;
 // ===========================================================================
 // method definitions
 // ===========================================================================
-AGPosition::AGPosition(const AGStreet& str, SUMOReal pos) :
+AGPosition::AGPosition(const AGStreet& str, SUMOReal pos) throw() :
   street(&str), position(pos), pos2d(compute2dPosition())
   {
   }
 
 /****************************************************************************/
 
-AGPosition::AGPosition(const AGStreet& str) :
+AGPosition::AGPosition(const AGStreet& str) throw() :
   street(&str), position(randomPositionInStreet(str)), pos2d(compute2dPosition())
   {
   }

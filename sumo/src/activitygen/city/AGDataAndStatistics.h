@@ -44,11 +44,6 @@
 class AGDataAndStatistics
 {
 public:
-	AGDataAndStatistics()
-	{
-		//srand((unsigned int)time(NULL));
-	};
-
 	/**
 	 * parameters
 	 */
@@ -108,6 +103,8 @@ public:
 	//households far from public transports
 	int hhFarFromPT;
 
+	static AGDataAndStatistics& getDataAndStatistics() throw();
+
 	/**
 	 * function returning a random number between the two given numbers: [n;m[ (m cannot occur)
 	 * it returns 0 if m < n
@@ -153,8 +150,9 @@ public:
 	float getInverseExpRandomValue(float mean, float maxVar);
 
 private:
-	//number used as seed in random number generation
-	//int randomNbr;
+	AGDataAndStatistics()
+	{}
+
 	/**
 	 * returns the POISSON's probability (exp(-m)*m^k/k!)
 	 * @arg: mean of the distribution
@@ -168,7 +166,6 @@ private:
 
 	//function normalizing the map's probabilities: Sum(floats) = 1
 	void normalizeMapProb(std::map<int, float> *myMap);
-
 };
 
 #endif

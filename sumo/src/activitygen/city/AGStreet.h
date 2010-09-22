@@ -54,7 +54,7 @@ class AGPosition;
 class AGStreet
 {
 public:
-	AGStreet(const ROEdge* edge, float popD = 0, float workD = 0);
+	AGStreet(const ROEdge* edge, float popD = 0, float workD = 0) throw();
 
 	/** @brief Provides the length of this edge.
 	 *

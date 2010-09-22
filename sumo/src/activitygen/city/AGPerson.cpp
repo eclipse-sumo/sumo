@@ -1,6 +1,6 @@
 /****************************************************************************/
 /// @file    AGPerson.cpp
-/// @author  Piotr Woznica
+/// @author  Piotr Woznica & Walter Bamberger
 /// @date    July 2010
 /// @version $Id$
 ///
@@ -29,11 +29,9 @@
 #include <config.h>
 #endif
 
-#include <iostream>
-#include <cstdlib>
-#include <ctime>
-#include <utils/common/RandHelper.h>
 #include "AGPerson.h"
+#include <utils/common/RandHelper.h>
+#include <iostream>
 
 
 // ===========================================================================
@@ -45,31 +43,36 @@ using namespace std;
 // ===========================================================================
 // method definitions
 // ===========================================================================
+AGPerson::AGPerson(int age) throw() : age(age)
+{}
+
+/****************************************************************************/
+
+AGPerson::~AGPerson() throw()
+{}
+
+/****************************************************************************/
+
 void
-AGPerson::print()
+AGPerson::print() const throw()
 {
 	cout << "- Person: Age=" << age << endl;
 }
 
+/****************************************************************************/
+
 int
-AGPerson::getAge()
+AGPerson::getAge() const throw()
 {
 	return age;
 }
 
-bool
-AGPerson::decide(float proba)
-{
-	if(RandHelper::rand(1000) < (int)(1000 * proba))
-		return true;
-	else
-		return false;
-}
+/****************************************************************************/
 
 bool
-AGPerson::isAdult()
+AGPerson::decide(float proba) const throw()
 {
-	return adult;
+	return (RandHelper::rand(1000) < static_cast<int>(1000.0f * proba));
 }
 
 /****************************************************************************/

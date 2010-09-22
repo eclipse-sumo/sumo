@@ -29,6 +29,7 @@
 #include <config.h>
 #endif
 
+#include "city/AGStreet.h"
 #include "AGActivityTripWriter.h"
 
 

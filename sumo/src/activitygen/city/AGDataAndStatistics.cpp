@@ -53,6 +53,13 @@ AGDataAndStatistics::getRandom()
 // ===========================================================================
 // method definitions
 // ===========================================================================
+AGDataAndStatistics&
+AGDataAndStatistics::getDataAndStatistics() throw()
+{
+	static AGDataAndStatistics ds;
+	return ds;
+}
+
 int
 AGDataAndStatistics::getRandom(int n, int m)
 {

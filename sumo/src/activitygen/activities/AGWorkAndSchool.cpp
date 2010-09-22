@@ -99,15 +99,15 @@ AGWorkAndSchool::buildWorkDestinations()
 	{
 		if(itA->isWorking())
 		{
-			if(this->possibleTranspMean(itA->getWorkLocation()) % 2 == 0)
+			if(this->possibleTranspMean(itA->getWorkPosition().getPosition()) % 2 == 0)
 			{
 				//not too close, to not being able to go by foot
-				if(this->possibleTranspMean(itA->getWorkLocation()) > 4)
+				if(this->possibleTranspMean(itA->getWorkPosition().getPosition()) > 4)
 				{
 					//too far from home ==> Car or Bus AND Car and bus are possible
 					workingPeoplePossCar.push_back(*itA);
 				}
-				else if(this->possibleTranspMean(itA->getWorkLocation()) == 4)
+				else if(this->possibleTranspMean(itA->getWorkPosition().getPosition()) == 4)
 				{
 					//only the car is possible (and there is one (use of possibleTranspMean))
 					if(hh->getCarNbr() > personsDrivingCars.size())
@@ -123,7 +123,7 @@ AGWorkAndSchool::buildWorkDestinations()
 	list<AGAdult>::iterator it;
 	for(it=workingPeoplePossCar.begin() ; it!=workingPeoplePossCar.end() ; ++it)
 	{
-		if(possibleTranspMean(it->getWorkLocation()) == 6 && hh->getCarNbr() > personsDrivingCars.size())
+		if(possibleTranspMean(it->getWorkPosition().getPosition()) == 6 && hh->getCarNbr() > personsDrivingCars.size())
 		{
 			//car or bus (always because of workDestinations' construction) AND at least one car not used
 			if(hh->adults.front().decide(this->carPreference))
@@ -142,7 +142,7 @@ AGWorkAndSchool::carAllocation()
 	if( ! personsDrivingCars.empty() && ! adultNeedingCarAccompaniment.empty())
 	{
 		//in that case there is only one element in each list and only one car.
-		if(adultNeedingCarAccompaniment.front().getWorkOpening() >= personsDrivingCars.front().getWorkOpening())
+		if(adultNeedingCarAccompaniment.front().getWorkPosition().getOpening() >= personsDrivingCars.front().getWorkPosition().getOpening())
 		{
 			//we will invert the driver and the accompanied
 			personsDrivingCars.push_back(adultNeedingCarAccompaniment.front());
@@ -184,7 +184,7 @@ AGWorkAndSchool::carsToTrips()
 		//check if the number of cars is lower than the number of drivers
 		if(itCar == hh->cars.end())
 			return false;
-		AGTrip trip(hh->getPosition(), itDriA->getWorkLocation(), *itCar, depHour(hh->getPosition(), itDriA->getWorkLocation(), itDriA->getWorkOpening()));
+		AGTrip trip(hh->getPosition(), itDriA->getWorkPosition().getPosition(), *itCar, depHour(hh->getPosition(), itDriA->getWorkPosition().getPosition(), itDriA->getWorkPosition().getOpening()));
 		++itCar;
 		tempTrip.push_back(trip);
 	}
@@ -192,7 +192,7 @@ AGWorkAndSchool::carsToTrips()
 	list<AGAdult>::iterator itAccA;
 	for(itAccA=adultNeedingCarAccompaniment.begin() ; itAccA!= adultNeedingCarAccompaniment.end() ; ++itAccA)
 	{
-		AGTrip trip(hh->getPosition(), itAccA->getWorkLocation(), depHour(hh->getPosition(), itAccA->getWorkLocation(), itAccA->getWorkOpening()));
+		AGTrip trip(hh->getPosition(), itAccA->getWorkPosition().getPosition(), depHour(hh->getPosition(), itAccA->getWorkPosition().getPosition(), itAccA->getWorkPosition().getOpening()));
 		tempAccTrip.push_back(trip);
 	}
 
@@ -288,7 +288,7 @@ AGWorkAndSchool::checkDriversScheduleMatching()
 		{
 			if(!itA->isWorking())
 				check = true;
-			else if(itAccT->getRideBackArrTime(this->timePerKm) < itA->getWorkOpening())
+			else if(itAccT->getRideBackArrTime(this->timePerKm) < itA->getWorkPosition().getOpening())
 				check = true;
 		}
 		if(!check) //at least one trip is not performed by the existing drivers because it is to late for them
@@ -357,7 +357,7 @@ AGWorkAndSchool::generateListTrips()
 					alreadyDone = true;
 				}
 			}
-			else if(itAccT->getRideBackArrTime(this->timePerKm) < itA->getWorkOpening() && !alreadyDone)
+			else if(itAccT->getRideBackArrTime(this->timePerKm) < itA->getWorkPosition().getOpening() && !alreadyDone)
 			{
 				string nameC = getUnusedCar();
 				if(nameC.size() != 0)
@@ -387,9 +387,9 @@ AGWorkAndSchool::generateListTrips()
 	{
 		for(itDriT=tempTrip.begin() ; itDriT!=tempTrip.end() ; ++itDriT)
 		{
-			if(itA->getWorkLocation() == itDriT->getArr())
+			if(itA->getWorkPosition().getPosition() == itDriT->getArr())
 			{
-				AGTrip trip(itA->getWorkLocation(), hh->getPosition(), itDriT->getVehicleName(), itA->getWorkClosing());
+				AGTrip trip(itA->getWorkPosition().getPosition(), hh->getPosition(), itDriT->getVehicleName(), itA->getWorkPosition().getClosing());
 				partialActivityTrips.push_back(trip);
 				tempTrip.erase(itDriT);
 				break;

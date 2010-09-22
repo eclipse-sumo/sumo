@@ -31,64 +31,41 @@
 #include <config.h>
 #endif
 
-#include <iostream>
-#include "AGStreet.h"
 #include "AGPosition.h"
-#include "AGDataAndStatistics.h"
-#include "AGAdult.h"
+#include <stdexcept>
 
 
 // ===========================================================================
 // class declarations
 // ===========================================================================
+class AGStreet;
 class AGAdult;
+class AGDataAndStatistics;
 
 
 // ===========================================================================
 // class definitions
 // ===========================================================================
+	// TODO: Change name to AGWorkPlace?
+	// TODO: Counter for free work positions should be in City
+	// TODO: Change name of openingTime to something like startHour or openingHour
 class AGWorkPosition
 {
 public:
-	AGWorkPosition(const AGStreet& inStreet, int opening, int closing, AGDataAndStatistics* ds) :
-			location(inStreet),
-			openingTime(opening),
-			closingTime(closing),
-			taken(false),
-			ds(ds)
-		{
-			ds->workPositions++;
-		};
-	AGWorkPosition(const AGStreet& inStreet, AGDataAndStatistics* ds) :
-			location(inStreet),
-			openingTime(generateOpeningTime(ds)),
-			closingTime(generateClosingTime(ds)),
-			taken(false),
-			ds(ds)
-		{
-			ds->workPositions++;
-		};
-	AGWorkPosition(const AGStreet& inStreet, SUMOReal pos, AGDataAndStatistics* ds) :
-			location(inStreet, pos),
-			openingTime(generateOpeningTime(ds)),
-			closingTime(generateClosingTime(ds)),
-			taken(false),
-			ds(ds)
-		{
-			ds->workPositions++;
-		};
-	~AGWorkPosition() {
-		let();
-	}
-	void print();
-	int generateOpeningTime(AGDataAndStatistics* ds);
-	int generateClosingTime(AGDataAndStatistics* ds);
-	bool take(AGAdult* ad);
-	bool let();
-	bool isTaken();
-	AGPosition getPosition();
-	int getOpening();
-	int getClosing();
+	// TODO: Change order: ds, inStreet [, pos]
+	AGWorkPosition(const AGStreet& inStreet, AGDataAndStatistics* ds) throw();
+	AGWorkPosition(const AGStreet& inStreet, SUMOReal pos, AGDataAndStatistics* ds) throw();
+	~AGWorkPosition() throw();
+
+	void take(AGAdult* ad) throw(std::runtime_error);
+	void let() throw();
+	bool isTaken() const throw();
+
+	AGPosition getPosition() const throw();
+	int getOpening() const throw();
+	int getClosing() const throw();
+
+	void print() const throw();
 
 private:
 	AGDataAndStatistics* ds;
@@ -96,7 +73,9 @@ private:
 	AGPosition location;
 	int openingTime;
 	int closingTime;
-	bool taken;
+
+	static int generateOpeningTime(const AGDataAndStatistics& ds) throw();
+	static int generateClosingTime(const AGDataAndStatistics& ds) throw();
 };
 
 #endif

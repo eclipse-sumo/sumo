@@ -57,7 +57,7 @@ class AGCity
 {
 public:
 	AGCity(RONet* net) :
-	  statData(),
+	  statData(AGDataAndStatistics::getDataAndStatistics()),
 	  net(net),
 	  streetsCompleted(false)
 	  {};
@@ -83,7 +83,7 @@ public:
 	 */
 	const AGStreet& getRandomStreet();
 
-	AGDataAndStatistics statData;
+	AGDataAndStatistics& statData;
 	std::vector<AGStreet> streets;
 	std::vector<AGWorkPosition> workPositions;
 	std::list<AGSchool> schools;

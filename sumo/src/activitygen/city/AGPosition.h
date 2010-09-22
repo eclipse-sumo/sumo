@@ -31,9 +31,9 @@
 #include <config.h>
 #endif
 
+#include "../../utils/geom/Position2D.h"
 #include <list>
 #include <map>
-#include "../../utils/geom/Position2D.h"
 
 
 // ===========================================================================
@@ -45,6 +45,17 @@ class AGStreet;
 // ===========================================================================
 // class definitions
 // ===========================================================================
+/**
+ * @class AGPosition
+ * @brief A location in the 2D plane freely positioned on a street.
+ *
+ * This class restricts the Position2D class in the way that it must be
+ * a position on a street. As a consequence, this position can be described
+ * either by x and y coordinates or by a street and its distance to the
+ * beginning of the street (the relative position).
+ *
+ * @TODO Should this class be derived from Position2D?
+ */
 class AGPosition
 {
 public:
@@ -57,7 +68,7 @@ public:
 	 * param[in] str the street on which the AGPosition is located
 	 * param[in] pos the distance from the from node of the street
 	 */
-	AGPosition(const AGStreet& str, SUMOReal pos);
+	AGPosition(const AGStreet& str, SUMOReal pos) throw();
 	/** @brief Constructs an AGPosition at a random point on a street.
 	 *
 	 * This constructor determines the distance from the from node with
@@ -65,7 +76,7 @@ public:
 	 *
 	 * param[in] str the street on which the AGPosition is located
 	 */
-	AGPosition(const AGStreet& str);
+	AGPosition(const AGStreet& str) throw();
 	
 	/** @brief Provides the street this AGPosition is located on.
 	 *
@@ -137,6 +148,8 @@ private:
 
 	/** Creates a Position2D object to the street and position attribute of
 	 * this class.
+	 *
+	 * This method may only be called when street and position are initialised!
 	 *
 	 * @return the Position2D object
 	 */

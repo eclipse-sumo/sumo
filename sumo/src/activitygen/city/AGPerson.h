@@ -1,6 +1,6 @@
 /****************************************************************************/
 /// @file    AGPerson.h
-/// @author  Piotr Woznica
+/// @author  Piotr Woznica & Walter Bamberger
 /// @date    July 2010
 /// @version $Id$
 ///
@@ -35,24 +35,49 @@
 // ===========================================================================
 // class definitions
 // ===========================================================================
+/**
+ * @class AGPerson
+ * @brief Base class of every person in the city (adults and children)
+ *
+ * This class provides the functionality common to all person in the city. It
+ * is a base class for other classes and is not intended to be instantiated
+ * as an object. Therefore, all constructors are protected.
+ */
 class AGPerson
 {
 public:
-	AGPerson(int age, bool adult) : age(age), adult(adult) {};
-	virtual ~AGPerson() throw()
-		{}
+	/** @brief Provides the age of the person.
+	 *
+	 * @return the age in years
+	 */
+	virtual int getAge() const throw();
 
-	virtual void print();
-	virtual int getAge();
+	/** @brief Lets the person make a decision.
+	 *
+	 * The higher the degree of belief is, the more likely this method returns
+	 * true.
+	 *
+	 * @param[in] degreeOfBelief how strong the person beliefs the proposition
+	 * @return whether the person agrees with the proposition
+	 */
+	virtual bool decide(float probability) const throw();
 
-	//decision feature for people in relation to the realisation probability
-	virtual bool decide(float probability);
-	//returns if an adult
-	virtual bool isAdult();
+	/** @brief Puts out a summary of the class properties.
+	 */
+	virtual void print() const throw();
 
 protected:
 	int age;
-	bool adult;
+
+	/** @brief Initialises the class attributes.
+	 *
+	 * @param[in] age the age of the person
+	 */
+	AGPerson(int age) throw();
+
+	/** @brief Cleans up everything.
+	 */
+	virtual ~AGPerson() throw();
 };
 
 #endif /* AGPerson */

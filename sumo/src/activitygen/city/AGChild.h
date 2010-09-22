@@ -45,7 +45,7 @@ class AGChild : public AGPerson
 {
 public:
 	AGChild(int age) :
-		AGPerson(age, false),
+		AGPerson(age),
 		school(NULL)
 	{};
 	void print();
