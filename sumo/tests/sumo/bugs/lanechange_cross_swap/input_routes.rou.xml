@@ -1,0 +1,6 @@
+<routes>
+   <route id="a" edges="3si 4o"/>
+   <vehicle id="va" route="a" departlane="0" departpos="180" departspeed="max" depart="0"/>
+   <route id="b" edges="3si 2o"/>
+   <vehicle id="vb" route="b" departlane="1" departpos="180" departspeed="max" depart="0" color="1,0,0"/>
+</routes>

@@ -33,5 +33,8 @@ collision
 # lanechanging in front of crossing
 lanechange_cross
 
+# lanechanging in front of crossing with enabled vehicle swap
+lanechange_cross_swap
+
 # Deadlocking at junctions
 right_before_left_deadlock
