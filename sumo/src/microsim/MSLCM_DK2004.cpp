@@ -151,12 +151,14 @@ MSLCM_DK2004::wantsChangeToRight(MSAbstractLaneChangeModel::MSLCMessager &msgPas
                   : myVehicle.getSpeed() * (SUMOReal) LOOK_FORWARD_NEAR;
     rv += myVehicle.getVehicleType().getLength() * (SUMOReal) 2.;
 
-    SUMOReal tdist = currentDist/*best.lane->getLength()*/-myVehicle.getPositionOnLane() - best.occupied * (SUMOReal) JAM_FACTOR2;
+    SUMOReal tdist = currentDist/*best.lane->getLength()*/-myVehicle.getPositionOnLane() - best.occupation * (SUMOReal) JAM_FACTOR2;
     /*
     if(bestLaneOffset<0) {
         myChangeProbability += 1. / (tdist / rv);
     }
     */
+        myBlockingLeader = 0;
+        myBlockingFollower = 0;
     if (fabs(best.length-curr.length)>MIN2((SUMOReal) .1, best.lane->getLength()) && bestLaneOffset<0&&currentDistDisallows(tdist/*currentDist*/, bestLaneOffset, rv)) {
         informBlocker(msgPass, blocked, LCA_MRIGHT, neighLead, neighFollow);
         if (neighLead.second>0&&neighLead.second>leader.second) {
@@ -176,7 +178,7 @@ MSLCM_DK2004::wantsChangeToRight(MSAbstractLaneChangeModel::MSLCMessager &msgPas
     // this rule prevents the vehicle from moving in opposite direction of the best lane
     //  unless the way till the end where the vehicle has to be on the best lane
     //  is long enough
-    SUMOReal maxJam = MAX2(preb[currIdx-1].occupied, preb[currIdx].occupied);
+    SUMOReal maxJam = MAX2(preb[currIdx-1].occupation, preb[currIdx].occupation);
     SUMOReal neighLeftPlace = MAX2((SUMOReal) 0, neighDist-myVehicle.getPositionOnLane()-maxJam);
     if (bestLaneOffset>=0&&(currentDistDisallows(neighLeftPlace, bestLaneOffset+2, rv))) {
         // ...we will not change the lane if not
@@ -380,12 +382,14 @@ MSLCM_DK2004::wantsChangeToLeft(MSAbstractLaneChangeModel::MSLCMessager &msgPass
     lv += myVehicle.getVehicleType().getLength() * (SUMOReal) 2.;
 
 
-    SUMOReal tdist = currentDist/*best.lane->getLength()*/-myVehicle.getPositionOnLane() - best.occupied * (SUMOReal) JAM_FACTOR2;
+    SUMOReal tdist = currentDist/*best.lane->getLength()*/-myVehicle.getPositionOnLane() - best.occupation * (SUMOReal) JAM_FACTOR2;
     /*
     if(bestLaneOffset>0) {
         myChangeProbability -= 1. / (tdist / lv);
     }
     */
+        myBlockingLeader = 0;
+        myBlockingFollower = 0;
     if (fabs(best.length-curr.length)>MIN2((SUMOReal) .1, best.lane->getLength()) && bestLaneOffset>0
             &&
             currentDistDisallows(tdist/*currentDist*/, bestLaneOffset, lv)) {
@@ -406,7 +410,7 @@ MSLCM_DK2004::wantsChangeToLeft(MSAbstractLaneChangeModel::MSLCMessager &msgPass
     // this rule prevents the vehicle from moving in opposite direction of the best lane
     //  unless the way till the end where the vehicle has to be on the best lane
     //  is long enough
-    SUMOReal maxJam = MAX2(preb[currIdx+1].occupied, preb[currIdx].occupied);
+    SUMOReal maxJam = MAX2(preb[currIdx+1].occupation, preb[currIdx].occupation);
     SUMOReal neighLeftPlace = MAX2((SUMOReal) 0, neighDist-myVehicle.getPositionOnLane()-maxJam);
     if (bestLaneOffset<=0&&(currentDistDisallows(neighLeftPlace, bestLaneOffset-2, lv))) {
         // ...we will not change the lane if not

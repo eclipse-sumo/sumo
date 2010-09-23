@@ -1149,12 +1149,12 @@ GUIVehicle::drawBestLanes() const throw() {
     SUMOReal rmax = -1;
     for (std::vector<MSVehicle::LaneQ>::const_iterator i=lanes.begin(); i!=lanes.end(); ++i) {
         gmax = MAX2((*i).length, gmax);
-        rmax = MAX2((*i).occupied, rmax);
+        rmax = MAX2((*i).occupation, rmax);
     }
     for (std::vector<MSVehicle::LaneQ>::const_iterator i=lanes.begin(); i!=lanes.end(); ++i) {
         const Position2DVector &shape = (*i).lane->getShape();
         SUMOReal g = (*i).length / gmax;
-        SUMOReal r = (*i).occupied / rmax;
+        SUMOReal r = (*i).occupation / rmax;
         glColor3d(r, g, 0);
         GLHelper::drawBoxLines(shape, 0.5);
 
@@ -1168,7 +1168,7 @@ GUIVehicle::drawBestLanes() const throw() {
 
         glColor3d(r, g, 0);
         Position2D lastPos = shape[-1];
-        for (std::vector<MSLane*>::const_iterator j=(*i).joined.begin(); j!=(*i).joined.end(); ++j) {
+        for (std::vector<MSLane*>::const_iterator j=(*i).bestContinuations.begin(); j!=(*i).bestContinuations.end(); ++j) {
             const Position2DVector &shape = (*j)->getShape();
             GLHelper::drawLine(lastPos, shape[0]);
             GLHelper::drawBoxLines(shape, (SUMOReal) 0.2);

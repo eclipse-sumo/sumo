@@ -614,16 +614,22 @@ public:
 
     /** @struct LaneQ
      * @brief A structure representing the best lanes for continuing the route
-     * @todo Describe
      */
     struct LaneQ {
+        /// @brief The described lane
         MSLane *lane;
+        /// @brief The overall length which may be driven when using this lane without a lane change
         SUMOReal length;
-        SUMOReal v;
-        SUMOReal occupied;
+        /// @brief The overall vehicle sum on consecutive lanes which can be passed without a lane change
+        SUMOReal occupation;
+        /// @brief As occupation, but without the first lane
+        SUMOReal nextOccupation;
+        /// @brief The (signed) number of lanes to be crossed to get to the lane which allows to continue the drive
         int bestLaneOffset;
+        /// @brief Whether this lane allows to continue the drive
         bool allowsContinuation;
-        std::vector<MSLane*> joined;
+        /// @brief Consecutive lane that can be followed without a lane change (contribute to length and occupation)
+        std::vector<MSLane*> bestContinuations;
     };
 
     /** @brief Returns the description of best lanes to use in order to continue the route

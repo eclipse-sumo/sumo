@@ -1565,13 +1565,13 @@ MSVehicle::rebuildContinuationsFor(LaneQ &oq, MSLane *l, MSRouteIterator ce, int
         LaneQ q;
         MSLane *qqq = (*k)->getLane();
         if (qqq==0) {
-            q.occupied = 0;
+            q.occupation = 0;
             q.length = 0;
             continue;
         }
-        q.occupied = qqq->getVehLenSum();
+        q.occupation = qqq->getVehLenSum();
         q.length = qqq->getLength();
-        q.joined.push_back(qqq);
+        q.bestContinuations.push_back(qqq);
 
 
         if (!myStops.empty()&& &(myStops.front().lane->getEdge())==&qqq->getEdge()) {
@@ -1581,7 +1581,7 @@ MSVehicle::rebuildContinuationsFor(LaneQ &oq, MSLane *l, MSRouteIterator ce, int
                     rebuildContinuationsFor(q, qqq, ce, seen+1);
                 }
             } else {
-                q.occupied = qqq->getVehLenSum();
+                q.occupation = qqq->getVehLenSum();
                 const Stop &s = myStops.front();
                 SUMOReal endPos = s.endPos;
                 if (s.busstop!=0) {
@@ -1602,7 +1602,7 @@ MSVehicle::rebuildContinuationsFor(LaneQ &oq, MSLane *l, MSRouteIterator ce, int
                 //  reset values to zero (otherwise the lane but not its continuations)
                 //  will still be regarded
                 if (&(*k)->getLane()->getEdge()!=*ce) {
-                    q.occupied = 0;
+                    q.occupation = 0;
                     q.length = 0;
                 }
             }
@@ -1665,18 +1665,18 @@ MSVehicle::rebuildContinuationsFor(LaneQ &oq, MSLane *l, MSRouteIterator ce, int
                 }
             }
             if (bestL==l) {
-                best.occupied = next->getVehLenSum();
+                best.occupation = next->getVehLenSum();
                 best.length = next->getLength();
             } else {
-                best.occupied = 0;
+                best.occupation = 0;
                 best.length = 0;
-                best.joined.clear();
+                best.bestContinuations.clear();
             }
         }
     }
     oq.length += best.length;
-    oq.occupied += best.occupied;
-    copy(best.joined.begin(), best.joined.end(), back_inserter(oq.joined));
+    oq.occupation += best.occupation;
+    copy(best.bestContinuations.begin(), best.bestContinuations.end(), back_inserter(oq.bestContinuations));
 }
 
 
@@ -1690,11 +1690,11 @@ MSVehicle::getBestLanes(bool forceRebuild, MSLane *startLane) const throw() {
         std::vector<LaneQ> &lanes = *myBestLanes.begin();
         std::vector<LaneQ>::iterator i;
         for (i=lanes.begin(); i!=lanes.end(); ++i) {
-            SUMOReal v = 0;
-            for (std::vector<MSLane*>::const_iterator j=(*i).joined.begin(); j!=(*i).joined.end(); ++j) {
-                v += (*j)->getVehLenSum();
+            SUMOReal nextOccupation = 0;
+            for (std::vector<MSLane*>::const_iterator j=(*i).bestContinuations.begin(); j!=(*i).bestContinuations.end(); ++j) {
+                nextOccupation += (*j)->getVehLenSum();
             }
-            (*i).v = v;
+            (*i).nextOccupation = nextOccupation;
             if ((*i).lane==startLane) {
                 myCurrentLaneInBestLanes = i;
             }
@@ -1715,15 +1715,15 @@ MSVehicle::getBestLanes(bool forceRebuild, MSLane *startLane) const throw() {
         LaneQ q;
         q.lane = *i;
         q.length = 0;//q.lane->getLength();
-        q.occupied = 0;//q.lane->getVehLenSum();
+        q.occupation = 0;//q.lane->getVehLenSum();
         if (!myStops.empty()&& &myStops.front().lane->getEdge()==&q.lane->getEdge()) {
             if (myStops.front().lane==q.lane) {
                 q.allowsContinuation = allowed==0||find(allowed->begin(), allowed->end(), q.lane)!=allowed->end();
                 q.length += q.lane->getLength();
-                q.occupied += q.lane->getVehLenSum();
+                q.occupation += q.lane->getVehLenSum();
             } else {
                 q.allowsContinuation = false;
-                q.occupied = q.lane->getVehLenSum();
+                q.occupation = q.lane->getVehLenSum();
                 const Stop &s = myStops.front();
                 SUMOReal endPos = s.endPos;
                 if (s.busstop!=0) {
@@ -1742,7 +1742,7 @@ MSVehicle::getBestLanes(bool forceRebuild, MSLane *startLane) const throw() {
             if ((*i).allowsContinuation) {
                 rebuildContinuationsFor((*i), (*i).lane, ce, seen);
                 (*i).length += (*i).lane->getLength();
-                (*i).occupied += (*i).lane->getVehLenSum();
+                (*i).occupation += (*i).lane->getVehLenSum();
             }
         }
     }
@@ -1762,6 +1762,19 @@ MSVehicle::getBestLanes(bool forceRebuild, MSLane *startLane) const throw() {
     for (std::vector<MSVehicle::LaneQ>::iterator i=myBestLanes.begin()->begin(); i!=myBestLanes.begin()->end(); ++i, ++run) {
         (*i).bestLaneOffset =  index - run;
     }
+
+        std::vector<LaneQ> &currLanes = *myBestLanes.begin();
+        std::vector<LaneQ>::iterator i;
+        for (i=currLanes.begin(); i!=currLanes.end(); ++i) {
+            SUMOReal nextOccupation = 0;
+            for (std::vector<MSLane*>::const_iterator j=(*i).bestContinuations.begin(); j!=(*i).bestContinuations.end(); ++j) {
+                nextOccupation += (*j)->getVehLenSum();
+            }
+            (*i).nextOccupation = nextOccupation;
+            if ((*i).lane==startLane) {
+                myCurrentLaneInBestLanes = i;
+            }
+        }
 
     return *myBestLanes.begin();
 }
@@ -1850,7 +1863,7 @@ MSVehicle::getBestLanesContinuation() const throw() {
     if (myBestLanes.empty()||myBestLanes[0].empty()||myLane->getEdge().getPurpose()==MSEdge::EDGEFUNCTION_INTERNAL) {
         return myEmptyLaneVector;
     }
-    return (*myCurrentLaneInBestLanes).joined;
+    return (*myCurrentLaneInBestLanes).bestContinuations;
 }
 
 
@@ -1858,7 +1871,7 @@ const std::vector<MSLane*> &
 MSVehicle::getBestLanesContinuation(const MSLane * const l) const throw() {
     for (std::vector<std::vector<LaneQ> >::const_iterator i=myBestLanes.begin(); i!=myBestLanes.end(); ++i) {
         if ((*i).size()!=0&&(*i)[0].lane==l) {
-            return (*i)[0].joined;
+            return (*i)[0].bestContinuations;
         }
     }
     return myEmptyLaneVector;
