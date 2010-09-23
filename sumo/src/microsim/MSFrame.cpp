@@ -177,6 +177,10 @@ MSFrame::fillOptions() {
     oc.doRegister("sloppy-emit", new Option_Bool(false));
     oc.addDescription("sloppy-emit", "Processing", "Whether emission on an edge shall not be repeated in same step once failed.");
 
+    oc.doRegister("lanechange.allow-swap", new Option_Bool(false));
+    oc.addDescription("lanechange.allow-swap", "Processing", "Whether blocking vehicles trying to change lanes may be swapped.");
+
+
     // devices
     MSDevice_Routing::insertOptions();
     MSDevice_HBEFA::insertOptions();

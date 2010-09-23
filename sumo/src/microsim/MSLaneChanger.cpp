@@ -46,7 +46,8 @@
 // ===========================================================================
 // member method definitions
 // ===========================================================================
-MSLaneChanger::MSLaneChanger(std::vector<MSLane*>* lanes) {
+MSLaneChanger::MSLaneChanger(std::vector<MSLane*>* lanes, bool allowSwap) 
+    : myAllowsSwap(allowSwap) {
     assert(lanes->size() > 1);
 
     // Fill the changer with the lane-data.
@@ -198,7 +199,7 @@ MSLaneChanger::change() {
         vehicle->getLaneChangeModel().setState(state1);
     }
     // check whether the vehicles should be swapped
-    if (false&&((state1&(LCA_URGENT))!=0||(state2&(LCA_URGENT))!=0)) {
+    if (myAllowsSwap&&((state1&(LCA_URGENT))!=0||(state2&(LCA_URGENT))!=0)) {
         // get the direction ...
         ChangerIt target;
         int dir;

@@ -36,6 +36,7 @@
 #include <cassert>
 #include "MSVehicle.h"
 #include <utils/common/StringTokenizer.h>
+#include <utils/options/OptionsCont.h>
 #include "MSEdgeWeightsStorage.h"
 
 #ifdef HAVE_MESOSIM
@@ -85,7 +86,7 @@ MSEdge::initialize(MSLane* departLane,
     myLanes = lanes;
     myFunction = function;
     if (myLanes && myLanes->size() > 1 && function!=EDGEFUNCTION_INTERNAL) {
-        myLaneChanger = new MSLaneChanger(myLanes);
+        myLaneChanger = new MSLaneChanger(myLanes, OptionsCont::getOptions().getBool("lanechange.allow-swap"));
     }
 }
 
