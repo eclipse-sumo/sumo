@@ -495,7 +495,7 @@ TraCITestClient::reportResultState(tcpip::Storage& inMsg, int command, bool igno
         }
         resultType = inMsg.readUnsignedByte();
         msg = inMsg.readString();
-    } catch (std::invalid_argument &e) {
+    } catch (std::invalid_argument &) {
         answerLog << "#Error: an exception was thrown while reading result state message" << std::endl;
         return false;
     }

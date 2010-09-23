@@ -228,20 +228,17 @@ NLDetectorBuilder::buildE2Detector(const std::string &id,
                                    clane, pos, length,
                                    haltingTimeThreshold, haltingSpeedThreshold,
                                    jamDistThreshold);
-        myNet.getDetectorControl().add(
-            static_cast<MSE2Collector*>(det));
+        myNet.getDetectorControl().add(static_cast<MSE2Collector*>(det));
     } else {
         convContE2PosLength(id, clane, pos, length, friendlyPos);
         det = buildMultiLaneE2Det(id, DU_USER_DEFINED,
                                   clane, pos, length,
                                   haltingTimeThreshold, haltingSpeedThreshold,
                                   jamDistThreshold);
-        myNet.getDetectorControl().add(
-            static_cast<MS_E2_ZS_CollectorOverLanes*>(det));
+        myNet.getDetectorControl().add(static_cast<MS_E2_ZS_CollectorOverLanes*>(det));
     }
     // add the file output
-    new Command_SaveTLCoupledDet(tlls, det,
-                                 myNet.getCurrentTimeStep(), device);
+    new Command_SaveTLCoupledDet(tlls, det, myNet.getCurrentTimeStep(), device);
 }
 
 
