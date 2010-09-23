@@ -432,6 +432,10 @@ def cmdGetVehicleVariable_lanePosition(vehID):
     result = buildSendReadNew1StringParamCmd(tc.CMD_GET_VEHICLE_VARIABLE, tc.VAR_LANEPOSITION, vehID)
     return result.read("!f")[0] # Variable value
 
+def cmdGetVehicleVariable_color(vehID):
+    result = buildSendReadNew1StringParamCmd(tc.CMD_GET_VEHICLE_VARIABLE, tc.VAR_COLOR, vehID)
+    return result.read("!BBBB") # Variable value
+
 
 # ---------------------------------------------------
 # change state
