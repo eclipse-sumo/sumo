@@ -218,26 +218,16 @@ AGActivities::generateInOutTraffic()
 	if(myCity->cityGates.empty())
 		return false;
 	int num = 1;
-	bool employed;
-	list<AGPosition>::iterator itP = myCity->cityGates.begin();
 	list<AGAdult>::iterator itA;
 
 	for(itA=myCity->peopleIncoming.begin() ; itA!=myCity->peopleIncoming.end() ; ++itA)
 	{
-		if(itP == myCity->cityGates.end())
-			itP = myCity->cityGates.begin();
+		int posi = myCity->statData.getRandomCityGateByIncoming();
 		string nom(generateName(num, "carIn"));
-		if(myCity->statData.workPositions > 0)
-		{
-			itA->tryToWork(1, &(myCity->workPositions));
-		} else {
-			//shouldn't happen
-			cout << "not enough work for incoming people..." << endl;
-		}
-		AGTrip wayTrip(*itP, itA->getWorkPosition().getPosition(), nom, itA->getWorkPosition().getOpening());
+		AGTrip wayTrip(myCity->cityGates[posi], itA->getWorkPosition().getPosition(), nom, itA->getWorkPosition().getOpening());
 		//now we put the estimated time of entrance in the city.
 		wayTrip.setDepTime( wayTrip.estimateDepTime(wayTrip.getTime(), myCity->statData.speedTimePerKm) );
-		AGTrip retTrip(itA->getWorkPosition().getPosition(), *itP, nom, itA->getWorkPosition().getClosing());
+		AGTrip retTrip(itA->getWorkPosition().getPosition(), myCity->cityGates[posi], nom, itA->getWorkPosition().getClosing());
 		trips.push_back(wayTrip);
 		trips.push_back(retTrip);
 		++num;

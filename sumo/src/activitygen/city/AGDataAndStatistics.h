@@ -73,6 +73,12 @@ public:
 	//std::map<SchoolType, int> schoolCapacity;
 	std::map<int, float> population;						//<bracket's end age, number> (number only used in term of PROPORTION: it should be normalized)
 	//std::map<int, float> childrenAccompagniment;		//<bracket's end age, probability>
+	/**
+	 * number of incoming or outgoing people through the given city gates
+	 * PROPORTION: it should be normalized
+	 */
+	std::map<int, float> incoming;
+	std::map<int, float> outgoing;
 
 	/**
 	 * computed values used during processing
@@ -148,6 +154,13 @@ public:
 	 * from mean-maxVar to mean and from mean to mean+maxVar
 	 */
 	float getInverseExpRandomValue(float mean, float maxVar);
+	/**
+	 * function returning a random city gate corresponding to
+	 * the distribution of the incoming/outgoing traffic
+	 * In fact, it returns the position of a city gate in the citygate vector.
+	 */
+	int getRandomCityGateByIncoming();
+	int getRandomCityGateByOutgoing();
 
 private:
 	AGDataAndStatistics()

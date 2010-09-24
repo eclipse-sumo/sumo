@@ -154,16 +154,13 @@ AGCity::generateOutgoingWP()
 	 */
 	int nbrOutWorkPositions = static_cast<int>(workPositions.size() * (static_cast<float>(statData.outgoingTraffic))/(nbrWorkers - static_cast<float>(statData.outgoingTraffic)));
 
-	list<AGPosition>::iterator itP = cityGates.begin();
 	if(cityGates.empty())
 		return;
 
 	for(int i=0 ; i<nbrOutWorkPositions ; ++i)
 	{
-		if(itP == cityGates.end())
-			itP = cityGates.begin();
-		workPositions.push_back(AGWorkPosition(itP->getStreet(), itP->getPosition(), &statData));
-		++itP;
+		int posi = statData.getRandomCityGateByOutgoing();
+		workPositions.push_back(AGWorkPosition(cityGates[posi].getStreet(), cityGates[posi].getPosition(), &statData));
 	}
 	//cout << "outgoing traffic: " << statData.outgoingTraffic << endl;
 	//cout << "total number of workers in the city: " << nbrWorkers << endl;
@@ -296,6 +293,9 @@ AGCity::workAllocation()
 	statData.workingPeople = 0;
 	statData.AdultNbr = 0;
 	//end tests
+	/**
+	 * people from the city
+	 */
 	list<AGHousehold>::iterator it;
 	bool shortage;
 
@@ -309,6 +309,21 @@ AGCity::workAllocation()
 			cout << "===> ERROR: Not enough work positions in the city for all working people..." << endl;
 		}
 		statData.AdultNbr += it->getAdultNbr(); //TESTING
+	}
+
+	/**
+	 * people from outside
+	 */
+	list<AGAdult>::iterator itA;
+	for(itA=peopleIncoming.begin() ; itA!=peopleIncoming.end() ; ++itA)
+	{
+		if(statData.workPositions > 0)
+		{
+			itA->tryToWork(1, &workPositions);
+		} else {
+			//shouldn't happen
+			cout << "not enough work for incoming people..." << endl;
+		}
 	}
 
 	//BEGIN TESTS

@@ -132,6 +132,8 @@ AGDataAndStatistics::consolidateStat()
 	normalizeMapProb(&beginWorkHours);
 	normalizeMapProb(&endWorkHours);
 	normalizeMapProb(&population);
+	normalizeMapProb(&incoming);
+	normalizeMapProb(&outgoing);
 	limitEndAge = population.rbegin()->first;
 
 	oldAgeHhProb = (float)getPeopleOlderThan(limitAgeRetirement) / (float)getPeopleOlderThan(limitAgeChildren);
@@ -182,7 +184,6 @@ AGDataAndStatistics::getPeopleOlderThan(int age)
 void
 AGDataAndStatistics::normalizeMapProb(map<int, float> *myMap)
 {
-	//cout << "- Normalization: ";
 	float sum = 0;
 	map<int, float>::iterator it;
 	for(it = myMap->begin() ; it != myMap->end() ; ++it)
@@ -194,9 +195,7 @@ AGDataAndStatistics::normalizeMapProb(map<int, float> *myMap)
 	for(it = myMap->begin() ; it != myMap->end() ; ++it)
 	{
 		it->second = it->second / sum;
-		//cout << " + " << it->second;
 	}
-	//cout << " = 1.00" << endl;
 }
 
 float
@@ -218,5 +217,37 @@ AGDataAndStatistics::getInverseExpRandomValue(float mean, float maxVar)
 		return mean - variation;
 
 }
+
+int
+AGDataAndStatistics::getRandomCityGateByIncoming()
+{
+	float alea = (float)(RandHelper::rand());
+	float total = 0;
+	map<int, float>::iterator it;
+	for(it = incoming.begin() ; it != incoming.end() ; ++it)
+	{
+		total += it->second;
+		if(alea < total)
+			return it->first;
+	}
+	cout << "ERROR: incoming at city gates not normalized" << endl;
+}
+
+int
+AGDataAndStatistics::getRandomCityGateByOutgoing()
+{
+	float alea = (float)(RandHelper::rand());
+	float total = 0;
+	map<int, float>::iterator it;
+	for(it = outgoing.begin() ; it != outgoing.end() ; ++it)
+	{
+		total += it->second;
+		if(alea < total)
+			return it->first;
+	}
+	cout << "ERROR: outgoing at city gates not normalized" << endl;
+}
+
+
 
 /****************************************************************************/

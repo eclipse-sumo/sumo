@@ -89,7 +89,7 @@ public:
 	std::list<AGSchool> schools;
 	std::list<AGBusLine> busLines;
 	std::list<AGHousehold> households;
-	std::list<AGPosition> cityGates;
+	std::vector<AGPosition> cityGates;
 	std::list<AGAdult> peopleIncoming;
 
 private:

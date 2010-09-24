@@ -70,7 +70,7 @@ AGActivityGen::importInfoCity()
 	}
 
 	cout << "### read input done." << endl;
-	city.statData.consolidateStat();
+	city.statData.consolidateStat(); //some maps are still not
 	cout << "### pre-processing done." << endl;
 	city.completeStreets();
 	cout << "### - streets done..." << endl;
