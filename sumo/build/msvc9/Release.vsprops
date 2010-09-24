@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<VisualStudioPropertySheet
+	ProjectType="Visual C++"
+	Version="8.00"
+	Name="Release"
+        >
+	<Tool
+		Name="VCCLCompilerTool"
+                Optimization="2"
+		BasicRuntimeChecks="0"
+                InlineFunctionExpansion="2"
+                EnableIntrinsicFunctions="true"
+                FavorSizeOrSpeed="1"
+                WholeProgramOptimization="true"
+		PreprocessorDefinitions="NDEBUG"
+                StringPooling="true"
+                RuntimeLibrary="2"
+		BufferSecurityCheck="false"
+		FloatingPointExceptions="false"
+                WarningLevel="3"
+		DebugInformationFormat="0"
+	/>
+	<Tool
+		Name="VCLinkerTool"
+		LinkIncremental="1"
+		GenerateDebugInformation="false"
+                LinkTimeCodeGeneration="1"
+	/>
+	<Tool
+		Name="VCLibrarianTool"
+		AdditionalOptions="/LTCG"
+	/>
+</VisualStudioPropertySheet>

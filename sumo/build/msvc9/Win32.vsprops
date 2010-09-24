@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<VisualStudioPropertySheet
+	ProjectType="Visual C++"
+	Version="8.00"
+	Name="Win32"
+	OutputDirectory="$(ConfigurationName)"
+	IntermediateDirectory="$(ConfigurationName)"
+	InheritedPropertySheets=".\defaults.vsprops"
+	>
+	<Tool
+		Name="VCCLCompilerTool"
+		AdditionalIncludeDirectories="$(PROJ_GDAL)\include,$(FOX16)\include,$(XERCES)\include,..\..\..\src"
+		PreprocessorDefinitions="HAVE_PROJ;HAVE_GDAL"
+	/>
+	<UserMacro
+		Name="XERCES_LIB"
+		Value="$(XERCES)\lib\xerces-c_3.lib"
+	/>
+	<UserMacro
+		Name="XERCES_DEBUG_LIB"
+		Value="$(XERCES)\lib\xerces-c_3D.lib"
+	/>
+	<UserMacro
+		Name="PROJ_LIB"
+		Value="$(PROJ_GDAL)\lib\proj_i.lib"
+	/>
+	<UserMacro
+		Name="GDAL_LIB"
+		Value="$(PROJ_GDAL)\lib\gdal_i.lib"
+	/>
+	<UserMacro
+		Name="FOX16_LIB"
+		Value="$(FOX16)\lib\FOXDLL-1.6.lib"
+	/>
+	<UserMacro
+		Name="FOX16_DEBUG_LIB"
+		Value="$(FOX16)\lib\FOXDLLD-1.6.lib"
+	/>
+</VisualStudioPropertySheet>
