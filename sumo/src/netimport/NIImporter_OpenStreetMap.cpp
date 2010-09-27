@@ -611,6 +611,10 @@ NIImporter_OpenStreetMap::EdgesHandler::myStartElement(SumoXMLTag element,
             return;
         }
         if (key=="highway"||key=="railway") {
+            if (myCurrentEdge->myHighWayType != "") { 
+                WRITE_WARNING("Additional highway type " + key + "." + value + " for edge " + myCurrentEdge->id + 
+                    " with type " + myCurrentEdge->myHighWayType + ".");
+            }
             myCurrentEdge->myHighWayType = key + "." + value;
             myCurrentEdge->myCurrentIsRoad = true;
         } else if (key=="lanes") {
