@@ -552,6 +552,7 @@ NIImporter_OpenStreetMap::EdgesHandler::EdgesHandler(
         : SUMOSAXHandler("osm - file"),
         myOSMNodes(osmNodes), myEdgeMap(toFill) {
     mySpeedMap["none"] = 300.;
+	mySpeedMap["no"] = 300.;
     mySpeedMap["walk"] = 5.;
     mySpeedMap["DE:rural"] = 50.;
     mySpeedMap["DE:living_street"] = 10.;
