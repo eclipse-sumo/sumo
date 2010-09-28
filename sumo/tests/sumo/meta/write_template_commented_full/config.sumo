@@ -82,6 +82,9 @@
         <!-- Whether emission on an edge shall not be repeated in same step once failed. -->
         <sloppy-emit value="false"/>
 
+        <!-- Whether blocking vehicles trying to change lanes may be swapped. -->
+        <lanechange.allow-swap value="false"/>
+
     </processing>
 
     <tls_defaults>

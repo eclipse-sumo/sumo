@@ -1,4 +1,4 @@
-SUMO sumo Version dev-SVN-r8794
+SUMO sumo Version dev-SVN-r8982
  (c) DLR 2001-2010; http://sumo.sourceforge.net
  
 A microscopic road traffic simulation.
@@ -58,6 +58,8 @@ Usage: sumo [OPTION]*
                                         before being skipped
   --sloppy-emit                       Whether emission on an edge shall not be
                                         repeated in same step once failed.
+  --lanechange.allow-swap             Whether blocking vehicles trying to
+                                        change lanes may be swapped.
 
  TLS Defaults Options:
   --agent-tl.detector-len FLOAT       
