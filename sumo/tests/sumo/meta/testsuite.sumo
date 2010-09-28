@@ -27,3 +27,9 @@ option_list_equal_sign
 
 # Tests whether log-file output works
 with_log
+
+# Tests configuration with umlauts in file names
+umlaut
+
+# Tests configuration with umlauts and encoding
+umlaut_encoding

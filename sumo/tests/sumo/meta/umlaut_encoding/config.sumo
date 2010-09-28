@@ -1,0 +1,17 @@
+<configuration>
+
+    <input>
+        <net-file value="nöt.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+    </input>
+
+    <time>
+        <begin value="0"/>
+        <end value="100"/>
+    </time>
+
+    <gui_only>
+        <gui-settings-file value=""/>
+    </gui_only>
+
+</configuration>
