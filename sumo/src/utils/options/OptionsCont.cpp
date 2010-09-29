@@ -647,6 +647,8 @@ void
 OptionsCont::writeConfiguration(std::ostream &os, bool filled,
                                 bool complete, bool addComments) throw() {
     std::vector<std::string>::const_iterator i, j;
+    // to the best of our knowledge files are writen in latin-1 on windows and linux
+    os << "<?xml version=\"1.0\" encoding=\"iso-8859-1\"?>\n\n";
     os << "<configuration>" << std::endl << std::endl;
     for (i=mySubTopics.begin(); i!=mySubTopics.end(); ++i) {
         std::string subtopic = *i;
