@@ -6,13 +6,8 @@ historical_report_location:$SUMO_REPORT
 smtp_server:$SMTP_SERVER
 batch_use_collection:true
 batch_mail_on_failure_only:true
-batch_sender:"$FILEPREFIX" <michael.behrisch@dlr.de>
-
-[batch_recipients]
-default:michael.behrisch@dlr.de,daniel.krajzewicz@dlr.de,laura.bieker@dlr.de
-meso:michael.behrisch@dlr.de,matthias.wagner@dlr.de
-msvc8mesox64:michael.behrisch@dlr.de,matthias.wagner@dlr.de
-msvc8mesoWin32:michael.behrisch@dlr.de,matthias.wagner@dlr.de
+batch_sender:"$FILEPREFIX" <sumo-tests@dlr.de>
+batch_recipients:sumo-tests@dlr.de
 
 [run_dependent_text]
 output:Version
