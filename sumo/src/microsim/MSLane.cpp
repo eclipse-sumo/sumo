@@ -930,6 +930,34 @@ MSLane::addIncomingLane(MSLane *lane, MSLink *viaLink) {
     myIncomingLanes.push_back(ili);
 }
 
+
+void 
+MSLane::addApproachingLane(MSLane *lane) {
+	MSEdge *approachingEdge = &lane->getEdge();
+	if(myApproachingLanes.find(approachingEdge)==myApproachingLanes.end()) {
+		myApproachingLanes[approachingEdge] = std::vector<MSLane*>();
+	}
+	myApproachingLanes[approachingEdge].push_back(lane);
+}
+
+
+bool 
+MSLane::isApproachedFrom(MSEdge * const edge) {
+	return myApproachingLanes.find(edge)!=myApproachingLanes.end();
+}
+
+
+bool 
+MSLane::isApproachedFrom(MSEdge * const edge, MSLane * const lane) {
+	std::map<MSEdge*, std::vector<MSLane*> >::const_iterator i=myApproachingLanes.find(edge);
+	if(i==myApproachingLanes.end()) {
+		return false;
+	}
+	const std::vector<MSLane*> &lanes = (*i).second;
+	return find(lanes.begin(), lanes.end(), lane)!=lanes.end();
+}
+
+
 class by_second_sorter {
 public:
     inline int operator()(const std::pair<const MSVehicle * , SUMOReal> &p1, const std::pair<const MSVehicle * , SUMOReal> &p2) const {

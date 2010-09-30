@@ -149,7 +149,6 @@ protected:
     SUMOReal myVSafe;
     MSVehicle *myBlockingLeader;
     MSVehicle *myBlockingFollower;
-    SUMOReal myUrgency;
 };
 
 

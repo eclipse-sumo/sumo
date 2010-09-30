@@ -45,7 +45,6 @@
 #include <microsim/logging/FunctionBinding.h>
 #include <microsim/MSVehicleControl.h>
 #include <utils/gui/div/GUIGlobalSelection.h>
-#include <utils/common/RandHelper.h>
 #include <microsim/MSAbstractLaneChangeModel.h>
 #include <utils/gui/div/GLHelper.h>
 #include <foreign/polyfonts/polyfonts.h>
@@ -1144,36 +1143,37 @@ GUIVehicle::drawRoute(const GUIVisualizationSettings &s, int routeNo, SUMOReal d
 
 void
 GUIVehicle::drawBestLanes() const throw() {
-    const std::vector<MSVehicle::LaneQ> &lanes = getBestLanes();
-    SUMOReal gmax = -1;
-    SUMOReal rmax = -1;
-    for (std::vector<MSVehicle::LaneQ>::const_iterator i=lanes.begin(); i!=lanes.end(); ++i) {
-        gmax = MAX2((*i).length, gmax);
-        rmax = MAX2((*i).occupation, rmax);
-    }
-    for (std::vector<MSVehicle::LaneQ>::const_iterator i=lanes.begin(); i!=lanes.end(); ++i) {
-        const Position2DVector &shape = (*i).lane->getShape();
-        SUMOReal g = (*i).length / gmax;
-        SUMOReal r = (*i).occupation / rmax;
-        glColor3d(r, g, 0);
-        GLHelper::drawBoxLines(shape, 0.5);
+    myLock.lock();
+    std::vector<std::vector<MSVehicle::LaneQ> > bestLanes = myBestLanes;
+    myLock.unlock();
+	SUMOReal width = 0.5;
+	for(std::vector<std::vector<MSVehicle::LaneQ> >::iterator j=bestLanes.begin(); j!=bestLanes.end(); ++j) {
+		std::vector<MSVehicle::LaneQ> &lanes = *j;
+		SUMOReal gmax = -1;
+		SUMOReal rmax = -1;
+		for (std::vector<MSVehicle::LaneQ>::const_iterator i=lanes.begin(); i!=lanes.end(); ++i) {
+	        gmax = MAX2((*i).length, gmax);
+		    rmax = MAX2((*i).occupation, rmax);
+		}
+		for (std::vector<MSVehicle::LaneQ>::const_iterator i=lanes.begin(); i!=lanes.end(); ++i) {
+			const Position2DVector &shape = (*i).lane->getShape();
+			SUMOReal g = (*i).length / gmax;
+			SUMOReal r = (*i).occupation / rmax;
+			glColor3d(r, g, 0);
+			GLHelper::drawBoxLines(shape, width);
 
-        Position2DVector s1 = shape;
-        s1.move2side((SUMOReal) .1);
-        glColor3d(r, 0, 0);
-        GLHelper::drawLine(s1);
-        s1.move2side((SUMOReal) -.2);
-        glColor3d(0, g, 0);
-        GLHelper::drawLine(s1);
+			Position2DVector s1 = shape;
+			s1.move2side((SUMOReal) .1);
+			glColor3d(r, 0, 0);
+			GLHelper::drawLine(s1);
+			s1.move2side((SUMOReal) -.2);
+			glColor3d(0, g, 0);
+			GLHelper::drawLine(s1);
 
-        glColor3d(r, g, 0);
-        Position2D lastPos = shape[-1];
-        for (std::vector<MSLane*>::const_iterator j=(*i).bestContinuations.begin(); j!=(*i).bestContinuations.end(); ++j) {
-            const Position2DVector &shape = (*j)->getShape();
-            GLHelper::drawLine(lastPos, shape[0]);
-            GLHelper::drawBoxLines(shape, (SUMOReal) 0.2);
-            lastPos = shape[-1];
+			glColor3d(r, g, 0);
+			Position2D lastPos = shape[-1];
         }
+		width = .2;
     }
 }
 

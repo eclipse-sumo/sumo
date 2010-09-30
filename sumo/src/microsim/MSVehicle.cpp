@@ -1533,159 +1533,19 @@ MSVehicle::quitRemindedLeft(MSVehicleQuitReminded *r) {
 }
 
 
-void
-MSVehicle::rebuildContinuationsFor(LaneQ &oq, MSLane *l, MSRouteIterator ce, int seen) const {
-    // check whether the end of iteration was reached
-    ++ce;
-    // we end if one of the following cases is true:
-    // a) we have examined the next edges for 3000m (foresight distance)
-    //     but only if we have at least examined the next edge
-    // b) if we have examined 8 edges in front (!!! this may be shorted)
-    // c) if the route does not continue after the seen edges
-    if ((seen>4 && oq.length+l->getLength()>3000) || seen>8 || ce==myRoute->end()) {
-        // ok, we have rebuilt this so far... do not have to go any further
-        return;
-    }
-    // we must go further...
-    // get the list of allowed lanes
-    const std::vector<MSLane*> *allowed = 0;
-    if (ce!=myRoute->end()&&ce+1!=myRoute->end()) {
-        allowed = (*ce)->allowedLanes(**(ce+1), myType->getVehicleClass());
-    }
-    // determined recursively what the best lane is
-    //  save the best lane for later usage
-    LaneQ best;
-    best.length = 0;
-    const std::vector<MSLane*> &lanes = (*ce)->getLanes();
-    const MSLinkCont &lc = l->getLinkCont();
-    bool gotOne = false;
-    // we go through all connections of the lane to examine
-    for (MSLinkCont::const_iterator k=lc.begin(); k!=lc.end(); ++k) {
-        // prese values
-        LaneQ q;
-        MSLane *qqq = (*k)->getLane();
-        if (qqq==0) {
-            q.occupation = 0;
-            q.length = 0;
-            continue;
-        }
-        q.occupation = qqq->getVehLenSum();
-        q.length = qqq->getLength();
-        q.bestContinuations.push_back(qqq);
-
-
-        if (!myStops.empty()&& &(myStops.front().lane->getEdge())==&qqq->getEdge()) {
-            if (myStops.front().lane==qqq) {
-                gotOne = true;
-                if (allowed==0||find(allowed->begin(), allowed->end(), (*k)->getLane())!=allowed->end()) {
-                    rebuildContinuationsFor(q, qqq, ce, seen+1);
-                }
-            } else {
-                q.occupation = qqq->getVehLenSum();
-                const Stop &s = myStops.front();
-                SUMOReal endPos = s.endPos;
-                if (s.busstop!=0) {
-                    // on bus stops, we have to wait for free place if they are in use...
-                    endPos = s.busstop->getLastFreePos();
-                }
-                q.length = endPos;
-            }
-        } else {
-            // check whether the lane is allowed for route continuation (has a link to the next
-            //  edge in route)
-            if (allowed==0||find(allowed->begin(), allowed->end(), (*k)->getLane())!=allowed->end()) {
-                // yes -> compute the best lane combination for consecutive lanes
-                gotOne = true;
-                rebuildContinuationsFor(q, qqq, ce, seen+1);
-            } else {
-                // no -> if the lane belongs to an edge not in our route,
-                //  reset values to zero (otherwise the lane but not its continuations)
-                //  will still be regarded
-                if (&(*k)->getLane()->getEdge()!=*ce) {
-                    q.occupation = 0;
-                    q.length = 0;
-                }
-            }
-        }
-        // set best lane information
-        if (q.length>best.length) {
-            best = q;
-        }
-    }
-    // check whether we need to change the lane on this edge in any case
-    if (!gotOne) {
-        // yes, that's the case - we are on an edge on which we have to change
-        //  the lane no matter which lanes we are using so far.
-        // we have to tell the vehicle the best lane so far...
-        // the assumption is that we only have to find the first one
-        //  - because the vehicle has to change lanes, it will do this into
-        //  the proper direction as the lanes moving the the proper edge are
-        //  lying side by side
-        const std::vector<MSLane*> &lanes = (*ce)->getLanes();
-        bool oneFound = false;
-        int bestPos = 0;
-        MSLane *next = 0;
-        // we go over the next edge's lanes and determine the first that may be used
-        for (std::vector<MSLane*>::const_iterator i=lanes.begin(); !oneFound&&i!=lanes.end();) {
-            if (allowed!=0 && find(allowed->begin(), allowed->end(), *i)!=allowed->end()) {
-                oneFound = true;
-                next = *i;
-            } else {
-                ++i;
-                ++bestPos;
-            }
-        }
-        // ... it is now stored in next and its position in bestPos
-        if (oneFound) {
-            // ok, we have found a best lane
-            //  (in fact, this should be the case if the route is valid, nonetheless...)
-            // now let's say that the best lane is the nearest one to the found
-            int bestDistance = -100;
-            MSLane *bestL = 0;
-            // go over all lanes of current edge
-            const std::vector<MSLane*> &clanes = l->getEdge().getLanes();
-            for (std::vector<MSLane*>::const_iterator i=clanes.begin(); i!=clanes.end(); ++i) {
-                // go over all connected lanes
-                for (MSLinkCont::const_iterator k=lc.begin(); k!=lc.end(); ++k) {
-                    if ((*k)->getLane()==0) {
-                        continue;
-                    }
-                    // the best lane must be on the proper edge
-                    if (&(*k)->getLane()->getEdge()==*ce) {
-                        std::vector<MSLane*>::const_iterator l=find(lanes.begin(), lanes.end(), (*k)->getLane());
-                        if (l!=lanes.end()) {
-                            int pos = (int)distance(lanes.begin(), l);
-                            int cdist = abs(pos-bestPos);
-                            if (bestDistance==-100||bestDistance>cdist) {
-                                bestDistance = cdist;
-                                bestL = *i;
-                            }
-                        }
-                    }
-                }
-            }
-            if (bestL==l) {
-                best.occupation = next->getVehLenSum();
-                best.length = next->getLength();
-            } else {
-                best.occupation = 0;
-                best.length = 0;
-                best.bestContinuations.clear();
-            }
-        }
-    }
-    oq.length += best.length;
-    oq.occupation += best.occupation;
-    copy(best.bestContinuations.begin(), best.bestContinuations.end(), back_inserter(oq.bestContinuations));
-}
-
-
-
 const std::vector<MSVehicle::LaneQ> &
 MSVehicle::getBestLanes(bool forceRebuild, MSLane *startLane) const throw() {
+#ifdef DEBUG_VEHICLE_GUI_SELECTION
+        if (gSelected.isSelected(GLO_VEHICLE, static_cast<const GUIVehicle*>(this)->getGlID())) {
+            int bla = 0;
+            myLastBestLanesEdge = 0;
+        }
+#endif
+
     if (startLane==0) {
         startLane = myLane;
     }
+	// update occupancy and current lane index, only, if the vehicle has not moved to a new lane
     if (myLastBestLanesEdge==&startLane->getEdge()&&!forceRebuild) {
         std::vector<LaneQ> &lanes = *myBestLanes.begin();
         std::vector<LaneQ>::iterator i;
@@ -1701,81 +1561,189 @@ MSVehicle::getBestLanes(bool forceRebuild, MSLane *startLane) const throw() {
         }
         return *myBestLanes.begin();
     }
+	// start rebuilding
     myLastBestLanesEdge = &startLane->getEdge();
     myBestLanes.clear();
-    myBestLanes.push_back(std::vector<LaneQ>());
-    const std::vector<MSLane*> &lanes = (*myCurrEdge)->getLanes();
-    MSRouteIterator ce = myCurrEdge;
-    int seen = 0;
-    const std::vector<MSLane*> *allowed = 0;
-    if (ce!=myRoute->end()&&ce+1!=myRoute->end()) {
-        allowed = (*ce)->allowedLanes(**(ce+1), myType->getVehicleClass());
+
+	// get information about the next stop
+    MSEdge *nextStopEdge = 0;
+    const MSLane *nextStopLane = 0;
+    SUMOReal nextStopPos = 0;
+    if (!myStops.empty()) {
+        const Stop &nextStop = myStops.front();
+        nextStopLane = nextStop.lane;
+        nextStopEdge = &nextStopLane->getEdge();
+        nextStopPos = nextStop.endPos;
+        if (nextStop.busstop!=0) {
+		    // on bus stops, we have to wait for free place if they are in use...
+			nextStopPos = nextStop.busstop->getLastFreePos();
+        }
     }
-    for (std::vector<MSLane*>::const_iterator i=lanes.begin(); i!=lanes.end(); ++i) {
-        LaneQ q;
-        q.lane = *i;
-        q.length = 0;//q.lane->getLength();
-        q.occupation = 0;//q.lane->getVehLenSum();
-        if (!myStops.empty()&& &myStops.front().lane->getEdge()==&q.lane->getEdge()) {
-            if (myStops.front().lane==q.lane) {
-                q.allowsContinuation = allowed==0||find(allowed->begin(), allowed->end(), q.lane)!=allowed->end();
-                q.length += q.lane->getLength();
-                q.occupation += q.lane->getVehLenSum();
-            } else {
-                q.allowsContinuation = false;
-                q.occupation = q.lane->getVehLenSum();
-                const Stop &s = myStops.front();
-                SUMOReal endPos = s.endPos;
-                if (s.busstop!=0) {
-                    // on bus stops, we have to wait for free place if they are in use...
-                    endPos = s.busstop->getLastFreePos();
-                }
-                q.length = endPos;
+
+	// go forward along the next lanes; 
+	int seen = 0;
+	SUMOReal seenLength = 0;
+	bool progress = true;
+	for (MSRouteIterator ce = myCurrEdge; progress; ) {
+		std::vector<LaneQ> currentLanes;
+		const std::vector<MSLane*> *allowed = 0;
+		const MSEdge *nextEdge = 0;
+		if (ce!=myRoute->end()&&ce+1!=myRoute->end()) {
+			nextEdge = *(ce+1);
+			allowed = (*ce)->allowedLanes(*nextEdge, myType->getVehicleClass());
+		}
+		const std::vector<MSLane*> &lanes = (*ce)->getLanes();
+		for(std::vector<MSLane*>::const_iterator i=lanes.begin(); i!=lanes.end(); ++i) {
+			LaneQ q;
+			MSLane *cl = *i;
+			q.lane = cl;
+			q.bestContinuations.push_back(cl);
+            q.bestLaneOffset = 0;
+			if (nextStopEdge==*ce) {
+				if (nextStopLane==cl) {
+					q.allowsContinuation = allowed==0||find(allowed->begin(), allowed->end(), cl)!=allowed->end();
+					q.length = cl->getLength();
+				} else {
+					q.allowsContinuation = false;
+					q.length = nextStopPos;
+				}
+				progress = false;
+			} else {
+				if(allowed==0||find(allowed->begin(), allowed->end(), cl)!=allowed->end()) {
+					q.allowsContinuation = true;
+					q.length = cl->getLength();
+				} else {
+					q.allowsContinuation = false;
+					q.length = 0;
+				}
+			}
+			currentLanes.push_back(q);
+		}
+
+		myBestLanes.push_back(currentLanes);
+		//
+		++seen;
+		seenLength += currentLanes[0].lane->getLength();
+		++ce;
+		progress &= (seen<=4 && seenLength<3000);
+		progress &= seen<=8;
+		progress &= ce!=myRoute->end(); 
+	}
+
+	// we are examining the last lane explicitely
+    if(myBestLanes.size()!=0) {
+        SUMOReal bestLength = -1;
+        int bestThisIndex = 0;
+        int index = 0;
+        for(std::vector<LaneQ>::iterator j=myBestLanes.back().begin(); j!=myBestLanes.back().end(); ++j, ++index) {
+            if((*j).length>bestLength) {
+                bestLength = (*j).length;
+                bestThisIndex = index;
             }
-        } else {
-            q.allowsContinuation = allowed==0||find(allowed->begin(), allowed->end(), q.lane)!=allowed->end();
         }
-        myBestLanes[0].push_back(q);
-    }
-    if (ce!=myRoute->end()) {
-        for (std::vector<MSVehicle::LaneQ>::iterator i=myBestLanes.begin()->begin(); i!=myBestLanes.begin()->end(); ++i) {
-            if ((*i).allowsContinuation) {
-                rebuildContinuationsFor((*i), (*i).lane, ce, seen);
-                (*i).length += (*i).lane->getLength();
-                (*i).occupation += (*i).lane->getVehLenSum();
+        index = 0;
+        for(std::vector<LaneQ>::iterator j=myBestLanes.back().begin(); j!=myBestLanes.back().end(); ++j, ++index) {
+            if((*j).length<bestLength) {
+				(*j).bestLaneOffset = bestThisIndex - index;
+			} else {
+				(*j).bestLaneOffset = 0;
             }
         }
     }
-    SUMOReal best = 0;
-    int index = 0;
-    int run = 0;
-    for (std::vector<MSVehicle::LaneQ>::iterator i=myBestLanes.begin()->begin(); i!=myBestLanes.begin()->end(); ++i, ++run) {
-        if (best<(*i).length) {
-            best = (*i).length;
-            index = run;
-        }
+
+	// go backward through the lanes
+	// track back best lane and compute the best prior lane(s)
+	for(std::vector<std::vector<LaneQ> >::reverse_iterator i=myBestLanes.rbegin()+1; i!=myBestLanes.rend(); ++i) {
+		std::vector<LaneQ> &nextLanes = (*(i-1));
+        std::vector<LaneQ> &clanes = (*i);
+		MSEdge &nE = nextLanes[0].lane->getEdge();
+		MSEdge &cE = clanes[0].lane->getEdge();
+		int index = 0;
+		bool bestNextIsConnected = false;
+		for(std::vector<LaneQ>::iterator j=nextLanes.begin(); j!=nextLanes.end()&&!bestNextIsConnected; ++j, ++index) {
+			if((*j).bestLaneOffset==0&&(*j).lane->isApproachedFrom(&cE)) {
+				bestNextIsConnected = true;
+			}
+		}
+		if(bestNextIsConnected) {
+			int bestThisIndex = 0;
+			index = 0;
+			for(std::vector<LaneQ>::iterator j=clanes.begin(); j!=clanes.end(); ++j, ++index) {
+				LaneQ bestConnectedNext;
+	    		bestConnectedNext.length = -1;
+				if((*j).allowsContinuation) {
+					for(std::vector<LaneQ>::const_iterator m=nextLanes.begin(); m!=nextLanes.end(); ++m) {
+						if((*m).lane->isApproachedFrom(&cE, (*j).lane)) {
+							if(bestConnectedNext.length<(*m).length || (bestConnectedNext.length==(*m).length&&abs(bestConnectedNext.bestLaneOffset)>abs((*m).bestLaneOffset) ) ) {
+								bestConnectedNext = *m;
+							}
+						}
+					}
+					(*j).length += bestConnectedNext.length;
+				}
+				if(clanes[bestThisIndex].length<(*j).length || (clanes[bestThisIndex].length==(*j).length&&abs(abs(clanes[bestThisIndex].bestLaneOffset>(*j).bestLaneOffset)) ) ) {
+					bestThisIndex = index;
+				}
+				copy(bestConnectedNext.bestContinuations.begin(), bestConnectedNext.bestContinuations.end(), back_inserter((*j).bestContinuations));
+			}
+
+			index = 0;
+			for(std::vector<LaneQ>::iterator j=clanes.begin(); j!=clanes.end(); ++j, ++index) {
+				if((*j).length<clanes[bestThisIndex].length || ((*j).length==clanes[bestThisIndex].length&&abs((*j).bestLaneOffset)<abs(clanes[bestThisIndex].bestLaneOffset) ) ) {
+					(*j).bestLaneOffset = bestThisIndex - index;
+				} else {
+					(*j).bestLaneOffset = 0;
+				}
+			}
+
+		} else {
+
+			int bestThisIndex = 0;
+			int bestNextIndex = 0;
+			int bestDistToNeeded = (int) clanes.size();
+			index = 0;
+			for(std::vector<LaneQ>::iterator j=clanes.begin(); j!=clanes.end(); ++j,++index) {
+				if((*j).allowsContinuation) {
+					int nextIndex = 0;
+			    	for(std::vector<LaneQ>::const_iterator m=nextLanes.begin(); m!=nextLanes.end(); ++m, ++nextIndex) {
+						if((*m).lane->isApproachedFrom(&cE, (*j).lane)) {
+							if(bestDistToNeeded>abs((*m).bestLaneOffset)) {
+								bestDistToNeeded = abs((*m).bestLaneOffset);
+								bestThisIndex = index;
+								bestNextIndex = nextIndex;
+							}
+						}
+					}
+				}
+			}
+    		clanes[bestThisIndex].length += nextLanes[bestNextIndex].length;
+			copy(nextLanes[bestNextIndex].bestContinuations.begin(), nextLanes[bestNextIndex].bestContinuations.end(), back_inserter(clanes[bestThisIndex].bestContinuations));
+			index = 0;
+			for(std::vector<LaneQ>::iterator j=clanes.begin(); j!=clanes.end(); ++j, ++index) {
+				if((*j).length<clanes[bestThisIndex].length || ((*j).length==clanes[bestThisIndex].length&&abs((*j).bestLaneOffset)<abs(clanes[bestThisIndex].bestLaneOffset) ) ) {
+					(*j).bestLaneOffset = bestThisIndex - index;
+				} else {
+					(*j).bestLaneOffset = 0;
+				}
+			}
+
+		}
+
+	}
+
+	// update occupancy and current lane index
+    std::vector<LaneQ> &currLanes = *myBestLanes.begin();
+    std::vector<LaneQ>::iterator i;
+	for (i=currLanes.begin(); i!=currLanes.end(); ++i) {
+		SUMOReal nextOccupation = 0;
+        for (std::vector<MSLane*>::const_iterator j=(*i).bestContinuations.begin(); j!=(*i).bestContinuations.end(); ++j) {
+			nextOccupation += (*j)->getVehLenSum();
+		}
+        (*i).nextOccupation = nextOccupation;
         if ((*i).lane==startLane) {
-            myCurrentLaneInBestLanes = i;
-        }
-    }
-    run = 0;
-    for (std::vector<MSVehicle::LaneQ>::iterator i=myBestLanes.begin()->begin(); i!=myBestLanes.begin()->end(); ++i, ++run) {
-        (*i).bestLaneOffset =  index - run;
-    }
-
-        std::vector<LaneQ> &currLanes = *myBestLanes.begin();
-        std::vector<LaneQ>::iterator i;
-        for (i=currLanes.begin(); i!=currLanes.end(); ++i) {
-            SUMOReal nextOccupation = 0;
-            for (std::vector<MSLane*>::const_iterator j=(*i).bestContinuations.begin(); j!=(*i).bestContinuations.end(); ++j) {
-                nextOccupation += (*j)->getVehLenSum();
-            }
-            (*i).nextOccupation = nextOccupation;
-            if ((*i).lane==startLane) {
-                myCurrentLaneInBestLanes = i;
-            }
-        }
-
+			myCurrentLaneInBestLanes = i;
+		}
+	}
     return *myBestLanes.begin();
 }
 

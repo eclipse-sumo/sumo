@@ -147,6 +147,7 @@ NLSucceedingLaneBuilder::addSuccLane(const std::string &laneId,
 #else
         lane->addIncomingLane(clane, link);
 #endif
+		lane->addApproachingLane(clane);
     }
     // if a traffic light is responsible for it, inform the traffic light
     // check whether this link is controlled by a traffic light

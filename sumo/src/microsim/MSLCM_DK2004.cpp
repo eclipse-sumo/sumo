@@ -35,6 +35,14 @@
 #include <foreign/nvwa/debug_new.h>
 #endif // CHECK_MEMORY_LEAKS
 
+//#define DEBUG_VEHICLE_GUI_SELECTION 1
+#ifdef DEBUG_VEHICLE_GUI_SELECTION
+#include <utils/gui/div/GUIGlobalSelection.h>
+#include <guisim/GUIVehicle.h>
+#include <guisim/GUILane.h>
+#endif
+
+
 
 // ===========================================================================
 // variable definitions
@@ -57,8 +65,7 @@
 MSLCM_DK2004::MSLCM_DK2004(MSVehicle &v)
         : MSAbstractLaneChangeModel(v),
         myChangeProbability(0),
-        myVSafe(0), myBlockingLeader(0), myBlockingFollower(0),
-        myUrgency(0) {}
+        myVSafe(0), myBlockingLeader(0), myBlockingFollower(0) {}
 
 MSLCM_DK2004::~MSLCM_DK2004() {
     changed();
@@ -79,6 +86,11 @@ MSLCM_DK2004::wantsChangeToRight(MSAbstractLaneChangeModel::MSLCMessager &msgPas
                                  SUMOReal currentDist,
                                  */
                                  MSVehicle **lastBlocked) {
+#ifdef DEBUG_VEHICLE_GUI_SELECTION
+                                     if (gSelected.isSelected(GLO_VEHICLE, static_cast<const GUIVehicle*>(&myVehicle)->getGlID())) {
+        int bla = 0;
+    }
+#endif
     MSVehicle::LaneQ curr, best;
     int bestLaneOffset = 0;
     SUMOReal currentDist = 0;
@@ -167,7 +179,6 @@ MSLCM_DK2004::wantsChangeToRight(MSAbstractLaneChangeModel::MSLCMessager &msgPas
         }
         myBlockingLeader = neighLead.first;
         myBlockingFollower = neighFollow.first;
-        myUrgency = tdist;
         return ret|LCA_RIGHT|LCA_URGENT|blocked;
     }
 
@@ -309,6 +320,11 @@ MSLCM_DK2004::wantsChangeToLeft(MSAbstractLaneChangeModel::MSLCMessager &msgPass
                                 SUMOReal currentDist,
                                 */
                                 MSVehicle **lastBlocked) {
+#ifdef DEBUG_VEHICLE_GUI_SELECTION
+    if (gSelected.isSelected(GLO_VEHICLE, static_cast<const GUIVehicle*>(&myVehicle)->getGlID())) {
+        int bla = 0;
+    }
+#endif
     MSVehicle::LaneQ curr, best;
     int bestLaneOffset = 0;
     SUMOReal currentDist = 0;
@@ -399,7 +415,6 @@ MSLCM_DK2004::wantsChangeToLeft(MSAbstractLaneChangeModel::MSLCMessager &msgPass
         }
         myBlockingLeader = neighLead.first;
         myBlockingFollower = neighFollow.first;
-        myUrgency = tdist;
         return ret|LCA_LEFT|LCA_URGENT|blocked;
     }
 

@@ -490,6 +490,7 @@ public:
     bool allowsVehicleClass(SUMOVehicleClass vclass) const;
 
     void addIncomingLane(MSLane *lane, MSLink *viaLink);
+	
 
     struct IncomingLaneInfo {
         MSLane *lane;
@@ -501,7 +502,14 @@ public:
         return myIncomingLanes;
     }
 
-    std::pair<MSVehicle * const, SUMOReal> getFollowerOnConsecutive(SUMOReal dist, SUMOReal seen,
+
+	void addApproachingLane(MSLane *lane);
+	bool isApproachedFrom(MSEdge * const edge);
+	bool isApproachedFrom(MSEdge * const edge, MSLane * const lane);
+
+	
+	
+	std::pair<MSVehicle * const, SUMOReal> getFollowerOnConsecutive(SUMOReal dist, SUMOReal seen,
             SUMOReal leaderSpeed, SUMOReal backOffset, SUMOReal predMaxDecel) const;
 
     std::pair<MSVehicle * const, SUMOReal> getLeaderOnConsecutive(SUMOReal dist, SUMOReal seen,
@@ -658,6 +666,10 @@ protected:
     /** The lane's Links to it's succeeding lanes and the default
         right-of-way rule, i.e. blocked or not blocked. */
     MSLinkCont myLinks;
+
+	std::map<MSEdge*, std::vector<MSLane*> > myApproachingLanes;
+
+
 
     /// definition of the tatic dictionary type
     typedef std::map< std::string, MSLane* > DictType;
