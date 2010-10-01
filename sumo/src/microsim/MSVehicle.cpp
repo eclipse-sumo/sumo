@@ -1561,7 +1561,7 @@ MSVehicle::getBestLanes(bool forceRebuild, MSLane *startLane) const throw() {
         std::vector<LaneQ>::iterator i;
         for (i=lanes.begin(); i!=lanes.end(); ++i) {
             SUMOReal nextOccupation = 0;
-            for (std::vector<MSLane*>::const_iterator j=(*i).bestContinuations.begin(); j!=(*i).bestContinuations.end(); ++j) {
+            for (std::vector<MSLane*>::const_iterator j=(*i).bestContinuations.begin()+1; j!=(*i).bestContinuations.end(); ++j) {
                 nextOccupation += (*j)->getVehLenSum();
             }
             (*i).nextOccupation = nextOccupation;
@@ -1665,13 +1665,13 @@ MSVehicle::getBestLanes(bool forceRebuild, MSLane *startLane) const throw() {
 		MSEdge &nE = nextLanes[0].lane->getEdge();
 		MSEdge &cE = clanes[0].lane->getEdge();
 		int index = 0;
-		bool bestNextIsConnected = false;
-		for(std::vector<LaneQ>::iterator j=nextLanes.begin(); j!=nextLanes.end()&&!bestNextIsConnected; ++j, ++index) {
-			if((*j).bestLaneOffset==0&&(*j).lane->isApproachedFrom(&cE)) {
-				bestNextIsConnected = true;
+		SUMOReal bestConnectedLength = -1;
+		for(std::vector<LaneQ>::iterator j=nextLanes.begin(); j!=nextLanes.end(); ++j, ++index) {
+			if((*j).lane->isApproachedFrom(&cE) && bestConnectedLength<(*j).length) {
+				bestConnectedLength = (*j).length;
 			}
 		}
-		if(bestNextIsConnected) {
+		if(bestConnectedLength>0) {
 			int bestThisIndex = 0;
 			index = 0;
 			for(std::vector<LaneQ>::iterator j=clanes.begin(); j!=clanes.end(); ++j, ++index) {
@@ -1742,7 +1742,7 @@ MSVehicle::getBestLanes(bool forceRebuild, MSLane *startLane) const throw() {
     std::vector<LaneQ>::iterator i;
 	for (i=currLanes.begin(); i!=currLanes.end(); ++i) {
 		SUMOReal nextOccupation = 0;
-        for (std::vector<MSLane*>::const_iterator j=(*i).bestContinuations.begin(); j!=(*i).bestContinuations.end(); ++j) {
+        for (std::vector<MSLane*>::const_iterator j=(*i).bestContinuations.begin()+1; j!=(*i).bestContinuations.end(); ++j) {
 			nextOccupation += (*j)->getVehLenSum();
 		}
         (*i).nextOccupation = nextOccupation;
