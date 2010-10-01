@@ -1,3 +1,32 @@
+/****************************************************************************/
+/// @file    RGBColorTest.cpp
+/// @author  Matthias Heppner
+/// @date    Sept 2009
+/// @version $Id: RGBColor.cpp 8743 2010-05-07 14:54:01Z bieker $
+///
+// Tests the class RGBColor
+/****************************************************************************/
+// SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+// Copyright 2001-2010 DLR (http://www.dlr.de/) and contributors
+/****************************************************************************/
+//
+//   This program is free software; you can redistribute it and/or modify
+//   it under the terms of the GNU General Public License as published by
+//   the Free Software Foundation; either version 2 of the License, or
+//   (at your option) any later version.
+//
+/****************************************************************************/
+
+
+// ===========================================================================
+// included modules
+// ===========================================================================
+#ifdef _MSC_VER
+#include <windows_config.h>
+#else
+#include <config.h>
+#endif
+
 #include <gtest/gtest.h>
 #include <utils/common/RGBColor.h>
 #include <utils/common/UtilExceptions.h>
@@ -5,19 +34,14 @@
 #include <fstream>
 #include <sstream>
 
-using namespace std;
 
-/*
-Tests the class RGBColor
-*/
-
+// ===========================================================================
+// test definitions
+// ===========================================================================
 /* Test the method 'parseColor' with a wrong String. An exception must occur.*/
-//TODO must throw an invalid argumgent exception
-/*
 TEST(RGBColor, test_parseColor_with_wrong_string) {
-	ASSERT_THROW(RGBColor::parseColor("a,b,y"),InvalidArgument) << "Expect an InvalidArgument exception.";
+	ASSERT_THROW(RGBColor::parseColor("a,b,y"),NumberFormatException);
 }
-*/
 
 /* Test the method 'parseColor'*/
 TEST(RGBColor, test_parseColor) {

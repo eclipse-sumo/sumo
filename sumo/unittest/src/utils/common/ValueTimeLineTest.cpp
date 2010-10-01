@@ -1,12 +1,39 @@
+/****************************************************************************/
+/// @file    ValueTimeLineTest.cpp
+/// @author  Matthias Heppner
+/// @date    Sept 2009
+/// @version $Id: RGBColor.cpp 8743 2010-05-07 14:54:01Z bieker $
+///
+// Tests ValueTimeLine class from <SUMO>/src/utils/common
+/****************************************************************************/
+// SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+// Copyright 2001-2010 DLR (http://www.dlr.de/) and contributors
+/****************************************************************************/
+//
+//   This program is free software; you can redistribute it and/or modify
+//   it under the terms of the GNU General Public License as published by
+//   the Free Software Foundation; either version 2 of the License, or
+//   (at your option) any later version.
+//
+/****************************************************************************/
+
+
+// ===========================================================================
+// included modules
+// ===========================================================================
+#ifdef _MSC_VER
+#include <windows_config.h>
+#else
+#include <config.h>
+#endif
+
 #include <gtest/gtest.h>
 #include <utils/common/ValueTimeLine.h>
 
-using namespace std;
 
-/*
-Tests ValueTimeLine class from <SUMO>/src/utils/common
-*/
-
+// ===========================================================================
+// test definitions
+// ===========================================================================
 /* Tests what happens if one tries to get a value from an empty ValueTimeLine. */
 /*
 TEST(ValueTimeLine, test_get_from_empty) {
