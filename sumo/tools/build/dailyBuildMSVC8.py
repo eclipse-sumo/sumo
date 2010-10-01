@@ -20,7 +20,7 @@ optParser.add_option("-m", "--remote-dir", dest="remoteDir",
 (options, args) = optParser.parse_args()
 
 env = os.environ
-env["SMTP_SERVER"]="129.247.218.247"
+env["SMTP_SERVER"]="smtprelay.dlr.de"
 nightlyDir="N:\\Daten\\Sumo\\Nightly"
 compiler="D:\\Programme\\Microsoft Visual Studio 8\\Common7\\IDE\\devenv.exe"
 for platform in ["Win32", "x64"]:
