@@ -4,7 +4,7 @@
 /// @date    Fri, 29.04.2005
 /// @version $Id$
 ///
-//	»missingDescription«
+// A lane change model developed by D. Krajzewicz between 2004 and 2010
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // Copyright 2001-2010 DLR (http://www.dlr.de/) and contributors
@@ -56,6 +56,7 @@ enum MyLCAEnum {
 // ===========================================================================
 /**
  * @class MSLCM_DK2004
+ * @brief A lane change model developed by D. Krajzewicz between 2004 and 2010
  */
 class MSLCM_DK2004 : public MSAbstractLaneChangeModel {
 public:
@@ -73,10 +74,6 @@ public:
         const std::pair<MSVehicle*, SUMOReal> &neighFollow,
         const MSLane &neighLane,
         const std::vector<MSVehicle::LaneQ> &preb,
-        /*
-        int bestLaneOffset, SUMOReal bestDist, SUMOReal neighDist,
-        SUMOReal currentDist,
-        */
         MSVehicle **lastBlocked);
 
     /** @brief Called to examine whether the vehicle wants to change to left
@@ -89,11 +86,6 @@ public:
         const std::pair<MSVehicle*, SUMOReal> &neighFollow,
         const MSLane &neighLane,
         const std::vector<MSVehicle::LaneQ> &preb,
-        /*
-        //        bool congested, bool predInteraction,
-        int bestLaneOffset, SUMOReal bestDist, SUMOReal neighDist,
-        SUMOReal currentDist,
-        */
         MSVehicle **lastBlocked);
 
     virtual void *inform(void *info, MSVehicle *sender);
@@ -112,10 +104,6 @@ public:
 
 
 protected:
-    /*
-    void unblockLeader();
-    void unblockFollower();
-    */
     void informBlocker(MSAbstractLaneChangeModel::MSLCMessager &msgPass,
                        int &blocked, int dir,
                        const std::pair<MSVehicle*, SUMOReal> &neighLead,

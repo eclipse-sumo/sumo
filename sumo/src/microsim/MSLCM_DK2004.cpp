@@ -4,7 +4,7 @@
 /// @date    Tue, 29.05.2005
 /// @version $Id$
 ///
-//  missingDescription
+// A lane change model developed by D. Krajzewicz between 2004 and 2010
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // Copyright 2001-2010 DLR (http://www.dlr.de/) and contributors
@@ -80,11 +80,6 @@ MSLCM_DK2004::wantsChangeToRight(MSAbstractLaneChangeModel::MSLCMessager &msgPas
                                  const std::pair<MSVehicle*, SUMOReal> &neighFollow,
                                  const MSLane &neighLane,
                                  const std::vector<MSVehicle::LaneQ> &preb,
-                                 /*
-                                 int bestLaneOffset, SUMOReal bestDist,
-                                 SUMOReal neighDist,
-                                 SUMOReal currentDist,
-                                 */
                                  MSVehicle **lastBlocked) {
 #ifdef DEBUG_VEHICLE_GUI_SELECTION
                                      if (gSelected.isSelected(GLO_VEHICLE, static_cast<const GUIVehicle*>(&myVehicle)->getGlID())) {
@@ -163,12 +158,7 @@ MSLCM_DK2004::wantsChangeToRight(MSAbstractLaneChangeModel::MSLCMessager &msgPas
                   : myVehicle.getSpeed() * (SUMOReal) LOOK_FORWARD_NEAR;
     rv += myVehicle.getVehicleType().getLength() * (SUMOReal) 2.;
 
-    SUMOReal tdist = currentDist/*best.lane->getLength()*/-myVehicle.getPositionOnLane() - best.occupation * (SUMOReal) JAM_FACTOR2;
-    /*
-    if(bestLaneOffset<0) {
-        myChangeProbability += 1. / (tdist / rv);
-    }
-    */
+    SUMOReal tdist = currentDist-myVehicle.getPositionOnLane() - best.occupation * (SUMOReal) JAM_FACTOR2;
         myBlockingLeader = 0;
         myBlockingFollower = 0;
     if (fabs(best.length-curr.length)>MIN2((SUMOReal) .1, best.lane->getLength()) && bestLaneOffset<0&&currentDistDisallows(tdist/*currentDist*/, bestLaneOffset, rv)) {
@@ -213,12 +203,6 @@ MSLCM_DK2004::wantsChangeToRight(MSAbstractLaneChangeModel::MSLCMessager &msgPas
     if (bestLaneOffset==0&&preb[currIdx-1].bestLaneOffset!=0&&myVehicle.getLane().getMaxSpeed()>80./3.6) {
         return ret;
     }
-
-    /*
-        if(bestLaneOffset==0&&(neighDist==0||curr.occupied*JAM_FACTOR>=neighExtDist-curr.length)) {
-            return ret;
-        }
-        */
     // --------
 
     // -------- make place on current lane if blocking follower
@@ -314,11 +298,6 @@ MSLCM_DK2004::wantsChangeToLeft(MSAbstractLaneChangeModel::MSLCMessager &msgPass
                                 const std::pair<MSVehicle*, SUMOReal> &neighFollow,
                                 const MSLane &neighLane,
                                 const std::vector<MSVehicle::LaneQ> &preb,
-                                /*
-                                int bestLaneOffset, SUMOReal bestDist,
-                                SUMOReal neighDist,
-                                SUMOReal currentDist,
-                                */
                                 MSVehicle **lastBlocked) {
 #ifdef DEBUG_VEHICLE_GUI_SELECTION
     if (gSelected.isSelected(GLO_VEHICLE, static_cast<const GUIVehicle*>(&myVehicle)->getGlID())) {
@@ -398,12 +377,7 @@ MSLCM_DK2004::wantsChangeToLeft(MSAbstractLaneChangeModel::MSLCMessager &msgPass
     lv += myVehicle.getVehicleType().getLength() * (SUMOReal) 2.;
 
 
-    SUMOReal tdist = currentDist/*best.lane->getLength()*/-myVehicle.getPositionOnLane() - best.occupation * (SUMOReal) JAM_FACTOR2;
-    /*
-    if(bestLaneOffset>0) {
-        myChangeProbability -= 1. / (tdist / lv);
-    }
-    */
+    SUMOReal tdist = currentDist-myVehicle.getPositionOnLane() - best.occupation * (SUMOReal) JAM_FACTOR2;
         myBlockingLeader = 0;
         myBlockingFollower = 0;
     if (fabs(best.length-curr.length)>MIN2((SUMOReal) .1, best.lane->getLength()) && bestLaneOffset>0
@@ -646,11 +620,6 @@ MSLCM_DK2004::informBlocker(MSAbstractLaneChangeModel::MSLCMessager &msgPass,
                             int dir,
                             const std::pair<MSVehicle*, SUMOReal> &neighLead,
                             const std::pair<MSVehicle*, SUMOReal> &neighFollow) {
-    /*
-    if(gSelected.isSelected(GLO_VEHICLE, static_cast<GUIVehicle&>(myVehicle).getGlID())) {
-        int blb = 0;
-    }
-    */
     if ((blocked&LCA_BLOCKEDBY_FOLLOWER)!=0) {
         assert(neighFollow.first!=0);
         MSVehicle *nv = neighFollow.first;
