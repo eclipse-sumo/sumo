@@ -1,6 +1,9 @@
 # DUA iteration tests
 dua-iterate
 
+# test the coupling between Sumo and  Cadyts
+calibration
+
 # DUA cost function tests
 costFunctionChecker
 
@@ -15,4 +18,3 @@ Assignment
 
 # Networkstatistics test
 networkStatistics
-

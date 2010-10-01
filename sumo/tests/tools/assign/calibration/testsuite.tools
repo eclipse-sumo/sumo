@@ -1,0 +1,11 @@
+# only the route choices are calibrated.
+fixed_demand
+
+# Both route choices and demand are calibrated.
+demand_adjustment
+
+# calibration with point2point data
+p2p_simple
+
+# calibrate with point2point data and demand adjustment
+p2p_demand_adjustment

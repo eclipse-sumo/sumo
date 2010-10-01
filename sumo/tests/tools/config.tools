@@ -16,6 +16,12 @@ copy_test_path:tripinfos.xml
 copy_test_path:map.txt
 copy_test_path:routes.rou.xml
 copy_test_path:tripinfos.sumo
+copy_test_path:input_measurements.xml
+copy_test_path:input_nanonet.net.xml
+copy_test_path:od1000.rou.alt.xml
+copy_test_path:od1450.rou.alt.xml
+copy_test_path:input_measurementsp2p.xml
+copy_test_path:input_od1000.trips.xml
 
 [collate_file]
 detectors:e2.add.xml
