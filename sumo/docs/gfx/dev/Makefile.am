@@ -1,1 +1,0 @@
-EXTRA_DIST = DetectorCollaboration.png mainflow.gif MainFlowofCommandLineApplications.gif OptionsParsing.gif SUMOLoading.gif SUMOpackagehierarchy.gif
