@@ -55,8 +55,8 @@ def printStatus(makeLog, makeAllLog, textTestTmp, smtpServer, out):
     print >> out, "--"
     
     if failed:
-        fromAddr = "michael.behrisch@dlr.de"
-        toAddr = "michael.behrisch@dlr.de,daniel.krajzewicz@dlr.de,laura.bieker@dlr.de"
+        fromAddr = "sumo-tests@dlr.de"
+        toAddr = "sumo-tests@dlr.de"
         message = """From: "%s" <%s>
 To: %s
 Subject: Error occurred while building
