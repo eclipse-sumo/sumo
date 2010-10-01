@@ -51,7 +51,7 @@ public:
     /// Initialises the given options container with random number options
     static void insertRandOptions();
 
-    /// Reads the given random number options and initialises the random number geerator in accordance
+    /// Reads the given random number options and initialises the random number generator in accordance
     static void initRandGlobal();
 
     /// Returns a random real number in [0, 1)
