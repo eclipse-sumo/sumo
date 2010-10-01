@@ -609,7 +609,7 @@ public:
     MSAbstractLaneChangeModel &getLaneChangeModel();
     const MSAbstractLaneChangeModel &getLaneChangeModel() const;
 
-    /// @name stretegical/tactical lane choosing methods
+    /// @name strategical/tactical lane choosing methods
     /// @{
 
     /** @struct LaneQ
@@ -620,6 +620,8 @@ public:
         MSLane *lane;
         /// @brief The overall length which may be driven when using this lane without a lane change
         SUMOReal length;
+        /// @brief The overall vehicle sum on consecutive lanes which can be passed without a lane change
+        SUMOReal occupation;
         /// @brief As occupation, but without the first lane
         SUMOReal nextOccupation;
         /// @brief The (signed) number of lanes to be crossed to get to the lane which allows to continue the drive
