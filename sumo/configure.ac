@@ -466,14 +466,6 @@ src/utils/iodevices/Makefile
 src/utils/options/Makefile
 src/utils/shapes/Makefile
 src/utils/xml/Makefile
-docs/Makefile
-docs/docbook/Makefile
-docs/docbook/xslt/Makefile
-docs/docbook/xslt/sumo_html/Makefile
-docs/docbook/gfx/Makefile
-docs/docbook/gfx/dev/Makefile
-docs/docbook/gfx/more/Makefile
-docs/docbook/gfx/user/Makefile
 unittest/Makefile
 unittest/src/Makefile
 unittest/src/microsim/Makefile
