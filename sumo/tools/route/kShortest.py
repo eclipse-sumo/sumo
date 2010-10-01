@@ -123,6 +123,7 @@ class Net:
             weight="length"
         print "<routes>"
         for lastVertex in self._vertices:
+            routes = []
             for num, startPred in enumerate(lastVertex.preds):
                 vertex = lastVertex  
                 pred = startPred
@@ -138,9 +139,11 @@ class Net:
                     vertex = pred.edge.source
                     pred = pred.pred
                 if lastEdge != firstEdge:
-                    print '    <route id="route%s_%s_%s" %s="%s" edges="%s"/>'\
-                          % (num, firstEdge.label, lastEdge.label,
-                             weight, startPred.distance, route[:-1])
+                    routes.append((startPred.distance, '%s_%s" %s="%s" edges="%s"/>'\
+                               % (firstEdge.label, lastEdge.label,
+                             weight, startPred.distance, route[:-1])))
+            for num, route in enumerate(sorted(routes)):
+                print '    <route id="route%s_%s' % (num, route[1])
             print
         print "</routes>"
 
