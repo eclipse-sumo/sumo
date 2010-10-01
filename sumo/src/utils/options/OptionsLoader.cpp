@@ -58,13 +58,12 @@ void OptionsLoader::startElement(const XMLCh* const name,
                                  AttributeList& attributes) {
     myItem = TplConvert<XMLCh>::_2str(name);
     for (int i = 0; i < (int) attributes.getLength(); i++) {
-        std::string name = TplConvert<XMLCh>::_2str(attributes.getName(i));
+        std::string key = TplConvert<XMLCh>::_2str(attributes.getName(i));
         std::string value = TplConvert<XMLCh>::_2str(attributes.getValue(i));
-        if (myOptions.exists(myItem) && (name == "value" || name == "v")) {
-            setValue(myItem, value);
-        } else {
-            setValue(name, value);
+        if (key == "value" || key == "v") {
+            key = myItem;
         }
+        setValue(key, value);
     }
     myValue = "";
 }

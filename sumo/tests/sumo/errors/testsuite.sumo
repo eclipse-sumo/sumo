@@ -1,6 +1,9 @@
 # Tests what happens if an unknown option is passed
 unknown_option
 
+# Tests what happens if an unknown option is passed via config
+unknown_config_option
+
 # Tests what happens the first parameter is missing
 missing_first_param
 
@@ -12,6 +15,3 @@ duplicates
 
 # Tests with broken traffic lights
 traffic_lights
-
-
-
