@@ -728,21 +728,18 @@ MSVehicle::processNextStop(SUMOReal currentVelocity) throw() {
         }
     } else {
         // is the next stop on the current lane?
-        if (myStops.begin()->edge==myCurrEdge && myStops.begin()->lane==myLane) {
+        if (myStops.begin()->edge==myCurrEdge) {
             Stop &bstop = myStops.front();
             // get the stopping position
             SUMOReal endPos = bstop.endPos;
-//			SUMOReal offset = 0.1;
             bool busStopsMustHaveSpace = true;
             if (bstop.busstop!=0) {
                 // on bus stops, we have to wait for free place if they are in use...
-//				offset = BUS_STOP_OFFSET;
                 endPos = bstop.busstop->getLastFreePos();
                 if (endPos-5.<bstop.busstop->getBeginLanePosition()) { // !!! explicite offset
                     busStopsMustHaveSpace = false;
                 }
             }
-//            if (myState.pos()>=endPos-offset&&busStopsMustHaveSpace) {
             if (myState.pos()>=endPos-BUS_STOP_OFFSET&&busStopsMustHaveSpace) {
                 // ok, we may stop (have reached the stop)
                 if (MSNet::getInstance()->getPersonControl().checkWaiting(&myLane->getEdge(), this) && bstop.triggered) {
@@ -838,8 +835,12 @@ MSVehicle::moveRegardingCritical(SUMOTime t, const MSLane* const lane,
         cfModel.leftVehicleVsafe(this, neigh, vWish);
         // check whether the vehicle wants to stop somewhere
         if (!myStops.empty()&& &myStops.begin()->lane->getEdge()==&lane->getEdge()) {
+			const Stop &stop = *myStops.begin();
+			SUMOReal stopPos = stop.busstop==0
+				? stop.endPos
+				: stop.busstop->getLastFreePos()-POSITION_EPS;
             SUMOReal seen = lane->getLength() - myState.pos();
-            SUMOReal vsafeStop = cfModel.ffeS(this, seen-(lane->getLength()-myStops.begin()->endPos));
+            SUMOReal vsafeStop = cfModel.ffeS(this, seen-(lane->getLength()-stopPos));
             vWish = MIN2(vWish, vsafeStop);
         }
         vWish = MAX2((SUMOReal) 0, vWish);
@@ -1285,7 +1286,10 @@ MSVehicle::vsafeCriticalCont(SUMOTime t, SUMOReal boundVSafe, SUMOReal lengthsIn
         bool setRequest = false;
         // process stops
         if (!myStops.empty()&& &myStops.begin()->lane->getEdge()==&nextLane->getEdge()) {
-            SUMOReal vsafeStop = cfModel.ffeS(this, seen+myStops.begin()->endPos);
+			const Stop &stop = *myStops.begin();
+			SUMOReal vsafeStop = stop.busstop==0
+				? cfModel.ffeS(this, seen+stop.endPos)
+				: cfModel.ffeS(this, seen+stop.busstop->getLastFreePos()-POSITION_EPS);
             vLinkPass = MIN2(vLinkPass, vsafeStop);
             vLinkWait = MIN2(vLinkWait, vsafeStop);
         }
@@ -1573,11 +1577,7 @@ MSVehicle::getBestLanes(bool forceRebuild, MSLane *startLane) const throw() {
         const Stop &nextStop = myStops.front();
         nextStopLane = nextStop.lane;
         nextStopEdge = &nextStopLane->getEdge();
-        nextStopPos = nextStop.endPos;
-        if (nextStop.busstop!=0) {
-		    // on bus stops, we have to wait for free place if they are in use...
-			nextStopPos = nextStop.busstop->getLastFreePos();
-        }
+		nextStopPos = nextStop.startPos;
     }
 
 	// go forward along the next lanes; 
