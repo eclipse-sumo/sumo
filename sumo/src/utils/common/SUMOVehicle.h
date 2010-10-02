@@ -117,8 +117,6 @@ public:
 
     virtual SUMOReal getPreDawdleAcceleration() const throw() = 0;
 
-    virtual SUMOTime getLastGreenTime() const throw() = 0;
-
     virtual void quitRemindedEntered(MSVehicleQuitReminded *r) = 0;
 
     virtual void quitRemindedLeft(MSVehicleQuitReminded *r) = 0;

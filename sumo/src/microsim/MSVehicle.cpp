@@ -207,8 +207,7 @@ MSVehicle::MSVehicle(SUMOVehicleParameter* pars,
         myArrivalPos(pars->arrivalPos),
         myPreDawdleAcceleration(0),
         myEdgeWeights(0),
-		mySignals(0),
-        myLastGreenTime(86400*1000)
+		mySignals(0)
 #ifndef NO_TRACI
         ,adaptingSpeed(false),
         isLastAdaption(false),
@@ -907,9 +906,6 @@ MSVehicle::moveFirstChecked() {
         // the vehicle must change the lane on one of the next lanes
         if (link!=0&&(*i).mySetRequest) {
             const MSLink::LinkState ls = link->getState();
-			if(ls==MSLink::LINKSTATE_TL_RED) {
-				myLastGreenTime = 86400 * 1000;
-			}
             // vehicles should brake when running onto a yellow light if the distance allows to halt in front
             const bool yellow = ls==MSLink::LINKSTATE_TL_YELLOW_MAJOR||ls==MSLink::LINKSTATE_TL_YELLOW_MINOR;
             if (yellow&&(*i).myDistance>getCarFollowModel().getSpeedAfterMaxDecel(myState.mySpeed)) {
@@ -931,9 +927,6 @@ MSVehicle::moveFirstChecked() {
             if (opened) {
                 vSafe = (*i).myVLinkPass;
                 lastWasGreenCont = link->isCont()&&(ls==MSLink::LINKSTATE_TL_GREEN_MAJOR);
-	            if(ls==MSLink::LINKSTATE_TL_GREEN_MAJOR||ls==MSLink::LINKSTATE_TL_GREEN_MINOR||ls==MSLink::LINKSTATE_TL_YELLOW_MAJOR||ls==MSLink::LINKSTATE_TL_YELLOW_MINOR) {
-		            myLastGreenTime = link->getSwitchToGreenTime();
-			    }
             } else {
 	            lastWasGreenCont = false;
                 vSafe = (*i).myVLinkWait;
@@ -941,9 +934,6 @@ MSVehicle::moveFirstChecked() {
                 break;
             }
         } else {
-			if(link!=0&&link->getState()==MSLink::LINKSTATE_TL_RED) {
-				myLastGreenTime = 86400 * 1000;
-			}
             vSafe = (*i).myVLinkWait;
             braking = true;
             break;

@@ -52,7 +52,7 @@ MSLink::MSLink(MSLane* succLane,
         :
         myLane(succLane),
         myRequestIdx(0), myRespondIdx(0),
-        myState(state), myDirection(dir),  myLength(length), myLastSwitchGreenTime(SUMOTime_MAX) {}
+        myState(state), myDirection(dir),  myLength(length) {}
 #else
 MSLink::MSLink(MSLane* succLane, MSLane *via, 
                LinkDirection dir, LinkState state, bool internalEnd,
@@ -61,7 +61,7 @@ MSLink::MSLink(MSLane* succLane, MSLane *via,
         myLane(succLane),
         myRequestIdx(0), myRespondIdx(0),
         myState(state), myDirection(dir), myLength(length),
-        myJunctionInlane(via),myIsInternalEnd(internalEnd), myLastSwitchGreenTime(SUMOTime_MAX) {}
+        myJunctionInlane(via),myIsInternalEnd(internalEnd) {}
 #endif
 
 
@@ -151,14 +151,6 @@ MSLink::opened(SUMOTime arrivalTime, SUMOReal arrivalSpeed, SUMOReal vehicleLeng
             return false;
         }
     }
-
-    if(myLastSwitchGreenTime>=0) {
-        for (std::set<MSLink*>::const_iterator i=myBlockedFoeLinks.begin(); i!=myBlockedFoeLinks.end(); ++i) {
-            if ((*i)->getState()!=LINKSTATE_TL_RED&&(*i)->hasEarlierGreenVehicle(myLastSwitchGreenTime)) {
-                return false;
-            }
-        } 
-    }
     return true;
 }
 
@@ -171,20 +163,6 @@ MSLink::blockedAtTime(SUMOTime arrivalTime, SUMOTime leaveTime) const throw() {
         }
         if (!(((*i).leavingTime+myLookaheadTime < arrivalTime) || ((*i).arrivalTime-myLookaheadTime > leaveTime))) {
             return true;
-        }
-    }
-    return false;
-}
-
-
-bool 
-MSLink::hasEarlierGreenVehicle(SUMOTime otherGreenTime) const throw()
-{
-    if (myState==MSLink::LINKSTATE_TL_GREEN_MAJOR || myState==MSLink::LINKSTATE_TL_GREEN_MINOR) {
-        for (LinkApproachingVehicles::const_iterator i=myApproachingVehicles.begin(); i!=myApproachingVehicles.end(); ++i) {
-            if (i->willPass && i->vehicle->getLastGreenTime() <= otherGreenTime) {
-                return true;
-            }
         }
     }
     return false;
@@ -215,11 +193,6 @@ MSLink::getDirection() const throw() {
 
 void
 MSLink::setTLState(LinkState state, SUMOTime t) throw() {
-    if(state==LINKSTATE_TL_GREEN_MAJOR||state==LINKSTATE_TL_GREEN_MINOR) {
-        if(myState!=LINKSTATE_TL_GREEN_MAJOR&&myState!=LINKSTATE_TL_GREEN_MINOR) {
-            myLastSwitchGreenTime = t;
-        }
-    }
     myState = state;
 }
 

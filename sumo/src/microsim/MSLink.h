@@ -196,11 +196,7 @@ public:
     }
 
     bool willHaveBlockedFoe() const throw();
-    SUMOTime getSwitchToGreenTime() const throw() {
-        return myLastSwitchGreenTime;
-    }
 
-    bool hasEarlierGreenVehicle(SUMOTime otherGreenTime) const throw();
 
 
     /** @brief Returns the information whether a vehicle is approaching on one of the link's foe streams
@@ -336,8 +332,6 @@ private:
     bool myIsCrossing;
 
     bool myAmCont;
-
-    SUMOTime myLastSwitchGreenTime;
 
 #ifdef HAVE_INTERNAL_LANES
     /// @brief The following junction-internal lane if used
