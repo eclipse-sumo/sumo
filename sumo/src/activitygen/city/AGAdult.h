@@ -78,7 +78,6 @@ public:
 	 *
 	 * The new state (employed or unemployed) is chosen independently from the
 	 * previous state. If the adult was employed, her previous job is given up.
-	 * @TODO is that as intended?
 	 *
 	 * @param[in]: employmentRate (1 - unemploymentRate)
 	 * @param[in]: wps the list of work positions (open or not) in the city
@@ -88,19 +87,17 @@ public:
 	/** @brief Called when the adult has lost her job.
 	 *
 	 * This method is called from AGWorkPosition, whenever the adult lost
-	 * her job, be it because it got fired or because its ?? has been accepted.
-	 *
-	 * @TODO What is "kuendigen"?
+	 * her job, be it because it got fired or because its resignation has
+	 * been accepted.
 	 */
 	void lostWorkPosition() throw();
 
-	/**
-	 * when the adult gives up with his job, this function is used
-	 * (not the previous one)
+	/** @brief Called when the adult should resign her job.
 	 *
-	 * @TODO What is "kuendigen"?
+	 * This method asks the WorkPosition to quit the job. The WorkPosition in
+	 * turn calls AGAdult::lostWorkPosition.
 	 */
-	void quiteHisJob() throw();
+	void resignFromWorkPosition() throw();
 
 	/** @brief Provides the work position of the adult.
 	 *

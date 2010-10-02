@@ -239,9 +239,6 @@ AGActivityGenHandler::parseSchool(const SUMOSAXAttributes &attrs)
 	int endAge = attrs.getInt(AGEN_ATTR_ENDAGE);
 	AGSchool sch(attrs.getInt(AGEN_ATTR_CAPACITY), posi, beginAge, endAge, attrs.getInt(AGEN_ATTR_OPENING), attrs.getInt(AGEN_ATTR_CLOSING));
 	myCity.schools.push_back(sch);
-	//myCity.statData.schoolCapacity[type] += attrs.getInt(AGEN_ATTR_CAPACITY);
-	//TODO rajouter le comptage des ecoles en fonction l'age
-	//std::cout << "capacity: " << myCity.statData.schoolCapacity[type] << std::endl;
 }
 
 void

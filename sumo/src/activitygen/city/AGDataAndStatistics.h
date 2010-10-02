@@ -105,7 +105,6 @@ public:
 	//int oldPeopleNbr;
 	int AdultNbr;
 	int householdsNbr;
-	int workingPeople;
 	//households far from public transports
 	int hhFarFromPT;
 

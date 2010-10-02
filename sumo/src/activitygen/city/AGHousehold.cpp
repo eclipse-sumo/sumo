@@ -156,7 +156,7 @@ AGHousehold::regenerate()
 	for(itA=adults.begin() ; itA!=adults.end() ; ++itA)
 	{
 		if(itA->isWorking())
-			itA->quiteHisJob();
+			itA->resignFromWorkPosition();
 
 		if (myCity->statData.workPositions > 0){
 			itA->tryToWork(1-myCity->statData.unemployement, &(myCity->workPositions));
@@ -193,8 +193,6 @@ AGHousehold::allocateAdultsWork()
 
 		} else {
 			it->tryToWork(1-myCity->statData.unemployement, &(myCity->workPositions));
-			// TODO: workingPeople is used inconsistently!
-			myCity->statData.workingPeople++;
 		}
 	}
 	return true;

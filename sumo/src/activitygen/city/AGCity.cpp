@@ -288,9 +288,6 @@ AGCity::schoolAllocation()
 void
 AGCity::workAllocation()
 {
-	//tests
-	//cout << "beginning work" << endl;
-	statData.workingPeople = 0;
 	statData.AdultNbr = 0;
 	//end tests
 	/**

@@ -118,7 +118,7 @@ AGAdult::lostWorkPosition() throw()
 /****************************************************************************/
 
 void
-AGAdult::quiteHisJob() throw()
+AGAdult::resignFromWorkPosition() throw()
 {
 	if(work != 0)
 		work->let();
