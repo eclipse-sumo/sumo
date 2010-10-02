@@ -320,7 +320,7 @@ NIImporter_VISUM::parse_Edges() {
     // get the type
     std::string type = myLineParser.know("Typ") ? myLineParser.get("Typ") : myLineParser.get("TypNr");
     // get the speed
-    SUMOReal speed = myNetBuilder.getTypeCont().getSpeed(type);;
+    SUMOReal speed = myNetBuilder.getTypeCont().getSpeed(type);
     if (!OptionsCont::getOptions().getBool("visum.use-type-speed")) {
         try {
             speed = myLineParser.know("v0-IV")

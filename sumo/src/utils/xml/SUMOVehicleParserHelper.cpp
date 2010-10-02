@@ -228,7 +228,7 @@ SUMOVehicleParserHelper::parseCommonAttributes(const SUMOSAXAttributes &attrs,
             ret->departLaneProcedure = DEPART_LANE_FREE;
         } else {
             try {
-                ret->departLane = TplConvert<char>::_2int(helper.c_str());;
+                ret->departLane = TplConvert<char>::_2int(helper.c_str());
                 ret->departLaneProcedure = DEPART_LANE_GIVEN;
                 if (ret->departLane < 0) {
                     throw ProcessError("Invalid departlane definition for " + element + " '" + ret->id + "'");
@@ -291,7 +291,7 @@ SUMOVehicleParserHelper::parseCommonAttributes(const SUMOSAXAttributes &attrs,
             ret->arrivalLaneProcedure = ARRIVAL_LANE_CURRENT;
         } else {
             try {
-                ret->arrivalLane = TplConvert<char>::_2int(helper.c_str());;
+                ret->arrivalLane = TplConvert<char>::_2int(helper.c_str());
                 ret->arrivalLaneProcedure = ARRIVAL_LANE_GIVEN;
             } catch (NumberFormatException &) {
                 throw ProcessError("Invalid arrivallane definition for " + element + " '" + ret->id + "'");

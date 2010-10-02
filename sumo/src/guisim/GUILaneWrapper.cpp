@@ -228,7 +228,7 @@ ROWdrawAction_drawLinkRules(const GUINet &net, const GUILaneWrapper &lane,
     glRotated(rot, 0, 0, 1);
     for (unsigned int i=0; i<noLinks; ++i) {
         SUMOReal x2 = x1 + w;
-        MSLink::LinkState state = lane.getLane().getLinkCont()[i]->getState();;
+        MSLink::LinkState state = lane.getLane().getLinkCont()[i]->getState();
         if (showToolTips) {
             switch (state) {
             case MSLink::LINKSTATE_TL_GREEN_MAJOR:
