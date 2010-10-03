@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+# -*- coding: utf-8 -*-
 """
 @file    createNet.py
 @author  Michael.Behrisch@dlr.de
@@ -97,9 +98,9 @@ for row in range(DOUBLE_ROWS):
     </vehicle>""" % (vSlot, vSlot, vSlot)
         else:
             print >> routes, """\
-    <vehicle id="p%sr" type="person" depart="0" period="1" repno="%s" arrivalpos="10000">
+    <flow id="p%sr" type="person" begin="0" period="1" repno="%s" arrivalpos="10000">
         <route edges="%sr -%sr"/>
-    </vehicle>""" % (slotID, CAR_CAPACITY-1, slotID, slotID)
+    </flow>""" % (slotID, CAR_CAPACITY, slotID, slotID)
         if random.uniform(0,1) < OCCUPATION_PROBABILITY:
             occupied += 1
             print >> routes, """\
@@ -108,9 +109,9 @@ for row in range(DOUBLE_ROWS):
     </vehicle>""" % (vSlot, vSlot, vSlot)
         else:
             print >> routes, """\
-    <vehicle id="p%sl" type="person" depart="0" period="1" repno="%s" arrivalpos="10000">
+    <flow id="p%sl" type="person" begin="0" period="1" repno="%s" arrivalpos="10000">
         <route edges="%sl -%sl"/>
-    </vehicle>""" % (slotID, CAR_CAPACITY-1, slotID, slotID)
+    </flow>""" % (slotID, CAR_CAPACITY, slotID, slotID)
 x = DOUBLE_ROWS * ROW_DIST + ROW_DIST/2
 print >> nodes, '<node id="foot%s" x="%s" y="%s"/>' % (DOUBLE_ROWS, x, y) 
 edgeID = "footmain%sto%s" % (DOUBLE_ROWS-1, DOUBLE_ROWS)
@@ -154,18 +155,18 @@ connections.close()
 os.system("%s -n %s.nod.xml -e %s.edg.xml -x %s.con.xml -o %s.net.xml" % (NETCONVERT, PREFIX, PREFIX, PREFIX, PREFIX))
 
 numBusses = TOTAL_CAPACITY / BUS_CAPACITY
-print >> routes, """    <vehicle id="b" type="cybercar" depart="0" period="100" repno="%s" arrivalpos="10000">
+print >> routes, """    <flow id="b" type="cybercar" begin="0" period="100" repno="%s" arrivalpos="10000">
         <route edges="cyberin"/>
-    </vehicle>
-</routes>""" % (numBusses - 1)
+    </flow>
+</routes>""" % numBusses
 routes.close()
 
 routes = open("%s_cyber.rou.xml" % PREFIX, "w")
 print >> routes, """<routes>
-    <vehicle id="c" type="cybercar" depart="50" period="100" repno="%s" arrivalpos="10000">
+    <flow id="c" type="cybercar" begin="50" period="100" repno="%s" arrivalpos="10000">
         <route edges="cyberin"/>
-    </vehicle>
-</routes>""" % (TOTAL_CAPACITY / CYBER_CAPACITY - numBusses - 1)
+    </flow>
+</routes>""" % (TOTAL_CAPACITY / CYBER_CAPACITY - numBusses)
 routes.close()
 
 stops = open("%s.add.xml" % PREFIX, "w")
@@ -173,10 +174,10 @@ print >> stops, "<additional>"
 for row in range(DOUBLE_ROWS):
     edgeID = "cyber%sto%s" % (row, row+1)
     print >> stops, '    <busStop id="%sstop" lane="%s_0"' % (edgeID, edgeID),
-    print >> stops, 'from="%s" to="%s"/>' % (STOP_POS-2*CYBER_LENGTH-1, STOP_POS) 
+    print >> stops, 'startPos="%s" endPos="%s"/>' % (STOP_POS-2*CYBER_LENGTH-1, STOP_POS)
 for edge in ["cyberin", "cyberout"]:
     print >> stops, '    <busStop id="%sstop" lane="%s_0"' % (edge, edge),
-    print >> stops, 'from="%s" to="%s"/>' % (90-2*CYBER_LENGTH-1, 90) 
+    print >> stops, 'startPos="%s" endPos="%s"/>' % (90-2*CYBER_LENGTH-1, 90)
 print >> stops, '    <meandata-edge id="dump" freq="3600" file="aggregated.xml" excludeEmpty="true" type="hbefa"/>' 
 print >> stops, "</additional>"
 stops.close()
@@ -188,13 +189,13 @@ for period in range(5, 50, 5):
     routes = open("%s_demand%02i.rou.xml" % (PREFIX, period), "w")
     print >> routes, "<routes>"
     if occupied < totalSlots:
-        print >> routes, """    <vehicle id="v" type="car" depart="10" period="%s" repno="%s" arrivalpos="10000">
+        print >> routes, """    <flow id="v" type="car" begin="10" period="%s" repno="%s" arrivalpos="10000">
             <route edges="mainin"/>
-        </vehicle>""" % (period, totalSlots-occupied-1)
+        </flow>""" % (period, totalSlots-occupied)
     if occupied > 0:
-        print >> routes, """    <vehicle id="p" type="person" depart="10" period="%s" repno="%s" arrivalpos="10000">
+        print >> routes, """    <flow id="p" type="person" begin="10" period="%s" repno="%s" arrivalpos="10000">
             <route edges="footfairin"/>
-        </vehicle>""" % (period, occupied*CAR_CAPACITY-1)
+        </flow>""" % (period, occupied*CAR_CAPACITY)
     print >> routes, "</routes>"
     routes.close()
 

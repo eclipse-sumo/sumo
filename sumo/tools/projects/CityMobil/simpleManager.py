@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+# -*- coding: utf-8 -*-
 """
 @file    simpleManager.py
 @author  Michael.Behrisch@dlr.de
@@ -10,7 +11,9 @@ Control the CityMobil parking lot with a simple first come first serve approach.
 Copyright (C) 2008 DLR/TS, Germany
 All rights reserved
 """
-import vehicleControl, statistics
+#import vehicleControl
+import vehicleControl_new as vehicleControl
+import statistics
 from constants import *
 
 class SimpleManager(vehicleControl.Manager):

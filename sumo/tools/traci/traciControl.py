@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+# -*- coding: utf-8 -*-
 """
 @file    traciControl.py
 @author  Michael.Behrisch@dlr.de, Lena Kalleske
@@ -169,11 +170,11 @@ def initTraCI(port, numRetries=10):
         except socket.error:
             time.sleep(wait)
 
-            
+
 def cmdSimulationStep(step, position=True):
     """
     Make simulation step and simulate up to "step" second in sim time.
-    If *position* is True, ten roadmap position coordinates (vehicle number,
+    If *position* is True, then roadmap position coordinates (vehicle number,
     edge number, distance from start) will be returned.
     If *position* is False - step is made and only empty list is returned.
     """
@@ -181,17 +182,43 @@ def cmdSimulationStep(step, position=True):
         return_type = tc.POSITION_ROADMAP
     else:
         return_type = tc.POSITION_NONE
-    
+
     _message.queue.append(tc.CMD_SIMSTEP)
     _message.string += struct.pack("!BBiB", 1+1+8+1, tc.CMD_SIMSTEP, step, return_type)
     result = _sendExact()
     updates = []
     while result.ready():
-        if result.read("!BB")[1] == tc.CMD_MOVENODE: 
+        if result.read("!BB")[1] == tc.CMD_MOVENODE:
             updates.append((result.read("!iiB")[0], result.readString(), result.read("!fB")[0]))
     return updates
 
+def cmdSimulationStep2(step):
+    """
+    Make simulation step and simulate up to "step" second in sim time.
+    """
+    _message.queue.append(tc.CMD_SIMSTEP2)
+    _message.string += struct.pack("!BBi", 1+1+8, tc.CMD_SIMSTEP2, step)
+    result = _sendExact()
+    subscriptions = []
+    while result.ready():
+        if result.read("!BB")[1] == tc.CMD_MOVENODE:
+            updates.append((result.read("!iiB")[0], result.readString(), result.read("!fB")[0]))
+    return updates
 
+def cmdSubscribeDomainVehicle_Position(position=True):
+    if position:
+        return_type = tc.POSITION_ROADMAP
+    else:
+        return_type = tc.POSITION_NONE
+
+    _message.queue.append(tc.CMD_SIMSTEP)
+    _message.string += struct.pack("!BBiB", 1+1+8+1, tc.CMD_SIMSTEP, step, return_type)
+    result = _sendExact()
+    updates = []
+    while result.ready():
+        if result.read("!BB")[1] == tc.CMD_MOVENODE:
+            updates.append((result.read("!iiB")[0], result.readString(), result.read("!fB")[0]))
+    return updates
 
 # ===================================================
 # induction loop interaction
