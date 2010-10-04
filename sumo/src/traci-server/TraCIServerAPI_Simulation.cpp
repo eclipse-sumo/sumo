@@ -139,6 +139,14 @@ TraCIServerAPI_Simulation::processGet(TraCIServer &server, tcpip::Storage &input
         tempMsg.writeStringList(ids);
     }
     break;
+    case VAR_DELTA_T:
+        tempMsg.writeUnsignedByte(TYPE_INTEGER);
+        tempMsg.writeInt(DELTA_T);
+        break;
+    case VAR_NET_BOUNDING_BOX: {
+        throw 1;
+                               }
+        break;
     default:
         break;
     }

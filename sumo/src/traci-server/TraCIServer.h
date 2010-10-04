@@ -349,6 +349,7 @@ private:
     float posXValue;
     float posYValue;
     float posZValue;
+    float boundingBox[4];
 
     int lastValueRead;
 
@@ -385,6 +386,12 @@ public:
             if (dataType != POSITION_2D) {
                 posZValue = msg.readFloat();
             }
+            break;
+        case TYPE_BOUNDINGBOX:
+            boundingBox[0] = msg.readFloat();
+            boundingBox[1] = msg.readFloat();
+            boundingBox[2] = msg.readFloat();
+            boundingBox[3] = msg.readFloat();
             break;
         case TYPE_STRING:
             stringValue = msg.readString();
@@ -438,6 +445,17 @@ public:
             return intValue;
         } else {
             throw TraCIException("A double value has not been read");
+        }
+    };
+
+    void getBoundingBox(float& x1, float& y1, float& x2, float& y2) throw(TraCIException) {
+        if (lastValueRead == TYPE_BOUNDINGBOX) {
+            x1 = boundingBox[0];
+            y1 = boundingBox[1];
+            x2 = boundingBox[2];
+            y2 = boundingBox[3];
+        } else {
+            throw TraCIException("A bounding box has not been read");
         }
     };
 
