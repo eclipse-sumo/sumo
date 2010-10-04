@@ -47,7 +47,7 @@ public:
     /// Transfers the content to lower case
     static std::string to_lower_case(std::string str);
 
-    /// Converts german "Umlate" to their latin-version
+    /// Converts german "Umlaute" to their latin-version
     static std::string convertUmlaute(std::string str);
 
     /** Replaces all occurences of the second string by the third
