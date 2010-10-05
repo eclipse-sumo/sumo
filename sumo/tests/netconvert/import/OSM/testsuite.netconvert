@@ -1,6 +1,5 @@
 # Area around the ITS in Berlin, Adlershof (13.52494,52.42582,13.53625,52.43026)
 adlershof_dlr
-
 eichstaett
 
 # In this scenario, two nodes with the same coordinates start the shape of an edge. The scenario also tests traffic signals and isolated roads.
@@ -11,3 +10,6 @@ osm_parser
 
 # Checks for false joining of two edges into one
 false_edge_join
+
+# OSM allows edges which are used by multiple modes at the same time (i.e. tram/cars). The imported edge should still be allowed for all listed modes
+multimodal_edge
