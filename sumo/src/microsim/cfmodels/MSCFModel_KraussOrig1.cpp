@@ -130,6 +130,11 @@ SUMOReal MSCFModel_KraussOrig1::_vsafe(SUMOReal gap, SUMOReal predSpeed) const t
 }
 
 
+MSCFModel *
+MSCFModel_KraussOrig1::duplicate(const MSVehicleType *vtype) const throw() {
+    return new MSCFModel_KraussOrig1(vtype, myAccel, myDecel, myDawdle, myTau);
+}
+
 
 //void MSCFModel::saveState(std::ostream &os) {}
 

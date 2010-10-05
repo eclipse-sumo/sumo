@@ -142,6 +142,21 @@ public:
     }
 
 
+    /** @brief Get the driver's imperfection
+     * @return The imperfection of drivers of this class
+     */
+    SUMOReal getImperfection() const throw() {
+        return myDawdle;
+    }
+
+
+    /** @brief Get the vehicle type's maximum acceleration [m/s^2]
+     * @return The maximum acceleration (in m/s^2) of vehicles of this class
+     */
+    SUMOReal getMaxAccel() const throw() {
+        return myAccel;
+    }
+
     /** @brief Get the driver's reaction time [s]
      * @return The reaction time of this class' drivers in s
      */
@@ -150,6 +165,53 @@ public:
     }
     /// @}
 
+
+
+    /// @name Setter methods
+    /// @{
+
+    /** @brief Sets a new value for maximum acceleration [m/s^2]
+     * @param[in] accel The new acceleration in m/s^2
+     */
+    void setMaxAccel(SUMOReal accel) throw() {
+        myAccel = accel;
+    }
+
+
+    /** @brief Sets a new value for maximum deceleration [m/s^2]
+     * @param[in] accel The new deceleration in m/s^2
+     */
+    void setMaxDecel(SUMOReal decel) throw() {
+        myDecel = decel;
+        myInverseTwoDecel = SUMOReal(1) / (SUMOReal(2) * decel);
+        myTauDecel = myInverseTwoDecel*myTau;
+    }
+
+
+    /** @brief Sets a new value for driver imperfection
+     * @param[in] accel The new driver imperfection
+     */
+    void setImperfection(SUMOReal imperfection) throw() {
+        myDawdle = imperfection;
+    }
+
+
+    /** @brief Sets a new value for driver reaction time [s]
+     * @param[in] accel The new driver reaction time (in s)
+     */
+    void setTau(SUMOReal tau) throw() {
+        myTau = tau;
+        myTauDecel = myInverseTwoDecel*myTau;
+    }
+    /// @}
+
+
+
+    /** @brief Duplicates the car-following model
+     * @param[in] vtype The vehicle type this model belongs to (1:1)
+     * @return A duplicate of this car-following model
+     */
+    MSCFModel *duplicate(const MSVehicleType *vtype) const throw();
 
 private:
     /** @brief Returns the "safe" velocity

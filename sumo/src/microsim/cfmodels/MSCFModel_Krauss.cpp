@@ -37,7 +37,7 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-MSCFModel_Krauss::MSCFModel_Krauss(const MSVehicleType* vtype,  SUMOReal accel, SUMOReal decel,
+MSCFModel_Krauss::MSCFModel_Krauss(const MSVehicleType* vtype, SUMOReal accel, SUMOReal decel,
                                    SUMOReal dawdle, SUMOReal tau) throw()
         : MSCFModel(vtype, decel), myAccel(accel), myDawdle(dawdle), myTau(tau), myTauDecel(decel*tau) {
 }
@@ -133,6 +133,11 @@ SUMOReal MSCFModel_Krauss::_vsafe(SUMOReal gap, SUMOReal predSpeed) const throw(
     return vsafe;
 }
 
+
+MSCFModel *
+MSCFModel_Krauss::duplicate(const MSVehicleType *vtype) const throw() {
+    return new MSCFModel_Krauss(vtype, myAccel, myDecel, myDawdle, myTau);
+}
 
 
 //void MSCFModel::saveState(std::ostream &os) {}

@@ -162,6 +162,30 @@ public:
     /// @name Virtual methods with default implementation
     /// @{
 
+    /** @brief Get the vehicle type's maximum acceleration [m/s^2]
+     * @return The maximum acceleration (in m/s^2) of vehicles of this class
+     */
+    virtual SUMOReal getMaxAccel() const throw() {
+        return -1;
+    }
+
+
+    /** @brief Get the vehicle type's maximum deceleration [m/s^2]
+     * @return The maximum deceleration (in m/s^2) of vehicles of this class
+     */
+    virtual SUMOReal getMaxDecel() const throw() {
+        return myDecel;
+    }
+
+
+    /** @brief Get the driver's imperfection
+     * @return The imperfection of drivers of this class
+     */
+    virtual SUMOReal getImperfection() const throw() {
+        return -1;
+    }
+
+
     /** @brief Get the driver's reaction time [s]
      * @return The reaction time of this class' drivers in s
      */
@@ -199,14 +223,6 @@ public:
     SUMOReal maxNextSpeed(SUMOReal speed) const throw();
 
 
-    /** @brief Get the vehicle's maximum deceleration [m/s^2]
-     * @return The maximum deceleration (in m/s^2) of vehicles of this class
-     */
-    SUMOReal getMaxDecel() const throw() {
-        return myDecel;
-    }
-
-
     /** @brief Returns the distance the vehicle needs to halt including driver's reaction time
      * @param[in] speed The vehicle's current speed
      * @return The distance needed to halt
@@ -231,6 +247,50 @@ public:
         return MAX2((SUMOReal) 0, v - (SUMOReal) ACCEL2SPEED(myDecel));
     }
     /// @}
+
+
+
+    /** @brief Duplicates the car-following model
+     * @param[in] vtype The vehicle type this model belongs to (1:1)
+     * @return A duplicate of this car-following model
+     */
+    virtual MSCFModel *duplicate(const MSVehicleType *vtype) const throw() = 0;
+
+
+
+    /// @name Setter methods
+    /// @{
+
+    /** @brief Sets a new value for maximum acceleration [m/s^2]
+     * @param[in] accel The new acceleration in m/s^2
+     */
+    virtual void setMaxAccel(SUMOReal accel) throw() {
+    }
+
+
+    /** @brief Sets a new value for maximum deceleration [m/s^2]
+     * @param[in] accel The new deceleration in m/s^2
+     */
+    virtual void setMaxDecel(SUMOReal decel) throw() {
+        myDecel = decel;
+        myInverseTwoDecel = SUMOReal(1) / (SUMOReal(2) * decel);
+    }
+
+
+    /** @brief Sets a new value for driver imperfection
+     * @param[in] accel The new driver imperfection
+     */
+    virtual void setImperfection(SUMOReal imperfection) throw() {
+    }
+
+
+    /** @brief Sets a new value for driver reaction time [s]
+     * @param[in] accel The new driver reaction time (in s)
+     */
+    virtual void setTau(SUMOReal tau) throw() {
+    }
+    /// @}
+
 
 
 protected:

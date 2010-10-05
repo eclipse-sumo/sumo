@@ -132,6 +132,11 @@ MSCFModel_PWag2009::_v(SUMOReal speed, SUMOReal gap, SUMOReal predSpeed, SUMORea
 }
 
 
+MSCFModel *
+MSCFModel_PWag2009::duplicate(const MSVehicleType *vtype) const throw() {
+    return new MSCFModel_PWag2009(vtype, myAccel, myDecel, myDawdle, myTau);
+}
+
 
 //void MSCFModel::saveState(std::ostream &os) {}
 

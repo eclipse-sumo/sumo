@@ -125,6 +125,12 @@ MSCFModel_Kerner::_v(SUMOReal speed, SUMOReal vfree, SUMOReal gap, SUMOReal pred
 }
 
 
+MSCFModel *
+MSCFModel_Kerner::duplicate(const MSVehicleType *vtype) const throw() {
+    return new MSCFModel_Kerner(vtype, myAccel, myDecel, myTau, myK, myPhi);
+}
+
+
 
 //void MSCFModel::saveState(std::ostream &os) {}
 

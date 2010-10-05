@@ -129,6 +129,11 @@ MSCFModel_IDM::_updateSpeed(SUMOReal gap2pred, SUMOReal mySpeed, SUMOReal predSp
 }
 
 
+MSCFModel *
+MSCFModel_IDM::duplicate(const MSVehicleType *vtype) const throw() {
+    return new MSCFModel_IDM(vtype, myAccel, myDecel, myTimeHeadWay, myMinSpace, myTau);
+}
+
 
 
 //void MSCFModel::saveState(std::ostream &os) {}

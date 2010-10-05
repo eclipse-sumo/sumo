@@ -142,6 +142,13 @@ public:
     }
 
 
+    /** @brief Get the vehicle type's maximum acceleration [m/s^2]
+     * @return The maximum acceleration (in m/s^2) of vehicles of this class
+     */
+    SUMOReal getMaxAccel() const throw() {
+        return myAccel;
+    }
+
     /** @brief Get the driver's reaction time [s]
      * @return The reaction time of this class' drivers in s
      */
@@ -149,6 +156,14 @@ public:
         return myTau;
     }
     /// @}
+
+
+
+    /** @brief Duplicates the car-following model
+     * @param[in] vtype The vehicle type this model belongs to (1:1)
+     * @return A duplicate of this car-following model
+     */
+    MSCFModel *duplicate(const MSVehicleType *vtype) const throw();
 
 
 private:
