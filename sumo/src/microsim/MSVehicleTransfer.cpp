@@ -51,22 +51,19 @@ MSVehicleTransfer *MSVehicleTransfer::myInstance = 0;
 // member method definitions
 // ===========================================================================
 void
-MSVehicleTransfer::addVeh(MSVehicle *veh) throw() {
+MSVehicleTransfer::addVeh(const SUMOTime t, MSVehicle *veh) throw() {
     // get the current edge of the vehicle
     MSEdge *e = MSEdge::dictionary(veh->getEdge()->getID());
     // let the vehicle be on the one
     veh->onRemovalFromNet(true);
-    if (!veh->hasSuccEdge(1)||veh->enterLaneAtMove(veh->succEdge(1)->getLanes()[0],0, true)) {
-        MSNet::getInstance()->getVehicleControl().scheduleVehicleRemoval(veh);
-        return;
+    if (!veh->isParking()) {
+        if (!veh->hasSuccEdge(1)||veh->enterLaneAtMove(veh->succEdge(1)->getLanes()[0],0, true)) {
+            MSNet::getInstance()->getVehicleControl().scheduleVehicleRemoval(veh);
+            return;
+        }
+        MSNet::getInstance()->informVehicleStateListener(veh, MSNet::VEHICLE_STATE_STARTING_TELEPORT);
     }
-    // mark the next one
-    myNoTransfered++;
-    // save information
-    SUMOTime ctime = MSNet::getInstance()->getCurrentTimeStep();
-    SUMOTime ntime = ctime + TIME2STEPS(e->getCurrentTravelTime());
-    myVehicles.push_back(VehicleInformation(veh, ctime, ntime));
-    MSNet::getInstance()->informVehicleStateListener(veh, MSNet::VEHICLE_STATE_STARTING_TELEPORT);
+    myVehicles.push_back(VehicleInformation(veh, t + TIME2STEPS(e->getCurrentTravelTime()), veh->isParking()));
 }
 
 
@@ -76,22 +73,25 @@ MSVehicleTransfer::checkEmissions(SUMOTime time) throw() {
     for (VehicleInfVector::iterator i=myVehicles.begin(); i!=myVehicles.end();) {
         // get the vehicle information
         VehicleInformation &desc = *i;
+        const MSEdge *nextEdge = desc.myVeh->succEdge(1);
+        if (desc.myParking) {
+            if (desc.myVeh->processNextStop(1) == 0) {
+                ++i;
+                continue;
+            }
+            nextEdge = 0;
+        }
         const MSEdge *e = desc.myVeh->getEdge();
         // get the lanes the vehicle may use
-        SUMOVehicleClass vclass = desc.myVeh->getVehicleType().getVehicleClass();
-        const MSEdge *nextEdge = desc.myVeh->succEdge(1);
-        const std::vector<MSLane*> *allowed = 0;
-        if(nextEdge!=0) {
-            allowed = e->allowedLanes(*nextEdge, vclass);
-        } else {
-            allowed = e->allowedLanes(vclass);
-        }
-        MSLane *l = e->getFreeLane(allowed, vclass);
+        const SUMOVehicleClass vclass = desc.myVeh->getVehicleType().getVehicleClass();
+        MSLane *l = e->getFreeLane(e->allowedLanes(*nextEdge, vclass), vclass);
         // check whether the vehicle may be emitted onto a following edge
         if (l->freeEmit(*(desc.myVeh), MIN2(l->getMaxSpeed(), desc.myVeh->getMaxSpeed()))) {
             // remove from this if so
-            WRITE_WARNING("Vehicle '" + desc.myVeh->getID()+ "' ends teleporting on edge '" + e->getID()+ "', simulation time " + time2string(MSNet::getInstance()->getCurrentTimeStep()) + ".");
-            MSNet::getInstance()->informVehicleStateListener(desc.myVeh, MSNet::VEHICLE_STATE_ENDING_TELEPORT);
+            if (!desc.myParking) {
+                WRITE_WARNING("Vehicle '" + desc.myVeh->getID()+ "' ends teleporting on edge '" + e->getID()+ "', simulation time " + time2string(MSNet::getInstance()->getCurrentTimeStep()) + ".");
+                MSNet::getInstance()->informVehicleStateListener(desc.myVeh, MSNet::VEHICLE_STATE_ENDING_TELEPORT);
+            }
             i = myVehicles.erase(i);
         } else {
             // otherwise, check whether a consecutive edge may be used
@@ -118,6 +118,12 @@ MSVehicleTransfer::checkEmissions(SUMOTime time) throw() {
 }
 
 
+bool
+MSVehicleTransfer::hasPending() const throw() {
+    return !myVehicles.empty();
+}
+
+
 MSVehicleTransfer *
 MSVehicleTransfer::getInstance() throw() {
     if (myInstance==0) {
@@ -127,8 +133,7 @@ MSVehicleTransfer::getInstance() throw() {
 }
 
 
-MSVehicleTransfer::MSVehicleTransfer() throw()
-        : myNoTransfered(0) {}
+MSVehicleTransfer::MSVehicleTransfer() throw() {}
 
 
 MSVehicleTransfer::~MSVehicleTransfer() throw() {

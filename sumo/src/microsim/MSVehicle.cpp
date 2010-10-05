@@ -689,8 +689,14 @@ MSVehicle::addStop(const SUMOVehicleParameter::Stop &stopPar, SUMOTime untilOffs
 
 
 bool
-MSVehicle::isStopped() {
+MSVehicle::isStopped() const {
     return !myStops.empty() && myStops.begin()->reached && myStops.begin()->duration>0;
+}
+
+
+bool
+MSVehicle::isParking() const {
+    return isStopped() && myStops.begin()->parking;
 }
 
 
@@ -702,7 +708,7 @@ MSVehicle::processNextStop(SUMOReal currentVelocity) throw() {
     }
     if (myStops.begin()->reached) {
         // ok, we have already reached the next stop
-        if (myStops.begin()->duration==0) {
+        if (myStops.begin()->duration<=0) {
             // ... and have waited as long as needed
             if (myStops.begin()->busstop!=0) {
                 // inform bus stop about leaving it

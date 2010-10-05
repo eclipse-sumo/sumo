@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+
+<!-- generated on 10/05/10 08:53:00 by SUMO sumo Version dev-SVN-r9178
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<configuration>
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <vehroute-output value="vehroutes.xml"/>
+    </output>
+
+    <report>
+        <no-duration-log value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+</configuration>
+-->
+
+<routes>
+    <vehicle id="veh1" depart="10.00" arrival="13.00">
+        <route edges="1to2 out"/>
+    </vehicle>
+
+    <vehicle id="veh0" depart="1.00" arrival="57.00">
+        <route edges="1to2 out"/>
+    </vehicle>
+
+</routes>

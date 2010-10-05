@@ -732,14 +732,19 @@ public:
     /** @brief Returns whether the vehicle has to stop somewhere
      * @return Whether the vehicle has to stop somewhere
      */
-    bool hasStops() {
+    bool hasStops() const {
         return !myStops.empty();
     }
 
     /** @brief Returns whether the vehicle is at a stop
      * @return Whether the has stopped
      */
-    bool isStopped();
+    bool isStopped() const;
+
+    /** @brief Returns whether the vehicle is parking
+     * @return whether the vehicle is parking
+     */
+    bool isParking() const;
     /// @}
 
     bool knowsEdgeTest(MSEdge &edge) const;

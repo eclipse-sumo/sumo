@@ -21,3 +21,6 @@ second_near_end2
 
 # stop on position 0 of a lane
 at_start
+
+# Tests whether parking can be handled
+parking

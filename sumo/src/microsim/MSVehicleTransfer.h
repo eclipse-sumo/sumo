@@ -70,18 +70,25 @@ public:
      *
      * @param[in] veh The vehicle to add
      */
-    void addVeh(MSVehicle *veh) throw();
+    void addVeh(const SUMOTime t, MSVehicle *veh) throw();
 
 
     /** @brief Checks "movement" of stored vehicles
      *
      * Checks whether one of the stored vehicles may be inserted back into
-     *  the network. If not, the vehicle may ove virtually to the next lane
+     *  the network. If not, the vehicle may move virtually to the next lane
      *  of it's route
      *
      * @param[in] time The current simulation time
      */
     void checkEmissions(SUMOTime time) throw();
+
+
+    /** @brief Checks whether stored vehicles are present
+     *
+     * @return whether any vehicles wait for transfer
+     */
+    bool hasPending() const throw();
 
 
     /** @brief Returns the instance of this object
@@ -103,18 +110,18 @@ protected:
     struct VehicleInformation {
         /// @brief The vehicle itself
         MSVehicle *myVeh;
-        /// @brief The time the vehicle was inserted at
-        SUMOTime myInsertTime;
         /// @brief The time at which the vehicle should be moved virtually one edge further
         SUMOTime myProceedTime;
+        /// @brief whether the vehicle is or was parking
+        bool myParking;
 
         /** @brief Constructor
          * @param[in] veh The teleported vehicle
          * @param[in] insertTime The time the vehicle was inserted at
          * @param[in] proceedTime The time at which the vehicle should be moved virtually one edge further
          */
-        VehicleInformation(MSVehicle *veh, SUMOTime insertTime, SUMOTime proceedTime) throw()
-                : myVeh(veh), myInsertTime(insertTime), myProceedTime(proceedTime) { }
+        VehicleInformation(MSVehicle *veh, SUMOTime proceedTime, bool parking) throw()
+            : myVeh(veh), myProceedTime(proceedTime), myParking(parking) { }
 
     };
 
@@ -124,9 +131,6 @@ protected:
 
     /// @brief The information about stored vehicles to move virtually
     VehicleInfVector myVehicles;
-
-    /// @brief A counter for vehicles that had to be moved virtually
-    unsigned int myNoTransfered;
 
     /// @brief The static singleton-instance
     static MSVehicleTransfer *myInstance;
