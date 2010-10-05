@@ -175,6 +175,7 @@ NIImporter_OpenStreetMap::loadNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
     tc.insert("highway.primary",       2, (SUMOReal)(100./3.6),  9);
     tc.insert("highway.primary_link",  1, (SUMOReal)(80. /3.6),  8);
     tc.insert("highway.secondary",     2, (SUMOReal)(100./3.6),  7);
+    tc.insert("highway.secondary_link",1, (SUMOReal)(80. /3.6),  6);
     tc.insert("highway.tertiary",      1, (SUMOReal)(80. /3.6),  6);
     tc.insert("highway.unclassified",  1, (SUMOReal)(80. /3.6),  5);
     tc.insert("highway.residential",   1, (SUMOReal)(50. /3.6),  4);  // actually, maybe one lane for parking would be nice...

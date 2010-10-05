@@ -4,7 +4,7 @@ Removing duplicate nodes...  done.
 Removing duplicate edges...  done.
  Import done:
    89 nodes loaded.
-   30 types loaded.
+   31 types loaded.
    205 edges loaded.
 Proj projection parameters used: '+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs'.
 Computing step 1: Removing dummy edges.
