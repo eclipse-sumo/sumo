@@ -91,7 +91,7 @@ TraCIServerAPI_VehicleType::processGet(TraCIServer &server, tcpip::Storage &inpu
             break;
         case VAR_ACCEL:
             tempMsg.writeUnsignedByte(TYPE_FLOAT);
-            tempMsg.writeFloat(v->getCarFollowModel().getMaxAccel(0));
+            tempMsg.writeFloat(v->getCarFollowModel().getMaxAccel());
             break;
         case VAR_DECEL:
             tempMsg.writeUnsignedByte(TYPE_FLOAT);

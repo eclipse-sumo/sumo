@@ -100,7 +100,8 @@ public:
 	/// @}
 
 
-
+private:
+    static MSVehicleType &getSingularType(MSVehicle * const veh) throw();
 
 private:
 	static std::set<MSVehicle*> myVehiclesToReroute;

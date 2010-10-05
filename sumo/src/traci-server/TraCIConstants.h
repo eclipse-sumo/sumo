@@ -499,9 +499,6 @@
 // speed (get: vehicle)
 #define VAR_SPEED 0x40
 
-// speed without TraCI influence (get: vehicle)
-#define VAR_SPEED_WITHOUT_TRACI 0x41
-
 // maximum allowed/possible speed (get: vehicle types, lanes, set: edges, lanes)
 #define VAR_MAXSPEED 0x41
 
@@ -585,6 +582,18 @@
 
 // new lane/position along (set: vehicle)
 #define VAR_MOVE_TO 0x5c
+
+// driver imperfection (set: vehicle)
+#define VAR_IMPERFECTION 0x5d
+
+// speed factor (set: vehicle)
+#define VAR_SPEED_FACTOR 0x5e
+
+// speed deviation (set: vehicle)
+#define VAR_SPEED_DEVIATION 0x5f
+
+// speed without TraCI influence (get: vehicle)
+#define VAR_SPEED_WITHOUT_TRACI 0xb1
 
 
 
