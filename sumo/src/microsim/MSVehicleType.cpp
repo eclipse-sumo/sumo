@@ -55,7 +55,7 @@ MSVehicleType::MSVehicleType(const std::string &id, SUMOReal length,
                              SUMOEmissionClass emissionClass,
                              SUMOVehicleShape shape,
                              SUMOReal guiWidth, SUMOReal guiOffset,
-                             int cfModel, const std::string &lcModel,
+                             const std::string &lcModel,
                              const RGBColor &c) throw()
         : myID(id), myLength(length), myMaxSpeed(maxSpeed),
         myDefaultProbability(prob), mySpeedFactor(speedFactor),
@@ -110,7 +110,7 @@ MSVehicleType::build(SUMOVTypeParameter &from) throw(ProcessError) {
     MSVehicleType *vtype = new MSVehicleType(
         from.id, from.length, from.maxSpeed,
         from.defaultProbability, from.speedFactor, from.speedDev, from.vehicleClass, from.emissionClass,
-        from.shape, from.width, from.offset, from.cfModel, from.lcModel, from.color);
+        from.shape, from.width, from.offset, from.lcModel, from.color);
     MSCFModel *model = 0;
     switch (from.cfModel) {
     case SUMO_TAG_CF_IDM:
@@ -153,6 +153,17 @@ MSVehicleType::build(SUMOVTypeParameter &from) throw(ProcessError) {
         break;
     }
     vtype->myCarFollowModel = model;
+    return vtype;
+}
+
+
+MSVehicleType *
+MSVehicleType::build(const std::string &id, const MSVehicleType &from) throw() {
+    MSVehicleType *vtype = new MSVehicleType(
+        id, from.myLength, from.myMaxSpeed,
+        from.myDefaultProbability, from.mySpeedFactor, from.mySpeedDev, from.myVehicleClass, from.myEmissionClass,
+        from.myShape, from.myWidth, from.myOffset, from.myLaneChangeModel, from.myColor);
+    vtype->myCarFollowModel = from.myCarFollowModel->duplicate(vtype);
     return vtype;
 }
 

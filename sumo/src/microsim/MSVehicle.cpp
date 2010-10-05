@@ -181,6 +181,10 @@ MSVehicle::~MSVehicle() throw() {
         }
     }
     myFurtherLanes.clear();
+    //
+    if(myType->getID()[0]=='@') {
+        delete myType;
+    }
 }
 
 
@@ -1965,6 +1969,15 @@ MSVehicle::setBlinkerInformation() throw() {
 }
 
 
+void 
+MSVehicle::replaceVehicleType(MSVehicleType *type) throw() {
+    if(myType->getID()[0]=='@') {
+        delete myType;
+    }
+    myType = type;
+}
+
+
 #ifndef NO_TRACI
 
 bool
@@ -1983,11 +1996,11 @@ MSVehicle::startSpeedAdaption(float newSpeed, SUMOTime duration, SUMOTime curren
 
 void
 MSVehicle::adaptSpeed() {
-    SUMOReal maxSpeed = 0;
-    SUMOTime currentTime = MSNet::getInstance()->getCurrentTimeStep();
     if (!adaptingSpeed) {
         return;
     }
+    SUMOReal maxSpeed = 0;
+    SUMOTime currentTime = MSNet::getInstance()->getCurrentTimeStep();
     if (isLastAdaption) {
         unsetIndividualMaxSpeed();
         adaptingSpeed = false;
@@ -1995,8 +2008,7 @@ MSVehicle::adaptSpeed() {
         return;
     }
     if (currentTime <= timeBeforeAdaption + adaptDuration) {
-        maxSpeed = speedBeforeAdaption - (speedReduction / adaptDuration)
-                   * (currentTime - timeBeforeAdaption);
+        maxSpeed = speedBeforeAdaption - (speedReduction / adaptDuration) * (currentTime - timeBeforeAdaption);
     } else {
         maxSpeed = speedBeforeAdaption - speedReduction;
         isLastAdaption = true;

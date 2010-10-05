@@ -675,6 +675,17 @@ public:
     }
 
 
+    /** @brief Replaces the current vehicle type by the one given
+     *
+     * If the currently used vehicle type is marked as being used by this vehicle
+     *  only, it is deleted, first. The new, given type is then assigned to 
+     *  "myType".
+     * @param[in] type The new vehicle type
+     * @see MSVehicle::myType
+     */
+    void replaceVehicleType(MSVehicleType *type) throw();
+
+
     /** @brief Returns the vehicle's car following model definition
      *
      * This is simply a wrapper around the vehicle type's car-following
@@ -1080,7 +1091,7 @@ protected:
 
     MSAbstractLaneChangeModel *myLaneChangeModel;
 
-    const MSVehicleType * const myType;
+    const MSVehicleType *myType;
 
     mutable const MSEdge *myLastBestLanesEdge;
     mutable std::vector<std::vector<LaneQ> > myBestLanes;

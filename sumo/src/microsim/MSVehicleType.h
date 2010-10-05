@@ -80,7 +80,6 @@ public:
      * @param[in] shape How vehicles of this class shall be drawn
      * @param[in] guiWidth The width of the vehicles when being drawn
      * @param[in] guiOffset The free space in front of the vehicles of this class
-     * @param[in] cfModel Enumeration of the car-following model to use
      * @param[in] lcModel Name of the lane-change model to use
      * @param[in] c Color of this vehicle type
      */
@@ -89,7 +88,7 @@ public:
                   SUMOReal speedDev, SUMOVehicleClass vclass,
                   SUMOEmissionClass emissionClass, SUMOVehicleShape shape,
                   SUMOReal guiWidth, SUMOReal guiOffset,
-                  int cfModel, const std::string &lcModel,
+                  const std::string &lcModel,
                   const RGBColor &c) throw();
 
 
@@ -117,10 +116,18 @@ public:
     }
 
 
-    /** @brief Returns the vehicle type's car following model definition
+    /** @brief Returns the vehicle type's car following model definition (const version)
      * @return The vehicle type's car following model definition
      */
     inline const MSCFModel &getCarFollowModel() const throw() {
+        return *myCarFollowModel;
+    }
+
+
+    /** @brief Returns the vehicle type's car following model definition (non-const version)
+     * @return The vehicle type's car following model definition
+     */
+    inline MSCFModel &getCarFollowModel() throw() {
         return *myCarFollowModel;
     }
 
@@ -186,6 +193,22 @@ public:
     const RGBColor &getColor() const throw() {
         return myColor;
     }
+
+
+    /** @brief Returns this type's speed factor
+     * @return The speed factor of this type
+     */
+    SUMOReal getSpeedFactor() const throw() {
+        return mySpeedFactor;
+    }
+
+
+    /** @brief Returns this type's speed deviation
+     * @return The speed deviation of this type
+     */
+    SUMOReal getSpeedDeviation() const throw() {
+        return mySpeedDev;
+    }
     /// @}
 
 
@@ -227,7 +250,7 @@ public:
 
 
 
-    /// @name Static methods for building vehicle types from descriptions
+    /// @name Static methods for building vehicle types
     /// @{
 
     /** @brief Builds the microsim vehicle type described by the given parameter
@@ -238,6 +261,14 @@ public:
     static MSVehicleType *build(SUMOVTypeParameter &from) throw(ProcessError);
 
 
+    /** @brief Duplicates the microsim vehicle type giving it a the given id
+     * @param[in] id The new id of the type
+     * @param[in] from The vehicle type 
+     * @return The built vehicle type
+     */
+    static MSVehicleType *build(const std::string &id, const MSVehicleType &from) throw();
+
+
     /** @brief Returns the named value from the map, or the default if it is ot contained there
      * @param[in] from The map to retrieve values from
      * @param[in] name The name of variable
@@ -246,6 +277,99 @@ public:
      */
     static SUMOReal get(const std::map<std::string, SUMOReal> &from, const std::string &name,
                         SUMOReal defaultValue) throw();
+    /// @}
+
+
+
+    /// @name Setter methods
+    /// @{
+
+    /** @brief Set a new value for this type's length
+     * @param[in] length The new length of this type
+     */
+    void setLength(const SUMOReal &length) throw() {
+        myLength = length;
+    }
+
+
+    /** @brief Set a new value for this type's maximum speed
+     * @param[in] maxSpeed The new maximum speed of this type
+     */
+    void setMaxSpeed(const SUMOReal &maxSpeed) throw() {
+        myMaxSpeed = maxSpeed;
+    }
+
+
+    /** @brief Set a new value for this type's vehicle class
+     * @param[in] vclass The new vehicle class of this type
+     */
+    void setVClass(SUMOVehicleClass vclass) throw() {
+        myVehicleClass = vclass;
+    }
+
+
+    /** @brief Set a new value for this type's default probability
+     * @param[in] prob The new default probability of this type
+     */
+    void setDefaultProbability(const SUMOReal &prob) throw() {
+        myDefaultProbability = prob;
+    }
+
+
+    /** @brief Set a new value for this type's speed factor
+     * @param[in] factor The new speed factor of this type
+     */
+    void setSpeedFactor(const SUMOReal &factor) throw() {
+        mySpeedFactor = factor;
+    }
+
+
+    /** @brief Set a new value for this type's speed deviation
+     * @param[in] dev The new speed deviation of this type
+     */
+    void setSpeedDeviation(const SUMOReal &dev) throw() {
+        mySpeedDev = dev;
+    }
+
+
+    /** @brief Set a new value for this type's emission class
+     * @param[in] eclass The new emission class of this type
+     */
+    void setEmissionClass(SUMOEmissionClass eclass) throw() {
+        myEmissionClass = eclass;
+    }
+
+
+    /** @brief Set a new value for this type's color
+     * @param[in] color The new color of this type
+     */
+    void setColor(const RGBColor &color) throw() {
+        myColor = color;
+    }
+
+
+    /** @brief Set a new value for this type's width
+     * @param[in] width The new width of this type
+     */
+    void setWidth(const SUMOReal &width) throw() {
+        myWidth = width;
+    }
+
+
+    /** @brief Set a new value for this type's gui offset
+     * @param[in] offset The new gui offset of this type
+     */
+    void setOffset(const SUMOReal &offset) throw() {
+        myOffset = offset;
+    }
+
+
+    /** @brief Set a new value for this type's shape
+     * @param[in] shape The new shape of this type
+     */
+    void setShape(SUMOVehicleShape shape) throw() {
+        myShape = shape;
+    }
     /// @}
 
 
