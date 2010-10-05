@@ -1,0 +1,5 @@
+simstep 5 1
+getvariable 0xa4 0x4a 0
+setvalue 0xc4 0x4a 0 <string> P_7_2
+getvariable 0xa4 0x4a 0
+simstep 6 1

@@ -43,3 +43,6 @@ rerouting
 zSimpleSetGet
 
 
+# further tests for changing vehicle type values
+VehicleTypeRelated
+

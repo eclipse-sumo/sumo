@@ -1,0 +1,45 @@
+TraCITestClient output file. Date: Tue Oct 05 15:25:57 2010
+
+
+-> Command sent: <SimulationStep>:
+  TargetTime=5.00 PosFormat=1
+.. Command acknowledged (1), [description: ]
+.. Received Response <MoveNode>:
+  nodeId=0 targetTime=5.00 2D-Position: x=1455.25 y=401.65
+
+-> Command sent: <GetVariable>:
+  domID=164 varID=74 objID=0
+.. Command acknowledged (164), [description: ]
+  CommandID=180  VariableID=74  ObjectID=0 valueDataType=12 string value: 
+
+-> Command sent: <GetVariable>:
+  domID=164 varID=73 objID=0
+.. Command acknowledged (164), [description: ]
+  CommandID=180  VariableID=73  ObjectID=0 valueDataType=12 string value: 
+
+-> Command sent: <SetValue>:
+  domID=196 varID=74 objID=0
+.. Command acknowledged (196), [description: ]
+
+-> Command sent: <SetValue>:
+  domID=196 varID=73 objID=0
+.. Command acknowledged (196), [description: ]
+
+-> Command sent: <GetVariable>:
+  domID=164 varID=74 objID=0
+.. Command acknowledged (164), [description: ]
+  CommandID=180  VariableID=74  ObjectID=0 valueDataType=12 string value: P_7_1
+
+-> Command sent: <GetVariable>:
+  domID=164 varID=73 objID=0
+.. Command acknowledged (164), [description: ]
+  CommandID=180  VariableID=73  ObjectID=0 valueDataType=12 string value: taxi
+
+-> Command sent: <SimulationStep>:
+  TargetTime=6.00 PosFormat=1
+.. Command acknowledged (1), [description: ]
+.. Received Response <MoveNode>:
+  nodeId=0 targetTime=6.00 2D-Position: x=1445.25 y=401.65
+
+-> Command sent: <Close>:
+.. Command acknowledged (127), [description: Goodbye]
