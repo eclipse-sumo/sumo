@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+
+<!-- generated on 10/05/10 11:23:33 by SUMO netconvert Version dev-SVN-r9175
+-->
+
+<nodes>
+   <node id="1" x="0.00" y="0.00"/>
+   <node id="2" x="647.27" y="350.76"/>
+</nodes>

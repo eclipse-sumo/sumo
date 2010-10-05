@@ -37,6 +37,7 @@
 #include <utils/common/ToString.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/StringUtils.h>
+#include <utils/common/StringTokenizer.h>
 #include <netbuild/NBEdge.h>
 #include <netbuild/NBEdgeCont.h>
 #include <netbuild/NBNode.h>
@@ -155,6 +156,9 @@ private:
 // ---------------------------------------------------------------------------
 // static methods
 // ---------------------------------------------------------------------------
+const std::string NIImporter_OpenStreetMap::compoundTypeSeparator("|");
+
+
 void
 NIImporter_OpenStreetMap::loadNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
     // check whether the option is set (properly)
@@ -396,16 +400,51 @@ NIImporter_OpenStreetMap::insertEdge(Edge *e, int index, NBNode *from, NBNode *t
         }
         shape.push_back_noDoublePos(pos);
     }
-    if (!tc.knows(e->myHighWayType)) {
-        // we do not know the type -> something else, ignore
-        return;
+
+    std::string type = e->myHighWayType;
+    if (!tc.knows(type)) {
+        if (type.find(compoundTypeSeparator)!=std::string::npos) {
+            // this edge has a combination type which does not yet exist in the TypeContainer
+            StringTokenizer tok = StringTokenizer(type, compoundTypeSeparator);
+            std::set<std::string> types;
+            while (tok.hasNext()) {
+                std::string t = tok.next();
+                if (tc.knows(t)) {
+                    types.insert(t);
+                } else {
+                    WRITE_WARNING("Discarding edge " + id + " with type \"" + type + "\" (unknown compound \"" + t + "\").");
+                    return;
+                }
+            }
+
+            if (types.size() == 2 && 
+                types.count("railway.tram")==1) {
+                // compound types concern mostly the special case of tram tracks on a normal road.
+                // in this case we simply discard the tram information since the default for road is to allow all vclasses
+                types.erase("railway.tram");
+                std::string otherCompound = *(types.begin());
+                // XXX if otherCompound does not allow all vehicles (e.g. SVC_DELIVERY), tram will still not be allowed
+                type = otherCompound;
+            } else { 
+                // other cases not implemented yet
+                WRITE_WARNING("Discarding edge " + id + " with unknown type \"" + type + "\".");
+                return;
+            }
+        } else {
+            // we do not know the type -> something else, ignore
+            // WRITE_WARNING("Discarding edge " + id + " with unknown type \"" + type + "\".");
+            return;
+        }
     }
+        
+    
+
     // otherwise it is not an edge and will be ignored
-    int noLanes = tc.getNoLanes(e->myHighWayType);
-    SUMOReal speed = tc.getSpeed(e->myHighWayType);
-    bool defaultsToOneWay = tc.getIsOneWay(e->myHighWayType);
-    std::vector<SUMOVehicleClass> allowedClasses = tc.getAllowedClasses(e->myHighWayType);
-    std::vector<SUMOVehicleClass> disallowedClasses = tc.getDisallowedClasses(e->myHighWayType);
+    int noLanes = tc.getNoLanes(type);
+    SUMOReal speed = tc.getSpeed(type);
+    bool defaultsToOneWay = tc.getIsOneWay(type);
+    std::vector<SUMOVehicleClass> allowedClasses = tc.getAllowedClasses(type);
+    std::vector<SUMOVehicleClass> disallowedClasses = tc.getDisallowedClasses(type);
     // check directions
     bool addSecond = true;
     if (e->myIsOneWay=="true"||e->myIsOneWay=="yes"||e->myIsOneWay=="1"||(defaultsToOneWay && e->myIsOneWay!="no" && e->myIsOneWay!="false" && e->myIsOneWay!="0")) {
@@ -430,7 +469,7 @@ NIImporter_OpenStreetMap::insertEdge(Edge *e, int index, NBNode *from, NBNode *t
         }
         NBEdge::LaneSpreadFunction lsf = addSecond ? NBEdge::LANESPREAD_RIGHT : NBEdge::LANESPREAD_CENTER;
         if (e->myIsOneWay!="-1") {
-            NBEdge *nbe = new NBEdge(id, from, to, e->myHighWayType, speed, noLanes, tc.getPriority(e->myHighWayType), shape, lsf);
+            NBEdge *nbe = new NBEdge(id, from, to, type, speed, noLanes, tc.getPriority(type), shape, lsf);
             nbe->setVehicleClasses(allowedClasses, disallowedClasses);
             if (!ec.insert(nbe)) {
                 delete nbe;
@@ -441,7 +480,7 @@ NIImporter_OpenStreetMap::insertEdge(Edge *e, int index, NBNode *from, NBNode *t
             if (e->myIsOneWay!="-1") {
                 id = "-" + id;
             }
-            NBEdge *nbe = new NBEdge(id, to, from, e->myHighWayType, speed, noLanes, tc.getPriority(e->myHighWayType), shape.reverse(), lsf);
+            NBEdge *nbe = new NBEdge(id, to, from, type, speed, noLanes, tc.getPriority(type), shape.reverse(), lsf);
             nbe->setVehicleClasses(allowedClasses, disallowedClasses);
             if (!ec.insert(nbe)) {
                 delete nbe;
@@ -612,10 +651,12 @@ NIImporter_OpenStreetMap::EdgesHandler::myStartElement(SumoXMLTag element,
         }
         if (key=="highway"||key=="railway") {
             if (myCurrentEdge->myHighWayType != "") { 
-                WRITE_WARNING("Additional highway type " + key + "." + value + " for edge " + myCurrentEdge->id + 
-                    " with type " + myCurrentEdge->myHighWayType + ".");
+                // osm-ways may be used by more than one mode (eg railway.tram + highway.residential. this is relevant for multimodal traffic)
+                // we create a new type for this kind of situation which must then be resolved in insertEdge()
+                myCurrentEdge->myHighWayType = myCurrentEdge->myHighWayType + compoundTypeSeparator + key + "." + value;
+            } else {
+                myCurrentEdge->myHighWayType = key + "." + value;
             }
-            myCurrentEdge->myHighWayType = key + "." + value;
             myCurrentEdge->myCurrentIsRoad = true;
         } else if (key=="lanes") {
             try {

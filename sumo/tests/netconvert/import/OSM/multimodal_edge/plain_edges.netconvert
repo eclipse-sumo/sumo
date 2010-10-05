@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+
+<!-- generated on 10/05/10 11:23:33 by SUMO netconvert Version dev-SVN-r9175
+-->
+
+<edges>
+   <edge id="-10860201" fromnode="2" tonode="1" nolanes="2" speed="27.78" shape="647.27,350.76 0.00,0.00"/>
+   <edge id="10860201" fromnode="1" tonode="2" nolanes="2" speed="27.78" shape="0.00,0.00 647.27,350.76"/>
+</edges>

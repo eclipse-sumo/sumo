@@ -108,6 +108,10 @@ protected:
 
 
 private:
+
+    /// @brief The separator within newly created compound type names
+    static const std::string compoundTypeSeparator;
+
     class CompareNodes;
     class SubstituteNode;
     class SimilarEdge;
