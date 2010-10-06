@@ -176,6 +176,7 @@ TraCIServer::TraCIServer() {
     closeConnection_ = false;
     netBoundary_ = NULL;
     myDoingSimStep = false;
+    myHaveWarnedDeprecation = false;
 
     // display warning if internal lanes are not used
     if (!MSGlobals::gUsingInternalLanes) {
@@ -402,6 +403,10 @@ throw(TraCIException, std::invalid_argument) {
             break;
         case CMD_SIMSTEP:
             success = targetTime_ = static_cast<SUMOTime>(myInputStorage.readInt());
+            if (!myHaveWarnedDeprecation) {
+                MsgHandler::getWarningInstance()->inform("Using old TraCI API, please update your client!");
+                myHaveWarnedDeprecation = true;
+            }
             return commandId;
         case CMD_SIMSTEP2: {
             SUMOTime nextT = myInputStorage.readInt();

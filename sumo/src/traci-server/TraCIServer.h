@@ -311,6 +311,7 @@ private:
     tcpip::Storage myInputStorage;
     tcpip::Storage myOutputStorage;
     bool myDoingSimStep;
+    bool myHaveWarnedDeprecation;
     int simStepCommand;
 
     /// @brief Map of commandIds -> their executors; applicable if the executor applies to the method footprint
