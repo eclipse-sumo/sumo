@@ -62,7 +62,8 @@ MSVehicleType::MSVehicleType(const std::string &id, SUMOReal length,
         mySpeedDev(speedDev), myVehicleClass(vclass),
         myLaneChangeModel(lcModel),
         myEmissionClass(emissionClass), myColor(c),
-        myWidth(guiWidth), myOffset(guiOffset), myShape(shape) {
+        myWidth(guiWidth), myOffset(guiOffset), myShape(shape),
+        myOriginalType(0) {
     assert(myLength > 0);
     assert(getMaxSpeed() > 0);
 }
@@ -158,12 +159,13 @@ MSVehicleType::build(SUMOVTypeParameter &from) throw(ProcessError) {
 
 
 MSVehicleType *
-MSVehicleType::build(const std::string &id, const MSVehicleType &from) throw() {
+MSVehicleType::build(const std::string &id, const MSVehicleType *from) throw() {
     MSVehicleType *vtype = new MSVehicleType(
-        id, from.myLength, from.myMaxSpeed,
-        from.myDefaultProbability, from.mySpeedFactor, from.mySpeedDev, from.myVehicleClass, from.myEmissionClass,
-        from.myShape, from.myWidth, from.myOffset, from.myLaneChangeModel, from.myColor);
-    vtype->myCarFollowModel = from.myCarFollowModel->duplicate(vtype);
+        id, from->myLength, from->myMaxSpeed,
+        from->myDefaultProbability, from->mySpeedFactor, from->mySpeedDev, from->myVehicleClass, from->myEmissionClass,
+        from->myShape, from->myWidth, from->myOffset, from->myLaneChangeModel, from->myColor);
+    vtype->myCarFollowModel = from->myCarFollowModel->duplicate(vtype);
+    vtype->myOriginalType = from;
     return vtype;
 }
 

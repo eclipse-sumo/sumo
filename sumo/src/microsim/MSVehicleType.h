@@ -266,7 +266,7 @@ public:
      * @param[in] from The vehicle type 
      * @return The built vehicle type
      */
-    static MSVehicleType *build(const std::string &id, const MSVehicleType &from) throw();
+    static MSVehicleType *build(const std::string &id, const MSVehicleType *from) throw();
 
 
     /** @brief Returns the named value from the map, or the default if it is ot contained there
@@ -420,6 +420,10 @@ private:
     /// @brief This class' shape
     SUMOVehicleShape myShape;
     /// @}
+
+
+    /// @brief The original type
+    const MSVehicleType *myOriginalType;
 
 
 private:
