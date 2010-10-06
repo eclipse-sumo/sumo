@@ -1311,7 +1311,7 @@ TraCIServerAPI_Vehicle::checkReroute(MSVehicle *veh) throw() {
 MSVehicleType &
 TraCIServerAPI_Vehicle::getSingularType(MSVehicle * const veh) throw() {
     const MSVehicleType &oType = veh->getVehicleType();
-    std::string newID = oType.getID()[0]=='@' ? oType.getID() : "@" + veh->getID();
+    std::string newID = oType.getID().find('@')==std::string::npos ? oType.getID() + "@" + veh->getID() : oType.getID();
     MSVehicleType *type = MSVehicleType::build(newID, oType);
     veh->replaceVehicleType(type);
     return *type;
