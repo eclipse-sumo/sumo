@@ -7,6 +7,7 @@
 @version $Id: cadyts-iterate.py 9061 2010-09-07 12:24:28Z yunpangwang $
 
 Run cadyts to calibrate the simulation with given routes and traffic measurements.
+Respective traffic zones information has to exist in the given route files.
 
 Copyright (C) 2008 DLR/TS, Germany
 All rights reserved
@@ -166,18 +167,19 @@ check = 0
 routeFiles = options.routes.split(',') 
 
 fileslist = list(routeFiles)
-if options.odmatrix:
-    import addTaz
-    fileslist = []
-    for routeFile in routeFiles:
-        prefix = routeFile[:routeFile.find(".")]
-        fd = open(prefix + ".taz.xml", 'w')
-        alts = routeFile
-        addTaz.parse(tripFile, alts, fd)
-        fd.close()
-        fileslist.append(fd.name)
-        
-# does not work with Cadyts yet: Cadyts cannot parse the routeEntityFile
+#TODO: remove when taz information are generated automatically by od2trips as default
+#if options.odmatrix:
+#    import addTaz
+#    fileslist = []
+#    for routeFile in routeFiles:
+#        prefix = routeFile[:routeFile.find(".")]
+#        fd = open(prefix + ".taz.xml", 'w')
+#        alts = routeFile
+#        addTaz.parse(tripFile, alts, fd)
+#        fd.close()
+#        fileslist.append(fd.name)
+
+# TODO: does not work with Cadyts yet: Cadyts cannot parse the routeEntityFile
 #routeEntityFile = 'routesEntityDef.xml'
 #foutf = open(routeEntityFile, 'w')
 #foutf.write('<?xml version="1.0"?>\n')
@@ -191,7 +193,7 @@ if options.odmatrix:
 #foutf.write('</routeSets>')
 #foutf.close()
 routeEntityFile = fileslist[0] # TODO: if the parse with many files works with Cadyts, this line should be removed.
-prefix = fileslist[0][:fileslist[0].find(".")]#
+prefix = fileslist[0][:fileslist[0].find(".")]
 
 # begin the calibration
 if options.odmatrix:
