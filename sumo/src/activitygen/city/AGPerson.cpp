@@ -43,36 +43,31 @@ using namespace std;
 // ===========================================================================
 // method definitions
 // ===========================================================================
-AGPerson::AGPerson(int age) throw() : age(age)
-{}
+AGPerson::AGPerson(int age) throw() : age(age) {}
 
 /****************************************************************************/
 
-AGPerson::~AGPerson() throw()
-{}
+AGPerson::~AGPerson() throw() {}
 
 /****************************************************************************/
 
 void
-AGPerson::print() const throw()
-{
-	cout << "- Person: Age=" << age << endl;
+AGPerson::print() const throw() {
+    cout << "- Person: Age=" << age << endl;
 }
 
 /****************************************************************************/
 
 int
-AGPerson::getAge() const throw()
-{
-	return age;
+AGPerson::getAge() const throw() {
+    return age;
 }
 
 /****************************************************************************/
 
 bool
-AGPerson::decide(float proba) const throw()
-{
-	return (RandHelper::rand(1000) < static_cast<int>(1000.0f * proba));
+AGPerson::decide(float proba) const throw() {
+    return (RandHelper::rand(1000) < static_cast<int>(1000.0f * proba));
 }
 
 /****************************************************************************/

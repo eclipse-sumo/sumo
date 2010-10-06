@@ -218,7 +218,7 @@ GUISUMOAbstractView::paintGL() {
             Boundary b = o->getCenteringBoundary();
             myChanger->centerTo(*myGrid, b, false);
         }
-		GUIGlObjectStorage::gIDStorage.unblockObject(getTrackedID());
+        GUIGlObjectStorage::gIDStorage.unblockObject(getTrackedID());
     }
 
     unsigned int id = 0;
@@ -754,7 +754,7 @@ GUISUMOAbstractView::openObjectDialog() {
             myPopup->create();
             myPopup->show();
             myChanger->onRightBtnRelease(0);
-			GUIGlObjectStorage::gIDStorage.unblockObject(id);
+            GUIGlObjectStorage::gIDStorage.unblockObject(id);
         }
         makeNonCurrent();
     }
@@ -826,9 +826,9 @@ GUISUMOAbstractView::setSnapshots(std::map<SUMOTime, std::string> snaps) {
 
 FXColor *
 GUISUMOAbstractView::getSnapshot() {
-	for(int i=0; i<10&&!makeCurrent(); ++i) {
-		FXSingleEventThread::sleep(100);
-	}
+    for (int i=0; i<10&&!makeCurrent(); ++i) {
+        FXSingleEventThread::sleep(100);
+    }
     //makeCurrent();
     // draw
     // draw
@@ -976,34 +976,34 @@ GUISUMOAbstractView::drawDecals() throw() {
 
 
 // ------------ Additional visualisations
-bool 
+bool
 GUISUMOAbstractView::addAdditionalGLVisualisation(GUIGlObject * const which) throw() {
-	if(myAdditionallyDrawn.find(which)==myAdditionallyDrawn.end()) {
-		myAdditionallyDrawn[which] = 1;
-	} else {
-		myAdditionallyDrawn[which] = myAdditionallyDrawn[which] + 1;
-	}
-	update();
-	return true;
+    if (myAdditionallyDrawn.find(which)==myAdditionallyDrawn.end()) {
+        myAdditionallyDrawn[which] = 1;
+    } else {
+        myAdditionallyDrawn[which] = myAdditionallyDrawn[which] + 1;
+    }
+    update();
+    return true;
 }
 
 
-bool 
+bool
 GUISUMOAbstractView::removeAdditionalGLVisualisation(GUIGlObject * const which) throw() {
-    if(getTrackedID()==which->getGlID()) {
+    if (getTrackedID()==which->getGlID()) {
         stopTrack();
     }
-	if(myAdditionallyDrawn.find(which)==myAdditionallyDrawn.end()) {
-		return false;
-	}
-	int cnt = myAdditionallyDrawn[which];
-	if(cnt==1) {
-		myAdditionallyDrawn.erase(which);
-	} else {
-		myAdditionallyDrawn[which] = myAdditionallyDrawn[which] - 1;
-	}
-	update();
-	return true;
+    if (myAdditionallyDrawn.find(which)==myAdditionallyDrawn.end()) {
+        return false;
+    }
+    int cnt = myAdditionallyDrawn[which];
+    if (cnt==1) {
+        myAdditionallyDrawn.erase(which);
+    } else {
+        myAdditionallyDrawn[which] = myAdditionallyDrawn[which] - 1;
+    }
+    update();
+    return true;
 }
 
 

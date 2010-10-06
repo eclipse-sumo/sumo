@@ -82,7 +82,7 @@ MSLCM_DK2004::wantsChangeToRight(MSAbstractLaneChangeModel::MSLCMessager &msgPas
                                  const std::vector<MSVehicle::LaneQ> &preb,
                                  MSVehicle **lastBlocked) {
 #ifdef DEBUG_VEHICLE_GUI_SELECTION
-                                     if (gSelected.isSelected(GLO_VEHICLE, static_cast<const GUIVehicle*>(&myVehicle)->getGlID())) {
+    if (gSelected.isSelected(GLO_VEHICLE, static_cast<const GUIVehicle*>(&myVehicle)->getGlID())) {
         int bla = 0;
     }
 #endif
@@ -159,8 +159,8 @@ MSLCM_DK2004::wantsChangeToRight(MSAbstractLaneChangeModel::MSLCMessager &msgPas
     rv += myVehicle.getVehicleType().getLength() * (SUMOReal) 2.;
 
     SUMOReal tdist = currentDist-myVehicle.getPositionOnLane() - best.occupation * (SUMOReal) JAM_FACTOR2;
-        myBlockingLeader = 0;
-        myBlockingFollower = 0;
+    myBlockingLeader = 0;
+    myBlockingFollower = 0;
     if (fabs(best.length-curr.length)>MIN2((SUMOReal) .1, best.lane->getLength()) && bestLaneOffset<0&&currentDistDisallows(tdist/*currentDist*/, bestLaneOffset, rv)) {
         informBlocker(msgPass, blocked, LCA_MRIGHT, neighLead, neighFollow);
         if (neighLead.second>0&&neighLead.second>leader.second) {
@@ -378,8 +378,8 @@ MSLCM_DK2004::wantsChangeToLeft(MSAbstractLaneChangeModel::MSLCMessager &msgPass
 
 
     SUMOReal tdist = currentDist-myVehicle.getPositionOnLane() - best.occupation * (SUMOReal) JAM_FACTOR2;
-        myBlockingLeader = 0;
-        myBlockingFollower = 0;
+    myBlockingLeader = 0;
+    myBlockingFollower = 0;
     if (fabs(best.length-curr.length)>MIN2((SUMOReal) .1, best.lane->getLength()) && bestLaneOffset>0
             &&
             currentDistDisallows(tdist/*currentDist*/, bestLaneOffset, lv)) {

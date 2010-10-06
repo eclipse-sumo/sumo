@@ -44,66 +44,58 @@ using namespace std;
 // method definitions
 // ===========================================================================
 AGStreet::AGStreet(const ROEdge* edge, float popDensity, float workDensity) throw() :
-  edge(edge)
-  {
-	pop = static_cast<int>(popDensity * edge->getLength());
-	work = static_cast<int>(workDensity * edge->getLength());
-  }
+        edge(edge) {
+    pop = static_cast<int>(popDensity * edge->getLength());
+    work = static_cast<int>(workDensity * edge->getLength());
+}
 
 /****************************************************************************/
 
 void
-AGStreet::print() const throw()
-{
-	cout << "- AGStreet: Name=" << edge->getID() << " Length=" << edge->getLength() << " pop=" << pop << " work=" << work << endl;
+AGStreet::print() const throw() {
+    cout << "- AGStreet: Name=" << edge->getID() << " Length=" << edge->getLength() << " pop=" << pop << " work=" << work << endl;
 }
 
 /****************************************************************************/
 
 SUMOReal
-AGStreet::getLength() const throw()
-{
-	return edge->getLength();
+AGStreet::getLength() const throw() {
+    return edge->getLength();
 }
 
 /****************************************************************************/
 
 const string&
-AGStreet::getName() const throw()
-{
-	return edge->getID();
+AGStreet::getName() const throw() {
+    return edge->getID();
 }
 
 /****************************************************************************/
 
 int
-AGStreet::getPopulation() const throw()
-{
-	return pop;
+AGStreet::getPopulation() const throw() {
+    return pop;
 }
 
 /****************************************************************************/
 
 void
-AGStreet::setPopulation(const int& population) throw()
-{
-	pop = population;
+AGStreet::setPopulation(const int& population) throw() {
+    pop = population;
 }
 
 /****************************************************************************/
 
 int
-AGStreet::getWorkplaceNumber() const throw()
-{
-	return work;
+AGStreet::getWorkplaceNumber() const throw() {
+    return work;
 }
 
 /****************************************************************************/
 
 void
-AGStreet::setWorkplaceNumber(const int& workPositions) throw()
-{
-	work = workPositions;
+AGStreet::setWorkplaceNumber(const int& workPositions) throw() {
+    work = workPositions;
 }
 
 /****************************************************************************/

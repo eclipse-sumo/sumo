@@ -139,7 +139,7 @@ NLSucceedingLaneBuilder::addSuccLane(const std::string &laneId,
     MSLane *clane = MSLane::dictionary(myCurrentLane);
     if (clane!=0) {
 #ifdef HAVE_INTERNAL_LANES
-        if(via!=0) {
+        if (via!=0) {
             via->addIncomingLane(clane, link);
         } else {
             lane->addIncomingLane(clane, link);
@@ -147,7 +147,7 @@ NLSucceedingLaneBuilder::addSuccLane(const std::string &laneId,
 #else
         lane->addIncomingLane(clane, link);
 #endif
-		lane->addApproachingLane(clane);
+        lane->addApproachingLane(clane);
     }
     // if a traffic light is responsible for it, inform the traffic light
     // check whether this link is controlled by a traffic light

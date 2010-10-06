@@ -121,7 +121,7 @@ protected:
          * @param[in] proceedTime The time at which the vehicle should be moved virtually one edge further
          */
         VehicleInformation(MSVehicle *veh, SUMOTime proceedTime, bool parking) throw()
-            : myVeh(veh), myProceedTime(proceedTime), myParking(parking) { }
+                : myVeh(veh), myProceedTime(proceedTime), myParking(parking) { }
 
     };
 

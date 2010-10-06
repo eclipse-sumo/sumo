@@ -62,9 +62,9 @@ GUIGlObject::GUIGlObject(std::string fullName, GLuint glID) throw()
 
 
 GUIGlObject::~GUIGlObject() throw() {
-	for(std::set<GUIParameterTableWindow*>::iterator i=myParamWindows.begin(); i!=myParamWindows.end(); ++i) {
-		(*i)->removeObject(this);
-	}
+    for (std::set<GUIParameterTableWindow*>::iterator i=myParamWindows.begin(); i!=myParamWindows.end(); ++i) {
+        (*i)->removeObject(this);
+    }
 }
 
 
@@ -144,18 +144,18 @@ GUIGlObject::buildShowManipulatorPopupEntry(GUIGLObjectPopupMenu *ret, bool addS
 }
 
 
-void 
+void
 GUIGlObject::addParameterTable(GUIParameterTableWindow *t) throw() {
-	myParamWindows.insert(t);
+    myParamWindows.insert(t);
 }
 
 
-void 
+void
 GUIGlObject::removeParameterTable(GUIParameterTableWindow *t) throw() {
-	std::set<GUIParameterTableWindow*>::iterator i=myParamWindows.find(t);
-	if(i!=myParamWindows.end()) {
-		myParamWindows.erase(i);
-	}
+    std::set<GUIParameterTableWindow*>::iterator i=myParamWindows.find(t);
+    if (i!=myParamWindows.end()) {
+        myParamWindows.erase(i);
+    }
 }
 
 

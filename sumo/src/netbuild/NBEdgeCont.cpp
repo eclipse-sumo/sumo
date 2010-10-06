@@ -805,15 +805,15 @@ NBEdgeCont::guessRoundabouts(std::vector<std::set<NBEdge*> > &marked) throw() {
                 // disable turnarounds on incoming edges
                 const std::vector<NBEdge*> &incoming = (*j)->getToNode()->getIncomingEdges();
                 const std::vector<NBEdge*> &outgoing = (*j)->getToNode()->getOutgoingEdges();
-                for(std::vector<NBEdge*>::const_iterator k=incoming.begin(); k!=incoming.end(); ++k) {
-                    if(loopEdges.find(*k)!=loopEdges.end()) {
+                for (std::vector<NBEdge*>::const_iterator k=incoming.begin(); k!=incoming.end(); ++k) {
+                    if (loopEdges.find(*k)!=loopEdges.end()) {
                         continue;
                     }
-                    if((*k)->getStep()>=NBEdge::LANES2LANES_USER) {
+                    if ((*k)->getStep()>=NBEdge::LANES2LANES_USER) {
                         continue;
                     }
-                    for(std::vector<NBEdge*>::const_iterator l=outgoing.begin(); l!=outgoing.end(); ++l) {
-                        if(loopEdges.find(*l)!=loopEdges.end()) {
+                    for (std::vector<NBEdge*>::const_iterator l=outgoing.begin(); l!=outgoing.end(); ++l) {
+                        if (loopEdges.find(*l)!=loopEdges.end()) {
                             (*k)->addEdge2EdgeConnection(*l);
                         } else {
                             (*k)->removeFromConnections(*l, -1);

@@ -47,120 +47,105 @@ using namespace std;
 // method definitions
 // ===========================================================================
 AGPosition::AGPosition(const AGStreet& str, SUMOReal pos) throw() :
-  street(&str), position(pos), pos2d(compute2dPosition())
-  {
-  }
+        street(&str), position(pos), pos2d(compute2dPosition()) {
+}
 
 /****************************************************************************/
 
 AGPosition::AGPosition(const AGStreet& str) throw() :
-  street(&str), position(randomPositionInStreet(str)), pos2d(compute2dPosition())
-  {
-  }
+        street(&str), position(randomPositionInStreet(str)), pos2d(compute2dPosition()) {
+}
 
 /****************************************************************************/
 
 void
-AGPosition::print() const throw()
-{
-	cout << "- AGPosition: *Street=" << street << " position=" << position << "/" << street->getLength() << endl;
+AGPosition::print() const throw() {
+    cout << "- AGPosition: *Street=" << street << " position=" << position << "/" << street->getLength() << endl;
 }
 
 /****************************************************************************/
 
 bool
-AGPosition::operator==(const AGPosition &pos) const throw()
-{
-	return pos2d.almostSame(pos.pos2d);
+AGPosition::operator==(const AGPosition &pos) const throw() {
+    return pos2d.almostSame(pos.pos2d);
 }
 
 /****************************************************************************/
 
 SUMOReal
-AGPosition::distanceTo(const AGPosition& otherPos) const throw()
-{
-	return pos2d.distanceTo(otherPos.pos2d);
+AGPosition::distanceTo(const AGPosition& otherPos) const throw() {
+    return pos2d.distanceTo(otherPos.pos2d);
 }
 
 /****************************************************************************/
 
 SUMOReal
-AGPosition::minDistanceTo(const list<AGPosition>& positions) const throw()
-{
-	SUMOReal minDist = numeric_limits<SUMOReal>::infinity();
-	SUMOReal tempDist;
-	list<AGPosition>::const_iterator itt;
+AGPosition::minDistanceTo(const list<AGPosition>& positions) const throw() {
+    SUMOReal minDist = numeric_limits<SUMOReal>::infinity();
+    SUMOReal tempDist;
+    list<AGPosition>::const_iterator itt;
 
-	for(itt=positions.begin() ; itt!=positions.end() ; ++itt)
-	{
-		tempDist = this->distanceTo(*itt);
-		if(tempDist < minDist)
-		{
-			minDist = tempDist;
-		}
-	}
-	return minDist;
+    for (itt=positions.begin() ; itt!=positions.end() ; ++itt) {
+        tempDist = this->distanceTo(*itt);
+        if (tempDist < minDist) {
+            minDist = tempDist;
+        }
+    }
+    return minDist;
 }
 
 /****************************************************************************/
 
 SUMOReal
-AGPosition::minDistanceTo(const map<int, AGPosition>& positions) const throw()
-{
-	SUMOReal minDist = numeric_limits<SUMOReal>::infinity();
-	SUMOReal tempDist;
-	map<int, AGPosition>::const_iterator itt;
+AGPosition::minDistanceTo(const map<int, AGPosition>& positions) const throw() {
+    SUMOReal minDist = numeric_limits<SUMOReal>::infinity();
+    SUMOReal tempDist;
+    map<int, AGPosition>::const_iterator itt;
 
-	for(itt=positions.begin() ; itt!=positions.end() ; ++itt)
-	{
-		tempDist = this->distanceTo(itt->second);
-		if(tempDist < minDist)
-		{
-			minDist = tempDist;
-		}
-	}
-	return minDist;
+    for (itt=positions.begin() ; itt!=positions.end() ; ++itt) {
+        tempDist = this->distanceTo(itt->second);
+        if (tempDist < minDist) {
+            minDist = tempDist;
+        }
+    }
+    return minDist;
 }
 
 /****************************************************************************/
 
 const AGStreet&
-AGPosition::getStreet() const throw()
-{
-	return *street;
+AGPosition::getStreet() const throw() {
+    return *street;
 }
 
 /****************************************************************************/
 
 SUMOReal
-AGPosition::getPosition() const throw()
-{
-	return position;
+AGPosition::getPosition() const throw() {
+    return position;
 }
 
 /****************************************************************************/
 
 SUMOReal
-AGPosition::randomPositionInStreet(const AGStreet& s) throw()
-{
-	return RandHelper::rand(0.0, s.getLength());
+AGPosition::randomPositionInStreet(const AGStreet& s) throw() {
+    return RandHelper::rand(0.0, s.getLength());
 }
 
 /****************************************************************************/
 
 Position2D
-AGPosition::compute2dPosition() const throw()
-{
-	// P = From + pos*(To - From) = pos*To + (1-pos)*From
-	Position2D From = street->edge->getFromNode()->getPosition();
-	Position2D To = street->edge->getToNode()->getPosition();
-	Position2D position2d(To);
+AGPosition::compute2dPosition() const throw() {
+    // P = From + pos*(To - From) = pos*To + (1-pos)*From
+    Position2D From = street->edge->getFromNode()->getPosition();
+    Position2D To = street->edge->getToNode()->getPosition();
+    Position2D position2d(To);
 
-	position2d.sub(From);
-	position2d.mul(position / street->getLength());
-	position2d.add(From);
+    position2d.sub(From);
+    position2d.mul(position / street->getLength());
+    position2d.add(From);
 
-	return position2d;
+    return position2d;
 }
 
 /****************************************************************************/

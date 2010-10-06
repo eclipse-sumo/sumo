@@ -123,25 +123,25 @@ public:
 
 
 #ifndef HAVE_INTERNAL_LANES
-   /** @brief Constructor for simulation not using internal lanes
-    *
-    * @param[in] succLane The lane approached by this link
-    * @param[in] dir The direction of this link
-    * @param[in] state The state of this link
-    * @param[in] length The length of this link
-    */
-   MSLink(MSLane* succLane,
-          LinkDirection dir, LinkState state, SUMOReal length) throw();
+    /** @brief Constructor for simulation not using internal lanes
+     *
+     * @param[in] succLane The lane approached by this link
+     * @param[in] dir The direction of this link
+     * @param[in] state The state of this link
+     * @param[in] length The length of this link
+     */
+    MSLink(MSLane* succLane,
+           LinkDirection dir, LinkState state, SUMOReal length) throw();
 #else
-   /** @brief Constructor for simulation which uses internal lanes
-    *
-    * @param[in] succLane The lane approached by this link
-    * @param[in] via The lane to use within the junction
-    * @param[in] dir The direction of this link
-    * @param[in] state The state of this link
-    * @param[in] internalEnd Information whether this link is followed by a second junction-internal link
-    * @param[in] length The length of this link
-    */
+    /** @brief Constructor for simulation which uses internal lanes
+     *
+     * @param[in] succLane The lane approached by this link
+     * @param[in] via The lane to use within the junction
+     * @param[in] dir The direction of this link
+     * @param[in] state The state of this link
+     * @param[in] internalEnd Information whether this link is followed by a second junction-internal link
+     * @param[in] length The length of this link
+     */
     MSLink(MSLane* succLane, MSLane *via,
            LinkDirection dir, LinkState state, bool internalEnd,
            SUMOReal length) throw();

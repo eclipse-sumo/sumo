@@ -42,40 +42,38 @@
 // ===========================================================================
 // class definitions
 // ===========================================================================
-class AGBusLine
-{
+class AGBusLine {
 public:
-	AGBusLine(std::string lineNr) :
-		lineNumber(lineNr)
-	{};
-	void setMaxTripTime(int time);
-	void setBusNames();
-	int nbrBuses();
-	void locateStation(AGPosition pos);
-	void locateRevStation(AGPosition pos);
-	void generateBuses(int start, int stop, int rate);
-	void printBuses();
+    AGBusLine(std::string lineNr) :
+            lineNumber(lineNr) {};
+    void setMaxTripTime(int time);
+    void setBusNames();
+    int nbrBuses();
+    void locateStation(AGPosition pos);
+    void locateRevStation(AGPosition pos);
+    void generateBuses(int start, int stop, int rate);
+    void printBuses();
 
-	std::list<AGPosition> stations;
-	std::list<AGPosition> revStations;
-	std::list<AGBus> buses;
-	std::list<AGBus> revBuses;
+    std::list<AGPosition> stations;
+    std::list<AGPosition> revStations;
+    std::list<AGBus> buses;
+    std::list<AGBus> revBuses;
 
 private:
-	/**
-	 * @return: a name for a new Bus. unique for the city.
-	 */
-	std::string createName();
+    /**
+     * @return: a name for a new Bus. unique for the city.
+     */
+    std::string createName();
 
-	/**
-	 * @param time: time of departure of the bus in one direction (current time)
-	 * @return: time at which it will be ready for going in the opposite direction
-	 */
-	int getReady(int time);
+    /**
+     * @param time: time of departure of the bus in one direction (current time)
+     * @return: time at which it will be ready for going in the opposite direction
+     */
+    int getReady(int time);
 
-	std::string lineNumber;
-	int maxTripTime;
-	int busNbr;
+    std::string lineNumber;
+    int maxTripTime;
+    int busNbr;
 };
 
 #endif

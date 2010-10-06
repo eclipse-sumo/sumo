@@ -563,9 +563,9 @@ NIImporter_VISUM::parse_Turns() {
                     OptionsCont::getOptions().isSet("keep-edges")) {
                 WRITE_WARNING("Could not set connection from node '" + from->getID() + "' to node '" + via->getID() + "'.");
             } else {
-				if(OptionsCont::getOptions().getBool("visum.verbose-warnings")) {
-					WRITE_WARNING("There is no edge from node '" + from->getID() + "' to node '" + via->getID() + "'.");
-				}
+                if (OptionsCont::getOptions().getBool("visum.verbose-warnings")) {
+                    WRITE_WARNING("There is no edge from node '" + from->getID() + "' to node '" + via->getID() + "'.");
+                }
             }
             return;
         }
@@ -575,9 +575,9 @@ NIImporter_VISUM::parse_Turns() {
                     OptionsCont::getOptions().isSet("keep-edges")) {
                 WRITE_WARNING("Could not set connection from node '" + via->getID() + "' to node '" + to->getID() + "'.");
             } else {
-				if(OptionsCont::getOptions().getBool("visum.verbose-warnings")) {
-	                WRITE_WARNING("There is no edge from node '" + via->getID() + "' to node '" + to->getID() + "'.");
-				}
+                if (OptionsCont::getOptions().getBool("visum.verbose-warnings")) {
+                    WRITE_WARNING("There is no edge from node '" + via->getID() + "' to node '" + to->getID() + "'.");
+                }
             }
             return;
         }
@@ -631,9 +631,9 @@ NIImporter_VISUM::parse_EdgePolys() {
             WRITE_WARNING("Could not set geometry between node '" + from->getID() + "' and node '" + to->getID() + "'.");
         } else {
             // ... in the other case we report this to the error instance
-			if(OptionsCont::getOptions().getBool("visum.verbose-warnings")) {
-				WRITE_WARNING("There is no edge from node '" + from->getID() + "' to node '" + to->getID() + "'.");
-			}
+            if (OptionsCont::getOptions().getBool("visum.verbose-warnings")) {
+                WRITE_WARNING("There is no edge from node '" + from->getID() + "' to node '" + to->getID() + "'.");
+            }
         }
     }
 }
@@ -651,9 +651,9 @@ NIImporter_VISUM::parse_Lanes() {
         return;
     }
     // get the lane
-    std::string laneS = myLineParser.know("FSNR") 
-        ? NBHelpers::normalIDRepresentation(myLineParser.get("FSNR")) 
-        : NBHelpers::normalIDRepresentation(myLineParser.get("NR"));
+    std::string laneS = myLineParser.know("FSNR")
+                        ? NBHelpers::normalIDRepresentation(myLineParser.get("FSNR"))
+                        : NBHelpers::normalIDRepresentation(myLineParser.get("NR"));
     int lane = -1;
     try {
         lane = TplConvert<char>::_2int(laneS.c_str());
@@ -822,9 +822,9 @@ NIImporter_VISUM::parse_TurnsToSignalGroups() {
     std::string LSAid = getNamedString("LsaNr");
     // nodes
     NBNode *from = myLineParser.know("VonKnot") ? getNamedNode("VonKnot") : 0;
-    NBNode *via = myLineParser.know("KNOTNR") 
-        ? getNamedNode("KNOTNR")
-        : getNamedNode("UeberKnot", "UeberKnotNr");
+    NBNode *via = myLineParser.know("KNOTNR")
+                  ? getNamedNode("KNOTNR")
+                  : getNamedNode("UeberKnot", "UeberKnotNr");
     NBNode *to = myLineParser.know("NachKnot") ? getNamedNode("NachKnot") : 0;
     // edges
     NBEdge *edg1 = 0;

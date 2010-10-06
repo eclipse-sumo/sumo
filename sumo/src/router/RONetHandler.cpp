@@ -130,24 +130,24 @@ RONetHandler::parseEdge(const SUMOSAXAttributes &attrs) {
     }
     // build the edge
     myCurrentEdge = myEdgeBuilder.buildEdge(myCurrentName, fromNode, toNode);
-	if(myNet.addEdge(myCurrentEdge)) {
-	    // get the type of the edge
-	    myProcess = true;
-		if (type=="normal"||type=="connector") {
-			myCurrentEdge->setType(ROEdge::ET_NORMAL);
-		} else if (type=="source") {
-			myCurrentEdge->setType(ROEdge::ET_SOURCE);
-		} else if (type=="sink") {
-			myCurrentEdge->setType(ROEdge::ET_SINK);
-		} else if (type=="internal") {
-			myProcess = false;
-		} else {
-			MsgHandler::getErrorInstance()->inform("Edge '" + myCurrentName + "' has an unknown type.");
-			return;
-		}
-	} else {
-		myCurrentEdge = 0;
-	}
+    if (myNet.addEdge(myCurrentEdge)) {
+        // get the type of the edge
+        myProcess = true;
+        if (type=="normal"||type=="connector") {
+            myCurrentEdge->setType(ROEdge::ET_NORMAL);
+        } else if (type=="source") {
+            myCurrentEdge->setType(ROEdge::ET_SOURCE);
+        } else if (type=="sink") {
+            myCurrentEdge->setType(ROEdge::ET_SINK);
+        } else if (type=="internal") {
+            myProcess = false;
+        } else {
+            MsgHandler::getErrorInstance()->inform("Edge '" + myCurrentName + "' has an unknown type.");
+            return;
+        }
+    } else {
+        myCurrentEdge = 0;
+    }
 }
 
 
@@ -249,7 +249,7 @@ RONetHandler::parseConnectedEdge(const SUMOSAXAttributes &attrs) {
 
 void
 RONetHandler::parseDistrict(const SUMOSAXAttributes &attrs) throw(ProcessError) {
-	myCurrentEdge = 0;
+    myCurrentEdge = 0;
     if (!attrs.setIDFromAttributes("district", myCurrentName)) {
         return;
     }

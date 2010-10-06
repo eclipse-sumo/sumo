@@ -162,8 +162,8 @@ public:
          * @param[in] n The node to consider
          */
         explicit edge_opposite_direction_sorter(const NBEdge * const e, const NBNode * const n) throw()
-            : myNode(n) {
-                myAngle = getEdgeAngleAt(e, n);
+                : myNode(n) {
+            myAngle = getEdgeAngleAt(e, n);
         }
 
         /** @brief Comparing operation
@@ -194,7 +194,7 @@ public:
          * @param[in] n The node to consider
          */
         SUMOReal getEdgeAngleAt(const NBEdge * const e, const NBNode * const n) const throw() {
-            if(e->getFromNode()==n) {
+            if (e->getFromNode()==n) {
                 return e->getGeometry().getBegLine().atan2DegreeAngle();
             } else {
                 return e->getGeometry().getEndLine().reverse().atan2DegreeAngle();

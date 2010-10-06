@@ -83,7 +83,7 @@ public:
      *  is deleted in this case and false is returned.
      *
      * @param[in] edge The edge to add
-	 * @return Whether the edge was added (if not, it was deleted, too)
+     * @return Whether the edge was added (if not, it was deleted, too)
      */
     virtual bool addEdge(ROEdge *edge) throw();
 

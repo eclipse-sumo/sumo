@@ -91,7 +91,7 @@ TraCIServerAPI_Junction::processGet(TraCIServer &server, tcpip::Storage &inputSt
             break;
         }
     }
-        server.writeStatusCmd(CMD_GET_JUNCTION_VARIABLE, RTYPE_OK, warning, outputStorage);
+    server.writeStatusCmd(CMD_GET_JUNCTION_VARIABLE, RTYPE_OK, warning, outputStorage);
     // send response
     outputStorage.writeUnsignedByte(0); // command length -> extended
     outputStorage.writeInt(1 + 4 + tempMsg.size());

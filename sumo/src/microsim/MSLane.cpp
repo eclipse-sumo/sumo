@@ -439,10 +439,9 @@ MSLane::isEmissionSuccess(MSVehicle* aVehicle,
 }
 
 
-void 
-MSLane::forceVehicleInsertion(MSVehicle *veh, SUMOReal pos) throw()
-{
-	veh->enterLaneAtEmit(this, pos, veh->getSpeed());
+void
+MSLane::forceVehicleInsertion(MSVehicle *veh, SUMOReal pos) throw() {
+    veh->enterLaneAtEmit(this, pos, veh->getSpeed());
     bool wasInactive = myVehicles.size()==0;
     MSLane::VehCont::iterator predIt = find_if(myVehicles.begin(), myVehicles.end(), bind2nd(VehPosition(), pos));
     if (predIt==myVehicles.end()) {
@@ -585,7 +584,7 @@ MSLane::setCritical(SUMOTime t, std::vector<MSLane*> &into) {
     std::vector<MSVehicle*> vaporized;
     for (i=myVehicles.begin(); i!=myVehicles.end(); ++i, ++curr) {
         bool removed = (*i)->moveFirstChecked();
-        if(removed) {
+        if (removed) {
             vaporized.push_back(*i);
         }
         MSLane *target = (*i)->getTargetLane();
@@ -599,7 +598,7 @@ MSLane::setCritical(SUMOTime t, std::vector<MSLane*> &into) {
             MSVehicle *v = *(myVehicles.end() - 1);
             MSVehicle *p = pop(t);
             assert(v==p);
-            if(find(vaporized.begin(), vaporized.end(), v)!=vaporized.end()) {
+            if (find(vaporized.begin(), vaporized.end(), v)!=vaporized.end()) {
                 v->onRemovalFromNet(false);
                 MSNet::getInstance()->getVehicleControl().scheduleVehicleRemoval(v);
                 continue;
@@ -626,11 +625,11 @@ MSLane::setCritical(SUMOTime t, std::vector<MSLane*> &into) {
                 && !(*(myVehicles.end()-1))->isStopped()
                 &&
                 (*(myVehicles.end()-1))->getWaitingTime()>MSGlobals::gTimeToGridlock) {
-			MSVehicle *veh = *(myVehicles.end()-1);
-			myVehicleLengthSum -= veh->getVehicleType().getLength();
-			veh->leaveLaneAtMove(0);
-			myVehicles.erase(myVehicles.end()-1);
-    		MsgHandler::getWarningInstance()->inform("Teleporting vehicle '" + veh->getID() + "'; waited too long, lane='" + getID() + "', time=" + time2string(MSNet::getInstance()->getCurrentTimeStep()) + ".");
+            MSVehicle *veh = *(myVehicles.end()-1);
+            myVehicleLengthSum -= veh->getVehicleType().getLength();
+            veh->leaveLaneAtMove(0);
+            myVehicles.erase(myVehicles.end()-1);
+            MsgHandler::getWarningInstance()->inform("Teleporting vehicle '" + veh->getID() + "'; waited too long, lane='" + getID() + "', time=" + time2string(MSNet::getInstance()->getCurrentTimeStep()) + ".");
             MSVehicleTransfer::getInstance()->addVeh(t, veh);
         }
     }
@@ -639,16 +638,16 @@ MSLane::setCritical(SUMOTime t, std::vector<MSLane*> &into) {
         MSVehicle *vehV = *veh;
         if (vehV->getPositionOnLane()>getLength()) {
             MsgHandler::getWarningInstance()->inform("Teleporting vehicle '" + vehV->getID() + "'; beyond lane (2), targetLane='" + getID() + "', time=" + time2string(MSNet::getInstance()->getCurrentTimeStep()) + ".");
-		    myVehicleLengthSum -= vehV->getVehicleType().getLength();
+            myVehicleLengthSum -= vehV->getVehicleType().getLength();
             MSVehicleTransfer::getInstance()->addVeh(t, vehV);
             veh = myVehicles.erase(veh); // remove current vehicle
         } else if (vehV->isParking()) {
-		    myVehicleLengthSum -= vehV->getVehicleType().getLength();
+            myVehicleLengthSum -= vehV->getVehicleType().getLength();
             MSVehicleTransfer::getInstance()->addVeh(t, vehV);
             veh = myVehicles.erase(veh); // remove current vehicle
         } else if (vehV->ends()) {
             vehV->onRemovalFromNet(false);
-		    myVehicleLengthSum -= vehV->getVehicleType().getLength();
+            myVehicleLengthSum -= vehV->getVehicleType().getLength();
             MSNet::getInstance()->getVehicleControl().scheduleVehicleRemoval(vehV);
             veh = myVehicles.erase(veh); // remove current vehicle
         } else {
@@ -705,7 +704,7 @@ MSLane::push(MSVehicle* veh) {
     //  and it does not collide with previous
     // check whether the vehicle has ended his route
     // Add to mean data (edge/lane state dump)
-    if(!veh->enterLaneAtMove(this, SPEED2DIST(veh->getSpeed()) - veh->getPositionOnLane())) {
+    if (!veh->enterLaneAtMove(this, SPEED2DIST(veh->getSpeed()) - veh->getPositionOnLane())) {
         myVehBuffer.push_back(veh);
         SUMOReal pspeed = veh->getSpeed();
         SUMOReal oldPos = veh->getPositionOnLane() - SPEED2DIST(veh->getSpeed());
@@ -935,30 +934,30 @@ MSLane::addIncomingLane(MSLane *lane, MSLink *viaLink) {
 }
 
 
-void 
+void
 MSLane::addApproachingLane(MSLane *lane) {
-	MSEdge *approachingEdge = &lane->getEdge();
-	if(myApproachingLanes.find(approachingEdge)==myApproachingLanes.end()) {
-		myApproachingLanes[approachingEdge] = std::vector<MSLane*>();
-	}
-	myApproachingLanes[approachingEdge].push_back(lane);
+    MSEdge *approachingEdge = &lane->getEdge();
+    if (myApproachingLanes.find(approachingEdge)==myApproachingLanes.end()) {
+        myApproachingLanes[approachingEdge] = std::vector<MSLane*>();
+    }
+    myApproachingLanes[approachingEdge].push_back(lane);
 }
 
 
-bool 
+bool
 MSLane::isApproachedFrom(MSEdge * const edge) {
-	return myApproachingLanes.find(edge)!=myApproachingLanes.end();
+    return myApproachingLanes.find(edge)!=myApproachingLanes.end();
 }
 
 
-bool 
+bool
 MSLane::isApproachedFrom(MSEdge * const edge, MSLane * const lane) {
-	std::map<MSEdge*, std::vector<MSLane*> >::const_iterator i=myApproachingLanes.find(edge);
-	if(i==myApproachingLanes.end()) {
-		return false;
-	}
-	const std::vector<MSLane*> &lanes = (*i).second;
-	return find(lanes.begin(), lanes.end(), lane)!=lanes.end();
+    std::map<MSEdge*, std::vector<MSLane*> >::const_iterator i=myApproachingLanes.find(edge);
+    if (i==myApproachingLanes.end()) {
+        return false;
+    }
+    const std::vector<MSLane*> &lanes = (*i).second;
+    return find(lanes.begin(), lanes.end(), lane)!=lanes.end();
 }
 
 
@@ -1082,24 +1081,23 @@ MSLane::getLeaderOnConsecutive(SUMOReal dist, SUMOReal seen, SUMOReal speed, con
 
 
 MSLane * const
-MSLane::getLogicalPredecessorLane() const throw()
-{
-    if(myLogicalPredecessorLane!=0) {
+MSLane::getLogicalPredecessorLane() const throw() {
+    if (myLogicalPredecessorLane!=0) {
         return myLogicalPredecessorLane;
     }
-    if(myLogicalPredecessorLane==0) {
+    if (myLogicalPredecessorLane==0) {
         std::vector<MSEdge*> pred = myEdge->getIncomingEdges();
         // get only those edges which connect to this lane
-        for(std::vector<MSEdge*>::iterator i=pred.begin(); i!=pred.end(); ) {
+        for (std::vector<MSEdge*>::iterator i=pred.begin(); i!=pred.end();) {
             std::vector<IncomingLaneInfo>::const_iterator j = find_if(myIncomingLanes.begin(), myIncomingLanes.end(), edge_finder(*i));
-            if(j==myIncomingLanes.end()) {
+            if (j==myIncomingLanes.end()) {
                 i = pred.erase(i);
             } else {
                 ++i;
             }
         }
         // get the edge with the most connections to this lane's edge
-        if(pred.size()!=0) {
+        if (pred.size()!=0) {
             std::sort(pred.begin(), pred.end(), by_connections_to_sorter(&getEdge()));
             MSEdge *best = *pred.begin();
             std::vector<IncomingLaneInfo>::const_iterator j = find_if(myIncomingLanes.begin(), myIncomingLanes.end(), edge_finder(best));

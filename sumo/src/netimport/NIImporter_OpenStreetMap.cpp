@@ -240,7 +240,7 @@ NIImporter_OpenStreetMap::loadNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
      * Without that, insertEdge can fail, if both nodes start
      * the shape of an edge. (NBEdge::init calls Position2DVector::push_front
      * with the second, which has the same coordinates as the first.) */
-    if(!OptionsCont::getOptions().getBool("osm.skip-duplicates-check")) {
+    if (!OptionsCont::getOptions().getBool("osm.skip-duplicates-check")) {
         MsgHandler::getMessageInstance()->beginProcessMsg("Removing duplicate nodes...");
         if (nodes.size() > 1) {
             std::set<const NIOSMNode*, CompareNodes> dupsFinder;
@@ -258,7 +258,7 @@ NIImporter_OpenStreetMap::loadNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
     }
 
     /* Remove duplicate edges with the same shape and attributes */
-    if(!OptionsCont::getOptions().getBool("osm.skip-duplicates-check")) {
+    if (!OptionsCont::getOptions().getBool("osm.skip-duplicates-check")) {
         MsgHandler::getMessageInstance()->beginProcessMsg("Removing duplicate edges...");
         if (edges.size() > 1) {
             std::set<std::string> toRemove;
@@ -418,15 +418,15 @@ NIImporter_OpenStreetMap::insertEdge(Edge *e, int index, NBNode *from, NBNode *t
                 }
             }
 
-            if (types.size() == 2 && 
-                types.count("railway.tram")==1) {
+            if (types.size() == 2 &&
+                    types.count("railway.tram")==1) {
                 // compound types concern mostly the special case of tram tracks on a normal road.
                 // in this case we simply discard the tram information since the default for road is to allow all vclasses
                 types.erase("railway.tram");
                 std::string otherCompound = *(types.begin());
                 // XXX if otherCompound does not allow all vehicles (e.g. SVC_DELIVERY), tram will still not be allowed
                 type = otherCompound;
-            } else { 
+            } else {
                 // other cases not implemented yet
                 WRITE_WARNING("Discarding edge " + id + " with unknown type \"" + type + "\".");
                 return;
@@ -437,8 +437,8 @@ NIImporter_OpenStreetMap::insertEdge(Edge *e, int index, NBNode *from, NBNode *t
             return;
         }
     }
-        
-    
+
+
 
     // otherwise it is not an edge and will be ignored
     int noLanes = tc.getNoLanes(type);
@@ -496,8 +496,7 @@ NIImporter_OpenStreetMap::insertEdge(Edge *e, int index, NBNode *from, NBNode *t
 // definitions of NIImporter_OpenStreetMap::NodesHandler-methods
 // ---------------------------------------------------------------------------
 NIImporter_OpenStreetMap::NodesHandler::NodesHandler(std::map<int, NIOSMNode*> &toFill) throw()
-        : SUMOSAXHandler("osm - file"), myToFill(toFill), myLastNodeID(-1), myIsInValidNodeTag(false), myHierarchyLevel(0) 
-{
+        : SUMOSAXHandler("osm - file"), myToFill(toFill), myLastNodeID(-1), myIsInValidNodeTag(false), myHierarchyLevel(0) {
 }
 
 
@@ -596,7 +595,7 @@ NIImporter_OpenStreetMap::EdgesHandler::EdgesHandler(
     mySpeedMap["walk"] = 5.;
     mySpeedMap["DE:rural"] = 50.;
     mySpeedMap["DE:living_street"] = 10.;
-    
+
 }
 
 
@@ -651,7 +650,7 @@ NIImporter_OpenStreetMap::EdgesHandler::myStartElement(SumoXMLTag element,
             return;
         }
         if (key=="highway"||key=="railway") {
-            if (myCurrentEdge->myHighWayType != "") { 
+            if (myCurrentEdge->myHighWayType != "") {
                 // osm-ways may be used by more than one mode (eg railway.tram + highway.residential. this is relevant for multimodal traffic)
                 // we create a new type for this kind of situation which must then be resolved in insertEdge()
                 myCurrentEdge->myHighWayType = myCurrentEdge->myHighWayType + compoundTypeSeparator + key + "." + value;
@@ -666,10 +665,10 @@ NIImporter_OpenStreetMap::EdgesHandler::myStartElement(SumoXMLTag element,
                 MsgHandler::getErrorInstance()->inform("Value of key '" + key + "' is not numeric ('" + value + "') in edge '" + myCurrentEdge->id + "'.");
             }
         } else if (key=="maxspeed") {
-            if(mySpeedMap.find(value)!=mySpeedMap.end()) {
+            if (mySpeedMap.find(value)!=mySpeedMap.end()) {
                 myCurrentEdge->myMaxSpeed = mySpeedMap[value];
             } else {
-                if(value.find("km/h")!=std::string::npos) {
+                if (value.find("km/h")!=std::string::npos) {
                     value = StringUtils::prune(value.substr(0, value.find_first_not_of("0123456789")));
                 }
                 try {

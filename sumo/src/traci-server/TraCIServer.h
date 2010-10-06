@@ -68,7 +68,7 @@ namespace traci {
 // program will control sumo.
 class TraCIServer : public MSNet::VehicleStateListener {
 public:
-	/// @brief Definition of a method to be called for serving an associated commandID
+    /// @brief Definition of a method to be called for serving an associated commandID
     typedef bool(*CmdExecutor)(traci::TraCIServer &server, tcpip::Storage &inputStorage, tcpip::Storage &outputStorage);
 
 
@@ -113,22 +113,22 @@ public:
      */
     TraCIServer::RoadMapPos convertCartesianToRoadMap(Position2D pos);
 
-	const std::map<MSNet::VehicleState, std::vector<std::string> > &getVehicleStateChanges() const throw() {
-		return myVehicleStateChanges;
-	}
+    const std::map<MSNet::VehicleState, std::vector<std::string> > &getVehicleStateChanges() const throw() {
+        return myVehicleStateChanges;
+    }
 
-	/** @brief Returns the list of (unified) command executors
-	 *
-	 * Not all command executor methods apply to the wanted footprint; other
-	 *  comments may be served internally (aka there are more commandIds recognized
-	 *  than within this container
-	 * @return Mapped command executors
-	 */
-	std::map<int, CmdExecutor> &getExecutors() throw() {
-		return myExecutors;
-	}
+    /** @brief Returns the list of (unified) command executors
+     *
+     * Not all command executor methods apply to the wanted footprint; other
+     *  comments may be served internally (aka there are more commandIds recognized
+     *  than within this container
+     * @return Mapped command executors
+     */
+    std::map<int, CmdExecutor> &getExecutors() throw() {
+        return myExecutors;
+    }
 
-	static void jt(const std::map<int, CmdExecutor> &execs) throw();
+    static void jt(const std::map<int, CmdExecutor> &execs) throw();
 
 
 private:
@@ -313,8 +313,8 @@ private:
     bool myDoingSimStep;
     int simStepCommand;
 
-	/// @brief Map of commandIds -> their executors; applicable if the executor applies to the method footprint
-	std::map<int, CmdExecutor> myExecutors;
+    /// @brief Map of commandIds -> their executors; applicable if the executor applies to the method footprint
+    std::map<int, CmdExecutor> myExecutors;
 
 
     class Subscription {

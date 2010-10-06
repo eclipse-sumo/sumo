@@ -43,27 +43,23 @@ using namespace std;
 // ===========================================================================
 // method definitions
 // ===========================================================================
-void AGBus::setName(std::string name)
-{
-	this->name= name;
+void AGBus::setName(std::string name) {
+    this->name= name;
 }
 
 int
-AGBus::getDeparture()
-{
-	return departureTime;
+AGBus::getDeparture() {
+    return departureTime;
 }
 
 string
-AGBus::getName()
-{
-	return name;
+AGBus::getName() {
+    return name;
 }
 
 void
-AGBus::print()
-{
-	cout << "- Bus:" << " name=" << name << " depTime=" << departureTime << endl;
+AGBus::print() {
+    cout << "- Bus:" << " name=" << name << " depTime=" << departureTime << endl;
 }
 
 /****************************************************************************/

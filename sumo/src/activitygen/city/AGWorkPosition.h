@@ -46,36 +46,35 @@ class AGDataAndStatistics;
 // ===========================================================================
 // class definitions
 // ===========================================================================
-	// TODO: Change name to AGWorkPlace?
-	// TODO: Counter for free work positions should be in City
-	// TODO: Change name of openingTime to something like startHour or openingHour
-class AGWorkPosition
-{
+// TODO: Change name to AGWorkPlace?
+// TODO: Counter for free work positions should be in City
+// TODO: Change name of openingTime to something like startHour or openingHour
+class AGWorkPosition {
 public:
-	// TODO: Change order: ds, inStreet [, pos]
-	AGWorkPosition(const AGStreet& inStreet, AGDataAndStatistics* ds) throw();
-	AGWorkPosition(const AGStreet& inStreet, SUMOReal pos, AGDataAndStatistics* ds) throw();
-	~AGWorkPosition() throw();
+    // TODO: Change order: ds, inStreet [, pos]
+    AGWorkPosition(const AGStreet& inStreet, AGDataAndStatistics* ds) throw();
+    AGWorkPosition(const AGStreet& inStreet, SUMOReal pos, AGDataAndStatistics* ds) throw();
+    ~AGWorkPosition() throw();
 
-	void take(AGAdult* ad) throw(std::runtime_error);
-	void let() throw();
-	bool isTaken() const throw();
+    void take(AGAdult* ad) throw(std::runtime_error);
+    void let() throw();
+    bool isTaken() const throw();
 
-	AGPosition getPosition() const throw();
-	int getOpening() const throw();
-	int getClosing() const throw();
+    AGPosition getPosition() const throw();
+    int getOpening() const throw();
+    int getClosing() const throw();
 
-	void print() const throw();
+    void print() const throw();
 
 private:
-	AGDataAndStatistics* ds;
-	AGAdult* adult;
-	AGPosition location;
-	int openingTime;
-	int closingTime;
+    AGDataAndStatistics* ds;
+    AGAdult* adult;
+    AGPosition location;
+    int openingTime;
+    int closingTime;
 
-	static int generateOpeningTime(const AGDataAndStatistics& ds) throw();
-	static int generateClosingTime(const AGDataAndStatistics& ds) throw();
+    static int generateOpeningTime(const AGDataAndStatistics& ds) throw();
+    static int generateClosingTime(const AGDataAndStatistics& ds) throw();
 };
 
 #endif

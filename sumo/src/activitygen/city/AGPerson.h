@@ -43,41 +43,40 @@
  * is a base class for other classes and is not intended to be instantiated
  * as an object. Therefore, all constructors are protected.
  */
-class AGPerson
-{
+class AGPerson {
 public:
-	/** @brief Provides the age of the person.
-	 *
-	 * @return the age in years
-	 */
-	virtual int getAge() const throw();
+    /** @brief Provides the age of the person.
+     *
+     * @return the age in years
+     */
+    virtual int getAge() const throw();
 
-	/** @brief Lets the person make a decision.
-	 *
-	 * The higher the degree of belief is, the more likely this method returns
-	 * true.
-	 *
-	 * @param[in] degreeOfBelief how strong the person beliefs the proposition
-	 * @return whether the person agrees with the proposition
-	 */
-	virtual bool decide(float probability) const throw();
+    /** @brief Lets the person make a decision.
+     *
+     * The higher the degree of belief is, the more likely this method returns
+     * true.
+     *
+     * @param[in] degreeOfBelief how strong the person beliefs the proposition
+     * @return whether the person agrees with the proposition
+     */
+    virtual bool decide(float probability) const throw();
 
-	/** @brief Puts out a summary of the class properties.
-	 */
-	virtual void print() const throw();
+    /** @brief Puts out a summary of the class properties.
+     */
+    virtual void print() const throw();
 
 protected:
-	int age;
+    int age;
 
-	/** @brief Initialises the class attributes.
-	 *
-	 * @param[in] age the age of the person
-	 */
-	AGPerson(int age) throw();
+    /** @brief Initialises the class attributes.
+     *
+     * @param[in] age the age of the person
+     */
+    AGPerson(int age) throw();
 
-	/** @brief Cleans up everything.
-	 */
-	virtual ~AGPerson() throw();
+    /** @brief Cleans up everything.
+     */
+    virtual ~AGPerson() throw();
 };
 
 #endif /* AGPerson */

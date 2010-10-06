@@ -42,39 +42,37 @@
 // ===========================================================================
 // class definitions
 // ===========================================================================
-class AGActivities
-{
+class AGActivities {
 public:
-	AGActivities(AGCity *city, int days) :
-		myCity(city),
-		nbrDays(days)
-	{};
-	void addTrip(AGTrip t, std::list<AGTrip> *tripSet);
-	void addTrips(std::list<AGTrip> t, std::list<AGTrip> *tripSet);
-	void generateActivityTrips();
+    AGActivities(AGCity *city, int days) :
+            myCity(city),
+            nbrDays(days) {};
+    void addTrip(AGTrip t, std::list<AGTrip> *tripSet);
+    void addTrips(std::list<AGTrip> t, std::list<AGTrip> *tripSet);
+    void generateActivityTrips();
 
-	/**
-	 * trips contains trips as well for one day as for every day,
-	 * these trips will be regenerated with small variations
-	 * by ActivityGen at the end of the simulation
-	 * before generating the trip file
-	 */
-	std::list<AGTrip> trips;
+    /**
+     * trips contains trips as well for one day as for every day,
+     * these trips will be regenerated with small variations
+     * by ActivityGen at the end of the simulation
+     * before generating the trip file
+     */
+    std::list<AGTrip> trips;
 
 private:
-	bool generateTrips(AGHousehold &hh);
-	bool generateBusTraffic(AGBusLine bl);
-	bool generateInOutTraffic();
-	bool generateRandomTraffic();
+    bool generateTrips(AGHousehold &hh);
+    bool generateBusTraffic(AGBusLine bl);
+    bool generateInOutTraffic();
+    bool generateRandomTraffic();
 
-	/**
-	 * generates car names, given the unique (number, prefix)
-	 */
-	std::string generateName(int i, std::string prefix);
-	
-	AGCity *myCity;
+    /**
+     * generates car names, given the unique (number, prefix)
+     */
+    std::string generateName(int i, std::string prefix);
 
-	int nbrDays;
+    AGCity *myCity;
+
+    int nbrDays;
 
 };
 

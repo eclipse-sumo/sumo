@@ -49,8 +49,8 @@ public:
      * @param[in] inputStorage The storage to read the command from
      * @param[out] outputStorage The storage to write the result to
      */
-    static bool processGet(traci::TraCIServer &server, tcpip::Storage &inputStorage, 
-		tcpip::Storage &outputStorage);
+    static bool processGet(traci::TraCIServer &server, tcpip::Storage &inputStorage,
+                           tcpip::Storage &outputStorage);
 
 
     /** @brief Processes a set value command (Command 0xc8: Change Polygon State)
@@ -59,8 +59,8 @@ public:
      * @param[in] inputStorage The storage to read the command from
      * @param[out] outputStorage The storage to write the result to
      */
-    static bool processSet(traci::TraCIServer &server, tcpip::Storage &inputStorage, 
-		tcpip::Storage &outputStorage);
+    static bool processSet(traci::TraCIServer &server, tcpip::Storage &inputStorage,
+                           tcpip::Storage &outputStorage);
 
 
 private:

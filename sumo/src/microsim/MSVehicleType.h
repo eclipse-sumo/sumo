@@ -263,7 +263,7 @@ public:
 
     /** @brief Duplicates the microsim vehicle type giving it a the given id
      * @param[in] id The new id of the type
-     * @param[in] from The vehicle type 
+     * @param[in] from The vehicle type
      * @return The built vehicle type
      */
     static MSVehicleType *build(const std::string &id, const MSVehicleType *from) throw();
@@ -289,7 +289,7 @@ public:
      */
     void setLength(const SUMOReal &length) throw() {
         assert(myOriginalType!=0);
-        if(length<0) {
+        if (length<0) {
             myLength = myOriginalType->myLength;
         } else {
             myLength = length;
@@ -302,7 +302,7 @@ public:
      */
     void setMaxSpeed(const SUMOReal &maxSpeed) throw() {
         assert(myOriginalType!=0);
-        if(maxSpeed<0) {
+        if (maxSpeed<0) {
             myMaxSpeed = myOriginalType->myMaxSpeed;
         } else {
             myMaxSpeed = maxSpeed;
@@ -323,7 +323,7 @@ public:
      */
     void setDefaultProbability(const SUMOReal &prob) throw() {
         assert(myOriginalType!=0);
-        if(prob<0) {
+        if (prob<0) {
             myDefaultProbability = myOriginalType->myDefaultProbability;
         } else {
             myDefaultProbability = prob;
@@ -336,7 +336,7 @@ public:
      */
     void setSpeedFactor(const SUMOReal &factor) throw() {
         assert(myOriginalType!=0);
-        if(factor<0) {
+        if (factor<0) {
             mySpeedFactor = myOriginalType->mySpeedFactor;
         } else {
             mySpeedFactor = factor;
@@ -349,7 +349,7 @@ public:
      */
     void setSpeedDeviation(const SUMOReal &dev) throw() {
         assert(myOriginalType!=0);
-        if(dev<0) {
+        if (dev<0) {
             mySpeedDev = myOriginalType->mySpeedDev;
         } else {
             mySpeedDev = dev;
@@ -378,7 +378,7 @@ public:
      */
     void setWidth(const SUMOReal &width) throw() {
         assert(myOriginalType!=0);
-        if(width<0) {
+        if (width<0) {
             myWidth = myOriginalType->myWidth;
         } else {
             myWidth = width;
@@ -391,7 +391,7 @@ public:
      */
     void setOffset(const SUMOReal &offset) throw() {
         assert(myOriginalType!=0);
-        if(offset<0) {
+        if (offset<0) {
             myOffset = myOriginalType->myOffset;
         } else {
             myOffset = offset;

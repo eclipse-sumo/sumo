@@ -39,27 +39,24 @@
 // ===========================================================================
 // class definitions
 // ===========================================================================
-class AGCar
-{
+class AGCar {
 public:
-	AGCar(std::string name) :
-		idName(name)
-	{};
-	AGCar(int idHH, int idCar) :
-		idName(createName(idHH, idCar))
-	{};
-	bool associateTo(AGAdult *pers);
-	bool isAssociated();
-	std::string getName();
+    AGCar(std::string name) :
+            idName(name) {};
+    AGCar(int idHH, int idCar) :
+            idName(createName(idHH, idCar)) {};
+    bool associateTo(AGAdult *pers);
+    bool isAssociated();
+    std::string getName();
 
 private:
-	std::string createName(int idHH, int idCar);
+    std::string createName(int idHH, int idCar);
 
-	std::string idName;
-	AGAdult* currentUser;
+    std::string idName;
+    AGAdult* currentUser;
 
 };
 
 #endif
- 
+
 /****************************************************************************/

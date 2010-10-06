@@ -64,94 +64,91 @@
 // ===========================================================================
 
 /// Loads the network
-void loadNet(RONet &toFill, ROAbstractEdgeBuilder &eb) throw (ProcessError) {
-	OptionsCont &oc = OptionsCont::getOptions();
-	std::string file = oc.getString("net-file");
-	if (file == "") {
-		throw ProcessError("Missing definition of network to load!");
-	}
-	if (!FileHelpers::exists(file)) {
-		throw ProcessError("The network file '" + file
-				+ "' could not be found.");
-	}
-	MsgHandler::getMessageInstance()->beginProcessMsg("Loading net ...");
-	RONetHandler handler(toFill, eb);
-	handler.setFileName(file);
-	if (!XMLSubSys::runParser(handler, file)) {
-		MsgHandler::getMessageInstance()->endProcessMsg("failed.");
-		throw ProcessError();
-	} else {
-		MsgHandler::getMessageInstance()->endProcessMsg("done.");
-	}
+void loadNet(RONet &toFill, ROAbstractEdgeBuilder &eb) throw(ProcessError) {
+    OptionsCont &oc = OptionsCont::getOptions();
+    std::string file = oc.getString("net-file");
+    if (file == "") {
+        throw ProcessError("Missing definition of network to load!");
+    }
+    if (!FileHelpers::exists(file)) {
+        throw ProcessError("The network file '" + file
+                           + "' could not be found.");
+    }
+    MsgHandler::getMessageInstance()->beginProcessMsg("Loading net ...");
+    RONetHandler handler(toFill, eb);
+    handler.setFileName(file);
+    if (!XMLSubSys::runParser(handler, file)) {
+        MsgHandler::getMessageInstance()->endProcessMsg("failed.");
+        throw ProcessError();
+    } else {
+        MsgHandler::getMessageInstance()->endProcessMsg("done.");
+    }
 }
 
 /****************************************************************************/
 
 int main(int argc, char *argv[]) {
     int ret = 0;
-	OptionsCont &oc = OptionsCont::getOptions();
-	RONet *net = 0;
-	try {
-		// Initialise subsystems and process options
-		XMLSubSys::init(false);
-		AGFrame::fillOptions();
-		OptionsIO::getOptions(true, argc, argv);
-		MsgHandler::initOutputOptions();
-		RandHelper::initRandGlobal();
-		if (oc.processMetaOptions(argc < 2)) {
-			SystemFrame::close();
-			return 0;
-		}
+    OptionsCont &oc = OptionsCont::getOptions();
+    RONet *net = 0;
+    try {
+        // Initialise subsystems and process options
+        XMLSubSys::init(false);
+        AGFrame::fillOptions();
+        OptionsIO::getOptions(true, argc, argv);
+        MsgHandler::initOutputOptions();
+        RandHelper::initRandGlobal();
+        if (oc.processMetaOptions(argc < 2)) {
+            SystemFrame::close();
+            return 0;
+        }
 
-		// Load network
-		net = new RONet();
-		RODUAEdgeBuilder builder(oc.getBool("expand-weights"), oc.getBool("interpolate"));
-		loadNet(*net, builder);
-		MsgHandler::getMessageInstance()->inform("Loaded " + toString(
-				net->getEdgeNo()) + " edges.");
+        // Load network
+        net = new RONet();
+        RODUAEdgeBuilder builder(oc.getBool("expand-weights"), oc.getBool("interpolate"));
+        loadNet(*net, builder);
+        MsgHandler::getMessageInstance()->inform("Loaded " + toString(
+                    net->getEdgeNo()) + " edges.");
 
 
-	    if (oc.getBool("debug")) {
-		    MsgHandler::getMessageInstance()->inform("\n\t ---- begin AcitivtyGen ----\n");
-	    }
+        if (oc.getBool("debug")) {
+            MsgHandler::getMessageInstance()->inform("\n\t ---- begin AcitivtyGen ----\n");
+        }
 
         std::string statFile = oc.getString("stat-file");
         std::string routeFile = oc.getString("output-file");
         AGTime duration(1,0,0);
         AGTime begin(0);
         AGTime end(0);
-        if(oc.isSet("duration-d"))
-        {
-    	    duration.setDay(oc.getInt("duration-d"));
+        if (oc.isSet("duration-d")) {
+            duration.setDay(oc.getInt("duration-d"));
         }
-        if(oc.isSet("begin"))
-        {
-    	    begin.addSeconds(oc.getInt("begin") % 86400);
+        if (oc.isSet("begin")) {
+            begin.addSeconds(oc.getInt("begin") % 86400);
         }
-        if(oc.isSet("end"))
-        {
-    	    end.addSeconds(oc.getInt("end") % 86400);
+        if (oc.isSet("end")) {
+            end.addSeconds(oc.getInt("end") % 86400);
         }
         AGActivityGen actiGen(statFile, routeFile, net);
         actiGen.importInfoCity();
         actiGen.makeActivityTrips(duration.getDay(), begin.getTime(), end.getTime());
 
-	    if (oc.getBool("debug")) {
-		    MsgHandler::getMessageInstance()->inform("\n\t ---- end of ActivityGen ----\n");
-	    }
-	    ret = 0;
-	} catch (ProcessError &pe) {
+        if (oc.getBool("debug")) {
+            MsgHandler::getMessageInstance()->inform("\n\t ---- end of ActivityGen ----\n");
+        }
+        ret = 0;
+    } catch (ProcessError &pe) {
         if (std::string(pe.what())!=std::string("Process Error") && std::string(pe.what())!=std::string("")) {
             MsgHandler::getErrorInstance()->inform(pe.what());
         }
         MsgHandler::getErrorInstance()->inform("Quitting (on error).", false);
-		ret = 1;
+        ret = 1;
 #ifndef _DEBUG
     } catch (...) {
         MsgHandler::getErrorInstance()->inform("Quitting (on unknown error).", false);
         ret = 1;
 #endif
-	}
+    }
     OutputDevice::closeAll();
     SystemFrame::close();
     if (ret==0) {

@@ -46,8 +46,8 @@
 // ===========================================================================
 // member method definitions
 // ===========================================================================
-MSLaneChanger::MSLaneChanger(std::vector<MSLane*>* lanes, bool allowSwap) 
-    : myAllowsSwap(allowSwap) {
+MSLaneChanger::MSLaneChanger(std::vector<MSLane*>* lanes, bool allowSwap)
+        : myAllowsSwap(allowSwap) {
     assert(lanes->size() > 1);
 
     // Fill the changer with the lane-data.

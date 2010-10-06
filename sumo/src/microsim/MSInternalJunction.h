@@ -70,7 +70,7 @@ public:
     virtual ~MSInternalJunction();
 
 
-	void postloadInit() throw(ProcessError);
+    void postloadInit() throw(ProcessError);
 
     const std::vector<MSLink*> &getFoeLinks(const MSLink *const srcLink) const throw() {
         return myInternalLinkFoes;

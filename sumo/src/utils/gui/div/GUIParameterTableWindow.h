@@ -90,10 +90,10 @@ public:
 
 
 
-	/** @brief Lets this window know the object shown is being deleted
-	 * @param[in] o The deleted (shown) object
-	 */
-	void removeObject(GUIGlObject * const o) throw();
+    /** @brief Lets this window know the object shown is being deleted
+     * @param[in] o The deleted (shown) object
+     */
+    void removeObject(GUIGlObject * const o) throw();
 
 
 
@@ -227,7 +227,7 @@ private:
     /// @brief The index of the next row to add - used while building
     unsigned myCurrentPos;
 
-	/// @brief A lock assuring save updates in cse of object deletion
+    /// @brief A lock assuring save updates in cse of object deletion
     mutable MFXMutex myLock;
 
 protected:

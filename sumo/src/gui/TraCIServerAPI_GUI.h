@@ -58,8 +58,8 @@ public:
      * @param[in] inputStorage The storage to read the command from
      * @param[out] outputStorage The storage to write the result to
      */
-    static bool processGet(traci::TraCIServer &server, tcpip::Storage &inputStorage, 
-		tcpip::Storage &outputStorage) throw(traci::TraCIException, std::invalid_argument);
+    static bool processGet(traci::TraCIServer &server, tcpip::Storage &inputStorage,
+                           tcpip::Storage &outputStorage) throw(traci::TraCIException, std::invalid_argument);
 
 
     /** @brief Processes a set value command (Command 0xcc: Change GUI State)
@@ -68,8 +68,8 @@ public:
      * @param[in] inputStorage The storage to read the command from
      * @param[out] outputStorage The storage to write the result to
      */
-    static bool processSet(traci::TraCIServer &server, tcpip::Storage &inputStorage, 
-		tcpip::Storage &outputStorage) throw(traci::TraCIException, std::invalid_argument);
+    static bool processSet(traci::TraCIServer &server, tcpip::Storage &inputStorage,
+                           tcpip::Storage &outputStorage) throw(traci::TraCIException, std::invalid_argument);
 
 
 protected:

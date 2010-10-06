@@ -41,26 +41,24 @@
 // ===========================================================================
 // class definitions
 // ===========================================================================
-class AGActivityTripWriter
-{
+class AGActivityTripWriter {
 public:
-	AGActivityTripWriter(std::string file) :
-		fileName(file),
-		routes(file.c_str())
-	{
-		initialize();
-	}
+    AGActivityTripWriter(std::string file) :
+            fileName(file),
+            routes(file.c_str()) {
+        initialize();
+    }
 
-	void initialize();
-	void addTrip(AGTrip trip);
-	void writeOutputFile();
+    void initialize();
+    void addTrip(AGTrip trip);
+    void writeOutputFile();
 
 private:
-	std::string fileName;
-	std::ofstream routes;
-	std::map<std::string, std::string> colors;
+    std::string fileName;
+    std::ofstream routes;
+    std::map<std::string, std::string> colors;
 
-	void vtypes();
+    void vtypes();
 };
 
 

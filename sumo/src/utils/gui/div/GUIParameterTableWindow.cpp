@@ -82,30 +82,30 @@ GUIParameterTableWindow::GUIParameterTableWindow(GUIMainWindow &app,
     header->setItemJustify(2, JUSTIFY_CENTER_X);
     header->setItemSize(2, 60);
     setIcon(GUIIconSubSys::getIcon(ICON_APP_TABLE));
-	myLock.lock();
-	myObject->addParameterTable(this);
-	myLock.unlock();
+    myLock.lock();
+    myObject->addParameterTable(this);
+    myLock.unlock();
 }
 
 
 GUIParameterTableWindow::~GUIParameterTableWindow() throw() {
     myApplication->removeChild(this);
-	myLock.lock();
+    myLock.lock();
     for (std::vector<GUIParameterTableItemInterface*>::iterator i=myItems.begin(); i!=myItems.end(); ++i) {
         delete(*i);
     }
-	if(myObject!=0) {
-		myObject->removeParameterTable(this);
-	}
-	myLock.unlock();
+    if (myObject!=0) {
+        myObject->removeParameterTable(this);
+    }
+    myLock.unlock();
 }
 
 
-void 
+void
 GUIParameterTableWindow::removeObject(GUIGlObject *i) throw() {
-	myLock.lock();
-	myObject = 0;
-	myLock.unlock();
+    myLock.lock();
+    myObject = 0;
+    myLock.unlock();
 }
 
 
@@ -136,7 +136,7 @@ GUIParameterTableWindow::onRightButtonPress(FXObject*sender,
     // check which value entry was pressed
     myTable->onLeftBtnPress(sender, sel, data);
     int row = myTable->getCurrentRow();
-    if (row==-1||row>= (int) (myItems.size())) {
+    if (row==-1||row>= (int)(myItems.size())) {
         return 1;
     }
     GUIParameterTableItemInterface *i = myItems[row];
@@ -219,15 +219,15 @@ GUIParameterTableWindow::mkItem(const char *name, bool dynamic,
 
 void
 GUIParameterTableWindow::updateTable() throw() {
-	myLock.lock();
-	if(myObject==0) {
-		myLock.unlock();
-		return;
-	}
+    myLock.lock();
+    if (myObject==0) {
+        myLock.unlock();
+        return;
+    }
     for (std::vector<GUIParameterTableItemInterface*>::iterator i=myItems.begin(); i!=myItems.end(); i++) {
         (*i)->update();
     }
-	myLock.unlock();
+    myLock.unlock();
 }
 
 

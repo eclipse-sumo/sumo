@@ -49,8 +49,8 @@ public:
      * @param[in] inputStorage The storage to read the command from
      * @param[out] outputStorage The storage to write the result to
      */
-    static bool processGet(traci::TraCIServer &server, tcpip::Storage &inputStorage, 
-		tcpip::Storage &outputStorage);
+    static bool processGet(traci::TraCIServer &server, tcpip::Storage &inputStorage,
+                           tcpip::Storage &outputStorage);
 
 
     /** @brief Processes a set value command (Command 0xc2: Change Traffic Lights State)
@@ -59,27 +59,27 @@ public:
      * @param[in] inputStorage The storage to read the command from
      * @param[out] outputStorage The storage to write the result to
      */
-    static bool processSet(traci::TraCIServer &server, tcpip::Storage &inputStorage, 
-		tcpip::Storage &outputStorage);
+    static bool processSet(traci::TraCIServer &server, tcpip::Storage &inputStorage,
+                           tcpip::Storage &outputStorage);
 
 
 
-	/// @name "old" API functions
-	/// @{
+    /// @name "old" API functions
+    /// @{
 
-	/** @brief Processes command getTLStatus
-	 *
-	 * The traffic light with the given id is asked for all state transitions, that will occur within
-	 *  a given time interval. Each status change is returned by a TLSwitch command.
-	 */
+    /** @brief Processes command getTLStatus
+     *
+     * The traffic light with the given id is asked for all state transitions, that will occur within
+     *  a given time interval. Each status change is returned by a TLSwitch command.
+     */
     static bool commandGetTLStatus(traci::TraCIServer &server, tcpip::Storage &inputStorage, tcpip::Storage &outputStorage);
 
     /** @brief Processes command getAllTLIds
-	 *
-	 * Returns a list of strings representing the ids of all traffic lights in the simulation
-	 */
+     *
+     * Returns a list of strings representing the ids of all traffic lights in the simulation
+     */
     static bool commandGetAllTLIds(traci::TraCIServer &server, tcpip::Storage &inputStorage, tcpip::Storage &outputStorage);
-	/// @}
+    /// @}
 
 protected:
     /// @brief Whether deprecated definition of phases was already reported

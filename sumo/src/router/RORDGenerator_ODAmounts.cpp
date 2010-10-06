@@ -285,7 +285,7 @@ RORDGenerator_ODAmounts::myEndFlowAmountDef() {
             return;
         }
         // build the vehicle
-        if(myNet.addRouteDef(route)) {
+        if (myNet.addRouteDef(route)) {
             myNextRouteRead = true;
             ROVehicle *vehicle = new ROVehicle(*myParameter, route, type);
             // add to the container

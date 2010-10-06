@@ -180,7 +180,7 @@ RORDLoader_TripDefs::myEndElement(SumoXMLTag element) throw(ProcessError) {
         if (MsgHandler::getErrorInstance()->wasInformed()) {
             return;
         }
-        if(myNet.addRouteDef(route)) {
+        if (myNet.addRouteDef(route)) {
             myNextRouteRead = true;
             // build the vehicle
             ROVehicle *veh = new ROVehicle(*myParameter, route, type);

@@ -66,7 +66,7 @@ OptionsCont::getOptions() throw() {
 
 OptionsCont::OptionsCont() throw()
         : myAddresses(), myValues(), myHaveInformedAboutDeprecatedDivider(false) {
-	myCopyrightNotices.push_back("(c) DLR 2001-2010; http://sumo.sourceforge.net");
+    myCopyrightNotices.push_back("(c) DLR 2001-2010; http://sumo.sourceforge.net");
 }
 
 
@@ -448,7 +448,7 @@ OptionsCont::setAdditionalHelpMessage(const std::string &add) throw() {
 
 void
 OptionsCont::addCopyrightNotice(const std::string &copyrightLine) throw() {
-	myCopyrightNotices.push_back(copyrightLine);
+    myCopyrightNotices.push_back(copyrightLine);
 }
 
 
@@ -495,11 +495,11 @@ OptionsCont::processMetaOptions(bool missingOptions) throw(ProcessError) {
     if (missingOptions) {
         // no options are given
         std::cout << myFullName << std::endl;
-		for (std::vector<std::string>::const_iterator it =
-				myCopyrightNotices.begin(); it != myCopyrightNotices.end(); ++it) {
-			std::cout << " " << *it << std::endl;
-		}
-		std::cout << " Use --help to get the list of options." << std::endl;
+        for (std::vector<std::string>::const_iterator it =
+                    myCopyrightNotices.begin(); it != myCopyrightNotices.end(); ++it) {
+            std::cout << " " << *it << std::endl;
+        }
+        std::cout << " Use --help to get the list of options." << std::endl;
         return true;
     }
 
@@ -507,10 +507,10 @@ OptionsCont::processMetaOptions(bool missingOptions) throw(ProcessError) {
     // check whether the help shall be printed
     if (oc.getBool("help")) {
         std::cout << myFullName << std::endl;
-		for (std::vector<std::string>::const_iterator it =
-				myCopyrightNotices.begin(); it != myCopyrightNotices.end(); ++it) {
-			std::cout << " " << *it << std::endl;
-		}
+        for (std::vector<std::string>::const_iterator it =
+                    myCopyrightNotices.begin(); it != myCopyrightNotices.end(); ++it) {
+            std::cout << " " << *it << std::endl;
+        }
         oc.printHelp(std::cout);
         return true;
     }

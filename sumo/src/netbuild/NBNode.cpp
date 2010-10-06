@@ -559,7 +559,7 @@ NBNode::writeXMLInternalLinks(OutputDevice &into) {
     std::string id = ":" + myID;
     unsigned int lno = 0;
     unsigned int splitNo = 0;
-	bool ret = false;
+    bool ret = false;
     EdgeVector::iterator i;
     for (i=myIncomingEdges->begin(); i!=myIncomingEdges->end(); i++) {
         unsigned int noLanesEdge = (*i)->getNoLanes();
@@ -640,11 +640,11 @@ NBNode::writeXMLInternalLinks(OutputDevice &into) {
                     << "   </edge>\n";
                     lno++;
                 }
-				ret = true;
+                ret = true;
             }
         }
     }
-	return ret;
+    return ret;
 }
 
 
@@ -925,7 +925,7 @@ NBNode::writeXMLInternalSuccInfos(OutputDevice &into) {
     if (noInternalNoSplits==0) {
         return false;
     }
-	bool ret = false;
+    bool ret = false;
     unsigned int lno = 0;
     unsigned int splitNo = 0;
     for (EdgeVector::iterator i=myIncomingEdges->begin(); i!=myIncomingEdges->end(); i++) {
@@ -973,11 +973,11 @@ NBNode::writeXMLInternalSuccInfos(OutputDevice &into) {
                     splitNo++;
                 }
                 lno++;
-				ret = true;
+                ret = true;
             }
         }
     }
-	return ret;
+    return ret;
 }
 
 
@@ -987,7 +987,7 @@ NBNode::writeXMLInternalNodes(OutputDevice &into) {
     if (noInternalNoSplits==0) {
         return false;
     }
-	bool ret = false;
+    bool ret = false;
     unsigned int lno = 0;
     unsigned int splitNo = 0;
     for (EdgeVector::iterator i=myIncomingEdges->begin(); i!=myIncomingEdges->end(); i++) {
@@ -1023,11 +1023,11 @@ NBNode::writeXMLInternalNodes(OutputDevice &into) {
                 into << " shape=\"\"/>\n";
                 splitNo++;
                 lno++;
-				ret = true;
+                ret = true;
             }
         }
     }
-	return ret;
+    return ret;
 }
 
 

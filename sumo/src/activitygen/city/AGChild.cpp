@@ -46,75 +46,66 @@ using namespace std;
 // method definitions
 // ===========================================================================
 void
-AGChild::print()
-{
-	cout << "- Child: Age=" << age << " School=" << school << endl;
+AGChild::print() {
+    cout << "- Child: Age=" << age << " School=" << school << endl;
 }
 
 bool
-AGChild::setSchool(AGSchool *school)
-{
-	if(school == NULL)
-		return false;
-	bool enoughPlace = school->addNewChild();
-	if(enoughPlace)
-		this->school = school;
-	return enoughPlace;
+AGChild::setSchool(AGSchool *school) {
+    if (school == NULL)
+        return false;
+    bool enoughPlace = school->addNewChild();
+    if (enoughPlace)
+        this->school = school;
+    return enoughPlace;
 }
 
 bool
-AGChild::alocateASchool(list<AGSchool> *schools, AGPosition housePos)
-{
-	float minDist = FLT_MAX;
-	AGSchool *sch = NULL;
-	if(schools->size() == 0)
-		return false;
-	list<AGSchool>::iterator it;
+AGChild::alocateASchool(list<AGSchool> *schools, AGPosition housePos) {
+    float minDist = FLT_MAX;
+    AGSchool *sch = NULL;
+    if (schools->size() == 0)
+        return false;
+    list<AGSchool>::iterator it;
 
-	for(it = schools->begin() ; it!=schools->end() ; ++it)
-	{
-		if(it->acceptThisAge(age) && it->getPlaces()>0 && housePos.distanceTo(it->getPosition()) < minDist)
-		{
-			minDist = housePos.distanceTo(it->getPosition());
-			sch = &(*it);
-		}
-	}
-	return setSchool(sch);
+    for (it = schools->begin() ; it!=schools->end() ; ++it) {
+        if (it->acceptThisAge(age) && it->getPlaces()>0 && housePos.distanceTo(it->getPosition()) < minDist) {
+            minDist = housePos.distanceTo(it->getPosition());
+            sch = &(*it);
+        }
+    }
+    return setSchool(sch);
 }
 
 bool
-AGChild::leaveSchool()
-{
-	if(school != NULL)
-		if(!school->removeChild())
-			return false;
-	school = NULL;
-	return true;
+AGChild::leaveSchool() {
+    if (school != NULL)
+        if (!school->removeChild())
+            return false;
+    school = NULL;
+    return true;
 }
 
 bool
-AGChild::haveASchool(){
-	if(school == NULL)
-		return false;
-	return true;
+AGChild::haveASchool() {
+    if (school == NULL)
+        return false;
+    return true;
 }
 
 AGPosition
-AGChild::getSchoolLocation()
-{
-	return school->getPosition();
+AGChild::getSchoolLocation() {
+    return school->getPosition();
 }
 
 int
-AGChild::getSchoolClosing()
-{
-	return school->getClosingHour();
+AGChild::getSchoolClosing() {
+    return school->getClosingHour();
 }
 
 int
-AGChild::getSchoolOpeining()
-{
-	return school->getOpeningHour();
+AGChild::getSchoolOpeining() {
+    return school->getOpeningHour();
 }
 
 /****************************************************************************/

@@ -188,7 +188,7 @@ GUIParameterTracker::onCmdChangeAggregation(FXObject*,FXSelector,void*) {
         throw 1;
         break;
     }
-	for (std::vector<TrackerValueDesc*>::iterator i1=myTracked.begin(); i1!=myTracked.end(); i1++) {
+    for (std::vector<TrackerValueDesc*>::iterator i1=myTracked.begin(); i1!=myTracked.end(); i1++) {
         (*i1)->setAggregationSpan(TIME2STEPS(aggInt));
     }
     return 1;

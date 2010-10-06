@@ -178,36 +178,36 @@ public:
     virtual void drawGLAdditional(GUISUMOAbstractView * const parent, const GUIVisualizationSettings &s) const throw();
     //@}
 
- 
-
-	/// @name Additional visualisations
-	/// @{
-	
-	/** @brief Returns whether the named feature is enabled in the given view
-	 * @param[in] parent The view for which the feature may be enabled
-	 * @param[in] which The visualisation feature
-	 * @return see comment
-	 */
-	bool hasActiveAddVisualisation(GUISUMOAbstractView * const parent, int which) const throw();
 
 
-	/** @brief Adds the named visualisation feature to the given view
-	 * @param[in] parent The view for which the feature shall be enabled
-	 * @param[in] which The visualisation feature to enable
-	 * @return Always true
-	 * @see GUISUMOAbstractView::addAdditionalGLVisualisation
-	 */
-	bool addActiveAddVisualisation(GUISUMOAbstractView * const parent, int which) throw();
+    /// @name Additional visualisations
+    /// @{
+
+    /** @brief Returns whether the named feature is enabled in the given view
+     * @param[in] parent The view for which the feature may be enabled
+     * @param[in] which The visualisation feature
+     * @return see comment
+     */
+    bool hasActiveAddVisualisation(GUISUMOAbstractView * const parent, int which) const throw();
 
 
-	/** @brief Adds the named visualisation feature to the given view
-	 * @param[in] parent The view for which the feature shall be enabled
-	 * @param[in] which The visualisation feature to enable
-	 * @return Whether the vehicle was known to the view
-	 * @see GUISUMOAbstractView::removeAdditionalGLVisualisation
-	 */
-	bool removeActiveAddVisualisation(GUISUMOAbstractView * const parent, int which) throw();
-	/// @}
+    /** @brief Adds the named visualisation feature to the given view
+     * @param[in] parent The view for which the feature shall be enabled
+     * @param[in] which The visualisation feature to enable
+     * @return Always true
+     * @see GUISUMOAbstractView::addAdditionalGLVisualisation
+     */
+    bool addActiveAddVisualisation(GUISUMOAbstractView * const parent, int which) throw();
+
+
+    /** @brief Adds the named visualisation feature to the given view
+     * @param[in] parent The view for which the feature shall be enabled
+     * @param[in] which The visualisation feature to enable
+     * @return Whether the vehicle was known to the view
+     * @see GUISUMOAbstractView::removeAdditionalGLVisualisation
+     */
+    bool removeActiveAddVisualisation(GUISUMOAbstractView * const parent, int which) throw();
+    /// @}
 
 
 
@@ -238,19 +238,19 @@ public:
 
     /**
      * @class GUIVehiclePopupMenu
-	 *
+     *
      * A popup-menu for vehicles. In comparison to the normal popup-menu, this one
      *  also allows to trigger further visualisations and to track the vehicle.
      */
     class GUIVehiclePopupMenu : public GUIGLObjectPopupMenu {
         FXDECLARE(GUIVehiclePopupMenu)
     public:
-	    /** @brief Constructor
-	     * @param[in] app The main window for instantiation of other windows
-	     * @param[in] parent The parent view for changing it
-	     * @param[in] o The object of interest
-	     * @param[in, out] additionalVisualizations Information which additional visualisations are enabled (per view)
-	     */
+        /** @brief Constructor
+         * @param[in] app The main window for instantiation of other windows
+         * @param[in] parent The parent view for changing it
+         * @param[in] o The object of interest
+         * @param[in, out] additionalVisualizations Information which additional visualisations are enabled (per view)
+         */
         GUIVehiclePopupMenu(GUIMainWindow &app,
                             GUISUMOAbstractView &parent, GUIGlObject &o, std::map<GUISUMOAbstractView*, int> &additionalVisualizations);
 
@@ -274,21 +274,21 @@ public:
         /// @brief Called if the current shall not be tracked any longer
         long onCmdStopTrack(FXObject*,FXSelector,void*);
 
-	protected:
-		/// @brief Information which additional visualisations are enabled (per view)
-		std::map<GUISUMOAbstractView*, int> &myVehiclesAdditionalVisualizations;
-		/// @brief Needed for parameterless instantiation
-		std::map<GUISUMOAbstractView*, int> dummy;
+    protected:
+        /// @brief Information which additional visualisations are enabled (per view)
+        std::map<GUISUMOAbstractView*, int> &myVehiclesAdditionalVisualizations;
+        /// @brief Needed for parameterless instantiation
+        std::map<GUISUMOAbstractView*, int> dummy;
 
     protected:
-		/// @brief default constructor needed by FOX
-		GUIVehiclePopupMenu() : myVehiclesAdditionalVisualizations(dummy) { }
+        /// @brief default constructor needed by FOX
+        GUIVehiclePopupMenu() : myVehiclesAdditionalVisualizations(dummy) { }
 
     };
 
 
-	/// @name Additional visualisations
-	/// @{
+    /// @name Additional visualisations
+    /// @{
 
     /** @brief Additional visualisation feature ids
      */
@@ -303,28 +303,28 @@ public:
         VO_TRACKED = 8
     };
 
-	/// @brief Enabled visualisations, per view
-	std::map<GUISUMOAbstractView*, int> myAdditionalVisualizations;
+    /// @brief Enabled visualisations, per view
+    std::map<GUISUMOAbstractView*, int> myAdditionalVisualizations;
 
 
-	/** @brief Draws the route
-	 * @param[in] r The route to draw
-	 */
-	void draw(const MSRoute &r) const throw();
+    /** @brief Draws the route
+     * @param[in] r The route to draw
+     */
+    void draw(const MSRoute &r) const throw();
 
 
-	/** @brief Chooses the route to draw and draws it, darkening it as given
-	 * @param[in] s The visualisation settings, needed to determine the vehicle's color
-	 * @param[in] routeNo The route to show (0: the current, >0: prior)
-	 * @param[in] darken The amount to darken the route by
-	 */
-	void drawRoute(const GUIVisualizationSettings &s, int routeNo, SUMOReal darken) const throw();
+    /** @brief Chooses the route to draw and draws it, darkening it as given
+     * @param[in] s The visualisation settings, needed to determine the vehicle's color
+     * @param[in] routeNo The route to show (0: the current, >0: prior)
+     * @param[in] darken The amount to darken the route by
+     */
+    void drawRoute(const GUIVisualizationSettings &s, int routeNo, SUMOReal darken) const throw();
 
 
-	/** @brief Draws the vehicle's best lanes
-	 */
-	void drawBestLanes() const throw();
-	/// @}
+    /** @brief Draws the vehicle's best lanes
+     */
+    void drawBestLanes() const throw();
+    /// @}
 
 
 private:

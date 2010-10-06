@@ -237,7 +237,7 @@ MSEdge::decVaporization(SUMOTime) throw(ProcessError) {
 
 MSLane *
 MSEdge::getFreeLane(const std::vector<MSLane*>* allowed, const SUMOVehicleClass vclass) const throw() {
-    if(allowed==0) {
+    if (allowed==0) {
         allowed = allowedLanes(vclass);
     }
     MSLane* res = 0;

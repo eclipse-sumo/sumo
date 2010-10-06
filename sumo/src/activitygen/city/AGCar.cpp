@@ -45,32 +45,27 @@ using namespace std;
 // ===========================================================================
 // method definitions
 // ===========================================================================
-string AGCar::createName(int idHH, int idCar)
-{
-	std::ostringstream os;
-	os << "h" << idHH << "c" << idCar;
-	return os.str();
+string AGCar::createName(int idHH, int idCar) {
+    std::ostringstream os;
+    os << "h" << idHH << "c" << idCar;
+    return os.str();
 }
 
-bool AGCar::associateTo(AGAdult *pers)
-{
-	if(currentUser == NULL)
-	{
-		currentUser = pers;
-		return true;
-	}
-	return false;
+bool AGCar::associateTo(AGAdult *pers) {
+    if (currentUser == NULL) {
+        currentUser = pers;
+        return true;
+    }
+    return false;
 }
 
-bool AGCar::isAssociated()
-{
-	return (currentUser != NULL);
+bool AGCar::isAssociated() {
+    return (currentUser != NULL);
 }
 
 string
-AGCar::getName()
-{
-	return idName;
+AGCar::getName() {
+    return idName;
 }
 
 /****************************************************************************/

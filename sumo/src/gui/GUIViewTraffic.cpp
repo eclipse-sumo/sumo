@@ -190,8 +190,8 @@ GUIViewTraffic::doPaintGL(int mode, SUMOReal scale) {
     //
     glTranslated(0, 0, -.01);
     for (std::map<GUIGlObject*, int>::iterator i=myAdditionallyDrawn.begin(); i!=myAdditionallyDrawn.end(); ++i) {
-		(i->first)->drawGLAdditional(this, *myVisualizationSettings);
-	}
+        (i->first)->drawGLAdditional(this, *myVisualizationSettings);
+    }
     glTranslated(0, 0, .01);
     glPopMatrix();
     /*

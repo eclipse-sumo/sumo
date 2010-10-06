@@ -226,7 +226,7 @@ MSDevice_Routing::getEffort(const MSEdge * const e, const SUMOVehicle * const v,
 SUMOTime
 MSDevice_Routing::adaptEdgeEfforts(SUMOTime currentTime) throw(ProcessError) {
     std::map<std::pair<const MSEdge*, const MSEdge*>, const MSRoute*>::iterator it = myCachedRoutes.begin();
-    for (;it != myCachedRoutes.end(); ++it) {
+    for (; it != myCachedRoutes.end(); ++it) {
         it->second->release();
     }
     myCachedRoutes.clear();

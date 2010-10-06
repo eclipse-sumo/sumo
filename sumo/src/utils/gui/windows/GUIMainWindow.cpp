@@ -101,24 +101,24 @@ GUIMainWindow::removeChild(FXMainWindow *child) {
 }
 
 
-std::vector<std::string> 
+std::vector<std::string>
 GUIMainWindow::getViewIDs() const throw() {
-	std::vector<std::string> ret;
-	for(std::vector<FXMDIChild*>::const_iterator i = mySubWindows.begin(); i!=mySubWindows.end(); ++i) {
-		ret.push_back((*i)->getTitle().text());
-	}
-	return ret;
+    std::vector<std::string> ret;
+    for (std::vector<FXMDIChild*>::const_iterator i = mySubWindows.begin(); i!=mySubWindows.end(); ++i) {
+        ret.push_back((*i)->getTitle().text());
+    }
+    return ret;
 }
 
 
 FXMDIChild *
 GUIMainWindow::getViewByID(const std::string &id) const throw() {
-	for(std::vector<FXMDIChild*>::const_iterator i = mySubWindows.begin(); i!=mySubWindows.end(); ++i) {
-		if (std::string((*i)->getTitle().text())==id) {
-			return *i;
-		}
-	}
-	return 0;
+    for (std::vector<FXMDIChild*>::const_iterator i = mySubWindows.begin(); i!=mySubWindows.end(); ++i) {
+        if (std::string((*i)->getTitle().text())==id) {
+            return *i;
+        }
+    }
+    return 0;
 }
 
 

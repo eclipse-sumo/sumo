@@ -51,21 +51,21 @@
 class GUIParameterTracker : public FXMainWindow {
     FXDECLARE(GUIParameterTracker)
 public:
-	/// @brief callback-enumerations
+    /// @brief callback-enumerations
     enum {
-		/// @brief Change aggregation interval
+        /// @brief Change aggregation interval
         MID_AGGREGATIONINTERVAL = FXMainWindow::ID_LAST,
-		/// @brief Save the current values
+        /// @brief Save the current values
         MID_SAVE,
-		/// @brief end-of-enum
+        /// @brief end-of-enum
         ID_LAST
     };
 
 
     /** @brief Constructor (the tracker is empty)
-	 * @param[in] app The main application window
-	 * @param[in] name The title of the tracker
-	 */
+     * @param[in] app The main application window
+     * @param[in] name The title of the tracker
+     */
     GUIParameterTracker(GUIMainWindow &app, const std::string &name) throw();
 
 
@@ -78,16 +78,16 @@ public:
 
 
     /** @brief Adds a further time line to display
-	 * @param[in] o The object to get values from
-	 * @param[in] src The value source of the object
-	 * @param[in] newTracked The description of the tracked value
-	 */
+     * @param[in] o The object to get values from
+     * @param[in] src The value source of the object
+     * @param[in] newTracked The description of the tracked value
+     */
     void addTracked(GUIGlObject &o, ValueSource<SUMOReal> *src,
                     TrackerValueDesc *newTracked) throw();
 
 
-	/// @name FOX-callbacks
-	/// @{
+    /// @name FOX-callbacks
+    /// @{
 
     /// @brief Called on window resizing
     long onConfigure(FXObject*,FXSelector,void*);
@@ -103,7 +103,7 @@ public:
 
     /// @brief Called when the data shall be saved
     long onCmdSave(FXObject*,FXSelector,void*);
-	/// @}
+    /// @}
 
 
 public:
@@ -117,10 +117,10 @@ public:
         FXDECLARE(GUIParameterTrackerPanel)
     public:
         /** @brief Constructor
-		 * @param[in] c The parent composite
-		 * @param[in] app The main window
-		 * @param[in] parent The parent tracker window this view belongs to
-		 */
+         * @param[in] c The parent composite
+         * @param[in] app The main window
+         * @param[in] parent The parent tracker window this view belongs to
+         */
         GUIParameterTrackerPanel(FXComposite *c, GUIMainWindow &app,
                                  GUIParameterTracker &parent) throw();
 
@@ -131,10 +131,10 @@ public:
         friend class GUIParameterTracker;
 
 
-		/// @name FOX-callbacks
-		/// @{
+        /// @name FOX-callbacks
+        /// @{
 
-		/// Called on window resizing
+        /// Called on window resizing
         long onConfigure(FXObject*,FXSelector,void*);
 
         /// Called if the window shall be repainted
@@ -142,18 +142,18 @@ public:
 
         /// Called on a simulation step
         long onSimStep(FXObject*sender,FXSelector,void*);
-		/// @}
+        /// @}
 
 
     private:
         /** @brief Draws all values
-		 */
+         */
         void drawValues() throw();
 
         /** @brief Draws a single value
-		 * @param[in] desc The tracked values to draw
-		 * @param[in] namePos Position to display the name at (currently unused)
-		 */
+         * @param[in] desc The tracked values to draw
+         * @param[in] namePos Position to display the name at (currently unused)
+         */
         void drawValue(TrackerValueDesc &desc, SUMOReal namePos) throw();
 
 

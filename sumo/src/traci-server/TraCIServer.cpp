@@ -114,16 +114,16 @@ bool TraCIServer::closeConnection_ = false;
 // method definitions
 // ===========================================================================
 
-void 
+void
 TraCIServer::jt(const std::map<int, CmdExecutor> &execs) throw() {
-	if (instance_ == 0) {
-		if (!closeConnection_ && OptionsCont::getOptions().getInt("remote-port") != 0) {
-			instance_ = new traci::TraCIServer();
-			for(std::map<int, CmdExecutor>::const_iterator i=execs.begin(); i!=execs.end(); ++i) {
-				instance_->myExecutors[i->first] = i->second;
-			}
-		}
-	}
+    if (instance_ == 0) {
+        if (!closeConnection_ && OptionsCont::getOptions().getInt("remote-port") != 0) {
+            instance_ = new traci::TraCIServer();
+            for (std::map<int, CmdExecutor>::const_iterator i=execs.begin(); i!=execs.end(); ++i) {
+                instance_->myExecutors[i->first] = i->second;
+            }
+        }
+    }
 }
 
 /*****************************************************************************/
@@ -136,36 +136,36 @@ TraCIServer::TraCIServer() {
     myVehicleStateChanges[MSNet::VEHICLE_STATE_ARRIVED] = std::vector<std::string>();
     MSNet::getInstance()->addVehicleStateListener(this);
 
-	myExecutors[CMD_SETMAXSPEED] = &TraCIServerAPI_Vehicle::commandSetMaximumSpeed;
-	myExecutors[CMD_STOP] = &TraCIServerAPI_Vehicle::commandStopNode;
-	myExecutors[CMD_CHANGELANE] = &TraCIServerAPI_Vehicle::commandChangeLane;
-	myExecutors[CMD_CHANGEROUTE] = &TraCIServerAPI_Vehicle::commandChangeRoute;
-	myExecutors[CMD_CHANGETARGET] = &TraCIServerAPI_Vehicle::commandChangeTarget;
-	myExecutors[CMD_GETALLTLIDS] = &TraCIServerAPI_TLS::commandGetAllTLIds;
-	myExecutors[CMD_GETTLSTATUS] = &TraCIServerAPI_TLS::commandGetTLStatus;
-	myExecutors[CMD_SLOWDOWN] = &TraCIServerAPI_Vehicle::commandSlowDown;
-	myExecutors[CMD_SUBSCRIBEDOMAIN] = &TraCIServerAPI_Vehicle::commandSubscribeDomain;
-	myExecutors[CMD_UNSUBSCRIBEDOMAIN] = &TraCIServerAPI_Vehicle::commandUnsubscribeDomain;
+    myExecutors[CMD_SETMAXSPEED] = &TraCIServerAPI_Vehicle::commandSetMaximumSpeed;
+    myExecutors[CMD_STOP] = &TraCIServerAPI_Vehicle::commandStopNode;
+    myExecutors[CMD_CHANGELANE] = &TraCIServerAPI_Vehicle::commandChangeLane;
+    myExecutors[CMD_CHANGEROUTE] = &TraCIServerAPI_Vehicle::commandChangeRoute;
+    myExecutors[CMD_CHANGETARGET] = &TraCIServerAPI_Vehicle::commandChangeTarget;
+    myExecutors[CMD_GETALLTLIDS] = &TraCIServerAPI_TLS::commandGetAllTLIds;
+    myExecutors[CMD_GETTLSTATUS] = &TraCIServerAPI_TLS::commandGetTLStatus;
+    myExecutors[CMD_SLOWDOWN] = &TraCIServerAPI_Vehicle::commandSlowDown;
+    myExecutors[CMD_SUBSCRIBEDOMAIN] = &TraCIServerAPI_Vehicle::commandSubscribeDomain;
+    myExecutors[CMD_UNSUBSCRIBEDOMAIN] = &TraCIServerAPI_Vehicle::commandUnsubscribeDomain;
 
-	myExecutors[CMD_GET_INDUCTIONLOOP_VARIABLE] = &TraCIServerAPI_InductionLoop::processGet;
-	myExecutors[CMD_GET_MULTI_ENTRY_EXIT_DETECTOR_VARIABLE] = &TraCIServerAPI_MeMeDetector::processGet;
-	myExecutors[CMD_GET_TL_VARIABLE] = &TraCIServerAPI_TLS::processGet;
-	myExecutors[CMD_SET_TL_VARIABLE] = &TraCIServerAPI_TLS::processSet;
-	myExecutors[CMD_GET_LANE_VARIABLE] = &TraCIServerAPI_Lane::processGet;
-	myExecutors[CMD_SET_LANE_VARIABLE] = &TraCIServerAPI_Lane::processSet;
-	myExecutors[CMD_GET_VEHICLE_VARIABLE] = &TraCIServerAPI_Vehicle::processGet;
-	myExecutors[CMD_SET_VEHICLE_VARIABLE] = &TraCIServerAPI_Vehicle::processSet;
-	myExecutors[CMD_GET_VEHICLETYPE_VARIABLE] = &TraCIServerAPI_VehicleType::processGet;
-	myExecutors[CMD_GET_ROUTE_VARIABLE] = &TraCIServerAPI_Route::processGet;
-	myExecutors[CMD_GET_POI_VARIABLE] = &TraCIServerAPI_POI::processGet;
-	myExecutors[CMD_SET_POI_VARIABLE] = &TraCIServerAPI_POI::processSet;
-	myExecutors[CMD_GET_POLYGON_VARIABLE] = &TraCIServerAPI_Polygon::processGet;
-	myExecutors[CMD_SET_POLYGON_VARIABLE] = &TraCIServerAPI_Polygon::processSet;
-	myExecutors[CMD_GET_JUNCTION_VARIABLE] = &TraCIServerAPI_Junction::processGet;
-	myExecutors[CMD_GET_EDGE_VARIABLE] = &TraCIServerAPI_Edge::processGet;
-	myExecutors[CMD_SET_EDGE_VARIABLE] = &TraCIServerAPI_Edge::processSet;
-	myExecutors[CMD_GET_SIM_VARIABLE] = &TraCIServerAPI_Simulation::processGet;
-  
+    myExecutors[CMD_GET_INDUCTIONLOOP_VARIABLE] = &TraCIServerAPI_InductionLoop::processGet;
+    myExecutors[CMD_GET_MULTI_ENTRY_EXIT_DETECTOR_VARIABLE] = &TraCIServerAPI_MeMeDetector::processGet;
+    myExecutors[CMD_GET_TL_VARIABLE] = &TraCIServerAPI_TLS::processGet;
+    myExecutors[CMD_SET_TL_VARIABLE] = &TraCIServerAPI_TLS::processSet;
+    myExecutors[CMD_GET_LANE_VARIABLE] = &TraCIServerAPI_Lane::processGet;
+    myExecutors[CMD_SET_LANE_VARIABLE] = &TraCIServerAPI_Lane::processSet;
+    myExecutors[CMD_GET_VEHICLE_VARIABLE] = &TraCIServerAPI_Vehicle::processGet;
+    myExecutors[CMD_SET_VEHICLE_VARIABLE] = &TraCIServerAPI_Vehicle::processSet;
+    myExecutors[CMD_GET_VEHICLETYPE_VARIABLE] = &TraCIServerAPI_VehicleType::processGet;
+    myExecutors[CMD_GET_ROUTE_VARIABLE] = &TraCIServerAPI_Route::processGet;
+    myExecutors[CMD_GET_POI_VARIABLE] = &TraCIServerAPI_POI::processGet;
+    myExecutors[CMD_SET_POI_VARIABLE] = &TraCIServerAPI_POI::processSet;
+    myExecutors[CMD_GET_POLYGON_VARIABLE] = &TraCIServerAPI_Polygon::processGet;
+    myExecutors[CMD_SET_POLYGON_VARIABLE] = &TraCIServerAPI_Polygon::processSet;
+    myExecutors[CMD_GET_JUNCTION_VARIABLE] = &TraCIServerAPI_Junction::processGet;
+    myExecutors[CMD_GET_EDGE_VARIABLE] = &TraCIServerAPI_Edge::processGet;
+    myExecutors[CMD_SET_EDGE_VARIABLE] = &TraCIServerAPI_Edge::processSet;
+    myExecutors[CMD_GET_SIM_VARIABLE] = &TraCIServerAPI_Simulation::processGet;
+
     OptionsCont &oc = OptionsCont::getOptions();
     targetTime_ = 0;
     penetration_ = oc.getFloat("penetration");
@@ -221,7 +221,7 @@ TraCIServer::TraCIServer() {
     TraCIHandler xmlHandler;
     SAX2XMLReader* xmlParser = XMLSubSys::getSAXReader(xmlHandler);
 
-    if(OptionsCont::getOptions().getFloat("penetration")!=0) {
+    if (OptionsCont::getOptions().getFloat("penetration")!=0) {
         // parse route files
         if (oc.isSet("route-files")) {
             std::vector<std::string> fileList = oc.getStringVector("route-files");
@@ -393,72 +393,72 @@ throw(TraCIException, std::invalid_argument) {
     int commandId = myInputStorage.readUnsignedByte();
     bool success = false;
     // dispatch commands
-	if(myExecutors.find(commandId)!=myExecutors.end()) {
+    if (myExecutors.find(commandId)!=myExecutors.end()) {
         success = myExecutors[commandId](*this, myInputStorage, myOutputStorage);
-	} else {
-    switch (commandId) {
-    case CMD_GETVERSION:
-        success = commandGetVersion();
-        break;
-    case CMD_SIMSTEP:
-        success = targetTime_ = static_cast<SUMOTime>(myInputStorage.readInt());
-        return commandId;
-    case CMD_SIMSTEP2: {
-        SUMOTime nextT = myInputStorage.readInt();
-        success = true;
-        if (nextT!=0) {
-            targetTime_ = (SUMOReal) nextT;
-        } else {
-            targetTime_ += DELTA_T;
+    } else {
+        switch (commandId) {
+        case CMD_GETVERSION:
+            success = commandGetVersion();
+            break;
+        case CMD_SIMSTEP:
+            success = targetTime_ = static_cast<SUMOTime>(myInputStorage.readInt());
+            return commandId;
+        case CMD_SIMSTEP2: {
+            SUMOTime nextT = myInputStorage.readInt();
+            success = true;
+            if (nextT!=0) {
+                targetTime_ = (SUMOReal) nextT;
+            } else {
+                targetTime_ += DELTA_T;
+            }
+            return commandId;
         }
-        return commandId;
+        case CMD_CLOSE:
+            success = commandCloseConnection();
+            break;
+        case CMD_UPDATECALIBRATOR:
+            success = commandUpdateCalibrator();
+            break;
+        case CMD_POSITIONCONVERSION:
+            success = commandPositionConversion();
+            break;
+        case CMD_SCENARIO:
+            success = commandScenario();
+            break;
+        case CMD_ADDVEHICLE:
+            success = commandAddVehicle();
+            break;
+        case CMD_DISTANCEREQUEST:
+            success = commandDistanceRequest();
+            break;
+        case CMD_SUBSCRIBELIFECYCLES:
+            success = TraCIServerAPI_Vehicle::commandSubscribeLifecycles(*this, myInputStorage, myOutputStorage);
+            myCreatedVehicles.clear();
+            myDestroyedVehicles.clear();
+            break;
+        case CMD_UNSUBSCRIBELIFECYCLES:
+            success = TraCIServerAPI_Vehicle::commandUnsubscribeLifecycles(*this, myInputStorage, myOutputStorage);
+            myCreatedVehicles.clear();
+            myDestroyedVehicles.clear();
+            break;
+        case CMD_SUBSCRIBE_INDUCTIONLOOP_VARIABLE:
+        case CMD_SUBSCRIBE_MULTI_ENTRY_EXIT_DETECTOR_VARIABLE:
+        case CMD_SUBSCRIBE_TL_VARIABLE:
+        case CMD_SUBSCRIBE_LANE_VARIABLE:
+        case CMD_SUBSCRIBE_VEHICLE_VARIABLE:
+        case CMD_SUBSCRIBE_VEHICLETYPE_VARIABLE:
+        case CMD_SUBSCRIBE_ROUTE_VARIABLE:
+        case CMD_SUBSCRIBE_POI_VARIABLE:
+        case CMD_SUBSCRIBE_POLYGON_VARIABLE:
+        case CMD_SUBSCRIBE_JUNCTION_VARIABLE:
+        case CMD_SUBSCRIBE_EDGE_VARIABLE:
+        case CMD_SUBSCRIBE_SIM_VARIABLE:
+            success = addSubscription(commandId);
+            break;
+        default:
+            writeStatusCmd(commandId, RTYPE_NOTIMPLEMENTED, "Command not implemented in sumo");
+        }
     }
-    case CMD_CLOSE:
-        success = commandCloseConnection();
-        break;
-    case CMD_UPDATECALIBRATOR:
-        success = commandUpdateCalibrator();
-        break;
-    case CMD_POSITIONCONVERSION:
-        success = commandPositionConversion();
-        break;
-    case CMD_SCENARIO:
-        success = commandScenario();
-        break;
-    case CMD_ADDVEHICLE:
-        success = commandAddVehicle();
-        break;
-    case CMD_DISTANCEREQUEST:
-        success = commandDistanceRequest();
-        break;
-    case CMD_SUBSCRIBELIFECYCLES:
-        success = TraCIServerAPI_Vehicle::commandSubscribeLifecycles(*this, myInputStorage, myOutputStorage);
-    myCreatedVehicles.clear();
-    myDestroyedVehicles.clear();
-        break;
-    case CMD_UNSUBSCRIBELIFECYCLES:
-        success = TraCIServerAPI_Vehicle::commandUnsubscribeLifecycles(*this, myInputStorage, myOutputStorage);
-    myCreatedVehicles.clear();
-    myDestroyedVehicles.clear();
-        break;
-    case CMD_SUBSCRIBE_INDUCTIONLOOP_VARIABLE:
-    case CMD_SUBSCRIBE_MULTI_ENTRY_EXIT_DETECTOR_VARIABLE:
-    case CMD_SUBSCRIBE_TL_VARIABLE:
-    case CMD_SUBSCRIBE_LANE_VARIABLE:
-    case CMD_SUBSCRIBE_VEHICLE_VARIABLE:
-    case CMD_SUBSCRIBE_VEHICLETYPE_VARIABLE:
-    case CMD_SUBSCRIBE_ROUTE_VARIABLE:
-    case CMD_SUBSCRIBE_POI_VARIABLE:
-    case CMD_SUBSCRIBE_POLYGON_VARIABLE:
-    case CMD_SUBSCRIBE_JUNCTION_VARIABLE:
-    case CMD_SUBSCRIBE_EDGE_VARIABLE:
-    case CMD_SUBSCRIBE_SIM_VARIABLE:
-        success = addSubscription(commandId);
-        break;
-    default:
-        writeStatusCmd(commandId, RTYPE_NOTIMPLEMENTED, "Command not implemented in sumo");
-    }
-	}
     if (!success) {
         while (myInputStorage.valid_pos() && myInputStorage.position() < commandStart + commandLength) {
             myInputStorage.readChar();
@@ -556,7 +556,7 @@ TraCIServer::postProcessSimulationStep() throw(TraCIException, std::invalid_argu
                 iter != equippedVehicles_.end(); ++iter) {
             if ((*iter).second != -1) { // Look only at equipped vehicles
                 MSVehicle* veh = net->getVehicleControl().getVehicle((*iter).first);
-				TraCIServerAPI_Vehicle::checkReroute(veh);
+                TraCIServerAPI_Vehicle::checkReroute(veh);
                 if (veh != NULL) {
                     veh->processTraCICommands(targetTime_);
                 }
@@ -1158,7 +1158,7 @@ TraCIServer::commandDistanceRequest() throw(TraCIException) {
 
 void
 TraCIServer::writeStatusCmd(int commandId, int status, const std::string &description) {
-	writeStatusCmd(commandId, status, description, myOutputStorage);
+    writeStatusCmd(commandId, status, description, myOutputStorage);
 }
 
 
@@ -2536,17 +2536,17 @@ TraCIServer::processSingleSubscription(const Subscription &s, tcpip::Storage &wr
         message.writeUnsignedByte(*i);
         message.writeString(s.id);
         tcpip::Storage tmpOutput;
-		int getId = s.commandId - 0x30;
-		if(myExecutors.find(getId)!=myExecutors.end()) {
-			ok &= myExecutors[getId](*this, message, tmpOutput);
-		} else {
+        int getId = s.commandId - 0x30;
+        if (myExecutors.find(getId)!=myExecutors.end()) {
+            ok &= myExecutors[getId](*this, message, tmpOutput);
+        } else {
             writeStatusCmd(s.commandId, RTYPE_NOTIMPLEMENTED, "Unsupported command specified", tmpOutput);
             ok = false;
         }
         // copy response part
         if (ok) {
             int length = tmpOutput.readUnsignedByte();
-			while(--length>0) tmpOutput.readUnsignedByte();
+            while (--length>0) tmpOutput.readUnsignedByte();
             length = tmpOutput.readUnsignedByte();
             length = tmpOutput.readInt();
             int responseType = tmpOutput.readUnsignedByte();
@@ -2554,7 +2554,7 @@ TraCIServer::processSingleSubscription(const Subscription &s, tcpip::Storage &wr
             std::string id = tmpOutput.readString();
             outputStorage.writeUnsignedByte(variable);
             outputStorage.writeUnsignedByte(RTYPE_OK);
-			length -= (1+4+1+4+id.length());
+            length -= (1+4+1+4+id.length());
             while (--length>0) {
                 outputStorage.writeUnsignedByte(tmpOutput.readUnsignedByte());
             }

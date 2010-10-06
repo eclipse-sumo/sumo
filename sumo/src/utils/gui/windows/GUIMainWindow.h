@@ -54,8 +54,8 @@ public:
     void removeChild(FXMDIChild *child);
     void removeChild(FXMainWindow  *child);
 
-	std::vector<std::string> getViewIDs() const throw();
-	FXMDIChild *getViewByID(const std::string &id) const throw();
+    std::vector<std::string> getViewIDs() const throw();
+    FXMDIChild *getViewByID(const std::string &id) const throw();
 
     void updateChildren();
 

@@ -115,9 +115,9 @@ public:
     /// returns true, if the edit button was pressed
     bool isInEditMode();
 
-	GUIPerspectiveChanger &getChanger() const throw() {
-		return *myChanger;
-	}
+    GUIPerspectiveChanger &getChanger() const throw() {
+        return *myChanger;
+    }
 
 
 
@@ -161,9 +161,9 @@ public:
     }
 
 
-	// @todo: check why this is here
+    // @todo: check why this is here
     SUMOReal getGridWidth() const;
-	// @todo: check why this is here
+    // @todo: check why this is here
     SUMOReal getGridHeight() const;
 
     virtual void startTrack(int /*id*/) { }
@@ -177,24 +177,24 @@ public:
 
 
 
-	/// @name Additional visualisations
-	/// @{
-	
-	/** @brief Adds an object to call its additional visualisation method
-	 * @param[in] which The object to add
-	 * @return Always true
-	 * @see GUIGlObject::drawGLAdditional
-	 */
-	bool addAdditionalGLVisualisation(GUIGlObject * const which) throw();
+    /// @name Additional visualisations
+    /// @{
+
+    /** @brief Adds an object to call its additional visualisation method
+     * @param[in] which The object to add
+     * @return Always true
+     * @see GUIGlObject::drawGLAdditional
+     */
+    bool addAdditionalGLVisualisation(GUIGlObject * const which) throw();
 
 
-	/** @brief Removes an object from the list of objects that show additional things
-	 * @param[in] which The object to remoe
-	 * @return True if the object was known, false otherwise
-	 * @see GUIGlObject::drawGLAdditional
-	 */
-	bool removeAdditionalGLVisualisation(GUIGlObject * const which) throw();
-	/// @}
+    /** @brief Removes an object from the list of objects that show additional things
+     * @param[in] which The object to remoe
+     * @return True if the object was known, false otherwise
+     * @see GUIGlObject::drawGLAdditional
+     */
+    bool removeAdditionalGLVisualisation(GUIGlObject * const which) throw();
+    /// @}
 
 
 
@@ -361,8 +361,8 @@ protected:
 
     mutable MFXMutex myPolyDrawLock;
 
-	/// @brief List of objects for which GUIGlObject::drawGLAdditional is called
-	std::map<GUIGlObject*, int> myAdditionallyDrawn;
+    /// @brief List of objects for which GUIGlObject::drawGLAdditional is called
+    std::map<GUIGlObject*, int> myAdditionallyDrawn;
 
 
 

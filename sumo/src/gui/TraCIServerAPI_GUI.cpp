@@ -57,15 +57,15 @@ using namespace tcpip;
 // ===========================================================================
 bool
 TraCIServerAPI_GUI::processGet(TraCIServer &server, tcpip::Storage &inputStorage,
-							   tcpip::Storage &outputStorage) throw(TraCIException, std::invalid_argument) {
+                               tcpip::Storage &outputStorage) throw(TraCIException, std::invalid_argument) {
     std::string warning = ""; // additional description for response
     // variable & id
     int variable = inputStorage.readUnsignedByte();
     std::string id = inputStorage.readString();
     // check variable
     if (variable!=ID_LIST
-		&&variable!=VAR_VIEW_ZOOM&&variable!=VAR_VIEW_OFFSET&&variable!=VAR_VIEW_SCHEMA&&variable!=VAR_VIEW_BOUNDARY
-		&&variable!=VAR_VIEW_BACKGROUNDCOLOR&&variable!=VAR_NET_SIZE
+            &&variable!=VAR_VIEW_ZOOM&&variable!=VAR_VIEW_OFFSET&&variable!=VAR_VIEW_SCHEMA&&variable!=VAR_VIEW_BOUNDARY
+            &&variable!=VAR_VIEW_BACKGROUNDCOLOR&&variable!=VAR_NET_SIZE
        ) {
         server.writeStatusCmd(CMD_GET_GUI_VARIABLE, RTYPE_ERR, "Get GUI Variable: unsupported variable specified", outputStorage);
         return false;
@@ -90,12 +90,12 @@ TraCIServerAPI_GUI::processGet(TraCIServer &server, tcpip::Storage &inputStorage
         switch (variable) {
         case VAR_VIEW_ZOOM:
             tempMsg.writeUnsignedByte(TYPE_FLOAT);
-			tempMsg.writeFloat(v->getChanger().getZoom());
+            tempMsg.writeFloat(v->getChanger().getZoom());
             break;
         case VAR_VIEW_OFFSET:
             tempMsg.writeUnsignedByte(POSITION_2D);
-			tempMsg.writeFloat(v->getChanger().getXPos());
-			tempMsg.writeFloat(v->getChanger().getYPos());
+            tempMsg.writeFloat(v->getChanger().getXPos());
+            tempMsg.writeFloat(v->getChanger().getYPos());
             break;
         case VAR_VIEW_SCHEMA:
             break;
@@ -103,18 +103,18 @@ TraCIServerAPI_GUI::processGet(TraCIServer &server, tcpip::Storage &inputStorage
             break;
         case VAR_VIEW_BACKGROUNDCOLOR:
             break;
-		case VAR_NET_SIZE: {
-			GUINet *net = static_cast<GUINet*>(MSNet::getInstance());
+        case VAR_NET_SIZE: {
+            GUINet *net = static_cast<GUINet*>(MSNet::getInstance());
             tempMsg.writeUnsignedByte(POSITION_2D);
-			tempMsg.writeFloat(net->getBoundary().getWidth());
-			tempMsg.writeFloat(net->getBoundary().getHeight());
-						   }
-            break;
+            tempMsg.writeFloat(net->getBoundary().getWidth());
+            tempMsg.writeFloat(net->getBoundary().getHeight());
+        }
+        break;
         default:
             break;
         }
     }
-        server.writeStatusCmd(CMD_GET_GUI_VARIABLE, RTYPE_OK, warning, outputStorage);
+    server.writeStatusCmd(CMD_GET_GUI_VARIABLE, RTYPE_OK, warning, outputStorage);
     // send response
     outputStorage.writeUnsignedByte(0); // command length -> extended
     outputStorage.writeInt(1 + 4 + tempMsg.size());
@@ -125,12 +125,12 @@ TraCIServerAPI_GUI::processGet(TraCIServer &server, tcpip::Storage &inputStorage
 
 bool
 TraCIServerAPI_GUI::processSet(TraCIServer &server, tcpip::Storage &inputStorage,
-							   tcpip::Storage &outputStorage) throw(TraCIException, std::invalid_argument) {
+                               tcpip::Storage &outputStorage) throw(TraCIException, std::invalid_argument) {
     std::string warning = ""; // additional description for response
     // variable
     int variable = inputStorage.readUnsignedByte();
     if (variable!=VAR_VIEW_ZOOM&&variable!=VAR_VIEW_OFFSET&&variable!=VAR_VIEW_SCHEMA&&variable!=VAR_VIEW_BOUNDARY
-		&&variable!=VAR_VIEW_BACKGROUNDCOLOR&&variable!=VAR_SCREENSHOT&&variable!=VAR_TRACK_VEHICLE
+            &&variable!=VAR_VIEW_BACKGROUNDCOLOR&&variable!=VAR_SCREENSHOT&&variable!=VAR_TRACK_VEHICLE
        ) {
         server.writeStatusCmd(CMD_SET_GUI_VARIABLE, RTYPE_ERR, "Change GUI State: unsupported variable specified", outputStorage);
         return false;
@@ -145,20 +145,20 @@ TraCIServerAPI_GUI::processSet(TraCIServer &server, tcpip::Storage &inputStorage
     // process
     int valueDataType = inputStorage.readUnsignedByte();
     switch (variable) {
-    case VAR_VIEW_ZOOM: 
+    case VAR_VIEW_ZOOM:
         if (valueDataType!=TYPE_FLOAT) {
             server.writeStatusCmd(CMD_SET_GUI_VARIABLE, RTYPE_ERR, "The zoom must be given as a float.", outputStorage);
             return false;
         }
-		v->setViewport(inputStorage.readFloat(), v->getChanger().getXPos(), v->getChanger().getYPos());
-		break;
+        v->setViewport(inputStorage.readFloat(), v->getChanger().getXPos(), v->getChanger().getYPos());
+        break;
     case VAR_VIEW_OFFSET: {
         if (valueDataType!=POSITION_2D) {
             server.writeStatusCmd(CMD_SET_GUI_VARIABLE, RTYPE_ERR, "The view port must be given as a position.", outputStorage);
             return false;
         }
-		v->setViewport(v->getChanger().getZoom(), inputStorage.readFloat(), v->getChanger().getYPos());
-		v->setViewport(v->getChanger().getZoom(), v->getChanger().getXPos(), inputStorage.readFloat());
+        v->setViewport(v->getChanger().getZoom(), inputStorage.readFloat(), v->getChanger().getYPos());
+        v->setViewport(v->getChanger().getZoom(), v->getChanger().getXPos(), inputStorage.readFloat());
     }
     break;
     case VAR_VIEW_SCHEMA:
@@ -166,41 +166,41 @@ TraCIServerAPI_GUI::processSet(TraCIServer &server, tcpip::Storage &inputStorage
             server.writeStatusCmd(CMD_SET_GUI_VARIABLE, RTYPE_ERR, "The scheme must be specified by a string.", outputStorage);
             return false;
         }
-		v->setColorScheme(inputStorage.readString());
-    break;
+        v->setColorScheme(inputStorage.readString());
+        break;
     case VAR_VIEW_BOUNDARY:
-    break;
+        break;
     case VAR_VIEW_BACKGROUNDCOLOR:
-    break;
-	case VAR_SCREENSHOT: {
+        break;
+    case VAR_SCREENSHOT: {
         if (valueDataType!=TYPE_STRING) {
             server.writeStatusCmd(CMD_SET_GUI_VARIABLE, RTYPE_ERR, "Making a snapshot requires a file name.", outputStorage);
             return false;
         }
-		std::string filename = inputStorage.readString();
-	    FXColor *buf = v->getSnapshot();
-		// save
-		try {
-			MFXImageHelper::saveImage(filename, v->getWidth(), v->getHeight(), buf);
-		} catch (InvalidArgument &e) {
-			std::string msg = "Could not save '" + filename + "'.\n" + e.what();
+        std::string filename = inputStorage.readString();
+        FXColor *buf = v->getSnapshot();
+        // save
+        try {
+            MFXImageHelper::saveImage(filename, v->getWidth(), v->getHeight(), buf);
+        } catch (InvalidArgument &e) {
+            std::string msg = "Could not save '" + filename + "'.\n" + e.what();
             server.writeStatusCmd(CMD_SET_GUI_VARIABLE, RTYPE_ERR, msg, outputStorage);
             return false;
-		}
-		FXFREE(&buf);
-	}
+        }
+        FXFREE(&buf);
+    }
     break;
     case VAR_TRACK_VEHICLE: {
         if (valueDataType!=TYPE_STRING) {
             server.writeStatusCmd(CMD_SET_GUI_VARIABLE, RTYPE_ERR, "Tracking requires a string vehicle ID.", outputStorage);
             return false;
         }
-		std::string id = inputStorage.readString();
-        if(id=="") {
+        std::string id = inputStorage.readString();
+        if (id=="") {
             v->stopTrack();
         } else {
             MSVehicle *veh = MSNet::getInstance()->getVehicleControl().getVehicle(id);
-            if(veh==0) {
+            if (veh==0) {
                 server.writeStatusCmd(CMD_SET_GUI_VARIABLE, RTYPE_ERR, "Could not find vehicle '" + id + "'.", outputStorage);
                 return false;
             }
@@ -218,10 +218,10 @@ TraCIServerAPI_GUI::processSet(TraCIServer &server, tcpip::Storage &inputStorage
 GUIMainWindow *
 TraCIServerAPI_GUI::getMainWindow() throw() {
     FXWindow *w = FXApp::instance()->getRootWindow()->getFirst();
-    while(w!=0&&dynamic_cast<GUIMainWindow*>(w)==0) {
+    while (w!=0&&dynamic_cast<GUIMainWindow*>(w)==0) {
         w = w->getNext();
     }
-    if(w==0) {
+    if (w==0) {
         // main window not found
         return 0;
     }
@@ -232,11 +232,11 @@ TraCIServerAPI_GUI::getMainWindow() throw() {
 GUISUMOAbstractView * const
 TraCIServerAPI_GUI::getNamedView(const std::string &id) throw() {
     GUIMainWindow *mw = static_cast<GUIMainWindow*>(getMainWindow());
-    if(mw==0) {
+    if (mw==0) {
         return 0;
     }
     GUIGlChildWindow *c = static_cast<GUIGlChildWindow*>(mw->getViewByID(id));
-    if(c==0) {
+    if (c==0) {
         return 0;
     }
     return c->getView();

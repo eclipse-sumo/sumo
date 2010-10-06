@@ -53,66 +53,64 @@ class AGHousehold;
 // ===========================================================================
 // class definitions
 // ===========================================================================
-class AGCity
-{
+class AGCity {
 public:
-	AGCity(RONet* net) :
-	  statData(AGDataAndStatistics::getDataAndStatistics()),
-	  net(net),
-	  streetsCompleted(false)
-	  {};
+    AGCity(RONet* net) :
+            statData(AGDataAndStatistics::getDataAndStatistics()),
+            net(net),
+            streetsCompleted(false) {};
 
-	/**
-	 * generates streets: complete the "streets" vector using the DataAndStat's map edges.
-	 */
-	void completeStreets();
-	void generateWorkPositions();
-	void completeBusLines();
-	//void generateSchools();
-	void generatePopulation();
-	void schoolAllocation();
-	void workAllocation();
-	void carAllocation();
+    /**
+     * generates streets: complete the "streets" vector using the DataAndStat's map edges.
+     */
+    void completeStreets();
+    void generateWorkPositions();
+    void completeBusLines();
+    //void generateSchools();
+    void generatePopulation();
+    void schoolAllocation();
+    void workAllocation();
+    void carAllocation();
 
-	/**
-	 * manipulation functions
-	 */
-	const AGStreet& getStreet(const std::string& edge);
-	/**
-	 * returns a random street
-	 */
-	const AGStreet& getRandomStreet();
+    /**
+     * manipulation functions
+     */
+    const AGStreet& getStreet(const std::string& edge);
+    /**
+     * returns a random street
+     */
+    const AGStreet& getRandomStreet();
 
-	AGDataAndStatistics& statData;
-	std::vector<AGStreet> streets;
-	std::vector<AGWorkPosition> workPositions;
-	std::list<AGSchool> schools;
-	std::list<AGBusLine> busLines;
-	std::list<AGHousehold> households;
-	std::vector<AGPosition> cityGates;
-	std::list<AGAdult> peopleIncoming;
+    AGDataAndStatistics& statData;
+    std::vector<AGStreet> streets;
+    std::vector<AGWorkPosition> workPositions;
+    std::list<AGSchool> schools;
+    std::list<AGBusLine> busLines;
+    std::list<AGHousehold> households;
+    std::vector<AGPosition> cityGates;
+    std::list<AGAdult> peopleIncoming;
 
 private:
-	AGSchool closestSchoolTo(AGPosition pos);
-	/**
-	 * generates workpositions on the city's gates (entrances) for the outgoing work traffic.
-	 */
-	void generateOutgoingWP();
-	/**
-	 * generates people from outside the city for incoming traffic generation
-	 */
-	void generateIncomingPopulation();
+    AGSchool closestSchoolTo(AGPosition pos);
+    /**
+     * generates workpositions on the city's gates (entrances) for the outgoing work traffic.
+     */
+    void generateOutgoingWP();
+    /**
+     * generates people from outside the city for incoming traffic generation
+     */
+    void generateIncomingPopulation();
 
-	// @brief network of the city
-	RONet* net;
-	/**
-	 * false until the function completeStreets is called
-	 * this function completes streets and turn this parameter to true
-	 */
-	bool streetsCompleted;
+    // @brief network of the city
+    RONet* net;
+    /**
+     * false until the function completeStreets is called
+     * this function completes streets and turn this parameter to true
+     */
+    bool streetsCompleted;
 
-	int NrStreets;
-	int nbrCars;
+    int NrStreets;
+    int nbrCars;
 };
 
 #endif

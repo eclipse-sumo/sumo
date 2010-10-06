@@ -149,21 +149,21 @@ PCPolyContainer::save(const std::string &file) throw(IOError) {
     // write polygons
     for (PolyCont::iterator i=myPolyCont.begin(); i!=myPolyCont.end(); ++i) {
         out.openTag("poly") << " id=\"" << StringUtils::escapeXML((*i).second->getID())
-            << "\" type=\"" << (*i).second->getType()
-            << "\" color=\"" << (*i).second->getColor()
-            << "\" fill=\"" << (*i).second->fill()
-            << "\" layer=\"" << myPolyLayerMap[(*i).second]
-            << "\" shape=\"" << (*i).second->getShape() << "\"";
+        << "\" type=\"" << (*i).second->getType()
+        << "\" color=\"" << (*i).second->getColor()
+        << "\" fill=\"" << (*i).second->fill()
+        << "\" layer=\"" << myPolyLayerMap[(*i).second]
+        << "\" shape=\"" << (*i).second->getShape() << "\"";
         out.closeTag(true);
     }
     // write pois
     for (POICont::iterator i=myPOICont.begin(); i!=myPOICont.end(); ++i) {
         out.openTag("poi") << " id=\"" << StringUtils::escapeXML((*i).second->getID())
-            << "\" type=\"" << StringUtils::escapeXML((*i).second->getType())
-            << "\" color=\"" << *static_cast<RGBColor*>((*i).second)
-            << "\" layer=\"" << myPOILayerMap[(*i).second]
-            << "\" x=\"" << (*i).second->x()
-            << "\" y=\"" << (*i).second->y() << "\"";
+        << "\" type=\"" << StringUtils::escapeXML((*i).second->getType())
+        << "\" color=\"" << *static_cast<RGBColor*>((*i).second)
+        << "\" layer=\"" << myPOILayerMap[(*i).second]
+        << "\" x=\"" << (*i).second->x()
+        << "\" y=\"" << (*i).second->y() << "\"";
         out.closeTag(true);
     }
     out.close();

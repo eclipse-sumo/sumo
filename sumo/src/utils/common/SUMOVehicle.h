@@ -121,7 +121,7 @@ public:
 
     virtual void quitRemindedLeft(MSVehicleQuitReminded *r) = 0;
 
-   	virtual MSLane &getLane() const throw() = 0;
+    virtual MSLane &getLane() const throw() = 0;
 
     virtual SUMOReal getPositionOnActiveMoveReminderLane(const MSLane * const searchedLane) const throw() = 0;
 

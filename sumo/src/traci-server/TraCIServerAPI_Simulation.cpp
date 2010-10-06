@@ -145,12 +145,12 @@ TraCIServerAPI_Simulation::processGet(TraCIServer &server, tcpip::Storage &input
         break;
     case VAR_NET_BOUNDING_BOX: {
         throw 1;
-                               }
-        break;
+    }
+    break;
     default:
         break;
     }
-        server.writeStatusCmd(CMD_GET_SIM_VARIABLE, RTYPE_OK, warning, outputStorage);
+    server.writeStatusCmd(CMD_GET_SIM_VARIABLE, RTYPE_OK, warning, outputStorage);
     // send response
     outputStorage.writeUnsignedByte(0); // command length -> extended
     outputStorage.writeInt(1 + 4 + tempMsg.size());

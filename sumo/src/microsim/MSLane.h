@@ -216,7 +216,7 @@ public:
      * @param[in] veh The vehicle to insert
      * @param[in] pos The position at which the vehicle shall be inserted
      */
-	void forceVehicleInsertion(MSVehicle *veh, SUMOReal pos) throw();
+    void forceVehicleInsertion(MSVehicle *veh, SUMOReal pos) throw();
     /// @}
 
 
@@ -490,7 +490,7 @@ public:
     bool allowsVehicleClass(SUMOVehicleClass vclass) const;
 
     void addIncomingLane(MSLane *lane, MSLink *viaLink);
-	
+
 
     struct IncomingLaneInfo {
         MSLane *lane;
@@ -503,13 +503,13 @@ public:
     }
 
 
-	void addApproachingLane(MSLane *lane);
-	bool isApproachedFrom(MSEdge * const edge);
-	bool isApproachedFrom(MSEdge * const edge, MSLane * const lane);
+    void addApproachingLane(MSLane *lane);
+    bool isApproachedFrom(MSEdge * const edge);
+    bool isApproachedFrom(MSEdge * const edge, MSLane * const lane);
 
-	
-	
-	std::pair<MSVehicle * const, SUMOReal> getFollowerOnConsecutive(SUMOReal dist, SUMOReal seen,
+
+
+    std::pair<MSVehicle * const, SUMOReal> getFollowerOnConsecutive(SUMOReal dist, SUMOReal seen,
             SUMOReal leaderSpeed, SUMOReal backOffset, SUMOReal predMaxDecel) const;
 
     std::pair<MSVehicle * const, SUMOReal> getLeaderOnConsecutive(SUMOReal dist, SUMOReal seen,
@@ -667,7 +667,7 @@ protected:
         right-of-way rule, i.e. blocked or not blocked. */
     MSLinkCont myLinks;
 
-	std::map<MSEdge*, std::vector<MSLane*> > myApproachingLanes;
+    std::map<MSEdge*, std::vector<MSLane*> > myApproachingLanes;
 
 
 
@@ -709,19 +709,19 @@ private:
     class by_connections_to_sorter {
     public:
         /// @brief constructor
-        explicit by_connections_to_sorter(const MSEdge *const e) 
-            : myEdge(e), myLaneDir(e->getLanes()[0]->getShape().getBegLine().atan2PositiveAngle()) { }
+        explicit by_connections_to_sorter(const MSEdge *const e)
+                : myEdge(e), myLaneDir(e->getLanes()[0]->getShape().getBegLine().atan2PositiveAngle()) { }
 
         /// @brief comparing operator
         int operator()(const MSEdge * const e1, const MSEdge * const e2) const {
             const std::vector<MSLane*>* ae1 = e1->allowedLanes(*myEdge);
             const std::vector<MSLane*>* ae2 = e2->allowedLanes(*myEdge);
             SUMOReal s1 = 0;
-            if(ae1!=0&&ae1->size()!=0) {
+            if (ae1!=0&&ae1->size()!=0) {
                 s1 = (SUMOReal) ae1->size() + GeomHelper::getMinAngleDiff((*ae1)[0]->getShape().getBegLine().atan2PositiveAngle(), myLaneDir) / PI / 2.;
             }
             SUMOReal s2 = 0;
-            if(ae2!=0&&ae2->size()!=0) {
+            if (ae2!=0&&ae2->size()!=0) {
                 s2 = (SUMOReal) ae2->size() + GeomHelper::getMinAngleDiff((*ae2)[0]->getShape().getBegLine().atan2PositiveAngle(), myLaneDir) / PI / 2.;
             }
             return s1<s2;

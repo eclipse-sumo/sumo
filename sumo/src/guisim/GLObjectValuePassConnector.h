@@ -67,66 +67,66 @@ public:
      * @param[in] retriever The object to pass the value to
      */
     GLObjectValuePassConnector(GUIGlObject &o, ValueSource<T> *source, ValueRetriever<T> *retriever) throw()
-            : myObject(o), mySource(source), myRetriever(retriever)/*, myIsInvalid(false) */{
-		myLock.lock();
-		myContainer.push_back(this);
-		myLock.unlock();
-	}
+            : myObject(o), mySource(source), myRetriever(retriever) { /*, myIsInvalid(false) */
+        myLock.lock();
+        myContainer.push_back(this);
+        myLock.unlock();
+    }
 
 
     /// @brief Destructor
     virtual ~GLObjectValuePassConnector() throw() {
-		myLock.lock();
-		typename std::vector< GLObjectValuePassConnector<T>* >::iterator i = std::find(myContainer.begin(), myContainer.end(), this);
+        myLock.lock();
+        typename std::vector< GLObjectValuePassConnector<T>* >::iterator i = std::find(myContainer.begin(), myContainer.end(), this);
         if (i!=myContainer.end()) {
             myContainer.erase(i);
         }
-		myLock.unlock();
+        myLock.unlock();
         delete mySource;
     }
 
 
-	/// @name static methods for interactions
-	/// @{
+    /// @name static methods for interactions
+    /// @{
 
-	/** @brief Updates all instances (passes values)
-	 */
-	static void updateAll() throw() {
-		myLock.lock();
+    /** @brief Updates all instances (passes values)
+     */
+    static void updateAll() throw() {
+        myLock.lock();
         std::for_each(myContainer.begin(), myContainer.end(), std::mem_fun(&GLObjectValuePassConnector<T>::passValue));
-		myLock.unlock();
+        myLock.unlock();
     }
 
 
-	/** @brief Deletes all instances
-	 */
+    /** @brief Deletes all instances
+     */
     static void clear() throw() {
-		myLock.lock();
-		while (!myContainer.empty()) {
-            delete (*myContainer.begin());
+        myLock.lock();
+        while (!myContainer.empty()) {
+            delete(*myContainer.begin());
         }
         myContainer.clear();
-		myLock.unlock();
+        myLock.unlock();
     }
 
 
-	/** @brief Removes all instances that pass values from the object with the given id
-	 *
-	 * Used if for example a vehicle leaves the network
-	 * @param[in] o The object which shall no longer be asked for values
-	 */
-	static void removeObject(GUIGlObject &o) throw() {
-		myLock.lock();
-		for(typename std::vector< GLObjectValuePassConnector<T>* >::iterator i=myContainer.begin(); i!=myContainer.end(); ) {
-			if((*i)->myObject.getGlID()==o.getGlID()) {
-				i = myContainer.erase(i);
-			} else {
-				++i;
-			}
-		}
-		myLock.unlock();
-	}
-	/// @}
+    /** @brief Removes all instances that pass values from the object with the given id
+     *
+     * Used if for example a vehicle leaves the network
+     * @param[in] o The object which shall no longer be asked for values
+     */
+    static void removeObject(GUIGlObject &o) throw() {
+        myLock.lock();
+        for (typename std::vector< GLObjectValuePassConnector<T>* >::iterator i=myContainer.begin(); i!=myContainer.end();) {
+            if ((*i)->myObject.getGlID()==o.getGlID()) {
+                i = myContainer.erase(i);
+            } else {
+                ++i;
+            }
+        }
+        myLock.unlock();
+    }
+    /// @}
 
 
 protected:
@@ -137,7 +137,7 @@ protected:
      * @see GUIGlObject::active
      */
     virtual bool passValue() throw() {
-		myRetriever->addValue(mySource->getValue());
+        myRetriever->addValue(mySource->getValue());
         return true;
     }
 

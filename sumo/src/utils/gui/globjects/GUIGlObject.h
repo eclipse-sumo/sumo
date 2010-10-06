@@ -165,24 +165,24 @@ public:
      * @param[in] parent The view
      * @param[in] s The settings for the current view (may influence drawing)
      */
-	virtual void drawGLAdditional(GUISUMOAbstractView * const parent, const GUIVisualizationSettings &s) const throw() { };
+    virtual void drawGLAdditional(GUISUMOAbstractView * const parent, const GUIVisualizationSettings &s) const throw() { };
 
 
 
-	/// @name Parameter table window I/O
-	/// @{
+    /// @name Parameter table window I/O
+    /// @{
 
-	/** @brief Lets this object know a parameter window showing the object's values was opened
-	 * @param[in] w The opened parameter window
-	 */
-	void addParameterTable(GUIParameterTableWindow *w) throw();
+    /** @brief Lets this object know a parameter window showing the object's values was opened
+     * @param[in] w The opened parameter window
+     */
+    void addParameterTable(GUIParameterTableWindow *w) throw();
 
 
-	/** @brief Lets this object know a parameter window showing the object's values was closed
-	 * @param[in] w The closed parameter window
-	 */
-	void removeParameterTable(GUIParameterTableWindow *w) throw();
-	/// @}
+    /** @brief Lets this object know a parameter window showing the object's values was closed
+     * @param[in] w The closed parameter window
+     */
+    void removeParameterTable(GUIParameterTableWindow *w) throw();
+    /// @}
 
 
 
@@ -256,9 +256,9 @@ private:
     /// @brief The name of the object
     std::string myFullName;
 
-	/// @brief Parameter table windows which refer to this object
-	std::set<GUIParameterTableWindow*> myParamWindows;
-	
+    /// @brief Parameter table windows which refer to this object
+    std::set<GUIParameterTableWindow*> myParamWindows;
+
 
 };
 
