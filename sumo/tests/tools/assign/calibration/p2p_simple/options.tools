@@ -1,1 +1,1 @@
--b 25200 -n input_nanonet.net.xml -r od1450.rou.alt.xml -d input_measurementsp2p.xml -z 0.5 -W flows_evaluation.txt
+-b 25200 -n input_nanonet.net.xml -r od1000.rou.alt.xml -d input_measurementsp2p.xml -z 0.5 -s 20 -W flows_evaluation.txt

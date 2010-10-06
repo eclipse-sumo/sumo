@@ -20,8 +20,11 @@ copy_test_path:input_measurements.xml
 copy_test_path:input_nanonet.net.xml
 copy_test_path:od1000.rou.alt.xml
 copy_test_path:od1450.rou.alt.xml
+copy_test_path:od600.rou.alt.xml
 copy_test_path:input_measurementsp2p.xml
 copy_test_path:input_od1000.trips.xml
+copy_test_path:input_od600.trips.xml
+copy_test_path:input_od1450.trips.xml
 
 [collate_file]
 detectors:e2.add.xml

@@ -1,8 +1,8 @@
 <measurements>
-    <p2pcrisp tolerance="30" count="372">
-        <observation link="1to21" entry="0" tolerance="50000"/>
-    </p2pcrisp>
-    <p2pcrisp tolerance="30" count="354">
-        <observation link="1to22" entry="0" tolerance="50000"/>
-    </p2pcrisp>
+    <multilink value="372">
+        <observation link="1to21" start="0" end="50000"/>
+    </multilink>
+    <multilink value="354">
+        <observation link="1to22" start="0" end="50000"/>
+    </multilink>
 </measurements>
