@@ -288,7 +288,12 @@ public:
      * @param[in] length The new length of this type
      */
     void setLength(const SUMOReal &length) throw() {
-        myLength = length;
+        assert(myOriginalType!=0);
+        if(length<0) {
+            myLength = myOriginalType->myLength;
+        } else {
+            myLength = length;
+        }
     }
 
 
@@ -296,7 +301,12 @@ public:
      * @param[in] maxSpeed The new maximum speed of this type
      */
     void setMaxSpeed(const SUMOReal &maxSpeed) throw() {
-        myMaxSpeed = maxSpeed;
+        assert(myOriginalType!=0);
+        if(maxSpeed<0) {
+            myMaxSpeed = myOriginalType->myMaxSpeed;
+        } else {
+            myMaxSpeed = maxSpeed;
+        }
     }
 
 
@@ -312,7 +322,12 @@ public:
      * @param[in] prob The new default probability of this type
      */
     void setDefaultProbability(const SUMOReal &prob) throw() {
-        myDefaultProbability = prob;
+        assert(myOriginalType!=0);
+        if(prob<0) {
+            myDefaultProbability = myOriginalType->myDefaultProbability;
+        } else {
+            myDefaultProbability = prob;
+        }
     }
 
 
@@ -320,7 +335,12 @@ public:
      * @param[in] factor The new speed factor of this type
      */
     void setSpeedFactor(const SUMOReal &factor) throw() {
-        mySpeedFactor = factor;
+        assert(myOriginalType!=0);
+        if(factor<0) {
+            mySpeedFactor = myOriginalType->mySpeedFactor;
+        } else {
+            mySpeedFactor = factor;
+        }
     }
 
 
@@ -328,7 +348,12 @@ public:
      * @param[in] dev The new speed deviation of this type
      */
     void setSpeedDeviation(const SUMOReal &dev) throw() {
-        mySpeedDev = dev;
+        assert(myOriginalType!=0);
+        if(dev<0) {
+            mySpeedDev = myOriginalType->mySpeedDev;
+        } else {
+            mySpeedDev = dev;
+        }
     }
 
 
@@ -352,7 +377,12 @@ public:
      * @param[in] width The new width of this type
      */
     void setWidth(const SUMOReal &width) throw() {
-        myWidth = width;
+        assert(myOriginalType!=0);
+        if(width<0) {
+            myWidth = myOriginalType->myWidth;
+        } else {
+            myWidth = width;
+        }
     }
 
 
@@ -360,7 +390,12 @@ public:
      * @param[in] offset The new gui offset of this type
      */
     void setOffset(const SUMOReal &offset) throw() {
-        myOffset = offset;
+        assert(myOriginalType!=0);
+        if(offset<0) {
+            myOffset = myOriginalType->myOffset;
+        } else {
+            myOffset = offset;
+        }
     }
 
 
