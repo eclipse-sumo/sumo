@@ -89,7 +89,7 @@ MSPerson::MSPersonStage_Walking::MSPersonStage_Walking(MSEdgeVector route, SUMOT
     if (speed > 0) {
         SUMOReal time = 0;
         for (MSEdgeVector::const_iterator it = route.begin(); it != route.end(); ++it) {
-            time += ((*it)->getLanes())[0]->getLength() * speed;
+            time += ((*it)->getLanes())[0]->getLength() / speed;
         }
         myWalkingTime = MAX2(walkingTime, (SUMOTime)(time * 1000.));
     }

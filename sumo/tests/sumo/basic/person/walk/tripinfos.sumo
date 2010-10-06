@@ -27,6 +27,6 @@
 <tripinfos>
     <personinfo id="p1" depart="0.00">
         <stop arrival="0.00"/>
-        <walk arrival="991.00"/>
+        <walk arrival="496.00"/>
     </personinfo>
 </tripinfos>
