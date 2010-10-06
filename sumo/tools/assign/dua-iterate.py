@@ -27,7 +27,10 @@ def call(command, log):
         print >> sys.stderr, "Execution of %s failed. Look into %s for details." % (command, log.name)
         sys.exit(retCode) 
 
-def writeRouteConf(step, options, file, output, withExitTimes):
+def writeRouteConf(step, options, file, output, routesInfo):
+    withExitTimes = False
+    if routesInfo == "detailed":
+        withExitTimes = True
     fd = open("iteration_" + str(step) + ".rou.cfg", "w")
     print >> fd, """<configuration>
     <input>
@@ -114,7 +117,6 @@ def writeSUMOConf(step, options, files):
 </a>""" % (step, options.aggregation, options.aggregation, step, options.aggregation)
     fd.close()
 
-
 optParser = OptionParser()
 optParser.add_option("-C", "--continue-on-unbuild", action="store_true", dest="continueOnUnbuild",
                      default=False, help="continues on unbuild routes")
@@ -161,43 +163,17 @@ optParser.add_option("-l", "--last-step", dest="lastStep",
 optParser.add_option("-p", "--path", dest="path",
                      default=os.environ.get("SUMO", ""), help="Path to binaries [default: %default]")
 
-optParser.add_option("-d", "--detector-values", dest="detvals",
-                     help="adapt to the flow on the given edges", metavar="FILE")
 optParser.add_option("-D", "--districts", help="use districts as sources and targets", metavar="FILE")
-optParser.add_option("-c", "--classpath", dest="classpath",
-                     default=os.path.join(os.path.dirname(sys.argv[0]), "..", "contributed", "calibration", "Cadyts.jar"),
-                     help="classpath for the calibrator [default: %default]")
-optParser.add_option("-s", "--first-calibration-step", dest="calibStep",
-                     type="int", default=10, help="step at which to start calibration [default: %default]")
-
-optParser.add_option("-S", "--demandscale", type="float", default=1., help="scaled demand [default: %default]")
-optParser.add_option("-o", "--od-matrix", dest="odmatrix",
-                     help="sent estimated O-D matrix to", metavar="FILE")
-                     
 optParser.add_option("-y", "--absrand", dest="absrand", action="store_true",
                      default= False, help="use current time to generate random number")
-                     
-optParser.add_option("-F", "--freezeit",  dest="freezeit",
-                     type="int", default=1000, help="define the number of iterations for stablizing the results in the DTA-calibration")
-optParser.add_option("-V", "--varscale",  dest="varscale",
-                     type="float", default=1., help="define variance of the measured traffi flows for the DTA-calibration")
 
 optParser.add_option("-x", "--vehroute-file",  dest="routefile", type="choice",
                      choices=('None', 'routesonly', 'detailed'), 
                      default = 'None', help="choose the format of the route file")
 optParser.add_option("-z", "--output-lastRoute",  action="store_true", dest="lastroute",
                      default = False, help="output the last routes")
-optParser.add_option("-M", "--minflowstddev", type="float", dest="minflowstddev",
-                     default = 25, help="minimal flow standard deviation")
 optParser.add_option("-I", "--nointernal-link", action="store_true", dest="internallink",
                      default = False, help="not to simulate internal link: true or false")
-optParser.add_option("-P", "--PREPITS",  type="int", dest="PREPITS",
-                     default = 5, help="number of preparatory iterations")
-optParser.add_option("-X", "--measformat",  type="choice", dest="measformat",
-                     choices=('SUMO', 'Cadyts'), 
-                     default = 'SUMO',help="choose measurement format: SUMO or Cadyts")
-optParser.add_option("-Y", "--bruteforce", action="store_true", dest="bruteforce",
-                     default = False, help="fit the traffic counts as accurate as possible")
 
 (options, args) = optParser.parse_args()
 if not options.net or not options.trips:
@@ -208,71 +184,35 @@ if options.mesosim:
     sumoBinary = os.environ.get("SUMO_BINARY", os.path.join(options.path, "meso"))
 else:
     sumoBinary = os.environ.get("SUMO_BINARY", os.path.join(options.path, "sumo"))
-calibrator = ["java", "-cp", options.classpath, "cadyts.interfaces.sumo.SumoController"]
+
 log = open("dua-log.txt", "w+")
 tripFiles = options.trips.split(",")
 starttime = datetime.now()
-check = 0
-if options.bruteforce:
-    bruteforce = "true"
-else:
-    bruteforce = "false"
+
 for step in range(options.firstStep, options.lastStep):
     btimeA = datetime.now()
     print "> Executing step %s" % step
-
-    # calibration init
-    doCalibration = options.detvals != None and step >= options.calibStep
-    if options.detvals and step == options.calibStep:
-        if options.odmatrix:
-            check = call(calibrator + ["INIT", "-varscale", options.varscale, "-freezeit", options.freezeit,
-                  "-measfile", options.detvals, "-binsize", options.aggregation, "-minflowstddev", options.minflowstddev,
-                  "-PREPITS", options.PREPITS, "-measformat", options.measformat, "-bruteforce", bruteforce,
-                  "-odmatrix", options.odmatrix, "-demandscale", options.demandscale], log)
-        else:
-            check = call(calibrator + ["INIT", "-varscale", options.varscale, "-freezeit", options.freezeit,
-                  "-measfile", options.detvals, "-binsize", options.aggregation, "-minflowstddev", options.minflowstddev,
-                  "-PREPITS", options.PREPITS, "-measformat", options.measformat, "-bruteforce", bruteforce], log)
-    if check != 0 and check != None:
-        print 'KATASTROPHE! calibration exit code = ', check
-        log.write("** KATASTROPHE! calibration exit code = %s\n" % check)
-        break 
-    # router
+    
+    # dua-router
     files = []
     for tripFile in tripFiles:
         file = tripFile
         tripFile = os.path.basename(tripFile)
         if step>0:
             file = tripFile[:tripFile.find(".")] + "_%s.rou.alt.xml" % (step-1)
-            if doCalibration and options.calibStep < step:
-                file = tripFile[:tripFile.find(".")] + "_%s.rou.modalt.xml" % (step-1)  #use the route alternatives from Cadyts
+
         output = tripFile[:tripFile.find(".")] + "_%s.rou.xml" % step
-        print ">> Running router with " + file
+        print ">> Running router"
         btime = datetime.now()
         print ">>> Begin time: %s" % btime
-        writeRouteConf(step, options, file, output, doCalibration)
+        writeRouteConf(step, options, file, output, options.routefile)
         retCode = call([duaBinary, "-c", "iteration_%s.rou.cfg" % step], log)
         etime = datetime.now()
         print ">>> End time: %s" % etime
         print ">>> Duration: %s" % (etime-btime)
         print "<<"
-        
-        # calibration choice
-        if doCalibration:
-            alts = output[:-4] + ".alt.xml"
-            modalts = output[:-4] + ".modalt.xml"
-
-            if options.odmatrix:
-                import addTaz
-                fd = open(output[:-4] + ".taz.xml", 'w')
-                addTaz.parse(tripFile, alts, fd)
-                fd.close()
-                alts = fd.name
-
-            call(calibrator + ["CHOICE", "-choicesetfile", alts, "-alternativefile", modalts,"-choicefile", "%s.cal.xml" % output[:-4]], log)
-            output = output[:-4] + ".cal.xml"
-
         files.append(output)
+
     # simulation
     print ">> Running simulation"
     btime = datetime.now()
@@ -283,9 +223,7 @@ for step in range(options.firstStep, options.lastStep):
     print ">>> End time: %s" % etime
     print ">>> Duration: %s" % (etime-btime)
     print "<<"
-    # calibration update
-    if doCalibration: 
-        call(calibrator + ["UPDATE", "-netfile", "dump_%s_%s.xml" % (step, options.aggregation)], log)
+
     print "< Step %s ended (duration: %s)" % (step, datetime.now() - btimeA)
     print "------------------\n"
     log.flush()
