@@ -9,3 +9,6 @@ p2p_simple
 
 # calibrate with point2point data and demand adjustment
 p2p_demand_adjustment
+
+# route choice calibration with the SUMO format
+2ndTestNetwork_sumoFormat

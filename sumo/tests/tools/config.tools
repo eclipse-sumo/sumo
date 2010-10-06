@@ -25,6 +25,9 @@ copy_test_path:input_measurementsp2p.xml
 copy_test_path:input_od1000.trips.xml
 copy_test_path:input_od600.trips.xml
 copy_test_path:input_od1450.trips.xml
+copy_test_path:input_weights1.xml
+copy_test_path:mtx0708_real.rou.alt.xml
+copy_test_path:smallNet.net.xml
 
 [collate_file]
 detectors:e2.add.xml
