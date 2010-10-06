@@ -1,3 +1,10 @@
 # changing more than one value
 multi_set
 
+# checking whether vehicle id is set properly (after changing one value)
+get_id_single_set
+
+# checking whether vehicle id is set properly (after changing two value)
+get_id_multi_set
+
+

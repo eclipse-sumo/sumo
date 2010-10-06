@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+
+<!-- generated on 10/06/10 14:45:32 by SUMO sumo Version dev-SVN-r9191
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<configuration>
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <tripinfo-output value="tripinfos.xml"/>
+    </output>
+
+    <report>
+        <no-step-log value="true"/>
+    </report>
+
+    <traci_server>
+        <remote-port value="8808"/>
+        <penetration value="1"/>
+    </traci_server>
+
+</configuration>
+-->
+
+<tripinfos>
+    <tripinfo id="0" depart="0.00" departLane="4/1to3/1_0" departPos="330.00" departSpeed="10.00" departDelay="0.00" arrival="43.00" arrivalLane="3/1to2/1_0" arrivalPos="0.80" arrivalSpeed="0.80" duration="43.00" routeLength="61.30" waitSteps="33" rerouteNo="0" devices="" vtype="t1@0" vaporized=""/>
+</tripinfos>
