@@ -48,6 +48,7 @@
 #include <utils/common/RandHelper.h>
 #include <utils/common/SystemFrame.h>
 #include <utils/options/OptionsCont.h>
+#include <utils/iodevices/OutputDevice.h>
 //ActivityGen
 #include "AGFrame.h"
 #include "AGActivityGen.h"
@@ -56,12 +57,6 @@
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
 #endif // CHECK_MEMORY_LEAKS
-
-
-// ===========================================================================
-// used namespaces
-// ===========================================================================
-using namespace std;
 
 
 // ===========================================================================
@@ -93,6 +88,7 @@ void loadNet(RONet &toFill, ROAbstractEdgeBuilder &eb) throw (ProcessError) {
 /****************************************************************************/
 
 int main(int argc, char *argv[]) {
+    int ret = 0;
 	OptionsCont &oc = OptionsCont::getOptions();
 	RONet *net = 0;
 	try {
@@ -114,53 +110,54 @@ int main(int argc, char *argv[]) {
 		MsgHandler::getMessageInstance()->inform("Loaded " + toString(
 				net->getEdgeNo()) + " edges.");
 
+
+	    if (oc.getBool("debug")) {
+		    MsgHandler::getMessageInstance()->inform("\n\t ---- begin AcitivtyGen ----\n");
+	    }
+
+        std::string statFile = oc.getString("stat-file");
+        std::string routeFile = oc.getString("output-file");
+        AGTime duration(1,0,0);
+        AGTime begin(0);
+        AGTime end(0);
+        if(oc.isSet("duration-d"))
+        {
+    	    duration.setDay(oc.getInt("duration-d"));
+        }
+        if(oc.isSet("begin"))
+        {
+    	    begin.addSeconds(oc.getInt("begin") % 86400);
+        }
+        if(oc.isSet("end"))
+        {
+    	    end.addSeconds(oc.getInt("end") % 86400);
+        }
+        AGActivityGen actiGen(statFile, routeFile, net);
+        actiGen.importInfoCity();
+        actiGen.makeActivityTrips(duration.getDay(), begin.getTime(), end.getTime());
+
+	    if (oc.getBool("debug")) {
+		    MsgHandler::getMessageInstance()->inform("\n\t ---- end of ActivityGen ----\n");
+	    }
+	    ret = 0;
 	} catch (ProcessError &pe) {
-		// TODO Switch to MessageHandler as soon as the operator<< works
-		cout << typeid(pe).name() << ": " << pe.what() << endl;
-		return 1;
-
-	} catch (exception &e) {
-		// TODO Switch to MessageHandler as soon as the operator<< works
-		cout << "Unknown Exception " << typeid(e).name() << ": " << e.what()
-				<< endl;
-		return 1;
-
+        if (std::string(pe.what())!=std::string("Process Error") && std::string(pe.what())!=std::string("")) {
+            MsgHandler::getErrorInstance()->inform(pe.what());
+        }
+        MsgHandler::getErrorInstance()->inform("Quitting (on error).", false);
+		ret = 1;
 #ifndef _DEBUG
-	} catch (...) {
-		cout << "Unknown Exception" << endl;
-		return 1;
+    } catch (...) {
+        MsgHandler::getErrorInstance()->inform("Quitting (on unknown error).", false);
+        ret = 1;
 #endif
 	}
-
-	if (oc.getBool("debug")) {
-		MsgHandler::getMessageInstance()->inform("\n\t ---- begin AcitivtyGen ----\n");
-	}
-
-    string statFile = oc.getString("stat-file");
-    string routeFile = oc.getString("output-file");
-    AGTime duration(1,0,0);
-    AGTime begin(0);
-    AGTime end(0);
-    if(oc.isSet("duration-d"))
-    {
-    	duration.setDay(oc.getInt("duration-d"));
+    OutputDevice::closeAll();
+    SystemFrame::close();
+    if (ret==0) {
+        std::cout << "Success." << std::endl;
     }
-    if(oc.isSet("begin"))
-    {
-    	begin.addSeconds(oc.getInt("begin") % 86400);
-    }
-    if(oc.isSet("end"))
-    {
-    	end.addSeconds(oc.getInt("end") % 86400);
-    }
-    AGActivityGen actiGen(statFile, routeFile, net);
-    actiGen.importInfoCity();
-    actiGen.makeActivityTrips(duration.getDay(), begin.getTime(), end.getTime());
-
-	if (oc.getBool("debug")) {
-		MsgHandler::getMessageInstance()->inform("\n\t ---- end of ActivityGen ----\n");
-	}
-	return 0;
+    return ret;
 }
 
 /****************************************************************************/

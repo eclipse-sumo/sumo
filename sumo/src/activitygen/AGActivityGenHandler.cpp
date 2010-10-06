@@ -66,63 +66,67 @@ AGActivityGenHandler::~AGActivityGenHandler() throw() {}
 void
 AGActivityGenHandler::myStartElement(SumoXMLTag element, const SUMOSAXAttributes &attrs)
 throw(ProcessError) {
-    switch (element) {
-    case AGEN_TAG_GENERAL:
-    	parseGeneralCityInfo(attrs);
-        break;
-    case AGEN_TAG_STREET:
-    	parseStreets(attrs);
-    	break;
-    case AGEN_TAG_WORKHOURS:
-    	parseWorkHours();
-    	break;
-    case AGEN_TAG_OPENING:
-    	parseOpeningHour(attrs);
-    	break;
-    case AGEN_TAG_CLOSING:
-    	parseClosingHour(attrs);
-    	break;
-    case AGEN_TAG_SCHOOLS:
-    	parseSchools();
-    	break;
-    case AGEN_TAG_SCHOOL:
-    	parseSchool(attrs);
-    	break;
-    case AGEN_TAG_BUSSTATION:
-    	parseBusStation(attrs);
-    	break;
-    case AGEN_TAG_BUSLINE:
-    	parseBusLine(attrs);
-    	break;
-    case AGEN_TAG_STATIONS:
-    	parseStations();
-    	break;
-    case AGEN_TAG_REV_STATIONS:
-    	parseRevStations();
-    	break;
-    case AGEN_TAG_STATION:
-    	parseStation(attrs);
-    	break;
-    case AGEN_TAG_FREQUENCY:
-    	parseFrequency(attrs);
-    	break;
-    case AGEN_TAG_POPULATION:
-    	parsePopulation();
-    	break;
-    /*case AGEN_TAG_CHILD_ACOMP:
-    	parseChildrenAccompaniment();
-    	break;*/
-    case AGEN_TAG_BRACKET:
-    	parseBracket(attrs);
-    	break;
-    case AGEN_TAG_PARAM:
-    	parseParameters(attrs);
-    	break;
-    case AGEN_TAG_ENTRANCE:
-    	parseCityGates(attrs);
-    	break;
-    default:
-        break;
+    try {
+        switch (element) {
+        case AGEN_TAG_GENERAL:
+    	    parseGeneralCityInfo(attrs);
+            break;
+        case AGEN_TAG_STREET:
+    	    parseStreets(attrs);
+    	    break;
+        case AGEN_TAG_WORKHOURS:
+    	    parseWorkHours();
+    	    break;
+        case AGEN_TAG_OPENING:
+    	    parseOpeningHour(attrs);
+    	    break;
+        case AGEN_TAG_CLOSING:
+    	    parseClosingHour(attrs);
+    	    break;
+        case AGEN_TAG_SCHOOLS:
+    	    parseSchools();
+    	    break;
+        case AGEN_TAG_SCHOOL:
+    	    parseSchool(attrs);
+    	    break;
+        case AGEN_TAG_BUSSTATION:
+    	    parseBusStation(attrs);
+    	    break;
+        case AGEN_TAG_BUSLINE:
+    	    parseBusLine(attrs);
+    	    break;
+        case AGEN_TAG_STATIONS:
+    	    parseStations();
+    	    break;
+        case AGEN_TAG_REV_STATIONS:
+    	    parseRevStations();
+    	    break;
+        case AGEN_TAG_STATION:
+    	    parseStation(attrs);
+    	    break;
+        case AGEN_TAG_FREQUENCY:
+    	    parseFrequency(attrs);
+    	    break;
+        case AGEN_TAG_POPULATION:
+    	    parsePopulation();
+    	    break;
+        /*case AGEN_TAG_CHILD_ACOMP:
+    	    parseChildrenAccompaniment();
+    	    break;*/
+        case AGEN_TAG_BRACKET:
+    	    parseBracket(attrs);
+    	    break;
+        case AGEN_TAG_PARAM:
+    	    parseParameters(attrs);
+    	    break;
+        case AGEN_TAG_ENTRANCE:
+    	    parseCityGates(attrs);
+    	    break;
+        default:
+            break;
+        }
+    } catch (EmptyData &e) {
+        throw ProcessError(e.what());
     }
 }
 
