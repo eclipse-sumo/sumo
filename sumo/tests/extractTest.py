@@ -73,7 +73,7 @@ for source, target in targets.iteritems():
     appOptions += ['--save-configuration', 'test.%s.cfg' % app[:4]]
     oldWorkDir = os.getcwd()
     os.chdir(testPath)
-    if app in ["dfrouter", "duarouter", "jtrrouter", "netconvert", "netgen", "od2trips", "polyconvert", "sumo"]:
+    if app in ["dfrouter", "duarouter", "jtrrouter", "netconvert", "netgen", "od2trips", "polyconvert", "sumo", "activitygen"]:
         if "meso" in testPath and app == "sumo":
             app = "meso"
         subprocess.call([app] + appOptions)
