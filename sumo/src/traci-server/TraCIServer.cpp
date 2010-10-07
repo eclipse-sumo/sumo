@@ -1204,6 +1204,10 @@ TraCIServer::convertExt2IntId(int extId, std::string& intId) {
 
 MSVehicle*
 TraCIServer::getVehicleByExtId(int extId) {
+    if (!myHaveWarnedDeprecation) {
+        MsgHandler::getWarningInstance()->inform("Using old TraCI API, please update your client!");
+        myHaveWarnedDeprecation = true;
+    }
     std::string intId;
     convertExt2IntId(extId, intId);
     return MSNet::getInstance()->getVehicleControl().getVehicle(intId);
@@ -1213,6 +1217,10 @@ TraCIServer::getVehicleByExtId(int extId) {
 
 MSTrafficLightLogic*
 TraCIServer::getTLLogicByExtId(int extId) {
+    if (!myHaveWarnedDeprecation) {
+        MsgHandler::getWarningInstance()->inform("Using old TraCI API, please update your client!");
+        myHaveWarnedDeprecation = true;
+    }
     std::string intId = "";
     std::map<int, std::string>::iterator iter = trafficLightsExt2IntId.find(extId);
     if (iter != trafficLightsExt2IntId.end()) {
@@ -1226,6 +1234,10 @@ TraCIServer::getTLLogicByExtId(int extId) {
 
 PointOfInterest*
 TraCIServer::getPoiByExtId(int extId) {
+    if (!myHaveWarnedDeprecation) {
+        MsgHandler::getWarningInstance()->inform("Using old TraCI API, please update your client!");
+        myHaveWarnedDeprecation = true;
+    }
     std::string intId = "";
     std::map<int, std::string>::iterator iter = poiExt2IntId.find(extId);
     if (iter != poiExt2IntId.end()) {
@@ -1247,6 +1259,10 @@ TraCIServer::getPoiByExtId(int extId) {
 
 Polygon2D*
 TraCIServer::getPolygonByExtId(int extId) {
+    if (!myHaveWarnedDeprecation) {
+        MsgHandler::getWarningInstance()->inform("Using old TraCI API, please update your client!");
+        myHaveWarnedDeprecation = true;
+    }
     std::string intId = "";
     map<int, std::string>::const_iterator it = ext2intId.find(extId);
     if (it != ext2intId.end()) {
