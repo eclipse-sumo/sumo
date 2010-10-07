@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+
+<!-- generated on 07/22/10 09:23:51 by SUMO sumo Version dev-SVN-r8163
+<configuration>
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <additional-files value="input_additional.add.xml"/>
+    </input>
+
+    <output>
+        <vehroute-output value="vehroutes.xml"/>
+    </output>
+
+    <report>
+        <no-duration-log value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+</configuration>
+-->
+
+<routes>
+
+    <vtype id="bus" accel="2.6" decel="4.5" sigma="0.5" length="15" maxspeed="70" emissionClass="bus/city" guiShape="bus/city" vclass="bus"/>
+
+    <vehicle id="bus_1" depart="0.00" departlane="free" arrivalpos="-1" type="bus" color="0,1,0"><route edges="2/0to2/1 2/1to1/1 1/1to1/2 1/2to0/2 0/2to0/1 0/1to0/0 0/0to1/0 1/0to2/0 2/0to2/1 2/1to1/1 1/1to1/2 1/2to0/2 0/2to0/1 0/1to0/0 0/0to1/0 1/0to2/0 2/0to2/1"/>
+        <stop bus_stop="busStop#1" duration="20"/>
+        <stop bus_stop="busStop#2" duration="20"/>
+        <stop bus_stop="busStop#1" duration="20"/>
+        <stop bus_stop="busStop#2" duration="20"/>
+    </vehicle>
+
+    <vehicle id="bus_2" depart="0" departpos="0" departlane="free" arrivalpos="-1" type="bus" color="0,1,0"><route edges="2/0to2/1 2/1to1/1 1/1to1/2 1/2to0/2 0/2to0/1 0/1to0/0 0/0to1/0 1/0to2/0 2/0to2/1 2/1to1/1 1/1to1/2 1/2to0/2 0/2to0/1 0/1to0/0 0/0to1/0 1/0to2/0 2/0to2/1"/>
+        <stop bus_stop="busStop#1" duration="20"/>
+        <stop bus_stop="busStop#2" duration="20"/>
+        <stop bus_stop="busStop#1" duration="20"/>
+        <stop bus_stop="busStop#2" duration="20"/>
+    </vehicle>
+
+    <vehicle id="bus_3" depart="4.00" departlane="free" arrivalpos="-1" type="bus" color="0,1,0"><route edges="2/0to2/1 2/1to1/1 1/1to1/2 1/2to0/2 0/2to0/1 0/1to0/0 0/0to1/0 1/0to2/0 2/0to2/1 2/1to1/1 1/1to1/2 1/2to0/2 0/2to0/1 0/1to0/0 0/0to1/0 1/0to2/0 2/0to2/1"/>
+        <stop bus_stop="busStop#1" duration="20"/>
+        <stop bus_stop="busStop#2" duration="20"/>
+        <stop bus_stop="busStop#1" duration="20"/>
+        <stop bus_stop="busStop#2" duration="20"/>
+    </vehicle>
+
+</routes>
