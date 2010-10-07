@@ -17,6 +17,7 @@ net_state:netstate_dump.xml
 detector:detector.xml
 tls_state:tls_state.xml
 vehroutes:vehroutes.xml
+tripinfos:tripinfos.xml
 
 [run_dependent_text]
 testclient_out:Date
@@ -24,6 +25,7 @@ testclient_out:Socket
 tls_state:xml version{->}-->
 detector:xml version{->}-->
 vehroutes:xml version{->}-->
+tripinfos:xml version{->}-->
 net_state:xml version{->}-->
 output:port
 errors:Socket
