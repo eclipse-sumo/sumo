@@ -1,5 +1,7 @@
 import_config_file:../config_all
 binary:$ACTIVITYGEN_BINARY
+batch_recipients:sumo.list@web-pw.com,simon.siemens@arcor.de,sumo-tests@dlr.de
+
 copy_test_path:input_net.net.xml
 copy_test_path:input_poi.poi.xml
 copy_test_path:activitygen-example.net.xml
