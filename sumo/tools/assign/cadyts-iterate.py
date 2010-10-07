@@ -4,7 +4,7 @@
 @file    cadyts-iterate.py
 @author  Yun-Pang.Wang@dlr.de
 @date    2010-09-15
-@version $Id: cadyts-iterate.py 9061 2010-09-07 12:24:28Z yunpangwang $
+@version $Id$
 
 Run cadyts to calibrate the simulation with given routes and traffic measurements.
 Respective traffic zones information has to exist in the given route files.
