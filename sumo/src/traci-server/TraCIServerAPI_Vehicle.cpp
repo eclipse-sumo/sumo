@@ -390,12 +390,7 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer &server, tcpip::Storage &inputSto
             server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "The speed must be given as a float.", outputStorage);
             return false;
         }
-        SUMOReal maxspeed = inputStorage.readFloat();
-        if (maxspeed>=0.0) {
-            v->setIndividualMaxSpeed(maxspeed);
-        } else {
-            v->unsetIndividualMaxSpeed();
-        }
+        getSingularType(v).setMaxSpeed(inputStorage.readFloat());
     }
     break;
     case CMD_STOP: {

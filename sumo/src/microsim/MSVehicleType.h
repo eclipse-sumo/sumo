@@ -250,6 +250,105 @@ public:
 
 
 
+    /// @name Setter methods
+    /// @{
+
+    /** @brief Set a new value for this type's length
+     *
+     * If the given value<0 then the one from the original type will
+     *  be used.
+     *
+     * @param[in] length The new length of this type
+     */
+    void setLength(const SUMOReal &length) throw();
+
+
+    /** @brief Set a new value for this type's maximum speed
+     *
+     * If the given value<0 then the one from the original type will
+     *  be used.
+     *
+     * @param[in] maxSpeed The new maximum speed of this type
+     */
+    void setMaxSpeed(const SUMOReal &maxSpeed) throw();
+
+
+    /** @brief Set a new value for this type's vehicle class
+     * @param[in] vclass The new vehicle class of this type
+     */
+    void setVClass(SUMOVehicleClass vclass) throw();
+
+
+    /** @brief Set a new value for this type's default probability
+     *
+     * If the given value<0 then the one from the original type will
+     *  be used.
+     *
+     * @param[in] prob The new default probability of this type
+     */
+    void setDefaultProbability(const SUMOReal &prob) throw();
+
+
+    /** @brief Set a new value for this type's speed factor
+     *
+     * If the given value<0 then the one from the original type will
+     *  be used.
+     *
+     * @param[in] factor The new speed factor of this type
+     */
+    void setSpeedFactor(const SUMOReal &factor) throw();
+
+
+    /** @brief Set a new value for this type's speed deviation
+     *
+     * If the given value<0 then the one from the original type will
+     *  be used.
+     *
+     * @param[in] dev The new speed deviation of this type
+     */
+    void setSpeedDeviation(const SUMOReal &dev) throw();
+
+
+    /** @brief Set a new value for this type's emission class
+     * @param[in] eclass The new emission class of this type
+     */
+    void setEmissionClass(SUMOEmissionClass eclass) throw();
+
+
+    /** @brief Set a new value for this type's color
+     * @param[in] color The new color of this type
+     */
+    void setColor(const RGBColor &color) throw();
+
+
+    /** @brief Set a new value for this type's width
+     *
+     * If the given value<0 then the one from the original type will
+     *  be used.
+     *
+     * @param[in] width The new width of this type
+     */
+    void setWidth(const SUMOReal &width) throw();
+
+
+    /** @brief Set a new value for this type's gui offset
+     *
+     * If the given value<0 then the one from the original type will
+     *  be used.
+     *
+     * @param[in] offset The new gui offset of this type
+     */
+    void setOffset(const SUMOReal &offset) throw();
+
+
+    /** @brief Set a new value for this type's shape
+     * @param[in] shape The new shape of this type
+     */
+    void setShape(SUMOVehicleShape shape) throw();
+    /// @}
+
+
+
     /// @name Static methods for building vehicle types
     /// @{
 
@@ -277,134 +376,6 @@ public:
      */
     static SUMOReal get(const std::map<std::string, SUMOReal> &from, const std::string &name,
                         SUMOReal defaultValue) throw();
-    /// @}
-
-
-
-    /// @name Setter methods
-    /// @{
-
-    /** @brief Set a new value for this type's length
-     * @param[in] length The new length of this type
-     */
-    void setLength(const SUMOReal &length) throw() {
-        assert(myOriginalType!=0);
-        if (length<0) {
-            myLength = myOriginalType->myLength;
-        } else {
-            myLength = length;
-        }
-    }
-
-
-    /** @brief Set a new value for this type's maximum speed
-     * @param[in] maxSpeed The new maximum speed of this type
-     */
-    void setMaxSpeed(const SUMOReal &maxSpeed) throw() {
-        assert(myOriginalType!=0);
-        if (maxSpeed<0) {
-            myMaxSpeed = myOriginalType->myMaxSpeed;
-        } else {
-            myMaxSpeed = maxSpeed;
-        }
-    }
-
-
-    /** @brief Set a new value for this type's vehicle class
-     * @param[in] vclass The new vehicle class of this type
-     */
-    void setVClass(SUMOVehicleClass vclass) throw() {
-        myVehicleClass = vclass;
-    }
-
-
-    /** @brief Set a new value for this type's default probability
-     * @param[in] prob The new default probability of this type
-     */
-    void setDefaultProbability(const SUMOReal &prob) throw() {
-        assert(myOriginalType!=0);
-        if (prob<0) {
-            myDefaultProbability = myOriginalType->myDefaultProbability;
-        } else {
-            myDefaultProbability = prob;
-        }
-    }
-
-
-    /** @brief Set a new value for this type's speed factor
-     * @param[in] factor The new speed factor of this type
-     */
-    void setSpeedFactor(const SUMOReal &factor) throw() {
-        assert(myOriginalType!=0);
-        if (factor<0) {
-            mySpeedFactor = myOriginalType->mySpeedFactor;
-        } else {
-            mySpeedFactor = factor;
-        }
-    }
-
-
-    /** @brief Set a new value for this type's speed deviation
-     * @param[in] dev The new speed deviation of this type
-     */
-    void setSpeedDeviation(const SUMOReal &dev) throw() {
-        assert(myOriginalType!=0);
-        if (dev<0) {
-            mySpeedDev = myOriginalType->mySpeedDev;
-        } else {
-            mySpeedDev = dev;
-        }
-    }
-
-
-    /** @brief Set a new value for this type's emission class
-     * @param[in] eclass The new emission class of this type
-     */
-    void setEmissionClass(SUMOEmissionClass eclass) throw() {
-        myEmissionClass = eclass;
-    }
-
-
-    /** @brief Set a new value for this type's color
-     * @param[in] color The new color of this type
-     */
-    void setColor(const RGBColor &color) throw() {
-        myColor = color;
-    }
-
-
-    /** @brief Set a new value for this type's width
-     * @param[in] width The new width of this type
-     */
-    void setWidth(const SUMOReal &width) throw() {
-        assert(myOriginalType!=0);
-        if (width<0) {
-            myWidth = myOriginalType->myWidth;
-        } else {
-            myWidth = width;
-        }
-    }
-
-
-    /** @brief Set a new value for this type's gui offset
-     * @param[in] offset The new gui offset of this type
-     */
-    void setOffset(const SUMOReal &offset) throw() {
-        assert(myOriginalType!=0);
-        if (offset<0) {
-            myOffset = myOriginalType->myOffset;
-        } else {
-            myOffset = offset;
-        }
-    }
-
-
-    /** @brief Set a new value for this type's shape
-     * @param[in] shape The new shape of this type
-     */
-    void setShape(SUMOVehicleShape shape) throw() {
-        myShape = shape;
-    }
     /// @}
 
 

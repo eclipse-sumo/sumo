@@ -96,6 +96,110 @@ MSVehicleType::saveState(std::ostream &os) {
 }
 
 
+// ------------ Setter methods
+void 
+MSVehicleType::setLength(const SUMOReal &length) throw() {
+    assert(myOriginalType!=0);
+    if (length<0) {
+        myLength = myOriginalType->myLength;
+    } else {
+        myLength = length;
+    }
+}
+
+
+void 
+MSVehicleType::setMaxSpeed(const SUMOReal &maxSpeed) throw() {
+    assert(myOriginalType!=0);
+    if (maxSpeed<0) {
+        myMaxSpeed = myOriginalType->myMaxSpeed;
+    } else {
+        myMaxSpeed = maxSpeed;
+    }
+}
+
+
+void 
+MSVehicleType::setVClass(SUMOVehicleClass vclass) throw() {
+    myVehicleClass = vclass;
+}
+
+
+void 
+MSVehicleType::setDefaultProbability(const SUMOReal &prob) throw() {
+    assert(myOriginalType!=0);
+    if (prob<0) {
+        myDefaultProbability = myOriginalType->myDefaultProbability;
+    } else {
+        myDefaultProbability = prob;
+    }
+}
+
+
+void 
+MSVehicleType::setSpeedFactor(const SUMOReal &factor) throw() {
+    assert(myOriginalType!=0);
+    if (factor<0) {
+        mySpeedFactor = myOriginalType->mySpeedFactor;
+    } else {
+        mySpeedFactor = factor;
+    }
+}
+
+
+void 
+MSVehicleType::setSpeedDeviation(const SUMOReal &dev) throw() {
+    assert(myOriginalType!=0);
+    if (dev<0) {
+        mySpeedDev = myOriginalType->mySpeedDev;
+    } else {
+        mySpeedDev = dev;
+    }
+}
+
+
+void 
+MSVehicleType::setEmissionClass(SUMOEmissionClass eclass) throw() {
+    myEmissionClass = eclass;
+}
+
+
+void 
+MSVehicleType::setColor(const RGBColor &color) throw() {
+    myColor = color;
+}
+
+
+void 
+MSVehicleType::setWidth(const SUMOReal &width) throw() {
+    assert(myOriginalType!=0);
+    if (width<0) {
+        myWidth = myOriginalType->myWidth;
+    } else {
+        myWidth = width;
+    }
+}
+
+
+void 
+MSVehicleType::setOffset(const SUMOReal &offset) throw() {
+    assert(myOriginalType!=0);
+    if (offset<0) {
+        myOffset = myOriginalType->myOffset;
+    } else {
+        myOffset = offset;
+    }
+}
+
+
+void 
+MSVehicleType::setShape(SUMOVehicleShape shape) throw() {
+    myShape = shape;
+}
+
+
+
+// ------------ Static methods for building vehicle types
 SUMOReal
 MSVehicleType::get(const std::map<std::string, SUMOReal> &from, const std::string &name, SUMOReal defaultValue) throw() {
     std::map<std::string, SUMOReal>::const_iterator i = from.find(name);
@@ -165,7 +269,7 @@ MSVehicleType::build(const std::string &id, const MSVehicleType *from) throw() {
         from->myDefaultProbability, from->mySpeedFactor, from->mySpeedDev, from->myVehicleClass, from->myEmissionClass,
         from->myShape, from->myWidth, from->myOffset, from->myLaneChangeModel, from->myColor);
     vtype->myCarFollowModel = from->myCarFollowModel->duplicate(vtype);
-    vtype->myOriginalType = from;
+    vtype->myOriginalType = from->myOriginalType!=0 ? from->myOriginalType : from;
     return vtype;
 }
 
