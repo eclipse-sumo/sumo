@@ -43,6 +43,7 @@ def initOptions():
     return optParser
 
 def call(command, log):
+    command = [str(c) for c in command]
     print >> log, "-" * 79
     print >> log, command
     log.flush()
