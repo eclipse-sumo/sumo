@@ -12,6 +12,7 @@ All rights reserved
 """
 
 import os, sys, httplib, StringIO, gzip, optparse
+from os import path
 
 def readCompressed(conn, query, filename):
     conn.request("POST", "/api/interpreter", """<osm-script timeout="180" element-limit="20000000">
@@ -32,7 +33,7 @@ def readCompressed(conn, query, filename):
     if response.status == 200:
         stream = StringIO.StringIO(response.read())
         decompressor = gzip.GzipFile(fileobj=stream)
-        out = open(os.path.join(os.path.dirname(sys.argv[0]), filename), "w")
+        out = open(path.join(os.getcwd(), filename), "w")
         out.write(decompressor.read())
         out.close()
 
@@ -41,6 +42,7 @@ optParser.add_option("-p", "--prefix", default="osm", help="for output file")
 optParser.add_option("-b", "--bbox", help="bounding box to retrieve in geo coordinates south,west,north,east")
 optParser.add_option("-o", "--oldapi", action="store_true", default=False, help="use old API for retrieval")
 optParser.add_option("-t", "--tiles", type="int", default=1, help="number of tiles when using old api")
+optParser.add_option("-d", "--output-dir", help="optional output directory (must already exist)")
 optParser.add_option("-a", "--area", type="int", help="area id to retrieve")
 
 def get(args=None):
@@ -54,6 +56,8 @@ def get(args=None):
         south,west,north,east = [float(v) for v in options.bbox.split(',')]
         if south > north or west > east:
             optParser.error("Invalid geocoordinates in bbox.")
+    if options.output_dir:
+        options.prefix = path.join(options.output_dir, options.prefix)
 
     if options.oldapi:
         num = options.tiles
@@ -65,7 +69,7 @@ def get(args=None):
             conn.request("GET", req)
             r = conn.getresponse()
             print req, r.status, r.reason
-            out = open(os.path.join(os.path.dirname(sys.argv[0]), "%s%s_%s.osm.xml" % (options.prefix, i, num)), "w")
+            out = open(path.join(os.getcwd(), "%s%s_%s.osm.xml" % (options.prefix, i, num)), "w")
             out.write(r.read())
             out.close()
             b = e
