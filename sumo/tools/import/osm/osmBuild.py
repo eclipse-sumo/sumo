@@ -33,9 +33,9 @@ optParser.add_option("-m", "--typemap", default=None, help="typemap file for the
 optParser.add_option("-o", "--oldapi-prefix", default=None, help="prefix that was used for retrieval with the old API")
 optParser.add_option("-t", "--tiles", type="int", default=1, help="number of tiles used for retrieving OSM-data via the old api")
 optParser.add_option("-c", "--vehicle-classes", default='all',help="[(%s)]extract network for a reduced set of vehicle classes" % possibleVClassOptions)  
-optParser.add_option("-d", "--output-directory", default='.', help="directory in which to put the output files")
-optParser.add_option("-n", "--netconvert-options", default="-R,--guess-ramps,--guess-tls,--tls-guess.joining,--try-join-tls,-v", help="comma-separated options for netconvert")
-
+optParser.add_option("-d", "--output-directory", default=os.getcwd(), help="directory in which to put the output files")
+optParser.add_option("-n", "--netconvert-options", default="-R,--guess-ramps,--guess-tls,--tls-guess.joining,--try-join-tls,-v", help="comma-separated options for netconvert") 
+optParser.add_option("-y", "--polyconvert-options", default="-v,--osm.keep-full-type", help="comma-separated options for polyconverty") 
 
 def build(args=None):
     (options, args) = optParser.parse_args(args=args)
@@ -51,9 +51,8 @@ def build(args=None):
     if not path.isdir(options.output_directory):
         optParser.error('output directory "%s" does not exist' % options.output_directory) 
 
-
     netconvertOpts = ' ' + ' '.join(options.netconvert_options.split(',')) + ' --osm-files '
-    polyconvertOpts = " -v --typemap %s --osm.keep-full-type --osm-files " % (options.typemap)
+    polyconvertOpts = ' ' + ' '.join(options.polyconvert_options.split(',')) + ' --typemap %s --osm-files ' % options.typemap
 
     prefix = options.oldapi_prefix
     if prefix: # used old API
@@ -69,6 +68,9 @@ def build(args=None):
         netconvertOpts += options.osm_file
         polyconvertOpts += options.osm_file
         prefix = path.basename(options.osm_file).replace('.osm.xml','')
+
+    if options.prefix:
+        prefix = options.prefix
 
     remove = vclassRemove[options.vehicle_classes]
     netfile = path.join(options.output_directory, prefix+'.net.xml')
