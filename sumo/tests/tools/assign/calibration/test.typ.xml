@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<types>
+  <type id="a" nolanes="1" speed="15.99" length="1300"/>
+  <type id="b" nolanes="1" speed="15.99" length="1000"/>
+  <type id="c" nolanes="1" speed="15.99"/>
+</types>

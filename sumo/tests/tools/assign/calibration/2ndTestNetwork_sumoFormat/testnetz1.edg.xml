@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<edges>
+  <edge id="D1" fromnode="910" tonode="1" function="source" type="a"/>
+
+  <edge id="L2" fromnode="1" tonode="4" type="a"/>
+
+  <edge id="L3" fromnode="2" tonode="4" type="a"/>
+
+  <edge id="D2" fromnode="920" tonode="2" function="source" type="a"/>
+
+  <edge id="L4" fromnode="4" tonode="8" type="b"/>
+
+  <edge id="L5" fromnode="4" tonode="6" type="a"/>
+
+  <edge id="L6" fromnode="5" tonode="9" type="a"/>
+
+  <edge id="L7" fromnode="6" tonode="5" type="a"/>
+
+  <edge id="L8" fromnode="6" tonode="7" type="a"/>
+
+  <edge id="L9" fromnode="7" tonode="12" type="a"/>
+
+  <edge id="L10" fromnode="9" tonode="10" type="a"/>
+
+  <edge id="L11" fromnode="9" tonode="11" type="c"/>
+
+  <edge id="L12" fromnode="8" tonode="13" type="b"/>
+
+  <edge id="L13" fromnode="10" tonode="11" type="a"/>
+
+  <edge id="L14" fromnode="12" tonode="11" type="a"/>
+
+  <edge id="L15" fromnode="11" tonode="13" type="a"/>
+
+  <edge id="L16" fromnode="13" tonode="3" type="a"/>
+
+  <edge id="D3" fromnode="3" tonode="930" type="a"/>
+
+</edges>

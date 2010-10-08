@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<types>
+  <type id="a" priority="1" nolanes="1" speed="15"/>
+
+  <type id="b" priority="2" nolanes="1" speed="18"/>
+
+  <type id="c" priority="2" nolanes="1" speed="10"/>
+
+</types>
