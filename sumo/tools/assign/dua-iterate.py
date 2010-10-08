@@ -16,9 +16,33 @@ import os, sys, subprocess, types
 from datetime import datetime
 from optparse import OptionParser
 
+def initOptions():
+    optParser = OptionParser()
+    optParser.add_option("-w", "--disable-warnings", action="store_true", dest="noWarnings",
+                         default=False, help="disables warnings")
+    optParser.add_option("-n", "--net-file", dest="net",
+                         help="SUMO network (mandatory)", metavar="FILE")
+    optParser.add_option("-+", "--additional", dest="additional",
+                         default="", help="Additional files")
+    optParser.add_option("-b", "--begin", dest="begin",
+                         type="int", default=0, help="Set simulation/routing begin [default: %default]")
+    optParser.add_option("-e", "--end", dest="end",
+                         type="int", help="Set simulation/routing end [default: %default]")
+    optParser.add_option("-R", "--route-steps", dest="routeSteps",
+                         type="int", default=200, help="Set simulation route steps [default: %default]")
+    optParser.add_option("-a", "--aggregation", dest="aggregation",
+                         type="int", default=900, help="Set main weights aggregation period [default: %default]")
+    optParser.add_option("-m", "--mesosim", action="store_true", dest="mesosim",
+                         default=False, help="Whether mesosim shall be used")
+    optParser.add_option("-p", "--path", dest="path",
+                         default=os.environ.get("SUMO", ""), help="Path to binaries [default: %default]")
+    optParser.add_option("-y", "--absrand", dest="absrand", action="store_true",
+                         default= False, help="use current time to generate random number")
+    optParser.add_option("-I", "--nointernal-link", action="store_true", dest="internallink",
+                         default = False, help="not to simulate internal link: true or false")
+    return optParser
+
 def call(command, log):
-    if not isinstance(args, types.StringTypes):
-        command = [str(c) for c in command] 
     print >> log, "-" * 79
     print >> log, command
     log.flush()
@@ -77,21 +101,22 @@ def writeSUMOConf(step, options, files):
         <additional-files value="dua_dump_%s.add.xml%s"/>
     </input>
     <output>""" % (options.net, files, step, add)
-    if not options.noEmissions:
+    if hasattr(options, "noEmissions") and not options.noEmissions:
         print >> fd, '        <emissions-output value="emissions_%s.xml"/>' % step
-    if not options.noTripinfo:
+    if hasattr(options, "noTripinfo") and not options.noTripinfo:
         print >> fd, '        <tripinfo-output value="tripinfo_%s.xml"/>' % step
-    if options.routefile == "routesonly":
-        print >> fd, '         <vehroute-output value="vehroute_%s.xml"/>' % step
-    elif options.routefile == "detailed":
-        print >> fd, '         <vehroute-output value="vehroute_%s.xml"/>' % step
-        print >> fd, '         <vehroute-output.exit-times value="True"/>'
-    if options.lastroute:
+    if hasattr(options, "routefile"):
+        if options.routefile == "routesonly":
+            print >> fd, '         <vehroute-output value="vehroute_%s.xml"/>' % step
+        elif options.routefile == "detailed":
+            print >> fd, '         <vehroute-output value="vehroute_%s.xml"/>' % step
+            print >> fd, '         <vehroute-output.exit-times value="True"/>'
+    if hasattr(options, "lastroute") and options.lastroute:
         print >> fd, '          <vehroute-output.last-route value="%s"/>' % options.lastroute
     print >> fd, "    </output>"
     print >> fd, '    <random_number><abs-rand value="%s"/></random_number>' % options.absrand
     print >> fd, '    <time><begin value="%s"/>' % options.begin,
-    if options.timeInc:
+    if hasattr(options, "timeInc") and options.timeInc:
         print >> fd, '<end value="%s"/>' % int(options.timeInc * (step + 1)),
     elif options.end:
         print >> fd, '<end value="%s"/>' % options.end,
@@ -99,7 +124,7 @@ def writeSUMOConf(step, options, files):
     <processing>
         <route-steps value="%s"/>""" % options.routeSteps
     print >> fd, '   <no-internal-links value="%s"/>' % options.internallink
-    if options.incBase>0:
+    if hasattr(options, "incBase") and options.incBase > 0:
         print >> fd, """        <incremental-dua-step value="%s"/>
         <incremental-dua-base value="%s"/>""" % (options.incValue*(step+1), options.incBase)
     if options.mesosim:
@@ -117,116 +142,92 @@ def writeSUMOConf(step, options, files):
 </a>""" % (step, options.aggregation, options.aggregation, step, options.aggregation)
     fd.close()
 
-optParser = OptionParser()
-optParser.add_option("-C", "--continue-on-unbuild", action="store_true", dest="continueOnUnbuild",
-                     default=False, help="continues on unbuild routes")
-optParser.add_option("-w", "--disable-warnings", action="store_true", dest="noWarnings",
-                     default=False, help="disables warnings")
-
-optParser.add_option("-n", "--net-file", dest="net",
-                     help="SUMO network (mandatory)", metavar="FILE")
-optParser.add_option("-t", "--trips", dest="trips",
-                     help="trips in step 0 (mandatory)", metavar="FILE")
-optParser.add_option("-+", "--additional", dest="additional",
-                     default="", help="Additional files")
-
-optParser.add_option("-b", "--begin", dest="begin",
-                     type="int", default=0, help="Set simulation/routing begin [default: %default]")
-optParser.add_option("-e", "--end", dest="end",
-                     type="int", help="Set simulation/routing end [default: %default]")
-optParser.add_option("-R", "--route-steps", dest="routeSteps",
-                     type="int", default=200, help="Set simulation route steps [default: %default]")
-optParser.add_option("-a", "--aggregation", dest="aggregation",
-                     type="int", default=900, help="Set main weights aggregation period [default: %default]")
-optParser.add_option("-A", "--gA", dest="gA",
-                     type="float", default=.5, help="Sets Gawron's Alpha [default: %default]")
-optParser.add_option("-B", "--gBeta", dest="gBeta",
-                     type="float", default=.9, help="Sets Gawron's Beta [default: %default]")
-
-optParser.add_option("-E", "--disable-emissions", action="store_true", dest="noEmissions",
-                     default=False, help="No emissions are written by the simulation")
-optParser.add_option("-T", "--disable-tripinfos", action="store_true", dest="noTripinfo",
-                     default=False, help="No tripinfos are written by the simulation")
-optParser.add_option("-m", "--mesosim", action="store_true", dest="mesosim",
-                     default=False, help="Whether mesosim shall be used")
-optParser.add_option("--inc-base", dest="incBase",
-                     type="int", default=-1, help="Give the incrementation base")
-optParser.add_option("--incrementation", dest="incValue",
-                     type="int", default=1, help="Give the incrementation")
-optParser.add_option("--time-inc", dest="timeInc",
-                     type="int", default=0, help="Give the time incrementation")
-
-optParser.add_option("-f", "--first-step", dest="firstStep",
-                     type="int", default=0, help="First DUA step [default: %default]")
-optParser.add_option("-l", "--last-step", dest="lastStep",
-                     type="int", default=50, help="Last DUA step [default: %default]")
-optParser.add_option("-p", "--path", dest="path",
-                     default=os.environ.get("SUMO", ""), help="Path to binaries [default: %default]")
-
-optParser.add_option("-D", "--districts", help="use districts as sources and targets", metavar="FILE")
-optParser.add_option("-y", "--absrand", dest="absrand", action="store_true",
-                     default= False, help="use current time to generate random number")
-
-optParser.add_option("-x", "--vehroute-file",  dest="routefile", type="choice",
-                     choices=('None', 'routesonly', 'detailed'), 
-                     default = 'None', help="choose the format of the route file")
-optParser.add_option("-z", "--output-lastRoute",  action="store_true", dest="lastroute",
-                     default = False, help="output the last routes")
-optParser.add_option("-I", "--nointernal-link", action="store_true", dest="internallink",
-                     default = False, help="not to simulate internal link: true or false")
-
-(options, args) = optParser.parse_args()
-if not options.net or not options.trips:
-    optParser.error("At least --net-file and --trips have to be given!")
-
-duaBinary = os.environ.get("DUAROUTER_BINARY", os.path.join(options.path, "duarouter"))
-if options.mesosim:
-    sumoBinary = os.environ.get("SUMO_BINARY", os.path.join(options.path, "meso"))
-else:
-    sumoBinary = os.environ.get("SUMO_BINARY", os.path.join(options.path, "sumo"))
-
-log = open("dua-log.txt", "w+")
-tripFiles = options.trips.split(",")
-starttime = datetime.now()
-
-for step in range(options.firstStep, options.lastStep):
-    btimeA = datetime.now()
-    print "> Executing step %s" % step
+def main():
+    optParser = initOptions()
+    optParser.add_option("-C", "--continue-on-unbuild", action="store_true", dest="continueOnUnbuild",
+                         default=False, help="continues on unbuild routes")
+    optParser.add_option("-t", "--trips", dest="trips",
+                         help="trips in step 0 (mandatory)", metavar="FILE")
+    optParser.add_option("-A", "--gA", dest="gA",
+                         type="float", default=.5, help="Sets Gawron's Alpha [default: %default]")
+    optParser.add_option("-B", "--gBeta", dest="gBeta",
+                         type="float", default=.9, help="Sets Gawron's Beta [default: %default]")
+    optParser.add_option("-E", "--disable-emissions", action="store_true", dest="noEmissions",
+                         default=False, help="No emissions are written by the simulation")
+    optParser.add_option("-T", "--disable-tripinfos", action="store_true", dest="noTripinfo",
+                         default=False, help="No tripinfos are written by the simulation")
+    optParser.add_option("--inc-base", dest="incBase",
+                         type="int", default=-1, help="Give the incrementation base")
+    optParser.add_option("--incrementation", dest="incValue",
+                         type="int", default=1, help="Give the incrementation")
+    optParser.add_option("--time-inc", dest="timeInc",
+                         type="int", default=0, help="Give the time incrementation")
+    optParser.add_option("-f", "--first-step", dest="firstStep",
+                         type="int", default=0, help="First DUA step [default: %default]")
+    optParser.add_option("-l", "--last-step", dest="lastStep",
+                         type="int", default=50, help="Last DUA step [default: %default]")
+    optParser.add_option("-D", "--districts", help="use districts as sources and targets", metavar="FILE")
+    optParser.add_option("-x", "--vehroute-file",  dest="routefile", type="choice",
+                         choices=('None', 'routesonly', 'detailed'), 
+                         default = 'None', help="choose the format of the route file")
+    optParser.add_option("-z", "--output-lastRoute",  action="store_true", dest="lastroute",
+                         default = False, help="output the last routes")
     
-    # dua-router
-    files = []
-    for tripFile in tripFiles:
-        file = tripFile
-        tripFile = os.path.basename(tripFile)
-        if step>0:
-            file = tripFile[:tripFile.find(".")] + "_%s.rou.alt.xml" % (step-1)
-
-        output = tripFile[:tripFile.find(".")] + "_%s.rou.xml" % step
-        print ">> Running router"
+    (options, args) = optParser.parse_args()
+    if not options.net or not options.trips:
+        optParser.error("At least --net-file and --trips have to be given!")
+    
+    duaBinary = os.environ.get("DUAROUTER_BINARY", os.path.join(options.path, "duarouter"))
+    if options.mesosim:
+        sumoBinary = os.environ.get("SUMO_BINARY", os.path.join(options.path, "meso"))
+    else:
+        sumoBinary = os.environ.get("SUMO_BINARY", os.path.join(options.path, "sumo"))
+    
+    log = open("dua-log.txt", "w+")
+    tripFiles = options.trips.split(",")
+    starttime = datetime.now()
+    
+    for step in range(options.firstStep, options.lastStep):
+        btimeA = datetime.now()
+        print "> Executing step %s" % step
+        
+        # dua-router
+        files = []
+        for tripFile in tripFiles:
+            file = tripFile
+            tripFile = os.path.basename(tripFile)
+            if step>0:
+                file = tripFile[:tripFile.find(".")] + "_%s.rou.alt.xml" % (step-1)
+    
+            output = tripFile[:tripFile.find(".")] + "_%s.rou.xml" % step
+            print ">> Running router"
+            btime = datetime.now()
+            print ">>> Begin time: %s" % btime
+            writeRouteConf(step, options, file, output, options.routefile)
+            retCode = call([duaBinary, "-c", "iteration_%s.rou.cfg" % step], log)
+            etime = datetime.now()
+            print ">>> End time: %s" % etime
+            print ">>> Duration: %s" % (etime-btime)
+            print "<<"
+            files.append(output)
+    
+        # simulation
+        print ">> Running simulation"
         btime = datetime.now()
         print ">>> Begin time: %s" % btime
-        writeRouteConf(step, options, file, output, options.routefile)
-        retCode = call([duaBinary, "-c", "iteration_%s.rou.cfg" % step], log)
+        writeSUMOConf(step, options, ",".join(files))
+        retCode = call([sumoBinary, "-c", "iteration_%s.sumo.cfg" % step], log)
         etime = datetime.now()
         print ">>> End time: %s" % etime
         print ">>> Duration: %s" % (etime-btime)
         print "<<"
-        files.append(output)
+    
+        print "< Step %s ended (duration: %s)" % (step, datetime.now() - btimeA)
+        print "------------------\n"
+        log.flush()
+    print "dua-iterate ended (duration: %s)" % (datetime.now() - starttime)
+    
+    log.close()
 
-    # simulation
-    print ">> Running simulation"
-    btime = datetime.now()
-    print ">>> Begin time: %s" % btime
-    writeSUMOConf(step, options, ",".join(files))
-    retCode = call([sumoBinary, "-c", "iteration_%s.sumo.cfg" % step], log)
-    etime = datetime.now()
-    print ">>> End time: %s" % etime
-    print ">>> Duration: %s" % (etime-btime)
-    print "<<"
-
-    print "< Step %s ended (duration: %s)" % (step, datetime.now() - btimeA)
-    print "------------------\n"
-    log.flush()
-print "dua-iterate ended (duration: %s)" % (datetime.now() - starttime)
-
-log.close()
+if __name__ == "__main__":
+    main()
