@@ -1,4 +1,4 @@
-simstep 1 1
+simstep2 1
 
 setvalue 0xc4 0x12 veh0 <compound> 4 <string> 1fi <float> 200 <byte> 0 <int> 5000
 

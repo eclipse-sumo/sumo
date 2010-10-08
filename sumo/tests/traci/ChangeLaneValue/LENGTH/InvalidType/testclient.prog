@@ -1,8 +1,8 @@
-simstep 1 1
+simstep2 1
 getvariable 0xa3 0x44 2/1to2/0_0
 setvalue 0xc3 0x44 2/1to2/0_0 <string> a
 getvariable 0xa3 0x44 2/1to2/0_0
-simstep 2 1
+simstep2 2
 
 
 

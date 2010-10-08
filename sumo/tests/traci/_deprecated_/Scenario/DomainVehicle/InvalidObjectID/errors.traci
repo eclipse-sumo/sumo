@@ -1,0 +1,3 @@
+#Error while connecting: tcpip::Socket::connect() @ connect: Connection refused
+Warning: Using old TraCI API, please update your client!
+Error: Answered with error to command 115: Unable to retrieve node with given ID

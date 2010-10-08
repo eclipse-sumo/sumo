@@ -1,4 +1,4 @@
-simstep 5 1
+simstep2 5
 getvariable 0xa7 0x42 p1
 getvariable 0xa7 0x42 p2
-simstep 6 1
+simstep2 6

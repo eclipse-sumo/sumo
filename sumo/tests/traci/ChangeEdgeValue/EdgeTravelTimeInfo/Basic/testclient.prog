@@ -1,6 +1,6 @@
-simstep 5 1
+simstep2 5
 getvariable_plus 0xaa 0x58 1/1to0/1 <int> 0
 setvalue 0xca 0x58 1/1to0/1 <compound> 3 <int> 0 <int> 10 <float> 10
 getvariable_plus 0xaa 0x58 1/1to0/1 <int> 0
-simstep 1 1
+simstep2 1
 

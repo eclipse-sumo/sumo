@@ -1,9 +1,8 @@
-TraCITestClient output file. Date: Tue Mar 10 14:57:22 2009
+TraCITestClient output file. Date: Sat Oct  9 00:11:44 2010
 
 
--> Command sent: <SimulationStep>:
-  TargetTime=1.00 PosFormat=1
-.. Command acknowledged (1), [description: ]
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
 
 -> Command sent: <DistanceRequest>:
  FirstPosition-3D: x=2900.00 y=495.00 z=0.00 SecondPosition-RoadMap: roadId=e_vo2 pos=48.00 laneId=0 Flag=0
@@ -11,9 +10,8 @@ TraCITestClient output file. Date: Tue Mar 10 14:57:22 2009
 .. Received Response <DistanceRequest>:
  flag=0 distance=465.37
 
--> Command sent: <SimulationStep>:
-  TargetTime=2.00 PosFormat=1
-.. Command acknowledged (1), [description: ]
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
 
 -> Command sent: <Close>:
 .. Command acknowledged (127), [description: Goodbye]

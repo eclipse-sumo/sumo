@@ -1,24 +1,24 @@
-simstep 1 1
+simstep2 1
 getvariable 0xa1 0x10 4/1to3/1
 getvariable 0xa1 0x11 4/1to3/1
 getvariable 0xa1 0x12 4/1to3/1
-simstep 15 1
+simstep2 15
 getvariable 0xa1 0x10 4/1to3/1
 getvariable 0xa1 0x11 4/1to3/1
 getvariable 0xa1 0x12 4/1to3/1
-simstep 30 1
+simstep2 30
 getvariable 0xa1 0x10 4/1to3/1
 getvariable 0xa1 0x11 4/1to3/1
 getvariable 0xa1 0x12 4/1to3/1
 getvariable 0xa1 0x10 3/1to2/1
 getvariable 0xa1 0x11 3/1to2/1
 getvariable 0xa1 0x12 3/1to2/1
-simstep 50 1
+simstep2 50
 getvariable 0xa1 0x10 3/1to2/1
 getvariable 0xa1 0x11 3/1to2/1
 getvariable 0xa1 0x12 3/1to2/1
-simstep 80 1
+simstep2 80
 getvariable 0xa1 0x10 3/1to2/1
 getvariable 0xa1 0x11 3/1to2/1
 getvariable 0xa1 0x12 3/1to2/1
-simstep 90 1
+simstep2 90

@@ -1,9 +1,8 @@
-TraCITestClient output file. Date: Tue Mar 10 14:57:15 2009
+TraCITestClient output file. Date: Sat Oct  9 00:23:02 2010
 
 
--> Command sent: <SimulationStep>:
-  TargetTime=1.00 PosFormat=1
-.. Command acknowledged (1), [description: ]
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
 
 -> Command sent: <PositionConversion>:
  DestPosition-3D: x=2300.00 y=900.00 z=0.00 posId=4
@@ -35,9 +34,8 @@ RoadMap-Position: roadId=e_shape1 pos=330.73 laneId=0
 .. Received Response <PositionConversion>:
 RoadMap-Position: roadId=e_m0 pos=0.00 laneId=0
 
--> Command sent: <SimulationStep>:
-  TargetTime=10.00 PosFormat=1
-.. Command acknowledged (1), [description: ]
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
 
 -> Command sent: <Close>:
 .. Command acknowledged (127), [description: Goodbye]

@@ -1,17 +1,15 @@
-TraCITestClient output file. Date: Thu May 07 08:45:15 2009
+TraCITestClient output file. Date: Sat Oct  9 00:29:25 2010
 
 
--> Command sent: <SimulationStep>:
-  TargetTime=5.00 PosFormat=1
-.. Command acknowledged (1), [description: ]
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
 
 -> Command sent: <GetVariable>:
   domID=165 varID=70 objID=xxx
 .. Answered with error to command (165), [description: Vehicle type 'xxx' is not known]
 
--> Command sent: <SimulationStep>:
-  TargetTime=6.00 PosFormat=1
-.. Command acknowledged (1), [description: ]
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
 
 -> Command sent: <Close>:
 .. Command acknowledged (127), [description: Goodbye]

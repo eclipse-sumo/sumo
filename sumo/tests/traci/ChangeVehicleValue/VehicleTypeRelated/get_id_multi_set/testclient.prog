@@ -1,9 +1,9 @@
-simstep 5 1
+simstep2 5
 getvariable 0xa4 0x4a 0
 getvariable 0xa4 0x49 0
 setvalue 0xc4 0x4a 0 <string> P_7_2
 setvalue 0xc4 0x49 0 <string> taxi
 getvariable 0xa4 0x4a 0
 getvariable 0xa4 0x49 0
-simstep 6 1
-simstep 100 1
+simstep2 6
+simstep2 100

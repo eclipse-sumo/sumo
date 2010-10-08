@@ -1,17 +1,15 @@
-TraCITestClient output file. Date: Mon Oct 05 12:11:13 2009
+TraCITestClient output file. Date: Sat Oct  9 00:18:00 2010
 
 
--> Command sent: <SimulationStep>:
-  TargetTime=1.00 PosFormat=1
-.. Command acknowledged (1), [description: ]
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
 
 -> Command sent: <SetValue>:
   domID=200 varID=69 objID=p1
 .. Answered with error to command (200), [description: The color must be given using an accoring type.]
 
--> Command sent: <SimulationStep>:
-  TargetTime=2.00 PosFormat=1
-.. Command acknowledged (1), [description: ]
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
 
 -> Command sent: <Close>:
 .. Command acknowledged (127), [description: Goodbye]

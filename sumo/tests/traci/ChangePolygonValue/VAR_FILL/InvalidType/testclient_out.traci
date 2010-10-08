@@ -1,17 +1,15 @@
-TraCITestClient output file. Date: Mon Oct 05 12:33:24 2009
+TraCITestClient output file. Date: Sat Oct  9 00:18:09 2010
 
 
--> Command sent: <SimulationStep>:
-  TargetTime=1.00 PosFormat=1
-.. Command acknowledged (1), [description: ]
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
 
 -> Command sent: <SetValue>:
   domID=200 varID=85 objID=p1
 .. Answered with error to command (200), [description: 'fill' must be defined using an unsigned byte.]
 
--> Command sent: <SimulationStep>:
-  TargetTime=2.00 PosFormat=1
-.. Command acknowledged (1), [description: ]
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
 
 -> Command sent: <Close>:
 .. Command acknowledged (127), [description: Goodbye]

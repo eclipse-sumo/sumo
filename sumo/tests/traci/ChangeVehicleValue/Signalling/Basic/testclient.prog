@@ -1,4 +1,4 @@
-simstep 1 1
+simstep2 1
 
 setvalue 0xc4 0x5b 0 <int> 16
 getvariable 0xa4 0x5b 0

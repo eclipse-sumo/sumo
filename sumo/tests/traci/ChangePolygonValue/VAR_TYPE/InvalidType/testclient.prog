@@ -1,4 +1,4 @@
-simstep 1 1
+simstep2 1
 setvalue 0xc8 0x4f p1 <float> 1
-simstep 2 1
+simstep2 2
 

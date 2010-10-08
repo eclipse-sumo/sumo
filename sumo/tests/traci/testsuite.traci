@@ -1,35 +1,11 @@
-# tests for <SimulationStep> command and <movenode> responses
-MoveNode
-
-# tests for command <SetMaximumSpeed>
-SetMaximumSpeed
-
-# tests for command <StopNode>
-StopNode
-
-# Tests for command <SlowDown>
-SlowDown
-
-# tests for command <changeLane>
-ChangeLane
-
-# Test command <ChangeRoute>
-ChangeRoute
-
-# Test command <ChangeTarget>
-ChangeTarget
+# tests for old api
+_deprecated_
 
 # Test command <PositionConversion>
 PositionConversion
 
 # Test command <DistanceRequest>
 DistanceRequest
-
-# Test command <Scenario>
-Scenario
-
-# tests for command <GetTrafficLightStatus>
-GetTrafficLightStatus
 
 # Tests for variable retrieval
 VariableRetrieval

@@ -1,4 +1,4 @@
-simstep 1 1
+simstep2 1
 setvalue 0xc4 0x11 veh0 <float> 7.5
 simstep_repeat 2 25 1 1
 setvalue 0xc4 0x11 veh0 <float> -1

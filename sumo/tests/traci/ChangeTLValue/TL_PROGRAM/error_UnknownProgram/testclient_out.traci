@@ -1,18 +1,16 @@
-TraCITestClient output file. Date: Tue Mar 10 14:58:23 2009
+TraCITestClient output file. Date: Sat Oct  9 00:16:14 2010
 
 
--> Command sent: <SimulationStep>:
-  TargetTime=10.00 PosFormat=1
-.. Command acknowledged (1), [description: ]
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
 
 -> Command sent: <SetValue>:
   domID=194 varID=35 objID=1/1
 .. Answered with error to command (194), [description: Can not switch tls '1/1' to program 'prog1';
  The program is not known.]
 
--> Command sent: <SimulationStep>:
-  TargetTime=31.00 PosFormat=1
-.. Command acknowledged (1), [description: ]
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
 
 -> Command sent: <Close>:
 .. Command acknowledged (127), [description: Goodbye]

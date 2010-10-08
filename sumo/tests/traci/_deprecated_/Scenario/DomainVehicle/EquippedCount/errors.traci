@@ -1,0 +1,2 @@
+#Error while connecting: tcpip::Socket::connect() @ connect: Connection refused
+Warning: Using old TraCI API, please update your client!

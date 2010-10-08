@@ -1,9 +1,8 @@
-TraCITestClient output file. Date: Mon Apr 26 12:50:46 2010
+TraCITestClient output file. Date: Sat Oct  9 00:18:01 2010
 
 
--> Command sent: <SimulationStep>:
-  TargetTime=1.00 PosFormat=1
-.. Command acknowledged (1), [description: ]
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
 
 -> Command sent: <GetVariable>:
   domID=168 varID=78 objID=p1
@@ -19,9 +18,8 @@ TraCITestClient output file. Date: Mon Apr 26 12:50:46 2010
 .. Command acknowledged (168), [description: ]
   CommandID=184  VariableID=78  ObjectID=p1 valueDataType=6 PolygonValue: (10.00,11.00) (12.00,13.00) (14.00,15.00) 
 
--> Command sent: <SimulationStep>:
-  TargetTime=2.00 PosFormat=1
-.. Command acknowledged (1), [description: ]
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
 
 -> Command sent: <Close>:
 .. Command acknowledged (127), [description: Goodbye]

@@ -1,17 +1,15 @@
-TraCITestClient output file. Date: Wed May 20 16:31:16 2009
+TraCITestClient output file. Date: Sat Oct  9 00:29:39 2010
 
 
--> Command sent: <SimulationStep>:
-  TargetTime=5.00 PosFormat=1
-.. Command acknowledged (1), [description: ]
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
 
 -> Command sent: <GetVariable>:
   domID=169 varID=66 objID=xxx
 .. Answered with error to command (169), [description: Junction 'xxx' is not known]
 
--> Command sent: <SimulationStep>:
-  TargetTime=6.00 PosFormat=1
-.. Command acknowledged (1), [description: ]
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
 
 -> Command sent: <Close>:
 .. Command acknowledged (127), [description: Goodbye]

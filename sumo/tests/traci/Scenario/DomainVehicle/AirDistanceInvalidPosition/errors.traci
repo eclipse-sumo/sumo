@@ -1,3 +1,0 @@
-Error: Answered with error to command 115: Unable to retrieve road with given id
-Error while receiving command: tcpip::Socket::receive() @ recv: No error
-Error while sending command: send failed: Software caused tcpip::Socket abort

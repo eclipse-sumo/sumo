@@ -1,9 +1,9 @@
-simstep 5 1
+simstep2 5
 getvariable_plus 0xaa 0x58 middle <int> 10
 setvalue 0xca 0x58 middle <compound> 3 <int> 0 <int> 1000 <float> 10000
 getvariable_plus 0xaa 0x58 middle <int> 10
 getvariable 0xa4 0x54 veh0
 setvalue 0xc4 0x90 veh0 <compound> 0
 getvariable 0xa4 0x54 veh0
-simstep 10 1
+simstep2 10
 

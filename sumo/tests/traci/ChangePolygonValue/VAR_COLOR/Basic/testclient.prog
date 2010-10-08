@@ -1,5 +1,5 @@
-simstep 1 1
+simstep2 1
 getvariable 0xa8 0x45 p1
 setvalue 0xc8 0x45 p1 <color> 1 2 3 4
 getvariable 0xa8 0x45 p1
-simstep 2 1
+simstep2 2

@@ -1,3 +1,0 @@
-Error: Answered with error to command 115: Vehicle with internal id notexisting_vehicle not existing or not accessible via TraCI
-Error while receiving command: tcpip::Socket::receive() @ recv: Software caused tcpip::Socket abort
-Error while sending command: send failed: Software caused tcpip::Socket abort

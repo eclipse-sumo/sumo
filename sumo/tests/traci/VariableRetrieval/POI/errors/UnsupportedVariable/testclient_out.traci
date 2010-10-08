@@ -1,21 +1,15 @@
-TraCITestClient output file. Date: Mon Apr 19 09:30:19 2010
+TraCITestClient output file. Date: Sat Oct  9 00:29:30 2010
 
 
--> Command sent: <SimulationStep>:
-  TargetTime=5.00 PosFormat=1
-.. Command acknowledged (1), [description: ]
-.. Received Response <MoveNode>:
-  nodeId=0 targetTime=5.00 2D-Position: x=1455.25 y=401.65
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
 
 -> Command sent: <GetVariable>:
   domID=167 varID=255 objID=dummy
 .. Answered with error to command (167), [description: Get PoI Variable: unsupported variable specified]
 
--> Command sent: <SimulationStep>:
-  TargetTime=6.00 PosFormat=1
-.. Command acknowledged (1), [description: ]
-.. Received Response <MoveNode>:
-  nodeId=0 targetTime=6.00 2D-Position: x=1445.25 y=401.65
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
 
 -> Command sent: <Close>:
 .. Command acknowledged (127), [description: Goodbye]

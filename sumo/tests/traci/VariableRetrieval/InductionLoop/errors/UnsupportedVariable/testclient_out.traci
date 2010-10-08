@@ -1,17 +1,15 @@
-TraCITestClient output file. Date: Mon Apr 19 09:28:45 2010
+TraCITestClient output file. Date: Sat Oct  9 00:28:43 2010
 
 
--> Command sent: <SimulationStep>:
-  TargetTime=48.00 PosFormat=1
-.. Command acknowledged (1), [description: ]
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
 
 -> Command sent: <GetVariable>:
   domID=160 varID=255 objID=dummy
 .. Answered with error to command (160), [description: Get Induction Loop Variable: unsupported variable specified]
 
--> Command sent: <SimulationStep>:
-  TargetTime=49.00 PosFormat=1
-.. Command acknowledged (1), [description: ]
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
 
 -> Command sent: <Close>:
 .. Command acknowledged (127), [description: Goodbye]

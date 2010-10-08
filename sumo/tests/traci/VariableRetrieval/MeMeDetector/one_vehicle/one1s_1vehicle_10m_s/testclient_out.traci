@@ -1,11 +1,8 @@
-TraCITestClient output file. Date: Tue Mar 10 14:58:13 2009
+TraCITestClient output file. Date: Sat Oct  9 00:28:44 2010
 
 
--> Command sent: <SimulationStep>:
-  TargetTime=30.00 PosFormat=1
-.. Command acknowledged (1), [description: ]
-.. Received Response <MoveNode>:
-  nodeId=0 targetTime=30.00 2D-Position: x=1205.25 y=401.65
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
 
 -> Command sent: <GetVariable>:
   domID=161 varID=16 objID=3/1to2/1
@@ -23,11 +20,8 @@ TraCITestClient output file. Date: Tue Mar 10 14:58:13 2009
   CommandID=177  VariableID=18  ObjectID=3/1to2/1 valueDataType=14 string list value: [ 
  ]
 
--> Command sent: <SimulationStep>:
-  TargetTime=50.00 PosFormat=1
-.. Command acknowledged (1), [description: ]
-.. Received Response <MoveNode>:
-  nodeId=0 targetTime=50.00 2D-Position: x=995.75 y=401.65
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
 
 -> Command sent: <GetVariable>:
   domID=161 varID=16 objID=3/1to2/1
@@ -45,11 +39,8 @@ TraCITestClient output file. Date: Tue Mar 10 14:58:13 2009
   CommandID=177  VariableID=18  ObjectID=3/1to2/1 valueDataType=14 string list value: [ 
 "0" ]
 
--> Command sent: <SimulationStep>:
-  TargetTime=70.00 PosFormat=1
-.. Command acknowledged (1), [description: ]
-.. Received Response <MoveNode>:
-  nodeId=0 targetTime=70.00 2D-Position: x=786.25 y=401.65
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
 
 -> Command sent: <GetVariable>:
   domID=161 varID=16 objID=3/1to2/1
@@ -67,11 +58,8 @@ TraCITestClient output file. Date: Tue Mar 10 14:58:13 2009
   CommandID=177  VariableID=18  ObjectID=3/1to2/1 valueDataType=14 string list value: [ 
  ]
 
--> Command sent: <SimulationStep>:
-  TargetTime=80.00 PosFormat=1
-.. Command acknowledged (1), [description: ]
-.. Received Response <MoveNode>:
-  nodeId=0 targetTime=80.00 2D-Position: x=686.25 y=401.65
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
 
 -> Command sent: <Close>:
 .. Command acknowledged (127), [description: Goodbye]

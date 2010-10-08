@@ -1,7 +1,7 @@
-simstep 10 1
+simstep2 10
 getvariable 0xa2 0x21 0
-simstep 31 1
+simstep2 31
 getvariable 0xa2 0x21 0
-simstep 35 1
+simstep2 35
 getvariable 0xa2 0x21 0
-simstep 40 1
+simstep2 40

@@ -1,9 +1,8 @@
-TraCITestClient output file. Date: Fri Nov 06 14:32:46 2009
+TraCITestClient output file. Date: Sat Oct  9 00:17:18 2010
 
 
--> Command sent: <SimulationStep>:
-  TargetTime=5.00 PosFormat=1
-.. Command acknowledged (1), [description: ]
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
 
 -> Command sent: <GetVariable>:
   domID=170 varID=88 objID=middle
@@ -35,9 +34,8 @@ TraCITestClient output file. Date: Fri Nov 06 14:32:46 2009
   CommandID=180  VariableID=84  ObjectID=veh0 valueDataType=14 string list value: [ 
 "beg", "beg2left", "left+right", "left2end", "end", "rend" ]
 
--> Command sent: <SimulationStep>:
-  TargetTime=10.00 PosFormat=1
-.. Command acknowledged (1), [description: ]
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
 
 -> Command sent: <Close>:
 .. Command acknowledged (127), [description: Goodbye]

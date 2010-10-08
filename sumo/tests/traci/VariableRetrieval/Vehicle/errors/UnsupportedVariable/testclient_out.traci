@@ -1,17 +1,15 @@
-TraCITestClient output file. Date: Mon Apr 19 09:29:54 2010
+TraCITestClient output file. Date: Sat Oct  9 00:29:17 2010
 
 
--> Command sent: <SimulationStep>:
-  TargetTime=5.00 PosFormat=1
-.. Command acknowledged (1), [description: ]
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
 
 -> Command sent: <GetVariable>:
   domID=164 varID=255 objID=dummy
 .. Answered with error to command (164), [description: Get Vehicle Variable: unsupported variable specified]
 
--> Command sent: <SimulationStep>:
-  TargetTime=6.00 PosFormat=1
-.. Command acknowledged (1), [description: ]
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
 
 -> Command sent: <Close>:
 .. Command acknowledged (127), [description: Goodbye]

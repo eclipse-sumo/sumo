@@ -1,5 +1,5 @@
-simstep 5 1
+simstep2 5
 getvariable 0xa4 0x5e 0
 setvalue 0xc4 0x5e 0 <float> 2
 getvariable 0xa4 0x5e 0
-simstep 6 1
+simstep2 6
