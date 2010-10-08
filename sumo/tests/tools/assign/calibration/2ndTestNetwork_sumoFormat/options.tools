@@ -1,1 +1,1 @@
--b 25200 -n smallNet.net.xml -r mtx0708_real.rou.alt.xml -d input_weights1.xml -a 3600 -W flows_evaluation.txt -s 100 -X SUMO
+-b 25200 -n input_net.net.xml -r mtx0708_real.rou.alt.xml -d input_weights1.xml -a 3600 -W flows_evaluation.txt -s 100 -X SUMO
