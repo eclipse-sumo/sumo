@@ -1,0 +1,27 @@
+# tests for <SimulationStep> command and <movenode> responses
+MoveNode
+
+# tests for command <SetMaximumSpeed>
+SetMaximumSpeed
+
+# tests for command <StopNode>
+StopNode
+
+# Tests for command <SlowDown>
+SlowDown
+
+# tests for command <changeLane>
+ChangeLane
+
+# Test command <ChangeRoute>
+ChangeRoute
+
+# Test command <ChangeTarget>
+ChangeTarget
+
+# Test command <Scenario>
+Scenario
+
+# tests for command <GetTrafficLightStatus>
+GetTrafficLightStatus
+
