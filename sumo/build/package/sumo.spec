@@ -4,7 +4,7 @@
 # norootforbuild
 Name:           sumo
 Summary:        Microscopic Traffic Simulation
-Version:        0.12.1
+Version:        svn
 Release:        1
 Url:            http://sumo.sourceforge.net/
 Source0:        %{name}-%{version}.tar.bz2
