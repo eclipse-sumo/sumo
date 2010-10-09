@@ -1,0 +1,6 @@
+[Reported by micha at 29Apr10:19:00]
+search_string:collision
+search_file:errors
+ignore_other_errors:1
+bug_system:trac
+bug_id:138
