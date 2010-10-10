@@ -209,6 +209,7 @@ AGDataAndStatistics::getRandomCityGateByIncoming() {
             return it->first;
     }
     cout << "ERROR: incoming at city gates not normalized" << endl;
+    return 0;
 }
 
 int
@@ -222,6 +223,7 @@ AGDataAndStatistics::getRandomCityGateByOutgoing() {
             return it->first;
     }
     cout << "ERROR: outgoing at city gates not normalized" << endl;
+    return 0;
 }
 
 
