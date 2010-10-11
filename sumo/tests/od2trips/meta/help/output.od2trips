@@ -1,4 +1,4 @@
-SUMO od2trips Version dev-SVN-r8794
+SUMO od2trips Version dev-SVN-r9246
  (c) DLR 2001-2010; http://sumo.sourceforge.net
  
 Importer of O/D-matrices for the road traffic simulation SUMO.
@@ -22,8 +22,6 @@ Usage: od2trips [OPTION]*
  Output Options:
   -o, --output-file FILE           Writes trip definitions into FILE
   --no-vtype                       Does not save vtype information
-  --with-taz                       Include origin and destination zones
-                                     (districts)
 
  Time Options:
   -b, --begin TIME                 Defines the begin time;

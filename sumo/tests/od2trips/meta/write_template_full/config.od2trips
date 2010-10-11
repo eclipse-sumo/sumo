@@ -10,7 +10,6 @@
     <output>
         <output-file value=""/>
         <no-vtype value="false"/>
-        <with-taz value="false"/>
     </output>
 
     <time>

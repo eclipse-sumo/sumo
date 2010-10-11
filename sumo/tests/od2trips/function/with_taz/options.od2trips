@@ -1,1 +1,0 @@
--n input_net.net.xml -d input_od_o.fma -o trips.trips.xml --with-taz

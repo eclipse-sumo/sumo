@@ -1,6 +1,8 @@
 <?xml version="1.0"?>
 
-<!-- generated on 03/24/10 20:23:15 by SUMO od2trips Version dev-SVN-r8511
+<!-- generated on Mon Oct 11 17:31:08 2010 by SUMO od2trips Version dev-SVN-r9246
+<?xml version="1.0" encoding="iso-8859-1"?>
+
 <configuration>
 
     <input>
@@ -20,28 +22,28 @@
 -->
 
 <tripdefs>
-    <tripdef id="11" depart="2945.00" from="a1" to="b2" departlane="free" departspeed="max"/>
-    <tripdef id="15" depart="4053.00" from="a1" to="b2" departlane="free" departspeed="max"/>
-    <tripdef id="1" depart="9514.00" from="a1" to="b2" departlane="free" departspeed="max"/>
-    <tripdef id="23" depart="10310.00" from="a1" to="b2" departlane="free" departspeed="max"/>
-    <tripdef id="2" depart="10317.00" from="a1" to="b2" departlane="free" departspeed="max"/>
-    <tripdef id="18" depart="11319.00" from="a1" to="b2" departlane="free" departspeed="max"/>
-    <tripdef id="19" depart="11489.00" from="a1" to="b2" departlane="free" departspeed="max"/>
-    <tripdef id="20" depart="13020.00" from="a1" to="b2" departlane="free" departspeed="max"/>
-    <tripdef id="16" depart="13474.00" from="a1" to="b2" departlane="free" departspeed="max"/>
-    <tripdef id="5" depart="15394.00" from="a1" to="b2" departlane="free" departspeed="max"/>
-    <tripdef id="12" depart="16830.00" from="a1" to="b2" departlane="free" departspeed="max"/>
-    <tripdef id="4" depart="18875.00" from="a1" to="b2" departlane="free" departspeed="max"/>
-    <tripdef id="14" depart="20103.00" from="a1" to="b2" departlane="free" departspeed="max"/>
-    <tripdef id="7" depart="26305.00" from="a1" to="b2" departlane="free" departspeed="max"/>
-    <tripdef id="9" depart="26850.00" from="a1" to="b2" departlane="free" departspeed="max"/>
-    <tripdef id="10" depart="30987.00" from="a1" to="b2" departlane="free" departspeed="max"/>
-    <tripdef id="17" depart="31950.00" from="a1" to="b2" departlane="free" departspeed="max"/>
-    <tripdef id="8" depart="34103.00" from="a1" to="b2" departlane="free" departspeed="max"/>
-    <tripdef id="6" depart="34486.00" from="a1" to="b2" departlane="free" departspeed="max"/>
-    <tripdef id="0" depart="35347.00" from="a1" to="b2" departlane="free" departspeed="max"/>
-    <tripdef id="21" depart="35864.00" from="a1" to="b2" departlane="free" departspeed="max"/>
-    <tripdef id="22" depart="37701.00" from="a1" to="b2" departlane="free" departspeed="max"/>
-    <tripdef id="3" depart="38157.00" from="a1" to="b2" departlane="free" departspeed="max"/>
-    <tripdef id="13" depart="38513.00" from="a1" to="b2" departlane="free" departspeed="max"/>
+    <tripdef id="11" depart="2945.00" from="a1" to="b2" fromtaz="1" totaz="2" departlane="free" departspeed="max"/>
+    <tripdef id="15" depart="4053.00" from="a1" to="b2" fromtaz="1" totaz="2" departlane="free" departspeed="max"/>
+    <tripdef id="1" depart="9514.00" from="a1" to="b2" fromtaz="1" totaz="2" departlane="free" departspeed="max"/>
+    <tripdef id="23" depart="10310.00" from="a1" to="b2" fromtaz="1" totaz="2" departlane="free" departspeed="max"/>
+    <tripdef id="2" depart="10317.00" from="a1" to="b2" fromtaz="1" totaz="2" departlane="free" departspeed="max"/>
+    <tripdef id="18" depart="11319.00" from="a1" to="b2" fromtaz="1" totaz="2" departlane="free" departspeed="max"/>
+    <tripdef id="19" depart="11489.00" from="a1" to="b2" fromtaz="1" totaz="2" departlane="free" departspeed="max"/>
+    <tripdef id="20" depart="13020.00" from="a1" to="b2" fromtaz="1" totaz="2" departlane="free" departspeed="max"/>
+    <tripdef id="16" depart="13474.00" from="a1" to="b2" fromtaz="1" totaz="2" departlane="free" departspeed="max"/>
+    <tripdef id="5" depart="15394.00" from="a1" to="b2" fromtaz="1" totaz="2" departlane="free" departspeed="max"/>
+    <tripdef id="12" depart="16830.00" from="a1" to="b2" fromtaz="1" totaz="2" departlane="free" departspeed="max"/>
+    <tripdef id="4" depart="18875.00" from="a1" to="b2" fromtaz="1" totaz="2" departlane="free" departspeed="max"/>
+    <tripdef id="14" depart="20103.00" from="a1" to="b2" fromtaz="1" totaz="2" departlane="free" departspeed="max"/>
+    <tripdef id="7" depart="26305.00" from="a1" to="b2" fromtaz="1" totaz="2" departlane="free" departspeed="max"/>
+    <tripdef id="9" depart="26850.00" from="a1" to="b2" fromtaz="1" totaz="2" departlane="free" departspeed="max"/>
+    <tripdef id="10" depart="30987.00" from="a1" to="b2" fromtaz="1" totaz="2" departlane="free" departspeed="max"/>
+    <tripdef id="17" depart="31950.00" from="a1" to="b2" fromtaz="1" totaz="2" departlane="free" departspeed="max"/>
+    <tripdef id="8" depart="34103.00" from="a1" to="b2" fromtaz="1" totaz="2" departlane="free" departspeed="max"/>
+    <tripdef id="6" depart="34486.00" from="a1" to="b2" fromtaz="1" totaz="2" departlane="free" departspeed="max"/>
+    <tripdef id="0" depart="35347.00" from="a1" to="b2" fromtaz="1" totaz="2" departlane="free" departspeed="max"/>
+    <tripdef id="21" depart="35864.00" from="a1" to="b2" fromtaz="1" totaz="2" departlane="free" departspeed="max"/>
+    <tripdef id="22" depart="37701.00" from="a1" to="b2" fromtaz="1" totaz="2" departlane="free" departspeed="max"/>
+    <tripdef id="3" depart="38157.00" from="a1" to="b2" fromtaz="1" totaz="2" departlane="free" departspeed="max"/>
+    <tripdef id="13" depart="38513.00" from="a1" to="b2" fromtaz="1" totaz="2" departlane="free" departspeed="max"/>
 </tripdefs>

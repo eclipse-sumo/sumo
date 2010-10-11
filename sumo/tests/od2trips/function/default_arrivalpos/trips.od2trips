@@ -1,6 +1,8 @@
 <?xml version="1.0"?>
 
-<!-- generated on 03/24/10 20:23:25 by SUMO od2trips Version dev-SVN-r8511
+<!-- generated on Mon Oct 11 17:31:14 2010 by SUMO od2trips Version dev-SVN-r9246
+<?xml version="1.0" encoding="iso-8859-1"?>
+
 <configuration>
 
     <input>
@@ -20,5 +22,5 @@
 -->
 
 <tripdefs>
-    <tripdef id="0" depart="35347.00" from="a1" to="b2" departlane="free" departspeed="max" arrivalpos="0"/>
+    <tripdef id="0" depart="35347.00" from="a1" to="b2" fromtaz="1" totaz="2" departlane="free" departspeed="max" arrivalpos="0"/>
 </tripdefs>

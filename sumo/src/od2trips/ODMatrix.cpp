@@ -184,10 +184,8 @@ ODMatrix::write(SUMOTime begin, SUMOTime end,
             if (!noVtype&&(*i).cell->vehicleType.length()!=0) {
                 dev << " type=\"" << (*i).cell->vehicleType << "\"";
             }
-            if (oc.getBool("with-taz")) {
-                dev << " fromtaz=\"" << (*i).cell->origin << "\"";
-                dev << " totaz=\"" << (*i).cell->destination << "\"";
-            }
+            dev << " fromtaz=\"" << (*i).cell->origin << "\"";
+            dev << " totaz=\"" << (*i).cell->destination << "\"";
             if (oc.isSet("departlane") && oc.getString("departlane")!="default") {
                 dev << " departlane=\"" << oc.getString("departlane") << "\"";
             }
