@@ -1,21 +1,15 @@
-TraCITestClient output file. Date: Tue Jul 13 10:24:28 2010
+TraCITestClient output file. Date: Mon Oct 11 16:34:18 2010
 
 
--> Command sent: <SimulationStep>:
-  TargetTime=1.00 PosFormat=1
-.. Command acknowledged (1), [description: ]
-.. Received Response <MoveNode>:
-  nodeId=0 targetTime=1.00 2D-Position: x=0.00 y=491.75
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
 
 -> Command sent: <SetValue>:
   domID=196 varID=92 objID=xxx
 .. Answered with error to command (196), [description: Vehicle 'xxx' is not known]
 
--> Command sent: <SimulationStep>:
-  TargetTime=1.00 PosFormat=1
-.. Command acknowledged (1), [description: ]
-.. Received Response <MoveNode>:
-  nodeId=0 targetTime=1.00 2D-Position: x=0.80 y=491.75
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
 
 -> Command sent: <Close>:
 .. Command acknowledged (127), [description: Goodbye]

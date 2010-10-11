@@ -1,21 +1,15 @@
-TraCITestClient output file. Date: Mon Jul 27 13:25:23 2009
+TraCITestClient output file. Date: Mon Oct 11 16:34:12 2010
 
 
--> Command sent: <SimulationStep>:
-  TargetTime=1.00 PosFormat=1
-.. Command acknowledged (1), [description: ]
-.. Received Response <MoveNode>:
-  nodeId=0 targetTime=1.00 2D-Position: x=2508.05 y=491.75
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
 
 -> Command sent: <SetValue>:
   domID=196 varID=49 objID=veh0
 #Error: received status response to command: 49 but expected: 196
 
--> Command sent: <SimulationStep>:
-  TargetTime=2.00 PosFormat=1
-.. Command acknowledged (1), [description: ]
-.. Received Response <MoveNode>:
-  nodeId=0 targetTime=2.00 2D-Position: x=2508.50 y=491.75
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
 
 -> Command sent: <Close>:
 .. Command acknowledged (127), [description: Goodbye]

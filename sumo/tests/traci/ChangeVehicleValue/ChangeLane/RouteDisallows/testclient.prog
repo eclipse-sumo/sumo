@@ -1,5 +1,5 @@
-simstep_repeat 1 40 1 1
+repeat 40 simstep2 0
 setvalue 0xc4 0x13 veh0 <compound> 2 <byte> 0 <int> 100000
-simstep_repeat 41 45 1 1
+repeat 5 simstep2 0
 setvalue 0xc4 0x13 veh0 <compound> 2 <byte> 2 <int> 100000
-simstep_repeat 46 60 1 1
+repeat 15 simstep2 0
