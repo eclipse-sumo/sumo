@@ -28,7 +28,7 @@ def runSingle(sumoEndTime, traciEndTime):
     sumoProcess = subprocess.Popen("%s -c used.sumo.cfg %s" % (sumoBinary, addOption), shell=True, stdout=sys.stdout)
     traciControl.initTraCI(PORT)
     while not step>traciEndTime:
-        traciControl.cmdSimulationStep(DELTA_T)
+        traciControl.cmdSimulationStep2(DELTA_T)
         vehs = traciControl.cmdGetVehicleVariable_idList()
         if vehs.index("horiz")<0 or len(vehs)>1:
             print "Something is false"

@@ -19,7 +19,7 @@ def runSingle(addOption):
     traciControl.initTraCI(PORT)
     while not step>10000:
         try:
-            traciControl.cmdSimulationStep(DELTA_T)
+            traciControl.cmdSimulationStep2(DELTA_T)
             vehs = traciControl.cmdGetVehicleVariable_idList()
             timeline.append({})
             for v in vehs:

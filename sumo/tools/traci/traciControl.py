@@ -1,4 +1,3 @@
-#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 """
 @file    traciControl.py
@@ -200,10 +199,10 @@ def cmdSimulationStep2(step):
     _message.string += struct.pack("!BBi", 1+1+4, tc.CMD_SIMSTEP2, step)
     result = _sendExact()
     subscriptions = []
-    while result.ready():
-        if result.read("!BB")[1] == tc.CMD_MOVENODE:
-            updates.append((result.read("!iiB")[0], result.readString(), result.read("!fB")[0]))
-    return updates
+#    while result.ready():
+#        if result.read("!BB")[1] == tc.CMD_MOVENODE:
+#            updates.append((result.read("!iiB")[0], result.readString(), result.read("!fB")[0]))
+    return subscriptions
 
 def cmdSubscribeDomainVehicle_Position(position=True):
     if position:
