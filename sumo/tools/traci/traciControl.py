@@ -184,7 +184,7 @@ def cmdSimulationStep(step, position=True):
         return_type = tc.POSITION_NONE
 
     _message.queue.append(tc.CMD_SIMSTEP)
-    _message.string += struct.pack("!BBiB", 1+1+8+1, tc.CMD_SIMSTEP, step, return_type)
+    _message.string += struct.pack("!BBiB", 1+1+4+1, tc.CMD_SIMSTEP, step, return_type)
     result = _sendExact()
     updates = []
     while result.ready():
@@ -197,7 +197,7 @@ def cmdSimulationStep2(step):
     Make simulation step and simulate up to "step" second in sim time.
     """
     _message.queue.append(tc.CMD_SIMSTEP2)
-    _message.string += struct.pack("!BBi", 1+1+8, tc.CMD_SIMSTEP2, step)
+    _message.string += struct.pack("!BBi", 1+1+4, tc.CMD_SIMSTEP2, step)
     result = _sendExact()
     subscriptions = []
     while result.ready():
