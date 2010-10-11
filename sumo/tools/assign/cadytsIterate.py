@@ -68,27 +68,23 @@ def main():
     evalprefix = None
     if options.flowevaluation:
         evalprefix = options.flowevaluation[:options.flowevaluation.rfind('.')]
-    check = 0
 
     # begin the calibration
     if options.odmatrix:
-        check = call(calibrator + ["INIT", "-varscale", options.varscale, "-freezeit", options.freezeit,
+        call(calibrator + ["INIT", "-varscale", options.varscale, "-freezeit", options.freezeit,
               "-measfile", options.detvals, "-binsize", options.aggregation, "-PREPITS", options.PREPITS,
                "-measformat", options.measformat, "-bruteforce", options.bruteforce, "-demandscale", options.demandscale,
                "-mincountstddev", options.mincountstddev, "-overridett", options.overridett, "-equiprate", options.equiprate], log)
     else:
-        check = call(calibrator + ["INIT", "-varscale", options.varscale, "-freezeit", options.freezeit,
+        call(calibrator + ["INIT", "-varscale", options.varscale, "-freezeit", options.freezeit,
               "-measfile", options.detvals, "-binsize", options.aggregation, "-PREPITS", options.PREPITS,
                "-measformat", options.measformat, "-bruteforce", options.bruteforce, "-mincountstddev", options.mincountstddev,
                "-overridett", options.overridett, "-equiprate", options.equiprate], log)
-    
-    if check != 0 and check != None:
-        print 'KATASTROPHE! calibration exit code = ', check
-    
+
     for step in range(options.calibStep):
         print 'calibration step:', step
         files = []
-    
+
         # calibration choice
         firstRoute = options.routes.split(",")[0]
         output = "%s_%s.cal.xml" % (firstRoute[:firstRoute.rfind('.')], step)

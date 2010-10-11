@@ -205,7 +205,7 @@ def main():
             btime = datetime.now()
             print ">>> Begin time: %s" % btime
             writeRouteConf(step, options, file, output, options.routefile)
-            retCode = call([duaBinary, "-c", "iteration_%s.rou.cfg" % step], log)
+            call([duaBinary, "-c", "iteration_%s.rou.cfg" % step], log)
             etime = datetime.now()
             print ">>> End time: %s" % etime
             print ">>> Duration: %s" % (etime-btime)
@@ -217,7 +217,7 @@ def main():
         btime = datetime.now()
         print ">>> Begin time: %s" % btime
         writeSUMOConf(step, options, ",".join(files))
-        retCode = call([sumoBinary, "-c", "iteration_%s.sumo.cfg" % step], log)
+        call([sumoBinary, "-c", "iteration_%s.sumo.cfg" % step], log)
         etime = datetime.now()
         print ">>> End time: %s" % etime
         print ">>> Duration: %s" % (etime-btime)
