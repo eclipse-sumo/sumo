@@ -85,7 +85,6 @@ for tlsFile in allTLS:
         else:
             if len(v)>1:
                 links2index[int(v[0])] = len(defs)
-#            print "%s -> %s" % (v[0], len(defs))
                 defs.append(v[1:])
     fd.close()
 
@@ -112,11 +111,9 @@ for keyIndex, key in enumerate(allKeys):
     normTimes = allNormTimes[keyIndex]
     defs = allDefs[keyIndex]
     links = allLinks[keyIndex]
-#    key = allKeys[keyIndex]
     subkey = allSubkeys[keyIndex]
     offset = allOffsets[keyIndex]
     links2index = allLink2Indices[keyIndex]
-
 
     tls = net1._id2tls[key]
     noConnections = tls._maxConnectionNo + 1
@@ -146,7 +143,6 @@ for keyIndex, key in enumerate(allKeys):
                         valid = False
             if valid:
                 linkMap[tl_c[2]] = l[2]
-#            print str(tl_c[2]) + "->" + str(l[2])
                 laneMap[tl_c[2]] = (li, lo)
 #print linkMap
 
@@ -157,23 +153,16 @@ for keyIndex, key in enumerate(allKeys):
 
     indices = {}
     for n in nodes:
-#    print n._id
         indices[n] = {}
         index = 0
-#    print n._incLanes
         for i in n._incLanes:
             (e, l) = i.split("_")
-#        print i
             e = net1._id2edge[e]
             li = e._lanes[int(l)]
-#        print li.getID() + " " + str(li._outgoing)
             for c in li._outgoing:
                 lo = c[0]
                 indices[n][(li, lo)] = index
-#            print str(index) + ": " + e.getID()
-#            print li.getID() + "->" + lo.getID() + ":" + str(index)
                 index = index + 1
-
 
     for l in range(0, len(linkMap)):
         if linkMap[l] not in links2index:
@@ -184,9 +173,6 @@ for keyIndex, key in enumerate(allKeys):
     for i in range(0, len(normTimes)):
         state = ""
         for l in range(0, len(linkMap)):
-#        print l
-#        print linkMap[l]
-#        print defs[linkMap[l]-1]
             index = links2index[linkMap[l]]
             d = defs[index]
             if d[i]=='r':
@@ -196,7 +182,6 @@ for keyIndex, key in enumerate(allKeys):
             elif d[i]=='g':
                 state = state + "g"
             else:
-#            print l
                 print "missing value; setting to g"
                 state = state + "g"
         for l1 in range(0, len(state)):
@@ -209,28 +194,13 @@ for keyIndex, key in enumerate(allKeys):
                         continue
                     link1 = laneMap[l1]
                     link2 = laneMap[l2]
-#                if not link1 or not link2:
-#                    continue
                     node1 = link1[0].getEdge()._to
                     node2 = link2[0].getEdge()._to
                     mustWait = node1==node2
                     if mustWait:
                         mindices = indices[node1]
-#                    print mindices[link1]
-#                    print mindices[link2]
                         mprohs = node1._prohibits
-#                    if l1==2 and l2==7:
-#                        print node1._id
-#                        print mprohs
-#                        print "index#1 " + str(mindices[link1])
-#                        print "index#2 " + str(mindices[link2])
-#                        print mprohs[mindices[link1]]
-#                        print mprohs[mindices[link1]][len(mprohs)-mindices[link2]-1]
-#                    print link1[0].getID() + "->" + link1[1].getID()
-#                    print link2[0].getID() + "->" + link2[1].getID()
                         mustWait = mprohs[mindices[link1]][len(mprohs)-mindices[link2]-1]=='1'
-#                    if l1==2 and l2==7:
-#                        print mustWait
                     wait = wait or mustWait
                 if not wait:
                     state = state[:l1] + 'G' + state[l1+1:]
