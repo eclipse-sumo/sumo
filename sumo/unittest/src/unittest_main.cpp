@@ -2,7 +2,7 @@
 /// @file    unittest_main.cpp
 /// @author  Matthias Heppner
 /// @date    Sept 2009
-/// @version $Id: RGBColor.cpp 8743 2010-05-07 14:54:01Z bieker $
+/// @version $Id$
 ///
 // main for the unit tests
 /****************************************************************************/

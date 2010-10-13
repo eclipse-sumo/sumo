@@ -32,6 +32,7 @@ class PropertyReader(xml.sax.handler.ContentHandler):
     def startElement(self, name, attrs):
         if name == 'target':
             self._file = attrs['path']
+            seen.add(os.path.join(sumoRoot, self._file))
         if name == 'property':
             self._property = attrs['name']
 
@@ -83,7 +84,31 @@ class PropertyReader(xml.sax.handler.ContentHandler):
             self._hadKeywords = False
 
 
+seen = set()
 doFix = len(sys.argv) == 2 and sys.argv[1] in ["-f" , "--fix"]
-root = os.path.normpath(os.path.join(os.path.dirname(sys.argv[0]), "../../"))
-output = subprocess.Popen(["svn", "pl", "-v", "-R", "--xml", root], stdout=subprocess.PIPE).communicate()[0]
+sumoRoot = os.path.normpath(os.path.join(os.path.dirname(sys.argv[0]), "../../"))
+output = subprocess.Popen(["svn", "pl", "-v", "-R", "--xml", sumoRoot], stdout=subprocess.PIPE).communicate()[0]
 xml.sax.parseString(output, PropertyReader(doFix))
+
+for root, dirs, files in os.walk(sumoRoot):
+    for name in files:
+        fullName = os.path.join(root, name)
+        if fullName in seen:
+            continue
+        ext = os.path.splitext(name)[1]
+        if ext in _SOURCE_EXT or ext in _TESTDATA_EXT or ext in _VS_EXT:
+            print fullName, "svn:eol-style"
+            if doFix:
+                if ext in _VS_EXT:
+                    subprocess.call(["svn", "ps", "svn:eol-style", "CRLF", fullName])
+                else:
+                    if os.name == "posix":
+                        subprocess.call(["sed", "-i", 's/\r$//', fullName])
+                    subprocess.call(["svn", "ps", "svn:eol-style", "LF", fullName])
+        if ext in _SOURCE_EXT:
+            print fullName, "svn:keywords"
+            if doFix:
+                subprocess.call(["svn", "ps", "svn:keywords", _KEYWORDS, fullName])
+        for ignoreDir in ['.svn', 'foreign', 'mesosim', 'mesogui']:
+            if ignoreDir in dirs:
+                dirs.remove(ignoreDir)
