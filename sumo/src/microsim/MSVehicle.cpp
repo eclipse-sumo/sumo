@@ -1620,11 +1620,10 @@ MSVehicle::getBestLanes(bool forceRebuild, MSLane *startLane) const throw() {
             } else {
                 if (allowed==0||find(allowed->begin(), allowed->end(), cl)!=allowed->end()) {
                     q.allowsContinuation = true;
-                    q.length = cl->getLength();
                 } else {
                     q.allowsContinuation = false;
-                    q.length = 0;
                 }
+                q.length = cl->getLength();
             }
             currentLanes.push_back(q);
         }
@@ -1634,7 +1633,7 @@ MSVehicle::getBestLanes(bool forceRebuild, MSLane *startLane) const throw() {
         ++seen;
         seenLength += currentLanes[0].lane->getLength();
         ++ce;
-        progress &= (seen<=4 && seenLength<3000);
+        progress &= (seen<=4 || seenLength<3000);
         progress &= seen<=8;
         progress &= ce!=myRoute->end();
     }
@@ -1669,9 +1668,13 @@ MSVehicle::getBestLanes(bool forceRebuild, MSLane *startLane) const throw() {
         MSEdge &cE = clanes[0].lane->getEdge();
         int index = 0;
         SUMOReal bestConnectedLength = -1;
+        SUMOReal bestLength = -1;
         for (std::vector<LaneQ>::iterator j=nextLanes.begin(); j!=nextLanes.end(); ++j, ++index) {
             if ((*j).lane->isApproachedFrom(&cE) && bestConnectedLength<(*j).length) {
                 bestConnectedLength = (*j).length;
+            }
+            if (bestLength<(*j).length) {
+                bestLength = (*j).length;
             }
         }
         if (bestConnectedLength>0) {
@@ -1688,7 +1691,11 @@ MSVehicle::getBestLanes(bool forceRebuild, MSLane *startLane) const throw() {
                             }
                         }
                     }
-                    (*j).length += bestConnectedNext.length;
+                    if(bestConnectedNext.length==bestConnectedLength&&abs(bestConnectedNext.bestLaneOffset)<2) {
+                        (*j).length += bestLength;
+                    } else {
+                        (*j).length += bestConnectedNext.length;
+                    }
                 }
                 if (clanes[bestThisIndex].length<(*j).length || (clanes[bestThisIndex].length==(*j).length&&abs(abs(clanes[bestThisIndex].bestLaneOffset>(*j).bestLaneOffset)))) {
                     bestThisIndex = index;
