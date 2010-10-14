@@ -93,7 +93,7 @@ xml.sax.parseString(output, PropertyReader(doFix))
 for root, dirs, files in os.walk(sumoRoot):
     for name in files:
         fullName = os.path.join(root, name)
-        if fullName in seen:
+        if fullName in seen or subprocess.call(["svn", "ls", fullName], stdout=open(os.devnull, 'w'), stderr=subprocess.STDOUT):
             continue
         ext = os.path.splitext(name)[1]
         if ext in _SOURCE_EXT or ext in _TESTDATA_EXT or ext in _VS_EXT:
@@ -109,6 +109,6 @@ for root, dirs, files in os.walk(sumoRoot):
             print fullName, "svn:keywords"
             if doFix:
                 subprocess.call(["svn", "ps", "svn:keywords", _KEYWORDS, fullName])
-        for ignoreDir in ['.svn', 'foreign', 'mesosim', 'mesogui']:
-            if ignoreDir in dirs:
-                dirs.remove(ignoreDir)
+    for ignoreDir in ['.svn', 'foreign', 'mesosim', 'mesogui']:
+        if ignoreDir in dirs:
+            dirs.remove(ignoreDir)
