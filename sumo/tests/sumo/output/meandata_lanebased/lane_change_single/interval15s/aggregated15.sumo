@@ -1,6 +1,8 @@
 <?xml version="1.0"?>
 
-<!-- generated on 09/02/10 08:19:52 by SUMO sumo Version dev-SVN-r9027
+<!-- generated on 10/14/10 12:41:25 by SUMO sumo Version dev-SVN-r9255
+<?xml version="1.0" encoding="iso-8859-1"?>
+
 <configuration>
 
     <input>
@@ -24,9 +26,9 @@
 <netstats>
     <interval begin="0.00" end="15.00" id="dump_15">
         <edge id="1si">
-            <lane id="1si_0" sampledSeconds="1.00" traveltime="23.72" density="0.28" occupancy="0.14" waitingTime="0.00" speed="10.00" departed="1" arrived="0" entered="0" left="0" laneChangedFrom="1" laneChangedTo="0"/>
-            <lane id="1si_1" sampledSeconds="1.00" traveltime="23.72" density="0.28" occupancy="0.14" waitingTime="0.00" speed="10.00" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="1" laneChangedTo="1"/>
-            <lane id="1si_2" sampledSeconds="12.00" traveltime="24.96" density="3.37" occupancy="1.69" waitingTime="0.00" speed="9.50" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="0" laneChangedTo="1"/>
+            <lane id="1si_0" sampledSeconds="2.00" traveltime="23.72" density="0.56" occupancy="0.28" waitingTime="0.00" speed="10.00" departed="1" arrived="0" entered="0" left="0" laneChangedFrom="1" laneChangedTo="0"/>
+            <lane id="1si_1" sampledSeconds="6.00" traveltime="23.72" density="1.69" occupancy="0.84" waitingTime="0.00" speed="10.00" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="1" laneChangedTo="1"/>
+            <lane id="1si_2" sampledSeconds="6.00" traveltime="26.34" density="1.69" occupancy="0.84" waitingTime="0.00" speed="9.00" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="0" laneChangedTo="1"/>
         </edge>
     </interval>
     <interval begin="15.00" end="30.00" id="dump_15">

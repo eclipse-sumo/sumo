@@ -1,6 +1,8 @@
 <?xml version="1.0"?>
 
-<!-- generated on 06/30/10 09:06:38 by SUMO sumo Version dev-SVN-r8163
+<!-- generated on 10/14/10 12:42:48 by SUMO sumo Version dev-SVN-r9255
+<?xml version="1.0" encoding="iso-8859-1"?>
+
 <configuration>
 
     <input>
@@ -71,7 +73,7 @@
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="6" depart="120.00" arrival="237.00">
+    <vehicle id="6" depart="120.00" arrival="236.00">
         <routeDistribution>
             <route replacedOnEdge="beg" replacedAtTime="120.00" probability="0" edges="beg rend"/>
             <route edges="beg beg2left left left2end end rend"/>

@@ -1,6 +1,8 @@
 <?xml version="1.0"?>
 
-<!-- generated on 08/26/10 17:39:52 by SUMO sumo Version dev-SVN-r8989
+<!-- generated on 10/14/10 12:41:25 by SUMO sumo Version dev-SVN-r9255
+<?xml version="1.0" encoding="iso-8859-1"?>
+
 <configuration>
 
     <input>
@@ -24,27 +26,28 @@
 <netstats>
     <interval begin="0.00" end="15.00" id="dump_15">
         <edge id="1si">
-            <lane id="1si_0" sampledSeconds="2.00" traveltime="33.69" density="0.56" occupancy="0.28" waitingTime="0.00" speed="7.04" departed="2" arrived="0" entered="0" left="0" laneChangedFrom="2" laneChangedTo="0"/>
-            <lane id="1si_1" sampledSeconds="6.00" traveltime="36.29" density="1.69" occupancy="0.84" waitingTime="0.00" speed="6.54" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="2" laneChangedTo="2"/>
-            <lane id="1si_2" sampledSeconds="15.00" traveltime="46.53" density="4.22" occupancy="2.11" waitingTime="0.00" speed="5.10" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="0" laneChangedTo="2"/>
+            <lane id="1si_0" sampledSeconds="17.00" traveltime="41.37" density="4.78" occupancy="2.39" waitingTime="0.00" speed="5.73" departed="2" arrived="0" entered="0" left="0" laneChangedFrom="1" laneChangedTo="0"/>
+            <lane id="1si_1" sampledSeconds="5.00" traveltime="25.26" density="1.41" occupancy="0.70" waitingTime="0.00" speed="9.39" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="0" laneChangedTo="1"/>
         </edge>
     </interval>
     <interval begin="15.00" end="30.00" id="dump_15">
         <edge id="1si">
-            <lane id="1si_2" sampledSeconds="30.00" traveltime="51.15" density="8.43" occupancy="4.22" waitingTime="0.00" speed="4.64" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0"/>
+            <lane id="1si_0" sampledSeconds="3.00" traveltime="76.73" density="0.84" occupancy="0.42" waitingTime="0.00" speed="3.09" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="1" laneChangedTo="0"/>
+            <lane id="1si_1" sampledSeconds="7.00" traveltime="48.65" density="1.97" occupancy="0.98" waitingTime="0.00" speed="4.87" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="2" laneChangedTo="1"/>
+            <lane id="1si_2" sampledSeconds="20.00" traveltime="59.22" density="5.62" occupancy="2.81" waitingTime="6.00" speed="4.00" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="0" laneChangedTo="2"/>
         </edge>
     </interval>
     <interval begin="30.00" end="45.00" id="dump_15">
         <edge id="1si">
-            <lane id="1si_2" sampledSeconds="30.00" traveltime="15235.59" density="8.43" occupancy="4.22" waitingTime="29.00" speed="0.02" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0"/>
+            <lane id="1si_2" sampledSeconds="30.00" traveltime="5032.41" density="8.43" occupancy="4.22" waitingTime="28.00" speed="0.05" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0"/>
         </edge>
     </interval>
     <interval begin="45.00" end="60.00" id="dump_15">
         <edge id="1si">
-            <lane id="1si_2" sampledSeconds="4.16" traveltime="197.26" density="1.17" occupancy="0.58" waitingTime="1.00" speed="1.20" departed="0" arrived="0" entered="0" left="2" laneChangedFrom="0" laneChangedTo="0"/>
+            <lane id="1si_2" sampledSeconds="4.28" traveltime="202.71" density="1.20" occupancy="0.60" waitingTime="1.00" speed="1.17" departed="0" arrived="0" entered="0" left="2" laneChangedFrom="0" laneChangedTo="0"/>
         </edge>
         <edge id="4o">
-            <lane id="4o_0" sampledSeconds="1.84" traveltime="282.43" density="0.25" occupancy="0.13" waitingTime="0.00" speed="1.73" departed="0" arrived="2" entered="2" left="0" laneChangedFrom="0" laneChangedTo="0"/>
+            <lane id="4o_0" sampledSeconds="1.72" traveltime="321.90" density="0.24" occupancy="0.12" waitingTime="0.00" speed="1.52" departed="0" arrived="2" entered="2" left="0" laneChangedFrom="0" laneChangedTo="0"/>
         </edge>
     </interval>
     <interval begin="60.00" end="75.00" id="dump_15">

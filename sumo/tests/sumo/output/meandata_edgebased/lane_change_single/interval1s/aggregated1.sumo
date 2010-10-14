@@ -1,6 +1,8 @@
 <?xml version="1.0"?>
 
-<!-- generated on 09/02/10 08:19:28 by SUMO sumo Version dev-SVN-r9027
+<!-- generated on 10/14/10 12:41:04 by SUMO sumo Version dev-SVN-r9255
+<?xml version="1.0" encoding="iso-8859-1"?>
+
 <configuration>
 
     <input>
@@ -26,7 +28,7 @@
         <edge id="1si" sampledSeconds="0.00" departed="1" arrived="0" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0"/>
     </interval>
     <interval begin="1.00" end="2.00" id="dump_1">
-        <edge id="1si" sampledSeconds="1.00" traveltime="23.72" density="4.22" occupancy="0.70" waitingTime="0.00" speed="10.00" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="1" laneChangedTo="1"/>
+        <edge id="1si" sampledSeconds="1.00" traveltime="23.72" density="4.22" occupancy="0.70" waitingTime="0.00" speed="10.00" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0"/>
     </interval>
     <interval begin="2.00" end="3.00" id="dump_1">
         <edge id="1si" sampledSeconds="1.00" traveltime="23.72" density="4.22" occupancy="0.70" waitingTime="0.00" speed="10.00" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="1" laneChangedTo="1"/>
@@ -47,7 +49,7 @@
         <edge id="1si" sampledSeconds="1.00" traveltime="23.72" density="4.22" occupancy="0.70" waitingTime="0.00" speed="10.00" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0"/>
     </interval>
     <interval begin="8.00" end="9.00" id="dump_1">
-        <edge id="1si" sampledSeconds="1.00" traveltime="23.72" density="4.22" occupancy="0.70" waitingTime="0.00" speed="10.00" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0"/>
+        <edge id="1si" sampledSeconds="1.00" traveltime="23.72" density="4.22" occupancy="0.70" waitingTime="0.00" speed="10.00" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="1" laneChangedTo="1"/>
     </interval>
     <interval begin="9.00" end="10.00" id="dump_1">
         <edge id="1si" sampledSeconds="1.00" traveltime="23.72" density="4.22" occupancy="0.70" waitingTime="0.00" speed="10.00" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0"/>
