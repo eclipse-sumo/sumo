@@ -1,0 +1,10 @@
+<routes>
+<vehicle id="213" depart="triggered" fromtaz="91" totaz="93" >
+  <route edges="D1 L2 L5 L7 L6 L11 L15 L16 D3" exitTimes="25215 25263 25297 25318 25366 25410 25482 25517 25531" probability="1" />
+</vehicle>
+<person id="4" depart="1" /><ride from="D1" to="D3" lines="213"/></person>
+<vehicle id="723" depart="triggered" fromtaz="91" totaz="93" >
+  <route edges="D1 L2 L4 L12 L16 D3" exitTimes="25217 25265 25368 25484 25519 25532" probability="1" />
+</vehicle>
+<person id="7" depart="3" /><ride from="D1" to="D3" lines="723"/></person>
+</routes>

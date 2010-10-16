@@ -1,6 +1,9 @@
 # platform dependent bug related to lanechanging and maybe floating point
 lanechange
 
+# route file with persons
+person
+
 # Test for [ 2350888 ] vehicle on false lane with cyclic routes (thanks to Daniel Janusz)
 2350888
 
@@ -39,5 +42,5 @@ lanechange_cross_swap
 # Deadlocking at junctions
 right_before_left_deadlock
 
-# Test for ticket#218 (using the given order of bus stops) 
+# Test for ticket#218 (using the given order of bus stops)
 ticket218
