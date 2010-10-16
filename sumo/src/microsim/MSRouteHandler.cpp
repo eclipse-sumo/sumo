@@ -532,9 +532,13 @@ MSRouteHandler::closeVehicle() throw(ProcessError) {
 
 void
 MSRouteHandler::closePerson() throw(ProcessError) {
+    if (myActivePlan->size()==0) {
+        throw ProcessError("Person '" + myVehicleParameter->id + "' has no plan.");
+    }
     MSPerson *person = new MSPerson(myVehicleParameter, myActivePlan);
     if (MSNet::getInstance()->getPersonControl().add(myVehicleParameter->id, person)) {
         MSNet::getInstance()->getPersonControl().setArrival(myVehicleParameter->depart, person);
+        myLastDepart = myVehicleParameter->depart;
     }
     myVehicleParameter = 0;
     myActivePlan = 0;
