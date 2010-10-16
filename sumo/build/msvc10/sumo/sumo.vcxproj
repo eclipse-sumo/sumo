@@ -229,7 +229,7 @@
       <Culture>0x0407</Culture>
     </ResourceCompile>
     <Link>
-      <AdditionalDependencies>$(XERCES_LIB);ws2_32.lib</AdditionalDependencies>
+      <AdditionalDependencies>$(XERCES_LIB);ws2_32.lib;$(MSBuildProjectDirectory)\..\y_libmesosim\Release\y_libmesosim.lib</AdditionalDependencies>
       <OutputFile>$(OutDir)meso.exe</OutputFile>
       <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
