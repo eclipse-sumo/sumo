@@ -144,6 +144,16 @@
   <ItemGroup>
     <ClInclude Include="..\..\..\src\mesogui\GUIMEInductLoop.h" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\y_libmesosim\y_libmesosim.vcxproj">
+      <Project>{308beb29-142b-4088-bd41-80e273e20d3a}</Project>
+      <Private>true</Private>
+      <ReferenceOutputAssembly>true</ReferenceOutputAssembly>
+      <CopyLocalSatelliteAssemblies>false</CopyLocalSatelliteAssemblies>
+      <LinkLibraryDependencies>true</LinkLibraryDependencies>
+      <UseLibraryDependencyInputs>false</UseLibraryDependencyInputs>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
