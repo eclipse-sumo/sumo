@@ -145,24 +145,33 @@ def tinyPath(xmlStruct, path, newValue):
 			item.setAttribute(attribute, newValue)
 	else:
 		raise "?"
-		
+
+def checkBinary(binPath, name):
+    binary = os.environ.get("%s_BINARY" % name.upper(), os.path.join(binPath, name))
+    if os.name == "nt" and binary[-4:] != ".exe":
+        binary += ".exe"
+    if not os.path.exists(binary):
+        return name
+    return binary
+
 call = []
+binPath = os.path.join(os.path.dirname(sys.argv[0]), '..', '..', '..', 'bin')
 if sys.argv[1]=="sumo":
-    call.append(os.environ.get("SUMO_BINARY", os.path.join(os.path.dirname(sys.argv[0]), '..', '..', '..', 'bin', 'sumo')))
+    call.append(checkBinary(binPath, 'sumo'))
     call.append("--no-step-log")
     call.append("--no-duration-log")
 elif sys.argv[1]=="dfrouter":
-    call.append(os.environ.get("DFROUTER_BINARY", os.path.join(os.path.dirname(sys.argv[0]), '..', '..', '..', 'bin', 'dfrouter')))
+    call.append(checkBinary(binPath, 'dfrouter'))
     call.append("--detector-files")
     call.append("input_additional.add.xml")
 elif sys.argv[1]=="duarouter":
-    call.append(os.environ.get("DUAROUTER_BINARY", os.path.join(os.path.dirname(sys.argv[0]), '..', '..', '..', 'bin', 'duarouter')))
+    call.append(checkBinary(binPath, 'duarouter'))
     call.append("-o")
     call.append("dummy.xml")
     call.append("-t")
     call.append("input_additional.add.xml")
 elif sys.argv[1]=="jtrrouter":
-    call.append(os.environ.get("JTRROUTER_BINARY", os.path.join(os.path.dirname(sys.argv[0]), '..', '..', '..', 'bin', 'jtrrouter')))
+    call.append(checkBinary(binPath, 'jtrrouter'))
     call.append("-o")
     call.append("dummy.xml")
     call.append("-t")
@@ -172,7 +181,7 @@ else:
 
 
 
-netconvertBinary = os.environ.get("NETCONVERT_BINARY", os.path.join(os.path.dirname(sys.argv[0]), '..', '..', '..', 'bin', 'netconvert'))
+netconvertBinary = checkBinary(binPath, 'netconvert')
 
 # build the correct network, first
 print ">>> Building the correct network"
