@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 """
-@file    netdumpdiff.py
+@file    netdumpmean.py
 @author  Daniel.Krajzewicz@dlr.de
 @date    2007-10-25
 @version $Id$
