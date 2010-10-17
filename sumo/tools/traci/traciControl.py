@@ -462,6 +462,25 @@ def cmdGetVehicleVariable_color(vehID):
     result = buildSendReadNew1StringParamCmd(tc.CMD_GET_VEHICLE_VARIABLE, tc.VAR_COLOR, vehID)
     return result.read("!BBBB") # Variable value
 
+def cmdGetVehicleVariable_bestLanes(vehID):
+    result = buildSendReadNew1StringParamCmd(tc.CMD_GET_VEHICLE_VARIABLE, tc.VAR_BEST_LANES, vehID)
+    result.read("!iB")
+    nbLanes = result.read("!i")[0] # Length
+    lanes = []
+    for i in range(nbLanes):
+        result.read("!B")
+        laneID = result.readString()
+        length = result.read("!Bf")[1]
+        occupation = result.read("!Bf")[1]
+        offset = result.read("!Bb")[1]
+        allowsContinuation = result.read("!BB")[1]
+        nextLanesNo = result.read("!Bi")[1]
+        nextLanes = []
+        for j in range(nextLanesNo):
+            nextLanes.append(result.readString())
+        lanes.append( [laneID, length, occupation, offset, allowsContinuation, nextLanes ] )
+    return lanes
+
 
 # ---------------------------------------------------
 # change state
