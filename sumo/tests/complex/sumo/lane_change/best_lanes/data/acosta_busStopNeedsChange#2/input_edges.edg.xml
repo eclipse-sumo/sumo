@@ -1,0 +1,22 @@
+<edges>
+   <edge id="-1000+0.-500+0" fromnode="-1000+0" tonode="-500+0" nolanes="1" speed="19" />
+   <edge id="-500+0.-1000+0" fromnode="-500+0" tonode="-1000+0" nolanes="1" speed="19" />
+
+   <edge id="-500+0.+0+0" fromnode="-500+0" tonode="+0+0" nolanes="3" speed="19" />
+   <edge id="+0+0.-500+0" fromnode="+0+0" tonode="-500+0" nolanes="1" speed="19" />
+
+   <edge id="+0+0.+500+0" fromnode="+0+0" tonode="+500+0" nolanes="3" speed="19" />
+   <edge id="+500+0.+0+0" fromnode="+500+0" tonode="+0+0" nolanes="2" speed="19" />
+
+   <edge id="+500+0.+1000+0" fromnode="+500+0" tonode="+1000+0" nolanes="3" speed="19" />
+   <edge id="+1000+0.+500+0" fromnode="+1000+0" tonode="+500+0" nolanes="1" speed="19" />
+
+
+   <edge id="+0+0.+0+500" fromnode="+0+0" tonode="+0+500" nolanes="3" speed="19" />
+   <edge id="+0+500.+0+0" fromnode="+0+500" tonode="+0+0" nolanes="4" speed="19" />
+
+   <edge id="+0+0.+0-500" fromnode="+0+0" tonode="+0-500" nolanes="3" speed="19" />
+   <edge id="+0-500.+0+0" fromnode="+0-500" tonode="+0+0" nolanes="3" speed="19" />
+
+
+</edges>

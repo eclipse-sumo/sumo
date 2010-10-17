@@ -1,0 +1,25 @@
+<connections>
+
+   <connection from="1" to="2" lane="1:0"/>
+   <connection from="1" to="2" lane="2:1"/>
+
+   <connection from="2" to="3" lane="0:0"/>
+   <connection from="2" to="3" lane="0:1"/>
+   <connection from="2" to="3" lane="1:2"/>
+
+   <connection from="3" to="4o" lane="0:0"/>
+   <connection from="3" to="4" lane="1:0"/>
+   <connection from="3" to="4" lane="2:1"/>
+
+   <connection from="4" to="5" lane="0:1"/>
+   <connection from="4" to="5" lane="1:2"/>
+
+   <connection from="5" to="6" lane="0:0"/>
+   <connection from="5" to="6" lane="1:1"/>
+   <connection from="5" to="6" lane="2:2"/>
+
+   <connection from="6" to="7o" lane="0:0"/>
+   <connection from="6" to="7" lane="1:0"/>
+   <connection from="6" to="7" lane="2:1"/>
+
+</connections>

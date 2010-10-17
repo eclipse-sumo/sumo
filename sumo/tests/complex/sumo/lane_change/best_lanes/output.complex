@@ -1,0 +1,108 @@
+-- Test: ./data/acosta_busStopNeedsChange#1
+Success.
+Loading configuration... done.
+lane -1000+0.-500+0_0:
+  length: 1968.0
+  offset: 0
+  allowsContinuation: 1
+  over: ['-1000+0.-500+0_0', '-500+0.+0+0_1', '+0+0.+500+0_1', '+500+0.+1000+0_1']
+(14, 127, 0) OK Goodbye
+lane 0 ok
+----------------------------------------------------------------------
+
+-- Test: ./data/acosta_busStopNeedsChange#2
+Success.
+Loading configuration... done.
+lane -500+0.+0+0_0:
+  length: 483.850006104
+  offset: 1
+  allowsContinuation: 0
+  over: ['-500+0.+0+0_0']
+lane -500+0.+0+0_1:
+  length: 1469.5
+  offset: 0
+  allowsContinuation: 1
+  over: ['-500+0.+0+0_1', '+0+0.+500+0_1', '+500+0.+1000+0_1']
+lane -500+0.+0+0_2:
+  length: 483.850006104
+  offset: -1
+  allowsContinuation: 0
+  over: ['-500+0.+0+0_2']
+(14, 127, 0) OK Goodbye
+lane 0 ok
+lane 1 ok
+lane 2 ok
+----------------------------------------------------------------------
+
+-- Test: ./data/acosta_busStopNeedsChange#3
+Success.
+Loading configuration... done.
+lane -500+0.+0+0_0:
+  length: 483.850006104
+  offset: 1
+  allowsContinuation: 0
+  over: ['-500+0.+0+0_0']
+lane -500+0.+0+0_1:
+  length: 1469.5
+  offset: 0
+  allowsContinuation: 1
+  over: ['-500+0.+0+0_1', '+0+0.+500+0_1', '+500+0.+1000+0_1']
+lane -500+0.+0+0_2:
+  length: 483.850006104
+  offset: -1
+  allowsContinuation: 0
+  over: ['-500+0.+0+0_2']
+(14, 127, 0) OK Goodbye
+lane 0 ok
+lane 1 ok
+lane 2 ok
+----------------------------------------------------------------------
+
+-- Test: ./data/acosta_busStopNeedsChange#4
+Success.
+Loading configuration... done.
+lane -500+0.+0+0_0:
+  length: 483.850006104
+  offset: 1
+  allowsContinuation: 0
+  over: ['-500+0.+0+0_0']
+lane -500+0.+0+0_1:
+  length: 1469.5
+  offset: 0
+  allowsContinuation: 1
+  over: ['-500+0.+0+0_1', '+0+0.+500+0_1', '+500+0.+1000+0_1']
+lane -500+0.+0+0_2:
+  length: 483.850006104
+  offset: -1
+  allowsContinuation: 0
+  over: ['-500+0.+0+0_2']
+(14, 127, 0) OK Goodbye
+lane 0 ok
+lane 1 ok
+lane 2 ok
+----------------------------------------------------------------------
+
+-- Test: ./data/highway_onOffCombo#1
+Success.
+Loading configuration... done.
+lane 1_0:
+  length: 498.5
+  offset: 1
+  allowsContinuation: 0
+  over: ['1_0']
+lane 1_1:
+  length: 3494.95996094
+  offset: 0
+  allowsContinuation: 1
+  over: ['1_1', '2_0', '3_1', '4_0', '5_0', '6_0', '7o_0']
+lane 1_2:
+  length: 2986.55004883
+  offset: -1
+  allowsContinuation: 1
+  over: ['1_2', '2_1', '3_2', '4_1', '5_2', '6_2']
+(14, 127, 0) OK Goodbye
+lane 0 ok
+lane 1 ok
+lane 2 ok
+----------------------------------------------------------------------
+

@@ -1,0 +1,15 @@
+<connections>
+
+   <connection from="-1000+0.-500+0" to="-500+0.+0+0" lane="0:0"/>
+   <connection from="-1000+0.-500+0" to="-500+0.+0+0" lane="0:1"/>
+   <connection from="-1000+0.-500+0" to="-500+0.+0+0" lane="0:2"/>
+
+   <connection from="-500+0.+0+0" to="+0+0.+0-500" lane="0:0"/>
+   <connection from="-500+0.+0+0" to="+0+0.+500+0" lane="1:1"/>
+   <connection from="-500+0.+0+0" to="+0+0.+0+500" lane="2:0"/>
+
+   <connection from="+0+0.+500+0" to="+500+0.+1000+0" lane="0:0"/>
+   <connection from="+0+0.+500+0" to="+500+0.+1000+0" lane="1:1"/>
+   <connection from="+0+0.+500+0" to="+500+0.+1000+0" lane="2:2"/>
+
+</connections>
