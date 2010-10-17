@@ -85,7 +85,7 @@ TraCIServerAPI_Vehicle::processGet(TraCIServer &server, tcpip::Storage &inputSto
             &&variable!=VAR_SPEED_FACTOR&&variable!=VAR_SPEED_DEVIATION&&variable!=VAR_EMISSIONCLASS
             &&variable!=VAR_WIDTH&&variable!=VAR_GUIOFFSET&&variable!=VAR_SHAPE
             &&variable!=VAR_ACCEL&&variable!=VAR_DECEL&&variable!=VAR_IMPERFECTION
-            &&variable!=VAR_TAU
+            &&variable!=VAR_TAU&&variable!=VAR_BEST_LANES
        ) {
         server.writeStatusCmd(CMD_GET_VEHICLE_VARIABLE, RTYPE_ERR, "Get Vehicle Variable: unsupported variable specified", outputStorage);
         return false;
@@ -340,6 +340,43 @@ TraCIServerAPI_Vehicle::processGet(TraCIServer &server, tcpip::Storage &inputSto
             tempMsg.writeUnsignedByte(TYPE_FLOAT);
             tempMsg.writeFloat(v->getVehicleType().getCarFollowModel().getTau());
             break;
+        case VAR_BEST_LANES: {
+            const std::vector<MSVehicle::LaneQ> &bestLanes = v->getBestLanes();
+            tempMsg.writeUnsignedByte(TYPE_COMPOUND);
+            Storage tempContent;
+            unsigned int cnt = 0;
+            tempContent.writeUnsignedByte(TYPE_INTEGER);
+            tempContent.writeInt((int) bestLanes.size());
+            ++cnt;
+            for(std::vector<MSVehicle::LaneQ>::const_iterator i=bestLanes.begin(); i!=bestLanes.end(); ++i) {
+                const MSVehicle::LaneQ &lq = *i;
+                tempContent.writeUnsignedByte(TYPE_STRING);
+                tempContent.writeString(lq.lane->getID());
+                ++cnt;
+                tempContent.writeUnsignedByte(TYPE_FLOAT);
+                tempContent.writeFloat(lq.length);
+                ++cnt;
+                tempContent.writeUnsignedByte(TYPE_FLOAT);
+                tempContent.writeFloat(lq.nextOccupation);
+                ++cnt;
+                tempContent.writeUnsignedByte(TYPE_BYTE);
+                tempContent.writeByte(lq.bestLaneOffset);
+                ++cnt;
+                tempContent.writeUnsignedByte(TYPE_UBYTE);
+                lq.allowsContinuation ? tempContent.writeUnsignedByte(1) : tempContent.writeUnsignedByte(0);
+                ++cnt;
+                std::vector<std::string> bestContIDs;
+                for(std::vector<MSLane*>::const_iterator j=lq.bestContinuations.begin(); j!=lq.bestContinuations.end(); ++j) {
+                    bestContIDs.push_back((*j)->getID());
+                }
+                tempContent.writeUnsignedByte(TYPE_STRINGLIST);
+                tempContent.writeStringList(bestContIDs);
+                ++cnt;
+            }
+            tempMsg.writeInt((int) cnt);
+            tempMsg.writeStorage(tempContent);
+                             }
+			break;
         default:
             break;
         }

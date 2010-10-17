@@ -595,6 +595,10 @@
 // speed without TraCI influence (get: vehicle)
 #define VAR_SPEED_WITHOUT_TRACI 0xb1
 
+// best lanes (get: vehicle)
+#define VAR_BEST_LANES 0xb2
+
+
 
 
 // current CO2 emission of a node (get: vehicle, lane, edge)
