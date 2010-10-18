@@ -50,7 +50,10 @@ def main():
                          default= False, help="override depart times according to updated link travel times", metavar="FILE")
     optParser.add_option("-z", "--equiprate", type="float", dest="equiprate",
                          default = 0., help="vehicle re-identification equipment rate [default: %default]")
-
+    optParser.add_option("-E", "--disable-emissions", action="store_true", dest="noEmissions",
+                         default=False, help="No emissions are written by the simulation")
+    optParser.add_option("-T", "--disable-tripinfos", action="store_true", dest="noTripinfo",
+                         default=False, help="No tripinfos are written by the simulation")
 
     (options, args) = optParser.parse_args()
     if not options.net or not options.routes or not options.detvals:
