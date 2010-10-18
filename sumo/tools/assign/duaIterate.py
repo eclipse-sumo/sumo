@@ -40,6 +40,8 @@ def initOptions():
                          default= False, help="use current time to generate random number")
     optParser.add_option("-I", "--nointernal-link", action="store_true", dest="internallink",
                          default = False, help="not to simulate internal link: true or false")
+    optParser.add_option("-L", "--lanechange-allowed", dest="lanechangeallowed", action="store_true",
+                         default = False, help="lane change allowed to swap")
     return optParser
 
 def call(command, log):
@@ -124,7 +126,8 @@ def writeSUMOConf(step, options, files):
     print >> fd, """</time>
     <processing>
         <route-steps value="%s"/>""" % options.routeSteps
-    print >> fd, '   <no-internal-links value="%s"/>' % options.internallink
+    print >> fd, '        <no-internal-links value="%s"/>' % options.internallink
+    print >> fd, '        <lanechange.allow-swap value="%s"/>' % options.lanechangeallowed
     if hasattr(options, "incBase") and options.incBase > 0:
         print >> fd, """        <incremental-dua-step value="%s"/>
         <incremental-dua-base value="%s"/>""" % (options.incValue*(step+1), options.incBase)
