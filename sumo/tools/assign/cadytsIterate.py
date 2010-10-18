@@ -90,7 +90,8 @@ def main():
 
         # calibration choice
         firstRoute = options.routes.split(",")[0]
-        output = "%s_%s.cal.xml" % (firstRoute[:firstRoute.rfind('.')], step)
+        routname = os.path.basename(firstRoute)
+        output = "%s_%s.cal.xml" % (routname[:routname.rfind('_')], step)
         if options.odmatrix:
             matrixfile = options.odmatrix[:options.odmatrix.rfind('.')] + '_%s.xml' % step
             call(calibrator + ["CHOICE", "-choicesetfile", options.routes, "-choicefile", "%s" % output, "-odmatrix", matrixfile], log)
