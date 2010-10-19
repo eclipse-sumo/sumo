@@ -90,12 +90,15 @@ MSMeanData_HBEFA::MSLaneMeanDataValues::isStillActive(SUMOVehicle& veh, SUMOReal
         return false;
     }
     bool ret = true;
-    SUMOReal timeOnLane = (SUMOReal) DELTA_T / 1000.;
-    if (oldPos<0&&newSpeed!=0) {
-        timeOnLane = (oldPos+SPEED2DIST(newSpeed)) / newSpeed;
+    SUMOReal timeOnLane = TS;
+    if (oldPos < 0 && newSpeed != 0) {
+        timeOnLane = newPos / newSpeed;
     }
-    if (oldPos+SPEED2DIST(newSpeed)>getLane()->getLength()&&newSpeed!=0) {
-        timeOnLane -= (oldPos+SPEED2DIST(newSpeed) - getLane()->getLength()) / newSpeed;
+    if (newPos > getLane()->getLength() && newSpeed != 0) {
+        timeOnLane -= (newPos - getLane()->getLength()) / newSpeed;
+        if (fabs(timeOnLane) < 0.001) { // reduce rounding errors
+            timeOnLane = 0.;
+        }
         ret = false;
     }
     if (timeOnLane<0) {
