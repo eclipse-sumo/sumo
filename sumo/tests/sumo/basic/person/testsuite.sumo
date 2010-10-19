@@ -7,7 +7,7 @@ walk
 # person with a public transport ride
 public
 
-# person waiing for a public transport ride
+# person waiting for a public transport ride
 public_wait
 
 # person waiting to get a lift
