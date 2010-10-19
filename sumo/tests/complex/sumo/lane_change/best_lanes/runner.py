@@ -4,12 +4,12 @@ sumoHome = os.path.abspath(os.path.join(os.path.dirname(sys.argv[0]), '..', '..'
 sys.path.append(os.path.join(sumoHome, "tools", "traci"))
 import traciControl
 
-sumoBinary = os.environ.get("SUMO_BINARY", os.path.join(os.path.dirname(sys.argv[0]), '..', '..', '..', '..', '..', 'bin', 'sumo'))
-netconvertBinary = os.environ.get("NETCONVERT_BINARY", os.path.join(os.path.dirname(sys.argv[0]), '..', '..', '..', '..', '..', 'bin', 'netconvert'))
+sumoBinary = os.environ.get("SUMO_BINARY", os.path.join(sumoHome, 'bin', 'sumo'))
+netconvertBinary = os.environ.get("NETCONVERT_BINARY", os.path.join(sumoHome, 'bin', 'netconvert'))
 
 DELTA_T = 1
 
-srcRoot = os.path.join("./data/")
+srcRoot = os.path.join(os.path.dirname(sys.argv[0]), "data")
 for root, dirs, files in os.walk(srcRoot):
     if "input_edges.edg.xml" not in files:
         continue
