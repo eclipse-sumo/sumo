@@ -60,3 +60,6 @@ last_edge_false__oldstyle_plainemission
 
 # disconnected routes
 disconnected
+
+# route file with empty person
+emptyperson

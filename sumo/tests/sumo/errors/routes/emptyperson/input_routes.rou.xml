@@ -1,6 +1,6 @@
 <routes>
 <vehicle id="213" depart="triggered" >
-  <route edges="1fi" />
+  <route edges="beg" />
 </vehicle>
 <person id="4" depart="1" />
 </routes>
