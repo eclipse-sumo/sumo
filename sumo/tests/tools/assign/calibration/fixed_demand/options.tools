@@ -1,1 +1,1 @@
--b 25200 -n input_net.net.xml -r routes.rou.alt.xml -d input_measurements.xml -a 3600 -W flows_evaluation.txt -s 20
+-b 25200 -n input_net.net.xml -r routes.rou.alt.xml -d input_measurements.xml -a 3600 -W flows_evaluation -s 20

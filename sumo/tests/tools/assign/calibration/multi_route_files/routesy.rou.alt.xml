@@ -1,0 +1,1763 @@
+<?xml version="1.0"?>
+
+<!-- generated on 10/06/10 16:55:49 by SUMO duarouter Version dev-SVN-r9139
+<configuration>
+
+    <input>
+        <net-file value="D:\Wang\SVN\SE\extern\sumo\tests\tools\assign\calibration\input_nanonet.net.xml"/>
+        <alternatives value="input_od600_48.rou.alt.xml"/>
+        <weights value="dump_48_900.xml"/>
+    </input>
+
+    <output>
+        <output-file value="input_od600_49.rou.xml"/>
+        <exit-times value="true"/>
+    </output>
+
+    <processing>
+        <continue-on-unbuild value="false"/>
+        <with-taz value="false"/>
+        <gBeta value="0.9"/>
+        <gA value="0.5"/>
+    </processing>
+
+    <time>
+        <begin value="0"/>
+    </time>
+
+    <report>
+        <verbose value="true"/>
+        <suppress-warnings value="false"/>
+    </report>
+
+    <random_number>
+        <abs-rand value="false"/>
+    </random_number>
+
+</configuration>
+-->
+
+<route-alternatives>
+    <vehicle id="318" depart="26699.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="1">
+            <route cost="135.69" probability="0.78237661" edges="91to1 1to21 out" exitTimes="26731.18 26807.77 26834.69"/>
+            <route cost="147.66" probability="0.21762339" edges="91to1 1to22 out" exitTimes="26731.18 26819.64 26846.56"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="550" depart="26700.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="0">
+            <route cost="135.69" probability="0.78237661" edges="91to1 1to21 out" exitTimes="26732.18 26808.77 26835.69"/>
+            <route cost="147.66" probability="0.21762339" edges="91to1 1to22 out" exitTimes="26732.18 26820.64 26847.56"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="304" depart="26701.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="0">
+            <route cost="135.69" probability="0.78237661" edges="91to1 1to21 out" exitTimes="26733.18 26809.77 26836.69"/>
+            <route cost="147.66" probability="0.21762339" edges="91to1 1to22 out" exitTimes="26733.18 26821.64 26848.56"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="502" depart="26702.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="0">
+            <route cost="135.69" probability="0.78237661" edges="91to1 1to21 out" exitTimes="26734.18 26810.77 26837.69"/>
+            <route cost="147.66" probability="0.21762339" edges="91to1 1to22 out" exitTimes="26734.18 26822.64 26849.56"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="181" depart="26706.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="0">
+            <route cost="135.69" probability="0.78237661" edges="91to1 1to21 out" exitTimes="26738.18 26814.77 26841.69"/>
+            <route cost="147.66" probability="0.21762339" edges="91to1 1to22 out" exitTimes="26738.18 26826.64 26853.56"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="320" depart="26709.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="0">
+            <route cost="135.69" probability="0.78237661" edges="91to1 1to21 out" exitTimes="26741.18 26817.77 26844.69"/>
+            <route cost="147.66" probability="0.21762339" edges="91to1 1to22 out" exitTimes="26741.18 26829.64 26856.56"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="168" depart="26710.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="0">
+            <route cost="135.69" probability="0.78237661" edges="91to1 1to21 out" exitTimes="26742.18 26818.77 26845.69"/>
+            <route cost="147.66" probability="0.21762339" edges="91to1 1to22 out" exitTimes="26742.18 26830.64 26857.56"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="559" depart="26728.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="0">
+            <route cost="135.69" probability="0.78237661" edges="91to1 1to21 out" exitTimes="26760.18 26836.77 26863.69"/>
+            <route cost="147.66" probability="0.21762339" edges="91to1 1to22 out" exitTimes="26760.18 26848.64 26875.56"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="41" depart="26734.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="0">
+            <route cost="135.69" probability="0.78237661" edges="91to1 1to21 out" exitTimes="26766.18 26842.77 26869.69"/>
+            <route cost="147.66" probability="0.21762339" edges="91to1 1to22 out" exitTimes="26766.18 26854.64 26881.56"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="558" depart="26735.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="1">
+            <route cost="135.69" probability="0.78237661" edges="91to1 1to21 out" exitTimes="26767.18 26843.77 26870.69"/>
+            <route cost="147.66" probability="0.21762339" edges="91to1 1to22 out" exitTimes="26767.18 26855.64 26882.56"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="554" depart="26754.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="0">
+            <route cost="135.69" probability="0.78237661" edges="91to1 1to21 out" exitTimes="26786.18 26862.77 26889.69"/>
+            <route cost="147.66" probability="0.21762339" edges="91to1 1to22 out" exitTimes="26786.18 26874.64 26901.56"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="121" depart="26761.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="0">
+            <route cost="135.69" probability="0.78237661" edges="91to1 1to21 out" exitTimes="26793.18 26869.77 26896.69"/>
+            <route cost="147.66" probability="0.21762339" edges="91to1 1to22 out" exitTimes="26793.18 26881.64 26908.56"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="97" depart="26767.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="1">
+            <route cost="135.69" probability="0.78237661" edges="91to1 1to21 out" exitTimes="26799.18 26875.77 26902.69"/>
+            <route cost="147.66" probability="0.21762339" edges="91to1 1to22 out" exitTimes="26799.18 26887.64 26914.56"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="106" depart="26772.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="0">
+            <route cost="135.69" probability="0.78237661" edges="91to1 1to21 out" exitTimes="26804.18 26880.77 26907.69"/>
+            <route cost="147.66" probability="0.21762339" edges="91to1 1to22 out" exitTimes="26804.18 26892.64 26919.56"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="301" depart="26776.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="0">
+            <route cost="135.69" probability="0.78237661" edges="91to1 1to21 out" exitTimes="26808.18 26884.77 26911.69"/>
+            <route cost="147.66" probability="0.21762339" edges="91to1 1to22 out" exitTimes="26808.18 26896.64 26923.56"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="244" depart="26777.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="0">
+            <route cost="135.69" probability="0.78237661" edges="91to1 1to21 out" exitTimes="26809.18 26885.77 26912.69"/>
+            <route cost="147.66" probability="0.21762339" edges="91to1 1to22 out" exitTimes="26809.18 26897.64 26924.56"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="200" depart="26778.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="0">
+            <route cost="135.69" probability="0.78237661" edges="91to1 1to21 out" exitTimes="26810.18 26886.77 26913.69"/>
+            <route cost="147.66" probability="0.21762339" edges="91to1 1to22 out" exitTimes="26810.18 26898.64 26925.56"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="150" depart="26781.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="1">
+            <route cost="135.69" probability="0.78237661" edges="91to1 1to21 out" exitTimes="26813.18 26889.77 26916.69"/>
+            <route cost="147.66" probability="0.21762339" edges="91to1 1to22 out" exitTimes="26813.18 26901.64 26928.56"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="169" depart="26787.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="0">
+            <route cost="135.69" probability="0.78237661" edges="91to1 1to21 out" exitTimes="26819.18 26895.77 26922.69"/>
+            <route cost="147.66" probability="0.21762339" edges="91to1 1to22 out" exitTimes="26819.18 26907.64 26934.56"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="21" depart="26791.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="0">
+            <route cost="135.69" probability="0.78237661" edges="91to1 1to21 out" exitTimes="26823.18 26899.77 26926.69"/>
+            <route cost="147.66" probability="0.21762339" edges="91to1 1to22 out" exitTimes="26823.18 26911.64 26938.56"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="4" depart="26793.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="0">
+            <route cost="135.69" probability="0.78237661" edges="91to1 1to21 out" exitTimes="26825.18 26901.77 26928.69"/>
+            <route cost="147.66" probability="0.21762339" edges="91to1 1to22 out" exitTimes="26825.18 26913.64 26940.56"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="299" depart="26810.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="0">
+            <route cost="135.69" probability="0.78237661" edges="91to1 1to21 out" exitTimes="26842.18 26918.77 26945.69"/>
+            <route cost="147.66" probability="0.21762339" edges="91to1 1to22 out" exitTimes="26842.18 26930.64 26957.56"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="563" depart="26814.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="0">
+            <route cost="135.69" probability="0.78237661" edges="91to1 1to21 out" exitTimes="26846.18 26922.77 26949.69"/>
+            <route cost="147.66" probability="0.21762339" edges="91to1 1to22 out" exitTimes="26846.18 26934.64 26961.56"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="352" depart="26815.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="0">
+            <route cost="135.69" probability="0.78237661" edges="91to1 1to21 out" exitTimes="26847.18 26923.77 26950.69"/>
+            <route cost="147.66" probability="0.21762339" edges="91to1 1to22 out" exitTimes="26847.18 26935.64 26962.56"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="261" depart="26824.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="0">
+            <route cost="135.69" probability="0.78237661" edges="91to1 1to21 out" exitTimes="26856.18 26932.77 26959.69"/>
+            <route cost="147.66" probability="0.21762339" edges="91to1 1to22 out" exitTimes="26856.18 26944.64 26971.56"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="68" depart="26825.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="1">
+            <route cost="135.69" probability="0.78237661" edges="91to1 1to21 out" exitTimes="26857.18 26933.77 26960.69"/>
+            <route cost="147.66" probability="0.21762339" edges="91to1 1to22 out" exitTimes="26857.18 26945.64 26972.56"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="140" depart="26832.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="0">
+            <route cost="135.69" probability="0.78237661" edges="91to1 1to21 out" exitTimes="26864.18 26940.77 26967.69"/>
+            <route cost="147.66" probability="0.21762339" edges="91to1 1to22 out" exitTimes="26864.18 26952.64 26979.56"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="33" depart="26845.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="1">
+            <route cost="135.69" probability="0.78237661" edges="91to1 1to21 out" exitTimes="26877.18 26953.77 26980.69"/>
+            <route cost="147.66" probability="0.21762339" edges="91to1 1to22 out" exitTimes="26877.18 26965.64 26992.56"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="15" depart="26849.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="1">
+            <route cost="135.69" probability="0.78237661" edges="91to1 1to21 out" exitTimes="26881.18 26957.77 26984.69"/>
+            <route cost="147.66" probability="0.21762339" edges="91to1 1to22 out" exitTimes="26881.18 26969.64 26996.56"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="385" depart="26849.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="0">
+            <route cost="135.69" probability="0.78237661" edges="91to1 1to21 out" exitTimes="26881.18 26957.77 26984.69"/>
+            <route cost="147.66" probability="0.21762339" edges="91to1 1to22 out" exitTimes="26881.18 26969.64 26996.56"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="103" depart="26851.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="1">
+            <route cost="135.69" probability="0.78237661" edges="91to1 1to21 out" exitTimes="26883.18 26959.77 26986.69"/>
+            <route cost="147.66" probability="0.21762339" edges="91to1 1to22 out" exitTimes="26883.18 26971.64 26998.56"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="13" depart="26855.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="0">
+            <route cost="135.69" probability="0.78237661" edges="91to1 1to21 out" exitTimes="26887.18 26963.77 26990.69"/>
+            <route cost="147.66" probability="0.21762339" edges="91to1 1to22 out" exitTimes="26887.18 26975.64 27002.56"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="423" depart="26858.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="0">
+            <route cost="135.69" probability="0.78237661" edges="91to1 1to21 out" exitTimes="26890.18 26966.77 26993.69"/>
+            <route cost="147.66" probability="0.21762339" edges="91to1 1to22 out" exitTimes="26890.18 26978.64 27005.56"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="381" depart="26861.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="0">
+            <route cost="135.69" probability="0.78237661" edges="91to1 1to21 out" exitTimes="26893.18 26969.77 26996.69"/>
+            <route cost="147.66" probability="0.21762339" edges="91to1 1to22 out" exitTimes="26893.18 26981.64 27008.56"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="510" depart="26863.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="0">
+            <route cost="135.69" probability="0.78237661" edges="91to1 1to21 out" exitTimes="26895.18 26971.77 26998.69"/>
+            <route cost="147.66" probability="0.21762339" edges="91to1 1to22 out" exitTimes="26895.18 26983.64 27010.56"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="52" depart="26866.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="1">
+            <route cost="135.69" probability="0.78237661" edges="91to1 1to21 out" exitTimes="26898.18 26974.77 27001.69"/>
+            <route cost="147.66" probability="0.21762339" edges="91to1 1to22 out" exitTimes="26898.18 26986.64 27013.56"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="369" depart="26871.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="0">
+            <route cost="135.69" probability="0.78237661" edges="91to1 1to21 out" exitTimes="26903.18 26979.77 27006.69"/>
+            <route cost="147.66" probability="0.21762339" edges="91to1 1to22 out" exitTimes="26903.18 26991.64 27018.56"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="185" depart="26872.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="0">
+            <route cost="135.69" probability="0.78237661" edges="91to1 1to21 out" exitTimes="26904.18 26980.77 27007.69"/>
+            <route cost="147.66" probability="0.21762339" edges="91to1 1to22 out" exitTimes="26904.18 26992.64 27019.56"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="547" depart="26875.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="0">
+            <route cost="135.69" probability="0.78237661" edges="91to1 1to21 out" exitTimes="26907.18 26983.77 27010.69"/>
+            <route cost="147.66" probability="0.21762339" edges="91to1 1to22 out" exitTimes="26907.18 26995.64 27022.56"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="32" depart="26881.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="0">
+            <route cost="135.69" probability="0.77477602" edges="91to1 1to21 out" exitTimes="26913.18 26989.77 27016.69"/>
+            <route cost="147.34" probability="0.22522398" edges="91to1 1to22 out" exitTimes="26913.18 27001.64 27028.27"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="533" depart="26885.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="1">
+            <route cost="135.69" probability="0.77477602" edges="91to1 1to21 out" exitTimes="26917.18 26993.77 27020.69"/>
+            <route cost="147.34" probability="0.22522398" edges="91to1 1to22 out" exitTimes="26917.18 27005.64 27032.27"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="354" depart="26899.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="1">
+            <route cost="135.40" probability="0.78321526" edges="91to1 1to21 out" exitTimes="26931.18 27007.77 27034.40"/>
+            <route cost="147.34" probability="0.21678474" edges="91to1 1to22 out" exitTimes="26931.18 27019.64 27046.27"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="164" depart="26903.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="0">
+            <route cost="135.40" probability="0.78321526" edges="91to1 1to21 out" exitTimes="26935.18 27011.77 27038.40"/>
+            <route cost="147.34" probability="0.21678474" edges="91to1 1to22 out" exitTimes="26935.18 27023.64 27050.27"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="163" depart="26904.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="1">
+            <route cost="135.40" probability="0.78321526" edges="91to1 1to21 out" exitTimes="26936.18 27012.77 27039.40"/>
+            <route cost="147.34" probability="0.21678474" edges="91to1 1to22 out" exitTimes="26936.18 27024.64 27051.27"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="288" depart="26918.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="1">
+            <route cost="135.40" probability="0.78321526" edges="91to1 1to21 out" exitTimes="26950.18 27026.77 27053.40"/>
+            <route cost="147.34" probability="0.21678474" edges="91to1 1to22 out" exitTimes="26950.18 27038.64 27065.27"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="7" depart="26918.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="0">
+            <route cost="135.40" probability="0.78321526" edges="91to1 1to21 out" exitTimes="26950.18 27026.77 27053.40"/>
+            <route cost="147.34" probability="0.21678474" edges="91to1 1to22 out" exitTimes="26950.18 27038.64 27065.27"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="498" depart="26927.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="0">
+            <route cost="135.40" probability="0.78321526" edges="91to1 1to21 out" exitTimes="26959.18 27035.77 27062.40"/>
+            <route cost="147.34" probability="0.21678474" edges="91to1 1to22 out" exitTimes="26959.18 27047.64 27074.27"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="8" depart="26929.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="0">
+            <route cost="135.40" probability="0.78321526" edges="91to1 1to21 out" exitTimes="26961.18 27037.77 27064.40"/>
+            <route cost="147.34" probability="0.21678474" edges="91to1 1to22 out" exitTimes="26961.18 27049.64 27076.27"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="199" depart="26938.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="0">
+            <route cost="135.40" probability="0.78321526" edges="91to1 1to21 out" exitTimes="26970.18 27046.77 27073.40"/>
+            <route cost="147.34" probability="0.21678474" edges="91to1 1to22 out" exitTimes="26970.18 27058.64 27085.27"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="262" depart="26939.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="0">
+            <route cost="135.40" probability="0.78321526" edges="91to1 1to21 out" exitTimes="26971.18 27047.77 27074.40"/>
+            <route cost="147.34" probability="0.21678474" edges="91to1 1to22 out" exitTimes="26971.18 27059.64 27086.27"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="311" depart="26941.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="1">
+            <route cost="135.40" probability="0.78321526" edges="91to1 1to21 out" exitTimes="26973.18 27049.77 27076.40"/>
+            <route cost="147.34" probability="0.21678474" edges="91to1 1to22 out" exitTimes="26973.18 27061.64 27088.27"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="27" depart="26942.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="0">
+            <route cost="135.40" probability="0.78321526" edges="91to1 1to21 out" exitTimes="26974.18 27050.77 27077.40"/>
+            <route cost="147.34" probability="0.21678474" edges="91to1 1to22 out" exitTimes="26974.18 27062.64 27089.27"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="416" depart="26942.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="0">
+            <route cost="135.40" probability="0.78321526" edges="91to1 1to21 out" exitTimes="26974.18 27050.77 27077.40"/>
+            <route cost="147.34" probability="0.21678474" edges="91to1 1to22 out" exitTimes="26974.18 27062.64 27089.27"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="227" depart="26943.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="1">
+            <route cost="135.40" probability="0.78321526" edges="91to1 1to21 out" exitTimes="26975.18 27051.77 27078.40"/>
+            <route cost="147.34" probability="0.21678474" edges="91to1 1to22 out" exitTimes="26975.18 27063.64 27090.27"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="487" depart="26946.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="0">
+            <route cost="135.40" probability="0.78321526" edges="91to1 1to21 out" exitTimes="26978.18 27054.77 27081.40"/>
+            <route cost="147.34" probability="0.21678474" edges="91to1 1to22 out" exitTimes="26978.18 27066.64 27093.27"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="123" depart="26950.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="0">
+            <route cost="135.40" probability="0.78321526" edges="91to1 1to21 out" exitTimes="26982.18 27058.77 27085.40"/>
+            <route cost="147.34" probability="0.21678474" edges="91to1 1to22 out" exitTimes="26982.18 27070.64 27097.27"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="390" depart="26950.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="0">
+            <route cost="135.40" probability="0.78321526" edges="91to1 1to21 out" exitTimes="26982.18 27058.77 27085.40"/>
+            <route cost="147.34" probability="0.21678474" edges="91to1 1to22 out" exitTimes="26982.18 27070.64 27097.27"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="34" depart="26958.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="0">
+            <route cost="135.40" probability="0.78321526" edges="91to1 1to21 out" exitTimes="26990.18 27066.77 27093.40"/>
+            <route cost="147.34" probability="0.21678474" edges="91to1 1to22 out" exitTimes="26990.18 27078.64 27105.27"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="248" depart="26961.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="0">
+            <route cost="135.40" probability="0.78321526" edges="91to1 1to21 out" exitTimes="26993.18 27069.77 27096.40"/>
+            <route cost="147.34" probability="0.21678474" edges="91to1 1to22 out" exitTimes="26993.18 27081.64 27108.27"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="125" depart="26962.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="1">
+            <route cost="135.40" probability="0.78321526" edges="91to1 1to21 out" exitTimes="26994.18 27070.77 27097.40"/>
+            <route cost="147.34" probability="0.21678474" edges="91to1 1to22 out" exitTimes="26994.18 27082.64 27109.27"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="95" depart="26964.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="0">
+            <route cost="135.40" probability="0.78321526" edges="91to1 1to21 out" exitTimes="26996.18 27072.77 27099.40"/>
+            <route cost="147.34" probability="0.21678474" edges="91to1 1to22 out" exitTimes="26996.18 27084.64 27111.27"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="553" depart="26965.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="0">
+            <route cost="135.40" probability="0.78321526" edges="91to1 1to21 out" exitTimes="26997.18 27073.77 27100.40"/>
+            <route cost="147.34" probability="0.21678474" edges="91to1 1to22 out" exitTimes="26997.18 27085.64 27112.27"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="239" depart="26973.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="0">
+            <route cost="143.07" probability="0.75323189" edges="91to1 1to21 out" exitTimes="27005.18 27089.44 27116.07"/>
+            <route cost="148.97" probability="0.24676811" edges="91to1 1to22 out" exitTimes="27005.18 27095.29 27121.92"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="360" depart="26985.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="1">
+            <route cost="143.07" probability="0.75323189" edges="91to1 1to21 out" exitTimes="27017.18 27101.44 27128.07"/>
+            <route cost="148.97" probability="0.24676811" edges="91to1 1to22 out" exitTimes="27017.18 27107.29 27133.92"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="312" depart="26999.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="1">
+            <route cost="143.07" probability="0.75323189" edges="91to1 1to21 out" exitTimes="27031.18 27115.44 27142.07"/>
+            <route cost="148.97" probability="0.24676811" edges="91to1 1to22 out" exitTimes="27031.18 27121.29 27147.92"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="1" depart="27003.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="0">
+            <route cost="143.06" probability="0.75323359" edges="91to1 1to21 out" exitTimes="27035.17 27119.43 27146.06"/>
+            <route cost="148.96" probability="0.24676641" edges="91to1 1to22 out" exitTimes="27035.17 27125.28 27151.91"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="378" depart="27004.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="0">
+            <route cost="143.06" probability="0.75323359" edges="91to1 1to21 out" exitTimes="27036.17 27120.43 27147.06"/>
+            <route cost="148.96" probability="0.24676641" edges="91to1 1to22 out" exitTimes="27036.17 27126.28 27152.91"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="0" depart="27009.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="0">
+            <route cost="143.06" probability="0.75323359" edges="91to1 1to21 out" exitTimes="27041.17 27125.43 27152.06"/>
+            <route cost="148.96" probability="0.24676641" edges="91to1 1to22 out" exitTimes="27041.17 27131.28 27157.91"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="142" depart="27011.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="0">
+            <route cost="143.06" probability="0.75323359" edges="91to1 1to21 out" exitTimes="27043.17 27127.43 27154.06"/>
+            <route cost="148.96" probability="0.24676641" edges="91to1 1to22 out" exitTimes="27043.17 27133.28 27159.91"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="349" depart="27013.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="0">
+            <route cost="143.06" probability="0.75323359" edges="91to1 1to21 out" exitTimes="27045.17 27129.43 27156.06"/>
+            <route cost="148.96" probability="0.24676641" edges="91to1 1to22 out" exitTimes="27045.17 27135.28 27161.91"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="334" depart="27019.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="1">
+            <route cost="143.06" probability="0.75323359" edges="91to1 1to21 out" exitTimes="27051.17 27135.43 27162.06"/>
+            <route cost="148.96" probability="0.24676641" edges="91to1 1to22 out" exitTimes="27051.17 27141.28 27167.91"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="391" depart="27024.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="1">
+            <route cost="143.06" probability="0.75323359" edges="91to1 1to21 out" exitTimes="27056.17 27140.43 27167.06"/>
+            <route cost="148.96" probability="0.24676641" edges="91to1 1to22 out" exitTimes="27056.17 27146.28 27172.91"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="82" depart="27028.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="0">
+            <route cost="143.06" probability="0.75323359" edges="91to1 1to21 out" exitTimes="27060.17 27144.43 27171.06"/>
+            <route cost="148.96" probability="0.24676641" edges="91to1 1to22 out" exitTimes="27060.17 27150.28 27176.91"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="431" depart="27031.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="0">
+            <route cost="143.06" probability="0.75323359" edges="91to1 1to21 out" exitTimes="27063.17 27147.43 27174.06"/>
+            <route cost="148.96" probability="0.24676641" edges="91to1 1to22 out" exitTimes="27063.17 27153.28 27179.91"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="373" depart="27037.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="0">
+            <route cost="143.06" probability="0.75323359" edges="91to1 1to21 out" exitTimes="27069.17 27153.43 27180.06"/>
+            <route cost="148.96" probability="0.24676641" edges="91to1 1to22 out" exitTimes="27069.17 27159.28 27185.91"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="317" depart="27038.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="0">
+            <route cost="143.06" probability="0.75323359" edges="91to1 1to21 out" exitTimes="27070.17 27154.43 27181.06"/>
+            <route cost="148.96" probability="0.24676641" edges="91to1 1to22 out" exitTimes="27070.17 27160.28 27186.91"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="170" depart="27043.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="0">
+            <route cost="143.06" probability="0.75323359" edges="91to1 1to21 out" exitTimes="27075.17 27159.43 27186.06"/>
+            <route cost="148.96" probability="0.24676641" edges="91to1 1to22 out" exitTimes="27075.17 27165.28 27191.91"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="316" depart="27043.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="0">
+            <route cost="143.06" probability="0.75323359" edges="91to1 1to21 out" exitTimes="27075.17 27159.43 27186.06"/>
+            <route cost="148.96" probability="0.24676641" edges="91to1 1to22 out" exitTimes="27075.17 27165.28 27191.91"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="38" depart="27050.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="0">
+            <route cost="143.06" probability="0.75323359" edges="91to1 1to21 out" exitTimes="27082.17 27166.43 27193.06"/>
+            <route cost="148.96" probability="0.24676641" edges="91to1 1to22 out" exitTimes="27082.17 27172.28 27198.91"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="233" depart="27059.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="0">
+            <route cost="143.06" probability="0.75323359" edges="91to1 1to21 out" exitTimes="27091.17 27175.43 27202.06"/>
+            <route cost="148.96" probability="0.24676641" edges="91to1 1to22 out" exitTimes="27091.17 27181.28 27207.91"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="218" depart="27060.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="1">
+            <route cost="143.06" probability="0.75323359" edges="91to1 1to21 out" exitTimes="27092.17 27176.43 27203.06"/>
+            <route cost="148.96" probability="0.24676641" edges="91to1 1to22 out" exitTimes="27092.17 27182.28 27208.91"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="306" depart="27060.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="0">
+            <route cost="143.06" probability="0.75323359" edges="91to1 1to21 out" exitTimes="27092.17 27176.43 27203.06"/>
+            <route cost="148.96" probability="0.24676641" edges="91to1 1to22 out" exitTimes="27092.17 27182.28 27208.91"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="270" depart="27065.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="0">
+            <route cost="143.06" probability="0.75323359" edges="91to1 1to21 out" exitTimes="27097.17 27181.43 27208.06"/>
+            <route cost="148.96" probability="0.24676641" edges="91to1 1to22 out" exitTimes="27097.17 27187.28 27213.91"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="567" depart="27070.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="0">
+            <route cost="143.06" probability="0.75323359" edges="91to1 1to21 out" exitTimes="27102.17 27186.43 27213.06"/>
+            <route cost="148.96" probability="0.24676641" edges="91to1 1to22 out" exitTimes="27102.17 27192.28 27218.91"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="444" depart="27079.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="1">
+            <route cost="143.06" probability="0.75323359" edges="91to1 1to21 out" exitTimes="27111.17 27195.43 27222.06"/>
+            <route cost="148.96" probability="0.24676641" edges="91to1 1to22 out" exitTimes="27111.17 27201.28 27227.91"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="191" depart="27085.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="1">
+            <route cost="143.06" probability="0.75323359" edges="91to1 1to21 out" exitTimes="27117.17 27201.43 27228.06"/>
+            <route cost="148.96" probability="0.24676641" edges="91to1 1to22 out" exitTimes="27117.17 27207.28 27233.91"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="131" depart="27087.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="0">
+            <route cost="143.06" probability="0.75323359" edges="91to1 1to21 out" exitTimes="27119.17 27203.43 27230.06"/>
+            <route cost="148.96" probability="0.24676641" edges="91to1 1to22 out" exitTimes="27119.17 27209.28 27235.91"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="476" depart="27095.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="0">
+            <route cost="143.06" probability="0.75323359" edges="91to1 1to21 out" exitTimes="27127.17 27211.43 27238.06"/>
+            <route cost="148.96" probability="0.24676641" edges="91to1 1to22 out" exitTimes="27127.17 27217.28 27243.91"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="466" depart="27100.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="0">
+            <route cost="143.06" probability="0.75323359" edges="91to1 1to21 out" exitTimes="27132.17 27216.43 27243.06"/>
+            <route cost="148.96" probability="0.24676641" edges="91to1 1to22 out" exitTimes="27132.17 27222.28 27248.91"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="59" depart="27110.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="0">
+            <route cost="143.06" probability="0.75323359" edges="91to1 1to21 out" exitTimes="27142.17 27226.43 27253.06"/>
+            <route cost="148.96" probability="0.24676641" edges="91to1 1to22 out" exitTimes="27142.17 27232.28 27258.91"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="229" depart="27114.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="0">
+            <route cost="143.06" probability="0.75323359" edges="91to1 1to21 out" exitTimes="27146.17 27230.43 27257.06"/>
+            <route cost="148.96" probability="0.24676641" edges="91to1 1to22 out" exitTimes="27146.17 27236.28 27262.91"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="285" depart="27114.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="1">
+            <route cost="143.06" probability="0.75323359" edges="91to1 1to21 out" exitTimes="27146.17 27230.43 27257.06"/>
+            <route cost="148.96" probability="0.24676641" edges="91to1 1to22 out" exitTimes="27146.17 27236.28 27262.91"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="84" depart="27122.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="0">
+            <route cost="143.06" probability="0.75323359" edges="91to1 1to21 out" exitTimes="27154.17 27238.43 27265.06"/>
+            <route cost="148.96" probability="0.24676641" edges="91to1 1to22 out" exitTimes="27154.17 27244.28 27270.91"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="548" depart="27127.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="1">
+            <route cost="143.06" probability="0.75323359" edges="91to1 1to21 out" exitTimes="27159.17 27243.43 27270.06"/>
+            <route cost="148.96" probability="0.24676641" edges="91to1 1to22 out" exitTimes="27159.17 27249.28 27275.91"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="407" depart="27153.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="0">
+            <route cost="143.06" probability="0.75323359" edges="91to1 1to21 out" exitTimes="27185.17 27269.43 27296.06"/>
+            <route cost="148.96" probability="0.24676641" edges="91to1 1to22 out" exitTimes="27185.17 27275.28 27301.91"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="272" depart="27154.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="0">
+            <route cost="143.06" probability="0.75323359" edges="91to1 1to21 out" exitTimes="27186.17 27270.43 27297.06"/>
+            <route cost="148.96" probability="0.24676641" edges="91to1 1to22 out" exitTimes="27186.17 27276.28 27302.91"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="589" depart="27158.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="0">
+            <route cost="143.06" probability="0.75323359" edges="91to1 1to21 out" exitTimes="27190.17 27274.43 27301.06"/>
+            <route cost="148.96" probability="0.24676641" edges="91to1 1to22 out" exitTimes="27190.17 27280.28 27306.91"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="424" depart="27166.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="1">
+            <route cost="143.06" probability="0.75323359" edges="91to1 1to21 out" exitTimes="27198.17 27282.43 27309.06"/>
+            <route cost="148.96" probability="0.24676641" edges="91to1 1to22 out" exitTimes="27198.17 27288.28 27314.91"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="552" depart="27168.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="1">
+            <route cost="143.06" probability="0.75323359" edges="91to1 1to21 out" exitTimes="27200.17 27284.43 27311.06"/>
+            <route cost="148.96" probability="0.24676641" edges="91to1 1to22 out" exitTimes="27200.17 27290.28 27316.91"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="470" depart="27169.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="1">
+            <route cost="143.06" probability="0.75323359" edges="91to1 1to21 out" exitTimes="27201.17 27285.43 27312.06"/>
+            <route cost="148.96" probability="0.24676641" edges="91to1 1to22 out" exitTimes="27201.17 27291.28 27317.91"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="48" depart="27169.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="0">
+            <route cost="143.06" probability="0.75323359" edges="91to1 1to21 out" exitTimes="27201.17 27285.43 27312.06"/>
+            <route cost="148.96" probability="0.24676641" edges="91to1 1to22 out" exitTimes="27201.17 27291.28 27317.91"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="240" depart="27171.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="0">
+            <route cost="143.06" probability="0.75323359" edges="91to1 1to21 out" exitTimes="27203.17 27287.43 27314.06"/>
+            <route cost="148.96" probability="0.24676641" edges="91to1 1to22 out" exitTimes="27203.17 27293.28 27319.91"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="292" depart="27174.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="0">
+            <route cost="143.06" probability="0.75323359" edges="91to1 1to21 out" exitTimes="27206.17 27290.43 27317.06"/>
+            <route cost="148.96" probability="0.24676641" edges="91to1 1to22 out" exitTimes="27206.17 27296.28 27322.91"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="266" depart="27176.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="1">
+            <route cost="143.06" probability="0.75323359" edges="91to1 1to21 out" exitTimes="27208.17 27292.43 27319.06"/>
+            <route cost="148.96" probability="0.24676641" edges="91to1 1to22 out" exitTimes="27208.17 27298.28 27324.91"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="406" depart="27177.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="1">
+            <route cost="143.06" probability="0.75323359" edges="91to1 1to21 out" exitTimes="27209.17 27293.43 27320.06"/>
+            <route cost="148.96" probability="0.24676641" edges="91to1 1to22 out" exitTimes="27209.17 27299.28 27325.91"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="579" depart="27191.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="0">
+            <route cost="143.06" probability="0.75323359" edges="91to1 1to21 out" exitTimes="27223.17 27307.43 27334.06"/>
+            <route cost="148.96" probability="0.24676641" edges="91to1 1to22 out" exitTimes="27223.17 27313.28 27339.91"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="379" depart="27195.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="0">
+            <route cost="143.06" probability="0.75323359" edges="91to1 1to21 out" exitTimes="27227.17 27311.43 27338.06"/>
+            <route cost="148.96" probability="0.24676641" edges="91to1 1to22 out" exitTimes="27227.17 27317.28 27343.91"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="357" depart="27200.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="1">
+            <route cost="143.06" probability="0.75323359" edges="91to1 1to21 out" exitTimes="27232.17 27316.43 27343.06"/>
+            <route cost="148.96" probability="0.24676641" edges="91to1 1to22 out" exitTimes="27232.17 27322.28 27348.91"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="329" depart="27203.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="0">
+            <route cost="143.06" probability="0.75323359" edges="91to1 1to21 out" exitTimes="27235.17 27319.43 27346.06"/>
+            <route cost="148.96" probability="0.24676641" edges="91to1 1to22 out" exitTimes="27235.17 27325.28 27351.91"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="417" depart="27204.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="1">
+            <route cost="143.06" probability="0.75323359" edges="91to1 1to21 out" exitTimes="27236.17 27320.43 27347.06"/>
+            <route cost="148.96" probability="0.24676641" edges="91to1 1to22 out" exitTimes="27236.17 27326.28 27352.91"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="117" depart="27207.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="0">
+            <route cost="143.06" probability="0.75323359" edges="91to1 1to21 out" exitTimes="27239.17 27323.43 27350.06"/>
+            <route cost="148.96" probability="0.24676641" edges="91to1 1to22 out" exitTimes="27239.17 27329.28 27355.91"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="197" depart="27207.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="0">
+            <route cost="143.06" probability="0.75323359" edges="91to1 1to21 out" exitTimes="27239.17 27323.43 27350.06"/>
+            <route cost="148.96" probability="0.24676641" edges="91to1 1to22 out" exitTimes="27239.17 27329.28 27355.91"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="277" depart="27214.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="0">
+            <route cost="143.06" probability="0.75323359" edges="91to1 1to21 out" exitTimes="27246.17 27330.43 27357.06"/>
+            <route cost="148.96" probability="0.24676641" edges="91to1 1to22 out" exitTimes="27246.17 27336.28 27362.91"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="325" depart="27216.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="1">
+            <route cost="143.06" probability="0.75323359" edges="91to1 1to21 out" exitTimes="27248.17 27332.43 27359.06"/>
+            <route cost="148.96" probability="0.24676641" edges="91to1 1to22 out" exitTimes="27248.17 27338.28 27364.91"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="49" depart="27220.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="0">
+            <route cost="143.06" probability="0.75323359" edges="91to1 1to21 out" exitTimes="27252.17 27336.43 27363.06"/>
+            <route cost="148.96" probability="0.24676641" edges="91to1 1to22 out" exitTimes="27252.17 27342.28 27368.91"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="363" depart="27230.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="1">
+            <route cost="143.06" probability="0.75323359" edges="91to1 1to21 out" exitTimes="27262.17 27346.43 27373.06"/>
+            <route cost="148.96" probability="0.24676641" edges="91to1 1to22 out" exitTimes="27262.17 27352.28 27378.91"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="492" depart="27236.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="0">
+            <route cost="143.06" probability="0.75323359" edges="91to1 1to21 out" exitTimes="27268.17 27352.43 27379.06"/>
+            <route cost="148.96" probability="0.24676641" edges="91to1 1to22 out" exitTimes="27268.17 27358.28 27384.91"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="569" depart="27237.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="0">
+            <route cost="143.06" probability="0.75323359" edges="91to1 1to21 out" exitTimes="27269.17 27353.43 27380.06"/>
+            <route cost="148.96" probability="0.24676641" edges="91to1 1to22 out" exitTimes="27269.17 27359.28 27385.91"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="549" depart="27245.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="0">
+            <route cost="143.06" probability="0.75323359" edges="91to1 1to21 out" exitTimes="27277.17 27361.43 27388.06"/>
+            <route cost="148.96" probability="0.24676641" edges="91to1 1to22 out" exitTimes="27277.17 27367.28 27393.91"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="246" depart="27249.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="0">
+            <route cost="143.06" probability="0.75323359" edges="91to1 1to21 out" exitTimes="27281.17 27365.43 27392.06"/>
+            <route cost="148.96" probability="0.24676641" edges="91to1 1to22 out" exitTimes="27281.17 27371.28 27397.91"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="443" depart="27256.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="0">
+            <route cost="143.06" probability="0.75323359" edges="91to1 1to21 out" exitTimes="27288.17 27372.43 27399.06"/>
+            <route cost="148.96" probability="0.24676641" edges="91to1 1to22 out" exitTimes="27288.17 27378.28 27404.91"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="184" depart="27263.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="0">
+            <route cost="143.06" probability="0.75323359" edges="91to1 1to21 out" exitTimes="27295.17 27379.43 27406.06"/>
+            <route cost="148.96" probability="0.24676641" edges="91to1 1to22 out" exitTimes="27295.17 27385.28 27411.91"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="371" depart="27264.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="0">
+            <route cost="143.06" probability="0.75323359" edges="91to1 1to21 out" exitTimes="27296.17 27380.43 27407.06"/>
+            <route cost="148.96" probability="0.24676641" edges="91to1 1to22 out" exitTimes="27296.17 27386.28 27412.91"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="73" depart="27273.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="1">
+            <route cost="143.06" probability="0.75323359" edges="91to1 1to21 out" exitTimes="27305.17 27389.43 27416.06"/>
+            <route cost="148.96" probability="0.24676641" edges="91to1 1to22 out" exitTimes="27305.17 27395.28 27421.91"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="503" depart="27275.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="0">
+            <route cost="143.06" probability="0.75323359" edges="91to1 1to21 out" exitTimes="27307.17 27391.43 27418.06"/>
+            <route cost="148.96" probability="0.24676641" edges="91to1 1to22 out" exitTimes="27307.17 27397.28 27423.91"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="319" depart="27287.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="0">
+            <route cost="143.06" probability="0.75323359" edges="91to1 1to21 out" exitTimes="27319.17 27403.43 27430.06"/>
+            <route cost="148.96" probability="0.24676641" edges="91to1 1to22 out" exitTimes="27319.17 27409.28 27435.91"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="195" depart="27288.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="0">
+            <route cost="143.06" probability="0.75323359" edges="91to1 1to21 out" exitTimes="27320.17 27404.43 27431.06"/>
+            <route cost="148.96" probability="0.24676641" edges="91to1 1to22 out" exitTimes="27320.17 27410.28 27436.91"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="468" depart="27288.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="1">
+            <route cost="143.06" probability="0.75323359" edges="91to1 1to21 out" exitTimes="27320.17 27404.43 27431.06"/>
+            <route cost="148.96" probability="0.24676641" edges="91to1 1to22 out" exitTimes="27320.17 27410.28 27436.91"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="159" depart="27293.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="1">
+            <route cost="143.06" probability="0.75323359" edges="91to1 1to21 out" exitTimes="27325.17 27409.43 27436.06"/>
+            <route cost="148.96" probability="0.24676641" edges="91to1 1to22 out" exitTimes="27325.17 27415.28 27441.91"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="595" depart="27297.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="0">
+            <route cost="143.06" probability="0.75323359" edges="91to1 1to21 out" exitTimes="27329.17 27413.43 27440.06"/>
+            <route cost="148.96" probability="0.24676641" edges="91to1 1to22 out" exitTimes="27329.17 27419.28 27445.91"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="287" depart="27301.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="0">
+            <route cost="143.06" probability="0.75323359" edges="91to1 1to21 out" exitTimes="27333.17 27417.43 27444.06"/>
+            <route cost="148.96" probability="0.24676641" edges="91to1 1to22 out" exitTimes="27333.17 27423.28 27449.91"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="586" depart="27306.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="0">
+            <route cost="143.06" probability="0.75323359" edges="91to1 1to21 out" exitTimes="27338.17 27422.43 27449.06"/>
+            <route cost="148.96" probability="0.24676641" edges="91to1 1to22 out" exitTimes="27338.17 27428.28 27454.91"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="205" depart="27314.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="0">
+            <route cost="143.06" probability="0.75323359" edges="91to1 1to21 out" exitTimes="27346.17 27430.43 27457.06"/>
+            <route cost="148.96" probability="0.24676641" edges="91to1 1to22 out" exitTimes="27346.17 27436.28 27462.91"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="162" depart="27315.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="0">
+            <route cost="143.06" probability="0.75323359" edges="91to1 1to21 out" exitTimes="27347.17 27431.43 27458.06"/>
+            <route cost="148.96" probability="0.24676641" edges="91to1 1to22 out" exitTimes="27347.17 27437.28 27463.91"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="507" depart="27318.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="1">
+            <route cost="143.06" probability="0.75323359" edges="91to1 1to21 out" exitTimes="27350.17 27434.43 27461.06"/>
+            <route cost="148.96" probability="0.24676641" edges="91to1 1to22 out" exitTimes="27350.17 27440.28 27466.91"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="209" depart="27326.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="0">
+            <route cost="143.06" probability="0.75323359" edges="91to1 1to21 out" exitTimes="27358.17 27442.43 27469.06"/>
+            <route cost="148.96" probability="0.24676641" edges="91to1 1to22 out" exitTimes="27358.17 27448.28 27474.91"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="523" depart="27336.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="0">
+            <route cost="143.06" probability="0.75323359" edges="91to1 1to21 out" exitTimes="27368.17 27452.43 27479.06"/>
+            <route cost="148.96" probability="0.24676641" edges="91to1 1to22 out" exitTimes="27368.17 27458.28 27484.91"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="276" depart="27337.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="0">
+            <route cost="143.06" probability="0.75323359" edges="91to1 1to21 out" exitTimes="27369.17 27453.43 27480.06"/>
+            <route cost="148.96" probability="0.24676641" edges="91to1 1to22 out" exitTimes="27369.17 27459.28 27485.91"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="76" depart="27341.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="1">
+            <route cost="143.06" probability="0.75323359" edges="91to1 1to21 out" exitTimes="27373.17 27457.43 27484.06"/>
+            <route cost="148.96" probability="0.24676641" edges="91to1 1to22 out" exitTimes="27373.17 27463.28 27489.91"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="102" depart="27346.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="0">
+            <route cost="143.06" probability="0.75323359" edges="91to1 1to21 out" exitTimes="27378.17 27462.43 27489.06"/>
+            <route cost="148.96" probability="0.24676641" edges="91to1 1to22 out" exitTimes="27378.17 27468.28 27494.91"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="521" depart="27346.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="0">
+            <route cost="143.06" probability="0.75323359" edges="91to1 1to21 out" exitTimes="27378.17 27462.43 27489.06"/>
+            <route cost="148.96" probability="0.24676641" edges="91to1 1to22 out" exitTimes="27378.17 27468.28 27494.91"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="500" depart="27347.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="0">
+            <route cost="143.06" probability="0.75323359" edges="91to1 1to21 out" exitTimes="27379.17 27463.43 27490.06"/>
+            <route cost="148.96" probability="0.24676641" edges="91to1 1to22 out" exitTimes="27379.17 27469.28 27495.91"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="570" depart="27347.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="0">
+            <route cost="143.06" probability="0.75323359" edges="91to1 1to21 out" exitTimes="27379.17 27463.43 27490.06"/>
+            <route cost="148.96" probability="0.24676641" edges="91to1 1to22 out" exitTimes="27379.17 27469.28 27495.91"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="220" depart="27348.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="0">
+            <route cost="143.06" probability="0.75323359" edges="91to1 1to21 out" exitTimes="27380.17 27464.43 27491.06"/>
+            <route cost="148.96" probability="0.24676641" edges="91to1 1to22 out" exitTimes="27380.17 27470.28 27496.91"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="362" depart="27351.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="0">
+            <route cost="143.06" probability="0.75323359" edges="91to1 1to21 out" exitTimes="27383.17 27467.43 27494.06"/>
+            <route cost="148.96" probability="0.24676641" edges="91to1 1to22 out" exitTimes="27383.17 27473.28 27499.91"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="133" depart="27352.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="0">
+            <route cost="143.06" probability="0.75323359" edges="91to1 1to21 out" exitTimes="27384.17 27468.43 27495.06"/>
+            <route cost="148.96" probability="0.24676641" edges="91to1 1to22 out" exitTimes="27384.17 27474.28 27500.91"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="151" depart="27352.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="0">
+            <route cost="143.06" probability="0.75323359" edges="91to1 1to21 out" exitTimes="27384.17 27468.43 27495.06"/>
+            <route cost="148.96" probability="0.24676641" edges="91to1 1to22 out" exitTimes="27384.17 27474.28 27500.91"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="546" depart="27353.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="0">
+            <route cost="143.06" probability="0.75323359" edges="91to1 1to21 out" exitTimes="27385.17 27469.43 27496.06"/>
+            <route cost="148.96" probability="0.24676641" edges="91to1 1to22 out" exitTimes="27385.17 27475.28 27501.91"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="545" depart="27364.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="0">
+            <route cost="143.06" probability="0.75323359" edges="91to1 1to21 out" exitTimes="27396.17 27480.43 27507.06"/>
+            <route cost="148.96" probability="0.24676641" edges="91to1 1to22 out" exitTimes="27396.17 27486.28 27512.91"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="127" depart="27365.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="0">
+            <route cost="143.06" probability="0.75323359" edges="91to1 1to21 out" exitTimes="27397.17 27481.43 27508.06"/>
+            <route cost="148.96" probability="0.24676641" edges="91to1 1to22 out" exitTimes="27397.17 27487.28 27513.91"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="217" depart="27365.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="1">
+            <route cost="143.06" probability="0.75323359" edges="91to1 1to21 out" exitTimes="27397.17 27481.43 27508.06"/>
+            <route cost="148.96" probability="0.24676641" edges="91to1 1to22 out" exitTimes="27397.17 27487.28 27513.91"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="281" depart="27376.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="1">
+            <route cost="143.06" probability="0.75323359" edges="91to1 1to21 out" exitTimes="27408.17 27492.43 27519.06"/>
+            <route cost="148.96" probability="0.24676641" edges="91to1 1to22 out" exitTimes="27408.17 27498.28 27524.91"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="55" depart="27377.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="0">
+            <route cost="143.06" probability="0.75323359" edges="91to1 1to21 out" exitTimes="27409.17 27493.43 27520.06"/>
+            <route cost="148.96" probability="0.24676641" edges="91to1 1to22 out" exitTimes="27409.17 27499.28 27525.91"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="597" depart="27379.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="0">
+            <route cost="143.06" probability="0.75323359" edges="91to1 1to21 out" exitTimes="27411.17 27495.43 27522.06"/>
+            <route cost="148.96" probability="0.24676641" edges="91to1 1to22 out" exitTimes="27411.17 27501.28 27527.91"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="404" depart="27381.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="0">
+            <route cost="143.06" probability="0.75323359" edges="91to1 1to21 out" exitTimes="27413.17 27497.43 27524.06"/>
+            <route cost="148.96" probability="0.24676641" edges="91to1 1to22 out" exitTimes="27413.17 27503.28 27529.91"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="213" depart="27384.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="1">
+            <route cost="143.06" probability="0.75323359" edges="91to1 1to21 out" exitTimes="27416.17 27500.43 27527.06"/>
+            <route cost="148.96" probability="0.24676641" edges="91to1 1to22 out" exitTimes="27416.17 27506.28 27532.91"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="77" depart="27389.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="1">
+            <route cost="143.06" probability="0.75323359" edges="91to1 1to21 out" exitTimes="27421.17 27505.43 27532.06"/>
+            <route cost="148.96" probability="0.24676641" edges="91to1 1to22 out" exitTimes="27421.17 27511.28 27537.91"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="396" depart="27392.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="1">
+            <route cost="143.06" probability="0.75323359" edges="91to1 1to21 out" exitTimes="27424.17 27508.43 27535.06"/>
+            <route cost="148.96" probability="0.24676641" edges="91to1 1to22 out" exitTimes="27424.17 27514.28 27540.91"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="74" depart="27392.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="0">
+            <route cost="143.06" probability="0.75323359" edges="91to1 1to21 out" exitTimes="27424.17 27508.43 27535.06"/>
+            <route cost="148.96" probability="0.24676641" edges="91to1 1to22 out" exitTimes="27424.17 27514.28 27540.91"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="418" depart="27398.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="1">
+            <route cost="143.06" probability="0.75323359" edges="91to1 1to21 out" exitTimes="27430.17 27514.43 27541.06"/>
+            <route cost="148.96" probability="0.24676641" edges="91to1 1to22 out" exitTimes="27430.17 27520.28 27546.91"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="138" depart="27404.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="0">
+            <route cost="143.06" probability="0.75323359" edges="91to1 1to21 out" exitTimes="27436.17 27520.43 27547.06"/>
+            <route cost="148.96" probability="0.24676641" edges="91to1 1to22 out" exitTimes="27436.17 27526.28 27552.91"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="237" depart="27405.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="0">
+            <route cost="143.06" probability="0.75323359" edges="91to1 1to21 out" exitTimes="27437.17 27521.43 27548.06"/>
+            <route cost="148.96" probability="0.24676641" edges="91to1 1to22 out" exitTimes="27437.17 27527.28 27553.91"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="399" depart="27405.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="1">
+            <route cost="143.06" probability="0.75323359" edges="91to1 1to21 out" exitTimes="27437.17 27521.43 27548.06"/>
+            <route cost="148.96" probability="0.24676641" edges="91to1 1to22 out" exitTimes="27437.17 27527.28 27553.91"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="480" depart="27413.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="1">
+            <route cost="143.06" probability="0.75323359" edges="91to1 1to21 out" exitTimes="27445.17 27529.43 27556.06"/>
+            <route cost="148.96" probability="0.24676641" edges="91to1 1to22 out" exitTimes="27445.17 27535.28 27561.91"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="268" depart="27416.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="1">
+            <route cost="143.06" probability="0.75323359" edges="91to1 1to21 out" exitTimes="27448.17 27532.43 27559.06"/>
+            <route cost="148.96" probability="0.24676641" edges="91to1 1to22 out" exitTimes="27448.17 27538.28 27564.91"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="435" depart="27426.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="0">
+            <route cost="143.06" probability="0.75323359" edges="91to1 1to21 out" exitTimes="27458.17 27542.43 27569.06"/>
+            <route cost="148.96" probability="0.24676641" edges="91to1 1to22 out" exitTimes="27458.17 27548.28 27574.91"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="104" depart="27432.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="0">
+            <route cost="143.06" probability="0.75323359" edges="91to1 1to21 out" exitTimes="27464.17 27548.43 27575.06"/>
+            <route cost="148.96" probability="0.24676641" edges="91to1 1to22 out" exitTimes="27464.17 27554.28 27580.91"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="264" depart="27439.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="1">
+            <route cost="143.06" probability="0.75323359" edges="91to1 1to21 out" exitTimes="27471.17 27555.43 27582.06"/>
+            <route cost="148.96" probability="0.24676641" edges="91to1 1to22 out" exitTimes="27471.17 27561.28 27587.91"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="235" depart="27441.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="0">
+            <route cost="143.06" probability="0.75323359" edges="91to1 1to21 out" exitTimes="27473.17 27557.43 27584.06"/>
+            <route cost="148.96" probability="0.24676641" edges="91to1 1to22 out" exitTimes="27473.17 27563.28 27589.91"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="475" depart="27442.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="0">
+            <route cost="143.06" probability="0.75323359" edges="91to1 1to21 out" exitTimes="27474.17 27558.43 27585.06"/>
+            <route cost="148.96" probability="0.24676641" edges="91to1 1to22 out" exitTimes="27474.17 27564.28 27590.91"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="18" depart="27445.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="0">
+            <route cost="143.06" probability="0.75323359" edges="91to1 1to21 out" exitTimes="27477.17 27561.43 27588.06"/>
+            <route cost="148.96" probability="0.24676641" edges="91to1 1to22 out" exitTimes="27477.17 27567.28 27593.91"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="183" depart="27453.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="1">
+            <route cost="143.06" probability="0.75323359" edges="91to1 1to21 out" exitTimes="27485.17 27569.43 27596.06"/>
+            <route cost="148.96" probability="0.24676641" edges="91to1 1to22 out" exitTimes="27485.17 27575.28 27601.91"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="25" depart="27458.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="0">
+            <route cost="143.06" probability="0.75323359" edges="91to1 1to21 out" exitTimes="27490.17 27574.43 27601.06"/>
+            <route cost="148.96" probability="0.24676641" edges="91to1 1to22 out" exitTimes="27490.17 27580.28 27606.91"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="497" depart="27459.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="1">
+            <route cost="143.06" probability="0.75323359" edges="91to1 1to21 out" exitTimes="27491.17 27575.43 27602.06"/>
+            <route cost="148.96" probability="0.24676641" edges="91to1 1to22 out" exitTimes="27491.17 27581.28 27607.91"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="483" depart="27462.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="0">
+            <route cost="143.06" probability="0.75323359" edges="91to1 1to21 out" exitTimes="27494.17 27578.43 27605.06"/>
+            <route cost="148.96" probability="0.24676641" edges="91to1 1to22 out" exitTimes="27494.17 27584.28 27610.91"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="265" depart="27463.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="1">
+            <route cost="143.06" probability="0.75323359" edges="91to1 1to21 out" exitTimes="27495.17 27579.43 27606.06"/>
+            <route cost="148.96" probability="0.24676641" edges="91to1 1to22 out" exitTimes="27495.17 27585.28 27611.91"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="47" depart="27464.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="0">
+            <route cost="143.06" probability="0.75323359" edges="91to1 1to21 out" exitTimes="27496.17 27580.43 27607.06"/>
+            <route cost="148.96" probability="0.24676641" edges="91to1 1to22 out" exitTimes="27496.17 27586.28 27612.91"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="587" depart="27467.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="0">
+            <route cost="143.06" probability="0.75323359" edges="91to1 1to21 out" exitTimes="27499.17 27583.43 27610.06"/>
+            <route cost="148.96" probability="0.24676641" edges="91to1 1to22 out" exitTimes="27499.17 27589.28 27615.91"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="481" depart="27468.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="0">
+            <route cost="143.06" probability="0.75323359" edges="91to1 1to21 out" exitTimes="27500.17 27584.43 27611.06"/>
+            <route cost="148.96" probability="0.24676641" edges="91to1 1to22 out" exitTimes="27500.17 27590.28 27616.91"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="149" depart="27472.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="0">
+            <route cost="143.06" probability="0.75323359" edges="91to1 1to21 out" exitTimes="27504.17 27588.43 27615.06"/>
+            <route cost="148.96" probability="0.24676641" edges="91to1 1to22 out" exitTimes="27504.17 27594.28 27620.91"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="128" depart="27473.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="1">
+            <route cost="143.06" probability="0.75323359" edges="91to1 1to21 out" exitTimes="27505.17 27589.43 27616.06"/>
+            <route cost="148.96" probability="0.24676641" edges="91to1 1to22 out" exitTimes="27505.17 27595.28 27621.91"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="10" depart="27474.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="0">
+            <route cost="143.06" probability="0.75323359" edges="91to1 1to21 out" exitTimes="27506.17 27590.43 27617.06"/>
+            <route cost="148.96" probability="0.24676641" edges="91to1 1to22 out" exitTimes="27506.17 27596.28 27622.91"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="462" depart="27490.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="0">
+            <route cost="143.06" probability="0.75323359" edges="91to1 1to21 out" exitTimes="27522.17 27606.43 27633.06"/>
+            <route cost="148.96" probability="0.24676641" edges="91to1 1to22 out" exitTimes="27522.17 27612.28 27638.91"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="228" depart="27496.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="0">
+            <route cost="143.06" probability="0.75323359" edges="91to1 1to21 out" exitTimes="27528.17 27612.43 27639.06"/>
+            <route cost="148.96" probability="0.24676641" edges="91to1 1to22 out" exitTimes="27528.17 27618.28 27644.91"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="66" depart="27500.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="0">
+            <route cost="143.06" probability="0.75323359" edges="91to1 1to21 out" exitTimes="27532.17 27616.43 27643.06"/>
+            <route cost="148.96" probability="0.24676641" edges="91to1 1to22 out" exitTimes="27532.17 27622.28 27648.91"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="326" depart="27512.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="0">
+            <route cost="143.06" probability="0.75323359" edges="91to1 1to21 out" exitTimes="27544.17 27628.43 27655.06"/>
+            <route cost="148.96" probability="0.24676641" edges="91to1 1to22 out" exitTimes="27544.17 27634.28 27660.91"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="58" depart="27513.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="1">
+            <route cost="143.06" probability="0.75323359" edges="91to1 1to21 out" exitTimes="27545.17 27629.43 27656.06"/>
+            <route cost="148.96" probability="0.24676641" edges="91to1 1to22 out" exitTimes="27545.17 27635.28 27661.91"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="11" depart="27515.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="1">
+            <route cost="143.06" probability="0.75323359" edges="91to1 1to21 out" exitTimes="27547.17 27631.43 27658.06"/>
+            <route cost="148.96" probability="0.24676641" edges="91to1 1to22 out" exitTimes="27547.17 27637.28 27663.91"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="271" depart="27523.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="0">
+            <route cost="143.06" probability="0.75323359" edges="91to1 1to21 out" exitTimes="27555.17 27639.43 27666.06"/>
+            <route cost="148.96" probability="0.24676641" edges="91to1 1to22 out" exitTimes="27555.17 27645.28 27671.91"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="101" depart="27536.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="0">
+            <route cost="143.06" probability="0.75323359" edges="91to1 1to21 out" exitTimes="27568.17 27652.43 27679.06"/>
+            <route cost="148.96" probability="0.24676641" edges="91to1 1to22 out" exitTimes="27568.17 27658.28 27684.91"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="310" depart="27537.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="0">
+            <route cost="143.06" probability="0.75323359" edges="91to1 1to21 out" exitTimes="27569.17 27653.43 27680.06"/>
+            <route cost="148.96" probability="0.24676641" edges="91to1 1to22 out" exitTimes="27569.17 27659.28 27685.91"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="201" depart="27539.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="0">
+            <route cost="143.06" probability="0.75323359" edges="91to1 1to21 out" exitTimes="27571.17 27655.43 27682.06"/>
+            <route cost="148.96" probability="0.24676641" edges="91to1 1to22 out" exitTimes="27571.17 27661.28 27687.91"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="230" depart="27547.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="0">
+            <route cost="143.06" probability="0.75323359" edges="91to1 1to21 out" exitTimes="27579.17 27663.43 27690.06"/>
+            <route cost="148.96" probability="0.24676641" edges="91to1 1to22 out" exitTimes="27579.17 27669.28 27695.91"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="273" depart="27553.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="0">
+            <route cost="143.06" probability="0.75323359" edges="91to1 1to21 out" exitTimes="27585.17 27669.43 27696.06"/>
+            <route cost="148.96" probability="0.24676641" edges="91to1 1to22 out" exitTimes="27585.17 27675.28 27701.91"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="532" depart="27553.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="0">
+            <route cost="143.06" probability="0.75323359" edges="91to1 1to21 out" exitTimes="27585.17 27669.43 27696.06"/>
+            <route cost="148.96" probability="0.24676641" edges="91to1 1to22 out" exitTimes="27585.17 27675.28 27701.91"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="542" depart="27555.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="0">
+            <route cost="143.06" probability="0.75323359" edges="91to1 1to21 out" exitTimes="27587.17 27671.43 27698.06"/>
+            <route cost="148.96" probability="0.24676641" edges="91to1 1to22 out" exitTimes="27587.17 27677.28 27703.91"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="599" depart="27557.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="0">
+            <route cost="143.06" probability="0.75323359" edges="91to1 1to21 out" exitTimes="27589.17 27673.43 27700.06"/>
+            <route cost="148.96" probability="0.24676641" edges="91to1 1to22 out" exitTimes="27589.17 27679.28 27705.91"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="67" depart="27558.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="0">
+            <route cost="143.06" probability="0.75323359" edges="91to1 1to21 out" exitTimes="27590.17 27674.43 27701.06"/>
+            <route cost="148.96" probability="0.24676641" edges="91to1 1to22 out" exitTimes="27590.17 27680.28 27706.91"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="146" depart="27561.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="0">
+            <route cost="143.06" probability="0.75323359" edges="91to1 1to21 out" exitTimes="27593.17 27677.43 27704.06"/>
+            <route cost="148.96" probability="0.24676641" edges="91to1 1to22 out" exitTimes="27593.17 27683.28 27709.91"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="520" depart="27573.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="0">
+            <route cost="143.06" probability="0.75323359" edges="91to1 1to21 out" exitTimes="27605.17 27689.43 27716.06"/>
+            <route cost="148.96" probability="0.24676641" edges="91to1 1to22 out" exitTimes="27605.17 27695.28 27721.91"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="455" depart="27576.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="1">
+            <route cost="143.06" probability="0.75323359" edges="91to1 1to21 out" exitTimes="27608.17 27692.43 27719.06"/>
+            <route cost="148.96" probability="0.24676641" edges="91to1 1to22 out" exitTimes="27608.17 27698.28 27724.91"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="321" depart="27589.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="0">
+            <route cost="143.06" probability="0.75323359" edges="91to1 1to21 out" exitTimes="27621.17 27705.43 27732.06"/>
+            <route cost="148.96" probability="0.24676641" edges="91to1 1to22 out" exitTimes="27621.17 27711.28 27737.91"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="330" depart="27589.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="0">
+            <route cost="143.06" probability="0.75323359" edges="91to1 1to21 out" exitTimes="27621.17 27705.43 27732.06"/>
+            <route cost="148.96" probability="0.24676641" edges="91to1 1to22 out" exitTimes="27621.17 27711.28 27737.91"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="439" depart="27597.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="0">
+            <route cost="143.06" probability="0.75323359" edges="91to1 1to21 out" exitTimes="27629.17 27713.43 27740.06"/>
+            <route cost="148.96" probability="0.24676641" edges="91to1 1to22 out" exitTimes="27629.17 27719.28 27745.91"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="6" depart="27604.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="0">
+            <route cost="143.06" probability="0.75323359" edges="91to1 1to21 out" exitTimes="27636.17 27720.43 27747.06"/>
+            <route cost="148.96" probability="0.24676641" edges="91to1 1to22 out" exitTimes="27636.17 27726.28 27752.91"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="461" depart="27605.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="0">
+            <route cost="143.06" probability="0.75323359" edges="91to1 1to21 out" exitTimes="27637.17 27721.43 27748.06"/>
+            <route cost="148.96" probability="0.24676641" edges="91to1 1to22 out" exitTimes="27637.17 27727.28 27753.91"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="537" depart="27605.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="0">
+            <route cost="143.06" probability="0.75323359" edges="91to1 1to21 out" exitTimes="27637.17 27721.43 27748.06"/>
+            <route cost="148.96" probability="0.24676641" edges="91to1 1to22 out" exitTimes="27637.17 27727.28 27753.91"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="80" depart="27608.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="0">
+            <route cost="143.06" probability="0.75323359" edges="91to1 1to21 out" exitTimes="27640.17 27724.43 27751.06"/>
+            <route cost="148.96" probability="0.24676641" edges="91to1 1to22 out" exitTimes="27640.17 27730.28 27756.91"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="296" depart="27611.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="0">
+            <route cost="143.06" probability="0.75323359" edges="91to1 1to21 out" exitTimes="27643.17 27727.43 27754.06"/>
+            <route cost="148.96" probability="0.24676641" edges="91to1 1to22 out" exitTimes="27643.17 27733.28 27759.91"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="434" depart="27613.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="0">
+            <route cost="143.06" probability="0.75323359" edges="91to1 1to21 out" exitTimes="27645.17 27729.43 27756.06"/>
+            <route cost="148.96" probability="0.24676641" edges="91to1 1to22 out" exitTimes="27645.17 27735.28 27761.91"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="541" depart="27614.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="0">
+            <route cost="143.06" probability="0.75323359" edges="91to1 1to21 out" exitTimes="27646.17 27730.43 27757.06"/>
+            <route cost="148.96" probability="0.24676641" edges="91to1 1to22 out" exitTimes="27646.17 27736.28 27762.91"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="83" depart="27614.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="1">
+            <route cost="143.06" probability="0.75323359" edges="91to1 1to21 out" exitTimes="27646.17 27730.43 27757.06"/>
+            <route cost="148.96" probability="0.24676641" edges="91to1 1to22 out" exitTimes="27646.17 27736.28 27762.91"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="61" depart="27632.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="0">
+            <route cost="143.06" probability="0.75323359" edges="91to1 1to21 out" exitTimes="27664.17 27748.43 27775.06"/>
+            <route cost="148.96" probability="0.24676641" edges="91to1 1to22 out" exitTimes="27664.17 27754.28 27780.91"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="432" depart="27634.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="0">
+            <route cost="143.06" probability="0.75323359" edges="91to1 1to21 out" exitTimes="27666.17 27750.43 27777.06"/>
+            <route cost="148.96" probability="0.24676641" edges="91to1 1to22 out" exitTimes="27666.17 27756.28 27782.91"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="564" depart="27634.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="0">
+            <route cost="143.06" probability="0.75323359" edges="91to1 1to21 out" exitTimes="27666.17 27750.43 27777.06"/>
+            <route cost="148.96" probability="0.24676641" edges="91to1 1to22 out" exitTimes="27666.17 27756.28 27782.91"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="204" depart="27635.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="0">
+            <route cost="143.06" probability="0.75323359" edges="91to1 1to21 out" exitTimes="27667.17 27751.43 27778.06"/>
+            <route cost="148.96" probability="0.24676641" edges="91to1 1to22 out" exitTimes="27667.17 27757.28 27783.91"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="56" depart="27637.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="1">
+            <route cost="143.06" probability="0.75323359" edges="91to1 1to21 out" exitTimes="27669.17 27753.43 27780.06"/>
+            <route cost="148.96" probability="0.24676641" edges="91to1 1to22 out" exitTimes="27669.17 27759.28 27785.91"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="219" depart="27639.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="0">
+            <route cost="143.06" probability="0.75323359" edges="91to1 1to21 out" exitTimes="27671.17 27755.43 27782.06"/>
+            <route cost="148.96" probability="0.24676641" edges="91to1 1to22 out" exitTimes="27671.17 27761.28 27787.91"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="243" depart="27640.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="0">
+            <route cost="143.06" probability="0.75323359" edges="91to1 1to21 out" exitTimes="27672.17 27756.43 27783.06"/>
+            <route cost="148.96" probability="0.24676641" edges="91to1 1to22 out" exitTimes="27672.17 27762.28 27788.91"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="526" depart="27641.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="0">
+            <route cost="143.06" probability="0.75323359" edges="91to1 1to21 out" exitTimes="27673.17 27757.43 27784.06"/>
+            <route cost="148.96" probability="0.24676641" edges="91to1 1to22 out" exitTimes="27673.17 27763.28 27789.91"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="99" depart="27645.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="0">
+            <route cost="143.06" probability="0.75323359" edges="91to1 1to21 out" exitTimes="27677.17 27761.43 27788.06"/>
+            <route cost="148.96" probability="0.24676641" edges="91to1 1to22 out" exitTimes="27677.17 27767.28 27793.91"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="355" depart="27647.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="0">
+            <route cost="143.06" probability="0.75323359" edges="91to1 1to21 out" exitTimes="27679.17 27763.43 27790.06"/>
+            <route cost="148.96" probability="0.24676641" edges="91to1 1to22 out" exitTimes="27679.17 27769.28 27795.91"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="572" depart="27648.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="0">
+            <route cost="143.06" probability="0.75323359" edges="91to1 1to21 out" exitTimes="27680.17 27764.43 27791.06"/>
+            <route cost="148.96" probability="0.24676641" edges="91to1 1to22 out" exitTimes="27680.17 27770.28 27796.91"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="578" depart="27649.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="0">
+            <route cost="143.06" probability="0.75323359" edges="91to1 1to21 out" exitTimes="27681.17 27765.43 27792.06"/>
+            <route cost="148.96" probability="0.24676641" edges="91to1 1to22 out" exitTimes="27681.17 27771.28 27797.91"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="331" depart="27654.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="0">
+            <route cost="143.06" probability="0.75323359" edges="91to1 1to21 out" exitTimes="27686.17 27770.43 27797.06"/>
+            <route cost="148.96" probability="0.24676641" edges="91to1 1to22 out" exitTimes="27686.17 27776.28 27802.91"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="425" depart="27654.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="1">
+            <route cost="143.06" probability="0.75323359" edges="91to1 1to21 out" exitTimes="27686.17 27770.43 27797.06"/>
+            <route cost="148.96" probability="0.24676641" edges="91to1 1to22 out" exitTimes="27686.17 27776.28 27802.91"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="344" depart="27658.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="0">
+            <route cost="143.06" probability="0.75323359" edges="91to1 1to21 out" exitTimes="27690.17 27774.43 27801.06"/>
+            <route cost="148.96" probability="0.24676641" edges="91to1 1to22 out" exitTimes="27690.17 27780.28 27806.91"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="524" depart="27660.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="0">
+            <route cost="143.06" probability="0.75323359" edges="91to1 1to21 out" exitTimes="27692.17 27776.43 27803.06"/>
+            <route cost="148.96" probability="0.24676641" edges="91to1 1to22 out" exitTimes="27692.17 27782.28 27808.91"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="551" depart="27664.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="0">
+            <route cost="143.06" probability="0.75323359" edges="91to1 1to21 out" exitTimes="27696.17 27780.43 27807.06"/>
+            <route cost="148.96" probability="0.24676641" edges="91to1 1to22 out" exitTimes="27696.17 27786.28 27812.91"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="144" depart="27667.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="0">
+            <route cost="143.06" probability="0.75323359" edges="91to1 1to21 out" exitTimes="27699.17 27783.43 27810.06"/>
+            <route cost="148.96" probability="0.24676641" edges="91to1 1to22 out" exitTimes="27699.17 27789.28 27815.91"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="214" depart="27668.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="0">
+            <route cost="143.06" probability="0.75323359" edges="91to1 1to21 out" exitTimes="27700.17 27784.43 27811.06"/>
+            <route cost="148.96" probability="0.24676641" edges="91to1 1to22 out" exitTimes="27700.17 27790.28 27816.91"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="72" depart="27671.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="0">
+            <route cost="143.06" probability="0.75323359" edges="91to1 1to21 out" exitTimes="27703.17 27787.43 27814.06"/>
+            <route cost="148.96" probability="0.24676641" edges="91to1 1to22 out" exitTimes="27703.17 27793.28 27819.91"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="108" depart="27686.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="0">
+            <route cost="143.06" probability="0.75323359" edges="91to1 1to21 out" exitTimes="27718.17 27802.43 27829.06"/>
+            <route cost="148.96" probability="0.24676641" edges="91to1 1to22 out" exitTimes="27718.17 27808.28 27834.91"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="51" depart="27686.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="0">
+            <route cost="143.06" probability="0.75323359" edges="91to1 1to21 out" exitTimes="27718.17 27802.43 27829.06"/>
+            <route cost="148.96" probability="0.24676641" edges="91to1 1to22 out" exitTimes="27718.17 27808.28 27834.91"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="568" depart="27692.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="0">
+            <route cost="143.06" probability="0.75323359" edges="91to1 1to21 out" exitTimes="27724.17 27808.43 27835.06"/>
+            <route cost="148.96" probability="0.24676641" edges="91to1 1to22 out" exitTimes="27724.17 27814.28 27840.91"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="588" depart="27697.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="0">
+            <route cost="143.06" probability="0.75323359" edges="91to1 1to21 out" exitTimes="27729.17 27813.43 27840.06"/>
+            <route cost="148.96" probability="0.24676641" edges="91to1 1to22 out" exitTimes="27729.17 27819.28 27845.91"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="251" depart="27698.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="0">
+            <route cost="143.06" probability="0.75323359" edges="91to1 1to21 out" exitTimes="27730.17 27814.43 27841.06"/>
+            <route cost="148.96" probability="0.24676641" edges="91to1 1to22 out" exitTimes="27730.17 27820.28 27846.91"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="400" depart="27707.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="1">
+            <route cost="143.06" probability="0.75323359" edges="91to1 1to21 out" exitTimes="27739.17 27823.43 27850.06"/>
+            <route cost="148.96" probability="0.24676641" edges="91to1 1to22 out" exitTimes="27739.17 27829.28 27855.91"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="516" depart="27711.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="0">
+            <route cost="143.06" probability="0.75323359" edges="91to1 1to21 out" exitTimes="27743.17 27827.43 27854.06"/>
+            <route cost="148.96" probability="0.24676641" edges="91to1 1to22 out" exitTimes="27743.17 27833.28 27859.91"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="445" depart="27713.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="0">
+            <route cost="143.06" probability="0.75323359" edges="91to1 1to21 out" exitTimes="27745.17 27829.43 27856.06"/>
+            <route cost="148.96" probability="0.24676641" edges="91to1 1to22 out" exitTimes="27745.17 27835.28 27861.91"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="574" depart="27716.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="1">
+            <route cost="143.06" probability="0.75323359" edges="91to1 1to21 out" exitTimes="27748.17 27832.43 27859.06"/>
+            <route cost="148.96" probability="0.24676641" edges="91to1 1to22 out" exitTimes="27748.17 27838.28 27864.91"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="347" depart="27719.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="0">
+            <route cost="143.06" probability="0.75323359" edges="91to1 1to21 out" exitTimes="27751.17 27835.43 27862.06"/>
+            <route cost="148.96" probability="0.24676641" edges="91to1 1to22 out" exitTimes="27751.17 27841.28 27867.91"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="538" depart="27722.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="1">
+            <route cost="143.06" probability="0.75323359" edges="91to1 1to21 out" exitTimes="27754.17 27838.43 27865.06"/>
+            <route cost="148.96" probability="0.24676641" edges="91to1 1to22 out" exitTimes="27754.17 27844.28 27870.91"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="339" depart="27725.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="0">
+            <route cost="143.06" probability="0.75323359" edges="91to1 1to21 out" exitTimes="27757.17 27841.43 27868.06"/>
+            <route cost="148.96" probability="0.24676641" edges="91to1 1to22 out" exitTimes="27757.17 27847.28 27873.91"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="253" depart="27735.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="0">
+            <route cost="143.06" probability="0.75323359" edges="91to1 1to21 out" exitTimes="27767.17 27851.43 27878.06"/>
+            <route cost="148.96" probability="0.24676641" edges="91to1 1to22 out" exitTimes="27767.17 27857.28 27883.91"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="129" depart="27737.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="0">
+            <route cost="143.06" probability="0.75323359" edges="91to1 1to21 out" exitTimes="27769.17 27853.43 27880.06"/>
+            <route cost="148.96" probability="0.24676641" edges="91to1 1to22 out" exitTimes="27769.17 27859.28 27885.91"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="467" depart="27737.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="0">
+            <route cost="143.06" probability="0.75323359" edges="91to1 1to21 out" exitTimes="27769.17 27853.43 27880.06"/>
+            <route cost="148.96" probability="0.24676641" edges="91to1 1to22 out" exitTimes="27769.17 27859.28 27885.91"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="581" depart="27737.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="0">
+            <route cost="143.06" probability="0.75323359" edges="91to1 1to21 out" exitTimes="27769.17 27853.43 27880.06"/>
+            <route cost="148.96" probability="0.24676641" edges="91to1 1to22 out" exitTimes="27769.17 27859.28 27885.91"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="87" depart="27741.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="0">
+            <route cost="143.06" probability="0.75323359" edges="91to1 1to21 out" exitTimes="27773.17 27857.43 27884.06"/>
+            <route cost="148.96" probability="0.24676641" edges="91to1 1to22 out" exitTimes="27773.17 27863.28 27889.91"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="284" depart="27752.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="1">
+            <route cost="143.06" probability="0.75323359" edges="91to1 1to21 out" exitTimes="27784.17 27868.43 27895.06"/>
+            <route cost="148.96" probability="0.24676641" edges="91to1 1to22 out" exitTimes="27784.17 27874.28 27900.91"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="580" depart="27753.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="1">
+            <route cost="143.06" probability="0.75323359" edges="91to1 1to21 out" exitTimes="27785.17 27869.43 27896.06"/>
+            <route cost="148.96" probability="0.24676641" edges="91to1 1to22 out" exitTimes="27785.17 27875.28 27901.91"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="358" depart="27772.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="0">
+            <route cost="143.06" probability="0.75364150" edges="91to1 1to21 out" exitTimes="27804.17 27888.43 27915.06"/>
+            <route cost="148.96" probability="0.24635850" edges="91to1 1to22 out" exitTimes="27804.17 27894.28 27920.91"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="298" depart="27774.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="0">
+            <route cost="143.06" probability="0.76691592" edges="91to1 1to21 out" exitTimes="27806.17 27890.43 27917.06"/>
+            <route cost="148.96" probability="0.23308408" edges="91to1 1to22 out" exitTimes="27806.17 27896.28 27922.91"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="202" depart="27778.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="1">
+            <route cost="143.06" probability="0.80608243" edges="91to1 1to21 out" exitTimes="27810.17 27894.43 27921.06"/>
+            <route cost="153.63" probability="0.19391757" edges="91to1 1to22 out" exitTimes="27810.17 27900.28 27931.73"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="389" depart="27779.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="0">
+            <route cost="143.06" probability="0.80750366" edges="91to1 1to21 out" exitTimes="27811.17 27895.43 27922.06"/>
+            <route cost="153.69" probability="0.19249634" edges="91to1 1to22 out" exitTimes="27811.17 27901.28 27932.73"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="35" depart="27780.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="0">
+            <route cost="143.06" probability="0.80750366" edges="91to1 1to21 out" exitTimes="27812.17 27896.43 27923.06"/>
+            <route cost="153.69" probability="0.19249634" edges="91to1 1to22 out" exitTimes="27812.17 27902.28 27933.73"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="175" depart="27783.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="0">
+            <route cost="143.06" probability="0.80750366" edges="91to1 1to21 out" exitTimes="27815.17 27899.43 27926.06"/>
+            <route cost="153.69" probability="0.19249634" edges="91to1 1to22 out" exitTimes="27815.17 27905.28 27936.73"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="365" depart="27785.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="0">
+            <route cost="147.88" probability="0.79922302" edges="91to1 1to21 out" exitTimes="27817.17 27901.43 27932.88"/>
+            <route cost="153.69" probability="0.20077698" edges="91to1 1to22 out" exitTimes="27817.17 27907.28 27938.73"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="92" depart="27786.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="1">
+            <route cost="147.88" probability="0.79617962" edges="91to1 1to21 out" exitTimes="27818.17 27902.43 27933.88"/>
+            <route cost="153.69" probability="0.20382038" edges="91to1 1to22 out" exitTimes="27818.17 27908.28 27939.73"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="53" depart="27793.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="1">
+            <route cost="147.88" probability="0.74751352" edges="91to1 1to21 out" exitTimes="27825.17 27909.43 27940.88"/>
+            <route cost="153.69" probability="0.25248648" edges="91to1 1to22 out" exitTimes="27825.17 27915.28 27946.73"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="410" depart="27798.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="0">
+            <route cost="147.88" probability="0.74751352" edges="91to1 1to21 out" exitTimes="27830.17 27914.43 27945.88"/>
+            <route cost="153.69" probability="0.25248648" edges="91to1 1to22 out" exitTimes="27830.17 27920.28 27951.73"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="332" depart="27804.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="0">
+            <route cost="147.88" probability="0.74751352" edges="91to1 1to21 out" exitTimes="27836.17 27920.43 27951.88"/>
+            <route cost="153.69" probability="0.25248648" edges="91to1 1to22 out" exitTimes="27836.17 27926.28 27957.73"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="115" depart="27806.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="0">
+            <route cost="147.88" probability="0.74751352" edges="91to1 1to21 out" exitTimes="27838.17 27922.43 27953.88"/>
+            <route cost="153.69" probability="0.25248648" edges="91to1 1to22 out" exitTimes="27838.17 27928.28 27959.73"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="422" depart="27807.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="1">
+            <route cost="147.88" probability="0.74751352" edges="91to1 1to21 out" exitTimes="27839.17 27923.43 27954.88"/>
+            <route cost="153.69" probability="0.25248648" edges="91to1 1to22 out" exitTimes="27839.17 27929.28 27960.73"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="19" depart="27811.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="0">
+            <route cost="147.88" probability="0.74751352" edges="91to1 1to21 out" exitTimes="27843.17 27927.43 27958.88"/>
+            <route cost="153.69" probability="0.25248648" edges="91to1 1to22 out" exitTimes="27843.17 27933.28 27964.73"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="295" depart="27815.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="0">
+            <route cost="147.88" probability="0.74751352" edges="91to1 1to21 out" exitTimes="27847.17 27931.43 27962.88"/>
+            <route cost="153.69" probability="0.25248648" edges="91to1 1to22 out" exitTimes="27847.17 27937.28 27968.73"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="598" depart="27820.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="0">
+            <route cost="147.88" probability="0.74751352" edges="91to1 1to21 out" exitTimes="27852.17 27936.43 27967.88"/>
+            <route cost="153.69" probability="0.25248648" edges="91to1 1to22 out" exitTimes="27852.17 27942.28 27973.73"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="323" depart="27826.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="1">
+            <route cost="147.88" probability="0.74751352" edges="91to1 1to21 out" exitTimes="27858.17 27942.43 27973.88"/>
+            <route cost="153.69" probability="0.25248648" edges="91to1 1to22 out" exitTimes="27858.17 27948.28 27979.73"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="43" depart="27827.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="1">
+            <route cost="147.88" probability="0.74751352" edges="91to1 1to21 out" exitTimes="27859.17 27943.43 27974.88"/>
+            <route cost="153.69" probability="0.25248648" edges="91to1 1to22 out" exitTimes="27859.17 27949.28 27980.73"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="297" depart="27831.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="1">
+            <route cost="147.88" probability="0.74751352" edges="91to1 1to21 out" exitTimes="27863.17 27947.43 27978.88"/>
+            <route cost="153.69" probability="0.25248648" edges="91to1 1to22 out" exitTimes="27863.17 27953.28 27984.73"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="203" depart="27835.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="0">
+            <route cost="147.88" probability="0.74751352" edges="91to1 1to21 out" exitTimes="27867.17 27951.43 27982.88"/>
+            <route cost="153.69" probability="0.25248648" edges="91to1 1to22 out" exitTimes="27867.17 27957.28 27988.73"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="22" depart="27838.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="1">
+            <route cost="147.88" probability="0.74751352" edges="91to1 1to21 out" exitTimes="27870.17 27954.43 27985.88"/>
+            <route cost="153.69" probability="0.25248648" edges="91to1 1to22 out" exitTimes="27870.17 27960.28 27991.73"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="591" depart="27839.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="1">
+            <route cost="147.88" probability="0.74751352" edges="91to1 1to21 out" exitTimes="27871.17 27955.43 27986.88"/>
+            <route cost="153.69" probability="0.25248648" edges="91to1 1to22 out" exitTimes="27871.17 27961.28 27992.73"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="490" depart="27841.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="1">
+            <route cost="147.88" probability="0.74751352" edges="91to1 1to21 out" exitTimes="27873.17 27957.43 27988.88"/>
+            <route cost="153.69" probability="0.25248648" edges="91to1 1to22 out" exitTimes="27873.17 27963.28 27994.73"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="430" depart="27842.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="1">
+            <route cost="147.88" probability="0.74751352" edges="91to1 1to21 out" exitTimes="27874.17 27958.43 27989.88"/>
+            <route cost="153.69" probability="0.25248648" edges="91to1 1to22 out" exitTimes="27874.17 27964.28 27995.73"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="112" depart="27850.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="0">
+            <route cost="147.88" probability="0.74751352" edges="91to1 1to21 out" exitTimes="27882.17 27966.43 27997.88"/>
+            <route cost="153.69" probability="0.25248648" edges="91to1 1to22 out" exitTimes="27882.17 27972.28 28003.73"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="562" depart="27857.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="0">
+            <route cost="147.88" probability="0.74751352" edges="91to1 1to21 out" exitTimes="27889.17 27973.43 28004.88"/>
+            <route cost="153.69" probability="0.25248648" edges="91to1 1to22 out" exitTimes="27889.17 27979.28 28010.73"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="584" depart="27877.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="1">
+            <route cost="180.11" probability="0.57796767" edges="91to1 1to21 out" exitTimes="27909.17 28025.73 28057.18"/>
+            <route cost="176.90" probability="0.42203233" edges="91to1 1to22 out" exitTimes="27909.17 28022.45 28053.90"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="411" depart="27878.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="0">
+            <route cost="180.11" probability="0.57796767" edges="91to1 1to21 out" exitTimes="27910.17 28026.73 28058.18"/>
+            <route cost="176.90" probability="0.42203233" edges="91to1 1to22 out" exitTimes="27910.17 28023.45 28054.90"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="472" depart="27880.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="1">
+            <route cost="180.11" probability="0.57796767" edges="91to1 1to21 out" exitTimes="27912.17 28028.73 28060.18"/>
+            <route cost="176.90" probability="0.42203233" edges="91to1 1to22 out" exitTimes="27912.17 28025.45 28056.90"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="100" depart="27883.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="0">
+            <route cost="180.11" probability="0.57796767" edges="91to1 1to21 out" exitTimes="27915.17 28031.73 28063.18"/>
+            <route cost="176.90" probability="0.42203233" edges="91to1 1to22 out" exitTimes="27915.17 28028.45 28059.90"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="130" depart="27885.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="1">
+            <route cost="180.11" probability="0.57796767" edges="91to1 1to21 out" exitTimes="27917.17 28033.73 28065.18"/>
+            <route cost="176.90" probability="0.42203233" edges="91to1 1to22 out" exitTimes="27917.17 28030.45 28061.90"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="165" depart="27887.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="0">
+            <route cost="180.11" probability="0.57796767" edges="91to1 1to21 out" exitTimes="27919.17 28035.73 28067.18"/>
+            <route cost="176.90" probability="0.42203233" edges="91to1 1to22 out" exitTimes="27919.17 28032.45 28063.90"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="286" depart="27887.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="0">
+            <route cost="180.11" probability="0.57796767" edges="91to1 1to21 out" exitTimes="27919.17 28035.73 28067.18"/>
+            <route cost="176.90" probability="0.42203233" edges="91to1 1to22 out" exitTimes="27919.17 28032.45 28063.90"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="398" depart="27889.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="0">
+            <route cost="180.11" probability="0.57796767" edges="91to1 1to21 out" exitTimes="27921.17 28037.73 28069.18"/>
+            <route cost="176.90" probability="0.42203233" edges="91to1 1to22 out" exitTimes="27921.17 28034.45 28065.90"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="511" depart="27894.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="1">
+            <route cost="180.11" probability="0.57796767" edges="91to1 1to21 out" exitTimes="27926.17 28042.73 28074.18"/>
+            <route cost="176.90" probability="0.42203233" edges="91to1 1to22 out" exitTimes="27926.17 28039.45 28070.90"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="356" depart="27899.00" departlane="free" departspeed="max" fromtaz="1" totaz="2">
+        <routeDistribution last="0">
+            <route cost="167.53" probability="0.49736678" edges="91to1 1to21 out" exitTimes="27931.17 28047.73 28066.40"/>
+            <route cost="176.90" probability="0.50263322" edges="91to1 1to22 out" exitTimes="27931.17 28044.45 28075.90"/>
+        </routeDistribution>
+    </vehicle>
+</route-alternatives>

@@ -1,0 +1,1 @@
+-b 25200 -n input_net.net.xml -r routesx.rou.alt.xml,routesy.rou.alt.xml -d input_measurements.xml -a 3600 -o matrix.xml -W flows_evaluation -s 20 -M fmaOD

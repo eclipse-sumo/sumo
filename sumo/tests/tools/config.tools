@@ -19,6 +19,10 @@ copy_test_path:routes.rou.alt.xml
 copy_test_path:input_measurements.xml
 copy_test_path:input_measurementsp2p.xml
 copy_test_path:input_weights1.xml
+copy_test_path:testVehRoutesmitTaz.xml
+copy_test_path:testLinks.txt
+copy_test_path:routesx.rou.alt.xml
+copy_test_path:routesy.rou.alt.xml
 
 [collate_file]
 detectors:e2.add.xml
