@@ -37,8 +37,8 @@ def main():
                          type="float", default=1., help="define variance of the measured traffi flows for the DTA-calibration")
     optParser.add_option("-P", "--PREPITS",  type="int", dest="PREPITS",
                          default = 5, help="number of preparatory iterations")
-    optParser.add_option("-W", "--flows-evaluation", dest="flowevaluation",
-                         help="sent flow evaluation to", metavar="FILE")
+    optParser.add_option("-W", "--evaluation-prefix", dest="evalprefix",type='string',
+                         help="prefix of flow evaluation files ")
     optParser.add_option("-X", "--measformat",  type="choice", dest="measformat",
                          choices=('SUMO', 'Cadyts'), 
                          default = 'Cadyts',help="choose measurement format: SUMO or Cadyts")
@@ -54,6 +54,10 @@ def main():
                          default=False, help="No emissions are written by the simulation")
     optParser.add_option("-T", "--disable-tripinfos", action="store_true", dest="noTripinfo",
                          default=False, help="No tripinfos are written by the simulation")
+    optParser.add_option("-M", "--matrix-prefix", dest="fmaprefix", type='string',
+                         default='fmaOD',help="prefix of OD matrix files in visum format")
+    optParser.add_option("-N", "--clone-postfix", dest="clonepostfix", type='string',
+                         default='-CLONE', help="postfix attached to clone ids")
 
     (options, args) = optParser.parse_args()
     if not options.net or not options.routes or not options.detvals:
@@ -65,24 +69,26 @@ def main():
         sumoBinary = os.environ.get("SUMO_BINARY", os.path.join(options.path, "sumo"))
     calibrator = ["java", "-cp", options.classpath, "cadyts.interfaces.sumo.SumoController"]
     log = open("cadySumo-log.txt", "w+")
-    
+
     # calibration init
     starttime = datetime.now()
     evalprefix = None
-    if options.flowevaluation:
-        evalprefix = options.flowevaluation[:options.flowevaluation.rfind('.')]
+    if options.evalprefix:
+        evalprefix = options.evalprefix
 
     # begin the calibration
     if options.odmatrix:
         call(calibrator + ["INIT", "-varscale", options.varscale, "-freezeit", options.freezeit,
               "-measfile", options.detvals, "-binsize", options.aggregation, "-PREPITS", options.PREPITS,
                "-measformat", options.measformat, "-bruteforce", options.bruteforce, "-demandscale", options.demandscale,
-               "-mincountstddev", options.mincountstddev, "-overridett", options.overridett, "-equiprate", options.equiprate], log)
+               "-mincountstddev", options.mincountstddev, "-overridett", options.overridett, "-equiprate", options.equiprate,
+               "-clonepostfix", options.clonepostfix, "-fmaprefix", options.fmaprefix], log)
     else:
         call(calibrator + ["INIT", "-varscale", options.varscale, "-freezeit", options.freezeit,
               "-measfile", options.detvals, "-binsize", options.aggregation, "-PREPITS", options.PREPITS,
                "-measformat", options.measformat, "-bruteforce", options.bruteforce, "-mincountstddev", options.mincountstddev,
-               "-overridett", options.overridett, "-equiprate", options.equiprate], log)
+               "-overridett", options.overridett, "-equiprate", options.equiprate,
+               "-clonepostfix", options.clonepostfix, "-fmaprefix", options.fmaprefix], log)
 
     for step in range(options.calibStep):
         print 'calibration step:', step
@@ -91,7 +97,10 @@ def main():
         # calibration choice
         firstRoute = options.routes.split(",")[0]
         routname = os.path.basename(firstRoute)
-        output = "%s_%s.cal.xml" % (routname[:routname.rfind('_')], step)
+        if '_' in routname:
+            output = "%s_%s.cal.xml" % (routname[:routname.rfind('_')], step)
+        else:
+            output = "%s_%s.cal.xml" % (routname[:routname.find('.')], step)
         if options.odmatrix:
             matrixfile = options.odmatrix[:options.odmatrix.rfind('.')] + '_%s.xml' % step
             call(calibrator + ["CHOICE", "-choicesetfile", options.routes, "-choicefile", "%s" % output, "-odmatrix", matrixfile], log)
