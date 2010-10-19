@@ -1019,9 +1019,7 @@ MSVehicle::moveFirstChecked() {
         // we are moving at least to the next lane (maybe pass even more than one)
         MSLane *approachedLane = myLane;
         // move the vehicle forward
-        SUMOReal driven = myState.myPos>approachedLane->getLength()
-                          ? approachedLane->getLength() - pos
-                          : myState.myPos - pos;
+        SUMOReal driven = myLane->getLength() - pos;
         for (i=myLFLinkLanes.begin(); i!=myLFLinkLanes.end() && myState.myPos>approachedLane->getLength(); ++i) {
             if (approachedLane!=myLane) {
                 leaveLaneAtMove(driven);
