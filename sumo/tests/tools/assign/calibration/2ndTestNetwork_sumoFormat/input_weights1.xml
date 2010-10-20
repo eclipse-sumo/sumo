@@ -1,8 +1,6 @@
-<netstats>
-   <interval begin="25200.00" end="32400.00">
-      <edge id="L4" emitted="0" entered="245"/>
-      <edge id="L6" emitted="0" entered="505"/>
-      <edge id="L9" emitted="0" entered="250"/>
-      <edge id="L11" emitted="0" entered="276"/>
-   </interval>
-</netstats>
+<measurements>
+    <onlink link="L4" start="25200" end="32400" value="245" stddev="8" type="COUNT_VEH"/>
+    <onlink link="L6" start="25200" end="32400" value="505" stddev="8" type="COUNT_VEH"/>
+    <onlink link="L9" start="25200" end="32400" value="250" stddev="8" type="COUNT_VEH"/>
+    <onlink link="L11" start="25200" end="32400" value="276" stddev="8" type="COUNT_VEH"/>
+</measurements>

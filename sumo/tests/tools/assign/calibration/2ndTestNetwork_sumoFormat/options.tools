@@ -1,1 +1,1 @@
--b 25200 -n input_net.net.xml -r routes.rou.alt.xml -d input_weights1.xml -a 3600 -W flows_evaluation.txt -s 20 -X SUMO
+-b 25200 -n input_net.net.xml -r routes.rou.alt.xml -d input_weights1.xml -a 3600 -W flows_evaluation.txt -s 20
