@@ -29,8 +29,6 @@ def main():
     optParser.add_option("-s", "--last-calibration-step", dest="calibStep",
                          type="int", default=100, help="last step of the calibration [default: %default]")
     optParser.add_option("-S", "--demandscale", dest="demandscale", type="float", default=2., help="scaled demand [default: %default]")
-    optParser.add_option("-o", "--od-matrix", dest="odmatrix",
-                         help="sent estimated O-D matrix to", metavar="FILE")
     optParser.add_option("-F", "--freezeit",  dest="freezeit",
                          type="int", default=85, help="define the number of iterations for stablizing the results in the DTA-calibration")
     optParser.add_option("-V", "--varscale",  dest="varscale",
@@ -39,9 +37,6 @@ def main():
                          default = 5, help="number of preparatory iterations")
     optParser.add_option("-W", "--evaluation-prefix", dest="evalprefix",type='string',
                          help="prefix of flow evaluation files ")
-    optParser.add_option("-X", "--measformat",  type="choice", dest="measformat",
-                         choices=('SUMO', 'Cadyts'), 
-                         default = 'Cadyts',help="choose measurement format: SUMO or Cadyts")
     optParser.add_option("-Y", "--bruteforce", action="store_true", dest="bruteforce",
                          default = False, help="fit the traffic counts as accurate as possible")
     optParser.add_option("-Z", "--mincountstddev", type="float", dest="mincountstddev",
@@ -55,7 +50,7 @@ def main():
     optParser.add_option("-T", "--disable-tripinfos", action="store_true", dest="noTripinfo",
                          default=False, help="No tripinfos are written by the simulation")
     optParser.add_option("-M", "--matrix-prefix", dest="fmaprefix", type='string',
-                         default='fmaOD',help="prefix of OD matrix files in visum format")
+                         help="prefix of OD matrix files in visum format")
     optParser.add_option("-N", "--clone-postfix", dest="clonepostfix", type='string',
                          default='-CLONE', help="postfix attached to clone ids")
 
@@ -77,22 +72,18 @@ def main():
     if options.evalprefix:
         evalprefix = options.evalprefix
 
-    if options.overridett:
-        print 'override vehicular departure times'
-
     # begin the calibration
-    if options.odmatrix:
+    if options.fmaprefix:
         call(calibrator + ["INIT", "-varscale", options.varscale, "-freezeit", options.freezeit,
               "-measfile", options.detvals, "-binsize", options.aggregation, "-PREPITS", options.PREPITS,
-               "-measformat", options.measformat, "-bruteforce", options.bruteforce, "-demandscale", options.demandscale,
+               "-bruteforce", options.bruteforce, "-demandscale", options.demandscale,
                "-mincountstddev", options.mincountstddev, "-overridett", options.overridett, "-equiprate", options.equiprate,
                "-clonepostfix", options.clonepostfix, "-fmaprefix", options.fmaprefix], log)
     else:
         call(calibrator + ["INIT", "-varscale", options.varscale, "-freezeit", options.freezeit,
               "-measfile", options.detvals, "-binsize", options.aggregation, "-PREPITS", options.PREPITS,
-               "-measformat", options.measformat, "-bruteforce", options.bruteforce, "-mincountstddev", options.mincountstddev,
-               "-overridett", options.overridett, "-equiprate", options.equiprate,
-               "-clonepostfix", options.clonepostfix, "-fmaprefix", options.fmaprefix], log)
+              "-bruteforce", options.bruteforce, "-mincountstddev", options.mincountstddev,
+               "-overridett", options.overridett, "-equiprate", options.equiprate, "-clonepostfix", options.clonepostfix], log)
 
     for step in range(options.calibStep):
         print 'calibration step:', step
@@ -105,11 +96,8 @@ def main():
             output = "%s_%s.cal.xml" % (routname[:routname.rfind('_')], step)
         else:
             output = "%s_%s.cal.xml" % (routname[:routname.find('.')], step)
-        if options.odmatrix:
-            matrixfile = options.odmatrix[:options.odmatrix.rfind('.')] + '_%s.xml' % step
-            call(calibrator + ["CHOICE", "-choicesetfile", options.routes, "-choicefile", "%s" % output, "-odmatrix", matrixfile], log)
-        else:
-            call(calibrator + ["CHOICE", "-choicesetfile", options.routes, "-choicefile", "%s" % output], log)
+
+        call(calibrator + ["CHOICE", "-choicesetfile", options.routes, "-choicefile", "%s" % output], log)
         files.append(output)
     
         # simulation
