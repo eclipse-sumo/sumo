@@ -1,0 +1,5 @@
+simstep2 5
+
+getvariable 0xa4 0x54 0
+
+simstep2 6
