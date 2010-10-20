@@ -167,10 +167,17 @@ MSLCM_DK2004::wantsChangeToRight(MSAbstractLaneChangeModel::MSLCMessager &msgPas
             myVSafe = myCarFollowModel.ffeV(&myVehicle, neighLead.second, neighLead.first->getSpeed())
                       - (SUMOReal) 0.5;
         }
+
+		// letting vehicles merge in at the end of the lane in case of counter-lane change, step#1, right
+		//   if there is a leader and he wants to change to left (we want to change to right)
 		if(neighLead.first!=0&&(neighLead.first->getLaneChangeModel().getState()&LCA_LEFT)!=0) {
+			// save at least his length in myLeadingBlockerLength
 			myLeadingBlockerLength = MAX2(neighLead.first->getVehicleType().getLength(), myLeadingBlockerLength);
+			// save the left space
 			myLeftSpace = currentDist-myVehicle.getPositionOnLane();
 		}
+		//
+
         return ret|LCA_RIGHT|LCA_URGENT|blocked;
     }
 
@@ -387,10 +394,17 @@ MSLCM_DK2004::wantsChangeToLeft(MSAbstractLaneChangeModel::MSLCMessager &msgPass
         if (neighLead.second>0&&neighLead.second>leader.second) {
             myVSafe = myCarFollowModel.ffeV(&myVehicle, neighLead.second, neighLead.first->getSpeed()) - (SUMOReal) 0.5;
         }
+
+		// letting vehicles merge in at the end of the lane in case of counter-lane change, step#1, left
+		//   if there is a leader and he wants to change to right (we want to change to left)
 		if(neighLead.first!=0&&(neighLead.first->getLaneChangeModel().getState()&LCA_RIGHT)!=0) {
+			// save at least his length in myLeadingBlockerLength
 			myLeadingBlockerLength = MAX2(neighLead.first->getVehicleType().getLength(), myLeadingBlockerLength);
+			// save the left space
 			myLeftSpace = currentDist-myVehicle.getPositionOnLane();
 		}
+		//
+
         return ret|LCA_LEFT|LCA_URGENT|blocked;
     }
 
@@ -518,10 +532,16 @@ MSLCM_DK2004::patchSpeed(SUMOReal min, SUMOReal wanted, SUMOReal max, SUMOReal /
     int state = myState;
     myState = 0;
     myVSafe = -1;
+
+	// letting vehicles merge in at the end of the lane in case of counter-lane change, step#2
 	SUMOReal MAGIC_offset = 1.;
+	//   if we want to change and have a blocking leader and there is enough room for him in front of us
 	if ((state&LCA_URGENT)!=0&&myLeadingBlockerLength!=0&&myLeadingBlockerLength<myLeftSpace-MAGIC_offset) {
+		// compute speed for decelerating towards a place which allows the blocking leader to merge in in front
 		SUMOReal safe = cfModel.ffeS(&myVehicle, myLeftSpace-myLeadingBlockerLength-MAGIC_offset);
+		// if we are approaching this place
 		if(safe<wanted) {
+			// return this speed as the speed to use
 			SUMOReal ret = MAX2(min, safe);
 			myLeadingBlockerLength = 0;
 			myLeftSpace = 0;
@@ -530,6 +550,7 @@ MSLCM_DK2004::patchSpeed(SUMOReal min, SUMOReal wanted, SUMOReal max, SUMOReal /
 	}
 	myLeadingBlockerLength = 0;
 	myLeftSpace = 0;
+	//
 
     // just to make sure to be notified about lane chaning end
     if (myVehicle.getLane().getEdge().getLanes().size()==1) {
