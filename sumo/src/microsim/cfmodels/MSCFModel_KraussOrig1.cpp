@@ -64,7 +64,7 @@ MSCFModel_KraussOrig1::moveHelper(MSVehicle * const veh, const MSLane * const la
             MAX2((SUMOReal) 0, oldV-(SUMOReal)ACCEL2SPEED(myDecel)), //!!! reverify
             vNext,
             MIN3(vSafe, veh->getLane().getMaxSpeed(), maxNextSpeed(oldV)),//vaccel(myState.mySpeed, myLane->maxSpeed())),
-            vSafe);
+            vSafe, *this);
     return MIN4(vNext, vSafe, veh->getLane().getMaxSpeed(), maxNextSpeed(oldV));
 }
 

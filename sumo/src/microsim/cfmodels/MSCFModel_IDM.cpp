@@ -71,7 +71,7 @@ MSCFModel_IDM::moveHelper(MSVehicle * const veh, const MSLane * const lane, SUMO
             MAX2((SUMOReal) 0, veh->getSpeed()-(SUMOReal)ACCEL2SPEED(myDecel)), //!!! reverify
             vNext,
             MIN3(vNext, lane->getMaxSpeed(), maxNextSpeed(oldV)),//vaccel(myState.mySpeed, myLane->maxSpeed())),
-            vNext);
+            vNext, *this);
 }
 
 

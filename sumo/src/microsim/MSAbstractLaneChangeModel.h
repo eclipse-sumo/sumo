@@ -32,6 +32,9 @@
 #include "MSLaneChanger.h"
 #include "MSCFModel.h"
 
+class MSCFModel;
+
+
 // ===========================================================================
 // used enumeration
 // ===========================================================================
@@ -142,7 +145,7 @@ public:
     virtual void *inform(void *info, MSVehicle *sender) = 0;
 
     virtual SUMOReal patchSpeed(SUMOReal min, SUMOReal wanted, SUMOReal max,
-                                SUMOReal vsafe) = 0;
+                                SUMOReal vsafe, const MSCFModel &cfModel) = 0;
 
     virtual void changed() = 0;
 

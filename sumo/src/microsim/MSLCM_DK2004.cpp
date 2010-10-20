@@ -65,7 +65,8 @@
 MSLCM_DK2004::MSLCM_DK2004(MSVehicle &v)
         : MSAbstractLaneChangeModel(v),
         myChangeProbability(0),
-        myVSafe(0), myBlockingLeader(0), myBlockingFollower(0) {}
+        myVSafe(0), myLeadingBlockerLength(0), myLeftSpace(0)
+{}
 
 MSLCM_DK2004::~MSLCM_DK2004() {
     changed();
@@ -159,16 +160,17 @@ MSLCM_DK2004::wantsChangeToRight(MSAbstractLaneChangeModel::MSLCMessager &msgPas
     rv += myVehicle.getVehicleType().getLength() * (SUMOReal) 2.;
 
     SUMOReal tdist = currentDist-myVehicle.getPositionOnLane() - best.occupation * (SUMOReal) JAM_FACTOR2;
-    myBlockingLeader = 0;
-    myBlockingFollower = 0;
+
     if (fabs(best.length-curr.length)>MIN2((SUMOReal) .1, best.lane->getLength()) && bestLaneOffset<0&&currentDistDisallows(tdist/*currentDist*/, bestLaneOffset, rv)) {
         informBlocker(msgPass, blocked, LCA_MRIGHT, neighLead, neighFollow);
         if (neighLead.second>0&&neighLead.second>leader.second) {
             myVSafe = myCarFollowModel.ffeV(&myVehicle, neighLead.second, neighLead.first->getSpeed())
                       - (SUMOReal) 0.5;
         }
-        myBlockingLeader = neighLead.first;
-        myBlockingFollower = neighFollow.first;
+		if(neighLead.first!=0&&(neighLead.first->getLaneChangeModel().getState()&LCA_LEFT)!=0) {
+			myLeadingBlockerLength = MAX2(neighLead.first->getVehicleType().getLength(), myLeadingBlockerLength);
+			myLeftSpace = currentDist-myVehicle.getPositionOnLane();
+		}
         return ret|LCA_RIGHT|LCA_URGENT|blocked;
     }
 
@@ -378,8 +380,6 @@ MSLCM_DK2004::wantsChangeToLeft(MSAbstractLaneChangeModel::MSLCMessager &msgPass
 
 
     SUMOReal tdist = currentDist-myVehicle.getPositionOnLane() - best.occupation * (SUMOReal) JAM_FACTOR2;
-    myBlockingLeader = 0;
-    myBlockingFollower = 0;
     if (fabs(best.length-curr.length)>MIN2((SUMOReal) .1, best.lane->getLength()) && bestLaneOffset>0
             &&
             currentDistDisallows(tdist/*currentDist*/, bestLaneOffset, lv)) {
@@ -387,8 +387,10 @@ MSLCM_DK2004::wantsChangeToLeft(MSAbstractLaneChangeModel::MSLCMessager &msgPass
         if (neighLead.second>0&&neighLead.second>leader.second) {
             myVSafe = myCarFollowModel.ffeV(&myVehicle, neighLead.second, neighLead.first->getSpeed()) - (SUMOReal) 0.5;
         }
-        myBlockingLeader = neighLead.first;
-        myBlockingFollower = neighFollow.first;
+		if(neighLead.first!=0&&(neighLead.first->getLaneChangeModel().getState()&LCA_RIGHT)!=0) {
+			myLeadingBlockerLength = MAX2(neighLead.first->getVehicleType().getLength(), myLeadingBlockerLength);
+			myLeftSpace = currentDist-myVehicle.getPositionOnLane();
+		}
         return ret|LCA_LEFT|LCA_URGENT|blocked;
     }
 
@@ -506,11 +508,29 @@ MSLCM_DK2004::wantsChangeToLeft(MSAbstractLaneChangeModel::MSLCMessager &msgPass
 
 
 SUMOReal
-MSLCM_DK2004::patchSpeed(SUMOReal min, SUMOReal wanted, SUMOReal max, SUMOReal /*vsafe*/) {
-    SUMOReal vSafe = myVSafe;
+MSLCM_DK2004::patchSpeed(SUMOReal min, SUMOReal wanted, SUMOReal max, SUMOReal /*vsafe*/, const MSCFModel &cfModel) {
+#ifdef DEBUG_VEHICLE_GUI_SELECTION
+    if (gSelected.isSelected(GLO_VEHICLE, static_cast<const GUIVehicle*>(&myVehicle)->getGlID())) {
+        int bla = 0;
+    }
+#endif
+	SUMOReal vSafe = myVSafe;
     int state = myState;
     myState = 0;
     myVSafe = -1;
+	SUMOReal MAGIC_offset = 1.;
+	if ((state&LCA_URGENT)!=0&&myLeadingBlockerLength!=0&&myLeadingBlockerLength<myLeftSpace-MAGIC_offset) {
+		SUMOReal safe = cfModel.ffeS(&myVehicle, myLeftSpace-myLeadingBlockerLength-MAGIC_offset);
+		if(safe<wanted) {
+			SUMOReal ret = MAX2(min, safe);
+			myLeadingBlockerLength = 0;
+			myLeftSpace = 0;
+			return ret;
+		}
+	}
+	myLeadingBlockerLength = 0;
+	myLeftSpace = 0;
+
     // just to make sure to be notified about lane chaning end
     if (myVehicle.getLane().getEdge().getLanes().size()==1) {
         // remove chaning information if on a road with a single lane
@@ -611,6 +631,8 @@ void
 MSLCM_DK2004::changed() {
     myChangeProbability = 0;
     myState = 0;
+	myLeadingBlockerLength = 0;
+	myLeftSpace = 0;
 }
 
 
@@ -644,7 +666,10 @@ MSLCM_DK2004::informBlocker(MSAbstractLaneChangeModel::MSLCMessager &msgPass,
 
 
 void
-MSLCM_DK2004::prepareStep() {}
+MSLCM_DK2004::prepareStep() {
+	myLeadingBlockerLength = 0;
+	myLeftSpace = 0;
+}
 
 
 SUMOReal

@@ -63,7 +63,7 @@ MSCFModel_Kerner::moveHelper(MSVehicle * const veh, const MSLane * const lane, S
             MAX2((SUMOReal) 0, oldV-(SUMOReal)ACCEL2SPEED(myDecel)), //!!! reverify
             vSafe,
             MIN3(vSafe, veh->getLane().getMaxSpeed(), maxNextSpeed(oldV)),//vaccel(myState.mySpeed, myLane->maxSpeed())),
-            vSafe);
+            vSafe, *this);
     return MIN4(vNext, vSafe, veh->getLane().getMaxSpeed(), maxNextSpeed(oldV));
 }
 

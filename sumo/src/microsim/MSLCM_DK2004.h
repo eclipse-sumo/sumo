@@ -91,7 +91,7 @@ public:
     virtual void *inform(void *info, MSVehicle *sender);
 
     virtual SUMOReal patchSpeed(SUMOReal min, SUMOReal wanted, SUMOReal max,
-                                SUMOReal vsafe);
+                                SUMOReal vsafe, const MSCFModel &cfModel);
 
     virtual void changed();
 
@@ -135,8 +135,9 @@ protected:
 protected:
     SUMOReal myChangeProbability;
     SUMOReal myVSafe;
-    MSVehicle *myBlockingLeader;
-    MSVehicle *myBlockingFollower;
+
+	SUMOReal myLeadingBlockerLength;
+	SUMOReal myLeftSpace;
 };
 
 
