@@ -284,6 +284,7 @@ TraCIServerAPI_Vehicle::processGet(TraCIServer &server, tcpip::Storage &inputSto
                 tempMsg.writeString((*i)->getID());
             }
         }
+		break;
         case VAR_SIGNALS:
             tempMsg.writeUnsignedByte(TYPE_INTEGER);
             tempMsg.writeInt(v->getSignals());
