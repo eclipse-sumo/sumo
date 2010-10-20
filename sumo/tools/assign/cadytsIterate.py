@@ -65,6 +65,7 @@ def main():
 
     if options.mesosim:
         sumoBinary = os.environ.get("SUMO_BINARY", os.path.join(options.path, "meso"))
+        print 'mesosim in action!'
     else:
         sumoBinary = os.environ.get("SUMO_BINARY", os.path.join(options.path, "sumo"))
     calibrator = ["java", "-cp", options.classpath, "cadyts.interfaces.sumo.SumoController"]
@@ -75,6 +76,9 @@ def main():
     evalprefix = None
     if options.evalprefix:
         evalprefix = options.evalprefix
+
+    if options.overridett:
+        print 'override vehicular departure times'
 
     # begin the calibration
     if options.odmatrix:
