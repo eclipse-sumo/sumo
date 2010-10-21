@@ -1,1 +1,1 @@
--b 25200 -n input_net.net.xml -r routes.rou.alt.xml -d input_measurementsp2p.xml -o matrix.xml -z 0.5 -W flows_evaluation.txt -s 20
+-b 25200 -n input_net.net.xml -r routes.rou.alt.xml -d input_measurementsp2p.xml -M matrix -s 20
