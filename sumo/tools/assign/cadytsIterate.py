@@ -36,15 +36,13 @@ def main():
     optParser.add_option("-P", "--PREPITS",  type="int", dest="PREPITS",
                          default = 5, help="number of preparatory iterations")
     optParser.add_option("-W", "--evaluation-prefix", dest="evalprefix",type='string',
-                         help="prefix of flow evaluation files ")
+                         help="prefix of flow evaluation files; only for the calibration with use of detector data")
     optParser.add_option("-Y", "--bruteforce", action="store_true", dest="bruteforce",
                          default = False, help="fit the traffic counts as accurate as possible")
     optParser.add_option("-Z", "--mincountstddev", type="float", dest="mincountstddev",
                          default = 25., help="minimal traffic count standard deviation")
     optParser.add_option("-O", "--overridett", action="store_true", dest="overridett",
                          default= False, help="override depart times according to updated link travel times", metavar="FILE")
-    optParser.add_option("-z", "--equiprate", type="float", dest="equiprate",
-                         default = 0., help="vehicle re-identification equipment rate [default: %default]")
     optParser.add_option("-E", "--disable-emissions", action="store_true", dest="noEmissions",
                          default=False, help="No emissions are written by the simulation")
     optParser.add_option("-T", "--disable-tripinfos", action="store_true", dest="noTripinfo",
@@ -77,13 +75,13 @@ def main():
         call(calibrator + ["INIT", "-varscale", options.varscale, "-freezeit", options.freezeit,
               "-measfile", options.detvals, "-binsize", options.aggregation, "-PREPITS", options.PREPITS,
                "-bruteforce", options.bruteforce, "-demandscale", options.demandscale,
-               "-mincountstddev", options.mincountstddev, "-overridett", options.overridett, "-equiprate", options.equiprate,
+               "-mincountstddev", options.mincountstddev, "-overridett", options.overridett,
                "-clonepostfix", options.clonepostfix, "-fmaprefix", options.fmaprefix], log)
     else:
         call(calibrator + ["INIT", "-varscale", options.varscale, "-freezeit", options.freezeit,
               "-measfile", options.detvals, "-binsize", options.aggregation, "-PREPITS", options.PREPITS,
               "-bruteforce", options.bruteforce, "-mincountstddev", options.mincountstddev,
-               "-overridett", options.overridett, "-equiprate", options.equiprate, "-clonepostfix", options.clonepostfix], log)
+               "-overridett", options.overridett, "-clonepostfix", options.clonepostfix], log)
 
     for step in range(options.calibStep):
         print 'calibration step:', step
