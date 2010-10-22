@@ -1606,34 +1606,35 @@ MSVehicle::getBestLanes(bool forceRebuild, MSLane *startLane) const throw() {
             q.lane = cl;
             q.bestContinuations.push_back(cl);
             q.bestLaneOffset = 0;
-            if (nextStopEdge==*ce) {
-                if (nextStopLane==cl) {
-                    q.allowsContinuation = allowed==0||find(allowed->begin(), allowed->end(), cl)!=allowed->end();
-                    q.length = cl->getLength();
-                } else {
-                    q.allowsContinuation = false;
-                    q.length = nextStopPos;
-                }
-                progress = false;
-            } else {
-                if (allowed==0||find(allowed->begin(), allowed->end(), cl)!=allowed->end()) {
-                    q.allowsContinuation = true;
-                } else {
-                    q.allowsContinuation = false;
-                }
-                q.length = cl->getLength();
-            }
+			q.length = cl->getLength();
+			q.allowsContinuation = allowed==0||find(allowed->begin(), allowed->end(), cl)!=allowed->end();
             currentLanes.push_back(q);
         }
+        //
+		if (nextStopEdge==*ce) {
+			progress = false;
+			for (std::vector<LaneQ>::iterator q=currentLanes.begin(); q!=currentLanes.end(); ++q) {
+				if (nextStopLane!=(*q).lane) {
+			        (*q).allowsContinuation = false;
+				    (*q).length = nextStopPos;
+				}
+			}
+		}
 
         myBestLanes.push_back(currentLanes);
-        //
+		int laneNo = currentLanes.size();
         ++seen;
         seenLength += currentLanes[0].lane->getLength();
+		progress &= (nextStopEdge!=*ce);
         ++ce;
         progress &= (seen<=4 || seenLength<3000);
         progress &= seen<=8;
         progress &= ce!=myRoute->end();
+		/*
+		if(progress) {
+			progress &= (laneNo!=1||(*ce)->getLanes().size()!=1);
+		}
+		*/
     }
 
     // we are examining the last lane explicitely
@@ -1641,18 +1642,17 @@ MSVehicle::getBestLanes(bool forceRebuild, MSLane *startLane) const throw() {
         SUMOReal bestLength = -1;
         int bestThisIndex = 0;
         int index = 0;
-        for (std::vector<LaneQ>::iterator j=myBestLanes.back().begin(); j!=myBestLanes.back().end(); ++j, ++index) {
+		std::vector<LaneQ> &last = myBestLanes.back();
+        for (std::vector<LaneQ>::iterator j=last.begin(); j!=last.end(); ++j, ++index) {
             if ((*j).length>bestLength) {
                 bestLength = (*j).length;
                 bestThisIndex = index;
             }
         }
         index = 0;
-        for (std::vector<LaneQ>::iterator j=myBestLanes.back().begin(); j!=myBestLanes.back().end(); ++j, ++index) {
+        for (std::vector<LaneQ>::iterator j=last.begin(); j!=last.end(); ++j, ++index) {
             if ((*j).length<bestLength) {
                 (*j).bestLaneOffset = bestThisIndex - index;
-            } else {
-                (*j).bestLaneOffset = 0;
             }
         }
     }
