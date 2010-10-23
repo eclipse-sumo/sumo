@@ -5,19 +5,19 @@
 initial_ok
 
 # initial network's program has a false phase size (one too large)
-initial_wrong_phase_size1
+initial_phase_longer
 
 # initial network's program has a false phase size (one too few)
-initial_wrong_phase_size2
+initial_phase_shorter
 
 # ok, loaded program is right
 loaded_ok
 
 # loaded program has a false phase size (one too large)
-loaded_wrong_phase_size1
+loaded_phase_longer
 
 # loaded program has a false phase size (one too large)
-loaded_wrong_phase_size2
+loaded_phase_shorter
 
 
 
