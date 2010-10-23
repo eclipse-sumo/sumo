@@ -1,2 +1,2 @@
--n net.net.xml
+--no-step-log --no-duration-log -n net.net.xml
 
