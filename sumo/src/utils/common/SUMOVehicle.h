@@ -41,7 +41,6 @@ class MSRoute;
 class MSEdge;
 class MSLane;
 class MSDevice;
-class MSVehicleQuitReminded;
 
 typedef std::vector<const MSEdge*> MSEdgeVector;
 

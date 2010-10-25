@@ -600,11 +600,6 @@ public:
     }
 
 
-
-    void quitRemindedEntered(MSVehicleQuitReminded *r);
-    void quitRemindedLeft(MSVehicleQuitReminded *r);
-
-
     MSAbstractLaneChangeModel &getLaneChangeModel();
     const MSAbstractLaneChangeModel &getLaneChangeModel() const;
 
@@ -1156,10 +1151,6 @@ private:
     /// @brief Offsets for prior move reminder
     OffsetVector myOldLaneMoveReminderOffsets;
     /// @}
-
-    typedef std::vector<MSVehicleQuitReminded*> QuitRemindedVector;
-    QuitRemindedVector myQuitReminded;
-
 
 
     /**
