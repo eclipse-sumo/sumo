@@ -29,8 +29,17 @@
 #include <config.h>
 #endif
 
-#include "MSE2Collector.h"
-#include <utils/iodevices/OutputDevice.h>
+#include <microsim/output/MSDetectorFileOutput.h>
+#include <utils/common/UtilExceptions.h>
+
+
+// ===========================================================================
+// class declarations
+// ===========================================================================
+class MSLane;
+class SUMOVehicle;
+class OutputDevice;
+class MSE2Collector;
 
 
 // ===========================================================================

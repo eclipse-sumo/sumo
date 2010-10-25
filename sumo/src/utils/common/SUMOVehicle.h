@@ -117,10 +117,6 @@ public:
 
     virtual SUMOReal getPreDawdleAcceleration() const throw() = 0;
 
-    virtual void quitRemindedEntered(MSVehicleQuitReminded *r) = 0;
-
-    virtual void quitRemindedLeft(MSVehicleQuitReminded *r) = 0;
-
     virtual MSLane &getLane() const throw() = 0;
 
     virtual SUMOReal getPositionOnActiveMoveReminderLane(const MSLane * const searchedLane) const throw() = 0;
@@ -128,10 +124,6 @@ public:
     virtual SUMOTime getLastEntryTime() const throw() = 0;
 
     virtual SUMOReal getSegmentLength() const throw() = 0;
-
-    virtual bool isOnFirst() const throw() = 0;
-
-    virtual bool isOnLast() const throw() = 0;
 
 };
 

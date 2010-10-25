@@ -37,6 +37,7 @@
 #include <microsim/output/MSMeanData_Harmonoise.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/options/Option.h>
+#include <utils/common/MsgHandler.h>
 
 #ifdef _MESSAGES
 #include <microsim/output/MSMsgInductLoop.h>

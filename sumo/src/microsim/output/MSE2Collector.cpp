@@ -27,7 +27,9 @@
 #include <config.h>
 #endif
 
+#include <algorithm>
 #include "MSE2Collector.h"
+#include <microsim/MSVehicleType.h>
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -61,9 +63,6 @@ MSE2Collector::MSE2Collector(const std::string &id, DetectorUsage usage,
 
 
 MSE2Collector::~MSE2Collector() throw() {
-    for (std::list<SUMOVehicle*>::iterator i=myKnownVehicles.begin(); i!=myKnownVehicles.end(); ++i) {
-        (*i)->quitRemindedLeft(this);
-    }
     myKnownVehicles.clear();
 }
 
@@ -78,11 +77,9 @@ MSE2Collector::isStillActive(SUMOVehicle& veh, SUMOReal oldPos,
     if (oldPos <= myStartPos && newPos > myStartPos) {
         if (find(myKnownVehicles.begin(), myKnownVehicles.end(), &veh)==myKnownVehicles.end()) {
             myKnownVehicles.push_back(&veh);
-            veh.quitRemindedEntered(this);
         }
     }
     if (newPos - veh.getVehicleType().getLength() > myEndPos) {
-        veh.quitRemindedLeft(this);
         std::list<SUMOVehicle*>::iterator i = find(myKnownVehicles.begin(), myKnownVehicles.end(), &veh);
         if (i!=myKnownVehicles.end()) {
             myKnownVehicles.erase(i);
@@ -100,7 +97,6 @@ MSE2Collector::notifyLeave(SUMOVehicle& veh, bool isArrival, bool isLaneChange) 
         if (i!=myKnownVehicles.end()) {
             myKnownVehicles.erase(i);
         }
-        veh.quitRemindedLeft(this);
     }
 }
 
@@ -109,7 +105,6 @@ bool
 MSE2Collector::notifyEnter(SUMOVehicle& veh, bool, bool) throw() {
     if (veh.getPositionOnLane() >= myStartPos && veh.getPositionOnLane() - veh.getVehicleType().getLength() < myEndPos) {
         // vehicle is on detector
-        veh.quitRemindedEntered(this);
         myKnownVehicles.push_back(&veh);
         return true;
     }
@@ -439,12 +434,6 @@ MSE2Collector::getCurrentJamLengthInMeters() const throw() {
 unsigned
 MSE2Collector::getCurrentStartedHalts() const throw() {
     return myCurrentStartedHalts;
-}
-
-
-void
-MSE2Collector::removeOnTripEnd(SUMOVehicle *veh) throw() {
-    myKnownVehicles.erase(find(myKnownVehicles.begin(), myKnownVehicles.end(), veh));
 }
 
 

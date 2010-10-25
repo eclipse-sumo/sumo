@@ -119,7 +119,7 @@ MSE3Collector::MSE3Collector(const std::string &id,
                              const CrossSectionVector &exits,
                              SUMOReal haltingSpeedThreshold,
                              SUMOTime haltingTimeThreshold) throw()
-        : myID(id), myEntries(entries), myExits(exits),
+        : Named(id), myEntries(entries), myExits(exits),
         myHaltingTimeThreshold(haltingTimeThreshold), myHaltingSpeedThreshold(haltingSpeedThreshold),
         myCurrentMeanSpeed(0), myCurrentHaltingsNumber(0), myCurrentTouchedVehicles(0),
         myLastResetTime(-1) {
@@ -135,9 +135,6 @@ MSE3Collector::MSE3Collector(const std::string &id,
 
 
 MSE3Collector::~MSE3Collector() throw() {
-    for (std::map<SUMOVehicle*, E3Values>::iterator pair = myEnteredContainer.begin(); pair!=myEnteredContainer.end(); ++pair) {
-        pair->first->quitRemindedLeft(this);
-    }
     for (std::vector<MSE3EntryReminder*>::iterator i = myEntryReminders.begin(); i!=myEntryReminders.end(); ++i) {
         delete *i;
     }
@@ -160,7 +157,6 @@ MSE3Collector::enter(SUMOVehicle& veh, SUMOReal entryTimestep) throw() {
         MsgHandler::getWarningInstance()->inform("Vehicle '" + veh.getID() + "' reentered E3-detector '" + getID() + "'.");
         return;
     }
-    veh.quitRemindedEntered(this);
     SUMOReal entryTimestepFraction = ((SUMOReal) DELTA_T - fmod(entryTimestep * 1000., 1000.)) / (SUMOReal) DELTA_T;
     SUMOReal speedFraction = (veh.getSpeed() * entryTimestepFraction);
     E3Values v;
@@ -206,23 +202,6 @@ MSE3Collector::leave(SUMOVehicle& veh, SUMOReal leaveTimestep) throw() {
         }
         myEnteredContainer.erase(&veh);
         myLeftContainer[&veh] = values;
-    }
-    veh.quitRemindedLeft(this);
-}
-
-
-const std::string&
-MSE3Collector::getID() const throw() {
-    return myID;
-}
-
-
-void
-MSE3Collector::removeOnTripEnd(SUMOVehicle *veh) throw() {
-    if (myEnteredContainer.find(veh)==myEnteredContainer.end()) {
-        MsgHandler::getWarningInstance()->inform("Vehicle '" + veh->getID() + "' left E3-detector '" + getID() + "' before entering it.");
-    } else {
-        myEnteredContainer.erase(veh);
     }
 }
 

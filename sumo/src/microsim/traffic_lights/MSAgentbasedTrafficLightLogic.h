@@ -33,7 +33,6 @@
 #include <vector>
 #include <bitset>
 #include <map>
-#include <microsim/MSEventControl.h>
 #include "MSTrafficLightLogic.h"
 #include "MSSimpleTrafficLightLogic.h"
 #include <microsim/output/MS_E2_ZS_CollectorOverLanes.h>

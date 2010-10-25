@@ -30,7 +30,6 @@
 #endif
 
 #include <microsim/MSAbstractLaneChangeModel.h>
-#include <microsim/MSVehicleQuitReminded.h>
 #include <vector>
 
 // ===========================================================================

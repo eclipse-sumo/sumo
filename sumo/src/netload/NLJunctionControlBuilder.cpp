@@ -47,6 +47,7 @@
 #include <utils/common/UtilExceptions.h>
 #include "NLJunctionControlBuilder.h"
 #include <microsim/traffic_lights/MSTLLogicControl.h>
+#include <utils/common/ToString.h>
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>

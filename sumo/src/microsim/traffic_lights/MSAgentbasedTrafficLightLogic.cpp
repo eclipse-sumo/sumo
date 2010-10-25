@@ -30,13 +30,11 @@
 #include <utility>
 #include <vector>
 #include <bitset>
-#include <microsim/MSEventControl.h>
-#include <microsim/output/MSInductLoop.h>
-#include <microsim/MSNet.h>
 #include "MSTrafficLightLogic.h"
 #include "MSAgentbasedTrafficLightLogic.h"
 #include <netload/NLDetectorBuilder.h>
 #include <utils/common/TplConvert.h>
+#include <microsim/MSLane.h>
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>

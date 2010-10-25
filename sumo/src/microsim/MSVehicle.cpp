@@ -33,7 +33,6 @@
 #include "MSNet.h"
 #include "MSRoute.h"
 #include "MSLinkCont.h"
-#include "MSVehicleQuitReminded.h"
 #include <utils/common/StringUtils.h>
 #include <utils/common/StdDefs.h>
 #include <microsim/MSVehicleControl.h>
@@ -133,10 +132,6 @@ MSVehicle::State::State(SUMOReal pos, SUMOReal speed) :
  * MSVehicle-methods
  * ----------------------------------------------------------------------- */
 MSVehicle::~MSVehicle() throw() {
-    // remove move reminder
-    for (QuitRemindedVector::iterator i=myQuitReminded.begin(); i!=myQuitReminded.end(); ++i) {
-        (*i)->removeOnTripEnd(this);
-    }
     // delete the route
     myRoute->release();
     // delete values in CORN
@@ -322,11 +317,6 @@ MSVehicle::onRemovalFromNet(bool forTeleporting) throw() {
     SUMOReal oldPos = pos - SPEED2DIST(pspeed);
     // process reminder
     workOnMoveReminders(oldPos, pos, pspeed);
-    // remove from structures to be informed about it
-    for (QuitRemindedVector::iterator i=myQuitReminded.begin(); i!=myQuitReminded.end(); ++i) {
-        (*i)->removeOnTripEnd(this);
-    }
-    myQuitReminded.clear();
     for (std::vector< MSDevice* >::iterator dev=myDevices.begin(); dev != myDevices.end(); ++dev) {
         (*dev)->onRemovalFromNet();
     }
@@ -1526,21 +1516,6 @@ MSVehicle::getLaneChangeModel() {
 const MSAbstractLaneChangeModel &
 MSVehicle::getLaneChangeModel() const {
     return *myLaneChangeModel;
-}
-
-
-void
-MSVehicle::quitRemindedEntered(MSVehicleQuitReminded *r) {
-    myQuitReminded.push_back(r);
-}
-
-
-void
-MSVehicle::quitRemindedLeft(MSVehicleQuitReminded *r) {
-    QuitRemindedVector::iterator i = find(myQuitReminded.begin(), myQuitReminded.end(), r);
-    if (i!=myQuitReminded.end()) {
-        myQuitReminded.erase(i);
-    }
 }
 
 

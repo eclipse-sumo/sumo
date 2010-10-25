@@ -61,9 +61,6 @@ MSInductLoop::MSInductLoop(const std::string& id,
 
 
 MSInductLoop::~MSInductLoop() throw() {
-    if (myCurrentVehicle!=0) {
-        myCurrentVehicle->quitRemindedLeft(this);
-    }
     myCurrentVehicle = 0;
 }
 
@@ -247,7 +244,6 @@ void
 MSInductLoop::enterDetectorByMove(SUMOVehicle& veh,
                                   SUMOReal entryTimestep) throw() {
     myVehiclesOnDet.insert(std::make_pair(&veh, entryTimestep));
-    veh.quitRemindedEntered(this);
     if (myCurrentVehicle!=0&&myCurrentVehicle!=&veh) {
         // in fact, this is an error - a second vehicle is on the detector
         //  before the first one leaves... (collision)
@@ -273,7 +269,6 @@ MSInductLoop::leaveDetectorByMove(SUMOVehicle& veh,
     myLastOccupancy = leaveTimestep - entryTimestep;
     myLastLeaveTime = leaveTimestep;
     myCurrentVehicle = 0;
-    veh.quitRemindedLeft(this);
 }
 
 
@@ -283,14 +278,6 @@ MSInductLoop::leaveDetectorByLaneChange(SUMOVehicle& veh) throw() {
     myVehiclesOnDet.erase(&veh);
     myDismissedVehicleNumber++;
     myCurrentVehicle = 0;
-    veh.quitRemindedLeft(this);
-}
-
-
-void
-MSInductLoop::removeOnTripEnd(SUMOVehicle *veh) throw() {
-    myCurrentVehicle = 0;
-    myVehiclesOnDet.erase(veh);
 }
 
 

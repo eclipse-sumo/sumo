@@ -184,8 +184,7 @@ public:
      *
      * Sets the optional information about arival if forTeleporting is false
      *  (the vehicle has arrived). Moves along work reminders and
-     *  informs all devices and assigned MSVehicleQuitReminded instances
-     *  about quitting. Calls "leaveLane" then.
+     *  informs all devices about quitting. Calls "leaveLane" then.
      *
      * @param[in] forTeleporting true if the vehicle shall be teleported (otherwise it has reached its destination)
      */
@@ -1035,12 +1034,6 @@ protected:
     }
     SUMOReal getSegmentLength() const throw() {
         return 0;
-    }
-    bool isOnFirst() const throw() {
-        return false;
-    }
-    bool isOnLast() const throw() {
-        return false;
     }
 #endif
 

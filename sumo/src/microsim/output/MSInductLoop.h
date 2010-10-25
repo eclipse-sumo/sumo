@@ -34,10 +34,7 @@
 #include <map>
 #include <functional>
 #include <microsim/MSMoveReminder.h>
-#include <microsim/MSNet.h>
-#include <microsim/MSVehicleQuitReminded.h>
 #include <microsim/output/MSDetectorFileOutput.h>
-#include <utils/iodevices/OutputDevice.h>
 #include <utils/common/Named.h>
 
 
@@ -46,9 +43,7 @@
 // ===========================================================================
 class MSLane;
 class MSVehicle;
-class GUIDetectorWrapper;
-class GUIGlObjectStorage;
-class GUILaneWrapper;
+class OutputDevice;
 
 
 // ===========================================================================
@@ -75,7 +70,7 @@ class GUILaneWrapper;
  */
 class MSInductLoop
         : public MSMoveReminder, public MSDetectorFileOutput,
-            public MSVehicleQuitReminded, public Named {
+            public Named {
 public:
     /**
      * @brief Constructor.
@@ -249,18 +244,6 @@ public:
      * @exception IOError If an error on writing occurs (!!! not yet implemented)
      */
     void writeXMLDetectorProlog(OutputDevice &dev) const throw(IOError);
-    /// @}
-
-
-
-    /// @name Methods inherited from MSVehicleQuitReminded.
-    /// @{
-
-    /** @brief Removes the information that the vehicle is on the detector
-     *
-     * @param[in] veh The vehicle that was on the detector and leaves the simuation
-     */
-    void removeOnTripEnd(SUMOVehicle *veh) throw();
     /// @}
 
 

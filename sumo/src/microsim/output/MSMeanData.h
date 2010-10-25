@@ -90,8 +90,6 @@ public:
          */
         virtual void addTo(MeanDataValues& val) const throw() = 0;
 
-        /// @name Methods inherited from MSMoveReminder.
-        /// @{
 
         /** @brief Tests whether the vehicles type is to be regarded
          *
@@ -99,7 +97,6 @@ public:
          * @return whether the type of the vehicle is in the set of regarded types
          */
         bool vehicleApplies(const SUMOVehicle& veh) const throw();
-        //@}
 
 
         /** @brief Returns whether any data was collected.

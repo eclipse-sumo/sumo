@@ -29,20 +29,20 @@
 #include <config.h>
 #endif
 
-#include <microsim/MSMoveReminder.h>
-#include <microsim/MSLane.h>
-#include <microsim/MSVehicleQuitReminded.h>
-#include <microsim/output/MSDetectorFileOutput.h>
-#include <utils/common/ToString.h>
-#include <string>
-#include <cassert>
 #include <vector>
-#include <limits>
-#include <set>
-#include <utils/iodevices/OutputDevice.h>
-#include <utils/common/MsgHandler.h>
-#include <utils/common/UtilExceptions.h>
+#include <list>
 #include <utils/common/Named.h>
+#include <microsim/MSMoveReminder.h>
+#include <microsim/output/MSDetectorFileOutput.h>
+#include <utils/common/UtilExceptions.h>
+#include <utils/common/SUMOVehicle.h>
+
+
+// ===========================================================================
+// class declarations
+// ===========================================================================
+class MSLane;
+class OutputDevice;
 
 
 // ===========================================================================
@@ -71,7 +71,7 @@
  * @see MSDetectorFileOutput
  * @see Command
  */
-class MSE2Collector : public Named, public MSMoveReminder, public MSDetectorFileOutput, public MSVehicleQuitReminded {
+class MSE2Collector : public Named, public MSMoveReminder, public MSDetectorFileOutput {
 public:
     /** @brief Constructor
      *
@@ -191,18 +191,6 @@ public:
      * @exception IOError If an error on writing occurs (!!! not yet implemented)
      */
     void writeXMLDetectorProlog(OutputDevice &dev) const throw(IOError);
-    /// @}
-
-
-
-    /// @name Methods inherited from MSVehicleQuitReminded.
-    /// @{
-
-    /** @brief Removes the information that the vehicle is on the detector
-     *
-     * @param[in] veh The vehicle that was on the detector and leaves the simuation
-     */
-    void removeOnTripEnd(SUMOVehicle *veh) throw();
     /// @}
 
 

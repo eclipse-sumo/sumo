@@ -62,9 +62,6 @@ MSMsgInductLoop::MSMsgInductLoop(const std::string& id, const std::string& msg,
 
 
 MSMsgInductLoop::~MSMsgInductLoop() throw() {
-    if (myCurrentVehicle!=0) {
-        myCurrentVehicle->quitRemindedLeft(this);
-    }
     myCurrentVehicle = 0;
 }
 
@@ -227,7 +224,6 @@ void
 MSMsgInductLoop::enterDetectorByMove(SUMOVehicle& veh,
                                      SUMOReal entryTimestep) throw() {
     myVehiclesOnDet.insert(std::make_pair(&veh, entryTimestep));
-    veh.quitRemindedEntered(this);
     myCurrentVehicle = &veh;
 }
 
@@ -245,7 +241,6 @@ MSMsgInductLoop::leaveDetectorByMove(SUMOVehicle& veh,
     myLastLeaveTime = leaveTimestep;
     myCurrentID = myCurrentVehicle->getID();
     myCurrentVehicle = 0;
-    veh.quitRemindedLeft(this);
 }
 
 
@@ -256,15 +251,8 @@ MSMsgInductLoop::leaveDetectorByLaneChange(SUMOVehicle& veh) throw() {
     myDismissedVehicleNumber++;
     myCurrentID = myCurrentVehicle->getID();
     myCurrentVehicle = 0;
-    veh.quitRemindedLeft(this);
 }
 
-
-void
-MSMsgInductLoop::removeOnTripEnd(SUMOVehicle *veh) throw() {
-    myCurrentVehicle = 0;
-    myVehiclesOnDet.erase(veh);
-}
 
 #endif
 

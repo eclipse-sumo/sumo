@@ -29,24 +29,22 @@
 #include <config.h>
 #endif
 
-#include <microsim/MSMoveReminder.h>
-#include <microsim/output/MSDetectorFileOutput.h>
-#include <microsim/output/MSCrossSection.h>
 #include <string>
 #include <cassert>
 #include <vector>
 #include <limits>
-#include <microsim/MSVehicleQuitReminded.h>
-#include <utils/common/ToString.h>
-#include <utils/iodevices/OutputDevice.h>
-#include <utils/common/MsgHandler.h>
+#include <microsim/MSMoveReminder.h>
+#include <microsim/output/MSDetectorFileOutput.h>
+#include <utils/common/Named.h>
+#include <microsim/output/MSCrossSection.h>
 #include <utils/common/UtilExceptions.h>
 
 
 // ===========================================================================
 // class declarations
 // ===========================================================================
-class MSVehicle;
+class SUMOVehicle;
+class OutputDevice;
 
 
 // ===========================================================================
@@ -61,8 +59,7 @@ class MSVehicle;
  *  out-cross-section. Vehicles passing the out-cross-section without having
  *  passed the in-cross-section are not detected.
  */
-class MSE3Collector : public MSDetectorFileOutput,
-            public MSVehicleQuitReminded {
+class MSE3Collector : public MSDetectorFileOutput, public Named {
 public:
     /**
      * @class MSE3EntryReminder
@@ -244,28 +241,6 @@ public:
     void leave(SUMOVehicle& veh, SUMOReal leaveTimestep) throw();
 
 
-    /** @brief Returns the id of the detector
-     * @return The id of the detector
-     */
-    const std::string& getID() const throw();
-
-
-
-    /// @name Methods inherited from MSVehicleQuitReminded.
-    /// @{
-
-    /** @brief Removes a vehicle which entered the area but quitted before leaving it
-     *
-     * Remove vehicles that entered the detector but reached their destination before
-     *  passing the leave-cross-section from internal containers.
-     *
-     * @param[in] veh The vehicle to remove
-     */
-    void removeOnTripEnd(SUMOVehicle *veh) throw();
-    /// @}
-
-
-
     /// @name Methods returning current values
     /// @{
 
@@ -340,9 +315,6 @@ public:
 
 
 protected:
-    /// @brief The detector's id
-    std::string myID;
-
     /// @brief The detector's entries
     CrossSectionVector myEntries;
 
