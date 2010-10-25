@@ -6,6 +6,6 @@
 	>
 	<Tool
 		Name="VCCLCompilerTool"
-		PreprocessorDefinitions="HAVE_MESOSIM;NO_TRACI"
+		PreprocessorDefinitions="HAVE_MESOSIM"
 	/>
 </VisualStudioPropertySheet>
