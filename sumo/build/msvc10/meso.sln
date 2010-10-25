@@ -1,10 +1,14 @@
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "sumo-gui", "guisim\guisim.vcxproj", "{F1904C42-F231-4B9D-AD80-E2971969AFA0}"
+	ProjectSection(ProjectDependencies) = postProject
+		{00A244E4-0F0D-49B9-A557-5EF1F8B98D7C} = {00A244E4-0F0D-49B9-A557-5EF1F8B98D7C}
+	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "sumo", "sumo\sumo.vcxproj", "{08C90F3F-95F3-46C7-8D87-63AF6DF5558C}"
 	ProjectSection(ProjectDependencies) = postProject
 		{308BEB29-142B-4088-BD41-80E273E20D3A} = {308BEB29-142B-4088-BD41-80E273E20D3A}
+		{00A244E4-0F0D-49B9-A557-5EF1F8B98D7C} = {00A244E4-0F0D-49B9-A557-5EF1F8B98D7C}
 	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "y_libgui", "y_libgui\y_libgui.vcxproj", "{C9CC8A55-BCF5-44D8-9E22-55EA09757C60}"
@@ -69,6 +73,8 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "z_libutils_gui_events", "z_libutils_gui_events\z_libutils_gui_events.vcxproj", "{F574684D-2052-46AB-99B9-AFD5DA2174A6}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "z_libgui_dialogs", "z_libgui_dialogs\z_libgui_dialogs.vcxproj", "{80AC8A07-6702-4D2E-AF75-F8DB7FDA169A}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "z_optional_libtraciserver", "z_optional_libtraciserver\z_optional_libtraciserver.vcxproj", "{00A244E4-0F0D-49B9-A557-5EF1F8B98D7C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -464,6 +470,18 @@ Global
 		{80AC8A07-6702-4D2E-AF75-F8DB7FDA169A}.Release|Win32.Build.0 = MesoRelease|Win32
 		{80AC8A07-6702-4D2E-AF75-F8DB7FDA169A}.Release|x64.ActiveCfg = MesoRelease|x64
 		{80AC8A07-6702-4D2E-AF75-F8DB7FDA169A}.Release|x64.Build.0 = MesoRelease|x64
+		{00A244E4-0F0D-49B9-A557-5EF1F8B98D7C}.Debug|Win32.ActiveCfg = Debug|Win32
+		{00A244E4-0F0D-49B9-A557-5EF1F8B98D7C}.Debug|Win32.Build.0 = Debug|Win32
+		{00A244E4-0F0D-49B9-A557-5EF1F8B98D7C}.Debug|x64.ActiveCfg = Debug|x64
+		{00A244E4-0F0D-49B9-A557-5EF1F8B98D7C}.Debug|x64.Build.0 = Debug|x64
+		{00A244E4-0F0D-49B9-A557-5EF1F8B98D7C}.Fastbuild|Win32.ActiveCfg = Fastbuild|Win32
+		{00A244E4-0F0D-49B9-A557-5EF1F8B98D7C}.Fastbuild|Win32.Build.0 = Fastbuild|Win32
+		{00A244E4-0F0D-49B9-A557-5EF1F8B98D7C}.Fastbuild|x64.ActiveCfg = Fastbuild|x64
+		{00A244E4-0F0D-49B9-A557-5EF1F8B98D7C}.Fastbuild|x64.Build.0 = Fastbuild|x64
+		{00A244E4-0F0D-49B9-A557-5EF1F8B98D7C}.Release|Win32.ActiveCfg = Release|Win32
+		{00A244E4-0F0D-49B9-A557-5EF1F8B98D7C}.Release|Win32.Build.0 = Release|Win32
+		{00A244E4-0F0D-49B9-A557-5EF1F8B98D7C}.Release|x64.ActiveCfg = Release|x64
+		{00A244E4-0F0D-49B9-A557-5EF1F8B98D7C}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
