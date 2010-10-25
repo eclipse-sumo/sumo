@@ -22,6 +22,7 @@
 			OutputDirectory="$(ConfigurationName)"
 			IntermediateDirectory="$(ConfigurationName)"
 			ConfigurationType="4"
+			InheritedPropertySheets="..\Win32.vsprops"
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
@@ -80,6 +81,7 @@
 			OutputDirectory="$(PlatformName)\$(ConfigurationName)"
 			IntermediateDirectory="$(PlatformName)\$(ConfigurationName)"
 			ConfigurationType="4"
+			InheritedPropertySheets="..\x64.vsprops"
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
@@ -139,6 +141,7 @@
 			OutputDirectory="$(ConfigurationName)"
 			IntermediateDirectory="$(ConfigurationName)"
 			ConfigurationType="4"
+			InheritedPropertySheets="..\Win32.vsprops;..\Release.vsprops"
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
@@ -195,6 +198,7 @@
 			OutputDirectory="$(PlatformName)\$(ConfigurationName)"
 			IntermediateDirectory="$(PlatformName)\$(ConfigurationName)"
 			ConfigurationType="4"
+			InheritedPropertySheets="..\x64.vsprops;..\Release.vsprops"
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
@@ -252,6 +256,7 @@
 			OutputDirectory="$(ConfigurationName)"
 			IntermediateDirectory="$(ConfigurationName)"
 			ConfigurationType="4"
+			InheritedPropertySheets="..\Win32.vsprops;..\Fastbuild.vsprops"
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
@@ -308,6 +313,7 @@
 			OutputDirectory="$(PlatformName)\$(ConfigurationName)"
 			IntermediateDirectory="$(PlatformName)\$(ConfigurationName)"
 			ConfigurationType="4"
+			InheritedPropertySheets="..\x64.vsprops;..\Fastbuild.vsprops"
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
