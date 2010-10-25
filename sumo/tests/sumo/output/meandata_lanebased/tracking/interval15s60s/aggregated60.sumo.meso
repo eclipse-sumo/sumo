@@ -1,6 +1,8 @@
 <?xml version="1.0"?>
 
-<!-- generated on 08/29/10 08:13:22 by SUMO sumo Version dev-SVN-r9006
+<!-- generated on Mon Oct 25 11:22:50 2010 by SUMO sumo Version dev-SVN-r9300
+<?xml version="1.0" encoding="iso-8859-1"?>
+
 <configuration>
 
     <input>
@@ -27,12 +29,12 @@
 
 <netstats>
     <interval begin="0.00" end="60.00" id="dump_60">
-        <edge id="3/1to2/1" sampledSeconds="82.44" traveltime="41.22" waitingTime="61.83" speed="2.37" departed="0" arrived="0" entered="2" left="2" laneChangedFrom="0" laneChangedTo="0"/>
-        <edge id="4/1to3/1" sampledSeconds="61.83" traveltime="30.91" waitingTime="41.22" speed="3.16" departed="2" arrived="0" entered="0" left="2" laneChangedFrom="0" laneChangedTo="0"/>
+        <edge id="3/1to2/1" sampledSeconds="82.44" traveltime="41.22" waitingTime="0.00" speed="9.47" departed="0" arrived="0" entered="2" left="2" laneChangedFrom="0" laneChangedTo="0"/>
+        <edge id="4/1to3/1" sampledSeconds="61.83" traveltime="30.91" waitingTime="0.00" speed="9.47" departed="2" arrived="0" entered="0" left="2" laneChangedFrom="0" laneChangedTo="0"/>
     </interval>
     <interval begin="60.00" end="120.00" id="dump_60">
         <edge id="1/1to0/1" sampledSeconds="0.00" departed="0" arrived="1" entered="1" left="0" laneChangedFrom="0" laneChangedTo="0"/>
-        <edge id="2/1to1/1" sampledSeconds="82.44" traveltime="41.22" waitingTime="61.83" speed="2.37" departed="0" arrived="0" entered="2" left="2" laneChangedFrom="0" laneChangedTo="0"/>
+        <edge id="2/1to1/1" sampledSeconds="82.44" traveltime="41.22" waitingTime="0.00" speed="9.47" departed="0" arrived="0" entered="2" left="2" laneChangedFrom="0" laneChangedTo="0"/>
     </interval>
     <interval begin="120.00" end="150.00" id="dump_60">
         <edge id="1/1to0/1" sampledSeconds="0.00" departed="0" arrived="1" entered="1" left="0" laneChangedFrom="0" laneChangedTo="0"/>

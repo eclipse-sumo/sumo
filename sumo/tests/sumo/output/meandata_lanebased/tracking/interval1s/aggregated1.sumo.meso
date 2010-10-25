@@ -1,6 +1,8 @@
 <?xml version="1.0"?>
 
-<!-- generated on 08/29/10 08:13:21 by SUMO sumo Version dev-SVN-r9006
+<!-- generated on Mon Oct 25 11:22:50 2010 by SUMO sumo Version dev-SVN-r9300
+<?xml version="1.0" encoding="iso-8859-1"?>
+
 <configuration>
 
     <input>
@@ -27,7 +29,7 @@
 
 <netstats>
     <interval begin="0.00" end="1.00" id="dump_1">
-        <edge id="4/1to3/1" sampledSeconds="29.29" traveltime="29.29" waitingTime="19.52" speed="3.33" departed="1" arrived="0" entered="0" left="1" laneChangedFrom="0" laneChangedTo="0"/>
+        <edge id="4/1to3/1" sampledSeconds="29.29" traveltime="29.29" waitingTime="0.00" speed="10.00" departed="1" arrived="0" entered="0" left="1" laneChangedFrom="0" laneChangedTo="0"/>
     </interval>
     <interval begin="1.00" end="2.00" id="dump_1">
     </interval>
@@ -38,7 +40,7 @@
     <interval begin="4.00" end="5.00" id="dump_1">
     </interval>
     <interval begin="5.00" end="6.00" id="dump_1">
-        <edge id="4/1to3/1" sampledSeconds="32.54" traveltime="32.54" waitingTime="21.69" speed="3.00" departed="1" arrived="0" entered="0" left="1" laneChangedFrom="0" laneChangedTo="0"/>
+        <edge id="4/1to3/1" sampledSeconds="32.54" traveltime="32.54" waitingTime="0.00" speed="9.00" departed="1" arrived="0" entered="0" left="1" laneChangedFrom="0" laneChangedTo="0"/>
     </interval>
     <interval begin="6.00" end="7.00" id="dump_1">
     </interval>
@@ -89,7 +91,7 @@
     <interval begin="29.00" end="30.00" id="dump_1">
     </interval>
     <interval begin="30.00" end="31.00" id="dump_1">
-        <edge id="3/1to2/1" sampledSeconds="39.05" traveltime="39.05" waitingTime="29.29" speed="2.50" departed="0" arrived="0" entered="1" left="1" laneChangedFrom="0" laneChangedTo="0"/>
+        <edge id="3/1to2/1" sampledSeconds="39.05" traveltime="39.05" waitingTime="0.00" speed="10.00" departed="0" arrived="0" entered="1" left="1" laneChangedFrom="0" laneChangedTo="0"/>
     </interval>
     <interval begin="31.00" end="32.00" id="dump_1">
     </interval>
@@ -106,7 +108,7 @@
     <interval begin="37.00" end="38.00" id="dump_1">
     </interval>
     <interval begin="38.00" end="39.00" id="dump_1">
-        <edge id="3/1to2/1" sampledSeconds="43.39" traveltime="43.39" waitingTime="32.54" speed="2.25" departed="0" arrived="0" entered="1" left="1" laneChangedFrom="0" laneChangedTo="0"/>
+        <edge id="3/1to2/1" sampledSeconds="43.39" traveltime="43.39" waitingTime="0.00" speed="9.00" departed="0" arrived="0" entered="1" left="1" laneChangedFrom="0" laneChangedTo="0"/>
     </interval>
     <interval begin="39.00" end="40.00" id="dump_1">
     </interval>
@@ -169,7 +171,7 @@
     <interval begin="68.00" end="69.00" id="dump_1">
     </interval>
     <interval begin="69.00" end="70.00" id="dump_1">
-        <edge id="2/1to1/1" sampledSeconds="39.05" traveltime="39.05" waitingTime="29.29" speed="2.50" departed="0" arrived="0" entered="1" left="1" laneChangedFrom="0" laneChangedTo="0"/>
+        <edge id="2/1to1/1" sampledSeconds="39.05" traveltime="39.05" waitingTime="0.00" speed="10.00" departed="0" arrived="0" entered="1" left="1" laneChangedFrom="0" laneChangedTo="0"/>
     </interval>
     <interval begin="70.00" end="71.00" id="dump_1">
     </interval>
@@ -194,7 +196,7 @@
     <interval begin="80.00" end="81.00" id="dump_1">
     </interval>
     <interval begin="81.00" end="82.00" id="dump_1">
-        <edge id="2/1to1/1" sampledSeconds="43.39" traveltime="43.39" waitingTime="32.54" speed="2.25" departed="0" arrived="0" entered="1" left="1" laneChangedFrom="0" laneChangedTo="0"/>
+        <edge id="2/1to1/1" sampledSeconds="43.39" traveltime="43.39" waitingTime="0.00" speed="9.00" departed="0" arrived="0" entered="1" left="1" laneChangedFrom="0" laneChangedTo="0"/>
     </interval>
     <interval begin="82.00" end="83.00" id="dump_1">
     </interval>
