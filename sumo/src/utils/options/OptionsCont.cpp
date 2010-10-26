@@ -452,6 +452,12 @@ OptionsCont::addCopyrightNotice(const std::string &copyrightLine) throw() {
 }
 
 
+void 
+OptionsCont::clearCopyrightNotices() throw() {
+	myCopyrightNotices.clear();
+}
+
+
 void
 OptionsCont::addOptionSubTopic(const std::string &topic) throw() {
     mySubTopics.push_back(topic);

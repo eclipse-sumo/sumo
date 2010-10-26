@@ -147,11 +147,18 @@ public:
      */
     void setAdditionalHelpMessage(const std::string &add) throw();
 
+
     /** @brief Adds a copyright notice to the help output
      *
      * @param[in] copyrightLine The line to put out as a copyright notice
      */
     void addCopyrightNotice(const std::string &copyrightLine) throw();
+
+
+	/** @brief Removes all copyright information
+	 */
+	void clearCopyrightNotices() throw();
+
 
     /** @brief Adds an option subtopic
      *
