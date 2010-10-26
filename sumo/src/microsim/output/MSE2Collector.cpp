@@ -29,6 +29,7 @@
 
 #include <algorithm>
 #include "MSE2Collector.h"
+#include <microsim/MSLane.h>
 #include <microsim/MSVehicleType.h>
 
 #ifdef CHECK_MEMORY_LEAKS
