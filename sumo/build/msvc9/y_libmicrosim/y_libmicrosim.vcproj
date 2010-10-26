@@ -895,10 +895,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\microsim\MSVehicleQuitReminded.h"
-				>
-			</File>
-			<File
 				RelativePath="..\..\..\src\microsim\MSVehicleTransfer.h"
 				>
 			</File>

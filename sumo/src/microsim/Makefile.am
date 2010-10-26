@@ -25,7 +25,6 @@ MSRouteLoaderControl.cpp MSRouteLoaderControl.h \
 MSVehicle.cpp MSVehicle.h \
 MSVehicleContainer.cpp MSVehicleContainer.h \
 MSVehicleControl.cpp MSVehicleControl.h \
-MSVehicleQuitReminded.h \
 MSVehicleTransfer.cpp MSVehicleTransfer.h \
 MSCFModel.cpp MSCFModel.h \
 MSVehicleType.cpp MSVehicleType.h 

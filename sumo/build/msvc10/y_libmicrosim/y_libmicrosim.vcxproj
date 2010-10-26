@@ -335,7 +335,6 @@
     <ClInclude Include="..\..\..\src\microsim\MSVehicle.h" />
     <ClInclude Include="..\..\..\src\microsim\MSVehicleContainer.h" />
     <ClInclude Include="..\..\..\src\microsim\MSVehicleControl.h" />
-    <ClInclude Include="..\..\..\src\microsim\MSVehicleQuitReminded.h" />
     <ClInclude Include="..\..\..\src\microsim\MSVehicleTransfer.h" />
     <ClInclude Include="..\..\..\src\microsim\MSVehicleType.h" />
   </ItemGroup>
