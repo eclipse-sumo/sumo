@@ -1,26 +1,29 @@
 #!/usr/bin/env python
 import os,subprocess,sys,shutil
-sumoHome = os.path.abspath(os.path.join(os.path.dirname(sys.argv[0]), '..', '..', '..', '..', '..'))
-sys.path.append(os.path.join(sumoHome, "tools", "traci"))
-import traciControl
+sys.path.append(os.path.join(os.path.dirname(sys.argv[0]), '..', '..', '..', '..', '..', "tools", "traci"))
+sys.path.append(os.path.join(os.path.dirname(sys.argv[0]), '..', '..', '..', '..', '..', "tools", "lib"))
+import traciControl, testUtil
 
-sumoBinary = os.environ.get("SUMO_BINARY", os.path.join(sumoHome, 'bin', 'sumo'))
-netconvertBinary = os.environ.get("NETCONVERT_BINARY", os.path.join(sumoHome, 'bin', 'netconvert'))
+sumoBinary = testUtil.checkBinary('sumo')
+netconvertBinary = testUtil.checkBinary('netconvert')
 
 DELTA_T = 1
 
 srcRoot = os.path.join(os.path.dirname(sys.argv[0]), "data")
+roots = []
 for root, dirs, files in os.walk(srcRoot):
-    if "input_edges.edg.xml" not in files:
-        continue
+    if "input_edges.edg.xml" in files:
+        roots.append(root)
 
-    print "-- Test: %s" % root
+for root in sorted(roots):
+    print "-- Test: %s" % root[len(srcRoot)+1:]
+    prefix = os.path.join(root, "input_")
     sys.stdout.flush()
-    netconvertCall = [ "-n", root+"/input_nodes.nod.xml", "-e", root+"/input_edges.edg.xml", "-x", root+"/input_connections.con.xml", "-o", "./input_net.net.xml" ]
-    subprocess.call([netconvertBinary]+netconvertCall, shell=(os.name=="nt"), stdout=sys.stdout, stderr=sys.stderr)
+    subprocess.call([netconvertBinary, "-n", prefix+"nodes.nod.xml", "-e", prefix+"edges.edg.xml",
+                     "-x", prefix+"connections.con.xml", "-o", "./input_net.net.xml"])
     sys.stdout.flush()
-    shutil.copy(root + "/input_routes.rou.xml", "./input_routes.rou.xml")
-    shutil.copy(root + "/input_additional.add.xml", "./input_additional.add.xml")
+    shutil.copy(prefix + "routes.rou.xml", "./input_routes.rou.xml")
+    shutil.copy(prefix + "additional.add.xml", "./input_additional.add.xml")
 
     sumoProcess = subprocess.Popen("%s -c sumo.sumo.cfg" % (sumoBinary), shell=True, stdout=sys.stdout)
     traciControl.initTraCI(8813)
@@ -37,7 +40,7 @@ for root, dirs, files in os.walk(srcRoot):
        print "  over: %s" % (l[5])
     traciControl.cmdClose()
     sys.stdout.flush()
-    
+
     fdi = open(root + "/expected.txt")
     for i,l in enumerate(lanes):
         vals = fdi.readline().strip().split()
@@ -48,6 +51,3 @@ for root, dirs, files in os.walk(srcRoot):
             print "lane %s mismatches" % i
     print "-" * 70
     print ""
-
-
-

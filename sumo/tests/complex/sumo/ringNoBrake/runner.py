@@ -1,15 +1,16 @@
 #!/usr/bin/env python
 
 import os,subprocess,sys,time
-sys.path.append(os.path.join(os.path.abspath(os.path.dirname(sys.argv[0])), "../../../../tools/traci"))
-import traciControl
+sys.path.append(os.path.join(os.path.dirname(sys.argv[0]), '..', '..', '..', '..', "tools", "lib"))
+sys.path.append(os.path.join(os.path.dirname(sys.argv[0]), '..', '..', '..', '..', "tools", "traci"))
+import traciControl, testUtil
 
 
 PORT = 8813
 DELTA_T = 1000
 
-netconvertBinary = os.environ.get("NETCONVERT_BINARY", os.path.join(os.path.dirname(sys.argv[0]), '..', '..', '..', '..', 'bin', 'netconvert'))
-sumoBinary = os.environ.get("SUMO_BINARY", os.path.join(os.path.dirname(sys.argv[0]), '..', '..', '..', '..', 'bin', 'sumo'))
+netconvertBinary = testUtil.checkBinary('netconvert')
+sumoBinary = testUtil.checkBinary('sumo')
 
 
 def runSingle(addOption):

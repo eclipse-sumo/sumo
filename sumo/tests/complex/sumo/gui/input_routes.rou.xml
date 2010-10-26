@@ -1,0 +1,8 @@
+<routes>
+   <route id="always_right" edges="1fi 1si 4o 4fi 4si 2o 2fi 2si 3o 3fi 3si 1o 1fi"/>
+   <flow id="always_right" route="always_right" begin="100" end="1110" period="10"/>
+   <route id="always_left" edges="3fi 3si 2o 2fi 2si 4o 4fi 4si 1o 1fi 1si 3o 3fi"/>
+   <flow id="always_left" route="always_left" begin="100" end="1110" period="10"/>
+   <route id="vertical" edges="3fi 3si 4o 4fi 4si 3o 3fi"/>
+   <flow id="vertical" route="vertical" begin="100" end="1110" period="10"/>
+</routes>

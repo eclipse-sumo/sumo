@@ -1,4 +1,4 @@
--- Test: ./data/acosta_busStopNeedsChange#1
+-- Test: acosta_busStopNeedsChange#1
 Success.
 Loading configuration... done.
 lane -1000+0.-500+0_0:
@@ -10,7 +10,7 @@ lane -1000+0.-500+0_0:
 lane 0 ok
 ----------------------------------------------------------------------
 
--- Test: ./data/acosta_busStopNeedsChange#2
+-- Test: acosta_busStopNeedsChange#2
 Success.
 Loading configuration... done.
 lane -500+0.+0+0_0:
@@ -34,7 +34,7 @@ lane 1 ok
 lane 2 ok
 ----------------------------------------------------------------------
 
--- Test: ./data/acosta_busStopNeedsChange#3
+-- Test: acosta_busStopNeedsChange#3
 Success.
 Loading configuration... done.
 lane -500+0.+0+0_0:
@@ -58,7 +58,7 @@ lane 1 ok
 lane 2 ok
 ----------------------------------------------------------------------
 
--- Test: ./data/acosta_busStopNeedsChange#4
+-- Test: acosta_busStopNeedsChange#4
 Success.
 Loading configuration... done.
 lane -500+0.+0+0_0:
@@ -82,7 +82,7 @@ lane 1 ok
 lane 2 ok
 ----------------------------------------------------------------------
 
--- Test: ./data/highway_onOffCombo#1
+-- Test: highway_onOffCombo#1
 Success.
 Loading configuration... done.
 lane 1_0:
