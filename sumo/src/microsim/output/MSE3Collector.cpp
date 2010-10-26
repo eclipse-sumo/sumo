@@ -56,16 +56,23 @@ MSE3Collector::MSE3EntryReminder::isStillActive(SUMOVehicle& veh, SUMOReal oldPo
         // crossSection not yet reached
         return true;
     }
-    if (oldPos > myPosition) {
-        // crossSection was not passed
+    if (myCollector.myLeftContainer.find(&veh) != myCollector.myLeftContainer.end()) {
         return false;
     }
-    SUMOReal entryTimestep = (SUMOReal) MSNet::getInstance()->getCurrentTimeStep();
-    if (newSpeed!=0) {
-        entryTimestep += ((((myPosition - oldPos) / newSpeed)) * (SUMOReal) 1000.);
+    if (&veh.getLane() == myLane && oldPos <= myPosition) {
+        SUMOReal entryTime = STEPS2TIME(MSNet::getInstance()->getCurrentTimeStep());
+        if (newSpeed!=0) {
+            entryTime += (myPosition - oldPos) / newSpeed;
+        }
+        myCollector.enter(veh, entryTime);
     }
-    myCollector.enter(veh, entryTimestep / (SUMOReal) 1000.);
-    return false;
+    return true;
+}
+
+
+void
+MSE3Collector::MSE3EntryReminder::notifyLeave(SUMOVehicle& veh, bool, bool) throw() {
+    myCollector.myEnteredContainer.erase(&veh);
 }
 
 
@@ -97,9 +104,9 @@ MSE3Collector::MSE3LeaveReminder::isStillActive(SUMOVehicle& veh, SUMOReal oldPo
         return false;
     }
     // crossSection left
-    SUMOReal leaveTimestep = (SUMOReal) MSNet::getInstance()->getCurrentTimeStep();
-    leaveTimestep += (((myPosition - oldPos) / newSpeed) * (SUMOReal) 1000.);
-    myCollector.leave(veh, leaveTimestep / (SUMOReal) 1000.);
+    SUMOReal leaveTime = STEPS2TIME(MSNet::getInstance()->getCurrentTimeStep());
+    leaveTime += (myPosition - oldPos) / newSpeed;
+    myCollector.leave(veh, leaveTime);
     return false;
 }
 

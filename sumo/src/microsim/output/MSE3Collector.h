@@ -96,6 +96,19 @@ public:
         bool isStillActive(SUMOVehicle& veh, SUMOReal , SUMOReal newPos, SUMOReal) throw();
 
 
+        /** @brief Removes a known vehicle
+        *
+        * If the reported vehicle is known, it is removed from the list of
+        *  vehicles to regard.
+        *
+        * @param[in] veh The leaving vehicle.
+        * @param[in] isArrival whether the vehicle arrived at its destination
+        * @param[in] isLaneChange whether the vehicle changed from the lane
+        * @see MSMoveReminder::notifyLeave
+        */
+        void notifyLeave(SUMOVehicle& veh, bool isArrival, bool isLaneChange) throw();
+    
+    
         /** @brief Returns whether the vehicle shall be aware of this entry
          *
          * Returns true if the vehicle is in front of the entry, so that it

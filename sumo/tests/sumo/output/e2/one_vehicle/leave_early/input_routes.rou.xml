@@ -1,0 +1,5 @@
+<routes>
+    <vtype id="DEFAULT_VEHTYPE" accel="0.8" decel="4.5" sigma="0" length="5" maxspeed="10"/>
+    <route id="r1" multi_ref="x" edges="4/1to3/1 3/1to2/1"/>
+    <vehicle id="0" depart="0.99" departspeed="10" departpos="100" arrivalpos="150" route="r1"/>
+</routes>
