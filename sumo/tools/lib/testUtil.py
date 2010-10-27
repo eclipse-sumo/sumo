@@ -3,7 +3,7 @@
 @file    testUtil.py
 @author  Michael.Behrisch@dlr.de
 @date    2010-10-26
-@version $Id: sumonet.py 8836 2010-06-30 10:49:42Z bieker $
+@version $Id$
 
 This library wraps useful functions for the complex tests
 and automatic GUI control
