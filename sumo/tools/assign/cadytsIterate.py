@@ -32,7 +32,7 @@ def main():
     optParser.add_option("-F", "--freezeit",  dest="freezeit",
                          type="int", default=85, help="define the number of iterations for stablizing the results in the DTA-calibration")
     optParser.add_option("-V", "--varscale",  dest="varscale",
-                         type="float", default=1., help="define variance of the measured traffi flows for the DTA-calibration")
+                         type="float", default=1., help="define variance of the measured traffic flows for the DTA-calibration")
     optParser.add_option("-P", "--PREPITS",  type="int", dest="PREPITS",
                          default = 5, help="number of preparatory iterations")
     optParser.add_option("-W", "--evaluation-prefix", dest="evalprefix",type='string',
