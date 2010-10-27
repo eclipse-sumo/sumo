@@ -20,7 +20,7 @@ for root in sorted(roots):
     prefix = os.path.join(root, "input_")
     sys.stdout.flush()
     subprocess.call([netconvertBinary, "-n", prefix+"nodes.nod.xml", "-e", prefix+"edges.edg.xml",
-                     "-x", prefix+"connections.con.xml", "-o", "./input_net.net.xml"])
+                     "-x", prefix+"connections.con.xml", "-o", "./input_net.net.xml"], stdout=sys.stdout)
     sys.stdout.flush()
     shutil.copy(prefix + "routes.rou.xml", "./input_routes.rou.xml")
     shutil.copy(prefix + "additional.add.xml", "./input_additional.add.xml")
