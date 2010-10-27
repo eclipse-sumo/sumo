@@ -93,7 +93,7 @@ MSE2Collector::isStillActive(SUMOVehicle& veh, SUMOReal oldPos,
 
 void
 MSE2Collector::notifyLeave(SUMOVehicle& veh, bool isArrival, bool isLaneChange) throw() {
-    if (veh.getPositionOnLane() >= myStartPos && veh.getPositionOnLane() - veh.getVehicleType().getLength() < myEndPos) {
+    if (isArrival || isLaneChange || (veh.getPositionOnLane() >= myStartPos && veh.getPositionOnLane() - veh.getVehicleType().getLength() < myEndPos)) {
         std::list<SUMOVehicle*>::iterator i = find(myKnownVehicles.begin(), myKnownVehicles.end(), &veh);
         if (i!=myKnownVehicles.end()) {
             myKnownVehicles.erase(i);

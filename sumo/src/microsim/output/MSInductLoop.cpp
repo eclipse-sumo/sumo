@@ -114,7 +114,7 @@ MSInductLoop::isStillActive(SUMOVehicle& veh, SUMOReal oldPos,
 
 void
 MSInductLoop::notifyLeave(SUMOVehicle& veh, bool isArrival, bool isLaneChange) throw() {
-    if (veh.getPositionOnLane() > myPosition && veh.getPositionOnLane() - veh.getVehicleType().getLength() <= myPosition) {
+    if (isArrival || isLaneChange || (veh.getPositionOnLane() > myPosition && veh.getPositionOnLane() - veh.getVehicleType().getLength() <= myPosition)) {
         // vehicle is on detector during lane change
         leaveDetectorByLaneChange(veh);
     }
