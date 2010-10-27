@@ -133,6 +133,7 @@ def writeSUMOConf(step, options, files):
         <incremental-dua-base value="%s"/>""" % (options.incValue*(step+1), options.incBase)
     if options.mesosim:
         print >> fd, '        <mesosim value="True"/>'
+        print >> fd, '        <meso-junction-control value="True"/>'
     print >> fd, """</processing>
     <report>
         <verbose value="True"/>
