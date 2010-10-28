@@ -1,4 +1,4 @@
-TraCITestClient output file. Date: Mon Oct 11 16:34:11 2010
+TraCITestClient output file. Date: Thu Oct 28 11:58:52 2010
 
 
 -> Command sent: <SimulationStep2>:
@@ -140,39 +140,39 @@ TraCITestClient output file. Date: Mon Oct 11 16:34:11 2010
 -> Command sent: <SimulationStep2>:
 .. Command acknowledged (2), [description: ]
 
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
 -> Command sent: <SetValue>:
   domID=196 varID=19 objID=veh0
 .. Command acknowledged (196), [description: ]
-
--> Command sent: <SimulationStep2>:
-.. Command acknowledged (2), [description: ]
-
--> Command sent: <SimulationStep2>:
-.. Command acknowledged (2), [description: ]
-
--> Command sent: <SimulationStep2>:
-.. Command acknowledged (2), [description: ]
-
--> Command sent: <SimulationStep2>:
-.. Command acknowledged (2), [description: ]
-
--> Command sent: <SimulationStep2>:
-.. Command acknowledged (2), [description: ]
-
--> Command sent: <SimulationStep2>:
-.. Command acknowledged (2), [description: ]
-
--> Command sent: <SimulationStep2>:
-.. Command acknowledged (2), [description: ]
-
--> Command sent: <SimulationStep2>:
-.. Command acknowledged (2), [description: ]
-
--> Command sent: <SimulationStep2>:
-.. Command acknowledged (2), [description: ]
-
--> Command sent: <SimulationStep2>:
-.. Command acknowledged (2), [description: ]
 
 -> Command sent: <SimulationStep2>:
 .. Command acknowledged (2), [description: ]
