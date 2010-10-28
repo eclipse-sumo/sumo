@@ -46,6 +46,7 @@ class MSLane;
 class MSLaneChanger;
 class OutputDevice;
 class SUMOVehicle;
+class SUMOVehicleParameter;
 class MSVehicle;
 
 
@@ -326,18 +327,19 @@ public:
     MSLane* getFreeLane(const std::vector<MSLane*>* allowed, const SUMOVehicleClass vclass) const throw();
 
 
-    /** @brief Finds a depart lane for the given vehicle
+    /** @brief Finds a depart lane for the given vehicle parameters
      *
      * Depending on the depart lane procedure a depart lane is chosen.
      *  Repeated calls with the same vehicle may return different results
      *  if the procedure is "random" or "free". In case no appropriate
      *  lane was found, 0 is returned.
      *
-     * @param[in] v The vehicle to get the depart lane for
+     * @param[in] pars The vehicle parameters to get the depart lane for
+     * @param[in] pars The vehicle class to get the depart lane for
      * @return a possible depart lane
      * @see MSLane::emit
      */
-    MSLane* getDepartLane(const MSVehicle &v) const throw();
+    MSLane* getDepartLane(const SUMOVehicleParameter &pars, const SUMOVehicleClass vclass) const throw();
 
 
     /** @brief Returns the last time a vehicle could not be inserted

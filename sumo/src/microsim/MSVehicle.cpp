@@ -258,7 +258,7 @@ MSVehicle::MSVehicle(SUMOVehicleParameter* pars,
     if (MSCORN::wished(MSCORN::CORN_VEH_WAITINGTIME)) {
         myIntCORNMap[MSCORN::CORN_VEH_WAITINGTIME] = 0;
     }
-    if ((*myCurrEdge)->getDepartLane(*this) == 0) {
+    if ((*myCurrEdge)->getDepartLane(*pars, type->getVehicleClass()) == 0) {
         delete myLaneChangeModel;
         throw ProcessError("Invalid departlane definition for vehicle '" + pars->id + "'");
     }
@@ -1970,6 +1970,7 @@ MSVehicle::startSpeedAdaption(float newSpeed, SUMOTime duration, SUMOTime curren
     adaptDuration = duration;
     speedReduction = MAX2((SUMOReal) 0.0f, (SUMOReal)(speedBeforeAdaption - newSpeed));
     adaptingSpeed = true;
+    isLastAdaption = false;
     return true;
 }
 
@@ -1988,7 +1989,8 @@ MSVehicle::adaptSpeed() {
         return;
     }
     if (currentTime <= timeBeforeAdaption + adaptDuration) {
-        maxSpeed = speedBeforeAdaption - (speedReduction / adaptDuration) * (currentTime - timeBeforeAdaption);
+        const SUMOReal td = STEPS2TIME(currentTime - timeBeforeAdaption) / STEPS2TIME(adaptDuration);
+        maxSpeed = speedBeforeAdaption - speedReduction * td;
     } else {
         maxSpeed = speedBeforeAdaption - speedReduction;
         isLastAdaption = true;

@@ -247,12 +247,12 @@ TraCITestClient::run(std::string fileName, int port, std::string host) {
             // trigger command slowDown
             int nodeId;
             float speed;
-            std::string timeInterval;
+            int timeInterval;
 
             defFile >> nodeId;
             defFile >> speed;
             defFile >> timeInterval;
-            commandSlowDown(nodeId, speed, string2time(timeInterval));
+            commandSlowDown(nodeId, speed, timeInterval);
         } else if (lineCommand.compare("changelane") == 0) {
             // trigger command ChangeLane
             int nodeId;
