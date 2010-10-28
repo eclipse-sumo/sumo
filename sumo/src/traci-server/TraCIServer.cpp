@@ -2592,7 +2592,7 @@ TraCIServer::processSingleSubscription(const Subscription &s, tcpip::Storage &wr
         }
     }
     writeInto.writeUnsignedByte(0); // command length -> extended
-    writeInto.writeInt(1 + 4 + s.id.length() + 1 + outputStorage.size()); // extended length, length, cmd, id, varsize, return (x*1+size)
+    writeInto.writeInt((1+4) + 1 + (4 + s.id.length()) + 1 + outputStorage.size());
     writeInto.writeUnsignedByte(s.commandId + 0x10);
     writeInto.writeString(s.id);
     writeInto.writeUnsignedByte(s.variables.size());
