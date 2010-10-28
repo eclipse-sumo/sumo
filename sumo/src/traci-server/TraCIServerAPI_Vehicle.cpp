@@ -545,7 +545,6 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer &server, tcpip::Storage &inputSto
             server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Invalid time interval", outputStorage);
             return false;
         }
-        std::cout << "TraCInew " << newSpeed << ", " << duration << std::endl;
         if (!v->startSpeedAdaption(newSpeed, duration, MSNet::getInstance()->getCurrentTimeStep())) {
             server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Could not slow down", outputStorage);
             return false;
@@ -1217,7 +1216,6 @@ TraCIServerAPI_Vehicle::commandSlowDown(TraCIServer &server, tcpip::Storage &inp
         server.writeStatusCmd(CMD_SLOWDOWN, RTYPE_ERR, "Invalid time interval");
         return false;
     }
-        std::cout << "TraCIold " << newSpeed << ", " << duration << std::endl;
     if (!veh->startSpeedAdaption(newSpeed, duration, MSNet::getInstance()->getCurrentTimeStep())) {
         server.writeStatusCmd(CMD_SLOWDOWN, RTYPE_ERR, "Could not slow down");
         return false;

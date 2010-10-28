@@ -1,5 +1,5 @@
 repeat 25 simstep2 0
-setvalue 0xc4 0x14 veh0 <compound> 2 <float> 5 <int> 40000
+setvalue 0xc4 0x14 veh0 <compound> 2 <float> 5 <int> 20000
 repeat 25 simstep2 0
 setvalue 0xc4 0x14 veh0 <compound> 2 <float> 10.5 <int> 20000
 repeat 50 simstep2 0
