@@ -483,11 +483,12 @@
 		</Configuration>
 		<Configuration
 			Name="MesoDebug|Win32"
-			ConfigurationType="1"
+			ConfigurationType="4"
 			InheritedPropertySheets="..\meso.vsprops;..\Win32.vsprops"
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
+				CommandLine="IF EXIST .svn/entries ..\..\..\tools\build\version.py"
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
@@ -503,6 +504,7 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
+				AdditionalIncludeDirectories="$(XERCES)\include,..\..\..\src"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -514,13 +516,10 @@
 				Name="VCPreLinkEventTool"
 			/>
 			<Tool
-				Name="VCLinkerTool"
+				Name="VCLibrarianTool"
 			/>
 			<Tool
 				Name="VCALinkTool"
-			/>
-			<Tool
-				Name="VCManifestTool"
 			/>
 			<Tool
 				Name="VCXDCMakeTool"
@@ -530,12 +529,6 @@
 			/>
 			<Tool
 				Name="VCFxCopTool"
-			/>
-			<Tool
-				Name="VCAppVerifierTool"
-			/>
-			<Tool
-				Name="VCWebDeploymentTool"
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
@@ -543,11 +536,12 @@
 		</Configuration>
 		<Configuration
 			Name="MesoDebug|x64"
-			ConfigurationType="1"
+			ConfigurationType="4"
 			InheritedPropertySheets="..\meso.vsprops;..\x64.vsprops"
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
+				CommandLine="IF EXIST .svn/entries ..\..\..\tools\build\version.py"
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
@@ -563,6 +557,7 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
+				AdditionalIncludeDirectories="$(XERCES)\include,..\..\..\src"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -574,13 +569,10 @@
 				Name="VCPreLinkEventTool"
 			/>
 			<Tool
-				Name="VCLinkerTool"
+				Name="VCLibrarianTool"
 			/>
 			<Tool
 				Name="VCALinkTool"
-			/>
-			<Tool
-				Name="VCManifestTool"
 			/>
 			<Tool
 				Name="VCXDCMakeTool"
@@ -590,12 +582,6 @@
 			/>
 			<Tool
 				Name="VCFxCopTool"
-			/>
-			<Tool
-				Name="VCAppVerifierTool"
-			/>
-			<Tool
-				Name="VCWebDeploymentTool"
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
