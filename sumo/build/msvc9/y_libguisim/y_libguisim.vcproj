@@ -585,10 +585,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\guisim\GUIEdgeFollowCollector.cpp"
-				>
-			</File>
-			<File
 				RelativePath="..\..\..\src\guisim\GUIEmitter.cpp"
 				>
 			</File>
@@ -679,10 +675,6 @@
 			</File>
 			<File
 				RelativePath="..\..\..\src\guisim\GUIEdge.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\guisim\GUIEdgeFollowCollector.h"
 				>
 			</File>
 			<File

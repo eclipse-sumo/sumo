@@ -567,10 +567,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\microsim\output\MSEdgeFollowCollector.cpp"
-				>
-			</File>
-			<File
 				RelativePath="..\..\..\src\microsim\output\MSInductLoop.cpp"
 				>
 			</File>
@@ -633,10 +629,6 @@
 			</File>
 			<File
 				RelativePath="..\..\..\src\microsim\output\MSE3Collector.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\microsim\output\MSEdgeFollowCollector.h"
 				>
 			</File>
 			<File
