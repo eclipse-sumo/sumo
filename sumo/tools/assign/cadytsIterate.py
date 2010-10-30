@@ -42,7 +42,7 @@ def main():
     optParser.add_option("-Z", "--mincountstddev", type="float", dest="mincountstddev",
                          default = 25., help="minimal traffic count standard deviation")
     optParser.add_option("-O", "--overridett", action="store_true", dest="overridett",
-                         default= False, help="override depart times according to updated link travel times", metavar="FILE")
+                         default= False, help="override depart times according to updated link travel times")
     optParser.add_option("-E", "--disable-emissions", action="store_true", dest="noEmissions",
                          default=False, help="No emissions are written by the simulation")
     optParser.add_option("-T", "--disable-tripinfos", action="store_true", dest="noTripinfo",
