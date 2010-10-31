@@ -1,4 +1,4 @@
 <measurements>
-    <onlink link="1to21" start="25200" end="32400" value="750" stddev="8" type="COUNT_VEH"/>
-    <onlink link="1to22" start="25200" end="32400" value="250" stddev="8" type="COUNT_VEH"/>
+    <singlelink link="1to21" start="25200" end="32400" value="750" stddev="8" type="COUNT_VEH"/>
+    <singleonlink link="1to22" start="25200" end="32400" value="250" stddev="8" type="COUNT_VEH"/>
 </measurements>
