@@ -13,7 +13,5 @@ p2p_demand_adjustment
 # route choice calibration with the SUMO format
 2ndTestNetwork_sumoFormat
 
-# find out the optimized sensor locations with the given number of sensors
-sensorLocations
 # More route files can be inputted in Cadyts.
 multi_route_files
