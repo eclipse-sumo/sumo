@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+
+<!-- generated on 11/02/10 13:17:47 by SUMO gui Version dev-SVN-r9311
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<configuration>
+
+    <input>
+        <net-file value="busnet.net.xml"/>
+        <additional-files value="input_additional.add.xml,input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <tripinfo-output value="tripinfos.xml"/>
+    </output>
+
+    <report>
+        <no-duration-log value="true"/>
+        <no-step-log value="true"/>
+        <message-log value="guisim.stdout"/>
+        <error-log value="guisim.stderr"/>
+    </report>
+
+    <gui_only>
+        <gui-settings-file value=""/>
+    </gui_only>
+
+</configuration>
+-->
+
+<tripinfos>
+    <tripinfo id="bus_1" depart="0.00" departLane="2/0to2/1_0" departPos="15.10" departSpeed="0.00" departDelay="0.00" arrival="515.00" arrivalLane="2/0to2/1_0" arrivalPos="191.46" arrivalSpeed="1.90" duration="515.00" routeLength="3242.36" waitSteps="190" rerouteNo="0" devices="" vtype="bus" vaporized=""/>
+    <tripinfo id="bus_2" depart="0.00" departLane="2/0to2/1_0" departPos="0.00" departSpeed="0.00" departDelay="0.00" arrival="595.00" arrivalLane="2/0to2/1_0" arrivalPos="190.93" arrivalSpeed="1.05" duration="595.00" routeLength="3256.93" waitSteps="245" rerouteNo="0" devices="" vtype="bus" vaporized=""/>
+    <tripinfo id="bus_3" depart="7.00" departLane="2/0to2/1_0" departPos="15.10" departSpeed="0.00" departDelay="3.00" arrival="675.00" arrivalLane="2/0to2/1_0" arrivalPos="191.46" arrivalSpeed="1.19" duration="668.00" routeLength="3242.36" waitSteps="296" rerouteNo="0" devices="" vtype="bus" vaporized=""/>
+</tripinfos>

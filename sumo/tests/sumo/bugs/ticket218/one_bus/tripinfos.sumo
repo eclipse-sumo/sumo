@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+
+<!-- generated on 11/02/10 13:17:40 by SUMO gui Version dev-SVN-r9311
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<configuration>
+
+    <input>
+        <net-file value="busnet.net.xml"/>
+        <additional-files value="input_additional.add.xml,input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <tripinfo-output value="tripinfos.xml"/>
+    </output>
+
+    <report>
+        <no-duration-log value="true"/>
+        <no-step-log value="true"/>
+        <message-log value="guisim.stdout"/>
+        <error-log value="guisim.stderr"/>
+    </report>
+
+    <gui_only>
+        <gui-settings-file value=""/>
+    </gui_only>
+
+</configuration>
+-->
+
+<tripinfos>
+    <tripinfo id="bus_1" depart="0.00" departLane="2/0to2/1_0" departPos="15.10" departSpeed="0.00" departDelay="0.00" arrival="515.00" arrivalLane="2/0to2/1_0" arrivalPos="191.43" arrivalSpeed="1.22" duration="515.00" routeLength="3242.33" waitSteps="191" rerouteNo="0" devices="" vtype="bus" vaporized=""/>
+</tripinfos>
