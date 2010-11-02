@@ -334,12 +334,11 @@ public:
      *  if the procedure is "random" or "free". In case no appropriate
      *  lane was found, 0 is returned.
      *
-     * @param[in] pars The vehicle parameters to get the depart lane for
-     * @param[in] pars The vehicle class to get the depart lane for
-     * @return a possible depart lane
+     * @param[in] veh The vehicle to get the depart lane for
+     * @return a possible/chosen depart lane, 0 if no lane can be used
      * @see MSLane::emit
      */
-    MSLane* getDepartLane(const SUMOVehicleParameter &pars, const SUMOVehicleClass vclass) const throw();
+    MSLane* getDepartLane(const MSVehicle &veh) const throw();
 
 
     /** @brief Returns the last time a vehicle could not be inserted

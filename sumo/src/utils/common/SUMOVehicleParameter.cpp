@@ -86,6 +86,12 @@ SUMOVehicleParameter::writeAs(const std::string &xmlElem, OutputDevice &dev,
         case DEPART_LANE_DEPARTLANE:
             val = "departlane";
             break;
+        case DEPART_LANE_ALLOWED_FREE:
+            val = "allowed";
+            break;
+        case DEPART_LANE_BEST_FREE:
+            val = "best";
+            break;
         case DEPART_LANE_DEFAULT:
         default:
             break;

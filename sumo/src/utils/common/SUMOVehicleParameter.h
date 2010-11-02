@@ -93,7 +93,11 @@ enum DepartLaneDefinition {
     /// @brief The least occupied lane is used
     DEPART_LANE_FREE,
     /// @brief The edge's departure lane is used
-    DEPART_LANE_DEPARTLANE
+    DEPART_LANE_DEPARTLANE,
+    /// @brief The least occupied lane from lanes which allow the continuation
+    DEPART_LANE_ALLOWED_FREE,
+    /// @brief The least occupied lane from best lanes
+    DEPART_LANE_BEST_FREE
 };
 
 
