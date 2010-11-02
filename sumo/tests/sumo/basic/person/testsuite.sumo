@@ -4,6 +4,12 @@ ride
 # person with a single walk
 walk
 
+# person with a single walk with given duration
+walk_duration
+
+# person with a single walk with duration 0
+walk_0
+
 # person with a public transport ride
 public
 
