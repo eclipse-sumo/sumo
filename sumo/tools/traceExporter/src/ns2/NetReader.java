@@ -14,6 +14,7 @@ import javax.xml.stream.XMLStreamReader;
 /**
  * class for reading net file
  * @author Thimor Bohn <bohn@itm.uni-luebeck.de>
+ * @author Matthias Röckl <matthias.roeckl@dlr.de>
  *
  */
 public class NetReader {
@@ -58,10 +59,8 @@ public class NetReader {
                     }
                     if (parser.getLocalName().equals("lane")) {
                     	String id      = "";
-                    	float xfrom    = 0;
-                    	float xto      = 0;
-                    	float yfrom    = 0;
-                    	float yto      = 0;
+                    	float[] x = new float[2];
+                    	float[] y = new float[2];
                         float length   = 0;
                         boolean hadShape = false;
                     	// parse attributes of element
@@ -75,23 +74,27 @@ public class NetReader {
     							length = Float.parseFloat(value);
     						}
                             if ("shape".equals(attrName)) {
-        						String[] vals = value.split("[,\\ ]"); // separate by delimiters "," and " "
-        	                    xfrom = Float.parseFloat(vals[0]);
-        	                    yfrom = Float.parseFloat(vals[1]);
-        	                    xto   = Float.parseFloat(vals[2]);
-        	                    yto   = Float.parseFloat(vals[3]);
-        	                    hadShape = true;
+        						String[] coordinatePairs = value.split(" ");   // coordinate pairs of the shape are separated by spaces
+								x = new float[coordinatePairs.length];
+								y = new float[coordinatePairs.length];
+								for (int i=0; i<coordinatePairs.length; i++)
+								{
+									String[] xAndY = coordinatePairs[i].split(",");   // X and Y of a single coordinate pair are separated by comma
+	        	                    x[i] = Float.parseFloat(xAndY[0]);
+	        	                    y[i] = Float.parseFloat(xAndY[1]);
+	        	                    hadShape = true;
+								}
                             }
                         }
                         if(!hadShape) {
                         	String text   = parser.getElementText();
                         	String[] vals = text.split("[,\\ ]"); // separate by delimiters "," and " "
-                        	xfrom = Float.parseFloat(vals[0]);
-                        	yfrom = Float.parseFloat(vals[1]);
-                        	xto   = Float.parseFloat(vals[2]);
-                        	yto   = Float.parseFloat(vals[3]);
+                        	x[0] = Float.parseFloat(vals[0]);
+                        	y[0] = Float.parseFloat(vals[1]);
+                        	x[1]   = Float.parseFloat(vals[2]);
+                        	y[1]   = Float.parseFloat(vals[3]);
                         }
-                		edge.lanes.put(id, new Lane(id, xfrom, xto, yfrom, yto, length));
+                		edge.lanes.put(id, new Lane(id, x, y, length));
                     }
                     if (parser.getLocalName().equals("junction")) {
                     	String id = "";

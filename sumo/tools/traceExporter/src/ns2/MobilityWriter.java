@@ -16,6 +16,7 @@ import javax.xml.stream.XMLStreamReader;
 /**
  * class for writing ns2 mobility files
  * @author Thimor Bohn <bohn@itm.uni-luebeck.de>
+ * @author Matthias Röckl <matthias.roeckl@dlr.de>
  *
  */
 public class MobilityWriter {
@@ -118,8 +119,10 @@ public class MobilityWriter {
 							Lane thislane = thisedge.lanes.get(laneid);
 							
 							// calculate positons of vehicle
-							x = thislane.xfrom + pos * (thislane.xto - thislane.xfrom) / thislane.length;
-							y = thislane.yfrom + pos * (thislane.yto - thislane.yfrom) / thislane.length;
+							float[] xAndY = thislane.getPositionOnLane(pos);
+							x = xAndY[0];
+							y = xAndY[1];
+							
 							
 							// add to inititial positions if not already inside
 							if (!initialX.containsKey(id)) {
