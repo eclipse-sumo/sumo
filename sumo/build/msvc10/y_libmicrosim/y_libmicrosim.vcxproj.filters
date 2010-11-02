@@ -270,9 +270,6 @@
     <ClInclude Include="..\..\..\src\microsim\MSVehicleControl.h">
       <Filter>Header-Dateien</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\src\microsim\MSVehicleQuitReminded.h">
-      <Filter>Header-Dateien</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\src\microsim\MSVehicleTransfer.h">
       <Filter>Header-Dateien</Filter>
     </ClInclude>
