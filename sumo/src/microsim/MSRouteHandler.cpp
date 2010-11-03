@@ -146,7 +146,10 @@ MSRouteHandler::myStartElement(SumoXMLTag element,
         if (myActiveRoute.empty()) {
             throw ProcessError("No edges to walk for person '" + myVehicleParameter->id + "'.");
         }
-        if (myActivePlan->empty() || &myActivePlan->back()->getDestination() != myActiveRoute.front()) {
+        if (!myActivePlan->empty() && &myActivePlan->back()->getDestination() != myActiveRoute.front()) {
+            throw ProcessError("Disconnected plan for person '" + myVehicleParameter->id + "'.");
+        }
+        if (myActivePlan->empty()) {
             myActivePlan->push_back(new MSPerson::MSPersonStage_Waiting(*myActiveRoute.front(), -1, myVehicleParameter->depart));
         }
         const SUMOTime duration = attrs.getOptSUMOTimeReporting(SUMO_ATTR_DURATION, "walk", 0, ok, -1);

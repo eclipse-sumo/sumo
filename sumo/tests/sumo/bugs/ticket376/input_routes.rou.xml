@@ -1,0 +1,15 @@
+<routes>
+    <person id="1678427" depart="5">
+        <walk edges="1fi 1fi" duration="1"/>
+        <ride from="1fi" to="2fi" lines="1678427_1070"/>
+        <ride from="2fi" to="1fi" lines="1678427_1080"/>
+    </person>
+    <vehicle id="1678427_1070" depart="triggered">
+        <route edges="1fi 1si 4o 4fi 4si 2o 2fi"/>
+    </vehicle>
+
+    <vehicle id="1678427_1080" depart="triggered">
+        <route edges="2fi 2si 3o 3fi 3si 1o 1fi"/>
+    </vehicle>
+
+</routes>

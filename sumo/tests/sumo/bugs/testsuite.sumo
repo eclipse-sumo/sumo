@@ -41,3 +41,4 @@ right_before_left_deadlock
 
 # Test for ticket#218 (using the given order of bus stops)
 ticket218
+ticket376

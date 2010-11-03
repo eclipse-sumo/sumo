@@ -159,11 +159,7 @@ MSVehicle::~MSVehicle() throw() {
     myDevices.clear();
     // persons
     if (hasCORNPointerValue(MSCORN::CORN_P_VEH_PASSENGER)) {
-        std::vector<MSPerson*> *persons = (std::vector<MSPerson*>*) myPointerCORNMap[MSCORN::CORN_P_VEH_PASSENGER];
-        for (std::vector<MSPerson*>::iterator i=persons->begin(); i!=persons->end(); ++i) {
-            (*i)->proceed(MSNet::getInstance(), MSNet::getInstance()->getCurrentTimeStep());
-        }
-        delete persons;
+        delete myPointerCORNMap[MSCORN::CORN_P_VEH_PASSENGER];
     }
     // other
     delete myEdgeWeights;
@@ -1471,6 +1467,13 @@ void
 MSVehicle::leaveLane(bool isArrival) {
     for (std::vector< MSDevice* >::iterator dev=myDevices.begin(); dev != myDevices.end(); ++dev) {
         (*dev)->leaveLane();
+    }
+    // persons
+    if (isArrival && hasCORNPointerValue(MSCORN::CORN_P_VEH_PASSENGER)) {
+        std::vector<MSPerson*> *persons = (std::vector<MSPerson*>*) myPointerCORNMap[MSCORN::CORN_P_VEH_PASSENGER];
+        for (std::vector<MSPerson*>::iterator i=persons->begin(); i!=persons->end(); ++i) {
+            (*i)->proceed(MSNet::getInstance(), MSNet::getInstance()->getCurrentTimeStep());
+        }
     }
     // dismiss the old lane's reminders
     SUMOReal savePos = myState.myPos; // have to do this due to SUMOReal-precision errors

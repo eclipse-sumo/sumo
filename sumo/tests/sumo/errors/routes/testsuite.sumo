@@ -63,3 +63,6 @@ disconnected
 
 # route file with empty person
 emptyperson
+
+# route file with disconnected walk for a person
+disconnected_walk
