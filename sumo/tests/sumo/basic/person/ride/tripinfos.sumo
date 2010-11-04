@@ -1,6 +1,8 @@
 <?xml version="1.0"?>
 
-<!-- generated on 05/26/10 06:59:14 by SUMO sumo Version dev-SVN-r8777
+<!-- generated on 11/04/10 10:27:47 by SUMO sumo Version dev-SVN-r9342
+<?xml version="1.0" encoding="iso-8859-1"?>
+
 <configuration>
 
     <input>
@@ -25,9 +27,9 @@
 -->
 
 <tripinfos>
-    <tripinfo id="v1" depart="0.00" departLane="beg_0" departPos="0.00" departSpeed="0.00" departDelay="0.00" arrival="62.00" arrivalLane="end_0" arrivalPos="10.30" arrivalSpeed="27.30" duration="62.00" routeLength="1496.05" waitSteps="0" rerouteNo="0" devices="" vtype="DEFAULT_VEHTYPE" vaporized=""/>
     <personinfo id="p1" depart="0.00">
         <stop arrival="0.00"/>
         <ride depart="0.00" arrival="62.00"/>
     </personinfo>
+    <tripinfo id="v1" depart="0.00" departLane="beg_0" departPos="0.00" departSpeed="0.00" departDelay="0.00" arrival="62.00" arrivalLane="end_0" arrivalPos="10.30" arrivalSpeed="27.30" duration="62.00" routeLength="1496.05" waitSteps="0" rerouteNo="0" devices="" vtype="DEFAULT_VEHTYPE" vaporized=""/>
 </tripinfos>

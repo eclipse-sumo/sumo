@@ -1,6 +1,8 @@
 <?xml version="1.0"?>
 
-<!-- generated on 04/02/10 16:08:27 by SUMO sumo Version dev-SVN-r8487
+<!-- generated on 11/04/10 10:27:48 by SUMO sumo Version dev-SVN-r9342
+<?xml version="1.0" encoding="iso-8859-1"?>
+
 <configuration>
 
     <input>
@@ -25,11 +27,11 @@
 -->
 
 <tripinfos>
-    <tripinfo id="bus.0" depart="0.00" departLane="beg_0" departPos="0.00" departSpeed="0.00" departDelay="0.00" arrival="217.00" arrivalLane="end_0" arrivalPos="2.68" arrivalSpeed="5.49" duration="217.00" routeLength="2482.03" waitSteps="31" rerouteNo="0" devices="" vtype="DEFAULT_VEHTYPE" vaporized=""/>
     <personinfo id="p1" depart="20.00">
         <stop arrival="20.00"/>
         <ride depart="42.00" arrival="217.00"/>
     </personinfo>
+    <tripinfo id="bus.0" depart="0.00" departLane="beg_0" departPos="0.00" departSpeed="0.00" departDelay="0.00" arrival="217.00" arrivalLane="end_0" arrivalPos="2.68" arrivalSpeed="5.49" duration="217.00" routeLength="2482.03" waitSteps="31" rerouteNo="0" devices="" vtype="DEFAULT_VEHTYPE" vaporized=""/>
     <tripinfo id="bus.1" depart="120.00" departLane="beg_0" departPos="0.00" departSpeed="0.00" departDelay="0.00" arrival="337.00" arrivalLane="end_0" arrivalPos="2.88" arrivalSpeed="4.35" duration="217.00" routeLength="2482.23" waitSteps="31" rerouteNo="0" devices="" vtype="DEFAULT_VEHTYPE" vaporized=""/>
     <tripinfo id="bus.2" depart="240.00" departLane="beg_0" departPos="0.00" departSpeed="0.00" departDelay="0.00" arrival="459.00" arrivalLane="end_0" arrivalPos="2.96" arrivalSpeed="5.74" duration="219.00" routeLength="2482.31" waitSteps="31" rerouteNo="0" devices="" vtype="DEFAULT_VEHTYPE" vaporized=""/>
     <tripinfo id="bus.3" depart="360.00" departLane="beg_0" departPos="0.00" departSpeed="0.00" departDelay="0.00" arrival="577.00" arrivalLane="end_0" arrivalPos="3.54" arrivalSpeed="5.83" duration="217.00" routeLength="2482.89" waitSteps="31" rerouteNo="0" devices="" vtype="DEFAULT_VEHTYPE" vaporized=""/>
