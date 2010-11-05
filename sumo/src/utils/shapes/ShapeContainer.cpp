@@ -71,6 +71,30 @@ ShapeContainer::add(int layer, Polygon2D *p) throw() {
 }
 
 
+bool 
+ShapeContainer::addPoI(const std::string &name, int layer, const std::string &type, const RGBColor &c, 
+                       const Position2D &pos) throw() {
+    PointOfInterest *p = new PointOfInterest(name, type, pos, c);
+    if (!add(layer, p)) {
+        delete p;
+        return false;
+    }
+    return true;
+}
+
+
+bool 
+ShapeContainer::addPolygon(const std::string &name, int layer, const std::string &type, const RGBColor &c, 
+                           bool filled, const Position2DVector &shape) throw() {
+    Polygon2D *p = new Polygon2D(name, type, c, shape, filled);
+    if (!add(layer, p)) {
+        delete p;
+        return false;
+    }
+    return true;
+}
+
+
 bool
 ShapeContainer::add(int layer, PointOfInterest *p) throw() {
     if (myPOILayers.find(layer)==myPOILayers.end()) {

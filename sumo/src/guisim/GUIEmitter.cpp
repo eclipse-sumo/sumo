@@ -294,12 +294,12 @@ GUIEmitter::GUIEmitterPopupMenu::onCmdDrawRoute(FXObject*,
 /* -------------------------------------------------------------------------
  * GUIEmitter - methods
  * ----------------------------------------------------------------------- */
-GUIEmitter::GUIEmitter(const std::string &id,
+GUIEmitter::GUIEmitter(GUIGlObjectStorage &idStorage,const std::string &id,
                        MSNet &net, MSLane *destLanes, SUMOReal pos,
                        const std::string &file) throw()
         : MSEmitter(id, net, destLanes, pos, file),
-        GUIGlObject_AbstractAdd(GUIGlObjectStorage::gIDStorage,
-                                "emitter:" + id, GLO_TRIGGER), myUserFlow(-1), myDrawRoutes(false) {
+        GUIGlObject_AbstractAdd(idStorage, "emitter:" + id, GLO_TRIGGER),
+        myUserFlow(-1), myDrawRoutes(false) {
     const Position2DVector &v = destLanes->getShape();
     if (pos<0) {
         pos = destLanes->getLength()+ pos;

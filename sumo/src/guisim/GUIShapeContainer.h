@@ -34,6 +34,12 @@
 
 
 // ===========================================================================
+// class declarations
+// ===========================================================================
+class GUINet;
+
+
+// ===========================================================================
 // class definitions
 // ===========================================================================
 /**
@@ -44,29 +50,39 @@
 class GUIShapeContainer : public ShapeContainer {
 public:
     /// @brief Constructor
-    GUIShapeContainer() throw();
+    GUIShapeContainer(GUINet &net) throw();
 
 
     /// @brief Destructor
     virtual ~GUIShapeContainer() throw();
 
 
-    /** @brief Adds a polygon to the container
-     * @param[in] layer The layer the polygon is located in
-     * @param[in] p The polygon to add
-     * @return Whether the polygon could be added (no other with same name existed before)
-     * @see ShapeContainer::add
+
+    /** @brief Builds a PoI using the given values and adds it to the according layer
+     * @param[in] name The name of the PoI to add
+     * @param[in] layer The layer to add the PoI to
+     * @param[in] type The type of the PoI to add
+     * @param[in] c The color of the PoI to add
+     * @param[in] pos The position of the PoI to add
+     * @return Whether the PoI could be added (no other with same id exists in the layer)
+     * @see ShapeContainer::addPoI
      */
-    bool add(int layer, Polygon2D *p) throw();
+    virtual bool addPoI(const std::string &name, int layer, const std::string &type, 
+        const RGBColor &c, const Position2D &pos) throw();
 
 
-    /** @brief Adds a POI to the container
-     * @param[in] layer The layer the poi is located in
-     * @param[in] p The poi to add
-     * @return Whether the poi could be added (no other with same name existed before)
-     * @see ShapeContainer::add
+    /** @brief Builds a polygon using the given values and adds it to the according layer
+     * @param[in] name The name of the polygon to add
+     * @param[in] layer The layer to add the polygon to
+     * @param[in] type The type of the polygon to add
+     * @param[in] c The color of the polygon to add
+     * @param[in] pos The position of the polygon to add
+     * @return Whether the polygon could be added (no other with same id exists in the layer)
+     * @see ShapeContainer::addPolygon
      */
-    bool add(int layer, PointOfInterest *p) throw();
+    virtual bool addPolygon(const std::string &name, int layer, 
+        const std::string &type, const RGBColor &c, bool filled, const Position2DVector &shape) throw();
+
 
 
     /** @brief Removes a polygon from the container
@@ -87,9 +103,31 @@ public:
     bool removePOI(int layer, const std::string &id) throw();
 
 
+protected:
+    /** @brief Adds a polygon to the container
+     * @param[in] layer The layer the polygon is located in
+     * @param[in] p The polygon to add
+     * @return Whether the polygon could be added (no other with same name existed before)
+     * @see ShapeContainer::add
+     */
+    bool add(int layer, Polygon2D *p) throw();
+
+
+    /** @brief Adds a POI to the container
+     * @param[in] layer The layer the poi is located in
+     * @param[in] p The poi to add
+     * @return Whether the poi could be added (no other with same name existed before)
+     * @see ShapeContainer::add
+     */
+    bool add(int layer, PointOfInterest *p) throw();
+
+
 private:
     /// @brief The mutex for adding/removing operations
     MFXMutex myLock;
+
+    /// @brief The network for interaction with the RTree strcuture
+    GUINet &myNet;
 
 };
 

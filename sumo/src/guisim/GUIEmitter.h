@@ -60,13 +60,15 @@ class GUIEmitter : public MSEmitter, public GUIGlObject_AbstractAdd {
 public:
     /** @brief Constructor
      *
+     * @param[in] idStorage The gl-id storage for giving this object an gl-id
      * @param[in] id The id of the emitter
      * @param[in] net The net the emitter belongs to
      * @param[in] destLane The lane the emitter is placed on
      * @param[in] pos Position of the emitter on the given lane
      * @param[in] file Name of the file to read the emission definitions from
      */
-    GUIEmitter(const std::string &id, MSNet &net,
+    GUIEmitter(GUIGlObjectStorage &idStorage,
+               const std::string &id, MSNet &net,
                MSLane* destLanes, SUMOReal pos,
                const std::string &file) throw();
 

@@ -37,7 +37,6 @@
 #include <utils/shapes/Polygon2D.h>
 #include "GUISUMOViewParent.h"
 #include <utils/gui/windows/GUISUMOAbstractView.h>
-#include <utils/gui/globjects/GUIGlObject_AbstractAdd.h>
 
 #ifdef _WIN32
 #include <windows.h>

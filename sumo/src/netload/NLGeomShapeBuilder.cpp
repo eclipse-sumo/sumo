@@ -70,10 +70,7 @@ NLGeomShapeBuilder::polygonBegin(const std::string &name,
 
 void
 NLGeomShapeBuilder::polygonEnd(const Position2DVector &shape) throw(InvalidArgument) {
-    Polygon2D *p =
-        new Polygon2D(myCurrentName, myCurrentType, myCurrentColor, shape, myFillPoly);
-    if (!myShapeContainer.add(myCurrentLayer, p)) {
-        delete p;
+    if (!myShapeContainer.addPolygon(myCurrentName, myCurrentLayer, myCurrentType, myCurrentColor, myFillPoly, shape)) {
         throw InvalidArgument("A duplicate of the polygon '" + myCurrentName + "' occured.");
     }
 }
@@ -87,9 +84,7 @@ NLGeomShapeBuilder::addPoint(const std::string &name,
                              SUMOReal x, SUMOReal y,
                              const std::string &lane, SUMOReal posOnLane) throw(InvalidArgument) {
     Position2D pos = getPointPosition(x, y, lane, posOnLane);
-    PointOfInterest *p = new PointOfInterest(name, type, pos, c);
-    if (!myShapeContainer.add(layer, p)) {
-        delete p;
+    if(!myShapeContainer.addPoI(name, layer, type, c, pos)) {
         throw InvalidArgument("A duplicate of the POI '" + name + "' occured.");
     }
 }

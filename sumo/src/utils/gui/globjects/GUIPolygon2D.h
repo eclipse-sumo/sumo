@@ -43,13 +43,21 @@
  */
 class GUIPolygon2D : public Polygon2D, public GUIGlObject_AbstractAdd {
 public:
-    /// Constructor
+    /** @brief Constructor
+     * @param[in] idStorage The gl-id storage for giving this object an gl-id
+     * @param[in] layer The layer the polygon will be located in
+     * @param[in] name The name (id) of the polygon 
+     * @param[in] type The type of the polygon 
+     * @param[in] color The color of the polygon 
+     * @param[in] shape The shape of the polygon
+     * @param[in] fill Whether the polygon shall be filled
+     */
     GUIPolygon2D(GUIGlObjectStorage &idStorage, int layer,
                  const std::string name, const std::string type,
-                 const RGBColor &color, const Position2DVector &Pos,
+                 const RGBColor &color, const Position2DVector &shape,
                  bool fill) throw();
 
-    /// Destructor
+    /// @brief Destructor
     ~GUIPolygon2D() throw();
 
 
@@ -109,7 +117,6 @@ public:
 
 protected:
     /** @brief The layer this object is located in
-     *
      * This value is used for determining which object to choose as being on top under the cursor
      */
     int myLayer;

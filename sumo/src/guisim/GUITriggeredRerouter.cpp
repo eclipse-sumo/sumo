@@ -229,11 +229,12 @@ GUITriggeredRerouter::GUITriggeredRerouterPopupMenu::onCmdOpenManip(FXObject*,
 /* -------------------------------------------------------------------------
  * GUITriggeredRerouter - methods
  * ----------------------------------------------------------------------- */
-GUITriggeredRerouter::GUITriggeredRerouter(const std::string &id,
+GUITriggeredRerouter::GUITriggeredRerouter(GUIGlObjectStorage &idStorage,
+        const std::string &id,
         const std::vector<MSEdge*> &edges,
         SUMOReal prob, const std::string &aXMLFilename, bool off)
         : MSTriggeredRerouter(id, edges, prob, aXMLFilename, off),
-        GUIGlObject_AbstractAdd(GUIGlObjectStorage::gIDStorage, "rerouter:" + id, GLO_TRIGGER) {
+        GUIGlObject_AbstractAdd(idStorage, "rerouter:" + id, GLO_TRIGGER) {
     size_t k;
     size_t no = 0;
     for (k=0; k<edges.size(); k++) {

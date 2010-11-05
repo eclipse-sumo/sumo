@@ -242,8 +242,7 @@ TraCIServerAPI_Polygon::processSet(TraCIServer &server, tcpip::Storage &inputSto
             shape.push_back(Position2D(x, y));
         }
         //
-        p = new Polygon2D(id, type, RGBColor(r, g, b), shape, fill);
-        if (!shapeCont.add(layer, p)) {
+        if (!shapeCont.addPolygon(id, layer, type, RGBColor(r, g, b), fill, shape)) {
             delete p;
             server.writeStatusCmd(CMD_SET_POLYGON_VARIABLE, RTYPE_ERR, "Could not add polygon.", outputStorage);
             return false;

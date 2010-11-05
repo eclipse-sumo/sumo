@@ -86,7 +86,7 @@ template MFXMutex GLObjectValuePassConnector<std::pair<int,class MSPhaseDefiniti
 // ===========================================================================
 GUINet::GUINet(MSVehicleControl *vc, MSEventControl *beginOfTimestepEvents,
                MSEventControl *endOfTimestepEvents, MSEventControl *emissionEvents) throw(ProcessError)
-        : MSNet(vc, beginOfTimestepEvents, endOfTimestepEvents, emissionEvents, new GUIShapeContainer()),
+        : MSNet(vc, beginOfTimestepEvents, endOfTimestepEvents, emissionEvents, new GUIShapeContainer(*this)),
         GUIGlObject(GUIGlObjectStorage::gIDStorage, "network"),
         myGrid(new SUMORTree(&GUIGlObject::drawGL)),
         myLastSimDuration(0), /*myLastVisDuration(0),*/ myLastIdleDuration(0),
@@ -104,7 +104,7 @@ GUINet::~GUINet() throw() {
     for (std::vector<GUIJunctionWrapper*>::iterator i1=myJunctionWrapper.begin(); i1!=myJunctionWrapper.end(); i1++) {
         delete(*i1);
     }
-    //  of addition structures
+    //  of additional structures
     GUIGlObject_AbstractAdd::clearDictionary();
     //  of tl-logics
     for (Logics2WrapperMap::iterator i3=myLogics2Wrapper.begin(); i3!=myLogics2Wrapper.end(); i3++) {
@@ -143,21 +143,19 @@ GUINet::initDetectors() {
                 continue;
             }
             */
-        GUIDetectorWrapper *wrapper =
-            static_cast<GUI_E2_ZS_Collector*>(e2i)->buildDetectorWrapper(GUIGlObjectStorage::gIDStorage, edge.getLaneGeometry(lane));
+        GUIDetectorWrapper *wrapper = static_cast<GUI_E2_ZS_Collector*>(e2i)->buildDetectorWrapper(GUIGlObjectStorage::gIDStorage, edge.getLaneGeometry(lane));
         // add to dictionary
         myDetectorDict[wrapper->getMicrosimID()] = wrapper;
+        // add to visualisation
+        addAdditionalGLObject(wrapper);
     }
     // e2 over lanes -detectors
     const std::map<std::string, MS_E2_ZS_CollectorOverLanes*> &e2ol = myDetectorControl->getE2OLDetectors().getMyMap();
     for (std::map<std::string, MS_E2_ZS_CollectorOverLanes*>::const_iterator i2=e2ol.begin(); i2!=e2ol.end(); i2++) {
         MS_E2_ZS_CollectorOverLanes * const e2oli = (*i2).second;
-        // build the wrapper
-        GUIDetectorWrapper *wrapper =
-            static_cast<GUI_E2_ZS_CollectorOverLanes*>(e2oli)->buildDetectorWrapper(
-                GUIGlObjectStorage::gIDStorage);
-        // add to dictionary
+        GUIDetectorWrapper *wrapper = static_cast<GUI_E2_ZS_CollectorOverLanes*>(e2oli)->buildDetectorWrapper(GUIGlObjectStorage::gIDStorage);
         myDetectorDict[wrapper->getMicrosimID()] = wrapper;
+        addAdditionalGLObject(wrapper);
     }
     // induction loops
     const std::map<std::string, MSInductLoop*> &e1 = myDetectorControl->getInductLoops().getMyMap();
@@ -165,20 +163,17 @@ GUINet::initDetectors() {
         MSInductLoop *const e1i = (*i2).second;
         const MSLane *lane = e1i->getLane();
         GUIEdge &edge = static_cast<GUIEdge&>(lane->getEdge());
-        // build the wrapper
         GUIDetectorWrapper *wrapper = static_cast<GUIInductLoop*>(e1i)->buildDetectorWrapper(GUIGlObjectStorage::gIDStorage, edge.getLaneGeometry(lane));
-        // add to dictionary
         myDetectorDict[wrapper->getMicrosimID()] = wrapper;
+        addAdditionalGLObject(wrapper);
     }
     // e3-detectors
     const std::map<std::string, MSE3Collector*> &e3 = myDetectorControl->getE3Detectors().getMyMap();
     for (std::map<std::string, MSE3Collector*>::const_iterator i2=e3.begin(); i2!=e3.end(); i2++) {
         MSE3Collector *const e3i = (*i2).second;
-        // build the wrapper
-        GUIDetectorWrapper *wrapper =
-            static_cast<GUIE3Collector*>(e3i)->buildDetectorWrapper(GUIGlObjectStorage::gIDStorage);
-        // add to dictionary
+        GUIDetectorWrapper *wrapper = static_cast<GUIE3Collector*>(e3i)->buildDetectorWrapper(GUIGlObjectStorage::gIDStorage);
         myDetectorDict[wrapper->getMicrosimID()] = wrapper;
+        addAdditionalGLObject(wrapper);
     }
 }
 
@@ -358,16 +353,6 @@ GUINet::initGUIStructures() {
         myGrid->Insert(cmin, cmax, junction);
         myBoundary.add(b);
     }
-    const std::vector<GUIGlObject_AbstractAdd*> &a = GUIGlObject_AbstractAdd::getObjectList();
-    for (std::vector<GUIGlObject_AbstractAdd*>::const_iterator i=a.begin(); i!=a.end(); ++i) {
-        GUIGlObject_AbstractAdd *o = *i;
-        Boundary b = o->getCenteringBoundary();
-        cmin[0] = b.xmin();
-        cmin[1] = b.ymin();
-        cmax[0] = b.xmax();
-        cmax[1] = b.ymax();
-        myGrid->Insert(cmin, cmax, o);
-    }
     delete[] cmin;
     delete[] cmax;
     myGrid->add(myBoundary);
@@ -526,6 +511,31 @@ GUINet::drawGL(const GUIVisualizationSettings &s) const throw() {
 Boundary
 GUINet::getCenteringBoundary() const throw() {
     return getBoundary();
+}
+
+void
+GUINet::addAdditionalGLObject(GUIGlObject_AbstractAdd *o) throw() {
+    float cmin[2];
+    float cmax[2];
+    Boundary b = o->getCenteringBoundary();
+    cmin[0] = b.xmin();
+    cmin[1] = b.ymin();
+    cmax[0] = b.xmax();
+    cmax[1] = b.ymax();
+    myGrid->Insert(cmin, cmax, o);
+}
+
+
+void
+GUINet::removeAdditionalGLObject(GUIGlObject_AbstractAdd *o) throw() {
+    float cmin[2];
+    float cmax[2];
+    Boundary b = o->getCenteringBoundary();
+    cmin[0] = b.xmin();
+    cmin[1] = b.ymin();
+    cmax[0] = b.xmax();
+    cmax[1] = b.ymax();
+    myGrid->Remove(cmin, cmax, o);
 }
 
 

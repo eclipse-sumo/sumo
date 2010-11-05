@@ -580,10 +580,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\guinetload\GUIGeomShapeBuilder.cpp"
-				>
-			</File>
-			<File
 				RelativePath="..\..\..\src\guinetload\GUITriggerBuilder.cpp"
 				>
 			</File>
@@ -598,10 +594,6 @@
 			</File>
 			<File
 				RelativePath="..\..\..\src\guinetload\GUIEdgeControlBuilder.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\guinetload\GUIGeomShapeBuilder.h"
 				>
 			</File>
 			<File

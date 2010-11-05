@@ -53,7 +53,6 @@
 #include <utils/gui/images/GUITexturesHelper.h>
 #include <microsim/logging/FunctionBinding.h>
 #include <utils/gui/div/GUIGlobalSelection.h>
-#include <utils/gui/globjects/GUIGlObjectStorage.h>
 #include <foreign/polyfonts/polyfonts.h>
 #include <utils/gui/images/GUIIconSubSys.h>
 #include <gui/GUIApplicationWindow.h>
@@ -279,11 +278,11 @@ GUILaneSpeedTrigger::GUILaneSpeedTriggerPopupMenu::onCmdOpenManip(FXObject*,
 /* -------------------------------------------------------------------------
  * GUILaneSpeedTrigger - methods
  * ----------------------------------------------------------------------- */
-GUILaneSpeedTrigger::GUILaneSpeedTrigger(const std::string &id,
-        const std::vector<MSLane*> &destLanes,
+GUILaneSpeedTrigger::GUILaneSpeedTrigger(GUIGlObjectStorage &idStorage,
+        const std::string &id,const std::vector<MSLane*> &destLanes,
         const std::string &aXMLFilename) throw(ProcessError)
         : MSLaneSpeedTrigger(id, destLanes, aXMLFilename),
-        GUIGlObject_AbstractAdd(GUIGlObjectStorage::gIDStorage, "speedtrigger:" + id, GLO_TRIGGER),
+        GUIGlObject_AbstractAdd(idStorage, "speedtrigger:" + id, GLO_TRIGGER),
         myShowAsKMH(true), myLastValue(-1) {
     myFGPositions.reserve(destLanes.size());
     myFGRotations.reserve(destLanes.size());

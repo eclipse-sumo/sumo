@@ -36,7 +36,6 @@
 #include <guinetload/GUIEdgeControlBuilder.h>
 #include <guinetload/GUIDetectorBuilder.h>
 #include <guinetload/GUITriggerBuilder.h>
-#include <guinetload/GUIGeomShapeBuilder.h>
 #include <guisim/GUIVehicleControl.h>
 #include <microsim/output/MSDetectorControl.h>
 #include <utils/common/UtilExceptions.h>
@@ -130,9 +129,8 @@ GUILoadThread::run() {
     GUIEdgeControlBuilder *eb = new GUIEdgeControlBuilder(GUIGlObjectStorage::gIDStorage);
     NLJunctionControlBuilder jb(*net, oc);
     GUIDetectorBuilder db(*net);
-    GUIGeomShapeBuilder sb(*net, GUIGlObjectStorage::gIDStorage);
     GUITriggerBuilder tb;
-    NLHandler handler("", *net, db, tb, *eb, jb, sb);
+    NLHandler handler("", *net, db, tb, *eb, jb);
     tb.setHandler(&handler);
     NLBuilder builder(oc, *net, *eb, jb, db, handler);
     try {

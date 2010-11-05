@@ -62,12 +62,13 @@ class GUILaneSpeedTrigger
             public GUIGlObject_AbstractAdd {
 public:
     /** @brief Constructor
-     *
+     * @param[in] idStorage The gl-id storage for giving this object an gl-id
      * @param[in] id The id of the lane speed trigger
      * @param[in] destLanes List of lanes affected by this speed trigger
      * @param[in] file Name of the file to read the speeds to set from
      */
-    GUILaneSpeedTrigger(const std::string &id,
+    GUILaneSpeedTrigger(GUIGlObjectStorage &idStorage,
+                        const std::string &id,
                         const std::vector<MSLane*> &destLanes,
                         const std::string &file) throw(ProcessError);
 

@@ -60,6 +60,7 @@ public:
     virtual ~PointOfInterest() throw() { }
 
 
+
     /** @brief Returns the (abstract) type of the poi
      * @return The polygon's (abstract) type
      */

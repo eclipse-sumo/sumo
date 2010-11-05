@@ -30,10 +30,12 @@
 #include <string>
 #include <fstream>
 #include <guisim/GUILaneSpeedTrigger.h>
+#include <guisim/GUINet.h>
 #include <guisim/GUIEmitter.h>
 #include <guisim/GUITriggeredRerouter.h>
 #include <guisim/GUIBusStop.h>
 #include "GUITriggerBuilder.h"
+#include <utils/gui/globjects/GUIGlObjectStorage.h>
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -53,7 +55,9 @@ MSLaneSpeedTrigger*
 GUITriggerBuilder::buildLaneSpeedTrigger(MSNet &net,
         const std::string &id, const std::vector<MSLane*> &destLanes,
         const std::string &file) throw(ProcessError) {
-    return new GUILaneSpeedTrigger(id, destLanes, file);
+    GUILaneSpeedTrigger *lst = new GUILaneSpeedTrigger(GUIGlObjectStorage::gIDStorage, id, destLanes, file);
+    static_cast<GUINet&>(net).addAdditionalGLObject(lst);
+    return lst;
 }
 
 
@@ -63,15 +67,15 @@ GUITriggerBuilder::buildLaneEmitTrigger(MSNet &net,
                                         MSLane *destLane,
                                         SUMOReal pos,
                                         const std::string &file) throw() {
-    new GUIEmitter(id, net, destLane, pos, file);
+    static_cast<GUINet&>(net).addAdditionalGLObject(new GUIEmitter(GUIGlObjectStorage::gIDStorage, id, net, destLane, pos, file));
 }
 
 
 void
-GUITriggerBuilder::buildRerouter(MSNet &, const std::string &id,
+GUITriggerBuilder::buildRerouter(MSNet &net, const std::string &id,
                                  std::vector<MSEdge*> &edges,
                                  SUMOReal prob, const std::string &file, bool off) throw() {
-    new GUITriggeredRerouter(id, edges, prob, file, off);
+    static_cast<GUINet&>(net).addAdditionalGLObject(new GUITriggeredRerouter(GUIGlObjectStorage::gIDStorage, id, edges, prob, file, off));
 }
 
 
@@ -80,7 +84,9 @@ GUITriggerBuilder::buildBusStop(MSNet &net, const std::string &id,
                                 const std::vector<std::string> &lines,
                                 MSLane *lane,
                                 SUMOReal frompos, SUMOReal topos) throw() {
-    net.addBusStop(new GUIBusStop(id, net, lines, *lane, frompos, topos));
+    GUIBusStop *stop = new GUIBusStop(GUIGlObjectStorage::gIDStorage, id, lines, *lane, frompos, topos);
+    net.addBusStop(stop);
+    static_cast<GUINet&>(net).addAdditionalGLObject(stop);
 }
 
 

@@ -48,7 +48,6 @@
 #include <utils/gui/windows/GUISUMOAbstractView.h>
 #include <utils/gui/windows/GUIPerspectiveChanger.h>
 #include <utils/gui/windows/GUIAppEnum.h>
-#include <utils/gui/globjects/GUIGlObject_AbstractAdd.h>
 #include <utils/foxtools/MFXCheckableButton.h>
 #include <utils/gui/images/GUIIconSubSys.h>
 #include <gui/GUIApplicationWindow.h>

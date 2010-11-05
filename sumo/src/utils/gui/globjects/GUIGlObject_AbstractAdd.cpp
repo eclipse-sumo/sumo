@@ -49,10 +49,8 @@ std::vector<GUIGlObject_AbstractAdd*> GUIGlObject_AbstractAdd::myObjectList;
 // method definitions
 // ===========================================================================
 GUIGlObject_AbstractAdd::GUIGlObject_AbstractAdd(GUIGlObjectStorage &idStorage,
-        std::string fullName,
-        GUIGlObjectType type) throw()
+        std::string fullName, GUIGlObjectType type) throw()
         : GUIGlObject(idStorage, fullName), myGlType(type) {
-//!!!    assert(myObjects.find(fullName)==myObjects.end());
     myObjects[fullName] = this;
     myObjectList.push_back(this);
 }
@@ -62,7 +60,6 @@ GUIGlObject_AbstractAdd::GUIGlObject_AbstractAdd(std::string fullName,
         GLuint glID,
         GUIGlObjectType type) throw()
         : GUIGlObject(fullName, glID), myGlType(type) {
-//!!!    assert(myObjects.find(fullName)==myObjects.end());
     myObjects[fullName] = this;
     myObjectList.push_back(this);
 }
@@ -91,8 +88,7 @@ GUIGlObject_AbstractAdd::clearDictionary() {
 
 GUIGlObject_AbstractAdd *
 GUIGlObject_AbstractAdd::get(const std::string &name) {
-    std::map<std::string, GUIGlObject_AbstractAdd*>::iterator i =
-        myObjects.find(name);
+    std::map<std::string, GUIGlObject_AbstractAdd*>::iterator i = myObjects.find(name);
     if (i==myObjects.end()) {
         return 0;
     }

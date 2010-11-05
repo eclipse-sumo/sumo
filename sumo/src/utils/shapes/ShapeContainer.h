@@ -52,20 +52,32 @@ public:
     virtual ~ShapeContainer() throw();
 
 
-    /** @brief Adds a polygon to the container
-     * @param[in] layer The layer the polygon is located in
-     * @param[in] p The polygon to add
-     * @return Whether the polygon could be added (no other with same name existed before)
+
+    /** @brief Builds a PoI using the given values and adds it to the according layer
+     * @param[in] name The name of the PoI to add
+     * @param[in] layer The layer to add the PoI to
+     * @param[in] type The type of the PoI to add
+     * @param[in] c The color of the PoI to add
+     * @param[in] pos The position of the PoI to add
+     * @return Whether the PoI could be added (no other with same id exists in the layer)
+     * @see ShapeContainer::addPoI
      */
-    virtual bool add(int layer, Polygon2D *p) throw();
+    virtual bool addPoI(const std::string &name, int layer, const std::string &type, 
+        const RGBColor &c, const Position2D &pos) throw();
 
 
-    /** @brief Adds a PoI to the container
-     * @param[in] layer The layer the poi is located in
-     * @param[in] p The PoI to add
-     * @return Whether the PoI could be added (no other with same name existed before)
+    /** @brief Builds a polygon using the given values and adds it to the according layer
+     * @param[in] name The name of the polygon to add
+     * @param[in] layer The layer to add the polygon to
+     * @param[in] type The type of the polygon to add
+     * @param[in] c The color of the polygon to add
+     * @param[in] shape The shape of the polygon to add
+     * @return Whether the polygon could be added (no other with same id exists in the layer)
+     * @see ShapeContainer::addPolygon
      */
-    virtual bool add(int layer, PointOfInterest *p) throw();
+    virtual bool addPolygon(const std::string &name, int layer, 
+        const std::string &type, const RGBColor &c, bool filled, const Position2DVector &shape) throw();
+
 
 
     /** @brief Removes a polygon from the container
@@ -84,6 +96,7 @@ public:
     virtual bool removePOI(int layer, const std::string &id) throw();
 
 
+
     /** @brief Returns the polygons located at the given layer
      * @param[in] layer The layer of polygons to return
      * @return The polygons at this layer
@@ -98,6 +111,7 @@ public:
      * @see NamedObjectCont
      */
     const NamedObjectCont<PointOfInterest*> &getPOICont(int layer) const throw();
+
 
 
     /** @brief Returns the lowest layer
@@ -116,7 +130,24 @@ public:
     }
 
 
-private:
+protected:
+    /** @brief Adds a polygon to the container
+     * @param[in] layer The layer the polygon is located in
+     * @param[in] p The polygon to add
+     * @return Whether the polygon could be added (no other with same name existed before)
+     */
+    virtual bool add(int layer, Polygon2D *p) throw();
+
+
+    /** @brief Adds a PoI to the container
+     * @param[in] layer The layer the poi is located in
+     * @param[in] p The PoI to add
+     * @return Whether the PoI could be added (no other with same name existed before)
+     */
+    virtual bool add(int layer, PointOfInterest *p) throw();
+
+
+protected:
     /// @brief Polygon layers
     mutable std::map<int, NamedObjectCont<Polygon2D*> > myPolygonLayers;
 

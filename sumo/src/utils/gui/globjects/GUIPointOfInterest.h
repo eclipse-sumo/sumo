@@ -49,10 +49,19 @@ class GUIGlObjectStorage;
  */
 class GUIPointOfInterest : public PointOfInterest, public GUIGlObject_AbstractAdd {
 public:
+    /** @brief Constructor
+     * @param[in] idStorage The gl-id storage for giving this object an gl-id
+     * @param[in] layer The layer the PoI will be located in
+     * @param[in] id The name of the PoI 
+     * @param[in] type The type of the PoI 
+     * @param[in] p The position of the PoI
+     * @param[in] c The color of the PoI 
+     */
     GUIPointOfInterest(GUIGlObjectStorage &idStorage, int layer,
                        const std::string &id, const std::string &type,
                        const Position2D &p, const RGBColor &c) throw();
 
+    /// @brief Destructor
     virtual ~GUIPointOfInterest() throw();
 
 

@@ -68,20 +68,19 @@ class GUIManipulator;
 class GUIBusStop : public MSBusStop, public GUIGlObject_AbstractAdd {
 public:
     /** @brief Constructor
-     *
+     * @param[in] idStorage The gl-id storage for giving this object an gl-id
      * @param[in] id The id of the bus stop
-     * @param[in] net The net the bus stop belongs to
      * @param[in] lines Names of the bus lines that halt on this bus stop
      * @param[in] lane The lane the bus stop is placed on
      * @param[in] begPos Begin position of the bus stop on the lane
      * @param[in] endPos End position of the bus stop on the lane
      */
-    GUIBusStop(const std::string &id, MSNet &net,
+    GUIBusStop(GUIGlObjectStorage &idStorage, const std::string &id,
                const std::vector<std::string> &lines, MSLane &lane,
                SUMOReal frompos, SUMOReal topos) throw();
 
 
-    /** @brief Destructor */
+    /// @brief Destructor
     ~GUIBusStop() throw();
 
 

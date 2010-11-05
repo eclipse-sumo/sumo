@@ -78,13 +78,11 @@ public:
      * @param[in] triggerBuilder The trigger builder to use
      * @param[in] edgeBuilder The builder of edges to use
      * @param[in] junctionBuilder The builder of junctions to use
-     * @param[in] shapeBuilder The geometric shapes builder to use
      */
     NLHandler(const std::string &file, MSNet &net,
               NLDetectorBuilder &detBuilder, NLTriggerBuilder &triggerBuilder,
               NLEdgeControlBuilder &edgeBuilder,
-              NLJunctionControlBuilder &junctionBuilder,
-              NLGeomShapeBuilder &shapeBuilder) throw();
+              NLJunctionControlBuilder &junctionBuilder) throw();
 
 
     /// @brief Destructor
@@ -337,31 +335,34 @@ private:
 
 
 protected:
-    /// A builder for object actions
+    /// @brief A builder for object actions
     NLDiscreteEventBuilder myActionBuilder;
 
-    /// Information whether the currently parsed edge is internal and not wished, here
+    /// @brief Information whether the currently parsed edge is internal and not wished, here
     bool myCurrentIsInternalToSkip;
 
-    /// The detector builder to use
-    NLDetectorBuilder &myDetectorBuilder;
-
-    /// The type of the last detector
+    /// @brief The type of the last detector
     std::string myCurrentDetectorType;
 
-    /// The trigger builder to use
+
+    /// @brief The detector builder to use
+    NLDetectorBuilder &myDetectorBuilder;
+
+    /// @brief The trigger builder to use
     NLTriggerBuilder &myTriggerBuilder;
 
-    /** storage for edges during building */
+    /// @brief The edge builder to use
     NLEdgeControlBuilder &myEdgeControlBuilder;
 
-    /** storage for junctions during building */
+    /// @brief The junction builder to use
     NLJunctionControlBuilder &myJunctionControlBuilder;
 
-    NLGeomShapeBuilder &myShapeBuilder;
+    /// @brief The shapes builder to use
+    NLGeomShapeBuilder myShapeBuilder;
 
-    /// storage for building succeeding lanes
+    /// @brief The lane-to-lane connections builder to use
     NLSucceedingLaneBuilder mySucceedingLaneBuilder;
+
 
 
     /// @name Information about a lane

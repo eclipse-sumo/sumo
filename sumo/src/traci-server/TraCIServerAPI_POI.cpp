@@ -209,8 +209,7 @@ TraCIServerAPI_POI::processSet(TraCIServer &server, tcpip::Storage &inputStorage
         SUMOReal x = inputStorage.readFloat();
         SUMOReal y = inputStorage.readFloat();
         //
-        p = new PointOfInterest(id, type, Position2D(x, y), RGBColor(r, g, b));
-        if (!shapeCont.add(layer, p)) {
+        if (!shapeCont.addPoI(id, layer, type, RGBColor(r, g, b), Position2D(x, y))) {
             delete p;
             server.writeStatusCmd(CMD_SET_POI_VARIABLE, RTYPE_ERR, "Could not add PoI.", outputStorage);
             return false;

@@ -28,6 +28,10 @@
 #endif
 
 #include "GUIShapeContainer.h"
+#include <guisim/GUINet.h>
+#include <utils/gui/globjects/GUIPolygon2D.h>
+#include <utils/gui/globjects/GUIPointOfInterest.h>
+#include <utils/gui/globjects/GUIGlObjectStorage.h>
 
 #ifdef _WIN32
 #include <windows.h>
@@ -41,7 +45,8 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-GUIShapeContainer::GUIShapeContainer() throw() {}
+GUIShapeContainer::GUIShapeContainer(GUINet &net) throw()
+        : myNet(net) {}
 
 
 GUIShapeContainer::~GUIShapeContainer() throw() {}
@@ -51,15 +56,47 @@ bool
 GUIShapeContainer::add(int layer, Polygon2D *p) throw() {
     myLock.lock();
     bool ret = ShapeContainer::add(layer, p);
+    if (ret) {
+        myNet.addAdditionalGLObject(static_cast<GUIPolygon2D*>(p));
+    }
     myLock.unlock();
     return ret;
 }
+
+
+bool 
+GUIShapeContainer::addPoI(const std::string &name, int layer, const std::string &type, const RGBColor &c, 
+                       const Position2D &pos) throw() {
+    PointOfInterest *p = new GUIPointOfInterest(GUIGlObjectStorage::gIDStorage, layer, name, type, pos, c);
+    if (!add(layer, p)) {
+        delete p;
+        return false;
+    }
+    return true;
+}
+
+
+bool 
+GUIShapeContainer::addPolygon(const std::string &name, int layer, const std::string &type, const RGBColor &c, 
+                           bool filled, const Position2DVector &shape) throw() {
+    Polygon2D *p = new GUIPolygon2D(GUIGlObjectStorage::gIDStorage, layer, name, type, c, shape, filled);
+    if (!add(layer, p)) {
+        delete p;
+        return false;
+    }
+    return true;
+}
+
+
 
 
 bool
 GUIShapeContainer::add(int layer, PointOfInterest *p) throw() {
     myLock.lock();
     bool ret = ShapeContainer::add(layer, p);
+    if (ret) {
+        myNet.addAdditionalGLObject(static_cast<GUIPointOfInterest*>(p));
+    }
     myLock.unlock();
     return ret;
 }
@@ -68,7 +105,18 @@ GUIShapeContainer::add(int layer, PointOfInterest *p) throw() {
 bool
 GUIShapeContainer::removePolygon(int layer, const std::string &id) throw() {
     myLock.lock();
-    bool ret = ShapeContainer::removePolygon(layer, id);
+    if (myPolygonLayers.find(layer)==myPolygonLayers.end()) {
+        myLock.unlock();
+        return false;
+    }
+    NamedObjectCont<Polygon2D*> &c = myPolygonLayers.find(layer)->second;
+    Polygon2D *p = c.get(id);
+    if (p==0) {
+        myLock.unlock();
+        return false;
+    }
+    myNet.removeAdditionalGLObject(static_cast<GUIPolygon2D*>(p));
+    bool ret = c.remove(id);
     myLock.unlock();
     return ret;
 }
@@ -77,7 +125,18 @@ GUIShapeContainer::removePolygon(int layer, const std::string &id) throw() {
 bool
 GUIShapeContainer::removePOI(int layer, const std::string &id) throw() {
     myLock.lock();
-    bool ret = ShapeContainer::removePOI(layer, id);
+    if (myPOILayers.find(layer)==myPOILayers.end()) {
+        myLock.unlock();
+        return false;
+    }
+    NamedObjectCont<PointOfInterest*> &c = myPOILayers.find(layer)->second;
+    PointOfInterest *p = c.get(id);
+    if (p==0) {
+        myLock.unlock();
+        return false;
+    }
+    myNet.removeAdditionalGLObject(static_cast<GUIPointOfInterest*>(p));
+    bool ret = c.remove(id);
     myLock.unlock();
     return ret;
 }

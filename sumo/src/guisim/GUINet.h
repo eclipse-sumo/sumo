@@ -39,6 +39,7 @@
 #include <utils/gui/globjects/GUIGlObjectStorage.h>
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
 #include <utils/gui/globjects/GUIGlObject.h>
+#include <utils/gui/globjects/GUIGlObject_AbstractAdd.h>
 
 #ifdef _WIN32
 #include <windows.h>
@@ -250,43 +251,55 @@ public:
 
     friend class GUIViewTraffic; // !!!
 
+    /** @brief Adds an additional object (detector/shape/trigger) for visualisation
+     * @param[in] o The object to add
+     */
+    void addAdditionalGLObject(GUIGlObject_AbstractAdd *o) throw();
+
+
+    /** @brief Removes an additional object (detector/shape/trigger) from being visualised
+     * @param[in] o The object to remove
+     */
+    void removeAdditionalGLObject(GUIGlObject_AbstractAdd *o) throw();
+
 
 private:
-    /// Initialises the detector wrappers
+    /// @brief Initialises the detector wrappers
     void initDetectors();
 
-    /// Initialises the tl-logic map and wrappers
+    /// @brief Initialises the tl-logic map and wrappers
     void initTLMap();
+
 
 protected:
     /// @brief The visualization speed-up
     SUMORTree *myGrid;
 
-    /// the networks boundary
+    /// @brief The networks boundary
     Boundary myBoundary;
 
-    /// Wrapped MS-edges
+    /// @brief Wrapped MS-edges
     std::vector<GUIEdge*> myEdgeWrapper;
 
-    /// Wrapped MS-junctions
+    /// @brief Wrapped MS-junctions
     std::vector<GUIJunctionWrapper*> myJunctionWrapper;
 
-    /// Wrapped TL-Logics
+    /// @brief Wrapped TL-Logics
     std::vector<MSTrafficLightLogic*> myTLLogicWrappers;
 
-    /// A detector dictionary
+    /// @brief A detector dictionary
     std::map<std::string, GUIDetectorWrapper*> myDetectorDict;
 
 
-    /// Definition of a link-to-logic-id map
+    /// @brief Definition of a link-to-logic-id map
     typedef std::map<MSLink*, std::string> Links2LogicMap;
-    /// The link-to-logic-id map
+    /// @brief The link-to-logic-id map
     Links2LogicMap myLinks2Logic;
 
 
-    /// Definition of a traffic light-to-wrapper map
+    /// @brief Definition of a traffic light-to-wrapper map
     typedef std::map<MSTrafficLightLogic*, GUITrafficLightLogicWrapper*> Logics2WrapperMap;
-    /// The traffic light-to-wrapper map
+    /// @brief The traffic light-to-wrapper map
     Logics2WrapperMap myLogics2Wrapper;
 
 
