@@ -52,18 +52,6 @@ GUIShapeContainer::GUIShapeContainer(GUINet &net) throw()
 GUIShapeContainer::~GUIShapeContainer() throw() {}
 
 
-bool
-GUIShapeContainer::add(int layer, Polygon2D *p) throw() {
-    myLock.lock();
-    bool ret = ShapeContainer::add(layer, p);
-    if (ret) {
-        myNet.addAdditionalGLObject(static_cast<GUIPolygon2D*>(p));
-    }
-    myLock.unlock();
-    return ret;
-}
-
-
 bool 
 GUIShapeContainer::addPoI(const std::string &name, int layer, const std::string &type, const RGBColor &c, 
                        const Position2D &pos) throw() {
@@ -89,14 +77,21 @@ GUIShapeContainer::addPolygon(const std::string &name, int layer, const std::str
 
 
 
-
 bool
-GUIShapeContainer::add(int layer, PointOfInterest *p) throw() {
+GUIShapeContainer::removePoI(int layer, const std::string &id) throw() {
     myLock.lock();
-    bool ret = ShapeContainer::add(layer, p);
-    if (ret) {
-        myNet.addAdditionalGLObject(static_cast<GUIPointOfInterest*>(p));
+    if (myPOILayers.find(layer)==myPOILayers.end()) {
+        myLock.unlock();
+        return false;
     }
+    NamedObjectCont<PointOfInterest*> &c = myPOILayers.find(layer)->second;
+    PointOfInterest *p = c.get(id);
+    if (p==0) {
+        myLock.unlock();
+        return false;
+    }
+    myNet.removeAdditionalGLObject(static_cast<GUIPointOfInterest*>(p));
+    bool ret = c.remove(id);
     myLock.unlock();
     return ret;
 }
@@ -122,21 +117,57 @@ GUIShapeContainer::removePolygon(int layer, const std::string &id) throw() {
 }
 
 
-bool
-GUIShapeContainer::removePOI(int layer, const std::string &id) throw() {
+
+void 
+GUIShapeContainer::movePoI(int layer, const std::string &id, const Position2D &pos) throw() {
     myLock.lock();
-    if (myPOILayers.find(layer)==myPOILayers.end()) {
-        myLock.unlock();
-        return false;
+    if (myPOILayers.find(layer)!=myPOILayers.end()) {
+        PointOfInterest *p = myPOILayers.find(layer)->second.get(id);
+        if(p!=0) {
+            myNet.removeAdditionalGLObject(static_cast<GUIPointOfInterest*>(p));
+            static_cast<Position2D*>(p)->set(pos);
+            myNet.addAdditionalGLObject(static_cast<GUIPointOfInterest*>(p));
+        }
     }
-    NamedObjectCont<PointOfInterest*> &c = myPOILayers.find(layer)->second;
-    PointOfInterest *p = c.get(id);
-    if (p==0) {
-        myLock.unlock();
-        return false;
+    myLock.unlock();
+}
+
+
+void 
+GUIShapeContainer::reshapePolygon(int layer, const std::string &id, const Position2DVector &shape) throw() {
+    myLock.lock();
+    if (myPolygonLayers.find(layer)!=myPolygonLayers.end()) {
+        Polygon2D *p = myPolygonLayers.find(layer)->second.get(id);
+        if(p!=0) {
+            myNet.removeAdditionalGLObject(static_cast<GUIPolygon2D*>(p));
+            p->setShape(shape);
+            myNet.addAdditionalGLObject(static_cast<GUIPolygon2D*>(p));
+        }
     }
-    myNet.removeAdditionalGLObject(static_cast<GUIPointOfInterest*>(p));
-    bool ret = c.remove(id);
+    myLock.unlock();
+}
+
+
+
+bool
+GUIShapeContainer::add(int layer, Polygon2D *p) throw() {
+    myLock.lock();
+    bool ret = ShapeContainer::add(layer, p);
+    if (ret) {
+        myNet.addAdditionalGLObject(static_cast<GUIPolygon2D*>(p));
+    }
+    myLock.unlock();
+    return ret;
+}
+
+
+bool
+GUIShapeContainer::add(int layer, PointOfInterest *p) throw() {
+    myLock.lock();
+    bool ret = ShapeContainer::add(layer, p);
+    if (ret) {
+        myNet.addAdditionalGLObject(static_cast<GUIPointOfInterest*>(p));
+    }
     myLock.unlock();
     return ret;
 }

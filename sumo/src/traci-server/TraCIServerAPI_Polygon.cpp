@@ -138,10 +138,12 @@ TraCIServerAPI_Polygon::processSet(TraCIServer &server, tcpip::Storage &inputSto
     // id
     std::string id = inputStorage.readString();
     Polygon2D *p = 0;
+    int layer = 0;
     ShapeContainer& shapeCont = MSNet::getInstance()->getShapeContainer();
     if (variable!=ADD&&variable!=REMOVE) {
         for (int i = shapeCont.getMinLayer(); i <= shapeCont.getMaxLayer()&&p==0; ++i) {
             p = shapeCont.getPolygonCont(i).get(id);
+            layer = i;
         }
         if (p==0) {
             server.writeStatusCmd(CMD_SET_POLYGON_VARIABLE, RTYPE_ERR, "Polygon '" + id + "' is not known", outputStorage);
@@ -184,7 +186,7 @@ TraCIServerAPI_Polygon::processSet(TraCIServer &server, tcpip::Storage &inputSto
             SUMOReal y = inputStorage.readFloat();
             shape.push_back(Position2D(x, y));
         }
-        p->setShape(shape);
+        shapeCont.reshapePolygon(layer, id, shape);
     }
     break;
     case VAR_FILL: {
@@ -228,7 +230,7 @@ TraCIServerAPI_Polygon::processSet(TraCIServer &server, tcpip::Storage &inputSto
             server.writeStatusCmd(CMD_SET_POLYGON_VARIABLE, RTYPE_ERR, "The fourth polygon parameter must be the layer encoded as int.", outputStorage);
             return false;
         }
-        int layer = inputStorage.readInt();
+        layer = inputStorage.readInt();
         // shape
         if (inputStorage.readUnsignedByte()!=TYPE_POLYGON) {
             server.writeStatusCmd(CMD_SET_POLYGON_VARIABLE, RTYPE_ERR, "The fifth polygon parameter must be the shape.", outputStorage);
@@ -254,7 +256,7 @@ TraCIServerAPI_Polygon::processSet(TraCIServer &server, tcpip::Storage &inputSto
             server.writeStatusCmd(CMD_SET_POI_VARIABLE, RTYPE_ERR, "The layer must be given using an int.", outputStorage);
             return false;
         }
-        int layer = inputStorage.readInt();
+        layer = inputStorage.readInt();
         if (!shapeCont.removePolygon(layer, id)) {
             bool removed = false;
             for (int i = shapeCont.getMinLayer(); i <= shapeCont.getMaxLayer(); ++i) {

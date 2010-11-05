@@ -130,10 +130,12 @@ TraCIServerAPI_POI::processSet(TraCIServer &server, tcpip::Storage &inputStorage
     // id
     std::string id = inputStorage.readString();
     PointOfInterest *p = 0;
+    int layer = 0;
     ShapeContainer& shapeCont = MSNet::getInstance()->getShapeContainer();
     if (variable!=ADD&&variable!=REMOVE) {
         for (int i = shapeCont.getMinLayer(); i <= shapeCont.getMaxLayer()&&p==0; ++i) {
             p = shapeCont.getPOICont(i).get(id);
+            layer = i;
         }
         if (p==0) {
             server.writeStatusCmd(CMD_SET_POI_VARIABLE, RTYPE_ERR, "POI '" + id + "' is not known", outputStorage);
@@ -171,7 +173,7 @@ TraCIServerAPI_POI::processSet(TraCIServer &server, tcpip::Storage &inputStorage
         }
         SUMOReal x = inputStorage.readFloat();
         SUMOReal y = inputStorage.readFloat();
-        dynamic_cast<Position2D*>(p)->set(x, y);
+        shapeCont.movePoI(layer, id, Position2D(x, y));
     }
     break;
     case ADD: {
@@ -200,7 +202,7 @@ TraCIServerAPI_POI::processSet(TraCIServer &server, tcpip::Storage &inputStorage
             server.writeStatusCmd(CMD_SET_POI_VARIABLE, RTYPE_ERR, "The third PoI parameter must be the layer encoded as int.", outputStorage);
             return false;
         }
-        int layer = inputStorage.readInt();
+        layer = inputStorage.readInt();
         // pos
         if (inputStorage.readUnsignedByte()!=POSITION_2D) {
             server.writeStatusCmd(CMD_SET_POI_VARIABLE, RTYPE_ERR, "The fourth PoI parameter must be the position.", outputStorage);
@@ -221,11 +223,11 @@ TraCIServerAPI_POI::processSet(TraCIServer &server, tcpip::Storage &inputStorage
             server.writeStatusCmd(CMD_SET_POI_VARIABLE, RTYPE_ERR, "The layer must be given using an int.", outputStorage);
             return false;
         }
-        int layer = inputStorage.readInt();
-        if (!shapeCont.removePOI(layer, id)) {
+        layer = inputStorage.readInt();
+        if (!shapeCont.removePoI(layer, id)) {
             bool removed = false;
             for (int i = shapeCont.getMinLayer(); i <= shapeCont.getMaxLayer(); ++i) {
-                removed |= shapeCont.removePOI(i, id);
+                removed |= shapeCont.removePoI(i, id);
             }
             if (!removed) {
                 server.writeStatusCmd(CMD_SET_POI_VARIABLE, RTYPE_ERR, "Could not remove PoI '" + id + "'", outputStorage);

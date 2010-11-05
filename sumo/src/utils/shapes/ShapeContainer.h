@@ -93,7 +93,24 @@ public:
      * @param[in] id The id of the PoI
      * @return Whether the poi could be removed
      */
-    virtual bool removePOI(int layer, const std::string &id) throw();
+    virtual bool removePoI(int layer, const std::string &id) throw();
+
+
+
+    /** @brief Assigns a new position to the named PoI
+     * @param[in] layer The layer the PoI is located in
+     * @param[in] id The id of the PoI to move
+     * @param[in] pos The PoI's new position
+     */
+    virtual void movePoI(int layer, const std::string &id, const Position2D &pos) throw();
+
+
+    /** @brief Assigns a shape to the named polygon
+     * @param[in] layer The layer the polygon is located in
+     * @param[in] id The id of the polygon to reshape
+     * @param[in] shape The polygon's new shape
+     */
+    virtual void reshapePolygon(int layer, const std::string &id, const Position2DVector &shape) throw();
 
 
 

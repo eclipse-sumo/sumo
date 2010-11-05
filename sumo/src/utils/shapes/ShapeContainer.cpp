@@ -60,17 +60,6 @@ ShapeContainer::ShapeContainer() throw()
 ShapeContainer::~ShapeContainer() throw() {}
 
 
-bool
-ShapeContainer::add(int layer, Polygon2D *p) throw() {
-    if (myPolygonLayers.find(layer)==myPolygonLayers.end()) {
-        myPolygonLayers[layer] = NamedObjectCont<Polygon2D*>();
-        myMinLayer = MIN2(layer, myMinLayer);
-        myMaxLayer = MAX2(layer, myMaxLayer);
-    }
-    return myPolygonLayers[layer].add(p->getID(), p);
-}
-
-
 bool 
 ShapeContainer::addPoI(const std::string &name, int layer, const std::string &type, const RGBColor &c, 
                        const Position2D &pos) throw() {
@@ -95,16 +84,6 @@ ShapeContainer::addPolygon(const std::string &name, int layer, const std::string
 }
 
 
-bool
-ShapeContainer::add(int layer, PointOfInterest *p) throw() {
-    if (myPOILayers.find(layer)==myPOILayers.end()) {
-        myPOILayers[layer] = NamedObjectCont<PointOfInterest*>();
-        myMinLayer = MIN2(layer, myMinLayer);
-        myMaxLayer = MAX2(layer, myMaxLayer);
-    }
-    return myPOILayers[layer].add(p->getID(), p);
-}
-
 
 bool
 ShapeContainer::removePolygon(int layer, const std::string &id) throw() {
@@ -116,12 +95,36 @@ ShapeContainer::removePolygon(int layer, const std::string &id) throw() {
 
 
 bool
-ShapeContainer::removePOI(int layer, const std::string &id) throw() {
+ShapeContainer::removePoI(int layer, const std::string &id) throw() {
     if (myPOILayers.find(layer)==myPOILayers.end()) {
         return false;
     }
     return myPOILayers.find(layer)->second.remove(id);
 }
+
+
+
+void 
+ShapeContainer::movePoI(int layer, const std::string &id, const Position2D &pos) throw() {
+    if (myPOILayers.find(layer)!=myPOILayers.end()) {
+        PointOfInterest *p = myPOILayers.find(layer)->second.get(id);
+        if(p!=0) {
+            static_cast<Position2D*>(p)->set(pos);
+        }
+    }
+}
+
+
+void 
+ShapeContainer::reshapePolygon(int layer, const std::string &id, const Position2DVector &shape) throw() {
+    if (myPolygonLayers.find(layer)!=myPolygonLayers.end()) {
+        Polygon2D *p = myPolygonLayers.find(layer)->second.get(id);
+        if(p!=0) {
+            p->setShape(shape);
+        }
+    }
+}
+
 
 
 const NamedObjectCont<Polygon2D*> &
@@ -143,6 +146,29 @@ ShapeContainer::getPOICont(int layer) const throw() {
         myMaxLayer = MAX2(layer, myMaxLayer);
     }
     return myPOILayers[layer];
+}
+
+
+
+bool
+ShapeContainer::add(int layer, Polygon2D *p) throw() {
+    if (myPolygonLayers.find(layer)==myPolygonLayers.end()) {
+        myPolygonLayers[layer] = NamedObjectCont<Polygon2D*>();
+        myMinLayer = MIN2(layer, myMinLayer);
+        myMaxLayer = MAX2(layer, myMaxLayer);
+    }
+    return myPolygonLayers[layer].add(p->getID(), p);
+}
+
+
+bool
+ShapeContainer::add(int layer, PointOfInterest *p) throw() {
+    if (myPOILayers.find(layer)==myPOILayers.end()) {
+        myPOILayers[layer] = NamedObjectCont<PointOfInterest*>();
+        myMinLayer = MIN2(layer, myMinLayer);
+        myMaxLayer = MAX2(layer, myMaxLayer);
+    }
+    return myPOILayers[layer].add(p->getID(), p);
 }
 
 
