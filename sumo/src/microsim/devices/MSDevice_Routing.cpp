@@ -189,7 +189,7 @@ MSDevice_Routing::onTryEmit() {
 
 
 bool
-MSDevice_Routing::notifyEnter(SUMOVehicle& veh, bool isEmit, bool isLaneChange) {
+MSDevice_Routing::notifyEnter(SUMOVehicle& veh, bool isEmit, bool isLaneChange) throw() {
     if (!isEmit) {
         return false;
     }

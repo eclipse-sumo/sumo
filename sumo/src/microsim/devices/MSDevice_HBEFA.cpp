@@ -112,7 +112,7 @@ MSDevice_HBEFA::~MSDevice_HBEFA() throw() {
 
 
 bool
-MSDevice_HBEFA::notifyEnter(SUMOVehicle& veh, bool isEmit, bool isLaneChange) {
+MSDevice_HBEFA::notifyEnter(SUMOVehicle& veh, bool isEmit, bool isLaneChange) throw() {
     if (!isEmit || myComputeAndCollectCommand!=0) {
         return false;
     }

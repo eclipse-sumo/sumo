@@ -98,7 +98,7 @@ public:
      * @see MSEventHandler
      * @see WrappingCommand
      */
-    bool notifyEnter(SUMOVehicle& veh, bool isEmit, bool isLaneChange);
+    bool notifyEnter(SUMOVehicle& veh, bool isEmit, bool isLaneChange) throw();
     /// @}
 
 
