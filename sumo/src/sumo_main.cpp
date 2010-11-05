@@ -80,8 +80,7 @@ load(OptionsCont &oc) {
     NLJunctionControlBuilder jb(*net, oc);
     NLDetectorBuilder db(*net);
     NLTriggerBuilder tb;
-    NLGeomShapeBuilder sb(*net);
-    NLHandler handler("", *net, db, tb, eb, jb, sb);
+    NLHandler handler("", *net, db, tb, eb, jb);
     tb.setHandler(&handler);
     NLBuilder builder(oc, *net, eb, jb, db, handler);
     if (!builder.build()) {
