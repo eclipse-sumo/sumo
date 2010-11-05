@@ -78,6 +78,9 @@ public:
     /// checks whether a person waits for the specified vehicle and if so removes it from the list
     bool checkWaiting(const MSEdge* edge, MSVehicle *vehicle) throw();
 
+    /// checks whether any person waits to finish her plan
+    bool hasPersons() const throw();
+
 
 private:
     /// all persons by id

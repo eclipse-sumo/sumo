@@ -144,4 +144,10 @@ MSPersonControl::checkWaiting(const MSEdge* const edge, MSVehicle *vehicle) thro
 }
 
 
+bool
+MSPersonControl::hasPersons() const throw() {
+    return !myPersons.empty();
+}
+
+
 /****************************************************************************/

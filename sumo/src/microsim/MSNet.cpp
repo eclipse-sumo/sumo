@@ -425,12 +425,13 @@ MSNet::simulationState(SUMOTime stopTime) const throw() {
     if (traci::TraCIServer::wasClosed()) {
         return SIMSTATE_CONNECTION_CLOSED;
     }
-    if (stopTime < 0 && OptionsCont::getOptions().getInt("remote-port") == 0 && myVehicleControl->haveAllVehiclesQuit()
-            && !myEmitter->hasPendingFlows() && !MSVehicleTransfer::getInstance()->hasPending()) {
+    if (stopTime < 0 && OptionsCont::getOptions().getInt("remote-port") == 0) {
 #else
-    if (stopTime < 0 && myVehicleControl->haveAllVehiclesQuit() && !myEmitter->hasPendingFlows()) {
+    if (stopTime < 0) {
 #endif
-        if (myEmissionEvents->isEmpty()) {
+        if (myEmissionEvents->isEmpty() && myVehicleControl->haveAllVehiclesQuit()
+            && !myEmitter->hasPendingFlows() && !MSVehicleTransfer::getInstance()->hasPending()
+            && (myPersonControl == 0 || !myPersonControl->hasPersons())) {
             return SIMSTATE_NO_FURTHER_VEHICLES;
         }
     }
