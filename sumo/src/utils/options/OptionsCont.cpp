@@ -452,9 +452,9 @@ OptionsCont::addCopyrightNotice(const std::string &copyrightLine) throw() {
 }
 
 
-void 
+void
 OptionsCont::clearCopyrightNotices() throw() {
-	myCopyrightNotices.clear();
+    myCopyrightNotices.clear();
 }
 
 

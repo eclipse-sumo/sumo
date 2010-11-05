@@ -155,9 +155,9 @@ public:
     void addCopyrightNotice(const std::string &copyrightLine) throw();
 
 
-	/** @brief Removes all copyright information
-	 */
-	void clearCopyrightNotices() throw();
+    /** @brief Removes all copyright information
+     */
+    void clearCopyrightNotices() throw();
 
 
     /** @brief Adds an option subtopic
