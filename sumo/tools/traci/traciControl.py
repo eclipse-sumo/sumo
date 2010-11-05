@@ -547,6 +547,11 @@ def cmdChangeVehicleVariable_moveTo(vehID, laneID, pos):
     _message.string += struct.pack("!Bd", tc.TYPE_DOUBLE, pos)
     _sendExact()
 
+def cmdChangeVehicleVariable_reroute(vehID):
+    beginChangeMessage(tc.CMD_SET_VEHICLE_VARIABLE, 1+1+1+4+len(vehID)+5, tc.CMD_REROUTE_TRAVELTIME, vehID)
+    _message.string += struct.pack("!Bi", tc.TYPE_COMPOUND, 0)
+    _sendExact()
+
 def cmdChangeVehicleVariable_color(vehID, color):
     beginChangeMessage(tc.CMD_SET_VEHICLE_VARIABLE, 1+1+1+4+len(vehID)+1+4, tc.VAR_COLOR, vehID)
     _message.string += struct.pack("!BBBBB", tc.TYPE_COLOR, int(color[0]), int(color[1]), int(color[2]), int(color[3]))
@@ -578,6 +583,92 @@ def cmdGetRouteVariable_idList():
 def cmdGetRouteVariable_edges(routeID):
     result = buildSendReadNew1StringParamCmd(tc.CMD_GET_ROUTE_VARIABLE, tc.VAR_EDGES, routeID)
     return result.readStringList() # Variable value 
+
+
+# ===================================================
+# poi interaction
+# ===================================================
+# ---------------------------------------------------
+# get state
+# ---------------------------------------------------
+def cmdGetPoiVariable_idList():
+    result = buildSendReadNew1StringParamCmd(tc.CMD_GET_POI_VARIABLE, tc.ID_LIST, "")
+    return result.readStringList() # Variable value 
+
+def cmdGetPoiVariable_type(poiID):
+    result = buildSendReadNew1StringParamCmd(tc.CMD_GET_POI_VARIABLE, tc.VAR_TYPE, poiID)
+    return result.readString() # Variable value
+
+def cmdGetPoiVariable_color(poiID):
+    result = buildSendReadNew1StringParamCmd(tc.CMD_GET_POI_VARIABLE, tc.VAR_COLOR, poiID)
+    return result.read("!BBBB") # Variable value
+
+def cmdGetPoiVariable_position(poiID):
+    result = buildSendReadNew1StringParamCmd(tc.CMD_GET_POI_VARIABLE, tc.VAR_POSITION, poiID)
+    return result.read("!ff") # Variable value 
+
+
+# ===================================================
+# polygon interaction
+# ===================================================
+# ---------------------------------------------------
+# get state
+# ---------------------------------------------------
+def cmdGetPolygonVariable_idList():
+    result = buildSendReadNew1StringParamCmd(tc.CMD_GET_POLYGON_VARIABLE, tc.ID_LIST, "")
+    return result.readStringList() # Variable value 
+
+def cmdGetPolygonVariable_type(polyID):
+    result = buildSendReadNew1StringParamCmd(tc.CMD_GET_POLYGON_VARIABLE, tc.VAR_TYPE, poiID)
+    return result.readString() # Variable value
+
+def cmdGetPolygonVariable_color(polyID):
+    result = buildSendReadNew1StringParamCmd(tc.CMD_GET_POLYGON_VARIABLE, tc.VAR_COLOR, poiID)
+    return result.read("!BBBB") # Variable value
+
+def cmdGetPolygonVariable_shape(polyID):
+    result = buildSendReadNew1StringParamCmd(tc.CMD_GET_POLYGON_VARIABLE, tc.VAR_SHAPE, poiID)
+    length = result.read("!B")[0]
+    shape = []
+    for i in length:
+       shape.append(result.read("!ff"))
+
+
+# ---------------------------------------------------
+# change state
+# ---------------------------------------------------
+def cmdChangePolygonVariable_type(polyID, type):
+    beginChangeMessage(tc.CMD_SET_POLYGON_VARIABLE, 1+1+1+4+len(polyID)+1+4+len(type), tc.VAR_TYPE, polyID)
+    _message.string += struct.pack("!Bi", tc.TYPE_STRING, len(type)) + type
+    _sendExact()
+
+def cmdChangePolygonVariable_color(polyID, color):
+    beginChangeMessage(tc.CMD_SET_POLYGON_VARIABLE, 1+1+1+4+len(polyID)+1+4, tc.VAR_COLOR, polyID)
+    _message.string += struct.pack("!BBBBB", tc.TYPE_COLOR, int(color[0]), int(color[1]), int(color[2]), int(color[3]))
+    _sendExact()
+
+def cmdChangePolygonVariable_shape(polyID, shape):
+    beginChangeMessage(tc.CMD_SET_POLYGON_VARIABLE, 1+1+1+4+len(polyID)+1+1+8*len(shape), tc.VAR_SHAPE, polyID)
+    _message.string += struct.pack("!BB", tc.TYPE_POLYGON, len(shape))
+    for p in shape:
+        _message.string += struct.pack("!ff", p[0], p[1])
+    _sendExact()
+
+def cmdChangePolygonVariable_add(polyID, type, color, fill, layer, shape):
+    length = 1+1+1+4+len(polyID)+ 1+4 + 1+4+len(type) + 1+4 + 1+1 + 1+4 + 1+1+len(shape)*8
+    beginChangeMessage(tc.CMD_SET_POLYGON_VARIABLE, length, tc.ADD, polyID)
+    _message.string += struct.pack("!Bi", tc.TYPE_COMPOUND, 5)
+    _message.string += struct.pack("!Bi", tc.TYPE_STRING, len(type)) + type
+    _message.string += struct.pack("!BBBBB", tc.TYPE_COLOR, int(color[0]), int(color[1]), int(color[2]), int(color[3]))
+    if fill:
+        _message.string += struct.pack("!BB", tc.TYPE_UBYTE, 1)
+    else:
+        _message.string += struct.pack("!BB", tc.TYPE_UBYTE, 0)
+    _message.string += struct.pack("!Bi", tc.TYPE_INTEGER, layer)
+    _message.string += struct.pack("!BB", tc.TYPE_POLYGON, len(shape))
+    for p in shape:
+        _message.string += struct.pack("!ff", p[0], p[1])
+    _sendExact()
 
 
 
