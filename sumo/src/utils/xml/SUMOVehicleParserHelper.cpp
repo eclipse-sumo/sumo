@@ -226,6 +226,10 @@ SUMOVehicleParserHelper::parseCommonAttributes(const SUMOSAXAttributes &attrs,
             ret->departLaneProcedure = DEPART_LANE_RANDOM;
         } else if (helper=="free") {
             ret->departLaneProcedure = DEPART_LANE_FREE;
+        } else if (helper=="allowed") {
+            ret->departLaneProcedure = DEPART_LANE_ALLOWED_FREE;
+        } else if (helper=="best") {
+            ret->departLaneProcedure = DEPART_LANE_BEST_FREE;
         } else {
             try {
                 ret->departLane = TplConvert<char>::_2int(helper.c_str());
