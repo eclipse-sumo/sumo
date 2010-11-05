@@ -185,7 +185,7 @@ public:
     void setMaxDecel(SUMOReal decel) throw() {
         myDecel = decel;
         myInverseTwoDecel = SUMOReal(1) / (SUMOReal(2) * decel);
-		myTauDecel = myDecel*myTau;
+        myTauDecel = myDecel*myTau;
     }
 
 

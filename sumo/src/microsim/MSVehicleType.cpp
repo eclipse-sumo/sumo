@@ -97,7 +97,7 @@ MSVehicleType::saveState(std::ostream &os) {
 
 
 // ------------ Setter methods
-void 
+void
 MSVehicleType::setLength(const SUMOReal &length) throw() {
     assert(myOriginalType!=0);
     if (length<0) {
@@ -108,7 +108,7 @@ MSVehicleType::setLength(const SUMOReal &length) throw() {
 }
 
 
-void 
+void
 MSVehicleType::setMaxSpeed(const SUMOReal &maxSpeed) throw() {
     assert(myOriginalType!=0);
     if (maxSpeed<0) {
@@ -119,13 +119,13 @@ MSVehicleType::setMaxSpeed(const SUMOReal &maxSpeed) throw() {
 }
 
 
-void 
+void
 MSVehicleType::setVClass(SUMOVehicleClass vclass) throw() {
     myVehicleClass = vclass;
 }
 
 
-void 
+void
 MSVehicleType::setDefaultProbability(const SUMOReal &prob) throw() {
     assert(myOriginalType!=0);
     if (prob<0) {
@@ -136,7 +136,7 @@ MSVehicleType::setDefaultProbability(const SUMOReal &prob) throw() {
 }
 
 
-void 
+void
 MSVehicleType::setSpeedFactor(const SUMOReal &factor) throw() {
     assert(myOriginalType!=0);
     if (factor<0) {
@@ -147,7 +147,7 @@ MSVehicleType::setSpeedFactor(const SUMOReal &factor) throw() {
 }
 
 
-void 
+void
 MSVehicleType::setSpeedDeviation(const SUMOReal &dev) throw() {
     assert(myOriginalType!=0);
     if (dev<0) {
@@ -158,19 +158,19 @@ MSVehicleType::setSpeedDeviation(const SUMOReal &dev) throw() {
 }
 
 
-void 
+void
 MSVehicleType::setEmissionClass(SUMOEmissionClass eclass) throw() {
     myEmissionClass = eclass;
 }
 
 
-void 
+void
 MSVehicleType::setColor(const RGBColor &color) throw() {
     myColor = color;
 }
 
 
-void 
+void
 MSVehicleType::setWidth(const SUMOReal &width) throw() {
     assert(myOriginalType!=0);
     if (width<0) {
@@ -181,7 +181,7 @@ MSVehicleType::setWidth(const SUMOReal &width) throw() {
 }
 
 
-void 
+void
 MSVehicleType::setOffset(const SUMOReal &offset) throw() {
     assert(myOriginalType!=0);
     if (offset<0) {
@@ -192,7 +192,7 @@ MSVehicleType::setOffset(const SUMOReal &offset) throw() {
 }
 
 
-void 
+void
 MSVehicleType::setShape(SUMOVehicleShape shape) throw() {
     myShape = shape;
 }

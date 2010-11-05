@@ -284,7 +284,7 @@ TraCIServerAPI_Vehicle::processGet(TraCIServer &server, tcpip::Storage &inputSto
                 tempMsg.writeString((*i)->getID());
             }
         }
-		break;
+        break;
         case VAR_SIGNALS:
             tempMsg.writeUnsignedByte(TYPE_INTEGER);
             tempMsg.writeInt(v->getSignals());
@@ -349,7 +349,7 @@ TraCIServerAPI_Vehicle::processGet(TraCIServer &server, tcpip::Storage &inputSto
             tempContent.writeUnsignedByte(TYPE_INTEGER);
             tempContent.writeInt((int) bestLanes.size());
             ++cnt;
-            for(std::vector<MSVehicle::LaneQ>::const_iterator i=bestLanes.begin(); i!=bestLanes.end(); ++i) {
+            for (std::vector<MSVehicle::LaneQ>::const_iterator i=bestLanes.begin(); i!=bestLanes.end(); ++i) {
                 const MSVehicle::LaneQ &lq = *i;
                 tempContent.writeUnsignedByte(TYPE_STRING);
                 tempContent.writeString(lq.lane->getID());
@@ -367,7 +367,7 @@ TraCIServerAPI_Vehicle::processGet(TraCIServer &server, tcpip::Storage &inputSto
                 lq.allowsContinuation ? tempContent.writeUnsignedByte(1) : tempContent.writeUnsignedByte(0);
                 ++cnt;
                 std::vector<std::string> bestContIDs;
-                for(std::vector<MSLane*>::const_iterator j=lq.bestContinuations.begin(); j!=lq.bestContinuations.end(); ++j) {
+                for (std::vector<MSLane*>::const_iterator j=lq.bestContinuations.begin(); j!=lq.bestContinuations.end(); ++j) {
                     bestContIDs.push_back((*j)->getID());
                 }
                 tempContent.writeUnsignedByte(TYPE_STRINGLIST);
@@ -376,8 +376,8 @@ TraCIServerAPI_Vehicle::processGet(TraCIServer &server, tcpip::Storage &inputSto
             }
             tempMsg.writeInt((int) cnt);
             tempMsg.writeStorage(tempContent);
-                             }
-			break;
+        }
+        break;
         default:
             break;
         }

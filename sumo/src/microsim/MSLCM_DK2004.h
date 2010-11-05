@@ -135,8 +135,8 @@ protected:
     SUMOReal myChangeProbability;
     SUMOReal myVSafe;
 
-	SUMOReal myLeadingBlockerLength;
-	SUMOReal myLeftSpace;
+    SUMOReal myLeadingBlockerLength;
+    SUMOReal myLeftSpace;
 };
 
 

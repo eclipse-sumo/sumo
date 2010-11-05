@@ -266,8 +266,8 @@ MSEdge::getDepartLane(const MSVehicle &veh) const throw() {
         return RandHelper::getRandomFrom(*allowedLanes(veh.getVehicleType().getVehicleClass()));
     case DEPART_LANE_FREE:
         return getFreeLane(0, veh.getVehicleType().getVehicleClass());
-    case DEPART_LANE_ALLOWED_FREE: 
-        if(veh.getRoute().size()==1) {
+    case DEPART_LANE_ALLOWED_FREE:
+        if (veh.getRoute().size()==1) {
             return getFreeLane(0, veh.getVehicleType().getVehicleClass());
         } else {
             return getFreeLane(allowedLanes(**(veh.getRoute().begin()+1)), veh.getVehicleType().getVehicleClass());
@@ -275,21 +275,21 @@ MSEdge::getDepartLane(const MSVehicle &veh) const throw() {
     case DEPART_LANE_BEST_FREE: {
         const std::vector<MSVehicle::LaneQ> &bl = veh.getBestLanes(false, (*myLanes)[0]);
         SUMOReal bestLength = -1;
-        for(std::vector<MSVehicle::LaneQ>::const_iterator i=bl.begin(); i!=bl.end(); ++i) {
-            if((*i).length>bestLength) {
+        for (std::vector<MSVehicle::LaneQ>::const_iterator i=bl.begin(); i!=bl.end(); ++i) {
+            if ((*i).length>bestLength) {
                 bestLength = (*i).length;
             }
         }
         std::vector<MSLane*> *bestLanes = new std::vector<MSLane*>();
-        for(std::vector<MSVehicle::LaneQ>::const_iterator i=bl.begin(); i!=bl.end(); ++i) {
-            if((*i).length==bestLength) {
+        for (std::vector<MSVehicle::LaneQ>::const_iterator i=bl.begin(); i!=bl.end(); ++i) {
+            if ((*i).length==bestLength) {
                 bestLanes->push_back((*i).lane);
             }
         }
         MSLane *ret = getFreeLane(bestLanes, veh.getVehicleType().getVehicleClass());
         delete bestLanes;
         return ret;
-                           }
+    }
     case DEPART_LANE_DEPARTLANE:
     case DEPART_LANE_DEFAULT:
     default:

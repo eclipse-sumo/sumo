@@ -107,8 +107,8 @@ public:
         * @see MSMoveReminder::notifyLeave
         */
         void notifyLeave(SUMOVehicle& veh, bool isArrival, bool isLaneChange) throw();
-    
-    
+
+
         /** @brief Returns whether the vehicle shall be aware of this entry
          *
          * Returns true if the vehicle is in front of the entry, so that it

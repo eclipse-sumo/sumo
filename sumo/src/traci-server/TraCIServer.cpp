@@ -1008,7 +1008,7 @@ TraCIServer::commandAddVehicle() throw(TraCIException) {
         }
     }
 
-    if(&lane->getEdge()!=*route->begin()) {
+    if (&lane->getEdge()!=*route->begin()) {
         writeStatusCmd(CMD_STOP, RTYPE_ERR, "The route must start at the edge the lane starts at.");
         return false;
     }
