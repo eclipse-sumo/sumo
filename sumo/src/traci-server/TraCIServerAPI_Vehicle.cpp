@@ -848,7 +848,7 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer &server, tcpip::Storage &inputSto
         while (v->getEdge()!=&destinationEdge) {
             const MSEdge *nextEdge = v->succEdge(1);
             // let the vehicle move to the next edge
-            if (v->enterLaneAtMove(nextEdge->getLanes()[0],0, true)) {
+            if (v->enterLaneAtMove(nextEdge->getLanes()[0], true)) {
                 MSNet::getInstance()->getVehicleControl().scheduleVehicleRemoval(v);
                 continue;
             }

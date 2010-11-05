@@ -131,12 +131,13 @@ MSMeanData::MeanDataValueTracker::isStillActive(SUMOVehicle& veh, SUMOReal oldPo
 }
 
 
-void
-MSMeanData::MeanDataValueTracker::notifyLeave(SUMOVehicle& veh, bool isArrival, bool isLaneChange) throw() {
+bool
+MSMeanData::MeanDataValueTracker::notifyLeave(SUMOVehicle& veh, SUMOReal lastPos, bool isArrival, bool isLaneChange) throw() {
     if (vehicleApplies(veh)) {
         myTrackedData[&veh]->myNumVehicleLeft++;
-        myTrackedData[&veh]->myValues->notifyLeave(veh, isArrival, isLaneChange);
+        return myTrackedData[&veh]->myValues->notifyLeave(veh, lastPos, isArrival, isLaneChange);
     }
+    return false;
 }
 
 

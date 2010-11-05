@@ -67,9 +67,10 @@ MSE3Collector::MSE3EntryReminder::isStillActive(SUMOVehicle& veh, SUMOReal oldPo
 }
 
 
-void
-MSE3Collector::MSE3EntryReminder::notifyLeave(SUMOVehicle& veh, bool, bool) throw() {
+bool
+MSE3Collector::MSE3EntryReminder::notifyLeave(SUMOVehicle& veh, SUMOReal, bool, bool) throw() {
     myCollector.myEnteredContainer.erase(&veh);
+    return true;
 }
 
 

@@ -31,7 +31,8 @@
 
 #include <string>
 #include <vector>
-#include <microsim/MSVehicle.h>
+#include <microsim/MSMoveReminder.h>
+#include <utils/common/Named.h>
 #include <utils/common/UtilExceptions.h>
 
 
@@ -39,6 +40,7 @@
 // class declarations
 // ===========================================================================
 class OutputDevice;
+class MSVehicle;
 
 
 // ===========================================================================
@@ -58,7 +60,7 @@ class OutputDevice;
  *  device within the corresponding vehicle methods. MSDevice brings already
  *  an empty (nothing doing) implementation of these.
  */
-class MSDevice {
+class MSDevice : public MSMoveReminder, public Named {
 public:
     /** @brief Constructor
      *
@@ -66,7 +68,7 @@ public:
      * @param[in] id The ID of the device
      */
     MSDevice(MSVehicle &holder, const std::string &id) throw()
-            : myHolder(holder), myID(id) {
+            : Named(id), myHolder(holder) {
     }
 
 
@@ -81,57 +83,6 @@ public:
     MSVehicle &getHolder() const throw() {
         return myHolder;
     }
-
-
-    /** @brief Returns the id of this device
-    * @return The device's ID
-    */
-    const std::string &getID() throw() {
-        return myID;
-    }
-
-
-    /// @name Methods called on vehicle movement / state change
-    /// @{
-
-    /** @brief Called when the vehicle tries to get into the net */
-    virtual void onTryEmit() { }
-
-
-    /** @brief Update if vehicle enters a new lane in the move step.
-     *
-     * @param[in] enteredLane The lane the vehicle enters
-     * @param[in] driven The distance driven by the vehicle within this time step
-     */
-    virtual void enterLaneAtMove(MSLane* enteredLane, SUMOReal driven) { }
-
-
-    /** @brief Update of members if vehicle enters a new lane in the emit step
-     */
-    virtual void enterLaneAtEmit() { }
-
-
-    /** @brief Update of members if vehicle enters a new lane in the laneChange step.
-     *
-     * @param[in] enteredLane The lane the vehicle enters
-     */
-    virtual void enterLaneAtLaneChange(MSLane* enteredLane) { }
-
-
-    /** @brief Update of members if vehicle leaves a new lane in the move step.
-     *
-     * @param[in] driven The distance driven by the vehicle within this time step
-     */
-    virtual void leaveLaneAtMove(SUMOReal driven) { }
-
-
-    /** @brief Update of members if vehicle leaves a new lane in the lane change step. */
-    virtual void leaveLane() { }
-
-
-    /** @brief Called when the vehicle leaves the lane */
-    virtual void onRemovalFromNet() { }
-    // @}
 
 
     /** @brief Called on writing tripinfo output

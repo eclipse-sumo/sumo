@@ -49,17 +49,6 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-MSRouteProbe::EntryReminder::EntryReminder(MSLane * const lane, MSRouteProbe& collector) throw()
-        : MSMoveReminder(lane), myCollector(collector) {}
-
-
-bool
-MSRouteProbe::EntryReminder::notifyEnter(SUMOVehicle& veh, bool isEmit, bool isLaneChange) throw() {
-    myCollector.addRoute(veh.getRoute());
-    return false;
-}
-
-
 MSRouteProbe::MSRouteProbe(const std::string &id, const MSEdge *edge, SUMOTime begin) throw()
         : Named(id), myCurrentRouteDistribution(0) {
     const std::string distID = id + "_" + toString(begin);
@@ -78,15 +67,20 @@ MSRouteProbe::MSRouteProbe(const std::string &id, const MSEdge *edge, SUMOTime b
         return;
     }
 #endif
-    std::vector<MSLane*>::const_iterator it = edge->getLanes().begin();
-    myEntryReminder = new MSRouteProbe::EntryReminder(*it, *this);
-    for (++it; it!=edge->getLanes().end(); ++it) {
-        (*it)->addMoveReminder(myEntryReminder);
+    for (std::vector<MSLane*>::const_iterator it = edge->getLanes().begin(); it!=edge->getLanes().end(); ++it) {
+        (*it)->addMoveReminder(this);
     }
 }
 
 
 MSRouteProbe::~MSRouteProbe() throw() {
+}
+
+
+bool
+MSRouteProbe::notifyEnter(SUMOVehicle& veh, bool isEmit, bool isLaneChange) throw() {
+    addRoute(veh.getRoute());
+    return false;
 }
 
 

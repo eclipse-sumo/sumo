@@ -148,7 +148,7 @@ MSLaneChanger::change() {
 #endif
         (myCandi - 1)->hoppedVeh = vehicle;
         (myCandi - 1)->lane->myTmpVehicles.push_front(vehicle);
-        vehicle->leaveLane(false);
+        vehicle->leaveLane(false, true);
         myCandi->lane->leftByLaneChange(vehicle);
         vehicle->enterLaneAtLaneChange((myCandi - 1)->lane);
         (myCandi - 1)->lane->enteredByLaneChange(vehicle);
@@ -179,7 +179,7 @@ MSLaneChanger::change() {
 #endif
         (myCandi + 1)->hoppedVeh = veh(myCandi);
         (myCandi + 1)->lane->myTmpVehicles.push_front(veh(myCandi));
-        vehicle->leaveLane(false);
+        vehicle->leaveLane(false, true);
         myCandi->lane->leftByLaneChange(vehicle);
         vehicle->enterLaneAtLaneChange((myCandi + 1)->lane);
         (myCandi + 1)->lane->enteredByLaneChange(vehicle);
@@ -252,8 +252,8 @@ MSLaneChanger::change() {
                     myCandi->lane->myTmpVehicles.push_front(prohibitor);
 
                     // leave lane and detectors
-                    vehicle->leaveLane(false);
-                    prohibitor->leaveLane(false);
+                    vehicle->leaveLane(false, true);
+                    prohibitor->leaveLane(false, true);
                     // patch position and speed
                     SUMOReal p1 = vehicle->getPositionOnLane();
                     vehicle->myState.myPos = prohibitor->myState.myPos;

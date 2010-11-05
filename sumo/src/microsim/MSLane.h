@@ -132,10 +132,6 @@ public:
     /// @name interaction with MSMoveReminder
     /// @{
 
-    /// @brief Definition of a container for move reminder
-    typedef std::vector< MSMoveReminder* > MoveReminderCont;
-
-
     /** @brief Add a move-reminder to move-reminder container
      *
      * The move reminder will not be deleted by the lane.
@@ -148,7 +144,7 @@ public:
     /** @brief Return the list of this lane's move reminders
      * @return Previously added move reminder
      */
-    inline const MoveReminderCont &getMoveReminders() const throw() {
+    inline const std::vector< MSMoveReminder* > &getMoveReminders() const throw() {
         return myMoveReminders;
     }
     ///@}
@@ -679,7 +675,7 @@ protected:
 
 private:
     /// @brief This lane's move reminder
-    MoveReminderCont myMoveReminders;
+    std::vector< MSMoveReminder* > myMoveReminders;
 
 
     /**

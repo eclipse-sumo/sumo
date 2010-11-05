@@ -63,9 +63,8 @@ public:
      *
      * @param[in] lane Lane on which the reminder will work.
      * @param[in] doAdd whether to add the reminder to the lane
-     * @todo Why is the lane not given as a reference?
      */
-    MSMoveReminder(MSLane * const lane, const bool doAdd=true) throw();
+    MSMoveReminder(MSLane* const lane=0, const bool doAdd=true) throw();
 
 
     /** @brief Destructor
@@ -85,16 +84,20 @@ public:
     /// @name Interface methods, to be derived by subclasses
     /// @{
 
+    /** @brief Called when the vehicle tries to get into the net */
+    virtual void onTryEmit() { }
+
+
     /** @brief Checks whether the reminder still has to be notified about the vehicle moves
      *
      * Indicator if the reminders is still active for the passed
      * vehicle/parameters. If false, the vehicle will erase this reminder
      * from it's reminder-container.
      *
-     * @param veh Vehicle that asks this reminder.
-     * @param oldPos Position before move.
-     * @param newPos Position after move with newSpeed.
-     * @param newSpeed Moving speed.
+     * @param[in] veh Vehicle that asks this reminder.
+     * @param[in] oldPos Position before move.
+     * @param[in] newPos Position after move with newSpeed.
+     * @param[in] newSpeed Moving speed.
      *
      * @return True if vehicle hasn't passed the reminder completely.
      */
@@ -113,10 +116,16 @@ public:
      *  The default is to do nothing.
      *
      * @param[in] veh The leaving vehicle.
+     * @param[in] lastPos Position on the lane when leaving.
      * @param[in] isArrival whether the vehicle arrived at its destination
      * @param[in] isLaneChange whether the vehicle changed from the lane
+     *
+     * @return True if the reminder wants to receive further info.
      */
-    virtual void notifyLeave(SUMOVehicle& veh, bool isArrival, bool isLaneChange) throw() {};
+    virtual bool notifyLeave(SUMOVehicle& veh, SUMOReal lastPos,
+                             bool isArrival, bool isLaneChange) throw() {
+        return true;
+    }
 
 
     /** @brief Checks whether the reminder is activated by the vehicle's emission on lane change

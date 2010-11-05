@@ -627,7 +627,7 @@ MSLane::setCritical(SUMOTime t, std::vector<MSLane*> &into) {
                 (*(myVehicles.end()-1))->getWaitingTime()>MSGlobals::gTimeToGridlock) {
             MSVehicle *veh = *(myVehicles.end()-1);
             myVehicleLengthSum -= veh->getVehicleType().getLength();
-            veh->leaveLaneAtMove(0);
+            veh->leaveLane(false, false);
             myVehicles.erase(myVehicles.end()-1);
             MsgHandler::getWarningInstance()->inform("Teleporting vehicle '" + veh->getID() + "'; waited too long, lane='" + getID() + "', time=" + time2string(MSNet::getInstance()->getCurrentTimeStep()) + ".");
             MSVehicleTransfer::getInstance()->addVeh(t, veh);
@@ -704,7 +704,7 @@ MSLane::push(MSVehicle* veh) {
     //  and it does not collide with previous
     // check whether the vehicle has ended his route
     // Add to mean data (edge/lane state dump)
-    if (!veh->enterLaneAtMove(this, SPEED2DIST(veh->getSpeed()) - veh->getPositionOnLane())) {
+    if (!veh->enterLaneAtMove(this)) {
         myVehBuffer.push_back(veh);
         SUMOReal pspeed = veh->getSpeed();
         SUMOReal oldPos = veh->getPositionOnLane() - SPEED2DIST(veh->getSpeed());
@@ -722,7 +722,7 @@ MSVehicle*
 MSLane::pop(SUMOTime) {
     assert(! myVehicles.empty());
     MSVehicle* first = myVehicles.back();
-    first->leaveLaneAtMove(SPEED2DIST(first->getSpeed())/* - first->pos()*/);
+    first->leaveLane(false, false);
     myVehicles.pop_back();
     myVehicleLengthSum -= first->getVehicleType().getLength();
     return first;
@@ -881,7 +881,7 @@ MSVehicle *
 MSLane::removeVehicle(MSVehicle * remVehicle) {
     for (MSLane::VehCont::iterator it = myVehicles.begin(); it < myVehicles.end(); it++) {
         if (remVehicle->getID() == (*it)->getID()) {
-            remVehicle->leaveLane(true);
+            remVehicle->leaveLane(true, false);
             myVehicles.erase(it);
             myVehicleLengthSum -= remVehicle->getVehicleType().getLength();
             break;

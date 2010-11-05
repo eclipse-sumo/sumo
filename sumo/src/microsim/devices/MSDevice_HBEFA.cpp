@@ -111,15 +111,16 @@ MSDevice_HBEFA::~MSDevice_HBEFA() throw() {
 }
 
 
-void
-MSDevice_HBEFA::enterLaneAtEmit() {
-    if (myComputeAndCollectCommand!=0) {
-        return;
+bool
+MSDevice_HBEFA::notifyEnter(SUMOVehicle& veh, bool isEmit, bool isLaneChange) {
+    if (!isEmit || myComputeAndCollectCommand!=0) {
+        return false;
     }
     myComputeAndCollectCommand = new WrappingCommand< MSDevice_HBEFA >(this, &MSDevice_HBEFA::wrappedComputeCommandExecute);
     MSNet::getInstance()->getEndOfTimestepEvents().addEvent(
         myComputeAndCollectCommand, MSNet::getInstance()->getCurrentTimeStep(),
         MSEventControl::ADAPT_AFTER_EXECUTION);
+    return false;
 }
 
 

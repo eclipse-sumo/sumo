@@ -102,11 +102,12 @@ public:
         *  vehicles to regard.
         *
         * @param[in] veh The leaving vehicle.
+        * @param[in] lastPos Position on the lane when leaving.
         * @param[in] isArrival whether the vehicle arrived at its destination
         * @param[in] isLaneChange whether the vehicle changed from the lane
         * @see MSMoveReminder::notifyLeave
         */
-        void notifyLeave(SUMOVehicle& veh, bool isArrival, bool isLaneChange) throw();
+        bool notifyLeave(SUMOVehicle& veh, SUMOReal lastPos, bool isArrival, bool isLaneChange) throw();
 
 
         /** @brief Returns whether the vehicle shall be aware of this entry

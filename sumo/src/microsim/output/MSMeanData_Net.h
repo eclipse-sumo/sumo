@@ -116,10 +116,13 @@ public:
         /** @brief Called if the vehicle leaves the reminder's lane
          *
          * @param veh The leaving vehicle.
+         * @param[in] lastPos Position on the lane when leaving.
+         * @param[in] isArrival whether the vehicle arrived at its destination
+         * @param[in] isLaneChange whether the vehicle changed from the lane
          * @see MSMoveReminder
          * @see MSMoveReminder::notifyLeave
          */
-        void notifyLeave(SUMOVehicle& veh, bool isArrival, bool isLaneChange) throw();
+        bool notifyLeave(SUMOVehicle& veh, SUMOReal lastPos, bool isArrival, bool isLaneChange) throw();
 
 
         /** @brief Computes current values and adds them to their sums

@@ -152,8 +152,8 @@ MSMeanData_Net::MSLaneMeanDataValues::isStillActive(SUMOVehicle& veh, SUMOReal o
 }
 
 
-void
-MSMeanData_Net::MSLaneMeanDataValues::notifyLeave(SUMOVehicle& veh, bool isArrival, bool isLaneChange) throw() {
+bool
+MSMeanData_Net::MSLaneMeanDataValues::notifyLeave(SUMOVehicle& veh, SUMOReal lastPos, bool isArrival, bool isLaneChange) throw() {
     if (vehicleApplies(veh)) {
 #ifdef HAVE_MESOSIM
         if (MSGlobals::gUseMesoSim) {
@@ -168,6 +168,7 @@ MSMeanData_Net::MSLaneMeanDataValues::notifyLeave(SUMOVehicle& veh, bool isArriv
             ++nVehLeft;
         }
     }
+    return !isLaneChange;
 }
 
 

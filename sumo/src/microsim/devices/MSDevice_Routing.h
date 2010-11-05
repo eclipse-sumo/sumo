@@ -124,7 +124,7 @@ public:
      * @see MSEventHandler
      * @see WrappingCommand
      */
-    void enterLaneAtEmit();
+    bool notifyEnter(SUMOVehicle& veh, bool isEmit, bool isLaneChange);
     /// @}
 
 

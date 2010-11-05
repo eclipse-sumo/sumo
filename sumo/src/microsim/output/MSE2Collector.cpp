@@ -91,14 +91,15 @@ MSE2Collector::isStillActive(SUMOVehicle& veh, SUMOReal oldPos,
 }
 
 
-void
-MSE2Collector::notifyLeave(SUMOVehicle& veh, bool isArrival, bool isLaneChange) throw() {
-    if (isArrival || isLaneChange || (veh.getPositionOnLane() >= myStartPos && veh.getPositionOnLane() - veh.getVehicleType().getLength() < myEndPos)) {
+bool
+MSE2Collector::notifyLeave(SUMOVehicle& veh, SUMOReal lastPos, bool isArrival, bool isLaneChange) throw() {
+    if (isArrival || isLaneChange || (lastPos >= myStartPos && lastPos - veh.getVehicleType().getLength() < myEndPos)) {
         std::list<SUMOVehicle*>::iterator i = find(myKnownVehicles.begin(), myKnownVehicles.end(), &veh);
         if (i!=myKnownVehicles.end()) {
             myKnownVehicles.erase(i);
         }
     }
+    return true;
 }
 
 

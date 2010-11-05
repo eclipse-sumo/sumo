@@ -188,8 +188,11 @@ MSDevice_Routing::onTryEmit() {
 }
 
 
-void
-MSDevice_Routing::enterLaneAtEmit() {
+bool
+MSDevice_Routing::notifyEnter(SUMOVehicle& veh, bool isEmit, bool isLaneChange) {
+    if (!isEmit) {
+        return false;
+    }
     if (myLastPreEmitReroute == -1) {
         DijkstraRouterTT_ByProxi<MSEdge, SUMOVehicle, prohibited_withRestrictions<MSEdge, SUMOVehicle>, MSDevice_Routing>
         router(MSEdge::dictSize(), true, this, &MSDevice_Routing::getEffort);
@@ -202,6 +205,7 @@ MSDevice_Routing::enterLaneAtEmit() {
             myRerouteCommand, myPeriod+MSNet::getInstance()->getCurrentTimeStep(),
             MSEventControl::ADAPT_AFTER_EXECUTION);
     }
+    return false;
 }
 
 

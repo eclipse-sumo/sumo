@@ -63,54 +63,8 @@ class OutputDevice;
  * @see Named
  */
 
-class MSRouteProbe : public MSDetectorFileOutput, public Named {
+class MSRouteProbe : public MSDetectorFileOutput, public Named, public MSMoveReminder {
 public:
-    /**
-     * @class EntryReminder
-     * @brief A place on the road net (at a certain lane and position on it) where the E3-area begins
-     */
-    class EntryReminder : public MSMoveReminder {
-    public:
-        /** @brief Constructor
-         *
-         * @param[in] lane The lane the entry belongs to
-         * @param[in] collector The detector the entry belongs to
-         */
-        EntryReminder(MSLane * const lane, MSRouteProbe& collector) throw();
-
-
-        /// @name Methods inherited from MSMoveReminder
-        /// @{
-
-        /** @brief Returns whether the vehicle shall be aware of this entry
-         *
-         * Returns true if the vehicle is in front of the entry, so that it
-         *  may enter it in later steps.
-         *
-         * @param[in] veh The vehicle that enters the lane
-         * @param[in] isEmit whether the vehicle was just emitted into the net
-         * @param[in] isLaneChange whether the vehicle changed to the lane
-         * @see MSMoveReminder::notifyEnter
-         * @return False, if vehicle passed the entry, else true.
-         */
-        bool notifyEnter(SUMOVehicle& veh, bool isEmit, bool isLaneChange) throw();
-        /// @}
-
-
-    private:
-        /// @brief The parent collector
-        MSRouteProbe& myCollector;
-
-    private:
-        /// @brief Invalidated copy constructor.
-        EntryReminder(const EntryReminder&);
-
-        /// @brief Invalidated assignment operator.
-        EntryReminder& operator=(const EntryReminder&);
-
-    };
-
-
     /** @brief Constructor
      *
      * @param[in] id The id of the route probe
@@ -126,7 +80,24 @@ public:
     virtual ~MSRouteProbe() throw();
 
 
+    /// @name Methods inherited from MSMoveReminder
+    /// @{
 
+    /** @brief Returns whether the vehicle shall be aware of this entry
+        *
+        * Returns true if the vehicle is in front of the entry, so that it
+        *  may enter it in later steps.
+        *
+        * @param[in] veh The vehicle that enters the lane
+        * @param[in] isEmit whether the vehicle was just emitted into the net
+        * @param[in] isLaneChange whether the vehicle changed to the lane
+        * @see MSMoveReminder::notifyEnter
+        * @return False, if vehicle passed the entry, else true.
+        */
+    bool notifyEnter(SUMOVehicle& veh, bool isEmit, bool isLaneChange) throw();
+    /// @}
+
+        
     /// @name Methods inherited from MSDetectorFileOutput.
     /// @{
 
@@ -164,9 +135,6 @@ public:
 private:
     /// @brief The current distribution of routes (probability->route)
     RandomDistributor<const MSRoute*> *myCurrentRouteDistribution;
-
-    /// @brief The move reminder notifying about new vehicles
-    EntryReminder *myEntryReminder;
 
 
 private:

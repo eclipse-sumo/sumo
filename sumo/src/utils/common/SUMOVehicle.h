@@ -112,7 +112,7 @@ public:
      * @param[in] onTeleporting Whether the lane was entered while being teleported
      * @return Whether the vehicle's route has ended (due to vaporization, or because the destination was reached)
      */
-    virtual bool enterLaneAtMove(MSLane* enteredLane, SUMOReal driven, bool onTeleporting=false) = 0;
+    virtual bool enterLaneAtMove(MSLane* enteredLane, bool onTeleporting=false) = 0;
 
     virtual SUMOReal getPreDawdleAcceleration() const throw() = 0;
 

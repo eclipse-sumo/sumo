@@ -520,11 +520,10 @@ public:
     /** @brief Update when the vehicle enters a new lane in the move step.
      *
      * @param[in] enteredLane The lane the vehicle enters
-     * @param[in] driven The distance driven by the vehicle within this time step
      * @param[in] onTeleporting Whether the lane was entered while being teleported
      * @return Whether the vehicle's route has ended (due to vaporization, or because the destination was reached)
      */
-    bool enterLaneAtMove(MSLane* enteredLane, SUMOReal driven, bool onTeleporting=false);
+    bool enterLaneAtMove(MSLane* enteredLane, bool onTeleporting=false);
 
 
 
@@ -544,15 +543,8 @@ public:
     void enterLaneAtLaneChange(MSLane* enteredLane);
 
 
-    /** @brief Update when the vehicle leaves a new lane in the move step.
-     *
-     * @param[in] driven The distance driven by the vehicle within this time step
-     */
-    void leaveLaneAtMove(SUMOReal driven);
-
-
     /** @brief Update of members if vehicle leaves a new lane in the lane change step or at arrival. */
-    void leaveLane(bool isArrival);
+    void leaveLane(const bool isArrival, const bool isLaneChange);
 
 
     friend class MSVehicleControl;
@@ -1137,19 +1129,10 @@ private:
     /// @{
 
     /// @brief Definition of a move reminder container
-    typedef std::vector< MSMoveReminder* > MoveReminderCont;
+    typedef std::vector< std::pair<MSMoveReminder*, SUMOReal> > MoveReminderCont;
 
     /// @brief Current lane's move reminder
     MoveReminderCont myMoveReminders;
-
-    /// @brief Prior lanes' move reminder
-    MoveReminderCont myOldLaneMoveReminders;
-
-    /// @brief Definition of a vector of offset to prior move reminder
-    typedef std::vector<SUMOReal> OffsetVector;
-
-    /// @brief Offsets for prior move reminder
-    OffsetVector myOldLaneMoveReminderOffsets;
     /// @}
 
 
