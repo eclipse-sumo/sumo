@@ -249,7 +249,6 @@ public:
     void initGUIStructures();
 
 
-    friend class GUIViewTraffic; // !!!
 
     /** @brief Adds an additional object (detector/shape/trigger) for visualisation
      * @param[in] o The object to add
@@ -261,6 +260,14 @@ public:
      * @param[in] o The object to remove
      */
     void removeAdditionalGLObject(GUIGlObject_AbstractAdd *o) throw();
+
+
+    /** @brief Returns the RTTree used for visualisation speed-up
+     * @return The visualisation speed-up
+     */
+    const SUMORTree &getVisualisationSpeedUp() const throw() {
+        return *myGrid;
+    }
 
 
 private:

@@ -80,7 +80,7 @@ GUIViewTraffic::GUIViewTraffic(FXComposite *p,
                                GUISUMOViewParent *parent,
                                GUINet &net, FXGLVisual *glVis,
                                FXGLCanvas *share)
-        : GUISUMOAbstractView(p, app, parent, *net.myGrid, glVis, share),
+        : GUISUMOAbstractView(p, app, parent, net.getVisualisationSpeedUp(), glVis, share),
         myTrackedID(-1) {
 }
 
