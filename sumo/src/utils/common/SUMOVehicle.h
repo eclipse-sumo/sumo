@@ -120,8 +120,6 @@ public:
 
     virtual SUMOReal getPositionOnActiveMoveReminderLane(const MSLane * const searchedLane) const throw() = 0;
 
-    virtual SUMOTime getLastEntryTime() const throw() = 0;
-
     virtual SUMOReal getSegmentLength() const throw() = 0;
 
 };

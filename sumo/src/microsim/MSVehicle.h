@@ -1016,9 +1016,6 @@ protected:
 
     void setBlinkerInformation() throw();
 #ifndef HAVE_MESOSIM
-    SUMOTime getLastEntryTime() const throw() {
-        return 0;
-    }
     SUMOReal getSegmentLength() const throw() {
         return 0;
     }
