@@ -61,7 +61,6 @@ MSInductLoop::MSInductLoop(const std::string& id,
 
 
 MSInductLoop::~MSInductLoop() throw() {
-    myCurrentVehicle = 0;
 }
 
 
@@ -117,6 +116,7 @@ MSInductLoop::notifyLeave(SUMOVehicle& veh, SUMOReal lastPos, bool isArrival, bo
     if (isArrival || isLaneChange || (lastPos > myPosition && lastPos - veh.getVehicleType().getLength() <= myPosition)) {
         // vehicle is on detector during lane change
         leaveDetectorByLaneChange(veh);
+        return false;
     }
     return true;
 }
