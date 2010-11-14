@@ -7,6 +7,7 @@ MAKELOG=$PREFIX/${FILEPREFIX}make.log
 MAKEALLLOG=$PREFIX/${FILEPREFIX}makealloptions.log
 STATUSLOG=$PREFIX/${FILEPREFIX}status.log
 TESTLOG=$PREFIX/${FILEPREFIX}test.log
+XMLLOG=$PREFIX/${FILEPREFIX}xml.log
 export SUMO_BATCH_RESULT=$PREFIX/${FILEPREFIX}batch_result
 export SUMO_REPORT=$PREFIX/${FILEPREFIX}report
 
@@ -73,4 +74,5 @@ echo `grep -c warning $MAKEALLLOG` warnings >> $STATUSLOG
 gzip -f $MAKEALLLOG
 scp -q $MAKEALLLOG.gz $REMOTEDIR
 echo "--" >> $STATUSLOG
+tools/xml/schemaCheck.py tests &> $XMLLOG || echo "schema check failed"
 scp -q $STATUSLOG $REMOTEDIR
