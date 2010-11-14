@@ -1,0 +1,454 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<xsd:schema elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+
+    <xsd:element name="configuration" type="configurationType"/>
+
+    <xsd:complexType name="configurationType">
+        <xsd:sequence>
+            <xsd:element name="input" type="inputType" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="output" type="outputType" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="time" type="timeType" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="processing" type="processingType" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="tls_defaults" type="tls_defaultsType" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="report" type="reportType" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="routing" type="routingType" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="emissions" type="emissionsType" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="traci_server" type="traci_serverType" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="mesoscopic" type="mesoscopicType" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="random_number" type="random_numberType" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="gui_only" type="gui_onlyType" minOccurs="0" maxOccurs="1"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="inputType">
+        <xsd:sequence>
+            <xsd:element name="net-file" type="net-fileType" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="route-files" type="route-filesType" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="additional-files" type="additional-filesType" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="weight-files" type="weight-filesType" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="measure" type="measureType" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="load-state" type="load-stateType" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="load-state.offset" type="load-state.offsetType" minOccurs="0" maxOccurs="1"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="net-fileType">
+        <xsd:attribute name="value" type="xsd:string" use="required"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="route-filesType">
+        <xsd:attribute name="value" type="xsd:string" use="required"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="additional-filesType">
+        <xsd:attribute name="value" type="xsd:string" use="required"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="weight-filesType">
+        <xsd:attribute name="value" type="xsd:string" use="required"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="measureType">
+        <xsd:attribute name="value" type="xsd:string" use="required"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="load-stateType">
+        <xsd:attribute name="value" type="xsd:string" use="required"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="load-state.offsetType">
+        <xsd:attribute name="value" type="xsd:string" use="required"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="outputType">
+        <xsd:sequence>
+            <xsd:element name="netstate-dump" type="netstate-dumpType" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="dump-empty-edges" type="dump-empty-edgesType" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="emissions-output" type="emissions-outputType" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="tripinfo-output" type="tripinfo-outputType" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="vehroute-output" type="vehroute-outputType" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="vehroute-output.exit-times" type="vehroute-output.exit-timesType" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="vehroute-output.last-route" type="vehroute-output.last-routeType" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="save-state.times" type="save-state.timesType" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="save-state.prefix" type="save-state.prefixType" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="save-state.files" type="save-state.filesType" minOccurs="0" maxOccurs="1"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="netstate-dumpType">
+        <xsd:attribute name="value" type="xsd:string" use="required"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="dump-empty-edgesType">
+        <xsd:attribute name="value" type="xsd:boolean" use="required"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="emissions-outputType">
+        <xsd:attribute name="value" type="xsd:string" use="required"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="tripinfo-outputType">
+        <xsd:attribute name="value" type="xsd:string" use="required"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="vehroute-outputType">
+        <xsd:attribute name="value" type="xsd:string" use="required"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="vehroute-output.exit-timesType">
+        <xsd:attribute name="value" type="xsd:boolean" use="required"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="vehroute-output.last-routeType">
+        <xsd:attribute name="value" type="xsd:boolean" use="required"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="save-state.timesType">
+        <xsd:attribute name="value" type="xsd:string" use="required"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="save-state.prefixType">
+        <xsd:attribute name="value" type="xsd:string" use="required"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="save-state.filesType">
+        <xsd:attribute name="value" type="xsd:string" use="required"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="timeType">
+        <xsd:sequence>
+            <xsd:element name="begin" type="beginType" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="end" type="endType" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="step-length" type="step-lengthType" minOccurs="0" maxOccurs="1"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="beginType">
+        <xsd:attribute name="value" type="xsd:string" use="required"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="endType">
+        <xsd:attribute name="value" type="xsd:string" use="required"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="step-lengthType">
+        <xsd:attribute name="value" type="xsd:string" use="required"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="processingType">
+        <xsd:sequence>
+            <xsd:element name="route-steps" type="route-stepsType" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="no-internal-links" type="no-internal-linksType" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="ignore-accidents" type="ignore-accidentsType" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="too-many-vehicles" type="too-many-vehiclesType" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="incremental-dua-step" type="incremental-dua-stepType" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="incremental-dua-base" type="incremental-dua-baseType" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="time-to-teleport" type="time-to-teleportType" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="max-depart-delay" type="max-depart-delayType" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="sloppy-emit" type="sloppy-emitType" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="lanechange.allow-swap" type="lanechange.allow-swapType" minOccurs="0" maxOccurs="1"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="route-stepsType">
+        <xsd:attribute name="value" type="xsd:int" use="required"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="no-internal-linksType">
+        <xsd:attribute name="value" type="xsd:boolean" use="required"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="ignore-accidentsType">
+        <xsd:attribute name="value" type="xsd:boolean" use="required"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="too-many-vehiclesType">
+        <xsd:attribute name="value" type="xsd:int" use="required"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="incremental-dua-stepType">
+        <xsd:attribute name="value" type="xsd:int" use="required"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="incremental-dua-baseType">
+        <xsd:attribute name="value" type="xsd:int" use="required"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="time-to-teleportType">
+        <xsd:attribute name="value" type="xsd:string" use="required"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="max-depart-delayType">
+        <xsd:attribute name="value" type="xsd:int" use="required"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="sloppy-emitType">
+        <xsd:attribute name="value" type="xsd:boolean" use="required"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="lanechange.allow-swapType">
+        <xsd:attribute name="value" type="xsd:boolean" use="required"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="tls_defaultsType">
+        <xsd:sequence>
+            <xsd:element name="agent-tl.detector-len" type="agent-tl.detector-lenType" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="agent-tl.learn-horizon" type="agent-tl.learn-horizonType" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="agent-tl.decision-horizon" type="agent-tl.decision-horizonType" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="agent-tl.min-diff" type="agent-tl.min-diffType" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="agent-tl.tcycle" type="agent-tl.tcycleType" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="actuated-tl.detector-pos" type="actuated-tl.detector-posType" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="actuated-tl.max-gap" type="actuated-tl.max-gapType" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="actuated-tl.detector-gap" type="actuated-tl.detector-gapType" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="actuated-tl.passing-time" type="actuated-tl.passing-timeType" minOccurs="0" maxOccurs="1"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="agent-tl.detector-lenType">
+        <xsd:attribute name="value" type="xsd:float" use="required"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="agent-tl.learn-horizonType">
+        <xsd:attribute name="value" type="xsd:int" use="required"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="agent-tl.decision-horizonType">
+        <xsd:attribute name="value" type="xsd:int" use="required"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="agent-tl.min-diffType">
+        <xsd:attribute name="value" type="xsd:float" use="required"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="agent-tl.tcycleType">
+        <xsd:attribute name="value" type="xsd:int" use="required"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="actuated-tl.detector-posType">
+        <xsd:attribute name="value" type="xsd:float" use="required"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="actuated-tl.max-gapType">
+        <xsd:attribute name="value" type="xsd:float" use="required"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="actuated-tl.detector-gapType">
+        <xsd:attribute name="value" type="xsd:float" use="required"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="actuated-tl.passing-timeType">
+        <xsd:attribute name="value" type="xsd:float" use="required"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="reportType">
+        <xsd:sequence>
+            <xsd:element name="verbose" type="verboseType" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="print-options" type="print-optionsType" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="help" type="helpType" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="version" type="versionType" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="suppress-warnings" type="suppress-warningsType" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="log-file" type="log-fileType" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="no-duration-log" type="no-duration-logType" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="no-step-log" type="no-step-logType" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="message-log" type="message-logType" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="error-log" type="error-logType" minOccurs="0" maxOccurs="1"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="verboseType">
+        <xsd:attribute name="value" type="xsd:boolean" use="required"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="print-optionsType">
+        <xsd:attribute name="value" type="xsd:boolean" use="required"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="helpType">
+        <xsd:attribute name="value" type="xsd:boolean" use="required"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="versionType">
+        <xsd:attribute name="value" type="xsd:boolean" use="required"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="suppress-warningsType">
+        <xsd:attribute name="value" type="xsd:boolean" use="required"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="log-fileType">
+        <xsd:attribute name="value" type="xsd:string" use="required"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="no-duration-logType">
+        <xsd:attribute name="value" type="xsd:boolean" use="required"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="no-step-logType">
+        <xsd:attribute name="value" type="xsd:boolean" use="required"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="message-logType">
+        <xsd:attribute name="value" type="xsd:string" use="required"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="error-logType">
+        <xsd:attribute name="value" type="xsd:string" use="required"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="routingType">
+        <xsd:sequence>
+            <xsd:element name="device.routing.probability" type="device.routing.probabilityType" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="device.routing.knownveh" type="device.routing.knownvehType" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="device.routing.deterministic" type="device.routing.deterministicType" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="device.routing.period" type="device.routing.periodType" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="device.routing.pre-period" type="device.routing.pre-periodType" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="device.routing.adaptation-weight" type="device.routing.adaptation-weightType" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="device.routing.adaptation-interval" type="device.routing.adaptation-intervalType" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="device.routing.with-taz" type="device.routing.with-tazType" minOccurs="0" maxOccurs="1"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="device.routing.probabilityType">
+        <xsd:attribute name="value" type="xsd:float" use="required"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="device.routing.knownvehType">
+        <xsd:attribute name="value" type="xsd:string" use="required"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="device.routing.deterministicType">
+        <xsd:attribute name="value" type="xsd:boolean" use="required"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="device.routing.periodType">
+        <xsd:attribute name="value" type="xsd:string" use="required"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="device.routing.pre-periodType">
+        <xsd:attribute name="value" type="xsd:string" use="required"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="device.routing.adaptation-weightType">
+        <xsd:attribute name="value" type="xsd:float" use="required"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="device.routing.adaptation-intervalType">
+        <xsd:attribute name="value" type="xsd:string" use="required"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="device.routing.with-tazType">
+        <xsd:attribute name="value" type="xsd:boolean" use="required"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="emissionsType">
+        <xsd:sequence>
+            <xsd:element name="device.hbefa.probability" type="device.hbefa.probabilityType" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="device.hbefa.knownveh" type="device.hbefa.knownvehType" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="device.hbefa.deterministic" type="device.hbefa.deterministicType" minOccurs="0" maxOccurs="1"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="device.hbefa.probabilityType">
+        <xsd:attribute name="value" type="xsd:float" use="required"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="device.hbefa.knownvehType">
+        <xsd:attribute name="value" type="xsd:string" use="required"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="device.hbefa.deterministicType">
+        <xsd:attribute name="value" type="xsd:boolean" use="required"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="traci_serverType">
+        <xsd:sequence>
+            <xsd:element name="remote-port" type="remote-portType" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="penetration" type="penetrationType" minOccurs="0" maxOccurs="1"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="remote-portType">
+        <xsd:attribute name="value" type="xsd:int" use="required"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="penetrationType">
+        <xsd:attribute name="value" type="xsd:float" use="required"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="mesoscopicType">
+        <xsd:sequence>
+            <xsd:element name="mesosim" type="mesosimType" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="meso-edgelength" type="meso-edgelengthType" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="meso-tauff" type="meso-tauffType" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="meso-taufj" type="meso-taufjType" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="meso-taujf" type="meso-taujfType" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="meso-taujj" type="meso-taujjType" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="meso-jam-threshold" type="meso-jam-thresholdType" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="meso-multi-queue" type="meso-multi-queueType" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="meso-junction-control" type="meso-junction-controlType" minOccurs="0" maxOccurs="1"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="mesosimType">
+        <xsd:attribute name="value" type="xsd:boolean" use="required"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="meso-edgelengthType">
+        <xsd:attribute name="value" type="xsd:float" use="required"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="meso-tauffType">
+        <xsd:attribute name="value" type="xsd:string" use="required"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="meso-taufjType">
+        <xsd:attribute name="value" type="xsd:string" use="required"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="meso-taujfType">
+        <xsd:attribute name="value" type="xsd:string" use="required"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="meso-taujjType">
+        <xsd:attribute name="value" type="xsd:string" use="required"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="meso-jam-thresholdType">
+        <xsd:attribute name="value" type="xsd:float" use="required"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="meso-multi-queueType">
+        <xsd:attribute name="value" type="xsd:boolean" use="required"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="meso-junction-controlType">
+        <xsd:attribute name="value" type="xsd:boolean" use="required"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="random_numberType">
+        <xsd:sequence>
+            <xsd:element name="srand" type="srandType" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="abs-rand" type="abs-randType" minOccurs="0" maxOccurs="1"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="srandType">
+        <xsd:attribute name="value" type="xsd:int" use="required"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="abs-randType">
+        <xsd:attribute name="value" type="xsd:boolean" use="required"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="gui_onlyType">
+        <xsd:sequence>
+            <xsd:element name="gui-settings-file" type="gui-settings-fileType" minOccurs="0" maxOccurs="1"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="gui-settings-fileType">
+        <xsd:attribute name="value" type="xsd:string" use="required"/>
+    </xsd:complexType>
+
+</xsd:schema>

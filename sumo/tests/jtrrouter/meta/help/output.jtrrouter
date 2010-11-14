@@ -1,4 +1,4 @@
-SUMO jtrrouter Version dev-SVN-r8794
+SUMO jtrrouter Version dev-SVN-r9362
  (c) DLR 2001-2010; http://sumo.sourceforge.net
  
 Router for the microscopic road traffic simulation SUMO based on junction
@@ -14,7 +14,9 @@ Usage: jtrrouter [OPTION]*
   --save-configuration FILE        Saves current configuration into FILE
   --save-template FILE             Saves a configuration template (empty) into
                                      FILE
-  --save-template.commented        Adds comments to saved template
+  --save-schema FILE               Saves the configuration schema into FILE
+  --save-commented                 Adds comments to saved template,
+                                     configuration, or schema
 
  Input Options:
   -n, --net-file FILE              Use FILE as SUMO-network to route on
@@ -68,6 +70,7 @@ Usage: jtrrouter [OPTION]*
   -v, --verbose                    Switches to verbose output
   -p, --print-options              Prints option values before processing
   -?, --help                       Prints this screen
+  -V, --version                    Prints the current version
   -W, --suppress-warnings          Disables output of warnings
   -l, --log-file FILE              Writes all messages to FILE
   --stats-period INT               Defines how often statistics shall be

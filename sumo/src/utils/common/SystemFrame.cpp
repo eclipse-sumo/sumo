@@ -57,13 +57,12 @@ SystemFrame::addConfigurationOptions(OptionsCont &oc) {
     oc.doRegister("save-template", new Option_FileName());
     oc.addDescription("save-template", "Configuration", "Saves a configuration template (empty) into FILE");
 
-    /*
-    oc.doRegister("save-template.mandatory-only", new Option_Bool(false));
-    oc.addDescription("save-template.mandatory-only", "Configuration", "Saves only mandatory values into template");
-    */
+    oc.doRegister("save-schema", new Option_FileName());
+    oc.addDescription("save-schema", "Configuration", "Saves the configuration schema into FILE");
 
-    oc.doRegister("save-template.commented", new Option_Bool(false));
-    oc.addDescription("save-template.commented", "Configuration", "Adds comments to saved template");
+    oc.doRegister("save-commented", new Option_Bool(false));
+    oc.addSynonyme("save-commented", "save-template.commented");
+    oc.addDescription("save-commented", "Configuration", "Adds comments to saved template, configuration, or schema");
 }
 
 
@@ -79,6 +78,9 @@ SystemFrame::addReportOptions(OptionsCont &oc) {
 
     oc.doRegister("help", '?', new Option_Bool(false));
     oc.addDescription("help", "Report", "Prints this screen");
+
+    oc.doRegister("version", 'V', new Option_Bool(false));
+    oc.addDescription("version", "Report", "Prints the current version");
 
     oc.doRegister("suppress-warnings", 'W', new Option_Bool(false));
     oc.addDescription("suppress-warnings", "Report", "Disables output of warnings");

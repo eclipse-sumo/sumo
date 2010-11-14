@@ -27,6 +27,7 @@
 #include <config.h>
 #endif
 
+#include <algorithm>
 #include <string>
 #include <exception>
 #include <sstream>
@@ -108,30 +109,12 @@ Option::getIntVector() const throw(InvalidArgument) {
 
 
 bool
-Option::set(const std::string &) throw(InvalidArgument) {
-    throw InvalidArgument("This is an abstract class.");
-}
-
-
-bool
-Option::set(bool) throw(InvalidArgument) {
-    throw InvalidArgument("This is not a bool-option.");
-}
-
-
-bool
 Option::markSet() throw() {
     bool ret = myAmWritable;
     myHaveTheDefaultValue = false;
     myAmSet = true;
     myAmWritable = false;
     return ret;
-}
-
-
-std::string
-Option::getValueString() const throw(InvalidArgument) {
-    throw InvalidArgument("This is an abstract class.");
 }
 
 
@@ -159,9 +142,21 @@ Option::isWriteable() const throw() {
 }
 
 
+void
+Option::resetWritable() throw() {
+    myAmWritable = true;
+}
+
+
 const std::string &
 Option::getDescription() const throw() {
     return myDescription;
+}
+
+
+void
+Option::setDescription(const std::string &desc) throw() {
+    myDescription = desc;
 }
 
 
@@ -392,8 +387,16 @@ Option_Bool::getBool() const throw(InvalidArgument) {
 
 
 bool
-Option_Bool::set(bool v) throw(InvalidArgument) {
-    myValue = v;
+Option_Bool::set(const std::string &v) throw(InvalidArgument) {
+    std::string value = v;
+    std::transform(value.begin(), value.end(), value.begin(), tolower);
+    if (value=="1"||value=="yes"||value=="true"||value=="on"||value=="x") {
+        myValue = true;
+    } else if (value=="0"||value=="no"||value=="false"||value=="off") {
+        myValue = false;
+    } else {
+        throw InvalidArgument("Invalid boolean value for option.");
+    }
     return markSet();
 }
 

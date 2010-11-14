@@ -159,14 +159,7 @@ public:
      * @return Whether the new value could be set
      * @exception InvalidArgument If being an instance of Option or Option_Bool or if the value could not be converted
      */
-    virtual bool set(const std::string &v) throw(InvalidArgument);
-
-
-    /** @brief Sets the value (used for bool options)
-     *
-     * @return Whether the new value could be set
-     */
-    virtual bool set(bool v) throw(InvalidArgument);
+    virtual bool set(const std::string &v) throw(InvalidArgument) = 0;
 
 
     /** @brief Returns the string-representation of the value
@@ -175,7 +168,7 @@ public:
      *
      * @return The stored value encoded into a string-
      */
-    virtual std::string getValueString() const throw(InvalidArgument);
+    virtual std::string getValueString() const throw(InvalidArgument) = 0;
 
 
     /** @brief Returns the information whether the option is a bool option
@@ -213,8 +206,12 @@ public:
     bool isWriteable() const throw();
 
 
-    /** OptionsCont is a friend class */
-    friend class OptionsCont;
+    /** @brief Resets the option to be writeable
+     *
+     * An option is writable after initialisation, but as soon as it gets set,
+     *  it is no longer writeable. This method resets the writable-flag.
+     */
+    void resetWritable() throw();
 
 
     /** @brief Returns the description of what this option does
@@ -224,6 +221,15 @@ public:
      * @return The description of this option's purpose
      */
     const std::string &getDescription() const throw();
+
+
+    /** @brief Sets the description of what this option does
+     *
+     * The description stored in myDescription is returned.
+     *
+     * @return The description of this option's purpose
+     */
+    void setDescription(const std::string &desc) throw();
 
 
     /** @brief Returns the mml-type name of this option
@@ -550,7 +556,7 @@ public:
     bool getBool() const throw(InvalidArgument);
 
     /** sets the given value (converts it to bool) */
-    bool set(bool v) throw(InvalidArgument);
+    bool set(const std::string &v) throw(InvalidArgument);
 
 
     /** @brief Returns the string-representation of the value

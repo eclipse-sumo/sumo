@@ -85,7 +85,7 @@ OptionsParser::check(char *arg1, char *arg2, bool &ok) throw(InvalidArgument) {
             ok &= oc.set(tmp.substr(0, idx1), tmp.substr(idx1+1));
         } else {
             if (arg2==0||oc.isBool(convert(arg1+2))) {
-                ok &= oc.set(convert(arg1+2), true);
+                ok &= oc.set(convert(arg1+2), "true");
             } else {
                 ok &= oc.set(convert(arg1+2), convert(arg2));
                 return 2;
@@ -97,7 +97,7 @@ OptionsParser::check(char *arg1, char *arg2, bool &ok) throw(InvalidArgument) {
     for (int i=1; arg1[i]!=0; i++) {
         // set boolean switches
         if (oc.isBool(convert(arg1[i]))) {
-            ok &= oc.set(convert(arg1[i]), true);
+            ok &= oc.set(convert(arg1[i]), "true");
             // set non-boolean switches
         } else {
             // check whether the parameter comes directly after the switch

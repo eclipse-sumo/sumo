@@ -143,18 +143,6 @@ private:
     void setValue(const std::string &key, std::string &value);
 
 
-    /** @brief Tries to set the named option to the given value (for bool-Options)
-     *
-     * Checks the item whether it was default before setting it.
-     * Returns the information whether the item was set before (was not a default value)
-     *
-     * @param[in] name The name of the option to set
-     * @param[in] value The new value for the option
-     * @return Whether the option could be set
-     */
-    bool setSecure(const std::string &name, bool value) const throw();
-
-
     /** @brief Tries to set the named option to the given value
      *
      * Checks the item whether it was default before setting it.
@@ -164,7 +152,7 @@ private:
      * @param[in] value The new value for the option
      * @return Whether the option could be set
      */
-    bool setSecure(const std::string &name, const std::string &value) const throw();
+    bool setSecure(const std::string &name, const std::string &value) const throw(InvalidArgument);
 
 
 private:

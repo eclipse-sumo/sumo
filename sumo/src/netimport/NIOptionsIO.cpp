@@ -228,7 +228,7 @@ NIOptionsIO::checkOptions() {
 #ifdef HAVE_PROJ
     unsigned numProjections = oc.getBool("proj.simple") + oc.getBool("proj.utm") + oc.getBool("proj.dhdn") + (oc.getString("proj").length() > 1);
     if ((oc.isSet("osm-files") || oc.isSet("dlr-navteq")) && numProjections == 0) {
-        oc.set("proj.utm", true);
+        oc.set("proj.utm", "true");
     }
     if (oc.isSet("dlr-navteq") && oc.isDefault("proj.shift")) {
         oc.set("proj.shift", std::string("5"));

@@ -73,20 +73,7 @@ void OptionsLoader::setValue(const std::string &key,
                              std::string &value) {
     if (value.length()>0) {
         try {
-            bool isWriteable;
-            if (myOptions.isBool(key)) {
-                std::transform(value.begin(), value.end(), value.begin(), tolower);
-                if (value=="1"||value=="yes"||value=="true"||value=="on"||value=="x") {
-                    isWriteable = setSecure(key, true);
-                } else if (value=="0"||value=="no"||value=="false"||value=="off") {
-                    isWriteable = setSecure(key, false);
-                } else {
-                    throw InvalidArgument("Invalid boolean value for option '" + key + "'.");
-                }
-            } else {
-                isWriteable = setSecure(key, value);
-            }
-            if (!isWriteable) {
+            if (!setSecure(key, value)) {
                 MsgHandler::getErrorInstance()->inform("Could not set option '" + key + "' (probably defined twice).");
                 myError = true;
             }
@@ -106,18 +93,7 @@ void OptionsLoader::characters(const XMLCh* const chars,
 
 bool
 OptionsLoader::setSecure(const std::string &name,
-                         bool value) const throw() {
-    if (myOptions.isWriteable(name)) {
-        myOptions.set(name, value);
-        return true;
-    }
-    return false;
-}
-
-
-bool
-OptionsLoader::setSecure(const std::string &name,
-                         const std::string &value) const throw() {
+                         const std::string &value) const throw(InvalidArgument) {
     if (myOptions.isWriteable(name)) {
         myOptions.set(name, value);
         return true;

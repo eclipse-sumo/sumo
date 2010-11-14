@@ -1,0 +1,524 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<xsd:schema elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+
+    <xsd:element name="configuration" type="configurationType"/>
+
+    <xsd:complexType name="configurationType">
+        <xsd:sequence>
+            <xsd:element name="grid_network" type="grid_networkType" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="spider_network" type="spider_networkType" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="random_network" type="random_networkType" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="output" type="outputType" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="tls_building" type="tls_buildingType" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="ramp_guessing" type="ramp_guessingType" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="edge_removal" type="edge_removalType" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="unregulated_nodes" type="unregulated_nodesType" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="processing" type="processingType" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="building_defaults" type="building_defaultsType" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="report" type="reportType" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="random_number" type="random_numberType" minOccurs="0" maxOccurs="1"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="grid_networkType">
+        <xsd:sequence>
+            <xsd:element name="grid-net" type="grid-netType" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="grid-number" type="grid-numberType" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="grid-length" type="grid-lengthType" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="grid-x-number" type="grid-x-numberType" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="grid-y-number" type="grid-y-numberType" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="grid-x-length" type="grid-x-lengthType" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="grid-y-length" type="grid-y-lengthType" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="attach-length" type="attach-lengthType" minOccurs="0" maxOccurs="1"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="grid-netType">
+        <xsd:attribute name="value" type="xsd:boolean" use="required"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="grid-numberType">
+        <xsd:attribute name="value" type="xsd:int" use="required"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="grid-lengthType">
+        <xsd:attribute name="value" type="xsd:float" use="required"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="grid-x-numberType">
+        <xsd:attribute name="value" type="xsd:int" use="required"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="grid-y-numberType">
+        <xsd:attribute name="value" type="xsd:int" use="required"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="grid-x-lengthType">
+        <xsd:attribute name="value" type="xsd:float" use="required"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="grid-y-lengthType">
+        <xsd:attribute name="value" type="xsd:float" use="required"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="attach-lengthType">
+        <xsd:attribute name="value" type="xsd:float" use="required"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="spider_networkType">
+        <xsd:sequence>
+            <xsd:element name="spider-net" type="spider-netType" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="spider-arm-number" type="spider-arm-numberType" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="spider-circle-number" type="spider-circle-numberType" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="spider-space-rad" type="spider-space-radType" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="spider-omit-center" type="spider-omit-centerType" minOccurs="0" maxOccurs="1"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="spider-netType">
+        <xsd:attribute name="value" type="xsd:boolean" use="required"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="spider-arm-numberType">
+        <xsd:attribute name="value" type="xsd:int" use="required"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="spider-circle-numberType">
+        <xsd:attribute name="value" type="xsd:int" use="required"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="spider-space-radType">
+        <xsd:attribute name="value" type="xsd:float" use="required"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="spider-omit-centerType">
+        <xsd:attribute name="value" type="xsd:boolean" use="required"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="random_networkType">
+        <xsd:sequence>
+            <xsd:element name="random-net" type="random-netType" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="rand-iterations" type="rand-iterationsType" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="rand-bidi-probability" type="rand-bidi-probabilityType" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="rand-max-distance" type="rand-max-distanceType" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="rand-min-distance" type="rand-min-distanceType" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="rand-min-angle" type="rand-min-angleType" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="rand-num-tries" type="rand-num-triesType" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="rand-connectivity" type="rand-connectivityType" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="rand-neighbor-dist1" type="rand-neighbor-dist1Type" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="rand-neighbor-dist2" type="rand-neighbor-dist2Type" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="rand-neighbor-dist3" type="rand-neighbor-dist3Type" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="rand-neighbor-dist4" type="rand-neighbor-dist4Type" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="rand-neighbor-dist5" type="rand-neighbor-dist5Type" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="rand-neighbor-dist6" type="rand-neighbor-dist6Type" minOccurs="0" maxOccurs="1"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="random-netType">
+        <xsd:attribute name="value" type="xsd:boolean" use="required"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="rand-iterationsType">
+        <xsd:attribute name="value" type="xsd:int" use="required"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="rand-bidi-probabilityType">
+        <xsd:attribute name="value" type="xsd:float" use="required"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="rand-max-distanceType">
+        <xsd:attribute name="value" type="xsd:float" use="required"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="rand-min-distanceType">
+        <xsd:attribute name="value" type="xsd:float" use="required"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="rand-min-angleType">
+        <xsd:attribute name="value" type="xsd:float" use="required"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="rand-num-triesType">
+        <xsd:attribute name="value" type="xsd:int" use="required"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="rand-connectivityType">
+        <xsd:attribute name="value" type="xsd:float" use="required"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="rand-neighbor-dist1Type">
+        <xsd:attribute name="value" type="xsd:float" use="required"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="rand-neighbor-dist2Type">
+        <xsd:attribute name="value" type="xsd:float" use="required"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="rand-neighbor-dist3Type">
+        <xsd:attribute name="value" type="xsd:float" use="required"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="rand-neighbor-dist4Type">
+        <xsd:attribute name="value" type="xsd:float" use="required"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="rand-neighbor-dist5Type">
+        <xsd:attribute name="value" type="xsd:float" use="required"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="rand-neighbor-dist6Type">
+        <xsd:attribute name="value" type="xsd:float" use="required"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="outputType">
+        <xsd:sequence>
+            <xsd:element name="output-file" type="output-fileType" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="plain-output" type="plain-outputType" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="node-geometry-dump" type="node-geometry-dumpType" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="map-output" type="map-outputType" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="node-type-output" type="node-type-outputType" minOccurs="0" maxOccurs="1"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="output-fileType">
+        <xsd:attribute name="value" type="xsd:string" use="required"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="plain-outputType">
+        <xsd:attribute name="value" type="xsd:string" use="required"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="node-geometry-dumpType">
+        <xsd:attribute name="value" type="xsd:string" use="required"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="map-outputType">
+        <xsd:attribute name="value" type="xsd:string" use="required"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="node-type-outputType">
+        <xsd:attribute name="value" type="xsd:string" use="required"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="tls_buildingType">
+        <xsd:sequence>
+            <xsd:element name="explicite-tls" type="explicite-tlsType" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="explicite-no-tls" type="explicite-no-tlsType" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="guess-tls" type="guess-tlsType" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="tls-guess.district-nodes" type="tls-guess.district-nodesType" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="tls-guess.joining" type="tls-guess.joiningType" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="try-join-tls" type="try-join-tlsType" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="min-decel" type="min-decelType" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="patch-small-tyellow" type="patch-small-tyellowType" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="traffic-light-green" type="traffic-light-greenType" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="traffic-light-yellow" type="traffic-light-yellowType" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="tl-logics.half-offset" type="tl-logics.half-offsetType" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="tl-logics.quarter-offset" type="tl-logics.quarter-offsetType" minOccurs="0" maxOccurs="1"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="explicite-tlsType">
+        <xsd:attribute name="value" type="xsd:string" use="required"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="explicite-no-tlsType">
+        <xsd:attribute name="value" type="xsd:string" use="required"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="guess-tlsType">
+        <xsd:attribute name="value" type="xsd:boolean" use="required"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="tls-guess.district-nodesType">
+        <xsd:attribute name="value" type="xsd:boolean" use="required"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="tls-guess.joiningType">
+        <xsd:attribute name="value" type="xsd:boolean" use="required"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="try-join-tlsType">
+        <xsd:attribute name="value" type="xsd:boolean" use="required"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="min-decelType">
+        <xsd:attribute name="value" type="xsd:float" use="required"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="patch-small-tyellowType">
+        <xsd:attribute name="value" type="xsd:boolean" use="required"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="traffic-light-greenType">
+        <xsd:attribute name="value" type="xsd:int" use="required"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="traffic-light-yellowType">
+        <xsd:attribute name="value" type="xsd:int" use="required"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="tl-logics.half-offsetType">
+        <xsd:attribute name="value" type="xsd:string" use="required"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="tl-logics.quarter-offsetType">
+        <xsd:attribute name="value" type="xsd:string" use="required"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="ramp_guessingType">
+        <xsd:sequence>
+            <xsd:element name="guess-ramps" type="guess-rampsType" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="ramp-guess.max-ramp-speed" type="ramp-guess.max-ramp-speedType" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="ramp-guess.min-highway-speed" type="ramp-guess.min-highway-speedType" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="ramp-guess.ramp-length" type="ramp-guess.ramp-lengthType" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="ramp-guess.explicite" type="ramp-guess.expliciteType" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="guess-obscure-ramps" type="guess-obscure-rampsType" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="obscure-ramps.add-ramp" type="obscure-ramps.add-rampType" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="obscure-ramps.min-highway-speed" type="obscure-ramps.min-highway-speedType" minOccurs="0" maxOccurs="1"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="guess-rampsType">
+        <xsd:attribute name="value" type="xsd:boolean" use="required"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="ramp-guess.max-ramp-speedType">
+        <xsd:attribute name="value" type="xsd:float" use="required"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="ramp-guess.min-highway-speedType">
+        <xsd:attribute name="value" type="xsd:float" use="required"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="ramp-guess.ramp-lengthType">
+        <xsd:attribute name="value" type="xsd:float" use="required"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="ramp-guess.expliciteType">
+        <xsd:attribute name="value" type="xsd:string" use="required"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="guess-obscure-rampsType">
+        <xsd:attribute name="value" type="xsd:boolean" use="required"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="obscure-ramps.add-rampType">
+        <xsd:attribute name="value" type="xsd:boolean" use="required"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="obscure-ramps.min-highway-speedType">
+        <xsd:attribute name="value" type="xsd:float" use="required"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="edge_removalType">
+        <xsd:sequence>
+            <xsd:element name="edges-min-speed" type="edges-min-speedType" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="remove-edges" type="remove-edgesType" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="keep-edges" type="keep-edgesType" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="keep-edges.input-file" type="keep-edges.input-fileType" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="keep-edges.postload" type="keep-edges.postloadType" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="keep-edges.in-boundary" type="keep-edges.in-boundaryType" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="remove-edges.by-vclass" type="remove-edges.by-vclassType" minOccurs="0" maxOccurs="1"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="edges-min-speedType">
+        <xsd:attribute name="value" type="xsd:float" use="required"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="remove-edgesType">
+        <xsd:attribute name="value" type="xsd:string" use="required"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="keep-edgesType">
+        <xsd:attribute name="value" type="xsd:string" use="required"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="keep-edges.input-fileType">
+        <xsd:attribute name="value" type="xsd:string" use="required"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="keep-edges.postloadType">
+        <xsd:attribute name="value" type="xsd:boolean" use="required"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="keep-edges.in-boundaryType">
+        <xsd:attribute name="value" type="xsd:string" use="required"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="remove-edges.by-vclassType">
+        <xsd:attribute name="value" type="xsd:string" use="required"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="unregulated_nodesType">
+        <xsd:sequence>
+            <xsd:element name="keep-unregulated" type="keep-unregulatedType" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="keep-unregulated.nodes" type="keep-unregulated.nodesType" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="keep-unregulated.district-nodes" type="keep-unregulated.district-nodesType" minOccurs="0" maxOccurs="1"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="keep-unregulatedType">
+        <xsd:attribute name="value" type="xsd:boolean" use="required"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="keep-unregulated.nodesType">
+        <xsd:attribute name="value" type="xsd:string" use="required"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="keep-unregulated.district-nodesType">
+        <xsd:attribute name="value" type="xsd:boolean" use="required"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="processingType">
+        <xsd:sequence>
+            <xsd:element name="flip-y" type="flip-yType" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="dismiss-vclasses" type="dismiss-vclassesType" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="remove-geometry" type="remove-geometryType" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="remove-isolated" type="remove-isolatedType" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="no-turnarounds" type="no-turnaroundsType" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="no-tls-turnarounds" type="no-tls-turnaroundsType" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="no-internal-links" type="no-internal-linksType" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="split-geometry" type="split-geometryType" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="disable-normalize-node-positions" type="disable-normalize-node-positionsType" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="x-offset-to-apply" type="x-offset-to-applyType" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="y-offset-to-apply" type="y-offset-to-applyType" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="guess-roundabouts" type="guess-roundaboutsType" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="lefthand" type="lefthandType" minOccurs="0" maxOccurs="1"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="flip-yType">
+        <xsd:attribute name="value" type="xsd:boolean" use="required"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="dismiss-vclassesType">
+        <xsd:attribute name="value" type="xsd:boolean" use="required"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="remove-geometryType">
+        <xsd:attribute name="value" type="xsd:boolean" use="required"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="remove-isolatedType">
+        <xsd:attribute name="value" type="xsd:boolean" use="required"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="no-turnaroundsType">
+        <xsd:attribute name="value" type="xsd:boolean" use="required"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="no-tls-turnaroundsType">
+        <xsd:attribute name="value" type="xsd:boolean" use="required"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="no-internal-linksType">
+        <xsd:attribute name="value" type="xsd:boolean" use="required"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="split-geometryType">
+        <xsd:attribute name="value" type="xsd:boolean" use="required"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="disable-normalize-node-positionsType">
+        <xsd:attribute name="value" type="xsd:boolean" use="required"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="x-offset-to-applyType">
+        <xsd:attribute name="value" type="xsd:float" use="required"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="y-offset-to-applyType">
+        <xsd:attribute name="value" type="xsd:float" use="required"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="guess-roundaboutsType">
+        <xsd:attribute name="value" type="xsd:boolean" use="required"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="lefthandType">
+        <xsd:attribute name="value" type="xsd:boolean" use="required"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="building_defaultsType">
+        <xsd:sequence>
+            <xsd:element name="type" type="typeType" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="lanenumber" type="lanenumberType" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="speed" type="speedType" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="priority" type="priorityType" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="default-junction-type" type="default-junction-typeType" minOccurs="0" maxOccurs="1"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="typeType">
+        <xsd:attribute name="value" type="xsd:string" use="required"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="lanenumberType">
+        <xsd:attribute name="value" type="xsd:int" use="required"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="speedType">
+        <xsd:attribute name="value" type="xsd:float" use="required"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="priorityType">
+        <xsd:attribute name="value" type="xsd:int" use="required"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="default-junction-typeType">
+        <xsd:attribute name="value" type="xsd:string" use="required"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="reportType">
+        <xsd:sequence>
+            <xsd:element name="verbose" type="verboseType" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="print-options" type="print-optionsType" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="help" type="helpType" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="version" type="versionType" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="suppress-warnings" type="suppress-warningsType" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="log-file" type="log-fileType" minOccurs="0" maxOccurs="1"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="verboseType">
+        <xsd:attribute name="value" type="xsd:boolean" use="required"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="print-optionsType">
+        <xsd:attribute name="value" type="xsd:boolean" use="required"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="helpType">
+        <xsd:attribute name="value" type="xsd:boolean" use="required"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="versionType">
+        <xsd:attribute name="value" type="xsd:boolean" use="required"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="suppress-warningsType">
+        <xsd:attribute name="value" type="xsd:boolean" use="required"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="log-fileType">
+        <xsd:attribute name="value" type="xsd:string" use="required"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="random_numberType">
+        <xsd:sequence>
+            <xsd:element name="srand" type="srandType" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="abs-rand" type="abs-randType" minOccurs="0" maxOccurs="1"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="srandType">
+        <xsd:attribute name="value" type="xsd:int" use="required"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="abs-randType">
+        <xsd:attribute name="value" type="xsd:boolean" use="required"/>
+    </xsd:complexType>
+
+</xsd:schema>

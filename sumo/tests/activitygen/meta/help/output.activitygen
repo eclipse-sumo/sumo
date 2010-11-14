@@ -1,4 +1,4 @@
-SUMO activitygen Version dev-SVN-r9081
+SUMO activitygen Version dev-SVN-r9362
  (c) DLR 2001-2010; http://sumo.sourceforge.net
  (c) Technische Universitaet Muenchen, 2010
  
@@ -16,7 +16,9 @@ Usage: activitygen [OPTION]*
   --save-configuration FILE        Saves current configuration into FILE
   --save-template FILE             Saves a configuration template (empty) into
                                      FILE
-  --save-template.commented        Adds comments to saved template
+  --save-schema FILE               Saves the configuration schema into FILE
+  --save-commented                 Adds comments to saved template,
+                                     configuration, or schema
 
  Input Options:
   -n, --net-file FILE              Use FILE as SUMO-network to route on
@@ -41,6 +43,7 @@ Usage: activitygen [OPTION]*
   -v, --verbose                    Switches to verbose output
   -p, --print-options              Prints option values before processing
   -?, --help                       Prints this screen
+  -V, --version                    Prints the current version
   -W, --suppress-warnings          Disables output of warnings
   -l, --log-file FILE              Writes all messages to FILE
   --debug                          Detailed messages about every single step

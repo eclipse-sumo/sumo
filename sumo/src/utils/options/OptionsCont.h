@@ -192,6 +192,17 @@ public:
                             bool complete, bool addComments) throw();
 
 
+    /** @brief Writes the xml schema for the configuration
+     *
+     * The schema for the configuration is written as XML into the given stream,
+     *  allowing to validate the configuration against.
+     *
+     * @param[in] os The stream to write the schema into
+     * @param[in] addComments Whether comments (option descriptions) shall be written
+     */
+    void writeSchema(std::ostream &os, bool addComments) throw();
+
+
     /** @brief Writes a standard XML header, optionally including the configuration
      *
      * The header consists of the xml-declaration, followed by a note which contains
@@ -526,28 +537,6 @@ public:
      * @see Option::set(const std::string &)
      */
     bool set(const std::string &name, const std::string &value) throw(InvalidArgument);
-
-
-    /** @brief Sets the given boolean value for the named option (Option_Bool only)
-     *
-     * The option is retrieved from the container, first, what yields in an InvalidArgument
-     *  exception for not known options.
-     *
-     * If the option is not writable (was set before), an error is generated using
-     *  reportDoubleSetting, and false is returned. Otherwise, the option is
-     *  told to set the given value using Option::set(bool). Possible problems herein
-     *  are caught and reported to the error-handler, yielding in returning false.
-     *
-     * If the new value could be set, true is returned.
-     *
-     * @param[in] name The name of the option to set
-     * @param[in] value The value to set
-     * @return Whether the value could be set
-     * @exception InvalidArgument If the option does not exist
-     * @see reportDoubleSetting
-     * @see Option::set(const std::string &)
-     */
-    bool set(const std::string &name, bool value) throw(InvalidArgument);
     /// @}
 
 

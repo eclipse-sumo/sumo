@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 
-<configuration>
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netgenConfiguration.xsd">
 
     <grid_network>
         <grid-net value="false"/>
@@ -116,6 +116,7 @@
         <verbose value="false"/>
         <print-options value="false"/>
         <help value="false"/>
+        <version value="false"/>
         <suppress-warnings value="false"/>
         <log-file value=""/>
     </report>

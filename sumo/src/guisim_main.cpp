@@ -81,6 +81,12 @@ fillOptions() {
     oc.addSynonyme("configuration-file", "configuration");
     oc.addDescription("configuration-file", "Process", "Loads the named config on startup");
 
+    oc.doRegister("help", '?', new Option_Bool(false));
+    oc.addDescription("help", "Process", "Prints this screen");
+
+    oc.doRegister("version", 'V', new Option_Bool(false));
+    oc.addDescription("version", "Process", "Prints the current version");
+
     oc.doRegister("quit-on-end", 'Q', new Option_Bool(false));
     oc.addDescription("quit-on-end", "Process", "Quits the gui when the simulation stops");
 
@@ -118,6 +124,10 @@ main(int argc, char **argv) {
         XMLSubSys::init(false);
         fillOptions();
         OptionsIO::getOptions(false, argc, argv);
+        if (oc.processMetaOptions(false)) {
+            SystemFrame::close();
+            return 0;
+        }
         // within gui-based applications, nothing is reported to the console
         MsgHandler::getErrorInstance()->report2cout(false);
         MsgHandler::getErrorInstance()->report2cerr(false);

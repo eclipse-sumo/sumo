@@ -209,28 +209,6 @@ OptionsCont::set(const std::string &name, const std::string &value) throw(Invali
 }
 
 
-bool
-OptionsCont::set(const std::string &name, bool value) throw(InvalidArgument) {
-    Option *o = getSecure(name);
-    if (!o->isBool()) {
-        throw InvalidArgument("The option '" + name + "' is not a boolean attribute and requires an argument.");
-    }
-    if (!o->isWriteable()) {
-        reportDoubleSetting(name);
-        return false;
-    }
-    try {
-        if (!o->set(value)) {
-            return false;
-        }
-    } catch (InvalidArgument &e) {
-        MsgHandler::getErrorInstance()->inform("While processing option '" + name + "':\n " + e.what());
-        return false;
-    }
-    return true;
-}
-
-
 std::vector<std::string>
 OptionsCont::getSynonymes(const std::string &name) const throw(InvalidArgument) {
     Option *o = getSecure(name);
@@ -382,7 +360,7 @@ OptionsCont::isBool(const std::string &name) const throw(InvalidArgument) {
 void
 OptionsCont::resetWritable() throw() {
     for (ItemAddressContType::iterator i=myAddresses.begin(); i!=myAddresses.end(); i++) {
-        (*i)->myAmWritable = true;
+        (*i)->resetWritable();
     }
 }
 
@@ -415,7 +393,7 @@ OptionsCont::addDescription(const std::string &name,
     assert(o!=0);
     assert(o->myDescription=="");
     assert(find(mySubTopics.begin(), mySubTopics.end(), subtopic)!=mySubTopics.end());
-    o->myDescription = description;
+    o->setDescription(description);
     mySubTopicEntries[subtopic].push_back(name);
 }
 
@@ -520,8 +498,17 @@ OptionsCont::processMetaOptions(bool missingOptions) throw(ProcessError) {
         oc.printHelp(std::cout);
         return true;
     }
+    // check whether the help shall be printed
+    if (oc.getBool("version")) {
+        std::cout << myFullName << std::endl;
+        for (std::vector<std::string>::const_iterator it =
+                    myCopyrightNotices.begin(); it != myCopyrightNotices.end(); ++it) {
+            std::cout << " " << *it << std::endl;
+        }
+        return true;
+    }
     // check whether the settings shall be printed
-    if (oc.getBool("print-options")) {
+    if (oc.exists("print-options") && oc.getBool("print-options")) {
         std::cout << oc;
     }
     // check whether something has to be done with options
@@ -531,7 +518,7 @@ OptionsCont::processMetaOptions(bool missingOptions) throw(ProcessError) {
         if (!out.good()) {
             throw ProcessError("Could not save configuration to '" + oc.getString("save-configuration") + "'");
         } else {
-            oc.writeConfiguration(out, true, false, false);
+            oc.writeConfiguration(out, true, false, oc.getBool("save-commented"));
             if (oc.getBool("verbose")) {
                 MsgHandler::getMessageInstance()->inform("Written configuration to '" + oc.getString("save-configuration") + "'");
             }
@@ -544,9 +531,21 @@ OptionsCont::processMetaOptions(bool missingOptions) throw(ProcessError) {
         if (!out.good()) {
             throw ProcessError("Could not save template to '" + oc.getString("save-template") + "'");
         } else {
-            oc.writeConfiguration(out, false, true, oc.getBool("save-template.commented"));
+            oc.writeConfiguration(out, false, true, oc.getBool("save-commented"));
             if (oc.getBool("verbose")) {
                 MsgHandler::getMessageInstance()->inform("Written template to '" + oc.getString("save-template") + "'");
+            }
+            return true;
+        }
+    }
+    if (oc.isSet("save-schema")) {
+        std::ofstream out(oc.getString("save-schema").c_str());
+        if (!out.good()) {
+            throw ProcessError("Could not save schema to '" + oc.getString("save-schema") + "'");
+        } else {
+            oc.writeSchema(out, oc.getBool("save-commented"));
+            if (oc.getBool("verbose")) {
+                MsgHandler::getMessageInstance()->inform("Written schema to '" + oc.getString("save-schema") + "'");
             }
             return true;
         }
@@ -653,22 +652,16 @@ void
 OptionsCont::writeConfiguration(std::ostream &os, bool filled,
                                 bool complete, bool addComments) throw() {
     std::vector<std::string>::const_iterator i, j;
-    // to the best of our knowledge files are writen in latin-1 on windows and linux
+    // to the best of our knowledge files are written in latin-1 on windows and linux
     os << "<?xml version=\"1.0\" encoding=\"iso-8859-1\"?>\n\n";
-    os << "<configuration>" << std::endl << std::endl;
+    os << "<configuration xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"http://sumo.sf.net/xsd/" << myAppName << "Configuration.xsd\">" << std::endl << std::endl;
     for (i=mySubTopics.begin(); i!=mySubTopics.end(); ++i) {
         std::string subtopic = *i;
         if (subtopic=="Configuration") {
             continue;
         }
-        for (size_t k=0; k<subtopic.length(); ++k) {
-            if (subtopic[k]==' ') {
-                subtopic[k] = '_';
-            }
-            if (subtopic[k]>='A'&&subtopic[k]<='Z') {
-                subtopic[k] = subtopic[k] - 'A' + 'a';
-            }
-        }
+        std::replace(subtopic.begin(), subtopic.end(), ' ', '_');
+        std::transform(subtopic.begin(), subtopic.end(), subtopic.begin(), tolower);
         const std::vector<std::string> &entries = mySubTopicEntries[*i];
         bool hadOne = false;
         for (j=entries.begin(); j!=entries.end(); ++j) {
@@ -701,6 +694,63 @@ OptionsCont::writeConfiguration(std::ostream &os, bool filled,
         }
     }
     os << "</configuration>" << std::endl;
+}
+
+
+void
+OptionsCont::writeSchema(std::ostream &os, bool addComments) throw() {
+    // to the best of our knowledge files are written in latin-1 on windows and linux
+    os << "<?xml version=\"1.0\" encoding=\"iso-8859-1\"?>\n\n";
+    os << "<xsd:schema elementFormDefault=\"qualified\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\">\n\n";
+    os << "    <xsd:element name=\"configuration\" type=\"configurationType\"/>\n\n";
+    os << "    <xsd:complexType name=\"configurationType\">\n";
+    os << "        <xsd:sequence>\n";
+    for (std::vector<std::string>::const_iterator i=mySubTopics.begin(); i!=mySubTopics.end(); ++i) {
+        std::string subtopic = *i;
+        if (subtopic=="Configuration") {
+            continue;
+        }
+        std::replace(subtopic.begin(), subtopic.end(), ' ', '_');
+        std::transform(subtopic.begin(), subtopic.end(), subtopic.begin(), tolower);
+        os << "            <xsd:element name=\"" << subtopic << "\" type=\"" << subtopic << "Type\" minOccurs=\"0\" maxOccurs=\"1\"/>\n";
+    }
+    os << "        </xsd:sequence>\n";
+    os << "    </xsd:complexType>\n\n";
+    for (std::vector<std::string>::const_iterator i=mySubTopics.begin(); i!=mySubTopics.end(); ++i) {
+        std::string subtopic = *i;
+        if (subtopic=="Configuration") {
+            continue;
+        }
+        std::replace(subtopic.begin(), subtopic.end(), ' ', '_');
+        std::transform(subtopic.begin(), subtopic.end(), subtopic.begin(), tolower);
+        os << "    <xsd:complexType name=\"" << subtopic << "Type\">\n";
+        os << "        <xsd:sequence>\n";
+        const std::vector<std::string> &entries = mySubTopicEntries[*i];
+        for (std::vector<std::string>::const_iterator j=entries.begin(); j!=entries.end(); ++j) {
+            os << "            <xsd:element name=\"" << *j << "\" type=\"" << *j << "Type\" minOccurs=\"0\" maxOccurs=\"1\"/>\n";
+        }
+        os << "        </xsd:sequence>\n";
+        os << "    </xsd:complexType>\n\n";
+        for (std::vector<std::string>::const_iterator j=entries.begin(); j!=entries.end(); ++j) {
+            Option *o = getSecure(*j);
+            std::string type = o->getTypeName();
+            std::transform(type.begin(), type.end(), type.begin(), tolower);
+            if (type == "bool") {
+                type = "boolean";
+            } else {
+                if  (type != "int" && type != "float") {
+                    type = "string";
+                }
+            }
+            os << "    <xsd:complexType name=\"" << *j << "Type\">\n";
+            if (addComments) {
+                os << "        <!-- " << o->getDescription() << " -->\n";
+            }
+            os << "        <xsd:attribute name=\"value\" type=\"xsd:" << type << "\" use=\"required\"/>\n";
+            os << "    </xsd:complexType>\n\n";
+        }
+    }
+    os << "</xsd:schema>\n";
 }
 
 

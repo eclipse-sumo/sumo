@@ -1,4 +1,4 @@
-SUMO netgen Version dev-SVN-r8982
+SUMO netgen Version dev-SVN-r9362
  (c) DLR 2001-2010; http://sumo.sourceforge.net
  
 Road network generator for the microscopic road traffic simulation SUMO.
@@ -19,7 +19,9 @@ Usage: netgen [OPTION]*
   --save-configuration FILE            Saves current configuration into FILE
   --save-template FILE                 Saves a configuration template (empty)
                                          into FILE
-  --save-template.commented            Adds comments to saved template
+  --save-schema FILE                   Saves the configuration schema into FILE
+  --save-commented                     Adds comments to saved template,
+                                         configuration, or schema
 
  Grid Network Options:
   -g, --grid-net                       Forces NETGEN to build a grid-like
@@ -149,6 +151,7 @@ Usage: netgen [OPTION]*
   -v, --verbose                        Switches to verbose output
   -p, --print-options                  Prints option values before processing
   -?, --help                           Prints this screen
+  -V, --version                        Prints the current version
   -W, --suppress-warnings              Disables output of warnings
   -l, --log-file FILE                  Writes all messages to FILE
 
