@@ -68,7 +68,7 @@ MSRouteHandler::MSRouteHandler(const std::string &file,
         myRunningVehicleNumber(0),
         myCurrentVTypeDistribution(0),
         myCurrentRouteDistribution(0),
-        myHaveWarned(false), myCurrentVType(0) {
+        myHaveWarned(false), myCurrentVType(0), myActivePlan(0) {
     myIncrementalBase = OptionsCont::getOptions().getInt("incremental-dua-base");
     myIncrementalStage = OptionsCont::getOptions().getInt("incremental-dua-step");
     myAmUsingIncrementalDUA = (myIncrementalStage>0);
