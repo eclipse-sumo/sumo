@@ -628,6 +628,8 @@ MSRouteHandler::addStop(const SUMOSAXAttributes &attrs) throw(ProcessError) {
     std::string errorSuffix;
     if (myActiveRouteID != "") {
         errorSuffix = " in route '" + myActiveRouteID + "'.";
+    } else if (myActivePlan) {
+        errorSuffix = " in person '" + myVehicleParameter->id + "'.";
     } else {
         errorSuffix = " in vehicle '" + myVehicleParameter->id + "'.";
     }
@@ -703,6 +705,8 @@ MSRouteHandler::addStop(const SUMOSAXAttributes &attrs) throw(ProcessError) {
     }
     if (myActiveRouteID != "") {
         myActiveRouteStops.push_back(stop);
+    } else if (myActivePlan) {
+        myActivePlan->push_back(new MSPerson::MSPersonStage_Waiting(MSLane::dictionary(stop.lane)->getEdge(), stop.duration, stop.until));
     } else {
         myVehicleParameter->stops.push_back(stop);
     }
