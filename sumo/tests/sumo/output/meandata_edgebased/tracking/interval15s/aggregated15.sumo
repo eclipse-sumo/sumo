@@ -1,7 +1,9 @@
 <?xml version="1.0"?>
 
-<!-- generated on 08/26/10 17:39:36 by SUMO sumo Version dev-SVN-r8989
-<configuration>
+<!-- generated on 11/15/10 13:07:49 by SUMO sumo Version dev-SVN-r9369
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/sumoConfiguration.xsd">
 
     <input>
         <net-file value="net.net.xml"/>
@@ -23,20 +25,20 @@
 
 <netstats>
     <interval begin="0.00" end="15.00" id="dump_15">
-        <edge id="4/1to3/1" sampledSeconds="61.33" traveltime="30.66" waitingTime="0.00" speed="9.47" departed="2" arrived="0" entered="0" left="2" laneChangedFrom="0" laneChangedTo="0"/>
+        <edge id="4/1to3/1" sampledSeconds="61.00" traveltime="30.50" waitingTime="0.00" speed="9.48" departed="2" arrived="0" entered="0" left="2" laneChangedFrom="0" laneChangedTo="0"/>
     </interval>
     <interval begin="15.00" end="30.00" id="dump_15">
     </interval>
     <interval begin="30.00" end="45.00" id="dump_15">
-        <edge id="3/1to2/1" sampledSeconds="82.44" traveltime="41.22" waitingTime="0.00" speed="9.47" departed="0" arrived="0" entered="2" left="2" laneChangedFrom="0" laneChangedTo="0"/>
+        <edge id="3/1to2/1" sampledSeconds="81.67" traveltime="40.84" waitingTime="0.00" speed="9.48" departed="0" arrived="0" entered="2" left="2" laneChangedFrom="0" laneChangedTo="0"/>
     </interval>
     <interval begin="45.00" end="60.00" id="dump_15">
     </interval>
     <interval begin="60.00" end="75.00" id="dump_15">
-        <edge id="2/1to1/1" sampledSeconds="39.05" traveltime="39.05" waitingTime="0.00" speed="10.00" departed="0" arrived="0" entered="1" left="1" laneChangedFrom="0" laneChangedTo="0"/>
+        <edge id="2/1to1/1" sampledSeconds="38.90" traveltime="38.90" waitingTime="0.00" speed="10.00" departed="0" arrived="0" entered="1" left="1" laneChangedFrom="0" laneChangedTo="0"/>
     </interval>
     <interval begin="75.00" end="90.00" id="dump_15">
-        <edge id="2/1to1/1" sampledSeconds="43.39" traveltime="43.39" waitingTime="0.00" speed="9.00" departed="0" arrived="0" entered="1" left="1" laneChangedFrom="0" laneChangedTo="0"/>
+        <edge id="2/1to1/1" sampledSeconds="43.33" traveltime="43.33" waitingTime="0.00" speed="9.00" departed="0" arrived="0" entered="1" left="1" laneChangedFrom="0" laneChangedTo="0"/>
     </interval>
     <interval begin="90.00" end="105.00" id="dump_15">
     </interval>
