@@ -8,7 +8,6 @@ one10s_1vehicle_10m_s
 # One detector sampling at 100s, one vehicle driving 10m/s
 one100s_1vehicle_10m_s
 
-
 # Two detectors sampling at 1s, one vehicle driving 10m/s
 two1s_1vehicle_10m_s
 
@@ -18,4 +17,5 @@ two10s_1vehicle_10m_s
 # Two detectors sampling at 100s, one vehicle driving 10m/s
 two100s_1vehicle_10m_s
 
-
+# Two detectors sampling at 10s, two vehicles, early sim end
+two10s_1vehicle_10m_s_end
