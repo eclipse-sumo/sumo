@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 
-<configuration>
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/sumoConfiguration.xsd">
 
     <input>
         <!-- Load road network description from FILE -->
@@ -128,6 +128,9 @@
 
         <!-- Prints this screen -->
         <help value="false"/>
+
+        <!-- Prints the current version -->
+        <version value="false"/>
 
         <!-- Disables output of warnings -->
         <suppress-warnings value="false"/>
