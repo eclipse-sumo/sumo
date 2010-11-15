@@ -143,7 +143,7 @@ MSMeanData::MeanDataValueTracker::notifyLeave(SUMOVehicle& veh, SUMOReal lastPos
 
 bool
 MSMeanData::MeanDataValueTracker::notifyEnter(SUMOVehicle& veh, bool isEmit, bool isLaneChange) throw() {
-    if (vehicleApplies(veh)) {
+    if (vehicleApplies(veh) && myTrackedData.find(&veh) == myTrackedData.end()) {
         myTrackedData[&veh] = myCurrentData.back();
         myTrackedData[&veh]->myNumVehicleEntered++;
         if (!myTrackedData[&veh]->myValues->notifyEnter(veh, isEmit, isLaneChange)) {
