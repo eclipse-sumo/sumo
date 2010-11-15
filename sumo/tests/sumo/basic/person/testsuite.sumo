@@ -21,3 +21,6 @@ triggered
 
 # car waiting for person
 vehicle_triggered
+
+# person stops for a given duration
+stop_duration

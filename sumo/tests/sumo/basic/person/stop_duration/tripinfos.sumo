@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+
+<!-- generated on 11/02/10 13:23:09 by SUMO sumo Version dev-SVN-r9336
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<configuration>
+
+    <input>
+        <net-file value="three_split.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <tripinfo-output value="tripinfos.xml"/>
+    </output>
+
+    <time>
+        <end value="1000"/>
+    </time>
+
+    <report>
+        <no-duration-log value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+</configuration>
+-->
+
+<tripinfos>
+    <personinfo id="p1" depart="0.00">
+        <stop arrival="0.00"/>
+        <walk arrival="1.00"/>
+        <stop arrival="3.00"/>
+        <walk arrival="7.00"/>
+    </personinfo>
+</tripinfos>

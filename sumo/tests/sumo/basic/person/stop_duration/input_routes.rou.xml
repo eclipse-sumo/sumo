@@ -1,0 +1,7 @@
+<routes>
+    <person id="p1" depart="0">
+        <walk edges="beg end" duration="1"/>
+        <stop lane="end_0" duration="2"/>
+        <walk edges="end beg" duration="4"/>
+    </person>
+</routes>
