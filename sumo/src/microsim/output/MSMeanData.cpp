@@ -63,6 +63,12 @@ MSMeanData::MeanDataValues::~MeanDataValues() throw() {
 
 
 bool
+MSMeanData::MeanDataValues::notifyLeave(SUMOVehicle& veh, SUMOReal lastPos, bool isArrival, bool isLaneChange) throw() {
+    return !isLaneChange && !isArrival;
+}
+
+
+bool
 MSMeanData::MeanDataValues::vehicleApplies(const SUMOVehicle& veh) const throw() {
     return myVehicleTypes == 0 || myVehicleTypes->empty() ||
            myVehicleTypes->find(veh.getVehicleType().getID()) != myVehicleTypes->end();

@@ -91,6 +91,18 @@ public:
         virtual void addTo(MeanDataValues& val) const throw() = 0;
 
 
+        /** @brief Called if the vehicle leaves the reminder's lane
+         *
+         * @param veh The leaving vehicle.
+         * @param[in] lastPos Position on the lane when leaving.
+         * @param[in] isArrival whether the vehicle arrived at its destination
+         * @param[in] isLaneChange whether the vehicle changed from the lane
+         * @see MSMoveReminder
+         * @see MSMoveReminder::notifyLeave
+         */
+        virtual bool notifyLeave(SUMOVehicle& veh, SUMOReal lastPos, bool isArrival, bool isLaneChange) throw();
+
+
         /** @brief Tests whether the vehicles type is to be regarded
          *
          * @param[in] veh The regarded vehicle

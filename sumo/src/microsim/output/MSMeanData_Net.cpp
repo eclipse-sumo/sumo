@@ -133,7 +133,7 @@ MSMeanData_Net::MSLaneMeanDataValues::isStillActive(SUMOVehicle& veh, SUMOReal o
             ret = false;
         }
         if (timeOnLane<0) {
-            MsgHandler::getErrorInstance()->inform("Negative vehicle step fraction on lane '" + getLane()->getID() + "'.");
+            MsgHandler::getErrorInstance()->inform("Negative vehicle step fraction for '" + veh.getID() + "' on lane '" + getLane()->getID() + "'.");
             return false;
         }
         if (timeOnLane==0) {
@@ -168,7 +168,7 @@ MSMeanData_Net::MSLaneMeanDataValues::notifyLeave(SUMOVehicle& veh, SUMOReal las
             ++nVehLeft;
         }
     }
-    return !isLaneChange;
+    return !isLaneChange && !isArrival;
 }
 
 
