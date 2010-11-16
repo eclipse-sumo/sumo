@@ -61,9 +61,9 @@ void OptionsLoader::startElement(const XMLCh* const name,
         std::string key = TplConvert<XMLCh>::_2str(attributes.getName(i));
         std::string value = TplConvert<XMLCh>::_2str(attributes.getValue(i));
         if (key == "value" || key == "v") {
-            key = myItem;
+            setValue(myItem, value);
         }
-        setValue(key, value);
+        // could give a hint here about unsupported attributes in configuration files
     }
     myValue = "";
 }
