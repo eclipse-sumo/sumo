@@ -1427,14 +1427,10 @@ MSVehicle::leaveLane(const bool isArrival, const bool isLaneChange) {
         }
     }
     for (MoveReminderCont::iterator rem=myMoveReminders.begin(); rem!=myMoveReminders.end();) {
-        if (rem->first->getLane() != 0 && rem->first->getLane() != myLane) {
-            ++rem;
+        if (!rem->first->notifyLeave(*this, myState.myPos + rem->second, isArrival, isLaneChange)) {
+            rem = myMoveReminders.erase(rem);
         } else {
-            if (!rem->first->notifyLeave(*this, myState.myPos + rem->second, isArrival, isLaneChange)) {
-                rem = myMoveReminders.erase(rem);
-            } else {
-                ++rem;
-            }
+            ++rem;
         }
     }
     if (isArrival || isLaneChange) {

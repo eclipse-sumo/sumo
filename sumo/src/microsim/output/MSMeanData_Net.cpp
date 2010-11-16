@@ -154,7 +154,7 @@ MSMeanData_Net::MSLaneMeanDataValues::isStillActive(SUMOVehicle& veh, SUMOReal o
 
 bool
 MSMeanData_Net::MSLaneMeanDataValues::notifyLeave(SUMOVehicle& veh, SUMOReal lastPos, bool isArrival, bool isLaneChange) throw() {
-    if (vehicleApplies(veh)) {
+    if (vehicleApplies(veh) && (getLane() == 0 || getLane() == &static_cast<MSVehicle&>(veh).getLane())) {
 #ifdef HAVE_MESOSIM
         if (MSGlobals::gUseMesoSim) {
             myLastVehicleUpdateValues.erase(&veh);
