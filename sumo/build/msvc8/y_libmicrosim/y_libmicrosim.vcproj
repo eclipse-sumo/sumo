@@ -556,6 +556,10 @@
 			Filter="cpp;c;cxx;rc;def;r;odl;idl;hpj;bat"
 			>
 			<File
+				RelativePath="..\..\..\src\microsim\MSBaseVehicle.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\..\src\microsim\MSCFModel.cpp"
 				>
 			</File>
@@ -589,6 +593,14 @@
 			</File>
 			<File
 				RelativePath="..\..\..\src\microsim\devices\MSDevice_Routing.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\microsim\devices\MSDevice_Tripinfo.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\microsim\devices\MSDevice_Vehroutes.cpp"
 				>
 			</File>
 			<File
@@ -736,6 +748,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\..\src\microsim\MSBaseVehicle.h"
+				>
+			</File>
+			<File
 				RelativePath="..\..\..\src\microsim\MSBitSetLogic.h"
 				>
 			</File>
@@ -777,6 +793,14 @@
 			</File>
 			<File
 				RelativePath="..\..\..\src\microsim\devices\MSDevice_Routing.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\microsim\devices\MSDevice_Tripinfo.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\microsim\devices\MSDevice_Vehroutes.h"
 				>
 			</File>
 			<File

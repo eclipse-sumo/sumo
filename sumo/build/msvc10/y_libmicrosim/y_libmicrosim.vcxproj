@@ -247,6 +247,9 @@
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\..\src\microsim\devices\MSDevice_Tripinfo.cpp" />
+    <ClCompile Include="..\..\..\src\microsim\devices\MSDevice_Vehroutes.cpp" />
+    <ClCompile Include="..\..\..\src\microsim\MSBaseVehicle.cpp" />
     <ClCompile Include="..\..\..\src\microsim\MSCFModel.cpp" />
     <ClCompile Include="..\..\..\src\microsim\cfmodels\MSCFModel_IDM.cpp" />
     <ClCompile Include="..\..\..\src\microsim\cfmodels\MSCFModel_Kerner.cpp" />
@@ -292,7 +295,10 @@
     <ClCompile Include="..\..\..\src\microsim\MSVehicleType.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\..\src\microsim\devices\MSDevice_Tripinfo.h" />
+    <ClInclude Include="..\..\..\src\microsim\devices\MSDevice_Vehroutes.h" />
     <ClInclude Include="..\..\..\src\microsim\MSAbstractLaneChangeModel.h" />
+    <ClInclude Include="..\..\..\src\microsim\MSBaseVehicle.h" />
     <ClInclude Include="..\..\..\src\microsim\MSBitSetLogic.h" />
     <ClInclude Include="..\..\..\src\microsim\MSCFModel.h" />
     <ClInclude Include="..\..\..\src\microsim\cfmodels\MSCFModel_IDM.h" />

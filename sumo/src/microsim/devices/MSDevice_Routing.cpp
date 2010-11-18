@@ -93,7 +93,7 @@ MSDevice_Routing::insertOptions() throw() {
 
 
 void
-MSDevice_Routing::buildVehicleDevices(MSVehicle &v, std::vector<MSDevice*> &into) throw() {
+MSDevice_Routing::buildVehicleDevices(SUMOVehicle &v, std::vector<MSDevice*> &into) throw() {
     OptionsCont &oc = OptionsCont::getOptions();
     if (oc.getFloat("device.routing.probability")==0&&!oc.isSet("device.routing.knownveh")) {
         // no route computation is modelled
@@ -147,7 +147,7 @@ MSDevice_Routing::buildVehicleDevices(MSVehicle &v, std::vector<MSDevice*> &into
 // ---------------------------------------------------------------------------
 // MSDevice_Routing-methods
 // ---------------------------------------------------------------------------
-MSDevice_Routing::MSDevice_Routing(MSVehicle &holder, const std::string &id,
+MSDevice_Routing::MSDevice_Routing(SUMOVehicle &holder, const std::string &id,
                                    SUMOTime period, SUMOTime preEmitPeriod) throw()
         : MSDevice(holder, id), myPeriod(period), myPreEmitPeriod(period),
         myLastPreEmitReroute(-1), myRerouteCommand(0) {
@@ -179,7 +179,7 @@ MSDevice_Routing::onTryEmit() {
                     myCachedRoutes[key] = &myHolder.getRoute();
                     myHolder.getRoute().addReference();
                 } else {
-                    myHolder.replaceRoute(myCachedRoutes[key], now, true);
+                    myHolder.replaceRoute(myCachedRoutes[key], true);
                 }
                 myLastPreEmitReroute = now;
             }

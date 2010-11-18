@@ -151,7 +151,7 @@ protected:
     SUMOTime myLastDepart;
 
     /// the last vehicle read
-    MSVehicle *myLastReadVehicle;
+    SUMOVehicle *myLastReadVehicle;
 
 
     /// the current route

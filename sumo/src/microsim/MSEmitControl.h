@@ -100,7 +100,7 @@ public:
      *
      * @param[in] veh The vehicle to add for later emission
      */
-    void add(MSVehicle *veh) throw();
+    void add(SUMOVehicle *veh) throw();
 
 
     /** @brief Adds parameter for a vehicle flow for departure
@@ -147,7 +147,7 @@ private:
      * @param[in] refusedEmits Container to insert vehicles that could not be emitted into
      * @return The number of emitted vehicles (0 or 1)
      */
-    unsigned int tryEmit(SUMOTime time, MSVehicle *veh,
+    unsigned int tryEmit(SUMOTime time, SUMOVehicle *veh,
                          MSVehicleContainer::VehicleVector &refusedEmits) throw(ProcessError);
 
 
@@ -155,7 +155,7 @@ private:
      *
      * @param[in] veh The vehicle to check for
      */
-    void checkFlowWait(MSVehicle *veh) throw();
+    void checkFlowWait(SUMOVehicle *veh) throw();
 
 
     /** @brief Adds all vehicles that should have been emitted earlier to the refuse container
@@ -195,7 +195,7 @@ private:
         /// @brief whether it has route or vehicle type distribution
         bool isVolatile;
         /// @brief The last created vehicle
-        MSVehicle *vehicle;
+        SUMOVehicle *vehicle;
     };
 
     /// @brief Container for periodical vehicle parameters

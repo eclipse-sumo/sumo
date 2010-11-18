@@ -205,26 +205,6 @@ MSNet::closeBuilding(MSEdgeControl *edges, MSJunctionControl *junctions,
 
     // set requests/responses
     myJunctions->postloadInitContainer();
-    // initialise outputs
-    if (OptionsCont::getOptions().isSet("emissions-output")) {
-        MSCORN::setWished(MSCORN::CORN_OUT_EMISSIONS);
-    }
-    if (OptionsCont::getOptions().isSet("tripinfo-output")) {
-        MSCORN::setWished(MSCORN::CORN_OUT_TRIPDURATIONS);
-    }
-    if (OptionsCont::getOptions().isSet("vehroute-output")) {
-        const bool oldReroutingVal = MSCORN::wished(MSCORN::CORN_VEH_SAVEREROUTING);
-        MSCORN::setWished(MSCORN::CORN_OUT_VEHROUTES);
-        if (OptionsCont::getOptions().getBool("vehroute-output.exit-times")) {
-            MSCORN::setWished(MSCORN::CORN_VEH_SAVE_EDGE_EXIT);
-        }
-        if (OptionsCont::getOptions().getBool("vehroute-output.last-route")) {
-            MSCORN::setWished(MSCORN::CORN_VEH_SAVEREROUTING, oldReroutingVal);
-        }
-        if (OptionsCont::getOptions().getBool("device.routing.with-taz")) {
-            MSCORN::setWished(MSCORN::CORN_OUT_TAZ);
-        }
-    }
 
     // initialise performance computation
     if (myLogExecutionTime) {
@@ -634,7 +614,7 @@ MSNet::removeVehicleStateListener(VehicleStateListener *listener) throw() {
 
 
 void
-MSNet::informVehicleStateListener(const MSVehicle * const vehicle, VehicleState to) throw() {
+MSNet::informVehicleStateListener(const SUMOVehicle * const vehicle, VehicleState to) throw() {
     for (std::vector<VehicleStateListener*>::iterator i=myVehicleStateListeners.begin(); i!=myVehicleStateListeners.end(); ++i) {
         (*i)->vehicleStateChanged(vehicle, to);
     }

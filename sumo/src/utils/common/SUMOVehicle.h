@@ -31,6 +31,7 @@
 
 #include <vector>
 #include <utils/common/SUMOTime.h>
+#include <utils/common/SUMOAbstractRouter.h>
 
 
 // ===========================================================================
@@ -41,6 +42,7 @@ class MSRoute;
 class MSEdge;
 class MSLane;
 class MSDevice;
+class SUMOVehicleParameter;
 
 typedef std::vector<const MSEdge*> MSEdgeVector;
 
@@ -54,6 +56,9 @@ typedef std::vector<const MSEdge*> MSEdgeVector;
  */
 class SUMOVehicle {
 public:
+    /// @brief Destructor
+    virtual ~SUMOVehicle() throw() {}
+
     /** @brief Get the vehicle's position along the lane
      * @return The position of the vehicle (in m from the lane's begin)
      */
@@ -82,8 +87,6 @@ public:
     /// Returns the current route
     virtual const MSRoute &getRoute() const = 0;
 
-    virtual const std::vector<MSDevice*> &getDevices() const = 0;
-
     /** @brief Returns the nSuccs'th successor of edge the vehicle is currently at
      *
      * If the rest of the route (counted from the current edge) than nSuccs,
@@ -100,15 +103,26 @@ public:
     virtual SUMOReal adaptMaxSpeed(SUMOReal referenceSpeed) = 0;
 
     /// Replaces the current route by the given edges
-    virtual bool replaceRoute(const MSEdgeVector &edges, SUMOTime simTime, bool onInit=false) = 0;
+    virtual bool replaceRouteEdges(const MSEdgeVector &edges, bool onInit=false) = 0;
 
     /// Replaces the current route by the given one
-    virtual bool replaceRoute(const MSRoute* route, SUMOTime simTime, bool onInit=false) = 0;
+    virtual bool replaceRoute(const MSRoute* route, bool onInit=false) = 0;
+
+    /** @brief Performs a rerouting using the given router
+     *
+     * Tries to find a new route between the current edge and the destination edge, first.
+     * Tries to replace the current route by the new one using replaceRoute.
+     *
+     * @param[in] t The time for which the route is computed
+     * @param[in] router The router to use
+     * @see replaceRoute
+     */
+    virtual void reroute(SUMOTime t, SUMOAbstractRouter<MSEdge, SUMOVehicle> &router, bool withTaz=false) throw() = 0;
+
 
     /** @brief Update when the vehicle enters a new lane in the move step.
      *
      * @param[in] enteredLane The lane the vehicle enters
-     * @param[in] driven The distance driven by the vehicle within this time step
      * @param[in] onTeleporting Whether the lane was entered while being teleported
      * @return Whether the vehicle's route has ended (due to vaporization, or because the destination was reached)
      */
@@ -116,11 +130,36 @@ public:
 
     virtual SUMOReal getPreDawdleAcceleration() const throw() = 0;
 
-    virtual MSLane &getLane() const throw() = 0;
+    virtual const MSEdge * const getEdge() const = 0;
 
-    virtual SUMOReal getPositionOnActiveMoveReminderLane(const MSLane * const searchedLane) const throw() = 0;
+    virtual const SUMOVehicleParameter &getParameter() const throw() = 0;
+
+    /** @brief Called when the vehicle tries to get into the network
+     *
+     * Calls the appropriate device function, needed for rerouting.
+     */
+    virtual void onTryEmit() throw() = 0;
+
+
+    /** @brief Called when the vehicle is inserted into the network
+     *
+     * Sets optional information about departure time, informs the vehicle
+     *  control about a further running vehicle.
+     */
+    virtual void onDepart() throw() = 0;
+
+    virtual bool isOnRoad() const throw() = 0;
 
     virtual SUMOReal getSegmentLength() const throw() = 0;
+
+    virtual SUMOTime getDeparture() const throw() = 0;
+
+    virtual unsigned int getNumberReroutes() const throw() = 0;
+
+    /** @brief Returns this vehicle's devices
+     * @return This vehicle's devices
+     */
+    virtual const std::vector<MSDevice*> &getDevices() const = 0;
 
 };
 

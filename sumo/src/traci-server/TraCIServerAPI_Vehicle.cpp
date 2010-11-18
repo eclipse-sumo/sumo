@@ -108,7 +108,7 @@ TraCIServerAPI_Vehicle::processGet(TraCIServer &server, tcpip::Storage &inputSto
         tempMsg.writeUnsignedByte(TYPE_STRINGLIST);
         tempMsg.writeStringList(ids);
     } else {
-        MSVehicle *v = MSNet::getInstance()->getVehicleControl().getVehicle(id);
+        MSVehicle *v = static_cast<MSVehicle*>(MSNet::getInstance()->getVehicleControl().getVehicle(id));
         if (v==0) {
             server.writeStatusCmd(CMD_GET_VEHICLE_VARIABLE, RTYPE_ERR, "Vehicle '" + id + "' is not known", outputStorage);
             return false;
@@ -415,7 +415,7 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer &server, tcpip::Storage &inputSto
     }
     // id
     std::string id = inputStorage.readString();
-    MSVehicle *v = MSNet::getInstance()->getVehicleControl().getVehicle(id);
+    MSVehicle *v = static_cast<MSVehicle*>(MSNet::getInstance()->getVehicleControl().getVehicle(id));
     if (v==0) {
         server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Vehicle '" + id + "' is not known", outputStorage);
         return false;
@@ -572,7 +572,7 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer &server, tcpip::Storage &inputSto
         DijkstraRouterTT_ByProxi<MSEdge, SUMOVehicle, prohibited_withRestrictions<MSEdge, SUMOVehicle>, MSNet::EdgeWeightsProxi> router(MSEdge::dictSize(), true, &proxi, &MSNet::EdgeWeightsProxi::getTravelTime);
         router.compute(currentEdge, destEdge, (const MSVehicle* const) v, MSNet::getInstance()->getCurrentTimeStep(), newRoute);
         // replace the vehicle's route by the new one
-        if (!v->replaceRoute(newRoute, MSNet::getInstance()->getCurrentTimeStep())) {
+        if (!v->replaceRouteEdges(newRoute)) {
             server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Route replacement failed for " + v->getID(), outputStorage);
             return false;
         }
@@ -603,7 +603,7 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer &server, tcpip::Storage &inputSto
         std::vector<std::string> edgeIDs = inputStorage.readStringList();
         std::vector<const MSEdge*> edges;
         MSEdge::parseEdgesList(edgeIDs, edges, "<unknown>");
-        if (!v->replaceRoute(edges, MSNet::getInstance()->getCurrentTimeStep())) {
+        if (!v->replaceRouteEdges(edges)) {
             server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Route replacement failed for " + v->getID(), outputStorage);
             return false;
         }
@@ -1193,7 +1193,7 @@ TraCIServerAPI_Vehicle::commandChangeTarget(TraCIServer &server, tcpip::Storage 
     DijkstraRouterTT_ByProxi<MSEdge, SUMOVehicle, prohibited_withRestrictions<MSEdge, SUMOVehicle>, MSNet::EdgeWeightsProxi> router(MSEdge::dictSize(), true, &proxi, &MSNet::EdgeWeightsProxi::getTravelTime);
     router.compute(currentEdge, destEdge, (const MSVehicle* const) veh, MSNet::getInstance()->getCurrentTimeStep(), newRoute);
     // replace the vehicle's route by the new one
-    if (veh->replaceRoute(newRoute, MSNet::getInstance()->getCurrentTimeStep())) {
+    if (veh->replaceRouteEdges(newRoute)) {
         server.writeStatusCmd(CMD_CHANGETARGET, RTYPE_OK, "");
         return true;
     } else {

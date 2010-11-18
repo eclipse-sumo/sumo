@@ -58,6 +58,10 @@
 #include <microsim/output/MSDetectorControl.h>
 #include <utils/iodevices/OutputDevice.h>
 
+#ifdef HAVE_MESOSIM
+#include <mesosim/MEVehicleControl.h>
+#endif
+
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
 #endif
@@ -74,7 +78,17 @@
 MSNet *
 load(OptionsCont &oc) {
     MSFrame::setMSGlobals(oc);
-    MSNet *net = new MSNet(new MSVehicleControl(), new MSEventControl(),
+    MSVehicleControl* vc = 0;
+#ifdef HAVE_MESOSIM
+    if (MSGlobals::gUseMesoSim) {
+        vc = new MEVehicleControl();
+    } else {
+#endif
+    vc = new MSVehicleControl();
+#ifdef HAVE_MESOSIM
+    }
+#endif
+    MSNet *net = new MSNet(vc, new MSEventControl(),
                            new MSEventControl(), new MSEventControl());
     NLEdgeControlBuilder eb;
     NLJunctionControlBuilder jb(*net, oc);

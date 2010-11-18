@@ -56,7 +56,7 @@ MSE3Collector::MSE3EntryReminder::isStillActive(SUMOVehicle& veh, SUMOReal oldPo
         // crossSection not yet reached
         return true;
     }
-    if (&veh.getLane() == myLane && oldPos <= myPosition) {
+    if (&static_cast<MSVehicle&>(veh).getLane() == myLane && oldPos <= myPosition) {
         SUMOReal entryTime = STEPS2TIME(MSNet::getInstance()->getCurrentTimeStep());
         if (newSpeed!=0) {
             entryTime += (myPosition - oldPos) / newSpeed;
@@ -70,7 +70,7 @@ MSE3Collector::MSE3EntryReminder::isStillActive(SUMOVehicle& veh, SUMOReal oldPo
 bool
 MSE3Collector::MSE3EntryReminder::notifyLeave(SUMOVehicle& veh, SUMOReal, bool, bool) throw() {
     myCollector.myEnteredContainer.erase(&veh);
-    return true;
+    return false;
 }
 
 

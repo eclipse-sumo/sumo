@@ -128,10 +128,6 @@ public:
     void writeXMLDetectorProlog(OutputDevice &dev) const throw(IOError);
     /// @}
 
-
-    /** adds the route to the current distribution */
-    void addRoute(const MSRoute &route) const;
-
 private:
     /// @brief The current distribution of routes (probability->route)
     RandomDistributor<const MSRoute*> *myCurrentRouteDistribution;

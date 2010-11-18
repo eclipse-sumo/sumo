@@ -32,6 +32,7 @@
 #include <vector>
 #include <list>
 #include <utils/common/Named.h>
+#include <microsim/MSLane.h>
 #include <microsim/MSMoveReminder.h>
 #include <microsim/output/MSDetectorFileOutput.h>
 #include <utils/common/UtilExceptions.h>
@@ -41,7 +42,6 @@
 // ===========================================================================
 // class declarations
 // ===========================================================================
-class MSLane;
 class OutputDevice;
 
 
@@ -307,7 +307,14 @@ protected:
          * @return Whether the position of the first vehicles is smaller than the one of the second
          */
         int operator()(const SUMOVehicle *v1, const SUMOVehicle *v2) throw() {
-            return v1->getPositionOnActiveMoveReminderLane(myLane)>v2->getPositionOnActiveMoveReminderLane(myLane);
+            const MSVehicle* const occ = myLane->getPartialOccupator();
+            if (v1 == occ) {
+                return true;
+            }
+            if (v2 == occ) {
+                return false;
+            }
+            return v1->getPositionOnLane() > v2->getPositionOnLane();
         }
 
     private:

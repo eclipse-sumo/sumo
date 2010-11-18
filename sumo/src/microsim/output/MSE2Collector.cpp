@@ -98,6 +98,7 @@ MSE2Collector::notifyLeave(SUMOVehicle& veh, SUMOReal lastPos, bool isArrival, b
         if (i!=myKnownVehicles.end()) {
             myKnownVehicles.erase(i);
         }
+        return false;
     }
     return true;
 }
@@ -160,7 +161,7 @@ MSE2Collector::update(SUMOTime) throw() {
     //  sum up values and prepare the list of jams
     myKnownVehicles.sort(by_vehicle_position_sorter(getLane()));
     for (std::list<SUMOVehicle*>::const_iterator i=myKnownVehicles.begin(); i!=myKnownVehicles.end(); ++i) {
-        SUMOVehicle *veh = *i;
+        MSVehicle *veh = static_cast<MSVehicle*>(*i);
 
         SUMOReal length = veh->getVehicleType().getLength();
         if (&(veh->getLane())==getLane()) {
@@ -175,8 +176,8 @@ MSE2Collector::update(SUMOTime) throw() {
         } else {
             // ok, the vehicle is only partially still on the detector, has already moved to the
             //  next lane; still, we do not know how far away it is
-            assert(veh->getPositionOnActiveMoveReminderLane(getLane())>0);
-            length -= (veh->getPositionOnActiveMoveReminderLane(getLane())-myEndPos);
+            assert(veh==myLane->getPartialOccupator());
+            length = myEndPos - myLane->getPartialOccupatorEnd();
         }
         assert(length>=0);
 
@@ -263,9 +264,15 @@ MSE2Collector::update(SUMOTime) throw() {
     for (std::vector<JamInfo*>::iterator i=jams.begin(); i!=jams.end(); ++i) {
         // compute current jam's values
         SUMOReal jamLengthInMeters =
-            (*(*i)->firstStandingVehicle)->getPositionOnActiveMoveReminderLane(getLane())
-            - (*(*i)->lastStandingVehicle)->getPositionOnActiveMoveReminderLane(getLane())
+            (*(*i)->firstStandingVehicle)->getPositionOnLane()
+            - (*(*i)->lastStandingVehicle)->getPositionOnLane()
             + (*(*i)->lastStandingVehicle)->getVehicleType().getLength();
+        const MSVehicle* const occ = myLane->getPartialOccupator();
+        if (occ && occ == *(*i)->firstStandingVehicle && occ != *(*i)->lastStandingVehicle) {
+            jamLengthInMeters = myLane->getPartialOccupatorEnd() +occ->getVehicleType().getLength()
+                - (*(*i)->lastStandingVehicle)->getPositionOnLane()
+                + (*(*i)->lastStandingVehicle)->getVehicleType().getLength();
+        }
         unsigned jamLengthInVehicles = (unsigned) distance((*i)->firstStandingVehicle, (*i)->lastStandingVehicle) + 1;
         // apply them to the statistics
         myCurrentMaxJamLengthInMeters = MAX2(myCurrentMaxJamLengthInMeters, jamLengthInMeters);

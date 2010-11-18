@@ -85,35 +85,23 @@ MSInductLoop::isStillActive(SUMOVehicle& veh, SUMOReal oldPos,
         if (newSpeed!=0) {
             entryTime += (myPosition - oldPos) / newSpeed;
         }
-        if (newPos - veh.getVehicleType().getLength() > myPosition) {
-            // entered and passed detector in a single timestep
-            SUMOReal leaveTime = STEPS2TIME(MSNet::getInstance()->getCurrentTimeStep());
-            leaveTime += (myPosition - oldPos + veh.getVehicleType().getLength()) / newSpeed;
-            enterDetectorByMove(veh, entryTime);
-            leaveDetectorByMove(veh, leaveTime);
-            return false;
-        }
-        // entered detector, but not passed
         enterDetectorByMove(veh, entryTime);
-        return true;
-    } else {
-        // vehicle has been on the detector the previous timestep
-        if (newPos - veh.getVehicleType().getLength() >= myPosition) {
-            // vehicle passed the detector
-            SUMOReal leaveTime = STEPS2TIME(MSNet::getInstance()->getCurrentTimeStep());
-            leaveTime += (myPosition - oldPos + veh.getVehicleType().getLength()) / newSpeed;
-            leaveDetectorByMove(veh, leaveTime);
-            return false;
-        }
-        // vehicle stays on the detector
-        return true;
     }
+    if (newPos - veh.getVehicleType().getLength() > myPosition) {
+        // vehicle passed the detector
+        SUMOReal leaveTime = STEPS2TIME(MSNet::getInstance()->getCurrentTimeStep());
+        leaveTime += (myPosition - oldPos + veh.getVehicleType().getLength()) / newSpeed;
+        leaveDetectorByMove(veh, leaveTime);
+        return false;
+    }
+    // vehicle stays on the detector
+    return true;
 }
 
 
 bool
 MSInductLoop::notifyLeave(SUMOVehicle& veh, SUMOReal lastPos, bool isArrival, bool isLaneChange) throw() {
-    if (isArrival || isLaneChange || (lastPos > myPosition && lastPos - veh.getVehicleType().getLength() <= myPosition)) {
+    if (isArrival || isLaneChange) {
         // vehicle is on detector during lane change
         leaveDetectorByLaneChange(veh);
         return false;

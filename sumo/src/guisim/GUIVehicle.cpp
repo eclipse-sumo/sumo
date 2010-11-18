@@ -48,6 +48,7 @@
 #include <microsim/MSAbstractLaneChangeModel.h>
 #include <utils/gui/div/GLHelper.h>
 #include <foreign/polyfonts/polyfonts.h>
+#include <microsim/devices/MSDevice_Vehroutes.h>
 
 
 #ifdef CHECK_MEMORY_LEAKS
@@ -211,6 +212,9 @@ GUIVehicle::GUIVehicle(GUIGlObjectStorage &idStorage,
                        int vehicleIndex) throw(ProcessError)
         : MSVehicle(pars, route, type, vehicleIndex),
         GUIGlObject(idStorage, "vehicle:"+pars->id) {
+    // as it is possible to show all vehicle routes, we have to store them... (bug [ 2519761 ])
+    myRoutes = MSDevice_Vehroutes::buildVehicleDevices(*this, myDevices, 5);
+    myMoveReminders.push_back(std::make_pair(myRoutes, 0.));
 }
 
 
@@ -953,8 +957,8 @@ GUIVehicle::drawGLAdditional(GUISUMOAbstractView * const parent, const GUIVisual
         drawRoute(s, 0, 0.25);
     }
     if (hasActiveAddVisualisation(parent, VO_SHOW_ALL_ROUTES)) {
-        if (hasCORNIntValue(MSCORN::CORN_VEH_NUMBERROUTE)) {
-            int noReroutePlus1 = getCORNIntValue(MSCORN::CORN_VEH_NUMBERROUTE) + 1;
+        if (getNumberReroutes() > 0) {
+            const int noReroutePlus1 = getNumberReroutes() + 1;
             for (int i=noReroutePlus1-1; i>=0; i--) {
                 SUMOReal darken = SUMOReal(0.4) / SUMOReal(noReroutePlus1) * SUMOReal(i);
                 drawRoute(s, i, darken);
@@ -1090,10 +1094,10 @@ GUIVehicle::Colorer::getColorValue(const GUIVehicle& vehicle) const {
     case 17:
         return vehicle.getHarmonoise_NoiseEmissions();
     case 18:
-        if (!vehicle.hasCORNIntValue(MSCORN::CORN_VEH_NUMBERROUTE)) {
+        if (vehicle.getNumberReroutes() == 0) {
             return -1;
         }
-        return vehicle.getCORNIntValue(MSCORN::CORN_VEH_NUMBERROUTE);
+        return vehicle.getNumberReroutes();
     }
     return 0;
 }
@@ -1137,7 +1141,12 @@ GUIVehicle::drawRoute(const GUIVisualizationSettings &s, int routeNo, SUMOReal d
     colors[3] -= darken;
     if (colors[3]<0) colors[3] = 0;
     glColor3dv(colors);
-    draw(getRoute(routeNo));
+    if (routeNo==0) {
+        draw(*myRoute);
+        return;
+    }
+    --routeNo; // only prior routes are stored
+    draw(*myRoutes->getRoute(routeNo));
 }
 
 

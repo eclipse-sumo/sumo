@@ -51,6 +51,7 @@
 // ===========================================================================
 class GUISUMOAbstractView;
 class GUIGLObjectPopupMenu;
+class MSDevice_Vehroutes;
 
 
 // ===========================================================================
@@ -331,6 +332,7 @@ private:
     /// The mutex used to avoid concurrent updates of the vehicle buffer
     mutable MFXMutex myLock;
 
+    MSDevice_Vehroutes *myRoutes;
 };
 
 

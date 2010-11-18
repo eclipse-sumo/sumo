@@ -143,6 +143,7 @@
     <ClCompile Include="..\..\..\src\mesosim\MESegment.cpp" />
     <ClCompile Include="..\..\..\src\mesosim\METriggeredCalibrator.cpp" />
     <ClCompile Include="..\..\..\src\mesosim\MEVehicle.cpp" />
+    <ClCompile Include="..\..\..\src\mesosim\MEVehicleControl.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\src\mesosim\MEInductLoop.h" />
@@ -150,6 +151,7 @@
     <ClInclude Include="..\..\..\src\mesosim\MESegment.h" />
     <ClInclude Include="..\..\..\src\mesosim\METriggeredCalibrator.h" />
     <ClInclude Include="..\..\..\src\mesosim\MEVehicle.h" />
+    <ClInclude Include="..\..\..\src\mesosim\MEVehicleControl.h" />
     <ClInclude Include="..\..\..\src\mesosim\Priority.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

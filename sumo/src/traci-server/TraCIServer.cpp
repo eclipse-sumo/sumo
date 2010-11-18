@@ -134,6 +134,7 @@ TraCIServer::TraCIServer() {
     myVehicleStateChanges[MSNet::VEHICLE_STATE_STARTING_TELEPORT] = std::vector<std::string>();
     myVehicleStateChanges[MSNet::VEHICLE_STATE_ENDING_TELEPORT] = std::vector<std::string>();
     myVehicleStateChanges[MSNet::VEHICLE_STATE_ARRIVED] = std::vector<std::string>();
+    myVehicleStateChanges[MSNet::VEHICLE_STATE_NEWROUTE] = std::vector<std::string>();
     MSNet::getInstance()->addVehicleStateListener(this);
 
     myExecutors[CMD_SETMAXSPEED] = &TraCIServerAPI_Vehicle::commandSetMaximumSpeed;
@@ -294,7 +295,7 @@ TraCIServer::close() {
 /*****************************************************************************/
 
 void
-TraCIServer::vehicleStateChanged(const MSVehicle * const vehicle, MSNet::VehicleState to) throw() {
+TraCIServer::vehicleStateChanged(const SUMOVehicle * const vehicle, MSNet::VehicleState to) throw() {
     if (closeConnection_ || OptionsCont::getOptions().getInt("remote-port") == 0) {
         return;
     }
@@ -499,15 +500,15 @@ TraCIServer::postProcessSimulationStep() throw(TraCIException, std::invalid_argu
     try {
         MSNet *net = MSNet::getInstance();
         // map containing all active equipped vehicles. maps external id to MSVehicle*
-        map<int, const MSVehicle*> activeEquippedVehicles;
+        map<int, const SUMOVehicle*> activeEquippedVehicles;
         // get access to all vehicles in simulation
         MSVehicleControl &vehControl = net->getVehicleControl();
         // iterate over all vehicles in simulation
-        for (map<string, MSVehicle*>::const_iterator iter = vehControl.loadedVehBegin();
+        for (MSVehicleControl::constVehIt iter = vehControl.loadedVehBegin();
                 iter != vehControl.loadedVehEnd(); ++iter) {
             // selected vehicle
             const std::string vehicleId   = (*iter).first;
-            const MSVehicle *vehicle = (*iter).second;
+            const SUMOVehicle *vehicle = (*iter).second;
             // insert into equippedVehicleId if not contained
             std::map<std::string, int>::const_iterator equippedVeh = equippedVehicles_.find(vehicleId);
             if (equippedVeh == equippedVehicles_.end()) {
@@ -560,7 +561,7 @@ TraCIServer::postProcessSimulationStep() throw(TraCIException, std::invalid_argu
         for (std::map<std::string, int>::iterator iter = equippedVehicles_.begin();
                 iter != equippedVehicles_.end(); ++iter) {
             if ((*iter).second != -1) { // Look only at equipped vehicles
-                MSVehicle* veh = net->getVehicleControl().getVehicle((*iter).first);
+                MSVehicle* veh = static_cast<MSVehicle*>(net->getVehicleControl().getVehicle((*iter).first));
                 TraCIServerAPI_Vehicle::checkReroute(veh);
                 if (veh != NULL) {
                     veh->processTraCICommands(targetTime_);
@@ -575,10 +576,10 @@ TraCIServer::postProcessSimulationStep() throw(TraCIException, std::invalid_argu
         // iterate over all active equipped vehicles
         // and generate a Move Node command for each vehicle
         if (resType != POSITION_NONE) {
-            for (map<int, const MSVehicle*>::iterator iter = activeEquippedVehicles.begin();
+            for (map<int, const SUMOVehicle*>::iterator iter = activeEquippedVehicles.begin();
                     iter != activeEquippedVehicles.end(); ++iter) {
                 int extId = (*iter).first;
-                const MSVehicle* vehicle = (*iter).second;
+                const MSVehicle* vehicle = static_cast<const MSVehicle*>((*iter).second);
                 Storage tempMsg;
 
                 // command type
@@ -604,7 +605,7 @@ TraCIServer::postProcessSimulationStep() throw(TraCIException, std::invalid_argu
                     tempMsg.writeUnsignedByte(laneId);
                 } else if (resType == POSITION_2D || resType == POSITION_3D || resType == POSITION_2_5D) {
                     tempMsg.writeUnsignedByte(resType);
-                    Position2D pos = vehicle->getPosition();
+                    Position2D pos = vehicle->getLane().getShape().positionAtLengthPosition(vehicle->getPositionOnLane());
                     tempMsg.writeFloat(pos.x());
                     tempMsg.writeFloat(pos.y());
                     if (resType != POSITION_2D) {
@@ -1017,7 +1018,7 @@ TraCIServer::commandAddVehicle() throw(TraCIException) {
     SUMOVehicleParameter* vehicleParams = new SUMOVehicleParameter();
     vehicleParams->id = vehicleId;
     vehicleParams->depart = MSNet::getInstance()->getCurrentTimeStep()+1;
-    MSVehicle *vehicle = MSNet::getInstance()->getVehicleControl().buildVehicle(vehicleParams, route, vehicleType);
+    MSVehicle *vehicle = static_cast<MSVehicle*>(MSNet::getInstance()->getVehicleControl().buildVehicle(vehicleParams, route, vehicleType));
     if (vehicle == NULL) {
         writeStatusCmd(CMD_STOP, RTYPE_ERR, "Could not build vehicle");
         return false;
@@ -1215,7 +1216,7 @@ TraCIServer::getVehicleByExtId(int extId) {
     }
     std::string intId;
     convertExt2IntId(extId, intId);
-    return MSNet::getInstance()->getVehicleControl().getVehicle(intId);
+    return static_cast<MSVehicle*>(MSNet::getInstance()->getVehicleControl().getVehicle(intId));
 }
 
 /*****************************************************************************/
@@ -1642,7 +1643,7 @@ throw(TraCIException) {
         // number of active nodes accesible via traci
     case DOMVAR_EQUIPPEDCOUNT:
         for (std::map<std::string, int>::iterator it=equippedVehicles_.begin(); it != equippedVehicles_.end(); it++) {
-            MSVehicle* veh = MSNet::getInstance()->getVehicleControl().getVehicle(it->first);
+            MSVehicle* veh = static_cast<MSVehicle*>(MSNet::getInstance()->getVehicleControl().getVehicle(it->first));
             if (veh->isOnRoad()) {
                 count++;
             }
@@ -1726,7 +1727,7 @@ throw(TraCIException) {
     case DOMVAR_ROUTE:
         if (veh != NULL) {
             response.writeUnsignedByte(TYPE_STRING);
-            MSRoute r = veh->getRoute();
+            MSRoute r = static_cast<SUMOVehicle*>(veh)->getRoute();
             std::string strRoute = "";
             for (MSRouteIterator it = r.begin(); it != r.end(); ++it) {
                 if (strRoute.length()) strRoute.append(" ");
@@ -2444,7 +2445,7 @@ throw(TraCIException) {
 /*****************************************************************************/
 
 void
-TraCIServer::handleDomainSubscriptions(const SUMOTime& currentTime, const map<int, const MSVehicle*>& activeEquippedVehicles)
+TraCIServer::handleDomainSubscriptions(const SUMOTime& currentTime, const map<int, const SUMOVehicle*>& activeEquippedVehicles)
 throw(TraCIException) {
 
     if (myDomainSubscriptions.count(DOM_VEHICLE) != 0) {
@@ -2452,9 +2453,9 @@ throw(TraCIException) {
         std::list<std::pair<int, int> > subscribedVariables = myDomainSubscriptions[DOM_VEHICLE];
 
         // iterate over all objects
-        for (map<int, const MSVehicle*>::const_iterator iter = activeEquippedVehicles.begin(); iter != activeEquippedVehicles.end(); ++iter) {
+        for (map<int, const SUMOVehicle*>::const_iterator iter = activeEquippedVehicles.begin(); iter != activeEquippedVehicles.end(); ++iter) {
             int extId = (*iter).first;
-            const MSVehicle* vehicle = (*iter).second;
+            const MSVehicle* vehicle = static_cast<const MSVehicle*>((*iter).second);
             Storage tempMsg;
 
             // buffer send of command
@@ -2481,7 +2482,7 @@ throw(TraCIException) {
                     tempMsg.writeFloat(vehicle->getLane().getMaxSpeed());
                 }
                 if ((variableId == DOMVAR_POSITION) && (dataType == POSITION_2D)) {
-                    Position2D pos = vehicle->getPosition();
+                    Position2D pos = vehicle->getLane().getShape().positionAtLengthPosition(vehicle->getPositionOnLane());
                     tempMsg.writeFloat(pos.x());
                     tempMsg.writeFloat(pos.y());
                 }

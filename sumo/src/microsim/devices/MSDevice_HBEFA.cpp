@@ -71,7 +71,7 @@ MSDevice_HBEFA::insertOptions() throw() {
 
 
 void
-MSDevice_HBEFA::buildVehicleDevices(MSVehicle &v, std::vector<MSDevice*> &into) throw() {
+MSDevice_HBEFA::buildVehicleDevices(SUMOVehicle &v, std::vector<MSDevice*> &into) throw() {
     OptionsCont &oc = OptionsCont::getOptions();
     if (oc.getFloat("device.hbefa.probability")==0&&!oc.isSet("device.hbefa.knownveh")) {
         // no route computation is modelled
@@ -97,7 +97,7 @@ MSDevice_HBEFA::buildVehicleDevices(MSVehicle &v, std::vector<MSDevice*> &into) 
 // ---------------------------------------------------------------------------
 // MSDevice_HBEFA-methods
 // ---------------------------------------------------------------------------
-MSDevice_HBEFA::MSDevice_HBEFA(MSVehicle &holder, const std::string &id) throw()
+MSDevice_HBEFA::MSDevice_HBEFA(SUMOVehicle &holder, const std::string &id) throw()
         : MSDevice(holder, id), myComputeAndCollectCommand(0),
         myCO2(0), myCO(0), myHC(0), myPMx(0), myNOx(0), myFuel(0) {
 }
@@ -143,7 +143,8 @@ MSDevice_HBEFA::wrappedComputeCommandExecute(SUMOTime currentTime) throw(Process
 
 
 void
-MSDevice_HBEFA::tripInfoOutput(OutputDevice &os) const throw(IOError) {
+MSDevice_HBEFA::generateOutput() const throw(IOError) {
+    OutputDevice &os = OutputDevice::getDeviceByOption("tripinfo-output");
     os << resetiosflags(std::ios::floatfield);
     (os.openTag("emissions") <<
      " CO_abs=\"" << myCO <<

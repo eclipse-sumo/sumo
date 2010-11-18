@@ -52,7 +52,7 @@ class MSVehicle;
 class MSVehicleContainer {
 public:
     /// definition of a list of vehicles which have the same departure time
-    typedef std::vector<MSVehicle*> VehicleVector;
+    typedef std::vector<SUMOVehicle*> VehicleVector;
 
     /** definition of a structure storing the departure time and a list
         of vehicles leaving at this time */
@@ -66,7 +66,7 @@ public:
     ~MSVehicleContainer();
 
     /// Adds a single vehicle
-    void add(MSVehicle *veh);
+    void add(SUMOVehicle *veh);
 
     /// Adds a container with vehicles departing at the given time
     void add(SUMOTime time, const VehicleVector &cont);

@@ -40,7 +40,7 @@
 // class declarations
 // ===========================================================================
 class OutputDevice;
-class MSVehicle;
+class SUMOVehicle;
 
 
 // ===========================================================================
@@ -67,7 +67,7 @@ public:
      * @param[in] holder The vehicle that holds this device
      * @param[in] id The ID of the device
      */
-    MSDevice(MSVehicle &holder, const std::string &id) throw()
+    MSDevice(SUMOVehicle &holder, const std::string &id) throw()
             : Named(id), myHolder(holder) {
     }
 
@@ -80,7 +80,7 @@ public:
      *
      * @return The vehicle that holds this device
      */
-    MSVehicle &getHolder() const throw() {
+    SUMOVehicle &getHolder() const throw() {
         return myHolder;
     }
 
@@ -97,18 +97,13 @@ public:
      * @param[in] os The stream to write the information into
      * @exception IOError not yet implemented
      */
-    virtual void tripInfoOutput(OutputDevice &os) const throw(IOError) {
+    virtual void generateOutput() const throw(IOError) {
     }
 
 
 protected:
     /// @brief The vehicle that stores the device
-    MSVehicle &myHolder;
-
-
-private:
-    /// @brief The built device id
-    std::string myID;
+    SUMOVehicle &myHolder;
 
 
 private:

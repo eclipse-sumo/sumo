@@ -40,6 +40,7 @@
 // ===========================================================================
 // class declarations
 // ===========================================================================
+class SUMOVehicle;
 class MSVehicle;
 class MSRoute;
 class MSVehicleType;
@@ -68,7 +69,7 @@ class MSEdge;
 class MSVehicleControl {
 public:
     /// @brief Definition of the internal vehicles map iterator
-    typedef std::map<std::string, MSVehicle*>::const_iterator constVehIt;
+    typedef std::map<std::string, SUMOVehicle*>::const_iterator constVehIt;
 
 public:
     /// @brief Constructor
@@ -95,8 +96,8 @@ public:
      * @param[in] repOffset The repetition offset
      * @return The built vehicle (MSVehicle instance)
      */
-    virtual MSVehicle *buildVehicle(SUMOVehicleParameter* defs, const MSRoute* route,
-                                    const MSVehicleType* type) throw(ProcessError);
+    virtual SUMOVehicle *buildVehicle(SUMOVehicleParameter* defs, const MSRoute* route,
+                                      const MSVehicleType* type) throw(ProcessError);
     /// @}
 
 
@@ -116,7 +117,7 @@ public:
      * @param[in] v The vehicle
      * @return Whether the vehicle could be inserted (no other vehicle with the same id was inserted before)
      */
-    virtual bool addVehicle(const std::string &id, MSVehicle *v) throw();
+    bool addVehicle(const std::string &id, SUMOVehicle *v) throw();
 
 
     /** @brief Returns the vehicle with the given id
@@ -127,7 +128,7 @@ public:
      * @param[in] id The id of the vehicle to retrieve
      * @return The vehicle with the given id, 0 if no such vehicle exists
      */
-    virtual MSVehicle *getVehicle(const std::string &id) const throw();
+    SUMOVehicle *getVehicle(const std::string &id) const throw();
 
 
     /** @brief Deletes the vehicle
@@ -135,7 +136,7 @@ public:
      * @param[in] v The vehicle to delete
      * @todo Isn't this quite insecure?
      */
-    virtual void deleteVehicle(MSVehicle *v) throw();
+    void deleteVehicle(SUMOVehicle *v) throw();
 
 
     /** @brief Removes a vehicle after it has ended
@@ -147,9 +148,9 @@ public:
      * This method should be called for each vehicle that was inserted
      *  into the network and quits its ride.
      *
-     * @param[in] v The vehicle to remove
+     * @param[in] veh The vehicle to remove
      */
-    void scheduleVehicleRemoval(MSVehicle *v) throw();
+    void scheduleVehicleRemoval(SUMOVehicle *veh) throw();
 
 
     /** @brief Returns the begin of the internal vehicle map
@@ -179,7 +180,7 @@ public:
      * @param[in] v The emitted vehicle
      * @todo Consolidate with vehiclesEmitted
      */
-    virtual void vehicleEmitted(const MSVehicle &v) throw();
+    void vehicleEmitted(const SUMOVehicle &v) throw();
     /// @}
 
 
@@ -232,25 +233,17 @@ public:
     /// @name Retrieval of vehicle statistics (availability depends on simulation settings)
     /// @{
 
-    /** @brief Returns the mean waiting time of vehicles (corn-dependent value)
-     *
-     * This value is only available if MSCORN::CORN_MEAN_VEH_WAITINGTIME is "wished".
-     *  This is the case if the emissions-output shall be generated.
+    /** @brief Returns the mean waiting time of vehicles.
      *
      * @return The mean time vehicles had to wait for being emitted (-1 if no vehicle was emitted, yet)
-     * @see MSCORN
      * @todo Enable this for guisim?
      */
     SUMOReal getMeanWaitingTime() const throw();
 
 
-    /** @brief Returns the mean travel time of vehicles (corn-dependent value)
-     *
-     * This value is only available if MSCORN::CORN_MEAN_VEH_TRAVELTIME is "wished".
-     *  This is the case if the emissions-output shall be generated.
+    /** @brief Returns the mean travel time of vehicles
      *
      * @return The mean travel time of ended vehicles (-1 if no vehicle has ended, yet)
-     * @see MSCORN
      * @todo Enable this for guisim?
      */
     SUMOReal getMeanTravelTime() const throw();
@@ -316,28 +309,26 @@ public:
     void insertVTypeIDs(std::vector<std::string> &into) const throw();
     /// @}
 
-    void addWaiting(const MSEdge* const edge, MSVehicle *vehicle) throw();
+    void addWaiting(const MSEdge* const edge, SUMOVehicle *vehicle) throw();
 
-    void removeWaiting(const MSEdge* const edge, MSVehicle *vehicle) throw();
+    void removeWaiting(const MSEdge* const edge, SUMOVehicle *vehicle) throw();
 
-    MSVehicle *getWaitingVehicle(const MSEdge* const edge, const std::set<std::string> &lines) throw();
+    SUMOVehicle *getWaitingVehicle(const MSEdge* const edge, const std::set<std::string> &lines) throw();
 
 
-#ifdef HAVE_MESOSIM
     /// @name State I/O (mesosim only)
     /// @{
 
     /** @brief Loads the state of this control from the given stream
      * @todo Does not work for microsim
      */
-    void saveState(std::ostream &os) throw();
+    virtual void saveState(std::ostream &os) throw();
 
     /** @brief Saves the current state into the given stream
      * @todo Does not work for microsim
      */
-    void loadState(BinaryInputDevice &bis, const SUMOTime offset) throw();
+    virtual void loadState(BinaryInputDevice &bis, const SUMOTime offset) throw();
     /// @}
-#endif
 
 
 private:
@@ -380,7 +371,7 @@ protected:
     /// @{
 
     /// @brief Vehicle dictionary type
-    typedef std::map< std::string, MSVehicle* > VehicleDictType;
+    typedef std::map< std::string, SUMOVehicle* > VehicleDictType;
     /// @brief Dictionary of vehicles
     VehicleDictType myVehicleDict;
     /// @}
@@ -403,7 +394,7 @@ protected:
     bool myDefaultVTypeMayBeDeleted;
 
     /// the lists of waiting vehicles
-    std::map<const MSEdge* const, std::vector<MSVehicle*> > myWaiting;
+    std::map<const MSEdge* const, std::vector<SUMOVehicle*> > myWaiting;
 
 
 private:

@@ -61,7 +61,7 @@ MSRouteProbe::MSRouteProbe(const std::string &id, const MSEdge *edge, SUMOTime b
     if (MSGlobals::gUseMesoSim) {
         MESegment *seg = MSGlobals::gMesoNet->getSegmentForEdge(*edge);
         while (seg!=0) {
-            seg->setRouteProbe(this);
+            seg->addDetector(this);
             seg = seg->getNextSegment();
         }
         return;
@@ -79,7 +79,10 @@ MSRouteProbe::~MSRouteProbe() throw() {
 
 bool
 MSRouteProbe::notifyEnter(SUMOVehicle& veh, bool isEmit, bool isLaneChange) throw() {
-    addRoute(veh.getRoute());
+    if (myCurrentRouteDistribution != 0) {
+        veh.getRoute().addReference();
+        myCurrentRouteDistribution->add(1., &veh.getRoute());
+    }
     return false;
 }
 
@@ -113,13 +116,4 @@ MSRouteProbe::writeXMLOutput(OutputDevice &dev,
 void
 MSRouteProbe::writeXMLDetectorProlog(OutputDevice &dev) const throw(IOError) {
     dev.writeXMLHeader("route-probes");
-}
-
-
-void
-MSRouteProbe::addRoute(const MSRoute &route) const {
-    if (myCurrentRouteDistribution != 0) {
-        route.addReference();
-        myCurrentRouteDistribution->add(1., &route);
-    }
 }

@@ -82,7 +82,7 @@ public:
      * @param[in] v The vehicle for which a device may be built
      * @param[in, filled] into The vector to store the built device in
      */
-    static void buildVehicleDevices(MSVehicle &v, std::vector<MSDevice*> &into) throw();
+    static void buildVehicleDevices(SUMOVehicle &v, std::vector<MSDevice*> &into) throw();
 
 
 public:
@@ -108,7 +108,7 @@ public:
      * @exception IOError not yet implemented
      * @see MSDevice::tripInfoOutput
      */
-    void tripInfoOutput(OutputDevice &os) const throw(IOError);
+    void generateOutput() const throw(IOError);
 
 
     /** @brief Performs rerouting after a period
@@ -136,7 +136,7 @@ private:
      * @param[in] holder The vehicle that holds this device
      * @param[in] id The ID of the device
      */
-    MSDevice_HBEFA(MSVehicle &holder, const std::string &id) throw();
+    MSDevice_HBEFA(SUMOVehicle &holder, const std::string &id) throw();
 
 
     /// @brief Destructor.

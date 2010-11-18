@@ -304,7 +304,7 @@ MSTriggeredRerouter::reroute(SUMOVehicle &veh, const MSEdge &src) {
     const MSRoute *newRoute = rerouteDef.routeProbs.getOverallProb()>0 ? rerouteDef.routeProbs.get() : 0;
     // we will use the route if given rather than calling our own dijsktra...
     if (newRoute!=0) {
-        veh.replaceRoute(newRoute, time);
+        veh.replaceRoute(newRoute);
         return;
     }
     // ok, try using a new destination
@@ -320,7 +320,7 @@ MSTriggeredRerouter::reroute(SUMOVehicle &veh, const MSEdge &src) {
     router.prohibit(rerouteDef.closed);
     std::vector<const MSEdge*> edges;
     router.compute(&src, newEdge, &veh, MSNet::getInstance()->getCurrentTimeStep(), edges);
-    veh.replaceRoute(edges, MSNet::getInstance()->getCurrentTimeStep());
+    veh.replaceRouteEdges(edges);
 }
 
 

@@ -89,7 +89,7 @@ public:
     // check whether close was requested
     static void close();
 
-    void vehicleStateChanged(const MSVehicle * const vehicle, MSNet::VehicleState to) throw();
+    void vehicleStateChanged(const SUMOVehicle * const vehicle, MSNet::VehicleState to) throw();
 
     // return vehicle that is referenced by the given external id
     MSVehicle* getVehicleByExtId(int extId);
@@ -229,7 +229,7 @@ private:
     /**
      * Notifies client of all domain object update events it is subscribed to
      */
-    void handleDomainSubscriptions(const SUMOTime& currentTime, const std::map<int, const MSVehicle*>& activeEquippedVehicles) throw(TraCIException);
+    void handleDomainSubscriptions(const SUMOTime& currentTime, const std::map<int, const SUMOVehicle*>& activeEquippedVehicles) throw(TraCIException);
 
 
     bool addSubscription(int commandId) throw(TraCIException);

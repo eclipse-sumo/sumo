@@ -49,7 +49,7 @@ GUIVehicleControl::GUIVehicleControl() throw()
 GUIVehicleControl::~GUIVehicleControl() throw() {}
 
 
-MSVehicle *
+SUMOVehicle *
 GUIVehicleControl::buildVehicle(SUMOVehicleParameter* defs,
                                 const MSRoute* route, const MSVehicleType* type) throw(ProcessError) {
     myLoadedVehNo++;
@@ -63,7 +63,7 @@ void
 GUIVehicleControl::insertVehicleIDs(std::vector<GLuint> &into) throw() {
     into.reserve(myVehicleDict.size());
     for (VehicleDictType::iterator i=myVehicleDict.begin(); i!=myVehicleDict.end(); ++i) {
-        MSVehicle *veh = (*i).second;
+        SUMOVehicle *veh = (*i).second;
         if (veh->isOnRoad()) {
             into.push_back(static_cast<GUIVehicle*>((*i).second)->getGlID());
         }

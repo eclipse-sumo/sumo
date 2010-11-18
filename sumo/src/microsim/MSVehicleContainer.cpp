@@ -80,14 +80,14 @@ MSVehicleContainer::~MSVehicleContainer() {
 
 
 void
-MSVehicleContainer::add(MSVehicle *veh) {
+MSVehicleContainer::add(SUMOVehicle *veh) {
     // check whether a new item shall be added or the vehicle may be
     //  added to an existing list
     VehicleHeap::iterator i =
-        find_if(array.begin()+1, array.begin()+currentSize+1, DepartFinder(veh->getDesiredDepart()));
+        find_if(array.begin()+1, array.begin()+currentSize+1, DepartFinder(veh->getParameter().depart));
     if (currentSize==0 || i==array.begin()+currentSize+1) {
         // a new heap-item is necessary
-        VehicleDepartureVector newElem(veh->getDesiredDepart(), VehicleVector());
+        VehicleDepartureVector newElem(veh->getParameter().depart, VehicleVector());
         newElem.second.push_back(veh);
         addReplacing(newElem);
     } else {
@@ -232,7 +232,7 @@ std::ostream &operator << (std::ostream &strm, MSVehicleContainer &cont) {
     while (!cont.isEmpty()) {
         const MSVehicleContainer::VehicleVector &v = cont.top();
         for (MSVehicleContainer::VehicleVector::const_iterator i=v.begin(); i!=v.end(); ++i) {
-            strm << (*i)->getDesiredDepart() << std::endl;
+            strm << (*i)->getParameter().depart << std::endl;
         }
         cont.pop();
     }

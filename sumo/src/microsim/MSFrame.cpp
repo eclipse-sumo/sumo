@@ -40,6 +40,7 @@
 #include <microsim/MSJunction.h>
 #include <microsim/MSNet.h>
 #include <microsim/MSGlobals.h>
+#include <microsim/devices/MSDevice_Vehroutes.h>
 #include <microsim/devices/MSDevice_Routing.h>
 #include <microsim/devices/MSDevice_HBEFA.h>
 #include <utils/common/RandHelper.h>
@@ -276,7 +277,7 @@ MSFrame::buildStreams() throw(IOError) {
     OutputDevice::createDeviceByOption("netstate-dump", "sumo-netstate");
     OutputDevice::createDeviceByOption("emissions-output", "emissions");
     OutputDevice::createDeviceByOption("tripinfo-output", "tripinfos");
-    OutputDevice::createDeviceByOption("vehroute-output", "routes");
+    MSDevice_Vehroutes::init();
 }
 
 

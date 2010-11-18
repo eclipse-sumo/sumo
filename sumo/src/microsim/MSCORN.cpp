@@ -67,32 +67,6 @@ MSCORN::wished(Function f) {
 void
 MSCORN::setWished(Function f, bool value) {
     myWished[(int) f] = value;
-    switch (f) {
-    case CORN_OUT_TRIPDURATIONS:
-        setWished(CORN_VEH_DEPART_INFO);
-        setWished(CORN_VEH_ARRIVAL_INFO);
-        setWished(CORN_VEH_WAITINGTIME);
-        setWished(CORN_VEH_VAPORIZED);
-        break;
-    case CORN_OUT_VEHROUTES:
-        setWished(CORN_VEH_DEPART_TIME);
-        setWished(CORN_VEH_SAVEREROUTING);
-        setWished(CORN_VEH_DEPART_INFO);
-        setWished(CORN_VEH_ARRIVAL_INFO);
-        break;
-    case CORN_OUT_EMISSIONS:
-        setWished(CORN_MEAN_VEH_TRAVELTIME);
-        setWished(CORN_MEAN_VEH_WAITINGTIME);
-        break;
-    case CORN_MEAN_VEH_TRAVELTIME:
-        setWished(CORN_VEH_DEPART_TIME);
-        break;
-    case CORN_MEAN_VEH_WAITINGTIME:
-        setWished(CORN_VEH_DEPART_TIME);
-        break;
-    default:
-        break;
-    }
 }
 
 

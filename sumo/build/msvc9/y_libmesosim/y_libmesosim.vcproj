@@ -353,6 +353,10 @@
 				RelativePath="..\..\..\src\mesosim\MEVehicle.cpp"
 				>
 			</File>
+			<File
+				RelativePath="..\..\..\src\mesosim\MEVehicleControl.cpp"
+				>
+			</File>
 		</Filter>
 		<Filter
 			Name="Header-Dateien"
@@ -376,6 +380,10 @@
 			</File>
 			<File
 				RelativePath="..\..\..\src\mesosim\MEVehicle.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\mesosim\MEVehicleControl.h"
 				>
 			</File>
 			<File

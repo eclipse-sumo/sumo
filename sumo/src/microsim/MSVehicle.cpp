@@ -56,7 +56,6 @@
 #include "MSPersonControl.h"
 #include <utils/common/RandHelper.h>
 #include "devices/MSDevice_Routing.h"
-#include <microsim/devices/MSDevice_HBEFA.h>
 #include "MSEdgeWeightsStorage.h"
 #include <utils/common/HelpersHBEFA.h>
 #include <utils/common/HelpersHarmonoise.h>
@@ -132,31 +131,7 @@ MSVehicle::State::State(SUMOReal pos, SUMOReal speed) :
  * MSVehicle-methods
  * ----------------------------------------------------------------------- */
 MSVehicle::~MSVehicle() throw() {
-    // delete the route
-    myRoute->release();
-    // delete values in CORN
-    if (myPointerCORNMap.find(MSCORN::CORN_P_VEH_OLDROUTE)!=myPointerCORNMap.end()) {
-        ReplacedRoutesVector *v = (ReplacedRoutesVector*) myPointerCORNMap[MSCORN::CORN_P_VEH_OLDROUTE];
-        for (ReplacedRoutesVector::iterator i=v->begin(); i!=v->end(); ++i) {
-            (*i).route->release();
-        }
-        delete v;
-    }
-    if (myPointerCORNMap.find(MSCORN::CORN_P_VEH_DEPART_INFO)!=myPointerCORNMap.end()) {
-        DepartArrivalInformation *i = (DepartArrivalInformation*) myPointerCORNMap[MSCORN::CORN_P_VEH_DEPART_INFO];
-        delete i;
-    }
-    if (myPointerCORNMap.find(MSCORN::CORN_P_VEH_ARRIVAL_INFO)!=myPointerCORNMap.end()) {
-        DepartArrivalInformation *i = (DepartArrivalInformation*) myPointerCORNMap[MSCORN::CORN_P_VEH_ARRIVAL_INFO];
-        delete i;
-    }
-    //
-    delete myParameter;
     delete myLaneChangeModel;
-    for (std::vector< MSDevice* >::iterator dev=myDevices.begin(); dev != myDevices.end(); ++dev) {
-        delete(*dev);
-    }
-    myDevices.clear();
     // persons
     if (hasCORNPointerValue(MSCORN::CORN_P_VEH_PASSENGER)) {
         delete myPointerCORNMap[MSCORN::CORN_P_VEH_PASSENGER];
@@ -183,20 +158,13 @@ MSVehicle::MSVehicle(SUMOVehicleParameter* pars,
                      const MSRoute* route,
                      const MSVehicleType* type,
                      int vehicleIndex) throw(ProcessError) :
+        MSBaseVehicle(pars, route, type),
         myLastLaneChangeOffset(0),
         myTarget(0),
         myWaitingTime(0),
-        myParameter(pars),
-        myRoute(route),
         myState(0, 0), //
-        myIndividualMaxSpeed(0.0),
-        myHasIndividualMaxSpeed(false),
-        myReferenceSpeed(-1.0),
         myLane(0),
-        myType(type),
         myLastBestLanesEdge(0),
-        myCurrEdge(myRoute->begin()),
-        myMoveReminders(0),
         myArrivalPos(pars->arrivalPos),
         myPreDawdleAcceleration(0),
         myEdgeWeights(0),
@@ -244,49 +212,18 @@ MSVehicle::MSVehicle(SUMOVehicleParameter* pars,
     if (myArrivalPos>lastLaneLength) {
         myArrivalPos = lastLaneLength;
     }
-    MSDevice_Routing::buildVehicleDevices(*this, myDevices);
     myLaneChangeModel = new MSLCM_DK2004(*this);
-    // init devices
-    MSDevice_HBEFA::buildVehicleDevices(*this, myDevices);
-    // init CORN containers
-    if (MSCORN::wished(MSCORN::CORN_VEH_WAITINGTIME)) {
-        myIntCORNMap[MSCORN::CORN_VEH_WAITINGTIME] = 0;
-    }
     if ((*myCurrEdge)->getDepartLane(*this) == 0) {
         delete myLaneChangeModel;
         throw ProcessError("Invalid departlane definition for vehicle '" + pars->id + "'");
-    }
-    myRoute->addReference();
-    for (std::vector< MSDevice* >::iterator dev=myDevices.begin(); dev != myDevices.end(); ++dev) {
-        myMoveReminders.push_back(std::make_pair(*dev, 0.));
     }
 }
 
 
 // ------------ interaction with the route
 void
-MSVehicle::onTryEmit() throw() {
-    for (MoveReminderCont::iterator rem=myMoveReminders.begin(); rem!=myMoveReminders.end(); ++rem) {
-        rem->first->onTryEmit();
-    }
-}
-
-
-void
 MSVehicle::onDepart() throw() {
-    // check whether the vehicle's departure time shall be saved
-    if (MSCORN::wished(MSCORN::CORN_VEH_DEPART_TIME)) {
-        myIntCORNMap[MSCORN::CORN_VEH_DEPART_TIME] = (int) MSNet::getInstance()->getCurrentTimeStep();
-    }
-    // check whether the vehicle's verbose departure information shall be saved
-    if (MSCORN::wished(MSCORN::CORN_VEH_DEPART_INFO)) {
-        DepartArrivalInformation *i = new DepartArrivalInformation();
-        i->time = MSNet::getInstance()->getCurrentTimeStep();
-        i->lane = myLane;
-        i->pos = myState.pos();
-        i->speed = myState.speed();
-        myPointerCORNMap[MSCORN::CORN_P_VEH_DEPART_INFO] = (void*) i;
-    }
+    myDeparture = MSNet::getInstance()->getCurrentTimeStep();
     if (hasCORNPointerValue(MSCORN::CORN_P_VEH_PASSENGER)) {
         std::vector<MSPerson*> *persons = (std::vector<MSPerson*>*) myPointerCORNMap[MSCORN::CORN_P_VEH_PASSENGER];
         for (std::vector<MSPerson*>::iterator i=persons->begin(); i!=persons->end(); ++i) {
@@ -300,20 +237,7 @@ MSVehicle::onDepart() throw() {
 
 void
 MSVehicle::onRemovalFromNet(bool forTeleporting) throw() {
-    // check whether the vehicle's verbose arrival information shall be saved
-    if (!forTeleporting && MSCORN::wished(MSCORN::CORN_VEH_ARRIVAL_INFO)) {
-        DepartArrivalInformation *i = new DepartArrivalInformation();
-        i->time = MSNet::getInstance()->getCurrentTimeStep();
-        i->lane = myLane;
-        i->pos = myState.pos();
-        i->speed = myState.speed();
-        myPointerCORNMap[MSCORN::CORN_P_VEH_ARRIVAL_INFO] = (void*) i;
-    }
-    SUMOReal pspeed = myState.mySpeed;
-    SUMOReal pos = myState.myPos;
-    SUMOReal oldPos = pos - SPEED2DIST(pspeed);
-    // process reminder
-    workOnMoveReminders(oldPos, pos, pspeed);
+    workOnMoveReminders(myState.myPos - SPEED2DIST(myState.mySpeed), myState.myPos, myState.mySpeed);
     for (DriveItemVector::iterator i=myLFLinkLanes.begin(); i!=myLFLinkLanes.end(); ++i) {
         if ((*i).myLink!=0) {
             (*i).myLink->removeApproaching(this);
@@ -324,78 +248,18 @@ MSVehicle::onRemovalFromNet(bool forTeleporting) throw() {
 
 
 // ------------ interaction with the route
-const MSEdge*
-MSVehicle::succEdge(unsigned int nSuccs) const throw() {
-    if (hasSuccEdge(nSuccs)) {
-        return *(myCurrEdge + nSuccs);
-    } else {
-        return 0;
-    }
-}
-
-
 bool
 MSVehicle::ends() const throw() {
     return myCurrEdge==myRoute->end()-1 && myState.myPos > myArrivalPos - POSITION_EPS;
 }
 
 
-const MSRoute &
-MSVehicle::getRoute(int index) const throw() {
-    if (index==0) {
-        return *myRoute;
-    }
-    --index; // only prior routes are stored
-    std::map<MSCORN::Pointer, void*>::const_iterator i = myPointerCORNMap.find(MSCORN::CORN_P_VEH_OLDROUTE);
-    assert(i!=myPointerCORNMap.end());
-    const ReplacedRoutesVector * const v = (const ReplacedRoutesVector * const)(*i).second;
-    assert((int) v->size()>index);
-    return *((*v)[index].route);
-}
-
-
 bool
-MSVehicle::replaceRoute(const MSEdgeVector &edges, SUMOTime simTime, bool onInit) throw() {
-    // build a new id, first
-    std::string id = getID();
-    if (id[0]!='!') {
-        id = "!" + id;
-    }
-    if (myRoute->getID().find("!var#")!=std::string::npos) {
-        id = myRoute->getID().substr(0, myRoute->getID().rfind("!var#")+4) + toString(myIntCORNMap[MSCORN::CORN_VEH_NUMBERROUTE] + 1);
-    } else {
-        id = id + "!var#1";
-    }
-    MSRoute *newRoute = new MSRoute(id, edges, 0, myRoute->getColor(), myRoute->getStops());
-    if (!MSRoute::dictionary(id, newRoute)) {
-        delete newRoute;
-        return false;
-    }
-    if (!replaceRoute(newRoute, simTime, onInit)) {
-        newRoute->addReference();
-        newRoute->release();
-        return false;
-    }
-    return true;
-}
-
-
-bool
-MSVehicle::replaceRoute(const MSRoute* newRoute, SUMOTime simTime, bool onInit) throw() {
+MSVehicle::replaceRoute(const MSRoute* newRoute, bool onInit) throw() {
     const MSEdgeVector &edges = newRoute->getEdges();
     // assert the vehicle may continue (must not be "teleported" or whatever to another position)
     if (!onInit && find(edges.begin(), edges.end(), *myCurrEdge)==edges.end()) {
         return false;
-    }
-
-    // ... maybe the route information shall be saved for output?
-    if (MSCORN::wished(MSCORN::CORN_VEH_SAVEREROUTING)) {
-        myRoute->addReference();
-        RouteReplaceInfo rri(*myCurrEdge, simTime, myRoute);
-        if (myPointerCORNMap.find(MSCORN::CORN_P_VEH_OLDROUTE)==myPointerCORNMap.end()) {
-            myPointerCORNMap[MSCORN::CORN_P_VEH_OLDROUTE] = new ReplacedRoutesVector();
-        }
-        ((ReplacedRoutesVector*) myPointerCORNMap[MSCORN::CORN_P_VEH_OLDROUTE])->push_back(rri);
     }
 
     // rebuild in-vehicle route information
@@ -423,9 +287,8 @@ MSVehicle::replaceRoute(const MSRoute* newRoute, SUMOTime simTime, bool onInit) 
         myArrivalPos = lastLaneLength;
     }
     // save information that the vehicle was rerouted
-    //  !!! refactor the CORN-stuff
-    myIntCORNMap[MSCORN::CORN_VEH_LASTREROUTEOFFSET] = 0;
-    myIntCORNMap[MSCORN::CORN_VEH_NUMBERROUTE] = myIntCORNMap[MSCORN::CORN_VEH_NUMBERROUTE] + 1;
+    myNumberReroutes++;
+    MSNet::getInstance()->informVehicleStateListener(this, MSNet::VEHICLE_STATE_NEWROUTE);
     // recheck stops
     for (std::list<Stop>::iterator iter = myStops.begin(); iter != myStops.end();) {
         if (find(edges.begin(), edges.end(), &iter->lane->getEdge())==edges.end()) {
@@ -441,27 +304,6 @@ MSVehicle::replaceRoute(const MSRoute* newRoute, SUMOTime simTime, bool onInit) 
 bool
 MSVehicle::willPass(const MSEdge * const edge) const throw() {
     return find(myCurrEdge, myRoute->end(), edge)!=myRoute->end();
-}
-
-
-void
-MSVehicle::reroute(SUMOTime t, SUMOAbstractRouter<MSEdge, SUMOVehicle> &router, bool withTaz) throw() {
-    // check whether to reroute
-    std::vector<const MSEdge*> edges;
-    if (withTaz && MSEdge::dictionary(myParameter->fromTaz+"-source") && MSEdge::dictionary(myParameter->toTaz+"-sink")) {
-        router.compute(MSEdge::dictionary(myParameter->fromTaz+"-source"), MSEdge::dictionary(myParameter->toTaz+"-sink"), (const MSVehicle * const) this, t, edges);
-        if (edges.size() >= 2) {
-            edges.erase(edges.begin());
-            edges.pop_back();
-        }
-    } else {
-        router.compute(*myCurrEdge, myRoute->getLastEdge(), (const MSVehicle * const) this, t, edges);
-    }
-    if (edges.empty()) {
-        WRITE_WARNING("No route for vehicle '" + getID() + "' found.");
-        return;
-    }
-    replaceRoute(edges, MSNet::getInstance()->getCurrentTimeStep(), withTaz);
 }
 
 
@@ -525,20 +367,6 @@ MSVehicle::hasCORNPointerValue(MSCORN::Pointer p) const throw() {
 
 
 // ------------ Interaction with move reminders
-SUMOReal
-MSVehicle::getPositionOnActiveMoveReminderLane(const MSLane * const searchedLane) const throw() {
-    if (searchedLane==myLane) {
-        return myState.myPos;
-    }
-    for (MoveReminderCont::const_iterator rem = myMoveReminders.begin(); rem!=myMoveReminders.end(); ++rem) {
-        if (rem->first->getLane()==searchedLane) {
-            return rem->second + myState.myPos;
-        }
-    }
-    return -1;
-}
-
-
 void
 MSVehicle::workOnMoveReminders(SUMOReal oldPos, SUMOReal newPos, SUMOReal newSpeed) throw() {
     // This erasure-idiom works for all stl-sequence-containers
@@ -845,10 +673,6 @@ MSVehicle::moveRegardingCritical(SUMOTime t, const MSLane* const lane,
         vsafeCriticalCont(t, vBeg, lengthsInFront);
     }
     //@ to be optimized (move to somewhere else)
-    if (hasCORNIntValue(MSCORN::CORN_VEH_LASTREROUTEOFFSET)) {
-        myIntCORNMap[MSCORN::CORN_VEH_LASTREROUTEOFFSET] = myIntCORNMap[MSCORN::CORN_VEH_LASTREROUTEOFFSET] + 1;
-    }
-    //@ to be optimized (move to somewhere else)
     checkRewindLinkLanes(lengthsInFront);
     return false;
 }
@@ -923,9 +747,6 @@ MSVehicle::moveFirstChecked() {
     // visit waiting time
     if (vNext<=0.1) {
         myWaitingTime += DELTA_T;
-        if (MSCORN::wished(MSCORN::CORN_VEH_WAITINGTIME)) {
-            myIntCORNMap[MSCORN::CORN_VEH_WAITINGTIME]++;
-        }
         braking = true;
     } else {
         myWaitingTime = 0;
@@ -1296,18 +1117,11 @@ MSVehicle::getPosition() const {
 }
 
 
-const std::string &
-MSVehicle::getID() const throw() {
-    return myParameter->id;
-}
-
-
 bool
 MSVehicle::enterLaneAtMove(MSLane* enteredLane, bool onTeleporting) {
     // vaporizing edge?
     if (enteredLane->getEdge().isVaporizing()) {
         // yep, let's do the vaporization...
-        setWasVaporized(false);
         myLane = enteredLane;
         return true;
     }
@@ -1320,12 +1134,6 @@ MSVehicle::enterLaneAtMove(MSLane* enteredLane, bool onTeleporting) {
 
     // internal edges are not a part of the route...
     if (enteredLane->getEdge().getPurpose()!=MSEdge::EDGEFUNCTION_INTERNAL) {
-        if (MSCORN::wished(MSCORN::CORN_VEH_SAVE_EDGE_EXIT)) {
-            if (myPointerCORNMap.find(MSCORN::CORN_P_VEH_EXIT_TIMES)==myPointerCORNMap.end()) {
-                myPointerCORNMap[MSCORN::CORN_P_VEH_EXIT_TIMES] = new std::vector<SUMOTime>();
-            }
-            ((std::vector<SUMOTime>*) myPointerCORNMap[MSCORN::CORN_P_VEH_EXIT_TIMES])->push_back(MSNet::getInstance()->getCurrentTimeStep());
-        }
         ++myCurrEdge;
     }
     if (!onTeleporting) {
@@ -1439,12 +1247,6 @@ MSVehicle::leaveLane(const bool isArrival, const bool isLaneChange) {
         }
         myFurtherLanes.clear();
     }
-}
-
-
-const MSEdge * const
-MSVehicle::getEdge() const {
-    return *myCurrEdge;
 }
 
 
@@ -1684,84 +1486,6 @@ MSVehicle::getBestLanes(bool forceRebuild, MSLane *startLane) const throw() {
 }
 
 
-void
-MSVehicle::writeXMLRoute(OutputDevice &os, int index) const {
-    // check if a previous route shall be written
-    os.openTag("route");
-    if (index>=0) {
-        const ReplacedRoutesVector *v = (const ReplacedRoutesVector *)getCORNPointerValue(MSCORN::CORN_P_VEH_OLDROUTE);
-        assert((int) v->size()>index);
-        // write edge on which the vehicle was when the route was valid
-        os << " replacedOnEdge=\"" << (*v)[index].edge->getID();
-        // write the time at which the route was replaced
-        os << "\" replacedAtTime=\"" << time2string((*v)[index].time) << "\" probability=\"0\" edges=\"";
-        // get the route
-        for (int i=0; i<index; ++i) {
-            (*v)[i].route->writeEdgeIDs(os, (*v)[i].edge);
-        }
-        (*v)[index].route->writeEdgeIDs(os);
-    } else {
-        os << " edges=\"";
-        if (hasCORNPointerValue(MSCORN::CORN_P_VEH_OLDROUTE)) {
-            int noReroutes = getCORNIntValue(MSCORN::CORN_VEH_NUMBERROUTE);
-            const ReplacedRoutesVector *v = (const ReplacedRoutesVector *)getCORNPointerValue(MSCORN::CORN_P_VEH_OLDROUTE);
-            assert((int) v->size()==noReroutes);
-            for (int i=0; i<noReroutes; ++i) {
-                (*v)[i].route->writeEdgeIDs(os, (*v)[i].edge);
-            }
-        }
-        myRoute->writeEdgeIDs(os);
-        if (hasCORNPointerValue(MSCORN::CORN_P_VEH_EXIT_TIMES)) {
-            os << "\" exitTimes=\"";
-            const std::vector<SUMOTime> *exits = (const std::vector<SUMOTime> *)getCORNPointerValue(MSCORN::CORN_P_VEH_EXIT_TIMES);
-            for (std::vector<SUMOTime>::const_iterator it = exits->begin(); it != exits->end(); ++it) {
-                if (it != exits->begin()) {
-                    os << " ";
-                }
-                os << time2string(*it);
-            }
-        }
-    }
-    (os << "\"").closeTag(true);
-}
-
-
-void
-MSVehicle::saveState(std::ostream &os) {
-    FileHelpers::writeString(os, myParameter->id);
-    FileHelpers::writeFloat(os, myLastLaneChangeOffset);
-    FileHelpers::writeFloat(os, myWaitingTime);
-    FileHelpers::writeInt(os, myParameter->repetitionNumber);
-#ifdef HAVE_SUBSECOND_TIMESTEPS
-    FileHelpers::writeTime(os, myParameter->repetitionOffset);
-#else
-    FileHelpers::writeFloat(os, myParameter->repetitionOffset);
-#endif
-    FileHelpers::writeString(os, myRoute->getID());
-    FileHelpers::writeTime(os, myParameter->depart);
-    FileHelpers::writeString(os, myType->getID());
-    FileHelpers::writeUInt(os, myRoute->posInRoute(myCurrEdge));
-    if (hasCORNIntValue(MSCORN::CORN_VEH_DEPART_TIME)) {
-        FileHelpers::writeInt(os, getCORNIntValue(MSCORN::CORN_VEH_DEPART_TIME));
-    } else {
-        FileHelpers::writeInt(os, -1);
-    }
-#ifdef HAVE_MESOSIM
-    // !!! several things may be missing
-    if (mySegment==0) {
-        FileHelpers::writeUInt(os, 0);
-    } else {
-        FileHelpers::writeUInt(os, mySegment->getIndex());
-    }
-    FileHelpers::writeUInt(os, getQueIndex());
-    FileHelpers::writeTime(os, myEventTime);
-    FileHelpers::writeTime(os, myLastEntryTime);
-#endif
-}
-
-
-
-
 const std::vector<MSLane*> &
 MSVehicle::getBestLanesContinuation() const throw() {
     if (myBestLanes.empty()||myBestLanes[0].empty()||myLane->getEdge().getPurpose()==MSEdge::EDGEFUNCTION_INTERNAL) {
@@ -1801,13 +1525,6 @@ MSVehicle::getDistanceToPosition(SUMOReal destPos, const MSEdge* destEdge) {
         }
     }
     return distance;
-}
-
-void
-MSVehicle::setWasVaporized(bool onDepart) {
-    if (MSCORN::wished(MSCORN::CORN_VEH_VAPORIZED)) {
-        myIntCORNMap[MSCORN::CORN_VEH_VAPORIZED] = onDepart ? 1 : 0;
-    }
 }
 
 

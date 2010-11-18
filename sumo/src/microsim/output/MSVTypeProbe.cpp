@@ -60,15 +60,15 @@ MSVTypeProbe::execute(SUMOTime currentTime) throw(ProcessError) {
     const std::string indent("    ");
     myOutputDevice << indent << "<timestep time=\"" <<time2string(currentTime)<< "\" id=\"" << getID() << "\" vtype=\"" << myVType << "\">" << "\n";
     MSVehicleControl &vc = MSNet::getInstance()->getVehicleControl();
-    std::map<std::string, MSVehicle*>::const_iterator it = vc.loadedVehBegin();
-    std::map<std::string, MSVehicle*>::const_iterator end = vc.loadedVehEnd();
+    MSVehicleControl::constVehIt it = vc.loadedVehBegin();
+    MSVehicleControl::constVehIt end = vc.loadedVehEnd();
     for (; it != end; ++it) {
-        const MSVehicle *veh=(*it).second;
+        const MSVehicle *veh = static_cast<const MSVehicle*>((*it).second);
         if (myVType=="" || myVType==veh->getVehicleType().getID()) {
             if (!veh->isOnRoad()) {
                 continue;
             }
-            Position2D pos = veh->getPosition();
+            Position2D pos = veh->getLane().getShape().positionAtLengthPosition(veh->getPositionOnLane());
             myOutputDevice << indent << indent
             << "<vehicle id=\"" << veh->getID()
             << "\" lane=\"" << veh->getLane().getID()

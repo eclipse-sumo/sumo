@@ -443,7 +443,9 @@ public:
         /// @brief The vehicle ended being teleported
         VEHICLE_STATE_ENDING_TELEPORT,
         /// @brief The vehicle arrived at his destination (is deleted)
-        VEHICLE_STATE_ARRIVED
+        VEHICLE_STATE_ARRIVED,
+        /// @brief The vehicle got a new route
+        VEHICLE_STATE_NEWROUTE
     };
 
 
@@ -462,7 +464,7 @@ public:
          * @param[in] vehicle The vehicle which changed its state
          * @param[in] to The state the vehicle has changed to
          */
-        virtual void vehicleStateChanged(const MSVehicle * const vehicle, VehicleState to) throw() = 0;
+        virtual void vehicleStateChanged(const SUMOVehicle * const vehicle, VehicleState to) throw() = 0;
 
     };
 
@@ -484,7 +486,7 @@ public:
      * @param[in] to The state the vehicle has changed to
      * @see VehicleStateListener:vehicleStateChanged
      */
-    void informVehicleStateListener(const MSVehicle * const vehicle, VehicleState to) throw();
+    void informVehicleStateListener(const SUMOVehicle * const vehicle, VehicleState to) throw();
     /// @}
 
 

@@ -231,7 +231,7 @@ MSMeanData::init() throw() {
                 MESegment *s = MSGlobals::gMesoNet->getSegmentForEdge(**e);
                 while (s!=0) {
                     s->addDetector(data);
-                    s->prepareMeanDataForWriting(*data, MSNet::getInstance()->getCurrentTimeStep() + DELTA_T);
+                    s->prepareDetectorForWriting(*data, MSNet::getInstance()->getCurrentTimeStep() + DELTA_T);
                     s = s->getNextSegment();
                 }
                 data->reset();
@@ -276,7 +276,7 @@ MSMeanData::resetOnly(SUMOTime stopTime) throw() {
             MESegment *s = MSGlobals::gMesoNet->getSegmentForEdge(**edge);
             MeanDataValues *data = i->front();
             while (s!=0) {
-                s->prepareMeanDataForWriting(*data, stopTime);
+                s->prepareDetectorForWriting(*data, stopTime);
                 s = s->getNextSegment();
             }
             data->reset();
@@ -301,7 +301,7 @@ MSMeanData::writeEdge(OutputDevice &dev,
         MESegment *s = MSGlobals::gMesoNet->getSegmentForEdge(*edge);
         MeanDataValues *data = edgeValues.front();
         while (s!=0) {
-            s->prepareMeanDataForWriting(*data, stopTime);
+            s->prepareDetectorForWriting(*data, stopTime);
             s = s->getNextSegment();
         }
         if (writePrefix(dev, *data, "<edge id=\""+edge->getID())) {

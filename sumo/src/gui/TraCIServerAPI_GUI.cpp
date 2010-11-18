@@ -199,7 +199,7 @@ TraCIServerAPI_GUI::processSet(TraCIServer &server, tcpip::Storage &inputStorage
         if (id=="") {
             v->stopTrack();
         } else {
-            MSVehicle *veh = MSNet::getInstance()->getVehicleControl().getVehicle(id);
+            SUMOVehicle *veh = MSNet::getInstance()->getVehicleControl().getVehicle(id);
             if (veh==0) {
                 server.writeStatusCmd(CMD_SET_GUI_VARIABLE, RTYPE_ERR, "Could not find vehicle '" + id + "'.", outputStorage);
                 return false;

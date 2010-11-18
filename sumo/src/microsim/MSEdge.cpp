@@ -303,7 +303,7 @@ MSEdge::getDepartLane(const MSVehicle &veh) const throw() {
 
 
 bool
-MSEdge::emit(MSVehicle &v, SUMOTime time) const throw(ProcessError) {
+MSEdge::emit(SUMOVehicle &v, SUMOTime time) const throw(ProcessError) {
     // when vaporizing, no vehicles are emitted...
     if (isVaporizing()) {
         return false;
@@ -330,22 +330,23 @@ MSEdge::emit(MSVehicle &v, SUMOTime time) const throw(ProcessError) {
         bool result = false;
         bool insertToNet = false;
         MESegment* segment = MSGlobals::gMesoNet->getSegmentForEdge(*this, pos);
+        MEVehicle* veh = static_cast<MEVehicle*>(&v);
         if (pars.departPosProcedure == DEPART_POS_FREE) {
             while (segment != 0 && !result) {
-                result = segment->initialise(&v, time, insertToNet);
+                result = segment->initialise(veh, time, insertToNet);
                 segment = segment->getNextSegment();
             }
         } else {
-            result = segment->initialise(&v, time, insertToNet);
+            result = segment->initialise(veh, time, insertToNet);
         }
         if (insertToNet) {
-            MSGlobals::gMesoNet->addCar(&v);
+            MSGlobals::gMesoNet->addCar(veh);
         }
         return result;
     }
 #endif
-    MSLane* emitLane = getDepartLane(v);
-    return emitLane != 0 && emitLane->emit(v);
+    MSLane* emitLane = getDepartLane(static_cast<MSVehicle&>(v));
+    return emitLane != 0 && emitLane->emit(static_cast<MSVehicle&>(v));
 }
 
 

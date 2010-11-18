@@ -58,7 +58,7 @@ MSEmitControl::~MSEmitControl() throw() {
 
 
 void
-MSEmitControl::add(MSVehicle *veh) throw() {
+MSEmitControl::add(SUMOVehicle *veh) throw() {
     myAllVeh.add(veh);
 }
 
@@ -138,25 +138,24 @@ MSEmitControl::emitVehicles(SUMOTime time) throw(ProcessError) {
 
 
 unsigned int
-MSEmitControl::tryEmit(SUMOTime time, MSVehicle *veh,
+MSEmitControl::tryEmit(SUMOTime time, SUMOVehicle *veh,
                        MSVehicleContainer::VehicleVector &refusedEmits) throw(ProcessError) {
-    assert(veh->getDesiredDepart() < time + DELTA_T);
+    assert(veh->getParameter().depart < time + DELTA_T);
     veh->onTryEmit();
-    const MSEdge &edge = veh->getDepartEdge();
+    const MSEdge &edge = *veh->getEdge();
     if ((!myCheckEdgesOnce || edge.getLastFailedEmissionTime()!=time) && edge.emit(*veh, time)) {
         // Successful emission.
         checkFlowWait(veh);
         veh->onDepart();
         return 1;
     }
-    if (myMaxDepartDelay != -1 && time - veh->getDesiredDepart() > myMaxDepartDelay) {
+    if (myMaxDepartDelay != -1 && time - veh->getParameter().depart > myMaxDepartDelay) {
         // remove vehicles waiting too long for departure
         checkFlowWait(veh);
         myVehicleControl.deleteVehicle(veh);
     } else if (edge.isVaporizing()) {
         // remove vehicles if the edge shall be empty
         checkFlowWait(veh);
-        veh->setWasVaporized(true);
         myVehicleControl.deleteVehicle(veh);
     } else {
         // let the vehicle wait one step, we'll retry then
@@ -168,7 +167,7 @@ MSEmitControl::tryEmit(SUMOTime time, MSVehicle *veh,
 
 
 void
-MSEmitControl::checkFlowWait(MSVehicle *veh) throw() {
+MSEmitControl::checkFlowWait(SUMOVehicle *veh) throw() {
     for (std::vector<Flow>::iterator i=myFlows.begin(); i!=myFlows.end(); ++i) {
         if (i->vehicle == veh) {
             i->vehicle = 0;

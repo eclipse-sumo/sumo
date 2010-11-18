@@ -306,7 +306,7 @@ public:
      * @return Whether the vehicle could be emitted
      * @see MSLane::emit
      */
-    bool emit(MSVehicle &v, SUMOTime time) const throw(ProcessError);
+    bool emit(SUMOVehicle &v, SUMOTime time) const throw(ProcessError);
 
 
     /** @brief Finds the emptiest lane allowing the vehicle class

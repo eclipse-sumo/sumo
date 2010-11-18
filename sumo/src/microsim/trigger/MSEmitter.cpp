@@ -109,8 +109,8 @@ MSEmitter::MSEmitter_FileTriggeredChild::buildAndScheduleFlowVehicle() {
         return;// false;
     }
 
-    MSVehicle *veh =
-        MSNet::getInstance()->getVehicleControl().buildVehicle(pars, aEmitRoute, aVehType);
+    MSVehicle *veh = static_cast<MSVehicle*>(
+        MSNet::getInstance()->getVehicleControl().buildVehicle(pars, aEmitRoute, aVehType));
     myParent.schedule(this, veh, -1);
     myHaveNext = true;
 }
@@ -245,7 +245,7 @@ MSEmitter::MSEmitter_FileTriggeredChild::myStartElement(SumoXMLTag element,
             }
         }
         // build vehicle
-        MSVehicle *veh = MSNet::getInstance()->getVehicleControl().buildVehicle(pars, aEmitRoute, aVehType);
+        MSVehicle *veh = static_cast<MSVehicle*>(MSNet::getInstance()->getVehicleControl().buildVehicle(pars, aEmitRoute, aVehType));
         myParent.schedule(this, veh, pars->departSpeed);
         myHaveNext = true;
         myOffset = SUMOTime(pars->depart);
@@ -315,10 +315,6 @@ MSEmitter::childCheckEmit(MSEmitterChild *child) {
         throw 1;
     }
     if (child!=myActiveChild||myDestLane->getEdge().isVaporizing()) {
-        // check whether this is due to vaporization
-        if (myDestLane->getEdge().isVaporizing()) {
-            myToEmit[child].first->setWasVaporized(true);
-        }
         // remove the vehicle previously inserted by the child
         delete myToEmit[child].first;
         // erase the child information

@@ -486,7 +486,7 @@ MSRouteHandler::closeVehicle() throw(ProcessError) {
     myActiveRouteID = "";
 
     // try to build the vehicle
-    MSVehicle *vehicle = 0;
+    SUMOVehicle *vehicle = 0;
     if (MSNet::getInstance()->getVehicleControl().getVehicle(myVehicleParameter->id)==0) {
         // ok there was no other vehicle with the same id, yet
         // maybe we do not want this vehicle to be emitted due to using incremental dua

@@ -29,6 +29,7 @@
 #include <config.h>
 #endif
 
+#include "MSBaseVehicle.h"
 #include "MSEdge.h"
 #include "MSRoute.h"
 #include "MSCORN.h"
@@ -77,13 +78,7 @@ class MSMessageEmitter;
  * @class MSVehicle
  * @brief Representation of a vehicle in the micro simulation
  */
-class MSVehicle :
-#ifdef HAVE_MESOSIM
-        public MEVehicle
-#else
-        public SUMOVehicle
-#endif
-{
+class MSVehicle : public MSBaseVehicle {
 public:
 
     /// the lane changer sets myLastLaneChangeOffset
@@ -137,15 +132,6 @@ public:
     /// @name emission handling
     //@{
 
-    /** @brief Returns the vehicle's parameter (including departure definition)
-     *
-     * @return The vehicle's parameter
-     */
-    const SUMOVehicleParameter &getParameter() const throw() {
-        return *myParameter;
-    }
-
-
     /** @brief Returns the edge the vehicle starts from
      * @return The vehicle's departure edge
      */
@@ -164,13 +150,6 @@ public:
 
     /// @name insertion/removal
     //@{
-
-    /** @brief Called when the vehicle tries to get into the network
-     *
-     * Calls the appropriate device function, needed for rerouting.
-     */
-    void onTryEmit() throw();
-
 
     /** @brief Called when the vehicle is inserted into the network
      *
@@ -195,57 +174,10 @@ public:
     /// @name interaction with the route
     //@{
 
-    /** @brief Returns whether the vehicle has still to pass nSuccs edges
-     * @param[in] nSuccs The number of edge to look forward
-     * @return Whether the rest of the route is at least as long as nSuccs
-     */
-    inline bool hasSuccEdge(unsigned int nSuccs) const throw() {
-        return myCurrEdge + nSuccs < myRoute->end();
-    }
-
-    /** @brief Returns the nSuccs'th successor of edge the vehicle is currently at
-     *
-     * If the rest of the route (counted from the current edge) than nSuccs,
-     *  0 is returned.
-     * @param[in] nSuccs The number of edge to look forward
-     * @return The nSuccs'th following edge in the vehicle's route
-     */
-    const MSEdge* succEdge(unsigned int nSuccs) const throw();
-
-
     /** @brief Returns the information whether the vehicle should end now
      * @return Whether the route ends
      */
     bool ends() const throw();
-
-
-    /** @brief Returns the current route
-     * @return The route the vehicle uses
-     */
-    const MSRoute &getRoute() const throw() {
-        return *myRoute;
-    }
-
-
-    /** @brief Returns the current or a previously used route
-     * @param[in] index The route to return (0 is the current route; other have an index>0)
-     * @return The current (index=0) or a prior route
-     * @todo Should an exception be thrown if a not existing route is requested?
-     */
-    const MSRoute &getRoute(int index) const throw();
-
-
-    /** @brief Replaces the current route by the given edges
-     *
-     * It is possible that the new route is not accepted, if a) it does not
-     *  contain the vehicle's current edge, or b) something fails on insertion
-     *  into the routes container (see in-line comments).
-     *
-     * @param[in] edges The new list of edges to pass
-     * @param[in] simTime The time at which the route was replaced
-     * @return Whether the new route was accepted
-     */
-    bool replaceRoute(const MSEdgeVector &edges, SUMOTime simTime, bool onInit=false) throw();
 
 
     /** @brief Replaces the current route by the given one
@@ -254,10 +186,9 @@ public:
      *  contain the vehicle's current edge.
      *
      * @param[in] route The new route to pass
-     * @param[in] simTime The time at which the route was replaced
      * @return Whether the new route was accepted
      */
-    bool replaceRoute(const MSRoute* route, SUMOTime simTime, bool onInit=false) throw();
+    bool replaceRoute(const MSRoute* route, bool onInit=false) throw();
 
 
     /** @brief Returns whether the vehicle wil pass the given edge
@@ -266,18 +197,6 @@ public:
      * @todo Move to MSRoute?
      */
     bool willPass(const MSEdge * const edge) const throw();
-
-
-    /** @brief Performs a rerouting using the given router
-     *
-     * Tries to find a new route between the current edge and the destination edge, first.
-     * Tries to replace the current route by the new one using replaceRoute.
-     *
-     * @param[in] t The time for which the route is computed
-     * @param[in] router The router to use
-     * @see replaceRoute
-     */
-    void reroute(SUMOTime t, SUMOAbstractRouter<MSEdge, SUMOVehicle> &router, bool withTaz=false) throw();
 
 
     /** @brief Returns the vehicle's internal edge travel times/efforts container
@@ -390,15 +309,6 @@ public:
      * @see MSMoveReminder
      */
     void workOnMoveReminders(SUMOReal oldPos, SUMOReal newPos, SUMOReal newSpeed) throw();
-
-
-    /** @brief Returns the vehicle's position in relation to a passed move reminder lane
-     *
-     * @param[in] searchedLane The lane to search for within move reminder
-     * @return The distance to this lane (vehicle position + lane offset); -1 if n move reminder is placed on this lane
-     * @todo Maybe this should be rechecked - the name says it: much to complicated and the parameter should be a move reminder?
-     */
-    SUMOReal getPositionOnActiveMoveReminderLane(const MSLane * const searchedLane) const throw();
     //@}
 
 
@@ -422,11 +332,6 @@ public:
      * @return The position of the vehicle (in m from the lane's begin)
      */
     SUMOReal getPositionOnLane() const throw() {
-#ifdef HAVE_MESOSIM
-        if (MSGlobals::gUseMesoSim) {
-            return MEVehicle::getPositionOnLane();
-        }
-#endif
         return myState.myPos;
     }
 
@@ -435,11 +340,6 @@ public:
      * @return The vehicle's speed
      */
     SUMOReal getSpeed() const throw() {
-#ifdef HAVE_MESOSIM
-        if (MSGlobals::gUseMesoSim) {
-            return MEVehicle::getSpeed();
-        }
-#endif
         return myState.mySpeed;
     }
 
@@ -452,23 +352,6 @@ public:
     //@}
 
 
-
-    SUMOReal getMaxSpeed() const {
-        if (myHasIndividualMaxSpeed)
-            return myIndividualMaxSpeed;
-        return myType->getMaxSpeed();
-    }
-
-    SUMOReal adaptMaxSpeed(SUMOReal referenceSpeed) {
-        if (myType->hasSpeedDeviation() && referenceSpeed != myReferenceSpeed) {
-            myHasIndividualMaxSpeed = true;
-            myIndividualMaxSpeed = myType->getMaxSpeedWithDeviation(referenceSpeed);
-            myReferenceSpeed = referenceSpeed;
-        }
-        if (myHasIndividualMaxSpeed)
-            return myIndividualMaxSpeed;
-        return MIN2(myType->getMaxSpeed(), referenceSpeed);
-    }
 
     void setIndividualMaxSpeed(SUMOReal individualMaxSpeed) {
         myHasIndividualMaxSpeed = true;
@@ -483,9 +366,6 @@ public:
         myPreDawdleAcceleration = accel;
     }
 
-
-    /// Returns the name of the vehicle
-    const std::string &getID() const throw();
 
     /** Returns true if the two vehicles overlap. */
     static bool overlap(const MSVehicle* veh1, const MSVehicle* veh2) {
@@ -504,17 +384,6 @@ public:
 
     /// Return current Position
     Position2D getPosition() const;
-
-
-    /// @name state io
-    //@{
-
-    /// Saves the states of a vehicle
-    void saveState(std::ostream &os);
-    //@}
-
-
-    const MSEdge * const getEdge() const;
 
 
     /** @brief Update when the vehicle enters a new lane in the move step.
@@ -562,11 +431,6 @@ public:
      * @return Whether the vehicle is simulated
      */
     inline bool isOnRoad() const throw() {
-#ifdef HAVE_MESOSIM
-        if (MSGlobals::gUseMesoSim) {
-            return MEVehicle::getSegment() != 0;
-        }
-#endif
         return myLane!=0;
     }
 
@@ -653,14 +517,6 @@ public:
     /// @}
 
 
-    /** @brief Returns the vehicle's type definition
-     * @return The vehicle's type definition
-     */
-    inline const MSVehicleType &getVehicleType() const throw() {
-        return *myType;
-    }
-
-
     /** @brief Replaces the current vehicle type by the one given
      *
      * If the currently used vehicle type is marked as being used by this vehicle
@@ -682,9 +538,6 @@ public:
     inline const MSCFModel &getCarFollowModel() const throw() {
         return myType->getCarFollowModel();
     }
-
-
-    void writeXMLRoute(OutputDevice &os, int index=-1) const;
 
 
     /// @name vehicle stops definitions and i/o
@@ -745,16 +598,6 @@ public:
     /// @}
 
     bool knowsEdgeTest(MSEdge &edge) const;
-
-
-    /** @brief Returns this vehicle's devices
-     * @return This vehicle's devices
-     */
-    const std::vector<MSDevice*> &getDevices() const {
-        return myDevices;
-    }
-
-    void setWasVaporized(bool onDepart);
 
     /**
      * Compute distance that will be covered, if the vehicle moves to a given position on its route,
@@ -1015,11 +858,6 @@ protected:
 
 
     void setBlinkerInformation() throw();
-#ifndef HAVE_MESOSIM
-    SUMOReal getSegmentLength() const throw() {
-        return 0;
-    }
-#endif
 
 
     /// Use this constructor only.
@@ -1042,33 +880,13 @@ protected:
     MSMessageEmitter *myHBMsgEmitter;
 #endif
 
-    /// @brief This Vehicle's parameter.
-    const SUMOVehicleParameter* myParameter;
-
-    /// @brief This Vehicle's route.
-    const MSRoute* myRoute;
-
     /// @brief This Vehicles driving state (pos and speed)
     State myState;
-
-    /// An individual speed for an vehicle that is used (iff set) instead of
-    /// the maximal speed of the vehicle class.
-    /// NOTE: This is just a little workaround for allowing an external
-    ///       influence on the actual speed
-    SUMOReal myIndividualMaxSpeed;
-
-    /// is true if there has an individual speed been set
-    bool myHasIndividualMaxSpeed;
-
-    /// the speed which served as reference when calculating the individual maxspeed
-    SUMOReal myReferenceSpeed;
 
     /// The lane the vehicle is on
     MSLane* myLane;
 
     MSAbstractLaneChangeModel *myLaneChangeModel;
-
-    const MSVehicleType *myType;
 
     mutable const MSEdge *myLastBestLanesEdge;
     mutable std::vector<std::vector<LaneQ> > myBestLanes;
@@ -1095,13 +913,6 @@ protected:
 
 
 private:
-    /// @brief The devices this vehicle has
-    std::vector<MSDevice*> myDevices;
-
-    /// @brief Iterator to current route-edge
-    MSRouteIterator myCurrEdge;
-
-
     struct DriveProcessItem {
         MSLink *myLink;
         SUMOReal myVLinkPass;
@@ -1120,58 +931,6 @@ private:
 
     /// Container for used Links/visited Lanes during lookForward.
     DriveItemVector myLFLinkLanes;
-
-
-    /// @name Move reminder structures
-    /// @{
-
-    /// @brief Definition of a move reminder container
-    typedef std::vector< std::pair<MSMoveReminder*, SUMOReal> > MoveReminderCont;
-
-    /// @brief Current lane's move reminder
-    MoveReminderCont myMoveReminders;
-    /// @}
-
-
-    /**
-     * @class RouteReplaceInfo
-     * @brief Information about a replaced route
-     *
-     * Generated optionally and stored in a vector within the Pointer-CORN-map
-     *  this structure contains information about a replaced route: the edge
-     *  the route was replaced at by a new one, the time this was done, and
-     *  the previous route.
-     */
-    class RouteReplaceInfo {
-    public:
-        /// Constructor
-        RouteReplaceInfo(const MSEdge * const edge_, const SUMOTime time_, const MSRoute * const route_)
-                : edge(edge_), time(time_), route(route_) {}
-
-        /// Destructor
-        ~RouteReplaceInfo() { }
-
-        /// The edge the vehicle was on when the route was replaced
-        const MSEdge * edge;
-
-        /// The time the route was replaced
-        SUMOTime time;
-
-        /// The prior route
-        const MSRoute * route;
-
-    };
-
-    /// Definition of the vector which stores information about replaced routes
-    typedef std::vector<RouteReplaceInfo> ReplacedRoutesVector;
-
-
-    struct DepartArrivalInformation {
-        SUMOTime time;
-        MSLane *lane;
-        SUMOReal pos;
-        SUMOReal speed;
-    };
 
 
     /// @brief The vehicle's knowledge about edge efforts/travel times; @see MSEdgeWeightsStorage

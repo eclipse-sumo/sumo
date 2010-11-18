@@ -35,6 +35,7 @@
 #include "MSVehicle.h"
 #include "MSPersonControl.h"
 #include <utils/iodevices/OutputDevice.h>
+#include <utils/options/OptionsCont.h>
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -69,14 +70,14 @@ MSPersonControl::add(const std::string &id, MSPerson *person) {
 void
 MSPersonControl::erase(MSPerson *person) {
     const std::string &id = person->getID();
-    if (MSCORN::wished(MSCORN::CORN_OUT_TRIPDURATIONS)) {
+    if (OptionsCont::getOptions().isSet("tripinfo-output")) {
         OutputDevice& od = OutputDevice::getDeviceByOption("tripinfo-output");
         od.openTag("personinfo") << " id=\"" << id << "\" ";
         od << "depart=\"" << time2string(person->getDesiredDepart()) << "\">\n";
         person->tripInfoOutput(od);
         od.closeTag();
     }
-    if (MSCORN::wished(MSCORN::CORN_OUT_VEHROUTES)) {
+    if (OptionsCont::getOptions().isSet("vehroute-output")) {
         OutputDevice& od = OutputDevice::getDeviceByOption("vehroute-output");
         od.openTag("person") << " id=\"" << id
         << "\" depart=\"" << time2string(person->getDesiredDepart())

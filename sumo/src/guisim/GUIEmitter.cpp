@@ -148,7 +148,7 @@ GUIEmitter::GUIEmitterChild_UserTriggeredChild::wrappedExecute(SUMOTime currentT
             return 0;
         }
         p->depart = currentTime;
-        myVehicle = MSNet::getInstance()->getVehicleControl().buildVehicle(p, aRoute, aType);
+        myVehicle = static_cast<MSVehicle*>(MSNet::getInstance()->getVehicleControl().buildVehicle(p, aRoute, aType));
         myParent.schedule(this, myVehicle, -1);
     }
     if (myParent.childCheckEmit(this)) {

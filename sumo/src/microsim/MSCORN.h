@@ -55,33 +55,13 @@ public:
      * A list of functions
      */
     enum Function {
-        // standard output
-        CORN_OUT_TRIPDURATIONS,
-        CORN_OUT_EMISSIONS,
-        CORN_OUT_VEHROUTES,
-        CORN_OUT_TAZ,
-
-        CORN_VEH_DEPART_TIME,
-        CORN_VEH_DEPART_INFO,
-        CORN_VEH_ARRIVAL_INFO,
-        CORN_VEH_WAITINGTIME,
-        CORN_MEAN_VEH_TRAVELTIME,
-        CORN_MEAN_VEH_WAITINGTIME,
         CORN_VEH_SAVEREROUTING,
-        CORN_VEH_LASTREROUTEOFFSET,
-        CORN_VEH_NUMBERROUTE,
-        CORN_VEH_VAPORIZED,
-        CORN_VEH_SAVE_EDGE_EXIT,
 
         CORN_MAX
     };
 
     enum Pointer {
-        CORN_P_VEH_DEPART_INFO,
-        CORN_P_VEH_ARRIVAL_INFO,
-        CORN_P_VEH_OLDROUTE,
         CORN_P_VEH_PASSENGER,
-        CORN_P_VEH_EXIT_TIMES,
         CORN_P_MAX
     };
 

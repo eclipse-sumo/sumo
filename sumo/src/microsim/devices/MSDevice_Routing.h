@@ -89,7 +89,7 @@ public:
      * @param[in] v The vehicle for which a device may be built
      * @param[in, filled] into The vector to store the built device in
      */
-    static void buildVehicleDevices(MSVehicle &v, std::vector<MSDevice*> &into) throw();
+    static void buildVehicleDevices(SUMOVehicle &v, std::vector<MSDevice*> &into) throw();
 
 
 public:
@@ -136,7 +136,7 @@ private:
      * @param[in] period The period with which a new route shall be searched
      * @param[in] preEmitPeriod The route search period before emit
      */
-    MSDevice_Routing(MSVehicle &holder, const std::string &id, SUMOTime period,
+    MSDevice_Routing(SUMOVehicle &holder, const std::string &id, SUMOTime period,
                      SUMOTime preEmitPeriod) throw();
 
 
