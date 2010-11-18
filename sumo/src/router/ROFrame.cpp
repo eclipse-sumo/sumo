@@ -95,7 +95,7 @@ ROFrame::fillOptions(OptionsCont &oc) {
     oc.addDescription("max-alternatives", "Processing", "Prune the number of alternatives to INT");
 
     oc.doRegister("remove-loops", new Option_Bool(false));
-    oc.addDescription("remove-loops", "Processing", "Remove loops at start and end of the route");
+    oc.addDescription("remove-loops", "Processing", "Remove loops within the route; Remove turnarounds at start and end of the route");
 
     oc.doRegister("repair", new Option_Bool(false));
     oc.addDescription("repair", "Processing", "Tries to correct a false route");
