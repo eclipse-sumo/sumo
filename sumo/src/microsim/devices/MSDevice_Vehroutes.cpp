@@ -53,7 +53,7 @@ MSDevice_Vehroutes::StateListener MSDevice_Vehroutes::myStateListener;
 // static initialisation methods
 // ---------------------------------------------------------------------------
 void
-MSDevice_Vehroutes::init() throw() {
+MSDevice_Vehroutes::init() throw(IOError) {
     if (OptionsCont::getOptions().isSet("vehroute-output")) {
         OutputDevice::createDeviceByOption("vehroute-output", "routes");
         mySaveExits = OptionsCont::getOptions().getBool("vehroute-output.exit-times");

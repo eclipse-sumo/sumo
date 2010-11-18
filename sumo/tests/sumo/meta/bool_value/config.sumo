@@ -7,11 +7,6 @@
         <route-files value="input_routes.rou.xml"/>
     </input>
 
-    <time>
-        <begin value="0"/>
-        <end value="100"/>
-    </time>
-
     <report>
         <no-duration-log value="true"/>
     </report>

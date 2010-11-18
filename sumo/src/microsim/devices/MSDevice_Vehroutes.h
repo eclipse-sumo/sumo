@@ -56,7 +56,7 @@ class MSDevice_Vehroutes : public MSDevice {
 public:
     /** @brief Static intialization
      */
-    static void init() throw();
+    static void init() throw(IOError);
 
 
     /** @brief Build devices for the given vehicle, if needed
