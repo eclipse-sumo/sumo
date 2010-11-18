@@ -31,5 +31,5 @@
 -->
 
 <tripinfos>
-    <tripinfo id="0" depart="0.00" departLane="" departPos="0.00" departSpeed="0.00" departDelay="0.00" arrival="18.00" arrivalLane="" arrivalPos="" arrivalSpeed="" duration="18.00" routeLength="1000.00" waitSteps="0" rerouteNo="0" devices="" vtype="DEFAULT_VEHTYPE" vaporized="0"/>
+    <tripinfo id="0" depart="0.00" departLane="" departPos="0.00" departSpeed="0.00" departDelay="0.00" arrival="18.00" arrivalLane="" arrivalPos="" arrivalSpeed="" duration="18.00" routeLength="1000.00" waitSteps="0" rerouteNo="0" devices="tripinfo_0" vtype="DEFAULT_VEHTYPE" vaporized="0"/>
 </tripinfos>

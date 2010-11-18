@@ -29,7 +29,7 @@
 -->
 
 <tripinfos>
-    <tripinfo id="bus_1" depart="0.00" departLane="2/0to2/1_0" departPos="15.10" departSpeed="0.00" departDelay="0.00" arrival="515.00" arrivalLane="2/0to2/1_0" arrivalPos="191.46" arrivalSpeed="1.90" duration="515.00" routeLength="3242.36" waitSteps="190" rerouteNo="0" devices="" vtype="bus" vaporized=""/>
-    <tripinfo id="bus_2" depart="0.00" departLane="2/0to2/1_0" departPos="0.00" departSpeed="0.00" departDelay="0.00" arrival="595.00" arrivalLane="2/0to2/1_0" arrivalPos="190.93" arrivalSpeed="1.05" duration="595.00" routeLength="3256.93" waitSteps="245" rerouteNo="0" devices="" vtype="bus" vaporized=""/>
-    <tripinfo id="bus_3" depart="7.00" departLane="2/0to2/1_0" departPos="15.10" departSpeed="0.00" departDelay="3.00" arrival="675.00" arrivalLane="2/0to2/1_0" arrivalPos="191.46" arrivalSpeed="1.19" duration="668.00" routeLength="3242.36" waitSteps="296" rerouteNo="0" devices="" vtype="bus" vaporized=""/>
+    <tripinfo id="bus_1" depart="0.00" departLane="2/0to2/1_0" departPos="15.10" departSpeed="0.00" departDelay="0.00" arrival="515.00" arrivalLane="2/0to2/1_0" arrivalPos="191.46" arrivalSpeed="1.90" duration="515.00" routeLength="3242.36" waitSteps="190" rerouteNo="0" devices="tripinfo_bus_1" vtype="bus" vaporized=""/>
+    <tripinfo id="bus_2" depart="0.00" departLane="2/0to2/1_0" departPos="0.00" departSpeed="0.00" departDelay="0.00" arrival="595.00" arrivalLane="2/0to2/1_0" arrivalPos="190.93" arrivalSpeed="1.05" duration="595.00" routeLength="3256.93" waitSteps="245" rerouteNo="0" devices="tripinfo_bus_2" vtype="bus" vaporized=""/>
+    <tripinfo id="bus_3" depart="7.00" departLane="2/0to2/1_0" departPos="15.10" departSpeed="0.00" departDelay="3.00" arrival="675.00" arrivalLane="2/0to2/1_0" arrivalPos="191.46" arrivalSpeed="1.19" duration="668.00" routeLength="3242.36" waitSteps="296" rerouteNo="0" devices="tripinfo_bus_3" vtype="bus" vaporized=""/>
 </tripinfos>

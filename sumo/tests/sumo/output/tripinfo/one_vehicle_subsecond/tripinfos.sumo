@@ -26,5 +26,5 @@
 -->
 
 <tripinfos>
-    <tripinfo id="0" depart="0.00" departLane="4/1to3/1_0" departPos="100.00" departSpeed="10.00" departDelay="0.00" arrival="107.20" arrivalLane="1/1to0/1_0" arrivalPos="0.50" arrivalSpeed="10.00" duration="107.20" routeLength="1072.00" waitSteps="0" rerouteNo="0" devices="" vtype="DEFAULT_VEHTYPE" vaporized=""/>
+    <tripinfo id="0" depart="0.00" departLane="4/1to3/1_0" departPos="100.00" departSpeed="10.00" departDelay="0.00" arrival="107.20" arrivalLane="1/1to0/1_0" arrivalPos="0.50" arrivalSpeed="10.00" duration="107.20" routeLength="1072.00" waitSteps="0" rerouteNo="0" devices="tripinfo_0" vtype="DEFAULT_VEHTYPE" vaporized=""/>
 </tripinfos>
