@@ -124,27 +124,12 @@ public:
 
 
 
+    /// Use this constructor only.
+    MSVehicle(SUMOVehicleParameter* pars, const MSRoute* route,
+              const MSVehicleType* type, int vehicleIndex) throw(ProcessError);
+
     /// @brief Destructor.
     virtual ~MSVehicle() throw();
-
-
-
-    /// @name emission handling
-    //@{
-
-    /** @brief Returns the edge the vehicle starts from
-     * @return The vehicle's departure edge
-     */
-    const MSEdge &getDepartEdge() const {
-        return **myCurrEdge;
-    }
-
-
-    /// Returns the desired departure time.
-    SUMOTime getDesiredDepart() const throw() {
-        return myParameter->depart;
-    }
-    //@}
 
 
 
@@ -415,8 +400,6 @@ public:
     /** @brief Update of members if vehicle leaves a new lane in the lane change step or at arrival. */
     void leaveLane(const bool isArrival, const bool isLaneChange);
 
-
-    friend class MSVehicleControl;
 
     void vsafeCriticalCont(SUMOTime t, SUMOReal minVSafe, SUMOReal lengthsInFront);
 
@@ -859,10 +842,6 @@ protected:
 
     void setBlinkerInformation() throw();
 
-
-    /// Use this constructor only.
-    MSVehicle(SUMOVehicleParameter* pars, const MSRoute* route,
-              const MSVehicleType* type, int vehicleIndex) throw(ProcessError);
 
     /// @brief the lane, the vehicle will be within the next time step (0 if the vehicle stays on the same it was before)
     MSLane *myTarget;

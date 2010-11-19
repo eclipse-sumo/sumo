@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 11/18/10 13:57:44 by SUMO sumo Version dev-SVN-r9369
+<!-- generated on 11/19/10 14:49:30 by SUMO sumo Version dev-SVN-r9385
 <?xml version="1.0" encoding="iso-8859-1"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/sumoConfiguration.xsd">
@@ -53,7 +53,7 @@
         <emissions CO_abs="6.5" CO2_abs="3.1e+003" HC_abs="1.8" PMx_abs="1.3" NOx_abs="41" fuel_abs="1.2"/>
     </tripinfo>
     <tripinfo id="HDV_6_5" depart="180.00" departLane="beg_0" departPos="0.00" departSpeed="19.44" departDelay="0.00" arrival="381.00" arrivalLane="rend_0" arrivalPos="12.38" arrivalSpeed="19.27" duration="201.00" routeLength="2993.58" waitSteps="0" rerouteNo="0" devices="tripinfo_HDV_6_5 hbefa_HDV_6_5" vtype="HDV_6_5" vaporized="">
-        <emissions CO_abs="5.4" CO2_abs="3.1e+003" HC_abs="2.1" PMx_abs="1.1" NOx_abs="41" fuel_abs="1.2"/>
+        <emissions CO_abs="5.4" CO2_abs="3.1e+003" HC_abs="2.1" PMx_abs="1.2" NOx_abs="41" fuel_abs="1.2"/>
     </tripinfo>
     <tripinfo id="HDV_6_6" depart="200.00" departLane="beg_0" departPos="0.00" departSpeed="19.44" departDelay="0.00" arrival="401.00" arrivalLane="rend_0" arrivalPos="12.38" arrivalSpeed="19.27" duration="201.00" routeLength="2993.58" waitSteps="0" rerouteNo="0" devices="tripinfo_HDV_6_6 hbefa_HDV_6_6" vtype="HDV_6_6" vaporized="">
         <emissions CO_abs="6.3" CO2_abs="2.4e+003" HC_abs="2.1" PMx_abs="1" NOx_abs="27" fuel_abs="0.96"/>
@@ -83,7 +83,7 @@
         <emissions CO_abs="8.4" CO2_abs="2.1e+003" HC_abs="2.6" PMx_abs="1.1" NOx_abs="30" fuel_abs="0.82"/>
     </tripinfo>
     <tripinfo id="HDV_12_9" depart="460.00" departLane="beg_0" departPos="0.00" departSpeed="19.44" departDelay="0.00" arrival="661.00" arrivalLane="rend_0" arrivalPos="12.38" arrivalSpeed="19.27" duration="201.00" routeLength="2993.58" waitSteps="0" rerouteNo="0" devices="tripinfo_HDV_12_9 hbefa_HDV_12_9" vtype="HDV_12_9" vaporized="">
-        <emissions CO_abs="5.4" CO2_abs="3.1e+003" HC_abs="2.1" PMx_abs="1.1" NOx_abs="41" fuel_abs="1.2"/>
+        <emissions CO_abs="5.4" CO2_abs="3.1e+003" HC_abs="2.1" PMx_abs="1.2" NOx_abs="41" fuel_abs="1.2"/>
     </tripinfo>
     <tripinfo id="HDV_12_10" depart="480.00" departLane="beg_0" departPos="0.00" departSpeed="19.44" departDelay="0.00" arrival="681.00" arrivalLane="rend_0" arrivalPos="12.38" arrivalSpeed="19.27" duration="201.00" routeLength="2993.58" waitSteps="0" rerouteNo="0" devices="tripinfo_HDV_12_10 hbefa_HDV_12_10" vtype="HDV_12_10" vaporized="">
         <emissions CO_abs="4.6" CO2_abs="2.9e+003" HC_abs="1.2" PMx_abs="0.4" NOx_abs="21" fuel_abs="1.2"/>

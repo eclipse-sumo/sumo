@@ -73,7 +73,7 @@ MSDevice_HBEFA::insertOptions() throw() {
 void
 MSDevice_HBEFA::buildVehicleDevices(SUMOVehicle &v, std::vector<MSDevice*> &into) throw() {
     OptionsCont &oc = OptionsCont::getOptions();
-    if (oc.getFloat("device.hbefa.probability")==0&&!oc.isSet("device.hbefa.knownveh")) {
+    if (oc.getFloat("device.hbefa.probability")==0 && !oc.isSet("device.hbefa.knownveh")) {
         // no route computation is modelled
         return;
     }
@@ -98,47 +98,30 @@ MSDevice_HBEFA::buildVehicleDevices(SUMOVehicle &v, std::vector<MSDevice*> &into
 // MSDevice_HBEFA-methods
 // ---------------------------------------------------------------------------
 MSDevice_HBEFA::MSDevice_HBEFA(SUMOVehicle &holder, const std::string &id) throw()
-        : MSDevice(holder, id), myComputeAndCollectCommand(0),
+      : MSDevice(holder, id), myLastUpdate(-1),
         myCO2(0), myCO(0), myHC(0), myPMx(0), myNOx(0), myFuel(0) {
 }
 
 
 MSDevice_HBEFA::~MSDevice_HBEFA() throw() {
-    // make the rerouting command invalid
-    if (myComputeAndCollectCommand!=0) {
-        myComputeAndCollectCommand->deschedule();
-    }
 }
 
 
 bool
-MSDevice_HBEFA::notifyEnter(SUMOVehicle& veh, bool isEmit, bool isLaneChange) throw() {
-    if (!isEmit || myComputeAndCollectCommand!=0) {
-        return false;
+MSDevice_HBEFA::isStillActive(SUMOVehicle& veh, SUMOReal oldPos, SUMOReal newPos, SUMOReal newSpeed) throw() {
+    if (myLastUpdate == MSNet::getInstance()->getCurrentTimeStep()) {
+        return true;
     }
-    myComputeAndCollectCommand = new WrappingCommand< MSDevice_HBEFA >(this, &MSDevice_HBEFA::wrappedComputeCommandExecute);
-    MSNet::getInstance()->getEndOfTimestepEvents().addEvent(
-        myComputeAndCollectCommand, MSNet::getInstance()->getCurrentTimeStep(),
-        MSEventControl::ADAPT_AFTER_EXECUTION);
-    return false;
-}
-
-
-SUMOTime
-MSDevice_HBEFA::wrappedComputeCommandExecute(SUMOTime currentTime) throw(ProcessError) {
-    if (!getHolder().isOnRoad()) {
-        return 1;
-    }
-    SUMOEmissionClass c = getHolder().getVehicleType().getEmissionClass();
-    SUMOReal v = getHolder().getSpeed();
-    SUMOReal a = getHolder().getPreDawdleAcceleration();
-    myCO2 += HelpersHBEFA::computeCO2(c, v, a);
-    myCO += HelpersHBEFA::computeCO(c, v, a);
-    myHC += HelpersHBEFA::computeHC(c, v, a);
-    myPMx += HelpersHBEFA::computePMx(c, v, a);
-    myNOx += HelpersHBEFA::computeNOx(c, v, a);
-    myFuel += HelpersHBEFA::computeFuel(c, v, a);
-    return DELTA_T;
+    myLastUpdate = MSNet::getInstance()->getCurrentTimeStep();
+    SUMOEmissionClass c = veh.getVehicleType().getEmissionClass();
+    SUMOReal a = veh.getPreDawdleAcceleration();
+    myCO2 += HelpersHBEFA::computeCO2(c, newSpeed, a);
+    myCO += HelpersHBEFA::computeCO(c, newSpeed, a);
+    myHC += HelpersHBEFA::computeHC(c, newSpeed, a);
+    myPMx += HelpersHBEFA::computePMx(c, newSpeed, a);
+    myNOx += HelpersHBEFA::computeNOx(c, newSpeed, a);
+    myFuel += HelpersHBEFA::computeFuel(c, newSpeed, a);
+    return true;
 }
 
 

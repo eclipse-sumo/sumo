@@ -284,7 +284,7 @@ GUIVehicle::getParameterWindow(GUIMainWindow &app,
                 new FunctionBinding<GUIVehicle, SUMOReal>(this, &MSVehicle::getWaitingSeconds));
     ret->mkItem("last lane change [s]", true,
                 new FunctionBinding<GUIVehicle, SUMOReal>(this, &GUIVehicle::getLastLaneChangeOffset));
-    ret->mkItem("desired depart [s]", false, time2string(getDesiredDepart()));
+    ret->mkItem("desired depart [s]", false, time2string(getParameter().depart));
     ret->mkItem("position [m]", true,
                 new FunctionBinding<GUIVehicle, SUMOReal>(this, &GUIVehicle::getPositionOnLane));
     ret->mkItem("speed [m/s]", true,

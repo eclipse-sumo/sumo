@@ -89,16 +89,22 @@ public:
     /// @name Methods called on vehicle movement / state change, overwriting MSDevice
     /// @{
 
-    /** @brief Computes a new route on vehicle emission
-     *
-     * An event is created and added to the list of simulation step end
-     *  events which executes "wrappedComputeCommandExecute".
-     *
-     * @see MSVehicle::reroute
-     * @see MSEventHandler
-     * @see WrappingCommand
-     */
-    bool notifyEnter(SUMOVehicle& veh, bool isEmit, bool isLaneChange) throw();
+    /** @brief Computes current emission values and adds them to their sums
+        *
+        * The fraction of time the vehicle is on the lane is computed and
+        *  used as a weight for the vehicle's current emission values
+        *  which are computed using the current velocity and acceleration.
+        *
+        * @param[in] veh The regarded vehicle
+        * @param[in] oldPos Position before the move-micro-timestep.
+        * @param[in] newPos Position after the move-micro-timestep.
+        * @param[in] newSpeed The vehicle's current speed
+        * @return false, if the vehicle is beyond the lane, true otherwise
+        * @see MSMoveReminder
+        * @see MSMoveReminder::isStillActive
+        * @see HelpersHBEFA
+        */
+    bool isStillActive(SUMOVehicle& veh, SUMOReal oldPos, SUMOReal newPos, SUMOReal newSpeed) throw();
     /// @}
 
 
@@ -147,8 +153,8 @@ private:
     /// @brief A static vehicle index for computing deterministic vehicle fractions
     static int myVehicleIndex;
 
-    /// @brief The (optional) command responsible for rerouting
-    WrappingCommand< MSDevice_HBEFA >* myComputeAndCollectCommand;
+    /// @brief The timestep of the last update
+    SUMOTime myLastUpdate;
 
     /// @name Internal storages for pollutant/fuel sum
     /// @{

@@ -85,7 +85,7 @@ public:
     void release() const;
 
     /// output the edge ids up to but not including the id of the given edge
-    void writeEdgeIDs(OutputDevice &os, const MSEdge *upTo=0) const;
+    unsigned int writeEdgeIDs(OutputDevice &os, const unsigned int from, const MSEdge *upTo=0) const;
 
     bool contains(const MSEdge * const edge) const throw() {
         return find(edge)!=myEdges.end();

@@ -126,24 +126,37 @@ MSDevice_Vehroutes::writeXMLRoute(OutputDevice &os, int index) const {
     if (index>=0) {
         assert((int) myReplacedRoutes.size()>index);
         // write edge on which the vehicle was when the route was valid
-        os << " replacedOnEdge=\"" << myReplacedRoutes[index].edge->getID();
+        os << " replacedOnEdge=\"";
+        if (myReplacedRoutes[index].edge) {
+            os << myReplacedRoutes[index].edge->getID();
+        }
         // write the time at which the route was replaced
         os << "\" replacedAtTime=\"" << time2string(myReplacedRoutes[index].time) << "\" probability=\"0\" edges=\"";
         // get the route
-        for (int i=0; i<index; ++i) {
-            myReplacedRoutes[i].route->writeEdgeIDs(os, myReplacedRoutes[i].edge);
+        unsigned int i = index;
+        while (i > 0 && myReplacedRoutes[i-1].edge) {
+            i--;
         }
-        myReplacedRoutes[index].route->writeEdgeIDs(os);
+        unsigned int edgeIndex = 0;
+        for (; i<index; ++i) {
+            edgeIndex += myReplacedRoutes[i].route->writeEdgeIDs(os, edgeIndex, myReplacedRoutes[i].edge);
+        }
+        myReplacedRoutes[index].route->writeEdgeIDs(os, edgeIndex);
     } else {
         os << " edges=\"";
+        unsigned int edgeIndex = 0;
         if (myHolder.getNumberReroutes() > 0) {
-            int noReroutes = myHolder.getNumberReroutes();
-            assert((int) myReplacedRoutes.size()==noReroutes);
-            for (int i=0; i<noReroutes; ++i) {
-                myReplacedRoutes[i].route->writeEdgeIDs(os, myReplacedRoutes[i].edge);
+            assert(myReplacedRoutes.size()<=myHolder.getNumberReroutes());
+            unsigned int i = myReplacedRoutes.size();
+            while (i > 0 && myReplacedRoutes[i-1].edge) {
+                i--;
+            }
+            unsigned int edgeIndex = 0;
+            for (; i < myReplacedRoutes.size(); ++i) {
+                edgeIndex += myReplacedRoutes[i].route->writeEdgeIDs(os, edgeIndex, myReplacedRoutes[i].edge);
             }
         }
-        myCurrentRoute->writeEdgeIDs(os);
+        myCurrentRoute->writeEdgeIDs(os, edgeIndex);
         if (mySaveExits) {
             os << "\" exitTimes=\"";
             for (std::vector<SUMOTime>::const_iterator it = myExits.begin(); it != myExits.end(); ++it) {
@@ -165,7 +178,7 @@ MSDevice_Vehroutes::generateOutput() const throw(IOError) {
         << " id=\"" << myHolder.getID() << "\" depart=\""
         << time2string(myHolder.getDeparture())
         << "\" arrival=\"" << time2string(MSNet::getInstance()->getCurrentTimeStep());
-    if (OptionsCont::getOptions().getBool("device.routing.with-taz")) {
+    if (myWithTaz) {
         od << "\" fromtaz=\"" << myHolder.getParameter().fromTaz << "\" totaz=\"" << myHolder.getParameter().toTaz;
     }
     od << "\">\n";
@@ -193,7 +206,11 @@ MSDevice_Vehroutes::getRoute(int index) const {
 void
 MSDevice_Vehroutes::addRoute() {
     if (myMaxRoutes > 0) {
-        myReplacedRoutes.push_back(RouteReplaceInfo(myHolder.getEdge(), MSNet::getInstance()->getCurrentTimeStep(), myCurrentRoute));
+        if (myHolder.isOnRoad()) {
+            myReplacedRoutes.push_back(RouteReplaceInfo(myHolder.getEdge(), MSNet::getInstance()->getCurrentTimeStep(), myCurrentRoute));
+        } else {
+            myReplacedRoutes.push_back(RouteReplaceInfo(0, MSNet::getInstance()->getCurrentTimeStep(), myCurrentRoute));
+        }
         myCurrentRoute = &myHolder.getRoute();
         myCurrentRoute->addReference();
         if (myReplacedRoutes.size() > myMaxRoutes) {

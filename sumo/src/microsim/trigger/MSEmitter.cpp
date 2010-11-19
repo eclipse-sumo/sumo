@@ -324,7 +324,7 @@ MSEmitter::childCheckEmit(MSEmitterChild *child) {
     }
     // get the vehicle and the speed the child has read/generated
     MSVehicle *veh = myToEmit[child].first;
-    if (veh->getDesiredDepart()>MSNet::getInstance()->getCurrentTimeStep()) {
+    if (veh->getParameter().depart > MSNet::getInstance()->getCurrentTimeStep()) {
         return false;
     }
     SUMOReal speed = myToEmit[child].second;

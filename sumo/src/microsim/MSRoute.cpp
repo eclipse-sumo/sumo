@@ -184,18 +184,20 @@ MSRoute::find(const MSEdge *e, const MSRouteIterator &startingAt) const {
 }
 
 
-void
-MSRoute::writeEdgeIDs(OutputDevice &os, const MSEdge *upTo) const {
-    MSEdgeVector::const_iterator i = myEdges.begin();
-    for (; i!=myEdges.end(); ++i) {
+unsigned int
+MSRoute::writeEdgeIDs(OutputDevice &os, const unsigned int from, const MSEdge *upTo) const {
+    unsigned int count = 0;
+    for (MSEdgeVector::const_iterator i = myEdges.begin() + from; i != myEdges.end(); ++i) {
         if (i!=myEdges.begin()) {
             os << ' ';
         }
         if ((*i) == upTo) {
-            return;
+            return count;
         }
         os << (*i)->getID();
+        count++;
     }
+    return count;
 }
 
 
