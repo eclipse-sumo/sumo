@@ -50,13 +50,13 @@ class MSMoveReminder;
 // ===========================================================================
 /**
  * @class MSBaseVehicle
- * @brief A vehicle from the mesoscopic point of view
+ * @brief The base class for microscopic and mesoscopic vehicles
  */
 class MSBaseVehicle : public SUMOVehicle {
 public:
     /** @brief Constructor
      */
-    MSBaseVehicle(SUMOVehicleParameter* pars, const MSRoute* route, const MSVehicleType* type) throw();
+    MSBaseVehicle(SUMOVehicleParameter* pars, const MSRoute* route, const MSVehicleType* type) throw(ProcessError);
 
 
     /// @brief Destructor

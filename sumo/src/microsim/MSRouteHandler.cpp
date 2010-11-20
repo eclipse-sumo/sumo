@@ -77,7 +77,6 @@ MSRouteHandler::MSRouteHandler(const std::string &file,
 
 
 MSRouteHandler::~MSRouteHandler() throw() {
-    delete myVehicleParameter;
 }
 
 

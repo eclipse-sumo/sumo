@@ -134,7 +134,7 @@ MSVehicle::~MSVehicle() throw() {
     delete myLaneChangeModel;
     // persons
     if (hasCORNPointerValue(MSCORN::CORN_P_VEH_PASSENGER)) {
-        delete myPointerCORNMap[MSCORN::CORN_P_VEH_PASSENGER];
+        delete static_cast<std::vector<MSPerson*>*>(myPointerCORNMap[MSCORN::CORN_P_VEH_PASSENGER]);
     }
     // other
     delete myEdgeWeights;
@@ -196,6 +196,9 @@ MSVehicle::MSVehicle(SUMOVehicleParameter* pars,
                                "' on lane '" + i->lane + "' is not downstream the current route.");
         }
     }
+    if ((*myCurrEdge)->getDepartLane(*this) == 0) {
+        throw ProcessError("Invalid departlane definition for vehicle '" + pars->id + "'");
+    }
 #ifdef _MESSAGES
     myLCMsgEmitter = MSNet::getInstance()->getMsgEmitter("lanechange");
     myBMsgEmitter = MSNet::getInstance()->getMsgEmitter("break");
@@ -213,10 +216,6 @@ MSVehicle::MSVehicle(SUMOVehicleParameter* pars,
         myArrivalPos = lastLaneLength;
     }
     myLaneChangeModel = new MSLCM_DK2004(*this);
-    if ((*myCurrEdge)->getDepartLane(*this) == 0) {
-        delete myLaneChangeModel;
-        throw ProcessError("Invalid departlane definition for vehicle '" + pars->id + "'");
-    }
 }
 
 
