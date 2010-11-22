@@ -37,6 +37,7 @@
 #include <microsim/devices/MSDevice_Vehroutes.h>
 #include <microsim/devices/MSDevice_Tripinfo.h>
 #include <microsim/devices/MSDevice_Routing.h>
+#include <microsim/devices/MSDevice_Person.h>
 #include <microsim/devices/MSDevice_HBEFA.h>
 #include "MSBaseVehicle.h"
 
@@ -217,6 +218,16 @@ MSBaseVehicle::getDeparture() const throw() {
 unsigned int
 MSBaseVehicle::getNumberReroutes() const throw() {
     return myNumberReroutes;
+}
+
+
+void
+MSBaseVehicle::addPerson(MSPerson* person) throw() {
+}
+
+bool
+MSBaseVehicle::isStopped() const {
+    return false;
 }
 
 

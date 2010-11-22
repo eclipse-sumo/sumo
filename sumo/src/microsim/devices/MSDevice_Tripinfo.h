@@ -104,7 +104,7 @@ public:
      *
      * @param[in] os The stream to write the information into
      * @exception IOError not yet implemented
-     * @see MSDevice::tripInfoOutput
+     * @see MSDevice::generateOutput
      */
     void generateOutput() const throw(IOError);
 

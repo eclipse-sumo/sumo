@@ -55,7 +55,6 @@
 #include "traffic_lights/MSTLLogicControl.h"
 #include "MSVehicleControl.h"
 #include "trigger/MSTrigger.h"
-#include "MSCORN.h"
 #include <utils/common/MsgHandler.h>
 #include <utils/common/ToString.h>
 #include <microsim/output/MSDetectorControl.h>
@@ -157,7 +156,6 @@ MSNet::MSNet(MSVehicleControl *vc, MSEventControl *beginOfTimestepEvents,
     if (myInstance!=0) {
         throw ProcessError("A network was already constructed.");
     }
-    MSCORN::init();
     OptionsCont &oc = OptionsCont::getOptions();
     myStep = string2time(oc.getString("begin"));
     myLogExecutionTime = !oc.getBool("no-duration-log");

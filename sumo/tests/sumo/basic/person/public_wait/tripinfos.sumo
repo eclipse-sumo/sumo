@@ -1,9 +1,9 @@
 <?xml version="1.0"?>
 
-<!-- generated on 11/04/10 10:27:48 by SUMO sumo Version dev-SVN-r9342
+<!-- generated on Mon Nov 22 10:56:24 2010 by SUMO sumo Version dev-SVN-r9389
 <?xml version="1.0" encoding="iso-8859-1"?>
 
-<configuration>
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/sumoConfiguration.xsd">
 
     <input>
         <net-file value="three_split.net.xml"/>
@@ -29,9 +29,10 @@
 <tripinfos>
     <personinfo id="p1" depart="0.00">
         <stop arrival="0.00"/>
-        <ride depart="42.00" arrival="217.00"/>
+        <ride depart="41.00" arrival="217.00"/>
     </personinfo>
-    <tripinfo id="bus.0" depart="0.00" departLane="beg_0" departPos="0.00" departSpeed="0.00" departDelay="0.00" arrival="217.00" arrivalLane="end_0" arrivalPos="2.68" arrivalSpeed="5.49" duration="217.00" routeLength="2482.03" waitSteps="31" rerouteNo="0" devices="tripinfo_bus.0" vtype="DEFAULT_VEHTYPE" vaporized=""/>
+    <tripinfo id="bus.0" depart="0.00" departLane="beg_0" departPos="0.00" departSpeed="0.00" departDelay="0.00" arrival="217.00" arrivalLane="end_0" arrivalPos="2.68" arrivalSpeed="5.49" duration="217.00" routeLength="2482.03" waitSteps="31" rerouteNo="0" devices="tripinfo_bus.0 person_bus.0" vtype="DEFAULT_VEHTYPE" vaporized="">
+    </tripinfo>
     <tripinfo id="bus.1" depart="120.00" departLane="beg_0" departPos="0.00" departSpeed="0.00" departDelay="0.00" arrival="337.00" arrivalLane="end_0" arrivalPos="2.88" arrivalSpeed="4.35" duration="217.00" routeLength="2482.23" waitSteps="31" rerouteNo="0" devices="tripinfo_bus.1" vtype="DEFAULT_VEHTYPE" vaporized=""/>
     <tripinfo id="bus.2" depart="240.00" departLane="beg_0" departPos="0.00" departSpeed="0.00" departDelay="0.00" arrival="459.00" arrivalLane="end_0" arrivalPos="2.96" arrivalSpeed="5.74" duration="219.00" routeLength="2482.31" waitSteps="31" rerouteNo="0" devices="tripinfo_bus.2" vtype="DEFAULT_VEHTYPE" vaporized=""/>
     <tripinfo id="bus.3" depart="360.00" departLane="beg_0" departPos="0.00" departSpeed="0.00" departDelay="0.00" arrival="577.00" arrivalLane="end_0" arrivalPos="3.54" arrivalSpeed="5.83" duration="217.00" routeLength="2482.89" waitSteps="31" rerouteNo="0" devices="tripinfo_bus.3" vtype="DEFAULT_VEHTYPE" vaporized=""/>

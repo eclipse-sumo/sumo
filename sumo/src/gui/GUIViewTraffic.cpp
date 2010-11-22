@@ -37,7 +37,6 @@
 #include <guisim/GUIVehicle.h>
 #include <microsim/MSEdge.h>
 #include <microsim/MSLane.h>
-#include <microsim/MSCORN.h>
 #include <microsim/MSJunctionControl.h>
 #include <microsim/traffic_lights/MSTLLogicControl.h>
 #include <utils/common/RGBColor.h>

@@ -27,7 +27,6 @@
 #include <config.h>
 #endif
 
-#include "MSCORN.h"
 #include "MSVehicleControl.h"
 #include "MSVehicle.h"
 #include "MSLane.h"

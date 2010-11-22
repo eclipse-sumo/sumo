@@ -55,7 +55,7 @@
 #include "MSPerson.h"
 #include "MSPersonControl.h"
 #include <utils/common/RandHelper.h>
-#include "devices/MSDevice_Routing.h"
+#include "devices/MSDevice_Person.h"
 #include "MSEdgeWeightsStorage.h"
 #include <utils/common/HelpersHBEFA.h>
 #include <utils/common/HelpersHarmonoise.h>
@@ -132,10 +132,6 @@ MSVehicle::State::State(SUMOReal pos, SUMOReal speed) :
  * ----------------------------------------------------------------------- */
 MSVehicle::~MSVehicle() throw() {
     delete myLaneChangeModel;
-    // persons
-    if (hasCORNPointerValue(MSCORN::CORN_P_VEH_PASSENGER)) {
-        delete static_cast<std::vector<MSPerson*>*>(myPointerCORNMap[MSCORN::CORN_P_VEH_PASSENGER]);
-    }
     // other
     delete myEdgeWeights;
     for (std::vector<MSLane*>::iterator i=myFurtherLanes.begin(); i!=myFurtherLanes.end(); ++i) {
@@ -168,7 +164,8 @@ MSVehicle::MSVehicle(SUMOVehicleParameter* pars,
         myArrivalPos(pars->arrivalPos),
         myPreDawdleAcceleration(0),
         myEdgeWeights(0),
-        mySignals(0)
+        mySignals(0),
+        myPersonDevice(0)
 #ifndef NO_TRACI
         ,adaptingSpeed(false),
         isLastAdaption(false),
@@ -223,12 +220,6 @@ MSVehicle::MSVehicle(SUMOVehicleParameter* pars,
 void
 MSVehicle::onDepart() throw() {
     myDeparture = MSNet::getInstance()->getCurrentTimeStep();
-    if (hasCORNPointerValue(MSCORN::CORN_P_VEH_PASSENGER)) {
-        std::vector<MSPerson*> *persons = (std::vector<MSPerson*>*) myPointerCORNMap[MSCORN::CORN_P_VEH_PASSENGER];
-        for (std::vector<MSPerson*>::iterator i=persons->begin(); i!=persons->end(); ++i) {
-            (*i)->setDeparted(MSNet::getInstance()->getCurrentTimeStep());
-        }
-    }
     // inform the vehicle control
     MSNet::getInstance()->getVehicleControl().vehicleEmitted(*this);
 }
@@ -335,34 +326,6 @@ MSVehicle::hasValidRoute(std::string &msg) const throw() {
     }
     return true;
 }
-
-
-// ------------ Retrieval of CORN values
-int
-MSVehicle::getCORNIntValue(MSCORN::Function f) const throw() {
-    return myIntCORNMap.find(f)->second;
-}
-
-
-void *
-MSVehicle::getCORNPointerValue(MSCORN::Pointer p) const throw() {
-    assert(myPointerCORNMap.find(p)!=myPointerCORNMap.end());
-    return myPointerCORNMap.find(p)->second;
-}
-
-
-bool
-MSVehicle::hasCORNIntValue(MSCORN::Function f) const throw() {
-    return myIntCORNMap.find(f)!=myIntCORNMap.end();
-}
-
-
-bool
-MSVehicle::hasCORNPointerValue(MSCORN::Pointer p) const throw() {
-    return myPointerCORNMap.find(p)!=myPointerCORNMap.end();
-}
-
-
 
 
 // ------------ Interaction with move reminders
@@ -507,12 +470,6 @@ MSVehicle::processNextStop(SUMOReal currentVelocity) throw() {
             }
             // the current stop is no longer valid
             MSNet::getInstance()->getVehicleControl().removeWaiting(&myLane->getEdge(), this);
-            if (hasCORNPointerValue(MSCORN::CORN_P_VEH_PASSENGER)) {
-                std::vector<MSPerson*> *persons = (std::vector<MSPerson*>*) myPointerCORNMap[MSCORN::CORN_P_VEH_PASSENGER];
-                for (std::vector<MSPerson*>::iterator i=persons->begin(); i!=persons->end(); ++i) {
-                    (*i)->setDeparted(MSNet::getInstance()->getCurrentTimeStep());
-                }
-            }
             myStops.pop_front();
             // maybe the next stop is on the same edge; let's rebuild best lanes
             getBestLanes(true);
@@ -542,17 +499,6 @@ MSVehicle::processNextStop(SUMOReal currentVelocity) throw() {
                     bstop.duration = 0;
                 }
                 MSNet::getInstance()->getVehicleControl().addWaiting(&myLane->getEdge(), this);
-                if (hasCORNPointerValue(MSCORN::CORN_P_VEH_PASSENGER)) {
-                    std::vector<MSPerson*> *persons = (std::vector<MSPerson*>*) myPointerCORNMap[MSCORN::CORN_P_VEH_PASSENGER];
-                    for (std::vector<MSPerson*>::iterator i=persons->begin(); i!=persons->end();) {
-                        if (&(*i)->getDestination() == &myLane->getEdge()) {
-                            (*i)->proceed(MSNet::getInstance(), MSNet::getInstance()->getCurrentTimeStep());
-                            i = persons->erase(i);
-                        } else {
-                            ++i;
-                        }
-                    }
-                }
                 bstop.reached = true;
                 // compute stopping time
                 if (bstop.until>=0) {
@@ -1226,13 +1172,6 @@ MSVehicle::enterLaneAtEmit(MSLane* enteredLane, SUMOReal pos, SUMOReal speed) {
 
 void
 MSVehicle::leaveLane(const bool isArrival, const bool isLaneChange) {
-    // persons
-    if (isArrival && hasCORNPointerValue(MSCORN::CORN_P_VEH_PASSENGER)) {
-        std::vector<MSPerson*> *persons = (std::vector<MSPerson*>*) myPointerCORNMap[MSCORN::CORN_P_VEH_PASSENGER];
-        for (std::vector<MSPerson*>::iterator i=persons->begin(); i!=persons->end(); ++i) {
-            (*i)->proceed(MSNet::getInstance(), MSNet::getInstance()->getCurrentTimeStep());
-        }
-    }
     for (MoveReminderCont::iterator rem=myMoveReminders.begin(); rem!=myMoveReminders.end();) {
         if (!rem->first->notifyLeave(*this, myState.myPos + rem->second, isArrival, isLaneChange)) {
             rem = myMoveReminders.erase(rem);
@@ -1571,10 +1510,11 @@ MSVehicle::getHarmonoise_NoiseEmissions() const throw() {
 
 void
 MSVehicle::addPerson(MSPerson* person) throw() {
-    if (!hasCORNPointerValue(MSCORN::CORN_P_VEH_PASSENGER)) {
-        myPointerCORNMap[MSCORN::CORN_P_VEH_PASSENGER] = new std::vector<MSPerson*>();
+    if (myPersonDevice == 0) {
+        myPersonDevice = MSDevice_Person::buildVehicleDevices(*this, myDevices);
+        myMoveReminders.push_back(std::make_pair(myPersonDevice, 0.));
     }
-    ((std::vector<MSPerson*>*) myPointerCORNMap[MSCORN::CORN_P_VEH_PASSENGER])->push_back(person);
+    myPersonDevice->addPerson(person);
     if (myStops.size() > 0 && myStops.front().reached && myStops.front().triggered) {
         myStops.front().duration = 0;
     }

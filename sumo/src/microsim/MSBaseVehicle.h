@@ -163,6 +163,13 @@ public:
         return myDevices;
     }
 
+    virtual void addPerson(MSPerson* person) throw();
+
+    /** @brief Returns whether the vehicle is at a stop
+     * @return Whether the has stopped
+     */
+    virtual bool isStopped() const;
+
 protected:
     /// @brief This Vehicle's parameter.
     const SUMOVehicleParameter* myParameter;

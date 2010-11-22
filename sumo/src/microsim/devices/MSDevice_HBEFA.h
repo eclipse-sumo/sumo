@@ -70,11 +70,6 @@ public:
      * The options are read and evaluated whether hbefa-devices shall be built
      *  for the given vehicle.
      *
-     * When the first device is built, the static container of edge weights
-     *  used for routing is initialised with the mean speed the edges allow.
-     *  In addition, an event is generated which updates these weights is
-     *  built and added to the list of events to execute at a simulation end.
-     *
      * For each seen vehicle, the global vehicle index is increased.
      *
      * The built device is stored in the given vector.
@@ -91,9 +86,8 @@ public:
 
     /** @brief Computes current emission values and adds them to their sums
         *
-        * The fraction of time the vehicle is on the lane is computed and
-        *  used as a weight for the vehicle's current emission values
-        *  which are computed using the current velocity and acceleration.
+        * The vehicle's current emission values
+        *  are computed using the current velocity and acceleration.
         *
         * @param[in] veh The regarded vehicle
         * @param[in] oldPos Position before the move-micro-timestep.
@@ -117,25 +111,6 @@ public:
     void generateOutput() const throw(IOError);
 
 
-    /** @brief Performs rerouting after a period
-     *
-     * The current amounts of emitted pollutants / consumed fuel is computed
-     *  using the according methods from "HelpersHBEFA" and are added to the internal
-     *  sums.
-     *
-     * This method is called from the event handler at the end of a simulation
-     *  step.
-     *
-     * @param[in] currentTime The current simulation time
-     * @return Always 1 (for being computed in the next step)
-     * @see HelpersHBEFA
-     * @see MSEventHandler
-     * @see WrappingCommand
-     */
-    SUMOTime wrappedComputeCommandExecute(SUMOTime currentTime) throw(ProcessError);
-
-
-
 private:
     /** @brief Constructor
      *
@@ -152,9 +127,6 @@ private:
 private:
     /// @brief A static vehicle index for computing deterministic vehicle fractions
     static int myVehicleIndex;
-
-    /// @brief The timestep of the last update
-    SUMOTime myLastUpdate;
 
     /// @name Internal storages for pollutant/fuel sum
     /// @{

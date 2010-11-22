@@ -29,7 +29,6 @@
 
 #include <vector>
 #include <algorithm>
-#include "MSCORN.h"
 #include "MSNet.h"
 #include "MSPerson.h"
 #include "MSVehicle.h"

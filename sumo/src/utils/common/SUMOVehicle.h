@@ -43,6 +43,7 @@ class MSEdge;
 class MSLane;
 class MSDevice;
 class SUMOVehicleParameter;
+class MSPerson;
 
 typedef std::vector<const MSEdge*> MSEdgeVector;
 
@@ -160,6 +161,14 @@ public:
      * @return This vehicle's devices
      */
     virtual const std::vector<MSDevice*> &getDevices() const = 0;
+
+    virtual void addPerson(MSPerson* person) throw() = 0;
+
+    /** @brief Returns whether the vehicle is at a stop
+     * @return Whether the has stopped
+     */
+    virtual bool isStopped() const = 0;
+
 
 };
 

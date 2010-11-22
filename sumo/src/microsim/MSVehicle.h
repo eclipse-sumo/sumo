@@ -32,7 +32,6 @@
 #include "MSBaseVehicle.h"
 #include "MSEdge.h"
 #include "MSRoute.h"
-#include "MSCORN.h"
 #include "MSGlobals.h"
 #include <list>
 #include <deque>
@@ -66,6 +65,7 @@ class MSDevice;
 class MSEdgeWeightsStorage;
 class OutputDevice;
 class Position2D;
+class MSDevice_Person;
 #ifdef _MESSAGES
 class MSMessageEmitter;
 #endif
@@ -234,43 +234,6 @@ public:
     static inline SUMOReal gap(SUMOReal predPos, SUMOReal predLength, SUMOReal pos) throw() {
         return predPos - predLength - pos;
     }
-
-
-    /// @name Retrieval of CORN values
-    //@{
-
-    /** @brief Returns the named CORN integer value
-     *
-     * The behaviour is undefined for not stored values.
-     *
-     * @return The named CORN integer value
-     * @todo Recheck whether throwing an exception for unset values is more appropriate
-     */
-    int getCORNIntValue(MSCORN::Function f) const throw();
-
-
-    /** @brief Returns the named CORN pointer value
-     *
-     * The behaviour is undefined for not stored values.
-     *
-     * @return The named CORN pointer value
-     * @todo Recheck whether throwing an exception for unset values is more appropriate
-     */
-    void *getCORNPointerValue(MSCORN::Pointer p) const throw();
-
-
-    /** Returns whether this vehicle has the named integer value stored
-     * @return Whether the named integer value is stored in CORN
-     */
-    bool hasCORNIntValue(MSCORN::Function f) const throw();
-
-
-    /** Returns whether this vehicle has the named pointer value stored
-     * @return Whether the named pointer value is stored in CORN
-     */
-    bool hasCORNPointerValue(MSCORN::Pointer p) const throw();
-    //@}
-
 
 
     /// @name Interaction with move reminders
@@ -872,11 +835,11 @@ protected:
     mutable std::vector<LaneQ>::iterator myCurrentLaneInBestLanes;
     static std::vector<MSLane*> myEmptyLaneVector;
 
-    std::map<MSCORN::Pointer, void*> myPointerCORNMap;
-    std::map<MSCORN::Function, int> myIntCORNMap;
-
     /// @brief The vehicle's list of stops
     std::list<Stop> myStops;
+
+    /// @brief The passengers this vehicle may have
+    MSDevice_Person* myPersonDevice;
 
     /// the position on the destination lane where the vehicle stops
     SUMOReal myArrivalPos;

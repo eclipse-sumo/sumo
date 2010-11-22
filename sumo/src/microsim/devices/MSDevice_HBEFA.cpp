@@ -30,8 +30,6 @@
 #include <microsim/MSNet.h>
 #include <microsim/MSLane.h>
 #include <utils/options/OptionsCont.h>
-#include <utils/common/WrappingCommand.h>
-#include <utils/common/StaticCommand.h>
 #include <utils/common/HelpersHBEFA.h>
 #include <utils/iodevices/OutputDevice.h>
 
@@ -98,7 +96,7 @@ MSDevice_HBEFA::buildVehicleDevices(SUMOVehicle &v, std::vector<MSDevice*> &into
 // MSDevice_HBEFA-methods
 // ---------------------------------------------------------------------------
 MSDevice_HBEFA::MSDevice_HBEFA(SUMOVehicle &holder, const std::string &id) throw()
-      : MSDevice(holder, id), myLastUpdate(-1),
+      : MSDevice(holder, id),
         myCO2(0), myCO(0), myHC(0), myPMx(0), myNOx(0), myFuel(0) {
 }
 
@@ -109,10 +107,6 @@ MSDevice_HBEFA::~MSDevice_HBEFA() throw() {
 
 bool
 MSDevice_HBEFA::isStillActive(SUMOVehicle& veh, SUMOReal oldPos, SUMOReal newPos, SUMOReal newSpeed) throw() {
-    if (myLastUpdate == MSNet::getInstance()->getCurrentTimeStep()) {
-        return true;
-    }
-    myLastUpdate = MSNet::getInstance()->getCurrentTimeStep();
     SUMOEmissionClass c = veh.getVehicleType().getEmissionClass();
     SUMOReal a = veh.getPreDawdleAcceleration();
     myCO2 += HelpersHBEFA::computeCO2(c, newSpeed, a);

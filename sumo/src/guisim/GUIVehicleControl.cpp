@@ -27,7 +27,6 @@
 #include <config.h>
 #endif
 
-#include <microsim/MSCORN.h>
 #include "GUIVehicleControl.h"
 #include "GUIVehicle.h"
 #include "GUINet.h"
