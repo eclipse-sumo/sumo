@@ -57,6 +57,10 @@
 #include <utils/common/RandHelper.h>
 #include <ctime>
 
+#ifdef HAVE_MESOSIM
+#include <mesosim/MEVehicleControl.h>
+#endif
+
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
 #endif // CHECK_MEMORY_LEAKS
@@ -124,8 +128,17 @@ GUILoadThread::run() {
     RandHelper::initRandGlobal();
     // try to load
     MSFrame::setMSGlobals(oc);
+#ifdef HAVE_MESOSIM
+    if (MSGlobals::gUseMesoSim) {
+        net = new GUINet(new MEVehicleControl(), new GUIEventControl(),
+                         new GUIEventControl(), new GUIEventControl());
+    } else {
+#endif
     net = new GUINet(new GUIVehicleControl(), new GUIEventControl(),
                      new GUIEventControl(), new GUIEventControl());
+#ifdef HAVE_MESOSIM
+    }
+#endif
     GUIEdgeControlBuilder *eb = new GUIEdgeControlBuilder(GUIGlObjectStorage::gIDStorage);
     NLJunctionControlBuilder jb(*net, oc);
     GUIDetectorBuilder db(*net);
