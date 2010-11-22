@@ -1,9 +1,9 @@
 <?xml version="1.0"?>
 
-<!-- generated on 11/04/10 10:27:49 by SUMO sumo Version dev-SVN-r9342
+<!-- generated on 11/22/10 18:14:42 by SUMO sumo Version dev-SVN-r9393
 <?xml version="1.0" encoding="iso-8859-1"?>
 
-<configuration>
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/sumoConfiguration.xsd">
 
     <input>
         <net-file value="three_split.net.xml"/>
@@ -31,5 +31,6 @@
         <stop arrival="25.00"/>
         <ride depart="26.00" arrival="201.00"/>
     </personinfo>
-    <tripinfo id="p" depart="0.00" departLane="beg_0" departPos="0.00" departSpeed="0.00" departDelay="0.00" arrival="201.00" arrivalLane="end_0" arrivalPos="2.30" arrivalSpeed="5.83" duration="201.00" routeLength="2481.65" waitSteps="15" rerouteNo="0" devices="tripinfo_p" vtype="DEFAULT_VEHTYPE" vaporized=""/>
+    <tripinfo id="p" depart="0.00" departLane="beg_0" departPos="0.00" departSpeed="0.00" departDelay="0.00" arrival="201.00" arrivalLane="end_0" arrivalPos="2.30" arrivalSpeed="5.83" duration="201.00" routeLength="2481.65" waitSteps="15" rerouteNo="0" devices="tripinfo_p person_p" vtype="DEFAULT_VEHTYPE" vaporized="">
+    </tripinfo>
 </tripinfos>
