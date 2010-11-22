@@ -256,8 +256,8 @@
     <ClCompile Include="..\..\..\src\microsim\cfmodels\MSCFModel_Krauss.cpp" />
     <ClCompile Include="..\..\..\src\microsim\cfmodels\MSCFModel_KraussOrig1.cpp" />
     <ClCompile Include="..\..\..\src\microsim\cfmodels\MSCFModel_PWag2009.cpp" />
-    <ClCompile Include="..\..\..\src\microsim\MSCORN.cpp" />
     <ClCompile Include="..\..\..\src\microsim\devices\MSDevice_HBEFA.cpp" />
+    <ClCompile Include="..\..\..\src\microsim\devices\MSDevice_Person.cpp" />
     <ClCompile Include="..\..\..\src\microsim\devices\MSDevice_Routing.cpp" />
     <ClCompile Include="..\..\..\src\microsim\MSEdge.cpp" />
     <ClCompile Include="..\..\..\src\microsim\MSEdgeControl.cpp" />
@@ -306,9 +306,9 @@
     <ClInclude Include="..\..\..\src\microsim\cfmodels\MSCFModel_Krauss.h" />
     <ClInclude Include="..\..\..\src\microsim\cfmodels\MSCFModel_KraussOrig1.h" />
     <ClInclude Include="..\..\..\src\microsim\cfmodels\MSCFModel_PWag2009.h" />
-    <ClInclude Include="..\..\..\src\microsim\MSCORN.h" />
     <ClInclude Include="..\..\..\src\microsim\devices\MSDevice.h" />
     <ClInclude Include="..\..\..\src\microsim\devices\MSDevice_HBEFA.h" />
+    <ClInclude Include="..\..\..\src\microsim\devices\MSDevice_Person.h" />
     <ClInclude Include="..\..\..\src\microsim\devices\MSDevice_Routing.h" />
     <ClInclude Include="..\..\..\src\microsim\MSEdge.h" />
     <ClInclude Include="..\..\..\src\microsim\MSEdgeControl.h" />

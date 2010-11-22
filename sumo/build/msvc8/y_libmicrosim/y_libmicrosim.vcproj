@@ -584,11 +584,11 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\microsim\MSCORN.cpp"
+				RelativePath="..\..\..\src\microsim\devices\MSDevice_HBEFA.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\microsim\devices\MSDevice_HBEFA.cpp"
+				RelativePath="..\..\..\src\microsim\devices\MSDevice_Person.cpp"
 				>
 			</File>
 			<File
@@ -780,15 +780,15 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\microsim\MSCORN.h"
-				>
-			</File>
-			<File
 				RelativePath="..\..\..\src\microsim\devices\MSDevice.h"
 				>
 			</File>
 			<File
 				RelativePath="..\..\..\src\microsim\devices\MSDevice_HBEFA.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\microsim\devices\MSDevice_Person.h"
 				>
 			</File>
 			<File
