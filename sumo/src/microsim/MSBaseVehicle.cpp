@@ -33,6 +33,7 @@
 #include <utils/common/MsgHandler.h>
 #include "MSVehicleType.h"
 #include "MSEdge.h"
+#include "MSLane.h"
 #include "MSMoveReminder.h"
 #include <microsim/devices/MSDevice_Vehroutes.h>
 #include <microsim/devices/MSDevice_Tripinfo.h>
@@ -59,6 +60,7 @@ MSBaseVehicle::MSBaseVehicle(SUMOVehicleParameter* pars, const MSRoute* route, c
         myReferenceSpeed(-1.0),
         myType(type),
         myDeparture(-1),
+        myArrivalPos(pars->arrivalPos),
         myNumberReroutes(0) {
     // init devices
     MSDevice_Vehroutes::buildVehicleDevices(*this, myDevices);
@@ -69,6 +71,14 @@ MSBaseVehicle::MSBaseVehicle(SUMOVehicleParameter* pars, const MSRoute* route, c
         myMoveReminders.push_back(std::make_pair(*dev, 0.));
     }
     myRoute->addReference();
+    // build arrival definition
+    const SUMOReal lastLaneLength = (myRoute->getLastEdge()->getLanes())[0]->getLength();
+    if (myArrivalPos > lastLaneLength) {
+        myArrivalPos = lastLaneLength;
+    }
+    if (myArrivalPos < 0) {
+        myArrivalPos = MAX2(myArrivalPos + lastLaneLength, 0.);
+    }
 }
 
 MSBaseVehicle::~MSBaseVehicle() throw() {

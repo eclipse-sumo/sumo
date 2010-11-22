@@ -211,6 +211,9 @@ protected:
     /// @brief The real departure time
     SUMOTime myDeparture;
 
+    /// the position on the destination lane where the vehicle stops
+    SUMOReal myArrivalPos;
+
     /// @brief The number of reroutings
     unsigned int myNumberReroutes;
 

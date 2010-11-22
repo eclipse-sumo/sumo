@@ -841,9 +841,6 @@ protected:
     /// @brief The passengers this vehicle may have
     MSDevice_Person* myPersonDevice;
 
-    /// the position on the destination lane where the vehicle stops
-    SUMOReal myArrivalPos;
-
     /// @brief The current acceleration before dawdling
     SUMOReal myPreDawdleAcceleration;
 

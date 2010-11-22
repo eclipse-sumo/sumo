@@ -161,7 +161,6 @@ MSVehicle::MSVehicle(SUMOVehicleParameter* pars,
         myState(0, 0), //
         myLane(0),
         myLastBestLanesEdge(0),
-        myArrivalPos(pars->arrivalPos),
         myPreDawdleAcceleration(0),
         myEdgeWeights(0),
         mySignals(0),
@@ -201,17 +200,6 @@ MSVehicle::MSVehicle(SUMOVehicleParameter* pars,
     myBMsgEmitter = MSNet::getInstance()->getMsgEmitter("break");
     myHBMsgEmitter = MSNet::getInstance()->getMsgEmitter("heartbeat");
 #endif
-    // build arrival definition
-    SUMOReal lastLaneLength = (myRoute->getLastEdge()->getLanes())[0]->getLength();
-    if (myArrivalPos < 0) {
-        myArrivalPos += lastLaneLength; // !!! validate!
-    }
-    if (myArrivalPos<0) {
-        myArrivalPos = 0;
-    }
-    if (myArrivalPos>lastLaneLength) {
-        myArrivalPos = lastLaneLength;
-    }
     myLaneChangeModel = new MSLCM_DK2004(*this);
 }
 
@@ -265,16 +253,10 @@ MSVehicle::replaceRoute(const MSRoute* newRoute, bool onInit) throw() {
     myRoute = newRoute;
     myLastBestLanesEdge = 0;
     // update arrival definition
-    myArrivalPos = myParameter->arrivalPos;
-    SUMOReal lastLaneLength = (myRoute->getLastEdge()->getLanes())[0]->getLength();
+    const SUMOReal lastLaneLength = (myRoute->getLastEdge()->getLanes())[0]->getLength();
+    myArrivalPos = MIN2(myParameter->arrivalPos, lastLaneLength);
     if (myArrivalPos < 0) {
-        myArrivalPos += lastLaneLength; // !!! validate!
-    }
-    if (myArrivalPos<0) {
-        myArrivalPos = 0;
-    }
-    if (myArrivalPos>lastLaneLength) {
-        myArrivalPos = lastLaneLength;
+        myArrivalPos = MAX2(myArrivalPos + lastLaneLength, 0.);
     }
     // save information that the vehicle was rerouted
     myNumberReroutes++;
