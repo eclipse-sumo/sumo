@@ -233,7 +233,7 @@ MSVehicle::onRemovalFromNet(bool forTeleporting) throw() {
             (*i).myLink->removeApproaching(this);
         }
     }
-    leaveLane(true, false);
+    leaveLane(!forTeleporting, false);
 }
 
 
