@@ -31,9 +31,7 @@
 #include <vector>
 #include <iostream>
 #include <fstream>
-#include <gui/GUIApplicationWindow.h>
 #include <utils/gui/windows/GUIAppEnum.h>
-#include <gui/GUIGlobals.h>
 #include <utils/gui/globjects/GUIGlObject.h>
 #include <utils/foxtools/MFXUtils.h>
 #include "GUIDialog_GLChosenEditor.h"
@@ -41,6 +39,7 @@
 #include <utils/gui/globjects/GUIGlObjectStorage.h>
 #include <utils/gui/div/GUIIOGlobals.h>
 #include <utils/gui/windows/GUIAppGlobals.h>
+#include <utils/gui/windows/GUIMainWindow.h>
 #include <utils/gui/images/GUIIconSubSys.h>
 
 #ifdef _WIN32
