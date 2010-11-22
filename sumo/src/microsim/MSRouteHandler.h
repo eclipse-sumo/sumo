@@ -67,9 +67,6 @@ public:
     /// Returns the last loaded depart time
     SUMOTime getLastDepart() const;
 
-    /// Returns the last loaded vehicle
-    void retrieveLastReadVehicle(MSEmitControl* into);
-
     /// check start and end position of a stop
     bool checkStopPos(SUMOReal &startPos, SUMOReal &endPos, const SUMOReal laneLength,
                       const SUMOReal minLength, const bool friendlyPos);
@@ -150,10 +147,6 @@ protected:
     /// the emission time of the vehicle read last
     SUMOTime myLastDepart;
 
-    /// the last vehicle read
-    SUMOVehicle *myLastReadVehicle;
-
-
     /// the current route
     MSEdgeVector myActiveRoute;
 
@@ -207,6 +200,9 @@ protected:
     SUMOVTypeParameter *myCurrentVType;
 
 private:
+    /// Checks whether the route file is sorted by departure time if needed
+    bool checkLastDepart();
+
     /** invalid copy constructor */
     MSRouteHandler(const MSRouteHandler &s);
 

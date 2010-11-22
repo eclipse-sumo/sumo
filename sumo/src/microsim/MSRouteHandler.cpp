@@ -63,8 +63,7 @@
 MSRouteHandler::MSRouteHandler(const std::string &file,
                                bool addVehiclesDirectly)
         : SUMOSAXHandler(file), myVehicleParameter(0),
-        myLastDepart(0), myLastReadVehicle(0),
-        myAddVehiclesDirectly(addVehiclesDirectly),
+        myLastDepart(0), myAddVehiclesDirectly(addVehiclesDirectly),
         myRunningVehicleNumber(0),
         myCurrentVTypeDistribution(0),
         myCurrentRouteDistribution(0),
@@ -86,18 +85,16 @@ MSRouteHandler::getLastDepart() const {
 }
 
 
-void
-MSRouteHandler::retrieveLastReadVehicle(MSEmitControl* into) {
-    if (myLastReadVehicle != 0) {
-        if (myLastReadVehicle->getParameter().departProcedure == DEPART_GIVEN) {
-            into->add(myLastReadVehicle);
+bool
+MSRouteHandler::checkLastDepart() {
+    if (myVehicleParameter->departProcedure == DEPART_GIVEN) {
+        if (!myAddVehiclesDirectly && myVehicleParameter->depart < myLastDepart) {
+            WRITE_WARNING("Route file should be sorted by departure time, ignoring '" + myVehicleParameter->id + "'!");
+            return false;
         }
-        myLastReadVehicle = 0;
+        myLastDepart = myVehicleParameter->depart;
     }
-    if (myVehicleParameter != 0 && myVehicleParameter->repetitionsDone>=0) {
-        into->add(myVehicleParameter);
-        myVehicleParameter = 0;
-    }
+    return true;
 }
 
 
@@ -449,9 +446,8 @@ MSRouteHandler::closeVehicle() throw(ProcessError) {
     // get nested route
     const MSRoute *route = MSRoute::dictionary("!" + myVehicleParameter->id);
     if (myVehicleParameter->departProcedure == DEPART_GIVEN) {
-        myLastDepart = myVehicleParameter->depart;
         // let's check whether this vehicle had to be emitted before the simulation starts
-        if (myVehicleParameter->depart<string2time(OptionsCont::getOptions().getString("begin"))) {
+        if (!checkLastDepart() || myVehicleParameter->depart<string2time(OptionsCont::getOptions().getString("begin"))) {
             if (route!=0) {
                 route->addReference();
                 route->release();
@@ -522,12 +518,10 @@ MSRouteHandler::closeVehicle() throw(ProcessError) {
     }
     // check whether the vehicle shall be added directly to the network or
     //  shall stay in the internal buffer
-    if (myAddVehiclesDirectly&&vehicle!=0) {
+    if (vehicle!=0) {
         if (vehicle->getParameter().departProcedure == DEPART_GIVEN) {
             MSNet::getInstance()->getEmitControl().add(vehicle);
         }
-    } else {
-        myLastReadVehicle = vehicle;
     }
 }
 
@@ -538,9 +532,10 @@ MSRouteHandler::closePerson() throw(ProcessError) {
         throw ProcessError("Person '" + myVehicleParameter->id + "' has no plan.");
     }
     MSPerson *person = new MSPerson(myVehicleParameter, myActivePlan);
-    if (MSNet::getInstance()->getPersonControl().add(myVehicleParameter->id, person)) {
+    if (checkLastDepart() && MSNet::getInstance()->getPersonControl().add(myVehicleParameter->id, person)) {
         MSNet::getInstance()->getPersonControl().setArrival(myVehicleParameter->depart, person);
-        myLastDepart = myVehicleParameter->depart;
+    } else {
+        delete person;
     }
     myVehicleParameter = 0;
     myActivePlan = 0;
@@ -577,10 +572,10 @@ MSRouteHandler::closeFlow() throw(ProcessError) {
 
     // check whether the vehicle shall be added directly to the network or
     //  shall stay in the internal buffer
-    if (myAddVehiclesDirectly) {
+    if (checkLastDepart()) {
         MSNet::getInstance()->getEmitControl().add(myVehicleParameter);
-        myVehicleParameter = 0;
     }
+    myVehicleParameter = 0;
 }
 
 bool

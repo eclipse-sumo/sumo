@@ -66,7 +66,7 @@ public:
     ~MSRouteLoaderControl();
 
     /// loads the next routes
-    void loadNext(SUMOTime step, MSEmitControl* into);
+    void loadNext(SUMOTime step);
 
 private:
     /// the last time step new routes were loaded

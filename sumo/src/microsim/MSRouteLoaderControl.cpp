@@ -66,7 +66,7 @@ MSRouteLoaderControl::~MSRouteLoaderControl() {
 
 
 void
-MSRouteLoaderControl::loadNext(SUMOTime step, MSEmitControl* into) {
+MSRouteLoaderControl::loadNext(SUMOTime step) {
     // check whether new vehicles shall be loaded
     //  return if not
     if ((myLoadAll&&myAllLoaded) || (myLastLoadTime>=0&&myLastLoadTime/*+myInAdvanceStepNo*/>=step)) {
@@ -83,7 +83,7 @@ MSRouteLoaderControl::loadNext(SUMOTime step, MSEmitControl* into) {
         for (LoaderVector::iterator i=myRouteLoaders.begin();
                 i!=myRouteLoaders.end(); ++i) {
             if ((*i)->moreAvailable()) {
-                (*i)->loadUntil(run, into);
+                (*i)->loadUntil(run);
             }
             furtherAvailable |= (*i)->moreAvailable();
         }

@@ -365,7 +365,7 @@ MSNet::simulationStep() {
     }
 #endif
     // load routes
-    myRouteLoaders->loadNext(myStep, myEmitter);
+    myRouteLoaders->loadNext(myStep);
 
     // persons
     if (myPersonControl!=0) {

@@ -65,26 +65,21 @@ MSRouteLoader::init() {
 
 
 void
-MSRouteLoader::loadUntil(SUMOTime time, MSEmitControl* into) {
+MSRouteLoader::loadUntil(SUMOTime time) {
     // read only when further data is available, no error occured
     //  and vehicles may be found in the between the departure time of
     //  the last read vehicle and the time to read until
-    if (!myMoreAvailable || time+DELTA_T < myHandler->getLastDepart()) {
+    if (!myMoreAvailable || time <= myHandler->getLastDepart()) {
         return;
     }
 
-    // if a vehicle was read before the call but was not yet added,
-    //  add it now
-    myHandler->retrieveLastReadVehicle(into);
     // read vehicles until specified time or the period to read vehicles
     //  until is reached
     while (myParser->parseNext(myToken)) {
         // return when the last read vehicle is beyond the period
-        if (myHandler->getLastDepart()>=time) {
+        if (time <= myHandler->getLastDepart()) {
             return;
         }
-        // otherwise add the last vehicle read (if any)
-        myHandler->retrieveLastReadVehicle(into);
     }
 
     // no data are available anymore
