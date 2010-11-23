@@ -1,0 +1,6 @@
+<additional>
+    <WAUT refTime="0" id="w1" startProg="0">
+        <wautSwitch time="0" to="off"/>
+    </WAUT>
+    <wautJunction wautID="w1" junctionID="0"/>
+</additional>
