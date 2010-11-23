@@ -61,7 +61,7 @@ class SUMOVehicle;
  *  the old destination or by choosing a new one from a set of existing ones.
  */
 class MSTriggeredRerouter :
-        public MSTrigger,
+    public MSTrigger, public MSMoveReminder,
             public SUMOSAXHandler {
 public:
     /** @brief Constructor
@@ -81,75 +81,6 @@ public:
 
 
     /**
-     * @class Setter
-     * @brief Responsible for setting a new route to a vehicle which arrives at a single lane
-     */
-    class Setter : public MSMoveReminder {
-    public:
-        /** @brief Constructor
-         *
-         * @param[in] parent The rerouter responsible for this actor
-         * @param[in] lane The lane this actor is placed at
-         */
-        Setter(MSTriggeredRerouter * const parent, MSLane * const lane) throw();
-
-
-        /// @brief Destructor
-        ~Setter() throw();
-
-
-        /// @name Methods inherited from MSMoveReminder
-        /// @{
-
-        /** @brief Tries to reroute the vehicle
-         *
-         * Calls parent's "reroute"-method with the vehicle as one of the
-         *  parameters. Returns false - the vehicle will not be rerouted again.
-         *
-         * @param[in] veh The regarded vehicle
-         * @param[in] oldPos Position before the move-micro-timestep.
-         * @param[in] newPos Position after the move-micro-timestep.
-         * @param[in] newSpeed The vehicle's current speed
-         * @return always false (the vehicle will not be rerouted again)
-         * @see MSMoveReminder
-         * @see MSMoveReminder::isStillActive
-         * @see MSTriggeredRerouter::reroute
-         */
-        bool isStillActive(SUMOVehicle& veh, SUMOReal oldPos, SUMOReal newPos,
-                           SUMOReal newSpeed) throw();
-
-
-        /** @brief Tries to reroute the vehicle
-         *
-         * Calls parent's "reroute"-method with the vehicle as one of the
-         *  parameters. Returns false - the vehicle will not be rerouted again.
-         *
-         * @param[in] veh The entering vehicle.
-         * @param[in] isEmit true means emit, false: lane change
-         * @return always false (the vehicle will not be rerouted again)
-         * @see MSMoveReminder
-         * @see MSMoveReminder::notifyEnter
-         * @see MSTriggeredRerouter::reroute
-         */
-        bool notifyEnter(SUMOVehicle& veh, bool isEmit, bool isLaneChange) throw();
-        /// @}
-
-
-    private:
-        /// @brief The rerouter used for rerouting the vehicle
-        MSTriggeredRerouter * const myParent;
-
-    private:
-        /// @brief Invalidated copy constructor.
-        Setter(const Setter&);
-
-        /// @brief Invalidated assignment operator.
-        Setter& operator=(const Setter&);
-
-
-    };
-
-    /**
      * @struct RerouteInterval
      * Describes the rerouting definitions valid for an interval
      */
@@ -166,8 +97,21 @@ public:
         RandomDistributor<const MSRoute*> routeProbs;
     };
 
-    /// Reroutes a vehicle
-    void reroute(SUMOVehicle &veh, const MSEdge &src);
+    /** @brief Tries to reroute the vehicle
+        *
+        * It will not try to reroute if it is a
+        * lane change because there should be another rerouter on the lane
+        * the vehicle is coming from.
+        * Returns false - the vehicle will not be rerouted again.
+        *
+        * @param[in] veh The entering vehicle.
+        * @param[in] isEmit true means emit
+        * @param[in] isLaneChange true means lane change
+        * @return always false (the vehicle will not be rerouted again)
+        * @see MSMoveReminder
+        * @see MSMoveReminder::notifyEnter
+        */
+    bool notifyEnter(SUMOVehicle& veh, bool isEmit, bool isLaneChange) throw();
 
     /// Returns whether a rerouting definition is valid for the given time and vehicle
     bool hasCurrentReroute(SUMOTime time, SUMOVehicle &veh) const;
@@ -221,9 +165,6 @@ protected:
     //@}
 
 protected:
-    /// List of lane-based vehicle informing children
-    std::vector<Setter*> mySetter;
-
     /// List of rerouting definition intervals
     std::vector<RerouteInterval> myIntervals;
 

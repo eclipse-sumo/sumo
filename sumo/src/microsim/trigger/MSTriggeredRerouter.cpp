@@ -56,62 +56,29 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-/* -------------------------------------------------------------------------
- * MSTriggeredRerouter::Setter - methods
- * ----------------------------------------------------------------------- */
-MSTriggeredRerouter::Setter::Setter(MSTriggeredRerouter * const parent,
-                                    MSLane * const lane) throw()
-        : MSMoveReminder(lane), myParent(parent) {}
-
-
-MSTriggeredRerouter::Setter::~Setter() throw() {}
-
-
-bool
-MSTriggeredRerouter::Setter::isStillActive(SUMOVehicle& veh, SUMOReal /*oldPos*/,
-        SUMOReal /*newPos*/, SUMOReal /*newSpeed*/) throw() {
-    myParent->reroute(veh, myLane->getEdge());
-    return false;
-}
-
-
-bool
-MSTriggeredRerouter::Setter::notifyEnter(SUMOVehicle& veh, bool, bool) throw() {
-    myParent->reroute(veh, myLane->getEdge());
-    return false;
-}
-
-
-/* -------------------------------------------------------------------------
- * MSTriggeredRerouter - methods
- * ----------------------------------------------------------------------- */
 MSTriggeredRerouter::MSTriggeredRerouter(const std::string &id,
         const std::vector<MSEdge*> &edges,
         SUMOReal prob, const std::string &file, bool off)
-        : MSTrigger(id), SUMOSAXHandler(file),
+        : MSTrigger(id), MSMoveReminder(), SUMOSAXHandler(file),
         myProbability(prob), myUserProbability(prob), myAmInUserMode(false) {
     // read in the trigger description
     if (!XMLSubSys::runParser(*this, file)) {
         throw ProcessError();
     }
     // build actors
+    for (std::vector<MSEdge*>::const_iterator j=edges.begin(); j!=edges.end(); ++j) {
 #ifdef HAVE_MESOSIM
-    if (MSGlobals::gUseMesoSim) {
-        for (std::vector<MSEdge*>::const_iterator j=edges.begin(); j!=edges.end(); ++j) {
+        if (MSGlobals::gUseMesoSim) {
             MESegment *s = MSGlobals::gMesoNet->getSegmentForEdge(**j);
-            s->addRerouter(this);
+            s->addDetector(this);
+            continue;
         }
-    } else {
 #endif
-        for (std::vector<MSEdge*>::const_iterator j=edges.begin(); j!=edges.end(); ++j) {
-            const std::vector<MSLane*> &destLanes = (*j)->getLanes();
-            for (std::vector<MSLane*>::const_iterator i=destLanes.begin(); i!=destLanes.end(); ++i) {
-                mySetter.push_back(new Setter(this, (*i)));
-            }
+        const std::vector<MSLane*> &destLanes = (*j)->getLanes();
+        for (std::vector<MSLane*>::const_iterator i=destLanes.begin(); i!=destLanes.end(); ++i) {
+            (*i)->addMoveReminder(this);
         }
-#ifdef HAVE_MESOSIM
     }
-#endif
     if (off) {
         setUserMode(true);
         setUserUsageProbability(0);
@@ -120,12 +87,6 @@ MSTriggeredRerouter::MSTriggeredRerouter(const std::string &id,
 
 
 MSTriggeredRerouter::~MSTriggeredRerouter() throw() {
-    {
-        std::vector<Setter*>::iterator i;
-        for (i=mySetter.begin(); i!=mySetter.end(); ++i) {
-            delete *i;
-        }
-    }
 }
 
 // ------------ loading begin
@@ -283,17 +244,20 @@ MSTriggeredRerouter::getCurrentReroute(SUMOTime) const {
 
 
 
-void
-MSTriggeredRerouter::reroute(SUMOVehicle &veh, const MSEdge &src) {
+bool
+MSTriggeredRerouter::notifyEnter(SUMOVehicle& veh, bool, bool isLaneChange) throw() {
+    if (isLaneChange) {
+        return false;
+    }
     // check whether the vehicle shall be rerouted
     SUMOTime time = MSNet::getInstance()->getCurrentTimeStep();
     if (!hasCurrentReroute(time, veh)) {
-        return;
+        return false;
     }
 
     SUMOReal prob = myAmInUserMode ? myUserProbability : myProbability;
     if (RandHelper::rand() > prob) {
-        return;
+        return false;
     }
 
     // get vehicle params
@@ -305,7 +269,7 @@ MSTriggeredRerouter::reroute(SUMOVehicle &veh, const MSEdge &src) {
     // we will use the route if given rather than calling our own dijsktra...
     if (newRoute!=0) {
         veh.replaceRoute(newRoute);
-        return;
+        return false;
     }
     // ok, try using a new destination
     const MSEdge *newEdge = rerouteDef.edgeProbs.getOverallProb()>0 ? rerouteDef.edgeProbs.get() : route.getLastEdge();
@@ -319,8 +283,9 @@ MSTriggeredRerouter::reroute(SUMOVehicle &veh, const MSEdge &src) {
     DijkstraRouterTT_ByProxi<MSEdge, SUMOVehicle, prohibited_withRestrictions<MSEdge, SUMOVehicle>, MSNet::EdgeWeightsProxi> router(MSEdge::dictSize(), true, &proxi, &MSNet::EdgeWeightsProxi::getTravelTime);
     router.prohibit(rerouteDef.closed);
     std::vector<const MSEdge*> edges;
-    router.compute(&src, newEdge, &veh, MSNet::getInstance()->getCurrentTimeStep(), edges);
+    router.compute(veh.getEdge(), newEdge, &veh, MSNet::getInstance()->getCurrentTimeStep(), edges);
     veh.replaceRouteEdges(edges);
+    return false;
 }
 
 
