@@ -114,8 +114,6 @@ public:
     /// @}
 #endif
 
-    unsigned posInRoute(const MSRouteIterator &currentEdge) const;
-
     const MSEdgeVector &getEdges() const {
         return myEdges;
     }

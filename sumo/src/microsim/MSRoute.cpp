@@ -307,12 +307,6 @@ MSRoute::dict_loadState(BinaryInputDevice &bis) throw() {
 #endif
 
 
-unsigned
-MSRoute::posInRoute(const MSRouteIterator &currentEdge) const {
-    return (unsigned int) distance(myEdges.begin(), currentEdge);
-}
-
-
 SUMOReal
 MSRoute::getLength() const {
     SUMOReal ret = 0;
