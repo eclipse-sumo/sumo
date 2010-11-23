@@ -256,7 +256,7 @@ MSVehicle::replaceRoute(const MSRoute* newRoute, bool onInit) throw() {
     const SUMOReal lastLaneLength = (myRoute->getLastEdge()->getLanes())[0]->getLength();
     myArrivalPos = MIN2(myParameter->arrivalPos, lastLaneLength);
     if (myArrivalPos < 0) {
-        myArrivalPos = MAX2(myArrivalPos + lastLaneLength, 0.);
+        myArrivalPos = MAX2(myArrivalPos + lastLaneLength, static_cast<SUMOReal>(0));
     }
     // save information that the vehicle was rerouted
     myNumberReroutes++;

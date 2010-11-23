@@ -77,7 +77,7 @@ MSBaseVehicle::MSBaseVehicle(SUMOVehicleParameter* pars, const MSRoute* route, c
         myArrivalPos = lastLaneLength;
     }
     if (myArrivalPos < 0) {
-        myArrivalPos = MAX2(myArrivalPos + lastLaneLength, 0.);
+        myArrivalPos = MAX2(myArrivalPos + lastLaneLength, static_cast<SUMOReal>(0));
     }
 }
 
