@@ -1,4 +1,4 @@
-SUMO sumo Version dev-SVN-r9365
+SUMO sumo Version dev-SVN-r9408
  (c) DLR 2001-2010; http://sumo.sourceforge.net
  
 A microscopic road traffic simulation.
@@ -55,9 +55,11 @@ Usage: sumo [OPTION]*
                                         incremental DUA
   --incremental-dua-base INT          Base value for incremental DUA
   --time-to-teleport TIME             Specify how long a vehicle may wait until
-                                        being teleported
+                                        being teleported, defaults to 300,
+                                        values < 1 disable teleporting
   --max-depart-delay INT              How long vehicles wait for departure
-                                        before being skipped
+                                        before being skipped, defaults to -1
+                                        which means vehicles are never skipped
   --sloppy-emit                       Whether emission on an edge shall not be
                                         repeated in same step once failed.
   --lanechange.allow-swap             Whether blocking vehicles trying to

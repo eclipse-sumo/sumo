@@ -75,10 +75,10 @@
         <!-- Base value for incremental DUA -->
         <incremental-dua-base value="10"/>
 
-        <!-- Specify how long a vehicle may wait until being teleported -->
+        <!-- Specify how long a vehicle may wait until being teleported, defaults to 300, values < 1 disable teleporting -->
         <time-to-teleport value="300"/>
 
-        <!-- How long vehicles wait for departure before being skipped -->
+        <!-- How long vehicles wait for departure before being skipped, defaults to -1 which means vehicles are never skipped -->
         <max-depart-delay value="-1"/>
 
         <!-- Whether emission on an edge shall not be repeated in same step once failed. -->
