@@ -56,7 +56,7 @@ class OutputDevice;
  * @class GUIRunThread
  * This thread executes the given simulation stepwise to allow parallel
  * visualisation.
- * The avoidance of collisions between the simulation execution and her
+ * The avoidance of collisions between the simulation execution and its
  * visualisation is done individually for every lane using mutexes
  */
 class GUIRunThread : public FXSingleEventThread {

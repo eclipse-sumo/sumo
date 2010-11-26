@@ -146,7 +146,7 @@ enum DepartSpeedDefinition {
 enum ArrivalLaneDefinition {
     /// @brief No information given; use default
     ARRIVAL_LANE_DEFAULT,
-    /// @brief The speed is given
+    /// @brief The arrival lane is given
     ARRIVAL_LANE_GIVEN,
     /// @brief The current lane shall be used
     ARRIVAL_LANE_CURRENT
@@ -161,11 +161,11 @@ enum ArrivalLaneDefinition {
 enum ArrivalPosDefinition {
     /// @brief No information given; use default
     ARRIVAL_POS_DEFAULT,
-    /// @brief The speed is given
+    /// @brief The arrival position is given
     ARRIVAL_POS_GIVEN,
-    /// @brief The speed is chosen randomly
+    /// @brief The arrival position is chosen randomly
     ARRIVAL_POS_RANDOM,
-    /// @brief The maximum speed is used
+    /// @brief The maximum arrival position is used
     ARRIVAL_POS_MAX
 };
 
