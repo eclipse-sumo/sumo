@@ -1,9 +1,9 @@
 <?xml version="1.0"?>
 
-<!-- generated on 11/04/10 10:27:49 by SUMO sumo Version dev-SVN-r9342
+<!-- generated on 11/26/10 11:18:28 by SUMO sumo Version dev-SVN-r9408
 <?xml version="1.0" encoding="iso-8859-1"?>
 
-<configuration>
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/sumoConfiguration.xsd">
 
     <input>
         <net-file value="three_split.net.xml"/>
@@ -14,14 +14,14 @@
         <tripinfo-output value="tripinfos.xml"/>
     </output>
 
-    <time>
-        <end value="1000"/>
-    </time>
-
     <report>
         <no-duration-log value="true"/>
         <no-step-log value="true"/>
     </report>
+
+    <gui_only>
+        <gui-settings-file value=""/>
+    </gui_only>
 
 </configuration>
 -->
@@ -29,7 +29,8 @@
 <tripinfos>
     <personinfo id="p1" depart="0.00">
         <stop arrival="0.00"/>
-        <ride depart="12.00" arrival="187.00"/>
+        <ride depart="22.00" arrival="191.00"/>
     </personinfo>
-    <tripinfo id="p" depart="0.00" departLane="beg_0" departPos="0.00" departSpeed="0.00" departDelay="0.00" arrival="187.00" arrivalLane="end_0" arrivalPos="3.87" arrivalSpeed="6.49" duration="187.00" routeLength="2483.22" waitSteps="1" rerouteNo="0" devices="tripinfo_p" vtype="DEFAULT_VEHTYPE" vaporized=""/>
+    <tripinfo id="v1" depart="0.00" departLane="beg_0" departPos="0.00" departSpeed="0.00" departDelay="0.00" arrival="191.00" arrivalLane="end_0" arrivalPos="3.52" arrivalSpeed="7.10" duration="191.00" routeLength="2482.87" waitSteps="1" rerouteNo="0" devices="tripinfo_v1 person_v1" vtype="DEFAULT_VEHTYPE" vaporized="">
+    </tripinfo>
 </tripinfos>

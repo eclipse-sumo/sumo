@@ -1,10 +1,10 @@
 <routes>
-    <vehicle id="p" depart="0" departpos="0">
+    <vehicle id="v1" depart="0" departpos="0">
         <route edges="beg beg2left left left2end end">
-            <stop lane="beg_0" endPos="50" duration="30" triggered="true"/>
+            <stop lane="beg_0" startPos="200" endPos="220" duration="30" triggered="true"/>
         </route>
     </vehicle>
     <person id="p1" depart="0">
-        <ride from="beg" to="end" lines="p"/>
+        <ride from="beg" to="end" lines="v1"/>
     </person>
 </routes>
