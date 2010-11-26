@@ -177,8 +177,8 @@ public:
     /** @brief Tries to emit the given vehicle with the given state (speed and pos)
      *
      * Checks whether the vehicle can be inserted at the given position with the
-     *  given speed so that no collisions with leader/follower occure and the speed
-     *  does not yield in unexpected behaviour on consecutive lanes. Returns false
+     *  given speed so that no collisions with leader/follower occur and the speed
+     *  does not cause unexpected behaviour on consecutive lanes. Returns false
      *  if the vehicle can not be inserted.
      *
      * If the insertion can take place, the vehicle's "enterLaneAtEmit" method is called,
@@ -208,7 +208,7 @@ public:
     /** @brief Inserts the given vehicle at the given position
      *
      * No checks are done, vehicle insertion using this method may
-     *  generate collisions or a situation which yields in these.
+     *  generate collisions (possibly delayed).
      * @param[in] veh The vehicle to insert
      * @param[in] pos The position at which the vehicle shall be inserted
      */
