@@ -364,7 +364,7 @@ public:
     void leaveLane(const bool isArrival, const bool isLaneChange);
 
 
-    void vsafeCriticalCont(SUMOTime t, SUMOReal minVSafe, SUMOReal lengthsInFront);
+    void vsafeCriticalCont(SUMOTime t, SUMOReal boundVSafe);
 
     MSLane *getTargetLane() const;
 

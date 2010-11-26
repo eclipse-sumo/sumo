@@ -597,7 +597,7 @@ MSVehicle::moveRegardingCritical(SUMOTime t, const MSLane* const lane,
         cfModel.leftVehicleVsafe(this, neigh, vBeg); // from left-lane leader (do not overtake right)
         // check whether the driver wants to let someone in
         // set next links, computing possible speeds
-        vsafeCriticalCont(t, vBeg, lengthsInFront);
+        vsafeCriticalCont(t, vBeg);
     }
     //@ to be optimized (move to somewhere else)
     checkRewindLinkLanes(lengthsInFront);
@@ -893,7 +893,7 @@ MSVehicle::checkRewindLinkLanes(SUMOReal lengthsInFront) throw() {
 
 
 void
-MSVehicle::vsafeCriticalCont(SUMOTime t, SUMOReal boundVSafe, SUMOReal lengthsInFront) {
+MSVehicle::vsafeCriticalCont(SUMOTime t, SUMOReal boundVSafe) {
 #ifdef DEBUG_VEHICLE_GUI_SELECTION
     if (gSelected.isSelected(GLO_VEHICLE, static_cast<const GUIVehicle*>(this)->getGlID())) {
         int bla = 0;
