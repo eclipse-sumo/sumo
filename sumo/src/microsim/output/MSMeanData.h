@@ -91,16 +91,43 @@ public:
         virtual void addTo(MeanDataValues& val) const throw() = 0;
 
 
+        /** @brief Called if the vehicle enters the reminder's lane
+         *
+         * @param veh The entering vehicle.
+         * @param[in] reason how the vehicle enters the lane
+         * @see MSMoveReminder
+         * @see MSMoveReminder::notifyEnter
+         */
+        virtual bool notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification reason) throw();
+
+
+        /** @brief Checks whether the reminder still has to be notified about the vehicle moves
+         *
+         * Indicator if the reminders is still active for the passed
+         * vehicle/parameters. If false, the vehicle will erase this reminder
+         * from it's reminder-container.
+         *
+         * @param[in] veh Vehicle that asks this reminder.
+         * @param[in] oldPos Position before move.
+         * @param[in] newPos Position after move with newSpeed.
+         * @param[in] newSpeed Moving speed.
+         *
+         * @return True if vehicle hasn't passed the reminder completely.
+         */
+        bool notifyMove(SUMOVehicle& veh, SUMOReal oldPos,
+                        SUMOReal newPos, SUMOReal newSpeed) throw();
+
+
         /** @brief Called if the vehicle leaves the reminder's lane
          *
          * @param veh The leaving vehicle.
          * @param[in] lastPos Position on the lane when leaving.
-         * @param[in] isArrival whether the vehicle arrived at its destination
-         * @param[in] isLaneChange whether the vehicle changed from the lane
+         * @param[in] reason how the vehicle leaves the lane
          * @see MSMoveReminder
          * @see MSMoveReminder::notifyLeave
          */
-        virtual bool notifyLeave(SUMOVehicle& veh, SUMOReal lastPos, bool isArrival, bool isLaneChange) throw();
+        virtual bool notifyLeave(SUMOVehicle& veh, SUMOReal lastPos,
+                                 MSMoveReminder::Notification reason) throw();
 
 
         /** @brief Tests whether the vehicles type is to be regarded
@@ -133,6 +160,9 @@ public:
                            const SUMOReal numLanes,
                            const int numVehicles=-1) const throw(IOError) = 0;
 
+        /** @brief Returns the number of collected sample seconds.
+         * @return the number of collected sample seconds
+         */
         virtual SUMOReal getSamples() const throw();
 
     protected:
@@ -196,9 +226,9 @@ public:
          * @param[in] newSpeed The vehicle's current speed
          * @return false, if the vehicle is beyond the lane, true otherwise
          * @see MSMoveReminder
-         * @see MSMoveReminder::isStillActive
+         * @see MSMoveReminder::notifyMove
          */
-        bool isStillActive(SUMOVehicle& veh, SUMOReal oldPos, SUMOReal newPos, SUMOReal newSpeed) throw();
+        bool notifyMove(SUMOVehicle& veh, SUMOReal oldPos, SUMOReal newPos, SUMOReal newSpeed) throw();
 
 
         /** @brief Called if the vehicle leaves the reminder's lane
@@ -210,7 +240,7 @@ public:
          * @see MSMoveReminder
          * @see MSMoveReminder::notifyLeave
          */
-        bool notifyLeave(SUMOVehicle& veh, SUMOReal lastPos, bool isArrival, bool isLaneChange) throw();
+        bool notifyLeave(SUMOVehicle& veh, SUMOReal lastPos, MSMoveReminder::Notification reason) throw();
 
 
         /** @brief Computes current values and adds them to their sums
@@ -225,7 +255,7 @@ public:
          * @see MSMoveReminder::notifyEnter
          * @return Always true
          */
-        bool notifyEnter(SUMOVehicle& veh, bool isEmit, bool isLaneChange) throw();
+        bool notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification reason) throw();
         //@}
 
         bool isEmpty() const throw();

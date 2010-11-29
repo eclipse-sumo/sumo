@@ -99,85 +99,43 @@ MSMeanData_Net::MSLaneMeanDataValues::addTo(MSMeanData::MeanDataValues &val) con
 }
 
 
-bool
-MSMeanData_Net::MSLaneMeanDataValues::isStillActive(SUMOVehicle& veh, SUMOReal oldPos, SUMOReal newPos, SUMOReal newSpeed) throw() {
-    if (!vehicleApplies(veh)) {
-        return false;
-    }
-    bool ret = true;
-    SUMOReal timeOnLane = TS;
-#ifdef HAVE_MESOSIM
-    if (MSGlobals::gUseMesoSim) {
-        SUMOReal lastReportedTime = oldPos;
-        SUMOReal lastReportedPos = veh.getPositionOnLane();
-        std::map<SUMOVehicle*, std::pair<SUMOReal, SUMOReal> >::iterator j=myLastVehicleUpdateValues.find(&veh);
-        if (j!=myLastVehicleUpdateValues.end()) {
-            // the vehicle already has reported its values before; use these
-            lastReportedTime = (*j).second.first;
-            lastReportedPos = (*j).second.second;
-            myLastVehicleUpdateValues.erase(j);
-        }
-        timeOnLane = newPos - lastReportedTime;
-        newSpeed = (veh.getPositionOnLane() + veh.getSegmentLength() - lastReportedPos) / (newSpeed - lastReportedTime);
-        myLastVehicleUpdateValues[&veh] = std::pair<SUMOReal, SUMOReal>(newPos, lastReportedPos+newSpeed*timeOnLane);
-    } else {
-#endif
-        if (oldPos < 0 && newSpeed != 0) {
-            timeOnLane = newPos / newSpeed;
-        }
-        if (newPos > myLaneLength && newSpeed != 0) {
-            timeOnLane -= (newPos - myLaneLength) / newSpeed;
-            if (fabs(timeOnLane) < 0.001) { // reduce rounding errors
-                timeOnLane = 0.;
-            }
-            ret = false;
-        }
-        if (timeOnLane<0) {
-            MsgHandler::getErrorInstance()->inform("Negative vehicle step fraction for '" + veh.getID() + "' on lane '" + getLane()->getID() + "'.");
-            return false;
-        }
-        if (timeOnLane==0) {
-            return false;
-        }
-#ifdef HAVE_MESOSIM
-    }
-#endif
+void
+MSMeanData_Net::MSLaneMeanDataValues::notifyMoveInternal(SUMOVehicle& veh, SUMOReal timeOnLane, SUMOReal speed) throw() {
     sampleSeconds += timeOnLane;
-    travelledDistance += newSpeed * timeOnLane;
+    travelledDistance += speed * timeOnLane;
     vehLengthSum += veh.getVehicleType().getLength() * timeOnLane;
-    if (myParent != 0 && newSpeed < myParent->myHaltSpeed) {
+    if (myParent != 0 && speed < myParent->myHaltSpeed) {
         waitSeconds += timeOnLane;
     }
-    return ret;
 }
 
 
 bool
-MSMeanData_Net::MSLaneMeanDataValues::notifyLeave(SUMOVehicle& veh, SUMOReal lastPos, bool isArrival, bool isLaneChange) throw() {
+MSMeanData_Net::MSLaneMeanDataValues::notifyLeave(SUMOVehicle& veh, SUMOReal lastPos, MSMoveReminder::Notification reason) throw() {
     if (vehicleApplies(veh) && (getLane() == 0 || getLane() == &static_cast<MSVehicle&>(veh).getLane())) {
 #ifdef HAVE_MESOSIM
         if (MSGlobals::gUseMesoSim) {
             myLastVehicleUpdateValues.erase(&veh);
         }
 #endif
-        if (isArrival) {
+        if (reason == MSMoveReminder::NOTIFICATION_ARRIVED) {
             ++nVehArrived;
-        } else if (isLaneChange) {
+        } else if (reason == MSMoveReminder::NOTIFICATION_LANE_CHANGE) {
             ++nVehLaneChangeFrom;
         } else {
             ++nVehLeft;
         }
     }
-    return !isLaneChange && !isArrival;
+    return reason == MSMoveReminder::NOTIFICATION_JUNCTION;
 }
 
 
 bool
-MSMeanData_Net::MSLaneMeanDataValues::notifyEnter(SUMOVehicle& veh, bool isEmit, bool isLaneChange) throw() {
+MSMeanData_Net::MSLaneMeanDataValues::notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification reason) throw() {
     if (vehicleApplies(veh)) {
-        if (isEmit) {
+        if (reason == MSMoveReminder::NOTIFICATION_DEPARTED) {
             ++nVehDeparted;
-        } else if (isLaneChange) {
+        } else if (reason == MSMoveReminder::NOTIFICATION_LANE_CHANGE) {
             ++nVehLaneChangeTo;
         } else {
             ++nVehEntered;

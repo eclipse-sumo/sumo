@@ -214,14 +214,14 @@ MSVehicle::onDepart() throw() {
 
 
 void
-MSVehicle::onRemovalFromNet(bool forTeleporting) throw() {
+MSVehicle::onRemovalFromNet(const MSMoveReminder::Notification reason) throw() {
     workOnMoveReminders(myState.myPos - SPEED2DIST(myState.mySpeed), myState.myPos, myState.mySpeed);
     for (DriveItemVector::iterator i=myLFLinkLanes.begin(); i!=myLFLinkLanes.end(); ++i) {
         if ((*i).myLink!=0) {
             (*i).myLink->removeApproaching(this);
         }
     }
-    leaveLane(!forTeleporting, false);
+    leaveLane(reason);
 }
 
 
@@ -316,7 +316,7 @@ MSVehicle::workOnMoveReminders(SUMOReal oldPos, SUMOReal newPos, SUMOReal newSpe
     // This erasure-idiom works for all stl-sequence-containers
     // See Meyers: Effective STL, Item 9
     for (MoveReminderCont::iterator rem=myMoveReminders.begin(); rem!=myMoveReminders.end();) {
-        if (!rem->first->isStillActive(*this, oldPos+rem->second, newPos+rem->second, newSpeed)) {
+        if (!rem->first->notifyMove(*this, oldPos+rem->second, newPos+rem->second, newSpeed)) {
             rem = myMoveReminders.erase(rem);
         } else {
             ++rem;
@@ -340,14 +340,14 @@ MSVehicle::adaptLaneEntering2MoveReminder(const MSLane &enteredLane) throw() {
 
 
 void
-MSVehicle::activateReminders(bool isEmit, bool isLaneChange) throw() {
+MSVehicle::activateReminders(const MSMoveReminder::Notification reason) throw() {
     // This erasure-idiom works for all stl-sequence-containers
     // See Meyers: Effective STL, Item 9
     for (MoveReminderCont::iterator rem=myMoveReminders.begin(); rem!=myMoveReminders.end();) {
         if (rem->first->getLane() != 0 && rem->first->getLane() != myLane) {
             ++rem;
         } else {
-            if (!rem->first->notifyEnter(*this, isEmit, isLaneChange)) {
+            if (!rem->first->notifyEnter(*this, reason)) {
                 rem = myMoveReminders.erase(rem);
             } else {
                 ++rem;
@@ -729,7 +729,7 @@ MSVehicle::moveFirstChecked() {
         // move the vehicle forward
         for (i=myLFLinkLanes.begin(); i!=myLFLinkLanes.end() && myState.myPos>approachedLane->getLength(); ++i) {
             if (approachedLane!=myLane) {
-                leaveLane(false, false);
+                leaveLane(MSMoveReminder::NOTIFICATION_JUNCTION);
             }
             MSLink *link = (*i).myLink;
             // check whether the vehicle was allowed to enter lane
@@ -1066,7 +1066,7 @@ MSVehicle::enterLaneAtMove(MSLane* enteredLane, bool onTeleporting) {
     if (!onTeleporting) {
         // may be optimized: compute only, if the current or the next have more than one lane...!!!
         getBestLanes(true);
-        activateReminders(false, false);
+        activateReminders(MSMoveReminder::NOTIFICATION_JUNCTION);
 #ifndef NO_TRACI
         checkForLaneChanges();
 #endif
@@ -1091,7 +1091,7 @@ MSVehicle::enterLaneAtLaneChange(MSLane* enteredLane) {
     for (std::vector< MSMoveReminder* >::const_iterator rem=enteredLane->getMoveReminders().begin(); rem!=enteredLane->getMoveReminders().end(); ++rem) {
         addReminder(*rem);
     }
-    activateReminders(false, true);
+    activateReminders(MSMoveReminder::NOTIFICATION_LANE_CHANGE);
     SUMOReal leftLength = myState.myPos-getVehicleType().getLength();
     if (leftLength<0) {
         // we have to rebuild "further lanes"
@@ -1133,7 +1133,7 @@ MSVehicle::enterLaneAtEmit(MSLane* enteredLane, SUMOReal pos, SUMOReal speed) {
     for (std::vector< MSMoveReminder* >::const_iterator rem=enteredLane->getMoveReminders().begin(); rem!=enteredLane->getMoveReminders().end(); ++rem) {
         addReminder(*rem);
     }
-    activateReminders(true, false);
+    activateReminders(MSMoveReminder::NOTIFICATION_DEPARTED);
     std::string msg;
     if (!hasValidRoute(msg)) {
         throw ProcessError("Vehicle '" + getID() + "' has no valid route. " + msg);
@@ -1153,15 +1153,15 @@ MSVehicle::enterLaneAtEmit(MSLane* enteredLane, SUMOReal pos, SUMOReal speed) {
 
 
 void
-MSVehicle::leaveLane(const bool isArrival, const bool isLaneChange) {
+MSVehicle::leaveLane(const MSMoveReminder::Notification reason) {
     for (MoveReminderCont::iterator rem=myMoveReminders.begin(); rem!=myMoveReminders.end();) {
-        if (!rem->first->notifyLeave(*this, myState.myPos + rem->second, isArrival, isLaneChange)) {
+        if (!rem->first->notifyLeave(*this, myState.myPos + rem->second, reason)) {
             rem = myMoveReminders.erase(rem);
         } else {
             ++rem;
         }
     }
-    if (isArrival || isLaneChange) {
+    if (reason != MSMoveReminder::NOTIFICATION_JUNCTION) {
         for (std::vector<MSLane*>::iterator i=myFurtherLanes.begin(); i!=myFurtherLanes.end(); ++i) {
             (*i)->resetPartialOccupation(this);
         }

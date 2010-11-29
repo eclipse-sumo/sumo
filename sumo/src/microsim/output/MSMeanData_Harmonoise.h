@@ -31,8 +31,8 @@
 
 #include <vector>
 #include <cassert>
-#include "MSMeanData.h"
 #include <limits>
+#include "MSMeanData.h"
 
 
 // ===========================================================================
@@ -94,31 +94,13 @@ public:
          *  used as a weight for the vehicle's current emission values
          *  which are computed using the current velocity and acceleration.
          *
-         * @param[in] veh The regarded vehicle
-         * @param[in] oldPos Position before the move-micro-timestep.
-         * @param[in] newPos Position after the move-micro-timestep.
-         * @param[in] newSpeed The vehicle's current speed
-         * @return false, if the vehicle is beyond the lane, true otherwise
-         * @see MSMoveReminder
-         * @see MSMoveReminder::isStillActive
-         * @see HelpersHarmonoise
-         */
-        bool isStillActive(SUMOVehicle& veh, SUMOReal oldPos, SUMOReal newPos, SUMOReal newSpeed) throw();
-
-
-        /** @brief Computes current emission values and adds them to their sums
-         *
-         * The fraction of time the vehicle is on the lane is computed and
-         *  used as a weight for the vehicle's current emission values
-         *  which are computed using the current velocity and acceleration.
-         *
          * @param[in] veh The vehicle that enters the lane
          * @param[in] isEmit whether the vehicle was just emitted into the net
          * @param[in] isLaneChange whether the vehicle changed to the lane
          * @see MSMoveReminder::notifyEnter
          * @return Always true
          */
-        bool notifyEnter(SUMOVehicle& veh, bool isEmit, bool isLaneChange) throw();
+        bool notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification reason) throw();
         //@}
 
 
@@ -142,6 +124,21 @@ public:
                    const int numVehicles=-1) const throw(IOError);
 
 
+    protected:
+        /** @brief Internal notification about the vehicle moves
+         *
+         * Indicator if the reminders is still active for the passed
+         * vehicle/parameters. If false, the vehicle will erase this reminder
+         * from it's reminder-container.
+         *
+         * @param[in] veh Vehicle that asks this reminder.
+         * @param[in] timeOnLane time the vehicle spent on the lane.
+         * @param[in] speed Moving speed.
+         */
+        void notifyMoveInternal(SUMOVehicle& veh, SUMOReal timeOnLane,
+                                SUMOReal speed) throw();
+
+    private:
         /// @name Collected values
         /// @{
 

@@ -843,7 +843,7 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer &server, tcpip::Storage &inputSto
             server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Vehicle '" + laneID + "' may be set onto an edge to pass only.", outputStorage);
             return false;
         }
-        v->onRemovalFromNet(true);
+        v->onRemovalFromNet(MSMoveReminder::NOTIFICATION_TELEPORT);
         v->getLane().removeVehicle(v);
         while (v->getEdge()!=&destinationEdge) {
             const MSEdge *nextEdge = v->succEdge(1);

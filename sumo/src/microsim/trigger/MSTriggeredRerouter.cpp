@@ -245,8 +245,8 @@ MSTriggeredRerouter::getCurrentReroute(SUMOTime) const {
 
 
 bool
-MSTriggeredRerouter::notifyEnter(SUMOVehicle& veh, bool, bool isLaneChange) throw() {
-    if (isLaneChange) {
+MSTriggeredRerouter::notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification reason) throw() {
+    if (reason == MSMoveReminder::NOTIFICATION_LANE_CHANGE) {
         return false;
     }
     // check whether the vehicle shall be rerouted

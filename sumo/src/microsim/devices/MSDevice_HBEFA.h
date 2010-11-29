@@ -95,10 +95,10 @@ public:
         * @param[in] newSpeed The vehicle's current speed
         * @return false, if the vehicle is beyond the lane, true otherwise
         * @see MSMoveReminder
-        * @see MSMoveReminder::isStillActive
+        * @see MSMoveReminder::notifyMove
         * @see HelpersHBEFA
         */
-    bool isStillActive(SUMOVehicle& veh, SUMOReal oldPos, SUMOReal newPos, SUMOReal newSpeed) throw();
+    bool notifyMove(SUMOVehicle& veh, SUMOReal oldPos, SUMOReal newPos, SUMOReal newSpeed) throw();
     /// @}
 
 

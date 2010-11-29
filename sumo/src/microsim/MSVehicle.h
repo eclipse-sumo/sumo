@@ -43,6 +43,7 @@
 #include <utils/common/SUMOVehicle.h>
 #include <utils/common/SUMOVehicleClass.h>
 #include "MSVehicleType.h"
+#include "MSMoveReminder.h"
 #include <utils/common/SUMOAbstractRouter.h>
 
 #ifdef HAVE_MESOSIM
@@ -144,15 +145,14 @@ public:
     void onDepart() throw();
 
 
-    /** @brief Called when the vehicle is removed the network.
+    /** @brief Called when the vehicle is removed from the network.
      *
-     * Sets the optional information about arival if forTeleporting is false
-     *  (the vehicle has arrived). Moves along work reminders and
+     * Moves along work reminders and
      *  informs all devices about quitting. Calls "leaveLane" then.
      *
-     * @param[in] forTeleporting true if the vehicle shall be teleported (otherwise it has reached its destination)
+     * @param[in] reason why the vehicle leaves (reached its destination, parking, teleport)
      */
-    void onRemovalFromNet(bool forTeleporting) throw();
+    void onRemovalFromNet(const MSMoveReminder::Notification reason) throw();
     //@}
 
 
@@ -243,7 +243,7 @@ public:
      *
      * This method goes through all active move reminder, both those for the current
      *  lane, stored in "myMoveReminders" and those of prior lanes stored in
-     *  "myOldLaneMoveReminders" calling "MSMoveReminder::isStillActive".
+     *  "myOldLaneMoveReminders" calling "MSMoveReminder::notifyMove".
      *
      * When processing move reminder from "myOldLaneMoveReminders",
      *  the offsets (prior lane lengths) are used, which are stored in
@@ -361,7 +361,7 @@ public:
 
 
     /** @brief Update of members if vehicle leaves a new lane in the lane change step or at arrival. */
-    void leaveLane(const bool isArrival, const bool isLaneChange);
+    void leaveLane(const MSMoveReminder::Notification reason);
 
 
     void vsafeCriticalCont(SUMOTime t, SUMOReal boundVSafe);
@@ -780,7 +780,7 @@ protected:
      * @see MSMoveReminder
      * @see MSMoveReminder::notifyEnter
      */
-    void activateReminders(bool isEmit, bool isLaneChange) throw();
+    void activateReminders(const MSMoveReminder::Notification reason) throw();
 
 
     /** @brief Adapts the vehicle's entering of a new lane

@@ -76,15 +76,28 @@ public:
     /// @name Methods called on vehicle movement / state change, overwriting MSDevice
     /// @{
 
-    /** @brief Saves departure info on emit
+    /** @brief Does nothing, returns true only if exit times should be collected
      *
      * @param[in] veh The entering vehicle.
-     * @param[in] isEmit whether the vehicle was just emitted into the net
-     * @param[in] isLaneChange whether the vehicle changed to the lane
+     * @param[in] reason how the vehicle enters the lane
+     * @see MSMoveReminder::notifyEnter
      *
-     * @return True.
+     * @return True, if exit times are to be collected.
      */
-    bool notifyEnter(SUMOVehicle& veh, bool isEmit, bool isLaneChange) throw();
+    bool notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification reason) throw();
+
+    /** @brief Saves exit times if needed
+     *
+     * The exit time is collected on all occasions except for lane change.
+     *
+     * @param[in] veh The leaving vehicle.
+     * @param[in] lastPos Position on the lane when leaving.
+     * @param[in] reason how the vehicle leaves the lane
+     * @see MSMoveReminder::notifyLeave
+     *
+     * @return True, if exit times are to be collected.
+     */
+    bool notifyLeave(SUMOVehicle& veh, SUMOReal lastPos, Notification reason) throw();
 
     /// @}
 
@@ -189,6 +202,7 @@ private:
     std::vector<RouteReplaceInfo> myReplacedRoutes;
     std::vector<SUMOTime> myExits;
     const unsigned int myMaxRoutes;
+    const MSEdge* myLastSavedAt;
 
 private:
     /// @brief Invalidated copy constructor.

@@ -64,7 +64,7 @@ MSDevice_Person::~MSDevice_Person() throw() {
 
 
 bool
-MSDevice_Person::isStillActive(SUMOVehicle& veh, SUMOReal oldPos, SUMOReal newPos, SUMOReal newSpeed) throw() {
+MSDevice_Person::notifyMove(SUMOVehicle& veh, SUMOReal oldPos, SUMOReal newPos, SUMOReal newSpeed) throw() {
     if (myStopped) {
         if (!veh.isStopped()) {
             for (std::vector<MSPerson*>::iterator i=myPersons.begin(); i!=myPersons.end(); ++i) {
@@ -90,8 +90,8 @@ MSDevice_Person::isStillActive(SUMOVehicle& veh, SUMOReal oldPos, SUMOReal newPo
 
 
 bool
-MSDevice_Person::notifyEnter(SUMOVehicle& veh, bool isEmit, bool isLaneChange) throw() {
-    if (isEmit) {
+MSDevice_Person::notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification reason) throw() {
+    if (reason == MSMoveReminder::NOTIFICATION_DEPARTED) {
         for (std::vector<MSPerson*>::iterator i=myPersons.begin(); i!=myPersons.end(); ++i) {
             (*i)->setDeparted(MSNet::getInstance()->getCurrentTimeStep());
         }
@@ -102,8 +102,8 @@ MSDevice_Person::notifyEnter(SUMOVehicle& veh, bool isEmit, bool isLaneChange) t
 
 bool
 MSDevice_Person::notifyLeave(SUMOVehicle& veh, SUMOReal lastPos,
-                             bool isArrival, bool isLaneChange) throw() {
-    if (isArrival) {
+                             MSMoveReminder::Notification reason) throw() {
+    if (reason == MSMoveReminder::NOTIFICATION_ARRIVED) {
         for (std::vector<MSPerson*>::iterator i=myPersons.begin(); i!=myPersons.end(); ++i) {
             (*i)->proceed(MSNet::getInstance(), MSNet::getInstance()->getCurrentTimeStep());
         }

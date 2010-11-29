@@ -90,10 +90,10 @@ public:
          * @param[in] newSpeed Unused here.
          * @return False, if vehicle passed the detector entierly, else true.
          * @see MSMoveReminder
-         * @see MSMoveReminder::isStillActive
+         * @see MSMoveReminder::notifyMove
          * @see MSE3Collector::enter
          */
-        bool isStillActive(SUMOVehicle& veh, SUMOReal , SUMOReal newPos, SUMOReal) throw();
+        bool notifyMove(SUMOVehicle& veh, SUMOReal , SUMOReal newPos, SUMOReal) throw();
 
 
         /** @brief Removes a known vehicle
@@ -107,21 +107,7 @@ public:
         * @param[in] isLaneChange whether the vehicle changed from the lane
         * @see MSMoveReminder::notifyLeave
         */
-        bool notifyLeave(SUMOVehicle& veh, SUMOReal lastPos, bool isArrival, bool isLaneChange) throw();
-
-
-        /** @brief Returns whether the vehicle shall be aware of this entry
-         *
-         * Returns true if the vehicle is in front of the entry, so that it
-         *  may enter it in later steps.
-         *
-         * @param[in] veh The vehicle that enters the lane
-         * @param[in] isEmit whether the vehicle was just emitted into the net
-         * @param[in] isLaneChange whether the vehicle changed to the lane
-         * @see MSMoveReminder::notifyEnter
-         * @return False, if vehicle passed the entry, else true.
-         */
-        bool notifyEnter(SUMOVehicle& veh, bool isEmit, bool isLaneChange) throw();
+        bool notifyLeave(SUMOVehicle& veh, SUMOReal lastPos, MSMoveReminder::Notification reason) throw();
         /// @}
 
 
@@ -172,24 +158,10 @@ public:
          * @param[in] newSpeed Unused here.
          * @return False, if vehicle passed the detector entierly, else true.
          * @see MSMoveReminder
-         * @see MSMoveReminder::isStillActive
+         * @see MSMoveReminder::notifyMove
          * @see MSE3Collector::leave
          */
-        bool isStillActive(SUMOVehicle& veh, SUMOReal , SUMOReal newPos, SUMOReal) throw();
-
-
-        /** @brief Returns whether the vehicle shall be aware of this entry
-         *
-         * Returns true if the vehicle is in front of the exit, so that it
-         *  may enter it in later steps.
-         *
-         * @param[in] veh The vehicle that enters the lane
-         * @param[in] isEmit whether the vehicle was just emitted into the net
-         * @param[in] isLaneChange whether the vehicle changed to the lane
-         * @see MSMoveReminder::notifyEnter
-         * @return False, if vehicle passed the exit completely, else true.
-         */
-        bool notifyEnter(SUMOVehicle& veh, bool isEmit, bool isLaneChange) throw();
+        bool notifyMove(SUMOVehicle& veh, SUMOReal , SUMOReal newPos, SUMOReal) throw();
         //@}
 
 

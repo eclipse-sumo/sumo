@@ -106,7 +106,7 @@ MSDevice_HBEFA::~MSDevice_HBEFA() throw() {
 
 
 bool
-MSDevice_HBEFA::isStillActive(SUMOVehicle& veh, SUMOReal oldPos, SUMOReal newPos, SUMOReal newSpeed) throw() {
+MSDevice_HBEFA::notifyMove(SUMOVehicle& veh, SUMOReal oldPos, SUMOReal newPos, SUMOReal newSpeed) throw() {
     SUMOEmissionClass c = veh.getVehicleType().getEmissionClass();
     SUMOReal a = veh.getPreDawdleAcceleration();
     myCO2 += HelpersHBEFA::computeCO2(c, newSpeed, a);

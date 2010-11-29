@@ -128,7 +128,7 @@ MSCalibrator::execute(SUMOTime timestep) throw(ProcessError) {
                 if (veh->getVehicleType().getID() == "BUS") {
                     continue;
                 } else {
-                    veh->onRemovalFromNet(false);
+                    veh->onRemovalFromNet(MSMoveReminder::NOTIFICATION_VAPORIZED);
                     myDestLane->removeVehicle(veh);
                     MSNet::getInstance()->getVehicleControl().scheduleVehicleRemoval(veh);
                     num_replacements++;

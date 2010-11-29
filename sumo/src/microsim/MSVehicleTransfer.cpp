@@ -53,9 +53,7 @@ MSVehicleTransfer *MSVehicleTransfer::myInstance = 0;
 void
 MSVehicleTransfer::addVeh(const SUMOTime t, MSVehicle *veh) throw() {
     // get the current edge of the vehicle
-    MSEdge *e = MSEdge::dictionary(veh->getEdge()->getID());
-    // let the vehicle be on the one
-    veh->onRemovalFromNet(true);
+    const MSEdge *e = veh->getEdge();
     if (!veh->isParking()) {
         if ((veh->succEdge(1) == 0) || veh->enterLaneAtMove(veh->succEdge(1)->getLanes()[0], true)) {
             MSNet::getInstance()->getVehicleControl().scheduleVehicleRemoval(veh);

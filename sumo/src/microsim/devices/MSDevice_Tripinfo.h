@@ -72,7 +72,7 @@ public:
      *
      * @return True (always).
      */
-    bool isStillActive(SUMOVehicle& veh, SUMOReal oldPos,
+    bool notifyMove(SUMOVehicle& veh, SUMOReal oldPos,
                        SUMOReal newPos, SUMOReal newSpeed) throw();
 
 
@@ -84,7 +84,7 @@ public:
      *
      * @return True.
      */
-    bool notifyEnter(SUMOVehicle& veh, bool isEmit, bool isLaneChange) throw();
+    bool notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification reason) throw();
 
     /** @brief Saves arrival info
      *
@@ -96,7 +96,7 @@ public:
      * @return True if it did not leave the net.
      */
     bool notifyLeave(SUMOVehicle& veh, SUMOReal lastPos,
-                     bool isArrival, bool isLaneChange) throw();
+                     MSMoveReminder::Notification reason) throw();
     /// @}
 
 

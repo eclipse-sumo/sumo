@@ -57,7 +57,6 @@ class MSLane;
  * This class is used to build the output, optionally, in the case
  *  of edge-based dump, aggregated over the edge's lanes.
  *
- * @todo check where mean data is stored in mesosim.
  * @todo consider error-handling on write (using IOError)
  */
 class MSMeanData_Net : public MSMeanData {
@@ -94,25 +93,6 @@ public:
         /// @name Methods inherited from MSMoveReminder
         /// @{
 
-        /** @brief Computes current values and adds them to their sums
-         *
-         * The fraction of time the vehicle is on the lane is computed and
-         *  used as a weight for the vehicle's current values.
-         *
-         * Additionally, if the vehicle has entered this lane, "nVehEnteredLane"
-         *  is incremented, and if the vehicle has left the lane, "nVehLeftLane".
-         *
-         * @param[in] veh The regarded vehicle
-         * @param[in] oldPos Position before the move-micro-timestep.
-         * @param[in] newPos Position after the move-micro-timestep.
-         * @param[in] newSpeed The vehicle's current speed
-         * @return false, if the vehicle is beyond the lane, true otherwise
-         * @see MSMoveReminder
-         * @see MSMoveReminder::isStillActive
-         */
-        bool isStillActive(SUMOVehicle& veh, SUMOReal oldPos, SUMOReal newPos, SUMOReal newSpeed) throw();
-
-
         /** @brief Called if the vehicle leaves the reminder's lane
          *
          * @param veh The leaving vehicle.
@@ -122,7 +102,7 @@ public:
          * @see MSMoveReminder
          * @see MSMoveReminder::notifyLeave
          */
-        bool notifyLeave(SUMOVehicle& veh, SUMOReal lastPos, bool isArrival, bool isLaneChange) throw();
+        bool notifyLeave(SUMOVehicle& veh, SUMOReal lastPos, MSMoveReminder::Notification reason) throw();
 
 
         /** @brief Computes current values and adds them to their sums
@@ -137,7 +117,7 @@ public:
          * @see MSMoveReminder::notifyEnter
          * @return Always true
          */
-        bool notifyEnter(SUMOVehicle& veh, bool isEmit, bool isLaneChange) throw();
+        bool notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification reason) throw();
         //@}
 
         bool isEmpty() const throw();
@@ -152,6 +132,21 @@ public:
         void write(OutputDevice &dev, const SUMOTime period,
                    const SUMOReal numLanes, const int numVehicles=-1) const throw(IOError);
 
+    protected:
+        /** @brief Internal notification about the vehicle moves
+         *
+         * Indicator if the reminders is still active for the passed
+         * vehicle/parameters. If false, the vehicle will erase this reminder
+         * from it's reminder-container.
+         *
+         * @param[in] veh Vehicle that asks this reminder.
+         * @param[in] timeOnLane time the vehicle spent on the lane.
+         * @param[in] speed Moving speed.
+         */
+        void notifyMoveInternal(SUMOVehicle& veh, SUMOReal timeOnLane,
+                                SUMOReal speed) throw();
+
+    public:
         /// @name Collected values
         /// @{
         /// @brief The number of vehicles that were emitted on the lane
@@ -182,10 +177,6 @@ public:
 
         /// @brief The meandata parent
         const MSMeanData_Net* myParent;
-
-#ifdef HAVE_MESOSIM
-        std::map<SUMOVehicle*, std::pair<SUMOReal, SUMOReal> > myLastVehicleUpdateValues;
-#endif
 
     };
 

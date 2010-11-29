@@ -84,40 +84,17 @@ MSMeanData_HBEFA::MSLaneMeanDataValues::addTo(MSMeanData::MeanDataValues &val) c
 }
 
 
-bool
-MSMeanData_HBEFA::MSLaneMeanDataValues::isStillActive(SUMOVehicle& veh, SUMOReal oldPos, SUMOReal newPos, SUMOReal newSpeed) throw() {
-    if (!vehicleApplies(veh)) {
-        return false;
-    }
-    bool ret = true;
-    SUMOReal timeOnLane = TS;
-    if (oldPos < 0 && newSpeed != 0) {
-        timeOnLane = newPos / newSpeed;
-    }
-    if (newPos > getLane()->getLength() && newSpeed != 0) {
-        timeOnLane -= (newPos - getLane()->getLength()) / newSpeed;
-        if (fabs(timeOnLane) < 0.001) { // reduce rounding errors
-            timeOnLane = 0.;
-        }
-        ret = false;
-    }
-    if (timeOnLane<0) {
-        MsgHandler::getErrorInstance()->inform("Negative vehicle step fraction on lane '" + getLane()->getID() + "'.");
-        return false;
-    }
-    if (timeOnLane==0) {
-        return false;
-    }
+void
+MSMeanData_HBEFA::MSLaneMeanDataValues::notifyMoveInternal(SUMOVehicle& veh, SUMOReal timeOnLane, SUMOReal speed) throw() {
     sampleSeconds += timeOnLane;
-    travelledDistance += newSpeed * timeOnLane;
-    SUMOReal a = veh.getPreDawdleAcceleration();
-    CO += (timeOnLane * HelpersHBEFA::computeCO(veh.getVehicleType().getEmissionClass(), (double) newSpeed, (double) a));
-    CO2 += (timeOnLane * HelpersHBEFA::computeCO2(veh.getVehicleType().getEmissionClass(), (double) newSpeed, (double) a));
-    HC += (timeOnLane * HelpersHBEFA::computeHC(veh.getVehicleType().getEmissionClass(), (double) newSpeed, (double) a));
-    NOx += (timeOnLane * HelpersHBEFA::computeNOx(veh.getVehicleType().getEmissionClass(), (double) newSpeed, (double) a));
-    PMx += (timeOnLane * HelpersHBEFA::computePMx(veh.getVehicleType().getEmissionClass(), (double) newSpeed, (double) a));
-    fuel += (timeOnLane * HelpersHBEFA::computeFuel(veh.getVehicleType().getEmissionClass(), (double) newSpeed, (double) a));
-    return ret;
+    travelledDistance += speed * timeOnLane;
+    const double a = veh.getPreDawdleAcceleration();
+    CO += (timeOnLane * HelpersHBEFA::computeCO(veh.getVehicleType().getEmissionClass(), (double) speed, a));
+    CO2 += (timeOnLane * HelpersHBEFA::computeCO2(veh.getVehicleType().getEmissionClass(), (double) speed, a));
+    HC += (timeOnLane * HelpersHBEFA::computeHC(veh.getVehicleType().getEmissionClass(), (double) speed, a));
+    NOx += (timeOnLane * HelpersHBEFA::computeNOx(veh.getVehicleType().getEmissionClass(), (double) speed, a));
+    PMx += (timeOnLane * HelpersHBEFA::computePMx(veh.getVehicleType().getEmissionClass(), (double) speed, a));
+    fuel += (timeOnLane * HelpersHBEFA::computeFuel(veh.getVehicleType().getEmissionClass(), (double) speed, a));
 }
 
 

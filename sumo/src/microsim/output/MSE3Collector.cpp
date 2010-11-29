@@ -50,35 +50,30 @@ MSE3Collector::MSE3EntryReminder::MSE3EntryReminder(
 
 
 bool
-MSE3Collector::MSE3EntryReminder::isStillActive(SUMOVehicle& veh, SUMOReal oldPos,
+MSE3Collector::MSE3EntryReminder::notifyMove(SUMOVehicle& veh, SUMOReal oldPos,
         SUMOReal newPos, SUMOReal newSpeed) throw() {
-    if (newPos <= myPosition) {
-        // crossSection not yet reached
+    if (newPos <= myPosition && &static_cast<MSVehicle&>(veh).getLane() == myLane) {
         return true;
     }
-    if (&static_cast<MSVehicle&>(veh).getLane() == myLane && oldPos <= myPosition) {
+    if (newPos > myPosition && oldPos <= myPosition && &static_cast<MSVehicle&>(veh).getLane() == myLane) {
         SUMOReal entryTime = STEPS2TIME(MSNet::getInstance()->getCurrentTimeStep());
         if (newSpeed!=0) {
             entryTime += (myPosition - oldPos) / newSpeed;
         }
         myCollector.enter(veh, entryTime);
     }
-    return true;
+    return myCollector.myEnteredContainer.find(&veh)!=myCollector.myEnteredContainer.end();
 }
 
 
 bool
-MSE3Collector::MSE3EntryReminder::notifyLeave(SUMOVehicle& veh, SUMOReal, bool, bool) throw() {
-    myCollector.myEnteredContainer.erase(&veh);
-    return false;
+MSE3Collector::MSE3EntryReminder::notifyLeave(SUMOVehicle& veh, SUMOReal, MSMoveReminder::Notification reason) throw() {
+    if (reason == MSMoveReminder::NOTIFICATION_ARRIVED) {
+        myCollector.myEnteredContainer.erase(&veh);
+        return false;
+    }
+    return myCollector.myEnteredContainer.find(&veh)!=myCollector.myEnteredContainer.end();
 }
-
-
-bool
-MSE3Collector::MSE3EntryReminder::notifyEnter(SUMOVehicle& veh, bool, bool) throw() {
-    return veh.getPositionOnLane() <= myPosition;
-}
-
 
 
 /* -------------------------------------------------------------------------
@@ -91,7 +86,7 @@ MSE3Collector::MSE3LeaveReminder::MSE3LeaveReminder(
 
 
 bool
-MSE3Collector::MSE3LeaveReminder::isStillActive(SUMOVehicle& veh, SUMOReal oldPos,
+MSE3Collector::MSE3LeaveReminder::notifyMove(SUMOVehicle& veh, SUMOReal oldPos,
         SUMOReal newPos, SUMOReal newSpeed) throw() {
     if (newPos <= myPosition) {
         // crossSection not yet reached
@@ -107,13 +102,6 @@ MSE3Collector::MSE3LeaveReminder::isStillActive(SUMOVehicle& veh, SUMOReal oldPo
     myCollector.leave(veh, leaveTime);
     return false;
 }
-
-
-bool
-MSE3Collector::MSE3LeaveReminder::notifyEnter(SUMOVehicle& veh, bool, bool) throw() {
-    return veh.getPositionOnLane() - veh.getVehicleType().getLength() <= myPosition;
-}
-
 
 
 /* -------------------------------------------------------------------------

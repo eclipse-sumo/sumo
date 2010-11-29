@@ -66,7 +66,7 @@ MSDevice_Tripinfo::~MSDevice_Tripinfo() throw() {
 
 
 bool
-MSDevice_Tripinfo::isStillActive(SUMOVehicle& veh, SUMOReal oldPos,
+MSDevice_Tripinfo::notifyMove(SUMOVehicle& veh, SUMOReal oldPos,
               SUMOReal newPos, SUMOReal newSpeed) throw() {
     if (newSpeed<=0.1) {
         myWaitingSteps++;
@@ -76,8 +76,8 @@ MSDevice_Tripinfo::isStillActive(SUMOVehicle& veh, SUMOReal oldPos,
 
 
 bool
-MSDevice_Tripinfo::notifyEnter(SUMOVehicle& veh, bool isEmit, bool isLaneChange) throw() {
-    if (isEmit) {
+MSDevice_Tripinfo::notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification reason) throw() {
+    if (reason == MSMoveReminder::NOTIFICATION_DEPARTED) {
 #ifdef HAVE_MESOSIM
     if (!MSGlobals::gUseMesoSim) {
 #endif
@@ -94,8 +94,8 @@ MSDevice_Tripinfo::notifyEnter(SUMOVehicle& veh, bool isEmit, bool isLaneChange)
 
 bool
 MSDevice_Tripinfo::notifyLeave(SUMOVehicle& veh, SUMOReal lastPos,
-                               bool isArrival, bool isLaneChange) throw() {
-    if (isArrival) {
+                               MSMoveReminder::Notification reason) throw() {
+    if (reason == MSMoveReminder::NOTIFICATION_ARRIVED) {
         myArrivalTime = MSNet::getInstance()->getCurrentTimeStep();
 #ifdef HAVE_MESOSIM
     if (!MSGlobals::gUseMesoSim) {

@@ -96,7 +96,7 @@ MSDevice_Vehroutes::StateListener::vehicleStateChanged(const SUMOVehicle * const
 // MSDevice_Vehroutes-methods
 // ---------------------------------------------------------------------------
 MSDevice_Vehroutes::MSDevice_Vehroutes(SUMOVehicle &holder, const std::string &id, unsigned int maxRoutes) throw()
-    : MSDevice(holder, id), myCurrentRoute(&holder.getRoute()), myMaxRoutes(maxRoutes) {
+    : MSDevice(holder, id), myCurrentRoute(&holder.getRoute()), myMaxRoutes(maxRoutes), myLastSavedAt(0) {
     myCurrentRoute->addReference();
 }
 
@@ -111,9 +111,20 @@ MSDevice_Vehroutes::~MSDevice_Vehroutes() throw() {
 
 
 bool
-MSDevice_Vehroutes::notifyEnter(SUMOVehicle& veh, bool isEmit, bool isLaneChange) throw() {
-    if (mySaveExits && !isEmit && !isLaneChange) {
-        myExits.push_back(MSNet::getInstance()->getCurrentTimeStep());
+MSDevice_Vehroutes::notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification reason) throw() {
+    return mySaveExits;
+}
+
+
+bool
+MSDevice_Vehroutes::notifyLeave(SUMOVehicle& veh, SUMOReal lastPos, MSMoveReminder::Notification reason) throw() {
+    if (mySaveExits && reason != NOTIFICATION_LANE_CHANGE) {
+        if (myLastSavedAt == veh.getEdge()) { // need to check this for internal lanes
+            myExits.back() = MSNet::getInstance()->getCurrentTimeStep();
+        } else {
+            myExits.push_back(MSNet::getInstance()->getCurrentTimeStep());
+            myLastSavedAt = veh.getEdge();
+        }
     }
     return mySaveExits;
 }

@@ -111,7 +111,7 @@ public:
         * @see MSMoveReminder
         * @see MSMoveReminder::notifyEnter
         */
-    bool notifyEnter(SUMOVehicle& veh, bool isEmit, bool isLaneChange) throw();
+    bool notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification reason) throw();
 
     /// Returns whether a rerouting definition is valid for the given time and vehicle
     bool hasCurrentReroute(SUMOTime time, SUMOVehicle &veh) const;

@@ -75,7 +75,7 @@ MSMsgInductLoop::reset() throw() {
 
 
 bool
-MSMsgInductLoop::isStillActive(SUMOVehicle& veh, SUMOReal oldPos,
+MSMsgInductLoop::notifyMove(SUMOVehicle& veh, SUMOReal oldPos,
                                SUMOReal newPos, SUMOReal newSpeed) throw() {
     if (newPos < myPosition) {
         // detector not reached yet
@@ -112,7 +112,7 @@ MSMsgInductLoop::isStillActive(SUMOVehicle& veh, SUMOReal oldPos,
 
 
 bool
-MSMsgInductLoop::notifyLeave(SUMOVehicle& veh, SUMOReal lastPos, bool isArrival, bool isLaneChange) throw() {
+MSMsgInductLoop::notifyLeave(SUMOVehicle& veh, SUMOReal lastPos, MSMoveReminder::Notification reason) throw() {
     if (isArrival || isLaneChange || (veh.getPositionOnLane() > myPosition && veh.getPositionOnLane() - veh.getVehicleType().getLength() <= myPosition)) {
         // vehicle is on detector during lane change
         leaveDetectorByLaneChange(veh);

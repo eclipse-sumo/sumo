@@ -113,11 +113,11 @@ public:
      * @param[in] newSpeed Moving speed.
      * @return True if vehicle hasn't passed the detector completely.
      * @see MSMoveReminder
-     * @see MSMoveReminder::isStillActive
+     * @see MSMoveReminder::notifyMove
      * @see enterDetectorByMove
      * @see leaveDetectorByMove
      */
-    bool isStillActive(SUMOVehicle& veh, SUMOReal oldPos, SUMOReal newPos, SUMOReal newSpeed) throw();
+    bool notifyMove(SUMOVehicle& veh, SUMOReal oldPos, SUMOReal newPos, SUMOReal newSpeed) throw();
 
 
     /** @brief Dismisses the vehicle if it is on the detector due to a lane change
@@ -134,7 +134,7 @@ public:
      * @see MSMoveReminder
      * @see MSMoveReminder::notifyLeave
      */
-    bool notifyLeave(SUMOVehicle& veh, SUMOReal lastPos, bool isArrival, bool isLaneChange) throw();
+    bool notifyLeave(SUMOVehicle& veh, SUMOReal lastPos, MSMoveReminder::Notification reason) throw();
 
 
     /** @brief Returns whether the detector may has to be concerned during the vehicle's further movement
@@ -150,7 +150,7 @@ public:
      * @see MSMoveReminder
      * @see MSMoveReminder::notifyEnter
      */
-    bool notifyEnter(SUMOVehicle& veh, bool isEmit, bool isLaneChange) throw();
+    bool notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification reason) throw();
     //@}
 
 

@@ -63,8 +63,40 @@ MSMeanData::MeanDataValues::~MeanDataValues() throw() {
 
 
 bool
-MSMeanData::MeanDataValues::notifyLeave(SUMOVehicle& veh, SUMOReal lastPos, bool isArrival, bool isLaneChange) throw() {
-    return !isLaneChange && !isArrival;
+MSMeanData::MeanDataValues::notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification reason) throw() {
+    return vehicleApplies(veh);
+}
+
+
+bool
+MSMeanData::MeanDataValues::notifyMove(SUMOVehicle& veh, SUMOReal oldPos, SUMOReal newPos, SUMOReal newSpeed) throw() {
+    SUMOReal timeOnLane = TS;
+    bool ret = true;
+    if (oldPos < 0 && newSpeed != 0) {
+        timeOnLane = newPos / newSpeed;
+    }
+    if (newPos > myLaneLength && newSpeed != 0) {
+        timeOnLane -= (newPos - myLaneLength) / newSpeed;
+        if (fabs(timeOnLane) < 0.001) { // reduce rounding errors
+            timeOnLane = 0.;
+        }
+        ret = false;
+    }
+    if (timeOnLane<0) {
+        MsgHandler::getErrorInstance()->inform("Negative vehicle step fraction for '" + veh.getID() + "' on lane '" + getLane()->getID() + "'.");
+        return false;
+    }
+    if (timeOnLane==0) {
+        return false;
+    }
+    notifyMoveInternal(veh, timeOnLane, newSpeed);
+    return ret;
+}
+
+
+bool
+MSMeanData::MeanDataValues::notifyLeave(SUMOVehicle& veh, SUMOReal lastPos, MSMoveReminder::Notification reason) throw() {
+    return reason == MSMoveReminder::NOTIFICATION_JUNCTION;
 }
 
 
@@ -125,9 +157,9 @@ MSMeanData::MeanDataValueTracker::addTo(MSMeanData::MeanDataValues &val) const t
 
 
 bool
-MSMeanData::MeanDataValueTracker::isStillActive(SUMOVehicle& veh, SUMOReal oldPos, SUMOReal newPos, SUMOReal newSpeed) throw() {
+MSMeanData::MeanDataValueTracker::notifyMove(SUMOVehicle& veh, SUMOReal oldPos, SUMOReal newPos, SUMOReal newSpeed) throw() {
     if (vehicleApplies(veh)) {
-        if (!myTrackedData[&veh]->myValues->isStillActive(veh, oldPos, newPos, newSpeed)) {
+        if (!myTrackedData[&veh]->myValues->notifyMove(veh, oldPos, newPos, newSpeed)) {
             myTrackedData.erase(&veh);
             return false;
         }
@@ -138,21 +170,21 @@ MSMeanData::MeanDataValueTracker::isStillActive(SUMOVehicle& veh, SUMOReal oldPo
 
 
 bool
-MSMeanData::MeanDataValueTracker::notifyLeave(SUMOVehicle& veh, SUMOReal lastPos, bool isArrival, bool isLaneChange) throw() {
+MSMeanData::MeanDataValueTracker::notifyLeave(SUMOVehicle& veh, SUMOReal lastPos, MSMoveReminder::Notification reason) throw() {
     if (vehicleApplies(veh)) {
         myTrackedData[&veh]->myNumVehicleLeft++;
-        return myTrackedData[&veh]->myValues->notifyLeave(veh, lastPos, isArrival, isLaneChange);
+        return myTrackedData[&veh]->myValues->notifyLeave(veh, lastPos, reason);
     }
     return false;
 }
 
 
 bool
-MSMeanData::MeanDataValueTracker::notifyEnter(SUMOVehicle& veh, bool isEmit, bool isLaneChange) throw() {
+MSMeanData::MeanDataValueTracker::notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification reason) throw() {
     if (vehicleApplies(veh) && myTrackedData.find(&veh) == myTrackedData.end()) {
         myTrackedData[&veh] = myCurrentData.back();
         myTrackedData[&veh]->myNumVehicleEntered++;
-        if (!myTrackedData[&veh]->myValues->notifyEnter(veh, isEmit, isLaneChange)) {
+        if (!myTrackedData[&veh]->myValues->notifyEnter(veh, reason)) {
             myTrackedData[&veh]->myNumVehicleLeft++;
             myTrackedData.erase(&veh);
             return false;

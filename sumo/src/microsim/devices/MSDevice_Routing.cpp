@@ -189,21 +189,20 @@ MSDevice_Routing::onTryEmit() {
 
 
 bool
-MSDevice_Routing::notifyEnter(SUMOVehicle& veh, bool isEmit, bool isLaneChange) throw() {
-    if (!isEmit) {
-        return false;
-    }
-    if (myLastPreEmitReroute == -1) {
-        DijkstraRouterTT_ByProxi<MSEdge, SUMOVehicle, prohibited_withRestrictions<MSEdge, SUMOVehicle>, MSDevice_Routing>
-        router(MSEdge::dictSize(), true, this, &MSDevice_Routing::getEffort);
-        myHolder.reroute(MSNet::getInstance()->getCurrentTimeStep(), router);
-    }
-    // build repetition trigger if routing shall be done more often
-    if (myPeriod>0&&myRerouteCommand==0) {
-        myRerouteCommand = new WrappingCommand< MSDevice_Routing >(this, &MSDevice_Routing::wrappedRerouteCommandExecute);
-        MSNet::getInstance()->getBeginOfTimestepEvents().addEvent(
-            myRerouteCommand, myPeriod+MSNet::getInstance()->getCurrentTimeStep(),
-            MSEventControl::ADAPT_AFTER_EXECUTION);
+MSDevice_Routing::notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification reason) throw() {
+    if (reason == MSMoveReminder::NOTIFICATION_DEPARTED) {
+        if (myLastPreEmitReroute == -1) {
+            DijkstraRouterTT_ByProxi<MSEdge, SUMOVehicle, prohibited_withRestrictions<MSEdge, SUMOVehicle>, MSDevice_Routing>
+            router(MSEdge::dictSize(), true, this, &MSDevice_Routing::getEffort);
+            myHolder.reroute(MSNet::getInstance()->getCurrentTimeStep(), router);
+        }
+        // build repetition trigger if routing shall be done more often
+        if (myPeriod>0&&myRerouteCommand==0) {
+            myRerouteCommand = new WrappingCommand< MSDevice_Routing >(this, &MSDevice_Routing::wrappedRerouteCommandExecute);
+            MSNet::getInstance()->getBeginOfTimestepEvents().addEvent(
+                myRerouteCommand, myPeriod+MSNet::getInstance()->getCurrentTimeStep(),
+                MSEventControl::ADAPT_AFTER_EXECUTION);
+        }
     }
     return false;
 }

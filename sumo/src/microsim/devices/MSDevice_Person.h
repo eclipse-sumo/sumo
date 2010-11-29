@@ -86,10 +86,10 @@ public:
      * @param[in] newSpeed The vehicle's current speed
      * @return false, if the vehicle is beyond the lane, true otherwise
      * @see MSMoveReminder
-     * @see MSMoveReminder::isStillActive
+     * @see MSMoveReminder::notifyMove
      * @see HelpersHBEFA
      */
-    bool isStillActive(SUMOVehicle& veh, SUMOReal oldPos, SUMOReal newPos, SUMOReal newSpeed) throw();
+    bool notifyMove(SUMOVehicle& veh, SUMOReal oldPos, SUMOReal newPos, SUMOReal newSpeed) throw();
 
     /** @brief Adds passengers on vehicle emission
      *
@@ -98,7 +98,7 @@ public:
      * @param[in] isLaneChange whether the vehicle changed to the lane
      *
      */
-    bool notifyEnter(SUMOVehicle& veh, bool isEmit, bool isLaneChange) throw();
+    bool notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification reason) throw();
 
     /** @brief Passengers leaving on arrival
      *
@@ -110,7 +110,7 @@ public:
      * @return True if it did not leave the net.
      */
     bool notifyLeave(SUMOVehicle& veh, SUMOReal lastPos,
-                     bool isArrival, bool isLaneChange) throw();
+                     MSMoveReminder::Notification reason) throw();
     /// @}
 
 

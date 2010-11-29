@@ -69,7 +69,7 @@ MSE2Collector::~MSE2Collector() throw() {
 
 
 bool
-MSE2Collector::isStillActive(SUMOVehicle& veh, SUMOReal oldPos,
+MSE2Collector::notifyMove(SUMOVehicle& veh, SUMOReal oldPos,
                              SUMOReal newPos, SUMOReal) throw() {
     if (newPos <= myStartPos) {
         // detector not yet reached
@@ -92,8 +92,8 @@ MSE2Collector::isStillActive(SUMOVehicle& veh, SUMOReal oldPos,
 
 
 bool
-MSE2Collector::notifyLeave(SUMOVehicle& veh, SUMOReal lastPos, bool isArrival, bool isLaneChange) throw() {
-    if (isArrival || isLaneChange || (lastPos >= myStartPos && lastPos - veh.getVehicleType().getLength() < myEndPos)) {
+MSE2Collector::notifyLeave(SUMOVehicle& veh, SUMOReal lastPos, MSMoveReminder::Notification reason) throw() {
+    if (reason != MSMoveReminder::NOTIFICATION_JUNCTION || (lastPos >= myStartPos && lastPos - veh.getVehicleType().getLength() < myEndPos)) {
         std::list<SUMOVehicle*>::iterator i = find(myKnownVehicles.begin(), myKnownVehicles.end(), &veh);
         if (i!=myKnownVehicles.end()) {
             myKnownVehicles.erase(i);
@@ -105,7 +105,7 @@ MSE2Collector::notifyLeave(SUMOVehicle& veh, SUMOReal lastPos, bool isArrival, b
 
 
 bool
-MSE2Collector::notifyEnter(SUMOVehicle& veh, bool, bool) throw() {
+MSE2Collector::notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification) throw() {
     if (veh.getPositionOnLane() >= myStartPos && veh.getPositionOnLane() - veh.getVehicleType().getLength() < myEndPos) {
         // vehicle is on detector
         myKnownVehicles.push_back(&veh);

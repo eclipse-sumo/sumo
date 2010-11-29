@@ -83,41 +83,18 @@ MSMeanData_Harmonoise::MSLaneMeanDataValues::update() throw() {
 }
 
 
-bool
-MSMeanData_Harmonoise::MSLaneMeanDataValues::isStillActive(SUMOVehicle& veh, SUMOReal oldPos, SUMOReal newPos, SUMOReal newSpeed) throw() {
-    if (!vehicleApplies(veh)) {
-        return false;
-    }
-    bool ret = true;
-    SUMOReal timeOnLane = TS;
-    if (oldPos < 0 && newSpeed != 0) {
-        timeOnLane = newPos / newSpeed;
-    }
-    if (newPos > getLane()->getLength() && newSpeed != 0) {
-        timeOnLane -= (newPos - getLane()->getLength()) / newSpeed;
-        if (fabs(timeOnLane) < 0.001) { // reduce rounding errors
-            timeOnLane = 0.;
-        }
-        ret = false;
-    }
-    if (timeOnLane<0) {
-        MsgHandler::getErrorInstance()->inform("Negative vehicle step fraction on lane '" + getLane()->getID() + "'.");
-        return false;
-    }
-    if (timeOnLane==0) {
-        return false;
-    }
-    SUMOReal a = veh.getPreDawdleAcceleration();
-    SUMOReal sn = HelpersHarmonoise::computeNoise(veh.getVehicleType().getEmissionClass(), (double) newSpeed, (double) a);
+void
+MSMeanData_Harmonoise::MSLaneMeanDataValues::notifyMoveInternal(SUMOVehicle& veh, SUMOReal timeOnLane, SUMOReal speed) throw() {
+    const SUMOReal sn = HelpersHarmonoise::computeNoise(veh.getVehicleType().getEmissionClass(),
+                                                        (double) speed, veh.getPreDawdleAcceleration());
     currentTimeN += (SUMOReal) pow(10., (sn/10.));
     sampleSeconds += timeOnLane;
-    travelledDistance += newSpeed * timeOnLane;
-    return ret;
+    travelledDistance += speed * timeOnLane;
 }
 
 
 bool
-MSMeanData_Harmonoise::MSLaneMeanDataValues::notifyEnter(SUMOVehicle& veh, bool isEmit, bool isLaneChange) throw() {
+MSMeanData_Harmonoise::MSLaneMeanDataValues::notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification reason) throw() {
     return vehicleApplies(veh);
 }
 
