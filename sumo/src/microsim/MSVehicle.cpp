@@ -357,12 +357,6 @@ MSVehicle::activateReminders(const MSMoveReminder::Notification reason) throw() 
 }
 
 
-void
-MSVehicle::addReminder(MSMoveReminder* rem) throw() {
-    myMoveReminders.push_back(std::make_pair(rem, 0.));
-}
-
-
 // ------------
 bool
 MSVehicle::addStop(const SUMOVehicleParameter::Stop &stopPar, SUMOTime untilOffset) throw() {

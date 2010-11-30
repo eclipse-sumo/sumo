@@ -213,12 +213,6 @@ MSBaseVehicle::onTryEmit() throw() {
 }
 
 
-SUMOReal
-MSBaseVehicle::getSegmentLength() const throw() {
-    return 0;
-}
-
-
 SUMOTime
 MSBaseVehicle::getDeparture() const throw() {
     return myDeparture;
@@ -238,6 +232,12 @@ MSBaseVehicle::addPerson(MSPerson* person) throw() {
 bool
 MSBaseVehicle::isStopped() const {
     return false;
+}
+
+
+void
+MSBaseVehicle::addReminder(MSMoveReminder* rem) throw() {
+    myMoveReminders.push_back(std::make_pair(rem, 0.));
 }
 
 

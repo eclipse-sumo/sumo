@@ -754,16 +754,7 @@ public:
     void setTraCISpeed(SUMOReal speed) throw();
 #endif
 
-    /** @brief Adds a MoveReminder dynamically
-     *
-     * @see MSMoveReminder
-     */
-    void addReminder(MSMoveReminder* rem) throw();
-
 protected:
-
-
-
 
     void checkRewindLinkLanes(SUMOReal lengthsInFront) throw();
 

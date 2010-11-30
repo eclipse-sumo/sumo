@@ -131,7 +131,7 @@ void
 MSPerson::MSPersonStage_Driving::proceed(MSNet* net,
         MSPerson* person, SUMOTime now,
         const MSEdge &previousEdge) {
-    MSVehicle *v = static_cast<MSVehicle*>(net->getVehicleControl().getWaitingVehicle(&previousEdge, myLines));
+    SUMOVehicle *v = net->getVehicleControl().getWaitingVehicle(&previousEdge, myLines);
     if (v != 0) {
         v->addPerson(person);
         if (v->getParameter().departProcedure == DEPART_TRIGGERED) {

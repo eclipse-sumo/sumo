@@ -147,9 +147,6 @@ public:
     virtual void onTryEmit() throw();
 
 
-    virtual SUMOReal getSegmentLength() const throw();
-
-
     SUMOTime getDeparture() const throw();
 
 
@@ -169,6 +166,12 @@ public:
      * @return Whether the has stopped
      */
     virtual bool isStopped() const;
+
+    /** @brief Adds a MoveReminder dynamically
+     *
+     * @see MSMoveReminder
+     */
+    void addReminder(MSMoveReminder* rem) throw();
 
 protected:
     /// @brief This Vehicle's parameter.
