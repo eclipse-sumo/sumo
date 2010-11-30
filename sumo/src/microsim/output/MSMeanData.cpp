@@ -156,26 +156,16 @@ MSMeanData::MeanDataValueTracker::addTo(MSMeanData::MeanDataValues &val) const t
 }
 
 
-bool
-MSMeanData::MeanDataValueTracker::notifyMove(SUMOVehicle& veh, SUMOReal oldPos, SUMOReal newPos, SUMOReal newSpeed) throw() {
-    if (vehicleApplies(veh)) {
-        if (!myTrackedData[&veh]->myValues->notifyMove(veh, oldPos, newPos, newSpeed)) {
-            myTrackedData.erase(&veh);
-            return false;
-        }
-        return true;
-    }
-    return false;
+void
+MSMeanData::MeanDataValueTracker::notifyMoveInternal(SUMOVehicle& veh, SUMOReal timeOnLane, SUMOReal speed) throw() {
+    myTrackedData[&veh]->myValues->notifyMoveInternal(veh, timeOnLane, speed);
 }
 
 
 bool
 MSMeanData::MeanDataValueTracker::notifyLeave(SUMOVehicle& veh, SUMOReal lastPos, MSMoveReminder::Notification reason) throw() {
-    if (vehicleApplies(veh)) {
-        myTrackedData[&veh]->myNumVehicleLeft++;
-        return myTrackedData[&veh]->myValues->notifyLeave(veh, lastPos, reason);
-    }
-    return false;
+    myTrackedData[&veh]->myNumVehicleLeft++;
+    return myTrackedData[&veh]->myValues->notifyLeave(veh, lastPos, reason);
 }
 
 

@@ -151,8 +151,6 @@ public:
 
     virtual bool isOnRoad() const throw() = 0;
 
-    virtual SUMOReal getSegmentLength() const throw() = 0;
-
     virtual SUMOTime getDeparture() const throw() = 0;
 
     virtual unsigned int getNumberReroutes() const throw() = 0;

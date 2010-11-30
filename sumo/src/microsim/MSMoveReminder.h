@@ -176,7 +176,6 @@ public:
     /// @}
 
 
-protected:
     /** @brief Internal notification about the vehicle moves
      *
      * Indicator if the reminders is still active for the passed

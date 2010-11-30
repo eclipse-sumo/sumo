@@ -212,23 +212,17 @@ public:
         /// @name Methods inherited from MSMoveReminder
         /// @{
 
-        /** @brief Computes current values and adds them to their sums
+        /** @brief Internal notification about the vehicle moves
          *
-         * The fraction of time the vehicle is on the lane is computed and
-         *  used as a weight for the vehicle's current values.
+         * Indicator if the reminders is still active for the passed
+         * vehicle/parameters. If false, the vehicle will erase this reminder
+         * from it's reminder-container.
          *
-         * Additionally, if the vehicle has entered this lane, "nVehEnteredLane"
-         *  is incremented, and if the vehicle has left the lane, "nVehLeftLane".
-         *
-         * @param[in] veh The regarded vehicle
-         * @param[in] oldPos Position before the move-micro-timestep.
-         * @param[in] newPos Position after the move-micro-timestep.
-         * @param[in] newSpeed The vehicle's current speed
-         * @return false, if the vehicle is beyond the lane, true otherwise
-         * @see MSMoveReminder
-         * @see MSMoveReminder::notifyMove
+         * @param[in] veh Vehicle that asks this reminder.
+         * @param[in] timeOnLane time the vehicle spent on the lane.
+         * @param[in] speed Moving speed.
          */
-        bool notifyMove(SUMOVehicle& veh, SUMOReal oldPos, SUMOReal newPos, SUMOReal newSpeed) throw();
+        void notifyMoveInternal(SUMOVehicle& veh, SUMOReal timeOnLane, SUMOReal speed) throw();
 
 
         /** @brief Called if the vehicle leaves the reminder's lane
