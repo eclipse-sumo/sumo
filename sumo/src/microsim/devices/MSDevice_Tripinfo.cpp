@@ -95,7 +95,7 @@ MSDevice_Tripinfo::notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification re
 bool
 MSDevice_Tripinfo::notifyLeave(SUMOVehicle& veh, SUMOReal lastPos,
                                MSMoveReminder::Notification reason) throw() {
-    if (reason == MSMoveReminder::NOTIFICATION_ARRIVED) {
+    if (reason >= MSMoveReminder::NOTIFICATION_ARRIVED) {
         myArrivalTime = MSNet::getInstance()->getCurrentTimeStep();
 #ifdef HAVE_MESOSIM
     if (!MSGlobals::gUseMesoSim) {

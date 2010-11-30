@@ -88,8 +88,6 @@ public:
     enum Notification {
         /// @brief The vehicle has departed (was inserted into the network)
         NOTIFICATION_DEPARTED,
-        /// @brief The vehicle arrived at its destination (is deleted)
-        NOTIFICATION_ARRIVED,
         /// @brief The vehicle arrived at a junction
         NOTIFICATION_JUNCTION,
         /// @brief The vehicle changes lanes
@@ -98,8 +96,12 @@ public:
         NOTIFICATION_TELEPORT,
         /// @brief The vehicle starts or ends parking
         NOTIFICATION_PARKING,
+        /// @brief The vehicle arrived at its destination (is deleted)
+        NOTIFICATION_ARRIVED, // arrived and everything after is treated as permanent deletion from the net
         /// @brief The vehicle got vaporized
-        NOTIFICATION_VAPORIZED
+        NOTIFICATION_VAPORIZED,
+        /// @brief The vehicle was teleported out of the net
+        NOTIFICATION_TELEPORT_ARRIVED
     };
 
 

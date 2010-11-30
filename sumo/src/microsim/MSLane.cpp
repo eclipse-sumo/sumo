@@ -522,7 +522,6 @@ MSLane::moveCritical(SUMOTime t) {
         MsgHandler::getWarningInstance()->inform("Teleporting vehicle '" + (*i)->getID() + "'; collision, lane='" + getID() + "', time=" + time2string(MSNet::getInstance()->getCurrentTimeStep()) + ".");
         myVehicleLengthSum -= (*i)->getVehicleType().getLength();
         myVehicles.erase(find(myVehicles.begin(), myVehicles.end(), *i));
-        (*i)->onRemovalFromNet(MSMoveReminder::NOTIFICATION_TELEPORT);
         MSVehicleTransfer::getInstance()->addVeh(t, *i);
     }
     return myVehicles.size()==0;
@@ -543,7 +542,6 @@ MSLane::detectCollisions(SUMOTime timestep) {
             MSVehicle *vehV = *veh;
             MsgHandler::getWarningInstance()->inform("Teleporting vehicle '" + vehV->getID() + "'; collision, lane='" + getID() + "', time=" + time2string(MSNet::getInstance()->getCurrentTimeStep()) + ".");
             myVehicleLengthSum -= vehV->getVehicleType().getLength();
-            vehV->onRemovalFromNet(MSMoveReminder::NOTIFICATION_TELEPORT);
             MSVehicleTransfer::getInstance()->addVeh(timestep, vehV);
             veh = myVehicles.erase(veh); // remove current vehicle
             lastVeh = myVehicles.end() - 1;
@@ -612,7 +610,6 @@ MSLane::setCritical(SUMOTime t, std::vector<MSLane*> &into) {
                 } else if (p->getPositionOnLane()>target->getLength()) {
                     MsgHandler::getWarningInstance()->inform("Teleporting vehicle '" + v->getID() + "'; beyond lane (1), targetLane='" + getID() + "', time=" + time2string(MSNet::getInstance()->getCurrentTimeStep()) + ".");
                 }
-                v->onRemovalFromNet(MSMoveReminder::NOTIFICATION_TELEPORT);
                 MSVehicleTransfer::getInstance()->addVeh(t, v);
                 hadProblem = true;
                 continue;
@@ -630,10 +627,8 @@ MSLane::setCritical(SUMOTime t, std::vector<MSLane*> &into) {
                 (*(myVehicles.end()-1))->getWaitingTime()>MSGlobals::gTimeToGridlock) {
             MSVehicle *veh = *(myVehicles.end()-1);
             myVehicleLengthSum -= veh->getVehicleType().getLength();
-            veh->leaveLane(MSMoveReminder::NOTIFICATION_TELEPORT);
             myVehicles.erase(myVehicles.end()-1);
             MsgHandler::getWarningInstance()->inform("Teleporting vehicle '" + veh->getID() + "'; waited too long, lane='" + getID() + "', time=" + time2string(MSNet::getInstance()->getCurrentTimeStep()) + ".");
-            veh->onRemovalFromNet(MSMoveReminder::NOTIFICATION_TELEPORT);
             MSVehicleTransfer::getInstance()->addVeh(t, veh);
         }
     }
@@ -643,12 +638,10 @@ MSLane::setCritical(SUMOTime t, std::vector<MSLane*> &into) {
         if (vehV->getPositionOnLane()>getLength()) {
             MsgHandler::getWarningInstance()->inform("Teleporting vehicle '" + vehV->getID() + "'; beyond lane (2), targetLane='" + getID() + "', time=" + time2string(MSNet::getInstance()->getCurrentTimeStep()) + ".");
             myVehicleLengthSum -= vehV->getVehicleType().getLength();
-            vehV->onRemovalFromNet(MSMoveReminder::NOTIFICATION_TELEPORT);
             MSVehicleTransfer::getInstance()->addVeh(t, vehV);
             veh = myVehicles.erase(veh); // remove current vehicle
         } else if (vehV->isParking()) {
             myVehicleLengthSum -= vehV->getVehicleType().getLength();
-            vehV->onRemovalFromNet(MSMoveReminder::NOTIFICATION_PARKING);
             MSVehicleTransfer::getInstance()->addVeh(t, vehV);
             veh = myVehicles.erase(veh); // remove current vehicle
         } else if (vehV->ends()) {

@@ -103,7 +103,7 @@ MSDevice_Person::notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification reas
 bool
 MSDevice_Person::notifyLeave(SUMOVehicle& veh, SUMOReal lastPos,
                              MSMoveReminder::Notification reason) throw() {
-    if (reason == MSMoveReminder::NOTIFICATION_ARRIVED) {
+    if (reason >= MSMoveReminder::NOTIFICATION_ARRIVED) {
         for (std::vector<MSPerson*>::iterator i=myPersons.begin(); i!=myPersons.end(); ++i) {
             (*i)->proceed(MSNet::getInstance(), MSNet::getInstance()->getCurrentTimeStep());
         }
