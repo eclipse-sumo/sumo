@@ -477,11 +477,11 @@ MSVehicle::processNextStop(SUMOReal currentVelocity) throw() {
             }
             if (myState.pos()>=endPos-BUS_STOP_OFFSET&&busStopsMustHaveSpace) {
                 // ok, we may stop (have reached the stop)
+                bstop.reached = true;
                 if (MSNet::getInstance()->getPersonControl().checkWaiting(&myLane->getEdge(), this) && bstop.triggered) {
                     bstop.duration = 0;
                 }
                 MSNet::getInstance()->getVehicleControl().addWaiting(&myLane->getEdge(), this);
-                bstop.reached = true;
                 // compute stopping time
                 if (bstop.until>=0) {
                     if (bstop.duration==-1) {
@@ -613,8 +613,6 @@ MSVehicle::moveFirstChecked() {
     }
 #endif
     myTarget = 0;
-    // save old v for optional acceleration computation
-    SUMOReal oldV = myState.mySpeed;
     // get vsafe
     SUMOReal vSafe = 0;
 
@@ -793,7 +791,6 @@ MSVehicle::checkRewindLinkLanes(SUMOReal lengthsInFront) throw() {
     if (MSGlobals::gUsingInternalLanes) {
         int removalBegin = -1;
         bool hadVehicle = false;
-        SUMOReal seenLanes = 0;
         SUMOReal seenSpace = -lengthsInFront;
 
         std::vector<SUMOReal> availableSpace;
@@ -935,8 +932,6 @@ MSVehicle::vsafeCriticalCont(SUMOTime t, SUMOReal boundVSafe) {
 
         // get the next link used
         MSLinkCont::const_iterator link = myLane->succLinkSec(*this, view, *nextLane, bestLaneConts);
-        // and the length of the currently investigated lane
-        SUMOReal laneLength = nextLane->getLength();
 
         // check whether the lane is a dead end
         //  (should be valid only on further loop iterations
@@ -950,12 +945,8 @@ MSVehicle::vsafeCriticalCont(SUMOTime t, SUMOReal boundVSafe) {
         vLinkWait = vLinkPass;
 
 
-        // needed to let vehicles wait for all overlapping vehicles in front
-        const MSLinkCont &lc = nextLane->getLinkCont();
-
         // get the following lane
 #ifdef HAVE_INTERNAL_LANES
-        SUMOReal lastLength = nextLane->getLength();
         bool nextInternal = false;
         nextLane = (*link)->getViaLane();
         if (nextLane==0) {
@@ -1084,7 +1075,6 @@ MSVehicle::enterLaneAtLaneChange(MSLane* enteredLane) {
         myLCMsgEmitter->writeLaneChangeEvent(myParameter->id, timeStep, myLane, myState.pos(), myState.speed(), enteredLane, getPosition().x(), getPosition().y());
     }
 #endif
-    MSLane *myPriorLane = myLane;
     myLane = enteredLane;
     // switch to and activate the new lane's reminders
     // keep OldLaneReminders
@@ -1306,7 +1296,6 @@ MSVehicle::getBestLanes(bool forceRebuild, MSLane *startLane) const throw() {
     for (std::vector<std::vector<LaneQ> >::reverse_iterator i=myBestLanes.rbegin()+1; i!=myBestLanes.rend(); ++i) {
         std::vector<LaneQ> &nextLanes = (*(i-1));
         std::vector<LaneQ> &clanes = (*i);
-        MSEdge &nE = nextLanes[0].lane->getEdge();
         MSEdge &cE = clanes[0].lane->getEdge();
         int index = 0;
         SUMOReal bestConnectedLength = -1;
