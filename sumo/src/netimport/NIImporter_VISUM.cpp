@@ -231,7 +231,7 @@ NIImporter_VISUM::parse_Types() {
     // get the maximum speed
     SUMOReal speed = getNamedFloat("v0-IV", "V0IV");
     // get the priority
-    int priority = TplConvert<char>::_2int(myLineParser.get("Rang").c_str());
+    int priority = 1000-TplConvert<char>::_2int(myLineParser.get("Rang").c_str());
     // try to retrieve the number of lanes
     SUMOReal cap = getNamedFloat("Kap-IV", "KAPIV");
     int nolanes = myCapacity2Lanes.get(cap);
