@@ -206,10 +206,9 @@ MSBaseVehicle::getPreDawdleAcceleration() const throw() {
 
 
 void
-MSBaseVehicle::onTryEmit() throw() {
-    for (MoveReminderCont::iterator rem=myMoveReminders.begin(); rem!=myMoveReminders.end(); ++rem) {
-        rem->first->onTryEmit();
-    }
+MSBaseVehicle::onDepart() throw() {
+    myDeparture = MSNet::getInstance()->getCurrentTimeStep();
+    MSNet::getInstance()->getVehicleControl().vehicleEmitted(*this);
 }
 
 

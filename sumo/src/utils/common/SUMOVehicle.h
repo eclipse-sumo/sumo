@@ -120,27 +120,22 @@ public:
      */
     virtual void reroute(SUMOTime t, SUMOAbstractRouter<MSEdge, SUMOVehicle> &router, bool withTaz=false) throw() = 0;
 
-
-    /** @brief Update when the vehicle enters a new lane in the move step.
-     *
-     * @param[in] enteredLane The lane the vehicle enters
-     * @param[in] onTeleporting Whether the lane was entered while being teleported
-     * @return Whether the vehicle's route has ended (due to vaporization, or because the destination was reached)
+    /** @brief Returns the vehicle's acceleration before dawdling
+     * @return The acceleration before dawdling
      */
-    virtual bool enterLaneAtMove(MSLane* enteredLane, bool onTeleporting=false) = 0;
-
     virtual SUMOReal getPreDawdleAcceleration() const throw() = 0;
 
+    /** @brief Returns the edge the vehicle is currently at
+     *
+     * @return The current edge in the vehicle's route
+     */
     virtual const MSEdge * const getEdge() const = 0;
 
-    virtual const SUMOVehicleParameter &getParameter() const throw() = 0;
-
-    /** @brief Called when the vehicle tries to get into the network
+    /** @brief Returns the vehicle's parameter (including departure definition)
      *
-     * Calls the appropriate device function, needed for rerouting.
+     * @return The vehicle's parameter
      */
-    virtual void onTryEmit() throw() = 0;
-
+    virtual const SUMOVehicleParameter &getParameter() const throw() = 0;
 
     /** @brief Called when the vehicle is inserted into the network
      *
@@ -149,10 +144,19 @@ public:
      */
     virtual void onDepart() throw() = 0;
 
+    /** @brief Returns the information whether the vehicle is on a road (is simulated)
+     * @return Whether the vehicle is simulated
+     */
     virtual bool isOnRoad() const throw() = 0;
 
+    /** @brief Returns this vehicle's real departure time
+     * @return This vehicle's real departure time
+     */
     virtual SUMOTime getDeparture() const throw() = 0;
 
+    /** @brief Returns the number of new routes this vehicle got
+     * @return the number of new routes this vehicle got
+     */
     virtual unsigned int getNumberReroutes() const throw() = 0;
 
     /** @brief Returns this vehicle's devices
@@ -160,6 +164,12 @@ public:
      */
     virtual const std::vector<MSDevice*> &getDevices() const = 0;
 
+    /** @brief Adds a person to this vehicle
+     *
+     * May do nothing since persons are not supported by default
+     *
+     * @param[in] person The person to add
+     */
     virtual void addPerson(MSPerson* person) throw() = 0;
 
     /** @brief Returns whether the vehicle is at a stop

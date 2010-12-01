@@ -99,7 +99,7 @@ public:
 
     /** @brief Returns the nSuccs'th successor of edge the vehicle is currently at
      *
-     * If the rest of the route (counted from the current edge) than nSuccs,
+     * If the rest of the route (counted from the current edge) has less than nSuccs edges,
      *  0 is returned.
      * @param[in] nSuccs The number of edge to look forward
      * @return The nSuccs'th following edge in the vehicle's route
@@ -138,20 +138,30 @@ public:
     bool replaceRouteEdges(const MSEdgeVector &edges, bool onInit=false) throw();
 
 
+    /** @brief Returns the vehicle's acceleration before dawdling
+     *
+     * This default implementation returns always 0.
+     *
+     * @return The acceleration before dawdling
+     */
     virtual SUMOReal getPreDawdleAcceleration() const throw();
 
-    /** @brief Called when the vehicle tries to get into the network
+    /** @brief Called when the vehicle is inserted into the network
      *
-     * Calls the appropriate device function, needed for rerouting.
+     * Sets optional information about departure time, informs the vehicle
+     *  control about a further running vehicle.
      */
-    virtual void onTryEmit() throw();
+    void onDepart() throw();
 
-
+    /** @brief Returns this vehicle's real departure time
+     * @return This vehicle's real departure time
+     */
     SUMOTime getDeparture() const throw();
 
-
+    /** @brief Returns the number of new routes this vehicle got
+     * @return the number of new routes this vehicle got
+     */
     unsigned int getNumberReroutes() const throw();
-
 
     /** @brief Returns this vehicle's devices
      * @return This vehicle's devices
@@ -160,10 +170,16 @@ public:
         return myDevices;
     }
 
+    /** @brief Adds a person to this vehicle
+     *
+     * The default implementation does nothing since persons are not supported by default
+     *
+     * @param[in] person The person to add
+     */
     virtual void addPerson(MSPerson* person) throw();
 
     /** @brief Returns whether the vehicle is at a stop
-     * @return Whether the has stopped
+     * @return Whether it has stopped
      */
     virtual bool isStopped() const;
 

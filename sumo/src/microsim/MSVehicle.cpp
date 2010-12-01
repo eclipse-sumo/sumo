@@ -204,15 +204,6 @@ MSVehicle::MSVehicle(SUMOVehicleParameter* pars,
 }
 
 
-// ------------ interaction with the route
-void
-MSVehicle::onDepart() throw() {
-    myDeparture = MSNet::getInstance()->getCurrentTimeStep();
-    // inform the vehicle control
-    MSNet::getInstance()->getVehicleControl().vehicleEmitted(*this);
-}
-
-
 void
 MSVehicle::onRemovalFromNet(const MSMoveReminder::Notification reason) throw() {
     workOnMoveReminders(myState.myPos - SPEED2DIST(myState.mySpeed), myState.myPos, myState.mySpeed);

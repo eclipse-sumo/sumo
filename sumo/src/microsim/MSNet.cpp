@@ -372,12 +372,12 @@ MSNet::simulationStep() {
         myPersonControl->checkArrivedPersons(this, myStep);
     }
     // emit Vehicles
+    myEmissionEvents->execute(myStep);
     myEmitter->emitVehicles(myStep);
     if (MSGlobals::gCheck4Accidents) {
         myEdges->detectCollisions(myStep);
     }
     MSVehicleTransfer::getInstance()->checkEmissions(myStep);
-    myEmissionEvents->execute(myStep);
 
     // execute endOfTimestepEvents
     myEndOfTimestepEvents->execute(myStep);

@@ -108,10 +108,6 @@ public:
     /// @name Interface methods, to be derived by subclasses
     /// @{
 
-    /** @brief Called when the vehicle tries to get into the net */
-    virtual void onTryEmit() { }
-
-
     /** @brief Checks whether the reminder is activated by a vehicle entering the lane
      *
      * Lane change means in this case that the vehicle changes to the lane

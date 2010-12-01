@@ -107,6 +107,7 @@ MSDevice_Routing::buildVehicleDevices(SUMOVehicle &v, std::vector<MSDevice*> &in
         haveByNumber = RandHelper::rand()<=oc.getFloat("device.routing.probability");
     }
     bool haveByName = oc.isSet("device.routing.knownveh") && OptionsCont::getOptions().isInStringVector("device.routing.knownveh", v.getID());
+    myWithTaz = oc.getBool("device.routing.with-taz");
     if (haveByNumber||haveByName) {
         // build the device
         MSDevice_Routing* device = new MSDevice_Routing(v, "routing_" + v.getID(),
@@ -128,7 +129,6 @@ MSDevice_Routing::buildVehicleDevices(SUMOVehicle &v, std::vector<MSDevice*> &in
             myAdaptationWeight = oc.getFloat("device.routing.adaptation-weight");
             myAdaptationInterval = string2time(oc.getString("device.routing.adaptation-interval"));
         }
-        myWithTaz = oc.getBool("device.routing.with-taz");
         if (myWithTaz) {
             if (MSEdge::dictionary(v.getParameter().fromTaz+"-source") == 0) {
                 WRITE_ERROR("Source district '" + v.getParameter().fromTaz + "' not known when rerouting '" + v.getID() + "'!");
@@ -149,8 +149,13 @@ MSDevice_Routing::buildVehicleDevices(SUMOVehicle &v, std::vector<MSDevice*> &in
 // ---------------------------------------------------------------------------
 MSDevice_Routing::MSDevice_Routing(SUMOVehicle &holder, const std::string &id,
                                    SUMOTime period, SUMOTime preEmitPeriod) throw()
-        : MSDevice(holder, id), myPeriod(period), myPreEmitPeriod(period),
-        myLastPreEmitReroute(-1), myRerouteCommand(0) {
+        : MSDevice(holder, id), myPeriod(period), myPreEmitPeriod(preEmitPeriod), myRerouteCommand(0) {
+        if (myWithTaz) {
+            myRerouteCommand = new WrappingCommand< MSDevice_Routing >(this, &MSDevice_Routing::preEmitReroute);
+            MSNet::getInstance()->getEmissionEvents().addEvent(
+                myRerouteCommand, holder.getParameter().depart,
+                MSEventControl::ADAPT_AFTER_EXECUTION);
+        }
 }
 
 
@@ -162,42 +167,20 @@ MSDevice_Routing::~MSDevice_Routing() throw() {
 }
 
 
-void
-MSDevice_Routing::onTryEmit() {
-    if (myWithTaz) {
-        const SUMOTime now = MSNet::getInstance()->getCurrentTimeStep();
-        if (myLastPreEmitReroute == -1 ||
-                (myPreEmitPeriod > 0 && myLastPreEmitReroute + myPreEmitPeriod <= now)) {
-            const MSEdge* source = MSEdge::dictionary(myHolder.getParameter().fromTaz+"-source");
-            const MSEdge* dest = MSEdge::dictionary(myHolder.getParameter().toTaz+"-sink");
-            if (source && dest) {
-                const std::pair<const MSEdge*, const MSEdge*> key = std::make_pair(source, dest);
-                if (myCachedRoutes.find(key) == myCachedRoutes.end()) {
-                    DijkstraRouterTT_ByProxi<MSEdge, SUMOVehicle, prohibited_withRestrictions<MSEdge, SUMOVehicle>, MSDevice_Routing>
-                    router(MSEdge::dictSize(), true, this, &MSDevice_Routing::getEffort);
-                    myHolder.reroute(MSNet::getInstance()->getCurrentTimeStep(), router, true);
-                    myCachedRoutes[key] = &myHolder.getRoute();
-                    myHolder.getRoute().addReference();
-                } else {
-                    myHolder.replaceRoute(myCachedRoutes[key], true);
-                }
-                myLastPreEmitReroute = now;
-            }
-        }
-    }
-}
-
-
 bool
 MSDevice_Routing::notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification reason) throw() {
     if (reason == MSMoveReminder::NOTIFICATION_DEPARTED) {
-        if (myLastPreEmitReroute == -1) {
-            DijkstraRouterTT_ByProxi<MSEdge, SUMOVehicle, prohibited_withRestrictions<MSEdge, SUMOVehicle>, MSDevice_Routing>
-            router(MSEdge::dictSize(), true, this, &MSDevice_Routing::getEffort);
-            myHolder.reroute(MSNet::getInstance()->getCurrentTimeStep(), router);
+        if (myRerouteCommand!=0) { // clean up pre emit rerouting
+            if (myPreEmitPeriod > 0) {
+                myRerouteCommand->deschedule();
+            }
+            myRerouteCommand = 0;
+        }
+        if (!myWithTaz) {
+            wrappedRerouteCommandExecute(MSNet::getInstance()->getCurrentTimeStep());
         }
         // build repetition trigger if routing shall be done more often
-        if (myPeriod>0&&myRerouteCommand==0) {
+        if (myPeriod>0) {
             myRerouteCommand = new WrappingCommand< MSDevice_Routing >(this, &MSDevice_Routing::wrappedRerouteCommandExecute);
             MSNet::getInstance()->getBeginOfTimestepEvents().addEvent(
                 myRerouteCommand, myPeriod+MSNet::getInstance()->getCurrentTimeStep(),
@@ -205,6 +188,26 @@ MSDevice_Routing::notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification rea
         }
     }
     return false;
+}
+
+
+SUMOTime
+MSDevice_Routing::preEmitReroute(SUMOTime currentTime) throw(ProcessError) {
+    const MSEdge* source = MSEdge::dictionary(myHolder.getParameter().fromTaz+"-source");
+    const MSEdge* dest = MSEdge::dictionary(myHolder.getParameter().toTaz+"-sink");
+    if (source && dest) {
+        const std::pair<const MSEdge*, const MSEdge*> key = std::make_pair(source, dest);
+        if (myCachedRoutes.find(key) == myCachedRoutes.end()) {
+            DijkstraRouterTT_ByProxi<MSEdge, SUMOVehicle, prohibited_withRestrictions<MSEdge, SUMOVehicle>, MSDevice_Routing>
+            router(MSEdge::dictSize(), true, this, &MSDevice_Routing::getEffort);
+            myHolder.reroute(currentTime, router, true);
+            myCachedRoutes[key] = &myHolder.getRoute();
+            myHolder.getRoute().addReference();
+        } else {
+            myHolder.replaceRoute(myCachedRoutes[key], true);
+        }
+    }
+    return myPreEmitPeriod;
 }
 
 

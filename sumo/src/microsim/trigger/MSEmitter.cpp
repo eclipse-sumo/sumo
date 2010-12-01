@@ -373,7 +373,6 @@ MSEmitter::childCheckEmit(MSEmitterChild *child) {
 void
 MSEmitter::schedule(MSEmitterChild *child,
                     MSVehicle *v, SUMOReal speed) {
-    v->onTryEmit();
     myToEmit[child] = std::make_pair(v, speed);
 }
 

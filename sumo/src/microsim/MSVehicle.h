@@ -137,14 +137,6 @@ public:
     /// @name insertion/removal
     //@{
 
-    /** @brief Called when the vehicle is inserted into the network
-     *
-     * Sets optional information about departure time, informs the vehicle
-     *  control about a further running vehicle.
-     */
-    void onDepart() throw();
-
-
     /** @brief Called when the vehicle is removed from the network.
      *
      * Moves along work reminders and

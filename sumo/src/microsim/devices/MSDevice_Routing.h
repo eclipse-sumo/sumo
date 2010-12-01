@@ -109,21 +109,6 @@ public:
      * @see MSEventHandler
      * @see WrappingCommand
      */
-    void onTryEmit();
-
-    /** @brief Computes a new route on vehicle emission
-     *
-     * A new route is computed by calling the vehicle's "reroute" method, supplying
-     *  "getEffort" as the edge effort retrieval method.
-     *
-     * If the reroute period is larger than 0, an event is generated and added
-     *  to the list of simulation step begin events which executes
-     *  "wrappedRerouteCommandExecute".
-     *
-     * @see MSVehicle::reroute
-     * @see MSEventHandler
-     * @see WrappingCommand
-     */
     bool notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification reason) throw();
     /// @}
 
@@ -142,6 +127,23 @@ private:
 
     /// @brief Destructor.
     ~MSDevice_Routing() throw();
+
+
+    /** @brief Performs rerouting after a period
+     *
+     * A new route is computed by calling the vehicle's "reroute" method, supplying
+     *  "getEffort" as the edge effort retrieval method.
+     *
+     * This method is called from the event handler at the begin of a simulation
+     *  step after the rerouting period is over. The reroute period is returned.
+     *
+     * @param[in] currentTime The current simulation time
+     * @return The offset to the next call (the rerouting period "myPeriod")
+     * @see MSVehicle::reroute
+     * @see MSEventHandler
+     * @see WrappingCommand
+     */
+    SUMOTime preEmitReroute(SUMOTime currentTime) throw(ProcessError);
 
 
     /** @brief Performs rerouting after a period
@@ -202,9 +204,6 @@ private:
 
     /// @brief The period with which a vehicle shall be rerouted before emission
     SUMOTime myPreEmitPeriod;
-
-    /// @brief The time step at which the last reroute was performed
-    SUMOTime myLastPreEmitReroute;
 
     /// @brief A static vehicle index for computing deterministic vehicle fractions
     static int myVehicleIndex;

@@ -141,7 +141,6 @@ unsigned int
 MSEmitControl::tryEmit(SUMOTime time, SUMOVehicle *veh,
                        MSVehicleContainer::VehicleVector &refusedEmits) throw(ProcessError) {
     assert(veh->getParameter().depart < time + DELTA_T);
-    veh->onTryEmit();
     const MSEdge &edge = *veh->getEdge();
     if ((!myCheckEdgesOnce || edge.getLastFailedEmissionTime()!=time) && edge.emit(*veh, time)) {
         // Successful emission.
