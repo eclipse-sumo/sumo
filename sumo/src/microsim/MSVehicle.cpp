@@ -693,7 +693,7 @@ MSVehicle::moveFirstChecked() {
         }
     }
     if (myBMsgEmitter!=0) {
-        if (vNext < oldV) {
+        if (vNext < myState.mySpeed) {
             SUMOReal timeStep = MSNet::getInstance()->getCurrentTimeStep();
             myBMsgEmitter->writeBreakEvent(myParameter->id, timeStep, myLane, myState.pos(), myState.speed(), getPosition().x(), getPosition().y());
         }
