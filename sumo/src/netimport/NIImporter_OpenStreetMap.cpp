@@ -386,6 +386,7 @@ void
 NIImporter_OpenStreetMap::insertEdge(Edge *e, int index, NBNode *from, NBNode *to,
                                      const std::vector<int> &passed, const std::map<int, NIOSMNode*> &osmNodes,
                                      NBNodeCont &nc, NBEdgeCont &ec, NBTypeCont &tc) throw(ProcessError) {
+	UNUSED_PARAMETER(nc);
     // patch the id
     std::string id = e->id;
     if (index>=0) {

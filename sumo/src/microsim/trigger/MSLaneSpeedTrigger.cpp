@@ -100,7 +100,7 @@ MSLaneSpeedTrigger::execute(SUMOTime currentTime) throw(ProcessError) {
 
 
 SUMOTime
-MSLaneSpeedTrigger::processCommand(bool move2next, SUMOTime currentTime) {
+MSLaneSpeedTrigger::processCommand(bool move2next, SUMOTime /*currentTime*/) {
     std::vector<MSLane*>::iterator i;
     const SUMOReal speed = getCurrentSpeed();
     for (i=myDestLanes.begin(); i!=myDestLanes.end(); ++i) {

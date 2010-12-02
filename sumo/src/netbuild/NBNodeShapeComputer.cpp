@@ -55,6 +55,7 @@ NBNodeShapeComputer::~NBNodeShapeComputer() {}
 
 Position2DVector
 NBNodeShapeComputer::compute(bool leftHand) {
+	UNUSED_PARAMETER(leftHand);
     Position2DVector ret;
     // check whether the node is a dead end node or a node where only turning is possible
     //  in this case, we will use "computeNodeShapeByCrosses"

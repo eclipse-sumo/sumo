@@ -312,6 +312,7 @@ NIImporter_Vissim::VissimSingleTypeParser::skipOverreading(std::istream &from,
  * ----------------------------------------------------------------------- */
 NIImporter_Vissim::NIImporter_Vissim(NBNetBuilder &nb, const std::string &file)
         : myNetBuilder(nb) {
+	UNUSED_PARAMETER(file);
     insertKnownElements();
     buildParsers();
     myColorMap["blau"] = RGBColor((SUMOReal) .3, (SUMOReal) 0.3, (SUMOReal) 1);

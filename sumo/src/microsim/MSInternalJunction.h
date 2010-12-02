@@ -29,6 +29,7 @@
 #include <config.h>
 #endif
 
+#include <utils/common/StdDefs.h>
 #include "MSLogicJunction.h"
 #include <bitset>
 #include <vector>
@@ -73,10 +74,12 @@ public:
     void postloadInit() throw(ProcessError);
 
     const std::vector<MSLink*> &getFoeLinks(const MSLink *const srcLink) const throw() {
+		UNUSED_PARAMETER(srcLink);
         return myInternalLinkFoes;
     }
 
     const std::vector<MSLane*> &getFoeInternalLanes(const MSLink *const srcLink) const throw() {
+		UNUSED_PARAMETER(srcLink);
         return myInternalLaneFoes;
     }
 

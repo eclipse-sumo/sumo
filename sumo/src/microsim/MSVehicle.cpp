@@ -153,7 +153,7 @@ MSVehicle::~MSVehicle() throw() {
 MSVehicle::MSVehicle(SUMOVehicleParameter* pars,
                      const MSRoute* route,
                      const MSVehicleType* type,
-                     int vehicleIndex) throw(ProcessError) :
+                     int /*vehicleIndex*/) throw(ProcessError) :
         MSBaseVehicle(pars, route, type),
         myLastLaneChangeOffset(0),
         myTarget(0),
@@ -1618,7 +1618,7 @@ MSVehicle::processTraCICommands(SUMOTime time) {
 
 
 bool
-MSVehicle::addTraciStop(MSLane* lane, SUMOReal pos, SUMOReal radius, SUMOTime duration) {
+MSVehicle::addTraciStop(MSLane* lane, SUMOReal pos, SUMOReal /*radius*/, SUMOTime duration) {
     //if the stop exists update the duration
     for (std::list<Stop>::iterator iter = myStops.begin(); iter != myStops.end(); iter++) {
         if (iter->lane == lane && fabs(iter->endPos - pos) < POSITION_EPS) {

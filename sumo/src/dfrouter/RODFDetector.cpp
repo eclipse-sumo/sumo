@@ -144,6 +144,7 @@ RODFDetector::buildDestinationDistribution(const RODFDetectorCon &detectors,
         const RODFNet &net,
         std::map<size_t, RandomDistributor<size_t>* > &into,
         int maxFollower) const {
+	UNUSED_PARAMETER(maxFollower);
     if (myRoutes==0) {
         if (myType!=DISCARDED_DETECTOR&&myType!=BETWEEN_DETECTOR) {
             MsgHandler::getErrorInstance()->inform("Missing routes for detector '" + myID + "'.");
@@ -605,6 +606,9 @@ RODFDetectorCon::writeEmitterPOIs(const std::string &file,
                                   const RODFDetectorFlows &flows,
                                   SUMOTime startTime, SUMOTime endTime,
                                   SUMOTime stepOffset) {
+	UNUSED_PARAMETER(stepOffset);
+	UNUSED_PARAMETER(endTime);
+	UNUSED_PARAMETER(startTime);
     OutputDevice& out = OutputDevice::getDevice(file);
     out.writeXMLHeader("additional");
     for (std::vector<RODFDetector*>::const_iterator i=myDetectors.begin(); i!=myDetectors.end(); ++i) {
@@ -672,6 +676,8 @@ RODFDetectorCon::getFlowFor(const ROEdge *edge, SUMOTime time,
 int
 RODFDetectorCon::getAggFlowFor(const ROEdge *edge, SUMOTime time, SUMOTime period,
                                const RODFDetectorFlows &) const {
+	UNUSED_PARAMETER(period);
+	UNUSED_PARAMETER(time);
     if (edge==0) {
         return 0;
     }

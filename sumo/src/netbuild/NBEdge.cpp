@@ -1340,6 +1340,7 @@ NBEdge::tryGetNodeAtPosition(SUMOReal pos, SUMOReal tolerance) const {
 
 void
 NBEdge::replaceInConnections(NBEdge *which, NBEdge *by, unsigned int laneOff) {
+	UNUSED_PARAMETER(laneOff);
     // replace in "_connectedEdges"
     for (std::vector<Connection>::iterator i=myConnections.begin(); i!=myConnections.end(); ++i) {
         if ((*i).toEdge==which) {

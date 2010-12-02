@@ -31,6 +31,7 @@
 
 #include <map>
 #include <utils/common/SUMOTime.h>
+#include <utils/common/StdDefs.h>
 
 
 // ===========================================================================
@@ -120,6 +121,8 @@ public:
      * @return True if vehicle enters the reminder.
      */
     virtual bool notifyEnter(SUMOVehicle& veh, Notification reason) throw() {
+		UNUSED_PARAMETER(reason);
+		UNUSED_PARAMETER(&veh);
         return true;
     }
 
@@ -141,6 +144,10 @@ public:
                             SUMOReal oldPos,
                             SUMOReal newPos,
                             SUMOReal newSpeed) throw() {
+		UNUSED_PARAMETER(oldPos);
+		UNUSED_PARAMETER(newPos);
+		UNUSED_PARAMETER(newSpeed);
+		UNUSED_PARAMETER(&veh);
         return true;
     }
 
@@ -160,6 +167,9 @@ public:
      */
     virtual bool notifyLeave(SUMOVehicle& veh, SUMOReal lastPos,
                              Notification reason) throw() {
+		UNUSED_PARAMETER(reason);
+		UNUSED_PARAMETER(lastPos);
+		UNUSED_PARAMETER(&veh);
         return true;
     }
 
@@ -185,6 +195,9 @@ public:
     virtual void notifyMoveInternal(SUMOVehicle& veh,
                                     SUMOReal timeOnLane,
                                     SUMOReal speed) throw() {
+		UNUSED_PARAMETER(speed);
+		UNUSED_PARAMETER(timeOnLane);
+		UNUSED_PARAMETER(&veh);
     }
 
 

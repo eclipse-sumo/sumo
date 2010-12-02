@@ -129,6 +129,7 @@ public:
      * @return The maximum acceleration
      */
     SUMOReal getMaxAccel(SUMOReal v) const throw() {
+		UNUSED_PARAMETER(v);
         return myAccel;
     }
 

@@ -547,6 +547,7 @@ NBNodeCont::recheckEdges(NBDistrictCont &dc, NBTrafficLightLogicCont &tlc,
 
 void
 NBNodeCont::removeIsolatedRoads(NBDistrictCont &dc, NBEdgeCont &ec, NBTrafficLightLogicCont &tc) {
+	UNUSED_PARAMETER(tc);
     // Warn of isolated edges, i.e. a single edge with no connection to another edge
     int edgeCounter = 0;
     const std::vector<std::string> &edgeNames = ec.getAllNames();

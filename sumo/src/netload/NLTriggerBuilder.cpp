@@ -312,7 +312,7 @@ NLTriggerBuilder::parseAndBuildRerouter(MSNet &net, const SUMOSAXAttributes &att
 
 
 MSLaneSpeedTrigger*
-NLTriggerBuilder::buildLaneSpeedTrigger(MSNet &net, const std::string &id,
+NLTriggerBuilder::buildLaneSpeedTrigger(MSNet&/*net*/, const std::string &id,
                                         const std::vector<MSLane*> &destLanes,
                                         const std::string &file) throw(ProcessError) {
     return new MSLaneSpeedTrigger(id, destLanes, file);

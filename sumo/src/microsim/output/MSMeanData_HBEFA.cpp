@@ -100,7 +100,7 @@ MSMeanData_HBEFA::MSLaneMeanDataValues::notifyMoveInternal(SUMOVehicle& veh, SUM
 
 void
 MSMeanData_HBEFA::MSLaneMeanDataValues::write(OutputDevice &dev, const SUMOTime period,
-        const SUMOReal numLanes, const int numVehicles) const throw(IOError) {
+        const SUMOReal /*numLanes*/, const int /*numVehicles*/) const throw(IOError) {
     dev<<std::resetiosflags(std::ios::floatfield);
     const SUMOReal normFactor = SUMOReal(3600. * 1000. / STEPS2TIME(period) / myLaneLength);
     dev << "\" CO_abs=\""<<SUMOReal(CO*1000.) <<

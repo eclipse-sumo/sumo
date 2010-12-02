@@ -204,8 +204,8 @@ MS_E2_ZS_CollectorOverLanes::buildCollector(size_t c, size_t r, MSLane *l,
 
 
 void
-MS_E2_ZS_CollectorOverLanes::writeXMLOutput(OutputDevice &dev,
-        SUMOTime startTime, SUMOTime stopTime) throw(IOError) {
+MS_E2_ZS_CollectorOverLanes::writeXMLOutput(OutputDevice& /*&dev*/,
+        SUMOTime /*startTime*/, SUMOTime /*stopTime*/) throw(IOError) {
     /*
     dev<<"<interval begin=\""<<time2string(startTime)<<"\" end=\""<<
     time2string(stopTime)<<"\" "<<"id=\""<<myID<<"\" ";

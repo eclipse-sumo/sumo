@@ -159,7 +159,8 @@ RORDGenerator_ODAmounts::~RORDGenerator_ODAmounts() throw() {
 
 bool
 RORDGenerator_ODAmounts::readRoutesAtLeastUntil(SUMOTime until, bool skipping) throw(ProcessError) {
-    // skip routes before begin
+    UNUSED_PARAMETER(skipping);
+	// skip routes before begin
     if (until<myBegin) {
         myDepartureTime = until;
         return true;

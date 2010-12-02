@@ -101,8 +101,8 @@ TraCIServerAPI_Route::processGet(TraCIServer &server, tcpip::Storage &inputStora
 
 
 bool
-TraCIServerAPI_Route::processSet(TraCIServer &server, tcpip::Storage &inputStorage,
-                                 tcpip::Storage &outputStorage) {
+TraCIServerAPI_Route::processSet(TraCIServer&/*server*/, tcpip::Storage&/*inputStorage*/,
+                                 tcpip::Storage&/*outputStorage*/) {
     return true;
 }
 

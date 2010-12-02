@@ -107,7 +107,9 @@ NIImporter_ArcView::NIImporter_ArcView(const OptionsCont &oc,
         myNameAddition(0),
         myNodeCont(nc), myEdgeCont(ec), myTypeCont(tc),
         mySpeedInKMH(speedInKMH),
-        myRunningNodeID(0) {}
+        myRunningNodeID(0) {
+	UNUSED_PARAMETER(dbf_name);
+}
 
 
 NIImporter_ArcView::~NIImporter_ArcView() {}

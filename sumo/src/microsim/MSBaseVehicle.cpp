@@ -225,7 +225,7 @@ MSBaseVehicle::getNumberReroutes() const throw() {
 
 
 void
-MSBaseVehicle::addPerson(MSPerson* person) throw() {
+MSBaseVehicle::addPerson(MSPerson* /*person*/) throw() {
 }
 
 bool

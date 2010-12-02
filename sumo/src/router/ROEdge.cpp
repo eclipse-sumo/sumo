@@ -144,6 +144,7 @@ ROEdge::addTravelTime(SUMOReal value, SUMOReal timeBegin, SUMOReal timeEnd) thro
 
 SUMOReal
 ROEdge::getEffort(const ROVehicle *const veh, SUMOReal time) const throw() {
+	UNUSED_PARAMETER(veh);
     SUMOReal ret = 0;
     if (!getStoredEffort(time, ret)) {
         return (SUMOReal)(myLength / mySpeed);

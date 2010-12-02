@@ -117,6 +117,7 @@ RORDLoader_TripDefs::getEdge(const SUMOSAXAttributes &attrs,
                              const std::string &purpose,
                              SumoXMLAttr which, const std::string &vid,
                              bool emptyAllowed) {
+	UNUSED_PARAMETER(purpose);
     bool ok = true;
     std::string id = attrs.getStringReporting(which, 0, 0, ok, !emptyAllowed);
     if (which == SUMO_ATTR_FROM_TAZ) {

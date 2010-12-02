@@ -990,7 +990,7 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer &server, tcpip::Storage &inputSto
 
 // ------ "old" API functions ------
 bool
-TraCIServerAPI_Vehicle::commandSetMaximumSpeed(TraCIServer &server, tcpip::Storage &inputStorage, tcpip::Storage &outputStorage) {
+TraCIServerAPI_Vehicle::commandSetMaximumSpeed(TraCIServer &server, tcpip::Storage &inputStorage, tcpip::Storage&/*outputStorage*/) {
     MSVehicle* veh = server.getVehicleByExtId(inputStorage.readInt()); // external node id (equipped vehicle number)
     float maxspeed = inputStorage.readFloat();
     if (veh == 0) {
@@ -1102,7 +1102,7 @@ TraCIServerAPI_Vehicle::commandStopNode(TraCIServer &server, tcpip::Storage &inp
 
 
 bool
-TraCIServerAPI_Vehicle::commandChangeLane(TraCIServer &server, tcpip::Storage &inputStorage, tcpip::Storage &outputStorage) {
+TraCIServerAPI_Vehicle::commandChangeLane(TraCIServer &server, tcpip::Storage &inputStorage, tcpip::Storage&/*outputStorage*/) {
     MSVehicle* veh = server.getVehicleByExtId(inputStorage.readInt()); // external node id (equipped vehicle number)
     char laneIndex = inputStorage.readByte(); // Lane ID
     SUMOTime stickyTime = inputStorage.readInt(); // stickyTime
@@ -1123,7 +1123,7 @@ TraCIServerAPI_Vehicle::commandChangeLane(TraCIServer &server, tcpip::Storage &i
 
 
 bool
-TraCIServerAPI_Vehicle::commandChangeRoute(TraCIServer &server, tcpip::Storage &inputStorage, tcpip::Storage &outputStorage) {
+TraCIServerAPI_Vehicle::commandChangeRoute(TraCIServer &server, tcpip::Storage &inputStorage, tcpip::Storage&/*outputStorage*/) {
     int vehId = inputStorage.readInt(); // NodeId
     MSVehicle* veh = server.getVehicleByExtId(vehId); // external node id (equipped vehicle number)
     std::string edgeId = inputStorage.readString(); // edgeID
@@ -1173,7 +1173,7 @@ TraCIServerAPI_Vehicle::commandChangeRoute(TraCIServer &server, tcpip::Storage &
 
 
 bool
-TraCIServerAPI_Vehicle::commandChangeTarget(TraCIServer &server, tcpip::Storage &inputStorage, tcpip::Storage &outputStorage) {
+TraCIServerAPI_Vehicle::commandChangeTarget(TraCIServer &server, tcpip::Storage &inputStorage, tcpip::Storage&/*outputStorage*/) {
     MSVehicle* veh = server.getVehicleByExtId(inputStorage.readInt());   // external node id (equipped vehicle number)
     std::string edgeID = inputStorage.readString(); // EdgeId
     // destination edge
@@ -1204,7 +1204,7 @@ TraCIServerAPI_Vehicle::commandChangeTarget(TraCIServer &server, tcpip::Storage 
 
 
 bool
-TraCIServerAPI_Vehicle::commandSlowDown(TraCIServer &server, tcpip::Storage &inputStorage, tcpip::Storage &outputStorage) {
+TraCIServerAPI_Vehicle::commandSlowDown(TraCIServer &server, tcpip::Storage &inputStorage, tcpip::Storage&/*outputStorage*/) {
     MSVehicle* veh = server.getVehicleByExtId(inputStorage.readInt()); // external node id (equipped vehicle number)
     float newSpeed = MAX2(inputStorage.readFloat(), 0.0f); // speed
     SUMOTime duration = inputStorage.readInt(); // time interval
@@ -1227,7 +1227,7 @@ TraCIServerAPI_Vehicle::commandSlowDown(TraCIServer &server, tcpip::Storage &inp
 
 
 bool
-TraCIServerAPI_Vehicle::commandSubscribeLifecycles(TraCIServer &server, tcpip::Storage &inputStorage, tcpip::Storage &outputStorage) {
+TraCIServerAPI_Vehicle::commandSubscribeLifecycles(TraCIServer &server, tcpip::Storage &inputStorage, tcpip::Storage&/*outputStorage*/) {
     int domain = inputStorage.readUnsignedByte();
     if (domain != DOM_VEHICLE) {
         // send negative command response
@@ -1242,7 +1242,7 @@ TraCIServerAPI_Vehicle::commandSubscribeLifecycles(TraCIServer &server, tcpip::S
 
 
 bool
-TraCIServerAPI_Vehicle::commandUnsubscribeLifecycles(TraCIServer &server, tcpip::Storage &inputStorage, tcpip::Storage &outputStorage) {
+TraCIServerAPI_Vehicle::commandUnsubscribeLifecycles(TraCIServer &server, tcpip::Storage &inputStorage, tcpip::Storage&/*outputStorage*/) {
     int domain = inputStorage.readUnsignedByte();
     if (domain != DOM_VEHICLE) {
         // send negative command response
@@ -1257,7 +1257,7 @@ TraCIServerAPI_Vehicle::commandUnsubscribeLifecycles(TraCIServer &server, tcpip:
 
 
 bool
-TraCIServerAPI_Vehicle::commandSubscribeDomain(TraCIServer &server, tcpip::Storage &inputStorage, tcpip::Storage &outputStorage) {
+TraCIServerAPI_Vehicle::commandSubscribeDomain(TraCIServer &server, tcpip::Storage &inputStorage, tcpip::Storage&/*outputStorage*/) {
     int domainId = inputStorage.readUnsignedByte();
     if (domainId != DOM_VEHICLE) {
         // send negative command response
@@ -1313,7 +1313,7 @@ TraCIServerAPI_Vehicle::commandSubscribeDomain(TraCIServer &server, tcpip::Stora
 
 
 bool
-TraCIServerAPI_Vehicle::commandUnsubscribeDomain(TraCIServer &server, tcpip::Storage &inputStorage, tcpip::Storage &outputStorage) {
+TraCIServerAPI_Vehicle::commandUnsubscribeDomain(TraCIServer &server, tcpip::Storage &inputStorage, tcpip::Storage&/*outputStorage*/) {
     int domain = inputStorage.readUnsignedByte();
     if (domain != DOM_VEHICLE) {
         // send negative command response

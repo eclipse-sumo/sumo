@@ -497,7 +497,7 @@ TraCIServerAPI_TLS::processSet(TraCIServer &server, tcpip::Storage &inputStorage
 
 // ------ "old" API functions ------
 bool
-TraCIServerAPI_TLS::commandGetAllTLIds(TraCIServer &server, tcpip::Storage &inputStorage, tcpip::Storage &outputStorage) {
+TraCIServerAPI_TLS::commandGetAllTLIds(TraCIServer &server, tcpip::Storage&/*inputStorage*/, tcpip::Storage &outputStorage) {
     // get the TLLogicControl
     MSTLLogicControl &tlsControl = MSNet::getInstance()->getTLSControl();
     // get the ids

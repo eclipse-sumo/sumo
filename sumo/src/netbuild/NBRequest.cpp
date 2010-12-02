@@ -501,6 +501,7 @@ NBRequest::writeLaneResponse(std::ostream &os, NBEdge *from,
 void
 NBRequest::writeResponse(std::ostream &os, const NBEdge * const from, const NBEdge * const to,
                          int fromLane, int toLane, bool mayDefinitelyPass) const throw(IOError) {
+	UNUSED_PARAMETER(toLane);
     int idx = 0;
     if (to!=0) {
         idx = getIndex(from, to);
@@ -542,6 +543,7 @@ NBRequest::writeAreFoes(std::ostream &os, NBEdge *from, NBEdge *to, bool isInner
     // remember the case when the lane is a "dead end" in the meaning that
     // vehicles must choose another lane to move over the following
     // junction
+	UNUSED_PARAMETER(isInnerEnd);
     int idx = 0;
     if (to!=0) {
         idx = getIndex(from, to);

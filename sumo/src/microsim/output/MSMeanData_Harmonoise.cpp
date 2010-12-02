@@ -94,14 +94,14 @@ MSMeanData_Harmonoise::MSLaneMeanDataValues::notifyMoveInternal(SUMOVehicle& veh
 
 
 bool
-MSMeanData_Harmonoise::MSLaneMeanDataValues::notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification reason) throw() {
+MSMeanData_Harmonoise::MSLaneMeanDataValues::notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification /*reason*/) throw() {
     return vehicleApplies(veh);
 }
 
 
 void
 MSMeanData_Harmonoise::MSLaneMeanDataValues::write(OutputDevice &dev, const SUMOTime period,
-        const SUMOReal numLanes, const int numVehicles) const throw(IOError) {
+        const SUMOReal /*numLanes*/, const int /*numVehicles*/) const throw(IOError) {
     dev << "\" noise=\"" << (meanNTemp!=0 ? (SUMOReal)(10. * log10(meanNTemp*TS/STEPS2TIME(period))) : (SUMOReal) 0.);
     if (sampleSeconds > myParent->myMinSamples) {
         SUMOReal traveltime = myParent->myMaxTravelTime;

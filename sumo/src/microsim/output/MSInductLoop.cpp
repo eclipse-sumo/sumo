@@ -100,7 +100,7 @@ MSInductLoop::notifyMove(SUMOVehicle& veh, SUMOReal oldPos,
 
 
 bool
-MSInductLoop::notifyLeave(SUMOVehicle& veh, SUMOReal lastPos, MSMoveReminder::Notification reason) throw() {
+MSInductLoop::notifyLeave(SUMOVehicle& veh, SUMOReal /*lastPos*/, MSMoveReminder::Notification reason) throw() {
     if (reason != MSMoveReminder::NOTIFICATION_JUNCTION) {
         // vehicle is on detector during lane change or arrival, or ...
         leaveDetectorByLaneChange(veh);

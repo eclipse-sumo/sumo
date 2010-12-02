@@ -107,7 +107,9 @@ NIImporter_DlrNavteq::loadNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
 NIImporter_DlrNavteq::NodesHandler::NodesHandler(NBNodeCont &nc,
         const std::string &file,
         std::map<std::string, Position2DVector> &geoms) throw()
-        : myNodeCont(nc), myGeoms(geoms) {}
+        : myNodeCont(nc), myGeoms(geoms) {
+	UNUSED_PARAMETER(file);
+}
 
 
 NIImporter_DlrNavteq::NodesHandler::~NodesHandler() throw() {}
@@ -176,7 +178,9 @@ NIImporter_DlrNavteq::EdgesHandler::EdgesHandler(NBNodeCont &nc, NBEdgeCont &ec,
         const std::string &file,
         std::map<std::string,
         Position2DVector> &geoms) throw()
-        : myNodeCont(nc), myEdgeCont(ec), myGeoms(geoms) {}
+        : myNodeCont(nc), myEdgeCont(ec), myGeoms(geoms) {
+	UNUSED_PARAMETER(file);
+}
 
 
 NIImporter_DlrNavteq::EdgesHandler::~EdgesHandler() throw() {}
@@ -283,7 +287,9 @@ NIImporter_DlrNavteq::EdgesHandler::report(const std::string &result) throw(Proc
 NIImporter_DlrNavteq::TrafficlightsHandler::TrafficlightsHandler(NBNodeCont &nc,
         NBTrafficLightLogicCont &tlc,
         const std::string &file) throw()
-        : myNodeCont(nc), myTLLogicCont(tlc) {}
+        : myNodeCont(nc), myTLLogicCont(tlc) {
+	UNUSED_PARAMETER(file);
+}
 
 
 NIImporter_DlrNavteq::TrafficlightsHandler::~TrafficlightsHandler() throw() {}

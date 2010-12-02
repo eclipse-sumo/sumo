@@ -142,8 +142,8 @@ TraCIServerAPI_VehicleType::processGet(TraCIServer &server, tcpip::Storage &inpu
 
 
 bool
-TraCIServerAPI_VehicleType::processSet(TraCIServer &server, tcpip::Storage &inputStorage,
-                                       tcpip::Storage &outputStorage) {
+TraCIServerAPI_VehicleType::processSet(TraCIServer& /*server*/, tcpip::Storage& /*inputStorage*/,
+                                       tcpip::Storage& /*outputStorage*/) {
     return true;
 }
 

@@ -128,12 +128,12 @@ MSVehicleControl::vehicleEmitted(const SUMOVehicle &v) throw() {
 
 
 void
-MSVehicleControl::saveState(std::ostream &os) throw() {
+MSVehicleControl::saveState(std::ostream&/*os*/) throw() {
 }
 
 
 void
-MSVehicleControl::loadState(BinaryInputDevice &bis, const SUMOTime offset) throw() {
+MSVehicleControl::loadState(BinaryInputDevice&/*bis*/, const SUMOTime /*offset*/) throw() {
 }
 
 

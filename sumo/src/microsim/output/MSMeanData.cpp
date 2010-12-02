@@ -64,6 +64,7 @@ MSMeanData::MeanDataValues::~MeanDataValues() throw() {
 
 bool
 MSMeanData::MeanDataValues::notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification reason) throw() {
+	UNUSED_PARAMETER(reason);
     return vehicleApplies(veh);
 }
 
@@ -95,7 +96,7 @@ MSMeanData::MeanDataValues::notifyMove(SUMOVehicle& veh, SUMOReal oldPos, SUMORe
 
 
 bool
-MSMeanData::MeanDataValues::notifyLeave(SUMOVehicle& veh, SUMOReal lastPos, MSMoveReminder::Notification reason) throw() {
+MSMeanData::MeanDataValues::notifyLeave(SUMOVehicle& /*veh*/, SUMOReal /*lastPos*/, MSMoveReminder::Notification reason) throw() {
     return reason == MSMoveReminder::NOTIFICATION_JUNCTION;
 }
 
@@ -193,7 +194,7 @@ MSMeanData::MeanDataValueTracker::isEmpty() const throw() {
 
 void
 MSMeanData::MeanDataValueTracker::write(OutputDevice &dev, const SUMOTime period,
-                                        const SUMOReal numLanes, const int numVehicles) const throw(IOError) {
+                                        const SUMOReal numLanes, const int /*numVehicles*/) const throw(IOError) {
     myCurrentData.front()->myValues->write(dev, period, numLanes, myCurrentData.front()->myNumVehicleEntered);
 }
 
@@ -290,7 +291,7 @@ MSMeanData::~MSMeanData() throw() {
 
 
 void
-MSMeanData::resetOnly(SUMOTime stopTime) throw() {
+MSMeanData::resetOnly(SUMOTime /*stopTime*/) throw() {
 #ifdef HAVE_MESOSIM
     if (MSGlobals::gUseMesoSim) {
         std::vector<MSEdge*>::iterator edge = myEdges.begin();

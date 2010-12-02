@@ -33,6 +33,7 @@
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/xml/XMLSubSys.h>
+#include <utils/common/StdDefs.h>
 #include "ROAbstractRouteDefLoader.h"
 #include "ROTypedXMLRoutesLoader.h"
 #include "RONet.h"
@@ -67,6 +68,7 @@ ROTypedXMLRoutesLoader::~ROTypedXMLRoutesLoader() throw() {
 
 bool
 ROTypedXMLRoutesLoader::readRoutesAtLeastUntil(SUMOTime time, bool skipping) throw(ProcessError) {
+	UNUSED_PARAMETER(skipping);
     while (getLastReadTimeStep()<time&&!ended()) {
         beginNextRoute();
         while (!nextRouteRead()&&!ended()) {
