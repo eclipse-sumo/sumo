@@ -1,0 +1,6 @@
+<routes>
+   <vtype id="DEFAULT_VEHTYPE" sigma="0" vmax="40"/>
+   <vehicle id="1" depart="0" arrivalpos="random">
+	   <route edges="beg end"/>
+   </vehicle>
+</routes>
