@@ -140,8 +140,8 @@ GUILoadThread::run() {
     }
 #endif
     GUIEdgeControlBuilder *eb = new GUIEdgeControlBuilder(GUIGlObjectStorage::gIDStorage);
-    NLJunctionControlBuilder jb(*net, oc);
     GUIDetectorBuilder db(*net);
+    NLJunctionControlBuilder jb(*net, db, oc);
     GUITriggerBuilder tb;
     NLHandler handler("", *net, db, tb, *eb, jb);
     tb.setHandler(&handler);

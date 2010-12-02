@@ -47,6 +47,7 @@
 // class declarations
 // ===========================================================================
 class OptionsCont;
+class NLDetectorBuilder;
 
 
 // ===========================================================================
@@ -72,12 +73,11 @@ public:
      *
      * Stores default values for extended tls reading them from the given
      *  options. Builds a MSTLLogicControl instance for myLogicControl.
-     *
      * @param[in] net The network to fill
+     * @param[in] db The detector builder to use
      * @param[in] oc The options to use
-     * @todo Why are options not const?
      */
-    NLJunctionControlBuilder(MSNet &net, OptionsCont &oc) throw();
+    NLJunctionControlBuilder(MSNet &net, NLDetectorBuilder &db, const OptionsCont &oc) throw();
 
 
     /** @brief Destructor
@@ -294,18 +294,6 @@ public:
     void closeJunctionLogic() throw(InvalidArgument);
 
 
-    /** @brief Closes the building of the junction control
-     *
-     * Sets loaded junction parameter into all tls logics.
-     *
-     * @param[in] db The detector builder to use (unused!)
-     * @todo Really nasty! Both parameter are not used herein.
-     * @todo Where do extended tl build their detectors, what value are set herein?
-     * @todo May the called method throw something?
-     */
-    void closeJunctions(NLDetectorBuilder &db) throw();
-
-
     /** @brief Adds a parameter
      *
      * @param[in] key The key of the parameter
@@ -417,6 +405,9 @@ protected:
 protected:
     /// @brief The net to use
     MSNet &myNet;
+
+    /// @brief The detector builder to use
+    NLDetectorBuilder &myDetectorBuilder;
 
     /// @brief The switch offset within the tls
     SUMOTime myOffset;

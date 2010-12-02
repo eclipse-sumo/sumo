@@ -731,6 +731,7 @@ NLHandler::initJunctionLogic(const SUMOSAXAttributes &attrs) {
 
 void
 NLHandler::initTrafficLightLogic(const SUMOSAXAttributes &attrs) {
+    myAmInTLLogicMode = true;
     SUMOReal detectorOffset = -1;
     myJunctionControlBuilder.initIncomingLanes(); // @deprecated (is this still used?)
     bool ok = true;
@@ -749,7 +750,6 @@ NLHandler::initTrafficLightLogic(const SUMOSAXAttributes &attrs) {
     }
     std::string programID = attrs.getOptStringReporting(SUMO_ATTR_PROGRAMID, "tl-logic", id.c_str(), ok, "<unknown>");
     myJunctionControlBuilder.initTrafficLightLogic(id, programID, type, offset, detectorOffset);
-    myAmInTLLogicMode = true;
 }
 
 

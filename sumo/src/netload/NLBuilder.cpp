@@ -204,7 +204,6 @@ NLBuilder::buildNet() throw(ProcessError) {
     MSRouteLoaderControl *routeLoaders = 0;
     MSTLLogicControl *tlc = 0;
     try {
-        myJunctionBuilder.closeJunctions(myDetectorBuilder);
         edges = myEdgeBuilder.build();
         junctions = myJunctionBuilder.build();
         routeLoaders = buildRouteLoaderControl(myOptions);

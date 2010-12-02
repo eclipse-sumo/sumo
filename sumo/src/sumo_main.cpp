@@ -91,8 +91,8 @@ load(OptionsCont &oc) {
     MSNet *net = new MSNet(vc, new MSEventControl(),
                            new MSEventControl(), new MSEventControl());
     NLEdgeControlBuilder eb;
-    NLJunctionControlBuilder jb(*net, oc);
     NLDetectorBuilder db(*net);
+    NLJunctionControlBuilder jb(*net, db, oc);
     NLTriggerBuilder tb;
     NLHandler handler("", *net, db, tb, eb, jb);
     tb.setHandler(&handler);

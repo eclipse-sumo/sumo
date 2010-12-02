@@ -58,8 +58,8 @@
 // method definitions
 // ===========================================================================
 NLJunctionControlBuilder::NLJunctionControlBuilder(MSNet &net,
-        OptionsCont &oc) throw()
-        : myNet(net), myOffset(0), myJunctions(0) {
+        NLDetectorBuilder &db, const OptionsCont &oc) throw()
+        : myNet(net), myDetectorBuilder(db), myOffset(0), myJunctions(0) {
     myStdDetectorPositions = oc.getFloat("actuated-tl.detector-pos");
     myStdDetectorLengths = oc.getFloat("agent-tl.detector-len");
     myStdLearnHorizon = oc.getInt("agent-tl.learn-horizon");
@@ -295,6 +295,8 @@ NLJunctionControlBuilder::closeTrafficLightLogic() throw(InvalidArgument, Proces
             if (!getTLLogicControlToUse().add(myActiveKey, myActiveProgram, tlLogic)) {
                 throw InvalidArgument("Another logic with id '" + myActiveKey + "' and subid '" + myActiveProgram + "' exists.");
             }
+            tlLogic->setParameter(myAdditionalParameter);
+            tlLogic->init(myDetectorBuilder);
         } catch (InvalidArgument &) {
             delete tlLogic;
             throw;
@@ -442,15 +444,6 @@ NLJunctionControlBuilder::closeJunctionLogic() throw(InvalidArgument) {
         throw InvalidArgument("Junction logic '" + myActiveKey + "' was defined twice.");
     }
     myLogics[myActiveKey] = logic;
-}
-
-
-void
-NLJunctionControlBuilder::closeJunctions(NLDetectorBuilder &db) throw() {
-    for (std::vector<TLInitInfo>::iterator i=myJunctions2PostLoadInit.begin(); i!=myJunctions2PostLoadInit.end(); i++) {
-        (*i).logic->setParameter((*i).params);
-        (*i).logic->init(db);
-    }
 }
 
 
