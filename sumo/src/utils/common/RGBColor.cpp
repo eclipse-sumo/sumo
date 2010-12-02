@@ -33,6 +33,7 @@
 #include <utils/common/StringTokenizer.h>
 #include <utils/common/TplConvert.h>
 #include <utils/common/MsgHandler.h>
+#include <utils/common/StdDefs.h>
 #include "RGBColor.h"
 
 #ifdef CHECK_MEMORY_LEAKS
@@ -113,7 +114,8 @@ RGBColor::parseColor(const std::string &coldef) throw(EmptyData, NumberFormatExc
 
 RGBColor
 RGBColor::parseColorReporting(const std::string &coldef, const char *objecttype, const char *objectid, bool report, bool &ok) throw() {
-    try {
+    UNUSED_PARAMETER(report);
+	try {
         return parseColor(coldef);
     } catch (NumberFormatException &) {
     } catch (EmptyData &) {

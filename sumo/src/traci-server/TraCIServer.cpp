@@ -1063,6 +1063,7 @@ TraCIServer::commandDistanceRequest() throw(TraCIException) {
     RoadMapPos roadPos1;
     RoadMapPos roadPos2;
     const std::vector<MSLane*>* lanes;
+	UNUSED_PARAMETER(lanes);
 
     // read position 1
     int posType = myInputStorage.readUnsignedByte();
@@ -1754,6 +1755,8 @@ throw(TraCIException) {
 
             // read destinatin position
             float x,y;
+			UNUSED_PARAMETER(x);
+			UNUSED_PARAMETER(y);
             switch (dataCont.getLastValueRead()) {
             case POSITION_ROADMAP:
                 destRoadPos = dataCont.getRoadMapPosition();

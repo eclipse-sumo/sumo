@@ -29,6 +29,8 @@
 #include <config.h>
 #endif
 
+/* avoiding compiler warning unreferenced parameter */
+#define UNUSED_PARAMETER(x)  ((void)(x))
 
 /* -------------------------------------------------------------------------
  * some constant defaults used by SUMO

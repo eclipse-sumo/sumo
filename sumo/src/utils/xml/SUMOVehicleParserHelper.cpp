@@ -453,6 +453,7 @@ void
 SUMOVehicleParserHelper::parseVTypeEmbedded_Krauss(SUMOVTypeParameter &into,
         const SUMOSAXAttributes &attrs,
         bool fromVType) throw(ProcessError) {
+	UNUSED_PARAMETER(fromVType);
     bool ok = true;
     if (attrs.hasAttribute(SUMO_ATTR_ACCEL)) {
         into.cfParameter["accel"] = attrs.getSUMORealReporting(SUMO_ATTR_ACCEL, "krauss", into.id.c_str(), ok);

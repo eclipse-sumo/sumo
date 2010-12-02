@@ -38,6 +38,7 @@
 #include "AGBus.h"
 #include "AGPosition.h"
 #include "AGTime.h"
+#include <utils/common/StdDefs.h>
 
 #define PAUSE_TIME 15		//time (in minutes) a bus waits before going in the opposite direction.
 
@@ -148,6 +149,7 @@ void
 AGBusLine::generateBuses(int start, int stop, int rate) {
     int t = start;
     AGBus* bus;
+	UNUSED_PARAMETER(bus);
     while (t < stop) {
         buses.push_back(AGBus(t)); //one direction
         revBuses.push_back(AGBus(t)); //return direction

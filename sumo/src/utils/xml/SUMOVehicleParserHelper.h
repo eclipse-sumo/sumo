@@ -37,7 +37,7 @@
 #include <utils/common/SUMOVehicleParameter.h>
 #include <utils/common/SUMOVTypeParameter.h>
 #include <utils/common/UtilExceptions.h>
-
+#include <utils/common/StdDefs.h>
 
 // ===========================================================================
 // class definitions
@@ -139,7 +139,9 @@ public:
      * @return The resulting vehicle type parameter
      * @see SUMOVTypeParameter
      */
-    static void closeVTypeParsing(SUMOVTypeParameter &vtype) throw() { }
+    static void closeVTypeParsing(SUMOVTypeParameter &vtype) throw() { 
+		UNUSED_PARAMETER(vtype);
+	}
 
 
     /** @brief Parses the vehicle class
