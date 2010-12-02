@@ -149,9 +149,9 @@ MSSimpleTrafficLightLogic::getCurrentPhaseDef() const throw() {
 
 
 // ------------ Conversion between time and phase
-unsigned int
+SUMOTime
 MSSimpleTrafficLightLogic::getPhaseIndexAtTime(SUMOTime simStep) const throw() {
-    unsigned int position = 0;
+    SUMOTime position = 0;
     if (myStep > 0)	{
         for (unsigned int i=0; i < myStep; i++) {
             position = position + getPhase(i).duration;
@@ -164,7 +164,7 @@ MSSimpleTrafficLightLogic::getPhaseIndexAtTime(SUMOTime simStep) const throw() {
 }
 
 
-unsigned int
+SUMOTime
 MSSimpleTrafficLightLogic::getOffsetFromIndex(unsigned int index) const throw() {
     assert(index < myPhases.size());
     if (index == 0) {
@@ -179,19 +179,18 @@ MSSimpleTrafficLightLogic::getOffsetFromIndex(unsigned int index) const throw() 
 
 
 unsigned int
-MSSimpleTrafficLightLogic::getIndexFromOffset(unsigned int offset) const throw() {
+MSSimpleTrafficLightLogic::getIndexFromOffset(SUMOTime offset) const throw() {
     assert(offset <= myDefaultCycleTime);
     if (offset == myDefaultCycleTime) {
         return 0;
     }
-    unsigned int pos = offset;
     unsigned int testPos = 0;
     for (unsigned int i=0; i < myPhases.size(); i++)	{
         testPos = testPos + getPhase(i).duration;
-        if (testPos > pos) {
+        if (testPos > offset) {
             return i;
         }
-        if (testPos == pos) {
+        if (testPos == offset) {
             assert(myPhases.size() > (i+1));
             return (i+1);
         }

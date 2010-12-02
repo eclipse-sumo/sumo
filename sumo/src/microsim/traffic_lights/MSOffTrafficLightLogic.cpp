@@ -45,7 +45,7 @@
 MSOffTrafficLightLogic::MSOffTrafficLightLogic(MSTLLogicControl &tlcontrol,
         const std::string &id) throw()
         : MSTrafficLightLogic(tlcontrol, id, "off", 0) {
-    myDefaultCycleTime = 120;
+    myDefaultCycleTime = TIME2STEPS(120);
 }
 
 
@@ -119,20 +119,20 @@ MSOffTrafficLightLogic::getCurrentPhaseDef() const throw() {
 
 
 // ------------ Conversion between time and phase
-unsigned int
+SUMOTime
 MSOffTrafficLightLogic::getPhaseIndexAtTime(SUMOTime simStep) const throw() {
     return 0;
 }
 
 
-unsigned int
+SUMOTime
 MSOffTrafficLightLogic::getOffsetFromIndex(unsigned int index) const throw() {
     return 0;
 }
 
 
 unsigned int
-MSOffTrafficLightLogic::getIndexFromOffset(unsigned int offset) const throw() {
+MSOffTrafficLightLogic::getIndexFromOffset(SUMOTime offset) const throw() {
     return 0;
 }
 

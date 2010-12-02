@@ -554,7 +554,7 @@ TraCIServerAPI_TLS::commandGetTLStatus(TraCIServer &server, tcpip::Storage &inpu
     // check every second of the given time interval for a switch in the traffic light's phases
     for (SUMOTime time = timeFrom - lookback; time <= timeTo; time+=DELTA_T) {
         if (time < 0) time = 0;
-        size_t position = tlLogic->getPhaseIndexAtTime(time);
+        SUMOTime position = tlLogic->getPhaseIndexAtTime(time);
         size_t currentStep = tlLogic->getIndexFromOffset(position);
         if (currentStep != lastStep) {
             lastStep = currentStep;

@@ -2030,7 +2030,7 @@ throw(TraCIException) {
             size_t step = tlLogic->getCurrentPhaseIndex();
             if (variableId == DOMVAR_NEXTTLPHASE) {
                 size_t curStep = tlLogic->getCurrentPhaseIndex();
-                size_t pos = tlLogic->getPhaseIndexAtTime(MSNet::getInstance()->getCurrentTimeStep());
+                SUMOTime pos = tlLogic->getPhaseIndexAtTime(MSNet::getInstance()->getCurrentTimeStep());
                 do {
                     pos++;
                 } while ((step=tlLogic->getIndexFromOffset(pos)) == curStep);

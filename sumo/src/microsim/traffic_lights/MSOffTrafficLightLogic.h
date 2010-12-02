@@ -162,7 +162,7 @@ public:
      * @return The (estimated) index of the tls at the given simulation time step
      * @see MSTrafficLightLogic::getPhaseIndexAtTime
      */
-    unsigned int getPhaseIndexAtTime(SUMOTime simStep) const throw();
+    SUMOTime getPhaseIndexAtTime(SUMOTime simStep) const throw();
 
 
     /** @brief Returns the position (start of a phase during a cycle) from of a given step
@@ -170,7 +170,7 @@ public:
      * @return The begin time of the phase
      * @see MSTrafficLightLogic::getOffsetFromIndex
      */
-    unsigned int getOffsetFromIndex(unsigned int index) const throw();
+    SUMOTime getOffsetFromIndex(unsigned int index) const throw();
 
 
     /** @brief Returns the step (the phasenumber) of a given position of the cycle
@@ -178,7 +178,7 @@ public:
      * @return The according phase
      * @see MSTrafficLightLogic::getIndexFromOffset
      */
-    unsigned int getIndexFromOffset(unsigned int offset) const throw();
+    unsigned int getIndexFromOffset(SUMOTime offset) const throw();
     /// @}
 
 

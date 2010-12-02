@@ -252,10 +252,10 @@ public:
     virtual const MSPhaseDefinition &getCurrentPhaseDef() const throw() = 0;
 
 
-    /** @brief Returns the cycle time
+    /** @brief Returns the cycle time (in ms)
      * @return The (maybe changing) cycle time of this tls
      */
-    unsigned int getDefaultCycleTime() const throw() {
+    SUMOTime getDefaultCycleTime() const throw() {
         return myDefaultCycleTime;
     }
 
@@ -263,7 +263,6 @@ public:
     /** @brief Returns the assumed next switch time
      *
      * The time may change in case of adaptive/actuated traffic lights.
-     *
      * @return The assumed next switch time (simulation time)
      */
     SUMOTime getNextSwitchTime() const throw();
@@ -277,21 +276,21 @@ public:
     /** @brief Returns the index of the logic at the given simulation step
      * @return The (estimated) index of the tls at the given simulation time step
      */
-    virtual unsigned int getPhaseIndexAtTime(SUMOTime simStep) const throw() = 0;
+    virtual SUMOTime getPhaseIndexAtTime(SUMOTime simStep) const throw() = 0;
 
 
     /** @brief Returns the position (start of a phase during a cycle) from of a given step
      * @param[in] index The index of the phase to return the begin of
      * @return The begin time of the phase
      */
-    virtual unsigned int getOffsetFromIndex(unsigned int index) const throw() = 0;
+    virtual SUMOTime getOffsetFromIndex(unsigned int index) const throw() = 0;
 
 
     /** @brief Returns the step (the phasenumber) of a given position of the cycle
      * @param[in] offset The offset (time) for which the according phase shall be returned
      * @return The according phase
      */
-    virtual unsigned int getIndexFromOffset(unsigned int offset) const throw() = 0;
+    virtual unsigned int getIndexFromOffset(SUMOTime offset) const throw() = 0;
     /// @}
 
 
@@ -427,7 +426,7 @@ protected:
     SwitchCommand *mySwitchCommand;
 
     /// @brief The cycle time (without changes)
-    unsigned int myDefaultCycleTime;
+    SUMOTime myDefaultCycleTime;
 
 
 private:
