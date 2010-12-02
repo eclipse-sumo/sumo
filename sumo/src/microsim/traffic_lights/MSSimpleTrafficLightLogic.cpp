@@ -184,7 +184,7 @@ MSSimpleTrafficLightLogic::getIndexFromOffset(SUMOTime offset) const throw() {
     if (offset == myDefaultCycleTime) {
         return 0;
     }
-    unsigned int testPos = 0;
+    SUMOTime testPos = 0;
     for (unsigned int i=0; i < myPhases.size(); i++)	{
         testPos = testPos + getPhase(i).duration;
         if (testPos > offset) {

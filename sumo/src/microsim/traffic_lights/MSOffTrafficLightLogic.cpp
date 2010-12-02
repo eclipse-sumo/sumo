@@ -57,7 +57,7 @@ MSOffTrafficLightLogic::~MSOffTrafficLightLogic() throw() {
 
 
 void
-MSOffTrafficLightLogic::init(NLDetectorBuilder &nb) throw(ProcessError) {
+MSOffTrafficLightLogic::init(NLDetectorBuilder &) throw(ProcessError) {
     rebuildPhase();
 }
 
@@ -100,7 +100,7 @@ MSOffTrafficLightLogic::getPhases() const throw() {
 
 
 const MSPhaseDefinition &
-MSOffTrafficLightLogic::getPhase(unsigned int givenstep) const throw() {
+MSOffTrafficLightLogic::getPhase(unsigned int) const throw() {
     return *myPhaseDefinition[0];
 }
 
@@ -120,19 +120,19 @@ MSOffTrafficLightLogic::getCurrentPhaseDef() const throw() {
 
 // ------------ Conversion between time and phase
 SUMOTime
-MSOffTrafficLightLogic::getPhaseIndexAtTime(SUMOTime simStep) const throw() {
+MSOffTrafficLightLogic::getPhaseIndexAtTime(SUMOTime) const throw() {
     return 0;
 }
 
 
 SUMOTime
-MSOffTrafficLightLogic::getOffsetFromIndex(unsigned int index) const throw() {
+MSOffTrafficLightLogic::getOffsetFromIndex(unsigned int) const throw() {
     return 0;
 }
 
 
 unsigned int
-MSOffTrafficLightLogic::getIndexFromOffset(SUMOTime offset) const throw() {
+MSOffTrafficLightLogic::getIndexFromOffset(SUMOTime) const throw() {
     return 0;
 }
 

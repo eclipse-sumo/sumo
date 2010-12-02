@@ -34,8 +34,10 @@
 #include <bitset>
 #include <microsim/MSEventControl.h>
 #include <microsim/MSNet.h>
+#include <utils/common/StdDefs.h>
 #include "MSTrafficLightLogic.h"
 #include "MSPhaseDefinition.h"
+#include "MSTLLogicControl.h"
 
 
 // ===========================================================================
@@ -89,6 +91,7 @@ public:
      * @see MSTrafficLightLogic::trySwitch
      */
     SUMOTime trySwitch(bool isActive) throw() {
+        UNUSED_PARAMETER(isActive);
         return 120*DELTA_T;
     }
 
@@ -194,6 +197,10 @@ public:
      * @see MSTrafficLightLogic::changeStepAndDuration
      */
     void changeStepAndDuration(MSTLLogicControl &tlcontrol, SUMOTime simStep, unsigned int step, SUMOTime stepDuration) throw() {
+        UNUSED_PARAMETER(tlcontrol);
+        UNUSED_PARAMETER(simStep);
+        UNUSED_PARAMETER(step);
+        UNUSED_PARAMETER(stepDuration);
     }
     /// @}
 
