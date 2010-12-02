@@ -244,11 +244,7 @@ MSVehicle::replaceRoute(const MSRoute* newRoute, bool onInit) throw() {
     myRoute = newRoute;
     myLastBestLanesEdge = 0;
     // update arrival definition
-    const SUMOReal lastLaneLength = (myRoute->getLastEdge()->getLanes())[0]->getLength();
-    myArrivalPos = MIN2(myParameter->arrivalPos, lastLaneLength);
-    if (myArrivalPos < 0) {
-        myArrivalPos = MAX2(myArrivalPos + lastLaneLength, static_cast<SUMOReal>(0));
-    }
+    calculateArrivalPos();
     // save information that the vehicle was rerouted
     myNumberReroutes++;
     MSNet::getInstance()->informVehicleStateListener(this, MSNet::VEHICLE_STATE_NEWROUTE);
@@ -921,8 +917,15 @@ MSVehicle::vsafeCriticalCont(SUMOTime t, SUMOReal boundVSafe) {
         // check whether the lane is a dead end
         //  (should be valid only on further loop iterations
         if (nextLane->isLinkEnd(link)) {
-            // the vehicle will not drive further
             SUMOReal laneEndVSafe = cfModel.ffeS(this, seen);
+            if (myCurrEdge + view == myRoute->end()) {
+                if (myParameter->arrivalSpeedProcedure == ARRIVAL_SPEED_GIVEN) {
+                    laneEndVSafe = cfModel.ffeV(this, seen, myParameter->arrivalSpeed);
+                } else {
+                    laneEndVSafe = vLinkPass;
+                }
+            }
+            // the vehicle will not drive further
             myLFLinkLanes.push_back(DriveProcessItem(0, MIN2(vLinkPass, laneEndVSafe), MIN2(vLinkPass, laneEndVSafe), false, 0, 0, seen));
             return;
         }
@@ -932,16 +935,15 @@ MSVehicle::vsafeCriticalCont(SUMOTime t, SUMOReal boundVSafe) {
 
         // get the following lane
 #ifdef HAVE_INTERNAL_LANES
-        bool nextInternal = false;
         nextLane = (*link)->getViaLane();
         if (nextLane==0) {
             nextLane = (*link)->getLane();
             hadNonInternal = true;
-        } else {
-            nextInternal = true;
+            view++;
         }
 #else
         nextLane = (*link)->getLane();
+        view++;
 #endif
 
         // compute the velocity to use when the link is not blocked by oter vehicles
@@ -976,12 +978,21 @@ MSVehicle::vsafeCriticalCont(SUMOTime t, SUMOReal boundVSafe) {
         // process stops
         if (!myStops.empty()&& &myStops.begin()->lane->getEdge()==&nextLane->getEdge()) {
             const Stop &stop = *myStops.begin();
-            SUMOReal vsafeStop = stop.busstop==0
+            const SUMOReal vsafeStop = stop.busstop==0
                                  ? cfModel.ffeS(this, seen+stop.endPos)
                                  : cfModel.ffeS(this, seen+stop.busstop->getLastFreePos()-POSITION_EPS);
             vLinkPass = MIN2(vLinkPass, vsafeStop);
             vLinkWait = MIN2(vLinkWait, vsafeStop);
         }
+        // check whether we approach the final edge
+        if (myCurrEdge + view == myRoute->end()) {
+            if (myParameter->arrivalSpeedProcedure == ARRIVAL_SPEED_GIVEN) {
+                const SUMOReal vsafe = cfModel.ffeV(this, seen + myArrivalPos, myParameter->arrivalSpeed);
+                vLinkPass = MIN2(vLinkPass, vsafe);
+                vLinkWait = MIN2(vLinkWait, vsafe);
+            }
+        }
+
         setRequest |= ((*link)->getState()!=MSLink::LINKSTATE_TL_RED&&(vLinkPass>0&&dist-seen>0));
         bool yellow = (*link)->getState()==MSLink::LINKSTATE_TL_YELLOW_MAJOR||(*link)->getState()==MSLink::LINKSTATE_TL_YELLOW_MINOR;
         bool red = (*link)->getState()==MSLink::LINKSTATE_TL_RED;
@@ -1000,13 +1011,6 @@ MSVehicle::vsafeCriticalCont(SUMOTime t, SUMOReal boundVSafe) {
         if ((vLinkPass<=0||seen>dist)&&hadNonInternal&&seenNonInternal>50) {
             return;
         }
-#ifdef HAVE_INTERNAL_LANES
-        if (!nextInternal) {
-            view++;
-        }
-#else
-        view++;
-#endif
     }
 }
 
@@ -1047,8 +1051,7 @@ MSVehicle::enterLaneAtMove(MSLane* enteredLane, bool onTeleporting) {
         checkForLaneChanges();
 #endif
     }
-    MSRouteIterator destination = myRoute->end() - 1;
-    return myCurrEdge == destination && getPositionOnLane() > myArrivalPos - POSITION_EPS;
+    return myCurrEdge == myRoute->end() - 1 && getPositionOnLane() > myArrivalPos - POSITION_EPS;
 }
 
 

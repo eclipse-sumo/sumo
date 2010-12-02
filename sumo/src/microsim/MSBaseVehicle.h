@@ -190,6 +190,11 @@ public:
     void addReminder(MSMoveReminder* rem) throw();
 
 protected:
+    /** @brief (Re-)Calculates the arrival position from the vehicle parameters
+     */
+    void calculateArrivalPos() throw();
+
+protected:
     /// @brief This Vehicle's parameter.
     const SUMOVehicleParameter* myParameter;
 

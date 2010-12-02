@@ -60,7 +60,7 @@ MSBaseVehicle::MSBaseVehicle(SUMOVehicleParameter* pars, const MSRoute* route, c
         myReferenceSpeed(-1.0),
         myType(type),
         myDeparture(-1),
-        myArrivalPos(pars->arrivalPos),
+        myArrivalPos(-1),
         myNumberReroutes(0) {
     // init devices
     MSDevice_Vehroutes::buildVehicleDevices(*this, myDevices);
@@ -71,14 +71,7 @@ MSBaseVehicle::MSBaseVehicle(SUMOVehicleParameter* pars, const MSRoute* route, c
         myMoveReminders.push_back(std::make_pair(*dev, 0.));
     }
     myRoute->addReference();
-    // build arrival definition
-    const SUMOReal lastLaneLength = (myRoute->getLastEdge()->getLanes())[0]->getLength();
-    if (myArrivalPos > lastLaneLength) {
-        myArrivalPos = lastLaneLength;
-    }
-    if (myArrivalPos < 0) {
-        myArrivalPos = MAX2(myArrivalPos + lastLaneLength, static_cast<SUMOReal>(0));
-    }
+    calculateArrivalPos();
 }
 
 MSBaseVehicle::~MSBaseVehicle() throw() {
@@ -237,6 +230,29 @@ MSBaseVehicle::isStopped() const {
 void
 MSBaseVehicle::addReminder(MSMoveReminder* rem) throw() {
     myMoveReminders.push_back(std::make_pair(rem, 0.));
+}
+
+
+void
+MSBaseVehicle::calculateArrivalPos() throw() {
+    const SUMOReal lastLaneLength = (myRoute->getLastEdge()->getLanes())[0]->getLength();
+    if (myArrivalPos < 0 || myArrivalPos > lastLaneLength || myParameter->arrivalPosProcedure == ARRIVAL_POS_MAX) {
+        switch (myParameter->arrivalPosProcedure) {
+        case ARRIVAL_POS_DEFAULT:
+        case ARRIVAL_POS_GIVEN:
+            myArrivalPos = MIN2(myParameter->arrivalPos, lastLaneLength);
+            if (myArrivalPos < 0) {
+                myArrivalPos = MAX2(myArrivalPos + lastLaneLength, static_cast<SUMOReal>(0));
+            }
+            break;
+        case ARRIVAL_POS_RANDOM:
+            myArrivalPos = RandHelper::rand(static_cast<SUMOReal>(0), lastLaneLength);
+            break;
+        case ARRIVAL_POS_MAX:
+            myArrivalPos = lastLaneLength;
+            break;
+        }
+    }
 }
 
 
