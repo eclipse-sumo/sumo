@@ -187,6 +187,7 @@ GUIEdge::getParameterWindow(GUIMainWindow &app,
     // close building
     ret->closeBuilding();
 #endif
+	UNUSED_PARAMETER(&app);
     return ret;
 }
 

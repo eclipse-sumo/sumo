@@ -83,7 +83,7 @@ GUIJunctionWrapper::getPopUpMenu(GUIMainWindow &app,
 
 
 GUIParameterTableWindow *
-GUIJunctionWrapper::getParameterWindow(GUIMainWindow &app,
+GUIJunctionWrapper::getParameterWindow(GUIMainWindow &/*app*/,
                                        GUISUMOAbstractView &) throw() {
     return 0;
 }

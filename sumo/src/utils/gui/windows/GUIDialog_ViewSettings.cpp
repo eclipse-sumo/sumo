@@ -642,7 +642,7 @@ GUIDialog_ViewSettings::onCmdNameChange(FXObject*,FXSelector,void*data) {
 
 
 long
-GUIDialog_ViewSettings::onCmdColorChange(FXObject*sender,FXSelector,void*val) {
+GUIDialog_ViewSettings::onCmdColorChange(FXObject*sender,FXSelector,void*/*val*/) {
     GUIVisualizationSettings tmpSettings = *mySettings;
     size_t prevLaneMode = mySettings->getLaneEdgeMode();
     size_t prevVehicleMode = mySettings->vehicleColorer.getActive();
@@ -904,7 +904,7 @@ GUIDialog_ViewSettings::loadDecals(const std::string &file) throw() {
 
 
 long
-GUIDialog_ViewSettings::onCmdSaveSetting(FXObject*,FXSelector,void*data) {
+GUIDialog_ViewSettings::onCmdSaveSetting(FXObject*,FXSelector,void*/*data*/) {
     int index = mySchemeName->getCurrentItem();
     if (index<(int) gSchemeStorage.getNumInitialSettings()) {
         return 1;
@@ -964,7 +964,7 @@ GUIDialog_ViewSettings::onUpdSaveSetting(FXObject*sender,FXSelector,void*ptr) {
 
 
 long
-GUIDialog_ViewSettings::onCmdDeleteSetting(FXObject*,FXSelector,void*data) {
+GUIDialog_ViewSettings::onCmdDeleteSetting(FXObject*,FXSelector,void*/*data*/) {
     int index = mySchemeName->getCurrentItem();
     if (index<(int) gSchemeStorage.getNumInitialSettings()) {
         return 1;
@@ -989,7 +989,7 @@ GUIDialog_ViewSettings::onUpdDeleteSetting(FXObject*sender,FXSelector,void*ptr) 
 
 
 long
-GUIDialog_ViewSettings::onCmdExportSetting(FXObject*,FXSelector,void*data) {
+GUIDialog_ViewSettings::onCmdExportSetting(FXObject*,FXSelector,void*/*data*/) {
     FXFileDialog opendialog(this, "Export view settings");
     opendialog.setIcon(GUIIconSubSys::getIcon(ICON_EMPTY));
     opendialog.setSelectMode(SELECTFILE_ANY);
@@ -1022,7 +1022,7 @@ GUIDialog_ViewSettings::onUpdExportSetting(FXObject*sender,FXSelector,void*ptr) 
 
 
 long
-GUIDialog_ViewSettings::onCmdImportSetting(FXObject*,FXSelector,void*data) {
+GUIDialog_ViewSettings::onCmdImportSetting(FXObject*,FXSelector,void*/*data*/) {
     FXFileDialog opendialog(this, "Import view settings");
     opendialog.setIcon(GUIIconSubSys::getIcon(ICON_EMPTY));
     opendialog.setSelectMode(SELECTFILE_ANY);
@@ -1039,7 +1039,7 @@ GUIDialog_ViewSettings::onCmdImportSetting(FXObject*,FXSelector,void*data) {
 
 
 long
-GUIDialog_ViewSettings::onCmdLoadDecals(FXObject*,FXSelector,void*data) {
+GUIDialog_ViewSettings::onCmdLoadDecals(FXObject*,FXSelector,void*/*data*/) {
     FXFileDialog opendialog(this, "Load Decals");
     opendialog.setIcon(GUIIconSubSys::getIcon(ICON_EMPTY));
     opendialog.setSelectMode(SELECTFILE_ANY);
@@ -1056,7 +1056,7 @@ GUIDialog_ViewSettings::onCmdLoadDecals(FXObject*,FXSelector,void*data) {
 
 
 long
-GUIDialog_ViewSettings::onCmdSaveDecals(FXObject*,FXSelector,void*data) {
+GUIDialog_ViewSettings::onCmdSaveDecals(FXObject*,FXSelector,void*/*data*/) {
     FXFileDialog opendialog(this, "Save Decals");
     opendialog.setIcon(GUIIconSubSys::getIcon(ICON_EMPTY));
     opendialog.setSelectMode(SELECTFILE_ANY);

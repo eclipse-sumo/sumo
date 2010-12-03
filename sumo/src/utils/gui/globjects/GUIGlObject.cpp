@@ -55,7 +55,7 @@ GUIGlObject::GUIGlObject(GUIGlObjectStorage &idStorage, std::string fullName) th
 }
 
 
-GUIGlObject::GUIGlObject(std::string fullName, GLuint glID) throw()
+GUIGlObject::GUIGlObject(std::string fullName, GLuint /*glID*/) throw()
         : myFullName(fullName) {
 }
 

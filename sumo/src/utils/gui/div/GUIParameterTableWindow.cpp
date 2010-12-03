@@ -102,7 +102,7 @@ GUIParameterTableWindow::~GUIParameterTableWindow() throw() {
 
 
 void
-GUIParameterTableWindow::removeObject(GUIGlObject *i) throw() {
+GUIParameterTableWindow::removeObject(GUIGlObject*/*i*/) throw() {
     myLock.lock();
     myObject = 0;
     myLock.unlock();

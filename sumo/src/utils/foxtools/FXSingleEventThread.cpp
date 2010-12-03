@@ -7,6 +7,7 @@
 #include <config.h>
 #endif
 
+#include <utils/common/StdDefs.h>
 #include "MFXInterThreadEventClient.h"
 #include "FXSingleEventThread.h"
 #include "fxexdefs.h"
@@ -80,6 +81,7 @@ FXSingleEventThread::signal() {
 
 void
 FXSingleEventThread::signal(FXuint seltype) {
+	UNUSED_PARAMETER(seltype);
 #ifndef WIN32
     ::write(event[PIPE_WRITE],&seltype,sizeof(seltype));
 #else

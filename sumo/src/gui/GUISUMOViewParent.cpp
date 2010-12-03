@@ -190,7 +190,7 @@ GUISUMOViewParent::onCmdLocateAdd(FXObject *,FXSelector,void*) {
 
 
 long
-GUISUMOViewParent::onCmdLocateShape(FXObject *sender,FXSelector,void*) {
+GUISUMOViewParent::onCmdLocateShape(FXObject */*sender*/,FXSelector,void*) {
     showLocator(GLO_SHAPE, GUIIconSubSys::getIcon(ICON_LOCATESHAPE), "Shape Chooser");
     return 1;
 }

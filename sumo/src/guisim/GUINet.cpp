@@ -503,7 +503,7 @@ GUINet::getMicrosimID() const throw() {
 
 
 void
-GUINet::drawGL(const GUIVisualizationSettings &s) const throw() {
+GUINet::drawGL(const GUIVisualizationSettings&/*s*/) const throw() {
 }
 
 Boundary

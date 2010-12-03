@@ -95,7 +95,7 @@ GUI_E2_ZS_Collector::MyWrapper::MyWrapper(GUI_E2_ZS_Collector &detector,
 
 
 GUI_E2_ZS_Collector::MyWrapper::MyWrapper(
-    GUI_E2_ZS_Collector &detector, GUIGlObjectStorage &idStorage,
+    GUI_E2_ZS_Collector &detector, GUIGlObjectStorage&/*idStorage*/,
     GLuint glID, GUI_E2_ZS_CollectorOverLanes &,
     GUILaneWrapper &wrapper) throw()
         : GUIDetectorWrapper("E2 detector:"+detector.getID(), glID),

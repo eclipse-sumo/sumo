@@ -101,7 +101,7 @@ GUITrafficLightLogicWrapper::GUITrafficLightLogicWrapperPopupMenu::onCmdShowPhas
 
 long
 GUITrafficLightLogicWrapper::GUITrafficLightLogicWrapperPopupMenu::onCmdSwitchTLS2Off(
-    FXObject*,FXSelector sel,void*) {
+    FXObject*,FXSelector /*sel*/,void*) {
     assert(myObject->getType()==GLO_TLLOGIC);
     static_cast<GUITrafficLightLogicWrapper*>(myObject)->switchTLSLogic(-1);
     return 1;
@@ -233,7 +233,7 @@ GUITrafficLightLogicWrapper::getLinkIndex(const MSLink * const link) const {
 
 
 void
-GUITrafficLightLogicWrapper::drawGL(const GUIVisualizationSettings &s) const throw() {
+GUITrafficLightLogicWrapper::drawGL(const GUIVisualizationSettings&/*s*/) const throw() {
 }
 
 

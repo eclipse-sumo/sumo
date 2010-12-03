@@ -30,6 +30,7 @@
 #include <fxver.h>
 #include <xincs.h>
 #include <fx.h>
+#include <utils/common/StdDefs.h>
 /*
 #include <fxdefs.h>
 #include <FXString.h>
@@ -115,6 +116,7 @@ void FXThreadEvent::signal(FXuint seltype) {
 #ifndef WIN32
     ::write(event[PIPE_WRITE],&seltype,sizeof(seltype));
 #else
+	UNUSED_PARAMETER(seltype);
     ::SetEvent(event);
 #endif
 }

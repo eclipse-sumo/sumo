@@ -140,7 +140,7 @@ GUIDialog_EditViewport::onCmdChanged(FXObject*,FXSelector,void*) {
 
 
 long
-GUIDialog_EditViewport::onCmdLoad(FXObject*,FXSelector,void*data) {
+GUIDialog_EditViewport::onCmdLoad(FXObject*,FXSelector,void*/*data*/) {
     FXFileDialog opendialog(this, "Load Viewport");
     opendialog.setIcon(GUIIconSubSys::getIcon(ICON_EMPTY));
     opendialog.setSelectMode(SELECTFILE_ANY);
@@ -163,7 +163,7 @@ GUIDialog_EditViewport::onCmdLoad(FXObject*,FXSelector,void*data) {
 
 
 long
-GUIDialog_EditViewport::onCmdSave(FXObject*,FXSelector,void*data) {
+GUIDialog_EditViewport::onCmdSave(FXObject*,FXSelector,void*/*data*/) {
     FXFileDialog opendialog(this, "Save Viewport");
     opendialog.setIcon(GUIIconSubSys::getIcon(ICON_EMPTY));
     opendialog.setSelectMode(SELECTFILE_ANY);

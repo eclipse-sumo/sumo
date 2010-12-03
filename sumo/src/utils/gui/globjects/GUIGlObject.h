@@ -33,6 +33,7 @@
 #include <set>
 #include "GUIGlObjectTypes.h"
 #include <utils/geom/Boundary.h>
+#include <utils/common/StdDefs.h>
 
 #ifdef _WIN32
 #include <windows.h>
@@ -165,7 +166,10 @@ public:
      * @param[in] parent The view
      * @param[in] s The settings for the current view (may influence drawing)
      */
-    virtual void drawGLAdditional(GUISUMOAbstractView * const parent, const GUIVisualizationSettings &s) const throw() { };
+    virtual void drawGLAdditional(GUISUMOAbstractView * const parent, const GUIVisualizationSettings &s) const throw() { 
+		UNUSED_PARAMETER(&s);
+		UNUSED_PARAMETER(parent);
+	};
 
 
 
