@@ -68,7 +68,7 @@ MSCFModel_Krauss::moveHelper(MSVehicle * const veh, const MSLane * const lane, S
 
 
 SUMOReal
-MSCFModel_Krauss::ffeV(const MSVehicle * const veh, SUMOReal speed, SUMOReal gap, SUMOReal predSpeed) const throw() {
+MSCFModel_Krauss::ffeV(const MSVehicle * const /*veh*/, SUMOReal speed, SUMOReal gap, SUMOReal predSpeed) const throw() {
     return MIN2(_vsafe(gap, predSpeed), maxNextSpeed(speed));
 }
 

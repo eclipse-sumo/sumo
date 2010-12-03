@@ -77,7 +77,7 @@ MSPerson::MSPersonStage::setArrived(SUMOTime now) {
 
 
 bool
-MSPerson::MSPersonStage::isWaitingFor(const std::string &line) const {
+MSPerson::MSPersonStage::isWaitingFor(const std::string&/*line*/) const {
     return false;
 }
 
@@ -129,7 +129,7 @@ MSPerson::MSPersonStage_Driving::~MSPersonStage_Driving() {}
 
 void
 MSPerson::MSPersonStage_Driving::proceed(MSNet* net,
-        MSPerson* person, SUMOTime now,
+        MSPerson* person, SUMOTime /*now*/,
         const MSEdge &previousEdge) {
     SUMOVehicle *v = net->getVehicleControl().getWaitingVehicle(&previousEdge, myLines);
     if (v != 0) {

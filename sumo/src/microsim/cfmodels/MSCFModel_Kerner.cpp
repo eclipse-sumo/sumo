@@ -49,7 +49,7 @@ MSCFModel_Kerner::~MSCFModel_Kerner() throw() {}
 
 
 SUMOReal
-MSCFModel_Kerner::moveHelper(MSVehicle * const veh, const MSLane * const lane, SUMOReal vPos) const throw() {
+MSCFModel_Kerner::moveHelper(MSVehicle * const veh, const MSLane * const /*lane*/, SUMOReal vPos) const throw() {
     SUMOReal oldV = veh->getSpeed(); // save old v for optional acceleration computation
     SUMOReal vSafe = MIN2(vPos, veh->processNextStop(vPos)); // process stops
     // we need the acceleration for emission computation;
@@ -69,7 +69,7 @@ MSCFModel_Kerner::moveHelper(MSVehicle * const veh, const MSLane * const lane, S
 
 
 SUMOReal
-MSCFModel_Kerner::ffeV(const MSVehicle * const veh, SUMOReal speed, SUMOReal gap, SUMOReal predSpeed) const throw() {
+MSCFModel_Kerner::ffeV(const MSVehicle * const /*veh*/, SUMOReal speed, SUMOReal gap, SUMOReal predSpeed) const throw() {
     return MIN2(_v(speed, maxNextSpeed(speed), gap, predSpeed), maxNextSpeed(speed));
 }
 

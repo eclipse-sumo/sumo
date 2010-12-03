@@ -111,13 +111,13 @@ MSDevice_Vehroutes::~MSDevice_Vehroutes() throw() {
 
 
 bool
-MSDevice_Vehroutes::notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification reason) throw() {
+MSDevice_Vehroutes::notifyEnter(SUMOVehicle& /*veh*/, MSMoveReminder::Notification /*reason*/) throw() {
     return mySaveExits;
 }
 
 
 bool
-MSDevice_Vehroutes::notifyLeave(SUMOVehicle& veh, SUMOReal lastPos, MSMoveReminder::Notification reason) throw() {
+MSDevice_Vehroutes::notifyLeave(SUMOVehicle& veh, SUMOReal /*lastPos*/, MSMoveReminder::Notification reason) throw() {
     if (mySaveExits && reason != NOTIFICATION_LANE_CHANGE) {
         if (myLastSavedAt == veh.getEdge()) { // need to check this for internal lanes
             myExits.back() = MSNet::getInstance()->getCurrentTimeStep();

@@ -168,7 +168,7 @@ MSDevice_Routing::~MSDevice_Routing() throw() {
 
 
 bool
-MSDevice_Routing::notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification reason) throw() {
+MSDevice_Routing::notifyEnter(SUMOVehicle& /*veh*/, MSMoveReminder::Notification reason) throw() {
     if (reason == MSMoveReminder::NOTIFICATION_DEPARTED) {
         if (myRerouteCommand!=0) { // clean up pre emit rerouting
             if (myPreEmitPeriod > 0) {
@@ -230,7 +230,7 @@ MSDevice_Routing::getEffort(const MSEdge * const e, const SUMOVehicle * const v,
 
 
 SUMOTime
-MSDevice_Routing::adaptEdgeEfforts(SUMOTime currentTime) throw(ProcessError) {
+MSDevice_Routing::adaptEdgeEfforts(SUMOTime /*currentTime*/) throw(ProcessError) {
     std::map<std::pair<const MSEdge*, const MSEdge*>, const MSRoute*>::iterator it = myCachedRoutes.begin();
     for (; it != myCachedRoutes.end(); ++it) {
         it->second->release();

@@ -192,7 +192,7 @@ MSLink::getDirection() const throw() {
 
 
 void
-MSLink::setTLState(LinkState state, SUMOTime t) throw() {
+MSLink::setTLState(LinkState state, SUMOTime /*t*/) throw() {
     myState = state;
 }
 

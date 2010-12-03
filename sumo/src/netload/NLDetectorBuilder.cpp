@@ -318,7 +318,7 @@ NLDetectorBuilder::convUncontE2PosLength(const std::string &id, MSLane *clane,
 
 void
 NLDetectorBuilder::convContE2PosLength(const std::string &id, MSLane * clane,
-                                       SUMOReal &pos, SUMOReal &length,
+                                       SUMOReal &pos, SUMOReal&/*length*/,
                                        bool friendlyPos) throw(InvalidArgument) {
     // get and check the position
     pos = getPositionChecking(pos, clane, friendlyPos, id);

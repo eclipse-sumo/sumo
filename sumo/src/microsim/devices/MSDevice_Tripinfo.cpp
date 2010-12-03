@@ -66,8 +66,8 @@ MSDevice_Tripinfo::~MSDevice_Tripinfo() throw() {
 
 
 bool
-MSDevice_Tripinfo::notifyMove(SUMOVehicle& veh, SUMOReal oldPos,
-              SUMOReal newPos, SUMOReal newSpeed) throw() {
+MSDevice_Tripinfo::notifyMove(SUMOVehicle& /*veh*/, SUMOReal /*oldPos*/,
+              SUMOReal /*newPos*/, SUMOReal newSpeed) throw() {
     if (newSpeed<=0.1) {
         myWaitingSteps++;
     }
@@ -93,7 +93,7 @@ MSDevice_Tripinfo::notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification re
 
 
 bool
-MSDevice_Tripinfo::notifyLeave(SUMOVehicle& veh, SUMOReal lastPos,
+MSDevice_Tripinfo::notifyLeave(SUMOVehicle& veh, SUMOReal /*lastPos*/,
                                MSMoveReminder::Notification reason) throw() {
     if (reason >= MSMoveReminder::NOTIFICATION_ARRIVED) {
         myArrivalTime = MSNet::getInstance()->getCurrentTimeStep();

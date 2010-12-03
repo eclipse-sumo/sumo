@@ -50,7 +50,7 @@ MSCFModel_PWag2009::~MSCFModel_PWag2009() throw() {}
 
 
 SUMOReal
-MSCFModel_PWag2009::moveHelper(MSVehicle * const veh, const MSLane * const lane, SUMOReal vPos) const throw() {
+MSCFModel_PWag2009::moveHelper(MSVehicle * const veh, const MSLane * const /*lane*/, SUMOReal vPos) const throw() {
     SUMOReal oldV = veh->getSpeed(); // save old v for optional acceleration computation
     SUMOReal vSafe = MIN2(vPos, veh->processNextStop(vPos)); // process stops
     // we need the acceleration for emission computation;
@@ -71,7 +71,7 @@ MSCFModel_PWag2009::moveHelper(MSVehicle * const veh, const MSLane * const lane,
 
 
 SUMOReal
-MSCFModel_PWag2009::ffeV(const MSVehicle * const veh, SUMOReal speed, SUMOReal gap, SUMOReal predSpeed) const throw() {
+MSCFModel_PWag2009::ffeV(const MSVehicle * const /*veh*/, SUMOReal speed, SUMOReal gap, SUMOReal predSpeed) const throw() {
     return _v(speed, gap, predSpeed, maxNextSpeed(speed));
 }
 
@@ -116,7 +116,7 @@ MSCFModel_PWag2009::dawdle(SUMOReal speed) const throw() {
 
 
 SUMOReal
-MSCFModel_PWag2009::_v(SUMOReal speed, SUMOReal gap, SUMOReal predSpeed, SUMOReal vmax) const throw() {
+MSCFModel_PWag2009::_v(SUMOReal speed, SUMOReal gap, SUMOReal predSpeed, SUMOReal /*vmax*/) const throw() {
     if (predSpeed==0&&gap<0.01) {
         return 0;
     }
