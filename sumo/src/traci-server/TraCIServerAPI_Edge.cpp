@@ -102,7 +102,7 @@ TraCIServerAPI_Edge::processGet(TraCIServer &server, tcpip::Storage &inputStorag
             if (!MSNet::getInstance()->getWeightsStorage().retrieveExistingTravelTime(e, 0, time, value)) {
                 tempMsg.writeFloat(-1);
             } else {
-                tempMsg.writeFloat(value);
+                tempMsg.writeFloat((float)value);
             }
         }
         break;
@@ -118,13 +118,13 @@ TraCIServerAPI_Edge::processGet(TraCIServer &server, tcpip::Storage &inputStorag
             if (!MSNet::getInstance()->getWeightsStorage().retrieveExistingEffort(e, 0, time, value)) {
                 tempMsg.writeFloat(-1);
             } else {
-                tempMsg.writeFloat(value);
+                tempMsg.writeFloat((float)value);
             }
         }
         break;
         case VAR_CURRENT_TRAVELTIME:
             tempMsg.writeUnsignedByte(TYPE_FLOAT);
-            tempMsg.writeFloat(e->getCurrentTravelTime());
+            tempMsg.writeFloat((float)(e->getCurrentTravelTime()));
             break;
         case LAST_STEP_VEHICLE_ID_LIST: {
             std::vector<std::string> vehIDs;
@@ -147,7 +147,7 @@ TraCIServerAPI_Edge::processGet(TraCIServer &server, tcpip::Storage &inputStorag
                 sum += (*i)->getHBEFA_CO2Emissions();
             }
             tempMsg.writeUnsignedByte(TYPE_FLOAT);
-            tempMsg.writeFloat(sum);
+            tempMsg.writeFloat((float)sum);
         }
         break;
         case VAR_COEMISSION: {
@@ -157,7 +157,7 @@ TraCIServerAPI_Edge::processGet(TraCIServer &server, tcpip::Storage &inputStorag
                 sum += (*i)->getHBEFA_COEmissions();
             }
             tempMsg.writeUnsignedByte(TYPE_FLOAT);
-            tempMsg.writeFloat(sum);
+            tempMsg.writeFloat((float)sum);
         }
         break;
         case VAR_HCEMISSION: {
@@ -167,7 +167,7 @@ TraCIServerAPI_Edge::processGet(TraCIServer &server, tcpip::Storage &inputStorag
                 sum += (*i)->getHBEFA_HCEmissions();
             }
             tempMsg.writeUnsignedByte(TYPE_FLOAT);
-            tempMsg.writeFloat(sum);
+            tempMsg.writeFloat((float)sum);
         }
         break;
         case VAR_PMXEMISSION: {
@@ -177,7 +177,7 @@ TraCIServerAPI_Edge::processGet(TraCIServer &server, tcpip::Storage &inputStorag
                 sum += (*i)->getHBEFA_PMxEmissions();
             }
             tempMsg.writeUnsignedByte(TYPE_FLOAT);
-            tempMsg.writeFloat(sum);
+            tempMsg.writeFloat((float)sum);
         }
         break;
         case VAR_NOXEMISSION: {
@@ -187,7 +187,7 @@ TraCIServerAPI_Edge::processGet(TraCIServer &server, tcpip::Storage &inputStorag
                 sum += (*i)->getHBEFA_NOxEmissions();
             }
             tempMsg.writeUnsignedByte(TYPE_FLOAT);
-            tempMsg.writeFloat(sum);
+            tempMsg.writeFloat((float)sum);
         }
         break;
         case VAR_FUELCONSUMPTION: {
@@ -197,7 +197,7 @@ TraCIServerAPI_Edge::processGet(TraCIServer &server, tcpip::Storage &inputStorag
                 sum += (*i)->getHBEFA_FuelConsumption();
             }
             tempMsg.writeUnsignedByte(TYPE_FLOAT);
-            tempMsg.writeFloat(sum);
+            tempMsg.writeFloat((float)sum);
         }
         break;
         case VAR_NOISEEMISSION: {
@@ -208,7 +208,7 @@ TraCIServerAPI_Edge::processGet(TraCIServer &server, tcpip::Storage &inputStorag
             }
             tempMsg.writeUnsignedByte(TYPE_FLOAT);
             if (sum!=0) {
-                tempMsg.writeFloat(HelpersHarmonoise::sum(sum));
+                tempMsg.writeFloat((float)(HelpersHarmonoise::sum(sum)));
             } else {
                 tempMsg.writeFloat(0);
             }
@@ -231,7 +231,7 @@ TraCIServerAPI_Edge::processGet(TraCIServer &server, tcpip::Storage &inputStorag
                 sum += (*i)->getMeanSpeed();
             }
             tempMsg.writeUnsignedByte(TYPE_FLOAT);
-            tempMsg.writeFloat(sum / (SUMOReal) lanes.size());
+            tempMsg.writeFloat((float)(sum / (SUMOReal) lanes.size()));
         }
         break;
         case LAST_STEP_OCCUPANCY: {
@@ -241,7 +241,7 @@ TraCIServerAPI_Edge::processGet(TraCIServer &server, tcpip::Storage &inputStorag
                 sum += (*i)->getOccupancy();
             }
             tempMsg.writeUnsignedByte(TYPE_FLOAT);
-            tempMsg.writeFloat(sum / (SUMOReal) lanes.size());
+            tempMsg.writeFloat((float)(sum / (SUMOReal) lanes.size()));
         }
         break;
         case LAST_STEP_VEHICLE_HALTING_NUMBER: {
@@ -276,7 +276,7 @@ TraCIServerAPI_Edge::processGet(TraCIServer &server, tcpip::Storage &inputStorag
             if (noVehicles==0) {
                 tempMsg.writeFloat(0);
             } else {
-                tempMsg.writeFloat(lengthSum / (SUMOReal) noVehicles);
+                tempMsg.writeFloat((float)(lengthSum / (SUMOReal) noVehicles));
             }
         }
         break;
@@ -287,7 +287,7 @@ TraCIServerAPI_Edge::processGet(TraCIServer &server, tcpip::Storage &inputStorag
     server.writeStatusCmd(CMD_GET_EDGE_VARIABLE, RTYPE_OK, warning, outputStorage);
     // send response
     outputStorage.writeUnsignedByte(0); // command length -> extended
-    outputStorage.writeInt(1 + 4 + tempMsg.size());
+    outputStorage.writeInt(1 + 4 + (int)tempMsg.size());
     outputStorage.writeStorage(tempMsg);
     return true;
 }

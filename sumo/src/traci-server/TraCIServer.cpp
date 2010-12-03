@@ -169,7 +169,7 @@ TraCIServer::TraCIServer() {
 
     OptionsCont &oc = OptionsCont::getOptions();
     targetTime_ = 0;
-    penetration_ = oc.getFloat("penetration");
+    penetration_ = (float)oc.getFloat("penetration");
     routeFile_ = oc.getString("route-files");
     isMapChanged_ = true;
     numEquippedVehicles_ = 0;
@@ -594,7 +594,7 @@ TraCIServer::postProcessSimulationStep() throw(TraCIException, std::invalid_argu
                     tempMsg.writeUnsignedByte(POSITION_ROADMAP);
 
                     tempMsg.writeString(vehicle->getEdge()->getID());
-                    tempMsg.writeFloat(vehicle->getPositionOnLane());
+                    tempMsg.writeFloat((float)vehicle->getPositionOnLane());
 
                     // determine index of the lane the vehicle is on
                     int laneId = 0;
@@ -606,8 +606,8 @@ TraCIServer::postProcessSimulationStep() throw(TraCIException, std::invalid_argu
                 } else if (resType == POSITION_2D || resType == POSITION_3D || resType == POSITION_2_5D) {
                     tempMsg.writeUnsignedByte(resType);
                     Position2D pos = vehicle->getLane().getShape().positionAtLengthPosition(vehicle->getPositionOnLane());
-                    tempMsg.writeFloat(pos.x());
-                    tempMsg.writeFloat(pos.y());
+                    tempMsg.writeFloat((float)pos.x());
+                    tempMsg.writeFloat((float)pos.y());
                     if (resType != POSITION_2D) {
                         // z pos: ignored
                         tempMsg.writeFloat(0);
@@ -615,7 +615,7 @@ TraCIServer::postProcessSimulationStep() throw(TraCIException, std::invalid_argu
                 }
 
                 // command length
-                myOutputStorage.writeUnsignedByte(tempMsg.size()+1);
+                myOutputStorage.writeUnsignedByte((int)tempMsg.size()+1);
                 // content
                 myOutputStorage.writeStorage(tempMsg);
             }
@@ -715,14 +715,14 @@ TraCIServer::commandSimulationParameter() throw(TraCIException) {
             writeStatusCmd(CMD_SIMPARAMETER, RTYPE_ERR, "maxX is a read only parameter");
             return false;
         } else {
-            answerTmp.writeFloat(getNetBoundary().getWidth());
+            answerTmp.writeFloat((float)(getNetBoundary().getWidth()));
         }
     } else if (parameter.compare("maxY")) {
         if (setParameter) {
             writeStatusCmd(CMD_SIMPARAMETER, RTYPE_ERR, "maxY is a read only parameter");
             return false;
         } else {
-            answerTmp.writeFloat(getNetBoundary().getHeight());
+            answerTmp.writeFloat((float)(getNetBoundary().getHeight()));
         }
     } else if (parameter.compare("numberOfNodes")) {
         if (setParameter) {
@@ -742,8 +742,8 @@ TraCIServer::commandSimulationParameter() throw(TraCIException) {
                 writeStatusCmd(CMD_SIMPARAMETER, RTYPE_ERR, "airDistance is a read only parameter");
                 return false;
             } else {
-                float dx = veh1->getPosition().x() - veh2->getPosition().x();
-                float dy = veh1->getPosition().y() - veh2->getPosition().y();
+                float dx = (float)(veh1->getPosition().x() - veh2->getPosition().x());
+                float dy = (float)(veh1->getPosition().y() - veh2->getPosition().y());
                 answerTmp.writeFloat(sqrt(dx * dx + dy * dy));
             }
         } else {
@@ -776,7 +776,7 @@ TraCIServer::commandSimulationParameter() throw(TraCIException) {
     writeStatusCmd(CMD_SIMPARAMETER, RTYPE_OK, "");
 
     // command length
-    myOutputStorage.writeUnsignedByte(1 + 1 + 1 + 4 + static_cast<int>(parameter.length()) + answerTmp.size());
+    myOutputStorage.writeUnsignedByte(1 + 1 + 1 + 4 + static_cast<int>(parameter.length()) + (int)answerTmp.size());
     // command type
     myOutputStorage.writeUnsignedByte(CMD_SIMPARAMETER);
     // answer only to getParameter commands as setParameter
@@ -868,8 +868,8 @@ TraCIServer::commandPositionConversion() throw(TraCIException) {
             //convert 3D to road map position
             try {
                 Position2D result = convertRoadMapToCartesian(roadPos);
-                x = result.x();
-                y = result.y();
+                x = (float)result.x();
+                y = (float)result.y();
             } catch (TraCIException &e) {
                 writeStatusCmd(CMD_POSITIONCONVERSION, RTYPE_ERR, e.what());
                 return false;
@@ -902,7 +902,7 @@ TraCIServer::commandPositionConversion() throw(TraCIException) {
     // write response message
     writeStatusCmd(CMD_POSITIONCONVERSION, RTYPE_OK, "");
     // add converted Position to response
-    myOutputStorage.writeUnsignedByte(1 + 1 + tmpResult.size() + 1);	// length
+    myOutputStorage.writeUnsignedByte(1 + 1 + (int)tmpResult.size() + 1);	// length
     myOutputStorage.writeUnsignedByte(CMD_POSITIONCONVERSION);	// command id
     myOutputStorage.writeStorage(tmpResult);	// position dependant part
     myOutputStorage.writeUnsignedByte(destPosType);	// destination type

@@ -97,7 +97,7 @@ TraCIServerAPI_TLS::processGet(TraCIServer &server, tcpip::Storage &inputStorage
         break;
         case TL_PHASE_BRAKE_YELLOW_STATE: {
             const std::string &state = vars.getActive()->getCurrentPhaseDef().getState();
-            unsigned int linkNo = vars.getActive()->getLinks().size();
+            unsigned int linkNo = (unsigned int)(vars.getActive()->getLinks().size());
             tempMsg.writeUnsignedByte(TYPE_STRINGLIST);
             std::vector<std::string> phaseDef;
             phaseDef.push_back(MSPhaseDefinition::new2driveMask(state));
@@ -152,7 +152,7 @@ TraCIServerAPI_TLS::processGet(TraCIServer &server, tcpip::Storage &inputStorage
                     tempContent.writeInt(phase.maxDuration);
                     ++cnt; // not implemented
                     const std::string &state = phase.getState();
-                    unsigned int linkNo = vars.getActive()->getLinks().size();
+                    unsigned int linkNo = (unsigned int)(vars.getActive()->getLinks().size());
                     tempContent.writeUnsignedByte(TYPE_STRINGLIST);
                     std::vector<std::string> phaseDef;
                     phaseDef.push_back(MSPhaseDefinition::new2driveMask(state));
@@ -212,7 +212,7 @@ TraCIServerAPI_TLS::processGet(TraCIServer &server, tcpip::Storage &inputStorage
                     tempContent.writeInt(phase.maxDuration);
                     ++cnt; // not implemented
                     const std::string &state = phase.getState();
-                    unsigned int linkNo = vars.getActive()->getLinks().size();
+                    unsigned int linkNo = (unsigned int)(vars.getActive()->getLinks().size());
                     tempContent.writeUnsignedByte(TYPE_STRING);
                     tempContent.writeString(state);
                     ++cnt;
@@ -301,7 +301,7 @@ TraCIServerAPI_TLS::processGet(TraCIServer &server, tcpip::Storage &inputStorage
     server.writeStatusCmd(CMD_GET_TL_VARIABLE, RTYPE_OK, warning, outputStorage);
     // send response
     outputStorage.writeUnsignedByte(0); // command length -> extended
-    outputStorage.writeInt(1 + 4 + tempMsg.size());
+    outputStorage.writeInt(1 + 4 + (int)tempMsg.size());
     outputStorage.writeStorage(tempMsg);
     return true;
 }
@@ -363,7 +363,7 @@ TraCIServerAPI_TLS::processSet(TraCIServer &server, tcpip::Storage &inputStorage
             return false;
         }
         int index = inputStorage.readInt();
-        if (index<0||vars.getActive()->getPhaseNumber()<=index) {
+        if (index<0||vars.getActive()->getPhaseNumber()<=(unsigned int)index) {
             server.writeStatusCmd(CMD_SET_TL_VARIABLE, RTYPE_ERR, "The phase index is not in the allowed range.", outputStorage);
             return false;
         }
@@ -511,7 +511,7 @@ TraCIServerAPI_TLS::commandGetAllTLIds(TraCIServer &server, tcpip::Storage&/*inp
     server.writeStatusCmd(CMD_GETALLTLIDS, RTYPE_OK, "");
     // create a response command for each std::string id
     for (std::vector<std::string>::iterator iter = idList.begin(); iter != idList.end(); iter++) {
-        outputStorage.writeByte(2 + (4 + (*iter).size())); // command length
+        outputStorage.writeByte(2 + (4 + (int)((*iter).size()))); // command length
         outputStorage.writeByte(CMD_TLIDLIST); // command type
         outputStorage.writeString((*iter)); // id string
     }
@@ -521,7 +521,7 @@ TraCIServerAPI_TLS::commandGetAllTLIds(TraCIServer &server, tcpip::Storage&/*inp
 
 bool
 TraCIServerAPI_TLS::commandGetTLStatus(TraCIServer &server, tcpip::Storage &inputStorage, tcpip::Storage &outputStorage) {
-    SUMOTime lookback = 60*1000.; // Time to look in history for recognizing yellowTimes
+    SUMOTime lookback = (SUMOTime)(60*1000.); // Time to look in history for recognizing yellowTimes
     tcpip::Storage tempMsg;
 
     int extId = inputStorage.readInt(); // trafic light id
@@ -547,7 +547,7 @@ TraCIServerAPI_TLS::commandGetTLStatus(TraCIServer &server, tcpip::Storage &inpu
     MSPhaseDefinition phase = tlLogic->getCurrentPhaseDef();
     MSTrafficLightLogic::LinkVectorVector affectedLinks = tlLogic->getLinks();
     // save the current link states
-    for (int i = 0; i < affectedLinks.size(); i++) {
+    for (unsigned int i = 0; i < affectedLinks.size(); i++) {
         linkStates.push_back(phase.getSignalState(i));
         yellowTimes.push_back(-1);
     }
@@ -562,7 +562,7 @@ TraCIServerAPI_TLS::commandGetTLStatus(TraCIServer &server, tcpip::Storage &inpu
             // for every link of the tl's junction, compare the actual and the last red/green state
             // for each link with new red/green status, write a TLSWITCH command
             std::map<const MSEdge*, pair<const MSEdge*, int> > writtenEdgePairs;
-            for (int i = 0; i < linkStates.size(); i++) {
+            for (unsigned int i = 0; i < linkStates.size(); i++) {
                 MSLink::LinkState nextLinkState = phase.getSignalState(i);
                 if (nextLinkState == MSLink::LINKSTATE_TL_YELLOW_MAJOR || nextLinkState == MSLink::LINKSTATE_TL_YELLOW_MINOR) {
                     if (yellowTimes[i] < 0) yellowTimes[i] = time;
@@ -573,7 +573,7 @@ TraCIServerAPI_TLS::commandGetTLStatus(TraCIServer &server, tcpip::Storage &inpu
                         MSTrafficLightLogic::LinkVector linkGroup = affectedLinks[i];
                         // get the group of preceding lanes of the link group
                         MSTrafficLightLogic::LaneVector laneGroup = tlLogic->getLanesAt(i);
-                        for (int j = 0; j < linkGroup.size(); j++) {
+                        for (unsigned int j = 0; j < linkGroup.size(); j++) {
                             MSEdge &precEdge = laneGroup[j]->getEdge();
                             MSEdge &succEdge = linkGroup[j]->getLane()->getEdge();
                             // for each pair of edges and every different tl state, write only one tl switch command
@@ -590,7 +590,7 @@ TraCIServerAPI_TLS::commandGetTLStatus(TraCIServer &server, tcpip::Storage &inpu
                             // preceeding edge id
                             tempMsg.writeString(precEdge.getID());
                             // traffic light's position on preceeding edge
-                            tempMsg.writeFloat(laneGroup[j]->getShape().length());
+                            tempMsg.writeFloat((float)(laneGroup[j]->getShape().length()));
                             // succeeding edge id
                             tempMsg.writeString(succEdge.getID());
                             // new status
@@ -612,15 +612,15 @@ TraCIServerAPI_TLS::commandGetTLStatus(TraCIServer &server, tcpip::Storage &inpu
                                 tempMsg.writeUnsignedByte(TLPHASE_NOSIGNAL);
                             }
                             //yellow time
-                            tempMsg.writeInt(yellowTimes[i]<0 ? 0 : time - yellowTimes[i]);
+                            tempMsg.writeInt(yellowTimes[i]<0 ? 0 : (int)(time - yellowTimes[i]));
 
                             if (tempMsg.size() <= 253) {
                                 // command length
-                                outputStorage.writeUnsignedByte(1 + 1 + tempMsg.size());
+                                outputStorage.writeUnsignedByte(1 + 1 + (int)tempMsg.size());
                             } else {
                                 // command length extended
                                 outputStorage.writeUnsignedByte(0);
-                                outputStorage.writeInt(1 + 4 + 1 + tempMsg.size());
+                                outputStorage.writeInt(1 + 4 + 1 + (int)(tempMsg.size()));
                             }
                             // command type
                             outputStorage.writeUnsignedByte(CMD_TLSWITCH);

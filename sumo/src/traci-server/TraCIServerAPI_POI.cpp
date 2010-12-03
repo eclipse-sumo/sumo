@@ -100,8 +100,8 @@ TraCIServerAPI_POI::processGet(TraCIServer &server, tcpip::Storage &inputStorage
             break;
         case VAR_POSITION:
             tempMsg.writeUnsignedByte(POSITION_2D);
-            tempMsg.writeFloat(p->x());
-            tempMsg.writeFloat(p->y());
+            tempMsg.writeFloat((float)(p->x()));
+            tempMsg.writeFloat((float)(p->y()));
             break;
         default:
             break;
@@ -110,7 +110,7 @@ TraCIServerAPI_POI::processGet(TraCIServer &server, tcpip::Storage &inputStorage
     server.writeStatusCmd(CMD_GET_POI_VARIABLE, RTYPE_OK, warning, outputStorage);
     // send response
     outputStorage.writeUnsignedByte(0); // command length -> extended
-    outputStorage.writeInt(1 + 4 + tempMsg.size());
+    outputStorage.writeInt(1 + 4 + (int)tempMsg.size());
     outputStorage.writeStorage(tempMsg);
     return true;
 }

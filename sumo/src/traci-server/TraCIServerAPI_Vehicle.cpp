@@ -116,20 +116,20 @@ TraCIServerAPI_Vehicle::processGet(TraCIServer &server, tcpip::Storage &inputSto
         switch (variable) {
         case VAR_SPEED:
             tempMsg.writeUnsignedByte(TYPE_FLOAT);
-            tempMsg.writeFloat(v->getSpeed());
+            tempMsg.writeFloat((float)(v->getSpeed()));
             break;
         case VAR_SPEED_WITHOUT_TRACI:
             tempMsg.writeUnsignedByte(TYPE_FLOAT);
-            tempMsg.writeFloat(v->getSpeedWithoutTraciInfluence());
+            tempMsg.writeFloat((float)(v->getSpeedWithoutTraciInfluence()));
             break;
         case VAR_POSITION:
             tempMsg.writeUnsignedByte(POSITION_2D);
-            tempMsg.writeFloat(v->getPosition().x());
-            tempMsg.writeFloat(v->getPosition().y());
+            tempMsg.writeFloat((float)(v->getPosition().x()));
+            tempMsg.writeFloat((float)(v->getPosition().y()));
             break;
         case VAR_ANGLE:
             tempMsg.writeUnsignedByte(TYPE_FLOAT);
-            tempMsg.writeFloat(v->getLane().getShape().rotationDegreeAtLengthPosition(v->getPositionOnLane()));
+            tempMsg.writeFloat((float)(v->getLane().getShape().rotationDegreeAtLengthPosition(v->getPositionOnLane())));
             break;
         case VAR_ROAD_ID:
             tempMsg.writeUnsignedByte(TYPE_STRING);
@@ -162,35 +162,35 @@ TraCIServerAPI_Vehicle::processGet(TraCIServer &server, tcpip::Storage &inputSto
             break;
         case VAR_LANEPOSITION:
             tempMsg.writeUnsignedByte(TYPE_FLOAT);
-            tempMsg.writeFloat(v->getPositionOnLane());
+            tempMsg.writeFloat((float)(v->getPositionOnLane()));
             break;
         case VAR_CO2EMISSION:
             tempMsg.writeUnsignedByte(TYPE_FLOAT);
-            tempMsg.writeFloat(HelpersHBEFA::computeCO2(v->getVehicleType().getEmissionClass(), v->getSpeed(), v->getPreDawdleAcceleration()));
+            tempMsg.writeFloat((float)(HelpersHBEFA::computeCO2(v->getVehicleType().getEmissionClass(), v->getSpeed(), v->getPreDawdleAcceleration())));
             break;
         case VAR_COEMISSION:
             tempMsg.writeUnsignedByte(TYPE_FLOAT);
-            tempMsg.writeFloat(HelpersHBEFA::computeCO(v->getVehicleType().getEmissionClass(), v->getSpeed(), v->getPreDawdleAcceleration()));
+            tempMsg.writeFloat((float)(HelpersHBEFA::computeCO(v->getVehicleType().getEmissionClass(), v->getSpeed(), v->getPreDawdleAcceleration())));
             break;
         case VAR_HCEMISSION:
             tempMsg.writeUnsignedByte(TYPE_FLOAT);
-            tempMsg.writeFloat(HelpersHBEFA::computeHC(v->getVehicleType().getEmissionClass(), v->getSpeed(), v->getPreDawdleAcceleration()));
+            tempMsg.writeFloat((float)(HelpersHBEFA::computeHC(v->getVehicleType().getEmissionClass(), v->getSpeed(), v->getPreDawdleAcceleration())));
             break;
         case VAR_PMXEMISSION:
             tempMsg.writeUnsignedByte(TYPE_FLOAT);
-            tempMsg.writeFloat(HelpersHBEFA::computePMx(v->getVehicleType().getEmissionClass(), v->getSpeed(), v->getPreDawdleAcceleration()));
+            tempMsg.writeFloat((float)(HelpersHBEFA::computePMx(v->getVehicleType().getEmissionClass(), v->getSpeed(), v->getPreDawdleAcceleration())));
             break;
         case VAR_NOXEMISSION:
             tempMsg.writeUnsignedByte(TYPE_FLOAT);
-            tempMsg.writeFloat(HelpersHBEFA::computeNOx(v->getVehicleType().getEmissionClass(), v->getSpeed(), v->getPreDawdleAcceleration()));
+            tempMsg.writeFloat((float)(HelpersHBEFA::computeNOx(v->getVehicleType().getEmissionClass(), v->getSpeed(), v->getPreDawdleAcceleration())));
             break;
         case VAR_FUELCONSUMPTION:
             tempMsg.writeUnsignedByte(TYPE_FLOAT);
-            tempMsg.writeFloat(HelpersHBEFA::computeFuel(v->getVehicleType().getEmissionClass(), v->getSpeed(), v->getPreDawdleAcceleration()));
+            tempMsg.writeFloat((float)(HelpersHBEFA::computeFuel(v->getVehicleType().getEmissionClass(), v->getSpeed(), v->getPreDawdleAcceleration())));
             break;
         case VAR_NOISEEMISSION:
             tempMsg.writeUnsignedByte(TYPE_FLOAT);
-            tempMsg.writeFloat(HelpersHarmonoise::computeNoise(v->getVehicleType().getEmissionClass(), v->getSpeed(), v->getPreDawdleAcceleration()));
+            tempMsg.writeFloat((float)(HelpersHarmonoise::computeNoise(v->getVehicleType().getEmissionClass(), v->getSpeed(), v->getPreDawdleAcceleration())));
             break;
         case VAR_EDGE_TRAVELTIME: {
             if (inputStorage.readUnsignedByte()!=TYPE_COMPOUND) {
@@ -224,7 +224,7 @@ TraCIServerAPI_Vehicle::processGet(TraCIServer &server, tcpip::Storage &inputSto
             if (!v->getWeightsStorage().retrieveExistingTravelTime(edge, 0, time, value)) {
                 tempMsg.writeFloat(-1);
             } else {
-                tempMsg.writeFloat(value);
+                tempMsg.writeFloat((float)value);
             }
 
         }
@@ -261,7 +261,7 @@ TraCIServerAPI_Vehicle::processGet(TraCIServer &server, tcpip::Storage &inputSto
             if (!v->getWeightsStorage().retrieveExistingEffort(edge, 0, time, value)) {
                 tempMsg.writeFloat(-1);
             } else {
-                tempMsg.writeFloat(value);
+                tempMsg.writeFloat((float)value);
             }
 
         }
@@ -291,11 +291,11 @@ TraCIServerAPI_Vehicle::processGet(TraCIServer &server, tcpip::Storage &inputSto
             break;
         case VAR_LENGTH:
             tempMsg.writeUnsignedByte(TYPE_FLOAT);
-            tempMsg.writeFloat(v->getVehicleType().getLength());
+            tempMsg.writeFloat((float)(v->getVehicleType().getLength()));
             break;
         case VAR_MAXSPEED:
             tempMsg.writeUnsignedByte(TYPE_FLOAT);
-            tempMsg.writeFloat(v->getVehicleType().getMaxSpeed());
+            tempMsg.writeFloat((float)(v->getVehicleType().getMaxSpeed()));
             break;
         case VAR_VEHICLECLASS:
             tempMsg.writeUnsignedByte(TYPE_STRING);
@@ -303,11 +303,11 @@ TraCIServerAPI_Vehicle::processGet(TraCIServer &server, tcpip::Storage &inputSto
             break;
         case VAR_SPEED_FACTOR:
             tempMsg.writeUnsignedByte(TYPE_FLOAT);
-            tempMsg.writeFloat(v->getVehicleType().getSpeedFactor());
+            tempMsg.writeFloat((float)(v->getVehicleType().getSpeedFactor()));
             break;
         case VAR_SPEED_DEVIATION:
             tempMsg.writeUnsignedByte(TYPE_FLOAT);
-            tempMsg.writeFloat(v->getVehicleType().getSpeedDeviation());
+            tempMsg.writeFloat((float)(v->getVehicleType().getSpeedDeviation()));
             break;
         case VAR_EMISSIONCLASS:
             tempMsg.writeUnsignedByte(TYPE_STRING);
@@ -315,11 +315,11 @@ TraCIServerAPI_Vehicle::processGet(TraCIServer &server, tcpip::Storage &inputSto
             break;
         case VAR_WIDTH:
             tempMsg.writeUnsignedByte(TYPE_FLOAT);
-            tempMsg.writeFloat(v->getVehicleType().getGuiWidth());
+            tempMsg.writeFloat((float)(v->getVehicleType().getGuiWidth()));
             break;
         case VAR_GUIOFFSET:
             tempMsg.writeUnsignedByte(TYPE_FLOAT);
-            tempMsg.writeFloat(v->getVehicleType().getGuiOffset());
+            tempMsg.writeFloat((float)(v->getVehicleType().getGuiOffset()));
             break;
         case VAR_SHAPE:
             tempMsg.writeUnsignedByte(TYPE_STRING);
@@ -327,19 +327,19 @@ TraCIServerAPI_Vehicle::processGet(TraCIServer &server, tcpip::Storage &inputSto
             break;
         case VAR_ACCEL:
             tempMsg.writeUnsignedByte(TYPE_FLOAT);
-            tempMsg.writeFloat(v->getVehicleType().getCarFollowModel().getMaxAccel());
+            tempMsg.writeFloat((float)(v->getVehicleType().getCarFollowModel().getMaxAccel()));
             break;
         case VAR_DECEL:
             tempMsg.writeUnsignedByte(TYPE_FLOAT);
-            tempMsg.writeFloat(v->getVehicleType().getCarFollowModel().getMaxDecel());
+            tempMsg.writeFloat((float)(v->getVehicleType().getCarFollowModel().getMaxDecel()));
             break;
         case VAR_IMPERFECTION:
             tempMsg.writeUnsignedByte(TYPE_FLOAT);
-            tempMsg.writeFloat(v->getVehicleType().getCarFollowModel().getImperfection());
+            tempMsg.writeFloat((float)(v->getVehicleType().getCarFollowModel().getImperfection()));
             break;
         case VAR_TAU:
             tempMsg.writeUnsignedByte(TYPE_FLOAT);
-            tempMsg.writeFloat(v->getVehicleType().getCarFollowModel().getTau());
+            tempMsg.writeFloat((float)(v->getVehicleType().getCarFollowModel().getTau()));
             break;
         case VAR_BEST_LANES: {
             const std::vector<MSVehicle::LaneQ> &bestLanes = v->getBestLanes();
@@ -355,10 +355,10 @@ TraCIServerAPI_Vehicle::processGet(TraCIServer &server, tcpip::Storage &inputSto
                 tempContent.writeString(lq.lane->getID());
                 ++cnt;
                 tempContent.writeUnsignedByte(TYPE_FLOAT);
-                tempContent.writeFloat(lq.length);
+                tempContent.writeFloat((float)(lq.length));
                 ++cnt;
                 tempContent.writeUnsignedByte(TYPE_FLOAT);
-                tempContent.writeFloat(lq.nextOccupation);
+                tempContent.writeFloat((float)(lq.nextOccupation));
                 ++cnt;
                 tempContent.writeUnsignedByte(TYPE_BYTE);
                 tempContent.writeByte(lq.bestLaneOffset);
@@ -385,7 +385,7 @@ TraCIServerAPI_Vehicle::processGet(TraCIServer &server, tcpip::Storage &inputSto
     server.writeStatusCmd(CMD_GET_VEHICLE_VARIABLE, RTYPE_OK, warning, outputStorage);
     // send response
     outputStorage.writeUnsignedByte(0); // command length -> extended
-    outputStorage.writeInt(1 + 4 + tempMsg.size());
+    outputStorage.writeInt(1 + 4 + (int)tempMsg.size());
     outputStorage.writeStorage(tempMsg);
     return true;
 }
@@ -478,7 +478,7 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer &server, tcpip::Storage &inputSto
             return false;
         }
         const std::vector<MSLane*> &allLanes = road->getLanes();
-        if (laneIndex >= allLanes.size()) {
+        if (laneIndex >= (unsigned int)(allLanes.size())) {
             server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "No lane existing with such id on the given road", outputStorage);
             return false;
         }
@@ -512,7 +512,7 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer &server, tcpip::Storage &inputSto
             return false;
         }
         SUMOTime stickyTime = inputStorage.readInt();
-        if ((laneIndex < 0) || (laneIndex >= v->getEdge()->getLanes().size())) {
+        if ((laneIndex < 0) || (laneIndex >= (unsigned int)(v->getEdge()->getLanes().size()))) {
             server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "No lane existing with given id on the current road", outputStorage);
             return false;
         }
@@ -545,7 +545,7 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer &server, tcpip::Storage &inputSto
             server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Invalid time interval", outputStorage);
             return false;
         }
-        if (!v->startSpeedAdaption(newSpeed, duration, MSNet::getInstance()->getCurrentTimeStep())) {
+        if (!v->startSpeedAdaption((float)newSpeed, duration, MSNet::getInstance()->getCurrentTimeStep())) {
             server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Could not slow down", outputStorage);
             return false;
         }
@@ -831,7 +831,7 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer &server, tcpip::Storage &inputSto
             server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "The second parameter for setting a position must be the position given as a double.", outputStorage);
             return false;
         }
-        float position = inputStorage.readDouble();
+        float position = (float)(inputStorage.readDouble());
         // process
         MSLane *l = MSLane::dictionary(laneID);
         if (l==0) {
@@ -1087,7 +1087,7 @@ TraCIServerAPI_Vehicle::commandStopNode(TraCIServer &server, tcpip::Storage &inp
     // create a reply message
     server.writeStatusCmd(CMD_STOP, RTYPE_OK, "");
     // add a stopnode command containging the actually used road map position to the reply
-    int length = 1 + 1 + 4 + 1 + (4+roadPos.roadId.length()) + 4 + 1 + 4 + 4;
+    int length = 1 + 1 + 4 + 1 + (4+(int)(roadPos.roadId.length())) + 4 + 1 + 4 + 4;
     outputStorage.writeUnsignedByte(length); // lenght
     outputStorage.writeUnsignedByte(CMD_STOP); // command id
     outputStorage.writeInt(nodeId); // node id
@@ -1110,7 +1110,7 @@ TraCIServerAPI_Vehicle::commandChangeLane(TraCIServer &server, tcpip::Storage &i
         server.writeStatusCmd(CMD_CHANGELANE, RTYPE_ERR, "Can not retrieve node with given ID");
         return false;
     }
-    if ((laneIndex < 0) || (laneIndex >= veh->getEdge()->getLanes().size())) {
+    if ((laneIndex < 0) || (laneIndex >= (unsigned int)(veh->getEdge()->getLanes().size()))) {
         server.writeStatusCmd(CMD_CHANGELANE, RTYPE_ERR, "No lane existing with given id on the current road");
         return false;
     }
@@ -1139,7 +1139,7 @@ TraCIServerAPI_Vehicle::commandChangeRoute(TraCIServer &server, tcpip::Storage &
         return false;
     }
     //
-    SUMOTime currentTime = MSNet::getInstance()->getCurrentTimeStep() / 1000.;
+    SUMOTime currentTime = (SUMOTime)(MSNet::getInstance()->getCurrentTimeStep() / 1000.);
     MSNet::EdgeWeightsProxi proxi(veh->getWeightsStorage(), MSNet::getInstance()->getWeightsStorage());
     SUMOReal effortBefore = proxi.getTravelTime(edge, veh, currentTime);
     bool hadError = false;

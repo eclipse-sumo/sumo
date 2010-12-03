@@ -95,11 +95,11 @@ TraCIServerAPI_Lane::processGet(TraCIServer &server, tcpip::Storage &inputStorag
             break;
         case VAR_LENGTH:
             tempMsg.writeUnsignedByte(TYPE_FLOAT);
-            tempMsg.writeFloat(lane->getLength());
+            tempMsg.writeFloat((float)(lane->getLength()));
             break;
         case VAR_MAXSPEED:
             tempMsg.writeUnsignedByte(TYPE_FLOAT);
-            tempMsg.writeFloat(lane->getMaxSpeed());
+            tempMsg.writeFloat((float)(lane->getMaxSpeed()));
             break;
         case LANE_LINKS: {
             tempMsg.writeUnsignedByte(TYPE_COMPOUND);
@@ -145,7 +145,7 @@ TraCIServerAPI_Lane::processGet(TraCIServer &server, tcpip::Storage &inputStorag
                 ++cnt;
                 // length
                 tempContent.writeUnsignedByte(TYPE_FLOAT);
-                tempContent.writeFloat(link->getLength());
+                tempContent.writeFloat((float)(link->getLength()));
                 ++cnt;
             }
             tempMsg.writeInt((int) cnt);
@@ -173,39 +173,39 @@ TraCIServerAPI_Lane::processGet(TraCIServer &server, tcpip::Storage &inputStorag
         break;
         case VAR_SHAPE:
             tempMsg.writeUnsignedByte(TYPE_POLYGON);
-            tempMsg.writeUnsignedByte(MIN2(static_cast<size_t>(255),lane->getShape().size()));
-            for (int iPoint=0; iPoint < MIN2(static_cast<size_t>(255),lane->getShape().size()); ++iPoint) {
-                tempMsg.writeFloat(lane->getShape()[iPoint].x());
-                tempMsg.writeFloat(lane->getShape()[iPoint].y());
+            tempMsg.writeUnsignedByte((int)MIN2(static_cast<size_t>(255),lane->getShape().size()));
+            for (unsigned int iPoint=0; iPoint < MIN2(static_cast<size_t>(255),lane->getShape().size()); ++iPoint) {
+                tempMsg.writeFloat((float)(lane->getShape()[iPoint].x()));
+                tempMsg.writeFloat((float)(lane->getShape()[iPoint].y()));
             }
             break;
         case VAR_CO2EMISSION:
             tempMsg.writeUnsignedByte(TYPE_FLOAT);
-            tempMsg.writeFloat(lane->getHBEFA_CO2Emissions());
+            tempMsg.writeFloat((float)(lane->getHBEFA_CO2Emissions()));
             break;
         case VAR_COEMISSION:
             tempMsg.writeUnsignedByte(TYPE_FLOAT);
-            tempMsg.writeFloat(lane->getHBEFA_COEmissions());
+            tempMsg.writeFloat((float)(lane->getHBEFA_COEmissions()));
             break;
         case VAR_HCEMISSION:
             tempMsg.writeUnsignedByte(TYPE_FLOAT);
-            tempMsg.writeFloat(lane->getHBEFA_HCEmissions());
+            tempMsg.writeFloat((float)(lane->getHBEFA_HCEmissions()));
             break;
         case VAR_PMXEMISSION:
             tempMsg.writeUnsignedByte(TYPE_FLOAT);
-            tempMsg.writeFloat(lane->getHBEFA_PMxEmissions());
+            tempMsg.writeFloat((float)(lane->getHBEFA_PMxEmissions()));
             break;
         case VAR_NOXEMISSION:
             tempMsg.writeUnsignedByte(TYPE_FLOAT);
-            tempMsg.writeFloat(lane->getHBEFA_NOxEmissions());
+            tempMsg.writeFloat((float)(lane->getHBEFA_NOxEmissions()));
             break;
         case VAR_FUELCONSUMPTION:
             tempMsg.writeUnsignedByte(TYPE_FLOAT);
-            tempMsg.writeFloat(lane->getHBEFA_FuelConsumption());
+            tempMsg.writeFloat((float)(lane->getHBEFA_FuelConsumption()));
             break;
         case VAR_NOISEEMISSION:
             tempMsg.writeUnsignedByte(TYPE_FLOAT);
-            tempMsg.writeFloat(lane->getHarmonoise_NoiseEmissions());
+            tempMsg.writeFloat((float)(lane->getHarmonoise_NoiseEmissions()));
             break;
         case LAST_STEP_VEHICLE_NUMBER:
             tempMsg.writeUnsignedByte(TYPE_INTEGER);
@@ -213,7 +213,7 @@ TraCIServerAPI_Lane::processGet(TraCIServer &server, tcpip::Storage &inputStorag
             break;
         case LAST_STEP_MEAN_SPEED:
             tempMsg.writeUnsignedByte(TYPE_FLOAT);
-            tempMsg.writeFloat(lane->getMeanSpeed());
+            tempMsg.writeFloat((float)(lane->getMeanSpeed()));
             break;
         case LAST_STEP_VEHICLE_ID_LIST: {
             std::vector<std::string> vehIDs;
@@ -228,7 +228,7 @@ TraCIServerAPI_Lane::processGet(TraCIServer &server, tcpip::Storage &inputStorag
         break;
         case LAST_STEP_OCCUPANCY:
             tempMsg.writeUnsignedByte(TYPE_FLOAT);
-            tempMsg.writeFloat(lane->getOccupancy());
+            tempMsg.writeFloat((float)lane->getOccupancy());
             break;
         case LAST_STEP_VEHICLE_HALTING_NUMBER: {
             int halting = 0;
@@ -253,7 +253,7 @@ TraCIServerAPI_Lane::processGet(TraCIServer &server, tcpip::Storage &inputStorag
             if (vehs.size()==0) {
                 tempMsg.writeFloat(0);
             } else {
-                tempMsg.writeFloat(lengthSum / (SUMOReal) vehs.size());
+                tempMsg.writeFloat((float)(lengthSum / (SUMOReal) vehs.size()));
             }
             lane->releaseVehicles();
         }
@@ -262,7 +262,7 @@ TraCIServerAPI_Lane::processGet(TraCIServer &server, tcpip::Storage &inputStorag
             SUMOReal meanSpeed = lane->getMeanSpeed();
             tempMsg.writeUnsignedByte(TYPE_FLOAT);
             if (meanSpeed!=0) {
-                tempMsg.writeFloat(lane->getLength() / meanSpeed);
+                tempMsg.writeFloat((float)(lane->getLength() / meanSpeed));
             } else {
                 tempMsg.writeFloat(1000000.);
             }
@@ -275,7 +275,7 @@ TraCIServerAPI_Lane::processGet(TraCIServer &server, tcpip::Storage &inputStorag
     server.writeStatusCmd(CMD_GET_LANE_VARIABLE, RTYPE_OK, warning, outputStorage);
     // send response
     outputStorage.writeUnsignedByte(0); // command length -> extended
-    outputStorage.writeInt(1 + 4 + tempMsg.size());
+    outputStorage.writeInt(1 + 4 + (int)tempMsg.size());
     outputStorage.writeStorage(tempMsg);
     return true;
 }

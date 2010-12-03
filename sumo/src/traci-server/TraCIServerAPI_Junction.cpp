@@ -84,8 +84,8 @@ TraCIServerAPI_Junction::processGet(TraCIServer &server, tcpip::Storage &inputSt
             break;
         case VAR_POSITION:
             tempMsg.writeUnsignedByte(POSITION_2D);
-            tempMsg.writeFloat(j->getPosition().x());
-            tempMsg.writeFloat(j->getPosition().y());
+            tempMsg.writeFloat((float)(j->getPosition().x()));
+            tempMsg.writeFloat((float)(j->getPosition().y()));
             break;
         default:
             break;
@@ -94,7 +94,7 @@ TraCIServerAPI_Junction::processGet(TraCIServer &server, tcpip::Storage &inputSt
     server.writeStatusCmd(CMD_GET_JUNCTION_VARIABLE, RTYPE_OK, warning, outputStorage);
     // send response
     outputStorage.writeUnsignedByte(0); // command length -> extended
-    outputStorage.writeInt(1 + 4 + tempMsg.size());
+    outputStorage.writeInt(1 + 4 + (int)tempMsg.size());
     outputStorage.writeStorage(tempMsg);
     return true;
 }

@@ -83,23 +83,23 @@ TraCIServerAPI_VehicleType::processGet(TraCIServer &server, tcpip::Storage &inpu
         switch (variable) {
         case VAR_LENGTH:
             tempMsg.writeUnsignedByte(TYPE_FLOAT);
-            tempMsg.writeFloat(v->getLength());
+            tempMsg.writeFloat((float)(v->getLength()));
             break;
         case VAR_MAXSPEED:
             tempMsg.writeUnsignedByte(TYPE_FLOAT);
-            tempMsg.writeFloat(v->getMaxSpeed());
+            tempMsg.writeFloat((float)(v->getMaxSpeed()));
             break;
         case VAR_ACCEL:
             tempMsg.writeUnsignedByte(TYPE_FLOAT);
-            tempMsg.writeFloat(v->getCarFollowModel().getMaxAccel());
+            tempMsg.writeFloat((float)(v->getCarFollowModel().getMaxAccel()));
             break;
         case VAR_DECEL:
             tempMsg.writeUnsignedByte(TYPE_FLOAT);
-            tempMsg.writeFloat(v->getCarFollowModel().getMaxDecel());
+            tempMsg.writeFloat((float)(v->getCarFollowModel().getMaxDecel()));
             break;
         case VAR_TAU:
             tempMsg.writeUnsignedByte(TYPE_FLOAT);
-            tempMsg.writeFloat(v->getCarFollowModel().getTau());
+            tempMsg.writeFloat((float)(v->getCarFollowModel().getTau()));
             break;
         case VAR_VEHICLECLASS:
             tempMsg.writeUnsignedByte(TYPE_STRING);
@@ -115,11 +115,11 @@ TraCIServerAPI_VehicleType::processGet(TraCIServer &server, tcpip::Storage &inpu
             break;
         case VAR_GUIOFFSET:
             tempMsg.writeUnsignedByte(TYPE_FLOAT);
-            tempMsg.writeFloat(v->getGuiOffset());
+            tempMsg.writeFloat((float)(v->getGuiOffset()));
             break;
         case VAR_WIDTH:
             tempMsg.writeUnsignedByte(TYPE_FLOAT);
-            tempMsg.writeFloat(v->getGuiWidth());
+            tempMsg.writeFloat((float)(v->getGuiWidth()));
             break;
         case VAR_COLOR:
             tempMsg.writeUnsignedByte(TYPE_COLOR);
@@ -135,7 +135,7 @@ TraCIServerAPI_VehicleType::processGet(TraCIServer &server, tcpip::Storage &inpu
     server.writeStatusCmd(CMD_GET_VEHICLETYPE_VARIABLE, RTYPE_OK, warning, outputStorage);
     // send response
     outputStorage.writeUnsignedByte(0); // command length -> extended
-    outputStorage.writeInt(1 + 4 + tempMsg.size());
+    outputStorage.writeInt(1 + 4 + (int)tempMsg.size());
     outputStorage.writeStorage(tempMsg);
     return true;
 }

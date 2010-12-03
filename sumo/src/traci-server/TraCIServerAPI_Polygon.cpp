@@ -101,10 +101,10 @@ TraCIServerAPI_Polygon::processGet(TraCIServer &server, tcpip::Storage &inputSto
             break;
         case VAR_SHAPE:
             tempMsg.writeUnsignedByte(TYPE_POLYGON);
-            tempMsg.writeUnsignedByte(MIN2(static_cast<size_t>(255),p->getShape().size()));
-            for (int iPoint=0; iPoint < MIN2(static_cast<size_t>(255),p->getShape().size()); ++iPoint) {
-                tempMsg.writeFloat(p->getShape()[iPoint].x());
-                tempMsg.writeFloat(p->getShape()[iPoint].y());
+            tempMsg.writeUnsignedByte(MIN2(static_cast<size_t>(255),static_cast<size_t>(p->getShape().size())));
+            for (unsigned int iPoint=0; iPoint < MIN2(static_cast<size_t>(255),p->getShape().size()); ++iPoint) {
+                tempMsg.writeFloat((float)(p->getShape()[iPoint].x()));
+                tempMsg.writeFloat((float)(p->getShape()[iPoint].y()));
             }
             break;
         case VAR_FILL:
@@ -118,7 +118,7 @@ TraCIServerAPI_Polygon::processGet(TraCIServer &server, tcpip::Storage &inputSto
     server.writeStatusCmd(CMD_GET_POLYGON_VARIABLE, RTYPE_OK, warning, outputStorage);
     // send response
     outputStorage.writeUnsignedByte(0); // command length -> extended
-    outputStorage.writeInt(1 + 4 + tempMsg.size());
+    outputStorage.writeInt(1 + 4 + (int)tempMsg.size());
     outputStorage.writeStorage(tempMsg);
     return true;
 }
@@ -181,7 +181,7 @@ TraCIServerAPI_Polygon::processSet(TraCIServer &server, tcpip::Storage &inputSto
         }
         unsigned int noEntries = inputStorage.readUnsignedByte();
         Position2DVector shape;
-        for (int i=0; i<noEntries; ++i) {
+        for (unsigned int i=0; i<noEntries; ++i) {
             SUMOReal x = inputStorage.readFloat();
             SUMOReal y = inputStorage.readFloat();
             shape.push_back(Position2D(x, y));
@@ -238,7 +238,7 @@ TraCIServerAPI_Polygon::processSet(TraCIServer &server, tcpip::Storage &inputSto
         }
         unsigned int noEntries = inputStorage.readUnsignedByte();
         Position2DVector shape;
-        for (int i=0; i<noEntries; ++i) {
+        for (unsigned int i=0; i<noEntries; ++i) {
             SUMOReal x = inputStorage.readFloat();
             SUMOReal y = inputStorage.readFloat();
             shape.push_back(Position2D(x, y));
