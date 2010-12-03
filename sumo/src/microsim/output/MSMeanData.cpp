@@ -291,7 +291,8 @@ MSMeanData::~MSMeanData() throw() {
 
 
 void
-MSMeanData::resetOnly(SUMOTime /*stopTime*/) throw() {
+MSMeanData::resetOnly(SUMOTime stopTime) throw() {
+	UNUSED_PARAMETER(stopTime);
 #ifdef HAVE_MESOSIM
     if (MSGlobals::gUseMesoSim) {
         std::vector<MSEdge*>::iterator edge = myEdges.begin();
