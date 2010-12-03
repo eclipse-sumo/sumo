@@ -514,8 +514,14 @@ MSVehicle::moveRegardingCritical(SUMOTime t, const MSLane* const lane,
     // check whether the vehicle is not on an appropriate lane
     if (!myLane->appropriate(this)) {
         // decelerate to lane end when yes
-        SUMOReal seen = myLane->getLength()-myState.myPos;
-        SUMOReal vWish = MIN2(cfModel.ffeS(this, seen), myLane->getMaxSpeed());
+        SUMOReal vWish = MIN2(cfModel.ffeS(this, myLane->getLength() - myState.myPos), myLane->getMaxSpeed());
+        if (myCurrEdge == myRoute->end() - 1) {
+            if (myParameter->arrivalSpeedProcedure == ARRIVAL_SPEED_GIVEN) {
+                vWish = MIN2(cfModel.ffeV(this, myArrivalPos - myState.myPos, myParameter->arrivalSpeed), myLane->getMaxSpeed());
+            } else {
+                vWish = myLane->getMaxSpeed();
+            }
+        }
         if (pred!=0) {
             // interaction with leader if one exists on same lane
             SUMOReal gap = gap2pred(*pred);
@@ -704,39 +710,41 @@ MSVehicle::moveFirstChecked() {
         workOnMoveReminders(pos, pos + SPEED2DIST(vNext), vNext);
     } else {
         // we are moving at least to the next lane (maybe pass even more than one)
-        MSLane *approachedLane = myLane;
-        // move the vehicle forward
-        for (i=myLFLinkLanes.begin(); i!=myLFLinkLanes.end() && myState.myPos>approachedLane->getLength(); ++i) {
-            if (approachedLane!=myLane) {
-                leaveLane(MSMoveReminder::NOTIFICATION_JUNCTION);
-            }
-            MSLink *link = (*i).myLink;
-            // check whether the vehicle was allowed to enter lane
-            //  otherwise it is decelareted and we do not need to test for it's
-            //  approach on the following lanes when a lane changing is performed
-            assert(approachedLane!=0);
-            myState.myPos -= approachedLane->getLength();
-            assert(myState.myPos>0);
-            if (approachedLane!=myLane) {
-                if (enterLaneAtMove(approachedLane)) {
-                    myLane = approachedLane;
-                    return true;
+        if (myCurrEdge != myRoute->end() - 1) {
+            MSLane *approachedLane = myLane;
+            // move the vehicle forward
+            for (i=myLFLinkLanes.begin(); i!=myLFLinkLanes.end() && myState.myPos>approachedLane->getLength(); ++i) {
+                if (approachedLane!=myLane) {
+                    leaveLane(MSMoveReminder::NOTIFICATION_JUNCTION);
                 }
-            }
-            // proceed to the next lane
-            if (link!=0) {
+                MSLink *link = (*i).myLink;
+                // check whether the vehicle was allowed to enter lane
+                //  otherwise it is decelareted and we do not need to test for it's
+                //  approach on the following lanes when a lane changing is performed
+                assert(approachedLane!=0);
+                myState.myPos -= approachedLane->getLength();
+                assert(myState.myPos>0);
+                if (approachedLane!=myLane) {
+                    if (enterLaneAtMove(approachedLane)) {
+                        myLane = approachedLane;
+                        return true;
+                    }
+                }
+                // proceed to the next lane
+                if (link!=0) {
 #ifdef HAVE_INTERNAL_LANES
-                approachedLane = link->getViaLane();
-                if (approachedLane==0) {
-                    approachedLane = link->getLane();
-                }
+                    approachedLane = link->getViaLane();
+                    if (approachedLane==0) {
+                        approachedLane = link->getLane();
+                    }
 #else
-                approachedLane = link->getLane();
+                    approachedLane = link->getLane();
 #endif
+                }
+                passedLanes.push_back(approachedLane);
             }
-            passedLanes.push_back(approachedLane);
+            myTarget = approachedLane;
         }
-        myTarget = approachedLane;
     }
     // clear previously set information
     for (std::vector<MSLane*>::iterator i=myFurtherLanes.begin(); i!=myFurtherLanes.end(); ++i) {
@@ -1199,7 +1207,7 @@ MSVehicle::getBestLanes(bool forceRebuild, MSLane *startLane) const throw() {
     myBestLanes.clear();
 
     // get information about the next stop
-    MSEdge *nextStopEdge = 0;
+    const MSEdge *nextStopEdge = 0;
     const MSLane *nextStopLane = 0;
     SUMOReal nextStopPos = 0;
     if (!myStops.empty()) {
@@ -1207,6 +1215,11 @@ MSVehicle::getBestLanes(bool forceRebuild, MSLane *startLane) const throw() {
         nextStopLane = nextStop.lane;
         nextStopEdge = &nextStopLane->getEdge();
         nextStopPos = nextStop.startPos;
+    }
+    if (myParameter->arrivalLaneProcedure == ARRIVAL_LANE_GIVEN && nextStopEdge == 0) {
+        nextStopEdge = *(myRoute->end() - 1);
+        nextStopLane = nextStopEdge->getLanes()[myParameter->arrivalLane];
+        nextStopPos = myArrivalPos;
     }
 
     // go forward along the next lanes;
@@ -1247,7 +1260,6 @@ MSVehicle::getBestLanes(bool forceRebuild, MSLane *startLane) const throw() {
         int laneNo = currentLanes.size();
         ++seen;
         seenLength += currentLanes[0].lane->getLength();
-        progress &= (nextStopEdge!=*ce);
         ++ce;
         progress &= (seen<=4 || seenLength<3000);
         progress &= seen<=8;
