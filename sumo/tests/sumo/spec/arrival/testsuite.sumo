@@ -30,3 +30,18 @@ speed_given10
 
 # checks using the current speed
 speed_current
+
+# checks using the given speed with arrivalpos near end
+speed_given0_nearend
+
+# checks using the given speed  with arrivalpos near end
+speed_given10_nearend
+
+# checks using the current speed with arrivalpos near end
+speed_current_nearend
+
+# checks using the given lane (lane 0)
+lane_given0
+
+# checks using the given lane (lane 1)
+lane_given1

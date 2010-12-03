@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 12/02/10 12:39:34 by SUMO sumo Version dev-SVN-r9415
+<!-- generated on 12/03/10 11:34:10 by SUMO sumo Version dev-SVN-r9429
 <?xml version="1.0" encoding="iso-8859-1"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/sumoConfiguration.xsd">
@@ -377,7 +377,7 @@
     <timestep time="39.00">
         <edge id="end">
             <lane id="end_0">
-                <vehicle id="1" pos="432.02" speed="24.73"/>
+                <vehicle id="1" pos="435.09" speed="27.80"/>
             </lane>
             <lane id="end_1"/>
             <lane id="end_2"/>
