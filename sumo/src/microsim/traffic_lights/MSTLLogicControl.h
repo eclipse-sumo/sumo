@@ -715,7 +715,7 @@ protected:
          * @param[in] startPos The position in the destination program to switch to
          * @param[in] allStretchTime The amount by which the logic shall be streched
          */
-        void stretchLogic(SUMOTime step, SUMOTime startPos, SUMOTime allStretchTime);
+        void stretchLogic(SUMOTime step, SUMOTime startPos, SUMOTime allStretchTime) throw();
 
 
         /** @brief Cuts the logic to synchronize
@@ -723,7 +723,7 @@ protected:
          * @param[in] startPos The position in the destination program to switch to
          * @param[in] allCutTime The amount by which the logic shall be cut
          */
-        void cutLogic(SUMOTime step, SUMOTime startPos, SUMOTime allCutTime);
+        void cutLogic(SUMOTime step, SUMOTime startPos, SUMOTime allCutTime) throw();
 
 
     protected:

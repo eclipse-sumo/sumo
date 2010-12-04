@@ -228,7 +228,7 @@ MSTLLogicControl::WAUTSwitchProcedure::getGSPValue(const MSTrafficLightLogic &lo
 
 
 bool
-MSTLLogicControl::WAUTSwitchProcedure::isPosAtGSP(SUMOTime currentTime, const MSTrafficLightLogic &logic) {
+MSTLLogicControl::WAUTSwitchProcedure::isPosAtGSP(SUMOTime currentTime, const MSTrafficLightLogic &logic) throw() {
     SUMOTime gspTime = TIME2STEPS(getGSPValue(logic)) % logic.getDefaultCycleTime();
     SUMOTime programTime = logic.getOffsetFromIndex(logic.getCurrentPhaseIndex())
         + (logic.getCurrentPhaseDef().duration - (logic.getNextSwitchTime() - currentTime));
@@ -306,7 +306,7 @@ MSTLLogicControl::WAUTSwitchProcedure_GSP::trySwitch(SUMOTime step) throw() {
 
 
 void
-MSTLLogicControl::WAUTSwitchProcedure_GSP::adaptLogic(SUMOTime step) {
+MSTLLogicControl::WAUTSwitchProcedure_GSP::adaptLogic(SUMOTime step) throw() {
     SUMOTime gspTo = TIME2STEPS(getGSPValue(*myTo));
     unsigned int stepTo = myTo->getIndexFromOffset(gspTo);
     SUMOTime cycleTimeTo = myTo->getDefaultCycleTime();
