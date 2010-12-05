@@ -110,6 +110,7 @@ MSRightOfWayJunction::postloadInit() throw(ProcessError) {
                 if (internalFoes.test(c)) {
                     MSLink *foe = sortedLinks[c].second;
                     foes.push_back(foe);
+#ifdef HAVE_INTERNAL_LANES
                     MSLane *l = foe->getViaLane();
                     if (l==0) {
                         continue;
@@ -120,6 +121,7 @@ MSRightOfWayJunction::postloadInit() throw(ProcessError) {
                             foes.push_back(*q);
                         }
                     }
+#endif
                 }
             }
 

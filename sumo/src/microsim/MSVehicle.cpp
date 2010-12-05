@@ -907,6 +907,8 @@ MSVehicle::vsafeCriticalCont(SUMOTime t, SUMOReal boundVSafe) {
     const std::vector<MSLane*> &bestLaneConts = getBestLanesContinuation();
 #ifdef HAVE_INTERNAL_LANES
     bool hadNonInternal = false;
+#else
+    bool hadNonInternal = true;
 #endif
 
     unsigned int view = 1;
