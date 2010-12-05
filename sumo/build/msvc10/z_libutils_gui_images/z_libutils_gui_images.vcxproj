@@ -113,14 +113,11 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\src\utils\gui\images\GUIIconSubSys.cpp" />
-    <ClCompile Include="..\..\..\src\utils\gui\images\GUIImageGlobals.cpp" />
     <ClCompile Include="..\..\..\src\utils\gui\images\GUITexturesHelper.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\src\utils\gui\images\GUIIcons.h" />
     <ClInclude Include="..\..\..\src\utils\gui\images\GUIIconSubSys.h" />
-    <ClInclude Include="..\..\..\src\utils\gui\images\GUIImageGlobals.h" />
-    <ClInclude Include="..\..\..\src\utils\gui\images\GUITextures.h" />
     <ClInclude Include="..\..\..\src\utils\gui\images\GUITexturesHelper.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

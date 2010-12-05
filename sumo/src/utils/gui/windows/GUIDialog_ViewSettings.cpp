@@ -31,7 +31,6 @@
 #include "GUIDialog_ViewSettings.h"
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <gui/GUIGlobals.h>
-#include <utils/gui/images/GUIImageGlobals.h>
 #include <utils/gui/windows/GUISUMOAbstractView.h>
 #include <utils/foxtools/MFXUtils.h>
 #include <utils/common/RGBColor.h>

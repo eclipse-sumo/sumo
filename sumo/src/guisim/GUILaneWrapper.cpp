@@ -304,25 +304,12 @@ ROWdrawAction_drawArrows(const GUILaneWrapper &lane, bool showToolTips) {
     // draw all links
     const Position2D &end = lane.getShape().getEnd();
     const Position2D &f = lane.getShape()[-2];
-    const Position2D &s = end;
-    SUMOReal rot = (SUMOReal) atan2((s.x()-f.x()), (f.y()-s.y()))*(SUMOReal) 180.0/(SUMOReal) PI;
+    SUMOReal rot = (SUMOReal) atan2((end.x()-f.x()), (f.y()-end.y()))*(SUMOReal) 180.0/(SUMOReal) PI;
     glPushMatrix();
     if (showToolTips) {
         glPushName(0);
     }
     glColor3d(1, 1, 1);
-    glEnable(GL_TEXTURE_2D);
-    glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-    glDisable(GL_CULL_FACE);
-    //glDisable(GL_DEPTH_TEST);
-    glDisable(GL_LIGHTING);
-    glDisable(GL_COLOR_MATERIAL);
-    glDisable(GL_TEXTURE_GEN_S);
-    glDisable(GL_TEXTURE_GEN_T);
-    glDisable(GL_ALPHA_TEST);
-    glEnable(GL_BLEND);
-    glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
-
     glTranslated(end.x(), end.y(), 0);
     glRotated(rot, 0, 0, 1);
     for (unsigned int i=0; i<noLinks; ++i) {
@@ -331,9 +318,39 @@ ROWdrawAction_drawArrows(const GUILaneWrapper &lane, bool showToolTips) {
         if (state==MSLink::LINKSTATE_TL_OFF_NOSIGNAL||dir==MSLink::LINKDIR_NODIR) {
             continue;
         }
-        GUITexturesHelper::drawDirectionArrow((GUITexture) dir, 1.5, 4.0, -1.5, 1);
+        switch (dir) {
+        case MSLink::LINKDIR_STRAIGHT:
+            GLHelper::drawBoxLine(Position2D(0, 4), 0, 2, .05);
+            GLHelper::drawTriangleAtEnd(Line2D(Position2D(0, 4), Position2D(0, 1)), (SUMOReal) 1, (SUMOReal) .25);
+            break;
+        case MSLink::LINKDIR_TURN:
+            GLHelper::drawBoxLine(Position2D(0, 4), 0, 1.5, .05);
+            GLHelper::drawBoxLine(Position2D(0, 2.5), 90, .5, .05);
+            GLHelper::drawBoxLine(Position2D(0.5, 2.5), 180, 1, .05);
+            GLHelper::drawTriangleAtEnd(Line2D(Position2D(0.5, 2.5), Position2D(0.5, 4)), (SUMOReal) 1, (SUMOReal) .25);
+            break;
+        case MSLink::LINKDIR_LEFT:
+            GLHelper::drawBoxLine(Position2D(0, 4), 0, 1.5, .05);
+            GLHelper::drawBoxLine(Position2D(0, 2.5), 90, 1, .05);
+            GLHelper::drawTriangleAtEnd(Line2D(Position2D(0, 2.5), Position2D(1.5, 2.5)), (SUMOReal) 1, (SUMOReal) .25);
+            break;
+        case MSLink::LINKDIR_RIGHT:
+            GLHelper::drawBoxLine(Position2D(0, 4), 0, 1.5, .05);
+            GLHelper::drawBoxLine(Position2D(0, 2.5), -90, 1, .05);
+            GLHelper::drawTriangleAtEnd(Line2D(Position2D(0, 2.5), Position2D(-1.5, 2.5)), (SUMOReal) 1, (SUMOReal) .25);
+            break;
+        case MSLink::LINKDIR_PARTLEFT:
+            GLHelper::drawBoxLine(Position2D(0, 4), 0, 1.5, .05);
+            GLHelper::drawBoxLine(Position2D(0, 2.5), 45, .7, .05);
+            GLHelper::drawTriangleAtEnd(Line2D(Position2D(0, 2.5), Position2D(1.2, 1.3)), (SUMOReal) 1, (SUMOReal) .25);
+            break;
+        case MSLink::LINKDIR_PARTRIGHT:
+            GLHelper::drawBoxLine(Position2D(0, 4), 0, 1.5, .05);
+            GLHelper::drawBoxLine(Position2D(0, 2.5), -45, .7, .05);
+            GLHelper::drawTriangleAtEnd(Line2D(Position2D(0, 2.5), Position2D(-1.2, 1.3)), (SUMOReal) 1, (SUMOReal) .25);
+            break;
+        }
     }
-    glBindTexture(GL_TEXTURE_2D, 0);
     glPopMatrix();
     if (showToolTips) {
         glPopName();

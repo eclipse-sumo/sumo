@@ -30,8 +30,8 @@
 #include "GUIDialog_AppSettings.h"
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <gui/GUIGlobals.h>
-#include <utils/gui/images/GUIImageGlobals.h>
 #include <utils/gui/images/GUIIconSubSys.h>
+#include <utils/gui/images/GUITexturesHelper.h>
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>

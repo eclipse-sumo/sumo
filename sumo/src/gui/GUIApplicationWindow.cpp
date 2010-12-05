@@ -61,7 +61,6 @@
 #include <utils/gui/tracker/GUIParameterTracker.h>
 #include <utils/gui/div/GUIParameterTableWindow.h>
 #include <utils/gui/images/GUIIconSubSys.h>
-#include <utils/gui/images/GUITexturesHelper.h>
 #include "dialogs/GUIDialog_AboutSUMO.h"
 #include "dialogs/GUIDialog_AppSettings.h"
 #include "dialogs/GUIDialog_Breakpoints.h"
@@ -151,7 +150,6 @@ GUIApplicationWindow::dependentBuild(bool game) {
 
     setTarget(this);
     setSelector(MID_WINDOW);
-    GUITexturesHelper::init(getApp());
 
     // build menu bar
     myMenuBarDrag=new FXToolBarShell(this,FRAME_NORMAL);
@@ -257,7 +255,6 @@ GUIApplicationWindow::~GUIApplicationWindow() {
     closeAllWindows();
     //
     GUIIconSubSys::close();
-    GUITexturesHelper::close();
     delete myGLVisual;
     // delete some non-parented windows
     delete myToolBarDrag1;
@@ -822,7 +819,6 @@ GUIApplicationWindow::eventOccured() {
 
 void
 GUIApplicationWindow::handleEvent_SimulationLoaded(GUIEvent *e) {
-    GUITexturesHelper::init(getApp());
     myAmLoading = false;
     GUIEvent_SimulationLoaded *ec = static_cast<GUIEvent_SimulationLoaded*>(e);
     // check whether the loading was successfull

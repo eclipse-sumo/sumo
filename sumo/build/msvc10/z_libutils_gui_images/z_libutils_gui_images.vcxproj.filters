@@ -14,9 +14,6 @@
     <ClCompile Include="..\..\..\src\utils\gui\images\GUIIconSubSys.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\src\utils\gui\images\GUIImageGlobals.cpp">
-      <Filter>Quelldateien</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\src\utils\gui\images\GUITexturesHelper.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
@@ -26,12 +23,6 @@
       <Filter>Headerdateien</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\utils\gui\images\GUIIconSubSys.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\utils\gui\images\GUIImageGlobals.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\utils\gui\images\GUITextures.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\utils\gui\images\GUITexturesHelper.h">

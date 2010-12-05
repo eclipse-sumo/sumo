@@ -33,14 +33,6 @@
 #include <fx3d.h>
 #include "GUITexturesHelper.h"
 
-#include "p.xpm"
-#include "pl_1.xpm"
-#include "pl_2.xpm"
-#include "pl_3.xpm"
-#include "pr_1.xpm"
-#include "pr_2.xpm"
-#include "GUIImageGlobals.h"
-
 #ifdef _WIN32
 #include <windows.h>
 #endif
@@ -53,56 +45,14 @@
 
 
 // ===========================================================================
-// static member variable definitions
+// definition of static variables
 // ===========================================================================
-bool GUITexturesHelper::myWasInitialised = false;
-FXApp* GUITexturesHelper::myApp = 0;
-GLuint GUITexturesHelper::myTextureIDs[TEXTURE_MAX];
-FXImage *GUITexturesHelper::myTextures[TEXTURE_MAX];
+bool gAllowTextures;
 
 
 // ===========================================================================
 // method definitions
 // ===========================================================================
-void
-GUITexturesHelper::init(FXApp *a) {
-    myApp = a;
-    myWasInitialised = false;
-}
-
-
-void
-GUITexturesHelper::assignTextures() {
-    if (myWasInitialised) {
-        return;
-    }
-    // check whether other textures shall be used
-    myWasInitialised = true;
-    if (!gAllowTextures) {
-        return;
-    }
-    // build texture images
-    glGenTextures(6, myTextureIDs);
-    myTextures[MSLink::LINKDIR_STRAIGHT] = new FXXPMImage(myApp, p_xpm, IMAGE_KEEP);
-    myTextures[MSLink::LINKDIR_TURN] = new FXXPMImage(myApp, pl_3_xpm, IMAGE_KEEP);
-    myTextures[MSLink::LINKDIR_LEFT] = new FXXPMImage(myApp, pl_2_xpm, IMAGE_KEEP);
-    myTextures[MSLink::LINKDIR_RIGHT] = new FXXPMImage(myApp, pr_2_xpm, IMAGE_KEEP);
-    myTextures[MSLink::LINKDIR_PARTLEFT] = new FXXPMImage(myApp, pl_1_xpm, IMAGE_KEEP);
-    myTextures[MSLink::LINKDIR_PARTRIGHT] = new FXXPMImage(myApp, pr_1_xpm, IMAGE_KEEP);
-    // allocate in gl (bind)
-    for (size_t i=0; i<TEXTURE_MAX; i++) {
-        glBindTexture(GL_TEXTURE_2D,myTextureIDs[i]);
-        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA,
-                     myTextures[i]->getWidth(), myTextures[i]->getHeight(), 0,
-                     GL_RGBA, GL_UNSIGNED_BYTE, myTextures[i]->getData());
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP);
-        glBindTexture(GL_TEXTURE_2D, 0);
-    }
-}
-
 unsigned int
 GUITexturesHelper::add(FXImage *i) {
     GLuint id;
@@ -121,19 +71,6 @@ GUITexturesHelper::add(FXImage *i) {
 
 
 void
-GUITexturesHelper::drawDirectionArrow(GUITexture which, SUMOReal size) {
-    drawTexturedBox(myTextureIDs[which], size, size, -size, -size);
-}
-
-
-void
-GUITexturesHelper::drawDirectionArrow(unsigned int which,
-                                      SUMOReal sizeX1, SUMOReal sizeY1,
-                                      SUMOReal sizeX2, SUMOReal sizeY2) {
-    drawTexturedBox(myTextureIDs[which], sizeX1, sizeY1, sizeX2, sizeY2);
-}
-
-void
 GUITexturesHelper::drawTexturedBox(unsigned int which, SUMOReal size) {
     drawTexturedBox(which, size, size, -size, -size);
 }
@@ -145,9 +82,6 @@ GUITexturesHelper::drawTexturedBox(unsigned int which,
                                    SUMOReal sizeX2, SUMOReal sizeY2) {
     if (!gAllowTextures) {
         return;
-    }
-    if (!myWasInitialised) {
-        assignTextures();
     }
     glEnable(GL_TEXTURE_2D);
     glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
@@ -177,19 +111,4 @@ GUITexturesHelper::drawTexturedBox(unsigned int which,
 }
 
 
-void
-GUITexturesHelper::close() {
-    if (!myWasInitialised) {
-        // nothing to do
-        return;
-    }
-    for (size_t i=0; i<TEXTURE_MAX; i++) {
-        delete myTextures[i];
-    }
-
-}
-
-
-
 /****************************************************************************/
-

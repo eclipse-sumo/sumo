@@ -31,7 +31,7 @@
 #include "GUIEdge.h"
 #include <utils/geom/Line2D.h>
 #include <utils/gui/div/GUIParameterTableWindow.h>
-#include <utils/gui/images/GUITexturesHelper.h>
+#include <utils/gui/div/GLHelper.h>
 #include <microsim/logging/FunctionBinding.h>
 
 #ifdef _WIN32
@@ -161,9 +161,11 @@ GUIE3Collector::MyWrapper::drawSingleCrossing(const Position2D &pos,
     glEnd();
     // arrows
     glTranslated(1.5, 0, 0);
-    GUITexturesHelper::drawDirectionArrow(TEXTURE_LINKDIR_STRAIGHT, 1.0);
+    GLHelper::drawBoxLine(Position2D(0, 4), 0, 2, .05);
+    GLHelper::drawTriangleAtEnd(Line2D(Position2D(0, 4), Position2D(0, 1)), (SUMOReal) 1, (SUMOReal) .25);
     glTranslated(-3, 0, 0);
-    GUITexturesHelper::drawDirectionArrow(TEXTURE_LINKDIR_STRAIGHT, 1.0);
+    GLHelper::drawBoxLine(Position2D(0, 4), 0, 2, .05);
+    GLHelper::drawTriangleAtEnd(Line2D(Position2D(0, 4), Position2D(0, 1)), (SUMOReal) 1, (SUMOReal) .25);
     glPopMatrix();
 }
 

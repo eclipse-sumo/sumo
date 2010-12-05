@@ -14,9 +14,8 @@ locate_add.xpm locate_edge.xpm locate_junction.xpm locate_shape.xpm \
 locate_tls.xpm locate_vehicle.xpm \
 magnify.xpm manip.cpp netopen.xpm new_window.xpm no.xpm \
 open_bmp_dialog.xpm opening.xpm \
-p.xpm paintbrush1x.xpm paintbrush2x.xpm paintbrush3x.xpm paintbrush4x.xpm \
-paintbrush5x.xpm \
-pl_1.xpm pl_2.xpm pl_3.xpm play.xpm pr_1.xpm pr_2.xpm pr_3.xpm \
+paintbrush1x.xpm paintbrush2x.xpm paintbrush3x.xpm paintbrush4x.xpm \
+paintbrush5x.xpm play.xpm \
 rarify.xpm \
 recenter_view.xpm reload.xpm removedb.xpm \
 rubber1x.xpm rubber2x.xpm rubber3x.xpm rubber4x.xpm rubber5x.xpm \
@@ -27,5 +26,4 @@ windows_cascade.xpm windows_tile_horizontally.xpm windows_tile_vertically.xpm \
 yes.xpm
 
 libguiutilsimages_a_SOURCES = GUIIconSubSys.cpp GUIIconSubSys.h \
-GUIIcons.h GUIImageGlobals.cpp GUIImageGlobals.h GUITextures.h \
-GUITexturesHelper.cpp GUITexturesHelper.h
+GUIIcons.h GUITexturesHelper.cpp GUITexturesHelper.h

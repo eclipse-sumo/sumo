@@ -342,10 +342,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\utils\gui\images\GUIImageGlobals.cpp"
-				>
-			</File>
-			<File
 				RelativePath="..\..\..\src\utils\gui\images\GUITexturesHelper.cpp"
 				>
 			</File>
@@ -361,14 +357,6 @@
 			</File>
 			<File
 				RelativePath="..\..\..\src\utils\gui\images\GUIIconSubSys.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\utils\gui\images\GUIImageGlobals.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\utils\gui\images\GUITextures.h"
 				>
 			</File>
 			<File

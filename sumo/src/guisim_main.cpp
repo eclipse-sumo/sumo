@@ -51,7 +51,7 @@
 #include <gui/GUIGlobals.h>
 #include <guisim/GUIEdge.h>
 #include <utils/gui/windows/GUIAppGlobals.h>
-#include <utils/gui/images/GUIImageGlobals.h>
+#include <utils/gui/images/GUITexturesHelper.h>
 #include <utils/gui/settings/GUICompleteSchemeStorage.h>
 #include <gui/GUIViewTraffic.h>
 #include <guisim/GUIVehicle.h>
