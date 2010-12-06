@@ -165,7 +165,7 @@ long FXRealSpinDialDial::onRightButtonPress(FXObject* /*o*/,FXSelector /*s*/,voi
     }
     return 1;
 }
-long FXRealSpinDialDial::onRightButtonRelease(FXObject*/*o*/,FXSelector /*s*/,void*/*p*/) {
+long FXRealSpinDialDial::onRightButtonRelease(FXObject* /*o*/,FXSelector /*s*/,void* /*p*/) {
     ungrab();
     ungrabKeyboard();
     getApp()->removeTimeout(this,ID_AUTOSPIN);
@@ -175,7 +175,7 @@ long FXRealSpinDialDial::onRightButtonRelease(FXObject*/*o*/,FXSelector /*s*/,vo
     return 1;
 
 }
-long FXRealSpinDialDial::onAuto(FXObject*/*o*/,FXSelector /*s*/,void*/*p*/) {
+long FXRealSpinDialDial::onAuto(FXObject* /*o*/,FXSelector /*s*/,void* /*p*/) {
     getApp()->addTimeout(this,ID_AUTOSPIN,getApp()->getScrollSpeed());
     setValue(getValue()+int((dragpoint-dragpos)/float(5)));
     int v = getValue();
@@ -361,7 +361,7 @@ long FXRealSpinDialText::onMotion(FXObject*o,FXSelector s,void*ptr) {
     if (target && target->handle(this,FXSEL(SEL_MOTION,message),ptr)) return 1;
     return FXTextField::onMotion(o,s,ptr);
 }
-long FXRealSpinDialText::onCmdSetRealValue(FXObject*/*o*/,FXSelector /*s*/,void*ptr) {
+long FXRealSpinDialText::onCmdSetRealValue(FXObject* /*o*/,FXSelector /*s*/,void*ptr) {
     //  setText(FXStringVal(*((FXdouble*)ptr)));
     if (flags & FLAG_FMTSTRING)
         setText(FXStringFormat(fmtString.text(),*((FXdouble*)ptr)));
@@ -562,7 +562,7 @@ long FXRealSpinDial::onUpdDial(FXObject* sender,FXSelector,void*) {
 
 
 // Respond to dial message
-long FXRealSpinDial::onChgDial(FXObject*/*p*/,FXSelector /*sel*/,void*/*ptr*/) {
+long FXRealSpinDial::onChgDial(FXObject* /*p*/,FXSelector /*sel*/,void* /*ptr*/) {
     if (!isEnabled()) return 0;
     FXdouble newpos;
     FXdouble inc;
@@ -668,7 +668,7 @@ long FXRealSpinDial::onUpdEntry(FXObject*,FXSelector,void*) {
     return target && target->handle(this,FXSEL(SEL_UPDATE,message),NULL);
 }
 
-long FXRealSpinDial::onMouseWheel(FXObject*/*o*/,FXSelector /*s*/,void*p) {
+long FXRealSpinDial::onMouseWheel(FXObject* /*o*/,FXSelector /*s*/,void*p) {
     FXint mode;
     keystate = ((FXEvent*)p)->state;
     if (keystate&CONTROLMASK)    mode = SPINDIAL_INC_FINE;
