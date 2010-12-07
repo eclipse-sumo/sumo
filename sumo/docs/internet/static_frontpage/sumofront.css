@@ -1,0 +1,56 @@
+body {
+  padding: 20px;
+  background-color: #ffffff;
+}
+
+#header {
+  padding:30px;
+  font-size:3em;
+  margin-bottom:30px;
+}
+
+#header span {
+  font-weight:bold;
+}
+
+#biglinks {
+  border-width:medium; 
+  border-style:solid; 
+  min-width:11em;
+  padding:10px;
+  width:32.7%;
+}
+
+#paddingcell {
+  width:1%;
+}
+
+#biglinks h2 {
+  font-size:2em;
+  margin-top:0px;
+  margin-bottom:0px;
+}
+
+#primary {
+  text-indent:10px;
+  margin-top:1em;
+  font-size:1.5em;
+
+}
+
+#secondary {
+  text-indent:20px;
+  font-size:1.0em;
+}
+
+#screenshots img {
+  width:48.0%;
+  border-width:thin;
+  border-style:solid;
+  margin-bottom:20px;
+}
+
+#text {
+  clear:both;
+}
+
