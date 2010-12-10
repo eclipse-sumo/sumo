@@ -386,8 +386,8 @@ TraCIServer::wasClosed() {
 int
 TraCIServer::dispatchCommand()
 throw(TraCIException, std::invalid_argument) {
-    int commandStart = myInputStorage.position();
-    int commandLength = myInputStorage.readUnsignedByte();
+    unsigned int commandStart = myInputStorage.position();
+    unsigned int commandLength = myInputStorage.readUnsignedByte();
     if (commandLength==0) {
         commandLength = myInputStorage.readInt();
     }
@@ -403,7 +403,8 @@ throw(TraCIException, std::invalid_argument) {
             success = commandGetVersion();
             break;
         case CMD_SIMSTEP:
-            success = targetTime_ = static_cast<SUMOTime>(myInputStorage.readInt());
+            targetTime_ = static_cast<SUMOTime>(myInputStorage.readInt());
+            success = true;
             if (!myHaveWarnedDeprecation) {
                 MsgHandler::getWarningInstance()->inform("Using old TraCI API, please update your client!");
                 myHaveWarnedDeprecation = true;
@@ -413,7 +414,7 @@ throw(TraCIException, std::invalid_argument) {
             SUMOTime nextT = myInputStorage.readInt();
             success = true;
             if (nextT!=0) {
-                targetTime_ = (SUMOReal) nextT;
+                targetTime_ = nextT;
             } else {
                 targetTime_ += DELTA_T;
             }
@@ -917,7 +918,7 @@ TraCIServer::commandScenario() throw(TraCIException) {
     std::string warning = "";	// additional description for response
 
     // read/write flag
-    bool isWriteCommand = myInputStorage.readUnsignedByte();
+    bool isWriteCommand = static_cast<bool>(myInputStorage.readUnsignedByte());
 
     // domain
     int domain = myInputStorage.readUnsignedByte();
