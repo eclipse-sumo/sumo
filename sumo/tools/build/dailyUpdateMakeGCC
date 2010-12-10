@@ -39,7 +39,7 @@ if make >> $MAKELOG 2>&1; then
 else
   echo "make failed" | tee -a $STATUSLOG; tail -20 $MAKELOG
 fi
-echo `grep -c warning $MAKELOG` warnings >> $STATUSLOG
+echo `grep -c '[Ww]arn[iu]ng:' $MAKELOG` warnings >> $STATUSLOG
 gzip -f $MAKELOG
 scp -q $MAKELOG.gz $REMOTEDIR
 
@@ -70,7 +70,7 @@ if make >> $MAKEALLLOG 2>&1; then
 else
   echo "make with all options failed" | tee -a $STATUSLOG; tail -20 $MAKEALLLOG
 fi
-echo `grep -c warning $MAKEALLLOG` warnings >> $STATUSLOG
+echo `grep -c '[Ww]arn[iu]ng:' $MAKEALLLOG` warnings >> $STATUSLOG
 gzip -f $MAKEALLLOG
 scp -q $MAKEALLLOG.gz $REMOTEDIR
 echo "--" >> $STATUSLOG
