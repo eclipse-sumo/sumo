@@ -333,7 +333,7 @@ public:
     FXbool getNumberFormatExponent() const {
         return exponent;
     }
-    void setFormatString(FXchar *fmt) {
+    void setFormatString(const FXchar *fmt) {
         fmtString = fmt;
         flags |= FLAG_FMTSTRING;
     }
@@ -1104,7 +1104,7 @@ FXbool FXRealSpinDial::getNumberFormatExponent() const {
     return textField->getNumberFormatExponent();
 }
 
-void FXRealSpinDial::setFormatString(FXchar  *fmt) {
+void FXRealSpinDial::setFormatString(const FXchar  *fmt) {
     textField->setFormatString(fmt);
 }
 

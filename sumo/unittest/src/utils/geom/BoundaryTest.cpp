@@ -99,3 +99,4 @@ TEST(Boundary, test_method_moveby) {
 	EXPECT_FLOAT_EQ(bound->ymax(), 2.5);
 	EXPECT_FLOAT_EQ(bound->ymin(), -1.5);
 }
+

@@ -298,7 +298,7 @@ public:
     /// Set a format string for number display, using printf
     /// syntax.  Format must contain no more than one %fmt pattern.
     /// Calling this overrides the simple precision/exponent number format.
-    void setFormatString(FXchar *fmt);
+    void setFormatString(const FXchar *fmt);
 
     /// Return the format string for number display.
     FXString getNumberFormatString() const;

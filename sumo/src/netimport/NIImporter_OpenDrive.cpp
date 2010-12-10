@@ -756,8 +756,8 @@ NIImporter_OpenDrive::calculateCurveCenter(SUMOReal *ad_x, SUMOReal *ad_y, SUMOR
     normX = normX * cos(90 * PI / 180) + turn * normY * sin(90 * PI / 180);
     normY = -1 * turn * tmpX * sin(90 * PI / 180) + normY * cos(90 * PI / 180);
 
-    normX = abs(ad_radius) * normX;
-    normY = abs(ad_radius) * normY;
+    normX = fabs(ad_radius) * normX;
+    normY = fabs(ad_radius) * normY;
 
     *ad_x += normX;
     *ad_y += normY;
@@ -767,7 +767,7 @@ NIImporter_OpenDrive::calculateCurveCenter(SUMOReal *ad_x, SUMOReal *ad_y, SUMOR
 void
 NIImporter_OpenDrive::calcPointOnCurve(SUMOReal *ad_x, SUMOReal *ad_y, SUMOReal ad_centerX, SUMOReal ad_centerY,
                                        SUMOReal ad_r, SUMOReal ad_length) throw() {
-    double rotAngle = ad_length/abs(ad_r);
+    double rotAngle = ad_length/fabs(ad_r);
     double vx = *ad_x - ad_centerX;
     double vy = *ad_y - ad_centerY;
     double tmpx;

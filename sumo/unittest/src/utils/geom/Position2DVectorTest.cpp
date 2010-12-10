@@ -61,3 +61,4 @@ TEST_F(Position2DVectorTest, test_method_getBoxBoundary) {
 	EXPECT_FLOAT_EQ(bound.ymax(), 4);
 	EXPECT_FLOAT_EQ(bound.ymin(), 0);
 }
+
