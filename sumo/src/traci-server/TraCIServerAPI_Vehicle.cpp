@@ -458,7 +458,7 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer &server, tcpip::Storage &inputSto
             server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "The third stop parameter must be the lane index given as a byte.", outputStorage);
             return false;
         }
-        char laneIndex = inputStorage.readByte();
+        int laneIndex = inputStorage.readByte();
         // waitTime
         valueDataType = inputStorage.readUnsignedByte();
         if (valueDataType!=TYPE_INTEGER) {
@@ -478,7 +478,7 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer &server, tcpip::Storage &inputSto
             return false;
         }
         const std::vector<MSLane*> &allLanes = road->getLanes();
-        if (laneIndex >= (unsigned int)(allLanes.size())) {
+        if ((laneIndex < 0) || laneIndex >= (int)(allLanes.size())) {
             server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "No lane existing with such id on the given road", outputStorage);
             return false;
         }
@@ -504,7 +504,7 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer &server, tcpip::Storage &inputSto
             server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "The first lane change parameter must be the lane index given as a byte.", outputStorage);
             return false;
         }
-        char laneIndex = inputStorage.readByte();
+        int laneIndex = inputStorage.readByte();
         // stickyTime
         valueDataType = inputStorage.readUnsignedByte();
         if (valueDataType!=TYPE_INTEGER) {
@@ -512,7 +512,7 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer &server, tcpip::Storage &inputSto
             return false;
         }
         SUMOTime stickyTime = inputStorage.readInt();
-        if ((laneIndex < 0) || (laneIndex >= (unsigned int)(v->getEdge()->getLanes().size()))) {
+        if ((laneIndex < 0) || (laneIndex >= (int)(v->getEdge()->getLanes().size()))) {
             server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "No lane existing with given id on the current road", outputStorage);
             return false;
         }
@@ -1104,13 +1104,13 @@ TraCIServerAPI_Vehicle::commandStopNode(TraCIServer &server, tcpip::Storage &inp
 bool
 TraCIServerAPI_Vehicle::commandChangeLane(TraCIServer &server, tcpip::Storage &inputStorage, tcpip::Storage&/*outputStorage*/) {
     MSVehicle* veh = server.getVehicleByExtId(inputStorage.readInt()); // external node id (equipped vehicle number)
-    char laneIndex = inputStorage.readByte(); // Lane ID
+    int laneIndex = inputStorage.readByte(); // Lane ID
     SUMOTime stickyTime = inputStorage.readInt(); // stickyTime
     if (veh == 0) {
         server.writeStatusCmd(CMD_CHANGELANE, RTYPE_ERR, "Can not retrieve node with given ID");
         return false;
     }
-    if ((laneIndex < 0) || (laneIndex >= (unsigned int)(veh->getEdge()->getLanes().size()))) {
+    if ((laneIndex < 0) || (laneIndex >= (int)(veh->getEdge()->getLanes().size()))) {
         server.writeStatusCmd(CMD_CHANGELANE, RTYPE_ERR, "No lane existing with given id on the current road");
         return false;
     }

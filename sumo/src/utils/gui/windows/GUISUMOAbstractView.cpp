@@ -718,7 +718,7 @@ GUISUMOAbstractView::onMouseMove(FXObject *,FXSelector ,void *data) {
 
 
 long
-GUISUMOAbstractView::onMouseLeft(FXObject *,FXSelector ,void*/*data*/) {
+GUISUMOAbstractView::onMouseLeft(FXObject *,FXSelector ,void* /*data*/) {
     if (myViewportChooser==0||!myViewportChooser->haveGrabbed()) {
 //        myChanger->onMouseLeft();
         myToolTip->setObjectTip(0, -1, -1);
