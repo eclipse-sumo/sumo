@@ -55,7 +55,7 @@ public:
         virtual ~BresenhamCallBack() throw() { }
 
         /** called when a bresenham step has been computed */
-        virtual void execute(SUMOReal val1, SUMOReal val2) throw() = 0;
+        virtual void execute(const int val1, const int val2) throw() = 0;
     };
 
 public:
@@ -63,7 +63,7 @@ public:
         the higher number is increased by one for each step while the smaller
         is increased by smaller/higher.
         In each step, the callback is executed. */
-    static void compute(BresenhamCallBack *callBack, SUMOReal val1, SUMOReal val2);
+    static void compute(BresenhamCallBack *callBack, int val1, int val2);
 };
 
 

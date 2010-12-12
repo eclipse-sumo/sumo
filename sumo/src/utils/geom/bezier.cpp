@@ -80,26 +80,16 @@ SUMOReal factrl(int n) {
 /* function to calculate the factorial function for Bernstein basis */
 
 SUMOReal Ni(int n,int i) {
-    SUMOReal ni;
-    ni = factrl(n)/(factrl(i)*factrl(n-i));
-    return ni;
+    return factrl(n)/(factrl(i)*factrl(n-i));
 }
 
 /* function to calculate the Bernstein basis */
 
 SUMOReal Basis(int n,int i,SUMOReal t) {
-    SUMOReal basis;
-    SUMOReal ti; /* this is t^i */
-    SUMOReal tni; /* this is (1 - t)^i */
-
     /* handle the special cases to avoid domain problem with pow */
-
-    if (t==0. && i == 0) ti=1.0;
-    else ti = pow(t,i);
-    if (n==i && t==1.) tni=1.0;
-    else tni = pow((1-t),(n-i));
-    basis = Ni(n,i)*ti*tni; /* calculate Bernstein basis function */
-    return basis;
+    const SUMOReal ti = (i == 0) ? 1.0 : pow(t, i); /* this is t^i */
+    const SUMOReal tni = (n == i) ? 1.0 : pow(1-t, n-i); /* this is (1-t)^(n-i) */
+    return Ni(n,i) * ti * tni;
 }
 
 /* Bezier curve subroutine */
@@ -111,18 +101,13 @@ bezier(int npts, SUMOReal b[], int cpts, SUMOReal p[]) {
     int icount;
     int jcount;
 
-    SUMOReal step;
+    const SUMOReal step = (SUMOReal) 1.0/(cpts -1);
     SUMOReal t;
-
-    SUMOReal factrl(int);
-    SUMOReal Ni(int,int);
-    SUMOReal Basis(int,int,SUMOReal);
 
     /*    calculate the points on the Bezier curve */
 
     icount = 0;
     t = 0;
-    step = (SUMOReal) 1.0/(cpts -1);
 
     for (i1 = 1; i1<=cpts; i1++) { /* main loop */
 

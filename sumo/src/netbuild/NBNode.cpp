@@ -91,10 +91,10 @@ NBNode::ApproachingDivider::~ApproachingDivider() throw() {}
 
 
 void
-NBNode::ApproachingDivider::execute(SUMOReal src, SUMOReal dest) throw() {
+NBNode::ApproachingDivider::execute(int src, int dest) throw() {
     assert(myApproaching->size()>src);
     // get the origin edge
-    NBEdge *incomingEdge = (*myApproaching)[(int) src];
+    NBEdge *incomingEdge = (*myApproaching)[src];
     if (incomingEdge->getStep()==NBEdge::LANES2LANES_DONE||incomingEdge->getStep()==NBEdge::LANES2LANES_USER) {
         return;
     }
@@ -117,26 +117,22 @@ NBNode::ApproachingDivider::execute(SUMOReal src, SUMOReal dest) throw() {
 
 std::deque<int> *
 NBNode::ApproachingDivider::spread(const std::vector<int> &approachingLanes,
-                                   SUMOReal dest) const {
+                                   int dest) const {
     std::deque<int> *ret = new std::deque<int>();
     unsigned int noLanes = (unsigned int) approachingLanes.size();
     // when only one lane is approached, we check, whether the SUMOReal-value
     //  is assigned more to the left or right lane
     if (noLanes==1) {
-        if ((int)(dest+0.5)>dest) {
-            ret->push_back((int)(dest+1));
-        } else {
-            ret->push_back((int) dest);
-        }
+        ret->push_back(dest);
         return ret;
     }
 
     unsigned int noOutgoingLanes = myCurrentOutgoing->getNoLanes();
     //
-    ret->push_back((int) dest);
+    ret->push_back(dest);
     unsigned int noSet = 1;
-    SUMOReal roffset = 1;
-    SUMOReal loffset = 1;
+    int roffset = 1;
+    int loffset = 1;
     while (noSet<noLanes) {
         // It may be possible, that there are not enough lanes the source
         //  lanes may be divided on
@@ -160,7 +156,7 @@ NBNode::ApproachingDivider::spread(const std::vector<int> &approachingLanes,
         }
         // append the next lane to the left of all edges
         //  increase the position (destination edge)
-        ret->push_back((int)(dest+loffset));
+        ret->push_back(dest+loffset);
         noSet++;
         loffset += 1;
 
@@ -179,7 +175,7 @@ NBNode::ApproachingDivider::spread(const std::vector<int> &approachingLanes,
                     (*ret)[i] = (*ret)[i] + 1;
                 }
             }
-            ret->push_front((int)(dest-roffset));
+            ret->push_front(dest-roffset);
             noSet++;
             roffset += 1;
         }

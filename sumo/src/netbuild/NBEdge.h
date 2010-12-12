@@ -731,7 +731,7 @@ private:
         ~ToEdgeConnectionsAdder() throw() { }
 
         /// executes a bresenham - step
-        void execute(SUMOReal lane, SUMOReal virtEdge) throw();
+        void execute(int lane, int virtEdge) throw();
 
         const std::map<NBEdge*, std::vector<unsigned int> > &getBuiltConnections() const throw() {
             return myConnections;

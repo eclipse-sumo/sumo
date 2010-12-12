@@ -28,6 +28,7 @@
 #endif
 
 #include <iostream>
+#include <utils/common/StdDefs.h>
 #include "Bresenham.h"
 
 #ifdef CHECK_MEMORY_LEAKS
@@ -39,43 +40,22 @@
 // method definitions
 // ===========================================================================
 void
-Bresenham::compute(BresenhamCallBack *callBack, SUMOReal val1, SUMOReal val2) {
-    // case1: both numbers are equal
-    if (val1==val2) {
-        for (SUMOReal step=0; step<val1; step++) {
-            callBack->execute(step, step);
-        }
-        return;
-    }
-    // case2: the first value is higher
-    if (val1>val2) {
-        SUMOReal pos = 0;
-        SUMOReal prop = val2 / val1;
-        SUMOReal cnt = prop / 2;
-        for (SUMOReal i=0; i<val1; i++) {
-            callBack->execute(i, pos);
-            cnt += prop;
-            if (cnt>=1.0) {
-                pos++;
-                cnt -= 1.0;
-            }
-        }
-        return;
-    }
-    // case3: the first value is smaller than the second
-    if (val1<val2) {
-        SUMOReal pos = 0;
-        SUMOReal prop = val1 / val2;
-        SUMOReal cnt = prop / 2;
-        for (SUMOReal i=0; i<val2; i++) {
+Bresenham::compute(BresenhamCallBack *callBack, const int val1, const int val2) {
+    const int smaller = MIN2(val1, val2);
+    const int greater = MAX2(val1, val2);
+    int pos = 0;
+    int c = smaller;
+    for (int i = 0; i < greater; i++) {
+        if (smaller == val1) {
             callBack->execute(pos, i);
-            cnt += prop;
-            if (cnt>=1.0) {
-                pos++;
-                cnt -= 1.0;
-            }
+        } else {
+            callBack->execute(i, pos);
         }
-        return;
+        c += 2 * smaller;
+        if (c >= 2 * greater) {
+            pos++;
+            c -= 2 * greater;
+        }
     }
 }
 
