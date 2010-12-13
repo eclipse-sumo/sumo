@@ -166,7 +166,10 @@ TraCIServerAPI_GUI::processSet(TraCIServer &server, tcpip::Storage &inputStorage
             server.writeStatusCmd(CMD_SET_GUI_VARIABLE, RTYPE_ERR, "The scheme must be specified by a string.", outputStorage);
             return false;
         }
-        v->setColorScheme(inputStorage.readString());
+		if(!v->setColorScheme(inputStorage.readString())) {
+			server.writeStatusCmd(CMD_SET_GUI_VARIABLE, RTYPE_ERR, "The scheme is not known.", outputStorage);
+            return false;
+		}
         break;
     case VAR_VIEW_BOUNDARY:
         break;

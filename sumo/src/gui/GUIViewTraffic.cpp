@@ -134,8 +134,11 @@ GUIViewTraffic::buildViewToolBars(GUIGlChildWindow &v) {
 }
 
 
-void
+bool
 GUIViewTraffic::setColorScheme(const std::string &name) {
+	if(!gSchemeStorage.contains(name)) {
+		return false;
+	}
     if (myVisualizationChanger!=0) {
         if (myVisualizationChanger->getCurrentScheme()!=name) {
             myVisualizationChanger->setCurrentScheme(name);
@@ -143,6 +146,7 @@ GUIViewTraffic::setColorScheme(const std::string &name) {
     }
     myVisualizationSettings = &gSchemeStorage.get(name.c_str());
     update();
+	return true;
 }
 
 

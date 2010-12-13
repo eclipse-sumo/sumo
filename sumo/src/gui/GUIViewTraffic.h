@@ -90,7 +90,7 @@ public:
      */
     int getTrackedID() const;
 
-    void setColorScheme(const std::string &name);
+    bool setColorScheme(const std::string &name);
 
 
     void showViewschemeEditor();
