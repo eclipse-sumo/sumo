@@ -819,7 +819,7 @@ TraCIServer::commandPositionConversion() throw(TraCIException) {
     unsigned char destPosType;
 
     // actual position type that will be converted
-    unsigned char srcPosType = myInputStorage.readUnsignedByte();
+    unsigned char srcPosType = (unsigned char)myInputStorage.readUnsignedByte();
 
     switch (srcPosType) {
     case POSITION_2D:
@@ -831,7 +831,7 @@ TraCIServer::commandPositionConversion() throw(TraCIException) {
             z = myInputStorage.readFloat();
         }
         // destination position type
-        destPosType = myInputStorage.readUnsignedByte();
+        destPosType = (unsigned char) myInputStorage.readUnsignedByte();
 
         switch (destPosType) {
         case POSITION_ROADMAP:
@@ -857,10 +857,10 @@ TraCIServer::commandPositionConversion() throw(TraCIException) {
     case POSITION_ROADMAP:
         roadPos.roadId = myInputStorage.readString();
         roadPos.pos = myInputStorage.readFloat();
-        roadPos.laneId = myInputStorage.readUnsignedByte();
+        roadPos.laneId = (unsigned char)myInputStorage.readUnsignedByte();
 
         // destination position type
-        destPosType = myInputStorage.readUnsignedByte();
+        destPosType = (unsigned char)myInputStorage.readUnsignedByte();
 
         switch (destPosType) {
         case POSITION_2D:
@@ -954,12 +954,12 @@ TraCIServer::commandScenario() throw(TraCIException) {
     // if necessary, add Scenario command containing the read value
     if (!isWriteCommand) {
         if (tmpResult.size() <= 253) {
-            myOutputStorage.writeUnsignedByte(1 + 1 + tmpResult.size());	// command length
+            myOutputStorage.writeUnsignedByte(1 + 1 + (int)tmpResult.size());	// command length
             myOutputStorage.writeUnsignedByte(CMD_SCENARIO);	// command id
             myOutputStorage.writeStorage(tmpResult);	// variable dependant part
         } else {
             myOutputStorage.writeUnsignedByte(0);	// command length -> extended
-            myOutputStorage.writeInt(1 + 4 + 1 + tmpResult.size());
+            myOutputStorage.writeInt(1 + 4 + 1 + (int)tmpResult.size());
             myOutputStorage.writeUnsignedByte(CMD_SCENARIO);	// command id
             myOutputStorage.writeStorage(tmpResult);	// variable dependant part
         }
@@ -1028,9 +1028,9 @@ TraCIServer::commandAddVehicle() throw(TraCIException) {
     // calculate speed
     float clippedEmitSpeed;
     if (emitSpeed<0) {
-        clippedEmitSpeed = MIN2(lane->getMaxSpeed(), vehicle->getMaxSpeed());
+        clippedEmitSpeed = (float) MIN2(lane->getMaxSpeed(), vehicle->getMaxSpeed());
     } else {
-        clippedEmitSpeed = MIN3(lane->getMaxSpeed(), vehicle->getMaxSpeed(), emitSpeed);
+        clippedEmitSpeed = (float) MIN3(lane->getMaxSpeed(), vehicle->getMaxSpeed(), emitSpeed);
     }
 
     // insert vehicle into the dictionary
@@ -1072,7 +1072,7 @@ TraCIServer::commandDistanceRequest() throw(TraCIException) {
     case POSITION_ROADMAP:
         roadPos1.roadId = myInputStorage.readString();
         roadPos1.pos = myInputStorage.readFloat();
-        roadPos1.laneId = myInputStorage.readUnsignedByte();
+        roadPos1.laneId = (unsigned char)myInputStorage.readUnsignedByte();
         try {
             pos1 = convertRoadMapToCartesian(roadPos1);
         } catch (TraCIException &e) {
@@ -1103,7 +1103,7 @@ TraCIServer::commandDistanceRequest() throw(TraCIException) {
     case POSITION_ROADMAP:
         roadPos2.roadId = myInputStorage.readString();
         roadPos2.pos = myInputStorage.readFloat();
-        roadPos2.laneId = myInputStorage.readUnsignedByte();
+        roadPos2.laneId = (unsigned char)myInputStorage.readUnsignedByte();
         try {
             pos2 = convertRoadMapToCartesian(roadPos2);
         } catch (TraCIException &e) {
@@ -1353,7 +1353,7 @@ TraCIServer::convertCartesianToRoadMap(Position2D pos) {
 //			cerr << "### Lane: " << (*itLane)->getID() << endl;
 
             // iterate through all segments of this lane's shape
-            for (int i = 0; i < shape.size()-1; i++) {
+            for (unsigned int i = 0; i < shape.size()-1; i++) {
                 lineStart = shape[i];
                 lineEnd = shape[i+1];
 
@@ -1384,9 +1384,9 @@ TraCIServer::convertCartesianToRoadMap(Position2D pos) {
                         while ((tmpLane =tmpLane->getRightLane()) != NULL) {
                             result.laneId++;
                         }
-                        result.pos = lineStart.distanceTo(intersection);
-                        for (int j = 0; j < i; j++) {
-                            result.pos += shape[j].distanceTo(shape[j+1]);
+                        result.pos = (float)lineStart.distanceTo(intersection);
+                        for (unsigned int j = 0; j < i; j++) {
+                            result.pos += (float)(shape[j].distanceTo(shape[j+1]));
                         }
 
 //						cerr << "Saved new pos: " << result.pos << ", intersec at (" << intersection.x() << "," << intersection.y()
@@ -1439,7 +1439,7 @@ throw(TraCIException) {
     // domain object
     int objectId = myInputStorage.readInt();
     // check for valid object id
-    if (objectId < 0 || objectId >= MSEdge::dictSize()) {
+    if (objectId < 0 || (unsigned int) objectId >= MSEdge::dictSize()) {
         throw TraCIException("Invalid object id specified");
     }
     MSEdge* edge = MSEdge::dictionary(objectId);
@@ -1452,7 +1452,7 @@ throw(TraCIException) {
 
     // if end of message is not yet reached, the value parameter has to be read
     if (myInputStorage.valid_pos()) {
-        dataCont.readValue(dataType, myInputStorage);
+        dataCont.readValue((unsigned int) dataType, myInputStorage);
     }
 
     if (isWriteCommand) {
@@ -1502,10 +1502,10 @@ throw(TraCIException) {
         // net boundaries
     case DOMVAR_BOUNDINGBOX:
         response.writeUnsignedByte(TYPE_BOUNDINGBOX);
-        response.writeFloat(getNetBoundary().xmin());
-        response.writeFloat(getNetBoundary().ymin());
-        response.writeFloat(getNetBoundary().xmax());
-        response.writeFloat(getNetBoundary().ymax());
+        response.writeFloat((float)getNetBoundary().xmin());
+        response.writeFloat((float)getNetBoundary().ymin());
+        response.writeFloat((float)getNetBoundary().xmax());
+        response.writeFloat((float)getNetBoundary().ymax());
         // add a warning to the response if the requested data type was not correct
         if (dataType != TYPE_BOUNDINGBOX) {
             warning = "Warning: requested data type could not be used; using boundary box type instead!";
@@ -1515,7 +1515,7 @@ throw(TraCIException) {
         // number of roads
     case DOMVAR_COUNT:
         response.writeUnsignedByte(TYPE_INTEGER);
-        response.writeInt(MSNet::getInstance()->getEdgeControl().getEdgeNames().size());
+        response.writeInt((int)(MSNet::getInstance()->getEdgeControl().getEdgeNames().size()));
         if (dataType != TYPE_INTEGER) {
             warning = "Warning: requested data type could not be used; using integer instead!";
         }
@@ -1527,10 +1527,10 @@ throw(TraCIException) {
             const std::vector<MSLane*> &lanes = edge->getLanes();
             const Position2DVector shape = lanes[lanes.size()/2]->getShape();
             response.writeUnsignedByte(TYPE_POLYGON);
-            response.writeUnsignedByte(MIN2(static_cast<size_t>(255),shape.size()));
-            for (int iPoint=0; iPoint < MIN2(static_cast<size_t>(255),shape.size()); iPoint++) {
-                response.writeFloat(shape[iPoint].x());
-                response.writeFloat(shape[iPoint].y());
+            response.writeUnsignedByte((int)MIN2(static_cast<size_t>(255),shape.size()));
+            for (unsigned int iPoint=0; iPoint < MIN2(static_cast<size_t>(255),shape.size()); iPoint++) {
+                response.writeFloat((float)shape[iPoint].x());
+                response.writeFloat((float)shape[iPoint].y());
             }
             if (dataType != TYPE_POLYGON) {
                 warning = "Warning: requested data type could not be used; using polygon type instead!";
@@ -1672,14 +1672,14 @@ throw(TraCIException) {
             switch (dataType) {
             case POSITION_3D:
                 response.writeUnsignedByte(POSITION_3D);
-                response.writeFloat(veh->getPosition().x());
-                response.writeFloat(veh->getPosition().y());
+                response.writeFloat((float)(veh->getPosition().x()));
+                response.writeFloat((float)(veh->getPosition().y()));
                 response.writeFloat(0);
                 break;
             default:
                 response.writeByte(POSITION_ROADMAP);
                 response.writeString(veh->getEdge()->getID());
-                response.writeFloat(veh->getPositionOnLane());
+                response.writeFloat((float)(veh->getPositionOnLane()));
                 int laneId = 0;
                 MSLane* lane = veh->getLane().getRightLane();
                 while (lane != NULL) {
@@ -1701,7 +1701,7 @@ throw(TraCIException) {
     case DOMVAR_SPEED:
         if (veh != NULL) {
             response.writeUnsignedByte(TYPE_FLOAT);
-            response.writeFloat(veh->getSpeed());
+            response.writeFloat((float)(veh->getSpeed()));
             // add a warning to the response if the requested data type was not correct
             if (dataType != TYPE_FLOAT) {
                 warning = "Warning: requested data type could not be used; using float instead!";
@@ -1715,7 +1715,7 @@ throw(TraCIException) {
     case DOMVAR_ALLOWED_SPEED:
         if (veh != NULL) {
             response.writeUnsignedByte(TYPE_FLOAT);
-            response.writeFloat(veh->getLane().getMaxSpeed());
+            response.writeFloat((float)(veh->getLane().getMaxSpeed()));
             // add a warning to the response if the requested data type was not correct
             if (dataType != TYPE_FLOAT) {
                 warning = "Warning: requested data type could not be used; using float instead!";
@@ -1830,7 +1830,7 @@ throw(TraCIException) {
     case DOMVAR_CO2EMISSION:
         if (veh != NULL) {
             response.writeUnsignedByte(TYPE_FLOAT);
-            response.writeFloat(HelpersHBEFA::computeCO2(veh->getVehicleType().getEmissionClass(), veh->getSpeed(), veh->getPreDawdleAcceleration()));
+            response.writeFloat((float)(HelpersHBEFA::computeCO2(veh->getVehicleType().getEmissionClass(), veh->getSpeed(), veh->getPreDawdleAcceleration())));
             // add a warning to the response if the requested data type was not correct
             if (dataType != TYPE_FLOAT) {
                 warning = "Warning: requested data type could not be used; using float instead!";
@@ -1843,7 +1843,7 @@ throw(TraCIException) {
     case DOMVAR_COEMISSION:
         if (veh != NULL) {
             response.writeUnsignedByte(TYPE_FLOAT);
-            response.writeFloat(HelpersHBEFA::computeCO(veh->getVehicleType().getEmissionClass(), veh->getSpeed(), veh->getPreDawdleAcceleration()));
+            response.writeFloat((float)(HelpersHBEFA::computeCO(veh->getVehicleType().getEmissionClass(), veh->getSpeed(), veh->getPreDawdleAcceleration())));
             // add a warning to the response if the requested data type was not correct
             if (dataType != TYPE_FLOAT) {
                 warning = "Warning: requested data type could not be used; using float instead!";
@@ -1856,7 +1856,7 @@ throw(TraCIException) {
     case DOMVAR_HCEMISSION:
         if (veh != NULL) {
             response.writeUnsignedByte(TYPE_FLOAT);
-            response.writeFloat(HelpersHBEFA::computeHC(veh->getVehicleType().getEmissionClass(), veh->getSpeed(), veh->getPreDawdleAcceleration()));
+            response.writeFloat((float)(HelpersHBEFA::computeHC(veh->getVehicleType().getEmissionClass(), veh->getSpeed(), veh->getPreDawdleAcceleration())));
             // add a warning to the response if the requested data type was not correct
             if (dataType != TYPE_FLOAT) {
                 warning = "Warning: requested data type could not be used; using float instead!";
@@ -1869,7 +1869,7 @@ throw(TraCIException) {
     case DOMVAR_PMXEMISSION:
         if (veh != NULL) {
             response.writeUnsignedByte(TYPE_FLOAT);
-            response.writeFloat(HelpersHBEFA::computePMx(veh->getVehicleType().getEmissionClass(), veh->getSpeed(), veh->getPreDawdleAcceleration()));
+            response.writeFloat((float)(HelpersHBEFA::computePMx(veh->getVehicleType().getEmissionClass(), veh->getSpeed(), veh->getPreDawdleAcceleration())));
             // add a warning to the response if the requested data type was not correct
             if (dataType != TYPE_FLOAT) {
                 warning = "Warning: requested data type could not be used; using float instead!";
@@ -1882,7 +1882,7 @@ throw(TraCIException) {
     case DOMVAR_NOXEMISSION:
         if (veh != NULL) {
             response.writeUnsignedByte(TYPE_FLOAT);
-            response.writeFloat(HelpersHBEFA::computeNOx(veh->getVehicleType().getEmissionClass(), veh->getSpeed(), veh->getPreDawdleAcceleration()));
+            response.writeFloat((float)(HelpersHBEFA::computeNOx(veh->getVehicleType().getEmissionClass(), veh->getSpeed(), veh->getPreDawdleAcceleration())));
             // add a warning to the response if the requested data type was not correct
             if (dataType != TYPE_FLOAT) {
                 warning = "Warning: requested data type could not be used; using float instead!";
@@ -1895,7 +1895,7 @@ throw(TraCIException) {
     case DOMVAR_FUELCONSUMPTION:
         if (veh != NULL) {
             response.writeUnsignedByte(TYPE_FLOAT);
-            response.writeFloat(HelpersHBEFA::computeFuel(veh->getVehicleType().getEmissionClass(), veh->getSpeed(), veh->getPreDawdleAcceleration()));
+            response.writeFloat((float)(HelpersHBEFA::computeFuel(veh->getVehicleType().getEmissionClass(), veh->getSpeed(), veh->getPreDawdleAcceleration())));
             // add a warning to the response if the requested data type was not correct
             if (dataType != TYPE_FLOAT) {
                 warning = "Warning: requested data type could not be used; using float instead!";
@@ -1908,7 +1908,7 @@ throw(TraCIException) {
     case DOMVAR_NOISEEMISSION:
         if (veh != NULL) {
             response.writeUnsignedByte(TYPE_FLOAT);
-            response.writeFloat(HelpersHarmonoise::computeNoise(veh->getVehicleType().getEmissionClass(), veh->getSpeed(), veh->getPreDawdleAcceleration()));
+            response.writeFloat((float)(HelpersHarmonoise::computeNoise(veh->getVehicleType().getEmissionClass(), veh->getSpeed(), veh->getPreDawdleAcceleration())));
             // add a warning to the response if the requested data type was not correct
             if (dataType != TYPE_FLOAT) {
                 warning = "Warning: requested data type could not be used; using float instead!";
@@ -1948,7 +1948,7 @@ throw(TraCIException) {
 
     // if end of message is not yet reached, the value parameter has to be read
     if (myInputStorage.valid_pos()) {
-        dataCont.readValue(dataType, myInputStorage);
+        dataCont.readValue((unsigned char)dataType, myInputStorage);
     }
 
     if (isWriteCommand) {
@@ -1997,7 +1997,7 @@ throw(TraCIException) {
 
         // count of traffic lights
     case DOMVAR_COUNT:
-        count = MSNet::getInstance()->getTLSControl().getAllTLIds().size();
+        count = (int)(MSNet::getInstance()->getTLSControl().getAllTLIds().size());
         response.writeUnsignedByte(TYPE_INTEGER);
         response.writeInt(count);
         // add a warning to the response if the requested data type was not correct
@@ -2011,8 +2011,8 @@ throw(TraCIException) {
         if (tlLogic != NULL) {
             MSJunction* junc = MSNet::getInstance()->getJunctionControl().get(tlLogic->getID());
             response.writeUnsignedByte(POSITION_3D);
-            response.writeFloat(junc->getPosition().x());
-            response.writeFloat(junc->getPosition().y());
+            response.writeFloat((float)(junc->getPosition().x()));
+            response.writeFloat((float)(junc->getPosition().y()));
             response.writeFloat(0);
             // add a warning to the response if the requested data type was not correct
             if (dataType != POSITION_3D) {
@@ -2036,7 +2036,7 @@ throw(TraCIException) {
                     pos++;
                 } while ((step=tlLogic->getIndexFromOffset(pos)) == curStep);
             }
-            MSPhaseDefinition phase = tlLogic->getPhase(step);
+            MSPhaseDefinition phase = tlLogic->getPhase((unsigned int)step);
 
             // get the list of link vectors affected by that tl logic
             MSTrafficLightLogic::LinkVectorVector affectedLinks = tlLogic->getLinks();
@@ -2047,7 +2047,7 @@ throw(TraCIException) {
             int listLength = 0;
 //			std::map<MSLane*, std::set<const MSEdge*> > connectLane2Edge;
             std::map<const MSEdge*, pair<const MSEdge*, int> > writtenEdgePairs;
-            for (int i=0; i<affectedLinks.size(); i++) {
+            for (unsigned int i=0; i<affectedLinks.size(); i++) {
                 // get the list of links controlled by that light
                 MSTrafficLightLogic::LinkVector linkGroup = affectedLinks[i];
                 // get the list of preceding lanes to that links
@@ -2057,7 +2057,7 @@ throw(TraCIException) {
 
 //				const MSEdge* precEdge = NULL;
 //				const MSEdge* succEdge = NULL;
-                for (int linkNo=0; linkNo<linkGroup.size(); linkNo++) {
+                for (unsigned int linkNo=0; linkNo<linkGroup.size(); linkNo++) {
                     // if multiple lanes of different edges lead to the same lane on another edge,
                     // only write such pair of edges once
                     /*					if ((precEdge == laneGroup[linkNo]->getEdge())
@@ -2169,7 +2169,7 @@ throw(TraCIException) {
 
     // if end of message is not yet reached, the value parameter has to be read
     if (myInputStorage.valid_pos()) {
-        dataCont.readValue(dataType, myInputStorage);
+        dataCont.readValue((unsigned char)dataType, myInputStorage);
     }
 
     if (isWriteCommand) {
@@ -2239,8 +2239,8 @@ throw(TraCIException) {
             throw TraCIException("Unable to retrieve point of interest with given id");
         } else {
             response.writeUnsignedByte(POSITION_3D);
-            response.writeFloat(poi->x());
-            response.writeFloat(poi->y());
+            response.writeFloat((float)(poi->x()));
+            response.writeFloat((float)(poi->y()));
             response.writeFloat(0);
         }
         // add a warning to the response if the requested data type was not correct
@@ -2294,7 +2294,7 @@ throw(TraCIException) {
 
     // if end of message is not yet reached, the value parameter has to be read
     if (myInputStorage.valid_pos()) {
-        dataCont.readValue(dataType, myInputStorage);
+        dataCont.readValue((unsigned char)dataType, myInputStorage);
     }
 
     if (isWriteCommand) {
@@ -2363,8 +2363,8 @@ throw(TraCIException) {
             throw TraCIException("Unable to retrieve polygon with given id");
         } else {
             response.writeUnsignedByte(POSITION_3D);
-            response.writeFloat(poly->getShape().getPolygonCenter().x());
-            response.writeFloat(poly->getShape().getPolygonCenter().y());
+            response.writeFloat((float)(poly->getShape().getPolygonCenter().x()));
+            response.writeFloat((float)(poly->getShape().getPolygonCenter().y()));
             response.writeFloat(0);
         }
         // add a warning to the response if the requested data type was not correct
@@ -2393,10 +2393,10 @@ throw(TraCIException) {
             throw TraCIException("Unable to retrieve polygon with given id");
         } else {
             response.writeUnsignedByte(TYPE_POLYGON);
-            response.writeUnsignedByte(MIN2(static_cast<size_t>(255),poly->getShape().size()));
-            for (int i=0; i < MIN2(static_cast<size_t>(255),poly->getShape().size()); i++) {
-                response.writeFloat(poly->getShape()[i].x());
-                response.writeFloat(poly->getShape()[i].y());
+            response.writeUnsignedByte((int)MIN2(static_cast<size_t>(255),poly->getShape().size()));
+            for (unsigned int i=0; i < MIN2(static_cast<size_t>(255),poly->getShape().size()); i++) {
+                response.writeFloat((float)(poly->getShape()[i].x()));
+                response.writeFloat((float)(poly->getShape()[i].y()));
             }
         }
         // add a warning to the response if the requested data type was not correct
@@ -2480,25 +2480,25 @@ throw(TraCIException) {
                     tempMsg.writeDouble(currentTime);
                 }
                 if ((variableId == DOMVAR_SPEED) && (dataType == TYPE_FLOAT)) {
-                    tempMsg.writeFloat(vehicle->getSpeed());
+                    tempMsg.writeFloat((float)(vehicle->getSpeed()));
                 }
                 if ((variableId == DOMVAR_ALLOWED_SPEED) && (dataType == TYPE_FLOAT)) {
-                    tempMsg.writeFloat(vehicle->getLane().getMaxSpeed());
+                    tempMsg.writeFloat((float)(vehicle->getLane().getMaxSpeed()));
                 }
                 if ((variableId == DOMVAR_POSITION) && (dataType == POSITION_2D)) {
                     Position2D pos = vehicle->getLane().getShape().positionAtLengthPosition(vehicle->getPositionOnLane());
-                    tempMsg.writeFloat(pos.x());
-                    tempMsg.writeFloat(pos.y());
+                    tempMsg.writeFloat((float)(pos.x()));
+                    tempMsg.writeFloat((float)(pos.y()));
                 }
                 if ((variableId == DOMVAR_POSITION) && (dataType == POSITION_ROADMAP)) {
                     tempMsg.writeString(vehicle->getEdge()->getID());
                 }
                 if ((variableId == DOMVAR_ANGLE) && (dataType == TYPE_FLOAT)) {
-                    tempMsg.writeFloat(vehicle->getLane().getShape().rotationDegreeAtLengthPosition(vehicle->getPositionOnLane()));
+                    tempMsg.writeFloat((float)(vehicle->getLane().getShape().rotationDegreeAtLengthPosition(vehicle->getPositionOnLane())));
                 }
             }
             // send command length
-            myOutputStorage.writeUnsignedByte(tempMsg.size()+1);
+            myOutputStorage.writeUnsignedByte((int)tempMsg.size()+1);
             // send command
             myOutputStorage.writeStorage(tempMsg);
         }
@@ -2585,7 +2585,7 @@ TraCIServer::processSingleSubscription(const Subscription &s, tcpip::Storage &wr
             std::string id = tmpOutput.readString();
             outputStorage.writeUnsignedByte(variable);
             outputStorage.writeUnsignedByte(RTYPE_OK);
-            length -= (1+4+1+4+id.length());
+            length -= (1+4+1+4+(int)id.length());
             while (--length>0) {
                 outputStorage.writeUnsignedByte(tmpOutput.readUnsignedByte());
             }
@@ -2602,10 +2602,10 @@ TraCIServer::processSingleSubscription(const Subscription &s, tcpip::Storage &wr
         }
     }
     writeInto.writeUnsignedByte(0); // command length -> extended
-    writeInto.writeInt((1+4) + 1 + (4 + s.id.length()) + 1 + outputStorage.size());
+    writeInto.writeInt((1+4) + 1 + (4 + (int)(s.id.length())) + 1 + (int)outputStorage.size());
     writeInto.writeUnsignedByte(s.commandId + 0x10);
     writeInto.writeString(s.id);
-    writeInto.writeUnsignedByte(s.variables.size());
+    writeInto.writeUnsignedByte((int)(s.variables.size()));
     writeInto.writeStorage(outputStorage);
     return ok;
 }
