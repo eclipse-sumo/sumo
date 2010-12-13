@@ -91,7 +91,7 @@ NBNode::ApproachingDivider::~ApproachingDivider() throw() {}
 
 
 void
-NBNode::ApproachingDivider::execute(int src, int dest) throw() {
+NBNode::ApproachingDivider::execute(const int src, const int dest) throw() {
     assert(myApproaching->size()>src);
     // get the origin edge
     NBEdge *incomingEdge = (*myApproaching)[src];

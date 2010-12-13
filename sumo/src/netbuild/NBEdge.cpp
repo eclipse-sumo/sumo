@@ -61,7 +61,7 @@
  * NBEdge::ToEdgeConnectionsAdder-methods
  * ----------------------------------------------------------------------- */
 void
-NBEdge::ToEdgeConnectionsAdder::execute(int lane, int virtEdge) throw() {
+NBEdge::ToEdgeConnectionsAdder::execute(const int lane, const int virtEdge) throw() {
     // check
     assert(virtEdge>=0);
     assert((unsigned int) myTransitions.size()>(unsigned int) virtEdge);

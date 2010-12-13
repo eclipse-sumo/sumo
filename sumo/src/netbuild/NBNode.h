@@ -101,7 +101,7 @@ public:
         ~ApproachingDivider() throw();
 
         /** the bresenham-callback */
-        void execute(int src, int dest) throw();
+        void execute(const int src, const int dest) throw();
 
         /** the method that spreads the wished number of lanes from the
             the lane given by the bresenham-call to both left and right */
