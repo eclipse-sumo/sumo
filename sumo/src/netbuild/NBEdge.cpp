@@ -61,13 +61,11 @@
  * NBEdge::ToEdgeConnectionsAdder-methods
  * ----------------------------------------------------------------------- */
 void
-NBEdge::ToEdgeConnectionsAdder::execute(const int lane, const int virtEdge) throw() {
+NBEdge::ToEdgeConnectionsAdder::execute(const unsigned int lane, const unsigned int virtEdge) throw() {
     // check
-    assert(virtEdge>=0);
-    assert((unsigned int) myTransitions.size()>(unsigned int) virtEdge);
-    assert(lane>=0&&lane<10);
+    assert(myTransitions.size() > virtEdge);
     // get the approached edge
-    NBEdge *succEdge = myTransitions[(int) virtEdge];
+    NBEdge *succEdge = myTransitions[virtEdge];
     std::vector<unsigned int> lanes;
 
     // check whether the currently regarded, approached edge has already
@@ -80,10 +78,10 @@ NBEdge::ToEdgeConnectionsAdder::execute(const int lane, const int virtEdge) thro
 
     // check whether the current lane was already used to connect the currently
     //  regarded approached edge
-    std::vector<unsigned int>::iterator j=find(lanes.begin(), lanes.end(), (unsigned int) lane);
+    std::vector<unsigned int>::iterator j=find(lanes.begin(), lanes.end(), lane);
     if (j==lanes.end()) {
         // if not, add it to the list
-        lanes.push_back((unsigned int) lane);
+        lanes.push_back(lane);
     }
     // set information about connecting lanes
     myConnections[succEdge] = lanes;
@@ -1206,7 +1204,7 @@ NBEdge::divideOnEdges(const std::vector<NBEdge*> *outgoing) {
     // assign lanes to edges
     //  (conversion from virtual to real edges is done)
     ToEdgeConnectionsAdder adder(transition);
-    Bresenham::compute(&adder, (SUMOReal) myLanes.size(), (SUMOReal) noVirtual);
+    Bresenham::compute(&adder, myLanes.size(), noVirtual);
     const std::map<NBEdge*, std::vector<unsigned int> > &l2eConns = adder.getBuiltConnections();
     myConnections.clear();
     for (std::map<NBEdge*, std::vector<unsigned int> >::const_iterator i=l2eConns.begin(); i!=l2eConns.end(); ++i) {

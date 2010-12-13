@@ -91,7 +91,7 @@ NBNode::ApproachingDivider::~ApproachingDivider() throw() {}
 
 
 void
-NBNode::ApproachingDivider::execute(const int src, const int dest) throw() {
+NBNode::ApproachingDivider::execute(const unsigned int src, const unsigned int dest) throw() {
     assert(myApproaching->size()>src);
     // get the origin edge
     NBEdge *incomingEdge = (*myApproaching)[src];
@@ -147,7 +147,7 @@ NBNode::ApproachingDivider::spread(const std::vector<int> &approachingLanes,
         //
         // check whether the left boundary of the approached street has
         //  been overridden; if so, move all lanes to the right
-        if (((size_t) dest+loffset)>=noOutgoingLanes) {
+        if (dest+loffset >= noOutgoingLanes) {
             loffset -= 1;
             roffset += 1;
             for (unsigned int i=0; i<ret->size(); i++) {
@@ -168,7 +168,7 @@ NBNode::ApproachingDivider::spread(const std::vector<int> &approachingLanes,
         if (noSet<noLanes) {
             // check whether the right boundary of the approached street has
             //  been overridden; if so, move all lanes to the right
-            if (((size_t) dest-roffset)<0) {
+            if (dest < roffset) {
                 loffset += 1;
                 roffset -= 1;
                 for (unsigned int i=0; i<ret->size(); i++) {
@@ -1271,8 +1271,8 @@ NBNode::computeLanes2Lanes() {
         std::vector<NBEdge*> *approaching = getEdgesThatApproach(currentOutgoing);
         if (approaching->size()!=0) {
             ApproachingDivider divider(approaching, currentOutgoing);
-            Bresenham::compute(&divider, (SUMOReal) approaching->size(),
-                               (SUMOReal) currentOutgoing->getNoLanes());
+            Bresenham::compute(&divider, approaching->size(),
+                               currentOutgoing->getNoLanes());
         }
         delete approaching;
     }
