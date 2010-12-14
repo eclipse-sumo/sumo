@@ -449,8 +449,8 @@ public:
     bool isLinkEnd(MSLinkCont::iterator &i);
 
     /// returns the last vehicle
-    virtual MSVehicle * const getLastVehicle() const;
-    virtual const MSVehicle * const getFirstVehicle() const;
+    virtual MSVehicle* getLastVehicle() const;
+    virtual const MSVehicle* getFirstVehicle() const;
 
     void init(MSEdgeControl &, std::vector<MSLane*>::const_iterator firstNeigh, std::vector<MSLane*>::const_iterator lastNeigh);
 
@@ -470,8 +470,8 @@ public:
     void enteredByLaneChange(MSVehicle *v);
 
 
-    MSLane * const getLeftLane() const;
-    MSLane * const getRightLane() const;
+    MSLane* getLeftLane() const;
+    MSLane* getRightLane() const;
 
     void setAllowedClasses(const std::vector<SUMOVehicleClass> &classes) throw() {
         myAllowedClasses = classes;
@@ -511,7 +511,7 @@ public:
     std::pair<MSVehicle * const, SUMOReal> getLeaderOnConsecutive(SUMOReal dist, SUMOReal seen,
             SUMOReal leaderSpeed, const MSVehicle &veh, const std::vector<MSLane*> &bestLaneConts) const;
 
-    MSLane * const getLogicalPredecessorLane() const throw();
+    MSLane* getLogicalPredecessorLane() const throw();
 
 
     /// @name Current state retrieval

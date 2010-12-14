@@ -204,7 +204,7 @@ MSLink::getLane() const throw() {
 
 
 #ifdef HAVE_INTERNAL_LANES
-MSLane * const
+MSLane*
 MSLink::getViaLane() const throw() {
     return myJunctionInlane;
 }

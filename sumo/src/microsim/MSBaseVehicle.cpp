@@ -139,7 +139,7 @@ MSBaseVehicle::succEdge(unsigned int nSuccs) const throw() {
 }
 
 
-const MSEdge * const
+const MSEdge*
 MSBaseVehicle::getEdge() const {
     return *myCurrEdge;
 }

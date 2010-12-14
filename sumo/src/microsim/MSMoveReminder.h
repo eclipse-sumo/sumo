@@ -80,7 +80,7 @@ public:
      *
      * @return The lane the reminder works on.
      */
-    const MSLane* const getLane() const throw() {
+    const MSLane* getLane() const throw() {
         return myLane;
     }
 

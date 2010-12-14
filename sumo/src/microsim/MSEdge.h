@@ -130,7 +130,7 @@ public:
      * @return The lane left to the given, 0 if no such lane exists
      * @todo This method searches for the given in the container; probably, this could be done faster
      */
-    MSLane * const leftLane(const MSLane * const lane) const throw();
+    MSLane* leftLane(const MSLane * const lane) const throw();
 
 
     /** @brief Returns the lane right to the one given, 0 if the given lane is rightmost
@@ -139,7 +139,7 @@ public:
      * @return The lane right to the given, 0 if no such lane exists
      * @todo This method searches for the given in the container; probably, this could be done faster
      */
-    MSLane * const rightLane(const MSLane* const lane) const throw();
+    MSLane* rightLane(const MSLane* const lane) const throw();
 
 
     /** @brief Returns this edge's lanes
@@ -235,7 +235,7 @@ public:
      * @param[in] n The index within following edges of the edge to return
      * @return The n-th of the following edges
      */
-    const MSEdge * const getFollower(unsigned int n) const throw() {
+    const MSEdge* getFollower(unsigned int n) const throw() {
         return mySuccessors[n];
     }
     /// @}

@@ -279,7 +279,7 @@ public:
      *
      * @return The inner lane to use to cross the junction
      */
-    MSLane * const getViaLane() const throw();
+    MSLane* getViaLane() const throw();
 #endif
 
 private:

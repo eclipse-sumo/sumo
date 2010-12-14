@@ -129,7 +129,7 @@ public:
      *
      * @return The current edge in the vehicle's route
      */
-    virtual const MSEdge * const getEdge() const = 0;
+    virtual const MSEdge * getEdge() const = 0;
 
     /** @brief Returns the vehicle's parameter (including departure definition)
      *

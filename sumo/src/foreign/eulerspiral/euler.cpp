@@ -28,104 +28,10 @@ EulerSpiralLookupTable* EulerSpiralLookupTable::get_globalEulerSpiralLookupTable
 
 EulerSpiralLookupTable::EulerSpiralLookupTable()
 {
-/*
-  int i,j;
-
-  //read in the tables from data files if available
-  vcl_ifstream fp_k0_in("ES_k0.dat", vcl_ios::in | vcl_ios::binary);
-  vcl_ifstream fp_gamma_in("ES_gamma.dat", vcl_ios::in | vcl_ios::binary);
-  vcl_ifstream fp_L_in("ES_L.dat", vcl_ios::in | vcl_ios::binary);
-
-  //This number is the first entry in the file
-  fp_k0_in.read ((char*)&NN, sizeof (NN));
-  fp_gamma_in.read ((char*)&NN, sizeof (NN));
-  fp_L_in.read ((char*)&NN, sizeof (NN));
-
-  //COUT << "Number of theta samples " << NN <<endl;
-  
-  //initialize the tables to this size
-  ES_k0 = new double*[NN];
-  for (i=0; i<NN; i++)
-    ES_k0[i] = new double [NN];
-
-  ES_k1 = new double*[NN];
-  for (i=0; i<NN; i++)
-    ES_k1[i] = new double [NN];
-
-  ES_gamma = new double*[NN];
-  for (i=0; i<NN; i++)
-    ES_gamma[i] = new double [NN];
-
-  ES_L = new double*[NN];
-  for (i=0; i<NN; i++)
-    ES_L[i] = new double [NN];
-
-  //compute the dtt
-  _dt = 2*M_PI/NN;
-
-  //create and fill in the theta array
-  _theta = new double [NN];
-  double t1 = -M_PI;
-  for (i=0; i<NN; i++, t1+=_dt)
-    _theta[i] = t1;
-
-  //now read the files to fill in the lookup tables
-  for (i=0; i<NN; i++){
-    for (j=0; j<NN; j++){
-      
-      double k0, k1, gamma, L;
-
-      fp_k0_in.read ((char*)&k0, sizeof (k0));
-      fp_gamma_in.read ((char*)&gamma, sizeof (gamma));
-      fp_L_in.read ((char*)&L, sizeof (L));
-      k1 = k0 + gamma*L;
-
-      //store these in the array
-      ES_k0[i][j] = k0;
-      ES_k1[i][j] = k1;
-      ES_gamma[i][j] = gamma;
-      ES_L[i][j] = L;
-    }
-  }
-
-  fp_k0_in.close();
-  fp_gamma_in.close();
-  fp_L_in.close();
-  */
 }
 
 EulerSpiralLookupTable::~EulerSpiralLookupTable()
 {
-  int i;
-/*
-  //delete the arrays
-  if (ES_k0) {
-    for (i=0; i<=NN; i++)
-      delete []ES_k0[i];
-    delete []ES_k0;
-  }
-  ES_k0 = NULL;
-  if (ES_k1) {
-    for (i=0; i<=NN; i++)
-      delete []ES_k1[i];
-    delete []ES_k1;
-  }
-  ES_k1 = NULL;
-  if (ES_gamma) {
-    for (i=0; i<=NN; i++)
-      delete []ES_gamma[i];
-    delete []ES_gamma;
-  }
-  ES_gamma = NULL;
-  if (ES_L) {
-    for (i=0; i<=NN; i++)
-      delete []ES_L[i];
-    delete []ES_L;
-  }
-  ES_L = NULL;
-
-  delete []_theta;
-  */
 }
 
 //delta theta values for the table (tells you about the accuracy of the lookup)
@@ -160,9 +66,7 @@ double EulerSpiralLookupTable::k0(double start_angle, double end_angle)
   jhigh = (int)ceil((eangle+M_PI)/_dt);
 
   double slow = _theta[ilow];
-  double shigh = _theta[ihigh];
   double elow = _theta[jlow];
-  double ehigh = _theta[jhigh];
 
   double a = (sangle - slow)/_dt;
   double b = (eangle - elow)/_dt;
@@ -196,9 +100,7 @@ double EulerSpiralLookupTable::k1(double start_angle, double end_angle)
   jhigh = (int)ceil((eangle+M_PI)/_dt);
 
   double slow = _theta[ilow];
-  double shigh = _theta[ihigh];
   double elow = _theta[jlow];
-  double ehigh = _theta[jhigh];
 
   double a = (sangle - slow)/_dt;
   double b = (eangle - elow)/_dt;
@@ -232,9 +134,7 @@ double EulerSpiralLookupTable::gamma(double start_angle, double end_angle)
   jhigh = (int)ceil((eangle+M_PI)/_dt);
 
   double slow = _theta[ilow];
-  double shigh = _theta[ihigh];
   double elow = _theta[jlow];
-  double ehigh = _theta[jhigh];
 
   double a = (sangle - slow)/_dt;
   double b = (eangle - elow)/_dt;
@@ -268,9 +168,7 @@ double EulerSpiralLookupTable::L(double start_angle, double end_angle)
   jhigh = (int)ceil((eangle+M_PI)/_dt);
 
   double slow = _theta[ilow];
-  double shigh = _theta[ihigh];
   double elow = _theta[jlow];
-  double ehigh = _theta[jhigh];
 
   double a = (sangle - slow)/_dt;
   double b = (eangle - elow)/_dt;
@@ -574,38 +472,4 @@ Point2D<double> EulerSpiral::get_fresnel_integral(double x)
 
   return result;
 }
-
-// write Euler Spiral parameters to file
-/*
-void EulerSpiral::write_es_info_to_file(vcl_ofstream & fp){
-/*
-Point2D<double> start_pt;
-  Point2D<double> end_pt;
-
-  double start_angle;
-  double end_angle;
-  double K0;
-  double K2;
-  double gamma;
-  double L;
-  double turningAngle;
-  double error;
-  double psi;
-/
-
-  fp << "start_pt: = ( " << (params.start_pt).getX() << 
-    " , " << (params.start_pt).getY()<< " )" << vcl_endl;
-  fp << "start_angle = " << params.start_angle << vcl_endl;
-  fp << "end_pt = ( " << (params.end_pt).getX() << 
-    " , " << (params.end_pt).getY()<< " )" << vcl_endl;
-  fp << "end_angle = " << params.end_angle << vcl_endl;
-  fp << "K0 = " << params.K0 << vcl_endl;
-  fp << "K2 = " << params.K2 << vcl_endl;
-  fp << "gamma = " << params.gamma << vcl_endl;
-  fp << "L = " << params.L << vcl_endl;
-  fp << "turningAngle = " << params.turningAngle << vcl_endl;
-  fp << "error = " << params.error << vcl_endl;
-  fp << "psi = " << params.psi << vcl_endl;
-}
-*/
 

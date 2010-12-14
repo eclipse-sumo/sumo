@@ -162,8 +162,8 @@ void BiArc::compute_other_stuff(void)
     params.R2 = HUGE;
   }
 
-  params.dir1 = params.K1<0 ? -1. : 1.;//sign(params.K1); //CCW=+1
-  params.dir2 = params.K2<0 ? -1. : 1.;//sign(params.K2);
+  params.dir1 = params.K1<0 ? -1 : 1;//sign(params.K1); //CCW=+1
+  params.dir2 = params.K2<0 ? -1 : 1;//sign(params.K2);
 }
 
 /* ---------------- BiArc support Functions --------------------- */

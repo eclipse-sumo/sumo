@@ -164,7 +164,7 @@ MSEdge::rebuildAllowedLanes() throw() {
 
 
 // ------------ Access to the edge's lanes
-MSLane * const
+MSLane*
 MSEdge::leftLane(const MSLane * const lane) const throw() {
     std::vector<MSLane*>::iterator laneIt = find(myLanes->begin(), myLanes->end(), lane);
     if (laneIt==myLanes->end()||laneIt==myLanes->end()-1) {
@@ -174,7 +174,7 @@ MSEdge::leftLane(const MSLane * const lane) const throw() {
 }
 
 
-MSLane * const
+MSLane*
 MSEdge::rightLane(const MSLane * const lane) const throw() {
     std::vector<MSLane*>::iterator laneIt = find(myLanes->begin(), myLanes->end(), lane);
     if (laneIt==myLanes->end()||laneIt==myLanes->begin()) {

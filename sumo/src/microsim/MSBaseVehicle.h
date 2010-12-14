@@ -110,7 +110,7 @@ public:
      *
      * @return The current edge in the vehicle's route
      */
-    const MSEdge * const getEdge() const;
+    const MSEdge* getEdge() const;
 
 
     /** @brief Performs a rerouting using the given router

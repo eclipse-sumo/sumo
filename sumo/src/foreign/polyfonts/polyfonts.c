@@ -214,12 +214,12 @@ static void validate(pffont *font)
     printf("fontname is NULL\n");
   }
 
-  printf("fontinfo = %s %f, %f, %f, %f, %d %08x\n",
+  printf("fontinfo = %s %f, %f, %f, %f, %d %p\n",
          font->name,
          font->minx, font->miny,
          font->maxx, font->maxy,
          font->numglyphs,
-         (int)font->glyphs);
+         font->glyphs);
 
   glyph = font->glyphs;
   if (NULL == glyph)
@@ -236,14 +236,14 @@ static void validate(pffont *font)
       printf("glyph[%d].segments = NULL\n", i);
     }
 
-    printf("glyph[%d] = %f, %f, %f, %f, %f, %hu, %hu %08x\n",
+    printf("glyph[%d] = %f, %f, %f, %f, %f, %hu, %hu %p\n",
            i,
            glyph[i].minx, glyph[i].miny,
            glyph[i].maxx, glyph[i].maxy,
            glyph[i].advance,
            glyph[i].glyph,
            glyph[i].numsegments,
-           (int)glyph[i].segments);
+           glyph[i].segments);
   }
 }
 

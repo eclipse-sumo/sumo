@@ -839,10 +839,10 @@ private:
         MSLink *myLink;
         SUMOReal myVLinkPass;
         SUMOReal myVLinkWait;
+        bool mySetRequest;
         SUMOTime myArrivalTime;
         SUMOReal myArrivalSpeed;
         SUMOReal myDistance;
-        bool mySetRequest;
         DriveProcessItem(MSLink *link, SUMOReal vPass, SUMOReal vWait, bool setRequest,
                          SUMOTime arrivalTime, SUMOReal arrivalSpeed, SUMOReal distance) :
                 myLink(link), myVLinkPass(vPass), myVLinkWait(vWait), mySetRequest(setRequest),

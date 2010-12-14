@@ -764,7 +764,7 @@ MSLane::isLinkEnd(MSLinkCont::iterator &i) {
 }
 
 
-MSVehicle * const
+MSVehicle*
     MSLane::getLastVehicle() const {
     if (myVehicles.size()==0) {
         return 0;
@@ -773,7 +773,7 @@ MSVehicle * const
 }
 
 
-const MSVehicle * const
+const MSVehicle*
     MSLane::getFirstVehicle() const {
     if (myVehicles.size()==0) {
         return 0;
@@ -890,13 +890,13 @@ MSLane::removeVehicle(MSVehicle * remVehicle) {
 }
 
 
-MSLane * const
+MSLane*
     MSLane::getLeftLane() const {
     return myEdge->leftLane(this);
 }
 
 
-MSLane * const
+MSLane*
     MSLane::getRightLane() const {
     return myEdge->rightLane(this);
 }
@@ -1079,7 +1079,7 @@ MSLane::getLeaderOnConsecutive(SUMOReal dist, SUMOReal seen, SUMOReal speed, con
 }
 
 
-MSLane * const
+MSLane*
 MSLane::getLogicalPredecessorLane() const throw() {
     if (myLogicalPredecessorLane!=0) {
         return myLogicalPredecessorLane;
