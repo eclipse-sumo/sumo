@@ -207,7 +207,7 @@ LineReader::reinit() throw() {
     myStrm.open(myFileName.c_str(), std::ios::binary);
     myStrm.unsetf(std::ios::skipws);
     myStrm.seekg(0, std::ios::end);
-    myAvailable = myStrm.tellg();
+    myAvailable = static_cast<unsigned int>(myStrm.tellg());
     myStrm.seekg(0, std::ios::beg);
     myRead = 0;
     myRread = 0;

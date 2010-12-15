@@ -144,7 +144,7 @@ MSDevice_Vehroutes::writeXMLRoute(OutputDevice &os, int index) const {
         // write the time at which the route was replaced
         os << "\" replacedAtTime=\"" << time2string(myReplacedRoutes[index].time) << "\" probability=\"0\" edges=\"";
         // get the route
-        unsigned int i = index;
+        int i = index;
         while (i > 0 && myReplacedRoutes[i-1].edge) {
             i--;
         }

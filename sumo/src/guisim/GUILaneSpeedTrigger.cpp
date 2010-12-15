@@ -105,9 +105,10 @@ GUILaneSpeedTrigger::GUIManip_LaneSpeedTrigger::GUIManip_LaneSpeedTrigger(
     const std::string &name, GUILaneSpeedTrigger &o,
     int /*xpos*/, int /*ypos*/)
         : GUIManipulator(app, name, 0, 0),
-        myParent(&app), myChosenValue(0), myChosenTarget(myChosenValue, this, MID_OPTION),
+        myParent(&app), myChosenValue(0), myChosenTarget(myChosenValue, NULL, MID_OPTION),
         mySpeed(o.getDefaultSpeed()), mySpeedTarget(mySpeed),
         myObject(&o) {
+    myChosenTarget.setTarget(this);
     FXVerticalFrame *f1 =
         new FXVerticalFrame(this, LAYOUT_FILL_X|LAYOUT_FILL_Y,0,0,0,0, 0,0,0,0);
 

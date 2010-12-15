@@ -406,7 +406,7 @@ NIImporter_Vissim::readContents(std::istream &strm) {
             }
             if (!parsed) {
                 std::string line;
-                size_t pos;
+                std::streamoff pos;
                 do {
                     pos = strm.tellg();
                     getline(strm, line);

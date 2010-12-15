@@ -147,7 +147,7 @@ NBNode::ApproachingDivider::spread(const std::vector<int> &approachingLanes,
         //
         // check whether the left boundary of the approached street has
         //  been overridden; if so, move all lanes to the right
-        if (dest+loffset >= noOutgoingLanes) {
+        if (dest+loffset >= static_cast<int>(noOutgoingLanes)) {
             loffset -= 1;
             roffset += 1;
             for (unsigned int i=0; i<ret->size(); i++) {
