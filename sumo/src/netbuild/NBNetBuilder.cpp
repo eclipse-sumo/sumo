@@ -56,7 +56,7 @@
 // method definitions
 // ===========================================================================
 NBNetBuilder::NBNetBuilder() throw()
-        : myEdgeCont(*this) {}
+        : myEdgeCont(myTypeCont) {}
 
 
 NBNetBuilder::~NBNetBuilder() throw() {}

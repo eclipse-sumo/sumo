@@ -44,7 +44,7 @@
 // class declarations
 // ===========================================================================
 class NBNodeCont;
-class NBNetBuilder;
+class NBTypeCont;
 class NBEdge;
 class NBNode;
 class OptionsCont;
@@ -65,7 +65,7 @@ public:
     /** @brief Constructor
      * @param[in] tc The net builded; used to obtain types
      */
-    NBEdgeCont(NBNetBuilder &tc) throw();
+    NBEdgeCont(NBTypeCont &tc) throw();
 
 
     /// @brief Destructor
@@ -484,7 +484,7 @@ private:
 
 
     /// @brief The network builder; used to obtain type information
-    NBNetBuilder &myNetBuilder;
+    NBTypeCont &myTypeCont;
 
 
 private:

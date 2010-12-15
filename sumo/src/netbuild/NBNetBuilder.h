@@ -207,14 +207,14 @@ protected:
     };
 
 protected:
-    /// @brief The used container for edges
-    NBEdgeCont myEdgeCont;
-
     /// @brief The used container for nodes
     NBNodeCont myNodeCont;
 
     /// @brief The used container for street types
     NBTypeCont myTypeCont;
+
+    /// @brief The used container for edges
+    NBEdgeCont myEdgeCont;
 
     /// @brief The used container for traffic light logics
     NBTrafficLightLogicCont myTLLCont;

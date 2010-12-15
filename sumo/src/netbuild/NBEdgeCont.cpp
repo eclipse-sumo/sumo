@@ -61,8 +61,8 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-NBEdgeCont::NBEdgeCont(NBNetBuilder &tc) throw()
-        : myNetBuilder(tc), myEdgesSplit(0) {
+NBEdgeCont::NBEdgeCont(NBTypeCont &tc) throw()
+        : myTypeCont(tc), myEdgesSplit(0) {
 }
 
 
@@ -204,7 +204,6 @@ NBEdgeCont::insert(NBEdge *edge, bool ignorePrunning) throw() {
     }
     // check whether the edge is within the prunning boundary
     if (myPrunningBoundary.size()!=0) {
-        Position2D p;
         if (!(edge->getGeometry().getBoxBoundary().grow((SUMOReal) POSITION_EPS).overlapsWith(myPrunningBoundary))) {
             edge->getFromNode()->removeOutgoing(edge);
             edge->getToNode()->removeIncoming(edge);
@@ -212,7 +211,7 @@ NBEdgeCont::insert(NBEdge *edge, bool ignorePrunning) throw() {
             return true;
         }
     }
-    if (myNetBuilder.getTypeCont().knows(edge->getTypeID())&&myNetBuilder.getTypeCont().getShallBeDiscarded(edge->getTypeID())) {
+    if (myTypeCont.knows(edge->getTypeID()) && myTypeCont.getShallBeDiscarded(edge->getTypeID())) {
         edge->getFromNode()->removeOutgoing(edge);
         edge->getToNode()->removeIncoming(edge);
         delete edge;
