@@ -94,6 +94,8 @@ public:
         virtual void addEdgeWeight(const std::string &id,
                                    SUMOReal val, SUMOReal beg, SUMOReal end) const throw() = 0;
 
+    private:
+        EdgeFloatTimeLineRetriever& operator=(const EdgeFloatTimeLineRetriever&); // just to avoid a compiler warning
     };
 
     /**

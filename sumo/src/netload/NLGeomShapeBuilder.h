@@ -140,6 +140,9 @@ protected:
     Position2D getPointPosition(SUMOReal x, SUMOReal y,
                                 const std::string &laneID,  SUMOReal posOnLane) const throw(InvalidArgument);
 
+private:
+    NLGeomShapeBuilder& operator=(const NLGeomShapeBuilder&); // just to avoid a compiler warning
+
 protected:
     /// @name Temporary stored values of the currently parsed polygon
     /// @{

@@ -80,6 +80,9 @@ private:
     /// Builds an action which saves the switch times and states of tls into a file
     void buildSaveTLSwitchStatesCommand(const SUMOSAXAttributes &attrs, const std::string &basePath);
 
+private:
+    NLDiscreteEventBuilder& operator=(const NLDiscreteEventBuilder&); // just to avoid a compiler warning
+
 protected:
     /// Definitions of a storage for build actions
     typedef std::map<std::string, ActionType> KnownActions;
