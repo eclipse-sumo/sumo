@@ -66,7 +66,7 @@ public:
      *
      * @return The vehicle that departs most early
      */
-    const ROVehicle * const getTopVehicle() const throw();
+    const ROVehicle* getTopVehicle() const throw();
 
 
     /** @brief Adds a vehicle to the container

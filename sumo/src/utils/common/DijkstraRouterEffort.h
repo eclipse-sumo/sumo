@@ -81,7 +81,7 @@ public:
     class EdgeInfo {
     public:
         /// Constructor
-        EdgeInfo() : edge(0), effort(0), leaveTime(0), prev(0) {}
+        EdgeInfo() : edge(0), effort(0), leaveTime(0), prev(0), visited(false) {}
 
         /// Constructor
         EdgeInfo(size_t id)
@@ -93,11 +93,11 @@ public:
         /// Effort to reach the edge
         SUMOReal effort;
 
-        /// The previous edge
-        EdgeInfo *prev;
-
         /// The time the vehicle leaves the edge
         SUMOReal leaveTime;
+
+        /// The previous edge
+        EdgeInfo *prev;
 
         /// The previous edge
         bool visited;

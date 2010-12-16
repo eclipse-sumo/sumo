@@ -211,6 +211,8 @@ GUISettingsHandler::myStartElement(SumoXMLTag element,
         myDecals.push_back(d);
     }
     break;
+    default:
+        break;
     }
 }
 

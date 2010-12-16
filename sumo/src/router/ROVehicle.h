@@ -78,7 +78,7 @@ public:
      *
      * @todo Why not return a reference?
      */
-    RORouteDef * const getRouteDefinition() const throw() {
+    RORouteDef* getRouteDefinition() const throw() {
         return myRoute;
     }
 
@@ -89,7 +89,7 @@ public:
      *
      * @todo Why not return a reference?
      */
-    const SUMOVTypeParameter * const getType() const throw() {
+    const SUMOVTypeParameter* getType() const throw() {
         return myType;
     }
 

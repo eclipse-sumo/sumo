@@ -260,7 +260,7 @@ public:
     /** @brief Returns the origin node of the edge
      * @return The node this edge starts at
      */
-    NBNode * const getFromNode() const throw() {
+    NBNode* getFromNode() const throw() {
         return myFrom;
     }
 
@@ -268,7 +268,7 @@ public:
     /** @brief Returns the destination node of the edge
      * @return The node this edge ends at
      */
-    NBNode * const getToNode() const throw() {
+    NBNode* getToNode() const throw() {
         return myTo;
     }
 

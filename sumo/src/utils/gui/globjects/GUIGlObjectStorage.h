@@ -138,7 +138,7 @@ public:
     /** @brief Returns the network object
      * @return The network object
      */
-    GUIGlObject * const getNetObject() const throw() {
+    GUIGlObject* getNetObject() const throw() {
         return myNetObject;
     }
 
@@ -149,7 +149,7 @@ public:
 
 private:
     /// @brief Definition of a container from numerical ids to objects
-    typedef std::map<size_t, GUIGlObject *> ObjectMap;
+    typedef std::map<GLuint, GUIGlObject *> ObjectMap;
 
     /// @brief The known objects which are not accessed currently
     ObjectMap myMap;

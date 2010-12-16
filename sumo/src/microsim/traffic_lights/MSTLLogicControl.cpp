@@ -566,7 +566,7 @@ MSTLLogicControl::get(const std::string &id) const throw(InvalidArgument) {
 }
 
 
-MSTrafficLightLogic * const
+MSTrafficLightLogic*
     MSTLLogicControl::get(const std::string &id, const std::string &programID) const throw() {
     std::map<std::string, TLSLogicVariants*>::const_iterator i = myLogics.find(id);
     if (i==myLogics.end()) {
@@ -630,7 +630,7 @@ MSTLLogicControl::isActive(const MSTrafficLightLogic *tl) const throw() {
 }
 
 
-MSTrafficLightLogic * const
+MSTrafficLightLogic*
     MSTLLogicControl::getActive(const std::string &id) const throw() {
     std::map<std::string, TLSLogicVariants*>::const_iterator i = myLogics.find(id);
     if (i==myLogics.end()) {

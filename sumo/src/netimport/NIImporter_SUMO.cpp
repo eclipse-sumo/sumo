@@ -174,6 +174,8 @@ NIImporter_SUMO::myStartElement(SumoXMLTag element,
     case SUMO_TAG_SUCCLANE:
         addSuccLane(attrs);
         break;
+    default:
+        break;
     }
 }
 
@@ -188,6 +190,8 @@ NIImporter_SUMO::myCharacters(SumoXMLTag element,
             bool ok = true;
             myCurrentLane->shape = GeomConvHelper::parseShapeReporting(chars, "lane", 0, ok, false);
         }
+        break;
+    default:
         break;
     }
 }
@@ -211,6 +215,8 @@ NIImporter_SUMO::myEndElement(SumoXMLTag element) throw(ProcessError) {
             myCurrentEdge->lanes.push_back(myCurrentLane);
         }
         myCurrentLane = 0;
+        break;
+    default:
         break;
     }
 }

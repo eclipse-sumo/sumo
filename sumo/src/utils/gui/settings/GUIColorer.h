@@ -89,7 +89,7 @@ public:
         }
     }
 
-    const size_t getActive() const {
+    size_t getActive() const {
         return myActiveScheme;
     }
 

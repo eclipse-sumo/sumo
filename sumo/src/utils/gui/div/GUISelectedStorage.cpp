@@ -321,8 +321,9 @@ GUISelectedStorage::getSelected(GUIGlObjectType type) const throw(ProcessError) 
         return mySelectedTriggers.getSelected();
     case GLO_SHAPE:
         return mySelectedShapes.getSelected();
+    default:
+        throw ProcessError("Unkown object type in GUISelectedStorage::getSelected (type=" + toString(type) + ").");
     }
-    throw ProcessError("Unkown object type in GUISelectedStorage::getSelected (type=" + toString(type) + ").");
 }
 
 

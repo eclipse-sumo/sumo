@@ -131,7 +131,7 @@ GUIDialog_GLChosenEditor::rebuildList() throw() {
         if (object!=0) {
             std::string name = object->getFullName();
             FXListItem *item = myList->getItem(myList->appendItem(name.c_str()));
-            item->setData((void*) *i);
+            item->setData(object);
             GUIGlObjectStorage::gIDStorage.unblockObject(*i);
         }
     }
@@ -184,7 +184,7 @@ GUIDialog_GLChosenEditor::onCmdDeselect(FXObject*,FXSelector,void*) {
     std::vector<GLuint> selected;
     for (i=0; i<no; ++i) {
         if (myList->getItem(i)->isSelected()) {
-            selected.push_back((GLuint)(FXuval) myList->getItem(i)->getData());
+            selected.push_back(static_cast<GUIGlObject *>(myList->getItem(i)->getData())->getGlID());
         }
     }
     // remove items from list

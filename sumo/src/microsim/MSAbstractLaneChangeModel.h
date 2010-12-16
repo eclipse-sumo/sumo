@@ -208,13 +208,13 @@ protected:
 
 protected:
     MSVehicle &myVehicle;
-
-    /// @brief The vehicle's car following model
-    const MSCFModel &myCarFollowModel;
     int myState;
 #ifndef NO_TRACI
     ChangeRequest myChangeRequest;
 #endif
+
+    /// @brief The vehicle's car following model
+    const MSCFModel &myCarFollowModel;
 };
 
 

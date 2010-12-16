@@ -160,7 +160,7 @@ public:
      *
      * @return This route's color
      */
-    const RGBColor * const getColor() const throw() {
+    const RGBColor* getColor() const throw() {
         return myColor;
     }
 

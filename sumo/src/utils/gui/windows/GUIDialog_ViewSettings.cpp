@@ -649,7 +649,7 @@ GUIDialog_ViewSettings::onCmdColorChange(FXObject*sender,FXSelector,void* /*val*
 
     tmpSettings.name = mySettings->name;
     tmpSettings.backgroundColor = convert(myBackgroundColor->getRGBA());
-    tmpSettings.showGrid = myShowGrid->getCheck()!=0;
+    tmpSettings.showGrid = (myShowGrid->getCheck() != FALSE);
     tmpSettings.gridXSize = (SUMOReal) myGridXSizeDialer->getValue();
     tmpSettings.gridYSize = (SUMOReal) myGridYSizeDialer->getValue();
 
@@ -662,51 +662,51 @@ GUIDialog_ViewSettings::onCmdColorChange(FXObject*sender,FXSelector,void* /*val*
 #ifdef HAVE_MESOSIM
     }
 #endif
-    tmpSettings.laneShowBorders = myShowLaneBorders->getCheck()!=0;
-    tmpSettings.showLinkDecals = myShowLaneDecals->getCheck()!=0;
-    tmpSettings.showRails = myShowRails->getCheck()!=0;
-    tmpSettings.drawEdgeName = myShowEdgeName->getCheck()!=0;
+    tmpSettings.laneShowBorders = (myShowLaneBorders->getCheck() != FALSE);
+    tmpSettings.showLinkDecals = (myShowLaneDecals->getCheck() != FALSE);
+    tmpSettings.showRails = (myShowRails->getCheck() != FALSE);
+    tmpSettings.drawEdgeName = (myShowEdgeName->getCheck() != FALSE);
     tmpSettings.edgeNameSize = (SUMOReal) myEdgeNameSizeDialer->getValue();
     tmpSettings.edgeNameColor = convert(myEdgeNameColor->getRGBA());
-    tmpSettings.drawInternalEdgeName = myShowInternalEdgeName->getCheck()!=0;
+    tmpSettings.drawInternalEdgeName = (myShowInternalEdgeName->getCheck() != FALSE);
     tmpSettings.internalEdgeNameSize = (SUMOReal) myInternalEdgeNameSizeDialer->getValue();
     tmpSettings.internalEdgeNameColor = convert(myInternalEdgeNameColor->getRGBA());
-    tmpSettings.hideConnectors = myHideMacroConnectors->getCheck()!=0;
+    tmpSettings.hideConnectors = (myHideMacroConnectors->getCheck() != FALSE);
 
     tmpSettings.vehicleColorer.setActive(myVehicleColorMode->getCurrentItem());
     tmpSettings.vehicleQuality = myVehicleShapeDetail->getCurrentItem();
     tmpSettings.vehicleExaggeration = (SUMOReal) myVehicleUpscaleDialer->getValue();
     tmpSettings.minVehicleSize = (SUMOReal) myVehicleMinSizeDialer->getValue();
-    tmpSettings.showBlinker = myShowBlinker->getCheck()!=0;
+    tmpSettings.showBlinker = (myShowBlinker->getCheck() != FALSE);
     /*
-    tmpSettings.drawLaneChangePreference = myShowLaneChangePreference->getCheck()!=0;
+    tmpSettings.drawLaneChangePreference = (myShowLaneChangePreference->getCheck() != FALSE);
     */
-    tmpSettings.drawVehicleName = myShowVehicleName->getCheck()!=0;
+    tmpSettings.drawVehicleName = (myShowVehicleName->getCheck() != FALSE);
     tmpSettings.vehicleNameSize = (SUMOReal) myVehicleNameSizeDialer->getValue();
     tmpSettings.vehicleNameColor = convert(myVehicleNameColor->getRGBA());
 
-    tmpSettings.drawLinkTLIndex = myShowTLIndex->getCheck()!=0;
-    tmpSettings.drawLinkJunctionIndex = myShowJunctionIndex->getCheck()!=0;
-    tmpSettings.drawJunctionName = myShowJunctionName->getCheck()!=0;
+    tmpSettings.drawLinkTLIndex = (myShowTLIndex->getCheck() != FALSE);
+    tmpSettings.drawLinkJunctionIndex = (myShowJunctionIndex->getCheck() != FALSE);
+    tmpSettings.drawJunctionName = (myShowJunctionName->getCheck() != FALSE);
     tmpSettings.junctionNameSize = (SUMOReal) myJunctionNameSizeDialer->getValue();
     tmpSettings.junctionNameColor = convert(myJunctionNameColor->getRGBA());
 
     tmpSettings.addExaggeration = (SUMOReal) myDetectorUpscaleDialer->getValue();
     tmpSettings.minAddSize = (SUMOReal) myDetectorMinSizeDialer->getValue();
-    tmpSettings.drawAddName = myShowAddName->getCheck()!=0;
+    tmpSettings.drawAddName = (myShowAddName->getCheck() != FALSE);
     tmpSettings.addNameSize = (SUMOReal) myAddNameSizeDialer->getValue();
     //mySettings->addNameColor = convert(myDetectorNameColor->getRGBA());
 
     tmpSettings.poiExaggeration = (SUMOReal) myPOIUpscaleDialer->getValue();
     tmpSettings.minPOISize = (SUMOReal) myPOIMinSizeDialer->getValue();
-    tmpSettings.drawPOIName = myShowPOIName->getCheck()!=0;
+    tmpSettings.drawPOIName = (myShowPOIName->getCheck() != FALSE);
     tmpSettings.poiNameSize = (SUMOReal) myPOINameSizeDialer->getValue();
     tmpSettings.poiNameColor = convert(myPOINameColor->getRGBA());
 
-    tmpSettings.showLane2Lane = myShowLane2Lane->getCheck()!=0;
-    tmpSettings.antialiase = myAntialiase->getCheck()!=0;
-    tmpSettings.dither = myDither->getCheck()!=0;
-    tmpSettings.showSizeLegend = myShowSizeLegend->getCheck()!=0;
+    tmpSettings.showLane2Lane = (myShowLane2Lane->getCheck() != FALSE);
+    tmpSettings.antialiase = (myAntialiase->getCheck() != FALSE);
+    tmpSettings.dither = (myDither->getCheck() != FALSE);
+    tmpSettings.showSizeLegend = (myShowSizeLegend->getCheck() != FALSE);
 
     // lanes
     if (tmpSettings.getLaneEdgeMode()==prevLaneMode) {
@@ -758,7 +758,7 @@ GUIDialog_ViewSettings::onCmdColorChange(FXObject*sender,FXSelector,void* /*val*
             pos++;
         }
         if (sender == myLaneColorInterpolation) {
-            scheme.setInterpolated(myLaneColorInterpolation->getCheck());
+            scheme.setInterpolated(myLaneColorInterpolation->getCheck() != FALSE);
             doRebuildColorMatrices = true;
         }
     } else {
@@ -814,7 +814,7 @@ GUIDialog_ViewSettings::onCmdColorChange(FXObject*sender,FXSelector,void* /*val*
             pos++;
         }
         if (sender == myVehicleColorInterpolation) {
-            scheme.setInterpolated(myVehicleColorInterpolation->getCheck());
+            scheme.setInterpolated(myVehicleColorInterpolation->getCheck() != FALSE);
             doRebuildColorMatrices = true;
         }
     } else {
@@ -1199,7 +1199,7 @@ GUIDialog_ViewSettings::rebuildColorMatrices(bool doCreate) throw() {
         } else {
             if (colors.size() > 1) {
                 myLaneColorInterpolation->enable();
-                if (myLaneColorInterpolation->getCheck()) {
+                if (myLaneColorInterpolation->getCheck() != FALSE) {
                     myLaneThresholds.front()->enable();
                 } else {
                     myLaneThresholds.front()->disable();
@@ -1257,7 +1257,7 @@ GUIDialog_ViewSettings::rebuildColorMatrices(bool doCreate) throw() {
         } else {
             if (colors.size() > 1) {
                 myVehicleColorInterpolation->enable();
-                if (myVehicleColorInterpolation->getCheck()) {
+                if (myVehicleColorInterpolation->getCheck() != FALSE) {
                     myVehicleThresholds.front()->enable();
                 } else {
                     myVehicleThresholds.front()->disable();

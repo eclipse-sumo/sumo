@@ -48,7 +48,7 @@ ROVehicleCont::ROVehicleCont() throw() {}
 ROVehicleCont::~ROVehicleCont() throw() {}
 
 
-const ROVehicle * const
+const ROVehicle*
 ROVehicleCont::getTopVehicle() const throw() {
     if (size()==0) {
         return 0;

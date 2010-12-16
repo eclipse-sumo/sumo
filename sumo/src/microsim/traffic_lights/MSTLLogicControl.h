@@ -208,7 +208,7 @@ public:
      * @param[in] programID The program id of the tls program to get
      * @return The defined tls program if existing, 0 otherwise
      */
-    MSTrafficLightLogic * const get(const std::string &id, const std::string &programID) const throw();
+    MSTrafficLightLogic* get(const std::string &id, const std::string &programID) const throw();
 
 
     /** @brief Returns the active program of a named tls
@@ -216,7 +216,7 @@ public:
      * @param[in] id The id of the tls to get the active program of
      * @return The current program of the defined tls if existing, 0 otherwise
      */
-    MSTrafficLightLogic * const getActive(const std::string &id) const throw();
+    MSTrafficLightLogic* getActive(const std::string &id) const throw();
 
 
     /**

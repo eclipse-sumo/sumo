@@ -52,10 +52,10 @@ public:
 
     virtual ~GUIGlChildWindow();
 
-    virtual FXGLCanvas *getBuildGLCanvas() const;
+    virtual FXGLCanvas* getBuildGLCanvas() const;
     virtual void create();
 
-    GUISUMOAbstractView * const getView() const throw() {
+    GUISUMOAbstractView* getView() const throw() {
         return myView;
     }
 

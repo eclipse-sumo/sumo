@@ -918,7 +918,7 @@ TraCIServer::commandScenario() throw(TraCIException) {
     std::string warning = "";	// additional description for response
 
     // read/write flag
-    bool isWriteCommand = static_cast<bool>(myInputStorage.readUnsignedByte());
+    bool isWriteCommand = (myInputStorage.readUnsignedByte() != 0);
 
     // domain
     int domain = myInputStorage.readUnsignedByte();

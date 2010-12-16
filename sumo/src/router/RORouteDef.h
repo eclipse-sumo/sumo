@@ -89,7 +89,7 @@ public:
     virtual RORouteDef *copy(const std::string &id) const = 0;
 
     /// Returns the color of the route
-    const RGBColor * const getColor() const {
+    const RGBColor* getColor() const {
         return myColor;
     }
 
@@ -107,7 +107,7 @@ public:
             bool asAlternatives, bool withExitTimes) const = 0;
 
 protected:
-    const RGBColor * const copyColorIfGiven() const throw();
+    const RGBColor* copyColorIfGiven() const throw();
 
 protected:
     /// The color the route shall have

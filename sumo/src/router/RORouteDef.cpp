@@ -59,7 +59,7 @@ RORouteDef::~RORouteDef() throw() {
 }
 
 
-const RGBColor * const
+const RGBColor*
 RORouteDef::copyColorIfGiven() const throw() {
     if (myColor==0) {
         return 0;

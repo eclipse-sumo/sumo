@@ -140,7 +140,7 @@ public:
         return myThresholds;
     }
 
-    const bool isInterpolated() const {
+    bool isInterpolated() const {
         return myIsInterpolated;
     }
 
@@ -148,7 +148,7 @@ public:
         return myNames;
     }
 
-    const bool isFixed() const {
+    bool isFixed() const {
         return myIsFixed;
     }
 
