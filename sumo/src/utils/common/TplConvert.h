@@ -310,7 +310,9 @@ public:
             return 0;
         }
         unsigned i = 0;
-        for (; data[i]!=0; i++);
+        while (data[i]!=0) {
+            i++;
+        }
         return i;
     }
 

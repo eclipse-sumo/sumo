@@ -318,7 +318,7 @@ protected:
         }
 
     private:
-        by_vehicle_position_sorter& operator=(const by_vehicle_position_sorter&) {} // just to avoid a compiler warning
+        by_vehicle_position_sorter& operator=(const by_vehicle_position_sorter&); // just to avoid a compiler warning
     private:
         /// @brief The lane the detector is placed at
         const MSLane * const myLane;

@@ -202,7 +202,7 @@ public:
 
 
 private:
-    MSMoveReminder& operator=(const MSMoveReminder&) {} // just to avoid a compiler warning
+    MSMoveReminder& operator=(const MSMoveReminder&); // just to avoid a compiler warning
 
 
 protected:

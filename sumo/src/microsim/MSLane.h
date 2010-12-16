@@ -724,7 +724,7 @@ private:
         }
 
     private:
-        by_connections_to_sorter& operator=(const by_connections_to_sorter&) {} // just to avoid a compiler warning
+        by_connections_to_sorter& operator=(const by_connections_to_sorter&); // just to avoid a compiler warning
     private:
         const MSEdge *const myEdge;
         SUMOReal myLaneDir;
@@ -740,7 +740,7 @@ private:
             return &(ili.lane->getEdge())==myEdge;
         }
     private:
-        edge_finder& operator=(const edge_finder&) {} // just to avoid a compiler warning
+        edge_finder& operator=(const edge_finder&); // just to avoid a compiler warning
     private:
         const MSEdge * const myEdge;
     };
