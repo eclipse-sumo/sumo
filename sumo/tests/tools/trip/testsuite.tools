@@ -1,3 +1,8 @@
+# Tests random Trips
 randomTrips
+
+# Tests the transformation from routes to trips
 route2trips
+
+# Tests the script which generates Trips in XML format
 generateTripsXml

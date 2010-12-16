@@ -1,5 +1,8 @@
-# tests tools\net_tools\netextract.py
+# tests tools\net\netextract.py
 netextract
 
-# tests tools\net_tools\0103to0110.py
+# tests tools\net\0103to0110.py
 0103to0110
+
+# tests tools\net\netcheck.py
+netcheck

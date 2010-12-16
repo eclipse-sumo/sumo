@@ -1,14 +1,23 @@
+# Tests for net scripts
 net
+
+# Tests for route scripts
 route
+
+# Tests for traceExporter
 traceExporter
 
 # Tests for the assignment tools
 assign
 
+#Output tests
 output
 
+# Tests for shape scripts
 shapes
 
+# Tests for traffic light system tools
 tls
 
+# Trip tests
 trip

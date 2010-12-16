@@ -1,5 +1,8 @@
+# Tests for E2 Detector geration script
 generateE2Detectors
+
+# Tests for E3 Detector generation script
 generateTLSE3Detectors
 
+# Tests for ITetris Intersection Metrics
 generateITetrisIntersectionMetrics
-generateITetrisNetworkMetrics
