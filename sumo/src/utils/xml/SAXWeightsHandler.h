@@ -115,11 +115,11 @@ public:
         /// The attribute name that shall be parsed
         std::string myAttributeName;
 
-        /// The class that shall be called when new data is avaiable
-        EdgeFloatTimeLineRetriever &myDestination;
-
         /// Information whether edge values shall be used (lane value if false)
         bool myAmEdgeBased;
+
+        /// The class that shall be called when new data is avaiable
+        EdgeFloatTimeLineRetriever &myDestination;
 
         /// aggregated value over the lanes read within the current edge
         SUMOReal myAggValue;

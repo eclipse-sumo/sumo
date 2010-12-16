@@ -48,10 +48,9 @@
 // SAXWeightsHandler::ToRetrieveDefinition methods
 // ---------------------------------------------------------------------------
 SAXWeightsHandler::ToRetrieveDefinition::ToRetrieveDefinition(const std::string &attributeName,
-        bool edgeBased,
-        EdgeFloatTimeLineRetriever &destination)
-        : myDestination(destination), myAmEdgeBased(edgeBased),
-        myAttributeName(attributeName) {
+        bool edgeBased, EdgeFloatTimeLineRetriever &destination)
+        : myAttributeName(attributeName), myAmEdgeBased(edgeBased), myDestination(destination)
+         {
 }
 
 
@@ -64,9 +63,8 @@ SAXWeightsHandler::ToRetrieveDefinition::~ToRetrieveDefinition() {
 // ---------------------------------------------------------------------------
 SAXWeightsHandler::SAXWeightsHandler(const std::vector<ToRetrieveDefinition*> &defs,
                                      const std::string &file)
-        : SUMOSAXHandler(file),
-        myCurrentTimeBeg(-1), myCurrentTimeEnd(-1),
-        myDefinitions(defs) {}
+        : SUMOSAXHandler(file), myDefinitions(defs),
+        myCurrentTimeBeg(-1), myCurrentTimeEnd(-1) {}
 
 
 SAXWeightsHandler::SAXWeightsHandler(ToRetrieveDefinition *def,

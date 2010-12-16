@@ -279,12 +279,14 @@ private:
     /// A list of character strings obtained so far to build the complete characters string at the end
     std::vector<std::string> myCharactersVector;
 
-    /// @brief The name of the currently parsed file
-    std::string myFileName;
-
+    /// @brief The handler to give control back to
     GenericSAXHandler* myParentHandler;
+
+    /// @brief The tag indicating that control should be given back
     SumoXMLTag myParentIndicator;
 
+    /// @brief The name of the currently parsed file
+    std::string myFileName;
 
 };
 

@@ -43,14 +43,16 @@
 // member method definitions
 // ===========================================================================
 SUMOVehicleParameter::SUMOVehicleParameter() throw()
-        : vtypeid(DEFAULT_VTYPE_ID), depart(-1), departProcedure(DEPART_GIVEN),
-        departLaneProcedure(DEPART_LANE_DEFAULT), departLane(0),
-        departPosProcedure(DEPART_POS_DEFAULT), departSpeedProcedure(DEPART_SPEED_DEFAULT),
-        arrivalLaneProcedure(ARRIVAL_LANE_DEFAULT),
-        arrivalPosProcedure(ARRIVAL_POS_DEFAULT), arrivalSpeedProcedure(ARRIVAL_SPEED_DEFAULT),
-        arrivalPos(0), arrivalSpeed(-1),
+        : vtypeid(DEFAULT_VTYPE_ID), color(RGBColor::DEFAULT_COLOR),
+        depart(-1), departProcedure(DEPART_GIVEN),
+        departLane(0), departLaneProcedure(DEPART_LANE_DEFAULT),
+        departPos(0), departPosProcedure(DEPART_POS_DEFAULT),
+        departSpeed(-1), departSpeedProcedure(DEPART_SPEED_DEFAULT),
+        arrivalLane(0), arrivalLaneProcedure(ARRIVAL_LANE_DEFAULT),
+        arrivalPos(0), arrivalPosProcedure(ARRIVAL_POS_DEFAULT),
+        arrivalSpeed(-1), arrivalSpeedProcedure(ARRIVAL_SPEED_DEFAULT),
         repetitionNumber(-1), repetitionsDone(-1), repetitionOffset(-1),
-        line(), fromTaz(), toTaz(), setParameter(0), color(RGBColor::DEFAULT_COLOR) {
+        line(), fromTaz(), toTaz(), setParameter(0) {
 }
 
 

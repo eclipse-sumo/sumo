@@ -131,7 +131,7 @@ OutputDevice::ok() throw() {
 
 void
 OutputDevice::close() throw() {
-    while (closeTag());
+    while (closeTag()) {}
     for (DeviceMap::iterator i=myOutputDevices.begin(); i!=myOutputDevices.end(); ++i) {
         if (i->second == this) {
             myOutputDevices.erase(i);

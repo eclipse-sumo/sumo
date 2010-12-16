@@ -41,10 +41,10 @@
 // ===========================================================================
 void
 Bresenham::compute(BresenhamCallBack *callBack, const unsigned int val1, const unsigned int val2) {
-    const int smaller = MIN2(val1, val2);
-    const int greater = MAX2(val1, val2);
+    const unsigned int smaller = MIN2(val1, val2);
+    const unsigned int greater = MAX2(val1, val2);
     unsigned int pos = 0;
-    int c = smaller;
+    unsigned int c = smaller;
     for (unsigned int i = 0; i < greater; i++) {
         if (smaller == val1) {
             callBack->execute(pos, i);
