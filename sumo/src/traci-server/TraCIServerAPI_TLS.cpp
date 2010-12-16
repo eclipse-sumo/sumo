@@ -450,7 +450,7 @@ TraCIServerAPI_TLS::processSet(TraCIServer &server, tcpip::Storage &inputStorage
         }
         int phaseNo = inputStorage.readInt();
         std::vector<MSPhaseDefinition*> phases;
-        for (unsigned int j=0; j<phaseNo; ++j) {
+        for (int j=0; j<phaseNo; ++j) {
             if (inputStorage.readUnsignedByte()!=TYPE_INTEGER) {
                 server.writeStatusCmd(CMD_SET_TL_VARIABLE, RTYPE_ERR, "set program: 6.1. parameter (duration) must be an int.", outputStorage);
                 return false;
@@ -524,7 +524,7 @@ TraCIServerAPI_TLS::commandGetTLStatus(TraCIServer &server, tcpip::Storage &inpu
     SUMOTime lookback = (SUMOTime)(60*1000.); // Time to look in history for recognizing yellowTimes
     tcpip::Storage tempMsg;
 
-    int extId = inputStorage.readInt(); // trafic light id
+    int extId = inputStorage.readInt(); // traffic light id
     SUMOTime timeFrom = inputStorage.readInt(); // start of time interval
     SUMOTime timeTo = inputStorage.readInt(); // end of time interval
 
@@ -543,7 +543,7 @@ TraCIServerAPI_TLS::commandGetTLStatus(TraCIServer &server, tcpip::Storage &inpu
     server.writeStatusCmd(CMD_GETTLSTATUS, RTYPE_OK, "");
     std::vector<MSLink::LinkState> linkStates;
     std::vector<double> yellowTimes;
-    size_t lastStep = tlLogic->getCurrentPhaseIndex();
+    unsigned int lastStep = tlLogic->getCurrentPhaseIndex();
     MSPhaseDefinition phase = tlLogic->getCurrentPhaseDef();
     MSTrafficLightLogic::LinkVectorVector affectedLinks = tlLogic->getLinks();
     // save the current link states
@@ -555,7 +555,7 @@ TraCIServerAPI_TLS::commandGetTLStatus(TraCIServer &server, tcpip::Storage &inpu
     for (SUMOTime time = timeFrom - lookback; time <= timeTo; time+=DELTA_T) {
         if (time < 0) time = 0;
         SUMOTime position = tlLogic->getPhaseIndexAtTime(time);
-        size_t currentStep = tlLogic->getIndexFromOffset(position);
+        unsigned int currentStep = tlLogic->getIndexFromOffset(position);
         if (currentStep != lastStep) {
             lastStep = currentStep;
             phase = tlLogic->getPhase(currentStep);
