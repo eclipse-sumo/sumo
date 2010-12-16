@@ -225,6 +225,7 @@ GUIVehicle::~GUIVehicle() throw() {
     }
     myLock.unlock();
     GLObjectValuePassConnector<SUMOReal>::removeObject(*this);
+    delete myRoutes;
 }
 
 

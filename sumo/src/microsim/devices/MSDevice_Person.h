@@ -114,7 +114,15 @@ public:
     /// @}
 
 
+    /** @brief Add a passenger
+     *
+     * @param[in] person The passenger to add.
+     */
     void addPerson(MSPerson* person) throw();
+
+
+    /// @brief Destructor.
+    ~MSDevice_Person() throw();
 
 private:
     /** @brief Constructor
@@ -123,10 +131,6 @@ private:
      * @param[in] id The ID of the device
      */
     MSDevice_Person(SUMOVehicle &holder, const std::string &id) throw();
-
-
-    /// @brief Destructor.
-    ~MSDevice_Person() throw();
 
 
 private:

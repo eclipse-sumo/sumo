@@ -111,6 +111,10 @@ public:
     void generateOutput() const throw(IOError);
 
 
+    /// @brief Destructor.
+    ~MSDevice_HBEFA() throw();
+
+
 private:
     /** @brief Constructor
      *
@@ -118,10 +122,6 @@ private:
      * @param[in] id The ID of the device
      */
     MSDevice_HBEFA(SUMOVehicle &holder, const std::string &id) throw();
-
-
-    /// @brief Destructor.
-    ~MSDevice_HBEFA() throw();
 
 
 private:

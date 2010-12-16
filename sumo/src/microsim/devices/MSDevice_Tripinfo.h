@@ -109,6 +109,10 @@ public:
     void generateOutput() const throw(IOError);
 
 
+    /// @brief Destructor.
+    ~MSDevice_Tripinfo() throw();
+
+
 private:
     /** @brief Constructor
      *
@@ -116,10 +120,6 @@ private:
      * @param[in] id The ID of the device
      */
     MSDevice_Tripinfo(SUMOVehicle &holder, const std::string &id) throw();
-
-
-    /// @brief Destructor.
-    ~MSDevice_Tripinfo() throw();
 
 
 private:

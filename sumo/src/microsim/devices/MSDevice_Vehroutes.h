@@ -119,6 +119,10 @@ public:
     const MSRoute* getRoute(int index) const;
 
 
+    /// @brief Destructor.
+    ~MSDevice_Vehroutes() throw();
+
+
 private:
     /** @brief Constructor
      *
@@ -126,10 +130,6 @@ private:
      * @param[in] id The ID of the device
      */
     MSDevice_Vehroutes(SUMOVehicle &holder, const std::string &id, unsigned int maxRoutes) throw();
-
-
-    /// @brief Destructor.
-    ~MSDevice_Vehroutes() throw();
 
 
     /** @brief Called on route output

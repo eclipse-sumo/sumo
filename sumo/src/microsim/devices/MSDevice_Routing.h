@@ -113,6 +113,10 @@ public:
     /// @}
 
 
+    /// @brief Destructor.
+    ~MSDevice_Routing() throw();
+
+
 private:
     /** @brief Constructor
      *
@@ -123,10 +127,6 @@ private:
      */
     MSDevice_Routing(SUMOVehicle &holder, const std::string &id, SUMOTime period,
                      SUMOTime preEmitPeriod) throw();
-
-
-    /// @brief Destructor.
-    ~MSDevice_Routing() throw();
 
 
     /** @brief Performs rerouting after a period
