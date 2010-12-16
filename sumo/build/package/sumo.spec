@@ -7,7 +7,7 @@ Summary:        Microscopic Traffic Simulation
 Version:        svn
 Release:        1
 Url:            http://sumo.sourceforge.net/
-Source0:        %{name}-%{version}.tar.bz2
+Source0:        %{name}-src-%{version}.tar.gz
 License:        GPL v2.1 or later
 Group:          Productivity/Scientific/Other
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
