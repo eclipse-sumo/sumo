@@ -29,6 +29,7 @@
 /* Tests the method prune. Cut the blanks at the beginning and at the end of a string*/
 TEST(StringUtils, test_method_prune) {
 	EXPECT_EQ("result", StringUtils::prune("  result ")) << "Blanks at the beginning and at the end of a string must be removed.";
+	EXPECT_EQ("", StringUtils::prune("  ")) << "Blanks at the beginning and at the end of a string must be removed.";
 }
 
 /* Tests the method to_lower_case.*/
@@ -79,16 +80,6 @@ TEST(StringUtils, test_method_replace_empty_third_argument ) {
 	EXPECT_EQ("test", StringUtils::replace("ltestl","l",""));
 }
 
-
-/* Tests the method upper. */
-TEST(StringUtils, test_method_upper) {
-	std::string toUpper = "halloWelt123-?";
-	StringUtils::upper(toUpper);
-	EXPECT_EQ("HALLOWELT123-?", toUpper) << "It should consist only of capital letters.";
-	std::string str;
-	StringUtils::upper(str);
-	EXPECT_EQ("",str );
-}
 
 /* Tests the method toTimeString. */
 TEST(StringUtils, test_method_toTimeString) {	

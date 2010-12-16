@@ -51,20 +51,12 @@ std::string StringUtils::emptyString;
 // ===========================================================================
 std::string
 StringUtils::prune(std::string str) {
-    if (str.length() == 0) {
-        return str;
+    const size_t endpos = str.find_last_not_of(" \t\n\r");
+    if (std::string::npos != endpos) {
+        const size_t startpos = str.find_first_not_of(" \t\n\r");
+        return str.substr(startpos, endpos - startpos + 1);
     }
-    size_t idx = 0;
-    while (idx<str.length()&&str[idx]<=32) ++idx;
-    if (idx<str.length()&&idx!=0) {
-        str = str.substr(idx);
-    }
-    idx = str.length() - 1;
-    while (idx>=0&&str[idx]<=32) --idx;
-    if (idx!=str.length() - 1) {
-        str = str.substr(0, idx+1);
-    }
-    return str;
+    return "";
 }
 
 
@@ -112,16 +104,6 @@ StringUtils::replace(std::string str, const char *what,
         }
     }
     return str;
-}
-
-
-void
-StringUtils::upper(std::string &str) {
-    for (size_t i=0; i<str.length(); i++) {
-        if (str[i]>='a'&&str[i]<='z') {
-            str[i] = str[i] - 'a' + 'A';
-        }
-    }
 }
 
 

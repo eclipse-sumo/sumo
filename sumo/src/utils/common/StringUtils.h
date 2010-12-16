@@ -55,9 +55,6 @@ public:
     static std::string replace(std::string str, const char *what,
                                const char *by);
 
-    /// Converts the given string to upper characters
-    static void upper(std::string &str);
-
     /// Builds a time string (hh:mm:ss) from the given seconds
     static std::string toTimeString(int time);
 
