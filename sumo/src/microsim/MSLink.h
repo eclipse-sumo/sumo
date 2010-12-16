@@ -301,6 +301,8 @@ private:
             return vo.vehicle == myVehicle;
         }
     private:
+        vehicle_in_request_finder& operator=(const vehicle_in_request_finder&) {} // just to avoid a compiler warning
+    private:
         const SUMOVehicle * const myVehicle;
 
     };

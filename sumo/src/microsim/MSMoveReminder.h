@@ -201,6 +201,10 @@ public:
     }
 
 
+private:
+    MSMoveReminder& operator=(const MSMoveReminder&) {} // just to avoid a compiler warning
+
+
 protected:
     /// @brief Lane on which the reminder works
     MSLane * const myLane;

@@ -534,6 +534,9 @@ public:
         SUMOReal getEffort(const MSEdge * const e, const SUMOVehicle * const v, SUMOReal t) const;
 
     private:
+        EdgeWeightsProxi& operator=(const EdgeWeightsProxi&) {} // just to avoid a compiler warning
+
+    private:
         /// @brief The vehicle's knownledge
         const MSEdgeWeightsStorage &myVehicleKnowledge;
 

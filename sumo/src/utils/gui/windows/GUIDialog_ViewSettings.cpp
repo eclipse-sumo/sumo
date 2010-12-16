@@ -1165,7 +1165,6 @@ GUIDialog_ViewSettings::rebuildColorMatrices(bool doCreate) throw() {
         myLaneThresholds.clear();
         myLaneButtons.clear();
         GUIColorScheme &scheme = mySettings->getLaneEdgeScheme();
-        const bool interpolate = scheme.isInterpolated();
         const bool fixed = scheme.isFixed();
         const std::vector<RGBColor> &colors = scheme.getColors();
         std::vector<RGBColor>::const_iterator colIt = colors.begin();
@@ -1223,7 +1222,6 @@ GUIDialog_ViewSettings::rebuildColorMatrices(bool doCreate) throw() {
         myVehicleColors.clear();
         myVehicleThresholds.clear();
         myVehicleButtons.clear();
-        const bool interpolate = mySettings->vehicleColorer.getScheme().isInterpolated();
         const bool fixed = mySettings->vehicleColorer.getScheme().isFixed();
         const std::vector<RGBColor> &colors = mySettings->vehicleColorer.getScheme().getColors();
         std::vector<RGBColor>::const_iterator colIt = colors.begin();

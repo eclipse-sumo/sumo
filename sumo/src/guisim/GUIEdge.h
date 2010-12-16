@@ -210,6 +210,8 @@ private:
         }
 
     private:
+        lane_wrapper_finder& operator=(const lane_wrapper_finder&) {} // just to avoid a compiler warning
+    private:
         /// @brief The lane to search for
         const MSLane &myLane;
 
