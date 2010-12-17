@@ -31,6 +31,7 @@
 
 #include <iostream>
 #include <vector>
+#include <limits>
 #include "AGChild.h"
 #include "AGSchool.h"
 
