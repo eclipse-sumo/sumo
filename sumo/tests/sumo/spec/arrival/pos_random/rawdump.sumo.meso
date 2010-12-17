@@ -1,7 +1,9 @@
 <?xml version="1.0"?>
 
-<!-- generated on 03/25/10 08:16:50 by SUMO sumo Version dev-SVN-r8511
-<configuration>
+<!-- generated on 12/17/10 09:12:54 by SUMO sumo Version dev-SVN-r9429
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/sumoConfiguration.xsd">
 
     <input>
         <net-file value="net.net.xml"/>
@@ -116,5 +118,95 @@
         </edge>
     </timestep>
     <timestep time="18.00">
+        <edge id="end">
+            <vehicle id="1" pos="0.00" speed="27.80"/>
+        </edge>
+    </timestep>
+    <timestep time="19.00">
+        <edge id="end">
+            <vehicle id="1" pos="0.00" speed="27.80"/>
+        </edge>
+    </timestep>
+    <timestep time="20.00">
+        <edge id="end">
+            <vehicle id="1" pos="0.00" speed="27.80"/>
+        </edge>
+    </timestep>
+    <timestep time="21.00">
+        <edge id="end">
+            <vehicle id="1" pos="0.00" speed="27.80"/>
+        </edge>
+    </timestep>
+    <timestep time="22.00">
+        <edge id="end">
+            <vehicle id="1" pos="100.00" speed="27.80"/>
+        </edge>
+    </timestep>
+    <timestep time="23.00">
+        <edge id="end">
+            <vehicle id="1" pos="100.00" speed="27.80"/>
+        </edge>
+    </timestep>
+    <timestep time="24.00">
+        <edge id="end">
+            <vehicle id="1" pos="100.00" speed="27.80"/>
+        </edge>
+    </timestep>
+    <timestep time="25.00">
+        <edge id="end">
+            <vehicle id="1" pos="100.00" speed="27.80"/>
+        </edge>
+    </timestep>
+    <timestep time="26.00">
+        <edge id="end">
+            <vehicle id="1" pos="200.00" speed="27.80"/>
+        </edge>
+    </timestep>
+    <timestep time="27.00">
+        <edge id="end">
+            <vehicle id="1" pos="200.00" speed="27.80"/>
+        </edge>
+    </timestep>
+    <timestep time="28.00">
+        <edge id="end">
+            <vehicle id="1" pos="200.00" speed="27.80"/>
+        </edge>
+    </timestep>
+    <timestep time="29.00">
+        <edge id="end">
+            <vehicle id="1" pos="300.00" speed="27.80"/>
+        </edge>
+    </timestep>
+    <timestep time="30.00">
+        <edge id="end">
+            <vehicle id="1" pos="300.00" speed="27.80"/>
+        </edge>
+    </timestep>
+    <timestep time="31.00">
+        <edge id="end">
+            <vehicle id="1" pos="300.00" speed="27.80"/>
+        </edge>
+    </timestep>
+    <timestep time="32.00">
+        <edge id="end">
+            <vehicle id="1" pos="300.00" speed="27.80"/>
+        </edge>
+    </timestep>
+    <timestep time="33.00">
+        <edge id="end">
+            <vehicle id="1" pos="400.00" speed="27.80"/>
+        </edge>
+    </timestep>
+    <timestep time="34.00">
+        <edge id="end">
+            <vehicle id="1" pos="400.00" speed="27.80"/>
+        </edge>
+    </timestep>
+    <timestep time="35.00">
+        <edge id="end">
+            <vehicle id="1" pos="400.00" speed="27.80"/>
+        </edge>
+    </timestep>
+    <timestep time="36.00">
     </timestep>
 </sumo-netstate>
