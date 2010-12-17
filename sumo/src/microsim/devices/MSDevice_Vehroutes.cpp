@@ -158,7 +158,7 @@ MSDevice_Vehroutes::writeXMLRoute(OutputDevice &os, int index) const {
         unsigned int edgeIndex = 0;
         if (myHolder.getNumberReroutes() > 0) {
             assert(myReplacedRoutes.size()<=myHolder.getNumberReroutes());
-            unsigned int i = myReplacedRoutes.size();
+            unsigned int i = static_cast<unsigned int>(myReplacedRoutes.size());
             while (i > 0 && myReplacedRoutes[i-1].edge) {
                 i--;
             }

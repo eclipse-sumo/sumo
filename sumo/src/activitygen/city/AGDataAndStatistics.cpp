@@ -38,19 +38,6 @@
 
 
 // ===========================================================================
-// used namespaces
-// ===========================================================================
-using namespace std;
-
-/*int
-AGDataAndStatistics::getRandom()
-{
-	srand(randomNbr);
-	randomNbr = rand();
-	return randomNbr;
-}*/
-
-// ===========================================================================
 // method definitions
 // ===========================================================================
 AGDataAndStatistics&
@@ -74,9 +61,9 @@ AGDataAndStatistics::getRandomPopDistributed(int n, int m) {
         return -1;
     if (m>limitEndAge)
         m=limitEndAge;
-    float alea = (float)(RandHelper::rand());
-    float beginProp = getPropYoungerThan(n);
-    float total = getPropYoungerThan(m) - beginProp;
+    SUMOReal alea = RandHelper::rand();
+    SUMOReal beginProp = getPropYoungerThan(n);
+    SUMOReal total = getPropYoungerThan(m) - beginProp;
     if (total <= 0)
         return -1;
     /**
@@ -92,9 +79,9 @@ AGDataAndStatistics::getRandomPopDistributed(int n, int m) {
 }
 
 int
-AGDataAndStatistics::getPoissonsNumberOfChildren(float mean) {
-    float alea = (float)(RandHelper::rand());
-    float cumul = 0;
+AGDataAndStatistics::getPoissonsNumberOfChildren(SUMOReal mean) {
+    SUMOReal alea = RandHelper::rand();
+    SUMOReal cumul = 0;
     for (int nbr = 0 ; nbr < LIMIT_CHILDREN_NUMBER ; ++nbr) {
         cumul += poisson(mean, nbr);
         if (cumul > alea)
@@ -103,12 +90,12 @@ AGDataAndStatistics::getPoissonsNumberOfChildren(float mean) {
     return LIMIT_CHILDREN_NUMBER;
 }
 
-float
-AGDataAndStatistics::poisson(float mean, int occ) {
-    double proba = exp(-1*(double)mean);
+SUMOReal
+AGDataAndStatistics::poisson(SUMOReal mean, int occ) {
+    SUMOReal proba = exp(-mean);
     proba *= pow(mean, occ);
-    proba /= (double)factorial(occ);
-    return (float)proba;
+    proba /= (SUMOReal)factorial(occ);
+    return proba;
 }
 
 int
@@ -127,26 +114,26 @@ AGDataAndStatistics::consolidateStat() {
     normalizeMapProb(&outgoing);
     limitEndAge = population.rbegin()->first;
 
-    oldAgeHhProb = (float)getPeopleOlderThan(limitAgeRetirement) / (float)getPeopleOlderThan(limitAgeChildren);
-    secondPersProb = (float)(getPeopleOlderThan(limitAgeChildren) - households) / (float)households;
-    meanNbrChildren = (float)getPeopleYoungerThan(limitAgeChildren) / ((1 - oldAgeHhProb) * (float)households);
+    oldAgeHhProb = (SUMOReal)getPeopleOlderThan(limitAgeRetirement) / (SUMOReal)getPeopleOlderThan(limitAgeChildren);
+    secondPersProb = (SUMOReal)(getPeopleOlderThan(limitAgeChildren) - households) / (SUMOReal)households;
+    meanNbrChildren = (SUMOReal)getPeopleYoungerThan(limitAgeChildren) / ((1 - oldAgeHhProb) * (SUMOReal)households);
     //cout << " --> oldAgeHhProb = " << setprecision(3) << oldAgeHhProb << "  - retAge? " << getPeopleOlderThan(limitAgeRetirement) << " adAge? " << getPeopleOlderThan(limitAgeChildren) << endl;
     //cout << " --> secondPersProb = " << setprecision(3) << secondPersProb << "  - adAge? " << getPeopleOlderThan(limitAgeChildren) << " hh?" << households << endl;
     //cout << " --> meanNbrChildren = " << setprecision(3) << meanNbrChildren << "  - chAge? " << getPeopleYoungerThan(limitAgeChildren) << endl;
 }
 
-float
+SUMOReal
 AGDataAndStatistics::getPropYoungerThan(int age) {
-    map<int, float>::iterator it;
-    float sum = 0;
+    std::map<int, SUMOReal>::iterator it;
+    SUMOReal sum = 0;
     int previousAge = 0;
-    float prop = 0;
+    SUMOReal prop = 0;
 
     for (it = population.begin() ; it != population.end() ; ++it) {
         if (it->first < age) {
             sum += it->second;
         } else if (it->first >= age && previousAge < age) {
-            prop = ((float)(age - previousAge) / (float)(it->first - previousAge));
+            prop = ((SUMOReal)(age - previousAge) / (SUMOReal)(it->first - previousAge));
             sum += prop * it->second;
             break;
         }
@@ -157,7 +144,7 @@ AGDataAndStatistics::getPropYoungerThan(int age) {
 
 int
 AGDataAndStatistics::getPeopleYoungerThan(int age) {
-    return (int)((float)inhabitants * getPropYoungerThan(age));
+    return (int)((SUMOReal)inhabitants * getPropYoungerThan(age));
 }
 
 int
@@ -166,9 +153,9 @@ AGDataAndStatistics::getPeopleOlderThan(int age) {
 }
 
 void
-AGDataAndStatistics::normalizeMapProb(map<int, float> *myMap) {
-    float sum = 0;
-    map<int, float>::iterator it;
+AGDataAndStatistics::normalizeMapProb(std::map<int, SUMOReal> *myMap) {
+    SUMOReal sum = 0;
+    std::map<int, SUMOReal>::iterator it;
     for (it = myMap->begin() ; it != myMap->end() ; ++it) {
         sum += it->second;
     }
@@ -179,17 +166,17 @@ AGDataAndStatistics::normalizeMapProb(map<int, float> *myMap) {
     }
 }
 
-float
-AGDataAndStatistics::getInverseExpRandomValue(float mean, float maxVar) {
+SUMOReal
+AGDataAndStatistics::getInverseExpRandomValue(SUMOReal mean, SUMOReal maxVar) {
     if (maxVar <= 0)
         return mean;
     SUMOReal p = RandHelper::rand(static_cast<SUMOReal>(0.0001), static_cast<SUMOReal>(1));
     //we have to scale the distribution because maxVar is different from INF
-    float scale = exp((-1)*maxVar);
+    SUMOReal scale = exp((-1)*maxVar);
     //new p: scaled
     p = p * (1-scale) + scale; // p = [scale ; 1) ==> (1-p) = (0 ; 1-scale]
 
-    float variation = (-1)*log(p);
+    SUMOReal variation = (-1)*log(p);
     //decide the side of the mean value
     if (RandHelper::rand(1000) < 500)
         return mean + variation;
@@ -200,29 +187,29 @@ AGDataAndStatistics::getInverseExpRandomValue(float mean, float maxVar) {
 
 int
 AGDataAndStatistics::getRandomCityGateByIncoming() {
-    float alea = (float)(RandHelper::rand());
-    float total = 0;
-    map<int, float>::iterator it;
+    SUMOReal alea = RandHelper::rand();
+    SUMOReal total = 0;
+    std::map<int, SUMOReal>::iterator it;
     for (it = incoming.begin() ; it != incoming.end() ; ++it) {
         total += it->second;
         if (alea < total)
             return it->first;
     }
-    cout << "ERROR: incoming at city gates not normalized" << endl;
+    std::cout << "ERROR: incoming at city gates not normalized" << std::endl;
     return 0;
 }
 
 int
 AGDataAndStatistics::getRandomCityGateByOutgoing() {
-    float alea = (float)(RandHelper::rand());
-    float total = 0;
-    map<int, float>::iterator it;
+    SUMOReal alea = RandHelper::rand();
+    SUMOReal total = 0;
+    std::map<int, SUMOReal>::iterator it;
     for (it = outgoing.begin() ; it != outgoing.end() ; ++it) {
         total += it->second;
         if (alea < total)
             return it->first;
     }
-    cout << "ERROR: outgoing at city gates not normalized" << endl;
+    std::cout << "ERROR: outgoing at city gates not normalized" << std::endl;
     return 0;
 }
 

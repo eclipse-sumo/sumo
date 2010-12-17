@@ -99,7 +99,7 @@ public:
     /**
      * function allocating cars to this household in relation to the given rate for each adult
      */
-    void generateCars(float rate);
+    void generateCars(SUMOReal rate);
     int getCarNbr();
     /**
      * generates one (more) car in this household
@@ -123,7 +123,7 @@ public:
 
 private:
 
-    bool decisionProba(float p);
+    bool decisionProba(SUMOReal p);
 
     AGCity *myCity;
     AGPosition location;

@@ -108,7 +108,7 @@ private:
     /**
      * frequency of going out or see family is assumed to be once a week (in mean)
      */
-    float freqOut;
+    SUMOReal freqOut;
 
     static const int DAY;// = 1;
     static const int EVENING;// = 2;

@@ -39,12 +39,6 @@
 
 
 // ===========================================================================
-// used namespaces
-// ===========================================================================
-using namespace std;
-
-
-// ===========================================================================
 // method definitions
 // ===========================================================================
 AGWorkPosition::AGWorkPosition(const AGStreet& inStreet, AGDataAndStatistics* ds) throw() :
@@ -75,8 +69,8 @@ AGWorkPosition::~AGWorkPosition() throw() {
 
 void
 AGWorkPosition::print() const throw() {
-    cout << "- AGWorkPosition: open=" << openingTime << " closingTime=" << closingTime << " taken=" << isTaken() << endl;
-    cout << "\t";
+    std::cout << "- AGWorkPosition: open=" << openingTime << " closingTime=" << closingTime << " taken=" << isTaken() << std::endl;
+    std::cout << "\t";
     location.print();
 }
 
@@ -84,16 +78,16 @@ AGWorkPosition::print() const throw() {
 
 int
 AGWorkPosition::generateOpeningTime(const AGDataAndStatistics& ds) throw() {
-    float choice = static_cast<float>(RandHelper::rand());
-    float cumul = 0;
+    SUMOReal choice = RandHelper::rand();
+    SUMOReal cumul = 0;
 
-    for (map<int,float>::const_iterator it=ds.beginWorkHours.begin();
+    for (std::map<int,SUMOReal>::const_iterator it=ds.beginWorkHours.begin();
             it!=ds.beginWorkHours.end(); ++it) {
         cumul += it->second;
         if (cumul >= choice)
             return it->first;
     }
-    cout << "-- WARNING: work time distribution not complete (Sum(proportions) != 1): AUTODEFINED at 9.00am --" << endl;
+    std::cout << "-- WARNING: work time distribution not complete (Sum(proportions) != 1): AUTODEFINED at 9.00am --" << std::endl;
     return 900;
 }
 
@@ -101,15 +95,15 @@ AGWorkPosition::generateOpeningTime(const AGDataAndStatistics& ds) throw() {
 
 int
 AGWorkPosition::generateClosingTime(const AGDataAndStatistics& ds) throw() {
-    float choice = static_cast<float>(RandHelper::rand());
-    float cumul = 0;
-    for (map<int,float>::const_iterator it=ds.endWorkHours.begin();
+    SUMOReal choice = RandHelper::rand();
+    SUMOReal cumul = 0;
+    for (std::map<int,SUMOReal>::const_iterator it=ds.endWorkHours.begin();
             it!=ds.endWorkHours.end(); ++it) {
         cumul += it->second;
         if (cumul >= choice)
             return it->first;
     }
-    cout << "-- WARNING: work time distribution not complete (Sum(proportions) != 1): AUTODEFINED at 5.00pm --" << endl;
+    std::cout << "-- WARNING: work time distribution not complete (Sum(proportions) != 1): AUTODEFINED at 5.00pm --" << std::endl;
     return 1700;
 }
 
@@ -134,13 +128,12 @@ AGWorkPosition::let() throw() {
 /****************************************************************************/
 
 void
-AGWorkPosition::take(AGAdult* worker) throw(runtime_error) {
+AGWorkPosition::take(AGAdult* worker) throw(std::runtime_error) {
     if (adult == 0) {
         ds->workPositions--;
         adult = worker;
-
     } else {
-        throw(runtime_error("Work position already occupied. Cannot give it to another adult."));
+        throw(std::runtime_error("Work position already occupied. Cannot give it to another adult."));
     }
 }
 

@@ -66,7 +66,7 @@ AGPerson::getAge() const throw() {
 /****************************************************************************/
 
 bool
-AGPerson::decide(float proba) const throw() {
+AGPerson::decide(SUMOReal proba) const throw() {
     return (RandHelper::rand(1000) < static_cast<int>(1000.0f * proba));
 }
 

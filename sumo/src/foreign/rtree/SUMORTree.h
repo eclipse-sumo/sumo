@@ -55,6 +55,26 @@ public:
     ~SUMORTree() {
     }
 
+    /** @brief Adds an additional object (detector/shape/trigger) for visualisation
+     * @param[in] o The object to add
+     */
+    void addAdditionalGLObject(GUIGlObject *o) throw() {
+        Boundary b = o->getCenteringBoundary();
+        const float cmin[2] = {b.xmin(), b.ymin()};
+        const float cmax[2] = {b.xmax(), b.ymax()};
+        Insert(cmin, cmax, o);
+    }
+
+    /** @brief Removes an additional object (detector/shape/trigger) from being visualised
+     * @param[in] o The object to remove
+     */
+    void removeAdditionalGLObject(GUIGlObject *o) throw() {
+        Boundary b = o->getCenteringBoundary();
+        const float cmin[2] = {b.xmin(), b.ymin()};
+        const float cmax[2] = {b.xmax(), b.ymax()};
+        Remove(cmin, cmax, o);
+    }
+
 };
 
 

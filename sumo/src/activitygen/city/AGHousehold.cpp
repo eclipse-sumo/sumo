@@ -36,12 +36,6 @@
 
 
 // ===========================================================================
-// used namespaces
-// ===========================================================================
-using namespace std;
-
-
-// ===========================================================================
 // method definitions
 // ===========================================================================
 void
@@ -74,7 +68,7 @@ AGHousehold::generatePeople() {
 }
 
 void
-AGHousehold::generateCars(float rate) {
+AGHousehold::generateCars(SUMOReal rate) {
     int peopleInNeed = adults.size() - cars.size();
     while (peopleInNeed > 0) {
         if (decisionProba(rate)) {
@@ -106,16 +100,16 @@ AGHousehold::getAdultNbr() {
 }
 
 bool
-AGHousehold::isCloseFromPubTransport(list<AGPosition> *pubTransport) {
-    float distToPT = location.minDistanceTo(*pubTransport);
+AGHousehold::isCloseFromPubTransport(std::list<AGPosition> *pubTransport) {
+    SUMOReal distToPT = location.minDistanceTo(*pubTransport);
     if (distToPT > myCity->statData.maxFootDistance)
         return false;
     return true;
 }
 
 bool
-AGHousehold::isCloseFromPubTransport(map<int, AGPosition> *pubTransport) {
-    float distToPT = location.minDistanceTo(*pubTransport);
+AGHousehold::isCloseFromPubTransport(std::map<int, AGPosition> *pubTransport) {
+    SUMOReal distToPT = location.minDistanceTo(*pubTransport);
     if (distToPT > myCity->statData.maxFootDistance)
         return false;
     return true;
@@ -124,8 +118,8 @@ AGHousehold::isCloseFromPubTransport(map<int, AGPosition> *pubTransport) {
 void
 AGHousehold::regenerate() {
     //only allocation of work or school to people will change
-    list<AGChild>::iterator itC;
-    list<AGAdult>::iterator itA;
+    std::list<AGChild>::iterator itC;
+    std::list<AGAdult>::iterator itA;
     for (itC=children.begin() ; itC != children.end() ; ++itC) {
         if (itC->haveASchool()) {
             if (itC->leaveSchool())
@@ -141,14 +135,14 @@ AGHousehold::regenerate() {
             itA->tryToWork(1-myCity->statData.unemployement, &(myCity->workPositions));
 
         } else {
-            cout << "Not enough work positions in AGHousehold::regenerate. Should not happen!" << endl;
+            std::cout << "Not enough work positions in AGHousehold::regenerate. Should not happen!" << std::endl;
         }
     }
 }
 
 bool
 AGHousehold::allocateChildrenSchool() {
-    list<AGChild>::iterator it;
+    std::list<AGChild>::iterator it;
     bool oneRemainsAtHome = false;
 
     for (it = children.begin() ; it != children.end() ; ++it) {
@@ -160,10 +154,10 @@ AGHousehold::allocateChildrenSchool() {
 
 bool
 AGHousehold::allocateAdultsWork() {
-    list<AGAdult>::iterator it;
+    std::list<AGAdult>::iterator it;
     for (it=adults.begin() ; it!=adults.end() ; ++it) {
         if (myCity->statData.workPositions <= 0) {
-            cout << "Not enough free work positions in AGHousehold::allocateAdultsWork. Should not happen." << endl;
+            std::cout << "Not enough free work positions in AGHousehold::allocateAdultsWork. Should not happen." << std::endl;
             return false;
 
         } else {
@@ -174,10 +168,8 @@ AGHousehold::allocateAdultsWork() {
 }
 
 bool
-AGHousehold::decisionProba(float p) {
-    double q = RandHelper::rand(); //(double)(rand()%10000)/(double)10000;
-    //cout << " p=" << p << " q=" << q;
-    return (q<p);
+AGHousehold::decisionProba(SUMOReal p) {
+    return (RandHelper::rand()<p);
 }
 
 AGPosition

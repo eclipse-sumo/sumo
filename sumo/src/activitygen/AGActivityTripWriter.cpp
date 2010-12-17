@@ -34,26 +34,20 @@
 
 
 // ===========================================================================
-// used namespaces
-// ===========================================================================
-using namespace std;
-
-
-// ===========================================================================
 // method definitions
 // ===========================================================================
 void
 AGActivityTripWriter::initialize() {
-    routes << "<?xml version=\"1.0\"?>" << endl << endl;
-    routes << "<routes>" << endl;
+    routes << "<?xml version=\"1.0\"?>" << std::endl << std::endl;
+    routes << "<routes>" << std::endl;
     vtypes();
 }
 
 void
 AGActivityTripWriter::vtypes() {
-    routes << "\t<vtype id=\"default\" accel=\"4.0\" decel=\"8.0\" sigma=\"0.0\" length=\"5\" maxspeed=\"90\"/>" << endl;
-    routes << "\t<vtype id=\"random\" accel=\"4.0\" decel=\"8.0\" sigma=\"0.0\" length=\"5\" maxspeed=\"90\"/>" << endl;
-    routes << "\t<vtype id=\"bus\" accel=\"2.0\" decel=\"4.0\" sigma=\"0.0\" length=\"10\" maxspeed=\"70\"/>" << endl << endl;
+    routes << "\t<vtype id=\"default\" accel=\"4.0\" decel=\"8.0\" sigma=\"0.0\" length=\"5\" maxspeed=\"90\"/>" << std::endl;
+    routes << "\t<vtype id=\"random\" accel=\"4.0\" decel=\"8.0\" sigma=\"0.0\" length=\"5\" maxspeed=\"90\"/>" << std::endl;
+    routes << "\t<vtype id=\"bus\" accel=\"2.0\" decel=\"4.0\" sigma=\"0.0\" length=\"10\" maxspeed=\"70\"/>" << std::endl << std::endl;
 
     colors["default"] = "1,0,0";
     colors["bus"] = "0,1,0";
@@ -62,7 +56,7 @@ AGActivityTripWriter::vtypes() {
 
 void
 AGActivityTripWriter::addTrip(AGTrip trip) {
-    list<AGPosition>::iterator it;
+    std::list<AGPosition>::iterator it;
     int time = (trip.getDay()-1)*86400 + trip.getTime();
 
     //the vehicle:
@@ -75,7 +69,7 @@ AGActivityTripWriter::addTrip(AGTrip trip) {
     routes << "\" departspeed=\"" << 0;
     routes << "\" arrivalspeed=\"" << 0;
     routes << "\" color=\"" << colors[trip.getType()];
-    routes << "\">" << endl;
+    routes << "\">" << std::endl;
 
     //the route
     routes << "\t\t<route edges=\"";
@@ -84,14 +78,14 @@ AGActivityTripWriter::addTrip(AGTrip trip) {
         routes << " " << it->getStreet().getName();
     }
     routes << " " << trip.getArr().getStreet().getName();
-    routes << "\" />" << endl;
+    routes << "\" />" << std::endl;
 
-    routes << "\t</vehicle>" << endl;
+    routes << "\t</vehicle>" << std::endl;
 }
 
 void
 AGActivityTripWriter::writeOutputFile() {
-    routes << "</routes>" << endl;
+    routes << "</routes>" << std::endl;
     routes.close();
 }
 

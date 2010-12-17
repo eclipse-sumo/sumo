@@ -47,12 +47,6 @@
 
 
 // ===========================================================================
-// used namespaces
-// ===========================================================================
-using namespace std;
-
-
-// ===========================================================================
 // method definitions
 // ===========================================================================
 void
@@ -68,23 +62,23 @@ AGActivityGen::importInfoCity() {
         MsgHandler::getMessageInstance()->endProcessMsg("done.");
     }
 
-    cout << "### read input done." << endl;
+    std::cout << "### read input done." << std::endl;
     city.statData.consolidateStat(); //some maps are still not
-    cout << "### pre-processing done." << endl;
+    std::cout << "### pre-processing done." << std::endl;
     city.completeStreets();
-    cout << "### - streets done..." << endl;
+    std::cout << "### - streets done..." << std::endl;
     city.generateWorkPositions();
-    cout << "### - work done..." << endl;
+    std::cout << "### - work done..." << std::endl;
     city.completeBusLines();
-    cout << "### - bus lines done..." << endl;
+    std::cout << "### - bus lines done..." << std::endl;
 
     city.generatePopulation();
-    cout << "### ...city built." << endl;
+    std::cout << "### ...city built." << std::endl;
 
     city.schoolAllocation();
     city.workAllocation();
     city.carAllocation();
-    cout << "### allocation done." << endl;
+    std::cout << "### allocation done." << std::endl;
 }
 
 bool
@@ -126,11 +120,11 @@ AGActivityGen::varDepTime(AGTrip & trip) {
 void
 AGActivityGen::generateOutputFile(std::list<AGTrip>& trips) {
     AGActivityTripWriter atw(outputFile);
-    list<AGTrip>::iterator it;
+    std::list<AGTrip>::iterator it;
     //variables for TESTS:
     int firstTrip = trips.front().getTime() + trips.front().getDay()*86400;
     int lastTrip = trips.front().getTime() + trips.front().getDay()*86400;
-    map<int, int> histogram;
+    std::map<int, int> histogram;
     for (int i=0 ; i<100 ; ++i)
         histogram[i] = 0;
     //END var TESTS
@@ -148,11 +142,11 @@ AGActivityGen::generateOutputFile(std::list<AGTrip>& trips) {
     //PRINT TEST
     AGTime first(firstTrip);
     AGTime last(lastTrip);
-    cout << "first real trip: " << first.getDay() << ", " << first.getHour() << ":" << first.getMinute() << ":" << first.getSecond() << endl;
-    cout << "last real trip: " << last.getDay() << ", " << last.getHour() << ":" << last.getMinute() << ":" << last.getSecond() << endl;
+    std::cout << "first real trip: " << first.getDay() << ", " << first.getHour() << ":" << first.getMinute() << ":" << first.getSecond() << std::endl;
+    std::cout << "last real trip: " << last.getDay() << ", " << last.getHour() << ":" << last.getMinute() << ":" << last.getSecond() << std::endl;
     for (int i=0 ; i<100 ; ++i) {
         if (histogram[i] > 0) {
-            cout << "histogram[ hour " << i << " ] = " << histogram[i] << endl;
+            std::cout << "histogram[ hour " << i << " ] = " << histogram[i] << std::endl;
         }
     }
     //END TEST
@@ -174,9 +168,9 @@ AGActivityGen::makeActivityTrips(int days, int beginSec, int endSec) {
      * validating the trips with the simulation's time limits
      */
     //list<Trip>* trips = &(acts.trips);
-    list<AGTrip> expTrips;
-    map<string, int> carUsed;
-    list<AGTrip>::iterator it;
+    std::list<AGTrip> expTrips;
+    std::map<std::string, int> carUsed;
+    std::list<AGTrip>::iterator it;
     //multiplication of days
     for (it=acts.trips.begin() ; it!=acts.trips.end() ; ++it) {
         if (it->isDaily()) {
@@ -196,7 +190,7 @@ AGActivityGen::makeActivityTrips(int days, int beginSec, int endSec) {
                 if (timeTripValidation(tr))
                     expTrips.push_back(tr);
                 //else
-                //	cout << "trop tard 1 pour " << tr.getVehicleName() << " " << tr.getTime() << " day: " << tr.getDay() << endl;
+                //	std::cout << "trop tard 1 pour " << tr.getVehicleName() << " " << tr.getTime() << " day: " << tr.getDay() << std::endl;
             }
         } else {
             AGTrip tr(it->getDep(), it->getArr(), it->getVehicleName(), it->getTime(), it->getDay());
@@ -214,18 +208,18 @@ AGActivityGen::makeActivityTrips(int days, int beginSec, int endSec) {
             if (timeTripValidation(tr))
                 expTrips.push_back(tr);
             //else
-            //	cout << "trop tard 2 pour " << tr.getVehicleName() << " " << tr.getTime() << " day: " << tr.getDay() << endl;
+            //	std::cout << "trop tard 2 pour " << tr.getVehicleName() << " " << tr.getTime() << " day: " << tr.getDay() << std::endl;
         }
     }
 
-    cout << "total trips generated: " << acts.trips.size() << endl;
-    cout << "total trips finally taken: " << expTrips.size() << endl;
+    std::cout << "total trips generated: " << acts.trips.size() << std::endl;
+    std::cout << "total trips finally taken: " << expTrips.size() << std::endl;
 
     /**
      * re-ordering of trips: SUMO needs routes ordered by departure time.
      */
     expTrips.sort(); //natural order of trips
-    cout << "...sorted by departure time.\n" << endl;
+    std::cout << "...sorted by departure time.\n" << std::endl;
 
     /**
      * trip file generation

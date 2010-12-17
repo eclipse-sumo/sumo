@@ -33,11 +33,6 @@
 
 
 // ===========================================================================
-// used namespaces
-// ===========================================================================
-using namespace std;
-
-// ===========================================================================
 // method definitions
 // ===========================================================================
 bool
@@ -52,14 +47,14 @@ AGTrip::operator <(AGTrip & trip) {
 
 void
 AGTrip::print() {
-    cout << "Trip: " << endl;
-    cout << "\t-From= ";
+    std::cout << "Trip: " << std::endl;
+    std::cout << "\t-From= ";
     from.print();
-    cout << "\t-To= ";
+    std::cout << "\t-To= ";
     to.print();
-    cout << "\t-At= " << atTime << " -Day= " << day << endl;
-    cout << "\t-Vehicle= " << vehicle << endl;
-    cout << "\t-type= " << type << endl;
+    std::cout << "\t-At= " << atTime << " -Day= " << day << std::endl;
+    std::cout << "\t-Vehicle= " << vehicle << std::endl;
+    std::cout << "\t-type= " << type << std::endl;
 }
 
 void
@@ -69,7 +64,7 @@ AGTrip::addLayOver(AGPosition by) {
 
 void
 AGTrip::addLayOver(AGTrip &trip) {
-    list<AGPosition>::iterator it;
+    std::list<AGPosition>::iterator it;
     for (it=trip.passBy.begin() ; it!=trip.passBy.end() ; ++it) {
         passBy.push_back(*it);
     }
@@ -78,7 +73,7 @@ AGTrip::addLayOver(AGTrip &trip) {
 
 void
 AGTrip::addLayOverWithoutDestination(AGTrip & trip) {
-    list<AGPosition>::iterator it;
+    std::list<AGPosition>::iterator it;
     for (it=trip.passBy.begin() ; it!=trip.passBy.end() ; ++it) {
         passBy.push_back(*it);
     }
@@ -89,13 +84,13 @@ AGTrip::getPassed() {
     return &passBy;
 }
 
-string
+std::string
 AGTrip::getType() {
     return type;
 }
 
 void
-AGTrip::setType(string type) {
+AGTrip::setType(std::string type) {
     this->type = type;
 }
 
@@ -115,11 +110,11 @@ AGTrip::getTime() {
 }
 
 int
-AGTrip::getTimeTrip(float secPerKm) {
-    float dist = 0;
-    list<AGPosition> positions;
+AGTrip::getTimeTrip(SUMOReal secPerKm) {
+    SUMOReal dist = 0;
+    std::list<AGPosition> positions;
     positions.push_back(from);
-    list<AGPosition>::iterator it;
+    std::list<AGPosition>::iterator it;
     for (it=passBy.begin() ; it!=passBy.end() ; ++it) {
         positions.push_back(*it);
     }
@@ -139,13 +134,13 @@ AGTrip::getTimeTrip(float secPerKm) {
 }
 
 int
-AGTrip::getArrTime(float secPerKm) {
+AGTrip::getArrTime(SUMOReal secPerKm) {
     int arrTime = atTime + getTimeTrip(secPerKm);
     return arrTime;
 }
 
 int
-AGTrip::getRideBackArrTime(float secPerKm) {
+AGTrip::getRideBackArrTime(SUMOReal secPerKm) {
     int arrAtTime = getArrTime(secPerKm);
     int time = (int)(secPerKm * to.distanceTo(from) /1000.0);
     int arrTime = arrAtTime + time;
@@ -158,18 +153,18 @@ AGTrip::setDepTime(int time) {
 }
 
 int
-AGTrip::estimateDepTime(int arrTime, float secPerKm) {
+AGTrip::estimateDepTime(int arrTime, SUMOReal secPerKm) {
     int depTime = arrTime - getTimeTrip(secPerKm);
     return depTime;
 }
 
-string
+std::string
 AGTrip::getVehicleName() {
     return vehicle;
 }
 
 void
-AGTrip::setVehicleName(string name) {
+AGTrip::setVehicleName(std::string name) {
     vehicle = name;
 }
 

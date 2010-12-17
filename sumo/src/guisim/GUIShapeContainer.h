@@ -36,7 +36,7 @@
 // ===========================================================================
 // class declarations
 // ===========================================================================
-class GUINet;
+class SUMORTree;
 
 
 // ===========================================================================
@@ -50,7 +50,7 @@ class GUINet;
 class GUIShapeContainer : public ShapeContainer {
 public:
     /// @brief Constructor
-    GUIShapeContainer(GUINet &net) throw();
+    GUIShapeContainer(SUMORTree &vis) throw();
 
 
     /// @brief Destructor
@@ -121,32 +121,12 @@ public:
     void reshapePolygon(int layer, const std::string &id, const Position2DVector &shape) throw();
 
 
-
-protected:
-    /** @brief Adds a polygon to the container
-     * @param[in] layer The layer the polygon is located in
-     * @param[in] p The polygon to add
-     * @return Whether the polygon could be added (no other with same name existed before)
-     * @see ShapeContainer::add
-     */
-    bool add(int layer, Polygon2D *p) throw();
-
-
-    /** @brief Adds a POI to the container
-     * @param[in] layer The layer the poi is located in
-     * @param[in] p The poi to add
-     * @return Whether the poi could be added (no other with same name existed before)
-     * @see ShapeContainer::add
-     */
-    bool add(int layer, PointOfInterest *p) throw();
-
-
 private:
     /// @brief The mutex for adding/removing operations
     MFXMutex myLock;
 
-    /// @brief The network for interaction with the RTree strcuture
-    GUINet &myNet;
+    /// @brief The RTree structure to add and remove visualization elements
+    SUMORTree &myVis;
 
 };
 

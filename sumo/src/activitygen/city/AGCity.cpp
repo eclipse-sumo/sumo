@@ -45,12 +45,6 @@
 
 
 // ===========================================================================
-// used namespaces
-// ===========================================================================
-using namespace std;
-
-
-// ===========================================================================
 // method definitions
 // ===========================================================================
 void
@@ -71,7 +65,7 @@ AGCity::completeStreets() {
     }
     statData.factorInhabitants = (float)statData.inhabitants / (float)pop;
     //can be improved with other input data
-    float neededWorkPositionsInCity = (1.0f - statData.unemployement)
+    SUMOReal neededWorkPositionsInCity = (1.0 - statData.unemployement)
                                       * ((float)statData.getPeopleYoungerThan(statData.limitAgeRetirement)
                                          - (float)statData.getPeopleYoungerThan(statData.limitAgeChildren))
                                       + (float)statData.incomingTraffic;
@@ -87,8 +81,8 @@ AGCity::completeStreets() {
     }
 
     //completing streets from edges of the network not handled/present in STAT file (no population no work position)
-    map<string, ROEdge*>::const_iterator itE;
-    vector<AGStreet>::iterator itS;
+    std::map<std::string, ROEdge*>::const_iterator itE;
+    std::vector<AGStreet>::iterator itS;
 
     for (itE = net->getEdgeMap().begin() ; itE != net->getEdgeMap().end() ; ++itE) {
         for (itS = streets.begin() ; itS != streets.end() ; ++itS) {
@@ -105,38 +99,38 @@ AGCity::completeStreets() {
 
 void
 AGCity::generateWorkPositions() {
-    vector<AGStreet>::iterator it;
+    std::vector<AGStreet>::iterator it;
     int workPositionCounter = 0;
 
     try {
         for (it = streets.begin() ; it != streets.end() ; ++it) {
-            //cout << "number of work positions in street: " << it->getWorkplaceNumber() << endl;
+            //std::cout << "number of work positions in street: " << it->getWorkplaceNumber() << std::endl;
             for (int i=0 ; i<it->getWorkplaceNumber() ; ++i) {
                 workPositions.push_back(AGWorkPosition(*it, &statData));
                 ++workPositionCounter;
             }
         }
-    } catch (const bad_alloc& e) {
-        cout << "Number of work positions at bad_alloc exception: " << workPositionCounter << endl;
+    } catch (const std::bad_alloc& e) {
+        std::cout << "Number of work positions at bad_alloc exception: " << workPositionCounter << std::endl;
         throw(e);
     }
-    //cout << "Inner work positions done. " << workPositionCounter << " generated." << endl;
+    //std::cout << "Inner work positions done. " << workPositionCounter << " generated." << std::endl;
 
     // Work positions outside the city
     generateOutgoingWP();
-    cout << "--> work position: " << endl;
-    cout << "  |-> in city: " << workPositionCounter << endl;
-    cout << "  |-> out city: " << statData.workPositions - workPositionCounter << endl;
-    cout << "  |-> in+out city: " << statData.workPositions << endl;
+    std::cout << "--> work position: " << std::endl;
+    std::cout << "  |-> in city: " << workPositionCounter << std::endl;
+    std::cout << "  |-> out city: " << statData.workPositions - workPositionCounter << std::endl;
+    std::cout << "  |-> in+out city: " << statData.workPositions << std::endl;
 }
 
 void
 AGCity::generateOutgoingWP() {
     // work positions outside the city
-    float nbrWorkers = static_cast<float>(statData.getPeopleYoungerThan(statData.limitAgeRetirement) - statData.getPeopleYoungerThan(statData.limitAgeChildren));
+    SUMOReal nbrWorkers = static_cast<SUMOReal>(statData.getPeopleYoungerThan(statData.limitAgeRetirement) - statData.getPeopleYoungerThan(statData.limitAgeChildren));
     if (nbrWorkers <= 0)
         return;
-    nbrWorkers *= (1.0f - statData.unemployement);
+    nbrWorkers *= (1.0 - statData.unemployement);
     /**
      * N_out = N_in * (ProportionOut / (1 - ProportionOut)) = N_out = N_in * (Noutworkers / (Nworkers - Noutworkers))
      */
@@ -149,16 +143,16 @@ AGCity::generateOutgoingWP() {
         int posi = statData.getRandomCityGateByOutgoing();
         workPositions.push_back(AGWorkPosition(cityGates[posi].getStreet(), cityGates[posi].getPosition(), &statData));
     }
-    //cout << "outgoing traffic: " << statData.outgoingTraffic << endl;
-    //cout << "total number of workers in the city: " << nbrWorkers << endl;
-    //cout << "work positions out side the city: " << nbrOutWorkPositions << endl;
-    //cout << "work positions in and out of the city: " << workPositions.size() << endl;
+    //cout << "outgoing traffic: " << statData.outgoingTraffic << std::endl;
+    //cout << "total number of workers in the city: " << nbrWorkers << std::endl;
+    //cout << "work positions out side the city: " << nbrOutWorkPositions << std::endl;
+    //cout << "work positions in and out of the city: " << workPositions.size() << std::endl;
     statData.workPositions = workPositions.size();
 }
 
 void
 AGCity::completeBusLines() {
-    list<AGBusLine>::iterator it;
+    std::list<AGBusLine>::iterator it;
     for (it=busLines.begin() ; it!=busLines.end() ; ++it) {
         //it->generateOpositDirection();
         it->setBusNames();
@@ -167,7 +161,7 @@ AGCity::completeBusLines() {
 
 void
 AGCity::generatePopulation() {
-    vector<AGStreet>::iterator it;
+    std::vector<AGStreet>::iterator it;
     int people;
     nbrCars = 0;
     int idHouseholds = 0;
@@ -192,7 +186,7 @@ AGCity::generatePopulation() {
     int nbrChild = 0;
     int nbrHH = 0;
     int workingP = 0;
-    list<AGHousehold>::iterator itt;
+    std::list<AGHousehold>::iterator itt;
     for (itt=households.begin() ; itt != households.end() ; ++itt) {
         if (itt->getAdultNbr() == 1) {
             nbrSingle++;
@@ -209,24 +203,24 @@ AGCity::generatePopulation() {
         nbrChild += itt->getPeopleNbr() - itt->getAdultNbr();
         nbrHH++;
     }
-    //cout << "number hh: " << nbrHH << endl;
-    //cout << "number single: " << nbrSingle << endl;
-    //cout << "number couple: " << nbrCouple << endl;
-    //cout << "number 3 or more: " << nbr3More << endl;
-    //cout << "number adults: " << nbrSingle + nbrCouple + nbr3More << endl;
-    //cout << "number children: " << nbrChild << endl;
-    //cout << "number people: " << nbrSingle + nbrCouple + nbr3More + nbrChild << endl;
+    //cout << "number hh: " << nbrHH << std::endl;
+    //cout << "number single: " << nbrSingle << std::endl;
+    //cout << "number couple: " << nbrCouple << std::endl;
+    //cout << "number 3 or more: " << nbr3More << std::endl;
+    //cout << "number adults: " << nbrSingle + nbrCouple + nbr3More << std::endl;
+    //cout << "number children: " << nbrChild << std::endl;
+    //cout << "number people: " << nbrSingle + nbrCouple + nbr3More + nbrChild << std::endl;
     //END TEST
 
-    cout << "--> population: " << endl;
-    cout << "  |-> city households: " << nbrHH << endl;
-    cout << "  |-> city people: " << nbrSingle + nbrCouple + nbrChild << endl;
-    cout << "    |-> city single: " << nbrSingle << " / (in) couple: " << nbrCouple << endl;
-    cout << "    |-> city adults: " << nbrSingle + nbrCouple << endl;
-    cout << "      |-> estimation: " << statData.getPeopleOlderThan(statData.limitAgeChildren) << endl;
-    cout << "      |-> retired: " << statData.getPeopleOlderThan(statData.limitAgeRetirement) << endl;
-    cout << "    |-> city children: " << nbrChild << endl;
-    cout << "      |-> estimation: " << statData.getPeopleYoungerThan(statData.limitAgeChildren) << endl;
+    std::cout << "--> population: " << std::endl;
+    std::cout << "  |-> city households: " << nbrHH << std::endl;
+    std::cout << "  |-> city people: " << nbrSingle + nbrCouple + nbrChild << std::endl;
+    std::cout << "    |-> city single: " << nbrSingle << " / (in) couple: " << nbrCouple << std::endl;
+    std::cout << "    |-> city adults: " << nbrSingle + nbrCouple << std::endl;
+    std::cout << "      |-> estimation: " << statData.getPeopleOlderThan(statData.limitAgeChildren) << std::endl;
+    std::cout << "      |-> retired: " << statData.getPeopleOlderThan(statData.limitAgeRetirement) << std::endl;
+    std::cout << "    |-> city children: " << nbrChild << std::endl;
+    std::cout << "      |-> estimation: " << statData.getPeopleYoungerThan(statData.limitAgeChildren) << std::endl;
 
 }
 
@@ -240,7 +234,7 @@ AGCity::generateIncomingPopulation() {
 
 void
 AGCity::schoolAllocation() {
-    list<AGHousehold>::iterator it;
+    std::list<AGHousehold>::iterator it;
     bool shortage;
     for (it = households.begin() ; it != households.end() ; ++it) {
         shortage = !it->allocateChildrenSchool();
@@ -248,13 +242,13 @@ AGCity::schoolAllocation() {
             /*ofstream fichier("test.txt", ios::app);  // ouverture en écriture avec effacement du fichier ouvert
             if(fichier)
             {
-            	fichier << "===> WARNING: Not enough school places in the city for all children..." << endl;
+            	fichier << "===> WARNING: Not enough school places in the city for all children..." << std::endl;
             	fichier.close();
             }
             else
-            	cerr << "Impossible d'ouvrir le fichier !" << endl;*/
+            	cerr << "Impossible d'ouvrir le fichier !" << std::endl;*/
 
-            //cout << "===> WARNING: Not enough school places in the city for all children..." << endl;
+            //std::cout << "===> WARNING: Not enough school places in the city for all children..." << std::endl;
         }
     }
 }
@@ -266,7 +260,7 @@ AGCity::workAllocation() {
     /**
      * people from the city
      */
-    list<AGHousehold>::iterator it;
+    std::list<AGHousehold>::iterator it;
     bool shortage;
 
     for (it = households.begin() ; it != households.end() ; ++it) {
@@ -274,7 +268,7 @@ AGCity::workAllocation() {
             continue;
         shortage = !it->allocateAdultsWork();
         if (shortage) {
-            cout << "===> ERROR: Not enough work positions in the city for all working people..." << endl;
+            std::cout << "===> ERROR: Not enough work positions in the city for all working people..." << std::endl;
         }
         statData.AdultNbr += it->getAdultNbr(); //TESTING
     }
@@ -282,19 +276,19 @@ AGCity::workAllocation() {
     /**
      * people from outside
      */
-    list<AGAdult>::iterator itA;
+    std::list<AGAdult>::iterator itA;
     for (itA=peopleIncoming.begin() ; itA!=peopleIncoming.end() ; ++itA) {
         if (statData.workPositions > 0) {
             itA->tryToWork(1, &workPositions);
         } else {
             //shouldn't happen
-            cout << "not enough work for incoming people..." << endl;
+            std::cout << "not enough work for incoming people..." << std::endl;
         }
     }
 
     //BEGIN TESTS
     int workingP = 0;
-    list<AGHousehold>::iterator itt;
+    std::list<AGHousehold>::iterator itt;
     for (itt=households.begin() ; itt != households.end() ; ++itt) {
         if (itt->getAdultNbr() == 1) {
             if (itt->adults.front().isWorking())
@@ -307,9 +301,9 @@ AGCity::workAllocation() {
                 workingP++;
         }
     }
-    cout << "  |-> working people: " << peopleIncoming.size() + workingP << endl;
-    cout << "    |-> working people in city: " << workingP << endl;
-    cout << "    |-> working people from outside: " << peopleIncoming.size() << endl;
+    std::cout << "  |-> working people: " << peopleIncoming.size() + workingP << std::endl;
+    std::cout << "    |-> working people in city: " << workingP << std::endl;
+    std::cout << "    |-> working people from outside: " << peopleIncoming.size() << std::endl;
     //END TESTS
 }
 
@@ -317,7 +311,7 @@ void
 AGCity::carAllocation() {
     statData.hhFarFromPT = 0;
     nbrCars = 0;
-    list<AGHousehold>::iterator it;
+    std::list<AGHousehold>::iterator it;
     for (it=households.begin() ; it!=households.end() ; ++it) {
         if (!it->isCloseFromPubTransport(&(statData.busStations))) {
             statData.hhFarFromPT++;
@@ -328,8 +322,8 @@ AGCity::carAllocation() {
     }
     // new rate: the rate on the people that have'nt any car yet:
     // nR = (R * Drivers - AlreadyCars) / (Drivers - AlreadyCars)
-    float newRate = (statData.carRate * statData.getPeopleOlderThan(statData.limitAgeChildren) - statData.hhFarFromPT) / (statData.getPeopleOlderThan(statData.limitAgeChildren) - statData.hhFarFromPT);
-    //cout << " - " << newRate << endl;
+    SUMOReal newRate = (statData.carRate * statData.getPeopleOlderThan(statData.limitAgeChildren) - statData.hhFarFromPT) / (statData.getPeopleOlderThan(statData.limitAgeChildren) - statData.hhFarFromPT);
+    //std::cout << " - " << newRate << std::endl;
     if (newRate < 0 || newRate >= 1)
         newRate = 0;
 
@@ -341,18 +335,18 @@ AGCity::carAllocation() {
         nbrAdults += it->getAdultNbr();
     }
     //TEST RESULTS
-    //cout << "number of cars: " << nbrCars << endl;
-    //cout << "number of adults: " << statData.getPeopleOlderThan(statData.limitAgeChildren) << endl;
-    //cout << "real number of adults: " << nbrAdults << endl;
-    //cout << "number of people far from public transport: " << statData.hhFarFromPT << endl;
-    //cout << "original rate: " << setprecision(4) << statData.carRate << endl;
-    //cout << "new rate: " << setprecision(4) << newRate << endl;
-    //cout << "real rate: " << setprecision(4) << (float)nbrCars / (float)statData.getPeopleOlderThan(statData.limitAgeChildren) << endl;
+    //std::cout << "number of cars: " << nbrCars << std::endl;
+    //std::cout << "number of adults: " << statData.getPeopleOlderThan(statData.limitAgeChildren) << std::endl;
+    //std::cout << "real number of adults: " << nbrAdults << std::endl;
+    //std::cout << "number of people far from public transport: " << statData.hhFarFromPT << std::endl;
+    //std::cout << "original rate: " << setprecision(4) << statData.carRate << std::endl;
+    //std::cout << "new rate: " << setprecision(4) << newRate << std::endl;
+    //std::cout << "real rate: " << setprecision(4) << (float)nbrCars / (float)statData.getPeopleOlderThan(statData.limitAgeChildren) << std::endl;
     //END TEST RESULTS
 }
 
 const AGStreet&
-AGCity::getStreet(const string& edge) {
+AGCity::getStreet(const std::string& edge) {
     /**
      * verify if it is the first time this function is called
      * in this case, we have to complete the streets with the
@@ -362,23 +356,23 @@ AGCity::getStreet(const string& edge) {
     if (!streetsCompleted) {
         statData.consolidateStat();
         completeStreets();
-        cout << "first completed in getStreet() of City: Consolidation of data not needed in ActivityGen any more" << endl;
+        std::cout << "first completed in getStreet() of City: Consolidation of data not needed in ActivityGen any more" << std::endl;
     }
     //rest of the function
-    vector<AGStreet>::iterator it = streets.begin();
+    std::vector<AGStreet>::iterator it = streets.begin();
     while (it != streets.end()) {
         if (it->getName() == edge)
             return *it;
         ++it;
     }
-    cout << "===> ERROR: WRONG STREET EDGE (" << edge << ") given and not found in street set." << endl;
-    throw(runtime_error("Street not found with edge id " + edge));
+    std::cout << "===> ERROR: WRONG STREET EDGE (" << edge << ") given and not found in street set." << std::endl;
+    throw(std::runtime_error("Street not found with edge id " + edge));
 }
 
 const AGStreet&
 AGCity::getRandomStreet() {
     if (streets.empty())
-        throw(runtime_error("No street found in this city"));
+        throw(std::runtime_error("No street found in this city"));
     int alea = RandHelper::rand(streets.size());
     return streets.at(alea);
 }

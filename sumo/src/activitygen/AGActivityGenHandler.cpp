@@ -46,7 +46,6 @@
 #include "city/AGPosition.h"
 #include "city/AGBusLine.h"
 
-
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
 #endif // CHECK_MEMORY_LEAKS
@@ -179,8 +178,8 @@ AGActivityGenHandler::parseParameters(const SUMOSAXAttributes &attrs) {
 
 void
 AGActivityGenHandler::parseStreets(const SUMOSAXAttributes &attrs) {
-    int pop = 0;
-    int work = 0;
+    SUMOReal pop = 0;
+    SUMOReal work = 0;
 
     if (attrs.hasAttribute(AGEN_ATTR_POPULATION))
         pop = attrs.getFloat(AGEN_ATTR_POPULATION);

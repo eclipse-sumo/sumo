@@ -35,15 +35,9 @@
 
 
 // ===========================================================================
-// used namespaces
-// ===========================================================================
-using namespace std;
-
-
-// ===========================================================================
 // method definitions
 // ===========================================================================
-AGStreet::AGStreet(const ROEdge* edge, float popDensity, float workDensity) throw() :
+AGStreet::AGStreet(const ROEdge* edge, SUMOReal popDensity, SUMOReal workDensity) throw() :
         edge(edge) {
     pop = static_cast<int>(popDensity * edge->getLength());
     work = static_cast<int>(workDensity * edge->getLength());
@@ -53,7 +47,7 @@ AGStreet::AGStreet(const ROEdge* edge, float popDensity, float workDensity) thro
 
 void
 AGStreet::print() const throw() {
-    cout << "- AGStreet: Name=" << edge->getID() << " Length=" << edge->getLength() << " pop=" << pop << " work=" << work << endl;
+    std::cout << "- AGStreet: Name=" << edge->getID() << " Length=" << edge->getLength() << " pop=" << pop << " work=" << work << std::endl;
 }
 
 /****************************************************************************/
@@ -65,7 +59,7 @@ AGStreet::getLength() const throw() {
 
 /****************************************************************************/
 
-const string&
+const std::string&
 AGStreet::getName() const throw() {
     return edge->getID();
 }

@@ -86,9 +86,9 @@ template MFXMutex GLObjectValuePassConnector<std::pair<int,class MSPhaseDefiniti
 // ===========================================================================
 GUINet::GUINet(MSVehicleControl *vc, MSEventControl *beginOfTimestepEvents,
                MSEventControl *endOfTimestepEvents, MSEventControl *emissionEvents) throw(ProcessError)
-        : MSNet(vc, beginOfTimestepEvents, endOfTimestepEvents, emissionEvents, new GUIShapeContainer(*this)),
+        : myGrid(new SUMORTree(&GUIGlObject::drawGL)),
+        MSNet(vc, beginOfTimestepEvents, endOfTimestepEvents, emissionEvents, new GUIShapeContainer(*myGrid)),
         GUIGlObject(GUIGlObjectStorage::gIDStorage, "network"),
-        myGrid(new SUMORTree(&GUIGlObject::drawGL)),
         myLastSimDuration(0), /*myLastVisDuration(0),*/ myLastIdleDuration(0),
         myLastVehicleMovementCount(0), myOverallVehicleCount(0), myOverallSimDuration(0) {
     GUIGlObjectStorage::gIDStorage.setNetObject(this);
@@ -145,7 +145,7 @@ GUINet::initDetectors() {
         // add to dictionary
         myDetectorDict[wrapper->getMicrosimID()] = wrapper;
         // add to visualisation
-        addAdditionalGLObject(wrapper);
+        myGrid->addAdditionalGLObject(wrapper);
     }
     // e2 over lanes -detectors
     const std::map<std::string, MS_E2_ZS_CollectorOverLanes*> &e2ol = myDetectorControl->getE2OLDetectors().getMyMap();
@@ -153,7 +153,7 @@ GUINet::initDetectors() {
         MS_E2_ZS_CollectorOverLanes * const e2oli = (*i2).second;
         GUIDetectorWrapper *wrapper = static_cast<GUI_E2_ZS_CollectorOverLanes*>(e2oli)->buildDetectorWrapper(GUIGlObjectStorage::gIDStorage);
         myDetectorDict[wrapper->getMicrosimID()] = wrapper;
-        addAdditionalGLObject(wrapper);
+        myGrid->addAdditionalGLObject(wrapper);
     }
     // induction loops
     const std::map<std::string, MSInductLoop*> &e1 = myDetectorControl->getInductLoops().getMyMap();
@@ -163,7 +163,7 @@ GUINet::initDetectors() {
         GUIEdge &edge = static_cast<GUIEdge&>(lane->getEdge());
         GUIDetectorWrapper *wrapper = static_cast<GUIInductLoop*>(e1i)->buildDetectorWrapper(GUIGlObjectStorage::gIDStorage, edge.getLaneGeometry(lane));
         myDetectorDict[wrapper->getMicrosimID()] = wrapper;
-        addAdditionalGLObject(wrapper);
+        myGrid->addAdditionalGLObject(wrapper);
     }
     // e3-detectors
     const std::map<std::string, MSE3Collector*> &e3 = myDetectorControl->getE3Detectors().getMyMap();
@@ -171,7 +171,7 @@ GUINet::initDetectors() {
         MSE3Collector *const e3i = (*i2).second;
         GUIDetectorWrapper *wrapper = static_cast<GUIE3Collector*>(e3i)->buildDetectorWrapper(GUIGlObjectStorage::gIDStorage);
         myDetectorDict[wrapper->getMicrosimID()] = wrapper;
-        addAdditionalGLObject(wrapper);
+        myGrid->addAdditionalGLObject(wrapper);
     }
 }
 
@@ -509,31 +509,6 @@ GUINet::drawGL(const GUIVisualizationSettings&/*s*/) const throw() {
 Boundary
 GUINet::getCenteringBoundary() const throw() {
     return getBoundary();
-}
-
-void
-GUINet::addAdditionalGLObject(GUIGlObject_AbstractAdd *o) throw() {
-    float cmin[2];
-    float cmax[2];
-    Boundary b = o->getCenteringBoundary();
-    cmin[0] = b.xmin();
-    cmin[1] = b.ymin();
-    cmax[0] = b.xmax();
-    cmax[1] = b.ymax();
-    myGrid->Insert(cmin, cmax, o);
-}
-
-
-void
-GUINet::removeAdditionalGLObject(GUIGlObject_AbstractAdd *o) throw() {
-    float cmin[2];
-    float cmax[2];
-    Boundary b = o->getCenteringBoundary();
-    cmin[0] = b.xmin();
-    cmin[1] = b.ymin();
-    cmax[0] = b.xmax();
-    cmax[1] = b.ymax();
-    myGrid->Remove(cmin, cmax, o);
 }
 
 

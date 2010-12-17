@@ -30,17 +30,16 @@
 #include <config.h>
 #endif
 
-#include "AGFreeTime.h"
-#include "../city/AGTime.h"
 #include <math.h>
 #include <utils/common/RandHelper.h>
+#include <utils/common/StdDefs.h>
+#include <activitygen/city/AGTime.h>
+#include "AGFreeTime.h"
 
 
 // ===========================================================================
-// used namespaces
+// static member definitions
 // ===========================================================================
-using namespace std;
-
 const int AGFreeTime::DAY = 1;
 const int AGFreeTime::EVENING = 2;
 const int AGFreeTime::NIGHT = 4;
@@ -69,8 +68,8 @@ AGFreeTime::decideTypeOfTrip() {
 
         if (num_poss == 0)
             return 0;
-        float alea = (float)RandHelper::rand(); //(float)(rand() % 1000) / 1000.0;
-        int decision = (int)floor(alea * (float)num_poss);
+        SUMOReal alea = RandHelper::rand(); //(float)(rand() % 1000) / 1000.0;
+        int decision = (int)floor(alea * (SUMOReal)num_poss);
 
         if (possibleType & DAY) {
             if (decision == 0)
@@ -101,7 +100,7 @@ AGFreeTime::possibleTypeOfTrip() {
         if (hh->getPeopleNbr() > hh->getAdultNbr())
             val += NIGHT;
 
-        list<AGAdult>::iterator itA;
+        std::list<AGAdult>::iterator itA;
         bool noBodyWorks = true;
         for (itA=hh->adults.begin() ; itA!=hh->adults.end() ; ++itA) {
             if (itA->isWorking())
@@ -122,7 +121,7 @@ AGFreeTime::typeFromHomeDay(int day) {
     if (hh->cars.empty())
         return true;
     AGPosition destination(hh->getTheCity()->getRandomStreet());
-    int depTime = randomTimeBetween(max(backHome, TB_DAY), (TB_DAY+TE_DAY)/2);
+    int depTime = randomTimeBetween(MAX2(backHome, TB_DAY), (TB_DAY+TE_DAY)/2);
     int arrTime = this->arrHour(hh->getPosition(), destination, depTime);
     int retTime = randomTimeBetween(arrTime, TE_DAY);
     if (depTime < 0 || retTime < 0)
@@ -141,7 +140,7 @@ AGFreeTime::typeFromHomeEvening(int day) {
     if (hh->cars.empty())
         return true;
     AGPosition destination(hh->getTheCity()->getRandomStreet());
-    int depTime = randomTimeBetween(max(backHome, TB_EVENING), TE_EVENING);
+    int depTime = randomTimeBetween(MAX2(backHome, TB_EVENING), TE_EVENING);
     int arrTime = this->arrHour(hh->getPosition(), destination, depTime);
     int retTime = randomTimeBetween(arrTime, TE_EVENING);
     if (depTime < 0 || retTime < 0)
@@ -163,10 +162,10 @@ AGFreeTime::typeFromHomeNight(int day) {
         return true;
     AGPosition destination(hh->getTheCity()->getRandomStreet());
 
-    int depTime = randomTimeBetween(max(backHome, TB_NIGHT), TE_NIGHT);
+    int depTime = randomTimeBetween(MAX2(backHome, TB_NIGHT), TE_NIGHT);
     int arrTime = this->arrHour(hh->getPosition(), destination, depTime);
     //we have to go back home before the beginning of next day activities.
-    int lastRetTime = this->depHour(destination, hh->getPosition(), min(TE_NIGHT, ActivitiesNextDay));
+    int lastRetTime = this->depHour(destination, hh->getPosition(), MIN2(TE_NIGHT, ActivitiesNextDay));
     int retTime = randomTimeBetween(arrTime, lastRetTime);
     if (depTime < 0 || retTime < 0)
         return true; // not enough time during the day
@@ -215,7 +214,7 @@ int
 AGFreeTime::whenBackHome() {
     int timeBack = 0;
     if (!this->previousTrips->empty()) {
-        list<AGTrip>::iterator itT;
+        std::list<AGTrip>::iterator itT;
         for (itT=previousTrips->begin() ; itT!=previousTrips->end() ; ++itT) {
             if (timeBack < itT->getArrTime(this->timePerKm) && itT->isDaily()) {
                 timeBack = itT->getArrTime(this->timePerKm);
@@ -229,7 +228,7 @@ int
 AGFreeTime::whenBackHomeThisDay(int day) {
     int timeBack = 0;
     if (!this->previousTrips->empty()) {
-        list<AGTrip>::iterator itT;
+        std::list<AGTrip>::iterator itT;
         for (itT=previousTrips->begin() ; itT!=previousTrips->end() ; ++itT) {
             if (timeBack < itT->getArrTime(this->timePerKm) && (itT->getDay() == day || itT->isDaily())) {
                 timeBack = itT->getArrTime(this->timePerKm);
@@ -243,7 +242,7 @@ int
 AGFreeTime::whenBeginActivityNextDay(int day) {
     AGTime timeBack(1,0,0);
     if (!this->previousTrips->empty()) {
-        list<AGTrip>::iterator itT;
+        std::list<AGTrip>::iterator itT;
         for (itT=previousTrips->begin() ; itT!=previousTrips->end() ; ++itT) {
             if (timeBack.getTime() > itT->getTime() && (itT->getDay() == (day+1) || itT->isDaily())) {
                 timeBack.setTime(itT->getTime());

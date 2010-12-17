@@ -35,12 +35,6 @@
 
 
 // ===========================================================================
-// used namespaces
-// ===========================================================================
-using namespace std;
-
-
-// ===========================================================================
 // method definitions
 // ===========================================================================
 void AGBus::setName(std::string name) {
@@ -52,14 +46,14 @@ AGBus::getDeparture() {
     return departureTime;
 }
 
-string
+std::string
 AGBus::getName() {
     return name;
 }
 
 void
 AGBus::print() {
-    cout << "- Bus:" << " name=" << name << " depTime=" << departureTime << endl;
+    std::cout << "- Bus:" << " name=" << name << " depTime=" << departureTime << std::endl;
 }
 
 /****************************************************************************/

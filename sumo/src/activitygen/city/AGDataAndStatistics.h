@@ -46,8 +46,8 @@ public:
     /**
      * parameters
      */
-    float speedTimePerKm;							//number of seconds for one km
-    float carPreference;							//prob. to choose the car (compared to the bus)
+    SUMOReal speedTimePerKm;							//number of seconds for one km
+    SUMOReal carPreference;							//prob. to choose the car (compared to the bus)
 
     /**
      * from General element from XML file.
@@ -57,45 +57,45 @@ public:
     int limitAgeChildren;
     int limitAgeRetirement;
     int limitEndAge;
-    float carRate;
-    float unemployement;
+    SUMOReal carRate;
+    SUMOReal unemployement;
     int maxFootDistance;
     int incomingTraffic;
     int outgoingTraffic;
-    float freeTimeActivityRate;
-    float uniformRandomTrafficRate;
-    double departureVariation;
+    SUMOReal freeTimeActivityRate;
+    SUMOReal uniformRandomTrafficRate;
+    SUMOReal departureVariation;
 
-    std::map<int, float> beginWorkHours;				//<hour, probability> (number only used in term of PROPORTION: it should be normalized)
-    std::map<int, float> endWorkHours;					//<hour, probability> (number only used in term of PROPORTION: it should be normalized)
+    std::map<int, SUMOReal> beginWorkHours;				//<hour, probability> (number only used in term of PROPORTION: it should be normalized)
+    std::map<int, SUMOReal> endWorkHours;				//<hour, probability> (number only used in term of PROPORTION: it should be normalized)
     std::map<int, AGPosition> busStations;				//<id, position>
     //std::map<SchoolType, int> schoolCapacity;
-    std::map<int, float> population;						//<bracket's end age, number> (number only used in term of PROPORTION: it should be normalized)
-    //std::map<int, float> childrenAccompagniment;		//<bracket's end age, probability>
+    std::map<int, SUMOReal> population;						//<bracket's end age, number> (number only used in term of PROPORTION: it should be normalized)
+    //std::map<int, SUMOReal> childrenAccompagniment;		//<bracket's end age, probability>
     /**
      * number of incoming or outgoing people through the given city gates
      * PROPORTION: it should be normalized
      */
-    std::map<int, float> incoming;
-    std::map<int, float> outgoing;
+    std::map<int, SUMOReal> incoming;
+    std::map<int, SUMOReal> outgoing;
 
     /**
      * computed values used during processing
      */
     int workPositions;
-    float factorInhabitants;
-    float factorWorkPositions;
+    SUMOReal factorInhabitants;
+    SUMOReal factorWorkPositions;
 
     /**
      * data used for household generation
      * has to be computed before.
      */
     //probability of picking an old-people household (compared to working and have children adults)
-    float oldAgeHhProb;
+    SUMOReal oldAgeHhProb;
     //probability of having a second adult (old in case of old householders) in the household.
-    float secondPersProb;
+    SUMOReal secondPersProb;
     //this s the mean number of children pro household (not old). This value is used in the Poisson-lay for determining the number of children in each family
-    float meanNbrChildren;
+    SUMOReal meanNbrChildren;
 
     /**
      * numbers not needed but interesting for statistics and TESTING
@@ -127,7 +127,7 @@ public:
      * it returns the number of children with a probability of POISSON in a household
      * is given the mean of the distribution
      */
-    int getPoissonsNumberOfChildren(float mean);
+    int getPoissonsNumberOfChildren(SUMOReal mean);
     /**
      * these functions return the number of people having more (or less) than the given age
      * (inclusive for getPeopleOlderThan ; exclusive for getPeopleYoungerThan)
@@ -136,7 +136,7 @@ public:
      */
     int getPeopleOlderThan(int age);
     int getPeopleYoungerThan(int age);
-    float getPropYoungerThan(int age);
+    SUMOReal getPropYoungerThan(int age);
     /**
      * function consolidating statistics:
      * normalizes the maps with probabilities
@@ -151,7 +151,7 @@ public:
      * -the probability distribution function is a "scaled exponential" distribution
      * from mean-maxVar to mean and from mean to mean+maxVar
      */
-    float getInverseExpRandomValue(float mean, float maxVar);
+    SUMOReal getInverseExpRandomValue(SUMOReal mean, SUMOReal maxVar);
     /**
      * function returning a random city gate corresponding to
      * the distribution of the incoming/outgoing traffic
@@ -168,14 +168,14 @@ private:
      * @arg: mean of the distribution
      * @arg: number of occurrences
      */
-    float poisson(float mean, int occ);
+    SUMOReal poisson(SUMOReal mean, int occ);
     /**
      * recursive mathematical function returning the factorial of n: n!
      */
     int factorial(int n);
 
     //function normalizing the map's probabilities: Sum(floats) = 1
-    void normalizeMapProb(std::map<int, float> *myMap);
+    void normalizeMapProb(std::map<int, SUMOReal> *myMap);
 };
 
 #endif

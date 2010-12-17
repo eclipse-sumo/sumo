@@ -33,13 +33,6 @@
 #include <vector>
 #include "AGChild.h"
 #include "AGSchool.h"
-#include <cfloat>
-
-
-// ===========================================================================
-// used namespaces
-// ===========================================================================
-using namespace std;
 
 
 // ===========================================================================
@@ -47,7 +40,7 @@ using namespace std;
 // ===========================================================================
 void
 AGChild::print() {
-    cout << "- Child: Age=" << age << " School=" << school << endl;
+    std::cout << "- Child: Age=" << age << " School=" << school << std::endl;
 }
 
 bool
@@ -61,12 +54,12 @@ AGChild::setSchool(AGSchool *school) {
 }
 
 bool
-AGChild::alocateASchool(list<AGSchool> *schools, AGPosition housePos) {
-    float minDist = FLT_MAX;
+AGChild::alocateASchool(std::list<AGSchool> *schools, AGPosition housePos) {
+    SUMOReal minDist = std::numeric_limits<SUMOReal>::infinity();
     AGSchool *sch = NULL;
     if (schools->size() == 0)
         return false;
-    list<AGSchool>::iterator it;
+    std::list<AGSchool>::iterator it;
 
     for (it = schools->begin() ; it!=schools->end() ; ++it) {
         if (it->acceptThisAge(age) && it->getPlaces()>0 && housePos.distanceTo(it->getPosition()) < minDist) {

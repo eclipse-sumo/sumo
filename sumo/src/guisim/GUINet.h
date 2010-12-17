@@ -249,23 +249,10 @@ public:
     void initGUIStructures();
 
 
-
-    /** @brief Adds an additional object (detector/shape/trigger) for visualisation
-     * @param[in] o The object to add
-     */
-    void addAdditionalGLObject(GUIGlObject_AbstractAdd *o) throw();
-
-
-    /** @brief Removes an additional object (detector/shape/trigger) from being visualised
-     * @param[in] o The object to remove
-     */
-    void removeAdditionalGLObject(GUIGlObject_AbstractAdd *o) throw();
-
-
-    /** @brief Returns the RTTree used for visualisation speed-up
+    /** @brief Returns the RTree used for visualisation speed-up
      * @return The visualisation speed-up
      */
-    const SUMORTree &getVisualisationSpeedUp() const throw() {
+    SUMORTree &getVisualisationSpeedUp() const throw() {
         return *myGrid;
     }
 

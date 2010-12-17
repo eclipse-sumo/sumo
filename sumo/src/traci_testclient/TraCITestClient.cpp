@@ -16,12 +16,14 @@
 //   (at your option) any later version.
 //
 /****************************************************************************/
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
-#include "TraCITestClient.h"
+/* =========================================================================
+ * included modules
+ * ======================================================================= */
+#ifdef _MSC_VER
+#include <windows_config.h>
+#else
+#include <config.h>
+#endif
 
 #include <vector>
 #include <iostream>
@@ -31,12 +33,17 @@
 #include <ctime>
 #include <cstdlib>
 
-#include <traci-server/TraCIConstants.h>
-#include <utils/common/SUMOTime.h>
-
 #define BUILD_TCPIP
 #include <foreign/tcpip/storage.h>
 #include <foreign/tcpip/socket.h>
+
+#include <traci-server/TraCIConstants.h>
+#include <utils/common/SUMOTime.h>
+#include "TraCITestClient.h"
+
+#ifdef CHECK_MEMORY_LEAKS
+#include <foreign/nvwa/debug_new.h>
+#endif // CHECK_MEMORY_LEAKS
 
 
 // ===========================================================================
@@ -145,7 +152,7 @@ TraCITestClient::run(std::string fileName, int port, std::string host) {
         repNo = 1;
         if (lineCommand.compare("%") == 0) {
             // a comment was read
-            commentRead = 1 - commentRead;
+            commentRead = !commentRead;
             continue;
         }
         if (commentRead) {

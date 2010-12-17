@@ -106,11 +106,11 @@ public:
     std::list<AGTrip> *previousTrips;
     bool genDone;
     int activityPriority;
-    float timePerKm;
+    SUMOReal timePerKm;
     /**
      * rate of taking the car instead of the bus because of personal preference
      */
-    float carPreference;
+    SUMOReal carPreference;
 
     AGHousehold *hh;
 

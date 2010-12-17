@@ -1259,7 +1259,6 @@ MSVehicle::getBestLanes(bool forceRebuild, MSLane *startLane) const throw() {
         }
 
         myBestLanes.push_back(currentLanes);
-        int laneNo = currentLanes.size();
         ++seen;
         seenLength += currentLanes[0].lane->getLength();
         ++ce;
@@ -1268,7 +1267,7 @@ MSVehicle::getBestLanes(bool forceRebuild, MSLane *startLane) const throw() {
         progress &= ce!=myRoute->end();
         /*
         if(progress) {
-        	progress &= (laneNo!=1||(*ce)->getLanes().size()!=1);
+        	progress &= (currentLanes.size()!=1||(*ce)->getLanes().size()!=1);
         }
         */
     }

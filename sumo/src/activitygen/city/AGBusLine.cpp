@@ -44,12 +44,6 @@
 
 
 // ===========================================================================
-// used namespaces
-// ===========================================================================
-using namespace std;
-
-
-// ===========================================================================
 // method definitions
 // ===========================================================================
 void
@@ -60,10 +54,10 @@ AGBusLine::setMaxTripTime(int time) {
 void
 AGBusLine::setBusNames() {
     busNbr = 0;
-    list<AGBus>::iterator it1 = buses.begin();	//iterator on buses in the first direction
-    list<AGBus>::iterator it2 = revBuses.begin();	//iterator on buses in the second direction
+    std::list<AGBus>::iterator it1 = buses.begin();	//iterator on buses in the first direction
+    std::list<AGBus>::iterator it2 = revBuses.begin();	//iterator on buses in the second direction
 
-    list<pair<int, string> > drivingBuses1, drivingBuses2;	//buses on the road or in the parking of the corresponding end: int: the time of availability
+    std::list<std::pair<int, std::string> > drivingBuses1, drivingBuses2;	//buses on the road or in the parking of the corresponding end: int: the time of availability
 
     while (it1!= buses.end() && it2!=revBuses.end()) {
         if (it1->getDeparture() > it2->getDeparture()) {
@@ -114,7 +108,7 @@ AGBusLine::setBusNames() {
     }
 }
 
-string
+std::string
 AGBusLine::createName() {
     ++busNbr; //initialized in setBusNames()
     std::ostringstream os;
@@ -160,15 +154,15 @@ AGBusLine::generateBuses(int start, int stop, int rate) {
 
 void
 AGBusLine::printBuses() {
-    list<AGBus>::iterator it;
-    cout << "\n ----------- BUS LINE " << lineNumber << " PRINTING -------------\n" << endl;
-    cout << "\n -------------------------- First way ---------------------------\n" << endl;
+    std::list<AGBus>::iterator it;
+    std::cout << "\n ----------- BUS LINE " << lineNumber << " PRINTING -------------\n" << std::endl;
+    std::cout << "\n -------------------------- First way ---------------------------\n" << std::endl;
     for (it=buses.begin() ; it!=buses.end() ; ++it)
         it->print();
-    cout << "\n -------------------------- Second way --------------------------\n" << endl;
+    std::cout << "\n -------------------------- Second way --------------------------\n" << std::endl;
     for (it=revBuses.begin() ; it!=revBuses.end() ; ++it)
         it->print();
-    cout << "\n ----------------------------------------------------------------\n" << endl;
+    std::cout << "\n ----------------------------------------------------------------\n" << std::endl;
 }
 
 /****************************************************************************/

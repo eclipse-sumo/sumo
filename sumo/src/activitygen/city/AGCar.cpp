@@ -37,21 +37,17 @@
 
 
 // ===========================================================================
-// used namespaces
-// ===========================================================================
-using namespace std;
-
-
-// ===========================================================================
 // method definitions
 // ===========================================================================
-string AGCar::createName(int idHH, int idCar) {
+std::string
+AGCar::createName(int idHH, int idCar) {
     std::ostringstream os;
     os << "h" << idHH << "c" << idCar;
     return os.str();
 }
 
-bool AGCar::associateTo(AGAdult *pers) {
+bool
+AGCar::associateTo(AGAdult *pers) {
     if (currentUser == NULL) {
         currentUser = pers;
         return true;
@@ -59,11 +55,12 @@ bool AGCar::associateTo(AGAdult *pers) {
     return false;
 }
 
-bool AGCar::isAssociated() {
+bool
+AGCar::isAssociated() {
     return (currentUser != NULL);
 }
 
-string
+std::string
 AGCar::getName() {
     return idName;
 }

@@ -52,8 +52,9 @@ ROTypedXMLRoutesLoader::ROTypedXMLRoutesLoader(RONet &net,
         const std::string &file) throw(ProcessError)
         : ROAbstractRouteDefLoader(net, begin, end),
         SUMOSAXHandler(file),
-        myParser(XMLSubSys::getSAXReader(*this)), myToken(), myEnded(false) {
+        myParser(0), myToken(), myEnded(false) {
     try {
+        myParser = XMLSubSys::getSAXReader(*this);
         myParser->parseFirst(getFileName().c_str(), myToken);
     } catch (...) {
         throw ProcessError();

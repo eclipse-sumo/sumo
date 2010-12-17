@@ -153,7 +153,7 @@ protected:
      * @param[in] p The polygon to add
      * @return Whether the polygon could be added (no other with same name existed before)
      */
-    virtual bool add(int layer, Polygon2D *p) throw();
+    bool add(int layer, Polygon2D *p) throw();
 
 
     /** @brief Adds a PoI to the container
@@ -161,7 +161,7 @@ protected:
      * @param[in] p The PoI to add
      * @return Whether the PoI could be added (no other with same name existed before)
      */
-    virtual bool add(int layer, PointOfInterest *p) throw();
+    bool add(int layer, PointOfInterest *p) throw();
 
 
 protected:

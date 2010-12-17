@@ -36,16 +36,10 @@
 
 
 // ===========================================================================
-// used namespaces
-// ===========================================================================
-using namespace std;
-
-
-// ===========================================================================
 // method definitions
 // ===========================================================================
 AGWorkPosition*
-AGAdult::randomFreeWorkPosition(vector<AGWorkPosition> *wps) throw() {
+AGAdult::randomFreeWorkPosition(std::vector<AGWorkPosition> *wps) throw() {
     size_t wpsIndex = 0;
 
     // TODO: Could end up in an endless loop
@@ -65,13 +59,13 @@ AGAdult::AGAdult(int age) throw()
 
 void
 AGAdult::print() const throw() {
-    cout << "- AGAdult: Age=" << age << " Work=" << work << endl;
+    std::cout << "- AGAdult: Age=" << age << " Work=" << work << std::endl;
 }
 
 /****************************************************************************/
 
 void
-AGAdult::tryToWork(float rate, vector<AGWorkPosition>* wps) throw() {
+AGAdult::tryToWork(SUMOReal rate, std::vector<AGWorkPosition>* wps) throw() {
     if (decide(rate)) {
         // Select the new work position before giving up the current one.
         // This avoids that the current one is the same as the new one.
@@ -115,12 +109,12 @@ AGAdult::resignFromWorkPosition() throw() {
 /****************************************************************************/
 
 const AGWorkPosition&
-AGAdult::getWorkPosition() const throw(runtime_error) {
+AGAdult::getWorkPosition() const throw(std::runtime_error) {
     if (work != 0)
         return *work;
 
     else
-        throw(runtime_error("AGAdult::getWorkPosition: Adult is unemployed."));
+        throw(std::runtime_error("AGAdult::getWorkPosition: Adult is unemployed."));
 }
 
 /****************************************************************************/

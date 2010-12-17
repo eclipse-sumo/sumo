@@ -105,23 +105,23 @@ public:
      * going through the different points and coming back to the initial position
      * given the time to make one kilometer
      */
-    int getRideBackArrTime(float secPerKm);
+    int getRideBackArrTime(SUMOReal secPerKm);
     /**
      * returns the estimated arrival time
      * given the time to make one kilometer
      */
-    int getArrTime(float secPerKm);
+    int getArrTime(SUMOReal secPerKm);
     /**
      * gives the time in seconds for the trip
      * given a speed in seconds per kilometer (in city, not car speed
      * but time needed to make a distance in the city)
      */
-    int getTimeTrip(float secPerKm);
+    int getTimeTrip(SUMOReal secPerKm);
     /**
      * estimate the departure time needed for a given arrival time
      * and a speed in seconds per kilometer
      */
-    int estimateDepTime(int arrTime, float secPerKm);
+    int estimateDepTime(int arrTime, SUMOReal secPerKm);
     /**
      * returns whether this is a daily trip or a one day trip
      */

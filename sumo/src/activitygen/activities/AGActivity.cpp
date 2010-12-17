@@ -36,12 +36,6 @@
 
 
 // ===========================================================================
-// used namespaces
-// ===========================================================================
-using namespace std;
-
-
-// ===========================================================================
 // method definitions
 // ===========================================================================
 bool
@@ -70,8 +64,8 @@ AGActivity::possibleTranspMean(AGPosition destination) {
                 && hh->getPosition().minDistanceTo(ds->busStations) <= ds->maxFootDistance)
             transp += BUS;
     } else if (hh->getCarNbr() == 0) {
-        float d1 = destination.distanceTo(hh->getPosition());
-        float d2 = destination.minDistanceTo(ds->busStations) + hh->getPosition().minDistanceTo(ds->busStations);
+        SUMOReal d1 = destination.distanceTo(hh->getPosition());
+        SUMOReal d2 = destination.minDistanceTo(ds->busStations) + hh->getPosition().minDistanceTo(ds->busStations);
 
         if (d1 > d2) {
             transp = BUS;
@@ -108,7 +102,7 @@ AGActivity::availableTranspMeans(AGPosition from, AGPosition to) {
 
 int
 AGActivity::timeToDrive(AGPosition from, AGPosition to) {
-    float dist = from.distanceTo(to);
+    SUMOReal dist = from.distanceTo(to);
     return (int)(timePerKm * dist / 1000.0);
 }
 

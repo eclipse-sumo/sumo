@@ -259,7 +259,7 @@ GUITLLogicPhasesTrackerWindow::drawValues(GUITLLogicPhasesTrackerPanel &caller) 
             myLastTime += (*j)->duration;
         }
     } else {
-        SUMOTime beginOffset = (SUMOTime) TIME2STEPS(myBeginOffset->getValue());
+        SUMOTime beginOffset = TIME2STEPS(myBeginOffset->getValue());
         myBeginTime = myLastTime - beginOffset;
         myFirstTime2Show = myBeginTime;
         // check whether no phases are known at all
@@ -296,19 +296,17 @@ GUITLLogicPhasesTrackerWindow::drawValues(GUITLLogicPhasesTrackerPanel &caller) 
     // draw the horizontal lines dividing the signal groups
     glColor3d(1, 1, 1);
     // compute some values needed more than once
-    SUMOReal height = (SUMOReal) caller.getHeight();
-    SUMOReal width = (SUMOReal) caller.getWidth();
+    const SUMOReal height = (SUMOReal) caller.getHeight();
+    const SUMOReal width = (SUMOReal) caller.getWidth();
     pfSetScaleXY((SUMOReal)(.08*300./width), (SUMOReal)(.08*300./height));
-    SUMOReal h4 = ((SUMOReal) 4 / height);
-    SUMOReal h10 = ((SUMOReal) 10 / height);
-    SUMOReal h16 = ((SUMOReal) 16 / height);
-    SUMOReal h20 = ((SUMOReal) 20 / height);
+    const SUMOReal h4 = ((SUMOReal) 4 / height);
+    const SUMOReal h10 = ((SUMOReal) 10 / height);
+    const SUMOReal h16 = ((SUMOReal) 16 / height);
+    const SUMOReal h20 = ((SUMOReal) 20 / height);
     // draw the link names and the lines dividing them
     SUMOReal h = (SUMOReal)(1.0 - h10);
     SUMOReal h2 = 12;
-    size_t i;
-
-    for (i=0; i<myTLLogic->getLinks().size()+1; i++) {
+    for (size_t i=0; i<myTLLogic->getLinks().size()+1; i++) {
         // draw the bar
         glBegin(GL_LINES);
         glVertex2d(0, h);
@@ -355,7 +353,7 @@ GUITLLogicPhasesTrackerWindow::drawValues(GUITLLogicPhasesTrackerPanel &caller) 
     size_t fpo = myFirstPhaseOffset;
 
     // start drawing
-    for (i=30; pd!=myDurations.end();) {
+    for (size_t i=30; pd!=myDurations.end();) {
         // the first phase may be drawn incompletely
         size_t duration = *pd - fpo;
         // compute the heigh and the width of the phase
@@ -416,11 +414,11 @@ GUITLLogicPhasesTrackerWindow::drawValues(GUITLLogicPhasesTrackerPanel &caller) 
 
     glColor3d(1, 1, 1);
     if (myPhases.size()!=0) {
-        int tickDist = 10;
+        SUMOTime tickDist = TIME2STEPS(10);
         // patch distances - hack
-        SUMOReal t = myBeginOffset!=0 ? (SUMOReal) myBeginOffset->getValue() : (SUMOReal)STEPS2TIME(myLastTime - myBeginTime);
+        SUMOReal t = myBeginOffset!=0 ? (SUMOReal) myBeginOffset->getValue() : STEPS2TIME(myLastTime - myBeginTime);
         while (t>(width-31.)/4.) {
-            tickDist += 10;
+            tickDist += TIME2STEPS(10);
             t -= (SUMOReal)((width-31.)/4.);
         }
         // draw time information
@@ -429,12 +427,12 @@ GUITLLogicPhasesTrackerWindow::drawValues(GUITLLogicPhasesTrackerPanel &caller) 
         // current begin time
         pfSetScaleXY((SUMOReal)(.05*300./width), (SUMOReal)(.05*300./height));
         // time ticks
-        SUMOTime currTime = STEPS2TIME(myFirstTime2Show);
+        SUMOTime currTime = myFirstTime2Show;
         int pos = 31;// + /*!!!currTime*/ - myFirstTime2Show;
-        SUMOReal glpos = (SUMOReal) pos / (SUMOReal) width;
+        SUMOReal glpos = (SUMOReal) pos / width;
         while (pos<width+50) {
-            std::string timeStr = toString<SUMOTime>(currTime);
-            SUMOReal w = pfdkGetStringWidth(timeStr.c_str());
+            const std::string timeStr = time2string(currTime);
+            const SUMOReal w = pfdkGetStringWidth(timeStr.c_str());
             glRotated(180, 1, 0, 0);
             pfSetPosition(0, 0);
             glTranslated(glpos-w/2., -glh+h20-h4, 0);
@@ -447,12 +445,9 @@ GUITLLogicPhasesTrackerWindow::drawValues(GUITLLogicPhasesTrackerPanel &caller) 
             glVertex2d(glpos, glh-h4);
             glEnd();
 
-            SUMOReal a = (SUMOReal) tickDist / width;
-            a *= (SUMOReal)(((width-31.0) / ((SUMOReal)STEPS2TIME(myLastTime - myBeginTime))));
-            glpos += a;
-            SUMOReal a2 = (SUMOReal) tickDist;
-            a2 *= (SUMOReal)(((width-31.0) / ((SUMOReal)STEPS2TIME(myLastTime - myBeginTime))));
-            pos += (int) a2;
+            const SUMOReal a = STEPS2TIME(tickDist) * (width-31.0) / STEPS2TIME(myLastTime - myBeginTime);
+            pos += (int) a;
+            glpos += a / width;
             currTime += tickDist;
         }
     }

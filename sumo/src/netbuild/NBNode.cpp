@@ -1271,7 +1271,7 @@ NBNode::computeLanes2Lanes() {
         std::vector<NBEdge*> *approaching = getEdgesThatApproach(currentOutgoing);
         if (approaching->size()!=0) {
             ApproachingDivider divider(approaching, currentOutgoing);
-            Bresenham::compute(&divider, approaching->size(),
+            Bresenham::compute(&divider, static_cast<unsigned int>(approaching->size()),
                                currentOutgoing->getNoLanes());
         }
         delete approaching;

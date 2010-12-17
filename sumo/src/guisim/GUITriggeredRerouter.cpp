@@ -103,9 +103,10 @@ GUITriggeredRerouter::GUIManip_TriggeredRerouter::GUIManip_TriggeredRerouter(
     const std::string &name, GUITriggeredRerouter &o,
     int /*xpos*/, int /*ypos*/)
         : GUIManipulator(app, name, 0, 0), myParent(&app),
-        myChosenValue(0), myChosenTarget(myChosenValue, this, MID_OPTION),
+        myChosenValue(0), myChosenTarget(myChosenValue, NULL, MID_OPTION),
         myUsageProbability(o.getProbability()), myUsageProbabilityTarget(myUsageProbability),
         myObject(&o) {
+    myChosenTarget.setTarget(this);
     FXVerticalFrame *f1 =
         new FXVerticalFrame(this, LAYOUT_FILL_X|LAYOUT_FILL_Y,0,0,0,0, 0,0,0,0);
 
