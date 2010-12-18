@@ -153,7 +153,7 @@ TrackerValueDesc::setAggregationSpan(SUMOTime as) {
         while (i!=myValues.end()) {
             myTmpLastAggValue = 0;
             myValidNo = 0;
-            for (size_t j=0; j<myAggregationInterval&&i!=myValues.end(); j++, ++i) {
+            for (int j=0; j<myAggregationInterval&&i!=myValues.end(); j++, ++i) {
                 if ((*i)!=myInvalidValue) {
                     myTmpLastAggValue += (*i);
                     myValidNo++;

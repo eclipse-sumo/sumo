@@ -527,7 +527,6 @@ void FXRealSpinDial::layout() {
             }
             dial->position(left,border,right-left,dialHeight);
         } else {
-            FXint w=BUTTONWIDTH;
             upButton->position(border,border,right-border,buttonHeight);
             downButton->position(border,height-buttonHeight-border,right-border,buttonHeight);
         }
@@ -590,7 +589,7 @@ long FXRealSpinDial::onChgDial(FXObject* /*p*/,FXSelector /*sel*/,void* /*ptr*/)
     } else {
         if (options&SPINDIAL_LOG) {
             if (options&SPINDIAL_CYCLIC  && newpos<range[0]) {
-                FXdouble lr0=log(range[0]), lr1=log(range[1]), lnp=log(newpos), lpos=log(pos);
+                FXdouble lr0=log(range[0]), lr1=log(range[1]), lpos=log(pos);
                 FXdouble span=lr1-lr0;
                 newpos = exp(lr0 + fmod(lpos-lr0+1+(span-inc), span));
             }
@@ -853,7 +852,7 @@ void FXRealSpinDial::decrement(FXint incMode) {
             newpos = pos / inc;
             if (options&SPINDIAL_CYCLIC  && newpos<range[0]) {
                 // can have a huge magnitude disparity here, so better to work in log space
-                FXdouble lr0=log(range[0]), lr1=log(range[1]), lnp=log(newpos), lpos=log(pos);
+                FXdouble lr0=log(range[0]), lr1=log(range[1]), lpos=log(pos);
                 FXdouble span=lr1-lr0;
                 newpos = exp(lr0 + fmod(lpos-lr0+1+(span-inc), span));
             }

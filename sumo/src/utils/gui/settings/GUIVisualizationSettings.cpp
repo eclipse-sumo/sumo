@@ -43,7 +43,7 @@
 // member method definitions
 // ===========================================================================
 GUIVisualizationSettings::GUIVisualizationSettings() throw()
-        : name(""), antialiase(false), dither(false), vehicleQuality(0),
+        : name(""), antialiase(false), dither(false),
         backgroundColor(RGBColor((SUMOReal) 1, (SUMOReal) 1, (SUMOReal) 1)),
         showGrid(false), gridXSize(100), gridYSize(100),
         laneShowBorders(false), showLinkDecals(true), showRails(true),
@@ -51,7 +51,7 @@ GUIVisualizationSettings::GUIVisualizationSettings() throw()
         edgeNameColor(RGBColor((SUMOReal) 1, (SUMOReal) .5, (SUMOReal) 0)),
         drawInternalEdgeName(false), internalEdgeNameSize(40),
         internalEdgeNameColor(RGBColor((SUMOReal) .5, (SUMOReal) .25, (SUMOReal) 0)),
-        hideConnectors(false),
+        hideConnectors(false), vehicleQuality(0),
         minVehicleSize(1), vehicleExaggeration(1), showBlinker(true),
         drawLaneChangePreference(false),
         drawVehicleName(false), vehicleNameSize(50),

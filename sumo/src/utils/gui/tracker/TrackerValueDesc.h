@@ -122,7 +122,7 @@ private:
     MFXMutex myLock;
 
     /// The aggregation interval in simulation steps
-    size_t myAggregationInterval;
+    int myAggregationInterval;
 
     /// Values like this shall not be counted on aggregation
     SUMOReal myInvalidValue;

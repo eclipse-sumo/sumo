@@ -76,7 +76,11 @@ SUMOVehicleParserHelper::parseFlowAttributes(const SUMOSAXAttributes &attrs) thr
     // parse repetition information
     if (attrs.hasAttribute(SUMO_ATTR_PERIOD)) {
         ret->setParameter |= VEHPARS_PERIODFREQ_SET;
+#ifdef HAVE_SUBSECOND_TIMESTEPS
         ret->repetitionOffset = attrs.getSUMOTimeReporting(SUMO_ATTR_PERIOD, "flow", id.c_str(), ok);
+#else
+        ret->repetitionOffset = attrs.getSUMORealReporting(SUMO_ATTR_PERIOD, "flow", id.c_str(), ok);
+#endif
     }
     if (attrs.hasAttribute(SUMO_ATTR_VEHSPERHOUR)) {
         ret->setParameter |= VEHPARS_PERIODFREQ_SET;
@@ -174,7 +178,11 @@ SUMOVehicleParserHelper::parseVehicleAttributes(const SUMOSAXAttributes &attrs,
     if (attrs.hasAttribute(SUMO_ATTR_PERIOD)) {
         WRITE_WARNING("period and repno are deprecated in vehicle '" + id + "', use flows instead.");
         ret->setParameter |= VEHPARS_PERIODFREQ_SET;
+#ifdef HAVE_SUBSECOND_TIMESTEPS
         ret->repetitionOffset = attrs.getSUMOTimeReporting(SUMO_ATTR_PERIOD, "vehicle", id.c_str(), ok);
+#else
+        ret->repetitionOffset = attrs.getSUMORealReporting(SUMO_ATTR_PERIOD, "vehicle", id.c_str(), ok);
+#endif
     }
     if (attrs.hasAttribute(SUMO_ATTR_REPNUMBER)) {
         ret->setParameter |= VEHPARS_PERIODNUM_SET;
