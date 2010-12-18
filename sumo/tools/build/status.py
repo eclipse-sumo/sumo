@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-import os, sys, smtplib
+import os, sys, smtplib, re
 from os.path import basename, join, commonprefix
 from datetime import datetime
 
@@ -18,7 +18,7 @@ def printStatus(makeLog, makeAllLog, textTestTmp, smtpServer, out):
         if ("svn: Working copy" in l and "locked" in l) or "svn: Failed" in l:
             svnLocked = True
             failed += l
-        if "warning " in l.lower() or "warnung" in l.lower():
+        if re.search("[Ww]arn[ui]ng[: ]", l):
             warnings += 1
         if "error " in l.lower():
             errors += 1
@@ -43,7 +43,7 @@ def printStatus(makeLog, makeAllLog, textTestTmp, smtpServer, out):
     warnings = 0
     errors = 0
     for l in file(makeAllLog):
-        if "warning " in l.lower() or "warnung" in l.lower():
+        if re.search("[Ww]arn[ui]ng[: ]", l):
             warnings += 1
         if "error " in l.lower():
             errors += 1
@@ -62,7 +62,7 @@ To: %s
 Subject: Error occurred while building
 
 %s""" % (build, fromAddr, toAddr, failed)
-        server = smtplib.SMTP(smtpServer)        
+        server = smtplib.SMTP(smtpServer)
         server.sendmail(fromAddr, toAddr, message)
         server.quit()
 
