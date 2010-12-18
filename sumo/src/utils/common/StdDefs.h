@@ -87,6 +87,14 @@ MAX4(T a, T b, T c, T d) {
 }
 
 
+template<typename T>
+inline T
+ISNAN(T a) {
+    volatile T d = a;
+    return d != d;
+}
+
+
 #endif
 
 /****************************************************************************/

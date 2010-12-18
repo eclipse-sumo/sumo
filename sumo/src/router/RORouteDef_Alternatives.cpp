@@ -51,11 +51,6 @@
 #include <foreign/nvwa/debug_new.h>
 #endif // CHECK_MEMORY_LEAKS
 
-#ifdef _MSC_VER
-#define ISNAN _isnan
-#else
-#define ISNAN isnan
-#endif
 
 // ===========================================================================
 // method definitions
