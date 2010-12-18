@@ -12,7 +12,7 @@ for f in $PREFIX/sumo/sumo-src-*.tar.gz; do
       cd /tmp
       rm -rf $BASE
       tar xzf $f $BASE/examples $BASE/tools
-      tar xzf ${f/-src-/-doc-} $BASE/doc
+      tar xzf ${f/-src-/-doc-} $BASE/docs
       mkdir $BASE/bin
       cd $BASE/bin
       unzip -q $NIGHTFILE
