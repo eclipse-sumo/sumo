@@ -153,6 +153,9 @@ protected:
     /// the id of the current route
     std::string myActiveRouteID;
 
+    /// the id of the route the current route references to
+    std::string myActiveRouteRefID;
+
     /// the id of the current route
     SUMOReal myActiveRouteProbability;
 

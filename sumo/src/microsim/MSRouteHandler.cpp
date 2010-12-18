@@ -254,7 +254,9 @@ MSRouteHandler::closeVehicleTypeDistribution() {
 void
 MSRouteHandler::openRoute(const SUMOSAXAttributes &attrs) {
     // check whether the id is really necessary
-    if (myVehicleParameter!=0) {
+    if (myCurrentRouteDistribution != 0) {
+        myActiveRouteID = myCurrentRouteDistributionID + "#" + toString(myCurrentRouteDistribution->getProbs().size()); // !!! document this
+    } else if (myVehicleParameter!=0) {
         // ok, a vehicle is wrapping the route,
         //  we may use this vehicle's id as default
         myActiveRouteID = "!" + myVehicleParameter->id; // !!! document this
@@ -266,12 +268,16 @@ MSRouteHandler::openRoute(const SUMOSAXAttributes &attrs) {
         }
     }
     bool ok = true;
+    std::string rid = "'" + myActiveRouteID + "'";
+    if (myVehicleParameter!=0) {
+        rid =  "for vehicle '" + myVehicleParameter->id + "'";
+    }
     if (attrs.hasAttribute(SUMO_ATTR_EDGES)) {
-        std::string rid = "'" + myActiveRouteID + "'";
-        if (myVehicleParameter!=0) {
-            rid =  "for vehicle '" + myVehicleParameter->id + "'";
-        }
         MSEdge::parseEdgesList(attrs.getStringReporting(SUMO_ATTR_EDGES, "route", myActiveRouteID.c_str(), ok), myActiveRoute, rid);
+    }
+    myActiveRouteRefID = attrs.getOptStringReporting(SUMO_ATTR_REFID, "route", myActiveRouteID.c_str(), ok, "");
+    if (!ok || MSRoute::dictionary(myActiveRouteRefID) == 0) {
+        MsgHandler::getErrorInstance()->inform("Invalid reference to route '" + myActiveRouteRefID + "' in route " + rid + ".");
     }
     myActiveRouteProbability = attrs.getOptSUMORealReporting(SUMO_ATTR_PROB, "route", myActiveRouteID.c_str(), ok, DEFAULT_VEH_PROB);
     myActiveRouteColor = attrs.hasAttribute(SUMO_ATTR_COLOR) ? RGBColor::parseColorReporting(attrs.getString(SUMO_ATTR_COLOR), "route", myActiveRouteID.c_str(), true, ok) : RGBColor::getDefaultColor();
@@ -369,6 +375,12 @@ MSRouteHandler::myEndElement(SumoXMLTag element) throw(ProcessError) {
 void
 MSRouteHandler::closeRoute() throw(ProcessError) {
     if (myActiveRoute.size()==0) {
+        if (myActiveRouteRefID != "" && myCurrentRouteDistribution != 0) {
+            myCurrentRouteDistribution->add(myActiveRouteProbability, MSRoute::dictionary(myActiveRouteRefID));
+            myActiveRouteID = "";
+            myActiveRouteRefID = "";
+            return;
+        }
         if (myVehicleParameter!=0) {
             throw ProcessError("Vehicle's '" + myVehicleParameter->id + "' route has no edges.");
         } else {
@@ -408,19 +420,27 @@ MSRouteHandler::closeRoute() throw(ProcessError) {
 
 void
 MSRouteHandler::openRouteDistribution(const SUMOSAXAttributes &attrs) {
-    if (attrs.setIDFromAttributes("routeDistribution", myCurrentRouteDistributionID)) {
-        myCurrentRouteDistribution = new RandomDistributor<const MSRoute*>();
-        if (attrs.hasAttribute(SUMO_ATTR_ROUTES)) {
-            bool ok = true;
-            StringTokenizer st(attrs.getStringReporting(SUMO_ATTR_ROUTES, "routeDistribution", myCurrentRouteDistributionID.c_str(), ok));
-            while (st.hasNext()) {
-                std::string routeID = st.next();
-                const MSRoute *route = MSRoute::dictionary(routeID);
-                if (route==0) {
-                    throw ProcessError("Unknown route '" + routeID + "' in distribution '" + myCurrentRouteDistributionID + "'.");
-                }
-                myCurrentRouteDistribution->add(1., route, false);
+    // check whether the id is really necessary
+    if (myVehicleParameter!=0) {
+        // ok, a vehicle is wrapping the route,
+        //  we may use this vehicle's id as default
+        myCurrentRouteDistributionID = "!" + myVehicleParameter->id; // !!! document this
+    } else {
+        if (!attrs.setIDFromAttributes("routeDistribution", myCurrentRouteDistributionID)) {
+            return;
+        }
+    }
+    myCurrentRouteDistribution = new RandomDistributor<const MSRoute*>();
+    if (attrs.hasAttribute(SUMO_ATTR_ROUTES)) {
+        bool ok = true;
+        StringTokenizer st(attrs.getStringReporting(SUMO_ATTR_ROUTES, "routeDistribution", myCurrentRouteDistributionID.c_str(), ok));
+        while (st.hasNext()) {
+            std::string routeID = st.next();
+            const MSRoute *route = MSRoute::dictionary(routeID);
+            if (route==0) {
+                throw ProcessError("Unknown route '" + routeID + "' in distribution '" + myCurrentRouteDistributionID + "'.");
             }
+            myCurrentRouteDistribution->add(1., route, false);
         }
     }
 }
