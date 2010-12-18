@@ -69,7 +69,7 @@ AGHousehold::generatePeople() {
 
 void
 AGHousehold::generateCars(SUMOReal rate) {
-    int peopleInNeed = adults.size() - cars.size();
+    int peopleInNeed = static_cast<int>(adults.size()) - static_cast<int>(cars.size());
     while (peopleInNeed > 0) {
         if (decisionProba(rate)) {
             addACar();
@@ -80,23 +80,23 @@ AGHousehold::generateCars(SUMOReal rate) {
 
 void
 AGHousehold::addACar() {
-    int numCar = cars.size() + 1;
+    int numCar = static_cast<int>(cars.size() + 1);
     cars.push_back(AGCar(idHH, numCar));
 }
 
 int
 AGHousehold::getCarNbr() {
-    return cars.size();
+    return static_cast<int>(cars.size());
 }
 
 int
 AGHousehold::getPeopleNbr() {
-    return adults.size() + children.size();
+    return static_cast<int>(adults.size() + children.size());
 }
 
 int
 AGHousehold::getAdultNbr() {
-    return adults.size();
+    return static_cast<int>(adults.size());
 }
 
 bool
