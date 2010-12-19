@@ -42,10 +42,21 @@
 #include "RTree.h"
 
 
+// specialized implementation for speedup and avoiding warnings
+template<>
+inline float RTree<GUIGlObject*, GUIGlObject, float, 2, GUIVisualizationSettings, float, 8, 4>::RectSphericalVolume(Rect* a_rect)
+{
+  ASSERT(a_rect);
+  const float extent0 = a_rect->m_max[0] - a_rect->m_min[0];
+  const float extent1 = a_rect->m_max[1] - a_rect->m_min[1];
+  return .78539816f * (extent0 * extent0 + extent1 * extent1);
+}
+
+
 // ===========================================================================
 // class definitions
 // ===========================================================================
-class SUMORTree : public RTree<GUIGlObject*, GUIGlObject, float, 2, GUIVisualizationSettings, float>, public Boundary
+class SUMORTree : public RTree<GUIGlObject*, GUIGlObject, float, 2, GUIVisualizationSettings>, public Boundary
 {
 public:
     SUMORTree(Operation operation) 
