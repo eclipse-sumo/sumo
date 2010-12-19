@@ -4,5 +4,14 @@ vtype_basic
 # checks using basic route distribution
 route_basic
 
+# checks using nested route distribution
+route_nested
+
+# checks using route distribution with external ref
+route_ref
+
+# checks using nested route distribution with external ref
+route_nested_ref
+
 # checks using basic speed distribution
 speed_basic

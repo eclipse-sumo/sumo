@@ -276,7 +276,7 @@ MSRouteHandler::openRoute(const SUMOSAXAttributes &attrs) {
         MSEdge::parseEdgesList(attrs.getStringReporting(SUMO_ATTR_EDGES, "route", myActiveRouteID.c_str(), ok), myActiveRoute, rid);
     }
     myActiveRouteRefID = attrs.getOptStringReporting(SUMO_ATTR_REFID, "route", myActiveRouteID.c_str(), ok, "");
-    if (!ok || MSRoute::dictionary(myActiveRouteRefID) == 0) {
+    if (myActiveRouteRefID != "" && MSRoute::dictionary(myActiveRouteRefID) == 0) {
         MsgHandler::getErrorInstance()->inform("Invalid reference to route '" + myActiveRouteRefID + "' in route " + rid + ".");
     }
     myActiveRouteProbability = attrs.getOptSUMORealReporting(SUMO_ATTR_PROB, "route", myActiveRouteID.c_str(), ok, DEFAULT_VEH_PROB);

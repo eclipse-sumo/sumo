@@ -1,0 +1,8 @@
+<routes>
+    <vehicle id="1" depart="0">
+        <routeDistribution>
+            <route edges="beg end" probability="0.5"/>
+            <route edges="beg end" probability="0.5"/>
+        </routeDistribution>
+    </vehicle>
+</routes>
