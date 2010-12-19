@@ -1,23 +1,49 @@
 <?xml version="1.0"?>
 
-<!-- generated on 11/04/08 12:16:49 by SUMO dfrouter Version dev-SVN-r6310
-<configuration>
+<!-- generated on Sun Dec 19 22:46:05 2010 by SUMO dfrouter Version dev-SVN-r9480
+<?xml version="1.0" encoding="iso-8859-1"?>
 
-   <input>
-      <net-file>input_net.net.xml</net-file>
-      <detector-files>input_detectors.det.xml</detector-files>
-      <detector-flow-files>input_flows.txt</detector-flow-files>
-   </input>
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/dfrouterConfiguration.xsd">
 
-   <output>
-      <routes-output>routes.rou.xml</routes-output>
-      <emitters-output>emitters.add.xml</emitters-output>
-   </output>
+    <input>
+        <net-file value="input_net.net.xml"/>
+        <detector-files value="input_detectors.det.xml"/>
+        <detector-flow-files value="input_flows.txt"/>
+    </input>
+
+    <output>
+        <routes-output value="routes.rou.xml"/>
+        <emitters-output value="emitters.add.xml"/>
+    </output>
 
 </configuration>
 -->
 
 <additional>
-   <emitter id="source_MQ_1to2" pos="5.00" lane="1to2_0" friendly_pos="x" file="emitter_MQ_1to2.def.xml"/>
-   <emitter id="source_MQ_6to7" pos="5.00" lane="6to7_0" friendly_pos="x" file="emitter_MQ_6to7.def.xml"/>
+    <routeDistribution id="MQ_1to2">
+        <route refid="1to2_to_4to5" probability="1.00"/>
+    </routeDistribution>
+    <vehicle id="emitter_MQ_1to2_0" depart="0" departspeed="max" departpos="5.00" departlane="0" route="1to2_to_4to5"/>
+    <vehicle id="emitter_MQ_1to2_6" depart="6" departspeed="max" departpos="5.00" departlane="0" route="1to2_to_4to5"/>
+    <vehicle id="emitter_MQ_1to2_12" depart="12" departspeed="max" departpos="5.00" departlane="0" route="1to2_to_4to5"/>
+    <vehicle id="emitter_MQ_1to2_18" depart="18" departspeed="max" departpos="5.00" departlane="0" route="1to2_to_4to5"/>
+    <vehicle id="emitter_MQ_1to2_24" depart="24" departspeed="max" departpos="5.00" departlane="0" route="1to2_to_4to5"/>
+    <vehicle id="emitter_MQ_1to2_30" depart="30" departspeed="max" departpos="5.00" departlane="0" route="1to2_to_4to5"/>
+    <vehicle id="emitter_MQ_1to2_36" depart="36" departspeed="max" departpos="5.00" departlane="0" route="1to2_to_4to5"/>
+    <vehicle id="emitter_MQ_1to2_42" depart="42" departspeed="max" departpos="5.00" departlane="0" route="1to2_to_4to5"/>
+    <vehicle id="emitter_MQ_1to2_48" depart="48" departspeed="max" departpos="5.00" departlane="0" route="1to2_to_4to5"/>
+    <vehicle id="emitter_MQ_1to2_54" depart="54" departspeed="max" departpos="5.00" departlane="0" route="1to2_to_4to5"/>
+    <routeDistribution id="MQ_6to7">
+        <route refid="6to7_to_9to10" probability="1.00"/>
+    </routeDistribution>
+    <vehicle id="emitter_MQ_6to7_0" depart="0" departspeed="max" departpos="5.00" departlane="0" route="6to7_to_9to10"/>
+    <vehicle id="emitter_MQ_6to7_6" depart="6" departspeed="max" departpos="5.00" departlane="0" route="6to7_to_9to10"/>
+    <vehicle id="emitter_MQ_6to7_12" depart="12" departspeed="max" departpos="5.00" departlane="0" route="6to7_to_9to10"/>
+    <vehicle id="emitter_MQ_6to7_18" depart="18" departspeed="max" departpos="5.00" departlane="0" route="6to7_to_9to10"/>
+    <vehicle id="emitter_MQ_6to7_24" depart="24" departspeed="max" departpos="5.00" departlane="0" route="6to7_to_9to10"/>
+    <vehicle id="emitter_MQ_6to7_30" depart="30" departspeed="max" departpos="5.00" departlane="0" route="6to7_to_9to10"/>
+    <vehicle id="emitter_MQ_6to7_36" depart="36" departspeed="max" departpos="5.00" departlane="0" route="6to7_to_9to10"/>
+    <vehicle id="emitter_MQ_6to7_42" depart="42" departspeed="max" departpos="5.00" departlane="0" route="6to7_to_9to10"/>
+    <vehicle id="emitter_MQ_6to7_48" depart="48" departspeed="max" departpos="5.00" departlane="0" route="6to7_to_9to10"/>
+    <vehicle id="emitter_MQ_6to7_54" depart="54" departspeed="max" departpos="5.00" departlane="0" route="6to7_to_9to10"/>
 </additional>

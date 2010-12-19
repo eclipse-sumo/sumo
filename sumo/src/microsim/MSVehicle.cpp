@@ -192,8 +192,13 @@ MSVehicle::MSVehicle(SUMOVehicleParameter* pars,
                                "' on lane '" + i->lane + "' is not downstream the current route.");
         }
     }
-    if ((*myCurrEdge)->getDepartLane(*this) == 0) {
-        throw ProcessError("Invalid departlane definition for vehicle '" + pars->id + "'");
+    const MSLane* const depLane = (*myCurrEdge)->getDepartLane(*this);
+    if (depLane == 0) {
+        throw ProcessError("Invalid departlane definition for vehicle '" + pars->id + "'.");
+    }
+    if (pars->departSpeedProcedure == DEPART_SPEED_GIVEN && pars->departSpeed > depLane->getMaxSpeed()) {
+        throw ProcessError("Departure speed for vehicle '" + pars->id +
+                           "' is too high for the departure lane '" + depLane->getID() + "'.");
     }
 #ifdef _MESSAGES
     myLCMsgEmitter = MSNet::getInstance()->getMsgEmitter("lanechange");

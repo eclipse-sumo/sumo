@@ -1,36 +1,45 @@
 <?xml version="1.0"?>
 
-<!-- generated on 11/04/08 12:15:56 by SUMO dfrouter Version dev-SVN-r6310
-<configuration>
+<!-- generated on Sun Dec 19 22:45:58 2010 by SUMO dfrouter Version dev-SVN-r9480
+<?xml version="1.0" encoding="iso-8859-1"?>
 
-   <input>
-      <net-file>input_net.net.xml</net-file>
-      <detector-files>input_detectors.det.xml</detector-files>
-      <detector-flow-files>input_flows.txt</detector-flow-files>
-   </input>
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/dfrouterConfiguration.xsd">
 
-   <output>
-      <routes-output>routes.rou.xml</routes-output>
-      <detectors-output>detectors_def.det.xml</detectors-output>
-      <emitters-output>emitters.add.xml</emitters-output>
-   </output>
+    <input>
+        <net-file value="input_net.net.xml"/>
+        <detector-files value="input_detectors.det.xml"/>
+        <detector-flow-files value="input_flows.txt"/>
+    </input>
 
-   <processing>
-      <disallowed-edges>20_21,21_20,50_51,51_50,a3_b1</disallowed-edges>
-      <keep-turnarounds>true</keep-turnarounds>
-   </processing>
+    <output>
+        <routes-output value="routes.rou.xml"/>
+        <detectors-output value="detectors_def.det.xml"/>
+        <emitters-output value="emitters.add.xml"/>
+    </output>
 
-   <time>
-      <end>60</end>
-   </time>
+    <processing>
+        <disallowed-edges value="20_21,21_20,50_51,51_50,a3_b1"/>
+        <keep-turnarounds value="true"/>
+    </processing>
 
-   <report>
-      <verbose>true</verbose>
-   </report>
+    <time>
+        <end value="60"/>
+    </time>
+
+    <report>
+        <verbose value="true"/>
+    </report>
 
 </configuration>
 -->
 
 <additional>
-   <emitter id="source_BO" pos="50.00" lane="a4_a5_0" friendly_pos="x" file="emitter_BO.def.xml"/>
+    <routeDistribution id="BO">
+        <route refid="a4_a5_to_20_10" probability="0.21"/>
+        <route refid="a4_a5_to_51_61" probability="0.21"/>
+    </routeDistribution>
+    <vehicle id="emitter_BO_0" depart="0" departspeed="max" departpos="50.00" departlane="0" route="a4_a5_to_51_61"/>
+    <vehicle id="emitter_BO_15" depart="15" departspeed="max" departpos="50.00" departlane="0" route="a4_a5_to_51_61"/>
+    <vehicle id="emitter_BO_30" depart="30" departspeed="max" departpos="50.00" departlane="0" route="a4_a5_to_20_10"/>
+    <vehicle id="emitter_BO_45" depart="45" departspeed="max" departpos="50.00" departlane="0" route="a4_a5_to_20_10"/>
 </additional>

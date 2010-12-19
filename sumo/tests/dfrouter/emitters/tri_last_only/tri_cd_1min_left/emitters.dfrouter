@@ -1,31 +1,47 @@
 <?xml version="1.0"?>
 
-<!-- generated on 11/04/08 12:14:24 by SUMO dfrouter Version dev-SVN-r6310
-<configuration>
+<!-- generated on Sun Dec 19 22:45:49 2010 by SUMO dfrouter Version dev-SVN-r9480
+<?xml version="1.0" encoding="iso-8859-1"?>
 
-   <input>
-      <net-file>input_tri.net.xml</net-file>
-      <detector-files>input_tri.det.xml</detector-files>
-      <detector-flow-files>input_tri_flows.txt</detector-flow-files>
-   </input>
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/dfrouterConfiguration.xsd">
 
-   <output>
-      <routes-output>routes.rou.xml</routes-output>
-      <emitters-output>emitters.add.xml</emitters-output>
-   </output>
+    <input>
+        <net-file value="input_tri.net.xml"/>
+        <detector-files value="input_tri.det.xml"/>
+        <detector-flow-files value="input_tri_flows.txt"/>
+    </input>
 
-   <processing>
-      <keep-longer-routes>true</keep-longer-routes>
-      <include-unused-routes>true</include-unused-routes>
-   </processing>
+    <output>
+        <routes-output value="routes.rou.xml"/>
+        <emitters-output value="emitters.add.xml"/>
+    </output>
 
-   <time>
-      <end>60</end>
-   </time>
+    <processing>
+        <keep-longer-routes value="true"/>
+        <include-unused-routes value="true"/>
+    </processing>
+
+    <time>
+        <end value="60"/>
+    </time>
 
 </configuration>
 -->
 
 <additional>
-   <emitter id="source_MQ_beg" pos="5.00" lane="beg_0" friendly_pos="x" file="emitter_MQ_beg.def.xml"/>
+    <routeDistribution id="MQ_beg">
+        <route refid="beg_to_end" probability="0.00"/>
+        <route refid="beg_to_end_1" probability="1.00"/>
+        <route refid="beg_to_end_2" probability="0.00"/>
+    </routeDistribution>
+    <vehicle id="emitter_MQ_beg_0" depart="0" departspeed="max" departpos="5.00" departlane="0" route="beg_to_end_1"/>
+    <vehicle id="emitter_MQ_beg_6" depart="6" departspeed="max" departpos="5.00" departlane="0" route="beg_to_end_1"/>
+    <vehicle id="emitter_MQ_beg_12" depart="12" departspeed="max" departpos="5.00" departlane="0" route="beg_to_end_1"/>
+    <vehicle id="emitter_MQ_beg_18" depart="18" departspeed="max" departpos="5.00" departlane="0" route="beg_to_end_1"/>
+    <vehicle id="emitter_MQ_beg_24" depart="24" departspeed="max" departpos="5.00" departlane="0" route="beg_to_end_1"/>
+    <vehicle id="emitter_MQ_beg_30" depart="30" departspeed="max" departpos="5.00" departlane="0" route="beg_to_end_1"/>
+    <vehicle id="emitter_MQ_beg_36" depart="36" departspeed="max" departpos="5.00" departlane="0" route="beg_to_end_1"/>
+    <vehicle id="emitter_MQ_beg_42" depart="42" departspeed="max" departpos="5.00" departlane="0" route="beg_to_end_1"/>
+    <vehicle id="emitter_MQ_beg_48" depart="48" departspeed="max" departpos="5.00" departlane="0" route="beg_to_end_1"/>
+    <vehicle id="emitter_MQ_beg_54" depart="54" departspeed="max" departpos="5.00" departlane="0" route="beg_to_end_1"/>
 </additional>

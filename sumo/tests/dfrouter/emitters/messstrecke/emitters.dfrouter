@@ -1,30 +1,90 @@
 <?xml version="1.0"?>
 
-<!-- generated on 11/04/08 12:12:52 by SUMO dfrouter Version dev-SVN-r6310
-<configuration>
+<!-- generated on Sun Dec 19 21:37:16 2010 by SUMO dfrouter Version dev-SVN-r9480
+<?xml version="1.0" encoding="iso-8859-1"?>
 
-   <input>
-      <net-file>input_messstrecke.net.xml</net-file>
-      <detector-files>input_messstrecke.det.xml</detector-files>
-   </input>
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/dfrouterConfiguration.xsd">
 
-   <output>
-      <routes-output>routes.rou.xml</routes-output>
-      <emitters-output>emitters.add.xml</emitters-output>
-   </output>
+    <input>
+        <net-file value="input_messstrecke.net.xml"/>
+        <detector-files value="input_messstrecke.det.xml"/>
+    </input>
+
+    <output>
+        <routes-output value="routes.rou.xml"/>
+        <emitters-output value="emitters.add.xml"/>
+    </output>
 
 </configuration>
 -->
 
 <additional>
-   <emitter id="source_MQ11Fs1" pos="5.00" lane="ErnstRuska2O_0" friendly_pos="x" file="emitter_MQ11Fs1.def.xml"/>
-   <emitter id="source_MQ11Fs2" pos="5.00" lane="ErnstRuska2O_1" friendly_pos="x" file="emitter_MQ11Fs2.def.xml"/>
-   <emitter id="source_MQ28Fs1S" pos="-5.00" lane="HavestadtS_0" friendly_pos="x" file="emitter_MQ28Fs1S.def.xml"/>
-   <emitter id="source_MQ28Fs2S" pos="-5.00" lane="HavestadtS_1" friendly_pos="x" file="emitter_MQ28Fs2S.def.xml"/>
-   <emitter id="source_MQ35Fs1S" pos="-5.00" lane="VolmerS_0" friendly_pos="x" file="emitter_MQ35Fs1S.def.xml"/>
-   <emitter id="source_MQ43Fs1" pos="-5.00" lane="ErnstRuska5W_0" friendly_pos="x" file="emitter_MQ43Fs1.def.xml"/>
-   <emitter id="source_MQ43Fs2" pos="-5.00" lane="ErnstRuska5W_1" friendly_pos="x" file="emitter_MQ43Fs2.def.xml"/>
-   <emitter id="source_MQ43Fs3" pos="-5.00" lane="ErnstRuska5W_2" friendly_pos="x" file="emitter_MQ43Fs3.def.xml"/>
-   <emitter id="source_MQ45Fs1N" pos="-5.00" lane="AltglienickerBreitN_0" friendly_pos="x" file="emitter_MQ45Fs1N.def.xml"/>
-   <emitter id="source_MQ45Fs2N" pos="-5.00" lane="AltglienickerBreitN_1" friendly_pos="x" file="emitter_MQ45Fs2N.def.xml"/>
+    <routeDistribution id="MQ11Fs1">
+        <route refid="ErnstRuska2O_to_HavestadtN" probability="1"/>
+        <route refid="ErnstRuska2O_to_VolmerN" probability="1"/>
+        <route refid="ErnstRuska2O_to_AltglienickerBreitS" probability="1"/>
+        <route refid="ErnstRuska2O_to_ErnstRuska5O" probability="1"/>
+    </routeDistribution>
+    <routeDistribution id="MQ11Fs2">
+        <route refid="ErnstRuska2O_to_HavestadtN" probability="1"/>
+        <route refid="ErnstRuska2O_to_VolmerN" probability="1"/>
+        <route refid="ErnstRuska2O_to_AltglienickerBreitS" probability="1"/>
+        <route refid="ErnstRuska2O_to_ErnstRuska5O" probability="1"/>
+    </routeDistribution>
+    <routeDistribution id="MQ28Fs1S">
+        <route refid="HavestadtS_to_VolmerN" probability="1"/>
+        <route refid="HavestadtS_to_EinsteinN" probability="1"/>
+        <route refid="HavestadtS_to_AltglienickerBreitS" probability="1"/>
+        <route refid="HavestadtS_to_ErnstRuska5O" probability="1"/>
+        <route refid="HavestadtS_to_ErnstRuskaSink1W" probability="1"/>
+    </routeDistribution>
+    <routeDistribution id="MQ28Fs2S">
+        <route refid="HavestadtS_to_VolmerN" probability="1"/>
+        <route refid="HavestadtS_to_EinsteinN" probability="1"/>
+        <route refid="HavestadtS_to_AltglienickerBreitS" probability="1"/>
+        <route refid="HavestadtS_to_ErnstRuska5O" probability="1"/>
+        <route refid="HavestadtS_to_ErnstRuskaSink1W" probability="1"/>
+    </routeDistribution>
+    <routeDistribution id="MQ35Fs1S">
+        <route refid="VolmerS_to_AltglienickerBreitS" probability="1"/>
+        <route refid="VolmerS_to_ErnstRuska5O" probability="1"/>
+        <route refid="VolmerS_to_HavestadtN" probability="1"/>
+        <route refid="VolmerS_to_EinsteinN" probability="1"/>
+        <route refid="VolmerS_to_ErnstRuskaSink1W" probability="1"/>
+    </routeDistribution>
+    <routeDistribution id="MQ43Fs1">
+        <route refid="ErnstRuska5W_to_AltglienickerBreitS" probability="1"/>
+        <route refid="ErnstRuska5W_to_VolmerN" probability="1"/>
+        <route refid="ErnstRuska5W_to_HavestadtN" probability="1"/>
+        <route refid="ErnstRuska5W_to_EinsteinN" probability="1"/>
+        <route refid="ErnstRuska5W_to_ErnstRuskaSink1W" probability="1"/>
+    </routeDistribution>
+    <routeDistribution id="MQ43Fs2">
+        <route refid="ErnstRuska5W_to_AltglienickerBreitS" probability="1"/>
+        <route refid="ErnstRuska5W_to_VolmerN" probability="1"/>
+        <route refid="ErnstRuska5W_to_HavestadtN" probability="1"/>
+        <route refid="ErnstRuska5W_to_EinsteinN" probability="1"/>
+        <route refid="ErnstRuska5W_to_ErnstRuskaSink1W" probability="1"/>
+    </routeDistribution>
+    <routeDistribution id="MQ43Fs3">
+        <route refid="ErnstRuska5W_to_AltglienickerBreitS" probability="1"/>
+        <route refid="ErnstRuska5W_to_VolmerN" probability="1"/>
+        <route refid="ErnstRuska5W_to_HavestadtN" probability="1"/>
+        <route refid="ErnstRuska5W_to_EinsteinN" probability="1"/>
+        <route refid="ErnstRuska5W_to_ErnstRuskaSink1W" probability="1"/>
+    </routeDistribution>
+    <routeDistribution id="MQ45Fs1N">
+        <route refid="AltglienickerBreitN_to_ErnstRuska5O" probability="1"/>
+        <route refid="AltglienickerBreitN_to_VolmerN" probability="1"/>
+        <route refid="AltglienickerBreitN_to_HavestadtN" probability="1"/>
+        <route refid="AltglienickerBreitN_to_EinsteinN" probability="1"/>
+        <route refid="AltglienickerBreitN_to_ErnstRuskaSink1W" probability="1"/>
+    </routeDistribution>
+    <routeDistribution id="MQ45Fs2N">
+        <route refid="AltglienickerBreitN_to_ErnstRuska5O" probability="1"/>
+        <route refid="AltglienickerBreitN_to_VolmerN" probability="1"/>
+        <route refid="AltglienickerBreitN_to_HavestadtN" probability="1"/>
+        <route refid="AltglienickerBreitN_to_EinsteinN" probability="1"/>
+        <route refid="AltglienickerBreitN_to_ErnstRuskaSink1W" probability="1"/>
+    </routeDistribution>
 </additional>

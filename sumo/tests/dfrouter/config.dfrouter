@@ -16,7 +16,6 @@ routes:routes.rou.xml
 pois:detectors.poi.xml
 emitters:emitters.add.xml
 config:config.cfg
-emitter_*:emitter_*.xml
 log:log.txt
 
 [run_dependent_text]
@@ -24,5 +23,4 @@ detector_defs:version{->}-->
 routes:version{->}-->
 pois:version{->}-->
 emitters:version{->}-->
-emitter_*:version{->}-->
 

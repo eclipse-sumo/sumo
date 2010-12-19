@@ -11,5 +11,13 @@ Computed detector types:
  6 in-between detectors
  0 invalid detectors
 Computing routes... done.
+Detected PKW speed higher than allowed speed at 'MQ_1toR' on '1toR'.
+Detected PKW speed higher than allowed speed at 'MQ_L' on 'L'.
+Detected PKW speed higher than allowed speed at 'MQ_Lto2' on 'Lto2'.
+Detected PKW speed higher than allowed speed at 'MQ_R' on 'R'.
+Detected PKW speed higher than allowed speed at 'MQ_Rto2' on 'Rto2'.
+Detected PKW speed higher than allowed speed at 'MQ_beg' on 'beg'.
+Detected PKW speed higher than allowed speed at 'MQ_end' on 'end'.
+Detected PKW speed higher than allowed speed at 'MQ_middle' on 'middle'.
 Writing emitters... done.
 Success.

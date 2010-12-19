@@ -249,40 +249,31 @@ RODFDetector::writeEmitterDefinition(const std::string &file,
                                      bool emissionsOnly,
                                      SUMOReal defaultSpeed) const {
     OutputDevice& out = OutputDevice::getDevice(file);
-    if (getType()==SOURCE_DETECTOR) {
-        out.writeXMLHeader("triggeredsource");
-    } else {
+    if (getType()!=SOURCE_DETECTOR) {
         out.writeXMLHeader("calibrator");
     }
     // routes
     if (!emissionsOnly) {
         if (myRoutes!=0&&myRoutes->get().size()!=0) {
             const std::vector<RODFRouteDesc> &routes = myRoutes->get();
-            std::vector<RODFRouteDesc>::const_iterator i;
-            // compute the overall routes sum
-            SUMOReal overallSum = 0;
-            for (i=routes.begin(); i!=routes.end(); ++i) {
-                overallSum += (*i).overallProb;
-            }
-
-            int writtenRoutes = 0;
-            if (overallSum!=0) {
-                // !!! check things about intervals
-                // !!! optional
-                for (i=routes.begin(); i!=routes.end(); ++i) {
-                    if ((*i).overallProb>0||includeUnusedRoutes) {
-                        out << "   <routedistelem id=\"" << (*i).routename << "\" probability=\"" << ((*i).overallProb/overallSum) << "\"/>\n"; // !!!
-                        writtenRoutes++;
-                    }
+            out.openTag("routeDistribution") <<  " id=\"" << myID << "\">\n";
+            bool isEmptyDist = true;
+            for (std::vector<RODFRouteDesc>::const_iterator i=routes.begin(); i!=routes.end(); ++i) {
+                if ((*i).overallProb>0) {
+                    isEmptyDist = false;
                 }
             }
-            // hmmmm - all routes seem to have a probability of zero...
-            //  let's save them all (should maybe be done optional)
-            if (writtenRoutes==0) {
-                for (i=routes.begin(); i!=routes.end(); ++i) {
-                    out << "   <routedistelem id=\"" << (*i).routename << "\" probability=\"1\"/>\n"; // !!!
+            for (std::vector<RODFRouteDesc>::const_iterator i=routes.begin(); i!=routes.end(); ++i) {
+                if ((*i).overallProb>0||includeUnusedRoutes) {
+                    out.openTag("route") << " refid=\"" << (*i).routename << "\" probability=\"" << (*i).overallProb << "\"";
+                    out.closeTag(true);
+                }
+                if (isEmptyDist) {
+                    out.openTag("route") << " refid=\"" << (*i).routename << "\" probability=\"1\"";
+                    out.closeTag(true);
                 }
             }
+            out.closeTag();
         } else {
             MsgHandler::getErrorInstance()->inform("Detector '" + getID() + "' has no routes!?");
             return false;
@@ -328,25 +319,33 @@ RODFDetector::writeEmitterDefinition(const std::string &file,
                 int ctime = (int)(time + ((SUMOReal) stepOffset * (SUMOReal) car / (SUMOReal) carNo));
 
                 // write
-                out << "   <emit id=\"";
+                out.openTag("vehicle") << " id=\"";
                 if (getType()==SOURCE_DETECTOR) {
                     out << "emitter_" << myID;
                 } else {
                     out << "calibrator_" << myID;
                 }
                 out << "_" << ctime  << "\"" // !!! running
-                << " time=\"" << ctime << "\""
-                << " speed=\"" << v << "\"";
-                if (!emissionsOnly&&destIndex>=0) {
+                    << " depart=\"" << ctime << "\""
+                    << " departspeed=\"";
+                if (v>defaultSpeed) {
+                    out << "max";
+                } else {
+                    out << v;
+                }
+                out << "\" departpos=\"" << myPosition << "\""
+                    << " departlane=\"" << myLaneID.substr(myLaneID.rfind("_")+1) << "\"";
+                if (destIndex>=0) {
                     out << " route=\"" << myRoutes->get()[destIndex].routename << "\""; // !!! optional
                 }
-                out  << "/>\n";
+                out.closeTag(true);
                 srcFD.isLKW += srcFD.fLKW;
             }
         }
     }
-//    cout << "a5" << endl;
-    out.close();
+    if (getType()!=SOURCE_DETECTOR) {
+        out.close();
+    }
     return true;
 }
 
@@ -561,7 +560,7 @@ RODFDetectorCon::writeEmitters(const std::string &file,
         std::string escapedID = StringUtils::escapeXML(det->getID());
         std::string defFileName;
         if (det->getType()==SOURCE_DETECTOR) {
-            defFileName = FileHelpers::getFilePath(file) + "emitter_" + escapedID + ".def.xml";
+            defFileName = file;
         } else if (writeCalibrators&&det->getType()==BETWEEN_DETECTOR) {
             defFileName = FileHelpers::getFilePath(file) + "calibrator_" + escapedID + ".def.xml";
         } else {
@@ -583,13 +582,7 @@ RODFDetectorCon::writeEmitters(const std::string &file,
         //  ... clear temporary values
         clearDists(dists);
         // write the declaration into the file
-        if (det->getType()==SOURCE_DETECTOR) {
-            out << "   <emitter id=\"source_" << escapedID
-            << "\" pos=\"" << det->getPos() << "\" "
-            << "lane=\"" << det->getLaneID() << "\" "
-            << "friendly_pos=\"x\" " // !!!
-            << "file=\"" << defFileName << "\"/>\n";
-        } else if (writeCalibrators&&det->getType()==BETWEEN_DETECTOR) {
+        if (writeCalibrators&&det->getType()==BETWEEN_DETECTOR) {
             out << "   <calibrator id=\"calibrator_" << escapedID
             << "\" pos=\"" << det->getPos() << "\" "
             << "lane=\"" << det->getLaneID() << "\" "

@@ -287,7 +287,7 @@ RODFNet::computeRoutesFor(ROEdge *edge, RODFRouteDesc &base, int /*no*/,
             //  without a detector occured
             if (current.passedNo>maxFollowingLength) {
                 // mark not to process any further
-                MsgHandler::getWarningInstance()->inform("Could not close route for '" + det.getID() + "'");
+                WRITE_WARNING("Could not close route for '" + det.getID() + "'");
                 unfoundEnds.push_back(current);
                 current.factor = 1.;
                 SUMOReal cdist = current.edges2Pass[0]->getFromNode()->getPosition().distanceTo(current.edges2Pass.back()->getToNode()->getPosition());
@@ -761,7 +761,7 @@ RODFNet::isSource(const RODFDetector &det, ROEdge *edge,
                   const RODFDetectorCon &detectors,
                   bool strict) const {
     if (seen.size()==1000) { // !!!
-        MsgHandler::getWarningInstance()->inform("Quitting checking for being a source for detector '" + det.getID() + "' due to seen edge limit.");
+        WRITE_WARNING("Quitting checking for being a source for detector '" + det.getID() + "' due to seen edge limit.");
         return false;
     }
     if (edge==getDetectorEdge(det)) {
@@ -862,7 +862,7 @@ bool
 RODFNet::isDestination(const RODFDetector &det, ROEdge *edge, std::vector<ROEdge*> &seen,
                        const RODFDetectorCon &detectors) const {
     if (seen.size()==1000) { // !!!
-        MsgHandler::getWarningInstance()->inform("Quitting checking for being a destination for detector '" + det.getID() + "' due to seen edge limit.");
+        WRITE_WARNING("Quitting checking for being a destination for detector '" + det.getID() + "' due to seen edge limit.");
         return false;
     }
     if (edge==getDetectorEdge(det)) {
@@ -938,7 +938,7 @@ bool
 RODFNet::isFalseSource(const RODFDetector &det, ROEdge *edge, std::vector<ROEdge*> &seen,
                        const RODFDetectorCon &detectors) const {
     if (seen.size()==1000) { // !!!
-        MsgHandler::getWarningInstance()->inform("Quitting checking for being a false source for detector '" + det.getID() + "' due to seen edge limit.");
+        WRITE_WARNING("Quitting checking for being a false source for detector '" + det.getID() + "' due to seen edge limit.");
         return false;
     }
     seen.push_back(edge);
@@ -1032,6 +1032,7 @@ RODFNet::buildEdgeFlowMap(const RODFDetectorFlows &flows,
             mflows.push_back(fd);
         }
         for (std::vector<std::string>::iterator l=firstClique.begin(); l!=firstClique.end(); ++l) {
+            bool didWarn = false;
             const std::vector<FlowDef> &dflows = flows.getFlowDefs(*l);
             for (t=startTime; t<endTime; t+=stepOffset) {
                 const FlowDef &srcFD = dflows[(int)(t/stepOffset) - startTime];
@@ -1042,6 +1043,14 @@ RODFNet::buildEdgeFlowMap(const RODFDetectorFlows &flows,
                 fd.vPKW += (srcFD.vPKW / (SUMOReal) firstClique.size());
                 fd.fLKW += (srcFD.fLKW / (SUMOReal) firstClique.size());
                 fd.isLKW += (srcFD.isLKW / (SUMOReal) firstClique.size());
+                if (!didWarn && srcFD.vPKW > 0 && srcFD.vPKW < 255 && srcFD.vPKW / 3.6 > into->getSpeed()) {
+                    WRITE_MESSAGE("Detected PKW speed higher than allowed speed at '" + (*l) + "' on '" + into->getID() + "'.");
+                    didWarn = true;
+                }
+                if (!didWarn && srcFD.vLKW > 0 && srcFD.vLKW < 255 && srcFD.vLKW / 3.6 > into->getSpeed()) {
+                    WRITE_MESSAGE("Detected LKW speed higher than allowed speed at '" + (*l) + "' on '" + into->getID() + "'.");
+                    didWarn = true;
+                }
             }
         }
         static_cast<RODFEdge*>(into)->setFlows(mflows);
