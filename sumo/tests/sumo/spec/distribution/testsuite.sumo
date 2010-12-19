@@ -15,3 +15,6 @@ route_nested_ref
 
 # checks using basic speed distribution
 speed_basic
+
+# testing for error messages
+errors

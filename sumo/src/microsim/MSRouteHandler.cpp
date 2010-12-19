@@ -254,8 +254,10 @@ MSRouteHandler::closeVehicleTypeDistribution() {
 void
 MSRouteHandler::openRoute(const SUMOSAXAttributes &attrs) {
     // check whether the id is really necessary
+    std::string rid;
     if (myCurrentRouteDistribution != 0) {
         myActiveRouteID = myCurrentRouteDistributionID + "#" + toString(myCurrentRouteDistribution->getProbs().size()); // !!! document this
+        rid =  "distribution '" + myCurrentRouteDistributionID + "'";
     } else if (myVehicleParameter!=0) {
         // ok, a vehicle is wrapping the route,
         //  we may use this vehicle's id as default
@@ -266,12 +268,12 @@ MSRouteHandler::openRoute(const SUMOSAXAttributes &attrs) {
         if (!ok) {
             return;
         }
+        rid = "'" + myActiveRouteID + "'";
     }
-    bool ok = true;
-    std::string rid = "'" + myActiveRouteID + "'";
-    if (myVehicleParameter!=0) {
+    if (myVehicleParameter!=0) { // have to do this here for nested route distributions
         rid =  "for vehicle '" + myVehicleParameter->id + "'";
     }
+    bool ok = true;
     if (attrs.hasAttribute(SUMO_ATTR_EDGES)) {
         MSEdge::parseEdgesList(attrs.getStringReporting(SUMO_ATTR_EDGES, "route", myActiveRouteID.c_str(), ok), myActiveRoute, rid);
     }
