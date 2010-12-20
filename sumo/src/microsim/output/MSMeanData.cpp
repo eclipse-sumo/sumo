@@ -64,7 +64,7 @@ MSMeanData::MeanDataValues::~MeanDataValues() throw() {
 
 bool
 MSMeanData::MeanDataValues::notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification reason) throw() {
-	UNUSED_PARAMETER(reason);
+    UNUSED_PARAMETER(reason);
     return vehicleApplies(veh);
 }
 
@@ -292,7 +292,7 @@ MSMeanData::~MSMeanData() throw() {
 
 void
 MSMeanData::resetOnly(SUMOTime stopTime) throw() {
-	UNUSED_PARAMETER(stopTime);
+    UNUSED_PARAMETER(stopTime);
 #ifdef HAVE_MESOSIM
     if (MSGlobals::gUseMesoSim) {
         std::vector<MSEdge*>::iterator edge = myEdges.begin();

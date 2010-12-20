@@ -144,7 +144,7 @@ RODFDetector::buildDestinationDistribution(const RODFDetectorCon &detectors,
         const RODFNet &net,
         std::map<size_t, RandomDistributor<size_t>* > &into,
         int maxFollower) const {
-	UNUSED_PARAMETER(maxFollower);
+    UNUSED_PARAMETER(maxFollower);
     if (myRoutes==0) {
         if (myType!=DISCARDED_DETECTOR&&myType!=BETWEEN_DETECTOR) {
             MsgHandler::getErrorInstance()->inform("Missing routes for detector '" + myID + "'.");
@@ -326,15 +326,15 @@ RODFDetector::writeEmitterDefinition(const std::string &file,
                     out << "calibrator_" << myID;
                 }
                 out << "_" << ctime  << "\"" // !!! running
-                    << " depart=\"" << ctime << "\""
-                    << " departspeed=\"";
+                << " depart=\"" << ctime << "\""
+                << " departspeed=\"";
                 if (v>defaultSpeed) {
                     out << "max";
                 } else {
                     out << v;
                 }
                 out << "\" departpos=\"" << myPosition << "\""
-                    << " departlane=\"" << myLaneID.substr(myLaneID.rfind("_")+1) << "\"";
+                << " departlane=\"" << myLaneID.substr(myLaneID.rfind("_")+1) << "\"";
                 if (destIndex>=0) {
                     out << " route=\"" << myRoutes->get()[destIndex].routename << "\""; // !!! optional
                 }
@@ -599,9 +599,9 @@ RODFDetectorCon::writeEmitterPOIs(const std::string &file,
                                   const RODFDetectorFlows &flows,
                                   SUMOTime startTime, SUMOTime endTime,
                                   SUMOTime stepOffset) {
-	UNUSED_PARAMETER(stepOffset);
-	UNUSED_PARAMETER(endTime);
-	UNUSED_PARAMETER(startTime);
+    UNUSED_PARAMETER(stepOffset);
+    UNUSED_PARAMETER(endTime);
+    UNUSED_PARAMETER(startTime);
     OutputDevice& out = OutputDevice::getDevice(file);
     out.writeXMLHeader("additional");
     for (std::vector<RODFDetector*>::const_iterator i=myDetectors.begin(); i!=myDetectors.end(); ++i) {
@@ -669,8 +669,8 @@ RODFDetectorCon::getFlowFor(const ROEdge *edge, SUMOTime time,
 int
 RODFDetectorCon::getAggFlowFor(const ROEdge *edge, SUMOTime time, SUMOTime period,
                                const RODFDetectorFlows &) const {
-	UNUSED_PARAMETER(period);
-	UNUSED_PARAMETER(time);
+    UNUSED_PARAMETER(period);
+    UNUSED_PARAMETER(time);
     if (edge==0) {
         return 0;
     }

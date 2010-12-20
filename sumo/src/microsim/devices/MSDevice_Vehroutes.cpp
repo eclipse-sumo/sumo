@@ -96,7 +96,7 @@ MSDevice_Vehroutes::StateListener::vehicleStateChanged(const SUMOVehicle * const
 // MSDevice_Vehroutes-methods
 // ---------------------------------------------------------------------------
 MSDevice_Vehroutes::MSDevice_Vehroutes(SUMOVehicle &holder, const std::string &id, unsigned int maxRoutes) throw()
-    : MSDevice(holder, id), myCurrentRoute(&holder.getRoute()), myMaxRoutes(maxRoutes), myLastSavedAt(0) {
+        : MSDevice(holder, id), myCurrentRoute(&holder.getRoute()), myMaxRoutes(maxRoutes), myLastSavedAt(0) {
     myCurrentRoute->addReference();
 }
 
@@ -186,9 +186,9 @@ void
 MSDevice_Vehroutes::generateOutput() const throw(IOError) {
     OutputDevice& od = OutputDevice::getDeviceByOption("vehroute-output");
     od.openTag("vehicle")
-        << " id=\"" << myHolder.getID() << "\" depart=\""
-        << time2string(myHolder.getDeparture())
-        << "\" arrival=\"" << time2string(MSNet::getInstance()->getCurrentTimeStep());
+    << " id=\"" << myHolder.getID() << "\" depart=\""
+    << time2string(myHolder.getDeparture())
+    << "\" arrival=\"" << time2string(MSNet::getInstance()->getCurrentTimeStep());
     if (myWithTaz) {
         od << "\" fromtaz=\"" << myHolder.getParameter().fromTaz << "\" totaz=\"" << myHolder.getParameter().toTaz;
     }

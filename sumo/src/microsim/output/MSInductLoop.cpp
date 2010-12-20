@@ -74,7 +74,7 @@ MSInductLoop::reset() throw() {
 
 bool
 MSInductLoop::notifyMove(SUMOVehicle& veh, SUMOReal oldPos,
-                            SUMOReal newPos, SUMOReal newSpeed) throw() {
+                         SUMOReal newPos, SUMOReal newSpeed) throw() {
     if (newPos < myPosition) {
         // detector not reached yet
         return true;

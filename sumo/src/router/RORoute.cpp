@@ -93,7 +93,7 @@ RORoute::recheckForLoops() throw() {
 OutputDevice &
 RORoute::writeXMLDefinition(SUMOAbstractRouter<ROEdge,ROVehicle> &router,
                             OutputDevice &dev, const ROVehicle * const veh, bool asAlternatives, bool withExitTimes) const {
-	UNUSED_PARAMETER(router);
+    UNUSED_PARAMETER(router);
     // (optional) alternatives header
     if (asAlternatives) {
         dev.openTag("routeDistribution") << " last=\"0\">\n";

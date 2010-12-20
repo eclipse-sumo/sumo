@@ -737,7 +737,7 @@ OptionsCont::writeSchema(std::ostream &os, bool addComments) throw() {
             if (type == "bool") {
                 type = "boolean";
             } else {
-                if  (type != "int" && type != "float") {
+                if (type != "int" && type != "float") {
                     type = "string";
                 }
             }

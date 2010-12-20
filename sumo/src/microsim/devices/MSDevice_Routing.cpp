@@ -150,12 +150,12 @@ MSDevice_Routing::buildVehicleDevices(SUMOVehicle &v, std::vector<MSDevice*> &in
 MSDevice_Routing::MSDevice_Routing(SUMOVehicle &holder, const std::string &id,
                                    SUMOTime period, SUMOTime preEmitPeriod) throw()
         : MSDevice(holder, id), myPeriod(period), myPreEmitPeriod(preEmitPeriod), myRerouteCommand(0) {
-        if (myWithTaz) {
-            myRerouteCommand = new WrappingCommand< MSDevice_Routing >(this, &MSDevice_Routing::preEmitReroute);
-            MSNet::getInstance()->getEmissionEvents().addEvent(
-                myRerouteCommand, holder.getParameter().depart,
-                MSEventControl::ADAPT_AFTER_EXECUTION);
-        }
+    if (myWithTaz) {
+        myRerouteCommand = new WrappingCommand< MSDevice_Routing >(this, &MSDevice_Routing::preEmitReroute);
+        MSNet::getInstance()->getEmissionEvents().addEvent(
+            myRerouteCommand, holder.getParameter().depart,
+            MSEventControl::ADAPT_AFTER_EXECUTION);
+    }
 }
 
 

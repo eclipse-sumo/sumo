@@ -61,7 +61,7 @@ class SUMOVehicle;
  *  the old destination or by choosing a new one from a set of existing ones.
  */
 class MSTriggeredRerouter :
-    public MSTrigger, public MSMoveReminder,
+        public MSTrigger, public MSMoveReminder,
             public SUMOSAXHandler {
 public:
     /** @brief Constructor

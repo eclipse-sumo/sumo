@@ -52,8 +52,8 @@ GUIShapeContainer::GUIShapeContainer(SUMORTree &vis) throw()
 GUIShapeContainer::~GUIShapeContainer() throw() {}
 
 
-bool 
-GUIShapeContainer::addPoI(const std::string &name, int layer, const std::string &type, const RGBColor &c, 
+bool
+GUIShapeContainer::addPoI(const std::string &name, int layer, const std::string &type, const RGBColor &c,
                           const Position2D &pos) throw() {
     GUIPointOfInterest *p = new GUIPointOfInterest(GUIGlObjectStorage::gIDStorage, layer, name, type, pos, c);
     myLock.lock();
@@ -68,8 +68,8 @@ GUIShapeContainer::addPoI(const std::string &name, int layer, const std::string 
 }
 
 
-bool 
-GUIShapeContainer::addPolygon(const std::string &name, int layer, const std::string &type, const RGBColor &c, 
+bool
+GUIShapeContainer::addPolygon(const std::string &name, int layer, const std::string &type, const RGBColor &c,
                               bool filled, const Position2DVector &shape) throw() {
     GUIPolygon2D *p = new GUIPolygon2D(GUIGlObjectStorage::gIDStorage, layer, name, type, c, shape, filled);
     myLock.lock();
@@ -126,12 +126,12 @@ GUIShapeContainer::removePolygon(int layer, const std::string &id) throw() {
 
 
 
-void 
+void
 GUIShapeContainer::movePoI(int layer, const std::string &id, const Position2D &pos) throw() {
     myLock.lock();
     if (myPOILayers.find(layer)!=myPOILayers.end()) {
         PointOfInterest *p = myPOILayers.find(layer)->second.get(id);
-        if(p!=0) {
+        if (p!=0) {
             myVis.removeAdditionalGLObject(static_cast<GUIPointOfInterest*>(p));
             static_cast<Position2D*>(p)->set(pos);
             myVis.addAdditionalGLObject(static_cast<GUIPointOfInterest*>(p));
@@ -141,12 +141,12 @@ GUIShapeContainer::movePoI(int layer, const std::string &id, const Position2D &p
 }
 
 
-void 
+void
 GUIShapeContainer::reshapePolygon(int layer, const std::string &id, const Position2DVector &shape) throw() {
     myLock.lock();
     if (myPolygonLayers.find(layer)!=myPolygonLayers.end()) {
         Polygon2D *p = myPolygonLayers.find(layer)->second.get(id);
-        if(p!=0) {
+        if (p!=0) {
             myVis.removeAdditionalGLObject(static_cast<GUIPolygon2D*>(p));
             p->setShape(shape);
             myVis.addAdditionalGLObject(static_cast<GUIPolygon2D*>(p));

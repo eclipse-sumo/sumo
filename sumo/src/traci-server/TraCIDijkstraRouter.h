@@ -132,7 +132,7 @@ public:
     virtual void compute(const E *from, const E *to, const MSVehicle * const vehicle,
                          SUMOTime time, std::vector<const E*> &into) {
 
-		UNUSED_PARAMETER(vehicle);
+        UNUSED_PARAMETER(vehicle);
         // get structures to reuse
         std::vector<bool> *visited = myReusableEdgeLists.getFreeInstance();
         if (visited==0) {
@@ -201,7 +201,7 @@ public:
 
     SUMOReal recomputeCosts(const std::vector<const E*> &edges, const MSVehicle * const v, SUMOTime time) throw() {
         UNUSED_PARAMETER(v);
-		SUMOReal costs = 0;
+        SUMOReal costs = 0;
         for (typename std::vector<const E*>::const_iterator i=edges.begin(); i!=edges.end(); i++) {
             costs += getEffort(*i, (SUMOTime)(time + costs));
         }

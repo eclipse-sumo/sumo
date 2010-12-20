@@ -49,8 +49,7 @@
 // ---------------------------------------------------------------------------
 SAXWeightsHandler::ToRetrieveDefinition::ToRetrieveDefinition(const std::string &attributeName,
         bool edgeBased, EdgeFloatTimeLineRetriever &destination)
-        : myAttributeName(attributeName), myAmEdgeBased(edgeBased), myDestination(destination)
-         {
+        : myAttributeName(attributeName), myAmEdgeBased(edgeBased), myDestination(destination) {
 }
 
 

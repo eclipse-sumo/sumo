@@ -53,16 +53,16 @@ public:
 
     /// Returns the foes of the given link
     virtual const MSLogicJunction::LinkFoes &getFoesFor(unsigned int linkIndex) const throw() {
-		UNUSED_PARAMETER(linkIndex);
+        UNUSED_PARAMETER(linkIndex);
         return myDummyFoes;
     }
 
     virtual const std::bitset<64> &getInternalFoesFor(unsigned int linkIndex) const throw() {
-		UNUSED_PARAMETER(linkIndex);
+        UNUSED_PARAMETER(linkIndex);
         return myDummyFoes;
     }
     virtual bool getIsCont(unsigned int linkIndex) const throw() {
-		UNUSED_PARAMETER(linkIndex);
+        UNUSED_PARAMETER(linkIndex);
         return false;
     }
 

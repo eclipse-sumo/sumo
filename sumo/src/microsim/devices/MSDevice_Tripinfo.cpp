@@ -57,7 +57,7 @@ MSDevice_Tripinfo::buildVehicleDevices(SUMOVehicle &v, std::vector<MSDevice*> &i
 // ---------------------------------------------------------------------------
 MSDevice_Tripinfo::MSDevice_Tripinfo(SUMOVehicle &holder, const std::string &id) throw()
         : MSDevice(holder, id), myDepartLane(""), myDepartPos(-1), myDepartSpeed(-1),
-          myWaitingSteps(0), myArrivalTime(-1), myArrivalLane(""), myArrivalPos(-1), myArrivalSpeed(-1) {
+        myWaitingSteps(0), myArrivalTime(-1), myArrivalLane(""), myArrivalPos(-1), myArrivalSpeed(-1) {
 }
 
 
@@ -67,7 +67,7 @@ MSDevice_Tripinfo::~MSDevice_Tripinfo() throw() {
 
 bool
 MSDevice_Tripinfo::notifyMove(SUMOVehicle& /*veh*/, SUMOReal /*oldPos*/,
-              SUMOReal /*newPos*/, SUMOReal newSpeed) throw() {
+                              SUMOReal /*newPos*/, SUMOReal newSpeed) throw() {
     if (newSpeed<=0.1) {
         myWaitingSteps++;
     }
@@ -79,11 +79,11 @@ bool
 MSDevice_Tripinfo::notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification reason) throw() {
     if (reason == MSMoveReminder::NOTIFICATION_DEPARTED) {
 #ifdef HAVE_MESOSIM
-    if (!MSGlobals::gUseMesoSim) {
+        if (!MSGlobals::gUseMesoSim) {
 #endif
-        myDepartLane = static_cast<MSVehicle&>(veh).getLane().getID();
+            myDepartLane = static_cast<MSVehicle&>(veh).getLane().getID();
 #ifdef HAVE_MESOSIM
-    }
+        }
 #endif
         myDepartPos = veh.getPositionOnLane();
         myDepartSpeed = veh.getSpeed();
@@ -98,11 +98,11 @@ MSDevice_Tripinfo::notifyLeave(SUMOVehicle& veh, SUMOReal /*lastPos*/,
     if (reason >= MSMoveReminder::NOTIFICATION_ARRIVED) {
         myArrivalTime = MSNet::getInstance()->getCurrentTimeStep();
 #ifdef HAVE_MESOSIM
-    if (!MSGlobals::gUseMesoSim) {
+        if (!MSGlobals::gUseMesoSim) {
 #endif
-        myArrivalLane = static_cast<MSVehicle&>(veh).getLane().getID();
+            myArrivalLane = static_cast<MSVehicle&>(veh).getLane().getID();
 #ifdef HAVE_MESOSIM
-    }
+        }
 #endif
         myArrivalPos = myHolder.getPositionOnLane();
         myArrivalSpeed = veh.getSpeed();
@@ -119,21 +119,21 @@ MSDevice_Tripinfo::generateOutput() const throw(IOError) {
     os.openTag("tripinfo") << " id=\"" << myHolder.getID() << "\" ";
     routeLength -= myDepartPos;
     os << "depart=\"" << time2string(myHolder.getDeparture()) << "\" "
-       << "departLane=\"" << myDepartLane << "\" "
-       << "departPos=\"" << myDepartPos << "\" "
-       << "departSpeed=\"" << myDepartSpeed << "\" "
-       << "departDelay=\"" << time2string(myHolder.getDeparture() - myHolder.getParameter().depart) << "\" ";
+    << "departLane=\"" << myDepartLane << "\" "
+    << "departPos=\"" << myDepartPos << "\" "
+    << "departSpeed=\"" << myDepartSpeed << "\" "
+    << "departDelay=\"" << time2string(myHolder.getDeparture() - myHolder.getParameter().depart) << "\" ";
     if (myArrivalLane != "") {
         routeLength -= MSLane::dictionary(myArrivalLane)->getLength() - myArrivalPos;
     }
     os << "arrival=\"" << time2string(myArrivalTime) << "\" "
-       << "arrivalLane=\"" << myArrivalLane << "\" "
-       << "arrivalPos=\"" << myArrivalPos << "\" "
-       << "arrivalSpeed=\"" << myArrivalSpeed << "\" "
-       << "duration=\"" << time2string(myArrivalTime - myHolder.getDeparture()) << "\" "
-       << "routeLength=\"" << routeLength << "\" "
-       << "waitSteps=\"" << myWaitingSteps << "\" "
-       << "rerouteNo=\"" << myHolder.getNumberReroutes();
+    << "arrivalLane=\"" << myArrivalLane << "\" "
+    << "arrivalPos=\"" << myArrivalPos << "\" "
+    << "arrivalSpeed=\"" << myArrivalSpeed << "\" "
+    << "duration=\"" << time2string(myArrivalTime - myHolder.getDeparture()) << "\" "
+    << "routeLength=\"" << routeLength << "\" "
+    << "waitSteps=\"" << myWaitingSteps << "\" "
+    << "rerouteNo=\"" << myHolder.getNumberReroutes();
     const std::vector<MSDevice*> &devices = myHolder.getDevices();
     std::ostringstream str;
     for (std::vector<MSDevice*>::const_iterator i=devices.begin(); i!=devices.end(); ++i) {
@@ -143,9 +143,9 @@ MSDevice_Tripinfo::generateOutput() const throw(IOError) {
         str << (*i)->getID();
     }
     os << "\" devices=\"" << str.str()
-       << "\" vtype=\"" << myHolder.getVehicleType().getID()
-       << "\" vaporized=\"" << (myHolder.getEdge() == *(myHolder.getRoute().end() - 1) ? "" : "0")
-       << "\"";
+    << "\" vtype=\"" << myHolder.getVehicleType().getID()
+    << "\" vaporized=\"" << (myHolder.getEdge() == *(myHolder.getRoute().end() - 1) ? "" : "0")
+    << "\"";
     if (devices.size() > 1) {
         os << ">\n";
     }

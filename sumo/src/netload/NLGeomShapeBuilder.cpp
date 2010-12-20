@@ -84,7 +84,7 @@ NLGeomShapeBuilder::addPoint(const std::string &name,
                              SUMOReal x, SUMOReal y,
                              const std::string &lane, SUMOReal posOnLane) throw(InvalidArgument) {
     Position2D pos = getPointPosition(x, y, lane, posOnLane);
-    if(!myShapeContainer.addPoI(name, layer, type, c, pos)) {
+    if (!myShapeContainer.addPoI(name, layer, type, c, pos)) {
         throw InvalidArgument("A duplicate of the POI '" + name + "' occured.");
     }
 }

@@ -408,8 +408,8 @@ MSNet::simulationState(SUMOTime stopTime) const throw() {
     if (stopTime < 0) {
 #endif
         if (myEmissionEvents->isEmpty() && myVehicleControl->haveAllVehiclesQuit()
-            && !myEmitter->hasPendingFlows() && !MSVehicleTransfer::getInstance()->hasPending()
-            && (myPersonControl == 0 || !myPersonControl->hasPersons())) {
+                && !myEmitter->hasPendingFlows() && !MSVehicleTransfer::getInstance()->hasPending()
+                && (myPersonControl == 0 || !myPersonControl->hasPersons())) {
             return SIMSTATE_NO_FURTHER_VEHICLES;
         }
     }

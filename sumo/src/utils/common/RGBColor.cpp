@@ -115,7 +115,7 @@ RGBColor::parseColor(const std::string &coldef) throw(EmptyData, NumberFormatExc
 RGBColor
 RGBColor::parseColorReporting(const std::string &coldef, const char *objecttype, const char *objectid, bool report, bool &ok) throw() {
     UNUSED_PARAMETER(report);
-	try {
+    try {
         return parseColor(coldef);
     } catch (NumberFormatException &) {
     } catch (EmptyData &) {

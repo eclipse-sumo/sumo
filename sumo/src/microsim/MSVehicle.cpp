@@ -994,8 +994,8 @@ MSVehicle::vsafeCriticalCont(SUMOTime t, SUMOReal boundVSafe) {
         if (!myStops.empty()&& &myStops.begin()->lane->getEdge()==&nextLane->getEdge()) {
             const Stop &stop = *myStops.begin();
             const SUMOReal vsafeStop = stop.busstop==0
-                                 ? cfModel.ffeS(this, seen+stop.endPos)
-                                 : cfModel.ffeS(this, seen+stop.busstop->getLastFreePos()-POSITION_EPS);
+                                       ? cfModel.ffeS(this, seen+stop.endPos)
+                                       : cfModel.ffeS(this, seen+stop.busstop->getLastFreePos()-POSITION_EPS);
             vLinkPass = MIN2(vLinkPass, vsafeStop);
             vLinkWait = MIN2(vLinkWait, vsafeStop);
         }

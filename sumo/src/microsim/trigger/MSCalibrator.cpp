@@ -209,7 +209,7 @@ MSCalibrator::MSCalibrator_FileTriggeredChild::buildAndScheduleFlowVehicle(SUMOR
     }
 
     MSVehicle *veh = static_cast<MSVehicle*>(
-        MSNet::getInstance()->getVehicleControl().buildVehicle(pars, aEmitRoute, aVehType));
+                         MSNet::getInstance()->getVehicleControl().buildVehicle(pars, aEmitRoute, aVehType));
     myParent.schedule(this, veh, speed);
     myHaveNext = true;
 }

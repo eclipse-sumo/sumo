@@ -96,7 +96,7 @@ MSDevice_HBEFA::buildVehicleDevices(SUMOVehicle &v, std::vector<MSDevice*> &into
 // MSDevice_HBEFA-methods
 // ---------------------------------------------------------------------------
 MSDevice_HBEFA::MSDevice_HBEFA(SUMOVehicle &holder, const std::string &id) throw()
-      : MSDevice(holder, id),
+        : MSDevice(holder, id),
         myCO2(0), myCO(0), myHC(0), myPMx(0), myNOx(0), myFuel(0) {
 }
 

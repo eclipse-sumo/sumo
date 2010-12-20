@@ -231,7 +231,7 @@ bool
 MSTLLogicControl::WAUTSwitchProcedure::isPosAtGSP(SUMOTime currentTime, const MSTrafficLightLogic &logic) throw() {
     SUMOTime gspTime = TIME2STEPS(getGSPValue(logic)) % logic.getDefaultCycleTime();
     SUMOTime programTime = logic.getOffsetFromIndex(logic.getCurrentPhaseIndex())
-        + (logic.getCurrentPhaseDef().duration - (logic.getNextSwitchTime() - currentTime));
+                           + (logic.getCurrentPhaseDef().duration - (logic.getNextSwitchTime() - currentTime));
     return gspTime==programTime;
 }
 
@@ -465,7 +465,7 @@ MSTLLogicControl::WAUTSwitchProcedure_Stretch::stretchLogic(SUMOTime step, SUMOT
             SUMOReal fac = def.fac;
             SUMOReal actualfac = fac / facSum;
             facSum = facSum - fac;
-            StretchTimeOfPhase = TIME2STEPS((int) (STEPS2TIME(remainingStretchTime) * actualfac + 0.5));
+            StretchTimeOfPhase = TIME2STEPS((int)(STEPS2TIME(remainingStretchTime) * actualfac + 0.5));
             remainingStretchTime = allStretchTime - StretchTimeOfPhase;
         }
     }
@@ -485,7 +485,7 @@ MSTLLogicControl::WAUTSwitchProcedure_Stretch::stretchLogic(SUMOTime step, SUMOT
                 SUMOReal fac = def.fac;
                 if ((beginOfPhase <= end) && (endOfPhase >= end)) {
                     SUMOReal actualfac = fac / facSum;
-                    StretchTimeOfPhase = TIME2STEPS((int) (STEPS2TIME(remainingStretchTime) * actualfac + 0.5));
+                    StretchTimeOfPhase = TIME2STEPS((int)(STEPS2TIME(remainingStretchTime) * actualfac + 0.5));
                     facSum -= fac;
                     durOfPhase += StretchTimeOfPhase;
                     remainingStretchTime -= StretchTimeOfPhase;
@@ -567,7 +567,7 @@ MSTLLogicControl::get(const std::string &id) const throw(InvalidArgument) {
 
 
 MSTrafficLightLogic*
-    MSTLLogicControl::get(const std::string &id, const std::string &programID) const throw() {
+MSTLLogicControl::get(const std::string &id, const std::string &programID) const throw() {
     std::map<std::string, TLSLogicVariants*>::const_iterator i = myLogics.find(id);
     if (i==myLogics.end()) {
         return 0;
@@ -631,7 +631,7 @@ MSTLLogicControl::isActive(const MSTrafficLightLogic *tl) const throw() {
 
 
 MSTrafficLightLogic*
-    MSTLLogicControl::getActive(const std::string &id) const throw() {
+MSTLLogicControl::getActive(const std::string &id) const throw() {
     std::map<std::string, TLSLogicVariants*>::const_iterator i = myLogics.find(id);
     if (i==myLogics.end()) {
         return 0;

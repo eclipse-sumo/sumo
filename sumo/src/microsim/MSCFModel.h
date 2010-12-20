@@ -265,7 +265,7 @@ public:
      * @param[in] accel The new acceleration in m/s^2
      */
     virtual void setMaxAccel(SUMOReal accel) throw() {
-		UNUSED_PARAMETER(accel);
+        UNUSED_PARAMETER(accel);
     }
 
 
@@ -282,7 +282,7 @@ public:
      * @param[in] accel The new driver imperfection
      */
     virtual void setImperfection(SUMOReal imperfection) throw() {
-		UNUSED_PARAMETER(imperfection);
+        UNUSED_PARAMETER(imperfection);
     }
 
 
@@ -290,7 +290,7 @@ public:
      * @param[in] accel The new driver reaction time (in s)
      */
     virtual void setTau(SUMOReal tau) throw() {
-		UNUSED_PARAMETER(tau);
+        UNUSED_PARAMETER(tau);
     }
     /// @}
 

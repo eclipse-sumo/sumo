@@ -139,9 +139,9 @@ public:
      * @return The resulting vehicle type parameter
      * @see SUMOVTypeParameter
      */
-    static void closeVTypeParsing(SUMOVTypeParameter &vtype) throw() { 
-		UNUSED_PARAMETER(vtype);
-	}
+    static void closeVTypeParsing(SUMOVTypeParameter &vtype) throw() {
+        UNUSED_PARAMETER(vtype);
+    }
 
 
     /** @brief Parses the vehicle class

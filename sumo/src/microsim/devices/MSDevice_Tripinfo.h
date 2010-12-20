@@ -73,7 +73,7 @@ public:
      * @return True (always).
      */
     bool notifyMove(SUMOVehicle& veh, SUMOReal oldPos,
-                       SUMOReal newPos, SUMOReal newSpeed) throw();
+                    SUMOReal newPos, SUMOReal newSpeed) throw();
 
 
     /** @brief Saves departure info on emit

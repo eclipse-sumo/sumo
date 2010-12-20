@@ -125,7 +125,7 @@ public:
      * @see MSMoveReminder::notifyMove
      */
     bool notifyMove(SUMOVehicle& veh, SUMOReal oldPos, SUMOReal newPos,
-                       SUMOReal newSpeed) throw();
+                    SUMOReal newSpeed) throw();
 
 
     /** @brief Removes a known vehicle due to its lane-change

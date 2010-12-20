@@ -128,8 +128,8 @@ void APIENTRY vertexCallback(GLvoid *vertex) {
 void APIENTRY combineCallback(GLdouble coords[3],
                               GLdouble *vertex_data[4],
                               GLfloat weight[4], GLdouble **dataOut) {
-	UNUSED_PARAMETER(weight);
-	UNUSED_PARAMETER(*vertex_data);
+    UNUSED_PARAMETER(weight);
+    UNUSED_PARAMETER(*vertex_data);
     GLdouble *vertex;
 
     vertex = (GLdouble *) malloc(7 * sizeof(GLdouble));

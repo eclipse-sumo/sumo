@@ -637,7 +637,7 @@ NIImporter_OpenDrive::computeShapes(std::vector<OpenDriveEdge> &edges) throw() {
 
 std::vector<Position2D>
 NIImporter_OpenDrive::geomFromLine(const OpenDriveEdge &e, const OpenDriveGeometry &g) throw() {
-	UNUSED_PARAMETER(e);
+    UNUSED_PARAMETER(e);
     std::vector<Position2D> ret;
     ret.push_back(Position2D(g.x, g.y));
     ret.push_back(calculateStraightEndPoint(g.hdg, g.length, Position2D(g.x, g.y)));
@@ -647,7 +647,7 @@ NIImporter_OpenDrive::geomFromLine(const OpenDriveEdge &e, const OpenDriveGeomet
 
 std::vector<Position2D>
 NIImporter_OpenDrive::geomFromSpiral(const OpenDriveEdge &e, const OpenDriveGeometry &g) throw() {
-	UNUSED_PARAMETER(e);
+    UNUSED_PARAMETER(e);
     std::vector<Position2D> ret;
     SUMOReal curveStart = g.params[0];
     SUMOReal curveEnd = g.params[1];
@@ -664,7 +664,7 @@ NIImporter_OpenDrive::geomFromSpiral(const OpenDriveEdge &e, const OpenDriveGeom
 
 std::vector<Position2D>
 NIImporter_OpenDrive::geomFromArc(const OpenDriveEdge &e, const OpenDriveGeometry &g) throw() {
-	UNUSED_PARAMETER(e);
+    UNUSED_PARAMETER(e);
     std::vector<Position2D> ret;
     SUMOReal dist = 0.0;
     SUMOReal centerX = g.x;
@@ -718,8 +718,8 @@ NIImporter_OpenDrive::geomFromArc(const OpenDriveEdge &e, const OpenDriveGeometr
 
 std::vector<Position2D>
 NIImporter_OpenDrive::geomFromPoly(const OpenDriveEdge &e, const OpenDriveGeometry &g) throw() {
-	UNUSED_PARAMETER(g);
-	UNUSED_PARAMETER(e);
+    UNUSED_PARAMETER(g);
+    UNUSED_PARAMETER(e);
     std::vector<Position2D> ret;
     return ret;
 }
@@ -792,7 +792,7 @@ NIImporter_OpenDrive::NIImporter_OpenDrive(NBNodeCont &nc,
         std::vector<OpenDriveEdge> &outerEdges)
         : SUMOSAXHandler("opendrive"), myCurrentEdge("", "", -1),
         myInnerEdges(innerEdges), myOuterEdges(outerEdges) {
-	UNUSED_PARAMETER(nc);
+    UNUSED_PARAMETER(nc);
 }
 
 
@@ -924,8 +924,8 @@ NIImporter_OpenDrive::myStartElement(SumoXMLTag element,
 void
 NIImporter_OpenDrive::myCharacters(SumoXMLTag element,
                                    const std::string &chars) throw(ProcessError) {
-	UNUSED_PARAMETER(element);
-	UNUSED_PARAMETER(chars);
+    UNUSED_PARAMETER(element);
+    UNUSED_PARAMETER(chars);
 }
 
 

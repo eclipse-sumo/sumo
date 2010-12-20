@@ -110,7 +110,7 @@ MSEmitter::MSEmitter_FileTriggeredChild::buildAndScheduleFlowVehicle() {
     }
 
     MSVehicle *veh = static_cast<MSVehicle*>(
-        MSNet::getInstance()->getVehicleControl().buildVehicle(pars, aEmitRoute, aVehType));
+                         MSNet::getInstance()->getVehicleControl().buildVehicle(pars, aEmitRoute, aVehType));
     myParent.schedule(this, veh, -1);
     myHaveNext = true;
 }

@@ -70,7 +70,7 @@ MSE2Collector::~MSE2Collector() throw() {
 
 bool
 MSE2Collector::notifyMove(SUMOVehicle& veh, SUMOReal oldPos,
-                             SUMOReal newPos, SUMOReal) throw() {
+                          SUMOReal newPos, SUMOReal) throw() {
     if (newPos <= myStartPos) {
         // detector not yet reached
         return true;
@@ -270,8 +270,8 @@ MSE2Collector::update(SUMOTime) throw() {
         const MSVehicle* const occ = myLane->getPartialOccupator();
         if (occ && occ == *(*i)->firstStandingVehicle && occ != *(*i)->lastStandingVehicle) {
             jamLengthInMeters = myLane->getPartialOccupatorEnd() +occ->getVehicleType().getLength()
-                - (*(*i)->lastStandingVehicle)->getPositionOnLane()
-                + (*(*i)->lastStandingVehicle)->getVehicleType().getLength();
+                                - (*(*i)->lastStandingVehicle)->getPositionOnLane()
+                                + (*(*i)->lastStandingVehicle)->getVehicleType().getLength();
         }
         unsigned jamLengthInVehicles = (unsigned) distance((*i)->firstStandingVehicle, (*i)->lastStandingVehicle) + 1;
         // apply them to the statistics

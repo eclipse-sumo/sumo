@@ -84,7 +84,7 @@ load(OptionsCont &oc) {
         vc = new MEVehicleControl();
     } else {
 #endif
-    vc = new MSVehicleControl();
+        vc = new MSVehicleControl();
 #ifdef HAVE_MESOSIM
     }
 #endif

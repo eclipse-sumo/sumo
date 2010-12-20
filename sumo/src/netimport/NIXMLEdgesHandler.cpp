@@ -332,7 +332,7 @@ NIXMLEdgesHandler::setNodes(const SUMOSAXAttributes &attrs) throw() {
 SUMOReal
 NIXMLEdgesHandler::tryGetPosition(const SUMOSAXAttributes &attrs, SumoXMLAttr attrID,
                                   const std::string &attrName) {
-	UNUSED_PARAMETER(attrName);
+    UNUSED_PARAMETER(attrName);
     bool ok = true;
     return attrs.getOptSUMORealReporting(attrID, "edge", myCurrentID.c_str(), ok, SUMOXML_INVALID_POSITION);
 }

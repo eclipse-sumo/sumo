@@ -97,7 +97,7 @@ public:
     bool notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification reason) throw();
     /// @}
 
-        
+
     /// @name Methods inherited from MSDetectorFileOutput.
     /// @{
 

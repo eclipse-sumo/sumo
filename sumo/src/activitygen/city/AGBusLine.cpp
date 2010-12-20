@@ -143,7 +143,7 @@ void
 AGBusLine::generateBuses(int start, int stop, int rate) {
     int t = start;
     AGBus* bus;
-	UNUSED_PARAMETER(bus);
+    UNUSED_PARAMETER(bus);
     while (t < stop) {
         buses.push_back(AGBus(t)); //one direction
         revBuses.push_back(AGBus(t)); //return direction

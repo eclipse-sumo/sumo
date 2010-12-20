@@ -344,7 +344,7 @@ public:
 
 
     /** @brief return the complete phase definition for a named traffic lights logic
-     * 
+     *
      * The phase definition will be the current of the currently active program of
      *  the named tls.
      * @param[in] tlid The id of the tls to get the current phases of
@@ -523,7 +523,7 @@ protected:
 
     protected:
         /** @brief Checks, whether the position of a signal programm is at the GSP ("GuenstigerUmschaltPunkt")
-         * 
+         *
          * The GSP must be given as a logic's parameter ("GSP"). Not the simulation second,
          *  but the phase the GSP lies within is used. If the phase the GSP lies within is
          *  the same as the logic's current phase, the result is true.
@@ -552,8 +552,8 @@ protected:
 
 
         /** @brief Returns the GSP-value
-         * 
-         * The GSP must be given as a logic's parameter ("GSP"). 
+         *
+         * The GSP must be given as a logic's parameter ("GSP").
          * @param[in] logic The logic to retrieve the GSP from
          * @return The GSP value; 0 if not given.
          * @see MSTrafficLightLogic::getParameterValue

@@ -134,8 +134,8 @@ GUILoadThread::run() {
                          new GUIEventControl(), new GUIEventControl());
     } else {
 #endif
-    net = new GUINet(new GUIVehicleControl(), new GUIEventControl(),
-                     new GUIEventControl(), new GUIEventControl());
+        net = new GUINet(new GUIVehicleControl(), new GUIEventControl(),
+                         new GUIEventControl(), new GUIEventControl());
 #ifdef HAVE_MESOSIM
     }
 #endif

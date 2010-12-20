@@ -62,7 +62,7 @@ public:
 
     /// @brief Sets the color using a function call for the given instance of T
     virtual bool setFunctionalColor(const T& i) const {
-		UNUSED_PARAMETER(i);
+        UNUSED_PARAMETER(i);
         return false;
     }
 

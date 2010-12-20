@@ -765,7 +765,7 @@ MSLane::isLinkEnd(MSLinkCont::iterator &i) {
 
 
 MSVehicle*
-    MSLane::getLastVehicle() const {
+MSLane::getLastVehicle() const {
     if (myVehicles.size()==0) {
         return 0;
     }
@@ -774,7 +774,7 @@ MSVehicle*
 
 
 const MSVehicle*
-    MSLane::getFirstVehicle() const {
+MSLane::getFirstVehicle() const {
     if (myVehicles.size()==0) {
         return 0;
     }
@@ -891,13 +891,13 @@ MSLane::removeVehicle(MSVehicle * remVehicle) {
 
 
 MSLane*
-    MSLane::getLeftLane() const {
+MSLane::getLeftLane() const {
     return myEdge->leftLane(this);
 }
 
 
 MSLane*
-    MSLane::getRightLane() const {
+MSLane::getRightLane() const {
     return myEdge->rightLane(this);
 }
 

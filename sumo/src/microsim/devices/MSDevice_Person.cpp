@@ -55,7 +55,7 @@ MSDevice_Person::buildVehicleDevices(SUMOVehicle &v, std::vector<MSDevice*> &int
 // MSDevice_Person-methods
 // ---------------------------------------------------------------------------
 MSDevice_Person::MSDevice_Person(SUMOVehicle &holder, const std::string &id) throw()
-      : MSDevice(holder, id), myPersons(), myStopped(holder.isStopped()) {
+        : MSDevice(holder, id), myPersons(), myStopped(holder.isStopped()) {
 }
 
 

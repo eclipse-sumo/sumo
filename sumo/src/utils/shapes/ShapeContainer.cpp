@@ -60,8 +60,8 @@ ShapeContainer::ShapeContainer() throw()
 ShapeContainer::~ShapeContainer() throw() {}
 
 
-bool 
-ShapeContainer::addPoI(const std::string &name, int layer, const std::string &type, const RGBColor &c, 
+bool
+ShapeContainer::addPoI(const std::string &name, int layer, const std::string &type, const RGBColor &c,
                        const Position2D &pos) throw() {
     PointOfInterest *p = new PointOfInterest(name, type, pos, c);
     if (!add(layer, p)) {
@@ -72,8 +72,8 @@ ShapeContainer::addPoI(const std::string &name, int layer, const std::string &ty
 }
 
 
-bool 
-ShapeContainer::addPolygon(const std::string &name, int layer, const std::string &type, const RGBColor &c, 
+bool
+ShapeContainer::addPolygon(const std::string &name, int layer, const std::string &type, const RGBColor &c,
                            bool filled, const Position2DVector &shape) throw() {
     Polygon2D *p = new Polygon2D(name, type, c, shape, filled);
     if (!add(layer, p)) {
@@ -104,22 +104,22 @@ ShapeContainer::removePoI(int layer, const std::string &id) throw() {
 
 
 
-void 
+void
 ShapeContainer::movePoI(int layer, const std::string &id, const Position2D &pos) throw() {
     if (myPOILayers.find(layer)!=myPOILayers.end()) {
         PointOfInterest *p = myPOILayers.find(layer)->second.get(id);
-        if(p!=0) {
+        if (p!=0) {
             static_cast<Position2D*>(p)->set(pos);
         }
     }
 }
 
 
-void 
+void
 ShapeContainer::reshapePolygon(int layer, const std::string &id, const Position2DVector &shape) throw() {
     if (myPolygonLayers.find(layer)!=myPolygonLayers.end()) {
         Polygon2D *p = myPolygonLayers.find(layer)->second.get(id);
-        if(p!=0) {
+        if (p!=0) {
             p->setShape(shape);
         }
     }

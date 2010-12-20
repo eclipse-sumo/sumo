@@ -116,7 +116,7 @@ void FXThreadEvent::signal(FXuint seltype) {
 #ifndef WIN32
     ::write(event[PIPE_WRITE],&seltype,sizeof(seltype));
 #else
-	UNUSED_PARAMETER(seltype);
+    UNUSED_PARAMETER(seltype);
     ::SetEvent(event);
 #endif
 }

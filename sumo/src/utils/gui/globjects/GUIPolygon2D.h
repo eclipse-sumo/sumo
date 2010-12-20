@@ -46,9 +46,9 @@ public:
     /** @brief Constructor
      * @param[in] idStorage The gl-id storage for giving this object an gl-id
      * @param[in] layer The layer the polygon will be located in
-     * @param[in] name The name (id) of the polygon 
-     * @param[in] type The type of the polygon 
-     * @param[in] color The color of the polygon 
+     * @param[in] name The name (id) of the polygon
+     * @param[in] type The type of the polygon
+     * @param[in] color The color of the polygon
      * @param[in] shape The shape of the polygon
      * @param[in] fill Whether the polygon shall be filled
      */
