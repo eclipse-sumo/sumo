@@ -52,10 +52,10 @@ def main():
     optParser.add_option("-N", "--clone-postfix", dest="clonepostfix", type='string',
                          default='-CLONE', help="postfix attached to clone ids")
     optParser.add_option("-X", "--cntfirstlink", action="store_true", dest="cntfirstlink",
-                         default=False, help="count the first link")
-    optParser.add_option("-o", "--cntlastlink", action="store_true", dest="cntlastlink",
-                         default=False, help="count the first link")
-                         
+                         default=False, help="use traffic counts on first links")
+    optParser.add_option("-K", "--cntlastlink", action="store_true", dest="cntlastlink",
+                         default=False, help="use traffic counts on last links")
+
     (options, args) = optParser.parse_args()
     if not options.net or not options.routes or not options.detvals:
         optParser.error("--net-file, --routes and --detector-values have to be given!")
@@ -79,15 +79,13 @@ def main():
         call(calibrator + ["INIT", "-varscale", options.varscale, "-freezeit", options.freezeit,
               "-measfile", options.detvals, "-binsize", options.aggregation, "-PREPITS", options.PREPITS,
                "-bruteforce", options.bruteforce, "-demandscale", options.demandscale,
-               "-mincountstddev", options.mincountstddev, "-overridett", options.overridett,
-               "-clonepostfix", options.clonepostfix, "-fmaprefix", options.fmaprefix,
-               "-cntfirstlink", options.cntfirstlink, "-cntlastlink", options.cntlastlink], log)
+               "-mincountstddev", options.mincountstddev, "-overridett", options.overridett,"-clonepostfix", options.clonepostfix,
+                "-fmaprefix", options.fmaprefix, "-cntfirstlink", options.cntfirstlink, "-cntlastlink",options.cntlastlink], log)
     else:
         call(calibrator + ["INIT", "-varscale", options.varscale, "-freezeit", options.freezeit,
               "-measfile", options.detvals, "-binsize", options.aggregation, "-PREPITS", options.PREPITS,
-              "-bruteforce", options.bruteforce, "-mincountstddev", options.mincountstddev,
-               "-overridett", options.overridett, "-clonepostfix", options.clonepostfix,
-               "-cntfirstlink", options.cntfirstlink, "-cntlastlink", options.cntlastlink], log)
+              "-bruteforce", options.bruteforce, "-mincountstddev", options.mincountstddev,"-overridett", options.overridett,
+              "-clonepostfix", options.clonepostfix,"-cntfirstlink", options.cntfirstlink, "-cntlastlink",options.cntlastlink], log)
 
     for step in range(options.calibStep):
         print 'calibration step:', step

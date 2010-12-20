@@ -42,6 +42,10 @@ def initOptions():
                          default = False, help="not to simulate internal link: true or false")
     optParser.add_option("-L", "--lanechange-allowed", dest="lanechangeallowed", action="store_true",
                          default = False, help="lane change allowed to swap")
+    optParser.add_option("-j", "--meso-junctioncontrol", dest="mesojunctioncontrol", action="store_true",
+                         default = False, help="Enable mesoscopic traffic light and priority junciton handling")
+    optParser.add_option("-q", "--meso-multiqueue", dest="mesomultiqueue", action="store_true",
+                         default = False, help="Enable multiple queues at edge ends")
     return optParser
 
 def call(command, log):
@@ -133,7 +137,12 @@ def writeSUMOConf(step, options, files):
         <incremental-dua-base value="%s"/>""" % (options.incValue*(step+1), options.incBase)
     if options.mesosim:
         print >> fd, '        <mesosim value="True"/>'
-        print >> fd, '        <meso-junction-control value="True"/>'
+        if options.mesomultiqueue:
+            print >> fd, '        <meso-multi-queue value="True"/>'
+            print 'mesomultiqueue'
+        if options.mesojunctioncontrol:
+            print >> fd, '        <meso-junction-control value="True"/>'
+            print 'mesojunctioncontrol'
     print >> fd, """</processing>
     <report>
         <verbose value="True"/>
