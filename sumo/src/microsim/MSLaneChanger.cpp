@@ -569,13 +569,13 @@ MSLaneChanger::setOverlap(const std::pair<MSVehicle * const, SUMOReal> &rLead,
     // check the follower only if not already known that...
     if ((blocked&LCA_BLOCKEDBY_FOLLOWER)==0) {
         if (rFollow.first!=0&&rFollow.second<0) {
-            blocked |= (LCA_BLOCKEDBY_FOLLOWER|LCA_OVERLAPPING);
+            blocked |= (LCA_BLOCKEDBY_FOLLOWER);
         }
     }
     // check the leader only if not already known that...
     if ((blocked&LCA_BLOCKEDBY_LEADER)==0) {
         if (rLead.first!=0&&rLead.second<0) {
-            blocked |= (LCA_BLOCKEDBY_LEADER|LCA_OVERLAPPING);
+            blocked |= (LCA_BLOCKEDBY_LEADER);
         }
     }
 }

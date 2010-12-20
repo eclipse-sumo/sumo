@@ -38,18 +38,39 @@ class MSCFModel;
 // ===========================================================================
 // used enumeration
 // ===========================================================================
+/** @enum LaneChangeAction
+ * @brief A try to store the state of a vehicle's lane-change wish in an int
+ */
 enum LaneChangeAction {
+	/// @name currently wanted lane-change action
+	/// @{ 
+
+	/// @brief No action
     LCA_NONE = 0,
+	/// @brief The action is due to the wish to follow the route (navigational lc)
     LCA_URGENT = 1,
+	/// @brief The action is due to the wish to be faster (tactical lc)
     LCA_SPEEDGAIN = 2,
+	/// @brief Wants go to the left
     LCA_LEFT = 4,
+	/// @brief Wants go to the right
     LCA_RIGHT = 8,
+	/// @}
 
+	/// @name External state
+	/// @{ 
+
+	/// @brief The vehicle is blocked by leader
     LCA_BLOCKEDBY_LEADER = 16,
+	/// @brief The vehicle is blocked by follower
     LCA_BLOCKEDBY_FOLLOWER = 32,
-    LCA_OVERLAPPING = 64,
 
-    LCA_MAX = 128
+	// The vehicle is blocked being overlapping
+	// This is currently not used, but I'll keep it while working on this, as 
+	//  overlapping may be interested, but surely divided by leader/follower
+    // LCA_OVERLAPPING = 64
+	/// @}
+
 };
 
 enum ChangeRequest {
