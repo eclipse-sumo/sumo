@@ -227,6 +227,28 @@ MSBaseVehicle::isStopped() const {
 }
 
 
+bool
+MSBaseVehicle::hasValidRoute(std::string &msg) const throw() {
+    MSRouteIterator last = myRoute->end() - 1;
+    // check connectivity, first
+    for (MSRouteIterator e=myCurrEdge; e!=last; ++e) {
+        if ((*e)->allowedLanes(**(e+1), myType->getVehicleClass())==0) {
+            msg = "No connection between '" + (*e)->getID() + "' and '" + (*(e+1))->getID() + "'.";
+            return false;
+        }
+    }
+    last = myRoute->end();
+    // check usable lanes, then
+    for (MSRouteIterator e=myCurrEdge; e!=last; ++e) {
+        if ((*e)->prohibits(this)) {
+            msg = "Edge '" + (*e)->getID() + "' prohibits.";
+            return false;
+        }
+    }
+    return true;
+}
+
+
 void
 MSBaseVehicle::addReminder(MSMoveReminder* rem) throw() {
     myMoveReminders.push_back(std::make_pair(rem, 0.));
