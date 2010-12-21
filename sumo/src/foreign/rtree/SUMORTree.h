@@ -59,8 +59,8 @@ inline float RTree<GUIGlObject*, GUIGlObject, float, 2, GUIVisualizationSettings
 class SUMORTree : public RTree<GUIGlObject*, GUIGlObject, float, 2, GUIVisualizationSettings>, public Boundary
 {
 public:
-    SUMORTree(Operation operation) 
-        : RTree<GUIGlObject*, GUIGlObject, float, 2, GUIVisualizationSettings, float>(operation){
+    SUMORTree() 
+        : RTree<GUIGlObject*, GUIGlObject, float, 2, GUIVisualizationSettings, float>(&GUIGlObject::drawGL){
     }
 
     ~SUMORTree() {

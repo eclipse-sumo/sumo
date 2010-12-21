@@ -252,8 +252,16 @@ public:
     /** @brief Returns the RTree used for visualisation speed-up
      * @return The visualisation speed-up
      */
-    SUMORTree &getVisualisationSpeedUp() const throw() {
-        return *myGrid;
+    SUMORTree &getVisualisationSpeedUp() throw() {
+        return myGrid;
+    }
+
+
+    /** @brief Returns the RTree used for visualisation speed-up
+     * @return The visualisation speed-up
+     */
+    const SUMORTree &getVisualisationSpeedUp() const throw() {
+        return myGrid;
     }
 
 
@@ -267,7 +275,7 @@ private:
 
 protected:
     /// @brief The visualization speed-up
-    SUMORTree *myGrid;
+    SUMORTree myGrid;
 
     /// @brief The networks boundary
     Boundary myBoundary;
