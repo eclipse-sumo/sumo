@@ -52,9 +52,9 @@ def main():
     optParser.add_option("-N", "--clone-postfix", dest="clonepostfix", type='string',
                          default='-CLONE', help="postfix attached to clone ids")
     optParser.add_option("-X", "--cntfirstlink", action="store_true", dest="cntfirstlink",
-                         default=False, help="use traffic counts on first links")
-    optParser.add_option("-K", "--cntlastlink", action="store_true", dest="cntlastlink",
-                         default=False, help="use traffic counts on last links")
+                         default=False, help="if entering vehicles are assumed to cross the upstream sensor of their entry link")
+    optParser.add_option("-K", "--cntlastlink", action="store_false", dest="cntlastlink",
+                         default=True, help="if exiting vehicles are assumed to cross the upstream sensor of their exit link")
 
     (options, args) = optParser.parse_args()
     if not options.net or not options.routes or not options.detvals:
