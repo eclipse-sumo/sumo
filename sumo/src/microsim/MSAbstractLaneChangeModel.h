@@ -57,13 +57,14 @@ enum LaneChangeAction {
     LCA_RIGHT = 8,
 	/// @}
 
+
 	/// @name External state
 	/// @{ 
 
 	/// @brief The vehicle is blocked by leader
     LCA_BLOCKEDBY_LEADER = 16,
 	/// @brief The vehicle is blocked by follower
-    LCA_BLOCKEDBY_FOLLOWER = 32,
+    LCA_BLOCKEDBY_FOLLOWER = 32
 
 	// The vehicle is blocked being overlapping
 	// This is currently not used, but I'll keep it while working on this, as 
