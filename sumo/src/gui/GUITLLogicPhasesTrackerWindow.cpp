@@ -264,7 +264,7 @@ GUITLLogicPhasesTrackerWindow::drawValues(GUITLLogicPhasesTrackerPanel &caller) 
         myFirstTime2Show = myBeginTime;
         // check whether no phases are known at all
         if (myDurations.size()!=0) {
-            size_t durs = 0;
+            SUMOTime durs = 0;
             size_t phaseOffset = myDurations.size() - 1;
             DurationsVector::reverse_iterator i=myDurations.rbegin();
             while (i!=myDurations.rend()) {
@@ -476,7 +476,6 @@ GUITLLogicPhasesTrackerWindow::addValue(std::pair<SUMOTime, MSPhaseDefinition> d
 }
 
 
-
 long
 GUITLLogicPhasesTrackerWindow::onConfigure(FXObject *sender,
         FXSelector sel, void *data) {
@@ -499,7 +498,6 @@ GUITLLogicPhasesTrackerWindow::onSimStep(FXObject*,
     update();
     return 1;
 }
-
 
 
 void

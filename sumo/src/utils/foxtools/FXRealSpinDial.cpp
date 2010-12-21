@@ -755,7 +755,7 @@ long FXRealSpinDial::onMotion(FXObject* /*sender*/,FXSelector /*sel*/,void* ptr)
 
 // Update value from a message
 long FXRealSpinDial::onCmdSetValue(FXObject*,FXSelector,void* ptr) {
-    setValue((FXdouble)(FXuval)ptr);
+    setValue((FXdouble)(size_t)ptr);
     return 1;
 }
 

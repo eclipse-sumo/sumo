@@ -29,10 +29,8 @@
 #include <config.h>
 #endif
 
-#include "MSLaneChanger.h"
-#include "MSCFModel.h"
-
-class MSCFModel;
+#include "MSLane.h"
+#include "MSVehicle.h"
 
 
 // ===========================================================================

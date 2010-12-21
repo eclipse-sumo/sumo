@@ -32,6 +32,7 @@
 #include <string>
 #include <vector>
 #include <utils/common/UtilExceptions.h>
+#include <utils/xml/SUMOXMLDefinitions.h>
 
 
 // ===========================================================================
@@ -315,25 +316,23 @@ extern std::string getVehicleEmissionTypeName(SUMOEmissionClass id) throw();
 extern SUMOEmissionClass getVehicleEmissionTypeID(const std::string &name) throw(ProcessError);
 
 
-
 // ===========================================================================
+// constant definitions
+// ===========================================================================
+// ---------------------------------------------------------------------------
 // model IDs
-// ===========================================================================
+// ---------------------------------------------------------------------------
 const std::string CF_MODEL_PREFIX = "carFollowing-";
 const std::string CF_MODEL_IDM = CF_MODEL_PREFIX + "IDM";
-const char * const CF_MODEL_IDM_STR = CF_MODEL_IDM.c_str();
 const std::string CF_MODEL_KRAUSS = CF_MODEL_PREFIX + "Krauss";
-const char * const CF_MODEL_KRAUSS_STR = CF_MODEL_KRAUSS.c_str();
 const std::string CF_MODEL_KRAUSS_ORIG1 = CF_MODEL_PREFIX + "KraussOrig1";
-const char * const CF_MODEL_KRAUSS_ORIG1_STR = CF_MODEL_KRAUSS_ORIG1.c_str();
 const std::string CF_MODEL_PWAGNER2009 = CF_MODEL_PREFIX + "PWagner2009";
-const char * const CF_MODEL_PWAGNER2009_STR = CF_MODEL_PWAGNER2009.c_str();
 const std::string CF_MODEL_BKERNER = CF_MODEL_PREFIX + "BKerner";
-const char * const CF_MODEL_BKERNER_STR = CF_MODEL_BKERNER.c_str();
 
-// ===========================================================================
+
+// ---------------------------------------------------------------------------
 // default vehicle type parameter
-// ===========================================================================
+// ---------------------------------------------------------------------------
 const std::string DEFAULT_VTYPE_ID = "DEFAULT_VEHTYPE";
 const SUMOReal DEFAULT_VEH_MAXSPEED = (SUMOReal) 70.;
 const SUMOReal DEFAULT_VEH_ACCEL = (SUMOReal) 2.6;
@@ -347,7 +346,7 @@ const SUMOReal DEFAULT_VEH_SPEEDFACTOR = (SUMOReal) 1.;
 const SUMOReal DEFAULT_VEH_SPEEDDEV = (SUMOReal) 0.;
 const SUMOReal DEFAULT_VEH_GUIWIDTH = (SUMOReal) 2.;
 const SUMOReal DEFAULT_VEH_GUIOFFSET = (SUMOReal) 2.5;
-const std::string DEFAULT_VEH_FOLLOW_MODEL = "Krauss";
+const SumoXMLTag DEFAULT_VEH_FOLLOW_MODEL = SUMO_TAG_CF_KRAUSS;
 const std::string DEFAULT_VEH_LANE_CHANGE_MODEL = "dkrajzew2008";
 const SUMOVehicleShape DEFAULT_VEH_SHAPE = SVS_UNKNOWN;
 

@@ -46,9 +46,8 @@ AGTime::convert(int days, int hours, int minutes, int seconds) {
 }
 
 int
-AGTime::getSecondsOf(float minutes) {
-    float seconds = 60.0 * minutes;
-    return (int) seconds;
+AGTime::getSecondsOf(SUMOReal minutes) {
+    return static_cast<int>(60.0 * minutes);
 }
 
 bool

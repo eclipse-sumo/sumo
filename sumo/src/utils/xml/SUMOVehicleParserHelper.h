@@ -96,7 +96,7 @@ public:
      * @see SUMOVTypeParameter
      */
     static void parseVTypeEmbedded(SUMOVTypeParameter &into,
-                                   int element, const SUMOSAXAttributes &attrs,
+                                   SumoXMLTag element, const SUMOSAXAttributes &attrs,
                                    bool fromVType=false) throw(ProcessError);
 
 

@@ -126,7 +126,7 @@ AGBusLine::getReady(int time) {
 
 int
 AGBusLine::nbrBuses() {
-    return (this->buses).size();
+    return static_cast<int>(buses.size());
 }
 
 void

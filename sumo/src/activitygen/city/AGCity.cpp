@@ -147,7 +147,7 @@ AGCity::generateOutgoingWP() {
     //cout << "total number of workers in the city: " << nbrWorkers << std::endl;
     //cout << "work positions out side the city: " << nbrOutWorkPositions << std::endl;
     //cout << "work positions in and out of the city: " << workPositions.size() << std::endl;
-    statData.workPositions = workPositions.size();
+    statData.workPositions = static_cast<int>(workPositions.size());
 }
 
 void
@@ -373,8 +373,7 @@ const AGStreet&
 AGCity::getRandomStreet() {
     if (streets.empty())
         throw(std::runtime_error("No street found in this city"));
-    int alea = RandHelper::rand(streets.size());
-    return streets.at(alea);
+    return streets[RandHelper::rand(streets.size())];
 }
 
 /****************************************************************************/

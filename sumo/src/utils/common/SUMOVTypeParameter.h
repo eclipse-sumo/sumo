@@ -42,6 +42,7 @@
 class OutputDevice;
 class OptionsCont;
 
+
 // ===========================================================================
 // value definitions
 // ===========================================================================
@@ -131,7 +132,7 @@ public:
 
 
     /// @brief The enum-representation of the car-following model to use
-    int cfModel;
+    SumoXMLTag cfModel;
     /// @brief Car-following parameter
     std::map<std::string, SUMOReal> cfParameter;
 

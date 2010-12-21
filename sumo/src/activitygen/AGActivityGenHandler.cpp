@@ -195,8 +195,8 @@ void
 AGActivityGenHandler::parseCityGates(const SUMOSAXAttributes &attrs) {
     //streets have to exist
     AGPosition posi(myCity.getStreet(attrs.getString(SUMO_ATTR_EDGE)), attrs.getFloat(SUMO_ATTR_POSITION));
-    myCity.statData.incoming[myCity.cityGates.size()] = attrs.getFloat(AGEN_ATTR_INCOMING);
-    myCity.statData.outgoing[myCity.cityGates.size()] = attrs.getFloat(AGEN_ATTR_OUTGOING);
+    myCity.statData.incoming[static_cast<int>(myCity.cityGates.size())] = attrs.getFloat(AGEN_ATTR_INCOMING);
+    myCity.statData.outgoing[static_cast<int>(myCity.cityGates.size())] = attrs.getFloat(AGEN_ATTR_OUTGOING);
     myCity.cityGates.push_back(posi);
 }
 

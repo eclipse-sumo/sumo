@@ -171,9 +171,10 @@ GUIEmitter::GUIManip_TriggeredEmitter::GUIManip_TriggeredEmitter(
     const std::string &name, GUIEmitter &o,
     int /*xpos*/, int /*ypos*/)
         : GUIManipulator(app, name, 0, 0), myParent(&app),
-        myChosenValue(0), myChosenTarget(myChosenValue, this, MID_OPTION),
+        myChosenValue(0), myChosenTarget(myChosenValue, NULL, MID_OPTION),
         myFlowFactor(o.getUserFlow()), myFlowFactorTarget(myFlowFactor),
         myObject(&o) {
+    myChosenTarget.setTarget(this);
     FXVerticalFrame *f1 =
         new FXVerticalFrame(this, LAYOUT_FILL_X|LAYOUT_FILL_Y,0,0,0,0, 0,0,0,0);
 

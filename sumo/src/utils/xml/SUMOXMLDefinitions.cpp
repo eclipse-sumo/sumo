@@ -149,11 +149,11 @@ GenericSAXHandler::Tag sumotags[] = {
     { "colorScheme",      SUMO_TAG_COLORSCHEME },
     { "entry",            SUMO_TAG_ENTRY },
 
-    { CF_MODEL_KRAUSS_STR, SUMO_TAG_CF_KRAUSS },
-    { CF_MODEL_KRAUSS_ORIG1_STR, SUMO_TAG_CF_KRAUSS_ORIG1 },
-    { CF_MODEL_IDM_STR,    SUMO_TAG_CF_IDM },
-    { CF_MODEL_PWAGNER2009_STR,    SUMO_TAG_CF_PWAGNER2009 },
-    { CF_MODEL_BKERNER_STR,    SUMO_TAG_CF_BKERNER },
+    { CF_MODEL_KRAUSS.c_str(), SUMO_TAG_CF_KRAUSS },
+    { CF_MODEL_KRAUSS_ORIG1.c_str(), SUMO_TAG_CF_KRAUSS_ORIG1 },
+    { CF_MODEL_IDM.c_str(),    SUMO_TAG_CF_IDM },
+    { CF_MODEL_PWAGNER2009.c_str(),    SUMO_TAG_CF_PWAGNER2009 },
+    { CF_MODEL_BKERNER.c_str(),    SUMO_TAG_CF_BKERNER },
 
     { "header",           SUMO_TAG_OPENDRIVE_HEADER },
     { "road",             SUMO_TAG_OPENDRIVE_ROAD },

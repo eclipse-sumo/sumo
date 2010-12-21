@@ -132,7 +132,7 @@ public:
     typedef std::vector<MSPhaseDefinition> PhasesVector;
 
     /// @brief Definition of a storage for durations
-    typedef std::vector<size_t> DurationsVector;
+    typedef std::vector<SUMOTime> DurationsVector;
 
 
     /**

@@ -119,7 +119,7 @@ public:
      *
      * @return number of seconds
      */
-    int getSecondsOf(float minutes);
+    int getSecondsOf(SUMOReal minutes);
 
 private:
     /**

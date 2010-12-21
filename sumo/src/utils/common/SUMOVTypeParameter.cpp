@@ -51,8 +51,7 @@ SUMOVTypeParameter::SUMOVTypeParameter() throw()
         emissionClass(SVE_UNKNOWN), color(RGBColor::DEFAULT_COLOR),
         vehicleClass(SVC_UNKNOWN), width(DEFAULT_VEH_GUIWIDTH),
         offset(DEFAULT_VEH_GUIOFFSET), shape(DEFAULT_VEH_SHAPE),
-        cfModel(-1),
-        //cfModel(), lcModel(),
+        cfModel(DEFAULT_VEH_FOLLOW_MODEL), lcModel(DEFAULT_VEH_LANE_CHANGE_MODEL),
         setParameter(0), saved(false), onlyReferenced(false) {
 }
 

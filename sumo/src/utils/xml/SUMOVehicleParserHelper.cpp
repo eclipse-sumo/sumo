@@ -432,7 +432,7 @@ SUMOVehicleParserHelper::beginVTypeParsing(const SUMOSAXAttributes &attrs) throw
 
 void
 SUMOVehicleParserHelper::parseVTypeEmbedded(SUMOVTypeParameter &into,
-        int element, const SUMOSAXAttributes &attrs,
+        SumoXMLTag element, const SUMOSAXAttributes &attrs,
         bool fromVType) throw(ProcessError) {
     switch (element) {
     case SUMO_TAG_CF_KRAUSS:
