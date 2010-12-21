@@ -4,7 +4,7 @@
 /// @date    Fri, 29.04.2005
 /// @version $Id$
 ///
-//	�missingDescription�
+// Interface for lane-change models
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // Copyright 2001-2010 DLR (http://www.dlr.de/) and contributors
@@ -40,100 +40,164 @@
  * @brief A try to store the state of a vehicle's lane-change wish in an int
  */
 enum LaneChangeAction {
-	/// @name currently wanted lane-change action
-	/// @{ 
+    /// @name currently wanted lane-change action
+    /// @{
 
-	/// @brief No action
+    /// @brief No action
     LCA_NONE = 0,
-	/// @brief The action is due to the wish to follow the route (navigational lc)
+    /// @brief The action is due to the wish to follow the route (navigational lc)
     LCA_URGENT = 1,
-	/// @brief The action is due to the wish to be faster (tactical lc)
+    /// @brief The action is due to the wish to be faster (tactical lc)
     LCA_SPEEDGAIN = 2,
-	/// @brief Wants go to the left
+    /// @brief Wants go to the left
     LCA_LEFT = 4,
-	/// @brief Wants go to the right
+    /// @brief Wants go to the right
     LCA_RIGHT = 8,
-	/// @}
+
+    LCA_WANTS_LANECHANGE = LCA_URGENT | LCA_SPEEDGAIN | LCA_LEFT | LCA_RIGHT,
+    /// @}
 
 
-	/// @name External state
-	/// @{ 
+    /// @name External state
+    /// @{
 
-	/// @brief The vehicle is blocked by leader
-    LCA_BLOCKEDBY_LEADER = 16,
-	/// @brief The vehicle is blocked by follower
-    LCA_BLOCKEDBY_FOLLOWER = 32
+    /// @brief The vehicle is blocked by left leader
+    LCA_BLOCKED_BY_LEFT_LEADER = 16,
+    /// @brief The vehicle is blocked by left follower
+    LCA_BLOCKED_BY_LEFT_FOLLOWER = 32,
 
-	// The vehicle is blocked being overlapping
-	// This is currently not used, but I'll keep it while working on this, as 
-	//  overlapping may be interested, but surely divided by leader/follower
+    /// @brief The vehicle is blocked by right leader
+    LCA_BLOCKED_BY_RIGHT_LEADER = 64,
+    /// @brief The vehicle is blocked by right follower
+    LCA_BLOCKED_BY_RIGHT_FOLLOWER = 128,
+
+    LCA_BLOCKED_LEFT = LCA_BLOCKED_BY_LEFT_LEADER | LCA_BLOCKED_BY_LEFT_FOLLOWER,
+    LCA_BLOCKED_RIGHT = LCA_BLOCKED_BY_RIGHT_LEADER | LCA_BLOCKED_BY_RIGHT_FOLLOWER,
+    LCA_BLOCKED_BY_LEADER = LCA_BLOCKED_BY_LEFT_LEADER | LCA_BLOCKED_BY_RIGHT_LEADER,
+    LCA_BLOCKED_BY_FOLLOWER = LCA_BLOCKED_BY_LEFT_FOLLOWER | LCA_BLOCKED_BY_RIGHT_FOLLOWER,
+    LCA_BLOCKED = LCA_BLOCKED_LEFT | LCA_BLOCKED_RIGHT
+
+    // The vehicle is blocked being overlapping
+    // This is currently not used, but I'll keep it while working on this, as
+    //  overlapping may be interested, but surely divided by leader/follower
     // LCA_OVERLAPPING = 64
-	/// @}
+    /// @}
 
 };
 
+
+/** @enum ChangeRequest
+ * @brief Requests set via TraCI
+ */
 enum ChangeRequest {
-    REQUEST_NONE,  // vehicle doesn't want to change
-    REQUEST_LEFT,  // vehicle want's to change to left lane
-    REQUEST_RIGHT, // vehicle want's to change to right lane
-    REQUEST_HOLD   // vehicle want's to keep the current lane
+    /// @brief vehicle doesn't want to change
+    REQUEST_NONE,
+    /// @brief vehicle want's to change to left lane
+    REQUEST_LEFT,
+    /// @brief vehicle want's to change to right lane
+    REQUEST_RIGHT,
+    /// @brief vehicle want's to keep the current lane
+    REQUEST_HOLD
 };
+
+
 
 // ===========================================================================
 // class definitions
 // ===========================================================================
 /**
  * @class MSAbstractLaneChangeModel
+ * @brief Interface for lane-change models
  */
 class MSAbstractLaneChangeModel {
 public:
+    /** @class MSLCMessager
+     * @brief A class responsible for exchanging messages between cars involved in lane-change interaction
+     */
     class MSLCMessager {
     public:
-        MSLCMessager(MSVehicle *leader,  MSVehicle *neighLead,
-                     MSVehicle *neighFollow)
+        /** @brief Constructor
+         * @param[in] leader The leader on the informed vehicle's lane
+         * @param[in] neighLead The leader on the lane the vehicle want to change to
+         * @param[in] neighFollow The follower on the lane the vehicle want to change to
+         */
+        MSLCMessager(MSVehicle *leader,  MSVehicle *neighLead, MSVehicle *neighFollow) throw()
                 : myLeader(leader), myNeighLeader(neighLead),
                 myNeighFollower(neighFollow) { }
 
+
+        /// @brief Destructor
         ~MSLCMessager() { }
 
-        void *informLeader(void *info, MSVehicle *sender) {
+
+        /** @brief Informs the leader on the same lane
+         * @param[in] info The information to pass
+         * @param[in] sender The sending vehicle (the lane changing vehicle)
+         * @return Something!?
+         */
+        void *informLeader(void *info, MSVehicle *sender) throw() {
             assert(myLeader!=0);
             return myLeader->getLaneChangeModel().inform(info, sender);
         }
 
-        void *informNeighLeader(void *info, MSVehicle *sender) {
+
+        /** @brief Informs the leader on the desired lane
+         * @param[in] info The information to pass
+         * @param[in] sender The sending vehicle (the lane changing vehicle)
+         * @return Something!?
+         */
+        void *informNeighLeader(void *info, MSVehicle *sender) throw() {
             assert(myNeighLeader!=0);
             return myNeighLeader->getLaneChangeModel().inform(info, sender);
         }
 
-        void *informNeighFollower(void *info, MSVehicle *sender) {
+
+        /** @brief Informs the follower on the desired lane
+         * @param[in] info The information to pass
+         * @param[in] sender The sending vehicle (the lane changing vehicle)
+         * @return Something!?
+         */
+        void *informNeighFollower(void *info, MSVehicle *sender) throw() {
             assert(myNeighFollower!=0);
             return myNeighFollower->getLaneChangeModel().inform(info, sender);
         }
+
+
     private:
+        /// @brief The leader on the informed vehicle's lane
         MSVehicle *myLeader;
+        /// @brief The leader on the lane the vehicle want to change to
         MSVehicle *myNeighLeader;
+        /// @brief The follower on the lane the vehicle want to change to
         MSVehicle *myNeighFollower;
 
     };
 
 
-    MSAbstractLaneChangeModel(MSVehicle &v)
-            : myVehicle(v), myState(0),
+
+    /** @brief Constructor
+     * @param[in] v The vehicle this lane-changer belongs to
+     */
+    MSAbstractLaneChangeModel(MSVehicle &v) throw()
+            : myVehicle(v), myOwnState(0),
 #ifndef NO_TRACI
             myChangeRequest(REQUEST_NONE),
 #endif
             myCarFollowModel(v.getCarFollowModel()) {
     }
 
+
+    /// @brief Destructor
     virtual ~MSAbstractLaneChangeModel() { }
 
-    int getState() const {
-        return myState;
+
+
+    int getOwnState() const {
+        return myOwnState;
     }
 
-    void setState(int state) {
-        myState = state;
+    void setOwnState(int state) {
+        myOwnState = state;
     }
 
     virtual void prepareStep() { }
@@ -227,14 +291,20 @@ protected:
 
 
 protected:
+    /// @brief The vehicle this lane-changer belongs to
     MSVehicle &myVehicle;
-    int myState;
+
+    /// @brief The current state of the vehicle
+    int myOwnState;
+
+
 #ifndef NO_TRACI
     ChangeRequest myChangeRequest;
 #endif
 
     /// @brief The vehicle's car following model
     const MSCFModel &myCarFollowModel;
+
 };
 
 

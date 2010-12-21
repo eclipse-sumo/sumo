@@ -1501,7 +1501,7 @@ MSVehicle::addPerson(MSPerson* person) throw() {
 void
 MSVehicle::setBlinkerInformation() throw() {
     switchOffSignal(VEH_SIGNAL_BLINKER_RIGHT|VEH_SIGNAL_BLINKER_LEFT);
-    int state = getLaneChangeModel().getState();
+    int state = getLaneChangeModel().getOwnState();
     if ((state&LCA_LEFT)!=0) {
         switchOnSignal(VEH_SIGNAL_BLINKER_LEFT);
     } else if ((state&LCA_RIGHT)!=0) {

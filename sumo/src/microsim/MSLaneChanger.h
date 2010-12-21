@@ -148,13 +148,6 @@ protected:
         const std::pair<MSVehicle * const, SUMOReal> &rFollow,
         const std::vector<MSVehicle::LaneQ> &preb) const throw();
 
-    void setOverlap(const std::pair<MSVehicle * const, SUMOReal> &neighLead,
-                    const std::pair<MSVehicle * const, SUMOReal> &neighFollow,
-                    /*const ChangerIt &target,*/ int &blocked) const throw();
-
-    void setIsSafeChange(const std::pair<MSVehicle * const, SUMOReal> &neighLead,
-                         const std::pair<MSVehicle * const, SUMOReal> &neighFollow,
-                         const ChangerIt &target, int &blocked) const throw();
 
     /** Returns true, if candidate has an advantage by changing to the
         right. */
