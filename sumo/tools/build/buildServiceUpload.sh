@@ -7,7 +7,7 @@ for f in $PREFIX/sumo/sumo-src-*.tar.gz; do
     curl -n -X PUT -T $PREFIX/sumo/`basename $f` https://api.opensuse.org/source/home:behrisch/sumo_nightly/`basename $f`
     BASE=`basename ${f/-src-/-} .tar.gz`
     NIGHTFILE=$NIGHTDIR/sumo-msvc8Win32-bin.zip
-    TARGETFILE=$NIGHTDIR/sumo-winbin${BASE:4}.zip
+    TARGETFILE=$PREFIX/sumo/sumo-winbin${BASE:4}.zip
     if test -e $NIGHTFILE; then
       cd /tmp
       rm -rf $BASE
