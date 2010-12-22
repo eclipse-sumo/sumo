@@ -149,23 +149,7 @@ protected:
         const std::vector<MSVehicle::LaneQ> &preb) const throw();
 
 
-    /** Returns true, if candidate has an advantage by changing to the
-        right. */
-    int advan2right(
-        const std::pair<MSVehicle * const, SUMOReal> &leader,
-        const std::pair<MSVehicle * const, SUMOReal> &rLead,
-        const std::pair<MSVehicle * const, SUMOReal> &rFollow,
-        int blocked,
-        const std::vector<MSVehicle::LaneQ> &preb) const throw();
 
-    /** Returns true, if candidate has an advantage by changing to the
-        left. */
-    int advan2left(
-        const std::pair<MSVehicle * const, SUMOReal> &leader,
-        const std::pair<MSVehicle * const, SUMOReal> &rLead,
-        const std::pair<MSVehicle * const, SUMOReal> &rFollow,
-        int blocked,
-        const std::vector<MSVehicle::LaneQ> &preb) const throw();
 
     /** Returns true if candidate overlaps with a vehicle, that
         already changed the lane.*/
@@ -181,12 +165,8 @@ protected:
     std::pair<MSVehicle * const, SUMOReal> getRealThisLeader(const ChangerIt &target) const throw();
 
     std::pair<MSVehicle * const, SUMOReal> getRealFollower(const ChangerIt &target) const throw();
-    std::pair<MSVehicle * const, SUMOReal> getRealRightFollower() const throw();
-    std::pair<MSVehicle * const, SUMOReal> getRealLeftFollower() const throw();
 
     std::pair<MSVehicle * const, SUMOReal> getRealLeader(const ChangerIt &target) const throw();
-    std::pair<MSVehicle * const, SUMOReal> getRealRightLeader() const throw();
-    std::pair<MSVehicle * const, SUMOReal> getRealLeftLeader() const throw();
 
 protected:
     /// Container for ChangeElemements, one for every lane in the edge.
