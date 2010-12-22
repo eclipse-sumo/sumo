@@ -1,0 +1,11 @@
+<routes>
+    <vehicle id="v1" depart="0" departpos="0">
+        <route edges="beg beg2left left left2end end">
+            <stop lane="beg_0" startPos="200" endPos="220" duration="30" triggered="true"/>
+        </route>
+    </vehicle>
+    <person id="p1" depart="0">
+        <ride from="beg" to="middle" lines="v1"/>
+        <walk edges="middle end" duration="10"/>
+    </person>
+</routes>

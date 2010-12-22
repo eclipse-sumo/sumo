@@ -24,3 +24,6 @@ vehicle_triggered
 
 # person stops for a given duration
 stop_duration
+
+# If a vehicle leaves the simulation before delivering all passengers a warning should be triggered
+ride_wrong_destination

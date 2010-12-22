@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+
+<!-- generated on 12/22/10 10:12:04 by SUMO sumo Version 0.12.2
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="three_split.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <tripinfo-output value="tripinfos.xml"/>
+    </output>
+
+    <gui_only>
+        <gui-settings-file value=""/>
+    </gui_only>
+
+</configuration>
+-->
+
+<tripinfos>
+    <tripinfo id="v1" depart="0.00" departLane="beg_0" departPos="0.00" departSpeed="0.00" departDelay="0.00" arrival="191.00" arrivalLane="end_0" arrivalPos="3.52" arrivalSpeed="7.10" duration="191.00" routeLength="2482.87" waitSteps="1" rerouteNo="0" devices="tripinfo_v1 person_v1" vtype="DEFAULT_VEHTYPE" vaporized="">
+    </tripinfo>
+    <personinfo id="p1" depart="0.00">
+        <stop arrival="0.00"/>
+        <ride depart="21.00" arrival="191.00"/>
+        <walk arrival="201.00"/>
+    </personinfo>
+</tripinfos>
