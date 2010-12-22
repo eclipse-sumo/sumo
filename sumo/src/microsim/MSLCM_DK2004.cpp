@@ -65,7 +65,7 @@
 MSLCM_DK2004::MSLCM_DK2004(MSVehicle &v)
         : MSAbstractLaneChangeModel(v),
         myChangeProbability(0),
-        myVSafe(0), myLeadingBlockerLength(0), myLeftSpace(0) {}
+        myLeadingBlockerLength(0), myLeftSpace(0) {}
 
 MSLCM_DK2004::~MSLCM_DK2004() {
     changed();
@@ -316,7 +316,7 @@ MSLCM_DK2004::wantsChangeToLeft(MSAbstractLaneChangeModel::MSLCMessager &msgPass
         if (preb[p].lane==&myVehicle.getLane()) {
             curr = preb[p];
             bestLaneOffset = curr.bestLaneOffset;
-			currentDist = curr.length;
+            currentDist = curr.length;
             currExtDist = curr.lane->getLength();
             neighDist = preb[p+1].length;
             neighExtDist = preb[p+1].lane->getLength();
@@ -509,10 +509,8 @@ MSLCM_DK2004::patchSpeed(SUMOReal min, SUMOReal wanted, SUMOReal max, SUMOReal /
         int bla = 0;
     }
 #endif
-    SUMOReal vSafe = myVSafe;
     int state = myOwnState;
     myOwnState = 0;
-    myVSafe = -1;
 
     // letting vehicles merge in at the end of the lane in case of counter-lane change, step#2
     SUMOReal MAGIC_offset = 1.;
@@ -538,22 +536,21 @@ MSLCM_DK2004::patchSpeed(SUMOReal min, SUMOReal wanted, SUMOReal max, SUMOReal /
         return wanted;
     }
 
+    SUMOReal nVSafe = wanted;
+    bool gotOne = false;
+    for (std::vector<SUMOReal>::const_iterator i=myVSafes.begin(); i!=myVSafes.end(); ++i) {
+        SUMOReal v = (*i);
+        if (v>=min && v<=max) {
+            nVSafe = MIN2(v, nVSafe);
+            gotOne = true;
+        }
+    }
+
     // check whether the vehicle is blocked
     if ((state&LCA_WANTS_LANECHANGE)!=0) {
-		if(!myDontBrake) {
-	        SUMOReal nVSafe = wanted;
-		    bool gotOne = false;
-			for (std::vector<SUMOReal>::const_iterator i=myVSafes.begin(); i!=myVSafes.end(); ++i) {
-				SUMOReal v = (*i);
-	            if (v>=min && v<=max) {
-		            nVSafe = MIN2(v, nVSafe);
-			        gotOne = true;
-				}
-			}
-			if (gotOne) {
-				return nVSafe;
-			}
-		}
+        if (gotOne&&!myDontBrake) {
+            return nVSafe;
+        }
         // check whether the vehicle maybe has to be swapped with one of
         //  the blocking vehicles
         if ((state&LCA_BLOCKED)!=0) {
@@ -564,7 +561,7 @@ MSLCM_DK2004::patchSpeed(SUMOReal min, SUMOReal wanted, SUMOReal max, SUMOReal /
             if ((state&LCA_BLOCKED_BY_FOLLOWER)!=0) {
                 return (max+wanted)/(SUMOReal) 2.0;
             }
-            return (min+wanted)/(SUMOReal) 2.0;//wanted;
+            return (min+wanted)/(SUMOReal) 2.0;
         }
     }
 
@@ -575,41 +572,24 @@ MSLCM_DK2004::patchSpeed(SUMOReal min, SUMOReal wanted, SUMOReal max, SUMOReal /
         if (fabs(max-myVehicle.getCarFollowModel().maxNextSpeed(myVehicle.getSpeed()))<0.001&&min==0) { // !!! was standing
             return 0;
         }
-        if (myVSafe<=0) {
-            return (min+wanted)/(SUMOReal) 2.0;
-        }
-        return min;//MAX2(min, MIN2(vSafe, wanted));
+        return (min+wanted)/(SUMOReal) 2.0;
     }
     if ((state&LCA_AMBACKBLOCKER)!=0) {
         if (max<=myVehicle.getCarFollowModel().maxNextSpeed(myVehicle.getSpeed())&&min==0) {// !!! was standing
-            return MAX2(min, MIN2(vSafe, wanted));
+            return min;
         }
     }
     if ((state&LCA_AMBACKBLOCKER_STANDING)!=0) {
-        return MAX2(min, MIN2(vSafe, wanted));
+        return min;
     }
     // accelerate if being a blocking leader or blocking follower not able to brake
     //  (and does not have to change lanes)
     if ((state&LCA_AMBLOCKINGLEADER)!=0) {
         return (max+wanted)/(SUMOReal) 2.0;
     }
-    /*
-    if((state&LCA_AMBACKBLOCKER)!=0) {
-        if(max<=myVehicle.accelAbility()&&min==0) {
-            return MAX2(min, MIN2(vSafe, wanted));
-        }
-        if(myVSafe>(min+wanted)/2.0) {
-            return MIN2(vSafe, wanted);
-        }
-        return (min+wanted)/2.0;
-    }
-    */
     if ((state&LCA_AMBLOCKINGFOLLOWER_DONTBRAKE)!=0) {
         if (max<=myVehicle.getCarFollowModel().maxNextSpeed(myVehicle.getSpeed())&&min==0) {// !!! was standing
             return wanted;
-        }
-        if (myVSafe>(min+wanted)/(SUMOReal) 2.0) {
-            return MIN2(vSafe, wanted);
         }
         return (min+wanted)/(SUMOReal) 2.0;
     }
@@ -622,9 +602,6 @@ MSLCM_DK2004::inform(void *info, MSVehicle * /*sender*/) {
     Info *pinfo = (Info*) info;
     myOwnState &= 0xffffffff;
     myOwnState |= pinfo->second;
-    if (pinfo->first>=0) {
-        myVSafe = MIN2(myVSafe, pinfo->first);
-    }
     delete pinfo;
     return (void*) true;
 }
