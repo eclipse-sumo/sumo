@@ -270,10 +270,9 @@ GUINet::getTLSIDs() const {
     std::vector<GLuint> ret;
     std::vector<std::string> ids;
     for (std::map<MSTrafficLightLogic*, GUITrafficLightLogicWrapper*>::const_iterator i=myLogics2Wrapper.begin(); i!=myLogics2Wrapper.end(); ++i) {
-        size_t nid = (*i).second->getGlID();
         std::string sid = (*i).second->getMicrosimID();
         if (find(ids.begin(), ids.end(), sid)==ids.end()) {
-            ret.push_back(nid);
+            ret.push_back((*i).second->getGlID());
             ids.push_back(sid);
         }
     }

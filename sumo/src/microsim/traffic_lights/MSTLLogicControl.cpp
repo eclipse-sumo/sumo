@@ -418,7 +418,7 @@ MSTLLogicControl::WAUTSwitchProcedure_Stretch::cutLogic(SUMOTime step, SUMOTime 
     myTo->changeStepAndDuration(myControl,step,actStep,newDur);
 
     // changes the duration of all other phases
-    int currStep = (actStep + 1) % myTo->getPhases().size();
+    int currStep = (actStep + 1) % (int)myTo->getPhases().size();
     while (allCutTime > 0) {
         for (int i=currStep; i<(int) myTo->getPhases().size(); i++) {
             SUMOTime beginOfPhase = myTo->getOffsetFromIndex(i);
@@ -465,14 +465,14 @@ MSTLLogicControl::WAUTSwitchProcedure_Stretch::stretchLogic(SUMOTime step, SUMOT
             SUMOReal fac = def.fac;
             SUMOReal actualfac = fac / facSum;
             facSum = facSum - fac;
-            StretchTimeOfPhase = TIME2STEPS((int)(STEPS2TIME(remainingStretchTime) * actualfac + 0.5));
+            StretchTimeOfPhase = TIME2STEPS(STEPS2TIME(remainingStretchTime) * actualfac + 0.5);
             remainingStretchTime = allStretchTime - StretchTimeOfPhase;
         }
     }
     durOfPhase = durOfPhase - diffToStart + StretchTimeOfPhase;
     myTo->changeStepAndDuration(myControl,step,currStep,durOfPhase);
 
-    currStep = (currStep+1) % myTo->getPhases().size();
+    currStep = (currStep+1) % (int)myTo->getPhases().size();
     // stretch all other phases, if there is a "bereich"
     while (remainingStretchTime > 0) {
         for (unsigned int i=currStep; i<myTo->getPhases().size() && remainingStretchTime > 0; i++) {
@@ -485,7 +485,7 @@ MSTLLogicControl::WAUTSwitchProcedure_Stretch::stretchLogic(SUMOTime step, SUMOT
                 SUMOReal fac = def.fac;
                 if ((beginOfPhase <= end) && (endOfPhase >= end)) {
                     SUMOReal actualfac = fac / facSum;
-                    StretchTimeOfPhase = TIME2STEPS((int)(STEPS2TIME(remainingStretchTime) * actualfac + 0.5));
+                    StretchTimeOfPhase = TIME2STEPS(STEPS2TIME(remainingStretchTime) * actualfac + 0.5);
                     facSum -= fac;
                     durOfPhase += StretchTimeOfPhase;
                     remainingStretchTime -= StretchTimeOfPhase;

@@ -420,7 +420,7 @@ NBRequest::getSizes() const {
         }
         noLanes += noLanesEdge;
     }
-    return std::pair<size_t, size_t>(noLanes, noLinks);
+    return std::make_pair(noLanes, noLinks);
 }
 
 

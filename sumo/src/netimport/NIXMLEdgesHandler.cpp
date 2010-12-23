@@ -499,7 +499,7 @@ NIXMLEdgesHandler::myEndElement(SumoXMLTag element) throw(ProcessError) {
                         MsgHandler::getWarningInstance()->inform("Error on parsing a split (edge '" + myCurrentID + "').");
                     }
                 }  else if (exp.pos==0) {
-                    e->decLaneNo(e->getNoLanes()-exp.lanes.size());
+                    e->decLaneNo(e->getNoLanes()-(int)exp.lanes.size());
                     currLanes = exp.lanes;
                 } else {
                     MsgHandler::getWarningInstance()->inform("Split at '" + toString(exp.pos) + "' lies beyond the edge's length (edge '" + myCurrentID + "').");
