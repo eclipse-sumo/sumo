@@ -3,7 +3,7 @@
 
 
 
-What Is SUMO?
+What is SUMO?
 =============
 
 "Simulation of Urban MObility" (SUMO) is an open source, highly portable, microscopic
@@ -12,18 +12,18 @@ homepage can be found at
 
         http://sumo.sourceforge.net/
 
-It is developed by employees of the Centre for Applied Informatics (ZAIK) and the
-Institute of Transport Research at the German Aerospace Centre.
+It is mainly developed by employees of the Institute of Transportation Systems
+at the German Aerospace Center (http://www.dlr.de/ts).
 
 
 
 Where to get it?
 ================
 
-You can download SUMO and all needed libraries from SourceForge via our downloads site:
+You can download SUMO from SourceForge via our downloads site:
 
 
-	http://sumo.sourceforge.net/downloads/downloads.shtml
+	    http://sourceforge.net/apps/mediawiki/sumo/index.php?title=Downloads
 
 
 As the program is still under development and is extended continuously, we advice you to
@@ -49,8 +49,7 @@ sumo-announce-request@lists.sourceforge.net.
 Build and Installation.
 =======================
 
-For Windows we provide pre-compiled binaries and Visual Studio 2005 (aka MSVC 8)
-project files.
+For Windows we provide pre-compiled binaries and Visual Studio project files.
 Using Linux a simple "./configure && make" should be enough for the distributions, if you
 have installed all needed libraries properly. Using the repository checkout you
 need to issue "make -f Makefile.cvs" before "./configure && make" in order to run
@@ -60,14 +59,14 @@ If configure does not find the libraries or includes needed, please check
 
 For detailed build instructions have a look at our wiki:
 
-        http://sumo.sourceforge.net/wiki/
+        http://sourceforge.net/apps/mediawiki/sumo/index.php?title=DeveloperDocumentation#Build_instructions
 
 
 
 Getting started.
 ================
 
-To get started with SUMO, take a look at the data directory, which contains
+To get started with SUMO, take a look at the examples directory, which contains
 some example networks with routing data and configuration files.
 There is also user documentation provided in the docs/ directory and on the
 homepage.
@@ -79,7 +78,7 @@ Bugs.
 
 Please use for bugs and requests the SourceForge Tracker
 
-        http://sourceforge.net/tracker/?group_id=45607&atid=443421
+        http://sourceforge.net/apps/trac/sumo/
 
 or file them to the list sumo-users@lists.sourceforge.net. Before
 filing a bug, please consider to check with a current subversion checkout
@@ -90,5 +89,5 @@ that the problem still persists.
 License.
 ========
 
-SUMO is licensed under GPL.
+SUMO is licensed under GPL, see the file COPYING for details.
 

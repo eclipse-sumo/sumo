@@ -11,7 +11,7 @@ for f in $PREFIX/sumo/sumo-src-*.tar.gz; do
     if test -e $NIGHTFILE; then
       cd /tmp
       rm -rf $BASE
-      tar xzf $f $BASE/examples $BASE/tools
+      tar xzf $f $BASE/examples $BASE/tools $BASE/COPYING $BASE/README
       tar xzf ${f/-src-/-doc-} $BASE/docs
       mkdir $BASE/bin
       cd $BASE/bin
