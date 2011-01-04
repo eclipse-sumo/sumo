@@ -235,12 +235,7 @@ public:
       * @param[in] leaderSpeedAfterDecel LEADER's speed after he has decelerated with max. deceleration rate
       */
     SUMOReal getSecureGap(const SUMOReal speed, const SUMOReal leaderSpeed, const SUMOReal leaderMaxDecel) const throw() {
-        /*
-        int steps = int(leaderSpeed / leaderMaxDecel);
-        SUMOReal rest = leaderSpeed - (leaderMaxDecel*SUMOReal(steps));
-        */
-        SUMOReal mleaderSpeed = MAX2(SUMOReal(0), leaderSpeed - leaderMaxDecel);
-        //SUMOReal leaderDist = (leaderSpeed * leaderSpeed / leaderMaxDecel / 2.)
+        const SUMOReal mleaderSpeed = MAX2(SUMOReal(0), leaderSpeed - ACCEL2SPEED(leaderMaxDecel));
         return MAX2((SUMOReal) 0, (speed * speed / getMaxDecel() / 2.) + speed * getTau() - (mleaderSpeed * mleaderSpeed / leaderMaxDecel / 2.));
     }
 

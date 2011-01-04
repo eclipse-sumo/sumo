@@ -124,13 +124,13 @@ MSCFModel_Krauss::dawdle(SUMOReal speed) const throw() {
 
 
 /** Returns the SK-vsafe. */
-SUMOReal MSCFModel_Krauss::_vsafe(SUMOReal gap, SUMOReal predSpeed) const throw() {
+SUMOReal 
+MSCFModel_Krauss::_vsafe(SUMOReal gap, SUMOReal predSpeed) const throw() {
     if (predSpeed==0&&gap<0.01) {
         return 0;
     }
-    SUMOReal vsafe = (SUMOReal)(-1. * myTauDecel + sqrt(myTauDecel*myTauDecel + (predSpeed*predSpeed) + (2. * myDecel * gap)));
-    assert(vsafe >= 0);
-    return vsafe;
+    const SUMOReal mleaderSpeed = MAX2(SUMOReal(0), predSpeed - ACCEL2SPEED(myDecel));
+    return (SUMOReal)(-myTauDecel + sqrt(myTauDecel*myTauDecel + (mleaderSpeed*mleaderSpeed) + (2. * myDecel * gap)));
 }
 
 
