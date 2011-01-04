@@ -11,7 +11,7 @@ This script reads two tripinfos files and plots one of the values
 
 matplotlib has to be installed for this purpose
 
-Copyright (C) 2008 DLR/TS, Germany
+Copyright (C) 2008-2011 DLR (http://www.dlr.de/) and contributors
 All rights reserved
 """
 

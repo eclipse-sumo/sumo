@@ -7,7 +7,7 @@
 
 Changes xml network files from version 0.10.3 to version 0.11.0.
 
-Copyright (C) 2009 DLR/TS, Germany
+Copyright (C) 2009-2011 DLR (http://www.dlr.de/) and contributors
 All rights reserved
 """
 import os, string, sys, StringIO

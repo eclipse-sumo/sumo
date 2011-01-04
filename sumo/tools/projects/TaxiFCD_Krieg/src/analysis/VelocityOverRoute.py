@@ -6,7 +6,7 @@
 
 Shows the velocity of the chosen taxi over the driven route for all available sources.
 
-Copyright (C) 2008 DLR/FS, Germany
+Copyright (C) 2008-2011 DLR (http://www.dlr.de/) and contributors
 All rights reserved
 """
 

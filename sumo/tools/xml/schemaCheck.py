@@ -8,7 +8,7 @@
 Checks schema for files matching certain file names using either
 lxml or SAX2Count.exe depending on availability.
 
-Copyright (C) 2009 DLR/TS, Germany
+Copyright (C) 2009-2011 DLR (http://www.dlr.de/) and contributors
 All rights reserved
 """
 

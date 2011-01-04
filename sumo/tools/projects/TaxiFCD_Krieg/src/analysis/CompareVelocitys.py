@@ -6,7 +6,7 @@
 
 Creates a file with a comparison of velocities between Taxi-FCD and vtypeprobe.
 
-Copyright (C) 2008 DLR/FS, Germany
+Copyright (C) 2008-2011 DLR (http://www.dlr.de/) and contributors
 All rights reserved
 """
 

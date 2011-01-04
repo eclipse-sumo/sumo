@@ -7,7 +7,7 @@
 // A MSVehicle extended by some values for usage within the gui
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
-// Copyright 2001-2010 DLR (http://www.dlr.de/) and contributors
+// Copyright (C) 2001-2011 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //
 //   This program is free software; you can redistribute it and/or modify

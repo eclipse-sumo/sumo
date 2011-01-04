@@ -6,7 +6,7 @@
 
 Control the CityMobil parking lot via TraCI.
 
-Copyright (C) 2008 DLR/TS, Germany
+Copyright (C) 2008-2011 DLR (http://www.dlr.de/) and contributors
 All rights reserved
 """
 import subprocess, random, sys, os

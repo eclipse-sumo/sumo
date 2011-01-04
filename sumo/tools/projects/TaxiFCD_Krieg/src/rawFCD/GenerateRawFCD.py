@@ -6,7 +6,7 @@
 
 Converts the vtypeProbe XML-File to the raw FCD-Format which can afterwards used to process FCD. 
 
-Copyright (C) 2008 DLR/FS, Germany
+Copyright (C) 2008-2011 DLR (http://www.dlr.de/) and contributors
 All rights reserved
 """
 

@@ -6,7 +6,7 @@
 
 Shows a velocity time-variation curve for a given Taxi or for the hole day all average values.
 
-Copyright (C) 2008 DLR/FS, Germany
+Copyright (C) 2008-2011 DLR (http://www.dlr.de/) and contributors
 All rights reserved
 """
 

@@ -6,7 +6,7 @@
 
 This script is for generating the outputs from the choosed traffic assignment.
 
-Copyright (C) 2008 DLR/TS, Germany
+Copyright (C) 2008-2011 DLR (http://www.dlr.de/) and contributors
 All rights reserved
 """
 

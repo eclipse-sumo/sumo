@@ -18,7 +18,7 @@ When "reproject" is called, all nodes' position
  of the second network are reprojected so that
  they match positions within the first network.
 
-Copyright (C) 2008 DLR/TS, Germany
+Copyright (C) 2008-2011 DLR (http://www.dlr.de/) and contributors
 All rights reserved
 """
 

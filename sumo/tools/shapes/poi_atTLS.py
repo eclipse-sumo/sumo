@@ -8,7 +8,7 @@
 Generates a PoI-file containing a PoI for each tls controlled intersection
  from the given net.
 
-Copyright (C) 2010 DLR/TS, Germany
+Copyright (C) 2010-2011 DLR (http://www.dlr.de/) and contributors
 All rights reserved
 """
 

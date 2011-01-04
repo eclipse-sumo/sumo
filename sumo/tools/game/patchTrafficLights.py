@@ -7,7 +7,7 @@
 
 This script patches the traffic lights of an input network for the gaming mode.
 
-Copyright (C) 2010 DLR/TS, Germany
+Copyright (C) 2010-2011 DLR (http://www.dlr.de/) and contributors
 All rights reserved
 """
 import re

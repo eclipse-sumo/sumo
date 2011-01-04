@@ -7,7 +7,7 @@
 
 Grab the Mediawiki pages and fit them into a big html page and a pdf.
 
-Copyright (C) 2010 DLR/TS, Germany
+Copyright (C) 2010-2011 DLR (http://www.dlr.de/) and contributors
 All rights reserved
 """
 import sys, urllib2, xml.dom.minidom, subprocess

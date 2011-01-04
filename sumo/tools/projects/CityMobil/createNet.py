@@ -9,7 +9,7 @@
 Create the XML input files for the generation of the SUMO network
 of the CityMobil parking lot.
 
-Copyright (C) 2008 DLR/TS, Germany
+Copyright (C) 2008-2011 DLR (http://www.dlr.de/) and contributors
 All rights reserved
 """
 import os, random

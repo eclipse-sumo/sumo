@@ -7,7 +7,7 @@
 
 This script generate a trip file as input data in sumo
 
-Copyright (C) 2008 DLR/TS, Germany
+Copyright (C) 2008-2011 DLR (http://www.dlr.de/) and contributors
 All rights reserved
 """
 import os, string, sys, operator, math, datetime, random, bz2, StringIO

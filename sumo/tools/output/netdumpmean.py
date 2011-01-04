@@ -10,7 +10,7 @@ This script reads two network dumps,
  computes the mean values
  and writes the results into the output file
 
-Copyright (C) 2008 DLR/TS, Germany
+Copyright (C) 2008-2011 DLR (http://www.dlr.de/) and contributors
 All rights reserved
 """
 import os, string, sys

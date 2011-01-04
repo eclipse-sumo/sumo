@@ -9,7 +9,7 @@ Applies a given offset to edges given in an xml-edge-file.
 The results are written into <XMLEDGES>.mod.xml.
 Call: xmledges_applyOffset.py <XMLEDGES> <X-OFFSET> <Y-OFFSET>
 
-Copyright (C) 2009 DLR/TS, Germany
+Copyright (C) 2009-2011 DLR (http://www.dlr.de/) and contributors
 All rights reserved
 """
 

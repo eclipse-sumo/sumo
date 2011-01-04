@@ -7,7 +7,7 @@
 
 This script does multiple sumo runs with different rerouting intervals.
 
-Copyright (C) 2008 DLR/TS, Germany
+Copyright (C) 2008-2011 DLR (http://www.dlr.de/) and contributors
 All rights reserved
 """
 import os, sys, subprocess

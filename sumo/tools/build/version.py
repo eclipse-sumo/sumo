@@ -10,7 +10,7 @@ This script rebuilds "/../../src/version.h", the file which
 If a version file exists, it is kept, otherwise the current
  SVN revision is used as version information.
 
-Copyright (C) 2008 DLR/TS, Germany
+Copyright (C) 2008-2011 DLR (http://www.dlr.de/) and contributors
 All rights reserved
 """
 

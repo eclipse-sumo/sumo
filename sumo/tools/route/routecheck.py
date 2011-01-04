@@ -18,7 +18,7 @@ attribute if it is missing.
 All changes are documented within the output file which has the same name
 as the input file with an additional .fixed suffix.
 
-Copyright (C) 2007-2009 DLR/TS, Germany
+Copyright (C) 2007-2011 DLR (http://www.dlr.de/) and contributors
 All rights reserved
 """
 import os, string, sys, StringIO

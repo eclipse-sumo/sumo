@@ -11,7 +11,7 @@ and optionally whether the routes cover the net.
 It needs at least one parameter, the SUMO net (.net.xml).
 All parameters starting from the second are considered route files.
 
-Copyright (C) 2008 DLR/TS, Germany
+Copyright (C) 2008-2011 DLR (http://www.dlr.de/) and contributors
 All rights reserved
 """
 import os, string, sys, StringIO

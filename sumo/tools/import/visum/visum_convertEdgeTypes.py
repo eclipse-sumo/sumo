@@ -9,7 +9,7 @@
 This script converts edge type definitions (STRECKENTYP) into their
  SUMO-representation.
 
-Copyright (C) 2009 DLR/TS, Germany
+Copyright (C) 2009-2011 DLR (http://www.dlr.de/) and contributors
 All rights reserved
 """
 

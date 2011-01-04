@@ -13,7 +13,7 @@ The read routes are saved as <OUTPUT_PREFIX>_stops.add.xml
 (Starting?) edges of the route may be renamed by setting them within "edgemap"
  variable (see below).
 
-Copyright (C) 2009 DLR/TS, Germany
+Copyright (C) 2009-2011 DLR (http://www.dlr.de/) and contributors
 All rights reserved
 """
 

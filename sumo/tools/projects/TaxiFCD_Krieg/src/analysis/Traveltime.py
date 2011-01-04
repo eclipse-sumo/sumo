@@ -8,7 +8,7 @@ Compares the travel time of vtypeprobe and FCD. (avg=False)
 
 Secondly the average travel time will be calculate (avg=True). 
 
-Copyright (C) 2008 DLR/FS, Germany
+Copyright (C) 2008-2011 DLR (http://www.dlr.de/) and contributors
 All rights reserved
 """
 

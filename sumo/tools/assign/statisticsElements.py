@@ -9,7 +9,7 @@ This script is to define classes, functions, parse-reader and output files/forma
 - conducting significance tests (either t-Test or Kruskal-Wallis-Test) and
 - writing results into files.
 
-Copyright (C) 2008 DLR/TS, Germany
+Copyright (C) 2008-2011 DLR (http://www.dlr.de/) and contributors
 All rights reserved
 """
 

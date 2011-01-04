@@ -6,7 +6,7 @@
 
 Counts for an given interval all unique taxis in an FCD file and draws the result as a bar chart. 
 
-Copyright (C) 2008 DLR/FS, Germany
+Copyright (C) 2008-2011 DLR (http://www.dlr.de/) and contributors
 All rights reserved
 """
 

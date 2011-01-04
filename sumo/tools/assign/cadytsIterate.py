@@ -9,7 +9,7 @@
 Run cadyts to calibrate the simulation with given routes and traffic measurements.
 Respective traffic zones information has to exist in the given route files.
 
-Copyright (C) 2008 DLR/TS, Germany
+Copyright (C) 2008-2011 DLR (http://www.dlr.de/) and contributors
 All rights reserved
 """
 import os, sys, subprocess, types

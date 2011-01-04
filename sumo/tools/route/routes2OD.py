@@ -9,7 +9,7 @@ Creates an OD-matrix in visum format $O from a route.xml file
 when starting the programm the name for the inputfile and the outputfile
 have to de supplied via the command line
  
-Copyright (C) 2008 DLR/FS, Germany
+Copyright (C) 2008-2011 DLR (http://www.dlr.de/) and contributors
 All rights reserved
 """
 

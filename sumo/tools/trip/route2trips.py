@@ -10,7 +10,7 @@ as input to one of the routing applications.
 It reads the routes from a file given as first parameter
 and outputs the trips to stdout.
 
-Copyright (C) 2008 DLR/TS, Germany
+Copyright (C) 2008-2011 DLR (http://www.dlr.de/) and contributors
 All rights reserved
 """
 import sys, datetime

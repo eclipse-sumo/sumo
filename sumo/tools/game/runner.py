@@ -10,7 +10,7 @@ It checks for possible scenarios in the current working directory
 and lets the user start them as a game. Furthermore it
 saves highscores to local disc and to the central highscore server.
 
-Copyright (C) 2010 DLR/TS, Germany
+Copyright (C) 2010-2011 DLR (http://www.dlr.de/) and contributors
 All rights reserved
 """
 import os, subprocess, sys, re, pickle, httplib, glob, Tkinter

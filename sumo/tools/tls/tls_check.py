@@ -9,7 +9,7 @@ Verifies the traffic lights in the given network.
 Currently verified:
 - phase length matches controlled link number
 
-Copyright (C) 2009 DLR/TS, Germany
+Copyright (C) 2009-2011 DLR (http://www.dlr.de/) and contributors
 All rights reserved
 """
 

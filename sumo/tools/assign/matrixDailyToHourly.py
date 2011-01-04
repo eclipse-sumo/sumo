@@ -8,7 +8,7 @@
 This script is to generate hourly matrices from a VISUM daily matrix. 
 The taffic demand of the traffic zones, which have the same connection links, will be integrated.
 
-Copyright (C) 2008 DLR/TS, Germany
+Copyright (C) 2008-2011 DLR (http://www.dlr.de/) and contributors
 All rights reserved
 """
 

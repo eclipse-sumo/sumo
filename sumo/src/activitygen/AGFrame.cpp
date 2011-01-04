@@ -7,7 +7,7 @@
 // Configuration of the options of ActivityGen
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
-// Copyright 2001-2010 DLR (http://www.dlr.de/) and contributors
+// Copyright (C) 2001-2011 DLR (http://www.dlr.de/) and contributors
 // activitygen module
 // Copyright 2010 TUM (Technische Universitaet Muenchen, http://www.tum.de/)
 /****************************************************************************/
@@ -50,7 +50,7 @@ void AGFrame::fillOptions() {
     oc.setApplicationDescription(
         "Generates routes of persons throughout a day for the microscopic road traffic simulation SUMO.");
     oc.setApplicationName("activitygen", "SUMO activitygen Version " + (std::string)VERSION_STRING);
-    oc.addCopyrightNotice("(c) Technische Universitaet Muenchen, 2010");
+    oc.addCopyrightNotice("Copyright (C) 2010-2011 Technische Universitaet Muenchen");
     // Options handling
     oc.addCallExample("--net-file <INPUT>.net.xml --stat-file <INPUT>.stat.xml --output-file <OUTPUT>.rou.xml --abs-rand");
     oc.addCallExample("--net-file <INPUT>.net.xml --stat-file <INPUT>.stat.xml --output-file <OUTPUT>.rou.xml --duration-d <NBR_OF_DAYS>");

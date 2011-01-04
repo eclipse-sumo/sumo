@@ -8,7 +8,7 @@
 This script is to retrieve the assignment parameters, the OD districts and the matrix from the input files. 
 Moreover, the link travel time for district connectors will be estimated.
 
-Copyright (C) 2008 DLR/TS, Germany
+Copyright (C) 2008-2011 DLR (http://www.dlr.de/) and contributors
 All rights reserved
 """
 

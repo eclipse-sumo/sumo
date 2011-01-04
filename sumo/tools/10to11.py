@@ -7,7 +7,7 @@
 
 Transfers configuration files from character data to attribute style.
 
-Copyright (C) 2009 DLR/TS, Germany
+Copyright (C) 2009-2011 DLR (http://www.dlr.de/) and contributors
 All rights reserved
 """
 import os, sys, re

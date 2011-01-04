@@ -6,7 +6,7 @@
 
 Creates an Route-File, which contains for each Taxi the route, from an FCD-File.
 
-Copyright (C) 2008 DLR/FS, Germany
+Copyright (C) 2008-2011 DLR (http://www.dlr.de/) and contributors
 All rights reserved
 """
 

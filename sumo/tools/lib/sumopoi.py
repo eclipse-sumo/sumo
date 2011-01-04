@@ -7,7 +7,7 @@
 
 Library for reading and storing POIs.
 
-Copyright (C) 2010 DLR/TS, Germany
+Copyright (C) 2010-2011 DLR (http://www.dlr.de/) and contributors
 All rights reserved
 """
 

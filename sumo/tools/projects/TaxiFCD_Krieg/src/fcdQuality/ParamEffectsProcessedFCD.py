@@ -14,7 +14,7 @@ Needed files (have a look at Path.py):
     FQvtypePickle
     FQvehPickle
     FQoutput
-Copyright (C) 2008 DLR/FS, Germany
+Copyright (C) 2008-2011 DLR (http://www.dlr.de/) and contributors
 All rights reserved
 """
 

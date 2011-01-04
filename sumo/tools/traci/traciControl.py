@@ -7,7 +7,7 @@
 
 Python implementation of the TraCI interface.
 
-Copyright (C) 2008, 2009 DLR/TS, Germany
+Copyright (C) 2008-2011 DLR (http://www.dlr.de/) and contributors
 All rights reserved
 """
 import socket, time, struct

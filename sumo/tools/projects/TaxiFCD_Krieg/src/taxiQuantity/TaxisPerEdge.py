@@ -8,7 +8,7 @@ Counts for every edge in the given FCD-file the number of Taxis which used this 
 After that this information can be visualized with an script called mpl_dump_onNet from Daniel.
 
 
-Copyright (C) 2008 DLR/FS, Germany
+Copyright (C) 2008-2011 DLR (http://www.dlr.de/) and contributors
 All rights reserved
 """
 

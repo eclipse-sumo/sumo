@@ -13,7 +13,7 @@ Three assignment models are available:
 
 The c-logit model are set as default.
 
-Copyright (C) 2008 DLR/TS, Germany
+Copyright (C) 2008-2011 DLR (http://www.dlr.de/) and contributors
 All rights reserved
 """
 

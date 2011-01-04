@@ -8,7 +8,7 @@
 Applies the transformation on all nets in the given folder or 
  - if no folder is given - in the base folder (../..).
 
-Copyright (C) 2009 DLR/TS, Germany
+Copyright (C) 2009-2011 DLR (http://www.dlr.de/) and contributors
 All rights reserved
 """
 

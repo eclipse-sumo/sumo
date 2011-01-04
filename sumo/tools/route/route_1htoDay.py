@@ -8,7 +8,7 @@
 Uses "route_departOffset.py" for building 24 route files which describe
  a whole day assuming the given route files describes an hour.
 
-Copyright (C) 2008 DLR/TS, Germany
+Copyright (C) 2008-2011 DLR (http://www.dlr.de/) and contributors
 All rights reserved
 """
 

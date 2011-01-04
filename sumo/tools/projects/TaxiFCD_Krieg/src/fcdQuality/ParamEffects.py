@@ -7,7 +7,7 @@
 Creates files with a comparison of speeds for each edge between the taxis and the average speed from the current edge.
 Dependent of the frequency and the taxi quota.
 
-Copyright (C) 2008 DLR/FS, Germany
+Copyright (C) 2008-2011 DLR (http://www.dlr.de/) and contributors
 All rights reserved
 """
 

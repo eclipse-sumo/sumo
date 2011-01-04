@@ -10,7 +10,7 @@ This file defines global tables used to:
 - define link cost functions
 - conduct significance tests
 
-Copyright (C) 2008 DLR/TS, Germany
+Copyright (C) 2008-2011 DLR (http://www.dlr.de/) and contributors
 All rights reserved
 """
 crCurveTable = {"CR2": (1., 2., 2.),

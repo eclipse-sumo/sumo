@@ -5,7 +5,7 @@
 @date    2009-05-20
 @version $Id$
 
-Copyright (C) 2009 DLR/TS, Germany
+Copyright (C) 2009-2011 DLR (http://www.dlr.de/) and contributors
 All rights reserved
 """
 import sys

@@ -9,7 +9,7 @@
 Run duarouter and sumo alternating to perform a dynamic user assignment.
 Based on the Perl script dua_iterate.pl.
 
-Copyright (C) 2008 DLR/TS, Germany
+Copyright (C) 2008-2011 DLR (http://www.dlr.de/) and contributors
 All rights reserved
 """
 import os, sys, subprocess, types

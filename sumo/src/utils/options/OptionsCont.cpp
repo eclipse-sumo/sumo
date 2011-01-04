@@ -7,7 +7,7 @@
 // A storage for options (typed value containers)
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
-// Copyright 2001-2010 DLR (http://www.dlr.de/) and contributors
+// Copyright (C) 2001-2011 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //
 //   This program is free software; you can redistribute it and/or modify
@@ -66,7 +66,7 @@ OptionsCont::getOptions() throw() {
 
 OptionsCont::OptionsCont() throw()
         : myAddresses(), myValues(), myHaveInformedAboutDeprecatedDivider(false) {
-    myCopyrightNotices.push_back("(c) DLR 2001-2010; http://sumo.sourceforge.net");
+    myCopyrightNotices.push_back("Copyright (C) 2001-2011 DLR and contributors; http://sumo.sourceforge.net");
 }
 
 
@@ -482,6 +482,7 @@ OptionsCont::processMetaOptions(bool missingOptions) throw(ProcessError) {
                     myCopyrightNotices.begin(); it != myCopyrightNotices.end(); ++it) {
             std::cout << " " << *it << std::endl;
         }
+        std::cout << " License GPLv3+: GNU GPL Version 3 or later <http://gnu.org/licenses/gpl.html>\n";
         std::cout << " Use --help to get the list of options." << std::endl;
         return true;
     }
@@ -504,6 +505,16 @@ OptionsCont::processMetaOptions(bool missingOptions) throw(ProcessError) {
                     myCopyrightNotices.begin(); it != myCopyrightNotices.end(); ++it) {
             std::cout << " " << *it << std::endl;
         }
+        std::cout << "\nThis program is free software; you can redistribute it and/or modify\n";
+        std::cout << "it under the terms of the GNU General Public License as published by\n";
+        std::cout << "the Free Software Foundation; either version 3 of the License, or\n";
+        std::cout << "(at your option) any later version.\n\n";
+        std::cout << "This program is distributed in the hope that it will be useful,\n";
+        std::cout << "but WITHOUT ANY WARRANTY; without even the implied warranty of\n";
+        std::cout << "MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\n";
+        std::cout << "GNU General Public License for more details.\n\n";
+        std::cout << "You should have received a copy of the GNU General Public License\n";
+        std::cout << "along with this program. If not, see http://www.gnu.org/licenses/gpl.html" << std::endl;
         return true;
     }
     // check whether the settings shall be printed

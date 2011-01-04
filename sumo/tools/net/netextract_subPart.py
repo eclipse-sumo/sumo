@@ -13,7 +13,7 @@ It extracts nodes given on the command line as well as the edges
  into "<prefix>_nodes.nod.xml" and "<prefix>_edges.edg.xml" 
  for their reuse in NETCONVERT
 
-Copyright (C) 2008 DLR/TS, Germany
+Copyright (C) 2008-2011 DLR (http://www.dlr.de/) and contributors
 All rights reserved
 """
 

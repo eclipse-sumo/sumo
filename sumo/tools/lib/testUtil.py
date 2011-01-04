@@ -9,7 +9,7 @@ This library wraps useful functions for the complex tests
 and automatic GUI control
 from AutoPy (http://github.com/msanders/autopy).
 
-Copyright (C) 2010 DLR/TS, Germany
+Copyright (C) 2010-2011 DLR (http://www.dlr.de/) and contributors
 All rights reserved
 """
 
