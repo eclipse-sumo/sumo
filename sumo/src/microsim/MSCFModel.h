@@ -232,11 +232,13 @@ public:
 
     /** @brief Returns the minimum gap to reserve if the leader is braking at maximum
       * @param[in] speed EGO's speed
-      * @param[in] leaderSpeedAfterDecel LEADER's speed after he has decelerated with max. deceleration rate
+      * @param[in] leaderSpeed LEADER's speed
+      * @param[in] leaderMaxDecel LEADER's max. deceleration rate
       */
     SUMOReal getSecureGap(const SUMOReal speed, const SUMOReal leaderSpeed, const SUMOReal leaderMaxDecel) const throw() {
-        const SUMOReal mleaderSpeed = MAX2(SUMOReal(0), leaderSpeed - ACCEL2SPEED(leaderMaxDecel));
-        return MAX2((SUMOReal) 0, (speed * speed / getMaxDecel() / 2.) + speed * getTau() - (mleaderSpeed * mleaderSpeed / leaderMaxDecel / 2.));
+        const int leaderSteps = int(leaderSpeed / ACCEL2SPEED(leaderMaxDecel));
+        const SUMOReal leaderBreak = SPEED2DIST(leaderSteps * leaderSpeed - ACCEL2SPEED(leaderMaxDecel) * leaderSteps * (leaderSteps+1) / 2);
+        return MAX2((SUMOReal) 0, brakeGap(speed) - leaderBreak);
     }
 
 

@@ -64,7 +64,11 @@ MSCFModel::maxNextSpeed(SUMOReal speed) const throw() {
 
 SUMOReal
 MSCFModel::brakeGap(SUMOReal speed) const throw() {
-    return speed * speed * myInverseTwoDecel + speed * getTau();
+    /* one possiblity to speed this up is to precalculate speedReduction * steps * (steps+1) / 2
+       for small values of steps (up to 10 maybe) and store them in an array */
+    const SUMOReal speedReduction = ACCEL2SPEED(getMaxDecel());
+    const int steps = int(speed / speedReduction);
+    return SPEED2DIST(steps * speed - speedReduction * steps * (steps+1) / 2) + speed * getTau();
 }
 
 
