@@ -129,8 +129,10 @@ MSCFModel_Krauss::_vsafe(SUMOReal gap, SUMOReal predSpeed) const throw() {
     if (predSpeed==0&&gap<0.01) {
         return 0;
     }
-    const SUMOReal mleaderSpeed = MAX2(SUMOReal(0), predSpeed - ACCEL2SPEED(myDecel));
-    return (SUMOReal)(-myTauDecel + sqrt(myTauDecel*myTauDecel + (mleaderSpeed*mleaderSpeed) + (2. * myDecel * gap)));
+    const SUMOReal speedReduction = ACCEL2SPEED(myDecel); // !!! TODO use the deceleration of the leader
+    const int predSteps = int(predSpeed / speedReduction);
+    const SUMOReal leaderContrib = 2. * myDecel * (gap + SPEED2DIST(predSteps * predSpeed - speedReduction * predSteps * (predSteps+1) / 2));
+    return (SUMOReal)(-myTauDecel + sqrt(myTauDecel*myTauDecel + leaderContrib));
 }
 
 
