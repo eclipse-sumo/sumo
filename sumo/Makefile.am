@@ -8,9 +8,9 @@ doc:
 dist-hook:
 	abs_distdir="`pwd`/$(distdir)" \
 	&& cd $(srcdir) \
-	&& for f in `find build tools -name .svn -prune -o -type d -print`; do mkdir $$abs_distdir/$$f; done \
+	&& for f in `find build -name .svn -prune -o -type d -print`; do mkdir $$abs_distdir/$$f; done \
 	&& find build -regex ".*\.\(vcproj\|vsprops\|sln\|spec\)" -print0 | xargs -0 cp --parents --target-directory $$abs_distdir \
-	&& find tools -regex ".*\.\(pl\|py\|java\|jar\|bat\)" -print0 | xargs -0 cp --parents --target-directory $$abs_distdir \
+	&& svn export tools $(distdir)/tools \
 	&& cp tools/traceExporter/.classpath tools/traceExporter/.project tools/traceExporter/manifest.mf $$abs_distdir/tools/traceExporter \
 	&& if test -e tests/extractTest.py; then tests/extractTest.py -f tests/examples.txt -o $$abs_distdir; fi
 
