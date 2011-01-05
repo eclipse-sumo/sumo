@@ -1,6 +1,9 @@
 # Tests --help
 help
 
+# Tests --version
+version
+
 # Tests no input
 noop
 
@@ -12,7 +15,3 @@ write_template_commented_full
 
 # Tests configuration writing
 write_config
-
-
-
-

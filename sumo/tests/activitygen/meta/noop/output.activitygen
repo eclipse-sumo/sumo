@@ -1,4 +1,5 @@
-SUMO activitygen Version dev-SVN-r9058
- (c) DLR 2001-2010; http://sumo.sourceforge.net
- (c) Technische Universitaet Muenchen, 2010
+SUMO activitygen Version dev-SVN-r9525
+ Copyright (C) 2001-2011 DLR and contributors; http://sumo.sourceforge.net
+ Copyright (C) 2010-2011 Technische Universitaet Muenchen
+ License GPLv3+: GNU GPL Version 3 or later <http://gnu.org/licenses/gpl.html>
  Use --help to get the list of options.

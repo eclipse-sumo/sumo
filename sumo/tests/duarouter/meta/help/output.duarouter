@@ -1,5 +1,5 @@
-SUMO duarouter Version dev-SVN-r9385
- (c) DLR 2001-2010; http://sumo.sourceforge.net
+SUMO duarouter Version dev-SVN-r9525
+ Copyright (C) 2001-2011 DLR and contributors; http://sumo.sourceforge.net
  
 Shortest path router and DUE computer for the microscopic road traffic
   simulation SUMO.

@@ -1,9 +1,8 @@
 # Tests --help
 help
 
+# Tests --version
+version
+
 # Tests no input
 noop
-
-
-
-

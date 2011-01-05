@@ -1,5 +1,5 @@
-SUMO polyconvert Version dev-SVN-r9362
- (c) DLR 2001-2010; http://sumo.sourceforge.net
+SUMO polyconvert Version dev-SVN-r9525
+ Copyright (C) 2001-2011 DLR and contributors; http://sumo.sourceforge.net
  
 Importer of polygons and POIs for the road traffic simulation SUMO.
 

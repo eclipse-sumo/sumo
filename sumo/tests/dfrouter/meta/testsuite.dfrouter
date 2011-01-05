@@ -1,6 +1,9 @@
 # Tests --help
 help
 
+# Tests --version
+version
+
 # Tests no input
 noop
 
@@ -15,5 +18,3 @@ write_config
 
 # Tests whether log-file output works
 with_log
-
-
