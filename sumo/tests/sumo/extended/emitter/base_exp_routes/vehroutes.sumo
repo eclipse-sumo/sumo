@@ -1,7 +1,9 @@
 <?xml version="1.0"?>
 
-<!-- generated on 07/22/10 09:21:42 by SUMO sumo Version dev-SVN-r8163
-<configuration>
+<!-- generated on 01/05/11 14:54:20 by SUMO sumo Version dev-SVN-r9525
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/sumoConfiguration.xsd">
 
     <input>
         <net-file value="three_split.net.xml"/>
@@ -25,23 +27,23 @@
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="route0_1" depart="5.00" arrival="80.00">
+    <vehicle id="route0_1" depart="5.00" arrival="81.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="route0_2" depart="10.00" arrival="85.00">
+    <vehicle id="route0_2" depart="10.00" arrival="86.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="route0_3" depart="15.00" arrival="90.00">
+    <vehicle id="route0_3" depart="15.00" arrival="91.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="route0_4" depart="20.00" arrival="95.00">
+    <vehicle id="route0_4" depart="20.00" arrival="96.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="route1_0" depart="2.00" arrival="190.00">
+    <vehicle id="route1_0" depart="2.00" arrival="191.00">
         <route edges="beg beg2left left left2end end rend"/>
     </vehicle>
 

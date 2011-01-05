@@ -1,7 +1,9 @@
 <?xml version="1.0"?>
 
-<!-- generated on 03/18/10 13:31:15 by SUMO sumo Version dev-SVN-r8460
-<configuration>
+<!-- generated on 01/05/11 12:29:18 by SUMO sumo Version dev-SVN-r9525
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/sumoConfiguration.xsd">
 
     <input>
         <net-file value="net.net.xml"/>
@@ -57,16 +59,16 @@
                 <vehicle id="f1.7" pos="53.29" speed="0.09"/>
                 <vehicle id="f1.8" pos="60.87" speed="0.07"/>
                 <vehicle id="f1.9" pos="70.07" speed="1.67"/>
-                <vehicle id="f1.10" pos="79.95" speed="0.00"/>
-                <vehicle id="f1.11" pos="87.55" speed="0.00"/>
-                <vehicle id="f1.12" pos="95.15" speed="0.00"/>
-                <vehicle id="f1.13" pos="102.75" speed="0.00"/>
-                <vehicle id="f1.14" pos="110.35" speed="0.00"/>
-                <vehicle id="f1.15" pos="117.95" speed="0.00"/>
-                <vehicle id="f1.16" pos="125.55" speed="0.00"/>
-                <vehicle id="f1.17" pos="133.15" speed="0.00"/>
-                <vehicle id="f1.18" pos="140.75" speed="0.00"/>
-                <vehicle id="f1.19" pos="148.35" speed="0.00"/>
+                <vehicle id="f1.10" pos="79.33" speed="0.00"/>
+                <vehicle id="f1.11" pos="86.93" speed="0.00"/>
+                <vehicle id="f1.12" pos="94.53" speed="0.00"/>
+                <vehicle id="f1.13" pos="102.13" speed="0.00"/>
+                <vehicle id="f1.14" pos="109.73" speed="0.00"/>
+                <vehicle id="f1.15" pos="117.33" speed="0.00"/>
+                <vehicle id="f1.16" pos="124.93" speed="0.00"/>
+                <vehicle id="f1.17" pos="132.53" speed="0.00"/>
+                <vehicle id="f1.18" pos="140.13" speed="0.00"/>
+                <vehicle id="f1.19" pos="147.73" speed="0.00"/>
             </lane>
             <lane id="beg_1"/>
             <lane id="beg_2"/>

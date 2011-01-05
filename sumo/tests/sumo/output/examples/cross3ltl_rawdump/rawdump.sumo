@@ -1,7 +1,9 @@
 <?xml version="1.0"?>
 
-<!-- generated on 07/22/10 09:20:57 by SUMO sumo Version dev-SVN-r8163
-<configuration>
+<!-- generated on 01/05/11 14:53:31 by SUMO sumo Version dev-SVN-r9525
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/sumoConfiguration.xsd">
 
     <input>
         <net-file value="net.net.xml"/>
@@ -343,7 +345,7 @@
         </edge>
         <edge id="3fi">
             <lane id="3fi_0">
-                <vehicle id="vertical.1" pos="5.78" speed="0.68"/>
+                <vehicle id="vertical.1" pos="5.39" speed="0.29"/>
                 <vehicle id="always_left.1" pos="12.89" speed="2.46"/>
                 <vehicle id="vertical.0" pos="44.11" speed="6.57"/>
                 <vehicle id="always_left.0" pos="80.70" speed="9.24"/>
@@ -365,7 +367,7 @@
         </edge>
         <edge id="3fi">
             <lane id="3fi_0">
-                <vehicle id="vertical.1" pos="7.23" speed="1.45"/>
+                <vehicle id="vertical.1" pos="6.47" speed="1.07"/>
                 <vehicle id="always_left.1" pos="16.09" speed="3.20"/>
                 <vehicle id="vertical.0" pos="51.14" speed="7.03"/>
                 <vehicle id="always_left.0" pos="90.51" speed="9.81"/>
@@ -387,7 +389,7 @@
         </edge>
         <edge id="3fi">
             <lane id="3fi_0">
-                <vehicle id="vertical.1" pos="9.23" speed="2.00"/>
+                <vehicle id="vertical.1" pos="8.09" speed="1.62"/>
                 <vehicle id="always_left.1" pos="19.90" speed="3.81"/>
                 <vehicle id="vertical.0" pos="58.71" speed="7.57"/>
                 <vehicle id="always_left.0" pos="100.73" speed="10.22"/>
@@ -409,7 +411,7 @@
         </edge>
         <edge id="3fi">
             <lane id="3fi_0">
-                <vehicle id="vertical.1" pos="11.99" speed="2.77"/>
+                <vehicle id="vertical.1" pos="10.48" speed="2.39"/>
                 <vehicle id="always_left.1" pos="24.36" speed="4.46"/>
                 <vehicle id="vertical.0" pos="66.96" speed="8.25"/>
                 <vehicle id="always_left.0" pos="111.34" speed="10.61"/>
@@ -431,7 +433,7 @@
         </edge>
         <edge id="3fi">
             <lane id="3fi_0">
-                <vehicle id="vertical.1" pos="15.26" speed="3.26"/>
+                <vehicle id="vertical.1" pos="13.38" speed="2.89"/>
                 <vehicle id="always_left.1" pos="29.40" speed="5.04"/>
                 <vehicle id="vertical.0" pos="75.60" speed="8.65"/>
                 <vehicle id="always_left.0" pos="122.26" speed="10.92"/>

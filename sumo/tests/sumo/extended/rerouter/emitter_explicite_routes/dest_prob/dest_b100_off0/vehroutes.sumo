@@ -1,7 +1,9 @@
 <?xml version="1.0"?>
 
-<!-- generated on 04/26/10 10:09:50 by SUMO sumo Version dev-SVN-r8163
-<configuration>
+<!-- generated on 01/05/11 14:53:48 by SUMO sumo Version dev-SVN-r9525
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/sumoConfiguration.xsd">
 
     <input>
         <net-file value="three_split.net.xml"/>
@@ -53,7 +55,7 @@
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="emitter_180.00_4" depart="180.00" arrival="305.00">
+    <vehicle id="emitter_180.00_4" depart="180.00" arrival="306.00">
         <routeDistribution>
             <route replacedOnEdge="beg" replacedAtTime="180.00" probability="0" edges="beg middle end rend"/>
             <route edges="beg beg2left left left2end"/>

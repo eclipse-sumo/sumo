@@ -1,7 +1,9 @@
 <?xml version="1.0"?>
 
-<!-- generated on 07/21/10 12:13:03 by SUMO sumo Version dev-SVN-r8163
-<configuration>
+<!-- generated on 01/05/11 12:28:51 by SUMO sumo Version dev-SVN-r9525
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/sumoConfiguration.xsd">
 
     <input>
         <net-file value="net.net.xml"/>
@@ -30,8 +32,8 @@
         <edge id="beg">
             <lane id="beg_0">
                 <vehicle id="1" pos="0.00" speed="10.00"/>
-                <vehicle id="2" pos="39.82" speed="10.00"/>
-                <vehicle id="3" pos="79.64" speed="10.00"/>
+                <vehicle id="2" pos="24.10" speed="10.00"/>
+                <vehicle id="3" pos="48.20" speed="10.00"/>
             </lane>
             <lane id="beg_1"/>
             <lane id="beg_2"/>
