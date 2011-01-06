@@ -68,7 +68,7 @@ public:
         ET_NORMAL,
         /// @brief An edge representing a whole district
         ET_DISTRICT,
-        /// @brief An edge where vehicles are emitted at (no vehicle may come from back)
+        /// @brief An edge where vehicles are inserted at (no vehicle may come from back)
         ET_SOURCE,
         /// @brief An edge where vehicles disappear (no vehicle may leave this edge)
         ET_SINK

@@ -62,16 +62,16 @@ RORDGenerator_ODAmounts::FlowDef::FlowDef(ROVehicle *vehicle,
         RORouteDef *route,
         SUMOTime intBegin,
         SUMOTime intEnd,
-        unsigned int vehicles2Emit,
+        unsigned int vehicles2insert,
         bool randomize)
         : myVehicle(vehicle), myVehicleType(type), myRoute(route),
         myIntervalBegin(intBegin), myIntervalEnd(intEnd),
-        myVehicle2EmitNumber(vehicles2Emit), myEmitted(0), myRandom(randomize) {
+        myVehicle2InsertNumber(vehicles2insert), myInserted(0), myRandom(randomize) {
     assert(myIntervalBegin<myIntervalEnd);
     if (myRandom) {
         SUMOTime period = myIntervalEnd - myIntervalBegin;
-        myDepartures.reserve(myVehicle2EmitNumber);
-        for (size_t i=0; i<myVehicle2EmitNumber; ++i) {
+        myDepartures.reserve(myVehicle2InsertNumber);
+        for (size_t i=0; i<myVehicle2InsertNumber; ++i) {
             SUMOTime departure = ((int)(RandHelper::rand(period) / DELTA_T)) * DELTA_T;
             myDepartures.push_back(departure);
         }
@@ -97,13 +97,13 @@ RORDGenerator_ODAmounts::FlowDef::addRoutes(RONet &net, SUMOTime t) {
     assert(myIntervalBegin<=t&&myIntervalEnd>=t);
     //
     if (!myRandom) {
-        unsigned int absPerEachStep = myVehicle2EmitNumber / ((myIntervalEnd-myIntervalBegin) / DELTA_T);
+        unsigned int absPerEachStep = myVehicle2InsertNumber / ((myIntervalEnd-myIntervalBegin) / DELTA_T);
         for (unsigned int i=0; i<absPerEachStep; i++) {
             addSingleRoute(net, t);
         }
         // fraction
-        SUMOReal toEmit = (SUMOReal) myVehicle2EmitNumber / (SUMOReal)(myIntervalEnd-myIntervalBegin) * (SUMOReal)(t-myIntervalBegin+(SUMOReal)DELTA_T/2.);
-        if (toEmit>myEmitted) {
+        SUMOReal toInsert = (SUMOReal) myVehicle2InsertNumber / (SUMOReal)(myIntervalEnd-myIntervalBegin) * (SUMOReal)(t-myIntervalBegin+(SUMOReal)DELTA_T/2.);
+        if (toInsert>myInserted) {
             addSingleRoute(net, t);
         }
     } else {
@@ -117,12 +117,12 @@ RORDGenerator_ODAmounts::FlowDef::addRoutes(RONet &net, SUMOTime t) {
 
 void
 RORDGenerator_ODAmounts::FlowDef::addSingleRoute(RONet &net, SUMOTime t) {
-    std::string id = myVehicle->getID() + "_" + toString<unsigned int>(myEmitted);
+    std::string id = myVehicle->getID() + "_" + toString<unsigned int>(myInserted);
     RORouteDef *rd = myRoute->copy(id);
     net.addRouteDef(rd);
     ROVehicle *veh = myVehicle->copy(id, t, rd);
     net.addVehicle(id, veh);
-    myEmitted++;
+    ++myInserted;
 }
 
 
@@ -234,7 +234,7 @@ RORDGenerator_ODAmounts::parseFlowAmountDef(const SUMOSAXAttributes &attrs) thro
     bool ok = true;
     myIntervalBegin = attrs.getOptSUMOTimeReporting(SUMO_ATTR_BEGIN, "flow", id.c_str(), ok, myUpperIntervalBegin);
     myIntervalEnd = attrs.getOptSUMOTimeReporting(SUMO_ATTR_END, "flow", id.c_str(), ok, myUpperIntervalEnd);
-    myVehicle2EmitNumber = attrs.getIntReporting(SUMO_ATTR_NO, "flow", id.c_str(), ok); // !!! no real error handling
+    myVehicle2InsertNumber = attrs.getIntReporting(SUMO_ATTR_NO, "flow", id.c_str(), ok); // !!! no real error handling
     if (!ok) {
         throw ProcessError();
     }
@@ -290,7 +290,7 @@ RORDGenerator_ODAmounts::myEndFlowAmountDef() {
             myNextRouteRead = true;
             ROVehicle *vehicle = new ROVehicle(*myParameter, route, type);
             // add to the container
-            FlowDef *fd = new FlowDef(vehicle, type, route, myIntervalBegin, myIntervalEnd, myVehicle2EmitNumber, myRandom);
+            FlowDef *fd = new FlowDef(vehicle, type, route, myIntervalBegin, myIntervalEnd, myVehicle2InsertNumber, myRandom);
             myFlows.push_back(fd);
         } else {
             MsgHandler::getErrorInstance()->inform("The vehicle '" + myParameter->id + "' occurs at least twice.");

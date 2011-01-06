@@ -119,7 +119,7 @@ protected:
         /// Constructor
         FlowDef(ROVehicle *vehicle, SUMOVTypeParameter *type, RORouteDef *route,
                 SUMOTime intBegin, SUMOTime intEnd,
-                unsigned int vehicles2Emit, bool randomize);
+                unsigned int vehicles2insert, bool randomize);
 
         /// Destructor
         ~FlowDef();
@@ -137,7 +137,7 @@ protected:
         SUMOTime getIntervalEnd() const;
 
     private:
-        /// (description of) the vehicle to emit
+        /// (description of) the vehicle to insert
         ROVehicle *myVehicle;
 
         /// (description of) the vehicle type to use
@@ -152,11 +152,11 @@ protected:
         /// The end of the described interval
         SUMOTime myIntervalEnd;
 
-        /// The number of vehicles to emit within the described interval
-        unsigned int myVehicle2EmitNumber;
+        /// The number of vehicles to insert within the described interval
+        unsigned int myVehicle2InsertNumber;
 
-        /// The number of vehicles already emitted
-        unsigned int myEmitted;
+        /// The number of vehicles already inserted
+        unsigned int myInserted;
 
         /// The list of generated departure times in the case randomized departures are used
         std::vector<SUMOTime> myDepartures;
@@ -186,8 +186,8 @@ private:
     /// The end of the embedding interval (if given)
     SUMOTime myUpperIntervalEnd;
 
-    /// The number of vehicles to emit
-    unsigned int myVehicle2EmitNumber;
+    /// The number of vehicles to insert
+    unsigned int myVehicle2InsertNumber;
 
     /// The current time step read
     SUMOTime myCurrentTimeStep;
