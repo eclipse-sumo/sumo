@@ -1,0 +1,7 @@
+<routes>
+
+	<vehicle id="1" depart="0" route="1" departpos="pwagGeneric" departspeed="max" arrivalpos="300"/>
+	<vehicle id="2" depart="1" route="1" departpos="pwagGeneric" departspeed="max" arrivalpos="300"/>
+	<vehicle id="3" depart="2" route="1" departpos="pwagGeneric" departspeed="max" arrivalpos="300"/>
+
+</routes>
