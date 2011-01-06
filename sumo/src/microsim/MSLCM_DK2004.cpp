@@ -238,13 +238,13 @@ MSLCM_DK2004::wantsChangeToRight(MSAbstractLaneChangeModel::MSLCMessager &msgPas
     if (neighLead.first == 0) {
         neighLaneVSafe = MIN2(neighLaneVSafe, myCarFollowModel.ffeV(&myVehicle, neighDist, 0));
     } else {
-        assert(neighLead.second>=0);
+        // @todo: what if leader is below safe gap?!!!
         neighLaneVSafe = MIN2(neighLaneVSafe, myCarFollowModel.ffeV(&myVehicle, neighLead.second, neighLead.first->getSpeed()));
     }
     if (leader.first==0) {
         thisLaneVSafe = MIN2(thisLaneVSafe, myCarFollowModel.ffeV(&myVehicle, currentDist, 0));
     } else {
-        assert(leader.second>=0);
+        // @todo: what if leader is below safe gap?!!!
         thisLaneVSafe = MIN2(thisLaneVSafe, myCarFollowModel.ffeV(&myVehicle, leader.second, leader.first->getSpeed()));
     }
 
@@ -466,13 +466,13 @@ MSLCM_DK2004::wantsChangeToLeft(MSAbstractLaneChangeModel::MSLCMessager &msgPass
     if (neighLead.first == 0) {
         neighLaneVSafe = MIN2(neighLaneVSafe, myCarFollowModel.ffeV(&myVehicle, neighDist, 0)); // !!! warum nicht die Folgesgeschw.?
     } else {
-        assert(neighLead.second>=0);
+        // @todo: what if leader is below safe gap?!!!
         neighLaneVSafe = MIN2(neighLaneVSafe, myCarFollowModel.ffeV(&myVehicle, neighLead.second, neighLead.first->getSpeed()));
     }
     if (leader.first==0) {
         thisLaneVSafe = MIN2(thisLaneVSafe, myCarFollowModel.ffeV(&myVehicle, currentDist, 0));
     } else {
-        assert(leader.second>=0);
+        // @todo: what if leader is below safe gap?!!!
         thisLaneVSafe = MIN2(thisLaneVSafe, myCarFollowModel.ffeV(&myVehicle, leader.second, leader.first->getSpeed()));
     }
     thisLaneVSafe = MIN2(thisLaneVSafe, myVehicle.getVehicleType().getMaxSpeed());
