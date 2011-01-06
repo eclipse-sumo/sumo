@@ -510,8 +510,32 @@ public:
     std::pair<MSVehicle * const, SUMOReal> getFollowerOnConsecutive(SUMOReal dist, SUMOReal seen,
             SUMOReal leaderSpeed, SUMOReal backOffset, SUMOReal predMaxDecel) const;
 
+
+    /** @brief Returns the leader and the distance to him
+     *
+     * Goes along the vehicle's estimated used lanes (bestLaneConts). For each link,
+     *  it is determined whether the vehicle will pass it. If so, the subsequent lane
+     *  is investigated. If a vehicle (leader) is found, it is returned, together with the length
+     *  of the investigated lanes until this vehicle's end, including the already seen
+     *  place (seen).
+     *
+     * If no leading vehicle was found, <0, -1> is returned.
+     *
+     * Pretty slow, as it has to go along lanes.
+     *
+     * @todo: There are some oddities:
+     * - what about crossing a link at red, or if a link is closed? Has a following vehicle to be regarded or not?
+     * 
+     * @param[in] dist The distance to investigate
+     * @param[in] seen The already seen place (normally the place in front on own lane)
+     * @param[in] speed The speed of the vehicle used for determining whether a subsequent link will be opened at arrival time
+     * @param[in] veh The vehicle for which the information shall be computed
+     * @param[in] bestLaneConts The lanes the vehicle will use in future
+     * @return 
+     */
     std::pair<MSVehicle * const, SUMOReal> getLeaderOnConsecutive(SUMOReal dist, SUMOReal seen,
-            SUMOReal leaderSpeed, const MSVehicle &veh, const std::vector<MSLane*> &bestLaneConts) const;
+            SUMOReal speed, const MSVehicle &veh, const std::vector<MSLane*> &bestLaneConts) const throw();
+
 
     MSLane* getLogicalPredecessorLane() const throw();
 
