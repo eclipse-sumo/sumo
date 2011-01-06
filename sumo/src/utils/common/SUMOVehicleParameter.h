@@ -116,12 +116,12 @@ enum DepartPosDefinition {
     DEPART_POS_FREE,
     /// @brief Back-at-zero position
     DEPART_POS_BASE,
-    /// @brief If a fixed number of random choices fails, a free position is chosen
-    DEPART_POS_RANDOM_FREE,
-	/// @brief Simple emission scheme by P. Wagner FIXME: what does it do?
+    /// @brief Simple max-flow emission by P.Wagner
     DEPART_POS_PWAG_SIMPLE,
-	/// @brief Generic emission scheme by P. Wagner FIXME: what does it do?
-    DEPART_POS_PWAG_GENERIC
+    /// @brief Generic max-flow emission by P.Wagner
+    DEPART_POS_PWAG_GENERIC,
+    /// @brief If a fixed number of random choices fails, a free position is chosen
+    DEPART_POS_RANDOM_FREE
 };
 
 

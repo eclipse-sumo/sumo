@@ -124,7 +124,7 @@ MSCFModel_Krauss::dawdle(SUMOReal speed) const throw() {
 
 
 /** Returns the SK-vsafe. */
-SUMOReal 
+SUMOReal
 MSCFModel_Krauss::_vsafe(SUMOReal gap, SUMOReal predSpeed) const throw() {
     if (predSpeed==0&&gap<0.01) {
         return 0;

@@ -68,7 +68,7 @@ MSCFModel::brakeGap(SUMOReal speed) const throw() {
        for small values of steps (up to 10 maybe) and store them in an array */
     const SUMOReal speedReduction = ACCEL2SPEED(getMaxDecel());
     const int steps = int(speed / speedReduction);
-    return SPEED2DIST(steps * speed - speedReduction * steps * (steps+1) / 2) + speed * getTau();
+    return SPEED2DIST(steps * speed - speedReduction * steps *(steps+1) / 2) + speed * getTau();
 }
 
 
