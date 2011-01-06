@@ -27,3 +27,6 @@ stop_duration
 
 # If a vehicle leaves the simulation before delivering all passengers a warning should be triggered
 ride_wrong_destination
+
+# When all vehicles have left the simulation, any remainig persons waiting for a ride should abort their plan.
+abort_impossible_ride

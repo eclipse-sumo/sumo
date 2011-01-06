@@ -75,12 +75,17 @@ public:
     /// adds a person to the list of persons waiting for a vehicle on the specified edge
     void addWaiting(const MSEdge* edge, MSPerson *person) throw();
 
-    /// checks whether a person waits for the specified vehicle and if so removes it from the list
+    /// boards any people who wait on that edge for the given vehicle and removes them from myWaiting
     bool checkWaiting(const MSEdge* edge, MSVehicle *vehicle) throw();
 
     /// checks whether any person waits to finish her plan
     bool hasPersons() const throw();
 
+    /// checks whether any person is still engaged in walking / stopping
+    bool hasPedestrians() const throw();
+
+    /// aborts the plan for any person that is still waiting for a ride
+    void abortWaiting() throw();
 
 private:
     /// all persons by id

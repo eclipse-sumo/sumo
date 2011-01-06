@@ -150,4 +150,18 @@ MSPersonControl::hasPersons() const throw() {
 }
 
 
+bool
+MSPersonControl::hasPedestrians() const throw() {
+    return !myArrivals.empty();
+}
+
+
+void 
+MSPersonControl::abortWaiting() throw() {
+    for (std::map<std::string, MSPerson*>::iterator i=myPersons.begin(); i!=myPersons.end(); ++i) {
+        WRITE_WARNING("Person " + i->first + " aborted waiting for a ride that will never come.");
+        erase(i->second);
+    }
+}
+
 /****************************************************************************/

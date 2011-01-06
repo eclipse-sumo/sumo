@@ -50,7 +50,7 @@
  * MSPerson::MSPersonStage - methods
  * ----------------------------------------------------------------------- */
 MSPerson::MSPersonStage::MSPersonStage(const MSEdge &destination)
-        : myDestination(destination), myDeparted(-1) {}
+        : myDestination(destination), myDeparted(-1), myArrived(-1) {}
 
 
 MSPerson::MSPersonStage::~MSPersonStage() {}
