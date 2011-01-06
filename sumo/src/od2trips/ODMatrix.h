@@ -118,7 +118,7 @@ public:
      * Then, for the current time step, the internal list of vehicles is sorted and
      *  all vehicles that start within this time step are written.
      *
-     * The left fraction of vehicles to emit is saved for each O/D-dependency
+     * The left fraction of vehicles to insert is saved for each O/D-dependency
      *  over time and the number of vehicles to generate is increased as soon
      *  as this value is larger than 1, decrementing it.
      *
@@ -193,7 +193,7 @@ protected:
 
     /** @brief Computes the emissions stored in the given cell and saves them in "into"
      *
-     * At first, the number of vehicles to emit is computed using the
+     * At first, the number of vehicles to insert is computed using the
      *  integer value of the vehicleNumber information from the given cell.
      *  In the case vehicleNumber has a fraction, an additional vehicle
      *  may be added in the case a chosen random number is lower than this fraction.
@@ -213,7 +213,7 @@ protected:
      * @param[out] into The storage to put generated vehicles into
      * @param[in] uniform Information whether departure times shallbe uniformly spread or random
      * @param[in] prefix A prefix for the vehicle names
-     * @return The number of left vehicles to emit
+     * @return The number of left vehicles to insert
      */
     SUMOReal computeEmissions(ODCell *cell,
                               size_t &vehName, std::vector<ODVehicle> &into, bool uniform,

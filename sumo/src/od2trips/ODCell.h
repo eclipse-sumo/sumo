@@ -40,7 +40,7 @@
  * A single cell within an O/D-matrix. Contains the information about the origin
  *  and destination via string-ids of the district, the begin and the end time
  *  for which this cell is valid, the id of the vehicle type to use, and the
- *  amount of vehicles to emit during the described interval.
+ *  amount of vehicles to insert during the described interval.
  *
  * @todo Check whether the vehicle type is used and makes sense herein
  */

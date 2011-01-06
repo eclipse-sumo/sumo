@@ -97,21 +97,21 @@ SUMOReal
 ODMatrix::computeEmissions(ODCell *cell,
                            size_t &vehName, std::vector<ODVehicle> &into,
                            bool uniform, const std::string &prefix) throw() {
-    int vehicles2emit = (int) cell->vehicleNumber;
+    int vehicles2insert = (int) cell->vehicleNumber;
     // compute whether the fraction forces an additional vehicle emission
     SUMOReal mrand = RandHelper::rand();
-    SUMOReal mprob = (SUMOReal) cell->vehicleNumber - (SUMOReal) vehicles2emit;
+    SUMOReal mprob = (SUMOReal) cell->vehicleNumber - (SUMOReal) vehicles2insert;
     if (mrand<mprob) {
-        vehicles2emit++;
+        vehicles2insert++;
     }
 
-    SUMOReal offset = (SUMOReal)(cell->end - cell->begin) / (SUMOReal) vehicles2emit / (SUMOReal) 2.;
-    for (int i=0; i<vehicles2emit; ++i) {
+    SUMOReal offset = (SUMOReal)(cell->end - cell->begin) / (SUMOReal) vehicles2insert / (SUMOReal) 2.;
+    for (int i=0; i<vehicles2insert; ++i) {
         ODVehicle veh;
         veh.id = prefix + toString(vehName++);
 
         if (uniform) {
-            veh.depart = (unsigned int)(offset + cell->begin + ((SUMOReal)(cell->end - cell->begin) * (SUMOReal) i / (SUMOReal) vehicles2emit));
+            veh.depart = (unsigned int)(offset + cell->begin + ((SUMOReal)(cell->end - cell->begin) * (SUMOReal) i / (SUMOReal) vehicles2insert));
         } else {
             veh.depart = (unsigned int) RandHelper::rand((int) cell->begin, (int) cell->end);
         }
@@ -121,7 +121,7 @@ ODMatrix::computeEmissions(ODCell *cell,
         veh.cell = cell;
         into.push_back(veh);
     }
-    return cell->vehicleNumber - vehicles2emit;
+    return cell->vehicleNumber - vehicles2insert;
 }
 
 
