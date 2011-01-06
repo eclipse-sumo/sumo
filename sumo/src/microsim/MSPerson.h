@@ -185,7 +185,6 @@ public:
 
     /**
      * A "real" stage performing a waiting over the specified time
-     * The time is not being added to the travel time?
      */
     class MSPersonStage_Waiting : public MSPersonStage {
     public:
