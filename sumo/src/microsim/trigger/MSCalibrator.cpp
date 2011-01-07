@@ -139,7 +139,8 @@ MSCalibrator::execute(SUMOTime timestep) throw(ProcessError) {
         }
 
         //make sure enough cars were deleted, only happens if BUSSES were in the set
-        myToCalibrate+diff-num_replacements;
+        // @todo what should this line have done?
+        // myToCalibrate+diff-num_replacements;
     } else if (diff < 0) {
 
         myToCalibrate = diff - ceil(diff);
