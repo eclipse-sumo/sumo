@@ -697,8 +697,7 @@ MSLane::setCritical(SUMOTime t, std::vector<MSLane*> &into) {
     if (myVehicles.size()>0) {
         if (MSGlobals::gTimeToGridlock>0
                 && !(*(myVehicles.end()-1))->isStopped()
-                &&
-                (*(myVehicles.end()-1))->getWaitingTime()>MSGlobals::gTimeToGridlock) {
+                && (*(myVehicles.end()-1))->getWaitingTime()>MSGlobals::gTimeToGridlock) {
             MSVehicle *veh = *(myVehicles.end()-1);
             myVehicleLengthSum -= veh->getVehicleType().getLength();
             myVehicles.erase(myVehicles.end()-1);
