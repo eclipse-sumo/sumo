@@ -518,7 +518,7 @@ public:
     }
 
     /** @brief Returns whether the vehicle is at a stop
-     * @return Whether the has stopped
+     * @return Whether the vehicle has stopped
      */
     bool isStopped() const;
 
