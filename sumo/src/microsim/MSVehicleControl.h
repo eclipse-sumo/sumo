@@ -226,14 +226,6 @@ public:
     bool haveAllVehiclesQuit() const throw() {
         return myLoadedVehNo==myEndedVehNo;
     }
-
-
-    /** @brief Returns the information whether all build vehicles have either been removed
-     * or need to wait for a passenger
-     */
-    bool haveAllActiveVehiclesQuit() const throw() {
-        return myLoadedVehNo==myWaitingTriggeredOnlyVehNo+myEndedVehNo;
-    }
     /// @}
 
 
@@ -337,12 +329,7 @@ public:
      */
     virtual void loadState(BinaryInputDevice &bis, const SUMOTime offset) throw();
     /// @}
-    //
-    //
 
-    /** @brief removes any vehicles that are still waiting 
-     */
-    void abortWaiting() throw();
 
 private:
     /** @brief Checks whether the vehicle type (distribution) may be added
@@ -408,9 +395,6 @@ protected:
 
     /// the lists of waiting vehicles
     std::map<const MSEdge* const, std::vector<SUMOVehicle*> > myWaiting;
-
-    /// the number of vehicles contained in myWaiting which can only continue by being triggered
-    unsigned int myWaitingTriggeredOnlyVehNo;
 
 
 private:

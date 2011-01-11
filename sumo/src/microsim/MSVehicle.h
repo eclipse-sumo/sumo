@@ -518,13 +518,9 @@ public:
     }
 
     /** @brief Returns whether the vehicle is at a stop
-     * @return Whether the vehicle has stopped
+     * @return Whether the has stopped
      */
     bool isStopped() const;
-
-    /** @return true if the vehicle is at a stop and can only continue with a passenger
-     */
-    bool isStoppedTriggeredOnly() const;
 
     /** @brief Returns whether the vehicle is parking
      * @return whether the vehicle is parking

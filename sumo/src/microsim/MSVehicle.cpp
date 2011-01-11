@@ -390,19 +390,7 @@ MSVehicle::addStop(const SUMOVehicleParameter::Stop &stopPar, SUMOTime untilOffs
 
 bool
 MSVehicle::isStopped() const {
-    return !myStops.empty() 
-        && myStops.begin()->reached 
-        && (myStops.begin()->duration>0
-            || myStops.begin()->triggered);
-}
-
-
-bool
-MSVehicle::isStoppedTriggeredOnly() const {
-    // XXX
-    return !myStops.empty() && 
-        myStops.begin()->reached && 
-        myStops.begin()->duration>0;
+    return !myStops.empty() && myStops.begin()->reached && myStops.begin()->duration>0;
 }
 
 
@@ -652,7 +640,6 @@ MSVehicle::moveFirstChecked() {
     }
 #endif
     // visit waiting time
-    // TODO: account for intentional waiting time at stops
     if (vNext<=0.1) {
         myWaitingTime += DELTA_T;
         braking = true;

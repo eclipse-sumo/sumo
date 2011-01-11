@@ -49,7 +49,7 @@
 MSVehicleControl::MSVehicleControl() throw()
         : myLoadedVehNo(0), myRunningVehNo(0), myEndedVehNo(0),
         myAbsVehWaitingTime(0), myAbsVehTravelTime(0),
-        myDefaultVTypeMayBeDeleted(true), myWaitingTriggeredOnlyVehNo(0) {
+        myDefaultVTypeMayBeDeleted(true) {
     SUMOVTypeParameter defType;
     myVTypeDict[DEFAULT_VTYPE_ID] = MSVehicleType::build(defType);
 }
@@ -258,9 +258,6 @@ MSVehicleControl::addWaiting(const MSEdge* const edge, SUMOVehicle *vehicle) thr
         myWaiting[edge] = std::vector<SUMOVehicle*>();
     }
     myWaiting[edge].push_back(vehicle);
-    if (vehicle->isStoppedTriggeredOnly()) {
-        myWaitingTriggeredOnlyVehNo++;
-    }
 }
 
 
@@ -269,9 +266,6 @@ MSVehicleControl::removeWaiting(const MSEdge* const edge, SUMOVehicle *vehicle) 
     if (myWaiting.find(edge) != myWaiting.end()) {
         std::vector<SUMOVehicle*>::iterator it = std::find(myWaiting[edge].begin(), myWaiting[edge].end(), vehicle);
         if (it != myWaiting[edge].end()) {
-            if ((*it)->isStoppedTriggeredOnly()) {
-                myWaitingTriggeredOnlyVehNo--;
-            }
             myWaiting[edge].erase(it);
         }
     }
@@ -292,11 +286,5 @@ MSVehicleControl::getWaitingVehicle(const MSEdge* const edge, const std::set<std
 }
 
 
-void
-MSVehicleControl::abortWaiting() throw() {
-    //XXX
-            // if someTriggeredVehiclesRemaining
-            // abort / warn / etc.
-}
 /****************************************************************************/
 
