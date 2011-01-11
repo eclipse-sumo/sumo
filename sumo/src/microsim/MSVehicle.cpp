@@ -611,7 +611,9 @@ MSVehicle::moveFirstChecked() {
                 vSafe = (*i).myVLinkWait;
                 braking = true;
                 lastWasGreenCont = false;
-                link->removeApproaching(this);
+                if(ls==MSLink::LINKSTATE_EQUAL) {
+                    link->removeApproaching(this);
+                }
                 break; // could be revalidated
             }
             // have waited; may pass if opened...
@@ -622,7 +624,9 @@ MSVehicle::moveFirstChecked() {
                 lastWasGreenCont = false;
                 vSafe = (*i).myVLinkWait;
                 braking = true;
-                link->removeApproaching(this);
+                if(ls==MSLink::LINKSTATE_EQUAL) {
+                    link->removeApproaching(this);
+                }
                 break;
             }
         } else {
