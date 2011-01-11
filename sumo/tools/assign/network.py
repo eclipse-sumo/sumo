@@ -428,18 +428,18 @@ class NetworkReader(handler.ContentHandler):
         self._chars += content
 
     def endElement(self, name):
-        if name == 'edge':
+        if name == 'edge' and self._edge != '':
             self._edgeObj.init(self._maxSpeed, self._length, self._laneNumber)
             self._edge = ''
-        elif name == 'key':
+        elif name == 'key' and self._edge != '':
             if self._junctionObj:
                 self._junctionObj.label = self._chars
                 self._net.addTLJunctions(self._junctionObj)
                 self._chars = ''
-        elif name == 'phaseno':
+        elif name == 'phaseno' and self._edge != '':
             self._junctionObj.phaseNum = int(self._chars)
             self._chars = ''
-        elif name == 'tl-logic':
+        elif name == 'tl-logic' and self._edge != '':
             if not self._phasenoInfo:
                 self._junctionObj.phaseNum = self._counter
             self._counter = 0
