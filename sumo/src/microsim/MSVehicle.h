@@ -362,7 +362,7 @@ public:
      * @return Whether the vehicle is simulated
      */
     inline bool isOnRoad() const throw() {
-        return myLane!=0;
+        return myAmOnNet;
     }
 
 
@@ -825,6 +825,9 @@ protected:
 
     /// @brief State of things of the vehicle that can be on or off
     int mySignals;
+
+    /// @brief Whether the vehicle is on the network (not wating, teleported, vaporized, or arrived)
+    bool myAmOnNet;
 
 
 private:

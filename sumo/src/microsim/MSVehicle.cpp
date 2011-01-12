@@ -164,7 +164,8 @@ MSVehicle::MSVehicle(SUMOVehicleParameter* pars,
         myPreDawdleAcceleration(0),
         myEdgeWeights(0),
         mySignals(0),
-        myPersonDevice(0)
+        myPersonDevice(0),
+        myAmOnNet(false)
 #ifndef NO_TRACI
         ,adaptingSpeed(false),
         isLastAdaption(false),
@@ -611,7 +612,7 @@ MSVehicle::moveFirstChecked() {
                 vSafe = (*i).myVLinkWait;
                 braking = true;
                 lastWasGreenCont = false;
-                if(ls==MSLink::LINKSTATE_EQUAL) {
+                if (ls==MSLink::LINKSTATE_EQUAL) {
                     link->removeApproaching(this);
                 }
                 break; // could be revalidated
@@ -624,7 +625,7 @@ MSVehicle::moveFirstChecked() {
                 lastWasGreenCont = false;
                 vSafe = (*i).myVLinkWait;
                 braking = true;
-                if(ls==MSLink::LINKSTATE_EQUAL) {
+                if (ls==MSLink::LINKSTATE_EQUAL) {
                     link->removeApproaching(this);
                 }
                 break;
@@ -1023,6 +1024,7 @@ MSVehicle::getPosition() const {
 
 bool
 MSVehicle::enterLaneAtMove(MSLane* enteredLane, bool onTeleporting) {
+    myAmOnNet = true;
     // vaporizing edge?
     if (enteredLane->getEdge().isVaporizing()) {
         // yep, let's do the vaporization...
@@ -1054,6 +1056,7 @@ MSVehicle::enterLaneAtMove(MSLane* enteredLane, bool onTeleporting) {
 
 void
 MSVehicle::enterLaneAtLaneChange(MSLane* enteredLane) {
+    myAmOnNet = true;
 #ifdef _MESSAGES
     if (myLCMsgEmitter!=0) {
         SUMOReal timeStep = MSNet::getInstance()->getCurrentTimeStep();
@@ -1113,6 +1116,7 @@ MSVehicle::enterLaneAtEmit(MSLane* enteredLane, SUMOReal pos, SUMOReal speed) {
     if (!hasValidRoute(msg)) {
         throw ProcessError("Vehicle '" + getID() + "' has no valid route. " + msg);
     }
+    myAmOnNet = true;
     // build the list of lanes the vehicle is lapping into
     SUMOReal leftLength = myType->getLength() - pos;
     MSLane *clane = enteredLane;
@@ -1141,6 +1145,9 @@ MSVehicle::leaveLane(const MSMoveReminder::Notification reason) {
             (*i)->resetPartialOccupation(this);
         }
         myFurtherLanes.clear();
+    }
+    if (reason>=MSMoveReminder::NOTIFICATION_TELEPORT) {
+        myAmOnNet = false;
     }
 }
 
