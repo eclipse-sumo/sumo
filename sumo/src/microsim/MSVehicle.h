@@ -742,6 +742,7 @@ public:
 protected:
 
     void checkRewindLinkLanes(SUMOReal lengthsInFront) throw();
+    SUMOReal getSpaceTillLastStanding(MSLane *l, bool &foundStopped) throw();
 
     /// @name Interaction with move reminders
     ///@{

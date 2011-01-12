@@ -754,6 +754,24 @@ MSVehicle::moveFirstChecked() {
 }
 
 
+SUMOReal
+MSVehicle::getSpaceTillLastStanding(MSLane *l, bool &foundStopped) throw() {
+    SUMOReal lengths = 0;
+    const MSLane::VehCont &vehs = l->getVehiclesSecure();
+    for (MSLane::VehCont::const_iterator i=vehs.begin(); i!=vehs.end(); ++i) {
+        if ((*i)->getSpeed()<.1) {
+            foundStopped = true;
+            SUMOReal ret = (*i)->getPositionOnLane() - (*i)->getVehicleType().getLength() - lengths;
+            l->releaseVehicles();
+            return ret;
+        }
+        lengths += (*i)->getVehicleType().getLength();
+    }
+    l->releaseVehicles();
+    return l->getLength() - lengths;
+}
+
+
 void
 MSVehicle::checkRewindLinkLanes(SUMOReal lengthsInFront) throw() {
 #ifdef DEBUG_VEHICLE_GUI_SELECTION
@@ -772,11 +790,12 @@ MSVehicle::checkRewindLinkLanes(SUMOReal lengthsInFront) throw() {
 
         std::vector<SUMOReal> availableSpace;
         std::vector<bool> hadVehicles;
+        bool foundStopped = false;
 
         for (unsigned int i=0; i<myLFLinkLanes.size(); ++i) {
             // skip unset links
             DriveProcessItem &item = myLFLinkLanes[i];
-            if (item.myLink==0) {
+            if (item.myLink==0||foundStopped) {
                 availableSpace.push_back(seenSpace);
                 hadVehicles.push_back(hadVehicle);
                 continue;
@@ -788,7 +807,7 @@ MSVehicle::checkRewindLinkLanes(SUMOReal lengthsInFront) throw() {
                     seenSpace = seenSpace - approachedLane->getVehLenSum();
                     hadVehicle |= approachedLane->getVehicleNumber()!=0;
                 } else {
-                    seenSpace = seenSpace - approachedLane->getVehLenSum() + approachedLane->getLength();
+                    seenSpace = seenSpace + getSpaceTillLastStanding(approachedLane, foundStopped);// - approachedLane->getVehLenSum() + approachedLane->getLength();
                     hadVehicle |= approachedLane->getVehicleNumber()!=0;
                 }
                 availableSpace.push_back(seenSpace);
@@ -803,10 +822,16 @@ MSVehicle::checkRewindLinkLanes(SUMOReal lengthsInFront) throw() {
                     SUMOReal m = MAX2(seenSpace, seenSpace + approachedLane->getPartialOccupatorEnd() + last->getCarFollowModel().brakeGap(last->getSpeed()));
                     availableSpace.push_back(m);
                     hadVehicle = true;
-                    seenSpace = seenSpace - approachedLane->getVehLenSum() + approachedLane->getLength();
+                    seenSpace = seenSpace + getSpaceTillLastStanding(approachedLane, foundStopped);// - approachedLane->getVehLenSum() + approachedLane->getLength();
                 } else {
-                    seenSpace = seenSpace - approachedLane->getVehLenSum() + approachedLane->getLength();
-                    availableSpace.push_back(seenSpace);
+//                    seenSpace = seenSpace - approachedLane->getVehLenSum() + approachedLane->getLength();
+//                    availableSpace.push_back(seenSpace);
+                    availableSpace.push_back(seenSpace + getSpaceTillLastStanding(approachedLane, foundStopped));
+                    if (!foundStopped) {
+                        seenSpace = seenSpace - approachedLane->getVehLenSum() + approachedLane->getLength();
+                    } else {
+                        seenSpace = availableSpace.back();
+                    }
                 }
             } else {
                 if (last->signalSet(VEH_SIGNAL_BRAKELIGHT)) {
@@ -814,10 +839,16 @@ MSVehicle::checkRewindLinkLanes(SUMOReal lengthsInFront) throw() {
                     SUMOReal lastGap = last->getPositionOnLane() - last->getVehicleType().getLength() + lastBrakeGap - last->getSpeed()*last->getCarFollowModel().getTau();
                     SUMOReal m = MAX2(seenSpace, seenSpace + lastGap);
                     availableSpace.push_back(m);
-                    seenSpace = seenSpace - approachedLane->getVehLenSum() + approachedLane->getLength();
+                    seenSpace = seenSpace + getSpaceTillLastStanding(approachedLane, foundStopped);// - approachedLane->getVehLenSum() + approachedLane->getLength();
                 } else {
-                    seenSpace = seenSpace - approachedLane->getVehLenSum() + approachedLane->getLength();
-                    availableSpace.push_back(seenSpace);
+//                    seenSpace = seenSpace - approachedLane->getVehLenSum() + approachedLane->getLength();
+//                    availableSpace.push_back(seenSpace);
+                    availableSpace.push_back(seenSpace + getSpaceTillLastStanding(approachedLane, foundStopped));
+                    if (!foundStopped) {
+                        seenSpace = seenSpace - approachedLane->getVehLenSum() + approachedLane->getLength();
+                    } else {
+                        seenSpace = availableSpace.back();
+                    }
                 }
                 hadVehicle = true;
             }
