@@ -31,6 +31,10 @@
         <expand-weights value="false"/>
         <gBeta value="0.3"/>
         <gA value="0.05"/>
+        <keep-all-routes value="false"/>
+        <logit value="false"/>
+        <lBeta value="0.15"/>
+        <lGamma value="1"/>
     </processing>
 
     <defaults>

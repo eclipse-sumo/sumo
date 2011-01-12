@@ -1,26 +1,28 @@
 <?xml version="1.0"?>
 
-<!-- generated on Sun Jul 26 12:00:51 2009 by SUMO netconvert Version dev-SVN-r7516
-<configuration>
+<!-- generated on 01/12/11 13:07:02 by SUMO netconvert Version dev-SVN-r9534
+<?xml version="1.0" encoding="iso-8859-1"?>
 
-    <input
-        xml-node-files="./dfrouter/messstrecke.nod.xml"
-        xml-edge-files="./dfrouter/messstrecke.edg.xml"
-        xml-connection-files="./dfrouter/messstrecke.con.xml"
-    />
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
 
-    <output
-        output-file="./dfrouter/input_messstrecke.net.xml"
-    />
+    <input>
+        <xml-node-files value="./dfrouter/messstrecke.nod.xml"/>
+        <xml-edge-files value="./dfrouter/messstrecke.edg.xml"/>
+        <xml-connection-files value="./dfrouter/messstrecke.con.xml"/>
+    </input>
 
-    <processing
-        no-turnarounds="true"
-        no-internal-links="true"
-    />
+    <output>
+        <output-file value="./dfrouter/input_messstrecke.net.xml"/>
+    </output>
 
-    <report
-        verbose="true"
-    />
+    <processing>
+        <no-turnarounds value="true"/>
+        <no-internal-links value="true"/>
+    </processing>
+
+    <report>
+        <verbose value="true"/>
+    </report>
 
 </configuration>
 -->
@@ -29,82 +31,69 @@
 
    <location netOffset="100.00,200.00" convBoundary="0.00,0.00,2125.42,400.00" origBoundary="-100.00,-200.00,2025.42,200.00" projParameter="!"/>
 
-
    <edge id="AltglienickerBreitN" from="AltglienickerBreit" to="ErnstRuskaAltglienicker" priority="-1" type="" function="normal">
       <lanes>
          <lane id="AltglienickerBreitN_0" depart="1" maxspeed="14.00" length="10.45" shape="1913.42,181.50 1913.42,191.95"/>
          <lane id="AltglienickerBreitN_1" depart="0" maxspeed="14.00" length="10.45" shape="1910.12,181.50 1910.12,191.95"/>
       </lanes>
    </edge>
-
    <edge id="AltglienickerBreitS" from="ErnstRuskaAltglienicker" to="AltglienickerBreit" priority="-1" type="" function="normal">
       <lanes>
          <lane id="AltglienickerBreitS_0" depart="1" maxspeed="14.00" length="10.45" shape="1906.82,191.95 1906.82,181.50"/>
       </lanes>
    </edge>
-
    <edge id="AltglienickerN" from="AltglienickerEnd" to="AltglienickerBreit" priority="-1" type="" function="normal">
       <lanes>
          <lane id="AltglienickerN_0" depart="1" maxspeed="14.00" length="78.50" shape="1910.12,100.00 1910.12,178.50"/>
       </lanes>
    </edge>
-
    <edge id="AltglienickerS" from="AltglienickerBreit" to="AltglienickerEnd" priority="-1" type="" function="normal">
       <lanes>
          <lane id="AltglienickerS_0" depart="1" maxspeed="14.00" length="78.50" shape="1906.82,178.50 1906.82,100.00"/>
       </lanes>
    </edge>
-
    <edge id="AltglienickerSinkN" from="AltglienickerSinkEnd" to="AltglienickerEnd" priority="-1" type="" function="normal">
       <lanes>
          <lane id="AltglienickerSinkN_0" depart="1" maxspeed="14.00" length="100.00" shape="1910.12,0.00 1910.12,100.00"/>
       </lanes>
    </edge>
-
    <edge id="AltglienickerSinkS" from="AltglienickerEnd" to="AltglienickerSinkEnd" priority="-1" type="" function="normal">
       <lanes>
          <lane id="AltglienickerSinkS_0" depart="1" maxspeed="14.00" length="100.00" shape="1906.82,100.00 1906.82,0.00"/>
       </lanes>
    </edge>
-
    <edge id="EinsteinN" from="ErnstRuskaEinstein" to="EinsteinEnd" priority="-1" type="" function="normal">
       <lanes>
          <lane id="EinsteinN_0" depart="1" maxspeed="14.00" length="91.95" shape="296.56,208.05 296.56,300.00"/>
       </lanes>
    </edge>
-
    <edge id="EinsteinS" from="EinsteinEnd" to="ErnstRuskaEinstein" priority="-1" type="" function="normal">
       <lanes>
          <lane id="EinsteinS_0" depart="1" maxspeed="14.00" length="91.95" shape="293.26,300.00 293.26,208.05"/>
       </lanes>
    </edge>
-
    <edge id="EinsteinSinkN" from="EinsteinEnd" to="EinsteinSinkEnd" priority="-1" type="" function="normal">
       <lanes>
          <lane id="EinsteinSinkN_0" depart="1" maxspeed="14.00" length="100.00" shape="296.56,300.00 296.56,400.00"/>
       </lanes>
    </edge>
-
    <edge id="EinsteinSinkS" from="EinsteinSinkEnd" to="EinsteinEnd" priority="-1" type="" function="normal">
       <lanes>
          <lane id="EinsteinSinkS_0" depart="1" maxspeed="14.00" length="100.00" shape="293.26,400.00 293.26,300.00"/>
       </lanes>
    </edge>
-
    <edge id="ErnstRuska1O" from="ErnstRuskaEnd1" to="ErnstRuskaEinstein" priority="1" type="" function="normal">
       <lanes>
-         <lane id="ErnstRuska1O_0" depart="1" maxspeed="19.00" length="190.16" shape="100.00,195.05 290.16,195.05"/>
-         <lane id="ErnstRuska1O_1" depart="0" maxspeed="19.00" length="190.16" shape="100.00,198.35 290.16,198.35"/>
+         <lane id="ErnstRuska1O_0" depart="1" maxspeed="19.00" length="190.17" shape="100.00,195.05 290.17,195.05"/>
+         <lane id="ErnstRuska1O_1" depart="0" maxspeed="19.00" length="190.17" shape="100.00,198.35 290.17,198.35"/>
       </lanes>
    </edge>
-
    <edge id="ErnstRuska1W" from="ErnstRuskaEinstein" to="ErnstRuskaEnd1" priority="1" type="" function="normal">
       <lanes>
-         <lane id="ErnstRuska1W_0" depart="1" maxspeed="19.00" length="190.16" shape="290.16,204.95 100.00,204.95"/>
-         <lane id="ErnstRuska1W_1" depart="0" maxspeed="19.00" length="190.16" shape="290.16,201.65 100.00,201.65"/>
+         <lane id="ErnstRuska1W_0" depart="1" maxspeed="19.00" length="190.17" shape="290.17,204.95 100.00,204.95"/>
+         <lane id="ErnstRuska1W_1" depart="0" maxspeed="19.00" length="190.17" shape="290.17,201.65 100.00,201.65"/>
       </lanes>
    </edge>
-
    <edge id="ErnstRuska231O" from="ErnstRuskaHavestadtDiv1" to="ErnstRuskaHavestadt" priority="1" type="" function="normal">
       <lanes>
          <lane id="ErnstRuska231O_0" depart="1" maxspeed="19.00" length="20.45" shape="986.75,191.75 1007.20,191.75"/>
@@ -112,14 +101,12 @@
          <lane id="ErnstRuska231O_2" depart="0" maxspeed="19.00" length="20.45" shape="986.75,198.35 1007.20,198.35"/>
       </lanes>
    </edge>
-
    <edge id="ErnstRuska231W" from="ErnstRuskaHavestadt" to="ErnstRuskaHavestadtDiv1" priority="1" type="" function="normal">
       <lanes>
          <lane id="ErnstRuska231W_0" depart="1" maxspeed="19.00" length="20.45" shape="1007.20,204.95 986.75,204.95"/>
          <lane id="ErnstRuska231W_1" depart="0" maxspeed="19.00" length="20.45" shape="1007.20,201.65 986.75,201.65"/>
       </lanes>
    </edge>
-
    <edge id="ErnstRuska232O" from="ErnstRuskaHavestadt" to="ErnstRuskaHavestadtDiv2" priority="1" type="" function="normal">
       <lanes>
          <lane id="ErnstRuska232O_0" depart="1" maxspeed="19.00" length="20.45" shape="1023.30,191.75 1043.75,191.75"/>
@@ -127,63 +114,54 @@
          <lane id="ErnstRuska232O_2" depart="0" maxspeed="19.00" length="20.45" shape="1023.30,198.35 1043.75,198.35"/>
       </lanes>
    </edge>
-
    <edge id="ErnstRuska232W" from="ErnstRuskaHavestadtDiv2" to="ErnstRuskaHavestadt" priority="1" type="" function="normal">
       <lanes>
          <lane id="ErnstRuska232W_0" depart="1" maxspeed="19.00" length="20.45" shape="1043.75,204.95 1023.30,204.95"/>
          <lane id="ErnstRuska232W_1" depart="0" maxspeed="19.00" length="20.45" shape="1043.75,201.65 1023.30,201.65"/>
       </lanes>
    </edge>
-
    <edge id="ErnstRuska2O" from="ErnstRuskaEinstein" to="ErnstRuskaHavestadtDiv1" priority="1" type="" function="normal">
       <lanes>
-         <lane id="ErnstRuska2O_0" depart="1" maxspeed="19.00" length="684.09" shape="299.66,195.05 983.75,195.05"/>
-         <lane id="ErnstRuska2O_1" depart="0" maxspeed="19.00" length="684.09" shape="299.66,198.35 983.75,198.35"/>
+         <lane id="ErnstRuska2O_0" depart="1" maxspeed="19.00" length="684.08" shape="299.67,195.05 983.75,195.05"/>
+         <lane id="ErnstRuska2O_1" depart="0" maxspeed="19.00" length="684.08" shape="299.67,198.35 983.75,198.35"/>
       </lanes>
    </edge>
-
    <edge id="ErnstRuska2W" from="ErnstRuskaHavestadtDiv1" to="ErnstRuskaEinstein" priority="1" type="" function="normal">
       <lanes>
-         <lane id="ErnstRuska2W_0" depart="1" maxspeed="19.00" length="684.09" shape="983.75,204.95 299.66,204.95"/>
-         <lane id="ErnstRuska2W_1" depart="0" maxspeed="19.00" length="684.09" shape="983.75,201.65 299.66,201.65"/>
+         <lane id="ErnstRuska2W_0" depart="1" maxspeed="19.00" length="684.08" shape="983.75,204.95 299.67,204.95"/>
+         <lane id="ErnstRuska2W_1" depart="0" maxspeed="19.00" length="684.08" shape="983.75,201.65 299.67,201.65"/>
       </lanes>
    </edge>
-
    <edge id="ErnstRuska3O" from="ErnstRuskaHavestadtDiv2" to="ErnstRuskaVolmer" priority="1" type="" function="normal">
       <lanes>
          <lane id="ErnstRuska3O_0" depart="1" maxspeed="19.00" length="533.25" shape="1046.75,195.05 1580.00,195.05"/>
          <lane id="ErnstRuska3O_1" depart="0" maxspeed="19.00" length="533.25" shape="1046.75,198.35 1580.00,198.35"/>
       </lanes>
    </edge>
-
    <edge id="ErnstRuska3W" from="ErnstRuskaVolmer" to="ErnstRuskaHavestadtDiv2" priority="1" type="" function="normal">
       <lanes>
          <lane id="ErnstRuska3W_0" depart="1" maxspeed="19.00" length="533.25" shape="1580.00,204.95 1046.75,204.95"/>
          <lane id="ErnstRuska3W_1" depart="0" maxspeed="19.00" length="533.25" shape="1580.00,201.65 1046.75,201.65"/>
       </lanes>
    </edge>
-
    <edge id="ErnstRuska4O" from="ErnstRuskaVolmer" to="ErnstRuskaAltglienicker" priority="1" type="" function="normal">
       <lanes>
          <lane id="ErnstRuska4O_0" depart="1" maxspeed="19.00" length="314.22" shape="1589.50,195.05 1903.72,195.05"/>
          <lane id="ErnstRuska4O_1" depart="0" maxspeed="19.00" length="314.22" shape="1589.50,198.35 1903.72,198.35"/>
       </lanes>
    </edge>
-
    <edge id="ErnstRuska4W" from="ErnstRuskaAltglienicker" to="ErnstRuskaVolmer" priority="1" type="" function="normal">
       <lanes>
          <lane id="ErnstRuska4W_0" depart="1" maxspeed="19.00" length="314.22" shape="1903.72,204.95 1589.50,204.95"/>
          <lane id="ErnstRuska4W_1" depart="0" maxspeed="19.00" length="314.22" shape="1903.72,201.65 1589.50,201.65"/>
       </lanes>
    </edge>
-
    <edge id="ErnstRuska5O" from="ErnstRuskaAltglienicker" to="ErnstRuskaEnd2" priority="1" type="" function="normal">
       <lanes>
          <lane id="ErnstRuska5O_0" depart="1" maxspeed="19.00" length="107.40" shape="1916.52,195.05 2023.92,195.05"/>
          <lane id="ErnstRuska5O_1" depart="0" maxspeed="19.00" length="107.40" shape="1916.52,198.35 2023.92,198.35"/>
       </lanes>
    </edge>
-
    <edge id="ErnstRuska5W" from="ErnstRuskaEnd2" to="ErnstRuskaAltglienicker" priority="1" type="" function="normal">
       <lanes>
          <lane id="ErnstRuska5W_0" depart="1" maxspeed="19.00" length="107.40" shape="2023.92,208.25 1916.52,208.25"/>
@@ -191,87 +169,74 @@
          <lane id="ErnstRuska5W_2" depart="0" maxspeed="19.00" length="107.40" shape="2023.92,201.65 1916.52,201.65"/>
       </lanes>
    </edge>
-
    <edge id="ErnstRuskaSink1O" from="ErnstRuskaSink1" to="ErnstRuskaEnd1" priority="1" type="" function="normal">
       <lanes>
          <lane id="ErnstRuskaSink1O_0" depart="1" maxspeed="19.00" length="100.00" shape="0.00,195.05 100.00,195.05"/>
          <lane id="ErnstRuskaSink1O_1" depart="0" maxspeed="19.00" length="100.00" shape="0.00,198.35 100.00,198.35"/>
       </lanes>
    </edge>
-
    <edge id="ErnstRuskaSink1W" from="ErnstRuskaEnd1" to="ErnstRuskaSink1" priority="1" type="" function="normal">
       <lanes>
          <lane id="ErnstRuskaSink1W_0" depart="1" maxspeed="19.00" length="100.00" shape="100.00,204.95 0.00,204.95"/>
          <lane id="ErnstRuskaSink1W_1" depart="0" maxspeed="19.00" length="100.00" shape="100.00,201.65 0.00,201.65"/>
       </lanes>
    </edge>
-
    <edge id="ErnstRuskaSink5O" from="ErnstRuskaEnd2" to="ErnstRuskaSink2" priority="1" type="" function="normal">
       <lanes>
          <lane id="ErnstRuskaSink5O_0" depart="1" maxspeed="19.00" length="98.50" shape="2026.92,195.05 2125.42,195.05"/>
          <lane id="ErnstRuskaSink5O_1" depart="0" maxspeed="19.00" length="98.50" shape="2026.92,198.35 2125.42,198.35"/>
       </lanes>
    </edge>
-
    <edge id="ErnstRuskaSink5W" from="ErnstRuskaSink2" to="ErnstRuskaEnd2" priority="1" type="" function="normal">
       <lanes>
          <lane id="ErnstRuskaSink5W_0" depart="1" maxspeed="19.00" length="98.50" shape="2125.42,204.95 2026.92,204.95"/>
          <lane id="ErnstRuskaSink5W_1" depart="0" maxspeed="19.00" length="98.50" shape="2125.42,201.65 2026.92,201.65"/>
       </lanes>
    </edge>
-
    <edge id="HavestadtN" from="ErnstRuskaHavestadt" to="HavestadtEnd" priority="-1" type="" function="normal">
       <lanes>
          <lane id="HavestadtN_0" depart="1" maxspeed="14.00" length="91.95" shape="1020.20,208.05 1020.20,300.00"/>
          <lane id="HavestadtN_1" depart="0" maxspeed="14.00" length="91.95" shape="1016.90,208.05 1016.90,300.00"/>
       </lanes>
    </edge>
-
    <edge id="HavestadtS" from="HavestadtEnd" to="ErnstRuskaHavestadt" priority="-1" type="" function="normal">
       <lanes>
          <lane id="HavestadtS_0" depart="1" maxspeed="14.00" length="91.95" shape="1010.30,300.00 1010.30,208.05"/>
          <lane id="HavestadtS_1" depart="0" maxspeed="14.00" length="91.95" shape="1013.60,300.00 1013.60,208.05"/>
       </lanes>
    </edge>
-
    <edge id="HavestadtSinkN" from="HavestadtEnd" to="HavestadtSinkEnd" priority="-1" type="" function="normal">
       <lanes>
          <lane id="HavestadtSinkN_0" depart="1" maxspeed="14.00" length="100.00" shape="1020.20,300.00 1020.20,400.00"/>
          <lane id="HavestadtSinkN_1" depart="0" maxspeed="14.00" length="100.00" shape="1016.90,300.00 1016.90,400.00"/>
       </lanes>
    </edge>
-
    <edge id="HavestadtSinkS" from="HavestadtSinkEnd" to="HavestadtEnd" priority="-1" type="" function="normal">
       <lanes>
          <lane id="HavestadtSinkS_0" depart="1" maxspeed="14.00" length="100.00" shape="1010.30,400.00 1010.30,300.00"/>
          <lane id="HavestadtSinkS_1" depart="0" maxspeed="14.00" length="100.00" shape="1013.60,400.00 1013.60,300.00"/>
       </lanes>
    </edge>
-
    <edge id="VolmerN" from="ErnstRuskaVolmer" to="VolmerEnd" priority="-1" type="" function="normal">
       <lanes>
          <lane id="VolmerN_0" depart="1" maxspeed="14.00" length="91.95" shape="1586.40,208.05 1586.40,300.00"/>
       </lanes>
    </edge>
-
    <edge id="VolmerS" from="VolmerEnd" to="ErnstRuskaVolmer" priority="-1" type="" function="normal">
       <lanes>
          <lane id="VolmerS_0" depart="1" maxspeed="14.00" length="91.95" shape="1583.10,300.00 1583.10,208.05"/>
       </lanes>
    </edge>
-
    <edge id="VolmerSinkN" from="VolmerEnd" to="VolmerSinkEnd" priority="-1" type="" function="normal">
       <lanes>
          <lane id="VolmerSinkN_0" depart="1" maxspeed="14.00" length="100.00" shape="1586.40,300.00 1586.40,400.00"/>
       </lanes>
    </edge>
-
    <edge id="VolmerSinkS" from="VolmerSinkEnd" to="VolmerEnd" priority="-1" type="" function="normal">
       <lanes>
          <lane id="VolmerSinkS_0" depart="1" maxspeed="14.00" length="100.00" shape="1583.10,400.00 1583.10,300.00"/>
       </lanes>
    </edge>
-
 
    <row-logic id="AltglienickerBreit" requestSize="3" laneNumber="2">
       <logic>
@@ -280,33 +245,28 @@
          <logicitem request="2" response="000" foes="000"/>
       </logic>
    </row-logic>
-
    <row-logic id="AltglienickerEnd" requestSize="2" laneNumber="2">
       <logic>
          <logicitem request="0" response="00" foes="00"/>
          <logicitem request="1" response="00" foes="00"/>
       </logic>
    </row-logic>
-
    <row-logic id="AltglienickerSinkEnd" requestSize="1" laneNumber="1">
       <logic>
          <logicitem request="0" response="1" foes="0"/>
       </logic>
    </row-logic>
-
    <row-logic id="EinsteinEnd" requestSize="2" laneNumber="2">
       <logic>
          <logicitem request="0" response="00" foes="00"/>
          <logicitem request="1" response="00" foes="00"/>
       </logic>
    </row-logic>
-
    <row-logic id="EinsteinSinkEnd" requestSize="1" laneNumber="1">
       <logic>
          <logicitem request="0" response="1" foes="0"/>
       </logic>
    </row-logic>
-
    <row-logic id="ErnstRuskaAltglienicker" requestSize="8" laneNumber="7">
       <logic>
          <logicitem request="0" response="00000000" foes="00010000"/>
@@ -319,7 +279,6 @@
          <logicitem request="7" response="00011100" foes="00011100"/>
       </logic>
    </row-logic>
-
    <row-logic id="ErnstRuskaEinstein" requestSize="8" laneNumber="5">
       <logic>
          <logicitem request="0" response="00011000" foes="00011000"/>
@@ -332,7 +291,6 @@
          <logicitem request="7" response="00011100" foes="00011110"/>
       </logic>
    </row-logic>
-
    <row-logic id="ErnstRuskaEnd1" requestSize="4" laneNumber="4">
       <logic>
          <logicitem request="0" response="0000" foes="0000"/>
@@ -341,7 +299,6 @@
          <logicitem request="3" response="0000" foes="0000"/>
       </logic>
    </row-logic>
-
    <row-logic id="ErnstRuskaEnd2" requestSize="5" laneNumber="4">
       <logic>
          <logicitem request="0" response="00000" foes="00000"/>
@@ -351,7 +308,6 @@
          <logicitem request="4" response="00000" foes="00000"/>
       </logic>
    </row-logic>
-
    <row-logic id="ErnstRuskaHavestadt" requestSize="9" laneNumber="7">
       <logic>
          <logicitem request="0" response="000000000" foes="000110000"/>
@@ -365,7 +321,6 @@
          <logicitem request="8" response="000000000" foes="000111110"/>
       </logic>
    </row-logic>
-
    <row-logic id="ErnstRuskaHavestadtDiv1" requestSize="5" laneNumber="4">
       <logic>
          <logicitem request="0" response="00000" foes="00000"/>
@@ -375,7 +330,6 @@
          <logicitem request="4" response="00000" foes="00000"/>
       </logic>
    </row-logic>
-
    <row-logic id="ErnstRuskaHavestadtDiv2" requestSize="5" laneNumber="5">
       <logic>
          <logicitem request="0" response="00000" foes="00000"/>
@@ -385,21 +339,18 @@
          <logicitem request="4" response="11111" foes="00000"/>
       </logic>
    </row-logic>
-
    <row-logic id="ErnstRuskaSink1" requestSize="2" laneNumber="2">
       <logic>
          <logicitem request="0" response="11" foes="00"/>
          <logicitem request="1" response="11" foes="00"/>
       </logic>
    </row-logic>
-
    <row-logic id="ErnstRuskaSink2" requestSize="2" laneNumber="2">
       <logic>
          <logicitem request="0" response="11" foes="00"/>
          <logicitem request="1" response="11" foes="00"/>
       </logic>
    </row-logic>
-
    <row-logic id="ErnstRuskaVolmer" requestSize="8" laneNumber="5">
       <logic>
          <logicitem request="0" response="00011000" foes="00011000"/>
@@ -412,7 +363,6 @@
          <logicitem request="7" response="00011100" foes="00011110"/>
       </logic>
    </row-logic>
-
    <row-logic id="HavestadtEnd" requestSize="4" laneNumber="4">
       <logic>
          <logicitem request="0" response="0000" foes="0000"/>
@@ -421,27 +371,23 @@
          <logicitem request="3" response="0000" foes="0000"/>
       </logic>
    </row-logic>
-
    <row-logic id="HavestadtSinkEnd" requestSize="2" laneNumber="2">
       <logic>
          <logicitem request="0" response="11" foes="00"/>
          <logicitem request="1" response="11" foes="00"/>
       </logic>
    </row-logic>
-
    <row-logic id="VolmerEnd" requestSize="2" laneNumber="2">
       <logic>
          <logicitem request="0" response="00" foes="00"/>
          <logicitem request="1" response="00" foes="00"/>
       </logic>
    </row-logic>
-
    <row-logic id="VolmerSinkEnd" requestSize="1" laneNumber="1">
       <logic>
          <logicitem request="0" response="1" foes="0"/>
       </logic>
    </row-logic>
-
 
    <tl-logic id="ErnstRuskaAltglienicker" type="static" programID="0" offset="0">
       <phase duration="31" state="GGGrrggg"/>
@@ -452,305 +398,223 @@
       <phase duration="6" state="rrryyyrr"/>
    </tl-logic>
 
-
    <junction id="AltglienickerBreit" type="priority" x="1908.47" y="180.00" incLanes="AltglienickerBreitS_0 AltglienickerN_0" intLanes="" shape="1905.22,181.50 1915.02,181.50 1911.72,178.50 1905.22,178.50"/>
-
    <junction id="AltglienickerEnd" type="priority" x="1908.47" y="100.00" incLanes="AltglienickerS_0 AltglienickerSinkN_0" intLanes="" shape="1905.22,100.00 1911.72,100.00 1905.22,100.00"/>
-
-   <junction id="AltglienickerSinkEnd" type="priority" x="1908.47" y="0.00" incLanes="AltglienickerSinkS_0" intLanes="" shape="1908.52,-0.00 1911.72,-0.00 1905.22,0.00 1908.42,0.00"/>
-
+   <junction id="AltglienickerSinkEnd" type="priority" x="1908.47" y="0.00" incLanes="AltglienickerSinkS_0" intLanes="" shape="1908.52,0.00 1911.72,0.00 1905.22,-0.00 1908.42,-0.00"/>
    <junction id="EinsteinEnd" type="priority" x="294.91" y="300.00" incLanes="EinsteinSinkS_0 EinsteinN_0" intLanes="" shape="291.66,300.00 298.16,300.00 291.66,300.00"/>
-
    <junction id="EinsteinSinkEnd" type="priority" x="294.91" y="400.00" incLanes="EinsteinSinkN_0" intLanes="" shape="294.86,400.00 291.66,400.00 298.16,400.00 294.96,400.00"/>
-
    <junction id="ErnstRuskaAltglienicker" type="priority" x="1908.47" y="200.00" incLanes="ErnstRuska5W_0 ErnstRuska5W_1 ErnstRuska5W_2 AltglienickerBreitN_0 AltglienickerBreitN_1 ErnstRuska4O_0 ErnstRuska4O_1" intLanes="" shape="1916.52,209.85 1916.52,193.45 1915.02,191.95 1905.22,191.95 1903.72,193.45 1903.72,206.55"/>
-
-   <junction id="ErnstRuskaEinstein" type="priority" x="294.91" y="200.00" incLanes="EinsteinS_0 ErnstRuska2W_0 ErnstRuska2W_1 ErnstRuska1O_0 ErnstRuska1O_1" intLanes="" shape="291.66,208.05 298.16,208.05 299.66,206.55 299.66,193.45 290.16,193.45 290.16,206.55"/>
-
+   <junction id="ErnstRuskaEinstein" type="priority" x="294.91" y="200.00" incLanes="EinsteinS_0 ErnstRuska2W_0 ErnstRuska2W_1 ErnstRuska1O_0 ErnstRuska1O_1" intLanes="" shape="291.66,208.05 298.16,208.05 299.67,206.55 299.67,193.45 290.17,193.45 290.17,206.55"/>
    <junction id="ErnstRuskaEnd1" type="priority" x="100.00" y="200.00" incLanes="ErnstRuska1W_0 ErnstRuska1W_1 ErnstRuskaSink1O_0 ErnstRuskaSink1O_1" intLanes="" shape="100.00,206.55 100.00,193.45 100.00,206.55"/>
-
    <junction id="ErnstRuskaEnd2" type="priority" x="2025.42" y="200.00" incLanes="ErnstRuskaSink5W_0 ErnstRuskaSink5W_1 ErnstRuska5O_0 ErnstRuska5O_1" intLanes="" shape="2026.92,206.55 2026.92,193.45 2023.92,193.45 2023.92,209.85"/>
-
    <junction id="ErnstRuskaHavestadt" type="priority" x="1015.25" y="200.00" incLanes="HavestadtS_0 HavestadtS_1 ErnstRuska232W_0 ErnstRuska232W_1 ErnstRuska231O_0 ErnstRuska231O_1 ErnstRuska231O_2" intLanes="" shape="1008.70,208.05 1021.80,208.05 1023.30,206.55 1023.30,190.15 1007.20,190.15 1007.20,206.55"/>
-
    <junction id="ErnstRuskaHavestadtDiv1" type="priority" x="985.25" y="200.00" incLanes="ErnstRuska231W_0 ErnstRuska231W_1 ErnstRuska2O_0 ErnstRuska2O_1" intLanes="" shape="986.75,206.55 986.75,190.15 983.75,193.45 983.75,206.55"/>
-
    <junction id="ErnstRuskaHavestadtDiv2" type="priority" x="1045.25" y="200.00" incLanes="ErnstRuska3W_0 ErnstRuska3W_1 ErnstRuska232O_0 ErnstRuska232O_1 ErnstRuska232O_2" intLanes="" shape="1046.75,206.55 1046.75,193.45 1043.75,190.15 1043.75,206.55"/>
-
-   <junction id="ErnstRuskaSink1" type="priority" x="0.00" y="200.00" incLanes="ErnstRuskaSink1W_0 ErnstRuskaSink1W_1" intLanes="" shape="-0.00,199.95 -0.00,193.45 0.00,206.55 0.00,200.05"/>
-
+   <junction id="ErnstRuskaSink1" type="priority" x="0.00" y="200.00" incLanes="ErnstRuskaSink1W_0 ErnstRuskaSink1W_1" intLanes="" shape="0.00,199.95 0.00,193.45 -0.00,206.55 -0.00,200.05"/>
    <junction id="ErnstRuskaSink2" type="priority" x="2125.42" y="200.00" incLanes="ErnstRuskaSink5O_0 ErnstRuskaSink5O_1" intLanes="" shape="2125.42,200.05 2125.42,206.55 2125.42,193.45 2125.42,199.95"/>
-
    <junction id="ErnstRuskaVolmer" type="priority" x="1584.75" y="200.00" incLanes="VolmerS_0 ErnstRuska4W_0 ErnstRuska4W_1 ErnstRuska3O_0 ErnstRuska3O_1" intLanes="" shape="1581.50,208.05 1588.00,208.05 1589.50,206.55 1589.50,193.45 1580.00,193.45 1580.00,206.55"/>
-
    <junction id="HavestadtEnd" type="priority" x="1015.25" y="300.00" incLanes="HavestadtSinkS_0 HavestadtSinkS_1 HavestadtN_0 HavestadtN_1" intLanes="" shape="1008.70,300.00 1021.80,300.00 1008.70,300.00"/>
-
    <junction id="HavestadtSinkEnd" type="priority" x="1015.25" y="400.00" incLanes="HavestadtSinkN_0 HavestadtSinkN_1" intLanes="" shape="1015.20,400.00 1008.70,400.00 1021.80,400.00 1015.30,400.00"/>
-
    <junction id="VolmerEnd" type="priority" x="1584.75" y="300.00" incLanes="VolmerSinkS_0 VolmerN_0" intLanes="" shape="1581.50,300.00 1588.00,300.00 1581.50,300.00"/>
-
    <junction id="VolmerSinkEnd" type="priority" x="1584.75" y="400.00" incLanes="VolmerSinkN_0" intLanes="" shape="1584.70,400.00 1581.50,400.00 1588.00,400.00 1584.80,400.00"/>
-
 
    <succ edge="AltglienickerBreitN" lane="AltglienickerBreitN_0" junction="ErnstRuskaAltglienicker">
       <succlane lane="ErnstRuska5O_0" tl="ErnstRuskaAltglienicker" linkno="3" yield="1" dir="r" state="t"/>
    </succ>
-
    <succ edge="AltglienickerBreitN" lane="AltglienickerBreitN_1" junction="ErnstRuskaAltglienicker">
       <succlane lane="ErnstRuska4W_1" tl="ErnstRuskaAltglienicker" linkno="4" yield="1" dir="l" state="t" int_end="x"/>
    </succ>
-
    <succ edge="AltglienickerBreitS" lane="AltglienickerBreitS_0" junction="AltglienickerBreit">
       <succlane lane="AltglienickerS_0" yield="0" dir="s" state="M"/>
    </succ>
-
    <succ edge="AltglienickerN" lane="AltglienickerN_0" junction="AltglienickerBreit">
       <succlane lane="AltglienickerBreitN_0" yield="0" dir="s" state="M"/>
       <succlane lane="AltglienickerBreitN_1" yield="0" dir="s" state="M"/>
    </succ>
-
    <succ edge="AltglienickerS" lane="AltglienickerS_0" junction="AltglienickerEnd">
       <succlane lane="AltglienickerSinkS_0" yield="0" dir="s" state="M"/>
    </succ>
-
    <succ edge="AltglienickerSinkN" lane="AltglienickerSinkN_0" junction="AltglienickerEnd">
       <succlane lane="AltglienickerN_0" yield="0" dir="s" state="M"/>
    </succ>
-
    <succ edge="AltglienickerSinkS" lane="AltglienickerSinkS_0" junction="AltglienickerSinkEnd">
       <succlane lane="SUMO_NO_DESTINATION" yield="1" dir="s" state="O"/>
    </succ>
-
    <succ edge="EinsteinN" lane="EinsteinN_0" junction="EinsteinEnd">
       <succlane lane="EinsteinSinkN_0" yield="0" dir="s" state="M"/>
    </succ>
-
    <succ edge="EinsteinS" lane="EinsteinS_0" junction="ErnstRuskaEinstein">
       <succlane lane="ErnstRuska1W_0" yield="1" dir="r" state="m"/>
       <succlane lane="ErnstRuska2O_1" yield="1" dir="l" state="m"/>
    </succ>
-
    <succ edge="EinsteinSinkN" lane="EinsteinSinkN_0" junction="EinsteinSinkEnd">
       <succlane lane="SUMO_NO_DESTINATION" yield="1" dir="s" state="O"/>
    </succ>
-
    <succ edge="EinsteinSinkS" lane="EinsteinSinkS_0" junction="EinsteinEnd">
       <succlane lane="EinsteinS_0" yield="0" dir="s" state="M"/>
    </succ>
-
    <succ edge="ErnstRuska1O" lane="ErnstRuska1O_0" junction="ErnstRuskaEinstein">
       <succlane lane="ErnstRuska2O_0" yield="0" dir="s" state="M"/>
    </succ>
-
    <succ edge="ErnstRuska1O" lane="ErnstRuska1O_1" junction="ErnstRuskaEinstein">
       <succlane lane="ErnstRuska2O_1" yield="0" dir="s" state="M"/>
       <succlane lane="EinsteinN_0" yield="1" dir="l" state="m"/>
    </succ>
-
    <succ edge="ErnstRuska1W" lane="ErnstRuska1W_0" junction="ErnstRuskaEnd1">
       <succlane lane="ErnstRuskaSink1W_0" yield="0" dir="s" state="M"/>
    </succ>
-
    <succ edge="ErnstRuska1W" lane="ErnstRuska1W_1" junction="ErnstRuskaEnd1">
       <succlane lane="ErnstRuskaSink1W_1" yield="0" dir="s" state="M"/>
    </succ>
-
    <succ edge="ErnstRuska231O" lane="ErnstRuska231O_0" junction="ErnstRuskaHavestadt">
       <succlane lane="ErnstRuska232O_0" yield="0" dir="s" state="M"/>
    </succ>
-
    <succ edge="ErnstRuska231O" lane="ErnstRuska231O_1" junction="ErnstRuskaHavestadt">
       <succlane lane="ErnstRuska232O_1" yield="0" dir="s" state="M"/>
    </succ>
-
    <succ edge="ErnstRuska231O" lane="ErnstRuska231O_2" junction="ErnstRuskaHavestadt">
       <succlane lane="HavestadtN_0" yield="0" dir="l" state="M"/>
    </succ>
-
    <succ edge="ErnstRuska231W" lane="ErnstRuska231W_0" junction="ErnstRuskaHavestadtDiv1">
       <succlane lane="ErnstRuska2W_0" yield="0" dir="s" state="M"/>
    </succ>
-
    <succ edge="ErnstRuska231W" lane="ErnstRuska231W_1" junction="ErnstRuskaHavestadtDiv1">
       <succlane lane="ErnstRuska2W_1" yield="0" dir="s" state="M"/>
    </succ>
-
    <succ edge="ErnstRuska232O" lane="ErnstRuska232O_0" junction="ErnstRuskaHavestadtDiv2">
       <succlane lane="ErnstRuska3O_0" yield="0" dir="s" state="M"/>
    </succ>
-
    <succ edge="ErnstRuska232O" lane="ErnstRuska232O_1" junction="ErnstRuskaHavestadtDiv2">
       <succlane lane="ErnstRuska3O_1" yield="0" dir="s" state="M"/>
    </succ>
-
    <succ edge="ErnstRuska232O" lane="ErnstRuska232O_2" junction="ErnstRuskaHavestadtDiv2">
       <succlane lane="SUMO_NO_DESTINATION" yield="1" dir="s" state="O"/>
    </succ>
-
    <succ edge="ErnstRuska232W" lane="ErnstRuska232W_0" junction="ErnstRuskaHavestadt">
       <succlane lane="HavestadtN_0" yield="1" dir="r" state="m"/>
       <succlane lane="ErnstRuska231W_0" yield="1" dir="s" state="m"/>
    </succ>
-
    <succ edge="ErnstRuska232W" lane="ErnstRuska232W_1" junction="ErnstRuskaHavestadt">
       <succlane lane="ErnstRuska231W_1" yield="1" dir="s" state="m"/>
    </succ>
-
    <succ edge="ErnstRuska2O" lane="ErnstRuska2O_0" junction="ErnstRuskaHavestadtDiv1">
       <succlane lane="ErnstRuska231O_0" yield="0" dir="s" state="M"/>
    </succ>
-
    <succ edge="ErnstRuska2O" lane="ErnstRuska2O_1" junction="ErnstRuskaHavestadtDiv1">
       <succlane lane="ErnstRuska231O_1" yield="0" dir="s" state="M"/>
       <succlane lane="ErnstRuska231O_2" yield="0" dir="s" state="M"/>
    </succ>
-
    <succ edge="ErnstRuska2W" lane="ErnstRuska2W_0" junction="ErnstRuskaEinstein">
       <succlane lane="EinsteinN_0" yield="0" dir="r" state="M"/>
       <succlane lane="ErnstRuska1W_0" yield="0" dir="s" state="M"/>
    </succ>
-
    <succ edge="ErnstRuska2W" lane="ErnstRuska2W_1" junction="ErnstRuskaEinstein">
       <succlane lane="ErnstRuska1W_1" yield="0" dir="s" state="M"/>
    </succ>
-
    <succ edge="ErnstRuska3O" lane="ErnstRuska3O_0" junction="ErnstRuskaVolmer">
       <succlane lane="ErnstRuska4O_0" yield="0" dir="s" state="M"/>
    </succ>
-
    <succ edge="ErnstRuska3O" lane="ErnstRuska3O_1" junction="ErnstRuskaVolmer">
       <succlane lane="ErnstRuska4O_1" yield="0" dir="s" state="M"/>
       <succlane lane="VolmerN_0" yield="1" dir="l" state="m"/>
    </succ>
-
    <succ edge="ErnstRuska3W" lane="ErnstRuska3W_0" junction="ErnstRuskaHavestadtDiv2">
       <succlane lane="ErnstRuska232W_0" yield="0" dir="s" state="M"/>
    </succ>
-
    <succ edge="ErnstRuska3W" lane="ErnstRuska3W_1" junction="ErnstRuskaHavestadtDiv2">
       <succlane lane="ErnstRuska232W_1" yield="0" dir="s" state="M"/>
    </succ>
-
    <succ edge="ErnstRuska4O" lane="ErnstRuska4O_0" junction="ErnstRuskaAltglienicker">
       <succlane lane="AltglienickerBreitS_0" tl="ErnstRuskaAltglienicker" linkno="5" yield="1" dir="r" state="t"/>
       <succlane lane="ErnstRuska5O_0" tl="ErnstRuskaAltglienicker" linkno="6" yield="1" dir="s" state="t"/>
    </succ>
-
    <succ edge="ErnstRuska4O" lane="ErnstRuska4O_1" junction="ErnstRuskaAltglienicker">
       <succlane lane="ErnstRuska5O_1" tl="ErnstRuskaAltglienicker" linkno="7" yield="1" dir="s" state="t"/>
    </succ>
-
    <succ edge="ErnstRuska4W" lane="ErnstRuska4W_0" junction="ErnstRuskaVolmer">
       <succlane lane="VolmerN_0" yield="0" dir="r" state="M"/>
       <succlane lane="ErnstRuska3W_0" yield="0" dir="s" state="M"/>
    </succ>
-
    <succ edge="ErnstRuska4W" lane="ErnstRuska4W_1" junction="ErnstRuskaVolmer">
       <succlane lane="ErnstRuska3W_1" yield="0" dir="s" state="M"/>
    </succ>
-
    <succ edge="ErnstRuska5O" lane="ErnstRuska5O_0" junction="ErnstRuskaEnd2">
       <succlane lane="ErnstRuskaSink5O_0" yield="0" dir="s" state="M"/>
    </succ>
-
    <succ edge="ErnstRuska5O" lane="ErnstRuska5O_1" junction="ErnstRuskaEnd2">
       <succlane lane="ErnstRuskaSink5O_1" yield="0" dir="s" state="M"/>
    </succ>
-
    <succ edge="ErnstRuska5W" lane="ErnstRuska5W_0" junction="ErnstRuskaAltglienicker">
       <succlane lane="ErnstRuska4W_0" tl="ErnstRuskaAltglienicker" linkno="0" yield="1" dir="s" state="t"/>
    </succ>
-
    <succ edge="ErnstRuska5W" lane="ErnstRuska5W_1" junction="ErnstRuskaAltglienicker">
       <succlane lane="ErnstRuska4W_1" tl="ErnstRuskaAltglienicker" linkno="1" yield="1" dir="s" state="t"/>
    </succ>
-
    <succ edge="ErnstRuska5W" lane="ErnstRuska5W_2" junction="ErnstRuskaAltglienicker">
       <succlane lane="AltglienickerBreitS_0" tl="ErnstRuskaAltglienicker" linkno="2" yield="1" dir="l" state="t"/>
    </succ>
-
    <succ edge="ErnstRuskaSink1O" lane="ErnstRuskaSink1O_0" junction="ErnstRuskaEnd1">
       <succlane lane="ErnstRuska1O_0" yield="0" dir="s" state="M"/>
    </succ>
-
    <succ edge="ErnstRuskaSink1O" lane="ErnstRuskaSink1O_1" junction="ErnstRuskaEnd1">
       <succlane lane="ErnstRuska1O_1" yield="0" dir="s" state="M"/>
    </succ>
-
    <succ edge="ErnstRuskaSink1W" lane="ErnstRuskaSink1W_0" junction="ErnstRuskaSink1">
       <succlane lane="SUMO_NO_DESTINATION" yield="1" dir="s" state="O"/>
    </succ>
-
    <succ edge="ErnstRuskaSink1W" lane="ErnstRuskaSink1W_1" junction="ErnstRuskaSink1">
       <succlane lane="SUMO_NO_DESTINATION" yield="1" dir="s" state="O"/>
    </succ>
-
    <succ edge="ErnstRuskaSink5O" lane="ErnstRuskaSink5O_0" junction="ErnstRuskaSink2">
       <succlane lane="SUMO_NO_DESTINATION" yield="1" dir="s" state="O"/>
    </succ>
-
    <succ edge="ErnstRuskaSink5O" lane="ErnstRuskaSink5O_1" junction="ErnstRuskaSink2">
       <succlane lane="SUMO_NO_DESTINATION" yield="1" dir="s" state="O"/>
    </succ>
-
    <succ edge="ErnstRuskaSink5W" lane="ErnstRuskaSink5W_0" junction="ErnstRuskaEnd2">
       <succlane lane="ErnstRuska5W_0" yield="0" dir="s" state="M"/>
    </succ>
-
    <succ edge="ErnstRuskaSink5W" lane="ErnstRuskaSink5W_1" junction="ErnstRuskaEnd2">
       <succlane lane="ErnstRuska5W_1" yield="0" dir="s" state="M"/>
       <succlane lane="ErnstRuska5W_2" yield="0" dir="s" state="M"/>
    </succ>
-
    <succ edge="HavestadtN" lane="HavestadtN_0" junction="HavestadtEnd">
       <succlane lane="HavestadtSinkN_0" yield="0" dir="s" state="M"/>
    </succ>
-
    <succ edge="HavestadtN" lane="HavestadtN_1" junction="HavestadtEnd">
       <succlane lane="HavestadtSinkN_1" yield="0" dir="s" state="M"/>
    </succ>
-
    <succ edge="HavestadtS" lane="HavestadtS_0" junction="ErnstRuskaHavestadt">
       <succlane lane="ErnstRuska231W_0" yield="0" dir="r" state="M"/>
    </succ>
-
    <succ edge="HavestadtS" lane="HavestadtS_1" junction="ErnstRuskaHavestadt">
       <succlane lane="ErnstRuska232O_1" yield="1" dir="l" state="m"/>
       <succlane lane="ErnstRuska232O_2" yield="1" dir="l" state="m"/>
    </succ>
-
    <succ edge="HavestadtSinkN" lane="HavestadtSinkN_0" junction="HavestadtSinkEnd">
       <succlane lane="SUMO_NO_DESTINATION" yield="1" dir="s" state="O"/>
    </succ>
-
    <succ edge="HavestadtSinkN" lane="HavestadtSinkN_1" junction="HavestadtSinkEnd">
       <succlane lane="SUMO_NO_DESTINATION" yield="1" dir="s" state="O"/>
    </succ>
-
    <succ edge="HavestadtSinkS" lane="HavestadtSinkS_0" junction="HavestadtEnd">
       <succlane lane="HavestadtS_0" yield="0" dir="s" state="M"/>
    </succ>
-
    <succ edge="HavestadtSinkS" lane="HavestadtSinkS_1" junction="HavestadtEnd">
       <succlane lane="HavestadtS_1" yield="0" dir="s" state="M"/>
    </succ>
-
    <succ edge="VolmerN" lane="VolmerN_0" junction="VolmerEnd">
       <succlane lane="VolmerSinkN_0" yield="0" dir="s" state="M"/>
    </succ>
-
    <succ edge="VolmerS" lane="VolmerS_0" junction="ErnstRuskaVolmer">
       <succlane lane="ErnstRuska3W_0" yield="1" dir="r" state="m"/>
       <succlane lane="ErnstRuska4O_1" yield="1" dir="l" state="m"/>
    </succ>
-
    <succ edge="VolmerSinkN" lane="VolmerSinkN_0" junction="VolmerSinkEnd">
       <succlane lane="SUMO_NO_DESTINATION" yield="1" dir="s" state="O"/>
    </succ>
-
    <succ edge="VolmerSinkS" lane="VolmerSinkS_0" junction="VolmerEnd">
       <succlane lane="VolmerS_0" yield="0" dir="s" state="M"/>
    </succ>
-
 
 </net>

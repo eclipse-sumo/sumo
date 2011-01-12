@@ -1,15 +1,17 @@
 <?xml version="1.0"?>
 
-<!-- generated on Mon Sep  6 11:43:01 2010 by SUMO netconvert Version dev-SVN-r9039
-<configuration>
+<!-- generated on 01/12/11 13:06:58 by SUMO netconvert Version dev-SVN-r9534
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <xml-node-files value="cross1ltl.nod.xml"/>
-        <xml-edge-files value="cross1ltl.edg.xml"/>
+        <xml-node-files value="./complex/sumo/collision/cross1ltl.nod.xml"/>
+        <xml-edge-files value="./complex/sumo/collision/cross1ltl.edg.xml"/>
     </input>
 
     <output>
-        <output-file value="input_net.net.xml"/>
+        <output-file value="./complex/sumo/collision/input_net.net.xml"/>
     </output>
 
     <report>
@@ -25,7 +27,7 @@
 
    <edge id=":0_0" function="internal">
       <lanes>
-         <lane id=":0_0_0" depart="0" maxspeed="15.28" length="5.00" shape="498.35,504.75 498.16,503.39 497.57,502.42 496.61,501.84 495.25,501.65"/>
+         <lane id=":0_0_0" depart="0" maxspeed="15.28" length="5.00" shape="498.35,504.75 498.16,503.39 497.57,502.43 496.61,501.84 495.25,501.65"/>
       </lanes>
    </edge>
    <edge id=":0_1" function="internal">
@@ -55,7 +57,7 @@
    </edge>
    <edge id=":0_4" function="internal">
       <lanes>
-         <lane id=":0_4_0" depart="0" maxspeed="15.28" length="5.00" shape="504.75,501.65 503.39,501.84 502.43,502.42 501.84,503.39 501.65,504.75"/>
+         <lane id=":0_4_0" depart="0" maxspeed="15.28" length="5.00" shape="504.75,501.65 503.39,501.84 502.43,502.43 501.84,503.39 501.65,504.75"/>
       </lanes>
    </edge>
    <edge id=":0_5" function="internal">

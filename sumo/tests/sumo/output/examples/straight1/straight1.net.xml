@@ -1,20 +1,22 @@
 <?xml version="1.0"?>
 
-<!-- generated on Sun Jul 26 12:00:48 2009 by SUMO netconvert Version dev-SVN-r7516
-<configuration>
+<!-- generated on 01/12/11 13:10:52 by SUMO netconvert Version dev-SVN-r9534
+<?xml version="1.0" encoding="iso-8859-1"?>
 
-    <input
-        xml-node-files="./sumo/output/examples/straight1/straight1.nod.xml"
-        xml-edge-files="./sumo/output/examples/straight1/straight1.edg.xml"
-    />
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
 
-    <output
-        output-file="./sumo/output/examples/straight1/straight1.net.xml"
-    />
+    <input>
+        <xml-node-files value="./sumo/output/examples/straight1/straight1.nod.xml"/>
+        <xml-edge-files value="./sumo/output/examples/straight1/straight1.edg.xml"/>
+    </input>
 
-    <report
-        verbose="true"
-    />
+    <output>
+        <output-file value="./sumo/output/examples/straight1/straight1.net.xml"/>
+    </output>
+
+    <report>
+        <verbose value="true"/>
+    </report>
 
 </configuration>
 -->
@@ -28,310 +30,243 @@
          <lane id=":a1_0_0" depart="0" maxspeed="36.00" length="0.10" shape="500.00,-1.65 500.00,-1.65"/>
       </lanes>
    </edge>
-
    <edge id=":a2_0" function="internal">
       <lanes>
          <lane id=":a2_0_0" depart="0" maxspeed="36.00" length="0.10" shape="750.00,-1.65 750.00,-1.65"/>
       </lanes>
    </edge>
-
    <edge id=":a3_0" function="internal">
       <lanes>
          <lane id=":a3_0_0" depart="0" maxspeed="36.00" length="0.10" shape="900.00,-1.65 900.00,-1.65"/>
       </lanes>
    </edge>
-
    <edge id=":a4_0" function="internal">
       <lanes>
          <lane id=":a4_0_0" depart="0" maxspeed="36.00" length="0.10" shape="950.00,-1.65 950.00,-1.65"/>
       </lanes>
    </edge>
-
    <edge id=":a5_0" function="internal">
       <lanes>
          <lane id=":a5_0_0" depart="0" maxspeed="36.00" length="0.10" shape="990.00,-1.65 990.00,-1.65"/>
       </lanes>
    </edge>
-
    <edge id=":a6_0" function="internal">
       <lanes>
          <lane id=":a6_0_0" depart="0" maxspeed="36.00" length="0.10" shape="1000.00,-1.65 1000.00,-1.65"/>
       </lanes>
    </edge>
-
    <edge id=":b1_0" function="internal">
       <lanes>
          <lane id=":b1_0_0" depart="0" maxspeed="36.00" length="0.10" shape="3500.00,-1.65 3500.00,-1.65"/>
       </lanes>
    </edge>
-
    <edge id=":b2_0" function="internal">
       <lanes>
          <lane id=":b2_0_0" depart="0" maxspeed="36.00" length="0.10" shape="3250.00,-1.65 3250.00,-1.65"/>
       </lanes>
    </edge>
-
    <edge id=":b3_0" function="internal">
       <lanes>
          <lane id=":b3_0_0" depart="0" maxspeed="36.00" length="0.10" shape="3100.00,-1.65 3100.00,-1.65"/>
       </lanes>
    </edge>
-
    <edge id=":b4_0" function="internal">
       <lanes>
          <lane id=":b4_0_0" depart="0" maxspeed="36.00" length="0.10" shape="3050.00,-1.65 3050.00,-1.65"/>
       </lanes>
    </edge>
-
    <edge id=":b5_0" function="internal">
       <lanes>
          <lane id=":b5_0_0" depart="0" maxspeed="36.00" length="0.10" shape="3010.00,-1.65 3010.00,-1.65"/>
       </lanes>
    </edge>
-
    <edge id=":b6_0" function="internal">
       <lanes>
          <lane id=":b6_0_0" depart="0" maxspeed="36.00" length="0.10" shape="3000.00,-1.65 3000.00,-1.65"/>
       </lanes>
    </edge>
 
-
-
    <edge id="0" from="a0" to="a1" priority="-1" type="" function="normal">
       <lanes>
          <lane id="0_0" depart="1" maxspeed="36.00" length="500.00" shape="0.00,-1.65 500.00,-1.65"/>
       </lanes>
    </edge>
-
    <edge id="1" from="a1" to="a2" priority="-1" type="" function="normal">
       <lanes>
          <lane id="1_0" depart="1" maxspeed="36.00" length="250.00" shape="500.00,-1.65 750.00,-1.65"/>
       </lanes>
    </edge>
-
    <edge id="2" from="a2" to="a3" priority="-1" type="" function="normal">
       <lanes>
          <lane id="2_0" depart="1" maxspeed="36.00" length="150.00" shape="750.00,-1.65 900.00,-1.65"/>
       </lanes>
    </edge>
-
    <edge id="3" from="a3" to="a4" priority="-1" type="" function="normal">
       <lanes>
          <lane id="3_0" depart="1" maxspeed="36.00" length="50.00" shape="900.00,-1.65 950.00,-1.65"/>
       </lanes>
    </edge>
-
    <edge id="4" from="a4" to="a5" priority="-1" type="" function="normal">
       <lanes>
          <lane id="4_0" depart="1" maxspeed="36.00" length="40.00" shape="950.00,-1.65 990.00,-1.65"/>
       </lanes>
    </edge>
-
    <edge id="5" from="a5" to="a6" priority="-1" type="" function="normal">
       <lanes>
          <lane id="5_0" depart="1" maxspeed="36.00" length="10.00" shape="990.00,-1.65 1000.00,-1.65"/>
       </lanes>
    </edge>
-
    <edge id="6" from="a6" to="b6" priority="-1" type="" function="normal">
       <lanes>
          <lane id="6_0" depart="1" maxspeed="36.00" length="2000.00" shape="1000.00,-1.65 3000.00,-1.65"/>
       </lanes>
    </edge>
-
    <edge id="7" from="b6" to="b5" priority="-1" type="" function="normal">
       <lanes>
          <lane id="7_0" depart="1" maxspeed="36.00" length="10.00" shape="3000.00,-1.65 3010.00,-1.65"/>
       </lanes>
    </edge>
-
    <edge id="8" from="b5" to="b4" priority="-1" type="" function="normal">
       <lanes>
          <lane id="8_0" depart="1" maxspeed="36.00" length="40.00" shape="3010.00,-1.65 3050.00,-1.65"/>
       </lanes>
    </edge>
-
    <edge id="9" from="b4" to="b3" priority="-1" type="" function="normal">
       <lanes>
          <lane id="9_0" depart="1" maxspeed="36.00" length="50.00" shape="3050.00,-1.65 3100.00,-1.65"/>
       </lanes>
    </edge>
-
    <edge id="a" from="b3" to="b2" priority="-1" type="" function="normal">
       <lanes>
          <lane id="a_0" depart="1" maxspeed="36.00" length="150.00" shape="3100.00,-1.65 3250.00,-1.65"/>
       </lanes>
    </edge>
-
    <edge id="b" from="b2" to="b1" priority="-1" type="" function="normal">
       <lanes>
          <lane id="b_0" depart="1" maxspeed="36.00" length="250.00" shape="3250.00,-1.65 3500.00,-1.65"/>
       </lanes>
    </edge>
-
    <edge id="c" from="b1" to="b0" priority="-1" type="" function="normal">
       <lanes>
          <lane id="c_0" depart="1" maxspeed="36.00" length="500.00" shape="3500.00,-1.65 4000.00,-1.65"/>
       </lanes>
    </edge>
 
-
    <row-logic id="a1" requestSize="1" laneNumber="1">
       <logic>
          <logicitem request="0" response="0" foes="0" cont="0"/>
       </logic>
    </row-logic>
-
    <row-logic id="a2" requestSize="1" laneNumber="1">
       <logic>
          <logicitem request="0" response="0" foes="0" cont="0"/>
       </logic>
    </row-logic>
-
    <row-logic id="a3" requestSize="1" laneNumber="1">
       <logic>
          <logicitem request="0" response="0" foes="0" cont="0"/>
       </logic>
    </row-logic>
-
    <row-logic id="a4" requestSize="1" laneNumber="1">
       <logic>
          <logicitem request="0" response="0" foes="0" cont="0"/>
       </logic>
    </row-logic>
-
    <row-logic id="a5" requestSize="1" laneNumber="1">
       <logic>
          <logicitem request="0" response="0" foes="0" cont="0"/>
       </logic>
    </row-logic>
-
    <row-logic id="a6" requestSize="1" laneNumber="1">
       <logic>
          <logicitem request="0" response="0" foes="0" cont="0"/>
       </logic>
    </row-logic>
-
    <row-logic id="b1" requestSize="1" laneNumber="1">
       <logic>
          <logicitem request="0" response="0" foes="0" cont="0"/>
       </logic>
    </row-logic>
-
    <row-logic id="b2" requestSize="1" laneNumber="1">
       <logic>
          <logicitem request="0" response="0" foes="0" cont="0"/>
       </logic>
    </row-logic>
-
    <row-logic id="b3" requestSize="1" laneNumber="1">
       <logic>
          <logicitem request="0" response="0" foes="0" cont="0"/>
       </logic>
    </row-logic>
-
    <row-logic id="b4" requestSize="1" laneNumber="1">
       <logic>
          <logicitem request="0" response="0" foes="0" cont="0"/>
       </logic>
    </row-logic>
-
    <row-logic id="b5" requestSize="1" laneNumber="1">
       <logic>
          <logicitem request="0" response="0" foes="0" cont="0"/>
       </logic>
    </row-logic>
-
    <row-logic id="b6" requestSize="1" laneNumber="1">
       <logic>
          <logicitem request="0" response="0" foes="0" cont="0"/>
       </logic>
    </row-logic>
 
-
-
-   <junction id="a0" type="DEAD_END" x="0.00" y="0.00" incLanes="" intLanes="" shape="-0.00,-0.05 -0.00,-3.25"/>
-
+   <junction id="a0" type="DEAD_END" x="0.00" y="0.00" incLanes="" intLanes="" shape="0.00,-0.05 0.00,-3.25"/>
    <junction id="a1" type="priority" x="500.00" y="0.00" incLanes="0_0" intLanes=":a1_0_0" shape="500.00,-0.05 500.00,-3.25 500.00,-0.05"/>
-
    <junction id="a2" type="priority" x="750.00" y="0.00" incLanes="1_0" intLanes=":a2_0_0" shape="750.00,-0.05 750.00,-3.25 750.00,-0.05"/>
-
    <junction id="a3" type="priority" x="900.00" y="0.00" incLanes="2_0" intLanes=":a3_0_0" shape="900.00,-0.05 900.00,-3.25 900.00,-0.05"/>
-
    <junction id="a4" type="priority" x="950.00" y="0.00" incLanes="3_0" intLanes=":a4_0_0" shape="950.00,-0.05 950.00,-3.25 950.00,-0.05"/>
-
    <junction id="a5" type="priority" x="990.00" y="0.00" incLanes="4_0" intLanes=":a5_0_0" shape="990.00,-0.05 990.00,-3.25 990.00,-0.05"/>
-
    <junction id="a6" type="priority" x="1000.00" y="0.00" incLanes="5_0" intLanes=":a6_0_0" shape="1000.00,-0.05 1000.00,-3.25 1000.00,-0.05"/>
-
    <junction id="b0" type="DEAD_END" x="4000.00" y="0.00" incLanes="c_0" intLanes="" shape="4000.00,-3.25 4000.00,-0.05"/>
-
    <junction id="b1" type="priority" x="3500.00" y="0.00" incLanes="b_0" intLanes=":b1_0_0" shape="3500.00,-0.05 3500.00,-3.25 3500.00,-0.05"/>
-
    <junction id="b2" type="priority" x="3250.00" y="0.00" incLanes="a_0" intLanes=":b2_0_0" shape="3250.00,-0.05 3250.00,-3.25 3250.00,-0.05"/>
-
    <junction id="b3" type="priority" x="3100.00" y="0.00" incLanes="9_0" intLanes=":b3_0_0" shape="3100.00,-0.05 3100.00,-3.25 3100.00,-0.05"/>
-
    <junction id="b4" type="priority" x="3050.00" y="0.00" incLanes="8_0" intLanes=":b4_0_0" shape="3050.00,-0.05 3050.00,-3.25 3050.00,-0.05"/>
-
    <junction id="b5" type="priority" x="3010.00" y="0.00" incLanes="7_0" intLanes=":b5_0_0" shape="3010.00,-0.05 3010.00,-3.25 3010.00,-0.05"/>
-
    <junction id="b6" type="priority" x="3000.00" y="0.00" incLanes="6_0" intLanes=":b6_0_0" shape="3000.00,-0.05 3000.00,-3.25 3000.00,-0.05"/>
-
-
 
    <succ edge="0" lane="0_0" junction="a1">
       <succlane lane="1_0" via=":a1_0_0" yield="0" dir="s" state="M"/>
    </succ>
-
    <succ edge="1" lane="1_0" junction="a2">
       <succlane lane="2_0" via=":a2_0_0" yield="0" dir="s" state="M"/>
    </succ>
-
    <succ edge="2" lane="2_0" junction="a3">
       <succlane lane="3_0" via=":a3_0_0" yield="0" dir="s" state="M"/>
    </succ>
-
    <succ edge="3" lane="3_0" junction="a4">
       <succlane lane="4_0" via=":a4_0_0" yield="0" dir="s" state="M"/>
    </succ>
-
    <succ edge="4" lane="4_0" junction="a5">
       <succlane lane="5_0" via=":a5_0_0" yield="0" dir="s" state="M"/>
    </succ>
-
    <succ edge="5" lane="5_0" junction="a6">
       <succlane lane="6_0" via=":a6_0_0" yield="0" dir="s" state="M"/>
    </succ>
-
    <succ edge="6" lane="6_0" junction="b6">
       <succlane lane="7_0" via=":b6_0_0" yield="0" dir="s" state="M"/>
    </succ>
-
    <succ edge="7" lane="7_0" junction="b5">
       <succlane lane="8_0" via=":b5_0_0" yield="0" dir="s" state="M"/>
    </succ>
-
    <succ edge="8" lane="8_0" junction="b4">
       <succlane lane="9_0" via=":b4_0_0" yield="0" dir="s" state="M"/>
    </succ>
-
    <succ edge="9" lane="9_0" junction="b3">
       <succlane lane="a_0" via=":b3_0_0" yield="0" dir="s" state="M"/>
    </succ>
-
    <succ edge="a" lane="a_0" junction="b2">
       <succlane lane="b_0" via=":b2_0_0" yield="0" dir="s" state="M"/>
    </succ>
-
    <succ edge="b" lane="b_0" junction="b1">
       <succlane lane="c_0" via=":b1_0_0" yield="0" dir="s" state="M"/>
    </succ>
-
    <succ edge="c" lane="c_0" junction="b0">
       <succlane lane="SUMO_NO_DESTINATION" yield="1" dir="s" state="O"/>
    </succ>
-
 
    <succ edge=":a1_0" lane=":a1_0_0" junction="a1">
       <succlane lane="1_0" tl="" linkno="" yield="0" dir="s" state="M"/>

@@ -1,20 +1,22 @@
 <?xml version="1.0"?>
 
-<!-- generated on Sun Jul 26 12:00:51 2009 by SUMO netconvert Version dev-SVN-r7516
-<configuration>
+<!-- generated on 01/12/11 13:11:53 by SUMO netconvert Version dev-SVN-r9534
+<?xml version="1.0" encoding="iso-8859-1"?>
 
-    <input
-        xml-node-files="./sumo/spec/two_straight_3lanes.nod.xml"
-        xml-edge-files="./sumo/spec/two_straight_3lanes.edg.xml"
-    />
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
 
-    <output
-        output-file="./sumo/spec/net.net.xml"
-    />
+    <input>
+        <xml-node-files value="./sumo/spec/two_straight_3lanes.nod.xml"/>
+        <xml-edge-files value="./sumo/spec/two_straight_3lanes.edg.xml"/>
+    </input>
 
-    <report
-        verbose="true"
-    />
+    <output>
+        <output-file value="./sumo/spec/net.net.xml"/>
+    </output>
+
+    <report>
+        <verbose value="true"/>
+    </report>
 
 </configuration>
 -->
@@ -28,20 +30,16 @@
          <lane id=":center_0_0" depart="0" maxspeed="27.80" length="0.10" shape="500.00,-8.25 500.00,-8.25"/>
       </lanes>
    </edge>
-
    <edge id=":center_1" function="internal">
       <lanes>
          <lane id=":center_1_0" depart="0" maxspeed="27.80" length="0.10" shape="500.00,-4.95 500.00,-4.95"/>
       </lanes>
    </edge>
-
    <edge id=":center_2" function="internal">
       <lanes>
          <lane id=":center_2_0" depart="0" maxspeed="27.80" length="0.10" shape="500.00,-1.65 500.00,-1.65"/>
       </lanes>
    </edge>
-
-
 
    <edge id="beg" from="beg" to="center" priority="-1" type="" function="normal">
       <lanes>
@@ -50,7 +48,6 @@
          <lane id="beg_2" depart="0" maxspeed="27.80" length="500.00" shape="0.00,-1.65 500.00,-1.65"/>
       </lanes>
    </edge>
-
    <edge id="end" from="center" to="end" priority="-1" type="" function="normal">
       <lanes>
          <lane id="end_0" depart="1" maxspeed="27.80" length="500.00" shape="500.00,-8.25 1000.00,-8.25"/>
@@ -58,7 +55,6 @@
          <lane id="end_2" depart="0" maxspeed="27.80" length="500.00" shape="500.00,-1.65 1000.00,-1.65"/>
       </lanes>
    </edge>
-
 
    <row-logic id="center" requestSize="3" laneNumber="3">
       <logic>
@@ -68,40 +64,28 @@
       </logic>
    </row-logic>
 
-
-
-   <junction id="beg" type="DEAD_END" x="0.00" y="0.00" incLanes="" intLanes="" shape="-0.00,-0.05 -0.00,-9.85"/>
-
+   <junction id="beg" type="DEAD_END" x="0.00" y="0.00" incLanes="" intLanes="" shape="0.00,-0.05 0.00,-9.85"/>
    <junction id="center" type="priority" x="500.00" y="0.00" incLanes="beg_0 beg_1 beg_2" intLanes=":center_0_0 :center_1_0 :center_2_0" shape="500.00,-0.05 500.00,-9.85 500.00,-0.05"/>
-
    <junction id="end" type="DEAD_END" x="1000.00" y="0.00" incLanes="end_0 end_1 end_2" intLanes="" shape="1000.00,-9.85 1000.00,-0.05"/>
-
-
 
    <succ edge="beg" lane="beg_0" junction="center">
       <succlane lane="end_0" via=":center_0_0" yield="0" dir="s" state="M"/>
    </succ>
-
    <succ edge="beg" lane="beg_1" junction="center">
       <succlane lane="end_1" via=":center_1_0" yield="0" dir="s" state="M"/>
    </succ>
-
    <succ edge="beg" lane="beg_2" junction="center">
       <succlane lane="end_2" via=":center_2_0" yield="0" dir="s" state="M"/>
    </succ>
-
    <succ edge="end" lane="end_0" junction="end">
       <succlane lane="SUMO_NO_DESTINATION" yield="1" dir="s" state="O"/>
    </succ>
-
    <succ edge="end" lane="end_1" junction="end">
       <succlane lane="SUMO_NO_DESTINATION" yield="1" dir="s" state="O"/>
    </succ>
-
    <succ edge="end" lane="end_2" junction="end">
       <succlane lane="SUMO_NO_DESTINATION" yield="1" dir="s" state="O"/>
    </succ>
-
 
    <succ edge=":center_0" lane=":center_0_0" junction="center">
       <succlane lane="end_0" tl="" linkno="" yield="0" dir="s" state="M"/>

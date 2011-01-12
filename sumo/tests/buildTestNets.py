@@ -7,10 +7,7 @@ import os, sys
 mRoot = "."
 if len(sys.argv)>1:
     mRoot = sys.argv[1]
-if os.name=="nt":
-    binPrefix = os.path.join(os.path.dirname(sys.argv[0]), '..', 'bin', 'net')
-else:
-    binPrefix = os.path.join(os.path.dirname(sys.argv[0]), '..', 'src', 'sumo-net')
+binPrefix = os.path.join(os.path.dirname(sys.argv[0]), '..', 'bin', 'net')
 for root, dirs, files in os.walk(mRoot):
     if ".svn" in dirs:
         dirs.remove(".svn")

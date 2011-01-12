@@ -1,29 +1,31 @@
 <?xml version="1.0"?>
 
-<!-- generated on Sun Jul 26 12:00:47 2009 by SUMO netgen Version dev-SVN-r7516
-<configuration>
+<!-- generated on 01/12/11 13:14:23 by SUMO netgen Version dev-SVN-r9534
+<?xml version="1.0" encoding="iso-8859-1"?>
 
-    <grid_network
-        grid-net="true"
-        grid-number="3"
-        grid-length="40"
-    />
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netgenConfiguration.xsd">
 
-    <output
-        output-file="./traci/VariableRetrieval/TrafficLight/ID_LIST/one_tl/net.net.xml"
-    />
+    <grid_network>
+        <grid-net value="true"/>
+        <grid-number value="3"/>
+        <grid-length value="40"/>
+    </grid_network>
 
-    <tls_building
-        explicite-tls="0/0"
-    />
+    <output>
+        <output-file value="./traci/VariableRetrieval/TrafficLight/ID_LIST/one_tl/net.net.xml"/>
+    </output>
 
-    <processing
-        no-internal-links="true"
-    />
+    <tls_building>
+        <explicite-tls value="0/0"/>
+    </tls_building>
 
-    <report
-        verbose="true"
-    />
+    <processing>
+        <no-internal-links value="true"/>
+    </processing>
+
+    <report>
+        <verbose value="true"/>
+    </report>
 
 </configuration>
 -->
@@ -32,151 +34,126 @@
 
    <location netOffset="0.00,0.00" convBoundary="0.00,0.00,80.00,80.00" origBoundary="0.00,0.00,80.00,80.00" projParameter="!"/>
 
-
    <edge id="0/0to0/1" from="0/0" to="0/1" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="0/0to0/1_0" depart="1" maxspeed="13.90" length="32.00" shape="1.65,3.25 1.65,35.25"/>
       </lanes>
    </edge>
-
    <edge id="0/0to1/0" from="0/0" to="1/0" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="0/0to1/0_0" depart="1" maxspeed="13.90" length="32.00" shape="3.25,-1.65 35.25,-1.65"/>
       </lanes>
    </edge>
-
    <edge id="0/1to0/0" from="0/1" to="0/0" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="0/1to0/0_0" depart="1" maxspeed="13.90" length="32.00" shape="-1.65,35.25 -1.65,3.25"/>
       </lanes>
    </edge>
-
    <edge id="0/1to0/2" from="0/1" to="0/2" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="0/1to0/2_0" depart="1" maxspeed="13.90" length="32.00" shape="1.65,44.75 1.65,76.75"/>
       </lanes>
    </edge>
-
    <edge id="0/1to1/1" from="0/1" to="1/1" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="0/1to1/1_0" depart="1" maxspeed="13.90" length="30.50" shape="4.75,38.35 35.25,38.35"/>
       </lanes>
    </edge>
-
    <edge id="0/2to0/1" from="0/2" to="0/1" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="0/2to0/1_0" depart="1" maxspeed="13.90" length="32.00" shape="-1.65,76.75 -1.65,44.75"/>
       </lanes>
    </edge>
-
    <edge id="0/2to1/2" from="0/2" to="1/2" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="0/2to1/2_0" depart="1" maxspeed="13.90" length="32.00" shape="3.25,78.35 35.25,78.35"/>
       </lanes>
    </edge>
-
    <edge id="1/0to0/0" from="1/0" to="0/0" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="1/0to0/0_0" depart="1" maxspeed="13.90" length="32.00" shape="35.25,1.65 3.25,1.65"/>
       </lanes>
    </edge>
-
    <edge id="1/0to1/1" from="1/0" to="1/1" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="1/0to1/1_0" depart="1" maxspeed="13.90" length="30.50" shape="41.65,4.75 41.65,35.25"/>
       </lanes>
    </edge>
-
    <edge id="1/0to2/0" from="1/0" to="2/0" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="1/0to2/0_0" depart="1" maxspeed="13.90" length="32.00" shape="44.75,-1.65 76.75,-1.65"/>
       </lanes>
    </edge>
-
    <edge id="1/1to0/1" from="1/1" to="0/1" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="1/1to0/1_0" depart="1" maxspeed="13.90" length="30.50" shape="35.25,41.65 4.75,41.65"/>
       </lanes>
    </edge>
-
    <edge id="1/1to1/0" from="1/1" to="1/0" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="1/1to1/0_0" depart="1" maxspeed="13.90" length="30.50" shape="38.35,35.25 38.35,4.75"/>
       </lanes>
    </edge>
-
    <edge id="1/1to1/2" from="1/1" to="1/2" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="1/1to1/2_0" depart="1" maxspeed="13.90" length="30.50" shape="41.65,44.75 41.65,75.25"/>
       </lanes>
    </edge>
-
    <edge id="1/1to2/1" from="1/1" to="2/1" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="1/1to2/1_0" depart="1" maxspeed="13.90" length="30.50" shape="44.75,38.35 75.25,38.35"/>
       </lanes>
    </edge>
-
    <edge id="1/2to0/2" from="1/2" to="0/2" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="1/2to0/2_0" depart="1" maxspeed="13.90" length="32.00" shape="35.25,81.65 3.25,81.65"/>
       </lanes>
    </edge>
-
    <edge id="1/2to1/1" from="1/2" to="1/1" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="1/2to1/1_0" depart="1" maxspeed="13.90" length="30.50" shape="38.35,75.25 38.35,44.75"/>
       </lanes>
    </edge>
-
    <edge id="1/2to2/2" from="1/2" to="2/2" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="1/2to2/2_0" depart="1" maxspeed="13.90" length="32.00" shape="44.75,78.35 76.75,78.35"/>
       </lanes>
    </edge>
-
    <edge id="2/0to1/0" from="2/0" to="1/0" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="2/0to1/0_0" depart="1" maxspeed="13.90" length="32.00" shape="76.75,1.65 44.75,1.65"/>
       </lanes>
    </edge>
-
    <edge id="2/0to2/1" from="2/0" to="2/1" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="2/0to2/1_0" depart="1" maxspeed="13.90" length="32.00" shape="81.65,3.25 81.65,35.25"/>
       </lanes>
    </edge>
-
    <edge id="2/1to1/1" from="2/1" to="1/1" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="2/1to1/1_0" depart="1" maxspeed="13.90" length="30.50" shape="75.25,41.65 44.75,41.65"/>
       </lanes>
    </edge>
-
    <edge id="2/1to2/0" from="2/1" to="2/0" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="2/1to2/0_0" depart="1" maxspeed="13.90" length="32.00" shape="78.35,35.25 78.35,3.25"/>
       </lanes>
    </edge>
-
    <edge id="2/1to2/2" from="2/1" to="2/2" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="2/1to2/2_0" depart="1" maxspeed="13.90" length="32.00" shape="81.65,44.75 81.65,76.75"/>
       </lanes>
    </edge>
-
    <edge id="2/2to1/2" from="2/2" to="1/2" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="2/2to1/2_0" depart="1" maxspeed="13.90" length="32.00" shape="76.75,81.65 44.75,81.65"/>
       </lanes>
    </edge>
-
    <edge id="2/2to2/1" from="2/2" to="2/1" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="2/2to2/1_0" depart="1" maxspeed="13.90" length="32.00" shape="78.35,76.75 78.35,44.75"/>
       </lanes>
    </edge>
-
 
    <row-logic id="0/0" requestSize="4" laneNumber="2">
       <logic>
@@ -186,7 +163,6 @@
          <logicitem request="3" response="0001" foes="0001"/>
       </logic>
    </row-logic>
-
    <row-logic id="0/1" requestSize="9" laneNumber="3">
       <logic>
          <logicitem request="0" response="000000000" foes="100010000"/>
@@ -200,7 +176,6 @@
          <logicitem request="8" response="000010001" foes="000010001"/>
       </logic>
    </row-logic>
-
    <row-logic id="0/2" requestSize="4" laneNumber="2">
       <logic>
          <logicitem request="0" response="0000" foes="1000"/>
@@ -209,7 +184,6 @@
          <logicitem request="3" response="0001" foes="0001"/>
       </logic>
    </row-logic>
-
    <row-logic id="1/0" requestSize="9" laneNumber="3">
       <logic>
          <logicitem request="0" response="000010000" foes="100010000"/>
@@ -223,7 +197,6 @@
          <logicitem request="8" response="000010001" foes="000010001"/>
       </logic>
    </row-logic>
-
    <row-logic id="1/1" requestSize="16" laneNumber="4">
       <logic>
          <logicitem request="0" response="0000000000000000" foes="1000010000100000"/>
@@ -244,7 +217,6 @@
          <logicitem request="15" response="0000010000100001" foes="0000010000100001"/>
       </logic>
    </row-logic>
-
    <row-logic id="1/2" requestSize="9" laneNumber="3">
       <logic>
          <logicitem request="0" response="000000000" foes="100010000"/>
@@ -258,7 +230,6 @@
          <logicitem request="8" response="000010001" foes="000010001"/>
       </logic>
    </row-logic>
-
    <row-logic id="2/0" requestSize="4" laneNumber="2">
       <logic>
          <logicitem request="0" response="0000" foes="1000"/>
@@ -267,7 +238,6 @@
          <logicitem request="3" response="0001" foes="0001"/>
       </logic>
    </row-logic>
-
    <row-logic id="2/1" requestSize="9" laneNumber="3">
       <logic>
          <logicitem request="0" response="000000000" foes="100010000"/>
@@ -281,7 +251,6 @@
          <logicitem request="8" response="000010001" foes="000010001"/>
       </logic>
    </row-logic>
-
    <row-logic id="2/2" requestSize="4" laneNumber="2">
       <logic>
          <logicitem request="0" response="0000" foes="1000"/>
@@ -291,7 +260,6 @@
       </logic>
    </row-logic>
 
-
    <tl-logic id="0/0" type="static" programID="0" offset="0">
       <phase duration="31" state="GgGr"/>
       <phase duration="4" state="yyyr"/>
@@ -299,165 +267,131 @@
       <phase duration="4" state="yryy"/>
    </tl-logic>
 
-
    <junction id="0/0" type="priority" x="0.00" y="0.00" incLanes="0/1to0/0_0 1/0to0/0_0" intLanes="" shape="-3.25,3.25 3.25,3.25 3.25,-3.25"/>
-
    <junction id="0/1" type="priority" x="0.00" y="40.00" incLanes="0/2to0/1_0 1/1to0/1_0 0/0to0/1_0" intLanes="" shape="-3.25,44.75 3.25,44.75 4.75,43.25 4.75,36.75 3.25,35.25 -3.25,35.25"/>
-
    <junction id="0/2" type="priority" x="0.00" y="80.00" incLanes="1/2to0/2_0 0/1to0/2_0" intLanes="" shape="3.25,83.25 3.25,76.75 -3.25,76.75"/>
-
    <junction id="1/0" type="priority" x="40.00" y="0.00" incLanes="1/1to1/0_0 2/0to1/0_0 0/0to1/0_0" intLanes="" shape="36.75,4.75 43.25,4.75 44.75,3.25 44.75,-3.25 35.25,-3.25 35.25,3.25"/>
-
    <junction id="1/1" type="priority" x="40.00" y="40.00" incLanes="1/2to1/1_0 2/1to1/1_0 1/0to1/1_0 0/1to1/1_0" intLanes="" shape="36.75,44.75 43.25,44.75 44.75,43.25 44.75,36.75 43.25,35.25 36.75,35.25 35.25,36.75 35.25,43.25"/>
-
    <junction id="1/2" type="priority" x="40.00" y="80.00" incLanes="2/2to1/2_0 1/1to1/2_0 0/2to1/2_0" intLanes="" shape="44.75,83.25 44.75,76.75 43.25,75.25 36.75,75.25 35.25,76.75 35.25,83.25"/>
-
    <junction id="2/0" type="priority" x="80.00" y="0.00" incLanes="2/1to2/0_0 1/0to2/0_0" intLanes="" shape="76.75,3.25 83.25,3.25 76.75,-3.25 76.75,3.25"/>
-
    <junction id="2/1" type="priority" x="80.00" y="40.00" incLanes="2/2to2/1_0 2/0to2/1_0 1/1to2/1_0" intLanes="" shape="76.75,44.75 83.25,44.75 83.25,35.25 76.75,35.25 75.25,36.75 75.25,43.25"/>
-
    <junction id="2/2" type="priority" x="80.00" y="80.00" incLanes="2/1to2/2_0 1/2to2/2_0" intLanes="" shape="83.25,76.75 76.75,76.75 76.75,83.25"/>
-
 
    <succ edge="0/0to0/1" lane="0/0to0/1_0" junction="0/1">
       <succlane lane="0/1to1/1_0" yield="0" dir="r" state="M"/>
       <succlane lane="0/1to0/2_0" yield="0" dir="s" state="M"/>
       <succlane lane="0/1to0/0_0" yield="1" dir="t" state="m"/>
    </succ>
-
    <succ edge="0/0to1/0" lane="0/0to1/0_0" junction="1/0">
       <succlane lane="1/0to2/0_0" yield="0" dir="s" state="M"/>
       <succlane lane="1/0to1/1_0" yield="1" dir="l" state="m"/>
       <succlane lane="1/0to0/0_0" yield="1" dir="t" state="m"/>
    </succ>
-
    <succ edge="0/1to0/0" lane="0/1to0/0_0" junction="0/0">
       <succlane lane="0/0to1/0_0" tl="0/0" linkno="0" yield="1" dir="l" state="t"/>
       <succlane lane="0/0to0/1_0" tl="0/0" linkno="1" yield="1" dir="t" state="t" int_end="x"/>
    </succ>
-
    <succ edge="0/1to0/2" lane="0/1to0/2_0" junction="0/2">
       <succlane lane="0/2to1/2_0" yield="0" dir="r" state="M"/>
       <succlane lane="0/2to0/1_0" yield="1" dir="t" state="m"/>
    </succ>
-
    <succ edge="0/1to1/1" lane="0/1to1/1_0" junction="1/1">
       <succlane lane="1/1to1/0_0" yield="1" dir="r" state="m"/>
       <succlane lane="1/1to2/1_0" yield="1" dir="s" state="m"/>
       <succlane lane="1/1to1/2_0" yield="1" dir="l" state="m"/>
       <succlane lane="1/1to0/1_0" yield="1" dir="t" state="m"/>
    </succ>
-
    <succ edge="0/2to0/1" lane="0/2to0/1_0" junction="0/1">
       <succlane lane="0/1to0/0_0" yield="0" dir="s" state="M"/>
       <succlane lane="0/1to1/1_0" yield="1" dir="l" state="m"/>
       <succlane lane="0/1to0/2_0" yield="1" dir="t" state="m"/>
    </succ>
-
    <succ edge="0/2to1/2" lane="0/2to1/2_0" junction="1/2">
       <succlane lane="1/2to1/1_0" yield="0" dir="r" state="M"/>
       <succlane lane="1/2to2/2_0" yield="0" dir="s" state="M"/>
       <succlane lane="1/2to0/2_0" yield="1" dir="t" state="m"/>
    </succ>
-
    <succ edge="1/0to0/0" lane="1/0to0/0_0" junction="0/0">
       <succlane lane="0/0to0/1_0" tl="0/0" linkno="2" yield="1" dir="r" state="t"/>
       <succlane lane="0/0to1/0_0" tl="0/0" linkno="3" yield="1" dir="t" state="t" int_end="x"/>
    </succ>
-
    <succ edge="1/0to1/1" lane="1/0to1/1_0" junction="1/1">
       <succlane lane="1/1to2/1_0" yield="0" dir="r" state="M"/>
       <succlane lane="1/1to1/2_0" yield="0" dir="s" state="M"/>
       <succlane lane="1/1to0/1_0" yield="1" dir="l" state="m"/>
       <succlane lane="1/1to1/0_0" yield="1" dir="t" state="m"/>
    </succ>
-
    <succ edge="1/0to2/0" lane="1/0to2/0_0" junction="2/0">
       <succlane lane="2/0to2/1_0" yield="0" dir="l" state="M"/>
       <succlane lane="2/0to1/0_0" yield="1" dir="t" state="m"/>
    </succ>
-
    <succ edge="1/1to0/1" lane="1/1to0/1_0" junction="0/1">
       <succlane lane="0/1to0/2_0" yield="1" dir="r" state="m"/>
       <succlane lane="0/1to0/0_0" yield="1" dir="l" state="m"/>
       <succlane lane="0/1to1/1_0" yield="1" dir="t" state="m"/>
    </succ>
-
    <succ edge="1/1to1/0" lane="1/1to1/0_0" junction="1/0">
       <succlane lane="1/0to0/0_0" yield="1" dir="r" state="m"/>
       <succlane lane="1/0to2/0_0" yield="1" dir="l" state="m"/>
       <succlane lane="1/0to1/1_0" yield="1" dir="t" state="m"/>
    </succ>
-
    <succ edge="1/1to1/2" lane="1/1to1/2_0" junction="1/2">
       <succlane lane="1/2to2/2_0" yield="1" dir="r" state="m"/>
       <succlane lane="1/2to0/2_0" yield="1" dir="l" state="m"/>
       <succlane lane="1/2to1/1_0" yield="1" dir="t" state="m"/>
    </succ>
-
    <succ edge="1/1to2/1" lane="1/1to2/1_0" junction="2/1">
       <succlane lane="2/1to2/0_0" yield="1" dir="r" state="m"/>
       <succlane lane="2/1to2/2_0" yield="1" dir="l" state="m"/>
       <succlane lane="2/1to1/1_0" yield="1" dir="t" state="m"/>
    </succ>
-
    <succ edge="1/2to0/2" lane="1/2to0/2_0" junction="0/2">
       <succlane lane="0/2to0/1_0" yield="0" dir="l" state="M"/>
       <succlane lane="0/2to1/2_0" yield="1" dir="t" state="m"/>
    </succ>
-
    <succ edge="1/2to1/1" lane="1/2to1/1_0" junction="1/1">
       <succlane lane="1/1to0/1_0" yield="0" dir="r" state="M"/>
       <succlane lane="1/1to1/0_0" yield="0" dir="s" state="M"/>
       <succlane lane="1/1to2/1_0" yield="1" dir="l" state="m"/>
       <succlane lane="1/1to1/2_0" yield="1" dir="t" state="m"/>
    </succ>
-
    <succ edge="1/2to2/2" lane="1/2to2/2_0" junction="2/2">
       <succlane lane="2/2to2/1_0" yield="0" dir="r" state="M"/>
       <succlane lane="2/2to1/2_0" yield="1" dir="t" state="m"/>
    </succ>
-
    <succ edge="2/0to1/0" lane="2/0to1/0_0" junction="1/0">
       <succlane lane="1/0to1/1_0" yield="0" dir="r" state="M"/>
       <succlane lane="1/0to0/0_0" yield="0" dir="s" state="M"/>
       <succlane lane="1/0to2/0_0" yield="1" dir="t" state="m"/>
    </succ>
-
    <succ edge="2/0to2/1" lane="2/0to2/1_0" junction="2/1">
       <succlane lane="2/1to2/2_0" yield="0" dir="s" state="M"/>
       <succlane lane="2/1to1/1_0" yield="1" dir="l" state="m"/>
       <succlane lane="2/1to2/0_0" yield="1" dir="t" state="m"/>
    </succ>
-
    <succ edge="2/1to1/1" lane="2/1to1/1_0" junction="1/1">
       <succlane lane="1/1to1/2_0" yield="1" dir="r" state="m"/>
       <succlane lane="1/1to0/1_0" yield="1" dir="s" state="m"/>
       <succlane lane="1/1to1/0_0" yield="1" dir="l" state="m"/>
       <succlane lane="1/1to2/1_0" yield="1" dir="t" state="m"/>
    </succ>
-
    <succ edge="2/1to2/0" lane="2/1to2/0_0" junction="2/0">
       <succlane lane="2/0to1/0_0" yield="0" dir="r" state="M"/>
       <succlane lane="2/0to2/1_0" yield="1" dir="t" state="m"/>
    </succ>
-
    <succ edge="2/1to2/2" lane="2/1to2/2_0" junction="2/2">
       <succlane lane="2/2to1/2_0" yield="0" dir="l" state="M"/>
       <succlane lane="2/2to2/1_0" yield="1" dir="t" state="m"/>
    </succ>
-
    <succ edge="2/2to1/2" lane="2/2to1/2_0" junction="1/2">
       <succlane lane="1/2to0/2_0" yield="0" dir="s" state="M"/>
       <succlane lane="1/2to1/1_0" yield="1" dir="l" state="m"/>
       <succlane lane="1/2to2/2_0" yield="1" dir="t" state="m"/>
    </succ>
-
    <succ edge="2/2to2/1" lane="2/2to2/1_0" junction="2/1">
       <succlane lane="2/1to1/1_0" yield="0" dir="r" state="M"/>
       <succlane lane="2/1to2/0_0" yield="0" dir="s" state="M"/>
       <succlane lane="2/1to2/2_0" yield="1" dir="t" state="m"/>
    </succ>
-
 
 </net>

@@ -1,15 +1,21 @@
 <?xml version="1.0"?>
 
-<!-- generated on 08/21/10 19:12:29 by SUMO netconvert Version dev-SVN-r8487
-<configuration>
+<!-- generated on 01/12/11 13:09:36 by SUMO netconvert Version dev-SVN-r9534
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <xml-edge-files value="input_edges.edg.xml"/>
+        <xml-edge-files value="./sumo/bugs/ticket331/input_edges.edg.xml"/>
     </input>
 
     <output>
-        <output-file value="net.net.xml"/>
+        <output-file value="./sumo/bugs/ticket331/net.net.xml"/>
     </output>
+
+    <report>
+        <verbose value="true"/>
+    </report>
 
 </configuration>
 -->

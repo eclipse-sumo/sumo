@@ -1,15 +1,17 @@
 <?xml version="1.0"?>
 
-<!-- generated on 09/08/10 17:09:03 by SUMO netconvert Version dev-SVN-r8962
-<configuration>
+<!-- generated on 01/12/11 13:09:34 by SUMO netconvert Version dev-SVN-r9534
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <xml-node-files value="cross1l.nod.xml"/>
-        <xml-edge-files value="cross1l.edg.xml"/>
+        <xml-node-files value="./sumo/bugs/right_before_left_deadlock/cross1l.nod.xml"/>
+        <xml-edge-files value="./sumo/bugs/right_before_left_deadlock/cross1l.edg.xml"/>
     </input>
 
     <output>
-        <output-file value="net.net.xml"/>
+        <output-file value="./sumo/bugs/right_before_left_deadlock/net.net.xml"/>
     </output>
 
     <report>

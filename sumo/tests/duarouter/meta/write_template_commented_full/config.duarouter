@@ -75,6 +75,18 @@
         <!-- Use FLOAT as Gawron's alpha -->
         <gA value="0.05"/>
 
+        <!-- Save routes with near zero probability -->
+        <keep-all-routes value="false"/>
+
+        <!-- Use c-logit model -->
+        <logit value="false"/>
+
+        <!-- Use FLOAT as logit's beta -->
+        <lBeta value="0.15"/>
+
+        <!-- Use FLOAT as logit's gamma -->
+        <lGamma value="1"/>
+
     </processing>
 
     <defaults>

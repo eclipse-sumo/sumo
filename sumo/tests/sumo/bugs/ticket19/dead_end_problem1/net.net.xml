@@ -1,21 +1,27 @@
 <?xml version="1.0"?>
 
-<!-- generated on 07/15/10 15:06:17 by SUMO netconvert Version dev-SVN-r8163
-<configuration>
+<!-- generated on 01/12/11 13:09:35 by SUMO netconvert Version dev-SVN-r9534
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <xml-node-files value="prunned.nod.xml"/>
-        <xml-edge-files value="prunned.edg.xml"/>
-        <xml-connection-files value="prunned.con.xml"/>
+        <xml-node-files value="./sumo/bugs/ticket19/dead_end_problem1/prunned.nod.xml"/>
+        <xml-edge-files value="./sumo/bugs/ticket19/dead_end_problem1/prunned.edg.xml"/>
+        <xml-connection-files value="./sumo/bugs/ticket19/dead_end_problem1/prunned.con.xml"/>
     </input>
 
     <output>
-        <output-file value="net.net.xml"/>
+        <output-file value="./sumo/bugs/ticket19/dead_end_problem1/net.net.xml"/>
     </output>
 
     <processing>
         <guess-roundabouts value="true"/>
     </processing>
+
+    <report>
+        <verbose value="true"/>
+    </report>
 
 </configuration>
 -->
@@ -29,218 +35,181 @@
          <lane id=":15891_0_0" depart="0" maxspeed="13.90" length="4.82" shape="242.03,728.35 241.84,729.82 241.28,730.56 240.36,730.56 239.07,729.81"/>
       </lanes>
    </edge>
-
    <edge id=":17208_0" function="internal">
       <lanes>
          <lane id=":17208_0_0" depart="0" maxspeed="13.90" length="6.41" shape="168.42,592.94 167.53,591.20 166.47,589.97 165.24,589.26 163.84,589.07"/>
       </lanes>
    </edge>
-
    <edge id=":17208_1" function="internal">
       <lanes>
          <lane id=":17208_1_0" depart="0" maxspeed="13.90" length="10.58" shape="171.29,591.24 169.93,588.78 168.10,587.05 165.82,586.06 163.07,585.80"/>
       </lanes>
    </edge>
-
    <edge id=":17208_2" function="internal">
       <lanes>
          <lane id=":17208_2_0" depart="0" maxspeed="13.90" length="5.13" shape="178.31,583.35 177.32,584.28 176.77,585.35 176.66,586.54 177.00,587.87"/>
       </lanes>
    </edge>
-
    <edge id=":17208_3" function="internal">
       <lanes>
          <lane id=":17208_3_0" depart="0" maxspeed="13.90" length="15.94" shape="178.31,583.35 174.47,586.10 171.61,587.78 168.49,588.67 163.84,589.07"/>
       </lanes>
    </edge>
-
    <edge id=":17208_4" function="internal">
       <lanes>
          <lane id=":17208_4_0" depart="0" maxspeed="13.90" length="10.13" shape="176.71,580.30 174.93,582.69 173.91,585.03 173.65,587.32 174.15,589.55"/>
       </lanes>
    </edge>
-
    <edge id=":17208_5" function="internal">
       <lanes>
          <lane id=":17208_5_0" depart="0" maxspeed="13.90" length="15.10" shape="176.71,580.30 174.13,582.58 170.99,584.25 167.31,585.33 163.07,585.80"/>
       </lanes>
    </edge>
-
    <edge id=":17209_0" function="internal">
       <lanes>
          <lane id=":17209_0_0" depart="0" maxspeed="13.90" length="4.95" shape="152.04,537.49 152.74,538.56 153.66,539.18 154.81,539.35 156.18,539.07"/>
       </lanes>
    </edge>
-
    <edge id=":17209_1" function="internal">
       <lanes>
          <lane id=":17209_1_0" depart="0" maxspeed="13.90" length="9.64" shape="149.12,539.05 150.29,540.65 152.10,541.69 154.54,542.19 157.62,542.14"/>
       </lanes>
    </edge>
-
    <edge id=":17209_2" function="internal">
       <lanes>
          <lane id=":17209_2_0" depart="0" maxspeed="13.90" length="5.39" shape="142.77,547.20 143.51,546.12 143.85,544.92 143.78,543.60 143.30,542.17"/>
       </lanes>
    </edge>
-
    <edge id=":17209_3" function="internal">
       <lanes>
          <lane id=":17209_3_0" depart="0" maxspeed="13.90" length="15.98" shape="142.77,547.20 146.07,543.86 148.69,541.93 151.70,540.60 156.18,539.07"/>
       </lanes>
    </edge>
-
    <edge id=":17209_4" function="internal">
       <lanes>
          <lane id=":17209_4_0" depart="0" maxspeed="13.90" length="9.84" shape="144.77,549.90 146.14,547.46 146.84,545.10 146.86,542.82 146.21,540.61"/>
       </lanes>
    </edge>
-
    <edge id=":17209_5" function="internal">
       <lanes>
          <lane id=":17209_5_0" depart="0" maxspeed="13.90" length="15.51" shape="144.77,549.90 147.38,546.80 150.39,544.47 153.80,542.92 157.62,542.14"/>
       </lanes>
    </edge>
-
    <edge id=":17210_0" function="internal">
       <lanes>
          <lane id=":17210_0_0" depart="0" maxspeed="13.90" length="5.07" shape="143.10,580.86 142.05,579.89 140.95,579.39 139.79,579.35 138.59,579.77"/>
       </lanes>
    </edge>
-
    <edge id=":17210_1" function="internal">
       <lanes>
          <lane id=":17210_1_0" depart="0" maxspeed="13.90" length="19.77" shape="143.10,580.86 139.44,576.35 137.43,572.78 136.61,568.78 136.55,562.99"/>
       </lanes>
    </edge>
-
    <edge id=":17210_2" function="internal">
       <lanes>
          <lane id=":17210_2_0" depart="0" maxspeed="13.90" length="10.13" shape="146.15,579.27 143.76,577.36 141.44,576.32 139.20,576.16 137.03,576.86"/>
       </lanes>
    </edge>
-
    <edge id=":17210_3" function="internal">
       <lanes>
          <lane id=":17210_3_0" depart="0" maxspeed="13.90" length="19.09" shape="146.15,579.27 142.83,575.36 140.69,571.18 139.72,566.73 139.91,562.02"/>
       </lanes>
    </edge>
-
    <edge id=":17210_4" function="internal">
       <lanes>
          <lane id=":17210_4_0" depart="0" maxspeed="13.90" length="6.95" shape="132.35,568.14 134.16,566.99 135.47,565.74 136.27,564.41 136.55,562.99"/>
       </lanes>
    </edge>
-
    <edge id=":17210_5" function="internal">
       <lanes>
          <lane id=":17210_5_0" depart="0" maxspeed="13.90" length="11.24" shape="133.91,571.05 136.15,569.48 137.90,567.46 139.15,564.97 139.91,562.02"/>
       </lanes>
    </edge>
-
    <edge id=":5838_0" function="internal">
       <lanes>
          <lane id=":5838_0_0" depart="0" maxspeed="13.90" length="4.82" shape="86.79,0.19 87.47,-1.13 88.24,-1.64 89.10,-1.33 90.07,-0.19"/>
       </lanes>
    </edge>
-
    <edge id=":5887_0" function="internal">
       <lanes>
          <lane id=":5887_0_0" depart="0" maxspeed="13.90" length="4.82" shape="26.22,636.26 24.74,636.12 23.99,635.59 23.96,634.67 24.66,633.36"/>
       </lanes>
    </edge>
-
    <edge id=":6691_0" function="internal">
       <lanes>
          <lane id=":6691_0_0" depart="0" maxspeed="13.90" length="5.12" shape="130.30,511.50 129.65,510.24 128.77,509.53 127.64,509.36 126.28,509.75"/>
       </lanes>
    </edge>
-
    <edge id=":6691_1" function="internal">
       <lanes>
          <lane id=":6691_1_0" depart="0" maxspeed="13.90" length="6.85" shape="130.30,511.50 128.09,505.03"/>
       </lanes>
    </edge>
-
    <edge id=":6691_2" function="internal">
       <lanes>
          <lane id=":6691_2_0" depart="0" maxspeed="13.90" length="6.86" shape="133.42,510.44 131.21,503.95"/>
       </lanes>
    </edge>
-
    <edge id=":6691_3" function="internal">
       <lanes>
          <lane id=":6691_3_0" depart="0" maxspeed="13.90" length="4.82" shape="133.42,510.44 133.80,509.01 134.45,508.35 135.36,508.48 136.54,509.38"/>
       </lanes>
    </edge>
-
    <edge id=":6691_4" function="internal">
       <lanes>
          <lane id=":6691_4_0" depart="0" maxspeed="13.90" length="6.89" shape="137.44,501.80 139.67,508.32"/>
       </lanes>
    </edge>
-
    <edge id=":6691_5" function="internal">
       <lanes>
          <lane id=":6691_5_0" depart="0" maxspeed="13.90" length="6.87" shape="134.32,502.88 136.54,509.38"/>
       </lanes>
    </edge>
-
    <edge id=":6691_6" function="internal">
       <lanes>
          <lane id=":6691_6_0" depart="0" maxspeed="13.90" length="11.19" shape="134.32,502.88 134.19,504.37 132.80,506.01 130.16,507.81 126.28,509.75"/>
       </lanes>
    </edge>
-
    <edge id=":6691_7" function="internal">
       <lanes>
          <lane id=":6691_7_0" depart="0" maxspeed="13.90" length="4.82" shape="134.32,502.88 133.95,504.31 133.30,504.97 132.39,504.85 131.21,503.95"/>
       </lanes>
    </edge>
-
    <edge id=":6699_0" function="internal">
       <lanes>
          <lane id=":6699_0_0" depart="0" maxspeed="13.90" length="4.82" shape="493.70,390.51 495.17,390.68 495.92,391.23 495.93,392.15 495.20,393.45"/>
       </lanes>
    </edge>
-
    <edge id=":6728_0" function="internal">
       <lanes>
          <lane id=":6728_0_0" depart="0" maxspeed="13.90" length="5.03" shape="188.97,557.01 187.97,557.73 187.31,558.68 187.00,559.86 187.02,561.28"/>
       </lanes>
    </edge>
-
    <edge id=":6728_1" function="internal">
       <lanes>
          <lane id=":6728_1_0" depart="0" maxspeed="13.90" length="9.83" shape="187.47,554.07 185.86,555.32 184.71,557.17 184.04,559.62 183.83,562.69"/>
       </lanes>
    </edge>
-
    <edge id=":6728_2" function="internal">
       <lanes>
          <lane id=":6728_2_0" depart="0" maxspeed="13.90" length="4.88" shape="178.46,544.65 179.53,545.38 180.64,545.72 181.79,545.67 182.99,545.25"/>
       </lanes>
    </edge>
-
    <edge id=":6728_3" function="internal">
       <lanes>
          <lane id=":6728_3_0" depart="0" maxspeed="13.90" length="19.43" shape="178.46,544.65 182.60,548.54 184.93,551.80 186.17,555.64 187.02,561.28"/>
       </lanes>
    </edge>
-
    <edge id=":6728_4" function="internal">
       <lanes>
          <lane id=":6728_4_0" depart="0" maxspeed="13.90" length="9.19" shape="175.97,546.86 178.04,548.28 180.14,548.98 182.29,548.95 184.48,548.19"/>
       </lanes>
    </edge>
-
    <edge id=":6728_5" function="internal">
       <lanes>
          <lane id=":6728_5_0" depart="0" maxspeed="13.90" length="18.21" shape="175.97,546.86 179.38,550.41 181.83,554.23 183.31,558.32 183.83,562.69"/>
       </lanes>
    </edge>
-
-
 
    <edge id="-4312" from="5838" to="6691" priority="-1" type="" function="normal">
       <lanes>
@@ -248,13 +217,11 @@
          <lane id="-4312_1" depart="0" maxspeed="13.90" length="505.81" shape="90.07,-0.19 99.04,75.65 101.50,97.73 107.39,218.64 111.28,308.29 113.03,342.70 114.94,381.28 116.99,422.20 118.21,433.67 121.82,456.95 126.31,477.22 131.91,495.88 134.32,502.88"/>
       </lanes>
    </edge>
-
    <edge id="-7783" from="6691" to="15750" priority="-1" type="" function="normal">
       <lanes>
          <lane id="-7783_0" depart="1" maxspeed="13.90" length="148.99" shape="126.28,509.75 74.93,532.77 58.38,540.21 50.21,544.57 41.62,550.74 36.81,556.30 34.23,560.43 31.29,567.96 29.44,570.84 27.19,573.65 23.21,574.68 18.53,574.49 -0.06,573.76"/>
       </lanes>
    </edge>
-
    <edge id="-9458" from="6699" to="6728" priority="-1" type="" function="normal">
       <lanes>
          <lane id="-9458_0" depart="1" maxspeed="13.90" length="347.12" shape="498.21,399.32 411.98,443.52 364.22,467.47 318.89,491.07 239.92,531.11 188.97,557.01"/>
@@ -262,84 +229,72 @@
          <lane id="-9458_2" depart="0" maxspeed="13.90" length="347.12" shape="495.20,393.45 408.97,437.65 361.26,461.57 315.84,485.21 236.94,525.22 185.98,551.13"/>
       </lanes>
    </edge>
-
    <edge id="-9908" from="17208" to="15891" priority="-1" type="" function="normal">
       <lanes>
          <lane id="-9908_0" depart="1" maxspeed="13.90" length="154.64" shape="177.00,587.87 179.56,594.18 197.23,630.71 244.98,726.88"/>
          <lane id="-9908_1" depart="0" maxspeed="13.90" length="154.64" shape="174.15,589.55 176.49,595.40 194.26,632.14 242.03,728.35"/>
       </lanes>
    </edge>
-
    <edge id="-9910" from="17209" to="6691" priority="-1" type="" function="normal">
       <lanes>
          <lane id="-9910_0" depart="1" maxspeed="13.90" length="33.06" shape="143.30,542.17 136.22,526.66 132.08,516.72 130.30,511.50"/>
          <lane id="-9910_1" depart="0" maxspeed="13.90" length="33.06" shape="146.21,540.61 139.22,525.29 135.13,515.45 133.42,510.44"/>
       </lanes>
    </edge>
-
    <edge id="-9912" from="17210" to="5887" priority="-1" type="" function="normal">
       <lanes>
          <lane id="-9912_0" depart="1" maxspeed="13.90" length="125.73" shape="138.59,579.77 42.75,631.15 27.78,639.17"/>
          <lane id="-9912_1" depart="0" maxspeed="13.90" length="125.73" shape="137.03,576.86 41.19,628.24 26.22,636.26"/>
       </lanes>
    </edge>
-
    <edge id="-9914" from="17210" to="17209" priority="-1" type="" function="normal">
       <lanes>
          <lane id="-9914_0" depart="1" maxspeed="13.90" length="15.27" shape="136.55,562.99 136.57,562.21 137.33,557.33 138.52,554.06 139.95,551.14 142.22,547.79 142.77,547.20"/>
          <lane id="-9914_1" depart="0" maxspeed="13.90" length="15.27" shape="139.91,562.02 140.54,558.17 141.62,555.19 142.90,552.63 144.77,549.90"/>
       </lanes>
    </edge>
-
    <edge id="-9915" from="17208" to="17210" priority="-1" type="" function="normal">
       <lanes>
          <lane id="-9915_0" depart="1" maxspeed="13.90" length="20.87" shape="163.84,589.07 160.82,589.19 157.15,588.66 153.13,587.45 150.59,586.44 147.88,584.89 145.74,583.42 143.37,581.18 143.10,580.86"/>
          <lane id="-9915_1" depart="0" maxspeed="13.90" length="20.87" shape="163.07,585.80 161.00,585.88 157.62,585.39 154.13,584.30 151.82,583.38 149.57,582.06 147.62,580.71 146.15,579.27"/>
       </lanes>
    </edge>
-
    <edge id="-9916" from="6728" to="17208" priority="-1" type="" function="normal">
       <lanes>
          <lane id="-9916_0" depart="1" maxspeed="13.90" length="22.10" shape="187.02,561.28 187.10,561.87 187.15,565.24 186.57,569.70 185.14,573.74 183.22,577.40 181.18,580.25 178.58,583.16 178.31,583.35"/>
          <lane id="-9916_1" depart="0" maxspeed="13.90" length="22.10" shape="183.83,562.69 183.85,565.25 183.35,568.91 182.03,572.64 180.32,575.82 178.52,578.29 176.71,580.30"/>
       </lanes>
    </edge>
-
    <edge id="-9917" from="17209" to="6728" priority="-1" type="" function="normal">
       <lanes>
          <lane id="-9917_0" depart="1" maxspeed="13.90" length="21.74" shape="156.18,539.07 156.60,538.93 162.16,538.40 167.75,538.97 171.47,540.28 176.83,543.22 178.46,544.65"/>
          <lane id="-9917_1" depart="0" maxspeed="13.90" length="21.74" shape="157.62,542.14 162.15,541.71 167.02,542.21 170.37,543.39 174.91,545.93 175.97,546.86"/>
       </lanes>
    </edge>
-
    <edge id="4312" from="6691" to="5838" priority="-1" type="" function="normal">
       <lanes>
          <lane id="4312_0" depart="1" maxspeed="13.90" length="507.23" shape="128.09,505.03 125.65,497.96 119.96,479.00 115.36,458.27 111.68,434.60 110.42,422.80 108.35,381.61 106.44,343.02 104.69,308.61 100.79,218.93 94.92,98.15 92.48,76.39 83.51,0.58"/>
          <lane id="4312_1" depart="0" maxspeed="13.90" length="507.23" shape="131.21,503.95 128.77,496.89 123.12,478.05 118.58,457.56 114.94,434.09 113.70,422.45 111.64,381.44 109.73,342.86 107.98,308.44 104.09,218.79 98.21,97.99 95.76,76.02 86.79,0.19"/>
       </lanes>
    </edge>
-
    <edge id="9458" from="6728" to="6699" priority="-1" type="" function="normal">
       <lanes>
          <lane id="9458_0" depart="1" maxspeed="13.90" length="347.09" shape="182.99,545.25 233.95,519.34 312.84,479.34 358.23,455.71 406.00,431.76 492.19,387.57"/>
          <lane id="9458_1" depart="0" maxspeed="13.90" length="347.09" shape="184.48,548.19 235.44,522.28 314.33,482.28 359.76,458.64 407.48,434.71 493.70,390.51"/>
       </lanes>
    </edge>
-
    <edge id="9908" from="15891" to="17208" priority="-1" type="" function="normal">
       <lanes>
          <lane id="9908_0" depart="1" maxspeed="13.90" length="154.16" shape="236.12,731.28 188.34,635.06 170.50,598.16 168.42,592.94"/>
          <lane id="9908_1" depart="0" maxspeed="13.90" length="154.16" shape="239.07,729.81 191.29,633.59 173.47,596.73 171.29,591.24"/>
       </lanes>
    </edge>
-
    <edge id="9910" from="6691" to="17209" priority="-1" type="" function="normal">
       <lanes>
          <lane id="9910_0" depart="1" maxspeed="13.90" length="31.98" shape="139.67,508.32 141.34,513.23 145.29,522.71 152.04,537.49"/>
          <lane id="9910_1" depart="0" maxspeed="13.90" length="31.98" shape="136.54,509.38 138.21,514.29 142.24,523.98 149.12,539.05"/>
       </lanes>
    </edge>
-
    <edge id="9912" from="5887" to="17210" priority="-1" type="" function="normal">
       <lanes>
          <lane id="9912_0" depart="1" maxspeed="13.90" length="125.73" shape="21.54,627.54 36.51,619.52 132.35,568.14"/>
@@ -348,14 +303,12 @@
       </lanes>
    </edge>
 
-
    <row-logic id="15891" requestSize="2" laneNumber="2">
       <logic>
          <logicitem request="0" response="11" foes="00" cont="0"/>
          <logicitem request="1" response="00" foes="00" cont="0"/>
       </logic>
    </row-logic>
-
    <row-logic id="17208" requestSize="6" laneNumber="4">
       <logic>
          <logicitem request="0" response="101000" foes="101000" cont="0"/>
@@ -366,7 +319,6 @@
          <logicitem request="5" response="000000" foes="000011" cont="0"/>
       </logic>
    </row-logic>
-
    <row-logic id="17209" requestSize="6" laneNumber="4">
       <logic>
          <logicitem request="0" response="101000" foes="101000" cont="0"/>
@@ -377,7 +329,6 @@
          <logicitem request="5" response="000000" foes="000011" cont="0"/>
       </logic>
    </row-logic>
-
    <row-logic id="17210" requestSize="7" laneNumber="5">
       <logic>
          <logicitem request="0" response="0000000" foes="0000000" cont="0"/>
@@ -389,21 +340,18 @@
          <logicitem request="6" response="1111111" foes="0000000" cont="0"/>
       </logic>
    </row-logic>
-
    <row-logic id="5838" requestSize="2" laneNumber="2">
       <logic>
          <logicitem request="0" response="11" foes="00" cont="0"/>
          <logicitem request="1" response="00" foes="00" cont="0"/>
       </logic>
    </row-logic>
-
    <row-logic id="5887" requestSize="2" laneNumber="2">
       <logic>
          <logicitem request="0" response="11" foes="00" cont="0"/>
          <logicitem request="1" response="00" foes="00" cont="0"/>
       </logic>
    </row-logic>
-
    <row-logic id="6691" requestSize="8" laneNumber="4">
       <logic>
          <logicitem request="0" response="00000000" foes="01000000" cont="0"/>
@@ -416,14 +364,12 @@
          <logicitem request="7" response="00000110" foes="00000110" cont="0"/>
       </logic>
    </row-logic>
-
    <row-logic id="6699" requestSize="2" laneNumber="2">
       <logic>
          <logicitem request="0" response="11" foes="00" cont="0"/>
          <logicitem request="1" response="00" foes="00" cont="0"/>
       </logic>
    </row-logic>
-
    <row-logic id="6728" requestSize="7" laneNumber="5">
       <logic>
          <logicitem request="0" response="1010000" foes="1010000" cont="0"/>
@@ -436,176 +382,131 @@
       </logic>
    </row-logic>
 
-
    <tl-logic id="427" type="static" programID="0" offset="0">
       <phase duration="31" state="GG"/>
       <phase duration="4" state="yy"/>
    </tl-logic>
-
    <tl-logic id="437" type="static" programID="0" offset="0">
       <phase duration="31" state="GG"/>
       <phase duration="4" state="yy"/>
    </tl-logic>
 
-
    <junction id="15750" type="DEAD_END" x="0.00" y="572.11" incLanes="-7783_0" intLanes="" shape="-0.13,575.36 -0.00,572.16"/>
-
    <junction id="15891" type="priority" x="240.55" y="729.08" incLanes="-9908_0 -9908_1" intLanes=":15891_0_0" shape="240.51,729.10 234.68,731.99 246.42,726.17 240.59,729.06"/>
-
    <junction id="17208" type="priority" x="169.16" y="583.19" incLanes="9908_0 9908_1 -9916_0 -9916_1" intLanes=":17208_0_0 :17208_1_0 :17208_2_0 :17208_3_0 :17208_4_0 :17208_5_0" shape="167.02,593.76 178.40,587.04 179.06,584.78 175.92,578.79 162.69,584.22 164.22,590.65"/>
-
    <junction id="17209" type="priority" x="151.07" y="546.33" incLanes="9910_0 9910_1 -9914_0 -9914_1" intLanes=":17209_0_0 :17209_1_0 :17209_2_0 :17209_3_0 :17209_4_0 :17209_5_0" shape="158.34,543.68 155.50,537.61 153.45,536.73 141.89,542.93 141.80,545.89 145.78,551.26"/>
-
    <junction id="17210" type="priority" x="143.04" y="571.77" incLanes="-9915_0 -9915_1 9912_0 9912_1 9912_2" intLanes=":17210_0_0 :17210_1_0 :17210_2_0 :17210_3_0 :17210_4_0 :17210_5_0" shape="141.64,581.62 147.64,578.50 141.61,561.54 134.94,563.45 131.60,566.73 139.34,581.18"/>
-
    <junction id="5838" type="priority" x="88.43" y="0.00" incLanes="4312_0 4312_1" intLanes=":5838_0_0" shape="88.48,-0.01 94.93,-0.77 81.93,0.77 88.38,0.01"/>
-
    <junction id="5887" type="priority" x="25.44" y="634.81" incLanes="-9912_0 -9912_1" intLanes=":5887_0_0" shape="25.42,634.77 20.79,626.13 28.53,640.58 25.46,634.85"/>
-
    <junction id="6691" type="priority" x="133.25" y="504.82" incLanes="-9910_0 -9910_1 -4312_0 -4312_1" intLanes=":6691_0_0 :6691_1_0 :6691_2_0 :6691_3_0 :6691_4_0 :6691_5_0 :6691_6_0 :6691_7_0" shape="128.79,512.02 141.18,507.80 138.96,501.28 126.57,505.55 125.62,508.29 126.93,511.21"/>
-
    <junction id="6699" type="priority" x="494.45" y="391.98" incLanes="9458_0 9458_1" intLanes=":6699_0_0" shape="494.47,392.02 498.94,400.75 491.46,386.15 494.43,391.94"/>
-
    <junction id="6728" type="priority" x="179.31" y="552.67" incLanes="-9458_0 -9458_1 -9458_2 -9917_0 -9917_1" intLanes=":6728_0_0 :6728_1_0 :6728_2_0 :6728_3_0 :6728_4_0 :6728_5_0" shape="182.24,563.39 188.55,560.61 189.69,558.44 182.26,543.82 179.67,543.58 174.77,547.93"/>
-
-
 
    <succ edge="-4312" lane="-4312_0" junction="6691">
       <succlane lane="9910_0" via=":6691_4_0" yield="0" dir="s" state="M"/>
    </succ>
-
    <succ edge="-4312" lane="-4312_1" junction="6691">
       <succlane lane="9910_1" via=":6691_5_0" yield="0" dir="s" state="M"/>
       <succlane lane="-7783_0" via=":6691_6_0" yield="1" dir="l" state="m"/>
       <succlane lane="4312_1" via=":6691_7_0" yield="1" dir="t" state="m"/>
    </succ>
-
    <succ edge="-7783" lane="-7783_0" junction="15750">
       <succlane lane="SUMO_NO_DESTINATION" yield="1" dir="s" state="O"/>
    </succ>
-
    <succ edge="-9458" lane="-9458_0" junction="6728">
       <succlane lane="-9916_0" via=":6728_0_0" yield="1" dir="r" state="m"/>
    </succ>
-
    <succ edge="-9458" lane="-9458_1" junction="6728">
       <succlane lane="-9916_1" via=":6728_1_0" yield="1" dir="r" state="m"/>
    </succ>
-
    <succ edge="-9458" lane="-9458_2" junction="6728">
       <succlane lane="SUMO_NO_DESTINATION" yield="1" dir="s" state="O"/>
    </succ>
-
    <succ edge="-9908" lane="-9908_0" junction="15891">
       <succlane lane="SUMO_NO_DESTINATION" yield="1" dir="s" state="O"/>
    </succ>
-
    <succ edge="-9908" lane="-9908_1" junction="15891">
       <succlane lane="9908_1" via=":15891_0_0" yield="0" dir="t" state="M"/>
    </succ>
-
    <succ edge="-9910" lane="-9910_0" junction="6691">
       <succlane lane="-7783_0" via=":6691_0_0" yield="0" dir="r" state="M"/>
       <succlane lane="4312_0" via=":6691_1_0" yield="0" dir="s" state="M"/>
    </succ>
-
    <succ edge="-9910" lane="-9910_1" junction="6691">
       <succlane lane="4312_1" via=":6691_2_0" yield="0" dir="s" state="M"/>
       <succlane lane="9910_1" via=":6691_3_0" yield="1" dir="t" state="m"/>
    </succ>
-
    <succ edge="-9912" lane="-9912_0" junction="5887">
       <succlane lane="SUMO_NO_DESTINATION" yield="1" dir="s" state="O"/>
    </succ>
-
    <succ edge="-9912" lane="-9912_1" junction="5887">
       <succlane lane="9912_2" via=":5887_0_0" yield="0" dir="t" state="M"/>
    </succ>
-
    <succ edge="-9914" lane="-9914_0" junction="17209">
       <succlane lane="-9910_0" via=":17209_2_0" yield="0" dir="r" state="M"/>
       <succlane lane="-9917_0" via=":17209_3_0" yield="0" dir="s" state="M"/>
    </succ>
-
    <succ edge="-9914" lane="-9914_1" junction="17209">
       <succlane lane="-9910_1" via=":17209_4_0" yield="0" dir="r" state="M"/>
       <succlane lane="-9917_1" via=":17209_5_0" yield="0" dir="s" state="M"/>
    </succ>
-
    <succ edge="-9915" lane="-9915_0" junction="17210">
       <succlane lane="-9912_0" via=":17210_0_0" yield="0" dir="r" state="M"/>
       <succlane lane="-9914_0" via=":17210_1_0" yield="0" dir="s" state="M"/>
    </succ>
-
    <succ edge="-9915" lane="-9915_1" junction="17210">
       <succlane lane="-9912_1" via=":17210_2_0" yield="0" dir="r" state="M"/>
       <succlane lane="-9914_1" via=":17210_3_0" yield="0" dir="s" state="M"/>
    </succ>
-
    <succ edge="-9916" lane="-9916_0" junction="17208">
       <succlane lane="-9908_0" via=":17208_2_0" yield="0" dir="r" state="M"/>
       <succlane lane="-9915_0" via=":17208_3_0" yield="0" dir="s" state="M"/>
    </succ>
-
    <succ edge="-9916" lane="-9916_1" junction="17208">
       <succlane lane="-9908_1" via=":17208_4_0" yield="0" dir="r" state="M"/>
       <succlane lane="-9915_1" via=":17208_5_0" yield="0" dir="s" state="M"/>
    </succ>
-
    <succ edge="-9917" lane="-9917_0" junction="6728">
       <succlane lane="9458_0" via=":6728_2_0" yield="0" dir="r" state="M"/>
       <succlane lane="-9916_0" via=":6728_3_0" yield="0" dir="s" state="M"/>
    </succ>
-
    <succ edge="-9917" lane="-9917_1" junction="6728">
       <succlane lane="9458_1" via=":6728_4_0" yield="0" dir="r" state="M"/>
       <succlane lane="-9916_1" via=":6728_5_0" yield="0" dir="s" state="M"/>
    </succ>
-
    <succ edge="4312" lane="4312_0" junction="5838">
       <succlane lane="SUMO_NO_DESTINATION" tl="427" linkno="0" yield="1" dir="s" state="O"/>
    </succ>
-
    <succ edge="4312" lane="4312_1" junction="5838">
       <succlane lane="-4312_1" via=":5838_0_0" tl="427" linkno="1" yield="1" dir="t" state="t"/>
    </succ>
-
    <succ edge="9458" lane="9458_0" junction="6699">
       <succlane lane="SUMO_NO_DESTINATION" tl="437" linkno="0" yield="1" dir="s" state="O"/>
    </succ>
-
    <succ edge="9458" lane="9458_1" junction="6699">
       <succlane lane="-9458_2" via=":6699_0_0" tl="437" linkno="1" yield="1" dir="t" state="t"/>
    </succ>
-
    <succ edge="9908" lane="9908_0" junction="17208">
       <succlane lane="-9915_0" via=":17208_0_0" yield="1" dir="r" state="m"/>
    </succ>
-
    <succ edge="9908" lane="9908_1" junction="17208">
       <succlane lane="-9915_1" via=":17208_1_0" yield="1" dir="r" state="m"/>
    </succ>
-
    <succ edge="9910" lane="9910_0" junction="17209">
       <succlane lane="-9917_0" via=":17209_0_0" yield="1" dir="r" state="m"/>
    </succ>
-
    <succ edge="9910" lane="9910_1" junction="17209">
       <succlane lane="-9917_1" via=":17209_1_0" yield="1" dir="r" state="m"/>
    </succ>
-
    <succ edge="9912" lane="9912_0" junction="17210">
       <succlane lane="-9914_0" via=":17210_4_0" yield="1" dir="r" state="m"/>
    </succ>
-
    <succ edge="9912" lane="9912_1" junction="17210">
       <succlane lane="-9914_1" via=":17210_5_0" yield="1" dir="r" state="m"/>
    </succ>
-
    <succ edge="9912" lane="9912_2" junction="17210">
       <succlane lane="SUMO_NO_DESTINATION" yield="1" dir="s" state="O"/>
    </succ>
-
 
    <succ edge=":15891_0" lane=":15891_0_0" junction="15891">
       <succlane lane="9908_1" tl="" linkno="" yield="0" dir="s" state="M"/>

@@ -1,4 +1,4 @@
-SUMO duarouter Version dev-SVN-r9525
+SUMO duarouter Version dev-SVN-r9545
  Copyright (C) 2001-2011 DLR and contributors; http://sumo.sourceforge.net
  
 Shortest path router and DUE computer for the microscopic road traffic
@@ -50,6 +50,10 @@ Usage: duarouter [OPTION]*
   --expand-weights                 Expand weights behind the simulation's end
   --gBeta FLOAT                    Use FLOAT as Gawron's beta
   --gA FLOAT                       Use FLOAT as Gawron's alpha
+  --keep-all-routes                Save routes with near zero probability
+  --logit                          Use c-logit model
+  --lBeta FLOAT                    Use FLOAT as logit's beta
+  --lGamma FLOAT                   Use FLOAT as logit's gamma
 
  Defaults Options:
   --departlane STR                 Assigns a default depart lane
