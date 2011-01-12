@@ -135,7 +135,7 @@ MSLane::pWagEmitGeneric(MSVehicle& veh, SUMOReal mspeed, SUMOReal maxPos, SUMORe
         veh.getBestLanes(true, this);
         SUMOReal brakeGap = veh.getCarFollowModel().brakeGap(mspeed);
         std::pair<MSVehicle * const, SUMOReal> leader = getLeaderOnConsecutive(brakeGap, 0, mspeed, veh, veh.getBestLanesContinuation(this));
-        if(leader.first!=0) {
+        if (leader.first!=0) {
             xIn = getLength() + leader.second;
             vIn = leader.first->getSpeed();
         } else {
@@ -160,7 +160,7 @@ MSLane::pWagEmitGeneric(MSVehicle& veh, SUMOReal mspeed, SUMOReal maxPos, SUMORe
     }
     if (xIn<minPos) {
         return false;
-    } else if(xIn>maxPos) {
+    } else if (xIn>maxPos) {
         xIn = maxPos;
     }
     incorporateVehicle(&veh, x, v, myVehicles.begin());
@@ -180,7 +180,7 @@ MSLane::pWagEmitSimple(MSVehicle& veh, SUMOReal mspeed, SUMOReal maxPos, SUMORea
         veh.getBestLanes(true, this);
         SUMOReal brakeGap = veh.getCarFollowModel().brakeGap(mspeed);
         std::pair<MSVehicle * const, SUMOReal> leader = getLeaderOnConsecutive(brakeGap, 0, mspeed, veh, veh.getBestLanesContinuation(this));
-        if(leader.first!=0) {
+        if (leader.first!=0) {
             xIn = getLength() + leader.second;
             vIn = leader.first->getSpeed();
         } else {
@@ -192,7 +192,7 @@ MSLane::pWagEmitSimple(MSVehicle& veh, SUMOReal mspeed, SUMOReal maxPos, SUMORea
     xIn = xIn - vHlp * veh.getCarFollowModel().getTau();
     if (xIn<minPos) {
         return false;
-    } else if(xIn>maxPos) {
+    } else if (xIn>maxPos) {
         xIn = maxPos;
     }
     incorporateVehicle(&veh, xIn, vHlp, myVehicles.begin());
@@ -1041,7 +1041,7 @@ public:
 };
 
 std::pair<MSVehicle * const, SUMOReal>
-MSLane::getFollowerOnConsecutive(SUMOReal dist, SUMOReal seen, SUMOReal leaderSpeed, 
+MSLane::getFollowerOnConsecutive(SUMOReal dist, SUMOReal seen, SUMOReal leaderSpeed,
                                  SUMOReal backOffset, SUMOReal predMaxDecel) const {
     // ok, a vehicle has not noticed the lane about itself;
     //  iterate as long as necessary to search for an approaching one

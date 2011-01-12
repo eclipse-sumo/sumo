@@ -525,13 +525,13 @@ public:
      *
      * @todo: There are some oddities:
      * - what about crossing a link at red, or if a link is closed? Has a following vehicle to be regarded or not?
-     * 
+     *
      * @param[in] dist The distance to investigate
      * @param[in] seen The already seen place (normally the place in front on own lane)
      * @param[in] speed The speed of the vehicle used for determining whether a subsequent link will be opened at arrival time
      * @param[in] veh The vehicle for which the information shall be computed
      * @param[in] bestLaneConts The lanes the vehicle will use in future
-     * @return 
+     * @return
      */
     std::pair<MSVehicle * const, SUMOReal> getLeaderOnConsecutive(SUMOReal dist, SUMOReal seen,
             SUMOReal speed, const MSVehicle &veh, const std::vector<MSLane*> &bestLaneConts) const throw();
