@@ -42,3 +42,11 @@ right_before_left_deadlock
 # Test for ticket#218 (using the given order of bus stops)
 ticket218
 ticket376
+
+# The following deadlock should be detected and resolved:
+# Vehicles wait at triggered stops for riders which never come because all persons have left the simulation or are themselves waiting.
+# At the same time persons wait for rides which never come because all vehicles have left the simulation or are themselves waiting for riders.
+# 
+# Under these conditions all remaining vehicles and persons should abort their trips/plans.
+# 
+ticket400

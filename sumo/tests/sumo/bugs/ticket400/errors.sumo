@@ -1,0 +1,3 @@
+Warning: Person p2_need_ride aborted waiting for a ride that will never come.
+Warning: Vehicle v1_need_rider aborted waiting for a person that will never come.
+Warning: Vehicle v2_need_rider aborted waiting for a person that will never come.
