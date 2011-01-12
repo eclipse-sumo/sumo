@@ -391,7 +391,7 @@ MSVehicle::addStop(const SUMOVehicleParameter::Stop &stopPar, SUMOTime untilOffs
 
 bool
 MSVehicle::isStopped() const {
-    return !myStops.empty() && myStops.begin()->reached && myStops.begin()->duration>0;
+    return !myStops.empty() && myStops.begin()->reached;
 }
 
 
@@ -407,13 +407,15 @@ MSVehicle::processNextStop(SUMOReal currentVelocity) throw() {
         // no stops; pass
         return currentVelocity;
     }
-    if (myStops.begin()->reached) {
+    Stop &stop = myStops.front();
+    if (stop.reached) {
         // ok, we have already reached the next stop
-        if (myStops.begin()->duration<=0) {
-            // ... and have waited as long as needed
-            if (myStops.begin()->busstop!=0) {
+        if ((stop.duration<=0 && !stop.triggered)
+            || (stop.triggered && MSNet::getInstance()->getPersonControl().checkWaiting(&myLane->getEdge(), this))) {
+            // ... and have either waited long enough or found our passenger
+            if (stop.busstop!=0) {
                 // inform bus stop about leaving it
-                myStops.begin()->busstop->leaveFrom(this);
+                stop.busstop->leaveFrom(this);
             }
             // the current stop is no longer valid
             MSNet::getInstance()->getVehicleControl().removeWaiting(&myLane->getEdge(), this);
@@ -423,41 +425,37 @@ MSVehicle::processNextStop(SUMOReal currentVelocity) throw() {
             // continue as wished...
         } else {
             // we have to wait some more time
-            myStops.begin()->duration -= DELTA_T;
+            stop.duration -= DELTA_T;
             return 0;
         }
     } else {
         // is the next stop on the current lane?
-        if (myStops.begin()->edge==myCurrEdge) {
-            Stop &bstop = myStops.front();
+        if (stop.edge==myCurrEdge) {
             // get the stopping position
-            SUMOReal endPos = bstop.endPos;
+            SUMOReal endPos = stop.endPos;
             bool busStopsMustHaveSpace = true;
-            if (bstop.busstop!=0) {
+            if (stop.busstop!=0) {
                 // on bus stops, we have to wait for free place if they are in use...
-                endPos = bstop.busstop->getLastFreePos();
-                if (endPos-5.<bstop.busstop->getBeginLanePosition()) { // !!! explicite offset
+                endPos = stop.busstop->getLastFreePos();
+                if (endPos-5.<stop.busstop->getBeginLanePosition()) { // !!! explicite offset
                     busStopsMustHaveSpace = false;
                 }
             }
-            if (myState.pos()>=endPos-BUS_STOP_OFFSET&&busStopsMustHaveSpace) {
+            if (myState.pos()>=endPos-BUS_STOP_OFFSET && busStopsMustHaveSpace) {
                 // ok, we may stop (have reached the stop)
-                bstop.reached = true;
-                if (MSNet::getInstance()->getPersonControl().checkWaiting(&myLane->getEdge(), this) && bstop.triggered) {
-                    bstop.duration = 0;
-                }
+                stop.reached = true;
                 MSNet::getInstance()->getVehicleControl().addWaiting(&myLane->getEdge(), this);
                 // compute stopping time
-                if (bstop.until>=0) {
-                    if (bstop.duration==-1) {
-                        bstop.duration = bstop.until - MSNet::getInstance()->getCurrentTimeStep();
+                if (stop.until>=0) {
+                    if (stop.duration==-1) {
+                        stop.duration = stop.until - MSNet::getInstance()->getCurrentTimeStep();
                     } else {
-                        bstop.duration = MAX2(bstop.duration, bstop.until - MSNet::getInstance()->getCurrentTimeStep());
+                        stop.duration = MAX2(stop.duration, stop.until - MSNet::getInstance()->getCurrentTimeStep());
                     }
                 }
-                if (bstop.busstop!=0) {
+                if (stop.busstop!=0) {
                     // let the bus stop know the vehicle
-                    bstop.busstop->enter(this, myState.pos(), myState.pos()-myType->getLength());
+                    stop.busstop->enter(this, myState.pos(), myState.pos()-myType->getLength());
                 }
             }
             // decelerate
