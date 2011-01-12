@@ -19,8 +19,6 @@ lane_given1
 # checks using a random lane
 lane_random
 
-
-
 # checks using the default position (0)
 pos_default
 
@@ -63,7 +61,8 @@ pos_pwagSimple_3veh_dt1
 # checks using a free position (3 vehicles, vmax)
 pos_free_3veh_vmax
 
-
+# checks using a maximum speed gap (3 vehicles, vmax)
+pos_maxSpeedGap_3veh_vmax
 
 # checks using the default speed (0)
 speed_default
@@ -82,8 +81,6 @@ speed_max__vehlimit
 
 # checks using the random speed (bounded by lane's vmax)
 speed_random__lanelimit
-
-
 
 # unknown lane
 # lane not in edge

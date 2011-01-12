@@ -197,6 +197,7 @@ public:
 
     bool pWagEmitGeneric(MSVehicle& veh, SUMOReal speed, SUMOReal maxPos, SUMOReal minPos) throw();
     bool pWagEmitSimple(MSVehicle& veh, SUMOReal speed, SUMOReal maxPos, SUMOReal minPos) throw();
+    bool maxSpeedGapEmit(MSVehicle& veh, SUMOReal mspeed) throw();
 
     /** @brief Tries to emit the given vehicle on any place
      *

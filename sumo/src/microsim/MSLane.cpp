@@ -199,6 +199,42 @@ MSLane::pWagEmitSimple(MSVehicle& veh, SUMOReal mspeed, SUMOReal maxPos, SUMORea
     return true;
 }
 
+
+bool
+MSLane::maxSpeedGapEmit(MSVehicle& veh, SUMOReal mspeed) throw() {
+    if (myVehicles.size()==0) {
+        return isEmissionSuccess(&veh, mspeed, myLength / 2, true);
+    }
+    // go through the lane, look for free positions (starting after the last vehicle)
+    MSLane::VehCont::iterator predIt = myVehicles.begin();
+    while (predIt!=myVehicles.end()) {
+        // get leader (may be zero) and follower
+        const MSVehicle *leader = predIt!=myVehicles.end()-1 ? *(predIt+1) : getPartialOccupator();
+        const MSVehicle *follower = *predIt;
+        SUMOReal leaderRearPos = getLength();
+        SUMOReal leaderSpeed = mspeed;
+        if (leader!=0) {
+            leaderRearPos = leader->getPositionOnLane() - leader->getVehicleType().getLength();
+            if (leader == getPartialOccupator()) {
+                leaderRearPos = getPartialOccupatorEnd();
+            }
+            leaderSpeed = leader->getSpeed();
+        }
+        const SUMOReal gap = leaderRearPos - follower->getPositionOnLane();
+        const SUMOReal fSpeed = follower->getSpeed();
+        const SUMOReal maxSpeed = (gap + leaderSpeed * leaderSpeed / veh.getCarFollowModel().getMaxDecel() - fSpeed * fSpeed / follower->getCarFollowModel().getMaxDecel()) / veh.getCarFollowModel().getTau() - fSpeed;
+        if (maxSpeed > 0) {
+            if (isEmissionSuccess(&veh, MIN2(maxSpeed, mspeed), (leaderRearPos + follower->getPositionOnLane() + veh.getVehicleType().getLength()) / 2, true)) {
+                return true;
+            }
+        }
+        ++predIt;
+    }
+    // first check at lane's begin
+    return false;
+}
+
+
 bool
 MSLane::freeEmit(MSVehicle& veh, SUMOReal mspeed) throw() {
     bool adaptableSpeed = true;
@@ -323,6 +359,8 @@ MSLane::emit(MSVehicle& veh) throw(ProcessError) {
         return pWagEmitSimple(veh, speed, getLength(), 0.0);
     case DEPART_POS_PWAG_GENERIC:
         return pWagEmitGeneric(veh, speed, getLength(), 0.0);
+    case DEPART_POS_MAX_SPEED_GAP:
+        return maxSpeedGapEmit(veh, speed);
     case DEPART_POS_BASE:
     case DEPART_POS_DEFAULT:
     default:

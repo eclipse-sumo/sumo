@@ -120,6 +120,8 @@ enum DepartPosDefinition {
     DEPART_POS_PWAG_SIMPLE,
     /// @brief Generic max-flow emission by P.Wagner
     DEPART_POS_PWAG_GENERIC,
+    /// @brief A gap is chosen where the maximum speed may be achieved
+    DEPART_POS_MAX_SPEED_GAP,
     /// @brief If a fixed number of random choices fails, a free position is chosen
     DEPART_POS_RANDOM_FREE
 };
