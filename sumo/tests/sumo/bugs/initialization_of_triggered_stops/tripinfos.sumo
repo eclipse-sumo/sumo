@@ -23,10 +23,4 @@
 -->
 
 <tripinfos>
-    <personinfo id="p1" depart="70.00">
-        <stop arrival="70.00"/>
-        <ride depart="71.00" arrival="183.00"/>
-    </personinfo>
-    <tripinfo id="v1" depart="0.00" departLane="left_0" departPos="7.60" departSpeed="0.00" departDelay="0.00" arrival="183.00" arrivalLane="end_0" arrivalPos="3.13" arrivalSpeed="7.42" duration="183.00" routeLength="1484.33" waitSteps="60" rerouteNo="0" devices="tripinfo_v1 person_v1" vtype="DEFAULT_VEHTYPE" vaporized="">
-    </tripinfo>
 </tripinfos>
