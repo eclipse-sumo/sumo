@@ -1,0 +1,132 @@
+<?xml version="1.0"?>
+
+<!-- generated on 01/12/11 13:07:40 by SUMO netconvert Version dev-SVN-r9534
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <xml-node-files value="./duarouter/logit/logit_example/input_example.nod.xml"/>
+        <xml-edge-files value="./duarouter/logit/logit_example/input_example.edg.xml"/>
+    </input>
+
+    <output>
+        <output-file value="./duarouter/logit/logit_example/input_net.net.xml"/>
+    </output>
+
+    <processing>
+        <no-internal-links value="true"/>
+    </processing>
+
+    <report>
+        <verbose value="true"/>
+    </report>
+
+</configuration>
+-->
+
+<net>
+
+   <location netOffset="0.00,0.00" convBoundary="0.00,0.00,9000.00,1000.00" origBoundary="0.00,0.00,9000.00,1000.00" projParameter="!"/>
+
+   <edge id="ab" from="a" to="b" priority="-1" type="" function="normal">
+      <lanes>
+         <lane id="ab_0" depart="1" maxspeed="13.90" length="2992.50" shape="5006.05,-1.65 7998.55,-1.65"/>
+      </lanes>
+   </edge>
+   <edge id="ax" from="a" to="x" priority="-1" type="" function="normal">
+      <lanes>
+         <lane id="ax_0" depart="1" maxspeed="13.90" length="1402.51" shape="5004.48,2.14 5996.20,993.87"/>
+      </lanes>
+   </edge>
+   <edge id="bd" from="b" to="d" priority="-1" type="" function="normal">
+      <lanes>
+         <lane id="bd_0" depart="1" maxspeed="13.90" length="1107.40" shape="8005.31,0.81 8995.80,496.05"/>
+      </lanes>
+   </edge>
+   <edge id="by" from="b" to="y" priority="-1" type="" function="normal">
+      <lanes>
+         <lane id="by_0" depart="1" maxspeed="13.90" length="990.17" shape="8001.65,3.07 8001.65,993.24"/>
+      </lanes>
+   </edge>
+   <edge id="oa" from="o" to="a" priority="-1" type="" function="normal">
+      <lanes>
+         <lane id="oa_0" depart="1" maxspeed="13.90" length="4998.25" shape="0.28,-1.65 4998.52,-1.65"/>
+      </lanes>
+   </edge>
+   <edge id="ox" from="o" to="x" priority="-1" type="" function="normal">
+      <lanes>
+         <lane id="ox_0" depart="1" maxspeed="13.90" length="6076.80" shape="0.27,-1.63 5994.39,997.39"/>
+      </lanes>
+   </edge>
+   <edge id="xy" from="x" to="y" priority="-1" type="" function="normal">
+      <lanes>
+         <lane id="xy_0" depart="1" maxspeed="13.90" length="1995.70" shape="6002.85,998.35 7998.55,998.35"/>
+      </lanes>
+   </edge>
+   <edge id="yd" from="y" to="d" priority="-1" type="" function="normal">
+      <lanes>
+         <lane id="yd_0" depart="1" maxspeed="13.90" length="1107.40" shape="8005.31,995.50 8995.80,500.26"/>
+      </lanes>
+   </edge>
+
+   <row-logic id="a" requestSize="2" laneNumber="1">
+      <logic>
+         <logicitem request="0" response="00" foes="00"/>
+         <logicitem request="1" response="00" foes="00"/>
+      </logic>
+   </row-logic>
+   <row-logic id="b" requestSize="2" laneNumber="1">
+      <logic>
+         <logicitem request="0" response="00" foes="00"/>
+         <logicitem request="1" response="00" foes="00"/>
+      </logic>
+   </row-logic>
+   <row-logic id="x" requestSize="2" laneNumber="2">
+      <logic>
+         <logicitem request="0" response="00" foes="10"/>
+         <logicitem request="1" response="01" foes="01"/>
+      </logic>
+   </row-logic>
+   <row-logic id="y" requestSize="2" laneNumber="2">
+      <logic>
+         <logicitem request="0" response="00" foes="10"/>
+         <logicitem request="1" response="01" foes="01"/>
+      </logic>
+   </row-logic>
+
+   <junction id="a" type="priority" x="5000.00" y="0.00" incLanes="oa_0" intLanes="" shape="5003.34,3.27 5005.61,1.01 5006.05,-0.05 5006.05,-3.25 4998.52,-3.25 4998.52,-0.05"/>
+   <junction id="b" type="priority" x="8000.00" y="0.00" incLanes="ab_0" intLanes="" shape="8000.05,3.07 8003.25,3.07 8004.59,2.24 8006.02,-0.62 7998.55,-3.25 7998.55,-0.05"/>
+   <junction id="d" type="DEAD_END" x="9000.00" y="500.00" incLanes="bd_0 yd_0" intLanes="" shape="8996.51,494.62 8995.08,497.48 8995.08,498.83 8996.51,501.69"/>
+   <junction id="o" type="DEAD_END" x="0.00" y="0.00" incLanes="" intLanes="" shape="0.01,-0.05 0.53,-3.21 0.00,-0.05 0.00,-3.25"/>
+   <junction id="x" type="priority" x="6000.00" y="1000.00" incLanes="ax_0 ox_0" intLanes="" shape="6002.85,999.95 6002.85,996.75 5997.33,992.74 5995.07,995.00 5994.65,995.81 5994.13,998.97"/>
+   <junction id="y" type="priority" x="8000.00" y="1000.00" incLanes="by_0 xy_0" intLanes="" shape="8006.02,996.93 8004.59,994.07 8003.25,993.24 8000.05,993.24 7998.55,996.75 7998.55,999.95"/>
+
+   <succ edge="ab" lane="ab_0" junction="b">
+      <succlane lane="bd_0" yield="0" dir="s" state="M"/>
+      <succlane lane="by_0" yield="0" dir="l" state="M"/>
+   </succ>
+   <succ edge="ax" lane="ax_0" junction="x">
+      <succlane lane="xy_0" yield="0" dir="r" state="M"/>
+   </succ>
+   <succ edge="bd" lane="bd_0" junction="d">
+      <succlane lane="SUMO_NO_DESTINATION" yield="1" dir="s" state="O"/>
+   </succ>
+   <succ edge="by" lane="by_0" junction="y">
+      <succlane lane="yd_0" yield="0" dir="r" state="M"/>
+   </succ>
+   <succ edge="oa" lane="oa_0" junction="a">
+      <succlane lane="ab_0" yield="0" dir="s" state="M"/>
+      <succlane lane="ax_0" yield="0" dir="l" state="M"/>
+   </succ>
+   <succ edge="ox" lane="ox_0" junction="x">
+      <succlane lane="xy_0" yield="1" dir="s" state="m"/>
+   </succ>
+   <succ edge="xy" lane="xy_0" junction="y">
+      <succlane lane="yd_0" yield="1" dir="s" state="m"/>
+   </succ>
+   <succ edge="yd" lane="yd_0" junction="d">
+      <succlane lane="SUMO_NO_DESTINATION" yield="1" dir="s" state="O"/>
+   </succ>
+
+</net>

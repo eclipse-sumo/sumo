@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+
+<!-- generated on 01/12/11 15:39:29 by SUMO duarouter Version dev-SVN-r9545
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/duarouterConfiguration.xsd">
+
+    <input>
+        <net-file value="input_net.net.xml"/>
+        <alternatives value="input_alts.rou.alt.xml"/>
+        <weights value="input_weights.dump.xml"/>
+    </input>
+
+    <output>
+        <output-file value="routes.rou.xml"/>
+    </output>
+
+    <processing>
+        <logit value="true"/>
+    </processing>
+
+</configuration>
+-->
+
+<route-alternatives>
+    <vehicle id="0" depart="0.00">
+        <routeDistribution last="3">
+            <route cost="0.15" probability="0.25531253" edges="oa ab bd"/>
+            <route cost="0.17" probability="0.24877469" edges="oa ab by yd"/>
+            <route cost="0.20" probability="0.24400887" edges="oa ax xy yd"/>
+            <route cost="0.25" probability="0.25190391" edges="ox xy yd"/>
+        </routeDistribution>
+    </vehicle>
+</route-alternatives>

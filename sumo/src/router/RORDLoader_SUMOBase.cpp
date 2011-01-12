@@ -51,14 +51,14 @@
 // ===========================================================================
 RORDLoader_SUMOBase::RORDLoader_SUMOBase(RONet &net,
         SUMOTime begin, SUMOTime end,
-        SUMOReal gawronBeta, SUMOReal gawronA,
-        int maxRouteNumber, bool tryRepair, bool withTaz,
+        const SUMOReal beta, const SUMOReal gawronA, const SUMOReal logitGamma,
+        const int maxRouteNumber, const bool tryRepair, const bool withTaz, const bool keepRoutes,
         const std::string &file) throw(ProcessError)
         : ROTypedXMLRoutesLoader(net, begin, end, file),
         myVehicleParameter(0), myCurrentIsOk(true), myAltIsValid(true), myHaveNextRoute(false),
         myCurrentAlternatives(0),
-        myGawronBeta(gawronBeta), myGawronA(gawronA), myMaxRouteNumber(maxRouteNumber),
-        myCurrentRoute(0), myCurrentDepart(-1), myTryRepair(tryRepair), myWithTaz(withTaz),
+        myBeta(beta), myGawronA(gawronA), myLogitGamma(logitGamma), myMaxRouteNumber(maxRouteNumber),
+        myCurrentRoute(0), myCurrentDepart(-1), myTryRepair(tryRepair), myWithTaz(withTaz), myKeepRoutes(keepRoutes),
         myColor(0), myCurrentVType(0) {
 }
 
@@ -178,7 +178,7 @@ RORDLoader_SUMOBase::startAlternative(const SUMOSAXAttributes &attrs) {
         return;
     }
     // build the alternative cont
-    myCurrentAlternatives = new RORouteDef_Alternatives(id, index, myGawronBeta, myGawronA, myMaxRouteNumber);
+    myCurrentAlternatives = new RORouteDef_Alternatives(id, index, myBeta, myGawronA, myLogitGamma, myMaxRouteNumber, myKeepRoutes);
 }
 
 void

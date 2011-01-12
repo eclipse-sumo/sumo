@@ -1,0 +1,11 @@
+# First step of logit
+logit_step1
+
+# Second step of logit
+logit_step2
+
+# Book example of logit
+logit_example
+
+# book example of c-logit
+clogit_example

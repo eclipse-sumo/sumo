@@ -1,0 +1,12 @@
+<edges>
+
+   <edge id="oa" fromnode="o" tonode="a"/>
+   <edge id="ab" fromnode="a" tonode="b"/>
+   <edge id="bd" fromnode="b" tonode="d"/>
+   <edge id="ox" fromnode="o" tonode="x"/>
+   <edge id="xy" fromnode="x" tonode="y"/>
+   <edge id="yd" fromnode="y" tonode="d"/>
+   <edge id="ax" fromnode="a" tonode="x"/>
+   <edge id="by" fromnode="b" tonode="y"/>
+
+</edges>

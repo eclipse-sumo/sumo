@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+
+<!-- generated on 01/12/11 14:12:28 by SUMO duarouter Version dev-SVN-r9545
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/duarouterConfiguration.xsd">
+
+    <input>
+        <net-file value="input_net.net.xml"/>
+        <alternatives value="input_alts.rou.alt.xml"/>
+        <weights value="input_weights.dump.xml"/>
+    </input>
+
+    <output>
+        <output-file value="routes.rou.xml"/>
+    </output>
+
+    <processing>
+        <logit value="true"/>
+    </processing>
+
+</configuration>
+-->
+
+<routes>
+    <vehicle id="0" depart="0.00">
+        <route edges="ox xy yd"/>
+    </vehicle>
+</routes>

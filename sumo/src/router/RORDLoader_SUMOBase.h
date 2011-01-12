@@ -64,8 +64,8 @@ public:
     /// Constructor
     RORDLoader_SUMOBase(RONet &net,
                         SUMOTime begin, SUMOTime end,
-                        SUMOReal gawronBeta, SUMOReal gawronA,
-                        int maxRouteNumber, bool tryRepair, bool withTaz,
+                        const SUMOReal beta, const SUMOReal gawronA, const SUMOReal logitGamma,
+                        const int maxRouteNumber, const bool tryRepair, const bool withTaz, const bool keepRoutes,
                         const std::string &file="") throw(ProcessError);
 
     /// Destructor
@@ -177,11 +177,14 @@ protected:
     /// @brief The probability of the current alternative's usage
     SUMOReal myProbability;
 
-    /// @brief gawron beta - value
-    SUMOReal myGawronBeta;
+    /// @brief gawron or logit beta - value
+    const SUMOReal myBeta;
 
-    /// @brief gawron beta - value
-    SUMOReal myGawronA;
+    /// @brief gawron a - value
+    const SUMOReal myGawronA;
+
+    /// @brief logit gamma - value
+    const SUMOReal myLogitGamma;
 
     /// @brief The maximum route alternatives number
     int myMaxRouteNumber;
@@ -191,6 +194,9 @@ protected:
 
     /// @brief Information whether zones (districts) are used as origins / destinations
     const bool myWithTaz;
+
+    /// @brief Information whether all routes should be saved
+    const bool myKeepRoutes;
 
     /// @brief The currently parsed route
     RORouteDef_Complete *myCurrentRoute;

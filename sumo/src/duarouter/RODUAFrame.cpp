@@ -102,11 +102,24 @@ RODUAFrame::addDUAOptions() {
     oc.doRegister("gBeta", new Option_Float(SUMOReal(0.3)));
     oc.addDescription("gBeta", "Processing", "Use FLOAT as Gawron's beta");
 
-    oc.doRegister("gA", new Option_Float((SUMOReal) 0.05));
+    oc.doRegister("gA", new Option_Float(SUMOReal(0.05)));
     oc.addDescription("gA", "Processing", "Use FLOAT as Gawron's alpha");
 
     oc.doRegister("exit-times", new Option_Bool(false));
     oc.addDescription("exit-times", "Output", "Write exit times (weights) for each edge");
+
+    oc.doRegister("keep-all-routes", new Option_Bool(false));
+    oc.addDescription("keep-all-routes", "Processing", "Save routes with near zero probability");
+
+    oc.doRegister("logit", new Option_Bool(false));
+    oc.addDescription("logit", "Processing", "Use c-logit model");
+
+    oc.doRegister("lBeta", new Option_Float(SUMOReal(0.15)));
+    oc.addDescription("lBeta", "Processing", "Use FLOAT as logit's beta");
+
+    oc.doRegister("lGamma", new Option_Float(SUMOReal(1)));
+    oc.addDescription("lGamma", "Processing", "Use FLOAT as logit's gamma");
+
 }
 
 

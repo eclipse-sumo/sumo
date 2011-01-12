@@ -43,6 +43,7 @@
 #include <utils/common/SUMOAbstractRouter.h>
 #include "RORouteDef_Alternatives.h"
 #include <utils/common/StdDefs.h>
+#include <utils/geom/GeomHelper.h>
 #include <utils/common/RandHelper.h>
 #include <utils/common/UtilExceptions.h>
 #include <utils/iodevices/OutputDevice.h>
@@ -57,11 +58,11 @@
 // ===========================================================================
 RORouteDef_Alternatives::RORouteDef_Alternatives(const std::string &id,
         unsigned int lastUsed,
-        SUMOReal gawronBeta,
-        SUMOReal gawronA,
-        int maxRoutes) throw()
+        const SUMOReal beta, const SUMOReal gawronA, const SUMOReal logitGamma,
+        const int maxRoutes, const bool keepRoutes) throw()
         : RORouteDef(id, 0), myLastUsed((int) lastUsed),
-        myGawronBeta(gawronBeta), myGawronA(gawronA), myMaxRouteNumber(maxRoutes) {
+        myBeta(beta), myGawronA(gawronA), myLogitGamma(logitGamma),
+        myMaxRouteNumber(maxRoutes), myKeepRoutes(keepRoutes) {
 }
 
 
@@ -124,19 +125,22 @@ RORouteDef_Alternatives::addAlternative(SUMOAbstractRouter<ROEdge,ROVehicle> &ro
         myLastUsed = (int) myAlternatives.size() - 1;
     }
     // recompute the costs and (when a new route was added) the probabilities
-    AlternativesVector::iterator i;
-    for (i=myAlternatives.begin(); i!=myAlternatives.end(); i++) {
+    for (AlternativesVector::iterator i=myAlternatives.begin(); i!=myAlternatives.end(); i++) {
         RORoute *alt = *i;
         // apply changes for old routes only
         //  (the costs for the current were computed already)
         if ((*i)!=current||!myNewRoute) {
             // recompute the costs for old routes
-            SUMOReal oldCosts = alt->getCosts();
-            SUMOReal newCosts = router.recomputeCosts(alt->getEdgeVector(), veh, begin);
+            const SUMOReal oldCosts = alt->getCosts();
+            const SUMOReal newCosts = router.recomputeCosts(alt->getEdgeVector(), veh, begin);
             if (newCosts<0) {
                 throw ProcessError("Route '" + current->getID() + "' (vehicle '" + veh->getID() + "') is not valid.");
             }
-            alt->setCosts(myGawronBeta * newCosts + ((SUMOReal) 1.0 - myGawronBeta) * oldCosts);
+            if (myLogitGamma >= 0) {
+                alt->setCosts(newCosts/3600.); //@todo need configurable scaling factor esp. for non travel time weights
+            } else {
+                alt->setCosts(myBeta * newCosts + ((SUMOReal) 1.0 - myBeta) * oldCosts);
+            }
         }
         assert(myAlternatives.size()!=0);
         if (myNewRoute) {
@@ -152,41 +156,47 @@ RORouteDef_Alternatives::addAlternative(SUMOAbstractRouter<ROEdge,ROVehicle> &ro
     }
     assert(myAlternatives.size()!=0);
     // compute the probabilities
-    for (i=myAlternatives.begin(); i!=myAlternatives.end()-1; i++) {
-        RORoute *pR = *i;
-        for (AlternativesVector::iterator j=i+1; j!=myAlternatives.end(); j++) {
-            RORoute *pS = *j;
-            // see [Gawron, 1998] (4.2)
-            SUMOReal delta =
-                (pS->getCosts() - pR->getCosts()) /
-                (pS->getCosts() + pR->getCosts());
-            // see [Gawron, 1998] (4.3a, 4.3b)
-            SUMOReal newPR = gawronF(pR->getProbability(), pS->getProbability(), delta);
-            SUMOReal newPS = pR->getProbability() + pS->getProbability() - newPR;
-            if (ISNAN(newPR)||ISNAN(newPS)) {
-                newPR = pS->getCosts() > pR->getCosts()
-                        ? (SUMOReal) 1. : 0;
-                newPS = pS->getCosts() > pR->getCosts()
-                        ? 0 : (SUMOReal) 1.;
+    if (myLogitGamma >= 0) {
+        calculateLogitProbabilities();
+    } else {
+        for (AlternativesVector::iterator i=myAlternatives.begin(); i!=myAlternatives.end()-1; i++) {
+            RORoute *pR = *i;
+            for (AlternativesVector::iterator j=i+1; j!=myAlternatives.end(); j++) {
+                RORoute *pS = *j;
+                // see [Gawron, 1998] (4.2)
+                SUMOReal delta =
+                    (pS->getCosts() - pR->getCosts()) /
+                    (pS->getCosts() + pR->getCosts());
+                // see [Gawron, 1998] (4.3a, 4.3b)
+                SUMOReal newPR = gawronF(pR->getProbability(), pS->getProbability(), delta);
+                SUMOReal newPS = pR->getProbability() + pS->getProbability() - newPR;
+                if (ISNAN(newPR)||ISNAN(newPS)) {
+                    newPR = pS->getCosts() > pR->getCosts()
+                            ? (SUMOReal) 1. : 0;
+                    newPS = pS->getCosts() > pR->getCosts()
+                            ? 0 : (SUMOReal) 1.;
+                }
+                newPR = MIN2((SUMOReal) MAX2(newPR, (SUMOReal) 0), (SUMOReal) 1);
+                newPS = MIN2((SUMOReal) MAX2(newPS, (SUMOReal) 0), (SUMOReal) 1);
+                pR->setProbability(newPR);
+                pS->setProbability(newPS);
             }
-            newPR = MIN2((SUMOReal) MAX2(newPR, (SUMOReal) 0), (SUMOReal) 1);
-            newPS = MIN2((SUMOReal) MAX2(newPS, (SUMOReal) 0), (SUMOReal) 1);
-            pR->setProbability(newPR);
-            pS->setProbability(newPS);
         }
     }
-    // remove with probability of 0 (not mentioned in Gawron)
-    for (i=myAlternatives.begin(); i!=myAlternatives.end();) {
-        if ((*i)->getProbability()==0) {
-            i = myAlternatives.erase(i);
-        } else {
-            i++;
+    if (!myKeepRoutes) {
+        // remove with probability of 0 (not mentioned in Gawron)
+        for (AlternativesVector::iterator i=myAlternatives.begin(); i!=myAlternatives.end();) {
+            if ((*i)->getProbability()==0) {
+                i = myAlternatives.erase(i);
+            } else {
+                i++;
+            }
         }
     }
     // find the route to use
     SUMOReal chosen = RandHelper::rand();
     int pos = 0;
-    for (i=myAlternatives.begin(); i!=myAlternatives.end()-1; i++, pos++) {
+    for (AlternativesVector::iterator i=myAlternatives.begin(); i!=myAlternatives.end()-1; i++, pos++) {
         chosen = chosen - (*i)->getProbability();
         if (chosen<=0) {
             myLastUsed = pos;
@@ -194,6 +204,71 @@ RORouteDef_Alternatives::addAlternative(SUMOAbstractRouter<ROEdge,ROVehicle> &ro
         }
     }
     myLastUsed = pos;
+}
+
+
+SUMOReal
+RORouteDef_Alternatives::getThetaForCLogit() const {
+    SUMOReal sum = 0.;
+    SUMOReal diff = 0.;
+    SUMOReal min = std::numeric_limits<SUMOReal>::max();
+    for (AlternativesVector::const_iterator i=myAlternatives.begin(); i!=myAlternatives.end(); i++) {
+        const SUMOReal cost = (*i)->getCosts();
+        sum += cost;
+        if (cost < min) {
+            min = cost;
+        }
+    }
+    const SUMOReal meanCost = sum / SUMOReal(myAlternatives.size());
+    for (AlternativesVector::const_iterator i=myAlternatives.begin(); i!=myAlternatives.end(); i++) {
+        diff += pow((*i)->getCosts() - meanCost, 2);
+    }
+    const SUMOReal sdCost = sqrt(diff/SUMOReal(myAlternatives.size()));
+    if (sdCost > 0.04) { // Magic numbers from Lohse book
+        return PI / (sqrt(6.) * sdCost * min);
+    }
+    return 1.;
+}
+
+
+void
+RORouteDef_Alternatives::calculateLogitProbabilities() {
+    const SUMOReal theta = getThetaForCLogit();
+    if (myBeta > 0) {
+        // calculate commonalities
+        for (AlternativesVector::const_iterator i=myAlternatives.begin(); i!=myAlternatives.end(); i++) {
+            const RORoute *pR = *i;
+            SUMOReal lengthR = 0;
+            const std::vector<const ROEdge*> &edgesR = pR->getEdgeVector();
+            for (std::vector<const ROEdge*>::const_iterator edge = edgesR.begin(); edge != edgesR.end(); ++edge) {
+                lengthR += (*edge)->getTravelTime(0, 0)/3600.;
+            }
+            SUMOReal overlapSum = 0;
+            for (AlternativesVector::const_iterator j=myAlternatives.begin(); j!=myAlternatives.end(); j++) {
+                const RORoute *pS = *j;
+                SUMOReal overlapLength = 0.;
+                SUMOReal lengthS = 0;
+                const std::vector<const ROEdge*> &edgesS = pS->getEdgeVector();
+                for (std::vector<const ROEdge*>::const_iterator edge = edgesS.begin(); edge != edgesS.end(); ++edge) {
+                    lengthS += (*edge)->getTravelTime(0, 0)/3600.;
+                    if (std::find(edgesR.begin(), edgesR.end(), *edge) != edgesR.end()) {
+                        overlapLength += (*edge)->getTravelTime(0, 0)/3600.;
+                    }
+                }
+                overlapSum += pow(overlapLength/sqrt(lengthR * lengthS), myLogitGamma);
+            }
+            myCommonalities[pR] = myBeta * log(overlapSum);
+        }
+    }
+    for (AlternativesVector::iterator i=myAlternatives.begin(); i!=myAlternatives.end(); i++) {
+        RORoute *pR = *i;
+        SUMOReal weightedSum = 0;
+        for (AlternativesVector::iterator j=myAlternatives.begin(); j!=myAlternatives.end(); j++) {
+            RORoute *pS = *j;
+            weightedSum += exp(theta * (pR->getCosts() - pS->getCosts() + myCommonalities[pR] - myCommonalities[pS]));
+        }
+        pR->setProbability(1./weightedSum);
+    }
 }
 
 
@@ -219,7 +294,7 @@ RORouteDef_Alternatives::gawronG(SUMOReal a, SUMOReal x) {
 RORouteDef *
 RORouteDef_Alternatives::copy(const std::string &id) const {
     RORouteDef_Alternatives *ret = new RORouteDef_Alternatives(id,
-            myLastUsed, myGawronBeta, myGawronA, myMaxRouteNumber);
+            myLastUsed, myBeta, myGawronA, myLogitGamma, myMaxRouteNumber, myKeepRoutes);
     for (std::vector<RORoute*>::const_iterator i=myAlternatives.begin(); i!=myAlternatives.end(); i++) {
         ret->addLoadedAlternative(new RORoute(*(*i)));
     }

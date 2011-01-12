@@ -296,24 +296,19 @@ ROAbstractRouteDefLoader*
 ROLoader::buildNamedHandler(const std::string &optionName,
                             const std::string &file,
                             RONet &net) throw(ProcessError) {
-    if (optionName=="sumo-input") {
+    if (optionName=="sumo-input" || optionName=="alternatives") {
+        const SUMOReal beta = myOptions.getBool("logit") ? myOptions.getFloat("lBeta") : myOptions.getFloat("gBeta");
+        const SUMOReal gamma = myOptions.getBool("logit") ? myOptions.getFloat("lGamma") : -1;
         return new RORDLoader_SUMOBase(net,
                                        string2time(myOptions.getString("begin")), string2time(myOptions.getString("end")),
-                                       myOptions.getFloat("gBeta"), myOptions.getFloat("gA"),
+                                       beta, myOptions.getFloat("gA"), gamma,
                                        myOptions.getInt("max-alternatives"), myOptions.getBool("repair"),
-                                       myOptions.getBool("with-taz"), file);
+                                       myOptions.getBool("with-taz"), myOptions.getBool("keep-all-routes"), file);
     }
     if (optionName=="trip-defs") {
         return new RORDLoader_TripDefs(net,
                                        string2time(myOptions.getString("begin")), string2time(myOptions.getString("end")),
                                        myEmptyDestinationsAllowed, myOptions.getBool("with-taz"), file);
-    }
-    if (optionName=="alternatives") {
-        return new RORDLoader_SUMOBase(net,
-                                       string2time(myOptions.getString("begin")), string2time(myOptions.getString("end")),
-                                       myOptions.getFloat("gBeta"), myOptions.getFloat("gA"),
-                                       myOptions.getInt("max-alternatives"), myOptions.getBool("repair"),
-                                       myOptions.getBool("with-taz"), file);
     }
     if (optionName=="flows") {
         return new RORDGenerator_ODAmounts(net,

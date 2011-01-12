@@ -51,8 +51,9 @@ class ROEdge;
 class RORouteDef_Alternatives : public RORouteDef {
 public:
     /// Constructor
-    RORouteDef_Alternatives(const std::string &id,
-                            unsigned int lastUsed, SUMOReal gawronBeta, SUMOReal gawronA, int maxRoutes) throw();
+    RORouteDef_Alternatives(const std::string &id, unsigned int lastUsed, const SUMOReal beta,
+                            const SUMOReal gawronA, const SUMOReal logitGamma, const int maxRoutes,
+                            const bool keepRoutes) throw();
 
     /// Destructor
     virtual ~RORouteDef_Alternatives() throw();
@@ -84,6 +85,12 @@ private:
     /// Searches for the route within the list of alternatives
     int findRoute(RORoute *opt) const;
 
+    /** @brief calculate the scaling factor in the logit model */
+    SUMOReal getThetaForCLogit() const;
+
+    /** @brief calculate the probabilities in the logit model */
+    void calculateLogitProbabilities();
+
     /** @brief Performs the gawron - f() function
         From "Dynamic User Equilibria..." */
     SUMOReal gawronF(SUMOReal pdr, SUMOReal pds, SUMOReal x);
@@ -93,26 +100,35 @@ private:
     SUMOReal gawronG(SUMOReal a, SUMOReal x);
 
 private:
-    /// Information whether a new route was generated
+    /// @brief Information whether a new route was generated
     mutable bool myNewRoute;
 
-    /// Index of the route used within the last step
+    /// @brief Index of the route used within the last step
     mutable int myLastUsed;
 
-    /// Definition of the storage for alternatives
+    /// @brief Definition of the storage for alternatives
     typedef std::vector<RORoute*> AlternativesVector;
 
-    /// The alternatives
+    /// @brief The alternatives
     AlternativesVector myAlternatives;
 
-    /// gawron beta - value
-    SUMOReal myGawronBeta;
+    /// @brief gawron or logit beta - value
+    const SUMOReal myBeta;
 
-    /// gawron a - value
-    SUMOReal myGawronA;
+    /// @brief gawron a - value
+    const SUMOReal myGawronA;
 
-    /// The maximum route number
-    int myMaxRouteNumber;
+    /// @brief logit gamma - value
+    const SUMOReal myLogitGamma;
+
+    /// @brief The route commonality factors for c-logit
+    std::map<const RORoute*, SUMOReal> myCommonalities;
+
+    /// @brief The maximum route number
+    const int myMaxRouteNumber;
+
+    /// @brief Information whether all routes should be saved
+    const bool myKeepRoutes;
 
 
 private:

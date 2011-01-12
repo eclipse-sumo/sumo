@@ -1,0 +1,10 @@
+<nodes>
+
+    <node id="o" x="0" y="0"/>
+    <node id="a" x="5000" y="0"/>
+    <node id="b" x="8000" y="0"/>
+    <node id="d" x="9000" y="500"/>
+    <node id="x" x="6000" y="1000"/>
+    <node id="y" x="8000" y="1000"/>
+
+</nodes>
