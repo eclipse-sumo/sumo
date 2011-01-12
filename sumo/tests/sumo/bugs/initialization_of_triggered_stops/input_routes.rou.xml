@@ -1,0 +1,7 @@
+<routes>
+    <vehicle id="v1" depart="0">
+        <route edges="left left2end end">
+            <stop lane="left_0" startPos="40" endPos="50" triggered="true"/>
+        </route>
+    </vehicle>
+</routes>
