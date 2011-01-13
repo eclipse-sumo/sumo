@@ -1,7 +1,9 @@
 <?xml version="1.0"?>
 
-<!-- generated on 03/25/10 08:16:46 by SUMO sumo Version dev-SVN-r8511
-<configuration>
+<!-- generated on Thu Jan 13 08:51:03 2011 by SUMO sumo Version dev-SVN-r9551
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/sumoConfiguration.xsd">
 
     <input>
         <net-file value="net.net.xml"/>
@@ -30,4 +32,9 @@
 -->
 
 <sumo-netstate>
+    <timestep time="0.00">
+        <edge id="beg">
+            <vehicle id="1" pos="0.00" speed="27.80"/>
+        </edge>
+    </timestep>
 </sumo-netstate>
