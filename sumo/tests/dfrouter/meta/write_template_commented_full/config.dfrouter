@@ -90,8 +90,14 @@
         <!-- According sink must be at least that far away -->
         <min-distance value="-1"/>
 
-        <!-- Subtracts INT from flow times -->
+        <!-- Multiply flow times with TIME to get seconds -->
+        <time-factor value="60"/>
+
+        <!-- Subtracts TIME seconds from (scaled) flow times -->
         <time-offset value="0"/>
+
+        <!-- Expected distance between two successive data sets -->
+        <time-step value="60"/>
 
         <!--  -->
         <write-calibrators value="false"/>

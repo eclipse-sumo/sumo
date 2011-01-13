@@ -56,7 +56,7 @@ public:
      */
     RODFDetFlowLoader(const RODFDetectorCon &dets, RODFDetectorFlows &into,
                       SUMOTime startTime, SUMOTime endTime,
-                      int timeOffset) throw();
+                      SUMOTime timeOffset, int timeScale) throw();
 
 
     /// @brief Destructor
@@ -85,10 +85,13 @@ private:
     RODFDetectorFlows &myStorage;
 
     /// @brief The time offset to apply to read time values
-    int myTimeOffset;
+    const SUMOTime myTimeOffset;
+
+    /// @brief The time scale to apply to read time values
+    const SUMOTime myTimeScale;
 
     /// @brief The first and the last time step to read
-    SUMOTime myStartTime, myEndTime;
+    const SUMOTime myStartTime, myEndTime;
 
     /// @brief The value extractor
     NamedColumnsParser myLineHandler;

@@ -351,45 +351,6 @@ void
 RODFNet::buildRoutes(RODFDetectorCon &detcont, bool allEndFollower,
                      bool keepUnfoundEnds, bool includeInBetween,
                      bool keepShortestOnly, int maxFollowingLength) const {
-    /*
-    std::vector<std::vector<ROEdge*> > illegals;
-    std::vector<ROEdge*> i1;
-    i1.push_back(getEdge("-51140604"));
-    i1.push_back(getEdge("-51140594"));
-    i1.push_back(getEdge("51140072"));
-    i1.push_back(getEdge("51140612"));
-    illegals.push_back(i1);
-    std::vector<ROEdge*> i2;
-    i2.push_back(getEdge("-51047761"));
-    i2.push_back(getEdge("-51047760"));
-    i2.push_back(getEdge("51047759"));
-    i2.push_back(getEdge("51047758"));
-    illegals.push_back(i2);
-    std::vector<ROEdge*> i3;
-    i3.push_back(getEdge("-51049672"));
-    i3.push_back(getEdge("-51049675"));
-    i3.push_back(getEdge("51049662"));
-    i3.push_back(getEdge("51049676"));
-    illegals.push_back(i3);
-    std::vector<ROEdge*> i4;
-    i4.push_back(getEdge("-51069817"));
-    i4.push_back(getEdge("-51069812"));
-    i4.push_back(getEdge("51069813"));
-    i4.push_back(getEdge("51069815"));
-    illegals.push_back(i4);
-    std::vector<ROEdge*> i5;
-    i5.push_back(getEdge("50872831"));
-    i5.push_back(getEdge("-50872833"));
-    i5.push_back(getEdge("-50872829"));
-    i5.push_back(getEdge("572267133"));
-    illegals.push_back(i5);
-    std::vector<ROEdge*> i6;
-    i6.push_back(getEdge("-51066847"));
-    i6.push_back(getEdge("-51066836"));
-    i6.push_back(getEdge("51066830"));
-    i6.push_back(getEdge("51066846"));
-    illegals.push_back(i6);
-    */
     // build needed information first
     buildDetectorEdgeDependencies(detcont);
     // then build the routes
@@ -567,7 +528,8 @@ RODFNet::revalidateFlows(const RODFDetector *detector,
     // lets not validate them by now - surely this should be done
     // for each time step: collect incoming flows; collect outgoing;
     std::vector<FlowDef> mflows;
-    for (SUMOTime t=startTime; t<endTime; t+=stepOffset) {
+    int index = 0;
+    for (SUMOTime t=startTime; t<endTime; t+=stepOffset, index++) {
         FlowDef inFlow;
         inFlow.qLKW = 0;
         inFlow.qPKW = 0;
@@ -579,7 +541,7 @@ RODFNet::revalidateFlows(const RODFDetector *detector,
             for (std::vector<ROEdge*>::iterator i=previous.begin(); i!=previous.end(); ++i) {
                 const std::vector<FlowDef> &flows = static_cast<const RODFEdge*>(*i)->getFlows();
                 if (flows.size()!=0) {
-                    const FlowDef &srcFD = flows[(int)(t/stepOffset) - startTime];
+                    const FlowDef &srcFD = flows[index];
                     inFlow.qLKW += srcFD.qLKW;
                     inFlow.qPKW += srcFD.qPKW;
                     inFlow.vLKW += srcFD.vLKW;
@@ -600,7 +562,7 @@ RODFNet::revalidateFlows(const RODFDetector *detector,
             for (std::vector<ROEdge*>::iterator i=latter.begin(); i!=latter.end(); ++i) {
                 const std::vector<FlowDef> &flows = static_cast<const RODFEdge*>(*i)->getFlows();
                 if (flows.size()!=0) {
-                    const FlowDef &srcFD = flows[(int)(t/stepOffset) - startTime];
+                    const FlowDef &srcFD = flows[index];
                     outFlow.qLKW += srcFD.qLKW;
                     outFlow.qPKW += srcFD.qPKW;
                     outFlow.vLKW += srcFD.vLKW;
@@ -639,9 +601,7 @@ RODFNet::revalidateFlows(const RODFDetectorCon &detectors,
 
 void
 RODFNet::removeEmptyDetectors(RODFDetectorCon &detectors,
-                              RODFDetectorFlows &flows,
-                              SUMOTime /*startTime*/, SUMOTime /*endTime*/,
-                              SUMOTime /*stepOffset*/) {
+                              RODFDetectorFlows &flows) {
     const std::vector<RODFDetector*> &dets = detectors.getDetectors();
     for (std::vector<RODFDetector*>::const_iterator i=dets.begin(); i!=dets.end();) {
         bool remove = true;
@@ -1020,8 +980,7 @@ RODFNet::buildEdgeFlowMap(const RODFDetectorFlows &flows,
             }
         }
         std::vector<FlowDef> mflows; // !!! reserve
-        SUMOTime t;
-        for (t=startTime; t<endTime; t+=stepOffset) {
+        for (SUMOTime t=startTime; t<endTime; t+=stepOffset) {
             FlowDef fd;
             fd.qPKW = 0;
             fd.qLKW = 0;
@@ -1034,9 +993,10 @@ RODFNet::buildEdgeFlowMap(const RODFDetectorFlows &flows,
         for (std::vector<std::string>::iterator l=firstClique.begin(); l!=firstClique.end(); ++l) {
             bool didWarn = false;
             const std::vector<FlowDef> &dflows = flows.getFlowDefs(*l);
-            for (t=startTime; t<endTime; t+=stepOffset) {
-                const FlowDef &srcFD = dflows[(int)(t/stepOffset) - startTime];
-                FlowDef &fd = mflows[(int)(t/stepOffset) - startTime];
+            int index = 0;
+            for (SUMOTime t=startTime; t<endTime; t+=stepOffset, index++) {
+                const FlowDef &srcFD = dflows[index];
+                FlowDef &fd = mflows[index];
                 fd.qPKW += srcFD.qPKW;
                 fd.qLKW += srcFD.qLKW;
                 fd.vLKW += (srcFD.vLKW / (SUMOReal) firstClique.size());

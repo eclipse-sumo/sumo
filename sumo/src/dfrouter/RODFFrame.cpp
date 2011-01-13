@@ -161,8 +161,14 @@ RODFFrame::fillOptions() {
 
 
     // flow reading
+    oc.doRegister("time-factor", new Option_String("60", "TIME"));
+    oc.addDescription("time-factor", "Processing", "Multiply flow times with TIME to get seconds");
+
     oc.doRegister("time-offset", new Option_String("0", "TIME"));
-    oc.addDescription("time-offset", "Processing", "Subtracts INT from flow times");
+    oc.addDescription("time-offset", "Processing", "Subtracts TIME seconds from (scaled) flow times");
+
+    oc.doRegister("time-step", new Option_String("60", "TIME"));
+    oc.addDescription("time-step", "Processing", "Expected distance between two successive data sets");
 
     // saving further structures
     oc.doRegister("write-calibrators", new Option_Bool(false)); // !!!undescribed

@@ -36,7 +36,9 @@
         <disallowed-edges value=""/>
         <keep-turnarounds value="false"/>
         <min-distance value="-1"/>
+        <time-factor value="60"/>
         <time-offset value="0"/>
+        <time-step value="60"/>
         <write-calibrators value="false"/>
         <include-unused-routes value="false"/>
         <revalidate-flows value="false"/>

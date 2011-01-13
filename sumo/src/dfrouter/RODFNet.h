@@ -76,8 +76,7 @@ public:
 
 
     void removeEmptyDetectors(RODFDetectorCon &detectors,
-                              RODFDetectorFlows &flows,  SUMOTime startTime, SUMOTime endTime,
-                              SUMOTime stepOffset);
+                              RODFDetectorFlows &flows);
 
     void reportEmptyDetectors(RODFDetectorCon &detectors,
                               RODFDetectorFlows &flows);

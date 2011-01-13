@@ -49,11 +49,11 @@ RODFDetectorFlows::~RODFDetectorFlows() {}
 
 
 void
-RODFDetectorFlows::addFlow(const std::string &id, int t, const FlowDef &fd) {
+RODFDetectorFlows::addFlow(const std::string &id, SUMOTime t, const FlowDef &fd) {
     if (myFastAccessFlows.find(id)==myFastAccessFlows.end()) {
         size_t noItems = (size_t)((myEndTime-myBeginTime)/myStepOffset);
         myFastAccessFlows[id] = std::vector<FlowDef>(noItems);
-        std::vector<FlowDef> &cflows = myFastAccessFlows.find(id)->second;
+        std::vector<FlowDef> &cflows = myFastAccessFlows[id];
         // initialise
         for (std::vector<FlowDef>::iterator i=cflows.begin(); i<cflows.end(); ++i) {
             (*i).qPKW = 0;
@@ -65,16 +65,16 @@ RODFDetectorFlows::addFlow(const std::string &id, int t, const FlowDef &fd) {
             (*i).firstSet = true;
         }
     }
-    assert(t<(int) myFastAccessFlows[id].size());
-    FlowDef &ofd = myFastAccessFlows[id][t];
+    assert((t-myBeginTime)/myStepOffset<(int) myFastAccessFlows[id].size());
+    FlowDef &ofd = myFastAccessFlows[id][(t-myBeginTime)/myStepOffset];
     if (ofd.firstSet) {
         ofd = fd;
         ofd.firstSet = false;
     } else {
         ofd.qLKW = ofd.qLKW + fd.qLKW;
         ofd.qPKW = ofd.qPKW + fd.qPKW;
-        ofd.vLKW = ofd.vLKW + fd.vLKW;
-        ofd.vPKW = ofd.vPKW + fd.vPKW;
+        ofd.vLKW = ofd.vLKW + fd.vLKW; //!!! mean value?
+        ofd.vPKW = ofd.vPKW + fd.vPKW; //!!! mean value?
     }
     if (ofd.qLKW!=0 && ofd.qPKW!=0) {
         ofd.fLKW = ofd.qLKW / ofd.qPKW ;
@@ -106,24 +106,13 @@ RODFDetectorFlows::setFlows(const std::string &detector_id,
 
 void
 RODFDetectorFlows::removeFlow(const std::string &detector_id) {
-    if (myFastAccessFlows.find(detector_id)!=myFastAccessFlows.end()) {
-        myFastAccessFlows.erase(myFastAccessFlows.find(detector_id));
-    }
+    myFastAccessFlows.erase(detector_id);
 }
 
 
 bool
 RODFDetectorFlows::knows(const std::string &det_id) const {
     return myFastAccessFlows.find(det_id)!=myFastAccessFlows.end();
-}
-
-
-bool
-RODFDetectorFlows::knows(const std::string &det_id, SUMOTime /*time*/) const {
-    if (myFastAccessFlows.find(det_id)==myFastAccessFlows.end()) {
-        return false;
-    }
-    return true;//!!!
 }
 
 
@@ -178,13 +167,12 @@ RODFDetectorFlows::mesoJoin(const std::string &nid,
         if (!knows(*i)) {
             continue;
         }
-        std::map<std::string, std::vector<FlowDef> >::iterator j = myFastAccessFlows.find(*i);
-        std::vector<FlowDef> &flows = (*j).second;
+        std::vector<FlowDef> &flows = myFastAccessFlows[*i];
         size_t index = 0;
         for (SUMOTime t=myBeginTime; t!=myEndTime; t+=myStepOffset) {
-            addFlow(nid, t/myStepOffset, flows[index++]); // !!!
+            addFlow(nid, t, flows[index++]); // !!!
         }
-        myFastAccessFlows.erase(j);
+        myFastAccessFlows.erase(*i);
     }
 }
 

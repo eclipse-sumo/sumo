@@ -74,14 +74,13 @@ public:
     RODFDetectorFlows(SUMOTime startTime, SUMOTime endTime,
                       SUMOTime stepOffset);
     ~RODFDetectorFlows();
-    void addFlow(const std::string &detector_id, int timestamp,
+    void addFlow(const std::string &detector_id, SUMOTime timestamp,
                  const FlowDef &fd);
     void removeFlow(const std::string &detector_id);
     void setFlows(const std::string &detector_id, std::vector<FlowDef> &);
 
     const std::vector<FlowDef> &getFlowDefs(const std::string &id) const;
     bool knows(const std::string &det_id) const;
-    bool knows(const std::string &det_id, SUMOTime time) const;
     SUMOReal getFlowSumSecure(const std::string &id) const;
     SUMOReal getMaxDetectorFlow() const;
     void printAbsolute() const;

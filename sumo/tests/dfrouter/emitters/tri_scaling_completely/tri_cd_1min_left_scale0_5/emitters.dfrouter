@@ -35,9 +35,9 @@
         <route refid="beg_to_end_1" probability="1.00"/>
         <route refid="beg_to_end_2" probability="0.00"/>
     </routeDistribution>
-    <vehicle id="emitter_MQ_beg_0" depart="0" departspeed="max" departpos="5.00" departlane="0" route="beg_to_end_1"/>
-    <vehicle id="emitter_MQ_beg_12" depart="12" departspeed="max" departpos="5.00" departlane="0" route="beg_to_end_1"/>
-    <vehicle id="emitter_MQ_beg_24" depart="24" departspeed="max" departpos="5.00" departlane="0" route="beg_to_end_1"/>
-    <vehicle id="emitter_MQ_beg_36" depart="36" departspeed="max" departpos="5.00" departlane="0" route="beg_to_end_1"/>
-    <vehicle id="emitter_MQ_beg_48" depart="48" departspeed="max" departpos="5.00" departlane="0" route="beg_to_end_1"/>
+    <vehicle id="emitter_MQ_beg_0" depart="0.00" departspeed="max" departpos="5.00" departlane="0" route="beg_to_end_1"/>
+    <vehicle id="emitter_MQ_beg_12000" depart="12.00" departspeed="max" departpos="5.00" departlane="0" route="beg_to_end_1"/>
+    <vehicle id="emitter_MQ_beg_24000" depart="24.00" departspeed="max" departpos="5.00" departlane="0" route="beg_to_end_1"/>
+    <vehicle id="emitter_MQ_beg_36000" depart="36.00" departspeed="max" departpos="5.00" departlane="0" route="beg_to_end_1"/>
+    <vehicle id="emitter_MQ_beg_48000" depart="48.00" departspeed="max" departpos="5.00" departlane="0" route="beg_to_end_1"/>
 </additional>

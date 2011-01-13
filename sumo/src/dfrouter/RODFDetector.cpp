@@ -116,7 +116,7 @@ RODFDetector::computeSplitProbabilities(const RODFNet *net, const RODFDetectorCo
     }
     // compute the probabilities to use a certain direction
     int index = 0;
-    for (int time=startTime; time<endTime; time+=stepOffset, ++index) {
+    for (SUMOTime time=startTime; time<endTime; time+=stepOffset, ++index) {
         mySplitProbabilities.push_back(std::map<RODFEdge*, SUMOReal>());
         SUMOReal overallProb = 0;
         // retrieve the probabilities
@@ -154,7 +154,7 @@ RODFDetector::buildDestinationDistribution(const RODFDetectorCon &detectors,
     std::vector<RODFRouteDesc> &descs = myRoutes->get();
     const std::vector<FlowDef> &mflows = flows.getFlowDefs(myID);
     // iterate through time (in output interval steps)
-    for (int time=startTime; time<endTime; time+=stepOffset) {
+    for (SUMOTime time=startTime; time<endTime; time+=stepOffset) {
         into[time] = new RandomDistributor<size_t>();
         std::map<ROEdge*, SUMOReal> flowMap;
         // iterate through the routes
@@ -285,15 +285,13 @@ RODFDetector::writeEmitterDefinition(const std::string &file,
 
         const std::vector<FlowDef> &mflows = flows.getFlowDefs(myID);
         // go through the simulation seconds
-        for (SUMOTime time=startTime; time<endTime; time+=stepOffset) {
+        int index = 0;
+        for (SUMOTime time=startTime; time<endTime; time+=stepOffset, index++) {
             // get own (departure flow)
-            if ((int) mflows.size()<=(int)((time/stepOffset) - startTime)) {
-                std::cout << mflows.size() << ":" << (int)(time/stepOffset) - startTime << std::endl;
-                throw 1;
-            }
-            const FlowDef &srcFD = mflows[(int)(time/stepOffset) - startTime];  // !!! check stepOffset
+            assert(index < mflows.size());
+            const FlowDef &srcFD = mflows[index];  // !!! check stepOffset
             // get flows at end
-            RandomDistributor<size_t> *destDist = (int)(dists.size())> time ? dists.find(time)->second : 0;
+            RandomDistributor<size_t> *destDist = dists.find(time) != dists.end() ? dists.find(time)->second : 0;
             // go through the cars
             size_t carNo = (size_t)((srcFD.qPKW + srcFD.qLKW) * scale);
             for (size_t car=0; car<carNo; ++car) {
@@ -316,7 +314,7 @@ RODFDetector::writeEmitterDefinition(const std::string &file,
                     v = (SUMOReal)(v/3.6);
                 }
                 // compute the departure time
-                int ctime = (int)(time + ((SUMOReal) stepOffset * (SUMOReal) car / (SUMOReal) carNo));
+                SUMOTime ctime = (SUMOTime)(time + ((SUMOReal) stepOffset * (SUMOReal) car / (SUMOReal) carNo));
 
                 // write
                 out.openTag("vehicle") << " id=\"";
@@ -326,7 +324,7 @@ RODFDetector::writeEmitterDefinition(const std::string &file,
                     out << "calibrator_" << myID;
                 }
                 out << "_" << ctime  << "\"" // !!! running
-                << " depart=\"" << ctime << "\""
+                << " depart=\"" << time2string(ctime) << "\""
                 << " departspeed=\"";
                 if (v>defaultSpeed) {
                     out << "max";
@@ -368,8 +366,10 @@ RODFDetector::writeSingleSpeedTrigger(const std::string &file,
     OutputDevice& out = OutputDevice::getDevice(file);
     out.writeXMLHeader("vss");
     const std::vector<FlowDef> &mflows = flows.getFlowDefs(myID);
-    for (SUMOTime t=startTime; t<endTime; t+=stepOffset) {
-        const FlowDef &srcFD = mflows[(int)(t/stepOffset) - startTime]; // !!! check stepOffset
+    int index = 0;
+    for (SUMOTime t=startTime; t<endTime; t+=stepOffset, index++) {
+        assert(index < mflows.size());
+        const FlowDef &srcFD = mflows[index];
         SUMOReal speed = MAX2(srcFD.vLKW, srcFD.vPKW);
         if (speed<=0||speed>250) {
             speed = defaultSpeed;
@@ -596,12 +596,7 @@ RODFDetectorCon::writeEmitters(const std::string &file,
 
 void
 RODFDetectorCon::writeEmitterPOIs(const std::string &file,
-                                  const RODFDetectorFlows &flows,
-                                  SUMOTime startTime, SUMOTime endTime,
-                                  SUMOTime stepOffset) {
-    UNUSED_PARAMETER(stepOffset);
-    UNUSED_PARAMETER(endTime);
-    UNUSED_PARAMETER(startTime);
+                                  const RODFDetectorFlows &flows) {
     OutputDevice& out = OutputDevice::getDevice(file);
     out.writeXMLHeader("additional");
     for (std::vector<RODFDetector*>::const_iterator i=myDetectors.begin(); i!=myDetectors.end(); ++i) {
@@ -631,38 +626,6 @@ RODFDetectorCon::writeEmitterPOIs(const std::string &file,
         out << " lane=\"" << (*i)->getLaneID()<< "\" pos=\"" << (*i)->getPos() << "\"/>\n";
     }
     out.close();
-}
-
-
-int
-RODFDetectorCon::getFlowFor(const ROEdge *edge, SUMOTime time,
-                            const RODFDetectorFlows &) const {
-    SUMOReal stepOffset = 60; // !!!
-    SUMOReal startTime = 0; // !!!
-    assert(myDetectorEdgeMap.find(edge->getID())!=myDetectorEdgeMap.end());
-    const std::vector<FlowDef> &flows = static_cast<const RODFEdge*>(edge)->getFlows();
-    if (flows.size()!=0) {
-        const FlowDef &srcFD = flows[(int)((time/stepOffset) - startTime)];
-        return (int)(MAX2(srcFD.qLKW, (SUMOReal) 0.) + MAX2(srcFD.qPKW, (SUMOReal) 0.));
-    }
-    /*
-    const std::vector<RODFDetector*> &detsOnEdge = myDetectorEdgeMap.find(edge->getID())->second;
-    std::vector<RODFDetector*>::const_iterator i;
-    SUMOReal ret = 0;
-    int counted = 0;
-    for(i=detsOnEdge.begin(); i!=detsOnEdge.end(); ++i) {
-        if(flows.knows((*i)->getID())) {
-            const std::vector<FlowDef> &mflows = flows.getFlowDefs((*i)->getID());
-            const FlowDef &srcFD = mflows[(int) (time/stepOffset) - startTime]; // !!! check stepOffset
-            counted++; // !!! make a difference between pkws and lkws
-            ret += (srcFD.qLKW + srcFD.qPKW);
-        }
-    }
-    if(counted!=0) {
-        return (int) (ret / (SUMOReal) counted);
-    }
-    */
-    return -1;
 }
 
 

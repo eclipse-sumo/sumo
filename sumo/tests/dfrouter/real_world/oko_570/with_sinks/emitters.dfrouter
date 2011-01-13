@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on Sun Dec 19 22:45:58 2010 by SUMO dfrouter Version dev-SVN-r9480
+<!-- generated on Thu Jan 13 21:22:34 2011 by SUMO dfrouter Version dev-SVN-r9567
 <?xml version="1.0" encoding="iso-8859-1"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/dfrouterConfiguration.xsd">
@@ -38,38 +38,38 @@
         <route refid="11_21_to_20_10" probability="0.42"/>
         <route refid="11_21_to_a4_a5" probability="0.17"/>
     </routeDistribution>
-    <vehicle id="emitter_LI_0" depart="0" departspeed="max" departpos="100.00" departlane="0" route="11_21_to_a4_a5"/>
-    <vehicle id="emitter_LI_6" depart="6" departspeed="max" departpos="100.00" departlane="0" route="11_21_to_20_10"/>
-    <vehicle id="emitter_LI_12" depart="12" departspeed="max" departpos="100.00" departlane="0" route="11_21_to_51_61"/>
-    <vehicle id="emitter_LI_18" depart="18" departspeed="max" departpos="100.00" departlane="0" route="11_21_to_20_10"/>
-    <vehicle id="emitter_LI_24" depart="24" departspeed="max" departpos="100.00" departlane="0" route="11_21_to_20_10"/>
-    <vehicle id="emitter_LI_30" depart="30" departspeed="max" departpos="100.00" departlane="0" route="11_21_to_51_61"/>
-    <vehicle id="emitter_LI_36" depart="36" departspeed="max" departpos="100.00" departlane="0" route="11_21_to_20_10"/>
-    <vehicle id="emitter_LI_42" depart="42" departspeed="max" departpos="100.00" departlane="0" route="11_21_to_51_61"/>
-    <vehicle id="emitter_LI_48" depart="48" departspeed="max" departpos="100.00" departlane="0" route="11_21_to_20_10"/>
-    <vehicle id="emitter_LI_54" depart="54" departspeed="max" departpos="100.00" departlane="0" route="11_21_to_20_10"/>
+    <vehicle id="emitter_LI_0" depart="0.00" departspeed="max" departpos="100.00" departlane="0" route="11_21_to_a4_a5"/>
+    <vehicle id="emitter_LI_6000" depart="6.00" departspeed="max" departpos="100.00" departlane="0" route="11_21_to_20_10"/>
+    <vehicle id="emitter_LI_12000" depart="12.00" departspeed="max" departpos="100.00" departlane="0" route="11_21_to_51_61"/>
+    <vehicle id="emitter_LI_18000" depart="18.00" departspeed="max" departpos="100.00" departlane="0" route="11_21_to_20_10"/>
+    <vehicle id="emitter_LI_24000" depart="24.00" departspeed="max" departpos="100.00" departlane="0" route="11_21_to_20_10"/>
+    <vehicle id="emitter_LI_30000" depart="30.00" departspeed="max" departpos="100.00" departlane="0" route="11_21_to_51_61"/>
+    <vehicle id="emitter_LI_36000" depart="36.00" departspeed="max" departpos="100.00" departlane="0" route="11_21_to_20_10"/>
+    <vehicle id="emitter_LI_42000" depart="42.00" departspeed="max" departpos="100.00" departlane="0" route="11_21_to_51_61"/>
+    <vehicle id="emitter_LI_48000" depart="48.00" departspeed="max" departpos="100.00" departlane="0" route="11_21_to_20_10"/>
+    <vehicle id="emitter_LI_54000" depart="54.00" departspeed="max" departpos="100.00" departlane="0" route="11_21_to_20_10"/>
     <routeDistribution id="RI">
         <route refid="60_50_to_20_10" probability="0.42"/>
         <route refid="60_50_to_51_61" probability="0.42"/>
         <route refid="60_50_to_a4_a5" probability="0.17"/>
     </routeDistribution>
-    <vehicle id="emitter_RI_0" depart="0" departspeed="max" departpos="100.00" departlane="0" route="60_50_to_20_10"/>
-    <vehicle id="emitter_RI_6" depart="6" departspeed="max" departpos="100.00" departlane="0" route="60_50_to_51_61"/>
-    <vehicle id="emitter_RI_12" depart="12" departspeed="max" departpos="100.00" departlane="0" route="60_50_to_51_61"/>
-    <vehicle id="emitter_RI_18" depart="18" departspeed="max" departpos="100.00" departlane="0" route="60_50_to_51_61"/>
-    <vehicle id="emitter_RI_24" depart="24" departspeed="max" departpos="100.00" departlane="0" route="60_50_to_51_61"/>
-    <vehicle id="emitter_RI_30" depart="30" departspeed="max" departpos="100.00" departlane="0" route="60_50_to_20_10"/>
-    <vehicle id="emitter_RI_36" depart="36" departspeed="max" departpos="100.00" departlane="0" route="60_50_to_20_10"/>
-    <vehicle id="emitter_RI_42" depart="42" departspeed="max" departpos="100.00" departlane="0" route="60_50_to_a4_a5"/>
-    <vehicle id="emitter_RI_48" depart="48" departspeed="max" departpos="100.00" departlane="0" route="60_50_to_20_10"/>
-    <vehicle id="emitter_RI_54" depart="54" departspeed="max" departpos="100.00" departlane="0" route="60_50_to_51_61"/>
+    <vehicle id="emitter_RI_0" depart="0.00" departspeed="max" departpos="100.00" departlane="0" route="60_50_to_20_10"/>
+    <vehicle id="emitter_RI_6000" depart="6.00" departspeed="max" departpos="100.00" departlane="0" route="60_50_to_51_61"/>
+    <vehicle id="emitter_RI_12000" depart="12.00" departspeed="max" departpos="100.00" departlane="0" route="60_50_to_51_61"/>
+    <vehicle id="emitter_RI_18000" depart="18.00" departspeed="max" departpos="100.00" departlane="0" route="60_50_to_51_61"/>
+    <vehicle id="emitter_RI_24000" depart="24.00" departspeed="max" departpos="100.00" departlane="0" route="60_50_to_51_61"/>
+    <vehicle id="emitter_RI_30000" depart="30.00" departspeed="max" departpos="100.00" departlane="0" route="60_50_to_20_10"/>
+    <vehicle id="emitter_RI_36000" depart="36.00" departspeed="max" departpos="100.00" departlane="0" route="60_50_to_20_10"/>
+    <vehicle id="emitter_RI_42000" depart="42.00" departspeed="max" departpos="100.00" departlane="0" route="60_50_to_a4_a5"/>
+    <vehicle id="emitter_RI_48000" depart="48.00" departspeed="max" departpos="100.00" departlane="0" route="60_50_to_20_10"/>
+    <vehicle id="emitter_RI_54000" depart="54.00" departspeed="max" departpos="100.00" departlane="0" route="60_50_to_51_61"/>
     <routeDistribution id="BI">
         <route refid="a5_a4_to_20_10" probability="0.42"/>
         <route refid="a5_a4_to_51_61" probability="0.42"/>
         <route refid="a5_a4_to_a4_a5" probability="0.17"/>
     </routeDistribution>
-    <vehicle id="emitter_BI_0" depart="0" departspeed="max" departpos="50.00" departlane="0" route="a5_a4_to_20_10"/>
-    <vehicle id="emitter_BI_15" depart="15" departspeed="max" departpos="50.00" departlane="0" route="a5_a4_to_51_61"/>
-    <vehicle id="emitter_BI_30" depart="30" departspeed="max" departpos="50.00" departlane="0" route="a5_a4_to_20_10"/>
-    <vehicle id="emitter_BI_45" depart="45" departspeed="max" departpos="50.00" departlane="0" route="a5_a4_to_51_61"/>
+    <vehicle id="emitter_BI_0" depart="0.00" departspeed="max" departpos="50.00" departlane="0" route="a5_a4_to_20_10"/>
+    <vehicle id="emitter_BI_15000" depart="15.00" departspeed="max" departpos="50.00" departlane="0" route="a5_a4_to_51_61"/>
+    <vehicle id="emitter_BI_30000" depart="30.00" departspeed="max" departpos="50.00" departlane="0" route="a5_a4_to_20_10"/>
+    <vehicle id="emitter_BI_45000" depart="45.00" departspeed="max" departpos="50.00" departlane="0" route="a5_a4_to_51_61"/>
 </additional>

@@ -257,8 +257,7 @@ public:
                        bool emissionsOnly);
 
     void writeEmitterPOIs(const std::string &file,
-                          const RODFDetectorFlows &flows,
-                          SUMOTime startTime, SUMOTime endTime, SUMOTime stepOffset);
+                          const RODFDetectorFlows &flows);
 
     void writeSpeedTrigger(const RODFNet * const net, const std::string &file,
                            const RODFDetectorFlows &flows,
@@ -267,9 +266,6 @@ public:
     void writeValidationDetectors(const std::string &file,
                                   bool includeSources, bool singleFile, bool friendly);
     void writeEndRerouterDetectors(const std::string &file);
-
-    int getFlowFor(const ROEdge *edge, SUMOTime time,
-                   const RODFDetectorFlows &flows) const;
 
     int getAggFlowFor(const ROEdge *edge, SUMOTime time, SUMOTime period,
                       const RODFDetectorFlows &flows) const;
