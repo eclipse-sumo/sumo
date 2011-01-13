@@ -66,6 +66,9 @@
         <!-- Do not check whether accidents occure more deeply -->
         <ignore-accidents value="false"/>
 
+        <!-- Do not check whether routes are connected -->
+        <ignore-route-errors value="false"/>
+
         <!-- Quit simulation if this number of vehicles is exceeded -->
         <too-many-vehicles value="-1"/>
 

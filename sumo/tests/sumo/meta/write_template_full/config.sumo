@@ -30,6 +30,7 @@
         <route-steps value="200"/>
         <no-internal-links value="false"/>
         <ignore-accidents value="false"/>
+        <ignore-route-errors value="false"/>
         <too-many-vehicles value="-1"/>
         <incremental-dua-step value="-1"/>
         <incremental-dua-base value="10"/>
