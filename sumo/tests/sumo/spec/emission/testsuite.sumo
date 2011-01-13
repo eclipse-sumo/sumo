@@ -10,6 +10,12 @@ lane_free
 # checks using a free lane (3 vehicles)
 lane_free_3veh
 
+# checks using the best lane (3 vehicles)
+lane_best_3veh
+
+# checks using a free allowed lane (3 vehicles)
+lane_allowed_3veh
+
 # checks using the given lane (lane 0)
 lane_given0
 
