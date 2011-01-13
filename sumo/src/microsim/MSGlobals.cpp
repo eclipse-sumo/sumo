@@ -45,6 +45,8 @@ SUMOTime MSGlobals::gTimeToGridlock = TIME2STEPS(300);
 
 bool MSGlobals::gCheck4Accidents;
 
+bool MSGlobals::gCheckRoutes;
+
 #ifdef HAVE_MESOSIM
 bool MSGlobals::gStateLoaded;
 #endif

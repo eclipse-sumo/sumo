@@ -1142,7 +1142,7 @@ MSVehicle::enterLaneAtEmit(MSLane* enteredLane, SUMOReal pos, SUMOReal speed) {
     }
     activateReminders(MSMoveReminder::NOTIFICATION_DEPARTED);
     std::string msg;
-    if (!hasValidRoute(msg)) {
+    if (MSGlobals::gCheckRoutes && !hasValidRoute(msg)) {
         throw ProcessError("Vehicle '" + getID() + "' has no valid route. " + msg);
     }
     myAmOnNet = true;

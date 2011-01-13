@@ -64,6 +64,9 @@ public:
     /** information whether the network shall check for collisions */
     static bool gCheck4Accidents;
 
+    /** information whether the routes shall be checked for connectivity */
+    static bool gCheckRoutes;
+
 #ifdef HAVE_MESOSIM
     /// Information whether a state has been loaded
     static bool gStateLoaded;
