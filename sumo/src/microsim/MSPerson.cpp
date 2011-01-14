@@ -132,12 +132,10 @@ MSPerson::MSPersonStage_Driving::proceed(MSNet* net,
         MSPerson* person, SUMOTime /*now*/,
         const MSEdge &previousEdge) {
     SUMOVehicle *v = net->getVehicleControl().getWaitingVehicle(&previousEdge, myLines);
-    if (v != 0) {
-        v->addPerson(person);
-        if (v->getParameter().departProcedure == DEPART_TRIGGERED) {
-            net->getEmitControl().add(v);
-            net->getVehicleControl().removeWaiting(&previousEdge, v);
-        }
+    if (v != 0 && v->getParameter().departProcedure == DEPART_TRIGGERED) {        
+		v->addPerson(person);
+        net->getEmitControl().add(v);
+        net->getVehicleControl().removeWaiting(&previousEdge, v);        
     } else {
         net->getPersonControl().addWaiting(&previousEdge, person);
     }

@@ -410,9 +410,14 @@ MSVehicle::processNextStop(SUMOReal currentVelocity) throw() {
     Stop &stop = myStops.front();
     if (stop.reached) {
         // ok, we have already reached the next stop
-        if ((stop.duration<=0 && !stop.triggered)
-            || (stop.triggered && MSNet::getInstance()->getPersonControl().boardAnyWaiting(&myLane->getEdge(), this))) {
-            // ... and have either waited long enough or found our passenger
+        // any waiting persons may board now
+        bool boarded = MSNet::getInstance()->getPersonControl().boardAnyWaiting(&myLane->getEdge(), this);
+        if (boarded) {
+            // the triggering condition has been fulfilled. Maybe we want to wait a bit longer for additional riders (car pooling)
+            stop.triggered = false;
+        }
+        if (stop.duration<=0 && !stop.triggered) {
+            // we have waited long enough and fulfilled any passenger-requirments
             if (stop.busstop!=0) {
                 // inform bus stop about leaving it
                 stop.busstop->leaveFrom(this);

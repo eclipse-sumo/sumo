@@ -29,7 +29,7 @@
 <tripinfos>
     <personinfo id="p1" depart="0.00">
         <stop arrival="0.00"/>
-        <ride depart="41.00" arrival="217.00"/>
+        <ride depart="42.00" arrival="217.00"/>
     </personinfo>
     <tripinfo id="bus.0" depart="0.00" departLane="beg_0" departPos="0.00" departSpeed="0.00" departDelay="0.00" arrival="217.00" arrivalLane="end_0" arrivalPos="2.56" arrivalSpeed="6.38" duration="217.00" routeLength="2481.91" waitSteps="31" rerouteNo="0" devices="tripinfo_bus.0 person_bus.0" vtype="DEFAULT_VEHTYPE" vaporized="">
     </tripinfo>
