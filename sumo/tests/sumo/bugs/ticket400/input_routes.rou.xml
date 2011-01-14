@@ -1,6 +1,5 @@
 <!-- v3 and p1 should complete their trips without problems 
 	 v1,v2,p2 should be recognized as deadlocked 
-	 v4 is blocked in its path by v2 but should finish its trip after teleport 
 	 -->
 <routes>
     <vehicle id="v1_need_rider" depart="triggered">
