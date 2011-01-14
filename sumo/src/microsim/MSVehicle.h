@@ -370,6 +370,7 @@ public:
     /** @brief Returns the SUMOTime waited (speed was lesser than 0.1m/s)
      *
      * The value is reset if the vehicle moves faster than 0.1m/s
+     * Intentional stopping does not count towards this time.
      * @return The time the vehicle is standing
      */
     SUMOTime getWaitingTime() const throw() {
@@ -380,6 +381,7 @@ public:
     /** @brief Returns the number of seconds waited (speed was lesser than 0.1m/s)
      *
      * The value is reset if the vehicle moves faster than 0.1m/s
+     * Intentional stopping does not count towards this time.
      * @return The time the vehicle is standing
      */
     SUMOReal getWaitingSeconds() const throw() {

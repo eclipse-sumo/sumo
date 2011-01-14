@@ -420,6 +420,9 @@ MSVehicle::processNextStop(SUMOReal currentVelocity) throw() {
             // the current stop is no longer valid
             MSNet::getInstance()->getVehicleControl().removeWaiting(&myLane->getEdge(), this);
             myStops.pop_front();
+            // do not count the stopping time towards gridlock time. 
+            // Other outputs use an independent counter and are not affected.
+            myWaitingTime = 0;
             // maybe the next stop is on the same edge; let's rebuild best lanes
             getBestLanes(true);
             // continue as wished...
