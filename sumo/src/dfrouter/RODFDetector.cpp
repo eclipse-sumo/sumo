@@ -171,7 +171,7 @@ RODFDetector::buildDestinationDistribution(const RODFDetectorCon &detectors,
                     prob = 0;
                     continue;
                 }
-                const std::map<RODFEdge*, SUMOReal> &tprobs = probs[time/stepOffset];
+                const std::map<RODFEdge*, SUMOReal> &tprobs = probs[(time-startTime)/stepOffset];
                 for (std::map<RODFEdge*, SUMOReal>::const_iterator k=tprobs.begin(); k!=tprobs.end(); ++k) {
                     if (find(j, (*ri).edges2Pass.end(), (*k).first)!=(*ri).edges2Pass.end()) {
                         prob *= (*k).second;
@@ -253,31 +253,29 @@ RODFDetector::writeEmitterDefinition(const std::string &file,
         out.writeXMLHeader("calibrator");
     }
     // routes
-    if (!emissionsOnly) {
-        if (myRoutes!=0&&myRoutes->get().size()!=0) {
-            const std::vector<RODFRouteDesc> &routes = myRoutes->get();
-            out.openTag("routeDistribution") <<  " id=\"" << myID << "\">\n";
-            bool isEmptyDist = true;
-            for (std::vector<RODFRouteDesc>::const_iterator i=routes.begin(); i!=routes.end(); ++i) {
-                if ((*i).overallProb>0) {
-                    isEmptyDist = false;
-                }
+    if (myRoutes!=0&&myRoutes->get().size()!=0) {
+        const std::vector<RODFRouteDesc> &routes = myRoutes->get();
+        out.openTag("routeDistribution") <<  " id=\"" << myID << "\">\n";
+        bool isEmptyDist = true;
+        for (std::vector<RODFRouteDesc>::const_iterator i=routes.begin(); i!=routes.end(); ++i) {
+            if ((*i).overallProb>0) {
+                isEmptyDist = false;
             }
-            for (std::vector<RODFRouteDesc>::const_iterator i=routes.begin(); i!=routes.end(); ++i) {
-                if ((*i).overallProb>0||includeUnusedRoutes) {
-                    out.openTag("route") << " refid=\"" << (*i).routename << "\" probability=\"" << (*i).overallProb << "\"";
-                    out.closeTag(true);
-                }
-                if (isEmptyDist) {
-                    out.openTag("route") << " refid=\"" << (*i).routename << "\" probability=\"1\"";
-                    out.closeTag(true);
-                }
-            }
-            out.closeTag();
-        } else {
-            MsgHandler::getErrorInstance()->inform("Detector '" + getID() + "' has no routes!?");
-            return false;
         }
+        for (std::vector<RODFRouteDesc>::const_iterator i=routes.begin(); i!=routes.end(); ++i) {
+            if ((*i).overallProb>0||includeUnusedRoutes) {
+                out.openTag("route") << " refid=\"" << (*i).routename << "\" probability=\"" << (*i).overallProb << "\"";
+                out.closeTag(true);
+            }
+            if (isEmptyDist) {
+                out.openTag("route") << " refid=\"" << (*i).routename << "\" probability=\"1\"";
+                out.closeTag(true);
+            }
+        }
+        out.closeTag();
+    } else {
+        MsgHandler::getErrorInstance()->inform("Detector '" + getID() + "' has no routes!?");
+        return false;
     }
     // emissions
     if (emissionsOnly||flows.knows(myID)) {
@@ -332,9 +330,11 @@ RODFDetector::writeEmitterDefinition(const std::string &file,
                     out << v;
                 }
                 out << "\" departpos=\"" << myPosition << "\""
-                << " departlane=\"" << myLaneID.substr(myLaneID.rfind("_")+1) << "\"";
+                << " departlane=\"" << myLaneID.substr(myLaneID.rfind("_")+1) << "\" route=\"";
                 if (destIndex>=0) {
-                    out << " route=\"" << myRoutes->get()[destIndex].routename << "\""; // !!! optional
+                    out << myRoutes->get()[destIndex].routename << "\"";
+                } else {
+                    out << myID << "\"";
                 }
                 out.closeTag(true);
                 srcFD.isLKW += srcFD.fLKW;
