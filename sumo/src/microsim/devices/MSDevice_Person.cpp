@@ -4,7 +4,7 @@
 /// @date    Fri, 30.01.2009
 /// @version $Id$
 ///
-// A device which collects vehicular emissions (using HBEFA-reformulation)
+// A device which is used to keep track of Persons riding with a vehicle
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // Copyright (C) 2001-2011 DLR (http://www.dlr.de/) and contributors
@@ -101,10 +101,15 @@ MSDevice_Person::notifyEnter(SUMOVehicle& /*veh*/, MSMoveReminder::Notification 
 
 
 bool
-MSDevice_Person::notifyLeave(SUMOVehicle& /*veh*/, SUMOReal /*lastPos*/,
+MSDevice_Person::notifyLeave(SUMOVehicle& veh, SUMOReal /*lastPos*/,
                              MSMoveReminder::Notification reason) throw() {
     if (reason >= MSMoveReminder::NOTIFICATION_ARRIVED) {
         for (std::vector<MSPerson*>::iterator i=myPersons.begin(); i!=myPersons.end(); ++i) {
+            if (&(*i)->getDestination() != veh.getEdge()) {
+                WRITE_WARNING("Teleporting person '" + (*i)->getID() + 
+                    "' from vehicle destination '" + veh.getEdge()->getID() + 
+                    "' to intended destination '" + (*i)->getDestination().getID() + "'");
+            }
             (*i)->proceed(MSNet::getInstance(), MSNet::getInstance()->getCurrentTimeStep());
         }
     }

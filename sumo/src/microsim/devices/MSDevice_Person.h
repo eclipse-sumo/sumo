@@ -4,7 +4,7 @@
 /// @date    Fri, 30.01.2009
 /// @version $Id$
 ///
-// A device which collects vehicular emissions (using HBEFA-reformulation)
+// A device which is used to keep track of Persons riding with a vehicle
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // Copyright (C) 2001-2011 DLR (http://www.dlr.de/) and contributors
