@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on Thu Jan 13 21:22:31 2011 by SUMO dfrouter Version dev-SVN-r9567
+<!-- generated on 01/14/11 15:31:56 by SUMO dfrouter Version dev-SVN-r9575
 <?xml version="1.0" encoding="iso-8859-1"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/dfrouterConfiguration.xsd">
@@ -31,24 +31,32 @@
 -->
 
 <additional>
-    <vehicle id="emitter_MQ_beg_0" depart="0.00" departspeed="max" departpos="5.00" departlane="0"/>
-    <vehicle id="emitter_MQ_beg_3000" depart="3.00" departspeed="max" departpos="5.00" departlane="0"/>
-    <vehicle id="emitter_MQ_beg_6000" depart="6.00" departspeed="max" departpos="5.00" departlane="0"/>
-    <vehicle id="emitter_MQ_beg_9000" depart="9.00" departspeed="max" departpos="5.00" departlane="0"/>
-    <vehicle id="emitter_MQ_beg_12000" depart="12.00" departspeed="max" departpos="5.00" departlane="0"/>
-    <vehicle id="emitter_MQ_beg_15000" depart="15.00" departspeed="max" departpos="5.00" departlane="0"/>
-    <vehicle id="emitter_MQ_beg_18000" depart="18.00" departspeed="max" departpos="5.00" departlane="0"/>
-    <vehicle id="emitter_MQ_beg_21000" depart="21.00" departspeed="max" departpos="5.00" departlane="0"/>
-    <vehicle id="emitter_MQ_beg_24000" depart="24.00" departspeed="max" departpos="5.00" departlane="0"/>
-    <vehicle id="emitter_MQ_beg_27000" depart="27.00" departspeed="max" departpos="5.00" departlane="0"/>
-    <vehicle id="emitter_MQ_beg_30000" depart="30.00" departspeed="max" departpos="5.00" departlane="0"/>
-    <vehicle id="emitter_MQ_beg_33000" depart="33.00" departspeed="max" departpos="5.00" departlane="0"/>
-    <vehicle id="emitter_MQ_beg_36000" depart="36.00" departspeed="max" departpos="5.00" departlane="0"/>
-    <vehicle id="emitter_MQ_beg_39000" depart="39.00" departspeed="max" departpos="5.00" departlane="0"/>
-    <vehicle id="emitter_MQ_beg_42000" depart="42.00" departspeed="max" departpos="5.00" departlane="0"/>
-    <vehicle id="emitter_MQ_beg_45000" depart="45.00" departspeed="max" departpos="5.00" departlane="0"/>
-    <vehicle id="emitter_MQ_beg_48000" depart="48.00" departspeed="max" departpos="5.00" departlane="0"/>
-    <vehicle id="emitter_MQ_beg_51000" depart="51.00" departspeed="max" departpos="5.00" departlane="0"/>
-    <vehicle id="emitter_MQ_beg_54000" depart="54.00" departspeed="max" departpos="5.00" departlane="0"/>
-    <vehicle id="emitter_MQ_beg_57000" depart="57.00" departspeed="max" departpos="5.00" departlane="0"/>
+    <routeDistribution id="MQ_beg">
+        <route refid="beg_to_end" probability="0.00"/>
+        <route refid="beg_to_end" probability="1"/>
+        <route refid="beg_to_end_1" probability="0.00"/>
+        <route refid="beg_to_end_1" probability="1"/>
+        <route refid="beg_to_end_2" probability="0.00"/>
+        <route refid="beg_to_end_2" probability="1"/>
+    </routeDistribution>
+    <vehicle id="emitter_MQ_beg_0" depart="0.00" departspeed="max" departpos="5.00" departlane="0" route="MQ_beg"/>
+    <vehicle id="emitter_MQ_beg_3000" depart="3.00" departspeed="max" departpos="5.00" departlane="0" route="MQ_beg"/>
+    <vehicle id="emitter_MQ_beg_6000" depart="6.00" departspeed="max" departpos="5.00" departlane="0" route="MQ_beg"/>
+    <vehicle id="emitter_MQ_beg_9000" depart="9.00" departspeed="max" departpos="5.00" departlane="0" route="MQ_beg"/>
+    <vehicle id="emitter_MQ_beg_12000" depart="12.00" departspeed="max" departpos="5.00" departlane="0" route="MQ_beg"/>
+    <vehicle id="emitter_MQ_beg_15000" depart="15.00" departspeed="max" departpos="5.00" departlane="0" route="MQ_beg"/>
+    <vehicle id="emitter_MQ_beg_18000" depart="18.00" departspeed="max" departpos="5.00" departlane="0" route="MQ_beg"/>
+    <vehicle id="emitter_MQ_beg_21000" depart="21.00" departspeed="max" departpos="5.00" departlane="0" route="MQ_beg"/>
+    <vehicle id="emitter_MQ_beg_24000" depart="24.00" departspeed="max" departpos="5.00" departlane="0" route="MQ_beg"/>
+    <vehicle id="emitter_MQ_beg_27000" depart="27.00" departspeed="max" departpos="5.00" departlane="0" route="MQ_beg"/>
+    <vehicle id="emitter_MQ_beg_30000" depart="30.00" departspeed="max" departpos="5.00" departlane="0" route="MQ_beg"/>
+    <vehicle id="emitter_MQ_beg_33000" depart="33.00" departspeed="max" departpos="5.00" departlane="0" route="MQ_beg"/>
+    <vehicle id="emitter_MQ_beg_36000" depart="36.00" departspeed="max" departpos="5.00" departlane="0" route="MQ_beg"/>
+    <vehicle id="emitter_MQ_beg_39000" depart="39.00" departspeed="max" departpos="5.00" departlane="0" route="MQ_beg"/>
+    <vehicle id="emitter_MQ_beg_42000" depart="42.00" departspeed="max" departpos="5.00" departlane="0" route="MQ_beg"/>
+    <vehicle id="emitter_MQ_beg_45000" depart="45.00" departspeed="max" departpos="5.00" departlane="0" route="MQ_beg"/>
+    <vehicle id="emitter_MQ_beg_48000" depart="48.00" departspeed="max" departpos="5.00" departlane="0" route="MQ_beg"/>
+    <vehicle id="emitter_MQ_beg_51000" depart="51.00" departspeed="max" departpos="5.00" departlane="0" route="MQ_beg"/>
+    <vehicle id="emitter_MQ_beg_54000" depart="54.00" departspeed="max" departpos="5.00" departlane="0" route="MQ_beg"/>
+    <vehicle id="emitter_MQ_beg_57000" depart="57.00" departspeed="max" departpos="5.00" departlane="0" route="MQ_beg"/>
 </additional>

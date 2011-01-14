@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on Sun Dec 19 22:45:56 2010 by SUMO dfrouter Version dev-SVN-r9480
+<!-- generated on 01/14/11 15:32:06 by SUMO dfrouter Version dev-SVN-r9575
 <?xml version="1.0" encoding="iso-8859-1"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/dfrouterConfiguration.xsd">
@@ -31,9 +31,17 @@
 -->
 
 <additional>
-    <vehicle id="emitter_MQ_beg_0" depart="0.00" departspeed="max" departpos="5.00" departlane="0"/>
-    <vehicle id="emitter_MQ_beg_12000" depart="12.00" departspeed="max" departpos="5.00" departlane="0"/>
-    <vehicle id="emitter_MQ_beg_24000" depart="24.00" departspeed="max" departpos="5.00" departlane="0"/>
-    <vehicle id="emitter_MQ_beg_36000" depart="36.00" departspeed="max" departpos="5.00" departlane="0"/>
-    <vehicle id="emitter_MQ_beg_48000" depart="48.00" departspeed="max" departpos="5.00" departlane="0"/>
+    <routeDistribution id="MQ_beg">
+        <route refid="beg_to_end" probability="0.00"/>
+        <route refid="beg_to_end" probability="1"/>
+        <route refid="beg_to_end_1" probability="0.00"/>
+        <route refid="beg_to_end_1" probability="1"/>
+        <route refid="beg_to_end_2" probability="0.00"/>
+        <route refid="beg_to_end_2" probability="1"/>
+    </routeDistribution>
+    <vehicle id="emitter_MQ_beg_0" depart="0.00" departspeed="max" departpos="5.00" departlane="0" route="MQ_beg"/>
+    <vehicle id="emitter_MQ_beg_12000" depart="12.00" departspeed="max" departpos="5.00" departlane="0" route="MQ_beg"/>
+    <vehicle id="emitter_MQ_beg_24000" depart="24.00" departspeed="max" departpos="5.00" departlane="0" route="MQ_beg"/>
+    <vehicle id="emitter_MQ_beg_36000" depart="36.00" departspeed="max" departpos="5.00" departlane="0" route="MQ_beg"/>
+    <vehicle id="emitter_MQ_beg_48000" depart="48.00" departspeed="max" departpos="5.00" departlane="0" route="MQ_beg"/>
 </additional>
