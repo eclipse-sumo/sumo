@@ -75,8 +75,13 @@ public:
     /// adds a person to the list of persons waiting for a vehicle on the specified edge
     void addWaiting(const MSEdge* edge, MSPerson *person) throw();
 
-    /// boards any people who wait on that edge for the given vehicle and removes them from myWaiting
-    bool checkWaiting(const MSEdge* edge, MSVehicle *vehicle) throw();
+    /** @brief board any applicable persons
+     * Boards any people who wait on that edge for the given vehicle and removes them from myWaiting
+     * @param[in] the edge on which the boarding should take place
+     * @param[in] the vehicle which is taking on passengers
+     * @return Whether any persons have been boarded
+     */
+    bool boardAnyWaiting(const MSEdge* edge, MSVehicle *vehicle) throw();
 
     /// checks whether any person waits to finish her plan
     bool hasPersons() const throw();

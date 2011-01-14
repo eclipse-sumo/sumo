@@ -125,7 +125,7 @@ MSPersonControl::addWaiting(const MSEdge* const edge, MSPerson *person) throw() 
 
 
 bool
-MSPersonControl::checkWaiting(const MSEdge* const edge, MSVehicle *vehicle) throw() {
+MSPersonControl::boardAnyWaiting(const MSEdge* const edge, MSVehicle *vehicle) throw() {
     bool ret = false;
     if (myWaiting.find(edge) != myWaiting.end()) {
         PersonVector &waitPersons = myWaiting[edge];

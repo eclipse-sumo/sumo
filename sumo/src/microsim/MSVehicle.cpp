@@ -411,7 +411,7 @@ MSVehicle::processNextStop(SUMOReal currentVelocity) throw() {
     if (stop.reached) {
         // ok, we have already reached the next stop
         if ((stop.duration<=0 && !stop.triggered)
-            || (stop.triggered && MSNet::getInstance()->getPersonControl().checkWaiting(&myLane->getEdge(), this))) {
+            || (stop.triggered && MSNet::getInstance()->getPersonControl().boardAnyWaiting(&myLane->getEdge(), this))) {
             // ... and have either waited long enough or found our passenger
             if (stop.busstop!=0) {
                 // inform bus stop about leaving it
