@@ -35,7 +35,7 @@ def initOptions():
     optParser.add_option("-m", "--mesosim", action="store_true", dest="mesosim",
                          default=False, help="Whether mesosim shall be used")
     optParser.add_option("-p", "--path", dest="path",
-                         default=os.environ.get("SUMO", ""), help="Path to binaries [default: %default]")
+                         default=os.environ.get("SUMO_BINDIR", ""), help="Path to binaries [default: %default]")
     optParser.add_option("-y", "--absrand", dest="absrand", action="store_true",
                          default= False, help="use current time to generate random number")
     optParser.add_option("-I", "--nointernal-link", action="store_true", dest="internallink",

@@ -148,7 +148,7 @@ optParser.add_option("-f", "--first-step", dest="firstStep",
 optParser.add_option("-l", "--last-step", dest="lastStep",
                      type="int", default=50, help="Last DUA step [default: %default]")
 optParser.add_option("-p", "--path", dest="path",
-                     default=os.environ.get("SUMO", ""), help="Path to binaries [default: %default]")
+                     default=os.environ.get("SUMO_BINDIR", ""), help="Path to binaries [default: %default]")
 
 optParser.add_option("-y", "--absrand", dest="absrand", action="store_true",
                      default=False, help="use current time to generate random number")

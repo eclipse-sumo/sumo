@@ -99,7 +99,7 @@ optParser.add_option("-L", "--lastRoutes", action="store_true", dest="lastRoutes
                      default=False, help="only save the last routes in the vehroute-output")
 
 optParser.add_option("-p", "--path", dest="path",
-                     default=os.environ.get("SUMO", ""), help="Path to binaries")
+                     default=os.environ.get("SUMO_BINDIR", ""), help="Path to binaries")
 (options, args) = optParser.parse_args()
 
 sumo = "sumo"
