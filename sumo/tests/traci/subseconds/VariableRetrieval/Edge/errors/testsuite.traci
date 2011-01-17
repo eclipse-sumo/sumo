@@ -1,0 +1,4 @@
+# Tests what happens if one asks for an unsupported variable
+UnsupportedVariable
+
+

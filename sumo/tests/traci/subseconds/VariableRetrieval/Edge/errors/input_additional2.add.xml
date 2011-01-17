@@ -1,0 +1,29 @@
+<additional>
+
+
+   <tl-logic id="0/1" type="traffic_light" programID="t1" offset="0">
+      <phase duration="1" state="GGGGGGGGG"/>
+      <phase duration="1" state="GGGGGGGGG"/>
+   </tl-logic>
+
+   <tl-logic id="1/1" type="traffic_light" programID="t1" offset="0">
+      <phase duration="1" state="GGGGGGGGGGGGGGGG"/>
+      <phase duration="1" state="GGGGGGGGGGGGGGGG"/>
+   </tl-logic>
+
+   <tl-logic id="2/1" type="traffic_light" programID="t1" offset="0">
+      <phase duration="1" state="GGGGGGGGGGGGGGGG"/>
+      <phase duration="1" state="GGGGGGGGGGGGGGGG"/>
+   </tl-logic>
+
+   <tl-logic id="3/1" type="traffic_light" programID="t1" offset="0">
+      <phase duration="1" state="GGGGGGGGGGGGGGGG"/>
+      <phase duration="1" state="GGGGGGGGGGGGGGGG"/>
+   </tl-logic>
+
+   <tl-logic id="4/1" type="traffic_light" programID="t1" offset="0">
+      <phase duration="1" state="GGGGGGGGG"/>
+      <phase duration="1" state="GGGGGGGGG"/>
+   </tl-logic>
+
+</additional>
