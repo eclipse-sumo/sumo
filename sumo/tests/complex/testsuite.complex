@@ -6,3 +6,5 @@ sumo
 # complex traci tests
 traci
 
+# complex jtrrouter tests
+jtrrouter
