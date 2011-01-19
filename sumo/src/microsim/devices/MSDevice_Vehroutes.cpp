@@ -119,7 +119,7 @@ MSDevice_Vehroutes::notifyEnter(SUMOVehicle& /*veh*/, MSMoveReminder::Notificati
 bool
 MSDevice_Vehroutes::notifyLeave(SUMOVehicle& veh, SUMOReal /*lastPos*/, MSMoveReminder::Notification reason) throw() {
     if (mySaveExits && reason != NOTIFICATION_LANE_CHANGE) {
-        if (myLastSavedAt == veh.getEdge()) { // need to check this for internal lanes
+        if (reason != NOTIFICATION_TELEPORT && myLastSavedAt == veh.getEdge()) { // need to check this for internal lanes
             myExits.back() = MSNet::getInstance()->getCurrentTimeStep();
         } else {
             myExits.push_back(MSNet::getInstance()->getCurrentTimeStep());

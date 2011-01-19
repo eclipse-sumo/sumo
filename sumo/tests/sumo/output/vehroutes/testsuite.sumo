@@ -22,5 +22,8 @@ exit_times
 # one vehicle is moving with exit times over a short edge
 exit_times_short
 
+# vehicle is teleporting with exit times
+exit_times_teleport
+
 # Testing error cases
 errors

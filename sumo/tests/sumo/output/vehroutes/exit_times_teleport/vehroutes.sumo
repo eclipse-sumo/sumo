@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+
+<!-- generated on Wed Jan 19 21:37:08 2011 by SUMO sumo Version dev-SVN-r9594
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <vehroute-output value="vehroutes.xml"/>
+        <vehroute-output.exit-times value="true"/>
+    </output>
+
+    <time>
+        <begin value="0"/>
+        <end value="1000"/>
+    </time>
+
+    <report>
+        <no-duration-log value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+</configuration>
+-->
+
+<routes>
+    <vehicle id="0" depart="0.00" arrival="525.00">
+        <route edges="middle end" exitTimes="503.00 525.00"/>
+    </vehicle>
+
+    <vehicle id="1" depart="1.00" arrival="528.00">
+        <route edges="beg middle end" exitTimes="338.00 507.00 528.00"/>
+    </vehicle>
+
+</routes>

@@ -100,7 +100,7 @@ MSVehicleTransfer::checkEmissions(SUMOTime time) throw() {
             if (desc.myProceedTime<time) {
                 // get the lanes of the next edge (the one the vehicle wiil be
                 //  virtually on after all these computations)
-                MSLane *tmp = *(e->getLanes().begin());
+                desc.myVeh->leaveLane(MSMoveReminder::NOTIFICATION_TELEPORT);
                 // get the one beyond the one the vehicle moved to
                 const MSEdge *nextEdge = desc.myVeh->succEdge(1);
                 // let the vehicle move to the next edge
@@ -111,7 +111,7 @@ MSVehicleTransfer::checkEmissions(SUMOTime time) throw() {
                     continue;
                 }
                 // use current travel time to determine when to move the vehicle forward
-                desc.myProceedTime = time + TIME2STEPS(tmp->getEdge().getCurrentTravelTime());
+                desc.myProceedTime = time + TIME2STEPS(e->getCurrentTravelTime());
             }
             ++i;
         }
