@@ -59,6 +59,8 @@ public:
      */
     static void copyToClipboard(const FXApp &app, const std::string &text) throw();
 
+    static std::string clipped;
+
 };
 
 

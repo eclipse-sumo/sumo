@@ -34,32 +34,22 @@
 #endif // CHECK_MEMORY_LEAKS
 
 
-#ifdef WIN32
-#include <windows.h>
-#endif
+// ===========================================================================
+// static member definitions
+// ===========================================================================
+std::string GUIUserIO::clipped = "";
+
 
 // ===========================================================================
 // method definitions
 // ===========================================================================
-#ifdef WIN32
 void
 GUIUserIO::copyToClipboard(const FXApp &app, const std::string &text) throw() {
-    OpenClipboard((HWND) app.getRootWindow()->getFirst()->id());
-    ::EmptyClipboard();
-    HGLOBAL clipBuffer = GlobalAlloc(GMEM_DDESHARE, text.length()+1);
-    char *buff = (char*)GlobalLock(clipBuffer);
-    strcpy(buff, text.c_str());
-    ::SetClipboardData(CF_TEXT, buff);
-    CloseClipboard();
+    FXDragType types[] = {FXWindow::stringType, FXWindow::textType};
+    if (app.getActiveWindow()->acquireClipboard(types,2)) {
+        clipped = text;
+    }
 }
-
-
-#else
-
-void
-GUIUserIO::copyToClipboard(const FXApp &, const std::string &) throw() {}
-
-#endif
 
 /****************************************************************************/
 

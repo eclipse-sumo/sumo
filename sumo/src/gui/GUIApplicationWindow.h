@@ -157,6 +157,8 @@ public:
 
     long onLoadThreadEvent(FXObject*, FXSelector, void*);
     long onRunThreadEvent(FXObject*, FXSelector, void*);
+    /// Somebody wants our clipped text
+    long onClipboardRequest(FXObject* sender,FXSelector sel,void* ptr);
     /// @}
 
     FXGLCanvas *getBuildGLCanvas() const;

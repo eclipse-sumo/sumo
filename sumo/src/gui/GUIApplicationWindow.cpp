@@ -65,6 +65,7 @@
 #include "dialogs/GUIDialog_AppSettings.h"
 #include "dialogs/GUIDialog_Breakpoints.h"
 #include <utils/gui/div/GUIIOGlobals.h>
+#include <utils/gui/div/GUIUserIO.h>
 #include <utils/gui/settings/GUICompleteSchemeStorage.h>
 #include <utils/gui/globjects/GUIGlObjectStorage.h>
 #include <utils/gui/div/GUIGlobalSelection.h>
@@ -117,6 +118,8 @@ FXDEFMAP(GUIApplicationWindow) GUIApplicationWindowMap[]= {
     FXMAPFUNC(SEL_UPDATE,   MID_STEP,              GUIApplicationWindow::onUpdStep),
     FXMAPFUNC(SEL_UPDATE,   MID_EDITCHOSEN,        GUIApplicationWindow::onUpdEditChosen),
     FXMAPFUNC(SEL_UPDATE,   MID_EDIT_BREAKPOINTS,  GUIApplicationWindow::onUpdEditBreakpoints),
+
+    FXMAPFUNC(SEL_CLIPBOARD_REQUEST, 0, GUIApplicationWindow::onClipboardRequest),
 
     FXMAPFUNC(FXEX::SEL_THREAD_EVENT, ID_LOADTHREAD_EVENT, GUIApplicationWindow::onLoadThreadEvent),
     FXMAPFUNC(FXEX::SEL_THREAD_EVENT, ID_RUNTHREAD_EVENT,  GUIApplicationWindow::onRunThreadEvent),
@@ -767,6 +770,14 @@ GUIApplicationWindow::onCmdAbout(FXObject*,FXSelector,void*) {
         new GUIDialog_AboutSUMO(this, "About SUMO", 0, 0);
     about->create();
     about->show(PLACEMENT_OWNER);
+    return 1;
+}
+
+
+long GUIApplicationWindow::onClipboardRequest(FXObject* sender,FXSelector sel,void* ptr) {
+    FXEvent *event=(FXEvent*)ptr;
+    FXString string = GUIUserIO::clipped.c_str();
+    setDNDData(FROM_CLIPBOARD, event->target, string);
     return 1;
 }
 
