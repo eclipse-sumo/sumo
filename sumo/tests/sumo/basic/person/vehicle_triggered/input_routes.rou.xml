@@ -1,7 +1,7 @@
 <routes>
     <vehicle id="p" depart="0" departpos="0">
         <route edges="beg beg2left left left2end end">
-            <stop lane="beg_0" endPos="50" duration="30" triggered="true"/>
+            <stop lane="beg_0" endPos="50" triggered="true"/>
         </route>
     </vehicle>
     <person id="p1" depart="25">
