@@ -136,6 +136,7 @@ MSPerson::MSPersonStage_Driving::proceed(MSNet* net,
 		v->addPerson(person);
         net->getEmitControl().add(v);
         net->getVehicleControl().removeWaiting(&previousEdge, v);        
+        net->getVehicleControl().unregisterOneWaitingForPerson();        
     } else {
         net->getPersonControl().addWaiting(&previousEdge, person);
     }

@@ -46,10 +46,15 @@
 // ===========================================================================
 // member method definitions
 // ===========================================================================
-MSVehicleControl::MSVehicleControl() throw()
-        : myLoadedVehNo(0), myRunningVehNo(0), myEndedVehNo(0),
-        myAbsVehWaitingTime(0), myAbsVehTravelTime(0),
-        myDefaultVTypeMayBeDeleted(true) {
+MSVehicleControl::MSVehicleControl() throw() : 
+    myLoadedVehNo(0), 
+    myRunningVehNo(0), 
+    myEndedVehNo(0),
+    myAbsVehWaitingTime(0), 
+    myAbsVehTravelTime(0),
+    myDefaultVTypeMayBeDeleted(true),
+    myWaitingForPerson(0)
+{
     SUMOVTypeParameter defType;
     myVTypeDict[DEFAULT_VTYPE_ID] = MSVehicleType::build(defType);
 }
@@ -285,6 +290,13 @@ MSVehicleControl::getWaitingVehicle(const MSEdge* const edge, const std::set<std
     return 0;
 }
 
+
+void
+MSVehicleControl::abortWaiting() throw() {
+    for (VehicleDictType::iterator i=myVehicleDict.begin(); i!=myVehicleDict.end(); ++i) {
+        WRITE_WARNING("Vehicle " + i->first + " aborted waiting for a person that will never come.");
+    }
+}
 
 /****************************************************************************/
 

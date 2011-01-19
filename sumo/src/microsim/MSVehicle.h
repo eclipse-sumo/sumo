@@ -829,8 +829,11 @@ protected:
     /// @brief State of things of the vehicle that can be on or off
     int mySignals;
 
-    /// @brief Whether the vehicle is on the network (not wating, teleported, vaporized, or arrived)
+    /// @brief Whether the vehicle is on the network (not waiting, teleported, vaporized, or arrived)
     bool myAmOnNet;
+
+    /// @brief Whether this vehicle is registered as waiting for a person (for deadlock-recognition) 
+    bool myAmRegisteredAsWaitingForPerson;
 
 
 private:

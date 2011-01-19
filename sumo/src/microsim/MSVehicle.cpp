@@ -165,7 +165,8 @@ MSVehicle::MSVehicle(SUMOVehicleParameter* pars,
         myEdgeWeights(0),
         mySignals(0),
         myPersonDevice(0),
-        myAmOnNet(false)
+        myAmOnNet(false),
+        myAmRegisteredAsWaitingForPerson(false)
 #ifndef NO_TRACI
         ,adaptingSpeed(false),
         isLastAdaption(false),
@@ -415,9 +416,13 @@ MSVehicle::processNextStop(SUMOReal currentVelocity) throw() {
         if (boarded) {
             // the triggering condition has been fulfilled. Maybe we want to wait a bit longer for additional riders (car pooling)
             stop.triggered = false;
+            if (myAmRegisteredAsWaitingForPerson) {
+                MSNet::getInstance()->getVehicleControl().unregisterOneWaitingForPerson();
+                myAmRegisteredAsWaitingForPerson = false;
+            }
         }
         if (stop.duration<=0 && !stop.triggered) {
-            // we have waited long enough and fulfilled any passenger-requirments
+            // we have waited long enough and fulfilled any passenger-requirements
             if (stop.busstop!=0) {
                 // inform bus stop about leaving it
                 stop.busstop->leaveFrom(this);
@@ -433,6 +438,11 @@ MSVehicle::processNextStop(SUMOReal currentVelocity) throw() {
             // continue as wished...
         } else {
             // we have to wait some more time
+            if (stop.triggered && !myAmRegisteredAsWaitingForPerson) {
+                // we can only register after waiting for one step. otherwise we might falsely signal a deadlock
+                MSNet::getInstance()->getVehicleControl().registerOneWaitingForPerson();
+                myAmRegisteredAsWaitingForPerson = true;
+            }
             stop.duration -= DELTA_T;
             return 0;
         }

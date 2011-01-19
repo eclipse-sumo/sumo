@@ -520,6 +520,7 @@ MSRouteHandler::closeVehicle() throw(ProcessError) {
             MSNet::getInstance()->getVehicleControl().addVehicle(myVehicleParameter->id, vehicle);
             if (myVehicleParameter->departProcedure == DEPART_TRIGGERED) {
                 MSNet::getInstance()->getVehicleControl().addWaiting(*route->begin(), vehicle);
+                MSNet::getInstance()->getVehicleControl().registerOneWaitingForPerson();
             }
             myVehicleParameter = 0;
         }
