@@ -56,6 +56,3 @@ initialization_of_triggered_stops
 
 # Long stops should not cause a teleport
 teleport_after_long_stop
-
-# The vehicle has already left when the person arrives at the stop
-crash_missed_ride
