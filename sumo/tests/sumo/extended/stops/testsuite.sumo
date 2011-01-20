@@ -24,3 +24,7 @@ at_start
 
 # Tests whether parking can be handled
 parking
+
+# A vehicle with a triggered stop will not be teleported. To avoid the following vehicles from being deadlocked, triggered vehicles should be automatically set to 'parking'
+# (see ticket 420)
+triggered_defaults_to_parking

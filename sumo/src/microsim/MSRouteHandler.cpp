@@ -705,7 +705,7 @@ MSRouteHandler::addStop(const SUMOSAXAttributes &attrs) throw(ProcessError) {
         }
         stop.triggered = attrs.getOptBoolReporting(SUMO_ATTR_TRIGGERED, "stop", 0, ok, false);
     }
-    stop.parking = attrs.getOptBoolReporting(SUMO_ATTR_PARKING, "stop", 0, ok, false);
+    stop.parking = attrs.getOptBoolReporting(SUMO_ATTR_PARKING, "stop", 0, ok, stop.triggered);
     if (!ok) {
         MsgHandler::getErrorInstance()->inform("Invalid bool for 'triggered' or 'parking' for stop" + errorSuffix);
         return;
