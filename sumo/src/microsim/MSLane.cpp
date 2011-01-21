@@ -332,10 +332,11 @@ MSLane::emit(MSVehicle& veh) throw(ProcessError) {
     // determine the position
     switch (pars.departPosProcedure) {
     case DEPART_POS_GIVEN:
+        // Maybe we should warn the user about invalid inputs!
         if (pars.departPos >= 0.) {
-            pos = pars.departPos;
+            pos = MIN2(pars.departPos, getLength());
         } else {
-            pos = pars.departPos + getLength();
+            pos = MAX2(pars.departPos + getLength(), static_cast<SUMOReal>(0));
         }
         break;
     case DEPART_POS_RANDOM:

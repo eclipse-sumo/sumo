@@ -262,6 +262,7 @@ MSBaseVehicle::calculateArrivalPos() throw() {
         switch (myParameter->arrivalPosProcedure) {
         case ARRIVAL_POS_DEFAULT:
         case ARRIVAL_POS_GIVEN:
+            // Maybe we should warn the user about invalid inputs!
             myArrivalPos = MIN2(myParameter->arrivalPos, lastLaneLength);
             if (myArrivalPos < 0) {
                 myArrivalPos = MAX2(myArrivalPos + lastLaneLength, static_cast<SUMOReal>(0));
