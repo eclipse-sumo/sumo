@@ -296,7 +296,7 @@ NBEdge::computeEdgeShape() throw() {
                 SUMOReal pb = VectorHelper<SUMOReal>::maxValue(pbv);
                 if (pb>=0) {
                     shape.eraseAt(0);
-                    shape.push_front(lb.getPositionAtDistance(pb));
+                    shape.push_front_noDoublePos(lb.getPositionAtDistance(pb));
                 }
             }
         }
@@ -320,7 +320,8 @@ NBEdge::computeEdgeShape() throw() {
                 }
             }
         }
-        if (((int) shape.length())==0) {
+        if (shape.length() < POSITION_EPS) {
+       	    MsgHandler::getMessageInstance()->inform("Lane '" + myID + "' has calculated shape length near zero. Revert it back to old shape.");
             shape = old;
         } else {
             Line2D lc(shape[0], shape[-1]);
