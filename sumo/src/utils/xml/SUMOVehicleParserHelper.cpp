@@ -281,7 +281,7 @@ SUMOVehicleParserHelper::parseCommonAttributes(const SUMOSAXAttributes &attrs,
             }
         }
     }
-    // parse depart position information
+    // parse depart speed information
     if (attrs.hasAttribute(SUMO_ATTR_DEPARTSPEED)) {
         ret->setParameter |= VEHPARS_DEPARTSPEED_SET;
         std::string helper = attrs.getStringReporting(SUMO_ATTR_DEPARTSPEED, "vehicle", 0, ok);
@@ -337,7 +337,7 @@ SUMOVehicleParserHelper::parseCommonAttributes(const SUMOSAXAttributes &attrs,
             }
         }
     }
-    // parse arrival position information
+    // parse arrival speed information
     if (attrs.hasAttribute(SUMO_ATTR_ARRIVALSPEED)) {
         ret->setParameter |= VEHPARS_ARRIVALSPEED_SET;
         std::string helper = attrs.getStringReporting(SUMO_ATTR_ARRIVALSPEED, "vehicle", 0, ok);
