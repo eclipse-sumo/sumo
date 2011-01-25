@@ -415,6 +415,7 @@ src/activitygen/activities/Makefile
 src/activitygen/city/Makefile
 src/foreign/Makefile
 src/foreign/eulerspiral/Makefile
+src/foreign/gl2ps/Makefile
 src/foreign/mersenne/Makefile
 src/foreign/nvwa/Makefile
 src/foreign/polyfonts/Makefile

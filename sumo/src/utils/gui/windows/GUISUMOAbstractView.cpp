@@ -31,6 +31,7 @@
 #include <utility>
 #include <cmath>
 #include <cassert>
+#include <foreign/gl2ps/gl2ps.h>
 #include <utils/common/RGBColor.h>
 #include <utils/common/ToString.h>
 #include <utils/common/StringUtils.h>
@@ -799,36 +800,22 @@ GUISUMOAbstractView::onKeyRelease(FXObject *o,FXSelector sel,void *data) {
 }
 
 
+// ------------ Dealing with snapshots
 void
-GUISUMOAbstractView::checkSnapshots() {
-    std::map<SUMOTime, std::string>::iterator snapIt = mySnapshots.find(MSNet::getInstance()->getCurrentTimeStep());
-    if (snapIt != mySnapshots.end()) {
-        FXColor *buf = getSnapshot();
-        try {
-            if (!MFXImageHelper::saveImage(snapIt->second, getWidth(), getHeight(), buf)) {
-                MsgHandler::getWarningInstance()->inform("Could not save '" + snapIt->second + "'.");
-            }
-        } catch (InvalidArgument &e) {
-            MsgHandler::getWarningInstance()->inform("Could not save '" + snapIt->second + "'.\n" + e.what());
-        }
-        FXFREE(&buf);
-    }
-}
-
-
-void
-GUISUMOAbstractView::setSnapshots(std::map<SUMOTime, std::string> snaps) {
+GUISUMOAbstractView::setSnapshots(std::map<SUMOTime, std::string> snaps) throw() throw() {
     mySnapshots.insert(snaps.begin(), snaps.end());
 }
 
 
-FXColor *
-GUISUMOAbstractView::getSnapshot() {
+std::string
+GUISUMOAbstractView::makeSnapshot(const std::string &destFile) throw() {
+    std::string errorMessage;
+    FXString ext=FXPath::extension(destFile.c_str());
+    bool useGL2PS = ext=="ps"||ext=="eps"||ext=="pdf"||ext=="svg"||ext=="tex"||ext=="pgf";
+
     for (int i=0; i<10&&!makeCurrent(); ++i) {
         FXSingleEventThread::sleep(100);
     }
-    //makeCurrent();
-    // draw
     // draw
     glClearColor(
         myVisualizationSettings->backgroundColor.red(),
@@ -854,40 +841,130 @@ GUISUMOAbstractView::getSnapshot() {
     }
 
     applyChanges(1.0, 0, 0);
-    doPaintGL(GL_RENDER, 1.0);
-    if (myVisualizationSettings->showSizeLegend) {
-        displayLegend();
-    }
 
-    glFlush();
-    swapBuffers();
-    glFinish();
-    FXColor *buf;
-    FXMALLOC(&buf, FXColor, getWidth()*getHeight());
-    // read from the back buffer
-    glReadBuffer(GL_BACK);
-    // Read the pixels
-    glReadPixels(0, 0, getWidth(), getHeight(), GL_RGBA, GL_UNSIGNED_BYTE, (GLvoid*)buf);
-    // !!! flip orientation
-    makeNonCurrent();
-    update();
-    // mirror
-    size_t mwidth = getWidth();
-    size_t mheight = getHeight();
-    FXColor *paa = buf;
-    FXColor *pbb = buf + mwidth * (mheight-1);
-    do {
-        FXColor *pa=paa;
-        paa+=mwidth;
-        FXColor *pb=pbb;
-        pbb-=mwidth;
+    if(useGL2PS) {
+        GLint format = GL2PS_PS;
+        if(ext=="ps") {
+            format = GL2PS_PS;
+        } else if (ext=="eps") {
+            format = GL2PS_EPS;
+        } else if (ext=="pdf") {
+            format = GL2PS_PDF;
+        } else if (ext=="tex") {
+            format = GL2PS_TEX;
+        } else if (ext=="svg") {
+            format = GL2PS_SVG;
+        } else if (ext=="pgf") {
+            format = GL2PS_PGF;
+        } else {
+            return "Could not save '" + destFile + "'.\n Unrecognized format '" + std::string(ext.text()) + "'.";
+        }
+        FILE *fp = fopen(destFile.c_str(), "wb");
+        if(fp==0) {
+            return "Could not save '" + destFile + "'.\n Could not open file for writing";
+        }
+        GLint buffsize = 0, state = GL2PS_OVERFLOW;
+        GLint viewport[4];
+        glGetIntegerv(GL_VIEWPORT, viewport);
+        while (state == GL2PS_OVERFLOW) {
+            buffsize += 1024*1024;
+            gl2psBeginPage(destFile.c_str(), "sumo-gui; http://sumo.sf.net", viewport, format, GL2PS_SIMPLE_SORT,
+                        GL2PS_DRAW_BACKGROUND | GL2PS_USE_CURRENT_VIEWPORT,
+                        GL_RGBA, 0, NULL, 0, 0, 0, buffsize, fp, "out.eps");
+            glMatrixMode(GL_MODELVIEW);
+            glPushMatrix();
+            glDisable(GL_TEXTURE_2D);
+            glDisable(GL_ALPHA_TEST);
+            glDisable(GL_BLEND);
+            glEnable(GL_DEPTH_TEST);
+            GLdouble sxmin = myCX - myX1;
+            GLdouble sxmax = myCX + myX1;
+            GLdouble symin = myCY - myY1;
+            GLdouble symax = myCY + myY1;
+            // compute lane width
+            SUMOReal lw = m2p(3.0) * 1.;
+            // draw decals (if not in grabbing mode)
+            if (!myUseToolTips) {
+                drawDecals();
+                if (myVisualizationSettings->showGrid) {
+                    paintGLGrid();
+                }
+            }
+            glLineWidth(1);
+            glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+            float minB[2];
+            float maxB[2];
+            minB[0] = sxmin;
+            minB[1] = symin;
+            maxB[0] = sxmax;
+            maxB[1] = symax;
+            myVisualizationSettings->needsGlID = myUseToolTips;
+            myVisualizationSettings->scale = lw;
+            glEnable(GL_POLYGON_OFFSET_FILL);
+            glEnable(GL_POLYGON_OFFSET_LINE);
+            int hits2 = myGrid->Search(minB, maxB, *myVisualizationSettings);
+
+            if (myVisualizationSettings->showSizeLegend) {
+                displayLegend();
+            }
+            state = gl2psEndPage();
+            glFinish();
+        }
+        fclose(fp);
+    } else {
+        doPaintGL(GL_RENDER, 1.0);
+        if (myVisualizationSettings->showSizeLegend) {
+            displayLegend();
+        }
+        glFlush();
+        swapBuffers();
+        glFinish();
+        FXColor *buf;
+        FXMALLOC(&buf, FXColor, getWidth()*getHeight());
+        // read from the back buffer
+        glReadBuffer(GL_BACK);
+        // Read the pixels
+        glReadPixels(0, 0, getWidth(), getHeight(), GL_RGBA, GL_UNSIGNED_BYTE, (GLvoid*)buf);
+        makeNonCurrent();
+        update();
+        // mirror
+        size_t mwidth = getWidth();
+        size_t mheight = getHeight();
+        FXColor *paa = buf;
+        FXColor *pbb = buf + mwidth * (mheight-1);
         do {
-            FXColor t=*pa;
-            *pa++=*pb;
-            *pb++=t;
-        } while (pa<paa);
-    } while (paa<pbb);
-    return buf;
+            FXColor *pa=paa;
+            paa+=mwidth;
+            FXColor *pb=pbb;
+            pbb-=mwidth;
+            do {
+                FXColor t=*pa;
+                *pa++=*pb;
+                *pb++=t;
+            } while (pa<paa);
+        } while (paa<pbb);
+        try {
+            if(!MFXImageHelper::saveImage(destFile, getWidth(), getHeight(), buf)) {
+                errorMessage = "Could not save '" + destFile + "'.";
+            }
+        } catch (InvalidArgument &e) {
+            errorMessage = "Could not save '" + destFile + "'.\n" + e.what();
+        }
+        FXFREE(&buf);
+    }
+    return errorMessage;
+}
+
+
+void
+GUISUMOAbstractView::checkSnapshots() throw() {
+    std::map<SUMOTime, std::string>::iterator snapIt = mySnapshots.find(MSNet::getInstance()->getCurrentTimeStep());
+    if (snapIt != mySnapshots.end()) {
+        std::string error = makeSnapshot(snapIt->second);
+        if(error!="") {
+            MsgHandler::getWarningInstance()->inform(error);
+        }
+    }
 }
 
 

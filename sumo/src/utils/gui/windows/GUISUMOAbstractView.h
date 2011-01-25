@@ -140,12 +140,31 @@ public:
     /// A method that updates the tooltip
     void updateToolTip();
 
-    /// sets the snapshot time to file map
-    void setSnapshots(std::map<SUMOTime, std::string> snaps);
-    /// paints the area to a buffer
-    FXColor *getSnapshot();
-    /// checks whether it is time for a snapshot
-    void checkSnapshots();
+
+    /// @name Dealing with snapshots
+    /// @{
+
+    /** @brief Sets the snapshot time to file map
+     * @param[in] snaps The snapshots to take at certain times
+     */
+    void setSnapshots(std::map<SUMOTime, std::string> snaps) throw();
+
+
+    /** @brief Takes a snapshots and writes it into the given file
+     *
+     * The format to use is determined from the extension.
+     * @param[in] destFile The name of the file to write the snapshot into
+     * @return The error message, if an error occcured; "" otherwise
+     */
+    std::string makeSnapshot(const std::string &destFile) throw();
+
+
+    /** @brief Checks whether it is time for a snapshot
+     */
+    void checkSnapshots() throw();
+    /// @}
+
+
 
     void showViewportEditor();
     virtual void showViewschemeEditor() = 0;

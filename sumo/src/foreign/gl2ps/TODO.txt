@@ -1,0 +1,18 @@
+$Id: TODO.txt,v 1.1 2009-10-02 22:09:34 geuzaine Exp $
+
+* Add an option to limit the recursion level depth in BSP tree
+
+* Add an simple option to subdivide long, stretched triangles so that
+  SIMPLE_SORT can still be used for simple, non-intersecting geometries
+  (cf. Olivier Couet's long cylinders at Cern) where BSP_SORT is very
+  slow due to the presence of many, many curved surfaces
+
+* do we really need gl2psEnable(GL2PS_BLEND)? Couldn't we just check
+  what's in rgba[3] and try to do the "right thing" right away?
+  Update Thu Jul 20 14:51:33 2006: that's what I do now for SVG and it
+  works pretty well. We could probably significantly simplify the PDF
+  code that way.
+
+* Think about a way to provide a progress indicator through a
+  callback. Not easy for BSP trees due to the recursive
+  implementation.

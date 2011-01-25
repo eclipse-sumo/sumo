@@ -181,16 +181,11 @@ TraCIServerAPI_GUI::processSet(TraCIServer &server, tcpip::Storage &inputStorage
             return false;
         }
         std::string filename = inputStorage.readString();
-        FXColor *buf = v->getSnapshot();
-        // save
-        try {
-            MFXImageHelper::saveImage(filename, v->getWidth(), v->getHeight(), buf);
-        } catch (InvalidArgument &e) {
-            std::string msg = "Could not save '" + filename + "'.\n" + e.what();
-            server.writeStatusCmd(CMD_SET_GUI_VARIABLE, RTYPE_ERR, msg, outputStorage);
+        std::string error = v->makeSnapshot(filename);
+        if(error!="") {
+            server.writeStatusCmd(CMD_SET_GUI_VARIABLE, RTYPE_ERR, error, outputStorage);
             return false;
         }
-        FXFREE(&buf);
     }
     break;
     case VAR_TRACK_VEHICLE: {
