@@ -5,7 +5,7 @@
 @date    2007-03-20
 @version $Id$
 
-This script does simple checks for the network.
+This script does simple check for the network.
 It tests whether the network is (weakly) connected
 and optionally whether the routes cover the net.
 It needs at least one parameter, the SUMO net (.net.xml).
@@ -115,5 +115,5 @@ if len(sys.argv) > 2:
     parser.setContentHandler(routes)
     for f in sys.argv[2:]:
         parser.parse(f)
-    if net.getNumEdges() > routes.getNumCovered:
+    if net.getNumEdges() > routes.getNumCovered():
         print "Warning! Routes do not cover the net."

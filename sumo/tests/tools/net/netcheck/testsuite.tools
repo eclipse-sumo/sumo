@@ -1,0 +1,8 @@
+# extracting nodes/edges from data/examples/simple_nets/cross/cross1l
+cross1l
+
+# extracting nodes/edges from a broken network
+broken
+
+# extracting nodes/edges where the routes do not cover the net
+not_covered
