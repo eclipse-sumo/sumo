@@ -89,6 +89,7 @@ public:
 
     /** @brief Makes a snapshot if it has been parsed
      * @param[in] parent the view which needs to be shot
+     * @todo Please describe why the snapshots are only set if no other existed before (see code)
      */
     void setSnapshots(GUISUMOAbstractView* view) const throw();
 
