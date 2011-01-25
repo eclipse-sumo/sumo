@@ -213,7 +213,7 @@ GUISUMOAbstractView::paintGL() {
 
     if (getTrackedID()>0) {
         GUIGlObject *o = GUIGlObjectStorage::gIDStorage.getObjectBlocking(getTrackedID());
-        if (o!=0) {
+        if (o!=0 && dynamic_cast<GUIGlObject*>(o)!=0) {
             Boundary b = o->getCenteringBoundary();
             myChanger->centerTo(*myGrid, b, false);
         }
@@ -802,7 +802,7 @@ GUISUMOAbstractView::onKeyRelease(FXObject *o,FXSelector sel,void *data) {
 
 // ------------ Dealing with snapshots
 void
-GUISUMOAbstractView::setSnapshots(std::map<SUMOTime, std::string> snaps) throw() throw() {
+GUISUMOAbstractView::setSnapshots(std::map<SUMOTime, std::string> snaps) throw() {
     mySnapshots.insert(snaps.begin(), snaps.end());
 }
 
