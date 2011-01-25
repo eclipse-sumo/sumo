@@ -81,7 +81,7 @@ MSDevice_Tripinfo::notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification re
 #ifdef HAVE_MESOSIM
         if (!MSGlobals::gUseMesoSim) {
 #endif
-            myDepartLane = static_cast<MSVehicle&>(veh).getLane().getID();
+            myDepartLane = static_cast<MSVehicle&>(veh).getLane()->getID();
 #ifdef HAVE_MESOSIM
         }
 #endif
@@ -100,7 +100,7 @@ MSDevice_Tripinfo::notifyLeave(SUMOVehicle& veh, SUMOReal /*lastPos*/,
 #ifdef HAVE_MESOSIM
         if (!MSGlobals::gUseMesoSim) {
 #endif
-            myArrivalLane = static_cast<MSVehicle&>(veh).getLane().getID();
+            myArrivalLane = static_cast<MSVehicle&>(veh).getLane()->getID();
 #ifdef HAVE_MESOSIM
         }
 #endif

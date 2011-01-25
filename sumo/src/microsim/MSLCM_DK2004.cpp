@@ -94,7 +94,7 @@ MSLCM_DK2004::wantsChangeToRight(MSAbstractLaneChangeModel::MSLCMessager &msgPas
     SUMOReal currExtDist = 0;
     int currIdx = 0;
     for (int p=0; p<(int) preb.size(); ++p) {
-        if (preb[p].lane==&myVehicle.getLane()) {
+        if (preb[p].lane==myVehicle.getLane()) {
             curr = preb[p];
             bestLaneOffset = curr.bestLaneOffset;
             currentDist = curr.length;
@@ -207,7 +207,7 @@ MSLCM_DK2004::wantsChangeToRight(MSAbstractLaneChangeModel::MSLCMessager &msgPas
     //  in this case, we do not want to get to the dead-end of an on-ramp
     //
     // THIS RULE APPLIES ONLY TO CHANGING TO THE RIGHT LANE
-    if (bestLaneOffset==0&&preb[currIdx-1].bestLaneOffset!=0&&myVehicle.getLane().getMaxSpeed()>80./3.6) {
+    if (bestLaneOffset==0&&preb[currIdx-1].bestLaneOffset!=0&&myVehicle.getLane()->getMaxSpeed()>80./3.6) {
         return ret;
     }
     // --------
@@ -233,7 +233,7 @@ MSLCM_DK2004::wantsChangeToRight(MSAbstractLaneChangeModel::MSLCMessager &msgPas
     if ((congested(neighLead.first) && neighLead.second<20)||predInteraction(leader.first)) { //!!!
         return ret;
     }
-    SUMOReal thisLaneVSafe = myVehicle.getLane().getMaxSpeed();
+    SUMOReal thisLaneVSafe = myVehicle.getLane()->getMaxSpeed();
     SUMOReal neighLaneVSafe = neighLane.getMaxSpeed();
     if (neighLead.first == 0) {
         neighLaneVSafe = MIN2(neighLaneVSafe, myCarFollowModel.ffeV(&myVehicle, neighDist, 0));
@@ -257,11 +257,11 @@ MSLCM_DK2004::wantsChangeToRight(MSAbstractLaneChangeModel::MSLCMessager &msgPas
         }
     } else {
         // ok, the right lane is faster than the current
-        myChangeProbability -= (SUMOReal)((neighLaneVSafe-thisLaneVSafe) / (myVehicle.getLane().getMaxSpeed()));
+        myChangeProbability -= (SUMOReal)((neighLaneVSafe-thisLaneVSafe) / (myVehicle.getLane()->getMaxSpeed()));
     }
 
     // let's recheck the "Rechtsfahrgebot"
-    SUMOReal vmax = MIN2(myVehicle.getLane().getMaxSpeed(), myVehicle.getVehicleType().getMaxSpeed());
+    SUMOReal vmax = MIN2(myVehicle.getLane()->getMaxSpeed(), myVehicle.getVehicleType().getMaxSpeed());
     vmax -= (SUMOReal)(5./2.6);
     if (neighLaneVSafe>=vmax) {
 #ifndef NO_TRACI
@@ -313,7 +313,7 @@ MSLCM_DK2004::wantsChangeToLeft(MSAbstractLaneChangeModel::MSLCMessager &msgPass
     SUMOReal currExtDist = 0;
     int currIdx = 0;
     for (int p=0; p<(int) preb.size(); ++p) {
-        if (preb[p].lane==&myVehicle.getLane()) {
+        if (preb[p].lane==myVehicle.getLane()) {
             curr = preb[p];
             bestLaneOffset = curr.bestLaneOffset;
             currentDist = curr.length;
@@ -462,7 +462,7 @@ MSLCM_DK2004::wantsChangeToLeft(MSAbstractLaneChangeModel::MSLCMessager &msgPass
         return ret;
     }
     SUMOReal neighLaneVSafe = neighLane.getMaxSpeed();
-    SUMOReal thisLaneVSafe = myVehicle.getLane().getMaxSpeed();
+    SUMOReal thisLaneVSafe = myVehicle.getLane()->getMaxSpeed();
     if (neighLead.first == 0) {
         neighLaneVSafe = MIN2(neighLaneVSafe, myCarFollowModel.ffeV(&myVehicle, neighDist, 0)); // !!! warum nicht die Folgesgeschw.?
     } else {
@@ -484,7 +484,7 @@ MSLCM_DK2004::wantsChangeToLeft(MSAbstractLaneChangeModel::MSLCMessager &msgPass
         }
     } else {
         // right lane is better
-        myChangeProbability += (SUMOReal)((neighLaneVSafe-thisLaneVSafe) / (myVehicle.getLane().getMaxSpeed()));  // !!! Fahrzeuggeschw.!
+        myChangeProbability += (SUMOReal)((neighLaneVSafe-thisLaneVSafe) / (myVehicle.getLane()->getMaxSpeed()));  // !!! Fahrzeuggeschw.!
     }
     if (myChangeProbability>.2&&neighDist/MAX2((SUMOReal) .1, myVehicle.getSpeed())>20.) { // .1
         return ret | LCA_LEFT|LCA_SPEEDGAIN|LCA_URGENT;
@@ -530,7 +530,7 @@ MSLCM_DK2004::patchSpeed(SUMOReal min, SUMOReal wanted, SUMOReal max, SUMOReal /
     }
 
     // just to make sure to be notified about lane chaning end
-    if (myVehicle.getLane().getEdge().getLanes().size()==1) {
+    if (myVehicle.getLane()->getEdge().getLanes().size()==1) {
         // remove chaning information if on a road with a single lane
         changed();
         return wanted;

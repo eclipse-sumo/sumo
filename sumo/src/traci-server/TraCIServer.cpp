@@ -599,14 +599,14 @@ TraCIServer::postProcessSimulationStep() throw(TraCIException, std::invalid_argu
 
                     // determine index of the lane the vehicle is on
                     int laneId = 0;
-                    const MSLane* lane = &vehicle->getLane();
+                    const MSLane* lane = vehicle->getLane();
                     while ((lane = lane->getRightLane()) != NULL) {
                         laneId++;
                     }
                     tempMsg.writeUnsignedByte(laneId);
                 } else if (resType == POSITION_2D || resType == POSITION_3D || resType == POSITION_2_5D) {
                     tempMsg.writeUnsignedByte(resType);
-                    Position2D pos = vehicle->getLane().getShape().positionAtLengthPosition(vehicle->getPositionOnLane());
+                    Position2D pos = vehicle->getLane()->getShape().positionAtLengthPosition(vehicle->getPositionOnLane());
                     tempMsg.writeFloat((float)pos.x());
                     tempMsg.writeFloat((float)pos.y());
                     if (resType != POSITION_2D) {
@@ -1681,7 +1681,7 @@ throw(TraCIException) {
                 response.writeString(veh->getEdge()->getID());
                 response.writeFloat((float)(veh->getPositionOnLane()));
                 int laneId = 0;
-                MSLane* lane = veh->getLane().getRightLane();
+                MSLane* lane = veh->getLane()->getRightLane();
                 while (lane != NULL) {
                     laneId++;
                     lane =lane->getRightLane();
@@ -1715,7 +1715,7 @@ throw(TraCIException) {
     case DOMVAR_ALLOWED_SPEED:
         if (veh != NULL) {
             response.writeUnsignedByte(TYPE_FLOAT);
-            response.writeFloat((float)(veh->getLane().getMaxSpeed()));
+            response.writeFloat((float)(veh->getLane()->getMaxSpeed()));
             // add a warning to the response if the requested data type was not correct
             if (dataType != TYPE_FLOAT) {
                 warning = "Warning: requested data type could not be used; using float instead!";
@@ -2483,10 +2483,10 @@ throw(TraCIException) {
                     tempMsg.writeFloat((float)(vehicle->getSpeed()));
                 }
                 if ((variableId == DOMVAR_ALLOWED_SPEED) && (dataType == TYPE_FLOAT)) {
-                    tempMsg.writeFloat((float)(vehicle->getLane().getMaxSpeed()));
+                    tempMsg.writeFloat((float)(vehicle->getLane()->getMaxSpeed()));
                 }
                 if ((variableId == DOMVAR_POSITION) && (dataType == POSITION_2D)) {
-                    Position2D pos = vehicle->getLane().getShape().positionAtLengthPosition(vehicle->getPositionOnLane());
+                    Position2D pos = vehicle->getLane()->getShape().positionAtLengthPosition(vehicle->getPositionOnLane());
                     tempMsg.writeFloat((float)(pos.x()));
                     tempMsg.writeFloat((float)(pos.y()));
                 }
@@ -2494,7 +2494,7 @@ throw(TraCIException) {
                     tempMsg.writeString(vehicle->getEdge()->getID());
                 }
                 if ((variableId == DOMVAR_ANGLE) && (dataType == TYPE_FLOAT)) {
-                    tempMsg.writeFloat((float)(vehicle->getLane().getShape().rotationDegreeAtLengthPosition(vehicle->getPositionOnLane())));
+                    tempMsg.writeFloat((float)(vehicle->getLane()->getShape().rotationDegreeAtLengthPosition(vehicle->getPositionOnLane())));
                 }
             }
             // send command length

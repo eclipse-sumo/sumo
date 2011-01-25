@@ -1543,9 +1543,9 @@ MSVehicle::setBlinkerInformation() throw() {
     } else if ((state&LCA_RIGHT)!=0) {
         switchOnSignal(VEH_SIGNAL_BLINKER_RIGHT);
     } else {
-        const MSLane &lane = getLane();
-        MSLinkCont::const_iterator link = lane.succLinkSec(*this, 1, lane, getBestLanesContinuation());
-        if (link!=lane.getLinkCont().end()&&lane.getLength()-getPositionOnLane()<lane.getMaxSpeed()*(SUMOReal) 7.) {
+        const MSLane*lane = getLane();
+        MSLinkCont::const_iterator link = lane->succLinkSec(*this, 1, *lane, getBestLanesContinuation());
+        if (link!=lane->getLinkCont().end()&&lane->getLength()-getPositionOnLane()<lane->getMaxSpeed()*(SUMOReal) 7.) {
             switch ((*link)->getDirection()) {
             case MSLink::LINKDIR_TURN:
             case MSLink::LINKDIR_LEFT:

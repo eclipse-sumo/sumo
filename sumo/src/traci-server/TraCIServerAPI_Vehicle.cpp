@@ -129,20 +129,20 @@ TraCIServerAPI_Vehicle::processGet(TraCIServer &server, tcpip::Storage &inputSto
             break;
         case VAR_ANGLE:
             tempMsg.writeUnsignedByte(TYPE_FLOAT);
-            tempMsg.writeFloat((float)(v->getLane().getShape().rotationDegreeAtLengthPosition(v->getPositionOnLane())));
+            tempMsg.writeFloat((float)(v->getLane()->getShape().rotationDegreeAtLengthPosition(v->getPositionOnLane())));
             break;
         case VAR_ROAD_ID:
             tempMsg.writeUnsignedByte(TYPE_STRING);
-            tempMsg.writeString(v->getLane().getEdge().getID());
+            tempMsg.writeString(v->getLane()->getEdge().getID());
             break;
         case VAR_LANE_ID:
             tempMsg.writeUnsignedByte(TYPE_STRING);
-            tempMsg.writeString(v->getLane().getID());
+            tempMsg.writeString(v->getLane()->getID());
             break;
         case VAR_LANE_INDEX: {
-            const std::vector<MSLane*> &lanes = v->getLane().getEdge().getLanes();
+            const std::vector<MSLane*> &lanes = v->getLane()->getEdge().getLanes();
             tempMsg.writeUnsignedByte(TYPE_INTEGER);
-            tempMsg.writeInt((int)(std::distance(lanes.begin(), std::find(lanes.begin(), lanes.end(), &v->getLane()))));
+            tempMsg.writeInt((int)(std::distance(lanes.begin(), std::find(lanes.begin(), lanes.end(), v->getLane()))));
         }
         break;
         case VAR_TYPE:
@@ -844,7 +844,7 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer &server, tcpip::Storage &inputSto
             return false;
         }
         v->onRemovalFromNet(MSMoveReminder::NOTIFICATION_TELEPORT);
-        v->getLane().removeVehicle(v);
+        v->getLane()->removeVehicle(v);
         while (v->getEdge()!=&destinationEdge) {
             const MSEdge *nextEdge = v->succEdge(1);
             // let the vehicle move to the next edge
@@ -1331,7 +1331,7 @@ TraCIServerAPI_Vehicle::commandUnsubscribeDomain(TraCIServer &server, tcpip::Sto
 void
 TraCIServerAPI_Vehicle::checkReroute(MSVehicle *veh) throw() {
     if (myVehiclesToReroute.find(veh)!=myVehiclesToReroute.end()) {
-        if (!veh->hasStops() && veh->isOnRoad() && veh->getLane().getEdge().getPurpose()!=MSEdge::EDGEFUNCTION_INTERNAL) {
+        if (!veh->hasStops() && veh->isOnRoad() && veh->getLane()->getEdge().getPurpose()!=MSEdge::EDGEFUNCTION_INTERNAL) {
             MSNet::EdgeWeightsProxi proxi(veh->getWeightsStorage(), MSNet::getInstance()->getWeightsStorage());
             DijkstraRouterTT_ByProxi<MSEdge, SUMOVehicle, prohibited_withRestrictions<MSEdge, SUMOVehicle>, MSNet::EdgeWeightsProxi> router(MSEdge::dictSize(), true, &proxi, &MSNet::EdgeWeightsProxi::getTravelTime);
             veh->reroute(MSNet::getInstance()->getCurrentTimeStep(), router);

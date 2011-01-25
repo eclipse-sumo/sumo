@@ -164,7 +164,7 @@ MSE2Collector::update(SUMOTime) throw() {
         MSVehicle *veh = static_cast<MSVehicle*>(*i);
 
         SUMOReal length = veh->getVehicleType().getLength();
-        if (&(veh->getLane())==getLane()) {
+        if (veh->getLane()==getLane()) {
             if (veh->getPositionOnLane() - veh->getVehicleType().getLength() < myStartPos) {
                 // vehicle entered detector partially
                 length -= (veh->getVehicleType().getLength() - (veh->getPositionOnLane()-myStartPos));

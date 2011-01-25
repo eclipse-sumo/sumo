@@ -354,8 +354,8 @@ public:
     MSLane *getTargetLane() const;
 
     /// Returns the lane the vehicle is on
-    MSLane &getLane() const throw() {
-        return *myLane;
+    MSLane *getLane() const throw() {
+        return myLane;
     }
 
     /** @brief Returns the information whether the vehicle is on a road (is simulated)

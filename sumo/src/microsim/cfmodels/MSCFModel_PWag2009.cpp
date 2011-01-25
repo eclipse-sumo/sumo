@@ -64,9 +64,9 @@ MSCFModel_PWag2009::moveHelper(MSVehicle * const veh, const MSLane * const /*lan
         veh->getLaneChangeModel().patchSpeed(
             MAX2((SUMOReal) 0, oldV-(SUMOReal)ACCEL2SPEED(myDecel)), //!!! reverify
             vNext,
-            MIN3(vSafe, veh->getLane().getMaxSpeed(), maxNextSpeed(oldV)),//vaccel(myState.mySpeed, myLane->maxSpeed())),
+            MIN3(vSafe, veh->getLane()->getMaxSpeed(), maxNextSpeed(oldV)),//vaccel(myState.mySpeed, myLane->maxSpeed())),
             vSafe, *this);
-    return MIN4(vNext, vSafe, veh->getLane().getMaxSpeed(), maxNextSpeed(oldV));
+    return MIN4(vNext, vSafe, veh->getLane()->getMaxSpeed(), maxNextSpeed(oldV));
 }
 
 
@@ -99,7 +99,7 @@ MSCFModel_PWag2009::interactionGap(const MSVehicle * const veh, SUMOReal vL) con
     // Resolve the vsafe equation to gap. Assume predecessor has
     // speed != 0 and that vsafe will be the current speed plus acceleration,
     // i.e that with this gap there will be no interaction.
-    SUMOReal vNext = MIN2(maxNextSpeed(veh->getSpeed()), veh->getLane().getMaxSpeed());
+    SUMOReal vNext = MIN2(maxNextSpeed(veh->getSpeed()), veh->getLane()->getMaxSpeed());
     SUMOReal gap = (vNext - vL) *
                    ((veh->getSpeed() + vL) * myInverseTwoDecel + myTau) +
                    vL * myTau;

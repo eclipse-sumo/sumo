@@ -52,10 +52,10 @@ MSE3Collector::MSE3EntryReminder::MSE3EntryReminder(
 bool
 MSE3Collector::MSE3EntryReminder::notifyMove(SUMOVehicle& veh, SUMOReal oldPos,
         SUMOReal newPos, SUMOReal newSpeed) throw() {
-    if (newPos <= myPosition && &static_cast<MSVehicle&>(veh).getLane() == myLane) {
+    if (newPos <= myPosition && static_cast<MSVehicle&>(veh).getLane() == myLane) {
         return true;
     }
-    if (newPos > myPosition && oldPos <= myPosition && &static_cast<MSVehicle&>(veh).getLane() == myLane) {
+    if (newPos > myPosition && oldPos <= myPosition && static_cast<MSVehicle&>(veh).getLane() == myLane) {
         SUMOReal entryTime = STEPS2TIME(MSNet::getInstance()->getCurrentTimeStep());
         if (newSpeed!=0) {
             entryTime += (myPosition - oldPos) / newSpeed;
