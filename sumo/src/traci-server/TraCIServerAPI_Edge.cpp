@@ -347,30 +347,48 @@ TraCIServerAPI_Edge::processSet(TraCIServer &server, tcpip::Storage &inputStorag
             server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Setting travel time requires a compound object.", outputStorage);
             return false;
         }
-        if (inputStorage.readInt()!=3) {
+        /*if (inputStorage.readInt()!=3) {
             server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Setting travel time requires begin time, end time, and value as parameter.", outputStorage);
             return false;
+        }*/
+        // JNote(23/01/2011) : added the possibility not to send the start and end validity time in TraciClient (harmonization with the sibling method in TraCIServerAPI_Vehicle.cpp)
+	int parameterCount = inputStorage.readInt();
+        if (parameterCount == 3) {
+       	    // begin
+       	    if (inputStorage.readUnsignedByte()!=TYPE_INTEGER) {
+               server.writeStatusCmd(CMD_SET_EDGE_VARIABLE, RTYPE_ERR, "The first variable must be the begin time given as int.", outputStorage);
+               return false;
+            }
+            SUMOTime begTime = inputStorage.readInt();
+           // end
+           if (inputStorage.readUnsignedByte()!=TYPE_INTEGER) {
+               server.writeStatusCmd(CMD_SET_EDGE_VARIABLE, RTYPE_ERR, "The second variable must be the end time given as int.", outputStorage);
+               return false;
+           }
+           SUMOTime endTime = inputStorage.readInt();
+           // value
+           if (inputStorage.readUnsignedByte()!=TYPE_FLOAT) {
+               server.writeStatusCmd(CMD_SET_EDGE_VARIABLE, RTYPE_ERR, "The second variable must be the value given as float", outputStorage);
+               return false;
+           }
+           SUMOReal value = inputStorage.readFloat();
+           // set
+           MSNet::getInstance()->getWeightsStorage().addTravelTime(e, begTime, endTime, value);
+	}
+        else if (parameterCount == 1) {
+           // value
+           if (inputStorage.readUnsignedByte()!=TYPE_FLOAT) {
+               server.writeStatusCmd(CMD_SET_EDGE_VARIABLE, RTYPE_ERR, "The second variable must be the value given as float", outputStorage);
+               return false;
+           }
+           SUMOReal value = inputStorage.readFloat();
+           // set
+           MSNet::getInstance()->getWeightsStorage().addTravelTime(e, 0, SUMOTime_MAX, value);
         }
-        // begin
-        if (inputStorage.readUnsignedByte()!=TYPE_INTEGER) {
-            server.writeStatusCmd(CMD_SET_EDGE_VARIABLE, RTYPE_ERR, "The first variable must be the begin time given as int.", outputStorage);
-            return false;
+        else {
+          server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Setting travel time requires either begin time, end time, and value, or only value as parameter.", outputStorage);
+          return false;
         }
-        SUMOTime begTime = inputStorage.readInt();
-        // end
-        if (inputStorage.readUnsignedByte()!=TYPE_INTEGER) {
-            server.writeStatusCmd(CMD_SET_EDGE_VARIABLE, RTYPE_ERR, "The second variable must be the end time given as int.", outputStorage);
-            return false;
-        }
-        SUMOTime endTime = inputStorage.readInt();
-        // value
-        if (inputStorage.readUnsignedByte()!=TYPE_FLOAT) {
-            server.writeStatusCmd(CMD_SET_EDGE_VARIABLE, RTYPE_ERR, "The second variable must be the value given as float", outputStorage);
-            return false;
-        }
-        SUMOReal value = inputStorage.readFloat();
-        // set
-        MSNet::getInstance()->getWeightsStorage().addTravelTime(e, begTime, endTime, value);
     }
     break;
     case VAR_EDGE_EFFORT: {
