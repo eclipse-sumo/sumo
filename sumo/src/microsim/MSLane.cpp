@@ -629,7 +629,7 @@ MSLane::moveCritical(SUMOTime t) {
         collisions.push_back(*veh);
     }
     assert((*veh)->getPositionOnLane() <= myLength);
-    assert(&(*veh)->getLane()==this);
+    assert((*veh)->getLane()==this);
     // deal with collisions
     for (std::vector<MSVehicle*>::iterator i=collisions.begin(); i!=collisions.end(); ++i) {
         MsgHandler::getWarningInstance()->inform("Teleporting vehicle '" + (*i)->getID() + "'; collision, lane='" + getID() + "', time=" + time2string(MSNet::getInstance()->getCurrentTimeStep()) + ".");
