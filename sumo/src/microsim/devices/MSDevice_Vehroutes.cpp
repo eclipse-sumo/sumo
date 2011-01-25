@@ -217,7 +217,12 @@ MSDevice_Vehroutes::getRoute(int index) const {
 void
 MSDevice_Vehroutes::addRoute() {
     if (myMaxRoutes > 0) {
-        myReplacedRoutes.push_back(RouteReplaceInfo(myHolder.getEdge(), MSNet::getInstance()->getCurrentTimeStep(), myCurrentRoute));
+        if (static_cast<MSVehicle&>(myHolder).getLane()) {
+            myReplacedRoutes.push_back(RouteReplaceInfo(myHolder.getEdge(), MSNet::getInstance()->getCurrentTimeStep(), myCurrentRoute));
+        } else {
+            myReplacedRoutes.push_back(RouteReplaceInfo(0, MSNet::getInstance()->getCurrentTimeStep(), myCurrentRoute));
+        }
+//        myReplacedRoutes.push_back(RouteReplaceInfo(myHolder.getEdge(), MSNet::getInstance()->getCurrentTimeStep(), myCurrentRoute));
         myCurrentRoute = &myHolder.getRoute();
         myCurrentRoute->addReference();
         if (myReplacedRoutes.size() > myMaxRoutes) {
