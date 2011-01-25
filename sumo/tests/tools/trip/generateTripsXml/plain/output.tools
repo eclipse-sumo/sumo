@@ -1,0 +1,27 @@
+Usage: generateTripsXml.py [options]
+
+Options:
+  -h, --help            show this help message and exit
+  -r DATADIR, --data-dir=DATADIR
+                        give the data directory path
+  -n NETFILE, --net-file=NETFILE
+                        define the net file (mandatory)
+  -m MTXFILE, --matrix-file=MTXFILE
+                        define the matrix file (mandatory)
+  -d DISTRICTFILE, --districts-file=DISTRICTFILE
+                        define the district file (mandatory)
+  -l, --limitlength     the route length of possible connections of a given OD
+                        pair shall be less than 1.6 * min.length
+  -t TRIPFILE, --trip-file=TRIPFILE
+                        define the output trip filename
+  -x, --odestimation    generate trips for OD estimation
+  -b, --debug           debug the program
+  -v, --verbose         tell me what you are doing
+  -f DEMANDSCALE, --scale-factor=DEMANDSCALE
+                        scale demand by
+  -D DEPARTPOS, --depart-pos=DEPARTPOS
+                        choose departure position: random, free, random_free
+  -C, --get-connections
+                        generate the OD connection directory, if set as False,
+                        a odConnTables.py should be available in the defined
+                        data directory
