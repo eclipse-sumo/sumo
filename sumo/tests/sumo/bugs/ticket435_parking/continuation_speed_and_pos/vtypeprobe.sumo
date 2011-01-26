@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 01/26/11 11:03:10 by SUMO sumo Version dev-SVN-r9614
+<!-- generated on 01/26/11 13:20:33 by SUMO sumo Version dev-SVN-r9621
 <?xml version="1.0" encoding="iso-8859-1"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/sumoConfiguration.xsd">
@@ -48,7 +48,23 @@
     <timestep time="9.00" id="test1" vtype="DEFAULT_VEHTYPE">
     </timestep>
     <timestep time="10.00" id="test1" vtype="DEFAULT_VEHTYPE">
-        <vehicle id="veh_parking" lane="1to2_0" pos="59.67" x="59.67" y="0.00" speed="0.00"/>
+        <vehicle id="veh_parking" lane="1to2_0" pos="59.87" x="59.87" y="0.00" speed="0.00"/>
     </timestep>
-	expect failing lines after this one
+    <timestep time="11.00" id="test1" vtype="DEFAULT_VEHTYPE">
+        <vehicle id="veh_parking" lane="1to2_0" pos="62.16" x="62.16" y="0.00" speed="2.29"/>
+    </timestep>
+    <timestep time="12.00" id="test1" vtype="DEFAULT_VEHTYPE">
+        <vehicle id="veh_parking" lane="1to2_0" pos="66.31" x="66.31" y="0.00" speed="4.14"/>
+    </timestep>
+    <timestep time="13.00" id="test1" vtype="DEFAULT_VEHTYPE">
+        <vehicle id="veh_parking" lane="1to2_0" pos="72.02" x="72.02" y="0.00" speed="5.71"/>
+    </timestep>
+    <timestep time="14.00" id="test1" vtype="DEFAULT_VEHTYPE">
+        <vehicle id="veh_parking" lane="1to2_0" pos="80.11" x="80.11" y="0.00" speed="8.09"/>
+    </timestep>
+    <timestep time="15.00" id="test1" vtype="DEFAULT_VEHTYPE">
+        <vehicle id="veh_parking" lane="1to2_0" pos="89.76" x="89.76" y="0.00" speed="9.65"/>
+    </timestep>
+    <timestep time="16.00" id="test1" vtype="DEFAULT_VEHTYPE">
+    </timestep>
 </vehicle-type-probes>
