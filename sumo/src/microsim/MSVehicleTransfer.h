@@ -5,6 +5,7 @@
 /// @version $Id$
 ///
 // A mover of vehicles that got stucked due to grid locks
+// This class also serves as container for parking vehicles
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // Copyright (C) 2001-2011 DLR (http://www.dlr.de/) and contributors
@@ -47,6 +48,8 @@ class MSEdge;
  * @class MSVehicleTransfer
  * This object (each simulation owns exactly one) is responsible for the
  *  transfer of vehicles that got stocked within the network due to grid locks.
+ *  It also manages vehicles that are removed from the network because of stops
+ *  with the parking attribute.
  *
  * The method addVeh is called by a lane if a vehicle stood to long at this
  *  lane's end. After being added to this transfer object and removed from the

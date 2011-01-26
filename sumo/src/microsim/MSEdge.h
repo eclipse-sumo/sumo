@@ -316,7 +316,7 @@ public:
      *  index in the lane container is chosen.
      *
      * If allowed==0, the lanes allowed for the given vehicle class
-     *  will be user
+     *  will be used
      *
      * @param[in] allowed The lanes to choose from
      * @param[in] vclass The vehicle class to look for
