@@ -75,47 +75,63 @@ MSVehicleTransfer::checkEmissions(SUMOTime time) throw() {
     for (VehicleInfVector::iterator i=myVehicles.begin(); i!=myVehicles.end();) {
         // get the vehicle information
         VehicleInformation &desc = *i;
-        const MSEdge *nextEdge = desc.myVeh->succEdge(1);
+
         if (desc.myParking) {
+            // handle parking vehicles
             if (desc.myVeh->processNextStop(1) == 0) {
                 ++i;
                 continue;
             }
-            nextEdge = 0;
+            // parking finished, head back into traffic
         }
-        const MSEdge *e = desc.myVeh->getEdge();
-        // get the lanes the vehicle may use
         const SUMOVehicleClass vclass = desc.myVeh->getVehicleType().getVehicleClass();
-        MSLane *l = e->getFreeLane(e->allowedLanes(*nextEdge, vclass), vclass);
-        // check whether the vehicle may be emitted onto a following edge
-        if (l->freeEmit(*(desc.myVeh), MIN2(l->getMaxSpeed(), desc.myVeh->getMaxSpeed()))) {
-            // remove from this if so
-            if (!desc.myParking) {
-                WRITE_WARNING("Vehicle '" + desc.myVeh->getID()+ "' ends teleporting on edge '" + e->getID()+ "', simulation time " + time2string(MSNet::getInstance()->getCurrentTimeStep()) + ".");
-                MSNet::getInstance()->informVehicleStateListener(desc.myVeh, MSNet::VEHICLE_STATE_ENDING_TELEPORT);
-            }
-            i = myVehicles.erase(i);
-        } else {
-            // otherwise, check whether a consecutive edge may be used
-            if (desc.myProceedTime<time) {
-                // get the lanes of the next edge (the one the vehicle wiil be
-                //  virtually on after all these computations)
-                desc.myVeh->leaveLane(MSMoveReminder::NOTIFICATION_TELEPORT);
-                // get the one beyond the one the vehicle moved to
-                const MSEdge *nextEdge = desc.myVeh->succEdge(1);
-                // let the vehicle move to the next edge
-                if (nextEdge==0) {
-                    WRITE_WARNING("Vehicle '" + desc.myVeh->getID()+ "' ends teleporting on end edge '" + e->getID()+ "'.");
-                    MSNet::getInstance()->getVehicleControl().scheduleVehicleRemoval(desc.myVeh);
-                    i = myVehicles.erase(i);
-                    continue;
-                }
-                // use current travel time to determine when to move the vehicle forward
-                desc.myProceedTime = time + TIME2STEPS(e->getCurrentTravelTime());
-            }
-            ++i;
-        }
+        const MSEdge *e = desc.myVeh->getEdge();
+        const MSEdge *nextEdge = desc.myVeh->succEdge(1);
 
+        // get the lane on which this vehicle should continue
+        // first select all the lanes which allow continuation onto nextEdge 
+        //   then pick the one which is least occupied
+        // @question maybe parking vehicles should always continue on the rightmost lane? 
+        MSLane *l = e->getFreeLane(e->allowedLanes(*nextEdge, vclass), vclass);
+
+        if (desc.myParking) {
+            // handle parking vehicles
+            if (l->isEmissionSuccess(desc.myVeh, 0, desc.myVeh->getPositionOnLane(), false)) {
+                i = myVehicles.erase(i);
+            } else {
+                i++;
+            }
+        } else {
+            // handle teleporting vehicles
+            if (l->freeEmit(*(desc.myVeh), MIN2(l->getMaxSpeed(), desc.myVeh->getMaxSpeed()))) {
+                WRITE_WARNING(
+                    "Vehicle '" + desc.myVeh->getID() + 
+                    "' ends teleporting on edge '" + e->getID() + 
+                    "', simulation time " + time2string(MSNet::getInstance()->getCurrentTimeStep()) + ".");
+                MSNet::getInstance()->informVehicleStateListener(desc.myVeh, MSNet::VEHICLE_STATE_ENDING_TELEPORT);
+                i = myVehicles.erase(i);
+            } else {
+                // could not emit. maybe we should proceed in virtual space
+                if (desc.myProceedTime<time) {
+                    // get the lanes of the next edge (the one the vehicle wiil be
+                    //  virtually on after all these computations)
+                    desc.myVeh->leaveLane(MSMoveReminder::NOTIFICATION_TELEPORT);
+                    // get the one beyond the one the vehicle moved to
+                    // !!! only move reminders are called but the edge is not advanced
+                    const MSEdge *nextEdge = desc.myVeh->succEdge(1);
+                    // let the vehicle move to the next edge
+                    if (nextEdge==0) {
+                        WRITE_WARNING("Vehicle '" + desc.myVeh->getID()+ "' ends teleporting on end edge '" + e->getID()+ "'.");
+                        MSNet::getInstance()->getVehicleControl().scheduleVehicleRemoval(desc.myVeh);
+                        i = myVehicles.erase(i);
+                        continue;
+                    }
+                    // use current travel time to determine when to move the vehicle forward
+                    desc.myProceedTime = time + TIME2STEPS(e->getCurrentTravelTime());
+                }
+                ++i;
+            }
+        }
     }
 }
 
