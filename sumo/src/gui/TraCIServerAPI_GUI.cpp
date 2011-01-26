@@ -182,7 +182,7 @@ TraCIServerAPI_GUI::processSet(TraCIServer &server, tcpip::Storage &inputStorage
         }
         std::string filename = inputStorage.readString();
         std::string error = v->makeSnapshot(filename);
-        if(error!="") {
+        if (error!="") {
             server.writeStatusCmd(CMD_SET_GUI_VARIABLE, RTYPE_ERR, error, outputStorage);
             return false;
         }

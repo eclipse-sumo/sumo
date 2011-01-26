@@ -407,10 +407,10 @@ MSNet::simulationState(SUMOTime stopTime) const throw() {
 #else
     if (stopTime < 0) {
 #endif
-        if (myEmissionEvents->isEmpty() 
-            && myVehicleControl->haveAllActiveVehiclesQuit()
-            && !myEmitter->hasPendingFlows()           
-            && (myPersonControl == 0 || !myPersonControl->hasPedestrians())) {
+        if (myEmissionEvents->isEmpty()
+                && myVehicleControl->haveAllActiveVehiclesQuit()
+                && !myEmitter->hasPendingFlows()
+                && (myPersonControl == 0 || !myPersonControl->hasPedestrians())) {
             if (myPersonControl) {
                 myPersonControl->abortWaiting();
             }

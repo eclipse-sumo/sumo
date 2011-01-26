@@ -348,8 +348,8 @@ public:
     virtual void loadState(BinaryInputDevice &bis, const SUMOTime offset) throw();
     /// @}
     //
- 
-    /** @brief removes any vehicles that are still waiting 
+
+    /** @brief removes any vehicles that are still waiting
      */
     void abortWaiting() throw();
 

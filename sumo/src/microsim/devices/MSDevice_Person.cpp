@@ -106,9 +106,9 @@ MSDevice_Person::notifyLeave(SUMOVehicle& veh, SUMOReal /*lastPos*/,
     if (reason >= MSMoveReminder::NOTIFICATION_ARRIVED) {
         for (std::vector<MSPerson*>::iterator i=myPersons.begin(); i!=myPersons.end(); ++i) {
             if (&(*i)->getDestination() != veh.getEdge()) {
-                WRITE_WARNING("Teleporting person '" + (*i)->getID() + 
-                    "' from vehicle destination '" + veh.getEdge()->getID() + 
-                    "' to intended destination '" + (*i)->getDestination().getID() + "'");
+                WRITE_WARNING("Teleporting person '" + (*i)->getID() +
+                              "' from vehicle destination '" + veh.getEdge()->getID() +
+                              "' to intended destination '" + (*i)->getDestination().getID() + "'");
             }
             (*i)->proceed(MSNet::getInstance(), MSNet::getInstance()->getCurrentTimeStep());
         }

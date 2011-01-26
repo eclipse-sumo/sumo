@@ -134,7 +134,7 @@ GUISUMOViewParent::onCmdMakeSnapshot(FXObject*,FXSelector,void*) {
     gCurrentFolder = opendialog.getDirectory();
     std::string file = opendialog.getFilename().text();
     std::string error = myView->makeSnapshot(file);
-    if(error!="") {
+    if (error!="") {
         FXMessageBox::error(this, MBOX_OK, "Saving failed.", error.c_str());
     }
     return 1;

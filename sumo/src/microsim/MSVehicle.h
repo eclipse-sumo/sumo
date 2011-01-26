@@ -832,7 +832,7 @@ protected:
     /// @brief Whether the vehicle is on the network (not waiting, teleported, vaporized, or arrived)
     bool myAmOnNet;
 
-    /// @brief Whether this vehicle is registered as waiting for a person (for deadlock-recognition) 
+    /// @brief Whether this vehicle is registered as waiting for a person (for deadlock-recognition)
     bool myAmRegisteredAsWaitingForPerson;
 
 
