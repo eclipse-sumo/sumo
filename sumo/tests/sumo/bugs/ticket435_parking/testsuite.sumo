@@ -1,0 +1,7 @@
+# vehicle should continue with speed 0 after parking
+# vehicle should continue at the stopping position
+# 
+continuation_speed_and_pos
+
+# parking should not reset departSpeed and departPos of the tripinfo device
+no_tripinfo_reset

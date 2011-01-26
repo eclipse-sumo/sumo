@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<routes>
+  <vehicle depart="1" id="veh_parking" route="route0" departpos="40">
+      <route edges="1to2 out">
+          <stop lane="1to2_0" startPos="50" endPos="60" duration="2" parking="true"/>
+      </route>
+  </vehicle>
+</routes>

@@ -46,9 +46,7 @@ ticket376
 # The following deadlock should be detected and resolved:
 # Vehicles wait at triggered stops for riders which never come because all persons have left the simulation or are themselves waiting.
 # At the same time persons wait for rides which never come because all vehicles have left the simulation or are themselves waiting for riders.
-# 
 # Under these conditions all remaining vehicles and persons should abort their trips/plans.
-# 
 ticket400
 
 # Triggered vehilce stops should only be ended by an entering person
@@ -56,3 +54,4 @@ initialization_of_triggered_stops
 
 # Long stops should not cause a teleport
 teleport_after_long_stop
+ticket435_parking
