@@ -47,7 +47,7 @@
 // ===========================================================================
 // variable definitions
 // ===========================================================================
-// 80km/h will be the swell for dividing between long/short foresight
+// 80km/h will be the threshold for dividing between long/short foresight
 #define LOOK_FORWARD_SPEED_DIVIDER 14.
 
 #define LOOK_FORWARD_FAR  15.
