@@ -15,3 +15,6 @@ duplicates
 
 # Tests with broken traffic lights
 traffic_lights
+
+# error handling for person related input
+person

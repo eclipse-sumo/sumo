@@ -1,0 +1,6 @@
+<routes>
+    <person id="p1" depart="0">
+        <walk edges="beg end" duration="23"/>
+        <walk edges="beg middle" duration="23"/>
+    </person>
+</routes>

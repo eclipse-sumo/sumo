@@ -1,0 +1,9 @@
+# rides must start where the last step of the plan ended
+unconnected_ride
+
+# rides must start where the last step of the plan ended
+# 
+unconnected_walk
+
+# stops must lie on the edge on which the previous step of the plan ended
+unconnected_stop
