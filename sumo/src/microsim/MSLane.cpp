@@ -107,9 +107,12 @@ MSLane::addMoveReminder(MSMoveReminder* rem) throw() {
 
 // ------ Vehicle emission ------
 void
-MSLane::incorporateVehicle(MSVehicle *veh, SUMOReal pos, SUMOReal speed, const MSLane::VehCont::iterator &at) {
+MSLane::incorporateVehicle(
+        MSVehicle *veh, SUMOReal pos, SUMOReal speed, 
+        const MSLane::VehCont::iterator &at,
+        MSMoveReminder::Notification notification) {
     bool wasInactive = myVehicles.size()==0;
-    veh->enterLaneAtEmit(this, pos, speed);
+    veh->enterLaneAtEmit(this, pos, speed, notification);
     if (at==myVehicles.end()) {
         // vehicle will be the first on the lane
         myVehicles.push_back(veh);
@@ -374,13 +377,9 @@ MSLane::emit(MSVehicle& veh) throw(ProcessError) {
 
 
 bool
-MSLane::isEmissionSuccess(MSVehicle* aVehicle,
-                          SUMOReal speed, SUMOReal pos,
-                          bool patchSpeed) throw(ProcessError) {
-    //  and the speed is not too high (vehicle should decelerate)
-    // try to get a leader on consecutive lanes
-    //  we have to do this even if we have found a leader on our lane because it may
-    //  be driving into another direction
+MSLane::isEmissionSuccess(MSVehicle* aVehicle, 
+    SUMOReal speed, SUMOReal pos, bool patchSpeed,
+    MSMoveReminder::Notification notification) throw(ProcessError) {
     aVehicle->getBestLanes(true, this);
     const MSCFModel &cfModel = aVehicle->getCarFollowModel();
     const std::vector<MSLane*> &bestLaneConts = aVehicle->getBestLanesContinuation(this);
@@ -558,7 +557,7 @@ MSLane::isEmissionSuccess(MSVehicle* aVehicle,
         return false;
     }
     // enter
-    incorporateVehicle(aVehicle, pos, speed, predIt);
+    incorporateVehicle(aVehicle, pos, speed, predIt, notification);
     return true;
 }
 

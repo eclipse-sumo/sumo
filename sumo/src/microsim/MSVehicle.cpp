@@ -1148,7 +1148,9 @@ MSVehicle::enterLaneAtLaneChange(MSLane* enteredLane) {
 
 
 void
-MSVehicle::enterLaneAtEmit(MSLane* enteredLane, SUMOReal pos, SUMOReal speed) {
+MSVehicle::enterLaneAtEmit(
+        MSLane* enteredLane, SUMOReal pos, SUMOReal speed, 
+        MSMoveReminder::Notification notification) {
     myState = State(pos, speed);
     assert(myState.myPos >= 0);
     assert(myState.mySpeed >= 0);
@@ -1158,7 +1160,7 @@ MSVehicle::enterLaneAtEmit(MSLane* enteredLane, SUMOReal pos, SUMOReal speed) {
     for (std::vector< MSMoveReminder* >::const_iterator rem=enteredLane->getMoveReminders().begin(); rem!=enteredLane->getMoveReminders().end(); ++rem) {
         addReminder(*rem);
     }
-    activateReminders(MSMoveReminder::NOTIFICATION_DEPARTED);
+    activateReminders(notification);
     std::string msg;
     if (MSGlobals::gCheckRoutes && !hasValidRoute(msg)) {
         throw ProcessError("Vehicle '" + getID() + "' has no valid route. " + msg);

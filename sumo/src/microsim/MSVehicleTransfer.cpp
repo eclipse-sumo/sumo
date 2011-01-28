@@ -96,7 +96,9 @@ MSVehicleTransfer::checkEmissions(SUMOTime time) throw() {
 
         if (desc.myParking) {
             // handle parking vehicles
-            if (l->isEmissionSuccess(desc.myVeh, 0, desc.myVeh->getPositionOnLane(), false)) {
+            if (l->isEmissionSuccess(desc.myVeh, 0, 
+                    desc.myVeh->getPositionOnLane(), false,
+                    MSMoveReminder::NOTIFICATION_PARKING)) {
                 i = myVehicles.erase(i);
             } else {
                 i++;

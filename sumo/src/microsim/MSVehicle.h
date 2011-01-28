@@ -334,8 +334,10 @@ public:
      * @param[in] enteredLane The lane the vehicle enters
      * @param[in] pos The position the vehicle was inserted into the lane
      * @param[in] speed The speed with which the vehicle was inserted into the lane
+     * @param[in] notification The cause of emission (i.e. departure, teleport, parking)
      */
-    void enterLaneAtEmit(MSLane* enteredLane, SUMOReal pos, SUMOReal speed);
+    void enterLaneAtEmit(MSLane* enteredLane, SUMOReal pos, SUMOReal speed,
+                         MSMoveReminder::Notification notification);
 
 
     /** @brief Update when the vehicle enters a new lane in the laneChange step.

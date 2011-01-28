@@ -181,7 +181,7 @@ public:
      *  does not cause unexpected behaviour on consecutive lanes. Returns false
      *  if the vehicle can not be inserted.
      *
-     * If the insertion can take place, the vehicle's "enterLaneAtEmit" method is called,
+     * If the insertion can take place, the vehicle's "enterLaneAtEmit" method is called (via incorporateVehicle),
      *  the vehicle is inserted into the lane's vehicle container ("myVehicles"), the
      *  lane's statistical information is patched (including the mean data). true is returned.
      *
@@ -189,11 +189,14 @@ public:
      * @param[in] speed The speed with which it shall be emitted
      * @param[in] pos The position at which it shall be emitted
      * @param[in] recheckNextLanes Forces patching the speed for not being too fast on next lanes
+     * @param[in] notification The cause of emission (i.e. departure, teleport, parking)
+     *   defaults to departure
      * @return Whether the vehicle could be emitted
      * @see MSVehicle::enterLaneAtEmit
      */
     virtual bool isEmissionSuccess(MSVehicle* vehicle, SUMOReal speed, SUMOReal pos,
-                                   bool recheckNextLanes) throw(ProcessError);
+        bool recheckNextLanes, 
+        MSMoveReminder::Notification notification = MSMoveReminder::NOTIFICATION_DEPARTED) throw(ProcessError);
 
     bool pWagEmitGeneric(MSVehicle& veh, SUMOReal speed, SUMOReal maxPos, SUMOReal minPos) throw();
     bool pWagEmitSimple(MSVehicle& veh, SUMOReal speed, SUMOReal maxPos, SUMOReal minPos) throw();
@@ -617,7 +620,19 @@ protected:
     /// moves myTmpVehicles int myVehicles after a lane change procedure
     virtual void swapAfterLaneChange(SUMOTime t);
 
-    void incorporateVehicle(MSVehicle *veh, SUMOReal pos, SUMOReal speed, const MSLane::VehCont::iterator &at);
+    /** @brief 
+     * calls the vehicles enterLaneAtEmit function,
+     * updates statistics and modifies the active state as needed
+     * @param[in] veh The vehicle to be incorporated
+     * @param[in] pos The position of the vehicle
+     * @param[in] speed The speed of the vehicle 
+     * @param[in] at 
+     * @param[in] notification The cause of emission (i.e. departure, teleport, parking)
+     *   defaults to departure
+     */
+    void incorporateVehicle(MSVehicle *veh, SUMOReal pos, SUMOReal speed, 
+        const MSLane::VehCont::iterator &at,
+        MSMoveReminder::Notification notification = MSMoveReminder::NOTIFICATION_DEPARTED);
 
 
 protected:
