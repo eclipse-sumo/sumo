@@ -105,7 +105,9 @@ MSVehicleTransfer::checkEmissions(SUMOTime time) throw() {
             }
         } else {
             // handle teleporting vehicles
-            if (l->freeEmit(*(desc.myVeh), MIN2(l->getMaxSpeed(), desc.myVeh->getMaxSpeed()))) {
+            if (l->freeEmit(*(desc.myVeh), MIN2(l->getMaxSpeed(), 
+                        desc.myVeh->getMaxSpeed()),
+                        MSMoveReminder::NOTIFICATION_TELEPORT)) {
                 WRITE_WARNING(
                     "Vehicle '" + desc.myVeh->getID() + 
                     "' ends teleporting on edge '" + e->getID() + 

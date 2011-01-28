@@ -239,10 +239,11 @@ MSLane::maxSpeedGapEmit(MSVehicle& veh, SUMOReal mspeed) throw() {
 
 
 bool
-MSLane::freeEmit(MSVehicle& veh, SUMOReal mspeed) throw() {
+MSLane::freeEmit(MSVehicle& veh, SUMOReal mspeed,
+    MSMoveReminder::Notification notification) throw() {
     bool adaptableSpeed = true;
     if (myVehicles.size()==0) {
-        if (isEmissionSuccess(&veh, mspeed, 0, adaptableSpeed)) {
+        if (isEmissionSuccess(&veh, mspeed, 0, adaptableSpeed, notification)) {
             return true;
         }
     } else {
@@ -257,7 +258,7 @@ MSLane::freeEmit(MSVehicle& veh, SUMOReal mspeed) throw() {
         if (leaderPos-frontGapNeeded>=0) {
             SUMOReal tspeed = MIN2(veh.getCarFollowModel().ffeV(&veh, mspeed, frontGapNeeded, leader->getSpeed()), mspeed);
             // check whether we can emit in behind the last vehicle on the lane
-            if (isEmissionSuccess(&veh, tspeed, 0, adaptableSpeed)) {
+            if (isEmissionSuccess(&veh, tspeed, 0, adaptableSpeed, notification)) {
                 return true;
             }
         }
@@ -293,7 +294,7 @@ MSLane::freeEmit(MSVehicle& veh, SUMOReal mspeed) throw() {
         // check whether there is enough room (given some extra space for rounding errors)
         if (frontMax>0 && backMin+POSITION_EPS<frontMax) {
             // try emit vehicle (should be always ok)
-            if (isEmissionSuccess(&veh, speed, backMin+POSITION_EPS, adaptableSpeed)) {
+            if (isEmissionSuccess(&veh, speed, backMin+POSITION_EPS, adaptableSpeed, notification)) {
                 return true;
             }
         }

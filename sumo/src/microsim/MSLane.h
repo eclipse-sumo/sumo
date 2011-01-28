@@ -206,9 +206,12 @@ public:
      *
      * @param[in] veh The vehicle to emit
      * @param[in] speed The maximum emission speed
+     * @param[in] notification The cause of emission (i.e. departure, teleport, parking)
+     *   defaults to departure
      * @return Whether the vehicle could be emitted
      */
-    bool freeEmit(MSVehicle& veh, SUMOReal speed) throw();
+    bool freeEmit(MSVehicle& veh, SUMOReal speed,
+        MSMoveReminder::Notification notification = MSMoveReminder::NOTIFICATION_DEPARTED) throw();
 
 
     /** @brief Inserts the given vehicle at the given position
