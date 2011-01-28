@@ -1,12 +1,24 @@
-html
-{
+html {
 	background-color: #ebebeb;
 	font: normal 12px "Trebuchet MS", Verdana, "Lucida Grande", Georgia, Sans-Serif;
 	padding: 0;
 	width: 850px;
 	margin: 0 auto;
+	text-align: center;
 	background-repeat: repeat-y;
-	background-position: top left;
+	background-position: top center;
+	background-image: url(body_bg.png);
+}
+
+body {
+	background-color: #ebebeb;
+	font: normal 12px "Trebuchet MS", Verdana, "Lucida Grande", Georgia, Sans-Serif;
+	padding: 0;
+	width: 850px;
+	margin: 0 auto;
+  text-align: center;
+	background-repeat: repeat-y;
+	background-position: top center;
 	background-image: url(body_bg.png);
 }
 
@@ -19,6 +31,7 @@ body#bmission li#lmission a
 {
 	color: #eff8ff;
 	background-color: #374462;
+	text-align: left;
 }
 
 
