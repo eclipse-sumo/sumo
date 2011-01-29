@@ -1716,7 +1716,7 @@ NBEdge::getLaneID(unsigned int lane) {
 
 
 bool
-NBEdge::isNearEnough2BeJoined2(NBEdge *e) {
+NBEdge::isNearEnough2BeJoined2(NBEdge *e) const {
     DoubleVector distances = myGeom.distances(e->getGeometry());
     if (distances.size()==0) {
         distances = e->getGeometry().distancesExt(myGeom);

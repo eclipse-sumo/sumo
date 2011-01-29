@@ -502,43 +502,16 @@ NBNodeCont::recheckEdges(NBDistrictCont &dc, NBTrafficLightLogicCont &tlc,
             // for the edges that seem to be a single street,
             //  check whether the geometry is similar
             const EdgeVector &ev = (*k).second;
-            typedef std::vector<EdgeVector> EdgeVV;
-            EdgeVV geometryCombinations;
-            for (EdgeVector::const_iterator l=ev.begin(); l!=ev.end(); ++l) {
-                // append the first one simply to the list of really joinable edges
-                if (geometryCombinations.size()==0) {
-                    EdgeVector tmp;
-                    tmp.push_back(*l);
-                    geometryCombinations.push_back(tmp);
-                    continue;
+            const NBEdge* const first = ev.front();
+            EdgeVector::const_iterator l;
+            for (l=ev.begin()+1; l!=ev.end(); ++l) {
+                if (!first->isNearEnough2BeJoined2(*l)) {
+                    break;
                 }
-                // check the lists of really joinable edges
-                bool wasPushed = false;
-                for (EdgeVV::iterator m=geometryCombinations.begin(); !wasPushed&&m!=geometryCombinations.end();) {
-                    for (EdgeVector::iterator n=(*m).begin(); !wasPushed&&n!=(*m).end();) {
-                        if ((*n)->isNearEnough2BeJoined2(*l)) {
-                            (*m).push_back(*l);
-                            wasPushed = true;
-                        }
-                        if (!wasPushed) {
-                            ++n;
-                        }
-                    }
-                    if (!wasPushed) {
-                        ++m;
-                    }
-                }
-                if (!wasPushed) {
-                    EdgeVector tmp;
-                    tmp.push_back(*l);
-                    geometryCombinations.push_back(tmp);
-                }
+                // !!! @todo we could check here for matching length / speed / vclasses as well
             }
-        }
-        for (k=connectionCount.begin(); k!=connectionCount.end(); k++) {
-            // join edges
-            if ((*k).second.size()>1) {
-                ec.joinSameNodeConnectingEdges(dc, tlc, (*k).second);
+            if (l == ev.end()) {
+                ec.joinSameNodeConnectingEdges(dc, tlc, ev);
             }
         }
     }

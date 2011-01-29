@@ -679,7 +679,7 @@ public:
 
     SUMOReal getLaneSpeed(unsigned int lane) const;
 
-    bool isNearEnough2BeJoined2(NBEdge *e);
+    bool isNearEnough2BeJoined2(NBEdge *e) const;
 
     SUMOReal getAngle(const NBNode &atNode) const;
 
