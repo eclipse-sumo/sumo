@@ -1,0 +1,6 @@
+<edges>
+    <edge fromnode="91" id="91to1" tonode="1"/>
+    <edge fromnode="1" id="1to21" tonode="2" shape="500,50"/>
+    <edge fromnode="1" id="1to22" tonode="2" shape="500,-50"/>
+    <edge fromnode="2" id="out" tonode="3"/>
+</edges>

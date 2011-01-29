@@ -22,3 +22,6 @@ lefthand
 # Tests for geocoordinate projection
 projection
 translation
+
+# tests for joining double connections
+join_double_conn
