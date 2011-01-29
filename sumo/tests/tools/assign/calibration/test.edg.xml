@@ -1,6 +1,6 @@
 <edges>
     <edge fromnode="91" id="91to1" tonode="1" type="c"/>
-    <edge fromnode="1" id="1to21" tonode="2" type="a"/>
-    <edge fromnode="1" id="1to22" tonode="2" type="b"/>
+    <edge fromnode="1" id="1to21" tonode="2" type="a" shape="300,-50 700,-50"/>
+    <edge fromnode="1" id="1to22" tonode="2" type="b" shape="300,50 700,50"/>
     <edge fromnode="2" id="out" tonode="3" type="c"/>
 </edges>
