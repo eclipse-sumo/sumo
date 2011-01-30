@@ -1,0 +1,3 @@
+--device.routing.probability 1 --no-step-log -b 0 --no-duration-log
+  --net-file=net.net.xml -a=input_districts.net.xml,input_trips.trips.xml
+  --vehroute-output=vehroutes.xml --device.routing.with-taz --vehroute-output.last-route

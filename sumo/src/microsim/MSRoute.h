@@ -32,6 +32,7 @@
 #include <string>
 #include <map>
 #include <vector>
+#include <algorithm>
 #include <utils/common/Named.h>
 #include <utils/common/RandomDistributor.h>
 #include <utils/common/RGBColor.h>
@@ -85,10 +86,10 @@ public:
     void release() const;
 
     /// output the edge ids up to but not including the id of the given edge
-    unsigned int writeEdgeIDs(OutputDevice &os, const unsigned int from, const MSEdge *upTo=0) const;
+    void writeEdgeIDs(OutputDevice &os, const MSEdge *const from, const MSEdge *const upTo=0) const;
 
     bool contains(const MSEdge * const edge) const throw() {
-        return find(edge)!=myEdges.end();
+        return std::find(myEdges.begin(), myEdges.end(), edge) != myEdges.end();
     }
 
     bool containsAnyOf(const std::vector<MSEdge*> &edgelist) const;
@@ -182,9 +183,6 @@ public:
     static void clear();
 
     static void insertIDs(std::vector<std::string> &into);
-
-    MSRouteIterator find(const MSEdge *e) const;
-    MSRouteIterator find(const MSEdge *e, const MSRouteIterator &startingAt) const;
 
 
 private:

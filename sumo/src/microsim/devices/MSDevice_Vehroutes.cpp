@@ -148,26 +148,27 @@ MSDevice_Vehroutes::writeXMLRoute(OutputDevice &os, int index) const {
         while (i > 0 && myReplacedRoutes[i-1].edge) {
             i--;
         }
-        unsigned int edgeIndex = 0;
+        const MSEdge* lastEdge = 0;
         for (; i<index; ++i) {
-            edgeIndex += myReplacedRoutes[i].route->writeEdgeIDs(os, edgeIndex, myReplacedRoutes[i].edge);
+            myReplacedRoutes[i].route->writeEdgeIDs(os, lastEdge, myReplacedRoutes[i].edge);
+            lastEdge = myReplacedRoutes[i].edge;
         }
-        myReplacedRoutes[index].route->writeEdgeIDs(os, edgeIndex);
+        myReplacedRoutes[index].route->writeEdgeIDs(os, lastEdge);
     } else {
         os << " edges=\"";
-        unsigned int edgeIndex = 0;
+        const MSEdge* lastEdge = 0;
         if (myHolder.getNumberReroutes() > 0) {
             assert(myReplacedRoutes.size()<=myHolder.getNumberReroutes());
             unsigned int i = static_cast<unsigned int>(myReplacedRoutes.size());
             while (i > 0 && myReplacedRoutes[i-1].edge) {
                 i--;
             }
-            unsigned int edgeIndex = 0;
             for (; i < myReplacedRoutes.size(); ++i) {
-                edgeIndex += myReplacedRoutes[i].route->writeEdgeIDs(os, edgeIndex, myReplacedRoutes[i].edge);
+                myReplacedRoutes[i].route->writeEdgeIDs(os, lastEdge, myReplacedRoutes[i].edge);
+                lastEdge = myReplacedRoutes[i].edge;
             }
         }
-        myCurrentRoute->writeEdgeIDs(os, edgeIndex);
+        myCurrentRoute->writeEdgeIDs(os, lastEdge);
         if (mySaveExits) {
             os << "\" exitTimes=\"";
             for (std::vector<SUMOTime>::const_iterator it = myExits.begin(); it != myExits.end(); ++it) {
@@ -217,19 +218,20 @@ MSDevice_Vehroutes::getRoute(int index) const {
 void
 MSDevice_Vehroutes::addRoute() {
     if (myMaxRoutes > 0) {
-        if (static_cast<MSVehicle&>(myHolder).getLane()) {
+        if (myHolder.getDeparture() >= 0) {
             myReplacedRoutes.push_back(RouteReplaceInfo(myHolder.getEdge(), MSNet::getInstance()->getCurrentTimeStep(), myCurrentRoute));
         } else {
             myReplacedRoutes.push_back(RouteReplaceInfo(0, MSNet::getInstance()->getCurrentTimeStep(), myCurrentRoute));
         }
-//        myReplacedRoutes.push_back(RouteReplaceInfo(myHolder.getEdge(), MSNet::getInstance()->getCurrentTimeStep(), myCurrentRoute));
-        myCurrentRoute = &myHolder.getRoute();
-        myCurrentRoute->addReference();
         if (myReplacedRoutes.size() > myMaxRoutes) {
             myReplacedRoutes.front().route->release();
             myReplacedRoutes.erase(myReplacedRoutes.begin());
         }
+    } else {
+        myCurrentRoute->release();
     }
+    myCurrentRoute = &myHolder.getRoute();
+    myCurrentRoute->addReference();
 }
 
 

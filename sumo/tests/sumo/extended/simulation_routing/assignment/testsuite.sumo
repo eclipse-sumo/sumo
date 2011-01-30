@@ -25,5 +25,8 @@ trip_with_taz
 # trips as input, no edges, districts used
 trip_taz_noedge
 
+# trips as input output of last route only
+trip_taz_lastroute
+
 # Errors on assignment
 errors

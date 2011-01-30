@@ -172,32 +172,21 @@ MSRoute::insertIDs(std::vector<std::string> &into) {
 }
 
 
-MSRouteIterator
-MSRoute::find(const MSEdge *e) const {
-    return std::find(myEdges.begin(), myEdges.end(), e);
-}
-
-
-MSRouteIterator
-MSRoute::find(const MSEdge *e, const MSRouteIterator &startingAt) const {
-    return std::find(startingAt, myEdges.end(), e);
-}
-
-
-unsigned int
-MSRoute::writeEdgeIDs(OutputDevice &os, const unsigned int from, const MSEdge *upTo) const {
-    unsigned int count = 0;
-    for (MSEdgeVector::const_iterator i = myEdges.begin() + from; i != myEdges.end(); ++i) {
-        if (i!=myEdges.begin()) {
-            os << ' ';
-        }
+void
+MSRoute::writeEdgeIDs(OutputDevice &os, const MSEdge *const from, const MSEdge *const upTo) const {
+    MSEdgeVector::const_iterator i = myEdges.begin();
+    if (from != 0) {
+        i = std::find(myEdges.begin(), myEdges.end(), from);
+    }
+    for (; i != myEdges.end(); ++i) {
         if ((*i) == upTo) {
-            return count;
+            return;
         }
         os << (*i)->getID();
-        count++;
+        if (upTo || i!=myEdges.end()-1) {
+            os << ' ';
+        }
     }
-    return count;
 }
 
 
@@ -321,23 +310,17 @@ SUMOReal
 MSRoute::getDistanceBetween(SUMOReal fromPos, SUMOReal toPos, const MSEdge* fromEdge, const MSEdge* toEdge) const {
     bool isFirstIteration = true;
     SUMOReal distance = -fromPos;
+    MSEdgeVector::const_iterator it = std::find(myEdges.begin(), myEdges.end(), fromEdge);
 
-    if ((find(fromEdge) == end()) || (find(toEdge) == end())) {
+    if (it == myEdges.end() || std::find(it, myEdges.end(), toEdge) == myEdges.end()) {
         // start or destination not contained in route
         return std::numeric_limits<SUMOReal>::max();
     }
-    if (fromEdge == toEdge) {
-        if (fromPos <= toPos) {
-            // destination position is on start edge
-            return (toPos - fromPos);
-        } else {
-            // start and destination edge are equal: ensure that this edge is contained at least twice in the route
-            if (std::find(find(fromEdge)+1, end(), fromEdge) == end()) {
-                return std::numeric_limits<SUMOReal>::max();
-            }
-        }
+    if (fromEdge == toEdge && fromPos <= toPos) {
+        // destination position is on start edge
+        return (toPos - fromPos);
     }
-    for (MSRouteIterator it = find(fromEdge); it!=end(); ++it) {
+    for (; it!=end(); ++it) {
         if ((*it) == toEdge && !isFirstIteration) {
             distance += toPos;
             break;

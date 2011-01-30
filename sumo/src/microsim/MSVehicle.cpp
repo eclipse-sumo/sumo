@@ -234,7 +234,7 @@ bool
 MSVehicle::replaceRoute(const MSRoute* newRoute, bool onInit) throw() {
     const MSEdgeVector &edges = newRoute->getEdges();
     // assert the vehicle may continue (must not be "teleported" or whatever to another position)
-    if (!onInit && find(edges.begin(), edges.end(), *myCurrEdge)==edges.end()) {
+    if (!onInit && !newRoute->contains(*myCurrEdge)) {
         return false;
     }
 
@@ -242,7 +242,7 @@ MSVehicle::replaceRoute(const MSRoute* newRoute, bool onInit) throw() {
     if (onInit) {
         myCurrEdge = newRoute->begin();
     } else {
-        myCurrEdge = newRoute->find(*myCurrEdge);
+        myCurrEdge = find(edges.begin(), edges.end(), *myCurrEdge);
     }
     // check whether the old route may be deleted (is not used by anyone else)
     newRoute->addReference();
@@ -348,7 +348,7 @@ MSVehicle::addStop(const SUMOVehicleParameter::Stop &stopPar, SUMOTime untilOffs
     if (stop.startPos < 0 || stop.endPos > stop.lane->getLength()) {
         return false;
     }
-    stop.edge = myRoute->find(&stop.lane->getEdge(), myCurrEdge);
+    stop.edge = find(myCurrEdge, myRoute->end(), &stop.lane->getEdge());
     MSRouteIterator prevStopEdge = myCurrEdge;
     SUMOReal prevStopPos = myState.myPos;
     // where to insert the stop
@@ -358,7 +358,7 @@ MSVehicle::addStop(const SUMOVehicleParameter::Stop &stopPar, SUMOTime untilOffs
             prevStopEdge = myStops.back().edge;
             prevStopPos = myStops.back().endPos;
             iter = myStops.end();
-            stop.edge = myRoute->find(&stop.lane->getEdge(), prevStopEdge);
+            stop.edge = find(prevStopEdge, myRoute->end(), &stop.lane->getEdge());
         }
     } else {
         if (stopPar.index == STOP_INDEX_FIT) {
@@ -376,7 +376,7 @@ MSVehicle::addStop(const SUMOVehicleParameter::Stop &stopPar, SUMOTime untilOffs
                 ++iter;
                 --index;
             }
-            stop.edge = myRoute->find(&stop.lane->getEdge(), prevStopEdge);
+            stop.edge = find(prevStopEdge, myRoute->end(), &stop.lane->getEdge());
         }
     }
     if (stop.edge == myRoute->end() || prevStopEdge > stop.edge || prevStopEdge == stop.edge && prevStopPos > stop.endPos) {
