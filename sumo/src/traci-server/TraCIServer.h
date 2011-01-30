@@ -39,6 +39,7 @@
 #include <foreign/tcpip/socket.h>
 #include <foreign/tcpip/storage.h>
 #include <utils/common/SUMOTime.h>
+#include <utils/common/ToString.h>
 
 #include <utils/geom/Boundary.h>
 #include <utils/geom/Position2D.h>
@@ -377,7 +378,7 @@ public:
         case POSITION_ROADMAP:
             roadPosValue.roadId = msg.readString();
             roadPosValue.pos = msg.readFloat();
-            roadPosValue.laneId = msg.readUnsignedByte();
+            roadPosValue.laneId = static_cast<unsigned char>(msg.readUnsignedByte());
             break;
         case POSITION_2D:
         case POSITION_2_5D:
@@ -398,9 +399,7 @@ public:
             stringValue = msg.readString();
             break;
         default:
-            std::stringstream error;
-            error << "Can't read value from request message: the data type " << (int)dataType << " is not known";
-            throw TraCIException(error.str());
+            throw TraCIException("Can't read value from request message: the data type " + toString(dataType) + " is not known");
         }
         lastValueRead = dataType;
     };
