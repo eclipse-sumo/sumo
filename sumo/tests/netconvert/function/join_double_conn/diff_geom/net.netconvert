@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on Sat Jan 29 21:02:18 2011 by SUMO netconvert Version dev-SVN-r9635
+<!-- generated on Sat Jan 29 21:45:06 2011 by SUMO netconvert Version dev-SVN-r9638
 <?xml version="1.0" encoding="iso-8859-1"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
@@ -29,14 +29,14 @@
 
    <location netOffset="500.00,50.00" convBoundary="0.00,0.00,1800.00,100.00" origBoundary="-500.00,-50.00,1300.00,50.00" projParameter="!"/>
 
-   <edge id="1to21" from="1" to="2" priority="0" type="" function="normal">
+   <edge id="1to21" from="1" to="2" priority="-1" type="" function="normal">
       <lanes>
-         <lane id="1to21_0" depart="1" maxspeed="13.90" length="997.00" shape="501.50,45.05 1498.50,45.05"/>
+         <lane id="1to21_0" depart="1" maxspeed="13.90" length="1001.80" shape="501.65,48.51 1000.00,98.34 1498.48,48.49"/>
       </lanes>
    </edge>
-   <edge id="1to22" from="1" to="2" priority="0" type="" function="normal">
+   <edge id="1to22" from="1" to="2" priority="-1" type="" function="normal">
       <lanes>
-         <lane id="1to22_0" depart="1" maxspeed="13.90" length="997.00" shape="501.50,45.05 1498.50,45.05"/>
+         <lane id="1to22_0" depart="1" maxspeed="13.90" length="1001.79" shape="501.69,48.17 1000.00,-1.66 1498.51,48.19"/>
       </lanes>
    </edge>
    <edge id="91to1" from="91" to="1" priority="-1" type="" function="normal">
@@ -46,7 +46,7 @@
    </edge>
    <edge id="out" from="2" to="3" priority="-1" type="" function="normal">
       <lanes>
-         <lane id="out_0" depart="1" maxspeed="13.90" length="298.50" shape="1501.50,48.35 1800.00,48.35"/>
+         <lane id="out_0" depart="1" maxspeed="13.90" length="298.34" shape="1501.66,48.35 1800.00,48.35"/>
       </lanes>
    </edge>
 
@@ -58,30 +58,32 @@
    </row-logic>
    <row-logic id="2" requestSize="2" laneNumber="2">
       <logic>
-         <logicitem request="0" response="00" foes="00"/>
-         <logicitem request="1" response="11" foes="00"/>
+         <logicitem request="0" response="00" foes="10"/>
+         <logicitem request="1" response="01" foes="01"/>
       </logic>
    </row-logic>
 
    <tl-logic id="2" type="static" programID="0" offset="0">
-      <phase duration="31" state="GG"/>
-      <phase duration="4" state="yy"/>
+      <phase duration="31" state="Gr"/>
+      <phase duration="4" state="yr"/>
+      <phase duration="31" state="rG"/>
+      <phase duration="4" state="ry"/>
    </tl-logic>
 
-   <junction id="1" type="priority" x="500.00" y="50.00" incLanes="91to1_0" intLanes="" shape="501.50,49.95 501.50,43.45 498.50,46.75 498.50,49.95"/>
-   <junction id="2" type="priority" x="1500.00" y="50.00" incLanes="1to21_0 1to22_0" intLanes="" shape="1501.50,49.95 1501.50,46.75 1498.50,43.45 1498.50,49.95"/>
+   <junction id="1" type="priority" x="500.00" y="50.00" incLanes="91to1_0" intLanes="" shape="501.50,50.10 501.81,46.92 498.50,46.75 498.50,49.95"/>
+   <junction id="2" type="priority" x="1500.00" y="50.00" incLanes="1to22_0 1to21_0" intLanes="" shape="1501.66,49.95 1501.66,46.75 1498.67,46.60 1498.35,49.78"/>
    <junction id="3" type="DEAD_END" x="1800.00" y="50.00" incLanes="out_0" intLanes="" shape="1800.00,46.75 1800.00,49.95"/>
    <junction id="91" type="DEAD_END" x="0.00" y="50.00" incLanes="" intLanes="" shape="0.00,49.95 0.00,46.75"/>
 
-   <succ edge="1to21+1to22" lane="1to21+1to22_0" junction="2">
+   <succ edge="1to21" lane="1to21_0" junction="2">
+      <succlane lane="out_0" tl="2" linkno="1" yield="1" dir="s" state="t"/>
+   </succ>
+   <succ edge="1to22" lane="1to22_0" junction="2">
       <succlane lane="out_0" tl="2" linkno="0" yield="1" dir="s" state="t"/>
    </succ>
-   <succ edge="1to21+1to22" lane="1to21+1to22_1" junction="2">
-      <succlane lane="SUMO_NO_DESTINATION" tl="2" linkno="1" yield="1" dir="s" state="O"/>
-   </succ>
    <succ edge="91to1" lane="91to1_0" junction="1">
-      <succlane lane="1to21_0" yield="0" dir="s" state="M"/>
       <succlane lane="1to22_0" yield="0" dir="s" state="M"/>
+      <succlane lane="1to21_0" yield="0" dir="s" state="M"/>
    </succ>
    <succ edge="out" lane="out_0" junction="3">
       <succlane lane="SUMO_NO_DESTINATION" yield="1" dir="s" state="O"/>
