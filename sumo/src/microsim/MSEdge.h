@@ -363,7 +363,7 @@ public:
 
 
 #ifdef HAVE_INTERNAL_LANES
-    /// @extension: inner junctions are not filled
+    /// @todo extension: inner junctions are not filled
     const MSEdge *getInternalFollowingEdge(MSEdge *followerAfterInternal) const throw();
 #endif
 

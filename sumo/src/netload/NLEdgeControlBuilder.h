@@ -72,7 +72,7 @@ public:
     virtual ~NLEdgeControlBuilder();
 
 
-    /** @brieg Begins building of an MSEdge
+    /** @brief Begins building of an MSEdge
      *
      * Builds an instance of MSEdge using "buildEdge". Stores it
      *  as the current edge in "myActiveEdge" and appends it to the list

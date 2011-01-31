@@ -42,7 +42,7 @@
 const MSEdge *
 MSLinkContHelper::getInternalFollowingEdge(MSLane *fromLane,
         MSEdge *followerAfterInternal) {
-    //@ to be optimized
+    //@todo to be optimized
     const MSLinkCont &lc = fromLane->getLinkCont();
     for (MSLinkCont::const_iterator j=lc.begin(); j!=lc.end(); j++) {
         MSLink *link = *j;

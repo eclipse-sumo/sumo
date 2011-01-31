@@ -694,7 +694,7 @@ public:
      * @param lane		lane on wich to stop
      * @param pos		position on the given lane at wich to stop
      * @param radius	the vehicle will stop if it is within the range [pos-radius, pos+radius]
-     * @duration		after waiting for the time period duration, the vehicle will
+     * @param duration	after waiting for the time period duration, the vehicle will
      *					continue until the stop is reached again
      */
     bool addTraciStop(MSLane* lane, SUMOReal pos, SUMOReal radius, SUMOTime duration);

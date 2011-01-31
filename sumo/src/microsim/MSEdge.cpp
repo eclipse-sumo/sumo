@@ -364,7 +364,7 @@ MSEdge::changeLanes(SUMOTime t) throw() {
 #ifdef HAVE_INTERNAL_LANES
 const MSEdge *
 MSEdge::getInternalFollowingEdge(MSEdge *followerAfterInternal) const throw() {
-    //@ to be optimized
+    //@todo to be optimized
     for (std::vector<MSLane*>::const_iterator i=myLanes->begin(); i!=myLanes->end(); ++i) {
         MSLane *l = *i;
         const MSLinkCont &lc = l->getLinkCont();

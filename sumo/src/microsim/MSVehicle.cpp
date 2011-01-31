@@ -586,7 +586,7 @@ MSVehicle::moveRegardingCritical(SUMOTime t, const MSLane* const lane,
         // set next links, computing possible speeds
         vsafeCriticalCont(t, vBeg);
     }
-    //@ to be optimized (move to somewhere else)
+    //@todo to be optimized (move to somewhere else)
     checkRewindLinkLanes(lengthsInFront);
     return false;
 }

@@ -113,7 +113,7 @@ public:
      * Instatiates events for enabling and disabling the vaporization otherwise.
      *
      * @param[in] attrs SAX-attributes which define the vaporizer
-     * @recheck throwing the exception
+     * @note recheck throwing the exception
      */
     void buildVaporizer(const SUMOSAXAttributes &attrs) throw();
 

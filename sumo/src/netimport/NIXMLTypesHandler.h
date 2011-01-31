@@ -74,7 +74,7 @@ protected:
      * @param[in] element ID of the currently opened element
      * @param[in] attrs Attributes within the currently opened element
      * @exception ProcessError If something fails (not used herein)
-     * @policy No exception in order to allow further processing
+     * @note policy is to throw no exception in order to allow further processing
      */
     void myStartElement(SumoXMLTag element,
                         const SUMOSAXAttributes &attrs) throw(ProcessError);

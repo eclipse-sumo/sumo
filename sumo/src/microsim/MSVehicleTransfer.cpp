@@ -91,7 +91,7 @@ MSVehicleTransfer::checkEmissions(SUMOTime time) throw() {
         // get the lane on which this vehicle should continue
         // first select all the lanes which allow continuation onto nextEdge 
         //   then pick the one which is least occupied
-        // @question maybe parking vehicles should always continue on the rightmost lane? 
+        // @todo maybe parking vehicles should always continue on the rightmost lane? 
         MSLane *l = e->getFreeLane(e->allowedLanes(*nextEdge, vclass), vclass);
 
         if (desc.myParking) {
