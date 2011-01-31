@@ -240,20 +240,18 @@ public:
     /// @name Retrieval of vehicle statistics (availability depends on simulation settings)
     /// @{
 
-    /** @brief Returns the mean waiting time of vehicles.
-     *
-     * @return The mean time vehicles had to wait for being emitted (-1 if no vehicle was emitted, yet)
+    /** @brief Prints the mean waiting time of vehicles.
+     *  The mean time vehicles had to wait for being emitted (-1 if no vehicle was emitted, yet)
      * @todo Enable this for guisim?
      */
-    SUMOReal getMeanWaitingTime() const throw();
+    void printMeanWaitingTime(OutputDevice& od) const throw();
 
 
     /** @brief Returns the mean travel time of vehicles
-     *
-     * @return The mean travel time of ended vehicles (-1 if no vehicle has ended, yet)
+     * The mean travel time of ended vehicles (-1 if no vehicle has ended, yet)
      * @todo Enable this for guisim?
      */
-    SUMOReal getMeanTravelTime() const throw();
+    void printMeanTravelTime(OutputDevice& od) const throw();
     /// @}
 
 

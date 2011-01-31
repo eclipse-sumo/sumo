@@ -472,22 +472,22 @@ MSNet::writeOutput() {
     }
     // emission output
     if (OptionsCont::getOptions().isSet("emissions-output")) {
-        std::string wt = myVehicleControl->getMeanWaitingTime() ? "-1.00" : time2string((SUMOTime) myVehicleControl->getMeanWaitingTime());
-        std::string tt = myVehicleControl->getMeanTravelTime()<0 ? "-1.00" : time2string((SUMOTime) myVehicleControl->getMeanTravelTime());
-        OutputDevice::getDeviceByOption("emissions-output")
-        << "    <emission-state time=\"" << time2string(myStep) << "\" "
+        OutputDevice& od = OutputDevice::getDeviceByOption("emissions-output");
+        od << "    <emission-state time=\"" << time2string(myStep) << "\" "
         << "loaded=\"" << myVehicleControl->getLoadedVehicleNo() << "\" "
         << "emitted=\"" << myVehicleControl->getEmittedVehicleNo() << "\" "
         << "running=\"" << myVehicleControl->getRunningVehicleNo() << "\" "
         << "waiting=\"" << myEmitter->getWaitingVehicleNo() << "\" "
         << "ended=\"" << myVehicleControl->getEndedVehicleNo() << "\" "
-        << "meanWaitingTime=\"" << wt << "\" "
-        << "meanTravelTime=\"" << tt << "\" ";
+        << "meanWaitingTime=\"";
+        myVehicleControl->printMeanWaitingTime(od);
+        od << "\" meanTravelTime=\"";
+        myVehicleControl->printMeanTravelTime(od);
+        od << "\" ";
         if (myLogExecutionTime) {
-            OutputDevice::getDeviceByOption("emissions-output")
-            << "duration=\"" << mySimStepDuration << "\" ";
+            od << "duration=\"" << mySimStepDuration << "\" ";
         }
-        OutputDevice::getDeviceByOption("emissions-output") << "/>\n";
+        od << "/>\n";
     }
     // write detector values
     myDetectorControl->writeOutput(myStep + DELTA_T, false);

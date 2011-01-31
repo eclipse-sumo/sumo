@@ -106,21 +106,23 @@ MSVehicleControl::scheduleVehicleRemoval(SUMOVehicle *veh) throw() {
 }
 
 
-SUMOReal
-MSVehicleControl::getMeanWaitingTime() const throw() {
+void
+MSVehicleControl::printMeanWaitingTime(OutputDevice& od) const throw() {
     if (getEmittedVehicleNo()==0) {
-        return -1;
+        od << -1.;
+    } else {
+        od << (STEPS2TIME(myAbsVehWaitingTime) / (SUMOReal) getEmittedVehicleNo());
     }
-    return (SUMOReal) myAbsVehWaitingTime / (SUMOReal) getEmittedVehicleNo();
 }
 
 
-SUMOReal
-MSVehicleControl::getMeanTravelTime() const throw() {
+void
+MSVehicleControl::printMeanTravelTime(OutputDevice& od) const throw() {
     if (myEndedVehNo==0) {
-        return -1;
+        od << -1.;
+    } else {
+        od << (STEPS2TIME(myAbsVehTravelTime) / (SUMOReal) myEndedVehNo);
     }
-    return (SUMOReal) myAbsVehTravelTime / (SUMOReal) myEndedVehNo;
 }
 
 
