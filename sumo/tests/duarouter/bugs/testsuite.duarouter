@@ -21,3 +21,6 @@ dijkstra
 
 # Tests for ticket328 (incorrect calculations of exit times in *.rou.alt.xml)
 ticket328
+
+# duarouter completly ignores a trip
+ticket445
