@@ -25,5 +25,8 @@ exit_times_short
 # vehicle is teleporting with exit times
 exit_times_teleport
 
+# vehicles are moving in circles
+circle_reroute
+
 # Testing error cases
 errors

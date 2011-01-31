@@ -7,6 +7,9 @@ meandata_edgebased
 # Tests for lane-based mean data output (aka "lanedump")
 meandata_lanebased
 
+# Tests for vehroutes-output
+vehroutes
+
 # Testing the raw dump
 rawdump
 
