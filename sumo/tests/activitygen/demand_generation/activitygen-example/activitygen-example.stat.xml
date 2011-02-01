@@ -54,8 +54,8 @@
 	</streets>
 	
 	<cityGates>
-		<entrance edge="e01t11" pos="1" />
-		<entrance edge="e44t51" pos="280" />
+		<entrance edge="e01t11" pos="1" incoming="0.5" outgoing="0.5" />
+		<entrance edge="e44t51" pos="280" incoming="0.5" outgoing="0.5" />
 	</cityGates>
 	
 	<schools>
