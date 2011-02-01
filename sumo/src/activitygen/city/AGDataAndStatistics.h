@@ -126,6 +126,8 @@ public:
      * function evaluating the POISSON's lay (probability lay)
      * it returns the number of children with a probability of POISSON in a household
      * is given the mean of the distribution
+     *
+     * TODO Consider reimplementation
      */
     int getPoissonsNumberOfChildren(SUMOReal mean);
     /**
@@ -167,6 +169,8 @@ private:
      * returns the POISSON's probability (exp(-m)*m^k/k!)
      * @arg: mean of the distribution
      * @arg: number of occurrences
+     *
+     * TODO Create a Poisson distribution class for this. Or is it in Boost?
      */
     SUMOReal poisson(SUMOReal mean, int occ);
     /**
