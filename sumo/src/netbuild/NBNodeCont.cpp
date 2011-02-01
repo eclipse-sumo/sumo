@@ -486,10 +486,8 @@ NBNodeCont::recheckEdges(NBDistrictCont &dc, NBTrafficLightLogicCont &tlc,
             NBNode *connected = e->getToNode();
             if (connectionCount.find(connected)==connectionCount.end()) {
                 connectionCount[connected] = EdgeVector();
-                connectionCount[connected].push_back(e);
-            } else {
-                connectionCount[connected].push_back(e);
             }
+            connectionCount[connected].push_back(e);
         }
         // check whether more than a single edge connect another node
         //  and join them
