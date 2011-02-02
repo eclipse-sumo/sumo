@@ -1,7 +1,9 @@
 <?xml version="1.0"?>
 
-<!-- generated on 04/26/10 10:09:45 by SUMO sumo Version dev-SVN-r8163
-<configuration>
+<!-- generated on 02/02/11 13:47:41 by SUMO sumo Version dev-SVN-r9650
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/sumoConfiguration.xsd">
 
     <input>
         <net-file value="three_split.net.xml"/>
@@ -43,7 +45,7 @@
 
     <vehicle id="emitter_60.00_3" depart="60.00" arrival="223.00">
         <routeDistribution>
-            <route replacedOnEdge="beg" replacedAtTime="60.00" probability="0" edges="beg middle end rend"/>
+            <route replacedOnEdge="" replacedAtTime="60.00" probability="0" edges="beg middle end rend"/>
             <route edges="beg beg2right right right2end end"/>
         </routeDistribution>
     </vehicle>
@@ -54,7 +56,7 @@
 
     <vehicle id="emitter_80.00_4" depart="80.00" arrival="243.00">
         <routeDistribution>
-            <route replacedOnEdge="beg" replacedAtTime="80.00" probability="0" edges="beg middle end rend"/>
+            <route replacedOnEdge="" replacedAtTime="80.00" probability="0" edges="beg middle end rend"/>
             <route edges="beg beg2right right right2end end"/>
         </routeDistribution>
     </vehicle>
@@ -65,7 +67,7 @@
 
     <vehicle id="emitter_100.00_5" depart="100.00" arrival="263.00">
         <routeDistribution>
-            <route replacedOnEdge="beg" replacedAtTime="100.00" probability="0" edges="beg middle end rend"/>
+            <route replacedOnEdge="" replacedAtTime="100.00" probability="0" edges="beg middle end rend"/>
             <route edges="beg beg2right right right2end end"/>
         </routeDistribution>
     </vehicle>

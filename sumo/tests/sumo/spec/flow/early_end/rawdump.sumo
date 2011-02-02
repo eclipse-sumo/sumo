@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 01/05/11 14:44:47 by SUMO sumo Version dev-SVN-r9525
+<!-- generated on 02/02/11 13:42:38 by SUMO sumo Version dev-SVN-r9650
 <?xml version="1.0" encoding="iso-8859-1"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/sumoConfiguration.xsd">
@@ -86,8 +86,8 @@
     <timestep time="5.00">
         <edge id="beg">
             <lane id="beg_0">
+                <vehicle id="f1.5" pos="0.00" speed="0.00"/>
                 <vehicle id="f1.0" pos="8.64" speed="2.94"/>
-                <vehicle id="f1.5" pos="19.18" speed="0.00"/>
                 <vehicle id="f1.2" pos="29.05" speed="1.70"/>
                 <vehicle id="f1.3" pos="38.78" speed="1.17"/>
                 <vehicle id="f1.4" pos="48.77" speed="1.89"/>
@@ -101,12 +101,12 @@
     <timestep time="6.00">
         <edge id="beg">
             <lane id="beg_0">
-                <vehicle id="f1.6" pos="0.00" speed="0.00"/>
-                <vehicle id="f1.0" pos="10.97" speed="2.33"/>
-                <vehicle id="f1.5" pos="20.28" speed="1.10"/>
+                <vehicle id="f1.5" pos="1.00" speed="1.00"/>
+                <vehicle id="f1.0" pos="13.02" speed="4.38"/>
                 <vehicle id="f1.2" pos="30.61" speed="1.55"/>
                 <vehicle id="f1.3" pos="40.12" speed="1.34"/>
                 <vehicle id="f1.4" pos="53.14" speed="4.36"/>
+                <vehicle id="f1.6" pos="65.10" speed="0.00"/>
             </lane>
             <lane id="beg_1">
                 <vehicle id="f1.1" pos="22.26" speed="3.68"/>
@@ -117,13 +117,13 @@
     <timestep time="7.00">
         <edge id="beg">
             <lane id="beg_0">
-                <vehicle id="f1.6" pos="2.22" speed="2.22"/>
-                <vehicle id="f1.0" pos="12.03" speed="1.05"/>
-                <vehicle id="f1.5" pos="21.48" speed="1.20"/>
-                <vehicle id="f1.2" pos="31.60" speed="1.00"/>
-                <vehicle id="f1.3" pos="42.89" speed="2.77"/>
-                <vehicle id="f1.4" pos="59.47" speed="6.34"/>
-                <vehicle id="f1.7" pos="75.25" speed="0.00"/>
+                <vehicle id="f1.5" pos="3.93" speed="2.93"/>
+                <vehicle id="f1.0" pos="18.31" speed="5.28"/>
+                <vehicle id="f1.2" pos="31.51" speed="0.90"/>
+                <vehicle id="f1.3" pos="42.97" speed="2.85"/>
+                <vehicle id="f1.4" pos="55.31" speed="2.17"/>
+                <vehicle id="f1.6" pos="67.21" speed="2.10"/>
+                <vehicle id="f1.7" pos="76.91" speed="0.00"/>
             </lane>
             <lane id="beg_1">
                 <vehicle id="f1.1" pos="27.80" speed="5.54"/>
@@ -134,14 +134,14 @@
     <timestep time="8.00">
         <edge id="beg">
             <lane id="beg_0">
-                <vehicle id="f1.6" pos="3.90" speed="1.68"/>
-                <vehicle id="f1.0" pos="13.65" speed="1.62"/>
-                <vehicle id="f1.5" pos="23.28" speed="1.80"/>
-                <vehicle id="f1.2" pos="33.52" speed="1.92"/>
-                <vehicle id="f1.3" pos="47.97" speed="5.08"/>
-                <vehicle id="f1.4" pos="63.56" speed="4.08"/>
-                <vehicle id="f1.7" pos="77.81" speed="2.56"/>
-                <vehicle id="f1.8" pos="87.97" speed="0.00"/>
+                <vehicle id="f1.8" pos="0.00" speed="0.00"/>
+                <vehicle id="f1.5" pos="8.59" speed="4.66"/>
+                <vehicle id="f1.0" pos="22.23" speed="3.92"/>
+                <vehicle id="f1.2" pos="34.11" speed="2.60"/>
+                <vehicle id="f1.3" pos="45.51" speed="2.55"/>
+                <vehicle id="f1.4" pos="58.35" speed="3.04"/>
+                <vehicle id="f1.6" pos="68.16" speed="0.96"/>
+                <vehicle id="f1.7" pos="79.47" speed="2.56"/>
             </lane>
             <lane id="beg_1">
                 <vehicle id="f1.1" pos="35.10" speed="7.30"/>
@@ -152,17 +152,17 @@
     <timestep time="9.00">
         <edge id="beg">
             <lane id="beg_0">
-                <vehicle id="f1.6" pos="5.45" speed="1.56"/>
-                <vehicle id="f1.9" pos="14.61" speed="0.00"/>
-                <vehicle id="f1.5" pos="25.34" speed="2.06"/>
-                <vehicle id="f1.2" pos="37.47" speed="3.95"/>
-                <vehicle id="f1.3" pos="51.95" speed="3.98"/>
-                <vehicle id="f1.4" pos="67.74" speed="4.18"/>
-                <vehicle id="f1.7" pos="79.72" speed="1.91"/>
-                <vehicle id="f1.8" pos="90.36" speed="2.39"/>
+                <vehicle id="f1.8" pos="0.93" speed="0.93"/>
+                <vehicle id="f1.5" pos="12.62" speed="4.03"/>
+                <vehicle id="f1.0" pos="25.30" speed="3.07"/>
+                <vehicle id="f1.2" pos="36.54" speed="2.43"/>
+                <vehicle id="f1.3" pos="48.09" speed="2.57"/>
+                <vehicle id="f1.4" pos="60.00" speed="1.66"/>
+                <vehicle id="f1.6" pos="70.77" speed="2.61"/>
+                <vehicle id="f1.7" pos="84.34" speed="4.86"/>
+                <vehicle id="f1.9" pos="97.17" speed="0.00"/>
             </lane>
             <lane id="beg_1">
-                <vehicle id="f1.0" pos="15.31" speed="1.67"/>
                 <vehicle id="f1.1" pos="43.96" speed="8.86"/>
             </lane>
             <lane id="beg_2"/>
@@ -171,18 +171,18 @@
     <timestep time="10.00">
         <edge id="beg">
             <lane id="beg_0">
-                <vehicle id="f1.6" pos="6.30" speed="0.85"/>
-                <vehicle id="f1.9" pos="17.02" speed="2.41"/>
-                <vehicle id="f1.5" pos="27.88" speed="2.54"/>
-                <vehicle id="f1.2" pos="41.22" speed="3.75"/>
-                <vehicle id="f1.3" pos="56.47" speed="4.52"/>
-                <vehicle id="f1.4" pos="70.16" speed="2.43"/>
-                <vehicle id="f1.7" pos="81.03" speed="1.31"/>
-                <vehicle id="f1.8" pos="94.10" speed="3.74"/>
+                <vehicle id="f1.8" pos="3.74" speed="2.81"/>
+                <vehicle id="f1.5" pos="15.29" speed="2.68"/>
+                <vehicle id="f1.0" pos="28.03" speed="2.73"/>
+                <vehicle id="f1.2" pos="38.74" speed="2.20"/>
+                <vehicle id="f1.3" pos="50.45" speed="2.36"/>
+                <vehicle id="f1.4" pos="61.79" speed="1.79"/>
+                <vehicle id="f1.6" pos="74.26" speed="3.50"/>
+                <vehicle id="f1.7" pos="86.95" speed="2.61"/>
+                <vehicle id="f1.9" pos="98.56" speed="1.40"/>
             </lane>
             <lane id="beg_1">
-                <vehicle id="f1.0" pos="18.82" speed="3.50"/>
-                <vehicle id="f1.1" pos="54.84" speed="10.87"/>
+                <vehicle id="f1.1" pos="54.47" speed="10.51"/>
             </lane>
             <lane id="beg_2"/>
         </edge>
@@ -190,18 +190,18 @@
     <timestep time="11.00">
         <edge id="beg">
             <lane id="beg_0">
-                <vehicle id="f1.6" pos="8.09" speed="1.79"/>
-                <vehicle id="f1.9" pos="19.42" speed="2.39"/>
-                <vehicle id="f1.5" pos="30.74" speed="2.86"/>
-                <vehicle id="f1.2" pos="45.99" speed="4.78"/>
-                <vehicle id="f1.3" pos="59.91" speed="3.43"/>
-                <vehicle id="f1.4" pos="72.59" speed="2.42"/>
-                <vehicle id="f1.7" pos="84.86" speed="3.83"/>
-                <vehicle id="f1.8" pos="99.97" speed="5.87"/>
+                <vehicle id="f1.8" pos="6.16" speed="2.42"/>
+                <vehicle id="f1.5" pos="18.29" speed="2.99"/>
+                <vehicle id="f1.2" pos="40.68" speed="1.94"/>
+                <vehicle id="f1.3" pos="53.12" speed="2.68"/>
+                <vehicle id="f1.4" pos="64.56" speed="2.77"/>
+                <vehicle id="f1.6" pos="77.76" speed="3.49"/>
+                <vehicle id="f1.7" pos="89.98" speed="3.04"/>
+                <vehicle id="f1.9" pos="102.17" speed="3.60"/>
             </lane>
             <lane id="beg_1">
-                <vehicle id="f1.0" pos="24.43" speed="5.61"/>
-                <vehicle id="f1.1" pos="67.38" speed="12.55"/>
+                <vehicle id="f1.0" pos="30.33" speed="2.30"/>
+                <vehicle id="f1.1" pos="66.87" speed="12.39"/>
             </lane>
             <lane id="beg_2"/>
         </edge>
@@ -209,18 +209,18 @@
     <timestep time="12.00">
         <edge id="beg">
             <lane id="beg_0">
-                <vehicle id="f1.6" pos="10.90" speed="2.81"/>
-                <vehicle id="f1.9" pos="22.09" speed="2.67"/>
-                <vehicle id="f1.5" pos="34.66" speed="3.92"/>
-                <vehicle id="f1.3" pos="63.17" speed="3.26"/>
-                <vehicle id="f1.4" pos="75.93" speed="3.35"/>
-                <vehicle id="f1.7" pos="89.74" speed="4.88"/>
-                <vehicle id="f1.8" pos="107.99" speed="8.02"/>
+                <vehicle id="f1.8" pos="9.44" speed="3.28"/>
+                <vehicle id="f1.5" pos="23.56" speed="5.27"/>
+                <vehicle id="f1.2" pos="43.00" speed="2.32"/>
+                <vehicle id="f1.3" pos="55.70" speed="2.57"/>
+                <vehicle id="f1.4" pos="68.10" speed="3.54"/>
+                <vehicle id="f1.6" pos="81.07" speed="3.32"/>
+                <vehicle id="f1.7" pos="92.68" speed="2.70"/>
+                <vehicle id="f1.9" pos="107.99" speed="5.82"/>
             </lane>
             <lane id="beg_1">
-                <vehicle id="f1.0" pos="31.80" speed="7.37"/>
-                <vehicle id="f1.2" pos="49.94" speed="3.95"/>
-                <vehicle id="f1.1" pos="81.11" speed="13.73"/>
+                <vehicle id="f1.0" pos="34.48" speed="4.15"/>
+                <vehicle id="f1.1" pos="80.44" speed="13.58"/>
             </lane>
             <lane id="beg_2"/>
         </edge>
@@ -228,18 +228,18 @@
     <timestep time="13.00">
         <edge id="beg">
             <lane id="beg_0">
-                <vehicle id="f1.6" pos="12.81" speed="1.91"/>
-                <vehicle id="f1.9" pos="25.27" speed="3.19"/>
-                <vehicle id="f1.5" pos="40.70" speed="6.03"/>
-                <vehicle id="f1.3" pos="66.63" speed="3.46"/>
-                <vehicle id="f1.4" pos="79.57" speed="3.64"/>
-                <vehicle id="f1.7" pos="96.54" speed="6.80"/>
-                <vehicle id="f1.8" pos="117.63" speed="9.64"/>
+                <vehicle id="f1.8" pos="14.16" speed="4.71"/>
+                <vehicle id="f1.5" pos="29.51" speed="5.96"/>
+                <vehicle id="f1.2" pos="46.25" speed="3.25"/>
+                <vehicle id="f1.3" pos="58.86" speed="3.17"/>
+                <vehicle id="f1.4" pos="71.68" speed="3.58"/>
+                <vehicle id="f1.6" pos="83.29" speed="2.22"/>
+                <vehicle id="f1.7" pos="97.37" speed="4.69"/>
+                <vehicle id="f1.9" pos="115.50" speed="7.50"/>
             </lane>
             <lane id="beg_1">
-                <vehicle id="f1.0" pos="37.86" speed="6.06"/>
-                <vehicle id="f1.2" pos="56.28" speed="6.34"/>
-                <vehicle id="f1.1" pos="96.85" speed="15.74"/>
+                <vehicle id="f1.0" pos="40.86" speed="6.38"/>
+                <vehicle id="f1.1" pos="96.07" speed="15.62"/>
             </lane>
             <lane id="beg_2"/>
         </edge>
@@ -247,18 +247,18 @@
     <timestep time="14.00">
         <edge id="beg">
             <lane id="beg_0">
-                <vehicle id="f1.6" pos="15.65" speed="2.84"/>
-                <vehicle id="f1.9" pos="30.44" speed="5.17"/>
-                <vehicle id="f1.5" pos="48.69" speed="7.99"/>
-                <vehicle id="f1.3" pos="69.25" speed="2.62"/>
-                <vehicle id="f1.4" pos="85.65" speed="6.08"/>
-                <vehicle id="f1.7" pos="105.35" speed="8.81"/>
-                <vehicle id="f1.8" pos="129.39" speed="11.77"/>
+                <vehicle id="f1.8" pos="18.87" speed="4.71"/>
+                <vehicle id="f1.5" pos="34.48" speed="4.97"/>
+                <vehicle id="f1.2" pos="49.38" speed="3.12"/>
+                <vehicle id="f1.3" pos="62.16" speed="3.30"/>
+                <vehicle id="f1.4" pos="73.53" speed="1.86"/>
+                <vehicle id="f1.6" pos="87.77" speed="4.48"/>
+                <vehicle id="f1.7" pos="104.14" speed="6.76"/>
+                <vehicle id="f1.9" pos="125.20" speed="9.71"/>
             </lane>
             <lane id="beg_1">
-                <vehicle id="f1.0" pos="44.53" speed="6.67"/>
-                <vehicle id="f1.2" pos="64.41" speed="8.13"/>
-                <vehicle id="f1.1" pos="113.80" speed="16.95"/>
+                <vehicle id="f1.0" pos="49.16" speed="8.30"/>
+                <vehicle id="f1.1" pos="113.21" speed="17.15"/>
             </lane>
             <lane id="beg_2"/>
         </edge>
@@ -266,18 +266,18 @@
     <timestep time="15.00">
         <edge id="beg">
             <lane id="beg_0">
-                <vehicle id="f1.6" pos="20.14" speed="4.50"/>
-                <vehicle id="f1.9" pos="37.53" speed="7.08"/>
-                <vehicle id="f1.5" pos="55.10" speed="6.41"/>
-                <vehicle id="f1.3" pos="73.82" speed="4.57"/>
-                <vehicle id="f1.4" pos="93.10" speed="7.45"/>
-                <vehicle id="f1.7" pos="115.80" speed="10.45"/>
-                <vehicle id="f1.8" pos="142.31" speed="12.92"/>
+                <vehicle id="f1.5" pos="38.70" speed="4.22"/>
+                <vehicle id="f1.2" pos="52.59" speed="3.21"/>
+                <vehicle id="f1.3" pos="64.20" speed="2.04"/>
+                <vehicle id="f1.4" pos="77.36" speed="3.83"/>
+                <vehicle id="f1.6" pos="93.21" speed="5.44"/>
+                <vehicle id="f1.7" pos="112.60" speed="8.46"/>
+                <vehicle id="f1.9" pos="136.10" speed="10.90"/>
             </lane>
             <lane id="beg_1">
-                <vehicle id="f1.0" pos="51.84" speed="7.32"/>
-                <vehicle id="f1.2" pos="74.14" speed="9.73"/>
-                <vehicle id="f1.1" pos="131.84" speed="18.04"/>
+                <vehicle id="f1.8" pos="23.13" speed="4.26"/>
+                <vehicle id="f1.0" pos="58.79" speed="9.63"/>
+                <vehicle id="f1.1" pos="131.73" speed="18.52"/>
             </lane>
             <lane id="beg_2"/>
         </edge>
@@ -285,18 +285,18 @@
     <timestep time="16.00">
         <edge id="beg">
             <lane id="beg_0">
-                <vehicle id="f1.6" pos="26.25" speed="6.11"/>
-                <vehicle id="f1.9" pos="44.23" speed="6.70"/>
-                <vehicle id="f1.5" pos="61.09" speed="5.99"/>
-                <vehicle id="f1.3" pos="80.05" speed="6.23"/>
-                <vehicle id="f1.4" pos="102.00" speed="8.90"/>
-                <vehicle id="f1.7" pos="128.16" speed="12.36"/>
-                <vehicle id="f1.8" pos="156.62" speed="14.31"/>
+                <vehicle id="f1.5" pos="42.17" speed="3.46"/>
+                <vehicle id="f1.2" pos="55.53" speed="2.94"/>
+                <vehicle id="f1.3" pos="67.57" speed="3.37"/>
+                <vehicle id="f1.4" pos="82.27" speed="4.90"/>
+                <vehicle id="f1.6" pos="100.15" speed="6.94"/>
+                <vehicle id="f1.7" pos="123.04" speed="10.44"/>
+                <vehicle id="f1.9" pos="148.44" speed="12.34"/>
             </lane>
             <lane id="beg_1">
-                <vehicle id="f1.0" pos="61.15" speed="9.31"/>
-                <vehicle id="f1.2" pos="85.67" speed="11.53"/>
-                <vehicle id="f1.1" pos="151.50" speed="19.66"/>
+                <vehicle id="f1.8" pos="29.49" speed="6.36"/>
+                <vehicle id="f1.0" pos="70.22" speed="11.43"/>
+                <vehicle id="f1.1" pos="151.85" speed="20.11"/>
             </lane>
             <lane id="beg_2"/>
         </edge>
@@ -304,18 +304,18 @@
     <timestep time="17.00">
         <edge id="beg">
             <lane id="beg_0">
-                <vehicle id="f1.9" pos="50.15" speed="5.92"/>
-                <vehicle id="f1.5" pos="67.82" speed="6.73"/>
-                <vehicle id="f1.3" pos="88.60" speed="8.55"/>
-                <vehicle id="f1.4" pos="112.75" speed="10.74"/>
-                <vehicle id="f1.7" pos="141.73" speed="13.57"/>
-                <vehicle id="f1.8" pos="172.02" speed="15.40"/>
+                <vehicle id="f1.5" pos="45.13" speed="2.96"/>
+                <vehicle id="f1.2" pos="58.39" speed="2.86"/>
+                <vehicle id="f1.3" pos="71.90" speed="4.33"/>
+                <vehicle id="f1.4" pos="89.36" speed="7.10"/>
+                <vehicle id="f1.6" pos="108.99" speed="8.84"/>
+                <vehicle id="f1.7" pos="134.61" speed="11.57"/>
+                <vehicle id="f1.9" pos="161.92" speed="13.47"/>
             </lane>
             <lane id="beg_1">
-                <vehicle id="f1.6" pos="32.31" speed="6.06"/>
-                <vehicle id="f1.0" pos="72.59" speed="11.43"/>
-                <vehicle id="f1.2" pos="98.62" speed="12.95"/>
-                <vehicle id="f1.1" pos="172.90" speed="21.40"/>
+                <vehicle id="f1.8" pos="38.07" speed="8.58"/>
+                <vehicle id="f1.0" pos="83.08" speed="12.86"/>
+                <vehicle id="f1.1" pos="173.69" speed="21.84"/>
             </lane>
             <lane id="beg_2"/>
         </edge>
@@ -323,18 +323,18 @@
     <timestep time="18.00">
         <edge id="beg">
             <lane id="beg_0">
-                <vehicle id="f1.9" pos="56.36" speed="6.21"/>
-                <vehicle id="f1.5" pos="76.11" speed="8.29"/>
-                <vehicle id="f1.3" pos="98.79" speed="10.19"/>
-                <vehicle id="f1.4" pos="125.40" speed="12.65"/>
-                <vehicle id="f1.7" pos="156.80" speed="15.07"/>
-                <vehicle id="f1.8" pos="188.79" speed="16.77"/>
+                <vehicle id="f1.5" pos="48.70" speed="3.57"/>
+                <vehicle id="f1.2" pos="61.70" speed="3.31"/>
+                <vehicle id="f1.3" pos="78.17" speed="6.27"/>
+                <vehicle id="f1.4" pos="97.17" speed="7.80"/>
+                <vehicle id="f1.6" pos="119.80" speed="10.81"/>
+                <vehicle id="f1.7" pos="147.58" speed="12.98"/>
+                <vehicle id="f1.9" pos="176.80" speed="14.89"/>
             </lane>
             <lane id="beg_1">
-                <vehicle id="f1.6" pos="39.78" speed="7.47"/>
-                <vehicle id="f1.0" pos="85.21" speed="12.62"/>
-                <vehicle id="f1.2" pos="112.77" speed="14.15"/>
-                <vehicle id="f1.1" pos="195.80" speed="22.90"/>
+                <vehicle id="f1.8" pos="48.00" speed="9.93"/>
+                <vehicle id="f1.0" pos="97.90" speed="14.82"/>
+                <vehicle id="f1.1" pos="196.54" speed="22.85"/>
             </lane>
             <lane id="beg_2"/>
         </edge>
@@ -342,18 +342,18 @@
     <timestep time="19.00">
         <edge id="beg">
             <lane id="beg_0">
-                <vehicle id="f1.9" pos="63.95" speed="7.59"/>
-                <vehicle id="f1.5" pos="85.49" speed="9.38"/>
-                <vehicle id="f1.3" pos="110.19" speed="11.40"/>
-                <vehicle id="f1.4" pos="139.62" speed="14.22"/>
-                <vehicle id="f1.7" pos="173.51" speed="16.71"/>
-                <vehicle id="f1.8" pos="206.60" speed="17.81"/>
+                <vehicle id="f1.5" pos="51.50" speed="2.80"/>
+                <vehicle id="f1.2" pos="66.73" speed="5.03"/>
+                <vehicle id="f1.3" pos="85.11" speed="6.94"/>
+                <vehicle id="f1.4" pos="106.23" speed="9.06"/>
+                <vehicle id="f1.6" pos="132.22" speed="12.42"/>
+                <vehicle id="f1.7" pos="162.43" speed="14.84"/>
+                <vehicle id="f1.9" pos="192.77" speed="15.97"/>
             </lane>
             <lane id="beg_1">
-                <vehicle id="f1.6" pos="48.91" speed="9.13"/>
-                <vehicle id="f1.0" pos="98.54" speed="13.34"/>
-                <vehicle id="f1.2" pos="128.89" speed="16.12"/>
-                <vehicle id="f1.1" pos="219.73" speed="23.93"/>
+                <vehicle id="f1.8" pos="59.53" speed="11.53"/>
+                <vehicle id="f1.0" pos="114.20" speed="16.31"/>
+                <vehicle id="f1.1" pos="221.05" speed="24.52"/>
             </lane>
             <lane id="beg_2"/>
         </edge>
@@ -361,18 +361,18 @@
     <timestep time="20.00">
         <edge id="beg">
             <lane id="beg_0">
-                <vehicle id="f1.9" pos="72.99" speed="9.03"/>
-                <vehicle id="f1.5" pos="96.20" speed="10.72"/>
-                <vehicle id="f1.3" pos="123.27" speed="13.08"/>
-                <vehicle id="f1.4" pos="155.57" speed="15.95"/>
-                <vehicle id="f1.7" pos="191.11" speed="17.60"/>
-                <vehicle id="f1.8" pos="225.73" speed="19.13"/>
+                <vehicle id="f1.5" pos="56.52" speed="5.02"/>
+                <vehicle id="f1.2" pos="73.66" speed="6.94"/>
+                <vehicle id="f1.3" pos="93.29" speed="8.18"/>
+                <vehicle id="f1.4" pos="117.05" speed="10.82"/>
+                <vehicle id="f1.6" pos="146.43" speed="14.21"/>
+                <vehicle id="f1.7" pos="178.27" speed="15.84"/>
+                <vehicle id="f1.9" pos="210.11" speed="17.34"/>
             </lane>
             <lane id="beg_1">
-                <vehicle id="f1.6" pos="59.33" speed="10.42"/>
-                <vehicle id="f1.0" pos="113.50" speed="14.95"/>
-                <vehicle id="f1.2" pos="146.14" speed="17.25"/>
-                <vehicle id="f1.1" pos="245.24" speed="25.51"/>
+                <vehicle id="f1.8" pos="72.30" speed="12.77"/>
+                <vehicle id="f1.0" pos="132.04" speed="17.84"/>
+                <vehicle id="f1.1" pos="246.52" speed="25.47"/>
             </lane>
             <lane id="beg_2"/>
         </edge>
@@ -380,18 +380,18 @@
     <timestep time="21.00">
         <edge id="beg">
             <lane id="beg_0">
-                <vehicle id="f1.9" pos="83.30" speed="10.32"/>
-                <vehicle id="f1.5" pos="109.00" speed="12.80"/>
-                <vehicle id="f1.3" pos="137.59" speed="14.33"/>
-                <vehicle id="f1.4" pos="172.74" speed="17.17"/>
-                <vehicle id="f1.7" pos="209.65" speed="18.54"/>
-                <vehicle id="f1.8" pos="245.85" speed="20.12"/>
+                <vehicle id="f1.5" pos="62.31" speed="5.79"/>
+                <vehicle id="f1.2" pos="81.44" speed="7.78"/>
+                <vehicle id="f1.3" pos="103.64" speed="10.35"/>
+                <vehicle id="f1.4" pos="129.16" speed="12.11"/>
+                <vehicle id="f1.6" pos="161.70" speed="15.27"/>
+                <vehicle id="f1.7" pos="194.93" speed="16.66"/>
+                <vehicle id="f1.9" pos="228.46" speed="18.35"/>
             </lane>
             <lane id="beg_1">
-                <vehicle id="f1.6" pos="70.98" speed="11.66"/>
-                <vehicle id="f1.0" pos="130.49" speed="16.99"/>
-                <vehicle id="f1.2" pos="164.90" speed="18.75"/>
-                <vehicle id="f1.1" pos="271.67" speed="26.43"/>
+                <vehicle id="f1.8" pos="86.26" speed="13.96"/>
+                <vehicle id="f1.0" pos="151.80" speed="19.76"/>
+                <vehicle id="f1.1" pos="273.26" speed="26.74"/>
             </lane>
             <lane id="beg_2"/>
         </edge>
@@ -399,18 +399,18 @@
     <timestep time="22.00">
         <edge id="beg">
             <lane id="beg_0">
-                <vehicle id="f1.9" pos="94.93" speed="11.63"/>
-                <vehicle id="f1.5" pos="122.97" speed="13.97"/>
-                <vehicle id="f1.3" pos="153.78" speed="16.19"/>
-                <vehicle id="f1.4" pos="191.49" speed="18.75"/>
-                <vehicle id="f1.7" pos="229.19" speed="19.53"/>
-                <vehicle id="f1.8" pos="267.53" speed="21.68"/>
+                <vehicle id="f1.5" pos="69.70" speed="7.39"/>
+                <vehicle id="f1.2" pos="90.59" speed="9.15"/>
+                <vehicle id="f1.3" pos="115.49" speed="11.84"/>
+                <vehicle id="f1.4" pos="143.21" speed="14.05"/>
+                <vehicle id="f1.6" pos="178.47" speed="16.77"/>
+                <vehicle id="f1.7" pos="212.59" speed="17.66"/>
+                <vehicle id="f1.9" pos="248.43" speed="19.97"/>
             </lane>
             <lane id="beg_1">
-                <vehicle id="f1.6" pos="84.30" speed="13.32"/>
-                <vehicle id="f1.0" pos="148.17" speed="17.68"/>
-                <vehicle id="f1.2" pos="184.83" speed="19.94"/>
-                <vehicle id="f1.1" pos="299.11" speed="27.44"/>
+                <vehicle id="f1.8" pos="101.81" speed="15.55"/>
+                <vehicle id="f1.0" pos="172.59" speed="20.79"/>
+                <vehicle id="f1.1" pos="300.45" speed="27.19"/>
             </lane>
             <lane id="beg_2"/>
         </edge>
@@ -418,18 +418,18 @@
     <timestep time="23.00">
         <edge id="beg">
             <lane id="beg_0">
-                <vehicle id="f1.9" pos="108.57" speed="13.64"/>
-                <vehicle id="f1.5" pos="138.44" speed="15.47"/>
-                <vehicle id="f1.3" pos="171.85" speed="18.06"/>
-                <vehicle id="f1.4" pos="210.55" speed="19.06"/>
-                <vehicle id="f1.7" pos="250.49" speed="21.31"/>
-                <vehicle id="f1.8" pos="290.92" speed="23.39"/>
+                <vehicle id="f1.5" pos="77.86" speed="8.15"/>
+                <vehicle id="f1.2" pos="101.82" speed="11.24"/>
+                <vehicle id="f1.3" pos="128.78" speed="13.30"/>
+                <vehicle id="f1.4" pos="159.20" speed="16.00"/>
+                <vehicle id="f1.6" pos="195.42" speed="16.95"/>
+                <vehicle id="f1.7" pos="232.08" speed="19.49"/>
+                <vehicle id="f1.9" pos="270.18" speed="21.74"/>
             </lane>
             <lane id="beg_1">
-                <vehicle id="f1.6" pos="98.99" speed="14.69"/>
-                <vehicle id="f1.0" pos="167.38" speed="19.21"/>
-                <vehicle id="f1.2" pos="206.30" speed="21.47"/>
-                <vehicle id="f1.1" pos="326.28" speed="27.17"/>
+                <vehicle id="f1.8" pos="118.67" speed="16.87"/>
+                <vehicle id="f1.0" pos="194.81" speed="22.22"/>
+                <vehicle id="f1.1" pos="327.96" speed="27.51"/>
             </lane>
             <lane id="beg_2"/>
         </edge>
@@ -437,18 +437,18 @@
     <timestep time="24.00">
         <edge id="beg">
             <lane id="beg_0">
-                <vehicle id="f1.9" pos="123.65" speed="15.08"/>
-                <vehicle id="f1.5" pos="155.69" speed="17.25"/>
-                <vehicle id="f1.3" pos="190.68" speed="18.83"/>
-                <vehicle id="f1.4" pos="231.07" speed="20.53"/>
-                <vehicle id="f1.7" pos="273.42" speed="22.93"/>
-                <vehicle id="f1.8" pos="315.85" speed="24.92"/>
+                <vehicle id="f1.5" pos="87.29" speed="9.43"/>
+                <vehicle id="f1.2" pos="114.68" speed="12.86"/>
+                <vehicle id="f1.3" pos="143.93" speed="15.15"/>
+                <vehicle id="f1.4" pos="176.09" speed="16.89"/>
+                <vehicle id="f1.6" pos="213.90" speed="18.48"/>
+                <vehicle id="f1.7" pos="253.28" speed="21.20"/>
+                <vehicle id="f1.9" pos="293.51" speed="23.33"/>
             </lane>
             <lane id="beg_1">
-                <vehicle id="f1.6" pos="115.51" speed="16.52"/>
-                <vehicle id="f1.0" pos="188.27" speed="20.89"/>
-                <vehicle id="f1.2" pos="229.40" speed="23.10"/>
-                <vehicle id="f1.1" pos="353.36" speed="27.08"/>
+                <vehicle id="f1.8" pos="137.30" speed="18.63"/>
+                <vehicle id="f1.0" pos="218.62" speed="23.80"/>
+                <vehicle id="f1.1" pos="355.61" speed="27.65"/>
             </lane>
             <lane id="beg_2"/>
         </edge>
@@ -456,18 +456,18 @@
     <timestep time="25.00">
         <edge id="beg">
             <lane id="beg_0">
-                <vehicle id="f1.9" pos="139.91" speed="16.26"/>
-                <vehicle id="f1.5" pos="174.06" speed="18.37"/>
-                <vehicle id="f1.3" pos="211.33" speed="20.66"/>
-                <vehicle id="f1.4" pos="252.93" speed="21.86"/>
-                <vehicle id="f1.7" pos="298.03" speed="24.60"/>
-                <vehicle id="f1.8" pos="341.84" speed="25.99"/>
+                <vehicle id="f1.5" pos="98.36" speed="11.07"/>
+                <vehicle id="f1.2" pos="128.85" speed="14.17"/>
+                <vehicle id="f1.3" pos="160.36" speed="16.44"/>
+                <vehicle id="f1.6" pos="233.77" speed="19.87"/>
+                <vehicle id="f1.7" pos="276.26" speed="22.98"/>
+                <vehicle id="f1.9" pos="317.95" speed="24.44"/>
             </lane>
             <lane id="beg_1">
-                <vehicle id="f1.6" pos="133.11" speed="17.61"/>
-                <vehicle id="f1.0" pos="210.79" speed="22.52"/>
-                <vehicle id="f1.2" pos="253.48" speed="24.07"/>
-                <vehicle id="f1.1" pos="380.71" speed="27.35"/>
+                <vehicle id="f1.8" pos="156.97" speed="19.67"/>
+                <vehicle id="f1.4" pos="194.87" speed="18.78"/>
+                <vehicle id="f1.0" pos="243.96" speed="25.34"/>
+                <vehicle id="f1.1" pos="382.69" speed="27.08"/>
             </lane>
             <lane id="beg_2"/>
         </edge>
@@ -475,18 +475,18 @@
     <timestep time="26.00">
         <edge id="beg">
             <lane id="beg_0">
-                <vehicle id="f1.9" pos="158.12" speed="18.22"/>
-                <vehicle id="f1.5" pos="193.80" speed="19.74"/>
-                <vehicle id="f1.3" pos="233.39" speed="22.05"/>
-                <vehicle id="f1.4" pos="276.21" speed="23.28"/>
-                <vehicle id="f1.7" pos="323.03" speed="25.00"/>
-                <vehicle id="f1.8" pos="368.89" speed="27.05"/>
+                <vehicle id="f1.5" pos="111.60" speed="13.25"/>
+                <vehicle id="f1.2" pos="144.51" speed="15.66"/>
+                <vehicle id="f1.3" pos="178.71" speed="18.34"/>
+                <vehicle id="f1.6" pos="255.11" speed="21.34"/>
+                <vehicle id="f1.7" pos="299.73" speed="23.46"/>
+                <vehicle id="f1.9" pos="343.48" speed="25.53"/>
             </lane>
             <lane id="beg_1">
-                <vehicle id="f1.6" pos="151.97" speed="18.86"/>
-                <vehicle id="f1.0" pos="234.23" speed="23.44"/>
-                <vehicle id="f1.2" pos="279.16" speed="25.68"/>
-                <vehicle id="f1.1" pos="408.16" speed="27.44"/>
+                <vehicle id="f1.8" pos="175.54" speed="18.57"/>
+                <vehicle id="f1.4" pos="214.94" speed="20.07"/>
+                <vehicle id="f1.0" pos="270.86" speed="26.90"/>
+                <vehicle id="f1.1" pos="410.13" speed="27.44"/>
             </lane>
             <lane id="beg_2"/>
         </edge>
@@ -494,18 +494,18 @@
     <timestep time="27.00">
         <edge id="beg">
             <lane id="beg_0">
-                <vehicle id="f1.9" pos="177.59" speed="19.47"/>
-                <vehicle id="f1.5" pos="214.93" speed="21.13"/>
-                <vehicle id="f1.3" pos="256.77" speed="23.39"/>
-                <vehicle id="f1.4" pos="300.74" speed="24.53"/>
-                <vehicle id="f1.7" pos="349.52" speed="26.49"/>
-                <vehicle id="f1.8" pos="396.26" speed="27.37"/>
+                <vehicle id="f1.5" pos="126.85" speed="15.25"/>
+                <vehicle id="f1.2" pos="161.67" speed="17.16"/>
+                <vehicle id="f1.3" pos="198.96" speed="20.25"/>
+                <vehicle id="f1.6" pos="277.76" speed="22.65"/>
+                <vehicle id="f1.7" pos="324.73" speed="25.00"/>
+                <vehicle id="f1.9" pos="370.22" speed="26.75"/>
             </lane>
             <lane id="beg_1">
-                <vehicle id="f1.6" pos="172.17" speed="20.20"/>
-                <vehicle id="f1.0" pos="259.24" speed="25.01"/>
-                <vehicle id="f1.2" pos="305.71" speed="26.55"/>
-                <vehicle id="f1.1" pos="435.65" speed="27.49"/>
+                <vehicle id="f1.8" pos="195.46" speed="19.92"/>
+                <vehicle id="f1.4" pos="236.69" speed="21.75"/>
+                <vehicle id="f1.0" pos="297.89" speed="27.03"/>
+                <vehicle id="f1.1" pos="437.62" speed="27.49"/>
             </lane>
             <lane id="beg_2"/>
         </edge>
@@ -513,18 +513,18 @@
     <timestep time="28.00">
         <edge id="beg">
             <lane id="beg_0">
-                <vehicle id="f1.9" pos="198.27" speed="20.68"/>
-                <vehicle id="f1.5" pos="237.72" speed="22.78"/>
-                <vehicle id="f1.3" pos="281.05" speed="24.27"/>
-                <vehicle id="f1.4" pos="326.75" speed="26.00"/>
-                <vehicle id="f1.7" pos="376.30" speed="26.78"/>
-                <vehicle id="f1.8" pos="423.83" speed="27.56"/>
+                <vehicle id="f1.5" pos="143.90" speed="17.05"/>
+                <vehicle id="f1.2" pos="180.62" speed="18.95"/>
+                <vehicle id="f1.3" pos="220.75" speed="21.79"/>
+                <vehicle id="f1.6" pos="301.94" speed="24.18"/>
+                <vehicle id="f1.7" pos="350.82" speed="26.10"/>
+                <vehicle id="f1.9" pos="397.79" speed="27.56"/>
             </lane>
             <lane id="beg_1">
-                <vehicle id="f1.6" pos="193.39" speed="21.21"/>
-                <vehicle id="f1.0" pos="284.96" speed="25.72"/>
-                <vehicle id="f1.2" pos="333.33" speed="27.63"/>
-                <vehicle id="f1.1" pos="462.73" speed="27.08"/>
+                <vehicle id="f1.8" pos="216.40" speed="20.94"/>
+                <vehicle id="f1.4" pos="259.46" speed="22.77"/>
+                <vehicle id="f1.0" pos="325.51" speed="27.63"/>
+                <vehicle id="f1.1" pos="464.70" speed="27.08"/>
             </lane>
             <lane id="beg_2"/>
         </edge>
@@ -532,18 +532,18 @@
     <timestep time="29.00">
         <edge id="beg">
             <lane id="beg_0">
-                <vehicle id="f1.9" pos="220.39" speed="22.11"/>
-                <vehicle id="f1.5" pos="261.97" speed="24.25"/>
-                <vehicle id="f1.3" pos="306.82" speed="25.77"/>
-                <vehicle id="f1.4" pos="353.36" speed="26.61"/>
-                <vehicle id="f1.7" pos="403.67" speed="27.37"/>
-                <vehicle id="f1.8" pos="451.60" speed="27.78"/>
+                <vehicle id="f1.5" pos="162.58" speed="18.67"/>
+                <vehicle id="f1.2" pos="201.45" speed="20.83"/>
+                <vehicle id="f1.3" pos="244.15" speed="23.40"/>
+                <vehicle id="f1.6" pos="327.35" speed="25.41"/>
+                <vehicle id="f1.7" pos="378.12" speed="27.29"/>
+                <vehicle id="f1.9" pos="425.56" speed="27.78"/>
             </lane>
             <lane id="beg_1">
-                <vehicle id="f1.6" pos="215.75" speed="22.36"/>
-                <vehicle id="f1.0" pos="311.67" speed="26.71"/>
-                <vehicle id="f1.2" pos="360.89" speed="27.56"/>
-                <vehicle id="f1.1" pos="489.80" speed="27.07"/>
+                <vehicle id="f1.8" pos="238.49" speed="22.09"/>
+                <vehicle id="f1.4" pos="283.28" speed="23.82"/>
+                <vehicle id="f1.0" pos="353.07" speed="27.56"/>
+                <vehicle id="f1.1" pos="491.77" speed="27.07"/>
             </lane>
             <lane id="beg_2"/>
         </edge>
