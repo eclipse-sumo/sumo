@@ -59,6 +59,7 @@
 #include <utils/common/SUMOVehicleParameter.h>
 #include <utils/importio/LineReader.h>
 #include <utils/iodevices/OutputDevice.h>
+#include <utils/common/SUMOTime.h>
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -106,8 +107,8 @@ fillOptions() {
     oc.doRegister("begin", 'b', new Option_String("0", "TIME"));
     oc.addDescription("begin", "Time", "Defines the begin time; Previous trips will be discarded");
 
-    oc.doRegister("end", 'e', new Option_String("86400", "TIME"));
-    oc.addDescription("end", "Time", "Defines the end time; Later trips will be discarded");
+    oc.doRegister("end", 'e', new Option_String(SUMOTIME_MAXSTRING, "TIME"));
+    oc.addDescription("end", "Time", "Defines the end time; Later trips will be discarded; Defaults to the maximum time that SUMO can represent");
 
 
     // register the data processing options

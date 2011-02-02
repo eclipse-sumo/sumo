@@ -1,4 +1,4 @@
-SUMO od2trips Version dev-SVN-r9525
+SUMO od2trips Version dev-SVN-r9650
  Copyright (C) 2001-2011 DLR and contributors; http://sumo.sourceforge.net
  
 Importer of O/D-matrices for the road traffic simulation SUMO.
@@ -29,7 +29,9 @@ Usage: od2trips [OPTION]*
   -b, --begin TIME                 Defines the begin time;
                                      Previous trips will be discarded
   -e, --end TIME                   Defines the end time;
-                                     Later trips will be discarded
+                                     Later trips will be discarded;
+                                     Defaults to the maximum time that SUMO can
+                                     represent
 
  Processing Options:
   -s, --scale FLOAT                Scales the loaded flows by FLOAT

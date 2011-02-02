@@ -50,7 +50,7 @@
 // ===========================================================================
 ROJTRTurnDefLoader::ROJTRTurnDefLoader(RONet &net) throw()
         : SUMOSAXHandler("turn-definitions"), myNet(net),
-        myIntervalBegin(0), myIntervalEnd(86400), myEdge(0),
+        myIntervalBegin(0), myIntervalEnd(SUMOTime_MAX), myEdge(0),
         myHaveWarnedAboutDeprecatedSources(false),
         myHaveWarnedAboutDeprecatedSinks(false) {}
 

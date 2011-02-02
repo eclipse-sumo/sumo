@@ -39,6 +39,7 @@
 #include "RODFFrame.h"
 #include <router/ROFrame.h>
 #include <utils/common/RandHelper.h>
+#include <utils/common/SUMOTime.h>
 
 
 #ifdef CHECK_MEMORY_LEAKS
@@ -201,8 +202,8 @@ RODFFrame::fillOptions() {
     oc.doRegister("begin", 'b', new Option_String("0", "TIME"));
     oc.addDescription("begin", "Time", "Defines the begin time; Previous defs will be discarded");
 
-    oc.doRegister("end", 'e', new Option_String("86400", "TIME"));
-    oc.addDescription("end", "Time", "Defines the end time; Later defs will be discarded");
+    oc.doRegister("end", 'e', new Option_String(SUMOTIME_MAXSTRING, "TIME"));
+    oc.addDescription("end", "Time", "Defines the end time; Later defs will be discarded; Defaults to the maximum time that SUMO can represent");
 
 
     // register report options
