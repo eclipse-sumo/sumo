@@ -63,9 +63,10 @@ typedef int SUMOTime;
 
 #else
 
-// the step length in s
+// the step length in ms
 extern SUMOTime DELTA_T;
 
+// the step length in seconds as SUMOReal
 #define TS (static_cast<SUMOReal>(DELTA_T/1000.))
 
 // x*deltaT

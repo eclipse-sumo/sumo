@@ -43,17 +43,10 @@ SUMOTime DELTA_T = 1000;
 // ===========================================================================
 SUMOTime
 string2time(const std::string &r) throw(EmptyData, NumberFormatException) {
-    size_t idx = r.find('.');
-    if (idx==std::string::npos) {
-        // no sub-seconds
-        return TplConvert<char>::_2int(r.c_str())*1000;
-    }
-    int secs = idx>0 ? TplConvert<char>::_2int(r.substr(0, idx).c_str()) : 0;
-    int subsecs = TplConvert<char>::_2int((r.substr(idx+1)+"0000").substr(0,3).c_str()) * 10;
-    do {
-        subsecs = subsecs / 10;
-    } while (idx<r.length()&&r[idx]=='0');
-    return secs*1000 + subsecs;
+	double time;
+	std::istringstream buf(r);
+	buf >> time;
+    return TIME2STEPS(time);
 }
 
 
@@ -62,8 +55,8 @@ time2string(SUMOTime t) throw() {
 	// 123456 -> "12.34"
     std::ostringstream oss;
 	oss.setf(oss.fixed);
-	oss.precision(2);
-    oss << t / 1000.;
+	oss.precision(OUTPUT_ACCURACY);
+    oss << STEPS2TIME(t);
     return oss.str();	
 }
 
