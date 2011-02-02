@@ -29,7 +29,7 @@
 #include <microsim/MSNet.h>
 #include <microsim/MSLane.h>
 #include <utils/options/OptionsCont.h>
-#include <utils/iodevices/OutputDevice.h>
+#include <utils/iodevices/OutputDevice_String.h>
 #include "MSDevice_Vehroutes.h"
 
 #ifdef CHECK_MEMORY_LEAKS
@@ -42,9 +42,12 @@
 // ===========================================================================
 bool MSDevice_Vehroutes::mySaveExits = false;
 bool MSDevice_Vehroutes::myLastRouteOnly = false;
+bool MSDevice_Vehroutes::mySorted = false;  
 bool MSDevice_Vehroutes::myWithTaz = false;
 MSDevice_Vehroutes::StateListener MSDevice_Vehroutes::myStateListener;
-
+std::map<const SUMOTime, int> MSDevice_Vehroutes::myDepartureCounts;
+std::map<const SUMOTime, std::string> MSDevice_Vehroutes::myRouteInfos;                                                                                                                     
+                                                                                                                                                                                           
 
 // ===========================================================================
 // method definitions
@@ -58,6 +61,7 @@ MSDevice_Vehroutes::init() throw(IOError) {
         OutputDevice::createDeviceByOption("vehroute-output", "routes");
         mySaveExits = OptionsCont::getOptions().getBool("vehroute-output.exit-times");
         myLastRouteOnly = OptionsCont::getOptions().getBool("vehroute-output.last-route");
+        mySorted = OptionsCont::getOptions().getBool("vehroute-output.sorted");
         myWithTaz = OptionsCont::getOptions().getBool("device.routing.with-taz");
         MSNet::getInstance()->addVehicleStateListener(&myStateListener);
     }
@@ -111,7 +115,10 @@ MSDevice_Vehroutes::~MSDevice_Vehroutes() throw() {
 
 
 bool
-MSDevice_Vehroutes::notifyEnter(SUMOVehicle& /*veh*/, MSMoveReminder::Notification /*reason*/) throw() {
+MSDevice_Vehroutes::notifyEnter(SUMOVehicle& /*veh*/, MSMoveReminder::Notification reason) throw() {
+    if (mySorted && reason == NOTIFICATION_DEPARTED) {
+        myDepartureCounts[MSNet::getInstance()->getCurrentTimeStep()]++;
+    }
     return mySaveExits;
 }
 
@@ -185,7 +192,7 @@ MSDevice_Vehroutes::writeXMLRoute(OutputDevice &os, int index) const {
 
 void
 MSDevice_Vehroutes::generateOutput() const throw(IOError) {
-    OutputDevice& od = OutputDevice::getDeviceByOption("vehroute-output");
+    OutputDevice_String od(1);
     od.openTag("vehicle")
     << " id=\"" << myHolder.getID() << "\" depart=\""
     << time2string(myHolder.getDeparture())
@@ -206,6 +213,19 @@ MSDevice_Vehroutes::generateOutput() const throw(IOError) {
     }
     od.closeTag();
     od << "\n";
+    if (mySorted) {
+	myRouteInfos[myHolder.getDeparture()] += od.getString();
+	myDepartureCounts[myHolder.getDeparture()]--;
+        std::map<const SUMOTime, std::string>::iterator it = myRouteInfos.begin();
+        while (it != myRouteInfos.end() && myDepartureCounts[it->first] == 0) {
+      	    myDepartureCounts.erase(it->first);
+            OutputDevice::getDeviceByOption("vehroute-output") << it->second;
+            myRouteInfos.erase(it);
+            it = myRouteInfos.begin();
+        }
+    } else {
+        OutputDevice::getDeviceByOption("vehroute-output") << od.getString();
+    }
 }
 
 

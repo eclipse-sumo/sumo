@@ -152,6 +152,9 @@ private:
     /// @brief A shortcut for the Option "vehroute-output.last-route"
     static bool myLastRouteOnly;
 
+    /// @brief A shortcut for the Option "vehroute-output.sorted"
+    static bool mySorted;
+
     /// @brief A shortcut for the Option "device.routing.with-taz"
     static bool myWithTaz;
 
@@ -169,11 +172,15 @@ private:
 
     static StateListener myStateListener;
 
+    static std::map<const SUMOTime, int> myDepartureCounts;
+
+    static std::map<const SUMOTime, std::string> myRouteInfos;
+
     /**
      * @class RouteReplaceInfo
      * @brief Information about a replaced route
      *
-     * Generated optionally and stored in a vector within the Pointer-CORN-map
+     * Generated optionally and stored in a vector within the device
      *  this structure contains information about a replaced route: the edge
      *  the route was replaced at by a new one, the time this was done, and
      *  the previous route.

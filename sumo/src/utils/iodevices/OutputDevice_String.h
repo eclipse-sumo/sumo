@@ -48,7 +48,7 @@ public:
     /** @brief Constructor
      * @exception IOError Should not be thrown by this implementation
      */
-    OutputDevice_String() throw(IOError);
+    OutputDevice_String(const unsigned int defaultIndentation=0) throw(IOError);
 
 
     /// @brief Destructor

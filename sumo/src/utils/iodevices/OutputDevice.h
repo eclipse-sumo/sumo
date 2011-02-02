@@ -130,7 +130,7 @@ public:
     /// @{
 
     /// @brief Constructor
-    OutputDevice() throw(IOError) { }
+    OutputDevice(const unsigned int defaultIndentation=0) throw(IOError);
 
 
     /// @brief Destructor
@@ -255,6 +255,9 @@ private:
 
     /// @brief The stack of begun xml elements
     std::vector<std::string> myXMLStack;
+
+    /// @brief The initial indentation level
+    unsigned int myDefaultIndentation;
     /// @}
 
 };

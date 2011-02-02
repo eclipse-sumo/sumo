@@ -124,10 +124,16 @@ OutputDevice::closeAll() throw() {
 // ===========================================================================
 // member method definitions
 // ===========================================================================
+OutputDevice::OutputDevice(const unsigned int defaultIndentation) throw(IOError)
+    : myDefaultIndentation(defaultIndentation) {
+}
+    
+
 bool
 OutputDevice::ok() throw() {
     return getOStream().good();
 }
+
 
 void
 OutputDevice::close() throw() {
@@ -169,7 +175,7 @@ OutputDevice::writeXMLHeader(const std::string &rootElement, const std::string x
 
 OutputDevice&
 OutputDevice::indent() throw() {
-    getOStream() << std::string(4*myXMLStack.size(), ' ');
+    getOStream() << std::string(4*(myXMLStack.size() + myDefaultIndentation), ' ');
     postWriteHook();
     return *this;
 }
@@ -177,7 +183,7 @@ OutputDevice::indent() throw() {
 
 OutputDevice&
 OutputDevice::openTag(const std::string &xmlElement) throw() {
-    getOStream() << std::string(4*myXMLStack.size(), ' ') << "<" << xmlElement;
+    getOStream() << std::string(4*(myXMLStack.size() + myDefaultIndentation), ' ') << "<" << xmlElement;
     postWriteHook();
     myXMLStack.push_back(xmlElement);
     return *this;
@@ -190,7 +196,7 @@ OutputDevice::closeTag(bool abbreviated) throw() {
         if (abbreviated) {
             getOStream() << "/>" << std::endl;
         } else {
-            std::string indent(4*(myXMLStack.size()-1), ' ');
+            std::string indent(4*(myXMLStack.size() + myDefaultIndentation - 1), ' ');
             getOStream() << indent << "</" << myXMLStack.back() << ">" << std::endl;
         }
         myXMLStack.pop_back();

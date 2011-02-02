@@ -39,7 +39,8 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-OutputDevice_String::OutputDevice_String() throw(IOError) {
+OutputDevice_String::OutputDevice_String(const unsigned int defaultIndentation) throw(IOError)
+     : OutputDevice(defaultIndentation) {
 }
 
 

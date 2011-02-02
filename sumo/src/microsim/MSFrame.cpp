@@ -127,6 +127,10 @@ MSFrame::fillOptions() {
     oc.addSynonyme("vehroute-output.last-route", "vehroutes.last-route");
     oc.addDescription("vehroute-output.last-route", "Output", "Write the last route only");
 
+    oc.doRegister("vehroute-output.sorted", new Option_Bool(false));
+    oc.addSynonyme("vehroute-output.sorted", "vehroutes.sorted");
+    oc.addDescription("vehroute-output.sorted", "Output", "Sorts the output by departure time");
+
 #ifdef HAVE_MESOSIM
     oc.doRegister("save-state.times", new Option_IntVector(IntVector()));//!!! check, describe
     oc.addDescription("save-state.times", "Output", "Use INT[] as times at which a network state written");
