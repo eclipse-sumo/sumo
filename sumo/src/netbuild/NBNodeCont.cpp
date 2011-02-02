@@ -508,6 +508,8 @@ NBNodeCont::recheckEdges(NBDistrictCont &dc, NBTrafficLightLogicCont &tlc,
                 }
                 // !!! @todo we could check here for matching length / speed / vclasses as well
             }
+            // @bug If there are 3 edges of which 2 can be joined, no joining will
+            //   take place with the current implementation
             if (l == ev.end()) {
                 ec.joinSameNodeConnectingEdges(dc, tlc, ev);
             }
