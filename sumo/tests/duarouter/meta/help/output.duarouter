@@ -1,4 +1,4 @@
-SUMO duarouter Version dev-SVN-r9545
+SUMO duarouter Version dev-SVN-r9650
  Copyright (C) 2001-2011 DLR and contributors; http://sumo.sourceforge.net
  
 Shortest path router and DUE computer for the microscopic road traffic
@@ -68,7 +68,9 @@ Usage: duarouter [OPTION]*
   -b, --begin TIME                 Defines the begin time;
                                      Previous trips will be discarded
   -e, --end TIME                   Defines the end time;
-                                     Later trips will be discarded
+                                     Later trips will be discarded;
+                                     Defaults to the maximum time that SUMO can
+                                     represent
 
  Report Options:
   -v, --verbose                    Switches to verbose output

@@ -47,7 +47,7 @@
 
     <time>
         <begin value="0"/>
-        <end value="86400"/>
+        <end value="2147483"/>
     </time>
 
     <report>

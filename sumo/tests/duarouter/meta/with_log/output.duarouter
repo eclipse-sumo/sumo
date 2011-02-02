@@ -1,7 +1,7 @@
 Loading net... done.
 Skipping...
 Skipped until: 0.00
-Reading time step: 0.00  (0.00/86400.00 = 0.00% done)       
-Reading time step: 1.00  (1.00/86400.00 = 0.00% done)       
+Reading time step: 0.00  (0.00/2147483.00 = 0.00% done)       
+Reading time step: 1.00  (1.00/2147483.00 = 0.00% done)       
 Routes found between time steps 0.00 and 1.00.
 Success.

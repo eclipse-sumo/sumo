@@ -1,4 +1,4 @@
-SUMO jtrrouter Version dev-SVN-r9525
+SUMO jtrrouter Version dev-SVN-r9650
  Copyright (C) 2001-2011 DLR and contributors; http://sumo.sourceforge.net
  
 Router for the microscopic road traffic simulation SUMO based on junction
@@ -66,7 +66,9 @@ Usage: jtrrouter [OPTION]*
   -b, --begin TIME                 Defines the begin time;
                                      Previous trips will be discarded
   -e, --end TIME                   Defines the end time;
-                                     Later trips will be discarded
+                                     Later trips will be discarded;
+                                     Defaults to the maximum time that SUMO can
+                                     represent
 
  Report Options:
   -v, --verbose                    Switches to verbose output

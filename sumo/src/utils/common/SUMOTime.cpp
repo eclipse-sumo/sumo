@@ -59,14 +59,12 @@ string2time(const std::string &r) throw(EmptyData, NumberFormatException) {
 
 std::string
 time2string(SUMOTime t) throw() {
+	// 123456 -> "12.34"
     std::ostringstream oss;
-    oss << ((SUMOReal) t / 1000.);
-    std::string ret = oss.str();
-    size_t idx = ret.find('.');
-    if (idx==std::string::npos) {
-        return ret + ".00";
-    }
-    return (ret+"00").substr(0, idx+3);
+	oss.setf(oss.fixed);
+	oss.precision(2);
+    oss << t / 1000.;
+    return oss.str();	
 }
 
 

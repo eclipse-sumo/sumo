@@ -35,6 +35,7 @@
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/RandHelper.h>
 #include <utils/common/ToString.h>
+#include <utils/common/SUMOTime.h>
 #include "ROFrame.h"
 
 #ifdef CHECK_MEMORY_LEAKS
@@ -77,8 +78,8 @@ ROFrame::fillOptions(OptionsCont &oc) {
     oc.doRegister("begin", 'b', new Option_String("0", "TIME"));
     oc.addDescription("begin", "Time", "Defines the begin time; Previous trips will be discarded");
 
-    oc.doRegister("end", 'e', new Option_String("86400", "TIME"));
-    oc.addDescription("end", "Time", "Defines the end time; Later trips will be discarded");
+    oc.doRegister("end", 'e', new Option_String(SUMOTIME_MAXSTRING, "TIME"));
+    oc.addDescription("end", "Time", "Defines the end time; Later trips will be discarded; Defaults to the maximum time that SUMO can represent");
 
 
     // register the processing options

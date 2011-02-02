@@ -117,8 +117,8 @@
         <!-- Defines the begin time; Previous trips will be discarded -->
         <begin value="0"/>
 
-        <!-- Defines the end time; Later trips will be discarded -->
-        <end value="86400"/>
+        <!-- Defines the end time; Later trips will be discarded; Defaults to the maximum time that SUMO can represent -->
+        <end value="2147483"/>
 
     </time>
 
