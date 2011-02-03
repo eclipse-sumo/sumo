@@ -50,8 +50,8 @@ MSVehicleControl::MSVehicleControl() throw() :
     myLoadedVehNo(0), 
     myRunningVehNo(0), 
     myEndedVehNo(0),
-    myAbsVehWaitingTime(0), 
-    myAbsVehTravelTime(0),
+    myTotalDepartureDelay(0), 
+    myTotalTravelTime(0),
     myDefaultVTypeMayBeDeleted(true),
     myWaitingForPerson(0)
 {
@@ -99,7 +99,7 @@ MSVehicleControl::scheduleVehicleRemoval(SUMOVehicle *veh) throw() {
     if (OptionsCont::getOptions().isSet("tripinfo-output")) {
         OutputDevice::getDeviceByOption("tripinfo-output").closeTag(veh->getDevices().size()==1);
     }
-    myAbsVehTravelTime += MSNet::getInstance()->getCurrentTimeStep() - veh->getDeparture();
+    myTotalTravelTime += STEPS2TIME(MSNet::getInstance()->getCurrentTimeStep() - veh->getDeparture());
     myRunningVehNo--;
     MSNet::getInstance()->informVehicleStateListener(veh, MSNet::VEHICLE_STATE_ARRIVED);
     deleteVehicle(veh);
@@ -111,7 +111,7 @@ MSVehicleControl::printMeanWaitingTime(OutputDevice& od) const throw() {
     if (getEmittedVehicleNo()==0) {
         od << -1.;
     } else {
-        od << (STEPS2TIME(myAbsVehWaitingTime) / (SUMOReal) getEmittedVehicleNo());
+        od << (myTotalDepartureDelay / (SUMOReal) getEmittedVehicleNo());
     }
 }
 
@@ -121,7 +121,7 @@ MSVehicleControl::printMeanTravelTime(OutputDevice& od) const throw() {
     if (myEndedVehNo==0) {
         od << -1.;
     } else {
-        od << (STEPS2TIME(myAbsVehTravelTime) / (SUMOReal) myEndedVehNo);
+        od << (myTotalTravelTime / (SUMOReal) myEndedVehNo);
     }
 }
 
@@ -129,7 +129,7 @@ MSVehicleControl::printMeanTravelTime(OutputDevice& od) const throw() {
 void
 MSVehicleControl::vehicleEmitted(const SUMOVehicle &v) throw() {
     ++myRunningVehNo;
-    myAbsVehWaitingTime += MAX2(v.getDeparture() - v.getParameter().depart, static_cast<SUMOTime>(0));
+    myTotalDepartureDelay += STEPS2TIME(v.getDeparture() - v.getParameter().depart);
     MSNet::getInstance()->informVehicleStateListener(&v, MSNet::VEHICLE_STATE_DEPARTED);
 }
 

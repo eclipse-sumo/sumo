@@ -377,14 +377,14 @@ protected:
     /// @}
 
 
-    /// @name Vehicle statistics (availability depends on simulation settings)
+    /// @name Vehicle statistics
     /// @{
 
-    /// @brief The aggregated time vehicles had to wait for departure
-    SUMOTime myAbsVehWaitingTime;
+    /// @brief The aggregated time vehicles had to wait for departure (in seconds)
+    SUMOReal myTotalDepartureDelay;
 
-    /// @brief The aggregated time vehicles needed to aacomplish their route
-    SUMOTime myAbsVehTravelTime;
+    /// @brief The aggregated time vehicles needed to aacomplish their route (in seconds)
+    SUMOReal myTotalTravelTime;
     /// @}
 
 
