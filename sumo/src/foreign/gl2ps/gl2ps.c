@@ -3201,7 +3201,7 @@ static void gl2psPrintTeXHeader(void)
   int i;
 
   if(gl2ps->filename && strlen(gl2ps->filename) < 256){
-    for(i = strlen(gl2ps->filename)-1; i >= 0; i--){
+    for(i = (int)strlen(gl2ps->filename)-1; i >= 0; i--){
       if(gl2ps->filename[i] == '.'){
         strncpy(name, gl2ps->filename, i);
         name[i] = '\0';
@@ -3408,7 +3408,7 @@ static void gl2psPutPDFText(GL2PSstring *text, int cnt, GLfloat x, GLfloat y)
        cnt, text->fontsize, x, y, text->str);
   }
   else{
-    rad = M_PI * text->angle / 180.0F;
+    rad = (GLfloat)(M_PI * text->angle / 180.0F);
     srad = (GLfloat)sin(rad);
     crad = (GLfloat)cos(rad);
     gl2ps->streamlength += gl2psPrintf
@@ -4174,7 +4174,7 @@ static int gl2psPrintPDFShaderStreamDataCoord(GL2PSvertex *vertex,
                                               GLfloat dx, GLfloat dy, 
                                               GLfloat xmin, GLfloat ymin)
 {
-  int offs = 0;
+  size_t offs = 0;
   unsigned long imap;
   GLfloat diff;
   double dmax = ~1UL;
@@ -4210,7 +4210,7 @@ static int gl2psPrintPDFShaderStreamDataCoord(GL2PSvertex *vertex,
     offs += (*action)(imap, 4);
   }
   
-  return offs;
+  return (int)offs;
 }
 
 /* Put vertex' rgb value (8bit for every component) in shader stream */
@@ -4219,7 +4219,7 @@ static int gl2psPrintPDFShaderStreamDataRGB(GL2PSvertex *vertex,
                                             size_t (*action)(unsigned long data, 
                                                              size_t size))
 {
-  int offs = 0;
+  size_t offs = 0;
   unsigned long imap;
   double dmax = ~1UL;
 
@@ -4235,7 +4235,7 @@ static int gl2psPrintPDFShaderStreamDataRGB(GL2PSvertex *vertex,
   imap = (unsigned long)((vertex->rgba[2]) * dmax);
   offs += (*action)(imap, 1);
   
-  return offs;
+  return (int)offs;
 }
 
 /* Put vertex' alpha (8/16bit) in shader stream */
@@ -4245,7 +4245,7 @@ static int gl2psPrintPDFShaderStreamDataAlpha(GL2PSvertex *vertex,
                                                                size_t size),
                                               int sigbyte)
 {
-  int offs = 0;
+  size_t offs = 0;
   unsigned long imap;
   double dmax = ~1UL;
 
@@ -4261,7 +4261,7 @@ static int gl2psPrintPDFShaderStreamDataAlpha(GL2PSvertex *vertex,
   
   offs += (*action)(imap, sigbyte);
   
-  return offs;
+  return (int)offs;
 }
 
 /* Put a triangles raw data in shader stream */
@@ -4427,9 +4427,9 @@ static int gl2psPrintPDFShaderMask(int obj, int childobj)
                   (int)gl2ps->viewport[0], (int)gl2ps->viewport[1],
                   (int)gl2ps->viewport[2], (int)gl2ps->viewport[3]);
   
-  len = (childobj>0) 
+  len = (int)((childobj>0) 
     ? strlen("/TrSh sh\n") + (int)log10((double)childobj)+1
-    : strlen("/TrSh0 sh\n"); 
+    : strlen("/TrSh0 sh\n")); 
   
   offs += fprintf(gl2ps->stream,
                   "/Length %d\n"
