@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup Label="UserMacros">
+    <XERCES_LIB>$(XERCES)\lib\xerces-c_3.lib</XERCES_LIB>
+    <XERCES_DEBUG_LIB>$(XERCES)\lib\xerces-c_3D.lib</XERCES_DEBUG_LIB>
+    <GTEST_LIB>$(GTEST)\msvc\gtest-md\Release\gtest.lib</GTEST_LIB>
+    <GTEST_DEBUG_LIB>$(GTEST)\msvc\gtest-md\Debug\gtestd.lib</GTEST_DEBUG_LIB>
+  </PropertyGroup>
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.30319.1</_ProjectFileVersion>
+    <_PropertySheetDisplayName>gtest</_PropertySheetDisplayName>
+  </PropertyGroup>
+  <ItemDefinitionGroup>
+    <ClCompile>
+      <AdditionalIncludeDirectories>..\..\..\..\src;$(GTEST)\include;$(XERCES)\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <BuildMacro Include="XERCES_LIB">
+      <Value>$(XERCES_LIB)</Value>
+    </BuildMacro>
+    <BuildMacro Include="XERCES_DEBUG_LIB">
+      <Value>$(XERCES_DEBUG_LIB)</Value>
+    </BuildMacro>
+    <BuildMacro Include="GTEST_LIB">
+      <Value>$(GTEST_LIB)</Value>
+    </BuildMacro>
+    <BuildMacro Include="GTEST_DEBUG_LIB">
+      <Value>$(GTEST_DEBUG_LIB)</Value>
+    </BuildMacro>
+  </ItemGroup>
+</Project>
