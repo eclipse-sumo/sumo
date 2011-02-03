@@ -42,6 +42,9 @@
         <!-- Write the last route only -->
         <vehroute-output.last-route value="false"/>
 
+        <!-- Sorts the output by departure time -->
+        <vehroute-output.sorted value="false"/>
+
     </output>
 
     <time>

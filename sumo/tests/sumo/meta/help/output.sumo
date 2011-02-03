@@ -1,3 +1,4 @@
+SUMO sumo Version dev-SVN-r9661
  Copyright (C) 2001-2011 DLR and contributors; http://sumo.sourceforge.net
  
 A microscopic road traffic simulation.
@@ -35,6 +36,7 @@ Usage: sumo [OPTION]*
   --vehroute-output FILE              Save single vehicle route inf. into FILE
   --vehroute-output.exit-times        Write the exit times for all edges
   --vehroute-output.last-route        Write the last route only
+  --vehroute-output.sorted            Sorts the output by departure time
 
  Time Options:
   -b, --begin TIME                    Defines the begin time;

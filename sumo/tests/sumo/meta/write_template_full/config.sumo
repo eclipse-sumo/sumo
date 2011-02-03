@@ -18,6 +18,7 @@
         <vehroute-output value=""/>
         <vehroute-output.exit-times value="false"/>
         <vehroute-output.last-route value="false"/>
+        <vehroute-output.sorted value="false"/>
     </output>
 
     <time>
