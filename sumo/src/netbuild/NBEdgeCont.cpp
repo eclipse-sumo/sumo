@@ -540,7 +540,7 @@ NBEdgeCont::joinSameNodeConnectingEdges(NBDistrictCont &dc,
         // compute the speed
         speed += (*i)->getSpeed();
         // build the priority
-        priority = MIN2(priority, (*i)->getPriority()); 
+        priority = MAX2(priority, (*i)->getPriority()); 
     }
     speed /= edges.size();
     // build the new edge
