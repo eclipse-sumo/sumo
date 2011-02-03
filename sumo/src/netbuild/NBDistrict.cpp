@@ -87,8 +87,8 @@ NBDistrict::addSink(NBEdge * const sink, SUMOReal weight) throw() {
 
 void
 NBDistrict::writeXML(OutputDevice &into) throw() {
-    VectorHelper<SUMOReal>::normalise(mySourceWeights, 1.0);
-    VectorHelper<SUMOReal>::normalise(mySinkWeights, 1.0);
+    VectorHelper<SUMOReal>::normaliseSum(mySourceWeights, 1.0);
+    VectorHelper<SUMOReal>::normaliseSum(mySinkWeights, 1.0);
     // write the head and the id of the district
     into << "   <district id=\"" << myID << "\"";
     if (myShape.size()>0) {
