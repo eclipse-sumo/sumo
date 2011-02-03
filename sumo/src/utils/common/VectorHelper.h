@@ -66,7 +66,7 @@ public:
         }
         T rsum = sum(v);
         if (rsum==0) {
-            set(v, (T) 1.0/msum/(T) v.size());
+            set(v, (T) 1.0*msum/(T) v.size());
             return;
         }
         div(v, rsum/msum);
