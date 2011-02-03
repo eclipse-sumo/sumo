@@ -33,6 +33,7 @@
 #include <algorithm>
 #include <cassert>
 #include <iterator>
+#include <utils/common/StdDefs.h>
 #include "AbstractPoly.h"
 #include "Position2D.h"
 #include "Position2DVector.h"
@@ -663,24 +664,13 @@ Position2DVector::nearest_position_on_line_to_point(const Position2D &p) const {
 
 SUMOReal
 Position2DVector::distance(const Position2D &p) const {
-    SUMOReal shortestDist = 10000000;
-    SUMOReal nearestPos = 10000;
-    SUMOReal seen = 0;
+    Position2D outIntersection = Position2D();
+    SUMOReal minDist = std::numeric_limits<double>::max();
     for (ContType::const_iterator i=myCont.begin(); i!=myCont.end()-1; i++) {
-        SUMOReal pos = seen +
-                       GeomHelper::nearest_position_on_line_to_point(*i, *(i+1), p);
-        SUMOReal dist = p.distanceTo(positionAtLengthPosition(pos));
-        //
-        if (shortestDist>dist) {
-            nearestPos = pos;
-            shortestDist = dist;
-        }
-        //
+        minDist = MIN2(minDist, GeomHelper::closestDistancePointLine(
+                p, *i, *(i+1), outIntersection));
     }
-    if (shortestDist==10000000) {
-        return -1;
-    }
-    return shortestDist;
+    return minDist;
 }
 
 
@@ -896,51 +886,16 @@ Position2DVector::closePolygon() {
     push_back(myCont[0]);
 }
 
+
 DoubleVector
 Position2DVector::distances(const Position2DVector &s) const {
     DoubleVector ret;
     ContType::const_iterator i;
     for (i=myCont.begin(); i!=myCont.end(); i++) {
-        SUMOReal dist = s.distance(*i);
-        // !!! aeh, possible at the ends?
-        if (dist!=-1) {
-            ret.push_back(dist);
-        }
+        ret.push_back(s.distance(*i));        
     }
     for (i=s.myCont.begin(); i!=s.myCont.end(); i++) {
-        SUMOReal dist = distance(*i);
-        // !!! aeh, possible at the ends?
-        if (dist!=-1) {
-            ret.push_back(dist);
-        }
-    }
-    return ret;
-}
-
-
-DoubleVector
-Position2DVector::distancesExt(const Position2DVector &s) const {
-    DoubleVector ret = distances(s);
-    ContType::const_iterator i;
-    for (i=myCont.begin(); i!=myCont.end()-1; i++) {
-        Position2D p = Position2D(*i);
-        p.add(*(i+1));
-        p.mul(0.5);
-        SUMOReal dist = s.distance(p);
-        // !!! aeh, possible at the ends?
-        if (dist!=-1) {
-            ret.push_back(dist);
-        }
-    }
-    for (i=s.myCont.begin(); i!=s.myCont.end()-1; i++) {
-        Position2D p = Position2D(*i);
-        p.add(*(i+1));
-        p.mul(0.5);
-        SUMOReal dist = s.distance(p);
-        // !!! aeh, possible at the ends?
-        if (dist!=-1) {
-            ret.push_back(dist);
-        }
+        ret.push_back(distance(*i));        
     }
     return ret;
 }
