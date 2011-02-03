@@ -246,7 +246,7 @@ public:
 
     SUMOReal nearest_position_on_line_to_point(const Position2D &p) const;
 
-	// distances of all my points to s and all of s points to myself
+    // distances of all my points to s and all of s points to myself
     DoubleVector distances(const Position2DVector &s) const;  
 
     SUMOReal distance(const Position2D &p) const;
