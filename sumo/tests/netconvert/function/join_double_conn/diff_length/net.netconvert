@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on Sat Jan 29 21:07:56 2011 by SUMO netconvert Version dev-SVN-r9635
+<!-- generated on 02/04/11 08:36:54 by SUMO netconvert Version dev-SVN-r9671
 <?xml version="1.0" encoding="iso-8859-1"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
@@ -29,14 +29,14 @@
 
    <location netOffset="500.00,0.00" convBoundary="0.00,0.00,1800.00,0.00" origBoundary="-500.00,0.00,1300.00,0.00" projParameter="!"/>
 
-   <edge id="1to21" from="1" to="2" priority="0" type="" function="normal">
+   <edge id="1to21" from="1" to="2" priority="-1" type="" function="normal">
       <lanes>
-         <lane id="1to21_0" depart="1" maxspeed="13.90" length="997.00" shape="501.50,-4.95 1498.50,-4.95"/>
+         <lane id="1to21_0" depart="1" maxspeed="13.90" length="5000.00" shape="501.50,-1.65 1498.50,-1.65"/>
       </lanes>
    </edge>
-   <edge id="1to22" from="1" to="2" priority="0" type="" function="normal">
+   <edge id="1to22" from="1" to="2" priority="-1" type="" function="normal">
       <lanes>
-         <lane id="1to22_0" depart="1" maxspeed="13.90" length="997.00" shape="501.50,-4.95 1498.50,-4.95"/>
+         <lane id="1to22_0" depart="1" maxspeed="13.90" length="4000.00" shape="501.50,-1.65 1498.50,-1.65"/>
       </lanes>
    </edge>
    <edge id="91to1" from="91" to="1" priority="-1" type="" function="normal">
@@ -58,30 +58,32 @@
    </row-logic>
    <row-logic id="2" requestSize="2" laneNumber="2">
       <logic>
-         <logicitem request="0" response="00" foes="00"/>
-         <logicitem request="1" response="11" foes="00"/>
+         <logicitem request="0" response="00" foes="10"/>
+         <logicitem request="1" response="01" foes="01"/>
       </logic>
    </row-logic>
 
    <tl-logic id="2" type="static" programID="0" offset="0">
-      <phase duration="31" state="GG"/>
-      <phase duration="4" state="yy"/>
+      <phase duration="31" state="Gr"/>
+      <phase duration="4" state="yr"/>
+      <phase duration="31" state="rG"/>
+      <phase duration="4" state="ry"/>
    </tl-logic>
 
-   <junction id="1" type="priority" x="500.00" y="0.00" incLanes="91to1_0" intLanes="" shape="501.50,-0.05 501.50,-6.55 498.50,-3.25 498.50,-0.05"/>
-   <junction id="2" type="priority" x="1500.00" y="0.00" incLanes="1to21+1to22_0 1to21+1to22_1" intLanes="" shape="1501.50,-0.05 1501.50,-3.25 1498.50,-6.55 1498.50,-0.05"/>
+   <junction id="1" type="priority" x="500.00" y="0.00" incLanes="91to1_0" intLanes="" shape="501.50,-0.05 501.50,-3.25 498.50,-3.25 498.50,-0.05"/>
+   <junction id="2" type="priority" x="1500.00" y="0.00" incLanes="1to21_0 1to22_0" intLanes="" shape="1501.50,-0.05 1501.50,-3.25 1498.50,-3.25 1498.50,-0.05"/>
    <junction id="3" type="DEAD_END" x="1800.00" y="0.00" incLanes="out_0" intLanes="" shape="1800.00,-3.25 1800.00,-0.05"/>
    <junction id="91" type="DEAD_END" x="0.00" y="0.00" incLanes="" intLanes="" shape="0.00,-0.05 0.00,-3.25"/>
 
-   <succ edge="1to21+1to22" lane="1to21+1to22_0" junction="2">
+   <succ edge="1to21" lane="1to21_0" junction="2">
       <succlane lane="out_0" tl="2" linkno="0" yield="1" dir="s" state="t"/>
    </succ>
-   <succ edge="1to21+1to22" lane="1to21+1to22_1" junction="2">
-      <succlane lane="SUMO_NO_DESTINATION" tl="2" linkno="1" yield="1" dir="s" state="O"/>
+   <succ edge="1to22" lane="1to22_0" junction="2">
+      <succlane lane="out_0" tl="2" linkno="1" yield="1" dir="s" state="t"/>
    </succ>
    <succ edge="91to1" lane="91to1_0" junction="1">
-      <succlane lane="1to21+1to22_0" yield="0" dir="s" state="M"/>
-      <succlane lane="1to21+1to22_1" yield="0" dir="s" state="M"/>
+      <succlane lane="1to22_0" yield="0" dir="s" state="M"/>
+      <succlane lane="1to21_0" yield="0" dir="s" state="M"/>
    </succ>
    <succ edge="out" lane="out_0" junction="3">
       <succlane lane="SUMO_NO_DESTINATION" yield="1" dir="s" state="O"/>
