@@ -544,6 +544,7 @@ NBEdgeCont::joinSameNodeConnectingEdges(NBDistrictCont &dc,
     }
     speed /= edges.size();
     // build the new edge
+    // @bug new edge does not know about allowed vclass of old edges
     NBEdge *newEdge = new NBEdge(id, from, to, "", speed,
                                  nolanes, priority, tpledge->myLaneSpreadFunction);
     insert(newEdge, true);

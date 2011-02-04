@@ -293,6 +293,15 @@ public:
     }
 
 
+    /** @brief Returns the length as set explicitly or the computed length if it wasn't set
+     * @todo consolidate use of myLength and myLoaded length
+     * @return The edge's specified length
+     */
+    SUMOReal getLoadedLength() const throw() {
+        return myLoadedLength>0 ? myLoadedLength : myLength;
+    }
+
+
     /** @brief Returns the speed allowed on this edge
      * @return The maximum speed allowed on this edge
      */
@@ -679,7 +688,7 @@ public:
 
     SUMOReal getLaneSpeed(unsigned int lane) const;
 
-    bool isNearEnough2BeJoined2(NBEdge *e) const;
+    bool isNearEnough2BeJoined2(NBEdge *e, SUMOReal threshold) const;
 
     SUMOReal getAngle(const NBNode &atNode) const;
 

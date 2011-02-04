@@ -1716,11 +1716,10 @@ NBEdge::getLaneID(unsigned int lane) {
 
 
 bool
-NBEdge::isNearEnough2BeJoined2(NBEdge *e) const {
+NBEdge::isNearEnough2BeJoined2(NBEdge *e, SUMOReal threshold) const {
     DoubleVector distances = myGeom.distances(e->getGeometry());    
 	assert(distances.size() > 0);
-    SUMOReal max = VectorHelper<SUMOReal>::maxValue(distances);
-    return max<7; // !!!! should eliminate magic value
+    return VectorHelper<SUMOReal>::maxValue(distances) < threshold;
 }
 
 

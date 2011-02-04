@@ -476,6 +476,10 @@ NBNodeCont::clear() {
 void
 NBNodeCont::recheckEdges(NBDistrictCont &dc, NBTrafficLightLogicCont &tlc,
                          NBEdgeCont &ec) {
+    // magic values
+    SUMOReal distanceTreshold = 7; // don't merge edges further apart
+    SUMOReal lengthTreshold = 0.05; // don't merge edges with higher relative length-difference
+
     for (NodeCont::iterator i=myNodes.begin(); i!=myNodes.end(); i++) {
         // count the edges to other nodes outgoing from the current
         //  node
@@ -501,16 +505,21 @@ NBNodeCont::recheckEdges(NBDistrictCont &dc, NBTrafficLightLogicCont &tlc,
             //  check whether the geometry is similar
             const EdgeVector &ev = (*k).second;
             const NBEdge* const first = ev.front();
-            EdgeVector::const_iterator l;
-            for (l=ev.begin()+1; l!=ev.end(); ++l) {
-                if (!first->isNearEnough2BeJoined2(*l)) {
+            EdgeVector::const_iterator jci; // join candidate iterator
+            for (jci=ev.begin()+1; jci!=ev.end(); ++jci) {
+                SUMOReal relativeLengthDifference = (
+                    abs(first->getLoadedLength() - (*jci)->getLoadedLength()) / first->getLoadedLength());
+                if ((!first->isNearEnough2BeJoined2(*jci, distanceTreshold)) ||
+                    (relativeLengthDifference > lengthTreshold) ||
+                    (first->getSpeed() != (*jci)->getSpeed())
+                    // @todo check vclass
+                    ) {
                     break;
                 }
-                // !!! @todo we could check here for matching length / speed / vclasses as well
             }
             // @bug If there are 3 edges of which 2 can be joined, no joining will
             //   take place with the current implementation
-            if (l == ev.end()) {
+            if (jci == ev.end()) {
                 ec.joinSameNodeConnectingEdges(dc, tlc, ev);
             }
         }
