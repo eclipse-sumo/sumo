@@ -5,7 +5,7 @@ if tool[0].endswith(".jar"):
     tool = ["java", "-jar"] + tool
 
 if tool[0].endswith(".py"):
-    tool = [os.environ.get('PYTHON')] + tool
+    tool = [os.environ.get('PYTHON') or 'python'] + tool
 
 import os
 from sys import version_info
