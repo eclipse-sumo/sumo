@@ -33,6 +33,7 @@
 #include <algorithm>
 #include <cassert>
 #include <iterator>
+#include <limits>
 #include <utils/common/StdDefs.h>
 #include "AbstractPoly.h"
 #include "Position2D.h"
