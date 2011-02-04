@@ -9,60 +9,60 @@ first completed in getStreet() of City: Consolidation of data not needed in Acti
 ### - work done...
 ### - bus lines done...
 --> population: 
-  |-> city households: 505
-  |-> city people: 999
-    |-> city single: 208 / (in) couple: 594
+  |-> city households: 510
+  |-> city people: 998
+    |-> city single: 218 / (in) couple: 584
     |-> city adults: 802
-      |-> estimation: 811
+      |-> estimation: 810
       |-> retired: 240
-    |-> city children: 197
-      |-> estimation: 189
+    |-> city children: 196
+      |-> estimation: 190
 ### ...city built.
-  |-> working people: 727
-    |-> working people in city: 527
+  |-> working people: 725
+    |-> working people in city: 525
     |-> working people from outside: 200
 ### allocation done.
 no problem during bus line trip generation...
 after public transportation: 248
 no problem during households' trips generation...
-after household activities: 865
+after household activities: 900
 no problem during in/out traffic generation...
-after incoming/outgoing traffic: 1265
+after incoming/outgoing traffic: 1300
 Before Random traffic generation (days are still entire):
-- Total number of trips: 2328
-- Total daily trips: 1063
-- Total one-day trips: 202
-added uniform random trips: 582
+- Total number of trips: 2358
+- Total daily trips: 1058
+- Total one-day trips: 242
+added uniform random trips: 589
 no problem during random traffic generation...
-after random traffic: 1847
-total trips generated: 1847
-total trips finally taken: 1452
+after random traffic: 1889
+total trips generated: 1889
+total trips finally taken: 1472
 ...sorted by departure time.
 
 first real trip: 1, 0:2:42
 last real trip: 1, 23:59:34
-histogram[ hour 0 ] = 9
-histogram[ hour 1 ] = 6
+histogram[ hour 0 ] = 11
+histogram[ hour 1 ] = 5
 histogram[ hour 2 ] = 16
 histogram[ hour 3 ] = 12
 histogram[ hour 4 ] = 12
-histogram[ hour 5 ] = 11
+histogram[ hour 5 ] = 10
 histogram[ hour 6 ] = 36
-histogram[ hour 7 ] = 38
-histogram[ hour 8 ] = 333
-histogram[ hour 9 ] = 177
-histogram[ hour 10 ] = 20
-histogram[ hour 11 ] = 40
-histogram[ hour 12 ] = 64
-histogram[ hour 13 ] = 18
-histogram[ hour 14 ] = 17
-histogram[ hour 15 ] = 18
-histogram[ hour 16 ] = 43
-histogram[ hour 17 ] = 257
-histogram[ hour 18 ] = 160
-histogram[ hour 19 ] = 24
-histogram[ hour 20 ] = 33
-histogram[ hour 21 ] = 29
-histogram[ hour 22 ] = 31
-histogram[ hour 23 ] = 48
+histogram[ hour 7 ] = 39
+histogram[ hour 8 ] = 319
+histogram[ hour 9 ] = 194
+histogram[ hour 10 ] = 17
+histogram[ hour 11 ] = 51
+histogram[ hour 12 ] = 60
+histogram[ hour 13 ] = 19
+histogram[ hour 14 ] = 15
+histogram[ hour 15 ] = 20
+histogram[ hour 16 ] = 45
+histogram[ hour 17 ] = 259
+histogram[ hour 18 ] = 155
+histogram[ hour 19 ] = 23
+histogram[ hour 20 ] = 43
+histogram[ hour 21 ] = 34
+histogram[ hour 22 ] = 30
+histogram[ hour 23 ] = 47
 Success.
