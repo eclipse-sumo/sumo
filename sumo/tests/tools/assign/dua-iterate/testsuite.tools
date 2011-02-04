@@ -1,2 +1,5 @@
 # straight call of the script
 simple
+
+# dua-iterate should recognize called application's failure
+recognize_error
