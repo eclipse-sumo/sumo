@@ -9,3 +9,4 @@ set OD2TRIPS_BINARY=%CD%\..\bin\od2trips%1.exe
 set SUMO_BINARY=%CD%\..\bin\sumo%1.exe
 set POLYCONVERT_BINARY=%CD%\..\bin\polyconvert%1.exe
 set GUISIM_BINARY=%CD%\..\bin\sumo-gui%1.exe
+set PYTHON=python.exe
