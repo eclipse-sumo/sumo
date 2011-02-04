@@ -216,6 +216,10 @@ Computing step 10: Appending turnarounds.
 Computing step 11: Rechecking of lane endings.
 Computing step 12: Computing node shapes.
 Computing step 13: Computing edge shapes.
+Lane '1000702[0]' has calculated shape length near zero. Revert it back to old shape.
+Lane '1000705[0]' has calculated shape length near zero. Revert it back to old shape.
+Lane '1000708[0]' has calculated shape length near zero. Revert it back to old shape.
+Lane '1000711[0]' has calculated shape length near zero. Revert it back to old shape.
 Computing step 14: Computing tls logics.
 Computing step 15: Computing node logics.
 Computing step 16: Computing traffic light logics.

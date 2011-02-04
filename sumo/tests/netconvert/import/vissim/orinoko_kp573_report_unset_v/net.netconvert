@@ -1,7 +1,9 @@
 <?xml version="1.0"?>
 
-<!-- generated on 08/13/10 09:40:59 by SUMO netconvert Version dev-SVN-r8487
-<configuration>
+<!-- generated on 02/04/11 08:50:45 by SUMO netconvert Version dev-SVN-r9671
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
 
     <input>
         <vissim-file value="vissim.inp"/>
@@ -60,13 +62,13 @@
    </edge>
    <edge id="1000703" from="605000045" to="605000018" priority="-1" type="200" function="normal">
       <lanes>
-         <lane id="1000703_0" depart="1" maxspeed="13.89" length="212.54" shape="935.69,2672.52 1084.65,2813.77 1085.45,2814.61 1086.10,2815.48 1086.56,2816.32 1086.88,2817.09 1087.11,2817.76 1087.34,2818.31 1087.60,2818.79 1087.99,2819.30 1088.57,2819.89"/>
-         <lane id="1000703_1" depart="0" maxspeed="13.89" length="212.54" shape="933.42,2674.91 1082.38,2816.16 1083.05,2816.88 1083.42,2817.41 1083.64,2817.87 1083.81,2818.32 1084.00,2818.86 1084.27,2819.53 1084.69,2820.34 1085.32,2821.24 1086.16,2822.15"/>
+         <lane id="1000703_0" depart="1" maxspeed="13.89" length="212.45" shape="935.76,2672.58 1084.65,2813.77 1085.45,2814.61 1086.10,2815.48 1086.56,2816.32 1086.88,2817.09 1087.11,2817.76 1087.34,2818.31 1087.60,2818.79 1087.99,2819.30 1088.57,2819.89"/>
+         <lane id="1000703_1" depart="0" maxspeed="13.89" length="212.45" shape="933.49,2674.98 1082.38,2816.16 1083.05,2816.88 1083.42,2817.41 1083.64,2817.87 1083.81,2818.32 1084.00,2818.86 1084.27,2819.53 1084.69,2820.34 1085.32,2821.24 1086.16,2822.15"/>
       </lanes>
    </edge>
    <edge id="1000704" from="605000020" to="605000045" priority="-1" type="200" function="normal">
       <lanes>
-         <lane id="1000704_0" depart="1" maxspeed="13.89" length="212.82" shape="1083.94,2825.03 1083.04,2824.08 1082.54,2823.38 1082.19,2822.73 1081.95,2822.12 1081.73,2821.52 1081.49,2820.90 1081.15,2820.26 1080.64,2819.55 1079.90,2818.77 930.94,2677.53"/>
+         <lane id="1000704_0" depart="1" maxspeed="13.89" length="212.72" shape="1083.94,2825.03 1083.04,2824.08 1082.54,2823.38 1082.19,2822.73 1081.95,2822.12 1081.73,2821.52 1081.49,2820.90 1081.15,2820.26 1080.64,2819.55 1079.90,2818.77 931.01,2677.59"/>
       </lanes>
    </edge>
    <edge id="1000705[0]" from="605000020" to="605000047" priority="-1" type="200" function="normal">
@@ -74,22 +76,26 @@
          <lane id="1000705[0]_0" depart="1" maxspeed="13.89" length="3.33" shape="1083.65,2829.82 1081.37,2827.40"/>
       </lanes>
    </edge>
-   <edge id="1000706+1000705[1]" from="605000047" to="605000045" priority="0" type="" function="normal">
+   <edge id="1000705[1]" from="605000047" to="605000045" priority="-1" type="200" function="normal">
       <lanes>
-         <lane id="1000706+1000705[1]_0" depart="1" maxspeed="13.89" length="210.22" shape="1078.67,2826.98 931.32,2677.12"/>
-         <lane id="1000706+1000705[1]_1" depart="0" maxspeed="13.89" length="210.22" shape="1081.02,2824.67 933.59,2674.72"/>
+         <lane id="1000705[1]_0" depart="1" maxspeed="13.89" length="214.27" shape="1080.00,2825.69 1079.78,2825.27 1079.54,2824.66 1079.33,2824.05 1079.08,2823.44 1078.74,2822.80 1078.23,2822.09 1077.49,2821.31 925.71,2677.39"/>
+      </lanes>
+   </edge>
+   <edge id="1000706" from="605000047" to="605000045" priority="-1" type="200" function="normal">
+      <lanes>
+         <lane id="1000706_0" depart="1" maxspeed="13.89" length="199.60" shape="1074.58,2823.37 929.74,2686.03"/>
       </lanes>
    </edge>
    <edge id="1000707" from="605000045" to="605000033" priority="-1" type="200" function="normal">
       <lanes>
-         <lane id="1000707_0" depart="1" maxspeed="13.89" length="142.78" shape="927.00,2677.54 861.34,2772.29 836.54,2785.87"/>
-         <lane id="1000707_1" depart="0" maxspeed="13.89" length="142.78" shape="924.29,2675.66 859.08,2769.77 834.96,2782.98"/>
+         <lane id="1000707_0" depart="1" maxspeed="13.89" length="142.16" shape="926.65,2678.04 861.34,2772.29 836.54,2785.87"/>
+         <lane id="1000707_1" depart="0" maxspeed="13.89" length="142.16" shape="923.94,2676.16 859.08,2769.77 834.96,2782.98"/>
       </lanes>
    </edge>
    <edge id="1000708" from="605000048" to="605000045" priority="-1" type="200" function="normal">
       <lanes>
-         <lane id="1000708_0" depart="1" maxspeed="13.89" length="115.44" shape="852.78,2766.56 918.53,2671.67"/>
-         <lane id="1000708_1" depart="0" maxspeed="13.89" length="115.44" shape="855.50,2768.44 921.25,2673.55"/>
+         <lane id="1000708_0" depart="1" maxspeed="13.89" length="114.83" shape="852.78,2766.56 918.18,2672.18"/>
+         <lane id="1000708_1" depart="0" maxspeed="13.89" length="114.83" shape="855.50,2768.44 920.90,2674.05"/>
       </lanes>
    </edge>
    <edge id="1000709" from="605000034" to="605000048" priority="-1" type="200" function="normal">
@@ -99,8 +105,8 @@
    </edge>
    <edge id="1000710" from="605000049" to="605000045" priority="-1" type="200" function="normal">
       <lanes>
-         <lane id="1000710_0" depart="1" maxspeed="13.89" length="117.55" shape="845.83,2764.30 912.78,2667.68"/>
-         <lane id="1000710_1" depart="0" maxspeed="13.89" length="117.55" shape="848.54,2766.18 915.49,2669.56"/>
+         <lane id="1000710_0" depart="1" maxspeed="13.89" length="116.93" shape="845.83,2764.30 912.43,2668.19"/>
+         <lane id="1000710_1" depart="0" maxspeed="13.89" length="116.93" shape="848.54,2766.18 915.14,2670.07"/>
       </lanes>
    </edge>
    <edge id="1000711" from="605000034" to="605000049" priority="-1" type="200" function="normal">
@@ -738,23 +744,23 @@
    </row-logic>
    <row-logic id="605000045" requestSize="17" laneNumber="13">
       <logic>
-         <logicitem request="0" response="00000010000000000" foes="00000010000110000"/>
-         <logicitem request="1" response="11111000001000000" foes="11111110001110000"/>
-         <logicitem request="2" response="11110000001000000" foes="11110001111110000"/>
+         <logicitem request="0" response="11110000001000000" foes="11110001111110110"/>
+         <logicitem request="1" response="11111000001000001" foes="11111110001110101"/>
+         <logicitem request="2" response="00000010000000011" foes="00000010000110011"/>
          <logicitem request="3" response="00000000000000000" foes="11000001000000000"/>
          <logicitem request="4" response="11000010000000111" foes="11000011000000111"/>
          <logicitem request="5" response="11000010000000111" foes="11000011000000111"/>
-         <logicitem request="6" response="00000010000000000" foes="00111111000000110"/>
-         <logicitem request="7" response="00110000000000100" foes="00110000000000100"/>
-         <logicitem request="8" response="00110000000000100" foes="00110000000000100"/>
-         <logicitem request="9" response="11110000001111100" foes="11110000001111100"/>
-         <logicitem request="10" response="00000000000000010" foes="11110000001110011"/>
+         <logicitem request="6" response="00000010000000000" foes="00111111000000011"/>
+         <logicitem request="7" response="00110000000000001" foes="00110000000000001"/>
+         <logicitem request="8" response="00110000000000001" foes="00110000000000001"/>
+         <logicitem request="9" response="11110000001111001" foes="11110000001111001"/>
+         <logicitem request="10" response="00000000000000010" foes="11110000001110110"/>
          <logicitem request="11" response="00001000001000010" foes="00001000001000010"/>
          <logicitem request="12" response="00000000001000000" foes="00000100001000010"/>
-         <logicitem request="13" response="00000010001000000" foes="00000011111000110"/>
-         <logicitem request="14" response="00000010001000000" foes="00000011111000110"/>
-         <logicitem request="15" response="00000010000001000" foes="00000011000111110"/>
-         <logicitem request="16" response="00000010000001000" foes="00000011000111110"/>
+         <logicitem request="13" response="00000010001000000" foes="00000011111000011"/>
+         <logicitem request="14" response="00000010001000000" foes="00000011111000011"/>
+         <logicitem request="15" response="00000010000001000" foes="00000011000111011"/>
+         <logicitem request="16" response="00000010000001000" foes="00000011000111011"/>
       </logic>
    </row-logic>
    <row-logic id="605000046" requestSize="4" laneNumber="2">
@@ -765,11 +771,10 @@
          <logicitem request="3" response="0000" foes="0000"/>
       </logic>
    </row-logic>
-   <row-logic id="605000047" requestSize="3" laneNumber="1">
+   <row-logic id="605000047" requestSize="2" laneNumber="1">
       <logic>
-         <logicitem request="0" response="000" foes="000"/>
-         <logicitem request="1" response="000" foes="000"/>
-         <logicitem request="2" response="000" foes="000"/>
+         <logicitem request="0" response="00" foes="00"/>
+         <logicitem request="1" response="00" foes="00"/>
       </logic>
    </row-logic>
    <row-logic id="605000048" requestSize="2" laneNumber="1">
@@ -798,8 +803,8 @@
       <phase duration="10" state="rrGGGGrrrrrrrrry"/>
       <phase duration="1" state="rrGGGGrrrrrrrrrr"/>
       <phase duration="10" state="rryyyyrrrrrrrrrr"/>
-      <phase duration="2" state="GGrrrrggggrrrrrr"/>
-      <phase duration="18" state="GGrrrrggggrrrrrg"/>
+      <phase duration="2" state="Ggrrrrggggrrrrrr"/>
+      <phase duration="18" state="Ggrrrrggggrrrrrg"/>
    </tl-logic>
 
    <junction id="605000010" type="priority" x="0.72" y="1832.42" incLanes="2_0 2_1" intLanes="" shape="2.42,1829.08 5.36,1823.28 -0.75,1835.32 2.19,1829.52"/>
@@ -837,9 +842,9 @@
    <junction id="605000042" type="priority" x="2057.30" y="3565.10" incLanes="43_0 43_1" intLanes="" shape="2053.95,3566.78 2048.13,3569.68 2060.21,3563.64 2054.39,3566.55"/>
    <junction id="605000043" type="priority" x="2143.45" y="1075.21" incLanes="46_0 46_1 51_0 51_1" intLanes="" shape="2157.61,1073.31 2146.82,1065.19 2157.64,1073.27"/>
    <junction id="605000044" type="priority" x="1236.78" y="2823.25" incLanes="54_0" intLanes="" shape="1238.27,2824.42 1240.79,2826.40 1235.52,2822.27 1238.03,2824.24"/>
-   <junction id="605000045" type="priority" x="923.27" y="2666.58" incLanes="1000706+1000705[1]_0 1000706+1000705[1]_1 1000704_0 1000702[1]+1000701_0 1000702[1]+1000701_1 1000702[1]+1000701_2 1000714+1000713_0 1000714+1000713_1 1000714+1000713_2 1000710_0 1000710_1 1000708_0 1000708_1" intLanes="" shape="930.22,2678.28 936.79,2671.36 932.51,2665.25 922.29,2654.84 920.27,2654.73 912.17,2662.59 911.46,2666.77 928.31,2678.45"/>
+   <junction id="605000045" type="priority" x="923.27" y="2666.58" incLanes="1000704_0 1000705[1]_0 1000706_0 1000702[1]+1000701_0 1000702[1]+1000701_1 1000702[1]+1000701_2 1000714+1000713_0 1000714+1000713_1 1000714+1000713_2 1000710_0 1000710_1 1000708_0 1000708_1" intLanes="" shape="929.91,2678.75 936.86,2671.42 932.51,2665.25 922.29,2654.84 920.27,2654.73 912.17,2662.59 911.11,2667.28 927.96,2678.95"/>
    <junction id="605000046" type="priority" x="980.13" y="2619.09" incLanes="1000702[0]_0 1000702[0]_1" intLanes="" shape="984.47,2614.75 978.13,2613.29 976.67,2615.60 982.95,2623.12"/>
-   <junction id="605000047" type="priority" x="1080.89" y="2826.89" incLanes="1000705[0]_0" intLanes="" shape="1080.21,2828.50 1082.53,2826.30 1082.16,2823.55 1077.53,2828.11"/>
+   <junction id="605000047" type="priority" x="1080.89" y="2826.89" incLanes="1000705[0]_0" intLanes="" shape="1080.21,2828.50 1082.53,2826.30 1081.22,2824.55 1078.80,2826.81"/>
    <junction id="605000048" type="priority" x="851.43" y="2768.26" incLanes="1000709_0" intLanes="" shape="856.81,2769.35 851.47,2765.65 849.35,2767.68 851.07,2770.38"/>
    <junction id="605000049" type="priority" x="846.24" y="2764.85" incLanes="1000711_0" intLanes="" shape="849.86,2767.09 844.52,2763.39 842.40,2765.44 844.15,2768.12"/>
 
@@ -891,15 +896,14 @@
       <succlane lane="1000700_1" tl="1" linkno="0" yield="1" dir="l" state="t" int_end="x"/>
    </succ>
    <succ edge="1000705[0]" lane="1000705[0]_0" junction="605000047">
-      <succlane lane="1000706+1000705[1]_0" yield="0" dir="s" state="M"/>
-      <succlane lane="1000706+1000705[1]_0" yield="0" dir="s" state="M"/>
-      <succlane lane="1000706+1000705[1]_1" yield="0" dir="s" state="M"/>
+      <succlane lane="1000705[1]_0" yield="0" dir="s" state="M"/>
+      <succlane lane="1000706_0" yield="0" dir="s" state="M"/>
    </succ>
-   <succ edge="1000706+1000705[1]" lane="1000706+1000705[1]_0" junction="605000045">
-      <succlane lane="1000707_0" tl="1" linkno="15" yield="1" dir="r" state="t"/>
-   </succ>
-   <succ edge="1000706+1000705[1]" lane="1000706+1000705[1]_1" junction="605000045">
+   <succ edge="1000705[1]" lane="1000705[1]_0" junction="605000045">
       <succlane lane="1000712_1" tl="1" linkno="1" yield="1" dir="s" state="t"/>
+   </succ>
+   <succ edge="1000706" lane="1000706_0" junction="605000045">
+      <succlane lane="1000707_0" tl="1" linkno="15" yield="1" dir="r" state="t"/>
    </succ>
    <succ edge="1000707" lane="1000707_0" junction="605000033">
       <succlane lane="31_0" yield="0" dir="s" state="M"/>
