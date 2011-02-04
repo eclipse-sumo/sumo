@@ -24,6 +24,7 @@ export OD2TRIPS_BINARY="$SUMO_BIN/od2trips"
 export POLYCONVERT_BINARY="$SUMO_BIN/polyconvert"
 export SUMO_BINARY="$SUMO_BIN/sumo"
 export GUISIM_BINARY="$SUMO_BIN/sumo-gui"
+export PYTHON="python"
 
 if test x"$2" = x; then
   TEXTTEST=texttest.py
