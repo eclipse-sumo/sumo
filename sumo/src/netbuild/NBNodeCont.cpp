@@ -507,8 +507,8 @@ NBNodeCont::recheckEdges(NBDistrictCont &dc, NBTrafficLightLogicCont &tlc,
             const NBEdge* const first = ev.front();
             EdgeVector::const_iterator jci; // join candidate iterator
             for (jci=ev.begin()+1; jci!=ev.end(); ++jci) {
-                SUMOReal relativeLengthDifference = (
-                    abs(first->getLoadedLength() - (*jci)->getLoadedLength()) / first->getLoadedLength());
+                const SUMOReal relativeLengthDifference =
+                    fabs(first->getLoadedLength() - (*jci)->getLoadedLength()) / first->getLoadedLength();
                 if ((!first->isNearEnough2BeJoined2(*jci, distanceTreshold)) ||
                     (relativeLengthDifference > lengthTreshold) ||
                     (first->getSpeed() != (*jci)->getSpeed())
