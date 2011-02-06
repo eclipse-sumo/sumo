@@ -861,13 +861,16 @@ Global
 		{50B2C273-2B6A-4A3A-BE24-83E3202DE180}.Release|x64.Build.0 = Release|x64
 		{3DAC2EC1-D265-4F66-8442-A006E50DC95F}.Debug|Win32.ActiveCfg = Debug|Win32
 		{3DAC2EC1-D265-4F66-8442-A006E50DC95F}.Debug|Win32.Build.0 = Debug|Win32
-		{3DAC2EC1-D265-4F66-8442-A006E50DC95F}.Debug|x64.ActiveCfg = Debug|Win32
+		{3DAC2EC1-D265-4F66-8442-A006E50DC95F}.Debug|x64.ActiveCfg = Debug|x64
+		{3DAC2EC1-D265-4F66-8442-A006E50DC95F}.Debug|x64.Build.0 = Debug|x64
 		{3DAC2EC1-D265-4F66-8442-A006E50DC95F}.Fastbuild|Win32.ActiveCfg = Fastbuild|Win32
 		{3DAC2EC1-D265-4F66-8442-A006E50DC95F}.Fastbuild|Win32.Build.0 = Fastbuild|Win32
-		{3DAC2EC1-D265-4F66-8442-A006E50DC95F}.Fastbuild|x64.ActiveCfg = Fastbuild|Win32
+		{3DAC2EC1-D265-4F66-8442-A006E50DC95F}.Fastbuild|x64.ActiveCfg = Fastbuild|x64
+		{3DAC2EC1-D265-4F66-8442-A006E50DC95F}.Fastbuild|x64.Build.0 = Fastbuild|x64
 		{3DAC2EC1-D265-4F66-8442-A006E50DC95F}.Release|Win32.ActiveCfg = Release|Win32
 		{3DAC2EC1-D265-4F66-8442-A006E50DC95F}.Release|Win32.Build.0 = Release|Win32
-		{3DAC2EC1-D265-4F66-8442-A006E50DC95F}.Release|x64.ActiveCfg = Release|Win32
+		{3DAC2EC1-D265-4F66-8442-A006E50DC95F}.Release|x64.ActiveCfg = Release|x64
+		{3DAC2EC1-D265-4F66-8442-A006E50DC95F}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -3,7 +3,7 @@
 	ProjectType="Visual C++"
 	Version="8.00"
 	Name="zz_foreign_gl2ps"
-	ProjectGUID="{306768A4-B73E-4B81-9EC0-B4836EFE0504}"
+	ProjectGUID="{272D2367-13FE-45C2-84AD-8480861DB43E}"
 	RootNamespace="zz_foreign_gl2ps"
 	>
 	<Platforms>
@@ -356,6 +356,4 @@
 			>
 		</Filter>
 	</Files>
-	<Globals>
-	</Globals>
 </VisualStudioProject>

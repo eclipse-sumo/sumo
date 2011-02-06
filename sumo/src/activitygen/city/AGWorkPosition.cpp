@@ -62,7 +62,7 @@ AGWorkPosition::AGWorkPosition(const AGStreet& inStreet, SUMOReal pos, AGDataAnd
 }
 
 AGWorkPosition::~AGWorkPosition() throw() {
-    let();
+//    let();
 }
 
 /****************************************************************************/
