@@ -329,6 +329,30 @@ MSVehicle::activateReminders(const MSMoveReminder::Notification reason) throw() 
 }
 
 
+// ------------ Other getter methods
+Position2D
+MSVehicle::getPosition() const throw() {
+    if (myLane==0) {
+        return Position2D(-1000, -1000);
+    }
+    return myLane->getShape().positionAtLengthPosition(myState.pos());
+}
+
+
+SUMOReal 
+MSVehicle::getAngle() const throw() {
+    Position2D p1 = myLane->getShape().positionAtLengthPosition(myState.pos());
+    Position2D p2 = myFurtherLanes.size()>0
+                    ? myFurtherLanes.front()->getShape().positionAtLengthPosition(myFurtherLanes.front()->getPartialOccupatorEnd())
+                    : myLane->getShape().positionAtLengthPosition(myState.pos()-myType->getLength());
+    if(p1!=p2) {
+        return atan2(p1.x()-p2.x(), p2.y()-p1.y())*180./PI;
+    } else {
+        return -myLane->getShape().rotationDegreeAtLengthPosition(getPositionOnLane());
+    }
+}
+
+
 // ------------
 bool
 MSVehicle::addStop(const SUMOVehicleParameter::Stop &stopPar, SUMOTime untilOffset) throw() {
@@ -430,7 +454,7 @@ MSVehicle::processNextStop(SUMOReal currentVelocity) throw() {
             // the current stop is no longer valid
             MSNet::getInstance()->getVehicleControl().removeWaiting(&myLane->getEdge(), this);
             myStops.pop_front();
-            // do not count the stopping time towards gridlock time. 
+            // do not count the stopping time towards gridlock time.
             // Other outputs use an independent counter and are not affected.
             myWaitingTime = 0;
             // maybe the next stop is on the same edge; let's rebuild best lanes
@@ -1060,15 +1084,6 @@ MSVehicle::vsafeCriticalCont(SUMOTime t, SUMOReal boundVSafe) {
 }
 
 
-Position2D
-MSVehicle::getPosition() const {
-    if (myLane==0) {
-        return Position2D(-1000, -1000);
-    }
-    return myLane->getShape().positionAtLengthPosition(myState.pos());
-}
-
-
 bool
 MSVehicle::enterLaneAtMove(MSLane* enteredLane, bool onTeleporting) {
     myAmOnNet = true;
@@ -1198,12 +1213,6 @@ MSVehicle::leaveLane(const MSMoveReminder::Notification reason) {
     if (reason>=MSMoveReminder::NOTIFICATION_TELEPORT) {
         myAmOnNet = false;
     }
-}
-
-
-MSLane *
-MSVehicle::getTargetLane() const {
-    return myTarget;
 }
 
 

@@ -286,6 +286,76 @@ public:
 
 
 
+    /// @name Other getter methods
+    //@{
+
+    /** @brief Return current position (x/y, cartesian)
+     *
+     * If the vehicle's myLane is 0, -1000/-1000 is returned.
+     * @todo Recheck myLane usage in this context, think about a proper "invalid" return value
+     * @return The current position (in cartesian coordinates)
+     * @see myLane
+     */
+    Position2D getPosition() const throw();
+
+
+    /** @brief Returns the lane the vehicle wants to enter
+     * 
+     * The lane is set only, if the vehicle leaves his current lane and wants to enter a new one.
+     * @return The lane to enter
+     * @see MSLane::setCritical
+     */
+    MSLane *getTargetLane() const throw() {
+        return myTarget;
+    }
+
+
+    /** @brief Returns the lane the vehicle is on
+     * @return The vehicle's current lane
+     */
+    MSLane *getLane() const throw() {
+        return myLane;
+    }
+
+
+    /** @brief Returns the information whether the vehicle is on a road (is simulated)
+     * @return Whether the vehicle is simulated
+     */
+    inline bool isOnRoad() const throw() {
+        return myAmOnNet;
+    }
+
+
+    /** @brief Returns the SUMOTime waited (speed was lesser than 0.1m/s)
+     *
+     * The value is reset if the vehicle moves faster than 0.1m/s
+     * Intentional stopping does not count towards this time.
+     * @return The time the vehicle is standing
+     */
+    SUMOTime getWaitingTime() const throw() {
+        return myWaitingTime;
+    }
+
+
+    /** @brief Returns the number of seconds waited (speed was lesser than 0.1m/s)
+     *
+     * The value is reset if the vehicle moves faster than 0.1m/s
+     * Intentional stopping does not count towards this time.
+     * @return The time the vehicle is standing
+     */
+    SUMOReal getWaitingSeconds() const throw() {
+        return STEPS2TIME(myWaitingTime);
+    }
+
+
+    /** @brief Returns the vehicle's direction in degrees
+     * @return The vehicle's current angle
+     */
+    SUMOReal getAngle() const throw();
+    //@}
+
+
+
     void setIndividualMaxSpeed(SUMOReal individualMaxSpeed) {
         myHasIndividualMaxSpeed = true;
         myIndividualMaxSpeed = individualMaxSpeed;
@@ -314,9 +384,6 @@ public:
     bool congested() const {
         return myState.mySpeed < SUMOReal(60) / SUMOReal(3.6);
     }
-
-    /// Return current Position
-    Position2D getPosition() const;
 
 
     /** @brief Update when the vehicle enters a new lane in the move step.
@@ -353,42 +420,6 @@ public:
 
     void vsafeCriticalCont(SUMOTime t, SUMOReal boundVSafe);
 
-    MSLane *getTargetLane() const;
-
-    /// Returns the lane the vehicle is on
-    MSLane *getLane() const throw() {
-        return myLane;
-    }
-
-    /** @brief Returns the information whether the vehicle is on a road (is simulated)
-     * @return Whether the vehicle is simulated
-     */
-    inline bool isOnRoad() const throw() {
-        return myAmOnNet;
-    }
-
-
-
-    /** @brief Returns the SUMOTime waited (speed was lesser than 0.1m/s)
-     *
-     * The value is reset if the vehicle moves faster than 0.1m/s
-     * Intentional stopping does not count towards this time.
-     * @return The time the vehicle is standing
-     */
-    SUMOTime getWaitingTime() const throw() {
-        return myWaitingTime;
-    }
-
-
-    /** @brief Returns the number of seconds waited (speed was lesser than 0.1m/s)
-     *
-     * The value is reset if the vehicle moves faster than 0.1m/s
-     * Intentional stopping does not count towards this time.
-     * @return The time the vehicle is standing
-     */
-    SUMOReal getWaitingSeconds() const throw() {
-        return STEPS2TIME(myWaitingTime);
-    }
 
 
     MSAbstractLaneChangeModel &getLaneChangeModel();

@@ -290,6 +290,8 @@ GUIVehicle::getParameterWindow(GUIMainWindow &app,
                 new FunctionBinding<GUIVehicle, SUMOReal>(this, &GUIVehicle::getPositionOnLane));
     ret->mkItem("speed [m/s]", true,
                 new FunctionBinding<GUIVehicle, SUMOReal>(this, &GUIVehicle::getSpeed));
+    ret->mkItem("angle", true,
+                new FunctionBinding<GUIVehicle, SUMOReal>(this, &MSVehicle::getAngle));
     ret->mkItem("CO2 (HBEFA) [g/s]", true,
                 new FunctionBinding<GUIVehicle, SUMOReal>(this, &GUIVehicle::getHBEFA_CO2Emissions));
     ret->mkItem("CO (HBEFA) [g/s]", true,
@@ -839,15 +841,8 @@ void
 GUIVehicle::drawGL(const GUIVisualizationSettings &s) const throw() {
     glPushMatrix();
     Position2D p1 = myLane->getShape().positionAtLengthPosition(myState.pos());
-    Position2D p2 = myFurtherLanes.size()>0
-                    ? myFurtherLanes.front()->getShape().positionAtLengthPosition(myFurtherLanes.front()->getPartialOccupatorEnd())
-                    : myLane->getShape().positionAtLengthPosition(myState.pos()-myType->getLength());
     glTranslated(p1.x(), p1.y(), 0);
-    if(p1!=p2) {
-        glRotated(atan2(p1.x()-p2.x(), p2.y()-p1.y())*180./PI, 0, 0, 1);
-    } else {
-        glRotated(-myLane->getShape().rotationDegreeAtLengthPosition(getPositionOnLane()), 0, 0, 1);
-    }
+    glRotated(getAngle(), 0, 0, 1);
 
     glTranslated(0, 0, -.04);
     // set lane color
