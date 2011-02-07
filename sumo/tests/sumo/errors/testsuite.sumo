@@ -7,6 +7,9 @@ unknown_config_option
 # Tests what happens the first parameter is missing
 missing_first_param
 
+# the value for --begin is not a number
+invalid_time
+
 # Tests for broken routes
 routes
 
