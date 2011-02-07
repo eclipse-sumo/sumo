@@ -843,7 +843,11 @@ GUIVehicle::drawGL(const GUIVisualizationSettings &s) const throw() {
                     ? myFurtherLanes.front()->getShape().positionAtLengthPosition(myFurtherLanes.front()->getPartialOccupatorEnd())
                     : myLane->getShape().positionAtLengthPosition(myState.pos()-myType->getLength());
     glTranslated(p1.x(), p1.y(), 0);
-    glRotated(atan2(p1.x()-p2.x(), p2.y()-p1.y())*180./PI, 0, 0, 1);
+    if(p1!=p2) {
+        glRotated(atan2(p1.x()-p2.x(), p2.y()-p1.y())*180./PI, 0, 0, 1);
+    } else {
+        glRotated(-myLane->getShape().rotationDegreeAtLengthPosition(getPositionOnLane()), 0, 0, 1);
+    }
 
     glTranslated(0, 0, -.04);
     // set lane color
