@@ -46,7 +46,11 @@ string2time(const std::string &r) throw(EmptyData, NumberFormatException) {
 	double time;
 	std::istringstream buf(r);
 	buf >> time;
-    return TIME2STEPS(time);
+	if (buf.fail()) {
+		throw ProcessError("Input string '" + r + "' cannot be parsed as a time");
+	} else {
+	    return TIME2STEPS(time);
+	}
 }
 
 
