@@ -126,7 +126,7 @@
         <!-- Defines the begin time; Previous defs will be discarded -->
         <begin value="0"/>
 
-        <!-- Defines the end time; Later defs will be discarded -->
+        <!-- Defines the end time; Later defs will be discarded; Defaults to one day -->
         <end value="86400"/>
 
     </time>

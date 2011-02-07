@@ -1,4 +1,4 @@
-SUMO dfrouter Version dev-SVN-r9567
+SUMO dfrouter Version dev-SVN-r9684
  Copyright (C) 2001-2011 DLR and contributors; http://sumo.sourceforge.net
  
 Builds vehicle routes for SUMO using detector values.
@@ -74,7 +74,8 @@ Usage: dfrouter [OPTION]*
   -b, --begin TIME                   Defines the begin time;
                                        Previous defs will be discarded
   -e, --end TIME                     Defines the end time;
-                                       Later defs will be discarded
+                                       Later defs will be discarded;
+                                       Defaults to one day
 
  Report Options:
   -v, --verbose                      Switches to verbose output
