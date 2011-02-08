@@ -117,14 +117,11 @@ MSCalibrator::execute(SUMOTime timestep) throw(ProcessError) {
             myToCalibrate = diff - floor(diff);
         }
 
+        
         for (int i=1; i <= diff; i++) {
-
-            for (MSLane::VehCont::const_iterator it = myDestLane->getVehiclesSecure().begin();
-                    it < myDestLane->getVehiclesSecure().end();
-                    it++) {
-
+            const std::deque< MSVehicle* > &vehs = myDestLane->getVehiclesSecure();
+            for (MSLane::VehCont::const_iterator it = vehs.begin(); it < vehs.end(); it++) {
                 MSVehicle * veh = (*it);
-
                 if (veh->getVehicleType().getID() == "BUS") {
                     continue;
                 } else {
@@ -135,6 +132,7 @@ MSCalibrator::execute(SUMOTime timestep) throw(ProcessError) {
                     break;
                 }
             }
+            myDestLane->releaseVehicles();
 //			WRITE_WARNING("Removing Vehicle " + veh->getID() + " at Timestep: " + toString(timestep) + "\n");
         }
 

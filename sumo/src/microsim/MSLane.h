@@ -633,9 +633,9 @@ protected:
      * @param[in] notification The cause of emission (i.e. departure, teleport, parking)
      *   defaults to departure
      */
-    void incorporateVehicle(MSVehicle *veh, SUMOReal pos, SUMOReal speed, 
+    virtual void incorporateVehicle(MSVehicle *veh, SUMOReal pos, SUMOReal speed, 
         const MSLane::VehCont::iterator &at,
-        MSMoveReminder::Notification notification = MSMoveReminder::NOTIFICATION_DEPARTED);
+        MSMoveReminder::Notification notification = MSMoveReminder::NOTIFICATION_DEPARTED) throw();
 
 
 protected:
