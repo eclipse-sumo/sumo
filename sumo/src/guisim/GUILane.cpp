@@ -65,14 +65,14 @@ GUILane::~GUILane() throw() {
 
 
 // ------ Vehicle emission ------
-bool
-GUILane::isEmissionSuccess(MSVehicle* aVehicle, SUMOReal speed, SUMOReal pos,
-                           bool recheckNextLanes) throw(ProcessError) {
+void
+GUILane::incorporateVehicle(MSVehicle *veh, SUMOReal pos, SUMOReal speed, 
+        const MSLane::VehCont::iterator &at,
+        MSMoveReminder::Notification notification) throw() {
     myLock.lock();
     try {
-        bool ret = MSLane::isEmissionSuccess(aVehicle, speed, pos, recheckNextLanes);
+        MSLane::incorporateVehicle(veh, pos, speed, at, notification);
         myLock.unlock();
-        return ret;
     } catch (ProcessError &) {
         myLock.unlock();
         throw;

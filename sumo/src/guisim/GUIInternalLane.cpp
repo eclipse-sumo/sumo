@@ -66,14 +66,14 @@ GUIInternalLane::~GUIInternalLane() throw() {
 
 
 // ------ Vehicle emission ------
-bool
-GUIInternalLane::isEmissionSuccess(MSVehicle* aVehicle, SUMOReal speed, SUMOReal pos,
-                                   bool recheckNextLanes) throw(ProcessError) {
+void
+GUIInternalLane::incorporateVehicle(MSVehicle *veh, SUMOReal pos, SUMOReal speed, 
+        const MSLane::VehCont::iterator &at,
+        MSMoveReminder::Notification notification) throw() {
     myLock.lock();
     try {
-        bool ret = MSInternalLane::isEmissionSuccess(aVehicle, speed, pos, recheckNextLanes);
+        MSInternalLane::incorporateVehicle(veh, pos, speed, at, notification);
         myLock.unlock();
-        return ret;
     } catch (ProcessError &) {
         myLock.unlock();
         throw;

@@ -81,27 +81,6 @@ public:
 
 
 
-    /// @name Vehicle emission
-    ///@{
-
-    /** @brief Tries to emit the given vehicle with the given state (speed and pos)
-     *
-     * Locks the lock, calls MSLane::isEmissionSuccess keeping the result,
-     *  unlocks the lock and returns the result.
-     *
-     * @param[in] vehicle The vehicle to emit
-     * @param[in] speed The speed with which it shall be emitted
-     * @param[in] pos The position at which it shall be emitted
-     * @param[in] recheckNextLanes Forces patching the speed for not being too fast on next lanes
-     * @return Whether the vehicle could be emitted
-     * @see MSLane::isEmissionSuccess
-     */
-    virtual bool isEmissionSuccess(MSVehicle* vehicle, SUMOReal speed, SUMOReal pos,
-                                   bool recheckNextLanes) throw(ProcessError);
-    ///@}
-
-
-
     /// @name Access to vehicles
     /// @{
 
@@ -157,6 +136,22 @@ protected:
 
     /// moves myTmpVehicles int myVehicles after a lane change procedure
     void swapAfterLaneChange(SUMOTime t);
+
+    /** @brief 
+     * calls the vehicles enterLaneAtEmit function,
+     * updates statistics and modifies the active state as needed
+     * @param[in] veh The vehicle to be incorporated
+     * @param[in] pos The position of the vehicle
+     * @param[in] speed The speed of the vehicle 
+     * @param[in] at 
+     * @param[in] notification The cause of emission (i.e. departure, teleport, parking)
+     *   defaults to departure
+     * @see MSLane::incorporateVehicle
+     */
+    virtual void incorporateVehicle(MSVehicle *veh, SUMOReal pos, SUMOReal speed, 
+        const MSLane::VehCont::iterator &at,
+        MSMoveReminder::Notification notification = MSMoveReminder::NOTIFICATION_DEPARTED) throw();
+
 
 private:
     /// The mutex used to avoid concurrent updates of the vehicle buffer
