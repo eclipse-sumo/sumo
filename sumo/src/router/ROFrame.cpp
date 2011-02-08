@@ -89,8 +89,8 @@ ROFrame::fillOptions(OptionsCont &oc) {
     oc.doRegister("unsorted", new Option_Bool(false));
     oc.addDescription("unsorted", "Processing", "Assume input is unsorted");
 
-    oc.doRegister("randomize-flows", new Option_Bool(false)); // !!! undescibed
-    oc.addDescription("randomize-flows", "Processing", "");
+    oc.doRegister("randomize-flows", new Option_Bool(false));
+    oc.addDescription("randomize-flows", "Processing", "generate random departure times for flow input");
 
     oc.doRegister("max-alternatives", new Option_Integer(5));
     oc.addDescription("max-alternatives", "Processing", "Prune the number of alternatives to INT");

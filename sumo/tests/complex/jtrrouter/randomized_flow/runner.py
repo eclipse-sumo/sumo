@@ -1,7 +1,10 @@
 #!/usr/bin/env python
+# -*- coding: utf-8 -*-
 
 # call jtrrouter twice and check that the output differs
-import os,subprocess,random
+import sys,os,subprocess,random
+sys.path.append(os.path.join(os.path.dirname(sys.argv[0]), '..', '..', '..', '..', "tools", "lib"))
+from testUtil import checkBinary
 
 def get_depart_lines(route_file):
     return [l for l in open(route_file) if 'depart' in l]
@@ -9,22 +12,23 @@ def get_depart_lines(route_file):
 output_file1 = 'output1.rou.xml'
 output_file2 = 'output2.rou.xml'
 
-jtrrouter = os.environ.get('JTRROUTER_BINARY')
+jtrrouter = checkBinary('jtrrouter')
 assert(jtrrouter)
 
-args = ' '.join([jtrrouter,
-        '--net-file input_net.net.xml', 
-        '--flow-definition input_flows.flows.xml',
-        '--turn-definition input_turns.turns.xml',
-        '--output-file %s '
+args = [jtrrouter,
+        '--net-file', 'input_net.net.xml',
+        '--flow-definition', 'input_flows.flows.xml',
+        '--turn-definition', 'input_turns.turns.xml',
+        '--output-file', output_file1,
         '--sinks=end',
-        '--srand %s ', # otherwise it will still be deterministic, --abs-rand does not work either
-        '--randomize-flows'])
+        '--abs-rand',
+        '--randomize-flows']
 
-subprocess.call((args % (output_file1, random.randint(0, 2 ** 31))).split())
+subprocess.call(args)
 route_lines1 = get_depart_lines(output_file1)
 
-subprocess.call((args % (output_file2, random.randint(0, 2 ** 31))).split())
+args[8] = output_file2
+subprocess.call(args)
 route_lines2 = get_depart_lines(output_file2)
 
 if route_lines1 != route_lines2:

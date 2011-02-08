@@ -95,7 +95,6 @@ RORDGenerator_ODAmounts::FlowDef::applicableForTime(SUMOTime t) const {
 void
 RORDGenerator_ODAmounts::FlowDef::addRoutes(RONet &net, SUMOTime t) {
     assert(myIntervalBegin<=t&&myIntervalEnd>=t);
-    //
     if (!myRandom) {
         unsigned int absPerEachStep = myVehicle2InsertNumber / ((myIntervalEnd-myIntervalBegin) / DELTA_T);
         for (unsigned int i=0; i<absPerEachStep; i++) {
@@ -107,8 +106,8 @@ RORDGenerator_ODAmounts::FlowDef::addRoutes(RONet &net, SUMOTime t) {
             addSingleRoute(net, t);
         }
     } else {
-        while (myDepartures.size()>0&&*(myDepartures.end()-1)<t+DELTA_T) {
-            addSingleRoute(net, t);
+        while (myDepartures.size() > 0 && myDepartures.back() < t+DELTA_T) {
+            addSingleRoute(net, myDepartures.back());
             myDepartures.pop_back();
         }
     }
