@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 02/02/11 15:59:10 by SUMO netconvert Version dev-SVN-r9650
+<!-- generated on 02/08/11 14:40:21 by SUMO netconvert Version dev-SVN-r9680
 <?xml version="1.0" encoding="iso-8859-1"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
@@ -446,7 +446,7 @@
    </edge>
    <edge id="-7727483#0" from="294169342" to="38920501" priority="6" type="highway.tertiary" function="normal">
       <lanes>
-         <lane id="-7727483#0_0" depart="1" maxspeed="22.22" length="4.46" shape="496.73,307.41 497.11,311.85"/>
+         <lane id="-7727483#0_0" depart="1" maxspeed="22.22" length="4.81" shape="496.73,307.41 497.14,312.20"/>
       </lanes>
    </edge>
    <edge id="-7727483#1" from="261647692" to="294169342" priority="6" type="highway.tertiary" function="normal">
