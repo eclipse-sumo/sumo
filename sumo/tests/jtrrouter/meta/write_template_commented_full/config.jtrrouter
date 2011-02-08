@@ -45,7 +45,7 @@
         <!-- Assume input is unsorted -->
         <unsorted value="false"/>
 
-        <!--  -->
+        <!-- generate random departure times for flow input -->
         <randomize-flows value="false"/>
 
         <!-- Prune the number of alternatives to INT -->
