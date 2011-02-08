@@ -129,7 +129,7 @@ MSVehicleControl::printMeanTravelTime(OutputDevice& od) const throw() {
 void
 MSVehicleControl::vehicleEmitted(const SUMOVehicle &v) throw() {
     ++myRunningVehNo;
-    myTotalDepartureDelay += STEPS2TIME(v.getDeparture() - v.getParameter().depart);
+    myTotalDepartureDelay += STEPS2TIME(v.getDeparture() - STEPFLOOR(v.getParameter().depart));
     MSNet::getInstance()->informVehicleStateListener(&v, MSNet::VEHICLE_STATE_DEPARTED);
 }
 
