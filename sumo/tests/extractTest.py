@@ -14,6 +14,8 @@ All rights reserved
 """
 import optparse, os, glob, sys, shutil, subprocess
 from os.path import join 
+sys.path.append(os.path.join(os.path.dirname(sys.argv[0]), '..', "tools", "lib"))
+from testUtil import checkBinary
 
 optParser = optparse.OptionParser(usage="%prog <options> <test directory>")
 optParser.add_option("-o", "--output", default=".", help="send output to directory")
@@ -76,5 +78,5 @@ for source, target in targets.iteritems():
     if app in ["dfrouter", "duarouter", "jtrrouter", "netconvert", "netgen", "od2trips", "polyconvert", "sumo", "activitygen"]:
         if "meso" in testPath and app == "sumo":
             app = "meso"
-        subprocess.call([app] + appOptions)
+        subprocess.call([checkBinary(app)] + appOptions)
     os.chdir(oldWorkDir)
