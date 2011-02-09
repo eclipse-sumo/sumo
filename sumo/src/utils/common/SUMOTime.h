@@ -91,7 +91,7 @@ extern SUMOTime DELTA_T;
 // ===========================================================================
 // method declarations
 // ===========================================================================
-SUMOTime string2time(const std::string &r) throw(EmptyData, NumberFormatException);
+SUMOTime string2time(const std::string &r) throw(EmptyData, NumberFormatException, ProcessError);
 std::string time2string(SUMOTime t) throw();
 
 

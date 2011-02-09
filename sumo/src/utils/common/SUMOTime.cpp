@@ -42,7 +42,7 @@ SUMOTime DELTA_T = 1000;
 // method definitions
 // ===========================================================================
 SUMOTime
-string2time(const std::string &r) throw(EmptyData, NumberFormatException) {
+string2time(const std::string &r) throw(EmptyData, NumberFormatException, ProcessError) {
 	double time;
 	std::istringstream buf(r);
 	buf >> time;
