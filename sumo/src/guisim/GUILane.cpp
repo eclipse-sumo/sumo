@@ -29,6 +29,7 @@
 
 #include <string>
 #include <utility>
+#include <utils/foxtools/MFXMutex.h>
 #include <utils/geom/Position2D.h>
 #include <utils/common/MsgHandler.h>
 #include <microsim/MSLane.h>
@@ -68,7 +69,7 @@ GUILane::~GUILane() throw() {
 void
 GUILane::incorporateVehicle(MSVehicle *veh, SUMOReal pos, SUMOReal speed, 
         const MSLane::VehCont::iterator &at,
-        MSMoveReminder::Notification notification) throw() {
+        MSMoveReminder::Notification notification) throw(ProcessError) {
     myLock.lock();
     try {
         MSLane::incorporateVehicle(veh, pos, speed, at, notification);

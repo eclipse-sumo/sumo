@@ -404,7 +404,7 @@ public:
      * @param[in] notification The cause of emission (i.e. departure, teleport, parking)
      */
     void enterLaneAtEmit(MSLane* enteredLane, SUMOReal pos, SUMOReal speed,
-                         MSMoveReminder::Notification notification);
+                         MSMoveReminder::Notification notification) throw(ProcessError);
 
 
     /** @brief Update when the vehicle enters a new lane in the laneChange step.

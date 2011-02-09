@@ -37,7 +37,6 @@
 #include <utils/geom/Position2D.h>
 #include <utils/geom/Position2DVector.h>
 #include "GUILaneWrapper.h"
-#include <utils/foxtools/MFXMutex.h>
 
 
 // ===========================================================================
@@ -45,6 +44,7 @@
 // ===========================================================================
 class MSVehicle;
 class MSNet;
+class MFXMutex;
 
 
 // ===========================================================================
@@ -156,7 +156,7 @@ protected:
      */
     virtual void incorporateVehicle(MSVehicle *veh, SUMOReal pos, SUMOReal speed, 
         const MSLane::VehCont::iterator &at,
-        MSMoveReminder::Notification notification = MSMoveReminder::NOTIFICATION_DEPARTED) throw();
+        MSMoveReminder::Notification notification = MSMoveReminder::NOTIFICATION_DEPARTED) throw(ProcessError);
 
 
 private:

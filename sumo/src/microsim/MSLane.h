@@ -635,7 +635,7 @@ protected:
      */
     virtual void incorporateVehicle(MSVehicle *veh, SUMOReal pos, SUMOReal speed, 
         const MSLane::VehCont::iterator &at,
-        MSMoveReminder::Notification notification = MSMoveReminder::NOTIFICATION_DEPARTED) throw();
+        MSMoveReminder::Notification notification = MSMoveReminder::NOTIFICATION_DEPARTED) throw(ProcessError);
 
 
 protected:

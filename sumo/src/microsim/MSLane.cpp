@@ -110,7 +110,7 @@ void
 MSLane::incorporateVehicle(
         MSVehicle *veh, SUMOReal pos, SUMOReal speed, 
         const MSLane::VehCont::iterator &at,
-        MSMoveReminder::Notification notification) throw() {
+        MSMoveReminder::Notification notification) throw(ProcessError) {
     bool wasInactive = myVehicles.size()==0;
     veh->enterLaneAtEmit(this, pos, speed, notification);
     if (at==myVehicles.end()) {
