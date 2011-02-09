@@ -214,14 +214,14 @@ MSDevice_Vehroutes::generateOutput() const throw(IOError) {
     od.closeTag();
     od << "\n";
     if (mySorted) {
-	myRouteInfos[myHolder.getDeparture()] += od.getString();
-	myDepartureCounts[myHolder.getDeparture()]--;
-        std::map<const SUMOTime, std::string>::iterator it = myRouteInfos.begin();
-        while (it != myRouteInfos.end() && myDepartureCounts[it->first] == 0) {
-      	    myDepartureCounts.erase(it->first);
-            OutputDevice::getDeviceByOption("vehroute-output") << it->second;
-            myRouteInfos.erase(it);
-            it = myRouteInfos.begin();
+        myRouteInfos[myHolder.getDeparture()] += od.getString();
+        myDepartureCounts[myHolder.getDeparture()]--;
+        std::map<const SUMOTime, int>::iterator it = myDepartureCounts.begin();
+        while (it != myDepartureCounts.end() && it->second == 0) {
+            OutputDevice::getDeviceByOption("vehroute-output") << myRouteInfos[it->first];
+            myRouteInfos.erase(it->first);
+      	    myDepartureCounts.erase(it);
+            it = myDepartureCounts.begin();
         }
     } else {
         OutputDevice::getDeviceByOption("vehroute-output") << od.getString();

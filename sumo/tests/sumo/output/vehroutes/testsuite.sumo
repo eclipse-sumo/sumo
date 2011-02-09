@@ -28,5 +28,8 @@ exit_times_teleport
 # vehicles are moving in circles
 circle_reroute
 
+# output sorted by departure time
+sorted
+
 # Testing error cases
 errors
