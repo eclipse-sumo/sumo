@@ -27,6 +27,7 @@
 #include <config.h>
 #endif
 
+#include <utils/foxtools/MFXMutex.h>
 #include "GUIVehicleControl.h"
 #include "GUIVehicle.h"
 #include "GUINet.h"
@@ -45,7 +46,12 @@ GUIVehicleControl::GUIVehicleControl() throw()
         : MSVehicleControl() {}
 
 
-GUIVehicleControl::~GUIVehicleControl() throw() {}
+GUIVehicleControl::~GUIVehicleControl() throw() {
+    // just to quit cleanly on a failure
+    if (myLock.locked()) {
+        myLock.unlock();
+    }
+}
 
 
 SUMOVehicle *
@@ -58,8 +64,26 @@ GUIVehicleControl::buildVehicle(SUMOVehicleParameter* defs,
 }
 
 
+bool
+GUIVehicleControl::addVehicle(const std::string &id, SUMOVehicle *v) throw() {
+    myLock.lock();
+    const bool result = MSVehicleControl::addVehicle(id, v);
+    myLock.unlock();
+    return result;
+}
+
+
+void
+GUIVehicleControl::deleteVehicle(SUMOVehicle *veh) throw() {
+    myLock.lock();
+    MSVehicleControl::deleteVehicle(veh);
+    myLock.unlock();
+}
+
+
 void
 GUIVehicleControl::insertVehicleIDs(std::vector<GLuint> &into) throw() {
+    myLock.lock();
     into.reserve(myVehicleDict.size());
     for (VehicleDictType::iterator i=myVehicleDict.begin(); i!=myVehicleDict.end(); ++i) {
         SUMOVehicle *veh = (*i).second;
@@ -67,6 +91,7 @@ GUIVehicleControl::insertVehicleIDs(std::vector<GLuint> &into) throw() {
             into.push_back(static_cast<GUIVehicle*>((*i).second)->getGlID());
         }
     }
+    myLock.unlock();
 }
 
 

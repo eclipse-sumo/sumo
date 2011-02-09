@@ -41,6 +41,12 @@
 
 
 // ===========================================================================
+// class declarations
+// ===========================================================================
+class MFXMutex;
+
+
+// ===========================================================================
 // class definitions
 // ===========================================================================
 /**
@@ -84,12 +90,37 @@ public:
     /// @}
 
 
+    /** @brief Tries to insert the vehicle into the internal vehicle container
+     *
+     * Identical to the MSVehicleControl implementation except for locking.
+     *
+     * @param[in] id The id of the vehicle
+     * @param[in] v The vehicle
+     * @return Whether the vehicle could be inserted (no other vehicle with the same id was inserted before)
+     */
+    bool addVehicle(const std::string &id, SUMOVehicle *v) throw();
+
+
+    /** @brief Deletes the vehicle
+     *
+     * Identical to the MSVehicleControl implementation except for locking.
+     *
+     * @param[in] v The vehicle to delete
+     * @todo Isn't this quite insecure?
+     */
+    void deleteVehicle(SUMOVehicle *v) throw();
+
 
     /** @brief Returns the list of all known vehicles by gl-id
      * @param[fill] into The list to fill with vehicle ids
      * @todo Well, what about concurrent modifications?
      */
     void insertVehicleIDs(std::vector<GLuint> &into) throw();
+
+
+private:
+    /// The mutex used to avoid concurrent updates of the vehicle buffer
+    mutable MFXMutex myLock;
 
 
 private:

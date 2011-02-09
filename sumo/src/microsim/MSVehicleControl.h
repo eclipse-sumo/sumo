@@ -102,7 +102,7 @@ public:
 
 
 
-    /// @name Insertion, deletion and retrieal of vehicles
+    /// @name Insertion, deletion and retrieval of vehicles
     /// @{
 
     /** @brief Tries to insert the vehicle into the internal vehicle container
@@ -117,7 +117,7 @@ public:
      * @param[in] v The vehicle
      * @return Whether the vehicle could be inserted (no other vehicle with the same id was inserted before)
      */
-    bool addVehicle(const std::string &id, SUMOVehicle *v) throw();
+    virtual bool addVehicle(const std::string &id, SUMOVehicle *v) throw();
 
 
     /** @brief Returns the vehicle with the given id
@@ -136,7 +136,7 @@ public:
      * @param[in] v The vehicle to delete
      * @todo Isn't this quite insecure?
      */
-    void deleteVehicle(SUMOVehicle *v) throw();
+    virtual void deleteVehicle(SUMOVehicle *v) throw();
 
 
     /** @brief Removes a vehicle after it has ended
