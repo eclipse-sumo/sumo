@@ -46,15 +46,14 @@
 // ===========================================================================
 // member method definitions
 // ===========================================================================
-MSVehicleControl::MSVehicleControl() throw() : 
-    myLoadedVehNo(0), 
-    myRunningVehNo(0), 
-    myEndedVehNo(0),
-    myTotalDepartureDelay(0), 
-    myTotalTravelTime(0),
-    myDefaultVTypeMayBeDeleted(true),
-    myWaitingForPerson(0)
-{
+MSVehicleControl::MSVehicleControl() throw() :
+        myLoadedVehNo(0),
+        myRunningVehNo(0),
+        myEndedVehNo(0),
+        myTotalDepartureDelay(0),
+        myTotalTravelTime(0),
+        myDefaultVTypeMayBeDeleted(true),
+        myWaitingForPerson(0) {
     SUMOVTypeParameter defType;
     myVTypeDict[DEFAULT_VTYPE_ID] = MSVehicleType::build(defType);
 }

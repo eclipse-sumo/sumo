@@ -143,20 +143,20 @@ protected:
     /// moves myTmpVehicles int myVehicles after a lane change procedure
     void swapAfterLaneChange(SUMOTime t);
 
-    /** @brief 
+    /** @brief
      * calls the vehicles enterLaneAtEmit function,
      * updates statistics and modifies the active state as needed
      * @param[in] veh The vehicle to be incorporated
      * @param[in] pos The position of the vehicle
-     * @param[in] speed The speed of the vehicle 
-     * @param[in] at 
+     * @param[in] speed The speed of the vehicle
+     * @param[in] at
      * @param[in] notification The cause of emission (i.e. departure, teleport, parking)
      *   defaults to departure
      * @see MSLane::incorporateVehicle
      */
-    virtual void incorporateVehicle(MSVehicle *veh, SUMOReal pos, SUMOReal speed, 
-        const MSLane::VehCont::iterator &at,
-        MSMoveReminder::Notification notification = MSMoveReminder::NOTIFICATION_DEPARTED) throw(ProcessError);
+    virtual void incorporateVehicle(MSVehicle *veh, SUMOReal pos, SUMOReal speed,
+                                    const MSLane::VehCont::iterator &at,
+                                    MSMoveReminder::Notification notification = MSMoveReminder::NOTIFICATION_DEPARTED) throw(ProcessError);
 
 
 private:

@@ -43,25 +43,25 @@ SUMOTime DELTA_T = 1000;
 // ===========================================================================
 SUMOTime
 string2time(const std::string &r) throw(EmptyData, NumberFormatException, ProcessError) {
-	double time;
-	std::istringstream buf(r);
-	buf >> time;
-	if (buf.fail()) {
-		throw ProcessError("Input string '" + r + "' cannot be parsed as a time");
-	} else {
-	    return TIME2STEPS(time);
-	}
+    double time;
+    std::istringstream buf(r);
+    buf >> time;
+    if (buf.fail()) {
+        throw ProcessError("Input string '" + r + "' cannot be parsed as a time");
+    } else {
+        return TIME2STEPS(time);
+    }
 }
 
 
 std::string
 time2string(SUMOTime t) throw() {
-	// 123456 -> "12.34"
+    // 123456 -> "12.34"
     std::ostringstream oss;
-	oss.setf(oss.fixed);
-	oss.precision(OUTPUT_ACCURACY);
+    oss.setf(oss.fixed);
+    oss.precision(OUTPUT_ACCURACY);
     oss << STEPS2TIME(t);
-    return oss.str();	
+    return oss.str();
 }
 
 

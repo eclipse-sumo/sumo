@@ -842,9 +842,9 @@ GUISUMOAbstractView::makeSnapshot(const std::string &destFile) throw() {
 
     applyChanges(1.0, 0, 0);
 
-    if(useGL2PS) {
+    if (useGL2PS) {
         GLint format = GL2PS_PS;
-        if(ext=="ps") {
+        if (ext=="ps") {
             format = GL2PS_PS;
         } else if (ext=="eps") {
             format = GL2PS_EPS;
@@ -860,7 +860,7 @@ GUISUMOAbstractView::makeSnapshot(const std::string &destFile) throw() {
             return "Could not save '" + destFile + "'.\n Unrecognized format '" + std::string(ext.text()) + "'.";
         }
         FILE *fp = fopen(destFile.c_str(), "wb");
-        if(fp==0) {
+        if (fp==0) {
             return "Could not save '" + destFile + "'.\n Could not open file for writing";
         }
         GLint buffsize = 0, state = GL2PS_OVERFLOW;
@@ -869,8 +869,8 @@ GUISUMOAbstractView::makeSnapshot(const std::string &destFile) throw() {
         while (state == GL2PS_OVERFLOW) {
             buffsize += 1024*1024;
             gl2psBeginPage(destFile.c_str(), "sumo-gui; http://sumo.sf.net", viewport, format, GL2PS_SIMPLE_SORT,
-                        GL2PS_DRAW_BACKGROUND | GL2PS_USE_CURRENT_VIEWPORT,
-                        GL_RGBA, 0, NULL, 0, 0, 0, buffsize, fp, "out.eps");
+                           GL2PS_DRAW_BACKGROUND | GL2PS_USE_CURRENT_VIEWPORT,
+                           GL_RGBA, 0, NULL, 0, 0, 0, buffsize, fp, "out.eps");
             glMatrixMode(GL_MODELVIEW);
             glPushMatrix();
             glDisable(GL_TEXTURE_2D);
@@ -944,7 +944,7 @@ GUISUMOAbstractView::makeSnapshot(const std::string &destFile) throw() {
             } while (pa<paa);
         } while (paa<pbb);
         try {
-            if(!MFXImageHelper::saveImage(destFile, getWidth(), getHeight(), buf)) {
+            if (!MFXImageHelper::saveImage(destFile, getWidth(), getHeight(), buf)) {
                 errorMessage = "Could not save '" + destFile + "'.";
             }
         } catch (InvalidArgument &e) {
@@ -961,7 +961,7 @@ GUISUMOAbstractView::checkSnapshots() throw() {
     std::map<SUMOTime, std::string>::iterator snapIt = mySnapshots.find(MSNet::getInstance()->getCurrentTimeStep());
     if (snapIt != mySnapshots.end()) {
         std::string error = makeSnapshot(snapIt->second);
-        if(error!="") {
+        if (error!="") {
             MsgHandler::getWarningInstance()->inform(error);
         }
     }

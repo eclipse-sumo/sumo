@@ -42,12 +42,12 @@
 // ===========================================================================
 bool MSDevice_Vehroutes::mySaveExits = false;
 bool MSDevice_Vehroutes::myLastRouteOnly = false;
-bool MSDevice_Vehroutes::mySorted = false;  
+bool MSDevice_Vehroutes::mySorted = false;
 bool MSDevice_Vehroutes::myWithTaz = false;
 MSDevice_Vehroutes::StateListener MSDevice_Vehroutes::myStateListener;
 std::map<const SUMOTime, int> MSDevice_Vehroutes::myDepartureCounts;
-std::map<const SUMOTime, std::string> MSDevice_Vehroutes::myRouteInfos;                                                                                                                     
-                                                                                                                                                                                           
+std::map<const SUMOTime, std::string> MSDevice_Vehroutes::myRouteInfos;
+
 
 // ===========================================================================
 // method definitions
@@ -220,7 +220,7 @@ MSDevice_Vehroutes::generateOutput() const throw(IOError) {
         while (it != myDepartureCounts.end() && it->second == 0) {
             OutputDevice::getDeviceByOption("vehroute-output") << myRouteInfos[it->first];
             myRouteInfos.erase(it->first);
-      	    myDepartureCounts.erase(it);
+            myDepartureCounts.erase(it);
             it = myDepartureCounts.begin();
         }
     } else {

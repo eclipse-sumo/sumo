@@ -58,7 +58,7 @@ public:
         }
         return sum;
     }
-	
+
     static void normaliseSum(std::vector<T> &v, T msum=1.0) {
         if (msum==0) {
             // is an error; do nothing

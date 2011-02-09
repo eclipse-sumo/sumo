@@ -339,13 +339,13 @@ MSVehicle::getPosition() const throw() {
 }
 
 
-SUMOReal 
+SUMOReal
 MSVehicle::getAngle() const throw() {
     Position2D p1 = myLane->getShape().positionAtLengthPosition(myState.pos());
     Position2D p2 = myFurtherLanes.size()>0
                     ? myFurtherLanes.front()->getShape().positionAtLengthPosition(myFurtherLanes.front()->getPartialOccupatorEnd())
                     : myLane->getShape().positionAtLengthPosition(myState.pos()-myType->getLength());
-    if(p1!=p2) {
+    if (p1!=p2) {
         return atan2(p1.x()-p2.x(), p2.y()-p1.y())*180./PI;
     } else {
         return -myLane->getShape().rotationDegreeAtLengthPosition(getPositionOnLane());
@@ -1164,8 +1164,8 @@ MSVehicle::enterLaneAtLaneChange(MSLane* enteredLane) {
 
 void
 MSVehicle::enterLaneAtEmit(
-        MSLane* enteredLane, SUMOReal pos, SUMOReal speed, 
-        MSMoveReminder::Notification notification) throw(ProcessError) {
+    MSLane* enteredLane, SUMOReal pos, SUMOReal speed,
+    MSMoveReminder::Notification notification) throw(ProcessError) {
     myState = State(pos, speed);
     assert(myState.myPos >= 0);
     assert(myState.mySpeed >= 0);

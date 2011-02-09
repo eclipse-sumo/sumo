@@ -510,10 +510,10 @@ NBNodeCont::recheckEdges(NBDistrictCont &dc, NBTrafficLightLogicCont &tlc,
                 const SUMOReal relativeLengthDifference =
                     fabs(first->getLoadedLength() - (*jci)->getLoadedLength()) / first->getLoadedLength();
                 if ((!first->isNearEnough2BeJoined2(*jci, distanceTreshold)) ||
-                    (relativeLengthDifference > lengthTreshold) ||
-                    (first->getSpeed() != (*jci)->getSpeed())
-                    // @todo check vclass
-                    ) {
+                        (relativeLengthDifference > lengthTreshold) ||
+                        (first->getSpeed() != (*jci)->getSpeed())
+                        // @todo check vclass
+                   ) {
                     break;
                 }
             }

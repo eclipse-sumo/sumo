@@ -669,7 +669,7 @@ Position2DVector::distance(const Position2D &p) const {
     SUMOReal minDist = std::numeric_limits<double>::max();
     for (ContType::const_iterator i=myCont.begin(); i!=myCont.end()-1; i++) {
         minDist = MIN2(minDist, GeomHelper::closestDistancePointLine(
-                p, *i, *(i+1), outIntersection));
+                           p, *i, *(i+1), outIntersection));
     }
     return minDist;
 }
@@ -893,10 +893,10 @@ Position2DVector::distances(const Position2DVector &s) const {
     DoubleVector ret;
     ContType::const_iterator i;
     for (i=myCont.begin(); i!=myCont.end(); i++) {
-        ret.push_back(s.distance(*i));        
+        ret.push_back(s.distance(*i));
     }
     for (i=s.myCont.begin(); i!=s.myCont.end(); i++) {
-        ret.push_back(distance(*i));        
+        ret.push_back(distance(*i));
     }
     return ret;
 }

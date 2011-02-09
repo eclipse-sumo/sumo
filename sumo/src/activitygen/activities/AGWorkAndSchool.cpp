@@ -193,9 +193,9 @@ AGWorkAndSchool::checkAndBuildTripConsistancy() {
         finish = true;
         for (it1=tempAccTrip.begin() ; it1!=tempAccTrip.end() ; ++it1) {
             for (it2=tempAccTrip.begin() ; it2 != tempAccTrip.end() ; ++it2) {
-				if (it1 == it2) {
+                if (it1 == it2) {
                     continue;
-				}
+                }
                 diff1 = it2->getTime() - it1->getRideBackArrTime(this->timePerKm);
                 diff2 = it1->getTime() - it2->getRideBackArrTime(this->timePerKm);
 
@@ -212,12 +212,12 @@ AGWorkAndSchool::checkAndBuildTripConsistancy() {
                         tempAccTrip.erase(it2);
                     }
                     finish = false;
-					break;
+                    break;
                 }
             }
-			if (!finish) {
+            if (!finish) {
                 break; // return to while
-			}
+            }
         }
     }
     return finish;

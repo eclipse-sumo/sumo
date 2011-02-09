@@ -125,9 +125,9 @@ OutputDevice::closeAll() throw() {
 // member method definitions
 // ===========================================================================
 OutputDevice::OutputDevice(const unsigned int defaultIndentation) throw(IOError)
-    : myDefaultIndentation(defaultIndentation) {
+        : myDefaultIndentation(defaultIndentation) {
 }
-    
+
 
 bool
 OutputDevice::ok() throw() {

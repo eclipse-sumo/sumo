@@ -67,9 +67,9 @@ GUIInternalLane::~GUIInternalLane() throw() {
 
 // ------ Vehicle emission ------
 void
-GUIInternalLane::incorporateVehicle(MSVehicle *veh, SUMOReal pos, SUMOReal speed, 
-        const MSLane::VehCont::iterator &at,
-        MSMoveReminder::Notification notification) throw(ProcessError) {
+GUIInternalLane::incorporateVehicle(MSVehicle *veh, SUMOReal pos, SUMOReal speed,
+                                    const MSLane::VehCont::iterator &at,
+                                    MSMoveReminder::Notification notification) throw(ProcessError) {
     myLock.lock();
     try {
         MSInternalLane::incorporateVehicle(veh, pos, speed, at, notification);

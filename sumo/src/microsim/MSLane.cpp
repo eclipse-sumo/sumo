@@ -108,9 +108,9 @@ MSLane::addMoveReminder(MSMoveReminder* rem) throw() {
 // ------ Vehicle emission ------
 void
 MSLane::incorporateVehicle(
-        MSVehicle *veh, SUMOReal pos, SUMOReal speed, 
-        const MSLane::VehCont::iterator &at,
-        MSMoveReminder::Notification notification) throw(ProcessError) {
+    MSVehicle *veh, SUMOReal pos, SUMOReal speed,
+    const MSLane::VehCont::iterator &at,
+    MSMoveReminder::Notification notification) throw(ProcessError) {
     bool wasInactive = myVehicles.size()==0;
     veh->enterLaneAtEmit(this, pos, speed, notification);
     if (at==myVehicles.end()) {
@@ -240,7 +240,7 @@ MSLane::maxSpeedGapEmit(MSVehicle& veh, SUMOReal mspeed) throw() {
 
 bool
 MSLane::freeEmit(MSVehicle& veh, SUMOReal mspeed,
-    MSMoveReminder::Notification notification) throw() {
+                 MSMoveReminder::Notification notification) throw() {
     bool adaptableSpeed = true;
     if (myVehicles.size()==0) {
         if (isEmissionSuccess(&veh, mspeed, 0, adaptableSpeed, notification)) {
@@ -378,9 +378,9 @@ MSLane::emit(MSVehicle& veh) throw(ProcessError) {
 
 
 bool
-MSLane::isEmissionSuccess(MSVehicle* aVehicle, 
-    SUMOReal speed, SUMOReal pos, bool patchSpeed,
-    MSMoveReminder::Notification notification) throw(ProcessError) {
+MSLane::isEmissionSuccess(MSVehicle* aVehicle,
+                          SUMOReal speed, SUMOReal pos, bool patchSpeed,
+                          MSMoveReminder::Notification notification) throw(ProcessError) {
     aVehicle->getBestLanes(true, this);
     const MSCFModel &cfModel = aVehicle->getCarFollowModel();
     const std::vector<MSLane*> &bestLaneConts = aVehicle->getBestLanesContinuation(this);

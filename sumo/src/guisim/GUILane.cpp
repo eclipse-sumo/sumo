@@ -67,9 +67,9 @@ GUILane::~GUILane() throw() {
 
 // ------ Vehicle emission ------
 void
-GUILane::incorporateVehicle(MSVehicle *veh, SUMOReal pos, SUMOReal speed, 
-        const MSLane::VehCont::iterator &at,
-        MSMoveReminder::Notification notification) throw(ProcessError) {
+GUILane::incorporateVehicle(MSVehicle *veh, SUMOReal pos, SUMOReal speed,
+                            const MSLane::VehCont::iterator &at,
+                            MSMoveReminder::Notification notification) throw(ProcessError) {
     myLock.lock();
     try {
         MSLane::incorporateVehicle(veh, pos, speed, at, notification);

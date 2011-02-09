@@ -89,28 +89,28 @@ MSVehicleTransfer::checkEmissions(SUMOTime time) throw() {
         const MSEdge *nextEdge = desc.myVeh->succEdge(1);
 
         // get the lane on which this vehicle should continue
-        // first select all the lanes which allow continuation onto nextEdge 
+        // first select all the lanes which allow continuation onto nextEdge
         //   then pick the one which is least occupied
-        // @todo maybe parking vehicles should always continue on the rightmost lane? 
+        // @todo maybe parking vehicles should always continue on the rightmost lane?
         MSLane *l = e->getFreeLane(e->allowedLanes(*nextEdge, vclass), vclass);
 
         if (desc.myParking) {
             // handle parking vehicles
-            if (l->isEmissionSuccess(desc.myVeh, 0, 
-                    desc.myVeh->getPositionOnLane(), false,
-                    MSMoveReminder::NOTIFICATION_PARKING)) {
+            if (l->isEmissionSuccess(desc.myVeh, 0,
+                                     desc.myVeh->getPositionOnLane(), false,
+                                     MSMoveReminder::NOTIFICATION_PARKING)) {
                 i = myVehicles.erase(i);
             } else {
                 i++;
             }
         } else {
             // handle teleporting vehicles
-            if (l->freeEmit(*(desc.myVeh), MIN2(l->getMaxSpeed(), 
-                        desc.myVeh->getMaxSpeed()),
-                        MSMoveReminder::NOTIFICATION_TELEPORT)) {
+            if (l->freeEmit(*(desc.myVeh), MIN2(l->getMaxSpeed(),
+                                                desc.myVeh->getMaxSpeed()),
+                            MSMoveReminder::NOTIFICATION_TELEPORT)) {
                 WRITE_WARNING(
-                    "Vehicle '" + desc.myVeh->getID() + 
-                    "' ends teleporting on edge '" + e->getID() + 
+                    "Vehicle '" + desc.myVeh->getID() +
+                    "' ends teleporting on edge '" + e->getID() +
                     "', simulation time " + time2string(MSNet::getInstance()->getCurrentTimeStep()) + ".");
                 MSNet::getInstance()->informVehicleStateListener(desc.myVeh, MSNet::VEHICLE_STATE_ENDING_TELEPORT);
                 i = myVehicles.erase(i);

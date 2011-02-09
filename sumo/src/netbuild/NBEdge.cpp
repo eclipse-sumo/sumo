@@ -321,7 +321,7 @@ NBEdge::computeEdgeShape() throw() {
             }
         }
         if (shape.length() < POSITION_EPS) {
-       	    MsgHandler::getMessageInstance()->inform("Lane '" + myID + "' has calculated shape length near zero. Revert it back to old shape.");
+            MsgHandler::getMessageInstance()->inform("Lane '" + myID + "' has calculated shape length near zero. Revert it back to old shape.");
             shape = old;
         } else {
             Line2D lc(shape[0], shape[-1]);
@@ -1717,8 +1717,8 @@ NBEdge::getLaneID(unsigned int lane) {
 
 bool
 NBEdge::isNearEnough2BeJoined2(NBEdge *e, SUMOReal threshold) const {
-    DoubleVector distances = myGeom.distances(e->getGeometry());    
-	assert(distances.size() > 0);
+    DoubleVector distances = myGeom.distances(e->getGeometry());
+    assert(distances.size() > 0);
     return VectorHelper<SUMOReal>::maxValue(distances) < threshold;
 }
 

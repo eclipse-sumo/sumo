@@ -129,7 +129,7 @@ TraCIServerAPI_Vehicle::processGet(TraCIServer &server, tcpip::Storage &inputSto
             break;
         case VAR_ANGLE:
             tempMsg.writeUnsignedByte(TYPE_FLOAT);
-            tempMsg.writeFloat((float) (v->getAngle()));
+            tempMsg.writeFloat((float)(v->getAngle()));
             break;
         case VAR_ROAD_ID:
             tempMsg.writeUnsignedByte(TYPE_STRING);

@@ -300,7 +300,7 @@ public:
 
 
     /** @brief Returns the lane the vehicle wants to enter
-     * 
+     *
      * The lane is set only, if the vehicle leaves his current lane and wants to enter a new one.
      * @return The lane to enter
      * @see MSLane::setCritical
