@@ -13,6 +13,8 @@ All rights reserved
 import os, sys, subprocess
 from datetime import datetime
 from optparse import OptionParser
+sys.path.append(os.path.join(os.path.dirname(sys.argv[0]), '..', 'lib'))
+from testUtil import checkBinary
 
 def call(command, log):
     print >> log, "-" * 79
@@ -102,15 +104,18 @@ optParser.add_option("-p", "--path", dest="path",
                      default=os.environ.get("SUMO_BINDIR", ""), help="Path to binaries")
 (options, args) = optParser.parse_args()
 
+
 sumo = "sumo"
 if options.mesosim:
     sumo = "meso"
-if os.path.isfile(options.path):
-    sumoBinary = options.path
-elif (sys.platform=="win32"):        
-    sumoBinary = os.path.join(options.path, sumo+".exe")
+if options.path:    
+    if os.path.isfile(options.path):
+        sumoBinary = options.path
+    else:
+        sumoBinary = checkBinary(sumo, options.path)        
 else:
-    sumoBinary = os.path.join(options.path, sumo)
+    sumoBinary = checkBinary(sumo)
+
 log = open("one_shot-log.txt", "w")
 starttime = datetime.now()
 for step in options.frequencies.split(","):

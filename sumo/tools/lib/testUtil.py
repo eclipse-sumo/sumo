@@ -32,12 +32,12 @@ try:
 except ImportError:
     pass
 
-def checkBinary(name):
+def checkBinary(name, bindir=_bindir):
     if name == "sumo-gui":
         envName = "GUISIM_BINARY"
     else:
         envName = name.upper() + "_BINARY"
-    binary = os.environ.get(envName, os.path.join(_bindir, name))
+    binary = os.environ.get(envName, os.path.join(bindir, name))
     if os.name == "nt" and binary[-4:] != ".exe":
         binary += ".exe"
     if not os.path.exists(binary):
