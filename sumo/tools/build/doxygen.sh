@@ -1,6 +1,6 @@
 #!/bin/bash
 PREFIX=$1
-REMOTEDIR="behrisch,sumo@web.sourceforge.net:/home/groups/s/su/sumo/htdocs/daily/"
+REMOTEDIR="behrisch,sumo@web.sourceforge.net:htdocs/daily/"
 DOCDIR=$PREFIX/sumodoku
 
 cd $PREFIX/sumo
