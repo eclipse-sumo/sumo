@@ -107,12 +107,9 @@ MSLane::addMoveReminder(MSMoveReminder* rem) throw() {
 
 // ------ Vehicle emission ------
 void
-MSLane::incorporateVehicle(
-    MSVehicle *veh, SUMOReal pos, SUMOReal speed,
-    const MSLane::VehCont::iterator &at,
-    MSMoveReminder::Notification notification) throw(ProcessError) {
+MSLane::incorporateVehicle(MSVehicle *veh, SUMOReal pos, SUMOReal speed, const MSLane::VehCont::iterator &at, MSMoveReminder::Notification notification) throw(ProcessError) {
     bool wasInactive = myVehicles.size()==0;
-    veh->enterLaneAtEmit(this, pos, speed, notification);
+    veh->enterLaneAtInsertion(this, pos, speed, notification);
     if (at==myVehicles.end()) {
         // vehicle will be the first on the lane
         myVehicles.push_back(veh);

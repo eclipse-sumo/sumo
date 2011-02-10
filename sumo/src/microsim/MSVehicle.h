@@ -404,7 +404,7 @@ public:
      * @param[in] speed The speed with which the vehicle was inserted into the lane
      * @param[in] notification The cause of emission (i.e. departure, teleport, parking)
      */
-    void enterLaneAtEmit(MSLane* enteredLane, SUMOReal pos, SUMOReal speed,
+    void enterLaneAtInsertion(MSLane* enteredLane, SUMOReal pos, SUMOReal speed,
                          MSMoveReminder::Notification notification) throw(ProcessError);
 
 

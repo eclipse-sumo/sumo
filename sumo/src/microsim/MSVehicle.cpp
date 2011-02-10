@@ -1163,9 +1163,7 @@ MSVehicle::enterLaneAtLaneChange(MSLane* enteredLane) {
 
 
 void
-MSVehicle::enterLaneAtEmit(
-    MSLane* enteredLane, SUMOReal pos, SUMOReal speed,
-    MSMoveReminder::Notification notification) throw(ProcessError) {
+MSVehicle::enterLaneAtInsertion(MSLane* enteredLane, SUMOReal pos, SUMOReal speed, MSMoveReminder::Notification notification) throw(ProcessError) {
     myState = State(pos, speed);
     assert(myState.myPos >= 0);
     assert(myState.mySpeed >= 0);
