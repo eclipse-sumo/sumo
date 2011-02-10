@@ -144,7 +144,7 @@ MSVehicle::~MSVehicle() throw() {
     }
     myFurtherLanes.clear();
     //
-    if (myType->getID()[0]=='@') {
+    if (myType->amVehicleSpecific()) {
         delete myType;
     }
 }
@@ -1578,7 +1578,7 @@ MSVehicle::setBlinkerInformation() throw() {
 
 void
 MSVehicle::replaceVehicleType(MSVehicleType *type) throw() {
-    if (myType->getID()[0]=='@') {
+    if (myType->amVehicleSpecific()) {
         delete myType;
     }
     myType = type;

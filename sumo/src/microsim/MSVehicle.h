@@ -258,6 +258,7 @@ public:
                                const MSVehicle * const neigh, SUMOReal lengthsInFront) throw();
 
 
+
     /// @name state setter/getter
     //@{
 

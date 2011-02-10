@@ -379,6 +379,14 @@ public:
     /// @}
 
 
+    /** @brief Returns whether this type belongs to a single vehicle only (was modified)
+     * @return Whether this vehicle type is based on a differen one, and belongs to one vehicle only
+     */
+    bool amVehicleSpecific() const throw() {
+        return myOriginalType!=0;
+    }
+
+
 private:
     /// @brief Unique ID
     std::string myID;
