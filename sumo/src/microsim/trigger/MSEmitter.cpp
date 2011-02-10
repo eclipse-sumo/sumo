@@ -302,7 +302,7 @@ MSEmitter::MSEmitter(const std::string &id,
 MSEmitter::~MSEmitter() throw() {
     delete myFileBasedEmitter;
     std::map<MSEmitterChild*, std::pair<MSVehicle*, SUMOReal> >::iterator i;
-    for (i=myToEmit.begin(); i!=myToEmit.end(); ++i) {
+    for (i=myToInsert.begin(); i!=myToInsert.end(); ++i) {
         delete(*i).second.first;
     }
 }
@@ -310,24 +310,24 @@ MSEmitter::~MSEmitter() throw() {
 
 bool
 MSEmitter::childCheckEmit(MSEmitterChild *child) {
-    if (myToEmit.find(child)==myToEmit.end()) {
+    if (myToInsert.find(child)==myToInsert.end()) {
         // should not happen - a child is calling and should have a vehicle added
         throw 1;
     }
     if (child!=myActiveChild||myDestLane->getEdge().isVaporizing()) {
         // remove the vehicle previously inserted by the child
-        delete myToEmit[child].first;
+        delete myToInsert[child].first;
         // erase the child information
-        myToEmit.erase(myToEmit.find(child));
+        myToInsert.erase(myToInsert.find(child));
         // inform child to process the next one (the current was not used)
         return true;
     }
     // get the vehicle and the speed the child has read/generated
-    MSVehicle *veh = myToEmit[child].first;
+    MSVehicle *veh = myToInsert[child].first;
     if (veh->getParameter().depart > MSNet::getInstance()->getCurrentTimeStep()) {
         return false;
     }
-    SUMOReal speed = myToEmit[child].second;
+    SUMOReal speed = myToInsert[child].second;
     // !!! add warning if speed to high or negative
     // check whether the speed shall be patched
     SUMOReal pos = myPos;
@@ -347,7 +347,7 @@ MSEmitter::childCheckEmit(MSEmitterChild *child) {
                 throw 1;
             }
             // erase the child information
-            myToEmit.erase(myToEmit.find(child));
+            myToInsert.erase(myToInsert.find(child));
             return true;
         }
     } else {
@@ -360,7 +360,7 @@ MSEmitter::childCheckEmit(MSEmitterChild *child) {
                 throw 1;
             }
             // erase the child information
-            myToEmit.erase(myToEmit.find(child));
+            myToInsert.erase(myToInsert.find(child));
             return true;
         }
 #ifdef HAVE_MESOSIM
@@ -371,16 +371,14 @@ MSEmitter::childCheckEmit(MSEmitterChild *child) {
 
 
 void
-MSEmitter::schedule(MSEmitterChild *child,
-                    MSVehicle *v, SUMOReal speed) {
-    myToEmit[child] = std::make_pair(v, speed);
+MSEmitter::schedule(MSEmitterChild *child, MSVehicle *v, SUMOReal speed) {
+    myToInsert[child] = std::make_pair(v, speed);
 }
 
 
 size_t
 MSEmitter::getActiveChildIndex() const {
-    return
-        myFileBasedEmitter==myActiveChild ? 0 : 1;
+    return myFileBasedEmitter==myActiveChild ? 0 : 1;
 }
 
 

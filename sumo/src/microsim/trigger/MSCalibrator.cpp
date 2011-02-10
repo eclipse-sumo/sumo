@@ -436,35 +436,31 @@ MSCalibrator::MSCalibrator(const std::string &id,
 
 
 MSCalibrator::~MSCalibrator() throw() {
-    {
         delete myFileBasedCalibrator;
-    }
-    {
         std::map<MSCalibratorChild*, std::pair<MSVehicle*, SUMOReal> >::iterator i;
-        for (i=myToEmit.begin(); i!=myToEmit.end(); ++i) {
+        for (i=myToInsert.begin(); i!=myToInsert.end(); ++i) {
             delete(*i).second.first;
         }
-    }
 }
 
 
 bool
 MSCalibrator::childCheckEmit(MSCalibratorChild *child) {
-    if (myToEmit.find(child)==myToEmit.end()) {
+    if (myToInsert.find(child)==myToInsert.end()) {
         // should not happen - a child is calling and should have a vehicle added
         throw 1;
     }
     if (child!=myActiveChild||myDestLane->getEdge().isVaporizing()) {
         // remove the vehicle previously inserted by the child
-        delete myToEmit[child].first;
+        delete myToInsert[child].first;
         // erase the child information
-        myToEmit.erase(myToEmit.find(child));
+        myToInsert.erase(myToInsert.find(child));
         // inform child to process the next one (the current was not used)
         return true;
     }
     // get the vehicle and the speed the child has read/generated
-    MSVehicle *veh = myToEmit[child].first;
-    SUMOReal speed = myToEmit[child].second;
+    MSVehicle *veh = myToInsert[child].first;
+    SUMOReal speed = myToInsert[child].second;
     // check whether the speed shall be patched
     //TM
     SUMOReal pos = myPos+1;
@@ -482,7 +478,7 @@ MSCalibrator::childCheckEmit(MSCalibratorChild *child) {
                 throw 1;
             }
             // erase the child information
-            myToEmit.erase(myToEmit.find(child));
+            myToInsert.erase(myToInsert.find(child));
             return true;
         }
     } else {
@@ -495,7 +491,7 @@ MSCalibrator::childCheckEmit(MSCalibratorChild *child) {
                 throw 1;
             }
             // erase the child information
-            myToEmit.erase(myToEmit.find(child));
+            myToInsert.erase(myToInsert.find(child));
             return true;
         }
 #ifdef HAVE_MESOSIM
@@ -506,16 +502,14 @@ MSCalibrator::childCheckEmit(MSCalibratorChild *child) {
 
 
 void
-MSCalibrator::schedule(MSCalibratorChild *child,
-                       MSVehicle *v, SUMOReal speed) {
-    myToEmit[child] = std::make_pair(v, speed);
+MSCalibrator::schedule(MSCalibratorChild *child, MSVehicle *v, SUMOReal speed) {
+    myToInsert[child] = std::make_pair(v, speed);
 }
 
 
 size_t
 MSCalibrator::getActiveChildIndex() const {
-    return
-        myFileBasedCalibrator==myActiveChild ? 0 : 1;
+    return myFileBasedCalibrator==myActiveChild ? 0 : 1;
 }
 
 

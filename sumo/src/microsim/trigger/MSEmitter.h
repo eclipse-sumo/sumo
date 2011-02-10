@@ -268,23 +268,24 @@ public:
     void schedule(MSEmitterChild *child, MSVehicle *v, SUMOReal speed);
 
 protected:
-    /// The network the emitter is located in
+    /// @brief The network the emitter is located in
     MSNet &myNet;
 
-    /** the lane the emitter is placed on */
+    /// @brief The lane the emitter is placed on
     MSLane *myDestLane;
 
-    /// The position of the emitter at the lane
+    /// @brief The position of the emitter at the lane
     SUMOReal myPos;
 
-    /// The file-based child
+    /// @brief The file-based child
     MSEmitterChild *myFileBasedEmitter;
 
-    /// A map children->vehicles to emit
-    std::map<MSEmitterChild*, std::pair<MSVehicle*, SUMOReal> > myToEmit;
+    /// @brief A map children->vehicles to emit
+    std::map<MSEmitterChild*, std::pair<MSVehicle*, SUMOReal> > myToInsert;
 
-    /// The currently active child
+    /// @brief The currently active child
     MSEmitterChild *myActiveChild;
+
 
 private:
     /// @brief Invalidated copy constructor.

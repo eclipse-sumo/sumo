@@ -282,23 +282,23 @@ public:
     static void updateCalibrator(std::string name, int time, SUMOReal count);
 
 protected:
-    /// The network the calibrator is located in
+    /// @brief The network the calibrator is located in
     MSNet &myNet;
 
-    /** the lane the calibrator is placed on */
+    /// @brief The lane the calibrator is placed on
     MSLane *myDestLane;
 
-    /// The position of the calibrator at the lane
+    /// @brief The position of the calibrator at the lane
     SUMOReal myPos;
 
 
-    /// The file-based child
+    /// @brief The file-based child
     MSCalibratorChild *myFileBasedCalibrator;
 
-    /// A map children->vehicles to emit
-    std::map<MSCalibratorChild*, std::pair<MSVehicle*, SUMOReal> > myToEmit;
+    /// @brief A map children->vehicles to emit
+    std::map<MSCalibratorChild*, std::pair<MSVehicle*, SUMOReal> > myToInsert;
 
-    /// The currently active child
+    /// @brief The currently active child
     MSCalibratorChild *myActiveChild;
 
 
