@@ -79,12 +79,13 @@ public:
     /** @brief Saves departure info on emit
      *
      * @param[in] veh The entering vehicle.
-     * @param[in] isEmit whether the vehicle was just emitted into the net
-     * @param[in] isLaneChange whether the vehicle changed to the lane
-     *
-     * @return True.
+     * @param[in] reason how the vehicle enters the lane
+     * @return Always true
+     * @see MSMoveReminder::notifyEnter
+     * @see MSMoveReminder::Notification
      */
     bool notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification reason) throw();
+
 
     /** @brief Saves arrival info
      *
@@ -92,7 +93,6 @@ public:
      * @param[in] lastPos Position on the lane when leaving.
      * @param[in] isArrival whether the vehicle arrived at its destination
      * @param[in] isLaneChange whether the vehicle changed from the lane
-     *
      * @return True if it did not leave the net.
      */
     bool notifyLeave(SUMOVehicle& veh, SUMOReal lastPos,

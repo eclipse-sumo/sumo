@@ -141,11 +141,11 @@ public:
      *  the vehicle is no longer relevant for the detector.
      *
      * @param[in] veh The entering vehicle.
-     * @param[in] isEmit whether the vehicle was just emitted into the net
-     * @param[in] isLaneChange whether the vehicle changed to the lane
+     * @param[in] reason how the vehicle enters the lane
      * @return True if vehicle is on or in front of the detector.
      * @see MSMoveReminder
      * @see MSMoveReminder::notifyEnter
+     * @see MSMoveReminder::Notification
      */
     bool notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification reason) throw();
     //@}

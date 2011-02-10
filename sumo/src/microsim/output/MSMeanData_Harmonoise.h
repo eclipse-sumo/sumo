@@ -94,11 +94,11 @@ public:
          *  used as a weight for the vehicle's current emission values
          *  which are computed using the current velocity and acceleration.
          *
-         * @param[in] veh The vehicle that enters the lane
-         * @param[in] isEmit whether the vehicle was just emitted into the net
-         * @param[in] isLaneChange whether the vehicle changed to the lane
-         * @see MSMoveReminder::notifyEnter
+         * @param[in] veh The entering vehicle.
+         * @param[in] reason how the vehicle enters the lane
          * @return Always true
+         * @see MSMoveReminder::notifyEnter
+         * @see MSMoveReminder::Notification
          */
         bool notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification reason) throw();
         //@}

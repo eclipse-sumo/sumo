@@ -116,9 +116,8 @@ public:
      *
      * @param[in] veh The entering vehicle.
      * @param[in] reason how the vehicle enters the lane
-     * @see Notification
-     *
      * @return True if vehicle enters the reminder.
+     * @see Notification
      */
     virtual bool notifyEnter(SUMOVehicle& veh, Notification reason) throw() {
         UNUSED_PARAMETER(reason);

@@ -91,14 +91,17 @@ public:
      */
     bool notifyMove(SUMOVehicle& veh, SUMOReal oldPos, SUMOReal newPos, SUMOReal newSpeed) throw();
 
+
     /** @brief Adds passengers on vehicle emission
      *
      * @param[in] veh The entering vehicle.
-     * @param[in] isEmit whether the vehicle was just emitted into the net
-     * @param[in] isLaneChange whether the vehicle changed to the lane
-     *
+     * @param[in] reason how the vehicle enters the lane
+     * @return Always true
+     * @see MSMoveReminder::notifyEnter
+     * @see MSMoveReminder::Notification
      */
     bool notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification reason) throw();
+
 
     /** @brief Passengers leaving on arrival
      *

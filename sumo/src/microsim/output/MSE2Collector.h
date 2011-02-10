@@ -148,11 +148,11 @@ public:
      *  of known vehicles.
      * The method returns true as long as the vehicle is not beyond the detector.
      *
-     * @param[in] veh The vehicle that enters the lane
-     * @param[in] isEmit whether the vehicle was just emitted into the net
-     * @param[in] isLaneChange whether the vehicle changed to the lane
-     * @see MSMoveReminder::notifyEnter
+     * @param[in] veh The entering vehicle.
+     * @param[in] reason how the vehicle enters the lane
      * @return False, if vehicle passed the detector entirely, else true.
+     * @see MSMoveReminder::notifyEnter
+     * @see MSMoveReminder::Notification
      */
     bool notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification reason) throw();
     /// @}

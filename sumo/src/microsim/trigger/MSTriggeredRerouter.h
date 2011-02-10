@@ -98,19 +98,19 @@ public:
     };
 
     /** @brief Tries to reroute the vehicle
-        *
-        * It will not try to reroute if it is a
-        * lane change because there should be another rerouter on the lane
-        * the vehicle is coming from.
-        * Returns false - the vehicle will not be rerouted again.
-        *
-        * @param[in] veh The entering vehicle.
-        * @param[in] isEmit true means emit
-        * @param[in] isLaneChange true means lane change
-        * @return always false (the vehicle will not be rerouted again)
-        * @see MSMoveReminder
-        * @see MSMoveReminder::notifyEnter
-        */
+     *
+     * It will not try to reroute if it is a
+     * lane change because there should be another rerouter on the lane
+     * the vehicle is coming from.
+     * Returns false - the vehicle will not be rerouted again.
+     *
+     * @param[in] veh The entering vehicle.
+     * @param[in] reason how the vehicle enters the lane
+     * @return always false (the vehicle will not be rerouted again)
+     * @see MSMoveReminder
+     * @see MSMoveReminder::notifyEnter
+     * @see MSMoveReminder::Notification
+     */
     bool notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification reason) throw();
 
     /// Returns whether a rerouting definition is valid for the given time and vehicle

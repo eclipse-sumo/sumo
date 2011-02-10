@@ -61,7 +61,7 @@ class MSLane;
  * A device is assigned to a vehicle using the common explicite/probability - procedure.
  *
  * A device computes a new route for a vehicle as soon as the vehicle is emitted
- *  (within "enterLaneAtEmit") - and, if the given period is larger than 0 - each
+ *  (within "enterLaneAtInsertion") - and, if the given period is larger than 0 - each
  *  x time steps where x is the period. This is triggered by an event that executes
  *  "wrappedRerouteCommandExecute".
  */
@@ -105,6 +105,11 @@ public:
      *  to the list of simulation step begin events which executes
      *  "wrappedRerouteCommandExecute".
      *
+     * @param[in] veh The entering vehicle.
+     * @param[in] reason how the vehicle enters the lane
+     * @return Always false
+     * @see MSMoveReminder::notifyEnter
+     * @see MSMoveReminder::Notification
      * @see MSVehicle::reroute
      * @see MSEventHandler
      * @see WrappingCommand

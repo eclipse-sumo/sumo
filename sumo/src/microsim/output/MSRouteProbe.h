@@ -84,16 +84,16 @@ public:
     /// @{
 
     /** @brief Returns whether the vehicle shall be aware of this entry
-        *
-        * Returns true if the vehicle is in front of the entry, so that it
-        *  may enter it in later steps.
-        *
-        * @param[in] veh The vehicle that enters the lane
-        * @param[in] isEmit whether the vehicle was just emitted into the net
-        * @param[in] isLaneChange whether the vehicle changed to the lane
-        * @see MSMoveReminder::notifyEnter
-        * @return False, if vehicle passed the entry, else true.
-        */
+     *
+     * Returns true if the vehicle is in front of the entry, so that it
+     *  may enter it in later steps.
+     *
+     * @param[in] veh The entering vehicle.
+     * @param[in] reason how the vehicle enters the lane
+     * @return False, if vehicle passed the entry, else true.
+     * @see MSMoveReminder::notifyEnter
+     * @see MSMoveReminder::Notification
+     */
     bool notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification reason) throw();
     /// @}
 

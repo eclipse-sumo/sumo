@@ -80,11 +80,12 @@ public:
      *
      * @param[in] veh The entering vehicle.
      * @param[in] reason how the vehicle enters the lane
-     * @see MSMoveReminder::notifyEnter
-     *
      * @return True, if exit times are to be collected.
+     * @see MSMoveReminder::notifyEnter
+     * @see MSMoveReminder::Notification
      */
     bool notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification reason) throw();
+
 
     /** @brief Saves exit times if needed
      *
@@ -98,7 +99,6 @@ public:
      * @return True, if exit times are to be collected.
      */
     bool notifyLeave(SUMOVehicle& veh, SUMOReal lastPos, Notification reason) throw();
-
     /// @}
 
 

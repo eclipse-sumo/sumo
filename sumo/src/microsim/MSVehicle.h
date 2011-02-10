@@ -788,10 +788,10 @@ protected:
      * For all move reminder stored in "myMoveReminders", their method
      *  "MSMoveReminder::notifyEnter" is called.
      *
-     * @param[in] isEmit true means the vehicle was emitted
-     * @param[in] isLaneChange true means the vehicle entered via lane change
+     * @param[in] reason The reason for changing the reminders' states
      * @see MSMoveReminder
      * @see MSMoveReminder::notifyEnter
+     * @see MSMoveReminder::Notification
      */
     void activateReminders(const MSMoveReminder::Notification reason) throw();
 

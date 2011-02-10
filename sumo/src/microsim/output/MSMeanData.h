@@ -93,10 +93,11 @@ public:
 
         /** @brief Called if the vehicle enters the reminder's lane
          *
-         * @param veh The entering vehicle.
+         * @param[in] veh The entering vehicle.
          * @param[in] reason how the vehicle enters the lane
          * @see MSMoveReminder
          * @see MSMoveReminder::notifyEnter
+         * @see MSMoveReminder::Notification
          */
         virtual bool notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification reason) throw();
 
@@ -243,9 +244,8 @@ public:
          *  used as a weight for the vehicle's current values.
          *  The "emitted" field is incremented, additionally.
          *
-         * @param[in] veh The vehicle that enters the lane
-         * @param[in] isEmit whether the vehicle was just emitted into the net
-         * @param[in] isLaneChange whether the vehicle changed to the lane
+         * @param[in] veh The entering vehicle.
+         * @param[in] reason how the vehicle enters the lane
          * @see MSMoveReminder::notifyEnter
          * @return Always true
          */
