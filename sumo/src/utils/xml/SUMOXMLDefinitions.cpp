@@ -206,6 +206,7 @@ GenericSAXHandler::Attr sumoattrs[] = {
     { "priority",       SUMO_ATTR_PRIORITY },
     { "nolanes",        SUMO_ATTR_NOLANES },
     { "speed",          SUMO_ATTR_SPEED },
+    { "oneway",         SUMO_ATTR_ONEWAY },
 
     { "length",         SUMO_ATTR_LENGTH },
     { "fromnode",       SUMO_ATTR_FROMNODE },

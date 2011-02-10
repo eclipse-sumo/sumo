@@ -39,6 +39,7 @@
 #include <utils/xml/SUMOXMLDefinitions.h>
 #include <utils/common/TplConvert.h>
 #include <utils/common/MsgHandler.h>
+#include <utils/common/SUMOVehicleClass.h>
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -78,12 +79,18 @@ NIXMLTypesHandler::myStartElement(SumoXMLTag element,
     int priority = attrs.getOptIntReporting(SUMO_ATTR_PRIORITY, "type", id.c_str(), ok, myTypeCont.getDefaultPriority());
     int noLanes = attrs.getOptIntReporting(SUMO_ATTR_NOLANES, "type", id.c_str(), ok, myTypeCont.getDefaultNoLanes());
     SUMOReal speed = attrs.getOptSUMORealReporting(SUMO_ATTR_SPEED, "type", id.c_str(), ok, (SUMOReal) myTypeCont.getDefaultSpeed());
-    bool discard = attrs.getOptBoolReporting(SUMO_ATTR_DISCARD, 0, 0, ok, false);
+    std::string allowS = attrs.getOptStringReporting(SUMO_ATTR_ALLOW, "type", id.c_str(), ok, "");
+    std::string disallowS = attrs.getOptStringReporting(SUMO_ATTR_DISALLOW, "type", id.c_str(), ok, "");
+    bool oneway = attrs.getOptBoolReporting(SUMO_ATTR_ONEWAY, "type", id.c_str(), ok, false);
+    bool discard = attrs.getOptBoolReporting(SUMO_ATTR_DISCARD, "type", id.c_str(), ok, false);
     if (!ok) {
         return;
     }
     // build the type
-    if (!myTypeCont.insert(id, noLanes, speed, priority)) {
+    std::vector<SUMOVehicleClass> allow;
+    std::vector<SUMOVehicleClass> disallow;
+    parseVehicleClasses("", allowS, disallowS, allow, disallow, false);
+    if (!myTypeCont.insert(id, noLanes, speed, priority, allow, disallow, oneway)) {
         MsgHandler::getErrorInstance()->inform("Duplicate type occured. ID='" + id + "'");
     } else {
         if (discard) {

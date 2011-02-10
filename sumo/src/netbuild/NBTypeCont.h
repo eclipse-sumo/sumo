@@ -68,7 +68,8 @@ public:
                      SUMOReal defaultSpeed, int defaultPriority) throw();
 
 
-    /** @brief Adds a type into the list
+    /** @brief Adds a type into the list. This is a simplified convenience form
+     * of insert, if only one allowed vehicle class is necessary.
      * @param[in] id The id of the type
      * @param[in] noLanes The number of lanes an edge of this type has
      * @param[in] maxSpeed The speed allowed on an edge of this type
@@ -80,6 +81,23 @@ public:
     bool insert(const std::string &id, int noLanes, SUMOReal maxSpeed, int prio,
                 SUMOVehicleClass vClasses=SVC_UNKNOWN, bool oneWayIsDefault=false) throw();
 
+    /** @brief Adds a type into the list
+     * @param[in] id The id of the type
+     * @param[in] noLanes The number of lanes an edge of this type has
+     * @param[in] maxSpeed The speed allowed on an edge of this type
+     * @param[in] prio The priority of an edge of this type
+     * @param[in] allow The list of vehicle classes allowed on an edge of this type
+     * @param[in] disallow The list of vehicle classes disallowed on an edge of this type
+     * @param[in] oneWayIsDefault Whether edges of this type are one-way per default
+     * @return Whether the type could be added (no type with the same id existed)
+     */
+    bool insert(const std::string &id,
+				int noLanes,
+				SUMOReal maxSpeed,
+				int prio,
+                const std::vector<SUMOVehicleClass>& allow,
+                const std::vector<SUMOVehicleClass>& disallow,
+                bool oneWayIsDefault) throw();
 
     /** @brief Returns the number of known types
      * @return The number of known edge types (excluding the default)

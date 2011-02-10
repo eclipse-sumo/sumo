@@ -4,7 +4,7 @@ Parsing edges from 'input_edges.edg.xml'... done.
  Import done:
    9 nodes loaded.
    4 types loaded.
-   12 edges loaded.
+   11 edges loaded.
 Computing step 1: Removing dummy edges.
 Computing step 2: Joining double connections.
 Computing step 3: Normalising node positions.
@@ -25,8 +25,8 @@ Computing step 16: Computing traffic light logics.
 -----------------------------------------------------
 Summary:
  Node type statistics:
-  Unregulated junctions       : 0
-  Priority junctions          : 9
+  Unregulated junctions       : 1
+  Priority junctions          : 8
   Right-before-left junctions : 0
  Network boundaries:
   Original boundary  : -500.00,-500.00,500.00,500.00

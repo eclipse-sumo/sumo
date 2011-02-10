@@ -185,6 +185,9 @@ NIXMLEdgesHandler::myStartElement(SumoXMLTag element,
             }
             myCurrentEdge->setLoadedLength(myLength);
         }
+        myCurrentEdge->setVehicleClasses(
+        		myTypeCont.getAllowedClasses(myCurrentType),
+        		myTypeCont.getDisallowedClasses(myCurrentType));
     }
     if (element==SUMO_TAG_LANE) {
         if (myCurrentEdge==0) {

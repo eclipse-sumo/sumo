@@ -1,5 +1,6 @@
 <types>
 	<type id="a" priority="3" nolanes="3" speed="13.889"/>
 	<type id="b" priority="2" nolanes="2" speed="11.111"/>
-	<type id="c" priority="1" nolanes="1" speed="11.111"/>
+	<type id="c" priority="1" nolanes="1" speed="11.111" allow="bicycle"/>
+	<type id="d" priority="1" nolanes="1" speed="02.901" allow="pedestrian"/>
 </types>

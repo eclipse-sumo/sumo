@@ -287,6 +287,7 @@ enum SumoXMLAttr {
     SUMO_ATTR_PRIORITY,
     SUMO_ATTR_NOLANES,
     SUMO_ATTR_SPEED,
+    SUMO_ATTR_ONEWAY,
     /* edge attributes */
     SUMO_ATTR_LENGTH,
     SUMO_ATTR_FROMNODE,

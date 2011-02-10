@@ -1,7 +1,9 @@
 <?xml version="1.0"?>
 
-<!-- generated on 08/13/10 09:40:35 by SUMO netconvert Version dev-SVN-r8487
-<configuration>
+<!-- generated on Thu Feb 10 17:50:53 2011 by SUMO netconvert Version dev-SVN-r9680
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
 
     <input>
         <xml-node-files value="input_nodes.nod.xml"/>
@@ -229,7 +231,7 @@
    </edge>
    <edge id="1o" from="0" to="1" priority="1" type="c" function="normal">
       <lanes>
-         <lane id="1o_0" depart="1" maxspeed="11.11" length="488.65" shape="488.65,501.65 0.00,501.65"/>
+         <lane id="1o_0" depart="1" allow="bicycle" maxspeed="11.11" length="488.65" shape="488.65,501.65 0.00,501.65"/>
       </lanes>
    </edge>
    <edge id="1si" from="m1" to="0" priority="3" type="a" function="normal">
@@ -247,7 +249,7 @@
    </edge>
    <edge id="2o" from="0" to="2" priority="1" type="c" function="normal">
       <lanes>
-         <lane id="2o_0" depart="1" maxspeed="11.11" length="488.65" shape="511.35,498.35 1000.00,498.35"/>
+         <lane id="2o_0" depart="1" allow="bicycle" maxspeed="11.11" length="488.65" shape="511.35,498.35 1000.00,498.35"/>
       </lanes>
    </edge>
    <edge id="2si" from="m2" to="0" priority="3" type="a" function="normal">
@@ -265,7 +267,7 @@
    </edge>
    <edge id="3o" from="0" to="3" priority="1" type="c" function="normal">
       <lanes>
-         <lane id="3o_0" depart="1" maxspeed="11.11" length="488.65" shape="498.35,488.65 498.35,0.00"/>
+         <lane id="3o_0" depart="1" allow="bicycle" maxspeed="11.11" length="488.65" shape="498.35,488.65 498.35,0.00"/>
       </lanes>
    </edge>
    <edge id="3si" from="m3" to="0" priority="3" type="a" function="normal">
@@ -283,7 +285,7 @@
    </edge>
    <edge id="4o" from="0" to="4" priority="1" type="c" function="normal">
       <lanes>
-         <lane id="4o_0" depart="1" maxspeed="11.11" length="488.65" shape="501.65,511.35 501.65,1000.00"/>
+         <lane id="4o_0" depart="1" allow="bicycle" maxspeed="11.11" length="488.65" shape="501.65,511.35 501.65,1000.00"/>
       </lanes>
    </edge>
    <edge id="4si" from="m4" to="0" priority="3" type="a" function="normal">
