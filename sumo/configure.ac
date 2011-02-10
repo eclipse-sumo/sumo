@@ -94,10 +94,10 @@ AM_CONDITIONAL(MESOSIM, test -d $srcdir/src/mesosim)
 m4_syscmd([test -d src/mesosim])
 m4_if(m4_sysval,[0],[
     AC_DEFINE([HAVE_MESOSIM], [1], [Define to enable mesoscopic simulation code.])
-    AC_CONFIG_FILES([src/mesogui/Makefile src/mesosim/Makefile])
+    AC_CONFIG_FILES([src/mesogui/Makefile src/mesosim/Makefile src/netedit/Makefile])
     MESO_DIRS=mesosim
     AC_SUBST([MESO_DIRS])
-    MESOGUI_DIRS=mesogui
+    MESOGUI_DIRS="mesogui netedit"
     AC_SUBST([MESOGUI_DIRS])
     ac_enabled="$ac_enabled Meso"
     program_transform_name="s,sumo,meso,; $program_transform_name"
