@@ -17,22 +17,6 @@
       <Configuration>Fastbuild</Configuration>
       <Platform>x64</Platform>
     </ProjectConfiguration>
-    <ProjectConfiguration Include="MesoDebug|Win32">
-      <Configuration>MesoDebug</Configuration>
-      <Platform>Win32</Platform>
-    </ProjectConfiguration>
-    <ProjectConfiguration Include="MesoDebug|x64">
-      <Configuration>MesoDebug</Configuration>
-      <Platform>x64</Platform>
-    </ProjectConfiguration>
-    <ProjectConfiguration Include="MesoRelease|Win32">
-      <Configuration>MesoRelease</Configuration>
-      <Platform>Win32</Platform>
-    </ProjectConfiguration>
-    <ProjectConfiguration Include="MesoRelease|x64">
-      <Configuration>MesoRelease</Configuration>
-      <Platform>x64</Platform>
-    </ProjectConfiguration>
     <ProjectConfiguration Include="Release|Win32">
       <Configuration>Release</Configuration>
       <Platform>Win32</Platform>
@@ -43,18 +27,12 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{F1904C42-F231-4B9D-AD80-E2971969AFA0}</ProjectGuid>
+    <ProjectGuid>{813B2D7E-CC23-4650-892F-553B1AFD912C}</ProjectGuid>
     <Keyword>MFCProj</Keyword>
-    <ProjectName>sumo-gui</ProjectName>
+    <ProjectName>netedit</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Fastbuild|Win32'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='MesoDebug|Win32'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='MesoRelease|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
@@ -64,12 +42,6 @@
     <ConfigurationType>Application</ConfigurationType>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Fastbuild|x64'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='MesoDebug|x64'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='MesoRelease|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
@@ -87,19 +59,6 @@
     <Import Project="..\Fastbuild.props" />
     <Import Project="..\exe.props" />
   </ImportGroup>
-  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='MesoDebug|Win32'" Label="PropertySheets">
-    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-    <Import Project="..\Win32.props" />
-    <Import Project="..\exe.props" />
-    <Import Project="..\meso.props" />
-  </ImportGroup>
-  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='MesoRelease|Win32'" Label="PropertySheets">
-    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-    <Import Project="..\Win32.props" />
-    <Import Project="..\Release.props" />
-    <Import Project="..\exe.props" />
-    <Import Project="..\meso.props" />
-  </ImportGroup>
   <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
     <Import Project="..\Win32.props" />
@@ -116,19 +75,6 @@
     <Import Project="..\x64.props" />
     <Import Project="..\Fastbuild.props" />
     <Import Project="..\exe.props" />
-  </ImportGroup>
-  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='MesoDebug|x64'" Label="PropertySheets">
-    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-    <Import Project="..\x64.props" />
-    <Import Project="..\exe.props" />
-    <Import Project="..\meso.props" />
-  </ImportGroup>
-  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='MesoRelease|x64'" Label="PropertySheets">
-    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-    <Import Project="..\x64.props" />
-    <Import Project="..\Release.props" />
-    <Import Project="..\exe.props" />
-    <Import Project="..\meso.props" />
   </ImportGroup>
   <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
@@ -160,48 +106,34 @@
     <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='Fastbuild|x64'">AllRules.ruleset</CodeAnalysisRuleSet>
     <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='Fastbuild|x64'" />
     <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='Fastbuild|x64'" />
-    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='MesoDebug|Win32'">AllRules.ruleset</CodeAnalysisRuleSet>
-    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='MesoDebug|Win32'" />
-    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='MesoDebug|Win32'" />
-    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='MesoDebug|x64'">AllRules.ruleset</CodeAnalysisRuleSet>
-    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='MesoDebug|x64'" />
-    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='MesoDebug|x64'" />
-    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='MesoRelease|Win32'">AllRules.ruleset</CodeAnalysisRuleSet>
-    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='MesoRelease|Win32'" />
-    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='MesoRelease|Win32'" />
-    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='MesoRelease|x64'">AllRules.ruleset</CodeAnalysisRuleSet>
-    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='MesoRelease|x64'" />
-    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='MesoRelease|x64'" />
     <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">AllRules.ruleset</CodeAnalysisRuleSet>
     <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" />
     <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" />
     <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='Release|x64'">AllRules.ruleset</CodeAnalysisRuleSet>
     <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='Release|x64'" />
     <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='Release|x64'" />
-    <TargetName Condition="'$(Configuration)|$(Platform)'=='MesoRelease|Win32'">meso-gui</TargetName>
     <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(ProjectName)D</TargetName>
     <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(ProjectName)64D</TargetName>
     <TargetName Condition="'$(Configuration)|$(Platform)'=='Fastbuild|Win32'">$(ProjectName)F</TargetName>
-    <TargetName Condition="'$(Configuration)|$(Platform)'=='MesoDebug|Win32'">meso-guiD</TargetName>
-    <TargetName Condition="'$(Configuration)|$(Platform)'=='MesoRelease|x64'">meso-gui64</TargetName>
-    <TargetName Condition="'$(Configuration)|$(Platform)'=='MesoDebug|x64'">meso-gui64D</TargetName>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(ProjectName)64</TargetName>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Fastbuild|x64'">$(ProjectName)64F</TargetName>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <Link>
       <AdditionalDependencies>$(PROJ_LIB);shell32.lib;opengl32.lib;glu32.lib;$(XERCES_DEBUG_LIB);$(FOX16_DEBUG_LIB);user32.lib;winmm.lib;vfw32.lib;gdi32.lib;ws2_32.lib</AdditionalDependencies>
-      <OutputFile>$(OutDir)sumo-guiD.exe</OutputFile>
+      <OutputFile>$(OutDir)neteditD.exe</OutputFile>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <Link>
       <AdditionalDependencies>$(PROJ_LIB);shell32.lib;opengl32.lib;glu32.lib;$(XERCES_DEBUG_LIB);$(FOX16_DEBUG_LIB);user32.lib;winmm.lib;vfw32.lib;gdi32.lib;ws2_32.lib</AdditionalDependencies>
-      <OutputFile>$(OutDir)sumo-gui64D.exe</OutputFile>
+      <OutputFile>$(OutDir)netedit64D.exe</OutputFile>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <Link>
       <AdditionalDependencies>$(PROJ_LIB);shell32.lib;opengl32.lib;glu32.lib;$(XERCES_LIB);$(FOX16_LIB);user32.lib;winmm.lib;vfw32.lib;gdi32.lib;ws2_32.lib</AdditionalDependencies>
-      <OutputFile>$(OutDir)sumo-gui.exe</OutputFile>
+      <OutputFile>$(OutDir)netedit.exe</OutputFile>
       <SubSystem>Windows</SubSystem>
       <EntryPointSymbol>mainCRTStartup</EntryPointSymbol>
     </Link>
@@ -209,37 +141,13 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <Link>
       <AdditionalDependencies>$(PROJ_LIB);shell32.lib;opengl32.lib;glu32.lib;$(XERCES_LIB);$(FOX16_LIB);user32.lib;winmm.lib;vfw32.lib;gdi32.lib;ws2_32.lib</AdditionalDependencies>
-      <OutputFile>$(OutDir)sumo-gui64.exe</OutputFile>
-    </Link>
-  </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='MesoRelease|Win32'">
-    <Link>
-      <AdditionalDependencies>$(PROJ_LIB);shell32.lib;opengl32.lib;glu32.lib;$(XERCES_LIB);$(FOX16_LIB);user32.lib;winmm.lib;vfw32.lib;gdi32.lib;ws2_32.lib;$(MSBuildProjectDirectory)\..\y_libmesogui\Release\y_libmesogui.lib</AdditionalDependencies>
-      <OutputFile>$(OutDir)meso-gui.exe</OutputFile>
-    </Link>
-  </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='MesoRelease|x64'">
-    <Link>
-      <AdditionalDependencies>$(PROJ_LIB);shell32.lib;opengl32.lib;glu32.lib;$(XERCES_LIB);$(FOX16_LIB);user32.lib;winmm.lib;vfw32.lib;gdi32.lib;ws2_32.lib</AdditionalDependencies>
-      <OutputFile>$(OutDir)meso-gui64.exe</OutputFile>
-    </Link>
-  </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='MesoDebug|Win32'">
-    <Link>
-      <AdditionalDependencies>$(PROJ_LIB);shell32.lib;opengl32.lib;glu32.lib;$(XERCES_DEBUG_LIB);$(FOX16_DEBUG_LIB);user32.lib;winmm.lib;vfw32.lib;gdi32.lib;ws2_32.lib;$(MSBuildProjectDirectory)\..\y_libmesogui\Debug\y_libmesogui.lib</AdditionalDependencies>
-      <OutputFile>$(OutDir)meso-guiD.exe</OutputFile>
-    </Link>
-  </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='MesoDebug|x64'">
-    <Link>
-      <AdditionalDependencies>$(PROJ_LIB);shell32.lib;opengl32.lib;glu32.lib;$(XERCES_DEBUG_LIB);$(FOX16_DEBUG_LIB);user32.lib;winmm.lib;vfw32.lib;gdi32.lib;ws2_32.lib</AdditionalDependencies>
-      <OutputFile>$(OutDir)meso-gui64D.exe</OutputFile>
+      <OutputFile>$(OutDir)netedit64.exe</OutputFile>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Fastbuild|Win32'">
     <Link>
       <AdditionalDependencies>$(PROJ_LIB);shell32.lib;opengl32.lib;glu32.lib;$(XERCES_LIB);$(FOX16_LIB);user32.lib;winmm.lib;vfw32.lib;gdi32.lib;ws2_32.lib</AdditionalDependencies>
-      <OutputFile>$(OutDir)sumo-guiF.exe</OutputFile>
+      <OutputFile>$(OutDir)neteditF.exe</OutputFile>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Fastbuild|x64'">
@@ -248,12 +156,12 @@
     </Midl>
     <Link>
       <AdditionalDependencies>$(PROJ_LIB);shell32.lib;opengl32.lib;glu32.lib;$(XERCES_LIB);$(FOX16_LIB);user32.lib;winmm.lib;vfw32.lib;gdi32.lib;ws2_32.lib</AdditionalDependencies>
-      <OutputFile>$(OutDir)sumo-gui64F.exe</OutputFile>
+      <OutputFile>$(OutDir)netedit64F.exe</OutputFile>
       <TargetMachine>MachineX64</TargetMachine>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\src\guisim_main.cpp" />
+    <ClCompile Include="..\..\..\src\netedit\netedit_main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="..\..\..\src\guisim.rc" />
