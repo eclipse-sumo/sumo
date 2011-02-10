@@ -15,7 +15,7 @@ endif
 
 if WITH_GUI
 GUI_APPS = sumo-gui
-GUI_DIRS = $(MESOGUI_DIRS) gui guinetload guisim icons
+GUI_DIRS = gui guinetload guisim icons $(MESOGUI_DIRS)
 endif
 
 if CHECK_MEMORY_LEAKS
@@ -105,7 +105,7 @@ endif
 
 SUBDIRS = foreign utils microsim netbuild netgen netimport netload \
 od2trips polyconvert router dfrouter duarouter jtrrouter activitygen \
-$(GUI_DIRS) $(MESO_DIRS) $(TRACI_DIRS)
+$(MESO_DIRS) $(TRACI_DIRS) $(GUI_DIRS)
 
 EXTRA_DIST = config.h config.h.in \
 guisim.rc \
