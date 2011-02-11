@@ -45,7 +45,6 @@
 // class declarations
 // ===========================================================================
 class GUINet;
-class GUIApplicationWindow;
 class OutputDevice;
 
 
