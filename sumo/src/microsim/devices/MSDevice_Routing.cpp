@@ -75,7 +75,7 @@ MSDevice_Routing::insertOptions() throw() {
     oc.addDescription("device.routing.period", "Routing", "The period with which the vehicle shall be rerouted");
 
     oc.doRegister("device.routing.pre-period", new Option_String("0"));
-    oc.addDescription("device.routing.pre-period", "Routing", "The rerouting period before emit");
+    oc.addDescription("device.routing.pre-period", "Routing", "The rerouting period before depart");
 
     oc.doRegister("device.routing.adaptation-weight", new Option_Float(.5));
     oc.addDescription("device.routing.adaptation-weight", "Routing", "The weight of prior edge weights.");
@@ -148,10 +148,10 @@ MSDevice_Routing::buildVehicleDevices(SUMOVehicle &v, std::vector<MSDevice*> &in
 // MSDevice_Routing-methods
 // ---------------------------------------------------------------------------
 MSDevice_Routing::MSDevice_Routing(SUMOVehicle &holder, const std::string &id,
-                                   SUMOTime period, SUMOTime preEmitPeriod) throw()
-        : MSDevice(holder, id), myPeriod(period), myPreEmitPeriod(preEmitPeriod), myRerouteCommand(0) {
+                                   SUMOTime period, SUMOTime preInsertionPeriod) throw()
+        : MSDevice(holder, id), myPeriod(period), myPreInsertionPeriod(preInsertionPeriod), myRerouteCommand(0) {
     if (myWithTaz) {
-        myRerouteCommand = new WrappingCommand< MSDevice_Routing >(this, &MSDevice_Routing::preEmitReroute);
+        myRerouteCommand = new WrappingCommand< MSDevice_Routing >(this, &MSDevice_Routing::preInsertionReroute);
         MSNet::getInstance()->getEmissionEvents().addEvent(
             myRerouteCommand, holder.getParameter().depart,
             MSEventControl::ADAPT_AFTER_EXECUTION);
@@ -170,8 +170,8 @@ MSDevice_Routing::~MSDevice_Routing() throw() {
 bool
 MSDevice_Routing::notifyEnter(SUMOVehicle& /*veh*/, MSMoveReminder::Notification reason) throw() {
     if (reason == MSMoveReminder::NOTIFICATION_DEPARTED) {
-        if (myRerouteCommand!=0) { // clean up pre emit rerouting
-            if (myPreEmitPeriod > 0) {
+        if (myRerouteCommand!=0) { // clean up pre depart rerouting
+            if (myPreInsertionPeriod > 0) {
                 myRerouteCommand->deschedule();
             }
             myRerouteCommand = 0;
@@ -192,7 +192,7 @@ MSDevice_Routing::notifyEnter(SUMOVehicle& /*veh*/, MSMoveReminder::Notification
 
 
 SUMOTime
-MSDevice_Routing::preEmitReroute(SUMOTime currentTime) throw(ProcessError) {
+MSDevice_Routing::preInsertionReroute(SUMOTime currentTime) throw(ProcessError) {
     const MSEdge* source = MSEdge::dictionary(myHolder.getParameter().fromTaz+"-source");
     const MSEdge* dest = MSEdge::dictionary(myHolder.getParameter().toTaz+"-sink");
     if (source && dest) {
@@ -207,7 +207,7 @@ MSDevice_Routing::preEmitReroute(SUMOTime currentTime) throw(ProcessError) {
             myHolder.replaceRoute(myCachedRoutes[key], true);
         }
     }
-    return myPreEmitPeriod;
+    return myPreInsertionPeriod;
 }
 
 

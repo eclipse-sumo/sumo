@@ -171,7 +171,7 @@
         <!-- The period with which the vehicle shall be rerouted -->
         <device.routing.period value="0"/>
 
-        <!-- The rerouting period before emit -->
+        <!-- The rerouting period before depart -->
         <device.routing.pre-period value="0"/>
 
         <!-- The weight of prior edge weights. -->

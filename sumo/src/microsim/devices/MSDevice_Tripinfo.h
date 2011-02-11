@@ -76,7 +76,7 @@ public:
                     SUMOReal newPos, SUMOReal newSpeed) throw();
 
 
-    /** @brief Saves departure info on emit
+    /** @brief Saves departure info on insertion
      *
      * @param[in] veh The entering vehicle.
      * @param[in] reason how the vehicle enters the lane

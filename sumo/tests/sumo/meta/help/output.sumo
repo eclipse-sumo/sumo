@@ -1,4 +1,4 @@
-SUMO sumo Version dev-SVN-r9661
+SUMO sumo Version dev-SVN-r9716
  Copyright (C) 2001-2011 DLR and contributors; http://sumo.sourceforge.net
  
 A microscopic road traffic simulation.
@@ -100,7 +100,7 @@ Usage: sumo [OPTION]*
                                         fraction of 1000
   --device.routing.period STR         The period with which the vehicle shall
                                         be rerouted
-  --device.routing.pre-period STR     The rerouting period before emit
+  --device.routing.pre-period STR     The rerouting period before depart
   --device.routing.adaptation-weight FLOAT  The weight of prior edge weights.
   --device.routing.adaptation-interval STR  The interval for updating the edge
                                         weights.

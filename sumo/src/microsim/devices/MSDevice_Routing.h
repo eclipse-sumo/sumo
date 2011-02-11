@@ -60,7 +60,7 @@ class MSLane;
  *
  * A device is assigned to a vehicle using the common explicite/probability - procedure.
  *
- * A device computes a new route for a vehicle as soon as the vehicle is emitted
+ * A device computes a new route for a vehicle as soon as the vehicle is inserted
  *  (within "enterLaneAtInsertion") - and, if the given period is larger than 0 - each
  *  x time steps where x is the period. This is triggered by an event that executes
  *  "wrappedRerouteCommandExecute".
@@ -128,19 +128,16 @@ private:
      * @param[in] holder The vehicle that holds this device
      * @param[in] id The ID of the device
      * @param[in] period The period with which a new route shall be searched
-     * @param[in] preEmitPeriod The route search period before emit
+     * @param[in] preInsertionPeriod The route search period before emit
      */
     MSDevice_Routing(SUMOVehicle &holder, const std::string &id, SUMOTime period,
-                     SUMOTime preEmitPeriod) throw();
+                     SUMOTime preInsertionPeriod) throw();
 
 
-    /** @brief Performs rerouting after a period
+    /** @brief Performs rerouting at insertion into the network
      *
      * A new route is computed by calling the vehicle's "reroute" method, supplying
      *  "getEffort" as the edge effort retrieval method.
-     *
-     * This method is called from the event handler at the begin of a simulation
-     *  step after the rerouting period is over. The reroute period is returned.
      *
      * @param[in] currentTime The current simulation time
      * @return The offset to the next call (the rerouting period "myPeriod")
@@ -148,7 +145,7 @@ private:
      * @see MSEventHandler
      * @see WrappingCommand
      */
-    SUMOTime preEmitReroute(SUMOTime currentTime) throw(ProcessError);
+    SUMOTime preInsertionReroute(SUMOTime currentTime) throw(ProcessError);
 
 
     /** @brief Performs rerouting after a period
@@ -208,7 +205,7 @@ private:
     SUMOTime myPeriod;
 
     /// @brief The period with which a vehicle shall be rerouted before emission
-    SUMOTime myPreEmitPeriod;
+    SUMOTime myPreInsertionPeriod;
 
     /// @brief A static vehicle index for computing deterministic vehicle fractions
     static int myVehicleIndex;
