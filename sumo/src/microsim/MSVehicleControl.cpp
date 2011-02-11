@@ -107,10 +107,10 @@ MSVehicleControl::scheduleVehicleRemoval(SUMOVehicle *veh) throw() {
 
 void
 MSVehicleControl::printMeanWaitingTime(OutputDevice& od) const throw() {
-    if (getEmittedVehicleNo()==0) {
+    if (getDepartedVehicleNo()==0) {
         od << -1.;
     } else {
-        od << (myTotalDepartureDelay / (SUMOReal) getEmittedVehicleNo());
+        od << (myTotalDepartureDelay / (SUMOReal) getDepartedVehicleNo());
     }
 }
 
@@ -126,7 +126,7 @@ MSVehicleControl::printMeanTravelTime(OutputDevice& od) const throw() {
 
 
 void
-MSVehicleControl::vehicleEmitted(const SUMOVehicle &v) throw() {
+MSVehicleControl::vehicleDeparted(const SUMOVehicle &v) throw() {
     ++myRunningVehNo;
     myTotalDepartureDelay += STEPS2TIME(v.getDeparture() - STEPFLOOR(v.getParameter().depart));
     MSNet::getInstance()->informVehicleStateListener(&v, MSNet::VEHICLE_STATE_DEPARTED);

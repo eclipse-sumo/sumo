@@ -37,7 +37,6 @@
 #include <fx.h>
 #include <fx3d.h>
 #include <microsim/MSNet.h>
-#include <microsim/MSEmitControl.h>
 #include <utils/options/Option.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/options/OptionsIO.h>

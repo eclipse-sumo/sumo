@@ -161,7 +161,7 @@ MSNet::MSNet(MSVehicleControl *vc, MSEventControl *beginOfTimestepEvents,
     myLogExecutionTime = !oc.getBool("no-duration-log");
     myLogStepNumber = !oc.getBool("no-step-log");
     myTooManyVehicles = oc.getInt("too-many-vehicles");
-    myEmitter = new MSEmitControl(*vc, (SUMOTime) oc.getInt("max-depart-delay"), oc.getBool("sloppy-emit"));// !!! SUMOTime-option
+    myEmitter = new MSEmitControl(*vc, (SUMOTime) oc.getInt("max-depart-delay"), oc.getBool("sloppy-insert"));// !!! SUMOTime-option
     myVehicleControl = vc;
     myDetectorControl = new MSDetectorControl();
     myEdges = 0;
@@ -295,7 +295,7 @@ MSNet::closeSimulation(SUMOTime start) {
             msg << " UPS: " << ((SUMOReal) myVehiclesMoved * 1000. / (SUMOReal) duration) << "\n";
         }
         msg << "Vehicles: " << "\n"
-        << " Emitted: " << myVehicleControl->getEmittedVehicleNo() << "\n"
+        << " Emitted: " << myVehicleControl->getDepartedVehicleNo() << "\n"
         << " Running: " << myVehicleControl->getRunningVehicleNo() << "\n"
         << " Waiting: " << myEmitter->getWaitingVehicleNo() << "\n";
         WRITE_MESSAGE(msg.str());
@@ -475,7 +475,7 @@ MSNet::writeOutput() {
         OutputDevice& od = OutputDevice::getDeviceByOption("emissions-output");
         od << "    <emission-state time=\"" << time2string(myStep) << "\" "
         << "loaded=\"" << myVehicleControl->getLoadedVehicleNo() << "\" "
-        << "emitted=\"" << myVehicleControl->getEmittedVehicleNo() << "\" "
+        << "emitted=\"" << myVehicleControl->getDepartedVehicleNo() << "\" "
         << "running=\"" << myVehicleControl->getRunningVehicleNo() << "\" "
         << "waiting=\"" << myEmitter->getWaitingVehicleNo() << "\" "
         << "ended=\"" << myVehicleControl->getEndedVehicleNo() << "\" "
@@ -587,7 +587,7 @@ MSNet::postSimStepOutput() const throw() {
             oss << " (0ms ?*RT. ?";
         }
         oss << "UPS, vehicles"
-        << " TOT " << myVehicleControl->getEmittedVehicleNo()
+        << " TOT " << myVehicleControl->getDepartedVehicleNo()
         << " ACT " << myVehicleControl->getRunningVehicleNo()
         << ")                                              ";
         msg = oss.str();

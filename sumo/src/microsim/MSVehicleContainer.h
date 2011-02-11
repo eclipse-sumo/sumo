@@ -46,7 +46,7 @@ class MSVehicle;
 /**
  * @class MSVehicleContainer
  * A storage for vehicles, mainly used by the vehicle/route loading structures
- * and the emit control. Stores vehicles in a heap of vehiclevector/departure-
+ * and the insertion control. Stores vehicles in a heap of vehiclevector/departure-
  * pairs.
  */
 class MSVehicleContainer {

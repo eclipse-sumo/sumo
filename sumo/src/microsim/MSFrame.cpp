@@ -182,8 +182,8 @@ MSFrame::fillOptions() {
     oc.doRegister("max-depart-delay", new Option_Integer(-1));
     oc.addDescription("max-depart-delay", "Processing", "How long vehicles wait for departure before being skipped, defaults to -1 which means vehicles are never skipped");
 
-    oc.doRegister("sloppy-emit", new Option_Bool(false));
-    oc.addDescription("sloppy-emit", "Processing", "Whether emission on an edge shall not be repeated in same step once failed.");
+    oc.doRegister("sloppy-insert", new Option_Bool(false));
+    oc.addDescription("sloppy-insert", "Processing", "Whether insertion on an edge shall not be repeated in same step once failed.");
 
     oc.doRegister("lanechange.allow-swap", new Option_Bool(false));
     oc.addDescription("lanechange.allow-swap", "Processing", "Whether blocking vehicles trying to change lanes may be swapped.");

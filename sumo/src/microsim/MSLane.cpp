@@ -290,7 +290,7 @@ MSLane::freeInsertion(MSVehicle& veh, SUMOReal mspeed,
 
         // check whether there is enough room (given some extra space for rounding errors)
         if (frontMax>0 && backMin+POSITION_EPS<frontMax) {
-            // try emit vehicle (should be always ok)
+            // try to insert vehicle (should be always ok)
             if (isInsertionSuccess(&veh, speed, backMin+POSITION_EPS, adaptableSpeed, notification)) {
                 return true;
             }

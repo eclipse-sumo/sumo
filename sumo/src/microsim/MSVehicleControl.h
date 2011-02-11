@@ -177,10 +177,9 @@ public:
      * If the mean waiting time shall be computed (f.e. for emissions-output),
      *  the absolut waiting time is increased by the waiting time of the given
      *  vehicle.
-     * @param[in] v The emitted vehicle
-     * @todo Consolidate with vehiclesEmitted
+     * @param[in] v The inserted vehicle
      */
-    void vehicleEmitted(const SUMOVehicle &v) throw();
+    void vehicleDeparted(const SUMOVehicle &v) throw();
     /// @}
 
 
@@ -204,7 +203,7 @@ public:
     }
 
 
-    /** @brief Returns the number of build and emitted, but not yet deleted vehicles
+    /** @brief Returns the number of build and inserted, but not yet deleted vehicles
      * @return The number simulated vehicles (including those in teleporter)
      */
     unsigned int getRunningVehicleNo() const throw() {
@@ -212,10 +211,10 @@ public:
     }
 
 
-    /** @brief Returns the number of emitted vehicles
+    /** @brief Returns the number of inserted vehicles
      * @return The number of vehicles that have entered the simulation so far
      */
-    unsigned int getEmittedVehicleNo() const throw() {
+    unsigned int getDepartedVehicleNo() const throw() {
         return myRunningVehNo + myEndedVehNo;
     }
 
@@ -241,7 +240,7 @@ public:
     /// @{
 
     /** @brief Prints the mean waiting time of vehicles.
-     *  The mean time vehicles had to wait for being emitted (-1 if no vehicle was emitted, yet)
+     *  The mean time vehicles had to wait for being inserted (-1 if no vehicle was inserted, yet)
      * @todo Enable this for guisim?
      */
     void printMeanWaitingTime(OutputDevice& od) const throw();
@@ -369,7 +368,7 @@ protected:
     /// @brief The number of build vehicles
     unsigned int myLoadedVehNo;
 
-    /// @brief The number of vehicles within the network (build and emitted but not removed)
+    /// @brief The number of vehicles within the network (build and inserted but not removed)
     unsigned int myRunningVehNo;
 
     /// @brief The number of removed vehicles

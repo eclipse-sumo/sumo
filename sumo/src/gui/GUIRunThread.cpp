@@ -37,7 +37,6 @@
 #include <utils/common/UtilExceptions.h>
 #include <guisim/GUINet.h>
 #include <microsim/MSVehicleControl.h>
-#include <microsim/MSEmitControl.h>
 #include <utils/gui/events/GUIEvent_Message.h>
 #include <utils/gui/events/GUIEvent_SimulationStep.h>
 #include "GUIEvent_SimulationEnded.h"

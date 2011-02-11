@@ -453,16 +453,16 @@ GUINet::getParameterWindow(GUIMainWindow &app,
     GUIParameterTableWindow *ret =
         new GUIParameterTableWindow(app, *this, 13);
     // add items
-    ret->mkItem("vehicles running [#]", true,
-                new FunctionBinding<MSVehicleControl, unsigned int>(&getVehicleControl(), &MSVehicleControl::getRunningVehicleNo));
-    ret->mkItem("vehicles ended [#]", true,
-                new FunctionBinding<MSVehicleControl, unsigned int>(&getVehicleControl(), &MSVehicleControl::getEndedVehicleNo));
-    ret->mkItem("vehicles emitted [#]", true,
-                new FunctionBinding<MSVehicleControl, unsigned int>(&getVehicleControl(), &MSVehicleControl::getEmittedVehicleNo));
-    ret->mkItem("vehicles loaded [#]", true,
+    ret->mkItem("loaded vehicles [#]", true,
                 new FunctionBinding<MSVehicleControl, unsigned int>(&getVehicleControl(), &MSVehicleControl::getLoadedVehicleNo));
-    ret->mkItem("vehicles waiting [#]", true,
+    ret->mkItem("waiting vehicles [#]", true,
                 new FunctionBinding<MSEmitControl, unsigned int>(&getEmitControl(), &MSEmitControl::getWaitingVehicleNo));
+    ret->mkItem("departed vehicles [#]", true,
+                new FunctionBinding<MSVehicleControl, unsigned int>(&getVehicleControl(), &MSVehicleControl::getDepartedVehicleNo));
+    ret->mkItem("running vehicles [#]", true,
+                new FunctionBinding<MSVehicleControl, unsigned int>(&getVehicleControl(), &MSVehicleControl::getRunningVehicleNo));
+    ret->mkItem("arrived vehicles [#]", true,
+                new FunctionBinding<MSVehicleControl, unsigned int>(&getVehicleControl(), &MSVehicleControl::getEndedVehicleNo));
     ret->mkItem("end time [s]", false, OptionsCont::getOptions().getString("end"));
     ret->mkItem("begin time [s]", false, OptionsCont::getOptions().getString("begin"));
 //    ret->mkItem("time step [s]", true, new FunctionBinding<GUINet, SUMOTime>(this, &GUINet::getCurrentTimeStep));

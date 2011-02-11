@@ -37,7 +37,7 @@
         <incremental-dua-base value="10"/>
         <time-to-teleport value="300"/>
         <max-depart-delay value="-1"/>
-        <sloppy-emit value="false"/>
+        <sloppy-insert value="false"/>
         <lanechange.allow-swap value="false"/>
     </processing>
 

@@ -201,7 +201,7 @@ MSBaseVehicle::getPreDawdleAcceleration() const throw() {
 void
 MSBaseVehicle::onDepart() throw() {
     myDeparture = MSNet::getInstance()->getCurrentTimeStep();
-    MSNet::getInstance()->getVehicleControl().vehicleEmitted(*this);
+    MSNet::getInstance()->getVehicleControl().vehicleDeparted(*this);
 }
 
 

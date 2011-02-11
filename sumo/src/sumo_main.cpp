@@ -36,7 +36,6 @@
 #include <iostream>
 #include <microsim/MSNet.h>
 #include <microsim/MSRoute.h>
-#include <microsim/MSEmitControl.h>
 #include <microsim/MSVehicleControl.h>
 #include <netload/NLBuilder.h>
 #include <netload/NLHandler.h>

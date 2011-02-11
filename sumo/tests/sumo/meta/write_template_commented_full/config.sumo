@@ -87,8 +87,8 @@
         <!-- How long vehicles wait for departure before being skipped, defaults to -1 which means vehicles are never skipped -->
         <max-depart-delay value="-1"/>
 
-        <!-- Whether emission on an edge shall not be repeated in same step once failed. -->
-        <sloppy-emit value="false"/>
+        <!-- Whether insertion on an edge shall not be repeated in same step once failed. -->
+        <sloppy-insert value="false"/>
 
         <!-- Whether blocking vehicles trying to change lanes may be swapped. -->
         <lanechange.allow-swap value="false"/>
