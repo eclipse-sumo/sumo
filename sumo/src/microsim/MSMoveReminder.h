@@ -51,10 +51,10 @@ class MSLane;
  * Base class of all move-reminders. During move, the vehicles call
  *  notifyMove() for all reminders on their current lane (all lanes
  *  they pass during one step). If a vehicle enters the lane the reminder is
- *  positioned at during emit or lanechange notifyEnter() is
+ *  positioned at during insertion or lanechange notifyEnter() is
  *  called. If a vehicle leaves the reminder lane it calls notifyLeave().
  *
- * The reminder knows whom to tell about move, emit and lanechange. The
+ * The reminder knows whom to tell about move, insertion and lanechange. The
  * vehicles will remove the reminder that is not notifyMove() from
  * their reminder container.
  *

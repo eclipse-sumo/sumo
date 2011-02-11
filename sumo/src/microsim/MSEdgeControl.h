@@ -58,7 +58,7 @@ class BinaryInputDevice;
  *  achieved through return values of the MSLane-methods, signalling either
  *  that the lane got active or inactive. This is but not possible when
  *  changing lanes, we have to go through the lanes, here. Also, we have to
- *  add lanes on which a vehicle was emitted, separately, doing this into
+ *  add lanes on which a vehicle was inserted, separately, doing this into
  *  ("myChangedStateLanes") which entries are integrated at the begin of is step
  *  in "patchActiveLanes".
  */
