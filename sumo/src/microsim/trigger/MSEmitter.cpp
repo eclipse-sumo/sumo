@@ -171,7 +171,7 @@ MSEmitter::MSEmitter_FileTriggeredChild::myStartElement(SumoXMLTag element,
         if (end==-1||end>=MSNet::getInstance()->getCurrentTimeStep()) {
             if (myFlow>0) {
                 buildAndScheduleFlowVehicle();
-                MSNet::getInstance()->getEmissionEvents().addEvent(
+                MSNet::getInstance()->getInsertionEvents().addEvent(
                     new WrappingCommand<MSEmitter::MSEmitter_FileTriggeredChild>(this, &MSEmitter::MSEmitter_FileTriggeredChild::execute),
                     (SUMOTime)(1. / (myFlow / 3600.))+MSNet::getInstance()->getCurrentTimeStep(),
                     MSEventControl::ADAPT_AFTER_EXECUTION);
@@ -192,7 +192,7 @@ MSEmitter::MSEmitter_FileTriggeredChild::myStartElement(SumoXMLTag element,
             return;
         }
         if (depart<myBeginTime) {
-            // do not process the vehicle if the emission time is before the simulation begin
+            // do not process the vehicle if the insertion time is before the simulation begin
             return;
         }
         SUMOVehicleParameter* pars = new SUMOVehicleParameter();
@@ -274,7 +274,7 @@ void
 MSEmitter::MSEmitter_FileTriggeredChild::inputEndReached() {
     if (myFlow>0&&!myHaveInitialisedFlow) {
         buildAndScheduleFlowVehicle();
-        MSNet::getInstance()->getEmissionEvents().addEvent(
+        MSNet::getInstance()->getInsertionEvents().addEvent(
             new WrappingCommand<MSEmitter::MSEmitter_FileTriggeredChild>(this, &MSEmitter::MSEmitter_FileTriggeredChild::execute),
             (SUMOTime)(1. / (myFlow / 3600.))+MSNet::getInstance()->getCurrentTimeStep(),
             MSEventControl::ADAPT_AFTER_EXECUTION);

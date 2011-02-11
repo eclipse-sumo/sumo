@@ -151,7 +151,7 @@ MSNet::getInstance(void) throw(ProcessError) {
 
 
 MSNet::MSNet(MSVehicleControl *vc, MSEventControl *beginOfTimestepEvents,
-             MSEventControl *endOfTimestepEvents, MSEventControl *emissionEvents,
+             MSEventControl *endOfTimestepEvents, MSEventControl *insertionEvents,
              ShapeContainer *shapeCont) throw(ProcessError) {
     if (myInstance!=0) {
         throw ProcessError("A network was already constructed.");
@@ -174,7 +174,7 @@ MSNet::MSNet(MSVehicleControl *vc, MSEventControl *beginOfTimestepEvents,
 
     myBeginOfTimestepEvents = beginOfTimestepEvents;
     myEndOfTimestepEvents = endOfTimestepEvents;
-    myEmissionEvents = emissionEvents;
+    myInsertionEvents = insertionEvents;
 
 #ifdef HAVE_MESOSIM
     if (MSGlobals::gUseMesoSim) {
@@ -242,7 +242,7 @@ MSNet::~MSNet() throw() {
 #endif
     delete myBeginOfTimestepEvents;
     delete myEndOfTimestepEvents;
-    delete myEmissionEvents;
+    delete myInsertionEvents;
     delete myEdgeWeights;
     clearAll();
     GeoConvHelper::close();
@@ -372,12 +372,12 @@ MSNet::simulationStep() {
         myPersonControl->checkArrivedPersons(this, myStep);
     }
     // emit Vehicles
-    myEmissionEvents->execute(myStep);
+    myInsertionEvents->execute(myStep);
     myEmitter->emitVehicles(myStep);
     if (MSGlobals::gCheck4Accidents) {
         myEdges->detectCollisions(myStep);
     }
-    MSVehicleTransfer::getInstance()->checkEmissions(myStep);
+    MSVehicleTransfer::getInstance()->checkInsertions(myStep);
 
     // execute endOfTimestepEvents
     myEndOfTimestepEvents->execute(myStep);
@@ -407,7 +407,7 @@ MSNet::simulationState(SUMOTime stopTime) const throw() {
 #else
     if (stopTime < 0) {
 #endif
-        if (myEmissionEvents->isEmpty()
+        if (myInsertionEvents->isEmpty()
                 && myVehicleControl->haveAllActiveVehiclesQuit()
                 && !myEmitter->hasPendingFlows()
                 && (myPersonControl == 0 || !myPersonControl->hasPedestrians())) {

@@ -142,7 +142,7 @@ MSEmitControl::tryInsert(SUMOTime time, SUMOVehicle *veh,
                        MSVehicleContainer::VehicleVector &refusedEmits) throw(ProcessError) {
     assert(veh->getParameter().depart < time + DELTA_T);
     const MSEdge &edge = *veh->getEdge();
-    if ((!myCheckEdgesOnce || edge.getLastFailedEmissionTime()!=time) && edge.insertVehicle(*veh, time)) {
+    if ((!myCheckEdgesOnce || edge.getLastFailedInsertionTime()!=time) && edge.insertVehicle(*veh, time)) {
         // Successful emission.
         checkFlowWait(veh);
         veh->onDepart();
@@ -160,7 +160,7 @@ MSEmitControl::tryInsert(SUMOTime time, SUMOVehicle *veh,
         // let the vehicle wait one step, we'll retry then
         refusedEmits.push_back(veh);
     }
-    edge.setLastFailedEmissionTime(time);
+    edge.setLastFailedInsertionTime(time);
     return 0;
 }
 

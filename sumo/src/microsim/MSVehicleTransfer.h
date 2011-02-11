@@ -84,7 +84,7 @@ public:
      *
      * @param[in] time The current simulation time
      */
-    void checkEmissions(SUMOTime time) throw();
+    void checkInsertions(SUMOTime time) throw();
 
 
     /** @brief Checks whether stored vehicles are present

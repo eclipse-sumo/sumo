@@ -279,7 +279,7 @@ GUIVehicle::getParameterWindow(GUIMainWindow &app,
         ret->mkItem("left same route [#]", false, (unsigned int) getParameter().repetitionNumber);
     }
     if (getParameter().repetitionOffset>0) {
-        ret->mkItem("emission period [s]", false, time2string(getParameter().repetitionOffset));
+        ret->mkItem("insertion period [s]", false, time2string(getParameter().repetitionOffset));
     }
     ret->mkItem("waiting time [s]", true,
                 new FunctionBinding<GUIVehicle, SUMOReal>(this, &MSVehicle::getWaitingSeconds));

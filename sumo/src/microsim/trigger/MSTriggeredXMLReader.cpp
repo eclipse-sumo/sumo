@@ -54,8 +54,7 @@ MSTriggeredXMLReader::MSTriggeredXMLReader(MSNet &net,
         SUMOSAXHandler(filename),
         myParser(0), myHaveMore(true) {
     Command* c = new WrappingCommand< MSTriggeredReader >(this, &MSTriggeredReader::wrappedExecute);
-    MSNet::getInstance()->getEmissionEvents().addEvent(
-        c, net.getCurrentTimeStep(), MSEventControl::NO_CHANGE);
+    MSNet::getInstance()->getInsertionEvents().addEvent(c, net.getCurrentTimeStep(), MSEventControl::NO_CHANGE);
 }
 
 

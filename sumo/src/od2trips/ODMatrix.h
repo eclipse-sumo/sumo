@@ -111,7 +111,7 @@ public:
      * The cells stored in myContainer are sorted, first. Then, for each time
      *  step to generate vehicles for, it is checked whether the topmost cell
      *  is valid for this time step. If so, vehicles are generated from this
-     *  cell's description using computeEmission and stored in an internal vector.
+     *  cell's description using "computeDeparts" and stored in an internal vector.
      *  The pointer is moved and the check is repeated until the current cell
      *  is not valid for the current time or no further cells exist.
      *
@@ -191,7 +191,7 @@ protected:
     typedef std::vector<ODCell*> CellVector;
 
 
-    /** @brief Computes the emissions stored in the given cell and saves them in "into"
+    /** @brief Computes the vehicle departs stored in the given cell and saves them in "into"
      *
      * At first, the number of vehicles to insert is computed using the
      *  integer value of the vehicleNumber information from the given cell.
@@ -215,7 +215,7 @@ protected:
      * @param[in] prefix A prefix for the vehicle names
      * @return The number of left vehicles to insert
      */
-    SUMOReal computeEmissions(ODCell *cell,
+    SUMOReal computeDeparts(ODCell *cell,
                               size_t &vehName, std::vector<ODVehicle> &into, bool uniform,
                               const std::string &prefix) throw();
 

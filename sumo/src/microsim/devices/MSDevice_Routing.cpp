@@ -152,7 +152,7 @@ MSDevice_Routing::MSDevice_Routing(SUMOVehicle &holder, const std::string &id,
         : MSDevice(holder, id), myPeriod(period), myPreInsertionPeriod(preInsertionPeriod), myRerouteCommand(0) {
     if (myWithTaz) {
         myRerouteCommand = new WrappingCommand< MSDevice_Routing >(this, &MSDevice_Routing::preInsertionReroute);
-        MSNet::getInstance()->getEmissionEvents().addEvent(
+        MSNet::getInstance()->getInsertionEvents().addEvent(
             myRerouteCommand, holder.getParameter().depart,
             MSEventControl::ADAPT_AFTER_EXECUTION);
     }

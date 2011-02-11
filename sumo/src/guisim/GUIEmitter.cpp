@@ -107,7 +107,7 @@ GUIEmitter::GUIEmitterChild_UserTriggeredChild::GUIEmitterChild_UserTriggeredChi
         myVehicle(0), mySource(s) {
     if (myUserFlow>0) {
         Command* c = new WrappingCommand< GUIEmitterChild_UserTriggeredChild >(this, &GUIEmitterChild_UserTriggeredChild::wrappedExecute);
-        MSNet::getInstance()->getEmissionEvents().addEvent(
+        MSNet::getInstance()->getInsertionEvents().addEvent(
             c, (SUMOTime)(1. / (flow / 3600.))+MSNet::getInstance()->getCurrentTimeStep(),
             MSEventControl::ADAPT_AFTER_EXECUTION);
     }

@@ -290,15 +290,15 @@ public:
 
 
 
-    /// @name Methods releated to vehicle emission
+    /// @name Methods releated to vehicle insertion
     /// @{
 
     /** @brief Tries to insert the given vehicle into the network
      *
      * The procedure for choosing the proper lane is determined, first.
-     *  In dependance to this, the proper emission lane is chosen.
+     *  In dependance to this, the proper lane is chosen.
      *
-     * Emission itself is done by calling the chose lane's "insertVehicle"
+     * Insertion itself is done by calling the chose lane's "insertVehicle"
      *  method.
      *
      * @param[in] v The vehicle to insert
@@ -342,16 +342,16 @@ public:
     /** @brief Returns the last time a vehicle could not be inserted
      * @return The current value
      */
-    inline SUMOTime getLastFailedEmissionTime() const throw() {
-        return myLastFailedEmissionTime;
+    inline SUMOTime getLastFailedInsertionTime() const throw() {
+        return myLastFailedInsertionTime;
     }
 
 
     /** @brief Sets the last time a vehicle could not be inserted
      * @param[in] time the new value
      */
-    inline void setLastFailedEmissionTime(SUMOTime time) const throw() {
-        myLastFailedEmissionTime = time;
+    inline void setLastFailedInsertionTime(SUMOTime time) const throw() {
+        myLastFailedInsertionTime = time;
     }
     /// @}
 
@@ -470,8 +470,8 @@ protected:
     /// @brief Vaporizer counter
     int myVaporizationRequests;
 
-    /// @brief The time of last emission failure
-    mutable SUMOTime myLastFailedEmissionTime;
+    /// @brief The time of last insertion failure
+    mutable SUMOTime myLastFailedInsertionTime;
 
     /// @brief The succeeding edges
     std::vector<MSEdge*> mySuccessors;

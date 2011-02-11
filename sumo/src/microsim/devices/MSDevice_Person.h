@@ -49,14 +49,7 @@ class MSLane;
 // ===========================================================================
 /**
  * @class MSDevice_Person
- * @brief A device which collects vehicular emissions (using HBEFA-reformulation)
- *
- * Each device collects the vehicular emissions / fuel consumption by being
- *  called each time step, computing the current values using HelpersHBEFA, and
- *  aggregating them into internal storages over the whol journey.
- *
  * @see MSDevice
- * @see HelpersHBEFA
  */
 class MSDevice_Person : public MSDevice {
 public:
@@ -75,11 +68,6 @@ public:
     /// @{
 
     /** @brief Checks whether the vehicle is at a stop and person action is needed.
-     *
-     * The fraction of time the vehicle is on the lane is computed and
-     *  used as a weight for the vehicle's current emission values
-     *  which are computed using the current velocity and acceleration.
-     *
      * @param[in] veh The regarded vehicle
      * @param[in] oldPos Position before the move-micro-timestep.
      * @param[in] newPos Position after the move-micro-timestep.
@@ -92,7 +80,7 @@ public:
     bool notifyMove(SUMOVehicle& veh, SUMOReal oldPos, SUMOReal newPos, SUMOReal newSpeed) throw();
 
 
-    /** @brief Adds passengers on vehicle emission
+    /** @brief Adds passengers on vehicle insertion
      *
      * @param[in] veh The entering vehicle.
      * @param[in] reason how the vehicle enters the lane

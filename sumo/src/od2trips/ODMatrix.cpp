@@ -94,11 +94,11 @@ ODMatrix::add(SUMOReal vehicleNumber, SUMOTime begin,
 
 
 SUMOReal
-ODMatrix::computeEmissions(ODCell *cell,
+ODMatrix::computeDeparts(ODCell *cell,
                            size_t &vehName, std::vector<ODVehicle> &into,
                            bool uniform, const std::string &prefix) throw() {
     int vehicles2insert = (int) cell->vehicleNumber;
-    // compute whether the fraction forces an additional vehicle emission
+    // compute whether the fraction forces an additional vehicle insertion
     SUMOReal mrand = RandHelper::rand();
     SUMOReal mprob = (SUMOReal) cell->vehicleNumber - (SUMOReal) vehicles2insert;
     if (mrand<mprob) {
@@ -153,10 +153,10 @@ ODMatrix::write(SUMOTime begin, SUMOTime end,
                 (*next)->vehicleNumber += fractionLeft[odID];
                 fractionLeft[odID] = 0;
             }
-            // get the new emissions (into tmp)
+            // get the new departures (into tmp)
             std::vector<ODVehicle> tmp;
-            SUMOReal fraction = computeEmissions(*next, vehName, tmp, uniform, prefix);
-            // copy new emissions if any
+            SUMOReal fraction = computeDeparts(*next, vehName, tmp, uniform, prefix);
+            // copy new departures if any
             if (tmp.size()!=0) {
                 copy(tmp.begin(), tmp.end(), back_inserter(vehicles));
                 changed = true;

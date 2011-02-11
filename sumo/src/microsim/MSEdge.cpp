@@ -60,7 +60,7 @@ std::vector<MSEdge*> MSEdge::myEdges;
 // ===========================================================================
 MSEdge::MSEdge(const std::string &id, unsigned int numericalID) throw()
         : myID(id), myNumericalID(numericalID), myLanes(0),
-        myLaneChanger(0), myVaporizationRequests(0), myLastFailedEmissionTime(-1) {}
+        myLaneChanger(0), myVaporizationRequests(0), myLastFailedInsertionTime(-1) {}
 
 
 MSEdge::~MSEdge() throw() {

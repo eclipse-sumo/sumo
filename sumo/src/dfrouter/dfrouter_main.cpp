@@ -231,7 +231,7 @@ startComputation(RODFNet *optNet, RODFDetectorFlows &flows, RODFDetectorCon &det
         MsgHandler::getMessageInstance()->endProcessMsg("done.");
     }
     /*
-       // save the emission definitions
+       // save the insertion definitions
        if(oc.isSet("flow-definitions")) {
            buildVehicleEmissions(oc.getString("flow-definitions"));
        }

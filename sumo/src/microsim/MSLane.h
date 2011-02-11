@@ -151,7 +151,7 @@ public:
 
 
 
-    /// @name Vehicle emission
+    /// @name Vehicle insertion
     ///@{
 
     /** @brief Tries to insert the given vehicle
@@ -161,7 +161,7 @@ public:
      *
      * Then, the vehicle is tried to be inserted into the lane
      *  using these values by a call to "isInsertionSuccess". The result of
-     *  "isEmissionSuccess" is returned.
+     *  "isInsertionSuccess" is returned.
      *
      * @param[in] v The vehicle to insert
      * @return Whether the vehicle could be inserted
@@ -625,7 +625,7 @@ protected:
      * @param[in] pos The position of the vehicle
      * @param[in] speed The speed of the vehicle
      * @param[in] at
-     * @param[in] notification The cause of emission (i.e. departure, teleport, parking) defaults to departure
+     * @param[in] notification The cause of insertion (i.e. departure, teleport, parking) defaults to departure
      */
     virtual void incorporateVehicle(MSVehicle *veh, SUMOReal pos, SUMOReal speed,
                                     const MSLane::VehCont::iterator &at,

@@ -96,7 +96,7 @@ public:
     /// @name Methods called on vehicle movement / state change, overwriting MSDevice
     /// @{
 
-    /** @brief Computes a new route on vehicle emission
+    /** @brief Computes a new route on vehicle insertion
      *
      * A new route is computed by calling the vehicle's "reroute" method, supplying
      *  "getEffort" as the edge effort retrieval method.
@@ -204,7 +204,7 @@ private:
     /// @brief The period with which a vehicle shall be rerouted
     SUMOTime myPeriod;
 
-    /// @brief The period with which a vehicle shall be rerouted before emission
+    /// @brief The period with which a vehicle shall be rerouted before insertion
     SUMOTime myPreInsertionPeriod;
 
     /// @brief A static vehicle index for computing deterministic vehicle fractions

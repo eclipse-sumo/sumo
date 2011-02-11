@@ -4,7 +4,7 @@
 /// @date    Mon, 10.05.2004
 /// @version $Id$
 ///
-// Emission data collector for edges/lanes
+// Data collector for edges/lanes
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // Copyright (C) 2001-2011 DLR (http://www.dlr.de/) and contributors

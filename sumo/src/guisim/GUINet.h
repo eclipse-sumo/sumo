@@ -91,11 +91,11 @@ public:
      * @param[in] vc The vehicle control to use
      * @param[in] beginOfTimestepEvents The event control to use for simulation step begin events
      * @param[in] endOfTimestepEvents The event control to use for simulation step end events
-     * @param[in] emissionEvents The event control to use for emission events
+     * @param[in] insertionEvents The event control to use for insertion events
      * @exception ProcessError If a network was already constructed
      */
     GUINet(MSVehicleControl *vc, MSEventControl *beginOfTimestepEvents,
-           MSEventControl *endOfTimestepEvents, MSEventControl *emissionEvents) throw(ProcessError);
+           MSEventControl *endOfTimestepEvents, MSEventControl *insertionEvents) throw(ProcessError);
 
 
     /// @brief Destructor

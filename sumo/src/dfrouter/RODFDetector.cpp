@@ -246,7 +246,7 @@ RODFDetector::writeEmitterDefinition(const std::string &file,
                                      SUMOTime stepOffset,
                                      bool includeUnusedRoutes,
                                      SUMOReal scale,
-                                     bool emissionsOnly,
+                                     bool insertionsOnly,
                                      SUMOReal defaultSpeed) const {
     OutputDevice& out = OutputDevice::getDevice(file);
     if (getType()!=SOURCE_DETECTOR) {
@@ -278,7 +278,7 @@ RODFDetector::writeEmitterDefinition(const std::string &file,
         return false;
     }
     // emissions
-    if (emissionsOnly||flows.knows(myID)) {
+    if (insertionsOnly||flows.knows(myID)) {
         // get the flows for this detector
 
         const std::vector<FlowDef> &mflows = flows.getFlowDefs(myID);
@@ -546,7 +546,7 @@ RODFDetectorCon::writeEmitters(const std::string &file,
                                bool includeUnusedRoutes,
                                SUMOReal scale,
                                int maxFollower,
-                               bool emissionsOnly) {
+                               bool insertionsOnly) {
     // compute turn probabilities at detector
     for (std::vector<RODFDetector*>::const_iterator i=myDetectors.begin(); i!=myDetectors.end(); ++i) {
         (*i)->computeSplitProbabilities(&net, *this, flows, startTime, endTime, stepOffset);
@@ -571,11 +571,11 @@ RODFDetectorCon::writeEmitters(const std::string &file,
         SUMOReal defaultSpeed = net.getEdge(det->getEdgeID())->getSpeed();
         //  ... compute routes' distribution over time
         std::map<size_t, RandomDistributor<size_t>* > dists;
-        if (!emissionsOnly&&flows.knows(det->getID())) {
+        if (!insertionsOnly&&flows.knows(det->getID())) {
             det->buildDestinationDistribution(*this, flows, startTime, endTime, stepOffset, net, dists, maxFollower);
         }
         //  ... write the definition
-        if (!det->writeEmitterDefinition(defFileName, dists, flows, startTime, endTime, stepOffset, includeUnusedRoutes, scale, emissionsOnly, defaultSpeed)) {
+        if (!det->writeEmitterDefinition(defFileName, dists, flows, startTime, endTime, stepOffset, includeUnusedRoutes, scale, insertionsOnly, defaultSpeed)) {
             // skip if something failed... (!!!)
             continue;
         }

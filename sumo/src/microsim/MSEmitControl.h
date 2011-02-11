@@ -51,7 +51,7 @@ class MSVehicleControl;
  *
  * A vehicle emitter; Holds a list of vehicles which may be filled by vehicles
  *  read by MSRouteLoaders. Tries to emit vehicles departing at a time into the
- *  network as soon this time is reached and keeps them as long the emission
+ *  network as soon this time is reached and keeps them as long the insertion
  *  fails.
  *
  * If a vehicle is emitted, the control about it is given to the lanes.
@@ -64,8 +64,8 @@ class MSEmitControl {
 public:
     /** @brief Constructor
      *
-     * @param[in] vc The assigned vehicle control (needed for vehicle reemission and deletion)
-     * @param[in] maxDepartDelay Vehicles waiting longer than this for emission are deleted (-1: no deletion)
+     * @param[in] vc The assigned vehicle control (needed for vehicle re-insertion and deletion)
+     * @param[in] maxDepartDelay Vehicles waiting for insertion longer than this time are deleted (-1: no deletion)
      * @param[in] checkEdgesOnce Whether an edge on which a vehicle could not depart should be ignored in the same step
      */
     MSEmitControl(MSVehicleControl &vc, SUMOTime maxDepartDelay, bool checkEdgesOnce) throw();
@@ -98,14 +98,14 @@ public:
      *
      * The vehicle is added to "myAllVeh".
      *
-     * @param[in] veh The vehicle to add for later emission
+     * @param[in] veh The vehicle to add for later insertion
      */
     void add(SUMOVehicle *veh) throw();
 
 
     /** @brief Adds parameter for a vehicle flow for departure
      *
-     * @param[in] flow The flow to add for later emission
+     * @param[in] flow The flow to add for later insertion
      */
     void add(SUMOVehicleParameter *pars) throw();
 
@@ -131,16 +131,12 @@ public:
 private:
     /** @brief Tries to emit the vehicle
      *
-     * If the emission fails, it is examined whether the reason was a vaporizing
+     * If the insertion fails, it is examined whether the reason was a vaporizing
      *  edge. If so, the vehicle is deleted. Otherwise, it is checked whether the
      *  time the vehicle had to wait so far is larger than the maximum allowed
      *  waiting time. If so, the vehicle is deleted, too. If both does not match,
      *  the vehicle is reinserted to "refusedEmits" in order to be emitted in
      *  next steps.
-     *
-     * As soon as the vehicle is emitted or deleted, it is checked whether
-     *  a vehicle with same parameter shall be reinserter by calling
-     *  "checkReemission".
      *
      * @param[in] time The current simulation time
      * @param[in] veh The vehicle to emit
@@ -177,7 +173,7 @@ private:
 
 
 private:
-    /// @brief The assigned vehicle control (needed for vehicle reemission and deletion)
+    /// @brief The assigned vehicle control (needed for vehicle re-insertion and deletion)
     MSVehicleControl &myVehicleControl;
 
     /// @brief All loaded vehicles sorted by their departure time

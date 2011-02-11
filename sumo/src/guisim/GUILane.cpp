@@ -65,7 +65,7 @@ GUILane::~GUILane() throw() {
 }
 
 
-// ------ Vehicle emission ------
+// ------ Vehicle insertion ------
 void
 GUILane::incorporateVehicle(MSVehicle *veh, SUMOReal pos, SUMOReal speed,
                             const MSLane::VehCont::iterator &at,

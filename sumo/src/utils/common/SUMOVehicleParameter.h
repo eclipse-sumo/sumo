@@ -116,9 +116,9 @@ enum DepartPosDefinition {
     DEPART_POS_FREE,
     /// @brief Back-at-zero position
     DEPART_POS_BASE,
-    /// @brief Simple max-flow emission by P.Wagner
+    /// @brief Simple max-flow insertion by P.Wagner
     DEPART_POS_PWAG_SIMPLE,
-    /// @brief Generic max-flow emission by P.Wagner
+    /// @brief Generic max-flow insertion by P.Wagner
     DEPART_POS_PWAG_GENERIC,
     /// @brief A gap is chosen where the maximum speed may be achieved
     DEPART_POS_MAX_SPEED_GAP,

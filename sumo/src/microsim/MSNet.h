@@ -119,13 +119,13 @@ public:
      * @param[in] vc The vehicle control to use
      * @param[in] beginOfTimestepEvents The event control to use for simulation step begin events
      * @param[in] endOfTimestepEvents The event control to use for simulation step end events
-     * @param[in] emissionEvents The event control to use for emission events
+     * @param[in] insertionEvents The event control to use for insertion events
      * @param[in] shapeCont The shape container to use
      * @exception ProcessError If a network was already constructed
      * @see closeBuilding
      */
     MSNet(MSVehicleControl *vc, MSEventControl *beginOfTimestepEvents,
-          MSEventControl *endOfTimestepEvents, MSEventControl *emissionEvents,
+          MSEventControl *endOfTimestepEvents, MSEventControl *insertionEvents,
           ShapeContainer *shapeCont=0) throw(ProcessError);
 
 
@@ -348,10 +348,10 @@ public:
     /** @brief Returns the event control for emission events
      * @return The control reponsible for emission events
      * @see MSEventControl
-     * @see myEmissionEvents
+     * @see myInsertionEvents
      */
-    MSEventControl &getEmissionEvents() throw() {
-        return *myEmissionEvents;
+    MSEventControl &getInsertionEvents() throw() {
+        return *myInsertionEvents;
     }
 
 
@@ -606,8 +606,8 @@ protected:
     MSEventControl *myBeginOfTimestepEvents;
     /// @brief Controls events executed at the end of a time step; @see MSEventControl
     MSEventControl *myEndOfTimestepEvents;
-    /// @brief Controls emission events; @see MSEventControl
-    MSEventControl *myEmissionEvents;
+    /// @brief Controls insertion events; @see MSEventControl
+    MSEventControl *myInsertionEvents;
     /// @brief A container for geometrical shapes; @see ShapeContainer
     ShapeContainer *myShapeContainer;
     /// @brief The net's knowledge about edge efforts/travel times; @see MSEdgeWeightsStorage

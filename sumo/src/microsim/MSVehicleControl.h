@@ -172,7 +172,7 @@ public:
     /// @name Setting vehicle statistics
     /// @{
 
-    /** @brief Informs this control about a vehicle's emission
+    /** @brief Informs this control about a vehicle's departure
      *
      * If the mean waiting time shall be computed (f.e. for emissions-output),
      *  the absolut waiting time is increased by the waiting time of the given

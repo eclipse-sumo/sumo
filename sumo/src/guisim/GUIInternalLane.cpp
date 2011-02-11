@@ -65,7 +65,7 @@ GUIInternalLane::~GUIInternalLane() throw() {
 }
 
 
-// ------ Vehicle emission ------
+// ------ Vehicle insertion ------
 void
 GUIInternalLane::incorporateVehicle(MSVehicle *veh, SUMOReal pos, SUMOReal speed,
                                     const MSLane::VehCont::iterator &at,

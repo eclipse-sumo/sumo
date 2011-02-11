@@ -151,7 +151,7 @@ protected:
      * @param[in] pos The position of the vehicle
      * @param[in] speed The speed of the vehicle
      * @param[in] at
-     * @param[in] notification The cause of emission (i.e. departure, teleport, parking) defaults to departure
+     * @param[in] notification The cause of insertion (i.e. departure, teleport, parking) defaults to departure
      * @see MSLane::incorporateVehicle
      */
     virtual void incorporateVehicle(MSVehicle *veh, SUMOReal pos, SUMOReal speed,

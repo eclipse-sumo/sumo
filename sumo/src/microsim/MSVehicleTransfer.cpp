@@ -70,7 +70,7 @@ MSVehicleTransfer::addVeh(const SUMOTime t, MSVehicle *veh) throw() {
 
 
 void
-MSVehicleTransfer::checkEmissions(SUMOTime time) throw() {
+MSVehicleTransfer::checkInsertions(SUMOTime time) throw() {
     // go through vehicles
     for (VehicleInfVector::iterator i=myVehicles.begin(); i!=myVehicles.end();) {
         // get the vehicle information

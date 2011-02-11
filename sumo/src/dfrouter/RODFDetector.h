@@ -176,7 +176,7 @@ public:
                                 const RODFDetectorFlows &flows,
                                 SUMOTime startTime, SUMOTime endTime, SUMOTime stepOffset,
                                 bool includeUnusedRoutes, SUMOReal scale,
-                                bool emissionsOnly, SUMOReal defaultSpeed) const;
+                                bool insertionsOnly, SUMOReal defaultSpeed) const;
     bool writeRoutes(std::vector<std::string> &saved,
                      OutputDevice& out);
     void writeSingleSpeedTrigger(const std::string &file,
@@ -254,7 +254,7 @@ public:
                        const RODFNet &net,
                        bool writeCalibrators, bool includeUnusedRoutes,
                        SUMOReal scale, int maxFollower,
-                       bool emissionsOnly);
+                       bool insertionsOnly);
 
     void writeEmitterPOIs(const std::string &file,
                           const RODFDetectorFlows &flows);
