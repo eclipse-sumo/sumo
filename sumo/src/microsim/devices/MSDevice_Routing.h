@@ -128,7 +128,7 @@ private:
      * @param[in] holder The vehicle that holds this device
      * @param[in] id The ID of the device
      * @param[in] period The period with which a new route shall be searched
-     * @param[in] preInsertionPeriod The route search period before emit
+     * @param[in] preInsertionPeriod The route search period before insertion
      */
     MSDevice_Routing(SUMOVehicle &holder, const std::string &id, SUMOTime period,
                      SUMOTime preInsertionPeriod) throw();
