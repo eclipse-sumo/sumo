@@ -254,7 +254,7 @@ MSLane::freeInsertion(MSVehicle& veh, SUMOReal mspeed,
         SUMOReal frontGapNeeded = veh.getCarFollowModel().getSecureGap(speed, leader->getSpeed(), leader->getCarFollowModel().getMaxDecel());
         if (leaderPos-frontGapNeeded>=0) {
             SUMOReal tspeed = MIN2(veh.getCarFollowModel().ffeV(&veh, mspeed, frontGapNeeded, leader->getSpeed()), mspeed);
-            // check whether we can emit in behind the last vehicle on the lane
+            // check whether we can insert our vehicle behind the last vehicle on the lane
             if (isInsertionSuccess(&veh, tspeed, 0, adaptableSpeed, notification)) {
                 return true;
             }

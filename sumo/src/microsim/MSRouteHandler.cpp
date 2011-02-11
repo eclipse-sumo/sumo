@@ -471,7 +471,7 @@ MSRouteHandler::closeVehicle() throw(ProcessError) {
     // get nested route
     const MSRoute *route = MSRoute::dictionary("!" + myVehicleParameter->id);
     if (myVehicleParameter->departProcedure == DEPART_GIVEN) {
-        // let's check whether this vehicle had to be emitted before the simulation starts
+        // let's check whether this vehicle had to depart before the simulation starts
         if (!checkLastDepart() || myVehicleParameter->depart<string2time(OptionsCont::getOptions().getString("begin"))) {
             if (route!=0) {
                 route->addReference();
@@ -509,7 +509,7 @@ MSRouteHandler::closeVehicle() throw(ProcessError) {
     SUMOVehicle *vehicle = 0;
     if (MSNet::getInstance()->getVehicleControl().getVehicle(myVehicleParameter->id)==0) {
         // ok there was no other vehicle with the same id, yet
-        // maybe we do not want this vehicle to be emitted due to using incremental dua
+        // maybe we do not want this vehicle to be inserted due to using incremental dua
         bool add = true;
         if (myAmUsingIncrementalDUA) {
             if ((int)(myRunningVehicleNumber%myIncrementalBase)>=(int) myIncrementalStage) {
@@ -570,7 +570,7 @@ MSRouteHandler::closePerson() throw(ProcessError) {
 
 void
 MSRouteHandler::closeFlow() throw(ProcessError) {
-    // let's check whether vehicles had to be emitted before the simulation starts
+    // let's check whether vehicles had to depart before the simulation starts
     myVehicleParameter->repetitionsDone = 0;
     SUMOTime offsetToBegin = string2time(OptionsCont::getOptions().getString("begin")) - myVehicleParameter->depart;
     while (myVehicleParameter->repetitionsDone * myVehicleParameter->repetitionOffset < offsetToBegin) {

@@ -61,8 +61,7 @@ public:
     virtual ~TraCIHandler() throw();
 
     /**
-     * @brief Get the determined maxmimum number of vehicles that will be
-     *			emitted during the simulation.
+     * @brief Get the determined maxmimum number of vehicles that will depart during the simulation.
      */
     int getTotalVehicleCount();
 
@@ -102,7 +101,7 @@ private:
 
 private:
     /**
-     * Count each vehicle and all possibly emitted vehicles defined in each tag.
+     * Count each vehicle and all possibly departing vehicles defined in each tag.
      */
     void openVehicleTag(const SUMOSAXAttributes& attributes);
 };

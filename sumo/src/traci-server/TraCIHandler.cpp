@@ -76,7 +76,7 @@ TraCIHandler::openVehicleTag(const SUMOSAXAttributes& attributes) {
     }
     // every found vehicle tag counts for one vehicle
     currentVehCount = 1;
-    // read value for emit period and number (if any)
+    // read value for departure period and number (if any)
     try {
         repNo = attributes.getInt(SUMO_ATTR_REPNUMBER);
         period = attributes.getInt(SUMO_ATTR_PERIOD);
@@ -101,14 +101,14 @@ TraCIHandler::openVehicleTag(const SUMOSAXAttributes& attributes) {
 //		std::cerr << "removing 1 vehicle from repno (depart before sim start)" << std::endl;
     }
 
-    // don't count vehicles that depart / are emitted after the sim ends
+    // don't count vehicles that depart after the sim ends
     while (((depart + (repNo * period)) > simEnd) && (repNo >= 0)) {
         repNo--;
 //		std::cerr << "removing 1 vehicle from repno (depart after sim end)" << std::endl;
 
     }
 
-    // add number of vehicles, that will be emitted until sim end, to total count
+    // add number of vehicles, that will depart until sim end, to total count
     currentVehCount += repNo;
 //	std::cerr << "result: " << currentVehCount << " vehicles" << std::endl;
 }

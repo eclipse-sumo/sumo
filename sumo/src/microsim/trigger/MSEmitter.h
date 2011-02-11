@@ -53,7 +53,7 @@ class MSLane;
  *
  * Instances of this class are places at a lane where vehicles are inserted into
  *  the network. This mechanism can be used in parallel to the standard vehicle
- *  emission on roads. An emitter is meant to be used to simulate the entry of a
+ *  insertion on roads. An emitter is meant to be used to simulate the entry of a
  *  flow into an area at places where induction loops are located at in reality.
  */
 class MSEmitter : public MSTrigger {
@@ -78,7 +78,7 @@ public:
      * @class MSEmitterChild
      * @brief Holder of information about vehicle routes and types
      *
-     * Classes which realise different schemes to emit vehicles (file-based,
+     * Classes which realise different schemes to insert vehicles (file-based,
      *  based on user entries on the gui, etc.) should subclass this class
      */
     class MSEmitterChild {
@@ -164,7 +164,7 @@ public:
 public:
     /** Called by a MSEmitterChild (given as parameter) this method checks whether
      * this child is the currently active one and whether a vehicle from this source
-     * can be emitted.
+     * can be inserted.
      * Returns true if the child can continue with the next vehicle, false otherwise */
     bool childCheckEmit(MSEmitterChild *child);
 
@@ -238,7 +238,7 @@ protected:
         void buildAndScheduleFlowVehicle();
 
     protected:
-        /// Information whether a further vehicle to emit exists
+        /// Information whether a further vehicle to depart exists
         bool myHaveNext;
 
         /// The last loaded flow
@@ -264,7 +264,7 @@ protected:
     };
 
 public:
-    /// Schedules a vehicle to emit
+    /// Schedules a vehicle to insert
     void schedule(MSEmitterChild *child, MSVehicle *v, SUMOReal speed);
 
 protected:

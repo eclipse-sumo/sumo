@@ -977,8 +977,8 @@ TraCIServer::commandAddVehicle() throw(TraCIException) {
     std::string vehicleTypeId = myInputStorage.readString();
     std::string routeId = myInputStorage.readString();
     std::string laneId = myInputStorage.readString();
-    SUMOReal emitPosition = myInputStorage.readFloat();
-    SUMOReal emitSpeed = myInputStorage.readFloat();
+    SUMOReal insertionPosition = myInputStorage.readFloat();
+    SUMOReal insertionSpeed = myInputStorage.readFloat();
 
     // find vehicleType
     MSVehicleType *vehicleType = MSNet::getInstance()->getVehicleControl().getVType(vehicleTypeId);
@@ -1026,11 +1026,11 @@ TraCIServer::commandAddVehicle() throw(TraCIException) {
     }
 
     // calculate speed
-    float clippedEmitSpeed;
-    if (emitSpeed<0) {
-        clippedEmitSpeed = (float) MIN2(lane->getMaxSpeed(), vehicle->getMaxSpeed());
+    float clippedInsertionSpeed;
+    if (insertionSpeed<0) {
+        clippedInsertionSpeed = (float) MIN2(lane->getMaxSpeed(), vehicle->getMaxSpeed());
     } else {
-        clippedEmitSpeed = (float) MIN3(lane->getMaxSpeed(), vehicle->getMaxSpeed(), emitSpeed);
+        clippedInsertionSpeed = (float) MIN3(lane->getMaxSpeed(), vehicle->getMaxSpeed(), insertionSpeed);
     }
 
     // insert vehicle into the dictionary
@@ -1040,9 +1040,9 @@ TraCIServer::commandAddVehicle() throw(TraCIException) {
     }
 
     // try to emit
-    if (!lane->isEmissionSuccess(vehicle, clippedEmitSpeed, emitPosition, true)) {
+    if (!lane->isInsertionSuccess(vehicle, clippedInsertionSpeed, insertionPosition, true)) {
         MSNet::getInstance()->getVehicleControl().deleteVehicle(vehicle);
-        writeStatusCmd(CMD_ADDVEHICLE, RTYPE_ERR, "Could not emit vehicle");
+        writeStatusCmd(CMD_ADDVEHICLE, RTYPE_ERR, "Could not insert vehicle");
         return false;
     }
 

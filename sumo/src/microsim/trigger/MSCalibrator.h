@@ -78,7 +78,7 @@ public:
      * @class MSCalibratorChild
      * @brief Holder of information about vehicle routes and types
      *
-     * Classes which realise different schemes to emit vehicles (file-based,
+     * Classes which realise different schemes to insert vehicles (file-based,
      *  based on user entries on the gui, etc.) should subclass this class
      */
     class MSCalibratorChild {
@@ -164,7 +164,7 @@ public:
 public:
     /** Called by a MSCalibratorChild (given as parameter) this method checks whether
      * this child is the currently active one and whether a vehicle from this source
-     * can be emitted.
+     * can be inserted.
      * Returns true if the child can continue with the next vehicle, false otherwise */
     bool childCheckEmit(MSCalibratorChild *child);
 
@@ -241,7 +241,7 @@ protected:
         void buildAndScheduleFlowVehicle(SUMOReal speed);
 
     protected:
-        /// Information whether a further vehicle to emit exists
+        /// Information whether a further vehicle to insert exists
         bool myHaveNext;
 
         /// The last loaded flow
@@ -267,7 +267,7 @@ protected:
     };
 
 public:
-    /// Schedules a vehicle to emit
+    /// Schedules a vehicle to depart
     void schedule(MSCalibratorChild *child, MSVehicle *v, SUMOReal speed);
 
     //TM
@@ -295,7 +295,7 @@ protected:
     /// @brief The file-based child
     MSCalibratorChild *myFileBasedCalibrator;
 
-    /// @brief A map children->vehicles to emit
+    /// @brief A map children->vehicles to insert
     std::map<MSCalibratorChild*, std::pair<MSVehicle*, SUMOReal> > myToInsert;
 
     /// @brief The currently active child
