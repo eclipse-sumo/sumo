@@ -21,13 +21,15 @@ args = [jtrrouter,
         '--turn-definition', 'input_turns.turns.xml',
         '--output-file', output_file1,
         '--sinks=end',
-        '--abs-rand',
+        '--srand', None,
         '--randomize-flows']
 
+args[11] = str(random.randint(0, 2 ** 31))
 subprocess.call(args)
 route_lines1 = get_depart_lines(output_file1)
 
 args[8] = output_file2
+args[11] = str(random.randint(0, 2 ** 31))
 subprocess.call(args)
 route_lines2 = get_depart_lines(output_file2)
 
