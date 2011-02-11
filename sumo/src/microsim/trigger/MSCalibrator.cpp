@@ -483,7 +483,7 @@ MSCalibrator::childCheckEmit(MSCalibratorChild *child) {
         }
     } else {
 #endif
-        if (myDestLane->isEmissionSuccess(veh, speed, pos, false)) {
+        if (myDestLane->isInsertionSuccess(veh, speed, pos, false)) {
             veh->onDepart();
             // insert vehicle into the dictionary
             if (!myNet.getVehicleControl().addVehicle(veh->getID(), veh)) {

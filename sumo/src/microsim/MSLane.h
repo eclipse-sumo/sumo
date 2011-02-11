@@ -154,27 +154,25 @@ public:
     /// @name Vehicle emission
     ///@{
 
-    /** @brief Tries to emit the given vehicle
+    /** @brief Tries to insert the given vehicle
      *
-     * The emission position and speed are determined in dependence
-     *  to the vehicle's departure definition, first.  If "isReinsertion" is set,
-     *  meaning the vehicle tries to end a teleportation, then the values for
-     *  the fastest emission are used (speed=max, pos=free).
+     * The insertion position and speed are determined in dependence
+     *  to the vehicle's departure definition, first.
      *
      * Then, the vehicle is tried to be inserted into the lane
-     *  using these values by a call to "isEmissionSuccess". The result of
+     *  using these values by a call to "isInsertionSuccess". The result of
      *  "isEmissionSuccess" is returned.
      *
-     * @param[in] v The vehicle to emit
-     * @return Whether the vehicle could be emitted
-     * @see isEmissionSuccess
+     * @param[in] v The vehicle to insert
+     * @return Whether the vehicle could be inserted
+     * @see isInsertionSuccess
      * @see MSVehicle::getDepartureDefinition
      * @see MSVehicle::DepartArrivalDefinition
      */
-    bool emit(MSVehicle& v) throw(ProcessError);
+    bool insertVehicle(MSVehicle& v) throw(ProcessError);
 
 
-    /** @brief Tries to emit the given vehicle with the given state (speed and pos)
+    /** @brief Tries to insert the given vehicle with the given state (speed and pos)
      *
      * Checks whether the vehicle can be inserted at the given position with the
      *  given speed so that no collisions with leader/follower occur and the speed
@@ -183,31 +181,30 @@ public:
      *
      * If the insertion can take place, incorporateVehicleis called and true is returned.
      *
-     * @param[in] vehicle The vehicle to emit
-     * @param[in] speed The speed with which it shall be emitted
-     * @param[in] pos The position at which it shall be emitted
+     * @param[in] vehicle The vehicle to insert
+     * @param[in] speed The speed with which it shall be inserted
+     * @param[in] pos The position at which it shall be inserted
      * @param[in] recheckNextLanes Forces patching the speed for not being too fast on next lanes
-     * @param[in] notification The cause of emission (i.e. departure, teleport, parking) defaults to departure
-     * @return Whether the vehicle could be emitted
+     * @param[in] notification The cause of insertion (i.e. departure, teleport, parking) defaults to departure
+     * @return Whether the vehicle could be inserted
      * @see MSVehicle::enterLaneAtInsertion
      */
-    virtual bool isEmissionSuccess(MSVehicle* vehicle, SUMOReal speed, SUMOReal pos,
+    virtual bool isInsertionSuccess(MSVehicle* vehicle, SUMOReal speed, SUMOReal pos,
                                    bool recheckNextLanes,
                                    MSMoveReminder::Notification notification = MSMoveReminder::NOTIFICATION_DEPARTED) throw(ProcessError);
 
-    bool pWagEmitGeneric(MSVehicle& veh, SUMOReal speed, SUMOReal maxPos, SUMOReal minPos) throw();
-    bool pWagEmitSimple(MSVehicle& veh, SUMOReal speed, SUMOReal maxPos, SUMOReal minPos) throw();
-    bool maxSpeedGapEmit(MSVehicle& veh, SUMOReal mspeed) throw();
+    bool pWagGenericInsertion(MSVehicle& veh, SUMOReal speed, SUMOReal maxPos, SUMOReal minPos) throw();
+    bool pWagSimpleInsertion(MSVehicle& veh, SUMOReal speed, SUMOReal maxPos, SUMOReal minPos) throw();
+    bool maxSpeedGapInsertion(MSVehicle& veh, SUMOReal mspeed) throw();
 
-    /** @brief Tries to emit the given vehicle on any place
+    /** @brief Tries to insert the given vehicle on any place
      *
-     * @param[in] veh The vehicle to emit
-     * @param[in] speed The maximum emission speed
-     * @param[in] notification The cause of emission (i.e. departure, teleport, parking)
-     *   defaults to departure
-     * @return Whether the vehicle could be emitted
+     * @param[in] veh The vehicle to insert
+     * @param[in] speed The maximum insertion speed
+     * @param[in] notification The cause of insertion (i.e. departure, teleport, parking) defaults to departure
+     * @return Whether the vehicle could be inserted
      */
-    bool freeEmit(MSVehicle& veh, SUMOReal speed,
+    bool freeInsertion(MSVehicle& veh, SUMOReal speed,
                   MSMoveReminder::Notification notification = MSMoveReminder::NOTIFICATION_DEPARTED) throw();
 
 

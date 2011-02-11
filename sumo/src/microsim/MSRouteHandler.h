@@ -41,7 +41,6 @@
 // ===========================================================================
 class MSEdge;
 class MSVehicleType;
-class MSEmitControl;
 
 
 // ===========================================================================
@@ -184,7 +183,7 @@ protected:
     /// @brief The id of the currently parsed route distribution
     std::string myCurrentRouteDistributionID;
 
-    /// Information whether not all vehicle shall be emitted due to inc-dua
+    /// Information whether not all vehicle shall be inserted due to inc-dua
     bool myAmUsingIncrementalDUA;
 
     /// The current vehicle number (for inc-dua)

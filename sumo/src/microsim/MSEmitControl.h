@@ -82,7 +82,7 @@ public:
      *  wait for being emitted due they could not be inserted in previous
      *  steps.
      *
-     * For each vehicle, tryEmit is called. If this fails, a vehicle
+     * For each vehicle, tryInsert is called. If this fails, a vehicle
      *  keeps within the refused emit containers ("myRefusedEmits1",
      *  "myRefusedEmits2") so that it may be emitted within the next steps.
      *
@@ -147,7 +147,7 @@ private:
      * @param[in] refusedEmits Container to insert vehicles that could not be emitted into
      * @return The number of emitted vehicles (0 or 1)
      */
-    unsigned int tryEmit(SUMOTime time, SUMOVehicle *veh,
+    unsigned int tryInsert(SUMOTime time, SUMOVehicle *veh,
                          MSVehicleContainer::VehicleVector &refusedEmits) throw(ProcessError);
 
 

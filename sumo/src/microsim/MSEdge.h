@@ -293,20 +293,20 @@ public:
     /// @name Methods releated to vehicle emission
     /// @{
 
-    /** @brief Emits the given vehicle
+    /** @brief Tries to insert the given vehicle into the network
      *
      * The procedure for choosing the proper lane is determined, first.
      *  In dependance to this, the proper emission lane is chosen.
      *
-     * Emission itself is done by calling the chose lane's "emit"
+     * Emission itself is done by calling the chose lane's "insertVehicle"
      *  method.
      *
-     * @param[in] v The vehicle to emit
+     * @param[in] v The vehicle to insert
      * @param[in] time The current simulation time
-     * @return Whether the vehicle could be emitted
-     * @see MSLane::emit
+     * @return Whether the vehicle could be inserted
+     * @see MSLane::insertVehicle
      */
-    bool emit(SUMOVehicle &v, SUMOTime time) const throw(ProcessError);
+    bool insertVehicle(SUMOVehicle &v, SUMOTime time) const throw(ProcessError);
 
 
     /** @brief Finds the emptiest lane allowing the vehicle class
@@ -316,12 +316,11 @@ public:
      *  index in the lane container is chosen.
      *
      * If allowed==0, the lanes allowed for the given vehicle class
-     *  will be used
+     *  will be used.
      *
      * @param[in] allowed The lanes to choose from
      * @param[in] vclass The vehicle class to look for
      * @return the least occupied lane
-     * @see MSLane::emit
      * @see allowedLanes
      */
     MSLane* getFreeLane(const std::vector<MSLane*>* allowed, const SUMOVehicleClass vclass) const throw();
@@ -336,7 +335,6 @@ public:
      *
      * @param[in] veh The vehicle to get the depart lane for
      * @return a possible/chosen depart lane, 0 if no lane can be used
-     * @see MSLane::emit
      */
     MSLane* getDepartLane(const MSVehicle &veh) const throw();
 

@@ -96,26 +96,19 @@ MSVehicleTransfer::checkEmissions(SUMOTime time) throw() {
 
         if (desc.myParking) {
             // handle parking vehicles
-            if (l->isEmissionSuccess(desc.myVeh, 0,
-                                     desc.myVeh->getPositionOnLane(), false,
-                                     MSMoveReminder::NOTIFICATION_PARKING)) {
+            if (l->isInsertionSuccess(desc.myVeh, 0, desc.myVeh->getPositionOnLane(), false, MSMoveReminder::NOTIFICATION_PARKING)) {
                 i = myVehicles.erase(i);
             } else {
                 i++;
             }
         } else {
             // handle teleporting vehicles
-            if (l->freeEmit(*(desc.myVeh), MIN2(l->getMaxSpeed(),
-                                                desc.myVeh->getMaxSpeed()),
-                            MSMoveReminder::NOTIFICATION_TELEPORT)) {
-                WRITE_WARNING(
-                    "Vehicle '" + desc.myVeh->getID() +
-                    "' ends teleporting on edge '" + e->getID() +
-                    "', simulation time " + time2string(MSNet::getInstance()->getCurrentTimeStep()) + ".");
+            if (l->freeInsertion(*(desc.myVeh), MIN2(l->getMaxSpeed(), desc.myVeh->getMaxSpeed()), MSMoveReminder::NOTIFICATION_TELEPORT)) {
+                WRITE_WARNING("Vehicle '" + desc.myVeh->getID() + "' ends teleporting on edge '" + e->getID() + "', simulation time " + time2string(MSNet::getInstance()->getCurrentTimeStep()) + ".");
                 MSNet::getInstance()->informVehicleStateListener(desc.myVeh, MSNet::VEHICLE_STATE_ENDING_TELEPORT);
                 i = myVehicles.erase(i);
             } else {
-                // could not emit. maybe we should proceed in virtual space
+                // could not insert. maybe we should proceed in virtual space
                 if (desc.myProceedTime<time) {
                     // get the lanes of the next edge (the one the vehicle wiil be
                     //  virtually on after all these computations)

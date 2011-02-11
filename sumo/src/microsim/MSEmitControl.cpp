@@ -113,7 +113,7 @@ MSEmitControl::emitVehicles(SUMOTime time) throw(ProcessError) {
     // go through the list of previously refused vehicles, first
     MSVehicleContainer::VehicleVector::const_iterator veh;
     for (veh=previousRefused.begin(); veh!=previousRefused.end(); veh++) {
-        noEmitted += tryEmit(time, *veh, refusedEmits);
+        noEmitted += tryInsert(time, *veh, refusedEmits);
     }
     // clear previously refused vehicle container
     previousRefused.clear();
@@ -127,7 +127,7 @@ MSEmitControl::emitVehicles(SUMOTime time) throw(ProcessError) {
         const MSVehicleContainer::VehicleVector &next = myAllVeh.top();
         // go through the list and try to emit
         for (veh=next.begin(); veh!=next.end(); veh++) {
-            noEmitted += tryEmit(time, *veh, refusedEmits);
+            noEmitted += tryInsert(time, *veh, refusedEmits);
         }
         // let the MSVehicleContainer clear the vehicles
         myAllVeh.pop();
@@ -138,11 +138,11 @@ MSEmitControl::emitVehicles(SUMOTime time) throw(ProcessError) {
 
 
 unsigned int
-MSEmitControl::tryEmit(SUMOTime time, SUMOVehicle *veh,
+MSEmitControl::tryInsert(SUMOTime time, SUMOVehicle *veh,
                        MSVehicleContainer::VehicleVector &refusedEmits) throw(ProcessError) {
     assert(veh->getParameter().depart < time + DELTA_T);
     const MSEdge &edge = *veh->getEdge();
-    if ((!myCheckEdgesOnce || edge.getLastFailedEmissionTime()!=time) && edge.emit(*veh, time)) {
+    if ((!myCheckEdgesOnce || edge.getLastFailedEmissionTime()!=time) && edge.insertVehicle(*veh, time)) {
         // Successful emission.
         checkFlowWait(veh);
         veh->onDepart();
@@ -211,7 +211,7 @@ MSEmitControl::checkFlows(SUMOTime time,
                 const MSVehicleType *vtype = MSNet::getInstance()->getVehicleControl().getVType(pars->vtypeid);
                 i->vehicle = MSNet::getInstance()->getVehicleControl().buildVehicle(newPars, route, vtype);
                 MSNet::getInstance()->getVehicleControl().addVehicle(newPars->id, i->vehicle);
-                noEmitted += tryEmit(time, i->vehicle, refusedEmits);
+                noEmitted += tryInsert(time, i->vehicle, refusedEmits);
                 if (!i->isVolatile && i->vehicle!=0) {
                     break;
                 }

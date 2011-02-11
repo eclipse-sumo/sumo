@@ -124,7 +124,7 @@ MSLane::incorporateVehicle(MSVehicle *veh, SUMOReal pos, SUMOReal speed, const M
 
 
 bool
-MSLane::pWagEmitGeneric(MSVehicle& veh, SUMOReal mspeed, SUMOReal maxPos, SUMOReal minPos) throw() {
+MSLane::pWagGenericInsertion(MSVehicle& veh, SUMOReal mspeed, SUMOReal maxPos, SUMOReal minPos) throw() {
     SUMOReal xIn = maxPos;
     SUMOReal vIn = mspeed;
     if (myVehicles.size()!=0) {
@@ -169,7 +169,7 @@ MSLane::pWagEmitGeneric(MSVehicle& veh, SUMOReal mspeed, SUMOReal maxPos, SUMORe
 
 
 bool
-MSLane::pWagEmitSimple(MSVehicle& veh, SUMOReal mspeed, SUMOReal maxPos, SUMOReal minPos) throw() {
+MSLane::pWagSimpleInsertion(MSVehicle& veh, SUMOReal mspeed, SUMOReal maxPos, SUMOReal minPos) throw() {
     SUMOReal xIn = maxPos;
     SUMOReal vIn = mspeed;
     if (myVehicles.size()!=0) {
@@ -201,9 +201,9 @@ MSLane::pWagEmitSimple(MSVehicle& veh, SUMOReal mspeed, SUMOReal maxPos, SUMORea
 
 
 bool
-MSLane::maxSpeedGapEmit(MSVehicle& veh, SUMOReal mspeed) throw() {
+MSLane::maxSpeedGapInsertion(MSVehicle& veh, SUMOReal mspeed) throw() {
     if (myVehicles.size()==0) {
-        return isEmissionSuccess(&veh, mspeed, myLength / 2, true);
+        return isInsertionSuccess(&veh, mspeed, myLength / 2, true);
     }
     // go through the lane, look for free positions (starting after the last vehicle)
     MSLane::VehCont::iterator predIt = myVehicles.begin();
@@ -224,7 +224,7 @@ MSLane::maxSpeedGapEmit(MSVehicle& veh, SUMOReal mspeed) throw() {
         const SUMOReal fSpeed = follower->getSpeed();
         const SUMOReal maxSpeed = (gap + leaderSpeed * leaderSpeed / veh.getCarFollowModel().getMaxDecel() - fSpeed * fSpeed / follower->getCarFollowModel().getMaxDecel()) / veh.getCarFollowModel().getTau() - fSpeed;
         if (maxSpeed > 0) {
-            if (isEmissionSuccess(&veh, MIN2(maxSpeed, mspeed), (leaderRearPos + follower->getPositionOnLane() + veh.getVehicleType().getLength()) / 2, true)) {
+            if (isInsertionSuccess(&veh, MIN2(maxSpeed, mspeed), (leaderRearPos + follower->getPositionOnLane() + veh.getVehicleType().getLength()) / 2, true)) {
                 return true;
             }
         }
@@ -236,11 +236,11 @@ MSLane::maxSpeedGapEmit(MSVehicle& veh, SUMOReal mspeed) throw() {
 
 
 bool
-MSLane::freeEmit(MSVehicle& veh, SUMOReal mspeed,
+MSLane::freeInsertion(MSVehicle& veh, SUMOReal mspeed,
                  MSMoveReminder::Notification notification) throw() {
     bool adaptableSpeed = true;
     if (myVehicles.size()==0) {
-        if (isEmissionSuccess(&veh, mspeed, 0, adaptableSpeed, notification)) {
+        if (isInsertionSuccess(&veh, mspeed, 0, adaptableSpeed, notification)) {
             return true;
         }
     } else {
@@ -255,7 +255,7 @@ MSLane::freeEmit(MSVehicle& veh, SUMOReal mspeed,
         if (leaderPos-frontGapNeeded>=0) {
             SUMOReal tspeed = MIN2(veh.getCarFollowModel().ffeV(&veh, mspeed, frontGapNeeded, leader->getSpeed()), mspeed);
             // check whether we can emit in behind the last vehicle on the lane
-            if (isEmissionSuccess(&veh, tspeed, 0, adaptableSpeed, notification)) {
+            if (isInsertionSuccess(&veh, tspeed, 0, adaptableSpeed, notification)) {
                 return true;
             }
         }
@@ -291,7 +291,7 @@ MSLane::freeEmit(MSVehicle& veh, SUMOReal mspeed,
         // check whether there is enough room (given some extra space for rounding errors)
         if (frontMax>0 && backMin+POSITION_EPS<frontMax) {
             // try emit vehicle (should be always ok)
-            if (isEmissionSuccess(&veh, speed, backMin+POSITION_EPS, adaptableSpeed, notification)) {
+            if (isInsertionSuccess(&veh, speed, backMin+POSITION_EPS, adaptableSpeed, notification)) {
                 return true;
             }
         }
@@ -303,7 +303,7 @@ MSLane::freeEmit(MSVehicle& veh, SUMOReal mspeed,
 
 
 bool
-MSLane::emit(MSVehicle& veh) throw(ProcessError) {
+MSLane::insertVehicle(MSVehicle& veh) throw(ProcessError) {
     SUMOReal pos = 0;
     SUMOReal speed = 0;
     bool patchSpeed = true; // whether the speed shall be adapted to infrastructure/traffic in front
@@ -347,35 +347,35 @@ MSLane::emit(MSVehicle& veh) throw(ProcessError) {
         for (unsigned int i=0; i < 10; i++) {
             // we will try some random positions ...
             pos = RandHelper::rand(getLength());
-            if (isEmissionSuccess(&veh, speed, pos, patchSpeed)) {
+            if (isInsertionSuccess(&veh, speed, pos, patchSpeed)) {
                 return true;
             }
         }
         // ... and if that doesn't work, we put the vehicle to the free position
-        return freeEmit(veh, speed);
+        return freeInsertion(veh, speed);
     }
     break;
     case DEPART_POS_FREE:
-        return freeEmit(veh, speed);
+        return freeInsertion(veh, speed);
     case DEPART_POS_PWAG_SIMPLE:
-        return pWagEmitSimple(veh, speed, getLength(), 0.0);
+        return pWagSimpleInsertion(veh, speed, getLength(), 0.0);
     case DEPART_POS_PWAG_GENERIC:
-        return pWagEmitGeneric(veh, speed, getLength(), 0.0);
+        return pWagGenericInsertion(veh, speed, getLength(), 0.0);
     case DEPART_POS_MAX_SPEED_GAP:
-        return maxSpeedGapEmit(veh, speed);
+        return maxSpeedGapInsertion(veh, speed);
     case DEPART_POS_BASE:
     case DEPART_POS_DEFAULT:
     default:
         pos = MIN2(static_cast<SUMOReal>(veh.getVehicleType().getLength() + POSITION_EPS), myLength);
         break;
     }
-    // try to emit
-    return isEmissionSuccess(&veh, speed, pos, patchSpeed);
+    // try to insert
+    return isInsertionSuccess(&veh, speed, pos, patchSpeed);
 }
 
 
 bool
-MSLane::isEmissionSuccess(MSVehicle* aVehicle,
+MSLane::isInsertionSuccess(MSVehicle* aVehicle,
                           SUMOReal speed, SUMOReal pos, bool patchSpeed,
                           MSMoveReminder::Notification notification) throw(ProcessError) {
     aVehicle->getBestLanes(true, this);
@@ -491,7 +491,7 @@ MSLane::isEmissionSuccess(MSVehicle* aVehicle,
                 dist = cfModel.brakeGap(speed);
             } else {
                 // we may not drive with the given velocity - we crash into the leader
-                MsgHandler::getErrorInstance()->inform("Vehicle '" + aVehicle->getID() + "' will not be able to emit using given velocity!");
+                MsgHandler::getErrorInstance()->inform("Vehicle '" + aVehicle->getID() + "' will not be able to depart using given velocity!");
                 // !!! we probably should do something else...
                 return false;
             }

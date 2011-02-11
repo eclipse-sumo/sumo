@@ -303,8 +303,8 @@ MSEdge::getDepartLane(const MSVehicle &veh) const throw() {
 
 
 bool
-MSEdge::emit(SUMOVehicle &v, SUMOTime time) const throw(ProcessError) {
-    // when vaporizing, no vehicles are emitted...
+MSEdge::insertVehicle(SUMOVehicle &v, SUMOTime time) const throw(ProcessError) {
+    // when vaporizing, no vehicles are inserted...
     if (isVaporizing()) {
         return false;
     }
@@ -345,8 +345,8 @@ MSEdge::emit(SUMOVehicle &v, SUMOTime time) const throw(ProcessError) {
         return result;
     }
 #endif
-    MSLane* emitLane = getDepartLane(static_cast<MSVehicle&>(v));
-    return emitLane != 0 && emitLane->emit(static_cast<MSVehicle&>(v));
+    MSLane* insertionLane = getDepartLane(static_cast<MSVehicle&>(v));
+    return insertionLane != 0 && insertionLane->insertVehicle(static_cast<MSVehicle&>(v));
 }
 
 
