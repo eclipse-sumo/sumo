@@ -65,7 +65,7 @@ class GUIParameterTableWindow;
  * Contains the file opening support and a canvas to display the simulation
  *  representations in.
  *
- * Beside views on the simulation, showed within a MDI-window, the main window
+ * Beside views on the simulation, shown within a MDI-window, the main window
  * may also have some further views (children) assigned which are stored
  * within a separate list.
  */
