@@ -6,7 +6,7 @@ if TRACI
 TRACI_TESTCLIENT_APPS = TraCITestClient
 endif
 
-DISTCLEANFILES = sumo sumoD dfrouter dfrouterD duarouter duarouterD jtrrouter jtrrouterD netconvert netconvertD netgen netgenD od2trips od2tripsD polyconvert polyconvertD activitygen activitygenD sumo-unittest sumo-unittestD sumo-gui sumo-guiD TraCITestClient TraCITestClientD meso mesoD meso-gui meso-guiD
+DISTCLEANFILES = sumo sumoD dfrouter dfrouterD duarouter duarouterD jtrrouter jtrrouterD netconvert netconvertD netgen netgenD od2trips od2tripsD polyconvert polyconvertD activitygen activitygenD sumo-unittest sumo-unittestD sumo-gui sumo-guiD TraCITestClient TraCITestClientD meso mesoD meso-gui meso-guiD netedit neteditD
 
 all: sumo dfrouter duarouter jtrrouter netconvert netgen od2trips polyconvert activitygen $(GUI_APPS) $(TRACI_TESTCLIENT_APPS)
 sumo: ../src/sumo
