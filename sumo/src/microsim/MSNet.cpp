@@ -161,7 +161,7 @@ MSNet::MSNet(MSVehicleControl *vc, MSEventControl *beginOfTimestepEvents,
     myLogExecutionTime = !oc.getBool("no-duration-log");
     myLogStepNumber = !oc.getBool("no-step-log");
     myTooManyVehicles = oc.getInt("too-many-vehicles");
-    myEmitter = new MSEmitControl(*vc, (SUMOTime) oc.getInt("max-depart-delay"), oc.getBool("sloppy-insert"));// !!! SUMOTime-option
+    myEmitter = new MSEmitControl(*vc, string2time(oc.getString("max-depart-delay")), oc.getBool("sloppy-insert"));
     myVehicleControl = vc;
     myDetectorControl = new MSDetectorControl();
     myEdges = 0;
@@ -178,7 +178,7 @@ MSNet::MSNet(MSVehicleControl *vc, MSEventControl *beginOfTimestepEvents,
 
 #ifdef HAVE_MESOSIM
     if (MSGlobals::gUseMesoSim) {
-        MSGlobals::gMesoNet = new MELoop();
+        MSGlobals::gMesoNet = new MELoop(string2time(oc.getString("meso-recheck")));
     }
 #endif
     myInstance = this;

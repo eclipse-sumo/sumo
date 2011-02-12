@@ -179,7 +179,7 @@ MSFrame::fillOptions() {
     oc.doRegister("time-to-teleport", new Option_String("300", "TIME"));
     oc.addDescription("time-to-teleport", "Processing", "Specify how long a vehicle may wait until being teleported, defaults to 300, values < 1 disable teleporting");
 
-    oc.doRegister("max-depart-delay", new Option_Integer(-1));
+    oc.doRegister("max-depart-delay", new Option_String("-1", "TIME"));
     oc.addDescription("max-depart-delay", "Processing", "How long vehicles wait for departure before being skipped, defaults to -1 which means vehicles are never skipped");
 
     oc.doRegister("sloppy-insert", new Option_Bool(false));
@@ -266,6 +266,8 @@ MSFrame::fillOptions() {
     oc.addDescription("meso-multi-queue", "Mesoscopic", "Enable multiple queues at edge ends");
     oc.doRegister("meso-junction-control", new Option_Bool(false));
     oc.addDescription("meso-junction-control", "Mesoscopic", "Enable mesoscopic traffic light and priority junction handling");
+    oc.doRegister("meso-recheck", new Option_String("0", "TIME"));
+    oc.addDescription("meso-recheck", "Mesoscopic", "Time interval for rechecking insertion into the next segment after failure");
 #endif
 
     // add rand options
