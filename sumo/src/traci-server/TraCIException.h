@@ -33,25 +33,21 @@
 #endif
 
 #include <string>
+#include <stdexcept>
 
 
 // ===========================================================================
 // class definitions
 // ===========================================================================
 /**
-* @class TraCIServer
+* @class TraCIException
 */
 namespace traci {
-class TraCIException {
-private:
-    std::string what_;
-
+class TraCIException : public std::runtime_error {
 public:
+    /** constructor */
     TraCIException(std::string what)
-            : what_(what) {}
-    std::string what() const {
-        return what_;
-    }
+            : std::runtime_error(what) {}
 };
 
 }
