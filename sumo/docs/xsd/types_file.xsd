@@ -11,6 +11,8 @@
 
     <xsd:complexType name="typeType">
     	<xsd:attribute name="id" type="xsd:string" use="required"></xsd:attribute>
+		<xsd:attribute name="allow" type="xsd:string"></xsd:attribute>
+		<xsd:attribute name="disallow" type="xsd:string"></xsd:attribute>
     	<xsd:attribute name="priority" type="xsd:int"></xsd:attribute>
     	<xsd:attribute name="nolanes" type="xsd:int"></xsd:attribute>
     	<xsd:attribute name="speed" type="xsd:float"></xsd:attribute>
