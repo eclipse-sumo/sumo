@@ -20,5 +20,5 @@ GUIVehicle.cpp GUIVehicle.h GUIVehicleControl.cpp GUIVehicleControl.h \
 GUI_E2_ZS_Collector.cpp GUI_E2_ZS_Collector.h \
 GUI_E2_ZS_CollectorOverLanes.cpp GUI_E2_ZS_CollectorOverLanes.h
 
-EXTRA_DIST = GLObjectValuePassConnector.h
+EXTRA_DIST = GLObjectValuePassConnector.h guisim64.ico
 
