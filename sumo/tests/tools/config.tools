@@ -35,7 +35,7 @@ nodes:nodes.xml
 fixed:routes.rou.xml.fixed
 activityfile:activityfile.tcl
 mobilityfile:mobilityfile.tcl
-config:config.tcl
+cfg:config.tcl
 summary:intersection_metrics_summary.txt
 pois:pois.add.xml
 trips:trips.trips.xml

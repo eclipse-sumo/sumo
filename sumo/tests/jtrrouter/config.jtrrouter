@@ -7,7 +7,7 @@ copy_test_path:input_turns.turns.xml
 [collate_file]
 routes:routes.rou.xml
 alts:routes.rou.xml.alt
-config:config.cfg
+cfg:config.cfg
 log:log.txt
 
 [run_dependent_text]

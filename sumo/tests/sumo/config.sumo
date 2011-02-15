@@ -32,7 +32,7 @@ tls_state:tls_state.xml
 tls_switch:tls_switch.xml
 tls_state_switch:tls_state_switch.xml
 physstates:physstates.xml
-config:config.cfg
+cfg:config.cfg
 tol_sql:tol_sql.txt
 tol_plain:tol_plain.txt
 tol_la_sql:tol_la_sql.txt

@@ -11,7 +11,7 @@ copy_test_path:input_districts.net.xml
 [collate_file]
 routes:routes.rou.xml
 alts:routes.rou.alt.xml
-config:config.cfg
+cfg:config.cfg
 log:log.txt
 
 [run_dependent_text]

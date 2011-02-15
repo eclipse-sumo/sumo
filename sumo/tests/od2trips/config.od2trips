@@ -7,7 +7,7 @@ copy_test_path:input_od_om.fma
 copy_test_path:input_od_o.fma
 
 [collate_file]
-config:config.cfg
+cfg:config.cfg
 trips:trips.trips.xml
 log:log.txt
 

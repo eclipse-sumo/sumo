@@ -15,7 +15,7 @@ detector_defs:detectors_def.det.xml
 routes:routes.rou.xml
 pois:detectors.poi.xml
 emitters:emitters.add.xml
-config:config.cfg
+cfg:config.cfg
 log:log.txt
 
 [run_dependent_text]

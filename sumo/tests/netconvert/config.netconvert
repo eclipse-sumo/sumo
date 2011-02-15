@@ -19,7 +19,7 @@ net:net.net.xml
 plain_nodes:plain.nod.xml
 plain_edges:plain.edg.xml
 plain_connections:plain.con.xml
-config:config.cfg
+cfg:config.cfg
 log:log.txt
 
 [run_dependent_text]
