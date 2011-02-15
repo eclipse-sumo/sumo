@@ -109,6 +109,6 @@ for root, dirs, files in os.walk(sumoRoot):
             print fullName, "svn:keywords"
             if doFix:
                 subprocess.call(["svn", "ps", "svn:keywords", _KEYWORDS, fullName])
-    for ignoreDir in ['.svn', 'foreign', 'mesosim', 'mesogui']:
+    for ignoreDir in ['.svn', 'foreign', 'mesosim', 'mesogui', 'netedit']:
         if ignoreDir in dirs:
             dirs.remove(ignoreDir)
