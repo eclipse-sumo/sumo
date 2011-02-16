@@ -148,7 +148,7 @@ MSEmitControl::tryInsert(SUMOTime time, SUMOVehicle *veh,
         veh->onDepart();
         return 1;
     }
-    if (myMaxDepartDelay != -1 && time - veh->getParameter().depart > myMaxDepartDelay) {
+    if (myMaxDepartDelay>=0 && time - veh->getParameter().depart > myMaxDepartDelay) {
         // remove vehicles waiting too long for departure
         checkFlowWait(veh);
         myVehicleControl.deleteVehicle(veh);
