@@ -425,7 +425,6 @@ src/gui/Makefile
 src/gui/dialogs/Makefile
 src/guinetload/Makefile
 src/guisim/Makefile
-src/icons/Makefile
 src/microsim/Makefile
 src/microsim/actions/Makefile
 src/microsim/cfmodels/Makefile
