@@ -285,8 +285,8 @@ public:
     }
 
 
-    /** @brief Returns the emission control
-     * @return The emission control
+    /** @brief Returns the insertion control
+     * @return The insertion control
      * @see MSEmitControl
      * @see myEmitter
      */
@@ -345,8 +345,8 @@ public:
     }
 
 
-    /** @brief Returns the event control for emission events
-     * @return The control reponsible for emission events
+    /** @brief Returns the event control for insertion events
+     * @return The control reponsible for insertion events
      * @see MSEventControl
      * @see myInsertionEvents
      */
@@ -598,7 +598,7 @@ protected:
     MSJunctionControl* myJunctions;
     /// @brief Controls tls logics, realizes waiting on tls rules; @see MSJunctionControl
     MSTLLogicControl *myLogics;
-    /// @brief Controls vehicle emissions; @see MSEmitControl
+    /// @brief Controls vehicle insertion; @see MSEmitControl
     MSEmitControl* myEmitter;
     /// @brief Controls detectors; @see MSDetectorControl
     MSDetectorControl *myDetectorControl;

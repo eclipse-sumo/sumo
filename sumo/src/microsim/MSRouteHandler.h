@@ -143,32 +143,31 @@ protected:
 protected:
     SUMOVehicleParameter *myVehicleParameter;
 
-    /// the emission time of the vehicle read last
+    /// @brief The insertion time of the vehicle read last
     SUMOTime myLastDepart;
 
-    /// the current route
+    /// @brief The current route
     MSEdgeVector myActiveRoute;
 
-    /// the id of the current route
+    /// @brief The id of the current route
     std::string myActiveRouteID;
 
-    /// the id of the route the current route references to
+    /// @brief The id of the route the current route references to
     std::string myActiveRouteRefID;
 
-    /// the id of the current route
+    /// @brief The id of the current route
     SUMOReal myActiveRouteProbability;
 
-    /// The currently parsed route's color
+    /// @brief The currently parsed route's color
     RGBColor myActiveRouteColor;
 
     /// @brief List of the stops on the parsed route
     std::vector<SUMOVehicleParameter::Stop> myActiveRouteStops;
 
-    /// the plan of the current person
+    /// @brief The plan of the current person
     MSPerson::MSPersonPlan *myActivePlan;
 
-    /** information whether vehicles shall be directly added to the network
-        or kept within the buffer */
+    /// @brief Information whether vehicles shall be directly added to the network or kept within the buffer
     bool myAddVehiclesDirectly;
 
     /// @brief The currently parsed distribution of vehicle types (probability->vehicle type)
@@ -183,19 +182,19 @@ protected:
     /// @brief The id of the currently parsed route distribution
     std::string myCurrentRouteDistributionID;
 
-    /// Information whether not all vehicle shall be inserted due to inc-dua
+    /// @brief Information whether not all vehicle shall be inserted due to inc-dua
     bool myAmUsingIncrementalDUA;
 
-    /// The current vehicle number (for inc-dua)
+    /// @brief The current vehicle number (for inc-dua)
     unsigned int myRunningVehicleNumber;
 
-    /// The base for inc-dua
+    /// @brief The base for inc-dua
     int myIncrementalBase;
 
-    /// The current stage of inc-dua
+    /// @brief The current stage of inc-dua
     int myIncrementalStage;
 
-    /// whether we have warned about routes defined as character strings
+    /// @brief Whether we have warned about routes defined as character strings
     bool myHaveWarned;
 
     /// @brief The currently parsed vehicle type
@@ -205,10 +204,10 @@ private:
     /// Checks whether the route file is sorted by departure time if needed
     bool checkLastDepart();
 
-    /** invalid copy constructor */
+    /// @brief Invalidated copy constructor
     MSRouteHandler(const MSRouteHandler &s);
 
-    /** invalid assignment operator */
+    /// @brief Invalidated assignment operator
     MSRouteHandler &operator=(const MSRouteHandler &s);
 
 };

@@ -115,7 +115,7 @@ public:
             return myVTypeDist.getOverallProb()!=0;
         }
 
-        /// Returns the time offset till the next vehicle emission for a given flow
+        /// Returns the time offset till the next vehicle insertion for a given flow
         SUMOReal computeOffset(SUMOReal flow) const {
             SUMOReal freq = (SUMOReal)(1. / (flow / 3600.));
             SUMOReal ret = freq;
@@ -148,7 +148,7 @@ public:
         /// The used vehicle type probability distribution
         RandomDistributor<MSVehicleType*> myVTypeDist;
 
-        /// The time offset till next emission
+        /// The time offset till next insertion
         mutable SUMOReal myTimeOffset;
 
     private:
