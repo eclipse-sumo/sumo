@@ -15,7 +15,7 @@ endif
 
 if WITH_GUI
 GUI_APPS = sumo-gui
-GUI_DIRS = gui guinetload guisim icons $(MESOGUI_DIRS)
+GUI_DIRS = gui guinetload guisim $(MESOGUI_DIRS)
 endif
 
 if CHECK_MEMORY_LEAKS
