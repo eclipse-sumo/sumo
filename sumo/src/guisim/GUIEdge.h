@@ -87,7 +87,7 @@ public:
     void initGeometry(GUIGlObjectStorage &idStorage) throw();
 
 
-    /** Returns the list of all known junctions as their ids */
+    /** Returns the list of all known edge ids */
     static std::vector<GLuint> getIDs();
 
     /// Returns the street's geometry
