@@ -33,6 +33,7 @@
 #include <vector>
 #include <fx.h>
 
+#include <utils/gui/windows/GUIMainWindow.h>
 
 // ===========================================================================
 // class declarations

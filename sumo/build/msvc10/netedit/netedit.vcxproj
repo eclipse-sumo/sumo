@@ -132,7 +132,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <Link>
-      <AdditionalDependencies>$(PROJ_LIB);shell32.lib;opengl32.lib;glu32.lib;$(XERCES_LIB);$(FOX16_LIB);user32.lib;winmm.lib;vfw32.lib;gdi32.lib;ws2_32.lib</AdditionalDependencies>
+      <AdditionalDependencies>$(PROJ_LIB);$(GDAL_LIB);shell32.lib;opengl32.lib;glu32.lib;$(XERCES_LIB);$(FOX16_LIB);user32.lib;winmm.lib;vfw32.lib;gdi32.lib;ws2_32.lib</AdditionalDependencies>
       <OutputFile>$(OutDir)netedit.exe</OutputFile>
       <SubSystem>Windows</SubSystem>
       <EntryPointSymbol>mainCRTStartup</EntryPointSymbol>
@@ -161,6 +161,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\..\src\netedit\GNEApplicationWindow.cpp" />
+    <ClCompile Include="..\..\..\src\netedit\GNEEdge.cpp" />
+    <ClCompile Include="..\..\..\src\netedit\GNEJunction.cpp" />
+    <ClCompile Include="..\..\..\src\netedit\GNELane.cpp" />
+    <ClCompile Include="..\..\..\src\netedit\GNELoadThread.cpp" />
+    <ClCompile Include="..\..\..\src\netedit\GNENet.cpp" />
     <ClCompile Include="..\..\..\src\netedit\netedit_main.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -183,9 +189,18 @@
       <Project>{2a069662-6b6f-40d7-a808-211f9c9a4aae}</Project>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
     </ProjectReference>
+    <ProjectReference Include="..\y_libnetbuild\y_libnetbuild.vcxproj">
+      <Project>{bd855404-fa32-48ae-9ab3-fb8b3d71c8c6}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\y_libnetimport\y_libnetimport.vcxproj">
+      <Project>{91422fef-2369-45e6-87aa-8b38709ad823}</Project>
+    </ProjectReference>
     <ProjectReference Include="..\y_libnetload\y_libnetload.vcxproj">
       <Project>{5ea5cb8f-2b57-4fab-a769-e9a64b3b9c36}</Project>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+    <ProjectReference Include="..\zz_foreign_eulerspiral\zz_foreign_eulerspiral.vcxproj">
+      <Project>{50b2c273-2b6a-4a3a-be24-83e3202de180}</Project>
     </ProjectReference>
     <ProjectReference Include="..\zz_foreign_nvwa\zz_foreign_nvwa.vcxproj">
       <Project>{fc5b65e0-a0b1-40d7-8687-c2fc79e3da47}</Project>
@@ -223,9 +238,15 @@
       <Project>{26f88652-2664-4ce7-8292-6bd37ee6c3ad}</Project>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
     </ProjectReference>
+    <ProjectReference Include="..\z_libnetimport_vissim\z_libnetimport_vissim.vcxproj">
+      <Project>{f7f13336-3e29-4219-8580-a17c71e69718}</Project>
+    </ProjectReference>
     <ProjectReference Include="..\z_libutils_common\z_libutils_common.vcxproj">
       <Project>{72cdb11a-ec19-4be2-bbe9-1fa33deccb20}</Project>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+    <ProjectReference Include="..\z_libutils_distribution\z_libutils_distribution.vcxproj">
+      <Project>{f5d8313c-621d-4cce-a6da-83effbde7ce6}</Project>
     </ProjectReference>
     <ProjectReference Include="..\z_libutils_foxtools\z_libutils_foxtools.vcxproj">
       <Project>{ecaebbbd-18b0-4e40-9507-4ad2b018c1cd}</Project>
@@ -275,6 +296,14 @@
       <Project>{508f0bff-83fe-444c-9509-a359bca83bc4}</Project>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\src\netedit\GNEApplicationWindow.h" />
+    <ClInclude Include="..\..\..\src\netedit\GNEEdge.h" />
+    <ClInclude Include="..\..\..\src\netedit\GNEJunction.h" />
+    <ClInclude Include="..\..\..\src\netedit\GNELane.h" />
+    <ClInclude Include="..\..\..\src\netedit\GNELoadThread.h" />
+    <ClInclude Include="..\..\..\src\netedit\GNENet.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
