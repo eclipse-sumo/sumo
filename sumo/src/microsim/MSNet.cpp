@@ -161,7 +161,7 @@ MSNet::MSNet(MSVehicleControl *vc, MSEventControl *beginOfTimestepEvents,
     myLogExecutionTime = !oc.getBool("no-duration-log");
     myLogStepNumber = !oc.getBool("no-step-log");
     myTooManyVehicles = oc.getInt("too-many-vehicles");
-    myEmitter = new MSEmitControl(*vc, string2time(oc.getString("max-depart-delay")), oc.getBool("sloppy-insert"));
+    myInserter = new MSEmitControl(*vc, string2time(oc.getString("max-depart-delay")), oc.getBool("sloppy-insert"));
     myVehicleControl = vc;
     myDetectorControl = new MSDetectorControl();
     myEdges = 0;
@@ -217,7 +217,7 @@ MSNet::~MSNet() throw() {
     delete myDetectorControl;
     // delete mean data
     delete myEdges;
-    delete myEmitter;
+    delete myInserter;
     delete myLogics;
     delete myRouteLoaders;
     delete myVehicleControl;
@@ -297,7 +297,7 @@ MSNet::closeSimulation(SUMOTime start) {
         msg << "Vehicles: " << "\n"
         << " Emitted: " << myVehicleControl->getDepartedVehicleNo() << "\n"
         << " Running: " << myVehicleControl->getRunningVehicleNo() << "\n"
-        << " Waiting: " << myEmitter->getWaitingVehicleNo() << "\n";
+        << " Waiting: " << myInserter->getWaitingVehicleNo() << "\n";
         WRITE_MESSAGE(msg.str());
     }
     myDetectorControl->close(myStep);
@@ -373,7 +373,7 @@ MSNet::simulationStep() {
     }
     // emit Vehicles
     myInsertionEvents->execute(myStep);
-    myEmitter->emitVehicles(myStep);
+    myInserter->emitVehicles(myStep);
     if (MSGlobals::gCheck4Accidents) {
         myEdges->detectCollisions(myStep);
     }
@@ -409,7 +409,7 @@ MSNet::simulationState(SUMOTime stopTime) const throw() {
 #endif
         if (myInsertionEvents->isEmpty()
                 && myVehicleControl->haveAllActiveVehiclesQuit()
-                && !myEmitter->hasPendingFlows()
+                && !myInserter->hasPendingFlows()
                 && (myPersonControl == 0 || !myPersonControl->hasPedestrians())) {
             if (myPersonControl) {
                 myPersonControl->abortWaiting();
@@ -477,7 +477,7 @@ MSNet::writeOutput() {
         << "loaded=\"" << myVehicleControl->getLoadedVehicleNo() << "\" "
         << "emitted=\"" << myVehicleControl->getDepartedVehicleNo() << "\" "
         << "running=\"" << myVehicleControl->getRunningVehicleNo() << "\" "
-        << "waiting=\"" << myEmitter->getWaitingVehicleNo() << "\" "
+        << "waiting=\"" << myInserter->getWaitingVehicleNo() << "\" "
         << "ended=\"" << myVehicleControl->getEndedVehicleNo() << "\" "
         << "meanWaitingTime=\"";
         myVehicleControl->printMeanWaitingTime(od);

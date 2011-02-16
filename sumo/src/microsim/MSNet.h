@@ -288,10 +288,10 @@ public:
     /** @brief Returns the insertion control
      * @return The insertion control
      * @see MSEmitControl
-     * @see myEmitter
+     * @see myInserter
      */
-    MSEmitControl &getEmitControl() throw() {
-        return *myEmitter;
+    MSEmitControl &getInsertionControl() throw() {
+        return *myInserter;
     }
 
 
@@ -599,7 +599,7 @@ protected:
     /// @brief Controls tls logics, realizes waiting on tls rules; @see MSJunctionControl
     MSTLLogicControl *myLogics;
     /// @brief Controls vehicle insertion; @see MSEmitControl
-    MSEmitControl* myEmitter;
+    MSEmitControl* myInserter;
     /// @brief Controls detectors; @see MSDetectorControl
     MSDetectorControl *myDetectorControl;
     /// @brief Controls events executed at the begin of a time step; @see MSEventControl

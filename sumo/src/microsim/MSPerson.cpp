@@ -134,7 +134,7 @@ MSPerson::MSPersonStage_Driving::proceed(MSNet* net,
     SUMOVehicle *v = net->getVehicleControl().getWaitingVehicle(&previousEdge, myLines);
     if (v != 0 && v->getParameter().departProcedure == DEPART_TRIGGERED) {
         v->addPerson(person);
-        net->getEmitControl().add(v);
+        net->getInsertionControl().add(v);
         net->getVehicleControl().removeWaiting(&previousEdge, v);
         net->getVehicleControl().unregisterOneWaitingForPerson();
     } else {

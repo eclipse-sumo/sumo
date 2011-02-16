@@ -546,7 +546,7 @@ MSRouteHandler::closeVehicle() throw(ProcessError) {
     //  shall stay in the internal buffer
     if (vehicle!=0) {
         if (vehicle->getParameter().departProcedure == DEPART_GIVEN) {
-            MSNet::getInstance()->getEmitControl().add(vehicle);
+            MSNet::getInstance()->getInsertionControl().add(vehicle);
         }
     }
 }
@@ -599,7 +599,7 @@ MSRouteHandler::closeFlow() throw(ProcessError) {
     // check whether the vehicle shall be added directly to the network or
     //  shall stay in the internal buffer
     if (checkLastDepart()) {
-        MSNet::getInstance()->getEmitControl().add(myVehicleParameter);
+        MSNet::getInstance()->getInsertionControl().add(myVehicleParameter);
     }
     myVehicleParameter = 0;
 }

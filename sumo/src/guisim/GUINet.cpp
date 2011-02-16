@@ -456,7 +456,7 @@ GUINet::getParameterWindow(GUIMainWindow &app,
     ret->mkItem("loaded vehicles [#]", true,
                 new FunctionBinding<MSVehicleControl, unsigned int>(&getVehicleControl(), &MSVehicleControl::getLoadedVehicleNo));
     ret->mkItem("waiting vehicles [#]", true,
-                new FunctionBinding<MSEmitControl, unsigned int>(&getEmitControl(), &MSEmitControl::getWaitingVehicleNo));
+                new FunctionBinding<MSEmitControl, unsigned int>(&getInsertionControl(), &MSEmitControl::getWaitingVehicleNo));
     ret->mkItem("departed vehicles [#]", true,
                 new FunctionBinding<MSVehicleControl, unsigned int>(&getVehicleControl(), &MSVehicleControl::getDepartedVehicleNo));
     ret->mkItem("running vehicles [#]", true,
