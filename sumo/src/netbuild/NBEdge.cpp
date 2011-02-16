@@ -455,7 +455,7 @@ NBEdge::setConnection(unsigned int lane, NBEdge *destEdge,
         return;
     }
     if (myLanes.size()<=lane) {
-        MsgHandler::getErrorInstance()->inform("Could not set connection from '" + myID + "_" + toString(lane) + "' to '" + destEdge->getID() + "_" + toString(destLane) + "'.");
+        MsgHandler::getErrorInstance()->inform("Could not set connection from '" + getLaneID(lane) + "' to '" + destEdge->getLaneID(destLane) + "'.");
         return;
     }
     for (std::vector<Connection>::iterator i=myConnections.begin(); i!=myConnections.end();) {
@@ -647,7 +647,7 @@ NBEdge::writeXMLStep2(OutputDevice &into, bool includeInternal) {
 void
 NBEdge::writeLane(OutputDevice &into, NBEdge::Lane &lane, unsigned int index) const {
     // output the lane's attributes
-    into << "         <lane id=\"" << myID << '_' << index << "\"";
+    into << "         <lane id=\"" << getLaneID(index) << "\"";
     // the first lane of an edge will be the depart lane
     if (index==0) {
         into << " depart=\"1\"";
@@ -785,7 +785,7 @@ NBEdge::computeLaneShape(unsigned int lane) throw(InvalidArgument) {
                 shape.push_back(l1.intersectsAt(l2));
             } else {
                 if (!haveWarned) {
-                    MsgHandler::getWarningInstance()->inform("In lane '" + getID() + "_" + toString(lane) + "': Could not build shape.");
+                    MsgHandler::getWarningInstance()->inform("In lane '" + getLaneID(lane) + "': Could not build shape.");
                     haveWarned = true;
                 }
             }
@@ -819,7 +819,7 @@ NBEdge::laneOffset(const Position2D &from, const Position2D &to,
 
 void
 NBEdge::writeSucceeding(OutputDevice &into, unsigned int lane, bool includeInternal) {
-    into << "   <succ edge=\"" << myID << "\" lane=\"" << myID << "_" << lane << "\" junction=\"" << myTo->getID() << "\">\n";
+    into << "   <succ edge=\"" << myID << "\" lane=\"" << getLaneID(lane) << "\" junction=\"" << myTo->getID() << "\">\n";
     // output list of connected lanes
     unsigned int count = 0;
     for (std::vector<Connection>::const_iterator i=myConnections.begin(); i!=myConnections.end(); ++i) {
@@ -850,7 +850,7 @@ NBEdge::writeSingleSucceeding(OutputDevice &into, const NBEdge::Connection &c, b
         return;
     }
     // write the id
-    into << "      <succlane lane=\"" << c.toEdge->getID() << '_' << c.toLane << '\"'; // !!! classe LaneEdge mit getLaneID
+    into << "      <succlane lane=\"" << c.toEdge->getLaneID(c.toLane) << '\"'; // !!! classe LaneEdge mit getLaneID
     if (includeInternal) {
         into << " via=\"" << myTo->getInternalLaneID(this, c.fromLane, c.toEdge, c.toLane) << "_0\"";
     }
@@ -1709,7 +1709,7 @@ NBEdge::getTurnDestination() const {
 
 
 std::string
-NBEdge::getLaneID(unsigned int lane) {
+NBEdge::getLaneID(unsigned int lane) const {
     assert(lane<myLanes.size());
     return myID + "_" + toString(lane);
 }

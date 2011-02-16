@@ -682,7 +682,7 @@ public:
 
     NBEdge *getTurnDestination() const;
 
-    std::string getLaneID(unsigned int lane);
+    std::string getLaneID(unsigned int lane) const;
 
     void setLaneSpeed(unsigned int lane, SUMOReal speed);
 
