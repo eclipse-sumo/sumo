@@ -220,8 +220,6 @@ Position2DVector::positionAtLengthPosition(SUMOReal pos) const {
         seenLength += nextLength;
     } while (++i!=myCont.end()-1);
     return myCont.back();
-//    return positionAtLengthPosition(*(myCont.end()-1),
-//        *(myCont.begin()), pos-seenLength);
 }
 
 
@@ -239,8 +237,6 @@ Position2DVector::rotationDegreeAtLengthPosition(SUMOReal pos) const {
     } while (++i!=myCont.end()-1);
     Line2D l(*(myCont.end()-2), *(myCont.end()-1));
     return l.atan2DegreeAngle();
-//    Line2D l(*(myCont.end()-1), *(myCont.begin()));
-//    return l.atan2DegreeAngle();
 }
 
 
