@@ -141,7 +141,7 @@ enum SUMOVehicleClass {
     /// @name vehicle size
     //@{
 
-    /// @brief vehicle is a passenger car
+    /// @brief vehicle is a passenger car (a "normal" car)
     SVC_PASSENGER = 256,
     /// @brief vehicle is a HOV
     SVC_HOV = 512,
