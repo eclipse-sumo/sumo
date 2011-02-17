@@ -1,3 +1,0 @@
-Warning: Emitter are deprecated; use departpos/departspeed within routes instead.
-Error: MSTriggeredSource emitter: Vehicle type 'xxx' does not exist.
-Quitting (on error).

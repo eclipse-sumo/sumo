@@ -1,4 +1,0 @@
-<routes>
-   <route id="0" edges="beg middle end rend"/>
-   <vtype id="KRAUSS_DEFAULT" accel="2.6" decel="4.5" sigma="0" length="5" maxspeed="70"/>
-</routes>

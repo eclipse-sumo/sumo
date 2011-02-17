@@ -1,13 +1,3 @@
-# emitter-emission: duplicate route
-route_emitteremission
-
-# emitter-emission: duplicate vehicle type
-vtype_emitteremission
-
-# emitter-emission: duplicate vehicle id
-vehicleid_emitteremission
-
-
 # plain emission, new style: duplicate route
 route_newstyle_plainemission
 

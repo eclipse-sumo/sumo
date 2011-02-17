@@ -1,3 +1,0 @@
-Warning: Emitter are deprecated; use departpos/departspeed within routes instead.
-Error: Attribute 'id' in definition of emitter/vtypedistelem 'emitter' is empty.
-Quitting (on error).

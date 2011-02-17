@@ -1,4 +1,0 @@
-<routes>
-   <route id="0" multi_ref="x" edges="beg middle end rend"/>
-   <vtype id="DEFAULT_VEHTYPE" sigma="0" maxspeed="70" color="1,1,0"/>
-</routes>

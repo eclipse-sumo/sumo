@@ -1,12 +1,6 @@
 # one vehicle is vaporized at a short edge
 short_edge
 
-# tests for using vehicles emitted by emitters, all sharing the same base route (should be replaced)
-emitter_same_route
-
-# tests for using vehicles emitted by emitters, each having an own route
-emitter_explicite_routes
-
 # tests for using plain emitted vehicles, all sharing the same base route (should be replaced)
 routes_same_route
 

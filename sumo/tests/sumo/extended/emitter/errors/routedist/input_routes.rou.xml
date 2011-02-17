@@ -1,5 +1,0 @@
-<routes>
-   <route id="0" multi_ref="x" edges="beg middle end rend"/>
-   <route id="1" multi_ref="x" edges="beg beg2left left left2end end rend"/>
-   <vtype id="KRAUSS_DEFAULT" accel="2.6" decel="4.5" sigma="0.5" length="5" maxspeed="70" color="1,1,0"/>
-</routes>

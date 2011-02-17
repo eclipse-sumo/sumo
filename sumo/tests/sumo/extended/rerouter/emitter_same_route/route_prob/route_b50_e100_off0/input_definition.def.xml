@@ -1,6 +1,0 @@
-<rerouter>
-	<interval begin="50" end="100">
-		<route_prob_reroute id="via_left2end" probability=".5"/>
-		<route_prob_reroute id="via_right2end" probability=".5"/>
-	</interval>
-</rerouter>

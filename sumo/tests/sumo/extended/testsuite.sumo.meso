@@ -1,9 +1,6 @@
 # Tests whether rerouter works; also tests functioning of vehroutes output
 rerouter
 
-# Tests whether emitters work
-emitter
-
 # "one shot" in-simulation vehicle routing
 simulation_routing
 

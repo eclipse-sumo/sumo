@@ -1,6 +1,0 @@
-Warning: Emitter are deprecated; use departpos/departspeed within routes instead.
-Error: input ended before all started tags were ended; last tag started is 'triggeredsource'
- In file 'input_definition.def.xml'
- At line/column 18/1.
-
-Quitting (on error).

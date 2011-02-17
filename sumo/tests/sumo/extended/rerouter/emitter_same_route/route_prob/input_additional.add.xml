@@ -1,8 +1,0 @@
-<additional>
-    <route id="via_left2end" multi_ref="x" edges="beg beg2left left left2end end"/>
-    <route id="via_right2end" multi_ref="x" edges="beg beg2right right right2end end"/>
-
-    <rerouter id="rerouter" edges="beg" pos="20" file="input_definition.def.xml"/>
-
-	<emitter id="emitter" pos="100" lane="beg_0" file="input_emitter.def.xml"/>
-</additional>

@@ -1,5 +1,0 @@
-<additional>
-	<rerouter id="rerouter" edges="beg" pos="20" file="input_definition.def.xml"/>
-
-	<emitter id="emitter" pos="100" lane="beg_0" file="input_emitter.def.xml"/>
-</additional>

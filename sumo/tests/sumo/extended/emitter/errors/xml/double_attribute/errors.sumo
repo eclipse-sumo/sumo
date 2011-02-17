@@ -1,6 +1,0 @@
-Warning: Emitter are deprecated; use departpos/departspeed within routes instead.
-Error: attribute 'speed' is already specified for element 'emit'
- In file 'input_definition.def.xml'
- At line/column 7/33.
-
-Quitting (on error).

@@ -13,21 +13,6 @@ false_route1
 # Test with a vehicle and a route with an empty id
 false_route2
 
-# within emitters: a valid definition
-ok_emitteremission
-
-# within emitters: empty route
-emptyroute_emitteremission
-
-# within emitters: first edge is not in the network
-first_edge_false__emitteremission
-
-# within emitters: second edge is not in the network
-second_edge_false__emitteremission
-
-# within emitters: last edge is not in the network
-last_edge_false__emitteremission
-
 # plain emission, new style: a valid definition
 ok_newstyle_plainemission
 

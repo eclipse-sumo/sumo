@@ -1,3 +1,0 @@
-Warning: Emitter are deprecated; use departpos/departspeed within routes instead.
-Error: Attribute 'probability' in definition of emitter/vtypedistelem 'emitter' is not a real number.
-Quitting (on error).
