@@ -53,7 +53,7 @@ output:\r{REPLACE \n}
 output:\([0-9]*ms\){REPLACE (TIME)}
 log:\([0-9]*ms\){REPLACE (TIME)}
 detector:xml version{->}-->
-emissions:xml version{->}-->
+summary:xml version{->}-->
 aggregated1:xml version{->}-->
 aggregated15:xml version{->}-->
 aggregated25:xml version{->}-->
@@ -77,7 +77,7 @@ c2x_edge_near_info:xml version{->}-->
 
 [floating_point_tolerance]
 detector:0.0101
-emissions:0.0101
+summary:0.0101
 aggregated1:0.0101
 aggregated15:0.0101
 aggregated25:0.0101
