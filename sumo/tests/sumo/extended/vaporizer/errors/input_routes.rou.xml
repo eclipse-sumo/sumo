@@ -1,13 +1,36 @@
 <routes>
-   <route id="0" edges="beg middle end rend"/>
-   <route id="1" edges="beg middle end rend"/>
-   <route id="2" edges="beg middle end rend"/>
-   <route id="3" edges="beg middle end rend"/>
-   <route id="4" edges="beg middle end rend"/>
-   <route id="5" edges="beg middle end rend"/>
-   <route id="6" edges="beg middle end rend"/>
-   <route id="7" edges="beg middle end rend"/>
-   <route id="8" edges="beg middle end rend"/>
-   <route id="9" edges="beg middle end rend"/>
-   <vtype id="KRAUSS_DEFAULT" accel="2.6" decel="4.5" sigma="0" length="5" maxspeed="70"/>
+	<vtype id="DEFAULT_VEHTYPE" accel="2.6" decel="4.5" sigma="0" length="5" maxspeed="70"/>
+
+	<vehicle id="0" depart="0" departpos="0">
+		<route edges="beg middle end rend"/>
+	</vehicle>
+	<vehicle id="1" depart="20" departpos="0">
+		<route edges="beg middle end rend"/>
+	</vehicle>
+	<vehicle id="2" depart="40" departpos="0">
+		<route edges="beg middle end rend"/>
+	</vehicle>
+	<vehicle id="3" depart="60" departpos="0">
+		<route edges="beg middle end rend"/>
+	</vehicle>
+	<vehicle id="4" depart="80" departpos="0">
+		<route edges="beg middle end rend"/>
+	</vehicle>
+	<vehicle id="5" depart="100" departpos="0">
+		<route edges="beg middle end rend"/>
+	</vehicle>
+	<vehicle id="6" depart="120" departpos="0">
+		<route edges="beg middle end rend"/>
+	</vehicle>
+	<vehicle id="7" depart="140" departpos="0">
+		<route edges="beg middle end rend"/>
+	</vehicle>
+	<vehicle id="8" depart="160" departpos="0">
+		<route edges="beg middle end rend"/>
+	</vehicle>
+	<vehicle id="9" depart="180" departpos="0">
+		<route edges="beg middle end rend"/>
+	</vehicle>
+
+
 </routes>
