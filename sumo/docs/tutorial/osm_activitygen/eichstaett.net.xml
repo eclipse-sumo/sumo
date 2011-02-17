@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on Thu Feb 17 16:17:48 2011 by SUMO netconvert Version dev-SVN-r9764
+<!-- generated on Thu Feb 17 19:16:31 2011 by SUMO netconvert Version dev-SVN-r9764
 <?xml version="1.0" encoding="iso-8859-1"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
@@ -27,7 +27,7 @@
     </ramp_guessing>
 
     <edge_removal>
-        <remove-edges.by-vclass value="hov,taxi,bus,delivery,transport,lightrail,cityrail,rail_slow,rail_fast,motorcycle,bicycle,pedestrian,private"/>
+        <remove-edges.by-vclass value="hov,taxi,bus,delivery,transport,lightrail,cityrail,rail_slow,rail_fast,motorcycle,bicycle,pedestrian"/>
     </edge_removal>
 
     <processing>
