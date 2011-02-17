@@ -120,7 +120,7 @@
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <Link>
-      <AdditionalDependencies>$(PROJ_LIB);shell32.lib;opengl32.lib;glu32.lib;$(XERCES_DEBUG_LIB);$(FOX16_DEBUG_LIB);user32.lib;winmm.lib;vfw32.lib;gdi32.lib;ws2_32.lib</AdditionalDependencies>
+      <AdditionalDependencies>$(PROJ_LIB);$(GDAL_LIB);shell32.lib;opengl32.lib;glu32.lib;$(XERCES_DEBUG_LIB);$(FOX16_DEBUG_LIB);user32.lib;winmm.lib;vfw32.lib;gdi32.lib;ws2_32.lib</AdditionalDependencies>
       <OutputFile>$(OutDir)neteditD.exe</OutputFile>
     </Link>
   </ItemDefinitionGroup>
