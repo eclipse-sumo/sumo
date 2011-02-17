@@ -13,7 +13,7 @@
     <output>
         <netstate-dump value=""/>
         <dump-empty-edges value="false"/>
-        <emissions-output value=""/>
+        <summary value=""/>
         <tripinfo-output value=""/>
         <vehroute-output value=""/>
         <vehroute-output.exit-times value="false"/>

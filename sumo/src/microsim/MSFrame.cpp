@@ -107,9 +107,10 @@ MSFrame::fillOptions() {
     oc.doRegister("dump-empty-edges", new Option_Bool(false));
     oc.addDescription("dump-empty-edges", "Output", "Write also empty edges completely when dumping");
 
-    oc.doRegister("emissions-output", new Option_FileName());
-    oc.addSynonyme("emissions-output", "emissions");
-    oc.addDescription("emissions-output", "Output", "Save aggregated vehicle emission inf. into FILE");
+    oc.doRegister("summary", new Option_FileName());
+    oc.addSynonyme("summary", "emissions-output");
+    oc.addSynonyme("summary", "emissions");
+    oc.addDescription("summary", "Output", "Save aggregated vehicle emission inf. into FILE");
 
     oc.doRegister("tripinfo-output", new Option_FileName());
     oc.addSynonyme("tripinfo-output", "tripinfo");
@@ -284,7 +285,7 @@ void
 MSFrame::buildStreams() throw(IOError) {
     // standard outputs
     OutputDevice::createDeviceByOption("netstate-dump", "sumo-netstate");
-    OutputDevice::createDeviceByOption("emissions-output", "emissions");
+    OutputDevice::createDeviceByOption("summary", "summary");
     OutputDevice::createDeviceByOption("tripinfo-output", "tripinfos");
     MSDevice_Vehroutes::init();
 }

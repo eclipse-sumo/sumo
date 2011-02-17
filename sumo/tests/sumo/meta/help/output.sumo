@@ -1,4 +1,4 @@
-SUMO sumo Version dev-SVN-r9754
+SUMO sumo Version dev-SVN-r9763
  Copyright (C) 2001-2011 DLR and contributors; http://sumo.sourceforge.net
  
 A microscopic road traffic simulation.
@@ -30,7 +30,7 @@ Usage: sumo [OPTION]*
   --netstate-dump FILE                Save complete network states into FILE
   --dump-empty-edges                  Write also empty edges completely when
                                         dumping
-  --emissions-output FILE             Save aggregated vehicle emission inf.
+  --summary FILE                      Save aggregated vehicle emission inf.
                                         into FILE
   --tripinfo-output FILE              Save single vehicle trip inf. into FILE
   --vehroute-output FILE              Save single vehicle route inf. into FILE

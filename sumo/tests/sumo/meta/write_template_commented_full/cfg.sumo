@@ -28,7 +28,7 @@
         <dump-empty-edges value="false"/>
 
         <!-- Save aggregated vehicle emission inf. into FILE -->
-        <emissions-output value=""/>
+        <summary value=""/>
 
         <!-- Save single vehicle trip inf. into FILE -->
         <tripinfo-output value=""/>
