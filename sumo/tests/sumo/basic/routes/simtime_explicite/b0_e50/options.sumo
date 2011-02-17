@@ -1,1 +1,1 @@
---no-step-log -b 0 -e 50 --no-duration-log --net-file=three_split.net.xml -a=input_routes.rou.xml  --emissions-output=emissions.xml 
+--no-step-log -b 0 -e 50 --no-duration-log --net-file=three_split.net.xml -a=input_routes.rou.xml  --summary=summary.xml 

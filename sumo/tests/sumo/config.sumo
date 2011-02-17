@@ -17,7 +17,7 @@ copy_test_path:dlr.gif
 
 [collate_file]
 detector:detector.xml
-emissions:emissions.xml
+summary:summary.xml
 aggregated1:aggregated_1.xml
 aggregated15:aggregated_15.xml
 aggregated25:aggregated_25.xml
