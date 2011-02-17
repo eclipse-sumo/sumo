@@ -265,7 +265,6 @@
     <ClCompile Include="..\..\..\src\guisim\GUIDetectorWrapper.cpp" />
     <ClCompile Include="..\..\..\src\guisim\GUIE3Collector.cpp" />
     <ClCompile Include="..\..\..\src\guisim\GUIEdge.cpp" />
-    <ClCompile Include="..\..\..\src\guisim\GUIEmitter.cpp" />
     <ClCompile Include="..\..\..\src\guisim\GUIEventControl.cpp" />
     <ClCompile Include="..\..\..\src\guisim\GUIInductLoop.cpp" />
     <ClCompile Include="..\..\..\src\guisim\GUIInternalLane.cpp" />
@@ -289,7 +288,6 @@
     <ClInclude Include="..\..\..\src\guisim\GUIDetectorWrapper.h" />
     <ClInclude Include="..\..\..\src\guisim\GUIE3Collector.h" />
     <ClInclude Include="..\..\..\src\guisim\GUIEdge.h" />
-    <ClInclude Include="..\..\..\src\guisim\GUIEmitter.h" />
     <ClInclude Include="..\..\..\src\guisim\GUIEventControl.h" />
     <ClInclude Include="..\..\..\src\guisim\GUIInductLoop.h" />
     <ClInclude Include="..\..\..\src\guisim\GUIInternalLane.h" />

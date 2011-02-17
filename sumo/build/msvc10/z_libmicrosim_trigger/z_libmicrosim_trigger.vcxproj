@@ -176,7 +176,6 @@
   <ItemGroup>
     <ClCompile Include="..\..\..\src\microsim\trigger\MSBusStop.cpp" />
     <ClCompile Include="..\..\..\src\microsim\trigger\MSCalibrator.cpp" />
-    <ClCompile Include="..\..\..\src\microsim\trigger\MSEmitter.cpp" />
     <ClCompile Include="..\..\..\src\microsim\trigger\MSLaneSpeedTrigger.cpp" />
     <ClCompile Include="..\..\..\src\microsim\trigger\MSTriggeredReader.cpp" />
     <ClCompile Include="..\..\..\src\microsim\trigger\MSTriggeredRerouter.cpp" />
@@ -185,7 +184,6 @@
   <ItemGroup>
     <ClInclude Include="..\..\..\src\microsim\trigger\MSBusStop.h" />
     <ClInclude Include="..\..\..\src\microsim\trigger\MSCalibrator.h" />
-    <ClInclude Include="..\..\..\src\microsim\trigger\MSEmitter.h" />
     <ClInclude Include="..\..\..\src\microsim\trigger\MSLaneSpeedTrigger.h" />
     <ClInclude Include="..\..\..\src\microsim\trigger\MSTrigger.h" />
     <ClInclude Include="..\..\..\src\microsim\trigger\MSTriggeredReader.h" />

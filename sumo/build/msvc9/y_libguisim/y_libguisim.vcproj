@@ -585,10 +585,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\guisim\GUIEmitter.cpp"
-				>
-			</File>
-			<File
 				RelativePath="..\..\..\src\guisim\GUIEventControl.cpp"
 				>
 			</File>
@@ -675,10 +671,6 @@
 			</File>
 			<File
 				RelativePath="..\..\..\src\guisim\GUIEdge.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\guisim\GUIEmitter.h"
 				>
 			</File>
 			<File

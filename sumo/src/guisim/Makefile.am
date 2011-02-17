@@ -14,7 +14,6 @@ GUINet.cpp GUINet.h \
 GUISelectionLoader.cpp GUISelectionLoader.h \
 GUIShapeContainer.cpp GUIShapeContainer.h \
 GUITrafficLightLogicWrapper.cpp GUITrafficLightLogicWrapper.h \
-GUIEmitter.cpp GUIEmitter.h \
 GUITriggeredRerouter.cpp GUITriggeredRerouter.h \
 GUIVehicle.cpp GUIVehicle.h GUIVehicleControl.cpp GUIVehicleControl.h \
 GUI_E2_ZS_Collector.cpp GUI_E2_ZS_Collector.h \
