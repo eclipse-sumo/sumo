@@ -146,8 +146,6 @@ GUISelectedStorage::isSelected(int type, GLuint id) throw(ProcessError) {
         return mySelectedTLLogics.isSelected(id);
     case GLO_DETECTOR:
         return mySelectedDetectors.isSelected(id);
-    case GLO_EMITTER:
-        return mySelectedEmitters.isSelected(id);
     case GLO_LANE:
         return mySelectedLanes.isSelected(id);
     case GLO_EDGE:
@@ -190,9 +188,6 @@ GUISelectedStorage::select(int type, GLuint id, bool update) throw(ProcessError)
         break;
     case GLO_DETECTOR:
         mySelectedDetectors.select(id);
-        break;
-    case GLO_EMITTER:
-        mySelectedEmitters.select(id);
         break;
     case GLO_LANE:
         mySelectedLanes.select(id);
@@ -244,9 +239,6 @@ GUISelectedStorage::deselect(int type, GLuint id) throw(ProcessError) {
         break;
     case GLO_DETECTOR:
         mySelectedDetectors.deselect(id);
-        break;
-    case GLO_EMITTER:
-        mySelectedEmitters.deselect(id);
         break;
     case GLO_LANE:
         mySelectedLanes.deselect(id);
@@ -309,8 +301,6 @@ GUISelectedStorage::getSelected(GUIGlObjectType type) const throw(ProcessError) 
         return mySelectedTLLogics.getSelected();
     case GLO_DETECTOR:
         return mySelectedDetectors.getSelected();
-    case GLO_EMITTER:
-        return mySelectedEmitters.getSelected();
     case GLO_LANE:
         return mySelectedLanes.getSelected();
     case GLO_EDGE:
@@ -359,9 +349,6 @@ GUISelectedStorage::load(int type, const std::string &filename) throw(IOError) {
         case GLO_DETECTOR:
             mySelectedDetectors.load(filename);
             break;
-        case GLO_EMITTER:
-            mySelectedEmitters.load(filename);
-            break;
         case GLO_LANE:
             mySelectedLanes.load(filename);
             break;
@@ -398,9 +385,6 @@ GUISelectedStorage::save(int type, const std::string &filename) throw(IOError) {
             break;
         case GLO_DETECTOR:
             mySelectedDetectors.save(filename);
-            break;
-        case GLO_EMITTER:
-            mySelectedEmitters.save(filename);
             break;
         case GLO_LANE:
             mySelectedLanes.save(filename);
