@@ -1,4 +1,6 @@
 #!/usr/bin/env python
+import re
+from datetime import date
 import optparse, os, glob, subprocess, zipfile, shutil, datetime, sys
 sys.path.append(os.path.join(os.path.dirname(sys.argv[0]), '..', 'xml'))
 import status, schemaCheck
@@ -43,10 +45,12 @@ for platform in ["Win32", "x64"]:
         except WindowsError:
             pass
     if platform == "Win32":
-        log = open(makeLog, 'w')
-        subprocess.call("svn.exe up %s\\trunk" % options.rootDir, stdout=log, stderr=subprocess.STDOUT)
-        log.close()
-        if len(open(makeLog).readlines()) <= 5:
+        with open(makeLog, 'w') as log:
+            subprocess.call("svn.exe up %s\\trunk" % options.rootDir, stdout=log, stderr=subprocess.STDOUT)
+        match_update = re.search('Updated .*to revision (\d*)\.', open(makeLog).read())
+        if match_update:
+            svnrev = match_update.group(1)
+        else:
             print "No changes since last update, skipping build and test"
             sys.exit()
     subprocess.call(compiler+" /rebuild Release|%s %s\\%s /out %s" % (platform, options.rootDir, options.project, makeLog))
@@ -92,7 +96,9 @@ for platform in ["Win32", "x64"]:
         elif os.path.exists(binary):
             env[name.upper()+"_BINARY"] = binary
     log = open(testLog, 'w')
-    subprocess.call("texttest.py -b "+env["FILEPREFIX"], stdout=log, stderr=subprocess.STDOUT, shell=True)
+    # provide more information than just the date:
+    nameopt = " -name %sr%s" % (date.today().strftime("%d%b%y"), svnrev)
+    subprocess.call("texttest.py -b "+env["FILEPREFIX"]+nameopt, stdout=log, stderr=subprocess.STDOUT, shell=True)
     subprocess.call("texttest.py -a sumo.gui -b "+env["FILEPREFIX"], stdout=log, stderr=subprocess.STDOUT, shell=True)
     subprocess.call("texttest.py -b "+env["FILEPREFIX"]+" -coll", stdout=log, stderr=subprocess.STDOUT, shell=True)
     ago = datetime.datetime.now() - datetime.timedelta(30)
