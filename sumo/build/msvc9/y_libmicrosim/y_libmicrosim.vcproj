@@ -607,10 +607,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\microsim\MSEmitControl.cpp"
-				>
-			</File>
-			<File
 				RelativePath="..\..\..\src\microsim\MSEventControl.cpp"
 				>
 			</File>
@@ -620,6 +616,10 @@
 			</File>
 			<File
 				RelativePath="..\..\..\src\microsim\MSGlobals.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\microsim\MSInsertionControl.cpp"
 				>
 			</File>
 			<File
@@ -807,10 +807,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\microsim\MSEmitControl.h"
-				>
-			</File>
-			<File
 				RelativePath="..\..\..\src\microsim\MSEventControl.h"
 				>
 			</File>
@@ -820,6 +816,10 @@
 			</File>
 			<File
 				RelativePath="..\..\..\src\microsim\MSGlobals.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\microsim\MSInsertionControl.h"
 				>
 			</File>
 			<File

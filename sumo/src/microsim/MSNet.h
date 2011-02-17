@@ -55,7 +55,7 @@
 class MSEdge;
 class MSEdgeControl;
 class MSJunctionControl;
-class MSEmitControl;
+class MSInsertionControl;
 class MSRouteLoaderControl;
 class MSPersonControl;
 class MSVehicle;
@@ -287,10 +287,10 @@ public:
 
     /** @brief Returns the insertion control
      * @return The insertion control
-     * @see MSEmitControl
+     * @see MSInsertionControl
      * @see myInserter
      */
-    MSEmitControl &getInsertionControl() throw() {
+    MSInsertionControl &getInsertionControl() throw() {
         return *myInserter;
     }
 
@@ -598,8 +598,8 @@ protected:
     MSJunctionControl* myJunctions;
     /// @brief Controls tls logics, realizes waiting on tls rules; @see MSJunctionControl
     MSTLLogicControl *myLogics;
-    /// @brief Controls vehicle insertion; @see MSEmitControl
-    MSEmitControl* myInserter;
+    /// @brief Controls vehicle insertion; @see MSInsertionControl
+    MSInsertionControl* myInserter;
     /// @brief Controls detectors; @see MSDetectorControl
     MSDetectorControl *myDetectorControl;
     /// @brief Controls events executed at the begin of a time step; @see MSEventControl

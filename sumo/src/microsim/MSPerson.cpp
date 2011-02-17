@@ -34,7 +34,7 @@
 #include "MSLane.h"
 #include "MSPerson.h"
 #include "MSPersonControl.h"
-#include "MSEmitControl.h"
+#include "MSInsertionControl.h"
 #include "MSVehicle.h"
 #include <utils/iodevices/OutputDevice.h>
 

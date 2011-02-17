@@ -1,5 +1,5 @@
 /****************************************************************************/
-/// @file    MSEmitControl.h
+/// @file    MSInsertionControl.h
 /// @author  Christian Roessel
 /// @date    Mon, 12 Mar 2001
 /// @version $Id$
@@ -16,8 +16,8 @@
 //   (at your option) any later version.
 //
 /****************************************************************************/
-#ifndef MSEmitControl_h
-#define MSEmitControl_h
+#ifndef MSInsertionControl_h
+#define MSInsertionControl_h
 
 
 // ===========================================================================
@@ -46,7 +46,7 @@ class MSVehicleControl;
 // class definitions
 // ===========================================================================
 /**
- * @class MSEmitControl
+ * @class MSInsertionControl
  * @brief Inserts vehicles into the network when their departure time is reached
  *
  * A vehicle emitter; Holds a list of vehicles which may be filled by vehicles
@@ -60,7 +60,7 @@ class MSVehicleControl;
  *
  * @todo Whe a vehicle is deleted due to waiting too long or because of vaporizing, ths is not reported anywhere
  */
-class MSEmitControl {
+class MSInsertionControl {
 public:
     /** @brief Constructor
      *
@@ -68,11 +68,11 @@ public:
      * @param[in] maxDepartDelay Vehicles waiting for insertion longer than this time are deleted (-1: no deletion)
      * @param[in] checkEdgesOnce Whether an edge on which a vehicle could not depart should be ignored in the same step
      */
-    MSEmitControl(MSVehicleControl &vc, SUMOTime maxDepartDelay, bool checkEdgesOnce) throw();
+    MSInsertionControl(MSVehicleControl &vc, SUMOTime maxDepartDelay, bool checkEdgesOnce) throw();
 
 
     /// @brief Destructor.
-    ~MSEmitControl() throw();
+    ~MSInsertionControl() throw();
 
 
     /** @brief Emits vehicles that want to depart at the given time
@@ -206,10 +206,10 @@ private:
 
 private:
     /// @brief Invalidated copy constructor.
-    MSEmitControl(const MSEmitControl&);
+    MSInsertionControl(const MSInsertionControl&);
 
     /// @brief Invalidated assignment operator.
-    MSEmitControl& operator=(const MSEmitControl&);
+    MSInsertionControl& operator=(const MSInsertionControl&);
 
 
 };

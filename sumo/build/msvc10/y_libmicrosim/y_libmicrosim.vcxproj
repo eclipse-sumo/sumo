@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -262,9 +262,9 @@
     <ClCompile Include="..\..\..\src\microsim\MSEdge.cpp" />
     <ClCompile Include="..\..\..\src\microsim\MSEdgeControl.cpp" />
     <ClCompile Include="..\..\..\src\microsim\MSEdgeWeightsStorage.cpp" />
-    <ClCompile Include="..\..\..\src\microsim\MSEmitControl.cpp" />
     <ClCompile Include="..\..\..\src\microsim\MSEventControl.cpp" />
     <ClCompile Include="..\..\..\src\microsim\MSFrame.cpp" />
+    <ClCompile Include="..\..\..\src\microsim\MSInsertionControl.cpp" />
     <ClCompile Include="..\..\..\src\microsim\MSGlobals.cpp" />
     <ClCompile Include="..\..\..\src\microsim\MSInternalJunction.cpp" />
     <ClCompile Include="..\..\..\src\microsim\MSInternalLane.cpp" />
@@ -313,9 +313,9 @@
     <ClInclude Include="..\..\..\src\microsim\MSEdge.h" />
     <ClInclude Include="..\..\..\src\microsim\MSEdgeControl.h" />
     <ClInclude Include="..\..\..\src\microsim\MSEdgeWeightsStorage.h" />
-    <ClInclude Include="..\..\..\src\microsim\MSEmitControl.h" />
     <ClInclude Include="..\..\..\src\microsim\MSEventControl.h" />
     <ClInclude Include="..\..\..\src\microsim\MSFrame.h" />
+    <ClInclude Include="..\..\..\src\microsim\MSInsertionControl.h" />
     <ClInclude Include="..\..\..\src\microsim\MSGlobals.h" />
     <ClInclude Include="..\..\..\src\microsim\MSInternalJunction.h" />
     <ClInclude Include="..\..\..\src\microsim\MSInternalLane.h" />

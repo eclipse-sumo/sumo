@@ -35,7 +35,7 @@
 #include <microsim/MSEdge.h>
 #include <microsim/MSVehicleTransfer.h>
 #include <microsim/MSVehicle.h>
-#include <microsim/MSEmitControl.h>
+#include <microsim/MSInsertionControl.h>
 #include <microsim/traffic_lights/MSTrafficLightLogic.h>
 #include <microsim/traffic_lights/MSTLLogicControl.h>
 #include <microsim/MSJunctionControl.h>
@@ -456,7 +456,7 @@ GUINet::getParameterWindow(GUIMainWindow &app,
     ret->mkItem("loaded vehicles [#]", true,
                 new FunctionBinding<MSVehicleControl, unsigned int>(&getVehicleControl(), &MSVehicleControl::getLoadedVehicleNo));
     ret->mkItem("waiting vehicles [#]", true,
-                new FunctionBinding<MSEmitControl, unsigned int>(&getInsertionControl(), &MSEmitControl::getWaitingVehicleNo));
+                new FunctionBinding<MSInsertionControl, unsigned int>(&getInsertionControl(), &MSInsertionControl::getWaitingVehicleNo));
     ret->mkItem("departed vehicles [#]", true,
                 new FunctionBinding<MSVehicleControl, unsigned int>(&getVehicleControl(), &MSVehicleControl::getDepartedVehicleNo));
     ret->mkItem("running vehicles [#]", true,

@@ -29,7 +29,6 @@
 
 #include "NLBuilder.h"
 #include <microsim/MSNet.h>
-#include <microsim/MSEmitControl.h>
 #include <microsim/MSEdgeControl.h>
 #include <microsim/MSGlobals.h>
 #include <iostream>

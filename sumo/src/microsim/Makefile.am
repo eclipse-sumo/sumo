@@ -2,12 +2,11 @@ noinst_LIBRARIES = libmicrosim.a
 
 libmicrosim_a_SOURCES = MSAbstractLaneChangeModel.h MSBitSetLogic.h \
 MSBaseVehicle.cpp MSBaseVehicle.h \
-MSEdge.cpp MSEdge.h \
-MSEdgeControl.cpp MSEdgeControl.h \
+MSEdge.cpp MSEdge.h MSEdgeControl.cpp MSEdgeControl.h \
 MSEdgeWeightsStorage.cpp MSEdgeWeightsStorage.h \
-MSEmitControl.cpp MSEmitControl.h MSEventControl.cpp MSEventControl.h \
-MSFrame.cpp MSFrame.h \
-MSGlobals.cpp MSGlobals.h \
+MSEventControl.cpp MSEventControl.h \
+MSFrame.cpp MSFrame.h MSGlobals.cpp MSGlobals.h \
+MSInsertionControl.cpp MSInsertionControl.h \
 MSInternalJunction.cpp MSInternalJunction.h \
 MSInternalLane.cpp MSInternalLane.h MSJunction.cpp MSJunction.h \
 MSJunctionControl.cpp MSJunctionControl.h \

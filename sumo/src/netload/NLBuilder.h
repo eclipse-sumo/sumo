@@ -42,7 +42,6 @@
 // ===========================================================================
 class MSNet;
 class NLContainer;
-class MSEmitControl;
 class MSJunctionLogic;
 class MSDetectorControl;
 class OptionsCont;

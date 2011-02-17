@@ -43,7 +43,7 @@
 #include "MSPersonControl.h"
 #include "MSEdgeControl.h"
 #include "MSJunctionControl.h"
-#include "MSEmitControl.h"
+#include "MSInsertionControl.h"
 #include "MSEventControl.h"
 #include "MSEdge.h"
 #include "MSJunction.h"
@@ -161,7 +161,7 @@ MSNet::MSNet(MSVehicleControl *vc, MSEventControl *beginOfTimestepEvents,
     myLogExecutionTime = !oc.getBool("no-duration-log");
     myLogStepNumber = !oc.getBool("no-step-log");
     myTooManyVehicles = oc.getInt("too-many-vehicles");
-    myInserter = new MSEmitControl(*vc, string2time(oc.getString("max-depart-delay")), oc.getBool("sloppy-insert"));
+    myInserter = new MSInsertionControl(*vc, string2time(oc.getString("max-depart-delay")), oc.getBool("sloppy-insert"));
     myVehicleControl = vc;
     myDetectorControl = new MSDetectorControl();
     myEdges = 0;

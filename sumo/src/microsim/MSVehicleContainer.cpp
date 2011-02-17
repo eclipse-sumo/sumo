@@ -42,7 +42,7 @@
 // method definitions
 // ===========================================================================
 /* -------------------------------------------------------------------------
- * methods from MSEmitControl::VehicleDepartureVectorSortCrit
+ * methods from MSVehicleContainer::VehicleDepartureVectorSortCrit
  * ----------------------------------------------------------------------- */
 bool
 MSVehicleContainer::VehicleDepartureVectorSortCrit::operator()
