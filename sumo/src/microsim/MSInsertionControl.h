@@ -49,7 +49,7 @@ class MSVehicleControl;
  * @class MSInsertionControl
  * @brief Inserts vehicles into the network when their departure time is reached
  *
- * A vehicle emitter; Holds a list of vehicles which may be filled by vehicles
+ * Holds a list of vehicles which may be filled by vehicles
  *  read by MSRouteLoaders. Tries to emit vehicles departing at a time into the
  *  network as soon this time is reached and keeps them as long the insertion
  *  fails.
@@ -116,7 +116,6 @@ public:
      *  "myRefusedEmits2") is returned.
      *
      * @return The number of vehicles that could not (yet) be inserted into the net
-     * @todo Note that vehicles in emitters are not counted!
      */
     unsigned int getWaitingVehicleNo() const throw();
 

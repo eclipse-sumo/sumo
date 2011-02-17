@@ -31,7 +31,6 @@
 #include <fstream>
 #include <guisim/GUILaneSpeedTrigger.h>
 #include <guisim/GUINet.h>
-#include <guisim/GUIEmitter.h>
 #include <guisim/GUITriggeredRerouter.h>
 #include <guisim/GUIBusStop.h>
 #include "GUITriggerBuilder.h"
@@ -58,16 +57,6 @@ GUITriggerBuilder::buildLaneSpeedTrigger(MSNet &net,
     GUILaneSpeedTrigger *lst = new GUILaneSpeedTrigger(GUIGlObjectStorage::gIDStorage, id, destLanes, file);
     static_cast<GUINet&>(net).getVisualisationSpeedUp().addAdditionalGLObject(lst);
     return lst;
-}
-
-
-void
-GUITriggerBuilder::buildLaneEmitTrigger(MSNet &net,
-                                        const std::string &id,
-                                        MSLane *destLane,
-                                        SUMOReal pos,
-                                        const std::string &file) throw() {
-    static_cast<GUINet&>(net).getVisualisationSpeedUp().addAdditionalGLObject(new GUIEmitter(GUIGlObjectStorage::gIDStorage, id, net, destLane, pos, file));
 }
 
 

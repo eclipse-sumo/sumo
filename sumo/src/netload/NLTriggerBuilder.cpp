@@ -32,7 +32,6 @@
 #include <microsim/MSLane.h>
 #include <microsim/MSGlobals.h>
 #include <microsim/trigger/MSLaneSpeedTrigger.h>
-#include <microsim/trigger/MSEmitter.h>
 #include <microsim/trigger/MSTriggeredRerouter.h>
 #include <microsim/trigger/MSBusStop.h>
 #include <utils/common/StringTokenizer.h>
@@ -58,8 +57,7 @@
 // method definitions
 // ===========================================================================
 NLTriggerBuilder::NLTriggerBuilder() throw()
-        : myHaveInformedAboutDeprecatedTriggerDefinition(false),
-        myHaveInformedAboutDeprecatedEmitter(false), myHandler(0) {}
+        : myHaveInformedAboutDeprecatedTriggerDefinition(false), myHandler(0) {}
 
 
 NLTriggerBuilder::~NLTriggerBuilder() throw() {}
@@ -80,8 +78,6 @@ NLTriggerBuilder::buildTrigger(MSNet &net,
     // check which type of a trigger shall be build
     if (type=="lane"&&attr=="speed") {
         parseAndBuildLaneSpeedTrigger(net, attrs, base);
-    } else if (type=="emitter") {
-        parseAndBuildLaneEmitTrigger(net, attrs, base);
     } else if (type=="rerouter") {
         parseAndBuildRerouter(net, attrs, base);
     } else if (type=="bus_stop") {
@@ -178,26 +174,6 @@ NLTriggerBuilder::parseAndBuildLaneSpeedTrigger(MSNet &net, const SUMOSAXAttribu
     } catch (ProcessError &e) {
         throw InvalidArgument(e.what());
     }
-}
-
-
-void
-NLTriggerBuilder::parseAndBuildLaneEmitTrigger(MSNet &net, const SUMOSAXAttributes &attrs,
-        const std::string &base) throw(InvalidArgument) {
-    if (!myHaveInformedAboutDeprecatedEmitter) {
-        myHaveInformedAboutDeprecatedEmitter = true;
-        MsgHandler::getWarningInstance()->inform("Emitter are deprecated; use departpos/departspeed within routes instead.");
-    }
-    // get the id, throw if not given or empty...
-    std::string id;
-    if (!attrs.setIDFromAttributes("emitter", id, false)) {
-        throw InvalidArgument("An emitter does not contain an id");
-    }
-    // get the file name to read further definitions from
-    std::string file = getFileName(attrs, base);
-    MSLane *lane = getLane(attrs, "emitter", id);
-    SUMOReal pos = getPosition(attrs, lane, "emitter", id);
-    buildLaneEmitTrigger(net, id, lane, pos, file);
 }
 
 
@@ -316,14 +292,6 @@ NLTriggerBuilder::buildLaneSpeedTrigger(MSNet&/*net*/, const std::string &id,
                                         const std::vector<MSLane*> &destLanes,
                                         const std::string &file) throw(ProcessError) {
     return new MSLaneSpeedTrigger(id, destLanes, file);
-}
-
-
-void
-NLTriggerBuilder::buildLaneEmitTrigger(MSNet &net, const std::string &id,
-                                       MSLane *destLane, SUMOReal pos,
-                                       const std::string &file) throw() {
-    new MSEmitter(id, net, destLane, pos, file);
 }
 
 

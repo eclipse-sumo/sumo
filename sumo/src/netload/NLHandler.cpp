@@ -163,9 +163,6 @@ NLHandler::myStartElement(SumoXMLTag element,
         case SUMO_TAG_VSS:
             myTriggerBuilder.parseAndBuildLaneSpeedTrigger(myNet, attrs, getFileName());
             break;
-        case SUMO_TAG_EMITTER:
-            myTriggerBuilder.parseAndBuildLaneEmitTrigger(myNet, attrs, getFileName());
-            break;
         case SUMO_TAG_CALIBRATOR:
             myTriggerBuilder.parseAndBuildCalibrator(myNet, attrs, getFileName());
             break;

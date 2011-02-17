@@ -59,7 +59,6 @@ GenericSAXHandler::Tag sumotags[] = {
     { "det_entry",        SUMO_TAG_DET_ENTRY },
     { "det_exit",         SUMO_TAG_DET_EXIT },
     { "variableSpeedSign",SUMO_TAG_VSS },
-    { "emitter",          SUMO_TAG_EMITTER },
     { "calibrator",       SUMO_TAG_CALIBRATOR },
     { "rerouter",         SUMO_TAG_REROUTER },
     { "busStop",          SUMO_TAG_BUS_STOP },

@@ -4,7 +4,7 @@
 /// @date    2004
 /// @version $Id$
 ///
-// Base class for additional objects (emitter, detectors etc.)
+// Base class for additional objects (detectors etc.)
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // Copyright (C) 2001-2011 DLR (http://www.dlr.de/) and contributors

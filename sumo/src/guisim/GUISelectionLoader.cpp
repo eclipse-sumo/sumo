@@ -80,8 +80,6 @@ GUISelectionLoader::loadSelection(const std::string &file, std::string &msg) thr
             break;
             case GLO_DETECTOR: {}
             break;
-            case GLO_EMITTER: {}
-            break;
             case GLO_LANE: {
                 MSLane *l = MSLane::dictionary(name);
                 if (l!=0) {

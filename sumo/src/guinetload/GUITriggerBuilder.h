@@ -82,21 +82,6 @@ protected:
             const std::string &file) throw(ProcessError);
 
 
-    /** @brief Builds an emitter
-     *
-     * Simply calls the GUIEmitter constructor.
-     *
-     * @param[in] net The net the emitter belongs to
-     * @param[in] id The id of the emitter
-     * @param[in] destLane The lane the emitter is placed on
-     * @param[in] pos Position of the emitter on the given lane
-     * @param[in] file Name of the file to read the emission definitions from
-     */
-    virtual void buildLaneEmitTrigger(MSNet &net,
-                                      const std::string &id, MSLane *destLane, SUMOReal pos,
-                                      const std::string &file) throw();
-
-
     /** @brief builds an rerouter
      *
      * Simply calls the GUITriggeredRerouter constructor.

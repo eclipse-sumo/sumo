@@ -78,8 +78,6 @@ enum SumoXMLTag {
     SUMO_TAG_DET_EXIT,
     /// @brief A variable speed sign
     SUMO_TAG_VSS,
-    /// @brief An emitter (deprecated!!!)
-    SUMO_TAG_EMITTER,
     /// @brief A calibrator
     SUMO_TAG_CALIBRATOR,
     /// @brief A rerouter

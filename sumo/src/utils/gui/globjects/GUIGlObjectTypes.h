@@ -41,40 +41,27 @@
  * does not cause a hit as no "network" is being drawn) will be chosen.
  */
 enum GUIGlObjectType {
-    /// The network - empty
+    /// @brief The network - empty
     GLO_NETWORK = 0,
-
-    /// an edge
+    /// @brief an edge
     GLO_EDGE = 1,
-
-    /// a lane
+    /// @brief a lane
     GLO_LANE = 2,
-
-    /// a junction
+    /// @brief a junction
     GLO_JUNCTION = 4,
-
-    /// a tl-logic
+    /// @brief a tl-logic
     GLO_TLLOGIC = 8,
-
-    /// a detector
+    /// @brief a detector
     GLO_DETECTOR = 16,
-
-    /// an emitter
-    GLO_EMITTER = 32,
-
-    /// a lane speed trigger,
+    /// @brief a lane speed trigger,
     GLO_TRIGGER = 64,
-
-    /// a shape
+    /// @brief a shape
     GLO_SHAPE = 128,
-
-    /// a vehicles
+    /// @brief a vehicles
     GLO_VEHICLE = 256,
-
-    /// compound additional
-    GLO_ADDITIONAL = GLO_DETECTOR | GLO_EMITTER | GLO_TRIGGER,
-
-    /// empty max
+    /// @brief compound additional
+    GLO_ADDITIONAL = GLO_DETECTOR | GLO_TRIGGER,
+    /// @brief empty max
     GLO_MAX = 512
 
 };

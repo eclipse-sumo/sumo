@@ -39,7 +39,6 @@
 class MSTrigger;
 class MSNet;
 class MSLaneSpeedTrigger;
-class MSEmitter;
 class NLHandler;
 class MSTriggeredRerouter;
 class MSLane;
@@ -142,17 +141,6 @@ public:
                                        const std::string &base) throw(InvalidArgument);
 
 
-    /** @brief Parses his values and builds an emitter
-     *
-     * @param[in] net The network the emitter belongs to
-     * @param[in] attrs SAX-attributes which define the trigger
-     * @param[in] base The base path
-     * @exception InvalidArgument If a parameter (lane/position) is not valid
-     */
-    void parseAndBuildLaneEmitTrigger(MSNet &net, const SUMOSAXAttributes &attrs,
-                                      const std::string &base) throw(InvalidArgument);
-
-
     /** @brief Parses his values and builds a rerouter
      *
      * @param[in] net The network the rerouter belongs to
@@ -210,21 +198,6 @@ protected:
     virtual MSLaneSpeedTrigger* buildLaneSpeedTrigger(MSNet &net,
             const std::string &id, const std::vector<MSLane*> &destLanes,
             const std::string &file) throw(ProcessError);
-
-
-    /** @brief Builds an emitter
-     *
-     * Simply calls the MSEmitter constructor.
-     *
-     * @param[in] net The net the emitter belongs to
-     * @param[in] id The id of the emitter
-     * @param[in] destLane The lane the emitter is placed on
-     * @param[in] pos Position of the emitter on the given lane
-     * @param[in] file Name of the file to read the emission definitions from
-     */
-    virtual void buildLaneEmitTrigger(MSNet &net,
-                                      const std::string &id, MSLane *destLane, SUMOReal pos,
-                                      const std::string &file) throw();
 
 
     /** @brief Builds a bus stop
@@ -350,9 +323,6 @@ protected:
 protected:
     /// @brief Information whether a deprecated trigger definition has occured and was reported
     bool myHaveInformedAboutDeprecatedTriggerDefinition;
-
-    /// @brief Information whether an emitter shall be built (is deprecated)
-    bool myHaveInformedAboutDeprecatedEmitter;
 
     /// @brief The parent handler to set for subhandlers
     NLHandler* myHandler;
