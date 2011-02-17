@@ -61,5 +61,8 @@
     <ClInclude Include="..\..\..\src\netedit\GNELane.h">
       <Filter>Header-Dateien</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\src\netedit\GNEEvent_NetworkLoaded.h">
+      <Filter>Header-Dateien</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

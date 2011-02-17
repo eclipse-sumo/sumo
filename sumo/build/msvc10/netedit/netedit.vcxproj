@@ -300,6 +300,7 @@
   <ItemGroup>
     <ClInclude Include="..\..\..\src\netedit\GNEApplicationWindow.h" />
     <ClInclude Include="..\..\..\src\netedit\GNEEdge.h" />
+    <ClInclude Include="..\..\..\src\netedit\GNEEvent_NetworkLoaded.h" />
     <ClInclude Include="..\..\..\src\netedit\GNEJunction.h" />
     <ClInclude Include="..\..\..\src\netedit\GNELane.h" />
     <ClInclude Include="..\..\..\src\netedit\GNELoadThread.h" />
