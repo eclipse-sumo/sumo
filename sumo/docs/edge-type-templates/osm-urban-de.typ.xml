@@ -1,34 +1,21 @@
 <types>
   <type id="highway.motorway" priority="13" nolanes="2" speed="41.667"
-		oneway="yes" allow="hov taxi bus delivery transport motorcycle"/>
-  <type id="highway.motorway_link" priority="8" nolanes="1" speed="13.889" 
-		allow="passenger hov taxi bus delivery transport motorcycle bicycle pedestrian"/>
-  <type id="highway.trunk" priority="12" nolanes="1" speed="13.889" 
-		allow="passenger hov taxi bus delivery transport motorcycle"/>
-  <type id="highway.trunk_link" priority="8" nolanes="1" speed="13.889" 
-		allow="passenger hov taxi bus delivery transport motorcycle bicycle pedestrian"/>
-  <type id="highway.primary" priority="11" nolanes="1" speed="13.889" 
-		allow="passenger hov taxi bus delivery transport motorcycle bicycle pedestrian"/>
-  <type id="highway.primary_link" priority="8" nolanes="1" speed="13.889" 
-		allow="passenger hov taxi bus delivery transport motorcycle bicycle pedestrian"/>
-  <type id="highway.secondary" priority="10" nolanes="1" speed="13.889" 
-		allow="passenger hov taxi bus delivery transport motorcycle bicycle pedestrian"/>
-  <type id="highway.secondary_link" priority="8" nolanes="1" speed="13.889"
-		allow="passenger hov taxi bus delivery transport motorcycle bicycle pedestrian"/>
-  <type id="highway.tertiary" priority="9" nolanes="1" speed="13.889"
-		allow="passenger hov taxi bus delivery transport motorcycle bicycle pedestrian"/>
-  <type id="highway.unclassified" priority="8" nolanes="1" speed="13.889"
-		allow="passenger hov taxi bus delivery transport motorcycle bicycle pedestrian"/>
-  <type id="highway.residential" priority="7" nolanes="1" speed="13.889"
-		allow="passenger hov taxi bus delivery transport motorcycle bicycle pedestrian"/>
-  <type id="highway.road" priority="7" nolanes="1" speed="13.889"
-		allow="passenger hov taxi bus delivery transport motorcycle bicycle pedestrian"/>
-  <type id="highway.living_street" priority="6" nolanes="1" speed="1.389"
-		allow="passenger hov taxi bus delivery transport motorcycle bicycle pedestrian"/>
+		oneway="true" disallow="bicycle pedestrian"/>
+  <type id="highway.motorway_link" priority="8" nolanes="1" speed="13.889"/>
+  <type id="highway.trunk" priority="12" nolanes="1" speed="13.889"/>
+  <type id="highway.trunk_link" priority="8" nolanes="1" speed="13.889"/>
+  <type id="highway.primary" priority="11" nolanes="1" speed="13.889"/>
+  <type id="highway.primary_link" priority="8" nolanes="1" speed="13.889"/>
+  <type id="highway.secondary" priority="10" nolanes="1" speed="13.889"/>
+  <type id="highway.secondary_link" priority="8" nolanes="1" speed="13.889"/>
+  <type id="highway.tertiary" priority="9" nolanes="1" speed="13.889"/>
+  <type id="highway.unclassified" priority="8" nolanes="1" speed="13.889"/>
+  <type id="highway.residential" priority="7" nolanes="1" speed="13.889"/>
+  <type id="highway.road" priority="7" nolanes="1" speed="13.889"/>
+  <type id="highway.living_street" priority="6" nolanes="1" speed="1.389"/>
   <type id="highway.pedestrian" priority="5" nolanes="1" speed="1.389"
 		allow="pedestrian"/>
-  <type id="highway.service" priority="5" nolanes="1" speed="13.889"
-		allow="passenger hov taxi bus delivery transport motorcycle bicycle pedestrian"/>
+  <type id="highway.service" priority="5" nolanes="1" speed="13.889"/>
   <type id="highway.bus_guideway" priority="5" nolanes="1" speed="13.889"
 		allow="bus"/>
   <type id="highway.track" priority="4" nolanes="1" speed="8,333"
@@ -43,4 +30,20 @@
 		allow="bicycle pedestrian"/>
   <type id="highway.steps" priority="2" nolanes="1" speed="1.389"
 		allow="pedestrian"/>
+  <type id="railway.rail" priority="7" nolanes="1" speed="22.222"
+		allow="rail_fast"/>
+  <type id="railway.tram" priority="7" nolanes="1" speed="16.667"
+		allow="cityrail"/>
+  <type id="railway.light_rail" priority="7" nolanes="1" speed="33.333"
+		allow="lightrail"/>
+  <type id="railway.subway" priority="7" nolanes="1" speed="22.222"
+		allow="cityrail"/>
+  <type id="railway.preserved" priority="7" nolanes="1" speed="8.333"
+		allow="lightrail"/>
+  <type id="railway.narrow_gauge" priority="7" nolanes="1" speed="33.333"
+		allow="lightrail"/>
+  <type id="railway.monorail" priority="7" nolanes="1" speed="16.667"
+		allow="lightrail"/>
+  <type id="railway.funicular" priority="7" nolanes="1" speed="16.667"
+		allow="cityrail"/>
 </types>
