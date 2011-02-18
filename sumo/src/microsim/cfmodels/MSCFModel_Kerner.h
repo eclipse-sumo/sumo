@@ -57,15 +57,6 @@ public:
     /// @name Implementations of the MSCFModel interface
     /// @{
 
-    /** @brief Applies interaction with stops and lane changing model influences
-     * @param[in] veh The ego vehicle
-     * @param[in] lane The lane ego is at
-     * @param[in] vPos The possible velocity
-     * @return The velocity after applying interactions with stops and lane change model influences
-     */
-    SUMOReal moveHelper(MSVehicle * const veh, const MSLane * const lane, SUMOReal vPos) const throw();
-
-
     /** @brief Computes the vehicle's safe speed (no dawdling)
      * @param[in] veh The vehicle (EGO)
      * @param[in] speed The vehicle's speed

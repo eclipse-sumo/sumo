@@ -30,6 +30,8 @@
 #include "MSCFModel.h"
 #include "MSVehicleType.h"
 #include "MSVehicle.h"
+#include "MSLane.h"
+#include "MSAbstractLaneChangeModel.h"
 
 
 // ===========================================================================
@@ -42,6 +44,22 @@ MSCFModel::MSCFModel(const MSVehicleType* vtype, SUMOReal decel) throw()
 
 
 MSCFModel::~MSCFModel() throw() {}
+
+
+SUMOReal
+MSCFModel::moveHelper(MSVehicle * const veh, const MSLane * const lane, SUMOReal vPos) const throw() {
+    const SUMOReal oldV = veh->getSpeed(); // save old v for optional acceleration computation
+    const SUMOReal vSafe = MIN2(vPos, veh->processNextStop(vPos)); // process stops
+    // we need the acceleration for emission computation;
+    //  in this case, we neglect dawdling, nonetheless, using
+    //  vSafe does not incorporate speed reduction due to interaction
+    //  on lane changing
+    veh->setPreDawdleAcceleration(SPEED2ACCEL(vSafe-oldV));
+    const SUMOReal vMin = MAX2((SUMOReal) 0, oldV - ACCEL2SPEED(myDecel));
+    const SUMOReal vMax = MIN3(lane->getMaxSpeed(), maxNextSpeed(oldV), vSafe);
+    assert(vMin<=vMax);
+    return veh->getLaneChangeModel().patchSpeed(vMin, vMax, vMax, *this);
+}
 
 
 void

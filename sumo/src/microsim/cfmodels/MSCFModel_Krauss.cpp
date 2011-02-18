@@ -48,22 +48,17 @@ MSCFModel_Krauss::~MSCFModel_Krauss() throw() {}
 
 SUMOReal
 MSCFModel_Krauss::moveHelper(MSVehicle * const veh, const MSLane * const lane, SUMOReal vPos) const throw() {
-    SUMOReal oldV = veh->getSpeed(); // save old v for optional acceleration computation
-    SUMOReal vSafe = MIN2(vPos, veh->processNextStop(vPos)); // process stops
+    const SUMOReal oldV = veh->getSpeed(); // save old v for optional acceleration computation
+    const SUMOReal vSafe = MIN2(vPos, veh->processNextStop(vPos)); // process stops
     // we need the acceleration for emission computation;
     //  in this case, we neglect dawdling, nonetheless, using
     //  vSafe does not incorporate speed reduction due to interaction
     //  on lane changing
     veh->setPreDawdleAcceleration(SPEED2ACCEL(vSafe-oldV));
-    //
-    SUMOReal vNext = dawdle(MIN3(lane->getMaxSpeed(), maxNextSpeed(oldV), vSafe));
-    vNext =
-        veh->getLaneChangeModel().patchSpeed(
-            MAX2((SUMOReal) 0, oldV-(SUMOReal)ACCEL2SPEED(myDecel)), //!!! reverify
-            vNext,
-            MIN3(vSafe, veh->getLane()->getMaxSpeed(), maxNextSpeed(oldV)),//vaccel(myState.mySpeed, myLane->maxSpeed())),
-            vSafe, *this);
-    return MIN4(vNext, vSafe, veh->getLane()->getMaxSpeed(), maxNextSpeed(oldV));
+    const SUMOReal vMin = MAX2((SUMOReal) 0, oldV - ACCEL2SPEED(myDecel));
+    const SUMOReal vMax = MIN3(lane->getMaxSpeed(), maxNextSpeed(oldV), vSafe);
+    assert(vMin<=vMax);
+    return veh->getLaneChangeModel().patchSpeed(vMin, MAX2(vMin, dawdle(vMax)), vMax, *this);
 }
 
 

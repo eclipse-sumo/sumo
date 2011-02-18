@@ -89,8 +89,16 @@ public:
 
     virtual void *inform(void *info, MSVehicle *sender);
 
-    virtual SUMOReal patchSpeed(SUMOReal min, SUMOReal wanted, SUMOReal max,
-                                SUMOReal vsafe, const MSCFModel &cfModel);
+    /** @brief Called to adapt the speed in order to allow a lane change.
+     *
+     * @param min The minimum resulting speed
+     * @param wanted The aspired speed of the car following model
+     * @param max The maximum resulting speed
+     * @param cfModel The model used
+     * @return the new speed of the vehicle as proposed by the lane changer
+     */
+    virtual SUMOReal patchSpeed(const SUMOReal min, const SUMOReal wanted, const SUMOReal max,
+                                const MSCFModel &cfModel);
 
     virtual void changed();
 

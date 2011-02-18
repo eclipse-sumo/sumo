@@ -30,7 +30,6 @@
 #include <microsim/MSVehicle.h>
 #include <microsim/MSLane.h>
 #include "MSCFModel_PWag2009.h"
-#include <microsim/MSAbstractLaneChangeModel.h>
 #include <utils/common/RandHelper.h>
 
 
@@ -47,27 +46,6 @@ MSCFModel_PWag2009::MSCFModel_PWag2009(const MSVehicleType* vtype,  SUMOReal acc
 
 
 MSCFModel_PWag2009::~MSCFModel_PWag2009() throw() {}
-
-
-SUMOReal
-MSCFModel_PWag2009::moveHelper(MSVehicle * const veh, const MSLane * const /*lane*/, SUMOReal vPos) const throw() {
-    SUMOReal oldV = veh->getSpeed(); // save old v for optional acceleration computation
-    SUMOReal vSafe = MIN2(vPos, veh->processNextStop(vPos)); // process stops
-    // we need the acceleration for emission computation;
-    //  in this case, we neglect dawdling, nonetheless, using
-    //  vSafe does not incorporate speed reduction due to interaction
-    //  on lane changing
-    veh->setPreDawdleAcceleration(SPEED2ACCEL(vSafe-oldV));
-    //
-    SUMOReal vNext = vSafe;
-    vNext =
-        veh->getLaneChangeModel().patchSpeed(
-            MAX2((SUMOReal) 0, oldV-(SUMOReal)ACCEL2SPEED(myDecel)), //!!! reverify
-            vNext,
-            MIN3(vSafe, veh->getLane()->getMaxSpeed(), maxNextSpeed(oldV)),//vaccel(myState.mySpeed, myLane->maxSpeed())),
-            vSafe, *this);
-    return MIN4(vNext, vSafe, veh->getLane()->getMaxSpeed(), maxNextSpeed(oldV));
-}
 
 
 SUMOReal

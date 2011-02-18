@@ -30,7 +30,6 @@
 #include "MSCFModel_IDM.h"
 #include <microsim/MSVehicle.h>
 #include <microsim/MSLane.h>
-#include <microsim/MSAbstractLaneChangeModel.h>
 #include <utils/common/RandHelper.h>
 
 
@@ -53,26 +52,6 @@ MSCFModel_IDM::MSCFModel_IDM(const MSVehicleType* vtype,
 
 
 MSCFModel_IDM::~MSCFModel_IDM() throw() {}
-
-
-SUMOReal
-MSCFModel_IDM::moveHelper(MSVehicle * const veh, const MSLane * const lane, SUMOReal vPos) const throw() {
-    SUMOReal oldV = veh->getSpeed(); // save old v for optional acceleration computation
-    vPos = MIN2(vPos, veh->processNextStop(vPos)); // process stops
-    // we need the acceleration for emission computation;
-    //  in this case, we neglect dawdling, nonetheless, using
-    //  vSafe does not incorporate speed reduction due to interaction
-    //  on lane changing
-    veh->setPreDawdleAcceleration(SPEED2ACCEL(vPos-oldV));
-    //
-    SUMOReal vNext = vPos;
-    return
-        veh->getLaneChangeModel().patchSpeed(
-            MAX2((SUMOReal) 0, veh->getSpeed()-(SUMOReal)ACCEL2SPEED(myDecel)), //!!! reverify
-            vNext,
-            MIN3(vNext, lane->getMaxSpeed(), maxNextSpeed(oldV)),//vaccel(myState.mySpeed, myLane->maxSpeed())),
-            vNext, *this);
-}
 
 
 SUMOReal

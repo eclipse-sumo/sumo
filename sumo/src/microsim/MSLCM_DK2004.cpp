@@ -503,7 +503,7 @@ MSLCM_DK2004::wantsChangeToLeft(MSAbstractLaneChangeModel::MSLCMessager &msgPass
 
 
 SUMOReal
-MSLCM_DK2004::patchSpeed(SUMOReal min, SUMOReal wanted, SUMOReal max, SUMOReal /*vsafe*/, const MSCFModel &cfModel) {
+MSLCM_DK2004::patchSpeed(const SUMOReal min, const SUMOReal wanted, const SUMOReal max, const MSCFModel &cfModel) {
 #ifdef DEBUG_VEHICLE_GUI_SELECTION
     if (gSelected.isSelected(GLO_VEHICLE, static_cast<const GUIVehicle*>(&myVehicle)->getGlID())) {
         int bla = 0;
@@ -523,8 +523,7 @@ MSLCM_DK2004::patchSpeed(SUMOReal min, SUMOReal wanted, SUMOReal max, SUMOReal /
             // if we are approaching this place
             if (safe<wanted) {
                 // return this speed as the speed to use
-                SUMOReal ret = MAX2(min, safe);
-                return ret;
+                return MAX2(min, safe);
             }
         }
     }

@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 01/05/11 14:45:03 by SUMO sumo Version dev-SVN-r9525
+<!-- generated on 02/18/11 12:32:07 by SUMO sumo Version dev-SVN-r9773
 <?xml version="1.0" encoding="iso-8859-1"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/sumoConfiguration.xsd">
@@ -44,6 +44,6 @@
     </tripinfo>
     <tripinfo id="7" depart="700.00" departLane="beg_0" departPos="5.10" departSpeed="0.00" departDelay="0.00" arrival="822.00" arrivalLane="rend_0" arrivalPos="21.05" arrivalSpeed="27.54" duration="122.00" routeLength="2003.55" waitSteps="0" rerouteNo="0" devices="vehroute_7 tripinfo_7" vtype="KRAUSS_DEFAULT" vaporized="">
     </tripinfo>
-    <tripinfo id="0" depart="800.00" departLane="beg_0" departPos="5.10" departSpeed="0.00" departDelay="0.00" arrival="922.00" arrivalLane="rend_0" arrivalPos="13.03" arrivalSpeed="27.59" duration="122.00" routeLength="1995.53" waitSteps="0" rerouteNo="0" devices="vehroute_0 tripinfo_0" vtype="KRAUSS_DEFAULT" vaporized="">
+    <tripinfo id="0" depart="800.00" departLane="beg_0" departPos="5.10" departSpeed="0.00" departDelay="0.00" arrival="922.00" arrivalLane="rend_0" arrivalPos="13.16" arrivalSpeed="27.59" duration="122.00" routeLength="1995.66" waitSteps="0" rerouteNo="0" devices="vehroute_0 tripinfo_0" vtype="KRAUSS_DEFAULT" vaporized="">
     </tripinfo>
 </tripinfos>
