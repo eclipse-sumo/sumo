@@ -6,6 +6,3 @@ routes_explicite_routes
 
 # Testing multiple reroutes
 multiple_reroute
-
-# Testing rerouters which are not at the beginning of a route
-rerouter_middle_edge
