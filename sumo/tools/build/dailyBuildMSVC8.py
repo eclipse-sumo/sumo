@@ -1,7 +1,7 @@
 #!/usr/bin/env python
+from __future__ import with_statement
 import re
 from datetime import date
-from __future__ import with_statement
 import optparse, os, glob, subprocess, zipfile, shutil, datetime, sys
 sys.path.append(os.path.join(os.path.dirname(sys.argv[0]), '..', 'xml'))
 import status, schemaCheck
