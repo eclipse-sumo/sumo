@@ -19,8 +19,8 @@ e2_tls_link
 tls
 
 
-# Tests for emission-output
-emissions
+# Tests for summary-output (earlier: emission-output)
+summary
 
 # Tests for tripinfo-output
 tripinfo
