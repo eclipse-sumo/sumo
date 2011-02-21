@@ -50,6 +50,7 @@ class NBNode;
 class NBNodeCont;
 class NBEdgeCont;
 class OutputDevice;
+class GNELane;
 
 
 // ===========================================================================
@@ -677,6 +678,10 @@ public:
     friend class NBEdgeSuccessorBuilder;
 
     friend class NBEdgeCont;
+
+    /** friend class used for visualization (netedit)
+     */
+    friend class GNELane;
 
     void moveOutgoingConnectionsFrom(NBEdge *e, unsigned int laneOff);
 
