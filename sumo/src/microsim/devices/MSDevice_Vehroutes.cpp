@@ -115,8 +115,8 @@ MSDevice_Vehroutes::~MSDevice_Vehroutes() throw() {
 
 
 bool
-MSDevice_Vehroutes::notifyEnter(SUMOVehicle& /*veh*/, MSMoveReminder::Notification reason) throw() {
-    if (mySorted && reason == NOTIFICATION_DEPARTED) {
+MSDevice_Vehroutes::notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification reason) throw() {
+    if (mySorted && reason == NOTIFICATION_DEPARTED && myStateListener.myDevices[&veh] == this) {
         myDepartureCounts[MSNet::getInstance()->getCurrentTimeStep()]++;
     }
     return mySaveExits;
