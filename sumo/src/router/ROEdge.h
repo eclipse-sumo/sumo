@@ -128,7 +128,7 @@ public:
      * Should be called after weights / travel times have been loaded.
      *
      * In the case "measure" is one of "CO", "CO2", "HC", "NOx", "PMx", or "fuel"
-     *  the proper value (emission/s) is computed and multiplied with the travel time.
+     *  the proper value (departs/s) is computed and multiplied with the travel time.
      *
      * @param[in] measure The name of the measure to use.
      */
