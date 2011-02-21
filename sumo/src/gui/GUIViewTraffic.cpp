@@ -161,10 +161,10 @@ GUIViewTraffic::doPaintGL(int mode, SUMOReal scale) {
     glDisable(GL_BLEND);
     glEnable(GL_DEPTH_TEST);
 
-    GLdouble sxmin = myCX - myX1;
-    GLdouble sxmax = myCX + myX1;
-    GLdouble symin = myCY - myY1;
-    GLdouble symax = myCY + myY1;
+    GLdouble sxmin = myShownNetworkCenterX - myShownNetworkHalfWidth;
+    GLdouble sxmax = myShownNetworkCenterX + myShownNetworkHalfWidth;
+    GLdouble symin = myShownNetworkCenterY - myShownNetworkHalfHeight;
+    GLdouble symax = myShownNetworkCenterY + myShownNetworkHalfHeight;
 
     // compute lane width
     SUMOReal lw = m2p(3.0) * scale;

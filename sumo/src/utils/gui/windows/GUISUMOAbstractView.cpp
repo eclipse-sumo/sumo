@@ -166,22 +166,22 @@ GUISUMOAbstractView::updateToolTip() {
 
 
 Position2D
-GUISUMOAbstractView::getPositionInformation() const {
+GUISUMOAbstractView::getPositionInformation() const throw() {
     return getPositionInformation(myWindowCursorPositionX, myWindowCursorPositionY);
 }
 
 
 Position2D
-GUISUMOAbstractView::getPositionInformation(int mx, int my) const {
+GUISUMOAbstractView::getPositionInformation(int mx, int my) const throw() {
     SUMOReal mzoom = myChanger->getZoom();
     // compute the offset
     SUMOReal cy = myChanger->getYPos();
     SUMOReal cx = myChanger->getXPos();
     // compute the visible area
-    GLdouble sxmin = myGrid->getCenter().x() - cx - myX1;
-    GLdouble sxmax = myGrid->getCenter().x() - cx + myX1;
-    GLdouble symin = myGrid->getCenter().y() - cy - myY1;
-    GLdouble symax = myGrid->getCenter().y() - cy + myY1;
+    GLdouble sxmin = myGrid->getCenter().x() - cx - myShownNetworkHalfWidth;
+    GLdouble sxmax = myGrid->getCenter().x() - cx + myShownNetworkHalfWidth;
+    GLdouble symin = myGrid->getCenter().y() - cy - myShownNetworkHalfHeight;
+    GLdouble symax = myGrid->getCenter().y() - cy + myShownNetworkHalfHeight;
     SUMOReal sx = sxmin + (sxmax-sxmin) * (SUMOReal) mx / (SUMOReal) myWidthInPixels;
     SUMOReal sy = symin + (symax-symin) * ((SUMOReal) myHeightInPixels - (SUMOReal) my) / (SUMOReal) myHeightInPixels;
     return Position2D(sx, sy);
@@ -403,21 +403,21 @@ GUISUMOAbstractView::applyChanges(SUMOReal scale, size_t xoff, size_t yoff) {
     myHeightInPixels = getHeight();
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
-    myX1 = myY1 = 1;
+    myShownNetworkHalfWidth = myShownNetworkHalfHeight = 1;
     myAddScl = 1.;
     // rotate first;
     //  This is quite unchecked, so it's meaning and position is quite
     //  unclear
     glRotated(myChanger->getRotation(), 0, 0, 1);
     // Fit the view's size to the size of the net
-    myX1 /= (2.0/myNetScale);
-    myY1 /= (2.0/myNetScale);
+    myShownNetworkHalfWidth /= (2.0/myNetScale);
+    myShownNetworkHalfHeight /= (2.0/myNetScale);
     glScaled(2.0/myNetScale, 2.0/myNetScale, 1);
     //myAddScl *= (2.0/myNetScale);
     // apply ratio between window width and height
     glScaled(1./myRatio, 1, 1);
-    myX1 /= (1./myRatio);
-    myY1 /= 1.;
+    myShownNetworkHalfWidth /= (1./myRatio);
+    myShownNetworkHalfHeight /= 1.;
     SUMOReal width = myGrid->getWidth();
     SUMOReal height = myGrid->getHeight();
     // initially (zoom=100), the net shall be completely visible on the screen
@@ -425,43 +425,43 @@ GUISUMOAbstractView::applyChanges(SUMOReal scale, size_t xoff, size_t yoff) {
     SUMOReal ys = (SUMOReal)(1. / (height / myNetScale));
     if (xs<ys) {
         glScaled(xs, xs, 1);
-        myX1 /= xs;
-        myY1 /= xs;
+        myShownNetworkHalfWidth /= xs;
+        myShownNetworkHalfHeight /= xs;
         myAddScl *= xs;
     } else {
         glScaled(ys, ys, 1);
-        myX1 /= ys;
-        myY1 /= ys;
+        myShownNetworkHalfWidth /= ys;
+        myShownNetworkHalfHeight /= ys;
         myAddScl *= ys;
     }
     // initially, leave some room for the net
     glScaled(0.97, 0.97, 1.);
-    myX1 /= 0.97;
-    myY1 /= 0.97;
+    myShownNetworkHalfWidth /= 0.97;
+    myShownNetworkHalfHeight /= 0.97;
     myAddScl *= (SUMOReal) .97;
 
     // Apply the zoom and the scale
     SUMOReal zoom = (SUMOReal)(myChanger->getZoom() / 100.0 * scale);
     glScaled(zoom, zoom, 1);
-    myX1 /= zoom;
-    myY1 /= zoom;
+    myShownNetworkHalfWidth /= zoom;
+    myShownNetworkHalfHeight /= zoom;
     //myAddScl *= zoom;
     // Translate to the middle of the net
     Position2D center = myGrid->getCenter();
     glTranslated(-center.x(), -center.y(), 0);
-    myCX = center.x();
-    myCY = center.y();
+    myShownNetworkCenterX = center.x();
+    myShownNetworkCenterY = center.y();
     // Translate in dependence to the view position applied by the user
     glTranslated(myChanger->getXPos(), myChanger->getYPos(), 0);
-    myCX -= myChanger->getXPos();
-    myCY -= myChanger->getYPos();
+    myShownNetworkCenterX -= myChanger->getXPos();
+    myShownNetworkCenterY -= myChanger->getYPos();
     // Translate to the mouse pointer, when wished
     if (xoff!=0||yoff!=0) {
         SUMOReal absX = (SUMOReal)((SUMOReal)xoff-(((SUMOReal) myWidthInPixels)/2.0));
         SUMOReal absY = (SUMOReal)((SUMOReal)yoff-(((SUMOReal) myHeightInPixels)/2.0));
         glTranslated(-p2m(absX), p2m(absY), 0);
-        myCX += p2m(absX);
-        myCY -= p2m(absY);
+        myShownNetworkCenterX += p2m(absX);
+        myShownNetworkCenterY -= p2m(absY);
     }
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
@@ -877,10 +877,10 @@ GUISUMOAbstractView::makeSnapshot(const std::string &destFile) throw() {
             glDisable(GL_ALPHA_TEST);
             glDisable(GL_BLEND);
             glEnable(GL_DEPTH_TEST);
-            GLdouble sxmin = myCX - myX1;
-            GLdouble sxmax = myCX + myX1;
-            GLdouble symin = myCY - myY1;
-            GLdouble symax = myCY + myY1;
+            GLdouble sxmin = myShownNetworkCenterX - myShownNetworkHalfWidth;
+            GLdouble sxmax = myShownNetworkCenterX + myShownNetworkHalfWidth;
+            GLdouble symin = myShownNetworkCenterY - myShownNetworkHalfHeight;
+            GLdouble symax = myShownNetworkCenterY + myShownNetworkHalfHeight;
             // compute lane width
             SUMOReal lw = m2p(3.0) * 1.;
             // draw decals (if not in grabbing mode)
