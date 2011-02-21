@@ -958,7 +958,11 @@ GUISUMOAbstractView::makeSnapshot(const std::string &destFile) throw() {
 
 void
 GUISUMOAbstractView::checkSnapshots() throw() {
-    std::map<SUMOTime, std::string>::iterator snapIt = mySnapshots.find(MSNet::getInstance()->getCurrentTimeStep());
+    SUMOTime current = 0;
+    try {
+        current = MSNet::getInstance()->getCurrentTimeStep();
+    } catch (ProcessError &e) {}
+    std::map<SUMOTime, std::string>::iterator snapIt = mySnapshots.find(current);
     if (snapIt != mySnapshots.end()) {
         std::string error = makeSnapshot(snapIt->second);
         if (error!="") {
