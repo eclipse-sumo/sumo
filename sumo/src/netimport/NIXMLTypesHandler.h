@@ -88,6 +88,9 @@ private:
     /// @brief Information whether one edge with a function-attribute occured and was reported
     bool myHaveReportedAboutFunctionDeprecation;
 
+    /// @brief Whether deprecated usage of the "vclass" attribute was already reported
+    bool myHaveWarnedAboutDeprecatedVClass;
+
 
 private:
     /** @brief invalid copy constructor */

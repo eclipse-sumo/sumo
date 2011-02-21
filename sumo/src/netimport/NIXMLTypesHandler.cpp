@@ -51,7 +51,7 @@
 // ===========================================================================
 NIXMLTypesHandler::NIXMLTypesHandler(NBTypeCont &tc)
         : SUMOSAXHandler("xml-types - file"),
-        myTypeCont(tc), myHaveReportedAboutFunctionDeprecation(false) {}
+        myTypeCont(tc), myHaveReportedAboutFunctionDeprecation(false), myHaveWarnedAboutDeprecatedVClass(false) {}
 
 
 NIXMLTypesHandler::~NIXMLTypesHandler() throw() {}
@@ -89,7 +89,7 @@ NIXMLTypesHandler::myStartElement(SumoXMLTag element,
     // build the type
     std::vector<SUMOVehicleClass> allow;
     std::vector<SUMOVehicleClass> disallow;
-    parseVehicleClasses("", allowS, disallowS, allow, disallow, false);
+    parseVehicleClasses("", allowS, disallowS, allow, disallow, myHaveWarnedAboutDeprecatedVClass);
     if (!myTypeCont.insert(id, noLanes, speed, priority, allow, disallow, oneway)) {
         MsgHandler::getErrorInstance()->inform("Duplicate type occured. ID='" + id + "'");
     } else {

@@ -191,7 +191,7 @@ public:
      * @param[in] id The id of the edge
      * @param[in] from The node the edge starts at
      * @param[in] to The node the edge ends at
-     * @param[in] type The type of the edge (my be =="")
+     * @param[in] type The type of the edge (may be =="")
      * @param[in] speed The maximum velocity allowed on this edge
      * @param[in] nolanes The number of lanes this edge has
      * @param[in] priority This edge's priority

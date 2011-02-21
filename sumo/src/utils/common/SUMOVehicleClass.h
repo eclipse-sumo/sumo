@@ -271,7 +271,7 @@ extern void parseVehicleClasses(const std::string &classesS,
                                 const std::string &disallowedS,
                                 std::vector<SUMOVehicleClass> &allowed,
                                 std::vector<SUMOVehicleClass> &disallowed,
-                                bool warnedAboutDeprecatedVClass) throw();
+                                bool &warnedAboutDeprecatedVClass) throw();
 
 
 /** @brief Parses the given vector of class names into their enum-representation
