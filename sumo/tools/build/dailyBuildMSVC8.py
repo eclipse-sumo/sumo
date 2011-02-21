@@ -48,7 +48,7 @@ for platform in ["Win32", "x64"]:
     if platform == "Win32":
         with open(makeLog, 'w') as log:
             subprocess.call("svn.exe up %s\\trunk" % options.rootDir, stdout=log, stderr=subprocess.STDOUT)
-        match_update = re.search('Updated .*to revision (\d*)\.', open(makeLog).read())
+        match_update = re.search('Updated to revision (\d*)\.', open(makeLog).read())
         if match_update:
             svnrev = match_update.group(1)
         else:
