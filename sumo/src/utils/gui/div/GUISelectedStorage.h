@@ -319,9 +319,6 @@ private:
     /// @brief List of selected junctions
     SingleTypeSelections mySelectedJunctions;
 
-    /// @brief List of selected emitters
-    SingleTypeSelections mySelectedEmitters;
-
     /// @brief List of selected detectors
     SingleTypeSelections mySelectedDetectors;
 

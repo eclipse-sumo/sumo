@@ -159,7 +159,6 @@ GUISelectedStorage::isSelected(int type, GLuint id) throw(ProcessError) {
     case GLO_ADDITIONAL:
         return
             mySelectedTriggers.isSelected(id)
-            | mySelectedEmitters.isSelected(id)
             | mySelectedDetectors.isSelected(id);
     default:
         throw ProcessError("Unkown object type in GUISelectedStorage::isSelected (type=" + toString(type) + ").");
@@ -322,7 +321,6 @@ GUISelectedStorage::clear() throw() {
     mySelectedVehicles.clear();
     mySelectedTLLogics.clear();
     mySelectedDetectors.clear();
-    mySelectedEmitters.clear();
     mySelectedLanes.clear();
     mySelectedEdges.clear();
     mySelectedJunctions.clear();
