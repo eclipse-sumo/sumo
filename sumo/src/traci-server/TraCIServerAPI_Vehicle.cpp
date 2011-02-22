@@ -871,7 +871,7 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer &server, tcpip::Storage &inputSto
         SUMOReal r = (SUMOReal) inputStorage.readUnsignedByte() / 255.;
         SUMOReal g = (SUMOReal) inputStorage.readUnsignedByte() / 255.;
         SUMOReal b = (SUMOReal) inputStorage.readUnsignedByte() / 255.;
-        SUMOReal a = (SUMOReal) inputStorage.readUnsignedByte() / 255.;
+		SUMOReal a = (SUMOReal) inputStorage.readUnsignedByte() / 255.;
         v->getParameter().color.set(r, g, b);
     }
     break;
@@ -1020,13 +1020,13 @@ TraCIServerAPI_Vehicle::commandStopNode(TraCIServer &server, tcpip::Storage &inp
         return false;
     }
     // StopPosition
-    unsigned char posType = inputStorage.readUnsignedByte();	// position type
+    unsigned char posType = static_cast<unsigned char>(inputStorage.readUnsignedByte());	// position type
     switch (posType) {
     case POSITION_ROADMAP:
         // read road map position
         roadPos.roadId = inputStorage.readString();
         roadPos.pos = inputStorage.readFloat();
-        roadPos.laneId = inputStorage.readUnsignedByte();
+        roadPos.laneId = static_cast<unsigned char>(inputStorage.readUnsignedByte());
         break;
     case POSITION_2D:
     case POSITION_3D:

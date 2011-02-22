@@ -1452,7 +1452,7 @@ throw(TraCIException) {
 
     // if end of message is not yet reached, the value parameter has to be read
     if (myInputStorage.valid_pos()) {
-        dataCont.readValue((unsigned int) dataType, myInputStorage);
+        dataCont.readValue(static_cast<unsigned char> (dataType), myInputStorage);
     }
 
     if (isWriteCommand) {
@@ -1571,7 +1571,7 @@ throw(TraCIException) {
 
     // if end of message is not yet reached, the value parameter has to be read
     if (myInputStorage.valid_pos()) {
-        dataCont.readValue(dataType, myInputStorage);
+        dataCont.readValue(static_cast<unsigned char>(dataType), myInputStorage);
     }
 
     if (isWriteCommand) {
@@ -2561,7 +2561,6 @@ TraCIServer::processSingleSubscription(const Subscription &s, tcpip::Storage &wr
                                        std::string &errors) throw(TraCIException) {
     bool ok = true;
     tcpip::Storage outputStorage;
-    size_t wholeSize = 0;
     for (std::vector<int>::const_iterator i=s.variables.begin(); i!=s.variables.end(); ++i) {
         tcpip::Storage message;
         message.writeUnsignedByte(*i);

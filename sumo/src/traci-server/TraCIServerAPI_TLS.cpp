@@ -97,7 +97,7 @@ TraCIServerAPI_TLS::processGet(TraCIServer &server, tcpip::Storage &inputStorage
         break;
         case TL_PHASE_BRAKE_YELLOW_STATE: {
             const std::string &state = vars.getActive()->getCurrentPhaseDef().getState();
-            unsigned int linkNo = (unsigned int)(vars.getActive()->getLinks().size());
+            //unsigned int linkNo = (unsigned int)(vars.getActive()->getLinks().size());
             tempMsg.writeUnsignedByte(TYPE_STRINGLIST);
             std::vector<std::string> phaseDef;
             phaseDef.push_back(MSPhaseDefinition::new2driveMask(state));
@@ -152,7 +152,7 @@ TraCIServerAPI_TLS::processGet(TraCIServer &server, tcpip::Storage &inputStorage
                     tempContent.writeInt(phase.maxDuration);
                     ++cnt; // not implemented
                     const std::string &state = phase.getState();
-                    unsigned int linkNo = (unsigned int)(vars.getActive()->getLinks().size());
+                    //unsigned int linkNo = (unsigned int)(vars.getActive()->getLinks().size());
                     tempContent.writeUnsignedByte(TYPE_STRINGLIST);
                     std::vector<std::string> phaseDef;
                     phaseDef.push_back(MSPhaseDefinition::new2driveMask(state));
@@ -212,7 +212,7 @@ TraCIServerAPI_TLS::processGet(TraCIServer &server, tcpip::Storage &inputStorage
                     tempContent.writeInt(phase.maxDuration);
                     ++cnt; // not implemented
                     const std::string &state = phase.getState();
-                    unsigned int linkNo = (unsigned int)(vars.getActive()->getLinks().size());
+                    //unsigned int linkNo = (unsigned int)(vars.getActive()->getLinks().size());
                     tempContent.writeUnsignedByte(TYPE_STRING);
                     tempContent.writeString(state);
                     ++cnt;
