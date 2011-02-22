@@ -250,6 +250,13 @@ extern void initGuiShapeNames() throw();
 extern std::string getVehicleClassName(SUMOVehicleClass id) throw();
 
 
+/** @brief Returns the ids of the given classes, divided using a ' '
+ * @param[in] ids The ids to encode
+ * @return The string representation of these classes
+ */
+extern std::string getVehicleClassNames(const std::vector<SUMOVehicleClass> &ids) throw();
+
+
 /** @brief Returns the class id of the abstract class given by its name
  * @param[in] name The name of the abstract vehicle class
  * @return The internal representation of this class

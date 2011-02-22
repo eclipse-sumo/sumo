@@ -72,7 +72,8 @@ NIXMLEdgesHandler::NIXMLEdgesHandler(NBNodeCont &nc,
         myOptions(options),
         myNodeCont(nc), myEdgeCont(ec), myTypeCont(tc), myDistrictCont(dc),
         myCurrentEdge(0),
-        myHaveReportedAboutFunctionDeprecation(false) {}
+        myHaveReportedAboutFunctionDeprecation(false),
+        myHaveWarnedAboutDeprecatedVClass(false) {}
 
 
 NIXMLEdgesHandler::~NIXMLEdgesHandler() throw() {}
@@ -98,21 +99,11 @@ NIXMLEdgesHandler::myStartElement(SumoXMLTag element,
             myHaveReportedAboutFunctionDeprecation = true;
         }
         // use default values, first
-        myCurrentSpeed = myTypeCont.getDefaultSpeed();
-        myCurrentPriority = myTypeCont.getDefaultPriority();
-        myCurrentLaneNo = myTypeCont.getDefaultNoLanes();
-        // use values from the edge to overwrite if existing, then
-        if (myCurrentEdge!=0) {
-            myIsUpdate = true;
-            if (!myHaveReportedAboutOverwriting) {
-                MsgHandler::getMessageInstance()->inform("Duplicate edge id occured ('" + myCurrentID + "'); assuming overwriting is wished.");
-                myHaveReportedAboutOverwriting = true;
-            }
-            myCurrentSpeed = myCurrentEdge->getSpeed();
-            myCurrentPriority = myCurrentEdge->getPriority();
-            myCurrentLaneNo = myCurrentEdge->getNoLanes();
-            myCurrentType = myCurrentEdge->getTypeID();
-        }
+        myCurrentSpeed = myTypeCont.getSpeed("");
+        myCurrentPriority = myTypeCont.getPriority("");
+        myCurrentLaneNo = myTypeCont.getNoLanes("");
+        myAllowed = myTypeCont.getAllowedClasses("");
+        myNotAllowed = myTypeCont.getDisallowedClasses("");
         // check whether a type's values shall be used
         myCurrentType = "";
         if (attrs.hasAttribute(SUMO_ATTR_TYPE)) {
@@ -127,6 +118,22 @@ NIXMLEdgesHandler::myStartElement(SumoXMLTag element,
             myCurrentSpeed = myTypeCont.getSpeed(myCurrentType);
             myCurrentPriority = myTypeCont.getPriority(myCurrentType);
             myCurrentLaneNo = myTypeCont.getNoLanes(myCurrentType);
+            myAllowed = myTypeCont.getAllowedClasses(myCurrentType);
+            myNotAllowed = myTypeCont.getDisallowedClasses(myCurrentType);
+        }
+        // use values from the edge to overwrite if existing, then
+        if (myCurrentEdge!=0) {
+            myIsUpdate = true;
+            if (!myHaveReportedAboutOverwriting) {
+                MsgHandler::getMessageInstance()->inform("Duplicate edge id occured ('" + myCurrentID + "'); assuming overwriting is wished.");
+                myHaveReportedAboutOverwriting = true;
+            }
+            myCurrentSpeed = myCurrentEdge->getSpeed();
+            myCurrentPriority = myCurrentEdge->getPriority();
+            myCurrentLaneNo = myCurrentEdge->getNoLanes();
+            myCurrentType = myCurrentEdge->getTypeID();
+            myAllowed = myCurrentEdge->getAllowedVehicleClasses();
+            myNotAllowed = myCurrentEdge->getDisallowedVehicleClasses();
         }
         // speed, priority and the number of lanes have now default values;
         // try to read the real values from the file
@@ -143,6 +150,14 @@ NIXMLEdgesHandler::myStartElement(SumoXMLTag element,
         // try to get the priority
         if (attrs.hasAttribute(SUMO_ATTR_PRIORITY)) {
             myCurrentPriority = attrs.getIntReporting(SUMO_ATTR_PRIORITY, "edge", myCurrentID.c_str(), ok);
+        }
+        // try to get the allowed/disallowed classes
+        if (attrs.hasAttribute(SUMO_ATTR_ALLOW) || attrs.hasAttribute(SUMO_ATTR_DISALLOW)) {
+            std::string allowS = attrs.hasAttribute(SUMO_ATTR_ALLOW) ? attrs.getStringSecure(SUMO_ATTR_ALLOW, "") : getVehicleClassNames(myAllowed);
+            std::string disallowS = attrs.hasAttribute(SUMO_ATTR_DISALLOW) ? attrs.getStringSecure(SUMO_ATTR_DISALLOW, "") : getVehicleClassNames(myNotAllowed);
+            myAllowed.clear();
+            myNotAllowed.clear();
+            parseVehicleClasses("", allowS, disallowS, myAllowed, myNotAllowed, myHaveWarnedAboutDeprecatedVClass);
         }
 
         // try to get the shape
@@ -185,9 +200,7 @@ NIXMLEdgesHandler::myStartElement(SumoXMLTag element,
             }
             myCurrentEdge->setLoadedLength(myLength);
         }
-        myCurrentEdge->setVehicleClasses(
-        		myTypeCont.getAllowedClasses(myCurrentType),
-        		myTypeCont.getDisallowedClasses(myCurrentType));
+        myCurrentEdge->setVehicleClasses(myAllowed, myNotAllowed);
     }
     if (element==SUMO_TAG_LANE) {
         if (myCurrentEdge==0) {

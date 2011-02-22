@@ -29,6 +29,7 @@
 #include <config.h>
 #endif
 
+#include <utils/common/SUMOVehicleClass.h>
 #include <utils/geom/Position2DVector.h>
 #include <utils/xml/SUMOSAXHandler.h>
 #include <netbuild/NBEdge.h>
@@ -56,6 +57,13 @@ class NBDistrictCont;
  * This SAX-handler parses edge information and stores it in the given
  *  container.
  * @todo revalidate node retrieval
+ * @todo One day, one should rethink the order of parsing. Now, the handler
+ *  is able to load edges, using information from the types, first, and extending
+ *  them by given information. In addition, if the read edge is already known, 
+ *  it's values are also used. Then, defining vehicles allowed per lane, and 
+ *  additional edge split definitions add some further complexity. This all
+ *  works somehow for most of our use cases, but it's definitely not as consistent
+ *  that everything what seems to be possible would also work appropriately.
  */
 class NIXMLEdgesHandler : public SUMOSAXHandler {
 public:
@@ -141,6 +149,10 @@ private:
     /// @brief A reference to the program's options
     OptionsCont &myOptions;
 
+
+    /// @name Currently parsed edge's values
+    /// @{
+
     /// @brief The current edge's id
     std::string myCurrentID;
 
@@ -168,6 +180,24 @@ private:
     /// @brief Information about how to spread the lanes
     NBEdge::LaneSpreadFunction myLanesSpread;
 
+    /// @brief Information about how to spread the lanes
+    std::vector<SUMOVehicleClass> myAllowed;
+
+    /// @brief Information about how to spread the lanes
+    std::vector<SUMOVehicleClass> myNotAllowed;
+    /// @}
+
+
+    /// @brief Whether this edge definition is an update of a previously inserted edge
+    bool myIsUpdate;
+
+    /// @brief The currently processed edge
+    NBEdge *myCurrentEdge;
+
+
+    /// @name Used instance containers (access to nodes, edges, types, etc.)
+    /// @{
+
     /// @brief The nodes container (for retrieval of referenced nodes)
     NBNodeCont &myNodeCont;
 
@@ -179,12 +209,7 @@ private:
 
     /// @brief The districts container (needed if an edge must be split)
     NBDistrictCont &myDistrictCont;
-
-    /// @brief Whether this edge definition is an update of a previously inserted edge
-    bool myIsUpdate;
-
-    /// @brief The currently processed edge
-    NBEdge *myCurrentEdge;
+    /// @}
 
 
     /** @struct Split
@@ -246,6 +271,9 @@ private:
 
     /// @brief Information whether at least one edge's attributes were overwritten
     bool myHaveReportedAboutOverwriting;
+
+    /// @brief Whether deprecated usage of the "vclass" attribute was already reported
+    bool myHaveWarnedAboutDeprecatedVClass;
 
 
 private:

@@ -655,42 +655,14 @@ NBEdge::writeLane(OutputDevice &into, NBEdge::Lane &lane, unsigned int index) co
         into << " depart=\"0\"";
     }
     // write the list of allowed/disallowed vehicle classes
-    std::vector<SUMOVehicleClass>::const_iterator i;
-    bool hadOne = false;
     if (lane.allowed.size() > 0) {
-        into << " allow=\"";
-        for (i=lane.allowed.begin(); i!=lane.allowed.end(); ++i) {
-            if (hadOne) {
-                into << ' ';
-            }
-            into << getVehicleClassName(*i);
-            hadOne = true;
-        }
-        into << '\"';
+        into << " allow=\"" << getVehicleClassNames(lane.allowed) << '\"';
     }
     if (lane.notAllowed.size() > 0) {
-        hadOne = false;
-        into << " disallow=\"";
-        for (i=lane.notAllowed.begin(); i!=lane.notAllowed.end(); ++i) {
-            if (hadOne) {
-                into << ' ';
-            }
-            into << getVehicleClassName(*i);
-            hadOne = true;
-        }
-        into << '\"';
+        into << " disallow=\"" << getVehicleClassNames(lane.notAllowed) << '\"';
     }
     if (lane.preferred.size() > 0) {
-        hadOne = false;
-        into << "\" prefer=\"";
-        for (i=lane.preferred.begin(); i!=lane.preferred.end(); ++i) {
-            if (hadOne) {
-                into << ' ';
-            }
-            into << getVehicleClassName(*i);
-            hadOne = true;
-        }
-        into << '\"';
+        into << " prefer=\"" << getVehicleClassNames(lane.preferred) << '\"';
     }
     // some further information
     if (lane.speed==0) {
@@ -926,30 +898,13 @@ NBEdge::writeLanesPlain(OutputDevice &into) {
         const Lane &lane = myLanes[i];
         // write allowed lanes
         if (lane.allowed.size()!=0) {
-            bool hadOne = false;
-            into << " allow=\"";
-            std::vector<SUMOVehicleClass>::const_iterator i;
-            for (i=lane.allowed.begin(); i!=lane.allowed.end(); ++i) {
-                if (hadOne) {
-                    into << ' ';
-                }
-                into << getVehicleClassName(*i);
-                hadOne = true;
-            }
-            into << "\"";
+            into << " allow=\"" << getVehicleClassNames(lane.allowed) << '\"';
         }
         if (lane.notAllowed.size()!=0) {
-            bool hadOne = false;
-            into << " disallow=\"";
-            std::vector<SUMOVehicleClass>::const_iterator i;
-            for (i=lane.notAllowed.begin(); i!=lane.notAllowed.end(); ++i) {
-                if (hadOne) {
-                    into << ' ';
-                }
-                into << getVehicleClassName(*i);
-                hadOne = true;
-            }
-            into << "\"";
+            into << " disallow=\"" << getVehicleClassNames(lane.notAllowed) << '\"';
+        }
+        if (lane.preferred.size()!=0) {
+            into << " prefer=\"" << getVehicleClassNames(lane.preferred) << '\"';
         }
         into << "/>\n";
     }
@@ -1924,6 +1879,22 @@ NBEdge::getAllowedVehicleClasses() const {
     }
     return ret;
 }
+
+
+std::vector<SUMOVehicleClass> 
+NBEdge::getDisallowedVehicleClasses() const {
+    std::vector<SUMOVehicleClass> ret;
+    for (std::vector<Lane>::const_iterator i=myLanes.begin(); i!=myLanes.end(); ++i) {
+        const std::vector<SUMOVehicleClass> &notAllowed = (*i).notAllowed;
+        for (std::vector<SUMOVehicleClass>::const_iterator j=notAllowed.begin(); j!=notAllowed.end(); ++j) {
+            if (find(ret.begin(), ret.end(), *j)==ret.end()) {
+                ret.push_back(*j);
+            }
+        }
+    }
+    return ret;
+}
+
 
 
 

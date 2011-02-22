@@ -154,6 +154,22 @@ getVehicleClassName(SUMOVehicleClass id) throw() {
 }
 
 
+std::string 
+getVehicleClassNames(const std::vector<SUMOVehicleClass> &ids) throw() {
+    std::ostringstream oss;
+    bool hadOne = false;
+    for (std::vector<SUMOVehicleClass>::const_iterator i=ids.begin(); i!=ids.end(); ++i) {
+        if (hadOne) {
+            oss << ' ';
+        }
+        oss << getVehicleClassName(*i);
+        hadOne = true;
+    }
+    return oss.str();
+}
+
+
+
 SUMOVehicleClass
 getVehicleClassID(const std::string &name) throw() {
     SUMOVehicleClass ret = SVC_UNKNOWN;
