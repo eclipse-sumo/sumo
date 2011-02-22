@@ -529,14 +529,16 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer &server, tcpip::Storage &inputSto
             server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Slow down needs a compound object description of two items.", outputStorage);
             return false;
         }
-        valueDataType = inputStorage.readUnsignedByte();
-        if (valueDataType!=TYPE_FLOAT) {
+        if (inputStorage.readUnsignedByte()!=TYPE_FLOAT) {
             server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "The first slow down parameter must be the speed given as a float.", outputStorage);
             return false;
         }
         SUMOReal newSpeed = MAX2(inputStorage.readFloat(), 0.0f);
-        valueDataType = inputStorage.readUnsignedByte();
-        if (valueDataType!=TYPE_INTEGER) {
+        if (newSpeed < 0) {
+            server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Speed must not be negative", outputStorage);
+            return false;
+        }
+        if (inputStorage.readUnsignedByte()!=TYPE_INTEGER) {
             server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "The second slow down parameter must be the duration given as an integer.", outputStorage);
             return false;
         }
@@ -545,10 +547,10 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer &server, tcpip::Storage &inputSto
             server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Invalid time interval", outputStorage);
             return false;
         }
-        if (!v->startSpeedAdaption((float)newSpeed, duration, MSNet::getInstance()->getCurrentTimeStep())) {
-            server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Could not slow down", outputStorage);
-            return false;
-        }
+        std::vector<std::pair<SUMOTime, SUMOReal> > speedTimeLine;
+        speedTimeLine.push_back(make_pair(MSNet::getInstance()->getCurrentTimeStep(), v->getSpeed()));
+        speedTimeLine.push_back(make_pair(MSNet::getInstance()->getCurrentTimeStep()+duration, (SUMOReal) newSpeed));
+        v->replaceInfluencer(new MSVehicle::Influencer(speedTimeLine, std::vector<std::pair<SUMOTime, int> >()));
     }
     break;
     case CMD_CHANGEROUTE:
@@ -856,12 +858,21 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer &server, tcpip::Storage &inputSto
         l->forceVehicleInsertion(v, position);
     }
     break;
-    case VAR_SPEED:
+    case VAR_SPEED: {
         if (valueDataType!=TYPE_DOUBLE) {
             server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Setting speed requires a double.", outputStorage);
             return false;
         }
-        v->setTraCISpeed(inputStorage.readDouble());
+        SUMOReal speed = inputStorage.readDouble();
+        if(speed>=0) {
+            std::vector<std::pair<SUMOTime, SUMOReal> > speedTimeLine;
+            speedTimeLine.push_back(make_pair(MSNet::getInstance()->getCurrentTimeStep(), speed));
+            speedTimeLine.push_back(make_pair(SUMOTime_MAX, speed));
+            v->replaceInfluencer(new MSVehicle::Influencer(speedTimeLine, std::vector<std::pair<SUMOTime, int> >()));
+        } else {
+            v->replaceInfluencer(0);
+        }
+                    }
         break;
     case VAR_COLOR: {
         if (valueDataType!=TYPE_COLOR) {
@@ -1205,10 +1216,10 @@ TraCIServerAPI_Vehicle::commandChangeTarget(TraCIServer &server, tcpip::Storage 
 
 bool
 TraCIServerAPI_Vehicle::commandSlowDown(TraCIServer &server, tcpip::Storage &inputStorage, tcpip::Storage&/*outputStorage*/) {
-    MSVehicle* veh = server.getVehicleByExtId(inputStorage.readInt()); // external node id (equipped vehicle number)
+    MSVehicle* v = server.getVehicleByExtId(inputStorage.readInt()); // external node id (equipped vehicle number)
     float newSpeed = MAX2(inputStorage.readFloat(), 0.0f); // speed
     SUMOTime duration = inputStorage.readInt(); // time interval
-    if (veh == 0) {
+    if (v == 0) {
         server.writeStatusCmd(CMD_SLOWDOWN, RTYPE_ERR, "Can not retrieve node with given ID");
         return false;
     }
@@ -1216,10 +1227,10 @@ TraCIServerAPI_Vehicle::commandSlowDown(TraCIServer &server, tcpip::Storage &inp
         server.writeStatusCmd(CMD_SLOWDOWN, RTYPE_ERR, "Invalid time interval");
         return false;
     }
-    if (!veh->startSpeedAdaption(newSpeed, duration, MSNet::getInstance()->getCurrentTimeStep())) {
-        server.writeStatusCmd(CMD_SLOWDOWN, RTYPE_ERR, "Could not slow down");
-        return false;
-    }
+    std::vector<std::pair<SUMOTime, SUMOReal> > speedTimeLine;
+    speedTimeLine.push_back(make_pair(MSNet::getInstance()->getCurrentTimeStep(), v->getSpeed()));
+    speedTimeLine.push_back(make_pair(MSNet::getInstance()->getCurrentTimeStep()+duration, (SUMOReal) newSpeed));
+    v->replaceInfluencer(new MSVehicle::Influencer(speedTimeLine, std::vector<std::pair<SUMOTime, int> >()));
     // create positive response message
     server.writeStatusCmd(CMD_SLOWDOWN, RTYPE_OK, "");
     return true;

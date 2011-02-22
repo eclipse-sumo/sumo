@@ -128,6 +128,45 @@ MSVehicle::State::State(SUMOReal pos, SUMOReal speed) :
 
 
 /* -------------------------------------------------------------------------
+ * methods of MSVehicle::Influencer
+ * ----------------------------------------------------------------------- */
+MSVehicle::Influencer::Influencer(const std::vector<std::pair<SUMOTime, SUMOReal> > &speedTimeLine,
+            const std::vector<std::pair<SUMOTime, int> > &laneTimeLine) 
+            : mySpeedTimeLine(speedTimeLine), myLaneTimeLine(laneTimeLine)
+{}
+
+
+MSVehicle::Influencer::~Influencer()
+{}
+
+
+bool 
+MSVehicle::Influencer::influenceSpeed(SUMOTime currentTime, SUMOReal &speed) {
+    // keep original speed
+    myOriginalSpeed = speed;
+    // remove leading commands which are no longer valid
+    while(mySpeedTimeLine.size()==1 || (mySpeedTimeLine.size()>1&&currentTime>mySpeedTimeLine[1].first)) {
+        mySpeedTimeLine.erase(mySpeedTimeLine.begin());
+    }
+    // do nothing if the time line does not apply for the current time
+    if(mySpeedTimeLine.size()<2||currentTime<mySpeedTimeLine[0].first) {
+        return false;
+    }
+    // compute and set new speed
+    const SUMOReal td = STEPS2TIME(currentTime - mySpeedTimeLine[0].first) / STEPS2TIME(mySpeedTimeLine[1].first - mySpeedTimeLine[0].first);
+    speed = mySpeedTimeLine[0].second - (mySpeedTimeLine[0].second-mySpeedTimeLine[1].second) * td;
+    return true;
+}
+
+
+bool 
+MSVehicle::Influencer::influenceLane(SUMOTime currentTime, int &lane) {
+    return false;
+}
+
+
+
+/* -------------------------------------------------------------------------
  * MSVehicle-methods
  * ----------------------------------------------------------------------- */
 MSVehicle::~MSVehicle() throw() {
@@ -168,17 +207,16 @@ MSVehicle::MSVehicle(SUMOVehicleParameter* pars,
         myAmOnNet(false),
         myAmRegisteredAsWaitingForPerson(false)
 #ifndef NO_TRACI
-        ,adaptingSpeed(false),
+        ,myInfluencer(0),
+        adaptingSpeed(false),
         isLastAdaption(false),
         speedBeforeAdaption(0),
-        speedWithoutTraciInfluence(0),
         timeBeforeAdaption(0),
         speedReduction(0),
         adaptDuration(0),
         timeBeforeLaneChange(0),
         laneChangeStickyTime(0),
         laneChangeConstraintActive(false),
-        myTraCISpeed(-1),
         myDestinationLane(0)
 #endif
 {
@@ -680,8 +718,8 @@ MSVehicle::moveFirstChecked() {
     SUMOReal vNext = getCarFollowModel().moveHelper(this, myLane, vSafe);
     vNext = MAX2(vNext, (SUMOReal) 0.);
 #ifndef NO_TRACI
-    if (myTraCISpeed>=0) {
-        vNext = myTraCISpeed;
+    if(myInfluencer!=0) {
+        myInfluencer->influenceSpeed(MSNet::getInstance()->getCurrentTimeStep(), vNext);
     }
 #endif
     // visit waiting time
@@ -701,9 +739,6 @@ MSVehicle::moveFirstChecked() {
     }
     // call reminders after vNext is set
     SUMOReal pos = myState.myPos;
-#ifndef NO_TRACI
-    speedWithoutTraciInfluence = MIN2(vNext, myType->getMaxSpeed());
-#endif
     vNext = MIN2(vNext, getMaxSpeed());
 
 #ifdef _MESSAGES
@@ -1112,7 +1147,8 @@ MSVehicle::enterLaneAtMove(MSLane* enteredLane, bool onTeleporting) {
         checkForLaneChanges();
 #endif
     }
-    return myCurrEdge == myRoute->end() - 1 && getPositionOnLane() > myArrivalPos - POSITION_EPS;
+    return ends();//myCurrEdge == myRoute->end() - 1 && getPositionOnLane() > myArrivalPos - POSITION_EPS;
+    //return myCurrEdge==myRoute->end()-1 && myState.myPos > myArrivalPos - POSITION_EPS;
 }
 
 
@@ -1711,10 +1747,23 @@ MSVehicle::addTraciStop(MSLane* lane, SUMOReal pos, SUMOReal /*radius*/, SUMOTim
 }
 
 
-void
-MSVehicle::setTraCISpeed(SUMOReal speed) throw() {
-    myTraCISpeed = speed;
+void 
+MSVehicle::replaceInfluencer(Influencer *newInfluencer) {
+    if(myInfluencer!=0) {
+        delete myInfluencer;
+    }
+    myInfluencer = newInfluencer;
 }
+
+
+SUMOReal 
+MSVehicle::getSpeedWithoutTraciInfluence() const {
+    if(myInfluencer!=0) {
+        return myInfluencer->getOriginalSpeed();
+    }
+    return myState.mySpeed;
+}
+
 
 #endif
 

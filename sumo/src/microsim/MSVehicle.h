@@ -148,6 +148,7 @@ public:
     //@}
 
 
+
     /// @name interaction with the route
     //@{
 
@@ -221,6 +222,7 @@ public:
     }
 
 
+
     /// @name Interaction with move reminders
     //@{
 
@@ -276,6 +278,7 @@ public:
     SUMOReal getSpeed() const throw() {
         return myState.mySpeed;
     }
+
 
     /** @brief Returns the vehicle's acceleration before dawdling
      * @return The acceleration before dawdling
@@ -356,6 +359,7 @@ public:
     //@}
 
 
+    class Influencer;
 
     void setIndividualMaxSpeed(SUMOReal individualMaxSpeed) {
         myHasIndividualMaxSpeed = true;
@@ -716,9 +720,7 @@ public:
     /**
      * Get speed before influence of TraCI settings takes place.
      */
-    SUMOReal getSpeedWithoutTraciInfluence() const throw() {
-        return speedWithoutTraciInfluence;
-    }
+    SUMOReal getSpeedWithoutTraciInfluence() const;
 
     /**
      * schedule a new stop for the vehicle; each time a stop is reached, the vehicle
@@ -772,7 +774,31 @@ public:
      */
     void processTraCICommands(SUMOTime time);
 
-    void setTraCISpeed(SUMOReal speed) throw();
+
+
+    class Influencer {
+    public:
+        Influencer(const std::vector<std::pair<SUMOTime, SUMOReal> > &speedTimeLine,
+            const std::vector<std::pair<SUMOTime, int> > &laneTimeLine);
+        ~Influencer();
+
+        bool influenceSpeed(SUMOTime currentTime, SUMOReal &speed);
+        bool influenceLane(SUMOTime currentTime, int &lane);
+        SUMOReal getOriginalSpeed() const {
+            return myOriginalSpeed;
+        }
+
+    private:
+        std::vector<std::pair<SUMOTime, SUMOReal> > mySpeedTimeLine;
+        std::vector<std::pair<SUMOTime, int> > myLaneTimeLine;
+        SUMOReal myOriginalSpeed;
+    };
+
+    Influencer *myInfluencer;
+
+    void replaceInfluencer(Influencer *newInfluencer);
+
+
 #endif
 
 protected:
@@ -904,9 +930,6 @@ private:
     /* speed of the vehicle before any speed adaption began */
     SUMOReal speedBeforeAdaption;
 
-    /* speed of the vehicle before influence of TraCI settings takes place */
-    SUMOReal speedWithoutTraciInfluence;
-
     /* the amount by wich the speed shall be reduced */
     SUMOReal speedReduction;
 
@@ -928,7 +951,6 @@ private:
     /* true if any forced lane change is in effect*/
     bool laneChangeConstraintActive;
 
-    SUMOReal myTraCISpeed;
 
 #endif
 
