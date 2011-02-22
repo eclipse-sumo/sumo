@@ -961,7 +961,7 @@ GUISUMOAbstractView::checkSnapshots() throw() {
     SUMOTime current = 0;
     try {
         current = MSNet::getInstance()->getCurrentTimeStep();
-    } catch (ProcessError &e) {}
+    } catch (ProcessError) {}
     std::map<SUMOTime, std::string>::iterator snapIt = mySnapshots.find(current);
     if (snapIt != mySnapshots.end()) {
         std::string error = makeSnapshot(snapIt->second);
