@@ -35,7 +35,6 @@ body#bmission li#lmission a
 }
 
 
-
 /* Links */
 a { font-weight: bold; border-bottom: 1px dotted transparent; }
 a:link { color: #336699; text-decoration: none; border-bottom-color: #336699; }
@@ -130,22 +129,7 @@ del { color: #555555; }
 #step3 a:link { color: #DF4532; border-bottom-color: #DF4532; }
 #step3 a:visited { color: #DF4532; border-bottom-color: #DF4532; }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 #header { float: left; width: 100%; clear: both; margin-top: 10px; }
-
 
 #page-header { clear: both; position: relative; margin-bottom: 20px; }
 
@@ -243,9 +227,24 @@ del { color: #555555; }
 	background-image: url(menu_hover.png);
 }
 
-/* Wrapper */
 
-
+/* Logo */
+div#logo
+{
+    background-color:#080063;
+    height:180;
+    color:white;
+}
+div#logo_text1 {
+    position:relative;
+    top:0px;
+	font: normal 70 Tahoma, Verdana, "Lucida Grande", Georgia, Sans-Serif;
+}
+div#logo_text2 {
+    position:relative;
+    top:0px;
+	font: normal 35 Tahoma, Verdana, "Lucida Grande", Georgia, Sans-Serif;
+}
 
 
 
