@@ -1,9 +1,10 @@
-# Ordered list of tests in test suite. Add as appropriate
-
 # Simple cross using types for edge definition (verbose). 
 # The additional --remove-edges.by-vclass should remove 
 # one edge during net conversion.
 cross_allow_v
+
+# Overwriting the allowed attribute using an own (edge-) value
+cross_allow_with_own_v
 
 # Simple cross using explicite edge information
 cross_notypes
@@ -16,3 +17,4 @@ cross_usingtypes
 
 # Simple cross using types for edge definition (verbose)
 cross_usingtypes_v
+
