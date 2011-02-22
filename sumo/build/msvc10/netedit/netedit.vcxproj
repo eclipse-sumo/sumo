@@ -167,6 +167,8 @@
     <ClCompile Include="..\..\..\src\netedit\GNELane.cpp" />
     <ClCompile Include="..\..\..\src\netedit\GNELoadThread.cpp" />
     <ClCompile Include="..\..\..\src\netedit\GNENet.cpp" />
+    <ClCompile Include="..\..\..\src\netedit\GNEViewNet.cpp" />
+    <ClCompile Include="..\..\..\src\netedit\GNEViewParent.cpp" />
     <ClCompile Include="..\..\..\src\netedit\netedit_main.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -305,6 +307,8 @@
     <ClInclude Include="..\..\..\src\netedit\GNELane.h" />
     <ClInclude Include="..\..\..\src\netedit\GNELoadThread.h" />
     <ClInclude Include="..\..\..\src\netedit\GNENet.h" />
+    <ClInclude Include="..\..\..\src\netedit\GNEViewNet.h" />
+    <ClInclude Include="..\..\..\src\netedit\GNEViewParent.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
