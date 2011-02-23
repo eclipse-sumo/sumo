@@ -640,7 +640,10 @@ NBNodeCont::removeDummyEdges(NBDistrictCont &dc, NBEdgeCont &ec,
 
 std::string
 NBNodeCont::getFreeID() {
-    return "SUMOGenerated" + toString<int>(size());
+    // !!! not guaranteed to be free
+    std::string ret = "SUMOGenerated" + toString<int>(size());
+    assert(retrieve(ret)==0);
+    return ret;
 }
 
 
