@@ -268,24 +268,21 @@ NIXMLEdgesHandler::myStartElement(SumoXMLTag element,
         bool ok = true;
         Split e;
         e.pos = attrs.getSUMORealReporting(SUMO_ATTR_POSITION, "split", 0, ok);
-        std::vector<Split>::iterator i = find_if(mySplits.begin(), mySplits.end(), split_by_pos_finder(e.pos));
-        if (i!=mySplits.end()) {
-            MsgHandler::getErrorInstance()->inform("Edge '" + myCurrentID + "' has already a split at position " + toString(e.pos) + ".");
-            return;
-        }
-        if (e.pos<0) {
-            e.pos = myCurrentEdge->getGeometry().length() - e.pos;
-        }
-        e.nameid = (int)e.pos;
         if (ok) {
+            if (e.pos<0) {
+                e.pos += myCurrentEdge->getGeometry().length();
+            }
+            std::vector<Split>::iterator i = find_if(mySplits.begin(), mySplits.end(), split_by_pos_finder(e.pos));
+            if (i!=mySplits.end()) {
+                MsgHandler::getErrorInstance()->inform("Edge '" + myCurrentID + "' has already a split at position " + toString(e.pos) + ".");
+                return;
+            }
+            e.nameid = (int)e.pos;
             if (myCurrentEdge==0) {
                 if (!OptionsCont::getOptions().isInStringVector("remove-edges", myCurrentID)) {
                     MsgHandler::getErrorInstance()->inform("Additional lane information could not been set - the edge with id '" + myCurrentID + "' is not known.");
                 }
                 return;
-            }
-            if (e.pos<0) {
-                e.pos = myCurrentEdge->getGeometry().length() + e.pos;
             }
             std::vector<std::string> lanes;
             SUMOSAXAttributes::parseStringVector(attrs.getOptStringReporting(SUMO_ATTR_LANES, "split", 0, ok, ""), lanes);
@@ -415,26 +412,6 @@ NIXMLEdgesHandler::tryGetShape(const SUMOSAXAttributes &attrs) throw() {
 
 
 void
-NIXMLEdgesHandler::parseSplitLanes(const std::string &val) throw(ProcessError) {
-    if (mySplits.size()!=0) {
-        Split &e = mySplits.back();
-        std::vector<std::string> lanes;
-        SUMOSAXAttributes::parseStringVector(val, lanes);
-        for (std::vector<std::string>::iterator i=lanes.begin(); i!=lanes.end(); ++i) {
-            try {
-                int lane = TplConvert<char>::_2int((*i).c_str());
-                e.lanes.push_back(lane);
-            } catch (NumberFormatException &) {
-                MsgHandler::getErrorInstance()->inform("Error on parsing a split (edge '" + myCurrentID + "').");
-            } catch (EmptyData &) {
-                MsgHandler::getErrorInstance()->inform("Error on parsing a split (edge '" + myCurrentID + "').");
-            }
-        }
-    }
-}
-
-
-void
 NIXMLEdgesHandler::myEndElement(SumoXMLTag element) throw(ProcessError) {
     if (element==SUMO_TAG_EDGE && myCurrentEdge!=0) {
         if (!myIsUpdate) {
@@ -463,7 +440,7 @@ NIXMLEdgesHandler::myEndElement(SumoXMLTag element) throw(ProcessError) {
             }
             // split the edge
             std::vector<int> currLanes;
-            for (unsigned int l=0; l<noLanesMax; ++l) {
+            for (unsigned int l=0; l<e->getNoLanes(); ++l) {
                 currLanes.push_back(l);
             }
             std::string edgeid = e->getID();

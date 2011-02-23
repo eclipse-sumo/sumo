@@ -138,13 +138,6 @@ private:
                                 const std::string &name, const std::string &dir);
 
 
-    /** @brief Parses the given string as lanes to keep, storing them
-     * @param[in] val The definition of lanes to keep
-     * @exception ProcessError If the description is malicious
-     */
-    void parseSplitLanes(const std::string &val) throw(ProcessError);
-
-
 private:
     /// @brief A reference to the program's options
     OptionsCont &myOptions;

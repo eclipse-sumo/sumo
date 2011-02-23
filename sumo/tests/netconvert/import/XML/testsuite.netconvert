@@ -16,6 +16,9 @@ connections
 # tests whether lane expansions work
 lane_expansion
 
+# splitting edges in an additional file
+add_split
+
 # tests whether vclass import works
 vclasses
 
@@ -25,11 +28,8 @@ node_overwrite
 # tests whether overwriting earlier loaded edge attributes works
 edge_overwrite
 
-
 # testing error input and handling
 errors
 
-
 # tests for functions that are deprecated and will be removed some time
 _deprecated_
-

@@ -1,0 +1,1 @@
+--xml-edge-files=input_edges.edg.xml,input_edges2.edg.xml --output-file=net.net.xml
