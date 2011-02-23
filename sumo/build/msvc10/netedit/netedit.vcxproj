@@ -172,7 +172,7 @@
     <ClCompile Include="..\..\..\src\netedit\netedit_main.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="..\..\..\src\guisim.rc" />
+    <ResourceCompile Include="..\..\..\src\netedit\netedit.rc" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\y_libguinetload\y_libguinetload.vcxproj">
