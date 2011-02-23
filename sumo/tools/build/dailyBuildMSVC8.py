@@ -100,7 +100,7 @@ for platform in ["Win32", "x64"]:
     # provide more information than just the date:
     nameopt = " -name %sr%s" % (date.today().strftime("%d%b%y"), svnrev)
     subprocess.call("texttest.py -b "+env["FILEPREFIX"]+nameopt, stdout=log, stderr=subprocess.STDOUT, shell=True)
-    subprocess.call("texttest.py -a sumo.gui -b "+env["FILEPREFIX"], stdout=log, stderr=subprocess.STDOUT, shell=True)
+    subprocess.call("texttest.py -a sumo.gui -b "+env["FILEPREFIX"]+nameopt, stdout=log, stderr=subprocess.STDOUT, shell=True)
     subprocess.call("texttest.py -b "+env["FILEPREFIX"]+" -coll", stdout=log, stderr=subprocess.STDOUT, shell=True)
     ago = datetime.datetime.now() - datetime.timedelta(30)
     subprocess.call('texttest.py -s "batch.ArchiveRepository session='+env["FILEPREFIX"]+' before=%s"' % ago.strftime("%d%b%Y"),
