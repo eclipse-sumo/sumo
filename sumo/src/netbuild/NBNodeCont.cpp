@@ -1242,6 +1242,15 @@ NBNodeCont::printBuiltNodesStatistics() const throw() {
 }
 
 
+std::vector<std::string>
+NBNodeCont::getAllNames() const throw() {
+    std::vector<std::string> ret;
+    for (NodeCont::const_iterator i=myNodes.begin(); i!=myNodes.end(); ++i) {
+        ret.push_back((*i).first);
+    }
+    return ret;
+}
+
 
 /****************************************************************************/
 

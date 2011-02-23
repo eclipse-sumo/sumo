@@ -233,6 +233,10 @@ public:
     void printBuiltNodesStatistics() const throw();
 
 
+    /// @brief get all node names
+    std::vector<std::string> getAllNames() const throw(); 
+
+
 private:
     bool mayNeedOnRamp(OptionsCont &oc, NBNode *cur) const;
     bool mayNeedOffRamp(OptionsCont &oc, NBNode *cur) const;
