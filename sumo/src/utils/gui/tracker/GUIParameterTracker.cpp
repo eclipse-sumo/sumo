@@ -457,7 +457,6 @@ GUIParameterTracker::GUIParameterTrackerPanel::onPaint(FXObject*,
             // draw
             glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
             drawValues();
-            glFlush();
             swapBuffers();
         }
         makeNonCurrent();

@@ -128,7 +128,6 @@ GUITLLogicPhasesTrackerWindow::GUITLLogicPhasesTrackerPanel::onPaint(
             // draw
             glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
             myParent->drawValues(*this);
-            glFlush();
             swapBuffers();
         }
         makeNonCurrent();

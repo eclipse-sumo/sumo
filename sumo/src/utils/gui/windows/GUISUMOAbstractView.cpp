@@ -256,7 +256,6 @@ GUISUMOAbstractView::paintGL() {
     }
     // check whether the select mode /tooltips)
     //  shall be computed, too
-    glFlush();
     swapBuffers();
     if (myUseToolTips&&id!=0) {
         showToolTipFor(id);
@@ -916,7 +915,6 @@ GUISUMOAbstractView::makeSnapshot(const std::string &destFile) throw() {
         if (myVisualizationSettings->showSizeLegend) {
             displayLegend();
         }
-        glFlush();
         swapBuffers();
         glFinish();
         FXColor *buf;
