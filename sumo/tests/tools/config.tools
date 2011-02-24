@@ -47,4 +47,5 @@ output:uration:
 output:<!-- generated on
 trips:<!-- generated on
 pois:<!--
-errors:Execution of .*duarouter.exe{REPLACE Execution of <path-to>duarouter.exe}
+errors:Execution of .*duarouter.exe{REPLACE Execution of <path-to>duarouter}
+errors:Execution of .*duarouter{REPLACE Execution of <path-to>duarouter}
