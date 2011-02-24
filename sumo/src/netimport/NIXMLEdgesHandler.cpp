@@ -269,6 +269,10 @@ NIXMLEdgesHandler::myStartElement(SumoXMLTag element,
         Split e;
         e.pos = attrs.getSUMORealReporting(SUMO_ATTR_POSITION, "split", 0, ok);
         if (ok) {
+            if (fabs(e.pos)>myCurrentEdge->getGeometry().length()) {
+                MsgHandler::getErrorInstance()->inform("Edge '" + myCurrentID + "' has a split at invalid position " + toString(e.pos) + ".");
+                return;
+            }
             if (e.pos<0) {
                 e.pos += myCurrentEdge->getGeometry().length();
             }
