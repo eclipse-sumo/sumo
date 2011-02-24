@@ -29,6 +29,7 @@
 
 #include <string>
 #include <sstream>
+#include "StdDefs.h"
 #include "IDSupplier.h"
 
 #ifdef CHECK_MEMORY_LEAKS
@@ -41,6 +42,28 @@
 // ===========================================================================
 IDSupplier::IDSupplier(const std::string &prefix, long begin)
         : myCurrent(begin), myPrefix(prefix) {}
+
+
+    
+IDSupplier::IDSupplier(const std::string &prefix, const std::vector<std::string> &knownIDs)
+        : myCurrent(-1), myPrefix(prefix) 
+{
+    // find all strings using the scheme <prefix><number> and avoid them
+    int prefix_size = myPrefix.size();
+    for (std::vector<std::string>::const_iterator id_it = knownIDs.begin(); id_it != knownIDs.end(); ++id_it) {
+        // does it start with prefix?
+        if (id_it->find(prefix) == 0) {
+            long id;
+            std::istringstream buf(id_it->substr(prefix_size, std::string::npos));
+            buf >> id;
+            // does it continue with a number?
+            if (!buf.fail()) {
+                myCurrent = MAX2(myCurrent, id);
+            }
+        }
+    }
+    myCurrent++;
+}
 
 
 IDSupplier::~IDSupplier() {}

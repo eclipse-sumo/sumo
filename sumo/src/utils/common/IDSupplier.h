@@ -30,6 +30,7 @@
 #endif
 
 #include <string>
+#include <vector>
 
 
 // ===========================================================================
@@ -44,6 +45,13 @@ class IDSupplier {
 public:
     /// Constructor
     IDSupplier(const std::string &prefix="", long begin=0);
+
+    /** @brief Constructor 
+     * @param[in] prefix The string to use as ID prefix
+     * @param[in] knownIDs List of IDs that should never be returned by this 
+     * IDSupplier
+     **/
+    IDSupplier(const std::string &prefix, const std::vector<std::string> &knownIDs);
 
     /// Destructor
     ~IDSupplier();
