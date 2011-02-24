@@ -423,7 +423,8 @@ TraCIServerAPI_TLS::processSet(TraCIServer &server, tcpip::Storage &inputStorage
             server.writeStatusCmd(CMD_SET_TL_VARIABLE, RTYPE_ERR, "A compound object is needed for setting a new program.", outputStorage);
             return false;
         }
-        unsigned int itemNo = inputStorage.readInt();
+        //read itemNo 
+		inputStorage.readInt();
         if (inputStorage.readUnsignedByte()!=TYPE_STRING) {
             server.writeStatusCmd(CMD_SET_TL_VARIABLE, RTYPE_ERR, "set program: 1. parameter (subid) must be a string.", outputStorage);
             return false;
@@ -433,12 +434,14 @@ TraCIServerAPI_TLS::processSet(TraCIServer &server, tcpip::Storage &inputStorage
             server.writeStatusCmd(CMD_SET_TL_VARIABLE, RTYPE_ERR, "set program: 2. parameter (type) must be an int.", outputStorage);
             return false;
         }
-        int type = inputStorage.readInt();
+        //read type 
+		inputStorage.readInt();
         if (inputStorage.readUnsignedByte()!=TYPE_COMPOUND) {
             server.writeStatusCmd(CMD_SET_TL_VARIABLE, RTYPE_ERR, "set program: 3. parameter (subparams) must be a compound object.", outputStorage);
             return false;
         }
-        int sublength = inputStorage.readInt();
+        //read sublength 
+		inputStorage.readInt();
         if (inputStorage.readUnsignedByte()!=TYPE_INTEGER) {
             server.writeStatusCmd(CMD_SET_TL_VARIABLE, RTYPE_ERR, "set program: 4. parameter (index) must be an int.", outputStorage);
             return false;

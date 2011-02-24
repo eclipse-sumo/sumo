@@ -162,7 +162,8 @@ TraCIServerAPI_POI::processSet(TraCIServer &server, tcpip::Storage &inputStorage
         SUMOReal r = (SUMOReal) inputStorage.readUnsignedByte() / 255.;
         SUMOReal g = (SUMOReal) inputStorage.readUnsignedByte() / 255.;
         SUMOReal b = (SUMOReal) inputStorage.readUnsignedByte() / 255.;
-        SUMOReal a = (SUMOReal) inputStorage.readUnsignedByte() / 255.;
+        //read SUMOReal a 
+		inputStorage.readUnsignedByte();
         dynamic_cast<RGBColor*>(p)->set(r,g,b);
     }
     break;
@@ -181,7 +182,8 @@ TraCIServerAPI_POI::processSet(TraCIServer &server, tcpip::Storage &inputStorage
             server.writeStatusCmd(CMD_SET_POI_VARIABLE, RTYPE_ERR, "A compound object is needed for setting a new PoI.", outputStorage);
             return false;
         }
-        unsigned int itemNo = inputStorage.readInt();
+        //read itemNo 
+		inputStorage.readInt();
         // type
         if (inputStorage.readUnsignedByte()!=TYPE_STRING) {
             server.writeStatusCmd(CMD_SET_POI_VARIABLE, RTYPE_ERR, "The first PoI parameter must be the type encoded as a string.", outputStorage);
@@ -196,7 +198,8 @@ TraCIServerAPI_POI::processSet(TraCIServer &server, tcpip::Storage &inputStorage
         SUMOReal r = (SUMOReal) inputStorage.readUnsignedByte() / 255.;
         SUMOReal g = (SUMOReal) inputStorage.readUnsignedByte() / 255.;
         SUMOReal b = (SUMOReal) inputStorage.readUnsignedByte() / 255.;
-        SUMOReal a = (SUMOReal) inputStorage.readUnsignedByte() / 255.;
+        //read SUMOReal a 
+		inputStorage.readUnsignedByte();
         // layer
         if (inputStorage.readUnsignedByte()!=TYPE_INTEGER) {
             server.writeStatusCmd(CMD_SET_POI_VARIABLE, RTYPE_ERR, "The third PoI parameter must be the layer encoded as int.", outputStorage);

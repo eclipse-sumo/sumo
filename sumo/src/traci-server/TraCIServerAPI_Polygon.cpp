@@ -170,7 +170,8 @@ TraCIServerAPI_Polygon::processSet(TraCIServer &server, tcpip::Storage &inputSto
         SUMOReal r = (SUMOReal) inputStorage.readUnsignedByte() / 255.;
         SUMOReal g = (SUMOReal) inputStorage.readUnsignedByte() / 255.;
         SUMOReal b = (SUMOReal) inputStorage.readUnsignedByte() / 255.;
-        SUMOReal a = (SUMOReal) inputStorage.readUnsignedByte() / 255.;
+        //read SUMOReal a 
+		inputStorage.readUnsignedByte();
         p->setColor(RGBColor(r,g,b));
     }
     break;
@@ -203,7 +204,8 @@ TraCIServerAPI_Polygon::processSet(TraCIServer &server, tcpip::Storage &inputSto
             server.writeStatusCmd(CMD_SET_POLYGON_VARIABLE, RTYPE_ERR, "A compound object is needed for setting a new polygon.", outputStorage);
             return false;
         }
-        unsigned int itemNo = inputStorage.readInt();
+        //readt itemNo 
+		inputStorage.readInt();
         // type
         if (inputStorage.readUnsignedByte()!=TYPE_STRING) {
             server.writeStatusCmd(CMD_SET_POLYGON_VARIABLE, RTYPE_ERR, "The first polygon parameter must be the type encoded as a string.", outputStorage);
@@ -218,7 +220,8 @@ TraCIServerAPI_Polygon::processSet(TraCIServer &server, tcpip::Storage &inputSto
         SUMOReal r = (SUMOReal) inputStorage.readUnsignedByte() / 255.;
         SUMOReal g = (SUMOReal) inputStorage.readUnsignedByte() / 255.;
         SUMOReal b = (SUMOReal) inputStorage.readUnsignedByte() / 255.;
-        SUMOReal a = (SUMOReal) inputStorage.readUnsignedByte() / 255.;
+        //read SUMOReal a 
+		inputStorage.readUnsignedByte();
         // fill
         if (inputStorage.readUnsignedByte()!=TYPE_UBYTE) {
             server.writeStatusCmd(CMD_SET_POLYGON_VARIABLE, RTYPE_ERR, "The third polygon parameter must be 'fill' encoded as ubyte.", outputStorage);

@@ -2579,7 +2579,8 @@ TraCIServer::processSingleSubscription(const Subscription &s, tcpip::Storage &wr
             while (--length>0) tmpOutput.readUnsignedByte();
             length = tmpOutput.readUnsignedByte();
             length = tmpOutput.readInt();
-            int responseType = tmpOutput.readUnsignedByte();
+            //read responseType 
+			tmpOutput.readUnsignedByte();
             int variable = tmpOutput.readUnsignedByte();
             std::string id = tmpOutput.readString();
             outputStorage.writeUnsignedByte(variable);
@@ -2589,9 +2590,12 @@ TraCIServer::processSingleSubscription(const Subscription &s, tcpip::Storage &wr
                 outputStorage.writeUnsignedByte(tmpOutput.readUnsignedByte());
             }
         } else {
-            int length = tmpOutput.readUnsignedByte();
-            int cmd = tmpOutput.readUnsignedByte();
-            int status = tmpOutput.readUnsignedByte();
+            //read length 
+			tmpOutput.readUnsignedByte();
+            //read cmd
+			tmpOutput.readUnsignedByte();
+            //read status
+			tmpOutput.readUnsignedByte();
             std::string msg = tmpOutput.readString();
             outputStorage.writeUnsignedByte(*i);
             outputStorage.writeUnsignedByte(RTYPE_ERR);
