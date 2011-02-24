@@ -42,6 +42,9 @@
     <ClCompile Include="..\..\..\src\netedit\GNEViewNet.cpp">
       <Filter>Quellcodedateien</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\src\netedit\GNEDialog_About.cpp">
+      <Filter>Quellcodedateien</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="..\..\..\src\netedit\netedit.rc">
@@ -74,6 +77,9 @@
       <Filter>Header-Dateien</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\netedit\GNEViewNet.h">
+      <Filter>Header-Dateien</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\netedit\GNEDialog_About.h">
       <Filter>Header-Dateien</Filter>
     </ClInclude>
   </ItemGroup>

@@ -162,6 +162,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\src\netedit\GNEApplicationWindow.cpp" />
+    <ClCompile Include="..\..\..\src\netedit\GNEDialog_About.cpp" />
     <ClCompile Include="..\..\..\src\netedit\GNEEdge.cpp" />
     <ClCompile Include="..\..\..\src\netedit\GNEJunction.cpp" />
     <ClCompile Include="..\..\..\src\netedit\GNELane.cpp" />
@@ -301,6 +302,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\src\netedit\GNEApplicationWindow.h" />
+    <ClInclude Include="..\..\..\src\netedit\GNEDialog_About.h" />
     <ClInclude Include="..\..\..\src\netedit\GNEEdge.h" />
     <ClInclude Include="..\..\..\src\netedit\GNEEvent_NetworkLoaded.h" />
     <ClInclude Include="..\..\..\src\netedit\GNEJunction.h" />
