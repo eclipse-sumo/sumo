@@ -480,7 +480,6 @@ MSLaneChanger::change2right(const std::pair<MSVehicle * const, SUMOReal> &leader
     }
     // safe back gap
     if (rFollow.first!=0) {
-        MSLane* targetLane = target->lane;
         // !!! eigentlich: vsafe braucht die Max. Geschwindigkeit beider Spuren
         if (rFollow.second<rFollow.first->getCarFollowModel().getSecureGap(rFollow.first->getSpeed(), veh(myCandi)->getSpeed(), veh(myCandi)->getCarFollowModel().getMaxDecel())) {
             blocked |= LCA_BLOCKED_BY_RIGHT_FOLLOWER;
@@ -489,7 +488,6 @@ MSLaneChanger::change2right(const std::pair<MSVehicle * const, SUMOReal> &leader
 
     // safe front gap
     if (rLead.first!=0) {
-        MSLane* targetLane = target->lane;
         // !!! eigentlich: vsafe braucht die Max. Geschwindigkeit beider Spuren
         if (rLead.second<veh(myCandi)->getCarFollowModel().getSecureGap(veh(myCandi)->getSpeed(), rLead.first->getSpeed(), rLead.first->getCarFollowModel().getMaxDecel())) {
             blocked |= LCA_BLOCKED_BY_RIGHT_LEADER;
@@ -522,7 +520,6 @@ MSLaneChanger::change2left(const std::pair<MSVehicle * const, SUMOReal> &leader,
     }
     // safe back gap
     if (rFollow.first!=0) {
-        MSLane* targetLane = target->lane;
         // !!! eigentlich: vsafe braucht die Max. Geschwindigkeit beider Spuren
         if (rFollow.second<rFollow.first->getCarFollowModel().getSecureGap(rFollow.first->getSpeed(), veh(myCandi)->getSpeed(), veh(myCandi)->getCarFollowModel().getMaxDecel())) {
             blocked |= LCA_BLOCKED_BY_LEFT_FOLLOWER;
@@ -530,7 +527,6 @@ MSLaneChanger::change2left(const std::pair<MSVehicle * const, SUMOReal> &leader,
     }
     // safe front gap
     if (rLead.first!=0) {
-        MSLane* targetLane = target->lane;
         // !!! eigentlich: vsafe braucht die Max. Geschwindigkeit beider Spuren
         if (rLead.second<veh(myCandi)->getCarFollowModel().getSecureGap(veh(myCandi)->getSpeed(), rLead.first->getSpeed(), rLead.first->getCarFollowModel().getMaxDecel())) {
             blocked |= LCA_BLOCKED_BY_LEFT_LEADER;

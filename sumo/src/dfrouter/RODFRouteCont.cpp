@@ -56,8 +56,6 @@ RODFRouteCont::addRouteDesc(RODFRouteDesc &desc) throw() {
     // routes may be duplicate as in-between routes may have different starting points
     if (find_if(myRoutes.begin(), myRoutes.end(), route_finder(desc))==myRoutes.end()) {
         // compute route id
-        ROEdge *first = *(desc.edges2Pass.begin());
-        ROEdge *last = *(desc.edges2Pass.end()-1);
         setID(desc);
         myRoutes.push_back(desc);
     } else {

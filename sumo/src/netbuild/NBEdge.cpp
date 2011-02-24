@@ -490,7 +490,7 @@ std::vector<NBEdge::Connection>
 NBEdge::getConnectionsFromLane(unsigned int lane) const throw() {
     std::vector<NBEdge::Connection> ret;
     for (std::vector<Connection>::const_iterator i=myConnections.begin(); i!=myConnections.end(); ++i) {
-        if ((*i).fromLane==lane) {
+        if ((*i).fromLane==static_cast<int>(lane)) {
             ret.push_back(*i);
         }
     }
@@ -725,7 +725,7 @@ NBEdge::computeLaneShape(unsigned int lane) throw(InvalidArgument) {
             shape.push_back(
                 // (methode umbenennen; was heisst hier "-")
                 Position2D(from.x()-offsets.first, from.y()-offsets.second));
-        } else if (i==myGeom.size()-1) {
+        } else if (i==static_cast<int>(myGeom.size()-1)) {
             Position2D from = myGeom[i-1];
             Position2D to = myGeom[i];
             std::pair<SUMOReal, SUMOReal> offsets = laneOffset(from, to, SUMO_const_laneWidthAndOffset, (unsigned int)(myLanes.size()-1-lane));
@@ -795,7 +795,7 @@ NBEdge::writeSucceeding(OutputDevice &into, unsigned int lane, bool includeInter
     // output list of connected lanes
     unsigned int count = 0;
     for (std::vector<Connection>::const_iterator i=myConnections.begin(); i!=myConnections.end(); ++i) {
-        if ((*i).fromLane==lane) {
+        if ((*i).fromLane==static_cast<int>(lane)) {
             writeSingleSucceeding(into, *i, includeInternal);
             ++count;
         }
@@ -1015,13 +1015,13 @@ NBEdge::moveConnectionToLeft(unsigned int lane) {
     unsigned int index = 0;
     if (myAmLeftHand) {
         for (int i=(int) myConnections.size()-1; i>=0; --i) {
-            if (myConnections[i].fromLane==lane&&getTurnDestination()!=myConnections[i].toEdge) {
+            if (myConnections[i].fromLane==static_cast<int>(lane)&&getTurnDestination()!=myConnections[i].toEdge) {
                 index = i;
             }
         }
     } else {
         for (unsigned int i=0; i<myConnections.size(); ++i) {
-            if (myConnections[i].fromLane==lane) {
+            if (myConnections[i].fromLane==static_cast<int>(lane)) {
                 index = i;
             }
         }
@@ -1037,7 +1037,7 @@ void
 NBEdge::moveConnectionToRight(unsigned int lane) {
     if (myAmLeftHand) {
         for (int i=(int) myConnections.size()-1; i>=0; --i) {
-            if (myConnections[i].fromLane==lane&&getTurnDestination()!=myConnections[i].toEdge) {
+            if (myConnections[i].fromLane==static_cast<int>(lane)&&getTurnDestination()!=myConnections[i].toEdge) {
                 Connection c = myConnections[i];
                 myConnections.erase(myConnections.begin() + i);
                 setConnection(lane-1, c.toEdge, c.toLane, L2L_VALIDATED, false);
@@ -1046,7 +1046,7 @@ NBEdge::moveConnectionToRight(unsigned int lane) {
         }
     } else {
         for (std::vector<Connection>::iterator i=myConnections.begin(); i!=myConnections.end(); ++i) {
-            if ((*i).fromLane==lane) {
+            if ((*i).fromLane==static_cast<int>(lane)) {
                 Connection c = *i;
                 i = myConnections.erase(i);
                 setConnection(lane-1, c.toEdge, c.toLane, L2L_VALIDATED, false);
@@ -1770,7 +1770,7 @@ NBEdge::splitGeometry(NBEdgeCont &ec, NBNodeCont &nc) {
     NBEdge *currentEdge = this;
     for (int i=1; i<(int) myGeom.size()-1; i++) {
         // build the node first
-        if (i!=myGeom.size()-2) {
+        if (i!=static_cast<int>(myGeom.size()-2)) {
             std::string nodename = myID + "_in_between#" + toString(i);
             if (!nc.insert(nodename, myGeom[i])) {
                 throw ProcessError("Error on adding in-between node '" + nodename + "'.");
