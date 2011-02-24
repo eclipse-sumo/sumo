@@ -41,11 +41,11 @@
 // FOX callback mapping
 // ===========================================================================
 FXDEFMAP(GUIGlChildWindow) GUIGlChildWindowMap[]={
-    FXMAPFUNC(SEL_COMMAND,  MID_RECENTERVIEW,   GUIGlChildWindow::onCmdRecenterView),
-    FXMAPFUNC(SEL_COMMAND,             MID_EDITVIEWPORT,  GUIGlChildWindow::onCmdEditViewport),
-    FXMAPFUNC(SEL_COMMAND,  MID_SHOWTOOLTIPS,   GUIGlChildWindow::onCmdShowToolTips),
-    FXMAPFUNC(SEL_COMMAND,  MID_COLOURSCHEMECHANGE,   GUIGlChildWindow::onCmdChangeColorScheme),
-    FXMAPFUNC(SEL_COMMAND,             MID_EDITVIEWSCHEME,      GUIGlChildWindow::onCmdEditViewScheme),
+    FXMAPFUNC(SEL_COMMAND,  MID_RECENTERVIEW,       GUIGlChildWindow::onCmdRecenterView),
+    FXMAPFUNC(SEL_COMMAND,  MID_EDITVIEWPORT,       GUIGlChildWindow::onCmdEditViewport),
+    FXMAPFUNC(SEL_COMMAND,  MID_SHOWTOOLTIPS,       GUIGlChildWindow::onCmdShowToolTips),
+    FXMAPFUNC(SEL_COMMAND,  MID_COLOURSCHEMECHANGE, GUIGlChildWindow::onCmdChangeColorScheme),
+    FXMAPFUNC(SEL_COMMAND,  MID_EDITVIEWSCHEME,     GUIGlChildWindow::onCmdEditViewScheme),
 };
 
 FXIMPLEMENT(GUIGlChildWindow,FXMDIChild,GUIGlChildWindowMap,ARRAYNUMBER(GUIGlChildWindowMap))
