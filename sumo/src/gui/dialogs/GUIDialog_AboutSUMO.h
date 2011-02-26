@@ -64,6 +64,9 @@ private:
     /// @brief Icons for the widget
     FXIcon *myDLRIcon;
 
+    /// @brief Font for the widget
+    FXFont *myHeadlineFont;
+
 };
 
 
