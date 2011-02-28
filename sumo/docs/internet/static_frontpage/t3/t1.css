@@ -95,6 +95,9 @@ del { color: #555555; }
 	background-color: #485573;
 }
 
+#shortIntro {
+	text-align: left;
+}
 
 #wrapper { text-align: center; }
 .col1 { width: 250px; float: left; margin: 0 15px; text-align: left; }
@@ -227,23 +230,18 @@ del { color: #555555; }
 	background-image: url(menu_hover.png);
 }
 
-
 /* Logo */
-div#logo
+#logo
 {
     background-color:#080063;
     height:180;
     color:white;
 }
-div#logo_text1 {
-    position:relative;
-    top:0px;
-	font: normal 70 Tahoma, Verdana, "Lucida Grande", Georgia, Sans-Serif;
+#logo_text1 {
+	font: normal 70px Tahoma, Verdana, "Lucida Grande", Georgia, Sans-Serif;
 }
-div#logo_text2 {
-    position:relative;
-    top:0px;
-	font: normal 35 Tahoma, Verdana, "Lucida Grande", Georgia, Sans-Serif;
+#logo_text2 {
+	font: normal 35px Tahoma, Verdana, "Lucida Grande", Georgia, Sans-Serif;
 }
 
 
