@@ -717,8 +717,12 @@ public:
 
 
 #ifndef NO_TRACI
-    /**
-     * Get speed before influence of TraCI settings takes place.
+    /** @brief Returns the uninfluenced velocity
+     *
+     * If no influencer exists (myInfluencer==0) the vehicle's current speed is
+     *  returned. Otherwise the speed returned from myInfluencer->getOriginalSpeed().
+     * @return The vehicle's velocity as it would without an influence
+     * @see Influencer::getOriginalSpeed
      */
     SUMOReal getSpeedWithoutTraciInfluence() const;
 
@@ -776,27 +780,74 @@ public:
 
 
 
+    /** @class Influencer
+     * @brief Changes the wished vehicle speed / lanes
+     */
     class Influencer {
     public:
-        Influencer(const std::vector<std::pair<SUMOTime, SUMOReal> > &speedTimeLine,
-            const std::vector<std::pair<SUMOTime, int> > &laneTimeLine);
+        /// @brief Constructor
+        Influencer();
+
+
+        /// @brief Destructor
         ~Influencer();
 
-        bool influenceSpeed(SUMOTime currentTime, SUMOReal &speed);
-        bool influenceLane(SUMOTime currentTime, int &lane);
+
+
+        /** @brief Sets a new velocity timeline
+         * @param[in] speedTimeLine The time line of speeds to use
+         */
+        void setSpeedTimeLine(const std::vector<std::pair<SUMOTime, SUMOReal> > &speedTimeLine);
+
+
+        /** @brief Sets a new lane timeline
+         * @param[in] laneTimeLine The time line of lanes to use
+         */
+        void setLaneTimeLine(const std::vector<std::pair<SUMOTime, int> > &laneTimeLine);
+
+
+        /** @brief Applies stored velocity information on the speed to use
+         *
+         * The given speed is assumed to be the non-influenced speed from longitudinal control.
+         *  It is stored for further usage in "myOriginalSpeed".
+         *
+         * @param[in] currentTime The current simulation time
+         * @param[in, out] currentTime The vehicle's velocity
+         */
+        void influenceSpeed(SUMOTime currentTime, SUMOReal &speed);
+        void influenceLane(SUMOTime currentTime, int &lane);
+
+
+        /** @brief Returns the originally longitudianl speed to use
+         * @return The speed given before influence
+         */
         SUMOReal getOriginalSpeed() const {
             return myOriginalSpeed;
         }
 
+
     private:
+        /// @brief The velocity time line to apply
         std::vector<std::pair<SUMOTime, SUMOReal> > mySpeedTimeLine;
+
+        /// @brief The lane usage time line to apply
         std::vector<std::pair<SUMOTime, int> > myLaneTimeLine;
+
+        /// @brief The velocity before influence
         SUMOReal myOriginalSpeed;
+
+        /// @brief Whether influencing the speed has already started
+        bool mySpeedAdaptationStarted;
+
     };
 
-    Influencer *myInfluencer;
 
-    void replaceInfluencer(Influencer *newInfluencer);
+    /** @brief Returns the velocity/lane influencer
+     * 
+     * If no influencer was existing before, one is built, first
+     * @return Reference to this vehicle's speed influencer
+     */
+    Influencer &getInfluencer();
 
 
 #endif
@@ -894,6 +945,9 @@ protected:
 
     /// @brief Whether this vehicle is registered as waiting for a person (for deadlock-recognition)
     bool myAmRegisteredAsWaitingForPerson;
+
+    /// @brief An instance of a velicty/lane influencing instance; built in "getInfluencer"
+    Influencer *myInfluencer;
 
 
 private:

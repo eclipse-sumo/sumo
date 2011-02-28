@@ -550,7 +550,7 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer &server, tcpip::Storage &inputSto
         std::vector<std::pair<SUMOTime, SUMOReal> > speedTimeLine;
         speedTimeLine.push_back(make_pair(MSNet::getInstance()->getCurrentTimeStep(), v->getSpeed()));
         speedTimeLine.push_back(make_pair(MSNet::getInstance()->getCurrentTimeStep()+duration, (SUMOReal) newSpeed));
-        v->replaceInfluencer(new MSVehicle::Influencer(speedTimeLine, std::vector<std::pair<SUMOTime, int> >()));
+        v->getInfluencer().setSpeedTimeLine(speedTimeLine);
     }
     break;
     case CMD_CHANGEROUTE:
@@ -864,14 +864,12 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer &server, tcpip::Storage &inputSto
             return false;
         }
         SUMOReal speed = inputStorage.readDouble();
+        std::vector<std::pair<SUMOTime, SUMOReal> > speedTimeLine;
         if(speed>=0) {
-            std::vector<std::pair<SUMOTime, SUMOReal> > speedTimeLine;
             speedTimeLine.push_back(make_pair(MSNet::getInstance()->getCurrentTimeStep(), speed));
             speedTimeLine.push_back(make_pair(SUMOTime_MAX, speed));
-            v->replaceInfluencer(new MSVehicle::Influencer(speedTimeLine, std::vector<std::pair<SUMOTime, int> >()));
-        } else {
-            v->replaceInfluencer(0);
         }
+        v->getInfluencer().setSpeedTimeLine(speedTimeLine);
                     }
         break;
     case VAR_COLOR: {
@@ -1231,7 +1229,7 @@ TraCIServerAPI_Vehicle::commandSlowDown(TraCIServer &server, tcpip::Storage &inp
     std::vector<std::pair<SUMOTime, SUMOReal> > speedTimeLine;
     speedTimeLine.push_back(make_pair(MSNet::getInstance()->getCurrentTimeStep(), v->getSpeed()));
     speedTimeLine.push_back(make_pair(MSNet::getInstance()->getCurrentTimeStep()+duration, (SUMOReal) newSpeed));
-    v->replaceInfluencer(new MSVehicle::Influencer(speedTimeLine, std::vector<std::pair<SUMOTime, int> >()));
+    v->getInfluencer().setSpeedTimeLine(speedTimeLine);
     // create positive response message
     server.writeStatusCmd(CMD_SLOWDOWN, RTYPE_OK, "");
     return true;

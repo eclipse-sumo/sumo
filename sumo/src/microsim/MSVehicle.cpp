@@ -130,9 +130,8 @@ MSVehicle::State::State(SUMOReal pos, SUMOReal speed) :
 /* -------------------------------------------------------------------------
  * methods of MSVehicle::Influencer
  * ----------------------------------------------------------------------- */
-MSVehicle::Influencer::Influencer(const std::vector<std::pair<SUMOTime, SUMOReal> > &speedTimeLine,
-            const std::vector<std::pair<SUMOTime, int> > &laneTimeLine) 
-            : mySpeedTimeLine(speedTimeLine), myLaneTimeLine(laneTimeLine)
+MSVehicle::Influencer::Influencer() 
+            : mySpeedAdaptationStarted(true)
 {}
 
 
@@ -140,7 +139,20 @@ MSVehicle::Influencer::~Influencer()
 {}
 
 
-bool 
+void 
+MSVehicle::Influencer::setSpeedTimeLine(const std::vector<std::pair<SUMOTime, SUMOReal> > &speedTimeLine) {
+    mySpeedAdaptationStarted = true;
+    mySpeedTimeLine = speedTimeLine;
+}
+
+
+void 
+MSVehicle::Influencer::setLaneTimeLine(const std::vector<std::pair<SUMOTime, int> > &laneTimeLine) {
+    myLaneTimeLine = laneTimeLine;
+}
+
+
+void 
 MSVehicle::Influencer::influenceSpeed(SUMOTime currentTime, SUMOReal &speed) {
     // keep original speed
     myOriginalSpeed = speed;
@@ -150,18 +162,21 @@ MSVehicle::Influencer::influenceSpeed(SUMOTime currentTime, SUMOReal &speed) {
     }
     // do nothing if the time line does not apply for the current time
     if(mySpeedTimeLine.size()<2||currentTime<mySpeedTimeLine[0].first) {
-        return false;
+        return;
     }
     // compute and set new speed
-    const SUMOReal td = STEPS2TIME(currentTime - mySpeedTimeLine[0].first) / STEPS2TIME(mySpeedTimeLine[1].first - mySpeedTimeLine[0].first);
-    speed = mySpeedTimeLine[0].second - (mySpeedTimeLine[0].second-mySpeedTimeLine[1].second) * td;
-    return true;
+    if(!mySpeedAdaptationStarted) {
+        mySpeedTimeLine[0].second = speed;
+        mySpeedAdaptationStarted = true;
+    } else {
+        const SUMOReal td = STEPS2TIME(currentTime - mySpeedTimeLine[0].first) / STEPS2TIME(mySpeedTimeLine[1].first - mySpeedTimeLine[0].first);
+        speed = mySpeedTimeLine[0].second - (mySpeedTimeLine[0].second-mySpeedTimeLine[1].second) * td;
+    }
 }
 
 
-bool 
+void 
 MSVehicle::Influencer::influenceLane(SUMOTime currentTime, int &lane) {
-    return false;
 }
 
 
@@ -1747,12 +1762,12 @@ MSVehicle::addTraciStop(MSLane* lane, SUMOReal pos, SUMOReal /*radius*/, SUMOTim
 }
 
 
-void 
-MSVehicle::replaceInfluencer(Influencer *newInfluencer) {
-    if(myInfluencer!=0) {
-        delete myInfluencer;
+MSVehicle::Influencer &
+MSVehicle::getInfluencer() {
+    if(myInfluencer==0) {
+        myInfluencer = new Influencer();
     }
-    myInfluencer = newInfluencer;
+    return *myInfluencer;
 }
 
 
