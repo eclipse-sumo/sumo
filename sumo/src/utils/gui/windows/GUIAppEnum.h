@@ -311,6 +311,19 @@ enum {
     //@}
 
 
+    /// @name NETEDIT Message IDs
+    //@{
+    /// mode selection messages
+    MID_GNE_MODE_CREATE_EDGE,
+    /** mode for moving things */
+    MID_GNE_MODE_MOVE,
+    /** mode for deleting things */
+    MID_GNE_MODE_DELETE,
+    /** mode for inspecting object attributes */
+    MID_GNE_MODE_INSPECT,
+    //@}
+
+
     MID_CUTSWELL,
 
     MID_LAST
