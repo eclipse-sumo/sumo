@@ -49,7 +49,7 @@ IDSupplier::IDSupplier(const std::string &prefix, const std::vector<std::string>
         : myCurrent(-1), myPrefix(prefix) 
 {
     // find all strings using the scheme <prefix><number> and avoid them
-    int prefix_size = myPrefix.size();
+    size_t prefix_size = myPrefix.size();
     for (std::vector<std::string>::const_iterator id_it = knownIDs.begin(); id_it != knownIDs.end(); ++id_it) {
         // does it start with prefix?
         if (id_it->find(prefix) == 0) {
