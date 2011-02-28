@@ -223,12 +223,6 @@ MSVehicle::MSVehicle(SUMOVehicleParameter* pars,
         myAmRegisteredAsWaitingForPerson(false)
 #ifndef NO_TRACI
         ,myInfluencer(0),
-        adaptingSpeed(false),
-        isLastAdaption(false),
-        speedBeforeAdaption(0),
-        timeBeforeAdaption(0),
-        speedReduction(0),
-        adaptDuration(0),
         timeBeforeLaneChange(0),
         laneChangeStickyTime(0),
         laneChangeConstraintActive(false),
@@ -1636,45 +1630,6 @@ MSVehicle::replaceVehicleType(MSVehicleType *type) throw() {
 
 #ifndef NO_TRACI
 
-bool
-MSVehicle::startSpeedAdaption(float newSpeed, SUMOTime duration, SUMOTime currentTime) {
-    if (newSpeed < 0 || duration <= 0/* || newSpeed >= getSpeed()*/) {
-        return false;
-    }
-    speedBeforeAdaption = getSpeed();
-    timeBeforeAdaption = currentTime;
-    adaptDuration = duration;
-    speedReduction = MAX2((SUMOReal) 0.0f, (SUMOReal)(speedBeforeAdaption - newSpeed));
-    adaptingSpeed = true;
-    isLastAdaption = false;
-    return true;
-}
-
-
-void
-MSVehicle::adaptSpeed() {
-    if (!adaptingSpeed) {
-        return;
-    }
-    SUMOReal maxSpeed = 0;
-    SUMOTime currentTime = MSNet::getInstance()->getCurrentTimeStep();
-    if (isLastAdaption) {
-        unsetIndividualMaxSpeed();
-        adaptingSpeed = false;
-        isLastAdaption = false;
-        return;
-    }
-    if (currentTime <= timeBeforeAdaption + adaptDuration) {
-        const SUMOReal td = STEPS2TIME(currentTime - timeBeforeAdaption) / STEPS2TIME(adaptDuration);
-        maxSpeed = speedBeforeAdaption - speedReduction * td;
-    } else {
-        maxSpeed = speedBeforeAdaption - speedReduction;
-        isLastAdaption = true;
-    }
-    setIndividualMaxSpeed(maxSpeed);
-}
-
-
 void
 MSVehicle::checkLaneChangeConstraint(SUMOTime time) {
     if (!laneChangeConstraintActive) {
@@ -1729,8 +1684,6 @@ void
 MSVehicle::processTraCICommands(SUMOTime time) {
     // check for applied lane changing constraints
     checkLaneChangeConstraint(time);
-    // change speed in case of previous "slowDown" command
-    adaptSpeed();
 }
 
 

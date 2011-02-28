@@ -739,21 +739,6 @@ public:
 
 
     /**
-     * The vehicle will slow down to newSpeed within the time interval duration.
-     * This is done by limiting the maximum speed every time a simulation step
-     * is performed by TraCI. Speed reduction is linear.
-     * @param newSpeed speed to reduce to
-     * @param duration time intervall for the speed adaption
-     * @param currentTime current simulation time
-     */
-    bool startSpeedAdaption(float newSpeed, SUMOTime duration, SUMOTime currentTime);
-
-    /**
-     * called each simulation step to slow down if necessary (see above)
-     */
-    void adaptSpeed();
-
-    /**
      * Checks if the sticky time for a "changelane" command has passed already
      * @param time current simulation time
      */
@@ -977,22 +962,6 @@ private:
 
 
 #ifndef NO_TRACI
-    /* indicates whether the vehicle is adapting its speed caused by the TraCI command slowDown*/
-    bool adaptingSpeed;
-    bool isLastAdaption;
-
-    /* speed of the vehicle before any speed adaption began */
-    SUMOReal speedBeforeAdaption;
-
-    /* the amount by wich the speed shall be reduced */
-    SUMOReal speedReduction;
-
-    /* simulation time, when the last speed adaption started */
-    SUMOTime timeBeforeAdaption;
-
-    /* duration of the last speed adaption */
-    SUMOTime adaptDuration;
-
     /* simulation time when the last lane change was forced */
     SUMOTime timeBeforeLaneChange;
 
