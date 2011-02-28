@@ -1,7 +1,9 @@
 <?xml version="1.0"?>
 
-<!-- generated on 07/09/10 13:44:29 by SUMO sumo Version dev-SVN-r8862
-<configuration>
+<!-- generated on 02/28/11 15:45:49 by SUMO sumo Version dev-SVN-r9823
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/sumoConfiguration.xsd">
 
     <input>
         <net-file value="net.net.xml"/>

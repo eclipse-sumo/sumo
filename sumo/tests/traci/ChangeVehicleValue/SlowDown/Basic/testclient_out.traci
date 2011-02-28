@@ -1,917 +1,467 @@
-TraCITestClient output file. Date: Mon Jul 27 13:33:07 2009
+TraCITestClient output file. Date: Thu Oct 14 12:40:59 2010
 
 
--> Command sent: <SimulationStep>:
-  TargetTime=1.00 PosFormat=1
-.. Command acknowledged (1), [description: ]
-.. Received Response <MoveNode>:
-  nodeId=0 targetTime=1.00 2D-Position: x=0.00 y=491.75
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
 
--> Command sent: <SimulationStep>:
-  TargetTime=2.00 PosFormat=1
-.. Command acknowledged (1), [description: ]
-.. Received Response <MoveNode>:
-  nodeId=0 targetTime=2.00 2D-Position: x=0.80 y=491.75
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
 
--> Command sent: <SimulationStep>:
-  TargetTime=3.00 PosFormat=1
-.. Command acknowledged (1), [description: ]
-.. Received Response <MoveNode>:
-  nodeId=0 targetTime=3.00 2D-Position: x=2.39 y=491.75
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
 
--> Command sent: <SimulationStep>:
-  TargetTime=4.00 PosFormat=1
-.. Command acknowledged (1), [description: ]
-.. Received Response <MoveNode>:
-  nodeId=0 targetTime=4.00 2D-Position: x=4.76 y=491.75
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
 
--> Command sent: <SimulationStep>:
-  TargetTime=5.00 PosFormat=1
-.. Command acknowledged (1), [description: ]
-.. Received Response <MoveNode>:
-  nodeId=0 targetTime=5.00 2D-Position: x=7.91 y=491.75
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
 
--> Command sent: <SimulationStep>:
-  TargetTime=6.00 PosFormat=1
-.. Command acknowledged (1), [description: ]
-.. Received Response <MoveNode>:
-  nodeId=0 targetTime=6.00 2D-Position: x=11.82 y=491.75
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
 
--> Command sent: <SimulationStep>:
-  TargetTime=7.00 PosFormat=1
-.. Command acknowledged (1), [description: ]
-.. Received Response <MoveNode>:
-  nodeId=0 targetTime=7.00 2D-Position: x=16.48 y=491.75
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
 
--> Command sent: <SimulationStep>:
-  TargetTime=8.00 PosFormat=1
-.. Command acknowledged (1), [description: ]
-.. Received Response <MoveNode>:
-  nodeId=0 targetTime=8.00 2D-Position: x=21.90 y=491.75
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
 
--> Command sent: <SimulationStep>:
-  TargetTime=9.00 PosFormat=1
-.. Command acknowledged (1), [description: ]
-.. Received Response <MoveNode>:
-  nodeId=0 targetTime=9.00 2D-Position: x=28.05 y=491.75
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
 
--> Command sent: <SimulationStep>:
-  TargetTime=10.00 PosFormat=1
-.. Command acknowledged (1), [description: ]
-.. Received Response <MoveNode>:
-  nodeId=0 targetTime=10.00 2D-Position: x=34.92 y=491.75
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
 
--> Command sent: <SimulationStep>:
-  TargetTime=11.00 PosFormat=1
-.. Command acknowledged (1), [description: ]
-.. Received Response <MoveNode>:
-  nodeId=0 targetTime=11.00 2D-Position: x=42.53 y=491.75
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
 
--> Command sent: <SimulationStep>:
-  TargetTime=12.00 PosFormat=1
-.. Command acknowledged (1), [description: ]
-.. Received Response <MoveNode>:
-  nodeId=0 targetTime=12.00 2D-Position: x=50.84 y=491.75
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
 
--> Command sent: <SimulationStep>:
-  TargetTime=13.00 PosFormat=1
-.. Command acknowledged (1), [description: ]
-.. Received Response <MoveNode>:
-  nodeId=0 targetTime=13.00 2D-Position: x=59.86 y=491.75
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
 
--> Command sent: <SimulationStep>:
-  TargetTime=14.00 PosFormat=1
-.. Command acknowledged (1), [description: ]
-.. Received Response <MoveNode>:
-  nodeId=0 targetTime=14.00 2D-Position: x=69.57 y=491.75
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
 
--> Command sent: <SimulationStep>:
-  TargetTime=15.00 PosFormat=1
-.. Command acknowledged (1), [description: ]
-.. Received Response <MoveNode>:
-  nodeId=0 targetTime=15.00 2D-Position: x=79.98 y=491.75
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
 
--> Command sent: <SimulationStep>:
-  TargetTime=16.00 PosFormat=1
-.. Command acknowledged (1), [description: ]
-.. Received Response <MoveNode>:
-  nodeId=0 targetTime=16.00 2D-Position: x=91.07 y=491.75
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
 
--> Command sent: <SimulationStep>:
-  TargetTime=17.00 PosFormat=1
-.. Command acknowledged (1), [description: ]
-.. Received Response <MoveNode>:
-  nodeId=0 targetTime=17.00 2D-Position: x=102.82 y=491.75
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
 
--> Command sent: <SimulationStep>:
-  TargetTime=18.00 PosFormat=1
-.. Command acknowledged (1), [description: ]
-.. Received Response <MoveNode>:
-  nodeId=0 targetTime=18.00 2D-Position: x=115.25 y=491.75
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
 
--> Command sent: <SimulationStep>:
-  TargetTime=19.00 PosFormat=1
-.. Command acknowledged (1), [description: ]
-.. Received Response <MoveNode>:
-  nodeId=0 targetTime=19.00 2D-Position: x=128.33 y=491.75
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
 
--> Command sent: <SimulationStep>:
-  TargetTime=20.00 PosFormat=1
-.. Command acknowledged (1), [description: ]
-.. Received Response <MoveNode>:
-  nodeId=0 targetTime=20.00 2D-Position: x=142.07 y=491.75
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
 
--> Command sent: <SimulationStep>:
-  TargetTime=21.00 PosFormat=1
-.. Command acknowledged (1), [description: ]
-.. Received Response <MoveNode>:
-  nodeId=0 targetTime=21.00 2D-Position: x=156.44 y=491.75
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
 
--> Command sent: <SimulationStep>:
-  TargetTime=22.00 PosFormat=1
-.. Command acknowledged (1), [description: ]
-.. Received Response <MoveNode>:
-  nodeId=0 targetTime=22.00 2D-Position: x=171.45 y=491.75
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
 
--> Command sent: <SimulationStep>:
-  TargetTime=23.00 PosFormat=1
-.. Command acknowledged (1), [description: ]
-.. Received Response <MoveNode>:
-  nodeId=0 targetTime=23.00 2D-Position: x=187.09 y=491.75
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
 
--> Command sent: <SimulationStep>:
-  TargetTime=24.00 PosFormat=1
-.. Command acknowledged (1), [description: ]
-.. Received Response <MoveNode>:
-  nodeId=0 targetTime=24.00 2D-Position: x=203.36 y=491.75
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
 
--> Command sent: <SimulationStep>:
-  TargetTime=25.00 PosFormat=1
-.. Command acknowledged (1), [description: ]
-.. Received Response <MoveNode>:
-  nodeId=0 targetTime=25.00 2D-Position: x=220.23 y=491.75
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
 
 -> Command sent: <SetValue>:
   domID=196 varID=20 objID=veh0
 .. Command acknowledged (196), [description: ]
 
--> Command sent: <SimulationStep>:
-  TargetTime=26.00 PosFormat=1
-.. Command acknowledged (1), [description: ]
-.. Received Response <MoveNode>:
-  nodeId=0 targetTime=26.00 2D-Position: x=237.72 y=491.75
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
 
--> Command sent: <SimulationStep>:
-  TargetTime=27.00 PosFormat=1
-.. Command acknowledged (1), [description: ]
-.. Received Response <MoveNode>:
-  nodeId=0 targetTime=27.00 2D-Position: x=254.29 y=491.75
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
 
--> Command sent: <SimulationStep>:
-  TargetTime=28.00 PosFormat=1
-.. Command acknowledged (1), [description: ]
-.. Received Response <MoveNode>:
-  nodeId=0 targetTime=28.00 2D-Position: x=270.58 y=491.75
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
 
--> Command sent: <SimulationStep>:
-  TargetTime=29.00 PosFormat=1
-.. Command acknowledged (1), [description: ]
-.. Received Response <MoveNode>:
-  nodeId=0 targetTime=29.00 2D-Position: x=286.56 y=491.75
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
 
--> Command sent: <SimulationStep>:
-  TargetTime=30.00 PosFormat=1
-.. Command acknowledged (1), [description: ]
-.. Received Response <MoveNode>:
-  nodeId=0 targetTime=30.00 2D-Position: x=302.25 y=491.75
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
 
--> Command sent: <SimulationStep>:
-  TargetTime=31.00 PosFormat=1
-.. Command acknowledged (1), [description: ]
-.. Received Response <MoveNode>:
-  nodeId=0 targetTime=31.00 2D-Position: x=317.64 y=491.75
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
 
--> Command sent: <SimulationStep>:
-  TargetTime=32.00 PosFormat=1
-.. Command acknowledged (1), [description: ]
-.. Received Response <MoveNode>:
-  nodeId=0 targetTime=32.00 2D-Position: x=332.74 y=491.75
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
 
--> Command sent: <SimulationStep>:
-  TargetTime=33.00 PosFormat=1
-.. Command acknowledged (1), [description: ]
-.. Received Response <MoveNode>:
-  nodeId=0 targetTime=33.00 2D-Position: x=347.53 y=491.75
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
 
--> Command sent: <SimulationStep>:
-  TargetTime=34.00 PosFormat=1
-.. Command acknowledged (1), [description: ]
-.. Received Response <MoveNode>:
-  nodeId=0 targetTime=34.00 2D-Position: x=362.03 y=491.75
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
 
--> Command sent: <SimulationStep>:
-  TargetTime=35.00 PosFormat=1
-.. Command acknowledged (1), [description: ]
-.. Received Response <MoveNode>:
-  nodeId=0 targetTime=35.00 2D-Position: x=376.24 y=491.75
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
 
--> Command sent: <SimulationStep>:
-  TargetTime=36.00 PosFormat=1
-.. Command acknowledged (1), [description: ]
-.. Received Response <MoveNode>:
-  nodeId=0 targetTime=36.00 2D-Position: x=390.15 y=491.75
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
 
--> Command sent: <SimulationStep>:
-  TargetTime=37.00 PosFormat=1
-.. Command acknowledged (1), [description: ]
-.. Received Response <MoveNode>:
-  nodeId=0 targetTime=37.00 2D-Position: x=403.76 y=491.75
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
 
--> Command sent: <SimulationStep>:
-  TargetTime=38.00 PosFormat=1
-.. Command acknowledged (1), [description: ]
-.. Received Response <MoveNode>:
-  nodeId=0 targetTime=38.00 2D-Position: x=417.07 y=491.75
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
 
--> Command sent: <SimulationStep>:
-  TargetTime=39.00 PosFormat=1
-.. Command acknowledged (1), [description: ]
-.. Received Response <MoveNode>:
-  nodeId=0 targetTime=39.00 2D-Position: x=430.08 y=491.75
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
 
--> Command sent: <SimulationStep>:
-  TargetTime=40.00 PosFormat=1
-.. Command acknowledged (1), [description: ]
-.. Received Response <MoveNode>:
-  nodeId=0 targetTime=40.00 2D-Position: x=442.80 y=491.75
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
 
--> Command sent: <SimulationStep>:
-  TargetTime=41.00 PosFormat=1
-.. Command acknowledged (1), [description: ]
-.. Received Response <MoveNode>:
-  nodeId=0 targetTime=41.00 2D-Position: x=455.23 y=491.75
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
 
--> Command sent: <SimulationStep>:
-  TargetTime=42.00 PosFormat=1
-.. Command acknowledged (1), [description: ]
-.. Received Response <MoveNode>:
-  nodeId=0 targetTime=42.00 2D-Position: x=467.35 y=491.75
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
 
--> Command sent: <SimulationStep>:
-  TargetTime=43.00 PosFormat=1
-.. Command acknowledged (1), [description: ]
-.. Received Response <MoveNode>:
-  nodeId=0 targetTime=43.00 2D-Position: x=479.18 y=491.75
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
 
--> Command sent: <SimulationStep>:
-  TargetTime=44.00 PosFormat=1
-.. Command acknowledged (1), [description: ]
-.. Received Response <MoveNode>:
-  nodeId=0 targetTime=44.00 2D-Position: x=490.71 y=491.75
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
 
--> Command sent: <SimulationStep>:
-  TargetTime=45.00 PosFormat=1
-.. Command acknowledged (1), [description: ]
-.. Received Response <MoveNode>:
-  nodeId=0 targetTime=45.00 2D-Position: x=501.95 y=491.75
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
 
--> Command sent: <SimulationStep>:
-  TargetTime=46.00 PosFormat=1
-.. Command acknowledged (1), [description: ]
-.. Received Response <MoveNode>:
-  nodeId=0 targetTime=46.00 2D-Position: x=512.89 y=491.75
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
 
--> Command sent: <SimulationStep>:
-  TargetTime=47.00 PosFormat=1
-.. Command acknowledged (1), [description: ]
-.. Received Response <MoveNode>:
-  nodeId=0 targetTime=47.00 2D-Position: x=523.53 y=491.75
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
 
--> Command sent: <SimulationStep>:
-  TargetTime=48.00 PosFormat=1
-.. Command acknowledged (1), [description: ]
-.. Received Response <MoveNode>:
-  nodeId=0 targetTime=48.00 2D-Position: x=533.87 y=491.75
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
 
--> Command sent: <SimulationStep>:
-  TargetTime=49.00 PosFormat=1
-.. Command acknowledged (1), [description: ]
-.. Received Response <MoveNode>:
-  nodeId=0 targetTime=49.00 2D-Position: x=543.92 y=491.75
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
 
--> Command sent: <SimulationStep>:
-  TargetTime=50.00 PosFormat=1
-.. Command acknowledged (1), [description: ]
-.. Received Response <MoveNode>:
-  nodeId=0 targetTime=50.00 2D-Position: x=553.67 y=491.75
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
 
 -> Command sent: <SetValue>:
   domID=196 varID=20 objID=veh0
 .. Command acknowledged (196), [description: ]
 
--> Command sent: <SimulationStep>:
-  TargetTime=51.00 PosFormat=1
-.. Command acknowledged (1), [description: ]
-.. Received Response <MoveNode>:
-  nodeId=0 targetTime=51.00 2D-Position: x=563.12 y=491.75
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
 
--> Command sent: <SimulationStep>:
-  TargetTime=52.00 PosFormat=1
-.. Command acknowledged (1), [description: ]
-.. Received Response <MoveNode>:
-  nodeId=0 targetTime=52.00 2D-Position: x=572.87 y=491.75
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
 
--> Command sent: <SimulationStep>:
-  TargetTime=53.00 PosFormat=1
-.. Command acknowledged (1), [description: ]
-.. Received Response <MoveNode>:
-  nodeId=0 targetTime=53.00 2D-Position: x=582.62 y=491.75
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
 
--> Command sent: <SimulationStep>:
-  TargetTime=54.00 PosFormat=1
-.. Command acknowledged (1), [description: ]
-.. Received Response <MoveNode>:
-  nodeId=0 targetTime=54.00 2D-Position: x=592.37 y=491.75
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
 
--> Command sent: <SimulationStep>:
-  TargetTime=55.00 PosFormat=1
-.. Command acknowledged (1), [description: ]
-.. Received Response <MoveNode>:
-  nodeId=0 targetTime=55.00 2D-Position: x=602.12 y=491.75
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
 
--> Command sent: <SimulationStep>:
-  TargetTime=56.00 PosFormat=1
-.. Command acknowledged (1), [description: ]
-.. Received Response <MoveNode>:
-  nodeId=0 targetTime=56.00 2D-Position: x=611.87 y=491.75
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
 
--> Command sent: <SimulationStep>:
-  TargetTime=57.00 PosFormat=1
-.. Command acknowledged (1), [description: ]
-.. Received Response <MoveNode>:
-  nodeId=0 targetTime=57.00 2D-Position: x=621.62 y=491.75
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
 
--> Command sent: <SimulationStep>:
-  TargetTime=58.00 PosFormat=1
-.. Command acknowledged (1), [description: ]
-.. Received Response <MoveNode>:
-  nodeId=0 targetTime=58.00 2D-Position: x=631.37 y=491.75
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
 
--> Command sent: <SimulationStep>:
-  TargetTime=59.00 PosFormat=1
-.. Command acknowledged (1), [description: ]
-.. Received Response <MoveNode>:
-  nodeId=0 targetTime=59.00 2D-Position: x=641.12 y=491.75
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
 
--> Command sent: <SimulationStep>:
-  TargetTime=60.00 PosFormat=1
-.. Command acknowledged (1), [description: ]
-.. Received Response <MoveNode>:
-  nodeId=0 targetTime=60.00 2D-Position: x=650.87 y=491.75
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
 
--> Command sent: <SimulationStep>:
-  TargetTime=61.00 PosFormat=1
-.. Command acknowledged (1), [description: ]
-.. Received Response <MoveNode>:
-  nodeId=0 targetTime=61.00 2D-Position: x=660.63 y=491.75
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
 
--> Command sent: <SimulationStep>:
-  TargetTime=62.00 PosFormat=1
-.. Command acknowledged (1), [description: ]
-.. Received Response <MoveNode>:
-  nodeId=0 targetTime=62.00 2D-Position: x=670.38 y=491.75
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
 
--> Command sent: <SimulationStep>:
-  TargetTime=63.00 PosFormat=1
-.. Command acknowledged (1), [description: ]
-.. Received Response <MoveNode>:
-  nodeId=0 targetTime=63.00 2D-Position: x=680.13 y=491.75
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
 
--> Command sent: <SimulationStep>:
-  TargetTime=64.00 PosFormat=1
-.. Command acknowledged (1), [description: ]
-.. Received Response <MoveNode>:
-  nodeId=0 targetTime=64.00 2D-Position: x=689.88 y=491.75
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
 
--> Command sent: <SimulationStep>:
-  TargetTime=65.00 PosFormat=1
-.. Command acknowledged (1), [description: ]
-.. Received Response <MoveNode>:
-  nodeId=0 targetTime=65.00 2D-Position: x=699.63 y=491.75
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
 
--> Command sent: <SimulationStep>:
-  TargetTime=66.00 PosFormat=1
-.. Command acknowledged (1), [description: ]
-.. Received Response <MoveNode>:
-  nodeId=0 targetTime=66.00 2D-Position: x=709.38 y=491.75
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
 
--> Command sent: <SimulationStep>:
-  TargetTime=67.00 PosFormat=1
-.. Command acknowledged (1), [description: ]
-.. Received Response <MoveNode>:
-  nodeId=0 targetTime=67.00 2D-Position: x=719.13 y=491.75
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
 
--> Command sent: <SimulationStep>:
-  TargetTime=68.00 PosFormat=1
-.. Command acknowledged (1), [description: ]
-.. Received Response <MoveNode>:
-  nodeId=0 targetTime=68.00 2D-Position: x=728.88 y=491.75
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
 
--> Command sent: <SimulationStep>:
-  TargetTime=69.00 PosFormat=1
-.. Command acknowledged (1), [description: ]
-.. Received Response <MoveNode>:
-  nodeId=0 targetTime=69.00 2D-Position: x=738.63 y=491.75
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
 
--> Command sent: <SimulationStep>:
-  TargetTime=70.00 PosFormat=1
-.. Command acknowledged (1), [description: ]
-.. Received Response <MoveNode>:
-  nodeId=0 targetTime=70.00 2D-Position: x=748.38 y=491.75
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
 
--> Command sent: <SimulationStep>:
-  TargetTime=71.00 PosFormat=1
-.. Command acknowledged (1), [description: ]
-.. Received Response <MoveNode>:
-  nodeId=0 targetTime=71.00 2D-Position: x=758.13 y=491.75
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
 
--> Command sent: <SimulationStep>:
-  TargetTime=72.00 PosFormat=1
-.. Command acknowledged (1), [description: ]
-.. Received Response <MoveNode>:
-  nodeId=0 targetTime=72.00 2D-Position: x=767.88 y=491.75
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
 
--> Command sent: <SimulationStep>:
-  TargetTime=73.00 PosFormat=1
-.. Command acknowledged (1), [description: ]
-.. Received Response <MoveNode>:
-  nodeId=0 targetTime=73.00 2D-Position: x=778.32 y=491.75
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
 
--> Command sent: <SimulationStep>:
-  TargetTime=74.00 PosFormat=1
-.. Command acknowledged (1), [description: ]
-.. Received Response <MoveNode>:
-  nodeId=0 targetTime=74.00 2D-Position: x=789.44 y=491.75
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
 
--> Command sent: <SimulationStep>:
-  TargetTime=75.00 PosFormat=1
-.. Command acknowledged (1), [description: ]
-.. Received Response <MoveNode>:
-  nodeId=0 targetTime=75.00 2D-Position: x=801.23 y=491.75
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
 
--> Command sent: <SimulationStep>:
-  TargetTime=76.00 PosFormat=1
-.. Command acknowledged (1), [description: ]
-.. Received Response <MoveNode>:
-  nodeId=0 targetTime=76.00 2D-Position: x=813.69 y=491.75
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
 
--> Command sent: <SimulationStep>:
-  TargetTime=77.00 PosFormat=1
-.. Command acknowledged (1), [description: ]
-.. Received Response <MoveNode>:
-  nodeId=0 targetTime=77.00 2D-Position: x=826.80 y=491.75
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
 
--> Command sent: <SimulationStep>:
-  TargetTime=78.00 PosFormat=1
-.. Command acknowledged (1), [description: ]
-.. Received Response <MoveNode>:
-  nodeId=0 targetTime=78.00 2D-Position: x=840.57 y=491.75
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
 
--> Command sent: <SimulationStep>:
-  TargetTime=79.00 PosFormat=1
-.. Command acknowledged (1), [description: ]
-.. Received Response <MoveNode>:
-  nodeId=0 targetTime=79.00 2D-Position: x=854.98 y=491.75
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
 
--> Command sent: <SimulationStep>:
-  TargetTime=80.00 PosFormat=1
-.. Command acknowledged (1), [description: ]
-.. Received Response <MoveNode>:
-  nodeId=0 targetTime=80.00 2D-Position: x=870.02 y=491.75
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
 
--> Command sent: <SimulationStep>:
-  TargetTime=81.00 PosFormat=1
-.. Command acknowledged (1), [description: ]
-.. Received Response <MoveNode>:
-  nodeId=0 targetTime=81.00 2D-Position: x=885.69 y=491.75
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
 
--> Command sent: <SimulationStep>:
-  TargetTime=82.00 PosFormat=1
-.. Command acknowledged (1), [description: ]
-.. Received Response <MoveNode>:
-  nodeId=0 targetTime=82.00 2D-Position: x=901.98 y=491.75
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
 
--> Command sent: <SimulationStep>:
-  TargetTime=83.00 PosFormat=1
-.. Command acknowledged (1), [description: ]
-.. Received Response <MoveNode>:
-  nodeId=0 targetTime=83.00 2D-Position: x=918.89 y=491.75
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
 
--> Command sent: <SimulationStep>:
-  TargetTime=84.00 PosFormat=1
-.. Command acknowledged (1), [description: ]
-.. Received Response <MoveNode>:
-  nodeId=0 targetTime=84.00 2D-Position: x=936.40 y=491.75
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
 
--> Command sent: <SimulationStep>:
-  TargetTime=85.00 PosFormat=1
-.. Command acknowledged (1), [description: ]
-.. Received Response <MoveNode>:
-  nodeId=0 targetTime=85.00 2D-Position: x=954.52 y=491.75
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
 
--> Command sent: <SimulationStep>:
-  TargetTime=86.00 PosFormat=1
-.. Command acknowledged (1), [description: ]
-.. Received Response <MoveNode>:
-  nodeId=0 targetTime=86.00 2D-Position: x=973.22 y=491.75
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
 
--> Command sent: <SimulationStep>:
-  TargetTime=87.00 PosFormat=1
-.. Command acknowledged (1), [description: ]
-.. Received Response <MoveNode>:
-  nodeId=0 targetTime=87.00 2D-Position: x=992.52 y=491.75
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
 
--> Command sent: <SimulationStep>:
-  TargetTime=88.00 PosFormat=1
-.. Command acknowledged (1), [description: ]
-.. Received Response <MoveNode>:
-  nodeId=0 targetTime=88.00 2D-Position: x=1012.39 y=491.75
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
 
--> Command sent: <SimulationStep>:
-  TargetTime=89.00 PosFormat=1
-.. Command acknowledged (1), [description: ]
-.. Received Response <MoveNode>:
-  nodeId=0 targetTime=89.00 2D-Position: x=1032.83 y=491.75
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
 
--> Command sent: <SimulationStep>:
-  TargetTime=90.00 PosFormat=1
-.. Command acknowledged (1), [description: ]
-.. Received Response <MoveNode>:
-  nodeId=0 targetTime=90.00 2D-Position: x=1053.84 y=491.75
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
 
--> Command sent: <SimulationStep>:
-  TargetTime=91.00 PosFormat=1
-.. Command acknowledged (1), [description: ]
-.. Received Response <MoveNode>:
-  nodeId=0 targetTime=91.00 2D-Position: x=1075.41 y=491.75
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
 
--> Command sent: <SimulationStep>:
-  TargetTime=92.00 PosFormat=1
-.. Command acknowledged (1), [description: ]
-.. Received Response <MoveNode>:
-  nodeId=0 targetTime=92.00 2D-Position: x=1097.54 y=491.75
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
 
--> Command sent: <SimulationStep>:
-  TargetTime=93.00 PosFormat=1
-.. Command acknowledged (1), [description: ]
-.. Received Response <MoveNode>:
-  nodeId=0 targetTime=93.00 2D-Position: x=1120.21 y=491.75
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
 
--> Command sent: <SimulationStep>:
-  TargetTime=94.00 PosFormat=1
-.. Command acknowledged (1), [description: ]
-.. Received Response <MoveNode>:
-  nodeId=0 targetTime=94.00 2D-Position: x=1143.42 y=491.75
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
 
--> Command sent: <SimulationStep>:
-  TargetTime=95.00 PosFormat=1
-.. Command acknowledged (1), [description: ]
-.. Received Response <MoveNode>:
-  nodeId=0 targetTime=95.00 2D-Position: x=1167.17 y=491.75
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
 
--> Command sent: <SimulationStep>:
-  TargetTime=96.00 PosFormat=1
-.. Command acknowledged (1), [description: ]
-.. Received Response <MoveNode>:
-  nodeId=0 targetTime=96.00 2D-Position: x=1191.44 y=491.75
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
 
--> Command sent: <SimulationStep>:
-  TargetTime=97.00 PosFormat=1
-.. Command acknowledged (1), [description: ]
-.. Received Response <MoveNode>:
-  nodeId=0 targetTime=97.00 2D-Position: x=1216.24 y=491.75
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
 
--> Command sent: <SimulationStep>:
-  TargetTime=98.00 PosFormat=1
-.. Command acknowledged (1), [description: ]
-.. Received Response <MoveNode>:
-  nodeId=0 targetTime=98.00 2D-Position: x=1241.56 y=491.75
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
 
--> Command sent: <SimulationStep>:
-  TargetTime=99.00 PosFormat=1
-.. Command acknowledged (1), [description: ]
-.. Received Response <MoveNode>:
-  nodeId=0 targetTime=99.00 2D-Position: x=1267.38 y=491.75
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
 
--> Command sent: <SimulationStep>:
-  TargetTime=100.00 PosFormat=1
-.. Command acknowledged (1), [description: ]
-.. Received Response <MoveNode>:
-  nodeId=0 targetTime=100.00 2D-Position: x=1293.71 y=491.75
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
 
 -> Command sent: <SetValue>:
   domID=196 varID=20 objID=veh0
 .. Command acknowledged (196), [description: ]
 
--> Command sent: <SimulationStep>:
-  TargetTime=101.00 PosFormat=1
-.. Command acknowledged (1), [description: ]
-.. Received Response <MoveNode>:
-  nodeId=0 targetTime=101.00 2D-Position: x=1320.54 y=491.75
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
 
--> Command sent: <SimulationStep>:
-  TargetTime=102.00 PosFormat=1
-.. Command acknowledged (1), [description: ]
-.. Received Response <MoveNode>:
-  nodeId=0 targetTime=102.00 2D-Position: x=1344.24 y=491.75
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
 
--> Command sent: <SimulationStep>:
-  TargetTime=103.00 PosFormat=1
-.. Command acknowledged (1), [description: ]
-.. Received Response <MoveNode>:
-  nodeId=0 targetTime=103.00 2D-Position: x=1365.30 y=491.75
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
 
--> Command sent: <SimulationStep>:
-  TargetTime=104.00 PosFormat=1
-.. Command acknowledged (1), [description: ]
-.. Received Response <MoveNode>:
-  nodeId=0 targetTime=104.00 2D-Position: x=1383.73 y=491.75
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
 
--> Command sent: <SimulationStep>:
-  TargetTime=105.00 PosFormat=1
-.. Command acknowledged (1), [description: ]
-.. Received Response <MoveNode>:
-  nodeId=0 targetTime=105.00 2D-Position: x=1399.53 y=491.75
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
 
--> Command sent: <SimulationStep>:
-  TargetTime=106.00 PosFormat=1
-.. Command acknowledged (1), [description: ]
-.. Received Response <MoveNode>:
-  nodeId=0 targetTime=106.00 2D-Position: x=1412.70 y=491.75
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
 
--> Command sent: <SimulationStep>:
-  TargetTime=107.00 PosFormat=1
-.. Command acknowledged (1), [description: ]
-.. Received Response <MoveNode>:
-  nodeId=0 targetTime=107.00 2D-Position: x=1423.23 y=491.75
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
 
--> Command sent: <SimulationStep>:
-  TargetTime=108.00 PosFormat=1
-.. Command acknowledged (1), [description: ]
-.. Received Response <MoveNode>:
-  nodeId=0 targetTime=108.00 2D-Position: x=1431.13 y=491.75
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
 
--> Command sent: <SimulationStep>:
-  TargetTime=109.00 PosFormat=1
-.. Command acknowledged (1), [description: ]
-.. Received Response <MoveNode>:
-  nodeId=0 targetTime=109.00 2D-Position: x=1436.40 y=491.75
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
 
--> Command sent: <SimulationStep>:
-  TargetTime=110.00 PosFormat=1
-.. Command acknowledged (1), [description: ]
-.. Received Response <MoveNode>:
-  nodeId=0 targetTime=110.00 2D-Position: x=1439.03 y=491.75
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
 
--> Command sent: <SimulationStep>:
-  TargetTime=111.00 PosFormat=1
-.. Command acknowledged (1), [description: ]
-.. Received Response <MoveNode>:
-  nodeId=0 targetTime=111.00 2D-Position: x=1439.03 y=491.75
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
 
--> Command sent: <SimulationStep>:
-  TargetTime=112.00 PosFormat=1
-.. Command acknowledged (1), [description: ]
-.. Received Response <MoveNode>:
-  nodeId=0 targetTime=112.00 2D-Position: x=1439.03 y=491.75
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
 
--> Command sent: <SimulationStep>:
-  TargetTime=113.00 PosFormat=1
-.. Command acknowledged (1), [description: ]
-.. Received Response <MoveNode>:
-  nodeId=0 targetTime=113.00 2D-Position: x=1439.83 y=491.75
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
 
--> Command sent: <SimulationStep>:
-  TargetTime=114.00 PosFormat=1
-.. Command acknowledged (1), [description: ]
-.. Received Response <MoveNode>:
-  nodeId=0 targetTime=114.00 2D-Position: x=1441.42 y=491.75
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
 
--> Command sent: <SimulationStep>:
-  TargetTime=115.00 PosFormat=1
-.. Command acknowledged (1), [description: ]
-.. Received Response <MoveNode>:
-  nodeId=0 targetTime=115.00 2D-Position: x=1443.79 y=491.75
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
 
--> Command sent: <SimulationStep>:
-  TargetTime=116.00 PosFormat=1
-.. Command acknowledged (1), [description: ]
-.. Received Response <MoveNode>:
-  nodeId=0 targetTime=116.00 2D-Position: x=1446.94 y=491.75
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
 
--> Command sent: <SimulationStep>:
-  TargetTime=117.00 PosFormat=1
-.. Command acknowledged (1), [description: ]
-.. Received Response <MoveNode>:
-  nodeId=0 targetTime=117.00 2D-Position: x=1450.85 y=491.75
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
 
--> Command sent: <SimulationStep>:
-  TargetTime=118.00 PosFormat=1
-.. Command acknowledged (1), [description: ]
-.. Received Response <MoveNode>:
-  nodeId=0 targetTime=118.00 2D-Position: x=1455.51 y=491.75
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
 
--> Command sent: <SimulationStep>:
-  TargetTime=119.00 PosFormat=1
-.. Command acknowledged (1), [description: ]
-.. Received Response <MoveNode>:
-  nodeId=0 targetTime=119.00 2D-Position: x=1460.92 y=491.75
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
 
--> Command sent: <SimulationStep>:
-  TargetTime=120.00 PosFormat=1
-.. Command acknowledged (1), [description: ]
-.. Received Response <MoveNode>:
-  nodeId=0 targetTime=120.00 2D-Position: x=1467.07 y=491.75
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
 
--> Command sent: <SimulationStep>:
-  TargetTime=121.00 PosFormat=1
-.. Command acknowledged (1), [description: ]
-.. Received Response <MoveNode>:
-  nodeId=0 targetTime=121.00 2D-Position: x=1473.95 y=491.75
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
 
--> Command sent: <SimulationStep>:
-  TargetTime=122.00 PosFormat=1
-.. Command acknowledged (1), [description: ]
-.. Received Response <MoveNode>:
-  nodeId=0 targetTime=122.00 2D-Position: x=1481.55 y=491.75
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
 
--> Command sent: <SimulationStep>:
-  TargetTime=123.00 PosFormat=1
-.. Command acknowledged (1), [description: ]
-.. Received Response <MoveNode>:
-  nodeId=0 targetTime=123.00 2D-Position: x=1489.87 y=491.75
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
 
--> Command sent: <SimulationStep>:
-  TargetTime=124.00 PosFormat=1
-.. Command acknowledged (1), [description: ]
-.. Received Response <MoveNode>:
-  nodeId=0 targetTime=124.00 2D-Position: x=1498.89 y=491.75
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
 
--> Command sent: <SimulationStep>:
-  TargetTime=125.00 PosFormat=1
-.. Command acknowledged (1), [description: ]
-.. Received Response <MoveNode>:
-  nodeId=0 targetTime=125.00 2D-Position: x=1508.60 y=491.75
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
 
--> Command sent: <SimulationStep>:
-  TargetTime=126.00 PosFormat=1
-.. Command acknowledged (1), [description: ]
-.. Received Response <MoveNode>:
-  nodeId=0 targetTime=126.00 2D-Position: x=1519.01 y=491.75
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
 
--> Command sent: <SimulationStep>:
-  TargetTime=127.00 PosFormat=1
-.. Command acknowledged (1), [description: ]
-.. Received Response <MoveNode>:
-  nodeId=0 targetTime=127.00 2D-Position: x=1530.09 y=491.75
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
 
--> Command sent: <SimulationStep>:
-  TargetTime=128.00 PosFormat=1
-.. Command acknowledged (1), [description: ]
-.. Received Response <MoveNode>:
-  nodeId=0 targetTime=128.00 2D-Position: x=1541.85 y=491.75
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
 
--> Command sent: <SimulationStep>:
-  TargetTime=129.00 PosFormat=1
-.. Command acknowledged (1), [description: ]
-.. Received Response <MoveNode>:
-  nodeId=0 targetTime=129.00 2D-Position: x=1554.28 y=491.75
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
 
--> Command sent: <SimulationStep>:
-  TargetTime=130.00 PosFormat=1
-.. Command acknowledged (1), [description: ]
-.. Received Response <MoveNode>:
-  nodeId=0 targetTime=130.00 2D-Position: x=1567.36 y=491.75
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
 
--> Command sent: <SimulationStep>:
-  TargetTime=131.00 PosFormat=1
-.. Command acknowledged (1), [description: ]
-.. Received Response <MoveNode>:
-  nodeId=0 targetTime=131.00 2D-Position: x=1581.09 y=491.75
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
 
--> Command sent: <SimulationStep>:
-  TargetTime=132.00 PosFormat=1
-.. Command acknowledged (1), [description: ]
-.. Received Response <MoveNode>:
-  nodeId=0 targetTime=132.00 2D-Position: x=1595.47 y=491.75
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
 
--> Command sent: <SimulationStep>:
-  TargetTime=133.00 PosFormat=1
-.. Command acknowledged (1), [description: ]
-.. Received Response <MoveNode>:
-  nodeId=0 targetTime=133.00 2D-Position: x=1610.48 y=491.75
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
 
--> Command sent: <SimulationStep>:
-  TargetTime=134.00 PosFormat=1
-.. Command acknowledged (1), [description: ]
-.. Received Response <MoveNode>:
-  nodeId=0 targetTime=134.00 2D-Position: x=1626.12 y=491.75
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
 
--> Command sent: <SimulationStep>:
-  TargetTime=135.00 PosFormat=1
-.. Command acknowledged (1), [description: ]
-.. Received Response <MoveNode>:
-  nodeId=0 targetTime=135.00 2D-Position: x=1642.38 y=491.75
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
 
--> Command sent: <SimulationStep>:
-  TargetTime=136.00 PosFormat=1
-.. Command acknowledged (1), [description: ]
-.. Received Response <MoveNode>:
-  nodeId=0 targetTime=136.00 2D-Position: x=1659.26 y=491.75
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
 
--> Command sent: <SimulationStep>:
-  TargetTime=137.00 PosFormat=1
-.. Command acknowledged (1), [description: ]
-.. Received Response <MoveNode>:
-  nodeId=0 targetTime=137.00 2D-Position: x=1676.74 y=491.75
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
 
--> Command sent: <SimulationStep>:
-  TargetTime=138.00 PosFormat=1
-.. Command acknowledged (1), [description: ]
-.. Received Response <MoveNode>:
-  nodeId=0 targetTime=138.00 2D-Position: x=1694.83 y=491.75
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
 
--> Command sent: <SimulationStep>:
-  TargetTime=139.00 PosFormat=1
-.. Command acknowledged (1), [description: ]
-.. Received Response <MoveNode>:
-  nodeId=0 targetTime=139.00 2D-Position: x=1713.50 y=491.75
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
 
--> Command sent: <SimulationStep>:
-  TargetTime=140.00 PosFormat=1
-.. Command acknowledged (1), [description: ]
-.. Received Response <MoveNode>:
-  nodeId=0 targetTime=140.00 2D-Position: x=1732.77 y=491.75
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
 
--> Command sent: <SimulationStep>:
-  TargetTime=141.00 PosFormat=1
-.. Command acknowledged (1), [description: ]
-.. Received Response <MoveNode>:
-  nodeId=0 targetTime=141.00 2D-Position: x=1752.61 y=491.75
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
 
--> Command sent: <SimulationStep>:
-  TargetTime=142.00 PosFormat=1
-.. Command acknowledged (1), [description: ]
-.. Received Response <MoveNode>:
-  nodeId=0 targetTime=142.00 2D-Position: x=1773.03 y=491.75
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
 
--> Command sent: <SimulationStep>:
-  TargetTime=143.00 PosFormat=1
-.. Command acknowledged (1), [description: ]
-.. Received Response <MoveNode>:
-  nodeId=0 targetTime=143.00 2D-Position: x=1794.01 y=491.75
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
 
--> Command sent: <SimulationStep>:
-  TargetTime=144.00 PosFormat=1
-.. Command acknowledged (1), [description: ]
-.. Received Response <MoveNode>:
-  nodeId=0 targetTime=144.00 2D-Position: x=1815.55 y=491.75
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
 
--> Command sent: <SimulationStep>:
-  TargetTime=145.00 PosFormat=1
-.. Command acknowledged (1), [description: ]
-.. Received Response <MoveNode>:
-  nodeId=0 targetTime=145.00 2D-Position: x=1837.65 y=491.75
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
 
--> Command sent: <SimulationStep>:
-  TargetTime=146.00 PosFormat=1
-.. Command acknowledged (1), [description: ]
-.. Received Response <MoveNode>:
-  nodeId=0 targetTime=146.00 2D-Position: x=1860.29 y=491.75
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
 
--> Command sent: <SimulationStep>:
-  TargetTime=147.00 PosFormat=1
-.. Command acknowledged (1), [description: ]
-.. Received Response <MoveNode>:
-  nodeId=0 targetTime=147.00 2D-Position: x=1883.48 y=491.75
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
 
--> Command sent: <SimulationStep>:
-  TargetTime=148.00 PosFormat=1
-.. Command acknowledged (1), [description: ]
-.. Received Response <MoveNode>:
-  nodeId=0 targetTime=148.00 2D-Position: x=1907.20 y=491.75
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
 
--> Command sent: <SimulationStep>:
-  TargetTime=149.00 PosFormat=1
-.. Command acknowledged (1), [description: ]
-.. Received Response <MoveNode>:
-  nodeId=0 targetTime=149.00 2D-Position: x=1931.45 y=491.75
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
 
--> Command sent: <SimulationStep>:
-  TargetTime=150.00 PosFormat=1
-.. Command acknowledged (1), [description: ]
-.. Received Response <MoveNode>:
-  nodeId=0 targetTime=150.00 2D-Position: x=1956.22 y=491.75
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
 
 -> Command sent: <Close>:
 .. Command acknowledged (127), [description: Goodbye]
