@@ -24,3 +24,5 @@ routes:version{->}-->
 pois:version{->}-->
 emitters:version{->}-->
 
+[floating_point_tolerance]
+emitters:0.0101
