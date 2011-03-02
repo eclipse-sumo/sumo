@@ -81,6 +81,10 @@ NIImporter_SUMO::loadNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
     NBEdgeCont &edgesCont = nb.getEdgeCont();
     for (std::map<std::string, EdgeAttrs*>::const_iterator i=loadedEdges.begin(); i!=loadedEdges.end(); ++i) {
         EdgeAttrs *ed = (*i).second;
+        // skip internal edges (provisionally)
+        if (ed->func == "internal") {
+            continue;
+        }
         // get and check the nodes
         NBNode *from = nodesCont.retrieve(ed->fromNode);
         NBNode *to = nodesCont.retrieve(ed->toNode);
@@ -169,10 +173,10 @@ NIImporter_SUMO::myStartElement(SumoXMLTag element,
         addJunction(attrs);
         break;
     case SUMO_TAG_SUCC:
-        addSuccEdge(attrs);
+        //addSuccEdge(attrs);
         break;
     case SUMO_TAG_SUCCLANE:
-        addSuccLane(attrs);
+        //addSuccLane(attrs);
         break;
     default:
         break;
@@ -234,6 +238,8 @@ NIImporter_SUMO::addEdge(const SUMOSAXAttributes &attrs) {
     myCurrentEdge->id = id;
     // get the type
     myCurrentEdge->type = attrs.getOptStringReporting(SUMO_ATTR_TYPE, "edge", id.c_str(), ok, "");
+    // get the function
+    myCurrentEdge->func = attrs.getOptStringReporting(SUMO_ATTR_FUNCTION, "edge", id.c_str(), ok, "normal");
     // get the origin and the destination node
     myCurrentEdge->fromNode = attrs.getOptStringReporting(SUMO_ATTR_FROM, "edge", id.c_str(), ok, "");
     myCurrentEdge->toNode = attrs.getOptStringReporting(SUMO_ATTR_TO, "edge", id.c_str(), ok, "");
@@ -291,7 +297,11 @@ NIImporter_SUMO::addJunction(const SUMOSAXAttributes &attrs) {
 void
 NIImporter_SUMO::addSuccEdge(const SUMOSAXAttributes &attrs) {
     bool ok = true;
+    //NLHandler::openSucc
+    //std::string id = attrs.getStringReporting(SUMO_ATTR_LANE, "succ", 0, ok); // 
     std::string lane = attrs.getOptStringReporting(SUMO_ATTR_LANE, 0, 0, ok, "");
+
+    // this fails for internal lanes because they do not follow the naming scheme 'edge_index'
     std::string edge = lane.substr(0, lane.find('_'));
     int index = TplConvert<char>::_2int(lane.substr(lane.find('_')+1).c_str());
     myCurrentEdge = 0;

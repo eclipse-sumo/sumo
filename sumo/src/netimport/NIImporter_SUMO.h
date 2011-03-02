@@ -190,6 +190,8 @@ private:
         std::string id;
         /// @brief This edge's type
         std::string type;
+        /// @brief This edge's function
+        std::string func;
         /// @brief The node this edge starts at
         std::string fromNode;
         /// @brief The node this edge ends at
