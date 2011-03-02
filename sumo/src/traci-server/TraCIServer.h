@@ -73,6 +73,13 @@ public:
     typedef bool(*CmdExecutor)(traci::TraCIServer &server, tcpip::Storage &inputStorage, tcpip::Storage &outputStorage);
 
 
+    /** @brief Initialises the server
+     * @param[in] execs The (additional) command executors to use
+     */
+    static void openSocket(const std::map<int, CmdExecutor> &execs);
+
+
+
     struct RoadMapPos {
         std::string roadId;
         float pos;
@@ -82,7 +89,7 @@ public:
     };
 
     // process all commands until a simulation step is wanted
-    static void processCommandsUntilSimStep(SUMOTime step) throw(ProcessError);
+    static void processCommandsUntilSimStep(SUMOTime step);
 
     // check whether close was requested
     static bool wasClosed();
@@ -90,7 +97,7 @@ public:
     // check whether close was requested
     static void close();
 
-    void vehicleStateChanged(const SUMOVehicle * const vehicle, MSNet::VehicleState to) throw();
+    void vehicleStateChanged(const SUMOVehicle * const vehicle, MSNet::VehicleState to);
 
     // return vehicle that is referenced by the given external id
     MSVehicle* getVehicleByExtId(int extId);
@@ -114,7 +121,7 @@ public:
      */
     TraCIServer::RoadMapPos convertCartesianToRoadMap(Position2D pos);
 
-    const std::map<MSNet::VehicleState, std::vector<std::string> > &getVehicleStateChanges() const throw() {
+    const std::map<MSNet::VehicleState, std::vector<std::string> > &getVehicleStateChanges() const {
         return myVehicleStateChanges;
     }
 
@@ -125,11 +132,11 @@ public:
      *  than within this container
      * @return Mapped command executors
      */
-    std::map<int, CmdExecutor> &getExecutors() throw() {
+    std::map<int, CmdExecutor> &getExecutors() {
         return myExecutors;
     }
 
-    static void jt(const std::map<int, CmdExecutor> &execs) throw();
+
 
 
 private:
@@ -140,9 +147,9 @@ private:
 
     // Destructor
     // final cleanup
-    virtual ~TraCIServer(void) throw();
+    virtual ~TraCIServer(void);
 
-    int dispatchCommand() throw(TraCIException, std::invalid_argument);
+    int dispatchCommand();
 
     // process command simStep
     // This is the basic comman that encourage the mobility generator to simulate up to the given TargetTime.
@@ -151,16 +158,16 @@ private:
     // But node positions can be represented in many more ways, e.g. 2.5D, 3D or as points on a road network.
     // The desired representation of positions is given by the entry ResultType.
     // If more than one representation is needed, the command simulation step can be sent several times with the same Target Time and different ResultTypes.
-    void postProcessSimulationStep() throw(TraCIException, std::invalid_argument);
-    void postProcessSimulationStep2() throw(TraCIException, std::invalid_argument);
+    void postProcessSimulationStep();
+    void postProcessSimulationStep2();
 
 
 
-    bool commandGetVersion() throw(TraCIException);
+    bool commandGetVersion();
 
-    bool commandCloseConnection() throw(TraCIException);
+    bool commandCloseConnection();
 
-    bool commandSimulationParameter() throw(TraCIException);
+    bool commandSimulationParameter();
 
 
     // process command slowDown
@@ -168,18 +175,18 @@ private:
     // given by duration. This simulates different methods of slowing down, like instant braking, coasting...
     // It's assumed that the speed reduction is linear
     // @param in contains nodeID(integer), speed (float), duration(double)
-    bool commandSlowDown() throw(TraCIException);
+    bool commandSlowDown();
 
 
-    bool commandUpdateCalibrator() throw(TraCIException);
+    bool commandUpdateCalibrator();
 
-    bool commandPositionConversion() throw(TraCIException);
+    bool commandPositionConversion();
 
-    bool commandScenario() throw(TraCIException);
+    bool commandScenario();
 
-    bool commandAddVehicle() throw(TraCIException);
+    bool commandAddVehicle();
 
-    bool commandDistanceRequest() throw(TraCIException);
+    bool commandDistanceRequest();
 
 
 
@@ -196,44 +203,44 @@ private:
      * @return string containing an optional warning (to be added to the response command) if
      *			the requested variable type could not be used
      */
-    std::string handleRoadMapDomain(bool isWriteCommand, tcpip::Storage& response) throw(TraCIException);
+    std::string handleRoadMapDomain(bool isWriteCommand, tcpip::Storage& response);
 
     /**
      * Handles the request of a Scenario Command for obtaining information on
      * the vehicle domain.
      */
-    std::string handleVehicleDomain(bool isWriteCommand, tcpip::Storage& response) throw(TraCIException);
+    std::string handleVehicleDomain(bool isWriteCommand, tcpip::Storage& response);
 
     /**
      * Handles  the request of a Scenario Command for obtaining information on
      * the traffic light domain.
      */
-    std::string handleTrafficLightDomain(bool isWriteCommand, tcpip::Storage& response) throw(TraCIException);
+    std::string handleTrafficLightDomain(bool isWriteCommand, tcpip::Storage& response);
 
     /**
      * Handles  the request of a Scenario Command for obtaining information on
      * the point of interest domain.
      */
-    std::string handlePoiDomain(bool isWriteCommand, tcpip::Storage& response) throw(TraCIException);
+    std::string handlePoiDomain(bool isWriteCommand, tcpip::Storage& response);
 
     /**
      * Handles  the request of a Scenario Command for obtaining information on
      * the polygon domain.
      */
-    std::string handlePolygonDomain(bool isWriteCommand, tcpip::Storage& response) throw(TraCIException);
+    std::string handlePolygonDomain(bool isWriteCommand, tcpip::Storage& response);
 
     /**
      * Notifies client of all lifecycle events it is subscribed to
      */
-    void handleLifecycleSubscriptions() throw(TraCIException);
+    void handleLifecycleSubscriptions();
 
     /**
      * Notifies client of all domain object update events it is subscribed to
      */
-    void handleDomainSubscriptions(const SUMOTime& currentTime, const std::map<int, const SUMOVehicle*>& activeEquippedVehicles) throw(TraCIException);
+    void handleDomainSubscriptions(const SUMOTime& currentTime, const std::map<int, const SUMOVehicle*>& activeEquippedVehicles);
 
 
-    bool addSubscription(int commandId) throw(TraCIException);
+    bool addSubscription(int commandId);
 
     /**
      * Converts a road map position to a cartesian position
@@ -241,7 +248,7 @@ private:
      * @param pos road map position that is to be convertes
      * @return closest 2D position
      */
-    Position2D convertRoadMapToCartesian(TraCIServer::RoadMapPos pos) throw(TraCIException);
+    Position2D convertRoadMapToCartesian(TraCIServer::RoadMapPos pos);
 
     // singleton instance of the server
     static TraCIServer* instance_;
@@ -335,7 +342,7 @@ private:
     std::vector<Subscription> mySubscriptions;
 
     bool processSingleSubscription(const TraCIServer::Subscription &s, tcpip::Storage &writeInto,
-                                   std::string &errors) throw(TraCIException);
+                                   std::string &errors);
 
     std::map<MSNet::VehicleState, std::vector<std::string> > myVehicleStateChanges;
 
@@ -358,7 +365,7 @@ private:
 public:
     DataTypeContainer() :lastValueRead(-1) {};
 
-    void readValue(unsigned char dataType, tcpip::Storage& msg) throw(TraCIException) {
+    void readValue(unsigned char dataType, tcpip::Storage& msg) {
         switch (dataType) {
         case TYPE_UBYTE:
             intValue = msg.readUnsignedByte();
@@ -408,7 +415,7 @@ public:
         return lastValueRead;
     }
 
-    unsigned char getUByte() throw(TraCIException) {
+    unsigned char getUByte() {
         if (lastValueRead == TYPE_UBYTE) {
             return static_cast<unsigned char>(intValue);
         } else {
@@ -416,7 +423,7 @@ public:
         }
     };
 
-    char getByte() throw(TraCIException) {
+    char getByte() {
         if (lastValueRead == TYPE_BYTE) {
             return static_cast<char>(intValue);
         } else {
@@ -424,7 +431,7 @@ public:
         }
     };
 
-    int getInteger() throw(TraCIException) {
+    int getInteger() {
         if (lastValueRead == TYPE_INTEGER) {
             return intValue;
         } else {
@@ -432,7 +439,7 @@ public:
         }
     };
 
-    float getFloat() throw(TraCIException) {
+    float getFloat() {
         if (lastValueRead == TYPE_FLOAT) {
             return static_cast<float>(realValue);
         } else {
@@ -440,7 +447,7 @@ public:
         }
     };
 
-    double getDouble() throw(TraCIException) {
+    double getDouble() {
         if (lastValueRead == TYPE_DOUBLE) {
             return intValue;
         } else {
@@ -448,7 +455,7 @@ public:
         }
     };
 
-    void getBoundingBox(float& x1, float& y1, float& x2, float& y2) throw(TraCIException) {
+    void getBoundingBox(float& x1, float& y1, float& x2, float& y2) {
         if (lastValueRead == TYPE_BOUNDINGBOX) {
             x1 = boundingBox[0];
             y1 = boundingBox[1];
@@ -459,7 +466,7 @@ public:
         }
     };
 
-    TraCIServer::RoadMapPos getRoadMapPosition() throw(TraCIException) {
+    TraCIServer::RoadMapPos getRoadMapPosition() {
         if (lastValueRead == POSITION_ROADMAP) {
             return roadPosValue;
         } else {
@@ -467,7 +474,7 @@ public:
         }
     };
 
-    void get3DPosition(float& inX, float& inY, float& inZ) throw(TraCIException) {
+    void get3DPosition(float& inX, float& inY, float& inZ) {
         if (lastValueRead == POSITION_3D || lastValueRead == POSITION_2_5D) {
             inX = posXValue;
             inY = posYValue;
@@ -477,7 +484,7 @@ public:
         }
     };
 
-    void get2DPosition(float& inX, float& inY) throw(TraCIException) {
+    void get2DPosition(float& inX, float& inY) {
         if (lastValueRead == POSITION_2D) {
             inX = posXValue;
             inY = posYValue;
@@ -486,7 +493,7 @@ public:
         }
     };
 
-    Position2D getAnyPosition() throw(TraCIException) {
+    Position2D getAnyPosition() {
         if (lastValueRead == POSITION_2D
                 || lastValueRead == POSITION_3D
                 || lastValueRead == POSITION_2_5D) {
@@ -498,7 +505,7 @@ public:
         }
     };
 
-    std::string getString() throw(TraCIException) {
+    std::string getString() {
         if (lastValueRead == TYPE_STRING) {
             return stringValue;
         } else {

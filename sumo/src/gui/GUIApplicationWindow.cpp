@@ -832,6 +832,22 @@ void
 GUIApplicationWindow::handleEvent_SimulationLoaded(GUIEvent *e) {
     myAmLoading = false;
     GUIEvent_SimulationLoaded *ec = static_cast<GUIEvent_SimulationLoaded*>(e);
+    if (ec->myNet!=0) {
+#ifndef NO_TRACI
+        std::map<int, traci::TraCIServer::CmdExecutor> execs;
+        execs[CMD_GET_GUI_VARIABLE] = &TraCIServerAPI_GUI::processGet;
+        execs[CMD_SET_GUI_VARIABLE] = &TraCIServerAPI_GUI::processSet;
+        try {
+            traci::TraCIServer::openSocket(execs);
+        } catch (ProcessError &e) {
+            myMessageWindow->appendText(EVENT_ERROR_OCCURED, e.what());
+            MsgHandler::getErrorInstance()->inform(e.what());
+            delete ec->myNet;
+            ec->myNet = 0;
+        }
+#endif
+    }
+
     // check whether the loading was successfull
     if (ec->myNet==0) {
         // report failure
@@ -843,12 +859,6 @@ GUIApplicationWindow::handleEvent_SimulationLoaded(GUIEvent *e) {
     } else {
         // report success
         setStatusBarText("'" + ec->myFile + "' loaded.");
-#ifndef NO_TRACI
-        std::map<int, traci::TraCIServer::CmdExecutor> execs;
-        execs[CMD_GET_GUI_VARIABLE] = &TraCIServerAPI_GUI::processGet;
-        execs[CMD_SET_GUI_VARIABLE] = &TraCIServerAPI_GUI::processSet;
-        traci::TraCIServer::jt(execs);
-#endif
         // initialise simulation thread
         myRunThread->init(ec->myNet, ec->myBegin, ec->myEnd);
         myWasStarted = false;
@@ -1068,7 +1078,7 @@ GUIApplicationWindow::setStatusBarText(const std::string &text) {
 
 
 bool
-GUIApplicationWindow::loadSelection(const std::string &file, std::string &msg) throw() {
+GUIApplicationWindow::loadSelection(const std::string &file, std::string &msg) {
     return GUISelectionLoader::loadSelection(file, msg);
 }
 

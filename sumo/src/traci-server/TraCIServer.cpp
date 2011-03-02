@@ -115,7 +115,7 @@ bool TraCIServer::closeConnection_ = false;
 // ===========================================================================
 
 void
-TraCIServer::jt(const std::map<int, CmdExecutor> &execs) throw() {
+TraCIServer::openSocket(const std::map<int, CmdExecutor> &execs) {
     if (instance_ == 0) {
         if (!closeConnection_ && OptionsCont::getOptions().getInt("remote-port") != 0) {
             instance_ = new traci::TraCIServer();
@@ -267,12 +267,11 @@ TraCIServer::TraCIServer() {
     } catch (SocketException &e) {
         throw ProcessError(e.what());
     }
-
 }
 
 /*****************************************************************************/
 
-TraCIServer::~TraCIServer() throw() {
+TraCIServer::~TraCIServer() {
     MSNet::getInstance()->removeVehicleStateListener(this);
     if (socket_ != NULL) {
         socket_->close();
@@ -295,7 +294,7 @@ TraCIServer::close() {
 /*****************************************************************************/
 
 void
-TraCIServer::vehicleStateChanged(const SUMOVehicle * const vehicle, MSNet::VehicleState to) throw() {
+TraCIServer::vehicleStateChanged(const SUMOVehicle * const vehicle, MSNet::VehicleState to) {
     if (closeConnection_ || OptionsCont::getOptions().getInt("remote-port") == 0) {
         return;
     }
@@ -304,7 +303,7 @@ TraCIServer::vehicleStateChanged(const SUMOVehicle * const vehicle, MSNet::Vehic
 
 /*****************************************************************************/
 void
-TraCIServer::processCommandsUntilSimStep(SUMOTime step) throw(ProcessError) {
+TraCIServer::processCommandsUntilSimStep(SUMOTime step) {
     try {
         if (instance_ == 0) {
             if (!closeConnection_ && OptionsCont::getOptions().getInt("remote-port") != 0) {
@@ -384,8 +383,7 @@ TraCIServer::wasClosed() {
 /*****************************************************************************/
 
 int
-TraCIServer::dispatchCommand()
-throw(TraCIException, std::invalid_argument) {
+TraCIServer::dispatchCommand() {
     unsigned int commandStart = myInputStorage.position();
     unsigned int commandLength = myInputStorage.readUnsignedByte();
     if (commandLength==0) {
@@ -485,7 +483,7 @@ throw(TraCIException, std::invalid_argument) {
 /*****************************************************************************/
 
 void
-TraCIServer::postProcessSimulationStep() throw(TraCIException, std::invalid_argument) {
+TraCIServer::postProcessSimulationStep() {
     // Position representation
     int resType = myInputStorage.readUnsignedByte();
     if (resType != POSITION_NONE && resType != POSITION_2D && resType != POSITION_ROADMAP
@@ -629,7 +627,7 @@ TraCIServer::postProcessSimulationStep() throw(TraCIException, std::invalid_argu
 
 
 void
-TraCIServer::postProcessSimulationStep2() throw(TraCIException, std::invalid_argument) {
+TraCIServer::postProcessSimulationStep2() {
     SUMOTime t = MSNet::getInstance()->getCurrentTimeStep();
     writeStatusCmd(CMD_SIMSTEP2, RTYPE_OK, "");
     int noActive = 0;
@@ -668,7 +666,7 @@ TraCIServer::postProcessSimulationStep2() throw(TraCIException, std::invalid_arg
 /*****************************************************************************/
 
 bool
-TraCIServer::commandGetVersion() throw(TraCIException) {
+TraCIServer::commandGetVersion() {
 
     int apiVersion = 1;
     std::string sumoVersion = VERSION_STRING;
@@ -694,7 +692,7 @@ TraCIServer::commandGetVersion() throw(TraCIException) {
 /*****************************************************************************/
 
 bool
-TraCIServer::commandCloseConnection() throw(TraCIException) {
+TraCIServer::commandCloseConnection() {
     closeConnection_ = true;
     // write answer
     writeStatusCmd(CMD_CLOSE, RTYPE_OK, "Goodbye");
@@ -704,7 +702,7 @@ TraCIServer::commandCloseConnection() throw(TraCIException) {
 /*****************************************************************************/
 
 bool
-TraCIServer::commandSimulationParameter() throw(TraCIException) {
+TraCIServer::commandSimulationParameter() {
     bool setParameter = (myInputStorage.readByte() != 0);
     std::string parameter = myInputStorage.readString();
 
@@ -792,7 +790,7 @@ TraCIServer::commandSimulationParameter() throw(TraCIException) {
 /*****************************************************************************/
 
 bool
-TraCIServer::commandUpdateCalibrator() throw(TraCIException) {
+TraCIServer::commandUpdateCalibrator() {
     myOutputStorage.reset();
 
     int countTime = myInputStorage.readInt();
@@ -809,7 +807,7 @@ TraCIServer::commandUpdateCalibrator() throw(TraCIException) {
 /*****************************************************************************/
 
 bool
-TraCIServer::commandPositionConversion() throw(TraCIException) {
+TraCIServer::commandPositionConversion() {
     tcpip::Storage tmpResult;
     RoadMapPos roadPos;
     Position2D cartesianPos;
@@ -913,7 +911,7 @@ TraCIServer::commandPositionConversion() throw(TraCIException) {
 /*****************************************************************************/
 
 bool
-TraCIServer::commandScenario() throw(TraCIException) {
+TraCIServer::commandScenario() {
     Storage tmpResult;
     std::string warning = "";	// additional description for response
 
@@ -970,7 +968,7 @@ TraCIServer::commandScenario() throw(TraCIException) {
 /*****************************************************************************/
 
 bool
-TraCIServer::commandAddVehicle() throw(TraCIException) {
+TraCIServer::commandAddVehicle() {
 
     // read parameters
     std::string vehicleId = myInputStorage.readString();
@@ -1058,7 +1056,7 @@ TraCIServer::commandAddVehicle() throw(TraCIException) {
 /*****************************************************************************/
 
 bool
-TraCIServer::commandDistanceRequest() throw(TraCIException) {
+TraCIServer::commandDistanceRequest() {
     Position2D pos1;
     Position2D pos2;
     RoadMapPos roadPos1;
@@ -1405,8 +1403,7 @@ TraCIServer::convertCartesianToRoadMap(Position2D pos) {
 /*****************************************************************************/
 
 Position2D
-TraCIServer::convertRoadMapToCartesian(traci::TraCIServer::RoadMapPos roadPos)
-throw(TraCIException) {
+TraCIServer::convertRoadMapToCartesian(traci::TraCIServer::RoadMapPos roadPos) {
     if (roadPos.pos < 0) {
         throw TraCIException("Position on lane must not be negative");
     }
@@ -1430,8 +1427,7 @@ throw(TraCIException) {
 /*****************************************************************************/
 
 std::string
-TraCIServer::handleRoadMapDomain(bool isWriteCommand, tcpip::Storage& response)
-throw(TraCIException) {
+TraCIServer::handleRoadMapDomain(bool isWriteCommand, tcpip::Storage& response) {
     std::string name = "";
     std::string warning = "";	// additional description for response
     DataTypeContainer dataCont;
@@ -1551,8 +1547,7 @@ throw(TraCIException) {
 /*****************************************************************************/
 
 std::string
-TraCIServer::handleVehicleDomain(bool isWriteCommand, tcpip::Storage& response)
-throw(TraCIException) {
+TraCIServer::handleVehicleDomain(bool isWriteCommand, tcpip::Storage& response) {
     std::string name;
     int count = 0;
     MSVehicleControl* vehControl = NULL;
@@ -1929,8 +1924,7 @@ throw(TraCIException) {
 /*****************************************************************************/
 
 std::string
-TraCIServer::handleTrafficLightDomain(bool isWriteCommand, tcpip::Storage& response)
-throw(TraCIException) {
+TraCIServer::handleTrafficLightDomain(bool isWriteCommand, tcpip::Storage& response) {
     int count = 0;
     std::string name;
     std::string warning = "";	// additional description for response
@@ -2151,8 +2145,7 @@ throw(TraCIException) {
 /*****************************************************************************/
 
 std::string
-TraCIServer::handlePoiDomain(bool isWriteCommand, tcpip::Storage& response)
-throw(TraCIException) {
+TraCIServer::handlePoiDomain(bool isWriteCommand, tcpip::Storage& response) {
     std::string name;
     std::string warning = "";	// additional description for response
     DataTypeContainer dataCont;
@@ -2276,8 +2269,7 @@ throw(TraCIException) {
 /*****************************************************************************/
 
 std::string
-TraCIServer::handlePolygonDomain(bool isWriteCommand, tcpip::Storage& response)
-throw(TraCIException) {
+TraCIServer::handlePolygonDomain(bool isWriteCommand, tcpip::Storage& response) {
     std::string name;
     std::string warning = "";	// additional description for response
     DataTypeContainer dataCont;
@@ -2418,8 +2410,7 @@ throw(TraCIException) {
 /*****************************************************************************/
 
 void
-TraCIServer::handleLifecycleSubscriptions()
-throw(TraCIException) {
+TraCIServer::handleLifecycleSubscriptions() {
 
     if (myLifecycleSubscriptions.count(DOM_VEHICLE) != 0) {
 
@@ -2449,8 +2440,7 @@ throw(TraCIException) {
 /*****************************************************************************/
 
 void
-TraCIServer::handleDomainSubscriptions(const SUMOTime& currentTime, const map<int, const SUMOVehicle*>& activeEquippedVehicles)
-throw(TraCIException) {
+TraCIServer::handleDomainSubscriptions(const SUMOTime& currentTime, const map<int, const SUMOVehicle*>& activeEquippedVehicles) {
 
     if (myDomainSubscriptions.count(DOM_VEHICLE) != 0) {
 
@@ -2507,7 +2497,7 @@ throw(TraCIException) {
 
 
 bool
-TraCIServer::addSubscription(int commandId) throw(TraCIException) {
+TraCIServer::addSubscription(int commandId) {
     SUMOTime beginTime = myInputStorage.readInt();
     SUMOTime endTime = myInputStorage.readInt();
     std::string id = myInputStorage.readString();
@@ -2558,7 +2548,7 @@ TraCIServer::addSubscription(int commandId) throw(TraCIException) {
 
 bool
 TraCIServer::processSingleSubscription(const Subscription &s, tcpip::Storage &writeInto,
-                                       std::string &errors) throw(TraCIException) {
+                                       std::string &errors) {
     bool ok = true;
     tcpip::Storage outputStorage;
     for (std::vector<int>::const_iterator i=s.variables.begin(); i!=s.variables.end(); ++i) {

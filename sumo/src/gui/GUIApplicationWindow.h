@@ -172,7 +172,7 @@ public:
      * @return Whether the selection could be loaded (fills the error message if not)
      * @see GUIMainWindow::loadSelection
      */
-    bool loadSelection(const std::string &file, std::string &msg) throw();
+    bool loadSelection(const std::string &file, std::string &msg);
 
 protected:
     virtual void addToWindowsMenu(FXMenuPane *) { }
