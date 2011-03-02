@@ -102,14 +102,15 @@ del { color: #555555; }
 #wrapper { text-align: center; }
 .col1 { width: 270px; float: left; margin: 0 15px; text-align: left; }
 .col1 ul { margin: 0 0 0 15px; padding: 0; line-height: 1.5em;  }
-.col1 li { font-size: 14px; padding-bottom: 10px; margin-left: 10px; }
+.col1 li { font-size: 14px; font-weight: bold; padding-bottom: 10px; margin-left: 10px; }
 .col1 h3 { font-size: 18px; padding: 5px 10px; margin-top: 20px; }
 .col2 { width: 270px; float: left; margin: 0 15px; text-align: left; }
 .col2 ul { margin: 0 0 0 15px; padding: 0; line-height: 1.5em;  }
-.col2 li { font-size: 14px; padding-bottom: 10px; margin-left: 10px; }
+.col2 li { font-size: 14px; font-weight: bold; padding-bottom: 10px; margin-left: 10px; }
 .col2 h3 { font-size: 18px; padding: 5px 10px; margin-top: 20px; }
-.slink { font-size: 12px; font-weight: normal; margin-top: -.5em; margin-bottom: 10px; margin-left: 5px; }
-.slink a { font-size: 12px; font-weight: normal; margin-top: -.5em; margin-bottom: 10px; margin-left: 5px; }
+.slink { font-size: 12px; font-weight: normal; margin-top: -.8em; margin-bottom: 10px; margin-left: 5px; }
+.slink a { font-size: 12px; font-weight: normal; margin-top: -.8em; margin-bottom: 10px; margin-left: 5px; }
+.small { font-size: 12px; font-weight: normal; margin-top: .2em; }
 
 #step1 h3 {
 	background-color: #C6EB9A;
@@ -123,9 +124,11 @@ del { color: #555555; }
 	background-color: #ffb366;	
 }
 
+#step1 li { color: #307030; border-bottom-color: #307030; } 
 #step1 a:link { color: #307030; border-bottom-color: #307030; } 
 #step1 a:visited { color: #307030; border-bottom-color: #307030; }
 
+#step2 li { color: #707000; border-bottom-color: #707000; } 
 #step2 a:link { color: #707000; border-bottom-color: #707000; } 
 #step2 a:visited { color: #707000; border-bottom-color: #707000; } 
 
