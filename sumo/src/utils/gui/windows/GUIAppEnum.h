@@ -323,9 +323,6 @@ enum {
     MID_GNE_MODE_INSPECT,
     //@}
 
-
-    MID_CUTSWELL,
-
     MID_LAST
 };
 
