@@ -11,6 +11,7 @@ copy_test_path:input_flows.flows.xml
 copy_test_path:input_turns.turns.xml
 copy_test_path:settings.xml
 copy_test_path:sumo.sumo.cfg
+copy_test_path:sumo_log.sumo.cfg
 
 [collate_file]
 vehroutes:vehroutes.xml
