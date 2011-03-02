@@ -77,7 +77,7 @@ public:
      * @param[out] msg The error message
      * @return Whether the selection could be loaded (fills the error message if not)
      */
-    virtual bool loadSelection(const std::string &file, std::string &msg) throw() = 0;
+    virtual bool loadSelection(const std::string &file, std::string &msg) = 0;
 
     bool isGaming() const throw();
 

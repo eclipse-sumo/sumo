@@ -455,16 +455,16 @@ public:
     class VehicleStateListener {
     public:
         /// @brief Constructor
-        VehicleStateListener() throw() { }
+        VehicleStateListener() { }
 
         /// @brief Destructor
-        virtual ~VehicleStateListener() throw() { }
+        virtual ~VehicleStateListener() { }
 
         /** @brief Called if a vehicle changes its state
          * @param[in] vehicle The vehicle which changed its state
          * @param[in] to The state the vehicle has changed to
          */
-        virtual void vehicleStateChanged(const SUMOVehicle * const vehicle, VehicleState to) throw() = 0;
+        virtual void vehicleStateChanged(const SUMOVehicle * const vehicle, VehicleState to) = 0;
 
     };
 
