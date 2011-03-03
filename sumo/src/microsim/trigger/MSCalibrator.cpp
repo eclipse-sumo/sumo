@@ -99,7 +99,7 @@ MSCalibrator::execute(SUMOTime timestep) throw(ProcessError) {
     */
 
     //positive diff=too many vehicles, negative diff=not enough vehicles
-    unsigned veh_cnt = myIL->getNVehContributed();
+    unsigned veh_cnt = myIL->getCurrentPassedNumber();
     SUMOReal diff =  veh_cnt - vehPerInterval + myToCalibrate;
     SUMOReal meanSpeed = myIL->getCurrentSpeed();
 
@@ -161,7 +161,7 @@ MSCalibrator::execute(SUMOTime timestep) throw(ProcessError) {
     		myIL->writeXMLOutput(*dev3, timestep-1, timestep);
     	}
 
-    //	WRITE_WARNING("execute2(" + toString(timestep) + "): Count: " + toString(myIL->getNVehContributed(myInterval)));
+    //	WRITE_WARNING("execute2(" + toString(timestep) + "): Count: " + toString(myIL->getCurrentPassedNumber(myInterval)));
      */
 
     return 1;

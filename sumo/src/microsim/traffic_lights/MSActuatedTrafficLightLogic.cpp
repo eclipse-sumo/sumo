@@ -147,7 +147,7 @@ MSActuatedTrafficLightLogic::duration() const throw() {
             }
             for (LaneVector::const_iterator j=lanes.begin(); j!=lanes.end(); j++) {
                 InductLoopMap::const_iterator k = myInductLoops.find(*j);
-                SUMOReal waiting = (SUMOReal)(*k).second->getNVehContributed();
+                SUMOReal waiting = (SUMOReal)(*k).second->getCurrentPassedNumber();
                 SUMOReal tmpdur =  myPassingTime * waiting;
                 if (tmpdur > newduration) {
                     // here we cut the decimal places, because we have to return an integer

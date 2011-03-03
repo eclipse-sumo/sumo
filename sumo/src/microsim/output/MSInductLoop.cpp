@@ -156,7 +156,7 @@ MSInductLoop::getCurrentOccupancy() const throw() {
 }
 
 
-SUMOReal
+unsigned int
 MSInductLoop::getCurrentPassedNumber() const throw() {
     std::vector<VehicleData> d = collectVehiclesOnDet(MSNet::getInstance()->getCurrentTimeStep()-DELTA_T);
     return (SUMOReal) d.size();
@@ -171,12 +171,6 @@ MSInductLoop::getCurrentVehicleIDs() const throw() {
         ret.push_back((*i).idM);
     }
     return ret;
-}
-
-
-unsigned
-MSInductLoop::getNVehContributed() const throw() {
-    return (unsigned int) collectVehiclesOnDet(MSNet::getInstance()->getCurrentTimeStep()-DELTA_T).size();
 }
 
 

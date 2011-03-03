@@ -161,21 +161,15 @@ MSMsgInductLoop::getCurrentOccupancy() const throw() {
 }
 
 
-SUMOReal
+unsigned int
 MSMsgInductLoop::getCurrentPassedNumber() const throw() {
     if (myCurrentVehicle!=0) {
-        return 1.;
+        return 1;
     }
     if (myLastLeaveTime*1000.>MSNet::getInstance()->getCurrentTimeStep()-DELTA_T) {
-        return 0.;
+        return 0;
     }
-    return 1.;
-}
-
-
-unsigned
-MSMsgInductLoop::getNVehContributed() const throw() {
-    return (unsigned) myVehicleDataCont.size();
+    return 1;
 }
 
 

@@ -199,7 +199,7 @@ public:
      * @return The number of vehicles that have passed the detector
      * @todo recheck (especially if more than one vehicle has passed)
      */
-    SUMOReal getCurrentPassedNumber() const throw();
+    unsigned int getCurrentPassedNumber() const throw();
 
 
     /** @brief Returns the time since the last vehicle left the detector
@@ -207,14 +207,6 @@ public:
      * @return Timesteps from last leaving (detection) of the detector
      */
     SUMOReal getTimestepsSinceLastDetection() const throw();
-    //@}
-
-
-
-    /// @name Methods returning aggregated values
-    /// @{
-
-    unsigned getNVehContributed() const throw();
     //@}
 
 
