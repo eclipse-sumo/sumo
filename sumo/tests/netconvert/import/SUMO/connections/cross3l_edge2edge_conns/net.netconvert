@@ -1,31 +1,32 @@
 <?xml version="1.0"?>
 
-<!-- generated on 03/03/11 15:21:28 by SUMO netconvert Version dev-SVN-r9838
+<!-- generated on 03/03/11 15:26:42 by SUMO netconvert Version dev-SVN-r9838
 <?xml version="1.0" encoding="iso-8859-1"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <xml-node-files value="input_nodes.nod.xml"/>
-        <xml-edge-files value="input_edges.edg.xml"/>
-        <xml-connection-files value="e2e_input_connections.con.xml"/>
+        <sumo-net value="input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="input_net.net.xml"/>
+        <output-file value="net.net.xml"/>
     </output>
 
     <processing>
-        <speed-in-kmh value="true"/>
         <no-internal-links value="true"/>
     </processing>
+
+    <report>
+        <verbose value="true"/>
+    </report>
 
 </configuration>
 -->
 
 <net>
 
-   <location netOffset="500.00,500.00" convBoundary="0.00,0.00,1000.00,1000.00" origBoundary="-500.00,-500.00,500.00,500.00" projParameter="!"/>
+   <location netOffset="0.00,0.00" convBoundary="0.00,0.00,1000.00,1000.00" origBoundary="0.00,0.00,1000.00,1000.00" projParameter="!"/>
 
    <edge id="1fi" from="1" to="m1" priority="2" type="" function="normal">
       <lanes>
