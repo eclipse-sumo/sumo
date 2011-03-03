@@ -70,6 +70,45 @@ GUIInductLoop::buildDetectorWrapper(GUIGlObjectStorage &idStorage,
 }
 
 
+void
+GUIInductLoop::reset() throw() {
+    myLock.lock();
+    MSInductLoop::reset();
+    myLock.unlock();
+}
+
+
+void 
+GUIInductLoop::enterDetectorByMove(SUMOVehicle& veh, SUMOReal entryTimestep) throw() {
+    myLock.lock();
+    MSInductLoop::enterDetectorByMove(veh, entryTimestep);
+    myLock.unlock();
+}
+
+void 
+GUIInductLoop::leaveDetectorByMove(SUMOVehicle& veh, SUMOReal leaveTimestep) throw() {
+    myLock.lock();
+    MSInductLoop::leaveDetectorByMove(veh, leaveTimestep);
+    myLock.unlock();
+}
+
+void 
+GUIInductLoop::leaveDetectorByLaneChange(SUMOVehicle& veh) throw() {
+    myLock.lock();
+    MSInductLoop::leaveDetectorByLaneChange(veh);
+    myLock.unlock();
+}
+
+
+std::vector<MSInductLoop::VehicleData> 
+GUIInductLoop::collectVehiclesOnDet(SUMOTime t) const throw() {
+    myLock.lock();
+    std::vector<VehicleData> ret = MSInductLoop::collectVehiclesOnDet(t);
+    myLock.unlock();
+    return ret;
+}
+
+
 /* -------------------------------------------------------------------------
  * GUIInductLoop::MyWrapper-methods
  * ----------------------------------------------------------------------- */

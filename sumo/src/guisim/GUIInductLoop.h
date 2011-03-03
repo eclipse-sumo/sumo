@@ -29,6 +29,7 @@
 #include <config.h>
 #endif
 
+#include <utils/foxtools/MFXMutex.h>
 #include <microsim/output/MSInductLoop.h>
 #include <utils/geom/Position2D.h>
 #include "GUIDetectorWrapper.h"
@@ -46,9 +47,13 @@ class GUILaneWrapper;
 // ===========================================================================
 /**
  * @class GUIInductLoop
- * The gui-version of the MSInductLoop.
+ * @brief The gui-version of the MSInductLoop.
+ *
  * Allows the building of a wrapper (also declared herein) which draws the
- * detector on the gl-canvas.
+ *  detector on the gl-canvas. Uses a mutex to avoid parallel read/write operations.
+ *  The mutex is only set within methods that change MSInductLoop-internal state
+ *  and within "collectVehiclesOnDet". All other reading operations should be performed
+ *  vie the simulation loop only.
  */
 class GUIInductLoop : public MSInductLoop {
 public:
@@ -68,24 +73,79 @@ public:
     ~GUIInductLoop() throw();
 
 
+    /** @brief Resets all generated values to allow computation of next interval
+     *
+     * Locks the internal mutex before calling MSInductLoop::reset()
+     * @see MSInductLoop::reset()
+     */
+    void reset() throw();
+
+
     /** @brief Returns this detector's visualisation-wrapper
         valid for gui-version only */
-    virtual GUIDetectorWrapper *buildDetectorWrapper(
-        GUIGlObjectStorage &idStorage, GUILaneWrapper &lane);
+    virtual GUIDetectorWrapper *buildDetectorWrapper(GUIGlObjectStorage &idStorage, GUILaneWrapper &lane);
+
+
+protected:
+    /// @name Methods that add and remove vehicles from internal container
+    /// @{
+
+    /** @brief Introduces a vehicle to the detector's map myVehiclesOnDet.
+     *
+     * Locks the internal mutex before calling MSInductLoop::enterDetectorByMove()
+     * @see MSInductLoop::enterDetectorByMove()
+     * @param veh The entering vehicle.
+     * @param entryTimestep Timestep (not necessary integer) of entrance.
+     * @see MSInductLoop::enterDetectorByMove()
+     */
+    void enterDetectorByMove(SUMOVehicle& veh, SUMOReal entryTimestep) throw();
+
+
+    /** @brief Processes a vehicle that leaves the detector
+     *
+     * Locks the internal mutex before calling MSInductLoop::leaveDetectorByMove()
+     * @see MSInductLoop::leaveDetectorByMove()
+     * @param veh The leaving vehicle.
+     * @param leaveTimestep Timestep (not necessary integer) of leaving.
+     * @see MSInductLoop::leaveDetectorByMove()
+     */
+    void leaveDetectorByMove(SUMOVehicle& veh, SUMOReal leaveTimestep) throw();
+
+
+    /** @brief Removes a vehicle from the detector's map myVehiclesOnDet.
+     *
+     * Locks the internal mutex before calling MSInductLoop::leaveDetectorByLaneChange()
+     * @see MSInductLoop::leaveDetectorByLaneChange()
+     * @param veh The leaving vehicle.
+     */
+    void leaveDetectorByLaneChange(SUMOVehicle& veh) throw();
+    /// @}
+
+
+    /** @brief Returns vehicle data for vehicles that have been on the detector starting at the given time
+     *
+     * This method uses a mutex to prevent parallel read/write access to the vehicle buffer
+     *
+     * @param[in] t The time from which vehicles shall be counted
+     * @return The list of vehicles
+     * @see MSInductLoop::collectVehiclesOnDet()
+     */
+    std::vector<VehicleData> collectVehiclesOnDet(SUMOTime t) const throw();
+
 
 public:
     /**
      * @class GUIInductLoop::MyWrapper
-     * A MSInductLoop-visualiser
+     * @brief A MSInductLoop-visualiser
      */
     class MyWrapper : public GUIDetectorWrapper {
     public:
-        /// Constructor
+        /// @brief Constructor
         MyWrapper(GUIInductLoop &detector,
                   GUIGlObjectStorage &idStorage, GUILaneWrapper &wrapper,
                   SUMOReal pos) throw();
 
-        /// Destructor
+        /// @brief Destructor
         ~MyWrapper() throw();
 
 
@@ -155,6 +215,10 @@ public:
         MyWrapper& operator=(const MyWrapper&);
 
     };
+
+
+    /// @brief Mutex preventing parallel read/write access to internal MSInductLoop state
+    mutable MFXMutex myLock;
 
 };
 

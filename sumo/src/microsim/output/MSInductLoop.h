@@ -92,7 +92,7 @@ public:
 
     /** @brief Resets all generated values to allow computation of next interval
      */
-    void reset() throw();
+    virtual void reset() throw();
 
 
     /// @name Methods inherited from MSMoveReminder
@@ -256,7 +256,7 @@ protected:
      * @param veh The entering vehicle.
      * @param entryTimestep Timestep (not necessary integer) of entrance.
      */
-    void enterDetectorByMove(SUMOVehicle& veh, SUMOReal entryTimestep) throw();
+    virtual void enterDetectorByMove(SUMOVehicle& veh, SUMOReal entryTimestep) throw();
 
 
     /** @brief Processes a vehicle that leaves the detector
@@ -267,13 +267,13 @@ protected:
      * @param veh The leaving vehicle.
      * @param leaveTimestep Timestep (not necessary integer) of leaving.
      */
-    void leaveDetectorByMove(SUMOVehicle& veh, SUMOReal leaveTimestep) throw();
+    virtual void leaveDetectorByMove(SUMOVehicle& veh, SUMOReal leaveTimestep) throw();
 
 
     /** @brief Removes a vehicle from the detector's map myVehiclesOnDet.
      * @param veh The leaving vehicle.
      */
-    void leaveDetectorByLaneChange(SUMOVehicle& veh) throw();
+    virtual void leaveDetectorByLaneChange(SUMOVehicle& veh) throw();
     /// @}
 
 
@@ -328,13 +328,10 @@ protected:
 
     /** @brief Returns vehicle data for vehicles that have been on the detector starting at the given time
      *
-     *
-     *
-     *
      * @param[in] t The time from which vehicles shall be counted
      * @return The list of vehicles
      */
-    std::vector<VehicleData> collectVehiclesOnDet(SUMOTime t) const throw();
+    virtual std::vector<VehicleData> collectVehiclesOnDet(SUMOTime t) const throw();
 
 
 protected:
