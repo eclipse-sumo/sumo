@@ -56,6 +56,32 @@ class OutputDevice;
 /**
  * @class NBNetBuilder
  * @brief Instance responsible for building networks
+ *
+ * The class' - and the netbuild module's - functionality is embedded within the
+ *  compute() method which subsequently performs the following steps:
+ * -# Removing dummy edges (using NBNodeCont::removeDummyEdges())
+ * -# Joining double connections
+ * -# Finding isolated roads
+ * -# Removing empty nodes and geometry nodes (optional)
+ * -# Removing unwished edges (optional)
+ * -# Rechecking nodes after edge removal (optional)
+ * -# Splitting geometry edges (optional)
+ * -# Normalising/transposing node positions
+ * -# Guessing and setting on-/off-ramps
+ * -# Guessing and setting TLs
+ * -# Computing turning directions
+ * -# Sorting nodes' edges
+ * -# Guessing and setting roundabouts
+ * -# Computing Approached Edges
+ * -# Computing Approaching Lanes
+ * -# Dividing of Lanes on Approached Lanes
+ * -# Appending Turnarounds (optional)
+ * -# Rechecking of lane endings
+ * -# Computing node shapes
+ * -# Computing edge shapes
+ * -# Computing tls logics
+ * -# Computing node logics
+ * -# Computing traffic light logics
  */
 class NBNetBuilder {
 public:
@@ -148,8 +174,6 @@ public:
 protected:
     /**
      * @brief Performs the network building steps
-     *
-     * Performs subsequently the building steps.
      *
      * @param[in] oc Container that contains options for building
      * @exception ProcessError (recheck)
