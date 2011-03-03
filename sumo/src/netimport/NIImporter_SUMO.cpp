@@ -173,10 +173,10 @@ NIImporter_SUMO::myStartElement(SumoXMLTag element,
         addJunction(attrs);
         break;
     case SUMO_TAG_SUCC:
-        //addSuccEdge(attrs);
+        addSuccEdge(attrs);
         break;
     case SUMO_TAG_SUCCLANE:
-        //addSuccLane(attrs);
+        addSuccLane(attrs);
         break;
     default:
         break;
