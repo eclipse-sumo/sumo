@@ -313,7 +313,10 @@ enum {
 
     /// @name NETEDIT Message IDs
     //@{
-    /// mode selection messages
+    /** mode has changed */
+    MID_GNE_MODE_CHANGE,
+
+    /** mode for adding edges */
     MID_GNE_MODE_CREATE_EDGE,
     /** mode for moving things */
     MID_GNE_MODE_MOVE,
