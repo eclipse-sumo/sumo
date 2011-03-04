@@ -321,6 +321,10 @@ enum {
     MID_GNE_MODE_DELETE,
     /** mode for inspecting object attributes */
     MID_GNE_MODE_INSPECT,
+
+    /// misc messages
+    /** save network*/
+    MID_GNE_SAVE_NETWORK,
     //@}
 
     MID_LAST
