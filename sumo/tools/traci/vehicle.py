@@ -3,7 +3,7 @@
 @file    vehicle.py
 @author  Michael.Behrisch@dlr.de, Lena Kalleske
 @date    2008-10-09
-@version $Id: traciControl.py 9525 2011-01-04 21:22:52Z behrisch $
+@version $Id$
 
 Python implementation of the TraCI interface.
 
