@@ -37,12 +37,12 @@
 #include <netbuild/NBNodeCont.h>
 #include <netbuild/NBNetBuilder.h>
 #include <utils/xml/SUMOXMLDefinitions.h>
-#include "NIImporter_SUMO.h"
 #include <utils/geom/GeoConvHelper.h>
 #include <utils/geom/GeomConvHelper.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/common/FileHelpers.h>
 #include <utils/xml/XMLSubSys.h>
+#include "NIImporter_SUMO.h"
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -297,26 +297,15 @@ NIImporter_SUMO::addJunction(const SUMOSAXAttributes &attrs) {
 void
 NIImporter_SUMO::addSuccEdge(const SUMOSAXAttributes &attrs) {
     bool ok = true;
-    //NLHandler::openSucc
-    //std::string id = attrs.getStringReporting(SUMO_ATTR_LANE, "succ", 0, ok); // 
-    std::string lane = attrs.getOptStringReporting(SUMO_ATTR_LANE, 0, 0, ok, "");
-
-    // this fails for internal lanes because they do not follow the naming scheme 'edge_index'
-    std::string edge = lane.substr(0, lane.find('_'));
-    int index = TplConvert<char>::_2int(lane.substr(lane.find('_')+1).c_str());
+    std::string edge_id = attrs.getStringReporting(SUMO_ATTR_EDGE, "succ", 0, ok); // 
     myCurrentEdge = 0;
-    myCurrentLane = 0;
-    if (myEdges.find(edge)==myEdges.end()) {
-        MsgHandler::getErrorInstance()->inform("Unknown edge '" + edge + "' given in succedge.");
+    if (myEdges.find(edge_id)==myEdges.end()) {
+        MsgHandler::getErrorInstance()->inform("Unknown edge '" + edge_id + "' given in succedge.");
         return;
     }
-    myCurrentEdge = myEdges.find(edge)->second;
-    // !!! externalize retrieval of lane index by name
-    if (myCurrentEdge->lanes.size()<(size_t) index) {
-        MsgHandler::getErrorInstance()->inform("Unknown lane '" + lane + "' given in succedge.");
-        return;
-    }
-    myCurrentLane = myCurrentEdge->lanes[(size_t) index];
+    myCurrentEdge = myEdges.find(edge_id)->second;
+    std::string lane_id = attrs.getStringReporting(SUMO_ATTR_LANE, "succ", 0, ok); // 
+    myCurrentLane = getLaneAttrsFromID(myCurrentEdge, lane_id);
 }
 
 
@@ -334,6 +323,23 @@ NIImporter_SUMO::addSuccLane(const SUMOSAXAttributes &attrs) {
 }
 
 
+NIImporter_SUMO::LaneAttrs* 
+NIImporter_SUMO::getLaneAttrsFromID(EdgeAttrs* edge, std::string lane_id) {
+    // assume lane_id = edge_id + '_' + index
+    assert(edge->id == lane_id.substr(0, edge->id.size()));
+    std::string index_string = lane_id.substr(edge->id.size() + 1);
+    try {
+        int index = TplConvert<char>::_2int(index_string.c_str());
+        if (edge->lanes.size()<(size_t) index) {
+            MsgHandler::getErrorInstance()->inform("Unknown lane '" + lane_id + "' given in succedge.");
+            return 0;
+        }
+        return edge->lanes[(size_t) index];
+    } catch (NumberFormatException) {
+        MsgHandler::getErrorInstance()->inform("Invalid lane index '" + index_string + "' for lane '" + lane_id + "' given in succedge.");
+        return 0;
+    }
+}
 
 /****************************************************************************/
 

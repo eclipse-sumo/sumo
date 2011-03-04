@@ -219,6 +219,12 @@ private:
     /// @brief The currently parsed lanes's definition (to add the shape to)
     LaneAttrs *myCurrentLane;
 
+    /** @brief Parses lane index from lane ID an retrieve lane from EdgeAttrs 
+     * @param[in] edge The EdgeAttrs* which should contain the lane
+     * @param[in] lane_id The ID of the lane
+     */
+    LaneAttrs* getLaneAttrsFromID(EdgeAttrs* edge, std::string lane_id);
+
 };
 
 
