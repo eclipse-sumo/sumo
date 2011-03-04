@@ -104,10 +104,9 @@ public:
 
 
     /** @brief Builds a network using the loaded structures and saves it
-     *
-     * @exception IOError (not yet implemented)
+     * @param[in] oc The options container to read options from
      */
-    void buildLoaded() throw(IOError);
+    void buildLoaded(OptionsCont& oc);
 
 
 

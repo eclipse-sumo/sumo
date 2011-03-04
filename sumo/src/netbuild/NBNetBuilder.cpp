@@ -97,9 +97,8 @@ NBNetBuilder::applyOptions(OptionsCont &oc) throw(ProcessError) {
 
 
 void
-NBNetBuilder::buildLoaded() throw(IOError) {
+NBNetBuilder::buildLoaded(OptionsCont& oc) {
     // perform the computation
-    OptionsCont &oc = OptionsCont::getOptions();
     compute(oc);
     // save network
     OutputDevice& device = OutputDevice::getDevice(oc.getString("output"));
