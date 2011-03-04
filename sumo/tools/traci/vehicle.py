@@ -24,6 +24,7 @@ RETURN_VALUE_FUNC = {tc.ID_LIST:        traci.Storage.readStringList,
                      tc.VAR_ROUTE_ID:   traci.Storage.readString,
                      tc.VAR_LANEPOSITION:      traci.Storage.readFloat,
                      tc.VAR_COLOR:      lambda(result): result.read("!BBBB")}
+subscriptionResults = {}
 
 def _getUniversal(varID, vehID):
     result = traci._sendReadOneStringCmd(tc.CMD_GET_VEHICLE_VARIABLE, varID, vehID)
@@ -85,17 +86,17 @@ def getBestLanes(vehID):
     return lanes
 
 
-def subscribe(vehID, varIDs=(tc.VAR_POSITION,), begin=0, end=2**31-1):
+def subscribe(vehID, varIDs=(tc.VAR_ROAD_ID, tc.VAR_LANEPOSITION), begin=0, end=2**31-1):
+    _resetSubscriptionResults()
     traci._subscribe(tc.CMD_SUBSCRIBE_VEHICLE_VARIABLE, begin, end, vehID, varIDs)
 
-def resetSubscriptionResults():
-    subscriptionResults = {}
+def _resetSubscriptionResults():
+    subscriptionResults.clear()
 
-def addSubscriptionResult(vehID, result):
-    if vehID in subscriptionResults:
-        subscriptionResults[vehID].update(result)
-    else:
-        subscriptionResults[vehID] = result
+def _addSubscriptionResult(vehID, varID, data):
+    if vehID not in subscriptionResults:
+        subscriptionResults[vehID] = {}
+    subscriptionResults[vehID][varID] = RETURN_VALUE_FUNC[varID](data)
 
 def getSubscriptionResults(vehID):
     return subscriptionResults.get(vehID, None)

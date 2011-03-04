@@ -4,5 +4,5 @@ repeatedConnection
 # Tests whether the connection is not closed by SUMO
 clientCloses
 
-# Tests whether an error message is printed if the socket is already used
-busySocket
+# Tests the new python API
+pythonApi

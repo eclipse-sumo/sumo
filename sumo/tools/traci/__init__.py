@@ -121,7 +121,7 @@ def _beginMessage(cmdID, varID, objID, length=0):
 def _sendReadOneStringCmd(cmdID, varID, objID):
     _beginMessage(cmdID, varID, objID)
     result = _sendExact()
-    length = result.readLength()
+    result.readLength()
     response, retVarID = result.read("!BB")
     objectID = result.readString()
     if response - cmdID != 16 or retVarID != varID or objectID != objID:
@@ -129,6 +129,21 @@ def _sendReadOneStringCmd(cmdID, varID, objID):
               % (response, retVarID, objectID, cmdID, varID, objID)
     result.read("!B")     # Return type of the variable
     return result
+
+def _readSubscription(result):
+    result.readLength()
+    response = result.read("!B")[0]
+    objectID = result.readString()
+    numVars = result.read("!B")[0]
+    while numVars > 0:
+        varID = result.read("!B")[0]
+        status, varType = result.read("!BB")
+        if status:
+            print "Error!", result.readString()
+        elif response == constants.RESPONSE_SUBSCRIBE_VEHICLE_VARIABLE:
+            vehicle._addSubscriptionResult(objectID, varID, result)
+        numVars -= 1
+    return response, objectID
 
 def _subscribe(cmdID, begin, end, objID, varIDs):
     _message.queue.append(cmdID)
@@ -142,21 +157,10 @@ def _subscribe(cmdID, begin, end, objID, varIDs):
     for v in varIDs:
         _message.string += struct.pack("!B", v)
     result = _sendExact()
-    length = result.readLength()
-    response = result.read("!B")[0]
-    objectID = result.readString()
-    numVars = result.read("!B")[0]
-    if response - cmdID != 16 or objectID != objID or numVars != len(varIDs):
-        print "Error! Received answer %s,%s,%s for command %s,%s,%s."\
-              % (response, objectID, numVars, cmdID, objID, len(varIDs))
-    for v in varIDs:
-        varID = result.read("!B")[0]
-        status, varType = result.read("!BB")
-        if status:
-            print "Error!", result.readString()
-    while result.ready():
-        print result.read("!B")[0]
-    return result
+    response, objectID = _readSubscription(result)
+    if response - cmdID != 16 or objectID != objID:
+        print "Error! Received answer %s,%s for subscription command %s,%s."\
+              % (response, objectID, cmdID, objID)
 
 def init(port, numRetries=10):
     global _socket
@@ -176,11 +180,11 @@ def simulationStep(step):
     _message.queue.append(constants.CMD_SIMSTEP2)
     _message.string += struct.pack("!BBi", 1+1+4, constants.CMD_SIMSTEP2, step)
     result = _sendExact()
-    numSubs = result.read("!i")[0]
-    subscriptions = []
-    while result.ready():
-        print result.read("!B")[0]
-    return subscriptions
+    vehicle._resetSubscriptionResults()
+    numSubs = result.readInt()
+    while numSubs > 0:
+        _readSubscription(result)
+        numSubs -= 1
 
 def close():
     global _socket
