@@ -1285,7 +1285,7 @@ GUIDialog_ViewSettings::onCmdEditTable(FXObject*,FXSelector,void*data) {
     }
     GUISUMOAbstractView::Decal d;
     int row = i->row;
-    if (row==myDecals->size()) {
+    if (row== static_cast<int>(myDecals->size())) {
         d.filename = "";
         d.centerX = SUMOReal(myParent->getGridWidth() / 2.);
         d.centerY = SUMOReal(myParent->getGridHeight() / 2.);

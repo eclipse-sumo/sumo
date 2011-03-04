@@ -173,7 +173,6 @@ GUISUMOAbstractView::getPositionInformation() const throw() {
 
 Position2D
 GUISUMOAbstractView::getPositionInformation(int mx, int my) const throw() {
-    SUMOReal mzoom = myChanger->getZoom();
     // compute the offset
     SUMOReal cy = myChanger->getYPos();
     SUMOReal cx = myChanger->getXPos();
@@ -901,7 +900,7 @@ GUISUMOAbstractView::makeSnapshot(const std::string &destFile) throw() {
             myVisualizationSettings->scale = lw;
             glEnable(GL_POLYGON_OFFSET_FILL);
             glEnable(GL_POLYGON_OFFSET_LINE);
-            int hits2 = myGrid->Search(minB, maxB, *myVisualizationSettings);
+            //int hits2 = myGrid->Search(minB, maxB, *myVisualizationSettings);
 
             if (myVisualizationSettings->showSizeLegend) {
                 displayLegend();
@@ -1067,7 +1066,7 @@ GUISUMOAbstractView::addAdditionalGLVisualisation(GUIGlObject * const which) thr
 
 bool
 GUISUMOAbstractView::removeAdditionalGLVisualisation(GUIGlObject * const which) throw() {
-    if (getTrackedID()==which->getGlID()) {
+    if (getTrackedID()==static_cast<int>(which->getGlID())) {
         stopTrack();
     }
     if (myAdditionallyDrawn.find(which)==myAdditionallyDrawn.end()) {

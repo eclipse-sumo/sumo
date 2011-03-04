@@ -858,7 +858,7 @@ static GLint gl2psAddText(GLint type, const char *str, const char *fontname,
   glGetFloatv(GL_CURRENT_RASTER_POSITION, pos);
 
   prim = (GL2PSprimitive*)gl2psMalloc(sizeof(GL2PSprimitive));
-  prim->type = type;
+  prim->type = (GLshort)type;
   prim->boundary = 0;
   prim->numverts = 1;
   prim->verts = (GL2PSvertex*)gl2psMalloc(sizeof(GL2PSvertex));
@@ -2157,7 +2157,7 @@ static void gl2psAddPolyPrimitive(GLshort type, GLshort numverts,
   prim->verts = (GL2PSvertex*)gl2psMalloc(numverts * sizeof(GL2PSvertex));
   memcpy(prim->verts, verts, numverts * sizeof(GL2PSvertex));
   prim->boundary = boundary;
-  prim->offset = offset;
+  prim->offset = (char)offset;
   prim->pattern = pattern;
   prim->factor = factor;
   prim->width = width;
@@ -2280,7 +2280,7 @@ static void gl2psParseFeedbackBuffer(GLint used)
       case GL2PS_END_OFFSET_TOKEN : offset = 0; break;
       case GL2PS_BEGIN_BOUNDARY_TOKEN : boundary = GL_TRUE; break;
       case GL2PS_END_BOUNDARY_TOKEN : boundary = GL_FALSE; break;
-      case GL2PS_END_STIPPLE_TOKEN : pattern = factor = 0; break;
+      case GL2PS_END_STIPPLE_TOKEN : pattern = (GLushort)factor = 0; break;
       case GL2PS_BEGIN_BLEND_TOKEN : gl2ps->blending = GL_TRUE; break;
       case GL2PS_END_BLEND_TOKEN : gl2ps->blending = GL_FALSE; break;
       case GL2PS_BEGIN_STIPPLE_TOKEN : 

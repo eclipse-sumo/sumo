@@ -507,7 +507,7 @@ NBRequest::writeResponse(std::ostream &os, const NBEdge * const from, const NBEd
         idx = getIndex(from, to);
     }
     for (EdgeVector::const_reverse_iterator i=myIncoming->rbegin(); i!=myIncoming->rend(); i++) {
-        const std::vector<NBEdge::Connection> &allConnections = (*i)->getConnections();
+        //const std::vector<NBEdge::Connection> &allConnections = (*i)->getConnections();
         unsigned int noLanes = (*i)->getNoLanes();
         for (int j=noLanes; j-->0;) {
             std::vector<NBEdge::Connection> connected = (*i)->getConnectionsFromLane(j);
