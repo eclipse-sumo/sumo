@@ -100,11 +100,11 @@ del { color: #555555; }
 #wrapper { text-align: center; }
 .col1 { width: 400px; float: left; margin: 0 15px; text-align: left; }
 .col1 ul { margin: 0 0 0 15px; padding: 0; line-height: 1.5em;  }
-.col1 li { font-size: 14px; padding-bottom: 10px; }
+.col1 li { font-size: 14px; font-weight: bold; padding-bottom: 10px; }
 .col1 h3 { font-size: 18px; padding: 5px 10px; margin-top: 20px; }
 .col2 { width: 200px; float: left; margin: 0 15px; text-align: left; }
 .col2 ul { margin: 0 0 0 15px; padding: 0; line-height: 1.5em;  }
-.col2 li { font-size: 14px; padding-bottom: 10px; }
+.col2 li { font-size: 14px; font-weight: bold; padding-bottom: 10px; }
 .col2 h3 { font-size: 18px; padding: 5px 10px; margin-top: 20px; }
 .slink { font-size: 12px; font-weight: normal; margin-top: -.5em; margin-bottom: 10px; }
 .slink a { font-size: 12px; font-weight: normal; margin-top: -.5em; margin-bottom: 10px; }
