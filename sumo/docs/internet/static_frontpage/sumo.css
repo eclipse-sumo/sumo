@@ -258,3 +258,69 @@ del { color: #555555; }
 #footer a:hover, #footer a:active { color: #336699; border-bottom-color: #336699; }
 
 #footer p { margin: 5px 0; }
+
+
+
+
+
+
+
+.pics {  
+    height:  340px;  
+    width:   280px;  
+    padding: 0;  
+    margin:  0; 
+} 
+ 
+#images td {  
+    padding: 0;  
+    margin:  0;
+    position: relative; 
+} 
+ 
+#images td div {  
+    padding: 0;  
+    margin:  0;
+} 
+ 
+.pics img {  
+    border:  0px solid #ccc;  
+    background-color: #eee;  
+    width:  340px; 
+    height: 280px; 
+    padding: 0;
+    margin:  0; 
+//    top:  0; 
+//    left: 0 
+} 
+
+
+.parss-title {
+  display:block;
+  clear:left;
+  font-weight:bold;
+  line-height:100%;
+}
+.parss-date {
+  display:block;
+  color:#000;
+  font-weight:normal;
+  font-size: 12px;
+  margin-top: .2em;
+}
+.parss-image {
+  width:80px;
+  height:auto;
+  overflow:hidden;
+  padding:0 5px 5px 0;
+  display:block;
+  float:left;
+}
+.parss-image img {
+  width:80px;
+  height:auto;
+}
+.parss-description {
+  font-size: 12px; font-weight: normal; margin-top: -.8em; margin-bottom: 10px; 
+}
+.parss-description a { font-size: 12px; font-weight: normal; margin-top: -.8em; margin-bottom: 10px; }
