@@ -19,6 +19,9 @@ vehroutes:vehroutes.xml
 [run_dependent_text]
 vehroutes:xml version{->}-->
 
+[floating_point_tolerance]
+output:0.0001
+
 [batch_extra_version]
 meso:meso
 msvc8mesox64:meso
