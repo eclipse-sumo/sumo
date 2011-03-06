@@ -435,6 +435,9 @@
 // last step time since last detection (get: induction loops)
 #define LAST_STEP_TIME_SINCE_DETECTION 0x16
 
+// entry times
+#define LAST_STEP_VEHICLE_DATA 0x17
+
 
 // traffic light states, encoded as rRgGyYoO tuple (get: traffic lights)
 #define TL_RED_YELLOW_GREEN_STATE 0x20

@@ -58,7 +58,8 @@ TraCIServerAPI_InductionLoop::processGet(TraCIServer &server, tcpip::Storage &in
     // check variable
     if (variable!=ID_LIST&&variable!=LAST_STEP_VEHICLE_NUMBER&&variable!=LAST_STEP_MEAN_SPEED
             &&variable!=LAST_STEP_VEHICLE_ID_LIST&&variable!=LAST_STEP_OCCUPANCY
-            &&variable!=LAST_STEP_LENGTH&&variable!=LAST_STEP_TIME_SINCE_DETECTION) {
+            &&variable!=LAST_STEP_LENGTH&&variable!=LAST_STEP_TIME_SINCE_DETECTION
+			&&variable!=LAST_STEP_VEHICLE_DATA) {
         server.writeStatusCmd(CMD_GET_INDUCTIONLOOP_VARIABLE, RTYPE_ERR, "Get Induction Loop Variable: unsupported variable specified", outputStorage);
         return false;
     }
@@ -109,7 +110,37 @@ TraCIServerAPI_InductionLoop::processGet(TraCIServer &server, tcpip::Storage &in
             tempMsg.writeUnsignedByte(TYPE_FLOAT);
             tempMsg.writeFloat((float) il->getTimestepsSinceLastDetection());
             break;
-        default:
+		case LAST_STEP_VEHICLE_DATA: {
+			std::vector<MSInductLoop::VehicleData> vd = il->collectVehiclesOnDet(MSNet::getInstance()->getCurrentTimeStep()-DELTA_T);
+            tempMsg.writeUnsignedByte(TYPE_COMPOUND);
+            Storage tempContent;
+            unsigned int cnt = 0;
+            tempContent.writeUnsignedByte(TYPE_INTEGER);
+            tempContent.writeInt((int) vd.size());
+            ++cnt;
+            for (unsigned int i=0; i<vd.size(); ++i) {
+				MSInductLoop::VehicleData &svd = vd[i];
+                tempContent.writeUnsignedByte(TYPE_STRING);
+                tempContent.writeString(svd.idM);
+                ++cnt;
+                tempContent.writeUnsignedByte(TYPE_DOUBLE);
+				tempContent.writeDouble(svd.lengthM);
+                ++cnt;
+                tempContent.writeUnsignedByte(TYPE_DOUBLE);
+                tempContent.writeDouble(svd.entryTimeM);
+                ++cnt;
+                tempContent.writeUnsignedByte(TYPE_DOUBLE);
+                tempContent.writeDouble(svd.leaveTimeM);
+                ++cnt;
+                tempContent.writeUnsignedByte(TYPE_STRING);
+                tempContent.writeString(svd.typeIDM);
+                ++cnt;
+								 }
+
+            tempMsg.writeInt((int) cnt);
+            tempMsg.writeStorage(tempContent);
+									 }
+		default:
             break;
         }
     }

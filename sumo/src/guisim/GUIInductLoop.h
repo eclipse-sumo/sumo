@@ -86,6 +86,17 @@ public:
     virtual GUIDetectorWrapper *buildDetectorWrapper(GUIGlObjectStorage &idStorage, GUILaneWrapper &lane);
 
 
+    /** @brief Returns vehicle data for vehicles that have been on the detector starting at the given time
+     *
+     * This method uses a mutex to prevent parallel read/write access to the vehicle buffer
+     *
+     * @param[in] t The time from which vehicles shall be counted
+     * @return The list of vehicles
+     * @see MSInductLoop::collectVehiclesOnDet()
+     */
+    std::vector<VehicleData> collectVehiclesOnDet(SUMOTime t) const throw();
+
+
 protected:
     /// @name Methods that add and remove vehicles from internal container
     /// @{
@@ -122,15 +133,6 @@ protected:
     /// @}
 
 
-    /** @brief Returns vehicle data for vehicles that have been on the detector starting at the given time
-     *
-     * This method uses a mutex to prevent parallel read/write access to the vehicle buffer
-     *
-     * @param[in] t The time from which vehicles shall be counted
-     * @return The list of vehicles
-     * @see MSInductLoop::collectVehiclesOnDet()
-     */
-    std::vector<VehicleData> collectVehiclesOnDet(SUMOTime t) const throw();
 
 
 public:

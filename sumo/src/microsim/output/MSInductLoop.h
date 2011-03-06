@@ -240,6 +240,49 @@ public:
     /// @}
 
 
+
+    /** @brief Struct to store the data of the counted vehicle internally.
+     *
+     * These data is fed into a container.
+     *
+     * @see myVehicleDataCont
+     */
+    struct VehicleData {
+        /** @brief Constructor
+         *
+         * Used if the vehicle has passed the induct loop completely
+         *
+         * @param[in] vehLength The length of the vehicle
+         * @param[in] entryTimestep The time at which the vehicle entered the detector
+         * @param[in] leaveTimestep The time at which the vehicle left the detector
+         */
+        VehicleData(const std::string &id, SUMOReal vehLength, SUMOReal entryTimestep, SUMOReal leaveTimestep,
+			const std::string &typeID) throw()
+                : idM(id), lengthM(vehLength), entryTimeM(entryTimestep), leaveTimeM(leaveTimestep),
+                speedM(lengthM / ((leaveTimeM - entryTimeM))), typeIDM(typeID) {}
+
+        /** @brief The id of the vehicle */
+        std::string idM;
+        /** @brief Length of the vehicle. */
+        SUMOReal lengthM;
+        /** @brief Entry-time of the vehicle in [ms]. */
+        SUMOReal entryTimeM;
+        /** @brief Leave-time of the vehicle in [ms]. */
+        SUMOReal leaveTimeM;
+        /** @brief Speed of the vehicle in [m/s]. */
+        SUMOReal speedM;
+		std::string typeIDM;
+    };
+
+
+    /** @brief Returns vehicle data for vehicles that have been on the detector starting at the given time
+     *
+     * @param[in] t The time from which vehicles shall be counted
+     * @return The list of vehicles
+     */
+    virtual std::vector<VehicleData> collectVehiclesOnDet(SUMOTime t) const throw();
+
+
 protected:
     /// @name Methods that add and remove vehicles from internal container
     /// @{
@@ -270,39 +313,6 @@ protected:
 
 
 protected:
-    /** @brief Struct to store the data of the counted vehicle internally.
-     *
-     * These data is fed into a container.
-     *
-     * @see myVehicleDataCont
-     */
-    struct VehicleData {
-        /** @brief Constructor
-         *
-         * Used if the vehicle has passed the induct loop completely
-         *
-         * @param[in] vehLength The length of the vehicle
-         * @param[in] entryTimestep The time at which the vehicle entered the detector
-         * @param[in] leaveTimestep The time at which the vehicle left the detector
-         */
-        VehicleData(const std::string &id, SUMOReal vehLength, SUMOReal entryTimestep, SUMOReal leaveTimestep) throw()
-                : idM(id), lengthM(vehLength), entryTimeM(entryTimestep), leaveTimeM(leaveTimestep),
-                speedM(lengthM / ((leaveTimeM - entryTimeM))) {}
-
-        /** @brief The id of the vehicle */
-        std::string idM;
-        /** @brief Length of the vehicle. */
-        SUMOReal lengthM;
-        /** @brief Entry-time of the vehicle in [ms]. */
-        SUMOReal entryTimeM;
-        /** @brief Leave-time of the vehicle in [ms]. */
-        SUMOReal leaveTimeM;
-        /** @brief Speed of the vehicle in [m/s]. */
-        SUMOReal speedM;
-    };
-
-
-protected:
     /// @name Function for summing up values
     ///@{
 
@@ -316,14 +326,6 @@ protected:
         return sumSoFar + data.lengthM;
     }
     ///@}
-
-
-    /** @brief Returns vehicle data for vehicles that have been on the detector starting at the given time
-     *
-     * @param[in] t The time from which vehicles shall be counted
-     * @return The list of vehicles
-     */
-    virtual std::vector<VehicleData> collectVehiclesOnDet(SUMOTime t) const throw();
 
 
 protected:

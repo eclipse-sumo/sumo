@@ -248,7 +248,7 @@ MSInductLoop::leaveDetectorByMove(SUMOVehicle& veh,
     SUMOReal entryTimestep = it->second;
     myVehiclesOnDet.erase(it);
     assert(entryTimestep < leaveTimestep);
-    myVehicleDataCont.push_back(VehicleData(veh.getID(), veh.getVehicleType().getLength(), entryTimestep, leaveTimestep));
+	myVehicleDataCont.push_back(VehicleData(veh.getID(), veh.getVehicleType().getLength(), entryTimestep, leaveTimestep, veh.getVehicleType().getID()));
     myLastOccupancy = leaveTimestep - entryTimestep;
     myLastLeaveTime = leaveTimestep;
     myCurrentVehicle = 0;
@@ -281,7 +281,7 @@ MSInductLoop::collectVehiclesOnDet(SUMOTime tMS) const throw() {
     SUMOTime ct = MSNet::getInstance()->getCurrentTimeStep();
     for (VehicleMap::const_iterator i=myVehiclesOnDet.begin(); i!=myVehiclesOnDet.end(); ++i) {
         SUMOVehicle *v = (*i).first;
-        VehicleData d(v->getID(), v->getVehicleType().getLength(), (*i).second, STEPS2TIME(ct));
+        VehicleData d(v->getID(), v->getVehicleType().getLength(), (*i).second, STEPS2TIME(ct), v->getVehicleType().getID());
         d.speedM = v->getSpeed();
         ret.push_back(d);
     }
