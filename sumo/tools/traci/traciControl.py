@@ -250,7 +250,32 @@ def cmdGetInductionLoopVariable_timeSinceDetection(IndLoopID):
     result = buildSendReadNew1StringParamCmd(tc.CMD_GET_INDUCTIONLOOP_VARIABLE, tc.LAST_STEP_TIME_SINCE_DETECTION, IndLoopID)
     return result.read("!f")[0] # Variable value
   
-  
+def cmdGetInductionLoopVariable_vehicleData(IndLoopID):
+    result = buildSendReadNew1StringParamCmd(tc.CMD_GET_INDUCTIONLOOP_VARIABLE, tc.LAST_STEP_VEHICLE_DATA, IndLoopID)
+    q = result.read("!Bi")[1] # Length
+    print q
+    nbData = result.read("!i")[0]    # Number of data
+    print "%s %s", (IndLoopID, nbData)
+    data = []
+    for i in range(nbData):
+        result.read("!B")
+        vehID = result.readString()
+        print " " + vehID 
+        result.read("!B")
+        length = result.read("!d")[0]
+        print " %s" % length
+        result.read("!B")
+        entryTime = result.read("!d")[0]
+        print " %s" % entryTime
+        result.read("!B")
+        leaveTime = result.read("!d")[0]
+        print " %s" % leaveTime
+        result.read("!B")
+        typeID = result.readString()
+        print " %s" % typeID 
+        data.append( [ vehID, length, entryTime, leaveTime, typeID ] ) 
+    return data
+
 
 # ===================================================
 # multi-entry/multi-exit detector interaction
@@ -567,6 +592,10 @@ def cmdChangeVehicleVariable_color(vehID, color):
 def cmdGetVehicleTypeVariable_idList():
     result = buildSendReadNew1StringParamCmd(tc.CMD_GET_VEHICLETYPE_VARIABLE, tc.ID_LIST, "x")
     return result.readStringList()  # Variable value 
+
+def cmdGetVehicleTypeVariable_length(vTypeID):
+    result = buildSendReadNew1StringParamCmd(tc.CMD_GET_VEHICLETYPE_VARIABLE, tc.VAR_LENGTH, vTypeID)
+    return result.read("!f")[0] # Variable value
 
 
 
