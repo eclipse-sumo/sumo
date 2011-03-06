@@ -62,7 +62,7 @@ class Storage:
         return self._pos < len(self._content) 
 
 
-import constants, vehicle
+import constants, vehicle, simulation
 _socket = None
 _message = Message()
 
@@ -142,6 +142,8 @@ def _readSubscription(result):
             print "Error!", result.readString()
         elif response == constants.RESPONSE_SUBSCRIBE_VEHICLE_VARIABLE:
             vehicle._addSubscriptionResult(objectID, varID, result)
+        elif response == constants.RESPONSE_SUBSCRIBE_SIM_VARIABLE:
+            simulation._addSubscriptionResult(varID, result)
         numVars -= 1
     return response, objectID
 
@@ -181,6 +183,7 @@ def simulationStep(step):
     _message.string += struct.pack("!BBi", 1+1+4, constants.CMD_SIMSTEP2, step)
     result = _sendExact()
     vehicle._resetSubscriptionResults()
+    simulation._resetSubscriptionResults()
     numSubs = result.readInt()
     while numSubs > 0:
         _readSubscription(result)

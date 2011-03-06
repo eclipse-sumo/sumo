@@ -10,7 +10,7 @@ Python implementation of the TraCI interface.
 Copyright (C) 2008-2011 DLR (http://www.dlr.de/) and contributors
 All rights reserved
 """
-import socket, time, struct, traci
+import struct, traci
 import traci.constants as tc
 
 RETURN_VALUE_FUNC = {tc.ID_LIST:        traci.Storage.readStringList,
@@ -98,7 +98,9 @@ def _addSubscriptionResult(vehID, varID, data):
         subscriptionResults[vehID] = {}
     subscriptionResults[vehID][varID] = RETURN_VALUE_FUNC[varID](data)
 
-def getSubscriptionResults(vehID):
+def getSubscriptionResults(vehID=None):
+    if vehID == None:
+        return subscriptionResults
     return subscriptionResults.get(vehID, None)
 
 
@@ -146,7 +148,7 @@ def setRoute(vehID, edgeList):
     changes the vehicle route to given edges list.
     The first edge in the list has to be the one that the vehicle is at at the moment.
     
-    example usasge:
+    example usage:
     setRoute('1', ['1', '2', '4', '6', '7'])
     
     this changes route for vehicle id 1 to edges 1-2-4-6-7
