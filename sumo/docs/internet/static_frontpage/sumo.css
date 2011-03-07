@@ -267,9 +267,10 @@ del { color: #555555; }
 
 .pics {  
     height:  340px;  
-    width:   280px;  
+    width:   240px;  
     padding: 0;  
     margin:  0; 
+
 } 
  
 #images td {  
@@ -285,9 +286,6 @@ del { color: #555555; }
  
 .pics img {  
     border:  0px solid #ccc;  
-    background-color: #eee;  
-    width:  340px; 
-    height: 280px; 
     padding: 0;
     margin:  0; 
 //    top:  0; 

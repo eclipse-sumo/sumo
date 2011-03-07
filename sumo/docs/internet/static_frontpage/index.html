@@ -22,12 +22,13 @@
 <script type="text/javascript">
   <!--
   $(document).ready(function(){
-$('#slideshow1').cycle();$('#slideshow2').cycle(); 
-   $("#feed").PaRSS(
+    $('#slideshow1').cycle({ delay: 1000, timeout: 10000});
+    $('#slideshow2').cycle({ delay: 2000, timeout: 9000});
+    $("#feed").PaRSS(
       "http://sourceforge.net/apps/wordpress/sumo/category/sumo/feed/",  // rss feed url (required)
-      3,                                   // number of items (optional)
-      "M jS g:i a",                        // date format (optional)
-      false                                 // descriptions? (optional)
+      3, // number of items (optional)
+      "M, jS y h:i", // date format (optional)
+      false // descriptions? (optional)
     );
   });
 
@@ -117,16 +118,32 @@ $('#slideshow1').cycle();$('#slideshow2').cycle();
 
  <div id="images">
  <table align="center" border="0" cellspacing="0" cellpadding="0">
- <tr><td width="340" height="280">
-<div id="slideshow1" class="pics" style="position: relative; height: 280px;"> 
-    <img src="scr1.png" border="0" width="340px" height="280px" alt="iTETRIS#1"/> 
-    <img src="scr2.png" border="0" width="340px" height="280px" alt="iTETRIS#1" /> 
+ <tr><td width="300" height="240">
+<div id="slideshow1" class="pics" style="position: relative; height: 240px;"> 
+    <img src="screenshots/scr1t.png" border="0" alt="screenshot#1"/> 
+    <img src="screenshots/scr2t.png" border="0" alt="screenshot#2"/> 
+    <img src="screenshots/scr3t.png" border="0" alt="screenshot#3"/> 
+    <img src="screenshots/scr4t.png" border="0" alt="screenshot#4"/> 
+    <img src="screenshots/scr5t.png" border="0" alt="screenshot#5" /> 
+    <img src="screenshots/scr6t.png" border="0" alt="screenshot#6"/> 
+    <img src="screenshots/scr7t.png" border="0" alt="screenshot#7" /> 
+    <img src="screenshots/scr8t.png" border="0" alt="screenshot#8"/> 
+    <img src="screenshots/scr9t.png" border="0" alt="screenshot#9" /> 
+    <img src="screenshots/scr10t.png" border="0" alt="screenshot#10"/> 
 </div> 
-</td> <td width="20" height="280">
-</td><td width="340" height="280">
-<div id="slideshow2" class="pics" style="position: relative; height: 280px;">
-    <img src="scr1.png" border="0" width="340px" height="280px" alt="iTETRIS#1" /> 
-    <img src="scr2.png" border="0" width="340px" height="280px" alt="iTETRIS#1" /> 
+</td> <td width="20" height="240">
+</td><td width="300" height="240">
+<div id="slideshow2" class="pics" style="position: relative; height: 240px;">
+    <img src="screenshots/scr7t.png" border="0" alt="screenshot#7"/> 
+    <img src="screenshots/scr8t.png" border="0" alt="screenshot#8"/> 
+    <img src="screenshots/scr9t.png" border="0" alt="screenshot#9"/> 
+    <img src="screenshots/scr10t.png" border="0" alt="screenshot#10"/> 
+    <img src="screenshots/scr1t.png" border="0" alt="screenshot#1"/> 
+    <img src="screenshots/scr2t.png" border="0" alt="screenshot#2" /> 
+    <img src="screenshots/scr3t.png" border="0" alt="screenshot#3" /> 
+    <img src="screenshots/scr4t.png" border="0" alt="screenshot#4"/> 
+    <img src="screenshots/scr5t.png" border="0" alt="screenshot#5" /> 
+    <img src="screenshots/scr6t.png" border="0" alt="screenshot#6"/> 
 </div> 
 </td></tr>
 </table>
@@ -134,7 +151,7 @@ $('#slideshow1').cycle();$('#slideshow2').cycle();
 
  <div id="footer">
    <div>(c) 2011, German Aerospace Center, Institute of Transportation Systems</div>
-   <div>Layout based on "Three Quarters" by "SimplyGold", see: <a href="http://www.oswd.org/design/preview/id/3365">http://www.oswd.org/design/preview/id/3365</a></div>
+   <div>Layout based on <a href="http://www.oswd.org/design/preview/id/3365">"Three Quarters"</a> by "SimplyGold"</div>
  </div>
                                                        
  
