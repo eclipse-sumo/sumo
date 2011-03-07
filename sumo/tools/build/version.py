@@ -17,7 +17,10 @@ All rights reserved
 import sys
 from os.path import dirname, exists, getmtime
 
-versionFile = dirname(sys.argv[0]) + "/../../src/version.h"
+if len(sys.argv) > 1:
+    versionFile = sys.argv[1] + "/version.h"
+else:
+    versionFile = dirname(sys.argv[0]) + "/../../src/version.h"
 entriesFile = ".svn/entries"
 svnRevision = "UNKNOWN"
 if exists(entriesFile):
