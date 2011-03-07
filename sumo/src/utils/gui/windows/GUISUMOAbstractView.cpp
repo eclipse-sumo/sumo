@@ -900,7 +900,7 @@ GUISUMOAbstractView::makeSnapshot(const std::string &destFile) throw() {
             myVisualizationSettings->scale = lw;
             glEnable(GL_POLYGON_OFFSET_FILL);
             glEnable(GL_POLYGON_OFFSET_LINE);
-            //int hits2 = myGrid->Search(minB, maxB, *myVisualizationSettings);
+            myGrid->Search(minB, maxB, *myVisualizationSettings);
 
             if (myVisualizationSettings->showSizeLegend) {
                 displayLegend();
