@@ -313,6 +313,9 @@ enum {
 
     /// @name NETEDIT Message IDs
     //@{
+    /** abort current edit operation */
+    MID_GNE_ABORT,
+
     /** mode has changed */
     MID_GNE_MODE_CHANGE,
 
