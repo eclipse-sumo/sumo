@@ -15,13 +15,17 @@ All rights reserved
 """
 
 import sys
-from os.path import dirname, exists, getmtime
+from os.path import dirname, exists, getmtime, join
 
+versionDir = entriesDir = join(dirname(sys.argv[0]), '..', '..', 'src')
 if len(sys.argv) > 1:
-    versionFile = sys.argv[1] + "/version.h"
-else:
-    versionFile = dirname(sys.argv[0]) + "/../../src/version.h"
-entriesFile = ".svn/entries"
+    versionDir = sys.argv[1]
+if len(sys.argv) > 2:
+    entriesDir = sys.argv[2]
+versionFile = join(versionDir, 'version.h')
+entriesFile = join(entriesDir, '.svn', 'entries')
+print('generationg %s from revision in %s' % (versionFile, entriesFile))
+
 svnRevision = "UNKNOWN"
 if exists(entriesFile):
     if exists(versionFile) and getmtime(versionFile) > getmtime(entriesFile):
