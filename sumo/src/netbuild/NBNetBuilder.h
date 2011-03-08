@@ -58,15 +58,33 @@ class OutputDevice;
  * @brief Instance responsible for building networks
  *
  * The class' - and the netbuild module's - functionality is embedded within the
- *  compute() method which subsequently performs the following steps:
- * -# Removing dummy edges (using NBNodeCont::removeDummyEdges())
+ *  buildLoaded() method. Here, the network representation is completed using compute(),
+ *  first. Then, the output file is built and the network is saved into it using save().
+ *
+ * @addtogroup netbuild
+ * @{
+ *
+ * -# Removing dummy edges
+ *  \n Removes edges which end at the node they start at using NBNodeCont::removeDummyEdges().
  * -# Joining double connections
- * -# Finding isolated roads
+ *  \n Joins edges between same nodes using NBNodeCont::recheckEdges(). 
+ * -# Finding isolated roads (optional)
  * -# Removing empty nodes and geometry nodes (optional)
+ *  \n Removed nodes with no incoming/outgoing edges and nodes which can be transformed into 
+ *   geometry point using NBNodeCont::removeUnwishedNodes().
  * -# Removing unwished edges (optional)
+ *  \n If "keep-edges.postload" and "keep-edges" are set, the edges not with "keep-edges" are
+ *   removed from the network using NBEdgeCont::removeUnwishedEdges().
  * -# Rechecking nodes after edge removal (optional)
+ *  \n If any of the edge removing options was set ("keep-edges", "remove-edges", "keep-edges.postload",
+ *   "keep-edges.by-vclass", "keep-edges.input-file"), the now orphaned nodes are removed using 
+ *   NBNodeCont::removeUnwishedNodes().
  * -# Splitting geometry edges (optional)
+ *  \n If "split-geometry" is set, edge geometries are converted to nodes using 
+ *   NBEdgeCont::splitGeometry().
  * -# Normalising/transposing node positions
+ *  \n If "disable-normalize-node-positions", "x-offset-to-apply", and "y-offset-to-apply" are not
+ *   set, teh road graph's instances are moved to the origin.
  * -# Guessing and setting on-/off-ramps
  * -# Guessing and setting TLs
  * -# Computing turning directions
@@ -82,6 +100,11 @@ class OutputDevice;
  * -# Computing tls logics
  * -# Computing node logics
  * -# Computing traffic light logics
+ *
+ *  @todo Removing unwished edges: Recheck whether this can be done during loading - whether this option/step is really needed.
+ *  @todo Finding isolated roads: Describe 
+ *  @bug Removing empty nodes and geometry nodes: Ok, empty nodes should be removed, uh? But this is only done if "remove-geometry" is set. 
+ * @}
  */
 class NBNetBuilder {
 public:

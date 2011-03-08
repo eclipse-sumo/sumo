@@ -195,7 +195,11 @@ public:
      */
     void removeIsolatedRoads(NBDistrictCont &dc, NBEdgeCont &ec, NBTrafficLightLogicCont &tc);
 
-    /// Removes dummy edges (edges lying completely within a node)
+    /** @brief Removes dummy edges (edges lying completely within a node)
+     *  @post Each edge is a uni-directional connection between two different nodes
+     *  @todo Name properly
+     *  @todo Recheck, maybe this should be done on loading
+     */
     void removeDummyEdges(NBDistrictCont &dc, NBEdgeCont &ec,
                           NBTrafficLightLogicCont &tc);
 
