@@ -117,8 +117,9 @@ NIImporter_SUMO::loadNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
             for (std::vector<EdgeLane>::const_iterator k=connections.begin(); k!=connections.end(); ++k) {
                 if ((*k).lane!="SUMO_NO_DESTINATION") {
                     std::string lane = (*k).lane;
-                    std::string edge = lane.substr(0, lane.find('_'));
-                    int index = TplConvert<char>::_2int(lane.substr(lane.find('_')+1).c_str());
+                    std::string edge;
+                    size_t index;
+                    interpretLaneID(lane, edge, index);
                     if (loadedEdges.find(edge)==loadedEdges.end()) {
                         MsgHandler::getErrorInstance()->inform("Unknown edge given in succlane (for lane '" + lane + "').");
                         continue;
@@ -325,19 +326,32 @@ NIImporter_SUMO::addSuccLane(const SUMOSAXAttributes &attrs) {
 
 NIImporter_SUMO::LaneAttrs* 
 NIImporter_SUMO::getLaneAttrsFromID(EdgeAttrs* edge, std::string lane_id) {
-    // assume lane_id = edge_id + '_' + index
-    assert(edge->id == lane_id.substr(0, edge->id.size()));
-    std::string index_string = lane_id.substr(edge->id.size() + 1);
-    try {
-        int index = TplConvert<char>::_2int(index_string.c_str());
-        if (edge->lanes.size()<(size_t) index) {
-            MsgHandler::getErrorInstance()->inform("Unknown lane '" + lane_id + "' given in succedge.");
-            return 0;
-        }
-        return edge->lanes[(size_t) index];
-    } catch (NumberFormatException) {
-        MsgHandler::getErrorInstance()->inform("Invalid lane index '" + index_string + "' for lane '" + lane_id + "' given in succedge.");
+    std::string edge_id;
+    size_t index;
+    interpretLaneID(lane_id, edge_id, index);
+    assert(edge->id == edge_id);
+    if (edge->lanes.size()<(size_t) index) {
+        MsgHandler::getErrorInstance()->inform("Unknown lane '" + lane_id + "' given in succedge.");
         return 0;
+    } else {
+        return edge->lanes[(size_t) index];
+    }
+}
+
+
+void
+NIImporter_SUMO::interpretLaneID(const std::string &lane_id, std::string &edge_id, size_t &index) {
+    // assume lane_id = edge_id + '_' + index
+    size_t sep_index = lane_id.rfind('_');
+    if (sep_index == std::string::npos) {
+        MsgHandler::getErrorInstance()->inform("Invalid lane id '" + lane_id + "' (missing '_').");
+    }
+    edge_id = lane_id.substr(0, sep_index);
+    std::string index_string = lane_id.substr(sep_index + 1);
+    try {
+        index = TplConvert<char>::_2int(index_string.c_str());
+    } catch (NumberFormatException) {
+        MsgHandler::getErrorInstance()->inform("Invalid lane index '" + index_string + "' for lane '" + lane_id + "'.");
     }
 }
 

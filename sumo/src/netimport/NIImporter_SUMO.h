@@ -225,6 +225,12 @@ private:
      */
     LaneAttrs* getLaneAttrsFromID(EdgeAttrs* edge, std::string lane_id);
 
+    /** @brief parses edge-id and index from lane-id
+     * @param[in] lane_id The lane-id
+     * @param[out] edge_id ID of this lane's edge
+     * @param[out] index Index of this lane
+     */
+    static void interpretLaneID(const std::string &lane_id, std::string &edge_id, size_t &index); 
 };
 
 
