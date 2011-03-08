@@ -137,6 +137,9 @@
       <SubSystem>Windows</SubSystem>
       <EntryPointSymbol>mainCRTStartup</EntryPointSymbol>
     </Link>
+    <PreBuildEvent>
+      <Command>IF EXIST ..\..\..\src\netedit\.svn\entries python ..\..\..\tools\build\version.py ..\..\..\src ..\..\..\src\netedit</Command>
+    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <Link>
