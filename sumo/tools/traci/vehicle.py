@@ -13,17 +13,17 @@ All rights reserved
 import struct, traci
 import traci.constants as tc
 
-RETURN_VALUE_FUNC = {tc.ID_LIST:        traci.Storage.readStringList,
-                     tc.VAR_SPEED:      traci.Storage.readFloat,
-                     tc.VAR_POSITION:   lambda(result): result.read("!ff"),
-                     tc.VAR_ANGLE:      traci.Storage.readFloat,
-                     tc.VAR_ROAD_ID:    traci.Storage.readString,
-                     tc.VAR_LANE_ID:    traci.Storage.readString,
-                     tc.VAR_LANE_INDEX: traci.Storage.readInt,
-                     tc.VAR_TYPE:       traci.Storage.readString,
-                     tc.VAR_ROUTE_ID:   traci.Storage.readString,
-                     tc.VAR_LANEPOSITION:      traci.Storage.readFloat,
-                     tc.VAR_COLOR:      lambda(result): result.read("!BBBB")}
+RETURN_VALUE_FUNC = {tc.ID_LIST:          traci.Storage.readStringList,
+                     tc.VAR_SPEED:        traci.Storage.readFloat,
+                     tc.VAR_POSITION:     lambda(result): result.read("!ff"),
+                     tc.VAR_ANGLE:        traci.Storage.readFloat,
+                     tc.VAR_ROAD_ID:      traci.Storage.readString,
+                     tc.VAR_LANE_ID:      traci.Storage.readString,
+                     tc.VAR_LANE_INDEX:   traci.Storage.readInt,
+                     tc.VAR_TYPE:         traci.Storage.readString,
+                     tc.VAR_ROUTE_ID:     traci.Storage.readString,
+                     tc.VAR_LANEPOSITION: traci.Storage.readFloat,
+                     tc.VAR_COLOR:        lambda(result): result.read("!BBBB")}
 subscriptionResults = {}
 
 def _getUniversal(varID, vehID):
@@ -59,6 +59,9 @@ def getTypeID(vehID):
 
 def getRouteID(vehID):
     return _getUniversal(tc.VAR_ROUTE_ID, vehID)
+
+def getRoute(vehID):
+    return traci.route.getEdges(getRouteID(vehID))
 
 def getLanePosition(vehID):
     return _getUniversal(tc.VAR_LANEPOSITION, vehID)
@@ -106,42 +109,42 @@ def getSubscriptionResults(vehID=None):
 
 def setMaxSpeed(vehID, speed):
     traci._beginMessage(tc.CMD_SET_VEHICLE_VARIABLE, tc.CMD_SETMAXSPEED, vehID, 1+4)
-    _message.string += struct.pack("!Bf", tc.TYPE_FLOAT, speed)
-    _sendExact()
+    traci._message.string += struct.pack("!Bf", tc.TYPE_FLOAT, speed)
+    traci._sendExact()
 
 def setSpeed(vehID, speed):
     traci._beginMessage(tc.CMD_SET_VEHICLE_VARIABLE, tc.VAR_SPEED, vehID, 1+8)
-    _message.string += struct.pack("!Bd", tc.TYPE_DOUBLE, speed)
-    _sendExact()
+    traci._message.string += struct.pack("!Bd", tc.TYPE_DOUBLE, speed)
+    traci._sendExact()
 
 def setLanePosition(vehID, position):
     traci._beginMessage(tc.CMD_SET_VEHICLE_VARIABLE, tc.VAR_LANEPOSITION, vehID, 1+8)
-    _message.string += struct.pack("!Bd", tc.TYPE_DOUBLE, position)
-    _sendExact()
+    traci._message.string += struct.pack("!Bd", tc.TYPE_DOUBLE, position)
+    traci._sendExact()
 
-def setStop(vehID, edgeID, pos, laneIndex, duration):
+def setStop(vehID, edgeID, pos=1., laneIndex=0, duration=2**31-1):
     traci._beginMessage(tc.CMD_SET_VEHICLE_VARIABLE, tc.CMD_STOP, vehID, 1+4+1+4+len(edgeID)+1+4+1+1+1+4)
-    _message.string += struct.pack("!Bi", tc.TYPE_COMPOUND, 4)
-    _message.string += struct.pack("!B", tc.TYPE_STRING)
-    _message.string += struct.pack("!i", len(edgeID)) + edgeID
-    _message.string += struct.pack("!BfBBBi", tc.TYPE_FLOAT, pos, tc.TYPE_BYTE, laneIndex, tc.TYPE_INTEGER, duration)
-    _sendExact()
+    traci._message.string += struct.pack("!Bi", tc.TYPE_COMPOUND, 4)
+    traci._message.string += struct.pack("!B", tc.TYPE_STRING)
+    traci._message.string += struct.pack("!i", len(edgeID)) + edgeID
+    traci._message.string += struct.pack("!BfBBBi", tc.TYPE_FLOAT, pos, tc.TYPE_BYTE, laneIndex, tc.TYPE_INTEGER, duration)
+    traci._sendExact()
 
 def changeLane(vehID, laneIndex, duration):
     traci._beginMessage(tc.CMD_SET_VEHICLE_VARIABLE, tc.CMD_CHANGELANE, vehID, 1+4+1+1+1+4)
-    _message.string += struct.pack("!BiBBBi", tc.TYPE_COMPOUND, 2, tc.TYPE_BYTE, laneIndex, tc.TYPE_INTEGER, duration)
-    _sendExact()
+    traci._message.string += struct.pack("!BiBBBi", tc.TYPE_COMPOUND, 2, tc.TYPE_BYTE, laneIndex, tc.TYPE_INTEGER, duration)
+    traci._sendExact()
 
 def slowDown(vehID, speed, duration):
     traci._beginMessage(tc.CMD_SET_VEHICLE_VARIABLE, tc.CMD_SLOWDOWN, vehID, 1+4+1+4+1+4)
-    _message.string += struct.pack("!BiBfBi", tc.TYPE_COMPOUND, 2, tc.TYPE_FLOAT, speed, tc.TYPE_INTEGER, duration)
-    _sendExact()
+    traci._message.string += struct.pack("!BiBfBi", tc.TYPE_COMPOUND, 2, tc.TYPE_FLOAT, speed, tc.TYPE_INTEGER, duration)
+    traci._sendExact()
 
 def changeTarget(vehID, edgeID):
     traci._beginMessage(tc.CMD_SET_VEHICLE_VARIABLE, tc.CMD_CHANGETARGET, vehID, 1+4+len(edgeID))
-    _message.string += struct.pack("!B", tc.TYPE_STRING)
-    _message.string += struct.pack("!i", len(edgeID)) + edgeID
-    _sendExact()
+    traci._message.string += struct.pack("!B", tc.TYPE_STRING)
+    traci._message.string += struct.pack("!i", len(edgeID)) + edgeID
+    traci._sendExact()
 
 def setRoute(vehID, edgeList):
     """
@@ -155,24 +158,24 @@ def setRoute(vehID, edgeList):
     """
     traci._beginMessage(tc.CMD_SET_VEHICLE_VARIABLE, tc.VAR_ROUTE, vehID,
                         1+4+sum(map(len, edgeList))+4*len(edgeList))
-    _message.string += struct.pack("!Bi", tc.TYPE_STRINGLIST, len(edgeList))
+    traci._message.string += struct.pack("!Bi", tc.TYPE_STRINGLIST, len(edgeList))
     for edge in edgeList:
-        _message.string += struct.pack("!i", len(edge)) + edge
-    _sendExact()
+        traci._message.string += struct.pack("!i", len(edge)) + edge
+    traci._sendExact()
 
 def moveTo(vehID, laneID, pos):
     traci._beginMessage(tc.CMD_SET_VEHICLE_VARIABLE, tc.VAR_MOVE_TO, vehID, 1+4+1+4+len(laneID)+8)
-    _message.string += struct.pack("!Bi", tc.TYPE_COMPOUND, 2)
-    _message.string += struct.pack("!Bi", tc.TYPE_STRING, len(laneID)) + laneID
-    _message.string += struct.pack("!Bd", tc.TYPE_DOUBLE, pos)
-    _sendExact()
+    traci._message.string += struct.pack("!Bi", tc.TYPE_COMPOUND, 2)
+    traci._message.string += struct.pack("!Bi", tc.TYPE_STRING, len(laneID)) + laneID
+    traci._message.string += struct.pack("!Bd", tc.TYPE_DOUBLE, pos)
+    traci._sendExact()
 
 def reroute(vehID):
     traci._beginMessage(tc.CMD_SET_VEHICLE_VARIABLE, tc.CMD_REROUTE_TRAVELTIME, vehID, 1+4)
-    _message.string += struct.pack("!Bi", tc.TYPE_COMPOUND, 0)
-    _sendExact()
+    traci._message.string += struct.pack("!Bi", tc.TYPE_COMPOUND, 0)
+    traci._sendExact()
 
 def setColor(vehID, color):
     traci._beginMessage(tc.CMD_SET_VEHICLE_VARIABLE, tc.VAR_COLOR, vehID, 1+1+1+1+1)
-    _message.string += struct.pack("!BBBBB", tc.TYPE_COLOR, int(color[0]), int(color[1]), int(color[2]), int(color[3]))
-    _sendExact()
+    traci._message.string += struct.pack("!BBBBB", tc.TYPE_COLOR, int(color[0]), int(color[1]), int(color[2]), int(color[3]))
+    traci._sendExact()
