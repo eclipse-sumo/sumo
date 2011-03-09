@@ -307,6 +307,7 @@ MSVehicle::replaceRoute(const MSRoute* newRoute, bool onInit) throw() {
         if (find(edges.begin(), edges.end(), &iter->lane->getEdge())==edges.end()) {
             iter = myStops.erase(iter);
         } else {
+            iter->edge = find(edges.begin(), edges.end(), &iter->lane->getEdge());
             ++iter;
         }
     }
