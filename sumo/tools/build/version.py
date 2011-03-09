@@ -24,7 +24,7 @@ if len(sys.argv) > 2:
     entriesDir = sys.argv[2]
 versionFile = join(versionDir, 'version.h')
 entriesFile = join(entriesDir, '.svn', 'entries')
-print('generationg %s from revision in %s' % (versionFile, entriesFile))
+print('generating %s from revision in %s' % (versionFile, entriesFile))
 
 svnRevision = "UNKNOWN"
 if exists(entriesFile):
