@@ -24,7 +24,6 @@ if len(sys.argv) > 2:
     entriesDir = sys.argv[2]
 versionFile = join(versionDir, 'version.h')
 entriesFile = join(entriesDir, '.svn', 'entries')
-print('generating %s from revision in %s' % (versionFile, entriesFile))
 
 svnRevision = "UNKNOWN"
 if exists(entriesFile):
@@ -41,6 +40,7 @@ if exists(entriesFile):
             break
     entries.close()
 
+print('generating %s from revision in %s' % (versionFile, entriesFile))
 version = open(versionFile, 'w')
 print >> version, '#define VERSION_STRING "dev-SVN-r%s"' % svnRevision
 version.close()
