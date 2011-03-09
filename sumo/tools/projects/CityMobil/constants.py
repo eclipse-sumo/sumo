@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """
 @file    constants.py
 @author  Michael.Behrisch@dlr.de
@@ -13,7 +14,7 @@ import os
 
 INFINITY = 1e400
 
-PREFIX = "park" 
+PREFIX = "park"
 DOUBLE_ROWS = 8
 ROW_DIST = 35
 STOP_POS = ROW_DIST-12
@@ -32,11 +33,7 @@ OCCUPATION_PROBABILITY = 0.5
 BREAK_DELAY = 1200
 
 PORT = 8813
-if os.name == "posix":
-    NETCONVERT = "../../../src/netconvert"
-    SUMO = "../../../src/sumo"
-    SUMOGUI = "../../../src/sumo-gui"
-else:
-    NETCONVERT = "..\\..\\..\\bin\\netconvert"
-    SUMO = "..\\..\\..\\bin\\sumo"
-    SUMOGUI = "..\\..\\..\\bin\\sumo-gui"
+BIN_DIR = os.path.join(os.path.dirname(__file__), "..", "..", "..", "bin")
+NETCONVERT = os.path.join(BIN_DIR, "netconvert")
+SUMO = os.path.join(BIN_DIR, "sumo")
+SUMOGUI = os.path.join(BIN_DIR, "sumo-gui")

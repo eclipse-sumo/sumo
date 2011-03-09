@@ -11,9 +11,7 @@ Control the CityMobil parking lot with a simple first come first serve approach.
 Copyright (C) 2008-2011 DLR (http://www.dlr.de/) and contributors
 All rights reserved
 """
-#import vehicleControl
-import vehicleControl_new as vehicleControl
-import statistics
+import vehicleControl, statistics
 from constants import *
 
 class SimpleManager(vehicleControl.Manager):

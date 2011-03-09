@@ -24,7 +24,7 @@ connections = open("%s.con.xml" % PREFIX, "w")
 print >> connections, "<connections>"
 routes = open("%s.rou.xml" % PREFIX, "w")
 print >> routes, """<routes>
-    <vtype id="car" length="6" guiShape="passenger" maxspeed="50" color="0.7,0.7,0.7"/>
+    <vtype id="car" length="3.5" guiShape="passenger" maxspeed="50" color="0.7,0.7,0.7"/>
     <vtype id="person" length=".25" guiOffset="0" guiShape="pedestrian" guiWidth=".25" maxspeed="5" color="1,0.2,0.2"/>
     <vtype id="cybercar" length="%s" guiShape="evehicle" maxspeed="%s" color="0,1,0"/>""" % (CYBER_LENGTH, CYBER_SPEED)
 #streets
@@ -93,7 +93,7 @@ for row in range(DOUBLE_ROWS):
         if random.uniform(0,1) < OCCUPATION_PROBABILITY:
             occupied += 1
             print >> routes, """\
-    <vehicle id="v%sr" type="car" depart="0" arrivalpos="10000">
+    <vehicle id="v%sr" type="car" depart="0" departpos="0" arrivalpos="10000">
         <route edges="%sr -%sr"/>
     </vehicle>""" % (vSlot, vSlot, vSlot)
         else:
@@ -104,7 +104,7 @@ for row in range(DOUBLE_ROWS):
         if random.uniform(0,1) < OCCUPATION_PROBABILITY:
             occupied += 1
             print >> routes, """\
-    <vehicle id="v%sl" type="car" depart="0" arrivalpos="10000">
+    <vehicle id="v%sl" type="car" depart="0" departpos="0" arrivalpos="10000">
         <route edges="%sl -%sl"/>
     </vehicle>""" % (vSlot, vSlot, vSlot)
         else:
@@ -152,7 +152,7 @@ edges.close()
 print >> connections, "</connections>"
 connections.close()
 
-os.system("%s -n %s.nod.xml -e %s.edg.xml -x %s.con.xml -o %s.net.xml" % (NETCONVERT, PREFIX, PREFIX, PREFIX, PREFIX))
+os.system("%s --no-internal-links -n %s.nod.xml -e %s.edg.xml -x %s.con.xml -o %s.net.xml" % (NETCONVERT, PREFIX, PREFIX, PREFIX, PREFIX))
 
 numBusses = TOTAL_CAPACITY / BUS_CAPACITY
 print >> routes, """    <flow id="b" type="cybercar" begin="0" period="100" repno="%s" arrivalpos="10000">
