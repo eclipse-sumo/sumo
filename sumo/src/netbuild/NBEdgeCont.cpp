@@ -317,11 +317,17 @@ NBEdgeCont::retrievePossiblySplitted(const std::string &id, SUMOReal pos) const 
 
 void
 NBEdgeCont::erase(NBDistrictCont &dc, NBEdge *edge) throw() {
+    extract(dc, edge);
+    delete edge;
+}
+
+
+void
+NBEdgeCont::extract(NBDistrictCont &dc, NBEdge *edge) throw() {
     myEdges.erase(edge->getID());
     edge->myFrom->removeOutgoing(edge);
     edge->myTo->removeIncoming(edge);
     dc.removeFromSinksAndSources(edge);
-    delete edge;
 }
 
 

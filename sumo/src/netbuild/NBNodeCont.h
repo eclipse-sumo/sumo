@@ -108,6 +108,12 @@ public:
     bool erase(NBNode *node) throw();
 
 
+    /** @brief Removes the given node but does not delete it
+     * @param[in] node The node to delete and remove
+     * @return Whether the node could be removed (existed)
+     */
+    bool extract(NBNode *node) throw();
+
     /** @brief Returns the node with the given name
      * @param[in] id The id of the node to retrieve
      * @return The node with the given id, or 0 if no such node exists

@@ -154,6 +154,16 @@ public:
      * @todo Recheck whether the district cont is needed - if districts are processed using an external tool
      */
     void erase(NBDistrictCont &dc, NBEdge *edge) throw();
+
+
+    /** @brief Removes the given edge from the container like erase but does not
+     * delete it
+     *
+     * @param[in] dc The district container, in order to remove the edge from sources/sinks
+     * @param[in] edge The edge to remove
+     * @todo Recheck whether the district cont is needed - if districts are processed using an external tool
+     */
+    void extract(NBDistrictCont &dc, NBEdge *edge) throw();
     /// @}
 
 
