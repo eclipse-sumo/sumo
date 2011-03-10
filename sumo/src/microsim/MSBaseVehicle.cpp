@@ -258,23 +258,21 @@ MSBaseVehicle::addReminder(MSMoveReminder* rem) throw() {
 void
 MSBaseVehicle::calculateArrivalPos() throw() {
     const SUMOReal lastLaneLength = (myRoute->getLastEdge()->getLanes())[0]->getLength();
-    if (myArrivalPos < 0 || myArrivalPos > lastLaneLength || myParameter->arrivalPosProcedure == ARRIVAL_POS_MAX) {
-        switch (myParameter->arrivalPosProcedure) {
-        case ARRIVAL_POS_DEFAULT:
-        case ARRIVAL_POS_GIVEN:
-            // Maybe we should warn the user about invalid inputs!
-            myArrivalPos = MIN2(myParameter->arrivalPos, lastLaneLength);
-            if (myArrivalPos < 0) {
-                myArrivalPos = MAX2(myArrivalPos + lastLaneLength, static_cast<SUMOReal>(0));
-            }
-            break;
-        case ARRIVAL_POS_RANDOM:
-            myArrivalPos = RandHelper::rand(static_cast<SUMOReal>(0), lastLaneLength);
-            break;
-        case ARRIVAL_POS_MAX:
-            myArrivalPos = lastLaneLength;
-            break;
+    switch (myParameter->arrivalPosProcedure) {
+    case ARRIVAL_POS_DEFAULT:
+    case ARRIVAL_POS_GIVEN:
+        // Maybe we should warn the user about invalid inputs!
+        myArrivalPos = MIN2(myParameter->arrivalPos, lastLaneLength);
+        if (myArrivalPos < 0) {
+            myArrivalPos = MAX2(myArrivalPos + lastLaneLength, static_cast<SUMOReal>(0));
         }
+        break;
+    case ARRIVAL_POS_RANDOM:
+        myArrivalPos = RandHelper::rand(static_cast<SUMOReal>(0), lastLaneLength);
+        break;
+    case ARRIVAL_POS_MAX:
+        myArrivalPos = lastLaneLength;
+        break;
     }
 }
 
