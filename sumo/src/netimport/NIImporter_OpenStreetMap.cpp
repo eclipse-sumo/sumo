@@ -663,13 +663,13 @@ NIImporter_OpenStreetMap::EdgesHandler::myStartElement(SumoXMLTag element,
             try {
                 myCurrentEdge->myNoLanes = TplConvert<char>::_2int(value.c_str());
             } catch (NumberFormatException &) {
-                MsgHandler::getErrorInstance()->inform("Value of key '" + key + "' is not numeric ('" + value + "') in edge '" + myCurrentEdge->id + "'.");
+                WRITE_WARNING("Value of key '" + key + "' is not numeric ('" + value + "') in edge '" + myCurrentEdge->id + "'.");
             }
         } else if (key=="maxspeed") {
             if (mySpeedMap.find(value)!=mySpeedMap.end()) {
                 myCurrentEdge->myMaxSpeed = mySpeedMap[value];
             } else {
-                if (value.find("km/h")!=std::string::npos) {
+                if (StringUtils::to_lower_case(value).find("km/h")!=std::string::npos) {
                     value = StringUtils::prune(value.substr(0, value.find_first_not_of("0123456789")));
                 }
                 try {
