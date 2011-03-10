@@ -245,7 +245,7 @@ SUMOVehicleParameter::writeAs(const std::string &xmlElem, OutputDevice &dev,
 
 bool
 SUMOVehicleParameter::departlaneValidate(const std::string &val) throw() {
-    if (val=="departlane"||val=="random"||val=="free") {
+    if (val=="random"||val=="free"||val=="departlane"||val=="allowed"||val=="best") {
         return true;
     }
     try {
@@ -254,14 +254,14 @@ SUMOVehicleParameter::departlaneValidate(const std::string &val) throw() {
     } catch (NumberFormatException &) {
     } catch (EmptyData &) {
     }
-    MsgHandler::getErrorInstance()->inform("Invalid departlane definition;\n must be one of (\"departlane\", \"random\", \"free\", or an int>0)");
+    MsgHandler::getErrorInstance()->inform("Invalid departlane definition;\n must be one of (\"departlane\", \"random\", \"free\", \"allowed\", \"best\", or an int>0)");
     return false;
 }
 
 
 bool
 SUMOVehicleParameter::departposValidate(const std::string &val) throw() {
-    if (val=="random"||val=="random_free"||val=="free") {
+    if (val=="random"||val=="free"||val=="random_free"||val=="base"||val=="pwagSimple"||val=="pwagGeneric") {
         return true;
     }
     try {
@@ -270,7 +270,7 @@ SUMOVehicleParameter::departposValidate(const std::string &val) throw() {
     } catch (NumberFormatException &) {
     } catch (EmptyData &) {
     }
-    MsgHandler::getErrorInstance()->inform("Invalid departpos definition;\n must be one of (\"random\", \"random_free\", \"free\", or a float)");
+    MsgHandler::getErrorInstance()->inform("Invalid departpos definition;\n must be one of (\"random\", \"random_free\", \"free\", \"base\", \"pwagSimple\", \"pwagGeneric\", or a float)");
     return false;
 }
 
