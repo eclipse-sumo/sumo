@@ -124,6 +124,12 @@ public:
     /// @}
 
 
+    /** @brief Abstract output operator
+     * @return The OutputDevice for further processing
+     */
+    static std::string realString(const SUMOReal v, const int precision=OUTPUT_ACCURACY);
+
+
 
 public:
     /// @name OutputDevice member methods

@@ -122,16 +122,14 @@ MSDevice_HBEFA::notifyMove(SUMOVehicle& veh, SUMOReal /*oldPos*/, SUMOReal /*new
 void
 MSDevice_HBEFA::generateOutput() const throw(IOError) {
     OutputDevice &os = OutputDevice::getDeviceByOption("tripinfo-output");
-    os << resetiosflags(std::ios::floatfield);
     (os.openTag("emissions") <<
-     " CO_abs=\"" << myCO <<
-     "\" CO2_abs=\"" << myCO2 <<
-     "\" HC_abs=\"" << myHC <<
-     "\" PMx_abs=\""<< myPMx <<
-     "\" NOx_abs=\""<< myNOx <<
-     "\" fuel_abs=\""<< myFuel <<
+     " CO_abs=\"" << OutputDevice::realString(myCO, 6) <<
+     "\" CO2_abs=\"" << OutputDevice::realString(myCO2, 6) <<
+     "\" HC_abs=\"" << OutputDevice::realString(myHC, 6) <<
+     "\" PMx_abs=\""<< OutputDevice::realString(myPMx, 6) <<
+     "\" NOx_abs=\""<< OutputDevice::realString(myNOx, 6) <<
+     "\" fuel_abs=\""<< OutputDevice::realString(myFuel, 6) <<
      "\"").closeTag(true);
-    os<<setiosflags(std::ios::fixed);
 }
 
 

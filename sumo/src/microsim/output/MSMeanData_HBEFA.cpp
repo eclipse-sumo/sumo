@@ -101,20 +101,19 @@ MSMeanData_HBEFA::MSLaneMeanDataValues::notifyMoveInternal(SUMOVehicle& veh, SUM
 void
 MSMeanData_HBEFA::MSLaneMeanDataValues::write(OutputDevice &dev, const SUMOTime period,
         const SUMOReal /*numLanes*/, const int /*numVehicles*/) const throw(IOError) {
-    dev<<std::resetiosflags(std::ios::floatfield);
     const SUMOReal normFactor = SUMOReal(3600. * 1000. / STEPS2TIME(period) / myLaneLength);
-    dev << "\" CO_abs=\""<<SUMOReal(CO*1000.) <<
-    "\" CO2_abs=\""<<SUMOReal(CO2*1000.) <<
-    "\" HC_abs=\""<<SUMOReal(HC*1000.) <<
-    "\" PMx_abs=\""<<SUMOReal(PMx*1000.) <<
-    "\" NOx_abs=\""<<SUMOReal(NOx*1000.) <<
-    "\" fuel_abs=\""<<SUMOReal(fuel*1000.) <<
-    "\"\n            CO_normed=\""<<normFactor * CO <<
-    "\" CO2_normed=\""<<normFactor * CO2<<
-    "\" HC_normed=\""<<normFactor * HC <<
-    "\" PMx_normed=\""<<normFactor * PMx <<
-    "\" NOx_normed=\""<<normFactor * NOx <<
-    "\" fuel_normed=\""<<normFactor * fuel;
+    dev << "\" CO_abs=\""<<OutputDevice::realString(CO*1000., 6) <<
+    "\" CO2_abs=\""<<OutputDevice::realString(CO2*1000., 6) <<
+    "\" HC_abs=\""<<OutputDevice::realString(HC*1000., 6) <<
+    "\" PMx_abs=\""<<OutputDevice::realString(PMx*1000., 6) <<
+    "\" NOx_abs=\""<<OutputDevice::realString(NOx*1000., 6) <<
+    "\" fuel_abs=\""<<OutputDevice::realString(fuel*1000., 6) <<
+    "\"\n            CO_normed=\""<<OutputDevice::realString(normFactor * CO, 6) <<
+    "\" CO2_normed=\""<<OutputDevice::realString(normFactor * CO2, 6)<<
+    "\" HC_normed=\""<<OutputDevice::realString(normFactor * HC, 6) <<
+    "\" PMx_normed=\""<<OutputDevice::realString(normFactor * PMx, 6) <<
+    "\" NOx_normed=\""<<OutputDevice::realString(normFactor * NOx, 6) <<
+    "\" fuel_normed=\""<<OutputDevice::realString(normFactor * fuel, 6);
     if (sampleSeconds > myParent->myMinSamples) {
         SUMOReal vehFactor = myParent->myMaxTravelTime / sampleSeconds;
         SUMOReal traveltime = myParent->myMaxTravelTime;
@@ -122,16 +121,15 @@ MSMeanData_HBEFA::MSLaneMeanDataValues::write(OutputDevice &dev, const SUMOTime 
             vehFactor = MIN2(vehFactor, myLaneLength / travelledDistance);
             traveltime = MIN2(traveltime, myLaneLength * sampleSeconds / travelledDistance);
         }
-        dev<<"\"\n            traveltime=\"" << traveltime<<
-        "\" CO_perVeh=\""<<CO*vehFactor<<
-        "\" CO2_perVeh=\""<<CO2*vehFactor<<
-        "\" HC_perVeh=\""<<HC*vehFactor<<
-        "\" PMx_perVeh=\""<<PMx*vehFactor<<
-        "\" NOx_perVeh=\""<<NOx*vehFactor<<
-        "\" fuel_perVeh=\""<<fuel*vehFactor;
+        dev<<"\"\n            traveltime=\"" << OutputDevice::realString(traveltime)<<
+        "\" CO_perVeh=\""<<OutputDevice::realString(CO*vehFactor, 6)<<
+        "\" CO2_perVeh=\""<<OutputDevice::realString(CO2*vehFactor, 6)<<
+        "\" HC_perVeh=\""<<OutputDevice::realString(HC*vehFactor, 6)<<
+        "\" PMx_perVeh=\""<<OutputDevice::realString(PMx*vehFactor, 6)<<
+        "\" NOx_perVeh=\""<<OutputDevice::realString(NOx*vehFactor, 6)<<
+        "\" fuel_perVeh=\""<<OutputDevice::realString(fuel*vehFactor, 6);
     }
     dev<<"\"/>\n";
-    dev<<std::setiosflags(std::ios::fixed); // use decimal format
 }
 
 
