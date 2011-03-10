@@ -562,7 +562,7 @@ NIImporter_OpenStreetMap::NodesHandler::myStartElement(SumoXMLTag element, const
         }
         bool ok = true;
         std::string key = attrs.getStringReporting(SUMO_ATTR_K, "tag", toString(myLastNodeID).c_str(), ok);
-        std::string value = attrs.getStringReporting(SUMO_ATTR_V, "tag", toString(myLastNodeID).c_str(), ok);
+        std::string value = attrs.getOptStringReporting(SUMO_ATTR_V, "tag", toString(myLastNodeID).c_str(), ok, "");
         if (!ok) {
             return;
         }

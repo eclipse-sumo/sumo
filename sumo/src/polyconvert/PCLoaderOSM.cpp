@@ -251,7 +251,7 @@ PCLoaderOSM::NodesHandler::myStartElement(SumoXMLTag element, const SUMOSAXAttri
     if (element==SUMO_TAG_TAG&&myParentElements.size()>2&&myParentElements[myParentElements.size()-2]==SUMO_TAG_NODE) {
         bool ok = true;
         std::string key = attrs.getStringReporting(SUMO_ATTR_K, "node", toString(myLastNodeID).c_str(), ok);
-        std::string value = attrs.getStringReporting(SUMO_ATTR_V, "node", toString(myLastNodeID).c_str(), ok);
+        std::string value = attrs.getOptStringReporting(SUMO_ATTR_V, "node", toString(myLastNodeID).c_str(), ok, "");
         if (!ok) {
             return;
         }
