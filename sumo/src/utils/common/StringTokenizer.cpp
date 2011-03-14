@@ -43,6 +43,7 @@
 // ===========================================================================
 const int StringTokenizer::NEWLINE = -256;
 const int StringTokenizer::WHITECHARS = -257;
+const int StringTokenizer::SPACE = 32;
 
 
 // ===========================================================================
@@ -159,18 +160,18 @@ void StringTokenizer::prepare(const std::string &tosplit, const std::string &tok
 void StringTokenizer::prepareWhitechar(const std::string &tosplit) {
     size_t len = tosplit.length();
     size_t beg = 0;
-    while (beg<len&&tosplit[beg]<=32) {
+    while (beg<len&&tosplit[beg]<=SPACE) {
         beg++;
     }
     while (beg!=std::string::npos&&beg<len) {
         size_t end = beg;
-        while (end<len&&tosplit[end]>32) {
+        while (end<len&&tosplit[end]>SPACE) {
             end++;
         }
         myStarts.push_back(beg);
         myLengths.push_back(end-beg);
         beg = end;
-        while (beg<len&&tosplit[beg]<=32) {
+        while (beg<len&&tosplit[beg]<=SPACE) {
             beg++;
         }
     }

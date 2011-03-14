@@ -73,6 +73,9 @@ public:
         characters */
     static const int WHITECHARS;
 
+    /** the ascii index of the highest whitespace character */
+    static const int SPACE;
+
 public:
     /** default constructor */
     StringTokenizer() { }
@@ -94,7 +97,7 @@ public:
         When StringTokenizer.NEWLINE is used as second parameter, the string
         will be split at all occurences of a newline character (0x0d / 0x0a)
         When StringTokenizer.WHITECHARS is used as second parameter, the
-        string will be split at all characters below 0x20
+        string will be split at all characters below 0x20 (SPACE)
         All other ints specified as second parameter are casted int o a char
         at which the string will be splitted. */
     StringTokenizer(std::string tosplit, int special);
