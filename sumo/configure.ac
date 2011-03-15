@@ -15,7 +15,7 @@ dnl because it modifies CXXFLAGS
 AC_ARG_ENABLE([debug], [AS_HELP_STRING([--enable-debug],[enable sumo debugging code [default=no].])])
 if test x$enable_debug = xyes; then
     AC_DEFINE(_DEBUG, 1, [Define to 1 in order to enable sumo debugging code.])
-    CXXFLAGS="-g $CXXFLAGS"
+    CXXFLAGS="-g -pthread $CXXFLAGS"
     ac_enabled="$ac_enabled Debug"
 else
     CXXFLAGS="-O2 -DNDEBUG $CXXFLAGS"
