@@ -47,7 +47,7 @@ def subscribe(varIDs=(tc.VAR_DEPARTED_VEHICLES_IDS,), begin=0, end=2**31-1):
 def _resetSubscriptionResults():
     subscriptionResults.clear()
 
-def _addSubscriptionResult(varID, data):
+def _addSubscriptionResult(objectID, varID, data):
     subscriptionResults[varID] = RETURN_VALUE_FUNC[varID](data)
 
 def getSubscriptionResults():

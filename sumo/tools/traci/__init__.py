@@ -62,7 +62,11 @@ class Storage:
         return self._pos < len(self._content) 
 
 
-import constants, vehicle, simulation, route
+import constants, vehicle, simulation, route, vehicletype
+_modules = {constants.RESPONSE_SUBSCRIBE_VEHICLE_VARIABLE: vehicle,
+            constants.RESPONSE_SUBSCRIBE_SIM_VARIABLE: simulation,
+            constants.RESPONSE_SUBSCRIBE_ROUTE_VARIABLE: route,
+            constants.RESPONSE_SUBSCRIBE_VEHICLETYPE_VARIABLE: vehicletype}
 _socket = None
 _message = Message()
 
@@ -140,12 +144,8 @@ def _readSubscription(result):
         status, varType = result.read("!BB")
         if status:
             print "Error!", result.readString()
-        elif response == constants.RESPONSE_SUBSCRIBE_VEHICLE_VARIABLE:
-            vehicle._addSubscriptionResult(objectID, varID, result)
-        elif response == constants.RESPONSE_SUBSCRIBE_SIM_VARIABLE:
-            simulation._addSubscriptionResult(varID, result)
-        elif response == constants.RESPONSE_SUBSCRIBE_ROUTE_VARIABLE:
-            route._addSubscriptionResult(varID, result)
+        elif response in _modules:
+            _modules[response]._addSubscriptionResult(objectID, varID, result)
         numVars -= 1
     return response, objectID
 
@@ -184,9 +184,8 @@ def simulationStep(step):
     _message.queue.append(constants.CMD_SIMSTEP2)
     _message.string += struct.pack("!BBi", 1+1+4, constants.CMD_SIMSTEP2, step)
     result = _sendExact()
-    vehicle._resetSubscriptionResults()
-    simulation._resetSubscriptionResults()
-    route._resetSubscriptionResults()
+    for module in _modules.itervalues():
+        module._resetSubscriptionResults()
     numSubs = result.readInt()
     while numSubs > 0:
         _readSubscription(result)
