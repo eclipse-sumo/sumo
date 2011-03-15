@@ -63,7 +63,7 @@ using namespace XERCES_CPP_NAMESPACE;
  *
  * The idea behind this second handler layer was avoid repeated conversion
  *  from strings/whatever to XMLCh* and back again. The usage is quite straight
- *  forward, the only overhead is the need to define the enums - both emelents
+ *  forward, the only overhead is the need to define the enums - both elements
  *  and attributes within "SUMOXMLDefinition". Still, it maybe helps to avoid typos.
  *
  * This class implements the SAX-callback and offers a new set of callbacks
