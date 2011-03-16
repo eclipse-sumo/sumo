@@ -101,6 +101,9 @@
 #include "manip.cpp"
 #include "camera.xpm"
 
+#include "undo.xpm"
+#include "redo.xpm"
+
 #include "cut.xpm"
 #include "ext.xpm"
 
@@ -198,6 +201,9 @@ GUIIconSubSys::GUIIconSubSys(FXApp *a) {
     myIcons[ICON_RUBBER4X] = new FXXPMIcon(a, rubber4x_xpm);
     myIcons[ICON_RUBBER5X] = new FXXPMIcon(a, rubber5x_xpm);
     myIcons[ICON_EDITGRAPH]    = new FXXPMIcon(a, edit_graph_xpm);
+
+    myIcons[ICON_UNDO]    = new FXXPMIcon(a, undo_xpm);
+    myIcons[ICON_REDO]    = new FXXPMIcon(a, redo_xpm);
 
     myIcons[ICON_EXT]    = new FXXPMIcon(a, ext_xpm);
     myIcons[ICON_CUT_SWELL]    = new FXXPMIcon(a, cut_xpm);
