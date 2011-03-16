@@ -103,6 +103,12 @@ public:
     }
 
 
+    /** @brief Returns the ProgramID */
+    const std::string & getProgramID() const {
+        return mySubID;
+    };
+
+
 private:
     /**
      * @class PhaseDefinition
@@ -144,7 +150,7 @@ private:
     unsigned int myNoLinks;
 
     /// @brief The tls program's subid
-    std::string mySubID;
+    const std::string mySubID;
 
     /// @brief The tls program's offset
     SUMOTime myOffset;
