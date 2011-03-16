@@ -384,6 +384,7 @@ public:
 
     const Position2DVector &getShape() const;
 
+    // @brief adds up all lanes of all incoming edges which have a continuation
     unsigned int countInternalLanes(bool includeSplits);
 
     std::string getInternalLaneID(NBEdge *from, unsigned int fromlane,
