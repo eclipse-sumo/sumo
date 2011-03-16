@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """
 @file    vehicletype.py
-@author  Michael.Behrisch@dlr.de, Lena Kalleske
+@author  Michael.Behrisch@dlr.de
 @date    2008-10-09
 @version $Id$
 
@@ -10,7 +10,7 @@ Python implementation of the TraCI interface.
 Copyright (C) 2008-2011 DLR (http://www.dlr.de/) and contributors
 All rights reserved
 """
-import struct, traci
+import traci
 import traci.constants as tc
 
 def readVehicleData(result):
