@@ -3,3 +3,6 @@ connections
 
 # handle them!
 internal_lanes
+
+# demonstrate the ability to import traffic lights
+traffic_lights
