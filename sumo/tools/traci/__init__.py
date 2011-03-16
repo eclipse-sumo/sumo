@@ -62,10 +62,11 @@ class Storage:
         return self._pos < len(self._content) 
 
 
-import constants, vehicle, simulation, route, vehicletype
+import constants, vehicle, simulation, route, vehicletype, inductionloop
 _modules = {constants.RESPONSE_SUBSCRIBE_VEHICLE_VARIABLE: vehicle,
             constants.RESPONSE_SUBSCRIBE_SIM_VARIABLE: simulation,
             constants.RESPONSE_SUBSCRIBE_ROUTE_VARIABLE: route,
+            constants.RESPONSE_SUBSCRIBE_INDUCTIONLOOP_VARIABLE: inductionloop,
             constants.RESPONSE_SUBSCRIBE_VEHICLETYPE_VARIABLE: vehicletype}
 _socket = None
 _message = Message()
