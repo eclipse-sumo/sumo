@@ -69,8 +69,7 @@ NBTrafficLightLogicCont::applyOptions(OptionsCont &oc) throw() {
 
 bool
 NBTrafficLightLogicCont::insert(NBTrafficLightDefinition *logic) throw() {
-    DefinitionContType::iterator i=myDefinitions.find(logic->getID());
-    if (i!=myDefinitions.end()) {
+    if (myDefinitions.count(logic->getID())) {
         return false;
     }
     myDefinitions[logic->getID()] = logic;
