@@ -77,6 +77,9 @@
     <ClCompile Include="..\..\..\src\netbuild\NBTypeCont.cpp">
       <Filter>Quellcodedateien</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\src\netbuild\NBLoadedSUMOTLDef.cpp">
+      <Filter>Quellcodedateien</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\src\netbuild\NBCapacity2Lanes.h">
@@ -158,6 +161,9 @@
       <Filter>Header-Dateien</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\netbuild\NBTypeCont.h">
+      <Filter>Header-Dateien</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\netbuild\NBLoadedSUMOTLDef.h">
       <Filter>Header-Dateien</Filter>
     </ClInclude>
   </ItemGroup>

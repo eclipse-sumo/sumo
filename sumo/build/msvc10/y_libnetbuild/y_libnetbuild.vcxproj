@@ -146,6 +146,7 @@
     <ClCompile Include="..\..\..\src\netbuild\NBJoinedEdgesMap.cpp" />
     <ClCompile Include="..\..\..\src\netbuild\NBJunctionLogicCont.cpp" />
     <ClCompile Include="..\..\..\src\netbuild\NBJunctionTypesMatrix.cpp" />
+    <ClCompile Include="..\..\..\src\netbuild\NBLoadedSUMOTLDef.cpp" />
     <ClCompile Include="..\..\..\src\netbuild\NBLoadedTLDef.cpp" />
     <ClCompile Include="..\..\..\src\netbuild\NBNetBuilder.cpp" />
     <ClCompile Include="..\..\..\src\netbuild\NBNode.cpp" />
@@ -174,6 +175,7 @@
     <ClInclude Include="..\..\..\src\netbuild\NBJunctionLogicCont.h" />
     <ClInclude Include="..\..\..\src\netbuild\NBJunctionTypesMatrix.h" />
     <ClInclude Include="..\..\..\src\netbuild\NBLinkPossibilityMatrix.h" />
+    <ClInclude Include="..\..\..\src\netbuild\NBLoadedSUMOTLDef.h" />
     <ClInclude Include="..\..\..\src\netbuild\NBLoadedTLDef.h" />
     <ClInclude Include="..\..\..\src\netbuild\NBMMLDirections.h" />
     <ClInclude Include="..\..\..\src\netbuild\NBNetBuilder.h" />
