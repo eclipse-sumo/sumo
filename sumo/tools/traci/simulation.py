@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 """
 @file    simulation.py
-@author  Michael.Behrisch@dlr.de, Lena Kalleske
-@date    2008-10-09
+@author  Michael.Behrisch@dlr.de
+@date    2011-03-15
 @version $Id$
 
 Python implementation of the TraCI interface.

@@ -1,13 +1,13 @@
 # -*- coding: utf-8 -*-
 """
 @file    polygon.py
-@author  Michael.Behrisch@dlr.de, Lena Kalleske
-@date    2008-10-09
+@author  Michael.Behrisch@dlr.de
+@date    2011-03-16
 @version $Id$
 
 Python implementation of the TraCI interface.
 
-Copyright (C) 2008-2011 DLR (http://www.dlr.de/) and contributors
+Copyright (C) 2011 DLR (http://www.dlr.de/) and contributors
 All rights reserved
 """
 import struct, traci

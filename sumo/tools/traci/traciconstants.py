@@ -8,3 +8,7 @@ Copyright (C) 2009-2011 DLR (http://www.dlr.de/) and contributors
 All rights reserved
 """
 from constants import *
+
+import sys
+print >> sys.stderr, """traciconstants.py and traciControl.py are deprecated.
+Please use the new Python API for TraCI."""

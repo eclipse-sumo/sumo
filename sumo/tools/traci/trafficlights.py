@@ -2,12 +2,12 @@
 """
 @file    trafficlights.py
 @author  Michael.Behrisch@dlr.de
-@date    2008-10-09
+@date    2011-03-16
 @version $Id$
 
 Python implementation of the TraCI interface.
 
-Copyright (C) 2008-2011 DLR (http://www.dlr.de/) and contributors
+Copyright (C) 2011 DLR (http://www.dlr.de/) and contributors
 All rights reserved
 """
 import struct, traci

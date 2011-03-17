@@ -63,7 +63,7 @@ class Storage:
 
 
 import constants, vehicle, simulation, route, vehicletype, inductionloop, multientryexit, trafficlights
-import poi, polygon
+import poi, polygon, junction, edge, lane, gui
 
 _modules = {constants.RESPONSE_SUBSCRIBE_VEHICLE_VARIABLE: vehicle,
             constants.RESPONSE_SUBSCRIBE_SIM_VARIABLE: simulation,
@@ -73,6 +73,10 @@ _modules = {constants.RESPONSE_SUBSCRIBE_VEHICLE_VARIABLE: vehicle,
             constants.RESPONSE_SUBSCRIBE_TL_VARIABLE: trafficlights,
             constants.RESPONSE_SUBSCRIBE_POI_VARIABLE: poi,
             constants.RESPONSE_SUBSCRIBE_POLYGON_VARIABLE: polygon,
+            constants.RESPONSE_SUBSCRIBE_JUNCTION_VARIABLE: junction,
+            constants.RESPONSE_SUBSCRIBE_EDGE_VARIABLE: edge,
+            constants.RESPONSE_SUBSCRIBE_LANE_VARIABLE: lane,
+            constants.RESPONSE_SUBSCRIBE_GUI_VARIABLE: gui,
             constants.RESPONSE_SUBSCRIBE_VEHICLETYPE_VARIABLE: vehicletype}
 _socket = None
 _message = Message()
