@@ -382,6 +382,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\..\src\netbuild\NBLoadedSUMOTLDef.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\..\src\netbuild\NBLoadedTLDef.cpp"
 				>
 			</File>
@@ -488,6 +492,10 @@
 			</File>
 			<File
 				RelativePath="..\..\..\src\netbuild\NBLinkPossibilityMatrix.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\netbuild\NBLoadedSUMOTLDef.h"
 				>
 			</File>
 			<File
