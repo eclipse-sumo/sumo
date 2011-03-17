@@ -32,6 +32,7 @@
 #include <string>
 #include <map>
 #include <utils/xml/SUMOSAXHandler.h>
+#include <netbuild/NBLoadedSUMOTLDef.h>
 
 
 // ===========================================================================
@@ -73,8 +74,9 @@ public:
 protected:
     /** @brief Constructor
      * @param[in] nc The node control to fill
+     * @param[in] nc The trafficLight control to fill
      */
-    NIImporter_SUMO(NBNodeCont &nc);
+    NIImporter_SUMO(NBNodeCont &nc, NBTrafficLightLogicCont &tllc);
 
 
     /// @brief Destructor
@@ -153,17 +155,29 @@ private:
      * @param[in] attrs The attributes to get the succlane-definition from
      */
     void addSuccLane(const SUMOSAXAttributes &attrs);
+
+    /// begins the reading of a traffic lights logic
+    void initTrafficLightLogic(const SUMOSAXAttributes &attrs);
+
+    /// adds a phase to the traffic lights logic currently build
+    void addPhase(const SUMOSAXAttributes &attrs);
     //@}
 
 
 private:
     /**
-     * @struct EdgeLane
-     * @brief A connection description, made of a destination lane
+     * @struct Connection
+     * @brief A connection description. 
      */
-    struct EdgeLane {
+    struct Connection {
         /// @brief The connected lane
         std::string lane;
+        /// @brief The id of the traffic light that controls this connection
+        std::string tlID;
+        /// @brief The index of this connection within the controlling traffic light
+        unsigned int tlLinkNo;
+        /// @brief Information about being definitely free to drive (on-ramps)
+        bool mayDefinitelyPass;
     };
 
 
@@ -178,7 +192,7 @@ private:
         /// @brief This lane's shape
         Position2DVector shape;
         /// @brief This lane's connections
-        std::vector<EdgeLane> connections;
+        std::vector<Connection> connections;
     };
 
 
@@ -213,11 +227,17 @@ private:
     /// @brief The node container to fill
     NBNodeCont &myNodeCont;
 
+    /// @brief The node container to fill
+    NBTrafficLightLogicCont &myTLLCont;
+
     /// @brief The currently parsed edge's definition (to add loaded lanes to)
     EdgeAttrs *myCurrentEdge;
 
     /// @brief The currently parsed lanes's definition (to add the shape to)
     LaneAttrs *myCurrentLane;
+
+    /// @brief The currently parsed traffic light
+    NBLoadedSUMOTLDef *myCurrentTL;
 
     /** @brief Parses lane index from lane ID an retrieve lane from EdgeAttrs 
      * @param[in] edge The EdgeAttrs* which should contain the lane

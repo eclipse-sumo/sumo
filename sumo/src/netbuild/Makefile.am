@@ -17,6 +17,7 @@ NBTrafficLightLogicCont.cpp NBTrafficLightLogicCont.h \
 NBTypeCont.cpp NBTypeCont.h \
 NBOwnTLDef.cpp NBOwnTLDef.h \
 NBLoadedTLDef.cpp NBLoadedTLDef.h \
+NBLoadedSUMOTLDef.cpp NBLoadedSUMOTLDef.h \
 NBNetBuilder.cpp NBNetBuilder.h \
 NBJoinedEdgesMap.cpp NBJoinedEdgesMap.h
 

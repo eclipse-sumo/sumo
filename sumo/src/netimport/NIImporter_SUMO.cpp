@@ -62,7 +62,7 @@ NIImporter_SUMO::loadNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
         return;
     }
     // build the handler
-    NIImporter_SUMO handler(nb.getNodeCont());
+    NIImporter_SUMO handler(nb.getNodeCont(), nb.getTLLogicCont());
     // parse file(s)
     std::vector<std::string> files = oc.getStringVector("sumo-net");
     for (std::vector<std::string>::const_iterator file=files.begin(); file!=files.end(); ++file) {
@@ -108,32 +108,42 @@ NIImporter_SUMO::loadNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
     // assign lane attributes (edges are built)
     for (std::map<std::string, EdgeAttrs*>::const_iterator i=loadedEdges.begin(); i!=loadedEdges.end(); ++i) {
         EdgeAttrs *ed = (*i).second;
-        if (ed->builtEdge==0) {
-            // earlier errors
+        if (ed->builtEdge==0) { // inner edge
             continue;
         }
-        for (unsigned int j=0; j<(unsigned int) ed->lanes.size(); ++j) {
-            const std::vector<EdgeLane> &connections = ed->lanes[j]->connections;
-            for (std::vector<EdgeLane>::const_iterator k=connections.begin(); k!=connections.end(); ++k) {
-                if ((*k).lane!="SUMO_NO_DESTINATION") {
-                    std::string lane = (*k).lane;
-                    std::string edge;
-                    size_t index;
-                    interpretLaneID(lane, edge, index);
-                    if (loadedEdges.find(edge)==loadedEdges.end()) {
-                        MsgHandler::getErrorInstance()->inform("Unknown edge given in succlane (for lane '" + lane + "').");
+        for (unsigned int fromLaneIndex=0; fromLaneIndex<(unsigned int) ed->lanes.size(); ++fromLaneIndex) {
+            const std::vector<Connection> &connections = ed->lanes[fromLaneIndex]->connections;
+            for (std::vector<Connection>::const_iterator conn=connections.begin(); conn!=connections.end(); ++conn) {
+                if (conn->lane!="SUMO_NO_DESTINATION") {
+                    std::string toEdgeID;
+                    size_t toLaneIndex;
+                    interpretLaneID(conn->lane, toEdgeID, toLaneIndex);
+                    if (loadedEdges.find(toEdgeID)==loadedEdges.end()) {
+                        MsgHandler::getErrorInstance()->inform(
+                                "Unknown edge '" + toEdgeID + "' given in succlane (for lane '" + conn->lane + "').");
                         continue;
                     }
-                    NBEdge *ce = loadedEdges.find(edge)->second->builtEdge;
-                    if (ce==0) {
-                        // earlier error or edge removal
+                    NBEdge *toEdge = loadedEdges.find(toEdgeID)->second->builtEdge;
+                    if (toEdge==0) {
+                        WRITE_WARNING("target edge '" + toEdgeID + "' not built");
                         continue;
                     }
-                    ed->builtEdge->addLane2LaneConnection(j, ce, (unsigned int)index, NBEdge::L2L_VALIDATED);
+                    ed->builtEdge->addLane2LaneConnection(fromLaneIndex, toEdge, (unsigned int)toLaneIndex, NBEdge::L2L_VALIDATED);
+
+                    // maybe we have a controlled connection
+                    if (conn->tlID != "") {
+                        NBLoadedSUMOTLDef *tl = (NBLoadedSUMOTLDef*)handler.myTLLCont.getDefinition(conn->tlID);
+                        if (tl) {
+                            tl->addConnection(ed->builtEdge, toEdge, fromLaneIndex, toLaneIndex, conn->tlLinkNo);
+                        } else {
+                            WRITE_ERROR("The traffic light '" + conn->tlID + "' is not known.");
+                        }
+                    }
                 }
             }
         }
     }
+    
     // clean up
     for (std::map<std::string, EdgeAttrs*>::const_iterator i=loadedEdges.begin(); i!=loadedEdges.end(); ++i) {
         EdgeAttrs *ed = (*i).second;
@@ -149,9 +159,14 @@ NIImporter_SUMO::loadNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
 // ---------------------------------------------------------------------------
 // loader methods
 // ---------------------------------------------------------------------------
-NIImporter_SUMO::NIImporter_SUMO(NBNodeCont &nc)
+NIImporter_SUMO::NIImporter_SUMO(NBNodeCont &nc, NBTrafficLightLogicCont &tllc)
         : SUMOSAXHandler("sumo-network"),
-        myNodeCont(nc), myCurrentEdge(0) {}
+        myNodeCont(nc), 
+        myTLLCont(tllc),
+        myCurrentEdge(0),
+        myCurrentLane(0),
+        myCurrentTL(0)
+{}
 
 
 NIImporter_SUMO::~NIImporter_SUMO() throw() {
@@ -161,14 +176,27 @@ NIImporter_SUMO::~NIImporter_SUMO() throw() {
 void
 NIImporter_SUMO::myStartElement(SumoXMLTag element,
                                 const SUMOSAXAttributes &attrs) throw(ProcessError) {
+    /* our goal is to reproduce the input net faithfully
+     * there are different types of objects in the netfile:
+     * 1) those which must be loaded into NBNetBuilder-Containers for processing
+     * 2) those which can be ignored because they are recomputed based on group 1
+     * 3) those which are of no concern to NBNetBuilder but should be exposed to
+     *      NETEDIT. We will probably have to patch NBNetBuilder to contain them
+     *      and hand them over to NETEDIT 
+     *    alternative idea: those shouldn't really be contained within the
+     *    network but rather in separate files. teach NETEDIT how to open those
+     *    (POI?)
+     * 4) those which are of concern neither to NBNetBuilder nor NETEDIT and
+     *    must be copied over - need to patch NBNetBuilder for this.
+     *    copy unknown by default
+     *    (MSCalibrator ?)
+     */
     switch (element) {
     case SUMO_TAG_EDGE:
         addEdge(attrs);
         break;
     case SUMO_TAG_LANE:
-        if (myCurrentEdge!=0) {
-            addLane(attrs);
-        }
+        addLane(attrs);
         break;
     case SUMO_TAG_JUNCTION:
         addJunction(attrs);
@@ -178,6 +206,12 @@ NIImporter_SUMO::myStartElement(SumoXMLTag element,
         break;
     case SUMO_TAG_SUCCLANE:
         addSuccLane(attrs);
+        break;
+    case SUMO_TAG_TLLOGIC:
+        initTrafficLightLogic(attrs);
+        break;
+    case SUMO_TAG_PHASE:
+        addPhase(attrs);
         break;
     default:
         break;
@@ -221,6 +255,17 @@ NIImporter_SUMO::myEndElement(SumoXMLTag element) throw(ProcessError) {
         }
         myCurrentLane = 0;
         break;
+    case SUMO_TAG_TLLOGIC:
+        if (!myCurrentTL) {
+            WRITE_ERROR("Unmatched closing tag for tl-logic.");
+        } else {
+            if (!myTLLCont.insert(myCurrentTL)) {
+                WRITE_ERROR("Error on adding a traffic light\n Must be a multiple id ('" + myCurrentTL->getID() + "')");
+                delete myCurrentTL;
+            }
+            myCurrentTL = 0;
+        }
+        break;
     default:
         break;
     }
@@ -252,6 +297,13 @@ NIImporter_SUMO::addEdge(const SUMOSAXAttributes &attrs) {
 
 void
 NIImporter_SUMO::addLane(const SUMOSAXAttributes &attrs) {
+    std::string id;
+    if (!attrs.setIDFromAttributes("lane", id)) {
+        return;
+    }
+    if (!myCurrentEdge) {
+        WRITE_ERROR("Found lane '" + id  + "' not within edge element");
+    }
     myCurrentLane = new LaneAttrs;
     bool ok = true;
     myCurrentLane->maxSpeed = attrs.getOptSUMORealReporting(SUMO_ATTR_MAXSPEED, "lane", 0, ok, -1);
@@ -270,25 +322,30 @@ NIImporter_SUMO::addJunction(const SUMOSAXAttributes &attrs) {
     if (!attrs.setIDFromAttributes("junction", id)) {
         return;
     }
-    if (id[0]==':') {
+    if (id[0]==':') { // internal node
         return;
     }
     bool ok = true;
-    SUMOReal x = attrs.getOptSUMORealReporting(SUMO_ATTR_X, "junction", id.c_str(), ok, -1);
-    SUMOReal y = attrs.getOptSUMORealReporting(SUMO_ATTR_Y, "junction", id.c_str(), ok, -1);
-    // !!! this is too simplified! A proper error check should be done
-    if (x==-1||y==-1) {
-        MsgHandler::getErrorInstance()->inform("Junction '" + id + "' has an invalid position.");
-        return;
+    NBNode::BasicNodeType type = NBNode::NODETYPE_UNKNOWN;
+    SUMOReal x = attrs.getSUMORealReporting(SUMO_ATTR_X, "junction", id.c_str(), ok);
+    SUMOReal y = attrs.getSUMORealReporting(SUMO_ATTR_Y, "junction", id.c_str(), ok);
+    std::string typeS = attrs.getStringReporting(SUMO_ATTR_TYPE, "junction", id.c_str(), ok);
+    // @todo refactor! (see NIXMLNodesHandler::, NBNode::writeXML)
+    if (typeS=="priority") {
+        type = NBNode::NODETYPE_PRIORITY_JUNCTION;
+    } else if (typeS=="right_before_left") {
+        type = NBNode::NODETYPE_RIGHT_BEFORE_LEFT;
+    } else if (typeS=="traffic_light") {
+        type = NBNode::NODETYPE_TRAFFIC_LIGHT;
     }
     Position2D pos(x, y);
     if (!GeoConvHelper::x2cartesian(pos)) {
-        MsgHandler::getErrorInstance()->inform("Unable to project coordinates for junction " + id + ".");
+        WRITE_ERROR("Unable to project coordinates for junction " + id + ".");
         return;
     }
-    NBNode *node = new NBNode(id, pos);
+    NBNode *node = new NBNode(id, pos, type);
     if (!myNodeCont.insert(node)) {
-        MsgHandler::getErrorInstance()->inform("Problems on adding junction '" + id + "'.");
+        WRITE_ERROR("Problems on adding junction '" + id + "'.");
         delete node;
         return;
     }
@@ -313,14 +370,17 @@ NIImporter_SUMO::addSuccEdge(const SUMOSAXAttributes &attrs) {
 void
 NIImporter_SUMO::addSuccLane(const SUMOSAXAttributes &attrs) {
     if (myCurrentLane==0) {
-        // had error
+        WRITE_ERROR("Found succlane outside succ element");
         return;
     }
     bool ok = true;
-    std::string lane = attrs.getOptStringReporting(SUMO_ATTR_LANE, 0, 0, ok, "");
-    EdgeLane el;
-    el.lane = lane;
-    myCurrentLane->connections.push_back(el);
+    Connection conn;
+    conn.lane = attrs.getStringReporting(SUMO_ATTR_LANE, "succlane", 0, ok);
+    conn.tlID = attrs.getOptStringReporting(SUMO_ATTR_TLID, "tl", 0, ok, "");
+    if (conn.tlID != "") {
+        conn.tlLinkNo = attrs.getIntReporting(SUMO_ATTR_TLLINKNO, "linkno", 0, ok);
+    }
+    myCurrentLane->connections.push_back(conn);
 }
 
 
@@ -354,6 +414,52 @@ NIImporter_SUMO::interpretLaneID(const std::string &lane_id, std::string &edge_i
         MsgHandler::getErrorInstance()->inform("Invalid lane index '" + index_string + "' for lane '" + lane_id + "'.");
     }
 }
+
+
+void
+NIImporter_SUMO::initTrafficLightLogic(const SUMOSAXAttributes &attrs) {
+    if (myCurrentTL) {
+        WRITE_ERROR("Definition of tl-logic '" + myCurrentTL->getID() + "' was not finished.");
+        return;
+    }
+    bool ok = true;
+    std::string id = attrs.getStringReporting(SUMO_ATTR_ID, "tl-logic", 0, ok);
+    int offset = attrs.getOptSUMOTimeReporting(SUMO_ATTR_OFFSET, "tl-logic", id.c_str(), ok, 0);
+    std::string programID = attrs.getOptStringReporting(SUMO_ATTR_PROGRAMID, "tl-logic", id.c_str(), ok, "<unknown>");
+    //std::string type = attrs.getStringReporting(SUMO_ATTR_TYPE, "tl-logic", id.c_str(), ok);
+    // this attribute is never used within myJunctionControlBuilder
+    //SUMOReal detectorOffset = attrs.getOptSUMORealReporting(SUMO_ATTR_DET_OFFSET, "tl-logic", id.c_str(), ok, -1);
+
+    if (ok) {
+        myCurrentTL = new NBLoadedSUMOTLDef(id, programID, offset);
+    }
+    //myJunctionControlBuilder.initTrafficLightLogic(id, programID, type, offset, detectorOffset);
+}
+
+
+void
+NIImporter_SUMO::addPhase(const SUMOSAXAttributes &attrs) {
+    if (!myCurrentTL) {
+        WRITE_ERROR("found phase without tl-logic");
+        return;
+    }
+    const std::string &id = myCurrentTL->getID();
+    bool ok = true;
+    std::string state = attrs.getStringReporting(SUMO_ATTR_STATE, "phase", id.c_str(), ok);
+    int duration = attrs.getIntReporting(SUMO_ATTR_DURATION, "phase", id.c_str(), ok);
+    if (duration < 0) {
+        WRITE_ERROR("Phase duration for tl-logic '" + id + "/" + myCurrentTL->getProgramID() + "' must be positive.");
+        return;
+    }
+    // if the traffic light is an actuated traffic light, try to get
+    //  the minimum and maximum durations
+    //SUMOTime minDuration = attrs.getOptSUMOTimeReporting(SUMO_ATTR_MINDURATION, "phase", id.c_str(), ok, -1);
+    //SUMOTime maxDuration = attrs.getOptSUMOTimeReporting(SUMO_ATTR_MAXDURATION, "phase", id.c_str(), ok, -1);
+    if (ok) {
+        myCurrentTL->addPhase(duration, state);
+    }
+}
+
 
 /****************************************************************************/
 
