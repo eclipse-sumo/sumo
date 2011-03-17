@@ -21,6 +21,7 @@ recenter_view.xpm reload.xpm removedb.xpm \
 rubber1x.xpm rubber2x.xpm rubber3x.xpm rubber4x.xpm rubber5x.xpm \
 savedb.xpm show_tooltips.xpm \
 skeletonize.xpm \
+undo.xpm redo.xpm \
 step.xpm stop.xpm view1.xpm view2.xpm view3.xpm \
 windows_cascade.xpm windows_tile_horizontally.xpm windows_tile_vertically.xpm \
 yes.xpm
