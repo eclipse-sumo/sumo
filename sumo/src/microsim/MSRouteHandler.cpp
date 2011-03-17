@@ -122,7 +122,7 @@ MSRouteHandler::myStartElement(SumoXMLTag element,
                 throw ProcessError("The from edge '" + fromID + "' within a ride of person '" + pid + "' is not known.");
             }
             if (!myActivePlan->empty() && &myActivePlan->back()->getDestination() != from) {
-                throw ProcessError("Disconnected plan for person '" + myVehicleParameter->id + "'.");
+                throw ProcessError("Disconnected plan for person '" + myVehicleParameter->id + "' (" + fromID + "!=" + myActivePlan->back()->getDestination().getID() + ").");
             }
             if (myActivePlan->empty()) {
                 myActivePlan->push_back(new MSPerson::MSPersonStage_Waiting(*from, -1, myVehicleParameter->depart));
@@ -146,7 +146,7 @@ MSRouteHandler::myStartElement(SumoXMLTag element,
             throw ProcessError("No edges to walk for person '" + myVehicleParameter->id + "'.");
         }
         if (!myActivePlan->empty() && &myActivePlan->back()->getDestination() != myActiveRoute.front()) {
-            throw ProcessError("Disconnected plan for person '" + myVehicleParameter->id + "'.");
+            throw ProcessError("Disconnected plan for person '" + myVehicleParameter->id + "' (" + myActiveRoute.front()->getID() + "!=" + myActivePlan->back()->getDestination().getID() + ").");
         }
         if (myActivePlan->empty()) {
             myActivePlan->push_back(new MSPerson::MSPersonStage_Waiting(*myActiveRoute.front(), -1, myVehicleParameter->depart));
@@ -684,7 +684,7 @@ MSRouteHandler::addStop(const SUMOSAXAttributes &attrs) throw(ProcessError) {
         if (myActivePlan &&
                 !myActivePlan->empty() &&
                 &myActivePlan->back()->getDestination() != &MSLane::dictionary(stop.lane)->getEdge()) {
-            throw ProcessError("Disconnected plan for person '" + myVehicleParameter->id + "'.");
+            throw ProcessError("Disconnected plan for person '" + myVehicleParameter->id + "' (" + MSLane::dictionary(stop.lane)->getEdge().getID() + "!=" + myActivePlan->back()->getDestination().getID() + ").");
         }
         stop.endPos = attrs.getOptSUMORealReporting(SUMO_ATTR_ENDPOS, "stop", 0, ok, MSLane::dictionary(stop.lane)->getLength());
         if (attrs.hasAttribute(SUMO_ATTR_POSITION)) {
