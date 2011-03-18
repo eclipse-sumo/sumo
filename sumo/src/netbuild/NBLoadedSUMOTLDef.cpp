@@ -48,16 +48,24 @@
 // method definitions
 // ===========================================================================
 
-NBLoadedSUMOTLDef::NBLoadedSUMOTLDef(const std::string &id, const std::string &programID, SUMOTime offset) throw()
-        : NBTrafficLightDefinition(id) {
-            // the third parameter noLinks is never used within
-            // NBTrafficLightLogic
-            myTLLogic = new NBTrafficLightLogic(id, programID, -1);
-            myTLLogic->setOffset(offset);
-        }
+NBLoadedSUMOTLDef::NBLoadedSUMOTLDef(const std::string &id, const std::string &programID, SUMOTime offset) throw() : 
+    NBTrafficLightDefinition(id),
+    myTLLogic(0),
+    myAmComputed(false)
+{
+    // the third parameter noLinks is never used within
+    // NBTrafficLightLogic
+    myTLLogic = new NBTrafficLightLogic(id, programID, -1);
+    myTLLogic->setOffset(offset);
+}
 
 
-NBLoadedSUMOTLDef::~NBLoadedSUMOTLDef() throw() {}
+NBLoadedSUMOTLDef::~NBLoadedSUMOTLDef() throw() 
+{
+    if (!myAmComputed) {
+        delete myTLLogic;
+    }
+}
 
 
 NBTrafficLightLogic *
@@ -66,6 +74,7 @@ NBLoadedSUMOTLDef::myCompute(const NBEdgeCont &ec, unsigned int brakingTime) thr
     UNUSED_PARAMETER(ec);
     UNUSED_PARAMETER(brakingTime);
     myTLLogic->closeBuilding();
+    myAmComputed = true;
     return myTLLogic;
 }
 

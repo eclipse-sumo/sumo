@@ -117,6 +117,9 @@ private:
     /** @brief phases are added directly to myTLLogic which is then returned in myCompute() */
     NBTrafficLightLogic *myTLLogic;
 
+    /** @brief tracks whether myCompute() has been called and we are no longer
+      responsible for mananging myTLLogic */
+    bool myAmComputed;
 
 };
 
