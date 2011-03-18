@@ -4,7 +4,8 @@ EXTRA_DIST = StdDefs.h VectorHelper.h Command.h \
 NamedObjectCont.h StaticCommand.h RandomDistributor.h \
 SUMOAbstractRouter.h DijkstraRouterTT.h DijkstraRouterEffort.h \
 SUMOVehicle.h \
-WrappingCommand.h ValueRetriever.h ValueSource.h
+WrappingCommand.h ValueRetriever.h ValueSource.h \
+StringBijection.h
 
 libcommon_a_SOURCES = AbstractMutex.h \
 FileHelpers.cpp FileHelpers.h \
