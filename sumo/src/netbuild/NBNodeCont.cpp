@@ -146,6 +146,7 @@ NBNodeCont::retrieve(const Position2D &position, SUMOReal offset) const throw() 
 bool
 NBNodeCont::erase(NBNode *node) throw() {
     if (extract(node)) {
+        node->removeTrafficLights();
         delete node;
         return true;
     } else {
@@ -160,7 +161,6 @@ NBNodeCont::extract(NBNode *node) throw() {
     if (i==myNodes.end()) {
         return false;
     }
-    node->removeTrafficLights();
     myNodes.erase(i);
     return true;
 }
