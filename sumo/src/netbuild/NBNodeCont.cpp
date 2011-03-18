@@ -1210,14 +1210,16 @@ NBNodeCont::savePlain(const std::string &file) {
                 device << "unregulated\"";
                 break;
             case NBNode::NODETYPE_PRIORITY_JUNCTION:
+                device << "priority\"";
+                break;
             case NBNode::NODETYPE_TRAFFIC_LIGHT:
-                device  << "priority\"";
+                device << "traffic_light\"";
                 break;
             case NBNode::NODETYPE_RIGHT_BEFORE_LEFT:
-                device  << "right_before_left\"";
+                device << "right_before_left\"";
                 break;
             case NBNode::NODETYPE_DISTRICT:
-                device  << "district\"";
+                device << "district\"";
                 break;
             default:
                 throw ProcessError("An unknown junction type occured in node '" + n->getID() + "'");
