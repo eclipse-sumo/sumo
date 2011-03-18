@@ -1,24 +1,26 @@
 <?xml version="1.0"?>
 
-<!-- generated on 07/31/08 15:18:38 by SUMO netconvert Version dev-SVN-r5892
-<configuration>
+<!-- generated on Fri Mar 18 11:29:13 2011 by SUMO netconvert Version dev-SVN-r9918
+<?xml version="1.0" encoding="iso-8859-1"?>
 
-   <input>
-      <xml-node-files>input_nodes.nod.xml</xml-node-files>
-      <xml-edge-files>input_edges.edg.xml</xml-edge-files>
-   </input>
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
 
-   <output>
-      <output-file>net.net.xml</output-file>
-      <plain-output>plain</plain-output>
-   </output>
+    <input>
+        <xml-node-files value="input_nodes.nod.xml"/>
+        <xml-edge-files value="input_edges.edg.xml"/>
+    </input>
+
+    <output>
+        <output-file value="net.net.xml"/>
+        <plain-output value="plain"/>
+    </output>
 
 </configuration>
 -->
 
 <nodes>
-   <node id="dl" x="95.49" y="0.00"/>
-   <node id="dr" x="1295.49" y="0.00"/>
-   <node id="tl" x="95.49" y="190.99"/>
-   <node id="tr" x="1295.49" y="190.99"/>
+   <node id="dl" x="95.49" y="0.00" type="priority"/>
+   <node id="dr" x="1295.49" y="0.00" type="priority"/>
+   <node id="tl" x="95.49" y="190.99" type="priority"/>
+   <node id="tr" x="1295.49" y="190.99" type="priority"/>
 </nodes>

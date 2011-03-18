@@ -1,9 +1,27 @@
 <?xml version="1.0"?>
 
-<!-- generated on 10/05/10 11:23:33 by SUMO netconvert Version dev-SVN-r9175
+<!-- generated on Fri Mar 18 11:29:29 2011 by SUMO netconvert Version dev-SVN-r9918
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <osm-files value="osm.xml"/>
+    </input>
+
+    <output>
+        <output-file value="ignore.net.xml"/>
+        <plain-output value="plain"/>
+    </output>
+
+    <projection>
+        <proj.utm value="true"/>
+    </projection>
+
+</configuration>
 -->
 
 <nodes>
-   <node id="1" x="0.00" y="0.00"/>
-   <node id="2" x="647.27" y="350.76"/>
+   <node id="1" x="0.00" y="0.00" type="priority"/>
+   <node id="2" x="647.27" y="350.76" type="priority"/>
 </nodes>
