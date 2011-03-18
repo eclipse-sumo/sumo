@@ -1,0 +1,30 @@
+Loading configuration... done.
+step 0
+step 1
+step 2
+edges ['1fi', '1o', '1si', '2fi', '2o', '2si', '3fi', '3o', '3si', '4fi', '4o', '4si']
+examining 2fi
+adaptedTraveltime -1.0
+effort -1.0
+CO2 2.70732283592
+CO 0.0432421937585
+HC 0.00102961668745
+PMx 0.00035455080797
+NOx 0.00577077036723
+Fuel 0.00107936724089
+Noise 68.3652801514
+meanSpeed 3.15664315224
+occupancy 0.0301810856909
+lastLength 7.5
+traveltime 78.722869873
+numVeh 1
+haltVeh 0
+vehIds ['horiz']
+{16: 1}
+step 3
+{16: 1}
+step 4
+{16: 1}
+step 5
+{16: 1}
+(14, 127, 0) OK Goodbye

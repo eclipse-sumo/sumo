@@ -135,6 +135,9 @@ def _beginMessage(cmdID, varID, objID, length=0):
 
 def _sendReadOneStringCmd(cmdID, varID, objID):
     _beginMessage(cmdID, varID, objID)
+    return _checkResult(cmdID, varID, objID)
+
+def _checkResult(cmdID, varID, objID):
     result = _sendExact()
     result.readLength()
     response, retVarID = result.read("!BB")

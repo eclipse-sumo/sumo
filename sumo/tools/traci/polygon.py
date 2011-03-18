@@ -15,7 +15,7 @@ import traci.constants as tc
 
 def readShape(result):
     length = result.read("!B")[0]
-    shape = [result.read("!ff") for i in range(length)]
+    return [result.read("!ff") for i in range(length)]
 
 
 RETURN_VALUE_FUNC = {tc.ID_LIST:   traci.Storage.readStringList,

@@ -1,2 +1,8 @@
 # Tests a simple one vehicle subscription
 simple
+
+# Tests the lane API
+lane
+
+# Tests the edge API
+edge

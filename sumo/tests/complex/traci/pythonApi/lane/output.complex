@@ -1,0 +1,36 @@
+Loading configuration... done.
+step 0
+step 1
+step 2
+lanes ['1fi_0', '1o_0', '1si_0', '1si_1', '1si_2', '2fi_0', '2o_0', '2si_0', '2si_1', '2si_2', '3fi_0', '3o_0', '3si_0', '3si_1', '3si_2', '4fi_0', '4o_0', '4si_0', '4si_1', '4si_2']
+examining 2fi_0
+length 248.5
+maxSpeed 11.1099996567
+allowed []
+disallowed []
+linkNum 3
+links [('2si_0', True, True, True), ('2si_1', True, True, True), ('2si_2', True, True, True)]
+shape [(1000.0, 501.6499938964844), (751.5, 501.6499938964844)]
+edge 2fi
+CO2 2.70732283592
+CO 0.0432421937585
+HC 0.00102961668745
+PMx 0.00035455080797
+NOx 0.00577077036723
+Fuel 0.00107936724089
+Noise 68.3652801514
+meanSpeed 3.15664315224
+occupancy 0.0301810856909
+lastLength 7.5
+traveltime 78.722869873
+numVeh 1
+haltVeh 0
+vehIds ['horiz']
+{16: 1}
+step 3
+{16: 1}
+step 4
+{16: 1}
+step 5
+{16: 1}
+(14, 127, 0) OK Goodbye

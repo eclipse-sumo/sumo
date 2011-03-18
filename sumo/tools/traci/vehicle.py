@@ -13,6 +13,25 @@ All rights reserved
 import struct, traci
 import traci.constants as tc
 
+def _readBestLanes(result):
+    result.read("!iB")
+    nbLanes = result.read("!i")[0] # Length
+    lanes = []
+    for i in range(nbLanes):
+        result.read("!B")
+        laneID = result.readString()
+        length = result.read("!Bf")[1]
+        occupation = result.read("!Bf")[1]
+        offset = result.read("!Bb")[1]
+        allowsContinuation = result.read("!BB")[1]
+        nextLanesNo = result.read("!Bi")[1]
+        nextLanes = []
+        for j in range(nextLanesNo):
+            nextLanes.append(result.readString())
+        lanes.append( [laneID, length, occupation, offset, allowsContinuation, nextLanes ] )
+    return lanes
+
+
 RETURN_VALUE_FUNC = {tc.ID_LIST:          traci.Storage.readStringList,
                      tc.VAR_SPEED:        traci.Storage.readFloat,
                      tc.VAR_POSITION:     lambda(result): result.read("!ff"),
@@ -23,7 +42,8 @@ RETURN_VALUE_FUNC = {tc.ID_LIST:          traci.Storage.readStringList,
                      tc.VAR_TYPE:         traci.Storage.readString,
                      tc.VAR_ROUTE_ID:     traci.Storage.readString,
                      tc.VAR_LANEPOSITION: traci.Storage.readFloat,
-                     tc.VAR_COLOR:        lambda(result): result.read("!BBBB")}
+                     tc.VAR_COLOR:        lambda(result): result.read("!BBBB"),
+                     tc.VAR_BEST_LANES:   _readBestLanes}
 subscriptionResults = {}
 
 def _getUniversal(varID, vehID):
@@ -70,23 +90,7 @@ def getColor(vehID):
     return _getUniversal(tc.VAR_COLOR, vehID)
 
 def getBestLanes(vehID):
-    result = traci._sendReadOneStringCmd(tc.CMD_GET_VEHICLE_VARIABLE, tc.VAR_BEST_LANES, vehID)
-    result.read("!iB")
-    nbLanes = result.read("!i")[0] # Length
-    lanes = []
-    for i in range(nbLanes):
-        result.read("!B")
-        laneID = result.readString()
-        length = result.read("!Bf")[1]
-        occupation = result.read("!Bf")[1]
-        offset = result.read("!Bb")[1]
-        allowsContinuation = result.read("!BB")[1]
-        nextLanesNo = result.read("!Bi")[1]
-        nextLanes = []
-        for j in range(nextLanesNo):
-            nextLanes.append(result.readString())
-        lanes.append( [laneID, length, occupation, offset, allowsContinuation, nextLanes ] )
-    return lanes
+    return _getUniversal(tc.VAR_BEST_LANES, vehID)
 
 
 def subscribe(vehID, varIDs=(tc.VAR_ROAD_ID, tc.VAR_LANEPOSITION), begin=0, end=2**31-1):

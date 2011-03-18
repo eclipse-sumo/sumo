@@ -62,7 +62,6 @@ TraCIServerAPI_Edge::processGet(TraCIServer &server, tcpip::Storage &inputStorag
     std::string id = inputStorage.readString();
     // check variable
     if (variable!=ID_LIST&&variable!=VAR_EDGE_TRAVELTIME&&variable!=VAR_EDGE_EFFORT&&variable!=VAR_CURRENT_TRAVELTIME
-            &&variable!=LANE_ALLOWED&&variable!=LANE_DISALLOWED
             &&variable!=VAR_CO2EMISSION&&variable!=VAR_COEMISSION&&variable!=VAR_HCEMISSION&&variable!=VAR_PMXEMISSION
             &&variable!=VAR_NOXEMISSION&&variable!=VAR_FUELCONSUMPTION&&variable!=VAR_NOISEEMISSION
             &&variable!=LAST_STEP_VEHICLE_NUMBER&&variable!=LAST_STEP_MEAN_SPEED&&variable!=LAST_STEP_OCCUPANCY

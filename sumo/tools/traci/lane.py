@@ -43,7 +43,7 @@ RETURN_VALUE_FUNC = {tc.ID_LIST:                   traci.Storage.readStringList,
                      tc.VAR_MAXSPEED:              traci.Storage.readFloat,
                      tc.LANE_ALLOWED:              traci.Storage.readStringList,
                      tc.LANE_DISALLOWED:           traci.Storage.readStringList,
-                     tc.LANE_LINK_NUMBER:          traci.Storage.readInt,
+                     tc.LANE_LINK_NUMBER:          lambda(result): result.read("!B")[0],
                      tc.LANE_LINKS:                _readLinks,
                      tc.VAR_SHAPE:                 traci.polygon.readShape,
                      tc.LANE_EDGE_ID:              traci.Storage.readString,
@@ -85,6 +85,15 @@ def getDisallowed(laneID):
 def getLinkNumber(laneID):
     return _getUniversal(tc.LANE_LINK_NUMBER, laneID)
 
+def getLinks(laneID):
+    return _getUniversal(tc.LANE_LINKS, laneID)
+
+def getShape(laneID):
+    return _getUniversal(tc.VAR_SHAPE, laneID)
+
+def getEdgeID(laneID):
+    return _getUniversal(tc.LANE_EDGE_ID, laneID)
+
 def getCO2Emission(laneID):
     return _getUniversal(tc.VAR_CO2EMISSION, laneID)
 
@@ -111,6 +120,12 @@ def getLastStepMeanSpeed(laneID):
 
 def getLastStepOccupancy(laneID):
     return _getUniversal(tc.LAST_STEP_OCCUPANCY, laneID)
+
+def getLastStepLength(laneID):
+    return _getUniversal(tc.LAST_STEP_LENGTH, laneID)
+
+def getTraveltime(laneID):
+    return _getUniversal(tc.VAR_CURRENT_TRAVELTIME, laneID)
 
 def getLastStepVehicleNumber(laneID):
     return _getUniversal(tc.LAST_STEP_VEHICLE_NUMBER, laneID)
