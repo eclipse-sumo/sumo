@@ -2,8 +2,8 @@
 
 import os,subprocess,sys,time
 sys.path.append(os.path.join(os.path.dirname(sys.argv[0]), '..', '..', '..', '..', "tools", "lib"))
-sys.path.append(os.path.join(os.path.dirname(sys.argv[0]), '..', '..', '..', '..', "tools", "traci"))
-import traciControl, testUtil
+sys.path.append(os.path.join(os.path.dirname(sys.argv[0]), '..', '..', '..', '..', "tools"))
+import traci, testUtil
 
 
 PORT = 8813
@@ -17,19 +17,19 @@ def runSingle(addOption):
     step = 0
     timeline = []
     sumoProcess = subprocess.Popen("%s -c %s %s" % (sumoBinary, "sumo.sumo.cfg", addOption), shell=True, stdout=sys.stdout)
-    traciControl.initTraCI(PORT)
+    traci.init(PORT)
     while not step>10000:
         try:
-            traciControl.cmdSimulationStep2(DELTA_T)
-            vehs = traciControl.cmdGetVehicleVariable_idList()
+            traci.simulationStep(DELTA_T)
+            vehs = traci.vehicle.getIDList()
             timeline.append({})
             for v in vehs:
-                timeline[-1][v] = traciControl.cmdGetVehicleVariable_speed(v)
+                timeline[-1][v] = traci.vehicle.getSpeed(v)
             step += 1
         except traciControl.FatalTraCIError:
             print "Closed by SUMO"
             break
-    traciControl.cmdClose()
+    traci.close()
     sys.stdout.flush()
     return timeline
 
@@ -64,6 +64,3 @@ evalTimeline(runSingle(""))
 time.sleep(1)
 print ">>> Checking Simulation (network: no internal, simulation: no internal)"
 evalTimeline(runSingle("--no-internal-links"))
-
-
-

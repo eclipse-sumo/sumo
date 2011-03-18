@@ -1,8 +1,8 @@
 #!/usr/bin/env python
 import os,subprocess,sys,shutil
-sys.path.append(os.path.join(os.path.dirname(sys.argv[0]), '..', '..', '..', '..', '..', "tools", "traci"))
+sys.path.append(os.path.join(os.path.dirname(sys.argv[0]), '..', '..', '..', '..', '..', "tools"))
 sys.path.append(os.path.join(os.path.dirname(sys.argv[0]), '..', '..', '..', '..', '..', "tools", "lib"))
-import traciControl, testUtil
+import traci, testUtil
 
 sumoBinary = testUtil.checkBinary('sumo')
 netconvertBinary = testUtil.checkBinary('netconvert')
@@ -26,11 +26,11 @@ for root in sorted(roots):
     shutil.copy(prefix + "additional.add.xml", "./input_additional.add.xml")
 
     sumoProcess = subprocess.Popen("%s -c sumo.sumo.cfg" % (sumoBinary), shell=True, stdout=sys.stdout)
-    traciControl.initTraCI(8813)
+    traci.init(8813)
     step = 0
-    traciControl.cmdSimulationStep(DELTA_T)
+    traci.simulationStep(DELTA_T)
     step += 1
-    lanes = traciControl.cmdGetVehicleVariable_bestLanes("0")
+    lanes = traci.vehicle.getBestLanes("0")
     sys.stdout.flush()
     for l in lanes:
        print "lane %s:" % (l[0])
@@ -38,7 +38,7 @@ for root in sorted(roots):
        print "  offset: %s" % (l[3])
        print "  allowsContinuation: %s" % (l[4])
        print "  over: %s" % (l[5])
-    traciControl.cmdClose()
+    traci.close()
     sys.stdout.flush()
 
     fdi = open(root + "/expected.txt")
