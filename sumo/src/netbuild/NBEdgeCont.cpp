@@ -669,10 +669,17 @@ NBEdgeCont::savePlain(const std::string &efile, const std::string &cfile) throw(
         edevice << "   <edge id=\"" << e->getID()
         << "\" fromnode=\"" << e->getFromNode()->getID()
         << "\" tonode=\"" << e->getToNode()->getID()
-        << "\" nolanes=\"" << e->getNoLanes()
+        << "\" priority=\"" << e->getPriority();
+        // write the type if given
+        if (e->getTypeID() != "") {
+            edevice << "\" type=\"" << e->getTypeID();
+        }
+        edevice << "\" nolanes=\"" << e->getNoLanes()
         << "\" speed=\"" << e->getSpeed() << "\"";
         // write the geometry only if larger than just the from/to positions
-        edevice << " shape=\"" << e->getGeometry() << "\"";
+        if (e->getGeometry().size() > 2) {
+            edevice << " shape=\"" << e->getGeometry() << "\"";
+        }
         // write the spread type if not default ("right")
         if (e->getLaneSpreadFunction()!=NBEdge::LANESPREAD_RIGHT) {
             edevice << " spread_type=\"center\"";
