@@ -28,17 +28,17 @@ def getEdges(routeID):
     return _getUniversal(tc.VAR_EDGES, routeID)
 
 
-def subscribe(vehID, varIDs=(tc.ID_LIST,), begin=0, end=2**31-1):
+def subscribe(routeID, varIDs=(tc.ID_LIST,), begin=0, end=2**31-1):
     _resetSubscriptionResults()
-    traci._subscribe(tc.CMD_SUBSCRIBE_ROUTE_VARIABLE, begin, end, vehID, varIDs)
+    traci._subscribe(tc.CMD_SUBSCRIBE_ROUTE_VARIABLE, begin, end, routeID, varIDs)
 
 def _resetSubscriptionResults():
     subscriptionResults.clear()
 
 def _addSubscriptionResult(routeID, varID, data):
-    if vehID not in subscriptionResults:
+    if routeID not in subscriptionResults:
         subscriptionResults[routeID] = {}
-    subscriptionResults[vehID][varID] = RETURN_VALUE_FUNC[varID](data)
+    subscriptionResults[routeID][varID] = RETURN_VALUE_FUNC[varID](data)
 
 def getSubscriptionResults(routeID=None):
     if routeID == None:

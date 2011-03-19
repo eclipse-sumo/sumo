@@ -1,0 +1,15 @@
+Loading configuration... done.
+step 0
+step 1
+step 2
+routes ['horizontal']
+examining horizontal
+edges ['2fi', '2si', '1o', '1fi', '1si', '3o', '3fi', '3si', '4o', '4fi', '4si']
+{0: ['horizontal']}
+step 3
+{0: ['horizontal']}
+step 4
+{0: ['horizontal']}
+step 5
+{0: ['horizontal']}
+(14, 127, 0) OK Goodbye

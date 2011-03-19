@@ -6,3 +6,18 @@ lane
 
 # Tests the edge API
 edge
+
+# Tests the vehicle API
+vehicle
+
+# Tests the junction API
+junction
+
+# Tests the trafficlights API
+trafficlights
+
+# Tests the simulation API
+simulation
+
+# Tests the route API
+route

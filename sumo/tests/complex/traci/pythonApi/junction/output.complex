@@ -1,0 +1,15 @@
+Loading configuration... done.
+step 0
+step 1
+step 2
+junctions ['0', '1', '2', '3', '4', 'm1', 'm2', 'm3', 'm4']
+examining 0
+pos (500.0, 500.0)
+{66: (500.0, 500.0)}
+step 3
+{66: (500.0, 500.0)}
+step 4
+{66: (500.0, 500.0)}
+step 5
+{66: (500.0, 500.0)}
+(14, 127, 0) OK Goodbye

@@ -1,0 +1,42 @@
+Loading configuration... done.
+step 0
+step 1
+step 2
+trafficlights ['0']
+examining 0
+ryg GGggrrrrGGggrrrr
+pby ['0000111100001111', '0000001100000011', '0000000000000000']
+rygdef [Logic:
+subID: horizontal
+type: 0
+subParameter: 0
+currentPhaseIndex: 0
+Phase:
+duration: 10000000
+duration1: 10000000
+duration2: 10000000
+phaseDef: rrrrGGggrrrrGGgg
+, Logic:
+subID: vertical
+type: 0
+subParameter: 0
+currentPhaseIndex: 0
+Phase:
+duration: 10000000
+duration1: 10000000
+duration2: 10000000
+phaseDef: GGggrrrrGGggrrrr
+]
+lanes ['4si_0', '4si_1', '4si_2', '4si_2', '2si_0', '2si_1', '2si_2', '2si_2', '3si_0', '3si_1', '3si_2', '3si_2', '1si_0', '1si_1', '1si_2', '1si_2']
+links [[['4si_0', '1o_0', '']], [['4si_1', '3o_0', '']], [['4si_2', '2o_0', '']], [['4si_2', '4o_0', '']], [['2si_0', '4o_0', '']], [['2si_1', '1o_0', '']], [['2si_2', '3o_0', '']], [['2si_2', '2o_0', '']], [['3si_0', '2o_0', '']], [['3si_1', '4o_0', '']], [['3si_2', '1o_0', '']], [['3si_2', '3o_0', '']], [['1si_0', '3o_0', '']], [['1si_1', '2o_0', '']], [['1si_2', '4o_0', '']], [['1si_2', '1o_0', '']]]
+program vertical
+phase 0
+switch 10000000
+{40: 0}
+step 3
+{40: 0}
+step 4
+{40: 0}
+step 5
+{40: 0}
+(14, 127, 0) OK Goodbye

@@ -1,0 +1,26 @@
+Loading configuration... done.
+step 0
+step 1
+step 2
+vehicles ['horiz']
+examining horiz
+speed 3.15664315224
+pos (987.7586669921875, 501.6499938964844)
+angle -90.0
+road 2fi
+lane 2fi_0
+laneIndex 0
+type DEFAULT_VEHTYPE
+routeID horizontal
+route ['2fi', '2si', '1o', '1fi', '1si', '3o', '3fi', '3si', '4o', '4fi', '4si']
+lanePos 12.2413549423
+color (255, 255, 0, 255)
+bestLanes [['2fi_0', 2922.89990234375, 0.0, 0, 1, ['2fi_0', '2si_1', '1o_0', '1fi_0', '1si_0', '3o_0', '3fi_0', '3si_1', '4o_0']]]
+{80: '2fi', 86: 12.241354942321777}
+step 3
+{80: '2fi', 86: 17.826391220092773}
+step 4
+{80: '2fi', 86: 25.2379150390625}
+step 5
+{80: '2fi', 86: 34.31388473510742}
+(14, 127, 0) OK Goodbye

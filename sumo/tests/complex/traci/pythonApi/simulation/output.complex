@@ -1,0 +1,20 @@
+Loading configuration... done.
+{116: []}
+step 0
+{116: ['horiz']}
+step 1
+{116: []}
+step 2
+{116: []}
+step 3
+{116: []}
+step 4
+{116: []}
+step 5
+{116: []}
+time 6000
+departed []
+arrived []
+teleportStart []
+teleportEnd []
+(14, 127, 0) OK Goodbye

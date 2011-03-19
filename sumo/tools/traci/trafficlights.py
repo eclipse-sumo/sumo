@@ -20,12 +20,9 @@ class Phase:
         self._duration2 = duration2
         self._phaseDef = phaseDef
         
-    def write(self):
-        print("Phase:")
-        print("duration: ", self._duration)
-        print("duration1: ", self._duration1)
-        print("duration2: ", self._duration2)
-        print("phaseDef: ", self._phaseDef)
+    def __repr__(self):
+        return ("Phase:\nduration: %s\nduration1: %s\nduration2: %s\nphaseDef: %s\n" %
+                (self._duration, self._duration1, self._duration2, self._phaseDef))
         
 class Logic:
     def __init__(self, subID, type, subParameter, currentPhaseIndex, phases):
@@ -35,14 +32,12 @@ class Logic:
         self._currentPhaseIndex = currentPhaseIndex
         self._phases = phases
         
-    def write(self):
-        print("Logic:")
-        print("subID:", self._subID)
-        print("type:", self._type)
-        print("subParameter:", self._subParameter)
-        print("currentPhaseIndex:", self._currentPhaseIndex)
-        for i in range(len(self._phases)):
-            self._phases[i].write()
+    def __repr__(self):
+        result = ("Logic:\nsubID: %s\ntype: %s\nsubParameter: %s\ncurrentPhaseIndex: %s\n" %
+                  (self._subID, self._type, self._subParameter, self._currentPhaseIndex))
+        for p in self._phases:
+            result += str(p)
+        return result
 
 
 def _readLogics(result):
