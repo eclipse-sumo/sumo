@@ -12,11 +12,9 @@ All rights reserved
 """
 
 import os, subprocess, sys, socket, time, struct, random
-sys.path.append(os.path.join(os.path.dirname(sys.argv[0]), "..", "..", "..", "tools"))
-import traci
-
 if "SUMO_HOME" in os.environ:
     sys.path.append(os.path.join(os.environ["SUMO_HOME"], "tools"))
+sys.path.append(os.path.join(os.path.dirname(sys.argv[0]), "..", "..", "..", "tools"))
 import traci
 
 PORT = 8813
