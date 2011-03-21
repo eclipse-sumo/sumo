@@ -134,7 +134,7 @@ NIImporter_SUMO::loadNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
                     if (conn->tlID != "") {
                         NBLoadedSUMOTLDef *tl = (NBLoadedSUMOTLDef*)handler.myTLLCont.getDefinition(conn->tlID);
                         if (tl) {
-                            tl->addConnection(ed->builtEdge, toEdge, fromLaneIndex, toLaneIndex, conn->tlLinkNo);
+                            tl->addConnection(ed->builtEdge, toEdge, fromLaneIndex, (unsigned int)toLaneIndex, conn->tlLinkNo);
                         } else {
                             WRITE_ERROR("The traffic light '" + conn->tlID + "' is not known.");
                         }
