@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+
+<!-- generated on Mon Mar 21 13:01:51 2011 by SUMO netconvert Version dev-SVN-r9933
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net value="input_net.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="net.net.xml"/>
+        <plain-output value="plain"/>
+    </output>
+
+    <processing>
+        <disable-normalize-node-positions value="true"/>
+    </processing>
+
+</configuration>
+-->
+
+<edges>
+   <edge id="-edge_left" fromnode="node_centertl" tonode="node_left" priority="2" nolanes="1" speed="10.00"/>
+   <edge id="-edge_right" fromnode="node_centertl" tonode="node_right" priority="2" nolanes="1" speed="10.00"/>
+   <edge id="-edge_up" fromnode="node_centertl" tonode="node_up" priority="2" nolanes="1" speed="10.00"/>
+   <edge id="edge_left" fromnode="node_left" tonode="node_centertl" priority="2" nolanes="1" speed="10.00"/>
+   <edge id="edge_right" fromnode="node_right" tonode="node_centertl" priority="2" nolanes="1" speed="10.00"/>
+   <edge id="edge_up" fromnode="node_up" tonode="node_centertl" priority="2" nolanes="1" speed="10.00"/>
+</edges>

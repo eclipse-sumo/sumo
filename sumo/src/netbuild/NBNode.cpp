@@ -237,6 +237,7 @@ NBNode::reinit(const Position2D &position, BasicNodeType type) throw() {
 void
 NBNode::addTrafficLight(NBTrafficLightDefinition *tld) throw() {
     myTrafficLights.insert(tld);
+    myType = NODETYPE_TRAFFIC_LIGHT;
 }
 
 

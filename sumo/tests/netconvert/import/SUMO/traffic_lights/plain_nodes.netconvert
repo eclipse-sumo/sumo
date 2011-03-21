@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+
+<!-- generated on Mon Mar 21 13:01:51 2011 by SUMO netconvert Version dev-SVN-r9933
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net value="input_net.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="net.net.xml"/>
+        <plain-output value="plain"/>
+    </output>
+
+    <processing>
+        <disable-normalize-node-positions value="true"/>
+    </processing>
+
+</configuration>
+-->
+
+<nodes>
+   <node id="node_centertl" x="0.00" y="0.00" type="traffic_light" tl="node_centertl"/>
+   <node id="node_left" x="-30.00" y="0.00" type="priority"/>
+   <node id="node_right" x="30.00" y="0.00" type="priority"/>
+   <node id="node_up" x="0.00" y="30.00" type="priority"/>
+</nodes>
