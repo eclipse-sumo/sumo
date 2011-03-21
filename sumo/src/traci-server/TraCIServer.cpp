@@ -458,6 +458,7 @@ TraCIServer::dispatchCommand() {
         case CMD_SUBSCRIBE_JUNCTION_VARIABLE:
         case CMD_SUBSCRIBE_EDGE_VARIABLE:
         case CMD_SUBSCRIBE_SIM_VARIABLE:
+        case CMD_SUBSCRIBE_GUI_VARIABLE:
             success = addSubscription(commandId);
             break;
         default:

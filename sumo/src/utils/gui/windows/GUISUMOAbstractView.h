@@ -92,16 +92,19 @@ public:
     void recenterView();
 
     /// centers to the chosen artifact
-    virtual void centerTo(const GUIGlObject * const o) throw();
+    virtual void centerTo(const GUIGlObject * const o);
+
+    /// centers the given boundary
+    void centerTo(Boundary bound);
 
     /// applies the given viewport settings
     virtual void setViewport(SUMOReal zoom, SUMOReal xPos, SUMOReal yPos);
 
     /// meter-to-pixels conversion method
-    SUMOReal m2p(SUMOReal meter);
+    SUMOReal m2p(SUMOReal meter) const;
 
     /// pixels-to-meters conversion method
-    SUMOReal p2m(SUMOReal pixel);
+    SUMOReal p2m(SUMOReal pixel) const;
 
     /// Returns the information whether rotation is allowd
 //    bool allowRotation() const;
@@ -115,11 +118,11 @@ public:
     /// returns true, if the edit button was pressed
     bool isInEditMode();
 
-    GUIPerspectiveChanger &getChanger() const throw() {
+    GUIPerspectiveChanger &getChanger() const {
         return *myChanger;
     }
 
-
+    Boundary getVisibleBoundary() const;
 
     long onConfigure(FXObject*,FXSelector,void*);
     long onPaint(FXObject*,FXSelector,void*);
@@ -147,7 +150,7 @@ public:
     /** @brief Sets the snapshot time to file map
      * @param[in] snaps The snapshots to take at certain times
      */
-    void setSnapshots(std::map<SUMOTime, std::string> snaps) throw();
+    void setSnapshots(std::map<SUMOTime, std::string> snaps);
 
 
     /** @brief Takes a snapshots and writes it into the given file
@@ -156,12 +159,12 @@ public:
      * @param[in] destFile The name of the file to write the snapshot into
      * @return The error message, if an error occcured; "" otherwise
      */
-    std::string makeSnapshot(const std::string &destFile) throw();
+    std::string makeSnapshot(const std::string &destFile);
 
 
     /** @brief Checks whether it is time for a snapshot
      */
-    void checkSnapshots() throw();
+    void checkSnapshots();
     /// @}
 
 
@@ -193,6 +196,7 @@ public:
         return -1;
     }
 
+    RGBColor& getBackgroundColor() const;
 
     virtual void onGamingClick(Position2D /*pos*/) { }
 
@@ -206,7 +210,7 @@ public:
      * @return Always true
      * @see GUIGlObject::drawGLAdditional
      */
-    bool addAdditionalGLVisualisation(GUIGlObject * const which) throw();
+    bool addAdditionalGLVisualisation(GUIGlObject * const which);
 
 
     /** @brief Removes an object from the list of objects that show additional things
@@ -214,7 +218,7 @@ public:
      * @return True if the object was known, false otherwise
      * @see GUIGlObject::drawGLAdditional
      */
-    bool removeAdditionalGLVisualisation(GUIGlObject * const which) throw();
+    bool removeAdditionalGLVisualisation(GUIGlObject * const which);
     /// @}
 
 
@@ -266,9 +270,9 @@ public:
     /** @brief Returns the cursor's x/y position within the network 
      * @return The cursor's x/y position within the network 
      */
-    Position2D getPositionInformation() const throw();
+    Position2D getPositionInformation() const;
 
-    void addDecals(const std::vector<Decal> &decals) throw() {
+    void addDecals(const std::vector<Decal> &decals) {
         myDecals.insert(myDecals.end(), decals.begin(), decals.end());
     }
 
@@ -285,7 +289,7 @@ protected:
      * @param[in] y The y-coordinate within the view
      * @return The network position at the given coordinates
      */
-    Position2D getPositionInformation(int x, int y) const throw();
+    Position2D getPositionInformation(int x, int y) const;
 
 
     virtual int doPaintGL(int /*mode*/, SUMOReal /*scale*/) {
@@ -304,11 +308,8 @@ protected:
      *
      * Draws a line with ticks, and the length information.
      */
-    void displayLegend() throw();
+    void displayLegend();
 
-
-    /// centers the given boundary
-    void centerTo(Boundary bound);
 
     /// returns the id of the object under the cursor using GL_SELECT
     unsigned int getObjectUnderCursor();
@@ -320,7 +321,7 @@ protected:
 protected:
     /** @brief Draws the stored decals
      */
-    void drawDecals() throw();
+    void drawDecals();
 
 
 protected:

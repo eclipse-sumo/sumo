@@ -97,11 +97,28 @@ TraCIServerAPI_GUI::processGet(TraCIServer &server, tcpip::Storage &inputStorage
             tempMsg.writeFloat(v->getChanger().getXPos());
             tempMsg.writeFloat(v->getChanger().getYPos());
             break;
-        case VAR_VIEW_SCHEMA:
+        case VAR_VIEW_SCHEMA: {
+            FXComboBox &c = v->getColoringSchemesCombo();
+            tempMsg.writeUnsignedByte(TYPE_STRING);
+            tempMsg.writeString((string)c.getItem(c.getCurrentItem()).text());
             break;
-        case VAR_VIEW_BOUNDARY:
+        }
+        case VAR_VIEW_BOUNDARY: {
+            tempMsg.writeUnsignedByte(TYPE_POLYGON);
+            tempMsg.writeUnsignedByte(2);
+            Boundary b = v->getVisibleBoundary();
+            tempMsg.writeFloat(b.xmin());
+            tempMsg.writeFloat(b.ymin());
+            tempMsg.writeFloat(b.xmax());
+            tempMsg.writeFloat(b.ymax());
             break;
+        }
         case VAR_VIEW_BACKGROUNDCOLOR:
+            tempMsg.writeUnsignedByte(TYPE_COLOR);
+            tempMsg.writeUnsignedByte(static_cast<int>(v->getBackgroundColor().red()*255.+.5));
+            tempMsg.writeUnsignedByte(static_cast<int>(v->getBackgroundColor().green()*255.+.5));
+            tempMsg.writeUnsignedByte(static_cast<int>(v->getBackgroundColor().blue()*255.+.5));
+            tempMsg.writeUnsignedByte(255);
             break;
         case VAR_NET_SIZE: {
             GUINet *net = static_cast<GUINet*>(MSNet::getInstance());
@@ -171,8 +188,23 @@ TraCIServerAPI_GUI::processSet(TraCIServer &server, tcpip::Storage &inputStorage
             return false;
         }
         break;
-    case VAR_VIEW_BOUNDARY:
+    case VAR_VIEW_BOUNDARY: {
+        if (valueDataType!=TYPE_POLYGON) {
+            server.writeStatusCmd(CMD_SET_GUI_VARIABLE, RTYPE_ERR, "The boundary must be specified by a polygon.", outputStorage);
+            return false;
+        }
+        if (inputStorage.readInt()!=2) {
+            server.writeStatusCmd(CMD_SET_GUI_VARIABLE, RTYPE_ERR, "The boundary must be specified by a polygon of size 2.", outputStorage);
+            return false;
+        }
+        const SUMOReal xmin = inputStorage.readFloat();
+        const SUMOReal ymin = inputStorage.readFloat();
+        const SUMOReal xmax = inputStorage.readFloat();
+        const SUMOReal ymax = inputStorage.readFloat();
+        Boundary b(xmin, ymin, xmax, ymax);
+        v->centerTo(b);
         break;
+    }
     case VAR_VIEW_BACKGROUNDCOLOR:
         break;
     case VAR_SCREENSHOT: {

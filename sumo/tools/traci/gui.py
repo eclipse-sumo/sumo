@@ -13,11 +13,12 @@ All rights reserved
 import struct, traci
 import traci.constants as tc
 
+DEFAULT_VIEW = 'View #0'
 RETURN_VALUE_FUNC = {tc.ID_LIST:           traci.Storage.readStringList,
                      tc.VAR_VIEW_ZOOM:     traci.Storage.readFloat,
                      tc.VAR_VIEW_OFFSET:   lambda(result): result.read("!ff"),
                      tc.VAR_VIEW_SCHEMA:   traci.Storage.readString,
-                     tc.VAR_VIEW_BOUNDARY: lambda(result): result.read("!ffff"),
+                     tc.VAR_VIEW_BOUNDARY: traci.polygon.readShape,
                      tc.VAR_NET_SIZE:      lambda(result): result.read("!ff"),
                      tc.VAR_VIEW_BACKGROUNDCOLOR: lambda(result): result.read("!BBBB")}
 subscriptionResults = {}
@@ -29,28 +30,28 @@ def _getUniversal(varID, viewID):
 def getIDList():
     return _getUniversal(tc.ID_LIST, "")
 
-def getZoom(viewID):
+def getZoom(viewID=DEFAULT_VIEW):
     return _getUniversal(tc.VAR_VIEW_ZOOM, viewID)
 
-def getOffset(viewID):
+def getOffset(viewID=DEFAULT_VIEW):
     return _getUniversal(tc.VAR_VIEW_OFFSET, viewID)
 
-def getSchema(viewID):
+def getSchema(viewID=DEFAULT_VIEW):
     return _getUniversal(tc.VAR_VIEW_SCHEMA, viewID)
 
-def getBoundary(viewID):
+def getBoundary(viewID=DEFAULT_VIEW):
     return _getUniversal(tc.VAR_VIEW_BOUNDARY, viewID)
 
-def getBackgroundColor(viewID):
+def getBackgroundColor(viewID=DEFAULT_VIEW):
     return _getUniversal(tc.VAR_VIEW_BACKGROUNDCOLOR, viewID)
 
-def getNetSize(viewID):
+def getNetSize(viewID=DEFAULT_VIEW):
     return _getUniversal(tc.VAR_NET_SIZE, viewID)
 
 
-def subscribe(viewID, varIDs=(tc.VAR_ROAD_ID, tc.VAR_LANEPOSITION), begin=0, end=2**31-1):
+def subscribe(viewID, varIDs=(tc.VAR_VIEW_OFFSET,), begin=0, end=2**31-1):
     _resetSubscriptionResults()
-    traci._subscribe(tc.CMD_SUBSCRIBE_VEHICLE_VARIABLE, begin, end, viewID, varIDs)
+    traci._subscribe(tc.CMD_SUBSCRIBE_GUI_VARIABLE, begin, end, viewID, varIDs)
 
 def _resetSubscriptionResults():
     subscriptionResults.clear()

@@ -21,3 +21,6 @@ simulation
 
 # Tests the route API
 route
+
+# Tests the gui API
+gui

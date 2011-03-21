@@ -166,13 +166,13 @@ GUISUMOAbstractView::updateToolTip() {
 
 
 Position2D
-GUISUMOAbstractView::getPositionInformation() const throw() {
+GUISUMOAbstractView::getPositionInformation() const {
     return getPositionInformation(myWindowCursorPositionX, myWindowCursorPositionY);
 }
 
 
 Position2D
-GUISUMOAbstractView::getPositionInformation(int mx, int my) const throw() {
+GUISUMOAbstractView::getPositionInformation(int mx, int my) const {
     // compute the offset
     SUMOReal cy = myChanger->getYPos();
     SUMOReal cx = myChanger->getXPos();
@@ -201,6 +201,20 @@ GUISUMOAbstractView::updatePositionInformation() const {
     myApp->getGeoLabel().setText(text.c_str());
 }
 
+
+Boundary
+GUISUMOAbstractView::getVisibleBoundary() const {
+    const SUMOReal xmin = myShownNetworkCenterX - myShownNetworkHalfWidth;
+    const SUMOReal ymin = myShownNetworkCenterY - myShownNetworkHalfHeight;
+    const SUMOReal xmax = myShownNetworkCenterX + myShownNetworkHalfWidth;
+    const SUMOReal ymax = myShownNetworkCenterY + myShownNetworkHalfHeight;
+    return Boundary(xmin, ymin, xmax, ymax);
+}
+
+RGBColor&
+GUISUMOAbstractView::getBackgroundColor() const {
+    return myVisualizationSettings->backgroundColor;
+}
 
 void
 GUISUMOAbstractView::paintGL() {
@@ -467,7 +481,7 @@ GUISUMOAbstractView::applyChanges(SUMOReal scale, size_t xoff, size_t yoff) {
 
 
 void
-GUISUMOAbstractView::displayLegend() throw() {
+GUISUMOAbstractView::displayLegend() {
     // compute the scale bar length
     size_t length = 1;
     const std::string text("10000000000");
@@ -539,7 +553,7 @@ GUISUMOAbstractView::displayLegend() throw() {
 
 
 SUMOReal
-GUISUMOAbstractView::m2p(SUMOReal meter) {
+GUISUMOAbstractView::m2p(SUMOReal meter) const {
     return (SUMOReal)(meter / myNetScale
                       *(myWidthInPixels/myRatio)
                       * myAddScl * myChanger->getZoom() / (SUMOReal) 100.0);
@@ -547,7 +561,7 @@ GUISUMOAbstractView::m2p(SUMOReal meter) {
 
 
 SUMOReal
-GUISUMOAbstractView::p2m(SUMOReal pixel) {
+GUISUMOAbstractView::p2m(SUMOReal pixel) const {
     return (SUMOReal) pixel * myNetScale /
            ((myWidthInPixels/myRatio) * myAddScl * myChanger->getZoom() / (SUMOReal) 100.0);
 }
@@ -560,7 +574,7 @@ GUISUMOAbstractView::recenterView() {
 
 
 void
-GUISUMOAbstractView::centerTo(const GUIGlObject * const o) throw() {
+GUISUMOAbstractView::centerTo(const GUIGlObject * const o) {
     centerTo(o->getCenteringBoundary());
     update();
 }
@@ -800,13 +814,13 @@ GUISUMOAbstractView::onKeyRelease(FXObject *o,FXSelector sel,void *data) {
 
 // ------------ Dealing with snapshots
 void
-GUISUMOAbstractView::setSnapshots(std::map<SUMOTime, std::string> snaps) throw() {
+GUISUMOAbstractView::setSnapshots(std::map<SUMOTime, std::string> snaps) {
     mySnapshots.insert(snaps.begin(), snaps.end());
 }
 
 
 std::string
-GUISUMOAbstractView::makeSnapshot(const std::string &destFile) throw() {
+GUISUMOAbstractView::makeSnapshot(const std::string &destFile) {
     std::string errorMessage;
     FXString ext=FXPath::extension(destFile.c_str());
     bool useGL2PS = ext=="ps"||ext=="eps"||ext=="pdf"||ext=="svg"||ext=="tex"||ext=="pgf";
@@ -954,7 +968,7 @@ GUISUMOAbstractView::makeSnapshot(const std::string &destFile) throw() {
 
 
 void
-GUISUMOAbstractView::checkSnapshots() throw() {
+GUISUMOAbstractView::checkSnapshots() {
     SUMOTime current = 0;
     try {
         current = MSNet::getInstance()->getCurrentTimeStep();
@@ -1017,7 +1031,7 @@ GUISUMOAbstractView::getColoringSchemesCombo() {
 
 
 void
-GUISUMOAbstractView::drawDecals() throw() {
+GUISUMOAbstractView::drawDecals() {
     glTranslated(0, 0, .99);
     myDecalsLock.lock();
     for (std::vector<GUISUMOAbstractView::Decal>::iterator l=myDecals.begin(); l!=myDecals.end();) {
@@ -1053,7 +1067,7 @@ GUISUMOAbstractView::drawDecals() throw() {
 
 // ------------ Additional visualisations
 bool
-GUISUMOAbstractView::addAdditionalGLVisualisation(GUIGlObject * const which) throw() {
+GUISUMOAbstractView::addAdditionalGLVisualisation(GUIGlObject * const which) {
     if (myAdditionallyDrawn.find(which)==myAdditionallyDrawn.end()) {
         myAdditionallyDrawn[which] = 1;
     } else {
@@ -1065,7 +1079,7 @@ GUISUMOAbstractView::addAdditionalGLVisualisation(GUIGlObject * const which) thr
 
 
 bool
-GUISUMOAbstractView::removeAdditionalGLVisualisation(GUIGlObject * const which) throw() {
+GUISUMOAbstractView::removeAdditionalGLVisualisation(GUIGlObject * const which) {
     if (getTrackedID()==static_cast<int>(which->getGlID())) {
         stopTrack();
     }
