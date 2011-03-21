@@ -7,15 +7,17 @@
 
 Tutorial for traffic light control via the TraCI interface.
 
-Copyright (C) 2009 DLR/TS, Germany
+Copyright (C) 2009-2011 DLR/TS, Germany
 All rights reserved
 """
 
 import os, subprocess, sys, socket, time, struct, random
-sys.path.append(os.path.join("..", "..", "..", "tools", "traci"))
-if "SUMO" in os.environ:
-    sys.path.append(os.path.join(os.environ["SUMO"], "tools", "traci"))
-from traciControl import initTraCI, cmdSimulationStep, cmdClose, cmdGetInductionLoopVariable_lastStepVehicleNumber, cmdChangeTrafficLightsVariable_stateRYG
+sys.path.append(os.path.join(os.path.dirname(sys.argv[0]), "..", "..", "..", "tools"))
+import traci
+
+if "SUMO_HOME" in os.environ:
+    sys.path.append(os.path.join(os.environ["SUMO_HOME"], "tools"))
+import traci
 
 PORT = 8813
 
@@ -60,7 +62,6 @@ for i in range(N):
 
 print >> routes, "</routes>"
 routes.close()
-    
 
 
 sumoExe = "sumo-gui"
@@ -70,18 +71,18 @@ sumoConfig = "cross.sumo.cfg"
 sumoProcess = subprocess.Popen("%s -c %s" % (sumoExe, sumoConfig), shell=True, stdout=sys.stdout)
 
 
-initTraCI(PORT)
+traci.init(PORT)
 
 programPointer = len(PROGRAM)-1
 veh = []
 step = 0
 while not (step > lastVeh and veh == []):
-    veh = cmdSimulationStep(1000)
+    veh = traci.simulationStep(1000)
     programPointer = min(programPointer+1, len(PROGRAM)-1)
-    no = cmdGetInductionLoopVariable_lastStepVehicleNumber("0")
+    no = traci.inductionloop.getLastStepVehicleNumber("0")
     if no > 0:
         programPointer = (0 if programPointer == len(PROGRAM)-1 else 3)
-    cmdChangeTrafficLightsVariable_stateRYG("0", PROGRAM[programPointer])
+    traci.trafficlights.setRedYellowGreenState("0", PROGRAM[programPointer])
     step += 1
-    
-cmdClose()
+
+traci.close()
