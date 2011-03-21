@@ -273,4 +273,13 @@
       <succlane lane="edge_up_0" tl="" linkno="" yield="0" dir="s" state="M"/>
    </succ>
 
+   <tl-logic id="node_centertl" type="static" programID="expect_a_warning" offset="0">
+      <phase duration="31" state="rrrGGgGgg"/>
+      <phase duration="3" state="rrryygygg"/>
+      <phase duration="6" state="rrrrrGrGG"/>
+      <phase duration="3" state="rrrrryryy"/>
+      <phase duration="31" state="GGgGrrrrr"/>
+      <phase duration="3" state="yyyyrrrrr"/>
+   </tl-logic>
+
 </net>

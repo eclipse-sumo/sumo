@@ -1,0 +1,4 @@
+Warning: Could not add program 'expect_a_warning' for traffic light 'node_centertl'. Multiple programs for the same traffic light are not supported
+Leaked object at 0x13e99540 (size 16, 0x339dea4bb9)
+*** 1 leaks found
+delete: freed 0x13e99540 (size 16, 0 bytes still allocated)

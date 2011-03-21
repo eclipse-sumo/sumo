@@ -260,7 +260,9 @@ NIImporter_SUMO::myEndElement(SumoXMLTag element) throw(ProcessError) {
             WRITE_ERROR("Unmatched closing tag for tl-logic.");
         } else {
             if (!myTLLCont.insert(myCurrentTL)) {
-                WRITE_ERROR("Error on adding a traffic light\n Must be a multiple id ('" + myCurrentTL->getID() + "')");
+                WRITE_WARNING("Could not add program '" + myCurrentTL->getProgramID() + 
+                        "' for traffic light '" + myCurrentTL->getID() + 
+                        "'. Multiple programs for the same traffic light are not supported");
                 delete myCurrentTL;
             }
             myCurrentTL = 0;
