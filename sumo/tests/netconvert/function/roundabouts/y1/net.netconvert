@@ -27,86 +27,56 @@
    <location netOffset="-48205.27,-59917.20" convBoundary="0.00,0.00,142.80,276.18" origBoundary="48205.27,59917.20,48348.07,60193.38" projParameter="!"/>
 
    <edge id="-5634" from="10708" to="13448" priority="-1" type="" function="normal">
-      <lanes>
-         <lane id="-5634_0" depart="1" maxspeed="13.90" length="165.39" shape="79.72,156.88 86.41,150.19 94.13,139.30 99.90,126.29 101.19,116.71 101.30,106.09 97.07,83.16 82.53,2.50 83.75,0.00"/>
-      </lanes>
+      <lane id="-5634_0" depart="1" maxspeed="13.90" length="165.39" shape="79.72,156.88 86.41,150.19 94.13,139.30 99.90,126.29 101.19,116.71 101.30,106.09 97.07,83.16 82.53,2.50 83.75,0.00"/>
    </edge>
    <edge id="-9887" from="14304" to="17199" priority="-1" type="" function="normal">
-      <lanes>
-         <lane id="-9887_0" depart="1" maxspeed="13.90" length="38.75" shape="0.89,132.75 2.17,131.67 13.41,141.44 24.68,151.71 29.52,156.69"/>
-      </lanes>
+      <lane id="-9887_0" depart="1" maxspeed="13.90" length="38.75" shape="0.89,132.75 2.17,131.67 13.41,141.44 24.68,151.71 29.52,156.69"/>
    </edge>
    <edge id="-9889" from="14305" to="17200" priority="-1" type="" function="normal">
-      <lanes>
-         <lane id="-9889_0" depart="1" maxspeed="13.90" length="91.60" shape="141.62,275.07 140.43,276.18 78.54,210.87"/>
-      </lanes>
+      <lane id="-9889_0" depart="1" maxspeed="13.90" length="91.60" shape="141.62,275.07 140.43,276.18 78.54,210.87"/>
    </edge>
    <edge id="-9890" from="17200" to="17199" priority="-1" type="" function="normal">
-      <lanes>
-         <lane id="-9890_0" depart="1" maxspeed="13.90" length="91.65" shape="73.48,209.57 73.35,209.78 71.60,210.93 67.71,213.02 62.84,214.62 57.48,215.70 52.94,215.70 48.65,215.25 44.34,214.15 40.41,212.44 36.91,210.57 33.80,208.10 30.27,204.85 27.50,201.18 24.74,196.03 22.82,190.01 22.30,185.03 22.36,180.66 23.01,176.54 24.23,172.11 25.72,168.35 28.34,164.34 28.54,164.22"/>
-      </lanes>
+      <lane id="-9890_0" depart="1" maxspeed="13.90" length="91.65" shape="73.48,209.57 73.35,209.78 71.60,210.93 67.71,213.02 62.84,214.62 57.48,215.70 52.94,215.70 48.65,215.25 44.34,214.15 40.41,212.44 36.91,210.57 33.80,208.10 30.27,204.85 27.50,201.18 24.74,196.03 22.82,190.01 22.30,185.03 22.36,180.66 23.01,176.54 24.23,172.11 25.72,168.35 28.34,164.34 28.54,164.22"/>
    </edge>
    <edge id="-9891" from="10708" to="17200" priority="-1" type="" function="normal">
-      <lanes>
-         <lane id="-9891_0" depart="1" maxspeed="13.90" length="42.02" shape="80.67,164.40 80.89,164.53 81.94,166.06 83.44,168.75 84.89,171.93 86.04,176.12 86.71,180.70 86.85,185.62 86.20,189.28 85.18,193.39 83.77,196.71 82.00,200.46 79.95,203.30 79.75,203.41"/>
-      </lanes>
+      <lane id="-9891_0" depart="1" maxspeed="13.90" length="42.02" shape="80.67,164.40 80.89,164.53 81.94,166.06 83.44,168.75 84.89,171.93 86.04,176.12 86.71,180.70 86.85,185.62 86.20,189.28 85.18,193.39 83.77,196.71 82.00,200.46 79.95,203.30 79.75,203.41"/>
    </edge>
    <edge id="-9892" from="17199" to="10708" priority="-1" type="" function="normal">
-      <lanes>
-         <lane id="-9892_0" depart="1" maxspeed="13.90" length="43.38" shape="34.61,157.95 34.75,157.71 37.63,155.70 42.64,153.14 46.78,151.91 51.56,151.12 56.84,150.84 61.16,151.55 64.39,152.33 67.58,153.51 70.47,155.04 73.16,156.64 74.50,157.76 74.63,158.00"/>
-      </lanes>
+      <lane id="-9892_0" depart="1" maxspeed="13.90" length="43.38" shape="34.61,157.95 34.75,157.71 37.63,155.70 42.64,153.14 46.78,151.91 51.56,151.12 56.84,150.84 61.16,151.55 64.39,152.33 67.58,153.51 70.47,155.04 73.16,156.64 74.50,157.76 74.63,158.00"/>
    </edge>
    <edge id="5634" from="13448" to="10708" priority="-1" type="" function="normal">
-      <lanes>
-         <lane id="5634_0" depart="1" maxspeed="13.90" length="168.57" shape="83.75,0.00 85.78,1.91 100.32,82.57 104.59,105.78 104.47,116.95 103.11,127.19 97.01,140.94 88.92,152.32 82.05,159.20"/>
-      </lanes>
+      <lane id="5634_0" depart="1" maxspeed="13.90" length="168.57" shape="83.75,0.00 85.78,1.91 100.32,82.57 104.59,105.78 104.47,116.95 103.11,127.19 97.01,140.94 88.92,152.32 82.05,159.20"/>
    </edge>
    <edge id="9887" from="17199" to="14304" priority="-1" type="" function="normal">
-      <lanes>
-         <lane id="9887_0" depart="1" maxspeed="13.90" length="38.49" shape="27.17,158.99 22.39,154.08 11.21,143.90 -0.00,134.16 0.89,132.75"/>
-      </lanes>
+      <lane id="9887_0" depart="1" maxspeed="13.90" length="38.49" shape="27.17,158.99 22.39,154.08 11.21,143.90 -0.00,134.16 0.89,132.75"/>
    </edge>
    <edge id="9889" from="17200" to="14305" priority="-1" type="" function="normal">
-      <lanes>
-         <lane id="9889_0" depart="1" maxspeed="13.90" length="91.60" shape="80.92,208.59 142.80,273.88 141.64,275.05"/>
-      </lanes>
+      <lane id="9889_0" depart="1" maxspeed="13.90" length="91.60" shape="80.92,208.59 142.80,273.88 141.64,275.05"/>
    </edge>
 
    <row-logic id="10708" requestSize="3" laneNumber="2">
-      <logic>
-         <logicitem request="0" response="100" foes="100"/>
-         <logicitem request="1" response="000" foes="000"/>
-         <logicitem request="2" response="000" foes="001"/>
-      </logic>
+      <logicitem request="0" response="100" foes="100"/>
+      <logicitem request="1" response="000" foes="000"/>
+      <logicitem request="2" response="000" foes="001"/>
    </row-logic>
    <row-logic id="13448" requestSize="1" laneNumber="1">
-      <logic>
-         <logicitem request="0" response="0" foes="0"/>
-      </logic>
+      <logicitem request="0" response="0" foes="0"/>
    </row-logic>
    <row-logic id="14304" requestSize="1" laneNumber="1">
-      <logic>
-         <logicitem request="0" response="0" foes="0"/>
-      </logic>
+      <logicitem request="0" response="0" foes="0"/>
    </row-logic>
    <row-logic id="14305" requestSize="1" laneNumber="1">
-      <logic>
-         <logicitem request="0" response="0" foes="0"/>
-      </logic>
+      <logicitem request="0" response="0" foes="0"/>
    </row-logic>
    <row-logic id="17199" requestSize="3" laneNumber="2">
-      <logic>
-         <logicitem request="0" response="100" foes="100"/>
-         <logicitem request="1" response="000" foes="000"/>
-         <logicitem request="2" response="000" foes="001"/>
-      </logic>
+      <logicitem request="0" response="100" foes="100"/>
+      <logicitem request="1" response="000" foes="000"/>
+      <logicitem request="2" response="000" foes="001"/>
    </row-logic>
    <row-logic id="17200" requestSize="3" laneNumber="2">
-      <logic>
-         <logicitem request="0" response="100" foes="100"/>
-         <logicitem request="1" response="000" foes="000"/>
-         <logicitem request="2" response="000" foes="001"/>
-      </logic>
+      <logicitem request="0" response="100" foes="100"/>
+      <logicitem request="1" response="000" foes="000"/>
+      <logicitem request="2" response="000" foes="001"/>
    </row-logic>
 
    <junction id="10708" type="traffic_light" x="76.82" y="162.11" incLanes="5634_0 -9892_0" intLanes="" shape="79.83,165.81 81.50,163.03 82.80,160.72 81.31,157.68 78.21,156.13 76.04,157.24 73.20,158.76"/>

@@ -29,1934 +29,1368 @@
    <location netOffset="-399345.66,-5809365.64" convBoundary="0.00,0.00,1737.68,1000.80" origBoundary="13.519602,52.425528,13.545248,52.434465" projParameter="+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
 
    <edge id="-22917251" from="32266936" to="32266938" priority="6" type="highway.tertiary" function="normal">
-      <lanes>
-         <lane id="-22917251_0" depart="1" maxspeed="22.22" length="53.81" shape="474.41,48.86 479.04,102.47"/>
-      </lanes>
+      <lane id="-22917251_0" depart="1" maxspeed="22.22" length="53.81" shape="474.41,48.86 479.04,102.47"/>
    </edge>
    <edge id="-24214693#0" from="261599791" to="32266935" priority="9" type="highway.primary" function="normal">
-      <lanes>
-         <lane id="-24214693#0_0" depart="1" maxspeed="27.78" length="443.47" shape="33.35,171.66 201.49,150.14 473.43,116.72"/>
-         <lane id="-24214693#0_1" depart="0" maxspeed="27.78" length="443.47" shape="33.80,174.93 201.91,153.41 473.83,119.99"/>
-      </lanes>
+      <lane id="-24214693#0_0" depart="1" maxspeed="27.78" length="443.47" shape="33.35,171.66 201.49,150.14 473.43,116.72"/>
+      <lane id="-24214693#0_1" depart="0" maxspeed="27.78" length="443.47" shape="33.80,174.93 201.91,153.41 473.83,119.99"/>
    </edge>
    <edge id="-24214693#1" from="57343510" to="261599791" priority="9" type="highway.primary" function="normal">
-      <lanes>
-         <lane id="-24214693#1_0" depart="1" maxspeed="27.78" length="19.36" shape="14.14,174.41 33.34,171.66"/>
-         <lane id="-24214693#1_1" depart="0" maxspeed="27.78" length="19.36" shape="14.61,177.68 33.76,174.93"/>
-      </lanes>
+      <lane id="-24214693#1_0" depart="1" maxspeed="27.78" length="19.36" shape="14.14,174.41 33.34,171.66"/>
+      <lane id="-24214693#1_1" depart="0" maxspeed="27.78" length="19.36" shape="14.61,177.68 33.76,174.93"/>
    </edge>
    <edge id="-24214694" from="32266938" to="32266935" priority="6" type="highway.tertiary" function="normal">
-      <lanes>
-         <lane id="-24214694_0" depart="1" maxspeed="22.22" length="0.90" shape="479.86,111.94 479.93,112.84"/>
-      </lanes>
+      <lane id="-24214694_0" depart="1" maxspeed="22.22" length="0.90" shape="479.86,111.94 479.93,112.84"/>
    </edge>
    <edge id="-25944590#0" from="283018841" to="283018817" priority="1" type="highway.footway" function="normal">
-      <lanes>
-         <lane id="-25944590#0_0" depart="1" allow="pedestrian" maxspeed="8.33" length="82.61" shape="527.42,533.61 530.18,534.58 551.58,538.15 609.10,545.47"/>
-      </lanes>
+      <lane id="-25944590#0_0" depart="1" allow="pedestrian" maxspeed="8.33" length="82.61" shape="527.42,533.61 530.18,534.58 551.58,538.15 609.10,545.47"/>
    </edge>
    <edge id="-25944590#1" from="283018842" to="283018841" priority="1" type="highway.footway" function="normal">
-      <lanes>
-         <lane id="-25944590#1_0" depart="1" allow="pedestrian" maxspeed="8.33" length="21.58" shape="493.76,523.83 514.56,529.56"/>
-      </lanes>
+      <lane id="-25944590#1_0" depart="1" allow="pedestrian" maxspeed="8.33" length="21.58" shape="493.76,523.83 514.56,529.56"/>
    </edge>
    <edge id="-25944590#2" from="283018844" to="283018842" priority="1" type="highway.footway" function="normal">
-      <lanes>
-         <lane id="-25944590#2_0" depart="1" allow="pedestrian" maxspeed="8.33" length="88.41" shape="408.16,487.48 421.02,494.41 488.79,523.60"/>
-      </lanes>
+      <lane id="-25944590#2_0" depart="1" allow="pedestrian" maxspeed="8.33" length="88.41" shape="408.16,487.48 421.02,494.41 488.79,523.60"/>
    </edge>
    <edge id="-25944590#3" from="283018845" to="283018844" priority="1" type="highway.footway" function="normal">
-      <lanes>
-         <lane id="-25944590#3_0" depart="1" allow="pedestrian" maxspeed="8.33" length="44.73" shape="361.14,458.30 398.99,482.14"/>
-      </lanes>
+      <lane id="-25944590#3_0" depart="1" allow="pedestrian" maxspeed="8.33" length="44.73" shape="361.14,458.30 398.99,482.14"/>
    </edge>
    <edge id="-25944601#0" from="283018844" to="38919854" priority="1" type="highway.footway" function="normal">
-      <lanes>
-         <lane id="-25944601#0_0" depart="1" allow="pedestrian" maxspeed="8.33" length="12.64" shape="400.44,491.38 392.32,501.07"/>
-      </lanes>
+      <lane id="-25944601#0_0" depart="1" allow="pedestrian" maxspeed="8.33" length="12.64" shape="400.44,491.38 392.32,501.07"/>
    </edge>
    <edge id="-25944601#1" from="283018932" to="283018844" priority="1" type="highway.footway" function="normal">
-      <lanes>
-         <lane id="-25944601#1_0" depart="1" allow="pedestrian" maxspeed="8.33" length="5.36" shape="410.80,479.08 407.34,483.18"/>
-      </lanes>
+      <lane id="-25944601#1_0" depart="1" allow="pedestrian" maxspeed="8.33" length="5.36" shape="410.80,479.08 407.34,483.18"/>
    </edge>
    <edge id="-25944603#0" from="283018841" to="283018933" priority="1" type="highway.footway" function="normal">
-      <lanes>
-         <lane id="-25944603#0_0" depart="1" allow="pedestrian" maxspeed="8.33" length="17.56" shape="524.41,526.93 530.31,521.72 534.00,512.77"/>
-      </lanes>
+      <lane id="-25944603#0_0" depart="1" allow="pedestrian" maxspeed="8.33" length="17.56" shape="524.41,526.93 530.31,521.72 534.00,512.77"/>
    </edge>
    <edge id="-25944603#1" from="283018937" to="283018841" priority="1" type="highway.footway" function="normal">
-      <lanes>
-         <lane id="-25944603#1_0" depart="1" allow="pedestrian" maxspeed="8.33" length="10.59" shape="508.61,545.24 515.06,536.84"/>
-      </lanes>
+      <lane id="-25944603#1_0" depart="1" allow="pedestrian" maxspeed="8.33" length="10.59" shape="508.61,545.24 515.06,536.84"/>
    </edge>
    <edge id="-25944603#2" from="38919841" to="283018937" priority="1" type="highway.footway" function="normal">
-      <lanes>
-         <lane id="-25944603#2_0" depart="1" allow="pedestrian" maxspeed="8.33" length="2.68" shape="502.67,555.67 503.70,553.19"/>
-      </lanes>
+      <lane id="-25944603#2_0" depart="1" allow="pedestrian" maxspeed="8.33" length="2.68" shape="502.67,555.67 503.70,553.19"/>
    </edge>
    <edge id="-25944605" from="283018842" to="283018937" priority="1" type="highway.footway" function="normal">
-      <lanes>
-         <lane id="-25944605_0" depart="1" allow="pedestrian" maxspeed="8.33" length="20.12" shape="490.86,530.34 495.83,535.73 504.23,545.37"/>
-      </lanes>
+      <lane id="-25944605_0" depart="1" allow="pedestrian" maxspeed="8.33" length="20.12" shape="490.86,530.34 495.83,535.73 504.23,545.37"/>
    </edge>
    <edge id="-25951490" from="32266938" to="175648134" priority="1" type="highway.cycleway" function="normal">
-      <lanes>
-         <lane id="-25951490_0" depart="1" allow="bicycle" maxspeed="5.56" length="461.21" shape="473.15,109.48 15.89,169.70"/>
-      </lanes>
+      <lane id="-25951490_0" depart="1" allow="bicycle" maxspeed="5.56" length="461.21" shape="473.15,109.48 15.89,169.70"/>
    </edge>
    <edge id="-26004787#0" from="283721344" to="283719736" priority="1" type="highway.footway" function="normal">
-      <lanes>
-         <lane id="-26004787#0_0" depart="1" allow="pedestrian" maxspeed="8.33" length="16.96" shape="1023.78,528.36 1039.95,523.24"/>
-      </lanes>
+      <lane id="-26004787#0_0" depart="1" allow="pedestrian" maxspeed="8.33" length="16.96" shape="1023.78,528.36 1039.95,523.24"/>
    </edge>
    <edge id="-26004787#1" from="283722837" to="283721344" priority="1" type="highway.footway" function="normal">
-      <lanes>
-         <lane id="-26004787#1_0" depart="1" allow="pedestrian" maxspeed="8.33" length="26.87" shape="987.88,538.45 1013.79,531.31"/>
-      </lanes>
+      <lane id="-26004787#1_0" depart="1" allow="pedestrian" maxspeed="8.33" length="26.87" shape="987.88,538.45 1013.79,531.31"/>
    </edge>
    <edge id="-26004787#2" from="283719904" to="283722837" priority="1" type="highway.footway" function="normal">
-      <lanes>
-         <lane id="-26004787#2_0" depart="1" allow="pedestrian" maxspeed="8.33" length="40.36" shape="933.37,554.21 972.10,542.85"/>
-      </lanes>
+      <lane id="-26004787#2_0" depart="1" allow="pedestrian" maxspeed="8.33" length="40.36" shape="933.37,554.21 972.10,542.85"/>
    </edge>
    <edge id="-26004861#0" from="283721344" to="287944369" priority="1" type="highway.footway" function="normal">
-      <lanes>
-         <lane id="-26004861#0_0" depart="1" allow="pedestrian" maxspeed="8.33" length="8.46" shape="1022.93,535.49 1026.21,543.28"/>
-      </lanes>
+      <lane id="-26004861#0_0" depart="1" allow="pedestrian" maxspeed="8.33" length="8.46" shape="1022.93,535.49 1026.21,543.28"/>
    </edge>
    <edge id="-26004861#1" from="287944368" to="283721344" priority="1" type="highway.footway" function="normal">
-      <lanes>
-         <lane id="-26004861#1_0" depart="1" allow="pedestrian" maxspeed="8.33" length="13.76" shape="1012.52,513.50 1018.56,525.87"/>
-      </lanes>
+      <lane id="-26004861#1_0" depart="1" allow="pedestrian" maxspeed="8.33" length="13.76" shape="1012.52,513.50 1018.56,525.87"/>
    </edge>
    <edge id="-26004861#2" from="283721348" to="287944368" priority="1" type="highway.footway" function="normal">
-      <lanes>
-         <lane id="-26004861#2_0" depart="1" allow="pedestrian" maxspeed="8.33" length="13.35" shape="1001.94,489.81 1007.25,502.06"/>
-      </lanes>
+      <lane id="-26004861#2_0" depart="1" allow="pedestrian" maxspeed="8.33" length="13.35" shape="1001.94,489.81 1007.25,502.06"/>
    </edge>
    <edge id="-26004868#0" from="287944369" to="283719736" priority="1" type="highway.footway" function="normal">
-      <lanes>
-         <lane id="-26004868#0_0" depart="1" allow="pedestrian" maxspeed="8.33" length="19.09" shape="1030.46,543.97 1043.07,529.64"/>
-      </lanes>
+      <lane id="-26004868#0_0" depart="1" allow="pedestrian" maxspeed="8.33" length="19.09" shape="1030.46,543.97 1043.07,529.64"/>
    </edge>
    <edge id="-26004868#1" from="283721473" to="287944369" priority="1" type="highway.footway" function="normal">
-      <lanes>
-         <lane id="-26004868#1_0" depart="1" allow="pedestrian" maxspeed="8.33" length="22.33" shape="1009.09,568.52 1023.73,551.66"/>
-      </lanes>
+      <lane id="-26004868#1_0" depart="1" allow="pedestrian" maxspeed="8.33" length="22.33" shape="1009.09,568.52 1023.73,551.66"/>
    </edge>
    <edge id="-26004966#0" from="283721473" to="283722835" priority="1" type="highway.footway" function="normal">
-      <lanes>
-         <lane id="-26004966#0_0" depart="1" allow="pedestrian" maxspeed="8.33" length="13.89" shape="1011.67,575.24 1021.92,584.62"/>
-      </lanes>
+      <lane id="-26004966#0_0" depart="1" allow="pedestrian" maxspeed="8.33" length="13.89" shape="1011.67,575.24 1021.92,584.62"/>
    </edge>
    <edge id="-26004966#1" from="283722837" to="283721473" priority="1" type="highway.footway" function="normal">
-      <lanes>
-         <lane id="-26004966#1_0" depart="1" allow="pedestrian" maxspeed="8.33" length="31.10" shape="982.18,547.29 1004.71,568.73"/>
-      </lanes>
+      <lane id="-26004966#1_0" depart="1" allow="pedestrian" maxspeed="8.33" length="31.10" shape="982.18,547.29 1004.71,568.73"/>
    </edge>
    <edge id="-26004966#2" from="287944368" to="283722837" priority="1" type="highway.footway" function="normal">
-      <lanes>
-         <lane id="-26004966#2_0" depart="1" allow="pedestrian" maxspeed="8.33" length="28.44" shape="1005.26,514.31 985.86,535.11"/>
-      </lanes>
+      <lane id="-26004966#2_0" depart="1" allow="pedestrian" maxspeed="8.33" length="28.44" shape="1005.26,514.31 985.86,535.11"/>
    </edge>
    <edge id="-26004966#3" from="283720461" to="287944368" priority="1" type="highway.footway" function="normal">
-      <lanes>
-         <lane id="-26004966#3_0" depart="1" allow="pedestrian" maxspeed="8.33" length="7.95" shape="1019.36,499.26 1013.92,505.06"/>
-      </lanes>
+      <lane id="-26004966#3_0" depart="1" allow="pedestrian" maxspeed="8.33" length="7.95" shape="1019.36,499.26 1013.92,505.06"/>
    </edge>
    <edge id="-26816413#0" from="294168710" to="56231597" priority="2" type="highway.service" function="normal">
-      <lanes>
-         <lane id="-26816413#0_0" depart="1" allow="delivery" maxspeed="5.56" length="57.66" shape="588.88,339.95 631.42,378.88"/>
-      </lanes>
+      <lane id="-26816413#0_0" depart="1" allow="delivery" maxspeed="5.56" length="57.66" shape="588.88,339.95 631.42,378.88"/>
    </edge>
    <edge id="-26816413#1" from="294168098" to="294168710" priority="2" type="highway.service" function="normal">
-      <lanes>
-         <lane id="-26816413#1_0" depart="1" allow="delivery" maxspeed="5.56" length="20.27" shape="569.35,322.07 584.31,335.76"/>
-      </lanes>
+      <lane id="-26816413#1_0" depart="1" allow="delivery" maxspeed="5.56" length="20.27" shape="569.35,322.07 584.31,335.76"/>
    </edge>
    <edge id="-26816553" from="294168972" to="294168098" priority="2" type="highway.service" function="normal">
-      <lanes>
-         <lane id="-26816553_0" depart="1" allow="delivery" maxspeed="5.56" length="221.96" shape="712.94,230.68 707.50,236.65 682.58,264.00 634.00,225.46 572.28,303.75 565.55,312.29 566.71,316.44"/>
-      </lanes>
+      <lane id="-26816553_0" depart="1" allow="delivery" maxspeed="5.56" length="221.96" shape="712.94,230.68 707.50,236.65 682.58,264.00 634.00,225.46 572.28,303.75 565.55,312.29 566.71,316.44"/>
    </edge>
    <edge id="-26816590#0" from="294169338" to="294168098" priority="2" type="highway.service" function="normal">
-      <lanes>
-         <lane id="-26816590#0_0" depart="1" allow="delivery" maxspeed="5.56" length="8.51" shape="561.14,309.83 565.59,317.09"/>
-      </lanes>
+      <lane id="-26816590#0_0" depart="1" allow="delivery" maxspeed="5.56" length="8.51" shape="561.14,309.83 565.59,317.09"/>
    </edge>
    <edge id="-26816590#1" from="294169339" to="294169338" priority="2" type="highway.service" function="normal">
-      <lanes>
-         <lane id="-26816590#1_0" depart="1" allow="delivery" maxspeed="5.56" length="4.86" shape="548.11,302.28 552.56,304.21"/>
-      </lanes>
+      <lane id="-26816590#1_0" depart="1" allow="delivery" maxspeed="5.56" length="4.86" shape="548.11,302.28 552.56,304.21"/>
    </edge>
    <edge id="-26816590#2" from="294169342" to="294169339" priority="2" type="highway.service" function="normal">
-      <lanes>
-         <lane id="-26816590#2_0" depart="1" allow="delivery" maxspeed="5.56" length="40.00" shape="499.69,305.43 510.33,304.37 539.47,301.27"/>
-      </lanes>
+      <lane id="-26816590#2_0" depart="1" allow="delivery" maxspeed="5.56" length="40.00" shape="499.69,305.43 510.33,304.37 539.47,301.27"/>
    </edge>
    <edge id="-26816627" from="294169618" to="294169338" priority="2" type="highway.service" function="normal">
-      <lanes>
-         <lane id="-26816627_0" depart="1" allow="delivery" maxspeed="5.56" length="151.90" shape="542.82,150.31 559.29,301.31"/>
-      </lanes>
+      <lane id="-26816627_0" depart="1" allow="delivery" maxspeed="5.56" length="151.90" shape="542.82,150.31 559.29,301.31"/>
    </edge>
    <edge id="-26843019" from="294829798" to="294829385" priority="2" type="highway.service" function="normal">
-      <lanes>
-         <lane id="-26843019_0" depart="1" allow="delivery" maxspeed="5.56" length="89.38" shape="921.00,411.54 863.22,479.74"/>
-      </lanes>
+      <lane id="-26843019_0" depart="1" allow="delivery" maxspeed="5.56" length="89.38" shape="921.00,411.54 863.22,479.74"/>
    </edge>
    <edge id="-26843133#0" from="294831560" to="294169339" priority="2" type="highway.service" function="normal">
-      <lanes>
-         <lane id="-26843133#0_0" depart="1" allow="delivery" maxspeed="5.56" length="5.29" shape="545.15,292.37 545.56,297.64"/>
-      </lanes>
+      <lane id="-26843133#0_0" depart="1" allow="delivery" maxspeed="5.56" length="5.29" shape="545.15,292.37 545.56,297.64"/>
    </edge>
    <edge id="-5198584" from="36268382" to="36268416" priority="4" type="highway.residential" function="normal">
-      <lanes>
-         <lane id="-5198584_0" depart="1" maxspeed="13.89" length="519.50" shape="1437.43,543.59 1260.86,372.27 1057.59,189.33"/>
-      </lanes>
+      <lane id="-5198584_0" depart="1" maxspeed="13.89" length="519.50" shape="1437.43,543.59 1260.86,372.27 1057.59,189.33"/>
    </edge>
    <edge id="-5198585#0" from="294168972" to="36268369" priority="4" type="highway.residential" function="normal">
-      <lanes>
-         <lane id="-5198585#0_0" depart="1" maxspeed="13.89" length="138.00" shape="710.25,224.08 659.68,180.01 645.06,160.69 640.22,114.25"/>
-      </lanes>
+      <lane id="-5198585#0_0" depart="1" maxspeed="13.89" length="138.00" shape="710.25,224.08 659.68,180.01 645.06,160.69 640.22,114.25"/>
    </edge>
    <edge id="-5198585#1" from="36268375" to="294168972" priority="4" type="highway.residential" function="normal">
-      <lanes>
-         <lane id="-5198585#1_0" depart="1" maxspeed="13.89" length="50.39" shape="755.40,263.43 717.41,230.32"/>
-      </lanes>
+      <lane id="-5198585#1_0" depart="1" maxspeed="13.89" length="50.39" shape="755.40,263.43 717.41,230.32"/>
    </edge>
    <edge id="-5198585#2" from="36268376" to="36268375" priority="4" type="highway.residential" function="normal">
-      <lanes>
-         <lane id="-5198585#2_0" depart="1" maxspeed="13.89" length="164.25" shape="886.49,377.47 762.57,269.67"/>
-      </lanes>
+      <lane id="-5198585#2_0" depart="1" maxspeed="13.89" length="164.25" shape="886.49,377.47 762.57,269.67"/>
    </edge>
    <edge id="-5198585#3" from="294829798" to="36268376" priority="4" type="highway.residential" function="normal">
-      <lanes>
-         <lane id="-5198585#3_0" depart="1" maxspeed="13.89" length="32.33" shape="918.20,404.98 893.77,383.80"/>
-      </lanes>
+      <lane id="-5198585#3_0" depart="1" maxspeed="13.89" length="32.33" shape="918.20,404.98 893.77,383.80"/>
    </edge>
    <edge id="-5198585#4" from="36268431" to="294829798" priority="4" type="highway.residential" function="normal">
-      <lanes>
-         <lane id="-5198585#4_0" depart="1" maxspeed="13.89" length="40.56" shape="956.01,437.79 925.37,411.21"/>
-      </lanes>
+      <lane id="-5198585#4_0" depart="1" maxspeed="13.89" length="40.56" shape="956.01,437.79 925.37,411.21"/>
    </edge>
    <edge id="-5198585#5" from="36268378" to="36268431" priority="4" type="highway.residential" function="normal">
-      <lanes>
-         <lane id="-5198585#5_0" depart="1" maxspeed="13.89" length="48.39" shape="998.38,476.99 962.96,444.03"/>
-      </lanes>
+      <lane id="-5198585#5_0" depart="1" maxspeed="13.89" length="48.39" shape="998.38,476.99 962.96,444.03"/>
    </edge>
    <edge id="-5198585#6" from="283720461" to="36268378" priority="4" type="highway.residential" function="normal">
-      <lanes>
-         <lane id="-5198585#6_0" depart="1" maxspeed="13.89" length="14.66" shape="1016.68,492.62 1005.43,483.23"/>
-      </lanes>
+      <lane id="-5198585#6_0" depart="1" maxspeed="13.89" length="14.66" shape="1016.68,492.62 1005.43,483.23"/>
    </edge>
    <edge id="-5198585#7" from="283719736" to="283720461" priority="4" type="highway.residential" function="normal">
-      <lanes>
-         <lane id="-5198585#7_0" depart="1" maxspeed="13.89" length="29.03" shape="1046.26,517.34 1023.98,498.72"/>
-      </lanes>
+      <lane id="-5198585#7_0" depart="1" maxspeed="13.89" length="29.03" shape="1046.26,517.34 1023.98,498.72"/>
    </edge>
    <edge id="-5198585#8" from="36268381" to="283719736" priority="4" type="highway.residential" function="normal">
-      <lanes>
-         <lane id="-5198585#8_0" depart="1" maxspeed="13.89" length="284.81" shape="1264.09,718.86 1159.27,616.17 1099.84,562.11 1055.54,525.09"/>
-      </lanes>
+      <lane id="-5198585#8_0" depart="1" maxspeed="13.89" length="284.81" shape="1264.09,718.86 1159.27,616.17 1099.84,562.11 1055.54,525.09"/>
    </edge>
    <edge id="-5198586#0" from="36268406" to="36268415" priority="4" type="highway.residential" function="normal">
-      <lanes>
-         <lane id="-5198586#0_0" depart="1" maxspeed="13.89" length="67.07" shape="826.45,460.49 781.81,510.55"/>
-      </lanes>
+      <lane id="-5198586#0_0" depart="1" maxspeed="13.89" length="67.07" shape="826.45,460.49 781.81,510.55"/>
    </edge>
    <edge id="-5198586#1" from="36268376" to="36268406" priority="4" type="highway.residential" function="normal">
-      <lanes>
-         <lane id="-5198586#1_0" depart="1" maxspeed="13.89" length="89.24" shape="889.40,384.17 832.75,453.12"/>
-      </lanes>
+      <lane id="-5198586#1_0" depart="1" maxspeed="13.89" length="89.24" shape="889.40,384.17 832.75,453.12"/>
    </edge>
    <edge id="-5198586#2" from="36268417" to="36268376" priority="4" type="highway.residential" function="normal">
-      <lanes>
-         <lane id="-5198586#2_0" depart="1" maxspeed="13.89" length="136.08" shape="983.10,272.58 895.55,376.76"/>
-      </lanes>
+      <lane id="-5198586#2_0" depart="1" maxspeed="13.89" length="136.08" shape="983.10,272.58 895.55,376.76"/>
    </edge>
    <edge id="-5198586#3" from="36268416" to="36268417" priority="4" type="highway.residential" function="normal">
-      <lanes>
-         <lane id="-5198586#3_0" depart="1" maxspeed="13.89" length="99.11" shape="1053.21,189.62 989.22,265.31"/>
-      </lanes>
+      <lane id="-5198586#3_0" depart="1" maxspeed="13.89" length="99.11" shape="1053.21,189.62 989.22,265.31"/>
    </edge>
    <edge id="-5198586#4" from="261636677" to="36268416" priority="4" type="highway.residential" function="normal">
-      <lanes>
-         <lane id="-5198586#4_0" depart="1" maxspeed="13.89" length="90.03" shape="1119.99,116.22 1104.43,128.77 1059.34,182.36"/>
-      </lanes>
+      <lane id="-5198586#4_0" depart="1" maxspeed="13.89" length="90.03" shape="1119.99,116.22 1104.43,128.77 1059.34,182.36"/>
    </edge>
    <edge id="-5198587" from="36268392" to="36268431" priority="4" type="highway.residential" function="normal">
-      <lanes>
-         <lane id="-5198587_0" depart="1" maxspeed="13.89" length="134.56" shape="1051.23,333.69 965.08,437.06"/>
-      </lanes>
+      <lane id="-5198587_0" depart="1" maxspeed="13.89" length="134.56" shape="1051.23,333.69 965.08,437.06"/>
    </edge>
    <edge id="-5198588#0" from="36268392" to="36268417" priority="4" type="highway.residential" function="normal">
-      <lanes>
-         <lane id="-5198588#0_0" depart="1" maxspeed="13.89" length="82.02" shape="1048.50,327.06 987.47,272.27"/>
-      </lanes>
+      <lane id="-5198588#0_0" depart="1" maxspeed="13.89" length="82.02" shape="1048.50,327.06 987.47,272.27"/>
    </edge>
    <edge id="-5198588#1" from="36268391" to="36268392" priority="4" type="highway.residential" function="normal">
-      <lanes>
-         <lane id="-5198588#1_0" depart="1" maxspeed="13.89" length="181.76" shape="1192.50,452.90 1055.60,333.35"/>
-      </lanes>
+      <lane id="-5198588#1_0" depart="1" maxspeed="13.89" length="181.76" shape="1192.50,452.90 1055.60,333.35"/>
    </edge>
    <edge id="-5198596#0" from="294829881" to="36268403" priority="4" type="highway.residential" function="normal">
-      <lanes>
-         <lane id="-5198596#0_0" depart="1" maxspeed="13.89" length="54.41" shape="893.35,510.03 934.45,545.67"/>
-      </lanes>
+      <lane id="-5198596#0_0" depart="1" maxspeed="13.89" length="54.41" shape="893.35,510.03 934.45,545.67"/>
    </edge>
    <edge id="-5198596#1" from="294829385" to="294829881" priority="4" type="highway.residential" function="normal">
-      <lanes>
-         <lane id="-5198596#1_0" depart="1" maxspeed="13.89" length="39.49" shape="863.51,484.16 893.35,510.03"/>
-      </lanes>
+      <lane id="-5198596#1_0" depart="1" maxspeed="13.89" length="39.49" shape="863.51,484.16 893.35,510.03"/>
    </edge>
    <edge id="-5198596#2" from="36268406" to="294829385" priority="4" type="highway.residential" function="normal">
-      <lanes>
-         <lane id="-5198596#2_0" depart="1" maxspeed="13.89" length="30.89" shape="832.99,457.71 856.33,477.94"/>
-      </lanes>
+      <lane id="-5198596#2_0" depart="1" maxspeed="13.89" length="30.89" shape="832.99,457.71 856.33,477.94"/>
    </edge>
    <edge id="-5198596#3" from="36268408" to="36268406" priority="4" type="highway.residential" function="normal">
-      <lanes>
-         <lane id="-5198596#3_0" depart="1" maxspeed="13.89" length="130.29" shape="729.46,363.66 825.83,451.34"/>
-      </lanes>
+      <lane id="-5198596#3_0" depart="1" maxspeed="13.89" length="130.29" shape="729.46,363.66 825.83,451.34"/>
    </edge>
    <edge id="-5198596#4" from="36268411" to="36268408" priority="4" type="highway.residential" function="normal">
-      <lanes>
-         <lane id="-5198596#4_0" depart="1" maxspeed="13.89" length="29.92" shape="698.79,338.46 722.04,357.29"/>
-      </lanes>
+      <lane id="-5198596#4_0" depart="1" maxspeed="13.89" length="29.92" shape="698.79,338.46 722.04,357.29"/>
    </edge>
    <edge id="-5198597#0" from="36268411" to="36268375" priority="4" type="highway.residential" function="normal">
-      <lanes>
-         <lane id="-5198597#0_0" depart="1" maxspeed="13.89" length="87.45" shape="696.07,331.84 755.63,267.81"/>
-      </lanes>
+      <lane id="-5198597#0_0" depart="1" maxspeed="13.89" length="87.45" shape="696.07,331.84 755.63,267.81"/>
    </edge>
    <edge id="-5198597#1" from="56231597" to="36268411" priority="4" type="highway.residential" function="normal">
-      <lanes>
-         <lane id="-5198597#1_0" depart="1" maxspeed="13.89" length="71.29" shape="635.79,378.81 676.93,338.84 690.50,335.70"/>
-      </lanes>
+      <lane id="-5198597#1_0" depart="1" maxspeed="13.89" length="71.29" shape="635.79,378.81 676.93,338.84 690.50,335.70"/>
    </edge>
    <edge id="-5198597#2" from="56231598" to="56231597" priority="4" type="highway.residential" function="normal">
-      <lanes>
-         <lane id="-5198597#2_0" depart="1" maxspeed="13.89" length="31.34" shape="615.75,413.69 619.13,407.26 630.34,385.96"/>
-      </lanes>
+      <lane id="-5198597#2_0" depart="1" maxspeed="13.89" length="31.34" shape="615.75,413.69 619.13,407.26 630.34,385.96"/>
    </edge>
    <edge id="-5784968#0" from="283721348" to="36268378" priority="4" type="highway.residential" function="normal">
-      <lanes>
-         <lane id="-5784968#0_0" depart="1" maxspeed="13.89" length="0.85" shape="998.53,481.37 999.11,480.75"/>
-      </lanes>
+      <lane id="-5784968#0_0" depart="1" maxspeed="13.89" length="0.85" shape="998.53,481.37 999.11,480.75"/>
    </edge>
    <edge id="-5784968#1" from="36268403" to="283721348" priority="4" type="highway.residential" function="normal">
-      <lanes>
-         <lane id="-5784968#1_0" depart="1" maxspeed="13.89" length="78.31" shape="938.92,545.51 992.24,488.15"/>
-      </lanes>
+      <lane id="-5784968#1_0" depart="1" maxspeed="13.89" length="78.31" shape="938.92,545.51 992.24,488.15"/>
    </edge>
    <edge id="-5784968#2" from="283719904" to="36268403" priority="4" type="highway.residential" function="normal">
-      <lanes>
-         <lane id="-5784968#2_0" depart="1" maxspeed="13.89" length="2.50" shape="930.95,554.41 932.59,552.53"/>
-      </lanes>
+      <lane id="-5784968#2_0" depart="1" maxspeed="13.89" length="2.50" shape="930.95,554.41 932.59,552.53"/>
    </edge>
    <edge id="-5784968#3" from="38920778" to="283719904" priority="4" type="highway.residential" function="normal">
-      <lanes>
-         <lane id="-5784968#3_0" depart="1" maxspeed="13.89" length="37.97" shape="904.66,588.54 927.77,558.41"/>
-      </lanes>
+      <lane id="-5784968#3_0" depart="1" maxspeed="13.89" length="37.97" shape="904.66,588.54 927.77,558.41"/>
    </edge>
    <edge id="-5784968#4" from="306982585" to="38920778" priority="4" type="highway.residential" function="normal">
-      <lanes>
-         <lane id="-5784968#4_0" depart="1" maxspeed="13.89" length="5.97" shape="896.44,598.72 900.23,594.11"/>
-      </lanes>
+      <lane id="-5784968#4_0" depart="1" maxspeed="13.89" length="5.97" shape="896.44,598.72 900.23,594.11"/>
    </edge>
    <edge id="-5784968#5" from="36268398" to="306982585" priority="4" type="highway.residential" function="normal">
-      <lanes>
-         <lane id="-5784968#5_0" depart="1" maxspeed="13.89" length="4.21" shape="893.34,601.80 896.33,598.84"/>
-      </lanes>
+      <lane id="-5784968#5_0" depart="1" maxspeed="13.89" length="4.21" shape="893.34,601.80 896.33,598.84"/>
    </edge>
    <edge id="-6137233#0" from="38919880" to="38919927" priority="4" type="highway.residential" function="normal">
-      <lanes>
-         <lane id="-6137233#0_0" depart="1" maxspeed="13.89" length="38.50" shape="334.83,455.14 297.06,447.63"/>
-      </lanes>
+      <lane id="-6137233#0_0" depart="1" maxspeed="13.89" length="38.50" shape="334.83,455.14 297.06,447.63"/>
    </edge>
    <edge id="-6137233#1" from="283018845" to="38919880" priority="4" type="highway.residential" function="normal">
-      <lanes>
-         <lane id="-6137233#1_0" depart="1" maxspeed="13.89" length="15.32" shape="359.26,461.00 344.39,457.31"/>
-      </lanes>
+      <lane id="-6137233#1_0" depart="1" maxspeed="13.89" length="15.32" shape="359.26,461.00 344.39,457.31"/>
    </edge>
    <edge id="-6137233#2" from="283018932" to="283018845" priority="4" type="highway.residential" function="normal">
-      <lanes>
-         <lane id="-6137233#2_0" depart="1" maxspeed="13.89" length="47.99" shape="406.96,472.86 360.38,461.28"/>
-      </lanes>
+      <lane id="-6137233#2_0" depart="1" maxspeed="13.89" length="47.99" shape="406.96,472.86 360.38,461.28"/>
    </edge>
    <edge id="-6137233#3" from="283018933" to="283018932" priority="4" type="highway.residential" function="normal">
-      <lanes>
-         <lane id="-6137233#3_0" depart="1" maxspeed="13.89" length="120.28" shape="532.25,508.74 495.65,494.87 416.90,475.33"/>
-      </lanes>
+      <lane id="-6137233#3_0" depart="1" maxspeed="13.89" length="120.28" shape="532.25,508.74 495.65,494.87 416.90,475.33"/>
    </edge>
    <edge id="-6137233#4" from="38919712" to="283018933" priority="4" type="highway.residential" function="normal">
-      <lanes>
-         <lane id="-6137233#4_0" depart="1" maxspeed="13.89" length="78.20" shape="614.26,539.83 541.14,512.11"/>
-      </lanes>
+      <lane id="-6137233#4_0" depart="1" maxspeed="13.89" length="78.20" shape="614.26,539.83 541.14,512.11"/>
    </edge>
    <edge id="-6137239#0" from="38919854" to="38919880" priority="4" type="highway.residential" function="normal">
-      <lanes>
-         <lane id="-6137239#0_0" depart="1" maxspeed="13.89" length="64.94" shape="382.84,503.20 347.69,479.37 337.97,466.66 337.71,460.20"/>
-      </lanes>
+      <lane id="-6137239#0_0" depart="1" maxspeed="13.89" length="64.94" shape="382.84,503.20 347.69,479.37 337.97,466.66 337.71,460.20"/>
    </edge>
    <edge id="-6137239#1" from="38919841" to="38919854" priority="4" type="highway.residential" function="normal">
-      <lanes>
-         <lane id="-6137239#1_0" depart="1" maxspeed="13.89" length="117.42" shape="497.06,560.27 391.76,508.30"/>
-      </lanes>
+      <lane id="-6137239#1_0" depart="1" maxspeed="13.89" length="117.42" shape="497.06,560.27 391.76,508.30"/>
    </edge>
    <edge id="-6137239#2" from="38919808" to="38919841" priority="4" type="highway.residential" function="normal">
-      <lanes>
-         <lane id="-6137239#2_0" depart="1" maxspeed="13.89" length="93.23" shape="599.39,565.07 524.48,567.64 511.44,565.55 506.59,564.05"/>
-      </lanes>
+      <lane id="-6137239#2_0" depart="1" maxspeed="13.89" length="93.23" shape="599.39,565.07 524.48,567.64 511.44,565.55 506.59,564.05"/>
    </edge>
    <edge id="-6137239#3" from="38919652" to="38919808" priority="4" type="highway.residential" function="normal">
-      <lanes>
-         <lane id="-6137239#3_0" depart="1" maxspeed="13.89" length="2.01" shape="612.44,563.95 610.44,564.19"/>
-      </lanes>
+      <lane id="-6137239#3_0" depart="1" maxspeed="13.89" length="2.01" shape="612.44,563.95 610.44,564.19"/>
    </edge>
    <edge id="-6137239#4" from="38919605" to="38919652" priority="4" type="highway.residential" function="normal">
-      <lanes>
-         <lane id="-6137239#4_0" depart="1" maxspeed="13.89" length="165.81" shape="781.63,577.04 769.91,565.24 760.35,560.44 750.80,558.96 622.06,563.26"/>
-      </lanes>
+      <lane id="-6137239#4_0" depart="1" maxspeed="13.89" length="165.81" shape="781.63,577.04 769.91,565.24 760.35,560.44 750.80,558.96 622.06,563.26"/>
    </edge>
    <edge id="-7216737#0" from="36268421" to="94487954" priority="9" type="highway.primary" function="normal">
-      <lanes>
-         <lane id="-7216737#0_0" depart="1" maxspeed="27.78" length="597.51" shape="1147.12,45.24 1508.42,5.88 1605.15,-4.23 1640.00,-4.95 1680.76,-2.26 1697.52,1.09 1722.23,6.57 1739.86,15.23"/>
-         <lane id="-7216737#0_1" depart="0" maxspeed="27.78" length="597.51" shape="1147.48,48.52 1508.78,9.16 1605.49,-0.95 1640.06,-1.65 1680.54,1.03 1696.86,4.32 1721.13,9.71 1738.41,18.20"/>
-      </lanes>
+      <lane id="-7216737#0_0" depart="1" maxspeed="27.78" length="597.51" shape="1147.12,45.24 1508.42,5.88 1605.15,-4.23 1640.00,-4.95 1680.76,-2.26 1697.52,1.09 1722.23,6.57 1739.86,15.23"/>
+      <lane id="-7216737#0_1" depart="0" maxspeed="27.78" length="597.51" shape="1147.48,48.52 1508.78,9.16 1605.49,-0.95 1640.06,-1.65 1680.54,1.03 1696.86,4.32 1721.13,9.71 1738.41,18.20"/>
    </edge>
    <edge id="-7216737#1" from="261636678" to="36268421" priority="9" type="highway.primary" function="normal">
-      <lanes>
-         <lane id="-7216737#1_0" depart="1" maxspeed="27.78" length="23.54" shape="1117.72,47.92 1141.17,45.82"/>
-         <lane id="-7216737#1_1" depart="0" maxspeed="27.78" length="23.54" shape="1118.02,51.21 1141.46,49.11"/>
-      </lanes>
+      <lane id="-7216737#1_0" depart="1" maxspeed="27.78" length="23.54" shape="1117.72,47.92 1141.17,45.82"/>
+      <lane id="-7216737#1_1" depart="0" maxspeed="27.78" length="23.54" shape="1118.02,51.21 1141.46,49.11"/>
    </edge>
    <edge id="-7216737#2" from="36268369" to="261636678" priority="9" type="highway.primary" function="normal">
-      <lanes>
-         <lane id="-7216737#2_0" depart="1" maxspeed="27.78" length="470.46" shape="644.57,100.52 771.75,79.91 932.19,62.07 1044.15,51.63 1112.00,48.32"/>
-         <lane id="-7216737#2_1" depart="0" maxspeed="27.78" length="470.46" shape="645.10,103.78 772.28,83.17 932.55,65.35 1044.46,54.92 1112.16,51.61"/>
-      </lanes>
+      <lane id="-7216737#2_0" depart="1" maxspeed="27.78" length="470.46" shape="644.57,100.52 771.75,79.91 932.19,62.07 1044.15,51.63 1112.00,48.32"/>
+      <lane id="-7216737#2_1" depart="0" maxspeed="27.78" length="470.46" shape="645.10,103.78 772.28,83.17 932.55,65.35 1044.46,54.92 1112.16,51.61"/>
    </edge>
    <edge id="-7216737#3" from="32266935" to="36268369" priority="9" type="highway.primary" function="normal">
-      <lanes>
-         <lane id="-7216737#3_0" depart="1" maxspeed="27.78" length="153.28" shape="483.30,115.66 635.93,101.61"/>
-         <lane id="-7216737#3_1" depart="0" maxspeed="27.78" length="153.28" shape="483.60,118.94 636.23,104.89"/>
-      </lanes>
+      <lane id="-7216737#3_0" depart="1" maxspeed="27.78" length="153.28" shape="483.30,115.66 635.93,101.61"/>
+      <lane id="-7216737#3_1" depart="0" maxspeed="27.78" length="153.28" shape="483.60,118.94 636.23,104.89"/>
    </edge>
    <edge id="-7727483#0" from="294169342" to="38920501" priority="6" type="highway.tertiary" function="normal">
-      <lanes>
-         <lane id="-7727483#0_0" depart="1" maxspeed="22.22" length="4.81" shape="496.73,307.41 497.14,312.20"/>
-      </lanes>
+      <lane id="-7727483#0_0" depart="1" maxspeed="22.22" length="4.81" shape="496.73,307.41 497.14,312.20"/>
    </edge>
    <edge id="-7727483#1" from="261647692" to="294169342" priority="6" type="highway.tertiary" function="normal">
-      <lanes>
-         <lane id="-7727483#1_0" depart="1" maxspeed="22.22" length="21.76" shape="494.45,280.95 496.32,302.63"/>
-      </lanes>
+      <lane id="-7727483#1_0" depart="1" maxspeed="22.22" length="21.76" shape="494.45,280.95 496.32,302.63"/>
    </edge>
    <edge id="-7727483#2" from="261647702" to="261647692" priority="6" type="highway.tertiary" function="normal">
-      <lanes>
-         <lane id="-7727483#2_0" depart="1" maxspeed="22.22" length="114.12" shape="484.63,167.25 486.34,187.05 490.33,233.35 494.45,280.95"/>
-      </lanes>
+      <lane id="-7727483#2_0" depart="1" maxspeed="22.22" length="114.12" shape="484.63,167.25 486.34,187.05 490.33,233.35 494.45,280.95"/>
    </edge>
    <edge id="-7727483#3" from="32266935" to="261647702" priority="6" type="highway.tertiary" function="normal">
-      <lanes>
-         <lane id="-7727483#3_0" depart="1" maxspeed="22.22" length="38.37" shape="481.33,129.02 484.63,167.25"/>
-      </lanes>
+      <lane id="-7727483#3_0" depart="1" maxspeed="22.22" length="38.37" shape="481.33,129.02 484.63,167.25"/>
    </edge>
    <edge id="-7730463" from="36268408" to="56242425" priority="1" type="highway.footway" function="normal">
-      <lanes>
-         <lane id="-7730463_0" depart="1" allow="pedestrian" maxspeed="8.33" length="88.01" shape="722.87,366.39 666.19,433.73"/>
-      </lanes>
+      <lane id="-7730463_0" depart="1" allow="pedestrian" maxspeed="8.33" length="88.01" shape="722.87,366.39 666.19,433.73"/>
    </edge>
    <edge id="-7730464" from="56231598" to="56242441" priority="6" type="highway.tertiary" function="normal">
-      <lanes>
-         <lane id="-7730464_0" depart="1" maxspeed="22.22" length="2.38" shape="616.96,421.85 616.84,424.23"/>
-      </lanes>
+      <lane id="-7730464_0" depart="1" maxspeed="22.22" length="2.38" shape="616.96,421.85 616.84,424.23"/>
    </edge>
    <edge id="20430080" from="57343359" to="59993001" priority="6" type="highway.tertiary" function="normal">
-      <lanes>
-         <lane id="20430080_0" depart="1" maxspeed="22.22" length="491.13" shape="1.94,345.92 4.55,342.53 12.54,333.63 32.95,332.62 190.22,343.97 304.73,350.90 387.65,360.32 483.90,381.71"/>
-      </lanes>
+      <lane id="20430080_0" depart="1" maxspeed="22.22" length="491.13" shape="1.94,345.92 4.55,342.53 12.54,333.63 32.95,332.62 190.22,343.97 304.73,350.90 387.65,360.32 483.90,381.71"/>
    </edge>
    <edge id="22917251" from="32266938" to="32266936" priority="6" type="highway.tertiary" function="normal">
-      <lanes>
-         <lane id="22917251_0" depart="1" maxspeed="22.22" length="53.81" shape="475.75,102.76 471.12,49.15"/>
-      </lanes>
+      <lane id="22917251_0" depart="1" maxspeed="22.22" length="53.81" shape="475.75,102.76 471.12,49.15"/>
    </edge>
    <edge id="24152812#0" from="36268421" to="261636677" priority="4" type="highway.residential" function="normal">
-      <lanes>
-         <lane id="24152812#0_0" depart="1" maxspeed="13.89" length="77.73" shape="1145.37,58.55 1148.46,112.43 1124.74,113.88"/>
-      </lanes>
+      <lane id="24152812#0_0" depart="1" maxspeed="13.89" length="77.73" shape="1145.37,58.55 1148.46,112.43 1124.74,113.88"/>
    </edge>
    <edge id="24152812#1" from="261636677" to="261636678" priority="4" type="highway.residential" function="normal">
-      <lanes>
-         <lane id="24152812#1_0" depart="1" maxspeed="13.89" length="48.86" shape="1119.56,109.85 1115.78,61.13"/>
-      </lanes>
+      <lane id="24152812#1_0" depart="1" maxspeed="13.89" length="48.86" shape="1119.56,109.85 1115.78,61.13"/>
    </edge>
    <edge id="24214693#0" from="32266935" to="261599791" priority="9" type="highway.primary" function="normal">
-      <lanes>
-         <lane id="24214693#0_0" depart="1" maxspeed="27.78" length="443.38" shape="474.64,126.55 202.73,159.96 34.69,181.47"/>
-         <lane id="24214693#0_1" depart="0" maxspeed="27.78" length="443.38" shape="474.23,123.27 202.32,156.69 34.24,178.20"/>
-      </lanes>
+      <lane id="24214693#0_0" depart="1" maxspeed="27.78" length="443.38" shape="474.64,126.55 202.73,159.96 34.69,181.47"/>
+      <lane id="24214693#0_1" depart="0" maxspeed="27.78" length="443.38" shape="474.23,123.27 202.32,156.69 34.24,178.20"/>
    </edge>
    <edge id="24214693#1" from="261599791" to="57343510" priority="9" type="highway.primary" function="normal">
-      <lanes>
-         <lane id="24214693#1_0" depart="1" maxspeed="27.78" length="19.27" shape="34.59,181.48 15.55,184.21"/>
-         <lane id="24214693#1_1" depart="0" maxspeed="27.78" length="19.27" shape="34.18,178.21 15.08,180.94"/>
-      </lanes>
+      <lane id="24214693#1_0" depart="1" maxspeed="27.78" length="19.27" shape="34.59,181.48 15.55,184.21"/>
+      <lane id="24214693#1_1" depart="0" maxspeed="27.78" length="19.27" shape="34.18,178.21 15.08,180.94"/>
    </edge>
    <edge id="24214694" from="32266935" to="32266938" priority="6" type="highway.tertiary" function="normal">
-      <lanes>
-         <lane id="24214694_0" depart="1" maxspeed="22.22" length="0.90" shape="476.65,113.13 476.57,112.23"/>
-      </lanes>
+      <lane id="24214694_0" depart="1" maxspeed="22.22" length="0.90" shape="476.65,113.13 476.57,112.23"/>
    </edge>
    <edge id="25944590#0" from="283018817" to="283018841" priority="1" type="highway.footway" function="normal">
-      <lanes>
-         <lane id="25944590#0_0" depart="1" allow="pedestrian" maxspeed="8.33" length="83.30" shape="608.68,548.75 551.10,541.41 529.36,537.76 526.33,536.70"/>
-      </lanes>
+      <lane id="25944590#0_0" depart="1" allow="pedestrian" maxspeed="8.33" length="83.30" shape="608.68,548.75 551.10,541.41 529.36,537.76 526.33,536.70"/>
    </edge>
    <edge id="25944590#1" from="283018841" to="283018842" priority="1" type="highway.footway" function="normal">
-      <lanes>
-         <lane id="25944590#1_0" depart="1" allow="pedestrian" maxspeed="8.33" length="21.58" shape="513.69,532.74 492.88,527.01"/>
-      </lanes>
+      <lane id="25944590#1_0" depart="1" allow="pedestrian" maxspeed="8.33" length="21.58" shape="513.69,532.74 492.88,527.01"/>
    </edge>
    <edge id="25944590#2" from="283018842" to="283018844" priority="1" type="highway.footway" function="normal">
-      <lanes>
-         <lane id="25944590#2_0" depart="1" allow="pedestrian" maxspeed="8.33" length="88.69" shape="487.49,526.63 419.58,497.37 406.59,490.38"/>
-      </lanes>
+      <lane id="25944590#2_0" depart="1" allow="pedestrian" maxspeed="8.33" length="88.69" shape="487.49,526.63 419.58,497.37 406.59,490.38"/>
    </edge>
    <edge id="25944590#3" from="283018844" to="283018845" priority="1" type="highway.footway" function="normal">
-      <lanes>
-         <lane id="25944590#3_0" depart="1" allow="pedestrian" maxspeed="8.33" length="43.67" shape="397.23,484.93 360.28,461.66"/>
-      </lanes>
+      <lane id="25944590#3_0" depart="1" allow="pedestrian" maxspeed="8.33" length="43.67" shape="397.23,484.93 360.28,461.66"/>
    </edge>
    <edge id="25944601#0" from="38919854" to="283018844" priority="1" type="highway.footway" function="normal">
-      <lanes>
-         <lane id="25944601#0_0" depart="1" allow="pedestrian" maxspeed="8.33" length="12.64" shape="389.79,498.95 397.91,489.26"/>
-      </lanes>
+      <lane id="25944601#0_0" depart="1" allow="pedestrian" maxspeed="8.33" length="12.64" shape="389.79,498.95 397.91,489.26"/>
    </edge>
    <edge id="25944601#1" from="283018844" to="283018932" priority="1" type="highway.footway" function="normal">
-      <lanes>
-         <lane id="25944601#1_0" depart="1" allow="pedestrian" maxspeed="8.33" length="5.36" shape="404.82,481.05 408.28,476.95"/>
-      </lanes>
+      <lane id="25944601#1_0" depart="1" allow="pedestrian" maxspeed="8.33" length="5.36" shape="404.82,481.05 408.28,476.95"/>
    </edge>
    <edge id="25944603#0" from="283018933" to="283018841" priority="1" type="highway.footway" function="normal">
-      <lanes>
-         <lane id="25944603#0_0" depart="1" allow="pedestrian" maxspeed="8.33" length="19.09" shape="537.05,514.02 533.07,523.69 526.60,529.41"/>
-      </lanes>
+      <lane id="25944603#0_0" depart="1" allow="pedestrian" maxspeed="8.33" length="19.09" shape="537.05,514.02 533.07,523.69 526.60,529.41"/>
    </edge>
    <edge id="25944603#1" from="283018841" to="283018937" priority="1" type="highway.footway" function="normal">
-      <lanes>
-         <lane id="25944603#1_0" depart="1" allow="pedestrian" maxspeed="8.33" length="10.59" shape="517.68,538.86 511.22,547.25"/>
-      </lanes>
+      <lane id="25944603#1_0" depart="1" allow="pedestrian" maxspeed="8.33" length="10.59" shape="517.68,538.86 511.22,547.25"/>
    </edge>
    <edge id="25944603#2" from="283018937" to="38919841" priority="1" type="highway.footway" function="normal">
-      <lanes>
-         <lane id="25944603#2_0" depart="1" allow="pedestrian" maxspeed="8.33" length="2.68" shape="506.75,554.46 505.71,556.94"/>
-      </lanes>
+      <lane id="25944603#2_0" depart="1" allow="pedestrian" maxspeed="8.33" length="2.68" shape="506.75,554.46 505.71,556.94"/>
    </edge>
    <edge id="25944605" from="283018937" to="283018842" priority="1" type="highway.footway" function="normal">
-      <lanes>
-         <lane id="25944605_0" depart="1" allow="pedestrian" maxspeed="8.33" length="20.02" shape="501.74,547.54 493.38,537.93 488.43,532.58"/>
-      </lanes>
+      <lane id="25944605_0" depart="1" allow="pedestrian" maxspeed="8.33" length="20.02" shape="501.74,547.54 493.38,537.93 488.43,532.58"/>
    </edge>
    <edge id="25951490" from="175648134" to="32266938" priority="1" type="highway.cycleway" function="normal">
-      <lanes>
-         <lane id="25951490_0" depart="1" allow="bicycle" maxspeed="5.56" length="461.21" shape="15.46,166.43 472.72,106.21"/>
-      </lanes>
+      <lane id="25951490_0" depart="1" allow="bicycle" maxspeed="5.56" length="461.21" shape="15.46,166.43 472.72,106.21"/>
    </edge>
    <edge id="26004787#0" from="283719736" to="283721344" priority="1" type="highway.footway" function="normal">
-      <lanes>
-         <lane id="26004787#0_0" depart="1" allow="pedestrian" maxspeed="8.33" length="16.96" shape="1040.95,526.39 1024.77,531.51"/>
-      </lanes>
+      <lane id="26004787#0_0" depart="1" allow="pedestrian" maxspeed="8.33" length="16.96" shape="1040.95,526.39 1024.77,531.51"/>
    </edge>
    <edge id="26004787#1" from="283721344" to="283722837" priority="1" type="highway.footway" function="normal">
-      <lanes>
-         <lane id="26004787#1_0" depart="1" allow="pedestrian" maxspeed="8.33" length="26.87" shape="1014.67,534.49 988.76,541.63"/>
-      </lanes>
+      <lane id="26004787#1_0" depart="1" allow="pedestrian" maxspeed="8.33" length="26.87" shape="1014.67,534.49 988.76,541.63"/>
    </edge>
    <edge id="26004787#2" from="283722837" to="283719904" priority="1" type="highway.footway" function="normal">
-      <lanes>
-         <lane id="26004787#2_0" depart="1" allow="pedestrian" maxspeed="8.33" length="40.13" shape="973.03,546.02 934.52,557.32"/>
-      </lanes>
+      <lane id="26004787#2_0" depart="1" allow="pedestrian" maxspeed="8.33" length="40.13" shape="973.03,546.02 934.52,557.32"/>
    </edge>
    <edge id="26004861#0" from="287944369" to="283721344" priority="1" type="highway.footway" function="normal">
-      <lanes>
-         <lane id="26004861#0_0" depart="1" allow="pedestrian" maxspeed="8.33" length="8.46" shape="1023.17,544.56 1019.89,536.77"/>
-      </lanes>
+      <lane id="26004861#0_0" depart="1" allow="pedestrian" maxspeed="8.33" length="8.46" shape="1023.17,544.56 1019.89,536.77"/>
    </edge>
    <edge id="26004861#1" from="283721344" to="287944368" priority="1" type="highway.footway" function="normal">
-      <lanes>
-         <lane id="26004861#1_0" depart="1" allow="pedestrian" maxspeed="8.33" length="13.76" shape="1015.59,527.32 1009.55,514.95"/>
-      </lanes>
+      <lane id="26004861#1_0" depart="1" allow="pedestrian" maxspeed="8.33" length="13.76" shape="1015.59,527.32 1009.55,514.95"/>
    </edge>
    <edge id="26004861#2" from="287944368" to="283721348" priority="1" type="highway.footway" function="normal">
-      <lanes>
-         <lane id="26004861#2_0" depart="1" allow="pedestrian" maxspeed="8.33" length="13.35" shape="1004.22,503.37 998.91,491.13"/>
-      </lanes>
+      <lane id="26004861#2_0" depart="1" allow="pedestrian" maxspeed="8.33" length="13.35" shape="1004.22,503.37 998.91,491.13"/>
    </edge>
    <edge id="26004868#0" from="283719736" to="287944369" priority="1" type="highway.footway" function="normal">
-      <lanes>
-         <lane id="26004868#0_0" depart="1" allow="pedestrian" maxspeed="8.33" length="19.09" shape="1045.55,531.82 1032.94,546.15"/>
-      </lanes>
+      <lane id="26004868#0_0" depart="1" allow="pedestrian" maxspeed="8.33" length="19.09" shape="1045.55,531.82 1032.94,546.15"/>
    </edge>
    <edge id="26004868#1" from="287944369" to="283721473" priority="1" type="highway.footway" function="normal">
-      <lanes>
-         <lane id="26004868#1_0" depart="1" allow="pedestrian" maxspeed="8.33" length="22.33" shape="1026.22,553.83 1011.58,570.68"/>
-      </lanes>
+      <lane id="26004868#1_0" depart="1" allow="pedestrian" maxspeed="8.33" length="22.33" shape="1026.22,553.83 1011.58,570.68"/>
    </edge>
    <edge id="26004966#0" from="283722835" to="283721473" priority="1" type="highway.footway" function="normal">
-      <lanes>
-         <lane id="26004966#0_0" depart="1" allow="pedestrian" maxspeed="8.33" length="13.89" shape="1019.69,587.05 1009.45,577.67"/>
-      </lanes>
+      <lane id="26004966#0_0" depart="1" allow="pedestrian" maxspeed="8.33" length="13.89" shape="1019.69,587.05 1009.45,577.67"/>
    </edge>
    <edge id="26004966#1" from="283721473" to="283722837" priority="1" type="highway.footway" function="normal">
-      <lanes>
-         <lane id="26004966#1_0" depart="1" allow="pedestrian" maxspeed="8.33" length="31.10" shape="1002.43,571.12 979.91,549.68"/>
-      </lanes>
+      <lane id="26004966#1_0" depart="1" allow="pedestrian" maxspeed="8.33" length="31.10" shape="1002.43,571.12 979.91,549.68"/>
    </edge>
    <edge id="26004966#2" from="283722837" to="287944368" priority="1" type="highway.footway" function="normal">
-      <lanes>
-         <lane id="26004966#2_0" depart="1" allow="pedestrian" maxspeed="8.33" length="28.44" shape="983.45,532.86 1002.85,512.06"/>
-      </lanes>
+      <lane id="26004966#2_0" depart="1" allow="pedestrian" maxspeed="8.33" length="28.44" shape="983.45,532.86 1002.85,512.06"/>
    </edge>
    <edge id="26004966#3" from="287944368" to="283720461" priority="1" type="highway.footway" function="normal">
-      <lanes>
-         <lane id="26004966#3_0" depart="1" allow="pedestrian" maxspeed="8.33" length="7.95" shape="1011.51,502.80 1016.95,497.00"/>
-      </lanes>
+      <lane id="26004966#3_0" depart="1" allow="pedestrian" maxspeed="8.33" length="7.95" shape="1011.51,502.80 1016.95,497.00"/>
    </edge>
    <edge id="26816413#0" from="56231597" to="294168710" priority="2" type="highway.service" function="normal">
-      <lanes>
-         <lane id="26816413#0_0" depart="1" allow="delivery" maxspeed="5.56" length="57.66" shape="629.19,381.31 586.66,342.38"/>
-      </lanes>
+      <lane id="26816413#0_0" depart="1" allow="delivery" maxspeed="5.56" length="57.66" shape="629.19,381.31 586.66,342.38"/>
    </edge>
    <edge id="26816413#1" from="294168710" to="294168098" priority="2" type="highway.service" function="normal">
-      <lanes>
-         <lane id="26816413#1_0" depart="1" allow="delivery" maxspeed="5.56" length="20.27" shape="582.08,338.19 567.13,324.51"/>
-      </lanes>
+      <lane id="26816413#1_0" depart="1" allow="delivery" maxspeed="5.56" length="20.27" shape="582.08,338.19 567.13,324.51"/>
    </edge>
    <edge id="26816541" from="294168098" to="294168710" priority="2" type="highway.service" function="normal">
-      <lanes>
-         <lane id="26816541_0" depart="1" allow="delivery" maxspeed="5.56" length="109.11" shape="560.96,322.69 534.87,327.64 539.54,356.67 560.71,364.39 582.19,342.58"/>
-      </lanes>
+      <lane id="26816541_0" depart="1" allow="delivery" maxspeed="5.56" length="109.11" shape="560.96,322.69 534.87,327.64 539.54,356.67 560.71,364.39 582.19,342.58"/>
    </edge>
    <edge id="26816553" from="294168098" to="294168972" priority="2" type="highway.service" function="normal">
-      <lanes>
-         <lane id="26816553_0" depart="1" allow="delivery" maxspeed="5.56" length="226.63" shape="563.76,318.16 561.92,311.56 569.68,301.71 633.46,220.82 682.21,259.50 705.06,234.43 710.50,228.46"/>
-      </lanes>
+      <lane id="26816553_0" depart="1" allow="delivery" maxspeed="5.56" length="226.63" shape="563.76,318.16 561.92,311.56 569.68,301.71 633.46,220.82 682.21,259.50 705.06,234.43 710.50,228.46"/>
    </edge>
    <edge id="26816590#0" from="294168098" to="294169338" priority="2" type="highway.service" function="normal">
-      <lanes>
-         <lane id="26816590#0_0" depart="1" allow="delivery" maxspeed="5.56" length="8.44" shape="562.74,318.75 558.33,311.55"/>
-      </lanes>
+      <lane id="26816590#0_0" depart="1" allow="delivery" maxspeed="5.56" length="8.44" shape="562.74,318.75 558.33,311.55"/>
    </edge>
    <edge id="26816590#1" from="294169338" to="294169339" priority="2" type="highway.service" function="normal">
-      <lanes>
-         <lane id="26816590#1_0" depart="1" allow="delivery" maxspeed="5.56" length="4.86" shape="551.25,307.24 546.80,305.30"/>
-      </lanes>
+      <lane id="26816590#1_0" depart="1" allow="delivery" maxspeed="5.56" length="4.86" shape="551.25,307.24 546.80,305.30"/>
    </edge>
    <edge id="26816590#2" from="294169339" to="294169342" priority="2" type="highway.service" function="normal">
-      <lanes>
-         <lane id="26816590#2_0" depart="1" allow="delivery" maxspeed="5.56" length="40.02" shape="539.82,304.55 510.67,307.65 500.02,308.71"/>
-      </lanes>
+      <lane id="26816590#2_0" depart="1" allow="delivery" maxspeed="5.56" length="40.02" shape="539.82,304.55 510.67,307.65 500.02,308.71"/>
    </edge>
    <edge id="26816627" from="294169338" to="294169618" priority="2" type="highway.service" function="normal">
-      <lanes>
-         <lane id="26816627_0" depart="1" allow="delivery" maxspeed="5.56" length="151.90" shape="556.01,301.67 539.54,150.67"/>
-      </lanes>
+      <lane id="26816627_0" depart="1" allow="delivery" maxspeed="5.56" length="151.90" shape="556.01,301.67 539.54,150.67"/>
    </edge>
    <edge id="26843019" from="294829385" to="294829798" priority="2" type="highway.service" function="normal">
-      <lanes>
-         <lane id="26843019_0" depart="1" allow="delivery" maxspeed="5.56" length="89.38" shape="860.70,477.61 918.48,409.41"/>
-      </lanes>
+      <lane id="26843019_0" depart="1" allow="delivery" maxspeed="5.56" length="89.38" shape="860.70,477.61 918.48,409.41"/>
    </edge>
    <edge id="26843133#0" from="294169339" to="294831560" priority="2" type="highway.service" function="normal">
-      <lanes>
-         <lane id="26843133#0_0" depart="1" allow="delivery" maxspeed="5.56" length="5.29" shape="542.27,297.90 541.86,292.62"/>
-      </lanes>
+      <lane id="26843133#0_0" depart="1" allow="delivery" maxspeed="5.56" length="5.29" shape="542.27,297.90 541.86,292.62"/>
    </edge>
    <edge id="27437972#0" from="38918157" to="36268398" priority="6" type="highway.tertiary" function="normal">
-      <lanes>
-         <lane id="27437972#0_0" depart="1" maxspeed="22.22" length="235.31" shape="1068.74,767.39 1041.64,740.05 984.17,684.68 957.65,657.32 939.78,639.63 926.70,628.25 908.96,616.96 896.11,608.50"/>
-      </lanes>
+      <lane id="27437972#0_0" depart="1" maxspeed="22.22" length="235.31" shape="1068.74,767.39 1041.64,740.05 984.17,684.68 957.65,657.32 939.78,639.63 926.70,628.25 908.96,616.96 896.11,608.50"/>
    </edge>
    <edge id="27437972#1" from="36268398" to="38919668" priority="6" type="highway.tertiary" function="normal">
-      <lanes>
-         <lane id="27437972#1_0" depart="1" maxspeed="22.22" length="242.45" shape="888.00,603.35 803.74,552.14 733.24,501.46 687.55,467.32"/>
-      </lanes>
+      <lane id="27437972#1_0" depart="1" maxspeed="22.22" length="242.45" shape="888.00,603.35 803.74,552.14 733.24,501.46 687.55,467.32"/>
    </edge>
    <edge id="27437972#2" from="38919668" to="38919703" priority="6" type="highway.tertiary" function="normal">
-      <lanes>
-         <lane id="27437972#2_0" depart="1" maxspeed="22.22" length="17.47" shape="681.41,462.87 667.21,452.69"/>
-      </lanes>
+      <lane id="27437972#2_0" depart="1" maxspeed="22.22" length="17.47" shape="681.41,462.87 667.21,452.69"/>
    </edge>
    <edge id="27437972#3" from="38919703" to="56242441" priority="6" type="highway.tertiary" function="normal">
-      <lanes>
-         <lane id="27437972#3_0" depart="1" maxspeed="22.22" length="47.11" shape="661.78,449.28 650.91,443.45 619.00,429.61"/>
-      </lanes>
+      <lane id="27437972#3_0" depart="1" maxspeed="22.22" length="47.11" shape="661.78,449.28 650.91,443.45 619.00,429.61"/>
    </edge>
    <edge id="27437972#4" from="56242441" to="301292612" priority="6" type="highway.tertiary" function="normal">
-      <lanes>
-         <lane id="27437972#4_0" depart="1" maxspeed="22.22" length="112.58" shape="610.03,426.66 500.61,400.16"/>
-      </lanes>
+      <lane id="27437972#4_0" depart="1" maxspeed="22.22" length="112.58" shape="610.03,426.66 500.61,400.16"/>
    </edge>
    <edge id="27441168" from="59993001" to="56231397" priority="6" type="highway.tertiary" function="normal">
-      <lanes>
-         <lane id="27441168_0" depart="1" maxspeed="22.22" length="7.03" shape="490.04,383.06 496.91,384.55"/>
-      </lanes>
+      <lane id="27441168_0" depart="1" maxspeed="22.22" length="7.03" shape="490.04,383.06 496.91,384.55"/>
    </edge>
    <edge id="27441189" from="301292612" to="38919945" priority="6" type="highway.tertiary" function="normal">
-      <lanes>
-         <lane id="27441189_0" depart="1" maxspeed="22.22" length="7.57" shape="494.56,398.61 487.25,396.63"/>
-      </lanes>
+      <lane id="27441189_0" depart="1" maxspeed="22.22" length="7.57" shape="494.56,398.61 487.25,396.63"/>
    </edge>
    <edge id="27441289" from="59993001" to="38920501" priority="6" type="highway.tertiary" function="normal">
-      <lanes>
-         <lane id="27441289_0" depart="1" maxspeed="22.22" length="55.44" shape="487.56,379.30 493.84,346.12 494.87,324.48"/>
-      </lanes>
+      <lane id="27441289_0" depart="1" maxspeed="22.22" length="55.44" shape="487.56,379.30 493.84,346.12 494.87,324.48"/>
    </edge>
    <edge id="27445000" from="38919945" to="57343359" priority="6" type="highway.tertiary" function="normal">
-      <lanes>
-         <lane id="27445000_0" depart="1" maxspeed="22.22" length="481.86" shape="481.29,395.12 387.27,372.75 303.84,361.55 189.83,353.29 133.74,350.94 3.17,348.50"/>
-      </lanes>
+      <lane id="27445000_0" depart="1" maxspeed="22.22" length="481.86" shape="481.29,395.12 387.27,372.75 303.84,361.55 189.83,353.29 133.74,350.94 3.17,348.50"/>
    </edge>
    <edge id="27445003" from="56231397" to="301292612" priority="6" type="highway.tertiary" function="normal">
-      <lanes>
-         <lane id="27445003_0" depart="1" maxspeed="22.22" length="7.94" shape="499.79,388.48 498.28,396.28"/>
-      </lanes>
+      <lane id="27445003_0" depart="1" maxspeed="22.22" length="7.94" shape="499.79,388.48 498.28,396.28"/>
    </edge>
    <edge id="27445015#0" from="56231397" to="56231598" priority="6" type="highway.tertiary" function="normal">
-      <lanes>
-         <lane id="27445015#0_0" depart="1" maxspeed="22.22" length="111.87" shape="503.52,386.18 611.22,416.42"/>
-      </lanes>
+      <lane id="27445015#0_0" depart="1" maxspeed="22.22" length="111.87" shape="503.52,386.18 611.22,416.42"/>
    </edge>
    <edge id="27445015#1" from="56231598" to="56242425" priority="6" type="highway.tertiary" function="normal">
-      <lanes>
-         <lane id="27445015#1_0" depart="1" maxspeed="22.22" length="40.48" shape="620.59,419.43 642.13,427.10 658.37,433.93"/>
-      </lanes>
+      <lane id="27445015#1_0" depart="1" maxspeed="22.22" length="40.48" shape="620.59,419.43 642.13,427.10 658.37,433.93"/>
    </edge>
    <edge id="27445015#2" from="56242425" to="36268415" priority="6" type="highway.tertiary" function="normal">
-      <lanes>
-         <lane id="27445015#2_0" depart="1" maxspeed="22.22" length="129.18" shape="667.05,438.02 683.08,446.29 703.53,459.75 738.68,482.83 774.68,509.17"/>
-      </lanes>
+      <lane id="27445015#2_0" depart="1" maxspeed="22.22" length="129.18" shape="667.05,438.02 683.08,446.29 703.53,459.75 738.68,482.83 774.68,509.17"/>
    </edge>
    <edge id="27445015#3" from="36268415" to="38920778" priority="6" type="highway.tertiary" function="normal">
-      <lanes>
-         <lane id="27445015#3_0" depart="1" maxspeed="22.22" length="139.48" shape="782.17,514.92 804.51,532.91 825.84,548.20 842.40,558.92 899.39,589.81"/>
-      </lanes>
+      <lane id="27445015#3_0" depart="1" maxspeed="22.22" length="139.48" shape="782.17,514.92 804.51,532.91 825.84,548.20 842.40,558.92 899.39,589.81"/>
    </edge>
    <edge id="27445015#4" from="38920778" to="57343487" priority="6" type="highway.tertiary" function="normal">
-      <lanes>
-         <lane id="27445015#4_0" depart="1" maxspeed="22.22" length="235.43" shape="908.06,594.86 936.90,612.90 955.31,628.25 974.34,645.34 1002.94,673.87 1055.97,727.53 1081.87,752.58"/>
-      </lanes>
+      <lane id="27445015#4_0" depart="1" maxspeed="22.22" length="235.43" shape="908.06,594.86 936.90,612.90 955.31,628.25 974.34,645.34 1002.94,673.87 1055.97,727.53 1081.87,752.58"/>
    </edge>
    <edge id="5198584" from="36268416" to="36268382" priority="4" type="highway.residential" function="normal">
-      <lanes>
-         <lane id="5198584_0" depart="1" maxspeed="13.89" length="519.62" shape="1059.79,186.87 1263.12,369.86 1439.72,541.22"/>
-      </lanes>
+      <lane id="5198584_0" depart="1" maxspeed="13.89" length="519.62" shape="1059.79,186.87 1263.12,369.86 1439.72,541.22"/>
    </edge>
    <edge id="5198585#0" from="36268369" to="294168972" priority="4" type="highway.residential" function="normal">
-      <lanes>
-         <lane id="5198585#0_0" depart="1" maxspeed="13.89" length="135.48" shape="643.51,113.90 648.25,159.43 662.11,177.75 712.42,221.59"/>
-      </lanes>
+      <lane id="5198585#0_0" depart="1" maxspeed="13.89" length="135.48" shape="643.51,113.90 648.25,159.43 662.11,177.75 712.42,221.59"/>
    </edge>
    <edge id="5198585#1" from="294168972" to="36268375" priority="4" type="highway.residential" function="normal">
-      <lanes>
-         <lane id="5198585#1_0" depart="1" maxspeed="13.89" length="50.39" shape="719.58,227.84 757.57,260.94"/>
-      </lanes>
+      <lane id="5198585#1_0" depart="1" maxspeed="13.89" length="50.39" shape="719.58,227.84 757.57,260.94"/>
    </edge>
    <edge id="5198585#2" from="36268375" to="36268376" priority="4" type="highway.residential" function="normal">
-      <lanes>
-         <lane id="5198585#2_0" depart="1" maxspeed="13.89" length="164.25" shape="764.74,267.18 888.66,374.98"/>
-      </lanes>
+      <lane id="5198585#2_0" depart="1" maxspeed="13.89" length="164.25" shape="764.74,267.18 888.66,374.98"/>
    </edge>
    <edge id="5198585#3" from="36268376" to="294829798" priority="4" type="highway.residential" function="normal">
-      <lanes>
-         <lane id="5198585#3_0" depart="1" maxspeed="13.89" length="32.33" shape="895.94,381.30 920.36,402.49"/>
-      </lanes>
+      <lane id="5198585#3_0" depart="1" maxspeed="13.89" length="32.33" shape="895.94,381.30 920.36,402.49"/>
    </edge>
    <edge id="5198585#4" from="294829798" to="36268431" priority="4" type="highway.residential" function="normal">
-      <lanes>
-         <lane id="5198585#4_0" depart="1" maxspeed="13.89" length="40.56" shape="927.54,408.71 958.17,435.30"/>
-      </lanes>
+      <lane id="5198585#4_0" depart="1" maxspeed="13.89" length="40.56" shape="927.54,408.71 958.17,435.30"/>
    </edge>
    <edge id="5198585#5" from="36268431" to="36268378" priority="4" type="highway.residential" function="normal">
-      <lanes>
-         <lane id="5198585#5_0" depart="1" maxspeed="13.89" length="48.39" shape="965.20,441.61 1000.62,474.58"/>
-      </lanes>
+      <lane id="5198585#5_0" depart="1" maxspeed="13.89" length="48.39" shape="965.20,441.61 1000.62,474.58"/>
    </edge>
    <edge id="5198585#6" from="36268378" to="283720461" priority="4" type="highway.residential" function="normal">
-      <lanes>
-         <lane id="5198585#6_0" depart="1" maxspeed="13.89" length="14.66" shape="1007.55,480.69 1018.80,490.09"/>
-      </lanes>
+      <lane id="5198585#6_0" depart="1" maxspeed="13.89" length="14.66" shape="1007.55,480.69 1018.80,490.09"/>
    </edge>
    <edge id="5198585#7" from="283720461" to="283719736" priority="4" type="highway.residential" function="normal">
-      <lanes>
-         <lane id="5198585#7_0" depart="1" maxspeed="13.89" length="29.03" shape="1026.10,496.19 1048.37,514.80"/>
-      </lanes>
+      <lane id="5198585#7_0" depart="1" maxspeed="13.89" length="29.03" shape="1026.10,496.19 1048.37,514.80"/>
    </edge>
    <edge id="5198585#8" from="283719736" to="36268381" priority="4" type="highway.residential" function="normal">
-      <lanes>
-         <lane id="5198585#8_0" depart="1" maxspeed="13.89" length="285.07" shape="1057.66,522.56 1102.01,559.62 1161.54,613.77 1266.40,716.51"/>
-      </lanes>
+      <lane id="5198585#8_0" depart="1" maxspeed="13.89" length="285.07" shape="1057.66,522.56 1102.01,559.62 1161.54,613.77 1266.40,716.51"/>
    </edge>
    <edge id="5198586#0" from="36268415" to="36268406" priority="4" type="highway.residential" function="normal">
-      <lanes>
-         <lane id="5198586#0_0" depart="1" maxspeed="13.89" length="67.07" shape="779.35,508.35 823.99,458.30"/>
-      </lanes>
+      <lane id="5198586#0_0" depart="1" maxspeed="13.89" length="67.07" shape="779.35,508.35 823.99,458.30"/>
    </edge>
    <edge id="5198586#1" from="36268406" to="36268376" priority="4" type="highway.residential" function="normal">
-      <lanes>
-         <lane id="5198586#1_0" depart="1" maxspeed="13.89" length="89.24" shape="830.20,451.02 886.85,382.07"/>
-      </lanes>
+      <lane id="5198586#1_0" depart="1" maxspeed="13.89" length="89.24" shape="830.20,451.02 886.85,382.07"/>
    </edge>
    <edge id="5198586#2" from="36268376" to="36268417" priority="4" type="highway.residential" function="normal">
-      <lanes>
-         <lane id="5198586#2_0" depart="1" maxspeed="13.89" length="136.08" shape="893.03,374.64 980.57,270.46"/>
-      </lanes>
+      <lane id="5198586#2_0" depart="1" maxspeed="13.89" length="136.08" shape="893.03,374.64 980.57,270.46"/>
    </edge>
    <edge id="5198586#3" from="36268417" to="36268416" priority="4" type="highway.residential" function="normal">
-      <lanes>
-         <lane id="5198586#3_0" depart="1" maxspeed="13.89" length="99.11" shape="986.70,263.18 1050.69,187.49"/>
-      </lanes>
+      <lane id="5198586#3_0" depart="1" maxspeed="13.89" length="99.11" shape="986.70,263.18 1050.69,187.49"/>
    </edge>
    <edge id="5198586#4" from="36268416" to="261636677" priority="4" type="highway.residential" function="normal">
-      <lanes>
-         <lane id="5198586#4_0" depart="1" maxspeed="13.89" length="90.67" shape="1056.81,180.24 1102.11,126.40 1117.92,113.65"/>
-      </lanes>
+      <lane id="5198586#4_0" depart="1" maxspeed="13.89" length="90.67" shape="1056.81,180.24 1102.11,126.40 1117.92,113.65"/>
    </edge>
    <edge id="5198587" from="36268431" to="36268392" priority="4" type="highway.residential" function="normal">
-      <lanes>
-         <lane id="5198587_0" depart="1" maxspeed="13.89" length="134.56" shape="962.55,434.94 1048.69,331.58"/>
-      </lanes>
+      <lane id="5198587_0" depart="1" maxspeed="13.89" length="134.56" shape="962.55,434.94 1048.69,331.58"/>
    </edge>
    <edge id="5198588#0" from="36268417" to="36268392" priority="4" type="highway.residential" function="normal">
-      <lanes>
-         <lane id="5198588#0_0" depart="1" maxspeed="13.89" length="82.02" shape="989.68,269.82 1050.71,324.61"/>
-      </lanes>
+      <lane id="5198588#0_0" depart="1" maxspeed="13.89" length="82.02" shape="989.68,269.82 1050.71,324.61"/>
    </edge>
    <edge id="5198588#1" from="36268392" to="36268391" priority="4" type="highway.residential" function="normal">
-      <lanes>
-         <lane id="5198588#1_0" depart="1" maxspeed="13.89" length="181.76" shape="1057.77,330.86 1194.67,450.42"/>
-      </lanes>
+      <lane id="5198588#1_0" depart="1" maxspeed="13.89" length="181.76" shape="1057.77,330.86 1194.67,450.42"/>
    </edge>
    <edge id="5198596#0" from="36268403" to="294829881" priority="4" type="highway.residential" function="normal">
-      <lanes>
-         <lane id="5198596#0_0" depart="1" maxspeed="13.89" length="54.41" shape="932.29,548.16 891.18,512.52"/>
-      </lanes>
+      <lane id="5198596#0_0" depart="1" maxspeed="13.89" length="54.41" shape="932.29,548.16 891.18,512.52"/>
    </edge>
    <edge id="5198596#1" from="294829881" to="294829385" priority="4" type="highway.residential" function="normal">
-      <lanes>
-         <lane id="5198596#1_0" depart="1" maxspeed="13.89" length="39.49" shape="891.18,512.52 861.35,486.66"/>
-      </lanes>
+      <lane id="5198596#1_0" depart="1" maxspeed="13.89" length="39.49" shape="891.18,512.52 861.35,486.66"/>
    </edge>
    <edge id="5198596#2" from="294829385" to="36268406" priority="4" type="highway.residential" function="normal">
-      <lanes>
-         <lane id="5198596#2_0" depart="1" maxspeed="13.89" length="30.89" shape="854.17,480.44 830.83,460.20"/>
-      </lanes>
+      <lane id="5198596#2_0" depart="1" maxspeed="13.89" length="30.89" shape="854.17,480.44 830.83,460.20"/>
    </edge>
    <edge id="5198596#3" from="36268406" to="36268408" priority="4" type="highway.residential" function="normal">
-      <lanes>
-         <lane id="5198596#3_0" depart="1" maxspeed="13.89" length="130.29" shape="823.61,453.78 727.24,366.10"/>
-      </lanes>
+      <lane id="5198596#3_0" depart="1" maxspeed="13.89" length="130.29" shape="823.61,453.78 727.24,366.10"/>
    </edge>
    <edge id="5198596#4" from="36268408" to="36268411" priority="4" type="highway.residential" function="normal">
-      <lanes>
-         <lane id="5198596#4_0" depart="1" maxspeed="13.89" length="29.92" shape="719.97,359.85 696.71,341.03"/>
-      </lanes>
+      <lane id="5198596#4_0" depart="1" maxspeed="13.89" length="29.92" shape="719.97,359.85 696.71,341.03"/>
    </edge>
    <edge id="5198597#0" from="36268375" to="36268411" priority="4" type="highway.residential" function="normal">
-      <lanes>
-         <lane id="5198597#0_0" depart="1" maxspeed="13.89" length="87.45" shape="758.05,270.06 698.48,334.09"/>
-      </lanes>
+      <lane id="5198597#0_0" depart="1" maxspeed="13.89" length="87.45" shape="758.05,270.06 698.48,334.09"/>
    </edge>
    <edge id="5198597#1" from="36268411" to="56231597" priority="4" type="highway.residential" function="normal">
-      <lanes>
-         <lane id="5198597#1_0" depart="1" maxspeed="13.89" length="69.45" shape="691.25,338.92 678.57,341.85 638.09,381.18"/>
-      </lanes>
+      <lane id="5198597#1_0" depart="1" maxspeed="13.89" length="69.45" shape="691.25,338.92 678.57,341.85 638.09,381.18"/>
    </edge>
    <edge id="5198597#2" from="56231597" to="56231598" priority="4" type="highway.residential" function="normal">
-      <lanes>
-         <lane id="5198597#2_0" depart="1" maxspeed="13.89" length="31.34" shape="633.26,387.49 622.05,408.79 618.67,415.23"/>
-      </lanes>
+      <lane id="5198597#2_0" depart="1" maxspeed="13.89" length="31.34" shape="633.26,387.49 622.05,408.79 618.67,415.23"/>
    </edge>
    <edge id="5784947#0" from="38919668" to="38919652" priority="4" type="highway.residential" function="normal">
-      <lanes>
-         <lane id="5784947#0_0" depart="1" maxspeed="13.89" length="111.17" shape="680.46,466.85 677.09,467.37 669.56,470.43 662.70,477.56 619.71,556.33"/>
-      </lanes>
+      <lane id="5784947#0_0" depart="1" maxspeed="13.89" length="111.17" shape="680.46,466.85 677.09,467.37 669.56,470.43 662.70,477.56 619.71,556.33"/>
    </edge>
    <edge id="5784947#1" from="38919652" to="38919797" priority="4" type="highway.residential" function="normal">
-      <lanes>
-         <lane id="5784947#1_0" depart="1" maxspeed="13.89" length="202.90" shape="615.03,567.13 582.56,632.36 525.69,749.30"/>
-      </lanes>
+      <lane id="5784947#1_0" depart="1" maxspeed="13.89" length="202.90" shape="615.03,567.13 582.56,632.36 525.69,749.30"/>
    </edge>
    <edge id="5784950#0" from="38920557" to="38919808" priority="4" type="highway.residential" function="normal">
-      <lanes>
-         <lane id="5784950#0_0" depart="1" maxspeed="13.89" length="194.57" shape="518.91,744.71 545.14,688.49 601.75,568.66"/>
-      </lanes>
+      <lane id="5784950#0_0" depart="1" maxspeed="13.89" length="194.57" shape="518.91,744.71 545.14,688.49 601.75,568.66"/>
    </edge>
    <edge id="5784950#1" from="38919808" to="283018817" priority="4" type="highway.residential" function="normal">
-      <lanes>
-         <lane id="5784950#1_0" depart="1" maxspeed="13.89" length="5.53" shape="607.77,557.39 610.58,552.63"/>
-      </lanes>
+      <lane id="5784950#1_0" depart="1" maxspeed="13.89" length="5.53" shape="607.77,557.39 610.58,552.63"/>
    </edge>
    <edge id="5784950#2" from="283018817" to="38919712" priority="4" type="highway.residential" function="normal">
-      <lanes>
-         <lane id="5784950#2_0" depart="1" maxspeed="13.89" length="9.42" shape="613.50,547.70 618.29,539.59"/>
-      </lanes>
+      <lane id="5784950#2_0" depart="1" maxspeed="13.89" length="9.42" shape="613.50,547.70 618.29,539.59"/>
    </edge>
    <edge id="5784950#3" from="38919712" to="38919703" priority="4" type="highway.residential" function="normal">
-      <lanes>
-         <lane id="5784950#3_0" depart="1" maxspeed="13.89" length="92.21" shape="620.41,535.52 662.94,453.71"/>
-      </lanes>
+      <lane id="5784950#3_0" depart="1" maxspeed="13.89" length="92.21" shape="620.41,535.52 662.94,453.71"/>
    </edge>
    <edge id="5784968#0" from="36268378" to="283721348" priority="4" type="highway.residential" function="normal">
-      <lanes>
-         <lane id="5784968#0_0" depart="1" maxspeed="13.89" length="0.85" shape="1001.53,483.00 1000.95,483.62"/>
-      </lanes>
+      <lane id="5784968#0_0" depart="1" maxspeed="13.89" length="0.85" shape="1001.53,483.00 1000.95,483.62"/>
    </edge>
    <edge id="5784968#1" from="283721348" to="36268403" priority="4" type="highway.residential" function="normal">
-      <lanes>
-         <lane id="5784968#1_0" depart="1" maxspeed="13.89" length="78.31" shape="994.65,490.40 941.34,547.76"/>
-      </lanes>
+      <lane id="5784968#1_0" depart="1" maxspeed="13.89" length="78.31" shape="994.65,490.40 941.34,547.76"/>
    </edge>
    <edge id="5784968#2" from="36268403" to="283719904" priority="4" type="highway.residential" function="normal">
-      <lanes>
-         <lane id="5784968#2_0" depart="1" maxspeed="13.89" length="1.63" shape="935.08,554.71 934.00,555.93"/>
-      </lanes>
+      <lane id="5784968#2_0" depart="1" maxspeed="13.89" length="1.63" shape="935.08,554.71 934.00,555.93"/>
    </edge>
    <edge id="5784968#3" from="283719904" to="38920778" priority="4" type="highway.residential" function="normal">
-      <lanes>
-         <lane id="5784968#3_0" depart="1" maxspeed="13.89" length="37.97" shape="930.39,560.41 907.28,590.55"/>
-      </lanes>
+      <lane id="5784968#3_0" depart="1" maxspeed="13.89" length="37.97" shape="930.39,560.41 907.28,590.55"/>
    </edge>
    <edge id="5784968#4" from="38920778" to="306982585" priority="4" type="highway.residential" function="normal">
-      <lanes>
-         <lane id="5784968#4_0" depart="1" maxspeed="13.89" length="5.97" shape="902.78,596.21 898.99,600.82"/>
-      </lanes>
+      <lane id="5784968#4_0" depart="1" maxspeed="13.89" length="5.97" shape="902.78,596.21 898.99,600.82"/>
    </edge>
    <edge id="5784968#5" from="306982585" to="36268398" priority="4" type="highway.residential" function="normal">
-      <lanes>
-         <lane id="5784968#5_0" depart="1" maxspeed="13.89" length="4.21" shape="898.66,601.18 895.67,604.15"/>
-      </lanes>
+      <lane id="5784968#5_0" depart="1" maxspeed="13.89" length="4.21" shape="898.66,601.18 895.67,604.15"/>
    </edge>
    <edge id="6137233#0" from="38919927" to="38919880" priority="4" type="highway.residential" function="normal">
-      <lanes>
-         <lane id="6137233#0_0" depart="1" maxspeed="13.89" length="38.50" shape="297.71,444.40 335.47,451.90"/>
-      </lanes>
+      <lane id="6137233#0_0" depart="1" maxspeed="13.89" length="38.50" shape="297.71,444.40 335.47,451.90"/>
    </edge>
    <edge id="6137233#1" from="38919880" to="283018845" priority="4" type="highway.residential" function="normal">
-      <lanes>
-         <lane id="6137233#1_0" depart="1" maxspeed="13.89" length="15.32" shape="345.19,454.11 360.05,457.80"/>
-      </lanes>
+      <lane id="6137233#1_0" depart="1" maxspeed="13.89" length="15.32" shape="345.19,454.11 360.05,457.80"/>
    </edge>
    <edge id="6137233#2" from="283018845" to="283018932" priority="4" type="highway.residential" function="normal">
-      <lanes>
-         <lane id="6137233#2_0" depart="1" maxspeed="13.89" length="47.97" shape="361.20,458.08 407.75,469.66"/>
-      </lanes>
+      <lane id="6137233#2_0" depart="1" maxspeed="13.89" length="47.97" shape="361.20,458.08 407.75,469.66"/>
    </edge>
    <edge id="6137233#3" from="283018932" to="283018933" priority="4" type="highway.residential" function="normal">
-      <lanes>
-         <lane id="6137233#3_0" depart="1" maxspeed="13.89" length="120.67" shape="417.69,472.13 496.64,491.73 533.42,505.66"/>
-      </lanes>
+      <lane id="6137233#3_0" depart="1" maxspeed="13.89" length="120.67" shape="417.69,472.13 496.64,491.73 533.42,505.66"/>
    </edge>
    <edge id="6137233#4" from="283018933" to="38919712" priority="4" type="highway.residential" function="normal">
-      <lanes>
-         <lane id="6137233#4_0" depart="1" maxspeed="13.89" length="78.20" shape="542.31,509.02 615.43,536.74"/>
-      </lanes>
+      <lane id="6137233#4_0" depart="1" maxspeed="13.89" length="78.20" shape="542.31,509.02 615.43,536.74"/>
    </edge>
    <edge id="6137239#0" from="38919880" to="38919854" priority="4" type="highway.residential" function="normal">
-      <lanes>
-         <lane id="6137239#0_0" depart="1" maxspeed="13.89" length="61.78" shape="341.01,460.07 341.23,465.48 349.98,476.94 384.69,500.47"/>
-      </lanes>
+      <lane id="6137239#0_0" depart="1" maxspeed="13.89" length="61.78" shape="341.01,460.07 341.23,465.48 349.98,476.94 384.69,500.47"/>
    </edge>
    <edge id="6137239#1" from="38919854" to="38919841" priority="4" type="highway.residential" function="normal">
-      <lanes>
-         <lane id="6137239#1_0" depart="1" maxspeed="13.89" length="117.42" shape="393.22,505.34 498.52,557.31"/>
-      </lanes>
+      <lane id="6137239#1_0" depart="1" maxspeed="13.89" length="117.42" shape="393.22,505.34 498.52,557.31"/>
    </edge>
    <edge id="6137239#2" from="38919841" to="38919808" priority="4" type="highway.residential" function="normal">
-      <lanes>
-         <lane id="6137239#2_0" depart="1" maxspeed="13.89" length="92.12" shape="507.57,560.91 512.19,562.35 524.69,564.33 599.27,561.77"/>
-      </lanes>
+      <lane id="6137239#2_0" depart="1" maxspeed="13.89" length="92.12" shape="507.57,560.91 512.19,562.35 524.69,564.33 599.27,561.77"/>
    </edge>
    <edge id="6137239#3" from="38919808" to="38919652" priority="4" type="highway.residential" function="normal">
-      <lanes>
-         <lane id="6137239#3_0" depart="1" maxspeed="13.89" length="2.01" shape="610.06,560.91 612.06,560.68"/>
-      </lanes>
+      <lane id="6137239#3_0" depart="1" maxspeed="13.89" length="2.01" shape="610.06,560.91 612.06,560.68"/>
    </edge>
    <edge id="6137239#4" from="38919652" to="38919605" priority="4" type="highway.residential" function="normal">
-      <lanes>
-         <lane id="6137239#4_0" depart="1" maxspeed="13.89" length="168.54" shape="621.95,559.96 751.00,555.66 761.37,557.26 771.87,562.54 783.98,574.71"/>
-      </lanes>
+      <lane id="6137239#4_0" depart="1" maxspeed="13.89" length="168.54" shape="621.95,559.96 751.00,555.66 761.37,557.26 771.87,562.54 783.98,574.71"/>
    </edge>
    <edge id="6137245" from="38919945" to="59993001" priority="6" type="highway.tertiary" function="normal">
-      <lanes>
-         <lane id="6137245_0" depart="1" maxspeed="22.22" length="7.40" shape="484.97,392.74 486.38,385.47"/>
-      </lanes>
+      <lane id="6137245_0" depart="1" maxspeed="22.22" length="7.40" shape="484.97,392.74 486.38,385.47"/>
    </edge>
    <edge id="7216737#0" from="94487954" to="36268421" priority="9" type="highway.primary" function="normal">
-      <lanes>
-         <lane id="7216737#0_0" depart="1" maxspeed="27.78" length="593.78" shape="1735.50,24.12 1718.93,15.98 1695.46,10.77 1679.45,7.53 1639.77,4.94 1605.77,5.64 1509.47,15.72 1148.19,55.08"/>
-         <lane id="7216737#0_1" depart="0" maxspeed="27.78" length="593.78" shape="1736.95,21.16 1720.03,12.84 1696.18,7.55 1680.10,4.30 1639.99,1.65 1605.70,2.34 1509.13,12.44 1147.84,51.80"/>
-      </lanes>
+      <lane id="7216737#0_0" depart="1" maxspeed="27.78" length="593.78" shape="1735.50,24.12 1718.93,15.98 1695.46,10.77 1679.45,7.53 1639.77,4.94 1605.77,5.64 1509.47,15.72 1148.19,55.08"/>
+      <lane id="7216737#0_1" depart="0" maxspeed="27.78" length="593.78" shape="1736.95,21.16 1720.03,12.84 1696.18,7.55 1680.10,4.30 1639.99,1.65 1605.70,2.34 1509.13,12.44 1147.84,51.80"/>
    </edge>
    <edge id="7216737#1" from="36268421" to="261636678" priority="9" type="highway.primary" function="normal">
-      <lanes>
-         <lane id="7216737#1_0" depart="1" maxspeed="27.78" length="23.54" shape="1142.05,55.68 1118.61,57.78"/>
-         <lane id="7216737#1_1" depart="0" maxspeed="27.78" length="23.54" shape="1141.76,52.40 1118.31,54.49"/>
-      </lanes>
+      <lane id="7216737#1_0" depart="1" maxspeed="27.78" length="23.54" shape="1142.05,55.68 1118.61,57.78"/>
+      <lane id="7216737#1_1" depart="0" maxspeed="27.78" length="23.54" shape="1141.76,52.40 1118.31,54.49"/>
    </edge>
    <edge id="7216737#2" from="261636678" to="36268369" priority="9" type="highway.primary" function="normal">
-      <lanes>
-         <lane id="7216737#2_0" depart="1" maxspeed="27.78" length="469.73" shape="1112.49,58.21 1044.85,61.51 933.20,71.92 773.09,89.71 646.15,110.29"/>
-         <lane id="7216737#2_1" depart="0" maxspeed="27.78" length="469.73" shape="1112.33,54.91 1044.69,58.21 932.89,68.63 772.73,86.43 645.63,107.03"/>
-      </lanes>
+      <lane id="7216737#2_0" depart="1" maxspeed="27.78" length="469.73" shape="1112.49,58.21 1044.85,61.51 933.20,71.92 773.09,89.71 646.15,110.29"/>
+      <lane id="7216737#2_1" depart="0" maxspeed="27.78" length="469.73" shape="1112.33,54.91 1044.69,58.21 932.89,68.63 772.73,86.43 645.63,107.03"/>
    </edge>
    <edge id="7216737#3" from="36268369" to="32266935" priority="9" type="highway.primary" function="normal">
-      <lanes>
-         <lane id="7216737#3_0" depart="1" maxspeed="27.78" length="153.28" shape="636.84,111.46 484.21,125.51"/>
-         <lane id="7216737#3_1" depart="0" maxspeed="27.78" length="153.28" shape="636.53,108.18 483.90,122.23"/>
-      </lanes>
+      <lane id="7216737#3_0" depart="1" maxspeed="27.78" length="153.28" shape="636.84,111.46 484.21,125.51"/>
+      <lane id="7216737#3_1" depart="0" maxspeed="27.78" length="153.28" shape="636.53,108.18 483.90,122.23"/>
    </edge>
    <edge id="7727482" from="38920501" to="56231397" priority="6" type="highway.tertiary" function="normal">
-      <lanes>
-         <lane id="7727482_0" depart="1" maxspeed="22.22" length="57.76" shape="496.67,324.11 498.64,344.10 500.25,381.73"/>
-      </lanes>
+      <lane id="7727482_0" depart="1" maxspeed="22.22" length="57.76" shape="496.67,324.11 498.64,344.10 500.25,381.73"/>
    </edge>
    <edge id="7727483#0" from="38920501" to="294169342" priority="6" type="highway.tertiary" function="normal">
-      <lanes>
-         <lane id="7727483#0_0" depart="1" maxspeed="22.22" length="12.17" shape="494.87,324.26 493.82,312.13"/>
-      </lanes>
+      <lane id="7727483#0_0" depart="1" maxspeed="22.22" length="12.17" shape="494.87,324.26 493.82,312.13"/>
    </edge>
    <edge id="7727483#1" from="294169342" to="261647692" priority="6" type="highway.tertiary" function="normal">
-      <lanes>
-         <lane id="7727483#1_0" depart="1" maxspeed="22.22" length="21.76" shape="493.03,302.91 491.16,281.23"/>
-      </lanes>
+      <lane id="7727483#1_0" depart="1" maxspeed="22.22" length="21.76" shape="493.03,302.91 491.16,281.23"/>
    </edge>
    <edge id="7727483#2" from="261647692" to="261647702" priority="6" type="highway.tertiary" function="normal">
-      <lanes>
-         <lane id="7727483#2_0" depart="1" maxspeed="22.22" length="114.12" shape="491.16,281.23 487.05,233.64 483.05,187.33 481.34,167.54"/>
-      </lanes>
+      <lane id="7727483#2_0" depart="1" maxspeed="22.22" length="114.12" shape="491.16,281.23 487.05,233.64 483.05,187.33 481.34,167.54"/>
    </edge>
    <edge id="7727483#3" from="261647702" to="32266935" priority="6" type="highway.tertiary" function="normal">
-      <lanes>
-         <lane id="7727483#3_0" depart="1" maxspeed="22.22" length="38.37" shape="481.34,167.54 478.04,129.31"/>
-      </lanes>
+      <lane id="7727483#3_0" depart="1" maxspeed="22.22" length="38.37" shape="481.34,167.54 478.04,129.31"/>
    </edge>
    <edge id="7730463" from="56242425" to="36268408" priority="1" type="highway.footway" function="normal">
-      <lanes>
-         <lane id="7730463_0" depart="1" allow="pedestrian" maxspeed="8.33" length="88.01" shape="663.67,431.60 720.34,364.27"/>
-      </lanes>
+      <lane id="7730463_0" depart="1" allow="pedestrian" maxspeed="8.33" length="88.01" shape="663.67,431.60 720.34,364.27"/>
    </edge>
    <edge id="7730464" from="56242441" to="56231598" priority="6" type="highway.tertiary" function="normal">
-      <lanes>
-         <lane id="7730464_0" depart="1" maxspeed="22.22" length="2.38" shape="613.54,424.05 613.67,421.67"/>
-      </lanes>
+      <lane id="7730464_0" depart="1" maxspeed="22.22" length="2.38" shape="613.54,424.05 613.67,421.67"/>
    </edge>
 
    <row-logic id="175648134" requestSize="1" laneNumber="1">
-      <logic>
-         <logicitem request="0" response="0" foes="0"/>
-      </logic>
+      <logicitem request="0" response="0" foes="0"/>
    </row-logic>
    <row-logic id="261599791" requestSize="6" laneNumber="4">
-      <logic>
-         <logicitem request="0" response="000000" foes="100000"/>
-         <logicitem request="1" response="000000" foes="100000"/>
-         <logicitem request="2" response="011000" foes="011000"/>
-         <logicitem request="3" response="000000" foes="000100"/>
-         <logicitem request="4" response="000000" foes="000100"/>
-         <logicitem request="5" response="000011" foes="000011"/>
-      </logic>
+      <logicitem request="0" response="000000" foes="100000"/>
+      <logicitem request="1" response="000000" foes="100000"/>
+      <logicitem request="2" response="011000" foes="011000"/>
+      <logicitem request="3" response="000000" foes="000100"/>
+      <logicitem request="4" response="000000" foes="000100"/>
+      <logicitem request="5" response="000011" foes="000011"/>
    </row-logic>
    <row-logic id="261636677" requestSize="4" laneNumber="2">
-      <logic>
-         <logicitem request="0" response="0000" foes="1000"/>
-         <logicitem request="1" response="0100" foes="0100"/>
-         <logicitem request="2" response="0000" foes="0010"/>
-         <logicitem request="3" response="0001" foes="0001"/>
-      </logic>
+      <logicitem request="0" response="0000" foes="1000"/>
+      <logicitem request="1" response="0100" foes="0100"/>
+      <logicitem request="2" response="0000" foes="0010"/>
+      <logicitem request="3" response="0001" foes="0001"/>
    </row-logic>
    <row-logic id="261636678" requestSize="8" laneNumber="5">
-      <logic>
-         <logicitem request="0" response="00001100" foes="10001100"/>
-         <logicitem request="1" response="01101100" foes="01111100"/>
-         <logicitem request="2" response="00000000" foes="10000011"/>
-         <logicitem request="3" response="00000000" foes="10000011"/>
-         <logicitem request="4" response="01100010" foes="01100010"/>
-         <logicitem request="5" response="00000000" foes="00010010"/>
-         <logicitem request="6" response="00000000" foes="00010010"/>
-         <logicitem request="7" response="00001101" foes="00001101"/>
-      </logic>
+      <logicitem request="0" response="00001100" foes="10001100"/>
+      <logicitem request="1" response="01101100" foes="01111100"/>
+      <logicitem request="2" response="00000000" foes="10000011"/>
+      <logicitem request="3" response="00000000" foes="10000011"/>
+      <logicitem request="4" response="01100010" foes="01100010"/>
+      <logicitem request="5" response="00000000" foes="00010010"/>
+      <logicitem request="6" response="00000000" foes="00010010"/>
+      <logicitem request="7" response="00001101" foes="00001101"/>
    </row-logic>
    <row-logic id="261647692" requestSize="4" laneNumber="2">
-      <logic>
-         <logicitem request="0" response="0000" foes="1000"/>
-         <logicitem request="1" response="0100" foes="0100"/>
-         <logicitem request="2" response="0000" foes="0010"/>
-         <logicitem request="3" response="0001" foes="0001"/>
-      </logic>
+      <logicitem request="0" response="0000" foes="1000"/>
+      <logicitem request="1" response="0100" foes="0100"/>
+      <logicitem request="2" response="0000" foes="0010"/>
+      <logicitem request="3" response="0001" foes="0001"/>
    </row-logic>
    <row-logic id="261647702" requestSize="4" laneNumber="2">
-      <logic>
-         <logicitem request="0" response="0000" foes="1000"/>
-         <logicitem request="1" response="0100" foes="0100"/>
-         <logicitem request="2" response="0000" foes="0010"/>
-         <logicitem request="3" response="0001" foes="0001"/>
-      </logic>
+      <logicitem request="0" response="0000" foes="1000"/>
+      <logicitem request="1" response="0100" foes="0100"/>
+      <logicitem request="2" response="0000" foes="0010"/>
+      <logicitem request="3" response="0001" foes="0001"/>
    </row-logic>
    <row-logic id="283018817" requestSize="4" laneNumber="2">
-      <logic>
-         <logicitem request="0" response="1000" foes="1000"/>
-         <logicitem request="1" response="0100" foes="0100"/>
-         <logicitem request="2" response="0000" foes="0010"/>
-         <logicitem request="3" response="0000" foes="0001"/>
-      </logic>
+      <logicitem request="0" response="1000" foes="1000"/>
+      <logicitem request="1" response="0100" foes="0100"/>
+      <logicitem request="2" response="0000" foes="0010"/>
+      <logicitem request="3" response="0000" foes="0001"/>
    </row-logic>
    <row-logic id="283018841" requestSize="16" laneNumber="4">
-      <logic>
-         <logicitem request="0" response="0000000000000000" foes="1000010000100000"/>
-         <logicitem request="1" response="0111000000000000" foes="0111110001100000"/>
-         <logicitem request="2" response="0110001100000000" foes="0110001111100000"/>
-         <logicitem request="3" response="0100001000010000" foes="0100001000010000"/>
-         <logicitem request="4" response="0000000000000000" foes="0100001000001000"/>
-         <logicitem request="5" response="0000000000000111" foes="1100011000000111"/>
-         <logicitem request="6" response="0011000000000110" foes="0011111000000110"/>
-         <logicitem request="7" response="0010000100000100" foes="0010000100000100"/>
-         <logicitem request="8" response="0000000000000000" foes="0010000010000100"/>
-         <logicitem request="9" response="0000000001110000" foes="0110000001111100"/>
-         <logicitem request="10" response="0000000001100011" foes="1110000001100011"/>
-         <logicitem request="11" response="0001000001000010" foes="0001000001000010"/>
-         <logicitem request="12" response="0000000000000000" foes="0000100001000010"/>
-         <logicitem request="13" response="0000011100000000" foes="0000011111000110"/>
-         <logicitem request="14" response="0000011000110000" foes="0000011000111110"/>
-         <logicitem request="15" response="0000010000100001" foes="0000010000100001"/>
-      </logic>
+      <logicitem request="0" response="0000000000000000" foes="1000010000100000"/>
+      <logicitem request="1" response="0111000000000000" foes="0111110001100000"/>
+      <logicitem request="2" response="0110001100000000" foes="0110001111100000"/>
+      <logicitem request="3" response="0100001000010000" foes="0100001000010000"/>
+      <logicitem request="4" response="0000000000000000" foes="0100001000001000"/>
+      <logicitem request="5" response="0000000000000111" foes="1100011000000111"/>
+      <logicitem request="6" response="0011000000000110" foes="0011111000000110"/>
+      <logicitem request="7" response="0010000100000100" foes="0010000100000100"/>
+      <logicitem request="8" response="0000000000000000" foes="0010000010000100"/>
+      <logicitem request="9" response="0000000001110000" foes="0110000001111100"/>
+      <logicitem request="10" response="0000000001100011" foes="1110000001100011"/>
+      <logicitem request="11" response="0001000001000010" foes="0001000001000010"/>
+      <logicitem request="12" response="0000000000000000" foes="0000100001000010"/>
+      <logicitem request="13" response="0000011100000000" foes="0000011111000110"/>
+      <logicitem request="14" response="0000011000110000" foes="0000011000111110"/>
+      <logicitem request="15" response="0000010000100001" foes="0000010000100001"/>
    </row-logic>
    <row-logic id="283018842" requestSize="9" laneNumber="3">
-      <logic>
-         <logicitem request="0" response="000000000" foes="100010000"/>
-         <logicitem request="1" response="011000000" foes="011110000"/>
-         <logicitem request="2" response="010001000" foes="010001000"/>
-         <logicitem request="3" response="000000000" foes="010000100"/>
-         <logicitem request="4" response="000000011" foes="110000011"/>
-         <logicitem request="5" response="001000010" foes="001000010"/>
-         <logicitem request="6" response="000000000" foes="000100010"/>
-         <logicitem request="7" response="000011000" foes="000011110"/>
-         <logicitem request="8" response="000010001" foes="000010001"/>
-      </logic>
+      <logicitem request="0" response="000000000" foes="100010000"/>
+      <logicitem request="1" response="011000000" foes="011110000"/>
+      <logicitem request="2" response="010001000" foes="010001000"/>
+      <logicitem request="3" response="000000000" foes="010000100"/>
+      <logicitem request="4" response="000000011" foes="110000011"/>
+      <logicitem request="5" response="001000010" foes="001000010"/>
+      <logicitem request="6" response="000000000" foes="000100010"/>
+      <logicitem request="7" response="000011000" foes="000011110"/>
+      <logicitem request="8" response="000010001" foes="000010001"/>
    </row-logic>
    <row-logic id="283018844" requestSize="16" laneNumber="4">
-      <logic>
-         <logicitem request="0" response="0000000000000000" foes="1000010000100000"/>
-         <logicitem request="1" response="0111000000000000" foes="0111110001100000"/>
-         <logicitem request="2" response="0110001100000000" foes="0110001111100000"/>
-         <logicitem request="3" response="0100001000010000" foes="0100001000010000"/>
-         <logicitem request="4" response="0000000000000000" foes="0100001000001000"/>
-         <logicitem request="5" response="0000000000000111" foes="1100011000000111"/>
-         <logicitem request="6" response="0011000000000110" foes="0011111000000110"/>
-         <logicitem request="7" response="0010000100000100" foes="0010000100000100"/>
-         <logicitem request="8" response="0000000000000000" foes="0010000010000100"/>
-         <logicitem request="9" response="0000000001110000" foes="0110000001111100"/>
-         <logicitem request="10" response="0000000001100011" foes="1110000001100011"/>
-         <logicitem request="11" response="0001000001000010" foes="0001000001000010"/>
-         <logicitem request="12" response="0000000000000000" foes="0000100001000010"/>
-         <logicitem request="13" response="0000011100000000" foes="0000011111000110"/>
-         <logicitem request="14" response="0000011000110000" foes="0000011000111110"/>
-         <logicitem request="15" response="0000010000100001" foes="0000010000100001"/>
-      </logic>
+      <logicitem request="0" response="0000000000000000" foes="1000010000100000"/>
+      <logicitem request="1" response="0111000000000000" foes="0111110001100000"/>
+      <logicitem request="2" response="0110001100000000" foes="0110001111100000"/>
+      <logicitem request="3" response="0100001000010000" foes="0100001000010000"/>
+      <logicitem request="4" response="0000000000000000" foes="0100001000001000"/>
+      <logicitem request="5" response="0000000000000111" foes="1100011000000111"/>
+      <logicitem request="6" response="0011000000000110" foes="0011111000000110"/>
+      <logicitem request="7" response="0010000100000100" foes="0010000100000100"/>
+      <logicitem request="8" response="0000000000000000" foes="0010000010000100"/>
+      <logicitem request="9" response="0000000001110000" foes="0110000001111100"/>
+      <logicitem request="10" response="0000000001100011" foes="1110000001100011"/>
+      <logicitem request="11" response="0001000001000010" foes="0001000001000010"/>
+      <logicitem request="12" response="0000000000000000" foes="0000100001000010"/>
+      <logicitem request="13" response="0000011100000000" foes="0000011111000110"/>
+      <logicitem request="14" response="0000011000110000" foes="0000011000111110"/>
+      <logicitem request="15" response="0000010000100001" foes="0000010000100001"/>
    </row-logic>
    <row-logic id="283018845" requestSize="9" laneNumber="3">
-      <logic>
-         <logicitem request="0" response="000010000" foes="100010000"/>
-         <logicitem request="1" response="011010000" foes="011110000"/>
-         <logicitem request="2" response="010001000" foes="010001000"/>
-         <logicitem request="3" response="000000000" foes="010000100"/>
-         <logicitem request="4" response="000000000" foes="110000011"/>
-         <logicitem request="5" response="001000010" foes="001000010"/>
-         <logicitem request="6" response="000000000" foes="000100010"/>
-         <logicitem request="7" response="000011000" foes="000011110"/>
-         <logicitem request="8" response="000010001" foes="000010001"/>
-      </logic>
+      <logicitem request="0" response="000010000" foes="100010000"/>
+      <logicitem request="1" response="011010000" foes="011110000"/>
+      <logicitem request="2" response="010001000" foes="010001000"/>
+      <logicitem request="3" response="000000000" foes="010000100"/>
+      <logicitem request="4" response="000000000" foes="110000011"/>
+      <logicitem request="5" response="001000010" foes="001000010"/>
+      <logicitem request="6" response="000000000" foes="000100010"/>
+      <logicitem request="7" response="000011000" foes="000011110"/>
+      <logicitem request="8" response="000010001" foes="000010001"/>
    </row-logic>
    <row-logic id="283018932" requestSize="9" laneNumber="3">
-      <logic>
-         <logicitem request="0" response="000000000" foes="100010000"/>
-         <logicitem request="1" response="000000000" foes="011110000"/>
-         <logicitem request="2" response="010001000" foes="010001000"/>
-         <logicitem request="3" response="000000000" foes="010000100"/>
-         <logicitem request="4" response="000000011" foes="110000011"/>
-         <logicitem request="5" response="001000010" foes="001000010"/>
-         <logicitem request="6" response="000000010" foes="000100010"/>
-         <logicitem request="7" response="000011010" foes="000011110"/>
-         <logicitem request="8" response="000010001" foes="000010001"/>
-      </logic>
+      <logicitem request="0" response="000000000" foes="100010000"/>
+      <logicitem request="1" response="000000000" foes="011110000"/>
+      <logicitem request="2" response="010001000" foes="010001000"/>
+      <logicitem request="3" response="000000000" foes="010000100"/>
+      <logicitem request="4" response="000000011" foes="110000011"/>
+      <logicitem request="5" response="001000010" foes="001000010"/>
+      <logicitem request="6" response="000000010" foes="000100010"/>
+      <logicitem request="7" response="000011010" foes="000011110"/>
+      <logicitem request="8" response="000010001" foes="000010001"/>
    </row-logic>
    <row-logic id="283018933" requestSize="9" laneNumber="3">
-      <logic>
-         <logicitem request="0" response="000000000" foes="100010000"/>
-         <logicitem request="1" response="000000000" foes="011110000"/>
-         <logicitem request="2" response="010001000" foes="010001000"/>
-         <logicitem request="3" response="000000000" foes="010000100"/>
-         <logicitem request="4" response="000000011" foes="110000011"/>
-         <logicitem request="5" response="001000010" foes="001000010"/>
-         <logicitem request="6" response="000000010" foes="000100010"/>
-         <logicitem request="7" response="000011010" foes="000011110"/>
-         <logicitem request="8" response="000010001" foes="000010001"/>
-      </logic>
+      <logicitem request="0" response="000000000" foes="100010000"/>
+      <logicitem request="1" response="000000000" foes="011110000"/>
+      <logicitem request="2" response="010001000" foes="010001000"/>
+      <logicitem request="3" response="000000000" foes="010000100"/>
+      <logicitem request="4" response="000000011" foes="110000011"/>
+      <logicitem request="5" response="001000010" foes="001000010"/>
+      <logicitem request="6" response="000000010" foes="000100010"/>
+      <logicitem request="7" response="000011010" foes="000011110"/>
+      <logicitem request="8" response="000010001" foes="000010001"/>
    </row-logic>
    <row-logic id="283018937" requestSize="9" laneNumber="3">
-      <logic>
-         <logicitem request="0" response="000000000" foes="100010000"/>
-         <logicitem request="1" response="011000000" foes="011110000"/>
-         <logicitem request="2" response="010001000" foes="010001000"/>
-         <logicitem request="3" response="000000000" foes="010000100"/>
-         <logicitem request="4" response="000000011" foes="110000011"/>
-         <logicitem request="5" response="001000010" foes="001000010"/>
-         <logicitem request="6" response="000000000" foes="000100010"/>
-         <logicitem request="7" response="000011000" foes="000011110"/>
-         <logicitem request="8" response="000010001" foes="000010001"/>
-      </logic>
+      <logicitem request="0" response="000000000" foes="100010000"/>
+      <logicitem request="1" response="011000000" foes="011110000"/>
+      <logicitem request="2" response="010001000" foes="010001000"/>
+      <logicitem request="3" response="000000000" foes="010000100"/>
+      <logicitem request="4" response="000000011" foes="110000011"/>
+      <logicitem request="5" response="001000010" foes="001000010"/>
+      <logicitem request="6" response="000000000" foes="000100010"/>
+      <logicitem request="7" response="000011000" foes="000011110"/>
+      <logicitem request="8" response="000010001" foes="000010001"/>
    </row-logic>
    <row-logic id="283719736" requestSize="16" laneNumber="4">
-      <logic>
-         <logicitem request="0" response="0000000000000000" foes="1000010000100000"/>
-         <logicitem request="1" response="0000000000000000" foes="0111110001100000"/>
-         <logicitem request="2" response="0000000000000000" foes="0110001111100000"/>
-         <logicitem request="3" response="0100001000010000" foes="0100001000010000"/>
-         <logicitem request="4" response="0000000000000000" foes="0100001000001000"/>
-         <logicitem request="5" response="0000000000000111" foes="1100011000000111"/>
-         <logicitem request="6" response="0000000000000110" foes="0011111000000110"/>
-         <logicitem request="7" response="0010000100000100" foes="0010000100000100"/>
-         <logicitem request="8" response="0000000000000100" foes="0010000010000100"/>
-         <logicitem request="9" response="0000000001110100" foes="0110000001111100"/>
-         <logicitem request="10" response="0000000001100011" foes="1110000001100011"/>
-         <logicitem request="11" response="0001000001000010" foes="0001000001000010"/>
-         <logicitem request="12" response="0000000001000010" foes="0000100001000010"/>
-         <logicitem request="13" response="0000011101000110" foes="0000011111000110"/>
-         <logicitem request="14" response="0000011000110110" foes="0000011000111110"/>
-         <logicitem request="15" response="0000010000100001" foes="0000010000100001"/>
-      </logic>
+      <logicitem request="0" response="0000000000000000" foes="1000010000100000"/>
+      <logicitem request="1" response="0000000000000000" foes="0111110001100000"/>
+      <logicitem request="2" response="0000000000000000" foes="0110001111100000"/>
+      <logicitem request="3" response="0100001000010000" foes="0100001000010000"/>
+      <logicitem request="4" response="0000000000000000" foes="0100001000001000"/>
+      <logicitem request="5" response="0000000000000111" foes="1100011000000111"/>
+      <logicitem request="6" response="0000000000000110" foes="0011111000000110"/>
+      <logicitem request="7" response="0010000100000100" foes="0010000100000100"/>
+      <logicitem request="8" response="0000000000000100" foes="0010000010000100"/>
+      <logicitem request="9" response="0000000001110100" foes="0110000001111100"/>
+      <logicitem request="10" response="0000000001100011" foes="1110000001100011"/>
+      <logicitem request="11" response="0001000001000010" foes="0001000001000010"/>
+      <logicitem request="12" response="0000000001000010" foes="0000100001000010"/>
+      <logicitem request="13" response="0000011101000110" foes="0000011111000110"/>
+      <logicitem request="14" response="0000011000110110" foes="0000011000111110"/>
+      <logicitem request="15" response="0000010000100001" foes="0000010000100001"/>
    </row-logic>
    <row-logic id="283719904" requestSize="9" laneNumber="3">
-      <logic>
-         <logicitem request="0" response="000010000" foes="100010000"/>
-         <logicitem request="1" response="011010000" foes="011110000"/>
-         <logicitem request="2" response="010001000" foes="010001000"/>
-         <logicitem request="3" response="000000000" foes="010000100"/>
-         <logicitem request="4" response="000000000" foes="110000011"/>
-         <logicitem request="5" response="001000010" foes="001000010"/>
-         <logicitem request="6" response="000000000" foes="000100010"/>
-         <logicitem request="7" response="000011000" foes="000011110"/>
-         <logicitem request="8" response="000010001" foes="000010001"/>
-      </logic>
+      <logicitem request="0" response="000010000" foes="100010000"/>
+      <logicitem request="1" response="011010000" foes="011110000"/>
+      <logicitem request="2" response="010001000" foes="010001000"/>
+      <logicitem request="3" response="000000000" foes="010000100"/>
+      <logicitem request="4" response="000000000" foes="110000011"/>
+      <logicitem request="5" response="001000010" foes="001000010"/>
+      <logicitem request="6" response="000000000" foes="000100010"/>
+      <logicitem request="7" response="000011000" foes="000011110"/>
+      <logicitem request="8" response="000010001" foes="000010001"/>
    </row-logic>
    <row-logic id="283720461" requestSize="9" laneNumber="3">
-      <logic>
-         <logicitem request="0" response="000000000" foes="100010000"/>
-         <logicitem request="1" response="000000000" foes="011110000"/>
-         <logicitem request="2" response="010001000" foes="010001000"/>
-         <logicitem request="3" response="000000000" foes="010000100"/>
-         <logicitem request="4" response="000000011" foes="110000011"/>
-         <logicitem request="5" response="001000010" foes="001000010"/>
-         <logicitem request="6" response="000000010" foes="000100010"/>
-         <logicitem request="7" response="000011010" foes="000011110"/>
-         <logicitem request="8" response="000010001" foes="000010001"/>
-      </logic>
+      <logicitem request="0" response="000000000" foes="100010000"/>
+      <logicitem request="1" response="000000000" foes="011110000"/>
+      <logicitem request="2" response="010001000" foes="010001000"/>
+      <logicitem request="3" response="000000000" foes="010000100"/>
+      <logicitem request="4" response="000000011" foes="110000011"/>
+      <logicitem request="5" response="001000010" foes="001000010"/>
+      <logicitem request="6" response="000000010" foes="000100010"/>
+      <logicitem request="7" response="000011010" foes="000011110"/>
+      <logicitem request="8" response="000010001" foes="000010001"/>
    </row-logic>
    <row-logic id="283721344" requestSize="16" laneNumber="4">
-      <logic>
-         <logicitem request="0" response="0000000000000000" foes="1000010000100000"/>
-         <logicitem request="1" response="0111000000000000" foes="0111110001100000"/>
-         <logicitem request="2" response="0110001100000000" foes="0110001111100000"/>
-         <logicitem request="3" response="0100001000010000" foes="0100001000010000"/>
-         <logicitem request="4" response="0000000000000000" foes="0100001000001000"/>
-         <logicitem request="5" response="0000000000000111" foes="1100011000000111"/>
-         <logicitem request="6" response="0011000000000110" foes="0011111000000110"/>
-         <logicitem request="7" response="0010000100000100" foes="0010000100000100"/>
-         <logicitem request="8" response="0000000000000000" foes="0010000010000100"/>
-         <logicitem request="9" response="0000000001110000" foes="0110000001111100"/>
-         <logicitem request="10" response="0000000001100011" foes="1110000001100011"/>
-         <logicitem request="11" response="0001000001000010" foes="0001000001000010"/>
-         <logicitem request="12" response="0000000000000000" foes="0000100001000010"/>
-         <logicitem request="13" response="0000011100000000" foes="0000011111000110"/>
-         <logicitem request="14" response="0000011000110000" foes="0000011000111110"/>
-         <logicitem request="15" response="0000010000100001" foes="0000010000100001"/>
-      </logic>
+      <logicitem request="0" response="0000000000000000" foes="1000010000100000"/>
+      <logicitem request="1" response="0111000000000000" foes="0111110001100000"/>
+      <logicitem request="2" response="0110001100000000" foes="0110001111100000"/>
+      <logicitem request="3" response="0100001000010000" foes="0100001000010000"/>
+      <logicitem request="4" response="0000000000000000" foes="0100001000001000"/>
+      <logicitem request="5" response="0000000000000111" foes="1100011000000111"/>
+      <logicitem request="6" response="0011000000000110" foes="0011111000000110"/>
+      <logicitem request="7" response="0010000100000100" foes="0010000100000100"/>
+      <logicitem request="8" response="0000000000000000" foes="0010000010000100"/>
+      <logicitem request="9" response="0000000001110000" foes="0110000001111100"/>
+      <logicitem request="10" response="0000000001100011" foes="1110000001100011"/>
+      <logicitem request="11" response="0001000001000010" foes="0001000001000010"/>
+      <logicitem request="12" response="0000000000000000" foes="0000100001000010"/>
+      <logicitem request="13" response="0000011100000000" foes="0000011111000110"/>
+      <logicitem request="14" response="0000011000110000" foes="0000011000111110"/>
+      <logicitem request="15" response="0000010000100001" foes="0000010000100001"/>
    </row-logic>
    <row-logic id="283721348" requestSize="9" laneNumber="3">
-      <logic>
-         <logicitem request="0" response="000010000" foes="100010000"/>
-         <logicitem request="1" response="011010000" foes="011110000"/>
-         <logicitem request="2" response="010001000" foes="010001000"/>
-         <logicitem request="3" response="000000000" foes="010000100"/>
-         <logicitem request="4" response="000000000" foes="110000011"/>
-         <logicitem request="5" response="001000010" foes="001000010"/>
-         <logicitem request="6" response="000000000" foes="000100010"/>
-         <logicitem request="7" response="000011000" foes="000011110"/>
-         <logicitem request="8" response="000010001" foes="000010001"/>
-      </logic>
+      <logicitem request="0" response="000010000" foes="100010000"/>
+      <logicitem request="1" response="011010000" foes="011110000"/>
+      <logicitem request="2" response="010001000" foes="010001000"/>
+      <logicitem request="3" response="000000000" foes="010000100"/>
+      <logicitem request="4" response="000000000" foes="110000011"/>
+      <logicitem request="5" response="001000010" foes="001000010"/>
+      <logicitem request="6" response="000000000" foes="000100010"/>
+      <logicitem request="7" response="000011000" foes="000011110"/>
+      <logicitem request="8" response="000010001" foes="000010001"/>
    </row-logic>
    <row-logic id="283721473" requestSize="9" laneNumber="3">
-      <logic>
-         <logicitem request="0" response="000000000" foes="100010000"/>
-         <logicitem request="1" response="011000000" foes="011110000"/>
-         <logicitem request="2" response="010001000" foes="010001000"/>
-         <logicitem request="3" response="000000000" foes="010000100"/>
-         <logicitem request="4" response="000000011" foes="110000011"/>
-         <logicitem request="5" response="001000010" foes="001000010"/>
-         <logicitem request="6" response="000000000" foes="000100010"/>
-         <logicitem request="7" response="000011000" foes="000011110"/>
-         <logicitem request="8" response="000010001" foes="000010001"/>
-      </logic>
+      <logicitem request="0" response="000000000" foes="100010000"/>
+      <logicitem request="1" response="011000000" foes="011110000"/>
+      <logicitem request="2" response="010001000" foes="010001000"/>
+      <logicitem request="3" response="000000000" foes="010000100"/>
+      <logicitem request="4" response="000000011" foes="110000011"/>
+      <logicitem request="5" response="001000010" foes="001000010"/>
+      <logicitem request="6" response="000000000" foes="000100010"/>
+      <logicitem request="7" response="000011000" foes="000011110"/>
+      <logicitem request="8" response="000010001" foes="000010001"/>
    </row-logic>
    <row-logic id="283722835" requestSize="1" laneNumber="1">
-      <logic>
-         <logicitem request="0" response="0" foes="0"/>
-      </logic>
+      <logicitem request="0" response="0" foes="0"/>
    </row-logic>
    <row-logic id="283722837" requestSize="16" laneNumber="4">
-      <logic>
-         <logicitem request="0" response="0000000000000000" foes="1000010000100000"/>
-         <logicitem request="1" response="0111000000000000" foes="0111110001100000"/>
-         <logicitem request="2" response="0110001100000000" foes="0110001111100000"/>
-         <logicitem request="3" response="0100001000010000" foes="0100001000010000"/>
-         <logicitem request="4" response="0000000000000000" foes="0100001000001000"/>
-         <logicitem request="5" response="0000000000000111" foes="1100011000000111"/>
-         <logicitem request="6" response="0011000000000110" foes="0011111000000110"/>
-         <logicitem request="7" response="0010000100000100" foes="0010000100000100"/>
-         <logicitem request="8" response="0000000000000000" foes="0010000010000100"/>
-         <logicitem request="9" response="0000000001110000" foes="0110000001111100"/>
-         <logicitem request="10" response="0000000001100011" foes="1110000001100011"/>
-         <logicitem request="11" response="0001000001000010" foes="0001000001000010"/>
-         <logicitem request="12" response="0000000000000000" foes="0000100001000010"/>
-         <logicitem request="13" response="0000011100000000" foes="0000011111000110"/>
-         <logicitem request="14" response="0000011000110000" foes="0000011000111110"/>
-         <logicitem request="15" response="0000010000100001" foes="0000010000100001"/>
-      </logic>
+      <logicitem request="0" response="0000000000000000" foes="1000010000100000"/>
+      <logicitem request="1" response="0111000000000000" foes="0111110001100000"/>
+      <logicitem request="2" response="0110001100000000" foes="0110001111100000"/>
+      <logicitem request="3" response="0100001000010000" foes="0100001000010000"/>
+      <logicitem request="4" response="0000000000000000" foes="0100001000001000"/>
+      <logicitem request="5" response="0000000000000111" foes="1100011000000111"/>
+      <logicitem request="6" response="0011000000000110" foes="0011111000000110"/>
+      <logicitem request="7" response="0010000100000100" foes="0010000100000100"/>
+      <logicitem request="8" response="0000000000000000" foes="0010000010000100"/>
+      <logicitem request="9" response="0000000001110000" foes="0110000001111100"/>
+      <logicitem request="10" response="0000000001100011" foes="1110000001100011"/>
+      <logicitem request="11" response="0001000001000010" foes="0001000001000010"/>
+      <logicitem request="12" response="0000000000000000" foes="0000100001000010"/>
+      <logicitem request="13" response="0000011100000000" foes="0000011111000110"/>
+      <logicitem request="14" response="0000011000110000" foes="0000011000111110"/>
+      <logicitem request="15" response="0000010000100001" foes="0000010000100001"/>
    </row-logic>
    <row-logic id="287944368" requestSize="16" laneNumber="4">
-      <logic>
-         <logicitem request="0" response="0000000000000000" foes="1000010000100000"/>
-         <logicitem request="1" response="0111000000000000" foes="0111110001100000"/>
-         <logicitem request="2" response="0110001100000000" foes="0110001111100000"/>
-         <logicitem request="3" response="0100001000010000" foes="0100001000010000"/>
-         <logicitem request="4" response="0000000000000000" foes="0100001000001000"/>
-         <logicitem request="5" response="0000000000000111" foes="1100011000000111"/>
-         <logicitem request="6" response="0011000000000110" foes="0011111000000110"/>
-         <logicitem request="7" response="0010000100000100" foes="0010000100000100"/>
-         <logicitem request="8" response="0000000000000000" foes="0010000010000100"/>
-         <logicitem request="9" response="0000000001110000" foes="0110000001111100"/>
-         <logicitem request="10" response="0000000001100011" foes="1110000001100011"/>
-         <logicitem request="11" response="0001000001000010" foes="0001000001000010"/>
-         <logicitem request="12" response="0000000000000000" foes="0000100001000010"/>
-         <logicitem request="13" response="0000011100000000" foes="0000011111000110"/>
-         <logicitem request="14" response="0000011000110000" foes="0000011000111110"/>
-         <logicitem request="15" response="0000010000100001" foes="0000010000100001"/>
-      </logic>
+      <logicitem request="0" response="0000000000000000" foes="1000010000100000"/>
+      <logicitem request="1" response="0111000000000000" foes="0111110001100000"/>
+      <logicitem request="2" response="0110001100000000" foes="0110001111100000"/>
+      <logicitem request="3" response="0100001000010000" foes="0100001000010000"/>
+      <logicitem request="4" response="0000000000000000" foes="0100001000001000"/>
+      <logicitem request="5" response="0000000000000111" foes="1100011000000111"/>
+      <logicitem request="6" response="0011000000000110" foes="0011111000000110"/>
+      <logicitem request="7" response="0010000100000100" foes="0010000100000100"/>
+      <logicitem request="8" response="0000000000000000" foes="0010000010000100"/>
+      <logicitem request="9" response="0000000001110000" foes="0110000001111100"/>
+      <logicitem request="10" response="0000000001100011" foes="1110000001100011"/>
+      <logicitem request="11" response="0001000001000010" foes="0001000001000010"/>
+      <logicitem request="12" response="0000000000000000" foes="0000100001000010"/>
+      <logicitem request="13" response="0000011100000000" foes="0000011111000110"/>
+      <logicitem request="14" response="0000011000110000" foes="0000011000111110"/>
+      <logicitem request="15" response="0000010000100001" foes="0000010000100001"/>
    </row-logic>
    <row-logic id="287944369" requestSize="9" laneNumber="3">
-      <logic>
-         <logicitem request="0" response="000000000" foes="100010000"/>
-         <logicitem request="1" response="011000000" foes="011110000"/>
-         <logicitem request="2" response="010001000" foes="010001000"/>
-         <logicitem request="3" response="000000000" foes="010000100"/>
-         <logicitem request="4" response="000000011" foes="110000011"/>
-         <logicitem request="5" response="001000010" foes="001000010"/>
-         <logicitem request="6" response="000000000" foes="000100010"/>
-         <logicitem request="7" response="000011000" foes="000011110"/>
-         <logicitem request="8" response="000010001" foes="000010001"/>
-      </logic>
+      <logicitem request="0" response="000000000" foes="100010000"/>
+      <logicitem request="1" response="011000000" foes="011110000"/>
+      <logicitem request="2" response="010001000" foes="010001000"/>
+      <logicitem request="3" response="000000000" foes="010000100"/>
+      <logicitem request="4" response="000000011" foes="110000011"/>
+      <logicitem request="5" response="001000010" foes="001000010"/>
+      <logicitem request="6" response="000000000" foes="000100010"/>
+      <logicitem request="7" response="000011000" foes="000011110"/>
+      <logicitem request="8" response="000010001" foes="000010001"/>
    </row-logic>
    <row-logic id="294168098" requestSize="12" laneNumber="3">
-      <logic>
-         <logicitem request="0" response="000000000000" foes="101001010000"/>
-         <logicitem request="1" response="010100000000" foes="010111010000"/>
-         <logicitem request="2" response="000000000000" foes="001000010000"/>
-         <logicitem request="3" response="010000100000" foes="010000100000"/>
-         <logicitem request="4" response="000000000111" foes="011000000111"/>
-         <logicitem request="5" response="000000000000" foes="010000001000"/>
-         <logicitem request="6" response="000000000011" foes="111000000011"/>
-         <logicitem request="7" response="000100000010" foes="000100000010"/>
-         <logicitem request="8" response="000000000000" foes="000010000010"/>
-         <logicitem request="9" response="000001010101" foes="000001010101"/>
-         <logicitem request="10" response="000001110000" foes="000001111010"/>
-         <logicitem request="11" response="000001000001" foes="000001000001"/>
-      </logic>
+      <logicitem request="0" response="000000000000" foes="101001010000"/>
+      <logicitem request="1" response="010100000000" foes="010111010000"/>
+      <logicitem request="2" response="000000000000" foes="001000010000"/>
+      <logicitem request="3" response="010000100000" foes="010000100000"/>
+      <logicitem request="4" response="000000000111" foes="011000000111"/>
+      <logicitem request="5" response="000000000000" foes="010000001000"/>
+      <logicitem request="6" response="000000000011" foes="111000000011"/>
+      <logicitem request="7" response="000100000010" foes="000100000010"/>
+      <logicitem request="8" response="000000000000" foes="000010000010"/>
+      <logicitem request="9" response="000001010101" foes="000001010101"/>
+      <logicitem request="10" response="000001110000" foes="000001111010"/>
+      <logicitem request="11" response="000001000001" foes="000001000001"/>
    </row-logic>
    <row-logic id="294168710" requestSize="6" laneNumber="3">
-      <logic>
-         <logicitem request="0" response="000000" foes="101000"/>
-         <logicitem request="1" response="010100" foes="010100"/>
-         <logicitem request="2" response="000000" foes="010010"/>
-         <logicitem request="3" response="110001" foes="110001"/>
-         <logicitem request="4" response="000100" foes="001110"/>
-         <logicitem request="5" response="000001" foes="001001"/>
-      </logic>
+      <logicitem request="0" response="000000" foes="101000"/>
+      <logicitem request="1" response="010100" foes="010100"/>
+      <logicitem request="2" response="000000" foes="010010"/>
+      <logicitem request="3" response="110001" foes="110001"/>
+      <logicitem request="4" response="000100" foes="001110"/>
+      <logicitem request="5" response="000001" foes="001001"/>
    </row-logic>
    <row-logic id="294168972" requestSize="9" laneNumber="3">
-      <logic>
-         <logicitem request="0" response="000000000" foes="100010000"/>
-         <logicitem request="1" response="000000000" foes="011110000"/>
-         <logicitem request="2" response="010001000" foes="010001000"/>
-         <logicitem request="3" response="000000000" foes="010000100"/>
-         <logicitem request="4" response="000000011" foes="110000011"/>
-         <logicitem request="5" response="001000010" foes="001000010"/>
-         <logicitem request="6" response="000000010" foes="000100010"/>
-         <logicitem request="7" response="000011010" foes="000011110"/>
-         <logicitem request="8" response="000010001" foes="000010001"/>
-      </logic>
+      <logicitem request="0" response="000000000" foes="100010000"/>
+      <logicitem request="1" response="000000000" foes="011110000"/>
+      <logicitem request="2" response="010001000" foes="010001000"/>
+      <logicitem request="3" response="000000000" foes="010000100"/>
+      <logicitem request="4" response="000000011" foes="110000011"/>
+      <logicitem request="5" response="001000010" foes="001000010"/>
+      <logicitem request="6" response="000000010" foes="000100010"/>
+      <logicitem request="7" response="000011010" foes="000011110"/>
+      <logicitem request="8" response="000010001" foes="000010001"/>
    </row-logic>
    <row-logic id="294169338" requestSize="9" laneNumber="3">
-      <logic>
-         <logicitem request="0" response="000000000" foes="100010000"/>
-         <logicitem request="1" response="011000000" foes="011110000"/>
-         <logicitem request="2" response="010001000" foes="010001000"/>
-         <logicitem request="3" response="000000000" foes="010000100"/>
-         <logicitem request="4" response="000000011" foes="110000011"/>
-         <logicitem request="5" response="001000010" foes="001000010"/>
-         <logicitem request="6" response="000000000" foes="000100010"/>
-         <logicitem request="7" response="000011000" foes="000011110"/>
-         <logicitem request="8" response="000010001" foes="000010001"/>
-      </logic>
+      <logicitem request="0" response="000000000" foes="100010000"/>
+      <logicitem request="1" response="011000000" foes="011110000"/>
+      <logicitem request="2" response="010001000" foes="010001000"/>
+      <logicitem request="3" response="000000000" foes="010000100"/>
+      <logicitem request="4" response="000000011" foes="110000011"/>
+      <logicitem request="5" response="001000010" foes="001000010"/>
+      <logicitem request="6" response="000000000" foes="000100010"/>
+      <logicitem request="7" response="000011000" foes="000011110"/>
+      <logicitem request="8" response="000010001" foes="000010001"/>
    </row-logic>
    <row-logic id="294169339" requestSize="9" laneNumber="3">
-      <logic>
-         <logicitem request="0" response="000000000" foes="100010000"/>
-         <logicitem request="1" response="011000000" foes="011110000"/>
-         <logicitem request="2" response="010001000" foes="010001000"/>
-         <logicitem request="3" response="000000000" foes="010000100"/>
-         <logicitem request="4" response="000000011" foes="110000011"/>
-         <logicitem request="5" response="001000010" foes="001000010"/>
-         <logicitem request="6" response="000000000" foes="000100010"/>
-         <logicitem request="7" response="000011000" foes="000011110"/>
-         <logicitem request="8" response="000010001" foes="000010001"/>
-      </logic>
+      <logicitem request="0" response="000000000" foes="100010000"/>
+      <logicitem request="1" response="011000000" foes="011110000"/>
+      <logicitem request="2" response="010001000" foes="010001000"/>
+      <logicitem request="3" response="000000000" foes="010000100"/>
+      <logicitem request="4" response="000000011" foes="110000011"/>
+      <logicitem request="5" response="001000010" foes="001000010"/>
+      <logicitem request="6" response="000000000" foes="000100010"/>
+      <logicitem request="7" response="000011000" foes="000011110"/>
+      <logicitem request="8" response="000010001" foes="000010001"/>
    </row-logic>
    <row-logic id="294169342" requestSize="9" laneNumber="3">
-      <logic>
-         <logicitem request="0" response="000000000" foes="100010000"/>
-         <logicitem request="1" response="011000000" foes="011110000"/>
-         <logicitem request="2" response="010001000" foes="010001000"/>
-         <logicitem request="3" response="010000000" foes="010000100"/>
-         <logicitem request="4" response="010000011" foes="110000011"/>
-         <logicitem request="5" response="001000010" foes="001000010"/>
-         <logicitem request="6" response="000000000" foes="000100010"/>
-         <logicitem request="7" response="000000000" foes="000011110"/>
-         <logicitem request="8" response="000010001" foes="000010001"/>
-      </logic>
+      <logicitem request="0" response="000000000" foes="100010000"/>
+      <logicitem request="1" response="011000000" foes="011110000"/>
+      <logicitem request="2" response="010001000" foes="010001000"/>
+      <logicitem request="3" response="010000000" foes="010000100"/>
+      <logicitem request="4" response="010000011" foes="110000011"/>
+      <logicitem request="5" response="001000010" foes="001000010"/>
+      <logicitem request="6" response="000000000" foes="000100010"/>
+      <logicitem request="7" response="000000000" foes="000011110"/>
+      <logicitem request="8" response="000010001" foes="000010001"/>
    </row-logic>
    <row-logic id="294169618" requestSize="1" laneNumber="1">
-      <logic>
-         <logicitem request="0" response="0" foes="0"/>
-      </logic>
+      <logicitem request="0" response="0" foes="0"/>
    </row-logic>
    <row-logic id="294829385" requestSize="9" laneNumber="3">
-      <logic>
-         <logicitem request="0" response="000000000" foes="100010000"/>
-         <logicitem request="1" response="011000000" foes="011110000"/>
-         <logicitem request="2" response="010001000" foes="010001000"/>
-         <logicitem request="3" response="010000000" foes="010000100"/>
-         <logicitem request="4" response="010000011" foes="110000011"/>
-         <logicitem request="5" response="001000010" foes="001000010"/>
-         <logicitem request="6" response="000000000" foes="000100010"/>
-         <logicitem request="7" response="000000000" foes="000011110"/>
-         <logicitem request="8" response="000010001" foes="000010001"/>
-      </logic>
+      <logicitem request="0" response="000000000" foes="100010000"/>
+      <logicitem request="1" response="011000000" foes="011110000"/>
+      <logicitem request="2" response="010001000" foes="010001000"/>
+      <logicitem request="3" response="010000000" foes="010000100"/>
+      <logicitem request="4" response="010000011" foes="110000011"/>
+      <logicitem request="5" response="001000010" foes="001000010"/>
+      <logicitem request="6" response="000000000" foes="000100010"/>
+      <logicitem request="7" response="000000000" foes="000011110"/>
+      <logicitem request="8" response="000010001" foes="000010001"/>
    </row-logic>
    <row-logic id="294829798" requestSize="9" laneNumber="3">
-      <logic>
-         <logicitem request="0" response="000000000" foes="100010000"/>
-         <logicitem request="1" response="000000000" foes="011110000"/>
-         <logicitem request="2" response="010001000" foes="010001000"/>
-         <logicitem request="3" response="000000000" foes="010000100"/>
-         <logicitem request="4" response="000000011" foes="110000011"/>
-         <logicitem request="5" response="001000010" foes="001000010"/>
-         <logicitem request="6" response="000000010" foes="000100010"/>
-         <logicitem request="7" response="000011010" foes="000011110"/>
-         <logicitem request="8" response="000010001" foes="000010001"/>
-      </logic>
+      <logicitem request="0" response="000000000" foes="100010000"/>
+      <logicitem request="1" response="000000000" foes="011110000"/>
+      <logicitem request="2" response="010001000" foes="010001000"/>
+      <logicitem request="3" response="000000000" foes="010000100"/>
+      <logicitem request="4" response="000000011" foes="110000011"/>
+      <logicitem request="5" response="001000010" foes="001000010"/>
+      <logicitem request="6" response="000000010" foes="000100010"/>
+      <logicitem request="7" response="000011010" foes="000011110"/>
+      <logicitem request="8" response="000010001" foes="000010001"/>
    </row-logic>
    <row-logic id="294829881" requestSize="4" laneNumber="2">
-      <logic>
-         <logicitem request="0" response="0000" foes="1000"/>
-         <logicitem request="1" response="0100" foes="0100"/>
-         <logicitem request="2" response="0000" foes="0010"/>
-         <logicitem request="3" response="0001" foes="0001"/>
-      </logic>
+      <logicitem request="0" response="0000" foes="1000"/>
+      <logicitem request="1" response="0100" foes="0100"/>
+      <logicitem request="2" response="0000" foes="0010"/>
+      <logicitem request="3" response="0001" foes="0001"/>
    </row-logic>
    <row-logic id="294831560" requestSize="1" laneNumber="1">
-      <logic>
-         <logicitem request="0" response="0" foes="0"/>
-      </logic>
+      <logicitem request="0" response="0" foes="0"/>
    </row-logic>
    <row-logic id="301292612" requestSize="2" laneNumber="2">
-      <logic>
-         <logicitem request="0" response="00" foes="10"/>
-         <logicitem request="1" response="01" foes="01"/>
-      </logic>
+      <logicitem request="0" response="00" foes="10"/>
+      <logicitem request="1" response="01" foes="01"/>
    </row-logic>
    <row-logic id="306982585" requestSize="4" laneNumber="2">
-      <logic>
-         <logicitem request="0" response="0000" foes="1000"/>
-         <logicitem request="1" response="0100" foes="0100"/>
-         <logicitem request="2" response="0000" foes="0010"/>
-         <logicitem request="3" response="0001" foes="0001"/>
-      </logic>
+      <logicitem request="0" response="0000" foes="1000"/>
+      <logicitem request="1" response="0100" foes="0100"/>
+      <logicitem request="2" response="0000" foes="0010"/>
+      <logicitem request="3" response="0001" foes="0001"/>
    </row-logic>
    <row-logic id="32266935" requestSize="18" laneNumber="6">
-      <logic>
-         <logicitem request="0" response="000000000001100000" foes="100000100001100000"/>
-         <logicitem request="1" response="011110000011100000" foes="011111100011100000"/>
-         <logicitem request="2" response="011100011011100000" foes="011100011111100000"/>
-         <logicitem request="3" response="010000010000010000" foes="010000010000010000"/>
-         <logicitem request="4" response="000000000000000000" foes="010000010000001000"/>
-         <logicitem request="5" response="000000000000000000" foes="110000110000000111"/>
-         <logicitem request="6" response="000000000000000000" foes="110000110000000111"/>
-         <logicitem request="7" response="001110000000000000" foes="001111110000000110"/>
-         <logicitem request="8" response="001100001000000100" foes="001100001000000100"/>
-         <logicitem request="9" response="001100000000000000" foes="001100000100000100"/>
-         <logicitem request="10" response="011100000011110000" foes="011100000011111100"/>
-         <logicitem request="11" response="011100000011100011" foes="111100000011100011"/>
-         <logicitem request="12" response="000010000010000010" foes="000010000010000010"/>
-         <logicitem request="13" response="000000000000000000" foes="000001000010000010"/>
-         <logicitem request="14" response="000000000000000000" foes="000000111110000110"/>
-         <logicitem request="15" response="000000000000000000" foes="000000111110000110"/>
-         <logicitem request="16" response="000000000001110000" foes="000000110001111110"/>
-         <logicitem request="17" response="000000100001100001" foes="000000100001100001"/>
-      </logic>
+      <logicitem request="0" response="000000000001100000" foes="100000100001100000"/>
+      <logicitem request="1" response="011110000011100000" foes="011111100011100000"/>
+      <logicitem request="2" response="011100011011100000" foes="011100011111100000"/>
+      <logicitem request="3" response="010000010000010000" foes="010000010000010000"/>
+      <logicitem request="4" response="000000000000000000" foes="010000010000001000"/>
+      <logicitem request="5" response="000000000000000000" foes="110000110000000111"/>
+      <logicitem request="6" response="000000000000000000" foes="110000110000000111"/>
+      <logicitem request="7" response="001110000000000000" foes="001111110000000110"/>
+      <logicitem request="8" response="001100001000000100" foes="001100001000000100"/>
+      <logicitem request="9" response="001100000000000000" foes="001100000100000100"/>
+      <logicitem request="10" response="011100000011110000" foes="011100000011111100"/>
+      <logicitem request="11" response="011100000011100011" foes="111100000011100011"/>
+      <logicitem request="12" response="000010000010000010" foes="000010000010000010"/>
+      <logicitem request="13" response="000000000000000000" foes="000001000010000010"/>
+      <logicitem request="14" response="000000000000000000" foes="000000111110000110"/>
+      <logicitem request="15" response="000000000000000000" foes="000000111110000110"/>
+      <logicitem request="16" response="000000000001110000" foes="000000110001111110"/>
+      <logicitem request="17" response="000000100001100001" foes="000000100001100001"/>
    </row-logic>
    <row-logic id="32266936" requestSize="1" laneNumber="1">
-      <logic>
-         <logicitem request="0" response="0" foes="0"/>
-      </logic>
+      <logicitem request="0" response="0" foes="0"/>
    </row-logic>
    <row-logic id="32266938" requestSize="9" laneNumber="3">
-      <logic>
-         <logicitem request="0" response="000000000" foes="100010000"/>
-         <logicitem request="1" response="000000000" foes="011110000"/>
-         <logicitem request="2" response="010001000" foes="010001000"/>
-         <logicitem request="3" response="000000000" foes="010000100"/>
-         <logicitem request="4" response="000000011" foes="110000011"/>
-         <logicitem request="5" response="001000010" foes="001000010"/>
-         <logicitem request="6" response="000000010" foes="000100010"/>
-         <logicitem request="7" response="000011010" foes="000011110"/>
-         <logicitem request="8" response="000010001" foes="000010001"/>
-      </logic>
+      <logicitem request="0" response="000000000" foes="100010000"/>
+      <logicitem request="1" response="000000000" foes="011110000"/>
+      <logicitem request="2" response="010001000" foes="010001000"/>
+      <logicitem request="3" response="000000000" foes="010000100"/>
+      <logicitem request="4" response="000000011" foes="110000011"/>
+      <logicitem request="5" response="001000010" foes="001000010"/>
+      <logicitem request="6" response="000000010" foes="000100010"/>
+      <logicitem request="7" response="000011010" foes="000011110"/>
+      <logicitem request="8" response="000010001" foes="000010001"/>
    </row-logic>
    <row-logic id="36268369" requestSize="11" laneNumber="5">
-      <logic>
-         <logicitem request="0" response="00000110000" foes="10000110000"/>
-         <logicitem request="1" response="01110110000" foes="01111110000"/>
-         <logicitem request="2" response="01000001000" foes="01000001000"/>
-         <logicitem request="3" response="00000000000" foes="01000000100"/>
-         <logicitem request="4" response="00000000000" foes="11000000011"/>
-         <logicitem request="5" response="00000000000" foes="11000000011"/>
-         <logicitem request="6" response="00110000010" foes="00110000010"/>
-         <logicitem request="7" response="00000000000" foes="00001000010"/>
-         <logicitem request="8" response="00000000000" foes="00001000010"/>
-         <logicitem request="9" response="00000111000" foes="00000111110"/>
-         <logicitem request="10" response="00000110001" foes="00000110001"/>
-      </logic>
+      <logicitem request="0" response="00000110000" foes="10000110000"/>
+      <logicitem request="1" response="01110110000" foes="01111110000"/>
+      <logicitem request="2" response="01000001000" foes="01000001000"/>
+      <logicitem request="3" response="00000000000" foes="01000000100"/>
+      <logicitem request="4" response="00000000000" foes="11000000011"/>
+      <logicitem request="5" response="00000000000" foes="11000000011"/>
+      <logicitem request="6" response="00110000010" foes="00110000010"/>
+      <logicitem request="7" response="00000000000" foes="00001000010"/>
+      <logicitem request="8" response="00000000000" foes="00001000010"/>
+      <logicitem request="9" response="00000111000" foes="00000111110"/>
+      <logicitem request="10" response="00000110001" foes="00000110001"/>
    </row-logic>
    <row-logic id="36268375" requestSize="9" laneNumber="3">
-      <logic>
-         <logicitem request="0" response="000000000" foes="100010000"/>
-         <logicitem request="1" response="000000000" foes="011110000"/>
-         <logicitem request="2" response="010001000" foes="010001000"/>
-         <logicitem request="3" response="000000000" foes="010000100"/>
-         <logicitem request="4" response="000000011" foes="110000011"/>
-         <logicitem request="5" response="001000010" foes="001000010"/>
-         <logicitem request="6" response="000000010" foes="000100010"/>
-         <logicitem request="7" response="000011010" foes="000011110"/>
-         <logicitem request="8" response="000010001" foes="000010001"/>
-      </logic>
+      <logicitem request="0" response="000000000" foes="100010000"/>
+      <logicitem request="1" response="000000000" foes="011110000"/>
+      <logicitem request="2" response="010001000" foes="010001000"/>
+      <logicitem request="3" response="000000000" foes="010000100"/>
+      <logicitem request="4" response="000000011" foes="110000011"/>
+      <logicitem request="5" response="001000010" foes="001000010"/>
+      <logicitem request="6" response="000000010" foes="000100010"/>
+      <logicitem request="7" response="000011010" foes="000011110"/>
+      <logicitem request="8" response="000010001" foes="000010001"/>
    </row-logic>
    <row-logic id="36268376" requestSize="16" laneNumber="4">
-      <logic>
-         <logicitem request="0" response="0000000000000000" foes="1000010000100000"/>
-         <logicitem request="1" response="0000000000000000" foes="0111110001100000"/>
-         <logicitem request="2" response="0000001100000000" foes="0110001111100000"/>
-         <logicitem request="3" response="0100001000010000" foes="0100001000010000"/>
-         <logicitem request="4" response="0000001000000000" foes="0100001000001000"/>
-         <logicitem request="5" response="0000011000000111" foes="1100011000000111"/>
-         <logicitem request="6" response="0011011000000110" foes="0011111000000110"/>
-         <logicitem request="7" response="0010000100000100" foes="0010000100000100"/>
-         <logicitem request="8" response="0000000000000000" foes="0010000010000100"/>
-         <logicitem request="9" response="0000000000000000" foes="0110000001111100"/>
-         <logicitem request="10" response="0000000000000011" foes="1110000001100011"/>
-         <logicitem request="11" response="0001000001000010" foes="0001000001000010"/>
-         <logicitem request="12" response="0000000000000010" foes="0000100001000010"/>
-         <logicitem request="13" response="0000011100000110" foes="0000011111000110"/>
-         <logicitem request="14" response="0000011000110110" foes="0000011000111110"/>
-         <logicitem request="15" response="0000010000100001" foes="0000010000100001"/>
-      </logic>
+      <logicitem request="0" response="0000000000000000" foes="1000010000100000"/>
+      <logicitem request="1" response="0000000000000000" foes="0111110001100000"/>
+      <logicitem request="2" response="0000001100000000" foes="0110001111100000"/>
+      <logicitem request="3" response="0100001000010000" foes="0100001000010000"/>
+      <logicitem request="4" response="0000001000000000" foes="0100001000001000"/>
+      <logicitem request="5" response="0000011000000111" foes="1100011000000111"/>
+      <logicitem request="6" response="0011011000000110" foes="0011111000000110"/>
+      <logicitem request="7" response="0010000100000100" foes="0010000100000100"/>
+      <logicitem request="8" response="0000000000000000" foes="0010000010000100"/>
+      <logicitem request="9" response="0000000000000000" foes="0110000001111100"/>
+      <logicitem request="10" response="0000000000000011" foes="1110000001100011"/>
+      <logicitem request="11" response="0001000001000010" foes="0001000001000010"/>
+      <logicitem request="12" response="0000000000000010" foes="0000100001000010"/>
+      <logicitem request="13" response="0000011100000110" foes="0000011111000110"/>
+      <logicitem request="14" response="0000011000110110" foes="0000011000111110"/>
+      <logicitem request="15" response="0000010000100001" foes="0000010000100001"/>
    </row-logic>
    <row-logic id="36268378" requestSize="9" laneNumber="3">
-      <logic>
-         <logicitem request="0" response="000000000" foes="100010000"/>
-         <logicitem request="1" response="000000000" foes="011110000"/>
-         <logicitem request="2" response="010001000" foes="010001000"/>
-         <logicitem request="3" response="000000000" foes="010000100"/>
-         <logicitem request="4" response="000000011" foes="110000011"/>
-         <logicitem request="5" response="001000010" foes="001000010"/>
-         <logicitem request="6" response="000000010" foes="000100010"/>
-         <logicitem request="7" response="000011010" foes="000011110"/>
-         <logicitem request="8" response="000010001" foes="000010001"/>
-      </logic>
+      <logicitem request="0" response="000000000" foes="100010000"/>
+      <logicitem request="1" response="000000000" foes="011110000"/>
+      <logicitem request="2" response="010001000" foes="010001000"/>
+      <logicitem request="3" response="000000000" foes="010000100"/>
+      <logicitem request="4" response="000000011" foes="110000011"/>
+      <logicitem request="5" response="001000010" foes="001000010"/>
+      <logicitem request="6" response="000000010" foes="000100010"/>
+      <logicitem request="7" response="000011010" foes="000011110"/>
+      <logicitem request="8" response="000010001" foes="000010001"/>
    </row-logic>
    <row-logic id="36268381" requestSize="1" laneNumber="1">
-      <logic>
-         <logicitem request="0" response="0" foes="0"/>
-      </logic>
+      <logicitem request="0" response="0" foes="0"/>
    </row-logic>
    <row-logic id="36268382" requestSize="1" laneNumber="1">
-      <logic>
-         <logicitem request="0" response="0" foes="0"/>
-      </logic>
+      <logicitem request="0" response="0" foes="0"/>
    </row-logic>
    <row-logic id="36268391" requestSize="1" laneNumber="1">
-      <logic>
-         <logicitem request="0" response="0" foes="0"/>
-      </logic>
+      <logicitem request="0" response="0" foes="0"/>
    </row-logic>
    <row-logic id="36268392" requestSize="9" laneNumber="3">
-      <logic>
-         <logicitem request="0" response="000000000" foes="100010000"/>
-         <logicitem request="1" response="000000000" foes="011110000"/>
-         <logicitem request="2" response="010001000" foes="010001000"/>
-         <logicitem request="3" response="000000000" foes="010000100"/>
-         <logicitem request="4" response="000000011" foes="110000011"/>
-         <logicitem request="5" response="001000010" foes="001000010"/>
-         <logicitem request="6" response="000000010" foes="000100010"/>
-         <logicitem request="7" response="000011010" foes="000011110"/>
-         <logicitem request="8" response="000010001" foes="000010001"/>
-      </logic>
+      <logicitem request="0" response="000000000" foes="100010000"/>
+      <logicitem request="1" response="000000000" foes="011110000"/>
+      <logicitem request="2" response="010001000" foes="010001000"/>
+      <logicitem request="3" response="000000000" foes="010000100"/>
+      <logicitem request="4" response="000000011" foes="110000011"/>
+      <logicitem request="5" response="001000010" foes="001000010"/>
+      <logicitem request="6" response="000000010" foes="000100010"/>
+      <logicitem request="7" response="000011010" foes="000011110"/>
+      <logicitem request="8" response="000010001" foes="000010001"/>
    </row-logic>
    <row-logic id="36268398" requestSize="4" laneNumber="2">
-      <logic>
-         <logicitem request="0" response="0000" foes="0100"/>
-         <logicitem request="1" response="0000" foes="1100"/>
-         <logicitem request="2" response="0011" foes="0011"/>
-         <logicitem request="3" response="0010" foes="0010"/>
-      </logic>
+      <logicitem request="0" response="0000" foes="0100"/>
+      <logicitem request="1" response="0000" foes="1100"/>
+      <logicitem request="2" response="0011" foes="0011"/>
+      <logicitem request="3" response="0010" foes="0010"/>
    </row-logic>
    <row-logic id="36268403" requestSize="9" laneNumber="3">
-      <logic>
-         <logicitem request="0" response="000000000" foes="100010000"/>
-         <logicitem request="1" response="011000000" foes="011110000"/>
-         <logicitem request="2" response="010001000" foes="010001000"/>
-         <logicitem request="3" response="010000000" foes="010000100"/>
-         <logicitem request="4" response="010000011" foes="110000011"/>
-         <logicitem request="5" response="001000010" foes="001000010"/>
-         <logicitem request="6" response="000000000" foes="000100010"/>
-         <logicitem request="7" response="000000000" foes="000011110"/>
-         <logicitem request="8" response="000010001" foes="000010001"/>
-      </logic>
+      <logicitem request="0" response="000000000" foes="100010000"/>
+      <logicitem request="1" response="011000000" foes="011110000"/>
+      <logicitem request="2" response="010001000" foes="010001000"/>
+      <logicitem request="3" response="010000000" foes="010000100"/>
+      <logicitem request="4" response="010000011" foes="110000011"/>
+      <logicitem request="5" response="001000010" foes="001000010"/>
+      <logicitem request="6" response="000000000" foes="000100010"/>
+      <logicitem request="7" response="000000000" foes="000011110"/>
+      <logicitem request="8" response="000010001" foes="000010001"/>
    </row-logic>
    <row-logic id="36268406" requestSize="16" laneNumber="4">
-      <logic>
-         <logicitem request="0" response="0000000000000000" foes="1000010000100000"/>
-         <logicitem request="1" response="0000000000000000" foes="0111110001100000"/>
-         <logicitem request="2" response="0000001100000000" foes="0110001111100000"/>
-         <logicitem request="3" response="0100001000010000" foes="0100001000010000"/>
-         <logicitem request="4" response="0000001000000000" foes="0100001000001000"/>
-         <logicitem request="5" response="0000011000000111" foes="1100011000000111"/>
-         <logicitem request="6" response="0011011000000110" foes="0011111000000110"/>
-         <logicitem request="7" response="0010000100000100" foes="0010000100000100"/>
-         <logicitem request="8" response="0000000000000000" foes="0010000010000100"/>
-         <logicitem request="9" response="0000000000000000" foes="0110000001111100"/>
-         <logicitem request="10" response="0000000000000011" foes="1110000001100011"/>
-         <logicitem request="11" response="0001000001000010" foes="0001000001000010"/>
-         <logicitem request="12" response="0000000000000010" foes="0000100001000010"/>
-         <logicitem request="13" response="0000011100000110" foes="0000011111000110"/>
-         <logicitem request="14" response="0000011000110110" foes="0000011000111110"/>
-         <logicitem request="15" response="0000010000100001" foes="0000010000100001"/>
-      </logic>
+      <logicitem request="0" response="0000000000000000" foes="1000010000100000"/>
+      <logicitem request="1" response="0000000000000000" foes="0111110001100000"/>
+      <logicitem request="2" response="0000001100000000" foes="0110001111100000"/>
+      <logicitem request="3" response="0100001000010000" foes="0100001000010000"/>
+      <logicitem request="4" response="0000001000000000" foes="0100001000001000"/>
+      <logicitem request="5" response="0000011000000111" foes="1100011000000111"/>
+      <logicitem request="6" response="0011011000000110" foes="0011111000000110"/>
+      <logicitem request="7" response="0010000100000100" foes="0010000100000100"/>
+      <logicitem request="8" response="0000000000000000" foes="0010000010000100"/>
+      <logicitem request="9" response="0000000000000000" foes="0110000001111100"/>
+      <logicitem request="10" response="0000000000000011" foes="1110000001100011"/>
+      <logicitem request="11" response="0001000001000010" foes="0001000001000010"/>
+      <logicitem request="12" response="0000000000000010" foes="0000100001000010"/>
+      <logicitem request="13" response="0000011100000110" foes="0000011111000110"/>
+      <logicitem request="14" response="0000011000110110" foes="0000011000111110"/>
+      <logicitem request="15" response="0000010000100001" foes="0000010000100001"/>
    </row-logic>
    <row-logic id="36268408" requestSize="9" laneNumber="3">
-      <logic>
-         <logicitem request="0" response="000000000" foes="100010000"/>
-         <logicitem request="1" response="000000000" foes="011110000"/>
-         <logicitem request="2" response="010001000" foes="010001000"/>
-         <logicitem request="3" response="000000000" foes="010000100"/>
-         <logicitem request="4" response="000000011" foes="110000011"/>
-         <logicitem request="5" response="001000010" foes="001000010"/>
-         <logicitem request="6" response="000000010" foes="000100010"/>
-         <logicitem request="7" response="000011010" foes="000011110"/>
-         <logicitem request="8" response="000010001" foes="000010001"/>
-      </logic>
+      <logicitem request="0" response="000000000" foes="100010000"/>
+      <logicitem request="1" response="000000000" foes="011110000"/>
+      <logicitem request="2" response="010001000" foes="010001000"/>
+      <logicitem request="3" response="000000000" foes="010000100"/>
+      <logicitem request="4" response="000000011" foes="110000011"/>
+      <logicitem request="5" response="001000010" foes="001000010"/>
+      <logicitem request="6" response="000000010" foes="000100010"/>
+      <logicitem request="7" response="000011010" foes="000011110"/>
+      <logicitem request="8" response="000010001" foes="000010001"/>
    </row-logic>
    <row-logic id="36268411" requestSize="9" laneNumber="3">
-      <logic>
-         <logicitem request="0" response="000010000" foes="100010000"/>
-         <logicitem request="1" response="011010000" foes="011110000"/>
-         <logicitem request="2" response="010001000" foes="010001000"/>
-         <logicitem request="3" response="000000000" foes="010000100"/>
-         <logicitem request="4" response="000000000" foes="110000011"/>
-         <logicitem request="5" response="001000010" foes="001000010"/>
-         <logicitem request="6" response="000000000" foes="000100010"/>
-         <logicitem request="7" response="000011000" foes="000011110"/>
-         <logicitem request="8" response="000010001" foes="000010001"/>
-      </logic>
+      <logicitem request="0" response="000010000" foes="100010000"/>
+      <logicitem request="1" response="011010000" foes="011110000"/>
+      <logicitem request="2" response="010001000" foes="010001000"/>
+      <logicitem request="3" response="000000000" foes="010000100"/>
+      <logicitem request="4" response="000000000" foes="110000011"/>
+      <logicitem request="5" response="001000010" foes="001000010"/>
+      <logicitem request="6" response="000000000" foes="000100010"/>
+      <logicitem request="7" response="000011000" foes="000011110"/>
+      <logicitem request="8" response="000010001" foes="000010001"/>
    </row-logic>
    <row-logic id="36268415" requestSize="4" laneNumber="2">
-      <logic>
-         <logicitem request="0" response="1000" foes="1000"/>
-         <logicitem request="1" response="0100" foes="0100"/>
-         <logicitem request="2" response="0000" foes="0010"/>
-         <logicitem request="3" response="0000" foes="0001"/>
-      </logic>
+      <logicitem request="0" response="1000" foes="1000"/>
+      <logicitem request="1" response="0100" foes="0100"/>
+      <logicitem request="2" response="0000" foes="0010"/>
+      <logicitem request="3" response="0000" foes="0001"/>
    </row-logic>
    <row-logic id="36268416" requestSize="9" laneNumber="3">
-      <logic>
-         <logicitem request="0" response="000010000" foes="100010000"/>
-         <logicitem request="1" response="011010000" foes="011110000"/>
-         <logicitem request="2" response="010001000" foes="010001000"/>
-         <logicitem request="3" response="000000000" foes="010000100"/>
-         <logicitem request="4" response="000000000" foes="110000011"/>
-         <logicitem request="5" response="001000010" foes="001000010"/>
-         <logicitem request="6" response="000000000" foes="000100010"/>
-         <logicitem request="7" response="000011000" foes="000011110"/>
-         <logicitem request="8" response="000010001" foes="000010001"/>
-      </logic>
+      <logicitem request="0" response="000010000" foes="100010000"/>
+      <logicitem request="1" response="011010000" foes="011110000"/>
+      <logicitem request="2" response="010001000" foes="010001000"/>
+      <logicitem request="3" response="000000000" foes="010000100"/>
+      <logicitem request="4" response="000000000" foes="110000011"/>
+      <logicitem request="5" response="001000010" foes="001000010"/>
+      <logicitem request="6" response="000000000" foes="000100010"/>
+      <logicitem request="7" response="000011000" foes="000011110"/>
+      <logicitem request="8" response="000010001" foes="000010001"/>
    </row-logic>
    <row-logic id="36268417" requestSize="9" laneNumber="3">
-      <logic>
-         <logicitem request="0" response="000010000" foes="100010000"/>
-         <logicitem request="1" response="011010000" foes="011110000"/>
-         <logicitem request="2" response="010001000" foes="010001000"/>
-         <logicitem request="3" response="000000000" foes="010000100"/>
-         <logicitem request="4" response="000000000" foes="110000011"/>
-         <logicitem request="5" response="001000010" foes="001000010"/>
-         <logicitem request="6" response="000000000" foes="000100010"/>
-         <logicitem request="7" response="000011000" foes="000011110"/>
-         <logicitem request="8" response="000010001" foes="000010001"/>
-      </logic>
+      <logicitem request="0" response="000010000" foes="100010000"/>
+      <logicitem request="1" response="011010000" foes="011110000"/>
+      <logicitem request="2" response="010001000" foes="010001000"/>
+      <logicitem request="3" response="000000000" foes="010000100"/>
+      <logicitem request="4" response="000000000" foes="110000011"/>
+      <logicitem request="5" response="001000010" foes="001000010"/>
+      <logicitem request="6" response="000000000" foes="000100010"/>
+      <logicitem request="7" response="000011000" foes="000011110"/>
+      <logicitem request="8" response="000010001" foes="000010001"/>
    </row-logic>
    <row-logic id="36268421" requestSize="8" laneNumber="4">
-      <logic>
-         <logicitem request="0" response="00000000" foes="01000000"/>
-         <logicitem request="1" response="00000000" foes="11000000"/>
-         <logicitem request="2" response="00000000" foes="11000000"/>
-         <logicitem request="3" response="00110000" foes="00110000"/>
-         <logicitem request="4" response="00000000" foes="00001000"/>
-         <logicitem request="5" response="00000000" foes="00001000"/>
-         <logicitem request="6" response="00000111" foes="00000111"/>
-         <logicitem request="7" response="00000110" foes="00000110"/>
-      </logic>
+      <logicitem request="0" response="00000000" foes="01000000"/>
+      <logicitem request="1" response="00000000" foes="11000000"/>
+      <logicitem request="2" response="00000000" foes="11000000"/>
+      <logicitem request="3" response="00110000" foes="00110000"/>
+      <logicitem request="4" response="00000000" foes="00001000"/>
+      <logicitem request="5" response="00000000" foes="00001000"/>
+      <logicitem request="6" response="00000111" foes="00000111"/>
+      <logicitem request="7" response="00000110" foes="00000110"/>
    </row-logic>
    <row-logic id="36268431" requestSize="9" laneNumber="3">
-      <logic>
-         <logicitem request="0" response="000000000" foes="100010000"/>
-         <logicitem request="1" response="011000000" foes="011110000"/>
-         <logicitem request="2" response="010001000" foes="010001000"/>
-         <logicitem request="3" response="010000000" foes="010000100"/>
-         <logicitem request="4" response="010000011" foes="110000011"/>
-         <logicitem request="5" response="001000010" foes="001000010"/>
-         <logicitem request="6" response="000000000" foes="000100010"/>
-         <logicitem request="7" response="000000000" foes="000011110"/>
-         <logicitem request="8" response="000010001" foes="000010001"/>
-      </logic>
+      <logicitem request="0" response="000000000" foes="100010000"/>
+      <logicitem request="1" response="011000000" foes="011110000"/>
+      <logicitem request="2" response="010001000" foes="010001000"/>
+      <logicitem request="3" response="010000000" foes="010000100"/>
+      <logicitem request="4" response="010000011" foes="110000011"/>
+      <logicitem request="5" response="001000010" foes="001000010"/>
+      <logicitem request="6" response="000000000" foes="000100010"/>
+      <logicitem request="7" response="000000000" foes="000011110"/>
+      <logicitem request="8" response="000010001" foes="000010001"/>
    </row-logic>
    <row-logic id="38919605" requestSize="1" laneNumber="1">
-      <logic>
-         <logicitem request="0" response="0" foes="0"/>
-      </logic>
+      <logicitem request="0" response="0" foes="0"/>
    </row-logic>
    <row-logic id="38919652" requestSize="9" laneNumber="3">
-      <logic>
-         <logicitem request="0" response="000000000" foes="010010000"/>
-         <logicitem request="1" response="000000000" foes="110110000"/>
-         <logicitem request="2" response="001001000" foes="001001000"/>
-         <logicitem request="3" response="001000000" foes="001000100"/>
-         <logicitem request="4" response="011000011" foes="011000011"/>
-         <logicitem request="5" response="011000010" foes="111000010"/>
-         <logicitem request="6" response="000000000" foes="000111100"/>
-         <logicitem request="7" response="000000011" foes="000110011"/>
-         <logicitem request="8" response="000100010" foes="000100010"/>
-      </logic>
+      <logicitem request="0" response="000000000" foes="010010000"/>
+      <logicitem request="1" response="000000000" foes="110110000"/>
+      <logicitem request="2" response="001001000" foes="001001000"/>
+      <logicitem request="3" response="001000000" foes="001000100"/>
+      <logicitem request="4" response="011000011" foes="011000011"/>
+      <logicitem request="5" response="011000010" foes="111000010"/>
+      <logicitem request="6" response="000000000" foes="000111100"/>
+      <logicitem request="7" response="000000011" foes="000110011"/>
+      <logicitem request="8" response="000100010" foes="000100010"/>
    </row-logic>
    <row-logic id="38919668" requestSize="2" laneNumber="1">
-      <logic>
-         <logicitem request="0" response="00" foes="00"/>
-         <logicitem request="1" response="00" foes="00"/>
-      </logic>
+      <logicitem request="0" response="00" foes="00"/>
+      <logicitem request="1" response="00" foes="00"/>
    </row-logic>
    <row-logic id="38919703" requestSize="2" laneNumber="2">
-      <logic>
-         <logicitem request="0" response="00" foes="10"/>
-         <logicitem request="1" response="01" foes="01"/>
-      </logic>
+      <logicitem request="0" response="00" foes="10"/>
+      <logicitem request="1" response="01" foes="01"/>
    </row-logic>
    <row-logic id="38919712" requestSize="4" laneNumber="2">
-      <logic>
-         <logicitem request="0" response="0000" foes="1000"/>
-         <logicitem request="1" response="0100" foes="0100"/>
-         <logicitem request="2" response="0000" foes="0010"/>
-         <logicitem request="3" response="0001" foes="0001"/>
-      </logic>
+      <logicitem request="0" response="0000" foes="1000"/>
+      <logicitem request="1" response="0100" foes="0100"/>
+      <logicitem request="2" response="0000" foes="0010"/>
+      <logicitem request="3" response="0001" foes="0001"/>
    </row-logic>
    <row-logic id="38919808" requestSize="9" laneNumber="3">
-      <logic>
-         <logicitem request="0" response="000000000" foes="111100000"/>
-         <logicitem request="1" response="000011000" foes="110011000"/>
-         <logicitem request="2" response="100010000" foes="100010000"/>
-         <logicitem request="3" response="000000000" foes="010000010"/>
-         <logicitem request="4" response="000000000" foes="110000110"/>
-         <logicitem request="5" response="001000001" foes="001000001"/>
-         <logicitem request="6" response="000000001" foes="000100001"/>
-         <logicitem request="7" response="000011011" foes="000011011"/>
-         <logicitem request="8" response="000010011" foes="000010111"/>
-      </logic>
+      <logicitem request="0" response="000000000" foes="111100000"/>
+      <logicitem request="1" response="000011000" foes="110011000"/>
+      <logicitem request="2" response="100010000" foes="100010000"/>
+      <logicitem request="3" response="000000000" foes="010000010"/>
+      <logicitem request="4" response="000000000" foes="110000110"/>
+      <logicitem request="5" response="001000001" foes="001000001"/>
+      <logicitem request="6" response="000000001" foes="000100001"/>
+      <logicitem request="7" response="000011011" foes="000011011"/>
+      <logicitem request="8" response="000010011" foes="000010111"/>
    </row-logic>
    <row-logic id="38919841" requestSize="9" laneNumber="3">
-      <logic>
-         <logicitem request="0" response="000000000" foes="100010000"/>
-         <logicitem request="1" response="011000000" foes="011110000"/>
-         <logicitem request="2" response="010001000" foes="010001000"/>
-         <logicitem request="3" response="010000000" foes="010000100"/>
-         <logicitem request="4" response="010000011" foes="110000011"/>
-         <logicitem request="5" response="001000010" foes="001000010"/>
-         <logicitem request="6" response="000000000" foes="000100010"/>
-         <logicitem request="7" response="000000000" foes="000011110"/>
-         <logicitem request="8" response="000010001" foes="000010001"/>
-      </logic>
+      <logicitem request="0" response="000000000" foes="100010000"/>
+      <logicitem request="1" response="011000000" foes="011110000"/>
+      <logicitem request="2" response="010001000" foes="010001000"/>
+      <logicitem request="3" response="010000000" foes="010000100"/>
+      <logicitem request="4" response="010000011" foes="110000011"/>
+      <logicitem request="5" response="001000010" foes="001000010"/>
+      <logicitem request="6" response="000000000" foes="000100010"/>
+      <logicitem request="7" response="000000000" foes="000011110"/>
+      <logicitem request="8" response="000010001" foes="000010001"/>
    </row-logic>
    <row-logic id="38919854" requestSize="9" laneNumber="3">
-      <logic>
-         <logicitem request="0" response="000000000" foes="100010000"/>
-         <logicitem request="1" response="011000000" foes="011110000"/>
-         <logicitem request="2" response="010001000" foes="010001000"/>
-         <logicitem request="3" response="010000000" foes="010000100"/>
-         <logicitem request="4" response="010000011" foes="110000011"/>
-         <logicitem request="5" response="001000010" foes="001000010"/>
-         <logicitem request="6" response="000000000" foes="000100010"/>
-         <logicitem request="7" response="000000000" foes="000011110"/>
-         <logicitem request="8" response="000010001" foes="000010001"/>
-      </logic>
+      <logicitem request="0" response="000000000" foes="100010000"/>
+      <logicitem request="1" response="011000000" foes="011110000"/>
+      <logicitem request="2" response="010001000" foes="010001000"/>
+      <logicitem request="3" response="010000000" foes="010000100"/>
+      <logicitem request="4" response="010000011" foes="110000011"/>
+      <logicitem request="5" response="001000010" foes="001000010"/>
+      <logicitem request="6" response="000000000" foes="000100010"/>
+      <logicitem request="7" response="000000000" foes="000011110"/>
+      <logicitem request="8" response="000010001" foes="000010001"/>
    </row-logic>
    <row-logic id="38919880" requestSize="9" laneNumber="3">
-      <logic>
-         <logicitem request="0" response="000010000" foes="100010000"/>
-         <logicitem request="1" response="011010000" foes="011110000"/>
-         <logicitem request="2" response="010001000" foes="010001000"/>
-         <logicitem request="3" response="000000000" foes="010000100"/>
-         <logicitem request="4" response="000000000" foes="110000011"/>
-         <logicitem request="5" response="001000010" foes="001000010"/>
-         <logicitem request="6" response="000000000" foes="000100010"/>
-         <logicitem request="7" response="000011000" foes="000011110"/>
-         <logicitem request="8" response="000010001" foes="000010001"/>
-      </logic>
+      <logicitem request="0" response="000010000" foes="100010000"/>
+      <logicitem request="1" response="011010000" foes="011110000"/>
+      <logicitem request="2" response="010001000" foes="010001000"/>
+      <logicitem request="3" response="000000000" foes="010000100"/>
+      <logicitem request="4" response="000000000" foes="110000011"/>
+      <logicitem request="5" response="001000010" foes="001000010"/>
+      <logicitem request="6" response="000000000" foes="000100010"/>
+      <logicitem request="7" response="000011000" foes="000011110"/>
+      <logicitem request="8" response="000010001" foes="000010001"/>
    </row-logic>
    <row-logic id="38919927" requestSize="1" laneNumber="1">
-      <logic>
-         <logicitem request="0" response="0" foes="0"/>
-      </logic>
+      <logicitem request="0" response="0" foes="0"/>
    </row-logic>
    <row-logic id="38919945" requestSize="2" laneNumber="1">
-      <logic>
-         <logicitem request="0" response="00" foes="00"/>
-         <logicitem request="1" response="00" foes="00"/>
-      </logic>
+      <logicitem request="0" response="00" foes="00"/>
+      <logicitem request="1" response="00" foes="00"/>
    </row-logic>
    <row-logic id="38920501" requestSize="4" laneNumber="2">
-      <logic>
-         <logicitem request="0" response="0000" foes="1000"/>
-         <logicitem request="1" response="0100" foes="0100"/>
-         <logicitem request="2" response="0000" foes="0010"/>
-         <logicitem request="3" response="0001" foes="0001"/>
-      </logic>
+      <logicitem request="0" response="0000" foes="1000"/>
+      <logicitem request="1" response="0100" foes="0100"/>
+      <logicitem request="2" response="0000" foes="0010"/>
+      <logicitem request="3" response="0001" foes="0001"/>
    </row-logic>
    <row-logic id="38920778" requestSize="9" laneNumber="3">
-      <logic>
-         <logicitem request="0" response="000010000" foes="010010000"/>
-         <logicitem request="1" response="000110000" foes="110110000"/>
-         <logicitem request="2" response="001001000" foes="001001000"/>
-         <logicitem request="3" response="000000000" foes="001000100"/>
-         <logicitem request="4" response="000000000" foes="011000011"/>
-         <logicitem request="5" response="000000000" foes="111000010"/>
-         <logicitem request="6" response="000111000" foes="000111100"/>
-         <logicitem request="7" response="000110011" foes="000110011"/>
-         <logicitem request="8" response="000100010" foes="000100010"/>
-      </logic>
+      <logicitem request="0" response="000010000" foes="010010000"/>
+      <logicitem request="1" response="000110000" foes="110110000"/>
+      <logicitem request="2" response="001001000" foes="001001000"/>
+      <logicitem request="3" response="000000000" foes="001000100"/>
+      <logicitem request="4" response="000000000" foes="011000011"/>
+      <logicitem request="5" response="000000000" foes="111000010"/>
+      <logicitem request="6" response="000111000" foes="000111100"/>
+      <logicitem request="7" response="000110011" foes="000110011"/>
+      <logicitem request="8" response="000100010" foes="000100010"/>
    </row-logic>
    <row-logic id="56231397" requestSize="4" laneNumber="2">
-      <logic>
-         <logicitem request="0" response="0000" foes="0100"/>
-         <logicitem request="1" response="0000" foes="1100"/>
-         <logicitem request="2" response="0011" foes="0011"/>
-         <logicitem request="3" response="0010" foes="0010"/>
-      </logic>
+      <logicitem request="0" response="0000" foes="0100"/>
+      <logicitem request="1" response="0000" foes="1100"/>
+      <logicitem request="2" response="0011" foes="0011"/>
+      <logicitem request="3" response="0010" foes="0010"/>
    </row-logic>
    <row-logic id="56231597" requestSize="9" laneNumber="3">
-      <logic>
-         <logicitem request="0" response="000000000" foes="100010000"/>
-         <logicitem request="1" response="011000000" foes="011110000"/>
-         <logicitem request="2" response="010001000" foes="010001000"/>
-         <logicitem request="3" response="010000000" foes="010000100"/>
-         <logicitem request="4" response="010000011" foes="110000011"/>
-         <logicitem request="5" response="001000010" foes="001000010"/>
-         <logicitem request="6" response="000000000" foes="000100010"/>
-         <logicitem request="7" response="000000000" foes="000011110"/>
-         <logicitem request="8" response="000010001" foes="000010001"/>
-      </logic>
+      <logicitem request="0" response="000000000" foes="100010000"/>
+      <logicitem request="1" response="011000000" foes="011110000"/>
+      <logicitem request="2" response="010001000" foes="010001000"/>
+      <logicitem request="3" response="010000000" foes="010000100"/>
+      <logicitem request="4" response="010000011" foes="110000011"/>
+      <logicitem request="5" response="001000010" foes="001000010"/>
+      <logicitem request="6" response="000000000" foes="000100010"/>
+      <logicitem request="7" response="000000000" foes="000011110"/>
+      <logicitem request="8" response="000010001" foes="000010001"/>
    </row-logic>
    <row-logic id="56231598" requestSize="9" laneNumber="3">
-      <logic>
-         <logicitem request="0" response="010010000" foes="010010000"/>
-         <logicitem request="1" response="010110000" foes="110110000"/>
-         <logicitem request="2" response="001001000" foes="001001000"/>
-         <logicitem request="3" response="000000000" foes="001000100"/>
-         <logicitem request="4" response="000000000" foes="011000011"/>
-         <logicitem request="5" response="000000000" foes="111000010"/>
-         <logicitem request="6" response="000111000" foes="000111100"/>
-         <logicitem request="7" response="000110000" foes="000110011"/>
-         <logicitem request="8" response="000100010" foes="000100010"/>
-      </logic>
+      <logicitem request="0" response="010010000" foes="010010000"/>
+      <logicitem request="1" response="010110000" foes="110110000"/>
+      <logicitem request="2" response="001001000" foes="001001000"/>
+      <logicitem request="3" response="000000000" foes="001000100"/>
+      <logicitem request="4" response="000000000" foes="011000011"/>
+      <logicitem request="5" response="000000000" foes="111000010"/>
+      <logicitem request="6" response="000111000" foes="000111100"/>
+      <logicitem request="7" response="000110000" foes="000110011"/>
+      <logicitem request="8" response="000100010" foes="000100010"/>
    </row-logic>
    <row-logic id="56242425" requestSize="4" laneNumber="2">
-      <logic>
-         <logicitem request="0" response="1000" foes="1000"/>
-         <logicitem request="1" response="0100" foes="0100"/>
-         <logicitem request="2" response="0000" foes="0010"/>
-         <logicitem request="3" response="0000" foes="0001"/>
-      </logic>
+      <logicitem request="0" response="1000" foes="1000"/>
+      <logicitem request="1" response="0100" foes="0100"/>
+      <logicitem request="2" response="0000" foes="0010"/>
+      <logicitem request="3" response="0000" foes="0001"/>
    </row-logic>
    <row-logic id="56242441" requestSize="4" laneNumber="2">
-      <logic>
-         <logicitem request="0" response="0000" foes="0100"/>
-         <logicitem request="1" response="0000" foes="1100"/>
-         <logicitem request="2" response="0011" foes="0011"/>
-         <logicitem request="3" response="0010" foes="0010"/>
-      </logic>
+      <logicitem request="0" response="0000" foes="0100"/>
+      <logicitem request="1" response="0000" foes="1100"/>
+      <logicitem request="2" response="0011" foes="0011"/>
+      <logicitem request="3" response="0010" foes="0010"/>
    </row-logic>
    <row-logic id="57343359" requestSize="1" laneNumber="1">
-      <logic>
-         <logicitem request="0" response="0" foes="0"/>
-      </logic>
+      <logicitem request="0" response="0" foes="0"/>
    </row-logic>
    <row-logic id="57343510" requestSize="2" laneNumber="2">
-      <logic>
-         <logicitem request="0" response="11" foes="00"/>
-         <logicitem request="1" response="00" foes="00"/>
-      </logic>
+      <logicitem request="0" response="11" foes="00"/>
+      <logicitem request="1" response="00" foes="00"/>
    </row-logic>
    <row-logic id="59993001" requestSize="4" laneNumber="2">
-      <logic>
-         <logicitem request="0" response="0000" foes="0100"/>
-         <logicitem request="1" response="0000" foes="1100"/>
-         <logicitem request="2" response="0011" foes="0011"/>
-         <logicitem request="3" response="0010" foes="0010"/>
-      </logic>
+      <logicitem request="0" response="0000" foes="0100"/>
+      <logicitem request="1" response="0000" foes="1100"/>
+      <logicitem request="2" response="0011" foes="0011"/>
+      <logicitem request="3" response="0010" foes="0010"/>
    </row-logic>
    <row-logic id="94487954" requestSize="2" laneNumber="2">
-      <logic>
-         <logicitem request="0" response="11" foes="00"/>
-         <logicitem request="1" response="00" foes="00"/>
-      </logic>
+      <logicitem request="0" response="11" foes="00"/>
+      <logicitem request="1" response="00" foes="00"/>
    </row-logic>
 
    <tl-logic id="261599791" type="static" programID="0" offset="0">

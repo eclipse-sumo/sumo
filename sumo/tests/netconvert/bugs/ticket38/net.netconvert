@@ -24,11 +24,9 @@
    <location netOffset="-500.00,0.00" convBoundary="0.00,0.00,500.00,0.00" origBoundary="500.00,0.00,1000.00,0.00" projParameter="!"/>
 
    <edge id="1" from="1" to="2" priority="-1" type="" function="normal">
-      <lanes>
-         <lane id="1_0" depart="1" maxspeed="30.00" length="500.00" shape="500.00,8.25 0.00,8.25"/>
-         <lane id="1_1" depart="0" maxspeed="30.00" length="500.00" shape="500.00,4.95 0.00,4.95"/>
-         <lane id="1_2" depart="0" maxspeed="30.00" length="500.00" shape="500.00,1.65 0.00,1.65"/>
-      </lanes>
+      <lane id="1_0" depart="1" maxspeed="30.00" length="500.00" shape="500.00,8.25 0.00,8.25"/>
+      <lane id="1_1" depart="0" maxspeed="30.00" length="500.00" shape="500.00,4.95 0.00,4.95"/>
+      <lane id="1_2" depart="0" maxspeed="30.00" length="500.00" shape="500.00,1.65 0.00,1.65"/>
    </edge>
 
    <junction id="1" type="DEAD_END" x="500.00" y="0.00" incLanes="" intLanes="" shape="500.00,0.05 500.00,9.85"/>

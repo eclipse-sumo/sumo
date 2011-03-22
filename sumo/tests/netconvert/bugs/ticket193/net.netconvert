@@ -25,9 +25,7 @@
    <location netOffset="0.00,0.00" convBoundary="0.00,0.00,500.00,0.00" origBoundary="0.00,0.00,500.00,0.00" projParameter="!"/>
 
    <edge id="1o" from="1" to="0" priority="-1" type="" function="normal">
-      <lanes>
-         <lane id="1o_0" depart="1" maxspeed="13.90" length="500.00" shape="500.00,1.65 0.00,1.65"/>
-      </lanes>
+      <lane id="1o_0" depart="1" maxspeed="13.90" length="500.00" shape="500.00,1.65 0.00,1.65"/>
    </edge>
 
    <tl-logic id="0" type="static" programID="0" offset="0">

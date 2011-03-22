@@ -24,9 +24,7 @@
    <location netOffset="-12.01,3722.72" convBoundary="0.00,0.00,3472.07,3770.84" origBoundary="12.014694,48.087529,12.061386,48.121459" projParameter="-"/>
 
    <edge id="o" from="0" to="1" priority="-1" type="" function="normal">
-      <lanes>
-         <lane id="o_0" depart="1" maxspeed="13.90" length="5125.87" shape="-1.21,3769.73 3470.86,-1.12"/>
-      </lanes>
+      <lane id="o_0" depart="1" maxspeed="13.90" length="5125.87" shape="-1.21,3769.73 3470.86,-1.12"/>
    </edge>
 
    <junction id="0" type="DEAD_END" x="0.00" y="3770.84" incLanes="" intLanes="" shape="-0.04,3770.81 -2.39,3768.64"/>

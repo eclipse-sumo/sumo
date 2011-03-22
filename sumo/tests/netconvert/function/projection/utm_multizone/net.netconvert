@@ -24,9 +24,7 @@
    <location netOffset="-718863.09,-5330309.98" convBoundary="0.00,0.00,9104.41,253.05" origBoundary="11.939163,48.087529,12.061386,48.088446" projParameter="+proj=utm +zone=32 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
 
    <edge id="o" from="0" to="1" priority="-1" type="" function="normal">
-      <lanes>
-         <lane id="o_0" depart="1" maxspeed="13.90" length="9107.93" shape="0.05,-1.65 9104.46,251.40"/>
-      </lanes>
+      <lane id="o_0" depart="1" maxspeed="13.90" length="9107.93" shape="0.05,-1.65 9104.46,251.40"/>
    </edge>
 
    <junction id="0" type="DEAD_END" x="0.00" y="0.00" incLanes="" intLanes="" shape="0.00,-0.05 0.09,-3.25"/>

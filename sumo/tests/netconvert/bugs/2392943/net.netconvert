@@ -32,98 +32,72 @@
    <location netOffset="1000.00,0.00" convBoundary="0.00,0.00,2000.00,200.00" origBoundary="-1000.00,0.00,1000.00,200.00" projParameter="!"/>
 
    <edge id="off" from="2" to="2a" priority="-1" type="" function="normal">
-      <lanes>
-         <lane id="off_0" depart="1" maxspeed="30.00" length="340.22" shape="484.00,12.65 200.92,201.37"/>
-      </lanes>
+      <lane id="off_0" depart="1" maxspeed="30.00" length="340.22" shape="484.00,12.65 200.92,201.37"/>
    </edge>
    <edge id="on" from="4a" to="4" priority="-1" type="" function="normal">
-      <lanes>
-         <lane id="on_0" depart="1" maxspeed="30.00" length="340.22" shape="1799.08,201.37 1516.00,12.65"/>
-      </lanes>
+      <lane id="on_0" depart="1" maxspeed="30.00" length="340.22" shape="1799.08,201.37 1516.00,12.65"/>
    </edge>
    <edge id="s1" from="5" to="4" priority="-1" type="" function="normal">
-      <lanes>
-         <lane id="s1_0" depart="1" maxspeed="30.00" length="483.82" shape="2000.00,8.25 1516.18,8.25"/>
-         <lane id="s1_1" depart="0" maxspeed="30.00" length="483.82" shape="2000.00,4.95 1516.18,4.95"/>
-         <lane id="s1_2" depart="0" maxspeed="30.00" length="483.82" shape="2000.00,1.65 1516.18,1.65"/>
-      </lanes>
+      <lane id="s1_0" depart="1" maxspeed="30.00" length="483.82" shape="2000.00,8.25 1516.18,8.25"/>
+      <lane id="s1_1" depart="0" maxspeed="30.00" length="483.82" shape="2000.00,4.95 1516.18,4.95"/>
+      <lane id="s1_2" depart="0" maxspeed="30.00" length="483.82" shape="2000.00,1.65 1516.18,1.65"/>
    </edge>
    <edge id="s2" from="s2-AddedOnRampNode" to="3" priority="-1" type="" function="normal">
-      <lanes>
-         <lane id="s2_0" depart="1" maxspeed="30.00" length="398.50" shape="1398.50,8.25 1000.00,8.25"/>
-         <lane id="s2_1" depart="0" maxspeed="30.00" length="398.50" shape="1398.50,4.95 1000.00,4.95"/>
-         <lane id="s2_2" depart="0" maxspeed="30.00" length="398.50" shape="1398.50,1.65 1000.00,1.65"/>
-      </lanes>
+      <lane id="s2_0" depart="1" maxspeed="30.00" length="398.50" shape="1398.50,8.25 1000.00,8.25"/>
+      <lane id="s2_1" depart="0" maxspeed="30.00" length="398.50" shape="1398.50,4.95 1000.00,4.95"/>
+      <lane id="s2_2" depart="0" maxspeed="30.00" length="398.50" shape="1398.50,1.65 1000.00,1.65"/>
    </edge>
    <edge id="s2-AddedOnRampEdge" from="4" to="s2-AddedOnRampNode" priority="-1" type="" function="normal">
-      <lanes>
-         <lane id="s2-AddedOnRampEdge_0" depart="1" maxspeed="30.00" length="110.87" shape="1512.37,11.55 1401.50,11.55"/>
-         <lane id="s2-AddedOnRampEdge_1" depart="0" maxspeed="30.00" length="110.87" shape="1512.37,8.25 1401.50,8.25"/>
-         <lane id="s2-AddedOnRampEdge_2" depart="0" maxspeed="30.00" length="110.87" shape="1512.37,4.95 1401.50,4.95"/>
-         <lane id="s2-AddedOnRampEdge_3" depart="0" maxspeed="30.00" length="110.87" shape="1512.37,1.65 1401.50,1.65"/>
-      </lanes>
+      <lane id="s2-AddedOnRampEdge_0" depart="1" maxspeed="30.00" length="110.87" shape="1512.37,11.55 1401.50,11.55"/>
+      <lane id="s2-AddedOnRampEdge_1" depart="0" maxspeed="30.00" length="110.87" shape="1512.37,8.25 1401.50,8.25"/>
+      <lane id="s2-AddedOnRampEdge_2" depart="0" maxspeed="30.00" length="110.87" shape="1512.37,4.95 1401.50,4.95"/>
+      <lane id="s2-AddedOnRampEdge_3" depart="0" maxspeed="30.00" length="110.87" shape="1512.37,1.65 1401.50,1.65"/>
    </edge>
    <edge id="s3" from="3" to="s3-AddedOffRampNode" priority="-1" type="" function="normal">
-      <lanes>
-         <lane id="s3_0" depart="1" maxspeed="30.00" length="398.50" shape="1000.00,8.25 601.50,8.25"/>
-         <lane id="s3_1" depart="0" maxspeed="30.00" length="398.50" shape="1000.00,4.95 601.50,4.95"/>
-         <lane id="s3_2" depart="0" maxspeed="30.00" length="398.50" shape="1000.00,1.65 601.50,1.65"/>
-      </lanes>
+      <lane id="s3_0" depart="1" maxspeed="30.00" length="398.50" shape="1000.00,8.25 601.50,8.25"/>
+      <lane id="s3_1" depart="0" maxspeed="30.00" length="398.50" shape="1000.00,4.95 601.50,4.95"/>
+      <lane id="s3_2" depart="0" maxspeed="30.00" length="398.50" shape="1000.00,1.65 601.50,1.65"/>
    </edge>
    <edge id="s3-AddedOffRampEdge" from="s3-AddedOffRampNode" to="2" priority="-1" type="" function="normal">
-      <lanes>
-         <lane id="s3-AddedOffRampEdge_0" depart="1" maxspeed="30.00" length="110.87" shape="598.50,11.55 487.63,11.55"/>
-         <lane id="s3-AddedOffRampEdge_1" depart="0" maxspeed="30.00" length="110.87" shape="598.50,8.25 487.63,8.25"/>
-         <lane id="s3-AddedOffRampEdge_2" depart="0" maxspeed="30.00" length="110.87" shape="598.50,4.95 487.63,4.95"/>
-         <lane id="s3-AddedOffRampEdge_3" depart="0" maxspeed="30.00" length="110.87" shape="598.50,1.65 487.63,1.65"/>
-      </lanes>
+      <lane id="s3-AddedOffRampEdge_0" depart="1" maxspeed="30.00" length="110.87" shape="598.50,11.55 487.63,11.55"/>
+      <lane id="s3-AddedOffRampEdge_1" depart="0" maxspeed="30.00" length="110.87" shape="598.50,8.25 487.63,8.25"/>
+      <lane id="s3-AddedOffRampEdge_2" depart="0" maxspeed="30.00" length="110.87" shape="598.50,4.95 487.63,4.95"/>
+      <lane id="s3-AddedOffRampEdge_3" depart="0" maxspeed="30.00" length="110.87" shape="598.50,1.65 487.63,1.65"/>
    </edge>
    <edge id="s4" from="2" to="1" priority="-1" type="" function="normal">
-      <lanes>
-         <lane id="s4_0" depart="1" maxspeed="30.00" length="483.82" shape="483.82,8.25 0.00,8.25"/>
-         <lane id="s4_1" depart="0" maxspeed="30.00" length="483.82" shape="483.82,4.95 0.00,4.95"/>
-         <lane id="s4_2" depart="0" maxspeed="30.00" length="483.82" shape="483.82,1.65 0.00,1.65"/>
-      </lanes>
+      <lane id="s4_0" depart="1" maxspeed="30.00" length="483.82" shape="483.82,8.25 0.00,8.25"/>
+      <lane id="s4_1" depart="0" maxspeed="30.00" length="483.82" shape="483.82,4.95 0.00,4.95"/>
+      <lane id="s4_2" depart="0" maxspeed="30.00" length="483.82" shape="483.82,1.65 0.00,1.65"/>
    </edge>
 
    <row-logic id="2" requestSize="4" laneNumber="4">
-      <logic>
-         <logicitem request="0" response="0000" foes="0000"/>
-         <logicitem request="1" response="0000" foes="0000"/>
-         <logicitem request="2" response="0000" foes="0000"/>
-         <logicitem request="3" response="0000" foes="0000"/>
-      </logic>
+      <logicitem request="0" response="0000" foes="0000"/>
+      <logicitem request="1" response="0000" foes="0000"/>
+      <logicitem request="2" response="0000" foes="0000"/>
+      <logicitem request="3" response="0000" foes="0000"/>
    </row-logic>
    <row-logic id="3" requestSize="3" laneNumber="3">
-      <logic>
-         <logicitem request="0" response="000" foes="000"/>
-         <logicitem request="1" response="000" foes="000"/>
-         <logicitem request="2" response="000" foes="000"/>
-      </logic>
+      <logicitem request="0" response="000" foes="000"/>
+      <logicitem request="1" response="000" foes="000"/>
+      <logicitem request="2" response="000" foes="000"/>
    </row-logic>
    <row-logic id="4" requestSize="4" laneNumber="4">
-      <logic>
-         <logicitem request="0" response="0000" foes="1110"/>
-         <logicitem request="1" response="0000" foes="0001"/>
-         <logicitem request="2" response="0000" foes="0001"/>
-         <logicitem request="3" response="0000" foes="0001"/>
-      </logic>
+      <logicitem request="0" response="0000" foes="1110"/>
+      <logicitem request="1" response="0000" foes="0001"/>
+      <logicitem request="2" response="0000" foes="0001"/>
+      <logicitem request="3" response="0000" foes="0001"/>
    </row-logic>
    <row-logic id="s2-AddedOnRampNode" requestSize="4" laneNumber="4">
-      <logic>
-         <logicitem request="0" response="1111" foes="0000"/>
-         <logicitem request="1" response="0000" foes="0000"/>
-         <logicitem request="2" response="0000" foes="0000"/>
-         <logicitem request="3" response="0000" foes="0000"/>
-      </logic>
+      <logicitem request="0" response="1111" foes="0000"/>
+      <logicitem request="1" response="0000" foes="0000"/>
+      <logicitem request="2" response="0000" foes="0000"/>
+      <logicitem request="3" response="0000" foes="0000"/>
    </row-logic>
    <row-logic id="s3-AddedOffRampNode" requestSize="4" laneNumber="3">
-      <logic>
-         <logicitem request="0" response="0000" foes="0000"/>
-         <logicitem request="1" response="0000" foes="0000"/>
-         <logicitem request="2" response="0000" foes="0000"/>
-         <logicitem request="3" response="0000" foes="0000"/>
-      </logic>
+      <logicitem request="0" response="0000" foes="0000"/>
+      <logicitem request="1" response="0000" foes="0000"/>
+      <logicitem request="2" response="0000" foes="0000"/>
+      <logicitem request="3" response="0000" foes="0000"/>
    </row-logic>
 
    <junction id="1" type="DEAD_END" x="0.00" y="0.00" incLanes="s4_0 s4_1 s4_2" intLanes="" shape="-0.00,9.85 -0.00,0.05"/>

@@ -31,149 +31,95 @@
    <location netOffset="0.00,0.00" convBoundary="-30.00,0.00,30.00,30.00" origBoundary="-30.00,0.00,30.00,30.00" projParameter="!"/>
 
    <edge id=":node_centertl_0" function="internal">
-      <lanes>
-         <lane id=":node_centertl_0_0" depart="0" maxspeed="10.00" length="5.00" shape="-1.65,4.75 -1.84,3.39 -2.42,2.43 -3.39,1.84 -4.75,1.65"/>
-      </lanes>
+      <lane id=":node_centertl_0_0" depart="0" maxspeed="10.00" length="5.00" shape="-1.65,4.75 -1.84,3.39 -2.42,2.43 -3.39,1.84 -4.75,1.65"/>
    </edge>
    <edge id=":node_centertl_1" function="internal">
-      <lanes>
-         <lane id=":node_centertl_1_0" depart="0" maxspeed="10.00" length="3.18" shape="-1.65,4.75 -0.23,0.25"/>
-      </lanes>
+      <lane id=":node_centertl_1_0" depart="0" maxspeed="10.00" length="3.18" shape="-1.65,4.75 -0.23,0.25"/>
    </edge>
    <edge id=":node_centertl_9" function="internal">
-      <lanes>
-         <lane id=":node_centertl_9_0" depart="0" maxspeed="10.00" length="7.14" shape="-0.23,0.25 -0.05,-0.05 1.95,-1.25 4.75,-1.65"/>
-      </lanes>
+      <lane id=":node_centertl_9_0" depart="0" maxspeed="10.00" length="7.14" shape="-0.23,0.25 -0.05,-0.05 1.95,-1.25 4.75,-1.65"/>
    </edge>
    <edge id=":node_centertl_2" function="internal">
-      <lanes>
-         <lane id=":node_centertl_2_0" depart="0" maxspeed="10.00" length="0.10" shape="-1.65,4.75 -0.88,3.60"/>
-      </lanes>
+      <lane id=":node_centertl_2_0" depart="0" maxspeed="10.00" length="0.10" shape="-1.65,4.75 -0.88,3.60"/>
    </edge>
    <edge id=":node_centertl_10" function="internal">
-      <lanes>
-         <lane id=":node_centertl_10_0" depart="0" maxspeed="10.00" length="4.72" shape="-0.88,3.60 -0.83,3.51 -0.00,3.10 0.82,3.51 1.65,4.75"/>
-      </lanes>
+      <lane id=":node_centertl_10_0" depart="0" maxspeed="10.00" length="4.72" shape="-0.88,3.60 -0.83,3.51 -0.00,3.10 0.82,3.51 1.65,4.75"/>
    </edge>
    <edge id=":node_centertl_3" function="internal">
-      <lanes>
-         <lane id=":node_centertl_3_0" depart="0" maxspeed="10.00" length="5.00" shape="4.75,1.65 3.39,1.84 2.43,2.42 1.84,3.39 1.65,4.75"/>
-      </lanes>
+      <lane id=":node_centertl_3_0" depart="0" maxspeed="10.00" length="5.00" shape="4.75,1.65 3.39,1.84 2.43,2.42 1.84,3.39 1.65,4.75"/>
    </edge>
    <edge id=":node_centertl_4" function="internal">
-      <lanes>
-         <lane id=":node_centertl_4_0" depart="0" maxspeed="10.00" length="9.50" shape="4.75,1.65 -4.75,1.65"/>
-      </lanes>
+      <lane id=":node_centertl_4_0" depart="0" maxspeed="10.00" length="9.50" shape="4.75,1.65 -4.75,1.65"/>
    </edge>
    <edge id=":node_centertl_5" function="internal">
-      <lanes>
-         <lane id=":node_centertl_5_0" depart="0" maxspeed="10.00" length="0.10" shape="4.75,1.65 3.60,0.88"/>
-      </lanes>
+      <lane id=":node_centertl_5_0" depart="0" maxspeed="10.00" length="0.10" shape="4.75,1.65 3.60,0.88"/>
    </edge>
    <edge id=":node_centertl_11" function="internal">
-      <lanes>
-         <lane id=":node_centertl_11_0" depart="0" maxspeed="10.00" length="4.72" shape="3.60,0.88 3.51,0.83 3.10,0.00 3.51,-0.82 4.75,-1.65"/>
-      </lanes>
+      <lane id=":node_centertl_11_0" depart="0" maxspeed="10.00" length="4.72" shape="3.60,0.88 3.51,0.83 3.10,0.00 3.51,-0.82 4.75,-1.65"/>
    </edge>
    <edge id=":node_centertl_6" function="internal">
-      <lanes>
-         <lane id=":node_centertl_6_0" depart="0" maxspeed="10.00" length="9.50" shape="-4.75,-1.65 4.75,-1.65"/>
-      </lanes>
+      <lane id=":node_centertl_6_0" depart="0" maxspeed="10.00" length="9.50" shape="-4.75,-1.65 4.75,-1.65"/>
    </edge>
    <edge id=":node_centertl_7" function="internal">
-      <lanes>
-         <lane id=":node_centertl_7_0" depart="0" maxspeed="10.00" length="7.14" shape="-4.75,-1.65 -1.95,-1.25 0.23,0.25"/>
-      </lanes>
+      <lane id=":node_centertl_7_0" depart="0" maxspeed="10.00" length="7.14" shape="-4.75,-1.65 -1.95,-1.25 0.23,0.25"/>
    </edge>
    <edge id=":node_centertl_12" function="internal">
-      <lanes>
-         <lane id=":node_centertl_12_0" depart="0" maxspeed="10.00" length="3.18" shape="0.23,0.25 1.25,1.95 1.65,4.75"/>
-      </lanes>
+      <lane id=":node_centertl_12_0" depart="0" maxspeed="10.00" length="3.18" shape="0.23,0.25 1.25,1.95 1.65,4.75"/>
    </edge>
    <edge id=":node_centertl_8" function="internal">
-      <lanes>
-         <lane id=":node_centertl_8_0" depart="0" maxspeed="10.00" length="0.10" shape="-4.75,-1.65 -3.60,-0.88"/>
-      </lanes>
+      <lane id=":node_centertl_8_0" depart="0" maxspeed="10.00" length="0.10" shape="-4.75,-1.65 -3.60,-0.88"/>
    </edge>
    <edge id=":node_centertl_13" function="internal">
-      <lanes>
-         <lane id=":node_centertl_13_0" depart="0" maxspeed="10.00" length="4.72" shape="-3.60,-0.88 -3.51,-0.83 -3.10,-0.00 -3.51,0.82 -4.75,1.65"/>
-      </lanes>
+      <lane id=":node_centertl_13_0" depart="0" maxspeed="10.00" length="4.72" shape="-3.60,-0.88 -3.51,-0.83 -3.10,-0.00 -3.51,0.82 -4.75,1.65"/>
    </edge>
    <edge id=":node_left_0" function="internal">
-      <lanes>
-         <lane id=":node_left_0_0" depart="0" maxspeed="10.00" length="4.82" shape="-30.00,1.65 -31.24,0.83 -31.65,0.00 -31.24,-0.82 -30.00,-1.65"/>
-      </lanes>
+      <lane id=":node_left_0_0" depart="0" maxspeed="10.00" length="4.82" shape="-30.00,1.65 -31.24,0.83 -31.65,0.00 -31.24,-0.82 -30.00,-1.65"/>
    </edge>
    <edge id=":node_right_0" function="internal">
-      <lanes>
-         <lane id=":node_right_0_0" depart="0" maxspeed="10.00" length="4.82" shape="30.00,-1.65 31.24,-0.83 31.65,-0.00 31.24,0.82 30.00,1.65"/>
-      </lanes>
+      <lane id=":node_right_0_0" depart="0" maxspeed="10.00" length="4.82" shape="30.00,-1.65 31.24,-0.83 31.65,-0.00 31.24,0.82 30.00,1.65"/>
    </edge>
    <edge id=":node_up_0" function="internal">
-      <lanes>
-         <lane id=":node_up_0_0" depart="0" maxspeed="10.00" length="4.82" shape="1.65,30.00 0.83,31.24 0.00,31.65 -0.82,31.24 -1.65,30.00"/>
-      </lanes>
+      <lane id=":node_up_0_0" depart="0" maxspeed="10.00" length="4.82" shape="1.65,30.00 0.83,31.24 0.00,31.65 -0.82,31.24 -1.65,30.00"/>
    </edge>
 
    <edge id="-edge_left" from="node_centertl" to="node_left" priority="2" type="" function="normal">
-      <lanes>
-         <lane id="-edge_left_0" depart="1" maxspeed="10.00" length="25.25" shape="-4.75,1.65 -30.00,1.65"/>
-      </lanes>
+      <lane id="-edge_left_0" depart="1" maxspeed="10.00" length="25.25" shape="-4.75,1.65 -30.00,1.65"/>
    </edge>
    <edge id="-edge_right" from="node_centertl" to="node_right" priority="2" type="" function="normal">
-      <lanes>
-         <lane id="-edge_right_0" depart="1" maxspeed="10.00" length="25.25" shape="4.75,-1.65 30.00,-1.65"/>
-      </lanes>
+      <lane id="-edge_right_0" depart="1" maxspeed="10.00" length="25.25" shape="4.75,-1.65 30.00,-1.65"/>
    </edge>
    <edge id="-edge_up" from="node_centertl" to="node_up" priority="2" type="" function="normal">
-      <lanes>
-         <lane id="-edge_up_0" depart="1" maxspeed="10.00" length="25.25" shape="1.65,4.75 1.65,30.00"/>
-      </lanes>
+      <lane id="-edge_up_0" depart="1" maxspeed="10.00" length="25.25" shape="1.65,4.75 1.65,30.00"/>
    </edge>
    <edge id="edge_left" from="node_left" to="node_centertl" priority="2" type="" function="normal">
-      <lanes>
-         <lane id="edge_left_0" depart="1" maxspeed="10.00" length="25.25" shape="-30.00,-1.65 -4.75,-1.65"/>
-      </lanes>
+      <lane id="edge_left_0" depart="1" maxspeed="10.00" length="25.25" shape="-30.00,-1.65 -4.75,-1.65"/>
    </edge>
    <edge id="edge_right" from="node_right" to="node_centertl" priority="2" type="" function="normal">
-      <lanes>
-         <lane id="edge_right_0" depart="1" maxspeed="10.00" length="25.25" shape="30.00,1.65 4.75,1.65"/>
-      </lanes>
+      <lane id="edge_right_0" depart="1" maxspeed="10.00" length="25.25" shape="30.00,1.65 4.75,1.65"/>
    </edge>
    <edge id="edge_up" from="node_up" to="node_centertl" priority="2" type="" function="normal">
-      <lanes>
-         <lane id="edge_up_0" depart="1" maxspeed="10.00" length="25.25" shape="-1.65,30.00 -1.65,4.75"/>
-      </lanes>
+      <lane id="edge_up_0" depart="1" maxspeed="10.00" length="25.25" shape="-1.65,30.00 -1.65,4.75"/>
    </edge>
 
    <row-logic id="node_centertl" requestSize="9" laneNumber="3">
-      <logic>
-         <logicitem request="0" response="000010000" foes="100010000" cont="0"/>
-         <logicitem request="1" response="011010000" foes="011110000" cont="1"/>
-         <logicitem request="2" response="010001000" foes="010001000" cont="1"/>
-         <logicitem request="3" response="000000000" foes="010000100" cont="0"/>
-         <logicitem request="4" response="000000000" foes="110000011" cont="0"/>
-         <logicitem request="5" response="001000010" foes="001000010" cont="1"/>
-         <logicitem request="6" response="000000000" foes="000100010" cont="0"/>
-         <logicitem request="7" response="000011000" foes="000011110" cont="1"/>
-         <logicitem request="8" response="000010001" foes="000010001" cont="1"/>
-      </logic>
+      <logicitem request="0" response="000010000" foes="100010000" cont="0"/>
+      <logicitem request="1" response="011010000" foes="011110000" cont="1"/>
+      <logicitem request="2" response="010001000" foes="010001000" cont="1"/>
+      <logicitem request="3" response="000000000" foes="010000100" cont="0"/>
+      <logicitem request="4" response="000000000" foes="110000011" cont="0"/>
+      <logicitem request="5" response="001000010" foes="001000010" cont="1"/>
+      <logicitem request="6" response="000000000" foes="000100010" cont="0"/>
+      <logicitem request="7" response="000011000" foes="000011110" cont="1"/>
+      <logicitem request="8" response="000010001" foes="000010001" cont="1"/>
    </row-logic>
    <row-logic id="node_left" requestSize="1" laneNumber="1">
-      <logic>
-         <logicitem request="0" response="0" foes="0" cont="0"/>
-      </logic>
+      <logicitem request="0" response="0" foes="0" cont="0"/>
    </row-logic>
    <row-logic id="node_right" requestSize="1" laneNumber="1">
-      <logic>
-         <logicitem request="0" response="0" foes="0" cont="0"/>
-      </logic>
+      <logicitem request="0" response="0" foes="0" cont="0"/>
    </row-logic>
    <row-logic id="node_up" requestSize="1" laneNumber="1">
-      <logic>
-         <logicitem request="0" response="0" foes="0" cont="0"/>
-      </logic>
+      <logicitem request="0" response="0" foes="0" cont="0"/>
    </row-logic>
 
    <tl-logic id="node_centertl" type="static" programID="0" offset="0">

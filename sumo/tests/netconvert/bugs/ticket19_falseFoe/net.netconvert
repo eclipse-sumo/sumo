@@ -22,128 +22,82 @@
    <location netOffset="-51303.08,-53830.21" convBoundary="0.00,0.00,224.35,423.85" origBoundary="51303.08,53830.21,51527.43,54254.06" projParameter="!"/>
 
    <edge id=":6365_0" function="internal">
-      <lanes>
-         <lane id=":6365_0_0" depart="0" maxspeed="13.90" length="5.03" shape="151.64,251.36 150.26,251.42 149.24,251.90 148.58,252.82 148.28,254.18"/>
-      </lanes>
+      <lane id=":6365_0_0" depart="0" maxspeed="13.90" length="5.03" shape="151.64,251.36 150.26,251.42 149.24,251.90 148.58,252.82 148.28,254.18"/>
    </edge>
    <edge id=":6365_1" function="internal">
-      <lanes>
-         <lane id=":6365_1_0" depart="0" maxspeed="13.90" length="3.18" shape="151.64,251.36 147.23,249.78"/>
-      </lanes>
+      <lane id=":6365_1_0" depart="0" maxspeed="13.90" length="3.18" shape="151.64,251.36 147.23,249.78"/>
    </edge>
    <edge id=":6365_8" function="internal">
-      <lanes>
-         <lane id=":6365_8_0" depart="0" maxspeed="13.90" length="6.17" shape="147.23,249.78 146.94,249.60 145.87,247.90 145.66,245.65"/>
-      </lanes>
+      <lane id=":6365_8_0" depart="0" maxspeed="13.90" length="6.17" shape="147.23,249.78 146.94,249.60 145.87,247.90 145.66,245.65"/>
    </edge>
    <edge id=":6365_2" function="internal">
-      <lanes>
-         <lane id=":6365_2_0" depart="0" maxspeed="13.90" length="8.27" shape="148.95,245.94 148.28,254.18"/>
-      </lanes>
+      <lane id=":6365_2_0" depart="0" maxspeed="13.90" length="8.27" shape="148.95,245.94 148.28,254.18"/>
    </edge>
    <edge id=":6365_3" function="internal">
-      <lanes>
-         <lane id=":6365_3_0" depart="0" maxspeed="13.90" length="0.10" shape="148.95,245.94 148.08,247.02"/>
-      </lanes>
+      <lane id=":6365_3_0" depart="0" maxspeed="13.90" length="0.10" shape="148.95,245.94 148.08,247.02"/>
    </edge>
    <edge id=":6365_9" function="internal">
-      <lanes>
-         <lane id=":6365_9_0" depart="0" maxspeed="13.90" length="4.72" shape="148.08,247.02 148.02,247.10 147.16,247.44 146.38,246.96 145.66,245.65"/>
-      </lanes>
+      <lane id=":6365_9_0" depart="0" maxspeed="13.90" length="4.72" shape="148.08,247.02 148.02,247.10 147.16,247.44 146.38,246.96 145.66,245.65"/>
    </edge>
    <edge id=":6365_4" function="internal">
-      <lanes>
-         <lane id=":6365_4_0" depart="0" maxspeed="13.90" length="5.22" shape="141.76,247.60 143.37,247.89 144.56,247.66 145.32,246.92 145.66,245.65"/>
-      </lanes>
+      <lane id=":6365_4_0" depart="0" maxspeed="13.90" length="5.22" shape="141.76,247.60 143.37,247.89 144.56,247.66 145.32,246.92 145.66,245.65"/>
    </edge>
    <edge id=":6365_5" function="internal">
-      <lanes>
-         <lane id=":6365_5_0" depart="0" maxspeed="13.90" length="3.98" shape="141.76,247.60 146.19,249.83"/>
-      </lanes>
+      <lane id=":6365_5_0" depart="0" maxspeed="13.90" length="3.98" shape="141.76,247.60 146.19,249.83"/>
    </edge>
    <edge id=":6365_10" function="internal">
-      <lanes>
-         <lane id=":6365_10_0" depart="0" maxspeed="13.90" length="6.05" shape="146.19,249.83 146.82,250.28 148.00,252.08 148.28,254.18"/>
-      </lanes>
+      <lane id=":6365_10_0" depart="0" maxspeed="13.90" length="6.05" shape="146.19,249.83 146.82,250.28 148.00,252.08 148.28,254.18"/>
    </edge>
    <edge id=":6365_6" function="internal">
-      <lanes>
-         <lane id=":6365_6_0" depart="0" maxspeed="13.90" length="8.31" shape="144.99,253.93 145.66,245.65"/>
-      </lanes>
+      <lane id=":6365_6_0" depart="0" maxspeed="13.90" length="8.31" shape="144.99,253.93 145.66,245.65"/>
    </edge>
    <edge id=":6365_7" function="internal">
-      <lanes>
-         <lane id=":6365_7_0" depart="0" maxspeed="13.90" length="0.10" shape="144.99,253.93 145.84,252.84"/>
-      </lanes>
+      <lane id=":6365_7_0" depart="0" maxspeed="13.90" length="0.10" shape="144.99,253.93 145.84,252.84"/>
    </edge>
    <edge id=":6365_11" function="internal">
-      <lanes>
-         <lane id=":6365_11_0" depart="0" maxspeed="13.90" length="4.72" shape="145.84,252.84 145.90,252.76 146.76,252.41 147.55,252.88 148.28,254.18"/>
-      </lanes>
+      <lane id=":6365_11_0" depart="0" maxspeed="13.90" length="4.72" shape="145.84,252.84 145.90,252.76 146.76,252.41 147.55,252.88 148.28,254.18"/>
    </edge>
    <edge id=":6454_0" function="internal">
-      <lanes>
-         <lane id=":6454_0_0" depart="0" maxspeed="13.90" length="4.82" shape="157.38,109.12 158.30,107.96 159.16,107.62 159.95,108.10 160.66,109.40"/>
-      </lanes>
+      <lane id=":6454_0_0" depart="0" maxspeed="13.90" length="4.82" shape="157.38,109.12 158.30,107.96 159.16,107.62 159.95,108.10 160.66,109.40"/>
    </edge>
    <edge id=":6562_0" function="internal">
-      <lanes>
-         <lane id=":6562_0_0" depart="0" maxspeed="13.90" length="4.82" shape="135.66,423.97 134.74,425.15 133.89,425.50 133.10,425.02 132.36,423.73"/>
-      </lanes>
+      <lane id=":6562_0_0" depart="0" maxspeed="13.90" length="4.82" shape="135.66,423.97 134.74,425.15 133.89,425.50 133.10,425.02 132.36,423.73"/>
    </edge>
 
    <edge id="-1570" from="6366" to="6365" priority="-1" type="" function="normal">
-      <lanes>
-         <lane id="-1570_0" depart="1" maxspeed="13.90" length="292.14" shape="0.00,0.00 1.75,1.30 2.23,7.92 121.83,241.60 141.76,247.60"/>
-      </lanes>
+      <lane id="-1570_0" depart="1" maxspeed="13.90" length="292.14" shape="0.00,0.00 1.75,1.30 2.23,7.92 121.83,241.60 141.76,247.60"/>
    </edge>
    <edge id="-1839" from="6454" to="6365" priority="-1" type="" function="normal">
-      <lanes>
-         <lane id="-1839_0" depart="1" maxspeed="13.90" length="137.04" shape="160.66,109.40 148.95,245.94"/>
-      </lanes>
+      <lane id="-1839_0" depart="1" maxspeed="13.90" length="137.04" shape="160.66,109.40 148.95,245.94"/>
    </edge>
    <edge id="-1841" from="6365" to="6562" priority="-1" type="" function="normal">
-      <lanes>
-         <lane id="-1841_0" depart="1" maxspeed="13.90" length="170.26" shape="148.28,254.18 135.66,423.97"/>
-      </lanes>
+      <lane id="-1841_0" depart="1" maxspeed="13.90" length="170.26" shape="148.28,254.18 135.66,423.97"/>
    </edge>
    <edge id="1816" from="6564" to="6365" priority="-1" type="" function="normal">
-      <lanes>
-         <lane id="1816_0" depart="1" maxspeed="13.90" length="79.16" shape="224.35,221.05 220.91,224.24 162.04,248.16 154.71,250.79 152.01,251.40 151.64,251.36"/>
-      </lanes>
+      <lane id="1816_0" depart="1" maxspeed="13.90" length="79.16" shape="224.35,221.05 220.91,224.24 162.04,248.16 154.71,250.79 152.01,251.40 151.64,251.36"/>
    </edge>
    <edge id="1839" from="6365" to="6454" priority="-1" type="" function="normal">
-      <lanes>
-         <lane id="1839_0" depart="1" maxspeed="13.90" length="137.04" shape="145.66,245.65 157.38,109.12"/>
-      </lanes>
+      <lane id="1839_0" depart="1" maxspeed="13.90" length="137.04" shape="145.66,245.65 157.38,109.12"/>
    </edge>
    <edge id="1841" from="6562" to="6365" priority="-1" type="" function="normal">
-      <lanes>
-         <lane id="1841_0" depart="1" maxspeed="13.90" length="170.26" shape="132.36,423.73 144.99,253.93"/>
-      </lanes>
+      <lane id="1841_0" depart="1" maxspeed="13.90" length="170.26" shape="132.36,423.73 144.99,253.93"/>
    </edge>
 
    <row-logic id="6365" requestSize="8" laneNumber="4">
-      <logic>
-         <logicitem request="0" response="00000100" foes="10100100" cont="0"/>
-         <logicitem request="1" response="01010100" foes="01011100" cont="1"/>
-         <logicitem request="2" response="00000000" foes="10100011" cont="0"/>
-         <logicitem request="3" response="01010010" foes="01010010" cont="1"/>
-         <logicitem request="4" response="01000000" foes="01001010" cont="0"/>
-         <logicitem request="5" response="01000101" foes="11000101" cont="1"/>
-         <logicitem request="6" response="00000000" foes="00111010" cont="0"/>
-         <logicitem request="7" response="00100101" foes="00100101" cont="1"/>
-      </logic>
+      <logicitem request="0" response="00000100" foes="10100100" cont="0"/>
+      <logicitem request="1" response="01010100" foes="01011100" cont="1"/>
+      <logicitem request="2" response="00000000" foes="10100011" cont="0"/>
+      <logicitem request="3" response="01010010" foes="01010010" cont="1"/>
+      <logicitem request="4" response="01000000" foes="01001010" cont="0"/>
+      <logicitem request="5" response="01000101" foes="11000101" cont="1"/>
+      <logicitem request="6" response="00000000" foes="00111010" cont="0"/>
+      <logicitem request="7" response="00100101" foes="00100101" cont="1"/>
    </row-logic>
    <row-logic id="6454" requestSize="1" laneNumber="1">
-      <logic>
-         <logicitem request="0" response="0" foes="0" cont="0"/>
-      </logic>
+      <logicitem request="0" response="0" foes="0" cont="0"/>
    </row-logic>
    <row-logic id="6562" requestSize="1" laneNumber="1">
-      <logic>
-         <logicitem request="0" response="0" foes="0" cont="0"/>
-      </logic>
+      <logicitem request="0" response="0" foes="0" cont="0"/>
    </row-logic>
 
    <tl-logic id="6365" type="static" programID="0" offset="0">
