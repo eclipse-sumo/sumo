@@ -1,88 +1,61 @@
 <net>
 
-   <node_count>10</node_count>
-
+   <node_count>
+   </node_count>
 
    <edge id="beg" from="absBeg" to="beg" function="normal">
-      <lanes>
-         <lane id="beg_0" depart="1" maxspeed="27.80" length="502.25" shape="-5.25,14.75 498.75,14.75"/>
-         <lane id="beg_1" depart="0" maxspeed="27.80" length="502.25" shape="-1.75,18.25 498.75,18.25"/>
-      </lanes>
+      <lane id="beg_0" depart="1" maxspeed="27.80" length="502.25" shape="-5.25,14.75 498.75,14.75"/>
+      <lane id="beg_1" depart="0" maxspeed="27.80" length="502.25" shape="-1.75,18.25 498.75,18.25"/>
    </edge>
 
    <edge id="beg2left" from="beg" to="begleft" function="normal">
-      <lanes>
-         <lane id="beg2left_0" depart="1" maxspeed="27.80" length="495.50" shape="501.75,21.25 501.75,516.75"/>
-      </lanes>
+      <lane id="beg2left_0" depart="1" maxspeed="27.80" length="495.50" shape="501.75,21.25 501.75,516.75"/>
    </edge>
 
    <edge id="end" from="end" to="absEnd" function="normal">
-      <lanes>
-         <lane id="end_0" depart="1" maxspeed="27.80" length="498.75" shape="1501.25,14.75 2000.00,14.75"/>
-         <lane id="end_1" depart="0" maxspeed="27.80" length="498.75" shape="1501.25,18.25 2000.00,18.25"/>
-      </lanes>
+      <lane id="end_0" depart="1" maxspeed="27.80" length="498.75" shape="1501.25,14.75 2000.00,14.75"/>
+      <lane id="end_1" depart="0" maxspeed="27.80" length="498.75" shape="1501.25,18.25 2000.00,18.25"/>
    </edge>
 
    <edge id="left" from="begleft" to="endleft" function="normal">
-      <lanes>
-         <lane id="left_0" depart="1" maxspeed="27.80" length="993.50" shape="503.25,518.25 1496.75,518.25"/>
-      </lanes>
+      <lane id="left_0" depart="1" maxspeed="27.80" length="993.50" shape="503.25,518.25 1496.75,518.25"/>
    </edge>
 
    <edge id="left2end" from="endleft" to="end" function="normal">
-      <lanes>
-         <lane id="left2end_0" depart="1" maxspeed="27.80" length="495.50" shape="1498.25,516.75 1498.25,21.25"/>
-      </lanes>
+      <lane id="left2end_0" depart="1" maxspeed="27.80" length="495.50" shape="1498.25,516.75 1498.25,21.25"/>
    </edge>
 
    <edge id="middle" from="beg" to="end" function="normal">
-      <lanes>
-         <lane id="middle_0" depart="1" maxspeed="13.90" length="990.50" shape="504.75,18.25 1495.25,18.25"/>
-      </lanes>
+      <lane id="middle_0" depart="1" maxspeed="13.90" length="990.50" shape="504.75,18.25 1495.25,18.25"/>
    </edge>
 
    <edge id="rend" from="absEnd" to="rabsEnd" function="normal">
-      <lanes>
-         <lane id="rend_0" depart="1" maxspeed="27.80" length="496.50" shape="2000.00,14.75 2494.75,14.75"/>
-         <lane id="rend_1" depart="0" maxspeed="27.80" length="496.50" shape="2000.00,18.25 2498.25,18.25"/>
-      </lanes>
+      <lane id="rend_0" depart="1" maxspeed="27.80" length="496.50" shape="2000.00,14.75 2494.75,14.75"/>
+      <lane id="rend_1" depart="0" maxspeed="27.80" length="496.50" shape="2000.00,18.25 2498.25,18.25"/>
    </edge>
 
-
    <row-logic id="absEnd" requestSize="2" laneNumber="2">
-      <logic>
-         <logicitem request="0" response="00" foes="00"/>
-         <logicitem request="1" response="00" foes="00"/>
-      </logic>
+      <logicitem request="0" response="00" foes="00"/>
+      <logicitem request="1" response="00" foes="00"/>
    </row-logic>
 
    <row-logic id="beg" requestSize="2" laneNumber="2">
-      <logic>
-         <logicitem request="0" response="00" foes="00"/>
-         <logicitem request="1" response="00" foes="00"/>
-      </logic>
+      <logicitem request="0" response="00" foes="00"/>
+      <logicitem request="1" response="00" foes="00"/>
    </row-logic>
 
    <row-logic id="begleft" requestSize="1" laneNumber="1">
-      <logic>
-         <logicitem request="0" response="0" foes="0"/>
-      </logic>
+      <logicitem request="0" response="0" foes="0"/>
    </row-logic>
 
    <row-logic id="end" requestSize="2" laneNumber="2">
-      <logic>
-         <logicitem request="0" response="00" foes="10"/>
-         <logicitem request="1" response="00" foes="01"/>
-      </logic>
+      <logicitem request="0" response="00" foes="10"/>
+      <logicitem request="1" response="00" foes="01"/>
    </row-logic>
 
    <row-logic id="endleft" requestSize="1" laneNumber="1">
-      <logic>
-         <logicitem request="0" response="0" foes="0"/>
-      </logic>
+      <logicitem request="0" response="0" foes="0"/>
    </row-logic>
-
-
 
    <junction id="absBeg" type="DEAD_END" x="0.00" y="20.00" incLanes="" intLanes="" shape="-0.25,19.75 -6.75,13.25"/>
 
@@ -103,7 +76,6 @@
    <junction id="midmin" type="DEAD_END" x="1000.00" y="0.00" incLanes="" intLanes="" shape=""/>
 
    <junction id="rabsEnd" type="DEAD_END" x="2500.00" y="20.00" incLanes="rend_0 rend_1" intLanes="" shape="2493.25,13.25 2499.75,19.75"/>
-
 
    <succ edge="beg" lane="beg_0" junction="beg">
       <succlane lane="middle_0" via=":beg_0_0" yield="0" dir="s" state="M"/>
@@ -144,6 +116,5 @@
    <succ edge="rend" lane="rend_1" junction="rabsEnd">
       <succlane lane="SUMO_NO_DESTINATION" yield="1" dir="s" state="O"/>
    </succ>
-
 
 </net>

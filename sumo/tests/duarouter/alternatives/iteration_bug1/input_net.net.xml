@@ -2,499 +2,392 @@
 
    <location netOffset="1000.000000,500.000000" convBoundary="0.000000,0.000000,3000.000000,3000.000000" origBoundary="-1000.000000,-500.000000,2000.000000,2500.000000" projParameter="!"/>
 
-   <node_count>20</node_count>
-
+   <node_count>
+   </node_count>
 
    <edge id="L1" from="91" to="11" priority="2" type="b" function="normal">
-      <lanes>
-         <lane id="L1_0" depart="1" maxspeed="11.11" length="300.00" shape="0.00,1991.75 300.00,1991.75"/>
-         <lane id="L1_1" depart="0" maxspeed="11.11" length="300.00" shape="0.00,1995.05 300.00,1995.05"/>
-         <lane id="L1_2" depart="0" maxspeed="11.11" length="300.00" shape="0.00,1998.35 300.00,1998.35"/>
-      </lanes>
+      <lane id="L1_0" depart="1" maxspeed="11.11" length="300.00" shape="0.00,1991.75 300.00,1991.75"/>
+      <lane id="L1_1" depart="0" maxspeed="11.11" length="300.00" shape="0.00,1995.05 300.00,1995.05"/>
+      <lane id="L1_2" depart="0" maxspeed="11.11" length="300.00" shape="0.00,1998.35 300.00,1998.35"/>
    </edge>
 
    <edge id="L10" from="12" to="21" priority="3" type="a" function="normal">
-      <lanes>
-         <lane id="L10_0" depart="1" maxspeed="13.89" length="688.65" shape="300.00,991.75 988.65,991.75"/>
-         <lane id="L10_1" depart="0" maxspeed="13.89" length="688.65" shape="300.00,995.05 988.65,995.05"/>
-         <lane id="L10_2" depart="0" maxspeed="13.89" length="688.65" shape="300.00,998.35 988.65,998.35"/>
-      </lanes>
+      <lane id="L10_0" depart="1" maxspeed="13.89" length="688.65" shape="300.00,991.75 988.65,991.75"/>
+      <lane id="L10_1" depart="0" maxspeed="13.89" length="688.65" shape="300.00,995.05 988.65,995.05"/>
+      <lane id="L10_2" depart="0" maxspeed="13.89" length="688.65" shape="300.00,998.35 988.65,998.35"/>
    </edge>
 
    <edge id="L11" from="13" to="21" priority="3" type="a" function="normal">
-      <lanes>
-         <lane id="L11_0" depart="1" maxspeed="13.89" length="688.65" shape="1008.25,300.00 1008.25,988.65"/>
-         <lane id="L11_1" depart="0" maxspeed="13.89" length="688.65" shape="1004.95,300.00 1004.95,988.65"/>
-         <lane id="L11_2" depart="0" maxspeed="13.89" length="688.65" shape="1001.65,300.00 1001.65,988.65"/>
-      </lanes>
+      <lane id="L11_0" depart="1" maxspeed="13.89" length="688.65" shape="1008.25,300.00 1008.25,988.65"/>
+      <lane id="L11_1" depart="0" maxspeed="13.89" length="688.65" shape="1004.95,300.00 1004.95,988.65"/>
+      <lane id="L11_2" depart="0" maxspeed="13.89" length="688.65" shape="1001.65,300.00 1001.65,988.65"/>
    </edge>
 
    <edge id="L12" from="14" to="22" priority="3" type="a" function="normal">
-      <lanes>
-         <lane id="L12_0" depart="1" maxspeed="13.89" length="688.65" shape="2008.25,300.00 2008.25,988.65"/>
-         <lane id="L12_1" depart="0" maxspeed="13.89" length="688.65" shape="2004.95,300.00 2004.95,988.65"/>
-         <lane id="L12_2" depart="0" maxspeed="13.89" length="688.65" shape="2001.65,300.00 2001.65,988.65"/>
-      </lanes>
+      <lane id="L12_0" depart="1" maxspeed="13.89" length="688.65" shape="2008.25,300.00 2008.25,988.65"/>
+      <lane id="L12_1" depart="0" maxspeed="13.89" length="688.65" shape="2004.95,300.00 2004.95,988.65"/>
+      <lane id="L12_2" depart="0" maxspeed="13.89" length="688.65" shape="2001.65,300.00 2001.65,988.65"/>
    </edge>
 
    <edge id="L13" from="15" to="22" priority="3" type="a" function="normal">
-      <lanes>
-         <lane id="L13_0" depart="1" maxspeed="13.89" length="688.65" shape="2700.00,1008.25 2011.35,1008.25"/>
-         <lane id="L13_1" depart="0" maxspeed="13.89" length="688.65" shape="2700.00,1004.95 2011.35,1004.95"/>
-         <lane id="L13_2" depart="0" maxspeed="13.89" length="688.65" shape="2700.00,1001.65 2011.35,1001.65"/>
-      </lanes>
+      <lane id="L13_0" depart="1" maxspeed="13.89" length="688.65" shape="2700.00,1008.25 2011.35,1008.25"/>
+      <lane id="L13_1" depart="0" maxspeed="13.89" length="688.65" shape="2700.00,1004.95 2011.35,1004.95"/>
+      <lane id="L13_2" depart="0" maxspeed="13.89" length="688.65" shape="2700.00,1001.65 2011.35,1001.65"/>
    </edge>
 
    <edge id="L14" from="16" to="23" priority="3" type="a" function="normal">
-      <lanes>
-         <lane id="L14_0" depart="1" maxspeed="13.89" length="688.65" shape="2700.00,2008.25 2011.35,2008.25"/>
-         <lane id="L14_1" depart="0" maxspeed="13.89" length="688.65" shape="2700.00,2004.95 2011.35,2004.95"/>
-         <lane id="L14_2" depart="0" maxspeed="13.89" length="688.65" shape="2700.00,2001.65 2011.35,2001.65"/>
-      </lanes>
+      <lane id="L14_0" depart="1" maxspeed="13.89" length="688.65" shape="2700.00,2008.25 2011.35,2008.25"/>
+      <lane id="L14_1" depart="0" maxspeed="13.89" length="688.65" shape="2700.00,2004.95 2011.35,2004.95"/>
+      <lane id="L14_2" depart="0" maxspeed="13.89" length="688.65" shape="2700.00,2001.65 2011.35,2001.65"/>
    </edge>
 
    <edge id="L15" from="17" to="23" priority="3" type="a" function="normal">
-      <lanes>
-         <lane id="L15_0" depart="1" maxspeed="13.89" length="688.65" shape="1991.75,2700.00 1991.75,2011.35"/>
-         <lane id="L15_1" depart="0" maxspeed="13.89" length="688.65" shape="1995.05,2700.00 1995.05,2011.35"/>
-         <lane id="L15_2" depart="0" maxspeed="13.89" length="688.65" shape="1998.35,2700.00 1998.35,2011.35"/>
-      </lanes>
+      <lane id="L15_0" depart="1" maxspeed="13.89" length="688.65" shape="1991.75,2700.00 1991.75,2011.35"/>
+      <lane id="L15_1" depart="0" maxspeed="13.89" length="688.65" shape="1995.05,2700.00 1995.05,2011.35"/>
+      <lane id="L15_2" depart="0" maxspeed="13.89" length="688.65" shape="1998.35,2700.00 1998.35,2011.35"/>
    </edge>
 
    <edge id="L16" from="18" to="20" priority="3" type="a" function="normal">
-      <lanes>
-         <lane id="L16_0" depart="1" maxspeed="13.89" length="688.65" shape="991.75,2700.00 991.75,2011.35"/>
-         <lane id="L16_1" depart="0" maxspeed="13.89" length="688.65" shape="995.05,2700.00 995.05,2011.35"/>
-         <lane id="L16_2" depart="0" maxspeed="13.89" length="688.65" shape="998.35,2700.00 998.35,2011.35"/>
-      </lanes>
+      <lane id="L16_0" depart="1" maxspeed="13.89" length="688.65" shape="991.75,2700.00 991.75,2011.35"/>
+      <lane id="L16_1" depart="0" maxspeed="13.89" length="688.65" shape="995.05,2700.00 995.05,2011.35"/>
+      <lane id="L16_2" depart="0" maxspeed="13.89" length="688.65" shape="998.35,2700.00 998.35,2011.35"/>
    </edge>
 
    <edge id="L17" from="20" to="21" priority="3" type="a" function="normal">
-      <lanes>
-         <lane id="L17_0" depart="1" maxspeed="13.89" length="977.30" shape="991.75,1988.65 991.75,1011.35"/>
-         <lane id="L17_1" depart="0" maxspeed="13.89" length="977.30" shape="995.05,1988.65 995.05,1011.35"/>
-         <lane id="L17_2" depart="0" maxspeed="13.89" length="977.30" shape="998.35,1988.65 998.35,1011.35"/>
-      </lanes>
+      <lane id="L17_0" depart="1" maxspeed="13.89" length="977.30" shape="991.75,1988.65 991.75,1011.35"/>
+      <lane id="L17_1" depart="0" maxspeed="13.89" length="977.30" shape="995.05,1988.65 995.05,1011.35"/>
+      <lane id="L17_2" depart="0" maxspeed="13.89" length="977.30" shape="998.35,1988.65 998.35,1011.35"/>
    </edge>
 
    <edge id="L18" from="21" to="20" priority="3" type="a" function="normal">
-      <lanes>
-         <lane id="L18_0" depart="1" maxspeed="13.89" length="977.30" shape="1008.25,1011.35 1008.25,1988.65"/>
-         <lane id="L18_1" depart="0" maxspeed="13.89" length="977.30" shape="1004.95,1011.35 1004.95,1988.65"/>
-         <lane id="L18_2" depart="0" maxspeed="13.89" length="977.30" shape="1001.65,1011.35 1001.65,1988.65"/>
-      </lanes>
+      <lane id="L18_0" depart="1" maxspeed="13.89" length="977.30" shape="1008.25,1011.35 1008.25,1988.65"/>
+      <lane id="L18_1" depart="0" maxspeed="13.89" length="977.30" shape="1004.95,1011.35 1004.95,1988.65"/>
+      <lane id="L18_2" depart="0" maxspeed="13.89" length="977.30" shape="1001.65,1011.35 1001.65,1988.65"/>
    </edge>
 
    <edge id="L19" from="21" to="22" priority="3" type="a" function="normal">
-      <lanes>
-         <lane id="L19_0" depart="1" maxspeed="13.89" length="977.30" shape="1011.35,991.75 1988.65,991.75"/>
-         <lane id="L19_1" depart="0" maxspeed="13.89" length="977.30" shape="1011.35,995.05 1988.65,995.05"/>
-         <lane id="L19_2" depart="0" maxspeed="13.89" length="977.30" shape="1011.35,998.35 1988.65,998.35"/>
-      </lanes>
+      <lane id="L19_0" depart="1" maxspeed="13.89" length="977.30" shape="1011.35,991.75 1988.65,991.75"/>
+      <lane id="L19_1" depart="0" maxspeed="13.89" length="977.30" shape="1011.35,995.05 1988.65,995.05"/>
+      <lane id="L19_2" depart="0" maxspeed="13.89" length="977.30" shape="1011.35,998.35 1988.65,998.35"/>
    </edge>
 
    <edge id="L2" from="92" to="12" priority="2" type="b" function="normal">
-      <lanes>
-         <lane id="L2_0" depart="1" maxspeed="11.11" length="300.00" shape="0.00,991.75 300.00,991.75"/>
-         <lane id="L2_1" depart="0" maxspeed="11.11" length="300.00" shape="0.00,995.05 300.00,995.05"/>
-         <lane id="L2_2" depart="0" maxspeed="11.11" length="300.00" shape="0.00,998.35 300.00,998.35"/>
-      </lanes>
+      <lane id="L2_0" depart="1" maxspeed="11.11" length="300.00" shape="0.00,991.75 300.00,991.75"/>
+      <lane id="L2_1" depart="0" maxspeed="11.11" length="300.00" shape="0.00,995.05 300.00,995.05"/>
+      <lane id="L2_2" depart="0" maxspeed="11.11" length="300.00" shape="0.00,998.35 300.00,998.35"/>
    </edge>
 
    <edge id="L20" from="22" to="21" priority="3" type="a" function="normal">
-      <lanes>
-         <lane id="L20_0" depart="1" maxspeed="13.89" length="977.30" shape="1988.65,1008.25 1011.35,1008.25"/>
-         <lane id="L20_1" depart="0" maxspeed="13.89" length="977.30" shape="1988.65,1004.95 1011.35,1004.95"/>
-         <lane id="L20_2" depart="0" maxspeed="13.89" length="977.30" shape="1988.65,1001.65 1011.35,1001.65"/>
-      </lanes>
+      <lane id="L20_0" depart="1" maxspeed="13.89" length="977.30" shape="1988.65,1008.25 1011.35,1008.25"/>
+      <lane id="L20_1" depart="0" maxspeed="13.89" length="977.30" shape="1988.65,1004.95 1011.35,1004.95"/>
+      <lane id="L20_2" depart="0" maxspeed="13.89" length="977.30" shape="1988.65,1001.65 1011.35,1001.65"/>
    </edge>
 
    <edge id="L21" from="22" to="23" priority="3" type="a" function="normal">
-      <lanes>
-         <lane id="L21_0" depart="1" maxspeed="13.89" length="977.30" shape="2008.25,1011.35 2008.25,1988.65"/>
-         <lane id="L21_1" depart="0" maxspeed="13.89" length="977.30" shape="2004.95,1011.35 2004.95,1988.65"/>
-         <lane id="L21_2" depart="0" maxspeed="13.89" length="977.30" shape="2001.65,1011.35 2001.65,1988.65"/>
-      </lanes>
+      <lane id="L21_0" depart="1" maxspeed="13.89" length="977.30" shape="2008.25,1011.35 2008.25,1988.65"/>
+      <lane id="L21_1" depart="0" maxspeed="13.89" length="977.30" shape="2004.95,1011.35 2004.95,1988.65"/>
+      <lane id="L21_2" depart="0" maxspeed="13.89" length="977.30" shape="2001.65,1011.35 2001.65,1988.65"/>
    </edge>
 
    <edge id="L22" from="23" to="22" priority="3" type="a" function="normal">
-      <lanes>
-         <lane id="L22_0" depart="1" maxspeed="13.89" length="977.30" shape="1991.75,1988.65 1991.75,1011.35"/>
-         <lane id="L22_1" depart="0" maxspeed="13.89" length="977.30" shape="1995.05,1988.65 1995.05,1011.35"/>
-         <lane id="L22_2" depart="0" maxspeed="13.89" length="977.30" shape="1998.35,1988.65 1998.35,1011.35"/>
-      </lanes>
+      <lane id="L22_0" depart="1" maxspeed="13.89" length="977.30" shape="1991.75,1988.65 1991.75,1011.35"/>
+      <lane id="L22_1" depart="0" maxspeed="13.89" length="977.30" shape="1995.05,1988.65 1995.05,1011.35"/>
+      <lane id="L22_2" depart="0" maxspeed="13.89" length="977.30" shape="1998.35,1988.65 1998.35,1011.35"/>
    </edge>
 
    <edge id="L23" from="23" to="20" priority="3" type="a" function="normal">
-      <lanes>
-         <lane id="L23_0" depart="1" maxspeed="13.89" length="977.30" shape="1988.65,2008.25 1011.35,2008.25"/>
-         <lane id="L23_1" depart="0" maxspeed="13.89" length="977.30" shape="1988.65,2004.95 1011.35,2004.95"/>
-         <lane id="L23_2" depart="0" maxspeed="13.89" length="977.30" shape="1988.65,2001.65 1011.35,2001.65"/>
-      </lanes>
+      <lane id="L23_0" depart="1" maxspeed="13.89" length="977.30" shape="1988.65,2008.25 1011.35,2008.25"/>
+      <lane id="L23_1" depart="0" maxspeed="13.89" length="977.30" shape="1988.65,2004.95 1011.35,2004.95"/>
+      <lane id="L23_2" depart="0" maxspeed="13.89" length="977.30" shape="1988.65,2001.65 1011.35,2001.65"/>
    </edge>
 
    <edge id="L24" from="20" to="23" priority="3" type="a" function="normal">
-      <lanes>
-         <lane id="L24_0" depart="1" maxspeed="13.89" length="977.30" shape="1011.35,1991.75 1988.65,1991.75"/>
-         <lane id="L24_1" depart="0" maxspeed="13.89" length="977.30" shape="1011.35,1995.05 1988.65,1995.05"/>
-         <lane id="L24_2" depart="0" maxspeed="13.89" length="977.30" shape="1011.35,1998.35 1988.65,1998.35"/>
-      </lanes>
+      <lane id="L24_0" depart="1" maxspeed="13.89" length="977.30" shape="1011.35,1991.75 1988.65,1991.75"/>
+      <lane id="L24_1" depart="0" maxspeed="13.89" length="977.30" shape="1011.35,1995.05 1988.65,1995.05"/>
+      <lane id="L24_2" depart="0" maxspeed="13.89" length="977.30" shape="1011.35,1998.35 1988.65,1998.35"/>
    </edge>
 
    <edge id="L25" from="20" to="91" priority="1" type="c" function="normal">
-      <lanes>
-         <lane id="L25_0" depart="1" maxspeed="13.89" length="988.65" shape="988.65,2008.25 0.00,2008.25"/>
-         <lane id="L25_1" depart="0" maxspeed="13.89" length="988.65" shape="988.65,2004.95 0.00,2004.95"/>
-         <lane id="L25_2" depart="0" maxspeed="13.89" length="988.65" shape="988.65,2001.65 0.00,2001.65"/>
-      </lanes>
+      <lane id="L25_0" depart="1" maxspeed="13.89" length="988.65" shape="988.65,2008.25 0.00,2008.25"/>
+      <lane id="L25_1" depart="0" maxspeed="13.89" length="988.65" shape="988.65,2004.95 0.00,2004.95"/>
+      <lane id="L25_2" depart="0" maxspeed="13.89" length="988.65" shape="988.65,2001.65 0.00,2001.65"/>
    </edge>
 
    <edge id="L26" from="21" to="92" priority="1" type="c" function="normal">
-      <lanes>
-         <lane id="L26_0" depart="1" maxspeed="13.89" length="988.65" shape="988.65,1008.25 0.00,1008.25"/>
-         <lane id="L26_1" depart="0" maxspeed="13.89" length="988.65" shape="988.65,1004.95 0.00,1004.95"/>
-         <lane id="L26_2" depart="0" maxspeed="13.89" length="988.65" shape="988.65,1001.65 0.00,1001.65"/>
-      </lanes>
+      <lane id="L26_0" depart="1" maxspeed="13.89" length="988.65" shape="988.65,1008.25 0.00,1008.25"/>
+      <lane id="L26_1" depart="0" maxspeed="13.89" length="988.65" shape="988.65,1004.95 0.00,1004.95"/>
+      <lane id="L26_2" depart="0" maxspeed="13.89" length="988.65" shape="988.65,1001.65 0.00,1001.65"/>
    </edge>
 
    <edge id="L27" from="21" to="93" priority="1" type="c" function="normal">
-      <lanes>
-         <lane id="L27_0" depart="1" maxspeed="13.89" length="988.65" shape="991.75,988.65 991.75,0.00"/>
-         <lane id="L27_1" depart="0" maxspeed="13.89" length="988.65" shape="995.05,988.65 995.05,0.00"/>
-         <lane id="L27_2" depart="0" maxspeed="13.89" length="988.65" shape="998.35,988.65 998.35,0.00"/>
-      </lanes>
+      <lane id="L27_0" depart="1" maxspeed="13.89" length="988.65" shape="991.75,988.65 991.75,0.00"/>
+      <lane id="L27_1" depart="0" maxspeed="13.89" length="988.65" shape="995.05,988.65 995.05,0.00"/>
+      <lane id="L27_2" depart="0" maxspeed="13.89" length="988.65" shape="998.35,988.65 998.35,0.00"/>
    </edge>
 
    <edge id="L28" from="22" to="94" priority="1" type="c" function="normal">
-      <lanes>
-         <lane id="L28_0" depart="1" maxspeed="13.89" length="988.65" shape="1991.75,988.65 1991.75,0.00"/>
-         <lane id="L28_1" depart="0" maxspeed="13.89" length="988.65" shape="1995.05,988.65 1995.05,0.00"/>
-         <lane id="L28_2" depart="0" maxspeed="13.89" length="988.65" shape="1998.35,988.65 1998.35,0.00"/>
-      </lanes>
+      <lane id="L28_0" depart="1" maxspeed="13.89" length="988.65" shape="1991.75,988.65 1991.75,0.00"/>
+      <lane id="L28_1" depart="0" maxspeed="13.89" length="988.65" shape="1995.05,988.65 1995.05,0.00"/>
+      <lane id="L28_2" depart="0" maxspeed="13.89" length="988.65" shape="1998.35,988.65 1998.35,0.00"/>
    </edge>
 
    <edge id="L29" from="22" to="95" priority="1" type="c" function="normal">
-      <lanes>
-         <lane id="L29_0" depart="1" maxspeed="13.89" length="988.65" shape="2011.35,991.75 3000.00,991.75"/>
-         <lane id="L29_1" depart="0" maxspeed="13.89" length="988.65" shape="2011.35,995.05 3000.00,995.05"/>
-         <lane id="L29_2" depart="0" maxspeed="13.89" length="988.65" shape="2011.35,998.35 3000.00,998.35"/>
-      </lanes>
+      <lane id="L29_0" depart="1" maxspeed="13.89" length="988.65" shape="2011.35,991.75 3000.00,991.75"/>
+      <lane id="L29_1" depart="0" maxspeed="13.89" length="988.65" shape="2011.35,995.05 3000.00,995.05"/>
+      <lane id="L29_2" depart="0" maxspeed="13.89" length="988.65" shape="2011.35,998.35 3000.00,998.35"/>
    </edge>
 
    <edge id="L3" from="93" to="13" priority="2" type="b" function="normal">
-      <lanes>
-         <lane id="L3_0" depart="1" maxspeed="11.11" length="300.00" shape="1008.25,0.00 1008.25,300.00"/>
-         <lane id="L3_1" depart="0" maxspeed="11.11" length="300.00" shape="1004.95,0.00 1004.95,300.00"/>
-         <lane id="L3_2" depart="0" maxspeed="11.11" length="300.00" shape="1001.65,0.00 1001.65,300.00"/>
-      </lanes>
+      <lane id="L3_0" depart="1" maxspeed="11.11" length="300.00" shape="1008.25,0.00 1008.25,300.00"/>
+      <lane id="L3_1" depart="0" maxspeed="11.11" length="300.00" shape="1004.95,0.00 1004.95,300.00"/>
+      <lane id="L3_2" depart="0" maxspeed="11.11" length="300.00" shape="1001.65,0.00 1001.65,300.00"/>
    </edge>
 
    <edge id="L30" from="23" to="96" priority="1" type="c" function="normal">
-      <lanes>
-         <lane id="L30_0" depart="1" maxspeed="13.89" length="988.65" shape="2011.35,1991.75 3000.00,1991.75"/>
-         <lane id="L30_1" depart="0" maxspeed="13.89" length="988.65" shape="2011.35,1995.05 3000.00,1995.05"/>
-         <lane id="L30_2" depart="0" maxspeed="13.89" length="988.65" shape="2011.35,1998.35 3000.00,1998.35"/>
-      </lanes>
+      <lane id="L30_0" depart="1" maxspeed="13.89" length="988.65" shape="2011.35,1991.75 3000.00,1991.75"/>
+      <lane id="L30_1" depart="0" maxspeed="13.89" length="988.65" shape="2011.35,1995.05 3000.00,1995.05"/>
+      <lane id="L30_2" depart="0" maxspeed="13.89" length="988.65" shape="2011.35,1998.35 3000.00,1998.35"/>
    </edge>
 
    <edge id="L31" from="23" to="97" priority="1" type="c" function="normal">
-      <lanes>
-         <lane id="L31_0" depart="1" maxspeed="13.89" length="988.65" shape="2008.25,2011.35 2008.25,3000.00"/>
-         <lane id="L31_1" depart="0" maxspeed="13.89" length="988.65" shape="2004.95,2011.35 2004.95,3000.00"/>
-         <lane id="L31_2" depart="0" maxspeed="13.89" length="988.65" shape="2001.65,2011.35 2001.65,3000.00"/>
-      </lanes>
+      <lane id="L31_0" depart="1" maxspeed="13.89" length="988.65" shape="2008.25,2011.35 2008.25,3000.00"/>
+      <lane id="L31_1" depart="0" maxspeed="13.89" length="988.65" shape="2004.95,2011.35 2004.95,3000.00"/>
+      <lane id="L31_2" depart="0" maxspeed="13.89" length="988.65" shape="2001.65,2011.35 2001.65,3000.00"/>
    </edge>
 
    <edge id="L32" from="20" to="98" priority="1" type="c" function="normal">
-      <lanes>
-         <lane id="L32_0" depart="1" maxspeed="13.89" length="988.65" shape="1008.25,2011.35 1008.25,3000.00"/>
-         <lane id="L32_1" depart="0" maxspeed="13.89" length="988.65" shape="1004.95,2011.35 1004.95,3000.00"/>
-         <lane id="L32_2" depart="0" maxspeed="13.89" length="988.65" shape="1001.65,2011.35 1001.65,3000.00"/>
-      </lanes>
+      <lane id="L32_0" depart="1" maxspeed="13.89" length="988.65" shape="1008.25,2011.35 1008.25,3000.00"/>
+      <lane id="L32_1" depart="0" maxspeed="13.89" length="988.65" shape="1004.95,2011.35 1004.95,3000.00"/>
+      <lane id="L32_2" depart="0" maxspeed="13.89" length="988.65" shape="1001.65,2011.35 1001.65,3000.00"/>
    </edge>
 
    <edge id="L4" from="94" to="14" priority="2" type="b" function="normal">
-      <lanes>
-         <lane id="L4_0" depart="1" maxspeed="11.11" length="300.00" shape="2008.25,0.00 2008.25,300.00"/>
-         <lane id="L4_1" depart="0" maxspeed="11.11" length="300.00" shape="2004.95,0.00 2004.95,300.00"/>
-         <lane id="L4_2" depart="0" maxspeed="11.11" length="300.00" shape="2001.65,0.00 2001.65,300.00"/>
-      </lanes>
+      <lane id="L4_0" depart="1" maxspeed="11.11" length="300.00" shape="2008.25,0.00 2008.25,300.00"/>
+      <lane id="L4_1" depart="0" maxspeed="11.11" length="300.00" shape="2004.95,0.00 2004.95,300.00"/>
+      <lane id="L4_2" depart="0" maxspeed="11.11" length="300.00" shape="2001.65,0.00 2001.65,300.00"/>
    </edge>
 
    <edge id="L5" from="95" to="15" priority="2" type="b" function="normal">
-      <lanes>
-         <lane id="L5_0" depart="1" maxspeed="11.11" length="300.00" shape="3000.00,1008.25 2700.00,1008.25"/>
-         <lane id="L5_1" depart="0" maxspeed="11.11" length="300.00" shape="3000.00,1004.95 2700.00,1004.95"/>
-         <lane id="L5_2" depart="0" maxspeed="11.11" length="300.00" shape="3000.00,1001.65 2700.00,1001.65"/>
-      </lanes>
+      <lane id="L5_0" depart="1" maxspeed="11.11" length="300.00" shape="3000.00,1008.25 2700.00,1008.25"/>
+      <lane id="L5_1" depart="0" maxspeed="11.11" length="300.00" shape="3000.00,1004.95 2700.00,1004.95"/>
+      <lane id="L5_2" depart="0" maxspeed="11.11" length="300.00" shape="3000.00,1001.65 2700.00,1001.65"/>
    </edge>
 
    <edge id="L6" from="96" to="16" priority="2" type="b" function="normal">
-      <lanes>
-         <lane id="L6_0" depart="1" maxspeed="11.11" length="300.00" shape="3000.00,2008.25 2700.00,2008.25"/>
-         <lane id="L6_1" depart="0" maxspeed="11.11" length="300.00" shape="3000.00,2004.95 2700.00,2004.95"/>
-         <lane id="L6_2" depart="0" maxspeed="11.11" length="300.00" shape="3000.00,2001.65 2700.00,2001.65"/>
-      </lanes>
+      <lane id="L6_0" depart="1" maxspeed="11.11" length="300.00" shape="3000.00,2008.25 2700.00,2008.25"/>
+      <lane id="L6_1" depart="0" maxspeed="11.11" length="300.00" shape="3000.00,2004.95 2700.00,2004.95"/>
+      <lane id="L6_2" depart="0" maxspeed="11.11" length="300.00" shape="3000.00,2001.65 2700.00,2001.65"/>
    </edge>
 
    <edge id="L7" from="97" to="17" priority="2" type="b" function="normal">
-      <lanes>
-         <lane id="L7_0" depart="1" maxspeed="11.11" length="300.00" shape="1991.75,3000.00 1991.75,2700.00"/>
-         <lane id="L7_1" depart="0" maxspeed="11.11" length="300.00" shape="1995.05,3000.00 1995.05,2700.00"/>
-         <lane id="L7_2" depart="0" maxspeed="11.11" length="300.00" shape="1998.35,3000.00 1998.35,2700.00"/>
-      </lanes>
+      <lane id="L7_0" depart="1" maxspeed="11.11" length="300.00" shape="1991.75,3000.00 1991.75,2700.00"/>
+      <lane id="L7_1" depart="0" maxspeed="11.11" length="300.00" shape="1995.05,3000.00 1995.05,2700.00"/>
+      <lane id="L7_2" depart="0" maxspeed="11.11" length="300.00" shape="1998.35,3000.00 1998.35,2700.00"/>
    </edge>
 
    <edge id="L8" from="98" to="18" priority="2" type="b" function="normal">
-      <lanes>
-         <lane id="L8_0" depart="1" maxspeed="11.11" length="300.00" shape="991.75,3000.00 991.75,2700.00"/>
-         <lane id="L8_1" depart="0" maxspeed="11.11" length="300.00" shape="995.05,3000.00 995.05,2700.00"/>
-         <lane id="L8_2" depart="0" maxspeed="11.11" length="300.00" shape="998.35,3000.00 998.35,2700.00"/>
-      </lanes>
+      <lane id="L8_0" depart="1" maxspeed="11.11" length="300.00" shape="991.75,3000.00 991.75,2700.00"/>
+      <lane id="L8_1" depart="0" maxspeed="11.11" length="300.00" shape="995.05,3000.00 995.05,2700.00"/>
+      <lane id="L8_2" depart="0" maxspeed="11.11" length="300.00" shape="998.35,3000.00 998.35,2700.00"/>
    </edge>
 
    <edge id="L9" from="11" to="20" priority="3" type="a" function="normal">
-      <lanes>
-         <lane id="L9_0" depart="1" maxspeed="13.89" length="688.65" shape="300.00,1991.75 988.65,1991.75"/>
-         <lane id="L9_1" depart="0" maxspeed="13.89" length="688.65" shape="300.00,1995.05 988.65,1995.05"/>
-         <lane id="L9_2" depart="0" maxspeed="13.89" length="688.65" shape="300.00,1998.35 988.65,1998.35"/>
-      </lanes>
+      <lane id="L9_0" depart="1" maxspeed="13.89" length="688.65" shape="300.00,1991.75 988.65,1991.75"/>
+      <lane id="L9_1" depart="0" maxspeed="13.89" length="688.65" shape="300.00,1995.05 988.65,1995.05"/>
+      <lane id="L9_2" depart="0" maxspeed="13.89" length="688.65" shape="300.00,1998.35 988.65,1998.35"/>
    </edge>
 
-
    <row-logic id="11" requestSize="3" laneNumber="3">
-      <logic>
-         <logicitem request="0" response="000" foes="000"/>
-         <logicitem request="1" response="000" foes="000"/>
-         <logicitem request="2" response="000" foes="000"/>
-      </logic>
+      <logicitem request="0" response="000" foes="000"/>
+      <logicitem request="1" response="000" foes="000"/>
+      <logicitem request="2" response="000" foes="000"/>
    </row-logic>
 
    <row-logic id="12" requestSize="3" laneNumber="3">
-      <logic>
-         <logicitem request="0" response="000" foes="000"/>
-         <logicitem request="1" response="000" foes="000"/>
-         <logicitem request="2" response="000" foes="000"/>
-      </logic>
+      <logicitem request="0" response="000" foes="000"/>
+      <logicitem request="1" response="000" foes="000"/>
+      <logicitem request="2" response="000" foes="000"/>
    </row-logic>
 
    <row-logic id="13" requestSize="3" laneNumber="3">
-      <logic>
-         <logicitem request="0" response="000" foes="000"/>
-         <logicitem request="1" response="000" foes="000"/>
-         <logicitem request="2" response="000" foes="000"/>
-      </logic>
+      <logicitem request="0" response="000" foes="000"/>
+      <logicitem request="1" response="000" foes="000"/>
+      <logicitem request="2" response="000" foes="000"/>
    </row-logic>
 
    <row-logic id="14" requestSize="3" laneNumber="3">
-      <logic>
-         <logicitem request="0" response="000" foes="000"/>
-         <logicitem request="1" response="000" foes="000"/>
-         <logicitem request="2" response="000" foes="000"/>
-      </logic>
+      <logicitem request="0" response="000" foes="000"/>
+      <logicitem request="1" response="000" foes="000"/>
+      <logicitem request="2" response="000" foes="000"/>
    </row-logic>
 
    <row-logic id="15" requestSize="3" laneNumber="3">
-      <logic>
-         <logicitem request="0" response="000" foes="000"/>
-         <logicitem request="1" response="000" foes="000"/>
-         <logicitem request="2" response="000" foes="000"/>
-      </logic>
+      <logicitem request="0" response="000" foes="000"/>
+      <logicitem request="1" response="000" foes="000"/>
+      <logicitem request="2" response="000" foes="000"/>
    </row-logic>
 
    <row-logic id="16" requestSize="3" laneNumber="3">
-      <logic>
-         <logicitem request="0" response="000" foes="000"/>
-         <logicitem request="1" response="000" foes="000"/>
-         <logicitem request="2" response="000" foes="000"/>
-      </logic>
+      <logicitem request="0" response="000" foes="000"/>
+      <logicitem request="1" response="000" foes="000"/>
+      <logicitem request="2" response="000" foes="000"/>
    </row-logic>
 
    <row-logic id="17" requestSize="3" laneNumber="3">
-      <logic>
-         <logicitem request="0" response="000" foes="000"/>
-         <logicitem request="1" response="000" foes="000"/>
-         <logicitem request="2" response="000" foes="000"/>
-      </logic>
+      <logicitem request="0" response="000" foes="000"/>
+      <logicitem request="1" response="000" foes="000"/>
+      <logicitem request="2" response="000" foes="000"/>
    </row-logic>
 
    <row-logic id="18" requestSize="3" laneNumber="3">
-      <logic>
-         <logicitem request="0" response="000" foes="000"/>
-         <logicitem request="1" response="000" foes="000"/>
-         <logicitem request="2" response="000" foes="000"/>
-      </logic>
+      <logicitem request="0" response="000" foes="000"/>
+      <logicitem request="1" response="000" foes="000"/>
+      <logicitem request="2" response="000" foes="000"/>
    </row-logic>
 
    <row-logic id="20" requestSize="21" laneNumber="12">
-      <logic>
-         <logicitem request="0" response="000000000000000000000" foes="100000100000011000000"/>
-         <logicitem request="1" response="000000000000000000000" foes="011111100001111000000"/>
-         <logicitem request="2" response="000000000000000000000" foes="011111100001111000000"/>
-         <logicitem request="3" response="000000000000000000000" foes="011100011111111000000"/>
-         <logicitem request="4" response="010000000000000000000" foes="010000010000000100000"/>
-         <logicitem request="5" response="000000000000000000000" foes="010000010000000010000"/>
-         <logicitem request="6" response="000000010000000000010" foes="110000110000000001111"/>
-         <logicitem request="7" response="000000100000000001100" foes="110000110000000001111"/>
-         <logicitem request="8" response="000100010000000000010" foes="001111110000000001110"/>
-         <logicitem request="9" response="001000100000000001100" foes="001111110000000001110"/>
-         <logicitem request="10" response="001000000000000001000" foes="001100001100000001000"/>
-         <logicitem request="11" response="000000000000000000000" foes="001100000010000001000"/>
-         <logicitem request="12" response="000000000000000000000" foes="001100000010000001000"/>
-         <logicitem request="13" response="000000000000000000000" foes="011100000001111111000"/>
-         <logicitem request="14" response="000000000000000000100" foes="111100000001111000111"/>
-         <logicitem request="15" response="000000000001000000100" foes="000010000001100000110"/>
-         <logicitem request="16" response="000000000000000000000" foes="000001000001100000110"/>
-         <logicitem request="17" response="000000011000000000010" foes="000000111111100001110"/>
-         <logicitem request="18" response="000000100000000001100" foes="000000111111100001110"/>
-         <logicitem request="19" response="000000100000010001100" foes="000000110000011111110"/>
-         <logicitem request="20" response="000000100000010000000" foes="000000100000011000001"/>
-      </logic>
+      <logicitem request="0" response="000000000000000000000" foes="100000100000011000000"/>
+      <logicitem request="1" response="000000000000000000000" foes="011111100001111000000"/>
+      <logicitem request="2" response="000000000000000000000" foes="011111100001111000000"/>
+      <logicitem request="3" response="000000000000000000000" foes="011100011111111000000"/>
+      <logicitem request="4" response="010000000000000000000" foes="010000010000000100000"/>
+      <logicitem request="5" response="000000000000000000000" foes="010000010000000010000"/>
+      <logicitem request="6" response="000000010000000000010" foes="110000110000000001111"/>
+      <logicitem request="7" response="000000100000000001100" foes="110000110000000001111"/>
+      <logicitem request="8" response="000100010000000000010" foes="001111110000000001110"/>
+      <logicitem request="9" response="001000100000000001100" foes="001111110000000001110"/>
+      <logicitem request="10" response="001000000000000001000" foes="001100001100000001000"/>
+      <logicitem request="11" response="000000000000000000000" foes="001100000010000001000"/>
+      <logicitem request="12" response="000000000000000000000" foes="001100000010000001000"/>
+      <logicitem request="13" response="000000000000000000000" foes="011100000001111111000"/>
+      <logicitem request="14" response="000000000000000000100" foes="111100000001111000111"/>
+      <logicitem request="15" response="000000000001000000100" foes="000010000001100000110"/>
+      <logicitem request="16" response="000000000000000000000" foes="000001000001100000110"/>
+      <logicitem request="17" response="000000011000000000010" foes="000000111111100001110"/>
+      <logicitem request="18" response="000000100000000001100" foes="000000111111100001110"/>
+      <logicitem request="19" response="000000100000010001100" foes="000000110000011111110"/>
+      <logicitem request="20" response="000000100000010000000" foes="000000100000011000001"/>
    </row-logic>
 
    <row-logic id="21" requestSize="21" laneNumber="12">
-      <logic>
-         <logicitem request="0" response="000000000000000000000" foes="100000100000100000000"/>
-         <logicitem request="1" response="000000000000000000000" foes="011111100001100000000"/>
-         <logicitem request="2" response="000000000000000000000" foes="011111100001100000000"/>
-         <logicitem request="3" response="000000001000000000000" foes="011100011111100000000"/>
-         <logicitem request="4" response="000000010000000000000" foes="011100011111100000000"/>
-         <logicitem request="5" response="010000010000000000000" foes="010000011000011000000"/>
-         <logicitem request="6" response="000000000000000000000" foes="010000011000000100000"/>
-         <logicitem request="7" response="000000001000000000000" foes="010000011000000100000"/>
-         <logicitem request="8" response="000000001000000001010" foes="110000111000000011111"/>
-         <logicitem request="9" response="001000110000000010100" foes="001111111000000011110"/>
-         <logicitem request="10" response="001000000000000010000" foes="001100000100000011000"/>
-         <logicitem request="11" response="000000000000000000000" foes="001100000010000011000"/>
-         <logicitem request="12" response="000000000000000000000" foes="011100000001111111000"/>
-         <logicitem request="13" response="000000000000000000000" foes="011100000001111111000"/>
-         <logicitem request="14" response="000000000000000000100" foes="111100000001100000111"/>
-         <logicitem request="15" response="000000000001000000100" foes="000010000001000000110"/>
-         <logicitem request="16" response="000000000000000000000" foes="000001000001000000110"/>
-         <logicitem request="17" response="000000001000000001010" foes="000000111111000011110"/>
-         <logicitem request="18" response="000000110000000010100" foes="000000111111000011110"/>
-         <logicitem request="19" response="000000110000000010100" foes="000000111000111111110"/>
-         <logicitem request="20" response="000000100000000000000" foes="000000100000100000001"/>
-      </logic>
+      <logicitem request="0" response="000000000000000000000" foes="100000100000100000000"/>
+      <logicitem request="1" response="000000000000000000000" foes="011111100001100000000"/>
+      <logicitem request="2" response="000000000000000000000" foes="011111100001100000000"/>
+      <logicitem request="3" response="000000001000000000000" foes="011100011111100000000"/>
+      <logicitem request="4" response="000000010000000000000" foes="011100011111100000000"/>
+      <logicitem request="5" response="010000010000000000000" foes="010000011000011000000"/>
+      <logicitem request="6" response="000000000000000000000" foes="010000011000000100000"/>
+      <logicitem request="7" response="000000001000000000000" foes="010000011000000100000"/>
+      <logicitem request="8" response="000000001000000001010" foes="110000111000000011111"/>
+      <logicitem request="9" response="001000110000000010100" foes="001111111000000011110"/>
+      <logicitem request="10" response="001000000000000010000" foes="001100000100000011000"/>
+      <logicitem request="11" response="000000000000000000000" foes="001100000010000011000"/>
+      <logicitem request="12" response="000000000000000000000" foes="011100000001111111000"/>
+      <logicitem request="13" response="000000000000000000000" foes="011100000001111111000"/>
+      <logicitem request="14" response="000000000000000000100" foes="111100000001100000111"/>
+      <logicitem request="15" response="000000000001000000100" foes="000010000001000000110"/>
+      <logicitem request="16" response="000000000000000000000" foes="000001000001000000110"/>
+      <logicitem request="17" response="000000001000000001010" foes="000000111111000011110"/>
+      <logicitem request="18" response="000000110000000010100" foes="000000111111000011110"/>
+      <logicitem request="19" response="000000110000000010100" foes="000000111000111111110"/>
+      <logicitem request="20" response="000000100000000000000" foes="000000100000100000001"/>
    </row-logic>
 
    <row-logic id="22" requestSize="21" laneNumber="12">
-      <logic>
-         <logicitem request="0" response="000000000000000000000" foes="100000010000011000000"/>
-         <logicitem request="1" response="000000000000000000000" foes="100000010000011000000"/>
-         <logicitem request="2" response="000000000000000000000" foes="011111110000111000000"/>
-         <logicitem request="3" response="000000001000000000000" foes="011110001111111000000"/>
-         <logicitem request="4" response="010000001000000000000" foes="011000001100000100000"/>
-         <logicitem request="5" response="000000000000000000000" foes="011000001100000010000"/>
-         <logicitem request="6" response="000000000100000000110" foes="111000011100000001111"/>
-         <logicitem request="7" response="000000011000000001000" foes="111000011100000001111"/>
-         <logicitem request="8" response="000100011000000001000" foes="000111111100000001100"/>
-         <logicitem request="9" response="000100000000000001000" foes="000110000010000001000"/>
-         <logicitem request="10" response="000000000000000000000" foes="000110000001000001000"/>
-         <logicitem request="11" response="000000000000000000000" foes="011110000000111111000"/>
-         <logicitem request="12" response="000000000000000000000" foes="011110000000111111000"/>
-         <logicitem request="13" response="000000000000000000000" foes="111110000000111000111"/>
-         <logicitem request="14" response="000000000000100000000" foes="000001000000100000100"/>
-         <logicitem request="15" response="000000000000000000000" foes="000000100000100000100"/>
-         <logicitem request="16" response="000000000100000000100" foes="000000011111100001100"/>
-         <logicitem request="17" response="000000011000000001000" foes="000000011111100001100"/>
-         <logicitem request="18" response="000000000100001000100" foes="000000011100011111100"/>
-         <logicitem request="19" response="000000011000010001000" foes="000000011100011111100"/>
-         <logicitem request="20" response="000000010000010000000" foes="000000010000011000011"/>
-      </logic>
+      <logicitem request="0" response="000000000000000000000" foes="100000010000011000000"/>
+      <logicitem request="1" response="000000000000000000000" foes="100000010000011000000"/>
+      <logicitem request="2" response="000000000000000000000" foes="011111110000111000000"/>
+      <logicitem request="3" response="000000001000000000000" foes="011110001111111000000"/>
+      <logicitem request="4" response="010000001000000000000" foes="011000001100000100000"/>
+      <logicitem request="5" response="000000000000000000000" foes="011000001100000010000"/>
+      <logicitem request="6" response="000000000100000000110" foes="111000011100000001111"/>
+      <logicitem request="7" response="000000011000000001000" foes="111000011100000001111"/>
+      <logicitem request="8" response="000100011000000001000" foes="000111111100000001100"/>
+      <logicitem request="9" response="000100000000000001000" foes="000110000010000001000"/>
+      <logicitem request="10" response="000000000000000000000" foes="000110000001000001000"/>
+      <logicitem request="11" response="000000000000000000000" foes="011110000000111111000"/>
+      <logicitem request="12" response="000000000000000000000" foes="011110000000111111000"/>
+      <logicitem request="13" response="000000000000000000000" foes="111110000000111000111"/>
+      <logicitem request="14" response="000000000000100000000" foes="000001000000100000100"/>
+      <logicitem request="15" response="000000000000000000000" foes="000000100000100000100"/>
+      <logicitem request="16" response="000000000100000000100" foes="000000011111100001100"/>
+      <logicitem request="17" response="000000011000000001000" foes="000000011111100001100"/>
+      <logicitem request="18" response="000000000100001000100" foes="000000011100011111100"/>
+      <logicitem request="19" response="000000011000010001000" foes="000000011100011111100"/>
+      <logicitem request="20" response="000000010000010000000" foes="000000010000011000011"/>
    </row-logic>
 
    <row-logic id="23" requestSize="21" laneNumber="12">
-      <logic>
-         <logicitem request="0" response="000000000000000000000" foes="100000110000011000000"/>
-         <logicitem request="1" response="000000000000000000000" foes="011111110000111000000"/>
-         <logicitem request="2" response="000000000000000000000" foes="011111110000111000000"/>
-         <logicitem request="3" response="000000001000000000000" foes="011000001111111000000"/>
-         <logicitem request="4" response="010000001000000000000" foes="010000001100000100000"/>
-         <logicitem request="5" response="000000000000000000000" foes="010000001100000010000"/>
-         <logicitem request="6" response="000000010100000000010" foes="110000111100000001111"/>
-         <logicitem request="7" response="000000101000000001100" foes="110000111100000001111"/>
-         <logicitem request="8" response="000000101000000001100" foes="001111111100000001110"/>
-         <logicitem request="9" response="000000000000000001000" foes="001000000010000001000"/>
-         <logicitem request="10" response="000000000000000000000" foes="001000000001000001000"/>
-         <logicitem request="11" response="000000000000000000000" foes="011000000000111111000"/>
-         <logicitem request="12" response="000000000000000000000" foes="011000000000111111000"/>
-         <logicitem request="13" response="000000000000000000010" foes="111000000000111000111"/>
-         <logicitem request="14" response="000000000000000000100" foes="111000000000111000111"/>
-         <logicitem request="15" response="000000000000100000100" foes="000110000000100000110"/>
-         <logicitem request="16" response="000000000000000000000" foes="000001000000100000110"/>
-         <logicitem request="17" response="000000000000000000010" foes="000001000000100000110"/>
-         <logicitem request="18" response="000000010100000000010" foes="000000111111100001110"/>
-         <logicitem request="19" response="000000101000010001100" foes="000000111100011111110"/>
-         <logicitem request="20" response="000000100000010000000" foes="000000110000011000001"/>
-      </logic>
+      <logicitem request="0" response="000000000000000000000" foes="100000110000011000000"/>
+      <logicitem request="1" response="000000000000000000000" foes="011111110000111000000"/>
+      <logicitem request="2" response="000000000000000000000" foes="011111110000111000000"/>
+      <logicitem request="3" response="000000001000000000000" foes="011000001111111000000"/>
+      <logicitem request="4" response="010000001000000000000" foes="010000001100000100000"/>
+      <logicitem request="5" response="000000000000000000000" foes="010000001100000010000"/>
+      <logicitem request="6" response="000000010100000000010" foes="110000111100000001111"/>
+      <logicitem request="7" response="000000101000000001100" foes="110000111100000001111"/>
+      <logicitem request="8" response="000000101000000001100" foes="001111111100000001110"/>
+      <logicitem request="9" response="000000000000000001000" foes="001000000010000001000"/>
+      <logicitem request="10" response="000000000000000000000" foes="001000000001000001000"/>
+      <logicitem request="11" response="000000000000000000000" foes="011000000000111111000"/>
+      <logicitem request="12" response="000000000000000000000" foes="011000000000111111000"/>
+      <logicitem request="13" response="000000000000000000010" foes="111000000000111000111"/>
+      <logicitem request="14" response="000000000000000000100" foes="111000000000111000111"/>
+      <logicitem request="15" response="000000000000100000100" foes="000110000000100000110"/>
+      <logicitem request="16" response="000000000000000000000" foes="000001000000100000110"/>
+      <logicitem request="17" response="000000000000000000010" foes="000001000000100000110"/>
+      <logicitem request="18" response="000000010100000000010" foes="000000111111100001110"/>
+      <logicitem request="19" response="000000101000010001100" foes="000000111100011111110"/>
+      <logicitem request="20" response="000000100000010000000" foes="000000110000011000001"/>
    </row-logic>
 
    <row-logic id="91" requestSize="3" laneNumber="3">
-      <logic>
-         <logicitem request="0" response="111" foes="000"/>
-         <logicitem request="1" response="111" foes="000"/>
-         <logicitem request="2" response="000" foes="000"/>
-      </logic>
+      <logicitem request="0" response="111" foes="000"/>
+      <logicitem request="1" response="111" foes="000"/>
+      <logicitem request="2" response="000" foes="000"/>
    </row-logic>
 
    <row-logic id="92" requestSize="3" laneNumber="3">
-      <logic>
-         <logicitem request="0" response="111" foes="000"/>
-         <logicitem request="1" response="111" foes="000"/>
-         <logicitem request="2" response="000" foes="000"/>
-      </logic>
+      <logicitem request="0" response="111" foes="000"/>
+      <logicitem request="1" response="111" foes="000"/>
+      <logicitem request="2" response="000" foes="000"/>
    </row-logic>
 
    <row-logic id="93" requestSize="3" laneNumber="3">
-      <logic>
-         <logicitem request="0" response="111" foes="000"/>
-         <logicitem request="1" response="111" foes="000"/>
-         <logicitem request="2" response="000" foes="000"/>
-      </logic>
+      <logicitem request="0" response="111" foes="000"/>
+      <logicitem request="1" response="111" foes="000"/>
+      <logicitem request="2" response="000" foes="000"/>
    </row-logic>
 
    <row-logic id="94" requestSize="3" laneNumber="3">
-      <logic>
-         <logicitem request="0" response="111" foes="000"/>
-         <logicitem request="1" response="111" foes="000"/>
-         <logicitem request="2" response="000" foes="000"/>
-      </logic>
+      <logicitem request="0" response="111" foes="000"/>
+      <logicitem request="1" response="111" foes="000"/>
+      <logicitem request="2" response="000" foes="000"/>
    </row-logic>
 
    <row-logic id="95" requestSize="3" laneNumber="3">
-      <logic>
-         <logicitem request="0" response="111" foes="000"/>
-         <logicitem request="1" response="111" foes="000"/>
-         <logicitem request="2" response="000" foes="000"/>
-      </logic>
+      <logicitem request="0" response="111" foes="000"/>
+      <logicitem request="1" response="111" foes="000"/>
+      <logicitem request="2" response="000" foes="000"/>
    </row-logic>
 
    <row-logic id="96" requestSize="3" laneNumber="3">
-      <logic>
-         <logicitem request="0" response="111" foes="000"/>
-         <logicitem request="1" response="111" foes="000"/>
-         <logicitem request="2" response="000" foes="000"/>
-      </logic>
+      <logicitem request="0" response="111" foes="000"/>
+      <logicitem request="1" response="111" foes="000"/>
+      <logicitem request="2" response="000" foes="000"/>
    </row-logic>
 
    <row-logic id="97" requestSize="3" laneNumber="3">
-      <logic>
-         <logicitem request="0" response="111" foes="000"/>
-         <logicitem request="1" response="111" foes="000"/>
-         <logicitem request="2" response="000" foes="000"/>
-      </logic>
+      <logicitem request="0" response="111" foes="000"/>
+      <logicitem request="1" response="111" foes="000"/>
+      <logicitem request="2" response="000" foes="000"/>
    </row-logic>
 
    <row-logic id="98" requestSize="3" laneNumber="3">
-      <logic>
-         <logicitem request="0" response="111" foes="000"/>
-         <logicitem request="1" response="111" foes="000"/>
-         <logicitem request="2" response="000" foes="000"/>
-      </logic>
+      <logicitem request="0" response="111" foes="000"/>
+      <logicitem request="1" response="111" foes="000"/>
+      <logicitem request="2" response="000" foes="000"/>
    </row-logic>
-
-
 
    <junction id="11" type="priority" x="300.00" y="2000.00" incLanes="L1_0 L1_1 L1_2" intLanes="" shape="300.00,1999.95 300.00,1990.15 300.00,1999.95"/>
 
@@ -535,7 +428,6 @@
    <junction id="97" type="priority" x="2000.00" y="3000.00" incLanes="L31_0 L31_1 L31_2" intLanes="" shape="1999.95,3000.00 1990.15,3000.00 2009.85,3000.00 2000.05,3000.00"/>
 
    <junction id="98" type="priority" x="1000.00" y="3000.00" incLanes="L32_0 L32_1 L32_2" intLanes="" shape="999.95,3000.00 990.15,3000.00 1009.85,3000.00 1000.05,3000.00"/>
-
 
    <succ edge="L1" lane="L1_0" junction="11">
       <succlane lane="L9_0" yield="0" dir="s" state="M"/>
@@ -956,6 +848,5 @@
       <succlane lane="L32_2" yield="1" dir="l" state="m"/>
       <succlane lane="L25_2" yield="1" dir="t" state="m"/>
    </succ>
-
 
 </net>
