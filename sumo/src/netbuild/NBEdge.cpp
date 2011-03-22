@@ -611,11 +611,9 @@ NBEdge::writeXMLStep1(OutputDevice &into) {
     }
     into << "\">\n";
     // write the lanes
-    into << "      <lanes>\n";
     for (unsigned int i=0; i<(unsigned int) myLanes.size(); i++) {
         writeLane(into, myLanes[i], i);
     }
-    into << "      </lanes>\n";
     // write the list of connected edges
     const std::vector<NBEdge*> *tmp = getConnectedSorted();
     std::vector<NBEdge*> sortedConnected = *tmp;
@@ -647,7 +645,7 @@ NBEdge::writeXMLStep2(OutputDevice &into, bool includeInternal) {
 void
 NBEdge::writeLane(OutputDevice &into, NBEdge::Lane &lane, unsigned int index) const {
     // output the lane's attributes
-    into << "         <lane id=\"" << getLaneID(index) << "\"";
+    into << "      <lane id=\"" << getLaneID(index) << "\"";
     // the first lane of an edge will be the depart lane
     if (index==0) {
         into << " depart=\"1\"";
@@ -669,7 +667,6 @@ NBEdge::writeLane(OutputDevice &into, NBEdge::Lane &lane, unsigned int index) co
         WRITE_WARNING("Lane #" + toString(index) + " of edge '" + myID + "' has a maximum velocity of 0.");
     } else if (lane.speed<0) {
         throw ProcessError("Negative velocity (" + toString(lane.speed) + " on edge '" + myID + "' lane#" + toString(index) + ".");
-
     }
     SUMOReal length = myLength;
     if (myLoadedLength>0) {

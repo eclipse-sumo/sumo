@@ -332,7 +332,6 @@ NBRequest::bitsetToXML(std::string key) {
     << "\" laneNumber=\"" << absNoLanes << "\">" << std::endl;
     int pos = 0;
     // save the logic
-    os << "      <logic>" << std::endl;
     EdgeVector::const_iterator i;
     for (i=myIncoming->begin(); i!=myIncoming->end(); i++) {
         unsigned int noLanes = (*i)->getNoLanes();
@@ -340,7 +339,6 @@ NBRequest::bitsetToXML(std::string key) {
             pos = writeLaneResponse(os, *i, k, pos);
         }
     }
-    os << "      </logic>" << std::endl;
     os << "   </row-logic>" << std::endl;
     return os.str();
 }
@@ -480,7 +478,7 @@ NBRequest::writeLaneResponse(std::ostream &os, NBEdge *from,
                              int fromLane, int pos) {
     std::vector<NBEdge::Connection> connected = from->getConnectionsFromLane(fromLane);
     for (std::vector<NBEdge::Connection>::iterator j=connected.begin(); j!=connected.end(); j++) {
-        os << "         <logicitem request=\"" << pos++ << "\" response=\"";
+        os << "      <logicitem request=\"" << pos++ << "\" response=\"";
         writeResponse(os, from, (*j).toEdge, fromLane, (*j).toLane, (*j).mayDefinitelyPass);
         os << "\" foes=\"";
         writeAreFoes(os, from, (*j).toEdge, myJunction->getCrossingPosition(from, fromLane, (*j).toEdge, (*j).toLane).first>=0);

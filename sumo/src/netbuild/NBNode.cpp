@@ -621,35 +621,29 @@ NBNode::writeXMLInternalLinks(OutputDevice &into) {
                     }
 
                     into << "   <edge id=\"" << id << "\" function=\"internal\">\n";
-                    into << "      <lanes>\n";
-                    into << "         <lane id=\"" << id << "_0\" depart=\"0\" "
+                    into << "      <lane id=\"" << id << "_0\" depart=\"0\" "
                     << "maxspeed=\"" << vmax << "\" length=\""
                     << toString<SUMOReal>(cross.first) << "\""
                     << " shape=\"" << split.first << "\"/>\n"
-                    << "      </lanes>\n"
                     << "   </edge>\n";
                     lno++;
 
                     std::string id = ":" + myID + "_" + toString(splitNo+noInternalNoSplits);
                     into << "   <edge id=\"" << id
                     << "\" function=\"internal\">\n";
-                    into << "      <lanes>\n";
-                    into << "         <lane id=\"" << id << "_0\" depart=\"0\" "
+                    into << "      <lane id=\"" << id << "_0\" depart=\"0\" "
                     << "maxspeed=\"" << vmax << "\" length=\""
                     << toString<SUMOReal>(length-cross.first) << "\""
                     << " shape=\"" << split.second << "\"/>\n"
-                    << "      </lanes>\n"
                     << "   </edge>\n";
                     splitNo++;
                 } else {
                     into << "   <edge id=\"" << id
                     << "\" function=\"internal\">\n";
-                    into << "      <lanes>\n";
-                    into << "         <lane id=\"" << id << "_0\" depart=\"0\" "
+                    into << "      <lane id=\"" << id << "_0\" depart=\"0\" "
                     << "maxspeed=\"" << vmax << "\" length=\""
                     << toString<SUMOReal>(length) << "\""
                     << " shape=\"" << shape << "\"/>\n"
-                    << "      </lanes>\n"
                     << "   </edge>\n";
                     lno++;
                 }
