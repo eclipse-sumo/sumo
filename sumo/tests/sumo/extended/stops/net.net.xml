@@ -19,36 +19,26 @@
 
    <location netOffset="0.000000,0.000000" convBoundary="0.000000,0.000000,6.000000,0.000000" origBoundary="0.000000,0.000000,6.000000,0.000000" projParameter="!"/>
 
-   <node_count>3</node_count>
-
+   <node_count>
+   </node_count>
 
    <edge id="1to2" from="1" to="2" priority="-1" type="" function="normal">
-      <lanes>
-         <lane id="1to2_0" depart="1" maxspeed="13.90" length="5.00" shape="0.00,-1.65 5.00,-1.65"/>
-      </lanes>
+      <lane id="1to2_0" depart="1" maxspeed="13.90" length="5.00" shape="0.00,-1.65 5.00,-1.65"/>
    </edge>
 
    <edge id="out" from="2" to="3" priority="-1" type="" function="normal">
-      <lanes>
-         <lane id="out_0" depart="1" maxspeed="13.90" length="1.00" shape="5.00,-1.65 6.00,-1.65"/>
-      </lanes>
+      <lane id="out_0" depart="1" maxspeed="13.90" length="1.00" shape="5.00,-1.65 6.00,-1.65"/>
    </edge>
 
-
    <row-logic id="2" requestSize="1" laneNumber="1">
-      <logic>
-         <logicitem request="0" response="0" foes="0"/>
-      </logic>
+      <logicitem request="0" response="0" foes="0"/>
    </row-logic>
-
-
 
    <junction id="1" type="DEAD_END" x="0.00" y="0.00" incLanes="" intLanes="" shape="-0.00,-0.05 -0.00,-3.25"/>
 
    <junction id="2" type="priority" x="5.00" y="0.00" incLanes="1to2_0" intLanes="" shape="5.00,-0.05 5.00,-3.25 5.00,-0.05"/>
 
    <junction id="3" type="DEAD_END" x="6.00" y="0.00" incLanes="out_0" intLanes="" shape="6.00,-3.25 6.00,-0.05"/>
-
 
    <succ edge="1to2" lane="1to2_0" junction="2">
       <succlane lane="out_0" yield="0" dir="s" state="M"/>
@@ -57,6 +47,5 @@
    <succ edge="out" lane="out_0" junction="3">
       <succlane lane="SUMO_NO_DESTINATION" yield="1" dir="s" state="O"/>
    </succ>
-
 
 </net>

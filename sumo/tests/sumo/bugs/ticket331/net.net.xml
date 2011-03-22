@@ -25,14 +25,10 @@
    <location netOffset="1.00,0.00" convBoundary="0.00,0.00,11.00,0.00" origBoundary="-1.00,0.00,10.00,0.00" projParameter="!"/>
 
    <edge id="0" from="SUMOGenerated0" to="SUMOGenerated1" priority="-1" type="" function="normal">
-      <lanes>
-         <lane id="0_0" depart="1" maxspeed="13.89" length="2.00" shape="0.00,-1.65 2.00,-1.65"/>
-      </lanes>
+      <lane id="0_0" depart="1" maxspeed="13.89" length="2.00" shape="0.00,-1.65 2.00,-1.65"/>
    </edge>
    <edge id="1" from="SUMOGenerated2" to="SUMOGenerated3" priority="-1" type="" function="normal">
-      <lanes>
-         <lane id="1_0" depart="1" maxspeed="13.89" length="9.00" shape="2.00,-1.65 11.00,-1.65"/>
-      </lanes>
+      <lane id="1_0" depart="1" maxspeed="13.89" length="9.00" shape="2.00,-1.65 11.00,-1.65"/>
    </edge>
 
    <junction id="SUMOGenerated0" type="DEAD_END" x="0.00" y="0.00" incLanes="" intLanes="" shape="0.00,-0.05 0.00,-3.25"/>

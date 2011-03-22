@@ -1,5 +1,7 @@
 <?xml version="1.0"?>
 
 <districts>
-	<district id="2" edges="end rend"/>
+   <district id="2" edges="end rend">
+   </district>
 </districts>
+

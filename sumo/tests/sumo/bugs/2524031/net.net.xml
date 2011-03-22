@@ -19,93 +19,60 @@
    <location netOffset="210.00,0.00" convBoundary="0.00,0.00,420.00,1.00" origBoundary="-210.00,0.00,210.00,1.00" projParameter="!"/>
 
    <edge id=":SUMOGenerated1_0" function="internal">
-      <lanes>
-         <lane id=":SUMOGenerated1_0_0" depart="0" maxspeed="13.90" length="0.10" shape="10.00,-1.65 10.00,-1.65"/>
-      </lanes>
+      <lane id=":SUMOGenerated1_0_0" depart="0" maxspeed="13.90" length="0.10" shape="10.00,-1.65 10.00,-1.65"/>
    </edge>
 
    <edge id=":SUMOGenerated3_0" function="internal">
-      <lanes>
-         <lane id=":SUMOGenerated3_0_0" depart="0" maxspeed="13.90" length="0.10" shape="410.00,2.65 410.00,2.65"/>
-      </lanes>
+      <lane id=":SUMOGenerated3_0_0" depart="0" maxspeed="13.90" length="0.10" shape="410.00,2.65 410.00,2.65"/>
    </edge>
 
    <edge id=":SUMOGenerated4_0" function="internal">
-      <lanes>
-         <lane id=":SUMOGenerated4_0_0" depart="0" maxspeed="13.90" length="0.10" shape="410.00,-1.65 410.00,-1.65"/>
-      </lanes>
+      <lane id=":SUMOGenerated4_0_0" depart="0" maxspeed="13.90" length="0.10" shape="410.00,-1.65 410.00,-1.65"/>
    </edge>
 
    <edge id=":SUMOGenerated5_0" function="internal">
-      <lanes>
-         <lane id=":SUMOGenerated5_0_0" depart="0" maxspeed="13.90" length="0.10" shape="10.00,2.65 10.00,2.65"/>
-      </lanes>
+      <lane id=":SUMOGenerated5_0_0" depart="0" maxspeed="13.90" length="0.10" shape="10.00,2.65 10.00,2.65"/>
    </edge>
 
-
-
    <edge id="1to2" from="SUMOGenerated1" to="SUMOGenerated4" priority="-1" type="" function="normal">
-      <lanes>
-         <lane id="1to2_0" depart="1" maxspeed="13.90" length="400.00" shape="10.00,-1.65 410.00,-1.65"/>
-      </lanes>
+      <lane id="1to2_0" depart="1" maxspeed="13.90" length="400.00" shape="10.00,-1.65 410.00,-1.65"/>
    </edge>
 
    <edge id="2to1" from="SUMOGenerated3" to="SUMOGenerated5" priority="-1" type="" function="normal">
-      <lanes>
-         <lane id="2to1_0" depart="1" maxspeed="13.90" length="400.00" shape="410.00,2.65 10.00,2.65"/>
-      </lanes>
+      <lane id="2to1_0" depart="1" maxspeed="13.90" length="400.00" shape="410.00,2.65 10.00,2.65"/>
    </edge>
 
    <edge id="in1" from="SUMOGenerated0" to="SUMOGenerated1" priority="-1" type="" function="normal">
-      <lanes>
-         <lane id="in1_0" depart="1" maxspeed="13.90" length="10.00" shape="0.00,-1.65 10.00,-1.65"/>
-      </lanes>
+      <lane id="in1_0" depart="1" maxspeed="13.90" length="10.00" shape="0.00,-1.65 10.00,-1.65"/>
    </edge>
 
    <edge id="in2" from="SUMOGenerated2" to="SUMOGenerated3" priority="-1" type="" function="normal">
-      <lanes>
-         <lane id="in2_0" depart="1" maxspeed="13.90" length="10.00" shape="420.00,2.65 410.00,2.65"/>
-      </lanes>
+      <lane id="in2_0" depart="1" maxspeed="13.90" length="10.00" shape="420.00,2.65 410.00,2.65"/>
    </edge>
 
    <edge id="out1" from="SUMOGenerated5" to="SUMOGenerated7" priority="-1" type="" function="normal">
-      <lanes>
-         <lane id="out1_0" depart="1" maxspeed="13.90" length="10.00" shape="10.00,2.65 0.00,2.65"/>
-      </lanes>
+      <lane id="out1_0" depart="1" maxspeed="13.90" length="10.00" shape="10.00,2.65 0.00,2.65"/>
    </edge>
 
    <edge id="out2" from="SUMOGenerated4" to="SUMOGenerated6" priority="-1" type="" function="normal">
-      <lanes>
-         <lane id="out2_0" depart="1" maxspeed="13.90" length="10.00" shape="410.00,-1.65 420.00,-1.65"/>
-      </lanes>
+      <lane id="out2_0" depart="1" maxspeed="13.90" length="10.00" shape="410.00,-1.65 420.00,-1.65"/>
    </edge>
 
-
    <row-logic id="SUMOGenerated1" requestSize="1" laneNumber="1">
-      <logic>
-         <logicitem request="0" response="0" foes="0" cont="0"/>
-      </logic>
+      <logicitem request="0" response="0" foes="0" cont="0"/>
    </row-logic>
 
    <row-logic id="SUMOGenerated3" requestSize="1" laneNumber="1">
-      <logic>
-         <logicitem request="0" response="0" foes="0" cont="0"/>
-      </logic>
+      <logicitem request="0" response="0" foes="0" cont="0"/>
    </row-logic>
 
    <row-logic id="SUMOGenerated4" requestSize="1" laneNumber="1">
-      <logic>
-         <logicitem request="0" response="0" foes="0" cont="0"/>
-      </logic>
+      <logicitem request="0" response="0" foes="0" cont="0"/>
    </row-logic>
 
    <row-logic id="SUMOGenerated5" requestSize="1" laneNumber="1">
-      <logic>
-         <logicitem request="0" response="0" foes="0" cont="0"/>
-      </logic>
+      <logicitem request="0" response="0" foes="0" cont="0"/>
    </row-logic>
-
-
 
    <junction id="SUMOGenerated0" type="DEAD_END" x="0.00" y="0.00" incLanes="" intLanes="" shape="-0.00,-0.05 -0.00,-3.25"/>
 
@@ -122,8 +89,6 @@
    <junction id="SUMOGenerated6" type="DEAD_END" x="420.00" y="0.00" incLanes="out2_0" intLanes="" shape="420.00,-3.25 420.00,-0.05"/>
 
    <junction id="SUMOGenerated7" type="DEAD_END" x="0.00" y="1.00" incLanes="out1_0" intLanes="" shape="0.00,4.25 0.00,1.05"/>
-
-
 
    <succ edge="1to2" lane="1to2_0" junction="SUMOGenerated4">
       <succlane lane="out2_0" via=":SUMOGenerated4_0_0" yield="0" dir="s" state="M"/>
@@ -148,7 +113,6 @@
    <succ edge="out2" lane="out2_0" junction="SUMOGenerated6">
       <succlane lane="SUMO_NO_DESTINATION" yield="1" dir="s" state="O"/>
    </succ>
-
 
    <succ edge=":SUMOGenerated1_0" lane=":SUMOGenerated1_0_0" junction="SUMOGenerated1">
       <succlane lane="1to2_0" tl="" linkno="" yield="0" dir="s" state="M"/>

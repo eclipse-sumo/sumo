@@ -26,94 +26,62 @@
    <location netOffset="250.00,250.00" convBoundary="0.00,0.00,500.00,500.00" origBoundary="-250.00,-250.00,250.00,250.00" projParameter="!"/>
 
    <edge id=":0_0" function="internal">
-      <lanes>
-         <lane id=":0_0_0" depart="0" maxspeed="36.00" length="2.58" shape="6.55,4.95 5.85,5.05 5.35,5.35 5.05,5.85 4.95,6.55"/>
-      </lanes>
+      <lane id=":0_0_0" depart="0" maxspeed="36.00" length="2.58" shape="6.55,4.95 5.85,5.05 5.35,5.35 5.05,5.85 4.95,6.55"/>
    </edge>
    <edge id=":0_1" function="internal">
-      <lanes>
-         <lane id=":0_1_0" depart="0" maxspeed="36.00" length="7.90" shape="6.55,1.65 4.41,1.96 2.88,2.87 1.96,4.41 1.65,6.55"/>
-      </lanes>
+      <lane id=":0_1_0" depart="0" maxspeed="36.00" length="7.90" shape="6.55,1.65 4.41,1.96 2.88,2.87 1.96,4.41 1.65,6.55"/>
    </edge>
    <edge id=":1_0" function="internal">
-      <lanes>
-         <lane id=":1_0_0" depart="0" maxspeed="36.00" length="2.58" shape="4.95,493.45 5.05,494.15 5.35,494.65 5.85,494.95 6.55,495.05"/>
-      </lanes>
+      <lane id=":1_0_0" depart="0" maxspeed="36.00" length="2.58" shape="4.95,493.45 5.05,494.15 5.35,494.65 5.85,494.95 6.55,495.05"/>
    </edge>
    <edge id=":1_1" function="internal">
-      <lanes>
-         <lane id=":1_1_0" depart="0" maxspeed="36.00" length="7.90" shape="1.65,493.45 1.96,495.59 2.88,497.13 4.41,498.04 6.55,498.35"/>
-      </lanes>
+      <lane id=":1_1_0" depart="0" maxspeed="36.00" length="7.90" shape="1.65,493.45 1.96,495.59 2.88,497.13 4.41,498.04 6.55,498.35"/>
    </edge>
    <edge id=":2_0" function="internal">
-      <lanes>
-         <lane id=":2_0_0" depart="0" maxspeed="36.00" length="2.58" shape="493.45,495.05 494.15,494.95 494.65,494.65 494.95,494.15 495.05,493.45"/>
-      </lanes>
+      <lane id=":2_0_0" depart="0" maxspeed="36.00" length="2.58" shape="493.45,495.05 494.15,494.95 494.65,494.65 494.95,494.15 495.05,493.45"/>
    </edge>
    <edge id=":2_1" function="internal">
-      <lanes>
-         <lane id=":2_1_0" depart="0" maxspeed="36.00" length="7.90" shape="493.45,498.35 495.59,498.04 497.12,497.13 498.04,495.59 498.35,493.45"/>
-      </lanes>
+      <lane id=":2_1_0" depart="0" maxspeed="36.00" length="7.90" shape="493.45,498.35 495.59,498.04 497.12,497.13 498.04,495.59 498.35,493.45"/>
    </edge>
    <edge id=":3_0" function="internal">
-      <lanes>
-         <lane id=":3_0_0" depart="0" maxspeed="36.00" length="2.58" shape="495.05,6.55 494.95,5.85 494.65,5.35 494.15,5.05 493.45,4.95"/>
-      </lanes>
+      <lane id=":3_0_0" depart="0" maxspeed="36.00" length="2.58" shape="495.05,6.55 494.95,5.85 494.65,5.35 494.15,5.05 493.45,4.95"/>
    </edge>
    <edge id=":3_1" function="internal">
-      <lanes>
-         <lane id=":3_1_0" depart="0" maxspeed="36.00" length="7.90" shape="498.35,6.55 498.04,4.41 497.12,2.88 495.59,1.96 493.45,1.65"/>
-      </lanes>
+      <lane id=":3_1_0" depart="0" maxspeed="36.00" length="7.90" shape="498.35,6.55 498.04,4.41 497.12,2.88 495.59,1.96 493.45,1.65"/>
    </edge>
 
    <edge id="0" from="0" to="1" priority="-1" type="" function="normal">
-      <lanes>
-         <lane id="0_0" depart="1" maxspeed="36.00" length="486.90" shape="4.95,6.55 4.95,493.45"/>
-         <lane id="0_1" depart="0" maxspeed="36.00" length="486.90" shape="1.65,6.55 1.65,493.45"/>
-      </lanes>
+      <lane id="0_0" depart="1" maxspeed="36.00" length="486.90" shape="4.95,6.55 4.95,493.45"/>
+      <lane id="0_1" depart="0" maxspeed="36.00" length="486.90" shape="1.65,6.55 1.65,493.45"/>
    </edge>
    <edge id="1" from="1" to="2" priority="-1" type="" function="normal">
-      <lanes>
-         <lane id="1_0" depart="1" maxspeed="36.00" length="486.90" shape="6.55,495.05 493.45,495.05"/>
-         <lane id="1_1" depart="0" maxspeed="36.00" length="486.90" shape="6.55,498.35 493.45,498.35"/>
-      </lanes>
+      <lane id="1_0" depart="1" maxspeed="36.00" length="486.90" shape="6.55,495.05 493.45,495.05"/>
+      <lane id="1_1" depart="0" maxspeed="36.00" length="486.90" shape="6.55,498.35 493.45,498.35"/>
    </edge>
    <edge id="2" from="2" to="3" priority="-1" type="" function="normal">
-      <lanes>
-         <lane id="2_0" depart="1" maxspeed="36.00" length="486.90" shape="495.05,493.45 495.05,6.55"/>
-         <lane id="2_1" depart="0" maxspeed="36.00" length="486.90" shape="498.35,493.45 498.35,6.55"/>
-      </lanes>
+      <lane id="2_0" depart="1" maxspeed="36.00" length="486.90" shape="495.05,493.45 495.05,6.55"/>
+      <lane id="2_1" depart="0" maxspeed="36.00" length="486.90" shape="498.35,493.45 498.35,6.55"/>
    </edge>
    <edge id="3" from="3" to="0" priority="-1" type="" function="normal">
-      <lanes>
-         <lane id="3_0" depart="1" maxspeed="36.00" length="486.90" shape="493.45,4.95 6.55,4.95"/>
-         <lane id="3_1" depart="0" maxspeed="36.00" length="486.90" shape="493.45,1.65 6.55,1.65"/>
-      </lanes>
+      <lane id="3_0" depart="1" maxspeed="36.00" length="486.90" shape="493.45,4.95 6.55,4.95"/>
+      <lane id="3_1" depart="0" maxspeed="36.00" length="486.90" shape="493.45,1.65 6.55,1.65"/>
    </edge>
 
    <row-logic id="0" requestSize="2" laneNumber="2">
-      <logic>
-         <logicitem request="0" response="00" foes="00" cont="0"/>
-         <logicitem request="1" response="00" foes="00" cont="0"/>
-      </logic>
+      <logicitem request="0" response="00" foes="00" cont="0"/>
+      <logicitem request="1" response="00" foes="00" cont="0"/>
    </row-logic>
    <row-logic id="1" requestSize="2" laneNumber="2">
-      <logic>
-         <logicitem request="0" response="00" foes="00" cont="0"/>
-         <logicitem request="1" response="00" foes="00" cont="0"/>
-      </logic>
+      <logicitem request="0" response="00" foes="00" cont="0"/>
+      <logicitem request="1" response="00" foes="00" cont="0"/>
    </row-logic>
    <row-logic id="2" requestSize="2" laneNumber="2">
-      <logic>
-         <logicitem request="0" response="00" foes="00" cont="0"/>
-         <logicitem request="1" response="00" foes="00" cont="0"/>
-      </logic>
+      <logicitem request="0" response="00" foes="00" cont="0"/>
+      <logicitem request="1" response="00" foes="00" cont="0"/>
    </row-logic>
    <row-logic id="3" requestSize="2" laneNumber="2">
-      <logic>
-         <logicitem request="0" response="00" foes="00" cont="0"/>
-         <logicitem request="1" response="00" foes="00" cont="0"/>
-      </logic>
+      <logicitem request="0" response="00" foes="00" cont="0"/>
+      <logicitem request="1" response="00" foes="00" cont="0"/>
    </row-logic>
 
    <junction id="0" type="priority" x="0.00" y="0.00" incLanes="3_0 3_1" intLanes=":0_0_0 :0_1_0" shape="0.05,6.55 6.55,6.55 6.55,0.05"/>
