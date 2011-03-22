@@ -382,27 +382,6 @@ protected:
 
 
 protected:
-    /**
-     * @enum JunctionType
-     * @brief numerical representations of junction types
-     */
-    enum JunctionType {
-        /// @brief A junction with an unkown type
-        TYPE_UNKNOWN = 0,
-        /// @brief A not controlled junction
-        TYPE_NOJUNCTION,
-        /// @brief A junction where vehicles coming from the right side may drive as first
-        TYPE_RIGHT_BEFORE_LEFT,
-        /// @brief A junction where one street has a higher priority
-        TYPE_PRIORITY_JUNCTION,
-        /// @brief A dead end (all roads end here)
-        TYPE_DEAD_END,
-        /// @brief An internal junction
-        TYPE_INTERNAL
-    };
-
-
-protected:
     /// @brief The net to use
     MSNet &myNet;
 
@@ -454,7 +433,7 @@ protected:
     std::string myActiveKey, myActiveProgram;
 
     /// @brief The type of the currently chosen junction
-    JunctionType myType;
+    SumoXMLNodeType myType;
 
     /// @brief The position of the junction
     Position2D myPosition;

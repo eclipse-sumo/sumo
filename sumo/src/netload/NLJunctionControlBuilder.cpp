@@ -41,13 +41,15 @@
 #include <microsim/traffic_lights/MSSimpleTrafficLightLogic.h>
 #include <microsim/MSEventControl.h>
 #include <microsim/MSGlobals.h>
-#include "NLBuilder.h"
 #include <microsim/traffic_lights/MSAgentbasedTrafficLightLogic.h>
 #include <microsim/traffic_lights/MSOffTrafficLightLogic.h>
-#include <utils/common/UtilExceptions.h>
-#include "NLJunctionControlBuilder.h"
 #include <microsim/traffic_lights/MSTLLogicControl.h>
+#include <utils/xml/SUMOXMLDefinitions.h>
+#include <utils/common/UtilExceptions.h>
 #include <utils/common/ToString.h>
+#include <netbuild/NBNode.h>
+#include "NLBuilder.h"
+#include "NLJunctionControlBuilder.h"
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -91,21 +93,11 @@ NLJunctionControlBuilder::openJunction(const std::string &id,
     myActiveIncomingLanes.clear();
     myActiveID = id;
     myActiveKey = key;
-    myType = TYPE_UNKNOWN;
-    if (type=="right_before_left") {
-        myType = TYPE_RIGHT_BEFORE_LEFT;
-    } else if (type=="priority" || type=="traffic_light") {
-        myType = TYPE_PRIORITY_JUNCTION;
-    } else if (type=="DEAD_END"||type=="district") {
-        myType = TYPE_DEAD_END;
-    } else if (type=="internal") {
-        myType = TYPE_INTERNAL;
-    } else if (type=="unregulated"||type=="none") {
-        myType = TYPE_NOJUNCTION;
-    }
-    if (myType==TYPE_UNKNOWN) {
+    if (!SUMOXMLDefinitions::NodeTypes.hasString(type)) {
         throw InvalidArgument("An unknown or invalid junction type '" + type + "' occured in junction '" + id + "'.");
     }
+
+    myType = SUMOXMLDefinitions::NodeTypes.get(type);
     myPosition.set(x, y);
     myShape = shape;
 }
@@ -139,25 +131,25 @@ NLJunctionControlBuilder::closeJunction() throw(InvalidArgument, ProcessError) {
     }
     MSJunction *junction = 0;
     switch (myType) {
-    case TYPE_NOJUNCTION:
-        junction = buildNoLogicJunction();
-        break;
-    case TYPE_RIGHT_BEFORE_LEFT:
-    case TYPE_PRIORITY_JUNCTION:
-        junction = buildLogicJunction();
-        break;
-    case TYPE_DEAD_END:
-        junction = buildNoLogicJunction();
-        break;
-    case TYPE_INTERNAL:
+        case NODETYPE_NOJUNCTION:
+        case NODETYPE_DEAD_END:
+        case NODETYPE_DISTRICT:
+            junction = buildNoLogicJunction();
+            break;
+        case NODETYPE_TRAFFIC_LIGHT:
+        case NODETYPE_RIGHT_BEFORE_LEFT:
+        case NODETYPE_PRIORITY_JUNCTION:
+            junction = buildLogicJunction();
+            break;
+        case NODETYPE_INTERNAL:
 #ifdef HAVE_INTERNAL_LANES
-        if (MSGlobals::gUsingInternalLanes) {
-            junction = buildInternalJunction();
-        }
+            if (MSGlobals::gUsingInternalLanes) {
+                junction = buildInternalJunction();
+            }
 #endif
-        break;
-    default:
-        throw InvalidArgument("False junction logic type.");
+            break;
+        default:
+            throw InvalidArgument("False junction logic type.");
     }
     if (junction!=0) {
         if (!myJunctions->add(myActiveID, junction)) {
