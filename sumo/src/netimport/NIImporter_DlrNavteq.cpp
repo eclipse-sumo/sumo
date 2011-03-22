@@ -308,8 +308,8 @@ NIImporter_DlrNavteq::TrafficlightsHandler::report(const std::string &result) th
     if (node==0) {
         WRITE_WARNING("The traffic light node '" + nodeID + "' could not be found");
     } else {
-        if (node->getType() != NBNode::NODETYPE_TRAFFIC_LIGHT) {
-            node->reinit(node->getPosition(), NBNode::NODETYPE_TRAFFIC_LIGHT);
+        if (node->getType() != NODETYPE_TRAFFIC_LIGHT) {
+            node->reinit(node->getPosition(), NODETYPE_TRAFFIC_LIGHT);
             NBTrafficLightDefinition *tlDef = new NBOwnTLDef(nodeID, node);
             if (!myTLLogicCont.insert(tlDef)) {
                 // actually, nothing should fail here

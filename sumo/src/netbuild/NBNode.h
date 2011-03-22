@@ -35,11 +35,11 @@
 #include <string>
 #include <set>
 #include <utils/common/Named.h>
-#include <utils/common/StringBijection.h>
 #include <utils/common/VectorHelper.h>
 #include <utils/geom/Position2D.h>
 #include <utils/geom/Line2D.h>
 #include <utils/geom/Position2DVector.h>
+#include <utils/xml/SUMOXMLDefinitions.h>
 #include "NBEdge.h"
 #include "NBJunctionLogicCont.h"
 #include "NBConnection.h"
@@ -111,31 +111,6 @@ public:
 
     };
 
-
-    /** @enum BasicNodeType
-     * @brief Possible node types
-     */
-    enum BasicNodeType {
-        /// @brief Unknown yet
-        NODETYPE_UNKNOWN,
-        /// @brief The node is controlled by a traffic light
-        NODETYPE_TRAFFIC_LIGHT,
-        /// @brief The node is a priority junction (one direction has a higher priority)
-        NODETYPE_PRIORITY_JUNCTION,
-        /// @brief The node is a right-before-left junction
-        NODETYPE_RIGHT_BEFORE_LEFT,
-        /// @brief The node is a district
-        NODETYPE_DISTRICT,
-        /// @brief The node is uncontrolled
-        NODETYPE_NOJUNCTION,
-        /// @brief The node is internal to another junction
-        NODETYPE_INTERNAL,
-        /// @brief The node is a dead end (no outgoing edges)
-        NODETYPE_DEAD_END
-    };
-
-    static StringBijection<BasicNodeType>  nodeTypeNames;
-
 public:
     /** @brief Constructor
      * @param[in] id The id of the node
@@ -149,7 +124,7 @@ public:
      * @param[in] position The position of the node
      * @param[in] type The type of the node
      */
-    NBNode(const std::string &id, const Position2D &position, BasicNodeType type) throw();
+    NBNode(const std::string &id, const Position2D &position, SumoXMLNodeType type) throw();
 
 
     /** @brief Constructor
@@ -168,7 +143,7 @@ public:
      * @param[in] position The position of the node
      * @param[in] type The type of the node
      */
-    void reinit(const Position2D &position, BasicNodeType type) throw();
+    void reinit(const Position2D &position, SumoXMLNodeType type) throw();
 
 
     /// @name Atomar getter methods
@@ -216,9 +191,9 @@ public:
 
     /** @brief Returns the type of this node
      * @return The type of this node
-     * @see BasicNodeType
+     * @see SumoXMLNodeType
      */
-    BasicNodeType getType() const throw() {
+    SumoXMLNodeType getType() const throw() {
         return myType;
     }
     /// @}
@@ -458,7 +433,7 @@ private:
     void sortSmall();
 
     // computes the junction type
-    BasicNodeType computeType(const NBTypeCont &tc) const;
+    SumoXMLNodeType computeType(const NBTypeCont &tc) const;
     bool isSimpleContinuation() const;
 
     /// computes the priorities of participating edges within this junction
@@ -516,7 +491,7 @@ private:
     std::vector<NBEdge*> myAllEdges;
 
     /// @brief The type of the junction
-    BasicNodeType myType;
+    SumoXMLNodeType myType;
 
     /** The container for connection block dependencies */
     NBConnectionProhibits myBlockedConnections;
@@ -530,9 +505,6 @@ private:
     NBRequest *myRequest;
 
     std::set<NBTrafficLightDefinition*> myTrafficLights;
-
-    // needed to initialize nodeTypeNames since ISO C++ does not allow compound literals )-:
-    static StringBijection<BasicNodeType>::Entry nodeTypeNamesEntries[];
 
 private:
     /// @brief invalidated copy constructor

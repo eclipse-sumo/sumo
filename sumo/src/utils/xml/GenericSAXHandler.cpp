@@ -43,19 +43,21 @@
 // ===========================================================================
 // class definitions
 // ===========================================================================
-GenericSAXHandler::GenericSAXHandler(GenericSAXHandler::Tag *tags,
-                                     GenericSAXHandler::Attr *attrs, const std::string &file) throw()
+GenericSAXHandler::GenericSAXHandler(
+        StringBijection<SumoXMLTag>::Entry *tags, 
+        StringBijection<SumoXMLAttr>::Entry *attrs, 
+        const std::string &file) throw()
         : myParentHandler(0), myParentIndicator(SUMO_TAG_NOTHING), myFileName(file) {
     int i = 0;
     while (tags[i].key != SUMO_TAG_NOTHING) {
-        myTagMap.insert(TagMap::value_type(tags[i].name, tags[i].key));
+        myTagMap.insert(TagMap::value_type(tags[i].str, tags[i].key));
         i++;
     }
     i = 0;
     while (attrs[i].key != SUMO_ATTR_NOTHING) {
         assert(myPredefinedTags.find(attrs[i].key)==myPredefinedTags.end());
-        myPredefinedTags[attrs[i].key] = convert(attrs[i].name);
-        myPredefinedTagsMML[attrs[i].key] = attrs[i].name;
+        myPredefinedTags[attrs[i].key] = convert(attrs[i].str);
+        myPredefinedTagsMML[attrs[i].key] = attrs[i].str;
         i++;
     }
 }

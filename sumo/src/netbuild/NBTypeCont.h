@@ -110,7 +110,7 @@ public:
     /** @brief Returns the type of the junction between two edges of the given types
      * @return The node type for two edges havnig the given speeds
      */
-    NBNode::BasicNodeType getJunctionType(SUMOReal speed1, SUMOReal speed2) const throw();
+    SumoXMLNodeType getJunctionType(SUMOReal speed1, SUMOReal speed2) const throw();
 
 
     /** @brief Returns whether the named type is in the container

@@ -30,6 +30,7 @@
 #include <string>
 #include <map>
 #include <algorithm>
+#include <cmath>
 #include <utils/options/OptionsCont.h>
 #include <utils/geom/Boundary.h>
 #include <utils/geom/GeomHelper.h>
@@ -38,16 +39,15 @@
 #include <utils/common/StringTokenizer.h>
 #include <utils/common/StdDefs.h>
 #include <utils/common/ToString.h>
+#include <utils/xml/SUMOXMLDefinitions.h>
+#include <utils/geom/GeoConvHelper.h>
+#include <utils/iodevices/OutputDevice.h>
 #include "NBDistrict.h"
 #include "NBEdgeCont.h"
 #include "NBJunctionLogicCont.h"
 #include "NBTrafficLightLogicCont.h"
 #include "NBJoinedEdgesMap.h"
 #include "NBOwnTLDef.h"
-#include <cmath>
-#include <utils/geom/GeoConvHelper.h>
-#include <utils/iodevices/OutputDevice.h>
-
 #include "NBNodeCont.h"
 
 #ifdef CHECK_MEMORY_LEAKS
@@ -1203,8 +1203,7 @@ NBNodeCont::savePlain(const std::string &file) {
         } else {
             device << "x=\"" << n->getPosition().x() << "\" y=\"" << n->getPosition().y() << "\"";
         }
-        // this yearns for refactoring (see NBNode::writeXML)
-        device << " type=\"" << NBNode::nodeTypeNames.getString(n->getType())<< "\"";
+        device << " type=\"" << SUMOXMLDefinitions::NodeTypes.getString(n->getType())<< "\"";
         if (n->isTLControlled()) {
             device << " tl=\"";
             const std::set<NBTrafficLightDefinition*> &tlss = n->getControllingTLS();
@@ -1231,20 +1230,20 @@ NBNodeCont::printBuiltNodesStatistics() const throw() {
     int noRightBeforeLeftJunctions = 0;
     for (NodeCont::const_iterator i=myNodes.begin(); i!=myNodes.end(); i++) {
         switch ((*i).second->getType()) {
-        case NBNode::NODETYPE_NOJUNCTION:
+        case NODETYPE_NOJUNCTION:
             ++noUnregulatedJunctions;
             break;
-        case NBNode::NODETYPE_PRIORITY_JUNCTION:
-        case NBNode::NODETYPE_TRAFFIC_LIGHT:
+        case NODETYPE_PRIORITY_JUNCTION:
+        case NODETYPE_TRAFFIC_LIGHT:
             ++noPriorityJunctions;
             break;
-        case NBNode::NODETYPE_RIGHT_BEFORE_LEFT:
+        case NODETYPE_RIGHT_BEFORE_LEFT:
             ++noRightBeforeLeftJunctions;
             break;
-        case NBNode::NODETYPE_DISTRICT:
+        case NODETYPE_DISTRICT:
             ++noRightBeforeLeftJunctions;
             break;
-        case NBNode::NODETYPE_UNKNOWN:
+        case NODETYPE_UNKNOWN:
             break;
         default:
             break;

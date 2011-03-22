@@ -82,8 +82,13 @@ checkOptions() {
     // check whether the junction type to use is properly set
     if (oc.isSet("default-junction-type")) {
         std::string type = oc.getString("default-junction-type");
-        if (type!="traffic_light"&&type!="priority"&&type!="right_before_left") {
-            MsgHandler::getErrorInstance()->inform("Only the following junction types are known: traffic_light, priority, right_before_left");
+        if (type != SUMOXMLDefinitions::NodeTypes.getString(NODETYPE_TRAFFIC_LIGHT) &&
+                type != SUMOXMLDefinitions::NodeTypes.getString(NODETYPE_PRIORITY_JUNCTION) &&
+                type != SUMOXMLDefinitions::NodeTypes.getString(NODETYPE_RIGHT_BEFORE_LEFT)) {
+            MsgHandler::getErrorInstance()->inform("Only the following junction types are known: " +
+                    SUMOXMLDefinitions::NodeTypes.getString(NODETYPE_TRAFFIC_LIGHT) + ", " +
+                    SUMOXMLDefinitions::NodeTypes.getString(NODETYPE_PRIORITY_JUNCTION) + ", " +
+                    SUMOXMLDefinitions::NodeTypes.getString(NODETYPE_RIGHT_BEFORE_LEFT));
             return false;
         }
     }

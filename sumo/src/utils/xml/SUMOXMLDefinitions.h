@@ -29,6 +29,7 @@
 #include <config.h>
 #endif
 
+#include <utils/common/StringBijection.h>
 
 // ===========================================================================
 // definitions
@@ -574,6 +575,63 @@ enum SumoXMLAttr {
 
 };
 
+/*
+ * definitions of special SumoXML-attribute values.
+ * Since these enums shall be used in switch statements we keep them separated
+ * @{
+ */
+
+/**
+ * @enum SumoXMLNodeType
+ * @brief Numbers representing special SUMO-XML-attribute values
+ * for representing node- (junction-) types used in netbuild/netimport and netload
+ */
+enum SumoXMLNodeType {
+    NODETYPE_UNKNOWN, // terminator
+    NODETYPE_TRAFFIC_LIGHT,
+    NODETYPE_PRIORITY_JUNCTION,
+    NODETYPE_RIGHT_BEFORE_LEFT,
+    NODETYPE_DISTRICT,
+    NODETYPE_NOJUNCTION,
+    NODETYPE_INTERNAL,
+    NODETYPE_DEAD_END
+};
+
+//@}
+
+/**
+ * @class SUMOXMLDefinitions
+ * @brief class for maintaining associations between enums and xml-strings
+ */
+
+class SUMOXMLDefinitions {
+
+public:
+    /// The names of SUMO-XML elements (for passing to GenericSAXHandler)
+    static StringBijection<SumoXMLTag>::Entry tags[];
+
+    /// The names of SUMO-XML attributes (for passing to GenericSAXHandler)
+    static StringBijection<SumoXMLAttr>::Entry attrs[];
+
+    /// The names of SUMO-XML elements for use in netbuild
+    static StringBijection<SumoXMLTag> Tags;
+
+    /// The names of SUMO-XML attributes for use in netbuild
+    static StringBijection<SumoXMLAttr> Attrs;
+
+    /// @name Special values of SUMO-XML attributes
+    //@{
+    static StringBijection<SumoXMLNodeType> NodeTypes;
+
+    // static StringBijection<SumoXMLLinkStateValue> LinkStates;
+    //@}
+
+private:
+
+    static StringBijection<SumoXMLNodeType>::Entry sumoNodeTypeValues[];
+
+
+};
 
 #endif
 

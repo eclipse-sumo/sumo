@@ -237,12 +237,12 @@ NBRequest::setBlocking(bool leftHanded,
     //  the junction, the connection road will yield
     // should be valid for priority junctions only
     if (from1p>from2p) {
-        assert(myJunction->getType()!=NBNode::NODETYPE_RIGHT_BEFORE_LEFT);
+        assert(myJunction->getType()!=NODETYPE_RIGHT_BEFORE_LEFT);
         myForbids[idx1][idx2] = true;
         return;
     }
     if (from2p>from1p) {
-        assert(myJunction->getType()!=NBNode::NODETYPE_RIGHT_BEFORE_LEFT);
+        assert(myJunction->getType()!=NODETYPE_RIGHT_BEFORE_LEFT);
         myForbids[idx2][idx1] = true;
         return;
     }
@@ -252,7 +252,7 @@ NBRequest::setBlocking(bool leftHanded,
     //  the connection with the lower priorised outgoing edge will lead
     // should be valid for priority junctions only
     if (from1p>0&&from2p>0) {
-        assert(myJunction->getType()!=NBNode::NODETYPE_RIGHT_BEFORE_LEFT);
+        assert(myJunction->getType()!=NODETYPE_RIGHT_BEFORE_LEFT);
         int to1p = to1->getJunctionPriority(myJunction);
         int to2p = to2->getJunctionPriority(myJunction);
         if (to1p>to2p) {

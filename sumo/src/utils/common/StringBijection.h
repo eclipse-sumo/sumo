@@ -32,6 +32,8 @@
 #include <iostream>
 #include <map>
 #include <string>
+#include <utils/common/UtilExceptions.h>
+#include <utils/common/ToString.h>
 
 
 // ===========================================================================
@@ -48,34 +50,42 @@ public:
 
     struct Entry {
         const char *str;
-        const T other;
+        const T key;
     };
 
 
     StringBijection() {}
 
 
-    StringBijection(Entry entries[], T terminator) {
+    StringBijection(Entry entries[], T terminatorKey) {
         int i = 0;
         do{
-            insert(entries[i].str, entries[i].other);
-        } while (entries[i++].other != terminator);
+            insert(entries[i].str, entries[i].key);
+        } while (entries[i++].key != terminatorKey);
     }
 
 
-    void insert(const std::string str, const T other) {
-        myString2T[str] = other;
-        myT2String[other] = str;
+    void insert(const std::string str, const T key) {
+        myString2T[str] = key;
+        myT2String[key] = str;
     }
 
 
     T get(const std::string &str) {
-        return myString2T[str];
+        if (hasString(str)) {
+            return myString2T[str];
+        } else {
+            throw new InvalidArgument("String '" + str + "' not found.");
+        }
     }
 
 
-    const std::string getString(const T other) {
-        return myT2String[other];
+    const std::string getString(const T key) {
+        if (has(key)) {
+            return myT2String[key];
+        } else {
+            throw new InvalidArgument("Key '" + toString(key) + "' not found.");
+        }
     }
 
 
@@ -84,8 +94,8 @@ public:
     }
 
 
-    bool has(const T other) {
-        return myT2String.count(other) != 0;
+    bool has(const T key) {
+        return myT2String.count(key) != 0;
     }
 
 

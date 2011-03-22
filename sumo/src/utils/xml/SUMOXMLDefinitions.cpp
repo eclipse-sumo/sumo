@@ -27,9 +27,9 @@
 #include <config.h>
 #endif
 
-#include <utils/xml/GenericSAXHandler.h>
 #include "SUMOXMLDefinitions.h"
 #include <utils/common/SUMOVehicleClass.h>
+#include <utils/common/StringBijection.h>
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -39,7 +39,8 @@
 // ===========================================================================
 // definitions
 // ===========================================================================
-GenericSAXHandler::Tag sumotags[] = {
+
+StringBijection<SumoXMLTag>::Entry SUMOXMLDefinitions::tags[] = {
     { "edge",             SUMO_TAG_EDGE },
     { "lane",             SUMO_TAG_LANE },
     { "poi",              SUMO_TAG_POI },
@@ -197,7 +198,7 @@ GenericSAXHandler::Tag sumotags[] = {
 };
 
 
-GenericSAXHandler::Attr sumoattrs[] = {
+StringBijection<SumoXMLAttr>::Entry SUMOXMLDefinitions::attrs[] = {
     { "id",             SUMO_ATTR_ID },
     { "refid",          SUMO_ATTR_REFID },
     { "name",           SUMO_ATTR_NAME },
@@ -444,6 +445,28 @@ GenericSAXHandler::Attr sumoattrs[] = {
     { "",               SUMO_ATTR_NOTHING }
 };
 
+
+StringBijection<SumoXMLNodeType>::Entry SUMOXMLDefinitions::sumoNodeTypeValues[] = {
+    {"traffic_light",       NODETYPE_TRAFFIC_LIGHT},
+    {"priority",            NODETYPE_PRIORITY_JUNCTION},
+    {"right_before_left",   NODETYPE_RIGHT_BEFORE_LEFT},
+    {"district",            NODETYPE_DISTRICT},
+    {"unregulated",         NODETYPE_NOJUNCTION},
+    {"internal",            NODETYPE_INTERNAL},
+    {"DEAD_END",            NODETYPE_DEAD_END},
+
+    {"unknown",             NODETYPE_UNKNOWN}
+};
+
+
+StringBijection<SumoXMLTag> SUMOXMLDefinitions::Tags(
+        SUMOXMLDefinitions::tags, SUMO_TAG_NOTHING);
+
+StringBijection<SumoXMLAttr> SUMOXMLDefinitions::Attrs(
+        SUMOXMLDefinitions::attrs, SUMO_ATTR_NOTHING);
+
+StringBijection<SumoXMLNodeType> SUMOXMLDefinitions::NodeTypes(
+        SUMOXMLDefinitions::sumoNodeTypeValues, NODETYPE_UNKNOWN);
 
 
 /****************************************************************************/

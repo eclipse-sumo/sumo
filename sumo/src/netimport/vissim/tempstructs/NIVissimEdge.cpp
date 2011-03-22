@@ -467,7 +467,7 @@ NIVissimEdge::buildNBEdge(NBDistrictCont &dc, NBNodeCont &nc, NBEdgeCont &ec,
     if (fromNode==0) {
         fromInf.first = 0;
         Position2D pos = myGeom[0];
-        fromNode = new NBNode(toString<int>(myID) + "-SourceNode", pos, NBNode::NODETYPE_NOJUNCTION);
+        fromNode = new NBNode(toString<int>(myID) + "-SourceNode", pos, NODETYPE_NOJUNCTION);
         if (!nc.insert(fromNode)) {
             throw ProcessError("Could not insert node '" + fromNode->getID() + "' to nodes container.");
         }
@@ -475,7 +475,7 @@ NIVissimEdge::buildNBEdge(NBDistrictCont &dc, NBNodeCont &nc, NBEdgeCont &ec,
     if (toNode==0) {
         toInf.first = 0;
         Position2D pos = myGeom[-1];
-        toNode = new NBNode(toString<int>(myID) + "-DestinationNode", pos, NBNode::NODETYPE_NOJUNCTION);
+        toNode = new NBNode(toString<int>(myID) + "-DestinationNode", pos, NODETYPE_NOJUNCTION);
         if (!nc.insert(toNode)) {
             throw ProcessError("Could not insert node '" + toNode->getID() + "' to nodes container.");
         }
@@ -596,7 +596,7 @@ NIVissimEdge::getFromNode(NBNodeCont &nc, ConnectionClusters &clusters) {
     if (myDistrictConnections.size()>0) {
         SUMOReal pos = *(myDistrictConnections.begin());
         if (pos<10) {
-            NBNode *node = new NBNode(toString<int>(myID) + "-begin", beg, NBNode::NODETYPE_NOJUNCTION);
+            NBNode *node = new NBNode(toString<int>(myID) + "-begin", beg, NODETYPE_NOJUNCTION);
             if (!nc.insert(node)) {
                 throw 1;
             }
@@ -607,7 +607,7 @@ NIVissimEdge::getFromNode(NBNodeCont &nc, ConnectionClusters &clusters) {
         }
     }
     // build a new node for the edge's begin otherwise
-    NBNode *node = new NBNode(toString<int>(myID) + "-begin", beg, NBNode::NODETYPE_NOJUNCTION);
+    NBNode *node = new NBNode(toString<int>(myID) + "-begin", beg, NODETYPE_NOJUNCTION);
     if (!nc.insert(node)) {
         throw 1;
     }
@@ -632,7 +632,7 @@ NIVissimEdge::getToNode(NBNodeCont &nc, ConnectionClusters &clusters) {
     if (myDistrictConnections.size()>0) {
         SUMOReal pos = *(myDistrictConnections.end()-1);
         if (pos>myGeom.length()-10) {
-            NBNode *node = new NBNode(toString<int>(myID) + "-end", end, NBNode::NODETYPE_NOJUNCTION);
+            NBNode *node = new NBNode(toString<int>(myID) + "-end", end, NODETYPE_NOJUNCTION);
             if (!nc.insert(node)) {
                 throw 1;
             }
@@ -644,7 +644,7 @@ NIVissimEdge::getToNode(NBNodeCont &nc, ConnectionClusters &clusters) {
     }
 
     // build a new node for the edge's end otherwise
-    NBNode *node = new NBNode(toString<int>(myID) + "-end", end, NBNode::NODETYPE_NOJUNCTION);
+    NBNode *node = new NBNode(toString<int>(myID) + "-end", end, NODETYPE_NOJUNCTION);
     if (!nc.insert(node)) {
         throw 1;
     }
@@ -673,14 +673,14 @@ NIVissimEdge::remapOneOfNodes(NBNodeCont &nc,
 
         NBNode *newNode = new NBNode(nid,
                                      fromNode->getPosition(),
-                                     NBNode::NODETYPE_NOJUNCTION);
+                                     NODETYPE_NOJUNCTION);
         nc.erase(fromNode);
         nc.insert(newNode);
         return std::pair<NBNode*, NBNode*>(newNode, toNode);
     } else {
         NBNode *newNode = new NBNode(nid,
                                      toNode->getPosition(),
-                                     NBNode::NODETYPE_NOJUNCTION);
+                                     NODETYPE_NOJUNCTION);
         nc.erase(toNode);
         nc.insert(newNode);
         return std::pair<NBNode*, NBNode*>(fromNode, newNode);
@@ -705,7 +705,7 @@ NIVissimEdge::resolveSameNode(NBNodeCont &nc, SUMOReal offset,
             NBNode *node = nc.retrieve(nid);
             if (node==0) {
                 node = new NBNode(nid,
-                                  pos, NBNode::NODETYPE_NOJUNCTION);
+                                  pos, NODETYPE_NOJUNCTION);
                 if (!nc.insert(node)) {
                     throw 1;
                 }
@@ -718,7 +718,7 @@ NIVissimEdge::resolveSameNode(NBNodeCont &nc, SUMOReal offset,
             NBNode *node = nc.retrieve(nid);
             if (node==0) {
                 node = new NBNode(nid,
-                                  pos, NBNode::NODETYPE_NOJUNCTION);
+                                  pos, NODETYPE_NOJUNCTION);
                 if (!nc.insert(node)) {
                     throw 1;
                 }
@@ -739,7 +739,7 @@ NIVissimEdge::resolveSameNode(NBNodeCont &nc, SUMOReal offset,
             NBNode *end = new NBNode(
                 toString<int>(myID) + "-End",
                 myGeom.getEnd(),
-                NBNode::NODETYPE_NOJUNCTION);
+                NODETYPE_NOJUNCTION);
             if (!nc.insert(end)) {
                 throw 1;
             }
@@ -751,7 +751,7 @@ NIVissimEdge::resolveSameNode(NBNodeCont &nc, SUMOReal offset,
             NBNode *beg = new NBNode(
                 toString<int>(myID) + "-Begin",
                 myGeom.getBegin(),
-                NBNode::NODETYPE_NOJUNCTION);
+                NODETYPE_NOJUNCTION);
             if (!nc.insert(beg)) {
                 std::cout << "nope, NIVissimDisturbance" << std::endl;
                 throw 1;

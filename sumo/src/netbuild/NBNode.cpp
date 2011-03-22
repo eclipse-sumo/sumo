@@ -76,19 +76,6 @@
 // static members
 // ===========================================================================
 
-StringBijection<NBNode::BasicNodeType>::Entry NBNode::nodeTypeNamesEntries[] = {
-    {"unknown",             NBNode::NODETYPE_UNKNOWN},
-    {"traffic_light",       NBNode::NODETYPE_TRAFFIC_LIGHT},
-    {"priority",            NBNode::NODETYPE_PRIORITY_JUNCTION},
-    {"right_before_left",   NBNode::NODETYPE_RIGHT_BEFORE_LEFT},
-    {"district",            NBNode::NODETYPE_DISTRICT},
-    {"unregulated",         NBNode::NODETYPE_NOJUNCTION},
-    {"internal",            NBNode::NODETYPE_INTERNAL},
-    {"DEAD_END",            NBNode::NODETYPE_DEAD_END}};
-
-StringBijection<NBNode::BasicNodeType> NBNode::nodeTypeNames(
-        NBNode::nodeTypeNamesEntries, NBNode::NODETYPE_DEAD_END);
-
 // ===========================================================================
 // method definitions
 // ===========================================================================
@@ -214,7 +201,7 @@ NBNode::NBNode(const std::string &id, const Position2D &position) throw()
 
 
 NBNode::NBNode(const std::string &id, const Position2D &position,
-               BasicNodeType type) throw()
+               SumoXMLNodeType type) throw()
         : myID(StringUtils::convertUmlaute(id)), myPosition(position),
         myType(type), myDistrict(0), myRequest(0) {
     myIncomingEdges = new EdgeVector();
@@ -238,7 +225,7 @@ NBNode::~NBNode() throw() {
 
 
 void
-NBNode::reinit(const Position2D &position, BasicNodeType type) throw() {
+NBNode::reinit(const Position2D &position, SumoXMLNodeType type) throw() {
     myPosition = position;
     // patch type
     myType = type;
@@ -343,7 +330,7 @@ NBNode::setPriorities() {
 }
 
 
-NBNode::BasicNodeType
+SumoXMLNodeType
 NBNode::computeType(const NBTypeCont &tc) const {
     // the type may already be set from the data
     if (myType!=NODETYPE_UNKNOWN) {
@@ -357,7 +344,7 @@ NBNode::computeType(const NBTypeCont &tc) const {
         return NODETYPE_PRIORITY_JUNCTION;
     }
     // choose the uppermost type as default
-    BasicNodeType type = NODETYPE_RIGHT_BEFORE_LEFT;
+    SumoXMLNodeType type = NODETYPE_RIGHT_BEFORE_LEFT;
     // determine the type
     for (std::vector<NBEdge*>::const_iterator i=myIncomingEdges->begin(); i!=myIncomingEdges->end(); i++) {
         for (std::vector<NBEdge*>::const_iterator j=i+1; j!=myIncomingEdges->end(); j++) {
@@ -369,7 +356,7 @@ NBNode::computeType(const NBTypeCont &tc) const {
             // This usage of defaults is not very well, still we do not have any
             //  methods for the conversion of foreign, sometimes not supplied
             //  road types into an own format
-            BasicNodeType tmptype = type;
+            SumoXMLNodeType tmptype = type;
             if (!isOpposite) {
                 tmptype = tc.getJunctionType((*i)->getSpeed(), (*j)->getSpeed());
                 if (tmptype<type&&tmptype!=NODETYPE_UNKNOWN&&tmptype!=NODETYPE_NOJUNCTION) {
@@ -1016,7 +1003,7 @@ NBNode::writeXMLInternalNodes(OutputDevice &into) {
                 Position2DVector shape = computeInternalLaneShape(*i, j, (*k).toEdge, (*k).toLane);
                 Position2D pos = shape.positionAtLengthPosition(cross.first);
                 into << "   <junction id=\"" << sid << '\"';
-                into << " type=\"" << NBNode::nodeTypeNames.getString(NODETYPE_INTERNAL) << "\"";
+                into << " type=\"" << SUMOXMLDefinitions::NodeTypes.getString(NODETYPE_INTERNAL) << "\"";
                 into << " x=\"" << pos.x() << "\" y=\"" << pos.y() << "\"";
                 into << " incLanes=\"";
                 std::string furtherIncoming = getCrossingSourcesNames_dividedBySpace(*i, j, (*k).toEdge, (*k).toLane);
@@ -1074,7 +1061,7 @@ NBNode::writeXML(OutputDevice &into) {
     if (myIncomingEdges->size()==0 || myOutgoingEdges->size()==0) {
         myType = NODETYPE_DEAD_END;
     }
-    into << " type=\"" << NBNode::nodeTypeNames.getString(myType) << "\"";
+    into << " type=\"" << SUMOXMLDefinitions::NodeTypes.getString(myType) << "\"";
     into << " x=\"" << myPosition.x() << "\" y=\"" << myPosition.y() << "\"";
     into << " incLanes=\"";
     // write the incoming lanes

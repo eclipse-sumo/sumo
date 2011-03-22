@@ -90,7 +90,7 @@ NBTypeCont::knows(const std::string &type) const throw() {
 }
 
 
-NBNode::BasicNodeType
+SumoXMLNodeType
 NBTypeCont::getJunctionType(SUMOReal speed1, SUMOReal speed2) const throw() {
     return myJunctionTypes.getType(speed1, speed2);
 }

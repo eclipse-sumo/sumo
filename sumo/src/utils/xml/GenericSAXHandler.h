@@ -37,6 +37,7 @@
 #include <xercesc/sax2/Attributes.hpp>
 #include <xercesc/sax2/DefaultHandler.hpp>
 #include <utils/common/UtilExceptions.h>
+#include <utils/common/StringBijection.h>
 #include "SUMOXMLDefinitions.h"
 #include "SUMOSAXAttributes.h"
 
@@ -64,7 +65,7 @@ using namespace XERCES_CPP_NAMESPACE;
  * The idea behind this second handler layer was avoid repeated conversion
  *  from strings/whatever to XMLCh* and back again. The usage is quite straight
  *  forward, the only overhead is the need to define the enums - both elements
- *  and attributes within "SUMOXMLDefinition". Still, it maybe helps to avoid typos.
+ *  and attributes within "SUMOXMLDefinitions". Still, it maybe helps to avoid typos.
  *
  * This class implements the SAX-callback and offers a new set of callbacks
  *  which must be implemented by derived classes. Instead of XMLCh*-values,
@@ -78,29 +79,6 @@ using namespace XERCES_CPP_NAMESPACE;
  *  an easier maintainability and later extensions.
  */
 class GenericSAXHandler : public DefaultHandler {
-public:
-    /**
-     * @struct Attr
-     * @brief An attribute name and its numerical representation
-     */
-    struct Attr {
-        /// The xml-attribute-name (ascii)
-        const char *name;
-        /// The numerical representation of the attribute
-        SumoXMLAttr key;
-    };
-
-    /**
-     * @struct Tag
-     * @brief A tag (element) name with its numerical representation
-     */
-    struct Tag {
-        /// The xml-element-name (ascii)
-        const char *name;
-        /// The numerical representation of the element
-        SumoXMLTag key;
-    };
-
 
 public:
     /**
@@ -120,7 +98,10 @@ public:
      *
      * @todo Why are both lists non-const and given as pointers?
      */
-    GenericSAXHandler(Tag *tags, Attr *attrs, const std::string &file) throw();
+    GenericSAXHandler(
+            StringBijection<SumoXMLTag>::Entry *tags, 
+            StringBijection<SumoXMLAttr>::Entry *attrs, 
+            const std::string &file) throw();
 
 
     /** @brief Destructor */
@@ -289,18 +270,6 @@ private:
     std::string myFileName;
 
 };
-
-
-// ===========================================================================
-// declarations
-// ===========================================================================
-
-/// The names of SUMO-XML elements
-extern GenericSAXHandler::Tag sumotags[];
-
-/// The names of SUMO-XML attributes
-extern GenericSAXHandler::Attr sumoattrs[];
-
 
 #endif
 

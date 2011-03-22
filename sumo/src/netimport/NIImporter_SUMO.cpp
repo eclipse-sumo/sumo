@@ -31,17 +31,17 @@
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/TplConvert.h>
 #include <utils/common/MsgHandler.h>
-#include <netbuild/NBEdge.h>
-#include <netbuild/NBEdgeCont.h>
-#include <netbuild/NBNode.h>
-#include <netbuild/NBNodeCont.h>
-#include <netbuild/NBNetBuilder.h>
 #include <utils/xml/SUMOXMLDefinitions.h>
 #include <utils/geom/GeoConvHelper.h>
 #include <utils/geom/GeomConvHelper.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/common/FileHelpers.h>
 #include <utils/xml/XMLSubSys.h>
+#include <netbuild/NBEdge.h>
+#include <netbuild/NBEdgeCont.h>
+#include <netbuild/NBNode.h>
+#include <netbuild/NBNodeCont.h>
+#include <netbuild/NBNetBuilder.h>
 #include "NIImporter_SUMO.h"
 
 #ifdef CHECK_MEMORY_LEAKS
@@ -328,12 +328,12 @@ NIImporter_SUMO::addJunction(const SUMOSAXAttributes &attrs) {
         return;
     }
     bool ok = true;
-    NBNode::BasicNodeType type = NBNode::NODETYPE_UNKNOWN;
+    SumoXMLNodeType type = NODETYPE_UNKNOWN;
     SUMOReal x = attrs.getSUMORealReporting(SUMO_ATTR_X, "junction", id.c_str(), ok);
     SUMOReal y = attrs.getSUMORealReporting(SUMO_ATTR_Y, "junction", id.c_str(), ok);
     std::string typeS = attrs.getStringReporting(SUMO_ATTR_TYPE, "junction", id.c_str(), ok);
-    if (NBNode::nodeTypeNames.hasString(typeS)) {
-        type = NBNode::nodeTypeNames.get(typeS);
+    if (SUMOXMLDefinitions::NodeTypes.hasString(typeS)) {
+        type = SUMOXMLDefinitions::NodeTypes.get(typeS);
     } else {
         WRITE_WARNING("Unknown node type '" + typeS + "' for junction '" + id + "'.");
     }

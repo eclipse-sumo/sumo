@@ -44,10 +44,10 @@
 // method definitions
 // ===========================================================================
 NBJunctionTypesMatrix::NBJunctionTypesMatrix() {
-    myMap['t'] = NBNode::NODETYPE_TRAFFIC_LIGHT;
-    myMap['x'] = NBNode::NODETYPE_NOJUNCTION;
-    myMap['p'] = NBNode::NODETYPE_PRIORITY_JUNCTION;
-    myMap['r'] = NBNode::NODETYPE_RIGHT_BEFORE_LEFT;
+    myMap['t'] = NODETYPE_TRAFFIC_LIGHT;
+    myMap['x'] = NODETYPE_NOJUNCTION;
+    myMap['p'] = NODETYPE_PRIORITY_JUNCTION;
+    myMap['r'] = NODETYPE_RIGHT_BEFORE_LEFT;
     myRanges.push_back(std::pair<SUMOReal, SUMOReal>((SUMOReal)(0./3.6), (SUMOReal)(10./3.6)));
     myRanges.push_back(std::pair<SUMOReal, SUMOReal>((SUMOReal)(10./3.6), (SUMOReal)(30./3.6)));
     myRanges.push_back(std::pair<SUMOReal, SUMOReal>((SUMOReal)(30./3.6), (SUMOReal)(50./3.6)));
@@ -69,7 +69,7 @@ NBJunctionTypesMatrix::NBJunctionTypesMatrix() {
 NBJunctionTypesMatrix::~NBJunctionTypesMatrix() {}
 
 
-NBNode::BasicNodeType
+SumoXMLNodeType
 NBJunctionTypesMatrix::getType(SUMOReal speed1, SUMOReal speed2) const {
     RangeCont::const_iterator p1 = find_if(myRanges.begin(), myRanges.end(), range_finder(speed1));
     RangeCont::const_iterator p2 = find_if(myRanges.begin(), myRanges.end(), range_finder(speed2));

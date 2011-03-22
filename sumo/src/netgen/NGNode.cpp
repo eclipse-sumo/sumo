@@ -81,29 +81,30 @@ NGNode::buildNBNode(NBNetBuilder &nb) const throw(ProcessError) {
     GeoConvHelper::x2cartesian(pos);
     // the center will have no logic!
     if (myAmCenter) {
-        return new NBNode(myID, pos, NBNode::NODETYPE_NOJUNCTION);
+        return new NBNode(myID, pos, NODETYPE_NOJUNCTION);
     }
-    //
-    // check whether it is a traffic light junction
-    std::string nodeType = OptionsCont::getOptions().isSet("default-junction-type")
-                           ? OptionsCont::getOptions().getString("default-junction-type")
-                           : "";
     NBNode *node = 0;
-    if (nodeType=="") {
-        node = new NBNode(myID, pos);
-    } else if (nodeType=="priority") {
-        node = new NBNode(myID, pos, NBNode::NODETYPE_PRIORITY_JUNCTION);
-    } else if (nodeType=="right_before_left") {
-        node = new NBNode(myID, pos, NBNode::NODETYPE_RIGHT_BEFORE_LEFT);
-    } else if (nodeType=="traffic_light") {
-        node = new NBNode(myID, pos, NBNode::NODETYPE_PRIORITY_JUNCTION);
-        NBTrafficLightDefinition *tlDef = new NBOwnTLDef(myID, node);
-        if (!nb.getTLLogicCont().insert(tlDef)) {
-            // actually, nothing should fail here
-            delete tlDef;
-            throw ProcessError();
+    std::string typeS = OptionsCont::getOptions().isSet("default-junction-type") ? 
+        OptionsCont::getOptions().getString("default-junction-type") : "";
+
+    if (SUMOXMLDefinitions::NodeTypes.hasString(typeS)) {
+        SumoXMLNodeType type = SUMOXMLDefinitions::NodeTypes.get(typeS);
+        node = new NBNode(myID, pos, type);
+
+        // check whether it is a traffic light junction
+        if (type == NODETYPE_TRAFFIC_LIGHT) {
+            NBTrafficLightDefinition *tlDef = new NBOwnTLDef(myID, node);
+            if (!nb.getTLLogicCont().insert(tlDef)) {
+                // actually, nothing should fail here
+                delete tlDef;
+                throw ProcessError();
+            }
         }
+    } else {
+        // otherwise netbuild may guess NODETYPE_TRAFFIC_LIGHT without actually building one
+        node = new NBNode(myID, pos, NODETYPE_PRIORITY_JUNCTION);
     }
+
     return node;
 }
 

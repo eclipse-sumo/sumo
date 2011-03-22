@@ -53,7 +53,7 @@ public:
 
     /** returns the type of the junction on the crossing of edges of the
         given types */
-    NBNode::BasicNodeType getType(SUMOReal speed1, SUMOReal speed2) const;
+    SumoXMLNodeType getType(SUMOReal speed1, SUMOReal speed2) const;
 
 private:
     /** returns the one-char name of the junction type between the two
@@ -86,7 +86,7 @@ private:
     typedef std::vector<std::string> StringCont;
 
     /** a map of chars to ints */
-    typedef std::map<char, NBNode::BasicNodeType> CharToVal;
+    typedef std::map<char, SumoXMLNodeType> CharToVal;
 
     /** a container for edge priority ranges */
     RangeCont   myRanges;

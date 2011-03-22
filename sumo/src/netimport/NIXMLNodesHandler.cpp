@@ -33,18 +33,18 @@
 #include <xercesc/sax/AttributeList.hpp>
 #include <xercesc/sax/SAXParseException.hpp>
 #include <xercesc/sax/SAXException.hpp>
-#include "NIXMLNodesHandler.h"
 #include <utils/xml/SUMOSAXHandler.h>
-#include <netbuild/NBNodeCont.h>
 #include <utils/xml/SUMOXMLDefinitions.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/TplConvert.h>
 #include <utils/common/ToString.h>
 #include <utils/common/StringTokenizer.h>
 #include <utils/options/OptionsCont.h>
+#include <utils/geom/GeoConvHelper.h>
+#include <netbuild/NBNodeCont.h>
 #include <netbuild/NBTrafficLightLogicCont.h>
 #include <netbuild/NBOwnTLDef.h>
-#include <utils/geom/GeoConvHelper.h>
+#include "NIXMLNodesHandler.h"
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -105,13 +105,13 @@ NIXMLNodesHandler::myStartElement(SumoXMLTag element,
         myPosition.mul(1.0, -1.0);
     }
     // get the type
-    NBNode::BasicNodeType type = NBNode::NODETYPE_UNKNOWN;
+    SumoXMLNodeType type = NODETYPE_UNKNOWN;
     if (node!=0) {
         type = node->getType();
     }
     std::string typeS = attrs.getOptStringReporting(SUMO_ATTR_TYPE, "node", myID.c_str(), ok, "");
-    if (NBNode::nodeTypeNames.hasString(typeS)) {
-        type = NBNode::nodeTypeNames.get(typeS);
+    if (SUMOXMLDefinitions::NodeTypes.hasString(typeS)) {
+        type = SUMOXMLDefinitions::NodeTypes.get(typeS);
     }
 
     // check whether a prior node shall be modified
@@ -133,7 +133,7 @@ NIXMLNodesHandler::myStartElement(SumoXMLTag element,
         node->reinit(myPosition, type);
     }
     // process traffic light definition
-    if (type==NBNode::NODETYPE_TRAFFIC_LIGHT) {
+    if (type==NODETYPE_TRAFFIC_LIGHT) {
         processTrafficLightDefinitions(attrs, node);
     }
 }
