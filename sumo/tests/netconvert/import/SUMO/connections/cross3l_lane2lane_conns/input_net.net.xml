@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 03/03/11 15:23:46 by SUMO netconvert Version dev-SVN-r9838
+<!-- generated on 03/22/11 17:23:54 by SUMO netconvert Version dev-SVN-r9956
 <?xml version="1.0" encoding="iso-8859-1"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
@@ -149,10 +149,10 @@
       <succlane lane="3o_0" yield="1" dir="r" state="m"/>
    </succ>
    <succ edge="1si" lane="1si_1" junction="0">
-      <succlane lane="2o_0" yield="1" dir="s" state="m"/>
+      <succlane lane="SUMO_NO_DESTINATION" yield="1" dir="s" state="O"/>
    </succ>
    <succ edge="1si" lane="1si_2" junction="0">
-      <succlane lane="4o_0" yield="1" dir="l" state="m"/>
+      <succlane lane="2o_0" yield="1" dir="s" state="m"/>
    </succ>
    <succ edge="2fi" lane="2fi_0" junction="m2">
       <succlane lane="2si_0" yield="0" dir="s" state="M"/>
@@ -168,10 +168,10 @@
       <succlane lane="4o_0" yield="1" dir="r" state="m"/>
    </succ>
    <succ edge="2si" lane="2si_1" junction="0">
-      <succlane lane="1o_0" yield="1" dir="s" state="m"/>
+      <succlane lane="SUMO_NO_DESTINATION" yield="1" dir="s" state="O"/>
    </succ>
    <succ edge="2si" lane="2si_2" junction="0">
-      <succlane lane="3o_0" yield="1" dir="l" state="m"/>
+      <succlane lane="1o_0" yield="1" dir="s" state="m"/>
    </succ>
    <succ edge="3fi" lane="3fi_0" junction="m3">
       <succlane lane="3si_0" yield="0" dir="s" state="M"/>
