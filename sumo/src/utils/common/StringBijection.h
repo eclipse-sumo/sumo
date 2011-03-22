@@ -65,7 +65,7 @@ public:
 
     void insert(const std::string str, const T other) {
         myString2T[str] = other;
-        myT2String[other] = str.substr();
+        myT2String[other] = str;
     }
 
 
