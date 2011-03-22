@@ -1,12 +1,13 @@
 <?xml version="1.0"?>
 
 <districts>
-	<district id="1">
-		<dsource id="a1" weight="1"/>
-		<dsink id="a2" weight="1"/>
-	</district>
-	<district id="2">
-		<dsource id="b1" weight="1"/>
-		<dsink id="b2" weight="1"/>
-	</district>
+   <district id="1">
+      <dsource id="a1" weight="1"/>
+      <dsink id="a2" weight="1"/>
+   </district>
+   <district id="2">
+      <dsource id="b1" weight="1"/>
+      <dsink id="b2" weight="1"/>
+   </district>
 </districts>
+
