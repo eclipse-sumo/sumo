@@ -36,9 +36,6 @@ def getLastStepMeanSpeed(detID):
 def getLastStepVehicleIDs(detID):
     return _getUniversal(tc.LAST_STEP_VEHICLE_ID_LIST, detID)
 
-def getVehicleData(detID):
-    return _getUniversal(tc.LAST_STEP_VEHICLE_DATA, detID)
-
 def getLastStepHaltingNumber(detID):
     return _getUniversal(tc.LAST_STEP_VEHICLE_HALTING_NUMBER, detID)
 

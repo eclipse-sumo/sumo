@@ -26,7 +26,7 @@ def _getUniversal(varID, poiID):
 def getIDList():
     return _getUniversal(tc.ID_LIST, "")
 
-def getTypeID(poiID):
+def getType(poiID):
     return _getUniversal(tc.VAR_TYPE, poiID)
 
 def getPosition(poiID):
@@ -69,7 +69,7 @@ def setColor(poiID, color):
     traci._message.string += struct.pack("!BBBBB", tc.TYPE_COLOR, int(color[0]), int(color[1]), int(color[2]), int(color[3]))
     traci._sendExact()
 
-def add(poiID, x, y, color, poiType, layer=0):
+def add(poiID, x, y, color, poiType="", layer=0):
     traci._beginMessage(tc.CMD_SET_POI_VARIABLE, tc.ADD, poiID, 1+4 + 1+4+len(poiType) + 1+1+1+1+1 + 1+4 + 1+4+4)
     traci._message.string += struct.pack("!Bi", tc.TYPE_COMPOUND, 4)
     traci._message.string += struct.pack("!Bi", tc.TYPE_STRING, len(poiType)) + poiType

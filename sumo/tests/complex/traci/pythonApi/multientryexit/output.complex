@@ -1,0 +1,18 @@
+Loading configuration... done.
+step 0
+step 1
+step 2
+multientryexits ['0']
+examining 0
+vehNum 1
+meanSpeed 3.15664315224
+vehIDs ['horiz']
+haltNum 0
+{16: 1}
+step 3
+{16: 1}
+step 4
+{16: 1}
+step 5
+{16: 0}
+(14, 127, 0) OK Goodbye

@@ -1,0 +1,17 @@
+step 0
+step 1
+step 2
+adding 0
+pois ['0']
+examining 0
+pos (1.0, 1.0)
+type test
+color (1, 2, 3, 255)
+{66: (1.0, 1.0)}
+step 3
+{66: (1.0, 1.0)}
+step 4
+{66: (1.0, 1.0)}
+step 5
+{66: (1.0, 1.0)}
+(14, 127, 0) OK Goodbye

@@ -24,3 +24,15 @@ route
 
 # Tests the gui API
 gui
+
+# Tests the inductionloop API
+inductionloop
+
+# Tests the multientryexit API
+multientryexit
+
+# Tests the poi API
+poi
+
+# Tests the polygon API
+polygon

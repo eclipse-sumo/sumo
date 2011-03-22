@@ -1,0 +1,6 @@
+<additional>
+    <e3-detector id="0" freq="100" file="NUL">
+        <det_entry lane="2fi_0" pos="10"/>
+        <det_exit lane="2fi_0" pos="30"/>
+    </e3-detector>
+</additional>
