@@ -26,123 +26,77 @@
    <location netOffset="0.00,100.00" convBoundary="0.00,0.00,300.00,205.00" origBoundary="0.00,-100.00,300.00,105.00" projParameter="!"/>
 
    <edge id=":o3_0" function="internal">
-      <lanes>
-         <lane id=":o3_0_0" depart="0" maxspeed="13.90" length="0.10" shape="201.65,200.00 201.65,200.00"/>
-      </lanes>
+      <lane id=":o3_0_0" depart="0" maxspeed="13.90" length="0.10" shape="201.65,200.00 201.65,200.00"/>
    </edge>
    <edge id=":o4_0" function="internal">
-      <lanes>
-         <lane id=":o4_0_0" depart="0" maxspeed="13.90" length="0.10" shape="301.65,200.00 301.65,200.00"/>
-      </lanes>
+      <lane id=":o4_0_0" depart="0" maxspeed="13.90" length="0.10" shape="301.65,200.00 301.65,200.00"/>
    </edge>
    <edge id=":r1_0" function="internal">
-      <lanes>
-         <lane id=":r1_0_0" depart="0" maxspeed="13.90" length="2.58" shape="1.65,96.75 1.75,97.45 2.05,97.95 2.55,98.25 3.25,98.35"/>
-      </lanes>
+      <lane id=":r1_0_0" depart="0" maxspeed="13.90" length="2.58" shape="1.65,96.75 1.75,97.45 2.05,97.95 2.55,98.25 3.25,98.35"/>
    </edge>
    <edge id=":r2_0" function="internal">
-      <lanes>
-         <lane id=":r2_0_0" depart="0" maxspeed="13.90" length="5.00" shape="101.65,95.25 101.84,96.61 102.43,97.58 103.39,98.16 104.75,98.35"/>
-      </lanes>
+      <lane id=":r2_0_0" depart="0" maxspeed="13.90" length="5.00" shape="101.65,95.25 101.84,96.61 102.43,97.58 103.39,98.16 104.75,98.35"/>
    </edge>
    <edge id=":r2_1" function="internal">
-      <lanes>
-         <lane id=":r2_1_0" depart="0" maxspeed="13.90" length="6.20" shape="98.55,98.35 104.75,98.35"/>
-      </lanes>
+      <lane id=":r2_1_0" depart="0" maxspeed="13.90" length="6.20" shape="98.55,98.35 104.75,98.35"/>
    </edge>
    <edge id=":r3_0" function="internal">
-      <lanes>
-         <lane id=":r3_0_0" depart="0" maxspeed="13.90" length="6.20" shape="198.55,98.35 204.75,98.35"/>
-      </lanes>
+      <lane id=":r3_0_0" depart="0" maxspeed="13.90" length="6.20" shape="198.55,98.35 204.75,98.35"/>
    </edge>
    <edge id=":r3_1" function="internal">
-      <lanes>
-         <lane id=":r3_1_0" depart="0" maxspeed="13.90" length="5.00" shape="198.55,98.35 199.91,98.54 200.88,99.13 201.46,100.09 201.65,101.45"/>
-      </lanes>
+      <lane id=":r3_1_0" depart="0" maxspeed="13.90" length="5.00" shape="198.55,98.35 199.91,98.54 200.88,99.13 201.46,100.09 201.65,101.45"/>
    </edge>
    <edge id=":r4_0" function="internal">
-      <lanes>
-         <lane id=":r4_0_0" depart="0" maxspeed="13.90" length="2.58" shape="300.05,98.35 300.75,98.45 301.25,98.75 301.55,99.25 301.65,99.95"/>
-      </lanes>
+      <lane id=":r4_0_0" depart="0" maxspeed="13.90" length="2.58" shape="300.05,98.35 300.75,98.45 301.25,98.75 301.55,99.25 301.65,99.95"/>
    </edge>
 
    <edge id="1to2" from="r1" to="r2" priority="-1" type="" function="normal">
-      <lanes>
-         <lane id="1to2_0" depart="1" maxspeed="13.90" length="95.30" shape="3.25,98.35 98.55,98.35"/>
-      </lanes>
+      <lane id="1to2_0" depart="1" maxspeed="13.90" length="95.30" shape="3.25,98.35 98.55,98.35"/>
    </edge>
    <edge id="2to3" from="r2" to="r3" priority="-1" type="" function="normal">
-      <lanes>
-         <lane id="2to3_0" depart="1" maxspeed="13.90" length="93.80" shape="104.75,98.35 198.55,98.35"/>
-      </lanes>
+      <lane id="2to3_0" depart="1" maxspeed="13.90" length="93.80" shape="104.75,98.35 198.55,98.35"/>
    </edge>
    <edge id="3to4" from="r3" to="r4" priority="-1" type="" function="normal">
-      <lanes>
-         <lane id="3to4_0" depart="1" maxspeed="13.90" length="95.30" shape="204.75,98.35 300.05,98.35"/>
-      </lanes>
+      <lane id="3to4_0" depart="1" maxspeed="13.90" length="95.30" shape="204.75,98.35 300.05,98.35"/>
    </edge>
    <edge id="in1" from="i1" to="r1" priority="-1" type="" function="normal">
-      <lanes>
-         <lane id="in1_0" depart="1" maxspeed="13.90" length="96.75" shape="1.65,0.00 1.65,96.75"/>
-      </lanes>
+      <lane id="in1_0" depart="1" maxspeed="13.90" length="96.75" shape="1.65,0.00 1.65,96.75"/>
    </edge>
    <edge id="in2" from="i2" to="r2" priority="-1" type="" function="normal">
-      <lanes>
-         <lane id="in2_0" depart="1" maxspeed="13.90" length="95.25" shape="101.65,0.00 101.65,95.25"/>
-      </lanes>
+      <lane id="in2_0" depart="1" maxspeed="13.90" length="95.25" shape="101.65,0.00 101.65,95.25"/>
    </edge>
    <edge id="out3" from="r3" to="o3" priority="-1" type="" function="normal">
-      <lanes>
-         <lane id="out3_0" depart="1" maxspeed="13.90" length="98.55" shape="201.65,101.45 201.65,200.00"/>
-      </lanes>
+      <lane id="out3_0" depart="1" maxspeed="13.90" length="98.55" shape="201.65,101.45 201.65,200.00"/>
    </edge>
    <edge id="out4" from="r4" to="o4" priority="-1" type="" function="normal">
-      <lanes>
-         <lane id="out4_0" depart="1" maxspeed="13.90" length="100.05" shape="301.65,99.95 301.65,200.00"/>
-      </lanes>
+      <lane id="out4_0" depart="1" maxspeed="13.90" length="100.05" shape="301.65,99.95 301.65,200.00"/>
    </edge>
    <edge id="post3" from="o3" to="p3" priority="-1" type="" function="normal">
-      <lanes>
-         <lane id="post3_0" depart="1" maxspeed="13.90" length="5.00" shape="201.65,200.00 201.65,205.00"/>
-      </lanes>
+      <lane id="post3_0" depart="1" maxspeed="13.90" length="5.00" shape="201.65,200.00 201.65,205.00"/>
    </edge>
    <edge id="post4" from="o4" to="p4" priority="-1" type="" function="normal">
-      <lanes>
-         <lane id="post4_0" depart="1" maxspeed="13.90" length="5.00" shape="301.65,200.00 301.65,205.00"/>
-      </lanes>
+      <lane id="post4_0" depart="1" maxspeed="13.90" length="5.00" shape="301.65,200.00 301.65,205.00"/>
    </edge>
 
    <row-logic id="o3" requestSize="1" laneNumber="1">
-      <logic>
-         <logicitem request="0" response="0" foes="0" cont="0"/>
-      </logic>
+      <logicitem request="0" response="0" foes="0" cont="0"/>
    </row-logic>
    <row-logic id="o4" requestSize="1" laneNumber="1">
-      <logic>
-         <logicitem request="0" response="0" foes="0" cont="0"/>
-      </logic>
+      <logicitem request="0" response="0" foes="0" cont="0"/>
    </row-logic>
    <row-logic id="r1" requestSize="1" laneNumber="1">
-      <logic>
-         <logicitem request="0" response="0" foes="0" cont="0"/>
-      </logic>
+      <logicitem request="0" response="0" foes="0" cont="0"/>
    </row-logic>
    <row-logic id="r2" requestSize="2" laneNumber="2">
-      <logic>
-         <logicitem request="0" response="00" foes="10" cont="0"/>
-         <logicitem request="1" response="01" foes="01" cont="0"/>
-      </logic>
+      <logicitem request="0" response="00" foes="10" cont="0"/>
+      <logicitem request="1" response="01" foes="01" cont="0"/>
    </row-logic>
    <row-logic id="r3" requestSize="2" laneNumber="1">
-      <logic>
-         <logicitem request="0" response="00" foes="00" cont="0"/>
-         <logicitem request="1" response="00" foes="00" cont="0"/>
-      </logic>
+      <logicitem request="0" response="00" foes="00" cont="0"/>
+      <logicitem request="1" response="00" foes="00" cont="0"/>
    </row-logic>
    <row-logic id="r4" requestSize="1" laneNumber="1">
-      <logic>
-         <logicitem request="0" response="0" foes="0" cont="0"/>
-      </logic>
+      <logicitem request="0" response="0" foes="0" cont="0"/>
    </row-logic>
 
    <junction id="i1" type="DEAD_END" x="0.00" y="0.00" incLanes="" intLanes="" shape="0.05,0.00 3.25,0.00"/>
@@ -211,3 +165,4 @@
    </succ>
 
 </net>
+
