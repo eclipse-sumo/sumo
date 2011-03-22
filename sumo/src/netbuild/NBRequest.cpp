@@ -328,8 +328,11 @@ NBRequest::bitsetToXML(std::string key) {
     size_t absNoLinks = sizes.second;
     size_t absNoLanes = sizes.first;
     assert(absNoLinks>=absNoLanes);
-    os << "   <row-logic id=\"" << key << "\" requestSize=\"" << absNoLinks
-    << "\" laneNumber=\"" << absNoLanes << "\">" << std::endl;
+    os << "   <" << SUMOXMLDefinitions::Tags.getString(SUMO_TAG_ROWLOGIC) << " " 
+        << SUMOXMLDefinitions::Attrs.getString(SUMO_ATTR_ID) << "=\"" << key << "\" "
+        << SUMOXMLDefinitions::Attrs.getString(SUMO_ATTR_REQUESTSIZE) << "=\"" << absNoLinks << "\" "
+        << SUMOXMLDefinitions::Attrs.getString(SUMO_ATTR_LANENUMBER) << "=\"" << absNoLanes << "\">" 
+        << std::endl;
     int pos = 0;
     // save the logic
     EdgeVector::const_iterator i;
@@ -339,7 +342,7 @@ NBRequest::bitsetToXML(std::string key) {
             pos = writeLaneResponse(os, *i, k, pos);
         }
     }
-    os << "   </row-logic>" << std::endl;
+    os << "   </" << SUMOXMLDefinitions::Tags.getString(SUMO_TAG_ROWLOGIC) << ">" << std::endl;
     return os.str();
 }
 
