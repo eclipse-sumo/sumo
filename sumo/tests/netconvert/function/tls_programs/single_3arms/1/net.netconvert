@@ -1,7 +1,9 @@
 <?xml version="1.0"?>
 
-<!-- generated on 08/13/10 09:41:14 by SUMO netconvert Version dev-SVN-r8487
-<configuration>
+<!-- generated on Mon Mar 21 15:37:59 2011 by SUMO netconvert Version dev-SVN-r9933
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
 
     <input>
         <xml-node-files value="input_nodes.nod.xml"/>
@@ -178,7 +180,7 @@
       <phase duration="4" state="yyyyrrrrr"/>
    </tl-logic>
 
-   <junction id="n1" type="priority" x="90.87" y="69.00" incLanes="e13_0 e14_0 e2_0" intLanes=":n1_0_0 :n1_9_0 :n1_10_0 :n1_3_0 :n1_4_0 :n1_11_0 :n1_6_0 :n1_12_0 :n1_13_0" shape="89.05,74.69 95.32,72.99 96.01,69.93 92.93,64.21 85.05,67.63 87.24,73.75"/>
+   <junction id="n1" type="traffic_light" x="90.87" y="69.00" incLanes="e13_0 e14_0 e2_0" intLanes=":n1_0_0 :n1_9_0 :n1_10_0 :n1_3_0 :n1_4_0 :n1_11_0 :n1_6_0 :n1_12_0 :n1_13_0" shape="89.05,74.69 95.32,72.99 96.01,69.93 92.93,64.21 85.05,67.63 87.24,73.75"/>
    <junction id="n5" type="priority" x="146.00" y="272.00" incLanes="e16_0" intLanes=":n5_0_0" shape="145.95,272.01 142.86,272.85 149.14,271.15 146.05,271.99"/>
    <junction id="n6" type="priority" x="219.43" y="0.00" incLanes="e15_0" intLanes=":n6_0_0" shape="219.45,0.04 220.97,2.86 217.89,-2.86 219.41,-0.04"/>
    <junction id="n8" type="priority" x="0.00" y="101.50" incLanes="e1_0" intLanes=":n8_0_0" shape="-0.02,101.45 -1.09,98.44 1.09,104.56 0.02,101.55"/>

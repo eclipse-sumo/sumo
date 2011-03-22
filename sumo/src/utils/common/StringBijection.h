@@ -29,6 +29,7 @@
 #include <config.h>
 #endif
 
+#include <iostream>
 #include <map>
 #include <string>
 
@@ -44,11 +45,27 @@ template< class T  >
 class StringBijection {
 
 public:
+
+    struct Entry {
+        const char *str;
+        const T other;
+    };
+
+
     StringBijection() {}
 
-    void insert(const std::string &str, const T other) {
+
+    StringBijection(Entry entries[], T terminator) {
+        int i = 0;
+        do{
+            insert(entries[i].str, entries[i].other);
+        } while (entries[i++].other != terminator);
+    }
+
+
+    void insert(const std::string str, const T other) {
         myString2T[str] = other;
-        myT2String[other] = str;
+        myT2String[other] = str.substr();
     }
 
 
@@ -57,8 +74,18 @@ public:
     }
 
 
-    std::string getString(const T other) {
+    const std::string getString(const T other) {
         return myT2String[other];
+    }
+
+
+    bool hasString(const std::string &str) {
+        return myString2T.count(str) != 0;
+    }
+
+
+    bool has(const T other) {
+        return myT2String.count(other) != 0;
     }
 
 

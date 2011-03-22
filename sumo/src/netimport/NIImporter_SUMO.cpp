@@ -332,17 +332,15 @@ NIImporter_SUMO::addJunction(const SUMOSAXAttributes &attrs) {
     SUMOReal x = attrs.getSUMORealReporting(SUMO_ATTR_X, "junction", id.c_str(), ok);
     SUMOReal y = attrs.getSUMORealReporting(SUMO_ATTR_Y, "junction", id.c_str(), ok);
     std::string typeS = attrs.getStringReporting(SUMO_ATTR_TYPE, "junction", id.c_str(), ok);
-    // @todo refactor! (see NIXMLNodesHandler::, NBNode::writeXML)
-    if (typeS=="priority") {
-        type = NBNode::NODETYPE_PRIORITY_JUNCTION;
-    } else if (typeS=="right_before_left") {
-        type = NBNode::NODETYPE_RIGHT_BEFORE_LEFT;
-    } else if (typeS=="traffic_light") {
-        type = NBNode::NODETYPE_TRAFFIC_LIGHT;
+    if (NBNode::nodeTypeNames.hasString(typeS)) {
+        type = NBNode::nodeTypeNames.get(typeS);
+    } else {
+        WRITE_WARNING("Unknown node type '" + typeS + "' for junction '" + id + "'.");
     }
+
     Position2D pos(x, y);
     if (!GeoConvHelper::x2cartesian(pos)) {
-        WRITE_ERROR("Unable to project coordinates for junction " + id + ".");
+        WRITE_ERROR("Unable to project coordinates for junction '" + id + "'.");
         return;
     }
     NBNode *node = new NBNode(id, pos, type);

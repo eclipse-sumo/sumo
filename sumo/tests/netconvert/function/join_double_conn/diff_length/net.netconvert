@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 02/04/11 08:36:54 by SUMO netconvert Version dev-SVN-r9671
+<!-- generated on Mon Mar 21 15:38:01 2011 by SUMO netconvert Version dev-SVN-r9933
 <?xml version="1.0" encoding="iso-8859-1"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
@@ -71,7 +71,7 @@
    </tl-logic>
 
    <junction id="1" type="priority" x="500.00" y="0.00" incLanes="91to1_0" intLanes="" shape="501.50,-0.05 501.50,-3.25 498.50,-3.25 498.50,-0.05"/>
-   <junction id="2" type="priority" x="1500.00" y="0.00" incLanes="1to21_0 1to22_0" intLanes="" shape="1501.50,-0.05 1501.50,-3.25 1498.50,-3.25 1498.50,-0.05"/>
+   <junction id="2" type="traffic_light" x="1500.00" y="0.00" incLanes="1to21_0 1to22_0" intLanes="" shape="1501.50,-0.05 1501.50,-3.25 1498.50,-3.25 1498.50,-0.05"/>
    <junction id="3" type="DEAD_END" x="1800.00" y="0.00" incLanes="out_0" intLanes="" shape="1800.00,-3.25 1800.00,-0.05"/>
    <junction id="91" type="DEAD_END" x="0.00" y="0.00" incLanes="" intLanes="" shape="0.00,-0.05 0.00,-3.25"/>
 

@@ -1,7 +1,9 @@
 <?xml version="1.0"?>
 
-<!-- generated on 08/13/10 09:41:17 by SUMO netconvert Version dev-SVN-r8487
-<configuration>
+<!-- generated on Mon Mar 21 15:38:00 2011 by SUMO netconvert Version dev-SVN-r9933
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
 
     <input>
         <xml-node-files value="input_nodes.nod.xml"/>
@@ -107,12 +109,12 @@
       </logic>
    </row-logic>
 
-   <junction id="10708" type="priority" x="76.82" y="162.11" incLanes="5634_0 -9892_0" intLanes="" shape="79.83,165.81 81.50,163.03 82.80,160.72 81.31,157.68 78.21,156.13 76.04,157.24 73.20,158.76"/>
+   <junction id="10708" type="traffic_light" x="76.82" y="162.11" incLanes="5634_0 -9892_0" intLanes="" shape="79.83,165.81 81.50,163.03 82.80,160.72 81.31,157.68 78.21,156.13 76.04,157.24 73.20,158.76"/>
    <junction id="13448" type="priority" x="83.75" y="0.00" incLanes="-5634_0" intLanes="" shape="82.65,1.17 84.85,-1.17 82.31,-0.70 85.19,0.70"/>
    <junction id="14304" type="priority" x="0.89" y="132.75" incLanes="9887_0" intLanes="" shape="1.92,133.97 -0.14,131.53 -0.46,131.90 2.24,133.60"/>
    <junction id="14305" type="priority" x="141.64" y="275.05" incLanes="9889_0" intLanes="" shape="140.55,273.88 142.73,276.22 140.50,273.92"/>
-   <junction id="17199" type="priority" x="32.32" y="161.93" incLanes="-9887_0 -9890_0" intLanes="" shape="36.03,158.77 33.23,157.14 31.05,155.97 27.99,157.41 26.39,160.50 27.71,162.85 29.41,165.63"/>
-   <junction id="17200" type="priority" x="75.82" y="205.61" incLanes="-9889_0 -9891_0" intLanes="" shape="77.00,211.57 80.08,210.17 81.71,207.10 80.53,204.81 78.93,201.97 72.05,208.72 74.85,210.39"/>
+   <junction id="17199" type="traffic_light" x="32.32" y="161.93" incLanes="-9887_0 -9890_0" intLanes="" shape="36.03,158.77 33.23,157.14 31.05,155.97 27.99,157.41 26.39,160.50 27.71,162.85 29.41,165.63"/>
+   <junction id="17200" type="traffic_light" x="75.82" y="205.61" incLanes="-9889_0 -9891_0" intLanes="" shape="77.00,211.57 80.08,210.17 81.71,207.10 80.53,204.81 78.93,201.97 72.05,208.72 74.85,210.39"/>
 
    <succ edge="-5634" lane="-5634_0" junction="13448">
       <succlane lane="5634_0" yield="0" dir="t" state="M"/>

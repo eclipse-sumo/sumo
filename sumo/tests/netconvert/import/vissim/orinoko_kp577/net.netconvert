@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 02/04/11 08:50:44 by SUMO netconvert Version dev-SVN-r9671
+<!-- generated on Mon Mar 21 15:37:47 2011 by SUMO netconvert Version dev-SVN-r9933
 <?xml version="1.0" encoding="iso-8859-1"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
@@ -1232,7 +1232,7 @@
    <junction id="605001193" type="priority" x="2032.23" y="1568.88" incLanes="95_0" intLanes="" shape="2031.42,1570.27 2033.25,1567.65 2031.28,1570.17"/>
    <junction id="605001194" type="priority" x="2030.23" y="1571.76" incLanes="1000709_0" intLanes="" shape="2029.13,1572.93 2031.23,1570.52 2031.10,1570.40 2029.13,1572.93"/>
    <junction id="605001195" type="priority" x="1565.64" y="2823.25" incLanes="98_0" intLanes="" shape="1567.13,2824.42 1569.65,2826.40 1564.38,2822.27 1566.90,2824.24"/>
-   <junction id="605001196" type="priority" x="2079.75" y="1607.93" incLanes="1000704_0 1000705[1]_0 1000701_0 1000702[1]_0 1000710_0 1000711[1]_0 1000708[1]_0 1000707_0" intLanes="" shape="2084.96,1614.97 2089.48,1610.03 2086.21,1605.01 2080.83,1601.02 2076.83,1603.90 2072.70,1609.18 2072.95,1611.28 2080.94,1617.63"/>
+   <junction id="605001196" type="traffic_light" x="2079.75" y="1607.93" incLanes="1000704_0 1000705[1]_0 1000701_0 1000702[1]_0 1000710_0 1000711[1]_0 1000708[1]_0 1000707_0" intLanes="" shape="2084.96,1614.97 2089.48,1610.03 2086.21,1605.01 2080.83,1601.02 2076.83,1603.90 2072.70,1609.18 2072.95,1611.28 2080.94,1617.63"/>
    <junction id="605001197" type="priority" x="2119.93" y="1559.82" incLanes="1000702[0]_0" intLanes="" shape="2121.65,1560.11 2118.97,1558.35 2112.14,1564.63 2114.71,1566.53"/>
    <junction id="605001198" type="priority" x="2125.39" y="1652.21" incLanes="1000705[0]_0" intLanes="" shape="2124.92,1653.89 2126.94,1651.41 2121.40,1643.97 2119.24,1646.33"/>
    <junction id="605001199" type="priority" x="2040.29" y="1657.68" incLanes="1000708[0]_0" intLanes="" shape="2048.24,1653.14 2045.73,1651.15 2038.58,1657.33 2041.19,1659.18"/>

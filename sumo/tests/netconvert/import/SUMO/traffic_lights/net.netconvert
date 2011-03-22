@@ -1,27 +1,22 @@
 <?xml version="1.0"?>
 
-<!-- generated on Wed Mar 16 09:35:54 2011 by SUMO netconvert Version dev-SVN-r9902
+<!-- generated on Mon Mar 21 15:37:51 2011 by SUMO netconvert Version dev-SVN-r9933
 <?xml version="1.0" encoding="iso-8859-1"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <xml-node-files value="net.nod.xml"/>
-        <xml-edge-files value="net.edg.xml"/>
+        <sumo-net value="input_net.net.xml"/>
     </input>
 
     <output>
         <output-file value="net.net.xml"/>
-        <plain-output value="direct"/>
+        <plain-output value="plain"/>
     </output>
 
     <processing>
         <disable-normalize-node-positions value="true"/>
     </processing>
-
-    <report>
-        <verbose value="false"/>
-    </report>
 
 </configuration>
 -->
@@ -185,7 +180,7 @@
       <phase duration="3" state="yyyyrrrrr"/>
    </tl-logic>
 
-   <junction id="node_centertl" type="priority" x="0.00" y="0.00" incLanes="edge_up_0 edge_right_0 edge_left_0" intLanes=":node_centertl_0_0 :node_centertl_9_0 :node_centertl_10_0 :node_centertl_3_0 :node_centertl_4_0 :node_centertl_11_0 :node_centertl_6_0 :node_centertl_12_0 :node_centertl_13_0" shape="-3.25,4.75 3.25,4.75 4.75,3.25 4.75,-3.25 -4.75,-3.25 -4.75,3.25"/>
+   <junction id="node_centertl" type="traffic_light" x="0.00" y="0.00" incLanes="edge_up_0 edge_right_0 edge_left_0" intLanes=":node_centertl_0_0 :node_centertl_9_0 :node_centertl_10_0 :node_centertl_3_0 :node_centertl_4_0 :node_centertl_11_0 :node_centertl_6_0 :node_centertl_12_0 :node_centertl_13_0" shape="-3.25,4.75 3.25,4.75 4.75,3.25 4.75,-3.25 -4.75,-3.25 -4.75,3.25"/>
    <junction id="node_left" type="priority" x="-30.00" y="0.00" incLanes="-edge_left_0" intLanes=":node_left_0_0" shape="-30.00,-0.05 -30.00,-3.25 -30.00,3.25 -30.00,0.05"/>
    <junction id="node_right" type="priority" x="30.00" y="0.00" incLanes="-edge_right_0" intLanes=":node_right_0_0" shape="30.00,0.05 30.00,3.25 30.00,-3.25 30.00,-0.05"/>
    <junction id="node_up" type="priority" x="0.00" y="30.00" incLanes="-edge_up_0" intLanes=":node_up_0_0" shape="-0.05,30.00 -3.25,30.00 3.25,30.00 0.05,30.00"/>

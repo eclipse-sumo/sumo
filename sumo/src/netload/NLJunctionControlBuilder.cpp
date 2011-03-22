@@ -94,7 +94,7 @@ NLJunctionControlBuilder::openJunction(const std::string &id,
     myType = TYPE_UNKNOWN;
     if (type=="right_before_left") {
         myType = TYPE_RIGHT_BEFORE_LEFT;
-    } else if (type=="priority") {
+    } else if (type=="priority" || type=="traffic_light") {
         myType = TYPE_PRIORITY_JUNCTION;
     } else if (type=="DEAD_END"||type=="district") {
         myType = TYPE_DEAD_END;

@@ -72,6 +72,22 @@
 /** Definition how many points an internal lane-geometry should be made of */
 #define NO_INTERNAL_POINTS 5
 
+// ===========================================================================
+// static members
+// ===========================================================================
+
+StringBijection<NBNode::BasicNodeType>::Entry NBNode::nodeTypeNamesEntries[] = {
+    {"unknown",             NBNode::NODETYPE_UNKNOWN},
+    {"traffic_light",       NBNode::NODETYPE_TRAFFIC_LIGHT},
+    {"priority",            NBNode::NODETYPE_PRIORITY_JUNCTION},
+    {"right_before_left",   NBNode::NODETYPE_RIGHT_BEFORE_LEFT},
+    {"district",            NBNode::NODETYPE_DISTRICT},
+    {"unregulated",         NBNode::NODETYPE_NOJUNCTION},
+    {"internal",            NBNode::NODETYPE_INTERNAL},
+    {"DEAD_END",            NBNode::NODETYPE_DEAD_END}};
+
+StringBijection<NBNode::BasicNodeType> NBNode::nodeTypeNames(
+        NBNode::nodeTypeNamesEntries, NBNode::NODETYPE_DEAD_END);
 
 // ===========================================================================
 // method definitions
@@ -1006,7 +1022,7 @@ NBNode::writeXMLInternalNodes(OutputDevice &into) {
                 Position2DVector shape = computeInternalLaneShape(*i, j, (*k).toEdge, (*k).toLane);
                 Position2D pos = shape.positionAtLengthPosition(cross.first);
                 into << "   <junction id=\"" << sid << '\"';
-                into << " type=\"" << "internal\"";
+                into << " type=\"" << NBNode::nodeTypeNames.getString(NODETYPE_INTERNAL) << "\"";
                 into << " x=\"" << pos.x() << "\" y=\"" << pos.y() << "\"";
                 into << " incLanes=\"";
                 std::string furtherIncoming = getCrossingSourcesNames_dividedBySpace(*i, j, (*k).toEdge, (*k).toLane);
@@ -1061,28 +1077,10 @@ void
 NBNode::writeXML(OutputDevice &into) {
     // write the attributes
     into << "   <junction id=\"" << myID << '\"';
-    if (myIncomingEdges->size()!=0&&myOutgoingEdges->size()!=0) {
-        //into << " key=\"" << _key << '\"';
-        switch (myType) {
-        case NODETYPE_NOJUNCTION:
-            into << " type=\"" << "unregulated\"";
-            break;
-        case NODETYPE_PRIORITY_JUNCTION:
-        case NODETYPE_TRAFFIC_LIGHT:
-            into << " type=\"" << "priority\"";
-            break;
-        case NODETYPE_RIGHT_BEFORE_LEFT:
-            into << " type=\"" << "right_before_left\"";
-            break;
-        case NODETYPE_DISTRICT:
-            into << " type=\"" << "district\"";
-            break;
-        default:
-            throw ProcessError("An unknown junction type occured (" + toString(myType) + ")");
-        }
-    } else {
-        into << " type=\"DEAD_END\"";
+    if (myIncomingEdges->size()==0 || myOutgoingEdges->size()==0) {
+        myType = NODETYPE_DEAD_END;
     }
+    into << " type=\"" << NBNode::nodeTypeNames.getString(myType) << "\"";
     into << " x=\"" << myPosition.x() << "\" y=\"" << myPosition.y() << "\"";
     into << " incLanes=\"";
     // write the incoming lanes
@@ -1188,6 +1186,8 @@ NBNode::sortNodesEdges(bool leftHand, const NBTypeCont &tc) {
         case NODETYPE_TRAFFIC_LIGHT:
             col = "1,1,0";
             break;
+        default:
+            col = "0,1,1";
         }
         OutputDevice::getDeviceByOption("node-type-output") << "   <poi id=\"type_" << myID
         << "\" type=\"node_type\" color=\"" << col << "\""

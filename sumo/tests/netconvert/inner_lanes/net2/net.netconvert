@@ -1,7 +1,9 @@
 <?xml version="1.0"?>
 
-<!-- generated on 08/13/10 09:40:34 by SUMO netconvert Version dev-SVN-r8487
-<configuration>
+<!-- generated on Mon Mar 21 15:37:35 2011 by SUMO netconvert Version dev-SVN-r9933
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
 
     <input>
         <xml-node-files value="input_nodes.nod.xml"/>
@@ -201,7 +203,7 @@
       <phase duration="4" state="rrrrryrrrrry"/>
    </tl-logic>
 
-   <junction id="0" type="priority" x="500.00" y="500.00" incLanes="2i_0 2i_1 3i_0 3i_1 1i_0 1i_1 4i_0 4i_1" intLanes=":0_0_0 :0_1_0 :0_12_0 :0_3_0 :0_4_0 :0_13_0 :0_6_0 :0_7_0 :0_14_0 :0_9_0 :0_10_0 :0_15_0" shape="500.63,509.89 507.56,502.96 510.28,495.60 501.88,490.56 499.37,490.11 492.44,497.04 489.72,504.40 498.12,509.44"/>
+   <junction id="0" type="traffic_light" x="500.00" y="500.00" incLanes="2i_0 2i_1 3i_0 3i_1 1i_0 1i_1 4i_0 4i_1" intLanes=":0_0_0 :0_1_0 :0_12_0 :0_3_0 :0_4_0 :0_13_0 :0_6_0 :0_7_0 :0_14_0 :0_9_0 :0_10_0 :0_15_0" shape="500.63,509.89 507.56,502.96 510.28,495.60 501.88,490.56 499.37,490.11 492.44,497.04 489.72,504.40 498.12,509.44"/>
    <junction id="1" type="priority" x="0.00" y="0.00" incLanes="1o_0" intLanes="" shape="0.04,-0.04 4.63,-4.63 -2.30,2.30 -0.04,0.04"/>
    <junction id="2" type="priority" x="1000.00" y="1000.00" incLanes="2o_0" intLanes="" shape="999.96,1000.04 995.37,1004.63 1002.30,997.70 1000.04,999.96"/>
    <junction id="3" type="priority" x="800.00" y="0.00" incLanes="3o_0" intLanes="" shape="800.04,0.03 805.62,3.37 797.21,-1.67 799.96,-0.03"/>

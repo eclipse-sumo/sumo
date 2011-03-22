@@ -109,16 +109,11 @@ NIXMLNodesHandler::myStartElement(SumoXMLTag element,
     if (node!=0) {
         type = node->getType();
     }
-    if (attrs.hasAttribute(SUMO_ATTR_TYPE)) {
-        std::string typeS = attrs.getOptStringReporting(SUMO_ATTR_TYPE, "node", myID.c_str(), ok, "");
-        if (typeS=="priority") {
-            type = NBNode::NODETYPE_PRIORITY_JUNCTION;
-        } else if (typeS=="right_before_left") {
-            type = NBNode::NODETYPE_RIGHT_BEFORE_LEFT;
-        } else if (typeS=="traffic_light") {
-            type = NBNode::NODETYPE_TRAFFIC_LIGHT;
-        }
+    std::string typeS = attrs.getOptStringReporting(SUMO_ATTR_TYPE, "node", myID.c_str(), ok, "");
+    if (NBNode::nodeTypeNames.hasString(typeS)) {
+        type = NBNode::nodeTypeNames.get(typeS);
     }
+
     // check whether a prior node shall be modified
     if (node==0) {
         node = new NBNode(myID, myPosition, type);

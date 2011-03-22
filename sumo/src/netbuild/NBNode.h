@@ -35,6 +35,7 @@
 #include <string>
 #include <set>
 #include <utils/common/Named.h>
+#include <utils/common/StringBijection.h>
 #include <utils/common/VectorHelper.h>
 #include <utils/geom/Position2D.h>
 #include <utils/geom/Line2D.h>
@@ -127,10 +128,13 @@ public:
         NODETYPE_DISTRICT,
         /// @brief The node is uncontrolled
         NODETYPE_NOJUNCTION,
+        /// @brief The node is internal to another junction
+        NODETYPE_INTERNAL,
         /// @brief The node is a dead end (no outgoing edges)
         NODETYPE_DEAD_END
     };
 
+    static StringBijection<BasicNodeType>  nodeTypeNames;
 
 public:
     /** @brief Constructor
@@ -526,6 +530,9 @@ private:
     NBRequest *myRequest;
 
     std::set<NBTrafficLightDefinition*> myTrafficLights;
+
+    // needed to initialize nodeTypeNames since ISO C++ does not allow compound literals )-:
+    static StringBijection<BasicNodeType>::Entry nodeTypeNamesEntries[];
 
 private:
     /// @brief invalidated copy constructor

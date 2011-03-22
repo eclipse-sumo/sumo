@@ -1204,26 +1204,7 @@ NBNodeCont::savePlain(const std::string &file) {
             device << "x=\"" << n->getPosition().x() << "\" y=\"" << n->getPosition().y() << "\"";
         }
         // this yearns for refactoring (see NBNode::writeXML)
-        device << " type=\"";
-        switch (n->getType()) {
-            case NBNode::NODETYPE_NOJUNCTION:
-                device << "unregulated\"";
-                break;
-            case NBNode::NODETYPE_PRIORITY_JUNCTION:
-                device << "priority\"";
-                break;
-            case NBNode::NODETYPE_TRAFFIC_LIGHT:
-                device << "traffic_light\"";
-                break;
-            case NBNode::NODETYPE_RIGHT_BEFORE_LEFT:
-                device << "right_before_left\"";
-                break;
-            case NBNode::NODETYPE_DISTRICT:
-                device << "district\"";
-                break;
-            default:
-                throw ProcessError("An unknown junction type occured in node '" + n->getID() + "'");
-        }
+        device << " type=\"" << NBNode::nodeTypeNames.getString(n->getType())<< "\"";
         if (n->isTLControlled()) {
             device << " tl=\"";
             const std::set<NBTrafficLightDefinition*> &tlss = n->getControllingTLS();

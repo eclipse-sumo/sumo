@@ -1,7 +1,9 @@
 <?xml version="1.0"?>
 
-<!-- generated on 08/13/10 09:41:14 by SUMO netconvert Version dev-SVN-r8487
-<configuration>
+<!-- generated on Mon Mar 21 15:37:58 2011 by SUMO netconvert Version dev-SVN-r9933
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
 
     <input>
         <xml-node-files value="input_nodes.nod.xml"/>
@@ -181,7 +183,7 @@
    <junction id="n1" type="priority" x="0.00" y="266.00" incLanes="e14_0" intLanes=":n1_0_0" shape="-0.02,265.96 -1.54,263.14 1.54,268.86 0.02,266.04"/>
    <junction id="n11" type="priority" x="65.06" y="0.00" incLanes="e19_0" intLanes=":n11_0_0" shape="65.11,-0.02 68.15,-1.00 61.97,1.00 65.01,0.02"/>
    <junction id="n12" type="priority" x="226.38" y="157.50" incLanes="e20_0" intLanes=":n12_0_0" shape="226.40,157.55 227.60,160.51 225.16,154.49 226.36,157.45"/>
-   <junction id="n6" type="priority" x="128.56" y="197.00" incLanes="e18_0 e17_0 e15_0" intLanes=":n6_0_0 :n6_9_0 :n6_10_0 :n6_3_0 :n6_11_0 :n6_12_0 :n6_6_0 :n6_7_0 :n6_13_0" shape="134.41,198.14 131.97,192.12 130.12,191.25 123.94,193.25 123.31,196.13 126.39,201.85"/>
+   <junction id="n6" type="traffic_light" x="128.56" y="197.00" incLanes="e18_0 e17_0 e15_0" intLanes=":n6_0_0 :n6_9_0 :n6_10_0 :n6_3_0 :n6_11_0 :n6_12_0 :n6_6_0 :n6_7_0 :n6_13_0" shape="134.41,198.14 131.97,192.12 130.12,191.25 123.94,193.25 123.31,196.13 126.39,201.85"/>
 
    <junction id=":n6_9_0" type="internal" x="127.43" y="195.98" incLanes=":n6_1_0 e15_0" intLanes=":n6_6_0 :n6_7_0" shape=""/>
    <junction id=":n6_10_0" type="internal" x="133.71" y="196.64" incLanes=":n6_2_0 e15_0" intLanes=":n6_7_0" shape=""/>

@@ -1,7 +1,9 @@
 <?xml version="1.0"?>
 
-<!-- generated on 08/13/10 09:41:15 by SUMO netconvert Version dev-SVN-r8487
-<configuration>
+<!-- generated on Mon Mar 21 15:37:59 2011 by SUMO netconvert Version dev-SVN-r9933
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
 
     <input>
         <xml-node-files value="input_nodes.nod.xml"/>
@@ -110,7 +112,7 @@
    </tl-logic>
 
    <junction id="15030099" type="DEAD_END" x="405.00" y="265.00" incLanes="153120299_0 153120299_1" intLanes="" shape="408.58,259.52 405.03,264.96"/>
-   <junction id="15030102" type="priority" x="235.00" y="154.00" incLanes="153120297_0 153120297_1 -152850000_0" intLanes=":15030102_0_0 :15030102_1_0 :15030102_2_0 :15030102_5_0 :15030102_6_0" shape="239.00,156.55 242.56,151.11 234.62,145.92 231.05,151.35 231.47,153.48 236.94,157.00"/>
+   <junction id="15030102" type="traffic_light" x="235.00" y="154.00" incLanes="153120297_0 153120297_1 -152850000_0" intLanes=":15030102_0_0 :15030102_1_0 :15030102_2_0 :15030102_5_0 :15030102_6_0" shape="239.00,156.55 242.56,151.11 234.62,145.92 231.05,151.35 231.47,153.48 236.94,157.00"/>
    <junction id="15031877" type="DEAD_END" x="0.00" y="0.00" incLanes="" intLanes="" shape="0.03,-0.04 3.59,-5.48"/>
    <junction id="15034045" type="priority" x="226.00" y="168.00" incLanes="152850000_0" intLanes=":15034045_0_0" shape="225.96,167.97 223.27,166.24 228.73,169.76 226.04,168.03"/>
 

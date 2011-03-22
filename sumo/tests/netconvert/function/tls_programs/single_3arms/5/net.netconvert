@@ -1,7 +1,9 @@
 <?xml version="1.0"?>
 
-<!-- generated on 08/13/10 09:41:15 by SUMO netconvert Version dev-SVN-r8487
-<configuration>
+<!-- generated on Mon Mar 21 15:37:59 2011 by SUMO netconvert Version dev-SVN-r9933
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
 
     <input>
         <xml-node-files value="input_nodes.nod.xml"/>
@@ -169,7 +171,7 @@
    <junction id="15031077" type="DEAD_END" x="152.00" y="0.00" incLanes="" intLanes="" shape="152.05,-0.00 155.24,-0.24"/>
    <junction id="15031330" type="priority" x="0.00" y="187.00" incLanes="-153119827_0 -153119827_1" intLanes=":15031330_0_0" shape="0.01,186.95 0.63,183.81 -1.26,193.43 -0.01,187.05"/>
    <junction id="15031746" type="DEAD_END" x="167.00" y="245.00" incLanes="15033072_0 15033072_1" intLanes="" shape="173.54,245.26 167.05,245.00"/>
-   <junction id="15031747" type="priority" x="168.00" y="220.00" incLanes="-15032465_0 15033074_0 153119827_0" intLanes=":15031747_0_0 :15031747_1_0 :15031747_9_0 :15031747_3_0 :15031747_4_0 :15031747_10_0 :15031747_6_0 :15031747_11_0 :15031747_12_0" shape="175.76,226.01 177.81,219.84 170.89,214.92 167.70,215.15 166.33,216.36 164.45,225.98 167.72,228.13 174.22,228.39"/>
+   <junction id="15031747" type="traffic_light" x="168.00" y="220.00" incLanes="-15032465_0 15033074_0 153119827_0" intLanes=":15031747_0_0 :15031747_1_0 :15031747_9_0 :15031747_3_0 :15031747_4_0 :15031747_10_0 :15031747_6_0 :15031747_11_0 :15031747_12_0" shape="175.76,226.01 177.81,219.84 170.89,214.92 167.70,215.15 166.33,216.36 164.45,225.98 167.72,228.13 174.22,228.39"/>
    <junction id="15031812" type="priority" x="204.00" y="232.00" incLanes="15032465_0" intLanes=":15031812_0_0" shape="203.98,232.05 202.97,235.08 205.03,228.92 204.02,231.95"/>
 
    <junction id=":15031747_9_0" type="internal" x="176.20" y="224.41" incLanes=":15031747_2_0 153119827_0" intLanes=":15031747_6_0" shape=""/>
