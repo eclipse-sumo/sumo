@@ -113,7 +113,9 @@ RGBColor::parseColor(const std::string &coldef) throw(EmptyData, NumberFormatExc
 
 
 RGBColor
-RGBColor::parseColorReporting(const std::string &coldef, const char *objecttype, const char *objectid, bool report, bool &ok) throw() {
+RGBColor::parseColorReporting(
+        const std::string &coldef, const std::string &objecttype, 
+        const char *objectid, bool report, bool &ok) throw() {
     UNUSED_PARAMETER(report);
     try {
         return parseColor(coldef);
@@ -126,11 +128,7 @@ RGBColor::parseColorReporting(const std::string &coldef, const char *objecttype,
     if (objectid==0) {
         oss << "a ";
     }
-    if (objecttype!=0) {
-        oss << objecttype;
-    } else {
-        oss << "<unknown type>";
-    }
+    oss << objecttype;
     if (objectid!=0) {
         oss << " '" << objectid << "'";
     }

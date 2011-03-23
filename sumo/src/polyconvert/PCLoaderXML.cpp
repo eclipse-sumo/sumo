@@ -100,13 +100,13 @@ PCLoaderXML::myStartElement(SumoXMLTag element,
     if (element==SUMO_TAG_POI) {
         // get the id, report an error if not given or empty...
         std::string id;
-        if (!attrs.setIDFromAttributes("poi", id)) {
+        if (!attrs.setIDFromAttributes(id)) {
             return;
         }
         bool ok = true;
-        SUMOReal x = attrs.getSUMORealReporting(SUMO_ATTR_X, "poi", id.c_str(), ok);
-        SUMOReal y = attrs.getSUMORealReporting(SUMO_ATTR_Y, "poi", id.c_str(), ok);
-        std::string type = attrs.getOptStringReporting(SUMO_ATTR_TYPE, "poi", id.c_str(), ok, "");
+        SUMOReal x = attrs.getSUMORealReporting(SUMO_ATTR_X, id.c_str(), ok);
+        SUMOReal y = attrs.getSUMORealReporting(SUMO_ATTR_Y, id.c_str(), ok);
+        std::string type = attrs.getOptStringReporting(SUMO_ATTR_TYPE, id.c_str(), ok, "");
         if (!ok) {
             return;
         }
@@ -146,8 +146,8 @@ PCLoaderXML::myStartElement(SumoXMLTag element,
         bool discard = myOptions.getBool("discard");
         int layer = myOptions.getInt("layer");
         bool ok = true;
-        std::string id = attrs.getOptStringReporting(SUMO_ATTR_ID, "poly", myCurrentID.c_str(), ok, "");
-        std::string type = attrs.getOptStringReporting(SUMO_ATTR_TYPE, "poly", myCurrentID.c_str(), ok, "");
+        std::string id = attrs.getOptStringReporting(SUMO_ATTR_ID, myCurrentID.c_str(), ok, "");
+        std::string type = attrs.getOptStringReporting(SUMO_ATTR_TYPE, myCurrentID.c_str(), ok, "");
         if (!ok) {
             return;
         }
@@ -176,7 +176,7 @@ PCLoaderXML::myStartElement(SumoXMLTag element,
             myCurrentLayer = layer;
             if (attrs.hasAttribute(SUMO_ATTR_SHAPE)) {
                 // @deprecated At some time, no shape definition using characters will be allowed
-                myCharacters(element, attrs.getStringReporting(SUMO_ATTR_SHAPE, "poly", myCurrentID.c_str(), ok));
+                myCharacters(element, attrs.getStringReporting(SUMO_ATTR_SHAPE, myCurrentID.c_str(), ok));
             }
         }
     }

@@ -219,8 +219,8 @@ MSCalibrator::MSCalibrator_FileTriggeredChild::myStartElement(SumoXMLTag element
         const SUMOSAXAttributes &attrs) throw(ProcessError) {
     if (element==SUMO_TAG_ROUTEDISTELEM) {
         bool ok = true;
-        SUMOReal freq = attrs.getSUMORealReporting(SUMO_ATTR_PROB, "calibrator/routedistelem", myParent.getID().c_str(), ok);
-        std::string routeStr = attrs.getStringReporting(SUMO_ATTR_ID, "calibrator/routedistelem", myParent.getID().c_str(), ok);
+        SUMOReal freq = attrs.getSUMORealReporting(SUMO_ATTR_PROB, myParent.getID().c_str(), ok);
+        std::string routeStr = attrs.getStringReporting(SUMO_ATTR_ID, myParent.getID().c_str(), ok);
         if (ok) {
             const MSRoute* route = MSRoute::dictionary(routeStr);
             if (route == 0) {
@@ -238,11 +238,11 @@ MSCalibrator::MSCalibrator_FileTriggeredChild::myStartElement(SumoXMLTag element
     if (element==SUMO_TAG_VTYPEDISTELEM) {
         // get the id, report an error if not given or empty...
         std::string id;
-        if (!attrs.setIDFromAttributes("vtypedistelem", id)) {
+        if (!attrs.setIDFromAttributes(id)) {
             return;
         }
         bool ok = true;
-        SUMOReal prob = attrs.getSUMORealReporting(SUMO_ATTR_PROB, "vtypedistelem", id.c_str(), ok);
+        SUMOReal prob = attrs.getSUMORealReporting(SUMO_ATTR_PROB, id.c_str(), ok);
         if (ok) {
             if (prob<=0) {
                 MsgHandler::getErrorInstance()->inform("False probability while parsing calibrator '" + myParent.getID() + "' (" + toString(prob) + ").");
@@ -259,12 +259,12 @@ MSCalibrator::MSCalibrator_FileTriggeredChild::myStartElement(SumoXMLTag element
 
     if (element==SUMO_TAG_FLOW) {
         bool ok = true;
-        SUMOReal no = attrs.getSUMORealReporting(SUMO_ATTR_NO, "flow", myParent.getID().c_str(), ok);
+        SUMOReal no = attrs.getSUMORealReporting(SUMO_ATTR_NO, myParent.getID().c_str(), ok);
         if (no<0) {
             MsgHandler::getErrorInstance()->inform("Negative flow in calibrator '" + myParent.getID() + "'.");
             return;
         }
-        SUMOTime end = attrs.getOptSUMOTimeReporting(SUMO_ATTR_END, "flow", myParent.getID().c_str(), ok, -1);
+        SUMOTime end = attrs.getOptSUMOTimeReporting(SUMO_ATTR_END, myParent.getID().c_str(), ok, -1);
         if (!ok) {
             return;
         }
@@ -284,8 +284,8 @@ MSCalibrator::MSCalibrator_FileTriggeredChild::myStartElement(SumoXMLTag element
     // check whethe the correct tag is read
     if (element==SUMO_TAG_EMIT) {
         bool ok = true;
-        SUMOTime depart = attrs.getSUMOTimeReporting(SUMO_ATTR_TIME, "emit", 0, ok);
-        SUMOReal departSpeed = attrs.getOptSUMORealReporting(SUMO_ATTR_SPEED, "emit", myParent.getID().c_str(), ok, -1);
+        SUMOTime depart = attrs.getSUMOTimeReporting(SUMO_ATTR_TIME, 0, ok);
+        SUMOReal departSpeed = attrs.getOptSUMORealReporting(SUMO_ATTR_SPEED, myParent.getID().c_str(), ok, -1);
         if (!ok) {
             return;
         }
@@ -313,7 +313,7 @@ MSCalibrator::MSCalibrator_FileTriggeredChild::myStartElement(SumoXMLTag element
             }
         }
         // check and assign vehicle type
-        pars->vtypeid = attrs.getStringReporting(SUMO_ATTR_TYPE, "calibrator/routedistelem", myParent.getID().c_str(), ok, "");
+        pars->vtypeid = attrs.getStringReporting(SUMO_ATTR_TYPE, myParent.getID().c_str(), ok, "");
         MSVehicleType* aVehType = MSNet::getInstance()->getVehicleControl().getVType(pars->vtypeid);
         if (aVehType == 0) {
             if (myVTypeDist.getOverallProb()!=0) {
@@ -328,7 +328,7 @@ MSCalibrator::MSCalibrator_FileTriggeredChild::myStartElement(SumoXMLTag element
             }
         }
         // check and assign vehicle type
-        pars->routeid = attrs.getStringReporting(SUMO_ATTR_ROUTE, "calibrator/routedistelem", myParent.getID().c_str(), ok, "");
+        pars->routeid = attrs.getStringReporting(SUMO_ATTR_ROUTE, myParent.getID().c_str(), ok, "");
         const MSRoute *aEmitRoute = MSRoute::dictionary(pars->routeid);
         if (aEmitRoute==0) {
             if (myRouteDist.getOverallProb()!=0) {

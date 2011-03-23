@@ -222,19 +222,9 @@ NIImporter_SUMO::myStartElement(SumoXMLTag element,
 void
 NIImporter_SUMO::myCharacters(SumoXMLTag element,
                               const std::string &chars) throw(ProcessError) {
-    switch (element) {
-    case SUMO_TAG_LANE:
-        // @deprecated At some time, SUMO_ATTR_SHAPE will be mandatory
-        if (myCurrentLane!=0&&chars.length()!=0) {
-            bool ok = true;
-            myCurrentLane->shape = GeomConvHelper::parseShapeReporting(chars, "lane", 0, ok, false);
-        }
-        break;
-    default:
-        break;
-    }
+    UNUSED_PARAMETER(element);
+    UNUSED_PARAMETER(chars);
 }
-
 
 
 void
@@ -278,20 +268,20 @@ void
 NIImporter_SUMO::addEdge(const SUMOSAXAttributes &attrs) {
     // get the id, report an error if not given or empty...
     std::string id;
-    if (!attrs.setIDFromAttributes("edge", id)) {
+    if (!attrs.setIDFromAttributes(id)) {
         return;
     }
     bool ok = true;
     myCurrentEdge = new EdgeAttrs;
     myCurrentEdge->id = id;
     // get the type
-    myCurrentEdge->type = attrs.getOptStringReporting(SUMO_ATTR_TYPE, "edge", id.c_str(), ok, "");
+    myCurrentEdge->type = attrs.getOptStringReporting(SUMO_ATTR_TYPE, id.c_str(), ok, "");
     // get the function
-    myCurrentEdge->func = attrs.getOptStringReporting(SUMO_ATTR_FUNCTION, "edge", id.c_str(), ok, "normal");
+    myCurrentEdge->func = attrs.getOptStringReporting(SUMO_ATTR_FUNCTION, id.c_str(), ok, "normal");
     // get the origin and the destination node
-    myCurrentEdge->fromNode = attrs.getOptStringReporting(SUMO_ATTR_FROM, "edge", id.c_str(), ok, "");
-    myCurrentEdge->toNode = attrs.getOptStringReporting(SUMO_ATTR_TO, "edge", id.c_str(), ok, "");
-    myCurrentEdge->priority = attrs.getOptIntReporting(SUMO_ATTR_PRIORITY, "edge", id.c_str(), ok, -1);
+    myCurrentEdge->fromNode = attrs.getOptStringReporting(SUMO_ATTR_FROM, id.c_str(), ok, "");
+    myCurrentEdge->toNode = attrs.getOptStringReporting(SUMO_ATTR_TO, id.c_str(), ok, "");
+    myCurrentEdge->priority = attrs.getOptIntReporting(SUMO_ATTR_PRIORITY, id.c_str(), ok, -1);
     myCurrentEdge->maxSpeed = 0;
     myCurrentEdge->builtEdge = 0;
 }
@@ -300,7 +290,7 @@ NIImporter_SUMO::addEdge(const SUMOSAXAttributes &attrs) {
 void
 NIImporter_SUMO::addLane(const SUMOSAXAttributes &attrs) {
     std::string id;
-    if (!attrs.setIDFromAttributes("lane", id)) {
+    if (!attrs.setIDFromAttributes(id)) {
         return;
     }
     if (!myCurrentEdge) {
@@ -308,11 +298,13 @@ NIImporter_SUMO::addLane(const SUMOSAXAttributes &attrs) {
     }
     myCurrentLane = new LaneAttrs;
     bool ok = true;
-    myCurrentLane->maxSpeed = attrs.getOptSUMORealReporting(SUMO_ATTR_MAXSPEED, "lane", 0, ok, -1);
-    myCurrentLane->depart = attrs.getOptBoolReporting(SUMO_ATTR_DEPART, 0, 0, ok, false);
+    myCurrentLane->maxSpeed = attrs.getOptSUMORealReporting(SUMO_ATTR_MAXSPEED, 0, ok, -1);
+    myCurrentLane->depart = attrs.getOptBoolReporting(SUMO_ATTR_DEPART, 0, ok, false);
     if (attrs.hasAttribute(SUMO_ATTR_SHAPE)) {
         // @deprecated At some time, SUMO_ATTR_SHAPE will be mandatory
-        myCurrentLane->shape = GeomConvHelper::parseShapeReporting(attrs.getStringReporting(SUMO_ATTR_SHAPE, "lane", 0, ok), "lane", 0, ok, false);
+        myCurrentLane->shape = GeomConvHelper::parseShapeReporting(
+                attrs.getStringReporting(SUMO_ATTR_SHAPE, 0, ok), 
+                attrs.getObjectType(), 0, ok, false);
     }
 }
 
@@ -321,7 +313,7 @@ void
 NIImporter_SUMO::addJunction(const SUMOSAXAttributes &attrs) {
     // get the id, report an error if not given or empty...
     std::string id;
-    if (!attrs.setIDFromAttributes("junction", id)) {
+    if (!attrs.setIDFromAttributes(id)) {
         return;
     }
     if (id[0]==':') { // internal node
@@ -329,9 +321,9 @@ NIImporter_SUMO::addJunction(const SUMOSAXAttributes &attrs) {
     }
     bool ok = true;
     SumoXMLNodeType type = NODETYPE_UNKNOWN;
-    SUMOReal x = attrs.getSUMORealReporting(SUMO_ATTR_X, "junction", id.c_str(), ok);
-    SUMOReal y = attrs.getSUMORealReporting(SUMO_ATTR_Y, "junction", id.c_str(), ok);
-    std::string typeS = attrs.getStringReporting(SUMO_ATTR_TYPE, "junction", id.c_str(), ok);
+    SUMOReal x = attrs.getSUMORealReporting(SUMO_ATTR_X, id.c_str(), ok);
+    SUMOReal y = attrs.getSUMORealReporting(SUMO_ATTR_Y, id.c_str(), ok);
+    std::string typeS = attrs.getStringReporting(SUMO_ATTR_TYPE, id.c_str(), ok);
     if (SUMOXMLDefinitions::NodeTypes.hasString(typeS)) {
         type = SUMOXMLDefinitions::NodeTypes.get(typeS);
     } else {
@@ -355,14 +347,14 @@ NIImporter_SUMO::addJunction(const SUMOSAXAttributes &attrs) {
 void
 NIImporter_SUMO::addSuccEdge(const SUMOSAXAttributes &attrs) {
     bool ok = true;
-    std::string edge_id = attrs.getStringReporting(SUMO_ATTR_EDGE, "succ", 0, ok); // 
+    std::string edge_id = attrs.getStringReporting(SUMO_ATTR_EDGE, 0, ok); // 
     myCurrentEdge = 0;
     if (myEdges.find(edge_id)==myEdges.end()) {
         MsgHandler::getErrorInstance()->inform("Unknown edge '" + edge_id + "' given in succedge.");
         return;
     }
     myCurrentEdge = myEdges.find(edge_id)->second;
-    std::string lane_id = attrs.getStringReporting(SUMO_ATTR_LANE, "succ", 0, ok); // 
+    std::string lane_id = attrs.getStringReporting(SUMO_ATTR_LANE, 0, ok); // 
     myCurrentLane = getLaneAttrsFromID(myCurrentEdge, lane_id);
 }
 
@@ -375,10 +367,10 @@ NIImporter_SUMO::addSuccLane(const SUMOSAXAttributes &attrs) {
     }
     bool ok = true;
     Connection conn;
-    conn.lane = attrs.getStringReporting(SUMO_ATTR_LANE, "succlane", 0, ok);
-    conn.tlID = attrs.getOptStringReporting(SUMO_ATTR_TLID, "tl", 0, ok, "");
+    conn.lane = attrs.getStringReporting(SUMO_ATTR_LANE, 0, ok);
+    conn.tlID = attrs.getOptStringReporting(SUMO_ATTR_TLID, 0, ok, "");
     if (conn.tlID != "") {
-        conn.tlLinkNo = attrs.getIntReporting(SUMO_ATTR_TLLINKNO, "linkno", 0, ok);
+        conn.tlLinkNo = attrs.getIntReporting(SUMO_ATTR_TLLINKNO, 0, ok);
     }
     myCurrentLane->connections.push_back(conn);
 }
@@ -423,12 +415,12 @@ NIImporter_SUMO::initTrafficLightLogic(const SUMOSAXAttributes &attrs) {
         return;
     }
     bool ok = true;
-    std::string id = attrs.getStringReporting(SUMO_ATTR_ID, "tl-logic", 0, ok);
-    int offset = attrs.getOptSUMOTimeReporting(SUMO_ATTR_OFFSET, "tl-logic", id.c_str(), ok, 0);
-    std::string programID = attrs.getOptStringReporting(SUMO_ATTR_PROGRAMID, "tl-logic", id.c_str(), ok, "<unknown>");
-    //std::string type = attrs.getStringReporting(SUMO_ATTR_TYPE, "tl-logic", id.c_str(), ok);
+    std::string id = attrs.getStringReporting(SUMO_ATTR_ID, 0, ok);
+    int offset = attrs.getOptSUMOTimeReporting(SUMO_ATTR_OFFSET, id.c_str(), ok, 0);
+    std::string programID = attrs.getOptStringReporting(SUMO_ATTR_PROGRAMID, id.c_str(), ok, "<unknown>");
+    //std::string type = attrs.getStringReporting(SUMO_ATTR_TYPE, id.c_str(), ok);
     // this attribute is never used within myJunctionControlBuilder
-    //SUMOReal detectorOffset = attrs.getOptSUMORealReporting(SUMO_ATTR_DET_OFFSET, "tl-logic", id.c_str(), ok, -1);
+    //SUMOReal detectorOffset = attrs.getOptSUMORealReporting(SUMO_ATTR_DET_OFFSET, id.c_str(), ok, -1);
 
     if (ok) {
         myCurrentTL = new NBLoadedSUMOTLDef(id, programID, offset);
@@ -445,16 +437,16 @@ NIImporter_SUMO::addPhase(const SUMOSAXAttributes &attrs) {
     }
     const std::string &id = myCurrentTL->getID();
     bool ok = true;
-    std::string state = attrs.getStringReporting(SUMO_ATTR_STATE, "phase", id.c_str(), ok);
-    int duration = attrs.getIntReporting(SUMO_ATTR_DURATION, "phase", id.c_str(), ok);
+    std::string state = attrs.getStringReporting(SUMO_ATTR_STATE, id.c_str(), ok);
+    int duration = attrs.getIntReporting(SUMO_ATTR_DURATION, id.c_str(), ok);
     if (duration < 0) {
         WRITE_ERROR("Phase duration for tl-logic '" + id + "/" + myCurrentTL->getProgramID() + "' must be positive.");
         return;
     }
     // if the traffic light is an actuated traffic light, try to get
     //  the minimum and maximum durations
-    //SUMOTime minDuration = attrs.getOptSUMOTimeReporting(SUMO_ATTR_MINDURATION, "phase", id.c_str(), ok, -1);
-    //SUMOTime maxDuration = attrs.getOptSUMOTimeReporting(SUMO_ATTR_MAXDURATION, "phase", id.c_str(), ok, -1);
+    //SUMOTime minDuration = attrs.getOptSUMOTimeReporting(SUMO_ATTR_MINDURATION, id.c_str(), ok, -1);
+    //SUMOTime maxDuration = attrs.getOptSUMOTimeReporting(SUMO_ATTR_MAXDURATION, id.c_str(), ok, -1);
     if (ok) {
         myCurrentTL->addPhase(duration, state);
     }

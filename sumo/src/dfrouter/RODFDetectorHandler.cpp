@@ -62,11 +62,11 @@ RODFDetectorHandler::myStartElement(SumoXMLTag element,
         try {
             // get the id, report an error if not given or empty...
             std::string id;
-            if (!attrs.setIDFromAttributes("detector_definition", id, false)) {
+            if (!attrs.setIDFromAttributes(id, false)) {
                 throw ProcessError("A detector_definition without an id occured within '" + getFileName() + "'.");
             }
             bool ok = true;
-            std::string lane = attrs.getStringReporting(SUMO_ATTR_LANE, "detector_definition", id.c_str(), ok);
+            std::string lane = attrs.getStringReporting(SUMO_ATTR_LANE, id.c_str(), ok);
             if (!ok) {
                 throw ProcessError();
             }
@@ -75,8 +75,8 @@ RODFDetectorHandler::myStartElement(SumoXMLTag element,
             if (edge == 0 || laneIndex >= edge->getLaneNo()) {
                 throw ProcessError("Unknown lane '" + lane + "' for detector '" + id + "' in '" + getFileName() + "'.");
             }
-            SUMOReal pos = attrs.getSUMORealReporting(SUMO_ATTR_POSITION, "detector_definition", id.c_str(), ok);
-            std::string mml_type = attrs.getOptStringReporting(SUMO_ATTR_TYPE, "detector_definition", id.c_str(), ok, "");
+            SUMOReal pos = attrs.getSUMORealReporting(SUMO_ATTR_POSITION, id.c_str(), ok);
+            std::string mml_type = attrs.getOptStringReporting(SUMO_ATTR_TYPE, id.c_str(), ok, "");
             if (!ok) {
                 throw ProcessError();
             }

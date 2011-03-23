@@ -49,8 +49,10 @@
  */
 class SUMOSAXAttributes {
 public:
-    /// @brief Constructor
-    SUMOSAXAttributes() throw() { }
+    /* @brief Constructor
+     * @param[in] tagName The name of the parsed object type; used for error message generation
+     */
+    SUMOSAXAttributes(const std::string &objectType) throw();
 
 
     /// @brief Destructor
@@ -63,12 +65,11 @@ public:
      *  An error is reported to error message handler if "report" is true.
      * Otherwise, the id is stored in the variable "id" and true is returned.
      *
-     * @param[in] objecttype The name of the parsed object type; used for error message generation
      * @param[out] id The read id is stored herein (or "" if no id is given)
      * @param[in] report Whether missing id shall be reported to MsgHandler::getErrorInstance
      * @return Whether a valid id could be retrieved
      */
-    bool setIDFromAttributes(const char *objecttype, std::string &id,
+    bool setIDFromAttributes(std::string &id,
                              bool report=true) const throw();
 
 
@@ -81,13 +82,12 @@ public:
      * If the value could be read, "ok" is not changed, and the value is returned.
      *
      * @param[in] attr The id of the attribute to read
-     * @param[in] objecttype The name of the parsed object type; used for error message generation
      * @param[in] objectid The name of the parsed object; used for error message generation
      * @param[out] ok Whether the value could be read
      * @param[in] report Whether errors shall be written to msg handler's error instance
      * @return The read value if given and correct; -1 if an error occured
      */
-    int getIntReporting(SumoXMLAttr attr, const char *objecttype, const char *objectid, bool &ok,
+    int getIntReporting(SumoXMLAttr attr, const char *objectid, bool &ok,
                         bool report=true) const throw();
 
 
@@ -100,14 +100,13 @@ public:
      * If the value could be read, "ok" is not changed, and the value is returned.
      *
      * @param[in] attr The id of the attribute to read
-     * @param[in] objecttype The name of the parsed object type; used for error message generation
      * @param[in] objectid The name of the parsed object; used for error message generation
      * @param[out] ok Whether the value could be read
      * @param[in] defaultValue The value to return if the attribute is not within the element
      * @param[in] report Whether errors shall be written to msg handler's error instance
      * @return The read value if given and correct; the default value if the attribute does not exist;  -1 if an error occured
      */
-    int getOptIntReporting(SumoXMLAttr attr, const char *objecttype, const char *objectid, bool &ok,
+    int getOptIntReporting(SumoXMLAttr attr, const char *objectid, bool &ok,
                            int defaultValue, bool report=true) const throw();
 
 
@@ -120,13 +119,12 @@ public:
      * Otherwise, "ok" is not changed.
      *
      * @param[in] attr The id of the attribute to read
-     * @param[in] objecttype The name of the parsed object type; used for error message generation
      * @param[in] objectid The name of the parsed object; used for error message generation
      * @param[out] ok Whether the value could be read
      * @param[in] report Whether errors shall be written to msg handler's error instance
      * @return The read value if given and correct; -1 if an error occured
      */
-    SUMOReal getSUMORealReporting(SumoXMLAttr attr, const char *objecttype, const char *objectid, bool &ok,
+    SUMOReal getSUMORealReporting(SumoXMLAttr attr, const char *objectid, bool &ok,
                                   bool report=true) const throw();
 
 
@@ -140,14 +138,13 @@ public:
      * Otherwise, "ok" is not changed.
      *
      * @param[in] attr The id of the attribute to read
-     * @param[in] objecttype The name of the parsed object type; used for error message generation
      * @param[in] objectid The name of the parsed object; used for error message generation
      * @param[out] ok Whether the value could be read
      * @param[in] defaultValue The value to return if the attribute is not within the element
      * @param[in] report Whether errors shall be written to msg handler's error instance
      * @return The read value if given and correct; the default value if the attribute does not exist;  -1 if an error occured
      */
-    SUMOReal getOptSUMORealReporting(SumoXMLAttr attr, const char *objecttype, const char *objectid, bool &ok,
+    SUMOReal getOptSUMORealReporting(SumoXMLAttr attr, const char *objectid, bool &ok,
                                      SUMOReal defaultValue, bool report=true) const throw();
 
 
@@ -160,13 +157,12 @@ public:
      * Otherwise, "ok" is not changed.
      *
      * @param[in] attr The id of the attribute to read
-     * @param[in] objecttype The name of the parsed object type; used for error message generation
      * @param[in] objectid The name of the parsed object; used for error message generation
      * @param[out] ok Whether the value could be read
      * @param[in] report Whether errors shall be written to msg handler's error instance
      * @return The read value if given and correct; false if an error occured
      */
-    bool getBoolReporting(SumoXMLAttr attr, const char *objecttype, const char *objectid, bool &ok,
+    bool getBoolReporting(SumoXMLAttr attr,  const char *objectid, bool &ok,
                           bool report=true) const throw();
 
 
@@ -180,14 +176,13 @@ public:
      * Otherwise, "ok" is not changed.
      *
      * @param[in] attr The id of the attribute to read
-     * @param[in] objecttype The name of the parsed object type; used for error message generation
      * @param[in] objectid The name of the parsed object; used for error message generation
      * @param[out] ok Whether the value could be read
      * @param[in] defaultValue The value to return if the attribute is not within the element
      * @param[in] report Whether errors shall be written to msg handler's error instance
      * @return The read value if given and correct; the default value if the attribute does not exist; false if an error occured
      */
-    bool getOptBoolReporting(SumoXMLAttr attr, const char *objecttype, const char *objectid, bool &ok,
+    bool getOptBoolReporting(SumoXMLAttr attr, const char *objectid, bool &ok,
                              bool defaultValue, bool report=true) const throw();
 
 
@@ -200,13 +195,12 @@ public:
      * Otherwise, "ok" is not changed.
      *
      * @param[in] attr The id of the attribute to read
-     * @param[in] objecttype The name of the parsed object type; used for error message generation
      * @param[in] objectid The name of the parsed object; used for error message generation
      * @param[out] ok Whether the value could be read
      * @param[in] report Whether errors shall be written to msg handler's error instance
      * @return The read value if given and not empty; "" if an error occured
      */
-    std::string getStringReporting(SumoXMLAttr attr, const char *objecttype, const char *objectid, bool &ok,
+    std::string getStringReporting(SumoXMLAttr attr, const char *objectid, bool &ok,
                                    bool report=true) const throw();
 
 
@@ -220,14 +214,13 @@ public:
      * Otherwise, "ok" is not changed.
      *
      * @param[in] attr The id of the attribute to read
-     * @param[in] objecttype The name of the parsed object type; used for error message generation
      * @param[in] objectid The name of the parsed object; used for error message generation
      * @param[out] ok Whether the value could be read
      * @param[in] defaultValue The value to return if the attribute is not within the element
      * @param[in] report Whether errors shall be written to msg handler's error instance
      * @return The read value if given and not empty; the default value if the attribute does not exist; "" if an error occured
      */
-    std::string getOptStringReporting(SumoXMLAttr attr, const char *objecttype, const char *objectid, bool &ok,
+    std::string getOptStringReporting(SumoXMLAttr attr, const char *objectid, bool &ok,
                                       const std::string &defaultValue, bool report=true) const throw();
 
 
@@ -243,13 +236,12 @@ public:
      *  is used.
      *
      * @param[in] attr The id of the attribute to read
-     * @param[in] objecttype The name of the parsed object type; used for error message generation
      * @param[in] objectid The name of the parsed object; used for error message generation
      * @param[out] ok Whether the value could be read
      * @param[in] report Whether errors shall be written to msg handler's error instance
      * @return The read value if given and correct; -1 if an error occured
      */
-    SUMOTime getSUMOTimeReporting(SumoXMLAttr attr, const char *objecttype, const char *objectid, bool &ok,
+    SUMOTime getSUMOTimeReporting(SumoXMLAttr attr, const char *objectid, bool &ok,
                                   bool report=true) const throw();
 
 
@@ -266,14 +258,13 @@ public:
      *  is used.
      *
      * @param[in] attr The id of the attribute to read
-     * @param[in] objecttype The name of the parsed object type; used for error message generation
      * @param[in] objectid The name of the parsed object; used for error message generation
      * @param[out] ok Whether the value could be read
      * @param[in] defaultValue The value to return if the attribute is not within the element
      * @param[in] report Whether errors shall be written to msg handler's error instance
      * @return The read value if given and correct; the default value if the attribute does not exist;  -1 if an error occured
      */
-    SUMOTime getOptSUMOTimeReporting(SumoXMLAttr attr, const char *objecttype, const char *objectid, bool &ok,
+    SUMOTime getOptSUMOTimeReporting(SumoXMLAttr attr, const char *objectid, bool &ok,
                                      SUMOTime defaultValue, bool report=true) const throw();
 
 
@@ -492,10 +483,17 @@ public:
      */
     static void parseStringVector(const std::string &def, std::vector<std::string> &into) throw();
 
+
+    /// @brief return the objecttype to which these attributes belong
+    const std::string& getObjectType() const {
+        return myObjectType;
+    }
+
+
 protected:
-    void emitUngivenError(const std::string &attrname, const char *objecttype, const char *objectid) const throw();
-    void emitEmptyError(const std::string &attrname, const char *objecttype, const char *objectid) const throw();
-    void emitFormatError(const std::string &attrname, const std::string &type, const char *objecttype, const char *objectid) const throw();
+    void emitUngivenError(const std::string &attrname, const char *objectid) const throw();
+    void emitEmptyError(const std::string &attrname, const char *objectid) const throw();
+    void emitFormatError(const std::string &attrname, const std::string &type, const char *objectid) const throw();
 
 private:
     /// @brief Information whether the usage of a deprecated divider was reported
@@ -508,6 +506,8 @@ private:
     /// @brief Invalidated assignment operator.
     SUMOSAXAttributes &operator=(const SUMOSAXAttributes &src);
 
+    /// @brief the object type to use in error reporting
+    std::string myObjectType;
 
 };
 

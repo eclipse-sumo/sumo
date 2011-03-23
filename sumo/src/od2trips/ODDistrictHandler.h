@@ -157,8 +157,7 @@ private:
      * @param[in] type The type of the currntly processed connection (sink/source)
      * @return The id and the weight of a connection
      */
-    std::pair<std::string, SUMOReal> parseConnection(const SUMOSAXAttributes &attrs,
-            const std::string &type) throw();
+    std::pair<std::string, SUMOReal> parseConnection(const SUMOSAXAttributes &attrs) throw();
 
 private:
     /// The container to add read districts to

@@ -44,14 +44,19 @@
 // ===========================================================================
 SUMOSAXAttributesImpl_Xerces::SUMOSAXAttributesImpl_Xerces(const Attributes &attrs,
         const std::map<SumoXMLAttr, XMLCh*> &predefinedTags,
-        const std::map<SumoXMLAttr, std::string> &predefinedTagsMML) throw()
-        : myAttrs(attrs), myPredefinedTags(predefinedTags),
-        myPredefinedTagsMML(predefinedTagsMML) { }
+        const std::map<SumoXMLAttr, std::string> &predefinedTagsMML,
+        const std::string &objectType) throw() : 
+    SUMOSAXAttributes(objectType),
+    myAttrs(attrs), 
+    myPredefinedTags(predefinedTags),
+    myPredefinedTagsMML(predefinedTagsMML) 
+{ }
 
 
 
 SUMOSAXAttributesImpl_Xerces::~SUMOSAXAttributesImpl_Xerces() throw() {
 }
+
 
 bool
 SUMOSAXAttributesImpl_Xerces::hasAttribute(SumoXMLAttr id) const throw() {

@@ -135,7 +135,8 @@ public:
      * @exception EmptyData If the definition has less than three entries
      * @exception NumberFormatException If one of the components is not numeric
      */
-    static RGBColor parseColorReporting(const std::string &coldef, const char *objecttype, const char *objectid, bool report, bool &ok) throw();
+    static RGBColor parseColorReporting(const std::string &coldef, const std::string &objecttype, 
+            const char *objectid, bool report, bool &ok) throw();
 
 
     /** @brief Returns the default color by parsing DEFAULT_COLOR_STRING

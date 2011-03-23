@@ -72,7 +72,7 @@ NIXMLNodesHandler::myStartElement(SumoXMLTag element,
         return;
     }
     // get the id, report a warning if not given or empty...
-    if (!attrs.setIDFromAttributes("node", myID), false) {
+    if (!attrs.setIDFromAttributes(myID), false) {
         WRITE_WARNING("No node id given... Skipping.");
         return;
     }
@@ -86,11 +86,11 @@ NIXMLNodesHandler::myStartElement(SumoXMLTag element,
         xOk = yOk = true;
     }
     if (attrs.hasAttribute(SUMO_ATTR_X)) {
-        myPosition.set(attrs.getSUMORealReporting(SUMO_ATTR_X, "node", myID.c_str(), ok), myPosition.y());
+        myPosition.set(attrs.getSUMORealReporting(SUMO_ATTR_X, myID.c_str(), ok), myPosition.y());
         xOk = true;
     }
     if (attrs.hasAttribute(SUMO_ATTR_Y)) {
-        myPosition.set(myPosition.x(), attrs.getSUMORealReporting(SUMO_ATTR_Y, "node", myID.c_str(), ok));
+        myPosition.set(myPosition.x(), attrs.getSUMORealReporting(SUMO_ATTR_Y, myID.c_str(), ok));
         yOk = true;
     }
     if (xOk&&yOk) {
@@ -109,7 +109,7 @@ NIXMLNodesHandler::myStartElement(SumoXMLTag element,
     if (node!=0) {
         type = node->getType();
     }
-    std::string typeS = attrs.getOptStringReporting(SUMO_ATTR_TYPE, "node", myID.c_str(), ok, "");
+    std::string typeS = attrs.getOptStringReporting(SUMO_ATTR_TYPE, myID.c_str(), ok, "");
     if (SUMOXMLDefinitions::NodeTypes.hasString(typeS)) {
         type = SUMOXMLDefinitions::NodeTypes.get(typeS);
     }
@@ -148,7 +148,7 @@ NIXMLNodesHandler::processTrafficLightDefinitions(const SUMOSAXAttributes &attrs
     // if no tl-id exists, we will build a tl with the node's id
     NBTrafficLightDefinition *tlDef = 0;
     bool ok = true;
-    std::string tlID = attrs.getOptStringReporting(SUMO_ATTR_TLID, "node", 0, ok, "");
+    std::string tlID = attrs.getOptStringReporting(SUMO_ATTR_TLID, 0, ok, "");
     if (tlID!="") {
         // ok, the traffic light has a name
         tlDef = myTLLogicCont.getDefinition(tlID);
@@ -175,7 +175,7 @@ NIXMLNodesHandler::processTrafficLightDefinitions(const SUMOSAXAttributes &attrs
     }
     // process inner edges which shall be controlled
     std::vector<std::string> controlledInner;
-    SUMOSAXAttributes::parseStringVector(attrs.getOptStringReporting(SUMO_ATTR_CONTROLLED_INNER, "node", 0, ok, ""), controlledInner);
+    SUMOSAXAttributes::parseStringVector(attrs.getOptStringReporting(SUMO_ATTR_CONTROLLED_INNER, 0, ok, ""), controlledInner);
     if (controlledInner.size()!=0) {
         tlDef->addControlledInnerEdges(controlledInner);
     }

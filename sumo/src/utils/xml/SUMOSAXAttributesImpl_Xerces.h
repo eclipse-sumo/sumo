@@ -63,7 +63,8 @@ public:
      */
     SUMOSAXAttributesImpl_Xerces(const Attributes &attrs,
                                  const std::map<SumoXMLAttr, XMLCh*> &predefinedTags,
-                                 const std::map<SumoXMLAttr, std::string> &predefinedTagsMML) throw();
+                                 const std::map<SumoXMLAttr, std::string> &predefinedTagsMML,
+                                 const std::string &objectType) throw();
 
 
     /// @brief Destructor

@@ -44,7 +44,7 @@
 // method definitions
 // ===========================================================================
 Position2DVector
-GeomConvHelper::parseShapeReporting(const std::string &shpdef, const char *objecttype,
+GeomConvHelper::parseShapeReporting(const std::string &shpdef, const std::string &objecttype,
                                     const char *objectid, bool &ok, bool allowEmpty, bool report) throw() {
     if (shpdef=="") {
         if (!allowEmpty) {
@@ -81,7 +81,7 @@ GeomConvHelper::parseShapeReporting(const std::string &shpdef, const char *objec
 
 
 Boundary
-GeomConvHelper::parseBoundaryReporting(const std::string &def, const char *objecttype,
+GeomConvHelper::parseBoundaryReporting(const std::string &def, const std::string &objecttype,
                                        const char *objectid, bool &ok, bool report) throw() {
     StringTokenizer st(def, ",");
     if (st.size()!=4) {
@@ -106,7 +106,7 @@ GeomConvHelper::parseBoundaryReporting(const std::string &def, const char *objec
 
 
 void
-GeomConvHelper::emitError(bool report, const std::string &what, const char *objecttype,
+GeomConvHelper::emitError(bool report, const std::string &what, const std::string &objecttype,
                           const char *objectid, const std::string &desc) throw() {
     if (!report) {
         return;
@@ -116,11 +116,7 @@ GeomConvHelper::emitError(bool report, const std::string &what, const char *obje
     if (objectid==0) {
         oss << "a(n) ";
     }
-    if (objecttype!=0) {
-        oss << objecttype;
-    } else {
-        oss << "<unknown type>";
-    }
+    oss << objecttype;
     if (objectid!=0) {
         oss << " '" << objectid << "'";
     }

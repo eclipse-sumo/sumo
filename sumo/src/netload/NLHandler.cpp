@@ -224,69 +224,8 @@ NLHandler::myStartElement(SumoXMLTag element,
 void
 NLHandler::myCharacters(SumoXMLTag element,
                         const std::string &chars) throw(ProcessError) {
-    bool ok = true;
-    switch (element) {
-    case SUMO_TAG_POLY:
-        if (chars.length()!=0) {
-            myShapeBuilder.polygonEnd(GeomConvHelper::parseShapeReporting(chars, "polygon", 0, ok, false)); // !!! no error handling!
-        }
-        break;
-    case SUMO_TAG_INCOMING_LANES:
-        addIncomingLanes(chars);
-        break;
-#ifdef HAVE_INTERNAL_LANES
-    case SUMO_TAG_INTERNAL_LANES:
-        addInternalLanes(chars);
-        break;
-#endif
-    case SUMO_TAG_LANE:
-        if (chars.length()!=0) {
-            addLaneShape(chars);
-        }
-        break;
-    case SUMO_TAG_REQUESTSIZE:
-        if (myJunctionControlBuilder.getActiveKey().length()!=0) {
-            setRequestSize(chars);
-        }
-        break;
-    case SUMO_TAG_KEY:
-        setKey(chars);
-        break;
-    case SUMO_TAG_SUBKEY:
-        setSubKey(chars);
-        break;
-    case SUMO_TAG_OFFSET:
-        setOffset(chars);
-        break;
-    case SUMO_TAG_NET_OFFSET: {
-        if (!myHaveWarnedAboutDeprecatedLocation) {
-            myHaveWarnedAboutDeprecatedLocation = true;
-            MsgHandler::getWarningInstance()->inform("Your network uses a deprecated network offset/projection definition.");
-        }
-        Position2DVector s = GeomConvHelper::parseShapeReporting(chars, "net", 0, ok, false);
-        if (ok) {
-            myNetworkOffset = s[0];
-        }
-    }
-    break;
-    case SUMO_TAG_CONV_BOUNDARY:
-        myConvBoundary = GeomConvHelper::parseBoundaryReporting(chars, "net", 0, ok);
-        break;
-    case SUMO_TAG_ORIG_BOUNDARY:
-        myOrigBoundary = GeomConvHelper::parseBoundaryReporting(chars, "net", 0, ok);
-        break;
-    case SUMO_TAG_ORIG_PROJ:
-        GeoConvHelper::init(chars, myNetworkOffset, myOrigBoundary, myConvBoundary);
-        break;
-    case SUMO_TAG_SHAPE:
-        if (chars.length()!=0) {
-            addJunctionShape(chars);
-        }
-        break;
-    default:
-        break;
-    }
-    MSRouteHandler::myCharacters(element, chars);
+    UNUSED_PARAMETER(element);
+    UNUSED_PARAMETER(chars);
 }
 
 
@@ -343,7 +282,7 @@ NLHandler::beginEdgeParsing(const SUMOSAXAttributes &attrs) {
     myCurrentIsBroken = false;
     // get the id, report an error if not given or empty...
     std::string id;
-    if (!attrs.setIDFromAttributes("edge", id)) {
+    if (!attrs.setIDFromAttributes(id)) {
         myCurrentIsBroken = true;
         return;
     }
@@ -355,7 +294,7 @@ NLHandler::beginEdgeParsing(const SUMOSAXAttributes &attrs) {
     myCurrentIsInternalToSkip = false;
     // get the function
     bool ok = true;
-    std::string func = attrs.getStringReporting(SUMO_ATTR_FUNCTION, "edge", id.c_str(), ok);
+    std::string func = attrs.getStringReporting(SUMO_ATTR_FUNCTION, id.c_str(), ok);
     if (!ok) {
         myCurrentIsBroken = true;
         return;
@@ -407,24 +346,24 @@ NLHandler::addLane(const SUMOSAXAttributes &attrs) {
         return;
     }
     // get the id, report an error if not given or empty...
-    if (!attrs.setIDFromAttributes("lane", myCurrentLaneID)) {
+    if (!attrs.setIDFromAttributes(myCurrentLaneID)) {
         myCurrentIsBroken = true;
         return;
     }
     bool ok = true;
-    myLaneIsDepart = attrs.getBoolReporting(SUMO_ATTR_DEPART, "lane", myCurrentLaneID.c_str(), ok);
-    myCurrentMaxSpeed = attrs.getSUMORealReporting(SUMO_ATTR_MAXSPEED, "lane", myCurrentLaneID.c_str(), ok);
-    myCurrentLength = attrs.getSUMORealReporting(SUMO_ATTR_LENGTH, "lane", myCurrentLaneID.c_str(), ok);
-    std::string allow = attrs.getOptStringReporting(SUMO_ATTR_ALLOW, "lane", myCurrentLaneID.c_str(), ok, "");
-    std::string disallow = attrs.getOptStringReporting(SUMO_ATTR_DISALLOW, "lane", myCurrentLaneID.c_str(), ok, "");
-    std::string vclasses = attrs.getOptStringReporting(SUMO_ATTR_VCLASSES, "lane", myCurrentLaneID.c_str(), ok, "");
+    myLaneIsDepart = attrs.getBoolReporting(SUMO_ATTR_DEPART, myCurrentLaneID.c_str(), ok);
+    myCurrentMaxSpeed = attrs.getSUMORealReporting(SUMO_ATTR_MAXSPEED, myCurrentLaneID.c_str(), ok);
+    myCurrentLength = attrs.getSUMORealReporting(SUMO_ATTR_LENGTH, myCurrentLaneID.c_str(), ok);
+    std::string allow = attrs.getOptStringReporting(SUMO_ATTR_ALLOW, myCurrentLaneID.c_str(), ok, "");
+    std::string disallow = attrs.getOptStringReporting(SUMO_ATTR_DISALLOW, myCurrentLaneID.c_str(), ok, "");
+    std::string vclasses = attrs.getOptStringReporting(SUMO_ATTR_VCLASSES, myCurrentLaneID.c_str(), ok, "");
     myAllowedClasses.clear();
     myDisallowedClasses.clear();
     parseVehicleClasses(vclasses, allow, disallow, myAllowedClasses, myDisallowedClasses, myHaveWarnedAboutDeprecatedVClass);
     myCurrentIsBroken |= !ok;
     if (!myCurrentIsBroken) {
         if (attrs.hasAttribute(SUMO_ATTR_SHAPE)) {
-            addLaneShape(attrs.getStringReporting(SUMO_ATTR_SHAPE, "lane", myCurrentLaneID.c_str(), ok));
+            addLaneShape(attrs.getStringReporting(SUMO_ATTR_SHAPE, myCurrentLaneID.c_str(), ok));
         } else if (!myHaveWarnedAboutDeprecatedLaneShape) {
             myHaveWarnedAboutDeprecatedLaneShape = true;
             MsgHandler::getWarningInstance()->inform("Your network uses a deprecated lane shape description; please rebuild.");
@@ -482,7 +421,7 @@ NLHandler::openJunction(const SUMOSAXAttributes &attrs) {
     myCurrentIsBroken = false;
     // get the id, report an error if not given or empty...
     std::string id;
-    if (!attrs.setIDFromAttributes("junction", id)) {
+    if (!attrs.setIDFromAttributes(id)) {
         myCurrentIsBroken = true;
         return;
     }
@@ -490,12 +429,12 @@ NLHandler::openJunction(const SUMOSAXAttributes &attrs) {
     Position2DVector shape;
     if (attrs.hasAttribute(SUMO_ATTR_SHAPE)) {
         // @deprecated: at some time, all junctions should have a shape attribute (moved from characters)
-        shape = GeomConvHelper::parseShapeReporting(attrs.getStringSecure(SUMO_ATTR_SHAPE, ""), "junction", id.c_str(), ok, true);
+        shape = GeomConvHelper::parseShapeReporting(attrs.getStringSecure(SUMO_ATTR_SHAPE, ""), attrs.getObjectType(), id.c_str(), ok, true);
     }
-    SUMOReal x = attrs.getSUMORealReporting(SUMO_ATTR_X, "junction", id.c_str(), ok);
-    SUMOReal y = attrs.getSUMORealReporting(SUMO_ATTR_Y, "junction", id.c_str(), ok);
-    std::string type = attrs.getStringReporting(SUMO_ATTR_TYPE, "junction", id.c_str(), ok);
-    std::string key = attrs.getOptStringReporting(SUMO_ATTR_KEY, "junction", id.c_str(), ok, "");
+    SUMOReal x = attrs.getSUMORealReporting(SUMO_ATTR_X, id.c_str(), ok);
+    SUMOReal y = attrs.getSUMORealReporting(SUMO_ATTR_Y, id.c_str(), ok);
+    std::string type = attrs.getStringReporting(SUMO_ATTR_TYPE, id.c_str(), ok);
+    std::string key = attrs.getOptStringReporting(SUMO_ATTR_KEY, id.c_str(), ok, "");
     if (!ok) {
         myCurrentIsBroken = true;
     } else {
@@ -534,8 +473,8 @@ NLHandler::closeJunction() {
 void
 NLHandler::addParam(const SUMOSAXAttributes &attrs) {
     bool ok = true;
-    std::string key = attrs.getStringReporting(SUMO_ATTR_KEY, 0, 0, ok);
-    std::string val = attrs.getStringReporting(SUMO_ATTR_VALUE, 0, 0, ok);
+    std::string key = attrs.getStringReporting(SUMO_ATTR_KEY, 0, ok);
+    std::string val = attrs.getStringReporting(SUMO_ATTR_VALUE, 0, ok);
     // set
     if (ok&&myAmInTLLogicMode) {
         assert(key!="");
@@ -551,13 +490,13 @@ NLHandler::openWAUT(const SUMOSAXAttributes &attrs) {
 
     // get the id, report an error if not given or empty...
     std::string id;
-    if (!attrs.setIDFromAttributes("waut", id)) {
+    if (!attrs.setIDFromAttributes(id)) {
         myCurrentIsBroken = true;
         return;
     }
     bool ok = true;
-    SUMOTime t = attrs.getOptSUMOTimeReporting(SUMO_ATTR_REF_TIME, "waut", id.c_str(), ok, 0);
-    std::string pro = attrs.getStringReporting(SUMO_ATTR_START_PROG, "waut", id.c_str(), ok);
+    SUMOTime t = attrs.getOptSUMOTimeReporting(SUMO_ATTR_REF_TIME, id.c_str(), ok, 0);
+    std::string pro = attrs.getStringReporting(SUMO_ATTR_START_PROG, id.c_str(), ok);
     if (!ok) {
         myCurrentIsBroken = true;
     }
@@ -576,8 +515,8 @@ NLHandler::openWAUT(const SUMOSAXAttributes &attrs) {
 void
 NLHandler::addWAUTSwitch(const SUMOSAXAttributes &attrs) {
     bool ok = true;
-    SUMOTime t = attrs.getSUMOTimeReporting(SUMO_ATTR_TIME, "wautSwitch", myCurrentWAUTID.c_str(), ok);
-    std::string to = attrs.getStringReporting(SUMO_ATTR_TO, "wautSwitch", myCurrentWAUTID.c_str(), ok);
+    SUMOTime t = attrs.getSUMOTimeReporting(SUMO_ATTR_TIME, myCurrentWAUTID.c_str(), ok);
+    std::string to = attrs.getStringReporting(SUMO_ATTR_TO, myCurrentWAUTID.c_str(), ok);
     if (!ok) {
         myCurrentIsBroken = true;
     }
@@ -595,10 +534,10 @@ NLHandler::addWAUTSwitch(const SUMOSAXAttributes &attrs) {
 void
 NLHandler::addWAUTJunction(const SUMOSAXAttributes &attrs) {
     bool ok = true;
-    std::string wautID = attrs.getStringReporting(SUMO_ATTR_WAUT_ID, "wautJunction", 0, ok);
-    std::string junctionID = attrs.getStringReporting(SUMO_ATTR_JUNCTION_ID, "wautJunction", 0, ok);
-    std::string procedure = attrs.getOptStringReporting(SUMO_ATTR_PROCEDURE, "wautJunction", 0, ok, "");
-    bool synchron = attrs.getOptBoolReporting(SUMO_ATTR_SYNCHRON, "wautJunction", 0, ok, false);
+    std::string wautID = attrs.getStringReporting(SUMO_ATTR_WAUT_ID, 0, ok);
+    std::string junctionID = attrs.getStringReporting(SUMO_ATTR_JUNCTION_ID, 0, ok);
+    std::string procedure = attrs.getOptStringReporting(SUMO_ATTR_PROCEDURE, 0, ok, "");
+    bool synchron = attrs.getOptBoolReporting(SUMO_ATTR_SYNCHRON, 0, ok, false);
     if (!ok) {
         myCurrentIsBroken = true;
     }
@@ -622,18 +561,18 @@ void
 NLHandler::addPOI(const SUMOSAXAttributes &attrs) {
     // get the id, report an error if not given or empty...
     std::string id;
-    if (!attrs.setIDFromAttributes("poi", id)) {
+    if (!attrs.setIDFromAttributes(id)) {
         return;
     }
     bool ok = true;
-    SUMOReal x = attrs.getOptSUMORealReporting(SUMO_ATTR_X, "poi", id.c_str(), ok, INVALID_POSITION);
-    SUMOReal y = attrs.getOptSUMORealReporting(SUMO_ATTR_Y, "poi", id.c_str(), ok, INVALID_POSITION);
-    SUMOReal lanePos = attrs.getOptSUMORealReporting(SUMO_ATTR_POSITION, "poi", id.c_str(), ok, INVALID_POSITION);
-    int layer = attrs.getOptIntReporting(SUMO_ATTR_LAYER, "poi", id.c_str(), ok, 1);
-    std::string type = attrs.getOptStringReporting(SUMO_ATTR_TYPE, "poi", id.c_str(), ok, "");
-    std::string lane = attrs.getOptStringReporting(SUMO_ATTR_LANE, "poi", id.c_str(), ok, "");
-    std::string colorStr = attrs.getOptStringReporting(SUMO_ATTR_COLOR, "poi", id.c_str(), ok, "1,0,0");
-    RGBColor color = RGBColor::parseColorReporting(colorStr, "poi", id.c_str(), true, ok);
+    SUMOReal x = attrs.getOptSUMORealReporting(SUMO_ATTR_X, id.c_str(), ok, INVALID_POSITION);
+    SUMOReal y = attrs.getOptSUMORealReporting(SUMO_ATTR_Y, id.c_str(), ok, INVALID_POSITION);
+    SUMOReal lanePos = attrs.getOptSUMORealReporting(SUMO_ATTR_POSITION, id.c_str(), ok, INVALID_POSITION);
+    int layer = attrs.getOptIntReporting(SUMO_ATTR_LAYER, id.c_str(), ok, 1);
+    std::string type = attrs.getOptStringReporting(SUMO_ATTR_TYPE, id.c_str(), ok, "");
+    std::string lane = attrs.getOptStringReporting(SUMO_ATTR_LANE, id.c_str(), ok, "");
+    std::string colorStr = attrs.getOptStringReporting(SUMO_ATTR_COLOR, id.c_str(), ok, "1,0,0");
+    RGBColor color = RGBColor::parseColorReporting(colorStr, attrs.getObjectType(), id.c_str(), true, ok);
     if (!ok) {
         return;
     }
@@ -653,22 +592,24 @@ void
 NLHandler::addPoly(const SUMOSAXAttributes &attrs) {
     // get the id, report an error if not given or empty...
     std::string id;
-    if (!attrs.setIDFromAttributes("poly", id)) {
+    if (!attrs.setIDFromAttributes(id)) {
         return;
     }
     bool ok = true;
-    int layer = attrs.getOptIntReporting(SUMO_ATTR_LAYER, "poly", id.c_str(), ok, 1);
-    bool fill = attrs.getOptBoolReporting(SUMO_ATTR_FILL, "poly", id.c_str(), ok, false);
-    std::string type = attrs.getOptStringReporting(SUMO_ATTR_TYPE, "poly", id.c_str(), ok, "");
-    std::string colorStr = attrs.getStringReporting(SUMO_ATTR_COLOR, "poly", id.c_str(), ok);
-    RGBColor color = RGBColor::parseColorReporting(colorStr, "poi", id.c_str(), true, ok);
+    int layer = attrs.getOptIntReporting(SUMO_ATTR_LAYER, id.c_str(), ok, 1);
+    bool fill = attrs.getOptBoolReporting(SUMO_ATTR_FILL, id.c_str(), ok, false);
+    std::string type = attrs.getOptStringReporting(SUMO_ATTR_TYPE, id.c_str(), ok, "");
+    std::string colorStr = attrs.getStringReporting(SUMO_ATTR_COLOR, id.c_str(), ok);
+    RGBColor color = RGBColor::parseColorReporting(colorStr, attrs.getObjectType(), id.c_str(), true, ok);
     if (!ok) {
         return;
     }
     myShapeBuilder.polygonBegin(id, layer, type, color, fill);
     if (attrs.hasAttribute(SUMO_ATTR_SHAPE)) {
         // @deprecated; at some time, this is mandatory (no character usage)
-        myShapeBuilder.polygonEnd(GeomConvHelper::parseShapeReporting(attrs.getStringReporting(SUMO_ATTR_SHAPE, "poly", id.c_str(), ok), "poly", id.c_str(), ok, false));
+        myShapeBuilder.polygonEnd(GeomConvHelper::parseShapeReporting(
+                    attrs.getStringReporting(SUMO_ATTR_SHAPE, id.c_str(), ok), 
+                    attrs.getObjectType(), id.c_str(), ok, false));
     } else if (!myHaveWarnedAboutDeprecatedPolyShape) {
         myHaveWarnedAboutDeprecatedPolyShape = true;
         MsgHandler::getWarningInstance()->inform("You use a deprecated polygon shape description; use attribute 'shape' instead.");
@@ -679,13 +620,13 @@ NLHandler::addPoly(const SUMOSAXAttributes &attrs) {
 void
 NLHandler::addLogicItem(const SUMOSAXAttributes &attrs) {
     bool ok = true;
-    int request = attrs.getIntReporting(SUMO_ATTR_REQUEST, "request", 0, ok);
+    int request = attrs.getIntReporting(SUMO_ATTR_REQUEST, 0, ok);
     bool cont = false;
 #ifdef HAVE_INTERNAL_LANES
-    cont = attrs.getOptBoolReporting(SUMO_ATTR_CONT, 0, 0, ok, false);
+    cont = attrs.getOptBoolReporting(SUMO_ATTR_CONT, 0, ok, false);
 #endif
-    std::string response = attrs.getStringReporting(SUMO_ATTR_RESPONSE, 0, 0, ok);
-    std::string foes = attrs.getStringReporting(SUMO_ATTR_FOES, 0, 0, ok);
+    std::string response = attrs.getStringReporting(SUMO_ATTR_RESPONSE, 0, ok);
+    std::string foes = attrs.getStringReporting(SUMO_ATTR_FOES, 0, ok);
     if (!ok) {
         return;
     }
@@ -709,11 +650,11 @@ NLHandler::initJunctionLogic(const SUMOSAXAttributes &attrs) {
     }
     // get the id, report an error if not given or empty...
     std::string id;
-    if (!attrs.setIDFromAttributes("row-logic", id)) {
+    if (!attrs.setIDFromAttributes(id)) {
         return;
     }
     bool ok = true;
-    int requestSize = attrs.getIntReporting(SUMO_ATTR_REQUESTSIZE, "row-logic", id.c_str(), ok);
+    int requestSize = attrs.getIntReporting(SUMO_ATTR_REQUESTSIZE, id.c_str(), ok);
     if (ok) {
         myJunctionControlBuilder.initJunctionLogic(id, requestSize);
     }
@@ -726,20 +667,20 @@ NLHandler::initTrafficLightLogic(const SUMOSAXAttributes &attrs) {
     SUMOReal detectorOffset = -1;
     myJunctionControlBuilder.initIncomingLanes(); // @deprecated (is this still used?)
     bool ok = true;
-    std::string type = attrs.getStringReporting(SUMO_ATTR_TYPE, "tl-logic", 0, ok);
-    detectorOffset = attrs.getOptSUMORealReporting(SUMO_ATTR_DET_OFFSET, "tl-logic", 0, ok, -1);
+    std::string type = attrs.getStringReporting(SUMO_ATTR_TYPE, 0, ok);
+    detectorOffset = attrs.getOptSUMORealReporting(SUMO_ATTR_DET_OFFSET, 0, ok, -1);
     //
     if (!attrs.hasAttribute(SUMO_ATTR_ID)) {
         // @deprecated: assuming a net could still use characters for the id
         myJunctionControlBuilder.initTrafficLightLogic("", "", type, 0, detectorOffset);
         return;
     }
-    std::string id = attrs.getStringReporting(SUMO_ATTR_ID, "tl-logic", 0, ok);
-    int offset = attrs.getOptSUMOTimeReporting(SUMO_ATTR_OFFSET, "tl-logic", id.c_str(), ok, 0);
+    std::string id = attrs.getStringReporting(SUMO_ATTR_ID, 0, ok);
+    int offset = attrs.getOptSUMOTimeReporting(SUMO_ATTR_OFFSET, id.c_str(), ok, 0);
     if (!ok) {
         return;
     }
-    std::string programID = attrs.getOptStringReporting(SUMO_ATTR_PROGRAMID, "tl-logic", id.c_str(), ok, "<unknown>");
+    std::string programID = attrs.getOptStringReporting(SUMO_ATTR_PROGRAMID, id.c_str(), ok, "<unknown>");
     myJunctionControlBuilder.initTrafficLightLogic(id, programID, type, offset, detectorOffset);
 }
 
@@ -754,11 +695,11 @@ NLHandler::addPhase(const SUMOSAXAttributes &attrs) {
     bool ok = true;
     if (attrs.hasAttribute(SUMO_ATTR_STATE)) {
         // ok, doing it the new way
-        state = attrs.getStringReporting(SUMO_ATTR_STATE, "phase", 0, ok);
+        state = attrs.getStringReporting(SUMO_ATTR_STATE, 0, ok);
     } else {
-        phase = attrs.getStringReporting(SUMO_ATTR_PHASE, "phase", 0, ok);
-        brakeMask = attrs.getStringReporting(SUMO_ATTR_BRAKE, "phase", 0, ok);
-        yellowMask = attrs.getStringReporting(SUMO_ATTR_YELLOW, "phase", 0, ok);
+        phase = attrs.getStringReporting(SUMO_ATTR_PHASE, 0, ok);
+        brakeMask = attrs.getStringReporting(SUMO_ATTR_BRAKE, 0, ok);
+        yellowMask = attrs.getStringReporting(SUMO_ATTR_YELLOW, 0, ok);
         // check
         if (phase.length()!=brakeMask.length()||phase.length()!=yellowMask.length()) {
             MsgHandler::getErrorInstance()->inform("Definition of traffic light is broken - descriptions have different lengths.");
@@ -775,15 +716,15 @@ NLHandler::addPhase(const SUMOSAXAttributes &attrs) {
         return;
     }
     // try to get the phase duration
-    SUMOTime duration = attrs.getSUMOTimeReporting(SUMO_ATTR_DURATION, "phase", myJunctionControlBuilder.getActiveKey().c_str(), ok);
+    SUMOTime duration = attrs.getSUMOTimeReporting(SUMO_ATTR_DURATION, myJunctionControlBuilder.getActiveKey().c_str(), ok);
     if (duration==0) {
         MsgHandler::getErrorInstance()->inform("Duration of tls-logic '" + myJunctionControlBuilder.getActiveKey() + "/" + myJunctionControlBuilder.getActiveSubKey() + "' is zero.");
         return;
     }
     // if the traffic light is an actuated traffic light, try to get
     //  the minimum and maximum durations
-    SUMOTime minDuration = attrs.getOptSUMOTimeReporting(SUMO_ATTR_MINDURATION, "phase", myJunctionControlBuilder.getActiveKey().c_str(), ok, -1);
-    SUMOTime maxDuration = attrs.getOptSUMOTimeReporting(SUMO_ATTR_MAXDURATION, "phase", myJunctionControlBuilder.getActiveKey().c_str(), ok, -1);
+    SUMOTime minDuration = attrs.getOptSUMOTimeReporting(SUMO_ATTR_MINDURATION, myJunctionControlBuilder.getActiveKey().c_str(), ok, -1);
+    SUMOTime maxDuration = attrs.getOptSUMOTimeReporting(SUMO_ATTR_MAXDURATION, myJunctionControlBuilder.getActiveKey().c_str(), ok, -1);
     myJunctionControlBuilder.addPhase(duration, state, minDuration, maxDuration);
 }
 
@@ -792,17 +733,17 @@ NLHandler::addPhase(const SUMOSAXAttributes &attrs) {
 void
 NLHandler::addMsgEmitter(const SUMOSAXAttributes& attrs) {
     bool ok = true;
-    std::string id = attrs.getStringReporting(SUMO_ATTR_ID, 0, 0, ok);
-    std::string file = attrs.getOptStringReporting(SUMO_ATTR_FILE, 0, 0, ok, "");
+    std::string id = attrs.getStringReporting(SUMO_ATTR_ID, 0, ok);
+    std::string file = attrs.getOptStringReporting(SUMO_ATTR_FILE, 0, ok, "");
     // if no file given, use stdout
     if (file=="") {
         file = "-";
     }
-    SUMOTime step = attrs.getOptSUMOTimeReporting(SUMO_ATTR_STEP, 0, id.c_str(), ok, 1);
-    bool reverse = attrs.getOptBoolReporting(SUMO_ATTR_REVERSE, 0, 0, ok, false);
-    bool table = attrs.getOptBoolReporting(SUMO_ATTR_TABLE, 0, 0, ok, false);
-    bool xycoord = attrs.getOptBoolReporting(SUMO_ATTR_XY, 0, 0, ok, false);
-    std::string whatemit = attrs.getStringReporting(SUMO_ATTR_EVENTS, 0, 0, ok);
+    SUMOTime step = attrs.getOptSUMOTimeReporting(SUMO_ATTR_STEP, id.c_str(), ok, 1);
+    bool reverse = attrs.getOptBoolReporting(SUMO_ATTR_REVERSE, 0, ok, false);
+    bool table = attrs.getOptBoolReporting(SUMO_ATTR_TABLE, 0, ok, false);
+    bool xycoord = attrs.getOptBoolReporting(SUMO_ATTR_XY, 0, ok, false);
+    std::string whatemit = attrs.getStringReporting(SUMO_ATTR_EVENTS, 0, ok);
     if (!ok) {
         return;
     }
@@ -815,12 +756,12 @@ void
 NLHandler::addDetector(const SUMOSAXAttributes &attrs) {
     // get the id, report an error if not given or empty...
     std::string id;
-    if (!attrs.setIDFromAttributes("detector", id)) {
+    if (!attrs.setIDFromAttributes(id)) {
         return;
     }
     // try to get the type
     bool ok = true;
-    std::string type = attrs.getOptStringReporting(SUMO_ATTR_TYPE, 0, 0, ok, "induct_loop");
+    std::string type = attrs.getOptStringReporting(SUMO_ATTR_TYPE, 0, ok, "induct_loop");
     // build in dependence to type
     // induct loops (E1-detectors)
     if (type=="induct_loop"||type=="E1"||type=="e1") {
@@ -854,15 +795,15 @@ void
 NLHandler::addMsgDetector(const SUMOSAXAttributes &attrs) {
     // get the id, report an error if not given or empty...
     std::string id;
-    if (!attrs.setIDFromAttributes("e4-detector", id)) {
+    if (!attrs.setIDFromAttributes(id)) {
         return;
     }
     bool ok = true;
-    SUMOReal position = attrs.getSUMORealReporting(SUMO_ATTR_POSITION, "e4-detector", id.c_str(), ok);
-    bool friendlyPos = attrs.getOptBoolReporting(SUMO_ATTR_FRIENDLY_POS, "e4-detector", id.c_str(), ok, false);
-    std::string lane = attrs.getStringReporting(SUMO_ATTR_LANE, "e4-detector", id.c_str(), ok);
-    std::string msg = attrs.getStringReporting(SUMO_ATTR_MSG, "e4-detector", id.c_str(), ok);
-    std::string file = attrs.getStringReporting(SUMO_ATTR_FILE, "e4-detector", id.c_str(), ok);
+    SUMOReal position = attrs.getSUMORealReporting(SUMO_ATTR_POSITION, id.c_str(), ok);
+    bool friendlyPos = attrs.getOptBoolReporting(SUMO_ATTR_FRIENDLY_POS, id.c_str(), ok, false);
+    std::string lane = attrs.getStringReporting(SUMO_ATTR_LANE, id.c_str(), ok);
+    std::string msg = attrs.getStringReporting(SUMO_ATTR_MSG, id.c_str(), ok);
+    std::string file = attrs.getStringReporting(SUMO_ATTR_FILE, id.c_str(), ok);
     if (!ok) {
         return;
     }
@@ -882,19 +823,19 @@ void
 NLHandler::addE1Detector(const SUMOSAXAttributes &attrs) {
     // get the id, report an error if not given or empty...
     std::string id;
-    if (!attrs.setIDFromAttributes("e1-detector", id)) {
+    if (!attrs.setIDFromAttributes(id)) {
         return;
     }
     // inform the user about deprecated values
     bool ok = true;
-    if (attrs.getOptStringReporting(SUMO_ATTR_STYLE, "e1-detector", id.c_str(), ok, "<invalid>")!="<invalid>") {
+    if (attrs.getOptStringReporting(SUMO_ATTR_STYLE, id.c_str(), ok, "<invalid>")!="<invalid>") {
         MsgHandler::getWarningInstance()->inform("While parsing E1-detector '" + id + "': 'style' is deprecated.");
     }
-    SUMOTime frequency = attrs.getSUMOTimeReporting(SUMO_ATTR_FREQUENCY, "e1-detector", id.c_str(), ok);
-    SUMOReal position = attrs.getSUMORealReporting(SUMO_ATTR_POSITION, "e1-detector", id.c_str(), ok);
-    bool friendlyPos = attrs.getOptBoolReporting(SUMO_ATTR_FRIENDLY_POS, "e1-detector", id.c_str(), ok, false);
-    std::string lane = attrs.getStringReporting(SUMO_ATTR_LANE, "e1-detector", id.c_str(), ok);
-    std::string file = attrs.getStringReporting(SUMO_ATTR_FILE, "e1-detector", id.c_str(), ok);
+    SUMOTime frequency = attrs.getSUMOTimeReporting(SUMO_ATTR_FREQUENCY, id.c_str(), ok);
+    SUMOReal position = attrs.getSUMORealReporting(SUMO_ATTR_POSITION, id.c_str(), ok);
+    bool friendlyPos = attrs.getOptBoolReporting(SUMO_ATTR_FRIENDLY_POS, id.c_str(), ok, false);
+    std::string lane = attrs.getStringReporting(SUMO_ATTR_LANE, id.c_str(), ok);
+    std::string file = attrs.getStringReporting(SUMO_ATTR_FILE, id.c_str(), ok);
     if (!ok) {
         return;
     }
@@ -914,13 +855,13 @@ void
 NLHandler::addVTypeProbeDetector(const SUMOSAXAttributes &attrs) {
     // get the id, report an error if not given or empty...
     std::string id;
-    if (!attrs.setIDFromAttributes("vtypeprobe", id)) {
+    if (!attrs.setIDFromAttributes(id)) {
         return;
     }
     bool ok = true;
-    SUMOTime frequency = attrs.getSUMOTimeReporting(SUMO_ATTR_FREQUENCY, "vtypeprobe", id.c_str(), ok);
+    SUMOTime frequency = attrs.getSUMOTimeReporting(SUMO_ATTR_FREQUENCY, id.c_str(), ok);
     std::string type = attrs.getStringSecure(SUMO_ATTR_TYPE, "");
-    std::string file = attrs.getStringReporting(SUMO_ATTR_FILE, "vtypeprobe", id.c_str(), ok);
+    std::string file = attrs.getStringReporting(SUMO_ATTR_FILE, id.c_str(), ok);
     if (!ok) {
         return;
     }
@@ -938,14 +879,14 @@ void
 NLHandler::addRouteProbeDetector(const SUMOSAXAttributes &attrs) {
     // get the id, report an error if not given or empty...
     std::string id;
-    if (!attrs.setIDFromAttributes("routeprobe", id)) {
+    if (!attrs.setIDFromAttributes(id)) {
         return;
     }
     bool ok = true;
-    SUMOTime frequency = attrs.getSUMOTimeReporting(SUMO_ATTR_FREQUENCY, "routeprobe", id.c_str(), ok);
-    SUMOTime begin = attrs.getOptSUMOTimeReporting(SUMO_ATTR_BEGIN, "routeprobe", id.c_str(), ok, -1);
-    std::string edge = attrs.getStringReporting(SUMO_ATTR_EDGE, "routeprobe", id.c_str(), ok);
-    std::string file = attrs.getStringReporting(SUMO_ATTR_FILE, "routeprobe", id.c_str(), ok);
+    SUMOTime frequency = attrs.getSUMOTimeReporting(SUMO_ATTR_FREQUENCY, id.c_str(), ok);
+    SUMOTime begin = attrs.getOptSUMOTimeReporting(SUMO_ATTR_BEGIN, id.c_str(), ok, -1);
+    std::string edge = attrs.getStringReporting(SUMO_ATTR_EDGE, id.c_str(), ok);
+    std::string file = attrs.getStringReporting(SUMO_ATTR_FILE, id.c_str(), ok);
     if (!ok) {
         return;
     }
@@ -965,31 +906,31 @@ void
 NLHandler::addE2Detector(const SUMOSAXAttributes &attrs) {
     // get the id, report an error if not given or empty...
     std::string id;
-    if (!attrs.setIDFromAttributes("e2-detector", id)) {
+    if (!attrs.setIDFromAttributes(id)) {
         return;
     }
     // check whether this is a detector connected to a tls an optionally to a link
     bool ok = true;
-    std::string lsaid = attrs.getOptStringReporting(SUMO_ATTR_TLID, "e2-detector", id.c_str(), ok, "<invalid>");
-    std::string toLane = attrs.getOptStringReporting(SUMO_ATTR_TO, "e2-detector", id.c_str(), ok, "<invalid>");
+    std::string lsaid = attrs.getOptStringReporting(SUMO_ATTR_TLID, id.c_str(), ok, "<invalid>");
+    std::string toLane = attrs.getOptStringReporting(SUMO_ATTR_TO, id.c_str(), ok, "<invalid>");
     // inform the user about deprecated values
-    if (attrs.getOptStringReporting(SUMO_ATTR_MEASURES, "e2-detector", id.c_str(), ok, "<invalid>")!="<invalid>") {
+    if (attrs.getOptStringReporting(SUMO_ATTR_MEASURES, id.c_str(), ok, "<invalid>")!="<invalid>") {
         MsgHandler::getWarningInstance()->inform("While parsing E2-detector '" + id + "': 'measures' is deprecated.");
     }
-    if (attrs.getOptStringReporting(SUMO_ATTR_STYLE, "e2-detector", id.c_str(), ok, "<invalid>")!="<invalid>") {
+    if (attrs.getOptStringReporting(SUMO_ATTR_STYLE, id.c_str(), ok, "<invalid>")!="<invalid>") {
         MsgHandler::getWarningInstance()->inform("While parsing E2-detector '" + id + "': 'style' is deprecated.");
     }
     //
     try {
-        const SUMOTime haltingTimeThreshold = attrs.getOptSUMOTimeReporting(SUMO_ATTR_HALTING_TIME_THRESHOLD, "e2-detector", id.c_str(), ok, TIME2STEPS(1));
-        const SUMOReal haltingSpeedThreshold = attrs.getOptSUMORealReporting(SUMO_ATTR_HALTING_SPEED_THRESHOLD, "e2-detector", id.c_str(), ok, 5.0f/3.6f);
-        const SUMOReal jamDistThreshold = attrs.getOptSUMORealReporting(SUMO_ATTR_JAM_DIST_THRESHOLD, "e2-detector", id.c_str(), ok, 10.0f);
-        const SUMOReal position = attrs.getSUMORealReporting(SUMO_ATTR_POSITION, "e2-detector", id.c_str(), ok);
-        const SUMOReal length = attrs.getSUMORealReporting(SUMO_ATTR_LENGTH, "e2-detector", id.c_str(), ok);
-        const bool friendlyPos = attrs.getOptBoolReporting(SUMO_ATTR_FRIENDLY_POS, "e2-detector", id.c_str(), ok, false);
-        const bool cont = attrs.getOptBoolReporting(SUMO_ATTR_CONT, "e2-detector", id.c_str(), ok, false);
-        const std::string lane = attrs.getStringReporting(SUMO_ATTR_LANE, "e2-detector", id.c_str(), ok);
-        const std::string file = attrs.getStringReporting(SUMO_ATTR_FILE, "e2-detector", id.c_str(), ok);
+        const SUMOTime haltingTimeThreshold = attrs.getOptSUMOTimeReporting(SUMO_ATTR_HALTING_TIME_THRESHOLD, id.c_str(), ok, TIME2STEPS(1));
+        const SUMOReal haltingSpeedThreshold = attrs.getOptSUMORealReporting(SUMO_ATTR_HALTING_SPEED_THRESHOLD, id.c_str(), ok, 5.0f/3.6f);
+        const SUMOReal jamDistThreshold = attrs.getOptSUMORealReporting(SUMO_ATTR_JAM_DIST_THRESHOLD, id.c_str(), ok, 10.0f);
+        const SUMOReal position = attrs.getSUMORealReporting(SUMO_ATTR_POSITION, id.c_str(), ok);
+        const SUMOReal length = attrs.getSUMORealReporting(SUMO_ATTR_LENGTH, id.c_str(), ok);
+        const bool friendlyPos = attrs.getOptBoolReporting(SUMO_ATTR_FRIENDLY_POS, id.c_str(), ok, false);
+        const bool cont = attrs.getOptBoolReporting(SUMO_ATTR_CONT, id.c_str(), ok, false);
+        const std::string lane = attrs.getStringReporting(SUMO_ATTR_LANE, id.c_str(), ok);
+        const std::string file = attrs.getStringReporting(SUMO_ATTR_FILE, id.c_str(), ok);
         if (!ok) {
             return;
         }
@@ -1009,7 +950,7 @@ NLHandler::addE2Detector(const SUMOSAXAttributes &attrs) {
             }
         } else {
             bool ok = true;
-            SUMOTime frequency = attrs.getSUMOTimeReporting(SUMO_ATTR_FREQUENCY, "e2-detector", id.c_str(), ok);
+            SUMOTime frequency = attrs.getSUMOTimeReporting(SUMO_ATTR_FREQUENCY, id.c_str(), ok);
             if (!ok) {
                 return;
             }
@@ -1030,21 +971,21 @@ void
 NLHandler::beginE3Detector(const SUMOSAXAttributes &attrs) {
     // get the id, report an error if not given or empty...
     std::string id;
-    if (!attrs.setIDFromAttributes("e3-detector", id)) {
+    if (!attrs.setIDFromAttributes(id)) {
         return;
     }
     bool ok = true;
     // inform the user about deprecated values
-    if (attrs.getOptStringReporting(SUMO_ATTR_MEASURES, "e3-detector", id.c_str(), ok, "<invalid>")!="<invalid>") {
+    if (attrs.getOptStringReporting(SUMO_ATTR_MEASURES, id.c_str(), ok, "<invalid>")!="<invalid>") {
         MsgHandler::getWarningInstance()->inform("While parsing E3-detector '" + id + "': 'measures' is deprecated.");
     }
-    if (attrs.getOptStringReporting(SUMO_ATTR_STYLE, "e3-detector", id.c_str(), ok, "<invalid>")!="<invalid>") {
+    if (attrs.getOptStringReporting(SUMO_ATTR_STYLE, id.c_str(), ok, "<invalid>")!="<invalid>") {
         MsgHandler::getWarningInstance()->inform("While parsing E3-detector '" + id + "': 'style' is deprecated.");
     }
-    const SUMOTime frequency = attrs.getSUMOTimeReporting(SUMO_ATTR_FREQUENCY, "e3-detector", id.c_str(), ok);
-    const SUMOTime haltingTimeThreshold = attrs.getOptSUMOTimeReporting(SUMO_ATTR_HALTING_TIME_THRESHOLD, "e3-detector", id.c_str(), ok, TIME2STEPS(1));
-    const SUMOReal haltingSpeedThreshold = attrs.getOptSUMORealReporting(SUMO_ATTR_HALTING_SPEED_THRESHOLD, "e3-detector", id.c_str(), ok, 5.0f/3.6f);
-    const std::string file = attrs.getStringReporting(SUMO_ATTR_FILE, "e3-detector", id.c_str(), ok);
+    const SUMOTime frequency = attrs.getSUMOTimeReporting(SUMO_ATTR_FREQUENCY, id.c_str(), ok);
+    const SUMOTime haltingTimeThreshold = attrs.getOptSUMOTimeReporting(SUMO_ATTR_HALTING_TIME_THRESHOLD, id.c_str(), ok, TIME2STEPS(1));
+    const SUMOReal haltingSpeedThreshold = attrs.getOptSUMORealReporting(SUMO_ATTR_HALTING_SPEED_THRESHOLD, id.c_str(), ok, 5.0f/3.6f);
+    const std::string file = attrs.getStringReporting(SUMO_ATTR_FILE, id.c_str(), ok);
     if (!ok) {
         return;
     }
@@ -1063,9 +1004,9 @@ NLHandler::beginE3Detector(const SUMOSAXAttributes &attrs) {
 void
 NLHandler::addE3Entry(const SUMOSAXAttributes &attrs) {
     bool ok = true;
-    const SUMOReal position = attrs.getSUMORealReporting(SUMO_ATTR_POSITION, "e3-detector/entry", myDetectorBuilder.getCurrentE3ID().c_str(), ok);
-    const bool friendlyPos = attrs.getOptBoolReporting(SUMO_ATTR_FRIENDLY_POS, "e3-detector/entry", myDetectorBuilder.getCurrentE3ID().c_str(), ok, false);
-    const std::string lane = attrs.getStringReporting(SUMO_ATTR_LANE, "e3-detector/entry", myDetectorBuilder.getCurrentE3ID().c_str(), ok);
+    const SUMOReal position = attrs.getSUMORealReporting(SUMO_ATTR_POSITION, myDetectorBuilder.getCurrentE3ID().c_str(), ok);
+    const bool friendlyPos = attrs.getOptBoolReporting(SUMO_ATTR_FRIENDLY_POS, myDetectorBuilder.getCurrentE3ID().c_str(), ok, false);
+    const std::string lane = attrs.getStringReporting(SUMO_ATTR_LANE, myDetectorBuilder.getCurrentE3ID().c_str(), ok);
     if (!ok) {
         return;
     }
@@ -1076,9 +1017,9 @@ NLHandler::addE3Entry(const SUMOSAXAttributes &attrs) {
 void
 NLHandler::addE3Exit(const SUMOSAXAttributes &attrs) {
     bool ok = true;
-    const SUMOReal position = attrs.getSUMORealReporting(SUMO_ATTR_POSITION, "e3-detector/exit", myDetectorBuilder.getCurrentE3ID().c_str(), ok);
-    const bool friendlyPos = attrs.getOptBoolReporting(SUMO_ATTR_FRIENDLY_POS, "e3-detector/exit", myDetectorBuilder.getCurrentE3ID().c_str(), ok, false);
-    const std::string lane = attrs.getStringReporting(SUMO_ATTR_LANE, "e3-detector/exit", myDetectorBuilder.getCurrentE3ID().c_str(), ok);
+    const SUMOReal position = attrs.getSUMORealReporting(SUMO_ATTR_POSITION, myDetectorBuilder.getCurrentE3ID().c_str(), ok);
+    const bool friendlyPos = attrs.getOptBoolReporting(SUMO_ATTR_FRIENDLY_POS, myDetectorBuilder.getCurrentE3ID().c_str(), ok, false);
+    const std::string lane = attrs.getStringReporting(SUMO_ATTR_LANE, myDetectorBuilder.getCurrentE3ID().c_str(), ok);
     if (!ok) {
         return;
     }
@@ -1090,22 +1031,22 @@ void
 NLHandler::addEdgeLaneMeanData(const SUMOSAXAttributes &attrs, const char* objecttype) {
     // get the id, report an error if not given or empty...
     std::string id;
-    if (!attrs.setIDFromAttributes(objecttype, id)) {
+    if (!attrs.setIDFromAttributes(id)) {
         return;
     }
     bool ok = true;
-    const SUMOReal maxTravelTime = attrs.getOptSUMORealReporting(SUMO_ATTR_MAX_TRAVELTIME, objecttype, id.c_str(), ok, 100000);
-    const SUMOReal minSamples = attrs.getOptSUMORealReporting(SUMO_ATTR_MIN_SAMPLES, objecttype, id.c_str(), ok, 0);
-    const SUMOReal haltingSpeedThreshold = attrs.getOptSUMORealReporting(SUMO_ATTR_HALTING_SPEED_THRESHOLD, objecttype, id.c_str(), ok, POSITION_EPS);
-    const bool excludeEmpty = attrs.getOptBoolReporting(SUMO_ATTR_EXCLUDE_EMPTY, objecttype, id.c_str(), ok, false);
-    const bool withInternal = attrs.getOptBoolReporting(SUMO_ATTR_WITH_INTERNAL, objecttype, id.c_str(), ok, false);
-    const bool trackVehicles = attrs.getOptBoolReporting(SUMO_ATTR_TRACK_VEHICLES, objecttype, id.c_str(), ok, false);
-    const std::string file = attrs.getStringReporting(SUMO_ATTR_FILE, objecttype, id.c_str(), ok);
-    const std::string type = attrs.getOptStringReporting(SUMO_ATTR_TYPE, objecttype, id.c_str(), ok, "performance");
-    const std::string vtypes = attrs.getOptStringReporting(SUMO_ATTR_VTYPES, objecttype, id.c_str(), ok, "");
-    const SUMOTime frequency = attrs.getOptSUMOTimeReporting(SUMO_ATTR_FREQUENCY, objecttype, id.c_str(), ok, -1);
-    const SUMOTime begin = attrs.getOptSUMOTimeReporting(SUMO_ATTR_BEGIN, objecttype, id.c_str(), ok, string2time(OptionsCont::getOptions().getString("begin")));
-    const SUMOTime end = attrs.getOptSUMOTimeReporting(SUMO_ATTR_END, objecttype, id.c_str(), ok, string2time(OptionsCont::getOptions().getString("end")));
+    const SUMOReal maxTravelTime = attrs.getOptSUMORealReporting(SUMO_ATTR_MAX_TRAVELTIME, id.c_str(), ok, 100000);
+    const SUMOReal minSamples = attrs.getOptSUMORealReporting(SUMO_ATTR_MIN_SAMPLES, id.c_str(), ok, 0);
+    const SUMOReal haltingSpeedThreshold = attrs.getOptSUMORealReporting(SUMO_ATTR_HALTING_SPEED_THRESHOLD, id.c_str(), ok, POSITION_EPS);
+    const bool excludeEmpty = attrs.getOptBoolReporting(SUMO_ATTR_EXCLUDE_EMPTY, id.c_str(), ok, false);
+    const bool withInternal = attrs.getOptBoolReporting(SUMO_ATTR_WITH_INTERNAL, id.c_str(), ok, false);
+    const bool trackVehicles = attrs.getOptBoolReporting(SUMO_ATTR_TRACK_VEHICLES, id.c_str(), ok, false);
+    const std::string file = attrs.getStringReporting(SUMO_ATTR_FILE, id.c_str(), ok);
+    const std::string type = attrs.getOptStringReporting(SUMO_ATTR_TYPE, id.c_str(), ok, "performance");
+    const std::string vtypes = attrs.getOptStringReporting(SUMO_ATTR_VTYPES, id.c_str(), ok, "");
+    const SUMOTime frequency = attrs.getOptSUMOTimeReporting(SUMO_ATTR_FREQUENCY, id.c_str(), ok, -1);
+    const SUMOTime begin = attrs.getOptSUMOTimeReporting(SUMO_ATTR_BEGIN, id.c_str(), ok, string2time(OptionsCont::getOptions().getString("begin")));
+    const SUMOTime end = attrs.getOptSUMOTimeReporting(SUMO_ATTR_END, id.c_str(), ok, string2time(OptionsCont::getOptions().getString("end")));
     if (!ok) {
         return;
     }
@@ -1127,7 +1068,7 @@ void
 NLHandler::addSource(const SUMOSAXAttributes &attrs) {
     // get the id, report an error if not given or empty...
     std::string id;
-    if (!attrs.setIDFromAttributes("source", id)) {
+    if (!attrs.setIDFromAttributes(id)) {
         return;
     }
     try {
@@ -1142,7 +1083,7 @@ void
 NLHandler::addTrigger(const SUMOSAXAttributes &attrs) {
     // get the id, report an error if not given or empty...
     std::string id;
-    if (!attrs.setIDFromAttributes("trigger", id)) {
+    if (!attrs.setIDFromAttributes(id)) {
         return;
     }
     try {
@@ -1157,7 +1098,7 @@ NLHandler::addTrigger(const SUMOSAXAttributes &attrs) {
 void
 NLHandler::openSucc(const SUMOSAXAttributes &attrs) {
     bool ok = true;
-    std::string id = attrs.getStringReporting(SUMO_ATTR_LANE, "succ", 0, ok);
+    std::string id = attrs.getStringReporting(SUMO_ATTR_LANE, 0, ok);
     if (!MSGlobals::gUsingInternalLanes&&id[0]==':') {
         myCurrentIsInternalToSkip = true;
         return;
@@ -1175,21 +1116,21 @@ NLHandler::addSuccLane(const SUMOSAXAttributes &attrs) {
     }
     try {
         bool ok = true;
-        SUMOReal pass = attrs.getOptSUMORealReporting(SUMO_ATTR_PASS, 0, 0, ok, -1);
-        bool yield = attrs.getBoolReporting(SUMO_ATTR_YIELD, 0, 0, ok);
-        bool internalEnd = attrs.getOptBoolReporting(SUMO_ATTR_YIELD, 0, 0, ok, false);
-        std::string lane = attrs.getStringReporting(SUMO_ATTR_LANE, 0, 0, ok);
-        std::string dir = attrs.getStringReporting(SUMO_ATTR_DIR, 0, 0, ok);
-        std::string state = attrs.getStringReporting(SUMO_ATTR_STATE, 0, 0, ok);
-        std::string tlID = attrs.getOptStringReporting(SUMO_ATTR_TLID, 0, 0, ok, "");
+        SUMOReal pass = attrs.getOptSUMORealReporting(SUMO_ATTR_PASS, 0, ok, -1);
+        bool yield = attrs.getBoolReporting(SUMO_ATTR_YIELD, 0, ok);
+        bool internalEnd = attrs.getOptBoolReporting(SUMO_ATTR_YIELD, 0, ok, false);
+        std::string lane = attrs.getStringReporting(SUMO_ATTR_LANE, 0, ok);
+        std::string dir = attrs.getStringReporting(SUMO_ATTR_DIR, 0, ok);
+        std::string state = attrs.getStringReporting(SUMO_ATTR_STATE, 0, ok);
+        std::string tlID = attrs.getOptStringReporting(SUMO_ATTR_TLID, 0, ok, "");
 #ifdef HAVE_INTERNAL_LANES
-        std::string via = attrs.getOptStringReporting(SUMO_ATTR_VIA, 0, 0, ok, "");
+        std::string via = attrs.getOptStringReporting(SUMO_ATTR_VIA, 0, ok, "");
 #endif
         if (!ok) {
             return;
         }
         if (tlID!="") {
-            int linkNumber = attrs.getIntReporting(SUMO_ATTR_TLLINKNO, 0, 0, ok);
+            int linkNumber = attrs.getIntReporting(SUMO_ATTR_TLLINKNO, 0, ok);
             if (!ok) {
                 return;
             }
@@ -1311,7 +1252,8 @@ NLHandler::addJunctionShape(const std::string &chars) {
         MsgHandler::getWarningInstance()->inform("Your network uses a deprecated junction shape description; please rebuild.");
     }
     bool ok = true;
-    Position2DVector shape = GeomConvHelper::parseShapeReporting(chars, "junction", myJunctionControlBuilder.getActiveID().c_str(), ok, true);
+    Position2DVector shape = GeomConvHelper::parseShapeReporting(
+            chars, "junction", myJunctionControlBuilder.getActiveID().c_str(), ok, true);
     if (ok) {
         myJunctionControlBuilder.addJunctionShape(shape);
     }
@@ -1321,10 +1263,16 @@ NLHandler::addJunctionShape(const std::string &chars) {
 void
 NLHandler::setLocation(const SUMOSAXAttributes &attrs) {
     bool ok = true;
-    Position2DVector s = GeomConvHelper::parseShapeReporting(attrs.getStringReporting(SUMO_ATTR_NET_OFFSET, "net", 0, ok), "net", 0, ok, false);
-    Boundary convBoundary = GeomConvHelper::parseBoundaryReporting(attrs.getStringReporting(SUMO_ATTR_CONV_BOUNDARY, "net", 0, ok), "net", 0, ok);
-    Boundary origBoundary = GeomConvHelper::parseBoundaryReporting(attrs.getStringReporting(SUMO_ATTR_ORIG_BOUNDARY, "net", 0, ok), "net", 0, ok);
-    std::string proj = attrs.getStringReporting(SUMO_ATTR_ORIG_PROJ, "net", 0, ok);
+    Position2DVector s = GeomConvHelper::parseShapeReporting(
+            attrs.getStringReporting(SUMO_ATTR_NET_OFFSET, 0, ok),
+            attrs.getObjectType(), 0, ok, false);
+    Boundary convBoundary = GeomConvHelper::parseBoundaryReporting(
+            attrs.getStringReporting(SUMO_ATTR_CONV_BOUNDARY, 0, ok),
+            attrs.getObjectType(), 0, ok);
+    Boundary origBoundary = GeomConvHelper::parseBoundaryReporting(
+            attrs.getStringReporting(SUMO_ATTR_ORIG_BOUNDARY, 0, ok),
+            attrs.getObjectType(), 0, ok);
+    std::string proj = attrs.getStringReporting(SUMO_ATTR_ORIG_PROJ, 0, ok);
     if (ok) {
         Position2D networkOffset = s[0];
         GeoConvHelper::init(proj, networkOffset, origBoundary, convBoundary);
@@ -1336,7 +1284,7 @@ void
 NLHandler::addDistrict(const SUMOSAXAttributes &attrs) throw(ProcessError) {
     myCurrentIsBroken = false;
     // get the id, report an error if not given or empty...
-    if (!attrs.setIDFromAttributes("district", myCurrentDistrictID)) {
+    if (!attrs.setIDFromAttributes(myCurrentDistrictID)) {
         myCurrentIsBroken = true;
         return;
     }
@@ -1379,7 +1327,7 @@ NLHandler::addDistrictEdge(const SUMOSAXAttributes &attrs, bool isSource) {
         return;
     }
     bool ok = true;
-    std::string id = attrs.getStringReporting(SUMO_ATTR_ID, "district", myCurrentDistrictID.c_str(), ok);
+    std::string id = attrs.getStringReporting(SUMO_ATTR_ID, myCurrentDistrictID.c_str(), ok);
     MSEdge *succ = MSEdge::dictionary(id);
     if (succ!=0) {
         // connect edge

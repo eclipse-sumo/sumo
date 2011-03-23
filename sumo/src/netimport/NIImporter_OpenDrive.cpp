@@ -806,8 +806,8 @@ NIImporter_OpenDrive::myStartElement(SumoXMLTag element,
     bool ok = true;
     switch (element) {
     case SUMO_TAG_OPENDRIVE_HEADER: {
-        int majorVersion = attrs.getIntReporting(SUMO_ATTR_OPENDRIVE_REVMAJOR, "opendrive header", 0, ok);
-        int minorVersion = attrs.getIntReporting(SUMO_ATTR_OPENDRIVE_REVMINOR, "opendrive header", 0, ok);
+        int majorVersion = attrs.getIntReporting(SUMO_ATTR_OPENDRIVE_REVMAJOR, 0, ok);
+        int minorVersion = attrs.getIntReporting(SUMO_ATTR_OPENDRIVE_REVMINOR, 0, ok);
         if (majorVersion!=1||minorVersion!=2) {
             MsgHandler::getWarningInstance()->inform("Given openDrive file '" + getFileName() + "' uses version " + toString(majorVersion) + "." + toString(minorVersion) + ";\n Version 1.2 is supported.");
         }
@@ -816,25 +816,25 @@ NIImporter_OpenDrive::myStartElement(SumoXMLTag element,
     case SUMO_TAG_OPENDRIVE_ROAD: {
         std::string id =
             attrs.hasAttribute(SUMO_ATTR_OPENDRIVE_ID)
-            ? attrs.getStringReporting(SUMO_ATTR_OPENDRIVE_ID, "road", 0, ok)
-            : attrs.getStringReporting(SUMO_ATTR_ID, "road", 0, ok);
+            ? attrs.getStringReporting(SUMO_ATTR_OPENDRIVE_ID, 0, ok)
+            : attrs.getStringReporting(SUMO_ATTR_ID, 0, ok);
         std::cout << "found edge '" << id << "'" << std::endl;
-        std::string junction = attrs.getStringReporting(SUMO_ATTR_OPENDRIVE_JUNCTION, "road", id.c_str(), ok);
-        SUMOReal length = attrs.getSUMORealReporting(SUMO_ATTR_OPENDRIVE_LENGTH, "road", id.c_str(), ok);
+        std::string junction = attrs.getStringReporting(SUMO_ATTR_OPENDRIVE_JUNCTION, id.c_str(), ok);
+        SUMOReal length = attrs.getSUMORealReporting(SUMO_ATTR_OPENDRIVE_LENGTH, id.c_str(), ok);
         myCurrentEdge = OpenDriveEdge(id, junction, length);
     }
     break;
     case SUMO_TAG_OPENDRIVE_PREDECESSOR: {
         if (myElementStack.size()>=2&&myElementStack[myElementStack.size()-2]==SUMO_TAG_OPENDRIVE_ROAD) {
-            std::string elementType = attrs.getStringReporting(SUMO_ATTR_OPENDRIVE_ELEMENTTYPE, "predecessor", myCurrentEdge.id.c_str(), ok);
-            std::string elementID = attrs.getStringReporting(SUMO_ATTR_OPENDRIVE_ELEMENTID, "predecessor", myCurrentEdge.id.c_str(), ok);
+            std::string elementType = attrs.getStringReporting(SUMO_ATTR_OPENDRIVE_ELEMENTTYPE, myCurrentEdge.id.c_str(), ok);
+            std::string elementID = attrs.getStringReporting(SUMO_ATTR_OPENDRIVE_ELEMENTID, myCurrentEdge.id.c_str(), ok);
             std::string contactPoint = attrs.hasAttribute(SUMO_ATTR_OPENDRIVE_CONTACTPOINT)
-                                       ? attrs.getStringReporting(SUMO_ATTR_OPENDRIVE_CONTACTPOINT, "predecessor", myCurrentEdge.id.c_str(), ok)
+                                       ? attrs.getStringReporting(SUMO_ATTR_OPENDRIVE_CONTACTPOINT, myCurrentEdge.id.c_str(), ok)
                                        : "end";
             addLink(OPENDRIVE_LT_PREDECESSOR, elementType, elementID, contactPoint);
         }
         if (myElementStack.size()>=2&&myElementStack[myElementStack.size()-2]==SUMO_TAG_OPENDRIVE_LANE||myElementStack[myElementStack.size()-2]==SUMO_TAG_LANE) { // !!!
-            int no = attrs.getIntReporting(SUMO_ATTR_ID, "predecessor", myCurrentEdge.id.c_str(), ok);
+            int no = attrs.getIntReporting(SUMO_ATTR_ID, myCurrentEdge.id.c_str(), ok);
             OpenDriveLane &l = myCurrentEdge.laneSections[myCurrentEdge.laneSections.size()-1].lanesByDir[myCurrentLaneDirection].back();
             l.predecessor = no;
         }
@@ -842,26 +842,26 @@ NIImporter_OpenDrive::myStartElement(SumoXMLTag element,
     break;
     case SUMO_TAG_OPENDRIVE_SUCCESSOR: {
         if (myElementStack.size()>=2&&myElementStack[myElementStack.size()-2]==SUMO_TAG_OPENDRIVE_ROAD) {
-            std::string elementType = attrs.getStringReporting(SUMO_ATTR_OPENDRIVE_ELEMENTTYPE, "successor", myCurrentEdge.id.c_str(), ok);
-            std::string elementID = attrs.getStringReporting(SUMO_ATTR_OPENDRIVE_ELEMENTID, "successor", myCurrentEdge.id.c_str(), ok);
+            std::string elementType = attrs.getStringReporting(SUMO_ATTR_OPENDRIVE_ELEMENTTYPE, myCurrentEdge.id.c_str(), ok);
+            std::string elementID = attrs.getStringReporting(SUMO_ATTR_OPENDRIVE_ELEMENTID, myCurrentEdge.id.c_str(), ok);
             std::string contactPoint = attrs.hasAttribute(SUMO_ATTR_OPENDRIVE_CONTACTPOINT)
-                                       ? attrs.getStringReporting(SUMO_ATTR_OPENDRIVE_CONTACTPOINT, "successor", myCurrentEdge.id.c_str(), ok)
+                                       ? attrs.getStringReporting(SUMO_ATTR_OPENDRIVE_CONTACTPOINT, myCurrentEdge.id.c_str(), ok)
                                        : "start";
             addLink(OPENDRIVE_LT_SUCCESSOR, elementType, elementID, contactPoint);
         }
         if (myElementStack.size()>=2&&myElementStack[myElementStack.size()-2]==SUMO_TAG_OPENDRIVE_LANE||myElementStack[myElementStack.size()-2]==SUMO_TAG_LANE) { // !!!
-            int no = attrs.getIntReporting(SUMO_ATTR_ID, "predecessor", myCurrentEdge.id.c_str(), ok);
+            int no = attrs.getIntReporting(SUMO_ATTR_ID, myCurrentEdge.id.c_str(), ok);
             OpenDriveLane &l = myCurrentEdge.laneSections[myCurrentEdge.laneSections.size()-1].lanesByDir[myCurrentLaneDirection].back();
             l.successor = no;
         }
     }
     break;
     case SUMO_TAG_OPENDRIVE_GEOMETRY: {
-        SUMOReal length = attrs.getSUMORealReporting(SUMO_ATTR_OPENDRIVE_LENGTH, "geometry", myCurrentEdge.id.c_str(), ok);
-        SUMOReal s = attrs.getSUMORealReporting(SUMO_ATTR_OPENDRIVE_S, "geometry", myCurrentEdge.id.c_str(), ok);
-        SUMOReal x = attrs.getSUMORealReporting(SUMO_ATTR_OPENDRIVE_X, "geometry", myCurrentEdge.id.c_str(), ok);
-        SUMOReal y = attrs.getSUMORealReporting(SUMO_ATTR_OPENDRIVE_Y, "geometry", myCurrentEdge.id.c_str(), ok);
-        SUMOReal hdg = attrs.getSUMORealReporting(SUMO_ATTR_OPENDRIVE_HDG, "geometry", myCurrentEdge.id.c_str(), ok);
+        SUMOReal length = attrs.getSUMORealReporting(SUMO_ATTR_OPENDRIVE_LENGTH, myCurrentEdge.id.c_str(), ok);
+        SUMOReal s = attrs.getSUMORealReporting(SUMO_ATTR_OPENDRIVE_S, myCurrentEdge.id.c_str(), ok);
+        SUMOReal x = attrs.getSUMORealReporting(SUMO_ATTR_OPENDRIVE_X, myCurrentEdge.id.c_str(), ok);
+        SUMOReal y = attrs.getSUMORealReporting(SUMO_ATTR_OPENDRIVE_Y, myCurrentEdge.id.c_str(), ok);
+        SUMOReal hdg = attrs.getSUMORealReporting(SUMO_ATTR_OPENDRIVE_HDG, myCurrentEdge.id.c_str(), ok);
         myCurrentEdge.geometries.push_back(OpenDriveGeometry(length, s, x, y, hdg));
     }
     break;
@@ -872,28 +872,28 @@ NIImporter_OpenDrive::myStartElement(SumoXMLTag element,
     break;
     case SUMO_TAG_OPENDRIVE_SPIRAL: {
         std::vector<SUMOReal> vals;
-        vals.push_back(attrs.getSUMORealReporting(SUMO_ATTR_OPENDRIVE_CURVSTART, "spiral", myCurrentEdge.id.c_str(), ok));
-        vals.push_back(attrs.getSUMORealReporting(SUMO_ATTR_OPENDRIVE_CURVEND, "spiral", myCurrentEdge.id.c_str(), ok));
+        vals.push_back(attrs.getSUMORealReporting(SUMO_ATTR_OPENDRIVE_CURVSTART, myCurrentEdge.id.c_str(), ok));
+        vals.push_back(attrs.getSUMORealReporting(SUMO_ATTR_OPENDRIVE_CURVEND, myCurrentEdge.id.c_str(), ok));
         addGeometryShape(OPENDRIVE_GT_SPIRAL, vals);
     }
     break;
     case SUMO_TAG_OPENDRIVE_ARC: {
         std::vector<SUMOReal> vals;
-        vals.push_back(attrs.getSUMORealReporting(SUMO_ATTR_OPENDRIVE_CURVATURE, "arc", myCurrentEdge.id.c_str(), ok));
+        vals.push_back(attrs.getSUMORealReporting(SUMO_ATTR_OPENDRIVE_CURVATURE, myCurrentEdge.id.c_str(), ok));
         addGeometryShape(OPENDRIVE_GT_ARC, vals);
     }
     break;
     case SUMO_TAG_OPENDRIVE_POLY3: {
         std::vector<SUMOReal> vals;
-        vals.push_back(attrs.getSUMORealReporting(SUMO_ATTR_OPENDRIVE_A, "poly3", myCurrentEdge.id.c_str(), ok));
-        vals.push_back(attrs.getSUMORealReporting(SUMO_ATTR_OPENDRIVE_B, "poly3", myCurrentEdge.id.c_str(), ok));
-        vals.push_back(attrs.getSUMORealReporting(SUMO_ATTR_OPENDRIVE_C, "poly3", myCurrentEdge.id.c_str(), ok));
-        vals.push_back(attrs.getSUMORealReporting(SUMO_ATTR_OPENDRIVE_D, "poly3", myCurrentEdge.id.c_str(), ok));
+        vals.push_back(attrs.getSUMORealReporting(SUMO_ATTR_OPENDRIVE_A, myCurrentEdge.id.c_str(), ok));
+        vals.push_back(attrs.getSUMORealReporting(SUMO_ATTR_OPENDRIVE_B, myCurrentEdge.id.c_str(), ok));
+        vals.push_back(attrs.getSUMORealReporting(SUMO_ATTR_OPENDRIVE_C, myCurrentEdge.id.c_str(), ok));
+        vals.push_back(attrs.getSUMORealReporting(SUMO_ATTR_OPENDRIVE_D, myCurrentEdge.id.c_str(), ok));
         addGeometryShape(OPENDRIVE_GT_POLY3, vals);
     }
     break;
     case SUMO_TAG_OPENDRIVE_LANESECTION: {
-        SUMOReal s = attrs.getSUMORealReporting(SUMO_ATTR_OPENDRIVE_S, "geometry", myCurrentEdge.id.c_str(), ok);
+        SUMOReal s = attrs.getSUMORealReporting(SUMO_ATTR_OPENDRIVE_S, myCurrentEdge.id.c_str(), ok);
         myCurrentEdge.laneSections.push_back(OpenDriveLaneSection(s));
     }
     break;
@@ -904,12 +904,12 @@ NIImporter_OpenDrive::myStartElement(SumoXMLTag element,
         break;
     case SUMO_TAG_LANE: // !!!
     case SUMO_TAG_OPENDRIVE_LANE: {
-        std::string type = attrs.getStringReporting(SUMO_ATTR_OPENDRIVE_TYPE, "lane", myCurrentEdge.id.c_str(), ok);
+        std::string type = attrs.getStringReporting(SUMO_ATTR_OPENDRIVE_TYPE, myCurrentEdge.id.c_str(), ok);
         int id = attrs.hasAttribute(SUMO_ATTR_OPENDRIVE_ID)
-                 ? attrs.getIntReporting(SUMO_ATTR_OPENDRIVE_ID, "lane", myCurrentEdge.id.c_str(), ok)
-                 : attrs.getIntReporting(SUMO_ATTR_ID, "lane", myCurrentEdge.id.c_str(), ok);
+                 ? attrs.getIntReporting(SUMO_ATTR_OPENDRIVE_ID, myCurrentEdge.id.c_str(), ok)
+                 : attrs.getIntReporting(SUMO_ATTR_ID, myCurrentEdge.id.c_str(), ok);
         int level = attrs.hasAttribute(SUMO_ATTR_OPENDRIVE_LEVEL)
-                    ? attrs.getIntReporting(SUMO_ATTR_OPENDRIVE_LEVEL, "lane", myCurrentEdge.id.c_str(), ok)
+                    ? attrs.getIntReporting(SUMO_ATTR_OPENDRIVE_LEVEL, myCurrentEdge.id.c_str(), ok)
                     : 0;
         OpenDriveLaneSection &ls = myCurrentEdge.laneSections[myCurrentEdge.laneSections.size()-1];
         ls.lanesByDir[myCurrentLaneDirection].push_back(OpenDriveLane(id, level, type));

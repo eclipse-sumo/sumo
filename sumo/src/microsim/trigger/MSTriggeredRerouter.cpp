@@ -95,8 +95,8 @@ MSTriggeredRerouter::myStartElement(SumoXMLTag element,
                                     const SUMOSAXAttributes &attrs) throw(ProcessError) {
     if (element==SUMO_TAG_INTERVAL) {
         bool ok = true;
-        myCurrentIntervalBegin = attrs.getOptSUMOTimeReporting(SUMO_ATTR_BEGIN, "interval", 0, ok, -1);
-        myCurrentIntervalEnd = attrs.getOptSUMOTimeReporting(SUMO_ATTR_END, "interval", 0, ok, -1);
+        myCurrentIntervalBegin = attrs.getOptSUMOTimeReporting(SUMO_ATTR_BEGIN, 0, ok, -1);
+        myCurrentIntervalEnd = attrs.getOptSUMOTimeReporting(SUMO_ATTR_END, 0, ok, -1);
     }
 
     if (element==SUMO_TAG_DEST_PROB_REROUTE) {
@@ -112,7 +112,7 @@ MSTriggeredRerouter::myStartElement(SumoXMLTag element,
         }
         // get the probability to reroute
         bool ok = true;
-        SUMOReal prob = attrs.getOptSUMORealReporting(SUMO_ATTR_PROB, "rerouter/dest_prob_reroute", getID().c_str(), ok, 1.);
+        SUMOReal prob = attrs.getOptSUMORealReporting(SUMO_ATTR_PROB, getID().c_str(), ok, 1.);
         if (!ok) {
             throw ProcessError();
         }
@@ -150,7 +150,7 @@ MSTriggeredRerouter::myStartElement(SumoXMLTag element,
 
         // get the probability to reroute
         bool ok = true;
-        SUMOReal prob = attrs.getOptSUMORealReporting(SUMO_ATTR_PROB, "rerouter/dest_prob_reroute", getID().c_str(), ok, 1.);
+        SUMOReal prob = attrs.getOptSUMORealReporting(SUMO_ATTR_PROB, getID().c_str(), ok, 1.);
         if (!ok) {
             throw ProcessError();
         }

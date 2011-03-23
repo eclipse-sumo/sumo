@@ -510,10 +510,10 @@ NIImporter_OpenStreetMap::NodesHandler::myStartElement(SumoXMLTag element, const
     if (element == SUMO_TAG_NODE) {
         bool ok = true;
         if (myHierarchyLevel != 2) {
-            MsgHandler::getErrorInstance()->inform("Node element on wrong XML hierarchy level (id='" + toString(attrs.getIntReporting(SUMO_ATTR_ID, "node", 0, ok)) + "', level='" + toString(myHierarchyLevel) + "').");
+            MsgHandler::getErrorInstance()->inform("Node element on wrong XML hierarchy level (id='" + toString(attrs.getIntReporting(SUMO_ATTR_ID, 0, ok)) + "', level='" + toString(myHierarchyLevel) + "').");
             return;
         }
-        int id = attrs.getIntReporting(SUMO_ATTR_ID, "node", 0, ok);
+        int id = attrs.getIntReporting(SUMO_ATTR_ID, 0, ok);
         std::string action = attrs.hasAttribute("action") ? attrs.getStringSecure("action", "") : "";
         if (action=="delete") {
             return;
@@ -528,7 +528,7 @@ NIImporter_OpenStreetMap::NodesHandler::myStartElement(SumoXMLTag element, const
             //  ... so we won't report duplicate nodes
             bool ok = true;
             double tlat, tlon;
-            std::istringstream lon(attrs.getStringReporting(SUMO_ATTR_LON, "node", toString(id).c_str(), ok));
+            std::istringstream lon(attrs.getStringReporting(SUMO_ATTR_LON, toString(id).c_str(), ok));
             if (!ok) {
                 return;
             }
@@ -537,7 +537,7 @@ NIImporter_OpenStreetMap::NodesHandler::myStartElement(SumoXMLTag element, const
                 MsgHandler::getErrorInstance()->inform("Node's '" + toString(id) + "' lon information is not numeric.");
                 return;
             }
-            std::istringstream lat(attrs.getStringReporting(SUMO_ATTR_LAT, "node", toString(id).c_str(), ok));
+            std::istringstream lat(attrs.getStringReporting(SUMO_ATTR_LAT, toString(id).c_str(), ok));
             if (!ok) {
                 return;
             }
@@ -561,8 +561,8 @@ NIImporter_OpenStreetMap::NodesHandler::myStartElement(SumoXMLTag element, const
             return;
         }
         bool ok = true;
-        std::string key = attrs.getStringReporting(SUMO_ATTR_K, "tag", toString(myLastNodeID).c_str(), ok);
-        std::string value = attrs.getOptStringReporting(SUMO_ATTR_V, "tag", toString(myLastNodeID).c_str(), ok, "");
+        std::string key = attrs.getStringReporting(SUMO_ATTR_K, toString(myLastNodeID).c_str(), ok);
+        std::string value = attrs.getOptStringReporting(SUMO_ATTR_V, toString(myLastNodeID).c_str(), ok, "");
         if (!ok) {
             return;
         }
@@ -611,7 +611,7 @@ NIImporter_OpenStreetMap::EdgesHandler::myStartElement(SumoXMLTag element,
     // parse "way" elements
     if (element==SUMO_TAG_WAY) {
         bool ok = true;
-        std::string id = attrs.getStringReporting(SUMO_ATTR_ID, "way", 0, ok);
+        std::string id = attrs.getStringReporting(SUMO_ATTR_ID, 0, ok);
         std::string action = attrs.hasAttribute("action") ? attrs.getStringSecure("action", "") : "";
         if (action=="delete") {
             myCurrentEdge = 0;
@@ -630,7 +630,7 @@ NIImporter_OpenStreetMap::EdgesHandler::myStartElement(SumoXMLTag element,
     // parse "nd" (node) elements
     if (element==SUMO_TAG_ND) {
         bool ok = true;
-        int ref = attrs.getIntReporting(SUMO_ATTR_REF, "nd", 0, ok);
+        int ref = attrs.getIntReporting(SUMO_ATTR_REF, 0, ok);
         if (ok) {
             if (myOSMNodes.find(ref)==myOSMNodes.end()) {
                 WRITE_WARNING("The referenced geometry information (ref='" + toString(ref) + "') is not known");
@@ -645,8 +645,8 @@ NIImporter_OpenStreetMap::EdgesHandler::myStartElement(SumoXMLTag element,
             return;
         }
         bool ok = true;
-        std::string key = attrs.getStringReporting(SUMO_ATTR_K, "way", toString(myCurrentEdge->id).c_str(), ok);
-        std::string value = attrs.getStringReporting(SUMO_ATTR_V, "way", toString(myCurrentEdge->id).c_str(), ok);
+        std::string key = attrs.getStringReporting(SUMO_ATTR_K, toString(myCurrentEdge->id).c_str(), ok);
+        std::string value = attrs.getStringReporting(SUMO_ATTR_V, toString(myCurrentEdge->id).c_str(), ok);
         if (!ok) {
             return;
         }

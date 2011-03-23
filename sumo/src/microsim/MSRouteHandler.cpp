@@ -116,7 +116,7 @@ MSRouteHandler::myStartElement(SumoXMLTag element,
         bool ok = true;
         MSEdge *from = 0;
         if (attrs.hasAttribute(SUMO_ATTR_FROM)) {
-            const std::string fromID = attrs.getStringReporting(SUMO_ATTR_FROM, "ride", pid.c_str(), ok);
+            const std::string fromID = attrs.getStringReporting(SUMO_ATTR_FROM, pid.c_str(), ok);
             from = MSEdge::dictionary(fromID);
             if (from==0) {
                 throw ProcessError("The from edge '" + fromID + "' within a ride of person '" + pid + "' is not known.");
@@ -128,12 +128,12 @@ MSRouteHandler::myStartElement(SumoXMLTag element,
                 myActivePlan->push_back(new MSPerson::MSPersonStage_Waiting(*from, -1, myVehicleParameter->depart));
             }
         }
-        const std::string toID = attrs.getStringReporting(SUMO_ATTR_TO, "ride", pid.c_str(), ok);
+        const std::string toID = attrs.getStringReporting(SUMO_ATTR_TO, pid.c_str(), ok);
         MSEdge *to = MSEdge::dictionary(toID);
         if (to==0) {
             throw ProcessError("The to edge '" + toID + "' within a ride of person '" + pid + "' is not known.");
         }
-        const std::string desc = attrs.getStringReporting(SUMO_ATTR_LINES, "ride", pid.c_str(), ok);
+        const std::string desc = attrs.getStringReporting(SUMO_ATTR_LINES, pid.c_str(), ok);
         StringTokenizer st(desc);
         myActivePlan->push_back(new MSPerson::MSPersonStage_Driving(*to, st.getVector()));
         break;
@@ -141,7 +141,7 @@ MSRouteHandler::myStartElement(SumoXMLTag element,
     case SUMO_TAG_WALK: {
         myActiveRoute.clear();
         bool ok = true;
-        MSEdge::parseEdgesList(attrs.getStringReporting(SUMO_ATTR_EDGES, "walk", myVehicleParameter->id.c_str(), ok), myActiveRoute, myActiveRouteID);
+        MSEdge::parseEdgesList(attrs.getStringReporting(SUMO_ATTR_EDGES, myVehicleParameter->id.c_str(), ok), myActiveRoute, myActiveRouteID);
         if (myActiveRoute.empty()) {
             throw ProcessError("No edges to walk for person '" + myVehicleParameter->id + "'.");
         }
@@ -151,8 +151,8 @@ MSRouteHandler::myStartElement(SumoXMLTag element,
         if (myActivePlan->empty()) {
             myActivePlan->push_back(new MSPerson::MSPersonStage_Waiting(*myActiveRoute.front(), -1, myVehicleParameter->depart));
         }
-        const SUMOTime duration = attrs.getOptSUMOTimeReporting(SUMO_ATTR_DURATION, "walk", 0, ok, -1);
-        const SUMOReal speed = attrs.getOptSUMORealReporting(SUMO_ATTR_SPEED, "walk", 0, ok, -1);
+        const SUMOTime duration = attrs.getOptSUMOTimeReporting(SUMO_ATTR_DURATION, 0, ok, -1);
+        const SUMOReal speed = attrs.getOptSUMORealReporting(SUMO_ATTR_SPEED, 0, ok, -1);
         myActivePlan->push_back(new MSPerson::MSPersonStage_Walking(myActiveRoute, duration, speed));
         myActiveRoute.clear();
         break;
@@ -163,9 +163,9 @@ MSRouteHandler::myStartElement(SumoXMLTag element,
         if (attrs.hasAttribute(SUMO_ATTR_FROM) && attrs.hasAttribute(SUMO_ATTR_TO)) {
             myActiveRouteID = "!" + myVehicleParameter->id;
             bool ok = true;
-            MSEdge::parseEdgesList(attrs.getStringReporting(SUMO_ATTR_FROM, "flow", myVehicleParameter->id.c_str(), ok),
+            MSEdge::parseEdgesList(attrs.getStringReporting(SUMO_ATTR_FROM, myVehicleParameter->id.c_str(), ok),
                                    myActiveRoute, "for vehicle '" + myVehicleParameter->id + "'");
-            MSEdge::parseEdgesList(attrs.getStringReporting(SUMO_ATTR_TO, "flow", myVehicleParameter->id.c_str(), ok),
+            MSEdge::parseEdgesList(attrs.getStringReporting(SUMO_ATTR_TO, myVehicleParameter->id.c_str(), ok),
                                    myActiveRoute, "for vehicle '" + myVehicleParameter->id + "'");
             closeRoute();
         }
@@ -190,9 +190,9 @@ MSRouteHandler::myStartElement(SumoXMLTag element,
         myVehicleParameter = SUMOVehicleParserHelper::parseVehicleAttributes(attrs);
         myActiveRouteID = "!" + myVehicleParameter->id;
         if (attrs.hasAttribute(SUMO_ATTR_FROM) || !myVehicleParameter->wasSet(VEHPARS_TAZ_SET)) {
-            MSEdge::parseEdgesList(attrs.getStringReporting(SUMO_ATTR_FROM, "tripdef", myVehicleParameter->id.c_str(), ok),
+            MSEdge::parseEdgesList(attrs.getStringReporting(SUMO_ATTR_FROM, myVehicleParameter->id.c_str(), ok),
                                    myActiveRoute, "for vehicle '" + myVehicleParameter->id + "'");
-            MSEdge::parseEdgesList(attrs.getStringReporting(SUMO_ATTR_TO, "tripdef", myVehicleParameter->id.c_str(), ok),
+            MSEdge::parseEdgesList(attrs.getStringReporting(SUMO_ATTR_TO, myVehicleParameter->id.c_str(), ok),
                                    myActiveRoute, "for vehicle '" + myVehicleParameter->id + "'");
         } else {
             const MSEdge* fromTaz = MSEdge::dictionary(myVehicleParameter->fromTaz+"-source");
@@ -221,11 +221,11 @@ MSRouteHandler::myStartElement(SumoXMLTag element,
 
 void
 MSRouteHandler::openVehicleTypeDistribution(const SUMOSAXAttributes &attrs) {
-    if (attrs.setIDFromAttributes("vtypeDistribution", myCurrentVTypeDistributionID)) {
+    if (attrs.setIDFromAttributes(myCurrentVTypeDistributionID)) {
         myCurrentVTypeDistribution = new RandomDistributor<MSVehicleType*>();
         if (attrs.hasAttribute(SUMO_ATTR_VTYPES)) {
             bool ok = true;
-            StringTokenizer st(attrs.getStringReporting(SUMO_ATTR_VTYPES, "vtypeDistribution", myCurrentVTypeDistributionID.c_str(), ok));
+            StringTokenizer st(attrs.getStringReporting(SUMO_ATTR_VTYPES, myCurrentVTypeDistributionID.c_str(), ok));
             while (st.hasNext()) {
                 std::string vtypeID = st.next();
                 MSVehicleType *type = MSNet::getInstance()->getVehicleControl().getVType(vtypeID);
@@ -267,7 +267,7 @@ MSRouteHandler::openRoute(const SUMOSAXAttributes &attrs) {
         myActiveRouteID = "!" + myVehicleParameter->id; // !!! document this
     } else {
         bool ok = true;
-        myActiveRouteID = attrs.getStringReporting(SUMO_ATTR_ID, "route", 0, ok, false);
+        myActiveRouteID = attrs.getStringReporting(SUMO_ATTR_ID, 0, ok, false);
         if (!ok) {
             return;
         }
@@ -278,14 +278,14 @@ MSRouteHandler::openRoute(const SUMOSAXAttributes &attrs) {
     }
     bool ok = true;
     if (attrs.hasAttribute(SUMO_ATTR_EDGES)) {
-        MSEdge::parseEdgesList(attrs.getStringReporting(SUMO_ATTR_EDGES, "route", myActiveRouteID.c_str(), ok), myActiveRoute, rid);
+        MSEdge::parseEdgesList(attrs.getStringReporting(SUMO_ATTR_EDGES, myActiveRouteID.c_str(), ok), myActiveRoute, rid);
     }
-    myActiveRouteRefID = attrs.getOptStringReporting(SUMO_ATTR_REFID, "route", myActiveRouteID.c_str(), ok, "");
+    myActiveRouteRefID = attrs.getOptStringReporting(SUMO_ATTR_REFID, myActiveRouteID.c_str(), ok, "");
     if (myActiveRouteRefID != "" && MSRoute::dictionary(myActiveRouteRefID) == 0) {
         MsgHandler::getErrorInstance()->inform("Invalid reference to route '" + myActiveRouteRefID + "' in route " + rid + ".");
     }
-    myActiveRouteProbability = attrs.getOptSUMORealReporting(SUMO_ATTR_PROB, "route", myActiveRouteID.c_str(), ok, DEFAULT_VEH_PROB);
-    myActiveRouteColor = attrs.hasAttribute(SUMO_ATTR_COLOR) ? RGBColor::parseColorReporting(attrs.getString(SUMO_ATTR_COLOR), "route", myActiveRouteID.c_str(), true, ok) : RGBColor::getDefaultColor();
+    myActiveRouteProbability = attrs.getOptSUMORealReporting(SUMO_ATTR_PROB, myActiveRouteID.c_str(), ok, DEFAULT_VEH_PROB);
+    myActiveRouteColor = attrs.hasAttribute(SUMO_ATTR_COLOR) ? RGBColor::parseColorReporting(attrs.getString(SUMO_ATTR_COLOR), attrs.getObjectType(),  myActiveRouteID.c_str(), true, ok) : RGBColor::getDefaultColor();
 }
 
 
@@ -431,14 +431,14 @@ MSRouteHandler::openRouteDistribution(const SUMOSAXAttributes &attrs) {
         //  we may use this vehicle's id as default
         myCurrentRouteDistributionID = "!" + myVehicleParameter->id; // !!! document this
     } else {
-        if (!attrs.setIDFromAttributes("routeDistribution", myCurrentRouteDistributionID)) {
+        if (!attrs.setIDFromAttributes(myCurrentRouteDistributionID)) {
             return;
         }
     }
     myCurrentRouteDistribution = new RandomDistributor<const MSRoute*>();
     if (attrs.hasAttribute(SUMO_ATTR_ROUTES)) {
         bool ok = true;
-        StringTokenizer st(attrs.getStringReporting(SUMO_ATTR_ROUTES, "routeDistribution", myCurrentRouteDistributionID.c_str(), ok));
+        StringTokenizer st(attrs.getStringReporting(SUMO_ATTR_ROUTES, myCurrentRouteDistributionID.c_str(), ok));
         while (st.hasNext()) {
             std::string routeID = st.next();
             const MSRoute *route = MSRoute::dictionary(routeID);
@@ -655,7 +655,7 @@ MSRouteHandler::addStop(const SUMOSAXAttributes &attrs) throw(ProcessError) {
     }
     SUMOVehicleParameter::Stop stop;
     // try to parse the assigned bus stop
-    stop.busstop = attrs.getOptStringReporting(SUMO_ATTR_BUS_STOP, "stop", 0, ok, "");
+    stop.busstop = attrs.getOptStringReporting(SUMO_ATTR_BUS_STOP, 0, ok, "");
     if (stop.busstop!="") {
         // ok, we have obviously a bus stop
         MSBusStop *bs = MSNet::getInstance()->getBusStop(stop.busstop);
@@ -671,7 +671,7 @@ MSRouteHandler::addStop(const SUMOSAXAttributes &attrs) throw(ProcessError) {
     } else {
         // no, the lane and the position should be given
         // get the lane
-        stop.lane = attrs.getOptStringReporting(SUMO_ATTR_LANE, "stop", 0, ok, "");
+        stop.lane = attrs.getOptStringReporting(SUMO_ATTR_LANE, 0, ok, "");
         if (ok && stop.lane!="") {
             if (MSLane::dictionary(stop.lane)==0) {
                 MsgHandler::getErrorInstance()->inform("The lane '" + stop.lane + "' for a stop is not known" + errorSuffix);
@@ -686,14 +686,14 @@ MSRouteHandler::addStop(const SUMOSAXAttributes &attrs) throw(ProcessError) {
                 &myActivePlan->back()->getDestination() != &MSLane::dictionary(stop.lane)->getEdge()) {
             throw ProcessError("Disconnected plan for person '" + myVehicleParameter->id + "' (" + MSLane::dictionary(stop.lane)->getEdge().getID() + "!=" + myActivePlan->back()->getDestination().getID() + ").");
         }
-        stop.endPos = attrs.getOptSUMORealReporting(SUMO_ATTR_ENDPOS, "stop", 0, ok, MSLane::dictionary(stop.lane)->getLength());
+        stop.endPos = attrs.getOptSUMORealReporting(SUMO_ATTR_ENDPOS, 0, ok, MSLane::dictionary(stop.lane)->getLength());
         if (attrs.hasAttribute(SUMO_ATTR_POSITION)) {
             WRITE_WARNING("Deprecated attribute 'pos' in description of stop" + errorSuffix);
-            stop.endPos = attrs.getOptSUMORealReporting(SUMO_ATTR_POSITION, "stop", 0, ok, stop.endPos);
+            stop.endPos = attrs.getOptSUMORealReporting(SUMO_ATTR_POSITION, 0, ok, stop.endPos);
         }
-        stop.startPos = attrs.getOptSUMORealReporting(SUMO_ATTR_STARTPOS, "stop", 0, ok, stop.endPos - 2 * POSITION_EPS);
+        stop.startPos = attrs.getOptSUMORealReporting(SUMO_ATTR_STARTPOS, 0, ok, stop.endPos - 2 * POSITION_EPS);
         if (!ok || !checkStopPos(stop.startPos, stop.endPos, MSLane::dictionary(stop.lane)->getLength(), POSITION_EPS,
-                                 attrs.getOptBoolReporting(SUMO_ATTR_FRIENDLY_POS, "stop", 0, ok, false))) {
+                                 attrs.getOptBoolReporting(SUMO_ATTR_FRIENDLY_POS, 0, ok, false))) {
             MsgHandler::getErrorInstance()->inform("Invalid start or end position for stop" + errorSuffix);
             return;
         }
@@ -701,30 +701,30 @@ MSRouteHandler::addStop(const SUMOSAXAttributes &attrs) throw(ProcessError) {
 
     // get the standing duration
     if (!attrs.hasAttribute(SUMO_ATTR_DURATION) && !attrs.hasAttribute(SUMO_ATTR_UNTIL)) {
-        stop.triggered = attrs.getOptBoolReporting(SUMO_ATTR_TRIGGERED, "stop", 0, ok, true);
+        stop.triggered = attrs.getOptBoolReporting(SUMO_ATTR_TRIGGERED, 0, ok, true);
         stop.duration = -1;
         stop.until = -1;
     } else {
-        stop.duration = attrs.getOptSUMOTimeReporting(SUMO_ATTR_DURATION, "stop", 0, ok, -1);
-        stop.until = attrs.getOptSUMOTimeReporting(SUMO_ATTR_UNTIL, "stop", 0, ok, -1);
+        stop.duration = attrs.getOptSUMOTimeReporting(SUMO_ATTR_DURATION, 0, ok, -1);
+        stop.until = attrs.getOptSUMOTimeReporting(SUMO_ATTR_UNTIL, 0, ok, -1);
         if (!ok || (stop.duration<0&&stop.until<0)) {
             MsgHandler::getErrorInstance()->inform("Invalid duration or end time is given for a stop" + errorSuffix);
             return;
         }
-        stop.triggered = attrs.getOptBoolReporting(SUMO_ATTR_TRIGGERED, "stop", 0, ok, false);
+        stop.triggered = attrs.getOptBoolReporting(SUMO_ATTR_TRIGGERED, 0, ok, false);
     }
-    stop.parking = attrs.getOptBoolReporting(SUMO_ATTR_PARKING, "stop", 0, ok, stop.triggered);
+    stop.parking = attrs.getOptBoolReporting(SUMO_ATTR_PARKING, 0, ok, stop.triggered);
     if (!ok) {
         MsgHandler::getErrorInstance()->inform("Invalid bool for 'triggered' or 'parking' for stop" + errorSuffix);
         return;
     }
-    const std::string idx = attrs.getOptStringReporting(SUMO_ATTR_INDEX, "stop", 0, ok, "end");
+    const std::string idx = attrs.getOptStringReporting(SUMO_ATTR_INDEX, 0, ok, "end");
     if (idx == "end") {
         stop.index = STOP_INDEX_END;
     } else if (idx == "fit") {
         stop.index = STOP_INDEX_FIT;
     } else {
-        stop.index = attrs.getIntReporting(SUMO_ATTR_INDEX, "stop", 0, ok);
+        stop.index = attrs.getIntReporting(SUMO_ATTR_INDEX, 0, ok);
         if (!ok || stop.index < 0) {
             MsgHandler::getErrorInstance()->inform("Invalid 'index' for stop" + errorSuffix);
             return;

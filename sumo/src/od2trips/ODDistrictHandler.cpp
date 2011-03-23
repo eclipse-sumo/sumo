@@ -86,7 +86,7 @@ ODDistrictHandler::openDistrict(const SUMOSAXAttributes &attrs) throw() {
     myCurrentDistrict = 0;
     // get the id, report an error if not given or empty...
     std::string id;
-    if (!attrs.setIDFromAttributes("district", id)) {
+    if (!attrs.setIDFromAttributes(id)) {
         return;
     }
     myCurrentDistrict = new ODDistrict(id);
@@ -95,7 +95,7 @@ ODDistrictHandler::openDistrict(const SUMOSAXAttributes &attrs) throw() {
 
 void
 ODDistrictHandler::addSource(const SUMOSAXAttributes &attrs) throw() {
-    std::pair<std::string, SUMOReal> vals = parseConnection(attrs, "source");
+    std::pair<std::string, SUMOReal> vals = parseConnection(attrs);
     if (vals.second>=0) {
         myCurrentDistrict->addSource(vals.first, vals.second);
     }
@@ -104,7 +104,7 @@ ODDistrictHandler::addSource(const SUMOSAXAttributes &attrs) throw() {
 
 void
 ODDistrictHandler::addSink(const SUMOSAXAttributes &attrs) throw() {
-    std::pair<std::string, SUMOReal> vals = parseConnection(attrs, "sink");
+    std::pair<std::string, SUMOReal> vals = parseConnection(attrs);
     if (vals.second>=0) {
         myCurrentDistrict->addSink(vals.first, vals.second);
     }
@@ -113,22 +113,23 @@ ODDistrictHandler::addSink(const SUMOSAXAttributes &attrs) throw() {
 
 
 std::pair<std::string, SUMOReal>
-ODDistrictHandler::parseConnection(const SUMOSAXAttributes &attrs, const std::string &type) throw() {
+ODDistrictHandler::parseConnection(const SUMOSAXAttributes &attrs) throw() {
     // check the current district first
     if (myCurrentDistrict==0) {
         return std::pair<std::string, SUMOReal>("", -1);
     }
     // get the id, report an error if not given or empty...
     std::string id;
-    if (!attrs.setIDFromAttributes(type.c_str(), id)) {
+    if (!attrs.setIDFromAttributes(id)) {
         return std::pair<std::string, SUMOReal>("", -1);
     }
     // get the weight
     bool ok = true;
-    SUMOReal weight = attrs.getSUMORealReporting(SUMO_ATTR_WEIGHT, type.c_str(), id.c_str(), ok);
+    SUMOReal weight = attrs.getSUMORealReporting(SUMO_ATTR_WEIGHT, id.c_str(), ok);
     if (ok) {
         if (weight<0) {
-            MsgHandler::getErrorInstance()->inform("'probability' must be positive (in definition of " + type + " '" + id + "').");
+            MsgHandler::getErrorInstance()->inform("'probability' must be positive (in definition of " + 
+                    attrs.getObjectType() + " '" + id + "').");
         } else {
             return std::pair<std::string, SUMOReal>(id, weight);
         }

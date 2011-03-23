@@ -71,25 +71,25 @@ GUISettingsHandler::myStartElement(SumoXMLTag element,
     bool ok = true;
     switch (element) {
     case SUMO_TAG_DELAY:
-        myDelay = attrs.getOptSUMORealReporting(SUMO_ATTR_VALUE, "delay", 0, ok, myDelay);
+        myDelay = attrs.getOptSUMORealReporting(SUMO_ATTR_VALUE, 0, ok, myDelay);
         break;
     case SUMO_TAG_VIEWPORT:
-        myZoom = attrs.getOptSUMORealReporting(SUMO_ATTR_ZOOM, "viewport", 0, ok, myZoom);
-        myXPos = attrs.getOptSUMORealReporting(SUMO_ATTR_X, "viewport", 0, ok, myXPos);
-        myYPos = attrs.getOptSUMORealReporting(SUMO_ATTR_Y, "viewport", 0, ok, myYPos);
+        myZoom = attrs.getOptSUMORealReporting(SUMO_ATTR_ZOOM, 0, ok, myZoom);
+        myXPos = attrs.getOptSUMORealReporting(SUMO_ATTR_X, 0, ok, myXPos);
+        myYPos = attrs.getOptSUMORealReporting(SUMO_ATTR_Y, 0, ok, myYPos);
         break;
     case SUMO_TAG_SNAPSHOT: {
         bool ok = true;
-        std::string file = attrs.getStringReporting(SUMO_ATTR_FILE, "snapshot", 0, ok);
+        std::string file = attrs.getStringReporting(SUMO_ATTR_FILE, 0, ok);
         if (file != "" && !FileHelpers::isAbsolute(file)) {
             file = FileHelpers::getConfigurationRelative(getFileName(), file);
         }
-        mySnapshots[attrs.getOptSUMOTimeReporting(SUMO_ATTR_TIME, "snapshot", file.c_str(), ok, 0)] = file;
+        mySnapshots[attrs.getOptSUMOTimeReporting(SUMO_ATTR_TIME, file.c_str(), ok, 0)] = file;
     }
     break;
     case SUMO_TAG_VIEWSETTINGS_SCHEME: {
         bool ok = true;
-        mySettings.name = attrs.getOptStringReporting(SUMO_ATTR_NAME, 0, 0, ok, mySettings.name);
+        mySettings.name = attrs.getOptStringReporting(SUMO_ATTR_NAME, 0, ok, mySettings.name);
         if (gSchemeStorage.contains(mySettings.name)) {
             mySettings = gSchemeStorage.get(mySettings.name);
         }
@@ -142,20 +142,20 @@ GUISettingsHandler::myStartElement(SumoXMLTag element,
         }
         if (myCurrentScheme && !myCurrentScheme->isFixed()) {
             bool ok = true;
-            myCurrentScheme->setInterpolated(attrs.getOptBoolReporting(SUMO_ATTR_INTERPOLATED, "colorScheme", 0, ok, false));
+            myCurrentScheme->setInterpolated(attrs.getOptBoolReporting(SUMO_ATTR_INTERPOLATED, 0, ok, false));
             myCurrentScheme->clear();
         }
         break;
     case SUMO_TAG_ENTRY:
         if (myCurrentScheme) {
             bool ok = true;
-            std::string colorStr = attrs.getStringReporting(SUMO_ATTR_COLOR, "entry", 0, ok);
-            RGBColor color = RGBColor::parseColorReporting(colorStr, "edgeColoring", 0, true, ok);
+            std::string colorStr = attrs.getStringReporting(SUMO_ATTR_COLOR, 0, ok);
+            RGBColor color = RGBColor::parseColorReporting(colorStr, attrs.getObjectType(), 0, true, ok);
             if (myCurrentScheme->isFixed()) {
                 myCurrentScheme->setColor(attrs.getStringSecure(SUMO_ATTR_NAME, ""), color);
             } else {
                 myCurrentScheme->addColor(color,
-                                          attrs.getSUMORealReporting(SUMO_ATTR_THRESHOLD, "entry", 0, ok));
+                                          attrs.getSUMORealReporting(SUMO_ATTR_THRESHOLD, 0, ok));
             }
         }
         break;

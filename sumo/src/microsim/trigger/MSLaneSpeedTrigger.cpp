@@ -141,8 +141,8 @@ MSLaneSpeedTrigger::myStartElement(SumoXMLTag element,
     }
     // extract the values
     bool ok = true;
-    SUMOTime next = attrs.getSUMOTimeReporting(SUMO_ATTR_TIME, "vss/step", getID().c_str(), ok);
-    SUMOReal speed = attrs.getOptSUMORealReporting(SUMO_ATTR_SPEED, "vss/step", getID().c_str(), ok, -1);
+    SUMOTime next = attrs.getSUMOTimeReporting(SUMO_ATTR_TIME, getID().c_str(), ok);
+    SUMOReal speed = attrs.getOptSUMORealReporting(SUMO_ATTR_SPEED, getID().c_str(), ok, -1);
     // check the values
     if (next<0) {
         MsgHandler::getErrorInstance()->inform("Wrong time in MSLaneSpeedTrigger in file '" + getFileName() + "'.");

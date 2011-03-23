@@ -120,20 +120,17 @@ RORDLoader_SUMOBase::startRoute(const SUMOSAXAttributes &attrs) {
     if (!myAltIsValid) {
         return;
     }
-    if (attrs.hasAttribute(SUMO_ATTR_COLOR)) {
-        myColor = new RGBColor(RGBColor::parseColorReporting(attrs.getString(SUMO_ATTR_COLOR), "route", 0, true, myCurrentIsOk));
-    }
     if (myCurrentAlternatives==0) {
         myCurrentIsOk = true;
         if (myVehicleParameter!=0) {
-            myCurrentRouteName = attrs.getOptStringReporting(SUMO_ATTR_ID, "route", 0, myCurrentIsOk, "!" + myVehicleParameter->id);
+            myCurrentRouteName = attrs.getOptStringReporting(SUMO_ATTR_ID, 0, myCurrentIsOk, "!" + myVehicleParameter->id);
         } else {
-            myCurrentRouteName = attrs.getStringReporting(SUMO_ATTR_ID, "route", 0, myCurrentIsOk);
+            myCurrentRouteName = attrs.getStringReporting(SUMO_ATTR_ID, 0, myCurrentIsOk);
         }
     } else {
         // parse route alternative...
-        myCost = attrs.getSUMORealReporting(SUMO_ATTR_COST, "route(alternative)", myCurrentAlternatives->getID().c_str(), myCurrentIsOk);
-        myProbability = attrs.getSUMORealReporting(SUMO_ATTR_PROB, "route(alternative)", myCurrentAlternatives->getID().c_str(), myCurrentIsOk);
+        myCost = attrs.getSUMORealReporting(SUMO_ATTR_COST, myCurrentAlternatives->getID().c_str(), myCurrentIsOk);
+        myProbability = attrs.getSUMORealReporting(SUMO_ATTR_PROB, myCurrentAlternatives->getID().c_str(), myCurrentIsOk);
         if (myCurrentIsOk&&myCost<0) {
             MsgHandler::getErrorInstance()->inform("Invalid cost in alternative for route '" + myCurrentAlternatives->getID() + "' (" + toString<SUMOReal>(myCost) + ").");
             myCurrentIsOk = false;
@@ -145,8 +142,13 @@ RORDLoader_SUMOBase::startRoute(const SUMOSAXAttributes &attrs) {
             return;
         }
     }
+    if (attrs.hasAttribute(SUMO_ATTR_COLOR)) {
+        myColor = new RGBColor(RGBColor::parseColorReporting(
+                    attrs.getString(SUMO_ATTR_COLOR), 
+                    attrs.getObjectType(), myCurrentRouteName.c_str(), true, myCurrentIsOk));
+    }
     if (attrs.hasAttribute(SUMO_ATTR_EDGES)) {
-        myCharacters(SUMO_TAG_ROUTE, attrs.getStringReporting(SUMO_ATTR_EDGES, "route", 0, myCurrentIsOk));
+        myCharacters(SUMO_TAG_ROUTE, attrs.getStringReporting(SUMO_ATTR_EDGES, myCurrentRouteName.c_str(), myCurrentIsOk));
     }
 }
 
@@ -165,13 +167,13 @@ RORDLoader_SUMOBase::startAlternative(const SUMOSAXAttributes &attrs) {
         }
         id = "!" + id;
     } else {
-        if (!attrs.setIDFromAttributes("routeDistribution", id)) {
+        if (!attrs.setIDFromAttributes(id)) {
             myCurrentIsOk = false;
             return;
         }
     }
     // try to get the index of the last element
-    int index = attrs.getIntReporting(SUMO_ATTR_LAST, "route", id.c_str(), myCurrentIsOk);
+    int index = attrs.getIntReporting(SUMO_ATTR_LAST, id.c_str(), myCurrentIsOk);
     if (myCurrentIsOk&&index<0) {
         MsgHandler::getErrorInstance()->inform("Negative index of a route alternative (id='" + id + "').");
         myCurrentIsOk = false;

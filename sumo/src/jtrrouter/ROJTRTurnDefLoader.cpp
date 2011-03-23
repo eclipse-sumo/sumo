@@ -64,8 +64,8 @@ ROJTRTurnDefLoader::myStartElement(SumoXMLTag element,
     bool ok = true;
     switch (element) {
     case SUMO_TAG_INTERVAL:
-        myIntervalBegin = attrs.getSUMOTimeReporting(SUMO_ATTR_BEGIN, "interval", 0, ok);
-        myIntervalEnd = attrs.getSUMOTimeReporting(SUMO_ATTR_END, "interval", 0, ok);
+        myIntervalBegin = attrs.getSUMOTimeReporting(SUMO_ATTR_BEGIN, 0, ok);
+        myIntervalEnd = attrs.getSUMOTimeReporting(SUMO_ATTR_END, 0, ok);
         break;
     case SUMO_TAG_FROMEDGE:
         beginFromEdge(attrs);
@@ -75,7 +75,7 @@ ROJTRTurnDefLoader::myStartElement(SumoXMLTag element,
         break;
     case SUMO_TAG_SINK:
         if (attrs.hasAttribute(SUMO_ATTR_EDGES)) {
-            std::string edges = attrs.getStringReporting(SUMO_ATTR_EDGES, "sink", 0, ok);
+            std::string edges = attrs.getStringReporting(SUMO_ATTR_EDGES, 0, ok);
             StringTokenizer st(edges, StringTokenizer::WHITECHARS);
             while (st.hasNext()) {
                 std::string id = st.next();
@@ -89,7 +89,7 @@ ROJTRTurnDefLoader::myStartElement(SumoXMLTag element,
         break;
     case SUMO_TAG_SOURCE:
         if (attrs.hasAttribute(SUMO_ATTR_EDGES)) {
-            std::string edges = attrs.getStringReporting(SUMO_ATTR_EDGES, "source", 0, ok);
+            std::string edges = attrs.getStringReporting(SUMO_ATTR_EDGES, 0, ok);
             StringTokenizer st(edges, StringTokenizer::WHITECHARS);
             while (st.hasNext()) {
                 std::string id = st.next();
@@ -146,7 +146,7 @@ ROJTRTurnDefLoader::beginFromEdge(const SUMOSAXAttributes &attrs) throw() {
     myEdge = 0;
     // get the id, report an error if not given or empty...
     std::string id;
-    if (!attrs.setIDFromAttributes("from-edge", id)) {
+    if (!attrs.setIDFromAttributes(id)) {
         return;
     }
     //
@@ -165,7 +165,7 @@ ROJTRTurnDefLoader::addToEdge(const SUMOSAXAttributes &attrs) throw() {
     }
     // get the id, report an error if not given or empty...
     std::string id;
-    if (!attrs.setIDFromAttributes("to-edge", id)) {
+    if (!attrs.setIDFromAttributes(id)) {
         return;
     }
     //
@@ -175,7 +175,7 @@ ROJTRTurnDefLoader::addToEdge(const SUMOSAXAttributes &attrs) throw() {
         return;
     }
     bool ok = true;
-    SUMOReal probability = attrs.getSUMORealReporting(SUMO_ATTR_PROB, "to-edge", id.c_str(), ok);
+    SUMOReal probability = attrs.getSUMORealReporting(SUMO_ATTR_PROB, id.c_str(), ok);
     if (ok) {
         if (probability<0) {
             MsgHandler::getErrorInstance()->inform("'probability' must be positive (in definition of to-edge '" + id + "').");

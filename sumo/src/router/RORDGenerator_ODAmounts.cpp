@@ -231,9 +231,9 @@ RORDGenerator_ODAmounts::parseFlowAmountDef(const SUMOSAXAttributes &attrs) thro
     }
     myParameter->id = id;
     bool ok = true;
-    myIntervalBegin = attrs.getOptSUMOTimeReporting(SUMO_ATTR_BEGIN, "flow", id.c_str(), ok, myUpperIntervalBegin);
-    myIntervalEnd = attrs.getOptSUMOTimeReporting(SUMO_ATTR_END, "flow", id.c_str(), ok, myUpperIntervalEnd);
-    myVehicle2InsertNumber = attrs.getIntReporting(SUMO_ATTR_NO, "flow", id.c_str(), ok); // !!! no real error handling
+    myIntervalBegin = attrs.getOptSUMOTimeReporting(SUMO_ATTR_BEGIN, id.c_str(), ok, myUpperIntervalBegin);
+    myIntervalEnd = attrs.getOptSUMOTimeReporting(SUMO_ATTR_END, id.c_str(), ok, myUpperIntervalEnd);
+    myVehicle2InsertNumber = attrs.getIntReporting(SUMO_ATTR_NO, id.c_str(), ok); // !!! no real error handling
     if (!ok) {
         throw ProcessError();
     }
@@ -246,8 +246,8 @@ RORDGenerator_ODAmounts::parseFlowAmountDef(const SUMOSAXAttributes &attrs) thro
 void
 RORDGenerator_ODAmounts::parseInterval(const SUMOSAXAttributes &attrs) {
     bool ok = true;
-    myUpperIntervalBegin = attrs.getOptSUMOTimeReporting(SUMO_ATTR_BEGIN, "interval", 0, ok, -1); // !!!really optional ?
-    myUpperIntervalEnd = attrs.getOptSUMOTimeReporting(SUMO_ATTR_END, "interval", 0, ok, -1); // !!!really optional ?
+    myUpperIntervalBegin = attrs.getOptSUMOTimeReporting(SUMO_ATTR_BEGIN, 0, ok, -1); // !!!really optional ?
+    myUpperIntervalEnd = attrs.getOptSUMOTimeReporting(SUMO_ATTR_END, 0, ok, -1); // !!!really optional ?
 }
 
 

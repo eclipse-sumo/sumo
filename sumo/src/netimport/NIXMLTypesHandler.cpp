@@ -65,7 +65,7 @@ NIXMLTypesHandler::myStartElement(SumoXMLTag element,
     }
     // get the id, report a warning if not given or empty...
     std::string id;
-    if (!attrs.setIDFromAttributes("type", id), false) {
+    if (!attrs.setIDFromAttributes(id), false) {
         WRITE_WARNING("No type id given... Skipping.");
         return;
     }
@@ -76,13 +76,13 @@ NIXMLTypesHandler::myStartElement(SumoXMLTag element,
     }
 
     bool ok = true;
-    int priority = attrs.getOptIntReporting(SUMO_ATTR_PRIORITY, "type", id.c_str(), ok, myTypeCont.getDefaultPriority());
-    int noLanes = attrs.getOptIntReporting(SUMO_ATTR_NOLANES, "type", id.c_str(), ok, myTypeCont.getDefaultNoLanes());
-    SUMOReal speed = attrs.getOptSUMORealReporting(SUMO_ATTR_SPEED, "type", id.c_str(), ok, (SUMOReal) myTypeCont.getDefaultSpeed());
-    std::string allowS = attrs.getOptStringReporting(SUMO_ATTR_ALLOW, "type", id.c_str(), ok, "");
-    std::string disallowS = attrs.getOptStringReporting(SUMO_ATTR_DISALLOW, "type", id.c_str(), ok, "");
-    bool oneway = attrs.getOptBoolReporting(SUMO_ATTR_ONEWAY, "type", id.c_str(), ok, false);
-    bool discard = attrs.getOptBoolReporting(SUMO_ATTR_DISCARD, "type", id.c_str(), ok, false);
+    int priority = attrs.getOptIntReporting(SUMO_ATTR_PRIORITY, id.c_str(), ok, myTypeCont.getDefaultPriority());
+    int noLanes = attrs.getOptIntReporting(SUMO_ATTR_NOLANES, id.c_str(), ok, myTypeCont.getDefaultNoLanes());
+    SUMOReal speed = attrs.getOptSUMORealReporting(SUMO_ATTR_SPEED, id.c_str(), ok, (SUMOReal) myTypeCont.getDefaultSpeed());
+    std::string allowS = attrs.getOptStringReporting(SUMO_ATTR_ALLOW, id.c_str(), ok, "");
+    std::string disallowS = attrs.getOptStringReporting(SUMO_ATTR_DISALLOW, id.c_str(), ok, "");
+    bool oneway = attrs.getOptBoolReporting(SUMO_ATTR_ONEWAY, id.c_str(), ok, false);
+    bool discard = attrs.getOptBoolReporting(SUMO_ATTR_DISCARD, id.c_str(), ok, false);
     if (!ok) {
         return;
     }

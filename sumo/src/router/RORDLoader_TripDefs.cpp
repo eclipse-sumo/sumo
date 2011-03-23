@@ -71,7 +71,7 @@ RORDLoader_TripDefs::myStartElement(SumoXMLTag element,
         // get the vehicle id, the edges, the speed and position and
         //  the departure time and other information
         std::string id = getVehicleID(attrs);
-        myDepartureTime = attrs.getSUMOTimeReporting(SUMO_ATTR_DEPART, "tripdef", id.c_str(), ok);
+        myDepartureTime = attrs.getSUMOTimeReporting(SUMO_ATTR_DEPART, id.c_str(), ok);
         if (myWithTaz) {
             myBeginEdge = getEdge(attrs, "origin", SUMO_ATTR_FROM_TAZ, id, false);
             myEndEdge = getEdge(attrs, "destination", SUMO_ATTR_TO_TAZ, id, myEmptyDestinationsAllowed);
@@ -103,7 +103,7 @@ std::string
 RORDLoader_TripDefs::getVehicleID(const SUMOSAXAttributes &attrs) {
     // get the id, report an error if not given or empty...
     std::string id;
-    attrs.setIDFromAttributes("tripdef", id, false);
+    attrs.setIDFromAttributes(id, false);
     // get a valid vehicle id
     if (id=="") {
         id = myIdSupplier.getNext();
@@ -119,7 +119,7 @@ RORDLoader_TripDefs::getEdge(const SUMOSAXAttributes &attrs,
                              bool emptyAllowed) {
     UNUSED_PARAMETER(purpose);
     bool ok = true;
-    std::string id = attrs.getStringReporting(which, 0, 0, ok, !emptyAllowed);
+    std::string id = attrs.getStringReporting(which, 0, ok, !emptyAllowed);
     if (which == SUMO_ATTR_FROM_TAZ) {
         id += "-source";
     }
@@ -142,7 +142,7 @@ RORDLoader_TripDefs::getPeriod(const SUMOSAXAttributes &attrs,
     }
     // get the repetition period
     bool ok = true;
-    return attrs.getSUMOTimeReporting(SUMO_ATTR_PERIOD, "tripdef", id.c_str(), ok);
+    return attrs.getSUMOTimeReporting(SUMO_ATTR_PERIOD, id.c_str(), ok);
 }
 
 
@@ -154,14 +154,14 @@ RORDLoader_TripDefs::getRepetitionNumber(const SUMOSAXAttributes &attrs,
     }
     // get the repetition number
     bool ok = true;
-    return attrs.getIntReporting(SUMO_ATTR_REPNUMBER, "tripdef", id.c_str(), ok);
+    return attrs.getIntReporting(SUMO_ATTR_REPNUMBER, id.c_str(), ok);
 }
 
 
 std::string
 RORDLoader_TripDefs::getLane(const SUMOSAXAttributes &attrs) {
     bool ok = true;
-    return attrs.getOptStringReporting(SUMO_ATTR_LANE, 0, 0, ok, "");
+    return attrs.getOptStringReporting(SUMO_ATTR_LANE, 0, ok, "");
 }
 
 

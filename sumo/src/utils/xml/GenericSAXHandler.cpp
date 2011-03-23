@@ -103,7 +103,7 @@ GenericSAXHandler::startElement(const XMLCh* const /*uri*/,
     std::string name = TplConvert<XMLCh>::_2str(qname);
     SumoXMLTag element = convertTag(name);
     myCharactersVector.clear();
-    SUMOSAXAttributesImpl_Xerces na(attrs, myPredefinedTags, myPredefinedTagsMML);
+    SUMOSAXAttributesImpl_Xerces na(attrs, myPredefinedTags, myPredefinedTagsMML, name);
     if (element == SUMO_TAG_INCLUDE) {
         std::string file = na.getString(SUMO_ATTR_HREF);
         if (!FileHelpers::isAbsolute(file)) {
