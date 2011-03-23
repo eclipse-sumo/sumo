@@ -57,17 +57,17 @@
       <lane id="source_0" depart="1" maxspeed="13.90" length="498.50" shape="0.00,-1.65 498.50,-1.65"/>
    </edge>
 
-   <row-logic id="dl" requestSize="2" laneNumber="2">
+   <row-logic id="dl" requestSize="2">
       <logicitem request="0" response="10" foes="10" cont="0"/>
       <logicitem request="1" response="00" foes="01" cont="0"/>
    </row-logic>
-   <row-logic id="dr" requestSize="1" laneNumber="1">
+   <row-logic id="dr" requestSize="1">
       <logicitem request="0" response="0" foes="0" cont="0"/>
    </row-logic>
-   <row-logic id="tl" requestSize="1" laneNumber="1">
+   <row-logic id="tl" requestSize="1">
       <logicitem request="0" response="0" foes="0" cont="0"/>
    </row-logic>
-   <row-logic id="tr" requestSize="1" laneNumber="1">
+   <row-logic id="tr" requestSize="1">
       <logicitem request="0" response="0" foes="0" cont="0"/>
    </row-logic>
 

@@ -480,14 +480,14 @@
       </cedge>
    </edge>
 
-   <row-logic id="0/0" requestSize="4" laneNumber="2">
+   <row-logic id="0/0" requestSize="4">
       <logicitem request="0" response="0000" foes="1000"/>
       <logicitem request="1" response="0100" foes="0100"/>
       <logicitem request="2" response="0000" foes="0010"/>
       <logicitem request="3" response="0001" foes="0001"/>
    </row-logic>
 
-   <row-logic id="0/1" requestSize="9" laneNumber="3">
+   <row-logic id="0/1" requestSize="9">
       <logicitem request="0" response="000000000" foes="100010000"/>
       <logicitem request="1" response="011000000" foes="011110000"/>
       <logicitem request="2" response="010001000" foes="010001000"/>
@@ -499,14 +499,14 @@
       <logicitem request="8" response="000010001" foes="000010001"/>
    </row-logic>
 
-   <row-logic id="0/2" requestSize="4" laneNumber="2">
+   <row-logic id="0/2" requestSize="4">
       <logicitem request="0" response="0000" foes="1000"/>
       <logicitem request="1" response="0100" foes="0100"/>
       <logicitem request="2" response="0000" foes="0010"/>
       <logicitem request="3" response="0001" foes="0001"/>
    </row-logic>
 
-   <row-logic id="1/0" requestSize="9" laneNumber="3">
+   <row-logic id="1/0" requestSize="9">
       <logicitem request="0" response="000000000" foes="100010000"/>
       <logicitem request="1" response="011000000" foes="011110000"/>
       <logicitem request="2" response="010001000" foes="010001000"/>
@@ -518,7 +518,7 @@
       <logicitem request="8" response="000010001" foes="000010001"/>
    </row-logic>
 
-   <row-logic id="1/1" requestSize="16" laneNumber="4">
+   <row-logic id="1/1" requestSize="16">
       <logicitem request="0" response="0000000000000000" foes="1000010000100000"/>
       <logicitem request="1" response="0111000000000000" foes="0111110001100000"/>
       <logicitem request="2" response="0110001100000000" foes="0110001111100000"/>
@@ -537,7 +537,7 @@
       <logicitem request="15" response="0000010000100001" foes="0000010000100001"/>
    </row-logic>
 
-   <row-logic id="1/2" requestSize="9" laneNumber="3">
+   <row-logic id="1/2" requestSize="9">
       <logicitem request="0" response="000000000" foes="100010000"/>
       <logicitem request="1" response="011000000" foes="011110000"/>
       <logicitem request="2" response="010001000" foes="010001000"/>
@@ -549,7 +549,7 @@
       <logicitem request="8" response="000010001" foes="000010001"/>
    </row-logic>
 
-   <row-logic id="2/0" requestSize="9" laneNumber="3">
+   <row-logic id="2/0" requestSize="9">
       <logicitem request="0" response="000000000" foes="100010000"/>
       <logicitem request="1" response="011000000" foes="011110000"/>
       <logicitem request="2" response="010001000" foes="010001000"/>
@@ -561,7 +561,7 @@
       <logicitem request="8" response="000010001" foes="000010001"/>
    </row-logic>
 
-   <row-logic id="2/1" requestSize="16" laneNumber="4">
+   <row-logic id="2/1" requestSize="16">
       <logicitem request="0" response="0000000000000000" foes="1000010000100000"/>
       <logicitem request="1" response="0111000000000000" foes="0111110001100000"/>
       <logicitem request="2" response="0110001100000000" foes="0110001111100000"/>
@@ -580,7 +580,7 @@
       <logicitem request="15" response="0000010000100001" foes="0000010000100001"/>
    </row-logic>
 
-   <row-logic id="2/2" requestSize="9" laneNumber="3">
+   <row-logic id="2/2" requestSize="9">
       <logicitem request="0" response="000000000" foes="100010000"/>
       <logicitem request="1" response="011000000" foes="011110000"/>
       <logicitem request="2" response="010001000" foes="010001000"/>
@@ -592,7 +592,7 @@
       <logicitem request="8" response="000010001" foes="000010001"/>
    </row-logic>
 
-   <row-logic id="3/0" requestSize="9" laneNumber="3">
+   <row-logic id="3/0" requestSize="9">
       <logicitem request="0" response="000000000" foes="100010000"/>
       <logicitem request="1" response="011000000" foes="011110000"/>
       <logicitem request="2" response="010001000" foes="010001000"/>
@@ -604,7 +604,7 @@
       <logicitem request="8" response="000010001" foes="000010001"/>
    </row-logic>
 
-   <row-logic id="3/1" requestSize="16" laneNumber="4">
+   <row-logic id="3/1" requestSize="16">
       <logicitem request="0" response="0000000000000000" foes="1000010000100000"/>
       <logicitem request="1" response="0111000000000000" foes="0111110001100000"/>
       <logicitem request="2" response="0110001100000000" foes="0110001111100000"/>
@@ -623,7 +623,7 @@
       <logicitem request="15" response="0000010000100001" foes="0000010000100001"/>
    </row-logic>
 
-   <row-logic id="3/2" requestSize="9" laneNumber="3">
+   <row-logic id="3/2" requestSize="9">
       <logicitem request="0" response="000000000" foes="100010000"/>
       <logicitem request="1" response="011000000" foes="011110000"/>
       <logicitem request="2" response="010001000" foes="010001000"/>
@@ -635,14 +635,14 @@
       <logicitem request="8" response="000010001" foes="000010001"/>
    </row-logic>
 
-   <row-logic id="4/0" requestSize="4" laneNumber="2">
+   <row-logic id="4/0" requestSize="4">
       <logicitem request="0" response="0000" foes="1000"/>
       <logicitem request="1" response="0100" foes="0100"/>
       <logicitem request="2" response="0000" foes="0010"/>
       <logicitem request="3" response="0001" foes="0001"/>
    </row-logic>
 
-   <row-logic id="4/1" requestSize="9" laneNumber="3">
+   <row-logic id="4/1" requestSize="9">
       <logicitem request="0" response="000000000" foes="100010000"/>
       <logicitem request="1" response="011000000" foes="011110000"/>
       <logicitem request="2" response="010001000" foes="010001000"/>
@@ -654,7 +654,7 @@
       <logicitem request="8" response="000010001" foes="000010001"/>
    </row-logic>
 
-   <row-logic id="4/2" requestSize="4" laneNumber="2">
+   <row-logic id="4/2" requestSize="4">
       <logicitem request="0" response="0000" foes="1000"/>
       <logicitem request="1" response="0100" foes="0100"/>
       <logicitem request="2" response="0000" foes="0010"/>

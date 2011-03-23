@@ -30,7 +30,7 @@
       <lane id="out_0" depart="1" maxspeed="13.90" length="1.00" shape="5.00,-1.65 6.00,-1.65"/>
    </edge>
 
-   <row-logic id="2" requestSize="1" laneNumber="1">
+   <row-logic id="2" requestSize="1">
       <logicitem request="0" response="0" foes="0"/>
    </row-logic>
 

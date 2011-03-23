@@ -102,40 +102,40 @@
       <lane id="c_0" depart="1" maxspeed="36.00" length="500.00" shape="3500.00,-1.65 4000.00,-1.65"/>
    </edge>
 
-   <row-logic id="a1" requestSize="1" laneNumber="1">
+   <row-logic id="a1" requestSize="1">
       <logicitem request="0" response="0" foes="0" cont="0"/>
    </row-logic>
-   <row-logic id="a2" requestSize="1" laneNumber="1">
+   <row-logic id="a2" requestSize="1">
       <logicitem request="0" response="0" foes="0" cont="0"/>
    </row-logic>
-   <row-logic id="a3" requestSize="1" laneNumber="1">
+   <row-logic id="a3" requestSize="1">
       <logicitem request="0" response="0" foes="0" cont="0"/>
    </row-logic>
-   <row-logic id="a4" requestSize="1" laneNumber="1">
+   <row-logic id="a4" requestSize="1">
       <logicitem request="0" response="0" foes="0" cont="0"/>
    </row-logic>
-   <row-logic id="a5" requestSize="1" laneNumber="1">
+   <row-logic id="a5" requestSize="1">
       <logicitem request="0" response="0" foes="0" cont="0"/>
    </row-logic>
-   <row-logic id="a6" requestSize="1" laneNumber="1">
+   <row-logic id="a6" requestSize="1">
       <logicitem request="0" response="0" foes="0" cont="0"/>
    </row-logic>
-   <row-logic id="b1" requestSize="1" laneNumber="1">
+   <row-logic id="b1" requestSize="1">
       <logicitem request="0" response="0" foes="0" cont="0"/>
    </row-logic>
-   <row-logic id="b2" requestSize="1" laneNumber="1">
+   <row-logic id="b2" requestSize="1">
       <logicitem request="0" response="0" foes="0" cont="0"/>
    </row-logic>
-   <row-logic id="b3" requestSize="1" laneNumber="1">
+   <row-logic id="b3" requestSize="1">
       <logicitem request="0" response="0" foes="0" cont="0"/>
    </row-logic>
-   <row-logic id="b4" requestSize="1" laneNumber="1">
+   <row-logic id="b4" requestSize="1">
       <logicitem request="0" response="0" foes="0" cont="0"/>
    </row-logic>
-   <row-logic id="b5" requestSize="1" laneNumber="1">
+   <row-logic id="b5" requestSize="1">
       <logicitem request="0" response="0" foes="0" cont="0"/>
    </row-logic>
-   <row-logic id="b6" requestSize="1" laneNumber="1">
+   <row-logic id="b6" requestSize="1">
       <logicitem request="0" response="0" foes="0" cont="0"/>
    </row-logic>
 

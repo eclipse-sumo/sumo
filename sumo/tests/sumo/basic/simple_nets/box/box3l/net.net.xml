@@ -83,22 +83,22 @@
       <lane id="3_2" depart="0" maxspeed="36.00" length="480.30" shape="490.15,1.65 9.85,1.65"/>
    </edge>
 
-   <row-logic id="0" requestSize="3" laneNumber="3">
+   <row-logic id="0" requestSize="3">
       <logicitem request="0" response="000" foes="000" cont="0"/>
       <logicitem request="1" response="000" foes="000" cont="0"/>
       <logicitem request="2" response="000" foes="000" cont="0"/>
    </row-logic>
-   <row-logic id="1" requestSize="3" laneNumber="3">
+   <row-logic id="1" requestSize="3">
       <logicitem request="0" response="000" foes="000" cont="0"/>
       <logicitem request="1" response="000" foes="000" cont="0"/>
       <logicitem request="2" response="000" foes="000" cont="0"/>
    </row-logic>
-   <row-logic id="2" requestSize="3" laneNumber="3">
+   <row-logic id="2" requestSize="3">
       <logicitem request="0" response="000" foes="000" cont="0"/>
       <logicitem request="1" response="000" foes="000" cont="0"/>
       <logicitem request="2" response="000" foes="000" cont="0"/>
    </row-logic>
-   <row-logic id="3" requestSize="3" laneNumber="3">
+   <row-logic id="3" requestSize="3">
       <logicitem request="0" response="000" foes="000" cont="0"/>
       <logicitem request="1" response="000" foes="000" cont="0"/>
       <logicitem request="2" response="000" foes="000" cont="0"/>

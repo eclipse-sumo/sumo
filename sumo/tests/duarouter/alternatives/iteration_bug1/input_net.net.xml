@@ -197,55 +197,55 @@
       <lane id="L9_2" depart="0" maxspeed="13.89" length="688.65" shape="300.00,1998.35 988.65,1998.35"/>
    </edge>
 
-   <row-logic id="11" requestSize="3" laneNumber="3">
+   <row-logic id="11" requestSize="3">
       <logicitem request="0" response="000" foes="000"/>
       <logicitem request="1" response="000" foes="000"/>
       <logicitem request="2" response="000" foes="000"/>
    </row-logic>
 
-   <row-logic id="12" requestSize="3" laneNumber="3">
+   <row-logic id="12" requestSize="3">
       <logicitem request="0" response="000" foes="000"/>
       <logicitem request="1" response="000" foes="000"/>
       <logicitem request="2" response="000" foes="000"/>
    </row-logic>
 
-   <row-logic id="13" requestSize="3" laneNumber="3">
+   <row-logic id="13" requestSize="3">
       <logicitem request="0" response="000" foes="000"/>
       <logicitem request="1" response="000" foes="000"/>
       <logicitem request="2" response="000" foes="000"/>
    </row-logic>
 
-   <row-logic id="14" requestSize="3" laneNumber="3">
+   <row-logic id="14" requestSize="3">
       <logicitem request="0" response="000" foes="000"/>
       <logicitem request="1" response="000" foes="000"/>
       <logicitem request="2" response="000" foes="000"/>
    </row-logic>
 
-   <row-logic id="15" requestSize="3" laneNumber="3">
+   <row-logic id="15" requestSize="3">
       <logicitem request="0" response="000" foes="000"/>
       <logicitem request="1" response="000" foes="000"/>
       <logicitem request="2" response="000" foes="000"/>
    </row-logic>
 
-   <row-logic id="16" requestSize="3" laneNumber="3">
+   <row-logic id="16" requestSize="3">
       <logicitem request="0" response="000" foes="000"/>
       <logicitem request="1" response="000" foes="000"/>
       <logicitem request="2" response="000" foes="000"/>
    </row-logic>
 
-   <row-logic id="17" requestSize="3" laneNumber="3">
+   <row-logic id="17" requestSize="3">
       <logicitem request="0" response="000" foes="000"/>
       <logicitem request="1" response="000" foes="000"/>
       <logicitem request="2" response="000" foes="000"/>
    </row-logic>
 
-   <row-logic id="18" requestSize="3" laneNumber="3">
+   <row-logic id="18" requestSize="3">
       <logicitem request="0" response="000" foes="000"/>
       <logicitem request="1" response="000" foes="000"/>
       <logicitem request="2" response="000" foes="000"/>
    </row-logic>
 
-   <row-logic id="20" requestSize="21" laneNumber="12">
+   <row-logic id="20" requestSize="21">
       <logicitem request="0" response="000000000000000000000" foes="100000100000011000000"/>
       <logicitem request="1" response="000000000000000000000" foes="011111100001111000000"/>
       <logicitem request="2" response="000000000000000000000" foes="011111100001111000000"/>
@@ -269,7 +269,7 @@
       <logicitem request="20" response="000000100000010000000" foes="000000100000011000001"/>
    </row-logic>
 
-   <row-logic id="21" requestSize="21" laneNumber="12">
+   <row-logic id="21" requestSize="21">
       <logicitem request="0" response="000000000000000000000" foes="100000100000100000000"/>
       <logicitem request="1" response="000000000000000000000" foes="011111100001100000000"/>
       <logicitem request="2" response="000000000000000000000" foes="011111100001100000000"/>
@@ -293,7 +293,7 @@
       <logicitem request="20" response="000000100000000000000" foes="000000100000100000001"/>
    </row-logic>
 
-   <row-logic id="22" requestSize="21" laneNumber="12">
+   <row-logic id="22" requestSize="21">
       <logicitem request="0" response="000000000000000000000" foes="100000010000011000000"/>
       <logicitem request="1" response="000000000000000000000" foes="100000010000011000000"/>
       <logicitem request="2" response="000000000000000000000" foes="011111110000111000000"/>
@@ -317,7 +317,7 @@
       <logicitem request="20" response="000000010000010000000" foes="000000010000011000011"/>
    </row-logic>
 
-   <row-logic id="23" requestSize="21" laneNumber="12">
+   <row-logic id="23" requestSize="21">
       <logicitem request="0" response="000000000000000000000" foes="100000110000011000000"/>
       <logicitem request="1" response="000000000000000000000" foes="011111110000111000000"/>
       <logicitem request="2" response="000000000000000000000" foes="011111110000111000000"/>
@@ -341,49 +341,49 @@
       <logicitem request="20" response="000000100000010000000" foes="000000110000011000001"/>
    </row-logic>
 
-   <row-logic id="91" requestSize="3" laneNumber="3">
+   <row-logic id="91" requestSize="3">
       <logicitem request="0" response="111" foes="000"/>
       <logicitem request="1" response="111" foes="000"/>
       <logicitem request="2" response="000" foes="000"/>
    </row-logic>
 
-   <row-logic id="92" requestSize="3" laneNumber="3">
+   <row-logic id="92" requestSize="3">
       <logicitem request="0" response="111" foes="000"/>
       <logicitem request="1" response="111" foes="000"/>
       <logicitem request="2" response="000" foes="000"/>
    </row-logic>
 
-   <row-logic id="93" requestSize="3" laneNumber="3">
+   <row-logic id="93" requestSize="3">
       <logicitem request="0" response="111" foes="000"/>
       <logicitem request="1" response="111" foes="000"/>
       <logicitem request="2" response="000" foes="000"/>
    </row-logic>
 
-   <row-logic id="94" requestSize="3" laneNumber="3">
+   <row-logic id="94" requestSize="3">
       <logicitem request="0" response="111" foes="000"/>
       <logicitem request="1" response="111" foes="000"/>
       <logicitem request="2" response="000" foes="000"/>
    </row-logic>
 
-   <row-logic id="95" requestSize="3" laneNumber="3">
+   <row-logic id="95" requestSize="3">
       <logicitem request="0" response="111" foes="000"/>
       <logicitem request="1" response="111" foes="000"/>
       <logicitem request="2" response="000" foes="000"/>
    </row-logic>
 
-   <row-logic id="96" requestSize="3" laneNumber="3">
+   <row-logic id="96" requestSize="3">
       <logicitem request="0" response="111" foes="000"/>
       <logicitem request="1" response="111" foes="000"/>
       <logicitem request="2" response="000" foes="000"/>
    </row-logic>
 
-   <row-logic id="97" requestSize="3" laneNumber="3">
+   <row-logic id="97" requestSize="3">
       <logicitem request="0" response="111" foes="000"/>
       <logicitem request="1" response="111" foes="000"/>
       <logicitem request="2" response="000" foes="000"/>
    </row-logic>
 
-   <row-logic id="98" requestSize="3" laneNumber="3">
+   <row-logic id="98" requestSize="3">
       <logicitem request="0" response="111" foes="000"/>
       <logicitem request="1" response="111" foes="000"/>
       <logicitem request="2" response="000" foes="000"/>

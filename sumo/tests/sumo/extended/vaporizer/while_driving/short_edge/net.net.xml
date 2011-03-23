@@ -42,10 +42,10 @@
       <lane id="middle_0" depart="1" maxspeed="27.80" length="2.00" shape="500.00,-1.65 502.00,-1.65"/>
    </edge>
 
-   <row-logic id="c2" requestSize="1" laneNumber="1">
+   <row-logic id="c2" requestSize="1">
       <logicitem request="0" response="0" foes="0" cont="0"/>
    </row-logic>
-   <row-logic id="center" requestSize="1" laneNumber="1">
+   <row-logic id="center" requestSize="1">
       <logicitem request="0" response="0" foes="0" cont="0"/>
    </row-logic>
 

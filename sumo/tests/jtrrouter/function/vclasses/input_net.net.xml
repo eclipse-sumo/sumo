@@ -75,22 +75,22 @@
       <lane id="rend_1" depart="0" maxspeed="27.80" length="500.00" shape="2000.00,-1.65 2500.00,-1.65"/>
    </edge>
 
-   <row-logic id="absEnd" requestSize="2" laneNumber="2">
+   <row-logic id="absEnd" requestSize="2">
       <logicitem request="0" response="00" foes="00" cont="0"/>
       <logicitem request="1" response="00" foes="00" cont="0"/>
    </row-logic>
-   <row-logic id="beg" requestSize="2" laneNumber="2">
+   <row-logic id="beg" requestSize="2">
       <logicitem request="0" response="00" foes="00" cont="0"/>
       <logicitem request="1" response="00" foes="00" cont="0"/>
    </row-logic>
-   <row-logic id="begleft" requestSize="1" laneNumber="1">
+   <row-logic id="begleft" requestSize="1">
       <logicitem request="0" response="0" foes="0" cont="0"/>
    </row-logic>
-   <row-logic id="end" requestSize="2" laneNumber="2">
+   <row-logic id="end" requestSize="2">
       <logicitem request="0" response="00" foes="10" cont="0"/>
       <logicitem request="1" response="00" foes="01" cont="0"/>
    </row-logic>
-   <row-logic id="endleft" requestSize="1" laneNumber="1">
+   <row-logic id="endleft" requestSize="1">
       <logicitem request="0" response="0" foes="0" cont="0"/>
    </row-logic>
 
@@ -159,4 +159,3 @@
    </succ>
 
 </net>
-
