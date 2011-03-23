@@ -246,16 +246,17 @@ public:
      *  for both, an InvalidArgument exception is thrown. If none is known, also.
      *
      * If one of the synonymes is known and the other not, the option from the known
-     *  one is made accessable by the other.
+     *  one is made accessible by the other.
      *
      * In the case both synonymes are known and have the same option assigned, nothing
      *  is done.
      *
      * @param[in] name1 The first synonyme
      * @param[in] name2 The second synonyme
+     * @param[in] isDeprecated whether the synonyme is considered deprecated
      * @exception InvalidArgument If none of the synonymes or both synonymes with different options were registered before
      */
-    void addSynonyme(const std::string &name1, const std::string &name2) throw(InvalidArgument);
+    void addSynonyme(const std::string &name1, const std::string &name2, bool isDeprecated=false) throw(InvalidArgument);
 
 
     /** @brief Adds a description for an option
@@ -652,6 +653,9 @@ private:
 
     /// A map from subtopic to option
     std::map<std::string, std::vector<std::string> > mySubTopicEntries;
+
+    /// A map from deprecated options to a bool indicating whether we warned about deprecation
+    mutable std::map<std::string, bool> myDeprecatedSynonymes;
 
     /// Information whether a warning a deprecated divider
     mutable bool myHaveInformedAboutDeprecatedDivider;

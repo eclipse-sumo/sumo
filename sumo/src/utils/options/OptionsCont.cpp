@@ -65,7 +65,7 @@ OptionsCont::getOptions() throw() {
 
 
 OptionsCont::OptionsCont() throw()
-        : myAddresses(), myValues(), myHaveInformedAboutDeprecatedDivider(false) {
+        : myAddresses(), myValues(), myDeprecatedSynonymes(), myHaveInformedAboutDeprecatedDivider(false) {
     myCopyrightNotices.push_back("Copyright (C) 2001-2011 DLR and contributors; http://sumo.sourceforge.net");
 }
 
@@ -97,7 +97,7 @@ OptionsCont::doRegister(const std::string &name1, char abbr, Option *v) throw(In
 
 
 void
-OptionsCont::addSynonyme(const std::string &name1, const std::string &name2) throw(InvalidArgument) {
+OptionsCont::addSynonyme(const std::string &name1, const std::string &name2, bool isDeprecated) throw(InvalidArgument) {
     KnownContType::iterator i1 = myValues.find(name1);
     KnownContType::iterator i2 = myValues.find(name2);
     if (i1==myValues.end()&&i2==myValues.end()) {
@@ -111,9 +111,15 @@ OptionsCont::addSynonyme(const std::string &name1, const std::string &name2) thr
     }
     if (i1==myValues.end()&&i2!=myValues.end()) {
         doRegister(name1, (*i2).second);
+        if (isDeprecated) {
+            myDeprecatedSynonymes[name1] = false;
+        }
     }
     if (i1!=myValues.end()&&i2==myValues.end()) {
         doRegister(name2, (*i1).second);
+        if (isDeprecated) {
+            myDeprecatedSynonymes[name2] = false;
+        }
     }
 }
 
@@ -147,11 +153,27 @@ OptionsCont::isDefault(const std::string &name) const throw(InvalidArgument) {
 
 Option *
 OptionsCont::getSecure(const std::string &name) const throw(InvalidArgument) {
-    KnownContType::const_iterator i = myValues.find(name);
-    if (i==myValues.end()) {
+    KnownContType::const_iterator k = myValues.find(name);
+    if (k==myValues.end()) {
         throw InvalidArgument("No option with the name '" + name + "' exists.");
     }
-    return (*i).second;
+    std::map<std::string, bool>::iterator s = myDeprecatedSynonymes.find(name);
+    if (s != myDeprecatedSynonymes.end() && !s->second) {
+        std::string defaultName;
+        for (std::map<std::string, std::vector<std::string> >::const_iterator i=mySubTopicEntries.begin(); i!=mySubTopicEntries.end(); ++i) {
+            for (std::vector<std::string>::const_iterator j=i->second.begin(); j!=i->second.end(); ++j) {
+                KnownContType::const_iterator l = myValues.find(*j);
+                if (l != myValues.end() && l->second == k->second) {
+                    defaultName = *j;
+                    break;
+                }
+            }
+            if (defaultName != "") break;
+        }
+        WRITE_WARNING("Please note that '" + name + "' is deprecated.\n Use '" + defaultName + "' instead.");
+        s->second = true;
+    }
+    return k->second;
 }
 
 
@@ -227,7 +249,7 @@ operator<<(std::ostream& os, const OptionsCont& oc) {
     std::vector<std::string> done;
     os << "Options set:" << std::endl;
     for (OptionsCont::KnownContType::const_iterator i=oc.myValues.begin();
-            i!=oc.myValues.end(); i++) {
+         i!=oc.myValues.end(); i++) {
         std::vector<std::string>::iterator j = find(done.begin(), done.end(), (*i).first);
         if (j==done.end()) {
             std::vector<std::string> synonymes = oc.getSynonymes((*i).first);
@@ -487,19 +509,18 @@ OptionsCont::processMetaOptions(bool missingOptions) throw(ProcessError) {
         return true;
     }
 
-    OptionsCont &oc = OptionsCont::getOptions();
     // check whether the help shall be printed
-    if (oc.getBool("help")) {
+    if (getBool("help")) {
         std::cout << myFullName << std::endl;
         for (std::vector<std::string>::const_iterator it =
                     myCopyrightNotices.begin(); it != myCopyrightNotices.end(); ++it) {
             std::cout << " " << *it << std::endl;
         }
-        oc.printHelp(std::cout);
+        printHelp(std::cout);
         return true;
     }
     // check whether the help shall be printed
-    if (oc.getBool("version")) {
+    if (getBool("version")) {
         std::cout << myFullName << std::endl;
         for (std::vector<std::string>::const_iterator it =
                     myCopyrightNotices.begin(); it != myCopyrightNotices.end(); ++it) {
@@ -518,44 +539,44 @@ OptionsCont::processMetaOptions(bool missingOptions) throw(ProcessError) {
         return true;
     }
     // check whether the settings shall be printed
-    if (oc.exists("print-options") && oc.getBool("print-options")) {
-        std::cout << oc;
+    if (exists("print-options") && getBool("print-options")) {
+        std::cout << (*this);
     }
     // check whether something has to be done with options
     // whether the current options shall be saved
-    if (oc.isSet("save-configuration")) {
-        std::ofstream out(oc.getString("save-configuration").c_str());
+    if (isSet("save-configuration")) {
+        std::ofstream out(getString("save-configuration").c_str());
         if (!out.good()) {
-            throw ProcessError("Could not save configuration to '" + oc.getString("save-configuration") + "'");
+            throw ProcessError("Could not save configuration to '" + getString("save-configuration") + "'");
         } else {
-            oc.writeConfiguration(out, true, false, oc.getBool("save-commented"));
-            if (oc.getBool("verbose")) {
-                MsgHandler::getMessageInstance()->inform("Written configuration to '" + oc.getString("save-configuration") + "'");
+            writeConfiguration(out, true, false, getBool("save-commented"));
+            if (getBool("verbose")) {
+                MsgHandler::getMessageInstance()->inform("Written configuration to '" + getString("save-configuration") + "'");
             }
             return true;
         }
     }
     // whether the template shall be saved
-    if (oc.isSet("save-template")) {
-        std::ofstream out(oc.getString("save-template").c_str());
+    if (isSet("save-template")) {
+        std::ofstream out(getString("save-template").c_str());
         if (!out.good()) {
-            throw ProcessError("Could not save template to '" + oc.getString("save-template") + "'");
+            throw ProcessError("Could not save template to '" + getString("save-template") + "'");
         } else {
-            oc.writeConfiguration(out, false, true, oc.getBool("save-commented"));
-            if (oc.getBool("verbose")) {
-                MsgHandler::getMessageInstance()->inform("Written template to '" + oc.getString("save-template") + "'");
+            writeConfiguration(out, false, true, getBool("save-commented"));
+            if (getBool("verbose")) {
+                MsgHandler::getMessageInstance()->inform("Written template to '" + getString("save-template") + "'");
             }
             return true;
         }
     }
-    if (oc.isSet("save-schema")) {
-        std::ofstream out(oc.getString("save-schema").c_str());
+    if (isSet("save-schema")) {
+        std::ofstream out(getString("save-schema").c_str());
         if (!out.good()) {
-            throw ProcessError("Could not save schema to '" + oc.getString("save-schema") + "'");
+            throw ProcessError("Could not save schema to '" + getString("save-schema") + "'");
         } else {
-            oc.writeSchema(out, oc.getBool("save-commented"));
-            if (oc.getBool("verbose")) {
-                MsgHandler::getMessageInstance()->inform("Written schema to '" + oc.getString("save-schema") + "'");
+            writeSchema(out, getBool("save-commented"));
+            if (getBool("verbose")) {
+                MsgHandler::getMessageInstance()->inform("Written schema to '" + getString("save-schema") + "'");
             }
             return true;
         }
@@ -568,7 +589,7 @@ OptionsCont::printHelp(std::ostream &os) throw() {
     std::vector<std::string>::const_iterator i, j;
     // print application description
     os << ' ' << std::endl;
-    splitLines(os, myAppDescription , 0, 0);
+    splitLines(os, myAppDescription, 0, 0);
     os << std::endl;
     // print usage BNF
     os << "Usage: " << myAppName << " [OPTION]*" << std::endl;
@@ -661,11 +682,10 @@ OptionsCont::printHelp(std::ostream &os) throw() {
 void
 OptionsCont::writeConfiguration(std::ostream &os, bool filled,
                                 bool complete, bool addComments) throw() {
-    std::vector<std::string>::const_iterator i, j;
     // to the best of our knowledge files are written in latin-1 on windows and linux
     os << "<?xml version=\"1.0\" encoding=\"iso-8859-1\"?>\n\n";
     os << "<configuration xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"http://sumo.sf.net/xsd/" << myAppName << "Configuration.xsd\">" << std::endl << std::endl;
-    for (i=mySubTopics.begin(); i!=mySubTopics.end(); ++i) {
+    for (std::vector<std::string>::const_iterator i=mySubTopics.begin(); i!=mySubTopics.end(); ++i) {
         std::string subtopic = *i;
         if (subtopic=="Configuration") {
             continue;
@@ -674,7 +694,7 @@ OptionsCont::writeConfiguration(std::ostream &os, bool filled,
         std::transform(subtopic.begin(), subtopic.end(), subtopic.begin(), tolower);
         const std::vector<std::string> &entries = mySubTopicEntries[*i];
         bool hadOne = false;
-        for (j=entries.begin(); j!=entries.end(); ++j) {
+        for (std::vector<std::string>::const_iterator j=entries.begin(); j!=entries.end(); ++j) {
             Option *o = getSecure(*j);
             bool write = complete || (filled&&!o->isDefault());
             if (!write) {
@@ -691,6 +711,18 @@ OptionsCont::writeConfiguration(std::ostream &os, bool filled,
             os << "        <" << *j << " value=\"";
             if (o->isSet()) {
                 os << o->getValueString();
+            }
+            if (complete) {
+                std::vector<std::string> synonymes = getSynonymes(*j);
+                if (!synonymes.empty()) {
+                    os << "\" synonymes=\"";
+                    for (std::vector<std::string>::const_iterator s=synonymes.begin(); s!=synonymes.end(); ++s) {
+                        if (s != synonymes.begin()) {
+                            os << " ";
+                        }
+                        os << (*s);
+                    }
+                }
             }
             os << "\"/>" << std::endl;
             // append an endline if a comment was printed

@@ -52,21 +52,23 @@ RandHelper::insertRandOptions() {
     // registers random number options
     oc.addOptionSubTopic("Random Number");
 
-    oc.doRegister("srand", new Option_Integer(23423));
-    oc.addDescription("srand", "Random Number", "Initialises the random number generator with the given value");
+    oc.doRegister("random", new Option_Bool(false));
+    oc.addSynonyme("random", "abs-rand", true);
+    oc.addDescription("random", "Random Number", "Initialises the random number generator with the current system time");
 
-    oc.doRegister("abs-rand", new Option_Bool(false));
-    oc.addDescription("abs-rand", "Random Number", "Initialises the random number generator with the current system time");
+    oc.doRegister("seed", new Option_Integer(23423));
+    oc.addSynonyme("seed", "srand", true);
+    oc.addDescription("seed", "Random Number", "Initialises the random number generator with the given value");
 }
 
 
 void
 RandHelper::initRandGlobal() {
     OptionsCont &oc = OptionsCont::getOptions();
-    if (oc.getBool("abs-rand")) {
+    if (oc.getBool("random")) {
         myRandomNumberGenerator.seed();
     } else {
-        myRandomNumberGenerator.seed(oc.getInt("srand"));
+        myRandomNumberGenerator.seed(oc.getInt("seed"));
     }
 }
 
