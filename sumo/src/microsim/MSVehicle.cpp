@@ -627,6 +627,7 @@ MSVehicle::moveRegardingCritical(SUMOTime t, const MSLane* const lane,
             vWish = MIN2(vWish, vsafeStop);
         }
         vWish = MAX2((SUMOReal) 0, vWish);
+        assert(vWish >= cfModel.getSpeedAfterMaxDecel(myState.mySpeed));
         myLFLinkLanes.push_back(DriveProcessItem(0, vWish, vWish, false, 0, 0, myLane->getLength()-myState.myPos));
     } else {
         // compute other values as in move
@@ -997,6 +998,7 @@ MSVehicle::vsafeCriticalCont(SUMOTime t, SUMOReal boundVSafe) {
     //
     if (this!=myLane->getFirstVehicle() && seen - cfModel.brakeGap(myState.mySpeed) > 0 && seen - SPEED2DIST(boundVSafe) - ACCEL2DIST(cfModel.getMaxAccel()) > 0) {
         // not "reaching critical"
+        assert(boundVSafe >= cfModel.getSpeedAfterMaxDecel(myState.mySpeed));
         myLFLinkLanes.push_back(DriveProcessItem(0, boundVSafe, boundVSafe, false, 0, 0, seen));
         return;
     }
@@ -1040,6 +1042,7 @@ MSVehicle::vsafeCriticalCont(SUMOTime t, SUMOReal boundVSafe) {
                 }
             }
             // the vehicle will not drive further
+            assert(MIN2(vLinkPass, laneEndVSafe) >= cfModel.getSpeedAfterMaxDecel(myState.mySpeed));
             myLFLinkLanes.push_back(DriveProcessItem(0, MIN2(vLinkPass, laneEndVSafe), MIN2(vLinkPass, laneEndVSafe), false, 0, 0, seen));
             return;
         }
@@ -1086,6 +1089,7 @@ MSVehicle::vsafeCriticalCont(SUMOTime t, SUMOReal boundVSafe) {
         // if the link may not be used (is blocked by another vehicle) then let the
         //  vehicle decelerate until the end of the street
         vLinkWait = MIN3(vLinkPass, vLinkWait, cfModel.ffeS(this, seen));
+        assert(vLinkWait >= cfModel.getSpeedAfterMaxDecel(myState.mySpeed));
 
         // behaviour in front of not priorised intersections (waiting for priorised foe vehicles)
         bool setRequest = false;
@@ -1113,12 +1117,14 @@ MSVehicle::vsafeCriticalCont(SUMOTime t, SUMOReal boundVSafe) {
         if ((yellow||red)&&seen>cfModel.brakeGap(myState.mySpeed)-SPEED2DIST(myState.mySpeed)*cfModel.getTau()) { // !!! we should reuse brakeGap with no reaction time...
             vLinkPass = vLinkWait;
             setRequest = false;
+            assert(vLinkWait >= cfModel.getSpeedAfterMaxDecel(myState.mySpeed));
             myLFLinkLanes.push_back(DriveProcessItem(*link, vLinkWait, vLinkWait, false, t+TIME2STEPS(seen / vLinkPass), vLinkPass, seen));
         }
         // the next condition matches the previously one used for determining the difference
         //  between critical/non-critical vehicles. Though, one should assume that a vehicle
         //  should want to move over an intersection even though it could brake before it!?
         setRequest &= dist-seen>0;
+        assert(MIN2(vLinkPass, vLinkWait) >= cfModel.getSpeedAfterMaxDecel(myState.mySpeed));
         myLFLinkLanes.push_back(DriveProcessItem(*link, vLinkPass, vLinkWait, setRequest, t + TIME2STEPS(seen / vLinkPass), vLinkPass, seen));
         seen += nextLane->getLength();
         seenNonInternal += nextLane->getEdge().getPurpose()==MSEdge::EDGEFUNCTION_INTERNAL ? 0 : nextLane->getLength();
