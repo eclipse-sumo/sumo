@@ -1,7 +1,9 @@
 <?xml version="1.0"?>
 
-<!-- generated on 08/13/10 21:10:11 by SUMO netgen Version dev-SVN-r8487
-<configuration>
+<!-- generated on 03/23/11 09:42:46 by SUMO netgen Version dev-SVN-r9962
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netgenConfiguration.xsd">
 
     <random_network>
         <random-net value="true"/>
@@ -109,7 +111,7 @@
    <junction id="24" type="DEAD_END" x="489.95" y="551.41" incLanes="25_0" intLanes="" shape="492.68,549.65 489.99,551.38"/>
    <junction id="37" type="DEAD_END" x="169.57" y="10.38" incLanes="38_0" intLanes="" shape="166.54,11.54 169.52,10.40"/>
    <junction id="6" type="DEAD_END" x="165.61" y="574.23" incLanes="7_0" intLanes="" shape="168.86,574.18 165.66,574.23"/>
-   <junction id="8" type="priority" x="373.91" y="370.80" incLanes="9_0" intLanes=":8_0_0 :8_1_0 :8_2_0" shape="375.07,372.51 377.76,370.78 378.34,368.96 377.14,365.99 368.93,364.18 366.36,366.09 365.76,367.24 365.63,370.43"/>
+   <junction id="8" type="traffic_light" x="373.91" y="370.80" incLanes="9_0" intLanes=":8_0_0 :8_1_0 :8_2_0" shape="375.07,372.51 377.76,370.78 378.34,368.96 377.14,365.99 368.93,364.18 366.36,366.09 365.76,367.24 365.63,370.43"/>
 
    <succ edge="11" lane="11_0" junction="10">
       <succlane lane="SUMO_NO_DESTINATION" yield="1" dir="s" state="O"/>

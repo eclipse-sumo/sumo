@@ -1,7 +1,9 @@
 <?xml version="1.0"?>
 
-<!-- generated on 08/13/10 21:10:11 by SUMO netgen Version dev-SVN-r8487
-<configuration>
+<!-- generated on 03/23/11 09:42:45 by SUMO netgen Version dev-SVN-r9962
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netgenConfiguration.xsd">
 
     <grid_network>
         <grid-net value="true"/>
@@ -406,7 +408,7 @@
       <phase duration="4" state="yryy"/>
    </tl-logic>
 
-   <junction id="0/0" type="priority" x="0.00" y="0.00" incLanes="0/1to0/0_0 1/0to0/0_0" intLanes=":0/0_0_0 :0/0_4_0 :0/0_2_0 :0/0_5_0" shape="-3.25,3.25 3.25,3.25 3.25,-3.25"/>
+   <junction id="0/0" type="traffic_light" x="0.00" y="0.00" incLanes="0/1to0/0_0 1/0to0/0_0" intLanes=":0/0_0_0 :0/0_4_0 :0/0_2_0 :0/0_5_0" shape="-3.25,3.25 3.25,3.25 3.25,-3.25"/>
    <junction id="0/1" type="priority" x="0.00" y="40.00" incLanes="0/2to0/1_0 1/1to0/1_0 0/0to0/1_0" intLanes=":0/1_0_0 :0/1_1_0 :0/1_2_0 :0/1_3_0 :0/1_4_0 :0/1_5_0 :0/1_6_0 :0/1_7_0 :0/1_8_0" shape="-3.25,44.75 3.25,44.75 4.75,43.25 4.75,36.75 3.25,35.25 -3.25,35.25"/>
    <junction id="0/2" type="priority" x="0.00" y="80.00" incLanes="1/2to0/2_0 0/1to0/2_0" intLanes=":0/2_0_0 :0/2_1_0 :0/2_2_0 :0/2_3_0" shape="3.25,83.25 3.25,76.75 -3.25,76.75"/>
    <junction id="1/0" type="priority" x="40.00" y="0.00" incLanes="1/1to1/0_0 2/0to1/0_0 0/0to1/0_0" intLanes=":1/0_0_0 :1/0_1_0 :1/0_2_0 :1/0_3_0 :1/0_4_0 :1/0_5_0 :1/0_6_0 :1/0_7_0 :1/0_8_0" shape="36.75,4.75 43.25,4.75 44.75,3.25 44.75,-3.25 35.25,-3.25 35.25,3.25"/>
