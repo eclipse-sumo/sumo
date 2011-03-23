@@ -1,5 +1,5 @@
-# whether emission is implemented as described in specification
-emission
+# whether departure is implemented as described in specification
+departure
 
 # tests for the arrival part of the specification
 arrival
