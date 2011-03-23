@@ -1,6 +1,3 @@
-# Tests a simple one vehicle subscription
-simple
-
 # Tests the lane API
 lane
 
@@ -9,6 +6,9 @@ edge
 
 # Tests the vehicle API
 vehicle
+
+# Tests the vehicletype API
+vehicletype
 
 # Tests the junction API
 junction

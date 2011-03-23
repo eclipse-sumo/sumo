@@ -5,7 +5,6 @@ step 2
 trafficlights ['0']
 examining 0
 ryg GGggrrrrGGggrrrr
-pby ['0000111100001111', '0000001100000011', '0000000000000000']
 rygdef [Logic:
 subID: horizontal
 type: 0

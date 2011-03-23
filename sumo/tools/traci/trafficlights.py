@@ -89,7 +89,6 @@ def _readLinks(result):
 
 RETURN_VALUE_FUNC = {tc.ID_LIST:                     traci.Storage.readStringList,
                      tc.TL_RED_YELLOW_GREEN_STATE:   traci.Storage.readString,
-                     tc.TL_PHASE_BRAKE_YELLOW_STATE: traci.Storage.readStringList,
                      tc.TL_COMPLETE_DEFINITION_RYG:  _readLogics,
                      tc.TL_CONTROLLED_LANES:         traci.Storage.readStringList,
                      tc.TL_CONTROLLED_LINKS:         _readLinks,
@@ -107,9 +106,6 @@ def getIDList():
 
 def getRedYellowGreenState(tlsID):
     return _getUniversal(tc.TL_RED_YELLOW_GREEN_STATE, tlsID)
-
-def getPhaseBrakeYellowState(tlsID):
-    return _getUniversal(tc.TL_PHASE_BRAKE_YELLOW_STATE, tlsID)
 
 def getCompleteRedYellowGreenDefinition(tlsID):
     return _getUniversal(tc.TL_COMPLETE_DEFINITION_RYG, tlsID)

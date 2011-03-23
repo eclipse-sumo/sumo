@@ -16,7 +16,6 @@ print "trafficlights", traci.trafficlights.getIDList()
 tlsID = "0"
 print "examining", tlsID
 print "ryg", traci.trafficlights.getRedYellowGreenState(tlsID)
-print "pby", traci.trafficlights.getPhaseBrakeYellowState(tlsID)
 print "rygdef", traci.trafficlights.getCompleteRedYellowGreenDefinition(tlsID)
 print "lanes", traci.trafficlights.getControlledLanes(tlsID)
 print "links", traci.trafficlights.getControlledLinks(tlsID)

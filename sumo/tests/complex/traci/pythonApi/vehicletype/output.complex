@@ -1,0 +1,25 @@
+Loading configuration... done.
+step 0
+step 1
+step 2
+vehicletypes ['DEFAULT_VEHTYPE']
+examining DEFAULT_VEHTYPE
+length 7.5
+maxSpeed 70.0
+accel 2.59999990463
+decel 4.5
+tau 1.0
+vClass 
+emissionclass 
+shape 
+guiOffset 2.5
+width 2.0
+color (255, 255, 0, 255)
+{65: 70.0}
+step 3
+{65: 70.0}
+step 4
+{65: 70.0}
+step 5
+{65: 70.0}
+(14, 127, 0) OK Goodbye
