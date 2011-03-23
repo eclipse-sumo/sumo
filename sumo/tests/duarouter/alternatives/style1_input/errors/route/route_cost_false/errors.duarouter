@@ -1,2 +1,2 @@
-Error: Attribute 'cost' in definition of route(alternative) '1' is not a real number.
+Error: Attribute 'cost' in definition of route '1' is not a real number.
 Quitting (on error).

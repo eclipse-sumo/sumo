@@ -1,4 +1,4 @@
-Error: Attribute 'arrivalpos' in definition of a vehicle is empty.
+Error: Attribute 'arrivalpos' in definition of a flow is empty.
 Error: The loader for flows from file 'input_flows.flows.xml' could not be initialised;
  Reason: Invalid arrivalpos definition for vehicle 0.
 Quitting (on error).

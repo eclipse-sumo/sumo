@@ -1,4 +1,4 @@
-Error: Attribute 'arrivalspeed' in definition of a vehicle is empty.
+Error: Attribute 'arrivalspeed' in definition of a flow is empty.
 Error: The loader for flows from file 'input_flows.flows.xml' could not be initialised;
  Reason: Invalid arrivalspeed definition for vehicle 0.
 Quitting (on error).

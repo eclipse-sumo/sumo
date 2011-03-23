@@ -1,2 +1,2 @@
-Error: Attribute 'freq' in definition of e1-detector '4/1to3/1' is not a time value.
+Error: Attribute 'freq' in definition of detector '4/1to3/1' is not a time value.
 Quitting (on error).

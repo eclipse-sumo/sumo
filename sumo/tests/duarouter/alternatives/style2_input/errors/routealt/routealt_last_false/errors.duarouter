@@ -1,2 +1,2 @@
-Error: Attribute 'last' in definition of route '!1' is not an int.
+Error: Attribute 'last' in definition of routeDistribution '!1' is not an int.
 Quitting (on error).
