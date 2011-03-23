@@ -21,7 +21,7 @@ a['junction'] = ( 'id', 'type', 'x', 'y', 'incLanes', 'intLanes', 'shape' )
 a['logicitem'] = ( 'request', 'response', 'foes', 'cont' )
 a['succ'] = ( 'edge', 'lane', 'junction' )
 a['succlane'] = ( 'lane', 'via', 'tl', 'linkno', 'yield', 'dir', 'state', 'int_end' )
-a['row-logic'] = ( 'id', 'requestSize', 'laneNumber' )
+a['row-logic'] = ( 'id', 'requestSize' )
 a['tl-logic'] = ( 'id', 'type', 'programID', 'offset' )
 a['location'] = ( 'netOffset', 'convBoundary', 'origBoundary', 'projParameter' )
 a['phase'] = ( 'duration', 'state', 'minDur', 'maxDur' )
@@ -77,6 +77,7 @@ class NetConverter(handler.ContentHandler):
         self._content = ""
 
         if name in r:
+            print "Hallo!"
             return
         self.intend()
         self.checkWrite("<" + name)
