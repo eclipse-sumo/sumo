@@ -81,15 +81,15 @@
       <lane id="9_0" depart="1" maxspeed="13.90" length="198.74" shape="167.10,361.30 365.69,368.84"/>
    </edge>
 
-   <row-logic id="12" requestSize="2" laneNumber="2">
+   <row-logic id="12" requestSize="2">
       <logicitem request="0" response="10" foes="10" cont="0"/>
       <logicitem request="1" response="00" foes="01" cont="0"/>
    </row-logic>
-   <row-logic id="2" requestSize="2" laneNumber="1">
+   <row-logic id="2" requestSize="2">
       <logicitem request="0" response="00" foes="00" cont="0"/>
       <logicitem request="1" response="00" foes="00" cont="0"/>
    </row-logic>
-   <row-logic id="8" requestSize="3" laneNumber="1">
+   <row-logic id="8" requestSize="3">
       <logicitem request="0" response="000" foes="000" cont="0"/>
       <logicitem request="1" response="000" foes="000" cont="0"/>
       <logicitem request="2" response="000" foes="000" cont="0"/>
