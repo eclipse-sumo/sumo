@@ -73,7 +73,6 @@ StringBijection<SumoXMLTag>::Entry SUMOXMLDefinitions::tags[] = {
     { "succlane",         SUMO_TAG_SUCCLANE },
     { "key",              SUMO_TAG_KEY },
     { "requestsize",      SUMO_TAG_REQUESTSIZE },
-    { "lanenumber",       SUMO_TAG_LANENUMBER },
     { "logicitem",        SUMO_TAG_LOGICITEM },
     { "row-logic",        SUMO_TAG_ROWLOGIC },
     { "source",           SUMO_TAG_SOURCE },
@@ -221,7 +220,6 @@ StringBijection<SumoXMLAttr>::Entry SUMOXMLDefinitions::attrs[] = {
 
     { "key",            SUMO_ATTR_KEY },
     { "requestSize",    SUMO_ATTR_REQUESTSIZE },
-    { "laneNumber",     SUMO_ATTR_LANENUMBER },
     { "request",        SUMO_ATTR_REQUEST },
     { "response",       SUMO_ATTR_RESPONSE },
     { "programID",      SUMO_ATTR_PROGRAMID },

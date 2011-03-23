@@ -162,9 +162,8 @@ public:
     /** @brief Initialises a junction logic
      * @param[in] id The id of the row-logic
      * @param[in] requestSize The number of links participating in this row-logic
-     * @param[in] laneNumber The number of lanes participating in this row-logic
      */
-    void initJunctionLogic(const std::string &id, int requestSize, int laneNumber) throw();
+    void initJunctionLogic(const std::string &id, int requestSize) throw();
 
 
     /** @brief Adds a logic item
@@ -216,14 +215,6 @@ public:
      * @todo Where does this information come from?
      */
     void setRequestSize(int size) throw();
-
-
-    /** @brief Sets the lane number the parsed logic will be responsible for
-     *
-     * @param[in] size The number of lanes controlled by the junction
-     * @todo This information is not used anymore!
-     */
-    void setLaneNumber(int size) throw();
 
 
     /** @brief Set the key of the logic
@@ -408,9 +399,6 @@ protected:
 
     /// @brief The size of the request
     int myRequestSize;
-
-    /// @brief The number of lanes
-    int myLaneNumber;
 
     /// @brief Counter for the inserted items
     int myRequestItemNumber;

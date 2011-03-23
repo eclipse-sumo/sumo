@@ -63,11 +63,10 @@ public:
 public:
     /// Use this constructor only.
     MSBitSetLogic(unsigned int nLinks,
-                  unsigned int nInLanes,
                   Logic* logic,
                   Foes *foes,
                   std::bitset<64> conts)
-            : MSJunctionLogic(nLinks, nInLanes), myLogic(logic),
+            : MSJunctionLogic(nLinks), myLogic(logic),
             myInternalLinksFoes(foes), myConts(conts) {}
 
 

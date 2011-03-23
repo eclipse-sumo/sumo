@@ -49,16 +49,8 @@ MSJunctionLogic::nLinks() {
 }
 
 
-unsigned int
-MSJunctionLogic::nInLanes() {
-    return myNInLanes;
-}
-
-
-MSJunctionLogic::MSJunctionLogic(unsigned int nLinks,
-                                 unsigned int nInLanes) :
-        myNLinks(nLinks),
-        myNInLanes(nInLanes) {}
+MSJunctionLogic::MSJunctionLogic(unsigned int nLinks) :
+        myNLinks(nLinks) {}
 
 
 MSJunctionLogic::~MSJunctionLogic() {}

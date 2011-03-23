@@ -304,9 +304,6 @@ private:
     /// sets the request size of the current junction logic
     void setRequestSize(const std::string &chars);
 
-    /// sets the lane number of the current junction logic
-    void setLaneNumber(const std::string &chars);
-
     /// sets the key of the current junction logic
     void setKey(const std::string &chars);
 

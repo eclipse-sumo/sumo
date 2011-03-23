@@ -107,8 +107,6 @@ enum SumoXMLTag {
     SUMO_TAG_ROWLOGIC,
     /** the request size (of a junction logic) */
     SUMO_TAG_REQUESTSIZE,
-    /** the number of lanes */
-    SUMO_TAG_LANENUMBER,
     /** description of a single junction logic part */
     SUMO_TAG_LOGICITEM,
     /** a source */
@@ -301,7 +299,6 @@ enum SumoXMLAttr {
     /* sumo-junction attributes */
     SUMO_ATTR_KEY,
     SUMO_ATTR_REQUESTSIZE,
-    SUMO_ATTR_LANENUMBER,
     SUMO_ATTR_REQUEST,
     SUMO_ATTR_RESPONSE,
     SUMO_ATTR_PROGRAMID,

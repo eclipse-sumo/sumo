@@ -249,11 +249,6 @@ NLHandler::myCharacters(SumoXMLTag element,
             setRequestSize(chars);
         }
         break;
-    case SUMO_TAG_LANENUMBER:
-        if (myJunctionControlBuilder.getActiveKey().length()!=0) {
-            setLaneNumber(chars);
-        }
-        break;
     case SUMO_TAG_KEY:
         setKey(chars);
         break;
@@ -709,7 +704,7 @@ void
 NLHandler::initJunctionLogic(const SUMOSAXAttributes &attrs) {
     if (!attrs.hasAttribute(SUMO_ATTR_ID)) {
         // @deprecated: assuming a net could still use characters for the id
-        myJunctionControlBuilder.initJunctionLogic("", -1, -1);
+        myJunctionControlBuilder.initJunctionLogic("", -1);
         return;
     }
     // get the id, report an error if not given or empty...
@@ -719,9 +714,8 @@ NLHandler::initJunctionLogic(const SUMOSAXAttributes &attrs) {
     }
     bool ok = true;
     int requestSize = attrs.getIntReporting(SUMO_ATTR_REQUESTSIZE, "row-logic", id.c_str(), ok);
-    int laneNumber = attrs.getIntReporting(SUMO_ATTR_LANENUMBER, "row-logic", id.c_str(), ok);
     if (ok) {
-        myJunctionControlBuilder.initJunctionLogic(id, requestSize, laneNumber);
+        myJunctionControlBuilder.initJunctionLogic(id, requestSize);
     }
 }
 
@@ -1268,19 +1262,6 @@ NLHandler::setRequestSize(const std::string &chars) {
         myJunctionControlBuilder.setRequestSize(TplConvert<char>::_2int(chars.c_str()));
     } catch (EmptyData &) {
         MsgHandler::getErrorInstance()->inform("Missing request size.");
-    } catch (NumberFormatException &) {
-        MsgHandler::getErrorInstance()->inform("One of an edge's SUMOSAXAttributes must be numeric but is not.");
-    }
-}
-
-
-void
-NLHandler::setLaneNumber(const std::string &chars) {
-    // @deprecated: assuming a net could still use characters for the lane number
-    try {
-        myJunctionControlBuilder.setLaneNumber(TplConvert<char>::_2int(chars.c_str()));
-    } catch (EmptyData &) {
-        MsgHandler::getErrorInstance()->inform("Missing lane number.");
     } catch (NumberFormatException &) {
         MsgHandler::getErrorInstance()->inform("One of an edge's SUMOSAXAttributes must be numeric but is not.");
     }

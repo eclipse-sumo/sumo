@@ -330,8 +330,7 @@ NBRequest::bitsetToXML(std::string key) {
     assert(absNoLinks>=absNoLanes);
     os << "   <" << SUMOXMLDefinitions::Tags.getString(SUMO_TAG_ROWLOGIC) << " " 
         << SUMOXMLDefinitions::Attrs.getString(SUMO_ATTR_ID) << "=\"" << key << "\" "
-        << SUMOXMLDefinitions::Attrs.getString(SUMO_ATTR_REQUESTSIZE) << "=\"" << absNoLinks << "\" "
-        << SUMOXMLDefinitions::Attrs.getString(SUMO_ATTR_LANENUMBER) << "=\"" << absNoLanes << "\">" 
+        << SUMOXMLDefinitions::Attrs.getString(SUMO_ATTR_REQUESTSIZE) << "=\"" << absNoLinks << "\">" 
         << std::endl;
     int pos = 0;
     // save the logic

@@ -48,9 +48,6 @@ public:
     /// Returns the logic's number of links.
     unsigned int nLinks();
 
-    /// Returns the logic's number of inLanes.
-    unsigned int nInLanes();
-
     /// Returns the foes of the given link
     virtual const MSLogicJunction::LinkFoes &getFoesFor(unsigned int linkIndex) const throw() {
         UNUSED_PARAMETER(linkIndex);
@@ -80,13 +77,10 @@ public:
 
 protected:
     /// Constructor.
-    MSJunctionLogic(unsigned int nLinks, unsigned int nInLanes);
+    MSJunctionLogic(unsigned int nLinks);
 
     /// The logic's number of links.
     unsigned int myNLinks;
-
-    /// The logic's number of inLanes.
-    unsigned int myNInLanes;
 
     /// @brief A dummy foe container
     static MSLogicJunction::LinkFoes myDummyFoes;

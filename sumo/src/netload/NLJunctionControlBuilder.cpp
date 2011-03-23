@@ -298,14 +298,13 @@ NLJunctionControlBuilder::closeTrafficLightLogic() throw(InvalidArgument, Proces
 
 
 void
-NLJunctionControlBuilder::initJunctionLogic(const std::string &id, int requestSize, int laneNumber) throw() {
+NLJunctionControlBuilder::initJunctionLogic(const std::string &id, int requestSize) throw() {
     myActiveKey = id;
     myActiveProgram = "";
     myActiveLogic = new MSBitsetLogic::Logic();
     myActiveFoes = new MSBitsetLogic::Foes();
     myActiveConts.reset();
     myRequestSize = requestSize;
-    myLaneNumber = laneNumber;
     myRequestItemNumber = 0;
     myCurrentHasError = false;
     if (myRequestSize>0) {
@@ -394,13 +393,6 @@ NLJunctionControlBuilder::setRequestSize(int size) throw() {
 
 
 void
-NLJunctionControlBuilder::setLaneNumber(int val) throw() {
-    // @deprecated: assuming a net could still use characters for the lane number
-    myLaneNumber = val;
-}
-
-
-void
 NLJunctionControlBuilder::setOffset(int val) throw() {
     // @deprecated: assuming a net could still use characters for the offset
     myOffset = val;
@@ -430,8 +422,7 @@ NLJunctionControlBuilder::closeJunctionLogic() throw(InvalidArgument) {
     if (myRequestItemNumber!=myRequestSize) {
         throw InvalidArgument("The description for the junction logic '" + myActiveKey + "' is malicious.");
     }
-    MSJunctionLogic *logic =
-        new MSBitsetLogic(myRequestSize, myLaneNumber, myActiveLogic, myActiveFoes, myActiveConts);
+    MSJunctionLogic *logic = new MSBitsetLogic(myRequestSize, myActiveLogic, myActiveFoes, myActiveConts);
     if (myLogics.find(myActiveKey)!=myLogics.end()) {
         throw InvalidArgument("Junction logic '" + myActiveKey + "' was defined twice.");
     }
