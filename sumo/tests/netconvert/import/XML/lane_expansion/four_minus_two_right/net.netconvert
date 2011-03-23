@@ -36,7 +36,7 @@
       <lane id="1.50_1" depart="0" maxspeed="28.00" length="48.50" shape="51.50,-1.65 100.00,-1.65"/>
    </edge>
 
-   <row-logic id="1.50" requestSize="4" laneNumber="4">
+   <row-logic id="1.50" requestSize="4">
       <logicitem request="0" response="1111" foes="0000" cont="0"/>
       <logicitem request="1" response="1111" foes="0000" cont="0"/>
       <logicitem request="2" response="0000" foes="0000" cont="0"/>

@@ -65,14 +65,14 @@
       <lane id="153120299_1" depart="0" maxspeed="13.89" length="198.28" shape="239.88,155.22 405.90,263.62"/>
    </edge>
 
-   <row-logic id="15030102" requestSize="5" laneNumber="3">
+   <row-logic id="15030102" requestSize="5">
       <logicitem request="0" response="00000" foes="01000" cont="0"/>
       <logicitem request="1" response="00000" foes="01000" cont="0"/>
       <logicitem request="2" response="00000" foes="11000" cont="0"/>
       <logicitem request="3" response="00111" foes="00111" cont="1"/>
       <logicitem request="4" response="00100" foes="00100" cont="1"/>
    </row-logic>
-   <row-logic id="15034045" requestSize="1" laneNumber="1">
+   <row-logic id="15034045" requestSize="1">
       <logicitem request="0" response="0" foes="0" cont="0"/>
    </row-logic>
 

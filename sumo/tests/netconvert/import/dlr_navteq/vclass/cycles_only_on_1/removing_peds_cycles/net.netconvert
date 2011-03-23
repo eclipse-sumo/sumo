@@ -69,7 +69,7 @@
       <lane id="4_1" depart="0" allow="passenger hov public_emergency taxi public_transport bus delivery transport" maxspeed="33.33" length="13400.94" shape="16589.90,-0.05 17008.63,13394.35"/>
    </edge>
 
-   <row-logic id="0" requestSize="17" laneNumber="7">
+   <row-logic id="0" requestSize="17">
       <logicitem request="0" response="00000000000000000" foes="10000000110000000"/>
       <logicitem request="1" response="01111110000000000" foes="01111111110000000"/>
       <logicitem request="2" response="01111110000000000" foes="01111111110000000"/>
@@ -88,17 +88,17 @@
       <logicitem request="15" response="00000000000000000" foes="00000000111011110"/>
       <logicitem request="16" response="00000000110000001" foes="00000000110000001"/>
    </row-logic>
-   <row-logic id="2" requestSize="3" laneNumber="3">
+   <row-logic id="2" requestSize="3">
       <logicitem request="0" response="111" foes="000"/>
       <logicitem request="1" response="111" foes="000"/>
       <logicitem request="2" response="000" foes="000"/>
    </row-logic>
-   <row-logic id="3" requestSize="3" laneNumber="3">
+   <row-logic id="3" requestSize="3">
       <logicitem request="0" response="111" foes="000"/>
       <logicitem request="1" response="111" foes="000"/>
       <logicitem request="2" response="000" foes="000"/>
    </row-logic>
-   <row-logic id="4" requestSize="3" laneNumber="3">
+   <row-logic id="4" requestSize="3">
       <logicitem request="0" response="111" foes="000"/>
       <logicitem request="1" response="111" foes="000"/>
       <logicitem request="2" response="000" foes="000"/>

@@ -87,7 +87,7 @@
       <lane id="4o_0" depart="1" maxspeed="5.56" length="45.25" shape="51.65,54.75 51.65,100.00"/>
    </edge>
 
-   <row-logic id="0" requestSize="12" laneNumber="4">
+   <row-logic id="0" requestSize="12">
       <logicitem request="0" response="000000010000" foes="100010010000" cont="0"/>
       <logicitem request="1" response="011000110000" foes="011110110000" cont="0"/>
       <logicitem request="2" response="010001001000" foes="010001001000" cont="0"/>
@@ -101,13 +101,13 @@
       <logicitem request="10" response="000000011000" foes="000011011110" cont="0"/>
       <logicitem request="11" response="000010010001" foes="000010010001" cont="0"/>
    </row-logic>
-   <row-logic id="1" requestSize="1" laneNumber="1">
+   <row-logic id="1" requestSize="1">
       <logicitem request="0" response="0" foes="0" cont="0"/>
    </row-logic>
-   <row-logic id="3" requestSize="1" laneNumber="1">
+   <row-logic id="3" requestSize="1">
       <logicitem request="0" response="0" foes="0" cont="0"/>
    </row-logic>
-   <row-logic id="4" requestSize="1" laneNumber="1">
+   <row-logic id="4" requestSize="1">
       <logicitem request="0" response="0" foes="0" cont="0"/>
    </row-logic>
 

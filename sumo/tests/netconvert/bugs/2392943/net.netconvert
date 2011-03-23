@@ -70,30 +70,30 @@
       <lane id="s4_2" depart="0" maxspeed="30.00" length="483.82" shape="483.82,1.65 0.00,1.65"/>
    </edge>
 
-   <row-logic id="2" requestSize="4" laneNumber="4">
+   <row-logic id="2" requestSize="4">
       <logicitem request="0" response="0000" foes="0000"/>
       <logicitem request="1" response="0000" foes="0000"/>
       <logicitem request="2" response="0000" foes="0000"/>
       <logicitem request="3" response="0000" foes="0000"/>
    </row-logic>
-   <row-logic id="3" requestSize="3" laneNumber="3">
+   <row-logic id="3" requestSize="3">
       <logicitem request="0" response="000" foes="000"/>
       <logicitem request="1" response="000" foes="000"/>
       <logicitem request="2" response="000" foes="000"/>
    </row-logic>
-   <row-logic id="4" requestSize="4" laneNumber="4">
+   <row-logic id="4" requestSize="4">
       <logicitem request="0" response="0000" foes="1110"/>
       <logicitem request="1" response="0000" foes="0001"/>
       <logicitem request="2" response="0000" foes="0001"/>
       <logicitem request="3" response="0000" foes="0001"/>
    </row-logic>
-   <row-logic id="s2-AddedOnRampNode" requestSize="4" laneNumber="4">
+   <row-logic id="s2-AddedOnRampNode" requestSize="4">
       <logicitem request="0" response="1111" foes="0000"/>
       <logicitem request="1" response="0000" foes="0000"/>
       <logicitem request="2" response="0000" foes="0000"/>
       <logicitem request="3" response="0000" foes="0000"/>
    </row-logic>
-   <row-logic id="s3-AddedOffRampNode" requestSize="4" laneNumber="3">
+   <row-logic id="s3-AddedOffRampNode" requestSize="4">
       <logicitem request="0" response="0000" foes="0000"/>
       <logicitem request="1" response="0000" foes="0000"/>
       <logicitem request="2" response="0000" foes="0000"/>

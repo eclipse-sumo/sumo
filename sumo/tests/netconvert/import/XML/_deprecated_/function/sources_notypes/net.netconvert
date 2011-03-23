@@ -45,21 +45,21 @@
       <lane id="source_1" depart="0" maxspeed="40.00" length="498.50" shape="0.00,-1.65 498.50,-1.65"/>
    </edge>
 
-   <row-logic id="dl" requestSize="3" laneNumber="3">
+   <row-logic id="dl" requestSize="3">
       <logicitem request="0" response="100" foes="100"/>
       <logicitem request="1" response="111" foes="000"/>
       <logicitem request="2" response="000" foes="001"/>
    </row-logic>
-   <row-logic id="dr" requestSize="4" laneNumber="1">
+   <row-logic id="dr" requestSize="4">
       <logicitem request="0" response="0000" foes="0000"/>
       <logicitem request="1" response="0000" foes="0000"/>
       <logicitem request="2" response="0000" foes="0000"/>
       <logicitem request="3" response="0000" foes="0000"/>
    </row-logic>
-   <row-logic id="tl" requestSize="1" laneNumber="1">
+   <row-logic id="tl" requestSize="1">
       <logicitem request="0" response="0" foes="0"/>
    </row-logic>
-   <row-logic id="tr" requestSize="1" laneNumber="1">
+   <row-logic id="tr" requestSize="1">
       <logicitem request="0" response="0" foes="0"/>
    </row-logic>
 

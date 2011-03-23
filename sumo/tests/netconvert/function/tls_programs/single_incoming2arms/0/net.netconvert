@@ -42,7 +42,7 @@
       <lane id="153122148_0" depart="1" maxspeed="13.89" length="550.55" shape="121.57,71.03 1.61,608.36"/>
    </edge>
 
-   <row-logic id="15030043" requestSize="2" laneNumber="2">
+   <row-logic id="15030043" requestSize="2">
       <logicitem request="0" response="10" foes="10" cont="0"/>
       <logicitem request="1" response="00" foes="01" cont="0"/>
    </row-logic>

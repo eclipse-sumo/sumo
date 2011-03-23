@@ -101,7 +101,7 @@
       <lane id="edge_up_0" depart="1" maxspeed="10.00" length="25.25" shape="-1.65,30.00 -1.65,4.75"/>
    </edge>
 
-   <row-logic id="node_centertl" requestSize="9" laneNumber="3">
+   <row-logic id="node_centertl" requestSize="9">
       <logicitem request="0" response="000010000" foes="100010000" cont="0"/>
       <logicitem request="1" response="011010000" foes="011110000" cont="1"/>
       <logicitem request="2" response="010001000" foes="010001000" cont="1"/>
@@ -112,13 +112,13 @@
       <logicitem request="7" response="000011000" foes="000011110" cont="1"/>
       <logicitem request="8" response="000010001" foes="000010001" cont="1"/>
    </row-logic>
-   <row-logic id="node_left" requestSize="1" laneNumber="1">
+   <row-logic id="node_left" requestSize="1">
       <logicitem request="0" response="0" foes="0" cont="0"/>
    </row-logic>
-   <row-logic id="node_right" requestSize="1" laneNumber="1">
+   <row-logic id="node_right" requestSize="1">
       <logicitem request="0" response="0" foes="0" cont="0"/>
    </row-logic>
-   <row-logic id="node_up" requestSize="1" laneNumber="1">
+   <row-logic id="node_up" requestSize="1">
       <logicitem request="0" response="0" foes="0" cont="0"/>
    </row-logic>
 

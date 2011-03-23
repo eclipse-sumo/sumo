@@ -96,16 +96,16 @@
       <lane id="e20_0" depart="1" maxspeed="13.89" length="100.50" shape="132.57,193.60 225.76,155.97"/>
    </edge>
 
-   <row-logic id="n1" requestSize="1" laneNumber="1">
+   <row-logic id="n1" requestSize="1">
       <logicitem request="0" response="0" foes="0" cont="0"/>
    </row-logic>
-   <row-logic id="n11" requestSize="1" laneNumber="1">
+   <row-logic id="n11" requestSize="1">
       <logicitem request="0" response="0" foes="0" cont="0"/>
    </row-logic>
-   <row-logic id="n12" requestSize="1" laneNumber="1">
+   <row-logic id="n12" requestSize="1">
       <logicitem request="0" response="0" foes="0" cont="0"/>
    </row-logic>
-   <row-logic id="n6" requestSize="9" laneNumber="3">
+   <row-logic id="n6" requestSize="9">
       <logicitem request="0" response="000000000" foes="100010000" cont="0"/>
       <logicitem request="1" response="011000000" foes="011110000" cont="1"/>
       <logicitem request="2" response="010001000" foes="010001000" cont="1"/>

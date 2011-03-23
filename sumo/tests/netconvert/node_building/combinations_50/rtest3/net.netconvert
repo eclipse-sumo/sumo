@@ -43,12 +43,12 @@
       <lane id="4o_0" depart="1" maxspeed="15.28" length="45.25" shape="51.65,54.75 51.65,100.00"/>
    </edge>
 
-   <row-logic id="0" requestSize="3" laneNumber="2">
+   <row-logic id="0" requestSize="3">
       <logicitem request="0" response="100" foes="100" cont="0"/>
       <logicitem request="1" response="000" foes="000" cont="0"/>
       <logicitem request="2" response="000" foes="001" cont="0"/>
    </row-logic>
-   <row-logic id="2" requestSize="1" laneNumber="1">
+   <row-logic id="2" requestSize="1">
       <logicitem request="0" response="1" foes="0" cont="0"/>
    </row-logic>
 
