@@ -3,7 +3,7 @@
 @file    0103to0110.py
 @author  Daniel.Krajzewicz@dlr.de
 @date    2007
-@version $Id: 0103to0110.py 9525 2011-01-04 21:22:52Z behrisch $
+@version $Id$
 
 Changes xml network files from version 0.10.3 to version 0.11.0.
 
