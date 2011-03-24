@@ -101,12 +101,8 @@ enum SumoXMLTag {
     SUMO_TAG_SUCC,
     /** description of a single succeeding lane */
     SUMO_TAG_SUCCLANE,
-    /** begin/end of the key of a junction */
-    SUMO_TAG_KEY,
     /** begin of a right-of-way logic */
     SUMO_TAG_ROWLOGIC,
-    /** the request size (of a junction logic) */
-    SUMO_TAG_REQUESTSIZE,
     /** description of a single junction logic part */
     SUMO_TAG_LOGICITEM,
     /** a source */
@@ -119,16 +115,12 @@ enum SumoXMLTag {
     SUMO_TAG_DSINK,
     /** a traffic light logic */
     SUMO_TAG_TLLOGIC,
-    /** the time offset from the first switch */
-    SUMO_TAG_OFFSET,
     /** a single phase description */
     SUMO_TAG_PHASE,
     /** a single trip definition (used by router) */
     SUMO_TAG_TRIPDEF,
     /** a flow definition (used by router) */
     SUMO_TAG_FLOW,
-    /** the number of the logic (traffic light logic) */
-    SUMO_TAG_SUBKEY,
     /** a trigger definition */
     SUMO_TAG_TRIGGER,
     /** trigger: a step description */
@@ -154,10 +146,6 @@ enum SumoXMLTag {
     SUMO_TAG_WAUT,
     SUMO_TAG_WAUT_SWITCH,
     SUMO_TAG_WAUT_JUNCTION,
-    SUMO_TAG_NET_OFFSET,
-    SUMO_TAG_CONV_BOUNDARY,
-    SUMO_TAG_ORIG_BOUNDARY,
-    SUMO_TAG_ORIG_PROJ,
     SUMO_TAG_ROUTEDISTELEM,
     SUMO_TAG_VTYPEDISTELEM,
     SUMO_TAG_EMIT,

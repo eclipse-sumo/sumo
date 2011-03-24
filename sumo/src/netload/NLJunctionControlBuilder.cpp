@@ -393,27 +393,6 @@ NLJunctionControlBuilder::setRequestSize(int size) throw() {
 
 
 void
-NLJunctionControlBuilder::setOffset(int val) throw() {
-    // @deprecated: assuming a net could still use characters for the offset
-    myOffset = val;
-}
-
-
-void
-NLJunctionControlBuilder::setKey(const std::string &key) throw() {
-    // @deprecated: assuming a net could still use characters for the id
-    myActiveKey = key;
-}
-
-
-void
-NLJunctionControlBuilder::setSubKey(const std::string &subkey) throw() {
-    // @deprecated: assuming a net could still use characters for the sub id
-    myActiveProgram = subkey;
-}
-
-
-void
 NLJunctionControlBuilder::closeJunctionLogic() throw(InvalidArgument) {
     if (myCurrentHasError) {
         // had an error before...

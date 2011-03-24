@@ -78,7 +78,6 @@ NLHandler::NLHandler(const std::string &file, MSNet &net,
         myHaveWarnedAboutDeprecatedJunctionShape(false),
         myHaveWarnedAboutDeprecatedLaneShape(false),
         myHaveWarnedAboutDeprecatedPolyShape(false),
-        myHaveWarnedAboutDeprecatedLocation(false),
         myHaveWarnedAboutDeprecatedPhases(false) {}
 
 
@@ -1206,41 +1205,6 @@ NLHandler::setRequestSize(const std::string &chars) {
     } catch (NumberFormatException &) {
         MsgHandler::getErrorInstance()->inform("One of an edge's SUMOSAXAttributes must be numeric but is not.");
     }
-}
-
-
-void
-NLHandler::setKey(const std::string &chars) {
-    // @deprecated: assuming a net could still use characters for the id
-    if (chars.length()==0) {
-        MsgHandler::getErrorInstance()->inform("No key given for the current junction logic.");
-        return;
-    }
-    myJunctionControlBuilder.setKey(chars);
-}
-
-
-void
-NLHandler::setSubKey(const std::string &chars) {
-    // @deprecated: assuming a net could still use characters for the sub id
-    if (chars.length()==0) {
-        MsgHandler::getErrorInstance()->inform("No subkey given for the current junction logic.");
-        return;
-    }
-    myJunctionControlBuilder.setSubKey(chars);
-}
-
-
-void
-NLHandler::setOffset(const std::string &chars) {
-    // @deprecated: assuming a net could still use characters for the offset
-    try {
-        myJunctionControlBuilder.setOffset(string2time(chars));
-    } catch (NumberFormatException &) {
-        MsgHandler::getErrorInstance()->inform("The offset for a junction is not numeric.");
-    } catch (EmptyData &) {
-        MsgHandler::getErrorInstance()->inform("The offset for a junction is not empty.");
-    } // !!! can chars have length 0?
 }
 
 

@@ -304,15 +304,6 @@ private:
     /// sets the request size of the current junction logic
     void setRequestSize(const std::string &chars);
 
-    /// sets the key of the current junction logic
-    void setKey(const std::string &chars);
-
-    /// sets the subkey of the current junction logic
-    void setSubKey(const std::string &chars);
-
-    /// Sets the offset a tl-logic shall be fired the first time after
-    void setOffset(const std::string &chars);
-
 
 
 
@@ -415,9 +406,6 @@ protected:
 
     /// @brief Whether deprecated definition of a polygon shape in characters was already reported
     bool myHaveWarnedAboutDeprecatedPolyShape;
-
-    /// @brief Whether deprecated definition of network boundaries/projection was already reported
-    bool myHaveWarnedAboutDeprecatedLocation;
 
     /// @brief Whether deprecated definition of phases was already reported
     bool myHaveWarnedAboutDeprecatedPhases;

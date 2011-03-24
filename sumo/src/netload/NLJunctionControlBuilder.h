@@ -217,28 +217,6 @@ public:
     void setRequestSize(int size) throw();
 
 
-    /** @brief Set the key of the logic
-     *
-     * @param[in] key The key of the logic
-     */
-    void setKey(const std::string &key) throw();
-
-
-    /** @brief Set the subkey of the logic
-     *
-     * @param[in] subkey The subkey of the logic
-     */
-    void setSubKey(const std::string &subkey) throw();
-
-
-    /** @brief Set the offset with which the logic shall start
-     *
-     * @param[in] val The offset with which the logic shall start
-     * @todo Check why the offset is not SUMOTime
-     */
-    void setOffset(int val) throw();
-
-
     /** @brief Returns a previously build tls logic
      *
      * @param[in] id The ID of the tls logic to return
