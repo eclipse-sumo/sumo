@@ -59,55 +59,55 @@ OptionsCont OptionsCont::myOptions;
 // method definitions
 // ===========================================================================
 OptionsCont &
-OptionsCont::getOptions() throw() {
+OptionsCont::getOptions() {
     return myOptions;
 }
 
 
-OptionsCont::OptionsCont() throw()
+OptionsCont::OptionsCont()
         : myAddresses(), myValues(), myDeprecatedSynonymes(), myHaveInformedAboutDeprecatedDivider(false) {
     myCopyrightNotices.push_back("Copyright (C) 2001-2011 DLR and contributors; http://sumo.sourceforge.net");
 }
 
 
-OptionsCont::~OptionsCont() throw() {
+OptionsCont::~OptionsCont() {
     clear();
 }
 
 
 void
-OptionsCont::doRegister(const std::string &name, Option *v) throw(InvalidArgument) {
+OptionsCont::doRegister(const std::string &name, Option *v) {
     assert(v!=0);
     ItemAddressContType::iterator i = find(myAddresses.begin(), myAddresses.end(), v);
     if (i==myAddresses.end()) {
         myAddresses.push_back(v);
     }
     if (myValues.find(name)!=myValues.end()) {
-        throw InvalidArgument(name + " is an already used option name.");
+        throw ProcessError(name + " is an already used option name.");
     }
     myValues[name] = v;
 }
 
 
 void
-OptionsCont::doRegister(const std::string &name1, char abbr, Option *v) throw(InvalidArgument) {
+OptionsCont::doRegister(const std::string &name1, char abbr, Option *v) {
     doRegister(name1, v);
     doRegister(convertChar(abbr), v);
 }
 
 
 void
-OptionsCont::addSynonyme(const std::string &name1, const std::string &name2, bool isDeprecated) throw(InvalidArgument) {
+OptionsCont::addSynonyme(const std::string &name1, const std::string &name2, bool isDeprecated) {
     KnownContType::iterator i1 = myValues.find(name1);
     KnownContType::iterator i2 = myValues.find(name2);
     if (i1==myValues.end()&&i2==myValues.end()) {
-        throw InvalidArgument("Neither the option '" + name1 + "' nor the option '" + name2 + "' is known yet");
+        throw ProcessError("Neither the option '" + name1 + "' nor the option '" + name2 + "' is known yet");
     }
     if (i1!=myValues.end()&&i2!=myValues.end()) {
         if ((*i1).second==(*i2).second) {
             return;
         }
-        throw InvalidArgument("Both options '" + name1 + "' and '" + name2 + "' do exist and differ.");
+        throw ProcessError("Both options '" + name1 + "' and '" + name2 + "' do exist and differ.");
     }
     if (i1==myValues.end()&&i2!=myValues.end()) {
         doRegister(name1, (*i2).second);
@@ -125,14 +125,14 @@ OptionsCont::addSynonyme(const std::string &name1, const std::string &name2, boo
 
 
 bool
-OptionsCont::exists(const std::string &name) const throw() {
+OptionsCont::exists(const std::string &name) const {
     KnownContType::const_iterator i = myValues.find(name);
     return i!=myValues.end();
 }
 
 
 bool
-OptionsCont::isSet(const std::string &name) const throw(InvalidArgument) {
+OptionsCont::isSet(const std::string &name) const {
     KnownContType::const_iterator i = myValues.find(name);
     if (i==myValues.end()) {
         return false;
@@ -142,7 +142,7 @@ OptionsCont::isSet(const std::string &name) const throw(InvalidArgument) {
 
 
 bool
-OptionsCont::isDefault(const std::string &name) const throw(InvalidArgument) {
+OptionsCont::isDefault(const std::string &name) const {
     KnownContType::const_iterator i = myValues.find(name);
     if (i==myValues.end()) {
         return false;
@@ -152,10 +152,10 @@ OptionsCont::isDefault(const std::string &name) const throw(InvalidArgument) {
 
 
 Option *
-OptionsCont::getSecure(const std::string &name) const throw(InvalidArgument) {
+OptionsCont::getSecure(const std::string &name) const {
     KnownContType::const_iterator k = myValues.find(name);
     if (k==myValues.end()) {
-        throw InvalidArgument("No option with the name '" + name + "' exists.");
+        throw ProcessError("No option with the name '" + name + "' exists.");
     }
     std::map<std::string, bool>::iterator s = myDeprecatedSynonymes.find(name);
     if (s != myDeprecatedSynonymes.end() && !s->second) {
@@ -178,42 +178,42 @@ OptionsCont::getSecure(const std::string &name) const throw(InvalidArgument) {
 
 
 std::string
-OptionsCont::getString(const std::string &name) const throw(InvalidArgument) {
+OptionsCont::getString(const std::string &name) const {
     Option *o = getSecure(name);
     return o->getString();
 }
 
 
 SUMOReal
-OptionsCont::getFloat(const std::string &name) const throw(InvalidArgument) {
+OptionsCont::getFloat(const std::string &name) const {
     Option *o = getSecure(name);
     return o->getFloat();
 }
 
 
 int
-OptionsCont::getInt(const std::string &name) const throw(InvalidArgument) {
+OptionsCont::getInt(const std::string &name) const {
     Option *o = getSecure(name);
     return o->getInt();
 }
 
 
 bool
-OptionsCont::getBool(const std::string &name) const throw(InvalidArgument) {
+OptionsCont::getBool(const std::string &name) const {
     Option *o = getSecure(name);
     return o->getBool();
 }
 
 
 const IntVector &
-OptionsCont::getIntVector(const std::string &name) const throw(InvalidArgument) {
+OptionsCont::getIntVector(const std::string &name) const {
     Option *o = getSecure(name);
     return o->getIntVector();
 }
 
 
 bool
-OptionsCont::set(const std::string &name, const std::string &value) throw(InvalidArgument) {
+OptionsCont::set(const std::string &name, const std::string &value) {
     Option *o = getSecure(name);
     if (!o->isWriteable()) {
         reportDoubleSetting(name);
@@ -223,7 +223,7 @@ OptionsCont::set(const std::string &name, const std::string &value) throw(Invali
         if (!o->set(value)) {
             return false;
         }
-    } catch (InvalidArgument &e) {
+    } catch (ProcessError &e) {
         MsgHandler::getErrorInstance()->inform("While processing option '" + name + "':\n " + e.what());
         return false;
     }
@@ -232,7 +232,7 @@ OptionsCont::set(const std::string &name, const std::string &value) throw(Invali
 
 
 std::vector<std::string>
-OptionsCont::getSynonymes(const std::string &name) const throw(InvalidArgument) {
+OptionsCont::getSynonymes(const std::string &name) const {
     Option *o = getSecure(name);
     std::vector<std::string> v(0);
     for (KnownContType::const_iterator i=myValues.begin(); i!=myValues.end(); i++) {
@@ -279,7 +279,7 @@ operator<<(std::ostream& os, const OptionsCont& oc) {
 
 
 void
-OptionsCont::relocateFiles(const std::string &configuration) const throw() {
+OptionsCont::relocateFiles(const std::string &configuration) const {
     for (ItemAddressContType::const_iterator i=myAddresses.begin(); i!=myAddresses.end(); i++) {
         if ((*i)->isFileName() && (*i)->isSet()) {
             StringTokenizer st((*i)->getString(), ";, ", true);
@@ -301,7 +301,7 @@ OptionsCont::relocateFiles(const std::string &configuration) const throw() {
 
 
 bool
-OptionsCont::isUsableFileList(const std::string &name) const throw(InvalidArgument) {
+OptionsCont::isUsableFileList(const std::string &name) const {
     Option *o = getSecure(name);
     // check whether the option is set
     //  return false i not
@@ -330,7 +330,7 @@ OptionsCont::isUsableFileList(const std::string &name) const throw(InvalidArgume
 
 
 bool
-OptionsCont::checkDependingSuboptions(const std::string &name, const std::string &prefix) const throw(InvalidArgument) {
+OptionsCont::checkDependingSuboptions(const std::string &name, const std::string &prefix) const {
     Option *o = getSecure(name);
     if (o->isSet()) {
         return true;
@@ -347,7 +347,7 @@ OptionsCont::checkDependingSuboptions(const std::string &name, const std::string
 
 
 void
-OptionsCont::reportDoubleSetting(const std::string &arg) const throw() {
+OptionsCont::reportDoubleSetting(const std::string &arg) const {
     std::vector<std::string> synonymes = getSynonymes(arg);
     std::ostringstream s;
     s << "A value for the option '" + arg + "' was already set.\n Possible synonymes: ";
@@ -363,7 +363,7 @@ OptionsCont::reportDoubleSetting(const std::string &arg) const throw() {
 
 
 std::string
-OptionsCont::convertChar(char abbr) const throw() {
+OptionsCont::convertChar(char abbr) const {
     char buf[2];
     buf[0] = abbr;
     buf[1] = 0;
@@ -373,14 +373,14 @@ OptionsCont::convertChar(char abbr) const throw() {
 
 
 bool
-OptionsCont::isBool(const std::string &name) const throw(InvalidArgument) {
+OptionsCont::isBool(const std::string &name) const {
     Option *o = getSecure(name);
     return o->isBool();
 }
 
 
 void
-OptionsCont::resetWritable() throw() {
+OptionsCont::resetWritable() {
     for (ItemAddressContType::iterator i=myAddresses.begin(); i!=myAddresses.end(); i++) {
         (*i)->resetWritable();
     }
@@ -388,14 +388,14 @@ OptionsCont::resetWritable() throw() {
 
 
 bool
-OptionsCont::isWriteable(const std::string &name) throw(InvalidArgument) {
+OptionsCont::isWriteable(const std::string &name) {
     Option *o = getSecure(name);
     return o->isWriteable();
 }
 
 
 void
-OptionsCont::clear() throw() {
+OptionsCont::clear() {
     ItemAddressContType::iterator i;
     for (i=myAddresses.begin(); i!=myAddresses.end(); i++) {
         delete(*i);
@@ -410,7 +410,7 @@ OptionsCont::clear() throw() {
 void
 OptionsCont::addDescription(const std::string &name,
                             const std::string &subtopic,
-                            const std::string &description) throw(InvalidArgument) {
+                            const std::string &description) {
     Option *o = getSecure(name);
     assert(o!=0);
     assert(find(mySubTopics.begin(), mySubTopics.end(), subtopic)!=mySubTopics.end());
@@ -421,44 +421,44 @@ OptionsCont::addDescription(const std::string &name,
 
 void
 OptionsCont::setApplicationName(const std::string &appName,
-                                const std::string &fullName) throw() {
+                                const std::string &fullName) {
     myAppName = appName;
     myFullName = fullName;
 }
 
 
 void
-OptionsCont::setApplicationDescription(const std::string &appDesc) throw() {
+OptionsCont::setApplicationDescription(const std::string &appDesc) {
     myAppDescription = appDesc;
 }
 
 
 void
-OptionsCont::addCallExample(const std::string &example) throw() {
+OptionsCont::addCallExample(const std::string &example) {
     myCallExamples.push_back(example);
 }
 
 
 void
-OptionsCont::setAdditionalHelpMessage(const std::string &add) throw() {
+OptionsCont::setAdditionalHelpMessage(const std::string &add) {
     myAdditionalMessage = add;
 }
 
 
 void
-OptionsCont::addCopyrightNotice(const std::string &copyrightLine) throw() {
+OptionsCont::addCopyrightNotice(const std::string &copyrightLine) {
     myCopyrightNotices.push_back(copyrightLine);
 }
 
 
 void
-OptionsCont::clearCopyrightNotices() throw() {
+OptionsCont::clearCopyrightNotices() {
     myCopyrightNotices.clear();
 }
 
 
 void
-OptionsCont::addOptionSubTopic(const std::string &topic) throw() {
+OptionsCont::addOptionSubTopic(const std::string &topic) {
     mySubTopics.push_back(topic);
     mySubTopicEntries[topic] = std::vector<std::string>();
 }
@@ -466,7 +466,7 @@ OptionsCont::addOptionSubTopic(const std::string &topic) throw() {
 
 void
 OptionsCont::splitLines(std::ostream &os, std::string what,
-                        size_t offset, size_t nextOffset) throw() {
+                        size_t offset, size_t nextOffset) {
     while (what.length()>0) {
         if (what.length()>79-offset) {
             size_t splitPos = what.rfind(';', 79-offset);
@@ -585,7 +585,7 @@ OptionsCont::processMetaOptions(bool missingOptions) throw(ProcessError) {
 }
 
 void
-OptionsCont::printHelp(std::ostream &os) throw() {
+OptionsCont::printHelp(std::ostream &os) {
     std::vector<std::string>::const_iterator i, j;
     // print application description
     os << ' ' << std::endl;
@@ -681,7 +681,7 @@ OptionsCont::printHelp(std::ostream &os) throw() {
 
 void
 OptionsCont::writeConfiguration(std::ostream &os, bool filled,
-                                bool complete, bool addComments) throw() {
+                                bool complete, bool addComments) {
     // to the best of our knowledge files are written in latin-1 on windows and linux
     os << "<?xml version=\"1.0\" encoding=\"iso-8859-1\"?>\n\n";
     os << "<configuration xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"http://sumo.sf.net/xsd/" << myAppName << "Configuration.xsd\">" << std::endl << std::endl;
@@ -740,7 +740,7 @@ OptionsCont::writeConfiguration(std::ostream &os, bool filled,
 
 
 void
-OptionsCont::writeSchema(std::ostream &os, bool addComments) throw() {
+OptionsCont::writeSchema(std::ostream &os, bool addComments) {
     // to the best of our knowledge files are written in latin-1 on windows and linux
     os << "<?xml version=\"1.0\" encoding=\"iso-8859-1\"?>\n\n";
     os << "<xsd:schema elementFormDefault=\"qualified\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\">\n\n";
@@ -797,7 +797,7 @@ OptionsCont::writeSchema(std::ostream &os, bool addComments) throw() {
 
 
 void
-OptionsCont::writeXMLHeader(std::ostream &os, const std::string xmlParams) throw() {
+OptionsCont::writeXMLHeader(std::ostream &os, const std::string xmlParams) {
     time_t rawtime;
     char buffer [80];
 
@@ -811,7 +811,7 @@ OptionsCont::writeXMLHeader(std::ostream &os, const std::string xmlParams) throw
 
 
 std::vector<std::string>
-OptionsCont::getStringVector(const std::string &name) const throw(InvalidArgument) {
+OptionsCont::getStringVector(const std::string &name) const {
     Option *o = getSecure(name);
     std::string def = o->getString();
     if (def.find(';')!=std::string::npos&&!myHaveInformedAboutDeprecatedDivider) {
@@ -829,7 +829,7 @@ OptionsCont::getStringVector(const std::string &name) const throw(InvalidArgumen
 
 bool
 OptionsCont::isInStringVector(const std::string &optionName,
-                              const std::string &itemName) throw(InvalidArgument) {
+                              const std::string &itemName) {
     if (isSet(optionName)) {
         std::vector<std::string> values = getStringVector(optionName);
         return find(values.begin(), values.end(), itemName)!=values.end();
