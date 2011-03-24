@@ -121,9 +121,10 @@ GUISUMOAbstractView::GUISUMOAbstractView(FXComposite *p,
         myMouseHotspotX(app.getDefaultCursor()->getHotX()),
         myMouseHotspotY(app.getDefaultCursor()->getHotY()),
         myPopup(0),
+        myUseToolTips(false),
         myAmInitialised(false),
-        myViewportChooser(0), myVisualizationChanger(0),
-        myUseToolTips(false) {
+        myViewportChooser(0), 
+        myVisualizationChanger(0) {
     setTarget(this);
     enable();
     flags|=FLAG_ENABLED;
