@@ -398,30 +398,30 @@ NLHandler::openJunction(const SUMOSAXAttributes &attrs) {
             myCurrentIsBroken = true;
         }
         //
-        if (!myCurrentIsBroken) {
-            StringTokenizer st(attrs.getStringSecure(SUMO_ATTR_INCLANES, ""));
-            while (st.hasNext()) {
-                std::string set = st.next();
-                MSLane *lane = MSLane::dictionary(set);
-                if (!MSGlobals::gUsingInternalLanes&&set[0]==':') {
-                    continue;
-                }
-                if (lane==0) {
-                    MsgHandler::getErrorInstance()->inform("An unknown lane ('" + set + "') was tried to be set as incoming to junction '" + myJunctionControlBuilder.getActiveID() + "'.");
-                    return;
-                }
-                myJunctionControlBuilder.addIncomingLane(lane);
+        StringTokenizer st(attrs.getStringSecure(SUMO_ATTR_INCLANES, ""));
+        while (!myCurrentIsBroken&&st.hasNext()) {
+            std::string set = st.next();
+            MSLane *lane = MSLane::dictionary(set);
+            if (!MSGlobals::gUsingInternalLanes&&set[0]==':') {
+                continue;
             }
+            if (lane==0) {
+                MsgHandler::getErrorInstance()->inform("An unknown lane ('" + set + "') was tried to be set as incoming to junction '" + myJunctionControlBuilder.getActiveID() + "'.");
+                myCurrentIsBroken = true;
+                continue;
+            }
+            myJunctionControlBuilder.addIncomingLane(lane);
         }
 #ifdef HAVE_INTERNAL_LANES
-        if (MSGlobals::gUsingInternalLanes&&!myCurrentIsBroken) {
+        if (MSGlobals::gUsingInternalLanes) {
             StringTokenizer st(attrs.getStringSecure(SUMO_ATTR_INTLANES, ""));
-            while (st.hasNext()) {
+            while (!myCurrentIsBroken&&st.hasNext()) {
                 std::string set = st.next();
                 MSLane *lane = MSLane::dictionary(set);
                 if (lane==0) {
                     MsgHandler::getErrorInstance()->inform("An unknown lane ('" + set + "') was tried to be set as internal.");
-                    return;
+                    myCurrentIsBroken = true;
+                    continue;
                 }
                 myJunctionControlBuilder.addInternalLane(lane);
             }
