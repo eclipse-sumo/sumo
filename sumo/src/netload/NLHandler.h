@@ -241,18 +241,6 @@ private:
     void addSuccLane(const SUMOSAXAttributes &attrs);
 
 
-    /// adds the incoming lanes
-    void addIncomingLanes(const std::string &chars);
-
-    /// adds the incoming Polygon's Positions
-    void addIncomingPolyPosititon(const std::string &chars);
-
-#ifdef HAVE_INTERNAL_LANES
-    /// adds the internal lanes
-    void addInternalLanes(const std::string &chars);
-#endif
-
-
     virtual void openWAUT(const SUMOSAXAttributes &attrs);
     void addWAUTSwitch(const SUMOSAXAttributes &attrs);
     void addWAUTJunction(const SUMOSAXAttributes &attrs);

@@ -129,10 +129,6 @@ enum SumoXMLTag {
     SUMO_TAG_SHAPE,
     /// The definition of a periodic event
     SUMO_TAG_TIMEDEVENT,
-    /** begin/end of the list of incoming lanes (into a junction) */
-    SUMO_TAG_INCOMING_LANES,
-    /** begin/end of the list of internal lanes (of a junction) */
-    SUMO_TAG_INTERNAL_LANES,
     /// Incoming edge specification (jp-router)
     SUMO_TAG_FROMEDGE,
     /// Outgoing edge specification (jp-router)

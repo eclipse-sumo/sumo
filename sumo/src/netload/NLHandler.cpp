@@ -398,12 +398,33 @@ NLHandler::openJunction(const SUMOSAXAttributes &attrs) {
             myCurrentIsBroken = true;
         }
         //
-        if (!myCurrentIsBroken&&attrs.hasAttribute(SUMO_ATTR_INCLANES)) {
-            addIncomingLanes(attrs.getStringSecure(SUMO_ATTR_INCLANES, ""));
+        if (!myCurrentIsBroken) {
+            StringTokenizer st(attrs.getStringSecure(SUMO_ATTR_INCLANES, ""));
+            while (st.hasNext()) {
+                std::string set = st.next();
+                MSLane *lane = MSLane::dictionary(set);
+                if (!MSGlobals::gUsingInternalLanes&&set[0]==':') {
+                    continue;
+                }
+                if (lane==0) {
+                    MsgHandler::getErrorInstance()->inform("An unknown lane ('" + set + "') was tried to be set as incoming to junction '" + myJunctionControlBuilder.getActiveID() + "'.");
+                    return;
+                }
+                myJunctionControlBuilder.addIncomingLane(lane);
+            }
         }
 #ifdef HAVE_INTERNAL_LANES
-        if (!myCurrentIsBroken&&attrs.hasAttribute(SUMO_ATTR_INTLANES)) {
-            addInternalLanes(attrs.getStringSecure(SUMO_ATTR_INTLANES, ""));
+        if (MSGlobals::gUsingInternalLanes&&!myCurrentIsBroken) {
+            StringTokenizer st(attrs.getStringSecure(SUMO_ATTR_INTLANES, ""));
+            while (st.hasNext()) {
+                std::string set = st.next();
+                MSLane *lane = MSLane::dictionary(set);
+                if (lane==0) {
+                    MsgHandler::getErrorInstance()->inform("An unknown lane ('" + set + "') was tried to be set as internal.");
+                    return;
+                }
+                myJunctionControlBuilder.addInternalLane(lane);
+            }
         }
 #endif
     }
@@ -1210,48 +1231,6 @@ NLHandler::addDistrictEdge(const SUMOSAXAttributes &attrs, bool isSource) {
     }
 }
 
-
-
-
-void
-NLHandler::addIncomingLanes(const std::string &chars) {
-    // @deprecated: at some time, all junctions should have a shape attribute (moved from characters)
-    StringTokenizer st(chars);
-    while (st.hasNext()) {
-        std::string set = st.next();
-        MSLane *lane = MSLane::dictionary(set);
-        if (!MSGlobals::gUsingInternalLanes&&set[0]==':') {
-            continue;
-        }
-        if (lane==0) {
-            MsgHandler::getErrorInstance()->inform("An unknown lane ('" + set + "') was tried to be set as incoming to junction '" + myJunctionControlBuilder.getActiveID() + "'.");
-            return;
-        }
-        myJunctionControlBuilder.addIncomingLane(lane);
-    }
-}
-
-
-#ifdef HAVE_INTERNAL_LANES
-void
-NLHandler::addInternalLanes(const std::string &chars) {
-    // @deprecated: at some time, all junctions should have a shape attribute (moved from characters)
-    // do not parse internal lanes if not wished
-    if (!MSGlobals::gUsingInternalLanes) {
-        return;
-    }
-    StringTokenizer st(chars);
-    while (st.hasNext()) {
-        std::string set = st.next();
-        MSLane *lane = MSLane::dictionary(set);
-        if (lane==0) {
-            MsgHandler::getErrorInstance()->inform("An unknown lane ('" + set + "') was tried to be set as internal.");
-            return;
-        }
-        myJunctionControlBuilder.addInternalLane(lane);
-    }
-}
-#endif
 
 // ----------------------------------
 
