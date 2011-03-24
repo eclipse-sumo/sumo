@@ -1,3 +1,0 @@
---no-step-log --net-file net.net.xml --route-files routes.rou.xml --penetration 1.0 --remote-port 8859 --netstate-dump netstate_dump.xml --begin 0 --end 1000
-endsumo
-TraCITestClient.exe -def testclient.prog -p 8859 -h localhost -o testclient_out.txt

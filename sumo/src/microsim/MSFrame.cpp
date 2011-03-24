@@ -243,8 +243,6 @@ MSFrame::fillOptions() {
     oc.addOptionSubTopic("TraCI Server");
     oc.doRegister("remote-port", new Option_Integer(0));
     oc.addDescription("remote-port", "TraCI Server", "Enables TraCI Server if set");
-    oc.doRegister("penetration", new Option_Float(1.0f));
-    oc.addDescription("penetration", "TraCI Server", "Value in 0..1 [default: 1]");
 #endif
     //
 #ifdef HAVE_MESOSIM

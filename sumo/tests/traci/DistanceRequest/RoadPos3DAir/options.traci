@@ -1,1 +1,1 @@
---no-step-log --net-file net.net.xml --route-files routes.rou.xml --penetration 1.0 --remote-port 8841 --netstate-dump netstate_dump.xml TraCITestClient.exe -def testclient.prog -p 8841 -h localhost -o testclient_out.txt
+--no-step-log --net-file net.net.xml --route-files routes.rou.xml --remote-port 8841 --netstate-dump netstate_dump.xml TraCITestClient.exe -def testclient.prog -p 8841 -h localhost -o testclient_out.txt

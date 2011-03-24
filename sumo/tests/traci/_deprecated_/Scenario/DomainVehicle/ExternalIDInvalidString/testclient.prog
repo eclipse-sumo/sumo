@@ -1,4 +1,0 @@
-simstep 11 1
-% flag: get, domain: vehicle, domain id:0, variable: external id, value: string %
-scenario_string 0 1 0 18 notexisting_vehicle
-simstep 2 1

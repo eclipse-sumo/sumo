@@ -1,0 +1,3 @@
+simstep2 10
+setvalue 0xc2 0x21 1/1 <float> -1
+simstep2 31

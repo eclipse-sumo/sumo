@@ -1,3 +1,0 @@
-#Error while connecting: tcpip::Socket::connect() @ connect: Connection refused
-Warning: Using old TraCI API, please update your client!
-Error: Answered with error to command 115: Vehicle with internal id notexisting_vehicle not existing or not accessible via TraCI

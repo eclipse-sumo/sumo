@@ -1,7 +1,0 @@
-simstep 1 1
-changeroute 0 beg2left 0.1
-changeroute 0 left 0.1
-changeroute 0 left2end 0.1
-simstep 2 1
-changeroute 0 left -1
-simstep_repeat 3 1000 1 1

@@ -1,8 +1,0 @@
-# Test basic functionality of <ChangeTarget>
-Basic
-
-# Test behaviour  when specifying unreachable target
-UnreachableTarget
-
-# Test error on specifying an invalid node id
-InvalidNodeId

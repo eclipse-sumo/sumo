@@ -64,54 +64,8 @@ public:
                            tcpip::Storage &outputStorage);
 
 
-    /// @name "old" API functions
-    /// @{
-
-    /** @brief processes command setMaximumSpeed
-     *
-     * This command causes the node given by nodeId to limit its speed to a maximum speed (float).
-     * If maximum speed is set to a negative value, the individual speed limit for that node gets annihilated.
-     *
-     * @param[in] server The TraCI-server-instance which schedules this request
-     * @param[in] inputStorage The storage to read the command from
-     * @param[out] outputStorage The storage to write the result to
-     */
-    static bool commandSetMaximumSpeed(traci::TraCIServer &server, tcpip::Storage &inputStorage, tcpip::Storage &outputStorage);
-
-    static bool commandStopNode(traci::TraCIServer &server, tcpip::Storage &inputStorage, tcpip::Storage &outputStorage);
-
-    static bool commandChangeLane(traci::TraCIServer &server, tcpip::Storage &inputStorage, tcpip::Storage &outputStorage);
-
-    static bool commandChangeRoute(traci::TraCIServer &server, tcpip::Storage &inputStorage, tcpip::Storage &outputStorage);
-
-    static bool commandChangeTarget(traci::TraCIServer &server, tcpip::Storage &inputStorage, tcpip::Storage &outputStorage);
-
-    static bool commandSlowDown(traci::TraCIServer &server, tcpip::Storage &inputStorage, tcpip::Storage &outputStorage);
-
-
-    static bool commandSubscribeLifecycles(traci::TraCIServer &server, tcpip::Storage &inputStorage, tcpip::Storage &outputStorage);
-
-    static bool commandUnsubscribeLifecycles(traci::TraCIServer &server, tcpip::Storage &inputStorage, tcpip::Storage &outputStorage);
-
-    static bool commandSubscribeDomain(traci::TraCIServer &server, tcpip::Storage &inputStorage, tcpip::Storage &outputStorage);
-
-    static bool commandUnsubscribeDomain(traci::TraCIServer &server, tcpip::Storage &inputStorage, tcpip::Storage &outputStorage);
-    static void checkReroute(MSVehicle *veh) throw();
-    /// @}
-
-
 private:
     static MSVehicleType &getSingularType(MSVehicle * const veh) throw();
-
-private:
-    static std::set<MSVehicle*> myVehiclesToReroute;
-    // holds all Domain Ids to whose objects' lifecycle the client subscribed
-    static std::set<int> myLifecycleSubscriptions;
-
-    // holds all Domain Ids to whose objects the client subscribed, along with the variable/type pairs the client is subscribed to
-    static std::map<int, std::list<std::pair<int, int> > > myDomainSubscriptions;
-
-
 
 
 private:
@@ -128,4 +82,3 @@ private:
 #endif
 
 /****************************************************************************/
-

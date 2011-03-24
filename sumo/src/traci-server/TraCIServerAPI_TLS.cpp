@@ -40,9 +40,7 @@
 // ===========================================================================
 // used namespaces
 // ===========================================================================
-using namespace std;
 using namespace traci;
-using namespace tcpip;
 
 
 // ===========================================================================
@@ -64,7 +62,7 @@ TraCIServerAPI_TLS::processGet(TraCIServer &server, tcpip::Storage &inputStorage
         return false;
     }
     // begin response building
-    Storage tempMsg;
+    tcpip::Storage tempMsg;
     //  response-code, variableID, objectID
     tempMsg.writeUnsignedByte(RESPONSE_GET_TL_VARIABLE);
     tempMsg.writeUnsignedByte(variable);
@@ -91,7 +89,7 @@ TraCIServerAPI_TLS::processGet(TraCIServer &server, tcpip::Storage &inputStorage
         case TL_COMPLETE_DEFINITION_RYG: {
             std::vector<MSTrafficLightLogic*> logics = vars.getAllLogics();
             tempMsg.writeUnsignedByte(TYPE_COMPOUND);
-            Storage tempContent;
+            tcpip::Storage tempContent;
             unsigned int cnt = 0;
             tempContent.writeUnsignedByte(TYPE_INTEGER);
             tempContent.writeInt((int) logics.size());
@@ -158,7 +156,7 @@ TraCIServerAPI_TLS::processGet(TraCIServer &server, tcpip::Storage &inputStorage
             const MSTrafficLightLogic::LinkVectorVector &links = vars.getActive()->getLinks();
             //
             tempMsg.writeUnsignedByte(TYPE_COMPOUND);
-            Storage tempContent;
+            tcpip::Storage tempContent;
             unsigned int cnt = 0;
             tempContent.writeUnsignedByte(TYPE_INTEGER);
             unsigned int no = (unsigned int) lanes.size();
@@ -384,151 +382,6 @@ TraCIServerAPI_TLS::processSet(TraCIServer &server, tcpip::Storage &inputStorage
     server.writeStatusCmd(CMD_SET_TL_VARIABLE, RTYPE_OK, warning, outputStorage);
     return true;
 }
-
-
-
-// ------ "old" API functions ------
-bool
-TraCIServerAPI_TLS::commandGetAllTLIds(TraCIServer &server, tcpip::Storage&/*inputStorage*/, tcpip::Storage &outputStorage) {
-    // get the TLLogicControl
-    MSTLLogicControl &tlsControl = MSNet::getInstance()->getTLSControl();
-    // get the ids
-    std::vector<std::string> idList = tlsControl.getAllTLIds();
-    if (idList.size() == 0) {
-        // create negative response message
-        server.writeStatusCmd(CMD_GETALLTLIDS, RTYPE_ERR, "Could not retrieve any traffic light id");
-        return false;
-    }
-    // create positive response message
-    server.writeStatusCmd(CMD_GETALLTLIDS, RTYPE_OK, "");
-    // create a response command for each std::string id
-    for (std::vector<std::string>::iterator iter = idList.begin(); iter != idList.end(); iter++) {
-        outputStorage.writeByte(2 + (4 + (int)((*iter).size()))); // command length
-        outputStorage.writeByte(CMD_TLIDLIST); // command type
-        outputStorage.writeString((*iter)); // id string
-    }
-    return true;
-}
-
-
-bool
-TraCIServerAPI_TLS::commandGetTLStatus(TraCIServer &server, tcpip::Storage &inputStorage, tcpip::Storage &outputStorage) {
-    SUMOTime lookback = (SUMOTime)(60*1000.); // Time to look in history for recognizing yellowTimes
-    tcpip::Storage tempMsg;
-
-    int extId = inputStorage.readInt(); // traffic light id
-    SUMOTime timeFrom = inputStorage.readInt(); // start of time interval
-    SUMOTime timeTo = inputStorage.readInt(); // end of time interval
-
-    // get the running programm of the traffic light
-    MSTrafficLightLogic* const tlLogic = server.getTLLogicByExtId(extId);
-    // error checking
-    if (tlLogic == 0) {
-        server.writeStatusCmd(CMD_GETTLSTATUS, RTYPE_ERR, "Could not retrieve traffic light with given id");
-        return false;
-    }
-    if ((timeTo < timeFrom) || (timeTo < 0) || (timeFrom < 0)) {
-        server.writeStatusCmd(CMD_GETTLSTATUS, RTYPE_ERR, "The given time interval is not valid");
-        return false;
-    }
-    // acknowledge the request
-    server.writeStatusCmd(CMD_GETTLSTATUS, RTYPE_OK, "");
-    std::vector<MSLink::LinkState> linkStates;
-    std::vector<double> yellowTimes;
-    unsigned int lastStep = tlLogic->getCurrentPhaseIndex();
-    MSPhaseDefinition phase = tlLogic->getCurrentPhaseDef();
-    MSTrafficLightLogic::LinkVectorVector affectedLinks = tlLogic->getLinks();
-    // save the current link states
-    for (unsigned int i = 0; i < affectedLinks.size(); i++) {
-        linkStates.push_back(phase.getSignalState(i));
-        yellowTimes.push_back(-1);
-    }
-    // check every second of the given time interval for a switch in the traffic light's phases
-    for (SUMOTime time = timeFrom - lookback; time <= timeTo; time+=DELTA_T) {
-        if (time < 0) time = 0;
-        SUMOTime position = tlLogic->getPhaseIndexAtTime(time);
-        unsigned int currentStep = tlLogic->getIndexFromOffset(position);
-        if (currentStep != lastStep) {
-            lastStep = currentStep;
-            phase = tlLogic->getPhase(currentStep);
-            // for every link of the tl's junction, compare the actual and the last red/green state
-            // for each link with new red/green status, write a TLSWITCH command
-            std::map<const MSEdge*, pair<const MSEdge*, int> > writtenEdgePairs;
-            for (unsigned int i = 0; i < linkStates.size(); i++) {
-                MSLink::LinkState nextLinkState = phase.getSignalState(i);
-                if (nextLinkState == MSLink::LINKSTATE_TL_YELLOW_MAJOR || nextLinkState == MSLink::LINKSTATE_TL_YELLOW_MINOR) {
-                    if (yellowTimes[i] < 0) yellowTimes[i] = time;
-                } else {
-                    if (nextLinkState != linkStates[i] && time >= timeFrom) {
-                        linkStates[i] = nextLinkState;
-                        // get the group of links that is affected by the changed light status
-                        MSTrafficLightLogic::LinkVector linkGroup = affectedLinks[i];
-                        // get the group of preceding lanes of the link group
-                        MSTrafficLightLogic::LaneVector laneGroup = tlLogic->getLanesAt(i);
-                        for (unsigned int j = 0; j < linkGroup.size(); j++) {
-                            MSEdge &precEdge = laneGroup[j]->getEdge();
-                            MSEdge &succEdge = linkGroup[j]->getLane()->getEdge();
-                            // for each pair of edges and every different tl state, write only one tl switch command
-                            std::map<const MSEdge*, pair<const MSEdge*, int> >::iterator itPair = writtenEdgePairs.find(&precEdge);
-                            if (itPair != writtenEdgePairs.end()) {
-                                if (itPair->second.first == &succEdge && itPair->second.second == nextLinkState) {
-                                    continue;
-                                }
-                            }
-                            // remember the current edge pair and tl status
-                            writtenEdgePairs[&precEdge] = std::make_pair(&succEdge, nextLinkState);
-                            // time of the switch
-                            tempMsg.writeInt(time);
-                            // preceeding edge id
-                            tempMsg.writeString(precEdge.getID());
-                            // traffic light's position on preceeding edge
-                            tempMsg.writeFloat((float)(laneGroup[j]->getShape().length()));
-                            // succeeding edge id
-                            tempMsg.writeString(succEdge.getID());
-                            // new status
-                            switch (nextLinkState) {
-                            case MSLink::LINKSTATE_TL_GREEN_MAJOR:
-                            case MSLink::LINKSTATE_TL_GREEN_MINOR:
-                                tempMsg.writeUnsignedByte(TLPHASE_GREEN);
-                                break;
-                            case MSLink::LINKSTATE_TL_RED:
-                                tempMsg.writeUnsignedByte(TLPHASE_RED);
-                                break;
-                            case MSLink::LINKSTATE_TL_OFF_BLINKING:
-                                tempMsg.writeUnsignedByte(TLPHASE_BLINKING);
-                                break;
-                            case MSLink::LINKSTATE_TL_OFF_NOSIGNAL:
-                                tempMsg.writeUnsignedByte(TLPHASE_NOSIGNAL);
-                                break;
-                            default:
-                                tempMsg.writeUnsignedByte(TLPHASE_NOSIGNAL);
-                            }
-                            //yellow time
-                            tempMsg.writeInt(yellowTimes[i]<0 ? 0 : (int)(time - yellowTimes[i]));
-
-                            if (tempMsg.size() <= 253) {
-                                // command length
-                                outputStorage.writeUnsignedByte(1 + 1 + (int)tempMsg.size());
-                            } else {
-                                // command length extended
-                                outputStorage.writeUnsignedByte(0);
-                                outputStorage.writeInt(1 + 4 + 1 + (int)(tempMsg.size()));
-                            }
-                            // command type
-                            outputStorage.writeUnsignedByte(CMD_TLSWITCH);
-                            // command content
-                            outputStorage.writeStorage(tempMsg);
-                            tempMsg.reset();
-                        }
-                    }
-                    yellowTimes[i] = -1;
-                }
-            }
-        }
-    }
-    return true;
-}
-
 
 /****************************************************************************/
 

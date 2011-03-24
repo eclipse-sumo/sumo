@@ -1,5 +1,0 @@
-simstep 1 1
-
-stopnode_roadpos 0 1fi 200 0 0 5
-
-simstep_repeat 2 50 1 1

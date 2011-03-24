@@ -1,4 +1,0 @@
-simstep 1 1
-% flag: get, domain: poi, domain id: 0, variable: name , valueType: 0 %
-scenario_novalue 0 3 0 13 0
-simstep 2 1

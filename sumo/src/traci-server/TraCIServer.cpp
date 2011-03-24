@@ -34,7 +34,6 @@
 
 #include "TraCIConstants.h"
 #include "TraCIServer.h"
-#include "TraCIHandler.h"
 #include "TraCIDijkstraRouter.h"
 
 #ifndef NO_TRACI
@@ -97,17 +96,13 @@
 // ===========================================================================
 // used namespaces
 // ===========================================================================
-using namespace std;
-using namespace tcpip;
-
-
 namespace traci {
 
 // ===========================================================================
 // static member definitions
 // ===========================================================================
-TraCIServer* TraCIServer::instance_ = 0;
-bool TraCIServer::closeConnection_ = false;
+TraCIServer* TraCIServer::myInstance = 0;
+bool TraCIServer::myDoCloseConnection = false;
 
 
 // ===========================================================================
@@ -116,11 +111,11 @@ bool TraCIServer::closeConnection_ = false;
 
 void
 TraCIServer::openSocket(const std::map<int, CmdExecutor> &execs) {
-    if (instance_ == 0) {
-        if (!closeConnection_ && OptionsCont::getOptions().getInt("remote-port") != 0) {
-            instance_ = new traci::TraCIServer();
+    if (myInstance == 0) {
+        if (!myDoCloseConnection && OptionsCont::getOptions().getInt("remote-port") != 0) {
+            myInstance = new traci::TraCIServer();
             for (std::map<int, CmdExecutor>::const_iterator i=execs.begin(); i!=execs.end(); ++i) {
-                instance_->myExecutors[i->first] = i->second;
+                myInstance->myExecutors[i->first] = i->second;
             }
         }
     }
@@ -136,17 +131,6 @@ TraCIServer::TraCIServer() {
     myVehicleStateChanges[MSNet::VEHICLE_STATE_ARRIVED] = std::vector<std::string>();
     myVehicleStateChanges[MSNet::VEHICLE_STATE_NEWROUTE] = std::vector<std::string>();
     MSNet::getInstance()->addVehicleStateListener(this);
-
-    myExecutors[CMD_SETMAXSPEED] = &TraCIServerAPI_Vehicle::commandSetMaximumSpeed;
-    myExecutors[CMD_STOP] = &TraCIServerAPI_Vehicle::commandStopNode;
-    myExecutors[CMD_CHANGELANE] = &TraCIServerAPI_Vehicle::commandChangeLane;
-    myExecutors[CMD_CHANGEROUTE] = &TraCIServerAPI_Vehicle::commandChangeRoute;
-    myExecutors[CMD_CHANGETARGET] = &TraCIServerAPI_Vehicle::commandChangeTarget;
-    myExecutors[CMD_GETALLTLIDS] = &TraCIServerAPI_TLS::commandGetAllTLIds;
-    myExecutors[CMD_GETTLSTATUS] = &TraCIServerAPI_TLS::commandGetTLStatus;
-    myExecutors[CMD_SLOWDOWN] = &TraCIServerAPI_Vehicle::commandSlowDown;
-    myExecutors[CMD_SUBSCRIBEDOMAIN] = &TraCIServerAPI_Vehicle::commandSubscribeDomain;
-    myExecutors[CMD_UNSUBSCRIBEDOMAIN] = &TraCIServerAPI_Vehicle::commandUnsubscribeDomain;
 
     myExecutors[CMD_GET_INDUCTIONLOOP_VARIABLE] = &TraCIServerAPI_InductionLoop::processGet;
     myExecutors[CMD_GET_MULTI_ENTRY_EXIT_DETECTOR_VARIABLE] = &TraCIServerAPI_MeMeDetector::processGet;
@@ -168,16 +152,9 @@ TraCIServer::TraCIServer() {
     myExecutors[CMD_GET_SIM_VARIABLE] = &TraCIServerAPI_Simulation::processGet;
 
     OptionsCont &oc = OptionsCont::getOptions();
-    targetTime_ = 0;
-    penetration_ = (float)oc.getFloat("penetration");
-    routeFile_ = oc.getString("route-files");
-    isMapChanged_ = true;
-    numEquippedVehicles_ = 0;
-    totalNumVehicles_ = 0;
-    closeConnection_ = false;
-    netBoundary_ = NULL;
+    myTargetTime = 0;
+    myDoCloseConnection = false;
     myDoingSimStep = false;
-    myHaveWarnedDeprecation = false;
 
     // display warning if internal lanes are not used
     if (!MSGlobals::gUsingInternalLanes) {
@@ -186,85 +163,14 @@ TraCIServer::TraCIServer() {
         MsgHandler::getWarningInstance()->inform("Use without option --no-internal-links to avoid unexpected behavior", false);
     }
 
-    // map the internal id of all traffic lights, polygons and poi to external id and vice versa
-    trafficLightsInt2ExtId.clear();
-    trafficLightsExt2IntId.clear();
-    poiExt2IntId.clear();
-    poiInt2ExtId.clear();
-    polygonExt2IntId.clear();
-    polygonInt2ExtId.clear();
-    int extId = 0;
-    std::vector<std::string> tllIds = MSNet::getInstance()->getTLSControl().getAllTLIds();
-    for (std::vector<std::string>::iterator it=tllIds.begin(); it != tllIds.end(); it++) {
-        trafficLightsInt2ExtId[(*it)] = extId;
-        trafficLightsExt2IntId[extId] = (*it);
-//		cerr << "TL int=" << *it << " --> ext=" << extId << endl;
-        extId++;
-    }
-    int poiId = 0;
-    int polyId = 0;
-    ShapeContainer& shapeCont = MSNet::getInstance()->getShapeContainer();
-    for (int i = shapeCont.getMinLayer(); i <= shapeCont.getMaxLayer(); i++) {
-        std::vector<PointOfInterest*> poiList = shapeCont.getPOICont(i).getTempVector();
-        for (std::vector<PointOfInterest*>::iterator it=poiList.begin(); it != poiList.end(); it++) {
-            poiInt2ExtId[(*it)->getID()] = poiId;
-            poiExt2IntId[poiId] = (*it)->getID();
-            poiId++;
-        }
-        std::vector<Polygon2D*> polyList = shapeCont.getPolygonCont(i).getTempVector();
-        for (std::vector<Polygon2D*>::iterator it=polyList.begin(); it != polyList.end(); it++) {
-            polygonInt2ExtId[(*it)->getID()] = polyId;
-            polygonExt2IntId[polyId] = (*it)->getID();
-            polyId++;
-        }
-    }
-
-    // determine the maximum number of vehicles by searching route and additional input files for "vehicle" tags
-    TraCIHandler xmlHandler;
-    SAX2XMLReader* xmlParser = XMLSubSys::getSAXReader(xmlHandler);
-
-    if (OptionsCont::getOptions().getFloat("penetration")!=0) {
-        // parse route files
-        if (oc.isSet("route-files")) {
-            std::vector<std::string> fileList = oc.getStringVector("route-files");
-            for (std::vector<std::string>::iterator file=fileList.begin(); file != fileList.end(); file++) {
-                if (oc.isUsableFileList("route-files")) {
-                    xmlHandler.setFileName((*file));
-                    xmlHandler.resetTotalVehicleCount();
-                    xmlParser->parse(file->c_str());
-                    if (!MsgHandler::getErrorInstance()->wasInformed()) {
-                        totalNumVehicles_ += xmlHandler.getTotalVehicleCount();
-                    }
-                }
-            }
-        }
-
-        // parse additional files
-        if (oc.isSet("additional-files")) {
-            std::vector<std::string> fileList = oc.getStringVector("additional-files");
-            for (std::vector<std::string>::iterator file = fileList.begin(); file != fileList.end(); file++) {
-                if (oc.isUsableFileList("additional-files")) {
-                    xmlHandler.setFileName((*file));
-                    xmlHandler.resetTotalVehicleCount();
-                    xmlParser->parse(file->c_str());
-                    if (!MsgHandler::getErrorInstance()->wasInformed()) {
-                        totalNumVehicles_ += xmlHandler.getTotalVehicleCount();
-                    }
-                }
-            }
-        }
-    }
-
-    delete xmlParser;
-
     try {
         int port = oc.getInt("remote-port");
         // Opens listening socket
         MsgHandler::getMessageInstance()->inform("***Starting server on port " + toString(port) + " ***");
-        socket_ = new Socket(port);
-        socket_->accept();
+        mySocket = new tcpip::Socket(port);
+        mySocket->accept();
         // When got here, a client has connected
-    } catch (SocketException &e) {
+    } catch (tcpip::SocketException &e) {
         throw ProcessError(e.what());
     }
 }
@@ -273,21 +179,20 @@ TraCIServer::TraCIServer() {
 
 TraCIServer::~TraCIServer() {
     MSNet::getInstance()->removeVehicleStateListener(this);
-    if (socket_ != NULL) {
-        socket_->close();
-        delete socket_;
+    if (mySocket != NULL) {
+        mySocket->close();
+        delete mySocket;
     }
-    if (netBoundary_ != NULL) delete netBoundary_;
 }
 
 /*****************************************************************************/
 
 void
 TraCIServer::close() {
-    if (instance_!=0) {
-        delete instance_;
-        instance_ = 0;
-        closeConnection_ = true;
+    if (myInstance!=0) {
+        delete myInstance;
+        myInstance = 0;
+        myDoCloseConnection = true;
     }
 }
 
@@ -295,7 +200,7 @@ TraCIServer::close() {
 
 void
 TraCIServer::vehicleStateChanged(const SUMOVehicle * const vehicle, MSNet::VehicleState to) {
-    if (closeConnection_ || OptionsCont::getOptions().getInt("remote-port") == 0) {
+    if (myDoCloseConnection || OptionsCont::getOptions().getInt("remote-port") == 0) {
         return;
     }
     myVehicleStateChanges[to].push_back(vehicle->getID());
@@ -305,79 +210,71 @@ TraCIServer::vehicleStateChanged(const SUMOVehicle * const vehicle, MSNet::Vehic
 void
 TraCIServer::processCommandsUntilSimStep(SUMOTime step) {
     try {
-        if (instance_ == 0) {
-            if (!closeConnection_ && OptionsCont::getOptions().getInt("remote-port") != 0) {
-                instance_ = new traci::TraCIServer();
+        if (myInstance == 0) {
+            if (!myDoCloseConnection && OptionsCont::getOptions().getInt("remote-port") != 0) {
+                myInstance = new traci::TraCIServer();
             } else {
                 return;
             }
         }
-        if (step < instance_->targetTime_) {
+        if (step < myInstance->myTargetTime) {
             return;
         }
         // Simulation should run until
         // 1. end time reached or
         // 2. got CMD_CLOSE or
         // 3. Client closes socket connection
-        if (instance_->myDoingSimStep) {
-            switch (instance_->simStepCommand) {
-            case CMD_SIMSTEP:
-                instance_->postProcessSimulationStep();
-                break;
-            case CMD_SIMSTEP2:
-                instance_->postProcessSimulationStep2();
-                break;
-            }
-            instance_->myDoingSimStep = false;
+        if (myInstance->myDoingSimStep) {
+            myInstance->postProcessSimulationStep2();
+            myInstance->myDoingSimStep = false;
         }
-        while (!closeConnection_) {
-            if (!instance_->myInputStorage.valid_pos()) {
-                if (instance_->myOutputStorage.size() > 0) {
+        while (!myDoCloseConnection) {
+            if (!myInstance->myInputStorage.valid_pos()) {
+                if (myInstance->myOutputStorage.size() > 0) {
                     // send out all answers as one storage
-                    instance_->socket_->sendExact(instance_->myOutputStorage);
+                    myInstance->mySocket->sendExact(myInstance->myOutputStorage);
                 }
-                instance_->myInputStorage.reset();
-                instance_->myOutputStorage.reset();
+                myInstance->myInputStorage.reset();
+                myInstance->myOutputStorage.reset();
                 // Read a message
-                instance_->socket_->receiveExact(instance_->myInputStorage);
+                myInstance->mySocket->receiveExact(myInstance->myInputStorage);
             }
-            while (instance_->myInputStorage.valid_pos() && !closeConnection_) {
+            while (myInstance->myInputStorage.valid_pos() && !myDoCloseConnection) {
                 // dispatch each command
-                int cmd = instance_->dispatchCommand();
-                if (cmd == CMD_SIMSTEP || cmd==CMD_SIMSTEP2) {
-                    instance_->simStepCommand = cmd;
-                    instance_->myDoingSimStep = true;
-                    for (std::map<MSNet::VehicleState, std::vector<std::string> >::iterator i=instance_->myVehicleStateChanges.begin(); i!=instance_->myVehicleStateChanges.end(); ++i) {
+                int cmd = myInstance->dispatchCommand();
+                if (cmd==CMD_SIMSTEP2) {
+                    myInstance->myDoingSimStep = true;
+                    for (std::map<MSNet::VehicleState, std::vector<std::string> >::iterator i=myInstance->myVehicleStateChanges.begin(); i!=myInstance->myVehicleStateChanges.end(); ++i) {
                         (*i).second.clear();
                     }
                     return;
                 }
             }
         }
-        if (closeConnection_ && instance_->myOutputStorage.size() > 0) {
+        if (myDoCloseConnection && myInstance->myOutputStorage.size() > 0) {
             // send out all answers as one storage
-            instance_->socket_->sendExact(instance_->myOutputStorage);
+            myInstance->mySocket->sendExact(myInstance->myOutputStorage);
         }
-        for (std::map<MSNet::VehicleState, std::vector<std::string> >::iterator i=instance_->myVehicleStateChanges.begin(); i!=instance_->myVehicleStateChanges.end(); ++i) {
+        for (std::map<MSNet::VehicleState, std::vector<std::string> >::iterator i=myInstance->myVehicleStateChanges.begin(); i!=myInstance->myVehicleStateChanges.end(); ++i) {
             (*i).second.clear();
         }
     } catch (std::invalid_argument &e) {
         throw ProcessError(e.what());
     } catch (TraCIException &e) {
         throw ProcessError(e.what());
-    } catch (SocketException &e) {
+    } catch (tcpip::SocketException &e) {
         throw ProcessError(e.what());
     }
-    if (instance_ != NULL) {
-        delete instance_;
-        instance_ = 0;
-        closeConnection_ = true;
+    if (myInstance != NULL) {
+        delete myInstance;
+        myInstance = 0;
+        myDoCloseConnection = true;
     }
 }
 
 bool
 TraCIServer::wasClosed() {
-    return closeConnection_;
+    return myDoCloseConnection;
 }
 
 /*****************************************************************************/
@@ -400,51 +297,27 @@ TraCIServer::dispatchCommand() {
         case CMD_GETVERSION:
             success = commandGetVersion();
             break;
-        case CMD_SIMSTEP:
-            targetTime_ = static_cast<SUMOTime>(myInputStorage.readInt());
-            success = true;
-            if (!myHaveWarnedDeprecation) {
-                MsgHandler::getWarningInstance()->inform("Using old TraCI API, please update your client!");
-                myHaveWarnedDeprecation = true;
-            }
-            return commandId;
         case CMD_SIMSTEP2: {
             SUMOTime nextT = myInputStorage.readInt();
             success = true;
             if (nextT!=0) {
-                targetTime_ = nextT;
+                myTargetTime = nextT;
             } else {
-                targetTime_ += DELTA_T;
+                myTargetTime += DELTA_T;
             }
             return commandId;
         }
         case CMD_CLOSE:
             success = commandCloseConnection();
             break;
-        case CMD_UPDATECALIBRATOR:
-            success = commandUpdateCalibrator();
-            break;
         case CMD_POSITIONCONVERSION:
             success = commandPositionConversion();
-            break;
-        case CMD_SCENARIO:
-            success = commandScenario();
             break;
         case CMD_ADDVEHICLE:
             success = commandAddVehicle();
             break;
         case CMD_DISTANCEREQUEST:
             success = commandDistanceRequest();
-            break;
-        case CMD_SUBSCRIBELIFECYCLES:
-            success = TraCIServerAPI_Vehicle::commandSubscribeLifecycles(*this, myInputStorage, myOutputStorage);
-            myCreatedVehicles.clear();
-            myDestroyedVehicles.clear();
-            break;
-        case CMD_UNSUBSCRIBELIFECYCLES:
-            success = TraCIServerAPI_Vehicle::commandUnsubscribeLifecycles(*this, myInputStorage, myOutputStorage);
-            myCreatedVehicles.clear();
-            myDestroyedVehicles.clear();
             break;
         case CMD_SUBSCRIBE_INDUCTIONLOOP_VARIABLE:
         case CMD_SUBSCRIBE_MULTI_ENTRY_EXIT_DETECTOR_VARIABLE:
@@ -471,161 +344,17 @@ TraCIServer::dispatchCommand() {
         }
     }
     if (myInputStorage.position() != commandStart + commandLength) {
-        ostringstream msg;
+        std::ostringstream msg;
         msg << "Wrong position in requestMessage after dispatching command.";
         msg << " Expected command length was " << commandLength;
         msg << " but " << myInputStorage.position() - commandStart << " Bytes were read.";
         writeStatusCmd(commandId, RTYPE_ERR, msg.str());
-        closeConnection_ = true;
+        myDoCloseConnection = true;
     }
     return commandId;
 }
 
 /*****************************************************************************/
-
-void
-TraCIServer::postProcessSimulationStep() {
-    // Position representation
-    int resType = myInputStorage.readUnsignedByte();
-    if (resType != POSITION_NONE && resType != POSITION_2D && resType != POSITION_ROADMAP
-            && resType != POSITION_2_5D && resType != POSITION_3D) {
-        writeStatusCmd(CMD_SIMSTEP, RTYPE_ERR, "Error: unsupported return format requested.");
-        return;
-    }
-    isMapChanged_ = true;
-    // Everything is fine
-    writeStatusCmd(CMD_SIMSTEP, RTYPE_OK, "");
-
-    // prepare output
-    try {
-        MSNet *net = MSNet::getInstance();
-        // map containing all active equipped vehicles. maps external id to MSVehicle*
-        map<int, const SUMOVehicle*> activeEquippedVehicles;
-        // get access to all vehicles in simulation
-        MSVehicleControl &vehControl = net->getVehicleControl();
-        // iterate over all vehicles in simulation
-        for (MSVehicleControl::constVehIt iter = vehControl.loadedVehBegin();
-                iter != vehControl.loadedVehEnd(); ++iter) {
-            // selected vehicle
-            const std::string vehicleId   = (*iter).first;
-            const SUMOVehicle *vehicle = (*iter).second;
-            // insert into equippedVehicleId if not contained
-            std::map<std::string, int>::const_iterator equippedVeh = equippedVehicles_.find(vehicleId);
-            if (equippedVeh == equippedVehicles_.end()) {
-                // determine if vehicle is equipped
-                if (penetration_ >= 1. || RandHelper::rand() <= penetration_) {
-                    // vehicle is equipped
-                    equippedVehicles_[vehicleId] = numEquippedVehicles_;
-                    // put into active list?
-                    if (vehicle->isOnRoad()) {
-                        if ((myLifecycleSubscriptions.count(DOM_VEHICLE) != 0) &&
-                                (myLivingVehicles.count(numEquippedVehicles_) == 0)) {
-                            myCreatedVehicles.insert(numEquippedVehicles_);
-                            myLivingVehicles.insert(numEquippedVehicles_);
-                        }
-                        activeEquippedVehicles[numEquippedVehicles_] = vehicle;
-                    }
-                    numEquippedVehicles_++;
-                } else {
-                    // vehicle is not equipped
-                    equippedVehicles_[vehicleId] = -1;
-                }
-            } else if (equippedVeh->second >= 0 && vehicle->isOnRoad()) {
-                int extId = equippedVeh->second;
-                if ((myLifecycleSubscriptions.count(DOM_VEHICLE) != 0) &&
-                        (myLivingVehicles.count(extId) == 0)) {
-                    myCreatedVehicles.insert(extId);
-                    myLivingVehicles.insert(extId);
-                }
-                activeEquippedVehicles[extId] = vehicle;
-                // vehicle is equipped
-            }
-        }
-        if (myLifecycleSubscriptions.count(DOM_VEHICLE) != 0) {
-            // iterate over all vehicles that are supposed to live
-            for (std::set<int>::iterator i = myLivingVehicles.begin();
-                    i != myLivingVehicles.end();) {
-                int extId = *i;
-                if (activeEquippedVehicles.find(extId) == activeEquippedVehicles.end()) {
-                    myDestroyedVehicles.insert(extId);
-                    myLivingVehicles.erase(i++);
-                } else {
-                    i++;
-                }
-            }
-        }
-
-        handleLifecycleSubscriptions();
-
-        // for each vehicle process any active traci command
-        for (std::map<std::string, int>::iterator iter = equippedVehicles_.begin();
-                iter != equippedVehicles_.end(); ++iter) {
-            if ((*iter).second != -1) { // Look only at equipped vehicles
-                MSVehicle* veh = static_cast<MSVehicle*>(net->getVehicleControl().getVehicle((*iter).first));
-                TraCIServerAPI_Vehicle::checkReroute(veh);
-                if (veh != NULL) {
-                    veh->processTraCICommands(targetTime_);
-                }
-            }
-        }
-
-        handleDomainSubscriptions(targetTime_, activeEquippedVehicles);
-
-        //out.writeChar( static_cast<unsigned char>(rtype) );
-        //out.writeInt(numEquippedVehicles_);
-        // iterate over all active equipped vehicles
-        // and generate a Move Node command for each vehicle
-        if (resType != POSITION_NONE) {
-            for (map<int, const SUMOVehicle*>::iterator iter = activeEquippedVehicles.begin();
-                    iter != activeEquippedVehicles.end(); ++iter) {
-                int extId = (*iter).first;
-                const MSVehicle* vehicle = static_cast<const MSVehicle*>((*iter).second);
-                Storage tempMsg;
-
-                // command type
-                tempMsg.writeUnsignedByte(CMD_MOVENODE);
-                // node id
-                tempMsg.writeInt(extId);
-                // end time
-                tempMsg.writeInt(targetTime_);
-
-                if (resType == POSITION_ROADMAP) {
-                    // return type
-                    tempMsg.writeUnsignedByte(POSITION_ROADMAP);
-
-                    tempMsg.writeString(vehicle->getEdge()->getID());
-                    tempMsg.writeFloat((float)vehicle->getPositionOnLane());
-
-                    // determine index of the lane the vehicle is on
-                    int laneId = 0;
-                    const MSLane* lane = vehicle->getLane();
-                    while ((lane = lane->getRightLane()) != NULL) {
-                        laneId++;
-                    }
-                    tempMsg.writeUnsignedByte(laneId);
-                } else if (resType == POSITION_2D || resType == POSITION_3D || resType == POSITION_2_5D) {
-                    tempMsg.writeUnsignedByte(resType);
-                    Position2D pos = vehicle->getLane()->getShape().positionAtLengthPosition(vehicle->getPositionOnLane());
-                    tempMsg.writeFloat((float)pos.x());
-                    tempMsg.writeFloat((float)pos.y());
-                    if (resType != POSITION_2D) {
-                        // z pos: ignored
-                        tempMsg.writeFloat(0);
-                    }
-                }
-
-                // command length
-                myOutputStorage.writeUnsignedByte((int)tempMsg.size()+1);
-                // content
-                myOutputStorage.writeStorage(tempMsg);
-            }
-        }
-    } catch (...) {
-        writeStatusCmd(CMD_SIMSTEP, RTYPE_ERR, "some error happen in command: simulation step. Sumo shuts down.");
-        closeConnection_ = true;
-    }
-}
-
 
 void
 TraCIServer::postProcessSimulationStep2() {
@@ -658,12 +387,6 @@ TraCIServer::postProcessSimulationStep2() {
     }
 }
 
-
-
-/*****************************************************************************/
-
-
-
 /*****************************************************************************/
 
 bool
@@ -694,114 +417,9 @@ TraCIServer::commandGetVersion() {
 
 bool
 TraCIServer::commandCloseConnection() {
-    closeConnection_ = true;
+    myDoCloseConnection = true;
     // write answer
     writeStatusCmd(CMD_CLOSE, RTYPE_OK, "Goodbye");
-    return true;
-}
-
-/*****************************************************************************/
-
-bool
-TraCIServer::commandSimulationParameter() {
-    bool setParameter = (myInputStorage.readByte() != 0);
-    std::string parameter = myInputStorage.readString();
-
-    // Prepare response
-    tcpip::Storage answerTmp;
-
-    if (parameter.compare("maxX")) {
-        if (setParameter) {
-            writeStatusCmd(CMD_SIMPARAMETER, RTYPE_ERR, "maxX is a read only parameter");
-            return false;
-        } else {
-            answerTmp.writeFloat((float)(getNetBoundary().getWidth()));
-        }
-    } else if (parameter.compare("maxY")) {
-        if (setParameter) {
-            writeStatusCmd(CMD_SIMPARAMETER, RTYPE_ERR, "maxY is a read only parameter");
-            return false;
-        } else {
-            answerTmp.writeFloat((float)(getNetBoundary().getHeight()));
-        }
-    } else if (parameter.compare("numberOfNodes")) {
-        if (setParameter) {
-            writeStatusCmd(CMD_SIMPARAMETER, RTYPE_ERR, "numberOfNodes is a read only parameter");
-            return false;
-        } else {
-            writeStatusCmd(CMD_SIMPARAMETER, RTYPE_NOTIMPLEMENTED, "numberOfNodes not implemented yet");
-            return false;
-            //answerTmp.writeInt( --- Don't know where to get that information ---);
-        }
-    } else if (parameter.compare("airDistance")) {
-        MSVehicle* veh1 = getVehicleByExtId(myInputStorage.readInt());   // external node id (equipped vehicle number)
-        MSVehicle* veh2 = getVehicleByExtId(myInputStorage.readInt());   // external node id (equipped vehicle number)
-
-        if (veh1 != NULL && veh2 != NULL) {
-            if (setParameter) {
-                writeStatusCmd(CMD_SIMPARAMETER, RTYPE_ERR, "airDistance is a read only parameter");
-                return false;
-            } else {
-                float dx = (float)(veh1->getPosition().x() - veh2->getPosition().x());
-                float dy = (float)(veh1->getPosition().y() - veh2->getPosition().y());
-                answerTmp.writeFloat(sqrt(dx * dx + dy * dy));
-            }
-        } else {
-            writeStatusCmd(CMD_SIMPARAMETER, RTYPE_ERR, "Can not retrieve node with given ID");
-            return false;
-        }
-    } else if (parameter.compare("drivingDistance")) {
-        MSVehicle* veh1 = getVehicleByExtId(myInputStorage.readInt());   // external node id (equipped vehicle number)
-        MSVehicle* veh2 = getVehicleByExtId(myInputStorage.readInt());   // external node id (equipped vehicle number)
-
-        if (veh1 != NULL && veh2 != NULL) {
-            if (setParameter) {
-                writeStatusCmd(CMD_SIMPARAMETER, RTYPE_ERR, "airDistance is a read only parameter");
-                return false;
-            } else {
-                writeStatusCmd(CMD_SIMPARAMETER, RTYPE_NOTIMPLEMENTED, "drivingDistance not implemented yet");
-                return false;
-                //float dx = veh1->getPosition().x() - veh2->getPosition().x();
-                //float dy = veh1->getPosition().y() - veh2->getPosition().y();
-                //float distance = sqrt( dx * dx + dy * dy );
-                // answerTmp.writeFloat( distance );
-            }
-        } else {
-            writeStatusCmd(CMD_SIMPARAMETER, RTYPE_ERR, "Can not retrieve node with given ID");
-            return false;
-        }
-    }
-
-    // When we get here, the response is stored in answerTmp -> put into myOutputStorage
-    writeStatusCmd(CMD_SIMPARAMETER, RTYPE_OK, "");
-
-    // command length
-    myOutputStorage.writeUnsignedByte(1 + 1 + 1 + 4 + static_cast<int>(parameter.length()) + (int)answerTmp.size());
-    // command type
-    myOutputStorage.writeUnsignedByte(CMD_SIMPARAMETER);
-    // answer only to getParameter commands as setParameter
-    myOutputStorage.writeUnsignedByte(1);
-    // Parameter
-    myOutputStorage.writeString(parameter);
-    // and the parameter dependant part
-    myOutputStorage.writeStorage(answerTmp);
-    return true;
-}
-
-/*****************************************************************************/
-
-bool
-TraCIServer::commandUpdateCalibrator() {
-    myOutputStorage.reset();
-
-    int countTime = myInputStorage.readInt();
-    int vehicleCount = myInputStorage.readInt();
-    std::string calibratorId = myInputStorage.readString();
-
-    MSCalibrator::updateCalibrator(calibratorId, countTime, vehicleCount);
-
-    //@TODO write response according to result of updateCalibrator
-
     return true;
 }
 
@@ -906,63 +524,6 @@ TraCIServer::commandPositionConversion() {
     myOutputStorage.writeUnsignedByte(CMD_POSITIONCONVERSION);	// command id
     myOutputStorage.writeStorage(tmpResult);	// position dependant part
     myOutputStorage.writeUnsignedByte(destPosType);	// destination type
-    return true;
-}
-
-/*****************************************************************************/
-
-bool
-TraCIServer::commandScenario() {
-    Storage tmpResult;
-    std::string warning = "";	// additional description for response
-
-    // read/write flag
-    bool isWriteCommand = (myInputStorage.readUnsignedByte() != 0);
-
-    // domain
-    int domain = myInputStorage.readUnsignedByte();
-
-    try {
-        switch (domain) {
-        case DOM_ROADMAP:
-            warning = handleRoadMapDomain(isWriteCommand, tmpResult);
-            break;
-        case DOM_VEHICLE:
-            warning = handleVehicleDomain(isWriteCommand, tmpResult);
-            break;
-        case DOM_TRAFFICLIGHTS:
-            warning = handleTrafficLightDomain(isWriteCommand, tmpResult);
-            break;
-        case DOM_POI:
-            warning = handlePoiDomain(isWriteCommand, tmpResult);
-            break;
-        case DOM_POLYGON:
-            warning = handlePolygonDomain(isWriteCommand, tmpResult);
-            break;
-        default:
-            writeStatusCmd(CMD_SCENARIO, RTYPE_ERR, "Unknown domain specified");
-            return false;
-        }
-    } catch (TraCIException &e) {
-        writeStatusCmd(CMD_SCENARIO, RTYPE_ERR, e.what());
-        return false;
-    }
-
-    // write response message
-    writeStatusCmd(CMD_SCENARIO, RTYPE_OK, warning);
-    // if necessary, add Scenario command containing the read value
-    if (!isWriteCommand) {
-        if (tmpResult.size() <= 253) {
-            myOutputStorage.writeUnsignedByte(1 + 1 + (int)tmpResult.size());	// command length
-            myOutputStorage.writeUnsignedByte(CMD_SCENARIO);	// command id
-            myOutputStorage.writeStorage(tmpResult);	// variable dependant part
-        } else {
-            myOutputStorage.writeUnsignedByte(0);	// command length -> extended
-            myOutputStorage.writeInt(1 + 4 + 1 + (int)tmpResult.size());
-            myOutputStorage.writeUnsignedByte(CMD_SCENARIO);	// command id
-            myOutputStorage.writeStorage(tmpResult);	// variable dependant part
-        }
-    }
     return true;
 }
 
@@ -1189,140 +750,6 @@ TraCIServer::writeStatusCmd(int commandId, int status, const std::string &descri
 
 /*****************************************************************************/
 
-void
-TraCIServer::convertExt2IntId(int extId, std::string& intId) {
-    if (isMapChanged_) {
-        isMapChanged_ = false;
-        ext2intId.clear();
-        for (map<std::string, int>::const_iterator iter = equippedVehicles_.begin(); iter != equippedVehicles_.end(); ++iter) {
-            if (iter->second > -1) {
-                ext2intId[iter->second] = iter->first;
-            }
-        }
-    }
-
-    // Search for external-Id-int and return internal-Id-string
-    map<int, std::string>::const_iterator it = ext2intId.find(extId);
-    if (it != ext2intId.end()) intId = it->second;
-    else intId = "";
-}
-
-/*****************************************************************************/
-
-MSVehicle*
-TraCIServer::getVehicleByExtId(int extId) {
-    if (!myHaveWarnedDeprecation) {
-        MsgHandler::getWarningInstance()->inform("Using old TraCI API, please update your client!");
-        myHaveWarnedDeprecation = true;
-    }
-    std::string intId;
-    convertExt2IntId(extId, intId);
-    return static_cast<MSVehicle*>(MSNet::getInstance()->getVehicleControl().getVehicle(intId));
-}
-
-/*****************************************************************************/
-
-MSTrafficLightLogic*
-TraCIServer::getTLLogicByExtId(int extId) {
-    if (!myHaveWarnedDeprecation) {
-        MsgHandler::getWarningInstance()->inform("Using old TraCI API, please update your client!");
-        myHaveWarnedDeprecation = true;
-    }
-    std::string intId = "";
-    std::map<int, std::string>::iterator iter = trafficLightsExt2IntId.find(extId);
-    if (iter != trafficLightsExt2IntId.end()) {
-        intId = iter->second;
-    }
-
-    return MSNet::getInstance()->getTLSControl().getActive(intId);
-}
-
-/*****************************************************************************/
-
-PointOfInterest*
-TraCIServer::getPoiByExtId(int extId) {
-    if (!myHaveWarnedDeprecation) {
-        MsgHandler::getWarningInstance()->inform("Using old TraCI API, please update your client!");
-        myHaveWarnedDeprecation = true;
-    }
-    std::string intId = "";
-    std::map<int, std::string>::iterator iter = poiExt2IntId.find(extId);
-    if (iter != poiExt2IntId.end()) {
-        intId = iter->second;
-    }
-
-    ShapeContainer& shapeCont = MSNet::getInstance()->getShapeContainer();
-    PointOfInterest* poi = 0;
-    for (int i = shapeCont.getMinLayer(); i <= shapeCont.getMaxLayer(); i++) {
-        if (poi == 0) {
-            poi = shapeCont.getPOICont(i).get(intId);
-        }
-    }
-
-    return poi;
-}
-
-/*****************************************************************************/
-
-Polygon2D*
-TraCIServer::getPolygonByExtId(int extId) {
-    if (!myHaveWarnedDeprecation) {
-        MsgHandler::getWarningInstance()->inform("Using old TraCI API, please update your client!");
-        myHaveWarnedDeprecation = true;
-    }
-    std::string intId = "";
-    map<int, std::string>::const_iterator it = ext2intId.find(extId);
-    if (it != ext2intId.end()) {
-        intId = it->second;
-    }
-
-    ShapeContainer& shapeCont = MSNet::getInstance()->getShapeContainer();
-    Polygon2D* polygon = NULL;
-    for (int i = shapeCont.getMinLayer(); i <= shapeCont.getMaxLayer(); i++) {
-        if (polygon == NULL) {
-            polygon = shapeCont.getPolygonCont(i).get(intId);
-        }
-    }
-
-    return polygon;
-}
-
-/*****************************************************************************/
-
-const Boundary&
-TraCIServer::getNetBoundary() {
-    // If already calculated, just return the boundary
-    if (netBoundary_ != NULL) return *netBoundary_;
-
-    // Otherwise calculate it first
-    netBoundary_ = new Boundary();
-    /*
-    {
-    // use the junctions to compute the boundaries
-    for (size_t index=0; index<myNet.myJunctionWrapper.size(); index++) {
-    if (myNet.myJunctionWrapper[index]->getShape().size()>0) {
-    ret.add(myNet.myJunctionWrapper[index]->getBoundary());
-    } else {
-    ret.add(myNet.myJunctionWrapper[index]->getJunction().getPosition());
-    }
-    }
-    }
-    */
-    // Get all edges
-    const std::vector<MSEdge*> &edges = MSNet::getInstance()->getEdgeControl().getEdges();
-
-    // Get Boundary of Single ...
-    for (std::vector<MSEdge*>::const_iterator e = edges.begin(); e != edges.end(); ++e) {
-        const std::vector<MSLane*> &lanes = (*e)->getLanes();
-        for (std::vector<MSLane*>::const_iterator laneIt = lanes.begin(); laneIt != lanes.end(); ++laneIt) {
-            netBoundary_->add((*laneIt)->getShape().getBoxBoundary());
-        }
-    }
-    return *netBoundary_;
-}
-
-/*****************************************************************************/
-
 TraCIServer::RoadMapPos
 TraCIServer::convertCartesianToRoadMap(Position2D pos) {
     RoadMapPos result;
@@ -1426,1076 +853,6 @@ TraCIServer::convertRoadMapToCartesian(traci::TraCIServer::RoadMapPos roadPos) {
 }
 
 /*****************************************************************************/
-
-std::string
-TraCIServer::handleRoadMapDomain(bool isWriteCommand, tcpip::Storage& response) {
-    std::string name = "";
-    std::string warning = "";	// additional description for response
-    DataTypeContainer dataCont;
-
-    // domain object
-    int objectId = myInputStorage.readInt();
-    // check for valid object id
-    if (objectId < 0 || (unsigned int) objectId >= MSEdge::dictSize()) {
-        throw TraCIException("Invalid object id specified");
-    }
-    MSEdge* edge = MSEdge::dictionary(objectId);
-
-    // variable id
-    int variableId = myInputStorage.readUnsignedByte();
-
-    // value data type
-    int dataType = myInputStorage.readUnsignedByte();
-
-    // if end of message is not yet reached, the value parameter has to be read
-    if (myInputStorage.valid_pos()) {
-        dataCont.readValue(static_cast<unsigned char> (dataType), myInputStorage);
-    }
-
-    if (isWriteCommand) {
-        throw TraCIException("Road map domain does not contain writable variables");
-    }
-
-    // write beginning of the answer message
-    response.writeUnsignedByte((isWriteCommand ? 0x01 : 0x00));	// get/set flag
-    response.writeUnsignedByte(DOM_ROADMAP);	// domain
-    response.writeInt(objectId);	// domain object id
-    response.writeUnsignedByte(variableId);		// variable
-
-    switch (variableId) {
-        // name std::string of the object
-    case DOMVAR_NAME:
-        if (edge != NULL) {
-            name = edge->getID();
-            response.writeUnsignedByte(TYPE_STRING);
-            response.writeString(name);
-            if (dataType != TYPE_STRING) {
-                warning = "Warning: requested data type could not be used; using string instead!";
-            }
-        } else {
-            throw TraCIException("Unable to retrieve road with given id");
-        }
-        break;
-
-        // numerical id of an edge
-    case DOMVAR_EXTID:
-        //if (dataType != TYPE_STRING) {
-        if (dataCont.getLastValueRead() != TYPE_STRING) {
-            throw TraCIException("Internal id must be given as string value");
-        }
-        //name = myInputStorage.readString();
-        name = dataCont.getString();
-        edge = MSEdge::dictionary(name);
-        if (edge != NULL) {
-            response.writeUnsignedByte(TYPE_INTEGER);
-            response.writeInt(edge->getNumericalID());
-        } else {
-            std::stringstream msg;
-            msg << "Edge with internal id " << name << " not existing";
-            throw TraCIException(msg.str());
-        }
-        break;
-
-        // net boundaries
-    case DOMVAR_BOUNDINGBOX:
-        response.writeUnsignedByte(TYPE_BOUNDINGBOX);
-        response.writeFloat((float)getNetBoundary().xmin());
-        response.writeFloat((float)getNetBoundary().ymin());
-        response.writeFloat((float)getNetBoundary().xmax());
-        response.writeFloat((float)getNetBoundary().ymax());
-        // add a warning to the response if the requested data type was not correct
-        if (dataType != TYPE_BOUNDINGBOX) {
-            warning = "Warning: requested data type could not be used; using boundary box type instead!";
-        }
-        break;
-
-        // number of roads
-    case DOMVAR_COUNT:
-        response.writeUnsignedByte(TYPE_INTEGER);
-        response.writeInt((int)(MSNet::getInstance()->getEdgeControl().getEdgeNames().size()));
-        if (dataType != TYPE_INTEGER) {
-            warning = "Warning: requested data type could not be used; using integer instead!";
-        }
-        break;
-
-        // shape of a road
-    case DOMVAR_SHAPE:
-        if (edge != NULL) {
-            const std::vector<MSLane*> &lanes = edge->getLanes();
-            const Position2DVector shape = lanes[lanes.size()/2]->getShape();
-            response.writeUnsignedByte(TYPE_POLYGON);
-            response.writeUnsignedByte((int)MIN2(static_cast<size_t>(255),shape.size()));
-            for (unsigned int iPoint=0; iPoint < MIN2(static_cast<size_t>(255),shape.size()); iPoint++) {
-                response.writeFloat((float)shape[iPoint].x());
-                response.writeFloat((float)shape[iPoint].y());
-            }
-            if (dataType != TYPE_POLYGON) {
-                warning = "Warning: requested data type could not be used; using polygon type instead!";
-            }
-        } else {
-            throw TraCIException("Unable to retrieve road with given id");
-        }
-        break;
-
-        // unknown variable
-    default:
-        throw TraCIException("Unknown domain variable specified");
-    }
-
-    return warning;
-}
-
-/*****************************************************************************/
-
-std::string
-TraCIServer::handleVehicleDomain(bool isWriteCommand, tcpip::Storage& response) {
-    std::string name;
-    int count = 0;
-    MSVehicleControl* vehControl = NULL;
-    std::string warning = "";	// additional description for response
-    DataTypeContainer dataCont;
-
-    // domain object
-    int objectId = myInputStorage.readInt();
-    MSVehicle* veh = getVehicleByExtId(objectId);	//get node by id
-
-    // variable id
-    int variableId = myInputStorage.readUnsignedByte();
-
-    // value data type
-    int dataType = myInputStorage.readUnsignedByte();
-
-    // if end of message is not yet reached, the value parameter has to be read
-    if (myInputStorage.valid_pos()) {
-        dataCont.readValue(static_cast<unsigned char>(dataType), myInputStorage);
-    }
-
-    if (isWriteCommand) {
-        throw TraCIException("Vehicle domain does not contain writable variables");
-    }
-
-    // write beginning of the answer message
-    response.writeUnsignedByte((isWriteCommand ? 0x01 : 0x00));	// get/set flag
-    response.writeUnsignedByte(DOM_VEHICLE);	// domain
-    response.writeInt(objectId);	// domain object id
-    response.writeUnsignedByte(variableId);		// variable
-
-    switch (variableId) {
-        // name std::string of the object
-    case DOMVAR_NAME:
-        if (veh != NULL) {
-            name = veh->getID();
-            response.writeUnsignedByte(TYPE_STRING);
-            response.writeString(name);
-            // add a warning to the response if the requested data type was not correct
-            if (dataType != TYPE_STRING) {
-                warning = "Warning: requested data type could not be used; using string instead!";
-            }
-        } else {
-            throw TraCIException("Unable to retrieve node with given ID");
-        }
-        break;
-
-        // external id of the object
-    case DOMVAR_EXTID:
-//		if (dataType != TYPE_STRING) {
-        if (dataCont.getLastValueRead() != TYPE_STRING) {
-            throw TraCIException("Internal id must be given as string value");
-        }
-//		name = myInputStorage.readString();
-        name = dataCont.getString();
-        if (equippedVehicles_.find(name) != equippedVehicles_.end()) {
-            response.writeUnsignedByte(TYPE_INTEGER);
-            response.writeInt(equippedVehicles_[name]);
-        } else {
-            std::stringstream msg;
-            msg << "Vehicle with internal id " << name << " not existing or not accessible via TraCI";
-            throw TraCIException(msg.str());
-        }
-        break;
-
-        // number of active nodes
-    case DOMVAR_COUNT:
-        vehControl = &MSNet::getInstance()->getVehicleControl();
-        for (MSVehicleControl::constVehIt vehIt = vehControl->loadedVehBegin(); vehIt != vehControl->loadedVehEnd(); vehIt++) {
-            if (vehIt->second->isOnRoad()) {
-                count++;
-            }
-        }
-        response.writeUnsignedByte(TYPE_INTEGER);
-        response.writeInt(count);
-        if (dataType != TYPE_INTEGER) {
-            warning = "Warning: requested data type could not be used; using integer instead!";
-        }
-        break;
-
-        // upper bound for number of nodes
-    case DOMVAR_MAXCOUNT:
-        response.writeUnsignedByte(TYPE_INTEGER);
-        response.writeInt(totalNumVehicles_);
-        if (dataType != TYPE_INTEGER) {
-            warning = "Warning: requested data type could not be used; using integer instead!";
-        }
-        break;
-
-        // number of active nodes accesible via traci
-    case DOMVAR_EQUIPPEDCOUNT:
-        for (std::map<std::string, int>::iterator it=equippedVehicles_.begin(); it != equippedVehicles_.end(); it++) {
-            MSVehicle* veh = static_cast<MSVehicle*>(MSNet::getInstance()->getVehicleControl().getVehicle(it->first));
-            if (veh->isOnRoad()) {
-                count++;
-            }
-        }
-        response.writeUnsignedByte(TYPE_INTEGER);
-        response.writeInt(count);
-        if (dataType != TYPE_INTEGER) {
-            warning = "Warning: requested data type could not be used; using integer instead!";
-        }
-        break;
-
-        // upper bound for number of nodes accesible via traci
-    case DOMVAR_EQUIPPEDCOUNTMAX:
-        response.writeUnsignedByte(TYPE_INTEGER);
-        response.writeInt(static_cast<int>(0.5 + totalNumVehicles_ * penetration_));
-        if (dataType != TYPE_INTEGER) {
-            warning = "Warning: requested data type could not be used; using integer instead!";
-        }
-        break;
-
-        // node position
-    case DOMVAR_POSITION:
-        if (veh != NULL) {
-            switch (dataType) {
-            case POSITION_3D:
-                response.writeUnsignedByte(POSITION_3D);
-                response.writeFloat((float)(veh->getPosition().x()));
-                response.writeFloat((float)(veh->getPosition().y()));
-                response.writeFloat(0);
-                break;
-            default:
-                response.writeByte(POSITION_ROADMAP);
-                response.writeString(veh->getEdge()->getID());
-                response.writeFloat((float)(veh->getPositionOnLane()));
-                int laneId = 0;
-                MSLane* lane = veh->getLane()->getRightLane();
-                while (lane != NULL) {
-                    laneId++;
-                    lane =lane->getRightLane();
-                }
-                response.writeUnsignedByte(laneId);
-                // add a warning to the response if the requested data type was not correct
-                if (dataType != POSITION_ROADMAP) {
-                    warning = "Warning: requested data type could not be used; using road map position instead!";
-                }
-            }
-        } else {
-            throw TraCIException("Unable to retrieve node with given ID");
-        }
-        break;
-
-        // node speed
-    case DOMVAR_SPEED:
-        if (veh != NULL) {
-            response.writeUnsignedByte(TYPE_FLOAT);
-            response.writeFloat((float)(veh->getSpeed()));
-            // add a warning to the response if the requested data type was not correct
-            if (dataType != TYPE_FLOAT) {
-                warning = "Warning: requested data type could not be used; using float instead!";
-            }
-        } else {
-            throw TraCIException("Unable to retrieve node with given ID");
-        }
-        break;
-
-        // node maximum allowed speed
-    case DOMVAR_ALLOWED_SPEED:
-        if (veh != NULL) {
-            response.writeUnsignedByte(TYPE_FLOAT);
-            response.writeFloat((float)(veh->getLane()->getMaxSpeed()));
-            // add a warning to the response if the requested data type was not correct
-            if (dataType != TYPE_FLOAT) {
-                warning = "Warning: requested data type could not be used; using float instead!";
-            }
-        } else {
-            throw TraCIException("Unable to retrieve node with given ID");
-        }
-        break;
-
-        // node route
-    case DOMVAR_ROUTE:
-        if (veh != NULL) {
-            response.writeUnsignedByte(TYPE_STRING);
-            MSRoute r = static_cast<SUMOVehicle*>(veh)->getRoute();
-            std::string strRoute = "";
-            for (MSRouteIterator it = r.begin(); it != r.end(); ++it) {
-                if (strRoute.length()) strRoute.append(" ");
-                strRoute.append((*it)->getID());
-            }
-            response.writeString(strRoute);
-            // add a warning to the response if the requested data type was not correct
-            if (dataType != TYPE_STRING) {
-                warning = "Warning: requested data type could not be used; using string instead!";
-            }
-        } else {
-            throw TraCIException("Unable to retrieve node with given ID");
-        }
-        break;
-
-        // air distance from vehicle to a point
-    case DOMVAR_AIRDISTANCE:
-        // driving distance from vehicle to a point
-    case DOMVAR_DRIVINGDISTANCE:
-        if (veh != NULL) {
-            Position2D destPos;
-            RoadMapPos destRoadPos;
-            float distance = 0.0;
-
-            // read destinatin position
-            float x,y;
-            UNUSED_PARAMETER(x);
-            UNUSED_PARAMETER(y);
-            switch (dataCont.getLastValueRead()) {
-            case POSITION_ROADMAP:
-                destRoadPos = dataCont.getRoadMapPosition();
-                destPos = convertRoadMapToCartesian(destRoadPos);
-                if (MSEdge::dictionary(destRoadPos.roadId) == NULL) throw TraCIException("Unable to retrieve edge with given id");
-                break;
-            case POSITION_3D:
-            case POSITION_2_5D:
-            case POSITION_2D:
-                destPos = dataCont.getAnyPosition();
-                destRoadPos = convertCartesianToRoadMap(destPos);
-                break;
-            default:
-                throw TraCIException("Distance request to unknown destination");
-            }
-
-//            switch (dataType)
-//            {
-//            case POSITION_ROADMAP:
-//                {
-//                    destEdge = myInputStorage.readString();
-//                    destPos = myInputStorage.readFloat();
-//                    destLane = myInputStorage.readUnsignedByte();
-////                    cerr << " destEdge=" << destEdge << " destPos=" << destPos << " destLane=" << destLane << endl;
-//                    edge = MSEdge::dictionary( destEdge );
-//                    if (edge == NULL ) throw TraCIException("Unable to retrieve edge with given id");
-//
-//					const std::vector<MSLane*>& lanes = edge->getLanes();
-//					if (destLane > lanes.size()-1) throw TraCIException("No lane existing with specified id on this edge");
-//                    pos = lanes[destLane]->getShape().positionAtLengthPosition(destPos);
-//                }
-//                break;
-//            case POSITION_2D:
-//            case POSITION_2_5D:
-//            case POSITION_3D:
-//                {
-//                    float destX = myInputStorage.readFloat();
-//                    float destY = myInputStorage.readFloat();
-//					if ((dataType == POSITION_3D) || (dataType == POSITION_2_5D)) {
-//						myInputStorage.readFloat();	// z value is ignored
-//					}
-//					pos.set(destX, destY);
-//
-//					RoadMapPos roadPos = convertCartesianToRoadMap(pos);
-//					destEdge = roadPos.roadId;
-//					destPos = roadPos.pos;
-//					destLane = roadPos.laneId;
-//					edge = MSEdge::dictionary( destEdge );
-//                }
-//                break;
-//            default:
-//                throw TraCIException("Distance request to unknown destination");
-//            }
-
-            // compute the distance to destination position
-            if (variableId == DOMVAR_AIRDISTANCE) {
-                distance = static_cast<float>(veh->getPosition().distanceTo(destPos));
-            } else {
-                distance = static_cast<float>(veh->getDistanceToPosition(destRoadPos.pos, MSEdge::dictionary(destRoadPos.roadId)));
-            }
-            // write response
-            response.writeUnsignedByte(TYPE_FLOAT);
-            response.writeFloat(distance);
-        } else {
-            throw TraCIException("Unable to retrieve node with given ID");
-        }
-        break;
-
-        // CO2 emission
-    case DOMVAR_CO2EMISSION:
-        if (veh != NULL) {
-            response.writeUnsignedByte(TYPE_FLOAT);
-            response.writeFloat((float)(HelpersHBEFA::computeCO2(veh->getVehicleType().getEmissionClass(), veh->getSpeed(), veh->getPreDawdleAcceleration())));
-            // add a warning to the response if the requested data type was not correct
-            if (dataType != TYPE_FLOAT) {
-                warning = "Warning: requested data type could not be used; using float instead!";
-            }
-        } else {
-            throw TraCIException("Unable to retrieve node with given ID");
-        }
-        break;
-        // CO emission
-    case DOMVAR_COEMISSION:
-        if (veh != NULL) {
-            response.writeUnsignedByte(TYPE_FLOAT);
-            response.writeFloat((float)(HelpersHBEFA::computeCO(veh->getVehicleType().getEmissionClass(), veh->getSpeed(), veh->getPreDawdleAcceleration())));
-            // add a warning to the response if the requested data type was not correct
-            if (dataType != TYPE_FLOAT) {
-                warning = "Warning: requested data type could not be used; using float instead!";
-            }
-        } else {
-            throw TraCIException("Unable to retrieve node with given ID");
-        }
-        break;
-        // HC emission
-    case DOMVAR_HCEMISSION:
-        if (veh != NULL) {
-            response.writeUnsignedByte(TYPE_FLOAT);
-            response.writeFloat((float)(HelpersHBEFA::computeHC(veh->getVehicleType().getEmissionClass(), veh->getSpeed(), veh->getPreDawdleAcceleration())));
-            // add a warning to the response if the requested data type was not correct
-            if (dataType != TYPE_FLOAT) {
-                warning = "Warning: requested data type could not be used; using float instead!";
-            }
-        } else {
-            throw TraCIException("Unable to retrieve node with given ID");
-        }
-        break;
-        // PMx emission
-    case DOMVAR_PMXEMISSION:
-        if (veh != NULL) {
-            response.writeUnsignedByte(TYPE_FLOAT);
-            response.writeFloat((float)(HelpersHBEFA::computePMx(veh->getVehicleType().getEmissionClass(), veh->getSpeed(), veh->getPreDawdleAcceleration())));
-            // add a warning to the response if the requested data type was not correct
-            if (dataType != TYPE_FLOAT) {
-                warning = "Warning: requested data type could not be used; using float instead!";
-            }
-        } else {
-            throw TraCIException("Unable to retrieve node with given ID");
-        }
-        break;
-        // NOx emission
-    case DOMVAR_NOXEMISSION:
-        if (veh != NULL) {
-            response.writeUnsignedByte(TYPE_FLOAT);
-            response.writeFloat((float)(HelpersHBEFA::computeNOx(veh->getVehicleType().getEmissionClass(), veh->getSpeed(), veh->getPreDawdleAcceleration())));
-            // add a warning to the response if the requested data type was not correct
-            if (dataType != TYPE_FLOAT) {
-                warning = "Warning: requested data type could not be used; using float instead!";
-            }
-        } else {
-            throw TraCIException("Unable to retrieve node with given ID");
-        }
-        break;
-        // CO2 emission
-    case DOMVAR_FUELCONSUMPTION:
-        if (veh != NULL) {
-            response.writeUnsignedByte(TYPE_FLOAT);
-            response.writeFloat((float)(HelpersHBEFA::computeFuel(veh->getVehicleType().getEmissionClass(), veh->getSpeed(), veh->getPreDawdleAcceleration())));
-            // add a warning to the response if the requested data type was not correct
-            if (dataType != TYPE_FLOAT) {
-                warning = "Warning: requested data type could not be used; using float instead!";
-            }
-        } else {
-            throw TraCIException("Unable to retrieve node with given ID");
-        }
-        break;
-        // noise emission
-    case DOMVAR_NOISEEMISSION:
-        if (veh != NULL) {
-            response.writeUnsignedByte(TYPE_FLOAT);
-            response.writeFloat((float)(HelpersHarmonoise::computeNoise(veh->getVehicleType().getEmissionClass(), veh->getSpeed(), veh->getPreDawdleAcceleration())));
-            // add a warning to the response if the requested data type was not correct
-            if (dataType != TYPE_FLOAT) {
-                warning = "Warning: requested data type could not be used; using float instead!";
-            }
-        } else {
-            throw TraCIException("Unable to retrieve node with given ID");
-        }
-        break;
-
-        // unknown variable
-    default:
-        throw TraCIException("Unknown domain variable specified");
-    }
-
-    return warning;
-}
-
-/*****************************************************************************/
-
-std::string
-TraCIServer::handleTrafficLightDomain(bool isWriteCommand, tcpip::Storage& response) {
-    int count = 0;
-    std::string name;
-    std::string warning = "";	// additional description for response
-    DataTypeContainer dataCont;
-
-    // domain object
-    int objectId = myInputStorage.readInt();
-    MSTrafficLightLogic* tlLogic = getTLLogicByExtId(objectId);
-
-    // variable id
-    int variableId = myInputStorage.readUnsignedByte();
-
-    // value data type
-    int dataType = myInputStorage.readUnsignedByte();
-
-    // if end of message is not yet reached, the value parameter has to be read
-    if (myInputStorage.valid_pos()) {
-        dataCont.readValue((unsigned char)dataType, myInputStorage);
-    }
-
-    if (isWriteCommand) {
-        throw TraCIException("Traffic Light domain does not contain writable variables");
-    }
-
-    // write beginning of the answer message
-    response.writeUnsignedByte((isWriteCommand ? 0x01 : 0x00));	// get/set flag
-    response.writeUnsignedByte(DOM_TRAFFICLIGHTS);	// domain
-    response.writeInt(objectId);	// domain object id
-    response.writeUnsignedByte(variableId);		// variable
-
-    switch (variableId) {
-        // name std::string of the object
-    case DOMVAR_NAME:
-        if (tlLogic != NULL) {
-            name = tlLogic->getID();
-            response.writeUnsignedByte(TYPE_STRING);
-            response.writeString(name);
-            // add a warning to the response if the requested data type was not correct
-            if (dataType != TYPE_STRING) {
-                warning = "Warning: requested data type could not be used; using string instead!";
-            }
-        } else {
-            throw TraCIException("Unable to retrieve traffic light with given id");
-        }
-        break;
-
-        // external id of the object
-    case DOMVAR_EXTID:
-//		if (dataType != TYPE_STRING) {
-        if (dataCont.getLastValueRead() != TYPE_STRING) {
-            throw TraCIException("Internal id must be given as string value");
-        }
-//		name = myInputStorage.readString();
-        name = dataCont.getString();
-        if (trafficLightsInt2ExtId.find(name) != trafficLightsInt2ExtId.end()) {
-            response.writeUnsignedByte(TYPE_INTEGER);
-            response.writeInt(trafficLightsInt2ExtId[name]);
-        } else {
-            std::stringstream msg;
-            msg << "Traffic Light with internal id " << name << " not existing";
-            throw TraCIException(msg.str());
-        }
-        break;
-
-        // count of traffic lights
-    case DOMVAR_COUNT:
-        count = (int)(MSNet::getInstance()->getTLSControl().getAllTLIds().size());
-        response.writeUnsignedByte(TYPE_INTEGER);
-        response.writeInt(count);
-        // add a warning to the response if the requested data type was not correct
-        if (dataType != TYPE_INTEGER) {
-            warning = "Warning: requested data type could not be used; using integer instead!";
-        }
-        break;
-
-        // position of a traffic light
-    case DOMVAR_POSITION:
-        if (tlLogic != NULL) {
-            MSJunction* junc = MSNet::getInstance()->getJunctionControl().get(tlLogic->getID());
-            response.writeUnsignedByte(POSITION_3D);
-            response.writeFloat((float)(junc->getPosition().x()));
-            response.writeFloat((float)(junc->getPosition().y()));
-            response.writeFloat(0);
-            // add a warning to the response if the requested data type was not correct
-            if (dataType != POSITION_3D) {
-                warning = "Warning: requested data type could not be used; using position 3d instead!";
-            }
-        } else {
-            throw TraCIException("Unable to retrieve traffic light with given id");
-        }
-        break;
-
-        // current or next traffic light phase
-    case DOMVAR_CURTLPHASE:
-    case DOMVAR_NEXTTLPHASE:
-        if (tlLogic != NULL) {
-            // get the required phase of the tl logic
-            size_t step = tlLogic->getCurrentPhaseIndex();
-            if (variableId == DOMVAR_NEXTTLPHASE) {
-                size_t curStep = tlLogic->getCurrentPhaseIndex();
-                SUMOTime pos = tlLogic->getPhaseIndexAtTime(MSNet::getInstance()->getCurrentTimeStep());
-                do {
-                    pos++;
-                } while ((step=tlLogic->getIndexFromOffset(pos)) == curStep);
-            }
-            MSPhaseDefinition phase = tlLogic->getPhase((unsigned int)step);
-
-            // get the list of link vectors affected by that tl logic
-            MSTrafficLightLogic::LinkVectorVector affectedLinks = tlLogic->getLinks();
-
-            // for each affected link of that tl logic, write the  phase state
-            // to the answer message along with preceding and succeeding edge
-            Storage phaseList;
-            int listLength = 0;
-//			std::map<MSLane*, std::set<const MSEdge*> > connectLane2Edge;
-            std::map<const MSEdge*, pair<const MSEdge*, int> > writtenEdgePairs;
-            for (unsigned int i=0; i<affectedLinks.size(); i++) {
-                // get the list of links controlled by that light
-                MSTrafficLightLogic::LinkVector linkGroup = affectedLinks[i];
-                // get the list of preceding lanes to that links
-                MSTrafficLightLogic::LaneVector laneGroup = tlLogic->getLanesAt(i);
-                // get status of the traffic light
-                MSLink::LinkState tlState = phase.getSignalState(i);
-
-//				const MSEdge* precEdge = NULL;
-//				const MSEdge* succEdge = NULL;
-                for (unsigned int linkNo=0; linkNo<linkGroup.size(); linkNo++) {
-                    // if multiple lanes of different edges lead to the same lane on another edge,
-                    // only write such pair of edges once
-                    /*					if ((precEdge == laneGroup[linkNo]->getEdge())
-                    						&& (succEdge == linkGroup[linkNo]->getLane()->getEdge())) {
-                    						continue;
-                    					}
-                    					// remember preceding and succeeding edge
-                    					precEdge = laneGroup[linkNo]->getEdge();
-                    					succEdge = linkGroup[linkNo]->getLane()->getEdge();
-
-                    					// if the current ingoing lane was part of a connection before...
-                    					std::map<MSLane*, std::set<const MSEdge*> >::iterator itMap = connectLane2Edge.find(laneGroup[linkNo]);
-                    					if (itMap != connectLane2Edge.end()) {
-                    						// ...and the succeding edge of this connection is the same as before...
-                    						std::set<const MSEdge*>::iterator itEdge = itMap->second.find(succEdge);
-                    						if (itEdge != itMap->second.end()) {
-                    							// ...then the connection's phase doesn't need to be reported again
-                    							continue;
-                    						}
-                    					}
-                    					// remember the edge that this lane leads to
-                    					connectLane2Edge[laneGroup[linkNo]].insert(succEdge);
-                    */
-                    MSEdge &precEdge = laneGroup[linkNo]->getEdge();
-                    MSEdge &succEdge = linkGroup[linkNo]->getLane()->getEdge();
-
-                    // for each pair of edges and every different tl state, write only one tl switch command
-                    std::map<const MSEdge*, pair<const MSEdge*, int> >::iterator itPair = writtenEdgePairs.find(&precEdge);
-                    if (itPair != writtenEdgePairs.end()) {
-                        if (itPair->second.first == &succEdge && itPair->second.second == tlState) {
-                            continue;
-                        }
-                    }
-                    // remember the current edge pair and tl status
-                    writtenEdgePairs[&precEdge] = std::make_pair(&succEdge, tlState);
-
-                    // write preceding edge
-                    phaseList.writeString(precEdge.getID());
-                    // write succeeding edge
-                    phaseList.writeString(succEdge.getID());
-                    // write status of the traffic light
-                    switch (tlState) {
-                    case MSLink::LINKSTATE_TL_GREEN_MAJOR:
-                    case MSLink::LINKSTATE_TL_GREEN_MINOR:
-                        phaseList.writeUnsignedByte(TLPHASE_GREEN);
-                        break;
-                    case MSLink::LINKSTATE_TL_YELLOW_MAJOR:
-                    case MSLink::LINKSTATE_TL_YELLOW_MINOR:
-                        phaseList.writeUnsignedByte(TLPHASE_YELLOW);
-                        break;
-                    case MSLink::LINKSTATE_TL_RED:
-                        phaseList.writeUnsignedByte(TLPHASE_RED);
-                        break;
-                    case MSLink::LINKSTATE_TL_OFF_BLINKING:
-                        phaseList.writeUnsignedByte(TLPHASE_BLINKING);
-                        break;
-                    case MSLink::LINKSTATE_TL_OFF_NOSIGNAL:
-                        phaseList.writeUnsignedByte(TLPHASE_NOSIGNAL);
-                        break;
-                    default:
-                        phaseList.writeUnsignedByte(TLPHASE_NOSIGNAL);
-                    }
-                    // increase length of the phase list
-                    listLength++;
-                }
-            }
-            //write data type to answer message
-            response.writeUnsignedByte(TYPE_TLPHASELIST);
-            // write length of the phase list to answer message
-            response.writeUnsignedByte(listLength);
-            // write list of phases to answer message
-            response.writeStorage(phaseList);
-
-            // add a warning to the response if the requested data type was not correct
-            if (dataType != TYPE_TLPHASELIST) {
-                warning = "Warning: requested data type could not be used; using type traffic light phase list instead!";
-            }
-        } else {
-            throw TraCIException("Unable to retrieve traffic light with given id");
-        }
-        break;
-
-        // unknown variable
-    default:
-        throw TraCIException("Unknown domain variable specified");
-    }
-
-    return warning;
-}
-
-/*****************************************************************************/
-
-std::string
-TraCIServer::handlePoiDomain(bool isWriteCommand, tcpip::Storage& response) {
-    std::string name;
-    std::string warning = "";	// additional description for response
-    DataTypeContainer dataCont;
-
-    // domain object
-    int objectId = myInputStorage.readInt();
-    PointOfInterest* poi = getPoiByExtId(objectId);
-
-    // variable id
-    int variableId = myInputStorage.readUnsignedByte();
-
-    // value data type
-    int dataType = myInputStorage.readUnsignedByte();
-
-    // if end of message is not yet reached, the value parameter has to be read
-    if (myInputStorage.valid_pos()) {
-        dataCont.readValue((unsigned char)dataType, myInputStorage);
-    }
-
-    if (isWriteCommand) {
-        throw TraCIException("Point of interest domain does not contain writable variables");
-    }
-
-    // write beginning of the answer message
-    response.writeUnsignedByte((isWriteCommand ? 0x01 : 0x00));	// get/set flag
-    response.writeUnsignedByte(DOM_POI);	// domain
-    response.writeInt(objectId);	// domain object id
-    response.writeUnsignedByte(variableId);		// variable
-
-    // get list of shapes and determine total number of poi
-    int count = 0;
-    ShapeContainer& shapeCont = MSNet::getInstance()->getShapeContainer();
-    for (int i = shapeCont.getMinLayer(); i <= shapeCont.getMaxLayer(); i++) {
-        count += shapeCont.getPOICont(i).size();
-    }
-
-    switch (variableId) {
-        // name std::string of the object
-    case DOMVAR_NAME:
-        if (poi != NULL) {
-            name = poi->getID();
-            response.writeUnsignedByte(TYPE_STRING);
-            response.writeString(name);
-            // add a warning to the response if the requested data type was not correct
-            if (dataType != TYPE_STRING) {
-                warning = "Warning: requested data type could not be used; using string instead!";
-            }
-        } else {
-            throw TraCIException("Unable to retrieve point of interest with given id");
-        }
-        break;
-
-        // external id of the object
-    case DOMVAR_EXTID:
-//		if (dataType != TYPE_STRING) {
-        if (dataCont.getLastValueRead() != TYPE_STRING) {
-            throw TraCIException("Internal id must be given as string value");
-        }
-//		name = myInputStorage.readString();
-        name = dataCont.getString();
-        if (poiInt2ExtId.find(name) != poiInt2ExtId.end()) {
-            response.writeUnsignedByte(TYPE_INTEGER);
-            response.writeInt(poiInt2ExtId[name]);
-        } else {
-            std::stringstream msg;
-            msg << "Point of interest with internal id " << name << " not existing";
-            throw TraCIException(msg.str());
-        }
-        break;
-
-        // number of poi
-    case DOMVAR_COUNT:
-        response.writeUnsignedByte(TYPE_INTEGER);
-        response.writeInt(count);
-        // add a warning to the response if the requested data type was not correct
-        if (dataType != TYPE_INTEGER) {
-            warning = "Warning: requested data type could not be used; using integer instead!";
-        }
-        break;
-
-        // position of a poi
-    case DOMVAR_POSITION:
-        if (poi == NULL) {
-            throw TraCIException("Unable to retrieve point of interest with given id");
-        } else {
-            response.writeUnsignedByte(POSITION_3D);
-            response.writeFloat((float)(poi->x()));
-            response.writeFloat((float)(poi->y()));
-            response.writeFloat(0);
-        }
-        // add a warning to the response if the requested data type was not correct
-        if (dataType != POSITION_3D) {
-            warning = "Warning: requested data type could not be used; using 3D position instead!";
-        }
-        break;
-
-        // type of a poi
-    case DOMVAR_TYPE:
-        if (poi == NULL) {
-            throw TraCIException("Unable to retrieve point of interest with given id");
-        } else {
-            response.writeUnsignedByte(TYPE_STRING);
-            response.writeString(poi->getType());
-        }
-        // add a warning to the response if the requested data type was not correct
-        if (dataType != TYPE_STRING) {
-            warning = "Warning: requested data type could not be used; using string instead!";
-        }
-        break;
-
-        // layer of a poi
-    case DOMVAR_LAYER:
-        // unknown variable
-    default:
-        throw TraCIException("Unknown domain variable specified");
-    }
-
-    return warning;
-}
-
-/*****************************************************************************/
-
-std::string
-TraCIServer::handlePolygonDomain(bool isWriteCommand, tcpip::Storage& response) {
-    std::string name;
-    std::string warning = "";	// additional description for response
-    DataTypeContainer dataCont;
-
-    // domain object
-    int objectId = myInputStorage.readInt();
-    Polygon2D* poly = getPolygonByExtId(objectId);
-
-    // variable id
-    int variableId = myInputStorage.readUnsignedByte();
-
-    // value data type
-    int dataType = myInputStorage.readUnsignedByte();
-
-    // if end of message is not yet reached, the value parameter has to be read
-    if (myInputStorage.valid_pos()) {
-        dataCont.readValue((unsigned char)dataType, myInputStorage);
-    }
-
-    if (isWriteCommand) {
-        throw TraCIException("Polygon domain does not contain writable variables");
-    }
-
-    // write beginning of the answer message
-    response.writeUnsignedByte((isWriteCommand ? 0x01 : 0x00));	// get/set flag
-    response.writeUnsignedByte(DOM_POLYGON);	// domain
-    response.writeInt(objectId);	// domain object id
-    response.writeUnsignedByte(variableId);		// variable
-
-    // get list of shapes and determine total number of polygons
-    int count = 0;
-    ShapeContainer& shapeCont = MSNet::getInstance()->getShapeContainer();
-    for (int i = shapeCont.getMinLayer(); i <= shapeCont.getMaxLayer(); i++) {
-        count += shapeCont.getPolygonCont(i).size();
-    }
-
-    switch (variableId) {
-        // name std::string of the object
-    case DOMVAR_NAME:
-        if (poly != NULL) {
-            name = poly->getID();
-            response.writeUnsignedByte(TYPE_STRING);
-            response.writeString(name);
-            if (dataType != TYPE_STRING) {
-                warning = "Warning: requested data type could not be used; using string instead!";
-            }
-        } else {
-            throw TraCIException("Unable to retrieve polygon with given id");
-        }
-        break;
-
-        // external id of the object
-    case DOMVAR_EXTID:
-//		if (dataType != TYPE_STRING) {
-        if (dataCont.getLastValueRead() != TYPE_STRING) {
-            throw TraCIException("Internal id must be given as string value");
-        }
-//		name = myInputStorage.readString();
-        name = dataCont.getString();
-        if (polygonInt2ExtId.find(name) != polygonInt2ExtId.end()) {
-            response.writeUnsignedByte(TYPE_INTEGER);
-            response.writeInt(polygonInt2ExtId[name]);
-        } else {
-            std::stringstream msg;
-            msg << "Polygon with internal id " << name << " not existing";
-            throw TraCIException(msg.str());
-        }
-        break;
-
-        // number of polygons
-    case DOMVAR_COUNT:
-        response.writeUnsignedByte(TYPE_INTEGER);
-        response.writeInt(count);
-        // add a warning to the response if the requested data type was not correct
-        if (dataType != TYPE_INTEGER) {
-            warning = "Warning: requested data type could not be used; using integer instead!";
-        }
-        break;
-
-        // position of a polygon
-    case DOMVAR_POSITION:
-        if (poly == NULL) {
-            throw TraCIException("Unable to retrieve polygon with given id");
-        } else {
-            response.writeUnsignedByte(POSITION_3D);
-            response.writeFloat((float)(poly->getShape().getPolygonCenter().x()));
-            response.writeFloat((float)(poly->getShape().getPolygonCenter().y()));
-            response.writeFloat(0);
-        }
-        // add a warning to the response if the requested data type was not correct
-        if (dataType != POSITION_3D) {
-            warning = "Warning: requested data type could not be used; using 3D position instead!";
-        }
-        break;
-
-        // type of a polygon
-    case DOMVAR_TYPE:
-        if (poly == NULL) {
-            throw TraCIException("Unable to retrieve polygon with given id");
-        } else {
-            response.writeUnsignedByte(TYPE_STRING);
-            response.writeString(poly->getType());
-        }
-        // add a warning to the response if the requested data type was not correct
-        if (dataType != TYPE_STRING) {
-            warning = "Warning: requested data type could not be used; using string instead!";
-        }
-        break;
-
-        // shape of a polygon
-    case DOMVAR_SHAPE:
-        if (poly == NULL) {
-            throw TraCIException("Unable to retrieve polygon with given id");
-        } else {
-            response.writeUnsignedByte(TYPE_POLYGON);
-            response.writeUnsignedByte((int)MIN2(static_cast<size_t>(255),poly->getShape().size()));
-            for (unsigned int i=0; i < MIN2(static_cast<size_t>(255),poly->getShape().size()); i++) {
-                response.writeFloat((float)(poly->getShape()[i].x()));
-                response.writeFloat((float)(poly->getShape()[i].y()));
-            }
-        }
-        // add a warning to the response if the requested data type was not correct
-        if (dataType != TYPE_POLYGON) {
-            warning = "Warning: requested data type could not be used; using polygon type instead!";
-        }
-        break;
-
-        // layer of a polygon
-    case DOMVAR_LAYER:
-        // unknown variable
-    default:
-        throw TraCIException("Unknown domain variable specified");
-    }
-
-    return warning;
-}
-
-/*****************************************************************************/
-
-void
-TraCIServer::handleLifecycleSubscriptions() {
-
-    if (myLifecycleSubscriptions.count(DOM_VEHICLE) != 0) {
-
-        for (std::set<int>::const_iterator i = myDestroyedVehicles.begin(); i != myDestroyedVehicles.end(); i++) {
-            int extId = *i;
-
-            myOutputStorage.writeUnsignedByte(1+1+1+4);
-            myOutputStorage.writeUnsignedByte(CMD_OBJECTDESTRUCTION);
-            myOutputStorage.writeUnsignedByte(DOM_VEHICLE);
-            myOutputStorage.writeInt(extId);
-        }
-        myDestroyedVehicles.clear();
-
-        for (std::set<int>::const_iterator i = myCreatedVehicles.begin(); i != myCreatedVehicles.end(); i++) {
-            int extId = *i;
-
-            myOutputStorage.writeUnsignedByte(1+1+1+4);
-            myOutputStorage.writeUnsignedByte(CMD_OBJECTCREATION);
-            myOutputStorage.writeUnsignedByte(DOM_VEHICLE);
-            myOutputStorage.writeInt(extId);
-        }
-        myCreatedVehicles.clear();
-
-    }
-}
-
-/*****************************************************************************/
-
-void
-TraCIServer::handleDomainSubscriptions(const SUMOTime& currentTime, const map<int, const SUMOVehicle*>& activeEquippedVehicles) {
-
-    if (myDomainSubscriptions.count(DOM_VEHICLE) != 0) {
-
-        std::list<std::pair<int, int> > subscribedVariables = myDomainSubscriptions[DOM_VEHICLE];
-
-        // iterate over all objects
-        for (map<int, const SUMOVehicle*>::const_iterator iter = activeEquippedVehicles.begin(); iter != activeEquippedVehicles.end(); ++iter) {
-            int extId = (*iter).first;
-            const MSVehicle* vehicle = static_cast<const MSVehicle*>((*iter).second);
-            Storage tempMsg;
-
-            // buffer send of command
-            tempMsg.writeUnsignedByte(CMD_UPDATEOBJECT);
-
-            // buffer send of domain
-            tempMsg.writeByte(DOM_VEHICLE);
-
-            // buffer send of object id
-            tempMsg.writeInt(extId);
-
-            // buffer send of subscribed variables
-            for (std::list<std::pair<int, int> >::const_iterator i = subscribedVariables.begin(); i != subscribedVariables.end(); i++) {
-                int variableId = i->first;
-                int dataType = i->second;
-
-                if ((variableId == DOMVAR_SIMTIME) && (dataType == TYPE_DOUBLE)) {
-                    tempMsg.writeDouble(currentTime);
-                }
-                if ((variableId == DOMVAR_SPEED) && (dataType == TYPE_FLOAT)) {
-                    tempMsg.writeFloat((float)(vehicle->getSpeed()));
-                }
-                if ((variableId == DOMVAR_ALLOWED_SPEED) && (dataType == TYPE_FLOAT)) {
-                    tempMsg.writeFloat((float)(vehicle->getLane()->getMaxSpeed()));
-                }
-                if ((variableId == DOMVAR_POSITION) && (dataType == POSITION_2D)) {
-                    Position2D pos = vehicle->getLane()->getShape().positionAtLengthPosition(vehicle->getPositionOnLane());
-                    tempMsg.writeFloat((float)(pos.x()));
-                    tempMsg.writeFloat((float)(pos.y()));
-                }
-                if ((variableId == DOMVAR_POSITION) && (dataType == POSITION_ROADMAP)) {
-                    tempMsg.writeString(vehicle->getEdge()->getID());
-                }
-                if ((variableId == DOMVAR_ANGLE) && (dataType == TYPE_FLOAT)) {
-                    tempMsg.writeFloat((float)(vehicle->getLane()->getShape().rotationDegreeAtLengthPosition(vehicle->getPositionOnLane())));
-                }
-            }
-            // send command length
-            myOutputStorage.writeUnsignedByte((int)tempMsg.size()+1);
-            // send command
-            myOutputStorage.writeStorage(tempMsg);
-        }
-    }
-}
-
 
 bool
 TraCIServer::addSubscription(int commandId) {

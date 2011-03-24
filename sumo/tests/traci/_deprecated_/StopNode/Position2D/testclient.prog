@@ -1,5 +1,0 @@
-simstep 1 1
-
-stopnode2d 0 199 495 0 5
-
-simstep_repeat 2 50 1 1

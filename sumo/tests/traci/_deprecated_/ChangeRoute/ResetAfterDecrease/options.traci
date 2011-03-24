@@ -1,1 +1,0 @@
---no-step-log --net-file three_split.net.xml --route-files input_routes.rou.xml --penetration 1.0 --remote-port 8813 --vehroutes=vehroutes.xml TraCITestClient.exe -def testclient.prog -p 8813 -h localhost -o testclient_out.txt
