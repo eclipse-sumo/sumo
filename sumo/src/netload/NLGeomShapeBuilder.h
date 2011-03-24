@@ -64,11 +64,11 @@ public:
      * @todo Check why the container is not given directly
      * @todo Check why the net is not const
      */
-    NLGeomShapeBuilder(MSNet &net) throw();
+    NLGeomShapeBuilder(MSNet &net);
 
 
     /// @brief Destructor
-    virtual ~NLGeomShapeBuilder() throw();
+    virtual ~NLGeomShapeBuilder();
 
 
     /** @brief Called when a polygon begins
@@ -81,20 +81,12 @@ public:
      * @param[in] type The abstract type of the polygon
      * @param[in] c The color of the polygon
      * @param[in] fill Whether this polygon shall be filled
-     */
-    virtual void polygonBegin(const std::string &name, int layer,
-                              const std::string &type, const RGBColor &c, bool fill) throw();
-
-
-    /** @brief Ends the parsing of the polygon allocating it.
-     *
-     * Builds a Polygon2D. Tries to add it to the container and throws an
-     *  InvalidArgument if a polygon with the same id already exists therein.
-     *
      * @param[in] shape The shape of the polygon
      * @exception InvalidArgument If a polygon with the same id already exists
      */
-    virtual void polygonEnd(const Position2DVector &shape) throw(InvalidArgument);
+    virtual void addPolygon(const std::string &name, int layer,
+                              const std::string &type, const RGBColor &c, bool fill,
+                              const Position2DVector &shape);
 
 
     /** @brief Adds the described PointOfInterest to the geometry container
@@ -117,7 +109,7 @@ public:
      */
     virtual void addPoint(const std::string &name, int layer,
                           const std::string &type, const RGBColor &c, SUMOReal x, SUMOReal y,
-                          const std::string &lane, SUMOReal posOnLane) throw(InvalidArgument);
+                          const std::string &lane, SUMOReal posOnLane);
 
 
 protected:
@@ -138,32 +130,13 @@ protected:
      * @todo Using defined INVALID_POSITION is not very pretty...
      */
     Position2D getPointPosition(SUMOReal x, SUMOReal y,
-                                const std::string &laneID,  SUMOReal posOnLane) const throw(InvalidArgument);
+                                const std::string &laneID,  SUMOReal posOnLane) const;
 
 private:
     NLGeomShapeBuilder& operator=(const NLGeomShapeBuilder&); // just to avoid a compiler warning
 
+
 protected:
-    /// @name Temporary stored values of the currently parsed polygon
-    /// @{
-
-    /// @brief The current polygon's name
-    std::string myCurrentName;
-
-    /// @brief The current polygon's type
-    std::string myCurrentType;
-
-    /// @brief The current polygon's color
-    RGBColor myCurrentColor;
-
-    /// @brief The layer thepolygon shall be added to
-    int myCurrentLayer;
-
-    /// @brief Information whether the polygon shall be filled
-    bool myFillPoly;
-    /// @}
-
-
     /// @brief The shape container
     ShapeContainer &myShapeContainer;
 

@@ -47,31 +47,21 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-NLGeomShapeBuilder::NLGeomShapeBuilder(MSNet &net) throw()
+NLGeomShapeBuilder::NLGeomShapeBuilder(MSNet &net)
         : myShapeContainer(net.getShapeContainer()) {}
 
 
-NLGeomShapeBuilder::~NLGeomShapeBuilder() throw() {}
+NLGeomShapeBuilder::~NLGeomShapeBuilder() {}
 
 
 void
-NLGeomShapeBuilder::polygonBegin(const std::string &name,
+NLGeomShapeBuilder::addPolygon(const std::string &name,
                                  int layer,
                                  const std::string &type,
                                  const RGBColor &c,
-                                 bool fill) throw() {
-    myCurrentName = name;
-    myCurrentType = type;
-    myCurrentColor = c;
-    myCurrentLayer = layer;
-    myFillPoly = fill;
-}
-
-
-void
-NLGeomShapeBuilder::polygonEnd(const Position2DVector &shape) throw(InvalidArgument) {
-    if (!myShapeContainer.addPolygon(myCurrentName, myCurrentLayer, myCurrentType, myCurrentColor, myFillPoly, shape)) {
-        throw InvalidArgument("A duplicate of the polygon '" + myCurrentName + "' occured.");
+                                 bool fill, const Position2DVector &shape) {
+    if (!myShapeContainer.addPolygon(name, layer, type, c, fill, shape)) {
+        throw InvalidArgument("A duplicate of the polygon '" + name + "' occured.");
     }
 }
 
@@ -82,7 +72,7 @@ NLGeomShapeBuilder::addPoint(const std::string &name,
                              const std::string &type,
                              const RGBColor &c,
                              SUMOReal x, SUMOReal y,
-                             const std::string &lane, SUMOReal posOnLane) throw(InvalidArgument) {
+                             const std::string &lane, SUMOReal posOnLane) {
     Position2D pos = getPointPosition(x, y, lane, posOnLane);
     if (!myShapeContainer.addPoI(name, layer, type, c, pos)) {
         throw InvalidArgument("A duplicate of the POI '" + name + "' occured.");
@@ -93,7 +83,7 @@ NLGeomShapeBuilder::addPoint(const std::string &name,
 Position2D
 NLGeomShapeBuilder::getPointPosition(SUMOReal x, SUMOReal y,
                                      const std::string &laneID,
-                                     SUMOReal posOnLane) const throw(InvalidArgument) {
+                                     SUMOReal posOnLane) const {
     if (x!=INVALID_POSITION&&y!=INVALID_POSITION) {
         return Position2D(x,y);
     }

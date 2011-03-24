@@ -77,7 +77,6 @@ NLHandler::NLHandler(const std::string &file, MSNet &net,
         myHaveWarnedAboutDeprecatedVClass(false),
         myHaveWarnedAboutDeprecatedJunctionShape(false),
         myHaveWarnedAboutDeprecatedLaneShape(false),
-        myHaveWarnedAboutDeprecatedPolyShape(false),
         myHaveWarnedAboutDeprecatedPhases(false) {}
 
 
@@ -600,19 +599,8 @@ NLHandler::addPoly(const SUMOSAXAttributes &attrs) {
     std::string type = attrs.getOptStringReporting(SUMO_ATTR_TYPE, id.c_str(), ok, "");
     std::string colorStr = attrs.getStringReporting(SUMO_ATTR_COLOR, id.c_str(), ok);
     RGBColor color = RGBColor::parseColorReporting(colorStr, attrs.getObjectType(), id.c_str(), true, ok);
-    if (!ok) {
-        return;
-    }
-    myShapeBuilder.polygonBegin(id, layer, type, color, fill);
-    if (attrs.hasAttribute(SUMO_ATTR_SHAPE)) {
-        // @deprecated; at some time, this is mandatory (no character usage)
-        myShapeBuilder.polygonEnd(GeomConvHelper::parseShapeReporting(
-                    attrs.getStringReporting(SUMO_ATTR_SHAPE, id.c_str(), ok), 
-                    attrs.getObjectType(), id.c_str(), ok, false));
-    } else if (!myHaveWarnedAboutDeprecatedPolyShape) {
-        myHaveWarnedAboutDeprecatedPolyShape = true;
-        MsgHandler::getWarningInstance()->inform("You use a deprecated polygon shape description; use attribute 'shape' instead.");
-    }
+    Position2DVector shape = GeomConvHelper::parseShapeReporting(attrs.getStringReporting(SUMO_ATTR_SHAPE, id.c_str(), ok), attrs.getObjectType(), id.c_str(), ok, false);
+    myShapeBuilder.addPolygon(id, layer, type, color, fill, shape);
 }
 
 
