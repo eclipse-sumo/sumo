@@ -1,0 +1,6 @@
+<nodes>
+    <node id="beg" x="500.00" y="0.00"/>
+    <node id="center" x="1000.00" y="0.00"/>
+    <node id="c2" x="1002.00" y="0.00"/>
+    <node id="end" x="1500.00" y="0.00"/>
+</nodes>

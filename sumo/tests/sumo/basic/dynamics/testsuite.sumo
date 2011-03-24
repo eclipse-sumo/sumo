@@ -1,4 +1,3 @@
-
 # One vehicle moving along not yielding edges (achived through tls); should move constantly with 10m/s
 one_vehicle_10m_per_s_high_prio
 
@@ -8,3 +7,5 @@ two_vehicles_10m_per_s_high_prio
 # Same as two_vehicles_10m_per_s_high_prio but the vehicles have different vmax (first 10m/s, second 9m/s)
 two_vehicles_differen_vmax
 
+# one vehicle arrives at a short edge
+short_edge_arrival
