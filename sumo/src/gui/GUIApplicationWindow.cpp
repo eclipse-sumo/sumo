@@ -86,7 +86,6 @@
 // FOX-declarations
 // ===========================================================================
 FXDEFMAP(GUIApplicationWindow) GUIApplicationWindowMap[]= {
-    //________Message_Type____________ID________________________Message_Handler________
     FXMAPFUNC(SEL_COMMAND,  MID_QUIT,        GUIApplicationWindow::onCmdQuit),
     FXMAPFUNC(SEL_SIGNAL,   MID_QUIT,        GUIApplicationWindow::onCmdQuit),
     FXMAPFUNC(SEL_CLOSE,    MID_WINDOW,      GUIApplicationWindow::onCmdQuit),
