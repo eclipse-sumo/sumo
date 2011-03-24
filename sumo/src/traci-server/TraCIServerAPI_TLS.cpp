@@ -46,12 +46,6 @@ using namespace tcpip;
 
 
 // ===========================================================================
-// static variables
-// ===========================================================================
-bool TraCIServerAPI_TLS::myHaveWarnedAboutDeprecatedPhases = false;
-
-
-// ===========================================================================
 // method definitions
 // ===========================================================================
 bool
@@ -62,8 +56,7 @@ TraCIServerAPI_TLS::processGet(TraCIServer &server, tcpip::Storage &inputStorage
     int variable = inputStorage.readUnsignedByte();
     std::string id = inputStorage.readString();
     // check variable
-    if (variable!=ID_LIST&&variable!=TL_RED_YELLOW_GREEN_STATE&&variable!=TL_PHASE_BRAKE_YELLOW_STATE
-            &&variable!=TL_COMPLETE_DEFINITION_PBY&&variable!=TL_COMPLETE_DEFINITION_RYG
+    if (variable!=ID_LIST&&variable!=TL_RED_YELLOW_GREEN_STATE&&variable!=TL_COMPLETE_DEFINITION_RYG
             &&variable!=TL_CONTROLLED_LANES&&variable!=TL_CONTROLLED_LINKS
             &&variable!=TL_CURRENT_PHASE&&variable!=TL_CURRENT_PROGRAM
             &&variable!=TL_NEXT_SWITCH&&variable!=TL_PHASE_DURATION) {
@@ -93,81 +86,6 @@ TraCIServerAPI_TLS::processGet(TraCIServer &server, tcpip::Storage &inputStorage
             tempMsg.writeUnsignedByte(TYPE_STRING);
             std::string state = vars.getActive()->getCurrentPhaseDef().getState();
             tempMsg.writeString(state);
-        }
-        break;
-        case TL_PHASE_BRAKE_YELLOW_STATE: {
-            const std::string &state = vars.getActive()->getCurrentPhaseDef().getState();
-            //unsigned int linkNo = (unsigned int)(vars.getActive()->getLinks().size());
-            tempMsg.writeUnsignedByte(TYPE_STRINGLIST);
-            std::vector<std::string> phaseDef;
-            phaseDef.push_back(MSPhaseDefinition::new2driveMask(state));
-            phaseDef.push_back(MSPhaseDefinition::new2brakeMask(state));
-            phaseDef.push_back(MSPhaseDefinition::new2yellowMask(state));
-            tempMsg.writeStringList(phaseDef);
-            if (!myHaveWarnedAboutDeprecatedPhases) {
-                myHaveWarnedAboutDeprecatedPhases = true;
-                warning = "Defining phases using drive/brake/yellow mask is deprecated. Move to states.";
-            }
-        }
-        break;
-        case TL_COMPLETE_DEFINITION_PBY: {
-            std::vector<MSTrafficLightLogic*> logics = vars.getAllLogics();
-            tempMsg.writeUnsignedByte(TYPE_COMPOUND);
-            Storage tempContent;
-            unsigned int cnt = 0;
-            tempContent.writeUnsignedByte(TYPE_INTEGER);
-            tempContent.writeInt((int) logics.size());
-            ++cnt;
-            for (unsigned int i=0; i<logics.size(); ++i) {
-                MSTrafficLightLogic *logic = logics[i];
-                tempContent.writeUnsignedByte(TYPE_STRING);
-                tempContent.writeString(logic->getProgramID());
-                ++cnt;
-                // type (always 0 by now)
-                tempContent.writeUnsignedByte(TYPE_INTEGER);
-                tempContent.writeInt(0);
-                ++cnt;
-                // subparameter (always 0 by now)
-                tempContent.writeUnsignedByte(TYPE_COMPOUND);
-                tempContent.writeInt(0);
-                ++cnt;
-                // (current) phase index
-                tempContent.writeUnsignedByte(TYPE_INTEGER);
-                tempContent.writeInt((int) logic->getCurrentPhaseIndex());
-                ++cnt;
-                // phase number
-                unsigned int phaseNo = logic->getPhaseNumber();
-                tempContent.writeUnsignedByte(TYPE_INTEGER);
-                tempContent.writeInt((int) phaseNo);
-                ++cnt;
-                for (unsigned int j=0; j<phaseNo; ++j) {
-                    MSPhaseDefinition phase = logic->getPhase(j);
-                    tempContent.writeUnsignedByte(TYPE_INTEGER);
-                    tempContent.writeInt(phase.duration);
-                    ++cnt;
-                    tempContent.writeUnsignedByte(TYPE_INTEGER);
-                    tempContent.writeInt(phase.minDuration);
-                    ++cnt; // not implemented
-                    tempContent.writeUnsignedByte(TYPE_INTEGER);
-                    tempContent.writeInt(phase.maxDuration);
-                    ++cnt; // not implemented
-                    const std::string &state = phase.getState();
-                    //unsigned int linkNo = (unsigned int)(vars.getActive()->getLinks().size());
-                    tempContent.writeUnsignedByte(TYPE_STRINGLIST);
-                    std::vector<std::string> phaseDef;
-                    phaseDef.push_back(MSPhaseDefinition::new2driveMask(state));
-                    phaseDef.push_back(MSPhaseDefinition::new2brakeMask(state));
-                    phaseDef.push_back(MSPhaseDefinition::new2yellowMask(state));
-                    tempContent.writeStringList(phaseDef);
-                    ++cnt;
-                }
-            }
-            tempMsg.writeInt((int) cnt);
-            tempMsg.writeStorage(tempContent);
-            if (!myHaveWarnedAboutDeprecatedPhases) {
-                myHaveWarnedAboutDeprecatedPhases = true;
-                warning = "Defining phases using drive/brake/yellow mask is deprecated. Move to states.";
-            }
         }
         break;
         case TL_COMPLETE_DEFINITION_RYG: {
@@ -313,7 +231,7 @@ TraCIServerAPI_TLS::processSet(TraCIServer &server, tcpip::Storage &inputStorage
     std::string warning = ""; // additional description for response
     // variable
     int variable = inputStorage.readUnsignedByte();
-    if (variable!=TL_PHASE_BRAKE_YELLOW_STATE&&variable!=TL_PHASE_INDEX&&variable!=TL_PROGRAM
+    if (variable!=TL_PHASE_INDEX&&variable!=TL_PROGRAM
             &&variable!=TL_PHASE_DURATION&&variable!=TL_RED_YELLOW_GREEN_STATE&&variable!=TL_COMPLETE_PROGRAM_RYG) {
         server.writeStatusCmd(CMD_SET_TL_VARIABLE, RTYPE_ERR, "Change TLS State: unsupported variable specified", outputStorage);
         return false;
@@ -328,35 +246,6 @@ TraCIServerAPI_TLS::processSet(TraCIServer &server, tcpip::Storage &inputStorage
     MSTLLogicControl::TLSLogicVariants &vars = tlsControl.get(id);
     int valueDataType = inputStorage.readUnsignedByte();
     switch (variable) {
-    case TL_PHASE_BRAKE_YELLOW_STATE: {
-        if (valueDataType!=TYPE_STRINGLIST) {
-            server.writeStatusCmd(CMD_SET_TL_VARIABLE, RTYPE_ERR, "The phase must be given as three strings.", outputStorage);
-            return false;
-        }
-        std::vector<std::string> defs = inputStorage.readStringList();
-        if (defs.size()!=3) {
-            server.writeStatusCmd(CMD_SET_TL_VARIABLE, RTYPE_ERR, "The phase must be given as three strings.", outputStorage);
-            return false;
-        }
-        // build only once...
-        std::string state = MSPhaseDefinition::old2new(defs[0], defs[1], defs[2]);
-        MSPhaseDefinition *phase = new MSPhaseDefinition(DELTA_T, state);
-        std::vector<MSPhaseDefinition*> phases;
-        phases.push_back(phase);
-        MSTrafficLightLogic *logic = new MSSimpleTrafficLightLogic(tlsControl, id, "online", phases, 0, cTime+DELTA_T);
-        if (!vars.addLogic("online", logic, true, true)) {
-            delete logic;
-            MSPhaseDefinition nphase(DELTA_T, state);
-            *(static_cast<MSSimpleTrafficLightLogic*>(vars.getLogic("online"))->getPhases()[0]) = nphase;
-            vars.getActive()->setTrafficLightSignals(MSNet::getInstance()->getCurrentTimeStep());
-            vars.executeOnSwitchActions();
-        }
-        if (!myHaveWarnedAboutDeprecatedPhases) {
-            myHaveWarnedAboutDeprecatedPhases = true;
-            warning = "Defining phases using drive/brake/yellow mask is deprecated. Move to states.";
-        }
-    }
-    break;
     case TL_PHASE_INDEX: {
         if (valueDataType!=TYPE_INTEGER) {
             server.writeStatusCmd(CMD_SET_TL_VARIABLE, RTYPE_ERR, "The phase index must be given as an integer.", outputStorage);

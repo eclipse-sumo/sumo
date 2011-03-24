@@ -265,9 +265,6 @@ StringBijection<SumoXMLAttr>::Entry SUMOXMLDefinitions::attrs[] = {
     { "junction",       SUMO_ATTR_JUNCTION },
     { "yield",          SUMO_ATTR_YIELD },
     { "no",             SUMO_ATTR_NO },
-    { "phase",          SUMO_ATTR_PHASE },
-    { "brake",          SUMO_ATTR_BRAKE },
-    { "yellow",         SUMO_ATTR_YELLOW },
     { "duration",       SUMO_ATTR_DURATION },
     { "until",          SUMO_ATTR_UNTIL },
 

@@ -338,9 +338,6 @@ enum SumoXMLAttr {
     SUMO_ATTR_JUNCTION,
     SUMO_ATTR_YIELD,
     SUMO_ATTR_NO,
-    SUMO_ATTR_PHASE,
-    SUMO_ATTR_BRAKE,
-    SUMO_ATTR_YELLOW,
     SUMO_ATTR_DURATION,
     SUMO_ATTR_UNTIL,
     /** trigger: definition of an object type to be triggered */

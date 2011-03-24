@@ -124,9 +124,7 @@ private:
 
         /** @brief Constructor
          * @param[in] durationArg The duration of the phase
-         * @param[in] stateArg Information which links may drive during the phase
-         * @param[in] brakeMaskArg Information which links have to decelerate during the phase
-         * @param[in] yellowMaskArg Information which links have yellow during the phase
+         * @param[in] stateArg Signals per link
          */
         PhaseDefinition(SUMOTime durationArg, const std::string &stateArg) throw()
                 : duration(durationArg), state(stateArg) { }

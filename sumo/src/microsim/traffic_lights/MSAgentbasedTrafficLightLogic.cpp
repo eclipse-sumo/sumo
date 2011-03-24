@@ -156,15 +156,11 @@ MSAgentbasedTrafficLightLogic::nextStep() throw() {
 
 void
 MSAgentbasedTrafficLightLogic::collectData() throw() {
-    //collects the traffic data
-
-    // gets a copy of the driveMask
     const std::string &state = getCurrentPhaseDef().getState();
     // finds the maximum QUEUE_LENGTH_AHEAD_OF_TRAFFIC_LIGHTS_IN_VEHICLES of one phase
     SUMOReal maxPerPhase = 0;
     for (unsigned int i=0; i<(unsigned int) state.size(); i++)  {
-        /* finds the maximum QUEUE_LENGTH_AHEAD_OF_TRAFFIC_LIGHTS_IN_VEHICLES
-           of all lanes of a bit of the drivemask, that shows green */
+        // finds the maximum QUEUE_LENGTH_AHEAD_OF_TRAFFIC_LIGHTS_IN_VEHICLES of all lanes that have green
         if (state[i]==MSLink::LINKSTATE_TL_GREEN_MAJOR||state[i]==MSLink::LINKSTATE_TL_GREEN_MINOR) {
             const std::vector<MSLane*> &lanes = getLanesAt(i);
             if (lanes.empty())    {

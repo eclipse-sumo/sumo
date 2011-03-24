@@ -339,9 +339,6 @@ protected:
 
     bool myCurrentIsBroken;
 
-    /// @brief Whether deprecated definition of phases was already reported
-    bool myHaveWarnedAboutDeprecatedPhases;
-
 private:
     /** invalid copy constructor */
     NLHandler(const NLHandler &s);

@@ -73,8 +73,7 @@ NLHandler::NLHandler(const std::string &file, MSNet &net,
         myDetectorBuilder(detBuilder), myTriggerBuilder(triggerBuilder),
         myEdgeControlBuilder(edgeBuilder), myJunctionControlBuilder(junctionBuilder),
         mySucceedingLaneBuilder(junctionBuilder),
-        myAmInTLLogicMode(false), myCurrentIsBroken(false),
-        myHaveWarnedAboutDeprecatedPhases(false) {}
+        myAmInTLLogicMode(false), myCurrentIsBroken(false) {}
 
 
 NLHandler::~NLHandler() throw() {}
@@ -660,30 +659,8 @@ NLHandler::initTrafficLightLogic(const SUMOSAXAttributes &attrs) {
 void
 NLHandler::addPhase(const SUMOSAXAttributes &attrs) {
     // try to get the phase definition
-    std::string state;
-    std::string phase;
-    std::string brakeMask;
-    std::string yellowMask;
     bool ok = true;
-    if (attrs.hasAttribute(SUMO_ATTR_STATE)) {
-        // ok, doing it the new way
-        state = attrs.getStringReporting(SUMO_ATTR_STATE, 0, ok);
-    } else {
-        phase = attrs.getStringReporting(SUMO_ATTR_PHASE, 0, ok);
-        brakeMask = attrs.getStringReporting(SUMO_ATTR_BRAKE, 0, ok);
-        yellowMask = attrs.getStringReporting(SUMO_ATTR_YELLOW, 0, ok);
-        // check
-        if (phase.length()!=brakeMask.length()||phase.length()!=yellowMask.length()) {
-            MsgHandler::getErrorInstance()->inform("Definition of traffic light is broken - descriptions have different lengths.");
-            return;
-        }
-        if (!myHaveWarnedAboutDeprecatedPhases) {
-            myHaveWarnedAboutDeprecatedPhases = true;
-            MsgHandler::getWarningInstance()->inform("Deprecated tls phase definition found; replace by one using states.");
-        }
-        // convert to new
-        state = MSPhaseDefinition::old2new(phase, brakeMask, yellowMask);
-    }
+    std::string state = attrs.getStringReporting(SUMO_ATTR_STATE, 0, ok);
     if (!ok) {
         return;
     }

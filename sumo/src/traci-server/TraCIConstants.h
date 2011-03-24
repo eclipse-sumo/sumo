@@ -442,9 +442,6 @@
 // traffic light states, encoded as rRgGyYoO tuple (get: traffic lights)
 #define TL_RED_YELLOW_GREEN_STATE 0x20
 
-// traffic light states, encoded phase, brake, and yellow tuple (get: traffic lights, set: traffic lights)
-#define TL_PHASE_BRAKE_YELLOW_STATE 0x21
-
 // index of the phase (set: traffic lights)
 #define TL_PHASE_INDEX 0x22
 
@@ -453,9 +450,6 @@
 
 // phase duration (set: traffic lights)
 #define TL_PHASE_DURATION 0x24
-
-// complete definition (get: traffic lights)
-#define TL_COMPLETE_DEFINITION_PBY 0x25
 
 // controlled lanes (get: traffic lights)
 #define TL_CONTROLLED_LANES 0x26

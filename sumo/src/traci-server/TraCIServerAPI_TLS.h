@@ -81,9 +81,6 @@ public:
     static bool commandGetAllTLIds(traci::TraCIServer &server, tcpip::Storage &inputStorage, tcpip::Storage &outputStorage);
     /// @}
 
-protected:
-    /// @brief Whether deprecated definition of phases was already reported
-    static bool myHaveWarnedAboutDeprecatedPhases;
 
 private:
     /// @brief invalidated copy constructor

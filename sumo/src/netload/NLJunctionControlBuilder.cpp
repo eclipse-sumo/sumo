@@ -81,6 +81,7 @@ NLJunctionControlBuilder::~NLJunctionControlBuilder() throw() {
     delete myJunctions;
 }
 
+
 void
 NLJunctionControlBuilder::openJunction(const std::string &id,
                                        const std::string &key,
