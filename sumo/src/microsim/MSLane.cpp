@@ -389,7 +389,7 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
     MSLane *currentLane = this;
     MSLane *nextLane = this;
     SUMOTime arrivalTime = MSNet::getInstance()->getCurrentTimeStep() + TIME2STEPS(seen/speed);
-    while (seen<dist&&ri!=bestLaneConts.end()&&nextLane!=0/*&&ce!=r.end()*/) {
+    while (seen<dist&&ri!=bestLaneConts.end()) {
         // get the next link used...
         MSLinkCont::const_iterator link = currentLane->succLinkSec(*aVehicle, 1, *currentLane, bestLaneConts);
         // ...and the next used lane (including internal)
@@ -406,7 +406,7 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
             nextLane = (*link)->getLane();
 #endif
         } else {
-            nextLane = 0;
+            break;
         }
         // check how next lane effects the journey
         if (nextLane!=0) {
