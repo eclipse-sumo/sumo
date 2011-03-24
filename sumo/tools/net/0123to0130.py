@@ -77,7 +77,6 @@ class NetConverter(handler.ContentHandler):
         self._content = ""
 
         if name in r:
-            print "Hallo!"
             return
         self.intend()
         self.checkWrite("<" + name)
