@@ -179,12 +179,6 @@ NLHandler::myStartElement(SumoXMLTag element,
         case SUMO_TAG_MEANDATA_LANE:
             addEdgeLaneMeanData(attrs, "meandata_lane");
             break;
-        case SUMO_TAG_SOURCE:
-            addSource(attrs);
-            break;
-        case SUMO_TAG_TRIGGER:
-            addTrigger(attrs);
-            break;
         case SUMO_TAG_TIMEDEVENT:
             myActionBuilder.addAction(attrs, getFileName());
             break;
@@ -1019,37 +1013,6 @@ NLHandler::addEdgeLaneMeanData(const SUMOSAXAttributes &attrs, const char* objec
     }
 }
 
-
-
-void
-NLHandler::addSource(const SUMOSAXAttributes &attrs) {
-    // get the id, report an error if not given or empty...
-    std::string id;
-    if (!attrs.setIDFromAttributes(id)) {
-        return;
-    }
-    try {
-        myTriggerBuilder.buildTrigger(myNet, attrs, getFileName());
-    } catch (InvalidArgument &e) {
-        MsgHandler::getErrorInstance()->inform(e.what());
-    }
-}
-
-
-void
-NLHandler::addTrigger(const SUMOSAXAttributes &attrs) {
-    // get the id, report an error if not given or empty...
-    std::string id;
-    if (!attrs.setIDFromAttributes(id)) {
-        return;
-    }
-    try {
-        myTriggerBuilder.buildTrigger(myNet, attrs, getFileName());
-        return;
-    } catch (InvalidArgument &e) {
-        MsgHandler::getErrorInstance()->inform(e.what());
-    }
-}
 
 
 void

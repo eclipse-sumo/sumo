@@ -81,7 +81,6 @@ StringBijection<SumoXMLTag>::Entry SUMOXMLDefinitions::tags[] = {
     { "phase",            SUMO_TAG_PHASE },
     { "tripdef",          SUMO_TAG_TRIPDEF },
     { "flow",             SUMO_TAG_FLOW },
-    { "trigger",          SUMO_TAG_TRIGGER },
     { "step",             SUMO_TAG_STEP },
     { "interval",         SUMO_TAG_INTERVAL },
     { "shape",            SUMO_TAG_SHAPE },

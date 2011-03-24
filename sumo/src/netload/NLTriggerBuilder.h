@@ -58,13 +58,6 @@ class METriggeredCalibrator;
  * @class NLTriggerBuilder
  * @brief Builds trigger objects for microsim
  *
- * Called on the occurence of a "trigger"-element, "buildTrigger" parses what
- *  kind of a trigger object shall be built and calls an appropriate parsing
- *  and building method.
- *
- * This parsing/building method retrieves the parameter needed to build the trigger,
- *  checks them, and, if they are ok, calls the appropriate building method.
- *
  * The building methods may be overridden, to build guisim-instances of the triggers,
  *  for example.
  *
@@ -84,25 +77,6 @@ public:
      * @param[in] handler The netload handler to set
      */
     void setHandler(NLHandler *handler) throw();
-
-
-    /** @brief builds the specified trigger
-     *
-     * Determines the type of the trigger to build using a combination
-     *  of "objecttype" and "attr" - attributes from the supplied attributes, first.
-     *
-     * Build the proper trigger using protected member helper methods.
-     *
-     * @param[in] net The network the trigger shall belong to
-     * @param[in] attrs SAX-attributes which define the trigger
-     * @param[in] base The base path
-     * @exception InvalidArgument If a parameter is not valid
-     * @todo Recheck behaviour if the "objecttype" attribute is not supported or one of the asked parameter is meaningless
-     * @todo Recheck usage of the helper class
-     * @deprecated Since after 0.9.10, this method is deprecated; use direct building instead
-     */
-    void buildTrigger(MSNet &net, const SUMOSAXAttributes &attrs,
-                      const std::string &base) throw(InvalidArgument);
 
 
     /** @brief Builds a vaporization
@@ -321,9 +295,6 @@ protected:
 
 
 protected:
-    /// @brief Information whether a deprecated trigger definition has occured and was reported
-    bool myHaveInformedAboutDeprecatedTriggerDefinition;
-
     /// @brief The parent handler to set for subhandlers
     NLHandler* myHandler;
 

@@ -229,16 +229,10 @@ private:
     /// opens a junction for processing
     virtual void openJunction(const SUMOSAXAttributes &attrs);
 
-    /// adds a source
-    virtual void addSource(const SUMOSAXAttributes &attrs);
-
 #ifdef _MESSAGES
     /// adds a message emitter
     void addMsgEmitter(const SUMOSAXAttributes &attrs);
 #endif
-
-    /// adds a trigger
-    void addTrigger(const SUMOSAXAttributes &attrs);
 
     /// opens the container of succeeding lanes for processing
     void openSucc(const SUMOSAXAttributes &attrs);

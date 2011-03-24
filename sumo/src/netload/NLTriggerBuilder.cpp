@@ -57,7 +57,7 @@
 // method definitions
 // ===========================================================================
 NLTriggerBuilder::NLTriggerBuilder() throw()
-        : myHaveInformedAboutDeprecatedTriggerDefinition(false), myHandler(0) {}
+        : myHandler(0) {}
 
 
 NLTriggerBuilder::~NLTriggerBuilder() throw() {}
@@ -66,31 +66,6 @@ void
 NLTriggerBuilder::setHandler(NLHandler *handler) throw() {
     myHandler = handler;
 }
-
-
-void
-NLTriggerBuilder::buildTrigger(MSNet &net,
-                               const SUMOSAXAttributes &attrs,
-                               const std::string &base) throw(InvalidArgument) {
-    bool ok = true;
-    std::string type = attrs.getStringReporting(SUMO_ATTR_OBJECTTYPE, 0, ok);
-    std::string attr = attrs.getOptStringReporting(SUMO_ATTR_ATTR, 0, ok, "");
-    // check which type of a trigger shall be build
-    if (type=="lane"&&attr=="speed") {
-        parseAndBuildLaneSpeedTrigger(net, attrs, base);
-    } else if (type=="rerouter") {
-        parseAndBuildRerouter(net, attrs, base);
-    } else if (type=="bus_stop") {
-        parseAndBuildBusStop(net, attrs);
-    } else if (type=="calibrator") {
-        parseAndBuildCalibrator(net, attrs, base);
-    }
-    if (!myHaveInformedAboutDeprecatedTriggerDefinition) {
-        MsgHandler::getWarningInstance()->inform("Defining '" + type + "' using a trigger definition is deprecated.");
-        myHaveInformedAboutDeprecatedTriggerDefinition = true;
-    }
-}
-
 
 
 void

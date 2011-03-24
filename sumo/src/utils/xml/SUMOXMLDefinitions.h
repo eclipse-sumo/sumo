@@ -121,8 +121,6 @@ enum SumoXMLTag {
     SUMO_TAG_TRIPDEF,
     /** a flow definition (used by router) */
     SUMO_TAG_FLOW,
-    /** a trigger definition */
-    SUMO_TAG_TRIGGER,
     /** trigger: a step description */
     SUMO_TAG_STEP,
     /** an aggreagated-output interval */
