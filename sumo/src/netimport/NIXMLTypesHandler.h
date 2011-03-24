@@ -85,9 +85,6 @@ private:
     /// @brief The type container to fill
     NBTypeCont &myTypeCont;
 
-    /// @brief Information whether one edge with a function-attribute occured and was reported
-    bool myHaveReportedAboutFunctionDeprecation;
-
 
 private:
     /** @brief invalid copy constructor */

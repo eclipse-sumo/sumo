@@ -259,9 +259,6 @@ private:
     };
 
 
-    /// @brief Information whether at least one edge with a function-attribute occured and was reported
-    bool myHaveReportedAboutFunctionDeprecation;
-
     /// @brief Information whether at least one edge's attributes were overwritten
     bool myHaveReportedAboutOverwriting;
 

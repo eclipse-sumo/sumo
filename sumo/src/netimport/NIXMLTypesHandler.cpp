@@ -51,7 +51,7 @@
 // ===========================================================================
 NIXMLTypesHandler::NIXMLTypesHandler(NBTypeCont &tc)
         : SUMOSAXHandler("xml-types - file"),
-        myTypeCont(tc), myHaveReportedAboutFunctionDeprecation(false) {}
+        myTypeCont(tc) {}
 
 
 NIXMLTypesHandler::~NIXMLTypesHandler() throw() {}
@@ -69,12 +69,6 @@ NIXMLTypesHandler::myStartElement(SumoXMLTag element,
         WRITE_WARNING("No type id given... Skipping.");
         return;
     }
-    // check deprecated (unused) attributes
-    if (!myHaveReportedAboutFunctionDeprecation&&attrs.hasAttribute(SUMO_ATTR_FUNCTION)) {
-        MsgHandler::getWarningInstance()->inform("While parsing type '" + id + "': 'function' is deprecated.\n All occurences are ignored.");
-        myHaveReportedAboutFunctionDeprecation = true;
-    }
-
     bool ok = true;
     int priority = attrs.getOptIntReporting(SUMO_ATTR_PRIORITY, id.c_str(), ok, myTypeCont.getDefaultPriority());
     int noLanes = attrs.getOptIntReporting(SUMO_ATTR_NOLANES, id.c_str(), ok, myTypeCont.getDefaultNoLanes());

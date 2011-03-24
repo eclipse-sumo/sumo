@@ -55,8 +55,7 @@
 // method definitions
 // ===========================================================================
 NIXMLConnectionsHandler::NIXMLConnectionsHandler(NBEdgeCont &ec) throw()
-        : SUMOSAXHandler("xml-connection-description"), myEdgeCont(ec),
-        myHaveReportedAboutFunctionDeprecation(false) {}
+        : SUMOSAXHandler("xml-connection-description"), myEdgeCont(ec) {}
 
 
 NIXMLConnectionsHandler::~NIXMLConnectionsHandler() throw() {}
@@ -110,10 +109,6 @@ NIXMLConnectionsHandler::myStartElement(SumoXMLTag element,
             return;
         }
         // parse optional lane information
-        if (!myHaveReportedAboutFunctionDeprecation&&attrs.hasAttribute(SUMO_ATTR_TYPE)) {
-            MsgHandler::getWarningInstance()->inform("While parsing connections: 'type' is deprecated.\n All occurences are ignored.");
-            myHaveReportedAboutFunctionDeprecation = true;
-        }
         if (laneConn=="") {
             fromEdge->addEdge2EdgeConnection(toEdge);
         } else {

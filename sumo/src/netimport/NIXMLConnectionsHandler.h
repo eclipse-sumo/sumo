@@ -99,9 +99,6 @@ private:
 
 
 private:
-    /// @brief Whether an information about an occured, deprecated attributes has bee printed
-    bool myHaveReportedAboutFunctionDeprecation;
-
     /// @brief The edge container to fill
     NBEdgeCont &myEdgeCont;
 

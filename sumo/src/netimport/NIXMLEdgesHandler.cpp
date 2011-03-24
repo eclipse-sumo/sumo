@@ -71,8 +71,7 @@ NIXMLEdgesHandler::NIXMLEdgesHandler(NBNodeCont &nc,
         : SUMOSAXHandler("xml-edges - file"),
         myOptions(options),
         myNodeCont(nc), myEdgeCont(ec), myTypeCont(tc), myDistrictCont(dc),
-        myCurrentEdge(0),
-        myHaveReportedAboutFunctionDeprecation(false) {}
+        myCurrentEdge(0) {}
 
 
 NIXMLEdgesHandler::~NIXMLEdgesHandler() throw() {}
@@ -93,10 +92,6 @@ NIXMLEdgesHandler::myStartElement(SumoXMLTag element,
         }
         myCurrentEdge = myEdgeCont.retrieve(myCurrentID);
         // check deprecated (unused) attributes
-        if (!myHaveReportedAboutFunctionDeprecation&&attrs.hasAttribute(SUMO_ATTR_FUNCTION)) {
-            MsgHandler::getWarningInstance()->inform("While parsing edge '" + myCurrentID + "': 'function' is deprecated.\n All occurences are ignored.");
-            myHaveReportedAboutFunctionDeprecation = true;
-        }
         // use default values, first
         myCurrentSpeed = myTypeCont.getSpeed("");
         myCurrentPriority = myTypeCont.getPriority("");

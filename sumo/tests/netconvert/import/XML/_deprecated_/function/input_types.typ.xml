@@ -1,5 +1,0 @@
-<types>
-	<type id="normal" nolanes="1" priority="2" spread_type="center" speed="28"/>
-	<type id="source" nolanes="2" priority="1" spread_type="center" speed="40" function="source"/>
-	<type id="sink" nolanes="3" priority="1" spread_type="center" speed="30" function="sink"/>
-</types>

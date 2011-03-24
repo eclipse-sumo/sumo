@@ -31,5 +31,3 @@ edge_overwrite
 # testing error input and handling
 errors
 
-# tests for functions that are deprecated and will be removed some time
-_deprecated_
