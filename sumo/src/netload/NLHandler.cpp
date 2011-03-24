@@ -233,9 +233,6 @@ NLHandler::myEndElement(SumoXMLTag element) throw(ProcessError) {
     case SUMO_TAG_EDGE:
         closeEdge();
         break;
-    case SUMO_TAG_LANE:
-        closeLane();
-        break;
     case SUMO_TAG_JUNCTION:
         closeJunction();
         break;
@@ -338,77 +335,45 @@ NLHandler::closeEdge() {
 //             ---- the root/edge/lanes/lane - element
 void
 NLHandler::addLane(const SUMOSAXAttributes &attrs) {
-    myShape.clear();
     // omit internal edges if not wished and broken edges
     if (myCurrentIsInternalToSkip||myCurrentIsBroken) {
         return;
     }
     // get the id, report an error if not given or empty...
-    if (!attrs.setIDFromAttributes(myCurrentLaneID)) {
+    std::string id;
+    if (!attrs.setIDFromAttributes(id)) {
         myCurrentIsBroken = true;
         return;
     }
     bool ok = true;
-    myLaneIsDepart = attrs.getBoolReporting(SUMO_ATTR_DEPART, myCurrentLaneID.c_str(), ok);
-    myCurrentMaxSpeed = attrs.getSUMORealReporting(SUMO_ATTR_MAXSPEED, myCurrentLaneID.c_str(), ok);
-    myCurrentLength = attrs.getSUMORealReporting(SUMO_ATTR_LENGTH, myCurrentLaneID.c_str(), ok);
-    std::string allow = attrs.getOptStringReporting(SUMO_ATTR_ALLOW, myCurrentLaneID.c_str(), ok, "");
-    std::string disallow = attrs.getOptStringReporting(SUMO_ATTR_DISALLOW, myCurrentLaneID.c_str(), ok, "");
-    std::string vclasses = attrs.getOptStringReporting(SUMO_ATTR_VCLASSES, myCurrentLaneID.c_str(), ok, "");
-    myAllowedClasses.clear();
-    myDisallowedClasses.clear();
-    parseVehicleClasses(vclasses, allow, disallow, myAllowedClasses, myDisallowedClasses, myHaveWarnedAboutDeprecatedVClass);
+    bool laneIsDepart = attrs.getBoolReporting(SUMO_ATTR_DEPART, id.c_str(), ok);
+    SUMOReal maxSpeed = attrs.getSUMORealReporting(SUMO_ATTR_MAXSPEED, id.c_str(), ok);
+    SUMOReal length = attrs.getSUMORealReporting(SUMO_ATTR_LENGTH, id.c_str(), ok);
+    std::string allow = attrs.getOptStringReporting(SUMO_ATTR_ALLOW, id.c_str(), ok, "");
+    std::string disallow = attrs.getOptStringReporting(SUMO_ATTR_DISALLOW, id.c_str(), ok, "");
+    std::string vclasses = attrs.getOptStringReporting(SUMO_ATTR_VCLASSES, id.c_str(), ok, "");
+    Position2DVector shape = GeomConvHelper::parseShapeReporting(attrs.getStringReporting(SUMO_ATTR_SHAPE, id.c_str(), ok), "lane", id.c_str(), ok, false);
+    if (shape.size()<2) {
+        MsgHandler::getErrorInstance()->inform("Shape of lane '" + id + "' is broken.\n Can not build according edge.");
+        myCurrentIsBroken = true;
+        return;
+    }
+    std::vector<SUMOVehicleClass> allowedClasses;
+    std::vector<SUMOVehicleClass> disallowedClasses;
+    parseVehicleClasses(vclasses, allow, disallow, allowedClasses, disallowedClasses, myHaveWarnedAboutDeprecatedVClass);
     myCurrentIsBroken |= !ok;
-    if (!myCurrentIsBroken) {
-        if (attrs.hasAttribute(SUMO_ATTR_SHAPE)) {
-            addLaneShape(attrs.getStringReporting(SUMO_ATTR_SHAPE, myCurrentLaneID.c_str(), ok));
-        } else if (!myHaveWarnedAboutDeprecatedLaneShape) {
-            myHaveWarnedAboutDeprecatedLaneShape = true;
-            MsgHandler::getWarningInstance()->inform("Your network uses a deprecated lane shape description; please rebuild.");
+    if(!myCurrentIsBroken) {
+        try {
+            MSLane *lane = myEdgeControlBuilder.addLane(id, maxSpeed, length, laneIsDepart, shape, allowedClasses, disallowedClasses);
+            // insert the lane into the lane-dictionary, checking
+            if (!MSLane::dictionary(id, lane)) {
+                delete lane;
+                MsgHandler::getErrorInstance()->inform("Another lane with the id '" + id + "' exists.");
+                myCurrentIsBroken = true;
+            }
+        } catch (InvalidArgument &e) {
+            MsgHandler::getErrorInstance()->inform(e.what());
         }
-    }
-}
-
-
-void
-NLHandler::addLaneShape(const std::string &chars) {
-    // omit internal edges if not wished and broken edges
-    if (myCurrentIsInternalToSkip||myCurrentIsBroken) {
-        return;
-    }
-    bool ok = true;
-    myShape = GeomConvHelper::parseShapeReporting(chars, "lane", myCurrentLaneID.c_str(), ok, false);
-    if (!ok) {
-        MsgHandler::getErrorInstance()->inform("Could not parse shape of lane '" + myCurrentLaneID + "'.\n Can not build according edge.");
-        myCurrentIsBroken = true;
-    }
-}
-
-
-void
-NLHandler::closeLane() {
-    // omit internal edges if not wished and broken edges
-    if (myCurrentIsInternalToSkip||myCurrentIsBroken) {
-        return;
-    }
-    // check shape
-    if (myShape.size()<2) {
-        MsgHandler::getErrorInstance()->inform("Shape of lane '" + myCurrentLaneID + "' is broken.\n Can not build according edge.");
-        myCurrentIsBroken = true;
-        return;
-    }
-    // build
-    try {
-        MSLane *lane =
-            myEdgeControlBuilder.addLane(myCurrentLaneID, myCurrentMaxSpeed, myCurrentLength, myLaneIsDepart, myShape, myAllowedClasses, myDisallowedClasses);
-        // insert the lane into the lane-dictionary, checking
-        if (!MSLane::dictionary(myCurrentLaneID, lane)) {
-            delete lane;
-            MsgHandler::getErrorInstance()->inform("Another lane with the id '" + myCurrentLaneID + "' exists.");
-            myCurrentIsBroken = true;
-        }
-    } catch (InvalidArgument &e) {
-        MsgHandler::getErrorInstance()->inform(e.what());
     }
 }
 

@@ -194,9 +194,6 @@ protected:
     /// Closes the process of building an edge
     virtual void closeEdge();
 
-    /// Closes the process of building a lane
-    virtual void closeLane();
-
 
 protected:
     /// The net to fill (preinitialised)
@@ -204,9 +201,6 @@ protected:
 
 
 private:
-    /// add the shape to the Lane
-    void addLaneShape(const std::string &chars);
-
     /// begins the processing of an edge
     void beginEdgeParsing(const SUMOSAXAttributes &attrs);
 
@@ -349,33 +343,8 @@ protected:
 
 
 
-    /// @name Information about a lane
-    //@{
-
-    /// The id of the current lane
-    std::string myCurrentLaneID;
-
     /// The id of the current district
     std::string myCurrentDistrictID;
-
-    /// The information whether the current lane is a depart lane
-    bool myLaneIsDepart;
-
-    /// The maximum speed allowed on the current lane
-    SUMOReal myCurrentMaxSpeed;
-
-    /// The length of the current lane
-    SUMOReal myCurrentLength;
-
-    /// Vehicle classes allowed on the current lane
-    std::vector<SUMOVehicleClass> myAllowedClasses;
-
-    /// Vehicle classes disallowed on the current lane
-    std::vector<SUMOVehicleClass> myDisallowedClasses;
-
-    /// The shape of the current lane
-    Position2DVector myShape;
-    //@}
 
     /// internal information whether a tls-logic is currently read
     bool myAmInTLLogicMode;
