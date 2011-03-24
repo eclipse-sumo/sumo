@@ -4,25 +4,25 @@
 
     <grid_network>
         <!-- Forces NETGEN to build a grid-like network -->
-        <grid-net value="false"/>
+        <grid-net value="false" synonymes="g grid"/>
 
         <!-- The number of junctions in both dirs -->
-        <grid-number value="5"/>
+        <grid-number value="5" synonymes="number"/>
 
         <!-- The length of streets in both dirs -->
-        <grid-length value="100"/>
+        <grid-length value="100" synonymes="length"/>
 
         <!-- The number of junctions in x-dir; Overrides --grid-number -->
-        <grid-x-number value="5"/>
+        <grid-x-number value="5" synonymes="x-no"/>
 
         <!-- The number of junctions in y-dir; Overrides --grid-number -->
-        <grid-y-number value="5"/>
+        <grid-y-number value="5" synonymes="y-no"/>
 
         <!-- The length of horizontal streets; Overrides --grid-length -->
-        <grid-x-length value="100"/>
+        <grid-x-length value="100" synonymes="x-length"/>
 
         <!-- The length of vertical streets; Overrides --grid-length -->
-        <grid-y-length value="100"/>
+        <grid-y-length value="100" synonymes="y-length"/>
 
         <!-- The length of streets attached at the boundary; 0 means no streets are attached -->
         <attach-length value="0"/>
@@ -31,70 +31,70 @@
 
     <spider_network>
         <!-- Forces NETGEN to build a spider-net-like network -->
-        <spider-net value="false"/>
+        <spider-net value="false" synonymes="s spider"/>
 
         <!-- The number of axes within the net -->
-        <spider-arm-number value="13"/>
+        <spider-arm-number value="13" synonymes="arms"/>
 
         <!-- The number of circles of the net -->
-        <spider-circle-number value="20"/>
+        <spider-circle-number value="20" synonymes="circles"/>
 
         <!-- The distances between the circles -->
-        <spider-space-rad value="100"/>
+        <spider-space-rad value="100" synonymes="radius"/>
 
         <!-- Omit the central node of the network -->
-        <spider-omit-center value="false"/>
+        <spider-omit-center value="false" synonymes="nocenter"/>
 
     </spider_network>
 
     <random_network>
         <!-- Forces NETGEN to build a random network -->
-        <random-net value="false"/>
+        <random-net value="false" synonymes="r"/>
 
         <!-- Describes how many times an edge shall be added to the net -->
-        <rand-iterations value="2000"/>
+        <rand-iterations value="2000" synonymes="iterations"/>
 
         <!-- Defines the probability to build a reverse edge -->
-        <rand-bidi-probability value="1"/>
+        <rand-bidi-probability value="1" synonymes="bidi"/>
 
         <!--  -->
-        <rand-max-distance value="250"/>
+        <rand-max-distance value="250" synonymes="max-dist"/>
 
         <!--  -->
-        <rand-min-distance value="100"/>
+        <rand-min-distance value="100" synonymes="min-dist"/>
 
         <!--  -->
-        <rand-min-angle value="0.785398"/>
+        <rand-min-angle value="0.785398" synonymes="min-angle"/>
 
         <!--  -->
-        <rand-num-tries value="50"/>
+        <rand-num-tries value="50" synonymes="num-tries"/>
 
         <!--  -->
-        <rand-connectivity value="0.95"/>
+        <rand-connectivity value="0.95" synonymes="connectivity"/>
 
         <!--  -->
-        <rand-neighbor-dist1 value="0"/>
+        <rand-neighbor-dist1 value="0" synonymes="dist1"/>
 
         <!--  -->
-        <rand-neighbor-dist2 value="0"/>
+        <rand-neighbor-dist2 value="0" synonymes="dist2"/>
 
         <!--  -->
-        <rand-neighbor-dist3 value="10"/>
+        <rand-neighbor-dist3 value="10" synonymes="dist3"/>
 
         <!--  -->
-        <rand-neighbor-dist4 value="10"/>
+        <rand-neighbor-dist4 value="10" synonymes="dist4"/>
 
         <!--  -->
-        <rand-neighbor-dist5 value="2"/>
+        <rand-neighbor-dist5 value="2" synonymes="dist5"/>
 
         <!--  -->
-        <rand-neighbor-dist6 value="1"/>
+        <rand-neighbor-dist6 value="1" synonymes="dist6"/>
 
     </random_network>
 
     <output>
         <!-- The generated net will be written to FILE -->
-        <output-file value="net.net.xml"/>
+        <output-file value="net.net.xml" synonymes="o output"/>
 
         <!-- Prefix of files to write nodes and edges to -->
         <plain-output value=""/>
@@ -103,7 +103,7 @@
         <node-geometry-dump value=""/>
 
         <!-- Writes joined edges information to FILE -->
-        <map-output value=""/>
+        <map-output value="" synonymes="M"/>
 
         <!-- Writes pois of node types to FILE -->
         <node-type-output value=""/>
@@ -130,7 +130,7 @@
         <try-join-tls value="false"/>
 
         <!-- Defines smallest vehicle deceleration -->
-        <min-decel value="3"/>
+        <min-decel value="3" synonymes="D"/>
 
         <!-- Given yellow times are patched even if being too short -->
         <patch-small-tyellow value="false"/>
@@ -220,7 +220,7 @@
         <dismiss-vclasses value="false"/>
 
         <!-- Removes geometry information from edges -->
-        <remove-geometry value="false"/>
+        <remove-geometry value="false" synonymes="R"/>
 
         <!-- Removes isolated edges -->
         <remove-isolated value="false"/>
@@ -256,49 +256,49 @@
 
     <building_defaults>
         <!-- The default name for an edges type -->
-        <type value="Unknown"/>
+        <type value="Unknown" synonymes="T"/>
 
         <!-- The default number of lanes in an edge -->
-        <lanenumber value="1"/>
+        <lanenumber value="1" synonymes="L"/>
 
         <!-- The default speed on an edge (in m/s) -->
-        <speed value="13.9"/>
+        <speed value="13.9" synonymes="S"/>
 
         <!-- The default priority of an edge -->
-        <priority value="-1"/>
+        <priority value="-1" synonymes="P"/>
 
         <!-- [traffic_light|priority|right_before_left] Determines the type of the build junctions -->
-        <default-junction-type value=""/>
+        <default-junction-type value="" synonymes="j junctions"/>
 
     </building_defaults>
 
     <report>
         <!-- Switches to verbose output -->
-        <verbose value="false"/>
+        <verbose value="false" synonymes="v"/>
 
         <!-- Prints option values before processing -->
-        <print-options value="false"/>
+        <print-options value="false" synonymes="p"/>
 
         <!-- Prints this screen -->
-        <help value="false"/>
+        <help value="false" synonymes="?"/>
 
         <!-- Prints the current version -->
-        <version value="false"/>
+        <version value="false" synonymes="V"/>
 
         <!-- Disables output of warnings -->
-        <suppress-warnings value="false"/>
+        <suppress-warnings value="false" synonymes="W"/>
 
         <!-- Writes all messages to FILE -->
-        <log-file value=""/>
+        <log-file value="" synonymes="l"/>
 
     </report>
 
     <random_number>
-        <!-- Initialises the random number generator with the given value -->
-        <srand value="23423"/>
-
         <!-- Initialises the random number generator with the current system time -->
-        <abs-rand value="false"/>
+        <random value="false" synonymes="abs-rand"/>
+
+        <!-- Initialises the random number generator with the given value -->
+        <seed value="23423" synonymes="srand"/>
 
     </random_number>
 

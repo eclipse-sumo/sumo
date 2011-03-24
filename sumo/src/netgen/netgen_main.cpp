@@ -186,7 +186,6 @@ fillOptions() {
 
     // register random-net options
     oc.doRegister("random-net", 'r', new Option_Bool(false));
-    oc.addSynonyme("random-net", "random");
     oc.addDescription("random-net", "Random Network", "Forces NETGEN to build a random network");
 
     oc.doRegister("rand-iterations", new Option_Integer(2000));

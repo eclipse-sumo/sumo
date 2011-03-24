@@ -3,46 +3,46 @@
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netgenConfiguration.xsd">
 
     <grid_network>
-        <grid-net value="false"/>
-        <grid-number value="5"/>
-        <grid-length value="100"/>
-        <grid-x-number value="5"/>
-        <grid-y-number value="5"/>
-        <grid-x-length value="100"/>
-        <grid-y-length value="100"/>
+        <grid-net value="false" synonymes="g grid"/>
+        <grid-number value="5" synonymes="number"/>
+        <grid-length value="100" synonymes="length"/>
+        <grid-x-number value="5" synonymes="x-no"/>
+        <grid-y-number value="5" synonymes="y-no"/>
+        <grid-x-length value="100" synonymes="x-length"/>
+        <grid-y-length value="100" synonymes="y-length"/>
         <attach-length value="0"/>
     </grid_network>
 
     <spider_network>
-        <spider-net value="false"/>
-        <spider-arm-number value="13"/>
-        <spider-circle-number value="20"/>
-        <spider-space-rad value="100"/>
-        <spider-omit-center value="false"/>
+        <spider-net value="false" synonymes="s spider"/>
+        <spider-arm-number value="13" synonymes="arms"/>
+        <spider-circle-number value="20" synonymes="circles"/>
+        <spider-space-rad value="100" synonymes="radius"/>
+        <spider-omit-center value="false" synonymes="nocenter"/>
     </spider_network>
 
     <random_network>
-        <random-net value="false"/>
-        <rand-iterations value="2000"/>
-        <rand-bidi-probability value="1"/>
-        <rand-max-distance value="250"/>
-        <rand-min-distance value="100"/>
-        <rand-min-angle value="0.785398"/>
-        <rand-num-tries value="50"/>
-        <rand-connectivity value="0.95"/>
-        <rand-neighbor-dist1 value="0"/>
-        <rand-neighbor-dist2 value="0"/>
-        <rand-neighbor-dist3 value="10"/>
-        <rand-neighbor-dist4 value="10"/>
-        <rand-neighbor-dist5 value="2"/>
-        <rand-neighbor-dist6 value="1"/>
+        <random-net value="false" synonymes="r"/>
+        <rand-iterations value="2000" synonymes="iterations"/>
+        <rand-bidi-probability value="1" synonymes="bidi"/>
+        <rand-max-distance value="250" synonymes="max-dist"/>
+        <rand-min-distance value="100" synonymes="min-dist"/>
+        <rand-min-angle value="0.785398" synonymes="min-angle"/>
+        <rand-num-tries value="50" synonymes="num-tries"/>
+        <rand-connectivity value="0.95" synonymes="connectivity"/>
+        <rand-neighbor-dist1 value="0" synonymes="dist1"/>
+        <rand-neighbor-dist2 value="0" synonymes="dist2"/>
+        <rand-neighbor-dist3 value="10" synonymes="dist3"/>
+        <rand-neighbor-dist4 value="10" synonymes="dist4"/>
+        <rand-neighbor-dist5 value="2" synonymes="dist5"/>
+        <rand-neighbor-dist6 value="1" synonymes="dist6"/>
     </random_network>
 
     <output>
-        <output-file value="net.net.xml"/>
+        <output-file value="net.net.xml" synonymes="o output"/>
         <plain-output value=""/>
         <node-geometry-dump value=""/>
-        <map-output value=""/>
+        <map-output value="" synonymes="M"/>
         <node-type-output value=""/>
     </output>
 
@@ -53,7 +53,7 @@
         <tls-guess.district-nodes value="false"/>
         <tls-guess.joining value="false"/>
         <try-join-tls value="false"/>
-        <min-decel value="3"/>
+        <min-decel value="3" synonymes="D"/>
         <patch-small-tyellow value="false"/>
         <traffic-light-green value=""/>
         <traffic-light-yellow value=""/>
@@ -91,7 +91,7 @@
     <processing>
         <flip-y value="false"/>
         <dismiss-vclasses value="false"/>
-        <remove-geometry value="false"/>
+        <remove-geometry value="false" synonymes="R"/>
         <remove-isolated value="false"/>
         <no-turnarounds value="false"/>
         <no-tls-turnarounds value="false"/>
@@ -105,25 +105,25 @@
     </processing>
 
     <building_defaults>
-        <type value="Unknown"/>
-        <lanenumber value="1"/>
-        <speed value="13.9"/>
-        <priority value="-1"/>
-        <default-junction-type value=""/>
+        <type value="Unknown" synonymes="T"/>
+        <lanenumber value="1" synonymes="L"/>
+        <speed value="13.9" synonymes="S"/>
+        <priority value="-1" synonymes="P"/>
+        <default-junction-type value="" synonymes="j junctions"/>
     </building_defaults>
 
     <report>
-        <verbose value="false"/>
-        <print-options value="false"/>
-        <help value="false"/>
-        <version value="false"/>
-        <suppress-warnings value="false"/>
-        <log-file value=""/>
+        <verbose value="false" synonymes="v"/>
+        <print-options value="false" synonymes="p"/>
+        <help value="false" synonymes="?"/>
+        <version value="false" synonymes="V"/>
+        <suppress-warnings value="false" synonymes="W"/>
+        <log-file value="" synonymes="l"/>
     </report>
 
     <random_number>
-        <srand value="23423"/>
-        <abs-rand value="false"/>
+        <random value="false" synonymes="abs-rand"/>
+        <seed value="23423" synonymes="srand"/>
     </random_number>
 
 </configuration>
