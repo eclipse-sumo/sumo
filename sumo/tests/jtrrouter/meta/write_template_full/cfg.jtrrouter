@@ -3,18 +3,18 @@
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/jtrrouterConfiguration.xsd">
 
     <input>
-        <net-file value=""/>
-        <districts value=""/>
-        <alternatives value=""/>
-        <weights value=""/>
+        <net-file value="" synonymes="n net"/>
+        <districts value="" synonymes="d"/>
+        <alternatives value="" synonymes="a"/>
+        <weights value="" synonymes="w weight-files"/>
         <lane-weights value=""/>
-        <measure value="traveltime"/>
-        <flow-definition value=""/>
-        <turn-definition value=""/>
+        <measure value="traveltime" synonymes="x"/>
+        <flow-definition value="" synonymes="f flows"/>
+        <turn-definition value="" synonymes="t turns"/>
     </input>
 
     <output>
-        <output-file value=""/>
+        <output-file value="" synonymes="o output"/>
         <exit-times value="false"/>
     </output>
 
@@ -28,10 +28,10 @@
         <interpolate value="false"/>
         <with-taz value="false"/>
         <max-edges-factor value="2"/>
-        <turn-defaults value="30,50,20"/>
-        <sinks value=""/>
-        <accept-all-destinations value="false"/>
-        <ignore-classes value="false"/>
+        <turn-defaults value="30,50,20" synonymes="T"/>
+        <sinks value="" synonymes="s"/>
+        <accept-all-destinations value="false" synonymes="A"/>
+        <ignore-classes value="false" synonymes="i"/>
         <dismiss-loading-errors value="false"/>
     </processing>
 
@@ -46,23 +46,23 @@
     </defaults>
 
     <time>
-        <begin value="0"/>
-        <end value="2147483"/>
+        <begin value="0" synonymes="b"/>
+        <end value="2147483" synonymes="e"/>
     </time>
 
     <report>
-        <verbose value="false"/>
-        <print-options value="false"/>
-        <help value="false"/>
-        <version value="false"/>
-        <suppress-warnings value="false"/>
-        <log-file value=""/>
+        <verbose value="false" synonymes="v"/>
+        <print-options value="false" synonymes="p"/>
+        <help value="false" synonymes="?"/>
+        <version value="false" synonymes="V"/>
+        <suppress-warnings value="false" synonymes="W"/>
+        <log-file value="" synonymes="l"/>
         <stats-period value="-1"/>
     </report>
 
     <random_number>
-        <srand value="23423"/>
-        <abs-rand value="false"/>
+        <random value="false" synonymes="abs-rand"/>
+        <seed value="23423" synonymes="srand"/>
     </random_number>
 
 </configuration>

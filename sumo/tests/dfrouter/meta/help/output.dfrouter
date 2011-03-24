@@ -1,4 +1,4 @@
-SUMO dfrouter Version dev-SVN-r9684
+SUMO dfrouter Version dev-SVN-r9977
  Copyright (C) 2001-2011 DLR and contributors; http://sumo.sourceforge.net
  
 Builds vehicle routes for SUMO using detector values.
@@ -88,8 +88,8 @@ Usage: dfrouter [OPTION]*
   --print-absolute-flows             Prints aggregated detector flows
 
  Random Number Options:
-  --srand INT                        Initialises the random number generator
-                                       with the given value
-  --abs-rand                         Initialises the random number generator
+  --random                           Initialises the random number generator
                                        with the current system time
+  --seed INT                         Initialises the random number generator
+                                       with the given value
 

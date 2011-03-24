@@ -4,46 +4,46 @@
 
     <input>
         <!-- Read SUMO-net from FILE -->
-        <sumo-net value=""/>
+        <sumo-net value="" synonymes="s"/>
 
         <!-- Read XML-node defs from FILE -->
-        <xml-node-files value=""/>
+        <xml-node-files value="" synonymes="n xml-nodes"/>
 
         <!-- Read XML-edge defs from FILE -->
-        <xml-edge-files value=""/>
+        <xml-edge-files value="" synonymes="e xml-edges"/>
 
         <!-- Read XML-connection defs from FILE -->
-        <xml-connection-files value=""/>
+        <xml-connection-files value="" synonymes="x xml-connections"/>
 
         <!-- Read XML-type defs from FILE -->
-        <xml-type-files value=""/>
+        <xml-type-files value="" synonymes="t xml-types"/>
 
         <!-- Read shapefiles (ArcView, Tiger, ...) from files starting with 'FILE' -->
-        <shapefile value=""/>
+        <shapefile value="" synonymes="arcview tiger"/>
 
         <!-- Read converted Navteq GDF data (unsplitted Elmar-network) from path 'FILE' -->
-        <dlr-navteq value=""/>
+        <dlr-navteq value="" synonymes="elmar2"/>
 
         <!-- Read OSM-network from path 'FILE(s)' -->
-        <osm-files value=""/>
+        <osm-files value="" synonymes="osm"/>
 
         <!-- Read openDrive-network from FILE -->
         <opendrive value=""/>
 
         <!-- Read VISUM-net from FILE -->
-        <visum-file value=""/>
+        <visum-file value="" synonymes="visum"/>
 
         <!-- Read VISSIM-net from FILE -->
-        <vissim-file value=""/>
+        <vissim-file value="" synonymes="vissim"/>
 
         <!-- Read RoboCup-net from DIR -->
-        <robocup-net value=""/>
+        <robocup-net value="" synonymes="robocup"/>
 
     </input>
 
     <output>
         <!-- The generated net will be written to FILE -->
-        <output-file value="net.net.xml"/>
+        <output-file value="net.net.xml" synonymes="o output"/>
 
         <!-- Prefix of files to write nodes and edges to -->
         <plain-output value=""/>
@@ -52,7 +52,7 @@
         <node-geometry-dump value=""/>
 
         <!-- Writes joined edges information to FILE -->
-        <map-output value=""/>
+        <map-output value="" synonymes="M"/>
 
         <!-- Writes pois of node types to FILE -->
         <node-type-output value=""/>
@@ -100,7 +100,7 @@
         <try-join-tls value="false"/>
 
         <!-- Defines smallest vehicle deceleration -->
-        <min-decel value="3"/>
+        <min-decel value="3" synonymes="D"/>
 
         <!-- Given yellow times are patched even if being too short -->
         <patch-small-tyellow value="false"/>
@@ -196,28 +196,28 @@
         <xml.keep-shape value="false"/>
 
         <!-- Read edge ids from column STR -->
-        <shapefile.street-id value=""/>
+        <shapefile.street-id value="" synonymes="arcview.street-id"/>
 
         <!-- Read from-node ids from column STR -->
-        <shapefile.from-id value=""/>
+        <shapefile.from-id value="" synonymes="arcview.from-id"/>
 
         <!-- Read to-node ids from column STR -->
-        <shapefile.to-id value=""/>
+        <shapefile.to-id value="" synonymes="arcview.to-id"/>
 
         <!-- Read type ids from column STR -->
-        <shapefile.type-id value=""/>
+        <shapefile.type-id value="" synonymes="arcview.type-id"/>
 
         <!-- Uses edge type defaults on problems -->
-        <shapefile.use-defaults-on-failure value="false"/>
+        <shapefile.use-defaults-on-failure value="false" synonymes="arcview.use-defaults-on-failure"/>
 
         <!-- Insert edges in both directions -->
-        <shapefile.all-bidi value="false"/>
+        <shapefile.all-bidi value="false" synonymes="arcview.all-bidi"/>
 
         <!-- Use INT as UTM zone -->
-        <shapefile.utm value="32"/>
+        <shapefile.utm value="32" synonymes="arcview.utm"/>
 
         <!-- Guess the proper projection -->
-        <shapefile.guess-projection value="false"/>
+        <shapefile.guess-projection value="false" synonymes="arcview.guess-projection"/>
 
         <!-- Structure join offset -->
         <vissim.offset value="5"/>
@@ -265,7 +265,7 @@
         <dismiss-vclasses value="false"/>
 
         <!-- Removes geometry information from edges -->
-        <remove-geometry value="false"/>
+        <remove-geometry value="false" synonymes="R"/>
 
         <!-- Removes isolated edges -->
         <remove-isolated value="false"/>
@@ -301,46 +301,46 @@
 
     <building_defaults>
         <!-- The default name for an edges type -->
-        <type value="Unknown"/>
+        <type value="Unknown" synonymes="T"/>
 
         <!-- The default number of lanes in an edge -->
-        <lanenumber value="1"/>
+        <lanenumber value="1" synonymes="L"/>
 
         <!-- The default speed on an edge (in m/s) -->
-        <speed value="13.9"/>
+        <speed value="13.9" synonymes="S"/>
 
         <!-- The default priority of an edge -->
-        <priority value="-1"/>
+        <priority value="-1" synonymes="P"/>
 
     </building_defaults>
 
     <report>
         <!-- Switches to verbose output -->
-        <verbose value="false"/>
+        <verbose value="false" synonymes="v"/>
 
         <!-- Prints option values before processing -->
-        <print-options value="false"/>
+        <print-options value="false" synonymes="p"/>
 
         <!-- Prints this screen -->
-        <help value="false"/>
+        <help value="false" synonymes="?"/>
 
         <!-- Prints the current version -->
-        <version value="false"/>
+        <version value="false" synonymes="V"/>
 
         <!-- Disables output of warnings -->
-        <suppress-warnings value="false"/>
+        <suppress-warnings value="false" synonymes="W"/>
 
         <!-- Writes all messages to FILE -->
-        <log-file value=""/>
+        <log-file value="" synonymes="l"/>
 
     </report>
 
     <random_number>
-        <!-- Initialises the random number generator with the given value -->
-        <srand value="23423"/>
-
         <!-- Initialises the random number generator with the current system time -->
-        <abs-rand value="false"/>
+        <random value="false" synonymes="abs-rand"/>
+
+        <!-- Initialises the random number generator with the given value -->
+        <seed value="23423" synonymes="srand"/>
 
     </random_number>
 

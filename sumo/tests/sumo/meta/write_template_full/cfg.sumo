@@ -3,32 +3,32 @@
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/sumoConfiguration.xsd">
 
     <input>
-        <net-file value=""/>
-        <route-files value=""/>
-        <additional-files value=""/>
-        <weight-files value=""/>
-        <measure value=""/>
+        <net-file value="" synonymes="n net"/>
+        <route-files value="" synonymes="r routes"/>
+        <additional-files value="" synonymes="a additional"/>
+        <weight-files value="" synonymes="w weights"/>
+        <measure value="" synonymes="m"/>
     </input>
 
     <output>
-        <netstate-dump value=""/>
+        <netstate-dump value="" synonymes="ndump netstate"/>
         <dump-empty-edges value="false"/>
-        <summary value=""/>
-        <tripinfo-output value=""/>
-        <vehroute-output value=""/>
-        <vehroute-output.exit-times value="false"/>
-        <vehroute-output.last-route value="false"/>
-        <vehroute-output.sorted value="false"/>
+        <summary value="" synonymes="emissions emissions-output"/>
+        <tripinfo-output value="" synonymes="tripinfo"/>
+        <vehroute-output value="" synonymes="vehroutes"/>
+        <vehroute-output.exit-times value="false" synonymes="vehroutes.exit-times"/>
+        <vehroute-output.last-route value="false" synonymes="vehroutes.last-route"/>
+        <vehroute-output.sorted value="false" synonymes="vehroutes.sorted"/>
     </output>
 
     <time>
-        <begin value="0"/>
-        <end value="-1"/>
+        <begin value="0" synonymes="b"/>
+        <end value="-1" synonymes="e"/>
         <step-length value="1"/>
     </time>
 
     <processing>
-        <route-steps value="200"/>
+        <route-steps value="200" synonymes="s"/>
         <no-internal-links value="false"/>
         <ignore-accidents value="false"/>
         <ignore-route-errors value="false"/>
@@ -54,12 +54,12 @@
     </tls_defaults>
 
     <report>
-        <verbose value="false"/>
-        <print-options value="false"/>
-        <help value="false"/>
-        <version value="false"/>
-        <suppress-warnings value="false"/>
-        <log-file value=""/>
+        <verbose value="false" synonymes="v"/>
+        <print-options value="false" synonymes="p"/>
+        <help value="false" synonymes="?"/>
+        <version value="false" synonymes="V"/>
+        <suppress-warnings value="false" synonymes="W"/>
+        <log-file value="" synonymes="l"/>
         <no-duration-log value="false"/>
         <no-step-log value="false"/>
         <message-log value=""/>
@@ -89,8 +89,8 @@
     </traci_server>
 
     <random_number>
-        <srand value="23423"/>
-        <abs-rand value="false"/>
+        <random value="false" synonymes="abs-rand"/>
+        <seed value="23423" synonymes="srand"/>
     </random_number>
 
     <gui_only>

@@ -1,4 +1,4 @@
-SUMO sumo Version dev-SVN-r9763
+SUMO sumo Version dev-SVN-r9977
  Copyright (C) 2001-2011 DLR and contributors; http://sumo.sourceforge.net
  
 A microscopic road traffic simulation.
@@ -119,10 +119,10 @@ Usage: sumo [OPTION]*
   --penetration FLOAT                 Value in 0..1 [default: 1]
 
  Random Number Options:
-  --srand INT                         Initialises the random number generator
-                                        with the given value
-  --abs-rand                          Initialises the random number generator
+  --random                            Initialises the random number generator
                                         with the current system time
+  --seed INT                          Initialises the random number generator
+                                        with the given value
 
  GUI Only Options:
   --gui-settings-file FILE            Load visualisation settings from FILE

@@ -1,4 +1,4 @@
-SUMO jtrrouter Version dev-SVN-r9696
+SUMO jtrrouter Version dev-SVN-r9977
  Copyright (C) 2001-2011 DLR and contributors; http://sumo.sourceforge.net
  
 Router for the microscopic road traffic simulation SUMO based on junction
@@ -82,8 +82,8 @@ Usage: jtrrouter [OPTION]*
                                      printed
 
  Random Number Options:
-  --srand INT                      Initialises the random number generator with
-                                     the given value
-  --abs-rand                       Initialises the random number generator with
+  --random                         Initialises the random number generator with
                                      the current system time
+  --seed INT                       Initialises the random number generator with
+                                     the given value
 

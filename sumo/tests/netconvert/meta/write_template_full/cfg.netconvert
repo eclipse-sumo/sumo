@@ -3,25 +3,25 @@
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net value=""/>
-        <xml-node-files value=""/>
-        <xml-edge-files value=""/>
-        <xml-connection-files value=""/>
-        <xml-type-files value=""/>
-        <shapefile value=""/>
-        <dlr-navteq value=""/>
-        <osm-files value=""/>
+        <sumo-net value="" synonymes="s"/>
+        <xml-node-files value="" synonymes="n xml-nodes"/>
+        <xml-edge-files value="" synonymes="e xml-edges"/>
+        <xml-connection-files value="" synonymes="x xml-connections"/>
+        <xml-type-files value="" synonymes="t xml-types"/>
+        <shapefile value="" synonymes="arcview tiger"/>
+        <dlr-navteq value="" synonymes="elmar2"/>
+        <osm-files value="" synonymes="osm"/>
         <opendrive value=""/>
-        <visum-file value=""/>
-        <vissim-file value=""/>
-        <robocup-net value=""/>
+        <visum-file value="" synonymes="visum"/>
+        <vissim-file value="" synonymes="vissim"/>
+        <robocup-net value="" synonymes="robocup"/>
     </input>
 
     <output>
-        <output-file value="net.net.xml"/>
+        <output-file value="net.net.xml" synonymes="o output"/>
         <plain-output value=""/>
         <node-geometry-dump value=""/>
-        <map-output value=""/>
+        <map-output value="" synonymes="M"/>
         <node-type-output value=""/>
     </output>
 
@@ -41,7 +41,7 @@
         <tls-guess.district-nodes value="false"/>
         <tls-guess.joining value="false"/>
         <try-join-tls value="false"/>
-        <min-decel value="3"/>
+        <min-decel value="3" synonymes="D"/>
         <patch-small-tyellow value="false"/>
         <traffic-light-green value=""/>
         <traffic-light-yellow value=""/>
@@ -81,14 +81,14 @@
         <capacity-norm value="1800"/>
         <speed-in-kmh value="false"/>
         <xml.keep-shape value="false"/>
-        <shapefile.street-id value=""/>
-        <shapefile.from-id value=""/>
-        <shapefile.to-id value=""/>
-        <shapefile.type-id value=""/>
-        <shapefile.use-defaults-on-failure value="false"/>
-        <shapefile.all-bidi value="false"/>
-        <shapefile.utm value="32"/>
-        <shapefile.guess-projection value="false"/>
+        <shapefile.street-id value="" synonymes="arcview.street-id"/>
+        <shapefile.from-id value="" synonymes="arcview.from-id"/>
+        <shapefile.to-id value="" synonymes="arcview.to-id"/>
+        <shapefile.type-id value="" synonymes="arcview.type-id"/>
+        <shapefile.use-defaults-on-failure value="false" synonymes="arcview.use-defaults-on-failure"/>
+        <shapefile.all-bidi value="false" synonymes="arcview.all-bidi"/>
+        <shapefile.utm value="32" synonymes="arcview.utm"/>
+        <shapefile.guess-projection value="false" synonymes="arcview.guess-projection"/>
         <vissim.offset value="5"/>
         <vissim.default-speed value="50"/>
         <vissim.speed-norm value="1"/>
@@ -104,7 +104,7 @@
         <osm.skip-duplicates-check value="false"/>
         <flip-y value="false"/>
         <dismiss-vclasses value="false"/>
-        <remove-geometry value="false"/>
+        <remove-geometry value="false" synonymes="R"/>
         <remove-isolated value="false"/>
         <no-turnarounds value="false"/>
         <no-tls-turnarounds value="false"/>
@@ -118,24 +118,24 @@
     </processing>
 
     <building_defaults>
-        <type value="Unknown"/>
-        <lanenumber value="1"/>
-        <speed value="13.9"/>
-        <priority value="-1"/>
+        <type value="Unknown" synonymes="T"/>
+        <lanenumber value="1" synonymes="L"/>
+        <speed value="13.9" synonymes="S"/>
+        <priority value="-1" synonymes="P"/>
     </building_defaults>
 
     <report>
-        <verbose value="false"/>
-        <print-options value="false"/>
-        <help value="false"/>
-        <version value="false"/>
-        <suppress-warnings value="false"/>
-        <log-file value=""/>
+        <verbose value="false" synonymes="v"/>
+        <print-options value="false" synonymes="p"/>
+        <help value="false" synonymes="?"/>
+        <version value="false" synonymes="V"/>
+        <suppress-warnings value="false" synonymes="W"/>
+        <log-file value="" synonymes="l"/>
     </report>
 
     <random_number>
-        <srand value="23423"/>
-        <abs-rand value="false"/>
+        <random value="false" synonymes="abs-rand"/>
+        <seed value="23423" synonymes="srand"/>
     </random_number>
 
 </configuration>

@@ -1,4 +1,4 @@
-SUMO od2trips Version dev-SVN-r9650
+SUMO od2trips Version dev-SVN-r9977
  Copyright (C) 2001-2011 DLR and contributors; http://sumo.sourceforge.net
  
 Importer of O/D-matrices for the road traffic simulation SUMO.
@@ -60,8 +60,8 @@ Usage: od2trips [OPTION]*
   -l, --log-file FILE              Writes all messages to FILE
 
  Random Number Options:
-  --srand INT                      Initialises the random number generator with
-                                     the given value
-  --abs-rand                       Initialises the random number generator with
+  --random                         Initialises the random number generator with
                                      the current system time
+  --seed INT                       Initialises the random number generator with
+                                     the given value
 

@@ -3,14 +3,14 @@
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/dfrouterConfiguration.xsd">
 
     <input>
-        <net-file value=""/>
-        <routes-input value=""/>
-        <detector-files value=""/>
-        <detector-flow-files value=""/>
+        <net-file value="" synonymes="n net"/>
+        <routes-input value="" synonymes="r"/>
+        <detector-files value="" synonymes="d detectors"/>
+        <detector-flow-files value="" synonymes="detflows f"/>
     </input>
 
     <output>
-        <routes-output value=""/>
+        <routes-output value="" synonymes="o"/>
         <routes-for-all value="false"/>
         <detectors-output value=""/>
         <detectors-poi-output value=""/>
@@ -24,7 +24,7 @@
 
     <processing>
         <guess-empty-flows value="false"/>
-        <highway-mode value="false"/>
+        <highway-mode value="false" synonymes="h"/>
         <ignore-invalid-detectors value="false"/>
         <revalidate-detectors value="false"/>
         <revalidate-routes value="false"/>
@@ -35,7 +35,7 @@
         <emissions-only value="false"/>
         <disallowed-edges value=""/>
         <keep-turnarounds value="false"/>
-        <min-distance value="-1"/>
+        <min-distance value="-1" synonymes="min-dist"/>
         <time-factor value="60"/>
         <time-offset value="0"/>
         <time-step value="60"/>
@@ -49,24 +49,24 @@
     </processing>
 
     <time>
-        <begin value="0"/>
-        <end value="86400"/>
+        <begin value="0" synonymes="b"/>
+        <end value="86400" synonymes="e"/>
     </time>
 
     <report>
-        <verbose value="false"/>
-        <print-options value="false"/>
-        <help value="false"/>
-        <version value="false"/>
-        <suppress-warnings value="false"/>
-        <log-file value=""/>
+        <verbose value="false" synonymes="v"/>
+        <print-options value="false" synonymes="p"/>
+        <help value="false" synonymes="?"/>
+        <version value="false" synonymes="V"/>
+        <suppress-warnings value="false" synonymes="W"/>
+        <log-file value="" synonymes="l"/>
         <report-empty-detectors value="false"/>
         <print-absolute-flows value="false"/>
     </report>
 
     <random_number>
-        <srand value="23423"/>
-        <abs-rand value="false"/>
+        <random value="false" synonymes="abs-rand"/>
+        <seed value="23423" synonymes="srand"/>
     </random_number>
 
 </configuration>

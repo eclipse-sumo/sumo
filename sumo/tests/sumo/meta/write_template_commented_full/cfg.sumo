@@ -4,55 +4,55 @@
 
     <input>
         <!-- Load road network description from FILE -->
-        <net-file value=""/>
+        <net-file value="" synonymes="n net"/>
 
         <!-- Load routes descriptions from FILE(s) -->
-        <route-files value=""/>
+        <route-files value="" synonymes="r routes"/>
 
         <!-- Load further descriptions from FILE(s) -->
-        <additional-files value=""/>
+        <additional-files value="" synonymes="a additional"/>
 
         <!-- Load weights from FILE -->
-        <weight-files value=""/>
+        <weight-files value="" synonymes="w weights"/>
 
         <!-- Load <measure> from weights -->
-        <measure value=""/>
+        <measure value="" synonymes="m"/>
 
     </input>
 
     <output>
         <!-- Save complete network states into FILE -->
-        <netstate-dump value=""/>
+        <netstate-dump value="" synonymes="ndump netstate"/>
 
         <!-- Write also empty edges completely when dumping -->
         <dump-empty-edges value="false"/>
 
         <!-- Save aggregated vehicle emission inf. into FILE -->
-        <summary value=""/>
+        <summary value="" synonymes="emissions emissions-output"/>
 
         <!-- Save single vehicle trip inf. into FILE -->
-        <tripinfo-output value=""/>
+        <tripinfo-output value="" synonymes="tripinfo"/>
 
         <!-- Save single vehicle route inf. into FILE -->
-        <vehroute-output value=""/>
+        <vehroute-output value="" synonymes="vehroutes"/>
 
         <!-- Write the exit times for all edges -->
-        <vehroute-output.exit-times value="false"/>
+        <vehroute-output.exit-times value="false" synonymes="vehroutes.exit-times"/>
 
         <!-- Write the last route only -->
-        <vehroute-output.last-route value="false"/>
+        <vehroute-output.last-route value="false" synonymes="vehroutes.last-route"/>
 
         <!-- Sorts the output by departure time -->
-        <vehroute-output.sorted value="false"/>
+        <vehroute-output.sorted value="false" synonymes="vehroutes.sorted"/>
 
     </output>
 
     <time>
         <!-- Defines the begin time; The simulation starts at this time -->
-        <begin value="0"/>
+        <begin value="0" synonymes="b"/>
 
         <!-- Defines the end time; The simulation ends at this time -->
-        <end value="-1"/>
+        <end value="-1" synonymes="e"/>
 
         <!-- Defines the step duration -->
         <step-length value="1"/>
@@ -61,7 +61,7 @@
 
     <processing>
         <!-- Load routes for the next INT steps ahead -->
-        <route-steps value="200"/>
+        <route-steps value="200" synonymes="s"/>
 
         <!-- Disable (junction) internal links -->
         <no-internal-links value="false"/>
@@ -127,22 +127,22 @@
 
     <report>
         <!-- Switches to verbose output -->
-        <verbose value="false"/>
+        <verbose value="false" synonymes="v"/>
 
         <!-- Prints option values before processing -->
-        <print-options value="false"/>
+        <print-options value="false" synonymes="p"/>
 
         <!-- Prints this screen -->
-        <help value="false"/>
+        <help value="false" synonymes="?"/>
 
         <!-- Prints the current version -->
-        <version value="false"/>
+        <version value="false" synonymes="V"/>
 
         <!-- Disables output of warnings -->
-        <suppress-warnings value="false"/>
+        <suppress-warnings value="false" synonymes="W"/>
 
         <!-- Writes all messages to FILE -->
-        <log-file value=""/>
+        <log-file value="" synonymes="l"/>
 
         <!-- Disable performance reports for individual simulation steps -->
         <no-duration-log value="false"/>
@@ -207,11 +207,11 @@
     </traci_server>
 
     <random_number>
-        <!-- Initialises the random number generator with the given value -->
-        <srand value="23423"/>
-
         <!-- Initialises the random number generator with the current system time -->
-        <abs-rand value="false"/>
+        <random value="false" synonymes="abs-rand"/>
+
+        <!-- Initialises the random number generator with the given value -->
+        <seed value="23423" synonymes="srand"/>
 
     </random_number>
 

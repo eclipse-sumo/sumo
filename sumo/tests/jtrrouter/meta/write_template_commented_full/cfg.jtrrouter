@@ -4,34 +4,34 @@
 
     <input>
         <!-- Use FILE as SUMO-network to route on -->
-        <net-file value=""/>
+        <net-file value="" synonymes="n net"/>
 
         <!-- Read (additional) districts from FILE -->
-        <districts value=""/>
+        <districts value="" synonymes="d"/>
 
         <!-- Read alternatives from FILE -->
-        <alternatives value=""/>
+        <alternatives value="" synonymes="a"/>
 
         <!-- Read network weights from FILE(s) -->
-        <weights value=""/>
+        <weights value="" synonymes="w weight-files"/>
 
         <!-- Read lane-weights from FILE(s) -->
         <lane-weights value=""/>
 
         <!-- Name of the xml attribute which gives the edge weight -->
-        <measure value="traveltime"/>
+        <measure value="traveltime" synonymes="x"/>
 
         <!-- Read flow-definitions from FILE -->
-        <flow-definition value=""/>
+        <flow-definition value="" synonymes="f flows"/>
 
         <!-- Read turn-definitions from FILE -->
-        <turn-definition value=""/>
+        <turn-definition value="" synonymes="t turns"/>
 
     </input>
 
     <output>
         <!-- Write generated routes to FILE -->
-        <output-file value=""/>
+        <output-file value="" synonymes="o output"/>
 
         <!-- Write exit times (weights) for each edge -->
         <exit-times value="false"/>
@@ -67,16 +67,16 @@
         <max-edges-factor value="2"/>
 
         <!-- Use STR as default turn definition -->
-        <turn-defaults value="30,50,20"/>
+        <turn-defaults value="30,50,20" synonymes="T"/>
 
         <!-- Use STR as sink list -->
-        <sinks value=""/>
+        <sinks value="" synonymes="s"/>
 
         <!--  -->
-        <accept-all-destinations value="false"/>
+        <accept-all-destinations value="false" synonymes="A"/>
 
         <!--  -->
-        <ignore-classes value="false"/>
+        <ignore-classes value="false" synonymes="i"/>
 
         <!-- Continue on broken input -->
         <dismiss-loading-errors value="false"/>
@@ -109,31 +109,31 @@
 
     <time>
         <!-- Defines the begin time; Previous trips will be discarded -->
-        <begin value="0"/>
+        <begin value="0" synonymes="b"/>
 
         <!-- Defines the end time; Later trips will be discarded; Defaults to the maximum time that SUMO can represent -->
-        <end value="2147483"/>
+        <end value="2147483" synonymes="e"/>
 
     </time>
 
     <report>
         <!-- Switches to verbose output -->
-        <verbose value="false"/>
+        <verbose value="false" synonymes="v"/>
 
         <!-- Prints option values before processing -->
-        <print-options value="false"/>
+        <print-options value="false" synonymes="p"/>
 
         <!-- Prints this screen -->
-        <help value="false"/>
+        <help value="false" synonymes="?"/>
 
         <!-- Prints the current version -->
-        <version value="false"/>
+        <version value="false" synonymes="V"/>
 
         <!-- Disables output of warnings -->
-        <suppress-warnings value="false"/>
+        <suppress-warnings value="false" synonymes="W"/>
 
         <!-- Writes all messages to FILE -->
-        <log-file value=""/>
+        <log-file value="" synonymes="l"/>
 
         <!-- Defines how often statistics shall be printed -->
         <stats-period value="-1"/>
@@ -141,11 +141,11 @@
     </report>
 
     <random_number>
-        <!-- Initialises the random number generator with the given value -->
-        <srand value="23423"/>
-
         <!-- Initialises the random number generator with the current system time -->
-        <abs-rand value="false"/>
+        <random value="false" synonymes="abs-rand"/>
+
+        <!-- Initialises the random number generator with the given value -->
+        <seed value="23423" synonymes="srand"/>
 
     </random_number>
 

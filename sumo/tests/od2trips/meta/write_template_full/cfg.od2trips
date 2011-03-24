@@ -3,22 +3,22 @@
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/od2tripsConfiguration.xsd">
 
     <input>
-        <net-file value=""/>
-        <od-files value=""/>
+        <net-file value="" synonymes="n net"/>
+        <od-files value="" synonymes="d od"/>
     </input>
 
     <output>
-        <output-file value=""/>
+        <output-file value="" synonymes="o output"/>
         <no-vtype value="false"/>
     </output>
 
     <time>
-        <begin value="0"/>
-        <end value="2147483"/>
+        <begin value="0" synonymes="b"/>
+        <end value="2147483" synonymes="e"/>
     </time>
 
     <processing>
-        <scale value="1"/>
+        <scale value="1" synonymes="s"/>
         <spread.uniform value="false"/>
         <vtype value=""/>
         <prefix value=""/>
@@ -37,17 +37,17 @@
     </defaults>
 
     <report>
-        <verbose value="false"/>
-        <print-options value="false"/>
-        <help value="false"/>
-        <version value="false"/>
-        <suppress-warnings value="false"/>
-        <log-file value=""/>
+        <verbose value="false" synonymes="v"/>
+        <print-options value="false" synonymes="p"/>
+        <help value="false" synonymes="?"/>
+        <version value="false" synonymes="V"/>
+        <suppress-warnings value="false" synonymes="W"/>
+        <log-file value="" synonymes="l"/>
     </report>
 
     <random_number>
-        <srand value="23423"/>
-        <abs-rand value="false"/>
+        <random value="false" synonymes="abs-rand"/>
+        <seed value="23423" synonymes="srand"/>
     </random_number>
 
 </configuration>

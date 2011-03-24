@@ -4,22 +4,22 @@
 
     <input>
         <!-- Loads the SUMO-network FILE -->
-        <net-file value=""/>
+        <net-file value="" synonymes="n net"/>
 
         <!-- Loads SUMO-routes from FILE -->
-        <routes-input value=""/>
+        <routes-input value="" synonymes="r"/>
 
         <!-- Loads detector descriptions from FILE -->
-        <detector-files value=""/>
+        <detector-files value="" synonymes="d detectors"/>
 
         <!-- Loads detector flows from FILE(s) -->
-        <detector-flow-files value=""/>
+        <detector-flow-files value="" synonymes="detflows f"/>
 
     </input>
 
     <output>
         <!-- Saves computed routes to FILE -->
-        <routes-output value=""/>
+        <routes-output value="" synonymes="o"/>
 
         <!-- Forces DFROUTER to compute routes for in-between detectors -->
         <routes-for-all value="false"/>
@@ -55,7 +55,7 @@
         <guess-empty-flows value="false"/>
 
         <!-- Switches to highway-mode -->
-        <highway-mode value="false"/>
+        <highway-mode value="false" synonymes="h"/>
 
         <!-- Only warn about unparseable detectors -->
         <ignore-invalid-detectors value="false"/>
@@ -88,7 +88,7 @@
         <keep-turnarounds value="false"/>
 
         <!-- According sink must be at least that far away -->
-        <min-distance value="-1"/>
+        <min-distance value="-1" synonymes="min-dist"/>
 
         <!-- Multiply flow times with TIME to get seconds -->
         <time-factor value="60"/>
@@ -124,31 +124,31 @@
 
     <time>
         <!-- Defines the begin time; Previous defs will be discarded -->
-        <begin value="0"/>
+        <begin value="0" synonymes="b"/>
 
         <!-- Defines the end time; Later defs will be discarded; Defaults to one day -->
-        <end value="86400"/>
+        <end value="86400" synonymes="e"/>
 
     </time>
 
     <report>
         <!-- Switches to verbose output -->
-        <verbose value="false"/>
+        <verbose value="false" synonymes="v"/>
 
         <!-- Prints option values before processing -->
-        <print-options value="false"/>
+        <print-options value="false" synonymes="p"/>
 
         <!-- Prints this screen -->
-        <help value="false"/>
+        <help value="false" synonymes="?"/>
 
         <!-- Prints the current version -->
-        <version value="false"/>
+        <version value="false" synonymes="V"/>
 
         <!-- Disables output of warnings -->
-        <suppress-warnings value="false"/>
+        <suppress-warnings value="false" synonymes="W"/>
 
         <!-- Writes all messages to FILE -->
-        <log-file value=""/>
+        <log-file value="" synonymes="l"/>
 
         <!-- Lists detectors with no flow (enable -v) -->
         <report-empty-detectors value="false"/>
@@ -159,11 +159,11 @@
     </report>
 
     <random_number>
-        <!-- Initialises the random number generator with the given value -->
-        <srand value="23423"/>
-
         <!-- Initialises the random number generator with the current system time -->
-        <abs-rand value="false"/>
+        <random value="false" synonymes="abs-rand"/>
+
+        <!-- Initialises the random number generator with the given value -->
+        <seed value="23423" synonymes="srand"/>
 
     </random_number>
 
