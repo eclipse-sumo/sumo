@@ -21,7 +21,7 @@ args = [jtrrouter,
         '--turn-definition', 'input_turns.turns.xml',
         '--output-file', output_file1,
         '--sinks=end',
-        '--srand', None,
+        '--seed', None,
         '--randomize-flows']
 
 args[11] = str(random.randint(0, 2 ** 31))
