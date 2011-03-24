@@ -258,9 +258,6 @@ private:
     void addInternalLanes(const std::string &chars);
 #endif
 
-    /// parses the shape of a junction
-    void addJunctionShape(const std::string &chars);
-
 
     virtual void openWAUT(const SUMOSAXAttributes &attrs);
     void addWAUTSwitch(const SUMOSAXAttributes &attrs);
@@ -362,12 +359,6 @@ protected:
 
     /// @brief Whether deprecated usage of the "vclass" attribute was already reported
     bool myHaveWarnedAboutDeprecatedVClass;
-
-    /// @brief Whether deprecated definition of a junction shape in characters was already reported
-    bool myHaveWarnedAboutDeprecatedJunctionShape;
-
-    /// @brief Whether deprecated definition of a lane shape in characters was already reported
-    bool myHaveWarnedAboutDeprecatedLaneShape;
 
     /// @brief Whether deprecated definition of phases was already reported
     bool myHaveWarnedAboutDeprecatedPhases;

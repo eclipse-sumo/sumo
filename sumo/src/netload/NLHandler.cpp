@@ -75,8 +75,6 @@ NLHandler::NLHandler(const std::string &file, MSNet &net,
         mySucceedingLaneBuilder(junctionBuilder),
         myAmInTLLogicMode(false), myCurrentIsBroken(false),
         myHaveWarnedAboutDeprecatedVClass(false),
-        myHaveWarnedAboutDeprecatedJunctionShape(false),
-        myHaveWarnedAboutDeprecatedLaneShape(false),
         myHaveWarnedAboutDeprecatedPhases(false) {}
 
 
@@ -1166,22 +1164,6 @@ NLHandler::setRequestSize(const std::string &chars) {
         MsgHandler::getErrorInstance()->inform("Missing request size.");
     } catch (NumberFormatException &) {
         MsgHandler::getErrorInstance()->inform("One of an edge's SUMOSAXAttributes must be numeric but is not.");
-    }
-}
-
-
-void
-NLHandler::addJunctionShape(const std::string &chars) {
-    // @deprecated: at some time, all junctions should have a shape attribute (moved from characters)
-    if (!myHaveWarnedAboutDeprecatedJunctionShape) {
-        myHaveWarnedAboutDeprecatedJunctionShape = true;
-        MsgHandler::getWarningInstance()->inform("Your network uses a deprecated junction shape description; please rebuild.");
-    }
-    bool ok = true;
-    Position2DVector shape = GeomConvHelper::parseShapeReporting(
-            chars, "junction", myJunctionControlBuilder.getActiveID().c_str(), ok, true);
-    if (ok) {
-        myJunctionControlBuilder.addJunctionShape(shape);
     }
 }
 

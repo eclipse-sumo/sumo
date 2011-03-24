@@ -118,13 +118,6 @@ NLJunctionControlBuilder::addIncomingLane(MSLane *lane) throw() {
 
 
 void
-NLJunctionControlBuilder::addJunctionShape(const Position2DVector &shape) throw() {
-    // @deprecated: at some time, all junctions should have a shape attribute (moved from characters)
-    myShape = shape;
-}
-
-
-void
 NLJunctionControlBuilder::closeJunction() throw(InvalidArgument, ProcessError) {
     if (myJunctions==0) {
         throw ProcessError("Information about the number of nodes was missing.");

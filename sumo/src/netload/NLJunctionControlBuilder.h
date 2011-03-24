@@ -120,13 +120,6 @@ public:
 #endif
 
 
-    /** @brief Stores the information about the current junction's shape
-     *
-     * @param[in] shape The shape of the current junction
-     */
-    void addJunctionShape(const Position2DVector &shape) throw();
-
-
     /** @brief Closes (ends) the processing of the current junction
      *
      * This method throws an InvalidArgument when a junction with the same id
