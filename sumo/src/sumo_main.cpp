@@ -43,7 +43,6 @@
 #include <netload/NLEdgeControlBuilder.h>
 #include <netload/NLJunctionControlBuilder.h>
 #include <netload/NLDetectorBuilder.h>
-#include <netload/NLGeomShapeBuilder.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/options/OptionsIO.h>
 #include <utils/common/MsgHandler.h>

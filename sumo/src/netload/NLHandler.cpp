@@ -52,7 +52,7 @@
 #include <utils/iodevices/OutputDevice.h>
 #include <utils/common/UtilExceptions.h>
 #include <utils/geom/GeoConvHelper.h>
-#include "NLGeomShapeBuilder.h"
+#include <utils/shapes/ShapeContainer.h>
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -72,7 +72,7 @@ NLHandler::NLHandler(const std::string &file, MSNet &net,
         myCurrentIsInternalToSkip(false),
         myDetectorBuilder(detBuilder), myTriggerBuilder(triggerBuilder),
         myEdgeControlBuilder(edgeBuilder), myJunctionControlBuilder(junctionBuilder),
-        myShapeBuilder(net), mySucceedingLaneBuilder(junctionBuilder),
+        mySucceedingLaneBuilder(junctionBuilder),
         myAmInTLLogicMode(false), myCurrentIsBroken(false),
         myHaveWarnedAboutDeprecatedVClass(false),
         myHaveWarnedAboutDeprecatedJunctionShape(false),
@@ -562,26 +562,33 @@ NLHandler::addPOI(const SUMOSAXAttributes &attrs) {
     if (!attrs.setIDFromAttributes(id)) {
         return;
     }
+    const SUMOReal INVALID_POSITION(-1000000);
     bool ok = true;
     SUMOReal x = attrs.getOptSUMORealReporting(SUMO_ATTR_X, id.c_str(), ok, INVALID_POSITION);
     SUMOReal y = attrs.getOptSUMORealReporting(SUMO_ATTR_Y, id.c_str(), ok, INVALID_POSITION);
     SUMOReal lanePos = attrs.getOptSUMORealReporting(SUMO_ATTR_POSITION, id.c_str(), ok, INVALID_POSITION);
     int layer = attrs.getOptIntReporting(SUMO_ATTR_LAYER, id.c_str(), ok, 1);
     std::string type = attrs.getOptStringReporting(SUMO_ATTR_TYPE, id.c_str(), ok, "");
-    std::string lane = attrs.getOptStringReporting(SUMO_ATTR_LANE, id.c_str(), ok, "");
+    std::string laneID = attrs.getOptStringReporting(SUMO_ATTR_LANE, id.c_str(), ok, "");
     std::string colorStr = attrs.getOptStringReporting(SUMO_ATTR_COLOR, id.c_str(), ok, "1,0,0");
     RGBColor color = RGBColor::parseColorReporting(colorStr, attrs.getObjectType(), id.c_str(), true, ok);
     if (!ok) {
         return;
     }
-    try {
-        myShapeBuilder.addPoint(id, layer, type, color, x, y, lane, lanePos);
-    } catch (InvalidArgument &e) {
-        MsgHandler::getErrorInstance()->inform(e.what());
-    } catch (OutOfBoundsException &) {
-        MsgHandler::getErrorInstance()->inform("Color definition of POI '" + id + "' seems to be broken.");
-    } catch (NumberFormatException &) {
-        MsgHandler::getErrorInstance()->inform("One of POI's '" + id + "' SUMOSAXAttributes should be numeric but is not.");
+    Position2D pos(x, y);
+    if (x==INVALID_POSITION||y==INVALID_POSITION) {
+        MSLane *lane = MSLane::dictionary(laneID);
+        if (lane==0) {
+            MsgHandler::getErrorInstance()->inform("Lane '" + laneID + "' to place a poi '" + id + "'on is not known.");
+            return;
+        }
+        if (lanePos<0) {
+            lanePos = lane->getLength() + lanePos;
+        }
+        pos = lane->getShape().positionAtLengthPosition(lanePos);
+    }
+    if(!myNet.getShapeContainer().addPoI(id, layer, type, color, pos)) {
+        MsgHandler::getErrorInstance()->inform("PoI '" + id + "' already exists.");
     }
 }
 
@@ -600,7 +607,9 @@ NLHandler::addPoly(const SUMOSAXAttributes &attrs) {
     std::string colorStr = attrs.getStringReporting(SUMO_ATTR_COLOR, id.c_str(), ok);
     RGBColor color = RGBColor::parseColorReporting(colorStr, attrs.getObjectType(), id.c_str(), true, ok);
     Position2DVector shape = GeomConvHelper::parseShapeReporting(attrs.getStringReporting(SUMO_ATTR_SHAPE, id.c_str(), ok), attrs.getObjectType(), id.c_str(), ok, false);
-    myShapeBuilder.addPolygon(id, layer, type, color, fill, shape);
+    if(!myNet.getShapeContainer().addPolygon(id, layer, type, color, fill, shape)) {
+        MsgHandler::getErrorInstance()->inform("Polygon '" + id + "' already exists.");
+    }
 }
 
 

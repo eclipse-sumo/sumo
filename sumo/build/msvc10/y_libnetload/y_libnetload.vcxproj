@@ -221,7 +221,6 @@
     <ClCompile Include="..\..\..\src\netload\NLDetectorBuilder.cpp" />
     <ClCompile Include="..\..\..\src\netload\NLDiscreteEventBuilder.cpp" />
     <ClCompile Include="..\..\..\src\netload\NLEdgeControlBuilder.cpp" />
-    <ClCompile Include="..\..\..\src\netload\NLGeomShapeBuilder.cpp" />
     <ClCompile Include="..\..\..\src\netload\NLHandler.cpp" />
     <ClCompile Include="..\..\..\src\netload\NLJunctionControlBuilder.cpp" />
     <ClCompile Include="..\..\..\src\netload\NLSucceedingLaneBuilder.cpp" />
@@ -232,7 +231,6 @@
     <ClInclude Include="..\..\..\src\netload\NLDetectorBuilder.h" />
     <ClInclude Include="..\..\..\src\netload\NLDiscreteEventBuilder.h" />
     <ClInclude Include="..\..\..\src\netload\NLEdgeControlBuilder.h" />
-    <ClInclude Include="..\..\..\src\netload\NLGeomShapeBuilder.h" />
     <ClInclude Include="..\..\..\src\netload\NLHandler.h" />
     <ClInclude Include="..\..\..\src\netload\NLJunctionControlBuilder.h" />
     <ClInclude Include="..\..\..\src\netload\NLSucceedingLaneBuilder.h" />

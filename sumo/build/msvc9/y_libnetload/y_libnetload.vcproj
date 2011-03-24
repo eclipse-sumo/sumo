@@ -563,10 +563,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\netload\NLGeomShapeBuilder.cpp"
-				>
-			</File>
-			<File
 				RelativePath="..\..\..\src\netload\NLHandler.cpp"
 				>
 			</File>
@@ -601,10 +597,6 @@
 			</File>
 			<File
 				RelativePath="..\..\..\src\netload\NLEdgeControlBuilder.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\netload\NLGeomShapeBuilder.h"
 				>
 			</File>
 			<File

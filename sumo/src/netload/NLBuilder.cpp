@@ -59,7 +59,6 @@
 #include <microsim/MSFrame.h>
 #include <microsim/MSEdgeWeightsStorage.h>
 #include <utils/iodevices/BinaryInputDevice.h>
-#include "NLGeomShapeBuilder.h"
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>

@@ -34,7 +34,6 @@
 #include <vector>
 #include <utils/xml/SAXWeightsHandler.h>
 #include <microsim/MSNet.h>
-#include "NLGeomShapeBuilder.h"
 
 
 // ===========================================================================

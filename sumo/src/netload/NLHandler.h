@@ -50,7 +50,6 @@ class NLContainer;
 class NLDetectorBuilder;
 class NLTriggerBuilder;
 class MSTrafficLightLogic;
-class NLGeomShapeBuilder;
 
 
 // ===========================================================================
@@ -344,9 +343,6 @@ protected:
 
     /// @brief The junction builder to use
     NLJunctionControlBuilder &myJunctionControlBuilder;
-
-    /// @brief The shapes builder to use
-    NLGeomShapeBuilder myShapeBuilder;
 
     /// @brief The lane-to-lane connections builder to use
     NLSucceedingLaneBuilder mySucceedingLaneBuilder;
