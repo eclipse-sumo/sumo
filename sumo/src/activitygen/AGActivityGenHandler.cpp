@@ -56,7 +56,7 @@
 // ===========================================================================
 AGActivityGenHandler::AGActivityGenHandler(AGCity &city, RONet *net)
         : SUMOSAXHandler("sumo-stat"), net(net),
-        myCity(city), myHaveWarnedAboutDeprecatedVClass(false) {}
+        myCity(city) {}
 
 
 AGActivityGenHandler::~AGActivityGenHandler() throw() {}

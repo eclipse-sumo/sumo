@@ -53,7 +53,7 @@ RONetHandler::RONetHandler(RONet &net,
                            ROAbstractEdgeBuilder &eb)
         : SUMOSAXHandler("sumo-network"),
         myNet(net), myCurrentName(),
-        myCurrentEdge(0), myEdgeBuilder(eb), myHaveWarnedAboutDeprecatedVClass(false) {}
+        myCurrentEdge(0), myEdgeBuilder(eb) {}
 
 
 RONetHandler::~RONetHandler() throw() {}
@@ -167,7 +167,6 @@ RONetHandler::parseLane(const SUMOSAXAttributes &attrs) {
     bool ok = true;
     SUMOReal maxSpeed = attrs.getSUMORealReporting(SUMO_ATTR_MAXSPEED, id.c_str(), ok);
     SUMOReal length = attrs.getSUMORealReporting(SUMO_ATTR_LENGTH, id.c_str(), ok);
-    std::string vclasses = attrs.getOptStringReporting(SUMO_ATTR_VCLASSES, id.c_str(), ok, "");
     std::string allow = attrs.getOptStringReporting(SUMO_ATTR_ALLOW, id.c_str(), ok, "");
     std::string disallow = attrs.getOptStringReporting(SUMO_ATTR_DISALLOW, id.c_str(), ok, "");
     if (!ok) {
@@ -175,8 +174,7 @@ RONetHandler::parseLane(const SUMOSAXAttributes &attrs) {
     }
     // get the length
     // get the vehicle classes
-    parseVehicleClasses(vclasses, allow, disallow,
-                        allowed, disallowed, myHaveWarnedAboutDeprecatedVClass);
+    parseVehicleClasses(allow, disallow, allowed, disallowed);
     if (allowed.size()!=0 || disallowed.size() != 0) {
         myNet.setRestrictionFound();
     }

@@ -74,7 +74,6 @@ NLHandler::NLHandler(const std::string &file, MSNet &net,
         myEdgeControlBuilder(edgeBuilder), myJunctionControlBuilder(junctionBuilder),
         mySucceedingLaneBuilder(junctionBuilder),
         myAmInTLLogicMode(false), myCurrentIsBroken(false),
-        myHaveWarnedAboutDeprecatedVClass(false),
         myHaveWarnedAboutDeprecatedPhases(false) {}
 
 
@@ -349,7 +348,6 @@ NLHandler::addLane(const SUMOSAXAttributes &attrs) {
     SUMOReal length = attrs.getSUMORealReporting(SUMO_ATTR_LENGTH, id.c_str(), ok);
     std::string allow = attrs.getOptStringReporting(SUMO_ATTR_ALLOW, id.c_str(), ok, "");
     std::string disallow = attrs.getOptStringReporting(SUMO_ATTR_DISALLOW, id.c_str(), ok, "");
-    std::string vclasses = attrs.getOptStringReporting(SUMO_ATTR_VCLASSES, id.c_str(), ok, "");
     Position2DVector shape = GeomConvHelper::parseShapeReporting(attrs.getStringReporting(SUMO_ATTR_SHAPE, id.c_str(), ok), "lane", id.c_str(), ok, false);
     if (shape.size()<2) {
         MsgHandler::getErrorInstance()->inform("Shape of lane '" + id + "' is broken.\n Can not build according edge.");
@@ -358,7 +356,7 @@ NLHandler::addLane(const SUMOSAXAttributes &attrs) {
     }
     std::vector<SUMOVehicleClass> allowedClasses;
     std::vector<SUMOVehicleClass> disallowedClasses;
-    parseVehicleClasses(vclasses, allow, disallow, allowedClasses, disallowedClasses, myHaveWarnedAboutDeprecatedVClass);
+    parseVehicleClasses(allow, disallow, allowedClasses, disallowedClasses);
     myCurrentIsBroken |= !ok;
     if(!myCurrentIsBroken) {
         try {

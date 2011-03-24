@@ -331,7 +331,6 @@ StringBijection<SumoXMLAttr>::Entry SUMOXMLDefinitions::attrs[] = {
     { "bus_stop",       SUMO_ATTR_BUS_STOP },
     { "line",           SUMO_ATTR_LINE },
     { "lines",          SUMO_ATTR_LINES },
-    { "vclasses",       SUMO_ATTR_VCLASSES },
     { "value",          SUMO_ATTR_VALUE },
     { "prohibitor",     SUMO_ATTR_PROHIBITOR },
     { "prohibited",     SUMO_ATTR_PROHIBITED },

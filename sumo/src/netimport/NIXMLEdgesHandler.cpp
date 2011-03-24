@@ -72,8 +72,7 @@ NIXMLEdgesHandler::NIXMLEdgesHandler(NBNodeCont &nc,
         myOptions(options),
         myNodeCont(nc), myEdgeCont(ec), myTypeCont(tc), myDistrictCont(dc),
         myCurrentEdge(0),
-        myHaveReportedAboutFunctionDeprecation(false),
-        myHaveWarnedAboutDeprecatedVClass(false) {}
+        myHaveReportedAboutFunctionDeprecation(false) {}
 
 
 NIXMLEdgesHandler::~NIXMLEdgesHandler() throw() {}
@@ -157,7 +156,7 @@ NIXMLEdgesHandler::myStartElement(SumoXMLTag element,
             std::string disallowS = attrs.hasAttribute(SUMO_ATTR_DISALLOW) ? attrs.getStringSecure(SUMO_ATTR_DISALLOW, "") : getVehicleClassNames(myNotAllowed);
             myAllowed.clear();
             myNotAllowed.clear();
-            parseVehicleClasses("", allowS, disallowS, myAllowed, myNotAllowed, myHaveWarnedAboutDeprecatedVClass);
+            parseVehicleClasses(allowS, disallowS, myAllowed, myNotAllowed);
         }
 
         // try to get the shape

@@ -266,19 +266,15 @@ extern SUMOVehicleClass getVehicleClassID(const std::string &name) throw();
 
 /** @brief Parses the given definition of allowed/disallowed vehicle classes into the given containers
  *
- * @param[in] classesS Definition which classes are (dis-)allowed (old "vclasses" style)
  * @param[in] allowedS Definition which classes are allowed
  * @param[in] disallowedS Definition which classes are not allowed
  * @param[out] allowed The vector of allowed vehicle classes to fill
  * @param[out] disallowed The vector of disallowed vehicle classes to fill
- * @param[in, out] warnedAboutDeprecatedVClass Whether a warning about having used the deprecated definition was printed once
  */
-extern void parseVehicleClasses(const std::string &classesS,
-                                const std::string &allowedS,
+extern void parseVehicleClasses(const std::string &allowedS,
                                 const std::string &disallowedS,
                                 std::vector<SUMOVehicleClass> &allowed,
-                                std::vector<SUMOVehicleClass> &disallowed,
-                                bool &warnedAboutDeprecatedVClass) throw();
+                                std::vector<SUMOVehicleClass> &disallowed) throw();
 
 
 /** @brief Parses the given vector of class names into their enum-representation

@@ -265,9 +265,6 @@ private:
     /// @brief Information whether at least one edge's attributes were overwritten
     bool myHaveReportedAboutOverwriting;
 
-    /// @brief Whether deprecated usage of the "vclass" attribute was already reported
-    bool myHaveWarnedAboutDeprecatedVClass;
-
 
 private:
     /** @brief invalid copy constructor */

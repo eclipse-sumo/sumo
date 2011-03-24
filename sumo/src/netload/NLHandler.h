@@ -357,9 +357,6 @@ protected:
 
     bool myCurrentIsBroken;
 
-    /// @brief Whether deprecated usage of the "vclass" attribute was already reported
-    bool myHaveWarnedAboutDeprecatedVClass;
-
     /// @brief Whether deprecated definition of phases was already reported
     bool myHaveWarnedAboutDeprecatedPhases;
 
