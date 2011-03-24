@@ -83,7 +83,6 @@ StringBijection<SumoXMLTag>::Entry SUMOXMLDefinitions::tags[] = {
     { "flow",             SUMO_TAG_FLOW },
     { "step",             SUMO_TAG_STEP },
     { "interval",         SUMO_TAG_INTERVAL },
-    { "shape",            SUMO_TAG_SHAPE },
     { "timed_event",      SUMO_TAG_TIMEDEVENT },
     { "fromedge",         SUMO_TAG_FROMEDGE },
     { "toedge",           SUMO_TAG_TOEDGE },

@@ -125,8 +125,6 @@ enum SumoXMLTag {
     SUMO_TAG_STEP,
     /** an aggreagated-output interval */
     SUMO_TAG_INTERVAL,
-    /// The tag enclosing an object's shape
-    SUMO_TAG_SHAPE,
     /// The definition of a periodic event
     SUMO_TAG_TIMEDEVENT,
     /// Incoming edge specification (jp-router)
