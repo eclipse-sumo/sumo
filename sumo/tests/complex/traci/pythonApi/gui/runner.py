@@ -20,8 +20,6 @@ print "zoom", traci.gui.getZoom(viewID)
 print "offset", traci.gui.getOffset(viewID)
 print "schema", traci.gui.getSchema(viewID)
 print "boundary", traci.gui.getBoundary(viewID)
-print "bgColor", traci.gui.getBackgroundColor(viewID)
-print "netSize", traci.gui.getNetSize(viewID)
 
 traci.gui.subscribe(viewID)
 print traci.gui.getSubscriptionResults(viewID)

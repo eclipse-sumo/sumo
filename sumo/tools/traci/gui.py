@@ -18,9 +18,7 @@ RETURN_VALUE_FUNC = {tc.ID_LIST:           traci.Storage.readStringList,
                      tc.VAR_VIEW_ZOOM:     traci.Storage.readFloat,
                      tc.VAR_VIEW_OFFSET:   lambda(result): result.read("!ff"),
                      tc.VAR_VIEW_SCHEMA:   traci.Storage.readString,
-                     tc.VAR_VIEW_BOUNDARY: traci.polygon.readShape,
-                     tc.VAR_NET_SIZE:      lambda(result): result.read("!ff"),
-                     tc.VAR_VIEW_BACKGROUNDCOLOR: lambda(result): result.read("!BBBB")}
+                     tc.VAR_VIEW_BOUNDARY: lambda(result): (result.read("!ff"), result.read("!ff"))}
 subscriptionResults = {}
 
 def _getUniversal(varID, viewID):
@@ -41,12 +39,6 @@ def getSchema(viewID=DEFAULT_VIEW):
 
 def getBoundary(viewID=DEFAULT_VIEW):
     return _getUniversal(tc.VAR_VIEW_BOUNDARY, viewID)
-
-def getBackgroundColor(viewID=DEFAULT_VIEW):
-    return _getUniversal(tc.VAR_VIEW_BACKGROUNDCOLOR, viewID)
-
-def getNetSize(viewID=DEFAULT_VIEW):
-    return _getUniversal(tc.VAR_NET_SIZE, viewID)
 
 
 def subscribe(viewID, varIDs=(tc.VAR_VIEW_OFFSET,), begin=0, end=2**31-1):
@@ -82,10 +74,9 @@ def setSchema(viewID, schemeName):
     traci._message.string += struct.pack("!Bi", tc.TYPE_STRING, len(schemeName)) + schemeName
     traci._sendExact()
 
-def setBoundary(viewID):
-    traci._sendExact()
-
-def setBackgroundColor(viewID):
+def setBoundary(viewID, xmin, ymin, xmax, ymax):
+    traci._beginMessage(tc.CMD_SET_GUI_VARIABLE, tc.VAR_VIEW_BOUNDARY, viewID, 1+4+4+4+4)
+    traci._message.string += struct.pack("!Bffff", tc.TYPE_BOUNDINGBOX, xmin, ymin, xmax, ymax)
     traci._sendExact()
 
 def screenshot(viewID, filename):

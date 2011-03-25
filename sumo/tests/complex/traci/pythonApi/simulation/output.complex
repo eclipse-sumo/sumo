@@ -13,8 +13,16 @@ step 4
 step 5
 {116: []}
 time 6000
+#loaded 0
+loaded []
+#departed 0
 departed []
+#arrived 0
 arrived []
+#teleportStart 0
 teleportStart []
+#teleportEnd 0
 teleportEnd []
+deltaT 1000
+boundary ((0.0, 0.0), (1000.0, 1000.0))
 (14, 127, 0) OK Goodbye

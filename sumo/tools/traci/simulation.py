@@ -13,11 +13,19 @@ All rights reserved
 import traci
 import traci.constants as tc
 
-RETURN_VALUE_FUNC = {tc.VAR_TIME_STEP:                      traci.Storage.readInt,
-                     tc.VAR_DEPARTED_VEHICLES_IDS:          traci.Storage.readStringList,
-                     tc.VAR_ARRIVED_VEHICLES_IDS:           traci.Storage.readStringList,
-                     tc.VAR_TELEPORT_STARTING_VEHICLES_IDS: traci.Storage.readStringList,
-                     tc.VAR_TELEPORT_ENDING_VEHICLES_IDS:   traci.Storage.readStringList}
+RETURN_VALUE_FUNC = {tc.VAR_TIME_STEP:                         traci.Storage.readInt,
+                     tc.VAR_LOADED_VEHICLES_NUMBER:            traci.Storage.readInt,
+                     tc.VAR_LOADED_VEHICLES_IDS:               traci.Storage.readStringList,
+                     tc.VAR_DEPARTED_VEHICLES_NUMBER:          traci.Storage.readInt,
+                     tc.VAR_DEPARTED_VEHICLES_IDS:             traci.Storage.readStringList,
+                     tc.VAR_ARRIVED_VEHICLES_NUMBER:           traci.Storage.readInt,
+                     tc.VAR_ARRIVED_VEHICLES_IDS:              traci.Storage.readStringList,
+                     tc.VAR_TELEPORT_STARTING_VEHICLES_NUMBER: traci.Storage.readInt,
+                     tc.VAR_TELEPORT_STARTING_VEHICLES_IDS:    traci.Storage.readStringList,
+                     tc.VAR_TELEPORT_ENDING_VEHICLES_NUMBER:   traci.Storage.readInt,
+                     tc.VAR_TELEPORT_ENDING_VEHICLES_IDS:      traci.Storage.readStringList,
+                     tc.VAR_DELTA_T:                           traci.Storage.readInt,
+                     tc.VAR_NET_BOUNDING_BOX:                  lambda(result): (result.read("!ff"), result.read("!ff"))}
 subscriptionResults = {}
 
 def _getUniversal(varID):
@@ -27,17 +35,41 @@ def _getUniversal(varID):
 def getCurrentTime():
     return _getUniversal(tc.VAR_TIME_STEP)
 
+def getLoadedNumber():
+    return _getUniversal(tc.VAR_LOADED_VEHICLES_NUMBER)
+
+def getLoadedIDList():
+    return _getUniversal(tc.VAR_LOADED_VEHICLES_IDS)
+
+def getDepartedNumber():
+    return _getUniversal(tc.VAR_DEPARTED_VEHICLES_NUMBER)
+
 def getDepartedIDList():
     return _getUniversal(tc.VAR_DEPARTED_VEHICLES_IDS)
+
+def getArrivedNumber():
+    return _getUniversal(tc.VAR_ARRIVED_VEHICLES_NUMBER)
 
 def getArrivedIDList():
     return _getUniversal(tc.VAR_ARRIVED_VEHICLES_IDS)
 
+def getStartingTeleportNumber():
+    return _getUniversal(tc.VAR_TELEPORT_STARTING_VEHICLES_NUMBER)
+
 def getStartingTeleportIDList():
     return _getUniversal(tc.VAR_TELEPORT_STARTING_VEHICLES_IDS)
 
+def getEndingTeleportNumber():
+    return _getUniversal(tc.VAR_TELEPORT_ENDING_VEHICLES_NUMBER)
+
 def getEndingTeleportIDList():
     return _getUniversal(tc.VAR_TELEPORT_ENDING_VEHICLES_IDS)
+
+def getDeltaT():
+    return _getUniversal(tc.VAR_DELTA_T)
+
+def getNetBoundary():
+    return _getUniversal(tc.VAR_NET_BOUNDING_BOX)
 
 
 def subscribe(varIDs=(tc.VAR_DEPARTED_VEHICLES_IDS,), begin=0, end=2**31-1):
