@@ -28,6 +28,7 @@
 #endif
 
 #include <utils/common/StdDefs.h>
+#include <utils/geom/GeoConvHelper.h>
 #include <microsim/MSNet.h>
 #include <microsim/MSVehicle.h>
 #include "TraCIConstants.h"
@@ -63,6 +64,7 @@ TraCIServerAPI_Simulation::processGet(TraCIServer &server, tcpip::Storage &input
             &&variable!=VAR_TELEPORT_STARTING_VEHICLES_NUMBER&&variable!=VAR_TELEPORT_STARTING_VEHICLES_IDS
             &&variable!=VAR_TELEPORT_ENDING_VEHICLES_NUMBER&&variable!=VAR_TELEPORT_ENDING_VEHICLES_IDS
             &&variable!=VAR_ARRIVED_VEHICLES_NUMBER&&variable!=VAR_ARRIVED_VEHICLES_IDS
+            &&variable!=VAR_DELTA_T&&variable!=VAR_NET_BOUNDING_BOX
        ) {
         server.writeStatusCmd(CMD_GET_SIM_VARIABLE, RTYPE_ERR, "Get Simulation Variable: unsupported variable specified", outputStorage);
         return false;
@@ -144,7 +146,13 @@ TraCIServerAPI_Simulation::processGet(TraCIServer &server, tcpip::Storage &input
         tempMsg.writeInt(DELTA_T);
         break;
     case VAR_NET_BOUNDING_BOX: {
-        throw 1;
+        tempMsg.writeUnsignedByte(TYPE_BOUNDINGBOX);
+        Boundary b = GeoConvHelper::getConvBoundary();
+        tempMsg.writeFloat(b.xmin());
+        tempMsg.writeFloat(b.ymin());
+        tempMsg.writeFloat(b.xmax());
+        tempMsg.writeFloat(b.ymax());
+        break;
     }
     break;
     default:

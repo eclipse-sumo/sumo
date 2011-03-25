@@ -212,11 +212,6 @@ GUISUMOAbstractView::getVisibleBoundary() const {
     return Boundary(xmin, ymin, xmax, ymax);
 }
 
-RGBColor&
-GUISUMOAbstractView::getBackgroundColor() const {
-    return myVisualizationSettings->backgroundColor;
-}
-
 void
 GUISUMOAbstractView::paintGL() {
     myWidthInPixels = getWidth();

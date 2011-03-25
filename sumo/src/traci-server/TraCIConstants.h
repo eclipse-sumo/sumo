@@ -26,9 +26,6 @@
 // command: get version
 #define CMD_GETVERSION 0x00
 
-// command: simulation step
-#define CMD_SIMSTEP 0x01
-
 // command: simulation step (new version)
 #define CMD_SIMSTEP2 0x02
 
@@ -50,27 +47,6 @@
 // command: change target
 #define CMD_CHANGETARGET 0x31
 
-// command: subscribe lifecycles
-#define CMD_SUBSCRIBELIFECYCLES 0x61
-
-// command: unsubscribe lifecycles
-#define CMD_UNSUBSCRIBELIFECYCLES 0x62
-
-// command: object creation
-#define CMD_OBJECTCREATION 0x63
-
-// command: object destruction
-#define CMD_OBJECTDESTRUCTION 0x64
-
-// command: object domain subscription
-#define CMD_SUBSCRIBEDOMAIN 0x65
-
-// command: object domain unsubscription
-#define CMD_UNSUBSCRIBEDOMAIN 0x66
-
-// command: object update
-#define CMD_UPDATEOBJECT 0x67
-
 // command: Simulation Parameter
 #define CMD_SIMPARAMETER 0x70
 
@@ -79,9 +55,6 @@
 
 // command: Distance Request
 #define CMD_DISTANCEREQUEST 0x72
-
-// command: Scenario
-#define CMD_SCENARIO 0x73
 
 // command: add vehicle
 #define CMD_ADDVEHICLE 0x74
@@ -92,20 +65,7 @@
 // command: close sumo
 #define CMD_CLOSE 0x7F
 
-// command:
-#define CMD_UPDATECALIBRATOR 0x50
 
-// command: get all traffic light ids
-#define CMD_GETALLTLIDS 0x40
-
-// command: get traffic light status
-#define CMD_GETTLSTATUS 0x41
-
-// command: report traffic light id
-#define CMD_TLIDLIST 0x90
-
-// command: report traffic light status switch
-#define CMD_TLSWITCH 0x91
 
 // command: get induction loop (e1) variable
 #define CMD_GET_INDUCTIONLOOP_VARIABLE 0xa0
@@ -303,82 +263,6 @@
 #define RTYPE_NOTIMPLEMENTED 0x01
 // result type: error
 #define RTYPE_ERR 0xFF
-
-
-
-// ****************************************
-// DOMAIN IDs (FOR SCENARIO COMMAND)
-// ****************************************
-// road map domain
-#define DOM_ROADMAP 0x00
-// vehicle domain
-#define DOM_VEHICLE 0x01
-// traffic lights domain
-#define DOM_TRAFFICLIGHTS 0x02
-// points of interest domain
-#define DOM_POI 0x03
-// polygon domain
-#define DOM_POLYGON 0x04
-
-
-
-// ****************************************
-// VARIABLE IDs (FOR SCENARIO COMMAND)
-// ****************************************
-// count of domain objects
-#define DOMVAR_COUNT 0x01
-// position of a domain object
-#define DOMVAR_POSITION 0x02
-// boundaries of simulation net
-#define DOMVAR_BOUNDINGBOX 0x03
-// speed of a node
-#define DOMVAR_SPEED 0x04
-// actual phase of a traffic light
-#define DOMVAR_CURTLPHASE 0x05
-// next phase of a traffic light
-#define DOMVAR_NEXTTLPHASE 0x06
-// type of a domain object (poi, polygon)
-#define DOMVAR_TYPE 0x07
-// layer a domain object is located at (poi, polygon)
-#define DOMVAR_LAYER 0x08
-// shape of a polygon
-#define DOMVAR_SHAPE 0x09
-// max count of vehicles
-#define DOMVAR_MAXCOUNT 0x0A
-// count of TraCI vehicles
-#define DOMVAR_EQUIPPEDCOUNT 0x0B
-// max count of TraCI vehicles
-#define DOMVAR_EQUIPPEDCOUNTMAX 0x0C
-// id string of a domain object
-#define DOMVAR_NAME 0x0D
-// route, a car plans to drive
-#define DOMVAR_ROUTE 0x0E
-// maximum allowed speed of a node
-#define DOMVAR_ALLOWED_SPEED 0x0F
-// air distance from a certain object to a position
-#define DOMVAR_AIRDISTANCE 0x10
-// driving distance from a certain object to a position
-#define DOMVAR_DRIVINGDISTANCE 0x11
-// external integer id of a certain object
-#define DOMVAR_EXTID 0x12
-// angle of a certain object, in degrees [0..360)
-#define DOMVAR_ANGLE 0x13
-// current simulation time
-#define DOMVAR_SIMTIME 0x14
-// current CO2 emission of a node
-#define DOMVAR_CO2EMISSION 0x20
-// current CO emission of a node
-#define DOMVAR_COEMISSION 0x21
-// current HC emission of a node
-#define DOMVAR_HCEMISSION 0x22
-// current PMx emission of a node
-#define DOMVAR_PMXEMISSION 0x23
-// current NOx emission of a node
-#define DOMVAR_NOXEMISSION 0x24
-// current fuel consumption of a node
-#define DOMVAR_FUELCONSUMPTION 0x25
-// current noise emission of a node
-#define DOMVAR_NOISEEMISSION 0x26
 
 
 
@@ -662,11 +546,6 @@
 
 
 
-
-
-
-
-
 // add an instance (poi, polygon)
 #define ADD 0x80
 
@@ -687,25 +566,22 @@
 
 // zoom
 #define VAR_VIEW_ZOOM 0xa0
+
 // view position
 #define VAR_VIEW_OFFSET 0xa1
+
 // view schema
 #define VAR_VIEW_SCHEMA 0xa2
+
 // view by boundary
 #define VAR_VIEW_BOUNDARY 0xa3
-// background color
-#define VAR_VIEW_BACKGROUNDCOLOR 0xa4
+
 // screenshot
 #define VAR_SCREENSHOT 0xa5
+
 // track vehicle
 #define VAR_TRACK_VEHICLE 0xa6
-// network size (get: )
-#define VAR_NET_SIZE 0xa7
-
 
 
 
 #endif
-
-
-

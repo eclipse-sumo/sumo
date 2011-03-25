@@ -196,8 +196,6 @@ public:
         return -1;
     }
 
-    RGBColor& getBackgroundColor() const;
-
     virtual void onGamingClick(Position2D /*pos*/) { }
 
 

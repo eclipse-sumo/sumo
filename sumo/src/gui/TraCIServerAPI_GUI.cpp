@@ -65,7 +65,6 @@ TraCIServerAPI_GUI::processGet(TraCIServer &server, tcpip::Storage &inputStorage
     // check variable
     if (variable!=ID_LIST
             &&variable!=VAR_VIEW_ZOOM&&variable!=VAR_VIEW_OFFSET&&variable!=VAR_VIEW_SCHEMA&&variable!=VAR_VIEW_BOUNDARY
-            &&variable!=VAR_VIEW_BACKGROUNDCOLOR&&variable!=VAR_NET_SIZE
        ) {
         server.writeStatusCmd(CMD_GET_GUI_VARIABLE, RTYPE_ERR, "Get GUI Variable: unsupported variable specified", outputStorage);
         return false;
@@ -104,8 +103,7 @@ TraCIServerAPI_GUI::processGet(TraCIServer &server, tcpip::Storage &inputStorage
             break;
         }
         case VAR_VIEW_BOUNDARY: {
-            tempMsg.writeUnsignedByte(TYPE_POLYGON);
-            tempMsg.writeUnsignedByte(2);
+            tempMsg.writeUnsignedByte(TYPE_BOUNDINGBOX);
             Boundary b = v->getVisibleBoundary();
             tempMsg.writeFloat(b.xmin());
             tempMsg.writeFloat(b.ymin());
@@ -113,20 +111,6 @@ TraCIServerAPI_GUI::processGet(TraCIServer &server, tcpip::Storage &inputStorage
             tempMsg.writeFloat(b.ymax());
             break;
         }
-        case VAR_VIEW_BACKGROUNDCOLOR:
-            tempMsg.writeUnsignedByte(TYPE_COLOR);
-            tempMsg.writeUnsignedByte(static_cast<int>(v->getBackgroundColor().red()*255.+.5));
-            tempMsg.writeUnsignedByte(static_cast<int>(v->getBackgroundColor().green()*255.+.5));
-            tempMsg.writeUnsignedByte(static_cast<int>(v->getBackgroundColor().blue()*255.+.5));
-            tempMsg.writeUnsignedByte(255);
-            break;
-        case VAR_NET_SIZE: {
-            GUINet *net = static_cast<GUINet*>(MSNet::getInstance());
-            tempMsg.writeUnsignedByte(POSITION_2D);
-            tempMsg.writeFloat(net->getBoundary().getWidth());
-            tempMsg.writeFloat(net->getBoundary().getHeight());
-        }
-        break;
         default:
             break;
         }
@@ -147,7 +131,7 @@ TraCIServerAPI_GUI::processSet(TraCIServer &server, tcpip::Storage &inputStorage
     // variable
     int variable = inputStorage.readUnsignedByte();
     if (variable!=VAR_VIEW_ZOOM&&variable!=VAR_VIEW_OFFSET&&variable!=VAR_VIEW_SCHEMA&&variable!=VAR_VIEW_BOUNDARY
-            &&variable!=VAR_VIEW_BACKGROUNDCOLOR&&variable!=VAR_SCREENSHOT&&variable!=VAR_TRACK_VEHICLE
+            &&variable!=VAR_SCREENSHOT&&variable!=VAR_TRACK_VEHICLE
        ) {
         server.writeStatusCmd(CMD_SET_GUI_VARIABLE, RTYPE_ERR, "Change GUI State: unsupported variable specified", outputStorage);
         return false;
@@ -189,12 +173,8 @@ TraCIServerAPI_GUI::processSet(TraCIServer &server, tcpip::Storage &inputStorage
         }
         break;
     case VAR_VIEW_BOUNDARY: {
-        if (valueDataType!=TYPE_POLYGON) {
-            server.writeStatusCmd(CMD_SET_GUI_VARIABLE, RTYPE_ERR, "The boundary must be specified by a polygon.", outputStorage);
-            return false;
-        }
-        if (inputStorage.readInt()!=2) {
-            server.writeStatusCmd(CMD_SET_GUI_VARIABLE, RTYPE_ERR, "The boundary must be specified by a polygon of size 2.", outputStorage);
+        if (valueDataType!=TYPE_BOUNDINGBOX) {
+            server.writeStatusCmd(CMD_SET_GUI_VARIABLE, RTYPE_ERR, "The boundary must be specified by a bounding box.", outputStorage);
             return false;
         }
         const SUMOReal xmin = inputStorage.readFloat();
@@ -205,8 +185,6 @@ TraCIServerAPI_GUI::processSet(TraCIServer &server, tcpip::Storage &inputStorage
         v->centerTo(b);
         break;
     }
-    case VAR_VIEW_BACKGROUNDCOLOR:
-        break;
     case VAR_SCREENSHOT: {
         if (valueDataType!=TYPE_STRING) {
             server.writeStatusCmd(CMD_SET_GUI_VARIABLE, RTYPE_ERR, "Making a snapshot requires a file name.", outputStorage);
