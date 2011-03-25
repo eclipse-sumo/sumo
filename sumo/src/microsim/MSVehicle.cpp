@@ -1153,6 +1153,7 @@ MSVehicle::enterLaneAtMove(MSLane* enteredLane, bool onTeleporting) {
 
     // internal edges are not a part of the route...
     if (enteredLane->getEdge().getPurpose()!=MSEdge::EDGEFUNCTION_INTERNAL) {
+        assert(&enteredLane->getEdge() == *(myCurrEdge+1));
         ++myCurrEdge;
     }
     if (!onTeleporting) {
@@ -1163,8 +1164,7 @@ MSVehicle::enterLaneAtMove(MSLane* enteredLane, bool onTeleporting) {
         checkForLaneChanges();
 #endif
     }
-    return ends();//myCurrEdge == myRoute->end() - 1 && getPositionOnLane() > myArrivalPos - POSITION_EPS;
-    //return myCurrEdge==myRoute->end()-1 && myState.myPos > myArrivalPos - POSITION_EPS;
+    return ends();
 }
 
 
