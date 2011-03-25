@@ -53,6 +53,7 @@
 #include <guisim/GUIVehicle.h>
 #include <foreign/polyfonts/polyfonts.h>
 #include <utils/common/HelpersHarmonoise.h>
+#include <microsim/MSEdgeWeightsStorage.h>
 
 
 #ifdef CHECK_MEMORY_LEAKS
@@ -664,6 +665,14 @@ GUILaneWrapper::Colorer::Colorer() {
     mySchemes.back().addColor(RGBColor(1,0,0), (SUMOReal)(.005/7.5*100.));
     mySchemes.push_back(GUIColorScheme("by noise emissions (Harmonoise)", RGBColor(0,1,0)));
     mySchemes.back().addColor(RGBColor(1,0,0), (SUMOReal)100);
+    // ... weights (experimental) ...
+    mySchemes.push_back(GUIColorScheme("by global travel time", RGBColor(0,1,0)));
+    mySchemes.back().addColor(RGBColor(1,0,0), (SUMOReal)100);
+    mySchemes.back().setAllowsNegativeValues(true);
+    mySchemes.push_back(GUIColorScheme("by global speed percentage", RGBColor(1,0,0)));
+    mySchemes.back().addColor(RGBColor(1,1,0), (SUMOReal)50);
+    mySchemes.back().addColor(RGBColor(0,1,0), (SUMOReal)100);
+    mySchemes.back().setAllowsNegativeValues(true);
 }
 
 
@@ -703,6 +712,28 @@ GUILaneWrapper::Colorer::getColorValue(const GUILaneWrapper& lane) const {
         return lane.getNormedHBEFA_FuelConsumption();
     case 13:
         return lane.getLane().getHarmonoise_NoiseEmissions();
+    case 14: {
+        MSEdgeWeightsStorage &ews = MSNet::getInstance()->getWeightsStorage();
+        MSEdge &e = lane.getLane().getEdge();
+        if(!ews.knowsTravelTime(&e)) {
+            return -1;
+        } else {
+            SUMOReal value(0);
+            ews.retrieveExistingTravelTime(&e, 0, 0, value);
+            return value;
+        }
+             }
+    case 15: {
+        MSEdgeWeightsStorage &ews = MSNet::getInstance()->getWeightsStorage();
+        MSEdge &e = lane.getLane().getEdge();
+        if(!ews.knowsTravelTime(&e)) {
+            return -1;
+        } else {
+            SUMOReal value(0);
+            ews.retrieveExistingTravelTime(&e, 0, 0, value);
+            return (lane.getLane().getLength() / lane.getLane().getMaxSpeed()) / (lane.getLane().getMaxSpeed() / value);
+        }
+             }
     }
     return 0;
 }

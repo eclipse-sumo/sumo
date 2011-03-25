@@ -152,6 +152,14 @@ public:
         return myIsFixed;
     }
 
+    bool allowsNegativeValues() const {
+        return myAllowNegativeValues;
+    }
+
+    void setAllowsNegativeValues(bool value) {
+        myAllowNegativeValues = value;
+    }
+
     void save(OutputDevice &dev) const {
         dev << "            <colorScheme name=\"" << myName;
         if (!myIsFixed) {
@@ -188,6 +196,7 @@ private:
     bool myIsInterpolated;
     std::vector<std::string> myNames;
     bool myIsFixed;
+    bool myAllowNegativeValues;
 
 };
 

@@ -1180,9 +1180,8 @@ GUIDialog_ViewSettings::rebuildColorMatrices(bool doCreate) throw() {
                 new FXLabel(m, nameIt->c_str());
                 new FXLabel(m, "");
             } else {
-                FXRealSpinDial* threshDialer =
-                    new FXRealSpinDial(m, 10, this, MID_SIMPLE_VIEW_COLORCHANGE,
-                                       LAYOUT_CENTER_Y|LAYOUT_TOP|FRAME_SUNKEN|FRAME_THICK|SPINDIAL_NOMAX);
+                int dialerOptions = scheme.allowsNegativeValues() ? SPINDIAL_NOMIN : 0;
+                FXRealSpinDial* threshDialer = new FXRealSpinDial(m, 10, this, MID_SIMPLE_VIEW_COLORCHANGE, LAYOUT_CENTER_Y|LAYOUT_TOP|FRAME_SUNKEN|FRAME_THICK|SPINDIAL_NOMAX|dialerOptions);
                 threshDialer->setValue(*threshIt);
                 myLaneThresholds.push_back(threshDialer);
                 myLaneButtons.push_back(new FXButton(m,buttonText,NULL,this,MID_SIMPLE_VIEW_COLORCHANGE,BUTTON_DEFAULT|FRAME_RAISED|FRAME_THICK|LAYOUT_TOP|LAYOUT_LEFT|LAYOUT_CENTER_X,0,0,0,0, 20,20,4,4));
