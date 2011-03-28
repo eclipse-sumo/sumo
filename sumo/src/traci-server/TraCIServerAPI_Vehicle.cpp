@@ -103,36 +103,37 @@ TraCIServerAPI_Vehicle::processGet(TraCIServer &server, tcpip::Storage &inputSto
             server.writeStatusCmd(CMD_GET_VEHICLE_VARIABLE, RTYPE_ERR, "Vehicle '" + id + "' is not known", outputStorage);
             return false;
         }
+        bool onRoad = v->isOnRoad();
         switch (variable) {
         case VAR_SPEED:
             tempMsg.writeUnsignedByte(TYPE_FLOAT);
-            tempMsg.writeFloat((float)(v->getSpeed()));
+            onRoad ? tempMsg.writeFloat((float)v->getSpeed()) : tempMsg.writeFloat((float)-1001);
             break;
         case VAR_SPEED_WITHOUT_TRACI:
             tempMsg.writeUnsignedByte(TYPE_FLOAT);
-            tempMsg.writeFloat((float)(v->getSpeedWithoutTraciInfluence()));
+            onRoad ? tempMsg.writeFloat((float)v->getSpeedWithoutTraciInfluence()) : tempMsg.writeFloat((float)-1001);
             break;
         case VAR_POSITION:
             tempMsg.writeUnsignedByte(POSITION_2D);
-            tempMsg.writeFloat((float)(v->getPosition().x()));
-            tempMsg.writeFloat((float)(v->getPosition().y()));
+            onRoad ? tempMsg.writeFloat((float)v->getPosition().x()) : tempMsg.writeFloat((float)-1001);
+            onRoad ? tempMsg.writeFloat((float)v->getPosition().y()) : tempMsg.writeFloat((float)-1001);
             break;
         case VAR_ANGLE:
             tempMsg.writeUnsignedByte(TYPE_FLOAT);
-            tempMsg.writeFloat((float)(v->getAngle()));
+            onRoad ? tempMsg.writeFloat((float)v->getAngle()) : tempMsg.writeFloat((float)-1001);
             break;
         case VAR_ROAD_ID:
             tempMsg.writeUnsignedByte(TYPE_STRING);
-            tempMsg.writeString(v->getLane()->getEdge().getID());
+            onRoad ? tempMsg.writeString(v->getLane()->getEdge().getID()) : tempMsg.writeString("");
             break;
         case VAR_LANE_ID:
             tempMsg.writeUnsignedByte(TYPE_STRING);
-            tempMsg.writeString(v->getLane()->getID());
+            onRoad ? tempMsg.writeString(v->getLane()->getID()) : tempMsg.writeString("");
             break;
         case VAR_LANE_INDEX: {
             const std::vector<MSLane*> &lanes = v->getLane()->getEdge().getLanes();
             tempMsg.writeUnsignedByte(TYPE_INTEGER);
-            tempMsg.writeInt((int)(std::distance(lanes.begin(), std::find(lanes.begin(), lanes.end(), v->getLane()))));
+            onRoad ? tempMsg.writeInt((int)(std::distance(lanes.begin(), std::find(lanes.begin(), lanes.end(), v->getLane())))) : tempMsg.writeInt(-1);
         }
         break;
         case VAR_TYPE:
@@ -152,35 +153,35 @@ TraCIServerAPI_Vehicle::processGet(TraCIServer &server, tcpip::Storage &inputSto
             break;
         case VAR_LANEPOSITION:
             tempMsg.writeUnsignedByte(TYPE_FLOAT);
-            tempMsg.writeFloat((float)(v->getPositionOnLane()));
+            onRoad ? tempMsg.writeFloat((float)v->getPositionOnLane()) : tempMsg.writeFloat((float)-1001);
             break;
         case VAR_CO2EMISSION:
             tempMsg.writeUnsignedByte(TYPE_FLOAT);
-            tempMsg.writeFloat((float)(HelpersHBEFA::computeCO2(v->getVehicleType().getEmissionClass(), v->getSpeed(), v->getPreDawdleAcceleration())));
+            onRoad ? tempMsg.writeFloat((float)(HelpersHBEFA::computeCO2(v->getVehicleType().getEmissionClass(), v->getSpeed(), v->getPreDawdleAcceleration()))) : tempMsg.writeFloat((float)-1001);
             break;
         case VAR_COEMISSION:
             tempMsg.writeUnsignedByte(TYPE_FLOAT);
-            tempMsg.writeFloat((float)(HelpersHBEFA::computeCO(v->getVehicleType().getEmissionClass(), v->getSpeed(), v->getPreDawdleAcceleration())));
+            onRoad ? tempMsg.writeFloat((float)(HelpersHBEFA::computeCO(v->getVehicleType().getEmissionClass(), v->getSpeed(), v->getPreDawdleAcceleration()))) : tempMsg.writeFloat((float)-1001);
             break;
         case VAR_HCEMISSION:
             tempMsg.writeUnsignedByte(TYPE_FLOAT);
-            tempMsg.writeFloat((float)(HelpersHBEFA::computeHC(v->getVehicleType().getEmissionClass(), v->getSpeed(), v->getPreDawdleAcceleration())));
+            onRoad ? tempMsg.writeFloat((float)(HelpersHBEFA::computeHC(v->getVehicleType().getEmissionClass(), v->getSpeed(), v->getPreDawdleAcceleration()))) : tempMsg.writeFloat((float)-1001);
             break;
         case VAR_PMXEMISSION:
             tempMsg.writeUnsignedByte(TYPE_FLOAT);
-            tempMsg.writeFloat((float)(HelpersHBEFA::computePMx(v->getVehicleType().getEmissionClass(), v->getSpeed(), v->getPreDawdleAcceleration())));
+            onRoad ? tempMsg.writeFloat((float)(HelpersHBEFA::computePMx(v->getVehicleType().getEmissionClass(), v->getSpeed(), v->getPreDawdleAcceleration()))) : tempMsg.writeFloat((float)-1001);
             break;
         case VAR_NOXEMISSION:
             tempMsg.writeUnsignedByte(TYPE_FLOAT);
-            tempMsg.writeFloat((float)(HelpersHBEFA::computeNOx(v->getVehicleType().getEmissionClass(), v->getSpeed(), v->getPreDawdleAcceleration())));
+            onRoad ? tempMsg.writeFloat((float)(HelpersHBEFA::computeNOx(v->getVehicleType().getEmissionClass(), v->getSpeed(), v->getPreDawdleAcceleration()))) : tempMsg.writeFloat((float)-1001);
             break;
         case VAR_FUELCONSUMPTION:
             tempMsg.writeUnsignedByte(TYPE_FLOAT);
-            tempMsg.writeFloat((float)(HelpersHBEFA::computeFuel(v->getVehicleType().getEmissionClass(), v->getSpeed(), v->getPreDawdleAcceleration())));
+            onRoad ? tempMsg.writeFloat((float)(HelpersHBEFA::computeFuel(v->getVehicleType().getEmissionClass(), v->getSpeed(), v->getPreDawdleAcceleration()))) : tempMsg.writeFloat((float)-1001);
             break;
         case VAR_NOISEEMISSION:
             tempMsg.writeUnsignedByte(TYPE_FLOAT);
-            tempMsg.writeFloat((float)(HelpersHarmonoise::computeNoise(v->getVehicleType().getEmissionClass(), v->getSpeed(), v->getPreDawdleAcceleration())));
+            onRoad ? tempMsg.writeFloat((float)(HelpersHarmonoise::computeNoise(v->getVehicleType().getEmissionClass(), v->getSpeed(), v->getPreDawdleAcceleration()))) : tempMsg.writeFloat((float)-1001);
             break;
         case VAR_EDGE_TRAVELTIME: {
             if (inputStorage.readUnsignedByte()!=TYPE_COMPOUND) {
