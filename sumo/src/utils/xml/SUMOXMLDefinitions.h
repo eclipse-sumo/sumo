@@ -603,7 +603,6 @@ private:
 
     static StringBijection<SumoXMLNodeType>::Entry sumoNodeTypeValues[];
 
-
 };
 
 #endif

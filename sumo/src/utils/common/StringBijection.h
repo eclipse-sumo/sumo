@@ -80,7 +80,7 @@ public:
     }
 
 
-    const std::string getString(const T key) {
+    const std::string& getString(const T key) {
         if (has(key)) {
             return myT2String[key];
         } else {

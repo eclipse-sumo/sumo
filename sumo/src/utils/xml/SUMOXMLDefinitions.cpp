@@ -450,6 +450,5 @@ StringBijection<SumoXMLAttr> SUMOXMLDefinitions::Attrs(
 StringBijection<SumoXMLNodeType> SUMOXMLDefinitions::NodeTypes(
         SUMOXMLDefinitions::sumoNodeTypeValues, NODETYPE_UNKNOWN);
 
-
 /****************************************************************************/
 
