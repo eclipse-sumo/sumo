@@ -42,11 +42,15 @@
 class Position2D {
 public:
     /// default constructor
-    Position2D() : myX(0.0), myY(0.0) { }
+    Position2D() : myX(0.0), myY(0.0), myZ(0.0) { }
 
     /// parametrised constructor
     Position2D(SUMOReal x, SUMOReal y)
-            : myX(x), myY(y) { }
+            : myX(x), myY(y), myZ(0) { }
+
+    /// parametrised constructor
+    Position2D(SUMOReal x, SUMOReal y, SUMOReal z)
+            : myX(x), myY(y), myZ(z) { }
 
     /// Destructor
     ~Position2D() { }
@@ -61,8 +65,19 @@ public:
         return myY;
     }
 
+    /// Returns the z-position
+    SUMOReal z() const {
+        return myZ;
+    }
+
     ///
     void set(SUMOReal x, SUMOReal y) {
+        myX = x;
+        myY = y;
+    }
+
+    ///
+    void set(SUMOReal x, SUMOReal y, SUMOReal z) {
         myX = x;
         myY = y;
     }
@@ -71,6 +86,7 @@ public:
     void set(const Position2D &pos) {
         myX = pos.myX;
         myY = pos.myY;
+        myZ = pos.myZ;
     }
 
 
@@ -78,6 +94,7 @@ public:
     void mul(SUMOReal val) {
         myX *= val;
         myY *= val;
+        myZ *= val;
     }
 
     /// Multiplies position with the given values
@@ -86,16 +103,31 @@ public:
         myY *= my;
     }
 
+    /// Multiplies position with the given values
+    void mul(SUMOReal mx, SUMOReal my, SUMOReal mz) {
+        myX *= mx;
+        myY *= my;
+        myZ *= mz;
+    }
+
     /// Adds the given position to this one
     void add(const Position2D &pos) {
         myX += pos.myX;
         myY += pos.myY;
+        myZ += pos.myZ;
     }
 
     /// Adds the given position to this one
     void add(SUMOReal dx, SUMOReal dy) {
         myX += dx;
         myY += dy;
+    }
+
+    /// Adds the given position to this one
+    void add(SUMOReal dx, SUMOReal dy, SUMOReal dz) {
+        myX += dx;
+        myY += dy;
+        myZ += dz;
     }
 
     /// Substracts the given position from this one
@@ -105,15 +137,24 @@ public:
     }
 
     /// Substracts the given position from this one
+    void sub(SUMOReal dx, SUMOReal dy, SUMOReal dz) {
+        myX -= dx;
+        myY -= dy;
+        myZ -= dz;
+    }
+
+    /// Substracts the given position from this one
     void sub(const Position2D &pos) {
         myX -= pos.myX;
         myY -= pos.myY;
+        myZ -= pos.myZ;
     }
 
     void norm() {
         SUMOReal val = sqrt(myX*myX + myY*myY);
         myX = myX / val;
         myY = myY / val;
+        myZ = myZ / val;
     }
 
     void reshiftRotate(SUMOReal xoff, SUMOReal yoff, SUMOReal rot) {
@@ -127,20 +168,23 @@ public:
     /// Prints to the output
     friend std::ostream &operator<<(std::ostream &os, const Position2D &p) {
         os << p.x() << "," << p.y();
+        if(p.z()!=SUMOReal(0.0)) {
+            os << "," << p.z();
+        }
         return os;
     }
 
     bool operator==(const Position2D &p2) const {
-        return myX==p2.myX && myY==p2.myY;
+        return myX==p2.myX && myY==p2.myY && myZ==p2.myZ;
     }
 
     bool operator!=(const Position2D &p2) const {
-        return myX!=p2.myX || myY!=p2.myY;
+        return myX!=p2.myX || myY!=p2.myY || myZ!=p2.myZ;
     }
 
 
     bool almostSame(const Position2D &p2, SUMOReal maxDiv=POSITION_EPS) const {
-        return fabs(myX-p2.myX)<maxDiv && fabs(myY-p2.myY)<maxDiv;
+        return fabs(myX-p2.myX)<maxDiv && fabs(myY-p2.myY)<maxDiv && fabs(myZ-p2.myZ)<maxDiv;
     }
 
 
@@ -150,7 +194,7 @@ public:
 
 
     inline SUMOReal distanceSquaredTo(const Position2D &p2) const {
-        return (myX-p2.myX)*(myX-p2.myX) + (myY-p2.myY)*(myY-p2.myY);
+        return (myX-p2.myX)*(myX-p2.myX) + (myY-p2.myY)*(myY-p2.myY) + (myZ-p2.myZ)*(myZ-p2.myZ);
     }
 
 
@@ -160,6 +204,9 @@ private:
 
     /// The y-position
     SUMOReal myY;
+
+    /// The z-position
+    SUMOReal myZ;
 
 };
 

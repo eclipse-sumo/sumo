@@ -1,2 +1,2 @@
-Error: Shape of a(n) edge is broken: the position is not made of two dimensions.
+Error: Shape of a(n) edge is broken: the position is neither x,y nor x,y,z.
 Quitting (on error).

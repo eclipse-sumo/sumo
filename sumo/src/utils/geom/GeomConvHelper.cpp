@@ -57,15 +57,20 @@ GeomConvHelper::parseShapeReporting(const std::string &shpdef, const std::string
     Position2DVector shape;
     while (st.hasNext()) {
         StringTokenizer pos(st.next(), ",");
-        if (pos.size()%2!=0) {
-            emitError(report, "Shape", objecttype, objectid, "the position is not made of two dimensions");
+        if (pos.size()!=2 && pos.size()!=3) {
+            emitError(report, "Shape", objecttype, objectid, "the position is neither x,y nor x,y,z");
             ok = false;
             return Position2DVector();
         }
         try {
             SUMOReal x = TplConvert<char>::_2SUMOReal(pos.next().c_str());
             SUMOReal y = TplConvert<char>::_2SUMOReal(pos.next().c_str());
-            shape.push_back(Position2D(x, y));
+            if(pos.size()==2) {
+                shape.push_back(Position2D(x, y));
+            } else {
+                SUMOReal z = TplConvert<char>::_2SUMOReal(pos.next().c_str());
+                shape.push_back(Position2D(x, y, z));
+            }
         } catch (NumberFormatException &) {
             emitError(report, "Shape", objecttype, objectid, "not numeric position entry");
             ok = false;
