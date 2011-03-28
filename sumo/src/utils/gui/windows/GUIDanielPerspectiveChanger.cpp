@@ -241,5 +241,19 @@ GUIDanielPerspectiveChanger::setViewport(SUMOReal zoom,
 }
 
 
+void 
+GUIDanielPerspectiveChanger::changeCanvassLeft(int width, int height, int change) {
+    // MAGIC modifier to avoid flicker. at least it is consistent for move AND
+    // zoom. Probably has to do with spacing
+    SUMOReal mChange = change + (change > 0 ? 4 : -4);
+    myViewCenter.add((SUMOReal) myCallback.p2m((SUMOReal) mChange / 2.0), 0.0);
+    // GUISUMOAbstractView zooms based on changes in canvas ratio so that the whole 
+    // net will fit onto the screen at zoom 100. To avoid flicker we must
+    // counter-zoom
+    SUMOReal oldCanvasRatio = (SUMOReal)width / height;
+    SUMOReal newCanvasRatio = (SUMOReal)(width + mChange) / height;
+    SUMOReal netRatio = myCallback.getGridWidth() / myCallback.getGridHeight();
+    myZoom = myZoom * MIN2(netRatio, oldCanvasRatio) / MIN2(netRatio, newCanvasRatio);
+}
 
 /****************************************************************************/

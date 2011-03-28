@@ -94,8 +94,22 @@ public:
     /** @brief Sets the viewport */
     void setViewport(SUMOReal zoom, SUMOReal xPos, SUMOReal yPos);
 
+
+    /* @brief Adapts the viewport so that a change in canvass size keeps most of the
+     * view intact (by showing more / less instead of zooming)
+     * The canvass is clipped/enlarged on the left side of the screen
+     *
+     * @param[in] width The original width of the canvas in pixels
+     * @param[in] height The original height of the canvas in pixels
+     * @param[in] change The horizontal change in canvas size in pixels
+     */
+    void changeCanvassLeft(int width, int height, int change);
+
 private:
-    /// Performs the view movement
+    /* Performs the view movement
+     * @param[in] xdiff the change to myViewCenter in pixel
+     * @param[in] ydiff the change to myViewCenter in pixel
+     */
     void move(int xdiff, int ydiff);
 
     /// Performs the zooming of the view
@@ -105,11 +119,8 @@ private:
     void rotate(int diff);
 
 private:
-    /// the current center of the view
+    /// @brief The inverted offset to the center of the network in meter
     Position2D myViewCenter;
-
-    /// the sizes of the window
-    int myWidthInPixels, myHeightInPixels;
 
     /// the scale of the net (the maximum size, either width or height)
     SUMOReal myNetScale;

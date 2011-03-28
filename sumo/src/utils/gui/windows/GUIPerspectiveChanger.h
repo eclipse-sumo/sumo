@@ -112,6 +112,16 @@ public:
     /// Returns the last mouse y-position an event occured at
     FXint getMouseYPosition() const;
 
+    /* @brief Adapts the viewport so that a change in canvass size keeps most of the
+     * view intact (by showing more / less instead of zooming)
+     * The canvass is clipped/enlarged on the left side of the screen
+     *
+     * @param[in] width The original width of the canvas in pixels
+     * @param[in] height The original height of the canvas in pixels
+     * @param[in] change The horizontal change in canvas size in pixels
+     */
+    virtual void changeCanvassLeft(int width, int height, int change) = 0;
+
 protected:
     /// The parent window (canvas to scale)
     GUISUMOAbstractView &myCallback;

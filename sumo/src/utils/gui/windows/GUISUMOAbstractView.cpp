@@ -113,7 +113,7 @@ GUISUMOAbstractView::GUISUMOAbstractView(FXComposite *p,
         const SUMORTree &grid,
         FXGLVisual *glVis, FXGLCanvas *share)
         : FXGLCanvas(p, glVis, share, p, MID_GLCANVAS,
-                     LAYOUT_SIDE_TOP|LAYOUT_FILL_X|LAYOUT_FILL_Y, 0, 0, 300, 200),
+                     LAYOUT_SIDE_TOP|LAYOUT_FILL_X|LAYOUT_FILL_Y, 0, 0, 0, 0),
         myApp(&app),
         myParent(parent),
         myGrid(&((SUMORTree&)grid)),
