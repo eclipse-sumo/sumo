@@ -201,9 +201,6 @@
         <!-- Enables TraCI Server if set -->
         <remote-port value="0"/>
 
-        <!-- Value in 0..1 [default: 1] -->
-        <penetration value="1"/>
-
     </traci_server>
 
     <random_number>

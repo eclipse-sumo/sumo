@@ -85,7 +85,6 @@
 
     <traci_server>
         <remote-port value="0"/>
-        <penetration value="1"/>
     </traci_server>
 
     <random_number>

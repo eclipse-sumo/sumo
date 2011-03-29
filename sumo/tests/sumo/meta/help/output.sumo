@@ -1,4 +1,4 @@
-SUMO sumo Version dev-SVN-r9977
+SUMO sumo Version dev-SVN-r10007
  Copyright (C) 2001-2011 DLR and contributors; http://sumo.sourceforge.net
  
 A microscopic road traffic simulation.
@@ -116,7 +116,6 @@ Usage: sumo [OPTION]*
 
  TraCI Server Options:
   --remote-port INT                   Enables TraCI Server if set
-  --penetration FLOAT                 Value in 0..1 [default: 1]
 
  Random Number Options:
   --random                            Initialises the random number generator
