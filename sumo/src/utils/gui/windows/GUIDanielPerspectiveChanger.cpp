@@ -44,7 +44,9 @@ GUIDanielPerspectiveChanger::GUIDanielPerspectiveChanger(
     GUISUMOAbstractView &callBack)
         : GUIPerspectiveChanger(callBack),
         myViewCenter(0, 0), myRotation(0), myZoom(100),
-        myMouseButtonState(MOUSEBTN_NONE), myMoveOnClick(false) {}
+        myMouseButtonState(MOUSEBTN_NONE), myMoveOnClick(false),
+        myDragDelay(0)
+{}
 
 
 GUIDanielPerspectiveChanger::~GUIDanielPerspectiveChanger() {}
@@ -150,6 +152,7 @@ GUIDanielPerspectiveChanger::onLeftBtnPress(void*data) {
     myMouseXPosition = e->win_x;
     myMouseYPosition = e->win_y;
     myMoveOnClick = false;
+    myMouseDownTime = FXThread::time();
 }
 
 
@@ -170,6 +173,7 @@ GUIDanielPerspectiveChanger::onRightBtnPress(void*data) {
     myMouseXPosition = e->win_x;
     myMouseYPosition = e->win_y;
     myMoveOnClick = false;
+    myMouseDownTime = FXThread::time();
 }
 
 
@@ -206,24 +210,31 @@ void
 GUIDanielPerspectiveChanger::onMouseMove(void*data) {
     FXEvent* e = (FXEvent*) data;
     myCallback.setWindowCursorPosition(e->win_x, e->win_y);
-    int xdiff = myMouseXPosition - e->win_x;
-    int ydiff = myMouseYPosition - e->win_y;
+    const int xdiff = myMouseXPosition - e->win_x;
+    const int ydiff = myMouseYPosition - e->win_y;
+    const bool moved = xdiff!=0 || ydiff!=0;
+    const bool pastDelay = FXThread::time() > (myMouseDownTime + myDragDelay);
     switch (myMouseButtonState) {
     case MOUSEBTN_LEFT:
-        move(xdiff, ydiff);
-        if (xdiff!=0||ydiff!=0) {
-            myMoveOnClick = true;
+        if (pastDelay) {
+            move(xdiff, ydiff);
+            if (moved) {
+                myMoveOnClick = true;
+            }
         }
         break;
     case MOUSEBTN_RIGHT:
-        zoom(ydiff);
-        rotate(xdiff);
-        if (xdiff!=0||ydiff!=0) {
-            myMoveOnClick = true;
+        if (pastDelay) {
+            move(xdiff, ydiff);
+            zoom(ydiff);
+            rotate(xdiff);
+            if (moved) {
+                myMoveOnClick = true;
+            }
         }
         break;
     default:
-        if (xdiff!=0||ydiff!=0) {
+        if (moved) {
             myCallback.updateToolTip();
         }
         break;

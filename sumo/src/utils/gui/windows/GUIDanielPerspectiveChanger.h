@@ -55,7 +55,9 @@ class Boundary;
 class GUIDanielPerspectiveChanger :
             public GUIPerspectiveChanger {
 public:
-    /// Constructor
+    /* Constructor
+     * @param[in] callBack The view to be udpated upon changes
+     */
     GUIDanielPerspectiveChanger(GUISUMOAbstractView &callBack);
 
     /// Destructor
@@ -105,6 +107,14 @@ public:
      */
     void changeCanvassLeft(int width, int height, int change);
 
+    /* @brief avoid unwanted flicker
+     * @param[in] delay The minimum time delay in nanoseconds after
+     *   mouseDown after which mouse-movements should be interpreted as zoom/drag
+     */
+    void setDragDelay(FXTime delay) {
+        myDragDelay = delay;
+    }
+
 private:
     /* Performs the view movement
      * @param[in] xdiff the change to myViewCenter in pixel
@@ -137,6 +147,9 @@ private:
     /// Information whether the user has moved the cursor while pressing a mouse button
     bool myMoveOnClick;
 
+    /// avoid flicker
+    FXTime myDragDelay;
+    FXTime myMouseDownTime;
 };
 
 
