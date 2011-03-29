@@ -96,8 +96,9 @@ NIImporter_SUMO::loadNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
             MsgHandler::getErrorInstance()->inform("Edge's '" + ed->id + "' to-node '" + ed->toNode + "' is not known.");
             continue;
         }
+        Position2DVector geom = approximateEdgeShape(ed);
         // build and insert the edge
-        NBEdge *e = new NBEdge(ed->id, from, to, ed->type, ed->maxSpeed, (unsigned int) ed->lanes.size(), ed->priority);
+        NBEdge *e = new NBEdge(ed->id, from, to, ed->type, ed->maxSpeed, (unsigned int) ed->lanes.size(), ed->priority, geom);
         if (!edgesCont.insert(e)) {
             MsgHandler::getErrorInstance()->inform("Could not insert edge '" + ed->id + "'.");
             delete e;
@@ -300,12 +301,9 @@ NIImporter_SUMO::addLane(const SUMOSAXAttributes &attrs) {
     bool ok = true;
     myCurrentLane->maxSpeed = attrs.getOptSUMORealReporting(SUMO_ATTR_MAXSPEED, 0, ok, -1);
     myCurrentLane->depart = attrs.getOptBoolReporting(SUMO_ATTR_DEPART, 0, ok, false);
-    if (attrs.hasAttribute(SUMO_ATTR_SHAPE)) {
-        // @deprecated At some time, SUMO_ATTR_SHAPE will be mandatory
-        myCurrentLane->shape = GeomConvHelper::parseShapeReporting(
-                attrs.getStringReporting(SUMO_ATTR_SHAPE, 0, ok), 
-                attrs.getObjectType(), 0, ok, false);
-    }
+    myCurrentLane->shape = GeomConvHelper::parseShapeReporting(
+            attrs.getStringReporting(SUMO_ATTR_SHAPE, 0, ok), 
+            attrs.getObjectType(), 0, ok, false);
 }
 
 
@@ -453,5 +451,38 @@ NIImporter_SUMO::addPhase(const SUMOSAXAttributes &attrs) {
 }
 
 
-/****************************************************************************/
+Position2DVector 
+NIImporter_SUMO::approximateEdgeShape(const EdgeAttrs* edge) {
+    // reverse logic of NBEdge::computeLaneShape
+    const Position2DVector &firstLane = edge->lanes[0]->shape;
+    const unsigned int noLanes = edge->lanes.size();
+    Position2DVector result;
+    // start- and end- positions are added automatically in NBEdge::init
+    for (unsigned int i=1; i < firstLane.size() - 1; i++) {
+        Position2D from = firstLane[i-1];
+        Position2D me = firstLane[i];
+        Position2D to = firstLane[i+1];
+        std::pair<SUMOReal, SUMOReal> offsets = NBEdge::laneOffset(
+                from, me, SUMO_const_laneWidthAndOffset, noLanes-1, 
+                noLanes, NBEdge::LANESPREAD_RIGHT, false);
+        std::pair<SUMOReal, SUMOReal> offsets2 = NBEdge::laneOffset(
+                me, to, SUMO_const_laneWidthAndOffset, noLanes-1, 
+                noLanes, NBEdge::LANESPREAD_RIGHT, false);
 
+        Line2D l1(
+                Position2D(from.x()+offsets.first, from.y()+offsets.second),
+                Position2D(me.x()+offsets.first, me.y()+offsets.second));
+        l1.extrapolateBy(100);
+        Line2D l2(
+                Position2D(me.x()+offsets2.first, me.y()+offsets2.second),
+                Position2D(to.x()+offsets2.first, to.y()+offsets2.second));
+        l2.extrapolateBy(100);
+        if (l1.intersects(l2)) {
+            result.push_back(l1.intersectsAt(l2));
+        } else {
+            MsgHandler::getWarningInstance()->inform("Could not reconstruct shape for edge '" + edge->id + "'.");
+        }
+    }
+    return result;
+}
+/****************************************************************************/

@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+
+<!-- generated on Tue Mar 29 16:02:23 2011 by SUMO netconvert Version dev-SVN-r10012
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net value="input_net.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="net.net.xml"/>
+        <plain-output value="plain"/>
+    </output>
+
+    <processing>
+        <disable-normalize-node-positions value="true"/>
+    </processing>
+
+</configuration>
+-->
+
+<connections>
+	<connection from="edge_with_shape" to="reverse_edge" lane="0:0"/>
+	<connection from="edge_with_shape" to="reverse_edge" lane="1:1"/>
+	<connection from="edge_with_shape" to="reverse_edge" lane="2:2"/>
+
+	<connection from="reverse_edge" to="edge_with_shape" lane="0:0"/>
+	<connection from="reverse_edge" to="edge_with_shape" lane="1:1"/>
+	<connection from="reverse_edge" to="edge_with_shape" lane="2:2"/>
+
+</connections>

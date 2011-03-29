@@ -1,0 +1,110 @@
+<?xml version="1.0"?>
+
+<!-- generated on Tue Mar 29 16:23:57 2011 by SUMO netconvert Version dev-SVN-r10020
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net value="input_net.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="net.net.xml"/>
+        <plain-output value="plain"/>
+    </output>
+
+    <processing>
+        <disable-normalize-node-positions value="true"/>
+    </processing>
+
+</configuration>
+-->
+
+<net>
+
+   <location netOffset="0.00,0.00" convBoundary="0.00,0.00,40.00,0.00" origBoundary="0.00,0.00,40.00,0.00" projParameter="!"/>
+
+   <edge id=":node_left_0" function="internal">
+      <lane id=":node_left_0_0" depart="0" maxspeed="13.90" length="24.67" shape="-5.83,5.83 -10.75,-0.33 -11.42,-4.73 -7.83,-7.37 0.00,-8.25"/>
+   </edge>
+   <edge id=":node_left_1" function="internal">
+      <lane id=":node_left_1_0" depart="0" maxspeed="13.90" length="14.80" shape="-3.50,3.50 -6.45,-0.20 -6.85,-2.84 -4.70,-4.42 0.00,-4.95"/>
+   </edge>
+   <edge id=":node_left_2" function="internal">
+      <lane id=":node_left_2_0" depart="0" maxspeed="13.90" length="4.93" shape="-1.17,1.17 -2.15,-0.07 -2.28,-0.95 -1.57,-1.47 0.00,-1.65"/>
+   </edge>
+   <edge id=":node_right_0" function="internal">
+      <lane id=":node_right_0_0" depart="0" maxspeed="13.90" length="24.67" shape="40.00,-8.25 47.83,-7.37 51.42,-4.73 50.75,-0.33 45.83,5.83"/>
+   </edge>
+   <edge id=":node_right_1" function="internal">
+      <lane id=":node_right_1_0" depart="0" maxspeed="13.90" length="14.80" shape="40.00,-4.95 44.70,-4.42 46.85,-2.84 46.45,-0.20 43.50,3.50"/>
+   </edge>
+   <edge id=":node_right_2" function="internal">
+      <lane id=":node_right_2_0" depart="0" maxspeed="13.90" length="4.93" shape="40.00,-1.65 41.57,-1.47 42.28,-0.95 42.15,-0.07 41.17,1.17"/>
+   </edge>
+
+   <edge id="edge_with_shape" from="node_right" to="node_left" priority="-1" type="" function="normal">
+      <lane id="edge_with_shape_0" depart="1" maxspeed="13.90" length="66.47" shape="45.83,5.83 20.00,31.67 -5.83,5.83"/>
+      <lane id="edge_with_shape_1" depart="0" maxspeed="13.90" length="66.47" shape="43.50,3.50 20.00,27.00 -3.50,3.50"/>
+      <lane id="edge_with_shape_2" depart="0" maxspeed="13.90" length="66.47" shape="41.17,1.17 20.00,22.33 -1.17,1.17"/>
+   </edge>
+   <edge id="reverse_edge" from="node_left" to="node_right" priority="-1" type="" function="normal">
+      <lane id="reverse_edge_0" depart="1" maxspeed="13.90" length="40.00" shape="0.00,-8.25 40.00,-8.25"/>
+      <lane id="reverse_edge_1" depart="0" maxspeed="13.90" length="40.00" shape="0.00,-4.95 40.00,-4.95"/>
+      <lane id="reverse_edge_2" depart="0" maxspeed="13.90" length="40.00" shape="0.00,-1.65 40.00,-1.65"/>
+   </edge>
+
+   <row-logic id="node_left" requestSize="3">
+      <logicitem request="0" response="000" foes="000" cont="0"/>
+      <logicitem request="1" response="000" foes="000" cont="0"/>
+      <logicitem request="2" response="000" foes="000" cont="0"/>
+   </row-logic>
+   <row-logic id="node_right" requestSize="3">
+      <logicitem request="0" response="000" foes="000" cont="0"/>
+      <logicitem request="1" response="000" foes="000" cont="0"/>
+      <logicitem request="2" response="000" foes="000" cont="0"/>
+   </row-logic>
+
+   <junction id="node_left" type="priority" x="0.00" y="0.00" incLanes="edge_with_shape_0 edge_with_shape_1 edge_with_shape_2" intLanes=":node_left_0_0 :node_left_1_0 :node_left_2_0" shape="0.00,-0.05 0.00,-9.85 -6.97,6.96 -0.04,0.04"/>
+   <junction id="node_right" type="priority" x="40.00" y="0.00" incLanes="reverse_edge_0 reverse_edge_1 reverse_edge_2" intLanes=":node_right_0_0 :node_right_1_0 :node_right_2_0" shape="40.04,0.04 46.97,6.96 40.00,-9.85 40.00,-0.05"/>
+
+   <succ edge="edge_with_shape" lane="edge_with_shape_0" junction="node_left">
+      <succlane lane="reverse_edge_0" via=":node_left_0_0" yield="0" dir="t" state="M"/>
+   </succ>
+   <succ edge="edge_with_shape" lane="edge_with_shape_1" junction="node_left">
+      <succlane lane="reverse_edge_1" via=":node_left_1_0" yield="0" dir="t" state="M"/>
+   </succ>
+   <succ edge="edge_with_shape" lane="edge_with_shape_2" junction="node_left">
+      <succlane lane="reverse_edge_2" via=":node_left_2_0" yield="0" dir="t" state="M"/>
+   </succ>
+   <succ edge="reverse_edge" lane="reverse_edge_0" junction="node_right">
+      <succlane lane="edge_with_shape_0" via=":node_right_0_0" yield="0" dir="t" state="M"/>
+   </succ>
+   <succ edge="reverse_edge" lane="reverse_edge_1" junction="node_right">
+      <succlane lane="edge_with_shape_1" via=":node_right_1_0" yield="0" dir="t" state="M"/>
+   </succ>
+   <succ edge="reverse_edge" lane="reverse_edge_2" junction="node_right">
+      <succlane lane="edge_with_shape_2" via=":node_right_2_0" yield="0" dir="t" state="M"/>
+   </succ>
+
+   <succ edge=":node_left_0" lane=":node_left_0_0" junction="node_left">
+      <succlane lane="reverse_edge_0" tl="" linkno="" yield="0" dir="s" state="M"/>
+   </succ>
+   <succ edge=":node_left_1" lane=":node_left_1_0" junction="node_left">
+      <succlane lane="reverse_edge_1" tl="" linkno="" yield="0" dir="s" state="M"/>
+   </succ>
+   <succ edge=":node_left_2" lane=":node_left_2_0" junction="node_left">
+      <succlane lane="reverse_edge_2" tl="" linkno="" yield="0" dir="s" state="M"/>
+   </succ>
+   <succ edge=":node_right_0" lane=":node_right_0_0" junction="node_right">
+      <succlane lane="edge_with_shape_0" tl="" linkno="" yield="0" dir="s" state="M"/>
+   </succ>
+   <succ edge=":node_right_1" lane=":node_right_1_0" junction="node_right">
+      <succlane lane="edge_with_shape_1" tl="" linkno="" yield="0" dir="s" state="M"/>
+   </succ>
+   <succ edge=":node_right_2" lane=":node_right_2_0" junction="node_right">
+      <succlane lane="edge_with_shape_2" tl="" linkno="" yield="0" dir="s" state="M"/>
+   </succ>
+
+</net>

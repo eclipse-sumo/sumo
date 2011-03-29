@@ -1,0 +1,3 @@
+Leaked object at 0xa345540 (size 16, 0x339dea4bb9)
+*** 1 leaks found
+delete: freed 0xa345540 (size 16, 0 bytes still allocated)

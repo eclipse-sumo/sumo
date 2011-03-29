@@ -1,0 +1,1 @@
+--sumo-net=input_net.net.xml --output-file=net.net.xml --disable-normalize-node-positions --plain-output plain

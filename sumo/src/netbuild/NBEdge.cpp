@@ -767,18 +767,27 @@ NBEdge::computeLaneShape(unsigned int lane) throw(InvalidArgument) {
 std::pair<SUMOReal, SUMOReal>
 NBEdge::laneOffset(const Position2D &from, const Position2D &to,
                    SUMOReal lanewidth, unsigned int lane) throw(InvalidArgument) {
+    return laneOffset(from, to, lanewidth, lane, 
+            myLanes.size(), myLaneSpreadFunction, myAmLeftHand);
+}
+
+
+std::pair<SUMOReal, SUMOReal>
+NBEdge::laneOffset(const Position2D &from, const Position2D &to,
+                   SUMOReal lanewidth, unsigned int lane, 
+                   unsigned int noLanes, LaneSpreadFunction lsf, bool leftHand) {
     std::pair<SUMOReal, SUMOReal> offsets =
         GeomHelper::getNormal90D_CW(from, to, lanewidth);
     SUMOReal xoff = offsets.first / (SUMOReal) 2.0;
     SUMOReal yoff = offsets.second / (SUMOReal) 2.0;
-    if (myLaneSpreadFunction==LANESPREAD_RIGHT) {
+    if (lsf==LANESPREAD_RIGHT) {
         xoff += (offsets.first * (SUMOReal) lane);
         yoff += (offsets.second * (SUMOReal) lane);
     } else {
-        xoff += (offsets.first * (SUMOReal) lane) - (offsets.first * (SUMOReal) myLanes.size() / (SUMOReal) 2.0);
-        yoff += (offsets.second * (SUMOReal) lane) - (offsets.second * (SUMOReal) myLanes.size() / (SUMOReal) 2.0);
+        xoff += (offsets.first * (SUMOReal) lane) - (offsets.first * (SUMOReal) noLanes / (SUMOReal) 2.0);
+        yoff += (offsets.second * (SUMOReal) lane) - (offsets.second * (SUMOReal) noLanes / (SUMOReal) 2.0);
     }
-    if (myAmLeftHand) {
+    if (leftHand) {
         return std::pair<SUMOReal, SUMOReal>(-xoff, -yoff);
     } else {
         return std::pair<SUMOReal, SUMOReal>(xoff, yoff);
@@ -1681,7 +1690,7 @@ NBEdge::getNormedAngle(const NBNode &atNode) const {
     if (angle<0) {
         angle = 360 + angle;
     }
-    assert(angle>=0&&angle<360);
+    assert(angle>=0&&angle<=360);
     return angle;
 }
 

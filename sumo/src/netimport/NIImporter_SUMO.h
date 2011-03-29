@@ -251,6 +251,13 @@ private:
      * @param[out] index Index of this lane
      */
     static void interpretLaneID(const std::string &lane_id, std::string &edge_id, size_t &index); 
+
+    /** @brief reconstructs the edge shape from the given lane shapes
+     * since we do not know the original LaneSpreadFunction this is only an
+     * approximation
+     * @param[in] lanes The list of lane attributes
+     */
+    static Position2DVector approximateEdgeShape(const EdgeAttrs* edge); 
 };
 
 
