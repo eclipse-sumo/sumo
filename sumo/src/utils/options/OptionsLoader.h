@@ -61,11 +61,11 @@ class OptionsLoader : public HandlerBase {
 public:
     /** @brief Constructor
      */
-    OptionsLoader() throw();
+    OptionsLoader();
 
 
     /** destructor */
-    ~OptionsLoader() throw();
+    ~OptionsLoader();
 
 
 
@@ -128,7 +128,7 @@ public:
 
 
     /** @brief Returns the information whether an error occured */
-    bool errorOccured() const throw();
+    bool errorOccured() const;
 
 
 private:
@@ -152,7 +152,7 @@ private:
      * @param[in] value The new value for the option
      * @return Whether the option could be set
      */
-    bool setSecure(const std::string &name, const std::string &value) const throw(InvalidArgument);
+    bool setSecure(const std::string &name, const std::string &value) const;
 
 
 private:

@@ -47,11 +47,11 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-OptionsLoader::OptionsLoader() throw()
+OptionsLoader::OptionsLoader()
         : myError(false), myOptions(OptionsCont::getOptions()), myItem() {}
 
 
-OptionsLoader::~OptionsLoader() throw() {}
+OptionsLoader::~OptionsLoader() {}
 
 
 void OptionsLoader::startElement(const XMLCh* const name,
@@ -77,7 +77,7 @@ void OptionsLoader::setValue(const std::string &key,
                 MsgHandler::getErrorInstance()->inform("Could not set option '" + key + "' (probably defined twice).");
                 myError = true;
             }
-        } catch (InvalidArgument &e) {
+        } catch (ProcessError &e) {
             MsgHandler::getErrorInstance()->inform(e.what());
             myError = true;
         }
@@ -93,7 +93,7 @@ void OptionsLoader::characters(const XMLCh* const chars,
 
 bool
 OptionsLoader::setSecure(const std::string &name,
-                         const std::string &value) const throw(InvalidArgument) {
+                         const std::string &value) const {
     if (myOptions.isWriteable(name)) {
         myOptions.set(name, value);
         return true;
@@ -151,7 +151,7 @@ OptionsLoader::fatalError(const SAXParseException& exception) {
 
 
 bool
-OptionsLoader::errorOccured() const throw() {
+OptionsLoader::errorOccured() const {
     return myError;
 }
 
