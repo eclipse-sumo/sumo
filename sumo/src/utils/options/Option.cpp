@@ -48,20 +48,20 @@
 /* -------------------------------------------------------------------------
  * Option - methods
  * ----------------------------------------------------------------------- */
-Option::Option(bool set) throw()
+Option::Option(bool set)
         : myAmSet(set), myHaveTheDefaultValue(true), myAmWritable(true) {}
 
 
-Option::Option(const Option &s) throw()
+Option::Option(const Option &s)
         : myAmSet(s.myAmSet), myHaveTheDefaultValue(s.myHaveTheDefaultValue),
         myAmWritable(s.myAmWritable) {}
 
 
-Option::~Option() throw() {}
+Option::~Option() {}
 
 
 Option &
-Option::operator=(const Option &s) throw() {
+Option::operator=(const Option &s) {
     if (this==&s) {
         return *this;
     }
@@ -73,43 +73,43 @@ Option::operator=(const Option &s) throw() {
 
 
 bool
-Option::isSet() const throw() {
+Option::isSet() const {
     return myAmSet;
 }
 
 
 SUMOReal
-Option::getFloat() const throw(InvalidArgument) {
+Option::getFloat() const {
     throw InvalidArgument("This is not a SUMOReal-option");
 }
 
 
 int
-Option::getInt() const throw(InvalidArgument) {
+Option::getInt() const {
     throw InvalidArgument("This is not an int-option");
 }
 
 
 std::string
-Option::getString() const throw(InvalidArgument) {
+Option::getString() const {
     throw InvalidArgument("This is not a string-option");
 }
 
 
 bool
-Option::getBool() const throw(InvalidArgument) {
+Option::getBool() const {
     throw InvalidArgument("This is not a bool-option");
 }
 
 
 const IntVector &
-Option::getIntVector() const throw(InvalidArgument) {
+Option::getIntVector() const {
     throw InvalidArgument("This is not an int vector-option");
 }
 
 
 bool
-Option::markSet() throw() {
+Option::markSet() {
     bool ret = myAmWritable;
     myHaveTheDefaultValue = false;
     myAmSet = true;
@@ -119,49 +119,49 @@ Option::markSet() throw() {
 
 
 bool
-Option::isBool() const throw() {
+Option::isBool() const {
     return false;
 }
 
 
 bool
-Option::isDefault() const throw() {
+Option::isDefault() const {
     return myHaveTheDefaultValue;
 }
 
 
 bool
-Option::isFileName() const throw() {
+Option::isFileName() const {
     return false;
 }
 
 
 bool
-Option::isWriteable() const throw() {
+Option::isWriteable() const {
     return myAmWritable;
 }
 
 
 void
-Option::resetWritable() throw() {
+Option::resetWritable() {
     myAmWritable = true;
 }
 
 
 const std::string &
-Option::getDescription() const throw() {
+Option::getDescription() const {
     return myDescription;
 }
 
 
 void
-Option::setDescription(const std::string &desc) throw() {
+Option::setDescription(const std::string &desc) {
     myDescription = desc;
 }
 
 
 const std::string &
-Option::getTypeName() const throw() {
+Option::getTypeName() const {
     return myTypeName;
 }
 
@@ -171,29 +171,29 @@ Option::getTypeName() const throw() {
 /* -------------------------------------------------------------------------
  * Option_Integer - methods
  * ----------------------------------------------------------------------- */
-Option_Integer::Option_Integer() throw()
+Option_Integer::Option_Integer()
         : Option() {
     myTypeName = "INT";
 }
 
 
-Option_Integer::Option_Integer(int value) throw()
+Option_Integer::Option_Integer(int value)
         : Option(true), myValue(value) {
     myTypeName = "INT";
 }
 
 
-Option_Integer::~Option_Integer() throw() {}
+Option_Integer::~Option_Integer() {}
 
 
-Option_Integer::Option_Integer(const Option_Integer &s) throw()
+Option_Integer::Option_Integer(const Option_Integer &s)
         : Option(s) {
     myValue = s.myValue;
 }
 
 
 Option_Integer &
-Option_Integer::operator=(const Option_Integer &s) throw() {
+Option_Integer::operator=(const Option_Integer &s) {
     if (this==&s) return *this;
     Option::operator=(s);
     myValue = s.myValue;
@@ -202,13 +202,13 @@ Option_Integer::operator=(const Option_Integer &s) throw() {
 
 
 int
-Option_Integer::getInt() const throw(InvalidArgument) {
+Option_Integer::getInt() const {
     return myValue;
 }
 
 
 bool
-Option_Integer::set(const std::string &v) throw(InvalidArgument) {
+Option_Integer::set(const std::string &v) {
     try {
         myValue = TplConvert<char>::_2int(v.c_str());
         return markSet();
@@ -220,7 +220,7 @@ Option_Integer::set(const std::string &v) throw(InvalidArgument) {
 
 
 std::string
-Option_Integer::getValueString() const throw(InvalidArgument) {
+Option_Integer::getValueString() const {
     std::ostringstream s;
     s << myValue;
     return s.str();
@@ -231,29 +231,29 @@ Option_Integer::getValueString() const throw(InvalidArgument) {
 /* -------------------------------------------------------------------------
  * Option_String - methods
  * ----------------------------------------------------------------------- */
-Option_String::Option_String() throw()
+Option_String::Option_String()
         : Option() {
     myTypeName = "STR";
 }
 
 
-Option_String::Option_String(const std::string &value, std::string typeName) throw()
+Option_String::Option_String(const std::string &value, std::string typeName)
         : Option(true), myValue(value) {
     myTypeName = typeName;
 }
 
 
-Option_String::~Option_String() throw() {}
+Option_String::~Option_String() {}
 
 
-Option_String::Option_String(const Option_String &s) throw()
+Option_String::Option_String(const Option_String &s)
         : Option(s) {
     myValue = s.myValue;
 }
 
 
 Option_String &
-Option_String::operator=(const Option_String &s) throw() {
+Option_String::operator=(const Option_String &s) {
     if (this==&s) {
         return *this;
     }
@@ -264,20 +264,20 @@ Option_String::operator=(const Option_String &s) throw() {
 
 
 std::string
-Option_String::getString() const throw(InvalidArgument) {
+Option_String::getString() const {
     return myValue;
 }
 
 
 bool
-Option_String::set(const std::string &v) throw(InvalidArgument) {
+Option_String::set(const std::string &v) {
     myValue = v;
     return markSet();
 }
 
 
 std::string
-Option_String::getValueString() const throw(InvalidArgument) {
+Option_String::getValueString() const {
     return myValue;
 }
 
@@ -286,29 +286,29 @@ Option_String::getValueString() const throw(InvalidArgument) {
 /* -------------------------------------------------------------------------
  * Option_Float - methods
  * ----------------------------------------------------------------------- */
-Option_Float::Option_Float() throw()
+Option_Float::Option_Float()
         : Option() {
     myTypeName = "FLOAT";
 }
 
 
-Option_Float::Option_Float(SUMOReal value) throw()
+Option_Float::Option_Float(SUMOReal value)
         : Option(true), myValue(value) {
     myTypeName = "FLOAT";
 }
 
 
-Option_Float::~Option_Float() throw() {}
+Option_Float::~Option_Float() {}
 
 
-Option_Float::Option_Float(const Option_Float &s) throw()
+Option_Float::Option_Float(const Option_Float &s)
         : Option(s) {
     myValue = s.myValue;
 }
 
 
 Option_Float &
-Option_Float::operator=(const Option_Float &s) throw() {
+Option_Float::operator=(const Option_Float &s) {
     if (this==&s) {
         return *this;
     }
@@ -319,13 +319,13 @@ Option_Float::operator=(const Option_Float &s) throw() {
 
 
 SUMOReal
-Option_Float::getFloat() const throw(InvalidArgument) {
+Option_Float::getFloat() const {
     return myValue;
 }
 
 
 bool
-Option_Float::set(const std::string &v) throw(InvalidArgument) {
+Option_Float::set(const std::string &v) {
     try {
         myValue = TplConvert<char>::_2SUMOReal(v.c_str());
         return markSet();
@@ -337,7 +337,7 @@ Option_Float::set(const std::string &v) throw(InvalidArgument) {
 
 
 std::string
-Option_Float::getValueString() const throw(InvalidArgument) {
+Option_Float::getValueString() const {
     std::ostringstream s;
     s << myValue;
     return s.str();
@@ -348,29 +348,29 @@ Option_Float::getValueString() const throw(InvalidArgument) {
 /* -------------------------------------------------------------------------
  * Option_Bool - methods
  * ----------------------------------------------------------------------- */
-Option_Bool::Option_Bool() throw()
+Option_Bool::Option_Bool()
         : Option() {
     myTypeName = "BOOL";
 }
 
 
-Option_Bool::Option_Bool(bool value) throw()
+Option_Bool::Option_Bool(bool value)
         : Option(true), myValue(value) {
     myTypeName = "BOOL";
 }
 
 
-Option_Bool::~Option_Bool() throw() {}
+Option_Bool::~Option_Bool() {}
 
 
-Option_Bool::Option_Bool(const Option_Bool &s) throw()
+Option_Bool::Option_Bool(const Option_Bool &s)
         : Option(s) {
     myValue = s.myValue;
 }
 
 
 Option_Bool &
-Option_Bool::operator=(const Option_Bool &s) throw() {
+Option_Bool::operator=(const Option_Bool &s) {
     if (this==&s) {
         return *this;
     }
@@ -381,13 +381,13 @@ Option_Bool::operator=(const Option_Bool &s) throw() {
 
 
 bool
-Option_Bool::getBool() const throw(InvalidArgument) {
+Option_Bool::getBool() const {
     return myValue;
 }
 
 
 bool
-Option_Bool::set(const std::string &v) throw(InvalidArgument) {
+Option_Bool::set(const std::string &v) {
     std::string value = v;
     std::transform(value.begin(), value.end(), value.begin(), tolower);
     if (value=="1"||value=="yes"||value=="true"||value=="on"||value=="x") {
@@ -402,7 +402,7 @@ Option_Bool::set(const std::string &v) throw(InvalidArgument) {
 
 
 std::string
-Option_Bool::getValueString() const throw(InvalidArgument) {
+Option_Bool::getValueString() const {
     if (myValue) {
         return "true";
     }
@@ -411,7 +411,7 @@ Option_Bool::getValueString() const throw(InvalidArgument) {
 
 
 bool
-Option_Bool::isBool() const throw() {
+Option_Bool::isBool() const {
     return true;
 }
 
@@ -420,34 +420,34 @@ Option_Bool::isBool() const throw() {
 /* -------------------------------------------------------------------------
  * Option_FileName - methods
  * ----------------------------------------------------------------------- */
-Option_FileName::Option_FileName() throw()
+Option_FileName::Option_FileName()
         : Option_String() {
     myTypeName = "FILE";
 }
 
 
-Option_FileName::Option_FileName(const std::string &value) throw()
+Option_FileName::Option_FileName(const std::string &value)
         : Option_String(value) {
     myTypeName = "FILE";
 }
 
 
-Option_FileName::Option_FileName(const Option_String &s) throw()
+Option_FileName::Option_FileName(const Option_String &s)
         : Option_String(s) {}
 
 
-Option_FileName::~Option_FileName() throw() {}
+Option_FileName::~Option_FileName() {}
 
 
 Option_FileName &
-Option_FileName::operator=(const Option_FileName &s) throw() {
+Option_FileName::operator=(const Option_FileName &s) {
     Option_String::operator=(s);
     return (*this);
 }
 
 
 bool
-Option_FileName::isFileName() const throw() {
+Option_FileName::isFileName() const {
     return true;
 }
 
@@ -456,27 +456,27 @@ Option_FileName::isFileName() const throw() {
 /* -------------------------------------------------------------------------
  * Option_UIntVector - methods
  * ----------------------------------------------------------------------- */
-Option_IntVector::Option_IntVector() throw()
+Option_IntVector::Option_IntVector()
         : Option() {
     myTypeName = "INT[]";
 }
 
 
-Option_IntVector::Option_IntVector(const IntVector &value) throw()
+Option_IntVector::Option_IntVector(const IntVector &value)
         : Option(true), myValue(value) {
     myTypeName = "INT[]";
 }
 
 
-Option_IntVector::Option_IntVector(const Option_IntVector &s) throw()
+Option_IntVector::Option_IntVector(const Option_IntVector &s)
         : Option(s), myValue(s.myValue) {}
 
 
-Option_IntVector::~Option_IntVector() throw() {}
+Option_IntVector::~Option_IntVector() {}
 
 
 Option_IntVector &
-Option_IntVector::operator=(const Option_IntVector &s) throw() {
+Option_IntVector::operator=(const Option_IntVector &s) {
     Option::operator=(s);
     myValue = s.myValue;
     return (*this);
@@ -484,13 +484,13 @@ Option_IntVector::operator=(const Option_IntVector &s) throw() {
 
 
 const IntVector &
-Option_IntVector::getIntVector() const throw(InvalidArgument) {
+Option_IntVector::getIntVector() const {
     return myValue;
 }
 
 
 bool
-Option_IntVector::set(const std::string &v) throw(InvalidArgument) {
+Option_IntVector::set(const std::string &v) {
     myValue.clear();
     try {
         if (v.find(';')!=std::string::npos) {
@@ -510,7 +510,7 @@ Option_IntVector::set(const std::string &v) throw(InvalidArgument) {
 
 
 std::string
-Option_IntVector::getValueString() const throw(InvalidArgument) {
+Option_IntVector::getValueString() const {
     std::ostringstream s;
     for (IntVector::const_iterator i=myValue.begin(); i!=myValue.end(); i++) {
         if (i!=myValue.begin()) {

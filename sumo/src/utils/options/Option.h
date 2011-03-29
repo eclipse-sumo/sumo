@@ -76,13 +76,13 @@ typedef std::vector<int> IntVector;
 class Option {
 public:
     /** destructor */
-    virtual ~Option() throw();
+    virtual ~Option();
 
 
     /** @brief returns the information whether this options holds a valid value
      * @return Whether a value has been set
      */
-    bool isSet() const throw();
+    bool isSet() const;
 
 
     /** @brief Returns the stored SUMOReal value
@@ -93,7 +93,7 @@ public:
      * @return Returns the stored real number if being an instance of Option_Float
      * @exception InvalidArgument If the class is not an instance of Option_Float
      */
-    virtual SUMOReal getFloat() const throw(InvalidArgument);
+    virtual SUMOReal getFloat() const;
 
 
     /** @brief Returns the stored integer value
@@ -104,7 +104,7 @@ public:
      * @return Returns the stored integer number if being an instance of Option_Integer
      * @exception InvalidArgument If the class is not an instance of Option_Integer
      */
-    virtual int getInt() const throw(InvalidArgument);
+    virtual int getInt() const;
 
 
     /** @brief Returns the stored string value
@@ -115,7 +115,7 @@ public:
      * @return Returns the stored string if being an instance of Option_String
      * @exception InvalidArgument If the class is not an instance of Option_String
      */
-    virtual std::string getString() const throw(InvalidArgument);
+    virtual std::string getString() const;
 
 
     /** @brief Returns the stored boolean value
@@ -126,7 +126,7 @@ public:
      * @return Returns the stored boolean if being an instance of Option_Bool
      * @exception InvalidArgument If the class is not an instance of Option_Bool
      */
-    virtual bool getBool() const throw(InvalidArgument);
+    virtual bool getBool() const;
 
 
     /** @brief Returns the stored integer vector
@@ -137,7 +137,7 @@ public:
      * @return Returns the stored integer vector if being an instance of Option_IntVector
      * @exception InvalidArgument If the class is not an instance of Option_IntVector
      */
-    virtual const IntVector &getIntVector() const throw(InvalidArgument);
+    virtual const IntVector &getIntVector() const;
 
 
     /** @brief Stores the given value (used for non-bool options)
@@ -159,7 +159,7 @@ public:
      * @return Whether the new value could be set
      * @exception InvalidArgument If being an instance of Option or Option_Bool or if the value could not be converted
      */
-    virtual bool set(const std::string &v) throw(InvalidArgument) = 0;
+    virtual bool set(const std::string &v) = 0;
 
 
     /** @brief Returns the string-representation of the value
@@ -168,7 +168,7 @@ public:
      *
      * @return The stored value encoded into a string-
      */
-    virtual std::string getValueString() const throw(InvalidArgument) = 0;
+    virtual std::string getValueString() const = 0;
 
 
     /** @brief Returns the information whether the option is a bool option
@@ -177,14 +177,14 @@ public:
      *
      * @return true if the Option is an Option_Bool, false otherwise
      */
-    virtual bool isBool() const throw();
+    virtual bool isBool() const;
 
 
     /** @brief Returns the information whether the option holds the default value
      *
      * @return true if the option was not set from command line / configuration, false otherwise
      */
-    virtual bool isDefault() const throw();
+    virtual bool isDefault() const;
 
 
     /** @brief Returns the information whether this option is a file name
@@ -193,7 +193,7 @@ public:
      *
      * @return true if the Option is an Option_FileName, false otherwise
      */
-    virtual bool isFileName() const throw();
+    virtual bool isFileName() const;
 
 
     /** @brief Returns the information whether the option may be set a further time
@@ -203,7 +203,7 @@ public:
      *
      * @return Whether the option may be set from the command line / configuration
      */
-    bool isWriteable() const throw();
+    bool isWriteable() const;
 
 
     /** @brief Resets the option to be writeable
@@ -211,7 +211,7 @@ public:
      * An option is writable after initialisation, but as soon as it gets set,
      *  it is no longer writeable. This method resets the writable-flag.
      */
-    void resetWritable() throw();
+    void resetWritable();
 
 
     /** @brief Returns the description of what this option does
@@ -220,7 +220,7 @@ public:
      *
      * @return The description of this option's purpose
      */
-    const std::string &getDescription() const throw();
+    const std::string &getDescription() const;
 
 
     /** @brief Sets the description of what this option does
@@ -229,7 +229,7 @@ public:
      *
      * @return The description of this option's purpose
      */
-    void setDescription(const std::string &desc) throw();
+    void setDescription(const std::string &desc);
 
 
     /** @brief Returns the mml-type name of this option
@@ -238,7 +238,7 @@ public:
      *
      * @return The man-readable type name
      */
-    virtual const std::string &getTypeName() const throw();
+    virtual const std::string &getTypeName() const;
 
 
 protected:
@@ -248,7 +248,7 @@ protected:
      *
      * @return Whether the option was not set before.
      */
-    bool markSet() throw();
+    bool markSet();
 
 
 protected:
@@ -259,15 +259,15 @@ protected:
      *
      * @param[in] set A default value was supplied
      */
-    Option(bool set=false) throw();
+    Option(bool set=false);
 
 
     /** @brief Copy constructor */
-    Option(const Option &s) throw();
+    Option(const Option &s);
 
 
     /** @brief Assignment operator */
-    virtual Option &operator=(const Option &s) throw();
+    virtual Option &operator=(const Option &s);
 
 
 protected:
@@ -304,7 +304,7 @@ public:
      *
      * Calls Option(false)
      */
-    Option_Integer() throw();
+    Option_Integer();
 
 
     /** @brief Constructor for an option with a default value
@@ -313,26 +313,26 @@ public:
      *
      * @param[in] value This option's default value
      */
-    Option_Integer(int value) throw();
+    Option_Integer(int value);
 
 
     /** @brief Copy constructor */
-    Option_Integer(const Option_Integer &s) throw();
+    Option_Integer(const Option_Integer &s);
 
 
     /** @brief Destructor */
-    ~Option_Integer() throw();
+    ~Option_Integer();
 
 
     /** @brief Assignment operator */
-    Option_Integer &operator=(const Option_Integer &s) throw();
+    Option_Integer &operator=(const Option_Integer &s);
 
 
     /** @brief Returns the stored integer value
      * @see Option::getInt()
      * @return Returns the stored integer number
      */
-    int getInt() const throw(InvalidArgument);
+    int getInt() const;
 
 
     /** @brief Stores the given value after parsing it into an integer
@@ -350,7 +350,7 @@ public:
      * @return Whether the new value could be set
      * @exception InvalidArgument If the value could not be converted into an integer
      */
-    bool set(const std::string &v) throw(InvalidArgument);
+    bool set(const std::string &v);
 
 
     /** @brief Returns the string-representation of the value
@@ -360,7 +360,7 @@ public:
      * @see std::string Option::getValueString()
      * @return The stored value encoded into a string
      */
-    std::string getValueString() const throw(InvalidArgument);
+    std::string getValueString() const;
 
 
 private:
@@ -379,7 +379,7 @@ public:
      *
      * Calls Option(false)
      */
-    Option_String() throw();
+    Option_String();
 
 
     /** @brief Constructor for an option with a default value
@@ -388,26 +388,26 @@ public:
      *
      * @param[in] value This option's default value
      */
-    Option_String(const std::string &value, std::string typeName="STR") throw();
+    Option_String(const std::string &value, std::string typeName="STR");
 
 
     /** @brief Copy constructor */
-    Option_String(const Option_String &s) throw();
+    Option_String(const Option_String &s);
 
 
     /** @brief Destructor */
-    virtual ~Option_String() throw();
+    virtual ~Option_String();
 
 
     /** @brief Assignment operator */
-    Option_String &operator=(const Option_String &s) throw();
+    Option_String &operator=(const Option_String &s);
 
 
     /** @brief Returns the stored string value
      * @see std::string Option::getString()
      * @return Returns the stored string
      */
-    std::string getString() const throw(InvalidArgument);
+    std::string getString() const;
 
 
     /** @brief Stores the given value
@@ -421,7 +421,7 @@ public:
      * @see bool Option::set(std::string v)
      * @return Whether the new value could be set
      */
-    bool set(const std::string &v) throw(InvalidArgument);
+    bool set(const std::string &v);
 
 
     /** @brief Returns the string-representation of the value
@@ -431,7 +431,7 @@ public:
      * @see std::string Option::getValueString()
      * @return The stored value encoded into a string
      */
-    std::string getValueString() const throw(InvalidArgument);
+    std::string getValueString() const;
 
 
 protected:
@@ -450,7 +450,7 @@ public:
      *
      * Calls Option(false)
      */
-    Option_Float() throw();
+    Option_Float();
 
 
     /** @brief Constructor for an option with a default value
@@ -459,26 +459,26 @@ public:
      *
      * @param[in] value This option's default value
      */
-    Option_Float(SUMOReal value) throw();
+    Option_Float(SUMOReal value);
 
 
     /** @brief Copy constructor */
-    Option_Float(const Option_Float &s) throw();
+    Option_Float(const Option_Float &s);
 
 
     /** @brief Destructor */
-    ~Option_Float() throw();
+    ~Option_Float();
 
 
     /** @brief Assignment operator */
-    Option_Float &operator=(const Option_Float &s) throw();
+    Option_Float &operator=(const Option_Float &s);
 
 
     /** @brief Returns the stored SUMOReal value
      * @see SUMOReal Option::getFloat()
      * @return Returns the stored real number
      */
-    SUMOReal getFloat() const throw(InvalidArgument);
+    SUMOReal getFloat() const;
 
 
     /** @brief Stores the given value after parsing it into a SUMOReal
@@ -496,7 +496,7 @@ public:
      * @return Whether the new value could be set
      * @exception InvalidArgument If the value could not be converted into a SUMOReal
      */
-    bool set(const std::string &v) throw(InvalidArgument);
+    bool set(const std::string &v);
 
 
     /** @brief Returns the string-representation of the value
@@ -506,7 +506,7 @@ public:
      * @see std::string Option::getValueString()
      * @return The stored value encoded into a string
      */
-    std::string getValueString() const throw(InvalidArgument);
+    std::string getValueString() const;
 
 
 private:
@@ -525,7 +525,7 @@ public:
      *
      * Calls Option(false)
      */
-    Option_Bool() throw();
+    Option_Bool();
 
 
     /** @brief Constructor for an option with a default value
@@ -534,29 +534,29 @@ public:
      *
      * @param[in] value This option's default value
      */
-    Option_Bool(bool value) throw();
+    Option_Bool(bool value);
 
 
     /** @brief Copy constructor */
-    Option_Bool(const Option_Bool &s) throw();
+    Option_Bool(const Option_Bool &s);
 
 
     /** @brief Destructor */
-    ~Option_Bool() throw();
+    ~Option_Bool();
 
 
     /** @brief Assignment operator */
-    Option_Bool &operator=(const Option_Bool &s) throw();
+    Option_Bool &operator=(const Option_Bool &s);
 
 
     /** @brief Returns the stored boolean value
      * @see bool Option::getBool()
      * @return Returns the stored boolean
      */
-    bool getBool() const throw(InvalidArgument);
+    bool getBool() const;
 
     /** sets the given value (converts it to bool) */
-    bool set(const std::string &v) throw(InvalidArgument);
+    bool set(const std::string &v);
 
 
     /** @brief Returns the string-representation of the value
@@ -566,7 +566,7 @@ public:
      * @see std::string Option::getValueString()
      * @return The stored value encoded into a string
      */
-    std::string getValueString() const throw(InvalidArgument);
+    std::string getValueString() const;
 
 
     /** @brief Returns true, the information whether the option is a bool option
@@ -576,7 +576,7 @@ public:
      * @see bool Option::isBool()
      * @return true
      */
-    bool isBool() const throw();
+    bool isBool() const;
 
 
 private:
@@ -593,25 +593,25 @@ class Option_FileName : public Option_String {
 public:
     /** @brief Constructor for an option with no default value
      */
-    Option_FileName() throw();
+    Option_FileName();
 
 
     /** @brief Constructor for an option with a default value
      *
      * @param[in] value This option's default value
      */
-    Option_FileName(const std::string &value) throw();
+    Option_FileName(const std::string &value);
 
 
     /** @brief Copy constructor */
-    Option_FileName(const Option_String &s) throw();
+    Option_FileName(const Option_String &s);
 
 
     /** @brief Destructor */
-    virtual ~Option_FileName() throw();
+    virtual ~Option_FileName();
 
     /** @brief Assignment operator */
-    Option_FileName &operator=(const Option_FileName &s) throw();
+    Option_FileName &operator=(const Option_FileName &s);
 
 
     /** @brief Returns true, the information whether this option is a file name
@@ -620,7 +620,7 @@ public:
      *
      * @return true
      */
-    bool isFileName() const throw();
+    bool isFileName() const;
 
 };
 
@@ -632,33 +632,33 @@ class Option_IntVector : public Option {
 public:
     /** @brief Constructor for an option with no default value
      */
-    Option_IntVector() throw();
+    Option_IntVector();
 
 
     /** @brief Constructor for an option with a default value
      *
      * @param[in] value This option's default value
      */
-    Option_IntVector(const IntVector &value) throw();
+    Option_IntVector(const IntVector &value);
 
 
     /** @brief Copy constructor */
-    Option_IntVector(const Option_IntVector &s) throw();
+    Option_IntVector(const Option_IntVector &s);
 
 
     /** @brief Destructor */
-    virtual ~Option_IntVector() throw();
+    virtual ~Option_IntVector();
 
 
     /** @brief Assignment operator */
-    Option_IntVector &operator=(const Option_IntVector &s) throw();
+    Option_IntVector &operator=(const Option_IntVector &s);
 
 
     /** @brief Returns the stored integer vector
      * @see const IntVector &Option::getIntVector()
      * @return Returns the stored integer vector
      */
-    const IntVector &getIntVector() const throw(InvalidArgument);
+    const IntVector &getIntVector() const;
 
 
     /** @brief Stores the given value after parsing it into a vector of integers
@@ -676,7 +676,7 @@ public:
      * @return Whether the new value could be set
      * @exception InvalidArgument If the value could not be converted into a vector of integers
      */
-    bool set(const std::string &v) throw(InvalidArgument);
+    bool set(const std::string &v);
 
 
     /** @brief Returns the string-representation of the value
@@ -686,7 +686,7 @@ public:
      * @see std::string Option::getValueString()
      * @return The stored value encoded into a string
      */
-    std::string getValueString() const throw(InvalidArgument);
+    std::string getValueString() const;
 
 
 private:
