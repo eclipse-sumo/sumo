@@ -400,14 +400,15 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer &server, tcpip::Storage &inputSto
             &&variable!=VAR_ACCEL&&variable!=VAR_DECEL&&variable!=VAR_IMPERFECTION
             &&variable!=VAR_TAU
             &&variable!=VAR_SPEED&&variable!=VAR_COLOR
+            &&variable!=ADD
        ) {
         server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Change Vehicle State: unsupported variable specified", outputStorage);
         return false;
     }
     // id
     std::string id = inputStorage.readString();
-    MSVehicle *v = static_cast<MSVehicle*>(MSNet::getInstance()->getVehicleControl().getVehicle(id));
-    if (v==0) {
+    SUMOVehicle *v = MSNet::getInstance()->getVehicleControl().getVehicle(id);
+    if (v==0&&variable!=ADD) {
         server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Vehicle '" + id + "' is not known", outputStorage);
         return false;
     }
@@ -474,7 +475,7 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer &server, tcpip::Storage &inputSto
             return false;
         }
         // Forward command to vehicle
-        if (!v->addTraciStop(allLanes[laneIndex], pos, 0, waitTime)) {
+        if (!static_cast<MSVehicle*>(v)->addTraciStop(allLanes[laneIndex], pos, 0, waitTime)) {
             server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Vehicle is too close or behind the stop on " + allLanes[laneIndex]->getID(), outputStorage);
             return false;
         }
@@ -508,7 +509,7 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer &server, tcpip::Storage &inputSto
             return false;
         }
         // Forward command to vehicle
-        v->startLaneChange(static_cast<unsigned>(laneIndex), static_cast<SUMOTime>(stickyTime));
+        static_cast<MSVehicle*>(v)->startLaneChange(static_cast<unsigned>(laneIndex), static_cast<SUMOTime>(stickyTime));
     }
     break;
     case CMD_SLOWDOWN: {
@@ -541,20 +542,39 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer &server, tcpip::Storage &inputSto
         std::vector<std::pair<SUMOTime, SUMOReal> > speedTimeLine;
         speedTimeLine.push_back(std::make_pair(MSNet::getInstance()->getCurrentTimeStep(), v->getSpeed()));
         speedTimeLine.push_back(std::make_pair(MSNet::getInstance()->getCurrentTimeStep()+duration, (SUMOReal) newSpeed));
-        v->getInfluencer().setSpeedTimeLine(speedTimeLine);
+        static_cast<MSVehicle*>(v)->getInfluencer().setSpeedTimeLine(speedTimeLine);
     }
     break;
-    case CMD_CHANGEROUTE:
-        break;
+    case CMD_CHANGEROUTE: {
+        if (valueDataType!=TYPE_STRINGLIST) {
+            server.writeStatusCmd(CMD_SET_ROUTE_VARIABLE, RTYPE_ERR, "A string list is needed for changing to a new route.", outputStorage);
+            return false;
+        }
+        int numEdges = inputStorage.readInt();
+		MSEdgeVector edges(numEdges);
+		while (numEdges--) {
+			MSEdge* edge = MSEdge::dictionary(inputStorage.readString());
+			if (edge==0) {
+				server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Unknown edge in route.", outputStorage);
+				return false;
+			}
+			edges.push_back(edge);
+		}
+	    if (!v->replaceRouteEdges(edges)) {
+            server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Route replacement failed for " + v->getID(), outputStorage);
+            return false;
+        }
+	}
+    break;
     case CMD_CHANGETARGET: {
         if (valueDataType!=TYPE_STRING) {
-            server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Change target requires a std::string containing the id of the new destination edge as parameter.", outputStorage);
+            server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Change target requires a string containing the id of the new destination edge as parameter.", outputStorage);
             return false;
         }
         std::string edgeID = inputStorage.readString();
         const MSEdge* destEdge = MSEdge::dictionary(edgeID);
         if (destEdge == 0) {
-            server.writeStatusCmd(CMD_CHANGETARGET, RTYPE_ERR, "Can not retrieve road with ID " + edgeID, outputStorage);
+            server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Can not retrieve road with ID " + edgeID, outputStorage);
             return false;
         }
         // build a new route between the vehicle's current edge and destination edge
@@ -639,7 +659,7 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer &server, tcpip::Storage &inputSto
             }
             SUMOReal value = inputStorage.readFloat();
             // retrieve
-            v->getWeightsStorage().addTravelTime(edge, begTime, endTime, value);
+            static_cast<MSVehicle*>(v)->getWeightsStorage().addTravelTime(edge, begTime, endTime, value);
         } else if (parameterCount==2) {
             // edge
             if (inputStorage.readUnsignedByte()!=TYPE_STRING) {
@@ -659,10 +679,10 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer &server, tcpip::Storage &inputSto
             }
             SUMOReal value = inputStorage.readFloat();
             // retrieve
-            while (v->getWeightsStorage().knowsTravelTime(edge)) {
-                v->getWeightsStorage().removeTravelTime(edge);
+            while (static_cast<MSVehicle*>(v)->getWeightsStorage().knowsTravelTime(edge)) {
+                static_cast<MSVehicle*>(v)->getWeightsStorage().removeTravelTime(edge);
             }
-            v->getWeightsStorage().addTravelTime(edge, 0, SUMOTime_MAX, value);
+            static_cast<MSVehicle*>(v)->getWeightsStorage().addTravelTime(edge, 0, SUMOTime_MAX, value);
         } else if (parameterCount==1) {
             // edge
             if (inputStorage.readUnsignedByte()!=TYPE_STRING) {
@@ -676,8 +696,8 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer &server, tcpip::Storage &inputSto
                 return false;
             }
             // retrieve
-            while (v->getWeightsStorage().knowsTravelTime(edge)) {
-                v->getWeightsStorage().removeTravelTime(edge);
+            while (static_cast<MSVehicle*>(v)->getWeightsStorage().knowsTravelTime(edge)) {
+                static_cast<MSVehicle*>(v)->getWeightsStorage().removeTravelTime(edge);
             }
         } else {
             server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Setting travel time requires 1, 2, or 4 parameters.", outputStorage);
@@ -722,7 +742,7 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer &server, tcpip::Storage &inputSto
             }
             SUMOReal value = inputStorage.readFloat();
             // retrieve
-            v->getWeightsStorage().addEffort(edge, begTime, endTime, value);
+            static_cast<MSVehicle*>(v)->getWeightsStorage().addEffort(edge, begTime, endTime, value);
         } else if (parameterCount==2) {
             // edge
             if (inputStorage.readUnsignedByte()!=TYPE_STRING) {
@@ -742,10 +762,10 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer &server, tcpip::Storage &inputSto
             }
             SUMOReal value = inputStorage.readFloat();
             // retrieve
-            while (v->getWeightsStorage().knowsEffort(edge)) {
-                v->getWeightsStorage().removeEffort(edge);
+            while (static_cast<MSVehicle*>(v)->getWeightsStorage().knowsEffort(edge)) {
+                static_cast<MSVehicle*>(v)->getWeightsStorage().removeEffort(edge);
             }
-            v->getWeightsStorage().addEffort(edge, 0, SUMOTime_MAX, value);
+            static_cast<MSVehicle*>(v)->getWeightsStorage().addEffort(edge, 0, SUMOTime_MAX, value);
         } else if (parameterCount==1) {
             // edge
             if (inputStorage.readUnsignedByte()!=TYPE_STRING) {
@@ -759,8 +779,8 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer &server, tcpip::Storage &inputSto
                 return false;
             }
             // retrieve
-            while (v->getWeightsStorage().knowsEffort(edge)) {
-                v->getWeightsStorage().removeEffort(edge);
+            while (static_cast<MSVehicle*>(v)->getWeightsStorage().knowsEffort(edge)) {
+                static_cast<MSVehicle*>(v)->getWeightsStorage().removeEffort(edge);
             }
         } else {
             server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Setting effort requires 1, 2, or 4 parameters.", outputStorage);
@@ -777,7 +797,7 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer &server, tcpip::Storage &inputSto
             server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Rerouting should obtain an empty compound object.", outputStorage);
             return false;
         }
-        MSNet::EdgeWeightsProxi proxi(v->getWeightsStorage(), MSNet::getInstance()->getWeightsStorage());
+        MSNet::EdgeWeightsProxi proxi(static_cast<MSVehicle*>(v)->getWeightsStorage(), MSNet::getInstance()->getWeightsStorage());
         DijkstraRouterTT_ByProxi<MSEdge, SUMOVehicle, prohibited_withRestrictions<MSEdge, SUMOVehicle>, MSNet::EdgeWeightsProxi> router(MSEdge::dictSize(), true, &proxi, &MSNet::EdgeWeightsProxi::getTravelTime);
         v->reroute(MSNet::getInstance()->getCurrentTimeStep(), router);
     }
@@ -791,7 +811,7 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer &server, tcpip::Storage &inputSto
             server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Rerouting should obtain an empty compound object.", outputStorage);
             return false;
         }
-        MSNet::EdgeWeightsProxi proxi(v->getWeightsStorage(), MSNet::getInstance()->getWeightsStorage());
+        MSNet::EdgeWeightsProxi proxi(static_cast<MSVehicle*>(v)->getWeightsStorage(), MSNet::getInstance()->getWeightsStorage());
         DijkstraRouterEffort_ByProxi<MSEdge, SUMOVehicle, prohibited_withRestrictions<MSEdge, SUMOVehicle>, MSNet::EdgeWeightsProxi> router(MSEdge::dictSize(), true, &proxi, &MSNet::EdgeWeightsProxi::getEffort, &MSNet::EdgeWeightsProxi::getTravelTime);
         v->reroute(MSNet::getInstance()->getCurrentTimeStep(), router);
     }
@@ -801,8 +821,8 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer &server, tcpip::Storage &inputSto
             server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Setting signals requires an integer.", outputStorage);
             return false;
         }
-        v->switchOffSignal(0x0fffffff);
-        v->switchOnSignal(inputStorage.readInt());
+        static_cast<MSVehicle*>(v)->switchOffSignal(0x0fffffff);
+        static_cast<MSVehicle*>(v)->switchOnSignal(inputStorage.readInt());
         break;
     case VAR_MOVE_TO: {
         if (valueDataType!=TYPE_COMPOUND) {
@@ -832,21 +852,21 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer &server, tcpip::Storage &inputSto
             return false;
         }
         MSEdge &destinationEdge = l->getEdge();
-        if (!v->willPass(&destinationEdge)) {
+        if (!static_cast<MSVehicle*>(v)->willPass(&destinationEdge)) {
             server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Vehicle '" + laneID + "' may be set onto an edge to pass only.", outputStorage);
             return false;
         }
-        v->onRemovalFromNet(MSMoveReminder::NOTIFICATION_TELEPORT);
-        v->getLane()->removeVehicle(v);
+        static_cast<MSVehicle*>(v)->onRemovalFromNet(MSMoveReminder::NOTIFICATION_TELEPORT);
+        static_cast<MSVehicle*>(v)->getLane()->removeVehicle(static_cast<MSVehicle*>(v));
         while (v->getEdge()!=&destinationEdge) {
             const MSEdge *nextEdge = v->succEdge(1);
             // let the vehicle move to the next edge
-            if (v->enterLaneAtMove(nextEdge->getLanes()[0], true)) {
+            if (static_cast<MSVehicle*>(v)->enterLaneAtMove(nextEdge->getLanes()[0], true)) {
                 MSNet::getInstance()->getVehicleControl().scheduleVehicleRemoval(v);
                 continue;
             }
         }
-        l->forceVehicleInsertion(v, position);
+        l->forceVehicleInsertion(static_cast<MSVehicle*>(v), position);
     }
     break;
     case VAR_SPEED: {
@@ -860,12 +880,12 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer &server, tcpip::Storage &inputSto
             speedTimeLine.push_back(std::make_pair(MSNet::getInstance()->getCurrentTimeStep(), speed));
             speedTimeLine.push_back(std::make_pair(SUMOTime_MAX, speed));
         }
-        v->getInfluencer().setSpeedTimeLine(speedTimeLine);
+        static_cast<MSVehicle*>(v)->getInfluencer().setSpeedTimeLine(speedTimeLine);
                     }
         break;
     case VAR_COLOR: {
         if (valueDataType!=TYPE_COLOR) {
-            server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "The color must be given using an accoring type.", outputStorage);
+            server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "The color must be given using the according type.", outputStorage);
             return false;
         }
         SUMOReal r = (SUMOReal) inputStorage.readUnsignedByte() / 255.;
@@ -980,6 +1000,49 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer &server, tcpip::Storage &inputSto
         getSingularType(v).getCarFollowModel().setTau(inputStorage.readFloat());
     }
     break;
+    case ADD: {
+        if (valueDataType!=TYPE_COMPOUND) {
+            server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Adding a vehicle requires a compound object.", outputStorage);
+            return false;
+        }
+        if (inputStorage.readInt()!=6) {
+            server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Adding a vehicle needs six parameters.", outputStorage);
+            return false;
+        }
+        SUMOVehicleParameter* vehicleParams = new SUMOVehicleParameter();
+        vehicleParams->id = id;
+        if (inputStorage.readUnsignedByte()!=TYPE_STRING) {
+            server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "First parameter (type) requires a string.", outputStorage);
+            return false;
+        }
+        const std::string typeID = inputStorage.readString();
+        if (inputStorage.readUnsignedByte()!=TYPE_STRING) {
+            server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Second parameter (route) requires a string.", outputStorage);
+            return false;
+        }
+        const std::string routeID = inputStorage.readString();
+        if (inputStorage.readUnsignedByte()!=TYPE_INTEGER) {
+            server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Third parameter (depart) requires an integer.", outputStorage);
+            return false;
+        }
+        vehicleParams->depart = inputStorage.readInt();
+        if (inputStorage.readUnsignedByte()!=TYPE_FLOAT) {
+            server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Fourth parameter (position) requires a float.", outputStorage);
+            return false;
+        }
+        const SUMOReal pos = inputStorage.readFloat();
+        if (inputStorage.readUnsignedByte()!=TYPE_FLOAT) {
+            server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Fifth parameter (speed) requires a float.", outputStorage);
+            return false;
+        }
+        const SUMOReal speed = inputStorage.readFloat();
+        if (inputStorage.readUnsignedByte()!=TYPE_BYTE) {
+            server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Sixth parameter (lane) requires a byte.", outputStorage);
+            return false;
+        }
+        const int laneIndex = inputStorage.readByte();
+    }
+    break;
     default:
         break;
     }
@@ -990,11 +1053,11 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer &server, tcpip::Storage &inputSto
 
 // ------ helper functions ------
 MSVehicleType &
-TraCIServerAPI_Vehicle::getSingularType(MSVehicle * const veh) throw() {
+TraCIServerAPI_Vehicle::getSingularType(SUMOVehicle * const veh) throw() {
     const MSVehicleType &oType = veh->getVehicleType();
     std::string newID = oType.getID().find('@')==std::string::npos ? oType.getID() + "@" + veh->getID() : oType.getID();
     MSVehicleType *type = MSVehicleType::build(newID, &oType);
-    veh->replaceVehicleType(type);
+    static_cast<MSVehicle*>(veh)->replaceVehicleType(type);
     return *type;
 }
 

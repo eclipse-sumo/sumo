@@ -78,22 +78,21 @@ _modules = {constants.RESPONSE_SUBSCRIBE_VEHICLE_VARIABLE: vehicle,
             constants.RESPONSE_SUBSCRIBE_LANE_VARIABLE: lane,
             constants.RESPONSE_SUBSCRIBE_GUI_VARIABLE: gui,
             constants.RESPONSE_SUBSCRIBE_VEHICLETYPE_VARIABLE: vehicletype}
-_socket = None
+_connections = {}
 _message = Message()
 
 def _recvExact():
-    global _socket
     try:
         result = ""
         while len(result) < 4:
-            t = _socket.recv(4 - len(result))
+            t = _connections[""].recv(4 - len(result))
             if not t:
                 return None
             result += t
         length = struct.unpack("!i", result)[0] - 4
         result = ""
         while len(result) < length:
-            t = _socket.recv(length - len(result))
+            t = _connections[""].recv(length - len(result))
             if not t:
                 return None
             result += t
@@ -102,15 +101,14 @@ def _recvExact():
         return None
 
 def _sendExact():
-    global _socket
     length = struct.pack("!i", len(_message.string)+4)
-    _socket.send(length)
-    _socket.send(_message.string)
+    _connections[""].send(length)
+    _connections[""].send(_message.string)
     _message.string = ""
     result = _recvExact()
     if not result:
-        _socket.close()
-        _socket = None
+        _connections[""].close()
+        del _connections[""]
         raise FatalTraCIError("connection closed by SUMO")
     for command in _message.queue:
         prefix = result.read("!BBB")
@@ -180,16 +178,16 @@ def _subscribe(cmdID, begin, end, objID, varIDs):
         print "Error! Received answer %s,%s for subscription command %s,%s."\
               % (response, objectID, cmdID, objID)
 
-def init(port, numRetries=10):
-    global _socket
-    _socket = socket.socket()
+def init(port, numRetries=10, host="localhost", label="default"):
+    _connections[""] = _connections[label] = socket.socket()
     for wait in range(numRetries):
         try:
-            _socket.connect(("localhost", port))
-            _socket.setsockopt(socket.IPPROTO_TCP, socket.TCP_NODELAY, 1)
+            _connections[label].connect((host, port))
+            _connections[label].setsockopt(socket.IPPROTO_TCP, socket.TCP_NODELAY, 1)
             break
         except socket.error:
             time.sleep(wait)
+    return getVersion()
 
 def simulationStep(step):
     """
@@ -205,11 +203,24 @@ def simulationStep(step):
         _readSubscription(result)
         numSubs -= 1
 
+def getVersion():
+    command = constants.CMD_GETVERSION
+    _message.queue.append(command)
+    _message.string += struct.pack("!BB", 1+1, command)
+    result = _sendExact()
+    result.readLength()
+    response = result.read("!B")[0]
+    if response != command:
+        print "Error! Received answer %s for command %s." % (response, command)
+    return result.readInt(), result.readString()
+
 def close():
-    global _socket
-    if _socket:
+    if "" in _connections:
         _message.queue.append(constants.CMD_CLOSE)
         _message.string += struct.pack("!BB", 1+1, constants.CMD_CLOSE)
         _sendExact()
-        _socket.close()
-        _socket = None
+        _connections[""].close()
+        del _connections[""]
+
+def switch(label):
+    _connections[""] = _connections[label]

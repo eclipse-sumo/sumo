@@ -10,7 +10,7 @@ Python implementation of the TraCI interface.
 Copyright (C) 2008-2011 DLR (http://www.dlr.de/) and contributors
 All rights reserved
 """
-import traci
+import traci, struct
 import traci.constants as tc
 
 RETURN_VALUE_FUNC = {tc.ID_LIST:   traci.Storage.readStringList,
@@ -44,3 +44,12 @@ def getSubscriptionResults(routeID=None):
     if routeID == None:
         return subscriptionResults
     return subscriptionResults.get(routeID, None)
+
+
+def add(routeID, edges):
+    traci._beginMessage(tc.CMD_SET_ROUTE_VARIABLE, tc.ADD, routeID,
+                        1+4+sum(map(len, edges))+4*len(edges))
+    traci._message.string += struct.pack("!Bi", tc.TYPE_STRINGLIST, len(edges))
+    for e in edges:
+        traci._message.string += struct.pack("!i", len(e)) + e
+    traci._sendExact()

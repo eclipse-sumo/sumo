@@ -65,7 +65,7 @@ public:
 
 
 private:
-    static MSVehicleType &getSingularType(MSVehicle * const veh) throw();
+    static MSVehicleType &getSingularType(SUMOVehicle * const veh) throw();
 
 
 private:

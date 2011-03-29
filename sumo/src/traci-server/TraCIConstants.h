@@ -546,7 +546,7 @@
 
 
 
-// add an instance (poi, polygon)
+// add an instance (poi, polygon, vehicle, route)
 #define ADD 0x80
 
 // remove an instance (poi, polygon)

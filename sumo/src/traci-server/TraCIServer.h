@@ -175,6 +175,7 @@ private:
     tcpip::Storage myInputStorage;
     tcpip::Storage myOutputStorage;
     bool myDoingSimStep;
+    bool myHaveWarnedDeprecation;
 
     /// @brief Map of commandIds -> their executors; applicable if the executor applies to the method footprint
     std::map<int, CmdExecutor> myExecutors;

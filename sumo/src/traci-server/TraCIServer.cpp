@@ -155,6 +155,7 @@ TraCIServer::TraCIServer() {
     myTargetTime = 0;
     myDoCloseConnection = false;
     myDoingSimStep = false;
+    myHaveWarnedDeprecation = false;
 
     // display warning if internal lanes are not used
     if (!MSGlobals::gUsingInternalLanes) {
@@ -311,12 +312,24 @@ TraCIServer::dispatchCommand() {
             success = commandCloseConnection();
             break;
         case CMD_POSITIONCONVERSION:
+            if (!myHaveWarnedDeprecation) {
+                MsgHandler::getWarningInstance()->inform("Using old TraCI API, please update your client!");
+                myHaveWarnedDeprecation = true;
+            }
             success = commandPositionConversion();
             break;
         case CMD_ADDVEHICLE:
+            if (!myHaveWarnedDeprecation) {
+                MsgHandler::getWarningInstance()->inform("Using old TraCI API, please update your client!");
+                myHaveWarnedDeprecation = true;
+            }
             success = commandAddVehicle();
             break;
         case CMD_DISTANCEREQUEST:
+            if (!myHaveWarnedDeprecation) {
+                MsgHandler::getWarningInstance()->inform("Using old TraCI API, please update your client!");
+                myHaveWarnedDeprecation = true;
+            }
             success = commandDistanceRequest();
             break;
         case CMD_SUBSCRIBE_INDUCTIONLOOP_VARIABLE:

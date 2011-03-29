@@ -183,3 +183,14 @@ def setColor(vehID, color):
     traci._beginMessage(tc.CMD_SET_VEHICLE_VARIABLE, tc.VAR_COLOR, vehID, 1+1+1+1+1)
     traci._message.string += struct.pack("!BBBBB", tc.TYPE_COLOR, int(color[0]), int(color[1]), int(color[2]), int(color[3]))
     traci._sendExact()
+
+def add(vehID, routeID, depart=-1, pos=0, speed=0, lane=0, typeID="DEFAULT_VEHTYPE"):
+    traci._beginMessage(tc.CMD_SET_VEHICLE_VARIABLE, tc.ADD, vehID,
+                        1+4+len(typeID) + 1+4+len(routeID) + 1+4, 1+4 + 1+4 + 1+1)
+    traci._message.string += struct.pack("!Bi", tc.TYPE_COMPOUND, 6)
+    traci._message.string += struct.pack("!Bi", tc.TYPE_STRING, len(typeID)) + typeID
+    traci._message.string += struct.pack("!Bi", tc.TYPE_STRING, len(routeID)) + routeID
+    traci._message.string += struct.pack("!Bi", tc.TYPE_INTEGER, depart * 1000)
+    traci._message.string += struct.pack("!BfBf", tc.TYPE_FLOAT, pos, tc.TYPE_FLOAT, speed)
+    traci._message.string += struct.pack("!BB", tc.TYPE_UBYTE, lane)
+    traci._sendExact()
