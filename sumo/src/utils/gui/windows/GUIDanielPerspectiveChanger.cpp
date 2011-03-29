@@ -225,7 +225,6 @@ GUIDanielPerspectiveChanger::onMouseMove(void*data) {
         break;
     case MOUSEBTN_RIGHT:
         if (pastDelay) {
-            move(xdiff, ydiff);
             zoom(ydiff);
             rotate(xdiff);
             if (moved) {
