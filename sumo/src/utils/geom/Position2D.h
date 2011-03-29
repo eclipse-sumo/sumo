@@ -80,6 +80,7 @@ public:
     void set(SUMOReal x, SUMOReal y, SUMOReal z) {
         myX = x;
         myY = y;
+        myZ = z;
     }
 
     ///
