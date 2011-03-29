@@ -236,7 +236,7 @@ protected:
 
     struct Connection {
         Connection(NBEdge *fromArg, const std::string &viaArg, NBEdge *toArg)
-                : from(fromArg), via(viaArg), to(toArg) { }
+                : from(fromArg), to(toArg), via(viaArg) { }
         NBEdge *from;
         NBEdge *to;
         std::string via;
