@@ -50,10 +50,15 @@
 // ===========================================================================
 MSInductLoop::MSInductLoop(const std::string& id,
                            MSLane * const lane,
-                           SUMOReal positionInMeters) throw()
-        : MSMoveReminder(lane), Named(id), myCurrentVehicle(0),
-        myPosition(positionInMeters), myLastLeaveTime(0),
-        myVehiclesOnDet(), myVehicleDataCont() {
+                           SUMOReal positionInMeters) throw() : 
+    MSMoveReminder(lane), 
+    Named(id), 
+    myCurrentVehicle(0),
+    myPosition(positionInMeters), 
+    myLastLeaveTime(0),
+    myVehicleDataCont(),
+    myVehiclesOnDet() 
+{
     assert(myPosition >= 0 && myPosition <= myLane->getLength());
     reset();
     myLastLeaveTime = STEPS2TIME(MSNet::getInstance()->getCurrentTimeStep());

@@ -219,10 +219,10 @@ MSVehicle::MSVehicle(SUMOVehicleParameter* pars,
         myLastBestLanesEdge(0),
         myPersonDevice(0),
         myPreDawdleAcceleration(0),
-        myEdgeWeights(0),
         mySignals(0),
         myAmOnNet(false),
-        myAmRegisteredAsWaitingForPerson(false)
+        myAmRegisteredAsWaitingForPerson(false),
+        myEdgeWeights(0)
 #ifndef NO_TRACI
         ,myInfluencer(0),
         timeBeforeLaneChange(0),
@@ -1652,9 +1652,6 @@ MSVehicle::checkLaneChangeConstraint(SUMOTime time) {
 
 void
 MSVehicle::startLaneChange(unsigned lane, SUMOTime stickyTime) {
-    if (lane < 0) {
-        return;
-    }
     timeBeforeLaneChange = MSNet::getInstance()->getCurrentTimeStep();
     laneChangeStickyTime = stickyTime;
     myDestinationLane = lane;

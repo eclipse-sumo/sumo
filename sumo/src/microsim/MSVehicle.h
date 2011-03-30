@@ -931,9 +931,6 @@ protected:
     /// @brief Whether this vehicle is registered as waiting for a person (for deadlock-recognition)
     bool myAmRegisteredAsWaitingForPerson;
 
-    /// @brief An instance of a velicty/lane influencing instance; built in "getInfluencer"
-    Influencer *myInfluencer;
-
 
 private:
     struct DriveProcessItem {
@@ -960,8 +957,10 @@ private:
     MSEdgeWeightsStorage *myEdgeWeights;
 
 
-
 #ifndef NO_TRACI
+    /// @brief An instance of a velicty/lane influencing instance; built in "getInfluencer"
+    Influencer *myInfluencer;
+
     /* simulation time when the last lane change was forced */
     SUMOTime timeBeforeLaneChange;
 

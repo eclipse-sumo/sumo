@@ -54,8 +54,14 @@
 // ---------------------------------------------------------------------------
 // MSMeanData::MeanDataValues - methods
 // ---------------------------------------------------------------------------
-MSMeanData::MeanDataValues::MeanDataValues(MSLane * const lane, const SUMOReal length, const bool doAdd, const std::set<std::string>* const vTypes) throw()
-        : MSMoveReminder(lane, doAdd), myLaneLength(length), sampleSeconds(0), travelledDistance(0), myVehicleTypes(vTypes) {}
+MSMeanData::MeanDataValues::MeanDataValues(
+        MSLane * const lane, const SUMOReal length, const bool doAdd, 
+        const std::set<std::string>* const vTypes) throw() : 
+    MSMoveReminder(lane, doAdd), 
+    myLaneLength(length), 
+    sampleSeconds(0), 
+    travelledDistance(0), 
+    myVehicleTypes(vTypes) {}
 
 
 MSMeanData::MeanDataValues::~MeanDataValues() throw() {
@@ -227,10 +233,17 @@ MSMeanData::MSMeanData(const std::string &id,
                        const bool useLanes, const bool withEmpty, const bool withInternal,
                        const bool trackVehicles,
                        const SUMOReal maxTravelTime, const SUMOReal minSamples,
-                       const std::set<std::string> vTypes) throw()
-        : myID(id), myAmEdgeBased(!useLanes), myDumpBegin(dumpBegin), myDumpEnd(dumpEnd),
-        myDumpEmpty(withEmpty), myDumpInternal(withInternal), myTrackVehicles(trackVehicles),
-        myMaxTravelTime(maxTravelTime), myMinSamples(minSamples), myVehicleTypes(vTypes) {
+                       const std::set<std::string> vTypes) throw() : 
+    myMinSamples(minSamples), 
+    myMaxTravelTime(maxTravelTime), 
+    myVehicleTypes(vTypes), 
+    myID(id), 
+    myAmEdgeBased(!useLanes), 
+    myDumpBegin(dumpBegin), 
+    myDumpEnd(dumpEnd),
+    myDumpEmpty(withEmpty), 
+    myDumpInternal(withInternal), 
+    myTrackVehicles(trackVehicles) {
 }
 
 
