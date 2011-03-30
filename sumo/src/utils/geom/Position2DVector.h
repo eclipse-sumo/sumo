@@ -206,6 +206,9 @@ public:
 
     void insertAt(int index, const Position2D &p);
 
+    // brief inserts p between the two closest positions
+    void insertAtClosest(const Position2D &p);
+
     class as_poly_cw_sorter {
     public:
         /// constructor
@@ -245,6 +248,9 @@ public:
     void eraseAt(int i);
 
     SUMOReal nearest_position_on_line_to_point(const Position2D &p) const;
+
+    // @brief index of the closest position to p
+    int indexOfClosest(const Position2D &p) const;
 
     // distances of all my points to s and all of s points to myself
     DoubleVector distances(const Position2DVector &s) const;

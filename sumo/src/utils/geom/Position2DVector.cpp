@@ -659,6 +659,39 @@ Position2DVector::nearest_position_on_line_to_point(const Position2D &p) const {
 }
 
 
+int
+Position2DVector::indexOfClosest(const Position2D &p) const {
+    SUMOReal minDist = std::numeric_limits<double>::max();
+    SUMOReal dist;
+    int closest;
+    for (int i=0; i < (int)size(); i++) {
+        dist = p.distanceTo(myCont[i]);
+        if (dist < minDist) {
+            closest = i;
+            minDist = dist;
+        }
+    }
+    return closest;
+}
+
+
+void 
+Position2DVector::insertAtClosest(const Position2D &p) {
+    Position2D outIntersection = Position2D();
+    SUMOReal minDist = std::numeric_limits<double>::max();
+    SUMOReal dist;
+    int insertionIndex;
+    for (int i=0; i < (int)size()-1; i++) {
+        dist = GeomHelper::closestDistancePointLine(p, myCont[i], myCont[i+1], outIntersection);
+        if (dist < minDist) {
+            insertionIndex = i+1;
+            minDist = dist;
+        }
+    }
+    insertAt(insertionIndex, p);
+}
+
+
 SUMOReal
 Position2DVector::distance(const Position2D &p) const {
     Position2D outIntersection = Position2D();
