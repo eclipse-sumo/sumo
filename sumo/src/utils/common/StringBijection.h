@@ -73,7 +73,7 @@ public:
         if (hasString(str)) {
             return myString2T[str];
         } else {
-            throw new InvalidArgument("String '" + str + "' not found.");
+            throw InvalidArgument("String '" + str + "' not found.");
         }
     }
 
@@ -82,9 +82,8 @@ public:
         if (has(key)) {
             return myT2String[key];
         } else {
-            // it would be nice to use toString(hey) here but could not figure out how
-            // to solve cyclical dependencies
-            throw new InvalidArgument("Key not found."); 
+            // cannot use toString(key) because that might create an infinite loop
+            throw InvalidArgument("Key not found."); 
         }
     }
 
