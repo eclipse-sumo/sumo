@@ -1,8 +1,5 @@
-# Test command <PositionConversion>
-PositionConversion
-
-# Test command <DistanceRequest>
-DistanceRequest
+# Test deprecated commands <PositionConversion> and <DistanceRequest>
+_deprecated
 
 # Tests for variable retrieval
 VariableRetrieval

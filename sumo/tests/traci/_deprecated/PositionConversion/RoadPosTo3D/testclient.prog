@@ -1,0 +1,5 @@
+simstep2 1
+posconversion_roadpos e_m4 475 1 3
+posconversion_roadpos e_shape0 240 2 3
+posconversion_roadpos e_m0 99999 0 3
+simstep2 2

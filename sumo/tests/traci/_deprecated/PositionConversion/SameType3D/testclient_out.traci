@@ -1,0 +1,15 @@
+TraCITestClient output file. Date: Sat Oct  9 00:23:03 2010
+
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <PositionConversion>:
+ DestPosition-3D: x=1.00 y=1.00 z=0.00 posId=3
+.. Answered with error to command (113), [description: Destination position type is same as source position type]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <Close>:
+.. Command acknowledged (127), [description: Goodbye]

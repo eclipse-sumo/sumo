@@ -1,0 +1,15 @@
+TraCITestClient output file. Date: Sat Oct  9 00:23:04 2010
+
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <PositionConversion>:
+ DestPosition-RoadMap: roadId=e_m0 pos=0.00 laneId=100 posId=3
+.. Answered with error to command (113), [description: No lane existing with such id on the given road]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <Close>:
+.. Command acknowledged (127), [description: Goodbye]

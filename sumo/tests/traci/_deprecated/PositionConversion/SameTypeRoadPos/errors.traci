@@ -1,0 +1,3 @@
+Error: Answered with error to command 113: Destination position type is same as source position type
+Error while receiving command: tcpip::Socket::receive() @ recv: Software caused tcpip::Socket abort
+Error while sending command: send failed: Software caused tcpip::Socket abort

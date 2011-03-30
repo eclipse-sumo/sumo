@@ -1,0 +1,17 @@
+TraCITestClient output file. Date: Sat Oct  9 00:11:42 2010
+
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <DistanceRequest>:
+ FirstPosition-RoadMap: roadId=e_m5 pos=392.00 laneId=1 SecondPosition-RoadMap: roadId=e_vo2 pos=48.00 laneId=0 Flag=0
+.. Command acknowledged (114), [description: ]
+.. Received Response <DistanceRequest>:
+ flag=0 distance=465.31
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <Close>:
+.. Command acknowledged (127), [description: Goodbye]
