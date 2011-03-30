@@ -164,7 +164,7 @@ public:
     /// Computes the offset from the edge shape on the current segment
     static std::pair<SUMOReal, SUMOReal> laneOffset(const Position2D &from,
             const Position2D &to, SUMOReal lanewidth, unsigned int lane,
-            unsigned int noLanes, LaneSpreadFunction lsf, bool leftHand);
+            size_t noLanes, LaneSpreadFunction lsf, bool leftHand);
 
 public:
     /** @brief Constructor

@@ -62,8 +62,7 @@
 // method definitions
 // ===========================================================================
 NBEdgeCont::NBEdgeCont(NBTypeCont &tc) throw()
-        : myTypeCont(tc), myEdgesSplit(0) {
-}
+        : myEdgesSplit(0), myTypeCont(tc) {}
 
 
 NBEdgeCont::~NBEdgeCont() throw() {

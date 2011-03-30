@@ -775,7 +775,7 @@ NBEdge::laneOffset(const Position2D &from, const Position2D &to,
 std::pair<SUMOReal, SUMOReal>
 NBEdge::laneOffset(const Position2D &from, const Position2D &to,
                    SUMOReal lanewidth, unsigned int lane, 
-                   unsigned int noLanes, LaneSpreadFunction lsf, bool leftHand) {
+                   size_t noLanes, LaneSpreadFunction lsf, bool leftHand) {
     std::pair<SUMOReal, SUMOReal> offsets =
         GeomHelper::getNormal90D_CW(from, to, lanewidth);
     SUMOReal xoff = offsets.first / (SUMOReal) 2.0;

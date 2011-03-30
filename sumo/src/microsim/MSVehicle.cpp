@@ -177,6 +177,8 @@ MSVehicle::Influencer::influenceSpeed(SUMOTime currentTime, SUMOReal &speed) {
 
 void 
 MSVehicle::Influencer::influenceLane(SUMOTime currentTime, int &lane) {
+    UNUSED_PARAMETER(currentTime);
+    UNUSED_PARAMETER(lane);
 }
 
 
@@ -209,16 +211,16 @@ MSVehicle::MSVehicle(SUMOVehicleParameter* pars,
                      const MSVehicleType* type,
                      int /*vehicleIndex*/) throw(ProcessError) :
         MSBaseVehicle(pars, route, type),
-        myLastLaneChangeOffset(0),
         myTarget(0),
+        myLastLaneChangeOffset(0),
         myWaitingTime(0),
         myState(0, 0), //
         myLane(0),
         myLastBestLanesEdge(0),
+        myPersonDevice(0),
         myPreDawdleAcceleration(0),
         myEdgeWeights(0),
         mySignals(0),
-        myPersonDevice(0),
         myAmOnNet(false),
         myAmRegisteredAsWaitingForPerson(false)
 #ifndef NO_TRACI

@@ -48,9 +48,11 @@ MSMessageEmitter::MSMessageEmitter(std::string& file,
                                    bool reverse,
                                    bool tableOut,
                                    bool xy,
-                                   SUMOReal step) : writeLCEvent(false), writeBEvent(false),
-        writeHBEvent(false),
-        myDev(OutputDevice::getDevice(file, base)) {
+                                   SUMOReal step) : 
+    myDev(OutputDevice::getDevice(file, base)),
+    writeLCEvent(false), 
+    writeBEvent(false),
+    writeHBEvent(false) {
 #ifdef _DEBUG
     std::cout << "constructing MSMessageEmitter with file '" + file + "'" << std::endl;
 #endif

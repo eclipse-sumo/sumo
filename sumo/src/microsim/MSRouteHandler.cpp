@@ -61,13 +61,18 @@
 // method definitions
 // ===========================================================================
 MSRouteHandler::MSRouteHandler(const std::string &file,
-                               bool addVehiclesDirectly)
-        : SUMOSAXHandler(file), myVehicleParameter(0),
-        myLastDepart(0), myAddVehiclesDirectly(addVehiclesDirectly),
-        myRunningVehicleNumber(0),
-        myCurrentVTypeDistribution(0),
-        myCurrentRouteDistribution(0),
-        myHaveWarned(false), myCurrentVType(0), myActivePlan(0) {
+                               bool addVehiclesDirectly) : 
+    SUMOSAXHandler(file), 
+    myVehicleParameter(0),
+    myLastDepart(0), 
+    myActivePlan(0),
+    myAddVehiclesDirectly(addVehiclesDirectly),
+    myCurrentVTypeDistribution(0),
+    myCurrentRouteDistribution(0),
+    myRunningVehicleNumber(0),
+    myHaveWarned(false), 
+    myCurrentVType(0)
+{
     myIncrementalBase = OptionsCont::getOptions().getInt("incremental-dua-base");
     myIncrementalStage = OptionsCont::getOptions().getInt("incremental-dua-step");
     myAmUsingIncrementalDUA = (myIncrementalStage>0);

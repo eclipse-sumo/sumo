@@ -53,12 +53,12 @@
 MSBaseVehicle::MSBaseVehicle(SUMOVehicleParameter* pars, const MSRoute* route, const MSVehicleType* type) throw(ProcessError) :
         myParameter(pars),
         myRoute(route),
+        myType(type),
         myCurrEdge(route->begin()),
-        myMoveReminders(0),
         myIndividualMaxSpeed(0.0),
         myHasIndividualMaxSpeed(false),
         myReferenceSpeed(-1.0),
-        myType(type),
+        myMoveReminders(0),
         myDeparture(-1),
         myArrivalPos(-1),
         myNumberReroutes(0) {

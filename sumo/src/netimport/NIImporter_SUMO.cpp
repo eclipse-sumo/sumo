@@ -455,7 +455,7 @@ Position2DVector
 NIImporter_SUMO::approximateEdgeShape(const EdgeAttrs* edge) {
     // reverse logic of NBEdge::computeLaneShape
     const Position2DVector &firstLane = edge->lanes[0]->shape;
-    const unsigned int noLanes = edge->lanes.size();
+    const size_t noLanes = edge->lanes.size();
     Position2DVector result;
     // start- and end- positions are added automatically in NBEdge::init
     for (unsigned int i=1; i < firstLane.size() - 1; i++) {
