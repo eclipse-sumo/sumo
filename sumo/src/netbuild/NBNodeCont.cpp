@@ -1203,7 +1203,7 @@ NBNodeCont::savePlain(const std::string &file) {
         } else {
             device << "x=\"" << n->getPosition().x() << "\" y=\"" << n->getPosition().y() << "\"";
         }
-        device << " type=\"" << SUMOXMLDefinitions::NodeTypes.getString(n->getType())<< "\"";
+        device << " type=\"" << toString(n->getType())<< "\"";
         if (n->isTLControlled()) {
             device << " tl=\"";
             const std::set<NBTrafficLightDefinition*> &tlss = n->getControllingTLS();

@@ -33,8 +33,6 @@
 #include <map>
 #include <string>
 #include <utils/common/UtilExceptions.h>
-#include <utils/common/ToString.h>
-
 
 // ===========================================================================
 // class definitions
@@ -84,7 +82,9 @@ public:
         if (has(key)) {
             return myT2String[key];
         } else {
-            throw new InvalidArgument("Key '" + toString(key) + "' not found.");
+            // it would be nice to use toString(hey) here but could not figure out how
+            // to solve cyclical dependencies
+            throw new InvalidArgument("Key not found."); 
         }
     }
 

@@ -32,7 +32,8 @@
 #include <sstream>
 #include <string>
 #include <iomanip>
-
+#include <utils/xml/SUMOXMLDefinitions.h>
+#include "StdDefs.h"
 
 // ===========================================================================
 // class definitions
@@ -50,6 +51,26 @@ inline std::string toString(const T& t, std::streamsize accuracy=OUTPUT_ACCURACY
     return oss.str();
 }
 
+
+template <>
+inline std::string toString<SumoXMLTag>(const SumoXMLTag& tag, std::streamsize accuracy) {
+     UNUSED_PARAMETER(accuracy);
+     return SUMOXMLDefinitions::Tags.getString(tag);
+ }
+
+
+template <>
+inline std::string toString<SumoXMLAttr>(const SumoXMLAttr& attr, std::streamsize accuracy) {
+     UNUSED_PARAMETER(accuracy);
+     return SUMOXMLDefinitions::Attrs.getString(attr);
+ } 
+
+
+template <>
+inline std::string toString<SumoXMLNodeType>(const SumoXMLNodeType& nodeType, std::streamsize accuracy) {
+     UNUSED_PARAMETER(accuracy);
+     return SUMOXMLDefinitions::NodeTypes.getString(nodeType);
+ } 
 
 #endif
 

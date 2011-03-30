@@ -1003,7 +1003,7 @@ NBNode::writeXMLInternalNodes(OutputDevice &into) {
                 Position2DVector shape = computeInternalLaneShape(*i, j, (*k).toEdge, (*k).toLane);
                 Position2D pos = shape.positionAtLengthPosition(cross.first);
                 into << "   <junction id=\"" << sid << '\"';
-                into << " type=\"" << SUMOXMLDefinitions::NodeTypes.getString(NODETYPE_INTERNAL) << "\"";
+                into << " type=\"" << toString(NODETYPE_INTERNAL) << "\"";
                 into << " x=\"" << pos.x() << "\" y=\"" << pos.y() << "\"";
                 into << " incLanes=\"";
                 std::string furtherIncoming = getCrossingSourcesNames_dividedBySpace(*i, j, (*k).toEdge, (*k).toLane);
@@ -1061,7 +1061,7 @@ NBNode::writeXML(OutputDevice &into) {
     if (myIncomingEdges->size()==0 || myOutgoingEdges->size()==0) {
         myType = NODETYPE_DEAD_END;
     }
-    into << " type=\"" << SUMOXMLDefinitions::NodeTypes.getString(myType) << "\"";
+    into << " type=\"" << toString(myType) << "\"";
     into << " x=\"" << myPosition.x() << "\" y=\"" << myPosition.y() << "\"";
     into << " incLanes=\"";
     // write the incoming lanes

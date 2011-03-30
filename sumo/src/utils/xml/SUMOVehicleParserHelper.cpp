@@ -27,6 +27,7 @@
 #include <config.h>
 #endif
 
+#include <utils/common/ToString.h>
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/TplConvert.h>
@@ -457,7 +458,7 @@ SUMOVehicleParserHelper::parseVTypeEmbedded(SUMOVTypeParameter &into,
         parseVTypeEmbedded_BKerner(into, attrs);
         break;
     default:
-        WRITE_WARNING("Unknown element " + SUMOXMLDefinitions::Tags.getString(element));
+        WRITE_WARNING("Unknown element " + toString(element));
     }
     if (!fromVType) {
         into.cfModel = element;

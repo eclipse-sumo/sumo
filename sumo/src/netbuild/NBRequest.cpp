@@ -37,6 +37,7 @@
 #include <cassert>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/ToString.h>
+#include <utils/options/OptionsCont.h>
 #include "NBEdge.h"
 #include "NBJunctionLogicCont.h"
 #include "NBContHelper.h"
@@ -44,7 +45,6 @@
 #include "NBTrafficLightLogicCont.h"
 #include "NBNode.h"
 #include "NBRequest.h"
-#include <utils/options/OptionsCont.h>
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -328,9 +328,9 @@ NBRequest::bitsetToXML(std::string key) {
     size_t absNoLinks = sizes.second;
     size_t absNoLanes = sizes.first;
     assert(absNoLinks>=absNoLanes);
-    os << "   <" << SUMOXMLDefinitions::Tags.getString(SUMO_TAG_ROWLOGIC) << " " 
-        << SUMOXMLDefinitions::Attrs.getString(SUMO_ATTR_ID) << "=\"" << key << "\" "
-        << SUMOXMLDefinitions::Attrs.getString(SUMO_ATTR_REQUESTSIZE) << "=\"" << absNoLinks << "\">" 
+    os << "   <" << toString(SUMO_TAG_ROWLOGIC) << " " 
+        << toString(SUMO_ATTR_ID) << "=\"" << key << "\" "
+        << toString(SUMO_ATTR_REQUESTSIZE) << "=\"" << absNoLinks << "\">" 
         << std::endl;
     int pos = 0;
     // save the logic
@@ -341,7 +341,7 @@ NBRequest::bitsetToXML(std::string key) {
             pos = writeLaneResponse(os, *i, k, pos);
         }
     }
-    os << "   </" << SUMOXMLDefinitions::Tags.getString(SUMO_TAG_ROWLOGIC) << ">" << std::endl;
+    os << "   </" << toString(SUMO_TAG_ROWLOGIC) << ">" << std::endl;
     return os.str();
 }
 
