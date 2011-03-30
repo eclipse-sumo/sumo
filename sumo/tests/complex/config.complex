@@ -18,6 +18,7 @@ vehroutes:vehroutes.xml
 
 [run_dependent_text]
 vehroutes:xml version{->}-->
+output:visible boundary
 
 [floating_point_tolerance]
 output:0.0001

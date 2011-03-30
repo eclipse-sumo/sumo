@@ -19,7 +19,7 @@ print "examining", viewID
 print "zoom", traci.gui.getZoom(viewID)
 print "offset", traci.gui.getOffset(viewID)
 print "schema", traci.gui.getSchema(viewID)
-print "boundary", traci.gui.getBoundary(viewID)
+print "visible boundary", traci.gui.getBoundary(viewID)
 
 traci.gui.subscribe(viewID)
 print traci.gui.getSubscriptionResults(viewID)
