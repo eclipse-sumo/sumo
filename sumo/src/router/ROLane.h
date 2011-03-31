@@ -57,8 +57,8 @@ public:
      * @param[in] disallowed Vehicle classes that may not pass this lane
      */
     ROLane(const std::string &id, SUMOReal length, SUMOReal maxSpeed,
-           const std::vector<SUMOVehicleClass> &allowed,
-           const std::vector<SUMOVehicleClass> &disallowed) throw()
+           const SUMOVehicleClasses &allowed,
+           const SUMOVehicleClasses &disallowed) throw()
             : Named(id), myLength(length), myMaxSpeed(maxSpeed),
             myAllowedClasses(allowed), myNotAllowedClasses(disallowed) {
     }
@@ -87,7 +87,7 @@ public:
     /** @brief Returns the list of allowed vehicle classes
      * @return The list of vehicle classes allowed on this lane
      */
-    const std::vector<SUMOVehicleClass> &getAllowedClasses() const throw() {
+    const SUMOVehicleClasses &getAllowedClasses() const throw() {
         return myAllowedClasses;
     }
 
@@ -95,7 +95,7 @@ public:
     /** @brief Returns the list of not allowed vehicle classes
      * @return The list of vehicle classes not allowed on this lane
      */
-    const std::vector<SUMOVehicleClass> &getNotAllowedClasses() const throw() {
+    const SUMOVehicleClasses &getNotAllowedClasses() const throw() {
         return myNotAllowedClasses;
     }
 
@@ -108,10 +108,10 @@ private:
     SUMOReal myMaxSpeed;
 
     /// @brief The list of allowed vehicle classes
-    std::vector<SUMOVehicleClass> myAllowedClasses;
+    SUMOVehicleClasses myAllowedClasses;
 
     /// @brief The list of disallowed vehicle classes
-    std::vector<SUMOVehicleClass> myNotAllowedClasses;
+    SUMOVehicleClasses myNotAllowedClasses;
 
 
 private:

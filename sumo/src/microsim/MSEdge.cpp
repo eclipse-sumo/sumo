@@ -129,12 +129,12 @@ MSEdge::rebuildAllowedLanes() throw() {
     // ... all others will be not regarded (allowed) ...
     std::set<SUMOVehicleClass> vclasses;
     for (std::vector<MSLane*>::const_iterator i2=myLanes->begin(); i2!=myLanes->end(); ++i2) {
-        const std::vector<SUMOVehicleClass> &allowed = (*i2)->getAllowedClasses();
-        for (std::vector<SUMOVehicleClass>::const_iterator j=allowed.begin(); j!=allowed.end(); j++) {
+        const SUMOVehicleClasses &allowed = (*i2)->getAllowedClasses();
+        for (SUMOVehicleClasses::const_iterator j=allowed.begin(); j!=allowed.end(); j++) {
             vclasses.insert(*j);
         }
-        const std::vector<SUMOVehicleClass> &disallowed = (*i2)->getNotAllowedClasses();
-        for (std::vector<SUMOVehicleClass>::const_iterator j=disallowed.begin(); j!=disallowed.end(); j++) {
+        const SUMOVehicleClasses &disallowed = (*i2)->getNotAllowedClasses();
+        for (SUMOVehicleClasses::const_iterator j=disallowed.begin(); j!=disallowed.end(); j++) {
             vclasses.insert(*j);
         }
     }

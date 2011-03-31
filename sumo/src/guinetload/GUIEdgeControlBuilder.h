@@ -69,8 +69,8 @@ public:
     /// Builds the lane to add
     virtual MSLane *addLane(const std::string &id,
                             SUMOReal maxSpeed, SUMOReal length, bool isDepart,
-                            const Position2DVector &shape, const std::vector<SUMOVehicleClass> &allowed,
-                            const std::vector<SUMOVehicleClass> &disallowed);
+                            const Position2DVector &shape, const SUMOVehicleClasses &allowed,
+                            const SUMOVehicleClasses &disallowed);
 
 
     MSEdge *closeEdge();

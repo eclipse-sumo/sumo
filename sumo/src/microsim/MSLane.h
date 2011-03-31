@@ -104,8 +104,8 @@ public:
      */
     MSLane(const std::string &id, SUMOReal maxSpeed, SUMOReal length, MSEdge * const edge,
            unsigned int numericalID, const Position2DVector &shape,
-           const std::vector<SUMOVehicleClass> &allowed,
-           const std::vector<SUMOVehicleClass> &disallowed) throw();
+           const SUMOVehicleClasses &allowed,
+           const SUMOVehicleClasses &disallowed) throw();
 
 
     /// @brief Destructor
@@ -347,7 +347,7 @@ public:
     /** @brief Returns vehicle classes explicitely allowed on this lane
      * @return This lane's allowed vehicle classes
      */
-    const std::vector<SUMOVehicleClass> &getAllowedClasses() const throw() {
+    const SUMOVehicleClasses &getAllowedClasses() const throw() {
         return myAllowedClasses;
     }
 
@@ -355,7 +355,7 @@ public:
     /** @brief Returns vehicle classes explicitely disallowed on this lane
      * @return This lane's disallowed vehicle classes
      */
-    const std::vector<SUMOVehicleClass> &getNotAllowedClasses() const throw() {
+    const SUMOVehicleClasses &getNotAllowedClasses() const throw() {
         return myNotAllowedClasses;
     }
     /// @}
@@ -476,12 +476,12 @@ public:
     MSLane* getLeftLane() const;
     MSLane* getRightLane() const;
 
-    void setAllowedClasses(const std::vector<SUMOVehicleClass> &classes) throw() {
+    void setAllowedClasses(const SUMOVehicleClasses &classes) throw() {
         myAllowedClasses = classes;
     }
 
 
-    void setNotAllowedClasses(const std::vector<SUMOVehicleClass> &classes) throw() {
+    void setNotAllowedClasses(const SUMOVehicleClasses &classes) throw() {
         myNotAllowedClasses = classes;
     }
 
@@ -671,10 +671,10 @@ protected:
     std::vector<MSVehicle*> myVehBuffer;
 
     /// The list of allowed vehicle classes
-    std::vector<SUMOVehicleClass> myAllowedClasses;
+    SUMOVehicleClasses myAllowedClasses;
 
     /// The list of disallowed vehicle classes
-    std::vector<SUMOVehicleClass> myNotAllowedClasses;
+    SUMOVehicleClasses myNotAllowedClasses;
 
     std::vector<IncomingLaneInfo> myIncomingLanes;
     mutable MSLane *myLogicalPredecessorLane;

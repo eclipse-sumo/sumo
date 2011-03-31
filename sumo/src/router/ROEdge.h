@@ -360,10 +360,10 @@ protected:
     std::vector<ROLane*> myLanes;
 
     /// @brief The list of allowed vehicle classes
-    std::vector<SUMOVehicleClass> myAllowedClasses;
+    SUMOVehicleClasses myAllowedClasses;
 
     /// @brief The list of disallowed vehicle classes
-    std::vector<SUMOVehicleClass> myNotAllowedClasses;
+    SUMOVehicleClasses myNotAllowedClasses;
 
     /// @brief The nodes this edge is connecting
     RONode *myFromNode, *myToNode;

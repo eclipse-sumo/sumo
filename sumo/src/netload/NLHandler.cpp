@@ -347,8 +347,8 @@ NLHandler::addLane(const SUMOSAXAttributes &attrs) {
         myCurrentIsBroken = true;
         return;
     }
-    std::vector<SUMOVehicleClass> allowedClasses;
-    std::vector<SUMOVehicleClass> disallowedClasses;
+    SUMOVehicleClasses allowedClasses;
+    SUMOVehicleClasses disallowedClasses;
     parseVehicleClasses(allow, disallow, allowedClasses, disallowedClasses);
     myCurrentIsBroken |= !ok;
     if(!myCurrentIsBroken) {

@@ -1862,22 +1862,22 @@ NBEdge::preferVehicleClass(int lane, SUMOVehicleClass vclass) {
 
 
 void
-NBEdge::setVehicleClasses(const std::vector<SUMOVehicleClass> &allowed, const std::vector<SUMOVehicleClass> &disallowed, int lane) {
-    for (std::vector<SUMOVehicleClass>::const_iterator i=allowed.begin(); i!=allowed.end(); ++i) {
+NBEdge::setVehicleClasses(const SUMOVehicleClasses &allowed, const SUMOVehicleClasses &disallowed, int lane) {
+    for (SUMOVehicleClasses::const_iterator i=allowed.begin(); i!=allowed.end(); ++i) {
         allowVehicleClass(lane, *i);
     }
-    for (std::vector<SUMOVehicleClass>::const_iterator i=disallowed.begin(); i!=disallowed.end(); ++i) {
+    for (SUMOVehicleClasses::const_iterator i=disallowed.begin(); i!=disallowed.end(); ++i) {
         disallowVehicleClass(lane, *i);
     }
 }
 
 
-std::vector<SUMOVehicleClass>
+SUMOVehicleClasses
 NBEdge::getAllowedVehicleClasses() const {
-    std::vector<SUMOVehicleClass> ret;
+    SUMOVehicleClasses ret;
     for (std::vector<Lane>::const_iterator i=myLanes.begin(); i!=myLanes.end(); ++i) {
-        const std::vector<SUMOVehicleClass> &allowed = (*i).allowed;
-        for (std::vector<SUMOVehicleClass>::const_iterator j=allowed.begin(); j!=allowed.end(); ++j) {
+        const SUMOVehicleClasses &allowed = (*i).allowed;
+        for (SUMOVehicleClasses::const_iterator j=allowed.begin(); j!=allowed.end(); ++j) {
             if (find(ret.begin(), ret.end(), *j)==ret.end()) {
                 ret.push_back(*j);
             }
@@ -1887,12 +1887,12 @@ NBEdge::getAllowedVehicleClasses() const {
 }
 
 
-std::vector<SUMOVehicleClass> 
+SUMOVehicleClasses 
 NBEdge::getDisallowedVehicleClasses() const {
-    std::vector<SUMOVehicleClass> ret;
+    SUMOVehicleClasses ret;
     for (std::vector<Lane>::const_iterator i=myLanes.begin(); i!=myLanes.end(); ++i) {
-        const std::vector<SUMOVehicleClass> &notAllowed = (*i).notAllowed;
-        for (std::vector<SUMOVehicleClass>::const_iterator j=notAllowed.begin(); j!=notAllowed.end(); ++j) {
+        const SUMOVehicleClasses &notAllowed = (*i).notAllowed;
+        for (SUMOVehicleClasses::const_iterator j=notAllowed.begin(); j!=notAllowed.end(); ++j) {
             if (find(ret.begin(), ret.end(), *j)==ret.end()) {
                 ret.push_back(*j);
             }

@@ -56,20 +56,20 @@ NBTypeCont::setDefaults(int defaultNoLanes,
 bool
 NBTypeCont::insert(const std::string &id, int noLanes, SUMOReal maxSpeed, int prio,
                    SUMOVehicleClass vClass, bool oneWayIsDefault) throw() {
-	std::vector<SUMOVehicleClass> allow;
+	SUMOVehicleClasses allow;
 	if (vClass != SVC_UNKNOWN)
 	{
 		allow.push_back(vClass);
 	}
 	return insert(id, noLanes, maxSpeed, prio, allow,
-			std::vector<SUMOVehicleClass>(), oneWayIsDefault);
+			SUMOVehicleClasses(), oneWayIsDefault);
 }
 
 
 bool
 NBTypeCont::insert(const std::string &id, int noLanes, SUMOReal maxSpeed, int prio,
-                   const std::vector<SUMOVehicleClass>& allow,
-                   const std::vector<SUMOVehicleClass>& disallow,
+                   const SUMOVehicleClasses& allow,
+                   const SUMOVehicleClasses& disallow,
                    bool oneWayIsDefault) throw() {
     TypesCont::iterator i = myTypes.find(id);
     if (i!=myTypes.end()) {
@@ -158,7 +158,7 @@ NBTypeCont::getShallBeDiscarded(const std::string &type) const throw() {
 }
 
 
-const std::vector<SUMOVehicleClass> &
+const SUMOVehicleClasses &
 NBTypeCont::getAllowedClasses(const std::string &type) const throw() {
     TypesCont::const_iterator i = myTypes.find(type);
     if (i==myTypes.end()) {
@@ -168,7 +168,7 @@ NBTypeCont::getAllowedClasses(const std::string &type) const throw() {
 }
 
 
-const std::vector<SUMOVehicleClass> &
+const SUMOVehicleClasses &
 NBTypeCont::getDisallowedClasses(const std::string &type) const throw() {
     TypesCont::const_iterator i = myTypes.find(type);
     if (i==myTypes.end()) {

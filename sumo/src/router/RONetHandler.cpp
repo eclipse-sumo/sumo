@@ -157,7 +157,7 @@ RONetHandler::parseLane(const SUMOSAXAttributes &attrs) {
         // was an internal edge to skip or an error occured
         return;
     }
-    std::vector<SUMOVehicleClass> allowed, disallowed;
+    SUMOVehicleClasses allowed, disallowed;
     // get the id, report an error if not given or empty...
     std::string id;
     if (!attrs.setIDFromAttributes(id)) {

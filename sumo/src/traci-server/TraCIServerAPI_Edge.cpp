@@ -317,7 +317,7 @@ TraCIServerAPI_Edge::processSet(TraCIServer &server, tcpip::Storage &inputStorag
             server.writeStatusCmd(CMD_GET_EDGE_VARIABLE, RTYPE_ERR, "Allowed vehicle classes must be given as a list of strings.", outputStorage);
             return false;
         }
-        std::vector<SUMOVehicleClass> allowed;
+        SUMOVehicleClasses allowed;
         parseVehicleClasses(inputStorage.readStringList(), allowed);
         const std::vector<MSLane*> &lanes = e->getLanes();
         for (std::vector<MSLane*>::const_iterator i=lanes.begin(); i!=lanes.end(); ++i) {
@@ -332,7 +332,7 @@ TraCIServerAPI_Edge::processSet(TraCIServer &server, tcpip::Storage &inputStorag
             server.writeStatusCmd(CMD_GET_EDGE_VARIABLE, RTYPE_ERR, "Not allowed vehicle classes must be given as a list of strings.", outputStorage);
             return false;
         }
-        std::vector<SUMOVehicleClass> disallowed;
+        SUMOVehicleClasses disallowed;
         parseVehicleClasses(inputStorage.readStringList(), disallowed);
         const std::vector<MSLane*> &lanes = e->getLanes();
         for (std::vector<MSLane*>::const_iterator i=lanes.begin(); i!=lanes.end(); ++i) {

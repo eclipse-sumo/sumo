@@ -445,8 +445,8 @@ NIImporter_OpenStreetMap::insertEdge(Edge *e, int index, NBNode *from, NBNode *t
     int noLanes = tc.getNoLanes(type);
     SUMOReal speed = tc.getSpeed(type);
     bool defaultsToOneWay = tc.getIsOneWay(type);
-    std::vector<SUMOVehicleClass> allowedClasses = tc.getAllowedClasses(type);
-    std::vector<SUMOVehicleClass> disallowedClasses = tc.getDisallowedClasses(type);
+    SUMOVehicleClasses allowedClasses = tc.getAllowedClasses(type);
+    SUMOVehicleClasses disallowedClasses = tc.getDisallowedClasses(type);
     // check directions
     bool addSecond = true;
     if (e->myIsOneWay=="true"||e->myIsOneWay=="yes"||e->myIsOneWay=="1"||(defaultsToOneWay && e->myIsOneWay!="no" && e->myIsOneWay!="false" && e->myIsOneWay!="0")) {

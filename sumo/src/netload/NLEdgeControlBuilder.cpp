@@ -86,8 +86,8 @@ MSLane *
 NLEdgeControlBuilder::addLane(const std::string &id,
                               SUMOReal maxSpeed, SUMOReal length, bool isDepart,
                               const Position2DVector &shape,
-                              const std::vector<SUMOVehicleClass> &allowed,
-                              const std::vector<SUMOVehicleClass> &disallowed) {
+                              const SUMOVehicleClasses &allowed,
+                              const SUMOVehicleClasses &disallowed) {
     // checks if the depart lane was set before
     if (isDepart&&m_pDepartLane!=0) {
         throw InvalidArgument("Lane's '" + id + "' edge already has a depart lane.");

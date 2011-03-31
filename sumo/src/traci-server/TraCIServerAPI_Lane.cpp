@@ -153,18 +153,18 @@ TraCIServerAPI_Lane::processGet(TraCIServer &server, tcpip::Storage &inputStorag
         }
         break;
         case LANE_ALLOWED: {
-            const std::vector<SUMOVehicleClass> &allowed = lane->getAllowedClasses();
+            const SUMOVehicleClasses &allowed = lane->getAllowedClasses();
             std::vector<std::string> allowedS;
-            for (std::vector<SUMOVehicleClass>::const_iterator i=allowed.begin(); i!=allowed.end(); ++i) {
+            for (SUMOVehicleClasses::const_iterator i=allowed.begin(); i!=allowed.end(); ++i) {
                 allowedS.push_back(getVehicleClassName(*i));
             }
             tempMsg.writeUnsignedByte(TYPE_STRINGLIST);
             tempMsg.writeStringList(allowedS);
         }
         case LANE_DISALLOWED: {
-            const std::vector<SUMOVehicleClass> &disallowed = lane->getNotAllowedClasses();
+            const SUMOVehicleClasses &disallowed = lane->getNotAllowedClasses();
             std::vector<std::string> disallowedS;
-            for (std::vector<SUMOVehicleClass>::const_iterator i=disallowed.begin(); i!=disallowed.end(); ++i) {
+            for (SUMOVehicleClasses::const_iterator i=disallowed.begin(); i!=disallowed.end(); ++i) {
                 disallowedS.push_back(getVehicleClassName(*i));
             }
             tempMsg.writeUnsignedByte(TYPE_STRINGLIST);
@@ -326,7 +326,7 @@ TraCIServerAPI_Lane::processSet(TraCIServer &server, tcpip::Storage &inputStorag
             server.writeStatusCmd(CMD_SET_LANE_VARIABLE, RTYPE_ERR, "Allowed classes must be given as a list of strings.", outputStorage);
             return false;
         }
-        std::vector<SUMOVehicleClass> allowed;
+        SUMOVehicleClasses allowed;
         parseVehicleClasses(inputStorage.readStringList(), allowed);
         l->setAllowedClasses(allowed);
         l->getEdge().rebuildAllowedLanes();
@@ -337,7 +337,7 @@ TraCIServerAPI_Lane::processSet(TraCIServer &server, tcpip::Storage &inputStorag
             server.writeStatusCmd(CMD_SET_LANE_VARIABLE, RTYPE_ERR, "Not allowed classes must be given as a list of strings.", outputStorage);
             return false;
         }
-        std::vector<SUMOVehicleClass> disallowed;
+        SUMOVehicleClasses disallowed;
         parseVehicleClasses(inputStorage.readStringList(), disallowed);
         l->setNotAllowedClasses(disallowed);
         l->getEdge().rebuildAllowedLanes();

@@ -95,8 +95,8 @@ public:
 				int noLanes,
 				SUMOReal maxSpeed,
 				int prio,
-                const std::vector<SUMOVehicleClass>& allow,
-                const std::vector<SUMOVehicleClass>& disallow,
+                const SUMOVehicleClasses& allow,
+                const SUMOVehicleClasses& disallow,
                 bool oneWayIsDefault) throw();
 
     /** @brief Returns the number of known types
@@ -180,7 +180,7 @@ public:
      * @param[in] type The name of the type to return the list of allowed vehicles classes for
      * @return List of vehicles class which may use edges of the given type
      */
-    const std::vector<SUMOVehicleClass> &getAllowedClasses(const std::string &type) const throw();
+    const SUMOVehicleClasses &getAllowedClasses(const std::string &type) const throw();
 
 
     /** @brief Returns not allowed vehicle classes for the given type
@@ -189,7 +189,7 @@ public:
      * @param[in] type The name of the type to return the list of not allowed vehicles classes for
      * @return List of vehicles class which may not use edges of the given type
      */
-    const std::vector<SUMOVehicleClass> &getDisallowedClasses(const std::string &type) const throw();
+    const SUMOVehicleClasses &getDisallowedClasses(const std::string &type) const throw();
     /// @}
 
 
@@ -239,9 +239,9 @@ private:
         /// @brief The priority of an edge
         int priority;
         /// @brief List of vehicle types that are allowed on this edge
-        std::vector<SUMOVehicleClass> allowed;
+        SUMOVehicleClasses allowed;
         /// @brief List of vehicle types that are not allowed on this edge
-        std::vector<SUMOVehicleClass> notAllowed;
+        SUMOVehicleClasses notAllowed;
         /// @brief Whether one-way traffic is mostly common for this type (mostly unused)
         bool oneWay;
         /// @brief Whether edges of this type shall be discarded

@@ -124,11 +124,11 @@ public:
         /// @brief The speed allowed on this lane
         SUMOReal speed;
         /// @brief List of vehicle types that are allowed on this lane
-        std::vector<SUMOVehicleClass> allowed;
+        SUMOVehicleClasses allowed;
         /// @brief List of vehicle types that are not allowed on this lane
-        std::vector<SUMOVehicleClass> notAllowed;
+        SUMOVehicleClasses notAllowed;
         /// @brief List of vehicle types that are preferred on this lane
-        std::vector<SUMOVehicleClass> preferred;
+        SUMOVehicleClasses preferred;
     };
 
 
@@ -715,9 +715,9 @@ public:
     void allowVehicleClass(int lane, SUMOVehicleClass vclass);
     void disallowVehicleClass(int lane, SUMOVehicleClass vclass);
     void preferVehicleClass(int lane, SUMOVehicleClass vclass);
-    std::vector<SUMOVehicleClass> getAllowedVehicleClasses() const;
-    std::vector<SUMOVehicleClass> getDisallowedVehicleClasses() const;
-    void setVehicleClasses(const std::vector<SUMOVehicleClass> &allowed, const std::vector<SUMOVehicleClass> &disallowed, int lane=-1);
+    SUMOVehicleClasses getAllowedVehicleClasses() const;
+    SUMOVehicleClasses getDisallowedVehicleClasses() const;
+    void setVehicleClasses(const SUMOVehicleClasses &allowed, const SUMOVehicleClasses &disallowed, int lane=-1);
 
     void disableConnection4TLS(int fromLane, NBEdge *toEdge, int toLane);
 

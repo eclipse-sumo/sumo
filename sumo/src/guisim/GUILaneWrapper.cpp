@@ -682,8 +682,8 @@ GUILaneWrapper::Colorer::getColorValue(const GUILaneWrapper& lane) const {
     case 1:
         return gSelected.isSelected(lane.getType(), lane.getGlID());
     case 2: {
-        const std::vector<SUMOVehicleClass> &allowed = lane.myLane.getAllowedClasses();
-        const std::vector<SUMOVehicleClass> &disallowed = lane.myLane.getNotAllowedClasses();
+        const SUMOVehicleClasses &allowed = lane.myLane.getAllowedClasses();
+        const SUMOVehicleClasses &disallowed = lane.myLane.getNotAllowedClasses();
         if ((allowed.size()==0 || find(allowed.begin(), allowed.end(), SVC_PASSENGER)!=allowed.end()) && find(disallowed.begin(), disallowed.end(), SVC_PASSENGER)==disallowed.end()) {
             return 0;
         } else {

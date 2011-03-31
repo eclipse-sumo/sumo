@@ -166,9 +166,9 @@ NBEdgeCont::insert(NBEdge *edge, bool ignorePrunning) throw() {
     // check whether the edge shall be removed due to allowing unwished classes only
     if (myVehicleClasses2Remove.size()!=0) {
         int matching = 0;
-        std::vector<SUMOVehicleClass> allowed = edge->getAllowedVehicleClasses();
+        SUMOVehicleClasses allowed = edge->getAllowedVehicleClasses();
         for (std::set<SUMOVehicleClass>::const_iterator i=myVehicleClasses2Remove.begin(); i!=myVehicleClasses2Remove.end(); ++i) {
-            std::vector<SUMOVehicleClass>::iterator j = find(allowed.begin(), allowed.end(), *i);
+            SUMOVehicleClasses::iterator j = find(allowed.begin(), allowed.end(), *i);
             if (j!=allowed.end()) {
                 allowed.erase(j);
                 matching++;
@@ -185,9 +185,9 @@ NBEdgeCont::insert(NBEdge *edge, bool ignorePrunning) throw() {
     // check whether the edge shall be removed due to a allow an unwished class
     if (myVehicleClasses2Keep.size()!=0) {
         int matching = 0;
-        std::vector<SUMOVehicleClass> allowed = edge->getAllowedVehicleClasses();
+        SUMOVehicleClasses allowed = edge->getAllowedVehicleClasses();
         for (std::set<SUMOVehicleClass>::const_iterator i=myVehicleClasses2Remove.begin(); i!=myVehicleClasses2Remove.end(); ++i) {
-            std::vector<SUMOVehicleClass>::iterator j = find(allowed.begin(), allowed.end(), *i);
+            SUMOVehicleClasses::iterator j = find(allowed.begin(), allowed.end(), *i);
             if (j!=allowed.end()) {
                 allowed.erase(j);
                 matching++;

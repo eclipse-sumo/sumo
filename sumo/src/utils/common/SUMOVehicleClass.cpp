@@ -155,10 +155,10 @@ getVehicleClassName(SUMOVehicleClass id) throw() {
 
 
 std::string 
-getVehicleClassNames(const std::vector<SUMOVehicleClass> &ids) throw() {
+getVehicleClassNames(const SUMOVehicleClasses &ids) throw() {
     std::ostringstream oss;
     bool hadOne = false;
-    for (std::vector<SUMOVehicleClass>::const_iterator i=ids.begin(); i!=ids.end(); ++i) {
+    for (SUMOVehicleClasses::const_iterator i=ids.begin(); i!=ids.end(); ++i) {
         if (hadOne) {
             oss << ' ';
         }
@@ -243,8 +243,8 @@ getVehicleClassID(const std::string &name) throw() {
 void
 parseVehicleClasses(const std::string &allowedS,
                     const std::string &disallowedS,
-                    std::vector<SUMOVehicleClass> &allowed,
-                    std::vector<SUMOVehicleClass> &disallowed) throw() {
+                    SUMOVehicleClasses &allowed,
+                    SUMOVehicleClasses &disallowed) throw() {
     StringTokenizer sta(allowedS, " ");
     while (sta.hasNext()) {
         allowed.push_back(getVehicleClassID(sta.next()));
@@ -258,7 +258,7 @@ parseVehicleClasses(const std::string &allowedS,
 
 void
 parseVehicleClasses(const std::vector<std::string> &classesS,
-                    std::vector<SUMOVehicleClass> &classes) throw() {
+                    SUMOVehicleClasses &classes) throw() {
     for (std::vector<std::string>::const_iterator i=classesS.begin(); i!=classesS.end(); ++i) {
         classes.push_back(getVehicleClassID(*i));
     }

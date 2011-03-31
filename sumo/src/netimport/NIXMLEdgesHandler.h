@@ -174,10 +174,10 @@ private:
     NBEdge::LaneSpreadFunction myLanesSpread;
 
     /// @brief Information about how to spread the lanes
-    std::vector<SUMOVehicleClass> myAllowed;
+    SUMOVehicleClasses myAllowed;
 
     /// @brief Information about how to spread the lanes
-    std::vector<SUMOVehicleClass> myNotAllowed;
+    SUMOVehicleClasses myNotAllowed;
     /// @}
 
 

@@ -257,7 +257,7 @@ extern std::string getVehicleClassName(SUMOVehicleClass id) throw();
  * @param[in] ids The ids to encode
  * @return The string representation of these classes
  */
-extern std::string getVehicleClassNames(const std::vector<SUMOVehicleClass> &ids) throw();
+extern std::string getVehicleClassNames(const SUMOVehicleClasses &ids) throw();
 
 
 /** @brief Returns the class id of the abstract class given by its name
@@ -276,8 +276,8 @@ extern SUMOVehicleClass getVehicleClassID(const std::string &name) throw();
  */
 extern void parseVehicleClasses(const std::string &allowedS,
                                 const std::string &disallowedS,
-                                std::vector<SUMOVehicleClass> &allowed,
-                                std::vector<SUMOVehicleClass> &disallowed) throw();
+                                SUMOVehicleClasses &allowed,
+                                SUMOVehicleClasses &disallowed) throw();
 
 
 /** @brief Parses the given vector of class names into their enum-representation
@@ -285,7 +285,7 @@ extern void parseVehicleClasses(const std::string &allowedS,
  * @param[out] classes The parsed classes
  */
 extern void parseVehicleClasses(const std::vector<std::string> &classesS,
-                                std::vector<SUMOVehicleClass> &classes) throw();
+                                SUMOVehicleClasses &classes) throw();
 
 
 // ---------------------------------------------------------------------------

@@ -81,8 +81,8 @@ NIXMLTypesHandler::myStartElement(SumoXMLTag element,
         return;
     }
     // build the type
-    std::vector<SUMOVehicleClass> allow;
-    std::vector<SUMOVehicleClass> disallow;
+    SUMOVehicleClasses allow;
+    SUMOVehicleClasses disallow;
     parseVehicleClasses(allowS, disallowS, allow, disallow);
     if (!myTypeCont.insert(id, noLanes, speed, priority, allow, disallow, oneway)) {
         MsgHandler::getErrorInstance()->inform("Duplicate type occured. ID='" + id + "'");

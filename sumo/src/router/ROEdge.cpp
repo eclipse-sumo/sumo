@@ -85,12 +85,12 @@ ROEdge::addLane(ROLane *lane) throw() {
     mySpeed = speed > mySpeed ? speed : mySpeed;
     myLanes.push_back(lane);
 
-    std::vector<SUMOVehicleClass>::const_iterator i;
-    const std::vector<SUMOVehicleClass> &allowed = lane->getAllowedClasses();
+    SUMOVehicleClasses::const_iterator i;
+    const SUMOVehicleClasses &allowed = lane->getAllowedClasses();
     // for allowed classes
     for (i=allowed.begin(); i!=allowed.end(); ++i) {
         SUMOVehicleClass allowedC = *i;
-        std::vector<SUMOVehicleClass>::iterator t;
+        SUMOVehicleClasses::iterator t;
         // add to allowed if not already in there
         t = find(myAllowedClasses.begin(), myAllowedClasses.end(), allowedC);
         if (t==myAllowedClasses.end()) {
@@ -103,10 +103,10 @@ ROEdge::addLane(ROLane *lane) throw() {
         }
     }
     // for disallowed classes
-    const std::vector<SUMOVehicleClass> &disallowed = lane->getNotAllowedClasses();
+    const SUMOVehicleClasses &disallowed = lane->getNotAllowedClasses();
     for (i=disallowed.begin(); i!=disallowed.end(); ++i) {
         SUMOVehicleClass disallowedC = *i;
-        std::vector<SUMOVehicleClass>::iterator t;
+        SUMOVehicleClasses::iterator t;
         // add to disallowed if not already in there
         //  and not within allowed
         t = find(myAllowedClasses.begin(), myAllowedClasses.end(), disallowedC);

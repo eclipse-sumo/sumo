@@ -52,8 +52,8 @@
 GUILane::GUILane(const std::string &id, SUMOReal maxSpeed, SUMOReal length,
                  MSEdge * const edge, unsigned int numericalID,
                  const Position2DVector &shape,
-                 const std::vector<SUMOVehicleClass> &allowed,
-                 const std::vector<SUMOVehicleClass> &disallowed) throw()
+                 const SUMOVehicleClasses &allowed,
+                 const SUMOVehicleClasses &disallowed) throw()
         : MSLane(id, maxSpeed, length, edge, numericalID, shape, allowed, disallowed) {}
 
 
