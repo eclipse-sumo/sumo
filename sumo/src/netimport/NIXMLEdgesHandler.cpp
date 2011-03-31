@@ -54,10 +54,8 @@
 
 
 // ===========================================================================
-// used namespaces
+// used constants
 // ===========================================================================
-using namespace std;
-
 const SUMOReal SUMOXML_INVALID_POSITION = -999999.;
 
 // ===========================================================================
@@ -239,8 +237,7 @@ NIXMLEdgesHandler::myStartElement(SumoXMLTag element,
             if (ok) {
                 int nameid = forcedLength;
                 forcedLength = (int)(myCurrentEdge->getGeometry().length() - forcedLength);
-                std::vector<Split>::iterator i;
-                i = find_if(mySplits.begin(), mySplits.end(), split_by_pos_finder((SUMOReal) forcedLength));
+                std::vector<Split>::iterator i = find_if(mySplits.begin(), mySplits.end(), split_by_pos_finder((SUMOReal) forcedLength));
                 if (i==mySplits.end()) {
                     Split e;
                     e.pos = (SUMOReal) forcedLength;
@@ -294,11 +291,12 @@ NIXMLEdgesHandler::myStartElement(SumoXMLTag element,
                     MsgHandler::getErrorInstance()->inform("Error on parsing a split (edge '" + myCurrentID + "').");
                 }
             }
-            if (e.lanes.size()==0) {
-                MsgHandler::getErrorInstance()->inform("Missing lane information in split of edge '" + myCurrentID + "'.");
-            } else {
-                mySplits.push_back(e);
+            if (e.lanes.empty()) {
+                for (size_t l = 0; l < myCurrentEdge->getNoLanes(); ++l) {
+                    e.lanes.push_back(l);
+                }
             }
+            mySplits.push_back(e);
         }
     }
 }
@@ -426,7 +424,7 @@ NIXMLEdgesHandler::myEndElement(SumoXMLTag element) throw(ProcessError) {
             }
         }
         if (mySplits.size()!=0) {
-            std::vector<Split>::iterator i, i2;
+            std::vector<Split>::iterator i;
             sort(mySplits.begin(), mySplits.end(), split_sorter());
             NBEdge *e = myCurrentEdge;
             unsigned int noLanesMax = e->getNoLanes();
