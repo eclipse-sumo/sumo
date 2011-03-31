@@ -395,7 +395,7 @@ Option_Bool::set(const std::string &v) {
     } else if (value=="0"||value=="no"||value=="false"||value=="off") {
         myValue = false;
     } else {
-        throw InvalidArgument("Invalid boolean value for option.");
+        throw ProcessError("Invalid boolean value for option.");
     }
     return markSet();
 }
