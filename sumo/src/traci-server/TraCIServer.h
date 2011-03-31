@@ -78,16 +78,6 @@ public:
      */
     static void openSocket(const std::map<int, CmdExecutor> &execs);
 
-
-
-    struct RoadMapPos {
-        std::string roadId;
-        float pos;
-        unsigned char laneId;
-
-        RoadMapPos(): roadId(""), pos(0), laneId(0) {};
-    };
-
     // process all commands until a simulation step is wanted
     static void processCommandsUntilSimStep(SUMOTime step);
 
@@ -101,13 +91,6 @@ public:
 
     void writeStatusCmd(int commandId, int status, const std::string &description);
     void writeStatusCmd(int commandId, int status, const std::string &description, tcpip::Storage &outputStorage);
-    /**
-     * Converts a cartesian position to the closest road map position
-     *
-     * @param pos	cartesian position that is to be converted
-     * @return the closest road map position to the cartesian position
-     */
-    TraCIServer::RoadMapPos convertCartesianToRoadMap(Position2D pos);
 
     const std::map<MSNet::VehicleState, std::vector<std::string> > &getVehicleStateChanges() const {
         return myVehicleStateChanges;
@@ -145,21 +128,9 @@ private:
 
     bool commandCloseConnection();
 
-    bool commandPositionConversion();
-
     bool commandAddVehicle();
 
-    bool commandDistanceRequest();
-
     bool addSubscription(int commandId);
-
-    /**
-     * Converts a road map position to a cartesian position
-     *
-     * @param pos road map position that is to be convertes
-     * @return closest 2D position
-     */
-    Position2D convertRoadMapToCartesian(TraCIServer::RoadMapPos pos);
 
     // singleton instance of the server
     static TraCIServer* myInstance;

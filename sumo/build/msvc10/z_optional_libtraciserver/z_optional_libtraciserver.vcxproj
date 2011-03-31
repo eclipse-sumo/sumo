@@ -306,7 +306,6 @@
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\src\traci-server\TraCIHandler.cpp" />
     <ClCompile Include="..\..\..\src\traci-server\TraCIServer.cpp" />
     <ClCompile Include="..\..\..\src\traci-server\TraCIServerAPI_Edge.cpp" />
     <ClCompile Include="..\..\..\src\traci-server\TraCIServerAPI_InductionLoop.cpp" />
@@ -324,7 +323,6 @@
   <ItemGroup>
     <ClInclude Include="..\..\..\src\traci-server\TraCIConstants.h" />
     <ClInclude Include="..\..\..\src\traci-server\TraCIDijkstraRouter.h" />
-    <ClInclude Include="..\..\..\src\traci-server\TraCIHandler.h" />
     <ClInclude Include="..\..\..\src\traci-server\TraCIServer.h" />
     <ClInclude Include="..\..\..\src\traci-server\TraCIServerAPI_Edge.h" />
     <ClInclude Include="..\..\..\src\traci-server\TraCIServerAPI_InductionLoop.h" />

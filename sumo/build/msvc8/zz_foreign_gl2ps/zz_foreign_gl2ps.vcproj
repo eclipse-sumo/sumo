@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="Windows-1252"?>
 <VisualStudioProject
 	ProjectType="Visual C++"
-	Version="8.00"
+	Version="8,00"
 	Name="zz_foreign_gl2ps"
 	ProjectGUID="{272D2367-13FE-45C2-84AD-8480861DB43E}"
 	RootNamespace="zz_foreign_gl2ps"

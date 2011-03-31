@@ -34,7 +34,6 @@
 
 #include "TraCIConstants.h"
 #include "TraCIServer.h"
-#include "TraCIDijkstraRouter.h"
 
 #ifndef NO_TRACI
 
@@ -316,7 +315,7 @@ TraCIServer::dispatchCommand() {
                 MsgHandler::getWarningInstance()->inform("Using old TraCI API, please update your client!");
                 myHaveWarnedDeprecation = true;
             }
-            success = commandPositionConversion();
+            success = TraCIServerAPI_Simulation::commandPositionConversion(*this, myInputStorage, myOutputStorage);
             break;
         case CMD_ADDVEHICLE:
             if (!myHaveWarnedDeprecation) {
@@ -330,7 +329,7 @@ TraCIServer::dispatchCommand() {
                 MsgHandler::getWarningInstance()->inform("Using old TraCI API, please update your client!");
                 myHaveWarnedDeprecation = true;
             }
-            success = commandDistanceRequest();
+            success = TraCIServerAPI_Simulation::commandDistanceRequest(*this, myInputStorage, myOutputStorage);
             break;
         case CMD_SUBSCRIBE_INDUCTIONLOOP_VARIABLE:
         case CMD_SUBSCRIBE_MULTI_ENTRY_EXIT_DETECTOR_VARIABLE:
@@ -439,110 +438,6 @@ TraCIServer::commandCloseConnection() {
 /*****************************************************************************/
 
 bool
-TraCIServer::commandPositionConversion() {
-    tcpip::Storage tmpResult;
-    RoadMapPos roadPos;
-    Position2D cartesianPos;
-    float x = 0;
-    float y = 0;
-    float z = 0;
-    unsigned char destPosType;
-
-    // actual position type that will be converted
-    unsigned char srcPosType = (unsigned char)myInputStorage.readUnsignedByte();
-
-    switch (srcPosType) {
-    case POSITION_2D:
-    case POSITION_2_5D:
-    case POSITION_3D:
-        x = myInputStorage.readFloat();
-        y = myInputStorage.readFloat();
-        if (srcPosType != POSITION_2D) {
-            z = myInputStorage.readFloat();
-        }
-        // destination position type
-        destPosType = (unsigned char) myInputStorage.readUnsignedByte();
-
-        switch (destPosType) {
-        case POSITION_ROADMAP:
-            // convert road map to 3D position
-            roadPos = convertCartesianToRoadMap(Position2D(x, y));
-
-            // write result that is added to response msg
-            tmpResult.writeUnsignedByte(POSITION_ROADMAP);
-            tmpResult.writeString(roadPos.roadId);
-            tmpResult.writeFloat(roadPos.pos);
-            tmpResult.writeUnsignedByte(roadPos.laneId);
-            break;
-        case POSITION_3D:
-            writeStatusCmd(CMD_POSITIONCONVERSION, RTYPE_ERR,
-                           "Destination position type is same as source position type");
-            return false;
-        default:
-            writeStatusCmd(CMD_POSITIONCONVERSION, RTYPE_ERR,
-                           "Destination position type not supported");
-            return false;
-        }
-        break;
-    case POSITION_ROADMAP:
-        roadPos.roadId = myInputStorage.readString();
-        roadPos.pos = myInputStorage.readFloat();
-        roadPos.laneId = (unsigned char)myInputStorage.readUnsignedByte();
-
-        // destination position type
-        destPosType = (unsigned char)myInputStorage.readUnsignedByte();
-
-        switch (destPosType) {
-        case POSITION_2D:
-        case POSITION_2_5D:
-        case POSITION_3D:
-            //convert 3D to road map position
-            try {
-                Position2D result = convertRoadMapToCartesian(roadPos);
-                x = (float)result.x();
-                y = (float)result.y();
-            } catch (TraCIException &e) {
-                writeStatusCmd(CMD_POSITIONCONVERSION, RTYPE_ERR, e.what());
-                return false;
-            }
-
-            // write result that is added to response msg
-            tmpResult.writeUnsignedByte(destPosType);
-            tmpResult.writeFloat(x);
-            tmpResult.writeFloat(y);
-            if (destPosType != POSITION_2D) {
-                tmpResult.writeFloat(z);
-            }
-            break;
-        case POSITION_ROADMAP:
-            writeStatusCmd(CMD_POSITIONCONVERSION, RTYPE_ERR,
-                           "Destination position type is same as source position type");
-            return false;
-        default:
-            writeStatusCmd(CMD_POSITIONCONVERSION, RTYPE_ERR,
-                           "Destination position type not supported");
-            return false;
-        }
-        break;
-    default:
-        writeStatusCmd(CMD_POSITIONCONVERSION, RTYPE_ERR,
-                       "Source position type not supported");
-        return false;
-    }
-
-    // write response message
-    writeStatusCmd(CMD_POSITIONCONVERSION, RTYPE_OK, "");
-    // add converted Position to response
-    myOutputStorage.writeUnsignedByte(1 + 1 + (int)tmpResult.size() + 1);	// length
-    myOutputStorage.writeUnsignedByte(CMD_POSITIONCONVERSION);	// command id
-    myOutputStorage.writeStorage(tmpResult);	// position dependant part
-    myOutputStorage.writeUnsignedByte(destPosType);	// destination type
-    return true;
-}
-
-/*****************************************************************************/
-
-bool
 TraCIServer::commandAddVehicle() {
 
     // read parameters
@@ -628,117 +523,6 @@ TraCIServer::commandAddVehicle() {
     return true;
 }
 
-/*****************************************************************************/
-
-bool
-TraCIServer::commandDistanceRequest() {
-    Position2D pos1;
-    Position2D pos2;
-    RoadMapPos roadPos1;
-    RoadMapPos roadPos2;
-    const std::vector<MSLane*>* lanes;
-    UNUSED_PARAMETER(lanes);
-
-    // read position 1
-    int posType = myInputStorage.readUnsignedByte();
-    switch (posType) {
-    case POSITION_ROADMAP:
-        roadPos1.roadId = myInputStorage.readString();
-        roadPos1.pos = myInputStorage.readFloat();
-        roadPos1.laneId = (unsigned char)myInputStorage.readUnsignedByte();
-        try {
-            pos1 = convertRoadMapToCartesian(roadPos1);
-        } catch (TraCIException &e) {
-            writeStatusCmd(CMD_DISTANCEREQUEST, RTYPE_ERR, e.what());
-            return false;
-        }
-        break;
-    case POSITION_2D:
-    case POSITION_2_5D:
-    case POSITION_3D: {
-        float p1x = myInputStorage.readFloat();
-        float p1y = myInputStorage.readFloat();
-        pos1.set(p1x, p1y);
-    }
-    if ((posType == POSITION_2_5D) || (posType == POSITION_3D)) {
-        myInputStorage.readFloat();		// z value is ignored
-    }
-    roadPos1 = convertCartesianToRoadMap(pos1);
-    break;
-    default:
-        writeStatusCmd(CMD_DISTANCEREQUEST, RTYPE_ERR, "Unknown position format used for distance request");
-        return false;
-    }
-
-    // read position 2
-    posType = myInputStorage.readUnsignedByte();
-    switch (posType) {
-    case POSITION_ROADMAP:
-        roadPos2.roadId = myInputStorage.readString();
-        roadPos2.pos = myInputStorage.readFloat();
-        roadPos2.laneId = (unsigned char)myInputStorage.readUnsignedByte();
-        try {
-            pos2 = convertRoadMapToCartesian(roadPos2);
-        } catch (TraCIException &e) {
-            writeStatusCmd(CMD_DISTANCEREQUEST, RTYPE_ERR, e.what());
-            return false;
-        }
-        break;
-    case POSITION_2D:
-    case POSITION_2_5D:
-    case POSITION_3D: {
-        float p2x = myInputStorage.readFloat();
-        float p2y = myInputStorage.readFloat();
-        pos2.set(p2x, p2y);
-    }
-    if ((posType == POSITION_2_5D) || (posType == POSITION_3D)) {
-        myInputStorage.readFloat();		// z value is ignored
-    }
-    roadPos2 = convertCartesianToRoadMap(pos2);
-    break;
-    default:
-        writeStatusCmd(CMD_DISTANCEREQUEST, RTYPE_ERR, "Unknown position format used for distance request");
-        return false;
-    }
-
-    // read distance type
-    int distType = myInputStorage.readUnsignedByte();
-
-    float distance = 0.0;
-    if (distType == REQUEST_DRIVINGDIST) {
-        // compute driving distance
-        std::vector<const MSEdge*> edges;
-        TraCIDijkstraRouter<MSEdge> router(MSEdge::dictSize());
-
-        if ((roadPos1.roadId.compare(roadPos2.roadId) == 0)
-                && (roadPos1.pos <= roadPos2.pos)) {
-            distance = roadPos2.pos - roadPos1.pos;
-        } else {
-            router.compute(MSEdge::dictionary(roadPos1.roadId), MSEdge::dictionary(roadPos2.roadId), NULL,
-                           MSNet::getInstance()->getCurrentTimeStep(), edges);
-            MSRoute route("", edges, false, RGBColor::DEFAULT_COLOR, std::vector<SUMOVehicleParameter::Stop>());
-            distance = static_cast<float>(route.getDistanceBetween(roadPos1.pos, roadPos2.pos,
-                                          MSEdge::dictionary(roadPos1.roadId), MSEdge::dictionary(roadPos2.roadId)));
-        }
-    } else {
-        // compute air distance (default)
-        // correct the distance type in case it was not valid
-        distType = REQUEST_AIRDIST;
-        distance = static_cast<float>(pos1.distanceTo(pos2));
-    }
-
-    // acknowledge distance request
-    writeStatusCmd(CMD_DISTANCEREQUEST, RTYPE_OK, "");
-    // write response command
-    myOutputStorage.writeUnsignedByte(1 + 1 + 1 + 4);	// length
-    myOutputStorage.writeUnsignedByte(CMD_DISTANCEREQUEST);		// command type
-    myOutputStorage.writeUnsignedByte(distType);		// distance type
-    myOutputStorage.writeFloat(distance);	// distance;
-    return true;
-}
-
-/*****************************************************************************/
-
 
 /*****************************************************************************/
 
@@ -759,110 +543,6 @@ TraCIServer::writeStatusCmd(int commandId, int status, const std::string &descri
     outputStorage.writeUnsignedByte(commandId); // command type
     outputStorage.writeUnsignedByte(status); // status
     outputStorage.writeString(description); // description
-}
-
-/*****************************************************************************/
-
-TraCIServer::RoadMapPos
-TraCIServer::convertCartesianToRoadMap(Position2D pos) {
-    RoadMapPos result;
-    std::vector<std::string> allEdgeIds;
-    MSEdge* edge;
-    Position2D lineStart;
-    Position2D lineEnd;
-    double minDistance = HUGE_VAL;
-    SUMOReal newDistance;
-    Position2D intersection;
-    MSLane* tmpLane;
-
-
-    allEdgeIds = MSNet::getInstance()->getEdgeControl().getEdgeNames();
-
-    // iterate through all known edges
-    for (std::vector<std::string>::iterator itId = allEdgeIds.begin(); itId != allEdgeIds.end(); itId++) {
-        edge = MSEdge::dictionary((*itId));
-        const std::vector<MSLane*> &allLanes = edge->getLanes();
-
-//		cerr << "--------" << endl << "Checking edge " << edge->getID() << endl << "--------" << endl;
-
-        // iterate through all lanes of this edge
-        for (std::vector<MSLane*>::const_iterator itLane = allLanes.begin(); itLane != allLanes.end(); itLane++) {
-            Position2DVector shape = (*itLane)->getShape();
-
-//			cerr << "### Lane: " << (*itLane)->getID() << endl;
-
-            // iterate through all segments of this lane's shape
-            for (unsigned int i = 0; i < shape.size()-1; i++) {
-                lineStart = shape[i];
-                lineEnd = shape[i+1];
-
-//				cerr << "-Segment " << i << "(" << shape[i] << " - " << shape[i+1] << "): ";
-
-                // if this line is no candidate for lying closer to the cartesian position
-                // than the line determined so far, skip it
-                if ((lineStart.y() > (pos.y()+minDistance) && lineEnd.y() > (pos.y()+minDistance))
-                        || (lineStart.y() < (pos.y()-minDistance) && lineEnd.y() < (pos.y()-minDistance))
-                        || (lineStart.x() > (pos.x()+minDistance) && lineEnd.x() > (pos.x()+minDistance))
-                        || (lineStart.x() < (pos.x()-minDistance) && lineEnd.x() < (pos.x()-minDistance))) {
-
-//					cerr << "skipping (minDistance = " << minDistance << ")" << endl;
-
-                    continue;
-                } else {
-                    // else compute the distance and check it
-                    newDistance = GeomHelper::closestDistancePointLine(pos, lineStart, lineEnd, intersection);
-
-//					cerr << "not skipping. ";
-
-                    if (newDistance < minDistance && newDistance != -1.0) {
-                        // new distance is shorter: save the found road map position
-                        minDistance = newDistance;
-                        result.roadId = (*itId);
-                        result.laneId = 0;
-                        tmpLane = (*itLane);
-                        while ((tmpLane =tmpLane->getRightLane()) != NULL) {
-                            result.laneId++;
-                        }
-                        result.pos = (float)lineStart.distanceTo(intersection);
-                        for (unsigned int j = 0; j < i; j++) {
-                            result.pos += (float)(shape[j].distanceTo(shape[j+1]));
-                        }
-
-//						cerr << "Saved new pos: " << result.pos << ", intersec at (" << intersection.x() << "," << intersection.y()
-//								<< "), minDistance = " << minDistance;
-                    }
-
-//					cerr << endl;
-                }
-            }
-        }
-    }
-
-    return result;
-}
-
-/*****************************************************************************/
-
-Position2D
-TraCIServer::convertRoadMapToCartesian(traci::TraCIServer::RoadMapPos roadPos) {
-    if (roadPos.pos < 0) {
-        throw TraCIException("Position on lane must not be negative");
-    }
-
-    // get the edge and lane of this road map position
-    MSEdge* road = MSEdge::dictionary(roadPos.roadId);
-    if (road == NULL) {
-        throw TraCIException("Unable to retrieve road with given id");
-    }
-
-    const std::vector<MSLane*> &allLanes = road->getLanes();
-    if ((roadPos.laneId >= allLanes.size()) || (allLanes.size() == 0)) {
-        throw TraCIException("No lane existing with such id on the given road");
-    }
-
-    // get corresponding x and y coordinates
-    Position2DVector shape = allLanes[roadPos.laneId]->getShape();
-    return shape.positionAtLengthPosition(roadPos.pos);
 }
 
 /*****************************************************************************/

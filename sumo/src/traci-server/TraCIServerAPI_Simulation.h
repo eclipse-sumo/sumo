@@ -55,6 +55,28 @@ public:
     static bool processGet(traci::TraCIServer &server, tcpip::Storage &inputStorage,
                            tcpip::Storage &outputStorage);
 
+    /**
+     * Converts a cartesian position to the closest road map position
+     *
+     * @param pos	cartesian position that is to be converted
+     * @return the closest road map position to the cartesian position
+     */
+    static std::pair<MSLane*, SUMOReal> convertCartesianToRoadMap(Position2D pos);
+
+    /**
+     * Converts a road map position to a cartesian position
+     *
+     * @param pos road map position that is to be convertes
+     * @return closest 2D position
+     */
+    static const MSLane* getLaneChecking(std::string roadID, int laneIndex, SUMOReal pos);
+
+    static bool commandPositionConversion(traci::TraCIServer &server, tcpip::Storage &inputStorage,
+                                          tcpip::Storage &outputStorage);
+
+    static bool commandDistanceRequest(traci::TraCIServer &server, tcpip::Storage &inputStorage,
+                                       tcpip::Storage &outputStorage);
+
 private:
     /// @brief invalidated copy constructor
     TraCIServerAPI_Simulation(const TraCIServerAPI_Simulation &s);
