@@ -234,6 +234,9 @@ enum SUMOEmissionClass {
 };
 
 
+typedef std::vector<SUMOVehicleClass> SUMOVehicleClasses;
+
+
 // ===========================================================================
 // method declarations
 // ===========================================================================

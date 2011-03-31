@@ -6,4 +6,6 @@ internal_lanes
 
 # demonstrate the ability to import traffic lights
 traffic_lights
-shapes
+
+# handle shape, allow, disallow, type
+attributes

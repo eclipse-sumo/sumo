@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on Tue Mar 29 16:23:57 2011 by SUMO netconvert Version dev-SVN-r10020
+<!-- generated on Thu Mar 31 09:17:34 2011 by SUMO netconvert Version dev-SVN-r10031
 <?xml version="1.0" encoding="iso-8859-1"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
@@ -44,9 +44,9 @@
       <lane id=":node_right_2_0" depart="0" maxspeed="13.90" length="4.93" shape="40.00,-1.65 41.57,-1.47 42.28,-0.95 42.15,-0.07 41.17,1.17"/>
    </edge>
 
-   <edge id="edge_with_shape" from="node_right" to="node_left" priority="-1" type="" function="normal">
-      <lane id="edge_with_shape_0" depart="1" maxspeed="13.90" length="66.47" shape="45.83,5.83 20.00,31.67 -5.83,5.83"/>
-      <lane id="edge_with_shape_1" depart="0" maxspeed="13.90" length="66.47" shape="43.50,3.50 20.00,27.00 -3.50,3.50"/>
+   <edge id="edge_with_shape" from="node_right" to="node_left" priority="-1" type="testType" function="normal">
+      <lane id="edge_with_shape_0" depart="1" allow="bus" maxspeed="13.90" length="66.47" shape="45.83,5.83 20.00,31.67 -5.83,5.83"/>
+      <lane id="edge_with_shape_1" depart="0" disallow="bicycle" maxspeed="13.90" length="66.47" shape="43.50,3.50 20.00,27.00 -3.50,3.50"/>
       <lane id="edge_with_shape_2" depart="0" maxspeed="13.90" length="66.47" shape="41.17,1.17 20.00,22.33 -1.17,1.17"/>
    </edge>
    <edge id="reverse_edge" from="node_left" to="node_right" priority="-1" type="" function="normal">

@@ -193,6 +193,10 @@ private:
         Position2DVector shape;
         /// @brief This lane's connections
         std::vector<Connection> connections;
+        /// @brief This lane's allowed vehicle classes
+        std::string allow;
+        /// @brief This lane's disallowed vehicle classes
+        std::string disallow;
     };
 
 

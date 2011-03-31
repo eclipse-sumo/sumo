@@ -106,14 +106,17 @@ NIImporter_SUMO::loadNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
         }
         ed->builtEdge = edgesCont.retrieve(ed->id);
     }
-    // assign lane attributes (edges are built)
+    // assign further lane attributes (edges are built)
     for (std::map<std::string, EdgeAttrs*>::const_iterator i=loadedEdges.begin(); i!=loadedEdges.end(); ++i) {
         EdgeAttrs *ed = (*i).second;
-        if (ed->builtEdge==0) { // inner edge
+        NBEdge *nbe = ed->builtEdge;
+        if (nbe == 0) { // inner edge
             continue;
         }
         for (unsigned int fromLaneIndex=0; fromLaneIndex<(unsigned int) ed->lanes.size(); ++fromLaneIndex) {
-            const std::vector<Connection> &connections = ed->lanes[fromLaneIndex]->connections;
+            LaneAttrs *lane = ed->lanes[fromLaneIndex];
+            // connections
+            const std::vector<Connection> &connections = lane->connections;
             for (std::vector<Connection>::const_iterator conn=connections.begin(); conn!=connections.end(); ++conn) {
                 if (conn->lane!="SUMO_NO_DESTINATION") {
                     std::string toEdgeID;
@@ -129,19 +132,24 @@ NIImporter_SUMO::loadNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
                         WRITE_WARNING("target edge '" + toEdgeID + "' not built");
                         continue;
                     }
-                    ed->builtEdge->addLane2LaneConnection(fromLaneIndex, toEdge, (unsigned int)toLaneIndex, NBEdge::L2L_VALIDATED);
+                    nbe->addLane2LaneConnection(fromLaneIndex, toEdge, (unsigned int)toLaneIndex, NBEdge::L2L_VALIDATED);
 
-                    // maybe we have a controlled connection
+                    // maybe we have a tls-controlled connection
                     if (conn->tlID != "") {
                         NBLoadedSUMOTLDef *tl = (NBLoadedSUMOTLDef*)handler.myTLLCont.getDefinition(conn->tlID);
                         if (tl) {
-                            tl->addConnection(ed->builtEdge, toEdge, fromLaneIndex, (unsigned int)toLaneIndex, conn->tlLinkNo);
+                            tl->addConnection(nbe, toEdge, fromLaneIndex, (unsigned int)toLaneIndex, conn->tlLinkNo);
                         } else {
                             WRITE_ERROR("The traffic light '" + conn->tlID + "' is not known.");
                         }
                     }
                 }
             }
+            // allow/disallow
+            SUMOVehicleClasses allowed;
+            SUMOVehicleClasses disallowed;
+            parseVehicleClasses(lane->allow, lane->disallow, allowed, disallowed);
+            nbe->setVehicleClasses(allowed, disallowed, fromLaneIndex);
         }
     }
     
@@ -283,6 +291,7 @@ NIImporter_SUMO::addEdge(const SUMOSAXAttributes &attrs) {
     myCurrentEdge->fromNode = attrs.getOptStringReporting(SUMO_ATTR_FROM, id.c_str(), ok, "");
     myCurrentEdge->toNode = attrs.getOptStringReporting(SUMO_ATTR_TO, id.c_str(), ok, "");
     myCurrentEdge->priority = attrs.getOptIntReporting(SUMO_ATTR_PRIORITY, id.c_str(), ok, -1);
+    myCurrentEdge->type = attrs.getOptStringReporting(SUMO_ATTR_TYPE, id.c_str(), ok, "");
     myCurrentEdge->maxSpeed = 0;
     myCurrentEdge->builtEdge = 0;
 }
@@ -299,11 +308,13 @@ NIImporter_SUMO::addLane(const SUMOSAXAttributes &attrs) {
     }
     myCurrentLane = new LaneAttrs;
     bool ok = true;
-    myCurrentLane->maxSpeed = attrs.getOptSUMORealReporting(SUMO_ATTR_MAXSPEED, 0, ok, -1);
-    myCurrentLane->depart = attrs.getOptBoolReporting(SUMO_ATTR_DEPART, 0, ok, false);
+    myCurrentLane->maxSpeed = attrs.getOptSUMORealReporting(SUMO_ATTR_MAXSPEED, id.c_str(), ok, -1);
+    myCurrentLane->depart = attrs.getOptBoolReporting(SUMO_ATTR_DEPART, id.c_str(), ok, false);
+    myCurrentLane->allow = attrs.getOptStringReporting(SUMO_ATTR_ALLOW, id.c_str(), ok, "");
+    myCurrentLane->disallow = attrs.getOptStringReporting(SUMO_ATTR_DISALLOW, id.c_str(), ok, "");
     myCurrentLane->shape = GeomConvHelper::parseShapeReporting(
-            attrs.getStringReporting(SUMO_ATTR_SHAPE, 0, ok), 
-            attrs.getObjectType(), 0, ok, false);
+            attrs.getStringReporting(SUMO_ATTR_SHAPE, id.c_str(), ok),
+            attrs.getObjectType(), id.c_str(), ok, false);
 }
 
 
