@@ -121,6 +121,7 @@ enum GUIIcon {
 
     ICON_UNDO,
     ICON_REDO,
+    ICON_NETEDIT,
 
     ICON_MAX
 

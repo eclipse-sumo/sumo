@@ -103,6 +103,7 @@
 
 #include "undo.xpm"
 #include "redo.xpm"
+#include "netedit.xpm"
 
 #include "cut.xpm"
 #include "ext.xpm"
@@ -204,6 +205,7 @@ GUIIconSubSys::GUIIconSubSys(FXApp *a) {
 
     myIcons[ICON_UNDO]    = new FXXPMIcon(a, undo_xpm);
     myIcons[ICON_REDO]    = new FXXPMIcon(a, redo_xpm);
+    myIcons[ICON_NETEDIT] = new FXXPMIcon(a, netedit_xpm);
 
     myIcons[ICON_EXT]    = new FXXPMIcon(a, ext_xpm);
     myIcons[ICON_CUT_SWELL]    = new FXXPMIcon(a, cut_xpm);
