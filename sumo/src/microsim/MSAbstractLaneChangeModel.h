@@ -291,7 +291,7 @@ protected:
             return false;
         }
         // let's check it on highways only
-        if (leader->getSpeed()<(80.0*3.6)) {
+        if (leader->getSpeed()<(80.0/3.6)) {
             return false;
         }
         SUMOReal gap = leader->getPositionOnLane() - leader->getVehicleType().getLength() - myVehicle.getPositionOnLane();
