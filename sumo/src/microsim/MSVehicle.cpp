@@ -590,7 +590,8 @@ MSVehicle::moveRegardingCritical(SUMOTime t, const MSLane* const lane,
     const MSCFModel &cfModel = getCarFollowModel();
     SUMOReal vBeg = MIN2(cfModel.maxNextSpeed(myState.mySpeed), lane->getMaxSpeed());
     // check whether the vehicle is not on an appropriate lane
-    if (!myLane->appropriate(this)) {
+    bool onAppropriateLane = myLane->appropriate(this);
+    if (!onAppropriateLane) {
         // decelerate to lane end when yes
         vBeg = MIN2(cfModel.ffeS(this, myLane->getLength() - myState.myPos), myLane->getMaxSpeed());
     }
@@ -634,7 +635,7 @@ MSVehicle::moveRegardingCritical(SUMOTime t, const MSLane* const lane,
     }
     vBeg = MAX2((SUMOReal) 0, vBeg);
     assert(vBeg >= cfModel.getSpeedAfterMaxDecel(myState.mySpeed));
-    if (!myLane->appropriate(this)) {
+    if (!onAppropriateLane) {
         myLFLinkLanes.push_back(DriveProcessItem(0, vBeg, vBeg, false, 0, 0, myLane->getLength()-myState.myPos));
     } else {
         // check whether the driver wants to let someone in
