@@ -72,9 +72,9 @@ SUMOReal factrl(int n) {
 
     while (ntop < n) { /* use the precalulated value for n = 0....6 */
         j1 = ntop++;
-        a[n]=a[j1]*ntop;
+        a[ntop]=a[j1]*ntop;
     }
-    return a[n]; /* returns the value n! as a SUMORealing point number */
+    return a[n]; /* returns the value n! as a SUMOReal */
 }
 
 /* function to calculate the factorial function for Bernstein basis */
