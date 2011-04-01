@@ -1,2 +1,2 @@
 Warning: Using old TraCI API, please update your client!
-Error: Answered with error to command 113: Position on lane must not be negative
+Error: Answered with error to command 113: Position on lane invalid
