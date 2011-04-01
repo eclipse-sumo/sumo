@@ -931,6 +931,7 @@ protected:
     /// @brief Whether this vehicle is registered as waiting for a person (for deadlock-recognition)
     bool myAmRegisteredAsWaitingForPerson;
 
+    bool myHaveToWaitOnNextLink;
 
 private:
     struct DriveProcessItem {

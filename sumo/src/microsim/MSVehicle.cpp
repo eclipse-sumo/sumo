@@ -222,7 +222,8 @@ MSVehicle::MSVehicle(SUMOVehicleParameter* pars,
         mySignals(0),
         myAmOnNet(false),
         myAmRegisteredAsWaitingForPerson(false),
-        myEdgeWeights(0)
+        myEdgeWeights(0),
+        myHaveToWaitOnNextLink(false)
 #ifndef NO_TRACI
         ,myInfluencer(0),
         timeBeforeLaneChange(0),
@@ -656,6 +657,7 @@ MSVehicle::moveFirstChecked() {
     myTarget = 0;
     // get vsafe
     SUMOReal vSafe = 0;
+    myHaveToWaitOnNextLink = false;
 
     assert(myLFLinkLanes.size()!=0);
     DriveItemVector::iterator i;
@@ -705,6 +707,10 @@ MSVehicle::moveFirstChecked() {
             braking = true;
             break;
         }
+    }
+
+    if(braking) {
+        myHaveToWaitOnNextLink = true;
     }
 
     SUMOReal vNext = getCarFollowModel().moveHelper(this, myLane, vSafe);
@@ -890,6 +896,9 @@ MSVehicle::checkRewindLinkLanes(SUMOReal lengthsInFront) throw() {
                     availableSpace.push_back(m);
                     hadVehicle = true;
                     seenSpace = seenSpace + getSpaceTillLastStanding(approachedLane, foundStopped);// - approachedLane->getVehLenSum() + approachedLane->getLength();
+                    if(last->myHaveToWaitOnNextLink) {
+                        foundStopped = true;
+                    }
                 } else {
 //                    seenSpace = seenSpace - approachedLane->getVehLenSum() + approachedLane->getLength();
 //                    availableSpace.push_back(seenSpace);
@@ -917,6 +926,9 @@ MSVehicle::checkRewindLinkLanes(SUMOReal lengthsInFront) throw() {
                         seenSpace = availableSpace.back();
                     }
                 }
+                    if(last->myHaveToWaitOnNextLink) {
+                        foundStopped = true;
+                    }
                 hadVehicle = true;
             }
             hadVehicles.push_back(hadVehicle);
@@ -997,7 +1009,7 @@ MSVehicle::vsafeCriticalCont(SUMOTime t, SUMOReal boundVSafe) {
     // compute the way the vehicle would drive if it would use the current speed and then
     //  decelerate
     SUMOReal maxV = cfModel.maxNextSpeed(myState.mySpeed);
-    SUMOReal dist = SPEED2DIST(maxV) + cfModel.brakeGap(maxV);//myState.mySpeed);
+    SUMOReal dist = SPEED2DIST(maxV) + cfModel.brakeGap(maxV);
     SUMOReal vLinkPass = boundVSafe;
     SUMOReal vLinkWait = vLinkPass;
     const std::vector<MSLane*> &bestLaneConts = getBestLanesContinuation();
@@ -1053,7 +1065,7 @@ MSVehicle::vsafeCriticalCont(SUMOTime t, SUMOReal boundVSafe) {
         view++;
 #endif
 
-        // compute the velocity to use when the link is not blocked by oter vehicles
+        // compute the velocity to use when the link is not blocked by other vehicles
         //  the vehicle shall be not faster when reaching the next lane than allowed
         SUMOReal vmaxNextLane = MAX2(cfModel.ffeV(this, seen, nextLane->getMaxSpeed()), nextLane->getMaxSpeed());
 
