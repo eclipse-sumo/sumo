@@ -126,287 +126,114 @@ GUISelectedStorage::~GUISelectedStorage() throw() {}
 
 
 bool
-GUISelectedStorage::isSelected(int type, GLuint id) throw(ProcessError) {
-    if (type==-1) {
-        GUIGlObject *object =
-            GUIGlObjectStorage::gIDStorage.getObjectBlocking(id);
-        if (object!=0) {
-            type = object->getType();
-            GUIGlObjectStorage::gIDStorage.unblockObject(id);
-        } else {
-            throw ProcessError("Unkown object in GUISelectedStorage::isSelected (id=" + toString(id) + ").");
-        }
-    }
+GUISelectedStorage::isSelected(GUIGlObjectType type, GLuint id) throw(ProcessError) {
     switch (type) {
-    case GLO_NETWORK:
-        return false;
-    case GLO_VEHICLE:
-        return mySelectedVehicles.isSelected(id);
-    case GLO_TLLOGIC:
-        return mySelectedTLLogics.isSelected(id);
-    case GLO_DETECTOR:
-        return mySelectedDetectors.isSelected(id);
-    case GLO_LANE:
-        return mySelectedLanes.isSelected(id);
-    case GLO_EDGE:
-        return mySelectedEdges.isSelected(id);
-    case GLO_JUNCTION:
-        return mySelectedJunctions.isSelected(id);
-    case GLO_TRIGGER:
-        return mySelectedTriggers.isSelected(id);
-    case GLO_SHAPE:
-        return mySelectedShapes.isSelected(id);
-    case GLO_ADDITIONAL:
-        return
-            mySelectedTriggers.isSelected(id)
-            | mySelectedDetectors.isSelected(id);
-    default:
-        throw ProcessError("Unkown object type in GUISelectedStorage::isSelected (type=" + toString(type) + ").");
+        case GLO_NETWORK:
+            return false;
+        case GLO_ADDITIONAL:
+            return isSelected(GLO_TRIGGER, id) || isSelected(GLO_DETECTOR, id);
+        default:
+            return mySelections[type].isSelected(id);
     }
 }
 
 
 void
-GUISelectedStorage::select(int type, GLuint id, bool update) throw(ProcessError) {
-    if (type==-1) {
-        GUIGlObject *object =
-            GUIGlObjectStorage::gIDStorage.getObjectBlocking(id);
-        if (object!=0) {
-            type = object->getType();
-            GUIGlObjectStorage::gIDStorage.unblockObject(id);
-        } else {
-            throw ProcessError("Unkown object in GUISelectedStorage::select (id=" + toString(id) + ").");
-        }
+GUISelectedStorage::select(GLuint id, bool update) throw(ProcessError) {
+    GUIGlObject *object = GUIGlObjectStorage::gIDStorage.getObjectBlocking(id);
+    if (!object) {
+        throw ProcessError("Unkown object in GUISelectedStorage::deselect (id=" + toString(id) + ").");
     }
-    switch (type) {
-    case GLO_VEHICLE:
-        mySelectedVehicles.select(id);
-        break;
-    case GLO_TLLOGIC:
-        mySelectedTLLogics.select(id);
-        break;
-    case GLO_DETECTOR:
-        mySelectedDetectors.select(id);
-        break;
-    case GLO_LANE:
-        mySelectedLanes.select(id);
-        break;
-    case GLO_EDGE:
-        mySelectedEdges.select(id);
-        break;
-    case GLO_JUNCTION:
-        mySelectedJunctions.select(id);
-        break;
-    case GLO_TRIGGER:
-        mySelectedTriggers.select(id);
-        break;
-    case GLO_SHAPE:
-        mySelectedShapes.select(id);
-        break;
-    default:
-        throw ProcessError("Unkown object type in GUISelectedStorage::select (type=" + toString(type) + ").");
-    }
+    GUIGlObjectType type = object->getType();
+    GUIGlObjectStorage::gIDStorage.unblockObject(id);
+
+    mySelections[type].select(id);
     std::vector<GLuint>::iterator i = find(mySelected.begin(), mySelected.end(), id);
     if (i==mySelected.end()) {
         mySelected.push_back(id);
     }
-    if (update&&my2Update!=0) {
-        my2Update->rebuildList();
-        my2Update->update();
+    if (update && myUpdateTarget) {
+        myUpdateTarget->selectionUpdated();
     }
 }
 
 
 void
-GUISelectedStorage::deselect(int type, GLuint id) throw(ProcessError) {
-    if (type==-1) {
-        GUIGlObject *object =
-            GUIGlObjectStorage::gIDStorage.getObjectBlocking(id);
-        if (object!=0) {
-            type = object->getType();
-            GUIGlObjectStorage::gIDStorage.unblockObject(id);
-        } else {
-            throw ProcessError("Unkown object in GUISelectedStorage::deselect (id=" + toString(id) + ").");
-        }
+GUISelectedStorage::deselect(GLuint id) throw(ProcessError) {
+    GUIGlObject *object = GUIGlObjectStorage::gIDStorage.getObjectBlocking(id);
+    if (!object) {
+        throw ProcessError("Unkown object in GUISelectedStorage::deselect (id=" + toString(id) + ").");
     }
-    switch (type) {
-    case GLO_VEHICLE:
-        mySelectedVehicles.deselect(id);
-        break;
-    case GLO_TLLOGIC:
-        mySelectedTLLogics.deselect(id);
-        break;
-    case GLO_DETECTOR:
-        mySelectedDetectors.deselect(id);
-        break;
-    case GLO_LANE:
-        mySelectedLanes.deselect(id);
-        break;
-    case GLO_EDGE:
-        mySelectedEdges.deselect(id);
-        break;
-    case GLO_JUNCTION:
-        mySelectedJunctions.deselect(id);
-        break;
-    case GLO_TRIGGER:
-        mySelectedTriggers.deselect(id);
-        break;
-    case GLO_SHAPE:
-        mySelectedShapes.deselect(id);
-        break;
-    default:
-        throw ProcessError("Unkown object type in GUISelectedStorage::deselect (type=" + toString(type) + ").");
-    }
+    GUIGlObjectType type = object->getType();
+    GUIGlObjectStorage::gIDStorage.unblockObject(id);
+
+    mySelections[type].deselect(id);
     std::vector<GLuint>::iterator i = find(mySelected.begin(), mySelected.end(), id);
     if (i!=mySelected.end()) {
         mySelected.erase(i);
     }
-    if (my2Update!=0) {
-        my2Update->rebuildList();
-        my2Update->update();
+    if (myUpdateTarget) {
+        myUpdateTarget->selectionUpdated();
     }
 }
 
 
 void
 GUISelectedStorage::toggleSelection(GLuint id) throw(ProcessError) {
-    GUIGlObject *o =
-        GUIGlObjectStorage::gIDStorage.getObjectBlocking(id);
-    if (o==0) {
+    GUIGlObject *object = GUIGlObjectStorage::gIDStorage.getObjectBlocking(id);
+    if (!object) {
         throw ProcessError("Unkown object in GUISelectedStorage::toggleSelection (id=" + toString(id) + ").");
     }
-    bool selected = isSelected(-1, id);
+
+    bool selected = isSelected(object->getType(), id);
     if (!selected) {
-        select(o->getType(), id);
+        select(id);
     } else {
-        deselect(o->getType(), id);
+        deselect(id);
     }
     GUIGlObjectStorage::gIDStorage.unblockObject(id);
 }
 
 
 const std::vector<GLuint> &
-GUISelectedStorage::getSelected() const throw() {
+GUISelectedStorage::getSelected() const {
     return mySelected;
 }
 
 
 const std::vector<GLuint> &
-GUISelectedStorage::getSelected(GUIGlObjectType type) const throw(ProcessError) {
-    switch (type) {
-    case GLO_VEHICLE:
-        return mySelectedVehicles.getSelected();
-    case GLO_TLLOGIC:
-        return mySelectedTLLogics.getSelected();
-    case GLO_DETECTOR:
-        return mySelectedDetectors.getSelected();
-    case GLO_LANE:
-        return mySelectedLanes.getSelected();
-    case GLO_EDGE:
-        return mySelectedEdges.getSelected();
-    case GLO_JUNCTION:
-        return mySelectedJunctions.getSelected();
-    case GLO_TRIGGER:
-        return mySelectedTriggers.getSelected();
-    case GLO_SHAPE:
-        return mySelectedShapes.getSelected();
-    default:
-        throw ProcessError("Unkown object type in GUISelectedStorage::getSelected (type=" + toString(type) + ").");
-    }
+GUISelectedStorage::getSelected(GUIGlObjectType type) {
+    return mySelections[type].getSelected();
 }
 
 
 void
 GUISelectedStorage::clear() throw() {
-    mySelectedVehicles.clear();
-    mySelectedTLLogics.clear();
-    mySelectedDetectors.clear();
-    mySelectedLanes.clear();
-    mySelectedEdges.clear();
-    mySelectedJunctions.clear();
-    mySelectedTriggers.clear();
-    mySelectedShapes.clear();
-    mySelected.clear();
-    if (my2Update!=0) {
-        my2Update->rebuildList();
-        my2Update->update();
+    for (std::map<GUIGlObjectType, SingleTypeSelections>::iterator it = mySelections.begin(); it != mySelections.end(); it++) {
+        it->second.clear();
+    }
+    if (myUpdateTarget) {
+        myUpdateTarget->selectionUpdated();
     }
 }
 
 
 void
-GUISelectedStorage::load(int type, const std::string &filename) throw(IOError) {
-    if (type!=-1) {
-        switch (type) {
-        case GLO_VEHICLE:
-            mySelectedVehicles.load(filename);
-            break;
-        case GLO_TLLOGIC:
-            mySelectedTLLogics.load(filename);
-            break;
-        case GLO_DETECTOR:
-            mySelectedDetectors.load(filename);
-            break;
-        case GLO_LANE:
-            mySelectedLanes.load(filename);
-            break;
-        case GLO_EDGE:
-            mySelectedEdges.load(filename);
-            break;
-        case GLO_JUNCTION:
-            mySelectedJunctions.load(filename);
-            break;
-        case GLO_TRIGGER:
-            mySelectedTriggers.load(filename);
-            break;
-        case GLO_SHAPE:
-            mySelectedShapes.load(filename);
-            break;
-        default:
-            throw ProcessError("Unkown object type in GUISelectedStorage::load (type=" + toString(type) + ").");
-        }
-        return;
-    }
-
+GUISelectedStorage::load(GUIGlObjectType type, const std::string &filename) throw(IOError) {
+    mySelections[type].load(filename);
 }
 
 
 void
-GUISelectedStorage::save(int type, const std::string &filename) throw(IOError) {
-    if (type!=-1) {
-        switch (type) {
-        case GLO_VEHICLE:
-            mySelectedVehicles.save(filename);
-            break;
-        case GLO_TLLOGIC:
-            mySelectedTLLogics.save(filename);
-            break;
-        case GLO_DETECTOR:
-            mySelectedDetectors.save(filename);
-            break;
-        case GLO_LANE:
-            mySelectedLanes.save(filename);
-            break;
-        case GLO_EDGE:
-            mySelectedEdges.save(filename);
-            break;
-        case GLO_JUNCTION:
-            mySelectedJunctions.save(filename);
-            break;
-        case GLO_TRIGGER:
-            mySelectedTriggers.save(filename);
-            break;
-        case GLO_SHAPE:
-            mySelectedShapes.save(filename);
-            break;
-        default:
-            throw ProcessError("Unkown object type in GUISelectedStorage::load (type=" + toString(type) + ").");
-        }
-        return;
-    }
-    // ok, save all
+GUISelectedStorage::save(GUIGlObjectType type, const std::string &filename) throw(IOError) {
+    mySelections[type].save(filename);
+}
+
+
+void
+GUISelectedStorage::save(const std::string &filename) const throw(IOError) {
     OutputDevice &dev = OutputDevice::getDevice(filename);
-    for (std::vector<GLuint>::iterator i=mySelected.begin(); i!=mySelected.end(); ++i) {
+    for (std::vector<GLuint>::const_iterator i=mySelected.begin(); i!=mySelected.end(); ++i) {
         GUIGlObject *object = GUIGlObjectStorage::gIDStorage.getObjectBlocking(*i);
         if (object!=0) {
             std::string name = object->getFullName();
@@ -419,17 +246,14 @@ GUISelectedStorage::save(int type, const std::string &filename) throw(IOError) {
 
 
 void
-GUISelectedStorage::add2Update(GUIDialog_GLChosenEditor *ed) throw() {
-    my2Update = ed;
+GUISelectedStorage::add2Update(UpdateTarget *updateTarget) throw() {
+    myUpdateTarget = updateTarget;
 }
 
 
 void
-GUISelectedStorage::remove2Update(GUIDialog_GLChosenEditor *) throw() {
-    my2Update = 0;
+GUISelectedStorage::remove2Update() throw() {
+    myUpdateTarget = 0;
 }
 
-
-
 /****************************************************************************/
-

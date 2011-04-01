@@ -71,9 +71,11 @@ SUMOReal GUILaneWrapper::myAllMaxSpeed = 0;
 // method definitions
 // ===========================================================================
 GUILaneWrapper::GUILaneWrapper(GUIGlObjectStorage &idStorage,
-                               MSLane &lane, const Position2DVector &shape) throw()
-        : GUIGlObject(idStorage, "lane:"+lane.getID()),
-        myLane(lane), myShape(shape) {
+                               MSLane &lane, const Position2DVector &shape) throw() : 
+    GUIGlObject(idStorage, GLO_LANE, lane.getID()),
+    myLane(lane), 
+    myShape(shape) 
+{
     SUMOReal x1 = shape[0].x();
     SUMOReal y1 = shape[0].y();
     SUMOReal x2 = shape[-1].x();
@@ -537,12 +539,6 @@ GUILaneWrapper::getParameterWindow(GUIMainWindow &app,
     // close building
     ret->closeBuilding();
     return ret;
-}
-
-
-const std::string &
-GUILaneWrapper::getMicrosimID() const throw() {
-    return myLane.getID();
 }
 
 

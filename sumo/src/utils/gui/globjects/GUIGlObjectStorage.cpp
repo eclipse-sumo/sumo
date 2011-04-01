@@ -59,6 +59,7 @@ GUIGlObjectStorage::registerObject(GUIGlObject *object) throw() {
     myLock.lock();
     object->setGlID(myAktID);
     myMap[myAktID++] = object;
+    myFullNameMap[object->getFullName()] = object;
     myLock.unlock();
 }
 
@@ -94,6 +95,20 @@ GUIGlObjectStorage::getObjectBlocking(GLuint id) throw() {
 }
 
 
+GUIGlObject *
+GUIGlObjectStorage::getObjectBlocking(const std::string &fullName) throw() {
+    myLock.lock();
+    if (myFullNameMap.count(fullName)) {
+        GLuint id = myFullNameMap[fullName]->getGlID();
+        myLock.unlock();
+        return getObjectBlocking(id);
+    } else {
+        myLock.unlock();
+        return 0;
+    }
+}
+
+
 bool
 GUIGlObjectStorage::remove(GLuint id) throw() {
     myLock.lock();
@@ -102,11 +117,13 @@ GUIGlObjectStorage::remove(GLuint id) throw() {
         i = myBlocked.find(id);
         assert(i!=myBlocked.end());
         GUIGlObject *o = (*i).second;
+        myFullNameMap.erase(o->getFullName());
         myBlocked.erase(id);
         my2Delete[id] = o;
         myLock.unlock();
         return false;
     } else {
+        myFullNameMap.erase(i->second->getFullName());
         myMap.erase(id);
         myLock.unlock();
         return true;

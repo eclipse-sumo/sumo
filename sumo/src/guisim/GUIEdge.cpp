@@ -65,7 +65,7 @@
 GUIEdge::GUIEdge(const std::string &id, unsigned int numericalID,
                  GUIGlObjectStorage &idStorage) throw()
         : MSEdge(id, numericalID),
-        GUIGlObject(idStorage, "edge:" + id) {}
+        GUIGlObject(idStorage, GLO_EDGE, id) {}
 
 
 GUIEdge::~GUIEdge() throw() {
@@ -189,12 +189,6 @@ GUIEdge::getParameterWindow(GUIMainWindow &app,
 #endif
     UNUSED_PARAMETER(&app);
     return ret;
-}
-
-
-const std::string &
-GUIEdge::getMicrosimID() const throw() {
-    return getID();
 }
 
 

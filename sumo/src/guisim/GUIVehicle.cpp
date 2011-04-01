@@ -211,7 +211,7 @@ GUIVehicle::GUIVehicle(GUIGlObjectStorage &idStorage,
                        const MSVehicleType* type,
                        int vehicleIndex) throw(ProcessError)
         : MSVehicle(pars, route, type, vehicleIndex),
-        GUIGlObject(idStorage, "vehicle:"+pars->id) {
+        GUIGlObject(idStorage, GLO_VEHICLE, pars->id) {
     // as it is possible to show all vehicle routes, we have to store them... (bug [ 2519761 ])
     myRoutes = MSDevice_Vehroutes::buildVehicleDevices(*this, myDevices, 5);
     myMoveReminders.push_back(std::make_pair(myRoutes, 0.));
@@ -312,12 +312,6 @@ GUIVehicle::getParameterWindow(GUIMainWindow &app,
 }
 
 
-const std::string &
-GUIVehicle::getMicrosimID() const throw() {
-    return getID();
-}
-
-
 Boundary
 GUIVehicle::getCenteringBoundary() const throw() {
     Boundary b;
@@ -325,14 +319,6 @@ GUIVehicle::getCenteringBoundary() const throw() {
     b.grow(20);
     return b;
 }
-
-
-
-
-
-
-
-
 
 
 inline void

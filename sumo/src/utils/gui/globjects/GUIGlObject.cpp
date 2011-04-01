@@ -45,19 +45,46 @@
 #include <foreign/nvwa/debug_new.h>
 #endif // CHECK_MEMORY_LEAKS
 
+// ===========================================================================
+// static members
+// ===========================================================================
+StringBijection<GUIGlObjectType>::Entry GUIGlObject::GUIGlObjectTypeNamesInitializer[] = {
+    {"network",       GLO_NETWORK},
+    {"edge",          GLO_EDGE},
+    {"lane",          GLO_LANE},
+    {"junction",      GLO_JUNCTION},
+    {"tlLogic",       GLO_TLLOGIC},
+    {"detector",      GLO_DETECTOR},
+    {"trigger",       GLO_TRIGGER},
+    {"shape",         GLO_SHAPE},
+    {"vehicle",       GLO_VEHICLE},
+    {"additional",    GLO_ADDITIONAL},
+    {"undefined",     GLO_MAX}
+};
+
+
+StringBijection<GUIGlObjectType> GUIGlObject::TypeNames(
+        GUIGlObjectTypeNamesInitializer, GLO_MAX);
 
 // ===========================================================================
 // method definitions
 // ===========================================================================
-GUIGlObject::GUIGlObject(GUIGlObjectStorage &idStorage, std::string fullName) throw()
-        : myFullName(fullName) {
+GUIGlObject::GUIGlObject(GUIGlObjectStorage &idStorage, GUIGlObjectType type, const std::string& microsimID) : 
+    myGLObjectType(type),
+    myMicrosimID(microsimID),
+    myPrefix(TypeNames.getString(type)),
+    myFullName("<not yet defined")
+{
     idStorage.registerObject(this);
 }
 
 
-GUIGlObject::GUIGlObject(std::string fullName, GLuint /*glID*/) throw()
-        : myFullName(fullName) {
-}
+GUIGlObject::GUIGlObject(const std::string& prefix, GUIGlObjectType type, const std::string& microsimID) :
+    myGLObjectType(type),
+    myMicrosimID(microsimID),
+    myPrefix(prefix),
+    myFullName("<not yet defined")
+{}
 
 
 
@@ -71,6 +98,7 @@ GUIGlObject::~GUIGlObject() throw() {
 void
 GUIGlObject::setGlID(GLuint id) throw() {
     myGlID = id;
+    myFullName = createFullName();
 }
 
 
@@ -159,8 +187,16 @@ GUIGlObject::removeParameterTable(GUIParameterTableWindow *t) throw() {
 }
 
 
+void 
+GUIGlObject::setPrefix(const std::string& prefix) {
+    myPrefix = prefix;
+    myFullName = createFullName();
+}
 
-
+std::string 
+GUIGlObject::createFullName() const {
+    return myPrefix + ":" + myMicrosimID;
+}
 
 /****************************************************************************/
 

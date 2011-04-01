@@ -45,25 +45,16 @@
 class GUIGlObject_AbstractAdd :
             public GUIGlObject {
 public:
-    GUIGlObject_AbstractAdd(GUIGlObjectStorage &idStorage,
-                            std::string fullName, GUIGlObjectType type) throw();
+    GUIGlObject_AbstractAdd(
+            GUIGlObjectStorage &idStorage, 
+            const std::string& prefix, 
+            GUIGlObjectType type,
+            const std::string& id);
 
     /// Constructor for objects joining gl-objects
-    GUIGlObject_AbstractAdd(std::string fullName, GLuint glID, GUIGlObjectType type) throw();
+    GUIGlObject_AbstractAdd(const std::string& prefix, GUIGlObjectType type, const std::string& id);
 
     ~GUIGlObject_AbstractAdd() throw();
-
-
-    /// @name inherited from GUIGlObject
-    /// @{
-
-    /** @brief Returns the type of the object as coded in GUIGlObjectType
-     * @return The type of the object
-     * @see GUIGlObjectType
-     */
-    GUIGlObjectType getType() const throw();
-    /// @}
-
 
     void drawGLName(const Position2D &p, const std::string &id, SUMOReal nameScale) const;
 
@@ -80,9 +71,6 @@ public:
     /// Returns the list of gl-ids of all additional objects
     static std::vector<GLuint> getIDList();
 
-protected:
-    /// The object's type
-    GUIGlObjectType myGlType;
 
 protected:
     /// Map from names of loaded additional objects to the objects themselves

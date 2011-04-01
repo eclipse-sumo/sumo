@@ -235,7 +235,7 @@ GUITriggeredRerouter::GUITriggeredRerouter(GUIGlObjectStorage &idStorage,
         const std::vector<MSEdge*> &edges,
         SUMOReal prob, const std::string &aXMLFilename, bool off)
         : MSTriggeredRerouter(id, edges, prob, aXMLFilename, off),
-        GUIGlObject_AbstractAdd(idStorage, "rerouter:" + id, GLO_TRIGGER) {
+        GUIGlObject_AbstractAdd(idStorage, "rerouter", GLO_TRIGGER, id) {
     size_t k;
     size_t no = 0;
     for (k=0; k<edges.size(); k++) {
@@ -281,12 +281,6 @@ GUIParameterTableWindow *
 GUITriggeredRerouter::getParameterWindow(GUIMainWindow &,
         GUISUMOAbstractView &) throw() {
     return 0;
-}
-
-
-const std::string &
-GUITriggeredRerouter::getMicrosimID() const throw() {
-    return getID();
 }
 
 

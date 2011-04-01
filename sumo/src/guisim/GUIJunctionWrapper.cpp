@@ -54,7 +54,7 @@
 // ===========================================================================
 GUIJunctionWrapper::GUIJunctionWrapper(GUIGlObjectStorage &idStorage,
                                        MSJunction &junction) throw()
-        : GUIGlObject(idStorage, "junction:"+junction.getID()),
+        : GUIGlObject(idStorage, GLO_JUNCTION, junction.getID()),
         myJunction(junction) {
     if (myJunction.getShape().size()==0) {
         Position2D pos = myJunction.getPosition();
@@ -86,12 +86,6 @@ GUIParameterTableWindow *
 GUIJunctionWrapper::getParameterWindow(GUIMainWindow &/*app*/,
                                        GUISUMOAbstractView &) throw() {
     return 0;
-}
-
-
-const std::string &
-GUIJunctionWrapper::getMicrosimID() const throw() {
-    return myJunction.getID();
 }
 
 

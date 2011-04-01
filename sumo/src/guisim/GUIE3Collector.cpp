@@ -53,7 +53,7 @@
  * ----------------------------------------------------------------------- */
 GUIE3Collector::MyWrapper::MyWrapper(GUIE3Collector &detector,
                                      GUIGlObjectStorage &idStorage) throw()
-        : GUIDetectorWrapper(idStorage, "E3 detector:"+detector.getID()),
+        : GUIDetectorWrapper(idStorage, "E3 detector", detector.getID()),
         myDetector(detector) {
     const CrossSectionVector &entries = detector.getEntries();
     const CrossSectionVector &exits = detector.getExits();
@@ -103,12 +103,6 @@ GUIE3Collector::MyWrapper::getParameterWindow(GUIMainWindow &app,
     // close building
     ret->closeBuilding();
     return ret;
-}
-
-
-const std::string &
-GUIE3Collector::MyWrapper::getMicrosimID() const throw() {
-    return myDetector.getID();
 }
 
 

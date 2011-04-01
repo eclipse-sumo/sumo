@@ -122,10 +122,10 @@ GUITrafficLightLogicWrapper::GUITrafficLightLogicWrapperPopupMenu::onCmdSwitchTL
  * GUITrafficLightLogicWrapper - methods
  * ----------------------------------------------------------------------- */
 GUITrafficLightLogicWrapper::GUITrafficLightLogicWrapper(
-    GUIGlObjectStorage &idStorage,
-    MSTLLogicControl &control, MSTrafficLightLogic &tll) throw()
-        : GUIGlObject(idStorage, "tl-logic:"+tll.getID()),
-        myTLLogicControl(control), myTLLogic(tll) {}
+        GUIGlObjectStorage &idStorage,
+        MSTLLogicControl &control, MSTrafficLightLogic &tll) throw() : 
+    GUIGlObject(idStorage, GLO_TLLOGIC, tll.getID()),
+    myTLLogicControl(control), myTLLogic(tll) {}
 
 
 GUITrafficLightLogicWrapper::~GUITrafficLightLogicWrapper() throw() {}
@@ -190,12 +190,6 @@ GUIParameterTableWindow *
 GUITrafficLightLogicWrapper::getParameterWindow(GUIMainWindow &,
         GUISUMOAbstractView &) throw() {
     return 0;
-}
-
-
-const std::string &
-GUITrafficLightLogicWrapper::getMicrosimID() const throw() {
-    return myTLLogic.getID();
 }
 
 

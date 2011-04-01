@@ -115,7 +115,7 @@ GUIInductLoop::collectVehiclesOnDet(SUMOTime t) const throw() {
 GUIInductLoop::MyWrapper::MyWrapper(GUIInductLoop &detector,
                                     GUIGlObjectStorage &idStorage,
                                     GUILaneWrapper &wrapper, SUMOReal pos) throw()
-        : GUIDetectorWrapper(idStorage, "induct loop:"+detector.getID()),
+        : GUIDetectorWrapper(idStorage, "induct loop", detector.getID()),
         myDetector(detector), myPosition(pos) {
     const Position2DVector &v = wrapper.getShape();
     myFGPosition = v.positionAtLengthPosition(pos);
@@ -162,13 +162,6 @@ GUIInductLoop::MyWrapper::getParameterWindow(GUIMainWindow &app,
     ret->closeBuilding();
     return ret;
 }
-
-
-const std::string &
-GUIInductLoop::MyWrapper::getMicrosimID() const throw() {
-    return myDetector.getID();
-}
-
 
 
 void

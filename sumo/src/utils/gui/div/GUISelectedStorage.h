@@ -31,7 +31,9 @@
 
 #include <vector>
 #include <string>
+#include <map>
 #include <fstream>
+#include <fx.h>
 #include <utils/common/UtilExceptions.h>
 #include <utils/gui/globjects/GUIGlObjectTypes.h>
 
@@ -45,7 +47,6 @@
 // ===========================================================================
 // class declarations
 // ===========================================================================
-class GUIDialog_GLChosenEditor;
 class OutputDevice;
 
 
@@ -68,15 +69,23 @@ class OutputDevice;
  *  parameter, but an integer. This is done to perform the action on objects with
  *  a yet unknown type - in this case, the type is obtained internally.
  *
- * Besides this, the class forces an active view of selected items (GUIDialog_GLChosenEditor)
- *  to refresh its contents if an item is added/removed. For this, a
- *  GUIDialog_GLChosenEditor has to make itself visible to GUISelectedStorage.
+ * Besides this, the class forces an active view of selected items 
+ *  to refresh its contents if an item is added/removed. For this, an
+ *  FXWindow has to make itself visible to GUISelectedStorage.
  *
  * @see GUIGlObject
  * @see GUIGlObjectType
  * @see GUIDialog_GLChosenEditor
  */
 class GUISelectedStorage {
+
+public:
+    class UpdateTarget {
+    public:
+        virtual ~UpdateTarget() {};
+        virtual void selectionUpdated() = 0;
+    };
+
 public:
     /// @brief Constructor
     GUISelectedStorage() throw();
@@ -102,21 +111,17 @@ public:
      * @see GUIGlObjectType
      * @see SingleTypeSelections::isSelected
      */
-    bool isSelected(int type, GLuint id) throw(ProcessError);
+    bool isSelected(GUIGlObjectType type, GLuint id) throw(ProcessError);
 
 
-    /** @brief Adds the object with the given type and id to the list of selected objects
+    /** @brief Adds the object with the given id
      *
-     * If the type is ==-1, it is determined, first. If it could not be obtained,
-     *  or if the type is not covered by any selection container, a ProcessError is thrown.
-     *
-     * Otherwise, the id of the object is added to the sub-container that is
+     * The id of the object is added to the sub-container that is
      *  responsible for objects of the determined type using SingleTypeSelections::select
      *  and to the global list of chosen items if it is not already there.
      *
-     * The optionally listening GUIDialog_GLChosenEditor is informed about the change.
+     * The optionally listening window is informed about the change.
      *
-     * @param[in] type The type of the object (GUIGlObjectType or -1)
      * @param[in] id The id of the object
      * @exception ProcessError If the object is not known or the type is not covered by a sub-container
      * @see GUIGlObject
@@ -124,21 +129,17 @@ public:
      * @see SingleTypeSelections::select
      * @see GUIDialog_GLChosenEditor
      */
-    void select(int type, GLuint id, bool update=true) throw(ProcessError);
+    void select(GLuint id, bool update=true) throw(ProcessError);
 
 
-    /** @brief Deselects the object with the given type and id
+    /** @brief Deselects the object with the given id
      *
-     * If the type is ==-1, it is determined, first. If it could not be obtained,
-     *  or if the type is not covered by any selection container, a ProcessError is thrown.
-     *
-     * Otherwise, the id of the object is removed from the sub-container that is
+     * The id of the object is removed from the sub-container that is
      *  responsible for objects of the determined type using SingleTypeSelections::deselect
      *  and from the global list of chosen items if it is there.
      *
-     * The optionally listening GUIDialog_GLChosenEditor is informed about the change.
+     * The optionally listening UpdateTarget is informed about the change.
      *
-     * @param[in] type The type of the object (GUIGlObjectType or -1)
      * @param[in] id The id of the object
      * @exception ProcessError If the object is not known or the type is not covered by a sub-container
      * @see GUIGlObject
@@ -146,7 +147,7 @@ public:
      * @see SingleTypeSelections::deselect
      * @see GUIDialog_GLChosenEditor
      */
-    void deselect(int type, GLuint id) throw(ProcessError);
+    void deselect(GLuint id) throw(ProcessError);
 
 
     /** @brief Toggles selection of an object
@@ -168,11 +169,10 @@ public:
 
     /** @brief Returns the list of ids of all selected objects
      *
-     * "mySelected" is returned
      *
      * @return A list containing the ids of all selected objects
      */
-    const std::vector<GLuint> &getSelected() const throw();
+    const std::vector<GLuint> &getSelected() const; 
 
 
     /**  @brief Returns the list of ids of all selected objects' of a certain type
@@ -187,14 +187,14 @@ public:
      * @exception ProcessError If the type is not covered by a sub-container
      * @see SingleTypeSelections::getSelected
      */
-    const std::vector<GLuint> &getSelected(GUIGlObjectType type) const throw(ProcessError);
+    const std::vector<GLuint> &getSelected(GUIGlObjectType type);
 
 
     /** @brief Clears the list of selected objects
      *
      * Clears the global container and all sub-containers via SingleTypeSelections::clear.
      *
-     * The optionally listening GUIDialog_GLChosenEditor is informed about the change.
+     * The optionally listening UpdateTarget is informed about the change.
      */
     void clear() throw();
 
@@ -207,7 +207,7 @@ public:
      * @todo Recheck: is this used(?)
      * @todo Recheck usage of IOError
      */
-    void load(int type, const std::string &filename) throw(IOError);
+    void load(GUIGlObjectType type, const std::string &filename) throw(IOError);
 
 
     /** @brief Saves a selection list
@@ -215,29 +215,28 @@ public:
      * @param[in] type The type of the objects to save
      * @param[in] filename The name of the file to save the list of selected objects into
      * @exception IOError recheck!!!
-     * @todo Recheck: is this used(?)
      * @todo Recheck usage of IOError
      */
-    void save(int type, const std::string &filename) throw(IOError);
+    void save(GUIGlObjectType type, const std::string &filename) throw(IOError);
 
-
-    /** @brief Adds a selected-dialog to be updated
+    /** @brief Saves the combined selection of all types
      *
-     * The editor pointer is stored in my2Update.
-     *
-     * @param[in] ed The selected objects editor
+     * @param[in] filename The name of the file to save the list of selected objects into
+     * @exception IOError recheck!!!
+     * @todo Recheck usage of IOError
      */
-    void add2Update(GUIDialog_GLChosenEditor *ed) throw();
+    void save(const std::string &filename) const throw(IOError);
 
 
-    /** @brief Removes a selected-dialog to be updated
-     *
-     * my2Update is set to 0.
-     *
-     * @param[in] ed The selected objects editor
+    /** @brief Adds a dialog to be updated
+     * @param[in] updateTarget the callback for selection changes
      */
-    void remove2Update(GUIDialog_GLChosenEditor *ed) throw();
+    void add2Update(UpdateTarget *updateTarget) throw();
 
+
+    /** @brief Removes the dialog to be updated
+     */
+    void remove2Update() throw();
 
 
     /**
@@ -307,35 +306,13 @@ public:
 
 
 private:
-    /// @brief List of selected vehicles
-    SingleTypeSelections mySelectedVehicles;
-
-    /// @brief List of selected lanes
-    SingleTypeSelections mySelectedLanes;
-
-    /// @brief List of selected edges
-    SingleTypeSelections mySelectedEdges;
-
-    /// @brief List of selected junctions
-    SingleTypeSelections mySelectedJunctions;
-
-    /// @brief List of selected detectors
-    SingleTypeSelections mySelectedDetectors;
-
-    /// @brief List of selected tl-logics
-    SingleTypeSelections mySelectedTLLogics;
-
-    /// @brief List of selected triggers
-    SingleTypeSelections mySelectedTriggers;
-
-    /// @brief List of selected shapes
-    SingleTypeSelections mySelectedShapes;
+    std::map<GUIGlObjectType, SingleTypeSelections> mySelections;
 
     /// @brief List of selected objects
     std::vector<GLuint> mySelected;
 
     /// @brief The dialog to be updated
-    GUIDialog_GLChosenEditor *my2Update;
+    UpdateTarget *myUpdateTarget;
 
 };
 

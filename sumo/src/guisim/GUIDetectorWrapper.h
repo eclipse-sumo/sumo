@@ -44,15 +44,14 @@
  * necessary. These must be implemented in class erived from this one,
  * according to the wrapped detectors' properties.
  */
-class GUIDetectorWrapper
-            : public GUIGlObject_AbstractAdd {
+class GUIDetectorWrapper : public GUIGlObject_AbstractAdd {
+
 public:
     /// Constructor
-    GUIDetectorWrapper(GUIGlObjectStorage &idStorage,
-                       std::string id) throw();
+    GUIDetectorWrapper(GUIGlObjectStorage &idStorage, const std::string& prefix, const std::string& id);  
 
-    /// Constructor for collectors over somthing
-    GUIDetectorWrapper(std::string id, GLuint glID) throw();
+    /// Constructor for collectors over something
+    GUIDetectorWrapper(const std::string& prefix, const std::string& id);
 
     /// Destructor
     ~GUIDetectorWrapper() throw();
@@ -73,15 +72,6 @@ public:
                                        GUISUMOAbstractView &parent) throw();
 
 
-    /** @brief Returns the type of the object as coded in GUIGlObjectType
-     *
-     * @return GLO_DETECTOR, subclasses are detectors
-     * @see GUIGlObject::getType
-     * @see GUIGlObjectType
-     */
-    GUIGlObjectType getType() const throw() {
-        return GLO_DETECTOR;
-    }
     /// @}
 
 };

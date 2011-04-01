@@ -33,12 +33,12 @@
 #include <vector>
 #include <fx.h>
 
+#include <utils/gui/div/GUISelectedStorage.h>
 #include <utils/gui/windows/GUIMainWindow.h>
 
 // ===========================================================================
 // class declarations
 // ===========================================================================
-class GUISelectedStorage;
 class GUIMainWindow;
 
 
@@ -52,7 +52,7 @@ class GUIMainWindow;
  * @see GUIMainWindow
  * @see GUISelectedStorage
  */
-class GUIDialog_GLChosenEditor : public FXMainWindow {
+class GUIDialog_GLChosenEditor : public FXMainWindow, public GUISelectedStorage::UpdateTarget {
     // FOX-declarations
     FXDECLARE(GUIDialog_GLChosenEditor)
 
@@ -127,6 +127,9 @@ public:
     long onCmdClose(FXObject*,FXSelector,void*);
     /// @}
 
+
+    // called if the global selection changes
+    void selectionUpdated();
 
 private:
     /// @brief The list that holds the ids

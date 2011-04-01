@@ -128,24 +128,6 @@ public:
         GUIMainWindow &app, GUISUMOAbstractView &parent) throw();
 
 
-    /** @brief Returns the id of the object as known to microsim
-     *
-     * @return An empty string (net has no id)
-     * @see GUIGlObject::getMicrosimID
-     */
-    const std::string &getMicrosimID() const throw();
-
-
-    /** @brief Returns the type of the object as coded in GUIGlObjectType
-     *
-     * @return GLO_NETWORK (is the network)
-     * @see GUIGlObject::getType
-     * @see GUIGlObjectType
-     */
-    GUIGlObjectType getType() const throw() {
-        return GLO_NETWORK;
-    }
-
     /** @brief Returns the boundary to which the view shall be centered in order to show the object
      *
      * @return The boundary the object is within

@@ -117,7 +117,7 @@ GUIDialog_GLChosenEditor::GUIDialog_GLChosenEditor(GUIMainWindow *parent,
 
 
 GUIDialog_GLChosenEditor::~GUIDialog_GLChosenEditor() throw() {
-    myStorage->remove2Update(this);
+    myStorage->remove2Update();
     myParent->removeChild(this);
 }
 
@@ -135,7 +135,13 @@ GUIDialog_GLChosenEditor::rebuildList() throw() {
             GUIGlObjectStorage::gIDStorage.unblockObject(*i);
         }
     }
-    update();
+}
+
+
+void 
+GUIDialog_GLChosenEditor::selectionUpdated() {
+    rebuildList();
+    FXMainWindow::update();
 }
 
 
@@ -169,7 +175,7 @@ GUIDialog_GLChosenEditor::onCmdSave(FXObject*,FXSelector,void*) {
         return 1;
     }
     try {
-        gSelected.save(-1, file.text());
+        gSelected.save(file.text());
     } catch (IOError &e) {
         FXMessageBox::error(this, MBOX_OK, "Storing failed!", e.what());
     }
@@ -189,7 +195,7 @@ GUIDialog_GLChosenEditor::onCmdDeselect(FXObject*,FXSelector,void*) {
     }
     // remove items from list
     for (i=0; i<(FXint) selected.size(); ++i) {
-        gSelected.deselect(-1, selected[i]);
+        gSelected.deselect(selected[i]);
     }
     // rebuild list
     rebuildList();

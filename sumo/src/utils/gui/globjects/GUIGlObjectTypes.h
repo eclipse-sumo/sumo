@@ -5,6 +5,8 @@
 /// @version $Id$
 ///
 // A list of object types which may be displayed within the gui
+// each type has an associated string which will be prefefixed to an object id
+// when constructing the full name
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // Copyright (C) 2001-2011 DLR (http://www.dlr.de/) and contributors
@@ -28,7 +30,6 @@
 #else
 #include <config.h>
 #endif
-
 
 // ===========================================================================
 // definitions
@@ -66,8 +67,6 @@ enum GUIGlObjectType {
 
 };
 
-
 #endif
 
 /****************************************************************************/
-

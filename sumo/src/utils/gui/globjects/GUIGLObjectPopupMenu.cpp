@@ -111,7 +111,7 @@ GUIGLObjectPopupMenu::onCmdShowPars(FXObject*,FXSelector,void*) {
 
 long
 GUIGLObjectPopupMenu::onCmdAddSelected(FXObject*,FXSelector,void*) {
-    gSelected.select(myObject->getType(), myObject->getGlID());
+    gSelected.select(myObject->getGlID());
     myParent->update();
     return 1;
 }
@@ -119,7 +119,7 @@ GUIGLObjectPopupMenu::onCmdAddSelected(FXObject*,FXSelector,void*) {
 
 long
 GUIGLObjectPopupMenu::onCmdRemoveSelected(FXObject*,FXSelector,void*) {
-    gSelected.deselect(myObject->getType(), myObject->getGlID());
+    gSelected.deselect(myObject->getGlID());
     myParent->update();
     return 1;
 }

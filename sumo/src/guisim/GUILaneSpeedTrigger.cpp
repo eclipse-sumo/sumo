@@ -283,7 +283,7 @@ GUILaneSpeedTrigger::GUILaneSpeedTrigger(GUIGlObjectStorage &idStorage,
         const std::string &id,const std::vector<MSLane*> &destLanes,
         const std::string &aXMLFilename) throw(ProcessError)
         : MSLaneSpeedTrigger(id, destLanes, aXMLFilename),
-        GUIGlObject_AbstractAdd(idStorage, "speedtrigger:" + id, GLO_TRIGGER),
+        GUIGlObject_AbstractAdd(idStorage, "speedtrigger", GLO_TRIGGER, id),
         myShowAsKMH(true), myLastValue(-1) {
     myFGPositions.reserve(destLanes.size());
     myFGRotations.reserve(destLanes.size());
@@ -329,12 +329,6 @@ GUILaneSpeedTrigger::getParameterWindow(GUIMainWindow &app,
     // close building
     ret->closeBuilding();
     return ret;
-}
-
-
-const std::string &
-GUILaneSpeedTrigger::getMicrosimID() const throw() {
-    return getID();
 }
 
 

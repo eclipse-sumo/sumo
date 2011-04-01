@@ -88,7 +88,7 @@ GUI_E2_ZS_Collector::buildDetectorWrapper(GUIGlObjectStorage &idStorage,
 GUI_E2_ZS_Collector::MyWrapper::MyWrapper(GUI_E2_ZS_Collector &detector,
         GUIGlObjectStorage &idStorage,
         GUILaneWrapper &wrapper) throw()
-        : GUIDetectorWrapper(idStorage, "E2 detector:"+detector.getID()),
+        : GUIDetectorWrapper(idStorage, "E2 detector", detector.getID()),
         myDetector(detector) {
     myConstruct(detector, wrapper);
 }
@@ -98,7 +98,7 @@ GUI_E2_ZS_Collector::MyWrapper::MyWrapper(
     GUI_E2_ZS_Collector &detector, GUIGlObjectStorage&/*idStorage*/,
     GLuint glID, GUI_E2_ZS_CollectorOverLanes &,
     GUILaneWrapper &wrapper) throw()
-        : GUIDetectorWrapper("E2 detector:"+detector.getID(), glID),
+        : GUIDetectorWrapper("ES detector", detector.getID()),
         myDetector(detector) {
     myConstruct(detector, wrapper);
 }
@@ -170,12 +170,6 @@ GUI_E2_ZS_Collector::MyWrapper::getParameterWindow(GUIMainWindow &app,
     // close building
     ret->closeBuilding();
     return ret;
-}
-
-
-const std::string &
-GUI_E2_ZS_Collector::MyWrapper::getMicrosimID() const throw() {
-    return myDetector.getID();
 }
 
 

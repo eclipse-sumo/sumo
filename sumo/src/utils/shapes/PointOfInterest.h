@@ -42,8 +42,7 @@
  * @class PointOfInterest
  * @brief A point-of-interest (2D)
  */
-class PointOfInterest :
-            public RGBColor, public Position2D, public Named {
+class PointOfInterest : public RGBColor, public Position2D, public Named {
 public:
     /** @brief Constrcutor
      * @param[in] id The id of the POI

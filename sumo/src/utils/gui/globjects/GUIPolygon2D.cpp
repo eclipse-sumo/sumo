@@ -57,7 +57,7 @@ GUIPolygon2D::GUIPolygon2D(GUIGlObjectStorage &idStorage,
                            const Position2DVector &Pos,
                            bool fill) throw()
         : Polygon2D(name, type, color, Pos, fill),
-        GUIGlObject_AbstractAdd(idStorage, "poly:"+name, GLO_SHAPE), myLayer(layer) {}
+        GUIGlObject_AbstractAdd(idStorage, "poly", GLO_SHAPE, name), myLayer(layer) {}
 
 
 GUIPolygon2D::~GUIPolygon2D() throw() {}
@@ -84,12 +84,6 @@ GUIParameterTableWindow *
 GUIPolygon2D::getParameterWindow(GUIMainWindow &,
                                  GUISUMOAbstractView &) throw() {
     return 0;
-}
-
-
-const std::string &
-GUIPolygon2D::getMicrosimID() const throw() {
-    return myName;
 }
 
 

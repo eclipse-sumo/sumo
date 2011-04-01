@@ -100,6 +100,17 @@ public:
     GUIGlObject *getObjectBlocking(GLuint id) throw();
 
 
+    /** @brief Returns the object from the container locking it
+     *
+     * The lock prevents the object from being deleted while it is accessed.
+     * The object is moved from "myMap" to "myBlocked".
+     *
+     * @param[in] id The id of the object to return
+     * @return The object with the given id or 0 if no such object is known
+     */
+    GUIGlObject *getObjectBlocking(const std::string &fullName) throw();
+
+
     /** @brief Removes the named object from this container
      *
      * This function returns true if the object may be deleted;
@@ -153,6 +164,10 @@ private:
 
     /// @brief The known objects which are not accessed currently
     ObjectMap myMap;
+
+    /* @brief The known objects by their fill name (used when loading selection
+     * from file */
+    std::map<std::string, GUIGlObject*>  myFullNameMap;
 
     /// @brief The currently accessed objects
     ObjectMap myBlocked;

@@ -51,9 +51,10 @@ GUIPointOfInterest::GUIPointOfInterest(GUIGlObjectStorage &idStorage,
                                        const std::string &id,
                                        const std::string &type,
                                        const Position2D &p,
-                                       const RGBColor &c) throw()
-        : PointOfInterest(id, type, p, c),
-        GUIGlObject_AbstractAdd(idStorage, "poi:"+id, GLO_SHAPE), myLayer(layer) {}
+                                       const RGBColor &c) throw() : 
+    PointOfInterest(id, type, p, c),
+    GUIGlObject_AbstractAdd(idStorage, "poi", GLO_SHAPE, id),
+    myLayer(layer) {}
 
 
 GUIPointOfInterest::~GUIPointOfInterest() throw() {}
@@ -80,12 +81,6 @@ GUIParameterTableWindow *
 GUIPointOfInterest::getParameterWindow(GUIMainWindow &,
                                        GUISUMOAbstractView &) throw() {
     return 0;
-}
-
-
-const std::string &
-GUIPointOfInterest::getMicrosimID() const throw() {
-    return getID();
 }
 
 

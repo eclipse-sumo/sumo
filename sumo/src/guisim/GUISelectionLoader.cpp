@@ -30,6 +30,7 @@
 #include <guisim/GUIEdge.h>
 #include <microsim/MSLane.h>
 #include <utils/gui/div/GUIGlobalSelection.h>
+#include <utils/gui/globjects/GUIGlObjectStorage.h>
 #include "GUISelectionLoader.h"
 #include <fstream>
 
@@ -43,15 +44,6 @@
 // ===========================================================================
 bool
 GUISelectionLoader::loadSelection(const std::string &file, std::string &msg) throw() {
-    // ok, load all
-    std::map<std::string, int> typeMap;
-    typeMap["edge"] = GLO_EDGE;
-    typeMap["induct loop"] = GLO_DETECTOR;
-    typeMap["junction"] = GLO_JUNCTION;
-    typeMap["speedtrigger"] = GLO_TRIGGER;
-    typeMap["lane"] = GLO_LANE;
-    typeMap["tl-logic"] = GLO_TLLOGIC;
-    typeMap["vehicle"] = GLO_VEHICLE;
     std::ifstream strm(file.c_str());
     if (!strm.good()) {
         msg = "Could not open '" + file + "'.";
@@ -63,50 +55,12 @@ GUISelectionLoader::loadSelection(const std::string &file, std::string &msg) thr
         if (line.length()==0) {
             continue;
         }
-        size_t idx = line.find(':');
-        if (idx!=std::string::npos) {
-            std::string type = line.substr(0, idx);
-            std::string name = line.substr(idx+1);
-            if (typeMap.find(type)==typeMap.end()) {
-                msg = "Unknown type '" + type + "' occured.";
-                continue;
-            }
-            int itype = typeMap[type];
-            int oid = -1;
-            switch (itype) {
-            case GLO_VEHICLE: {}
-            break;
-            case GLO_TLLOGIC: {}
-            break;
-            case GLO_DETECTOR: {}
-            break;
-            case GLO_LANE: {
-                MSLane *l = MSLane::dictionary(name);
-                if (l!=0) {
-                    oid = static_cast<GUIEdge&>(l->getEdge()).getLaneGeometry(l).getGlID();
-                }
-            }
-            break;
-            case GLO_EDGE: {
-                MSEdge *e = MSEdge::dictionary(name);
-                if (e!=0) {
-                    oid = static_cast<const GUIEdge * const>(e)->getGlID();
-                }
-            }
-            break;
-            case GLO_JUNCTION: {}
-            break;
-            case GLO_TRIGGER: {}
-            break;
-            }
-            if (oid>=0) {
-                gSelected.select(itype, oid, false);
-            } else {
-                msg = "Item '" + line + "' not found";
-                continue;
-            }
+
+        GUIGlObject *object = GUIGlObjectStorage::gIDStorage.getObjectBlocking(line);
+        if (object) {
+            gSelected.select(object->getGlID(), false);
         } else {
-            msg = "Could not parse entry while loading selection.";
+            msg = "Item '" + line + "' not found";
             continue;
         }
     }

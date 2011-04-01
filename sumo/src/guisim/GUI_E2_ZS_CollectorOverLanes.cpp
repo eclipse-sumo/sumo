@@ -100,7 +100,7 @@ GUI_E2_ZS_CollectorOverLanes::MyWrapper::MyWrapper(
     GUI_E2_ZS_CollectorOverLanes &detector,
     GUIGlObjectStorage &idStorage,
     const LaneDetMap &detectors) throw()
-        : GUIDetectorWrapper(idStorage, "E2OverLanes detector:"+detector.getID()),
+        : GUIDetectorWrapper(idStorage, "E2OverLanes detector", detector.getID()),
         myDetector(detector) {
     GLuint glID = idStorage.getUniqueID();
     for (LaneDetMap::const_iterator i=detectors.begin(); i!=detectors.end(); ++i) {
@@ -173,12 +173,6 @@ MyValueRetriever *binding =
 ret.mkItem(name.c_str(), true, binding);
 }
 */
-
-
-const std::string &
-GUI_E2_ZS_CollectorOverLanes::MyWrapper::getMicrosimID() const throw() {
-    return myDetector.getID();
-}
 
 
 void

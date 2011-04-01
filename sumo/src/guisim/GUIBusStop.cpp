@@ -72,7 +72,7 @@ GUIBusStop::GUIBusStop(GUIGlObjectStorage &idStorage,
                        const std::string &id, const std::vector<std::string> &lines, MSLane &lane,
                        SUMOReal frompos, SUMOReal topos) throw()
         : MSBusStop(id, lines, lane, frompos, topos),
-        GUIGlObject_AbstractAdd(idStorage, "bus_stop:" + id, GLO_TRIGGER) {
+        GUIGlObject_AbstractAdd(idStorage, "bus_stop", GLO_TRIGGER, id) {
     myFGShape = lane.getShape();
     myFGShape.move2side((SUMOReal) 1.65);
     myFGShape = myFGShape.getSubpart(frompos, topos);
@@ -116,12 +116,6 @@ GUIParameterTableWindow *
 GUIBusStop::getParameterWindow(GUIMainWindow &,
                                GUISUMOAbstractView &) throw() {
     return 0;
-}
-
-
-const std::string &
-GUIBusStop::getMicrosimID() const throw() {
-    return getID();
 }
 
 

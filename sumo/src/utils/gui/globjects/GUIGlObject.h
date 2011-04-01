@@ -34,6 +34,8 @@
 #include "GUIGlObjectTypes.h"
 #include <utils/geom/Boundary.h>
 #include <utils/common/StdDefs.h>
+#include <utils/common/StringBijection.h>
+
 
 #ifdef _WIN32
 #include <windows.h>
@@ -67,7 +69,7 @@ public:
      * @param[in] fullName The complete name, including a type-prefix
      * @see GUIGlObjectStorage
      */
-    GUIGlObject(GUIGlObjectStorage &idStorage, std::string fullName) throw();
+    GUIGlObject(GUIGlObjectStorage &idStorage, GUIGlObjectType type, const std::string& microsimID);
 
 
     /** @brief Constructor
@@ -76,16 +78,16 @@ public:
      *  visualization. Use it only if you know what you are doing.
      *
      * @param[in] fullName The complete name, including a type-prefix
-     * @param[in] glID The id of this object
      * @see GUIGlObjectStorage
      */
-    GUIGlObject(std::string fullName, GLuint glID) throw();
+    GUIGlObject(const std::string& prefix, GUIGlObjectType type, const std::string& microsimID);
 
 
     /// @brief Destructor
     virtual ~GUIGlObject() throw();
 
-
+    /// @brief associates object types with strings
+    static StringBijection<GUIGlObjectType> TypeNames;
 
     /// @name Atomar getter methods
     /// @{
@@ -93,7 +95,7 @@ public:
     /** @brief Returns the full name appearing in the tool tip
      * @return This object's typed id
      */
-    const std::string &getFullName() const throw() {
+    const std::string& getFullName() const {
         return myFullName;
     }
 
@@ -138,14 +140,18 @@ public:
      *
      * @return The id of the object
      */
-    virtual const std::string &getMicrosimID() const throw() = 0;
+    const std::string &getMicrosimID() const {
+        return myMicrosimID;
+    };
 
 
     /** @brief Returns the type of the object as coded in GUIGlObjectType
      * @return The type of the object
      * @see GUIGlObjectType
      */
-    virtual GUIGlObjectType getType() const throw() = 0;
+    GUIGlObjectType getType() const {
+        return myGLObjectType;
+    };
 
 
     /** @brief Returns the boundary to which the view shall be centered in order to show the object
@@ -243,6 +249,10 @@ protected:
     void buildShowManipulatorPopupEntry(GUIGLObjectPopupMenu *ret, bool addSeparator=true) throw();
     //@}
 
+protected:
+    /* usually names are prefixed by a type-specific string. this method can be
+     * used to change the default */
+    void setPrefix(const std::string& prefix);
 
 private:
     /** @brief Sets the id of the object
@@ -252,21 +262,30 @@ private:
      */
     void setGlID(GLuint id) throw();
 
-
 private:
     /// @brief The numerical id of the object
     GLuint myGlID;
 
-    /// @brief The name of the object
+    /// @brief The type of the object
+    const GUIGlObjectType myGLObjectType;
+
+    std::string myMicrosimID;
+
+    std::string myPrefix;
+
     std::string myFullName;
 
     /// @brief Parameter table windows which refer to this object
     std::set<GUIParameterTableWindow*> myParamWindows;
 
+    std::string createFullName() const;
+
+
+    // static StringBijection<SumoXMLLinkStateValue> LinkStates;
+
+    static StringBijection<GUIGlObjectType>::Entry GUIGlObjectTypeNamesInitializer[];
 
 };
-
-
 #endif
 
 /****************************************************************************/
