@@ -577,92 +577,70 @@ MSVehicle::moveRegardingCritical(SUMOTime t, const MSLane* const lane,
         int bla = 0;
     }
 #endif
+    // by now, we do not know whether the vehicle will move to the next lane, will be set later...
     myTarget = 0;
+    // remove information about approaching links, will be reset later in this step
     for (DriveItemVector::iterator i=myLFLinkLanes.begin(); i!=myLFLinkLanes.end(); ++i) {
         if ((*i).myLink!=0) {
             (*i).myLink->removeApproaching(this);
         }
     }
     myLFLinkLanes.clear();
+    //
     const MSCFModel &cfModel = getCarFollowModel();
+    SUMOReal vBeg = MIN2(cfModel.maxNextSpeed(myState.mySpeed), lane->getMaxSpeed());
     // check whether the vehicle is not on an appropriate lane
     if (!myLane->appropriate(this)) {
         // decelerate to lane end when yes
-        SUMOReal vWish = MIN2(cfModel.ffeS(this, myLane->getLength() - myState.myPos), myLane->getMaxSpeed());
-        if (myCurrEdge == myRoute->end() - 1) {
-            if (myParameter->arrivalSpeedProcedure == ARRIVAL_SPEED_GIVEN) {
-                vWish = MIN2(cfModel.ffeV(this, myArrivalPos - myState.myPos, myParameter->arrivalSpeed), myLane->getMaxSpeed());
-            } else {
-                vWish = myLane->getMaxSpeed();
-            }
-        }
-        if (pred!=0) {
-            // interaction with leader if one exists on same lane
-            SUMOReal gap = gap2pred(*pred);
-            if (MSGlobals::gCheck4Accidents && gap < 0/*-POSITION_EPS*/) {
-                // collision occured!
-                return true;
-            }
-            vWish = MIN2(vWish, cfModel.ffeV(this, pred));
-        } else {
-            // (potential) interaction with a vehicle extending partially into this lane
-            MSVehicle *predP = myLane->getPartialOccupator();
-            if (predP!=0) {
-                SUMOReal gap = myLane->getPartialOccupatorEnd() - myState.myPos;
-                if (MSGlobals::gCheck4Accidents && gap < 0/*-POSITION_EPS*/) {
-                    // collision occured!
-                    return true;
-                }
-                vWish = MIN2(vWish, cfModel.ffeV(this, gap, predP->getSpeed()));
-            }
-        }
-        // interaction with left-lane leader (do not overtake right)
-        cfModel.leftVehicleVsafe(this, neigh, vWish);
-        // check whether the vehicle wants to stop somewhere
-        if (!myStops.empty()&& &myStops.begin()->lane->getEdge()==&lane->getEdge()) {
-            const Stop &stop = *myStops.begin();
-            SUMOReal stopPos = stop.busstop==0
-                               ? stop.endPos
-                               : stop.busstop->getLastFreePos()-POSITION_EPS;
-            SUMOReal seen = lane->getLength() - myState.pos();
-            SUMOReal vsafeStop = cfModel.ffeS(this, seen-(lane->getLength()-stopPos));
-            vWish = MIN2(vWish, vsafeStop);
-        }
-        vWish = MAX2((SUMOReal) 0, vWish);
-        assert(vWish >= cfModel.getSpeedAfterMaxDecel(myState.mySpeed));
-        myLFLinkLanes.push_back(DriveProcessItem(0, vWish, vWish, false, 0, 0, myLane->getLength()-myState.myPos));
-    } else {
-        // compute other values as in move
-        SUMOReal vBeg = MIN2(cfModel.maxNextSpeed(myState.mySpeed), lane->getMaxSpeed());//vaccel( myState.mySpeed, lane->maxSpeed() );
-        if (pred!=0) {
-            SUMOReal gap = gap2pred(*pred);
-            if (MSGlobals::gCheck4Accidents && gap < 0/*-POSITION_EPS*/) {
-                // collision occured!
-                return true;
-            }
-            SUMOReal vSafe = cfModel.ffeV(this, gap, pred->getSpeed());
-            //  the vehicle is bound by the lane speed and must not drive faster
-            //  than vsafe to the next vehicle
-            vBeg = MIN2(vBeg, vSafe);
-        } else {
-            // (potential) interaction with a vehicle extending partially into this lane
-            MSVehicle *predP = myLane->getPartialOccupator();
-            if (predP!=0) {
-                SUMOReal gap = myLane->getPartialOccupatorEnd() - myState.myPos;
-                if (MSGlobals::gCheck4Accidents && gap < 0/*-POSITION_EPS*/) {
-                    // collision occured!
-                    return true;
-                }
-                vBeg = MIN2(vBeg, cfModel.ffeV(this, gap, predP->getSpeed()));
-            }
-        }
-        cfModel.leftVehicleVsafe(this, neigh, vBeg); // from left-lane leader (do not overtake right)
-        // check whether the driver wants to let someone in
-        // set next links, computing possible speeds
-        vsafeCriticalCont(t, vBeg);
+        vBeg = MIN2(cfModel.ffeS(this, myLane->getLength() - myState.myPos), myLane->getMaxSpeed());
     }
-    //@todo to be optimized (move to somewhere else)
-    checkRewindLinkLanes(lengthsInFront);
+    if (myCurrEdge == myRoute->end() - 1) {
+        if (myParameter->arrivalSpeedProcedure == ARRIVAL_SPEED_GIVEN) {
+            vBeg = MIN2(cfModel.ffeV(this, myArrivalPos - myState.myPos, myParameter->arrivalSpeed), myLane->getMaxSpeed());
+        } else {
+            vBeg = myLane->getMaxSpeed();
+        }
+    }
+    // interaction with leader
+    if (pred!=0) {
+        // interaction with leader if one exists on same lane
+        SUMOReal gap = gap2pred(*pred);
+        if (MSGlobals::gCheck4Accidents && gap < 0) {
+            // collision occured!
+            return true;
+        }
+        vBeg = MIN2(vBeg, cfModel.ffeV(this, pred));
+    } else {
+        // (potential) interaction with a vehicle extending partially into this lane
+        MSVehicle *predP = myLane->getPartialOccupator();
+        if (predP!=0) {
+            SUMOReal gap = myLane->getPartialOccupatorEnd() - myState.myPos;
+            if (MSGlobals::gCheck4Accidents && gap < 0) {
+                // collision occured!
+                return true;
+            }
+            vBeg = MIN2(vBeg, cfModel.ffeV(this, gap, predP->getSpeed()));
+        }
+    }
+    // interaction with left-lane leader (do not overtake right)
+    cfModel.leftVehicleVsafe(this, neigh, vBeg);
+    // check whether the vehicle wants to stop somewhere
+    if (!myStops.empty()&& &myStops.begin()->lane->getEdge()==&lane->getEdge()) {
+        const Stop &stop = *myStops.begin();
+        SUMOReal stopPos = stop.busstop==0 ? stop.endPos : stop.busstop->getLastFreePos()-POSITION_EPS;
+        SUMOReal seen = lane->getLength() - myState.pos();
+        SUMOReal vsafeStop = cfModel.ffeS(this, seen-(lane->getLength()-stopPos));
+        vBeg = MIN2(vBeg, vsafeStop);
+    }
+    vBeg = MAX2((SUMOReal) 0, vBeg);
+    assert(vBeg >= cfModel.getSpeedAfterMaxDecel(myState.mySpeed));
+    if (!myLane->appropriate(this)) {
+        myLFLinkLanes.push_back(DriveProcessItem(0, vBeg, vBeg, false, 0, 0, myLane->getLength()-myState.myPos));
+    } else {
+        // check whether the driver wants to let someone in
+        vsafeCriticalCont(t, vBeg);
+        checkRewindLinkLanes(lengthsInFront);
+    }
     return false;
 }
 
