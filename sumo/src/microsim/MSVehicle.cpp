@@ -929,7 +929,18 @@ MSVehicle::checkRewindLinkLanes(SUMOReal lengthsInFront) throw() {
         SUMOTime t = MSNet::getInstance()->getCurrentTimeStep();
         for (int i= (int)(myLFLinkLanes.size()-1); i>0; --i) {
             DriveProcessItem &item = myLFLinkLanes[i-1];
-            if (item.myLink==0||item.myLink->isCont()||item.myLink->opened(t, .1, getVehicleType().getLength())||!hadVehicles[i]) {
+            bool opened = item.myLink!=0&&item.myLink->opened(t, .1, getVehicleType().getLength());
+            bool check1 = item.myLink==0||item.myLink->isCont()||!hadVehicles[i];
+            bool allowsContinuation = check1||opened;
+            if (!opened&&item.myLink!=0) {
+                if(i>1) {
+                    DriveProcessItem &item2 = myLFLinkLanes[i-2];
+                    if(item2.myLink!=0&&item2.myLink->isCont()) {
+                        allowsContinuation = true;
+                    }
+                }
+            }
+            if (allowsContinuation) {
                 availableSpace[i-1] = availableSpace[i];
             }
         }
@@ -940,9 +951,7 @@ MSVehicle::checkRewindLinkLanes(SUMOReal lengthsInFront) throw() {
             if (item.myLink==0) {
                 continue;
             }
-            if (/*!item.myLink->isCont()
-                    &&*/availableSpace[i]-getVehicleType().getLength()<0
-                &&item.myLink->willHaveBlockedFoe()) {
+            if (availableSpace[i]-getVehicleType().getLength()<0&&item.myLink->willHaveBlockedFoe()) {
                 removalBegin = i;
             }
         }
