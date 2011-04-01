@@ -638,13 +638,13 @@ Position2DVector::eraseAt(int i) {
 
 
 SUMOReal
-Position2DVector::nearest_position_on_line_to_point(const Position2D &p) const {
+Position2DVector::nearest_position_on_line_to_point(const Position2D &p, bool perpendicular) const {
     SUMOReal shortestDist = -1;
     SUMOReal nearestPos = -1;
     SUMOReal seen = 0;
     for (ContType::const_iterator i=myCont.begin(); i!=myCont.end()-1; i++) {
         SUMOReal pos =
-            GeomHelper::nearest_position_on_line_to_point(*i, *(i+1), p);
+            GeomHelper::nearest_position_on_line_to_point(*i, *(i+1), p, perpendicular);
         SUMOReal dist =
             pos < 0 ? -1 : p.distanceTo(positionAtLengthPosition(pos+seen));
         //

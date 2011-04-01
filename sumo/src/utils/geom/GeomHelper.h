@@ -68,7 +68,7 @@ public:
 
     static SUMOReal nearest_position_on_line_to_point(
         const Position2D &l1, const Position2D &l2,
-        const Position2D &p);
+        const Position2D &p, bool perpendicular=true);
 
     /** by Damian Coventry */
     static SUMOReal distancePointLine(const Position2D &point,

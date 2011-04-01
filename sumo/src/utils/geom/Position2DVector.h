@@ -247,7 +247,7 @@ public:
 
     void eraseAt(int i);
 
-    SUMOReal nearest_position_on_line_to_point(const Position2D &p) const;
+    SUMOReal nearest_position_on_line_to_point(const Position2D &p, bool perpendicular=true) const;
 
     // @brief index of the closest position to p
     int indexOfClosest(const Position2D &p) const;

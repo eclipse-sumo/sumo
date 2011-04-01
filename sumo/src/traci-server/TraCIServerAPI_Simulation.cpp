@@ -156,6 +156,11 @@ TraCIServerAPI_Simulation::processGet(TraCIServer &server, tcpip::Storage &input
         break;
     }
     break;
+/*    case CMD_POSITIONCONVERSION:
+        if (!commandPositionConversion(server, inputStorage, tempMsg)) {
+            return false;
+        }
+        break;*/
     default:
         break;
     }
@@ -185,7 +190,7 @@ TraCIServerAPI_Simulation::convertCartesianToRoadMap(Position2D pos) {
             }
         }
     }
-    result.second = result.first->getShape().nearest_position_on_line_to_point(pos);
+    result.second = result.first->getShape().nearest_position_on_line_to_point(pos, false);
     return result;
 }
 
