@@ -1,4 +1,4 @@
 simstep2 1
-distancerequest_roadpos_roadpos e_m5 392 1 e_vo2 48 0 1
-distancerequest_roadpos_roadpos e_m5 400 0 e_m6 100 0 1
+getvariable_plus3 0xab 0x83 0 <positionRoadmap> e_m5 392 1 <positionRoadmap> e_vo2 48 0 <drivingDist>
+getvariable_plus3 0xab 0x83 0 <positionRoadmap> e_m5 400 0 <positionRoadmap> e_m6 100 0 <drivingDist>
 simstep2 2
