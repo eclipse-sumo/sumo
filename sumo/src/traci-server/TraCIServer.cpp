@@ -310,12 +310,18 @@ TraCIServer::dispatchCommand() {
         case CMD_CLOSE:
             success = commandCloseConnection();
             break;
-        case CMD_POSITIONCONVERSION:
+        case CMD_POSITIONCONVERSION: {
             if (!myHaveWarnedDeprecation) {
                 MsgHandler::getWarningInstance()->inform("Using old TraCI API, please update your client!");
                 myHaveWarnedDeprecation = true;
             }
-            success = TraCIServerAPI_Simulation::commandPositionConversion(*this, myInputStorage, myOutputStorage);
+            tcpip::Storage tempMsg;
+            success = TraCIServerAPI_Simulation::commandPositionConversion(*this, myInputStorage, tempMsg, CMD_POSITIONCONVERSION);
+            if (success) {
+                writeStatusCmd(CMD_POSITIONCONVERSION, RTYPE_OK, "");
+                myOutputStorage.writeStorage(tempMsg);
+            }
+                                     }
             break;
         case CMD_ADDVEHICLE:
             if (!myHaveWarnedDeprecation) {
@@ -324,12 +330,18 @@ TraCIServer::dispatchCommand() {
             }
             success = commandAddVehicle();
             break;
-        case CMD_DISTANCEREQUEST:
+        case CMD_DISTANCEREQUEST: {
             if (!myHaveWarnedDeprecation) {
                 MsgHandler::getWarningInstance()->inform("Using old TraCI API, please update your client!");
                 myHaveWarnedDeprecation = true;
             }
-            success = TraCIServerAPI_Simulation::commandDistanceRequest(*this, myInputStorage, myOutputStorage);
+            tcpip::Storage tempMsg;
+            success = TraCIServerAPI_Simulation::commandDistanceRequest(*this, myInputStorage, tempMsg, CMD_DISTANCEREQUEST);
+            if (success) {
+                writeStatusCmd(CMD_DISTANCEREQUEST, RTYPE_OK, "");
+                myOutputStorage.writeStorage(tempMsg);
+            }
+                                  }
             break;
         case CMD_SUBSCRIBE_INDUCTIONLOOP_VARIABLE:
         case CMD_SUBSCRIBE_MULTI_ENTRY_EXIT_DETECTOR_VARIABLE:

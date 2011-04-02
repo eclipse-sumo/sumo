@@ -102,7 +102,7 @@ public:
     void commandDistanceRequest(testclient::Position3D pos1, testclient::PositionRoadMap pos2, int flag);
 
     void commandGetVariable(int domID, int varID, const std::string &objID);
-    void commandGetVariablePlus(int domID, int varID, const std::string &objID, std::ifstream &defFile);
+    void commandGetVariablePlus(int domID, int varID, const std::string &objID, std::ifstream &defFile, int numPars=1);
     void commandSubscribeVariable(int domID, const std::string &objID, int beginTime, int endTime, int varNo, std::ifstream &defFile);
     void commandSetValue(int domID, int varID, const std::string &objID, std::ifstream &defFile);
 

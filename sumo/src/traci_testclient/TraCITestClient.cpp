@@ -262,11 +262,23 @@ TraCITestClient::run(std::string fileName, int port, std::string host) {
             defFile >> domID >> varID >> objID;
             commandGetVariable(domID, varID, objID);
         } else if (lineCommand.compare("getvariable_plus") == 0) {
-            // trigger command GetXXXVariable
+            // trigger command GetXXXVariable with one parameter
             int domID, varID;
             std::string objID;
             defFile >> domID >> varID >> objID;
             commandGetVariablePlus(domID, varID, objID, defFile);
+        } else if (lineCommand.compare("getvariable_plus2") == 0) {
+            // trigger command GetXXXVariable with two parameters
+            int domID, varID;
+            std::string objID;
+            defFile >> domID >> varID >> objID;
+            commandGetVariablePlus(domID, varID, objID, defFile, 2);
+        } else if (lineCommand.compare("getvariable_plus3") == 0) {
+            // trigger command GetXXXVariable with two parameters
+            int domID, varID;
+            std::string objID;
+            defFile >> domID >> varID >> objID;
+            commandGetVariablePlus(domID, varID, objID, defFile, 3);
         } else if (lineCommand.compare("subscribevariable") == 0) {
             // trigger command SubscribeXXXVariable
             int domID, varNo;
@@ -717,7 +729,7 @@ TraCITestClient::commandGetVariable(int domID, int varID, const std::string &obj
 
 
 void
-TraCITestClient::commandGetVariablePlus(int domID, int varID, const std::string &objID, std::ifstream &defFile) {
+TraCITestClient::commandGetVariablePlus(int domID, int varID, const std::string &objID, std::ifstream &defFile, int numPars) {
     std::stringstream msg;
     if (socket == NULL) {
         msg << "#Error while sending command: no connection to server" ;
@@ -725,7 +737,10 @@ TraCITestClient::commandGetVariablePlus(int domID, int varID, const std::string 
         return;
     }
     tcpip::Storage outMsg, inMsg, tmp;
-    int dataLength = setValueTypeDependant(tmp, defFile, msg);
+    int dataLength = 0;
+    for (int i = 0; i < numPars; ++i) {
+        dataLength += setValueTypeDependant(tmp, defFile, msg);
+    }
     std::string msgS = msg.str();
     if (msgS!="") {
         errorMsg(msg);
@@ -856,7 +871,15 @@ TraCITestClient::commandSubscribeVariable(int domID, const std::string &objID, i
 int
 TraCITestClient::setValueTypeDependant(tcpip::Storage &into, std::ifstream &defFile, std::stringstream &msg) {
     std::string dataTypeS, valueS;
-    defFile >> dataTypeS >> valueS;
+    defFile >> dataTypeS;
+    if (dataTypeS=="<airDist>") {
+        into.writeUnsignedByte(REQUEST_AIRDIST);
+        return 1;
+    } else if (dataTypeS=="<drivingDist>") {
+        into.writeUnsignedByte(REQUEST_DRIVINGDIST);
+        return 1;
+    }
+    defFile >> valueS;
     if (dataTypeS=="<int>") {
         into.writeUnsignedByte(TYPE_INTEGER);
         into.writeInt(atoi(valueS.c_str()));
@@ -916,7 +939,24 @@ TraCITestClient::setValueTypeDependant(tcpip::Storage &into, std::ifstream &defF
         into.writeFloat(float(atof(valueS.c_str())));
         defFile >> valueS;
         into.writeFloat(float(atof(valueS.c_str())));
-        return 1 + 8;
+        return 1 + 4 + 4 ;
+    } else if (dataTypeS=="<position3D>") {
+        into.writeUnsignedByte(POSITION_3D);
+        into.writeFloat(float(atof(valueS.c_str())));
+        defFile >> valueS;
+        into.writeFloat(float(atof(valueS.c_str())));
+        defFile >> valueS;
+        into.writeFloat(float(atof(valueS.c_str())));
+        return 1 + 4 + 4 + 4;
+    } else if (dataTypeS=="<positionRoadmap>") {
+        into.writeUnsignedByte(POSITION_ROADMAP);
+        into.writeString(valueS);
+        int length = 1 + 4 + (int) valueS.length();
+        defFile >> valueS;
+        into.writeFloat(float(atof(valueS.c_str())));
+        defFile >> valueS;
+        into.writeUnsignedByte(atoi(valueS.c_str()));
+        return length + 4 + 1;
     } else if (dataTypeS=="<shape>") {
         into.writeUnsignedByte(TYPE_POLYGON);
         int number = atoi(valueS.c_str());

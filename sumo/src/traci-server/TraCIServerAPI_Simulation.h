@@ -72,10 +72,10 @@ public:
     static const MSLane* getLaneChecking(std::string roadID, int laneIndex, SUMOReal pos);
 
     static bool commandPositionConversion(traci::TraCIServer &server, tcpip::Storage &inputStorage,
-                                          tcpip::Storage &outputStorage);
+                                          tcpip::Storage &outputStorage, int commandId);
 
     static bool commandDistanceRequest(traci::TraCIServer &server, tcpip::Storage &inputStorage,
-                                       tcpip::Storage &outputStorage);
+                                       tcpip::Storage &outputStorage, int commandId);
 
 private:
     /// @brief invalidated copy constructor

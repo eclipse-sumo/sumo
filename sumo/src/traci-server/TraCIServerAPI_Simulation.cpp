@@ -66,6 +66,7 @@ TraCIServerAPI_Simulation::processGet(TraCIServer &server, tcpip::Storage &input
             &&variable!=VAR_TELEPORT_ENDING_VEHICLES_NUMBER&&variable!=VAR_TELEPORT_ENDING_VEHICLES_IDS
             &&variable!=VAR_ARRIVED_VEHICLES_NUMBER&&variable!=VAR_ARRIVED_VEHICLES_IDS
             &&variable!=VAR_DELTA_T&&variable!=VAR_NET_BOUNDING_BOX
+            &&variable!=POSITION_CONVERSION&&variable!=DISTANCE_REQUEST
        ) {
         server.writeStatusCmd(CMD_GET_SIM_VARIABLE, RTYPE_ERR, "Get Simulation Variable: unsupported variable specified", outputStorage);
         return false;
@@ -156,11 +157,16 @@ TraCIServerAPI_Simulation::processGet(TraCIServer &server, tcpip::Storage &input
         break;
     }
     break;
-/*    case CMD_POSITIONCONVERSION:
-        if (!commandPositionConversion(server, inputStorage, tempMsg)) {
+    case POSITION_CONVERSION:
+        if (!commandPositionConversion(server, inputStorage, tempMsg, CMD_GET_SIM_VARIABLE)) {
             return false;
         }
-        break;*/
+        break;
+    case DISTANCE_REQUEST:
+        if (!commandDistanceRequest(server, inputStorage, tempMsg, CMD_GET_SIM_VARIABLE)) {
+            return false;
+        }
+        break;
     default:
         break;
     }
@@ -214,7 +220,7 @@ TraCIServerAPI_Simulation::getLaneChecking(std::string roadID, int laneIndex, SU
 
 bool
 TraCIServerAPI_Simulation::commandPositionConversion(traci::TraCIServer &server, tcpip::Storage &inputStorage,
-                                                     tcpip::Storage &outputStorage) {
+                                                     tcpip::Storage &outputStorage, int commandId) {
     tcpip::Storage tmpResult;
     std::pair<MSLane*, SUMOReal> roadPos;
     Position2D cartesianPos;
@@ -248,15 +254,15 @@ TraCIServerAPI_Simulation::commandPositionConversion(traci::TraCIServer &server,
             tmpResult.writeString(roadPos.first->getEdge().getID());
             tmpResult.writeFloat(roadPos.second);
             const std::vector<MSLane*> lanes = roadPos.first->getEdge().getLanes();
-            tmpResult.writeUnsignedByte(distance(lanes.begin(), find(lanes.begin(), lanes.begin(), roadPos.first)));
+            tmpResult.writeUnsignedByte(distance(lanes.begin(), find(lanes.begin(), lanes.end(), roadPos.first)));
                                }
             break;
         case POSITION_3D:
-            server.writeStatusCmd(CMD_POSITIONCONVERSION, RTYPE_ERR,
+            server.writeStatusCmd(commandId, RTYPE_ERR,
                            "Destination position type is same as source position type");
             return false;
         default:
-            server.writeStatusCmd(CMD_POSITIONCONVERSION, RTYPE_ERR,
+            server.writeStatusCmd(commandId, RTYPE_ERR,
                            "Destination position type not supported");
             return false;
         }
@@ -279,7 +285,7 @@ TraCIServerAPI_Simulation::commandPositionConversion(traci::TraCIServer &server,
                 x = (float)result.x();
                 y = (float)result.y();
             } catch (TraCIException &e) {
-                server.writeStatusCmd(CMD_POSITIONCONVERSION, RTYPE_ERR, e.what());
+                server.writeStatusCmd(commandId, RTYPE_ERR, e.what());
                 return false;
             }
 
@@ -292,27 +298,25 @@ TraCIServerAPI_Simulation::commandPositionConversion(traci::TraCIServer &server,
             }
             break;
         case POSITION_ROADMAP:
-            server.writeStatusCmd(CMD_POSITIONCONVERSION, RTYPE_ERR,
+            server.writeStatusCmd(commandId, RTYPE_ERR,
                            "Destination position type is same as source position type");
             return false;
         default:
-            server.writeStatusCmd(CMD_POSITIONCONVERSION, RTYPE_ERR,
+            server.writeStatusCmd(commandId, RTYPE_ERR,
                            "Destination position type not supported");
             return false;
         }
                            }
         break;
     default:
-        server.writeStatusCmd(CMD_POSITIONCONVERSION, RTYPE_ERR,
+        server.writeStatusCmd(commandId, RTYPE_ERR,
                        "Source position type not supported");
         return false;
     }
 
-    // write response message
-    server.writeStatusCmd(CMD_POSITIONCONVERSION, RTYPE_OK, "");
     // add converted Position to response
     outputStorage.writeUnsignedByte(1 + 1 + (int)tmpResult.size() + 1);	// length
-    outputStorage.writeUnsignedByte(CMD_POSITIONCONVERSION);	// command id
+    outputStorage.writeUnsignedByte(commandId);	// command id
     outputStorage.writeStorage(tmpResult);	// position dependant part
     outputStorage.writeUnsignedByte(destPosType);	// destination type
     return true;
@@ -322,7 +326,7 @@ TraCIServerAPI_Simulation::commandPositionConversion(traci::TraCIServer &server,
 
 bool
 TraCIServerAPI_Simulation::commandDistanceRequest(traci::TraCIServer &server, tcpip::Storage &inputStorage,
-                                                  tcpip::Storage &outputStorage) {
+                                                  tcpip::Storage &outputStorage, int commandId) {
     Position2D pos1;
     Position2D pos2;
     std::pair<const MSLane*, SUMOReal> roadPos1;
@@ -355,7 +359,7 @@ TraCIServerAPI_Simulation::commandDistanceRequest(traci::TraCIServer &server, tc
     roadPos1 = convertCartesianToRoadMap(pos1);
     break;
     default:
-        server.writeStatusCmd(CMD_DISTANCEREQUEST, RTYPE_ERR, "Unknown position format used for distance request");
+        server.writeStatusCmd(commandId, RTYPE_ERR, "Unknown position format used for distance request");
         return false;
     }
 
@@ -369,7 +373,7 @@ TraCIServerAPI_Simulation::commandDistanceRequest(traci::TraCIServer &server, tc
             roadPos2.first = getLaneChecking(roadID, inputStorage.readUnsignedByte(), roadPos2.second);
             pos2 = roadPos2.first->getShape().positionAtLengthPosition(roadPos2.second);
         } catch (TraCIException &e) {
-            server.writeStatusCmd(CMD_DISTANCEREQUEST, RTYPE_ERR, e.what());
+            server.writeStatusCmd(commandId, RTYPE_ERR, e.what());
             return false;
         }
         break;
@@ -386,7 +390,7 @@ TraCIServerAPI_Simulation::commandDistanceRequest(traci::TraCIServer &server, tc
     roadPos2 = convertCartesianToRoadMap(pos2);
     break;
     default:
-        server.writeStatusCmd(CMD_DISTANCEREQUEST, RTYPE_ERR, "Unknown position format used for distance request");
+        server.writeStatusCmd(commandId, RTYPE_ERR, "Unknown position format used for distance request");
         return false;
     }
 
@@ -416,11 +420,9 @@ TraCIServerAPI_Simulation::commandDistanceRequest(traci::TraCIServer &server, tc
         distance = static_cast<float>(pos1.distanceTo(pos2));
     }
 
-    // acknowledge distance request
-    server.writeStatusCmd(CMD_DISTANCEREQUEST, RTYPE_OK, "");
     // write response command
     outputStorage.writeUnsignedByte(1 + 1 + 1 + 4);	// length
-    outputStorage.writeUnsignedByte(CMD_DISTANCEREQUEST);		// command type
+    outputStorage.writeUnsignedByte(commandId);		// command type
     outputStorage.writeUnsignedByte(distType);		// distance type
     outputStorage.writeFloat(distance);	// distance;
     return true;

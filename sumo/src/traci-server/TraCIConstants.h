@@ -218,6 +218,10 @@
 #define POSITION_3D 0x03
 // Position on road map
 #define POSITION_ROADMAP 0x04
+// Position in geo-coordinates
+#define POSITION_LAT_LON 0x05
+// Position in geo-coordinates with altitude
+#define POSITION_LAT_LON_ALT 0x06
 
 
 
@@ -548,6 +552,12 @@
 
 // remove an instance (poi, polygon)
 #define REMOVE 0x81
+
+// convert coordinates
+#define POSITION_CONVERSION 0x82
+
+// distance between points or vehicles
+#define DISTANCE_REQUEST 0x83
 
 
 // force rerouting based on travel time (vehicles)
