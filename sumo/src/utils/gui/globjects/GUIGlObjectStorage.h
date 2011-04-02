@@ -30,6 +30,7 @@
 #endif
 
 #include <map>
+#include <string>
 #include <fx.h>
 #include <utils/foxtools/MFXMutex.h>
 
