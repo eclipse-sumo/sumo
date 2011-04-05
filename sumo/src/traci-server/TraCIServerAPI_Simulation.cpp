@@ -313,12 +313,15 @@ TraCIServerAPI_Simulation::commandPositionConversion(traci::TraCIServer &server,
                        "Source position type not supported");
         return false;
     }
-
-    // add converted Position to response
-    outputStorage.writeUnsignedByte(1 + 1 + (int)tmpResult.size() + 1);	// length
-    outputStorage.writeUnsignedByte(commandId);	// command id
-    outputStorage.writeStorage(tmpResult);	// position dependant part
-    outputStorage.writeUnsignedByte(destPosType);	// destination type
+    if (commandId == CMD_POSITIONCONVERSION) {
+        // add converted Position to response
+        outputStorage.writeUnsignedByte(1 + 1 + (int)tmpResult.size() + 1);	// length
+        outputStorage.writeUnsignedByte(commandId);	// command id
+        outputStorage.writeStorage(tmpResult);	// position dependant part
+        outputStorage.writeUnsignedByte(destPosType);	// destination type
+    } else {
+        outputStorage.writeStorage(tmpResult);	// position dependant part
+    }
     return true;
 }
 
@@ -419,11 +422,14 @@ TraCIServerAPI_Simulation::commandDistanceRequest(traci::TraCIServer &server, tc
         distType = REQUEST_AIRDIST;
         distance = static_cast<float>(pos1.distanceTo(pos2));
     }
-
     // write response command
-    outputStorage.writeUnsignedByte(1 + 1 + 1 + 4);	// length
-    outputStorage.writeUnsignedByte(commandId);		// command type
-    outputStorage.writeUnsignedByte(distType);		// distance type
+    if (commandId == CMD_DISTANCEREQUEST) {
+        outputStorage.writeUnsignedByte(1 + 1 + 1 + 4);	// length
+        outputStorage.writeUnsignedByte(commandId);
+        outputStorage.writeUnsignedByte(distType);
+    } else {
+        outputStorage.writeUnsignedByte(TYPE_FLOAT);
+    }
     outputStorage.writeFloat(distance);	// distance;
     return true;
 }

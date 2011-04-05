@@ -1,15 +1,9 @@
-TraCITestClient output file. Date: Sat Oct  9 00:23:04 2010
+TraCITestClient output file. Date: Tue Apr 05 09:45:02 2011
 
 
--> Command sent: <SimulationStep2>:
-.. Command acknowledged (2), [description: ]
-
--> Command sent: <PositionConversion>:
- DestPosition-RoadMap: roadId=wrongroad pos=0.00 laneId=0 posId=3
-.. Answered with error to command (113), [description: Unable to retrieve road with given id]
-
--> Command sent: <SimulationStep2>:
-.. Command acknowledged (2), [description: ]
+-> Command sent: <GetVariable>:
+  domID=171 varID=130 objID=0
+.. Answered with error to command (171), [description: Unknown edge wrongroad]
 
 -> Command sent: <Close>:
 .. Command acknowledged (127), [description: Goodbye]

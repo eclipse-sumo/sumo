@@ -878,6 +878,15 @@ TraCITestClient::setValueTypeDependant(tcpip::Storage &into, std::ifstream &defF
     } else if (dataTypeS=="<drivingDist>") {
         into.writeUnsignedByte(REQUEST_DRIVINGDIST);
         return 1;
+    } else if (dataTypeS=="<*position2D>") {
+        into.writeUnsignedByte(POSITION_2D);
+        return 1;
+    } else if (dataTypeS=="<*position3D>") {
+        into.writeUnsignedByte(POSITION_3D);
+        return 1;
+    } else if (dataTypeS=="<*positionRoadmap>") {
+        into.writeUnsignedByte(POSITION_ROADMAP);
+        return 1;
     }
     defFile >> valueS;
     if (dataTypeS=="<int>") {
@@ -939,7 +948,7 @@ TraCITestClient::setValueTypeDependant(tcpip::Storage &into, std::ifstream &defF
         into.writeFloat(float(atof(valueS.c_str())));
         defFile >> valueS;
         into.writeFloat(float(atof(valueS.c_str())));
-        return 1 + 4 + 4 ;
+        return 1 + 4 + 4;
     } else if (dataTypeS=="<position3D>") {
         into.writeUnsignedByte(POSITION_3D);
         into.writeFloat(float(atof(valueS.c_str())));

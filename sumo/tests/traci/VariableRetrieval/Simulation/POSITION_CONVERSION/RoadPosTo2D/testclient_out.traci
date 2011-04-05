@@ -1,29 +1,19 @@
-TraCITestClient output file. Date: Sat Oct  9 00:23:04 2010
+TraCITestClient output file. Date: Tue Apr 05 09:45:01 2011
 
 
--> Command sent: <SimulationStep2>:
-.. Command acknowledged (2), [description: ]
+-> Command sent: <GetVariable>:
+  domID=171 varID=130 objID=0
+.. Command acknowledged (171), [description: ]
+  CommandID=187  VariableID=130  ObjectID=0 valueDataType=1 position value: (2483.05,495.05)
 
--> Command sent: <PositionConversion>:
- DestPosition-RoadMap: roadId=e_m4 pos=475.00 laneId=1 posId=1
-.. Command acknowledged (113), [description: ]
-.. Received Response <PositionConversion>:
-2D-Position: x=2483.05 y=495.05
+-> Command sent: <GetVariable>:
+  domID=171 varID=130 objID=0
+.. Command acknowledged (171), [description: ]
+  CommandID=187  VariableID=130  ObjectID=0 valueDataType=1 position value: (3501.65,741.45)
 
--> Command sent: <PositionConversion>:
- DestPosition-RoadMap: roadId=e_shape0 pos=240.00 laneId=2 posId=1
-.. Command acknowledged (113), [description: ]
-.. Received Response <PositionConversion>:
-2D-Position: x=3501.65 y=741.45
-
--> Command sent: <PositionConversion>:
- DestPosition-RoadMap: roadId=e_m0 pos=99999.00 laneId=0 posId=1
-.. Command acknowledged (113), [description: ]
-.. Received Response <PositionConversion>:
-2D-Position: x=500.00 y=491.75
-
--> Command sent: <SimulationStep2>:
-.. Command acknowledged (2), [description: ]
+-> Command sent: <GetVariable>:
+  domID=171 varID=130 objID=0
+.. Answered with error to command (171), [description: Position on lane invalid]
 
 -> Command sent: <Close>:
 .. Command acknowledged (127), [description: Goodbye]

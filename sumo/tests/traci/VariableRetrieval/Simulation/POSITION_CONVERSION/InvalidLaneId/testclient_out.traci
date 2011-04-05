@@ -1,15 +1,9 @@
-TraCITestClient output file. Date: Sat Oct  9 00:23:04 2010
+TraCITestClient output file. Date: Tue Apr 05 09:45:03 2011
 
 
--> Command sent: <SimulationStep2>:
-.. Command acknowledged (2), [description: ]
-
--> Command sent: <PositionConversion>:
- DestPosition-RoadMap: roadId=e_m0 pos=0.00 laneId=100 posId=3
-.. Answered with error to command (113), [description: No lane existing with such id on the given road]
-
--> Command sent: <SimulationStep2>:
-.. Command acknowledged (2), [description: ]
+-> Command sent: <GetVariable>:
+  domID=171 varID=130 objID=0
+.. Answered with error to command (171), [description: Invalid lane index for e_m0]
 
 -> Command sent: <Close>:
 .. Command acknowledged (127), [description: Goodbye]
