@@ -150,10 +150,10 @@ TraCIServerAPI_Simulation::processGet(TraCIServer &server, tcpip::Storage &input
     case VAR_NET_BOUNDING_BOX: {
         tempMsg.writeUnsignedByte(TYPE_BOUNDINGBOX);
         Boundary b = GeoConvHelper::getConvBoundary();
-        tempMsg.writeFloat(b.xmin());
-        tempMsg.writeFloat(b.ymin());
-        tempMsg.writeFloat(b.xmax());
-        tempMsg.writeFloat(b.ymax());
+        tempMsg.writeFloat((float)b.xmin());
+        tempMsg.writeFloat((float)b.ymin());
+        tempMsg.writeFloat((float)b.xmax());
+        tempMsg.writeFloat((float)b.ymax());
         break;
     }
     break;
@@ -207,7 +207,7 @@ TraCIServerAPI_Simulation::getLaneChecking(std::string roadID, int laneIndex, SU
     if (edge == 0) {
         throw TraCIException("Unknown edge " + roadID);
     }
-    if (laneIndex < 0 || laneIndex >= edge->getLanes().size()) {
+    if (laneIndex < 0 || laneIndex >= (int)edge->getLanes().size()) {
         throw TraCIException("Invalid lane index for " + roadID);
     }
     const MSLane* lane = edge->getLanes()[laneIndex];
@@ -252,9 +252,9 @@ TraCIServerAPI_Simulation::commandPositionConversion(traci::TraCIServer &server,
             // write result that is added to response msg
             tmpResult.writeUnsignedByte(POSITION_ROADMAP);
             tmpResult.writeString(roadPos.first->getEdge().getID());
-            tmpResult.writeFloat(roadPos.second);
+            tmpResult.writeFloat((float)roadPos.second);
             const std::vector<MSLane*> lanes = roadPos.first->getEdge().getLanes();
-            tmpResult.writeUnsignedByte(distance(lanes.begin(), find(lanes.begin(), lanes.end(), roadPos.first)));
+            tmpResult.writeUnsignedByte((int)distance(lanes.begin(), find(lanes.begin(), lanes.end(), roadPos.first)));
                                }
             break;
         case POSITION_3D:
@@ -400,7 +400,7 @@ TraCIServerAPI_Simulation::commandDistanceRequest(traci::TraCIServer &server, tc
     // read distance type
     int distType = inputStorage.readUnsignedByte();
 
-    float distance = 0.0;
+    SUMOReal distance = 0.0;
     if (distType == REQUEST_DRIVINGDIST) {
         // compute driving distance
         std::vector<const MSEdge*> edges;
@@ -413,14 +413,14 @@ TraCIServerAPI_Simulation::commandDistanceRequest(traci::TraCIServer &server, tc
             router.compute(&roadPos1.first->getEdge(), &roadPos2.first->getEdge(), NULL,
                            MSNet::getInstance()->getCurrentTimeStep(), edges);
             MSRoute route("", edges, false, RGBColor::DEFAULT_COLOR, std::vector<SUMOVehicleParameter::Stop>());
-            distance = static_cast<float>(route.getDistanceBetween(roadPos1.second, roadPos2.second,
-                                          &roadPos1.first->getEdge(), &roadPos2.first->getEdge()));
+            distance = route.getDistanceBetween(roadPos1.second, roadPos2.second,
+                                                &roadPos1.first->getEdge(), &roadPos2.first->getEdge());
         }
     } else {
         // compute air distance (default)
         // correct the distance type in case it was not valid
         distType = REQUEST_AIRDIST;
-        distance = static_cast<float>(pos1.distanceTo(pos2));
+        distance = pos1.distanceTo(pos2);
     }
     // write response command
     if (commandId == CMD_DISTANCEREQUEST) {
@@ -430,6 +430,6 @@ TraCIServerAPI_Simulation::commandDistanceRequest(traci::TraCIServer &server, tc
     } else {
         outputStorage.writeUnsignedByte(TYPE_FLOAT);
     }
-    outputStorage.writeFloat(distance);
+    outputStorage.writeFloat(static_cast<float>(distance));
     return true;
 }

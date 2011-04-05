@@ -1097,17 +1097,17 @@ TraCIServerAPI_Vehicle::commandDistanceRequest(traci::TraCIServer &server, tcpip
     // read distance type
     int distType = inputStorage.readUnsignedByte();
 
-    float distance = 0.0;
+    SUMOReal distance = 0.0;
     if (distType == REQUEST_DRIVINGDIST) {
-        distance = static_cast<float>(v->getRoute().getDistanceBetween(v->getPositionOnLane(), roadPos.second,
-                                      v->getEdge(), &roadPos.first->getEdge()));
+        distance = v->getRoute().getDistanceBetween(v->getPositionOnLane(), roadPos.second,
+                                                    v->getEdge(), &roadPos.first->getEdge());
     } else {
         // compute air distance (default)
-        distance = static_cast<float>(v->getPosition().distanceTo(pos));
+        distance = v->getPosition().distanceTo(pos);
     }
     // write response command
     outputStorage.writeUnsignedByte(TYPE_FLOAT);
-    outputStorage.writeFloat(distance);
+    outputStorage.writeFloat(static_cast<float>(distance));
     return true;
 }
 
