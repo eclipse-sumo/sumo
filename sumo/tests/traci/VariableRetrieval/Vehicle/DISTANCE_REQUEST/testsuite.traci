@@ -9,6 +9,3 @@ RoadPosAir
 
 # Test request for driving distance between 3d and road map position
 RoadPosDrive
-
-# Test behaviour when specifying an invalid flag for distance type
-InvalidFlag
