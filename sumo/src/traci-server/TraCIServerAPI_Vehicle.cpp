@@ -35,6 +35,7 @@
 #include <utils/common/DijkstraRouterTT.h>
 #include <utils/common/DijkstraRouterEffort.h>
 #include "TraCIConstants.h"
+#include "TraCIServerAPI_Simulation.h"
 #include "TraCIServerAPI_Vehicle.h"
 #include <utils/common/HelpersHBEFA.h>
 #include <utils/common/HelpersHarmonoise.h>
@@ -75,7 +76,7 @@ TraCIServerAPI_Vehicle::processGet(TraCIServer &server, tcpip::Storage &inputSto
             &&variable!=VAR_SPEED_FACTOR&&variable!=VAR_SPEED_DEVIATION&&variable!=VAR_EMISSIONCLASS
             &&variable!=VAR_WIDTH&&variable!=VAR_GUIOFFSET&&variable!=VAR_SHAPE
             &&variable!=VAR_ACCEL&&variable!=VAR_DECEL&&variable!=VAR_IMPERFECTION
-            &&variable!=VAR_TAU&&variable!=VAR_BEST_LANES
+            &&variable!=VAR_TAU&&variable!=VAR_BEST_LANES&&variable!=DISTANCE_REQUEST
        ) {
         server.writeStatusCmd(CMD_GET_VEHICLE_VARIABLE, RTYPE_ERR, "Get Vehicle Variable: unsupported variable specified", outputStorage);
         return false;
@@ -369,6 +370,11 @@ TraCIServerAPI_Vehicle::processGet(TraCIServer &server, tcpip::Storage &inputSto
             tempMsg.writeStorage(tempContent);
         }
         break;
+        case DISTANCE_REQUEST:
+            if (!commandDistanceRequest(server, inputStorage, tempMsg, v)) {
+                return false;
+            }
+            break;
         default:
             break;
         }
@@ -1050,6 +1056,60 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer &server, tcpip::Storage &inputSto
     return true;
 }
 
+
+bool
+TraCIServerAPI_Vehicle::commandDistanceRequest(traci::TraCIServer &server, tcpip::Storage &inputStorage,
+                                               tcpip::Storage &outputStorage, const MSVehicle* v) {
+    Position2D pos;
+    std::pair<const MSLane*, SUMOReal> roadPos;
+
+    // read position
+    int posType = inputStorage.readUnsignedByte();
+    switch (posType) {
+    case POSITION_ROADMAP:
+        try {
+            std::string roadID = inputStorage.readString();
+            roadPos.second = inputStorage.readFloat();
+            roadPos.first = TraCIServerAPI_Simulation::getLaneChecking(roadID, inputStorage.readUnsignedByte(), roadPos.second);
+            pos = roadPos.first->getShape().positionAtLengthPosition(roadPos.second);
+        } catch (TraCIException &e) {
+            server.writeStatusCmd(CMD_GET_VEHICLE_VARIABLE, RTYPE_ERR, e.what());
+            return false;
+        }
+        break;
+    case POSITION_2D:
+    case POSITION_2_5D:
+    case POSITION_3D: {
+        float p1x = inputStorage.readFloat();
+        float p1y = inputStorage.readFloat();
+        pos.set(p1x, p1y);
+    }
+    if ((posType == POSITION_2_5D) || (posType == POSITION_3D)) {
+        inputStorage.readFloat();		// z value is ignored
+    }
+    roadPos = TraCIServerAPI_Simulation::convertCartesianToRoadMap(pos);
+    break;
+    default:
+        server.writeStatusCmd(CMD_GET_VEHICLE_VARIABLE, RTYPE_ERR, "Unknown position format used for distance request");
+        return false;
+    }
+
+    // read distance type
+    int distType = inputStorage.readUnsignedByte();
+
+    float distance = 0.0;
+    if (distType == REQUEST_DRIVINGDIST) {
+        distance = static_cast<float>(v->getRoute().getDistanceBetween(v->getPositionOnLane(), roadPos.second,
+                                      v->getEdge(), &roadPos.first->getEdge()));
+    } else {
+        // compute air distance (default)
+        distance = static_cast<float>(v->getPosition().distanceTo(pos));
+    }
+    // write response command
+    outputStorage.writeUnsignedByte(TYPE_FLOAT);
+    outputStorage.writeFloat(distance);
+    return true;
+}
 
 // ------ helper functions ------
 MSVehicleType &

@@ -345,7 +345,7 @@ TraCIServerAPI_Simulation::commandDistanceRequest(traci::TraCIServer &server, tc
             roadPos1.first = getLaneChecking(roadID, inputStorage.readUnsignedByte(), roadPos1.second);
             pos1 = roadPos1.first->getShape().positionAtLengthPosition(roadPos1.second);
         } catch (TraCIException &e) {
-            server.writeStatusCmd(CMD_DISTANCEREQUEST, RTYPE_ERR, e.what());
+            server.writeStatusCmd(commandId, RTYPE_ERR, e.what());
             return false;
         }
         break;
@@ -430,6 +430,6 @@ TraCIServerAPI_Simulation::commandDistanceRequest(traci::TraCIServer &server, tc
     } else {
         outputStorage.writeUnsignedByte(TYPE_FLOAT);
     }
-    outputStorage.writeFloat(distance);	// distance;
+    outputStorage.writeFloat(distance);
     return true;
 }
