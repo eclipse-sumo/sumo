@@ -1,3 +1,1 @@
-simstep2 1
-posconversion3d 1 1 0 3
-simstep2 2
+getvariable_plus2 0xab 0x82 0 <position3D> 1 1 0 <*position3D>

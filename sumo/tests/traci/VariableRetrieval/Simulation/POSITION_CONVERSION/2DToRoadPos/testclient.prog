@@ -1,8 +1,6 @@
-simstep2 1
-posconversion2d 2300 900 4
-posconversion2d 3900 1300 4
-posconversion2d 3330 1000 4
-posconversion2d 3400 200 4
-% posconversion2d 20 490 4 %
-posconversion2d -100 489 4
-simstep2 10
+getvariable_plus2 0xab 0x82 0 <position2D> 2300 900 <*positionRoadmap>
+getvariable_plus2 0xab 0x82 0 <position2D> 3900 1300 <*positionRoadmap>
+getvariable_plus2 0xab 0x82 0 <position2D> 3330 1000 <*positionRoadmap>
+getvariable_plus2 0xab 0x82 0 <position2D> 3400 200 <*positionRoadmap>
+% getvariable_plus2 0xab 0x82 0 <position2D> 20 490 4 %
+getvariable_plus2 0xab 0x82 0 <position2D> -100 489 <*positionRoadmap>
