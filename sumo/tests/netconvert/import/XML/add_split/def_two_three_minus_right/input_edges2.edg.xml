@@ -1,0 +1,6 @@
+<edges>
+	<edge id="1">
+		<split lanes="0 1 2" pos="0"/>
+		<split pos="50"/>
+	</edge>
+</edges>
