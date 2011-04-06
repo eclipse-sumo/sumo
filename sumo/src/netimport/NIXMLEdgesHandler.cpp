@@ -485,13 +485,17 @@ NIXMLEdgesHandler::myEndElement(SumoXMLTag element) throw(ProcessError) {
                         e = ne;
                         currLanes = newLanes;
                     } else {
-                        MsgHandler::getWarningInstance()->inform("Error on parsing a split (edge '" + myCurrentID + "').");
+                        WRITE_WARNING("Error on parsing a split (edge '" + myCurrentID + "').");
                     }
                 }  else if (exp.pos==0) {
-                    e->decLaneNo(e->getNoLanes()-(int)exp.lanes.size());
+                    if (e->getNoLanes() < exp.lanes.size()) {
+                        e->incLaneNo(exp.lanes.size() - e->getNoLanes());
+                    } else {
+                        e->decLaneNo(e->getNoLanes() - exp.lanes.size());
+                    }
                     currLanes = exp.lanes;
                 } else {
-                    MsgHandler::getWarningInstance()->inform("Split at '" + toString(exp.pos) + "' lies beyond the edge's length (edge '" + myCurrentID + "').");
+                    WRITE_WARNING("Split at '" + toString(exp.pos) + "' lies beyond the edge's length (edge '" + myCurrentID + "').");
                 }
             }
             // patch lane offsets

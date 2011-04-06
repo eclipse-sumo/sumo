@@ -321,7 +321,7 @@ NBEdge::computeEdgeShape() throw() {
             }
         }
         if (shape.length() < POSITION_EPS) {
-            MsgHandler::getMessageInstance()->inform("Lane '" + myID + "' has calculated shape length near zero. Revert it back to old shape.");
+            WRITE_MESSAGE("Lane '" + myID + "' has calculated shape length near zero. Revert it back to old shape.");
             shape = old;
         } else {
             Line2D lc(shape[0], shape[-1]);
