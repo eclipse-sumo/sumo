@@ -371,7 +371,7 @@ optParser.add_option("-r", "--profile", action="store_true", dest="profile",
                      default=False, help="writing profiling info")
 optParser.add_option("-+", "--dijkstra", dest="dijkstra", type="choice",
                      choices=('extend', 'plain', 'boost'),
-                     default="boost", help="use penalty, plain(original) or boost in dijkstra implementation [default: %default]")
+                     default="plain", help="use penalty, plain(original) or boost in dijkstra implementation [default: %default]")
 optParser.add_option("-x", "--odestimation", action="store_true", dest="odestimation",
                      default=False, help="generate trips for OD estimation")
 optParser.add_option("-f", "--scale-factor", dest="demandscale", type="float", default=1., help="scale demand by ")
