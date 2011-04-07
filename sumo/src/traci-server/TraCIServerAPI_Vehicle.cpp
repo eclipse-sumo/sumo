@@ -28,6 +28,7 @@
 #endif
 
 #include <microsim/MSNet.h>
+#include <microsim/MSInsertionControl.h>
 #include <microsim/MSVehicle.h>
 #include <microsim/MSLane.h>
 #include <microsim/MSEdge.h>
@@ -1021,32 +1022,56 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer &server, tcpip::Storage &inputSto
             server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "First parameter (type) requires a string.", outputStorage);
             return false;
         }
-        const std::string typeID = inputStorage.readString();
+        MSVehicleType *vehicleType = MSNet::getInstance()->getVehicleControl().getVType(inputStorage.readString());
+        if (!vehicleType) {
+            server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Invalid type for vehicle: '"+id+"'");
+            return false;
+        }
         if (inputStorage.readUnsignedByte()!=TYPE_STRING) {
             server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Second parameter (route) requires a string.", outputStorage);
             return false;
         }
         const std::string routeID = inputStorage.readString();
+        const MSRoute *route = MSRoute::dictionary(routeID);
+        if (!route) {
+            server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Invalid route '"+routeID+"' for vehicle: '"+id+"'");
+            return false;
+        }
         if (inputStorage.readUnsignedByte()!=TYPE_INTEGER) {
             server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Third parameter (depart) requires an integer.", outputStorage);
             return false;
         }
         vehicleParams->depart = inputStorage.readInt();
+        if (vehicleParams->depart < 0) {
+            vehicleParams->departProcedure = (DepartDefinition)vehicleParams->depart;
+        }
         if (inputStorage.readUnsignedByte()!=TYPE_FLOAT) {
             server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Fourth parameter (position) requires a float.", outputStorage);
             return false;
         }
-        const SUMOReal pos = inputStorage.readFloat();
+        vehicleParams->departPos = inputStorage.readFloat();
+        if (vehicleParams->departPos < 0) {
+            vehicleParams->departPosProcedure = (DepartPosDefinition)vehicleParams->departPos;
+        }
         if (inputStorage.readUnsignedByte()!=TYPE_FLOAT) {
             server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Fifth parameter (speed) requires a float.", outputStorage);
             return false;
         }
-        const SUMOReal speed = inputStorage.readFloat();
+        vehicleParams->departSpeed = inputStorage.readFloat();
+        if (vehicleParams->departSpeed < 0) {
+            vehicleParams->departSpeedProcedure = (DepartSpeedDefinition)vehicleParams->departSpeed;
+        }
         if (inputStorage.readUnsignedByte()!=TYPE_BYTE) {
             server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Sixth parameter (lane) requires a byte.", outputStorage);
             return false;
         }
-        const int laneIndex = inputStorage.readByte();
+        vehicleParams->departLane = inputStorage.readByte();
+        if (vehicleParams->departLane < 0) {
+            vehicleParams->departLaneProcedure = (DepartLaneDefinition)vehicleParams->departLane;
+        }
+        SUMOVehicle *vehicle = MSNet::getInstance()->getVehicleControl().buildVehicle(vehicleParams, route, vehicleType);
+        MSNet::getInstance()->getVehicleControl().addVehicle(vehicleParams->id, vehicle);
+        MSNet::getInstance()->getInsertionControl().add(vehicle);
     }
     break;
     default:

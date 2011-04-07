@@ -74,7 +74,9 @@ enum DepartDefinition {
     /// @brief The time is given
     DEPART_GIVEN,
     /// @brief The departure is person triggered
-    DEPART_TRIGGERED
+    DEPART_TRIGGERED,
+    /// @brief The vehicle is discarded if emission fails
+    DEPART_NOW
 };
 
 
