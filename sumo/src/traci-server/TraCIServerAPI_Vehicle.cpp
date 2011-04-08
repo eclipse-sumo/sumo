@@ -1051,7 +1051,7 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer &server, tcpip::Storage &inputSto
         }
         vehicleParams->departPos = inputStorage.readFloat();
         if (vehicleParams->departPos < 0) {
-            vehicleParams->departPosProcedure = (DepartPosDefinition)vehicleParams->departPos;
+            vehicleParams->departPosProcedure = (DepartPosDefinition)(int)vehicleParams->departPos;
         }
         if (inputStorage.readUnsignedByte()!=TYPE_FLOAT) {
             server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Fifth parameter (speed) requires a float.", outputStorage);
@@ -1059,7 +1059,7 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer &server, tcpip::Storage &inputSto
         }
         vehicleParams->departSpeed = inputStorage.readFloat();
         if (vehicleParams->departSpeed < 0) {
-            vehicleParams->departSpeedProcedure = (DepartSpeedDefinition)vehicleParams->departSpeed;
+            vehicleParams->departSpeedProcedure = (DepartSpeedDefinition)(int)vehicleParams->departSpeed;
         }
         if (inputStorage.readUnsignedByte()!=TYPE_BYTE) {
             server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Sixth parameter (lane) requires a byte.", outputStorage);

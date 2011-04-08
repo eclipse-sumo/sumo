@@ -46,9 +46,6 @@
     <ClCompile Include="..\..\..\src\microsim\MSEdgeWeightsStorage.cpp">
       <Filter>Quellcodedateien</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\src\microsim\MSEmitControl.cpp">
-      <Filter>Quellcodedateien</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\src\microsim\MSEventControl.cpp">
       <Filter>Quellcodedateien</Filter>
     </ClCompile>
@@ -148,6 +145,9 @@
     <ClCompile Include="..\..\..\src\microsim\devices\MSDevice_Vehroutes.cpp">
       <Filter>Quellcodedateien</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\src\microsim\MSInsertionControl.cpp">
+      <Filter>Quellcodedateien</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\src\microsim\MSAbstractLaneChangeModel.h">
@@ -193,9 +193,6 @@
       <Filter>Header-Dateien</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\microsim\MSEdgeWeightsStorage.h">
-      <Filter>Header-Dateien</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\microsim\MSEmitControl.h">
       <Filter>Header-Dateien</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\microsim\MSEventControl.h">
@@ -292,6 +289,9 @@
       <Filter>Header-Dateien</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\microsim\devices\MSDevice_Vehroutes.h">
+      <Filter>Header-Dateien</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\microsim\MSInsertionControl.h">
       <Filter>Header-Dateien</Filter>
     </ClInclude>
   </ItemGroup>
