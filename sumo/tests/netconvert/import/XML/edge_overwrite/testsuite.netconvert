@@ -25,5 +25,11 @@ shape_add3nodes
 # removing priori shape definition
 shape_3tonone
 
+# keeping a previously given shape
+shape_keep
+
+# parse an empty shape
+shape_empty
+
 # splitting an edge
 split
