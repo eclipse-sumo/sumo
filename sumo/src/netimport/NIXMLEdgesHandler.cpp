@@ -98,6 +98,7 @@ NIXMLEdgesHandler::myStartElement(SumoXMLTag element,
         myNotAllowed = myTypeCont.getDisallowedClasses("");
         // check whether a type's values shall be used
         myCurrentType = "";
+        myShape = Position2DVector();
         if (attrs.hasAttribute(SUMO_ATTR_TYPE)) {
             myCurrentType = attrs.getStringReporting(SUMO_ATTR_TYPE, myCurrentID.c_str(), ok);
             if (!ok) {
@@ -126,6 +127,7 @@ NIXMLEdgesHandler::myStartElement(SumoXMLTag element,
             myCurrentType = myCurrentEdge->getTypeID();
             myAllowed = myCurrentEdge->getAllowedVehicleClasses();
             myNotAllowed = myCurrentEdge->getDisallowedVehicleClasses();
+            myShape = myCurrentEdge->getGeometry();
         }
         // speed, priority and the number of lanes have now default values;
         // try to read the real values from the file
@@ -151,7 +153,11 @@ NIXMLEdgesHandler::myStartElement(SumoXMLTag element,
             myNotAllowed.clear();
             parseVehicleClasses(allowS, disallowS, myAllowed, myNotAllowed);
         }
-
+        // try to set the nodes
+        if (!setNodes(attrs)) {
+            // return if this failed
+            return;
+        }
         // try to get the shape
         myShape = tryGetShape(attrs);
         // and how to spread the lanes
@@ -159,11 +165,6 @@ NIXMLEdgesHandler::myStartElement(SumoXMLTag element,
             myLanesSpread = NBEdge::LANESPREAD_CENTER;
         } else {
             myLanesSpread = NBEdge::LANESPREAD_RIGHT;
-        }
-        // try to set the nodes
-        if (!setNodes(attrs)) {
-            // return if this failed
-            return;
         }
         // get the length or compute it
         if (attrs.hasAttribute(SUMO_ATTR_LENGTH)) {
@@ -293,7 +294,7 @@ NIXMLEdgesHandler::myStartElement(SumoXMLTag element,
             }
             if (e.lanes.empty()) {
                 for (size_t l = 0; l < myCurrentEdge->getNoLanes(); ++l) {
-                    e.lanes.push_back(l);
+                    e.lanes.push_back((int) l);
                 }
             }
             mySplits.push_back(e);
@@ -309,6 +310,8 @@ NIXMLEdgesHandler::setNodes(const SUMOSAXAttributes &attrs) throw() {
     bool ok = true;
     std::string begNodeID = myIsUpdate ? myCurrentEdge->getFromNode()->getID() : "";
     std::string endNodeID = myIsUpdate ? myCurrentEdge->getToNode()->getID() : "";
+    std::string oldBegID = begNodeID;
+    std::string oldEndID = endNodeID;
     begNodeID = attrs.hasAttribute(SUMO_ATTR_FROMNODE) ? attrs.getStringReporting(SUMO_ATTR_FROMNODE, 0, ok) : begNodeID;
     endNodeID = attrs.hasAttribute(SUMO_ATTR_TONODE) ? attrs.getStringReporting(SUMO_ATTR_TONODE, 0, ok) : endNodeID;
     if (!ok) {
@@ -334,6 +337,11 @@ NIXMLEdgesHandler::setNodes(const SUMOSAXAttributes &attrs) throw() {
     // check the obtained values for nodes
     myFromNode = insertNodeChecking(Position2D(begNodeXPos, begNodeYPos), begNodeID, "from");
     myToNode = insertNodeChecking(Position2D(endNodeXPos, endNodeYPos), endNodeID, "to");
+    if(myFromNode!=0&&myToNode!=0) {
+        if(myIsUpdate&&(myFromNode->getID()!=oldBegID||myToNode->getID()!=oldEndID)) {
+            myShape = Position2DVector();
+        }
+    }
     return myFromNode!=0&&myToNode!=0;
 }
 
@@ -386,7 +394,7 @@ NIXMLEdgesHandler::insertNodeChecking(const Position2D &pos,
 Position2DVector
 NIXMLEdgesHandler::tryGetShape(const SUMOSAXAttributes &attrs) throw() {
     if (!attrs.hasAttribute(SUMO_ATTR_SHAPE)) {
-        return Position2DVector();
+        return myShape;
     }
     // try to build shape
     bool ok = true;
@@ -489,9 +497,9 @@ NIXMLEdgesHandler::myEndElement(SumoXMLTag element) throw(ProcessError) {
                     }
                 }  else if (exp.pos==0) {
                     if (e->getNoLanes() < exp.lanes.size()) {
-                        e->incLaneNo(exp.lanes.size() - e->getNoLanes());
+                        e->incLaneNo((int) exp.lanes.size() - e->getNoLanes());
                     } else {
-                        e->decLaneNo(e->getNoLanes() - exp.lanes.size());
+                        e->decLaneNo(e->getNoLanes() - (int) exp.lanes.size());
                     }
                     currLanes = exp.lanes;
                 } else {
