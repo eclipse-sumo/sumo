@@ -31,6 +31,7 @@
 
 #include <vector>
 #include <utility>
+#include <utils/common/RGBColor.h>
 #include <utils/geom/Position2DVector.h>
 #include <utils/geom/Line2D.h>
 
@@ -226,6 +227,9 @@ public:
      */
     static void drawTriangleAtEnd(const Line2D &l, SUMOReal tLength,
                                   SUMOReal tWidth) throw();
+
+    /// @brief Sets the gl-color to this value
+    static void setColor(const RGBColor& c);
 
 private:
     /// @brief Storage for precomputed sin/cos-values describing a circle

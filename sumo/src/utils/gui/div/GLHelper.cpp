@@ -299,6 +299,11 @@ GLHelper::drawTriangleAtEnd(const Line2D &l, SUMOReal tLength,
 }
 
 
+void 
+GLHelper::setColor(const RGBColor& c) {
+    glColor3d(c.red(), c.green(), c.blue());
+}
+
 
 /****************************************************************************/
 
