@@ -41,9 +41,6 @@
 // command: slow down
 #define CMD_SLOWDOWN 0x14
 
-// command: change route
-#define CMD_CHANGEROUTE 0x30
-
 // command: change target
 #define CMD_CHANGETARGET 0x31
 

@@ -75,7 +75,7 @@ TraCIServerAPI_Vehicle::processGet(TraCIServer &server, tcpip::Storage &inputSto
             &&variable!=VAR_SIGNALS
             &&variable!=VAR_LENGTH&&variable!=VAR_MAXSPEED&&variable!=VAR_VEHICLECLASS
             &&variable!=VAR_SPEED_FACTOR&&variable!=VAR_SPEED_DEVIATION&&variable!=VAR_EMISSIONCLASS
-            &&variable!=VAR_WIDTH&&variable!=VAR_GUIOFFSET&&variable!=VAR_SHAPE
+            &&variable!=VAR_WIDTH&&variable!=VAR_GUIOFFSET&&variable!=VAR_SHAPECLASS
             &&variable!=VAR_ACCEL&&variable!=VAR_DECEL&&variable!=VAR_IMPERFECTION
             &&variable!=VAR_TAU&&variable!=VAR_BEST_LANES&&variable!=DISTANCE_REQUEST
        ) {
@@ -261,12 +261,8 @@ TraCIServerAPI_Vehicle::processGet(TraCIServer &server, tcpip::Storage &inputSto
         break;
         case VAR_ROUTE_VALID: {
             std::string msg;
-            if (!v->hasValidRoute(msg)) {
-                server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, msg, outputStorage);
-                return false;
-            }
             tempMsg.writeUnsignedByte(TYPE_UBYTE);
-            tempMsg.writeUnsignedByte(1);
+            tempMsg.writeUnsignedByte(v->hasValidRoute(msg));
         }
         break;
         case VAR_EDGES: {
@@ -314,7 +310,7 @@ TraCIServerAPI_Vehicle::processGet(TraCIServer &server, tcpip::Storage &inputSto
             tempMsg.writeUnsignedByte(TYPE_FLOAT);
             tempMsg.writeFloat((float)(v->getVehicleType().getGuiOffset()));
             break;
-        case VAR_SHAPE:
+        case VAR_SHAPECLASS:
             tempMsg.writeUnsignedByte(TYPE_STRING);
             tempMsg.writeString(getVehicleShapeName(v->getVehicleType().getGuiShape()));
             break;
@@ -396,14 +392,14 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer &server, tcpip::Storage &inputSto
     // variable
     int variable = inputStorage.readUnsignedByte();
     if (variable!=CMD_SETMAXSPEED&&variable!=CMD_STOP&&variable!=CMD_CHANGELANE
-            &&variable!=CMD_SLOWDOWN&&/*variable!=CMD_CHANGEROUTE&&*/variable!=CMD_CHANGETARGET
+            &&variable!=CMD_SLOWDOWN&&variable!=CMD_CHANGETARGET
             &&variable!=VAR_ROUTE_ID&&variable!=VAR_ROUTE
             &&variable!=VAR_EDGE_TRAVELTIME&&variable!=VAR_EDGE_EFFORT
             &&variable!=CMD_REROUTE_TRAVELTIME&&variable!=CMD_REROUTE_EFFORT
             &&variable!=VAR_SIGNALS&&variable!=VAR_MOVE_TO
             &&variable!=VAR_LENGTH&&variable!=VAR_MAXSPEED&&variable!=VAR_VEHICLECLASS
             &&variable!=VAR_SPEED_FACTOR&&variable!=VAR_SPEED_DEVIATION&&variable!=VAR_EMISSIONCLASS
-            &&variable!=VAR_WIDTH&&variable!=VAR_GUIOFFSET&&variable!=VAR_SHAPE
+            &&variable!=VAR_WIDTH&&variable!=VAR_GUIOFFSET&&variable!=VAR_SHAPECLASS
             &&variable!=VAR_ACCEL&&variable!=VAR_DECEL&&variable!=VAR_IMPERFECTION
             &&variable!=VAR_TAU
             &&variable!=VAR_SPEED&&variable!=VAR_COLOR
@@ -551,27 +547,6 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer &server, tcpip::Storage &inputSto
         speedTimeLine.push_back(std::make_pair(MSNet::getInstance()->getCurrentTimeStep()+duration, (SUMOReal) newSpeed));
         static_cast<MSVehicle*>(v)->getInfluencer().setSpeedTimeLine(speedTimeLine);
     }
-    break;
-    case CMD_CHANGEROUTE: {
-        if (valueDataType!=TYPE_STRINGLIST) {
-            server.writeStatusCmd(CMD_SET_ROUTE_VARIABLE, RTYPE_ERR, "A string list is needed for changing to a new route.", outputStorage);
-            return false;
-        }
-        int numEdges = inputStorage.readInt();
-		MSEdgeVector edges(numEdges);
-		while (numEdges--) {
-			MSEdge* edge = MSEdge::dictionary(inputStorage.readString());
-			if (edge==0) {
-				server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Unknown edge in route.", outputStorage);
-				return false;
-			}
-			edges.push_back(edge);
-		}
-	    if (!v->replaceRouteEdges(edges)) {
-            server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Route replacement failed for " + v->getID(), outputStorage);
-            return false;
-        }
-	}
     break;
     case CMD_CHANGETARGET: {
         if (valueDataType!=TYPE_STRING) {
@@ -1085,6 +1060,15 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer &server, tcpip::Storage &inputSto
 bool
 TraCIServerAPI_Vehicle::commandDistanceRequest(traci::TraCIServer &server, tcpip::Storage &inputStorage,
                                                tcpip::Storage &outputStorage, const MSVehicle* v) {
+    if (inputStorage.readUnsignedByte()!=TYPE_COMPOUND) {
+        server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Retrieval of distance requires a compound object.", outputStorage);
+        return false;
+    }
+    if (inputStorage.readInt()!=2) {
+        server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Retrieval of distance requires position and distance type as parameter.", outputStorage);
+        return false;
+    }
+
     Position2D pos;
     std::pair<const MSLane*, SUMOReal> roadPos;
 

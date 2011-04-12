@@ -32,18 +32,45 @@ def _readBestLanes(result):
     return lanes
 
 
-RETURN_VALUE_FUNC = {tc.ID_LIST:          traci.Storage.readStringList,
-                     tc.VAR_SPEED:        traci.Storage.readFloat,
-                     tc.VAR_POSITION:     lambda(result): result.read("!ff"),
-                     tc.VAR_ANGLE:        traci.Storage.readFloat,
-                     tc.VAR_ROAD_ID:      traci.Storage.readString,
-                     tc.VAR_LANE_ID:      traci.Storage.readString,
-                     tc.VAR_LANE_INDEX:   traci.Storage.readInt,
-                     tc.VAR_TYPE:         traci.Storage.readString,
-                     tc.VAR_ROUTE_ID:     traci.Storage.readString,
-                     tc.VAR_LANEPOSITION: traci.Storage.readFloat,
-                     tc.VAR_COLOR:        lambda(result): result.read("!BBBB"),
-                     tc.VAR_BEST_LANES:   _readBestLanes}
+RETURN_VALUE_FUNC = {tc.ID_LIST:             traci.Storage.readStringList,
+                     tc.VAR_SPEED:           traci.Storage.readFloat,
+                     tc.VAR_SPEED_WITHOUT_TRACI: traci.Storage.readFloat,
+                     tc.VAR_POSITION:        lambda(result): result.read("!ff"),
+                     tc.VAR_ANGLE:           traci.Storage.readFloat,
+                     tc.VAR_ROAD_ID:         traci.Storage.readString,
+                     tc.VAR_LANE_ID:         traci.Storage.readString,
+                     tc.VAR_LANE_INDEX:      traci.Storage.readInt,
+                     tc.VAR_TYPE:            traci.Storage.readString,
+                     tc.VAR_ROUTE_ID:        traci.Storage.readString,
+                     tc.VAR_COLOR:           lambda(result): result.read("!BBBB"),
+                     tc.VAR_LANEPOSITION:    traci.Storage.readFloat,
+                     tc.VAR_CO2EMISSION:     traci.Storage.readFloat,
+                     tc.VAR_COEMISSION:      traci.Storage.readFloat,
+                     tc.VAR_HCEMISSION:      traci.Storage.readFloat,
+                     tc.VAR_PMXEMISSION:     traci.Storage.readFloat,
+                     tc.VAR_NOXEMISSION:     traci.Storage.readFloat,
+                     tc.VAR_FUELCONSUMPTION: traci.Storage.readFloat,
+                     tc.VAR_NOISEEMISSION:   traci.Storage.readFloat,
+                     tc.VAR_EDGE_TRAVELTIME: traci.Storage.readFloat,
+                     tc.VAR_EDGE_EFFORT:     traci.Storage.readFloat,
+                     tc.VAR_ROUTE_VALID:     lambda(result): bool(result.read("!B")[0]),
+                     tc.VAR_EDGES:           traci.Storage.readStringList,
+                     tc.VAR_SIGNALS:         traci.Storage.readInt,
+                     tc.VAR_LENGTH:          traci.Storage.readFloat,
+                     tc.VAR_MAXSPEED:        traci.Storage.readFloat,
+                     tc.VAR_VEHICLECLASS:    traci.Storage.readString,
+                     tc.VAR_SPEED_FACTOR:    traci.Storage.readFloat,
+                     tc.VAR_SPEED_DEVIATION: traci.Storage.readFloat,
+                     tc.VAR_EMISSIONCLASS:   traci.Storage.readString,
+                     tc.VAR_WIDTH:           traci.Storage.readFloat,
+                     tc.VAR_GUIOFFSET:       traci.Storage.readFloat,
+                     tc.VAR_SHAPECLASS:      traci.Storage.readString,
+                     tc.VAR_ACCEL:           traci.Storage.readFloat,
+                     tc.VAR_DECEL:           traci.Storage.readFloat,
+                     tc.VAR_IMPERFECTION:    traci.Storage.readFloat,
+                     tc.VAR_TAU:             traci.Storage.readFloat,
+                     tc.VAR_BEST_LANES:      _readBestLanes,
+                     tc.DISTANCE_REQUEST:    traci.Storage.readFloat}
 subscriptionResults = {}
 
 def _getUniversal(varID, vehID):
@@ -55,6 +82,9 @@ def getIDList():
 
 def getSpeed(vehID):
     return _getUniversal(tc.VAR_SPEED, vehID)
+
+def getSpeedWithoutTraCI(vehID):
+    return _getUniversal(tc.VAR_SPEED_WITHOUT_TRACI, vehID)
 
 def getPosition(vehID):
     """
@@ -81,7 +111,7 @@ def getRouteID(vehID):
     return _getUniversal(tc.VAR_ROUTE_ID, vehID)
 
 def getRoute(vehID):
-    return traci.route.getEdges(getRouteID(vehID))
+    return _getUniversal(tc.VAR_EDGES, vehID)
 
 def getLanePosition(vehID):
     return _getUniversal(tc.VAR_LANEPOSITION, vehID)
@@ -89,8 +119,99 @@ def getLanePosition(vehID):
 def getColor(vehID):
     return _getUniversal(tc.VAR_COLOR, vehID)
 
+def getCO2Emission(vehID):
+    return _getUniversal(tc.VAR_CO2EMISSION, vehID)
+
+def getCOEmission(vehID):
+    return _getUniversal(tc.VAR_COEMISSION, vehID)
+
+def getHCEmission(vehID):
+    return _getUniversal(tc.VAR_HCEMISSION, vehID)
+
+def getPMxEmission(vehID):
+    return _getUniversal(tc.VAR_PMXEMISSION, vehID)
+
+def getNOxEmission(vehID):
+    return _getUniversal(tc.VAR_NOXEMISSION, vehID)
+
+def getFuelConsumption(vehID):
+    return _getUniversal(tc.VAR_FUELCONSUMPTION, vehID)
+
+def getNoiseEmission(vehID):
+    return _getUniversal(tc.VAR_NOISEEMISSION, vehID)
+
+def getAdaptedTraveltime(vehID, time, edgeID):
+    traci._beginMessage(tc.CMD_GET_VEHICLE_VARIABLE, tc.VAR_EDGE_TRAVELTIME, vehID, 1+4+1+4+1+4+len(edgeID))
+    traci._message.string += struct.pack("!BiBiBi", tc.TYPE_COMPOUND, 2, tc.TYPE_INTEGER, time,
+                                         tc.TYPE_STRING, len(edgeID)) + edgeID
+    return traci._checkResult(tc.CMD_GET_VEHICLE_VARIABLE, tc.VAR_EDGE_TRAVELTIME, vehID).readFloat()
+
+def getEffort(vehID, time, edgeID):
+    traci._beginMessage(tc.CMD_GET_VEHICLE_VARIABLE, tc.VAR_EDGE_EFFORT, vehID, 1+4+1+4+1+4+len(edgeID))
+    traci._message.string += struct.pack("!BiBiBi", tc.TYPE_COMPOUND, 2, tc.TYPE_INTEGER, time,
+                                         tc.TYPE_STRING, len(edgeID)) + edgeID
+    return traci._checkResult(tc.CMD_GET_VEHICLE_VARIABLE, tc.VAR_EDGE_EFFORT, vehID).readFloat()
+
+def isRouteValid(vehID):
+    return _getUniversal(tc.VAR_LENGTH, vehID)
+
+def getSignals(vehID):
+    return _getUniversal(tc.VAR_LENGTH, vehID)
+
+def getLength(vehID):
+    return _getUniversal(tc.VAR_LENGTH, vehID)
+
+def getMaxSpeed(vehID):
+    return _getUniversal(tc.VAR_MAXSPEED, vehID)
+
+def getVehicleClass(vehID):
+    return _getUniversal(tc.VAR_VEHICLECLASS, vehID)
+
+def getSpeedFactor(vehID):
+    return _getUniversal(tc.VAR_SPEED_FACTOR, vehID)
+
+def getSpeedDeviation(vehID):
+    return _getUniversal(tc.VAR_SPEED_DEVIATION, vehID)
+
+def getEmissionClass(vehID):
+    return _getUniversal(tc.VAR_EMISSIONCLASS, vehID)
+
+def getWidth(vehID):
+    return _getUniversal(tc.VAR_WIDTH, vehID)
+
+def getGUIOffset(vehID):
+    return _getUniversal(tc.VAR_GUIOFFSET, vehID)
+
+def getShapeClass(vehID):
+    return _getUniversal(tc.VAR_SHAPECLASS, vehID)
+
+def getAccel(vehID):
+    return _getUniversal(tc.VAR_ACCEL, vehID)
+
+def getDecel(vehID):
+    return _getUniversal(tc.VAR_DECEL, vehID)
+
+def getImperfection(vehID):
+    return _getUniversal(tc.VAR_IMPERFECTION, vehID)
+
+def getTau(vehID):
+    return _getUniversal(tc.VAR_TAU, vehID)
+
 def getBestLanes(vehID):
     return _getUniversal(tc.VAR_BEST_LANES, vehID)
+
+def getDrivingDistance(vehID, edgeID, pos, laneID=0):
+    traci._beginMessage(tc.CMD_GET_VEHICLE_VARIABLE, tc.DISTANCE_REQUEST, vehID, 1+4+1+4+len(edgeID)+4+1+1)
+    traci._message.string += struct.pack("!BiBi", tc.TYPE_COMPOUND, 2,
+                                         tc.POSITION_ROADMAP, len(edgeID)) + edgeID
+    traci._message.string += struct.pack("!fBB", pos, laneID, REQUEST_DRIVINGDIST)
+    return traci._checkResult(tc.CMD_GET_VEHICLE_VARIABLE, tc.DISTANCE_REQUEST, vehID).readFloat()
+
+def getDrivingDistance2D(vehID, x, y):
+    traci._beginMessage(tc.CMD_GET_VEHICLE_VARIABLE, tc.DISTANCE_REQUEST, vehID, 1+4+1+4+4+1)
+    traci._message.string += struct.pack("!BiBffB", tc.TYPE_COMPOUND, 2,
+                                         tc.POSITION_2D, x, y, REQUEST_DRIVINGDIST)
+    return traci._checkResult(tc.CMD_GET_VEHICLE_VARIABLE, tc.DISTANCE_REQUEST, vehID).readFloat()
 
 
 def subscribe(vehID, varIDs=(tc.VAR_ROAD_ID, tc.VAR_LANEPOSITION), begin=0, end=2**31-1):
@@ -116,21 +237,11 @@ def setMaxSpeed(vehID, speed):
     traci._message.string += struct.pack("!Bf", tc.TYPE_FLOAT, speed)
     traci._sendExact()
 
-def setSpeed(vehID, speed):
-    traci._beginMessage(tc.CMD_SET_VEHICLE_VARIABLE, tc.VAR_SPEED, vehID, 1+8)
-    traci._message.string += struct.pack("!Bd", tc.TYPE_DOUBLE, speed)
-    traci._sendExact()
-
-def setLanePosition(vehID, position):
-    traci._beginMessage(tc.CMD_SET_VEHICLE_VARIABLE, tc.VAR_LANEPOSITION, vehID, 1+8)
-    traci._message.string += struct.pack("!Bd", tc.TYPE_DOUBLE, position)
-    traci._sendExact()
-
-def setStop(vehID, edgeID, pos=1., laneIndex=0, duration=2**31-1):
-    traci._beginMessage(tc.CMD_SET_VEHICLE_VARIABLE, tc.CMD_STOP, vehID, 1+4+1+4+len(edgeID)+1+4+1+1+1+4)
+def setStop(vehID, vehID, pos=1., laneIndex=0, duration=2**31-1):
+    traci._beginMessage(tc.CMD_SET_VEHICLE_VARIABLE, tc.CMD_STOP, vehID, 1+4+1+4+len(vehID)+1+4+1+1+1+4)
     traci._message.string += struct.pack("!Bi", tc.TYPE_COMPOUND, 4)
     traci._message.string += struct.pack("!B", tc.TYPE_STRING)
-    traci._message.string += struct.pack("!i", len(edgeID)) + edgeID
+    traci._message.string += struct.pack("!i", len(vehID)) + vehID
     traci._message.string += struct.pack("!BfBBBi", tc.TYPE_FLOAT, pos, tc.TYPE_BYTE, laneIndex, tc.TYPE_INTEGER, duration)
     traci._sendExact()
 
@@ -150,6 +261,12 @@ def changeTarget(vehID, edgeID):
     traci._message.string += struct.pack("!i", len(edgeID)) + edgeID
     traci._sendExact()
 
+def setRouteID(vehID, routeID):
+    traci._beginMessage(tc.CMD_SET_VEHICLE_VARIABLE, tc.VAR_ROUTE_ID, vehID, 1+4+len(routeID))
+    traci._message.string += struct.pack("!B", tc.TYPE_STRING)
+    traci._message.string += struct.pack("!i", len(routeID)) + routeID
+    traci._sendExact()
+
 def setRoute(vehID, edgeList):
     """
     changes the vehicle route to given edges list.
@@ -167,6 +284,20 @@ def setRoute(vehID, edgeList):
         traci._message.string += struct.pack("!i", len(edge)) + edge
     traci._sendExact()
 
+def setAdaptedTraveltime(vehID, begTime, endTime, edgeID, time):
+    traci._beginMessage(tc.CMD_SET_VEHICLE_VARIABLE, tc.VAR_EDGE_TRAVELTIME, vehID, 1+4+1+4+1+4+1+4+len(edgeID)+1+4)
+    traci._message.string += struct.pack("!BiBiBiBi", tc.TYPE_COMPOUND, 4, tc.TYPE_INTEGER, begTime,
+                                         tc.TYPE_INTEGER, endTime, tc.TYPE_STRING, len(edgeID)) + edgeID
+    traci._message.string += struct.pack("!Bf", tc.TYPE_FLOAT, time)
+    traci._sendExact()
+
+def setEffort(vehID, begTime, endTime, edgeID, effort):
+    traci._beginMessage(tc.CMD_SET_VEHICLE_VARIABLE, tc.VAR_EDGE_EFFORT, vehID, 1+4+1+4+1+4+1+4+len(edgeID)+1+4)
+    traci._message.string += struct.pack("!BiBiBiBi", tc.TYPE_COMPOUND, 4, tc.TYPE_INTEGER, begTime,
+                                         tc.TYPE_INTEGER, endTime, tc.TYPE_STRING, len(edgeID)) + edgeID
+    traci._message.string += struct.pack("!Bf", tc.TYPE_FLOAT, effort)
+    traci._sendExact()
+
 def moveTo(vehID, laneID, pos):
     traci._beginMessage(tc.CMD_SET_VEHICLE_VARIABLE, tc.VAR_MOVE_TO, vehID, 1+4+1+4+len(laneID)+8)
     traci._message.string += struct.pack("!Bi", tc.TYPE_COMPOUND, 2)
@@ -177,6 +308,16 @@ def moveTo(vehID, laneID, pos):
 def reroute(vehID):
     traci._beginMessage(tc.CMD_SET_VEHICLE_VARIABLE, tc.CMD_REROUTE_TRAVELTIME, vehID, 1+4)
     traci._message.string += struct.pack("!Bi", tc.TYPE_COMPOUND, 0)
+    traci._sendExact()
+
+def setSpeed(vehID, speed):
+    traci._beginMessage(tc.CMD_SET_VEHICLE_VARIABLE, tc.VAR_SPEED, vehID, 1+8)
+    traci._message.string += struct.pack("!Bd", tc.TYPE_DOUBLE, speed)
+    traci._sendExact()
+
+def setLanePosition(vehID, position):
+    traci._beginMessage(tc.CMD_SET_VEHICLE_VARIABLE, tc.VAR_LANEPOSITION, vehID, 1+8)
+    traci._message.string += struct.pack("!Bd", tc.TYPE_DOUBLE, position)
     traci._sendExact()
 
 def setColor(vehID, color):
