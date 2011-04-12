@@ -474,10 +474,10 @@ NIImporter_SUMO::approximateEdgeShape(const EdgeAttrs* edge) {
         Position2D me = firstLane[i];
         Position2D to = firstLane[i+1];
         std::pair<SUMOReal, SUMOReal> offsets = NBEdge::laneOffset(
-                from, me, SUMO_const_laneWidthAndOffset, noLanes-1, 
+                from, me, SUMO_const_laneWidthAndOffset, (unsigned int)noLanes-1, 
                 noLanes, NBEdge::LANESPREAD_RIGHT, false);
         std::pair<SUMOReal, SUMOReal> offsets2 = NBEdge::laneOffset(
-                me, to, SUMO_const_laneWidthAndOffset, noLanes-1, 
+                me, to, SUMO_const_laneWidthAndOffset, (unsigned int)noLanes-1, 
                 noLanes, NBEdge::LANESPREAD_RIGHT, false);
 
         Line2D l1(
