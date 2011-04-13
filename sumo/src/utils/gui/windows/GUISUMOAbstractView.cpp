@@ -168,7 +168,9 @@ GUISUMOAbstractView::updateToolTip() {
 
 Position2D
 GUISUMOAbstractView::getPositionInformation() const {
-    return getPositionInformation(myWindowCursorPositionX, myWindowCursorPositionY);
+    return getPositionInformation(
+            myWindowCursorPositionX + myMouseHotspotX, 
+            myWindowCursorPositionY + myMouseHotspotY);
 }
 
 
