@@ -187,8 +187,8 @@ GLHelper::drawLine(const Position2DVector &v) throw() {
 void
 GLHelper::drawLine(const Position2D &beg, const Position2D &end) throw() {
     glBegin(GL_LINES);
-    glVertex2d(beg.x(), end.y());
-    glVertex2d(beg.x(), end.y());
+    glVertex2d(beg.x(), beg.y());
+    glVertex2d(end.x(), end.y());
     glEnd();
 }
 
