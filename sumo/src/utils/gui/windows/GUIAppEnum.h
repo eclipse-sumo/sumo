@@ -315,6 +315,8 @@ enum {
     //@{
     /** abort current edit operation */
     MID_GNE_ABORT,
+    /** hot key <DEL> */
+    MID_GNE_HOTKEY_DEL,
 
     /** mode has changed */
     MID_GNE_MODE_CHANGE,
