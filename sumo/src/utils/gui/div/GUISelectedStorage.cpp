@@ -27,7 +27,6 @@
 #include <config.h>
 #endif
 
-#include <vector>
 #include <algorithm>
 #include <utils/gui/globjects/GUIGlObject.h>
 #include <utils/gui/globjects/GUIGlObjectStorage.h>
@@ -47,70 +46,44 @@
 /* -------------------------------------------------------------------------
  * for GUISelectedStorage::SingleTypeSelections
  * ----------------------------------------------------------------------- */
-GUISelectedStorage::SingleTypeSelections::SingleTypeSelections() throw() {}
+GUISelectedStorage::SingleTypeSelections::SingleTypeSelections() {}
 
 
-GUISelectedStorage::SingleTypeSelections::~SingleTypeSelections() throw() {}
+GUISelectedStorage::SingleTypeSelections::~SingleTypeSelections() {}
 
 
 bool
-GUISelectedStorage::SingleTypeSelections::isSelected(GLuint id) throw() {
-    std::vector<GLuint>::iterator i = find(mySelected.begin(), mySelected.end(), id);
-    return i!=mySelected.end();
+GUISelectedStorage::SingleTypeSelections::isSelected(GLuint id) {
+    return mySelected.count(id);
 }
 
 
 void
-GUISelectedStorage::SingleTypeSelections::select(GLuint id) throw() {
-    std::vector<GLuint>::iterator i = find(mySelected.begin(), mySelected.end(), id);
-    if (i==mySelected.end()) {
-        mySelected.push_back(id);
-    }
+GUISelectedStorage::SingleTypeSelections::select(GLuint id) {
+    mySelected.insert(id);
 }
 
 
 void
-GUISelectedStorage::SingleTypeSelections::deselect(GLuint id) throw() {
-    std::vector<GLuint>::iterator i = find(mySelected.begin(), mySelected.end(), id);
-    if (i!=mySelected.end()) {
-        mySelected.erase(i);
-    }
+GUISelectedStorage::SingleTypeSelections::deselect(GLuint id) {
+    mySelected.erase(id);
 }
 
 
 void
-GUISelectedStorage::SingleTypeSelections::clear() throw() {
+GUISelectedStorage::SingleTypeSelections::clear() {
     mySelected.clear();
 }
 
 
 void
-GUISelectedStorage::SingleTypeSelections::load(const std::string &filename) throw(IOError) {
-    std::ifstream strm(filename.c_str());
-    while (strm.good()) {
-        std::string name;
-        strm >> name;
-    }
+GUISelectedStorage::SingleTypeSelections::save(const std::string &filename) {
+    GUISelectedStorage::save(filename, mySelected);
 }
 
 
-void
-GUISelectedStorage::SingleTypeSelections::save(const std::string &filename) throw(IOError) {
-    OutputDevice &dev = OutputDevice::getDevice(filename);
-    for (std::vector<GLuint>::iterator i=mySelected.begin(); i!=mySelected.end(); ++i) {
-        GUIGlObject *object = GUIGlObjectStorage::gIDStorage.getObjectBlocking(*i);
-        if (object!=0) {
-            std::string name = object->getFullName();
-            dev << name << "\n";
-            GUIGlObjectStorage::gIDStorage.unblockObject(*i);
-        }
-    }
-    dev.close();
-}
-
-
-const std::vector<GLuint> &
-GUISelectedStorage::SingleTypeSelections::getSelected() const throw() {
+const std::set<GLuint> &
+GUISelectedStorage::SingleTypeSelections::getSelected() const {
     return mySelected;
 }
 
@@ -119,14 +92,14 @@ GUISelectedStorage::SingleTypeSelections::getSelected() const throw() {
 /* -------------------------------------------------------------------------
  * for GUISelectedStorage
  * ----------------------------------------------------------------------- */
-GUISelectedStorage::GUISelectedStorage() throw() {}
+GUISelectedStorage::GUISelectedStorage() {}
 
 
-GUISelectedStorage::~GUISelectedStorage() throw() {}
+GUISelectedStorage::~GUISelectedStorage() {}
 
 
 bool
-GUISelectedStorage::isSelected(GUIGlObjectType type, GLuint id) throw(ProcessError) {
+GUISelectedStorage::isSelected(GUIGlObjectType type, GLuint id) {
     switch (type) {
         case GLO_NETWORK:
             return false;
@@ -139,19 +112,16 @@ GUISelectedStorage::isSelected(GUIGlObjectType type, GLuint id) throw(ProcessErr
 
 
 void
-GUISelectedStorage::select(GLuint id, bool update) throw(ProcessError) {
+GUISelectedStorage::select(GLuint id, bool update) {
     GUIGlObject *object = GUIGlObjectStorage::gIDStorage.getObjectBlocking(id);
     if (!object) {
-        throw ProcessError("Unkown object in GUISelectedStorage::deselect (id=" + toString(id) + ").");
+        throw ProcessError("Unkown object in GUISelectedStorage::select (id=" + toString(id) + ").");
     }
     GUIGlObjectType type = object->getType();
     GUIGlObjectStorage::gIDStorage.unblockObject(id);
 
     mySelections[type].select(id);
-    std::vector<GLuint>::iterator i = find(mySelected.begin(), mySelected.end(), id);
-    if (i==mySelected.end()) {
-        mySelected.push_back(id);
-    }
+    myAllSelected.insert(id);
     if (update && myUpdateTarget) {
         myUpdateTarget->selectionUpdated();
     }
@@ -159,7 +129,7 @@ GUISelectedStorage::select(GLuint id, bool update) throw(ProcessError) {
 
 
 void
-GUISelectedStorage::deselect(GLuint id) throw(ProcessError) {
+GUISelectedStorage::deselect(GLuint id) {
     GUIGlObject *object = GUIGlObjectStorage::gIDStorage.getObjectBlocking(id);
     if (!object) {
         throw ProcessError("Unkown object in GUISelectedStorage::deselect (id=" + toString(id) + ").");
@@ -168,10 +138,7 @@ GUISelectedStorage::deselect(GLuint id) throw(ProcessError) {
     GUIGlObjectStorage::gIDStorage.unblockObject(id);
 
     mySelections[type].deselect(id);
-    std::vector<GLuint>::iterator i = find(mySelected.begin(), mySelected.end(), id);
-    if (i!=mySelected.end()) {
-        mySelected.erase(i);
-    }
+    myAllSelected.erase(id);
     if (myUpdateTarget) {
         myUpdateTarget->selectionUpdated();
     }
@@ -179,7 +146,7 @@ GUISelectedStorage::deselect(GLuint id) throw(ProcessError) {
 
 
 void
-GUISelectedStorage::toggleSelection(GLuint id) throw(ProcessError) {
+GUISelectedStorage::toggleSelection(GLuint id) {
     GUIGlObject *object = GUIGlObjectStorage::gIDStorage.getObjectBlocking(id);
     if (!object) {
         throw ProcessError("Unkown object in GUISelectedStorage::toggleSelection (id=" + toString(id) + ").");
@@ -195,65 +162,99 @@ GUISelectedStorage::toggleSelection(GLuint id) throw(ProcessError) {
 }
 
 
-const std::vector<GLuint> &
+const std::set<GLuint> &
 GUISelectedStorage::getSelected() const {
-    return mySelected;
+    return myAllSelected;
 }
 
 
-const std::vector<GLuint> &
+const std::set<GLuint> &
 GUISelectedStorage::getSelected(GUIGlObjectType type) {
     return mySelections[type].getSelected();
 }
 
 
 void
-GUISelectedStorage::clear() throw() {
+GUISelectedStorage::clear() {
     for (std::map<GUIGlObjectType, SingleTypeSelections>::iterator it = mySelections.begin(); it != mySelections.end(); it++) {
         it->second.clear();
     }
+    myAllSelected.clear();
     if (myUpdateTarget) {
         myUpdateTarget->selectionUpdated();
     }
 }
 
 
-void
-GUISelectedStorage::load(GUIGlObjectType type, const std::string &filename) throw(IOError) {
-    mySelections[type].load(filename);
+std::string
+GUISelectedStorage::load(const std::string &filename, GUIGlObjectType type) {
+    std::ostringstream msg;
+    std::ifstream strm(filename.c_str());
+    if (!strm.good()) {
+        return "Could not open '" + filename + "'.\n";
+    }
+    while (strm.good()) {
+        std::string line;
+        strm >> line;
+        if (line.length()==0) {
+            continue;
+        }
+
+        GUIGlObject *object = GUIGlObjectStorage::gIDStorage.getObjectBlocking(line);
+        if (object) {
+            if (type != GLO_MAX && (object->getType() != type)) {
+                msg << "Ignoring item '" << line << "' because of invalid type " << toString(object->getType()) << "\n";
+            } else {
+                select(object->getGlID(), false);
+            }
+        } else {
+            msg << "Item '" + line + "' not found\n";
+            continue;
+        }
+    }
+    if (myUpdateTarget) {
+        myUpdateTarget->selectionUpdated();
+    }
+    strm.close();
+    return msg.str();
 }
 
 
 void
-GUISelectedStorage::save(GUIGlObjectType type, const std::string &filename) throw(IOError) {
+GUISelectedStorage::save(GUIGlObjectType type, const std::string &filename) {
     mySelections[type].save(filename);
 }
 
 
 void
-GUISelectedStorage::save(const std::string &filename) const throw(IOError) {
-    OutputDevice &dev = OutputDevice::getDevice(filename);
-    for (std::vector<GLuint>::const_iterator i=mySelected.begin(); i!=mySelected.end(); ++i) {
-        GUIGlObject *object = GUIGlObjectStorage::gIDStorage.getObjectBlocking(*i);
-        if (object!=0) {
-            std::string name = object->getFullName();
-            dev << name << '\n';
-            GUIGlObjectStorage::gIDStorage.unblockObject(*i);
-        }
-    }
-    dev.close();
+GUISelectedStorage::save(const std::string &filename) const {
+    save(filename, myAllSelected);
 }
 
 
 void
-GUISelectedStorage::add2Update(UpdateTarget *updateTarget) throw() {
+GUISelectedStorage::add2Update(UpdateTarget *updateTarget) {
     myUpdateTarget = updateTarget;
 }
 
 
 void
-GUISelectedStorage::remove2Update() throw() {
+GUISelectedStorage::remove2Update() {
     myUpdateTarget = 0;
 }
 
+
+void
+GUISelectedStorage::save(const std::string &filename, const std::set<GLuint>& ids) {
+    OutputDevice &dev = OutputDevice::getDevice(filename);
+    for (std::set<GLuint>::iterator i=ids.begin(); i!=ids.end(); ++i) {
+        GUIGlObject *object = GUIGlObjectStorage::gIDStorage.getObjectBlocking(*i);
+        if (object!=0) {
+            std::string name = object->getFullName();
+            dev << name << "\n";
+            GUIGlObjectStorage::gIDStorage.unblockObject(*i);
+        }
+    }
+    dev.close();
+}
 /****************************************************************************/

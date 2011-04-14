@@ -125,8 +125,8 @@ GUIDialog_GLChosenEditor::~GUIDialog_GLChosenEditor() throw() {
 void
 GUIDialog_GLChosenEditor::rebuildList() throw() {
     myList->clearItems();
-    const std::vector<GLuint> &chosen = gSelected.getSelected();
-    for (std::vector<GLuint>::const_iterator i=chosen.begin(); i!=chosen.end(); ++i) {
+    const std::set<GLuint> &chosen = gSelected.getSelected();
+    for (std::set<GLuint>::const_iterator i=chosen.begin(); i!=chosen.end(); ++i) {
         GUIGlObject *object = GUIGlObjectStorage::gIDStorage.getObjectBlocking(*i);
         if (object!=0) {
             std::string name = object->getFullName();

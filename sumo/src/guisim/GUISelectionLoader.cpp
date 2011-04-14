@@ -46,7 +46,7 @@ bool
 GUISelectionLoader::loadSelection(const std::string &file, std::string &msg) throw() {
     std::ifstream strm(file.c_str());
     if (!strm.good()) {
-        msg = "Could not open '" + file + "'.";
+        msg += "Could not open '" + file + "'.\n";
         return false;
     }
     while (strm.good()) {
@@ -60,10 +60,11 @@ GUISelectionLoader::loadSelection(const std::string &file, std::string &msg) thr
         if (object) {
             gSelected.select(object->getGlID(), false);
         } else {
-            msg = "Item '" + line + "' not found";
+            msg += "Item '" + line + "' not found\n";
             continue;
         }
     }
+    strm.close();
     return true;
 }
 

@@ -29,7 +29,7 @@
 #include <config.h>
 #endif
 
-#include <vector>
+#include <set>
 #include <string>
 #include <map>
 #include <fstream>
@@ -88,11 +88,11 @@ public:
 
 public:
     /// @brief Constructor
-    GUISelectedStorage() throw();
+    GUISelectedStorage();
 
 
     /// @brief Destructor
-    ~GUISelectedStorage() throw();
+    ~GUISelectedStorage();
 
 
     /** @brief Returns the information whether the object with the given type and id is selected
@@ -111,7 +111,7 @@ public:
      * @see GUIGlObjectType
      * @see SingleTypeSelections::isSelected
      */
-    bool isSelected(GUIGlObjectType type, GLuint id) throw(ProcessError);
+    bool isSelected(GUIGlObjectType type, GLuint id);
 
 
     /** @brief Adds the object with the given id
@@ -129,7 +129,7 @@ public:
      * @see SingleTypeSelections::select
      * @see GUIDialog_GLChosenEditor
      */
-    void select(GLuint id, bool update=true) throw(ProcessError);
+    void select(GLuint id, bool update=true);
 
 
     /** @brief Deselects the object with the given id
@@ -147,7 +147,7 @@ public:
      * @see SingleTypeSelections::deselect
      * @see GUIDialog_GLChosenEditor
      */
-    void deselect(GLuint id) throw(ProcessError);
+    void deselect(GLuint id);
 
 
     /** @brief Toggles selection of an object
@@ -164,30 +164,24 @@ public:
      * @see deselect
      * @see select
      */
-    void toggleSelection(GLuint id) throw(ProcessError);
+    void toggleSelection(GLuint id);
 
 
     /** @brief Returns the list of ids of all selected objects
      *
      *
-     * @return A list containing the ids of all selected objects
+     * @return The set of all selected objects (ids)
      */
-    const std::vector<GLuint> &getSelected() const; 
+    const std::set<GLuint> &getSelected() const; 
 
 
-    /**  @brief Returns the list of ids of all selected objects' of a certain type
-     *
-     * The list of selected items is returned from the appropriate sub-container
-     *  using SingleTypeSelections::getSelected.
-     *
-     * The method throws a ProcessError if the type does not match a sub-container.
+    /**  @brief Returns the set of ids of all selected objects' of a certain type
      *
      * @param[in] type The type of the object
-     * @return A list containing the ids of all selected objects of the given type
-     * @exception ProcessError If the type is not covered by a sub-container
+     * @return A set containing the ids of all selected objects of the given type
      * @see SingleTypeSelections::getSelected
      */
-    const std::vector<GLuint> &getSelected(GUIGlObjectType type);
+    const std::set<GLuint> &getSelected(GUIGlObjectType type);
 
 
     /** @brief Clears the list of selected objects
@@ -196,47 +190,41 @@ public:
      *
      * The optionally listening UpdateTarget is informed about the change.
      */
-    void clear() throw();
+    void clear();
 
 
-    /** @brief Loads a selection list
+    /** @brief Loads a selection list (optionally with restricted type)
      *
-     * @param[in] type The type of the objects to load
      * @param[in] filename The name of the file to load the list of selected objects from
-     * @exception IOError recheck!!!
-     * @todo Recheck: is this used(?)
-     * @todo Recheck usage of IOError
+     * @param[in] type The type of the objects to load if changed from default
+     * @return error messages if errors occured or the empty string
      */
-    void load(GUIGlObjectType type, const std::string &filename) throw(IOError);
+    std::string load(const std::string &filename, GUIGlObjectType type = GLO_MAX);
 
 
     /** @brief Saves a selection list
      *
      * @param[in] type The type of the objects to save
      * @param[in] filename The name of the file to save the list of selected objects into
-     * @exception IOError recheck!!!
-     * @todo Recheck usage of IOError
      */
-    void save(GUIGlObjectType type, const std::string &filename) throw(IOError);
+    void save(GUIGlObjectType type, const std::string &filename);
 
     /** @brief Saves the combined selection of all types
      *
      * @param[in] filename The name of the file to save the list of selected objects into
-     * @exception IOError recheck!!!
-     * @todo Recheck usage of IOError
      */
-    void save(const std::string &filename) const throw(IOError);
+    void save(const std::string &filename) const;
 
 
     /** @brief Adds a dialog to be updated
      * @param[in] updateTarget the callback for selection changes
      */
-    void add2Update(UpdateTarget *updateTarget) throw();
+    void add2Update(UpdateTarget *updateTarget);
 
 
     /** @brief Removes the dialog to be updated
      */
-    void remove2Update() throw();
+    void remove2Update();
 
 
     /**
@@ -246,73 +234,70 @@ public:
     class SingleTypeSelections {
     public:
         /// @brief Constructor
-        SingleTypeSelections() throw();
+        SingleTypeSelections();
 
         /// @brief Destructor
-        ~SingleTypeSelections() throw();
+        ~SingleTypeSelections();
 
 
         /** @brief Returns the information whether the object with the given id is qithin the selection
          * @param[in] id The id of the object
          * @return Whether the object is selected
          */
-        bool isSelected(GLuint id) throw();
+        bool isSelected(GLuint id);
 
 
         /** @brief Adds the object with the given id to the list of selected objects
          * @param[in] id The id of the object
          */
-        void select(GLuint id) throw();
+        void select(GLuint id);
 
 
         /** @brief Deselects the object with the given id from the list of selected objects
          * @param[in] id The id of the object
          */
-        void deselect(GLuint id) throw();
+        void deselect(GLuint id);
 
 
         /// @brief Clears the list of selected objects
-        void clear() throw();
-
-
-        /** @brief Loads the list of selected objects to a file named as given
-         * @param[in] filename The name of the file to read the list from
-         * @exception IOError recheck!!!
-         * @todo Recheck: is this used(?)
-         * @todo Recheck usage of IOError
-         */
-        void load(const std::string &filename) throw(IOError);
+        void clear();
 
 
         /** @brief Saves the list of selected objects to a file named as given
          * @param[in] filename The name of the file to save the list into
-         * @exception IOError recheck!!!
-         * @todo Recheck: is this used(?)
-         * @todo Recheck usage of IOError
          */
-        void save(const std::string &filename) throw(IOError);
+        void save(const std::string &filename);
 
 
         /** @brief Returns the list of selected ids
          * @return A list containing the ids of all selected objects
          */
-        const std::vector<GLuint> &getSelected() const throw();
+        const std::set<GLuint> &getSelected() const;
 
     private:
         /// @brief The list of selected ids
-        std::vector<GLuint> mySelected;
+        std::set<GLuint> mySelected;
 
     };
+    friend class SingleTypeSelections;
 
 
 private:
     std::map<GUIGlObjectType, SingleTypeSelections> mySelections;
 
     /// @brief List of selected objects
-    std::vector<GLuint> mySelected;
+    std::set<GLuint> myAllSelected;
 
     /// @brief The dialog to be updated
     UpdateTarget *myUpdateTarget;
+
+    /* @brief load items into the given set, optionally restricting to type 
+     */
+    std::string load(GUIGlObjectType type, const std::string &filename, bool restrictType, std::set<GLuint>& into);
+
+
+    /// @brief saves items from the given set
+    static void save(const std::string &filename, const std::set<GLuint>& ids);
 
 };
 
