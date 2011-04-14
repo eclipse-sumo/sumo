@@ -70,7 +70,6 @@
 #include <utils/gui/globjects/GUIGlObjectStorage.h>
 #include <utils/gui/div/GUIGlobalSelection.h>
 #include <utils/gui/settings/GUISettingsHandler.h>
-#include <guisim/GUISelectionLoader.h>
 
 #ifndef NO_TRACI
 #include <traci-server/TraCIServer.h>
@@ -1048,12 +1047,6 @@ void
 GUIApplicationWindow::setStatusBarText(const std::string &text) {
     myStatusbar->getStatusLine()->setText(text.c_str());
     myStatusbar->getStatusLine()->setNormalText(text.c_str());
-}
-
-
-bool
-GUIApplicationWindow::loadSelection(const std::string &file, std::string &msg) {
-    return GUISelectionLoader::loadSelection(file, msg);
 }
 
 

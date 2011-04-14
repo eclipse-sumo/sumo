@@ -158,9 +158,9 @@ GUIDialog_GLChosenEditor::onCmdLoad(FXObject*,FXSelector,void*) {
     if (opendialog.execute()) {
         gCurrentFolder = opendialog.getDirectory();
         std::string file = opendialog.getFilename().text();
-        std::string msg;
-        if (!myParent->loadSelection(file, msg)) {
-            FXMessageBox::error(this, MBOX_OK, "Loading failed.", msg.c_str());
+        std::string msg = gSelected.load(file);
+        if (msg != "") {
+            FXMessageBox::error(this, MBOX_OK, "Errors while loading Selection", msg.c_str());
         }
         rebuildList();
     }
