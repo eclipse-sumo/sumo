@@ -273,7 +273,6 @@
     <ClCompile Include="..\..\..\src\guisim\GUILaneSpeedTrigger.cpp" />
     <ClCompile Include="..\..\..\src\guisim\GUILaneWrapper.cpp" />
     <ClCompile Include="..\..\..\src\guisim\GUINet.cpp" />
-    <ClCompile Include="..\..\..\src\guisim\GUISelectionLoader.cpp" />
     <ClCompile Include="..\..\..\src\guisim\GUIShapeContainer.cpp" />
     <ClCompile Include="..\..\..\src\guisim\GUITrafficLightLogicWrapper.cpp" />
     <ClCompile Include="..\..\..\src\guisim\GUITriggeredRerouter.cpp" />
@@ -296,7 +295,6 @@
     <ClInclude Include="..\..\..\src\guisim\GUILaneSpeedTrigger.h" />
     <ClInclude Include="..\..\..\src\guisim\GUILaneWrapper.h" />
     <ClInclude Include="..\..\..\src\guisim\GUINet.h" />
-    <ClInclude Include="..\..\..\src\guisim\GUISelectionLoader.h" />
     <ClInclude Include="..\..\..\src\guisim\GUIShapeContainer.h" />
     <ClInclude Include="..\..\..\src\guisim\GUITrafficLightLogicWrapper.h" />
     <ClInclude Include="..\..\..\src\guisim\GUITriggeredRerouter.h" />

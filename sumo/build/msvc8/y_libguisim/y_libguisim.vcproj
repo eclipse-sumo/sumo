@@ -616,10 +616,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\guisim\GUISelectionLoader.cpp"
-				>
-			</File>
-			<File
 				RelativePath="..\..\..\src\guisim\GUIShapeContainer.cpp"
 				>
 			</File>
@@ -702,10 +698,6 @@
 			</File>
 			<File
 				RelativePath="..\..\..\src\guisim\GUINet.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\guisim\GUISelectionLoader.h"
 				>
 			</File>
 			<File
