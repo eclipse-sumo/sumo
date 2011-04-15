@@ -1,4 +1,18 @@
 #!/usr/bin/env python
+"""
+@file    dailyBuildMSVC.py
+@author  Michael.Behrisch@dlr.de
+@date    2008
+@version $Id$
+
+Does the nightly svn update on the windows server and the visual
+studio build. The script is also used for the meso build.
+Some paths especially for the temp dir and the compiler are
+hard coded into this script.
+
+Copyright (C) 2008-2011 DLR (http://www.dlr.de/) and contributors
+All rights reserved
+"""
 from __future__ import with_statement
 import re
 from datetime import date
@@ -10,7 +24,7 @@ optParser = optparse.OptionParser()
 optParser.add_option("-r", "--root-dir", dest="rootDir",
                      default="D:\\Sumo", help="root for svn and log output")
 optParser.add_option("-s", "--suffix", default="", help="suffix to the fileprefix")
-optParser.add_option("-p", "--project", default="trunk\\sumo\\build\\msvc8\\prj.sln",
+optParser.add_option("-p", "--project", default="trunk\\sumo\\build\\msvc10\\prj.sln",
                      help="path to project solution relative to the root dir")
 optParser.add_option("-b", "--bin-dir", dest="binDir", default="trunk\\sumo\\bin",
                      help="directory containg the binaries, relative to the root dir")
@@ -20,14 +34,18 @@ optParser.add_option("-e", "--sumo-exe", dest="sumoExe", default="sumo",
                      help="name of the sumo executable")
 optParser.add_option("-m", "--remote-dir", dest="remoteDir",
                      help="directory to move the results to")
+optParser.add_option("-f", "--force", action="store_true",
+                     default=False, help="force rebuild even if no source changed")
 (options, args) = optParser.parse_args()
 
 env = os.environ
 env["SMTP_SERVER"]="smtprelay.dlr.de"
+env["TEMP"]=env["TMP"]="D:\\Delphi\\texttesttmp"
 nightlyDir="M:\\Daten\\Sumo\\Nightly"
-compiler="D:\\Programme\\Microsoft Visual Studio 8\\Common7\\IDE\\devenv.exe"
+compiler="D:\\Programme\\Microsoft Visual Studio 10.0\\Common7\\IDE\\devenv.exe"
+svnrev=""
 for platform in ["Win32", "x64"]:
-    env["FILEPREFIX"]="msvc8" + options.suffix + platform
+    env["FILEPREFIX"]="msvc10" + options.suffix + platform
     prefix = os.path.join(options.rootDir, env["FILEPREFIX"])
     if options.remoteDir:
         prefix = os.path.join(options.remoteDir, env["FILEPREFIX"])
@@ -51,6 +69,10 @@ for platform in ["Win32", "x64"]:
         match_update = re.search('Updated to revision (\d*)\.', open(makeLog).read())
         if match_update:
             svnrev = match_update.group(1)
+        elif options.force:
+            match = re.search('At revision (\d*)\.', open(makeLog).read())
+            if match:
+                svnrev = match.group(1)
         else:
             print "No changes since last update, skipping build and test"
             sys.exit()
