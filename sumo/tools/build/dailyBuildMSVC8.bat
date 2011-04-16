@@ -1,1 +1,1 @@
-dailyBuildMSVC8.py
+dailyBuildMSVC.py
