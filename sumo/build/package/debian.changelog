@@ -1,3 +1,9 @@
+sumo (svn-1) unstable; urgency=low  
+  
+  * New upstream release.  
+   
+ -- Michael Behrisch <behrisch@users.sourceforge.net>  Wed, 13 Apr 2011 19:28:57 +0200
+
 sumo (0.10.2-1) unstable; urgency=low  
   
   * New upstream release.  
