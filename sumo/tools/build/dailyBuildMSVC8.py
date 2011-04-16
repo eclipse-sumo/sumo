@@ -34,6 +34,8 @@ optParser.add_option("-e", "--sumo-exe", dest="sumoExe", default="sumo",
                      help="name of the sumo executable")
 optParser.add_option("-m", "--remote-dir", dest="remoteDir",
                      help="directory to move the results to")
+optParser.add_option("-a", "--add-build-config-prefix", dest="addConf",
+                     help="directory to move the results to")
 optParser.add_option("-f", "--force", action="store_true",
                      default=False, help="force rebuild even if no source changed")
 (options, args) = optParser.parse_args()
@@ -77,6 +79,8 @@ for platform in ["Win32", "x64"]:
             print "No changes since last update, skipping build and test"
             sys.exit()
     subprocess.call(compiler+" /rebuild Release|%s %s\\%s /out %s" % (platform, options.rootDir, options.project, makeLog))
+    if options.addConf:
+        subprocess.call(compiler+" /rebuild %sRelease|%s %s\\%s /out %s" % (options.addConf, platform, options.rootDir, options.project, makeLog))
     programSuffix = envSuffix = ""
     if platform == "x64":
         envSuffix="_64"
@@ -105,6 +109,8 @@ for platform in ["Win32", "x64"]:
         print >> log, "I/O error(%s): %s" % (errno, strerror)
     log.close()
     subprocess.call(compiler+" /rebuild Debug|%s %s\\%s /out %s" % (platform, options.rootDir, options.project, makeAllLog))
+    if options.addConf:
+        subprocess.call(compiler+" /rebuild %sDebug|%s %s\\%s /out %s" % (options.addConf, platform, options.rootDir, options.project, makeAllLog))
 
 # run tests
     env["TEXTTEST_TMP"] = os.path.join(options.rootDir, env["FILEPREFIX"]+"texttesttmp")
