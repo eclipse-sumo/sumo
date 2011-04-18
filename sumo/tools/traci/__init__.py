@@ -135,6 +135,26 @@ def _sendReadOneStringCmd(cmdID, varID, objID):
     _beginMessage(cmdID, varID, objID)
     return _checkResult(cmdID, varID, objID)
 
+def _sendIntCmd(cmdID, varID, objID, value):
+    _beginMessage(cmdID, varID, objID, 1+4)
+    _message.string += struct.pack("!Bi", tc.TYPE_INTEGER, value)
+    _sendExact()
+
+def _sendFloatCmd(cmdID, varID, objID, value):
+    _beginMessage(cmdID, varID, objID, 1+4)
+    _message.string += struct.pack("!Bf", tc.TYPE_FLOAT, value)
+    _sendExact()
+
+def _sendDoubleCmd(cmdID, varID, objID, value):
+    _beginMessage(cmdID, varID, objID, 1+8)
+    _message.string += struct.pack("!Bd", tc.TYPE_DOUBLE, value)
+    _sendExact()
+
+def _sendStringCmd(cmdID, varID, objID, value):
+    _beginMessage(cmdID, varID, objID, 1+4+len(value))
+    _message.string += struct.pack("!Bi", tc.TYPE_STRING, len(value)) + value
+    _sendExact()
+
 def _checkResult(cmdID, varID, objID):
     result = _sendExact()
     result.readLength()

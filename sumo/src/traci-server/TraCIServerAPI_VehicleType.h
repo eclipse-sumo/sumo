@@ -53,6 +53,15 @@ public:
                            tcpip::Storage &outputStorage);
 
 
+    /** @brief Processes a value request for the given type
+     *
+     * @param[in] variable The type variable asked for
+     * @param[in] v The vehicle type to get the value from
+     * @param[out] tempMsg The storage to write the result to
+     */
+    static bool getVariable(const int variable, const MSVehicleType &v, tcpip::Storage &tempMsg);
+
+
     /** @brief Processes a set value command (Command 0xc5: Change Vehicle Type State)
      *
      * @param[in] server The TraCI-server-instance which schedules this request
@@ -61,6 +70,17 @@ public:
      */
     static bool processSet(traci::TraCIServer &server, tcpip::Storage &inputStorage,
                            tcpip::Storage &outputStorage);
+
+
+    /** @brief Processes a set value for the given type
+     *
+     * @param[in] server The TraCI-server-instance which schedules this request
+     * @param[in] inputStorage The storage to read the command from
+     * @param[out] outputStorage The storage to write the result to
+     */
+    static bool setVariable(const int cmd, const int variable, const int valueDataType,
+                            MSVehicleType &v, traci::TraCIServer &server,
+                            tcpip::Storage &inputStorage, tcpip::Storage &outputStorage);
 
 
 private:

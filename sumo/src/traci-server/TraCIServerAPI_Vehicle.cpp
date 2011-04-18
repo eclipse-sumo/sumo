@@ -38,6 +38,7 @@
 #include "TraCIConstants.h"
 #include "TraCIServerAPI_Simulation.h"
 #include "TraCIServerAPI_Vehicle.h"
+#include "TraCIServerAPI_VehicleType.h"
 #include <utils/common/HelpersHBEFA.h>
 #include <utils/common/HelpersHarmonoise.h>
 #include <microsim/MSEdgeWeightsStorage.h>
@@ -278,58 +279,6 @@ TraCIServerAPI_Vehicle::processGet(TraCIServer &server, tcpip::Storage &inputSto
             tempMsg.writeUnsignedByte(TYPE_INTEGER);
             tempMsg.writeInt(v->getSignals());
             break;
-        case VAR_LENGTH:
-            tempMsg.writeUnsignedByte(TYPE_FLOAT);
-            tempMsg.writeFloat((float)(v->getVehicleType().getLength()));
-            break;
-        case VAR_MAXSPEED:
-            tempMsg.writeUnsignedByte(TYPE_FLOAT);
-            tempMsg.writeFloat((float)(v->getVehicleType().getMaxSpeed()));
-            break;
-        case VAR_VEHICLECLASS:
-            tempMsg.writeUnsignedByte(TYPE_STRING);
-            tempMsg.writeString(getVehicleClassName(v->getVehicleType().getVehicleClass()));
-            break;
-        case VAR_SPEED_FACTOR:
-            tempMsg.writeUnsignedByte(TYPE_FLOAT);
-            tempMsg.writeFloat((float)(v->getVehicleType().getSpeedFactor()));
-            break;
-        case VAR_SPEED_DEVIATION:
-            tempMsg.writeUnsignedByte(TYPE_FLOAT);
-            tempMsg.writeFloat((float)(v->getVehicleType().getSpeedDeviation()));
-            break;
-        case VAR_EMISSIONCLASS:
-            tempMsg.writeUnsignedByte(TYPE_STRING);
-            tempMsg.writeString(getVehicleEmissionTypeName(v->getVehicleType().getEmissionClass()));
-            break;
-        case VAR_WIDTH:
-            tempMsg.writeUnsignedByte(TYPE_FLOAT);
-            tempMsg.writeFloat((float)(v->getVehicleType().getGuiWidth()));
-            break;
-        case VAR_GUIOFFSET:
-            tempMsg.writeUnsignedByte(TYPE_FLOAT);
-            tempMsg.writeFloat((float)(v->getVehicleType().getGuiOffset()));
-            break;
-        case VAR_SHAPECLASS:
-            tempMsg.writeUnsignedByte(TYPE_STRING);
-            tempMsg.writeString(getVehicleShapeName(v->getVehicleType().getGuiShape()));
-            break;
-        case VAR_ACCEL:
-            tempMsg.writeUnsignedByte(TYPE_FLOAT);
-            tempMsg.writeFloat((float)(v->getVehicleType().getCarFollowModel().getMaxAccel()));
-            break;
-        case VAR_DECEL:
-            tempMsg.writeUnsignedByte(TYPE_FLOAT);
-            tempMsg.writeFloat((float)(v->getVehicleType().getCarFollowModel().getMaxDecel()));
-            break;
-        case VAR_IMPERFECTION:
-            tempMsg.writeUnsignedByte(TYPE_FLOAT);
-            tempMsg.writeFloat((float)(v->getVehicleType().getCarFollowModel().getImperfection()));
-            break;
-        case VAR_TAU:
-            tempMsg.writeUnsignedByte(TYPE_FLOAT);
-            tempMsg.writeFloat((float)(v->getVehicleType().getCarFollowModel().getTau()));
-            break;
         case VAR_BEST_LANES: {
             const std::vector<MSVehicle::LaneQ> &bestLanes = v->getBestLanes();
             tempMsg.writeUnsignedByte(TYPE_COMPOUND);
@@ -373,6 +322,7 @@ TraCIServerAPI_Vehicle::processGet(TraCIServer &server, tcpip::Storage &inputSto
             }
             break;
         default:
+            TraCIServerAPI_VehicleType::getVariable(variable, v->getVehicleType(), tempMsg);
             break;
         }
     }
@@ -418,14 +368,6 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer &server, tcpip::Storage &inputSto
     // process
     int valueDataType = inputStorage.readUnsignedByte();
     switch (variable) {
-    case CMD_SETMAXSPEED: {
-        if (valueDataType!=TYPE_FLOAT) {
-            server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "The speed must be given as a float.", outputStorage);
-            return false;
-        }
-        getSingularType(v).setMaxSpeed(inputStorage.readFloat());
-    }
-    break;
     case CMD_STOP: {
         if (valueDataType!=TYPE_COMPOUND) {
             server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Stop needs a compound object description.", outputStorage);
@@ -878,110 +820,6 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer &server, tcpip::Storage &inputSto
         v->getParameter().color.set(r, g, b);
     }
     break;
-    case VAR_LENGTH: {
-        if (valueDataType!=TYPE_FLOAT) {
-            server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Setting length requires a float.", outputStorage);
-            return false;
-        }
-        getSingularType(v).setLength(inputStorage.readFloat());
-    }
-    break;
-    case VAR_MAXSPEED: {
-        if (valueDataType!=TYPE_FLOAT) {
-            server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Setting maximum speed requires a float.", outputStorage);
-            return false;
-        }
-        getSingularType(v).setMaxSpeed(inputStorage.readFloat());
-    }
-    break;
-    case VAR_VEHICLECLASS: {
-        if (valueDataType!=TYPE_STRING) {
-            server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Setting vehicle class requires a string.", outputStorage);
-            return false;
-        }
-        getSingularType(v).setVClass(getVehicleClassID(inputStorage.readString()));
-    }
-    break;
-    case VAR_SPEED_FACTOR: {
-        if (valueDataType!=TYPE_FLOAT) {
-            server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Setting speed factor requires a float.", outputStorage);
-            return false;
-        }
-        getSingularType(v).setSpeedFactor(inputStorage.readFloat());
-    }
-    break;
-    case VAR_SPEED_DEVIATION: {
-        if (valueDataType!=TYPE_FLOAT) {
-            server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Setting speed deviation requires a float.", outputStorage);
-            return false;
-        }
-        getSingularType(v).setSpeedDeviation(inputStorage.readFloat());
-    }
-    break;
-    case VAR_EMISSIONCLASS: {
-        if (valueDataType!=TYPE_STRING) {
-            server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Setting emission class requires a string.", outputStorage);
-            return false;
-        }
-        getSingularType(v).setEmissionClass(getVehicleEmissionTypeID(inputStorage.readString()));
-    }
-    break;
-    case VAR_WIDTH: {
-        if (valueDataType!=TYPE_FLOAT) {
-            server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Setting width requires a float.", outputStorage);
-            return false;
-        }
-        getSingularType(v).setWidth(inputStorage.readFloat());
-    }
-    break;
-    case VAR_GUIOFFSET: {
-        if (valueDataType!=TYPE_FLOAT) {
-            server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Setting gui offset requires a float.", outputStorage);
-            return false;
-        }
-        getSingularType(v).setOffset(inputStorage.readFloat());
-    }
-    break;
-    case VAR_SHAPE: {
-        if (valueDataType!=TYPE_STRING) {
-            server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Setting vehicle shape requires a string.", outputStorage);
-            return false;
-        }
-        getSingularType(v).setShape(getVehicleShapeID(inputStorage.readString()));
-    }
-    break;
-    case VAR_ACCEL: {
-        if (valueDataType!=TYPE_FLOAT) {
-            server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Setting acceleration requires a float.", outputStorage);
-            return false;
-        }
-        getSingularType(v).getCarFollowModel().setMaxAccel(inputStorage.readFloat());
-    }
-    break;
-    case VAR_DECEL: {
-        if (valueDataType!=TYPE_FLOAT) {
-            server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Setting deceleration requires a float.", outputStorage);
-            return false;
-        }
-        getSingularType(v).getCarFollowModel().setMaxDecel(inputStorage.readFloat());
-    }
-    break;
-    case VAR_IMPERFECTION: {
-        if (valueDataType!=TYPE_FLOAT) {
-            server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Setting driver imperfection requires a float.", outputStorage);
-            return false;
-        }
-        getSingularType(v).getCarFollowModel().setImperfection(inputStorage.readFloat());
-    }
-    break;
-    case VAR_TAU: {
-        if (valueDataType!=TYPE_FLOAT) {
-            server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Setting reaction time requires a float.", outputStorage);
-            return false;
-        }
-        getSingularType(v).getCarFollowModel().setTau(inputStorage.readFloat());
-    }
-    break;
     case ADD: {
         if (valueDataType!=TYPE_COMPOUND) {
             server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Adding a vehicle requires a compound object.", outputStorage);
@@ -1050,6 +888,10 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer &server, tcpip::Storage &inputSto
     }
     break;
     default:
+        if (!TraCIServerAPI_VehicleType::setVariable(CMD_SET_VEHICLE_VARIABLE, variable, valueDataType,
+                                                     getSingularType(v), server, inputStorage, outputStorage)) {
+            return false;
+        }
         break;
     }
     server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_OK, warning, outputStorage);
