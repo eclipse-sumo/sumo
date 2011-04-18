@@ -1,4 +1,4 @@
-TraCITestClient output file. Date: Sat Oct  9 00:23:04 2010
+TraCITestClient output file. Date: Mon Apr 18 12:08:15 2011
 
 
 -> Command sent: <SimulationStep2>:
@@ -18,9 +18,7 @@ TraCITestClient output file. Date: Sat Oct  9 00:23:04 2010
 
 -> Command sent: <PositionConversion>:
  DestPosition-RoadMap: roadId=e_m0 pos=99999.00 laneId=0 posId=1
-.. Command acknowledged (113), [description: ]
-.. Received Response <PositionConversion>:
-2D-Position: x=500.00 y=491.75
+.. Answered with error to command (113), [description: Position on lane invalid]
 
 -> Command sent: <SimulationStep2>:
 .. Command acknowledged (2), [description: ]
