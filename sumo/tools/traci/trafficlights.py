@@ -145,25 +145,16 @@ def getSubscriptionResults(tlsID=None):
 
 
 def setRedYellowGreenState(tlsID, state):
-    traci._beginMessage(tc.CMD_SET_TL_VARIABLE, tc.TL_RED_YELLOW_GREEN_STATE, tlsID, 1+4+len(state))
-    traci._message.string += struct.pack("!B", tc.TYPE_STRING)
-    traci._message.string += struct.pack("!i", len(state)) + state
-    traci._sendExact()
+    traci._sendStringCmd(tc.CMD_SET_TL_VARIABLE, tc.TL_RED_YELLOW_GREEN_STATE, tlsID, state)
 
 def setPhase(tlsID, index):
-    traci._beginMessage(tc.CMD_SET_TL_VARIABLE, tc.TL_PHASE_INDEX, tlsID, 1+4)
-    traci._message.string += struct.pack("!Bi", tc.TYPE_INTEGER, index)
-    traci._sendExact()
+    traci._sendIntCmd(tc.CMD_SET_TL_VARIABLE, tc.TL_PHASE_INDEX, tlsID, index)
 
 def setProgram(tlsID, programID):
-    traci._beginMessage(tc.CMD_SET_TL_VARIABLE, tc.TL_PROGRAM, tlsID, 1+4+len(programID))
-    traci._message.string += struct.pack("!Bi", tc.TYPE_STRING, len(programID)) + programID
-    traci._sendExact()
+    traci._sendStringCmd(tc.CMD_SET_TL_VARIABLE, tc.TL_PROGRAM, tlsID, programID)
 
 def setPhaseDuration(tlsID, phaseDuration):
-    traci._beginMessage(tc.CMD_SET_TL_VARIABLE, tc.TL_PHASE_DURATION, tlsID, 1+4)
-    traci._message.string += struct.pack("!Bi", tc.TYPE_INTEGER, phaseDuration)
-    traci._sendExact()
+    traci._sendIntCmd(tc.CMD_SET_TL_VARIABLE, tc.TL_PHASE_DURATION, tlsID, int(1000*phaseDuration))
 
 def setCompleteRedYellowGreenDefinition(tlsID, tls):
     length = 1+4 + 1+4+len(tls._subID) + 1+4 + 1+4 + 1+4 + 1+4 # tls parameter

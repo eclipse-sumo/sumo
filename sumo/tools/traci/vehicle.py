@@ -233,7 +233,7 @@ def getSubscriptionResults(vehID=None):
 
 
 def setMaxSpeed(vehID, speed):
-    traci._sendFloatCmd(tc.CMD_SET_VEHICLE_VARIABLE, tc.CMD_SETMAXSPEED, vehID, speed)
+    traci._sendFloatCmd(tc.CMD_SET_VEHICLE_VARIABLE, tc.VAR_MAXSPEED, vehID, speed)
 
 def setStop(vehID, edgeID, pos=1., laneIndex=0, duration=2**31-1):
     traci._beginMessage(tc.CMD_SET_VEHICLE_VARIABLE, tc.CMD_STOP, vehID, 1+4+1+4+len(edgeID)+1+4+1+1+1+4)

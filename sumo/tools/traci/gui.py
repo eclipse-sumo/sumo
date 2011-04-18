@@ -60,9 +60,7 @@ def getSubscriptionResults(viewID=None):
 
 
 def setZoom(viewID, zoom):
-    traci._beginMessage(tc.CMD_SET_GUI_VARIABLE, tc.VAR_VIEW_ZOOM, viewID, 1+4)
-    traci._message.string += struct.pack("!Bf", tc.TYPE_FLOAT, zoom)
-    traci._sendExact()
+    traci._sendFloatCmd(tc.CMD_SET_GUI_VARIABLE, tc.VAR_VIEW_ZOOM, viewID, zoom)
 
 def setOffset(viewID, x, y):
     traci._beginMessage(tc.CMD_SET_GUI_VARIABLE, tc.VAR_VIEW_OFFSET, viewID, 1+4+4)
@@ -70,9 +68,7 @@ def setOffset(viewID, x, y):
     traci._sendExact()
 
 def setSchema(viewID, schemeName):
-    traci._beginChangeMessage(tc.CMD_SET_GUI_VARIABLE, tc.VAR_VIEW_SCHEMA, viewID, 1+4+len(schemeName))
-    traci._message.string += struct.pack("!Bi", tc.TYPE_STRING, len(schemeName)) + schemeName
-    traci._sendExact()
+    traci._sendStringCmd(tc.CMD_SET_GUI_VARIABLE, tc.VAR_VIEW_SCHEMA, viewID, schemeName)
 
 def setBoundary(viewID, xmin, ymin, xmax, ymax):
     traci._beginMessage(tc.CMD_SET_GUI_VARIABLE, tc.VAR_VIEW_BOUNDARY, viewID, 1+4+4+4+4)
@@ -80,11 +76,7 @@ def setBoundary(viewID, xmin, ymin, xmax, ymax):
     traci._sendExact()
 
 def screenshot(viewID, filename):
-    traci._beginChangeMessage(tc.CMD_SET_GUI_VARIABLE, tc.VAR_SCREENSHOT, viewID, 1+4+len(filename))
-    traci._message.string += struct.pack("!Bi", tc.TYPE_STRING, len(filename)) + filename
-    traci._sendExact()
+    traci._sendStringCmd(tc.CMD_SET_GUI_VARIABLE, tc.VAR_SCREENSHOT, viewID, filename)
 
 def trackVehicle(viewID, vehID):
-    traci._beginChangeMessage(tc.CMD_SET_GUI_VARIABLE, tc.VAR_TRACK_VEHICLE, viewID, 1+4+len(vehID))
-    traci._message.string += struct.pack("!Bi", tc.TYPE_STRING, len(vehID)) + vehID
-    traci._sendExact()
+    traci._sendStringCmd(tc.CMD_SET_GUI_VARIABLE, tc.VAR_TRACK_VEHICLE, viewID, vehID)

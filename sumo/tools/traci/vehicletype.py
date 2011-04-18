@@ -10,25 +10,28 @@ Python implementation of the TraCI interface.
 Copyright (C) 2008-2011 DLR (http://www.dlr.de/) and contributors
 All rights reserved
 """
-import struct, traci
+import traci
 import traci.constants as tc
 
-RETURN_VALUE_FUNC = {tc.ID_LIST:           traci.Storage.readStringList,
-                     tc.VAR_LENGTH:        traci.Storage.readFloat,
-                     tc.VAR_MAXSPEED:      traci.Storage.readFloat,
-                     tc.VAR_ACCEL:         traci.Storage.readFloat,
-                     tc.VAR_DECEL:         traci.Storage.readFloat,
-                     tc.VAR_TAU:           traci.Storage.readFloat,
-                     tc.VAR_VEHICLECLASS:  traci.Storage.readString,
-                     tc.VAR_EMISSIONCLASS: traci.Storage.readString,
-                     tc.VAR_SHAPECLASS:    traci.Storage.readString,
-                     tc.VAR_GUIOFFSET:     traci.Storage.readFloat,
-                     tc.VAR_WIDTH:         traci.Storage.readFloat,
-                     tc.VAR_COLOR:         lambda(result): result.read("!BBBB")}
+RETURN_VALUE_FUNC = {tc.ID_LIST:             traci.Storage.readStringList,
+                     tc.VAR_LENGTH:          traci.Storage.readFloat,
+                     tc.VAR_MAXSPEED:        traci.Storage.readFloat,
+                     tc.VAR_SPEED_FACTOR:    traci.Storage.readFloat,
+                     tc.VAR_SPEED_DEVIATION: traci.Storage.readFloat,
+                     tc.VAR_ACCEL:           traci.Storage.readFloat,
+                     tc.VAR_DECEL:           traci.Storage.readFloat,
+                     tc.VAR_IMPERFECTION:    traci.Storage.readFloat,
+                     tc.VAR_TAU:             traci.Storage.readFloat,
+                     tc.VAR_VEHICLECLASS:    traci.Storage.readString,
+                     tc.VAR_EMISSIONCLASS:   traci.Storage.readString,
+                     tc.VAR_SHAPECLASS:      traci.Storage.readString,
+                     tc.VAR_GUIOFFSET:       traci.Storage.readFloat,
+                     tc.VAR_WIDTH:           traci.Storage.readFloat,
+                     tc.VAR_COLOR:           lambda(result): result.read("!BBBB")}
 subscriptionResults = {}
 
-def _getUniversal(varID, vehID):
-    result = traci._sendReadOneStringCmd(tc.CMD_GET_VEHICLETYPE_VARIABLE, varID, vehID)
+def _getUniversal(varID, typeID):
+    result = traci._sendReadOneStringCmd(tc.CMD_GET_VEHICLETYPE_VARIABLE, varID, typeID)
     return RETURN_VALUE_FUNC[varID](result)
 
 def getIDList():
@@ -40,11 +43,20 @@ def getLength(typeID):
 def getMaxSpeed(typeID):
     return _getUniversal(tc.VAR_MAXSPEED, typeID)
 
+def getSpeedFactor(typeID):
+    return _getUniversal(tc.VAR_SPEED_FACTOR, typeID)
+
+def getSpeedDeviation(typeID):
+    return _getUniversal(tc.VAR_SPEED_DEVIATION, typeID)
+
 def getAccel(typeID):
     return _getUniversal(tc.VAR_ACCEL, typeID)
 
 def getDecel(typeID):
     return _getUniversal(tc.VAR_DECEL, typeID)
+
+def getImperfection(typeID):
+    return _getUniversal(tc.VAR_IMPERFECTION, typeID)
 
 def getTau(typeID):
     return _getUniversal(tc.VAR_TAU, typeID)
@@ -84,3 +96,43 @@ def getSubscriptionResults(typeID=None):
     if typeID == None:
         return subscriptionResults
     return subscriptionResults.get(typeID, None)
+
+
+def setLength(typeID, length):
+    traci._sendFloatCmd(tc.CMD_SET_VEHICLETYPE_VARIABLE, tc.VAR_LENGTH, typeID, length)
+
+def setMaxSpeed(typeID, speed):
+    traci._sendFloatCmd(tc.CMD_SET_VEHICLETYPE_VARIABLE, tc.VAR_MAXSPEED, typeID, speed)
+
+def setVehicleClass(typeID, clazz):
+    traci._sendStringCmd(tc.CMD_SET_VEHICLETYPE_VARIABLE, tc.VAR_VEHICLECLASS, typeID, clazz)
+
+def setSpeedFactor(typeID, factor):
+    traci._sendFloatCmd(tc.CMD_SET_VEHICLETYPE_VARIABLE, tc.VAR_SPEED_FACTOR, typeID, factor)
+
+def setSpeedDeviation(typeID, deviation):
+    traci._sendFloatCmd(tc.CMD_SET_VEHICLETYPE_VARIABLE, tc.VAR_SPEED_DEVIATION, typeID, deviation)
+
+def setEmissionClass(typeID, clazz):
+    traci._sendStringCmd(tc.CMD_SET_VEHICLETYPE_VARIABLE, tc.VAR_EMISSIONCLASS, typeID, clazz)
+
+def setWidth(typeID, width):
+    traci._sendFloatCmd(tc.CMD_SET_VEHICLETYPE_VARIABLE, tc.VAR_WIDTH, typeID, width)
+
+def setGUIOffset(typeID, offset):
+    traci._sendFloatCmd(tc.CMD_SET_VEHICLETYPE_VARIABLE, tc.VAR_GUIOFFSET, typeID, offset)
+
+def setShapeClass(typeID, clazz):
+    traci._sendStringCmd(tc.CMD_SET_VEHICLETYPE_VARIABLE, tc.VAR_SHAPECLASS, typeID, clazz)
+
+def setAccel(typeID, accel):
+    traci._sendFloatCmd(tc.CMD_SET_VEHICLETYPE_VARIABLE, tc.VAR_ACCEL, typeID, accel)
+
+def setDecel(typeID, decel):
+    traci._sendFloatCmd(tc.CMD_SET_VEHICLETYPE_VARIABLE, tc.VAR_DECEL, typeID, decel)
+
+def setImperfection(typeID, imperfection):
+    traci._sendFloatCmd(tc.CMD_SET_VEHICLETYPE_VARIABLE, tc.VAR_IMPERFECTION, typeID, imperfection)
+
+def setTau(typeID, tau):
+    traci._sendFloatCmd(tc.CMD_SET_VEHICLETYPE_VARIABLE, tc.VAR_TAU, typeID, tau)
