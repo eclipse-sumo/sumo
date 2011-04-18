@@ -17,8 +17,11 @@ typeID = "DEFAULT_VEHTYPE"
 print "examining", typeID
 print "length", traci.vehicletype.getLength(typeID)
 print "maxSpeed", traci.vehicletype.getMaxSpeed(typeID)
+print "speedFactor", traci.vehicletype.getSpeedFactor(typeID)
+print "speedDev", traci.vehicletype.getSpeedDeviation(typeID)
 print "accel", traci.vehicletype.getAccel(typeID)
 print "decel", traci.vehicletype.getDecel(typeID)
+print "imperfection", traci.vehicletype.getImperfection(typeID)
 print "tau", traci.vehicletype.getTau(typeID)
 print "vClass", traci.vehicletype.getVehicleClass(typeID)
 print "emissionclass", traci.vehicletype.getEmissionClass(typeID)

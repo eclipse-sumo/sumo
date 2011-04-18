@@ -6,8 +6,11 @@ vehicletypes ['DEFAULT_VEHTYPE']
 examining DEFAULT_VEHTYPE
 length 7.5
 maxSpeed 70.0
+speedFactor 1.0
+speedDev 0.0
 accel 2.59999990463
 decel 4.5
+imperfection 0.5
 tau 1.0
 vClass 
 emissionclass 
