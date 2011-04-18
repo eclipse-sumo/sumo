@@ -25,4 +25,18 @@ step 4
 {65: 70.0}
 step 5
 {65: 70.0}
+length 1.0
+maxSpeed 1.0
+speedFactor 1.10000002384
+speedDev 1.10000002384
+accel 1.10000002384
+decel 1.10000002384
+imperfection 0.10000000149
+tau 1.10000002384
+vClass bicycle
+emissionclass zero
+shape bicycle
+guiOffset 1.10000002384
+width 1.10000002384
+color (0, 0, 0, 255)
 (14, 127, 0) OK Goodbye

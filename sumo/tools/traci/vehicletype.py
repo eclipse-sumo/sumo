@@ -10,7 +10,7 @@ Python implementation of the TraCI interface.
 Copyright (C) 2008-2011 DLR (http://www.dlr.de/) and contributors
 All rights reserved
 """
-import traci
+import traci, struct
 import traci.constants as tc
 
 RETURN_VALUE_FUNC = {tc.ID_LIST:             traci.Storage.readStringList,
@@ -136,3 +136,8 @@ def setImperfection(typeID, imperfection):
 
 def setTau(typeID, tau):
     traci._sendFloatCmd(tc.CMD_SET_VEHICLETYPE_VARIABLE, tc.VAR_TAU, typeID, tau)
+
+def setColor(typeID, color):
+    traci._beginMessage(tc.CMD_SET_VEHICLETYPE_VARIABLE, tc.VAR_COLOR, typeID, 1+1+1+1+1)
+    traci._message.string += struct.pack("!BBBBB", tc.TYPE_COLOR, int(color[0]), int(color[1]), int(color[2]), int(color[3]))
+    traci._sendExact()

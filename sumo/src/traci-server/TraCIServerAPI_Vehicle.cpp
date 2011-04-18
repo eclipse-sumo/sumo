@@ -815,8 +815,7 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer &server, tcpip::Storage &inputSto
         SUMOReal r = (SUMOReal) inputStorage.readUnsignedByte() / 255.;
         SUMOReal g = (SUMOReal) inputStorage.readUnsignedByte() / 255.;
         SUMOReal b = (SUMOReal) inputStorage.readUnsignedByte() / 255.;
-		//read SUMOReal a 
-		inputStorage.readUnsignedByte();
+        inputStorage.readUnsignedByte(); // skip alpha level
         v->getParameter().color.set(r, g, b);
     }
     break;

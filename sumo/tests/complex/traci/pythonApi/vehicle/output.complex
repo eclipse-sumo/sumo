@@ -36,4 +36,18 @@ step 4
 {80: '2fi', 86: 25.2379150390625}
 step 5
 {80: '2fi', 86: 34.313884735107422}
+length 1.0
+maxSpeed 1.0
+speedFactor 1.10000002384
+speedDev 1.10000002384
+accel 1.10000002384
+decel 1.10000002384
+imperfection 0.10000000149
+tau 1.10000002384
+vClass bicycle
+emissionclass zero
+shape bicycle
+guiOffset 1.10000002384
+width 1.10000002384
+color (0, 0, 0, 255)
 (14, 127, 0) OK Goodbye

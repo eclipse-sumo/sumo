@@ -307,7 +307,19 @@ TraCIServerAPI_VehicleType::setVariable(const int cmd, const int variable, const
         v.getCarFollowModel().setTau(inputStorage.readFloat());
     }
     break;
-    default:
+    case VAR_COLOR: {
+        if (valueDataType!=TYPE_COLOR) {
+            server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "The color must be given using the according type.", outputStorage);
+            return false;
+        }
+        SUMOReal r = (SUMOReal) inputStorage.readUnsignedByte() / 255.;
+        SUMOReal g = (SUMOReal) inputStorage.readUnsignedByte() / 255.;
+        SUMOReal b = (SUMOReal) inputStorage.readUnsignedByte() / 255.;
+        inputStorage.readUnsignedByte(); // skip alpha level
+        RGBColor col(r, g, b);
+        v.setColor(col);
+    }
+    break;    default:
         break;
     }
     return true;
