@@ -94,7 +94,7 @@ aggregated1:0.00001
 default:perf
 meso:perf
 meso:meso
-msvc8mesox64:perf
-msvc8mesox64:meso
-msvc8mesoWin32:perf
-msvc8mesoWin32:meso
+msvc10mesox64:perf
+msvc10mesox64:meso
+msvc10mesoWin32:perf
+msvc10mesoWin32:meso
