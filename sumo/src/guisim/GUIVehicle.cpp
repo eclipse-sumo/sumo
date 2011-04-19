@@ -830,7 +830,7 @@ GUIVehicle::drawGL(const GUIVisualizationSettings &s) const throw() {
     glTranslated(p1.x(), p1.y(), 0);
     glRotated(getAngle(), 0, 0, 1);
 
-    glTranslated(0, 0, -.04);
+    glTranslated(0, 0, getType());
     // set lane color
     s.vehicleColorer.setGlColor(*this);
     // (optional) set id

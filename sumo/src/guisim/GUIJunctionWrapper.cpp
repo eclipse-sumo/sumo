@@ -108,24 +108,12 @@ GUIJunctionWrapper::drawGL(const GUIVisualizationSettings &s) const throw() {
         glPushName(getGlID());
     }
     glColor3d(0, 0, 0);
-    glTranslated(0, 0, .01);
+    glTranslated(0, 0, getType());
     GLHelper::drawFilledPoly(myJunction.getShape(), true);
-    glTranslated(0, 0, -.01);
+    glTranslated(0, 0, -getType());
     // (optional) draw name
     if (s.drawJunctionName) {
-        glPushMatrix();
-        glTranslated(0, 0, -.06);
-        Position2D p = myJunction.getPosition();
-        glTranslated(p.x(), p.y(), 0);
-        glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-        pfSetPosition(0, 0);
-        pfSetScale(s.junctionNameSize / s.scale);
-        glColor3d(s.junctionNameColor.red(), s.junctionNameColor.green(), s.junctionNameColor.blue());
-        SUMOReal w = pfdkGetStringWidth(getMicrosimID().c_str());
-        glRotated(180, 1, 0, 0);
-        glTranslated(-w/2., 0.4, 0);
-        pfDrawString(getMicrosimID().c_str());
-        glPopMatrix();
+        drawName(myJunction.getPosition(), s.junctionNameSize / s.scale, s.junctionNameColor);
     }
     // (optional) clear id
     if (s.needsGlID) {

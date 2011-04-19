@@ -363,6 +363,8 @@ ROWdrawAction_drawArrows(const GUILaneWrapper &lane, bool showToolTips) {
 
 void
 ROWdrawAction_drawLane2LaneConnections(const GUILaneWrapper &lane) {
+    glPushMatrix();
+    glTranslated(0, 0, GLO_JUNCTION); // must draw on top of junction shape
     unsigned int noLinks = lane.getLinkNumber();
     for (unsigned int i=0; i<noLinks; ++i) {
         MSLink::LinkState state = lane.getLane().getLinkCont()[i]->getState();
@@ -410,11 +412,14 @@ ROWdrawAction_drawLane2LaneConnections(const GUILaneWrapper &lane) {
         glEnd();
         GLHelper::drawTriangleAtEnd(Line2D(p1, p2), (SUMOReal) .4, (SUMOReal) .2);
     }
+    glPopMatrix();
 }
 
 
 void
 GUILaneWrapper::drawGL(const GUIVisualizationSettings &s) const throw() {
+    glPushMatrix();
+    glTranslated(0, 0, getType());
     // set lane color
 #ifdef HAVE_MESOSIM
     if (!MSGlobals::gUseMesoSim)
@@ -434,9 +439,7 @@ GUILaneWrapper::drawGL(const GUIVisualizationSettings &s) const throw() {
         }
     } else {
         if (getLane().getEdge().getPurpose()!=MSEdge::EDGEFUNCTION_INTERNAL) {
-            glTranslated(0, 0, .005);
             GLHelper::drawBoxLines(myShape, myShapeRotations, myShapeLengths, SUMO_const_halfLaneWidth);
-            glTranslated(0, 0, -.005);
         } else {
             GLHelper::drawBoxLines(myShape, myShapeRotations, myShapeLengths, SUMO_const_quarterLaneWidth);
         }
@@ -446,8 +449,8 @@ GUILaneWrapper::drawGL(const GUIVisualizationSettings &s) const throw() {
         }
         // draw ROWs (not for inner lanes)
         if (getLane().getEdge().getPurpose()!=MSEdge::EDGEFUNCTION_INTERNAL) {// !!! getPurpose()
-            glTranslated(0, 0, -.02);
             GUINet *net = (GUINet*) MSNet::getInstance();
+            glTranslated(0, 0, .1);
             ROWdrawAction_drawLinkRules(*net, *this, s.needsGlID);
             if (s.showLinkDecals) {
                 ROWdrawAction_drawArrows(*this, s.needsGlID);
@@ -457,21 +460,18 @@ GUILaneWrapper::drawGL(const GUIVisualizationSettings &s) const throw() {
                 //  draw from end of first to the begin of second
                 ROWdrawAction_drawLane2LaneConnections(*this);
             }
-            glTranslated(0, 0, .02);
+            glTranslated(0, 0, .1);
             if (s.drawLinkJunctionIndex) {
-                glTranslated(0, 0, -.03);
                 ROWdrawAction_drawLinkNo(*this);
-                glTranslated(0, 0, .03);
             }
             if (s.drawLinkTLIndex) {
-                glTranslated(0, 0, -.03);
                 ROWdrawAction_drawTLSLinkNo(*net, *this);
-                glTranslated(0, 0, .03);
             }
         }
     }
     // draw vehicles
     if (s.scale>s.minVehicleSize) {
+        glTranslated(0, 0, .1);
         // retrieve vehicles from lane; disallow simulation
         const MSLane::VehCont &vehicles = myLane.getVehiclesSecure();
         for (MSLane::VehCont::const_iterator v=vehicles.begin(); v!=vehicles.end(); ++v) {
