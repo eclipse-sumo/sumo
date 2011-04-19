@@ -130,6 +130,9 @@ private:
     /// Information whether the user has moved the cursor while pressing a mouse button
     bool myMoveOnClick;
 
+    /// the network location on which to zoom using right click+drag
+    Position2D myZoomBase;
+
     /// avoid flicker
     FXTime myDragDelay;
     FXTime myMouseDownTime;

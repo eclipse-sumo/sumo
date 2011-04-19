@@ -65,7 +65,12 @@ GUIDanielPerspectiveChanger::move(int xdiff, int ydiff) {
 void
 GUIDanielPerspectiveChanger::zoom(SUMOReal factor) {
     if (factor > 0) {
-        setViewport(getZoom() * factor, getXPos(), getYPos());
+        myViewPort = Boundary(
+                myZoomBase.x() - factor * (myZoomBase.x() - myViewPort.xmin()),
+                myZoomBase.y() - factor * (myZoomBase.y() - myViewPort.ymin()),
+                myZoomBase.x() - factor * (myZoomBase.x() - myViewPort.xmax()),
+                myZoomBase.y() - factor * (myZoomBase.y() - myViewPort.ymax()));
+        myCallback.update();
     }
 }
 
@@ -145,6 +150,7 @@ GUIDanielPerspectiveChanger::onRightBtnPress(void*data) {
     myMouseYPosition = e->win_y;
     myMoveOnClick = false;
     myMouseDownTime = FXThread::time();
+    myZoomBase = myCallback.getPositionInformation();
 }
 
 
@@ -172,6 +178,7 @@ GUIDanielPerspectiveChanger::onMouseWheel(void*data) {
     if (e->code < 0) {
         diff = -diff;
     }
+    myZoomBase = myCallback.getPositionInformation();
     zoom(1.0 + diff);
     myCallback.updateToolTip();
 }
