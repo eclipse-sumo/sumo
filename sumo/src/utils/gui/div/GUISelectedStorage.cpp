@@ -247,7 +247,7 @@ GUISelectedStorage::remove2Update() {
 void
 GUISelectedStorage::save(const std::string &filename, const std::set<GLuint>& ids) {
     OutputDevice &dev = OutputDevice::getDevice(filename);
-    for (std::set<GLuint>::iterator i=ids.begin(); i!=ids.end(); ++i) {
+    for (std::set<GLuint>::const_iterator i=ids.begin(); i!=ids.end(); ++i) {
         GUIGlObject *object = GUIGlObjectStorage::gIDStorage.getObjectBlocking(*i);
         if (object!=0) {
             std::string name = object->getFullName();
