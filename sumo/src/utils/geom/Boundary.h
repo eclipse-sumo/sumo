@@ -105,6 +105,10 @@ public:
      * The method returns a reference to the instance for further use */
     Boundary &grow(SUMOReal by);
 
+    void growWidth(SUMOReal by);
+
+    void growHeight(SUMOReal by);
+
     /// flips ymin and ymax
     void flipY();
 
