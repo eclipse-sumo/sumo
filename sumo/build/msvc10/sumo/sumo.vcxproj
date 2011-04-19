@@ -244,7 +244,7 @@
       <Culture>0x0407</Culture>
     </ResourceCompile>
     <Link>
-      <AdditionalDependencies>$(XERCES_LIB);ws2_32.lib</AdditionalDependencies>
+      <AdditionalDependencies>$(XERCES_LIB);ws2_32.lib;$(MSBuildProjectDirectory)\..\y_libmesosim\x64\Release\y_libmesosim.lib</AdditionalDependencies>
       <OutputFile>$(OutDir)meso64.exe</OutputFile>
       <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
@@ -265,7 +265,7 @@
       <Culture>0x0407</Culture>
     </ResourceCompile>
     <Link>
-      <AdditionalDependencies>$(XERCES_DEBUG_LIB);ws2_32.lib</AdditionalDependencies>
+      <AdditionalDependencies>$(XERCES_DEBUG_LIB);ws2_32.lib;$(MSBuildProjectDirectory)\..\y_libmesosim\x64\Debug\y_libmesosim.lib</AdditionalDependencies>
       <OutputFile>$(OutDir)meso64D.exe</OutputFile>
       <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
