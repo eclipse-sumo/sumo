@@ -286,6 +286,8 @@ enum {
     MID_CHOOSEN_CLEAR,
     /// Deselect selected items
     MID_CHOOSEN_DESELECT,
+    /// Deselect selected items
+    MID_CHOOSEN_INVERT,
     //@}
 
 

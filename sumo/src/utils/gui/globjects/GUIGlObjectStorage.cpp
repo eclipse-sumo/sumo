@@ -155,5 +155,13 @@ GUIGlObjectStorage::unblockObject(GLuint id) throw() {
 }
 
 
+std::set<GLuint> 
+GUIGlObjectStorage::getAllIDs() const {
+    std::set<GLuint> result;
+    for (ObjectMap::const_iterator it=myMap.begin(); it!=myMap.end(); it++) {
+        result.insert(it->first);
+    }
+    return result;
+}
 /****************************************************************************/
 

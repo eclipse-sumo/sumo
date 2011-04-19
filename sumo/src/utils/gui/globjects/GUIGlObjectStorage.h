@@ -31,6 +31,7 @@
 
 #include <map>
 #include <string>
+#include <set>
 #include <fx.h>
 #include <utils/foxtools/MFXMutex.h>
 
@@ -158,6 +159,11 @@ public:
     /** @brief A single static instance of this class
      */
     static GUIGlObjectStorage gIDStorage;
+
+
+    /** @brief Returns the set of all known ids
+     */
+    std::set<GLuint> getAllIDs() const;
 
 private:
     /// @brief Definition of a container from numerical ids to objects
