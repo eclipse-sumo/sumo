@@ -185,6 +185,8 @@
     <TargetName Condition="'$(Configuration)|$(Platform)'=='MesoDebug|Win32'">meso-guiD</TargetName>
     <TargetName Condition="'$(Configuration)|$(Platform)'=='MesoRelease|x64'">meso-gui64</TargetName>
     <TargetName Condition="'$(Configuration)|$(Platform)'=='MesoDebug|x64'">meso-gui64D</TargetName>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(ProjectName)64</TargetName>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Fastbuild|x64'">$(ProjectName)64F</TargetName>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <Link>

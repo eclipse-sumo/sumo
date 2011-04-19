@@ -113,6 +113,8 @@
     <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(ProjectName)D</TargetName>
     <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(ProjectName)64D</TargetName>
     <TargetName Condition="'$(Configuration)|$(Platform)'=='Fastbuild|Win32'">$(ProjectName)F</TargetName>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Fastbuild|x64'">$(ProjectName)64F</TargetName>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(ProjectName)64</TargetName>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ResourceCompile>
@@ -129,7 +131,7 @@
     </ResourceCompile>
     <Link>
       <AdditionalDependencies>$(XERCES_LIB);ws2_32.lib</AdditionalDependencies>
-      <OutputFile>.\Release/od2trips64.exe</OutputFile>
+      <OutputFile>$(PlatformName)\$(Configuration)\$(ProjectName)64.exe</OutputFile>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -147,7 +149,7 @@
     </ResourceCompile>
     <Link>
       <AdditionalDependencies>$(XERCES_DEBUG_LIB);ws2_32.lib</AdditionalDependencies>
-      <OutputFile>.\Debug/od2trips64D.exe</OutputFile>
+      <OutputFile>$(PlatformName)\$(Configuration)\$(ProjectName)64D.exe</OutputFile>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Fastbuild|Win32'">
@@ -168,7 +170,7 @@
     </ResourceCompile>
     <Link>
       <AdditionalDependencies>$(XERCES_LIB);ws2_32.lib</AdditionalDependencies>
-      <OutputFile>.\Fastbuild/od2trips64F.exe</OutputFile>
+      <OutputFile>$(PlatformName)\$(Configuration)\$(ProjectName)64F.exe</OutputFile>
       <TargetMachine>MachineX64</TargetMachine>
     </Link>
   </ItemDefinitionGroup>

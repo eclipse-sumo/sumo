@@ -2,7 +2,7 @@ Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "duarouter", "duarouter\duarouter.vcxproj", "{90205628-51D7-4194-9FC0-7D74C35A3471}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "guisim", "guisim\guisim.vcxproj", "{F1904C42-F231-4B9D-AD80-E2971969AFA0}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "sumo-gui", "guisim\guisim.vcxproj", "{F1904C42-F231-4B9D-AD80-E2971969AFA0}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "jtrrouter", "jtrrouter\jtrrouter.vcxproj", "{43569450-FB3D-46EA-B9AB-CE92295C5570}"
 EndProject
@@ -678,13 +678,16 @@ Global
 		{50B2C273-2B6A-4A3A-BE24-83E3202DE180}.Release|x64.Build.0 = Release|x64
 		{3DAC2EC1-D265-4F66-8442-A006E50DC95F}.Debug|Win32.ActiveCfg = Debug|Win32
 		{3DAC2EC1-D265-4F66-8442-A006E50DC95F}.Debug|Win32.Build.0 = Debug|Win32
-		{3DAC2EC1-D265-4F66-8442-A006E50DC95F}.Debug|x64.ActiveCfg = Debug|Win32
+		{3DAC2EC1-D265-4F66-8442-A006E50DC95F}.Debug|x64.ActiveCfg = Debug|x64
+		{3DAC2EC1-D265-4F66-8442-A006E50DC95F}.Debug|x64.Build.0 = Debug|x64
 		{3DAC2EC1-D265-4F66-8442-A006E50DC95F}.Fastbuild|Win32.ActiveCfg = Fastbuild|Win32
 		{3DAC2EC1-D265-4F66-8442-A006E50DC95F}.Fastbuild|Win32.Build.0 = Fastbuild|Win32
-		{3DAC2EC1-D265-4F66-8442-A006E50DC95F}.Fastbuild|x64.ActiveCfg = Fastbuild|Win32
+		{3DAC2EC1-D265-4F66-8442-A006E50DC95F}.Fastbuild|x64.ActiveCfg = Fastbuild|x64
+		{3DAC2EC1-D265-4F66-8442-A006E50DC95F}.Fastbuild|x64.Build.0 = Fastbuild|x64
 		{3DAC2EC1-D265-4F66-8442-A006E50DC95F}.Release|Win32.ActiveCfg = Release|Win32
 		{3DAC2EC1-D265-4F66-8442-A006E50DC95F}.Release|Win32.Build.0 = Release|Win32
-		{3DAC2EC1-D265-4F66-8442-A006E50DC95F}.Release|x64.ActiveCfg = Release|Win32
+		{3DAC2EC1-D265-4F66-8442-A006E50DC95F}.Release|x64.ActiveCfg = Release|x64
+		{3DAC2EC1-D265-4F66-8442-A006E50DC95F}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

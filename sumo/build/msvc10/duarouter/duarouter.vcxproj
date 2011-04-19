@@ -114,6 +114,8 @@
     <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(ProjectName)D</TargetName>
     <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(ProjectName)64D</TargetName>
     <TargetName Condition="'$(Configuration)|$(Platform)'=='Fastbuild|Win32'">$(ProjectName)F</TargetName>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(ProjectName)64</TargetName>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Fastbuild|x64'">$(ProjectName)64F</TargetName>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <Link>
@@ -124,7 +126,7 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <Link>
       <AdditionalDependencies>$(XERCES_DEBUG_LIB);ws2_32.lib</AdditionalDependencies>
-      <OutputFile>.\Debug/duarouter64D.exe</OutputFile>
+      <OutputFile>$(PlatformName)\$(Configuration)\$(ProjectName)64D.exe</OutputFile>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -136,7 +138,7 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <Link>
       <AdditionalDependencies>$(XERCES_LIB);ws2_32.lib</AdditionalDependencies>
-      <OutputFile>.\Release/duarouter64.exe</OutputFile>
+      <OutputFile>$(PlatformName)\$(Configuration)\$(ProjectName)64.exe</OutputFile>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Fastbuild|Win32'">
@@ -151,7 +153,7 @@
     </Midl>
     <Link>
       <AdditionalDependencies>$(XERCES_LIB);ws2_32.lib</AdditionalDependencies>
-      <OutputFile>.\Fastbuild/duarouter64F.exe</OutputFile>
+      <OutputFile>$(PlatformName)\$(Configuration)\$(ProjectName)64F.exe</OutputFile>
       <TargetMachine>MachineX64</TargetMachine>
     </Link>
   </ItemDefinitionGroup>

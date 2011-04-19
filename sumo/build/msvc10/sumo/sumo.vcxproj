@@ -182,6 +182,10 @@
     <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(ProjectName)64D</TargetName>
     <TargetName Condition="'$(Configuration)|$(Platform)'=='Fastbuild|Win32'">$(ProjectName)F</TargetName>
     <TargetName Condition="'$(Configuration)|$(Platform)'=='MesoDebug|Win32'">mesoD</TargetName>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='MesoRelease|x64'">meso64</TargetName>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='MesoDebug|x64'">meso64D</TargetName>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Fastbuild|x64'">$(ProjectName)64F</TargetName>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(ProjectName)64</TargetName>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ResourceCompile>
@@ -200,7 +204,7 @@
     </ResourceCompile>
     <Link>
       <AdditionalDependencies>$(XERCES_DEBUG_LIB);ws2_32.lib</AdditionalDependencies>
-      <OutputFile>$(OutDir)sumo64D.exe</OutputFile>
+      <OutputFile>$(PlatformName)\$(Configuration)\$(ProjectName)64D.exe</OutputFile>
       <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
     </Link>
@@ -221,7 +225,7 @@
     </ResourceCompile>
     <Link>
       <AdditionalDependencies>$(XERCES_LIB);ws2_32.lib</AdditionalDependencies>
-      <OutputFile>$(OutDir)sumo64.exe</OutputFile>
+      <OutputFile>$(PlatformName)\$(Configuration)\$(ProjectName)64.exe</OutputFile>
       <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
@@ -286,7 +290,7 @@
     </ResourceCompile>
     <Link>
       <AdditionalDependencies>$(XERCES_LIB);ws2_32.lib</AdditionalDependencies>
-      <OutputFile>$(OutDir)sumo64F.exe</OutputFile>
+      <OutputFile>$(PlatformName)\$(Configuration)\$(ProjectName)64F.exe</OutputFile>
       <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <TargetMachine>MachineX64</TargetMachine>
     </Link>
