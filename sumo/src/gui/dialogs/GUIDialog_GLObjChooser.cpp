@@ -30,9 +30,9 @@
 #include <string>
 #include <vector>
 #include <fxkeys.h>
-#include <gui/GUISUMOViewParent.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <gui/GUIGlobals.h>
+#include <gui/GUISUMOViewParent.h>
 #include <utils/gui/globjects/GUIGlObject.h>
 #include <utils/gui/globjects/GUIGlObjectStorage.h>
 #include <utils/gui/images/GUIIconSubSys.h>
@@ -66,7 +66,7 @@ FXDEFMAP(GUIDialog_GLObjChooser) GUIDialog_GLObjChooserMap[]= {
     FXMAPFUNC(SEL_COMMAND,  MID_CANCEL,         GUIDialog_GLObjChooser::onCmdClose),
     FXMAPFUNC(SEL_CHANGED,  MID_CHOOSER_TEXT,   GUIDialog_GLObjChooser::onChgText),
     FXMAPFUNC(SEL_COMMAND,  MID_CHOOSER_TEXT,   GUIDialog_GLObjChooser::onCmdText),
-    FXMAPFUNC(SEL_KEYPRESS,  MID_CHOOSER_LIST,   GUIDialog_GLObjChooser::onListKeyPress),
+    FXMAPFUNC(SEL_KEYPRESS, MID_CHOOSER_LIST,   GUIDialog_GLObjChooser::onListKeyPress),
 };
 
 FXIMPLEMENT(GUIDialog_GLObjChooser, FXMainWindow, GUIDialog_GLObjChooserMap, ARRAYNUMBER(GUIDialog_GLObjChooserMap))
@@ -75,10 +75,16 @@ FXIMPLEMENT(GUIDialog_GLObjChooser, FXMainWindow, GUIDialog_GLObjChooserMap, ARR
 // ===========================================================================
 // method definitions
 // ===========================================================================
-GUIDialog_GLObjChooser::GUIDialog_GLObjChooser(GUISUMOViewParent *parent,
-        FXIcon *icon, const FXString &title, GUIGlObjectType type, GUIGlObjectStorage &glStorage) throw()
-        : FXMainWindow(parent->getApp(), title, icon, NULL, DECOR_ALL, 20,20,300, 300),
-        myObjectType(type), myParent(parent), mySelected(0) {
+GUIDialog_GLObjChooser::GUIDialog_GLObjChooser(
+        GUISUMOViewParent *parent,
+        FXIcon *icon, 
+        const FXString &title, 
+        GUIGlObjectType type, 
+        GUIGlObjectStorage &glStorage) throw() : 
+    FXMainWindow(parent->getApp(), title, icon, NULL, DECOR_ALL, 20,20,300, 300),
+    myObjectType(type), 
+    myParent(parent)
+{
     FXHorizontalFrame *hbox = new FXHorizontalFrame(this, LAYOUT_FILL_X|LAYOUT_FILL_Y, 0,0,0,0, 0,0,0,0);
     // build the list
     FXVerticalFrame *layout1 = new FXVerticalFrame(hbox, LAYOUT_FILL_X|LAYOUT_FILL_Y|LAYOUT_TOP, 0,0,0,0, 4,4,4,4);
@@ -127,11 +133,9 @@ GUIDialog_GLObjChooser::GUIDialog_GLObjChooser(GUISUMOViewParent *parent,
         } else {
             selected = gSelected.isSelected(type, *i);
         }
-        if (selected) {
-            myList->appendItem(name.c_str(), GUIIconSubSys::getIcon(ICON_FLAG), (void*) o);
-        } else {
-            myList->appendItem(name.c_str(), 0, (void*) o);
-        }
+        FXIcon* icon = selected ? GUIIconSubSys::getIcon(ICON_FLAG) : 0;
+        myIDs.insert(o->getGlID());
+        myList->appendItem(name.c_str(), icon, (void*) &(*myIDs.find(o->getGlID())));
         glStorage.unblockObject(*i);
     }
     // build the buttons
@@ -158,11 +162,8 @@ long
 GUIDialog_GLObjChooser::onCmdCenter(FXObject*,FXSelector,void*) {
     int selected = myList->getCurrentItem();
     if (selected>=0) {
-        mySelected = static_cast<GUIGlObject*>(myList->getItemData(selected));
-    } else {
-        mySelected = 0;
+        myParent->setView(*static_cast<GLuint*>(myList->getItemData(selected)));
     }
-    myParent->setView(mySelected);
     return 1;
 }
 
@@ -192,24 +193,22 @@ long
 GUIDialog_GLObjChooser::onCmdText(FXObject*,FXSelector,void*) {
     int selected = myList->getCurrentItem();
     if (selected>=0) {
-        mySelected = static_cast<GUIGlObject*>(myList->getItemData(selected));
-        myParent->setView(mySelected);
+        myParent->setView(*static_cast<GLuint*>(myList->getItemData(selected)));
     }
     return 1;
 }
+
 
 
 long
 GUIDialog_GLObjChooser::onListKeyPress(FXObject*,FXSelector,void*ptr) {
     FXEvent* event=(FXEvent*)ptr;
     switch (event->code) {
-    case KEY_Return: {
-        int current = myList->getCurrentItem();
-        if (current>=0&&myList->isItemSelected(current)) {
-            mySelected = static_cast<GUIGlObject*>(myList->getItemData(current));
-            myParent->setView(mySelected);
-        }
-    }
+        case KEY_Return: 
+            onCmdText(0,0,0);
+            break;
+        default:
+            break;
     }
     return 1;
 }

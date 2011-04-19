@@ -194,12 +194,6 @@ GUISUMOViewParent::onCmdLocateShape(FXObject * /*sender*/,FXSelector,void*) {
 }
 
 
-void
-GUISUMOViewParent::setView(const GUIGlObject * const o) throw() {
-    myView->centerTo(o);
-}
-
-
 long
 GUISUMOViewParent::onSimStep(FXObject*,FXSelector,void*) {
     myView->update();

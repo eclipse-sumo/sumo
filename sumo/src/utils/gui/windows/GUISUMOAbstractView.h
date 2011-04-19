@@ -92,7 +92,7 @@ public:
     void recenterView();
 
     /// centers to the chosen artifact
-    void centerTo(const GUIGlObject * const o);
+    void centerTo(GLuint id);
 
     /// centers to the chosen artifact
     void centerTo(const Boundary& bound);

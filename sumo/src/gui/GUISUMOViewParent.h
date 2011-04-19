@@ -118,12 +118,6 @@ public:
     //@}
 
 
-    /** @brief Centers the view onto the given artifact
-     * @param[in] o The object to center the view on
-     */
-    void setView(const GUIGlObject * const o) throw();
-
-
     /** @brief Returns the main window
      * @return This view's parent
      */

@@ -76,7 +76,7 @@ GUIGLObjectPopupMenu::~GUIGLObjectPopupMenu() throw() {}
 
 long
 GUIGLObjectPopupMenu::onCmdCenter(FXObject*,FXSelector,void*) {
-    myParent->centerTo(myObject);
+    myParent->centerTo(myObject->getGlID());
     return 1;
 }
 

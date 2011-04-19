@@ -198,11 +198,7 @@ GUISUMOAbstractView::paintGL() {
     }
 
     if (getTrackedID()>0) {
-        GUIGlObject *o = GUIGlObjectStorage::gIDStorage.getObjectBlocking(getTrackedID());
-        if (o!=0 && dynamic_cast<GUIGlObject*>(o)!=0) {
-            centerTo(o);
-        }
-        GUIGlObjectStorage::gIDStorage.unblockObject(getTrackedID());
+        centerTo(getTrackedID());
     }
 
     unsigned int id = 0;
@@ -463,10 +459,15 @@ GUISUMOAbstractView::recenterView() {
 
 
 void
-GUISUMOAbstractView::centerTo(const GUIGlObject * const o) {
-    myChanger->setViewport(o->getCenteringBoundary());
+GUISUMOAbstractView::centerTo(GLuint id) {
+    GUIGlObject *o = GUIGlObjectStorage::gIDStorage.getObjectBlocking(id);
+    if (o!=0 && dynamic_cast<GUIGlObject*>(o)!=0) {
+        myChanger->setViewport(o->getCenteringBoundary());
+    }
+    GUIGlObjectStorage::gIDStorage.unblockObject(id);
     update();
 }
+
 
 void
 GUISUMOAbstractView::centerTo(const Boundary& bound) {

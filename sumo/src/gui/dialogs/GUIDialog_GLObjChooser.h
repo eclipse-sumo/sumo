@@ -31,7 +31,9 @@
 
 #include <string>
 #include <vector>
+#include <set>
 #include <fx.h>
+#include <GL/gl.h>
 #include <utils/gui/globjects/GUIGlObjectTypes.h>
 
 
@@ -116,6 +118,10 @@ private:
 
     /// @brief The text field
     FXTextField *myTextEntry;
+
+    /// myList contains (void) pointers to elements of myIDs instead of the more
+    //volatile pointers to GUIGlObject
+    std::set<GLuint> myIDs;
 
 
 protected:
