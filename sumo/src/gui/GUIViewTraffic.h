@@ -100,7 +100,7 @@ public:
     void onGamingClick(Position2D pos);
 
 protected:
-    int doPaintGL(int mode, SUMOReal scale);
+    int doPaintGL(int mode, const Boundary& bound);
 
 
 private:

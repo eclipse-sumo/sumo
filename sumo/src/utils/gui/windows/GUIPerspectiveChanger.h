@@ -30,6 +30,8 @@
 #endif
 
 #include <fx.h>
+#include <utils/geom/Boundary.h>
+#include <utils/geom/Position2D.h>
 #include "GUISUMOAbstractView.h"
 
 
@@ -37,8 +39,6 @@
 // class declarations
 // ===========================================================================
 class GUISUMOAbstractView;
-class Position2D;
-class Boundary;
 
 
 // ===========================================================================
@@ -64,7 +64,7 @@ public:
     };
 
     /// Constructor
-    GUIPerspectiveChanger(GUISUMOAbstractView &callBack);
+    GUIPerspectiveChanger(GUISUMOAbstractView &callBack, const Boundary& viewPort);
 
     /// Destructor
     virtual ~GUIPerspectiveChanger();
@@ -88,19 +88,10 @@ public:
     /// Returns the zoom factor computed stored in this changer
     virtual SUMOReal getZoom() const = 0;
 
-    /// recenters the view to display the whole network
-    virtual void recenterView() = 0;
-
     /** @brief Centers the view to the given position,
         setting it to a size that covers the radius.
         Used for: Centering of vehicles and junctions */
-    virtual void centerTo(const Boundary &netBoundary,
-                          const Position2D &pos, SUMOReal radius, bool applyZoom=true) = 0;
-
-    /** @brief Centers the view to show the given boundary
-        Used for: Centering of lanes */
-    virtual void centerTo(const Boundary &netBoundary,
-                          Boundary bound, bool applyZoom=true) = 0;
+    virtual void centerTo(const Position2D &pos, SUMOReal radius, bool applyZoom=true) = 0;
 
     /** @brief Sets the viewport
         Used for: Adapting a new viewport */
@@ -116,11 +107,24 @@ public:
      * view intact (by showing more / less instead of zooming)
      * The canvass is clipped/enlarged on the left side of the screen
      *
-     * @param[in] width The original width of the canvas in pixels
-     * @param[in] height The original height of the canvas in pixels
      * @param[in] change The horizontal change in canvas size in pixels
      */
-    virtual void changeCanvassLeft(int width, int height, int change) = 0;
+    virtual void changeCanvassLeft(int change) = 0;
+
+
+    Boundary getViewport(bool fixRatio=true) {
+        if (fixRatio) {
+            return patchedViewPort();
+        } else {
+            return myViewPort;
+        }
+    }
+
+
+    void setViewport(const Boundary& viewPort) {
+        myViewPort = viewPort;
+    }
+
 
 protected:
     /// The parent window (canvas to scale)
@@ -129,6 +133,12 @@ protected:
     /// the current mouse position
     FXint myMouseXPosition, myMouseYPosition;
 
+    /// @brief the intended viewport
+    Boundary myViewPort;
+
+private:
+    // patched viewPort with the same aspect ratio as the canvas
+    Boundary patchedViewPort();
 };
 
 

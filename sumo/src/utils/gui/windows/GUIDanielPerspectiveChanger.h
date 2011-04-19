@@ -52,13 +52,12 @@ class Boundary;
  * - network movement by pressing the left mouse button and
  *  moving the mouse
  */
-class GUIDanielPerspectiveChanger :
-            public GUIPerspectiveChanger {
+class GUIDanielPerspectiveChanger : public GUIPerspectiveChanger {
 public:
     /* Constructor
      * @param[in] callBack The view to be udpated upon changes
      */
-    GUIDanielPerspectiveChanger(GUISUMOAbstractView &callBack);
+    GUIDanielPerspectiveChanger(GUISUMOAbstractView &callBack, const Boundary& viewPort);
 
     /// Destructor
     ~GUIDanielPerspectiveChanger();
@@ -82,16 +81,8 @@ public:
     /// Returns the zoom factor computed stored in this changer
     virtual SUMOReal getZoom() const;
 
-    /// recenters the view to display the whole network
-    void recenterView();
-
     /// Centers the view to the given position, setting it to a size that covers the radius
-    void centerTo(const Boundary &netBoundary,
-                  const Position2D &pos, SUMOReal radius, bool applyZoom=true);
-
-    /// Centers the view to show the given boundary
-    void centerTo(const Boundary &netBoundary,
-                  Boundary bound, bool applyZoom=true);
+    void centerTo(const Position2D &pos, SUMOReal radius, bool applyZoom=true);
 
     /** @brief Sets the viewport */
     void setViewport(SUMOReal zoom, SUMOReal xPos, SUMOReal yPos);
@@ -101,11 +92,9 @@ public:
      * view intact (by showing more / less instead of zooming)
      * The canvass is clipped/enlarged on the left side of the screen
      *
-     * @param[in] width The original width of the canvas in pixels
-     * @param[in] height The original height of the canvas in pixels
      * @param[in] change The horizontal change in canvas size in pixels
      */
-    void changeCanvassLeft(int width, int height, int change);
+    void changeCanvassLeft(int change);
 
     /* @brief avoid unwanted flicker
      * @param[in] delay The minimum time delay in nanoseconds after
@@ -123,23 +112,17 @@ private:
     void move(int xdiff, int ydiff);
 
     /// Performs the zooming of the view
-    void zoom(int diff);
+    void zoom(SUMOReal factor);
 
     /// Performs the rotation of the view
     void rotate(int diff);
 
 private:
-    /// @brief The inverted offset to the center of the network in meter
-    Position2D myViewCenter;
-
-    /// the scale of the net (the maximum size, either width or height)
-    SUMOReal myNetScale;
+    /// the original viewport dimensions in m which serve as the reference point for 100% zoom
+    SUMOReal myOrigWidth, myOrigHeight;
 
     /// the current rotation
     SUMOReal myRotation;
-
-    /// the current zoom factor
-    SUMOReal myZoom;
 
     /// the current mouse state
     int myMouseButtonState;

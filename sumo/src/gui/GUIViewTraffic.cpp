@@ -151,7 +151,7 @@ GUIViewTraffic::setColorScheme(const std::string &name) {
 
 
 int
-GUIViewTraffic::doPaintGL(int mode, SUMOReal scale) {
+GUIViewTraffic::doPaintGL(int mode, const Boundary& bound) {
     // init view settings
     glRenderMode(mode);
     glMatrixMode(GL_MODELVIEW);
@@ -161,13 +161,8 @@ GUIViewTraffic::doPaintGL(int mode, SUMOReal scale) {
     glDisable(GL_BLEND);
     glEnable(GL_DEPTH_TEST);
 
-    GLdouble sxmin = myShownNetworkCenterX - myShownNetworkHalfWidth;
-    GLdouble sxmax = myShownNetworkCenterX + myShownNetworkHalfWidth;
-    GLdouble symin = myShownNetworkCenterY - myShownNetworkHalfHeight;
-    GLdouble symax = myShownNetworkCenterY + myShownNetworkHalfHeight;
-
     // compute lane width
-    SUMOReal lw = m2p(3.0) * scale;
+    SUMOReal lw = m2p(SUMO_const_laneWidth);
     // draw decals (if not in grabbing mode)
     if (!myUseToolTips) {
         drawDecals();
@@ -180,10 +175,10 @@ GUIViewTraffic::doPaintGL(int mode, SUMOReal scale) {
     glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
     float minB[2];
     float maxB[2];
-    minB[0] = sxmin;
-    minB[1] = symin;
-    maxB[0] = sxmax;
-    maxB[1] = symax;
+    minB[0] = bound.xmin();
+    minB[1] = bound.ymin();
+    maxB[0] = bound.xmax();
+    maxB[1] = bound.ymax();
     myVisualizationSettings->needsGlID = myUseToolTips;
     myVisualizationSettings->scale = lw;
     glEnable(GL_POLYGON_OFFSET_FILL);

@@ -35,6 +35,7 @@
 #include <utils/geom/Boundary.h>
 #include <utils/common/StdDefs.h>
 #include <utils/common/StringBijection.h>
+#include <utils/common/RGBColor.h>
 
 
 #ifdef _WIN32
@@ -194,6 +195,8 @@ public:
     void removeParameterTable(GUIParameterTableWindow *w) throw();
     /// @}
 
+
+    void drawName(const Position2D& pos, const SUMOReal size, const RGBColor& col, const SUMOReal angle=0) const;
 
 
 protected:

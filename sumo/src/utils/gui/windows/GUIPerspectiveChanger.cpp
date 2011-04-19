@@ -38,8 +38,12 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-GUIPerspectiveChanger::GUIPerspectiveChanger(GUISUMOAbstractView &callBack)
-        : myCallback(callBack) {}
+GUIPerspectiveChanger::GUIPerspectiveChanger(
+        GUISUMOAbstractView &callBack,
+        const Boundary& viewPort) : 
+    myCallback(callBack),
+    myViewPort(viewPort)
+{}
 
 
 GUIPerspectiveChanger::~GUIPerspectiveChanger() {}
@@ -85,6 +89,18 @@ GUIPerspectiveChanger::getMouseYPosition() const {
 }
 
 
+Boundary 
+GUIPerspectiveChanger::patchedViewPort() {
+    Boundary result = myViewPort;
+    SUMOReal canvasRatio = (SUMOReal)myCallback.getWidth() / myCallback.getHeight();
+    SUMOReal ratio = result.getWidth() / result.getHeight();
+    if (ratio < canvasRatio) {
+        result.growWidth(result.getWidth() * (canvasRatio / ratio - 1) / 2);
+    } else {
+        result.growHeight(result.getHeight() * (ratio / canvasRatio - 1) / 2);
+    }
+    return result;
+}
 
 /****************************************************************************/
 

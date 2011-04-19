@@ -92,10 +92,10 @@ public:
     void recenterView();
 
     /// centers to the chosen artifact
-    virtual void centerTo(const GUIGlObject * const o);
+    void centerTo(const GUIGlObject * const o);
 
-    /// centers the given boundary
-    void centerTo(Boundary bound);
+    /// centers to the chosen artifact
+    void centerTo(const Boundary& bound);
 
     /// applies the given viewport settings
     virtual void setViewport(SUMOReal zoom, SUMOReal xPos, SUMOReal yPos);
@@ -282,15 +282,7 @@ protected:
     void updatePositionInformation() const;
 
 
-    /** @brief Converts the given window position into the network position shown at this place
-     * @param[in] x The x-coordinate within the view
-     * @param[in] y The y-coordinate within the view
-     * @return The network position at the given coordinates
-     */
-    Position2D getPositionInformation(int x, int y) const;
-
-
-    virtual int doPaintGL(int /*mode*/, SUMOReal /*scale*/) {
+    virtual int doPaintGL(int /*mode*/, const Boundary& /*boundary*/) {
         return 0;
     }
 
@@ -298,9 +290,6 @@ protected:
 
     /// paints a grid
     void paintGLGrid();
-
-    /** applies the changes arised from window resize or movement */
-    void applyChanges(SUMOReal scale, size_t xoff, size_t yoff);
 
     /** brief Draws the size legend
      *
@@ -321,15 +310,13 @@ protected:
      */
     void drawDecals();
 
+    // applies gl-transformations to fit the Boundary given by myChanger onto
+    // the canvas. If fixRatio is true, this boundary will be enlarged to
+    // prevent anisotropic stretching. (this should be set to false when doing
+    // selections)
+    void applyGLTransform(bool fixRatio=true);
 
 protected:
-    /// @brief The half of the width/height of the shown network part (in m)
-    double myShownNetworkHalfWidth, myShownNetworkHalfHeight;
-
-    /// @brief Coordinates of the shown network part's center (in m)
-    double myShownNetworkCenterX, myShownNetworkCenterY;
-
-
     /// @brief The application
     GUIMainWindow *myApp;
 
@@ -338,12 +325,6 @@ protected:
 
     /// @brief The visualization speed-up
     SUMORTree *myGrid;
-
-    /// the sizes of the window
-    int myWidthInPixels, myHeightInPixels;
-
-    /// @brief The scale of the net (the maximum size, either width or height)
-    SUMOReal myNetScale;
 
     /// @brief The perspective changer
     GUIPerspectiveChanger *myChanger;
@@ -359,12 +340,6 @@ protected:
 
     /// @brief Offset to the mouse-hotspot from the mouse position
     int myMouseHotspotX, myMouseHotspotY;
-
-    /// @brief myWidthInPixels / myHeightInPixels
-    SUMOReal myRatio;
-
-    /// @brief Additional scaling factor for meters-to-pixels conversion
-    SUMOReal myAddScl;
 
     /// @brief The current popup-menu
     GUIGLObjectPopupMenu *myPopup;
@@ -398,8 +373,6 @@ protected:
 
     /// @brief List of objects for which GUIGlObject::drawGLAdditional is called
     std::map<GUIGlObject*, int> myAdditionallyDrawn;
-
-
 
 
 protected:

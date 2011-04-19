@@ -129,13 +129,8 @@ GUISUMOAbstractView::GUISUMOAbstractView(FXComposite *p,
     enable();
     flags|=FLAG_ENABLED;
     myInEditMode=false;
-    // compute the net scale
-    SUMOReal nw = myGrid->getWidth();
-    SUMOReal nh = myGrid->getHeight();
-    myNetScale = (nw < nh ? nh : nw);
     // show the middle at the beginning
-    myChanger = new GUIDanielPerspectiveChanger(*this);
-    gSchemeStorage.setViewport(this);
+    myChanger = new GUIDanielPerspectiveChanger(*this, *myGrid);
     myToolTip = new GUIGLObjectToolTip(myApp);
     myVisualizationSettings = &gSchemeStorage.getDefault();
 }
@@ -168,25 +163,11 @@ GUISUMOAbstractView::updateToolTip() {
 
 Position2D
 GUISUMOAbstractView::getPositionInformation() const {
-    return getPositionInformation(
-            myWindowCursorPositionX + myMouseHotspotX, 
-            myWindowCursorPositionY + myMouseHotspotY);
-}
-
-
-Position2D
-GUISUMOAbstractView::getPositionInformation(int mx, int my) const {
-    // compute the offset
-    SUMOReal cy = myChanger->getYPos();
-    SUMOReal cx = myChanger->getXPos();
-    // compute the visible area
-    GLdouble sxmin = myGrid->getCenter().x() - cx - myShownNetworkHalfWidth;
-    GLdouble sxmax = myGrid->getCenter().x() - cx + myShownNetworkHalfWidth;
-    GLdouble symin = myGrid->getCenter().y() - cy - myShownNetworkHalfHeight;
-    GLdouble symax = myGrid->getCenter().y() - cy + myShownNetworkHalfHeight;
-    SUMOReal sx = sxmin + (sxmax-sxmin) * (SUMOReal) mx / (SUMOReal) myWidthInPixels;
-    SUMOReal sy = symin + (symax-symin) * ((SUMOReal) myHeightInPixels - (SUMOReal) my) / (SUMOReal) myHeightInPixels;
-    return Position2D(sx, sy);
+    Boundary bound = myChanger->getViewport();
+    SUMOReal x = bound.xmin() + bound.getWidth()  * myWindowCursorPositionX / getWidth();
+    // cursor origin is in the top-left corner
+    SUMOReal y = bound.ymin() + bound.getHeight() * (getHeight() - myWindowCursorPositionY) / getHeight();
+    return Position2D(x, y);
 }
 
 
@@ -207,26 +188,19 @@ GUISUMOAbstractView::updatePositionInformation() const {
 
 Boundary
 GUISUMOAbstractView::getVisibleBoundary() const {
-    const SUMOReal xmin = myShownNetworkCenterX - myShownNetworkHalfWidth;
-    const SUMOReal ymin = myShownNetworkCenterY - myShownNetworkHalfHeight;
-    const SUMOReal xmax = myShownNetworkCenterX + myShownNetworkHalfWidth;
-    const SUMOReal ymax = myShownNetworkCenterY + myShownNetworkHalfHeight;
-    return Boundary(xmin, ymin, xmax, ymax);
+    return myChanger->getViewport();
 }
 
 void
 GUISUMOAbstractView::paintGL() {
-    myWidthInPixels = getWidth();
-    myHeightInPixels = getHeight();
-    if (myWidthInPixels==0||myHeightInPixels==0) {
+    if (getWidth()==0||getHeight()==0) {
         return;
     }
 
     if (getTrackedID()>0) {
         GUIGlObject *o = GUIGlObjectStorage::gIDStorage.getObjectBlocking(getTrackedID());
         if (o!=0 && dynamic_cast<GUIGlObject*>(o)!=0) {
-            Boundary b = o->getCenteringBoundary();
-            myChanger->centerTo(*myGrid, b, false);
+            centerTo(o);
         }
         GUIGlObjectStorage::gIDStorage.unblockObject(getTrackedID());
     }
@@ -260,8 +234,8 @@ GUISUMOAbstractView::paintGL() {
         glDisable(GL_LINE_SMOOTH);
     }
 
-    applyChanges(1.0, 0, 0);
-    doPaintGL(GL_RENDER, 1.0);
+    applyGLTransform();
+    doPaintGL(GL_RENDER, myChanger->getViewport());
     if (myVisualizationSettings->showSizeLegend) {
         displayLegend();
     }
@@ -276,37 +250,27 @@ GUISUMOAbstractView::paintGL() {
 
 unsigned int
 GUISUMOAbstractView::getObjectUnderCursor() {
-    int xpos = myWindowCursorPositionX+myMouseHotspotX;
-    int ypos = myWindowCursorPositionY+myMouseHotspotY;
-    if (xpos<0||xpos>=myWidthInPixels) {
-        return 0;
-    }
-    if (ypos<0||ypos>=myHeightInPixels) {
-        return 0;
-    }
+    const SUMOReal SENSITIVITY = 0.1; // meters
+    Boundary oldViewPort = myChanger->getViewport(false); // backup the actual viewPort
+    Boundary selection;
+    selection.add(getPositionInformation());
+    selection.grow(SENSITIVITY);
+    myChanger->setViewport(selection);
+    applyGLTransform(false);
 
-
-    const int SENSITIVITY = 4;
     const int NB_HITS_MAX = 1000;
     // Prepare the selection mode
     static GLuint hits[NB_HITS_MAX];
     static GLint nb_hits = 0;
     glSelectBuffer(NB_HITS_MAX, hits);
     glInitNames();
-    // compute new scale
-    SUMOReal scale = SUMOReal(getWidth())/SUMOReal(SENSITIVITY);
-    applyChanges(scale, myWindowCursorPositionX+myMouseHotspotX, myWindowCursorPositionY+myMouseHotspotY);
     // paint in select mode
-    bool tmp = myUseToolTips;
-    myUseToolTips = true;
-    int hits2 = doPaintGL(GL_SELECT, scale);
-    myUseToolTips = tmp;
+    bool oldMyUseToolTips = myUseToolTips;
+    myUseToolTips = true; // @todo this is our indirect way of saying: please use glPushName. maybe get rid of it?
+    doPaintGL(GL_SELECT, selection);
+    myUseToolTips = oldMyUseToolTips;
     // Get the results
     nb_hits = glRenderMode(GL_RENDER);
-    if (nb_hits==0||hits2==0) {
-        applyChanges(1, 0, 0);
-        return 0;
-    }
     // Interpret results
     unsigned int idMax = 0;
     int prevLayer = -1000;
@@ -320,6 +284,7 @@ GUISUMOAbstractView::getObjectUnderCursor() {
         if (o->getGlID()==0) {
             continue;
         }
+        //std::cout << "point selection hit " << o->getMicrosimID() << "\n";
         GUIGlObjectType type = o->getType();
         if (type!=0) {
             int clayer = (int) type;
@@ -353,7 +318,7 @@ GUISUMOAbstractView::getObjectUnderCursor() {
         GUIGlObjectStorage::gIDStorage.unblockObject(id);
         assert(i*4+3<NB_HITS_MAX);
     }
-    applyChanges(1, 0, 0);
+    myChanger->setViewport(oldViewPort);
     return idMax;
 }
 
@@ -408,77 +373,6 @@ GUISUMOAbstractView::paintGLGrid() {
 
 
 void
-GUISUMOAbstractView::applyChanges(SUMOReal scale, size_t xoff, size_t yoff) {
-    myWidthInPixels = getWidth();
-    myHeightInPixels = getHeight();
-    glMatrixMode(GL_MODELVIEW);
-    glLoadIdentity();
-    myShownNetworkHalfWidth = myShownNetworkHalfHeight = 1;
-    myAddScl = 1.;
-    // rotate first;
-    //  This is quite unchecked, so it's meaning and position is quite
-    //  unclear
-    glRotated(myChanger->getRotation(), 0, 0, 1);
-    // Fit the view's size to the size of the net
-    myShownNetworkHalfWidth /= (2.0/myNetScale);
-    myShownNetworkHalfHeight /= (2.0/myNetScale);
-    glScaled(2.0/myNetScale, 2.0/myNetScale, 1);
-    //myAddScl *= (2.0/myNetScale);
-    // apply ratio between window width and height
-    glScaled(1./myRatio, 1, 1);
-    myShownNetworkHalfWidth /= (1./myRatio);
-    myShownNetworkHalfHeight /= 1.;
-    SUMOReal width = myGrid->getWidth();
-    SUMOReal height = myGrid->getHeight();
-    // initially (zoom=100), the net shall be completely visible on the screen
-    SUMOReal xs = (SUMOReal)(1. / (width / myNetScale) * myRatio);
-    SUMOReal ys = (SUMOReal)(1. / (height / myNetScale));
-    if (xs<ys) {
-        glScaled(xs, xs, 1);
-        myShownNetworkHalfWidth /= xs;
-        myShownNetworkHalfHeight /= xs;
-        myAddScl *= xs;
-    } else {
-        glScaled(ys, ys, 1);
-        myShownNetworkHalfWidth /= ys;
-        myShownNetworkHalfHeight /= ys;
-        myAddScl *= ys;
-    }
-    // initially, leave some room for the net
-    glScaled(0.97, 0.97, 1.);
-    myShownNetworkHalfWidth /= 0.97;
-    myShownNetworkHalfHeight /= 0.97;
-    myAddScl *= (SUMOReal) .97;
-
-    // Apply the zoom and the scale
-    SUMOReal zoom = (SUMOReal)(myChanger->getZoom() / 100.0 * scale);
-    glScaled(zoom, zoom, 1);
-    myShownNetworkHalfWidth /= zoom;
-    myShownNetworkHalfHeight /= zoom;
-    //myAddScl *= zoom;
-    // Translate to the middle of the net
-    Position2D center = myGrid->getCenter();
-    glTranslated(-center.x(), -center.y(), 0);
-    myShownNetworkCenterX = center.x();
-    myShownNetworkCenterY = center.y();
-    // Translate in dependence to the view position applied by the user
-    glTranslated(myChanger->getXPos(), myChanger->getYPos(), 0);
-    myShownNetworkCenterX -= myChanger->getXPos();
-    myShownNetworkCenterY -= myChanger->getYPos();
-    // Translate to the mouse pointer, when wished
-    if (xoff!=0||yoff!=0) {
-        SUMOReal absX = (SUMOReal)((SUMOReal)xoff-(((SUMOReal) myWidthInPixels)/2.0));
-        SUMOReal absY = (SUMOReal)((SUMOReal)yoff-(((SUMOReal) myHeightInPixels)/2.0));
-        glTranslated(-p2m(absX), p2m(absY), 0);
-        myShownNetworkCenterX += p2m(absX);
-        myShownNetworkCenterY -= p2m(absY);
-    }
-    glMatrixMode(GL_PROJECTION);
-    glLoadIdentity();
-}
-
-
-void
 GUISUMOAbstractView::displayLegend() {
     // compute the scale bar length
     size_t length = 1;
@@ -512,11 +406,11 @@ GUISUMOAbstractView::displayLegend() {
     glDisable(GL_BLEND);
     glEnable(GL_DEPTH_TEST);
 
-    SUMOReal len = (SUMOReal) pixelSize / (SUMOReal)(myWidthInPixels-1) * (SUMOReal) 2.0;
+    SUMOReal len = (SUMOReal) pixelSize / (SUMOReal)(getWidth()-1) * (SUMOReal) 2.0;
     glColor3d(0, 0, 0);
-    double o = double(15) / double(myHeightInPixels);
+    double o = double(15) / double(getHeight());
     double o2 = o + o;
-    double oo = double(5) / double(myHeightInPixels);
+    double oo = double(5) / double(getHeight());
     glBegin(GL_LINES);
     // vertical
     glVertex2d(-.98, -1.+o);
@@ -529,8 +423,8 @@ GUISUMOAbstractView::displayLegend() {
     glVertex2d(-.98+len, -1.+o2);
     glEnd();
 
-    SUMOReal w = SUMOReal(35) / SUMOReal(myWidthInPixels);
-    SUMOReal h = SUMOReal(35) / SUMOReal(myHeightInPixels);
+    SUMOReal w = SUMOReal(35) / SUMOReal(getWidth());
+    SUMOReal h = SUMOReal(35) / SUMOReal(getHeight());
     pfSetPosition(SUMOReal(-0.99), SUMOReal(1.-o2-oo));
     pfSetScaleXY(w, h);
     glRotated(180, 1, 0, 0);
@@ -552,35 +446,32 @@ GUISUMOAbstractView::displayLegend() {
 
 SUMOReal
 GUISUMOAbstractView::m2p(SUMOReal meter) const {
-    return (SUMOReal)(meter / myNetScale
-                      *(myWidthInPixels/myRatio)
-                      * myAddScl * myChanger->getZoom() / (SUMOReal) 100.0);
+    return  meter * getWidth() / myChanger->getViewport().getWidth();
 }
 
 
 SUMOReal
 GUISUMOAbstractView::p2m(SUMOReal pixel) const {
-    return (SUMOReal) pixel * myNetScale /
-           ((myWidthInPixels/myRatio) * myAddScl * myChanger->getZoom() / (SUMOReal) 100.0);
+    return pixel * myChanger->getViewport().getWidth() / getWidth();
 }
 
 
 void
 GUISUMOAbstractView::recenterView() {
-    myChanger->recenterView();
+    myChanger->setViewport(*myGrid);
 }
 
 
 void
 GUISUMOAbstractView::centerTo(const GUIGlObject * const o) {
-    centerTo(o->getCenteringBoundary());
+    myChanger->setViewport(o->getCenteringBoundary());
     update();
 }
 
-
 void
-GUISUMOAbstractView::centerTo(Boundary bound) {
-    myChanger->centerTo(*myGrid, bound);
+GUISUMOAbstractView::centerTo(const Boundary& bound) {
+    myChanger->setViewport(bound);
+    update();
 }
 
 /*
@@ -593,8 +484,8 @@ GUISUMOAbstractView::allowRotation() const
 
 void
 GUISUMOAbstractView::setWindowCursorPosition(FXint x, FXint y) {
-    myWindowCursorPositionX = x;
-    myWindowCursorPositionY = y;
+    myWindowCursorPositionX = x + myMouseHotspotX;
+    myWindowCursorPositionY = y + myMouseHotspotY;
 }
 
 
@@ -608,10 +499,7 @@ GUISUMOAbstractView::makeCurrent() {
 long
 GUISUMOAbstractView::onConfigure(FXObject*,FXSelector,void*) {
     if (makeCurrent()) {
-        myWidthInPixels = getWidth();
-        myHeightInPixels = getHeight();
-        myRatio = (SUMOReal) myWidthInPixels / (SUMOReal) myHeightInPixels;
-        glViewport(0, 0, myWidthInPixels-1, myHeightInPixels-1);
+        glViewport(0, 0, getWidth()-1, getHeight()-1);
         glClearColor(
             myVisualizationSettings->backgroundColor.red(),
             myVisualizationSettings->backgroundColor.green(),
@@ -850,7 +738,7 @@ GUISUMOAbstractView::makeSnapshot(const std::string &destFile) {
         glDisable(GL_LINE_SMOOTH);
     }
 
-    applyChanges(1.0, 0, 0);
+    applyGLTransform();
 
     if (useGL2PS) {
         GLint format = GL2PS_PS;
@@ -887,12 +775,8 @@ GUISUMOAbstractView::makeSnapshot(const std::string &destFile) {
             glDisable(GL_ALPHA_TEST);
             glDisable(GL_BLEND);
             glEnable(GL_DEPTH_TEST);
-            GLdouble sxmin = myShownNetworkCenterX - myShownNetworkHalfWidth;
-            GLdouble sxmax = myShownNetworkCenterX + myShownNetworkHalfWidth;
-            GLdouble symin = myShownNetworkCenterY - myShownNetworkHalfHeight;
-            GLdouble symax = myShownNetworkCenterY + myShownNetworkHalfHeight;
             // compute lane width
-            SUMOReal lw = m2p(3.0) * 1.;
+            SUMOReal lw = m2p(SUMO_const_laneWidth);
             // draw decals (if not in grabbing mode)
             if (!myUseToolTips) {
                 drawDecals();
@@ -902,12 +786,13 @@ GUISUMOAbstractView::makeSnapshot(const std::string &destFile) {
             }
             glLineWidth(1);
             glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+            Boundary viewPort = myChanger->getViewport();
             float minB[2];
             float maxB[2];
-            minB[0] = sxmin;
-            minB[1] = symin;
-            maxB[0] = sxmax;
-            maxB[1] = symax;
+            minB[0] = viewPort.xmin();
+            minB[1] = viewPort.ymin();
+            maxB[0] = viewPort.xmax();
+            maxB[1] = viewPort.ymax();
             myVisualizationSettings->needsGlID = myUseToolTips;
             myVisualizationSettings->scale = lw;
             glEnable(GL_POLYGON_OFFSET_FILL);
@@ -922,7 +807,7 @@ GUISUMOAbstractView::makeSnapshot(const std::string &destFile) {
         }
         fclose(fp);
     } else {
-        doPaintGL(GL_RENDER, 1.0);
+        doPaintGL(GL_RENDER, myChanger->getViewport());
         if (myVisualizationSettings->showSizeLegend) {
             displayLegend();
         }
@@ -1095,6 +980,22 @@ GUISUMOAbstractView::removeAdditionalGLVisualisation(GUIGlObject * const which) 
 }
 
 
+void 
+GUISUMOAbstractView::applyGLTransform(bool fixRatio) {
+    Boundary bound = myChanger->getViewport(fixRatio);
+    glMatrixMode(GL_PROJECTION);
+    glLoadIdentity();
+    // as a rough rule, each GLObject is drawn at z = -GUIGlObjectType
+    // thus, objects with a higher value will be closer (drawn on top)
+    // // @todo last param should be 0 after modifying all glDraw methods
+    glOrtho(0, getWidth(), 0, getHeight(), -GLO_MAX, GLO_MAX); 
+    glMatrixMode(GL_MODELVIEW);
+    glLoadIdentity();
+    SUMOReal scaleX = (SUMOReal)getWidth() / bound.getWidth();
+    SUMOReal scaleY = (SUMOReal)getHeight() / bound.getHeight();
+    glScaled(scaleX, scaleY, 1);
+    glTranslated(-bound.xmin(), -bound.ymin(), 0);
+}
 
 /****************************************************************************/
 

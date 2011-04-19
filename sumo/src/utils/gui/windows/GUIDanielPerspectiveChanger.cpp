@@ -41,11 +41,14 @@
 // method definitions
 // ===========================================================================
 GUIDanielPerspectiveChanger::GUIDanielPerspectiveChanger(
-    GUISUMOAbstractView &callBack)
-        : GUIPerspectiveChanger(callBack),
-        myViewCenter(0, 0), myRotation(0), myZoom(100),
-        myMouseButtonState(MOUSEBTN_NONE), myMoveOnClick(false),
-        myDragDelay(0)
+        GUISUMOAbstractView &callBack, const Boundary& viewPort) : 
+    GUIPerspectiveChanger(callBack, viewPort),
+    myOrigWidth(viewPort.getWidth()),
+    myOrigHeight(viewPort.getHeight()),
+    myRotation(0),
+    myMouseButtonState(MOUSEBTN_NONE), 
+    myMoveOnClick(false),
+    myDragDelay(0)
 {}
 
 
@@ -54,18 +57,15 @@ GUIDanielPerspectiveChanger::~GUIDanielPerspectiveChanger() {}
 
 void
 GUIDanielPerspectiveChanger::move(int xdiff, int ydiff) {
-    myViewCenter.add((SUMOReal) -myCallback.p2m((SUMOReal) xdiff), (SUMOReal) myCallback.p2m((SUMOReal) ydiff));
+    myViewPort.moveby(myCallback.p2m(xdiff), -myCallback.p2m(ydiff));
     myCallback.update();
 }
 
 
 void
-GUIDanielPerspectiveChanger::zoom(int diff) {
-    SUMOReal zoom = (SUMOReal) myZoom
-                    + (SUMOReal) diff /(SUMOReal)  100.0 * (SUMOReal) myZoom;
-    if (zoom>0.01&&zoom<10000000.0) {
-        myZoom = zoom;
-        myCallback.update();
+GUIDanielPerspectiveChanger::zoom(SUMOReal factor) {
+    if (factor > 0) {
+        setViewport(getZoom() * factor, getXPos(), getYPos());
     }
 }
 
@@ -87,62 +87,33 @@ GUIDanielPerspectiveChanger::getRotation() const {
 
 SUMOReal
 GUIDanielPerspectiveChanger::getXPos() const {
-    return myViewCenter.x();
+    return myViewPort.getCenter().x();
 }
 
 
 SUMOReal
 GUIDanielPerspectiveChanger::getYPos() const {
-    return myViewCenter.y();
+    return myViewPort.getCenter().y();
 }
 
 
 SUMOReal
 GUIDanielPerspectiveChanger::getZoom() const {
-    return myZoom;
+    return myOrigWidth / myViewPort.getWidth() * 100;
 }
 
 
 void
-GUIDanielPerspectiveChanger::recenterView() {
-    myRotation = 0;
-    myViewCenter.set(0, 0);
-    myZoom = 100;
-}
-
-
-
-void
-GUIDanielPerspectiveChanger::centerTo(const Boundary &netBoundary,
-                                      const Position2D &pos, SUMOReal radius,
+GUIDanielPerspectiveChanger::centerTo(const Position2D &pos, SUMOReal radius,
                                       bool applyZoom) {
-    myViewCenter.set(pos);
-    myViewCenter.sub(netBoundary.getCenter());
-    myViewCenter.mul(-1.0);
     if (applyZoom) {
-        myZoom =
-            netBoundary.getWidth() < netBoundary.getHeight() ?
-            (SUMOReal) 25.0 * (SUMOReal) netBoundary.getWidth() / radius :
-            (SUMOReal) 25.0 * (SUMOReal) netBoundary.getHeight() / radius;
+        myViewPort = Boundary();
+        myViewPort.add(pos);
+        myViewPort.grow(radius); 
+    } else {
+        myViewPort.moveby(pos.x() - getXPos(), pos.y() - getYPos());
     }
 }
-
-
-void
-GUIDanielPerspectiveChanger::centerTo(const Boundary &netBoundary,
-                                      Boundary bound,
-                                      bool applyZoom) {
-    myViewCenter.set(bound.getCenter());
-    myViewCenter.sub(netBoundary.getCenter());
-    myViewCenter.mul(-1.0);
-    if (applyZoom) {
-        myZoom =
-            bound.getWidth() > bound.getHeight() ?
-            (SUMOReal) 100.0 * (SUMOReal) netBoundary.getWidth() / (SUMOReal) bound.getWidth() :
-            (SUMOReal) 100.0 * (SUMOReal) netBoundary.getHeight() / (SUMOReal) bound.getHeight();
-    }
-}
-
 
 
 void
@@ -192,16 +163,16 @@ GUIDanielPerspectiveChanger::onRightBtnRelease(void*data) {
 void
 GUIDanielPerspectiveChanger::onMouseWheel(void*data) {
     FXEvent* e = (FXEvent*) data;
-    int diff = 10;
+    SUMOReal diff = 0.1;
     if (e->state&CONTROLMASK) {
-        diff = 5;
+        diff /= 2;
     } else if (e->state&SHIFTMASK) {
-        diff = 20;
+        diff *= 2;
     }
     if (e->code < 0) {
         diff = -diff;
     }
-    zoom(diff);
+    zoom(1.0 + diff);
     myCallback.updateToolTip();
 }
 
@@ -225,7 +196,7 @@ GUIDanielPerspectiveChanger::onMouseMove(void*data) {
         break;
     case MOUSEBTN_RIGHT:
         if (pastDelay) {
-            zoom(ydiff);
+            zoom(1 + 10.0 * ydiff / myCallback.getWidth());
             rotate(xdiff);
             if (moved) {
                 myMoveOnClick = true;
@@ -246,21 +217,22 @@ GUIDanielPerspectiveChanger::onMouseMove(void*data) {
 void
 GUIDanielPerspectiveChanger::setViewport(SUMOReal zoom,
         SUMOReal xPos, SUMOReal yPos) {
-    myZoom = zoom;
-    myViewCenter.set(xPos, yPos);
+    const SUMOReal zoomFactor = zoom / 50; // /100 to normalize, *2 because growth is added on both sides
+    myViewPort = Boundary();
+    myViewPort.add(Position2D(xPos, yPos));
+    myViewPort.growHeight(myOrigHeight / zoomFactor); 
+    myViewPort.growWidth(myOrigWidth / zoomFactor);
+    myCallback.update();
 }
 
 
 void 
-GUIDanielPerspectiveChanger::changeCanvassLeft(int width, int height, int change) {
-    myViewCenter.add((SUMOReal) myCallback.p2m((SUMOReal) change / 2.0), 0.0);
-    // GUISUMOAbstractView zooms based on changes in canvas ratio so that the whole 
-    // net will fit onto the screen at zoom 100. To avoid flicker we must
-    // counter-zoom
-    SUMOReal oldCanvasRatio = (SUMOReal)width / height;
-    SUMOReal newCanvasRatio = (SUMOReal)(width + change) / height;
-    SUMOReal netRatio = myCallback.getGridWidth() / myCallback.getGridHeight();
-    myZoom = myZoom * MIN2(netRatio, oldCanvasRatio) / MIN2(netRatio, newCanvasRatio);
+GUIDanielPerspectiveChanger::changeCanvassLeft(int change) {
+    myViewPort = Boundary(
+            myViewPort.xmin() - myCallback.p2m(change), 
+            myViewPort.ymin(),
+            myViewPort.xmax(),
+            myViewPort.ymax());
 }
 
 /****************************************************************************/

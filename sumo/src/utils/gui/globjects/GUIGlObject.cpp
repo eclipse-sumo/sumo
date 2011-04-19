@@ -29,6 +29,7 @@
 
 #include <string>
 #include <stack>
+#include <foreign/polyfonts/polyfonts.h>
 #include <utils/common/ToString.h>
 #include <utils/gui/windows/GUISUMOAbstractView.h>
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
@@ -40,6 +41,7 @@
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <gui/GUIApplicationWindow.h>
 #include <utils/gui/div/GUIGlobalSelection.h>
+#include <utils/gui/div/GLHelper.h>
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -198,5 +200,21 @@ GUIGlObject::createFullName() const {
     return myPrefix + ":" + myMicrosimID;
 }
 
+
+void
+GUIGlObject::drawName(const Position2D& pos, const SUMOReal size, const RGBColor& col, const SUMOReal angle) const {
+    glPushMatrix();
+    glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+    GLHelper::setColor(col);
+    glTranslated(pos.x(), pos.y(), GLO_MAX - 1);
+    pfSetPosition(0, 0);
+    pfSetScale(size);
+    SUMOReal w = pfdkGetStringWidth(getMicrosimID().c_str());
+    glRotated(180, 1, 0, 0);
+    glRotated(angle, 0, 0, 1);
+    glTranslated(-w/2., 0.4, 0);
+    pfDrawString(getMicrosimID().c_str());
+    glPopMatrix();
+}
 /****************************************************************************/
 
