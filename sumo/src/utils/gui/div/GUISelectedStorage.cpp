@@ -54,7 +54,7 @@ GUISelectedStorage::SingleTypeSelections::~SingleTypeSelections() {}
 
 bool
 GUISelectedStorage::SingleTypeSelections::isSelected(GLuint id) {
-    return mySelected.count(id);
+    return mySelected.count(id) > 0;
 }
 
 
