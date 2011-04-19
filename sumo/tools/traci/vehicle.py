@@ -13,6 +13,9 @@ All rights reserved
 import struct, traci
 import traci.constants as tc
 
+DEPART_TRIGGERED = -1
+DEPART_NOW = -2
+
 def _readBestLanes(result):
     result.read("!iB")
     nbLanes = result.read("!i")[0] # Length
@@ -151,10 +154,10 @@ def getEffort(vehID, time, edgeID):
     return traci._checkResult(tc.CMD_GET_VEHICLE_VARIABLE, tc.VAR_EDGE_EFFORT, vehID).readDouble()
 
 def isRouteValid(vehID):
-    return _getUniversal(tc.VAR_LENGTH, vehID)
+    return _getUniversal(tc.VAR_ROUTE_VALID, vehID)
 
 def getSignals(vehID):
-    return _getUniversal(tc.VAR_LENGTH, vehID)
+    return _getUniversal(tc.VAR_SIGNALS, vehID)
 
 def getLength(vehID):
     return _getUniversal(tc.VAR_LENGTH, vehID)
@@ -351,13 +354,15 @@ def setImperfection(vehID, imperfection):
 def setTau(vehID, tau):
     traci._sendDoubleCmd(tc.CMD_SET_VEHICLE_VARIABLE, tc.VAR_TAU, vehID, tau)
 
-def add(vehID, routeID, depart=-1, pos=0, speed=0, lane=0, typeID="DEFAULT_VEHTYPE"):
+def add(vehID, routeID, depart=DEPART_NOW, pos=0, speed=0, lane=0, typeID="DEFAULT_VEHTYPE"):
     traci._beginMessage(tc.CMD_SET_VEHICLE_VARIABLE, tc.ADD, vehID,
-                        1+4+len(typeID) + 1+4+len(routeID) + 1+4, 1+4 + 1+4 + 1+1)
+                        1+4+len(typeID) + 1+4+len(routeID) + 1+4 + 1+4 + 1+4 + 1+1)
+    if depart > 0:
+        depart *= 1000
     traci._message.string += struct.pack("!Bi", tc.TYPE_COMPOUND, 6)
     traci._message.string += struct.pack("!Bi", tc.TYPE_STRING, len(typeID)) + typeID
     traci._message.string += struct.pack("!Bi", tc.TYPE_STRING, len(routeID)) + routeID
-    traci._message.string += struct.pack("!Bi", tc.TYPE_INTEGER, depart * 1000)
+    traci._message.string += struct.pack("!Bi", tc.TYPE_INTEGER, depart)
     traci._message.string += struct.pack("!BdBd", tc.TYPE_DOUBLE, pos, tc.TYPE_DOUBLE, speed)
-    traci._message.string += struct.pack("!BB", tc.TYPE_UBYTE, lane)
+    traci._message.string += struct.pack("!BB", tc.TYPE_BYTE, lane)
     traci._sendExact()
