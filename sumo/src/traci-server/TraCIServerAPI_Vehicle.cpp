@@ -109,34 +109,34 @@ TraCIServerAPI_Vehicle::processGet(TraCIServer &server, tcpip::Storage &inputSto
         bool onRoad = v->isOnRoad();
         switch (variable) {
         case VAR_SPEED:
-            tempMsg.writeUnsignedByte(TYPE_FLOAT);
-            onRoad ? tempMsg.writeFloat((float)v->getSpeed()) : tempMsg.writeFloat((float)-1001);
+            tempMsg.writeUnsignedByte(TYPE_DOUBLE);
+            tempMsg.writeDouble(onRoad ? v->getSpeed() : INVALID_DOUBLE_VALUE);
             break;
         case VAR_SPEED_WITHOUT_TRACI:
-            tempMsg.writeUnsignedByte(TYPE_FLOAT);
-            onRoad ? tempMsg.writeFloat((float)v->getSpeedWithoutTraciInfluence()) : tempMsg.writeFloat((float)-1001);
+            tempMsg.writeUnsignedByte(TYPE_DOUBLE);
+            tempMsg.writeDouble(onRoad ? v->getSpeedWithoutTraciInfluence() : INVALID_DOUBLE_VALUE);
             break;
         case VAR_POSITION:
             tempMsg.writeUnsignedByte(POSITION_2D);
-            onRoad ? tempMsg.writeFloat((float)v->getPosition().x()) : tempMsg.writeFloat((float)-1001);
-            onRoad ? tempMsg.writeFloat((float)v->getPosition().y()) : tempMsg.writeFloat((float)-1001);
+            tempMsg.writeDouble(onRoad ? v->getPosition().x() : INVALID_DOUBLE_VALUE);
+            tempMsg.writeDouble(onRoad ? v->getPosition().y() : INVALID_DOUBLE_VALUE);
             break;
         case VAR_ANGLE:
-            tempMsg.writeUnsignedByte(TYPE_FLOAT);
-            onRoad ? tempMsg.writeFloat((float)v->getAngle()) : tempMsg.writeFloat((float)-1001);
+            tempMsg.writeUnsignedByte(TYPE_DOUBLE);
+            tempMsg.writeDouble(onRoad ? v->getAngle() : INVALID_DOUBLE_VALUE);
             break;
         case VAR_ROAD_ID:
             tempMsg.writeUnsignedByte(TYPE_STRING);
-            onRoad ? tempMsg.writeString(v->getLane()->getEdge().getID()) : tempMsg.writeString("");
+            tempMsg.writeString(onRoad ? v->getLane()->getEdge().getID() : "");
             break;
         case VAR_LANE_ID:
             tempMsg.writeUnsignedByte(TYPE_STRING);
-            onRoad ? tempMsg.writeString(v->getLane()->getID()) : tempMsg.writeString("");
+            tempMsg.writeString(onRoad ? v->getLane()->getID() : "");
             break;
         case VAR_LANE_INDEX: {
             const std::vector<MSLane*> &lanes = v->getLane()->getEdge().getLanes();
             tempMsg.writeUnsignedByte(TYPE_INTEGER);
-            onRoad ? tempMsg.writeInt((int)(std::distance(lanes.begin(), std::find(lanes.begin(), lanes.end(), v->getLane())))) : tempMsg.writeInt(-1);
+            tempMsg.writeInt(onRoad ? (int)(std::distance(lanes.begin(), std::find(lanes.begin(), lanes.end(), v->getLane()))) : INVALID_INT_VALUE);
         }
         break;
         case VAR_TYPE:
@@ -155,36 +155,36 @@ TraCIServerAPI_Vehicle::processGet(TraCIServer &server, tcpip::Storage &inputSto
             tempMsg.writeUnsignedByte(255);
             break;
         case VAR_LANEPOSITION:
-            tempMsg.writeUnsignedByte(TYPE_FLOAT);
-            onRoad ? tempMsg.writeFloat((float)v->getPositionOnLane()) : tempMsg.writeFloat((float)-1001);
+            tempMsg.writeUnsignedByte(TYPE_DOUBLE);
+            tempMsg.writeDouble(onRoad ? v->getPositionOnLane() : INVALID_DOUBLE_VALUE);
             break;
         case VAR_CO2EMISSION:
-            tempMsg.writeUnsignedByte(TYPE_FLOAT);
-            onRoad ? tempMsg.writeFloat((float)(HelpersHBEFA::computeCO2(v->getVehicleType().getEmissionClass(), v->getSpeed(), v->getPreDawdleAcceleration()))) : tempMsg.writeFloat((float)-1001);
+            tempMsg.writeUnsignedByte(TYPE_DOUBLE);
+            tempMsg.writeDouble(onRoad ? HelpersHBEFA::computeCO2(v->getVehicleType().getEmissionClass(), v->getSpeed(), v->getPreDawdleAcceleration()) : INVALID_DOUBLE_VALUE);
             break;
         case VAR_COEMISSION:
-            tempMsg.writeUnsignedByte(TYPE_FLOAT);
-            onRoad ? tempMsg.writeFloat((float)(HelpersHBEFA::computeCO(v->getVehicleType().getEmissionClass(), v->getSpeed(), v->getPreDawdleAcceleration()))) : tempMsg.writeFloat((float)-1001);
+            tempMsg.writeUnsignedByte(TYPE_DOUBLE);
+            tempMsg.writeDouble(onRoad ? HelpersHBEFA::computeCO(v->getVehicleType().getEmissionClass(), v->getSpeed(), v->getPreDawdleAcceleration()) : INVALID_DOUBLE_VALUE);
             break;
         case VAR_HCEMISSION:
-            tempMsg.writeUnsignedByte(TYPE_FLOAT);
-            onRoad ? tempMsg.writeFloat((float)(HelpersHBEFA::computeHC(v->getVehicleType().getEmissionClass(), v->getSpeed(), v->getPreDawdleAcceleration()))) : tempMsg.writeFloat((float)-1001);
+            tempMsg.writeUnsignedByte(TYPE_DOUBLE);
+            tempMsg.writeDouble(onRoad ? HelpersHBEFA::computeHC(v->getVehicleType().getEmissionClass(), v->getSpeed(), v->getPreDawdleAcceleration()) : INVALID_DOUBLE_VALUE);
             break;
         case VAR_PMXEMISSION:
-            tempMsg.writeUnsignedByte(TYPE_FLOAT);
-            onRoad ? tempMsg.writeFloat((float)(HelpersHBEFA::computePMx(v->getVehicleType().getEmissionClass(), v->getSpeed(), v->getPreDawdleAcceleration()))) : tempMsg.writeFloat((float)-1001);
+            tempMsg.writeUnsignedByte(TYPE_DOUBLE);
+            tempMsg.writeDouble(onRoad ? HelpersHBEFA::computePMx(v->getVehicleType().getEmissionClass(), v->getSpeed(), v->getPreDawdleAcceleration()) : INVALID_DOUBLE_VALUE);
             break;
         case VAR_NOXEMISSION:
-            tempMsg.writeUnsignedByte(TYPE_FLOAT);
-            onRoad ? tempMsg.writeFloat((float)(HelpersHBEFA::computeNOx(v->getVehicleType().getEmissionClass(), v->getSpeed(), v->getPreDawdleAcceleration()))) : tempMsg.writeFloat((float)-1001);
+            tempMsg.writeUnsignedByte(TYPE_DOUBLE);
+            tempMsg.writeDouble(onRoad ? HelpersHBEFA::computeNOx(v->getVehicleType().getEmissionClass(), v->getSpeed(), v->getPreDawdleAcceleration()) : INVALID_DOUBLE_VALUE);
             break;
         case VAR_FUELCONSUMPTION:
-            tempMsg.writeUnsignedByte(TYPE_FLOAT);
-            onRoad ? tempMsg.writeFloat((float)(HelpersHBEFA::computeFuel(v->getVehicleType().getEmissionClass(), v->getSpeed(), v->getPreDawdleAcceleration()))) : tempMsg.writeFloat((float)-1001);
+            tempMsg.writeUnsignedByte(TYPE_DOUBLE);
+            tempMsg.writeDouble(onRoad ? HelpersHBEFA::computeFuel(v->getVehicleType().getEmissionClass(), v->getSpeed(), v->getPreDawdleAcceleration()) : INVALID_DOUBLE_VALUE);
             break;
         case VAR_NOISEEMISSION:
-            tempMsg.writeUnsignedByte(TYPE_FLOAT);
-            onRoad ? tempMsg.writeFloat((float)(HelpersHarmonoise::computeNoise(v->getVehicleType().getEmissionClass(), v->getSpeed(), v->getPreDawdleAcceleration()))) : tempMsg.writeFloat((float)-1001);
+            tempMsg.writeUnsignedByte(TYPE_DOUBLE);
+            tempMsg.writeDouble(onRoad ? HelpersHarmonoise::computeNoise(v->getVehicleType().getEmissionClass(), v->getSpeed(), v->getPreDawdleAcceleration()) : INVALID_DOUBLE_VALUE);
             break;
         case VAR_EDGE_TRAVELTIME: {
             if (inputStorage.readUnsignedByte()!=TYPE_COMPOUND) {
@@ -213,12 +213,12 @@ TraCIServerAPI_Vehicle::processGet(TraCIServer &server, tcpip::Storage &inputSto
                 return false;
             }
             // retrieve
-            tempMsg.writeUnsignedByte(TYPE_FLOAT);
+            tempMsg.writeUnsignedByte(TYPE_DOUBLE);
             SUMOReal value;
             if (!v->getWeightsStorage().retrieveExistingTravelTime(edge, 0, time, value)) {
-                tempMsg.writeFloat(-1);
+                tempMsg.writeDouble(INVALID_DOUBLE_VALUE);
             } else {
-                tempMsg.writeFloat((float)value);
+                tempMsg.writeDouble(value);
             }
 
         }
@@ -250,12 +250,12 @@ TraCIServerAPI_Vehicle::processGet(TraCIServer &server, tcpip::Storage &inputSto
                 return false;
             }
             // retrieve
-            tempMsg.writeUnsignedByte(TYPE_FLOAT);
+            tempMsg.writeUnsignedByte(TYPE_DOUBLE);
             SUMOReal value;
             if (!v->getWeightsStorage().retrieveExistingEffort(edge, 0, time, value)) {
-                tempMsg.writeFloat(-1);
+                tempMsg.writeDouble(INVALID_DOUBLE_VALUE);
             } else {
-                tempMsg.writeFloat((float)value);
+                tempMsg.writeDouble(value);
             }
 
         }
@@ -292,11 +292,11 @@ TraCIServerAPI_Vehicle::processGet(TraCIServer &server, tcpip::Storage &inputSto
                 tempContent.writeUnsignedByte(TYPE_STRING);
                 tempContent.writeString(lq.lane->getID());
                 ++cnt;
-                tempContent.writeUnsignedByte(TYPE_FLOAT);
-                tempContent.writeFloat((float)(lq.length));
+                tempContent.writeUnsignedByte(TYPE_DOUBLE);
+                tempContent.writeDouble(lq.length);
                 ++cnt;
-                tempContent.writeUnsignedByte(TYPE_FLOAT);
-                tempContent.writeFloat((float)(lq.nextOccupation));
+                tempContent.writeUnsignedByte(TYPE_DOUBLE);
+                tempContent.writeDouble(lq.nextOccupation);
                 ++cnt;
                 tempContent.writeUnsignedByte(TYPE_BYTE);
                 tempContent.writeByte(lq.bestLaneOffset);
@@ -341,7 +341,7 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer &server, tcpip::Storage &inputSto
     std::string warning = ""; // additional description for response
     // variable
     int variable = inputStorage.readUnsignedByte();
-    if (variable!=CMD_SETMAXSPEED&&variable!=CMD_STOP&&variable!=CMD_CHANGELANE
+    if (variable!=CMD_STOP&&variable!=CMD_CHANGELANE
             &&variable!=CMD_SLOWDOWN&&variable!=CMD_CHANGETARGET
             &&variable!=VAR_ROUTE_ID&&variable!=VAR_ROUTE
             &&variable!=VAR_EDGE_TRAVELTIME&&variable!=VAR_EDGE_EFFORT
@@ -385,11 +385,11 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer &server, tcpip::Storage &inputSto
         }
         std::string roadId = inputStorage.readString();
         valueDataType = inputStorage.readUnsignedByte();
-        if (valueDataType!=TYPE_FLOAT) {
-            server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "The second stop parameter must be the position along the edge given as a float.", outputStorage);
+        if (valueDataType!=TYPE_DOUBLE) {
+            server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "The second stop parameter must be the position along the edge given as a double.", outputStorage);
             return false;
         }
-        SUMOReal pos = inputStorage.readFloat();
+        SUMOReal pos = inputStorage.readDouble();
         valueDataType = inputStorage.readUnsignedByte();
         if (valueDataType!=TYPE_BYTE) {
             server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "The third stop parameter must be the lane index given as a byte.", outputStorage);
@@ -466,11 +466,11 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer &server, tcpip::Storage &inputSto
             server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Slow down needs a compound object description of two items.", outputStorage);
             return false;
         }
-        if (inputStorage.readUnsignedByte()!=TYPE_FLOAT) {
-            server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "The first slow down parameter must be the speed given as a float.", outputStorage);
+        if (inputStorage.readUnsignedByte()!=TYPE_DOUBLE) {
+            server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "The first slow down parameter must be the speed given as a double.", outputStorage);
             return false;
         }
-        SUMOReal newSpeed = MAX2(inputStorage.readFloat(), 0.0f);
+        SUMOReal newSpeed = MAX2(inputStorage.readDouble(), 0.0);
         if (newSpeed < 0) {
             server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Speed must not be negative", outputStorage);
             return false;
@@ -486,7 +486,7 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer &server, tcpip::Storage &inputSto
         }
         std::vector<std::pair<SUMOTime, SUMOReal> > speedTimeLine;
         speedTimeLine.push_back(std::make_pair(MSNet::getInstance()->getCurrentTimeStep(), v->getSpeed()));
-        speedTimeLine.push_back(std::make_pair(MSNet::getInstance()->getCurrentTimeStep()+duration, (SUMOReal) newSpeed));
+        speedTimeLine.push_back(std::make_pair(MSNet::getInstance()->getCurrentTimeStep()+duration, newSpeed));
         static_cast<MSVehicle*>(v)->getInfluencer().setSpeedTimeLine(speedTimeLine);
     }
     break;
@@ -577,11 +577,11 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer &server, tcpip::Storage &inputSto
                 return false;
             }
             // value
-            if (inputStorage.readUnsignedByte()!=TYPE_FLOAT) {
+            if (inputStorage.readUnsignedByte()!=TYPE_DOUBLE) {
                 server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Setting travel time using 4 parameters requires the travel time as fourth parameter.", outputStorage);
                 return false;
             }
-            SUMOReal value = inputStorage.readFloat();
+            SUMOReal value = inputStorage.readDouble();
             // retrieve
             static_cast<MSVehicle*>(v)->getWeightsStorage().addTravelTime(edge, begTime, endTime, value);
         } else if (parameterCount==2) {
@@ -597,11 +597,11 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer &server, tcpip::Storage &inputSto
                 return false;
             }
             // value
-            if (inputStorage.readUnsignedByte()!=TYPE_FLOAT) {
+            if (inputStorage.readUnsignedByte()!=TYPE_DOUBLE) {
                 server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Setting travel time using 2 parameters requires the travel time as second parameter.", outputStorage);
                 return false;
             }
-            SUMOReal value = inputStorage.readFloat();
+            SUMOReal value = inputStorage.readDouble();
             // retrieve
             while (static_cast<MSVehicle*>(v)->getWeightsStorage().knowsTravelTime(edge)) {
                 static_cast<MSVehicle*>(v)->getWeightsStorage().removeTravelTime(edge);
@@ -660,11 +660,11 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer &server, tcpip::Storage &inputSto
                 return false;
             }
             // value
-            if (inputStorage.readUnsignedByte()!=TYPE_FLOAT) {
+            if (inputStorage.readUnsignedByte()!=TYPE_DOUBLE) {
                 server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Setting effort using 4 parameters requires the travel time as fourth parameter.", outputStorage);
                 return false;
             }
-            SUMOReal value = inputStorage.readFloat();
+            SUMOReal value = inputStorage.readDouble();
             // retrieve
             static_cast<MSVehicle*>(v)->getWeightsStorage().addEffort(edge, begTime, endTime, value);
         } else if (parameterCount==2) {
@@ -680,11 +680,11 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer &server, tcpip::Storage &inputSto
                 return false;
             }
             // value
-            if (inputStorage.readUnsignedByte()!=TYPE_FLOAT) {
+            if (inputStorage.readUnsignedByte()!=TYPE_DOUBLE) {
                 server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Setting effort using 2 parameters requires the travel time as second parameter.", outputStorage);
                 return false;
             }
-            SUMOReal value = inputStorage.readFloat();
+            SUMOReal value = inputStorage.readDouble();
             // retrieve
             while (static_cast<MSVehicle*>(v)->getWeightsStorage().knowsEffort(edge)) {
                 static_cast<MSVehicle*>(v)->getWeightsStorage().removeEffort(edge);
@@ -768,7 +768,7 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer &server, tcpip::Storage &inputSto
             server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "The second parameter for setting a position must be the position given as a double.", outputStorage);
             return false;
         }
-        float position = (float)(inputStorage.readDouble());
+        SUMOReal position = inputStorage.readDouble();
         // process
         MSLane *l = MSLane::dictionary(laneID);
         if (l==0) {
@@ -857,19 +857,19 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer &server, tcpip::Storage &inputSto
         if (vehicleParams->depart < 0) {
             vehicleParams->departProcedure = (DepartDefinition)vehicleParams->depart;
         }
-        if (inputStorage.readUnsignedByte()!=TYPE_FLOAT) {
-            server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Fourth parameter (position) requires a float.", outputStorage);
+        if (inputStorage.readUnsignedByte()!=TYPE_DOUBLE) {
+            server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Fourth parameter (position) requires a double.", outputStorage);
             return false;
         }
-        vehicleParams->departPos = inputStorage.readFloat();
+        vehicleParams->departPos = inputStorage.readDouble();
         if (vehicleParams->departPos < 0) {
             vehicleParams->departPosProcedure = (DepartPosDefinition)(int)vehicleParams->departPos;
         }
-        if (inputStorage.readUnsignedByte()!=TYPE_FLOAT) {
-            server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Fifth parameter (speed) requires a float.", outputStorage);
+        if (inputStorage.readUnsignedByte()!=TYPE_DOUBLE) {
+            server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Fifth parameter (speed) requires a double.", outputStorage);
             return false;
         }
-        vehicleParams->departSpeed = inputStorage.readFloat();
+        vehicleParams->departSpeed = inputStorage.readDouble();
         if (vehicleParams->departSpeed < 0) {
             vehicleParams->departSpeedProcedure = (DepartSpeedDefinition)(int)vehicleParams->departSpeed;
         }
@@ -919,7 +919,7 @@ TraCIServerAPI_Vehicle::commandDistanceRequest(traci::TraCIServer &server, tcpip
     case POSITION_ROADMAP:
         try {
             std::string roadID = inputStorage.readString();
-            roadPos.second = inputStorage.readFloat();
+            roadPos.second = inputStorage.readDouble();
             roadPos.first = TraCIServerAPI_Simulation::getLaneChecking(roadID, inputStorage.readUnsignedByte(), roadPos.second);
             pos = roadPos.first->getShape().positionAtLengthPosition(roadPos.second);
         } catch (TraCIException &e) {
@@ -930,12 +930,12 @@ TraCIServerAPI_Vehicle::commandDistanceRequest(traci::TraCIServer &server, tcpip
     case POSITION_2D:
     case POSITION_2_5D:
     case POSITION_3D: {
-        float p1x = inputStorage.readFloat();
-        float p1y = inputStorage.readFloat();
+        const double p1x = inputStorage.readDouble();
+        const double p1y = inputStorage.readDouble();
         pos.set(p1x, p1y);
     }
     if ((posType == POSITION_2_5D) || (posType == POSITION_3D)) {
-        inputStorage.readFloat();		// z value is ignored
+        inputStorage.readDouble();		// z value is ignored
     }
     roadPos = TraCIServerAPI_Simulation::convertCartesianToRoadMap(pos);
     break;
@@ -956,8 +956,8 @@ TraCIServerAPI_Vehicle::commandDistanceRequest(traci::TraCIServer &server, tcpip
         distance = v->getPosition().distanceTo(pos);
     }
     // write response command
-    outputStorage.writeUnsignedByte(TYPE_FLOAT);
-    outputStorage.writeFloat(static_cast<float>(distance));
+    outputStorage.writeUnsignedByte(TYPE_DOUBLE);
+    outputStorage.writeDouble(distance);
     return true;
 }
 

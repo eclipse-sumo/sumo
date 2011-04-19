@@ -29,9 +29,6 @@
 // command: simulation step (new version)
 #define CMD_SIMSTEP2 0x02
 
-// command: set maximum speed
-#define CMD_SETMAXSPEED 0x11
-
 // command: stop node
 #define CMD_STOP 0x12
 
@@ -261,6 +258,11 @@
 #define RTYPE_NOTIMPLEMENTED 0x01
 // result type: error
 #define RTYPE_ERR 0xFF
+
+// return value for invalid queries (especially vehicle is not on the road)
+#define INVALID_DOUBLE_VALUE -1001.
+// return value for invalid queries (especially vehicle is not on the road)
+#define INVALID_INT_VALUE -1
 
 
 
