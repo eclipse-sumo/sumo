@@ -1018,5 +1018,21 @@ Position2DVector::removeColinearPoints() {
 }
 
 
+bool 
+Position2DVector::operator==(const Position2DVector &v2) const {
+    if (size() == v2.size()) {
+        for (size_t i = 0; i < size(); i++) {
+            if ((*this)[i] != v2[i]) {
+                return false;
+            }
+        }
+        return true;
+    } else {
+        return false;
+    }
+}
+
+
+
 /****************************************************************************/
 

@@ -209,6 +209,9 @@ public:
     // brief inserts p between the two closest positions
     void insertAtClosest(const Position2D &p);
 
+    /// comparing operation
+    bool operator==(const Position2DVector &v2) const;
+
     class as_poly_cw_sorter {
     public:
         /// constructor
