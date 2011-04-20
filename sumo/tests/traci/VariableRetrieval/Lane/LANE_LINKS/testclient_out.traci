@@ -1,4 +1,4 @@
-TraCITestClient output file. Date: Sat Oct  9 00:28:54 2010
+TraCITestClient output file. Date: Wed Apr 20 22:07:04 2011
 
 
 -> Command sent: <SimulationStep2>:
@@ -16,7 +16,7 @@ TraCITestClient output file. Date: Sat Oct  9 00:28:54 2010
  valueDataType=7 Unsigned Byte Value: 0
  valueDataType=12 string value: 
  valueDataType=12 string value: 
- valueDataType=10 float value: 4.38
+ valueDataType=11 Double value: 4.38
  valueDataType=12 string value: 2/0to3/0_0
  valueDataType=12 string value: 
  valueDataType=7 Unsigned Byte Value: 0
@@ -24,7 +24,7 @@ TraCITestClient output file. Date: Sat Oct  9 00:28:54 2010
  valueDataType=7 Unsigned Byte Value: 0
  valueDataType=12 string value: 
  valueDataType=12 string value: 
- valueDataType=10 float value: 9.05
+ valueDataType=11 Double value: 9.05
  valueDataType=12 string value: 2/0to2/1_0
  valueDataType=12 string value: 
  valueDataType=7 Unsigned Byte Value: 0
@@ -32,7 +32,7 @@ TraCITestClient output file. Date: Sat Oct  9 00:28:54 2010
  valueDataType=7 Unsigned Byte Value: 0
  valueDataType=12 string value: 
  valueDataType=12 string value: 
- valueDataType=10 float value: 3.30
+ valueDataType=11 Double value: 3.30
  ]
 
 -> Command sent: <SimulationStep2>:

@@ -39,9 +39,7 @@
 // ===========================================================================
 // used namespaces
 // ===========================================================================
-using namespace std;
 using namespace traci;
-using namespace tcpip;
 
 
 // ===========================================================================
@@ -50,7 +48,6 @@ using namespace tcpip;
 bool
 TraCIServerAPI_Lane::processGet(TraCIServer &server, tcpip::Storage &inputStorage,
                                 tcpip::Storage &outputStorage) {
-    Storage tmpResult;
     std::string warning = "";	// additional description for response
     // variable
     int variable = inputStorage.readUnsignedByte();
@@ -68,7 +65,7 @@ TraCIServerAPI_Lane::processGet(TraCIServer &server, tcpip::Storage &inputStorag
         return false;
     }
     // begin response building
-    Storage tempMsg;
+    tcpip::Storage tempMsg;
     //  response-code, variableID, objectID
     tempMsg.writeUnsignedByte(RESPONSE_GET_LANE_VARIABLE);
     tempMsg.writeUnsignedByte(variable);
@@ -94,16 +91,16 @@ TraCIServerAPI_Lane::processGet(TraCIServer &server, tcpip::Storage &inputStorag
             tempMsg.writeString(lane->getEdge().getID());
             break;
         case VAR_LENGTH:
-            tempMsg.writeUnsignedByte(TYPE_FLOAT);
-            tempMsg.writeFloat((float)(lane->getLength()));
+            tempMsg.writeUnsignedByte(TYPE_DOUBLE);
+            tempMsg.writeDouble(lane->getLength());
             break;
         case VAR_MAXSPEED:
-            tempMsg.writeUnsignedByte(TYPE_FLOAT);
-            tempMsg.writeFloat((float)(lane->getMaxSpeed()));
+            tempMsg.writeUnsignedByte(TYPE_DOUBLE);
+            tempMsg.writeDouble(lane->getMaxSpeed());
             break;
         case LANE_LINKS: {
             tempMsg.writeUnsignedByte(TYPE_COMPOUND);
-            Storage tempContent;
+            tcpip::Storage tempContent;
             unsigned int cnt = 0;
             tempContent.writeUnsignedByte(TYPE_INTEGER);
             const MSLinkCont &links = lane->getLinkCont();
@@ -144,8 +141,8 @@ TraCIServerAPI_Lane::processGet(TraCIServer &server, tcpip::Storage &inputStorag
                 tempContent.writeString("");
                 ++cnt;
                 // length
-                tempContent.writeUnsignedByte(TYPE_FLOAT);
-                tempContent.writeFloat((float)(link->getLength()));
+                tempContent.writeUnsignedByte(TYPE_DOUBLE);
+                tempContent.writeDouble(link->getLength());
                 ++cnt;
             }
             tempMsg.writeInt((int) cnt);
@@ -175,45 +172,45 @@ TraCIServerAPI_Lane::processGet(TraCIServer &server, tcpip::Storage &inputStorag
             tempMsg.writeUnsignedByte(TYPE_POLYGON);
             tempMsg.writeUnsignedByte((int)MIN2(static_cast<size_t>(255),lane->getShape().size()));
             for (unsigned int iPoint=0; iPoint < MIN2(static_cast<size_t>(255),lane->getShape().size()); ++iPoint) {
-                tempMsg.writeFloat((float)(lane->getShape()[iPoint].x()));
-                tempMsg.writeFloat((float)(lane->getShape()[iPoint].y()));
+                tempMsg.writeDouble(lane->getShape()[iPoint].x());
+                tempMsg.writeDouble(lane->getShape()[iPoint].y());
             }
             break;
         case VAR_CO2EMISSION:
-            tempMsg.writeUnsignedByte(TYPE_FLOAT);
-            tempMsg.writeFloat((float)(lane->getHBEFA_CO2Emissions()));
+            tempMsg.writeUnsignedByte(TYPE_DOUBLE);
+            tempMsg.writeDouble(lane->getHBEFA_CO2Emissions());
             break;
         case VAR_COEMISSION:
-            tempMsg.writeUnsignedByte(TYPE_FLOAT);
-            tempMsg.writeFloat((float)(lane->getHBEFA_COEmissions()));
+            tempMsg.writeUnsignedByte(TYPE_DOUBLE);
+            tempMsg.writeDouble(lane->getHBEFA_COEmissions());
             break;
         case VAR_HCEMISSION:
-            tempMsg.writeUnsignedByte(TYPE_FLOAT);
-            tempMsg.writeFloat((float)(lane->getHBEFA_HCEmissions()));
+            tempMsg.writeUnsignedByte(TYPE_DOUBLE);
+            tempMsg.writeDouble(lane->getHBEFA_HCEmissions());
             break;
         case VAR_PMXEMISSION:
-            tempMsg.writeUnsignedByte(TYPE_FLOAT);
-            tempMsg.writeFloat((float)(lane->getHBEFA_PMxEmissions()));
+            tempMsg.writeUnsignedByte(TYPE_DOUBLE);
+            tempMsg.writeDouble(lane->getHBEFA_PMxEmissions());
             break;
         case VAR_NOXEMISSION:
-            tempMsg.writeUnsignedByte(TYPE_FLOAT);
-            tempMsg.writeFloat((float)(lane->getHBEFA_NOxEmissions()));
+            tempMsg.writeUnsignedByte(TYPE_DOUBLE);
+            tempMsg.writeDouble(lane->getHBEFA_NOxEmissions());
             break;
         case VAR_FUELCONSUMPTION:
-            tempMsg.writeUnsignedByte(TYPE_FLOAT);
-            tempMsg.writeFloat((float)(lane->getHBEFA_FuelConsumption()));
+            tempMsg.writeUnsignedByte(TYPE_DOUBLE);
+            tempMsg.writeDouble(lane->getHBEFA_FuelConsumption());
             break;
         case VAR_NOISEEMISSION:
-            tempMsg.writeUnsignedByte(TYPE_FLOAT);
-            tempMsg.writeFloat((float)(lane->getHarmonoise_NoiseEmissions()));
+            tempMsg.writeUnsignedByte(TYPE_DOUBLE);
+            tempMsg.writeDouble(lane->getHarmonoise_NoiseEmissions());
             break;
         case LAST_STEP_VEHICLE_NUMBER:
             tempMsg.writeUnsignedByte(TYPE_INTEGER);
             tempMsg.writeInt((int) lane->getVehicleNumber());
             break;
         case LAST_STEP_MEAN_SPEED:
-            tempMsg.writeUnsignedByte(TYPE_FLOAT);
-            tempMsg.writeFloat((float)(lane->getMeanSpeed()));
+            tempMsg.writeUnsignedByte(TYPE_DOUBLE);
+            tempMsg.writeDouble(lane->getMeanSpeed());
             break;
         case LAST_STEP_VEHICLE_ID_LIST: {
             std::vector<std::string> vehIDs;
@@ -227,8 +224,8 @@ TraCIServerAPI_Lane::processGet(TraCIServer &server, tcpip::Storage &inputStorag
         }
         break;
         case LAST_STEP_OCCUPANCY:
-            tempMsg.writeUnsignedByte(TYPE_FLOAT);
-            tempMsg.writeFloat((float)lane->getOccupancy());
+            tempMsg.writeUnsignedByte(TYPE_DOUBLE);
+            tempMsg.writeDouble(lane->getOccupancy());
             break;
         case LAST_STEP_VEHICLE_HALTING_NUMBER: {
             int halting = 0;
@@ -249,22 +246,22 @@ TraCIServerAPI_Lane::processGet(TraCIServer &server, tcpip::Storage &inputStorag
             for (std::deque<MSVehicle*>::const_iterator j=vehs.begin(); j!=vehs.end(); ++j) {
                 lengthSum += (*j)->getVehicleType().getLength();
             }
-            tempMsg.writeUnsignedByte(TYPE_FLOAT);
+            tempMsg.writeUnsignedByte(TYPE_DOUBLE);
             if (vehs.size()==0) {
-                tempMsg.writeFloat(0);
+                tempMsg.writeDouble(0);
             } else {
-                tempMsg.writeFloat((float)(lengthSum / (SUMOReal) vehs.size()));
+                tempMsg.writeDouble(lengthSum / (SUMOReal) vehs.size());
             }
             lane->releaseVehicles();
         }
         break;
         case VAR_CURRENT_TRAVELTIME: {
             SUMOReal meanSpeed = lane->getMeanSpeed();
-            tempMsg.writeUnsignedByte(TYPE_FLOAT);
+            tempMsg.writeUnsignedByte(TYPE_DOUBLE);
             if (meanSpeed!=0) {
-                tempMsg.writeFloat((float)(lane->getLength() / meanSpeed));
+                tempMsg.writeDouble(lane->getLength() / meanSpeed);
             } else {
-                tempMsg.writeFloat(1000000.);
+                tempMsg.writeDouble(1000000.);
             }
         }
         break;
@@ -303,21 +300,21 @@ TraCIServerAPI_Lane::processSet(TraCIServer &server, tcpip::Storage &inputStorag
     switch (variable) {
     case VAR_MAXSPEED: {
         // speed
-        if (valueDataType!=TYPE_FLOAT) {
-            server.writeStatusCmd(CMD_SET_LANE_VARIABLE, RTYPE_ERR, "The speed must be given as a float.", outputStorage);
+        if (valueDataType!=TYPE_DOUBLE) {
+            server.writeStatusCmd(CMD_SET_LANE_VARIABLE, RTYPE_ERR, "The speed must be given as a double.", outputStorage);
             return false;
         }
-        SUMOReal val = inputStorage.readFloat();
+        SUMOReal val = inputStorage.readDouble();
         l->setMaxSpeed(val);
     }
     break;
     case VAR_LENGTH: {
         // speed
-        if (valueDataType!=TYPE_FLOAT) {
-            server.writeStatusCmd(CMD_SET_LANE_VARIABLE, RTYPE_ERR, "The length must be given as a float.", outputStorage);
+        if (valueDataType!=TYPE_DOUBLE) {
+            server.writeStatusCmd(CMD_SET_LANE_VARIABLE, RTYPE_ERR, "The length must be given as a double.", outputStorage);
             return false;
         }
-        SUMOReal val = inputStorage.readFloat();
+        SUMOReal val = inputStorage.readDouble();
         l->setLength(val);
     }
     break;

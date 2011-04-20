@@ -1,4 +1,4 @@
-TraCITestClient output file. Date: Sat Oct  9 00:28:46 2010
+TraCITestClient output file. Date: Wed Apr 20 22:06:52 2011
 
 
 -> Command sent: <SimulationStep2>:
@@ -12,7 +12,7 @@ TraCITestClient output file. Date: Sat Oct  9 00:28:46 2010
 -> Command sent: <GetVariable>:
   domID=161 varID=17 objID=4/1to3/1
 .. Command acknowledged (161), [description: ]
-  CommandID=177  VariableID=17  ObjectID=4/1to3/1 valueDataType=10 float value: -1.00
+  CommandID=177  VariableID=17  ObjectID=4/1to3/1 valueDataType=11 Double value: -1.00
 
 -> Command sent: <GetVariable>:
   domID=161 varID=18 objID=4/1to3/1
@@ -31,7 +31,7 @@ TraCITestClient output file. Date: Sat Oct  9 00:28:46 2010
 -> Command sent: <GetVariable>:
   domID=161 varID=17 objID=4/1to3/1
 .. Command acknowledged (161), [description: ]
-  CommandID=177  VariableID=17  ObjectID=4/1to3/1 valueDataType=10 float value: -1.00
+  CommandID=177  VariableID=17  ObjectID=4/1to3/1 valueDataType=11 Double value: -1.00
 
 -> Command sent: <GetVariable>:
   domID=161 varID=18 objID=4/1to3/1
@@ -50,7 +50,7 @@ TraCITestClient output file. Date: Sat Oct  9 00:28:46 2010
 -> Command sent: <GetVariable>:
   domID=161 varID=17 objID=4/1to3/1
 .. Command acknowledged (161), [description: ]
-  CommandID=177  VariableID=17  ObjectID=4/1to3/1 valueDataType=10 float value: -1.00
+  CommandID=177  VariableID=17  ObjectID=4/1to3/1 valueDataType=11 Double value: -1.00
 
 -> Command sent: <GetVariable>:
   domID=161 varID=18 objID=4/1to3/1
@@ -66,7 +66,7 @@ TraCITestClient output file. Date: Sat Oct  9 00:28:46 2010
 -> Command sent: <GetVariable>:
   domID=161 varID=17 objID=3/1to2/1
 .. Command acknowledged (161), [description: ]
-  CommandID=177  VariableID=17  ObjectID=3/1to2/1 valueDataType=10 float value: -1.00
+  CommandID=177  VariableID=17  ObjectID=3/1to2/1 valueDataType=11 Double value: -1.00
 
 -> Command sent: <GetVariable>:
   domID=161 varID=18 objID=3/1to2/1
@@ -85,7 +85,7 @@ TraCITestClient output file. Date: Sat Oct  9 00:28:46 2010
 -> Command sent: <GetVariable>:
   domID=161 varID=17 objID=3/1to2/1
 .. Command acknowledged (161), [description: ]
-  CommandID=177  VariableID=17  ObjectID=3/1to2/1 valueDataType=10 float value: -1.00
+  CommandID=177  VariableID=17  ObjectID=3/1to2/1 valueDataType=11 Double value: -1.00
 
 -> Command sent: <GetVariable>:
   domID=161 varID=18 objID=3/1to2/1
@@ -104,7 +104,7 @@ TraCITestClient output file. Date: Sat Oct  9 00:28:46 2010
 -> Command sent: <GetVariable>:
   domID=161 varID=17 objID=3/1to2/1
 .. Command acknowledged (161), [description: ]
-  CommandID=177  VariableID=17  ObjectID=3/1to2/1 valueDataType=10 float value: -1.00
+  CommandID=177  VariableID=17  ObjectID=3/1to2/1 valueDataType=11 Double value: -1.00
 
 -> Command sent: <GetVariable>:
   domID=161 varID=18 objID=3/1to2/1

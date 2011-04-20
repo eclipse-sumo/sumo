@@ -1,6 +1,6 @@
 simstep2 1
 getvariable 0xa3 0x41 2/1to2/0_0
-setvalue 0xc3 0x41 2/1to2/0_0 <float> 1
+setvalue 0xc3 0x41 2/1to2/0_0 <double> 1
 getvariable 0xa3 0x41 2/1to2/0_0
 simstep2 2
 

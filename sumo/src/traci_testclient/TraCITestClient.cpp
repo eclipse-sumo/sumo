@@ -49,7 +49,6 @@
 // ===========================================================================
 // used namespaces
 // ===========================================================================
-using namespace tcpip;
 using namespace testclient;
 
 
@@ -105,7 +104,7 @@ TraCITestClient::connect(int port, std::string host) {
 
     try {
         socket->connect();
-    } catch (SocketException &e) {
+    } catch (tcpip::SocketException &e) {
         msg << "#Error while connecting: " << e.what();
         errorMsg(msg);
         return false;
@@ -375,7 +374,7 @@ TraCITestClient::commandSimulationStep2(SUMOTime time) {
     // send request message
     try {
         socket->sendExact(outMsg);
-    } catch (SocketException &e) {
+    } catch (tcpip::SocketException &e) {
         msg << "Error while sending command: " << e.what();
         errorMsg(msg);
         return;
@@ -384,7 +383,7 @@ TraCITestClient::commandSimulationStep2(SUMOTime time) {
     // receive answer message
     try {
         socket->receiveExact(inMsg);
-    } catch (SocketException &e) {
+    } catch (tcpip::SocketException &e) {
         msg << "Error while receiving command: " << e.what();
         errorMsg(msg);
         return;
@@ -437,17 +436,17 @@ TraCITestClient::commandPositionConversion(testclient::Position2D* pos2D,
     // position
     if (pos2D != NULL) {
         tempMsg.writeUnsignedByte(POSITION_2D);
-        tempMsg.writeFloat(pos2D->x);
-        tempMsg.writeFloat(pos2D->y);
+        tempMsg.writeDouble(pos2D->x);
+        tempMsg.writeDouble(pos2D->y);
     } else if (pos3D != NULL) {
         tempMsg.writeUnsignedByte(POSITION_3D);
-        tempMsg.writeFloat(pos3D->x);
-        tempMsg.writeFloat(pos3D->y);
-        tempMsg.writeFloat(pos3D->z);
+        tempMsg.writeDouble(pos3D->x);
+        tempMsg.writeDouble(pos3D->y);
+        tempMsg.writeDouble(pos3D->z);
     } else if (posRoad != NULL) {
         tempMsg.writeUnsignedByte(POSITION_ROADMAP);
         tempMsg.writeString(posRoad->roadId);
-        tempMsg.writeFloat(posRoad->pos);
+        tempMsg.writeDouble(posRoad->pos);
         tempMsg.writeUnsignedByte(posRoad->laneId);
     } else {
         std::cerr << "Error in method commandPositionConversion: position is NULL" << std::endl;
@@ -462,7 +461,7 @@ TraCITestClient::commandPositionConversion(testclient::Position2D* pos2D,
     // send request message
     try {
         socket->sendExact(outMsg);
-    } catch (SocketException &e) {
+    } catch (tcpip::SocketException &e) {
         msg << "Error while sending command: " << e.what();
         errorMsg(msg);
         return;
@@ -481,7 +480,7 @@ TraCITestClient::commandPositionConversion(testclient::Position2D* pos2D,
     // receive answer message
     try {
         socket->receiveExact(inMsg);
-    } catch (SocketException &e) {
+    } catch (tcpip::SocketException &e) {
         msg << "Error while receiving command: " << e.what();
         errorMsg(msg);
         return;
@@ -576,17 +575,17 @@ TraCITestClient::commandDistanceRequest(testclient::Position2D* pos1_2D,
     // position1
     if (pos1_2D != NULL) {
         tempMsg.writeUnsignedByte(POSITION_2D);
-        tempMsg.writeFloat(pos1_2D->x);
-        tempMsg.writeFloat(pos1_2D->y);
+        tempMsg.writeDouble(pos1_2D->x);
+        tempMsg.writeDouble(pos1_2D->y);
     } else if (pos1_3D != NULL) {
         tempMsg.writeUnsignedByte(POSITION_3D);
-        tempMsg.writeFloat(pos1_3D->x);
-        tempMsg.writeFloat(pos1_3D->y);
-        tempMsg.writeFloat(pos1_3D->z);
+        tempMsg.writeDouble(pos1_3D->x);
+        tempMsg.writeDouble(pos1_3D->y);
+        tempMsg.writeDouble(pos1_3D->z);
     } else if (pos1_Road != NULL) {
         tempMsg.writeUnsignedByte(POSITION_ROADMAP);
         tempMsg.writeString(pos1_Road->roadId);
-        tempMsg.writeFloat(pos1_Road->pos);
+        tempMsg.writeDouble(pos1_Road->pos);
         tempMsg.writeUnsignedByte(pos1_Road->laneId);
     } else {
         std::cerr << "Error in method commandDistanceRequest: position1 is NULL" << std::endl;
@@ -595,17 +594,17 @@ TraCITestClient::commandDistanceRequest(testclient::Position2D* pos1_2D,
     // position2
     if (pos2_2D != NULL) {
         tempMsg.writeUnsignedByte(POSITION_2D);
-        tempMsg.writeFloat(pos2_2D->x);
-        tempMsg.writeFloat(pos2_2D->y);
+        tempMsg.writeDouble(pos2_2D->x);
+        tempMsg.writeDouble(pos2_2D->y);
     } else if (pos2_3D != NULL) {
         tempMsg.writeUnsignedByte(POSITION_3D);
-        tempMsg.writeFloat(pos2_3D->x);
-        tempMsg.writeFloat(pos2_3D->y);
-        tempMsg.writeFloat(pos2_3D->z);
+        tempMsg.writeDouble(pos2_3D->x);
+        tempMsg.writeDouble(pos2_3D->y);
+        tempMsg.writeDouble(pos2_3D->z);
     } else if (pos2_Road != NULL) {
         tempMsg.writeUnsignedByte(POSITION_ROADMAP);
         tempMsg.writeString(pos2_Road->roadId);
-        tempMsg.writeFloat(pos2_Road->pos);
+        tempMsg.writeDouble(pos2_Road->pos);
         tempMsg.writeUnsignedByte(pos2_Road->laneId);
     } else {
         std::cerr << "Error in method commandDistanceRequest: position2 is NULL" << std::endl;
@@ -620,7 +619,7 @@ TraCITestClient::commandDistanceRequest(testclient::Position2D* pos1_2D,
     // send request message
     try {
         socket->sendExact(outMsg);
-    } catch (SocketException &e) {
+    } catch (tcpip::SocketException &e) {
         msg << "Error while sending command: " << e.what();
         errorMsg(msg);
         return;
@@ -646,7 +645,7 @@ TraCITestClient::commandDistanceRequest(testclient::Position2D* pos1_2D,
     // receive answer message
     try {
         socket->receiveExact(inMsg);
-    } catch (SocketException &e) {
+    } catch (tcpip::SocketException &e) {
         msg << "Error while receiving command: " << e.what();
         errorMsg(msg);
         return;
@@ -683,7 +682,7 @@ TraCITestClient::commandGetVariable(int domID, int varID, const std::string &obj
     // send request message
     try {
         socket->sendExact(outMsg);
-    } catch (SocketException &e) {
+    } catch (tcpip::SocketException &e) {
         msg << "Error while sending command: " << e.what();
         errorMsg(msg);
         return;
@@ -698,7 +697,7 @@ TraCITestClient::commandGetVariable(int domID, int varID, const std::string &obj
         if (!reportResultState(inMsg, domID)) {
             return;
         }
-    } catch (SocketException &e) {
+    } catch (tcpip::SocketException &e) {
         msg << "Error while receiving command: " << e.what();
         errorMsg(msg);
         return;
@@ -720,7 +719,7 @@ TraCITestClient::commandGetVariable(int domID, int varID, const std::string &obj
         int valueDataType = inMsg.readUnsignedByte();
         answerLog << " valueDataType=" << valueDataType;
         readAndReportTypeDependent(inMsg, valueDataType);
-    } catch (SocketException &e) {
+    } catch (tcpip::SocketException &e) {
         msg << "Error while receiving command: " << e.what();
         errorMsg(msg);
         return;
@@ -758,7 +757,7 @@ TraCITestClient::commandGetVariablePlus(int domID, int varID, const std::string 
     // send request message
     try {
         socket->sendExact(outMsg);
-    } catch (SocketException &e) {
+    } catch (tcpip::SocketException &e) {
         msg << "Error while sending command: " << e.what();
         errorMsg(msg);
         return;
@@ -773,7 +772,7 @@ TraCITestClient::commandGetVariablePlus(int domID, int varID, const std::string 
         if (!reportResultState(inMsg, domID)) {
             return;
         }
-    } catch (SocketException &e) {
+    } catch (tcpip::SocketException &e) {
         msg << "Error while receiving command: " << e.what();
         errorMsg(msg);
         return;
@@ -795,7 +794,7 @@ TraCITestClient::commandGetVariablePlus(int domID, int varID, const std::string 
         int valueDataType = inMsg.readUnsignedByte();
         answerLog << " valueDataType=" << valueDataType;
         readAndReportTypeDependent(inMsg, valueDataType);
-    } catch (SocketException &e) {
+    } catch (tcpip::SocketException &e) {
         msg << "Error while receiving command: " << e.what();
         errorMsg(msg);
         return;
@@ -837,7 +836,7 @@ TraCITestClient::commandSubscribeVariable(int domID, const std::string &objID, i
     // send request message
     try {
         socket->sendExact(outMsg);
-    } catch (SocketException &e) {
+    } catch (tcpip::SocketException &e) {
         msg << "Error while sending command: " << e.what();
         errorMsg(msg);
         return;
@@ -851,7 +850,7 @@ TraCITestClient::commandSubscribeVariable(int domID, const std::string &objID, i
         if (!reportResultState(inMsg, domID)) {
             return;
         }
-    } catch (SocketException &e) {
+    } catch (tcpip::SocketException &e) {
         msg << "Error while receiving command: " << e.what();
         errorMsg(msg);
         return;
@@ -859,7 +858,7 @@ TraCITestClient::commandSubscribeVariable(int domID, const std::string &objID, i
     // validate result state
     try {
         validateSubscription(inMsg);
-    } catch (SocketException &e) {
+    } catch (tcpip::SocketException &e) {
         msg << "Error while receiving command: " << e.what();
         errorMsg(msg);
         return;
@@ -907,7 +906,7 @@ TraCITestClient::setValueTypeDependant(tcpip::Storage &into, std::ifstream &defF
         return 4 + 1;
     } else if (dataTypeS=="<double>") {
         into.writeUnsignedByte(TYPE_DOUBLE);
-        into.writeDouble(float(atof(valueS.c_str())));
+        into.writeDouble(atof(valueS.c_str()));
         return 8 + 1;
     } else if (dataTypeS=="<string>") {
         into.writeUnsignedByte(TYPE_STRING);
@@ -945,24 +944,24 @@ TraCITestClient::setValueTypeDependant(tcpip::Storage &into, std::ifstream &defF
         return 1 + 4;
     } else if (dataTypeS=="<position2D>") {
         into.writeUnsignedByte(POSITION_2D);
-        into.writeFloat(float(atof(valueS.c_str())));
+        into.writeDouble(atof(valueS.c_str()));
         defFile >> valueS;
-        into.writeFloat(float(atof(valueS.c_str())));
+        into.writeDouble(atof(valueS.c_str()));
         return 1 + 4 + 4;
     } else if (dataTypeS=="<position3D>") {
         into.writeUnsignedByte(POSITION_3D);
-        into.writeFloat(float(atof(valueS.c_str())));
+        into.writeDouble(atof(valueS.c_str()));
         defFile >> valueS;
-        into.writeFloat(float(atof(valueS.c_str())));
+        into.writeDouble(atof(valueS.c_str()));
         defFile >> valueS;
-        into.writeFloat(float(atof(valueS.c_str())));
+        into.writeDouble(atof(valueS.c_str()));
         return 1 + 4 + 4 + 4;
     } else if (dataTypeS=="<positionRoadmap>") {
         into.writeUnsignedByte(POSITION_ROADMAP);
         into.writeString(valueS);
         int length = 1 + 4 + (int) valueS.length();
         defFile >> valueS;
-        into.writeFloat(float(atof(valueS.c_str())));
+        into.writeDouble(atof(valueS.c_str()));
         defFile >> valueS;
         into.writeUnsignedByte(atoi(valueS.c_str()));
         return length + 4 + 1;
@@ -974,8 +973,8 @@ TraCITestClient::setValueTypeDependant(tcpip::Storage &into, std::ifstream &defF
         for (int i=0; i<number; ++i) {
             std::string x, y;
             defFile >> x >> y;
-            into.writeFloat(float(atof(x.c_str())));
-            into.writeFloat(float(atof(y.c_str())));
+            into.writeDouble(atof(x.c_str()));
+            into.writeDouble(atof(y.c_str()));
             length += 8;
         }
         return length;
@@ -1011,7 +1010,7 @@ TraCITestClient::commandSetValue(int domID, int varID, const std::string &objID,
     // send request message
     try {
         socket->sendExact(outMsg);
-    } catch (SocketException &e) {
+    } catch (tcpip::SocketException &e) {
         msg << "Error while sending command: " << e.what();
         errorMsg(msg);
         return;
@@ -1026,7 +1025,7 @@ TraCITestClient::commandSetValue(int domID, int varID, const std::string &objID,
         if (!reportResultState(inMsg, domID)) {
             return;
         }
-    } catch (SocketException &e) {
+    } catch (tcpip::SocketException &e) {
         msg << "Error while receiving command: " << e.what();
         errorMsg(msg);
         return;
@@ -1056,7 +1055,7 @@ TraCITestClient::commandClose() {
     // send request message
     try {
         socket->sendExact(outMsg);
-    } catch (SocketException &e) {
+    } catch (tcpip::SocketException &e) {
         msg << "Error while sending command: " << e.what();
         errorMsg(msg);
         return;
@@ -1067,7 +1066,7 @@ TraCITestClient::commandClose() {
     // receive answer message
     try {
         socket->receiveExact(inMsg);
-    } catch (SocketException &e) {
+    } catch (tcpip::SocketException &e) {
         msg << "Error while receiving command: " << e.what();
         errorMsg(msg);
         return;
@@ -1159,8 +1158,8 @@ TraCITestClient::validatePositionConversion(tcpip::Storage &inMsg) {
         posType = inMsg.readUnsignedByte();
         switch (posType) {
         case POSITION_2D:
-            pos2D.x = inMsg.readFloat();
-            pos2D.y = inMsg.readFloat();
+            pos2D.x = inMsg.readDouble();
+            pos2D.y = inMsg.readDouble();
             answerLog << "2D-Position: x=" << pos2D.x << " y=" << pos2D.y << std::endl;
             break;
         case POSITION_3D:
@@ -1170,14 +1169,14 @@ TraCITestClient::validatePositionConversion(tcpip::Storage &inMsg) {
             } else {
                 answerLog << "3D-Position: ";
             }
-            pos3D.x = inMsg.readFloat();
-            pos3D.y = inMsg.readFloat();
-            pos3D.z = inMsg.readFloat();
+            pos3D.x = inMsg.readDouble();
+            pos3D.y = inMsg.readDouble();
+            pos3D.z = inMsg.readDouble();
             answerLog << "x=" << pos3D.x << " y=" << pos3D.y << " z=" << pos3D.z << std::endl;
             break;
         case POSITION_ROADMAP:
             roadPos.roadId = inMsg.readString();
-            roadPos.pos = inMsg.readFloat();
+            roadPos.pos = inMsg.readDouble();
             roadPos.laneId = inMsg.readUnsignedByte();
             answerLog << "RoadMap-Position: roadId=" << roadPos.roadId << " pos=" << roadPos.pos
             << " laneId=" << (int)roadPos.laneId << std::endl;
@@ -1212,7 +1211,7 @@ TraCITestClient::validateDistanceRequest(tcpip::Storage& inMsg) {
     int cmdLength;
     int flag;
     int cmdStart;
-    float distance;
+    SUMOReal distance;
     /*testclient::PositionRoadMap roadPos;
     testclient::Position2D pos2D;
     testclient::Position3D pos3D;*/
@@ -1232,14 +1231,14 @@ TraCITestClient::validateDistanceRequest(tcpip::Storage& inMsg) {
         flag = inMsg.readUnsignedByte();
         answerLog << " flag=" << flag;
         // read computed distance
-        distance = inMsg.readFloat();
+        distance = inMsg.readDouble();
         answerLog << " distance=" << distance << std::endl;
         //// read computed position
         //posType = inMsg.readUnsignedByte();
         //switch (posType) {
         //case POSITION_2D:
-        //	pos2D.x = inMsg.readFloat();
-        //	pos2D.y = inMsg.readFloat();
+        //	pos2D.x = inMsg.readDouble();
+        //	pos2D.y = inMsg.readDouble();
         //	answerLog << "2D-Position: x=" << pos2D.x << " y=" << pos2D.y;
         //	break;
         //case POSITION_3D:
@@ -1249,14 +1248,14 @@ TraCITestClient::validateDistanceRequest(tcpip::Storage& inMsg) {
         //	} else {
         //		answerLog << "3D-Position: ";
         //	}
-        //	pos3D.x = inMsg.readFloat();
-        //	pos3D.y = inMsg.readFloat();
-        //	pos3D.z = inMsg.readFloat();
+        //	pos3D.x = inMsg.readDouble();
+        //	pos3D.y = inMsg.readDouble();
+        //	pos3D.z = inMsg.readDouble();
         //	answerLog << "x=" << pos3D.x << " y=" << pos3D.y << " z=" << pos3D.z;
         //	break;
         //case POSITION_ROADMAP:
         //	roadPos.roadId = inMsg.readString();
-        //	roadPos.pos = inMsg.readFloat();
+        //	roadPos.pos = inMsg.readDouble();
         //	roadPos.laneId = inMsg.readUnsignedByte();
         //	answerLog << "RoadMap-Position: roadId=" << roadPos.roadId << " pos=" << roadPos.pos
         //		<< " laneId=" << (int)roadPos.laneId;
@@ -1304,10 +1303,10 @@ TraCITestClient::readAndReportTypeDependent(tcpip::Storage &inMsg, int valueData
         answerLog << " Double value: " << doublev << std::endl;
     } else if (valueDataType == TYPE_BOUNDINGBOX) {
         testclient::BoundingBox box;
-        box.lowerLeft.x = inMsg.readFloat();
-        box.lowerLeft.y = inMsg.readFloat();
-        box.upperRight.x = inMsg.readFloat();
-        box.upperRight.y = inMsg.readFloat();
+        box.lowerLeft.x = inMsg.readDouble();
+        box.lowerLeft.y = inMsg.readDouble();
+        box.upperRight.x = inMsg.readDouble();
+        box.upperRight.y = inMsg.readDouble();
         answerLog << " BoundaryBoxValue: lowerLeft x="<< box.lowerLeft.x
         << " y=" << box.lowerLeft.y << " upperRight x=" << box.upperRight.x
         << " y=" << box.upperRight.y << std::endl;
@@ -1315,21 +1314,21 @@ TraCITestClient::readAndReportTypeDependent(tcpip::Storage &inMsg, int valueData
         int length = inMsg.readUnsignedByte();
         answerLog << " PolygonValue: ";
         for (int i=0; i < length; i++) {
-            float x = inMsg.readFloat();
-            float y = inMsg.readFloat();
+            SUMOReal x = inMsg.readDouble();
+            SUMOReal y = inMsg.readDouble();
             answerLog << "(" << x << "," << y << ") ";
         }
         answerLog << std::endl;
     } else if (valueDataType == POSITION_3D) {
-        float x = inMsg.readFloat();
-        float y = inMsg.readFloat();
-        float z = inMsg.readFloat();
+        SUMOReal x = inMsg.readDouble();
+        SUMOReal y = inMsg.readDouble();
+        SUMOReal z = inMsg.readDouble();
         answerLog << " Position3DValue: " << std::endl;
         answerLog << " x: " << x << " y: " << y
         << " z: " << z << std::endl;
     } else if (valueDataType == POSITION_ROADMAP) {
         std::string roadId = inMsg.readString();
-        float pos = inMsg.readFloat();
+        SUMOReal pos = inMsg.readDouble();
         int laneId = inMsg.readUnsignedByte();
         answerLog << " RoadMapPositionValue: roadId=" << roadId
         << " pos=" << pos
@@ -1381,8 +1380,8 @@ TraCITestClient::readAndReportTypeDependent(tcpip::Storage &inMsg, int valueData
         }
         answerLog << " ]" << std::endl;
     } else if (valueDataType == POSITION_2D) {
-        float xv = inMsg.readFloat();
-        float yv = inMsg.readFloat();
+        SUMOReal xv = inMsg.readDouble();
+        SUMOReal yv = inMsg.readDouble();
         answerLog << " position value: (" << xv << "," << yv << ")" << std::endl;
     } else if (valueDataType == TYPE_COLOR) {
         int r = inMsg.readUnsignedByte();

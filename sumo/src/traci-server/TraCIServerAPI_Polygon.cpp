@@ -42,9 +42,7 @@
 // ===========================================================================
 // used namespaces
 // ===========================================================================
-using namespace std;
 using namespace traci;
-using namespace tcpip;
 
 
 // ===========================================================================
@@ -63,7 +61,7 @@ TraCIServerAPI_Polygon::processGet(TraCIServer &server, tcpip::Storage &inputSto
         return false;
     }
     // begin response building
-    Storage tempMsg;
+    tcpip::Storage tempMsg;
     //  response-code, variableID, objectID
     tempMsg.writeUnsignedByte(RESPONSE_GET_POLYGON_VARIABLE);
     tempMsg.writeUnsignedByte(variable);
@@ -103,8 +101,8 @@ TraCIServerAPI_Polygon::processGet(TraCIServer &server, tcpip::Storage &inputSto
             tempMsg.writeUnsignedByte(TYPE_POLYGON);
             tempMsg.writeUnsignedByte(MIN2(static_cast<int>(255),static_cast<int>(p->getShape().size())));
             for (unsigned int iPoint=0; iPoint < MIN2(static_cast<size_t>(255),p->getShape().size()); ++iPoint) {
-                tempMsg.writeFloat((float)(p->getShape()[iPoint].x()));
-                tempMsg.writeFloat((float)(p->getShape()[iPoint].y()));
+                tempMsg.writeDouble(p->getShape()[iPoint].x());
+                tempMsg.writeDouble(p->getShape()[iPoint].y());
             }
             break;
         case VAR_FILL:
@@ -183,8 +181,8 @@ TraCIServerAPI_Polygon::processSet(TraCIServer &server, tcpip::Storage &inputSto
         unsigned int noEntries = inputStorage.readUnsignedByte();
         Position2DVector shape;
         for (unsigned int i=0; i<noEntries; ++i) {
-            SUMOReal x = inputStorage.readFloat();
-            SUMOReal y = inputStorage.readFloat();
+            SUMOReal x = inputStorage.readDouble();
+            SUMOReal y = inputStorage.readDouble();
             shape.push_back(Position2D(x, y));
         }
         shapeCont.reshapePolygon(layer, id, shape);
@@ -242,8 +240,8 @@ TraCIServerAPI_Polygon::processSet(TraCIServer &server, tcpip::Storage &inputSto
         unsigned int noEntries = inputStorage.readUnsignedByte();
         Position2DVector shape;
         for (unsigned int i=0; i<noEntries; ++i) {
-            SUMOReal x = inputStorage.readFloat();
-            SUMOReal y = inputStorage.readFloat();
+            SUMOReal x = inputStorage.readDouble();
+            SUMOReal y = inputStorage.readDouble();
             shape.push_back(Position2D(x, y));
         }
         //

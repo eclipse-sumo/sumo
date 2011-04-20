@@ -41,9 +41,7 @@
 // ===========================================================================
 // used namespaces
 // ===========================================================================
-using namespace std;
 using namespace traci;
-using namespace tcpip;
 
 
 // ===========================================================================
@@ -62,7 +60,7 @@ TraCIServerAPI_POI::processGet(TraCIServer &server, tcpip::Storage &inputStorage
         return false;
     }
     // begin response building
-    Storage tempMsg;
+    tcpip::Storage tempMsg;
     //  response-code, variableID, objectID
     tempMsg.writeUnsignedByte(RESPONSE_GET_POI_VARIABLE);
     tempMsg.writeUnsignedByte(variable);
@@ -100,8 +98,8 @@ TraCIServerAPI_POI::processGet(TraCIServer &server, tcpip::Storage &inputStorage
             break;
         case VAR_POSITION:
             tempMsg.writeUnsignedByte(POSITION_2D);
-            tempMsg.writeFloat((float)(p->x()));
-            tempMsg.writeFloat((float)(p->y()));
+            tempMsg.writeDouble(p->x());
+            tempMsg.writeDouble(p->y());
             break;
         default:
             break;
@@ -172,8 +170,8 @@ TraCIServerAPI_POI::processSet(TraCIServer &server, tcpip::Storage &inputStorage
             server.writeStatusCmd(CMD_SET_POI_VARIABLE, RTYPE_ERR, "The position must be given using an accoring type.", outputStorage);
             return false;
         }
-        SUMOReal x = inputStorage.readFloat();
-        SUMOReal y = inputStorage.readFloat();
+        SUMOReal x = inputStorage.readDouble();
+        SUMOReal y = inputStorage.readDouble();
         shapeCont.movePoI(layer, id, Position2D(x, y));
     }
     break;
@@ -211,8 +209,8 @@ TraCIServerAPI_POI::processSet(TraCIServer &server, tcpip::Storage &inputStorage
             server.writeStatusCmd(CMD_SET_POI_VARIABLE, RTYPE_ERR, "The fourth PoI parameter must be the position.", outputStorage);
             return false;
         }
-        SUMOReal x = inputStorage.readFloat();
-        SUMOReal y = inputStorage.readFloat();
+        SUMOReal x = inputStorage.readDouble();
+        SUMOReal y = inputStorage.readDouble();
         //
         if (!shapeCont.addPoI(id, layer, type, RGBColor(r, g, b), Position2D(x, y))) {
             delete p;

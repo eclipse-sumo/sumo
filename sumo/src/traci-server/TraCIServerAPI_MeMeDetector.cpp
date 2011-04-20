@@ -40,9 +40,7 @@
 // ===========================================================================
 // used namespaces
 // ===========================================================================
-using namespace std;
 using namespace traci;
-using namespace tcpip;
 
 
 // ===========================================================================
@@ -62,7 +60,7 @@ TraCIServerAPI_MeMeDetector::processGet(TraCIServer &server, tcpip::Storage &inp
         return false;
     }
     // begin response building
-    Storage tempMsg;
+    tcpip::Storage tempMsg;
     //  response-code, variableID, objectID
     tempMsg.writeUnsignedByte(RESPONSE_GET_MULTI_ENTRY_EXIT_DETECTOR_VARIABLE);
     tempMsg.writeUnsignedByte(variable);
@@ -86,8 +84,8 @@ TraCIServerAPI_MeMeDetector::processGet(TraCIServer &server, tcpip::Storage &inp
             tempMsg.writeInt((int) e3->getVehiclesWithin());
             break;
         case LAST_STEP_MEAN_SPEED:
-            tempMsg.writeUnsignedByte(TYPE_FLOAT);
-            tempMsg.writeFloat((float) e3->getCurrentMeanSpeed());
+            tempMsg.writeUnsignedByte(TYPE_DOUBLE);
+            tempMsg.writeDouble(e3->getCurrentMeanSpeed());
             break;
         case LAST_STEP_VEHICLE_ID_LIST: {
             tempMsg.writeUnsignedByte(TYPE_STRINGLIST);

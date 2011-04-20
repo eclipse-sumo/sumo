@@ -41,9 +41,7 @@
 // ===========================================================================
 // used namespaces
 // ===========================================================================
-using namespace std;
 using namespace traci;
-using namespace tcpip;
 
 
 // ===========================================================================
@@ -52,7 +50,6 @@ using namespace tcpip;
 bool
 TraCIServerAPI_Junction::processGet(TraCIServer &server, tcpip::Storage &inputStorage,
                                     tcpip::Storage &outputStorage) {
-    Storage tmpResult;
     std::string warning = "";	// additional description for response
     // variable
     int variable = inputStorage.readUnsignedByte();
@@ -63,7 +60,7 @@ TraCIServerAPI_Junction::processGet(TraCIServer &server, tcpip::Storage &inputSt
         return false;
     }
     // begin response building
-    Storage tempMsg;
+    tcpip::Storage tempMsg;
     //  response-code, variableID, objectID
     tempMsg.writeUnsignedByte(RESPONSE_GET_JUNCTION_VARIABLE);
     tempMsg.writeUnsignedByte(variable);
@@ -84,8 +81,8 @@ TraCIServerAPI_Junction::processGet(TraCIServer &server, tcpip::Storage &inputSt
             break;
         case VAR_POSITION:
             tempMsg.writeUnsignedByte(POSITION_2D);
-            tempMsg.writeFloat((float)(j->getPosition().x()));
-            tempMsg.writeFloat((float)(j->getPosition().y()));
+            tempMsg.writeDouble(j->getPosition().x());
+            tempMsg.writeDouble(j->getPosition().y());
             break;
         default:
             break;

@@ -41,9 +41,7 @@
 // ===========================================================================
 // used namespaces
 // ===========================================================================
-using namespace std;
 using namespace traci;
-using namespace tcpip;
 
 
 // ===========================================================================
@@ -62,7 +60,7 @@ TraCIServerAPI_Route::processGet(TraCIServer &server, tcpip::Storage &inputStora
         return false;
     }
     // begin response building
-    Storage tempMsg;
+    tcpip::Storage tempMsg;
     //  response-code, variableID, objectID
     tempMsg.writeUnsignedByte(RESPONSE_GET_ROUTE_VARIABLE);
     tempMsg.writeUnsignedByte(variable);

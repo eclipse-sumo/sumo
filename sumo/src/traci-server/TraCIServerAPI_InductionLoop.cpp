@@ -40,9 +40,7 @@
 // ===========================================================================
 // used namespaces
 // ===========================================================================
-using namespace std;
 using namespace traci;
-using namespace tcpip;
 
 
 // ===========================================================================
@@ -64,7 +62,7 @@ TraCIServerAPI_InductionLoop::processGet(TraCIServer &server, tcpip::Storage &in
         return false;
     }
     // begin response building
-    Storage tempMsg;
+    tcpip::Storage tempMsg;
     //  response-code, variableID, objectID
     tempMsg.writeUnsignedByte(RESPONSE_GET_INDUCTIONLOOP_VARIABLE);
     tempMsg.writeUnsignedByte(variable);
@@ -89,8 +87,8 @@ TraCIServerAPI_InductionLoop::processGet(TraCIServer &server, tcpip::Storage &in
             tempMsg.writeInt((int)(il->getCurrentPassedNumber()));
             break;
         case LAST_STEP_MEAN_SPEED:
-            tempMsg.writeUnsignedByte(TYPE_FLOAT);
-            tempMsg.writeFloat((float) il->getCurrentSpeed());
+            tempMsg.writeUnsignedByte(TYPE_DOUBLE);
+            tempMsg.writeDouble(il->getCurrentSpeed());
             break;
         case LAST_STEP_VEHICLE_ID_LIST: {
             tempMsg.writeUnsignedByte(TYPE_STRINGLIST);
@@ -99,21 +97,21 @@ TraCIServerAPI_InductionLoop::processGet(TraCIServer &server, tcpip::Storage &in
         }
         break;
         case LAST_STEP_OCCUPANCY:
-            tempMsg.writeUnsignedByte(TYPE_FLOAT);
-            tempMsg.writeFloat((float) il->getCurrentOccupancy());
+            tempMsg.writeUnsignedByte(TYPE_DOUBLE);
+            tempMsg.writeDouble(il->getCurrentOccupancy());
             break;
         case LAST_STEP_LENGTH:
-            tempMsg.writeUnsignedByte(TYPE_FLOAT);
-            tempMsg.writeFloat((float) il->getCurrentLength());
+            tempMsg.writeUnsignedByte(TYPE_DOUBLE);
+            tempMsg.writeDouble(il->getCurrentLength());
             break;
         case LAST_STEP_TIME_SINCE_DETECTION:
-            tempMsg.writeUnsignedByte(TYPE_FLOAT);
-            tempMsg.writeFloat((float) il->getTimestepsSinceLastDetection());
+            tempMsg.writeUnsignedByte(TYPE_DOUBLE);
+            tempMsg.writeDouble(il->getTimestepsSinceLastDetection());
             break;
 		case LAST_STEP_VEHICLE_DATA: {
 			std::vector<MSInductLoop::VehicleData> vd = il->collectVehiclesOnDet(MSNet::getInstance()->getCurrentTimeStep()-DELTA_T);
             tempMsg.writeUnsignedByte(TYPE_COMPOUND);
-            Storage tempContent;
+            tcpip::Storage tempContent;
             unsigned int cnt = 0;
             tempContent.writeUnsignedByte(TYPE_INTEGER);
             tempContent.writeInt((int) vd.size());

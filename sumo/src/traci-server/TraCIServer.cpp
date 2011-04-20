@@ -142,6 +142,7 @@ TraCIServer::TraCIServer() {
     myExecutors[CMD_GET_VEHICLETYPE_VARIABLE] = &TraCIServerAPI_VehicleType::processGet;
     myExecutors[CMD_SET_VEHICLETYPE_VARIABLE] = &TraCIServerAPI_VehicleType::processSet;
     myExecutors[CMD_GET_ROUTE_VARIABLE] = &TraCIServerAPI_Route::processGet;
+    myExecutors[CMD_SET_ROUTE_VARIABLE] = &TraCIServerAPI_Route::processSet;
     myExecutors[CMD_GET_POI_VARIABLE] = &TraCIServerAPI_POI::processGet;
     myExecutors[CMD_SET_POI_VARIABLE] = &TraCIServerAPI_POI::processSet;
     myExecutors[CMD_GET_POLYGON_VARIABLE] = &TraCIServerAPI_Polygon::processGet;
