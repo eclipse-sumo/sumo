@@ -35,9 +35,6 @@ class Storage:
     def readInt(self):
         return self.read("!i")[0]
 
-    def readFloat(self):
-        return self.read("!f")[0]
-
     def readDouble(self):
         return self.read("!d")[0]
 
@@ -138,11 +135,6 @@ def _sendReadOneStringCmd(cmdID, varID, objID):
 def _sendIntCmd(cmdID, varID, objID, value):
     _beginMessage(cmdID, varID, objID, 1+4)
     _message.string += struct.pack("!Bi", constants.TYPE_INTEGER, value)
-    _sendExact()
-
-def _sendFloatCmd(cmdID, varID, objID, value):
-    _beginMessage(cmdID, varID, objID, 1+4)
-    _message.string += struct.pack("!Bf", constants.TYPE_FLOAT, value)
     _sendExact()
 
 def _sendDoubleCmd(cmdID, varID, objID, value):

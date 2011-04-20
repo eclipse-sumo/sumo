@@ -14,7 +14,7 @@ import traci
 import traci.constants as tc
 
 RETURN_VALUE_FUNC = {tc.ID_LIST:      traci.Storage.readStringList,
-                     tc.VAR_POSITION: lambda(result): result.read("!ff")}
+                     tc.VAR_POSITION: lambda(result): result.read("!dd")}
 subscriptionResults = {}
 
 def _getUniversal(varID, junctionID):

@@ -14,19 +14,19 @@ import struct, traci
 import traci.constants as tc
 
 RETURN_VALUE_FUNC = {tc.ID_LIST:                   traci.Storage.readStringList,
-                     tc.VAR_EDGE_TRAVELTIME:       traci.Storage.readFloat,
-                     tc.VAR_EDGE_EFFORT:           traci.Storage.readFloat,
-                     tc.VAR_CO2EMISSION:           traci.Storage.readFloat,
-                     tc.VAR_COEMISSION:            traci.Storage.readFloat,
-                     tc.VAR_HCEMISSION:            traci.Storage.readFloat,
-                     tc.VAR_PMXEMISSION:           traci.Storage.readFloat,
-                     tc.VAR_NOXEMISSION:           traci.Storage.readFloat,
-                     tc.VAR_FUELCONSUMPTION:       traci.Storage.readFloat,
-                     tc.VAR_NOISEEMISSION:         traci.Storage.readFloat,
-                     tc.LAST_STEP_MEAN_SPEED:      traci.Storage.readFloat,
-                     tc.LAST_STEP_OCCUPANCY:       traci.Storage.readFloat,
-                     tc.LAST_STEP_LENGTH:          traci.Storage.readFloat,
-                     tc.VAR_CURRENT_TRAVELTIME:    traci.Storage.readFloat,
+                     tc.VAR_EDGE_TRAVELTIME:       traci.Storage.readDouble,
+                     tc.VAR_EDGE_EFFORT:           traci.Storage.readDouble,
+                     tc.VAR_CO2EMISSION:           traci.Storage.readDouble,
+                     tc.VAR_COEMISSION:            traci.Storage.readDouble,
+                     tc.VAR_HCEMISSION:            traci.Storage.readDouble,
+                     tc.VAR_PMXEMISSION:           traci.Storage.readDouble,
+                     tc.VAR_NOXEMISSION:           traci.Storage.readDouble,
+                     tc.VAR_FUELCONSUMPTION:       traci.Storage.readDouble,
+                     tc.VAR_NOISEEMISSION:         traci.Storage.readDouble,
+                     tc.LAST_STEP_MEAN_SPEED:      traci.Storage.readDouble,
+                     tc.LAST_STEP_OCCUPANCY:       traci.Storage.readDouble,
+                     tc.LAST_STEP_LENGTH:          traci.Storage.readDouble,
+                     tc.VAR_CURRENT_TRAVELTIME:    traci.Storage.readDouble,
                      tc.LAST_STEP_VEHICLE_NUMBER:  traci.Storage.readInt,
                      tc.LAST_STEP_VEHICLE_HALTING_NUMBER: traci.Storage.readInt,
                      tc.LAST_STEP_VEHICLE_ID_LIST: traci.Storage.readStringList}
@@ -42,12 +42,12 @@ def getIDList():
 def getAdaptedTraveltime(edgeID, time):
     traci._beginMessage(tc.CMD_GET_EDGE_VARIABLE, tc.VAR_EDGE_TRAVELTIME, edgeID, 1+4)
     traci._message.string += struct.pack("!Bi", tc.TYPE_INTEGER, time)
-    return traci._checkResult(tc.CMD_GET_EDGE_VARIABLE, tc.VAR_EDGE_TRAVELTIME, edgeID).readFloat()
+    return traci._checkResult(tc.CMD_GET_EDGE_VARIABLE, tc.VAR_EDGE_TRAVELTIME, edgeID).readDouble()
 
 def getEffort(edgeID, time):
     traci._beginMessage(tc.CMD_GET_EDGE_VARIABLE, tc.VAR_EDGE_EFFORT, edgeID, 1+4)
     traci._message.string += struct.pack("!Bi", tc.TYPE_INTEGER, time)
-    return traci._checkResult(tc.CMD_GET_EDGE_VARIABLE, tc.VAR_EDGE_EFFORT, edgeID).readFloat()
+    return traci._checkResult(tc.CMD_GET_EDGE_VARIABLE, tc.VAR_EDGE_EFFORT, edgeID).readDouble()
 
 def getCO2Emission(edgeID):
     return _getUniversal(tc.VAR_CO2EMISSION, edgeID)
@@ -111,16 +111,10 @@ def getSubscriptionResults(edgeID=None):
 
 
 def adaptTraveltime(edgeID, time):
-    traci._beginMessage(tc.CMD_SET_EDGE_VARIABLE, tc.VAR_EDGE_TRAVELTIME, edgeID, 1+4)
-    traci._message.string += struct.pack("!Bf", tc.TYPE_FLOAT, time)
-    traci._sendExact()
+    traci._sendDoubleCmd(tc.CMD_SET_EDGE_VARIABLE, tc.VAR_EDGE_TRAVELTIME, edgeID, time)
 
 def setEffort(edgeID, effort):
-    traci._beginMessage(tc.CMD_SET_EDGE_VARIABLE, tc.VAR_EDGE_EFFORT, edgeID, 1+4)
-    traci._message.string += struct.pack("!Bf", tc.TYPE_FLOAT, effort)
-    traci._sendExact()
+    traci._sendDoubleCmd(tc.CMD_SET_EDGE_VARIABLE, tc.VAR_EDGE_EFFORT, edgeID, effort)
 
 def setMaxSpeed(edgeID, speed):
-    traci._beginMessage(tc.CMD_SET_EDGE_VARIABLE, tc.VAR_MAXSPEED, edgeID, 1+4)
-    traci._message.string += struct.pack("!Bf", tc.TYPE_FLOAT, speed)
-    traci._sendExact()
+    traci._sendDoubleCmd(tc.CMD_SET_EDGE_VARIABLE, tc.VAR_MAXSPEED, edgeID, speed)

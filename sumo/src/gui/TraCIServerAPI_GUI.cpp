@@ -47,9 +47,7 @@
 // ===========================================================================
 // used namespaces
 // ===========================================================================
-using namespace std;
 using namespace traci;
-using namespace tcpip;
 
 
 // ===========================================================================
@@ -70,7 +68,7 @@ TraCIServerAPI_GUI::processGet(TraCIServer &server, tcpip::Storage &inputStorage
         return false;
     }
     // begin response building
-    Storage tempMsg;
+    tcpip::Storage tempMsg;
     //  response-code, variableID, objectID
     tempMsg.writeUnsignedByte(RESPONSE_GET_GUI_VARIABLE);
     tempMsg.writeUnsignedByte(variable);
@@ -88,27 +86,27 @@ TraCIServerAPI_GUI::processGet(TraCIServer &server, tcpip::Storage &inputStorage
         }
         switch (variable) {
         case VAR_VIEW_ZOOM:
-            tempMsg.writeUnsignedByte(TYPE_FLOAT);
-            tempMsg.writeFloat(v->getChanger().getZoom());
+            tempMsg.writeUnsignedByte(TYPE_DOUBLE);
+            tempMsg.writeDouble(v->getChanger().getZoom());
             break;
         case VAR_VIEW_OFFSET:
             tempMsg.writeUnsignedByte(POSITION_2D);
-            tempMsg.writeFloat(v->getChanger().getXPos());
-            tempMsg.writeFloat(v->getChanger().getYPos());
+            tempMsg.writeDouble(v->getChanger().getXPos());
+            tempMsg.writeDouble(v->getChanger().getYPos());
             break;
         case VAR_VIEW_SCHEMA: {
             FXComboBox &c = v->getColoringSchemesCombo();
             tempMsg.writeUnsignedByte(TYPE_STRING);
-            tempMsg.writeString((string)c.getItem(c.getCurrentItem()).text());
+            tempMsg.writeString((std::string)c.getItem(c.getCurrentItem()).text());
             break;
         }
         case VAR_VIEW_BOUNDARY: {
             tempMsg.writeUnsignedByte(TYPE_BOUNDINGBOX);
             Boundary b = v->getVisibleBoundary();
-            tempMsg.writeFloat(b.xmin());
-            tempMsg.writeFloat(b.ymin());
-            tempMsg.writeFloat(b.xmax());
-            tempMsg.writeFloat(b.ymax());
+            tempMsg.writeDouble(b.xmin());
+            tempMsg.writeDouble(b.ymin());
+            tempMsg.writeDouble(b.xmax());
+            tempMsg.writeDouble(b.ymax());
             break;
         }
         default:
@@ -147,19 +145,19 @@ TraCIServerAPI_GUI::processSet(TraCIServer &server, tcpip::Storage &inputStorage
     int valueDataType = inputStorage.readUnsignedByte();
     switch (variable) {
     case VAR_VIEW_ZOOM:
-        if (valueDataType!=TYPE_FLOAT) {
-            server.writeStatusCmd(CMD_SET_GUI_VARIABLE, RTYPE_ERR, "The zoom must be given as a float.", outputStorage);
+        if (valueDataType!=TYPE_DOUBLE) {
+            server.writeStatusCmd(CMD_SET_GUI_VARIABLE, RTYPE_ERR, "The zoom must be given as a double.", outputStorage);
             return false;
         }
-        v->setViewport(inputStorage.readFloat(), v->getChanger().getXPos(), v->getChanger().getYPos());
+        v->setViewport(inputStorage.readDouble(), v->getChanger().getXPos(), v->getChanger().getYPos());
         break;
     case VAR_VIEW_OFFSET: {
         if (valueDataType!=POSITION_2D) {
             server.writeStatusCmd(CMD_SET_GUI_VARIABLE, RTYPE_ERR, "The view port must be given as a position.", outputStorage);
             return false;
         }
-        v->setViewport(v->getChanger().getZoom(), inputStorage.readFloat(), v->getChanger().getYPos());
-        v->setViewport(v->getChanger().getZoom(), v->getChanger().getXPos(), inputStorage.readFloat());
+        v->setViewport(v->getChanger().getZoom(), inputStorage.readDouble(), v->getChanger().getYPos());
+        v->setViewport(v->getChanger().getZoom(), v->getChanger().getXPos(), inputStorage.readDouble());
     }
     break;
     case VAR_VIEW_SCHEMA:
@@ -177,10 +175,10 @@ TraCIServerAPI_GUI::processSet(TraCIServer &server, tcpip::Storage &inputStorage
             server.writeStatusCmd(CMD_SET_GUI_VARIABLE, RTYPE_ERR, "The boundary must be specified by a bounding box.", outputStorage);
             return false;
         }
-        const SUMOReal xmin = inputStorage.readFloat();
-        const SUMOReal ymin = inputStorage.readFloat();
-        const SUMOReal xmax = inputStorage.readFloat();
-        const SUMOReal ymax = inputStorage.readFloat();
+        const SUMOReal xmin = inputStorage.readDouble();
+        const SUMOReal ymin = inputStorage.readDouble();
+        const SUMOReal xmax = inputStorage.readDouble();
+        const SUMOReal ymax = inputStorage.readDouble();
         Boundary b(xmin, ymin, xmax, ymax);
         v->centerTo(b);
         break;

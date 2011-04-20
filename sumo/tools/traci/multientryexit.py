@@ -15,7 +15,7 @@ import traci.constants as tc
 
 RETURN_VALUE_FUNC = {tc.ID_LIST:                          traci.Storage.readStringList,
                      tc.LAST_STEP_VEHICLE_NUMBER:         traci.Storage.readInt,
-                     tc.LAST_STEP_MEAN_SPEED:             traci.Storage.readFloat,
+                     tc.LAST_STEP_MEAN_SPEED:             traci.Storage.readDouble,
                      tc.LAST_STEP_VEHICLE_ID_LIST:        traci.Storage.readStringList,
                      tc.LAST_STEP_VEHICLE_HALTING_NUMBER: traci.Storage.readInt}
 subscriptionResults = {}

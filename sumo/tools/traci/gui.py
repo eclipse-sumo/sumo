@@ -15,10 +15,10 @@ import traci.constants as tc
 
 DEFAULT_VIEW = 'View #0'
 RETURN_VALUE_FUNC = {tc.ID_LIST:           traci.Storage.readStringList,
-                     tc.VAR_VIEW_ZOOM:     traci.Storage.readFloat,
-                     tc.VAR_VIEW_OFFSET:   lambda(result): result.read("!ff"),
+                     tc.VAR_VIEW_ZOOM:     traci.Storage.readDouble,
+                     tc.VAR_VIEW_OFFSET:   lambda(result): result.read("!dd"),
                      tc.VAR_VIEW_SCHEMA:   traci.Storage.readString,
-                     tc.VAR_VIEW_BOUNDARY: lambda(result): (result.read("!ff"), result.read("!ff"))}
+                     tc.VAR_VIEW_BOUNDARY: lambda(result): (result.read("!dd"), result.read("!dd"))}
 subscriptionResults = {}
 
 def _getUniversal(varID, viewID):
@@ -60,11 +60,11 @@ def getSubscriptionResults(viewID=None):
 
 
 def setZoom(viewID, zoom):
-    traci._sendFloatCmd(tc.CMD_SET_GUI_VARIABLE, tc.VAR_VIEW_ZOOM, viewID, zoom)
+    traci._sendDoubleCmd(tc.CMD_SET_GUI_VARIABLE, tc.VAR_VIEW_ZOOM, viewID, zoom)
 
 def setOffset(viewID, x, y):
     traci._beginMessage(tc.CMD_SET_GUI_VARIABLE, tc.VAR_VIEW_OFFSET, viewID, 1+4+4)
-    traci._message.string += struct.pack("!Bff", tc.TYPE_FLOAT, x, y)
+    traci._message.string += struct.pack("!Bff", tc.POSITION_2D, x, y)
     traci._sendExact()
 
 def setSchema(viewID, schemeName):

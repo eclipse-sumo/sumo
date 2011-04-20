@@ -15,7 +15,7 @@ import traci.constants as tc
 
 RETURN_VALUE_FUNC = {tc.ID_LIST:      traci.Storage.readStringList,
                      tc.VAR_TYPE:     traci.Storage.readString,
-                     tc.VAR_POSITION: lambda(result): result.read("!ff"),
+                     tc.VAR_POSITION: lambda(result): result.read("!dd"),
                      tc.VAR_COLOR:    lambda(result): result.read("!BBBB")}
 subscriptionResults = {}
 

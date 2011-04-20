@@ -33,31 +33,31 @@ def _readLinks(result):
         result.read("!B")                           # Type String
         direction = result.readString() #not implemented
         result.read("!B")                           # Type Float
-        length = result.readFloat()
+        length = result.readDouble()
         links.append((approachedLane, hasPrio, isOpen, hasFoe))
     return links
 
 
 RETURN_VALUE_FUNC = {tc.ID_LIST:                   traci.Storage.readStringList,
-                     tc.VAR_LENGTH:                traci.Storage.readFloat,
-                     tc.VAR_MAXSPEED:              traci.Storage.readFloat,
+                     tc.VAR_LENGTH:                traci.Storage.readDouble,
+                     tc.VAR_MAXSPEED:              traci.Storage.readDouble,
                      tc.LANE_ALLOWED:              traci.Storage.readStringList,
                      tc.LANE_DISALLOWED:           traci.Storage.readStringList,
                      tc.LANE_LINK_NUMBER:          lambda(result): result.read("!B")[0],
                      tc.LANE_LINKS:                _readLinks,
                      tc.VAR_SHAPE:                 traci.polygon.readShape,
                      tc.LANE_EDGE_ID:              traci.Storage.readString,
-                     tc.VAR_CO2EMISSION:           traci.Storage.readFloat,
-                     tc.VAR_COEMISSION:            traci.Storage.readFloat,
-                     tc.VAR_HCEMISSION:            traci.Storage.readFloat,
-                     tc.VAR_PMXEMISSION:           traci.Storage.readFloat,
-                     tc.VAR_NOXEMISSION:           traci.Storage.readFloat,
-                     tc.VAR_FUELCONSUMPTION:       traci.Storage.readFloat,
-                     tc.VAR_NOISEEMISSION:         traci.Storage.readFloat,
-                     tc.LAST_STEP_MEAN_SPEED:      traci.Storage.readFloat,
-                     tc.LAST_STEP_OCCUPANCY:       traci.Storage.readFloat,
-                     tc.LAST_STEP_LENGTH:          traci.Storage.readFloat,
-                     tc.VAR_CURRENT_TRAVELTIME:    traci.Storage.readFloat,
+                     tc.VAR_CO2EMISSION:           traci.Storage.readDouble,
+                     tc.VAR_COEMISSION:            traci.Storage.readDouble,
+                     tc.VAR_HCEMISSION:            traci.Storage.readDouble,
+                     tc.VAR_PMXEMISSION:           traci.Storage.readDouble,
+                     tc.VAR_NOXEMISSION:           traci.Storage.readDouble,
+                     tc.VAR_FUELCONSUMPTION:       traci.Storage.readDouble,
+                     tc.VAR_NOISEEMISSION:         traci.Storage.readDouble,
+                     tc.LAST_STEP_MEAN_SPEED:      traci.Storage.readDouble,
+                     tc.LAST_STEP_OCCUPANCY:       traci.Storage.readDouble,
+                     tc.LAST_STEP_LENGTH:          traci.Storage.readDouble,
+                     tc.VAR_CURRENT_TRAVELTIME:    traci.Storage.readDouble,
                      tc.LAST_STEP_VEHICLE_NUMBER:  traci.Storage.readInt,
                      tc.LAST_STEP_VEHICLE_HALTING_NUMBER: traci.Storage.readInt,
                      tc.LAST_STEP_VEHICLE_ID_LIST: traci.Storage.readStringList}
@@ -170,11 +170,7 @@ def setDisallowed(laneID, disallowedClasses):
     traci._sendExact()
 
 def setMaxSpeed(laneID, speed):
-    traci._beginMessage(tc.CMD_SET_LANE_VARIABLE, tc.VAR_MAXSPEED, laneID, 1+4)
-    traci._message.string += struct.pack("!Bf", tc.TYPE_FLOAT, speed)
-    traci._sendExact()
+    traci._sendDoubleCmd(tc.CMD_SET_LANE_VARIABLE, tc.VAR_MAXSPEED, laneID, speed)
 
 def setLength(laneID, length):
-    traci._beginMessage(tc.CMD_SET_LANE_VARIABLE, tc.VAR_LENGTH, laneID, 1+4)
-    traci._message.string += struct.pack("!Bf", tc.TYPE_FLOAT, length)
-    traci._sendExact()
+    traci._sendDoubleCmd(tc.CMD_SET_LANE_VARIABLE, tc.VAR_LENGTH, laneID, length)

@@ -25,7 +25,7 @@ RETURN_VALUE_FUNC = {tc.VAR_TIME_STEP:                         traci.Storage.rea
                      tc.VAR_TELEPORT_ENDING_VEHICLES_NUMBER:   traci.Storage.readInt,
                      tc.VAR_TELEPORT_ENDING_VEHICLES_IDS:      traci.Storage.readStringList,
                      tc.VAR_DELTA_T:                           traci.Storage.readInt,
-                     tc.VAR_NET_BOUNDING_BOX:                  lambda(result): (result.read("!ff"), result.read("!ff"))}
+                     tc.VAR_NET_BOUNDING_BOX:                  lambda(result): (result.read("!dd"), result.read("!dd"))}
 subscriptionResults = {}
 
 def _getUniversal(varID):
