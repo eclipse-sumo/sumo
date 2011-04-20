@@ -424,7 +424,7 @@ TraCIServerAPI_Simulation::commandDistanceRequest(traci::TraCIServer &server, tc
     }
     // write response command
     if (commandId == CMD_DISTANCEREQUEST) {
-        outputStorage.writeUnsignedByte(1 + 1 + 1 + 4);	// length
+        outputStorage.writeUnsignedByte(1 + 1 + 1 + 8);	// length
         outputStorage.writeUnsignedByte(commandId);
         outputStorage.writeUnsignedByte(distType);
     } else {

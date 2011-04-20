@@ -34,19 +34,19 @@ namespace testclient {
 // Definitions
 // ===========================================================================
 struct Position2D {
-    float x;
-    float y;
+    SUMOReal x;
+    SUMOReal y;
 };
 
 struct Position3D {
-    float x;
-    float y;
-    float z;
+    SUMOReal x;
+    SUMOReal y;
+    SUMOReal z;
 };
 
 struct PositionRoadMap {
     std::string roadId;
-    float pos;
+    SUMOReal pos;
     int laneId;
 };
 
