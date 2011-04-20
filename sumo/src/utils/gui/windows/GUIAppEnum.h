@@ -337,6 +337,10 @@ enum {
     /// misc messages
     /** save network*/
     MID_GNE_SAVE_NETWORK,
+    /** attribute edited */
+    MID_GNE_SET_ATTRIBUTE,
+    /** open edit dialog */
+    MID_GNE_OPEN_ATTRIBUTE_EDITOR,
     //@}
 
     MID_LAST

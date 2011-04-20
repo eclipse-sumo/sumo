@@ -141,7 +141,7 @@ public:
      *
      * @return The id of the object
      */
-    const std::string &getMicrosimID() const {
+    virtual const std::string &getMicrosimID() const {
         return myMicrosimID;
     };
 

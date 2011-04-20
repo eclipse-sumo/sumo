@@ -197,7 +197,7 @@ GUIGlObject::setPrefix(const std::string& prefix) {
 
 std::string 
 GUIGlObject::createFullName() const {
-    return myPrefix + ":" + myMicrosimID;
+    return myPrefix + ":" + getMicrosimID();
 }
 
 

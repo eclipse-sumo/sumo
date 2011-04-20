@@ -145,6 +145,8 @@ public:
      */
     void reinit(const Position2D &position, SumoXMLNodeType type) throw();
 
+    /// @brief resets the id without any checks
+    void setID(const std::string& id);
 
     /// @name Atomar getter methods
     /// @{

@@ -48,19 +48,8 @@ IDSupplier::IDSupplier(const std::string &prefix, long begin)
 IDSupplier::IDSupplier(const std::string &prefix, const std::vector<std::string> &knownIDs)
         : myCurrent(-1), myPrefix(prefix) 
 {
-    // find all strings using the scheme <prefix><number> and avoid them
-    size_t prefix_size = myPrefix.size();
     for (std::vector<std::string>::const_iterator id_it = knownIDs.begin(); id_it != knownIDs.end(); ++id_it) {
-        // does it start with prefix?
-        if (id_it->find(prefix) == 0) {
-            long id;
-            std::istringstream buf(id_it->substr(prefix_size, std::string::npos));
-            buf >> id;
-            // does it continue with a number?
-            if (!buf.fail()) {
-                myCurrent = MAX2(myCurrent, id);
-            }
-        }
+        avoid(*id_it);
     }
     myCurrent++;
 }
@@ -76,6 +65,20 @@ IDSupplier::getNext() {
     return strm.str();
 }
 
+
+void
+IDSupplier::avoid(const std::string& id) {
+    // does it start with prefix?
+    if (id.find(myPrefix) == 0) {
+        long number;
+        std::istringstream buf(id.substr(myPrefix.size(), std::string::npos));
+        buf >> number;
+        // does it continue with a number?
+        if (!buf.fail()) {
+            myCurrent = MAX2(myCurrent, number);
+        }
+    }
+}
 
 
 /****************************************************************************/

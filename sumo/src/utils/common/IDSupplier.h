@@ -59,6 +59,9 @@ public:
     /// Returns the next id
     std::string getNext();
 
+    /// make sure that the given id is never supplied
+    void avoid(const std::string& id);
+
 private:
     /// The current index
     long myCurrent;

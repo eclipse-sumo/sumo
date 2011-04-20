@@ -2023,6 +2023,11 @@ NBNode::isDistrict() const {
 }
 
 
+void 
+NBNode::setID(const std::string& id) {
+    myID = id;
+}
+
 
 /****************************************************************************/
 
