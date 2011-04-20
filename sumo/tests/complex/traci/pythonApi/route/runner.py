@@ -22,4 +22,7 @@ for step in range(3,6):
     print "step", step
     traci.simulationStep(step)
     print traci.route.getSubscriptionResults(routeID)
+traci.route.add("h2", ["1o"])
+print "routes", traci.route.getIDList()
+print "edges", traci.route.getEdges("h2")
 traci.close()

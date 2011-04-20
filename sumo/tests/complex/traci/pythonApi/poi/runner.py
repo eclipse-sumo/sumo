@@ -5,6 +5,13 @@ sys.path.append(os.path.join(os.path.dirname(sys.argv[0]), "..", "..", "..", "..
 sys.path.append(os.path.join(os.path.dirname(sys.argv[0]), "..", "..", "..", "..", "..", "tools", "lib"))
 import traci, testUtil
 
+def check(poiID):
+    print "pois", traci.poi.getIDList()
+    print "examining", poiID
+    print "pos", traci.poi.getPosition(poiID)
+    print "type", traci.poi.getType(poiID)
+    print "color", traci.poi.getColor(poiID)
+
 sumoBinary = testUtil.checkBinary('sumo-gui')
 
 sumoProcess = subprocess.Popen("%s -Q -c sumo.sumo.cfg" % (sumoBinary), shell=True, stdout=sys.stdout)
@@ -15,17 +22,20 @@ for step in range(3):
 poiID = "0"
 print "adding", poiID
 traci.poi.add(poiID, 1, 1, (1,2,3,4), "test")
-
-print "pois", traci.poi.getIDList()
-print "examining", poiID
-print "pos", traci.poi.getPosition(poiID)
-print "type", traci.poi.getType(poiID)
-print "color", traci.poi.getColor(poiID)
-
+check(poiID)
 traci.poi.subscribe(poiID)
 print traci.poi.getSubscriptionResults(poiID)
 for step in range(3,6):
     print "step", step
     traci.simulationStep(step)
     print traci.poi.getSubscriptionResults(poiID)
+
+traci.poi.setPosition(poiID, 5, 5)
+traci.poi.setType(poiID, "blub")
+traci.poi.setColor(poiID, (222, 111, 221, 0))
+check(poiID)
+traci.poi.add("p2", 2, 2, (11,21,31,41), "ptest")
+check("p2")
+traci.poi.remove(poiID)
+check("p2")
 traci.close()
