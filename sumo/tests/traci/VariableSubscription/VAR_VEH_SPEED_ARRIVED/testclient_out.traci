@@ -1,4 +1,4 @@
-TraCITestClient output file. Date: Tue Aug 03 11:16:52 2010
+TraCITestClient output file. Date: Wed Apr 20 20:12:33 2011
 
 
 -> Command sent: <SimulationStep2>:
@@ -8,47 +8,47 @@ TraCITestClient output file. Date: Tue Aug 03 11:16:52 2010
   domID=212 objID=0 with 1 variables
 .. Command acknowledged (212), [description: ]
   CommandID=228  ObjectID=0  #variables=1
-      VariableID=64      ok=1 valueDataType=10 float value: 10.00
+      VariableID=64      ok=1 valueDataType=11 Double value: 10.00
 
 -> Command sent: <SimulationStep2>:
 .. Command acknowledged (2), [description: ]
   CommandID=228  ObjectID=0  #variables=1
-      VariableID=64      ok=1 valueDataType=10 float value: 10.00
+      VariableID=64      ok=1 valueDataType=11 Double value: 10.00
 
 -> Command sent: <SimulationStep2>:
 .. Command acknowledged (2), [description: ]
   CommandID=228  ObjectID=0  #variables=1
-      VariableID=64      ok=1 valueDataType=10 float value: 10.00
+      VariableID=64      ok=1 valueDataType=11 Double value: 10.00
 
 -> Command sent: <SimulationStep2>:
 .. Command acknowledged (2), [description: ]
   CommandID=228  ObjectID=0  #variables=1
-      VariableID=64      ok=1 valueDataType=10 float value: 10.00
+      VariableID=64      ok=1 valueDataType=11 Double value: 10.00
 
 -> Command sent: <SimulationStep2>:
 .. Command acknowledged (2), [description: ]
   CommandID=228  ObjectID=0  #variables=1
-      VariableID=64      ok=1 valueDataType=10 float value: 10.00
+      VariableID=64      ok=1 valueDataType=11 Double value: 10.00
 
 -> Command sent: <SimulationStep2>:
 .. Command acknowledged (2), [description: ]
   CommandID=228  ObjectID=0  #variables=1
-      VariableID=64      ok=1 valueDataType=10 float value: 10.00
+      VariableID=64      ok=1 valueDataType=11 Double value: 10.00
 
 -> Command sent: <SimulationStep2>:
 .. Command acknowledged (2), [description: ]
   CommandID=228  ObjectID=0  #variables=1
-      VariableID=64      ok=1 valueDataType=10 float value: 10.00
+      VariableID=64      ok=1 valueDataType=11 Double value: 10.00
 
 -> Command sent: <SimulationStep2>:
 .. Command acknowledged (2), [description: ]
   CommandID=228  ObjectID=0  #variables=1
-      VariableID=64      ok=1 valueDataType=10 float value: 10.00
+      VariableID=64      ok=1 valueDataType=11 Double value: 10.00
 
 -> Command sent: <SimulationStep2>:
 .. Command acknowledged (2), [description: ]
   CommandID=228  ObjectID=0  #variables=1
-      VariableID=64      ok=1 valueDataType=10 float value: 10.00
+      VariableID=64      ok=1 valueDataType=11 Double value: 10.00
 
 -> Command sent: <SimulationStep2>:
 .. Command acknowledged (2), [description: ]

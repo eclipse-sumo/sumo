@@ -1,9 +1,9 @@
 simstep2 1
-setvalue 0xc4 0x11 veh0 <float> 7.5
+setvalue 0xc4 0x11 veh0 <double> 7.5
 repeat 24 simstep2 0
-setvalue 0xc4 0x11 veh0 <float> -1
+setvalue 0xc4 0x11 veh0 <double> -1
 repeat 25 simstep2 0
-setvalue 0xc4 0x11 veh0 <float> 15
+setvalue 0xc4 0x11 veh0 <double> 15
 repeat 25 simstep2 0
-setvalue 0xc4 0x11 veh0 <float> -1
+setvalue 0xc4 0x11 veh0 <double> -1
 repeat 25 simstep2 0
