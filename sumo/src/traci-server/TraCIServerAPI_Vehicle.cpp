@@ -133,12 +133,15 @@ TraCIServerAPI_Vehicle::processGet(TraCIServer &server, tcpip::Storage &inputSto
             tempMsg.writeUnsignedByte(TYPE_STRING);
             tempMsg.writeString(onRoad ? v->getLane()->getID() : "");
             break;
-        case VAR_LANE_INDEX: {
-            const std::vector<MSLane*> &lanes = v->getLane()->getEdge().getLanes();
+        case VAR_LANE_INDEX:
             tempMsg.writeUnsignedByte(TYPE_INTEGER);
-            tempMsg.writeInt(onRoad ? (int)(std::distance(lanes.begin(), std::find(lanes.begin(), lanes.end(), v->getLane()))) : INVALID_INT_VALUE);
-        }
-        break;
+            if (onRoad) {
+                const std::vector<MSLane*> &lanes = v->getLane()->getEdge().getLanes();
+                tempMsg.writeInt((int)std::distance(lanes.begin(), std::find(lanes.begin(), lanes.end(), v->getLane())));
+            } else {
+                tempMsg.writeInt(INVALID_INT_VALUE);
+            }
+            break;
         case VAR_TYPE:
             tempMsg.writeUnsignedByte(TYPE_STRING);
             tempMsg.writeString(v->getVehicleType().getID());
@@ -280,11 +283,11 @@ TraCIServerAPI_Vehicle::processGet(TraCIServer &server, tcpip::Storage &inputSto
             tempMsg.writeInt(v->getSignals());
             break;
         case VAR_BEST_LANES: {
-            const std::vector<MSVehicle::LaneQ> &bestLanes = v->getBestLanes();
             tempMsg.writeUnsignedByte(TYPE_COMPOUND);
             tcpip::Storage tempContent;
             unsigned int cnt = 0;
             tempContent.writeUnsignedByte(TYPE_INTEGER);
+            const std::vector<MSVehicle::LaneQ> &bestLanes = onRoad ? v->getBestLanes() : std::vector<MSVehicle::LaneQ>();
             tempContent.writeInt((int) bestLanes.size());
             ++cnt;
             for (std::vector<MSVehicle::LaneQ>::const_iterator i=bestLanes.begin(); i!=bestLanes.end(); ++i) {
