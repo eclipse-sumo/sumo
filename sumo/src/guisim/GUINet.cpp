@@ -96,7 +96,6 @@ GUINet::GUINet(MSVehicleControl *vc, MSEventControl *beginOfTimestepEvents,
 
 
 GUINet::~GUINet() throw() {
-    GUIGlObjectStorage::gIDStorage.clear();
     // delete allocated wrappers
     //  of junctions
     for (std::vector<GUIJunctionWrapper*>::iterator i1=myJunctionWrapper.begin(); i1!=myJunctionWrapper.end(); i1++) {

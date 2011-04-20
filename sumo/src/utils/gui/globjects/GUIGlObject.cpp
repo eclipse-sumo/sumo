@@ -94,6 +94,8 @@ GUIGlObject::~GUIGlObject() throw() {
     for (std::set<GUIParameterTableWindow*>::iterator i=myParamWindows.begin(); i!=myParamWindows.end(); ++i) {
         (*i)->removeObject(this);
     }
+    // !!! inconsistency: using parameter in constructor but global here
+    GUIGlObjectStorage::gIDStorage.remove(getGlID());
 }
 
 

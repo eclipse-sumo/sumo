@@ -269,6 +269,7 @@ GUIRunThread::deleteSim() {
     }
     while (mySimulationInProgress);
     delete myNet;
+    GUIGlObjectStorage::gIDStorage.clear();
     myNet = 0;
     OutputDevice::closeAll();
     mySimulationLock.unlock();
