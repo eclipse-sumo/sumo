@@ -61,7 +61,7 @@ Options:
   -r, --profile         writing profiling info
   -+ DIJKSTRA, --dijkstra=DIJKSTRA
                         use penalty, plain(original) or boost in dijkstra
-                        implementation [default: boost]
+                        implementation [default: plain]
   -x, --odestimation    generate trips for OD estimation
   -f DEMANDSCALE, --scale-factor=DEMANDSCALE
                         scale demand by
