@@ -10,7 +10,7 @@ Python implementation of the TraCI interface.
 Copyright (C) 2008-2011 DLR (http://www.dlr.de/) and contributors
 All rights reserved
 """
-import traci
+import traci, struct
 import traci.constants as tc
 
 RETURN_VALUE_FUNC = {tc.VAR_TIME_STEP:                         traci.Storage.readInt,
@@ -29,7 +29,7 @@ RETURN_VALUE_FUNC = {tc.VAR_TIME_STEP:                         traci.Storage.rea
 subscriptionResults = {}
 
 def _getUniversal(varID):
-    result = traci._sendReadOneStringCmd(tc.CMD_GET_SIM_VARIABLE, varID, "x")
+    result = traci._sendReadOneStringCmd(tc.CMD_GET_SIM_VARIABLE, varID, "")
     return RETURN_VALUE_FUNC[varID](result)
 
 def getCurrentTime():
@@ -70,6 +70,27 @@ def getDeltaT():
 
 def getNetBoundary():
     return _getUniversal(tc.VAR_NET_BOUNDING_BOX)
+
+def convert2D(edgeID, pos, laneIndex=0, isGeo=False):
+    posType = tc.POSITION_2D
+    if isGeo:
+        posType = tc.POSITION_LAT_LON
+    traci._beginMessage(tc.CMD_GET_SIM_VARIABLE, tc.POSITION_CONVERSION, "", 1+4 + 1+4+len(edgeID)+8+1 + 1+8+8)
+    traci._message.string += struct.pack("!Bi", tc.TYPE_COMPOUND, 2)
+    traci._message.string += struct.pack("!Bi", tc.POSITION_ROADMAP, len(edgeID)) + edgeID
+    traci._message.string += struct.pack("!dBBdd", pos, laneIndex, posType, 0., 0.)
+    return traci._checkResult(tc.CMD_GET_SIM_VARIABLE, tc.POSITION_CONVERSION, "").read("!dd")
+
+def convertRoad(x, y, isGeo=False):
+    posType = tc.POSITION_2D
+    if isGeo:
+        posType = tc.POSITION_LAT_LON
+    traci._beginMessage(tc.CMD_GET_SIM_VARIABLE, tc.POSITION_CONVERSION, "", 1+4 + 1+8+8 + 1+4+8+1)
+    traci._message.string += struct.pack("!Bi", tc.TYPE_COMPOUND, 2)
+    traci._message.string += struct.pack("!Bdd", posType, x, y)
+    traci._message.string += struct.pack("!BidB", tc.POSITION_ROADMAP, 0, 0., 0)
+    result = traci._checkResult(tc.CMD_GET_SIM_VARIABLE, tc.POSITION_CONVERSION, "")
+    return result.readString(), result.readDouble(), result.read("!B")[0]
 
 
 def subscribe(varIDs=(tc.VAR_DEPARTED_VEHICLES_IDS,), begin=0, end=2**31-1):
