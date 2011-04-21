@@ -76,18 +76,24 @@ NBEdgeCont::applyOptions(OptionsCont &oc) {
     // set edges dismiss/accept options
     myEdgesMinSpeed = oc.isSet("edges-min-speed") ? oc.getFloat("edges-min-speed") : -1;
     myRemoveEdgesAfterJoining = OptionsCont::getOptions().getBool("keep-edges.postload");
-    myEdges2Keep = oc.isSet("keep-edges") ? oc.getStringVector("keep-edges") : std::vector<std::string>();
-    myEdges2Remove = oc.isSet("remove-edges") ? oc.getStringVector("remove-edges") : std::vector<std::string>();
-    if (oc.isSet("remove-edges.by-vclass")) {
-        std::vector<std::string> classes = oc.getStringVector("remove-edges.by-vclass");
-        for (std::vector<std::string>::iterator i=classes.begin(); i!=classes.end(); ++i) {
-            myVehicleClasses2Remove.insert(getVehicleClassID(*i));
-        }
+    if (oc.isSet("keep-edges")) {
+        const std::vector<std::string> edges = oc.getStringVector("keep-edges");
+		myEdges2Keep.insert(edges.begin(), edges.end());
+    }
+    if (oc.isSet("remove-edges")) {
+        const std::vector<std::string> edges = oc.getStringVector("remove-edges");
+		myEdges2Remove.insert(edges.begin(), edges.end());
     }
     if (oc.isSet("keep-edges.by-vclass")) {
-        std::vector<std::string> classes = oc.getStringVector("keep-edges.by-vclass");
-        for (std::vector<std::string>::iterator i=classes.begin(); i!=classes.end(); ++i) {
+        const std::vector<std::string> classes = oc.getStringVector("keep-edges.by-vclass");
+        for (std::vector<std::string>::const_iterator i=classes.begin(); i!=classes.end(); ++i) {
             myVehicleClasses2Keep.insert(getVehicleClassID(*i));
+        }
+    }
+    if (oc.isSet("remove-edges.by-vclass")) {
+        const std::vector<std::string> classes = oc.getStringVector("remove-edges.by-vclass");
+        for (std::vector<std::string>::const_iterator i=classes.begin(); i!=classes.end(); ++i) {
+            myVehicleClasses2Remove.insert(getVehicleClassID(*i));
         }
     }
     if (oc.isSet("keep-edges.in-boundary")) {
@@ -416,6 +422,16 @@ NBEdgeCont::splitAt(NBDistrictCont &dc,
             }
         }
     }
+	if (myRemoveEdgesAfterJoining) {
+		if (find(myEdges2Keep.begin(), myEdges2Keep.end(), edge->getID())!=myEdges2Keep.end()) {
+			myEdges2Keep.insert(one->getID());
+			myEdges2Keep.insert(two->getID());
+		}
+		if (find(myEdges2Remove.begin(), myEdges2Remove.end(), edge->getID())!=myEdges2Remove.end()) {
+			myEdges2Remove.insert(one->getID());
+			myEdges2Remove.insert(two->getID());
+		}
+	}
     // erase the splitted edge
     erase(dc, edge);
     insert(one, true);
@@ -592,7 +608,7 @@ NBEdgeCont::removeUnwishedEdges(NBDistrictCont &dc) throw() {
     std::vector<NBEdge*> toRemove;
     for (EdgeCont::iterator i=myEdges.begin(); i!=myEdges.end();) {
         NBEdge *edge = (*i).second;
-        if (!OptionsCont::getOptions().isInStringVector("keep-edges", edge->getID())) {
+		if (!myEdges2Keep.count(edge->getID())) {
             edge->getFromNode()->removeOutgoing(edge);
             edge->getToNode()->removeIncoming(edge);
             toRemove.push_back(edge);

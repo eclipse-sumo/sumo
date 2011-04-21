@@ -476,16 +476,16 @@ private:
     /// @brief Whether edges shall be joined first, then removed
     bool myRemoveEdgesAfterJoining;
 
-    /// @brief Vector of ids of edges which shall explicitely be kept
-    std::vector<std::string> myEdges2Keep;
+    /// @brief Set of ids of edges which shall explicitely be kept
+    std::set<std::string> myEdges2Keep;
 
-    /// @brief Vector of ids of edges which shall explicitely be removed
-    std::vector<std::string> myEdges2Remove;
+    /// @brief Set of ids of edges which shall explicitely be removed
+    std::set<std::string> myEdges2Remove;
 
-    /// @brief Vector of vehicle types which must be allowed on edges in order to keep them
+    /// @brief Set of vehicle types which must be allowed on edges in order to keep them
     std::set<SUMOVehicleClass> myVehicleClasses2Keep;
 
-    /// @brief Vector of vehicle types which must not be disallowed on edges in order to keep them
+    /// @brief Set of vehicle types which must not be disallowed on edges in order to keep them
     std::set<SUMOVehicleClass> myVehicleClasses2Remove;
 
     /// @brief Boundary within which an edge must be located in order to be kept
