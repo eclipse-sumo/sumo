@@ -22,6 +22,9 @@ invalid_bool
 # Tests configuration with boolean values
 bool_value
 
+# Tests deprecated options
+deprecated_option
+
 # Tests command line option list
 option_list
 
