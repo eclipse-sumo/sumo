@@ -705,12 +705,28 @@ public:
 
     void markAsInLane2LaneState();
 
-    void allowVehicleClass(int lane, SUMOVehicleClass vclass);
-    void disallowVehicleClass(int lane, SUMOVehicleClass vclass);
-    void preferVehicleClass(int lane, SUMOVehicleClass vclass);
-    SUMOVehicleClasses getAllowedVehicleClasses() const;
-    SUMOVehicleClasses getDisallowedVehicleClasses() const;
+    /// @brief set allowed/disallowed classes for the given lane or for all lanes if -1 is given 
     void setVehicleClasses(const SUMOVehicleClasses &allowed, const SUMOVehicleClasses &disallowed, int lane=-1);
+
+    /// @brief set allowed class for the given lane or for all lanes if -1 is given 
+    void allowVehicleClass(int lane, SUMOVehicleClass vclass);
+
+    /// @brief set disallowed class for the given lane or for all lanes if -1 is given 
+    void disallowVehicleClass(int lane, SUMOVehicleClass vclass);
+
+    void preferVehicleClass(int lane, SUMOVehicleClass vclass);
+
+    /// @brief get the union of allowed classes over all lanes
+    SUMOVehicleClasses getAllowedVehicleClasses() const;
+
+    /// @brief get the union of disallowed classes over all lanes
+    SUMOVehicleClasses getDisallowedVehicleClasses() const;
+
+    /// @brief get allowed classed for the given lane
+    SUMOVehicleClasses getAllowedVehicleClasses(unsigned int lane) const;
+
+    /// @brief get disallowed classed for the given lane
+    SUMOVehicleClasses getDisallowedVehicleClasses(unsigned int lane) const;
 
     void disableConnection4TLS(int fromLane, NBEdge *toEdge, int toLane);
 

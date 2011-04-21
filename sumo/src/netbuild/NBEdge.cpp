@@ -1906,7 +1906,18 @@ NBEdge::getDisallowedVehicleClasses() const {
 }
 
 
+SUMOVehicleClasses 
+NBEdge::getAllowedVehicleClasses(unsigned int lane) const {
+    assert(lane < myLanes.size());
+    return myLanes[lane].allowed;
+}
 
+
+SUMOVehicleClasses
+NBEdge::getDisallowedVehicleClasses(unsigned int lane) const {
+    assert(lane < myLanes.size());
+    return myLanes[lane].notAllowed;
+}
 
 
 int
