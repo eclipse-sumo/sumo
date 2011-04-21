@@ -120,7 +120,7 @@ TraCIServerAPI_Route::processSet(TraCIServer& server, tcpip::Storage& inputStora
         }
         //read itemNo 
         int numEdges = inputStorage.readInt();
-		MSEdgeVector edges(numEdges);
+		MSEdgeVector edges;
 		while (numEdges--) {
 			MSEdge* edge = MSEdge::dictionary(inputStorage.readString());
 			if (edge==0) {
