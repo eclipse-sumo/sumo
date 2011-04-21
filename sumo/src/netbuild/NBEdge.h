@@ -679,6 +679,7 @@ public:
     /** friend class used for visualization (netedit)
      */
     friend class GNELane;
+    friend class GNEEdge;
 
     void moveOutgoingConnectionsFrom(NBEdge *e, unsigned int laneOff);
 
@@ -885,6 +886,10 @@ private:
                                const NBEdge::Connection &c, bool includeInternal);
 
 
+    // returns a reference to the internal structure for the convenience of NETEDIT
+    Lane& getLaneStruct(unsigned int lane) {
+        return myLanes[lane];
+    }
 
 
 private:
