@@ -151,15 +151,17 @@ NBEdge::MainDirections::includes(Direction d) const {
 NBEdge::NBEdge(const std::string &id, NBNode *from, NBNode *to,
                std::string type, SUMOReal speed, unsigned int nolanes,
                int priority, LaneSpreadFunction spread) throw(ProcessError) :
-        myStep(INIT), myID(StringUtils::convertUmlaute(id)),
-        myType(StringUtils::convertUmlaute(type)),
-        myFrom(from), myTo(to), myAngle(0),
-        myPriority(priority), mySpeed(speed),
-        myTurnDestination(0),
-        myFromJunctionPriority(-1), myToJunctionPriority(-1),
-        myLaneSpreadFunction(spread),
-        myLoadedLength(-1), myAmLeftHand(false), myAmTurningWithAngle(0), myAmTurningOf(0),
-        myAmInnerEdge(false), myAmMacroscopicConnector(false) {
+    Named(StringUtils::convertUmlaute(id)),
+    myStep(INIT),
+    myType(StringUtils::convertUmlaute(type)),
+    myFrom(from), myTo(to), myAngle(0),
+    myPriority(priority), mySpeed(speed),
+    myTurnDestination(0),
+    myFromJunctionPriority(-1), myToJunctionPriority(-1),
+    myLaneSpreadFunction(spread),
+    myLoadedLength(-1), myAmLeftHand(false), myAmTurningWithAngle(0), myAmTurningOf(0),
+    myAmInnerEdge(false), myAmMacroscopicConnector(false) 
+{
     init(nolanes, false);
 }
 
@@ -168,15 +170,17 @@ NBEdge::NBEdge(const std::string &id, NBNode *from, NBNode *to,
                std::string type, SUMOReal speed, unsigned int nolanes,
                int priority, Position2DVector geom,
                LaneSpreadFunction spread, bool tryIgnoreNodePositions) throw(ProcessError) :
-        myStep(INIT), myID(StringUtils::convertUmlaute(id)),
-        myType(StringUtils::convertUmlaute(type)),
-        myFrom(from), myTo(to), myAngle(0),
-        myPriority(priority), mySpeed(speed),
-        myTurnDestination(0),
-        myFromJunctionPriority(-1), myToJunctionPriority(-1),
-        myGeom(geom), myLaneSpreadFunction(spread),
-        myLoadedLength(-1), myAmLeftHand(false), myAmTurningWithAngle(0), myAmTurningOf(0),
-        myAmInnerEdge(false), myAmMacroscopicConnector(false) {
+    Named(StringUtils::convertUmlaute(id)),
+    myStep(INIT),
+    myType(StringUtils::convertUmlaute(type)),
+    myFrom(from), myTo(to), myAngle(0),
+    myPriority(priority), mySpeed(speed),
+    myTurnDestination(0),
+    myFromJunctionPriority(-1), myToJunctionPriority(-1),
+    myGeom(geom), myLaneSpreadFunction(spread),
+    myLoadedLength(-1), myAmLeftHand(false), myAmTurningWithAngle(0), myAmTurningOf(0),
+    myAmInnerEdge(false), myAmMacroscopicConnector(false) 
+{
     init(nolanes, tryIgnoreNodePositions);
 }
 

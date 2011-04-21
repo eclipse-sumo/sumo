@@ -34,6 +34,7 @@
 #include <string>
 #include <set>
 #include "NBCont.h"
+#include <utils/common/Named.h>
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/VectorHelper.h>
 #include <utils/geom/Bresenham.h>
@@ -60,7 +61,7 @@ class GNELane;
  * @class NBEdge
  * @brief The representation of a single edge during network building
  */
-class NBEdge {
+class NBEdge : public Named {
 public:
     /**  @enum LaneSpreadFunction
      * @brief Information how the edge's lateral offset shall be computed
@@ -237,14 +238,6 @@ public:
 
     /// @name Atomar getter methods
     //@{
-
-    /** @brief Returns the id of the edge
-     * @return This edge's id
-     */
-    const std::string &getID() const throw() {
-        return myID;
-    }
-
 
     /** @brief Returns the number of lanes
      * @returns This edge's number of lanes
@@ -883,9 +876,6 @@ private:
      * @see EdgeBuildingStep
      */
     EdgeBuildingStep myStep;
-
-    /// @brief The id of the edge
-    std::string myID;
 
     /// @brief The type of the edge
     std::string myType;

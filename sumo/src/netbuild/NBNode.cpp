@@ -192,26 +192,32 @@ NBNode::ApproachingDivider::spread(const std::vector<int> &approachingLanes,
 /* -------------------------------------------------------------------------
  * NBNode-methods
  * ----------------------------------------------------------------------- */
-NBNode::NBNode(const std::string &id, const Position2D &position) throw()
-        : myID(StringUtils::convertUmlaute(id)), myPosition(position),
-        myType(NODETYPE_UNKNOWN), myDistrict(0), myRequest(0) {
+NBNode::NBNode(const std::string &id, const Position2D &position) throw() : 
+    Named(StringUtils::convertUmlaute(id)), 
+    myPosition(position),
+    myType(NODETYPE_UNKNOWN), myDistrict(0), myRequest(0) 
+{
     myIncomingEdges = new EdgeVector();
     myOutgoingEdges = new EdgeVector();
 }
 
 
 NBNode::NBNode(const std::string &id, const Position2D &position,
-               SumoXMLNodeType type) throw()
-        : myID(StringUtils::convertUmlaute(id)), myPosition(position),
-        myType(type), myDistrict(0), myRequest(0) {
+               SumoXMLNodeType type) throw() : 
+    Named(StringUtils::convertUmlaute(id)), 
+    myPosition(position),
+    myType(type), myDistrict(0), myRequest(0) 
+{
     myIncomingEdges = new EdgeVector();
     myOutgoingEdges = new EdgeVector();
 }
 
 
-NBNode::NBNode(const std::string &id, const Position2D &position, NBDistrict *district) throw()
-        : myID(StringUtils::convertUmlaute(id)), myPosition(position),
-        myType(NODETYPE_DISTRICT), myDistrict(district), myRequest(0) {
+NBNode::NBNode(const std::string &id, const Position2D &position, NBDistrict *district) throw() : 
+    Named(StringUtils::convertUmlaute(id)), 
+    myPosition(position),
+    myType(NODETYPE_DISTRICT), myDistrict(district), myRequest(0) 
+{
     myIncomingEdges = new EdgeVector();
     myOutgoingEdges = new EdgeVector();
 }
@@ -2021,13 +2027,6 @@ bool
 NBNode::isDistrict() const {
     return myType==NODETYPE_DISTRICT;
 }
-
-
-void 
-NBNode::setID(const std::string& id) {
-    myID = id;
-}
-
 
 /****************************************************************************/
 

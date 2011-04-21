@@ -61,6 +61,12 @@ public:
     }
 
 
+    /// @brief resets the id
+    void setID(const std::string& newID) {
+        myID = newID;
+    }
+
+
 protected:
     /// @brief The name of the object
     std::string myID;

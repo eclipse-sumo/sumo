@@ -35,6 +35,7 @@
 #include <string>
 #include <set>
 #include <utils/common/Named.h>
+#include <utils/geom/Bresenham.h>
 #include <utils/common/VectorHelper.h>
 #include <utils/geom/Position2D.h>
 #include <utils/geom/Line2D.h>
@@ -46,7 +47,6 @@
 #include "NBConnectionDefs.h"
 #include "NBContHelper.h"
 #include "NBMMLDirections.h"
-#include <utils/geom/Bresenham.h>
 
 
 // ===========================================================================
@@ -69,7 +69,7 @@ class OutputDevice;
  * @class NBNode
  * @brief Represents a single node (junction) during network building
  */
-class NBNode {
+class NBNode : public Named {
 public:
     /**
      * @class ApproachingDivider
@@ -145,19 +145,8 @@ public:
      */
     void reinit(const Position2D &position, SumoXMLNodeType type) throw();
 
-    /// @brief resets the id without any checks
-    void setID(const std::string& id);
-
     /// @name Atomar getter methods
     /// @{
-
-    /** @brief Returns the id of the node
-     * @return The id of this node
-     */
-    const std::string &getID() const throw() {
-        return myID;
-    }
-
 
     /** @brief Returns the position of this node
      * @return This node's position
@@ -477,9 +466,6 @@ private:
     void writeinternal(EdgeVector *myIncomingEdges, OutputDevice &into, const std::string &id);
 
 private:
-    /// @brief The id of the node
-    std::string myID;
-
     /// @brief The position the node lies at
     Position2D myPosition;
 
