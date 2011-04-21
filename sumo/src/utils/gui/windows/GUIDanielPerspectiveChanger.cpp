@@ -66,10 +66,10 @@ void
 GUIDanielPerspectiveChanger::zoom(SUMOReal factor) {
     if (factor > 0) {
         myViewPort = Boundary(
-                myZoomBase.x() - factor * (myZoomBase.x() - myViewPort.xmin()),
-                myZoomBase.y() - factor * (myZoomBase.y() - myViewPort.ymin()),
-                myZoomBase.x() - factor * (myZoomBase.x() - myViewPort.xmax()),
-                myZoomBase.y() - factor * (myZoomBase.y() - myViewPort.ymax()));
+                myZoomBase.x() - (myZoomBase.x() - myViewPort.xmin()) / factor,
+                myZoomBase.y() - (myZoomBase.y() - myViewPort.ymin()) / factor,
+                myZoomBase.x() - (myZoomBase.x() - myViewPort.xmax()) / factor,
+                myZoomBase.y() - (myZoomBase.y() - myViewPort.ymax()) / factor);
         myCallback.update();
     }
 }
