@@ -126,7 +126,7 @@ TraCIServerAPI_VehicleType::getVariable(const int variable, const MSVehicleType 
         break;
     case VAR_VEHICLECLASS:
         tempMsg.writeUnsignedByte(TYPE_STRING);
-        tempMsg.writeString(getVehicleClassName(v.getVehicleClass()));
+        tempMsg.writeString(toString(v.getVehicleClass()));
         break;
     case VAR_EMISSIONCLASS:
         tempMsg.writeUnsignedByte(TYPE_STRING);

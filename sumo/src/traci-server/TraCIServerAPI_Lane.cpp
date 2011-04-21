@@ -153,7 +153,7 @@ TraCIServerAPI_Lane::processGet(TraCIServer &server, tcpip::Storage &inputStorag
             const SUMOVehicleClasses &allowed = lane->getAllowedClasses();
             std::vector<std::string> allowedS;
             for (SUMOVehicleClasses::const_iterator i=allowed.begin(); i!=allowed.end(); ++i) {
-                allowedS.push_back(getVehicleClassName(*i));
+                allowedS.push_back(toString(*i));
             }
             tempMsg.writeUnsignedByte(TYPE_STRINGLIST);
             tempMsg.writeStringList(allowedS);
@@ -162,7 +162,7 @@ TraCIServerAPI_Lane::processGet(TraCIServer &server, tcpip::Storage &inputStorag
             const SUMOVehicleClasses &disallowed = lane->getNotAllowedClasses();
             std::vector<std::string> disallowedS;
             for (SUMOVehicleClasses::const_iterator i=disallowed.begin(); i!=disallowed.end(); ++i) {
-                disallowedS.push_back(getVehicleClassName(*i));
+                disallowedS.push_back(toString(*i));
             }
             tempMsg.writeUnsignedByte(TYPE_STRINGLIST);
             tempMsg.writeStringList(disallowedS);

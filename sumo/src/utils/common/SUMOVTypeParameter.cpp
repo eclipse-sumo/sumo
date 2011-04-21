@@ -78,7 +78,7 @@ SUMOVTypeParameter::write(OutputDevice &dev) const throw(IOError) {
         dev << " speedDev=\"" << speedDev << '"';
     }
     if (wasSet(VTYPEPARS_VEHICLECLASS_SET)) {
-        dev << " vclass=\"" << getVehicleClassName(vehicleClass) << '"';
+        dev << " vclass=\"" << toString(vehicleClass) << '"';
     }
     if (wasSet(VTYPEPARS_EMISSIONCLASS_SET)) {
         dev << " emissionClass=\"" << getVehicleEmissionTypeName(emissionClass) << '"';

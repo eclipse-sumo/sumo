@@ -247,17 +247,11 @@ extern void initGuiShapeNames() throw();
 // ---------------------------------------------------------------------------
 // abstract vehicle class / purpose
 // ---------------------------------------------------------------------------
-/** @brief Returns the class name of the abstract class given by its id
- * @param[in] id The id of the abstract vehicle class
- * @return The string representation of this class
+/* @brief SUMOVehicleClass is meant to be OR'ed to combine information about vehicle
+ * ownership and vehicle "size" into one int. 
+ * These OR'ed values cannot be translated directly into strings with toString().
+ * The names of all base values are concatenated with '|' as a separator.
  */
-extern std::string getVehicleClassName(SUMOVehicleClass id) throw();
-
-/* SUMOVehicleClass is meant to be OR'ed to combine information about vehicle
- * ownership and vehicle "size". These OR'ed values cannot be translated directly
- * into strings with toString(), instead they are interpreted with
- * getVehicleClassName(). To signify the difference, this method accepts a
- * different input type */
 extern std::string getVehicleClassCompoundName(int id) throw();
 
 
@@ -281,6 +275,13 @@ extern SUMOVehicleClass getVehicleClassID(const std::string &name) throw();
  */
 extern int getVehicleClassCompoundID(const std::string &name) throw();
 
+/** @brief Parses the given definition of allowed/disallowed vehicle classes into the given containers
+ *
+ * @param[in] classNames Space separated class names
+ * @param[out] container The vector of vehicle classes to fill
+ */
+extern void parseVehicleClasses(const std::string &classNames,
+                                SUMOVehicleClasses &container) throw();
 
 /** @brief Parses the given definition of allowed/disallowed vehicle classes into the given containers
  *

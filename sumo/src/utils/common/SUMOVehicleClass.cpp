@@ -85,11 +85,6 @@ std::map<std::string, SUMOVehicleShape> gVehicleShapeName2ID;
 // ------------ Conversion of SUMOVehicleClass
 
 std::string
-getVehicleClassName(SUMOVehicleClass id) throw() {
-    return toString(id);
-}
-
-std::string
 getVehicleClassCompoundName(int id) throw() {
     std::string ret;
     const std::vector<std::string> names = SumoVehicleClassStrings.getStrings();
@@ -114,7 +109,7 @@ getVehicleClassNames(const SUMOVehicleClasses &ids) throw() {
         if (hadOne) {
             oss << ' ';
         }
-        oss << getVehicleClassName(*i);
+        oss << toString(*i);
         hadOne = true;
     }
     return oss.str();
@@ -144,19 +139,24 @@ getVehicleClassCompoundID(const std::string &name) throw() {
 }
 
 
+void 
+parseVehicleClasses(
+        const std::string &classNames,
+        SUMOVehicleClasses &container) throw() {
+    StringTokenizer sta(classNames, " ");
+    while (sta.hasNext()) {
+        container.push_back(getVehicleClassID(sta.next()));
+    }
+}
+
+
 void
 parseVehicleClasses(const std::string &allowedS,
                     const std::string &disallowedS,
                     SUMOVehicleClasses &allowed,
                     SUMOVehicleClasses &disallowed) throw() {
-    StringTokenizer sta(allowedS, " ");
-    while (sta.hasNext()) {
-        allowed.push_back(getVehicleClassID(sta.next()));
-    }
-    StringTokenizer std(disallowedS, " ");
-    while (std.hasNext()) {
-        disallowed.push_back(getVehicleClassID(std.next()));
-    }
+    parseVehicleClasses(allowedS, allowed);
+    parseVehicleClasses(disallowedS, disallowed);
 }
 
 
