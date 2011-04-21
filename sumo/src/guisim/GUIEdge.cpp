@@ -297,7 +297,7 @@ GUIEdge::drawGL(const GUIVisualizationSettings &s) const throw() {
         GUILaneWrapper *lane1 = myLaneGeoms[0];
         GUILaneWrapper *lane2 = myLaneGeoms[myLaneGeoms.size()-1];
         glPushMatrix();
-        glTranslated(0, 0, -.06);
+        glTranslated(0, 0, 2.6);
         Position2D p = lane1->getShape().positionAtLengthPosition(lane1->getShape().length()/(SUMOReal) 2.);
         p.add(lane2->getShape().positionAtLengthPosition(lane2->getShape().length()/(SUMOReal) 2.));
         p.mul(.5);
@@ -315,7 +315,7 @@ GUIEdge::drawGL(const GUIVisualizationSettings &s) const throw() {
         glRotated(angle, 0, 0, 1);
         glTranslated(-w/2., .2*nameSize / s.scale, 0);
         pfDrawString(getMicrosimID().c_str());
-        glTranslated(0, 0, .06);
+        glTranslated(0, 0, -2.6);
         glPopMatrix();
     }
 }
