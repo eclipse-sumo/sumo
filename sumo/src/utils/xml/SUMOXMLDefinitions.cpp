@@ -28,7 +28,6 @@
 #endif
 
 #include "SUMOXMLDefinitions.h"
-#include <utils/common/SUMOVehicleClass.h>
 #include <utils/common/StringBijection.h>
 
 #ifdef CHECK_MEMORY_LEAKS
@@ -39,6 +38,7 @@
 // ===========================================================================
 // definitions
 // ===========================================================================
+const std::string CF_MODEL_PREFIX = "carFollowing-";
 
 StringBijection<SumoXMLTag>::Entry SUMOXMLDefinitions::tags[] = {
     { "edge",             SUMO_TAG_EDGE },
@@ -136,11 +136,12 @@ StringBijection<SumoXMLTag>::Entry SUMOXMLDefinitions::tags[] = {
     { "colorScheme",      SUMO_TAG_COLORSCHEME },
     { "entry",            SUMO_TAG_ENTRY },
 
-    { CF_MODEL_KRAUSS.c_str(), SUMO_TAG_CF_KRAUSS },
-    { CF_MODEL_KRAUSS_ORIG1.c_str(), SUMO_TAG_CF_KRAUSS_ORIG1 },
-    { CF_MODEL_IDM.c_str(),    SUMO_TAG_CF_IDM },
-    { CF_MODEL_PWAGNER2009.c_str(),    SUMO_TAG_CF_PWAGNER2009 },
-    { CF_MODEL_BKERNER.c_str(),    SUMO_TAG_CF_BKERNER },
+    { (CF_MODEL_PREFIX + "IDM").c_str(),         SUMO_TAG_CF_IDM },
+    { (CF_MODEL_PREFIX + "Krauss").c_str(),      SUMO_TAG_CF_KRAUSS },
+    { (CF_MODEL_PREFIX + "KraussOrig1").c_str(), SUMO_TAG_CF_KRAUSS_ORIG1 },
+    { (CF_MODEL_PREFIX + "PWagner2009").c_str(), SUMO_TAG_CF_PWAGNER2009 },
+    { (CF_MODEL_PREFIX + "BKerner").c_str(),     SUMO_TAG_CF_BKERNER },
+
 
     { "header",           SUMO_TAG_OPENDRIVE_HEADER },
     { "road",             SUMO_TAG_OPENDRIVE_ROAD },
@@ -439,7 +440,7 @@ StringBijection<SumoXMLNodeType>::Entry SUMOXMLDefinitions::sumoNodeTypeValues[]
 
     {"unknown",             NODETYPE_UNKNOWN}
 };
-
+    
 
 StringBijection<SumoXMLTag> SUMOXMLDefinitions::Tags(
         SUMOXMLDefinitions::tags, SUMO_TAG_NOTHING);

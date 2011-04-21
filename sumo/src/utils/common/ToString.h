@@ -33,6 +33,7 @@
 #include <string>
 #include <iomanip>
 #include <utils/xml/SUMOXMLDefinitions.h>
+#include <utils/common/SUMOVehicleClass.h>
 #include "StdDefs.h"
 
 // ===========================================================================
@@ -56,22 +57,28 @@ template <>
 inline std::string toString<SumoXMLTag>(const SumoXMLTag& tag, std::streamsize accuracy) {
      UNUSED_PARAMETER(accuracy);
      return SUMOXMLDefinitions::Tags.getString(tag);
- }
+}
 
 
 template <>
 inline std::string toString<SumoXMLAttr>(const SumoXMLAttr& attr, std::streamsize accuracy) {
      UNUSED_PARAMETER(accuracy);
      return SUMOXMLDefinitions::Attrs.getString(attr);
- } 
+} 
 
 
 template <>
 inline std::string toString<SumoXMLNodeType>(const SumoXMLNodeType& nodeType, std::streamsize accuracy) {
      UNUSED_PARAMETER(accuracy);
      return SUMOXMLDefinitions::NodeTypes.getString(nodeType);
- } 
+} 
 
+
+template <>
+inline std::string toString<SUMOVehicleClass>(const SUMOVehicleClass& vClass, std::streamsize accuracy) {
+     UNUSED_PARAMETER(accuracy);
+     return SumoVehicleClassStrings.getString(vClass);
+} 
 #endif
 
 /****************************************************************************/

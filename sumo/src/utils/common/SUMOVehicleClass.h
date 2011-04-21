@@ -32,8 +32,8 @@
 #include <string>
 #include <vector>
 #include <utils/common/UtilExceptions.h>
+#include <utils/common/StringBijection.h>
 #include <utils/xml/SUMOXMLDefinitions.h>
-
 
 // ===========================================================================
 // enum definitions
@@ -172,6 +172,7 @@ enum SUMOVehicleClass {
 
 };
 
+extern StringBijection<SUMOVehicleClass> SumoVehicleClassStrings;
 
 /**
  * @enum SUMOEmissionClass
@@ -252,6 +253,13 @@ extern void initGuiShapeNames() throw();
  */
 extern std::string getVehicleClassName(SUMOVehicleClass id) throw();
 
+/* SUMOVehicleClass is meant to be OR'ed to combine information about vehicle
+ * ownership and vehicle "size". These OR'ed values cannot be translated directly
+ * into strings with toString(), instead they are interpreted with
+ * getVehicleClassName(). To signify the difference, this method accepts a
+ * different input type */
+extern std::string getVehicleClassCompoundName(int id) throw();
+
 
 /** @brief Returns the ids of the given classes, divided using a ' '
  * @param[in] ids The ids to encode
@@ -262,9 +270,16 @@ extern std::string getVehicleClassNames(const SUMOVehicleClasses &ids) throw();
 
 /** @brief Returns the class id of the abstract class given by its name
  * @param[in] name The name of the abstract vehicle class
- * @return The internal representation of this class
+ * @return The internal representation of this class. Name must not be a
+ * compound name 
  */
 extern SUMOVehicleClass getVehicleClassID(const std::string &name) throw();
+
+/** @brief Returns the OR'ed id of the compound class given by its name
+ * @param[in] name The name of the abstract vehicle class
+ * @return The OR'ed combination of base enum values
+ */
+extern int getVehicleClassCompoundID(const std::string &name) throw();
 
 
 /** @brief Parses the given definition of allowed/disallowed vehicle classes into the given containers
@@ -320,20 +335,6 @@ extern std::string getVehicleEmissionTypeName(SUMOEmissionClass id) throw();
  * @return The internal representation of this class
  */
 extern SUMOEmissionClass getVehicleEmissionTypeID(const std::string &name) throw(ProcessError);
-
-
-// ===========================================================================
-// constant definitions
-// ===========================================================================
-// ---------------------------------------------------------------------------
-// model IDs
-// ---------------------------------------------------------------------------
-const std::string CF_MODEL_PREFIX = "carFollowing-";
-const std::string CF_MODEL_IDM = CF_MODEL_PREFIX + "IDM";
-const std::string CF_MODEL_KRAUSS = CF_MODEL_PREFIX + "Krauss";
-const std::string CF_MODEL_KRAUSS_ORIG1 = CF_MODEL_PREFIX + "KraussOrig1";
-const std::string CF_MODEL_PWAGNER2009 = CF_MODEL_PREFIX + "PWagner2009";
-const std::string CF_MODEL_BKERNER = CF_MODEL_PREFIX + "BKerner";
 
 
 // ---------------------------------------------------------------------------
