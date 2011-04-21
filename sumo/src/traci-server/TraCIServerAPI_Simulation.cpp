@@ -158,11 +158,27 @@ TraCIServerAPI_Simulation::processGet(TraCIServer &server, tcpip::Storage &input
     }
     break;
     case POSITION_CONVERSION:
+        if (inputStorage.readUnsignedByte()!=TYPE_COMPOUND) {
+            server.writeStatusCmd(CMD_GET_SIM_VARIABLE, RTYPE_ERR, "Position conversion requires a compound object.", outputStorage);
+            return false;
+        }
+        if (inputStorage.readInt()!=2) {
+            server.writeStatusCmd(CMD_GET_SIM_VARIABLE, RTYPE_ERR, "Position conversion requires a source position and a position type as parameter.", outputStorage);
+            return false;
+        }
         if (!commandPositionConversion(server, inputStorage, tempMsg, CMD_GET_SIM_VARIABLE)) {
             return false;
         }
         break;
     case DISTANCE_REQUEST:
+        if (inputStorage.readUnsignedByte()!=TYPE_COMPOUND) {
+            server.writeStatusCmd(CMD_GET_SIM_VARIABLE, RTYPE_ERR, "Retrieval of distance requires a compound object.", outputStorage);
+            return false;
+        }
+        if (inputStorage.readInt()!=3) {
+            server.writeStatusCmd(CMD_GET_SIM_VARIABLE, RTYPE_ERR, "Retrieval of distance requires two positions and a distance type as parameter.", outputStorage);
+            return false;
+        }
         if (!commandDistanceRequest(server, inputStorage, tempMsg, CMD_GET_SIM_VARIABLE)) {
             return false;
         }
@@ -224,10 +240,8 @@ TraCIServerAPI_Simulation::commandPositionConversion(traci::TraCIServer &server,
     tcpip::Storage tmpResult;
     std::pair<MSLane*, SUMOReal> roadPos;
     Position2D cartesianPos;
-    SUMOReal x = 0;
-    SUMOReal y = 0;
+    Position2D geoPos;
     SUMOReal z = 0;
-    int destPosType;
 
     // actual position type that will be converted
     int srcPosType = inputStorage.readUnsignedByte();
@@ -236,81 +250,90 @@ TraCIServerAPI_Simulation::commandPositionConversion(traci::TraCIServer &server,
     case POSITION_2D:
     case POSITION_2_5D:
     case POSITION_3D:
-        x = inputStorage.readDouble();
-        y = inputStorage.readDouble();
-        if (srcPosType != POSITION_2D) {
+    case POSITION_LAT_LON:
+    case POSITION_LAT_LON_ALT: {
+        SUMOReal x = inputStorage.readDouble();
+        SUMOReal y = inputStorage.readDouble();
+        if (srcPosType != POSITION_2D && srcPosType != POSITION_LAT_LON) {
             z = inputStorage.readDouble();
         }
-        // destination position type
-        destPosType = inputStorage.readUnsignedByte();
-
-        switch (destPosType) {
-        case POSITION_ROADMAP: {
-            // convert road map to 3D position
-            roadPos = convertCartesianToRoadMap(Position2D(x, y));
-
-            // write result that is added to response msg
-            tmpResult.writeUnsignedByte(POSITION_ROADMAP);
-            tmpResult.writeString(roadPos.first->getEdge().getID());
-            tmpResult.writeDouble(roadPos.second);
-            const std::vector<MSLane*> lanes = roadPos.first->getEdge().getLanes();
-            tmpResult.writeUnsignedByte((int)distance(lanes.begin(), find(lanes.begin(), lanes.end(), roadPos.first)));
-                               }
-            break;
-        case POSITION_3D:
-            server.writeStatusCmd(commandId, RTYPE_ERR,
-                           "Destination position type is same as source position type");
-            return false;
-        default:
-            server.writeStatusCmd(commandId, RTYPE_ERR,
-                           "Destination position type not supported");
-            return false;
+        geoPos.set(x, y);
+        cartesianPos.set(x, y);
+        if (srcPosType == POSITION_LAT_LON || srcPosType == POSITION_LAT_LON_ALT) {
+            GeoConvHelper::x2cartesian(cartesianPos);
+        } else {
+            GeoConvHelper::cartesian2geo(geoPos);
         }
-        break;
+    }
+    break;
     case POSITION_ROADMAP: {
         std::string roadID = inputStorage.readString();
         SUMOReal pos = inputStorage.readDouble();
         int laneIdx = inputStorage.readUnsignedByte();
-
-        // destination position type
-        destPosType = inputStorage.readUnsignedByte();
-
-        switch (destPosType) {
-        case POSITION_2D:
-        case POSITION_2_5D:
-        case POSITION_3D:
-            //convert 3D to road map position
-            try {
-                Position2D result = getLaneChecking(roadID, laneIdx, pos)->getShape().positionAtLengthPosition(pos);
-                x = result.x();
-                y = result.y();
-            } catch (TraCIException &e) {
-                server.writeStatusCmd(commandId, RTYPE_ERR, e.what());
-                return false;
-            }
-
-            // write result that is added to response msg
-            tmpResult.writeUnsignedByte(destPosType);
-            tmpResult.writeDouble(x);
-            tmpResult.writeDouble(y);
-            if (destPosType != POSITION_2D) {
-                tmpResult.writeDouble(z);
-            }
-            break;
-        case POSITION_ROADMAP:
-            server.writeStatusCmd(commandId, RTYPE_ERR,
-                           "Destination position type is same as source position type");
-            return false;
-        default:
-            server.writeStatusCmd(commandId, RTYPE_ERR,
-                           "Destination position type not supported");
+        try {
+            cartesianPos = geoPos = getLaneChecking(roadID, laneIdx, pos)->getShape().positionAtLengthPosition(pos);
+            GeoConvHelper::cartesian2geo(geoPos);
+        } catch (TraCIException &e) {
+            server.writeStatusCmd(commandId, RTYPE_ERR, e.what());
             return false;
         }
-                           }
-        break;
+    }
+    break;
     default:
         server.writeStatusCmd(commandId, RTYPE_ERR,
                        "Source position type not supported");
+        return false;
+    }
+
+    int destPosType = inputStorage.readUnsignedByte();
+
+    switch (destPosType) {
+    case POSITION_ROADMAP: {
+        if (commandId != CMD_POSITIONCONVERSION) {
+            // skip empty values
+            inputStorage.readString();
+            inputStorage.readDouble();
+            inputStorage.readUnsignedByte();
+        }
+        // convert road map to 3D position
+        roadPos = convertCartesianToRoadMap(cartesianPos);
+
+        // write result that is added to response msg
+        tmpResult.writeUnsignedByte(POSITION_ROADMAP);
+        tmpResult.writeString(roadPos.first->getEdge().getID());
+        tmpResult.writeDouble(roadPos.second);
+        const std::vector<MSLane*> lanes = roadPos.first->getEdge().getLanes();
+        tmpResult.writeUnsignedByte((int)distance(lanes.begin(), find(lanes.begin(), lanes.end(), roadPos.first)));
+                            }
+        break;
+    case POSITION_2D:
+    case POSITION_2_5D:
+    case POSITION_3D:
+    case POSITION_LAT_LON:
+    case POSITION_LAT_LON_ALT:
+        if (commandId != CMD_POSITIONCONVERSION) {
+            // skip empty values
+            inputStorage.readDouble();
+            inputStorage.readDouble();
+            if (destPosType != POSITION_2D && destPosType != POSITION_LAT_LON) {
+                inputStorage.readDouble();
+            }
+        }
+        tmpResult.writeUnsignedByte(destPosType);
+        if (srcPosType == POSITION_LAT_LON || srcPosType == POSITION_LAT_LON_ALT) {
+            tmpResult.writeDouble(geoPos.x());
+            tmpResult.writeDouble(geoPos.y());
+        } else {
+            tmpResult.writeDouble(cartesianPos.x());
+            tmpResult.writeDouble(cartesianPos.y());
+        }
+        if (destPosType != POSITION_2D && destPosType != POSITION_LAT_LON) {
+            tmpResult.writeDouble(z);
+        }
+        break;
+    default:
+        server.writeStatusCmd(commandId, RTYPE_ERR,
+                        "Destination position type not supported");
         return false;
     }
     if (commandId == CMD_POSITIONCONVERSION) {

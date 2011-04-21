@@ -266,18 +266,6 @@ TraCITestClient::run(std::string fileName, int port, std::string host) {
             std::string objID;
             defFile >> domID >> varID >> objID;
             commandGetVariablePlus(domID, varID, objID, defFile);
-        } else if (lineCommand.compare("getvariable_plus2") == 0) {
-            // trigger command GetXXXVariable with two parameters
-            int domID, varID;
-            std::string objID;
-            defFile >> domID >> varID >> objID;
-            commandGetVariablePlus(domID, varID, objID, defFile, 2);
-        } else if (lineCommand.compare("getvariable_plus3") == 0) {
-            // trigger command GetXXXVariable with two parameters
-            int domID, varID;
-            std::string objID;
-            defFile >> domID >> varID >> objID;
-            commandGetVariablePlus(domID, varID, objID, defFile, 3);
         } else if (lineCommand.compare("subscribevariable") == 0) {
             // trigger command SubscribeXXXVariable
             int domID, varNo;
@@ -728,7 +716,7 @@ TraCITestClient::commandGetVariable(int domID, int varID, const std::string &obj
 
 
 void
-TraCITestClient::commandGetVariablePlus(int domID, int varID, const std::string &objID, std::ifstream &defFile, int numPars) {
+TraCITestClient::commandGetVariablePlus(int domID, int varID, const std::string &objID, std::ifstream &defFile) {
     std::stringstream msg;
     if (socket == NULL) {
         msg << "#Error while sending command: no connection to server" ;
@@ -736,10 +724,7 @@ TraCITestClient::commandGetVariablePlus(int domID, int varID, const std::string 
         return;
     }
     tcpip::Storage outMsg, inMsg, tmp;
-    int dataLength = 0;
-    for (int i = 0; i < numPars; ++i) {
-        dataLength += setValueTypeDependant(tmp, defFile, msg);
-    }
+    const int dataLength = setValueTypeDependant(tmp, defFile, msg);
     std::string msgS = msg.str();
     if (msgS!="") {
         errorMsg(msg);
@@ -876,15 +861,6 @@ TraCITestClient::setValueTypeDependant(tcpip::Storage &into, std::ifstream &defF
         return 1;
     } else if (dataTypeS=="<drivingDist>") {
         into.writeUnsignedByte(REQUEST_DRIVINGDIST);
-        return 1;
-    } else if (dataTypeS=="<*position2D>") {
-        into.writeUnsignedByte(POSITION_2D);
-        return 1;
-    } else if (dataTypeS=="<*position3D>") {
-        into.writeUnsignedByte(POSITION_3D);
-        return 1;
-    } else if (dataTypeS=="<*positionRoadmap>") {
-        into.writeUnsignedByte(POSITION_ROADMAP);
         return 1;
     }
     defFile >> valueS;

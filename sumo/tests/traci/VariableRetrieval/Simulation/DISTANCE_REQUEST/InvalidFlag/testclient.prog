@@ -1,4 +1,0 @@
-simstep2 1
-getvariable_plus3 0xab 0x83 0 <position3D>_3d 2900 495 0 2994 950 0 100
-getvariable_plus3 0xab 0x83 0 <positionRoadmap>_roadpos e_m5 392 1 e_vo2 48 0 100
-simstep2 2

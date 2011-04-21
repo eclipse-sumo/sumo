@@ -905,11 +905,11 @@ bool
 TraCIServerAPI_Vehicle::commandDistanceRequest(traci::TraCIServer &server, tcpip::Storage &inputStorage,
                                                tcpip::Storage &outputStorage, const MSVehicle* v) {
     if (inputStorage.readUnsignedByte()!=TYPE_COMPOUND) {
-        server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Retrieval of distance requires a compound object.", outputStorage);
+        server.writeStatusCmd(CMD_GET_VEHICLE_VARIABLE, RTYPE_ERR, "Retrieval of distance requires a compound object.", outputStorage);
         return false;
     }
     if (inputStorage.readInt()!=2) {
-        server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Retrieval of distance requires position and distance type as parameter.", outputStorage);
+        server.writeStatusCmd(CMD_GET_VEHICLE_VARIABLE, RTYPE_ERR, "Retrieval of distance requires position and distance type as parameter.", outputStorage);
         return false;
     }
 

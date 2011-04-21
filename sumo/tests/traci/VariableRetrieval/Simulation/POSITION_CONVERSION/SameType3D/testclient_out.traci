@@ -1,9 +1,11 @@
-TraCITestClient output file. Date: Tue Apr 05 09:44:59 2011
+TraCITestClient output file. Date: Thu Apr 21 22:02:32 2011
 
 
 -> Command sent: <GetVariable>:
   domID=171 varID=130 objID=0
-.. Answered with error to command (171), [description: Destination position type is same as source position type]
+.. Command acknowledged (171), [description: ]
+  CommandID=187  VariableID=130  ObjectID=0 valueDataType=3 Position3DValue: 
+ x: 1.00 y: 1.00 z: 0.00
 
 -> Command sent: <Close>:
 .. Command acknowledged (127), [description: Goodbye]
