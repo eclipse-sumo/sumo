@@ -1,6 +1,3 @@
-# tests for command <SetMaximumSpeed>
-SetMaximumSpeed
-
 # tests for command <StopNode>
 StopNode
 

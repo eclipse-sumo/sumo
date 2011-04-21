@@ -12,4 +12,6 @@ step 4
 {0: ['horizontal']}
 step 5
 {0: ['horizontal']}
+routes ['h2', 'horizontal']
+edges ['1o']
 (14, 127, 0) OK Goodbye
