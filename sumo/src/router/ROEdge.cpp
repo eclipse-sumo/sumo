@@ -88,12 +88,17 @@ ROEdge::addLane(ROLane *lane) throw() {
     // integrate new allowed classes
     const SUMOVehicleClasses &allowed = lane->getAllowedClasses();
     myAllowedClasses.insert(allowed.begin(), allowed.end());
-    myNotAllowedClasses.erase(allowed.begin(), allowed.end());
-    // integrate new disallowed classes (only those which are not alreay in
+    for (SUMOVehicleClasses::const_iterator it = allowed.begin(); it != allowed.end(); it++) {
+        myNotAllowedClasses.erase(*it);
+    }
+    // integrate new disallowed classes
     const SUMOVehicleClasses &disallowed = lane->getNotAllowedClasses();
-    myNotAllowedClasses.insert(disallowed.begin(), disallowed.end());
-    // do not disallow those which have been explicitly allowed by other lanes
-    myNotAllowedClasses.erase(myAllowedClasses.begin(), myAllowedClasses.end());
+    for (SUMOVehicleClasses::const_iterator it = disallowed.begin(); it != disallowed.end(); it++) {
+        // only add to myNotAllowedClasses if not explicitly allowed by other lanes
+        if (myAllowedClasses.count(*it) == 0) {
+            myNotAllowedClasses.insert(*it);
+        }
+    }
 }
 
 
