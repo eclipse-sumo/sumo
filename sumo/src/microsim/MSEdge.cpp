@@ -127,7 +127,7 @@ MSEdge::rebuildAllowedLanes() throw() {
     myHaveClassConstraints = false;
     // build list of vehicle classes that are constrained
     // ... all others will be not regarded (allowed) ...
-    std::set<SUMOVehicleClass> vclasses;
+    SUMOVehicleClasses vclasses;
     for (std::vector<MSLane*>::const_iterator i2=myLanes->begin(); i2!=myLanes->end(); ++i2) {
         const SUMOVehicleClasses &allowed = (*i2)->getAllowedClasses();
         for (SUMOVehicleClasses::const_iterator j=allowed.begin(); j!=allowed.end(); j++) {
@@ -139,7 +139,7 @@ MSEdge::rebuildAllowedLanes() throw() {
         }
     }
     // go through these classes
-    for (std::set<SUMOVehicleClass>::const_iterator j=vclasses.begin(); j!=vclasses.end(); ++j) {
+    for (SUMOVehicleClasses::const_iterator j=vclasses.begin(); j!=vclasses.end(); ++j) {
         // go through connected edges
         for (AllowedLanesCont::iterator i1=myAllowed.begin(); i1!=myAllowed.end(); ++i1) {
             delete myClassedAllowed[*j][(*i1).first];

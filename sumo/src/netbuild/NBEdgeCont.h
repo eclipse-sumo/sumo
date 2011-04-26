@@ -483,10 +483,10 @@ private:
     std::set<std::string> myEdges2Remove;
 
     /// @brief Set of vehicle types which must be allowed on edges in order to keep them
-    std::set<SUMOVehicleClass> myVehicleClasses2Keep;
+    SUMOVehicleClasses myVehicleClasses2Keep;
 
     /// @brief Set of vehicle types which must not be disallowed on edges in order to keep them
-    std::set<SUMOVehicleClass> myVehicleClasses2Remove;
+    SUMOVehicleClasses myVehicleClasses2Remove;
 
     /// @brief Boundary within which an edge must be located in order to be kept
     Position2DVector myPrunningBoundary;

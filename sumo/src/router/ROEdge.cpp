@@ -85,38 +85,15 @@ ROEdge::addLane(ROLane *lane) throw() {
     mySpeed = speed > mySpeed ? speed : mySpeed;
     myLanes.push_back(lane);
 
-    SUMOVehicleClasses::const_iterator i;
+    // integrate new allowed classes
     const SUMOVehicleClasses &allowed = lane->getAllowedClasses();
-    // for allowed classes
-    for (i=allowed.begin(); i!=allowed.end(); ++i) {
-        SUMOVehicleClass allowedC = *i;
-        SUMOVehicleClasses::iterator t;
-        // add to allowed if not already in there
-        t = find(myAllowedClasses.begin(), myAllowedClasses.end(), allowedC);
-        if (t==myAllowedClasses.end()) {
-            myAllowedClasses.push_back(allowedC);
-        }
-        // remove from disallowed if allowed on the lane
-        t = find(myNotAllowedClasses.begin(), myNotAllowedClasses.end(), allowedC);
-        if (t!=myNotAllowedClasses.end()) {
-            myNotAllowedClasses.erase(t);
-        }
-    }
-    // for disallowed classes
+    myAllowedClasses.insert(allowed.begin(), allowed.end());
+    myNotAllowedClasses.erase(allowed.begin(), allowed.end());
+    // integrate new disallowed classes (only those which are not alreay in
     const SUMOVehicleClasses &disallowed = lane->getNotAllowedClasses();
-    for (i=disallowed.begin(); i!=disallowed.end(); ++i) {
-        SUMOVehicleClass disallowedC = *i;
-        SUMOVehicleClasses::iterator t;
-        // add to disallowed if not already in there
-        //  and not within allowed
-        t = find(myAllowedClasses.begin(), myAllowedClasses.end(), disallowedC);
-        if (t==myAllowedClasses.end()) {
-            t = find(myNotAllowedClasses.begin(), myNotAllowedClasses.end(), disallowedC);
-            if (t==myNotAllowedClasses.end()) {
-                myNotAllowedClasses.push_back(disallowedC);
-            }
-        }
-    }
+    myNotAllowedClasses.insert(disallowed.begin(), disallowed.end());
+    // do not disallow those which have been explicitly allowed by other lanes
+    myNotAllowedClasses.erase(myAllowedClasses.begin(), myAllowedClasses.end());
 }
 
 

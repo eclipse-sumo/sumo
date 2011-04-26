@@ -76,8 +76,8 @@ NBTypeCont::insert(const std::string &id, int noLanes, SUMOReal maxSpeed, int pr
         return false;
     }
     NBTypeCont::TypeDefinition td(noLanes, maxSpeed, prio);
-    td.allowed.assign(allow.begin(), allow.end());
-    td.notAllowed.assign(disallow.begin(), disallow.end());
+    td.allowed.insert(allow.begin(), allow.end());
+    td.notAllowed.insert(disallow.begin(), disallow.end());
     td.oneWay = oneWayIsDefault;
     myTypes[id] = td;
     return true;

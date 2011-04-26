@@ -173,10 +173,9 @@ NBEdgeCont::insert(NBEdge *edge, bool ignorePrunning) throw() {
     if (myVehicleClasses2Remove.size()!=0) {
         int matching = 0;
         SUMOVehicleClasses allowed = edge->getAllowedVehicleClasses();
-        for (std::set<SUMOVehicleClass>::const_iterator i=myVehicleClasses2Remove.begin(); i!=myVehicleClasses2Remove.end(); ++i) {
-            SUMOVehicleClasses::iterator j = find(allowed.begin(), allowed.end(), *i);
-            if (j!=allowed.end()) {
-                allowed.erase(j);
+        for (SUMOVehicleClasses::const_iterator i=myVehicleClasses2Remove.begin(); i!=myVehicleClasses2Remove.end(); ++i) {
+            if (allowed.count(*i)) {
+                allowed.erase(*i);
                 matching++;
             }
         }
@@ -192,10 +191,9 @@ NBEdgeCont::insert(NBEdge *edge, bool ignorePrunning) throw() {
     if (myVehicleClasses2Keep.size()!=0) {
         int matching = 0;
         SUMOVehicleClasses allowed = edge->getAllowedVehicleClasses();
-        for (std::set<SUMOVehicleClass>::const_iterator i=myVehicleClasses2Remove.begin(); i!=myVehicleClasses2Remove.end(); ++i) {
-            SUMOVehicleClasses::iterator j = find(allowed.begin(), allowed.end(), *i);
-            if (j!=allowed.end()) {
-                allowed.erase(j);
+        for (SUMOVehicleClasses::const_iterator i=myVehicleClasses2Remove.begin(); i!=myVehicleClasses2Remove.end(); ++i) {
+            if (allowed.count(*i)) {
+                allowed.erase(*i);
                 matching++;
             }
         }

@@ -30,7 +30,7 @@
 #endif
 
 #include <string>
-#include <vector>
+#include <set>
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/StringBijection.h>
 #include <utils/xml/SUMOXMLDefinitions.h>
@@ -235,7 +235,7 @@ enum SUMOEmissionClass {
 };
 
 
-typedef std::vector<SUMOVehicleClass> SUMOVehicleClasses;
+typedef std::set<SUMOVehicleClass> SUMOVehicleClasses;
 
 
 // ===========================================================================
@@ -278,7 +278,7 @@ extern int getVehicleClassCompoundID(const std::string &name) throw();
 /** @brief Parses the given definition of allowed/disallowed vehicle classes into the given containers
  *
  * @param[in] classNames Space separated class names
- * @param[out] container The vector of vehicle classes to fill
+ * @param[out] container The set of vehicle classes to fill
  */
 extern void parseVehicleClasses(const std::string &classNames,
                                 SUMOVehicleClasses &container) throw();
@@ -287,8 +287,8 @@ extern void parseVehicleClasses(const std::string &classNames,
  *
  * @param[in] allowedS Definition which classes are allowed
  * @param[in] disallowedS Definition which classes are not allowed
- * @param[out] allowed The vector of allowed vehicle classes to fill
- * @param[out] disallowed The vector of disallowed vehicle classes to fill
+ * @param[out] allowed The set of allowed vehicle classes to fill
+ * @param[out] disallowed The set of disallowed vehicle classes to fill
  */
 extern void parseVehicleClasses(const std::string &allowedS,
                                 const std::string &disallowedS,

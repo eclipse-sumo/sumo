@@ -1881,11 +1881,7 @@ NBEdge::getAllowedVehicleClasses() const {
     SUMOVehicleClasses ret;
     for (std::vector<Lane>::const_iterator i=myLanes.begin(); i!=myLanes.end(); ++i) {
         const SUMOVehicleClasses &allowed = (*i).allowed;
-        for (SUMOVehicleClasses::const_iterator j=allowed.begin(); j!=allowed.end(); ++j) {
-            if (find(ret.begin(), ret.end(), *j)==ret.end()) {
-                ret.push_back(*j);
-            }
-        }
+        ret.insert(allowed.begin(), allowed.end());
     }
     return ret;
 }
@@ -1896,11 +1892,7 @@ NBEdge::getDisallowedVehicleClasses() const {
     SUMOVehicleClasses ret;
     for (std::vector<Lane>::const_iterator i=myLanes.begin(); i!=myLanes.end(); ++i) {
         const SUMOVehicleClasses &notAllowed = (*i).notAllowed;
-        for (SUMOVehicleClasses::const_iterator j=notAllowed.begin(); j!=notAllowed.end(); ++j) {
-            if (find(ret.begin(), ret.end(), *j)==ret.end()) {
-                ret.push_back(*j);
-            }
-        }
+        ret.insert(notAllowed.begin(), notAllowed.end());
     }
     return ret;
 }

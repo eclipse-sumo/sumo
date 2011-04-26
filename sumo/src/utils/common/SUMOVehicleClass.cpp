@@ -145,7 +145,7 @@ parseVehicleClasses(
         SUMOVehicleClasses &container) throw() {
     StringTokenizer sta(classNames, " ");
     while (sta.hasNext()) {
-        container.push_back(getVehicleClassID(sta.next()));
+        container.insert(getVehicleClassID(sta.next()));
     }
 }
 
@@ -164,7 +164,7 @@ void
 parseVehicleClasses(const std::vector<std::string> &classesS,
                     SUMOVehicleClasses &classes) throw() {
     for (std::vector<std::string>::const_iterator i=classesS.begin(); i!=classesS.end(); ++i) {
-        classes.push_back(getVehicleClassID(*i));
+        classes.insert(getVehicleClassID(*i));
     }
 }
 
