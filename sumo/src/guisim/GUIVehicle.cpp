@@ -206,12 +206,11 @@ GUIVehicle::GUIVehiclePopupMenu::onCmdStopTrack(FXObject*,FXSelector,void*) {
 /* -------------------------------------------------------------------------
  * GUIVehicle - methods
  * ----------------------------------------------------------------------- */
-GUIVehicle::GUIVehicle(GUIGlObjectStorage &idStorage,
-                       SUMOVehicleParameter* pars, const MSRoute* route,
+GUIVehicle::GUIVehicle(SUMOVehicleParameter* pars, const MSRoute* route,
                        const MSVehicleType* type,
                        int vehicleIndex) throw(ProcessError)
         : MSVehicle(pars, route, type, vehicleIndex),
-        GUIGlObject(idStorage, GLO_VEHICLE, pars->id) {
+        GUIGlObject(GLO_VEHICLE, pars->id) {
     // as it is possible to show all vehicle routes, we have to store them... (bug [ 2519761 ])
     myRoutes = MSDevice_Vehroutes::buildVehicleDevices(*this, myDevices, 5);
     myMoveReminders.push_back(std::make_pair(myRoutes, 0.));

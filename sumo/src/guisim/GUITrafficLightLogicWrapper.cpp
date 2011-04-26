@@ -29,7 +29,6 @@
 
 #include <cassert>
 #include <utils/gui/globjects/GUIGlObject.h>
-#include <utils/gui/globjects/GUIGlObjectStorage.h>
 #include <gui/GUIApplicationWindow.h>
 #include <gui/GUITLLogicPhasesTrackerWindow.h>
 #include <microsim/MSLane.h>
@@ -122,9 +121,8 @@ GUITrafficLightLogicWrapper::GUITrafficLightLogicWrapperPopupMenu::onCmdSwitchTL
  * GUITrafficLightLogicWrapper - methods
  * ----------------------------------------------------------------------- */
 GUITrafficLightLogicWrapper::GUITrafficLightLogicWrapper(
-        GUIGlObjectStorage &idStorage,
         MSTLLogicControl &control, MSTrafficLightLogic &tll) throw() : 
-    GUIGlObject(idStorage, GLO_TLLOGIC, tll.getID()),
+    GUIGlObject(GLO_TLLOGIC, tll.getID()),
     myTLLogicControl(control), myTLLogic(tll) {}
 
 

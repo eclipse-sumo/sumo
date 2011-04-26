@@ -32,7 +32,6 @@
 #include "GUIVehicle.h"
 #include "GUINet.h"
 #include <gui/GUIGlobals.h>
-#include <utils/gui/globjects/GUIGlObjectStorage.h>
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -58,7 +57,7 @@ SUMOVehicle *
 GUIVehicleControl::buildVehicle(SUMOVehicleParameter* defs,
                                 const MSRoute* route, const MSVehicleType* type) throw(ProcessError) {
     myLoadedVehNo++;
-    MSVehicle *built = new GUIVehicle(GUIGlObjectStorage::gIDStorage, defs, route, type, myLoadedVehNo-1);
+    MSVehicle *built = new GUIVehicle(defs, route, type, myLoadedVehNo-1);
     MSNet::getInstance()->informVehicleStateListener(built, MSNet::VEHICLE_STATE_BUILT);
     return built;
 }

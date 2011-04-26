@@ -51,9 +51,8 @@
 /* -------------------------------------------------------------------------
  * GUIE3Collector::MyWrapper-methods
  * ----------------------------------------------------------------------- */
-GUIE3Collector::MyWrapper::MyWrapper(GUIE3Collector &detector,
-                                     GUIGlObjectStorage &idStorage) throw()
-        : GUIDetectorWrapper(idStorage, "E3 detector", detector.getID()),
+GUIE3Collector::MyWrapper::MyWrapper(GUIE3Collector &detector) throw()
+        : GUIDetectorWrapper("E3 detector", detector.getID()),
         myDetector(detector) {
     const CrossSectionVector &entries = detector.getEntries();
     const CrossSectionVector &exits = detector.getExits();
@@ -199,8 +198,8 @@ GUIE3Collector::getExits() const {
 
 
 GUIDetectorWrapper *
-GUIE3Collector::buildDetectorWrapper(GUIGlObjectStorage &idStorage) {
-    return new MyWrapper(*this, idStorage);
+GUIE3Collector::buildDetectorWrapper() {
+    return new MyWrapper(*this);
 }
 
 

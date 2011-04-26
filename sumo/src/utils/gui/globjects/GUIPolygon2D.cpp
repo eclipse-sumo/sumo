@@ -50,14 +50,13 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-GUIPolygon2D::GUIPolygon2D(GUIGlObjectStorage &idStorage,
-                           int layer,
+GUIPolygon2D::GUIPolygon2D(int layer,
                            const std::string name, const std::string type,
                            const RGBColor &color,
                            const Position2DVector &Pos,
                            bool fill) throw()
         : Polygon2D(name, type, color, Pos, fill),
-        GUIGlObject_AbstractAdd(idStorage, "poly", GLO_SHAPE, name), myLayer(layer) {}
+        GUIGlObject_AbstractAdd("poly", GLO_SHAPE, name), myLayer(layer) {}
 
 
 GUIPolygon2D::~GUIPolygon2D() throw() {}

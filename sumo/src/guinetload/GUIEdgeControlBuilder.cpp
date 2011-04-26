@@ -39,7 +39,6 @@
 #include <netload/NLBuilder.h>
 #include "GUIEdgeControlBuilder.h"
 #include <gui/GUIGlobals.h>
-#include <utils/gui/globjects/GUIGlObjectStorage.h>
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -49,9 +48,8 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-GUIEdgeControlBuilder::GUIEdgeControlBuilder(GUIGlObjectStorage &glObjectIDStorage) throw()
-        : NLEdgeControlBuilder(),
-        myGlObjectIDStorage(glObjectIDStorage) {}
+GUIEdgeControlBuilder::GUIEdgeControlBuilder() throw()
+        : NLEdgeControlBuilder() {}
 
 
 GUIEdgeControlBuilder::~GUIEdgeControlBuilder() throw() {}
@@ -60,7 +58,7 @@ GUIEdgeControlBuilder::~GUIEdgeControlBuilder() throw() {}
 MSEdge *
 GUIEdgeControlBuilder::closeEdge() {
     MSEdge *ret = NLEdgeControlBuilder::closeEdge();
-    static_cast<GUIEdge*>(ret)->initGeometry(GUIGlObjectStorage::gIDStorage);
+    static_cast<GUIEdge*>(ret)->initGeometry();
     return ret;
 }
 
@@ -100,7 +98,7 @@ GUIEdgeControlBuilder::addLane(const std::string &id,
 
 MSEdge *
 GUIEdgeControlBuilder::buildEdge(const std::string &id) throw() {
-    return new GUIEdge(id, myCurrentNumericalEdgeID++, myGlObjectIDStorage);
+    return new GUIEdge(id, myCurrentNumericalEdgeID++);
 }
 
 /****************************************************************************/

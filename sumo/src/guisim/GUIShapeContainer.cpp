@@ -31,7 +31,6 @@
 #include <foreign/rtree/SUMORTree.h>
 #include <utils/gui/globjects/GUIPolygon2D.h>
 #include <utils/gui/globjects/GUIPointOfInterest.h>
-#include <utils/gui/globjects/GUIGlObjectStorage.h>
 
 #ifdef _WIN32
 #include <windows.h>
@@ -55,7 +54,7 @@ GUIShapeContainer::~GUIShapeContainer() throw() {}
 bool
 GUIShapeContainer::addPoI(const std::string &name, int layer, const std::string &type, const RGBColor &c,
                           const Position2D &pos) throw() {
-    GUIPointOfInterest *p = new GUIPointOfInterest(GUIGlObjectStorage::gIDStorage, layer, name, type, pos, c);
+    GUIPointOfInterest *p = new GUIPointOfInterest(layer, name, type, pos, c);
     myLock.lock();
     const bool ret = add(layer, p);
     if (ret) {
@@ -71,7 +70,7 @@ GUIShapeContainer::addPoI(const std::string &name, int layer, const std::string 
 bool
 GUIShapeContainer::addPolygon(const std::string &name, int layer, const std::string &type, const RGBColor &c,
                               bool filled, const Position2DVector &shape) throw() {
-    GUIPolygon2D *p = new GUIPolygon2D(GUIGlObjectStorage::gIDStorage, layer, name, type, c, shape, filled);
+    GUIPolygon2D *p = new GUIPolygon2D(layer, name, type, c, shape, filled);
     myLock.lock();
     const bool ret = add(layer, p);
     if (ret) {

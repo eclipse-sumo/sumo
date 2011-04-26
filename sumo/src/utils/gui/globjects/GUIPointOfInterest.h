@@ -37,7 +37,6 @@
 // ===========================================================================
 // class declarations
 // ===========================================================================
-class GUIGlObjectStorage;
 
 
 // ===========================================================================
@@ -57,7 +56,7 @@ public:
      * @param[in] p The position of the PoI
      * @param[in] c The color of the PoI
      */
-    GUIPointOfInterest(GUIGlObjectStorage &idStorage, int layer,
+    GUIPointOfInterest(int layer,
                        const std::string &id, const std::string &type,
                        const Position2D &p, const RGBColor &c) throw();
 

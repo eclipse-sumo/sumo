@@ -65,7 +65,7 @@ public:
     const CrossSectionVector &getExits() const;
 
     /// Builds the wrapper
-    GUIDetectorWrapper *buildDetectorWrapper(GUIGlObjectStorage &idStorage);
+    GUIDetectorWrapper *buildDetectorWrapper();
 
 public:
     /**
@@ -75,8 +75,7 @@ public:
     class MyWrapper : public GUIDetectorWrapper {
     public:
         /// Constructor
-        MyWrapper(GUIE3Collector &detector,
-                  GUIGlObjectStorage &idStorage) throw();
+        MyWrapper(GUIE3Collector &detector) throw();
 
         /// Destrutor
         ~MyWrapper() throw();

@@ -28,15 +28,15 @@
 #endif
 
 #include <utils/gui/globjects/GUIGlObject.h>
-#include <utils/geom/Position2DVector.h>
-#include "GUILaneWrapper.h"
-#include "GUI_E2_ZS_CollectorOverLanes.h"
 #include <utils/gui/globjects/GUIGlObjectStorage.h>
-#include <guisim/GUIEdge.h>
+#include <utils/geom/Position2DVector.h>
 #include <utils/gui/div/GLHelper.h>
 #include <utils/geom/Line2D.h>
 #include <utils/geom/GeomHelper.h>
 #include <utils/gui/div/GUIParameterTableWindow.h>
+#include <guisim/GUIEdge.h>
+#include "GUILaneWrapper.h"
+#include "GUI_E2_ZS_CollectorOverLanes.h"
 
 #ifdef _WIN32
 #include <windows.h>
@@ -68,15 +68,14 @@ GUI_E2_ZS_CollectorOverLanes::~GUI_E2_ZS_CollectorOverLanes() throw() {}
 
 
 GUIDetectorWrapper *
-GUI_E2_ZS_CollectorOverLanes::buildDetectorWrapper(GUIGlObjectStorage &,
-        GUILaneWrapper &) {
+GUI_E2_ZS_CollectorOverLanes::buildDetectorWrapper(GUILaneWrapper &) {
     throw 1;
 }
 
 
 GUIDetectorWrapper *
-GUI_E2_ZS_CollectorOverLanes::buildDetectorWrapper(GUIGlObjectStorage &idStorage) {
-    return new MyWrapper(*this, idStorage, myAlreadyBuild);
+GUI_E2_ZS_CollectorOverLanes::buildDetectorWrapper() {
+    return new MyWrapper(*this, myAlreadyBuild);
 }
 
 
@@ -98,17 +97,16 @@ GUI_E2_ZS_CollectorOverLanes::buildCollector(size_t c, size_t r, MSLane *l,
  * ----------------------------------------------------------------------- */
 GUI_E2_ZS_CollectorOverLanes::MyWrapper::MyWrapper(
     GUI_E2_ZS_CollectorOverLanes &detector,
-    GUIGlObjectStorage &idStorage,
     const LaneDetMap &detectors) throw()
-        : GUIDetectorWrapper(idStorage, "E2OverLanes detector", detector.getID()),
+        : GUIDetectorWrapper("E2OverLanes detector", detector.getID()),
         myDetector(detector) {
-    GLuint glID = idStorage.getUniqueID();
+    GLuint glID = GUIGlObjectStorage::gIDStorage.getUniqueID();
     for (LaneDetMap::const_iterator i=detectors.begin(); i!=detectors.end(); ++i) {
         MSLane *l = (*i).first;
         GUIEdge &edge = static_cast<GUIEdge&>(l->getEdge());
         GUILaneWrapper &w = edge.getLaneGeometry(l);
         GUI_E2_ZS_Collector *c = static_cast<GUI_E2_ZS_Collector*>((*i).second);
-        GUIDetectorWrapper *dw = c->buildDetectorWrapper(idStorage, w, detector, glID);
+        GUIDetectorWrapper *dw = c->buildDetectorWrapper(w, detector, glID);
         mySubWrappers.push_back(dw);
         myBoundary.add(dw->getCenteringBoundary());
     }

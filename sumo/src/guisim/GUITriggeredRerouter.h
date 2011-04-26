@@ -60,15 +60,13 @@ class GUITriggeredRerouter
             public GUIGlObject_AbstractAdd {
 public:
     /** @brief Constructor
-     * @param[in] idStorage The gl-id storage for giving this object an gl-id
      * @param[in] id The id of the rerouter
      * @param[in] edges The edges the rerouter is placed at
      * @param[in] prob The probability to reroute vehicles
      * @param[in] aXMLFilename The file to read further definitions from
      * @param[in] off Whether the rerouter is off (not working) initially
      */
-    GUITriggeredRerouter(GUIGlObjectStorage &idStorage,
-                         const std::string &id,
+    GUITriggeredRerouter(const std::string &id,
                          const std::vector<MSEdge*> &edges, SUMOReal prob,
                          const std::string &aXMLFilename, bool off);
 

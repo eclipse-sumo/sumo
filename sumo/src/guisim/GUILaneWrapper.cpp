@@ -70,9 +70,8 @@ SUMOReal GUILaneWrapper::myAllMaxSpeed = 0;
 // ===========================================================================
 // method definitions
 // ===========================================================================
-GUILaneWrapper::GUILaneWrapper(GUIGlObjectStorage &idStorage,
-                               MSLane &lane, const Position2DVector &shape) throw() : 
-    GUIGlObject(idStorage, GLO_LANE, lane.getID()),
+GUILaneWrapper::GUILaneWrapper(MSLane &lane, const Position2DVector &shape) throw() : 
+    GUIGlObject(GLO_LANE, lane.getID()),
     myLane(lane), 
     myShape(shape) 
 {

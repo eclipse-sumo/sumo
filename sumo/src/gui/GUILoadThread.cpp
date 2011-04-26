@@ -136,7 +136,7 @@ GUILoadThread::run() {
 #ifdef HAVE_MESOSIM
     }
 #endif
-    GUIEdgeControlBuilder *eb = new GUIEdgeControlBuilder(GUIGlObjectStorage::gIDStorage);
+    GUIEdgeControlBuilder *eb = new GUIEdgeControlBuilder();
     GUIDetectorBuilder db(*net);
     NLJunctionControlBuilder jb(*net, db, oc);
     GUITriggerBuilder tb;

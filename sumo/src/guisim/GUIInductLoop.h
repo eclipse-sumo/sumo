@@ -38,7 +38,6 @@
 // ===========================================================================
 // class declarations
 // ===========================================================================
-class GUIGlObjectStorage;
 class GUILaneWrapper;
 
 
@@ -83,7 +82,7 @@ public:
 
     /** @brief Returns this detector's visualisation-wrapper
         valid for gui-version only */
-    virtual GUIDetectorWrapper *buildDetectorWrapper(GUIGlObjectStorage &idStorage, GUILaneWrapper &lane);
+    virtual GUIDetectorWrapper *buildDetectorWrapper(GUILaneWrapper &lane);
 
 
     /** @brief Returns vehicle data for vehicles that have been on the detector starting at the given time
@@ -144,7 +143,7 @@ public:
     public:
         /// @brief Constructor
         MyWrapper(GUIInductLoop &detector,
-                  GUIGlObjectStorage &idStorage, GUILaneWrapper &wrapper,
+                  GUILaneWrapper &wrapper,
                   SUMOReal pos) throw();
 
         /// @brief Destructor

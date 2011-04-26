@@ -71,13 +71,13 @@ StringBijection<GUIGlObjectType> GUIGlObject::TypeNames(
 // ===========================================================================
 // method definitions
 // ===========================================================================
-GUIGlObject::GUIGlObject(GUIGlObjectStorage &idStorage, GUIGlObjectType type, const std::string& microsimID) : 
+GUIGlObject::GUIGlObject(GUIGlObjectType type, const std::string& microsimID) : 
     myGLObjectType(type),
     myMicrosimID(microsimID),
     myPrefix(TypeNames.getString(type)),
     myFullName("<not yet defined")
 {
-    idStorage.registerObject(this);
+    GUIGlObjectStorage::gIDStorage.registerObject(this);
 }
 
 

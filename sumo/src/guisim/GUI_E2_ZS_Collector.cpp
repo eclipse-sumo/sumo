@@ -67,17 +67,17 @@ GUI_E2_ZS_Collector::~GUI_E2_ZS_Collector() throw() {}
 
 
 GUIDetectorWrapper *
-GUI_E2_ZS_Collector::buildDetectorWrapper(GUIGlObjectStorage &idStorage,
+GUI_E2_ZS_Collector::buildDetectorWrapper(
         GUILaneWrapper &wrapper) {
-    return new MyWrapper(*this, idStorage, wrapper);
+    return new MyWrapper(*this, wrapper);
 }
 
 GUIDetectorWrapper *
-GUI_E2_ZS_Collector::buildDetectorWrapper(GUIGlObjectStorage &idStorage,
+GUI_E2_ZS_Collector::buildDetectorWrapper(
         GUILaneWrapper &wrapper,
         GUI_E2_ZS_CollectorOverLanes& p,
         GLuint glID) {
-    return new MyWrapper(*this, idStorage, glID, p, wrapper);
+    return new MyWrapper(*this, glID, p, wrapper);
 }
 
 
@@ -86,16 +86,15 @@ GUI_E2_ZS_Collector::buildDetectorWrapper(GUIGlObjectStorage &idStorage,
  * GUI_E2_ZS_Collector::MyWrapper-methods
  * ----------------------------------------------------------------------- */
 GUI_E2_ZS_Collector::MyWrapper::MyWrapper(GUI_E2_ZS_Collector &detector,
-        GUIGlObjectStorage &idStorage,
         GUILaneWrapper &wrapper) throw()
-        : GUIDetectorWrapper(idStorage, "E2 detector", detector.getID()),
+        : GUIDetectorWrapper("E2 detector", detector.getID()),
         myDetector(detector) {
     myConstruct(detector, wrapper);
 }
 
 
 GUI_E2_ZS_Collector::MyWrapper::MyWrapper(
-    GUI_E2_ZS_Collector &detector, GUIGlObjectStorage&/*idStorage*/,
+    GUI_E2_ZS_Collector &detector, 
     GLuint /*glID*/, GUI_E2_ZS_CollectorOverLanes &,
     GUILaneWrapper &wrapper) throw()
         : GUIDetectorWrapper("ES detector", detector.getID()),

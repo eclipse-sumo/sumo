@@ -35,7 +35,6 @@
 #include <microsim/MSJunction.h>
 #include <microsim/MSLaneChanger.h>
 #include <microsim/MSGlobals.h>
-#include <utils/gui/globjects/GUIGlObjectStorage.h>
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
 #include <utils/geom/GeomHelper.h>
 #include "GUIEdge.h"
@@ -62,10 +61,9 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-GUIEdge::GUIEdge(const std::string &id, unsigned int numericalID,
-                 GUIGlObjectStorage &idStorage) throw()
+GUIEdge::GUIEdge(const std::string &id, unsigned int numericalID) throw()
         : MSEdge(id, numericalID),
-        GUIGlObject(idStorage, GLO_EDGE, id) {}
+        GUIGlObject(GLO_EDGE, id) {}
 
 
 GUIEdge::~GUIEdge() throw() {
@@ -76,7 +74,7 @@ GUIEdge::~GUIEdge() throw() {
 
 
 void
-GUIEdge::initGeometry(GUIGlObjectStorage &idStorage) throw() {
+GUIEdge::initGeometry() throw() {
     // don't do this twice
     if (myLaneGeoms.size()>0) {
         return;
@@ -84,7 +82,7 @@ GUIEdge::initGeometry(GUIGlObjectStorage &idStorage) throw() {
     // build the lane wrapper
     myLaneGeoms.reserve(myLanes->size());
     for (std::vector<MSLane*>::const_iterator i=myLanes->begin(); i<myLanes->end(); ++i) {
-        myLaneGeoms.push_back((*i)->buildLaneWrapper(idStorage));
+        myLaneGeoms.push_back((*i)->buildLaneWrapper());
     }
 }
 

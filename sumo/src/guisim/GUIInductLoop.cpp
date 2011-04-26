@@ -64,9 +64,8 @@ GUIInductLoop::~GUIInductLoop() throw() {}
 
 
 GUIDetectorWrapper *
-GUIInductLoop::buildDetectorWrapper(GUIGlObjectStorage &idStorage,
-                                    GUILaneWrapper &wrapper) {
-    return new MyWrapper(*this, idStorage, wrapper, myPosition);
+GUIInductLoop::buildDetectorWrapper(GUILaneWrapper &wrapper) {
+    return new MyWrapper(*this, wrapper, myPosition);
 }
 
 
@@ -113,9 +112,8 @@ GUIInductLoop::collectVehiclesOnDet(SUMOTime t) const throw() {
  * GUIInductLoop::MyWrapper-methods
  * ----------------------------------------------------------------------- */
 GUIInductLoop::MyWrapper::MyWrapper(GUIInductLoop &detector,
-                                    GUIGlObjectStorage &idStorage,
                                     GUILaneWrapper &wrapper, SUMOReal pos) throw()
-        : GUIDetectorWrapper(idStorage, "induct loop", detector.getID()),
+        : GUIDetectorWrapper("induct loop", detector.getID()),
         myDetector(detector), myPosition(pos) {
     const Position2DVector &v = wrapper.getShape();
     myFGPosition = v.positionAtLengthPosition(pos);

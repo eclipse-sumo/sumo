@@ -973,7 +973,7 @@ MSLane::swapAfterLaneChange(SUMOTime) {
 
 
 GUILaneWrapper *
-MSLane::buildLaneWrapper(GUIGlObjectStorage &) {
+MSLane::buildLaneWrapper() {
     throw "Only within the gui-version";
 }
 

@@ -41,7 +41,6 @@
 // ===========================================================================
 // class declarations
 // ===========================================================================
-class GUIGlObjectStorage;
 class GUILaneWrapper;
 class GUI_E2_ZS_CollectorOverLanes;
 
@@ -83,14 +82,11 @@ public:
 
 
     // valid for gui-version only
-    virtual GUIDetectorWrapper *buildDetectorWrapper(
-        GUIGlObjectStorage &idStorage,
-        GUILaneWrapper &wrapper);
+    virtual GUIDetectorWrapper *buildDetectorWrapper(GUILaneWrapper &wrapper);
 
 
     // valid for gui-version and joined collectors only
     virtual GUIDetectorWrapper *buildDetectorWrapper(
-        GUIGlObjectStorage &idStorage,
         GUILaneWrapper &wrapper, GUI_E2_ZS_CollectorOverLanes& p,
         GLuint glID);
 
@@ -102,12 +98,11 @@ public:
     class MyWrapper : public GUIDetectorWrapper {
     public:
         /// Constructor
-        MyWrapper(GUI_E2_ZS_Collector &detector,
-                  GUIGlObjectStorage &idStorage, GUILaneWrapper &wrapper) throw();
+        MyWrapper(GUI_E2_ZS_Collector &detector, GUILaneWrapper &wrapper) throw();
 
         /// Constructor for collectors joined over lanes
-        MyWrapper(GUI_E2_ZS_Collector &detector,
-                  GUIGlObjectStorage &idStorage, GLuint glID,
+        MyWrapper(GUI_E2_ZS_Collector &detector, 
+                  GLuint glID,
                   GUI_E2_ZS_CollectorOverLanes &mustBe,
                   GUILaneWrapper &wrapper) throw();
 

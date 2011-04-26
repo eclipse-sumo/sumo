@@ -34,7 +34,6 @@
 #include <guisim/GUITriggeredRerouter.h>
 #include <guisim/GUIBusStop.h>
 #include "GUITriggerBuilder.h"
-#include <utils/gui/globjects/GUIGlObjectStorage.h>
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -54,7 +53,7 @@ MSLaneSpeedTrigger*
 GUITriggerBuilder::buildLaneSpeedTrigger(MSNet &net,
         const std::string &id, const std::vector<MSLane*> &destLanes,
         const std::string &file) throw(ProcessError) {
-    GUILaneSpeedTrigger *lst = new GUILaneSpeedTrigger(GUIGlObjectStorage::gIDStorage, id, destLanes, file);
+    GUILaneSpeedTrigger *lst = new GUILaneSpeedTrigger(id, destLanes, file);
     static_cast<GUINet&>(net).getVisualisationSpeedUp().addAdditionalGLObject(lst);
     return lst;
 }
@@ -64,7 +63,7 @@ void
 GUITriggerBuilder::buildRerouter(MSNet &net, const std::string &id,
                                  std::vector<MSEdge*> &edges,
                                  SUMOReal prob, const std::string &file, bool off) throw() {
-    static_cast<GUINet&>(net).getVisualisationSpeedUp().addAdditionalGLObject(new GUITriggeredRerouter(GUIGlObjectStorage::gIDStorage, id, edges, prob, file, off));
+    static_cast<GUINet&>(net).getVisualisationSpeedUp().addAdditionalGLObject(new GUITriggeredRerouter(id, edges, prob, file, off));
 }
 
 
@@ -73,7 +72,7 @@ GUITriggerBuilder::buildBusStop(MSNet &net, const std::string &id,
                                 const std::vector<std::string> &lines,
                                 MSLane *lane,
                                 SUMOReal frompos, SUMOReal topos) throw() {
-    GUIBusStop *stop = new GUIBusStop(GUIGlObjectStorage::gIDStorage, id, lines, *lane, frompos, topos);
+    GUIBusStop *stop = new GUIBusStop(id, lines, *lane, frompos, topos);
     net.addBusStop(stop);
     static_cast<GUINet&>(net).getVisualisationSpeedUp().addAdditionalGLObject(stop);
 }

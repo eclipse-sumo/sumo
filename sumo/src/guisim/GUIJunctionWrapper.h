@@ -32,7 +32,6 @@
 #include <string>
 #include <utility>
 #include <utils/geom/Position2DVector.h>
-#include <utils/gui/globjects/GUIGlObjectStorage.h>
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
 #include <utils/gui/globjects/GUIGlObject.h>
 
@@ -64,8 +63,7 @@ public:
      * @param[in, changed] idStorage The storage to retrieve the gl-id from
      * @param[in] junction The represented junction
      */
-    GUIJunctionWrapper(GUIGlObjectStorage &idStorage,
-                       MSJunction &junction) throw();
+    GUIJunctionWrapper(MSJunction &junction) throw();
 
 
     /// @brief Destructor

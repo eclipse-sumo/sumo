@@ -38,7 +38,6 @@
 #include <microsim/MSNet.h>
 #include "GUILane.h"
 #include "GUIVehicle.h"
-#include <utils/gui/globjects/GUIGlObjectStorage.h>
 #include "GUINet.h"
 
 #ifdef CHECK_MEMORY_LEAKS
@@ -179,8 +178,8 @@ GUILane::integrateNewVehicle(SUMOTime t) {
 
 
 GUILaneWrapper *
-GUILane::buildLaneWrapper(GUIGlObjectStorage &idStorage) {
-    return new GUILaneWrapper(idStorage, *this, myShape);
+GUILane::buildLaneWrapper() {
+    return new GUILaneWrapper(*this, myShape);
 }
 
 

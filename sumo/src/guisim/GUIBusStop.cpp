@@ -54,7 +54,6 @@
 #include <utils/gui/images/GUITexturesHelper.h>
 #include <microsim/logging/FunctionBinding.h>
 #include <utils/gui/div/GUIGlobalSelection.h>
-#include <utils/gui/globjects/GUIGlObjectStorage.h>
 #include <foreign/polyfonts/polyfonts.h>
 #include <utils/geom/GeomHelper.h>
 #include <gui/GUIApplicationWindow.h>
@@ -68,11 +67,10 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-GUIBusStop::GUIBusStop(GUIGlObjectStorage &idStorage,
-                       const std::string &id, const std::vector<std::string> &lines, MSLane &lane,
+GUIBusStop::GUIBusStop(const std::string &id, const std::vector<std::string> &lines, MSLane &lane,
                        SUMOReal frompos, SUMOReal topos) throw()
         : MSBusStop(id, lines, lane, frompos, topos),
-        GUIGlObject_AbstractAdd(idStorage, "bus_stop", GLO_TRIGGER, id) {
+        GUIGlObject_AbstractAdd("bus_stop", GLO_TRIGGER, id) {
     myFGShape = lane.getShape();
     myFGShape.move2side((SUMOReal) 1.65);
     myFGShape = myFGShape.getSubpart(frompos, topos);

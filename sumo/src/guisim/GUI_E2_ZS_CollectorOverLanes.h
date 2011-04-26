@@ -42,7 +42,6 @@
 // ===========================================================================
 // class declarations
 // ===========================================================================
-class GUIGlObjectStorage;
 class GUILaneWrapper;
 
 
@@ -74,12 +73,10 @@ public:
 
     // invalid in fact, as collectors do not need a lane
     virtual GUIDetectorWrapper *buildDetectorWrapper(
-        GUIGlObjectStorage &idStorage,
         GUILaneWrapper &lane);
 
     // valid for gui-version only
-    virtual GUIDetectorWrapper *buildDetectorWrapper(
-        GUIGlObjectStorage &idStorage);
+    virtual GUIDetectorWrapper *buildDetectorWrapper();
 
 protected:
     MSE2Collector *buildCollector(size_t c, size_t r,
@@ -95,7 +92,6 @@ public:
     public:
         /// Constructor
         MyWrapper(GUI_E2_ZS_CollectorOverLanes &detector,
-                  GUIGlObjectStorage &idStorage,
                   const LaneDetMap &detectors) throw();
 
         /// Destrutor
@@ -130,12 +126,6 @@ public:
          */
         void drawGL(const GUIVisualizationSettings &s) const throw();
         //@}
-
-
-
-        /// Needed to set the id
-        friend class GUIGlObjectStorage;
-
 
 
         /// Returns the detector itself

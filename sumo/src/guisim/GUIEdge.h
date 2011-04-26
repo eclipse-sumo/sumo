@@ -52,7 +52,6 @@
 class MSJunction;
 class GUILane;
 class GUIBasicLane;
-class GUIGlObjectStorage;
 
 
 // ===========================================================================
@@ -69,11 +68,9 @@ public:
     /** @brief Constructor.
      * @param[in] id The id of the edge
      * @param[in] numericalID The numerical id (index) of the edge
-     * @param[in] idStorage The gl-objects storage to retrieve the gl-id for this edge from
      * @see MSEdge
      */
-    GUIEdge(const std::string &id, unsigned int numericalID,
-            GUIGlObjectStorage &idStorage) throw();
+    GUIEdge(const std::string &id, unsigned int numericalID) throw();
 
 
     /// @brief Destructor.
@@ -81,10 +78,8 @@ public:
 
 
     /** @brief Builds lane wrappers for this edge's lanes
-     *
-     * @param[in] idStorage The gl-objects storage to retrieve the gl-id for this edge's lanes from
      */
-    void initGeometry(GUIGlObjectStorage &idStorage) throw();
+    void initGeometry() throw();
 
 
     /** Returns the list of all known edge ids */

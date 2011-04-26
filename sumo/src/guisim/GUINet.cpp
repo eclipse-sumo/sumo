@@ -39,7 +39,6 @@
 #include <microsim/traffic_lights/MSTrafficLightLogic.h>
 #include <microsim/traffic_lights/MSTLLogicControl.h>
 #include <microsim/MSJunctionControl.h>
-#include <utils/gui/globjects/GUIGlObjectStorage.h>
 #include <utils/shapes/ShapeContainer.h>
 #include <utils/common/RGBColor.h>
 #include <guisim/GLObjectValuePassConnector.h>
@@ -58,7 +57,6 @@
 #include "GUIVehicle.h"
 #include "GUINet.h"
 #include "GUIShapeContainer.h"
-#include <utils/gui/globjects/GUIGlObjectStorage.h>
 #include <utils/gui/globjects/GUIPolygon2D.h>
 #include <utils/gui/globjects/GUIPointOfInterest.h>
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
@@ -87,7 +85,7 @@ template MFXMutex GLObjectValuePassConnector<std::pair<int,class MSPhaseDefiniti
 GUINet::GUINet(MSVehicleControl *vc, MSEventControl *beginOfTimestepEvents,
                MSEventControl *endOfTimestepEvents, MSEventControl *insertionEvents) throw(ProcessError) : 
     MSNet(vc, beginOfTimestepEvents, endOfTimestepEvents, insertionEvents, new GUIShapeContainer(myGrid)),
-    GUIGlObject(GUIGlObjectStorage::gIDStorage, GLO_NETWORK, ""),
+    GUIGlObject(GLO_NETWORK, ""),
     myLastSimDuration(0), /*myLastVisDuration(0),*/ myLastIdleDuration(0),
     myLastVehicleMovementCount(0), myOverallVehicleCount(0), myOverallSimDuration(0) 
 {
@@ -136,7 +134,7 @@ GUINet::initDetectors() {
                 continue;
             }
             */
-        GUIDetectorWrapper *wrapper = static_cast<GUI_E2_ZS_Collector*>(e2i)->buildDetectorWrapper(GUIGlObjectStorage::gIDStorage, edge.getLaneGeometry(lane));
+        GUIDetectorWrapper *wrapper = static_cast<GUI_E2_ZS_Collector*>(e2i)->buildDetectorWrapper(edge.getLaneGeometry(lane));
         // add to dictionary
         myDetectorDict[wrapper->getMicrosimID()] = wrapper;
         // add to visualisation
@@ -146,7 +144,7 @@ GUINet::initDetectors() {
     const std::map<std::string, MS_E2_ZS_CollectorOverLanes*> &e2ol = myDetectorControl->getE2OLDetectors().getMyMap();
     for (std::map<std::string, MS_E2_ZS_CollectorOverLanes*>::const_iterator i2=e2ol.begin(); i2!=e2ol.end(); i2++) {
         MS_E2_ZS_CollectorOverLanes * const e2oli = (*i2).second;
-        GUIDetectorWrapper *wrapper = static_cast<GUI_E2_ZS_CollectorOverLanes*>(e2oli)->buildDetectorWrapper(GUIGlObjectStorage::gIDStorage);
+        GUIDetectorWrapper *wrapper = static_cast<GUI_E2_ZS_CollectorOverLanes*>(e2oli)->buildDetectorWrapper();
         myDetectorDict[wrapper->getMicrosimID()] = wrapper;
         myGrid.addAdditionalGLObject(wrapper);
     }
@@ -156,7 +154,7 @@ GUINet::initDetectors() {
         MSInductLoop *const e1i = (*i2).second;
         const MSLane *lane = e1i->getLane();
         GUIEdge &edge = static_cast<GUIEdge&>(lane->getEdge());
-        GUIDetectorWrapper *wrapper = static_cast<GUIInductLoop*>(e1i)->buildDetectorWrapper(GUIGlObjectStorage::gIDStorage, edge.getLaneGeometry(lane));
+        GUIDetectorWrapper *wrapper = static_cast<GUIInductLoop*>(e1i)->buildDetectorWrapper(edge.getLaneGeometry(lane));
         myDetectorDict[wrapper->getMicrosimID()] = wrapper;
         myGrid.addAdditionalGLObject(wrapper);
     }
@@ -164,7 +162,7 @@ GUINet::initDetectors() {
     const std::map<std::string, MSE3Collector*> &e3 = myDetectorControl->getE3Detectors().getMyMap();
     for (std::map<std::string, MSE3Collector*>::const_iterator i2=e3.begin(); i2!=e3.end(); i2++) {
         MSE3Collector *const e3i = (*i2).second;
-        GUIDetectorWrapper *wrapper = static_cast<GUIE3Collector*>(e3i)->buildDetectorWrapper(GUIGlObjectStorage::gIDStorage);
+        GUIDetectorWrapper *wrapper = static_cast<GUIE3Collector*>(e3i)->buildDetectorWrapper();
         myDetectorDict[wrapper->getMicrosimID()] = wrapper;
         myGrid.addAdditionalGLObject(wrapper);
     }
@@ -188,7 +186,7 @@ GUINet::initTLMap() {
         }
         // build the wrapper
         GUITrafficLightLogicWrapper *tllw =
-            new GUITrafficLightLogicWrapper(GUIGlObjectStorage::gIDStorage, *myLogics, *tll);
+            new GUITrafficLightLogicWrapper(*myLogics, *tll);
         // build the association link->wrapper
         MSTrafficLightLogic::LinkVectorVector::const_iterator j;
         for (j=links.begin(); j!=links.end(); j++) {
@@ -314,7 +312,7 @@ GUINet::initGUIStructures() {
     myJunctionWrapper.reserve(size);
     const std::map<std::string, MSJunction*> &junctions = myJunctions->getMyMap();
     for (std::map<std::string, MSJunction*>::const_iterator i=junctions.begin(); i!=junctions.end(); ++i) {
-        myJunctionWrapper.push_back(new GUIJunctionWrapper(GUIGlObjectStorage::gIDStorage, *(*i).second));
+        myJunctionWrapper.push_back(new GUIJunctionWrapper(*(*i).second));
     }
     // build the visualization tree
     float *cmin = new float[2];

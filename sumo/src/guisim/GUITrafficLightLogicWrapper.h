@@ -37,7 +37,6 @@
 // ===========================================================================
 // class declarations
 // ===========================================================================
-class GUIGlObjectStorage;
 class MSTrafficLightLogic;
 class GUIMainWindow;
 
@@ -53,8 +52,7 @@ class GUIMainWindow;
 class GUITrafficLightLogicWrapper : public GUIGlObject {
 public:
     /// Constructor
-    GUITrafficLightLogicWrapper(GUIGlObjectStorage &idStorage,
-                                MSTLLogicControl &control, MSTrafficLightLogic &tll) throw();
+    GUITrafficLightLogicWrapper(MSTLLogicControl &control, MSTrafficLightLogic &tll) throw();
 
     /// Destructor
     ~GUITrafficLightLogicWrapper() throw();

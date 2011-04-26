@@ -55,7 +55,6 @@ class MSLaneChanger;
 class MSLink;
 class MSMoveReminder;
 class GUILaneWrapper;
-class GUIGlObjectStorage;
 class MSVehicleTransfer;
 class OutputDevice;
 
@@ -460,7 +459,7 @@ public:
 
 
     // valid for gui-version only
-    virtual GUILaneWrapper *buildLaneWrapper(GUIGlObjectStorage &idStorage);
+    virtual GUILaneWrapper *buildLaneWrapper();
 
     virtual MSVehicle *removeVehicle(MSVehicle *remVehicle);
 

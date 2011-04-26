@@ -67,8 +67,7 @@ public:
      * @param[in] destLanes List of lanes affected by this speed trigger
      * @param[in] file Name of the file to read the speeds to set from
      */
-    GUILaneSpeedTrigger(GUIGlObjectStorage &idStorage,
-                        const std::string &id,
+    GUILaneSpeedTrigger(const std::string &id,
                         const std::vector<MSLane*> &destLanes,
                         const std::string &file) throw(ProcessError);
 

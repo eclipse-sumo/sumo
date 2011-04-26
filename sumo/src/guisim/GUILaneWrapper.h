@@ -61,12 +61,10 @@ class Position2DVector;
 class GUILaneWrapper : public GUIGlObject {
 public:
     /** @brief Constructor
-     * @param[in] idStorage The storage of gl-ids to get the one for this lane representation from
      * @param[in] lane The lane to be represented
      * @param[in] shape The shape of the lane (!!! this is a member of the lane - no need to give it additionally)
      */
-    GUILaneWrapper(GUIGlObjectStorage &idStorage,
-                   MSLane &lane, const Position2DVector &shape) throw();
+    GUILaneWrapper(MSLane &lane, const Position2DVector &shape) throw();
 
 
     /// @brief Destructor

@@ -75,7 +75,7 @@ public:
      * @param[in] begPos Begin position of the bus stop on the lane
      * @param[in] endPos End position of the bus stop on the lane
      */
-    GUIBusStop(GUIGlObjectStorage &idStorage, const std::string &id,
+    GUIBusStop(const std::string &id,
                const std::vector<std::string> &lines, MSLane &lane,
                SUMOReal frompos, SUMOReal topos) throw();
 

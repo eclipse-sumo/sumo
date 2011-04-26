@@ -52,9 +52,8 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-GUIJunctionWrapper::GUIJunctionWrapper(GUIGlObjectStorage &idStorage,
-                                       MSJunction &junction) throw()
-        : GUIGlObject(idStorage, GLO_JUNCTION, junction.getID()),
+GUIJunctionWrapper::GUIJunctionWrapper(MSJunction &junction) throw()
+        : GUIGlObject(GLO_JUNCTION, junction.getID()),
         myJunction(junction) {
     if (myJunction.getShape().size()==0) {
         Position2D pos = myJunction.getPosition();

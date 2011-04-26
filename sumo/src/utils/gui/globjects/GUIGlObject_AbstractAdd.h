@@ -46,13 +46,9 @@ class GUIGlObject_AbstractAdd :
             public GUIGlObject {
 public:
     GUIGlObject_AbstractAdd(
-            GUIGlObjectStorage &idStorage, 
             const std::string& prefix, 
             GUIGlObjectType type,
             const std::string& id);
-
-    /// Constructor for objects joining gl-objects
-    GUIGlObject_AbstractAdd(const std::string& prefix, GUIGlObjectType type, const std::string& id);
 
     ~GUIGlObject_AbstractAdd() throw();
 

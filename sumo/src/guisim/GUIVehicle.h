@@ -69,15 +69,13 @@ class MSDevice_Vehroutes;
 class GUIVehicle : public MSVehicle, public GUIGlObject {
 public:
     /** @brief Constructor
-     * @param[in] idStorage The storage of gl-IDs to retrieve the ID from
      * @param[in] pars The vehicle description
      * @param[in] route The vehicle's route
      * @param[in] type The vehicle's type
      * @param[in] vehicleIndex The vehicle's running index
      * @exception ProcessError If a value is wrong
      */
-    GUIVehicle(GUIGlObjectStorage &idStorage,
-               SUMOVehicleParameter* pars, const MSRoute* route,
+    GUIVehicle(SUMOVehicleParameter* pars, const MSRoute* route,
                const MSVehicleType* type, int vehicleIndex) throw(ProcessError);
 
 

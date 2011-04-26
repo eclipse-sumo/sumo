@@ -46,14 +46,13 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-GUIPointOfInterest::GUIPointOfInterest(GUIGlObjectStorage &idStorage,
-                                       int layer,
+GUIPointOfInterest::GUIPointOfInterest(int layer,
                                        const std::string &id,
                                        const std::string &type,
                                        const Position2D &p,
                                        const RGBColor &c) throw() : 
     PointOfInterest(id, type, p, c),
-    GUIGlObject_AbstractAdd(idStorage, "poi", GLO_SHAPE, id),
+    GUIGlObject_AbstractAdd("poi", GLO_SHAPE, id),
     myLayer(layer) {}
 
 

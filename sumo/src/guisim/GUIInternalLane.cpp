@@ -182,8 +182,8 @@ GUIInternalLane::integrateNewVehicle(SUMOTime t) {
 
 
 GUILaneWrapper *
-GUIInternalLane::buildLaneWrapper(GUIGlObjectStorage &idStorage) {
-    return new GUILaneWrapper(idStorage, *this, myShape);
+GUIInternalLane::buildLaneWrapper() {
+    return new GUILaneWrapper(*this, myShape);
 }
 
 

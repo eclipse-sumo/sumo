@@ -59,7 +59,7 @@ public:
      *
      * @param[in] glObjectIDStorage Storage of gl-ids used to assign new ids to built edges
      */
-    GUIEdgeControlBuilder(GUIGlObjectStorage &glObjectIDStorage) throw();
+    GUIEdgeControlBuilder() throw();
 
 
     /// @brief Destructor
@@ -78,18 +78,13 @@ public:
 
     /** @brief Builds an edge instance (GUIEdge in this case)
      *
-     * Builds an GUIEdge-instance using the given name, the current index
-     *  "myCurrentNumericalEdgeID" and the gl-id storage ("myGlObjectIDStorage").
+     * Builds an GUIEdge-instance using the given name and the current index
+     *  "myCurrentNumericalEdgeID" 
      *  Post-increments the index, returns the built edge.
      *
      * @param[in] id The id of the edge to build
      */
     MSEdge *buildEdge(const std::string &id) throw();
-
-
-private:
-    /// @brief The gl-object id giver
-    GUIGlObjectStorage &myGlObjectIDStorage;
 
 
 private:

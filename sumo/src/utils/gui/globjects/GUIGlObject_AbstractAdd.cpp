@@ -48,19 +48,6 @@ std::vector<GUIGlObject_AbstractAdd*> GUIGlObject_AbstractAdd::myObjectList;
 // ===========================================================================
 // method definitions
 // ===========================================================================
-GUIGlObject_AbstractAdd::GUIGlObject_AbstractAdd(
-            GUIGlObjectStorage &idStorage, 
-            const std::string& prefix, 
-            GUIGlObjectType type,
-            const std::string& id) :
-    GUIGlObject(idStorage, type, id)
-{
-    setPrefix(prefix);
-    myObjects[getFullName()] = this;
-    myObjectList.push_back(this);
-}
-
-
 GUIGlObject_AbstractAdd::GUIGlObject_AbstractAdd(const std::string& prefix, GUIGlObjectType type, const std::string& id) : 
     GUIGlObject(prefix, type, id) 
 {

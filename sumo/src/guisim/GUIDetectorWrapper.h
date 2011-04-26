@@ -48,10 +48,7 @@ class GUIDetectorWrapper : public GUIGlObject_AbstractAdd {
 
 public:
     /// Constructor
-    GUIDetectorWrapper(GUIGlObjectStorage &idStorage, const std::string& prefix, const std::string& id);  
-
-    /// Constructor for collectors over something
-    GUIDetectorWrapper(const std::string& prefix, const std::string& id);
+    GUIDetectorWrapper(const std::string& prefix, const std::string& id);  
 
     /// Destructor
     ~GUIDetectorWrapper() throw();

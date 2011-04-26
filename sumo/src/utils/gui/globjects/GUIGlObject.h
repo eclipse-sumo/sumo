@@ -66,11 +66,10 @@ public:
      * This is the standard constructor that assures that the object is known
      *  and its id is unique. Use it always :-)
      *
-     * @param[in] idStorage The global storage of gl-ids, used to give a unique id
      * @param[in] fullName The complete name, including a type-prefix
      * @see GUIGlObjectStorage
      */
-    GUIGlObject(GUIGlObjectStorage &idStorage, GUIGlObjectType type, const std::string& microsimID);
+    GUIGlObject(GUIGlObjectType type, const std::string& microsimID);
 
 
     /** @brief Constructor
