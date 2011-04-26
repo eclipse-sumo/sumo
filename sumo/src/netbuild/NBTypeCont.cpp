@@ -59,7 +59,7 @@ NBTypeCont::insert(const std::string &id, int noLanes, SUMOReal maxSpeed, int pr
 	SUMOVehicleClasses allow;
 	if (vClass != SVC_UNKNOWN)
 	{
-		allow.push_back(vClass);
+		allow.insert(vClass);
 	}
 	return insert(id, noLanes, maxSpeed, prio, allow,
 			SUMOVehicleClasses(), oneWayIsDefault);

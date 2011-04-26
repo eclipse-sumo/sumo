@@ -1822,10 +1822,7 @@ NBEdge::allowVehicleClass(int lane, SUMOVehicleClass vclass) {
         return;
     }
     assert(lane<(int) myLanes.size());
-    // add it only if not already done
-    if (find(myLanes[lane].allowed.begin(), myLanes[lane].allowed.end(), vclass)==myLanes[lane].allowed.end()) {
-        myLanes[lane].allowed.push_back(vclass);
-    }
+    myLanes[lane].allowed.insert(vclass);
 }
 
 
@@ -1840,10 +1837,7 @@ NBEdge::disallowVehicleClass(int lane, SUMOVehicleClass vclass) {
         return;
     }
     assert(lane<(int) myLanes.size());
-    // add it only if not already done
-    if (find(myLanes[lane].notAllowed.begin(), myLanes[lane].notAllowed.end(), vclass)==myLanes[lane].notAllowed.end()) {
-        myLanes[lane].notAllowed.push_back(vclass);
-    }
+    myLanes[lane].notAllowed.insert(vclass);
 }
 
 
@@ -1858,10 +1852,7 @@ NBEdge::preferVehicleClass(int lane, SUMOVehicleClass vclass) {
         return;
     }
     assert(lane<(int) myLanes.size());
-    // add it only if not already done
-    if (find(myLanes[lane].preferred.begin(), myLanes[lane].preferred.end(), vclass)==myLanes[lane].preferred.end()) {
-        myLanes[lane].preferred.push_back(vclass);
-    }
+    myLanes[lane].preferred.insert(vclass);
 }
 
 
