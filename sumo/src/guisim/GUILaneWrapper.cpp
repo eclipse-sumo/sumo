@@ -194,8 +194,7 @@ ROWdrawAction_drawTLSLinkNo(const GUINet &net, const GUILaneWrapper &lane) {
 
 
 void
-ROWdrawAction_drawLinkRules(const GUINet &net, const GUILaneWrapper &lane,
-                            bool showToolTips) {
+ROWdrawAction_drawLinkRules(const GUINet &net, const GUILaneWrapper &lane) {
     unsigned int noLinks = lane.getLinkNumber();
     const Position2DVector &g = lane.getShape();
     const Position2D &end = g.getEnd();
@@ -203,9 +202,7 @@ ROWdrawAction_drawLinkRules(const GUINet &net, const GUILaneWrapper &lane,
     const Position2D &s = end;
     SUMOReal rot = (SUMOReal) atan2((s.x()-f.x()), (f.y()-s.y()))*(SUMOReal) 180.0/(SUMOReal) PI;
     if (noLinks==0) {
-        if (showToolTips) {
-            glPushName(lane.getGlID());
-        }
+        glPushName(lane.getGlID());
         // draw a grey bar if no links are on the street
         glColor3d(0.5, 0.5, 0.5);
         glPushMatrix();
@@ -218,9 +215,7 @@ ROWdrawAction_drawLinkRules(const GUINet &net, const GUILaneWrapper &lane,
         glVertex2d(SUMO_const_halfLaneWidth, 0.0);
         glEnd();
         glPopMatrix();
-        if (showToolTips) {
-            glPopName();
-        }
+        glPopName();
         return;
     }
     // draw all links
@@ -232,8 +227,7 @@ ROWdrawAction_drawLinkRules(const GUINet &net, const GUILaneWrapper &lane,
     for (unsigned int i=0; i<noLinks; ++i) {
         SUMOReal x2 = x1 + w;
         MSLink::LinkState state = lane.getLane().getLinkCont()[i]->getState();
-        if (showToolTips) {
-            switch (state) {
+        switch (state) {
             case MSLink::LINKSTATE_TL_GREEN_MAJOR:
             case MSLink::LINKSTATE_TL_GREEN_MINOR:
             case MSLink::LINKSTATE_TL_RED:
@@ -249,7 +243,6 @@ ROWdrawAction_drawLinkRules(const GUINet &net, const GUILaneWrapper &lane,
             default:
                 glPushName(lane.getGlID());
                 break;
-            }
         }
         switch (state) {
         case MSLink::LINKSTATE_TL_GREEN_MAJOR:
@@ -288,9 +281,7 @@ ROWdrawAction_drawLinkRules(const GUINet &net, const GUILaneWrapper &lane,
         glVertex2d(x2-SUMO_const_halfLaneWidth, 0.5);
         glVertex2d(x2-SUMO_const_halfLaneWidth,0.0);
         glEnd();
-        if (showToolTips) {
-            glPopName();
-        }
+        glPopName();
         x1 = x2;
         x2 += w;
     }
@@ -299,7 +290,7 @@ ROWdrawAction_drawLinkRules(const GUINet &net, const GUILaneWrapper &lane,
 
 
 void
-ROWdrawAction_drawArrows(const GUILaneWrapper &lane, bool showToolTips) {
+ROWdrawAction_drawArrows(const GUILaneWrapper &lane) {
     unsigned int noLinks = lane.getLinkNumber();
     if (noLinks==0) {
         return;
@@ -309,9 +300,7 @@ ROWdrawAction_drawArrows(const GUILaneWrapper &lane, bool showToolTips) {
     const Position2D &f = lane.getShape()[-2];
     SUMOReal rot = (SUMOReal) atan2((end.x()-f.x()), (f.y()-end.y()))*(SUMOReal) 180.0/(SUMOReal) PI;
     glPushMatrix();
-    if (showToolTips) {
-        glPushName(0);
-    }
+    glPushName(0);
     glColor3d(1, 1, 1);
     glTranslated(end.x(), end.y(), 0);
     glRotated(rot, 0, 0, 1);
@@ -355,9 +344,7 @@ ROWdrawAction_drawArrows(const GUILaneWrapper &lane, bool showToolTips) {
         }
     }
     glPopMatrix();
-    if (showToolTips) {
-        glPopName();
-    }
+    glPopName();
 }
 
 
@@ -425,35 +412,26 @@ GUILaneWrapper::drawGL(const GUIVisualizationSettings &s) const throw() {
     if (!MSGlobals::gUseMesoSim)
 #endif
         s.laneColorer.setGlColor(*this);
-    // (optional) set id
-    if (s.needsGlID) {
-        glPushName(getGlID());
-    }
+    glPushName(getGlID());
     // draw lane
     // check whether it is not too small
     if (s.scale<1.) {
         GLHelper::drawLine(myShape);
-        // (optional) clear id
-        if (s.needsGlID) {
-            glPopName();
-        }
+        glPopName();
     } else {
         if (getLane().getEdge().getPurpose()!=MSEdge::EDGEFUNCTION_INTERNAL) {
             GLHelper::drawBoxLines(myShape, myShapeRotations, myShapeLengths, SUMO_const_halfLaneWidth);
         } else {
             GLHelper::drawBoxLines(myShape, myShapeRotations, myShapeLengths, SUMO_const_quarterLaneWidth);
         }
-        // (optional) clear id
-        if (s.needsGlID) {
-            glPopName();
-        }
+        glPopName();
         // draw ROWs (not for inner lanes)
         if (getLane().getEdge().getPurpose()!=MSEdge::EDGEFUNCTION_INTERNAL) {// !!! getPurpose()
             GUINet *net = (GUINet*) MSNet::getInstance();
             glTranslated(0, 0, .1);
-            ROWdrawAction_drawLinkRules(*net, *this, s.needsGlID);
+            ROWdrawAction_drawLinkRules(*net, *this);
             if (s.showLinkDecals) {
-                ROWdrawAction_drawArrows(*this, s.needsGlID);
+                ROWdrawAction_drawArrows(*this);
             }
             if (s.showLane2Lane) {
                 // this should be independent to the geometry:

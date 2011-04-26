@@ -166,10 +166,7 @@ GUIInductLoop::MyWrapper::getParameterWindow(GUIMainWindow &app,
 
 void
 GUIInductLoop::MyWrapper::drawGL(const GUIVisualizationSettings &s) const throw() {
-    // (optional) set id
-    if (s.needsGlID) {
-        glPushName(getGlID());
-    }
+    glPushName(getGlID());
     SUMOReal width = (SUMOReal) 2.0 * s.scale;
     glLineWidth(1.0);
     // shape
@@ -218,10 +215,7 @@ GUIInductLoop::MyWrapper::drawGL(const GUIVisualizationSettings &s) const throw(
     if (s.drawAddName) {
         drawGLName(getCenteringBoundary().getCenter(), getMicrosimID(), s.addNameSize / s.scale);
     }
-    // (optional) clear id
-    if (s.needsGlID) {
-        glPopName();
-    }
+    glPopName();
 }
 
 

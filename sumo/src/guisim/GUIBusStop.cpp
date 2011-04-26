@@ -121,10 +121,7 @@ GUIBusStop::getParameterWindow(GUIMainWindow &,
 
 void
 GUIBusStop::drawGL(const GUIVisualizationSettings &s) const throw() {
-    // (optional) set id
-    if (s.needsGlID) {
-        glPushName(getGlID());
-    }
+    glPushName(getGlID());
     glTranslated(0, 0, -.03);
     // draw the area
     glColor3d(76./255., 170./255., 50./255.);
@@ -190,10 +187,7 @@ GUIBusStop::drawGL(const GUIVisualizationSettings &s) const throw() {
     if (s.drawAddName) {
         drawGLName(getCenteringBoundary().getCenter(), getMicrosimID(), s.addNameSize / s.scale);
     }
-    // (optional) clear id
-    if (s.needsGlID) {
-        glPopName();
-    }
+    glPopName();
 }
 
 

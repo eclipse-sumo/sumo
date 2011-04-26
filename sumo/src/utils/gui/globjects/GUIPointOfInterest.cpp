@@ -106,10 +106,7 @@ GUIPointOfInterest::drawGL(const GUIVisualizationSettings &s) const throw() {
     } else {
         glTranslated(0, 0, -.01*(SUMOReal) getLayer()+.01);
     }
-    // (optional) set id
-    if (s.needsGlID) {
-        glPushName(getGlID());
-    }
+    glPushName(getGlID());
     glColor3d(red(),green(),blue());
     glTranslated(x(), y(), 0);
     GLHelper::drawFilledCircle((SUMOReal) 1.3*s.poiExaggeration, 16);
@@ -125,10 +122,7 @@ GUIPointOfInterest::drawGL(const GUIVisualizationSettings &s) const throw() {
         glPopMatrix();
     }
     glTranslated(-x(), -y(), 0);
-    // (optional) clear id
-    if (s.needsGlID) {
-        glPopName();
-    }
+    glPopName();
     glPopMatrix();
 }
 

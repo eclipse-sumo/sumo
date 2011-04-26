@@ -286,10 +286,7 @@ GUITriggeredRerouter::getParameterWindow(GUIMainWindow &,
 
 void
 GUITriggeredRerouter::drawGL(const GUIVisualizationSettings &s) const throw() {
-    // (optional) set id
-    if (s.needsGlID) {
-        glPushName(getGlID());
-    }
+    glPushName(getGlID());
     for (size_t i=0; i<myFGPositions.size(); ++i) {
         const Position2D &pos = myFGPositions[i];
         SUMOReal rot = myFGRotations[i];
@@ -379,10 +376,7 @@ GUITriggeredRerouter::drawGL(const GUIVisualizationSettings &s) const throw() {
             }
         }
     }
-    // (optional) clear id
-    if (s.needsGlID) {
-        glPopName();
-    }
+    glPopName();
 }
 
 

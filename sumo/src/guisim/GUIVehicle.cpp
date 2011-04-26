@@ -833,10 +833,7 @@ GUIVehicle::drawGL(const GUIVisualizationSettings &s) const throw() {
     glTranslated(0, 0, getType());
     // set lane color
     s.vehicleColorer.setGlColor(*this);
-    // (optional) set id
-    if (s.needsGlID) {
-        glPushName(getGlID());
-    }
+    glPushName(getGlID());
     /*
         MSLCM_DK2004 &m2 = static_cast<MSLCM_DK2004&>(veh->getLaneChangeModel());
         if((m2.getState()&LCA_URGENT)!=0) {
@@ -923,19 +920,14 @@ GUIVehicle::drawGL(const GUIVisualizationSettings &s) const throw() {
         drawAction_drawVehicleName(*this, s.vehicleNameSize / s.scale);
         glTranslated(0, 0, .06);
     }
-    // (optional) clear id
-    if (s.needsGlID) {
-        glPopName();
-    }
+    glPopName();
     glPopMatrix();
 }
 
 
 void
 GUIVehicle::drawGLAdditional(GUISUMOAbstractView * const parent, const GUIVisualizationSettings &s) const throw() {
-    if (s.needsGlID) {
-        glPushName(getGlID());
-    }
+    glPushName(getGlID());
     if (hasActiveAddVisualisation(parent, VO_SHOW_BEST_LANES)) {
         drawBestLanes();
     }
@@ -953,9 +945,7 @@ GUIVehicle::drawGLAdditional(GUISUMOAbstractView * const parent, const GUIVisual
             drawRoute(s, 0, 0.25);
         }
     }
-    if (s.needsGlID) {
-        glPopName();
-    }
+    glPopName();
 }
 
 

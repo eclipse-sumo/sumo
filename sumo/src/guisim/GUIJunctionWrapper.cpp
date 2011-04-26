@@ -103,10 +103,7 @@ GUIJunctionWrapper::drawGL(const GUIVisualizationSettings &s) const throw() {
     if (s.scale*myMaxSize<1.) {
         return;
     }
-    // (optional) set id
-    if (s.needsGlID) {
-        glPushName(getGlID());
-    }
+    glPushName(getGlID());
     glColor3d(0, 0, 0);
     glTranslated(0, 0, getType());
     GLHelper::drawFilledPoly(myJunction.getShape(), true);
@@ -115,10 +112,7 @@ GUIJunctionWrapper::drawGL(const GUIVisualizationSettings &s) const throw() {
     if (s.drawJunctionName) {
         drawName(myJunction.getPosition(), s.junctionNameSize / s.scale, s.junctionNameColor);
     }
-    // (optional) clear id
-    if (s.needsGlID) {
-        glPopName();
-    }
+    glPopName();
 }
 
 

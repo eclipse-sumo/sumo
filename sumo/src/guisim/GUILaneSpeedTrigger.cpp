@@ -334,10 +334,7 @@ GUILaneSpeedTrigger::getParameterWindow(GUIMainWindow &app,
 
 void
 GUILaneSpeedTrigger::drawGL(const GUIVisualizationSettings &s) const throw() {
-    // (optional) set id
-    if (s.needsGlID) {
-        glPushName(getGlID());
-    }
+    glPushName(getGlID());
     glTranslated(0, 0, -.03);
     for (size_t i=0; i<myFGPositions.size(); ++i) {
         const Position2D &pos = myFGPositions[i];
@@ -401,10 +398,7 @@ GUILaneSpeedTrigger::drawGL(const GUIVisualizationSettings &s) const throw() {
     if (s.drawAddName) {
         drawGLName(getCenteringBoundary().getCenter(), getMicrosimID(), s.addNameSize / s.scale);
     }
-    // (optional) clear id
-    if (s.needsGlID) {
-        glPopName();
-    }
+    glPopName();
 }
 
 

@@ -196,12 +196,6 @@ public:
     /// @brief A temporary (used for a single view) information about a lane's width
     SUMOReal scale;
 
-    /* @brief whether drawGL should push ids onto the name stack 
-     * this is only needed in selection mode. @todo Is this 
-     * flag is worth the effort (performance wise)?
-     */
-    bool needsGlID;
-
     /** @brief Writes the settings into an output device
      * @param[in] dev The device to write the settings into
      */

@@ -137,6 +137,7 @@ void APIENTRY combineCallback(GLdouble coords[3],
 double glvert[6];
 void
 GUIPolygon2D::drawGL(const GUIVisualizationSettings &s) const throw() {
+    UNUSED_PARAMETER(s);
     if (fill()) {
         if (myShape.size()<3) {
             return;
@@ -155,10 +156,7 @@ GUIPolygon2D::drawGL(const GUIVisualizationSettings &s) const throw() {
         glTranslated(0, 0, -.01*(SUMOReal) getLayer()+.01);
     }
     glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-    // (optional) set id
-    if (s.needsGlID) {
-        glPushName(getGlID());
-    }
+    glPushName(getGlID());
     RGBColor color = getColor();
     glColor3d(color.red(), color.green(), color.blue());
     if (fill()) {
@@ -193,10 +191,7 @@ GUIPolygon2D::drawGL(const GUIVisualizationSettings &s) const throw() {
         GLHelper::drawLine(myShape);
         GLHelper::drawBoxLines(myShape, 1.);
     }
-    // (optional) clear id
-    if (s.needsGlID) {
-        glPopName();
-    }
+    glPopName();
     glPopMatrix();
 }
 

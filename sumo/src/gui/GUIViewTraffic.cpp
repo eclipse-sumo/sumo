@@ -182,7 +182,6 @@ GUIViewTraffic::doPaintGL(int mode, const Boundary& bound) {
     minB[1] = bound.ymin();
     maxB[0] = bound.xmax();
     maxB[1] = bound.ymax();
-    myVisualizationSettings->needsGlID = myUseToolTips;
     myVisualizationSettings->scale = lw;
     glEnable(GL_POLYGON_OFFSET_FILL);
     glEnable(GL_POLYGON_OFFSET_LINE);

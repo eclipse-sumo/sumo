@@ -96,7 +96,7 @@ GUI_E2_ZS_Collector::MyWrapper::MyWrapper(GUI_E2_ZS_Collector &detector,
 
 GUI_E2_ZS_Collector::MyWrapper::MyWrapper(
     GUI_E2_ZS_Collector &detector, GUIGlObjectStorage&/*idStorage*/,
-    GLuint glID, GUI_E2_ZS_CollectorOverLanes &,
+    GLuint /*glID*/, GUI_E2_ZS_CollectorOverLanes &,
     GUILaneWrapper &wrapper) throw()
         : GUIDetectorWrapper("ES detector", detector.getID()),
         myDetector(detector) {
@@ -175,10 +175,7 @@ GUI_E2_ZS_Collector::MyWrapper::getParameterWindow(GUIMainWindow &app,
 
 void
 GUI_E2_ZS_Collector::MyWrapper::drawGL(const GUIVisualizationSettings &s) const throw() {
-    // (optional) set id
-    if (s.needsGlID) {
-        glPushName(getGlID());
-    }
+    glPushName(getGlID());
     glTranslated(0, 0, -.03);
     SUMOReal dwidth = 1;
     if (myDetector.getUsageType()==DU_TL_CONTROL) {
@@ -202,10 +199,7 @@ GUI_E2_ZS_Collector::MyWrapper::drawGL(const GUIVisualizationSettings &s) const 
     if (s.drawAddName) {
         drawGLName(getCenteringBoundary().getCenter(), getMicrosimID(), s.addNameSize / s.scale);
     }
-    // (optional) clear id
-    if (s.needsGlID) {
-        glPopName();
-    }
+    glPopName();
 }
 
 

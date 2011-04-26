@@ -261,10 +261,7 @@ GUISUMOAbstractView::getObjectUnderCursor() {
     glSelectBuffer(NB_HITS_MAX, hits);
     glInitNames();
     // paint in select mode
-    bool oldMyUseToolTips = myUseToolTips;
-    myUseToolTips = true; // @todo this is our indirect way of saying: please use glPushName. maybe get rid of it?
     doPaintGL(GL_SELECT, selection);
-    myUseToolTips = oldMyUseToolTips;
     // Get the results
     nb_hits = glRenderMode(GL_RENDER);
     // Interpret results
@@ -794,7 +791,6 @@ GUISUMOAbstractView::makeSnapshot(const std::string &destFile) {
             minB[1] = viewPort.ymin();
             maxB[0] = viewPort.xmax();
             maxB[1] = viewPort.ymax();
-            myVisualizationSettings->needsGlID = myUseToolTips;
             myVisualizationSettings->scale = lw;
             glEnable(GL_POLYGON_OFFSET_FILL);
             glEnable(GL_POLYGON_OFFSET_LINE);
