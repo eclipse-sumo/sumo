@@ -341,6 +341,8 @@ enum {
     MID_GNE_SET_ATTRIBUTE,
     /** open edit dialog */
     MID_GNE_OPEN_ATTRIBUTE_EDITOR,
+    /** split an edge */
+    MID_GNE_SPLIT_EDGE,
     //@}
 
     MID_LAST
