@@ -45,7 +45,7 @@
 // definitions of string representations
 // ===========================================================================
 StringBijection<SUMOVehicleClass>::Entry sumoVehicleClassStringInitializer[] = {
-    {"unknown",           SVC_UNKNOWN},
+    {"",                  SVC_UNKNOWN},
     {"private",           SVC_PRIVATE},
     {"public_transport",  SVC_PUBLIC_TRANSPORT},
     {"public_emergency",  SVC_PUBLIC_EMERGENCY},
