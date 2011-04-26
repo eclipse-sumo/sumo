@@ -38,7 +38,6 @@
 // ===========================================================================
 // definitions
 // ===========================================================================
-const std::string CF_MODEL_PREFIX = "carFollowing-";
 
 StringBijection<SumoXMLTag>::Entry SUMOXMLDefinitions::tags[] = {
     { "edge",             SUMO_TAG_EDGE },
@@ -136,12 +135,11 @@ StringBijection<SumoXMLTag>::Entry SUMOXMLDefinitions::tags[] = {
     { "colorScheme",      SUMO_TAG_COLORSCHEME },
     { "entry",            SUMO_TAG_ENTRY },
 
-    { (CF_MODEL_PREFIX + "IDM").c_str(),         SUMO_TAG_CF_IDM },
-    { (CF_MODEL_PREFIX + "Krauss").c_str(),      SUMO_TAG_CF_KRAUSS },
-    { (CF_MODEL_PREFIX + "KraussOrig1").c_str(), SUMO_TAG_CF_KRAUSS_ORIG1 },
-    { (CF_MODEL_PREFIX + "PWagner2009").c_str(), SUMO_TAG_CF_PWAGNER2009 },
-    { (CF_MODEL_PREFIX + "BKerner").c_str(),     SUMO_TAG_CF_BKERNER },
-
+    { "carFollowing-IDM",         SUMO_TAG_CF_IDM },
+    { "carFollowing-Krauss",      SUMO_TAG_CF_KRAUSS },
+    { "carFollowing-KraussOrig1", SUMO_TAG_CF_KRAUSS_ORIG1 },
+    { "carFollowing-PWagner2009", SUMO_TAG_CF_PWAGNER2009 },
+    { "carFollowing-BKerner",     SUMO_TAG_CF_BKERNER },
 
     { "header",           SUMO_TAG_OPENDRIVE_HEADER },
     { "road",             SUMO_TAG_OPENDRIVE_ROAD },
