@@ -246,10 +246,16 @@ GUISUMOAbstractView::paintGL() {
 
 unsigned int
 GUISUMOAbstractView::getObjectUnderCursor() {
+    return getObjectAtPosition(getPositionInformation());
+}
+
+
+unsigned int
+GUISUMOAbstractView::getObjectAtPosition(Position2D pos) {
     const SUMOReal SENSITIVITY = 0.1; // meters
     Boundary oldViewPort = myChanger->getViewport(false); // backup the actual viewPort
     Boundary selection;
-    selection.add(getPositionInformation());
+    selection.add(pos);
     selection.grow(SENSITIVITY);
     myChanger->setViewport(selection);
     applyGLTransform(false);

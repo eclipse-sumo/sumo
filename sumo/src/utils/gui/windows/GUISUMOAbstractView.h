@@ -301,6 +301,9 @@ protected:
     /// returns the id of the object under the cursor using GL_SELECT
     unsigned int getObjectUnderCursor();
 
+    /// returns the id of the object at position using GL_SELECT
+    unsigned int getObjectAtPosition(Position2D pos);
+
     /// invokes the tooltip for the given object
     void showToolTipFor(unsigned int id);
 
