@@ -7,7 +7,5 @@ unknown_option
 # Test for not buildable plain output
 false_plain_output
 
-
-
-
-
+# bogus argument for option --keep-edges.by-vclass
+invalid_argument_vclass

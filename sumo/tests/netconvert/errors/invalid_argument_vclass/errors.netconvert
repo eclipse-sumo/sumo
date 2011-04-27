@@ -1,0 +1,5 @@
+Error: Unkown vehicle class 'bogus' in option 'remove-edges.by-vclass'.
+Quitting (on error).
+Leaked object at 0x1d808540 (size 16, 0x339dea4bb9)
+*** 1 leaks found
+delete: freed 0x1d808540 (size 16, 0 bytes still allocated)
