@@ -38,8 +38,7 @@
  * ChooseableArtifact
  * Enumeration to differ to show the list of which atrifact
  * The order is important during the selection of items for displaying their
- * tooltips; the item with the lowest type value (beside the network which
- * does not cause a hit as no "network" is being drawn) will be chosen.
+ * tooltips; the item with the hightest type value will be chosen.
  */
 enum GUIGlObjectType {
     /// @brief The network - empty
