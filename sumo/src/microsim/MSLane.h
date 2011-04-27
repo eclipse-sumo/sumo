@@ -605,14 +605,6 @@ public:
 
 
 protected:
-    /** @brief Insert a vehicle into the lane's vehicle buffer.
-        After processing done from moveCritical, when a vehicle exits it's lane.
-        Returned is the information whether the vehicle was removed. */
-    virtual bool push(MSVehicle* veh);
-
-    /** Returns the first/front vehicle of the lane and removing it from the lane. */
-    virtual MSVehicle* pop(SUMOTime t);
-
     /// moves myTmpVehicles int myVehicles after a lane change procedure
     virtual void swapAfterLaneChange(SUMOTime t);
 

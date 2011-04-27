@@ -211,7 +211,6 @@ MSVehicle::MSVehicle(SUMOVehicleParameter* pars,
                      const MSVehicleType* type,
                      int /*vehicleIndex*/) throw(ProcessError) :
         MSBaseVehicle(pars, route, type),
-        myTarget(0),
         myLastLaneChangeOffset(0),
         myWaitingTime(0),
         myState(0, 0), //
@@ -578,8 +577,6 @@ MSVehicle::moveRegardingCritical(SUMOTime t, const MSLane* const lane,
         int bla = 0;
     }
 #endif
-    // by now, we do not know whether the vehicle will move to the next lane, will be set later...
-    myTarget = 0;
     // remove information about approaching links, will be reset later in this step
     for (DriveItemVector::iterator i=myLFLinkLanes.begin(); i!=myLFLinkLanes.end(); ++i) {
         if ((*i).myLink!=0) {
@@ -647,14 +644,13 @@ MSVehicle::moveRegardingCritical(SUMOTime t, const MSLane* const lane,
 }
 
 
-bool
+void
 MSVehicle::moveFirstChecked() {
 #ifdef DEBUG_VEHICLE_GUI_SELECTION
     if (gSelected.isSelected(GLO_VEHICLE, static_cast<const GUIVehicle*>(this)->getGlID())) {
         int bla = 0;
     }
 #endif
-    myTarget = 0;
     // get vsafe
     SUMOReal vSafe = 0;
     myHaveToWaitOnNextLink = false;
@@ -756,7 +752,6 @@ MSVehicle::moveFirstChecked() {
     // update position and speed
     myState.myPos += SPEED2DIST(vNext);
     myState.mySpeed = vNext;
-    myTarget = 0;
     std::vector<MSLane*> passedLanes;
     for (std::vector<MSLane*>::reverse_iterator i=myFurtherLanes.rbegin(); i!=myFurtherLanes.rend(); ++i) {
         passedLanes.push_back(*i);
@@ -774,23 +769,14 @@ MSVehicle::moveFirstChecked() {
         if (myCurrEdge != myRoute->end() - 1) {
             MSLane *approachedLane = myLane;
             // move the vehicle forward
-            for (i=myLFLinkLanes.begin(); i!=myLFLinkLanes.end() && myState.myPos>approachedLane->getLength(); ++i) {
-                if (approachedLane!=myLane) {
-                    leaveLane(MSMoveReminder::NOTIFICATION_JUNCTION);
-                }
+            for (i=myLFLinkLanes.begin(); approachedLane!=0 && i!=myLFLinkLanes.end() && myState.myPos>approachedLane->getLength(); ++i) {
+                leaveLane(MSMoveReminder::NOTIFICATION_JUNCTION);
                 MSLink *link = (*i).myLink;
                 // check whether the vehicle was allowed to enter lane
                 //  otherwise it is decelareted and we do not need to test for it's
                 //  approach on the following lanes when a lane changing is performed
-                assert(approachedLane!=0);
                 myState.myPos -= approachedLane->getLength();
                 assert(myState.myPos>0);
-                if (approachedLane!=myLane) {
-                    if (enterLaneAtMove(approachedLane)) {
-                        myLane = approachedLane;
-                        return true;
-                    }
-                }
                 // proceed to the next lane
                 if (link!=0) {
 #ifdef HAVE_INTERNAL_LANES
@@ -801,10 +787,15 @@ MSVehicle::moveFirstChecked() {
 #else
                     approachedLane = link->getLane();
 #endif
+                } else {
+                    approachedLane = 0;
+                }
+                if (approachedLane!=myLane&&approachedLane!=0) {
+                    enterLaneAtMove(approachedLane);
+                    myLane = approachedLane;
                 }
                 passedLanes.push_back(approachedLane);
             }
-            myTarget = approachedLane;
         }
     }
     // clear previously set information
@@ -812,18 +803,18 @@ MSVehicle::moveFirstChecked() {
         (*i)->resetPartialOccupation(this);
     }
     myFurtherLanes.clear();
-    if (myState.myPos-getVehicleType().getLength()<0&&passedLanes.size()>0) {
-        SUMOReal leftLength = getVehicleType().getLength()-myState.myPos;
-        std::vector<MSLane*>::reverse_iterator i=passedLanes.rbegin() + 1;
-        while (leftLength>0&&i!=passedLanes.rend()) {
-            myFurtherLanes.push_back(*i);
-            leftLength -= (*i)->setPartialOccupation(this, leftLength);
-            ++i;
+    if(!ends()) {
+        if (myState.myPos-getVehicleType().getLength()<0&&passedLanes.size()>0) {
+            SUMOReal leftLength = getVehicleType().getLength()-myState.myPos;
+            std::vector<MSLane*>::reverse_iterator i=passedLanes.rbegin() + 1;
+            while (leftLength>0&&i!=passedLanes.rend()) {
+                myFurtherLanes.push_back(*i);
+                leftLength -= (*i)->setPartialOccupation(this, leftLength);
+                ++i;
+            }
         }
+        setBlinkerInformation();
     }
-    assert(myTarget==0||myTarget->getLength()>=myState.myPos);
-    setBlinkerInformation();
-    return false;
 }
 
 
@@ -1141,11 +1132,13 @@ bool
 MSVehicle::enterLaneAtMove(MSLane* enteredLane, bool onTeleporting) {
     myAmOnNet = true;
     // vaporizing edge?
+    /*
     if (enteredLane->getEdge().isVaporizing()) {
         // yep, let's do the vaporization...
         myLane = enteredLane;
         return true;
     }
+    */
     if (!onTeleporting) {
         // move mover reminder one lane further
         adaptLaneEntering2MoveReminder(*enteredLane);

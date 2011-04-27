@@ -128,12 +128,6 @@ public:
     MSVehicle *removeVehicle(MSVehicle *remVehicle);
 
 protected:
-    /** the same as in MSLane, but locks the access for the visualisation
-        first; the access will be granted at the end of this method */
-    bool push(MSVehicle* veh);
-
-    MSVehicle* pop(SUMOTime t);
-
     /// moves myTmpVehicles int myVehicles after a lane change procedure
     void swapAfterLaneChange(SUMOTime t);
 

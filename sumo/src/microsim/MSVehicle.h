@@ -190,8 +190,18 @@ public:
 
 
 
-    /// moves the vehicles after their responds (right-of-way rules) are known
-    bool moveFirstChecked();
+    /** @brief Moves the vehicle after the responds (right-of-way rules) are known
+     *
+     * In this second step, vehicles are moved. The right-of-way - conditions
+     *  have been computed and the vehicle knows which intersections may be passed.
+     *
+     * The vehicle computes the allowed velocity, first. Then, it is moved along the
+     *  previously computed links. If the vehicle enters a new lane, it is set in
+     *  myLane.
+     * 
+     * The vehicle also sets the lanes it is in-lapping into and informs them about it.
+     */
+    void moveChecked();
 
 
     /** @brief Returns the gap between pred and this vehicle.
@@ -301,17 +311,6 @@ public:
      * @see myLane
      */
     Position2D getPosition() const throw();
-
-
-    /** @brief Returns the lane the vehicle wants to enter
-     *
-     * The lane is set only, if the vehicle leaves his current lane and wants to enter a new one.
-     * @return The lane to enter
-     * @see MSLane::setCritical
-     */
-    MSLane *getTargetLane() const throw() {
-        return myTarget;
-    }
 
 
     /** @brief Returns the lane the vehicle is on
@@ -880,9 +879,6 @@ protected:
 
     void setBlinkerInformation() throw();
 
-
-    /// @brief the lane, the vehicle will be within the next time step (0 if the vehicle stays on the same it was before)
-    MSLane *myTarget;
 
     /// @brief information how long ago the vehicle has performed a lane-change
     SUMOReal myLastLaneChangeOffset;

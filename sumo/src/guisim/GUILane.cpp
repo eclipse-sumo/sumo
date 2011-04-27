@@ -122,20 +122,6 @@ GUILane::setCritical(SUMOTime t, std::vector<MSLane*> &into) {
 }
 
 
-bool
-GUILane::push(MSVehicle* veh) {
-    myLock.lock();
-    try {
-        bool result = MSLane::push(veh);
-        myLock.unlock();
-        return result;
-    } catch (ProcessError &) {
-        myLock.unlock();
-        throw;
-    }
-}
-
-
 MSVehicle *
 GUILane::removeVehicle(MSVehicle * remVehicle) {
     myLock.lock();
@@ -189,20 +175,6 @@ GUILane::detectCollisions(SUMOTime timestep) {
     try {
         MSLane::detectCollisions(timestep);
         myLock.unlock();
-    } catch (ProcessError &) {
-        myLock.unlock();
-        throw;
-    }
-}
-
-
-MSVehicle*
-GUILane::pop(SUMOTime t) {
-    myLock.lock();
-    try {
-        MSVehicle *ret = MSLane::pop(t);
-        myLock.unlock();
-        return ret;
     } catch (ProcessError &) {
         myLock.unlock();
         throw;

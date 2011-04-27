@@ -123,23 +123,6 @@ GUIInternalLane::setCritical(SUMOTime t, std::vector<MSLane*> &into) {
 }
 
 
-bool
-GUIInternalLane::push(MSVehicle* veh) {
-    // Insert vehicle only if it's destination isn't reached.
-    //  and it does not collide with previous
-    // check whether the vehicle has ended his route
-    myLock.lock();
-    try {
-        MSLane::push(veh);
-        myLock.unlock();
-        return false;
-    } catch (ProcessError &) {
-        myLock.unlock();
-        throw;
-    }
-}
-
-
 MSVehicle *
 GUIInternalLane::removeVehicle(MSVehicle * remVehicle) {
     myLock.lock();
@@ -193,20 +176,6 @@ GUIInternalLane::detectCollisions(SUMOTime timestep) {
     try {
         MSLane::detectCollisions(timestep);
         myLock.unlock();
-    } catch (ProcessError &) {
-        myLock.unlock();
-        throw;
-    }
-}
-
-
-MSVehicle*
-GUIInternalLane::pop(SUMOTime t) {
-    myLock.lock();
-    try {
-        MSVehicle *ret = MSLane::pop(t);
-        myLock.unlock();
-        return ret;
     } catch (ProcessError &) {
         myLock.unlock();
         throw;
