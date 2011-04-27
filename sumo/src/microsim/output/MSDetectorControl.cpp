@@ -65,9 +65,6 @@ MSDetectorControl::~MSDetectorControl() throw() {
 #endif
     myLoops.clear();
 #ifdef _MESSAGES
-#ifdef _DEBUG
-    std::cout << "MSDetectorControl: clearing myMsgLoops" << std::endl;
-#endif
     myMsgLoops.clear();
 #endif
     myE2Detectors.clear();
