@@ -645,7 +645,7 @@ MSVehicle::moveRegardingCritical(SUMOTime t, const MSLane* const lane,
 
 
 void
-MSVehicle::moveFirstChecked() {
+MSVehicle::moveChecked() {
 #ifdef DEBUG_VEHICLE_GUI_SELECTION
     if (gSelected.isSelected(GLO_VEHICLE, static_cast<const GUIVehicle*>(this)->getGlID())) {
         int bla = 0;
