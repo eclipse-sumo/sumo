@@ -691,41 +691,32 @@ MSLane::setCritical(SUMOTime t, std::vector<MSLane*> &into) {
         MSVehicle *veh = *i;
         veh->moveChecked();
         MSLane *target = veh->getLane();
+        SUMOReal length = veh->getVehicleType().getLength();
         if (veh->ends()) {
             // vehicle has reached its arrival position
             veh->onRemovalFromNet(MSMoveReminder::NOTIFICATION_ARRIVED);
-            myVehicleLengthSum -= veh->getVehicleType().getLength();
             MSNet::getInstance()->getVehicleControl().scheduleVehicleRemoval(veh);
-            i = myVehicles.erase(i);
-            continue;
         } else if (target!=0&&target!=this) {
-            // vehicle has moved to a new lane
-            myVehicleLengthSum -= veh->getVehicleType().getLength();
+            // vehicle has entered a new lane
             target->myVehBuffer.push_back(veh);
             SUMOReal pspeed = veh->getSpeed();
             SUMOReal oldPos = veh->getPositionOnLane() - SPEED2DIST(veh->getSpeed());
             veh->workOnMoveReminders(oldPos, veh->getPositionOnLane(), pspeed);
             into.push_back(target);
-            i = myVehicles.erase(i);
-            continue;
-        }
-        if (veh->isParking()) {
+        } else if (veh->isParking()) {
             // vehicle started to park
             veh->leaveLane(MSMoveReminder::NOTIFICATION_JUNCTION);
-            myVehicleLengthSum -= veh->getVehicleType().getLength();
             MSVehicleTransfer::getInstance()->addVeh(t, veh);
-            i = myVehicles.erase(i);
-            continue;
-        }
-        if (veh->getPositionOnLane()>getLength()) {
+        } else if (veh->getPositionOnLane()>getLength()) {
             // for any reasons the vehicle is beyond its lane... error
             MsgHandler::getWarningInstance()->inform("Teleporting vehicle '" + veh->getID() + "'; beyond lane (2), targetLane='" + getID() + "', time=" + time2string(MSNet::getInstance()->getCurrentTimeStep()) + ".");
-            myVehicleLengthSum -= veh->getVehicleType().getLength();
             MSVehicleTransfer::getInstance()->addVeh(t, veh);
-            i = myVehicles.erase(i);
+        } else {
+            ++i;
             continue;
         }
-        ++i;
+        myVehicleLengthSum -= length;
+        i = myVehicles.erase(i);
     }
     if (myVehicles.size()>0) {
         if (MSGlobals::gTimeToGridlock>0
