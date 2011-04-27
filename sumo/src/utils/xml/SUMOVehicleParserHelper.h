@@ -58,6 +58,7 @@ public:
      * @param[in] attr The SAX-attributes to get vehicle parameter from
      * @return The parsed attribute structure if no error occured, 0 otherwise
      * @exception ProcessError If an attribute's value is invalid
+     * @note: the caller is responsible for deleting the returned pointer
      */
     static SUMOVehicleParameter *parseFlowAttributes(const SUMOSAXAttributes &attrs) throw(ProcessError);
 
@@ -72,6 +73,7 @@ public:
      * @param[in] skipDepart Whether parsing the departure time shall be skipped
      * @return The parsed attribute structure if no error occured, 0 otherwise
      * @exception ProcessError If an attribute's value is invalid
+     * @note: the caller is responsible for deleting the returned pointer
      */
     static SUMOVehicleParameter *parseVehicleAttributes(const SUMOSAXAttributes &attrs,
             bool skipID=false, bool skipDepart=false) throw(ProcessError);
@@ -82,6 +84,7 @@ public:
      * @param[in] attr The SAX-attributes to get vehicle parameter from
      * @exception ProcessError If an attribute's value is invalid
      * @see SUMOVTypeParameter
+     * @note: the caller is responsible for deleting the returned pointer
      */
     static SUMOVTypeParameter *beginVTypeParsing(const SUMOSAXAttributes &attrs) throw(ProcessError);
 
