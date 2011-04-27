@@ -62,7 +62,6 @@ class MSVehicle;
 class MSRoute;
 class MSLane;
 class MSTLLogicControl;
-class MSTrigger;
 class MSDetectorControl;
 class ShapeContainer;
 class BinaryInputDevice;
