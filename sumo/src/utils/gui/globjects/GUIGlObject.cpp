@@ -75,7 +75,7 @@ GUIGlObject::GUIGlObject(GUIGlObjectType type, const std::string& microsimID) :
     myGLObjectType(type),
     myMicrosimID(microsimID),
     myPrefix(TypeNames.getString(type)),
-    myFullName("<not yet defined")
+    myFullName("<not yet defined>")
 {
     GUIGlObjectStorage::gIDStorage.registerObject(this);
 }
@@ -85,8 +85,10 @@ GUIGlObject::GUIGlObject(const std::string& prefix, GUIGlObjectType type, const 
     myGLObjectType(type),
     myMicrosimID(microsimID),
     myPrefix(prefix),
-    myFullName("<not yet defined")
-{}
+    myFullName("<not yet defined>")
+{
+    GUIGlObjectStorage::gIDStorage.registerObject(this);
+}
 
 
 
@@ -94,7 +96,6 @@ GUIGlObject::~GUIGlObject() throw() {
     for (std::set<GUIParameterTableWindow*>::iterator i=myParamWindows.begin(); i!=myParamWindows.end(); ++i) {
         (*i)->removeObject(this);
     }
-    // !!! inconsistency: using parameter in constructor but global here
     GUIGlObjectStorage::gIDStorage.remove(getGlID());
 }
 
