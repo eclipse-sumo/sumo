@@ -343,6 +343,10 @@ enum {
     MID_GNE_OPEN_ATTRIBUTE_EDITOR,
     /** split an edge */
     MID_GNE_SPLIT_EDGE,
+    /** set object as template*/
+    MID_GNE_SET_TEMPLATE,
+    /** copy template*/
+    MID_GNE_COPY_TEMPLATE,
     //@}
 
     MID_LAST
