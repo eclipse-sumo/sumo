@@ -108,7 +108,8 @@ GUIE3Collector::MyWrapper::getParameterWindow(GUIMainWindow &app,
 void
 GUIE3Collector::MyWrapper::drawGL(const GUIVisualizationSettings &s) const throw() {
     glPushName(getGlID());
-    glTranslated(0, 0, -.03);
+    glPushMatrix();
+    glTranslated(0, 0, getType());
     typedef std::vector<SingleCrossingDefinition> CrossingDefinitions;
     CrossingDefinitions::const_iterator i;
     glColor3d(0, .8, 0);
@@ -119,10 +120,10 @@ GUIE3Collector::MyWrapper::drawGL(const GUIVisualizationSettings &s) const throw
     for (i=myExitDefinitions.begin(); i!=myExitDefinitions.end(); ++i) {
         drawSingleCrossing((*i).myFGPosition, (*i).myFGRotation, s.addExaggeration);
     }
-    glTranslated(0, 0, .03);
+    glPopMatrix();
     // (optional) draw name
     if (s.drawAddName) {
-        drawGLName(getCenteringBoundary().getCenter(), getMicrosimID(), s.addNameSize / s.scale);
+        drawName(getCenteringBoundary().getCenter(), s.addNameSize / s.scale);
     }
     glPopName();
 }

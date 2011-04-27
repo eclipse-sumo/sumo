@@ -170,7 +170,7 @@ GUIInductLoop::MyWrapper::drawGL(const GUIVisualizationSettings &s) const throw(
     // shape
     glColor3d(1, 1, 0);
     glPushMatrix();
-    glTranslated(0, 0, -.03);
+    glTranslated(0, 0, getType());
     glTranslated(myFGPosition.x(), myFGPosition.y(), 0);
     glRotated(myFGRotation, 0, 0, 1);
     glScaled(s.addExaggeration, s.addExaggeration, 1);
@@ -211,7 +211,7 @@ GUIInductLoop::MyWrapper::drawGL(const GUIVisualizationSettings &s) const throw(
     glPopMatrix();
     // (optional) draw name
     if (s.drawAddName) {
-        drawGLName(getCenteringBoundary().getCenter(), getMicrosimID(), s.addNameSize / s.scale);
+        drawName(getCenteringBoundary().getCenter(), s.addNameSize / s.scale);
     }
     glPopName();
 }

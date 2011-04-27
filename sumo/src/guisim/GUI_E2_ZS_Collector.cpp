@@ -175,7 +175,8 @@ GUI_E2_ZS_Collector::MyWrapper::getParameterWindow(GUIMainWindow &app,
 void
 GUI_E2_ZS_Collector::MyWrapper::drawGL(const GUIVisualizationSettings &s) const throw() {
     glPushName(getGlID());
-    glTranslated(0, 0, -.03);
+    glPushMatrix();
+    glTranslated(0, 0, getType());
     SUMOReal dwidth = 1;
     if (myDetector.getUsageType()==DU_TL_CONTROL) {
         dwidth = (SUMOReal) 0.3;
@@ -193,10 +194,10 @@ GUI_E2_ZS_Collector::MyWrapper::drawGL(const GUIVisualizationSettings &s) const 
             GLHelper::drawLine(myFullGeometry[i], myShapeRotations[i], myShapeLengths[i]);
         }
     }
-    glTranslated(0, 0, .03);
+    glPopMatrix();
     // (optional) draw name
     if (s.drawAddName) {
-        drawGLName(getCenteringBoundary().getCenter(), getMicrosimID(), s.addNameSize / s.scale);
+        drawName(getCenteringBoundary().getCenter(), s.addNameSize / s.scale);
     }
     glPopName();
 }

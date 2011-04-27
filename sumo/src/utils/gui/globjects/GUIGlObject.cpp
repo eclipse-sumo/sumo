@@ -219,5 +219,6 @@ GUIGlObject::drawName(const Position2D& pos, const SUMOReal size, const RGBColor
     pfDrawString(getMicrosimID().c_str());
     glPopMatrix();
 }
+
 /****************************************************************************/
 

@@ -293,7 +293,7 @@ GUITriggeredRerouter::drawGL(const GUIVisualizationSettings &s) const throw() {
         glScaled(s.addExaggeration, s.addExaggeration, 1);
         glTranslated(pos.x(), pos.y(), 0);
         glRotated(rot, 0, 0, 1);
-        glTranslated(0, 0, -.03);
+        glTranslated(0, 0, getType());
         glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
         glBegin(GL_TRIANGLES);
@@ -307,7 +307,7 @@ GUITriggeredRerouter::drawGL(const GUIVisualizationSettings &s) const throw() {
         glVertex2d(0+1.4, 6);
         glEnd();
 
-        glTranslated(0, 0, -.01);
+        glTranslated(0, 0, .1);
         glColor3d(0, 0, 0);
         pfSetPosition(0, 0);
         pfSetScale(3.f);
@@ -354,13 +354,13 @@ GUITriggeredRerouter::drawGL(const GUIVisualizationSettings &s) const throw() {
                         noPoints = 36;
                     }
                 }
-                glTranslated(0, 0, -.03);
+                glTranslated(0, 0, getType());
                 glColor3d(0.7, 0, 0);
                 GLHelper::drawFilledCircle((SUMOReal) 1.3, noPoints);
-                glTranslated(0, 0, -.01);
+                glTranslated(0, 0, .1);
                 glColor3d(1, 0, 0);
                 GLHelper::drawFilledCircle((SUMOReal) 1.3, noPoints, 0, prob);
-                glTranslated(0, 0, -.01);
+                glTranslated(0, 0, .1);
                 glColor3d(1, 1, 1);
                 glRotated(-90, 0, 0, 1);
                 glBegin(GL_TRIANGLES);

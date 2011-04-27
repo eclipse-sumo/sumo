@@ -195,7 +195,7 @@ public:
     /// @}
 
 
-    void drawName(const Position2D& pos, const SUMOReal size, const RGBColor& col, const SUMOReal angle=0) const;
+    void drawName(const Position2D& pos, const SUMOReal size, const RGBColor& col=RGBColor(0,0,0), const SUMOReal angle=0) const;
 
 
 protected:

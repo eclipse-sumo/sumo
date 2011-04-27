@@ -52,9 +52,6 @@ public:
 
     ~GUIGlObject_AbstractAdd() throw();
 
-    void drawGLName(const Position2D &p, const std::string &id, SUMOReal nameScale) const;
-
-
     /// Clears the dictionary (the objects will not be deleted)
     static void clearDictionary();
 

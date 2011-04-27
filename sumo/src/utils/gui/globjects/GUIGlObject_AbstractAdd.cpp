@@ -95,22 +95,5 @@ GUIGlObject_AbstractAdd::getIDList() {
     return ret;
 }
 
-
-void
-GUIGlObject_AbstractAdd::drawGLName(const Position2D &p, const std::string &id, SUMOReal nameScale) const {
-    glPolygonOffset(0, -6);
-    glPushMatrix();
-    glTranslated(p.x(), p.y(), 0);
-    glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-    pfSetPosition(0, 0);
-    pfSetScale(nameScale);
-    SUMOReal w = pfdkGetStringWidth(id.c_str());
-    glRotated(180, 1, 0, 0);
-    glTranslated(-w/2., 0.4, 0);
-    pfDrawString(id.c_str());
-    glPopMatrix();
-}
-
-
 /****************************************************************************/
 

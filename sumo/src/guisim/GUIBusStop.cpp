@@ -120,7 +120,8 @@ GUIBusStop::getParameterWindow(GUIMainWindow &,
 void
 GUIBusStop::drawGL(const GUIVisualizationSettings &s) const throw() {
     glPushName(getGlID());
-    glTranslated(0, 0, -.03);
+    glPushMatrix();
+    glTranslated(0, 0, getType());
     // draw the area
     glColor3d(76./255., 170./255., 50./255.);
     size_t i;
@@ -146,7 +147,6 @@ GUIBusStop::drawGL(const GUIVisualizationSettings &s) const throw() {
     }
 
     // draw the sign
-    glPushMatrix();
     glTranslated(myFGSignPos.x(), myFGSignPos.y(), 0);
     int noPoints = 9;
     if (s.scale*s.addExaggeration>25) {
@@ -180,10 +180,9 @@ GUIBusStop::drawGL(const GUIVisualizationSettings &s) const throw() {
         }
     }
     glPopMatrix();
-    glTranslated(0, 0, .03);
     // (optional) draw name
     if (s.drawAddName) {
-        drawGLName(getCenteringBoundary().getCenter(), getMicrosimID(), s.addNameSize / s.scale);
+        drawName(getCenteringBoundary().getCenter(), s.addNameSize / s.scale);
     }
     glPopName();
 }

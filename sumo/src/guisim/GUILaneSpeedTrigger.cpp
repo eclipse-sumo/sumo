@@ -335,7 +335,8 @@ GUILaneSpeedTrigger::getParameterWindow(GUIMainWindow &app,
 void
 GUILaneSpeedTrigger::drawGL(const GUIVisualizationSettings &s) const throw() {
     glPushName(getGlID());
-    glTranslated(0, 0, -.03);
+    glPushMatrix();
+    glTranslated(0, 0, getType());
     for (size_t i=0; i<myFGPositions.size(); ++i) {
         const Position2D &pos = myFGPositions[i];
         SUMOReal rot = myFGRotations[i];
@@ -355,7 +356,7 @@ GUILaneSpeedTrigger::drawGL(const GUIVisualizationSettings &s) const throw() {
         glColor3d(1, 0, 0);
         GLHelper::drawFilledCircle((SUMOReal) 1.3, noPoints);
         if (s.scale>=5) {
-            glTranslated(0, 0, -.01);
+            glTranslated(0, 0, .1);
             glColor3d(0, 0, 0);
             GLHelper::drawFilledCircle((SUMOReal) 1.1, noPoints);
             // draw the speed string
@@ -381,7 +382,7 @@ GUILaneSpeedTrigger::drawGL(const GUIVisualizationSettings &s) const throw() {
             }
             //draw
             glColor3d(1, 1, 0);
-            glTranslated(0, 0, -.01);
+            glTranslated(0, 0, .1);
             glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
             pfSetPosition(0, 0);
             pfSetScale(1.2f);
@@ -389,14 +390,13 @@ GUILaneSpeedTrigger::drawGL(const GUIVisualizationSettings &s) const throw() {
             glRotated(180, 0, 1, 0);
             glTranslated(-w/2., 0.3, 0);
             pfDrawString(myLastValueString.c_str());
-            glTranslated(0, 0, -.02);
         }
         glPopMatrix();
     }
-    glTranslated(0, 0, .03);
+    glPopMatrix();
     // (optional) draw name
     if (s.drawAddName) {
-        drawGLName(getCenteringBoundary().getCenter(), getMicrosimID(), s.addNameSize / s.scale);
+        drawName(getCenteringBoundary().getCenter(), s.addNameSize / s.scale);
     }
     glPopName();
 }
