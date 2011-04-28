@@ -334,7 +334,7 @@ NBNetBuilder::insertNetBuildOptions(OptionsCont &oc) {
     oc.addDescription("output-file", "Output", "The generated net will be written to FILE");
 
     oc.doRegister("plain-output", new Option_FileName());
-    oc.addDescription("plain-output", "Output", "Prefix of files to write nodes and edges to");
+    oc.addDescription("plain-output", "Output", "Prefix of files to write plain xml nodes, edges and connections to");
 
     oc.doRegister("node-geometry-dump", new Option_FileName());
     oc.addDescription("node-geometry-dump", "Output", "Writes node corner positions to FILE");
