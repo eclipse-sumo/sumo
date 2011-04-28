@@ -253,7 +253,6 @@ GUISUMOAbstractView::getObjectUnderCursor() {
 GLuint
 GUISUMOAbstractView::getObjectAtPosition(Position2D pos) {
     const SUMOReal SENSITIVITY = 0.1; // meters
-    Boundary oldViewPort = myChanger->getViewport(false); // backup the actual viewPort
     Boundary selection;
     selection.add(pos);
     selection.grow(SENSITIVITY);
@@ -316,7 +315,7 @@ GUISUMOAbstractView::getObjectsInBoundary(const Boundary& bound) {
     glSelectBuffer(NB_HITS_MAX, hits);
     glInitNames();
 
-    Boundary oldViewPort = myChanger->getViewport(false);
+    Boundary oldViewPort = myChanger->getViewport(false); // backup the actual viewPort
     myChanger->setViewport(bound);
     applyGLTransform(false);
 
