@@ -1,6 +1,3 @@
-# Ordered list of tests in test suite. Add as appropriate
-
-
 # begin time=0, first change at time=100
 b0_offset_100
 
@@ -21,3 +18,6 @@ begin_0
 
 # nested definition
 nested
+
+# as b0_offset_100, but one time is set twice (should be a warning)
+b0_offset_100_doubleTime
