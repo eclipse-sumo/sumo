@@ -375,8 +375,8 @@ drawAction_drawVehicleAsBoxPlus(const GUIVehicle &veh, SUMOReal upscale) {
 void
 drawPoly(double *poses, SUMOReal offset) {
     glPushMatrix();
-    glTranslated(0, 0, offset*.01);
-    glPolygonOffset(0, offset);
+    glTranslated(0, 0, offset*.1);
+    glPolygonOffset(0, offset*-1);
     glBegin(GL_TRIANGLE_FAN);
     int i = 0;
     while (poses[i]>-999) {
@@ -411,37 +411,36 @@ drawAction_drawVehicleAsPoly(const GUIVehicle &veh, SUMOReal upscale) {
     SUMOVehicleShape shape = veh.getVehicleType().getGuiShape();
     switch (shape) {
     case SVS_UNKNOWN:
-        drawPoly(vehiclePoly_PassengerCarBody, -4);
+        drawPoly(vehiclePoly_PassengerCarBody, 4);
         glColor3dv(lighter);
-        drawPoly(vehiclePoly_PassengerCarBodyFront, -4.5);
+        drawPoly(vehiclePoly_PassengerCarBodyFront, 4.5);
         glColor3d(0, 0, 0);
-        drawPoly(vehiclePoly_PassengerFrontGlass, -4.5);
+        drawPoly(vehiclePoly_PassengerFrontGlass, 4.5);
         break;
     case SVS_PEDESTRIAN:
         //glScaled(1./(length-veh.getVehicleType().getGuiOffset()), 1, 1.);
-        glTranslated(0, 0, -.045);
-        GLHelper::drawFilledCircle(1);
         glTranslated(0, 0, .045);
+        GLHelper::drawFilledCircle(1);
+        glTranslated(0, 0, -.045);
         glScaled(.7, 2, 1);
-        glTranslated(0, 0, -.04);
+        glTranslated(0, 0, .04);
         glColor3dv(lighter);
         GLHelper::drawFilledCircle(1);
-        glTranslated(0, 0, .04);
+        glTranslated(0, 0, -.04);
         break;
     case SVS_BICYCLE:
     case SVS_MOTORCYCLE: {
-        SUMOReal offset = 0;
         glPushMatrix();
         glTranslated(.5, 0, 0);
         glScaled(.25/(length-veh.getVehicleType().getGuiOffset()), 1, 1.);
-        glTranslated(0, 0, -.045);
+        glTranslated(0, 0, .045);
         GLHelper::drawFilledCircle(1);
         glScaled(.7, 2, 1);
-        glTranslated(0, 0, .045);
-        glTranslated(0, 0, -.04);
+        glTranslated(0, 0, -.045);
+        glTranslated(0, 0, .04);
         glColor3dv(lighter);
         GLHelper::drawFilledCircle(1);
-        glTranslated(0, 0, .04);
+        glTranslated(0, 0, -.04);
         glPopMatrix();
     }
     break;
@@ -449,46 +448,46 @@ drawAction_drawVehicleAsPoly(const GUIVehicle &veh, SUMOReal upscale) {
     case SVS_PASSENGER_SEDAN:
     case SVS_PASSENGER_HATCHBACK:
     case SVS_PASSENGER_WAGON:
-        drawPoly(vehiclePoly_PassengerCarBody, -4);
+        drawPoly(vehiclePoly_PassengerCarBody, 4);
         glColor3dv(lighter);
-        drawPoly(vehiclePoly_PassengerCarBodyFront, -4.5);
+        drawPoly(vehiclePoly_PassengerCarBodyFront, 4.5);
         glColor3d(0, 0, 0);
-        drawPoly(vehiclePoly_PassengerFrontGlass, -4.5);
+        drawPoly(vehiclePoly_PassengerFrontGlass, 4.5);
         break;
     case SVS_PASSENGER_VAN:
-        drawPoly(vehiclePoly_PassengerVanBody, -4);
+        drawPoly(vehiclePoly_PassengerVanBody, 4);
         glColor3dv(lighter);
-        drawPoly(vehiclePoly_PassengerVanBodyFront, -4.5);
+        drawPoly(vehiclePoly_PassengerVanBodyFront, 4.5);
         glColor3d(0, 0, 0);
-        drawPoly(vehiclePoly_PassengerVanFrontGlass, -4.5);
-        drawPoly(vehiclePoly_PassengerVanRightGlass, -4.5);
-        drawPoly(vehiclePoly_PassengerVanLeftGlass, -4.5);
-        drawPoly(vehiclePoly_PassengerVanBackGlass, -4.5);
+        drawPoly(vehiclePoly_PassengerVanFrontGlass, 4.5);
+        drawPoly(vehiclePoly_PassengerVanRightGlass, 4.5);
+        drawPoly(vehiclePoly_PassengerVanLeftGlass, 4.5);
+        drawPoly(vehiclePoly_PassengerVanBackGlass, 4.5);
         break;
     case SVS_DELIVERY:
-        drawPoly(vehiclePoly_PassengerVanBody, -4);
+        drawPoly(vehiclePoly_PassengerVanBody, 4);
         glColor3dv(lighter);
-        drawPoly(vehiclePoly_PassengerVanBodyFront, -4.5);
+        drawPoly(vehiclePoly_PassengerVanBodyFront, 4.5);
         glColor3d(0, 0, 0);
-        drawPoly(vehiclePoly_PassengerVanFrontGlass, -4.5);
-        drawPoly(vehiclePoly_DeliveryMediumRightGlass, -4.5);
-        drawPoly(vehiclePoly_DeliveryMediumLeftGlass, -4.5);
+        drawPoly(vehiclePoly_PassengerVanFrontGlass, 4.5);
+        drawPoly(vehiclePoly_DeliveryMediumRightGlass, 4.5);
+        drawPoly(vehiclePoly_DeliveryMediumLeftGlass, 4.5);
         break;
     case SVS_TRANSPORT:
     case SVS_TRANSPORT_SEMITRAILER:
     case SVS_TRANSPORT_1TRAILER:
         glScaled(1./(length-veh.getVehicleType().getGuiOffset()), 1, 1.);
-        drawPoly(vehiclePoly_TransportBody, -4);
+        drawPoly(vehiclePoly_TransportBody, 4);
         glColor3d(0, 0, 0);
-        drawPoly(vehiclePoly_TransportFrontGlass, -4.5);
-        drawPoly(vehiclePoly_TransportRightGlass, -4.5);
-        drawPoly(vehiclePoly_TransportLeftGlass, -4.5);
+        drawPoly(vehiclePoly_TransportFrontGlass, 4.5);
+        drawPoly(vehiclePoly_TransportRightGlass, 4.5);
+        drawPoly(vehiclePoly_TransportLeftGlass, 4.5);
         break;
     case SVS_BUS:
     case SVS_BUS_CITY: {
         SUMOReal ml = length - veh.getVehicleType().getGuiOffset();
         glScaled(1./(length-veh.getVehicleType().getGuiOffset()), 1, 1.);
-        glTranslated(0, 0, -.04);
+        glTranslated(0, 0, .04);
         glBegin(GL_TRIANGLE_FAN);
         glVertex2d(ml/2., 0);
         glVertex2d(0, 0);
@@ -502,9 +501,9 @@ drawAction_drawVehicleAsPoly(const GUIVehicle &veh, SUMOReal upscale) {
         glVertex2d(0, .45);
         glVertex2d(0, 0);
         glEnd();
-        glTranslated(0, 0, .04);
+        glTranslated(0, 0, -.04);
 
-        glTranslated(0, 0, -.045);
+        glTranslated(0, 0, .045);
         glColor3d(0, 0, 0);
         glBegin(GL_QUADS);
         glVertex2d(0+.05, .48);
@@ -528,7 +527,7 @@ drawAction_drawVehicleAsPoly(const GUIVehicle &veh, SUMOReal upscale) {
         glVertex2d(ml-.20, -.49);
 
         glEnd();
-        glTranslated(0, 0, .045);
+        glTranslated(0, 0, -.045);
     }
     break;
     case SVS_BUS_OVERLAND:
@@ -539,7 +538,7 @@ drawAction_drawVehicleAsPoly(const GUIVehicle &veh, SUMOReal upscale) {
     case SVS_RAIL_FAST:
     case SVS_RAIL_CARGO:
         glScaled(1./(length-veh.getVehicleType().getGuiOffset()), 1, 1.);
-        glTranslated(0, 0, -.04);
+        glTranslated(0, 0, .04);
         glBegin(GL_TRIANGLE_FAN);
         glVertex2d(length/2., 0);
         glVertex2d(0, 0);
@@ -553,13 +552,13 @@ drawAction_drawVehicleAsPoly(const GUIVehicle &veh, SUMOReal upscale) {
         glVertex2d(0, .45);
         glVertex2d(0, 0);
         glEnd();
-        glTranslated(0, 0, .04);
+        glTranslated(0, 0, -.04);
         break;
     case SVS_E_VEHICLE:
-        drawPoly(vehiclePoly_EVehicleBody, -4);
+        drawPoly(vehiclePoly_EVehicleBody, 4);
         glColor3d(0, 0, 0);
-        drawPoly(vehiclePoly_EVehicleFrontGlass, -4.5);
-        glTranslated(0, 0, -.048);
+        drawPoly(vehiclePoly_EVehicleFrontGlass, 4.5);
+        glTranslated(0, 0, .048);
         glColor3dv(current);
         glBegin(GL_QUADS);
         glVertex2d(.3, .5);
@@ -577,15 +576,15 @@ drawAction_drawVehicleAsPoly(const GUIVehicle &veh, SUMOReal upscale) {
         glVertex2d(.65, -.5);
         glVertex2d(.7, -.5);
         glEnd();
-        glTranslated(0, 0, .048);
-        //drawPoly(vehiclePoly_EVehicleBackGlass, -4.5);
+        glTranslated(0, 0, -.048);
+        //drawPoly(vehiclePoly_EVehicleBackGlass, 4.5);
         break;
     default: // same as passenger
-        drawPoly(vehiclePoly_PassengerCarBody, -4);
+        drawPoly(vehiclePoly_PassengerCarBody, 4);
         glColor3d(1, 1, 1);
-        drawPoly(vehiclePoly_PassengerCarBodyFront, -4.5);
+        drawPoly(vehiclePoly_PassengerCarBodyFront, 4.5);
         glColor3d(0, 0, 0);
-        drawPoly(vehiclePoly_PassengerFrontGlass, -4.5);
+        drawPoly(vehiclePoly_PassengerFrontGlass, 4.5);
         break;
     }
 
@@ -626,19 +625,19 @@ drawAction_drawVehicleAsPoly(const GUIVehicle &veh, SUMOReal upscale) {
         break;
     case SVS_PASSENGER:
     case SVS_PASSENGER_SEDAN:
-        drawPoly(vehiclePoly_PassengerSedanRightGlass, -4.5);
-        drawPoly(vehiclePoly_PassengerSedanLeftGlass, -4.5);
-        drawPoly(vehiclePoly_PassengerSedanBackGlass, -4.5);
+        drawPoly(vehiclePoly_PassengerSedanRightGlass, 4.5);
+        drawPoly(vehiclePoly_PassengerSedanLeftGlass, 4.5);
+        drawPoly(vehiclePoly_PassengerSedanBackGlass, 4.5);
         break;
     case SVS_PASSENGER_HATCHBACK:
-        drawPoly(vehiclePoly_PassengerHatchbackRightGlass, -4.5);
-        drawPoly(vehiclePoly_PassengerHatchbackLeftGlass, -4.5);
-        drawPoly(vehiclePoly_PassengerHatchbackBackGlass, -4.5);
+        drawPoly(vehiclePoly_PassengerHatchbackRightGlass, 4.5);
+        drawPoly(vehiclePoly_PassengerHatchbackLeftGlass, 4.5);
+        drawPoly(vehiclePoly_PassengerHatchbackBackGlass, 4.5);
         break;
     case SVS_PASSENGER_WAGON:
-        drawPoly(vehiclePoly_PassengerWagonRightGlass, -4.5);
-        drawPoly(vehiclePoly_PassengerWagonLeftGlass, -4.5);
-        drawPoly(vehiclePoly_PassengerWagonBackGlass, -4.5);
+        drawPoly(vehiclePoly_PassengerWagonRightGlass, 4.5);
+        drawPoly(vehiclePoly_PassengerWagonLeftGlass, 4.5);
+        drawPoly(vehiclePoly_PassengerWagonBackGlass, 4.5);
         break;
     case SVS_PASSENGER_VAN:
     case SVS_DELIVERY:
@@ -672,9 +671,9 @@ drawAction_drawVehicleAsPoly(const GUIVehicle &veh, SUMOReal upscale) {
     case SVS_E_VEHICLE:
         break;
     default: // same as passenger/sedan
-        drawPoly(vehiclePoly_PassengerSedanRightGlass, -4.5);
-        drawPoly(vehiclePoly_PassengerSedanLeftGlass, -4.5);
-        drawPoly(vehiclePoly_PassengerSedanBackGlass, -4.5);
+        drawPoly(vehiclePoly_PassengerSedanRightGlass, 4.5);
+        drawPoly(vehiclePoly_PassengerSedanLeftGlass, 4.5);
+        drawPoly(vehiclePoly_PassengerSedanBackGlass, 4.5);
         break;
     }
     /*
@@ -905,6 +904,8 @@ GUIVehicle::drawGL(const GUIVisualizationSettings &s) const throw() {
 void
 GUIVehicle::drawGLAdditional(GUISUMOAbstractView * const parent, const GUIVisualizationSettings &s) const throw() {
     glPushName(getGlID());
+    glPushMatrix();
+    glTranslated(0,0,getType() -.1); // don't draw on top of other cars
     if (hasActiveAddVisualisation(parent, VO_SHOW_BEST_LANES)) {
         drawBestLanes();
     }
@@ -922,6 +923,7 @@ GUIVehicle::drawGLAdditional(GUISUMOAbstractView * const parent, const GUIVisual
             drawRoute(s, 0, 0.25);
         }
     }
+    glPopMatrix();
     glPopName();
 }
 

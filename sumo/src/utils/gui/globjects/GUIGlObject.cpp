@@ -209,7 +209,7 @@ GUIGlObject::drawName(const Position2D& pos, const SUMOReal size, const RGBColor
     glPushMatrix();
     glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
     GLHelper::setColor(col);
-    glTranslated(pos.x(), pos.y(), GLO_MAX - 1);
+    glTranslated(pos.x(), pos.y(), GLO_MAX);
     pfSetPosition(0, 0);
     pfSetScale(size);
     SUMOReal w = pfdkGetStringWidth(getMicrosimID().c_str());
