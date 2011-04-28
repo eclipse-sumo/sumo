@@ -146,18 +146,11 @@ GUIPolygon2D::drawGL(const GUIVisualizationSettings &s) const throw() {
             return;
         }
     }
-    glPushMatrix();
-    if (getLayer()==0) {
-        glTranslated(0, 0, -.03);
-    } else if (getLayer()>0) {
-        glTranslated(0, 0, -.05-.01*(SUMOReal) getLayer());
-    } else {
-        glTranslated(0, 0, -.01*(SUMOReal) getLayer()+.01);
-    }
-    glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
     glPushName(getGlID());
-    RGBColor color = getColor();
-    glColor3d(color.red(), color.green(), color.blue());
+    glPushMatrix();
+    glTranslated(0, 0, getLayer());
+    glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+    GLHelper::setColor(getColor());
     if (fill()) {
         double *points = new double[myShape.size()*3];
         GLUtesselator *tobj = gluNewTess();

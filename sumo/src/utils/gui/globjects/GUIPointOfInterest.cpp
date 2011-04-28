@@ -97,32 +97,17 @@ GUIPointOfInterest::drawGL(const GUIVisualizationSettings &s) const throw() {
     if (s.scale*(1.3/3.0)<s.minPOISize) {
         return;
     }
-    glPushMatrix();
-    if (getLayer()==0) {
-        glTranslated(0, 0, -.03);
-    } else if (getLayer()>0) {
-        glTranslated(0, 0, -.05-.01*(SUMOReal) getLayer());
-    } else {
-        glTranslated(0, 0, -.01*(SUMOReal) getLayer()+.01);
-    }
     glPushName(getGlID());
+    glPushMatrix();
     glColor3d(red(),green(),blue());
-    glTranslated(x(), y(), 0);
+    glTranslated(x(), y(), getLayer());
     GLHelper::drawFilledCircle((SUMOReal) 1.3*s.poiExaggeration, 16);
-    if (s.drawPOIName) {
-        glColor3d(s.poiNameColor.red(), s.poiNameColor.green(), s.poiNameColor.blue());
-        glPushMatrix();
-        glTranslated((SUMOReal) 1.32*s.poiExaggeration, (SUMOReal) 1.32*s.poiExaggeration, 0);
-        glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-        pfSetPosition(0, 0);
-        pfSetScale(s.poiNameSize / s.scale);
-        glRotated(180, 1, 0, 0);
-        pfDrawString(getID().c_str());
-        glPopMatrix();
-    }
-    glTranslated(-x(), -y(), 0);
-    glPopName();
     glPopMatrix();
+    if (s.drawPOIName) {
+        drawName(Position2D(x() + 1.32*s.poiExaggeration, y() + 1.32*s.poiExaggeration),
+                s.poiNameSize / s.scale, s.poiNameColor);
+    }
+    glPopName();
 }
 
 
