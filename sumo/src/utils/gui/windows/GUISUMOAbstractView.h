@@ -299,10 +299,13 @@ protected:
 
 
     /// returns the id of the object under the cursor using GL_SELECT
-    unsigned int getObjectUnderCursor();
+    GLuint getObjectUnderCursor();
 
     /// returns the id of the object at position using GL_SELECT
-    unsigned int getObjectAtPosition(Position2D pos);
+    GLuint getObjectAtPosition(Position2D pos);
+    
+    /// returns the ids of all objects in the given boundary
+    std::vector<GLuint> getObjectsInBoundary(const Boundary& bound); 
 
     /// invokes the tooltip for the given object
     void showToolTipFor(unsigned int id);

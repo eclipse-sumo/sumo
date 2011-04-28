@@ -244,38 +244,25 @@ GUISUMOAbstractView::paintGL() {
 }
 
 
-unsigned int
+GLuint
 GUISUMOAbstractView::getObjectUnderCursor() {
     return getObjectAtPosition(getPositionInformation());
 }
 
 
-unsigned int
+GLuint
 GUISUMOAbstractView::getObjectAtPosition(Position2D pos) {
     const SUMOReal SENSITIVITY = 0.1; // meters
     Boundary oldViewPort = myChanger->getViewport(false); // backup the actual viewPort
     Boundary selection;
     selection.add(pos);
     selection.grow(SENSITIVITY);
-    myChanger->setViewport(selection);
-    applyGLTransform(false);
-
-    const int NB_HITS_MAX = 1000;
-    // Prepare the selection mode
-    static GLuint hits[NB_HITS_MAX];
-    static GLint nb_hits = 0;
-    glSelectBuffer(NB_HITS_MAX, hits);
-    glInitNames();
-    // paint in select mode
-    doPaintGL(GL_SELECT, selection);
-    // Get the results
-    nb_hits = glRenderMode(GL_RENDER);
+    const std::vector<GLuint> ids = getObjectsInBoundary(selection);
     // Interpret results
     unsigned int idMax = 0;
     int prevLayer = -1000;
-    for (int i=0; i<nb_hits; ++i) {
-        assert(i*4+3<NB_HITS_MAX);
-        unsigned int id = hits[i*4+3];
+    for (std::vector<GLuint>::const_iterator it = ids.begin(); it != ids.end(); it++) {
+        GLuint id = *it;
         GUIGlObject *o = GUIGlObjectStorage::gIDStorage.getObjectBlocking(id);
         if (o==0) {
             continue;
@@ -315,10 +302,39 @@ GUISUMOAbstractView::getObjectAtPosition(Position2D pos) {
             }
         }
         GUIGlObjectStorage::gIDStorage.unblockObject(id);
-        assert(i*4+3<NB_HITS_MAX);
     }
-    myChanger->setViewport(oldViewPort);
     return idMax;
+}
+
+
+std::vector<GLuint> 
+GUISUMOAbstractView::getObjectsInBoundary(const Boundary& bound) {
+    const int NB_HITS_MAX = 1024 * 1024;
+    // Prepare the selection mode
+    static GLuint hits[NB_HITS_MAX];
+    static GLint nb_hits = 0;
+    glSelectBuffer(NB_HITS_MAX, hits);
+    glInitNames();
+
+    Boundary oldViewPort = myChanger->getViewport(false);
+    myChanger->setViewport(bound);
+    applyGLTransform(false);
+
+    // paint in select mode
+    int hits2 = doPaintGL(GL_SELECT, bound);
+    // Get the results
+    nb_hits = glRenderMode(GL_RENDER);
+    if (nb_hits == -1) {
+        myApp->setStatusBarText("Selection in boundary failed. Try to select fewer than " + toString(hits2) + " items");
+    }
+    std::vector<GLuint> result;
+    for (int i=0; i<nb_hits; ++i) {
+        assert(i*4+3<NB_HITS_MAX);
+        result.push_back(hits[i*4+3]);
+    }
+    // switch viewport back to normal
+    myChanger->setViewport(oldViewPort);
+    return result;
 }
 
 
