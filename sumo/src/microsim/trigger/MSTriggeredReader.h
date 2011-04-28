@@ -66,7 +66,6 @@ protected:
 
     virtual void inputEndReached() = 0;
 
-    SUMOTime warppedExecute(SUMOTime currentTime);
 
 protected:
     /// The offset to the next event
