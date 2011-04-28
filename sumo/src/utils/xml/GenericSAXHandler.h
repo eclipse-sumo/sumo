@@ -101,11 +101,11 @@ public:
     GenericSAXHandler(
             StringBijection<SumoXMLTag>::Entry *tags, 
             StringBijection<SumoXMLAttr>::Entry *attrs, 
-            const std::string &file) throw();
+            const std::string &file);
 
 
     /** @brief Destructor */
-    virtual ~GenericSAXHandler() throw();
+    virtual ~GenericSAXHandler();
 
 
     /**
@@ -186,7 +186,7 @@ protected:
      * @exceptions ProcessError These method may throw a ProcessError if something fails
      */
     virtual void myStartElement(SumoXMLTag element,
-                                const SUMOSAXAttributes &attrs) throw(ProcessError);
+                                const SUMOSAXAttributes &attrs);
 
 
     /**
@@ -198,7 +198,7 @@ protected:
      * @exceptions ProcessError These method may throw a ProcessError if something fails
      */
     virtual void myCharacters(SumoXMLTag element,
-                              const std::string &chars) throw(ProcessError);
+                              const std::string &chars);
 
 
     /** @brief Callback method for a closing tag to implement by derived classes
@@ -207,7 +207,7 @@ protected:
      * @param[in] element The closed element, given as a SumoXMLTag
      * @exceptions ProcessError These method may throw a ProcessError if something fails
      */
-    virtual void myEndElement(SumoXMLTag element) throw(ProcessError);
+    virtual void myEndElement(SumoXMLTag element);
 
 
 private:

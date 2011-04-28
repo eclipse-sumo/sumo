@@ -48,11 +48,11 @@ public:
      *
      * @param[in] id The id of the trigger
      */
-    MSTrigger(const std::string &id) throw() : Named(id) { }
+    MSTrigger(const std::string &id) : Named(id) { }
 
 
     /// @brief Destructor
-    virtual ~MSTrigger() throw() { }
+    virtual ~MSTrigger() { }
 
 
 private:

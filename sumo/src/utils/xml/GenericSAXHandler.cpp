@@ -46,7 +46,7 @@
 GenericSAXHandler::GenericSAXHandler(
         StringBijection<SumoXMLTag>::Entry *tags, 
         StringBijection<SumoXMLAttr>::Entry *attrs, 
-        const std::string &file) throw()
+        const std::string &file)
         : myParentHandler(0), myParentIndicator(SUMO_TAG_NOTHING), myFileName(file) {
     int i = 0;
     while (tags[i].key != SUMO_TAG_NOTHING) {
@@ -63,7 +63,7 @@ GenericSAXHandler::GenericSAXHandler(
 }
 
 
-GenericSAXHandler::~GenericSAXHandler() throw() {
+GenericSAXHandler::~GenericSAXHandler() {
     for (AttrMap::iterator i1=myPredefinedTags.begin(); i1!=myPredefinedTags.end(); i1++) {
         delete[](*i1).second;
     }
@@ -184,15 +184,15 @@ GenericSAXHandler::convertTag(const std::string &tag) const throw() {
 
 
 void
-GenericSAXHandler::myStartElement(SumoXMLTag, const SUMOSAXAttributes &) throw(ProcessError) {}
+GenericSAXHandler::myStartElement(SumoXMLTag, const SUMOSAXAttributes &) {}
 
 
 void
-GenericSAXHandler::myCharacters(SumoXMLTag, const std::string &) throw(ProcessError) {}
+GenericSAXHandler::myCharacters(SumoXMLTag, const std::string &) {}
 
 
 void
-GenericSAXHandler::myEndElement(SumoXMLTag) throw(ProcessError) {}
+GenericSAXHandler::myEndElement(SumoXMLTag) {}
 
 
 /****************************************************************************/

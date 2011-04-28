@@ -44,11 +44,11 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-SUMOSAXHandler::SUMOSAXHandler(const std::string &file) throw()
+SUMOSAXHandler::SUMOSAXHandler(const std::string &file)
         : GenericSAXHandler(SUMOXMLDefinitions::tags, SUMOXMLDefinitions::attrs, file) {}
 
 
-SUMOSAXHandler::~SUMOSAXHandler() throw() {}
+SUMOSAXHandler::~SUMOSAXHandler() {}
 
 
 std::string

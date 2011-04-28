@@ -45,18 +45,18 @@ public:
      *
      * @param[in] id The id of the object
      */
-    Named(const std::string &id) throw() : myID(id) { }
+    Named(const std::string &id) : myID(id) { }
 
 
     /// @brief Destructor
-    virtual ~Named() throw() { }
+    virtual ~Named() { }
 
 
     /** @brief Returns the id
      *
      * @return The stored id
      */
-    const std::string &getID() const throw() {
+    const std::string &getID() const {
         return myID;
     }
 
