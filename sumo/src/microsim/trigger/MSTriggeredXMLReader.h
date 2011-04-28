@@ -52,7 +52,7 @@ class MSTriggeredXMLReader : public MSTriggeredReader,
             public SUMOSAXHandler {
 public:
     /// Destructor
-    virtual ~MSTriggeredXMLReader() throw();
+    virtual ~MSTriggeredXMLReader();
 
 protected:
     /// Constructor (for derived classes)

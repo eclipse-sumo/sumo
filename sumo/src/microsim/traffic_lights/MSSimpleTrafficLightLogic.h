@@ -63,11 +63,11 @@ public:
      */
     MSSimpleTrafficLightLogic(MSTLLogicControl &tlcontrol,
                               const std::string &id, const std::string &subid,
-                              const Phases &phases, unsigned int step, SUMOTime delay) throw();
+                              const Phases &phases, unsigned int step, SUMOTime delay);
 
 
     /// @brief Destructor
-    ~MSSimpleTrafficLightLogic() throw();
+    ~MSSimpleTrafficLightLogic();
 
 
 
@@ -79,7 +79,7 @@ public:
      * @return The time of the next switch
      * @see MSTrafficLightLogic::trySwitch
      */
-    SUMOTime trySwitch(bool isActive) throw();
+    SUMOTime trySwitch(bool isActive);
 
 
     /** @brief Applies the current signal states to controlled links
@@ -88,7 +88,7 @@ public:
      * @see MSLink::LinkState
      * @see MSLink::setTLState
      */
-    bool setTrafficLightSignals(SUMOTime t) const throw();
+    bool setTrafficLightSignals(SUMOTime t) const;
     /// @}
 
 
@@ -100,21 +100,21 @@ public:
      * @return The number of this tls program's phases
      * @see MSTrafficLightLogic::getPhaseNumber
      */
-    unsigned int getPhaseNumber() const throw();
+    unsigned int getPhaseNumber() const;
 
 
     /** @brief Returns the phases of this tls program
      * @return The phases of this tls program
      * @see MSTrafficLightLogic::getPhases
      */
-    const Phases &getPhases() const throw();
+    const Phases &getPhases() const;
 
 
     /** @brief Returns the phases of this tls program
      * @return The phases of this tls program
      * @todo Recheck!
      */
-    Phases &getPhases() throw();
+    Phases &getPhases();
 
 
     /** @brief Returns the definition of the phase from the given position within the plan
@@ -122,7 +122,7 @@ public:
      * @return The definition of the phase at the given position
      * @see MSTrafficLightLogic::getPhase
      */
-    const MSPhaseDefinition &getPhase(unsigned int givenstep) const throw();
+    const MSPhaseDefinition &getPhase(unsigned int givenstep) const;
     /// @}
 
 
@@ -134,14 +134,14 @@ public:
      * @return The index of the current phase within the tls
      * @see MSTrafficLightLogic::getCurrentPhaseIndex
      */
-    unsigned int getCurrentPhaseIndex() const throw();
+    unsigned int getCurrentPhaseIndex() const;
 
 
     /** @brief Returns the definition of the current phase
      * @return The current phase
      * @see MSTrafficLightLogic::getCurrentPhaseDef
      */
-    const MSPhaseDefinition &getCurrentPhaseDef() const throw();
+    const MSPhaseDefinition &getCurrentPhaseDef() const;
     /// @}
 
 
@@ -153,7 +153,7 @@ public:
      * @return The (estimated) index of the tls at the given simulation time step
      * @see MSTrafficLightLogic::getPhaseIndexAtTime
      */
-    SUMOTime getPhaseIndexAtTime(SUMOTime simStep) const throw();
+    SUMOTime getPhaseIndexAtTime(SUMOTime simStep) const;
 
 
     /** @brief Returns the position (start of a phase during a cycle) from of a given step
@@ -161,7 +161,7 @@ public:
      * @return The begin time of the phase
      * @see MSTrafficLightLogic::getOffsetFromIndex
      */
-    SUMOTime getOffsetFromIndex(unsigned int index) const throw();
+    SUMOTime getOffsetFromIndex(unsigned int index) const;
 
 
     /** @brief Returns the step (the phasenumber) of a given position of the cycle
@@ -169,7 +169,7 @@ public:
      * @return The according phase
      * @see MSTrafficLightLogic::getIndexFromOffset
      */
-    unsigned int getIndexFromOffset(SUMOTime offset) const throw();
+    unsigned int getIndexFromOffset(SUMOTime offset) const;
     /// @}
 
 
@@ -185,7 +185,7 @@ public:
      * @see MSTrafficLightLogic::changeStepAndDuration
      */
     void changeStepAndDuration(MSTLLogicControl &tlcontrol, SUMOTime simStep,
-                               unsigned int step, SUMOTime stepDuration) throw();
+                               unsigned int step, SUMOTime stepDuration);
     /// @}
 
 

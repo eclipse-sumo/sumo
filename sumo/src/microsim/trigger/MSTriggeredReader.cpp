@@ -59,7 +59,7 @@ MSTriggeredReader::isInitialised() const {
 
 
 SUMOTime
-MSTriggeredReader::wrappedExecute(SUMOTime current) throw(ProcessError) {
+MSTriggeredReader::wrappedExecute(SUMOTime current) {
     if (!isInitialised()) {
         init();
     }

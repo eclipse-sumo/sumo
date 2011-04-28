@@ -43,13 +43,13 @@
 // member method definitions
 // ===========================================================================
 MSOffTrafficLightLogic::MSOffTrafficLightLogic(MSTLLogicControl &tlcontrol,
-        const std::string &id) throw()
+        const std::string &id)
         : MSTrafficLightLogic(tlcontrol, id, "off", 0) {
     myDefaultCycleTime = TIME2STEPS(120);
 }
 
 
-MSOffTrafficLightLogic::~MSOffTrafficLightLogic() throw() {
+MSOffTrafficLightLogic::~MSOffTrafficLightLogic() {
     for (MSTrafficLightLogic::Phases::const_iterator i=myPhaseDefinition.begin(); i!=myPhaseDefinition.end(); ++i) {
         delete *i;
     }
@@ -57,21 +57,21 @@ MSOffTrafficLightLogic::~MSOffTrafficLightLogic() throw() {
 
 
 void
-MSOffTrafficLightLogic::init(NLDetectorBuilder &) throw(ProcessError) {
+MSOffTrafficLightLogic::init(NLDetectorBuilder &) {
     rebuildPhase();
 }
 
 
 // ----------- Handling of controlled links
 void
-MSOffTrafficLightLogic::adaptLinkInformationFrom(const MSTrafficLightLogic &logic) throw() {
+MSOffTrafficLightLogic::adaptLinkInformationFrom(const MSTrafficLightLogic &logic) {
     MSTrafficLightLogic::adaptLinkInformationFrom(logic);
     rebuildPhase();
 }
 
 
 void
-MSOffTrafficLightLogic::rebuildPhase() throw() {
+MSOffTrafficLightLogic::rebuildPhase() {
     size_t no = getLinks().size();
     std::string state;
     for (unsigned int i=0; i<no; ++i) {
@@ -88,51 +88,51 @@ MSOffTrafficLightLogic::rebuildPhase() throw() {
 
 // ------------ Static Information Retrieval
 unsigned int
-MSOffTrafficLightLogic::getPhaseNumber() const throw() {
+MSOffTrafficLightLogic::getPhaseNumber() const {
     return 0;
 }
 
 
 const MSOffTrafficLightLogic::Phases &
-MSOffTrafficLightLogic::getPhases() const throw() {
+MSOffTrafficLightLogic::getPhases() const {
     return myPhaseDefinition;
 }
 
 
 const MSPhaseDefinition &
-MSOffTrafficLightLogic::getPhase(unsigned int) const throw() {
+MSOffTrafficLightLogic::getPhase(unsigned int) const {
     return *myPhaseDefinition[0];
 }
 
 
 // ------------ Dynamic Information Retrieval
 unsigned int
-MSOffTrafficLightLogic::getCurrentPhaseIndex() const throw() {
+MSOffTrafficLightLogic::getCurrentPhaseIndex() const {
     return 0;
 }
 
 
 const MSPhaseDefinition &
-MSOffTrafficLightLogic::getCurrentPhaseDef() const throw() {
+MSOffTrafficLightLogic::getCurrentPhaseDef() const {
     return *myPhaseDefinition[0];
 }
 
 
 // ------------ Conversion between time and phase
 SUMOTime
-MSOffTrafficLightLogic::getPhaseIndexAtTime(SUMOTime) const throw() {
+MSOffTrafficLightLogic::getPhaseIndexAtTime(SUMOTime) const {
     return 0;
 }
 
 
 SUMOTime
-MSOffTrafficLightLogic::getOffsetFromIndex(unsigned int) const throw() {
+MSOffTrafficLightLogic::getOffsetFromIndex(unsigned int) const {
     return 0;
 }
 
 
 unsigned int
-MSOffTrafficLightLogic::getIndexFromOffset(SUMOTime) const throw() {
+MSOffTrafficLightLogic::getIndexFromOffset(SUMOTime) const {
     return 0;
 }
 

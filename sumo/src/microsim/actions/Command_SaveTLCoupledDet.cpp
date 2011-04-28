@@ -45,9 +45,7 @@
 // method definitions
 // ===========================================================================
 Command_SaveTLCoupledDet::Command_SaveTLCoupledDet(MSTLLogicControl::TLSLogicVariants &tlls,
-        MSDetectorFileOutput *dtf,
-        unsigned int begin,
-        OutputDevice& device) throw()
+        MSDetectorFileOutput *dtf, unsigned int begin, OutputDevice& device)
         : myDevice(device), myLogics(tlls), myDetector(dtf),
         myStartTime(begin) {
     tlls.addSwitchCommand(this);
@@ -55,12 +53,12 @@ Command_SaveTLCoupledDet::Command_SaveTLCoupledDet(MSTLLogicControl::TLSLogicVar
 }
 
 
-Command_SaveTLCoupledDet::~Command_SaveTLCoupledDet() throw() {
+Command_SaveTLCoupledDet::~Command_SaveTLCoupledDet() {
 }
 
 
 void
-Command_SaveTLCoupledDet::execute() throw() {
+Command_SaveTLCoupledDet::execute() {
     SUMOTime end = MSNet::getInstance()->getCurrentTimeStep();
     if (myStartTime!=end) {
         myDetector->writeXMLOutput(myDevice, myStartTime, end);

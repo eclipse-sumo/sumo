@@ -45,18 +45,19 @@
 // ===========================================================================
 MSVTypeProbe::MSVTypeProbe(const std::string &id,
                            const std::string &vType,
-                           OutputDevice &od, SUMOTime frequency) throw()
+                           OutputDevice &od, SUMOTime frequency)
         : Named(id), myVType(vType), myOutputDevice(od), myFrequency(frequency) {
     MSNet::getInstance()->getEndOfTimestepEvents().addEvent(this, 0, MSEventControl::ADAPT_AFTER_EXECUTION);
     myOutputDevice.writeXMLHeader("vehicle-type-probes");
 }
 
 
-MSVTypeProbe::~MSVTypeProbe() throw() {
+MSVTypeProbe::~MSVTypeProbe() {
 }
 
+
 SUMOTime
-MSVTypeProbe::execute(SUMOTime currentTime) throw(ProcessError) {
+MSVTypeProbe::execute(SUMOTime currentTime) {
     const std::string indent("    ");
     myOutputDevice << indent << "<timestep time=\"" <<time2string(currentTime)<< "\" id=\"" << getID() << "\" vtype=\"" << myVType << "\">" << "\n";
     MSVehicleControl &vc = MSNet::getInstance()->getVehicleControl();

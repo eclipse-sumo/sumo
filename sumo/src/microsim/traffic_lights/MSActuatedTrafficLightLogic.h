@@ -74,18 +74,18 @@ public:
                                 const std::string &id, const std::string &programID,
                                 const MSSimpleTrafficLightLogic::Phases &phases,
                                 unsigned int step, SUMOTime delay,
-                                SUMOReal maxGap, SUMOReal passingTime, SUMOReal detectorGap) throw();
+                                SUMOReal maxGap, SUMOReal passingTime, SUMOReal detectorGap);
 
 
     /** @brief Initialises the tls with information about incoming lanes
      * @param[in] nb The detector builder
      * @exception ProcessError If something fails on initialisation
      */
-    void init(NLDetectorBuilder &nb) throw(ProcessError);
+    void init(NLDetectorBuilder &nb);
 
 
     /// @brief Destructor
-    ~MSActuatedTrafficLightLogic() throw();
+    ~MSActuatedTrafficLightLogic();
 
 
 
@@ -97,7 +97,7 @@ public:
      * @return The time of the next switch
      * @see MSTrafficLightLogic::trySwitch
      */
-    SUMOTime trySwitch(bool isActive) throw();
+    SUMOTime trySwitch(bool isActive);
     /// @}
 
 
@@ -108,12 +108,12 @@ protected:
     /** @brief Returns the duration of the given step
      * @return The wanted duration of the current step
      */
-    SUMOTime duration() const throw();
+    SUMOTime duration() const;
 
 
     /** @brief Decides, whether a phase should be continued by checking the gaps of vehicles having green
      */
-    void gapControl() throw();
+    void gapControl();
     /// @}
 
 

@@ -59,11 +59,11 @@
 class Command {
 public:
     /// @brief Constructor
-    Command() throw() { }
+    Command() { }
 
 
     /// @brief Destructor.
-    virtual ~Command() throw() { }
+    virtual ~Command() { }
 
 
     /** @brief Executes the command.
@@ -76,7 +76,7 @@ public:
      * @return The time after which the command shall be executed again, 0 if this command shall be descheduled.
      * @exception ProcessError Derived actions may throw this exception
      */
-    virtual SUMOTime execute(SUMOTime currentTime) throw(ProcessError) = 0;
+    virtual SUMOTime execute(SUMOTime currentTime) = 0;
 
 
 };

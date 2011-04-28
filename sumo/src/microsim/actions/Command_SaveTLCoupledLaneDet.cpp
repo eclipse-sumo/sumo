@@ -46,10 +46,7 @@
 // method definitions
 // ===========================================================================
 Command_SaveTLCoupledLaneDet::Command_SaveTLCoupledLaneDet(MSTLLogicControl::TLSLogicVariants &tlls,
-        MSDetectorFileOutput *dtf,
-        unsigned int begin,
-        OutputDevice& device,
-        MSLink *link) throw()
+        MSDetectorFileOutput *dtf, unsigned int begin, OutputDevice& device, MSLink *link)
         : Command_SaveTLCoupledDet(tlls, dtf, begin, device),
         myLink(link), myLastState(MSLink::LINKSTATE_TL_RED),
         myHadOne(false) {
@@ -57,12 +54,12 @@ Command_SaveTLCoupledLaneDet::Command_SaveTLCoupledLaneDet(MSTLLogicControl::TLS
 }
 
 
-Command_SaveTLCoupledLaneDet::~Command_SaveTLCoupledLaneDet() throw() {
+Command_SaveTLCoupledLaneDet::~Command_SaveTLCoupledLaneDet() {
 }
 
 
 void
-Command_SaveTLCoupledLaneDet::execute() throw() {
+Command_SaveTLCoupledLaneDet::execute() {
     if (myLink->getState()==myLastState&&myHadOne) {
         return;
     }

@@ -55,19 +55,18 @@ public:
      * The sub-id is always "off".
      */
     MSOffTrafficLightLogic(MSTLLogicControl &tlcontrol,
-                           const std::string &id) throw();
+                           const std::string &id);
 
 
     /** @brief Initialises the tls with information about incoming lanes
      * @param[in] nb The detector builder
      * @param[in] edgeContinuations Information about edge predecessors/successors
-     * @exception ProcessError If something fails on initialisation
      */
-    virtual void init(NLDetectorBuilder &nb) throw(ProcessError);
+    virtual void init(NLDetectorBuilder &nb);
 
 
     /// @brief Destructor
-    ~MSOffTrafficLightLogic() throw();
+    ~MSOffTrafficLightLogic();
 
 
     /// @name Handling of controlled links
@@ -77,7 +76,7 @@ public:
      * @param[in] logic The logic to use the information about controlled links/lanes from
      * @see MSTrafficLightLogic::adaptLinkInformationFrom
      */
-    void adaptLinkInformationFrom(const MSTrafficLightLogic &logic) throw();
+    void adaptLinkInformationFrom(const MSTrafficLightLogic &logic);
     /// @}
 
 
@@ -90,7 +89,7 @@ public:
      * @return The time of the next switch (always 120)
      * @see MSTrafficLightLogic::trySwitch
      */
-    SUMOTime trySwitch(bool isActive) throw() {
+    SUMOTime trySwitch(bool isActive) {
         UNUSED_PARAMETER(isActive);
         return 120*DELTA_T;
     }
@@ -105,7 +104,7 @@ public:
      * @see MSLink::LinkState
      * @see MSLink::setTLState
      */
-    bool setTrafficLightSignals(SUMOTime /*t*/) const throw() {
+    bool setTrafficLightSignals(SUMOTime /*t*/) const {
         return true;
     }
     /// @}
@@ -119,14 +118,14 @@ public:
      * @return The number of this tls program's phases
      * @see MSTrafficLightLogic::getPhaseNumber
      */
-    unsigned int getPhaseNumber() const throw();
+    unsigned int getPhaseNumber() const;
 
 
     /** @brief Returns the phases of this tls program
      * @return The phases of this tls program
      * @see MSTrafficLightLogic::getPhases
      */
-    const Phases &getPhases() const throw();
+    const Phases &getPhases() const;
 
 
     /** @brief Returns the definition of the phase from the given position within the plan
@@ -134,7 +133,7 @@ public:
      * @return The definition of the phase at the given position
      * @see MSTrafficLightLogic::getPhase
      */
-    const MSPhaseDefinition &getPhase(unsigned int givenstep) const throw();
+    const MSPhaseDefinition &getPhase(unsigned int givenstep) const;
     /// @}
 
 
@@ -146,14 +145,14 @@ public:
      * @return The index of the current phase within the tls
      * @see MSTrafficLightLogic::getCurrentPhaseIndex
      */
-    unsigned int getCurrentPhaseIndex() const throw();
+    unsigned int getCurrentPhaseIndex() const;
 
 
     /** @brief Returns the definition of the current phase
      * @return The current phase
      * @see MSTrafficLightLogic::getCurrentPhaseDef
      */
-    const MSPhaseDefinition &getCurrentPhaseDef() const throw();
+    const MSPhaseDefinition &getCurrentPhaseDef() const;
     /// @}
 
 
@@ -165,7 +164,7 @@ public:
      * @return The (estimated) index of the tls at the given simulation time step
      * @see MSTrafficLightLogic::getPhaseIndexAtTime
      */
-    SUMOTime getPhaseIndexAtTime(SUMOTime simStep) const throw();
+    SUMOTime getPhaseIndexAtTime(SUMOTime simStep) const;
 
 
     /** @brief Returns the position (start of a phase during a cycle) from of a given step
@@ -173,7 +172,7 @@ public:
      * @return The begin time of the phase
      * @see MSTrafficLightLogic::getOffsetFromIndex
      */
-    SUMOTime getOffsetFromIndex(unsigned int index) const throw();
+    SUMOTime getOffsetFromIndex(unsigned int index) const;
 
 
     /** @brief Returns the step (the phasenumber) of a given position of the cycle
@@ -181,7 +180,7 @@ public:
      * @return The according phase
      * @see MSTrafficLightLogic::getIndexFromOffset
      */
-    unsigned int getIndexFromOffset(SUMOTime offset) const throw();
+    unsigned int getIndexFromOffset(SUMOTime offset) const;
     /// @}
 
 
@@ -196,7 +195,7 @@ public:
      * @param[in] stepDuration The left duration of the phase
      * @see MSTrafficLightLogic::changeStepAndDuration
      */
-    void changeStepAndDuration(MSTLLogicControl &tlcontrol, SUMOTime simStep, unsigned int step, SUMOTime stepDuration) throw() {
+    void changeStepAndDuration(MSTLLogicControl &tlcontrol, SUMOTime simStep, unsigned int step, SUMOTime stepDuration) {
         UNUSED_PARAMETER(tlcontrol);
         UNUSED_PARAMETER(simStep);
         UNUSED_PARAMETER(step);
@@ -208,7 +207,7 @@ public:
 private:
     /** @brief (Re)builds the internal phase definition
      */
-    void rebuildPhase() throw();
+    void rebuildPhase();
 
 
 private:

@@ -68,13 +68,13 @@ public:
      * @param[in] receiver Pointer to object of type T that will receive a call to one of it's methods.
      * @param[in] operation The objects' method that will be called on execute()
      */
-    WrappingCommand(T* receiver, Operation operation) throw()
+    WrappingCommand(T* receiver, Operation operation)
             : myReceiver(receiver), myOperation(operation),
             myAmDescheduledByParent(false) {}
 
 
     /// @brief Destructor
-    ~WrappingCommand() throw() {}
+    ~WrappingCommand() {}
 
 
     /** @brief Marks this Command as being descheduled
@@ -100,7 +100,7 @@ public:
      * @return The time after which the command shall be executed again, 0 if this command shall be descheduled.
      * @exception ProcessError Derived actions may throw this exception
      */
-    SUMOTime execute(SUMOTime currentTime) throw(ProcessError) {
+    SUMOTime execute(SUMOTime currentTime) {
         // do not execute if the command was descheduled
         if (myAmDescheduledByParent) {
             return 0;

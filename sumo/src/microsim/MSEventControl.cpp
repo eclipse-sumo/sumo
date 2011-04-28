@@ -41,11 +41,11 @@
 // ===========================================================================
 // member definitions
 // ===========================================================================
-MSEventControl::MSEventControl() throw()
+MSEventControl::MSEventControl()
     : currentTimeStep(-1), myEvents() {}
 
 
-MSEventControl::~MSEventControl() throw() {
+MSEventControl::~MSEventControl() {
     // delete the events
     while (! myEvents.empty()) {
         Event e = myEvents.top();
@@ -58,7 +58,7 @@ MSEventControl::~MSEventControl() throw() {
 SUMOTime
 MSEventControl::addEvent(Command* operation,
                          SUMOTime execTimeStep,
-                         AdaptType type) throw() {
+                         AdaptType type) {
     SUMOTime currTimeStep = getCurrentTimeStep();
     if (type == ADAPT_AFTER_EXECUTION && execTimeStep <= currTimeStep) {
         execTimeStep = currTimeStep;
@@ -70,7 +70,7 @@ MSEventControl::addEvent(Command* operation,
 
 
 void
-MSEventControl::execute(SUMOTime execTime) throw(ProcessError) {
+MSEventControl::execute(SUMOTime execTime) {
     // Execute all events that are scheduled for execTime.
     for (; !myEvents.empty();) {
         Event currEvent = myEvents.top();
@@ -111,7 +111,7 @@ MSEventControl::execute(SUMOTime execTime) throw(ProcessError) {
 
 
 bool
-MSEventControl::isEmpty() throw() {
+MSEventControl::isEmpty() {
     return myEvents.empty();
 }
 
@@ -121,7 +121,7 @@ MSEventControl::setCurrentTimeStep(SUMOTime time) {
 }
 
 SUMOTime
-MSEventControl::getCurrentTimeStep() throw() {
+MSEventControl::getCurrentTimeStep() {
     if (currentTimeStep < 0) {
         return MSNet::getInstance()->getCurrentTimeStep();
     }

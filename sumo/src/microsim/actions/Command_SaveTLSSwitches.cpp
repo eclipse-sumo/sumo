@@ -44,19 +44,19 @@
 // method definitions
 // ===========================================================================
 Command_SaveTLSSwitches::Command_SaveTLSSwitches(const MSTLLogicControl::TLSLogicVariants &logics,
-        OutputDevice &od) throw()
+        OutputDevice &od)
         : myOutputDevice(od), myLogics(logics) {
     MSNet::getInstance()->getEndOfTimestepEvents().addEvent(this, 0, MSEventControl::ADAPT_AFTER_EXECUTION);
     myOutputDevice.writeXMLHeader("tls-switches");
 }
 
 
-Command_SaveTLSSwitches::~Command_SaveTLSSwitches() throw() {
+Command_SaveTLSSwitches::~Command_SaveTLSSwitches() {
 }
 
 
 SUMOTime
-Command_SaveTLSSwitches::execute(SUMOTime currentTime) throw(ProcessError) {
+Command_SaveTLSSwitches::execute(SUMOTime currentTime) {
     MSTrafficLightLogic *light = myLogics.getActive();
     const MSTrafficLightLogic::LinkVectorVector &links = light->getLinks();
     const std::string &state = light->getCurrentPhaseDef().getState();

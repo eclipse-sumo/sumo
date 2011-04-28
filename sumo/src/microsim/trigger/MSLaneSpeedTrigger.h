@@ -65,12 +65,22 @@ public:
      */
     MSLaneSpeedTrigger(const std::string &id,
                        const std::vector<MSLane*> &destLanes,
-                       const std::string &file) throw(ProcessError);
+                       const std::string &file);
 
-    /** destructor */
-    virtual ~MSLaneSpeedTrigger() throw();
 
-    SUMOTime execute(SUMOTime currentTime) throw(ProcessError);
+    /** @brief Destructor */
+    virtual ~MSLaneSpeedTrigger();
+
+
+    /** @brief Executes a switch command
+     * 
+     * Calls processCommand()
+     * @param[in] currentTime The current simulation time
+     * @see Command
+     * @see MSEventControl
+     */
+    SUMOTime execute(SUMOTime currentTime);
+
 
     SUMOTime processCommand(bool move2next, SUMOTime currentTime);
 
@@ -97,7 +107,7 @@ protected:
      * @see GenericSAXHandler::myStartElement
      */
     virtual void myStartElement(SumoXMLTag element,
-                                const SUMOSAXAttributes &attrs) throw(ProcessError);
+                                const SUMOSAXAttributes &attrs);
 
     /** @brief Called on the closing of a tag;
      *
@@ -105,7 +115,7 @@ protected:
      * @exception ProcessError If something fails
      * @see GenericSAXHandler::myEndElement
      */
-    virtual void myEndElement(SumoXMLTag element) throw(ProcessError);
+    virtual void myEndElement(SumoXMLTag element);
     //@}
 
 
@@ -135,7 +145,7 @@ private:
     /// @brief Invalidated assignment operator.
     MSLaneSpeedTrigger& operator=(const MSLaneSpeedTrigger&);
 
-    void init() throw(ProcessError);
+    void init();
 
 
 private:

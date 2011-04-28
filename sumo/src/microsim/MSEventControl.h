@@ -70,11 +70,11 @@ public:
 
 public:
     /// @brief Default constructor.
-    MSEventControl() throw();
+    MSEventControl();
 
 
     /// @brief Destructor.
-    virtual ~MSEventControl() throw();
+    virtual ~MSEventControl();
 
 
     /** @brief Adds an Event.
@@ -92,7 +92,7 @@ public:
      * @see AdaptType
      */
     virtual SUMOTime addEvent(Command* operation, SUMOTime execTimeStep,
-                              AdaptType type) throw();
+                              AdaptType type);
 
 
     /** @brief Executes time-dependant commands
@@ -112,14 +112,14 @@ public:
      * @param[in] time The current simulation time
      * @exception ProcessError From an executed Command
      */
-    virtual void execute(SUMOTime time) throw(ProcessError);
+    virtual void execute(SUMOTime time);
 
 
     /** @brief Returns whether events are in the que.
      *
      * @return  whether events are in the que
      */
-    bool isEmpty() throw();
+    bool isEmpty();
 
 
     /** @brief Set the current Time.
@@ -156,7 +156,7 @@ private:
     EventCont myEvents;
 
     /// get the Current TimeStep used in addEvent.
-    SUMOTime getCurrentTimeStep() throw();
+    SUMOTime getCurrentTimeStep();
 
 
 private:

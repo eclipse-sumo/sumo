@@ -84,7 +84,7 @@ public:
      * @param[in] delay The time to wait before the first switch
      */
     MSTrafficLightLogic(MSTLLogicControl &tlcontrol,
-                        const std::string &id, const std::string &programID, SUMOTime delay) throw();
+                        const std::string &id, const std::string &programID, SUMOTime delay);
 
 
     /** @brief Initialises the tls with information about incoming lanes
@@ -92,11 +92,11 @@ public:
      * @param[in] edgeContinuations Information about edge predecessors/successors
      * @exception ProcessError If something fails on initialisation
      */
-    virtual void init(NLDetectorBuilder &nb) throw(ProcessError);
+    virtual void init(NLDetectorBuilder &nb);
 
 
     /// @brief Destructor
-    virtual ~MSTrafficLightLogic() throw();
+    virtual ~MSTrafficLightLogic();
 
 
 
@@ -108,7 +108,7 @@ public:
      * @param[in] lane The lane this link starts at
      * @param[in] pos The link's index (signal group) within this program
      */
-    void addLink(MSLink *link, MSLane *lane, unsigned int pos) throw();
+    void addLink(MSLink *link, MSLane *lane, unsigned int pos);
 
 
     /** @brief Applies information about controlled links and lanes from the given logic
@@ -118,19 +118,19 @@ public:
      *
      * @param[in] logic The logic to use the information about controlled links/lanes from
      */
-    virtual void adaptLinkInformationFrom(const MSTrafficLightLogic &logic) throw();
+    virtual void adaptLinkInformationFrom(const MSTrafficLightLogic &logic);
 
 
     /** @brief Returns the (uncontrolled) states of the controlled links
      * @return The controlled link's states
      */
-    std::map<MSLink*, MSLink::LinkState> collectLinkStates() const throw();
+    std::map<MSLink*, MSLink::LinkState> collectLinkStates() const;
 
 
     /** @brief Resets the states of controlled links
      * @param[in] vals The state of controlled links to use
      */
-    void resetLinkStates(const std::map<MSLink*, MSLink::LinkState> &vals) const throw();
+    void resetLinkStates(const std::map<MSLink*, MSLink::LinkState> &vals) const;
     /// @}
 
 
@@ -142,7 +142,7 @@ public:
      * @param[in] isActive Whether this program is the currently used one
      * @return The time of the next switch
      */
-    virtual SUMOTime trySwitch(bool isActive) throw() = 0;
+    virtual SUMOTime trySwitch(bool isActive) = 0;
 
 
     /** @brief Applies the current signal states to controlled links
@@ -151,7 +151,7 @@ public:
      * @see MSLink::LinkState
      * @see MSLink::setTLState
      */
-    virtual bool setTrafficLightSignals(SUMOTime t) const throw() = 0;
+    virtual bool setTrafficLightSignals(SUMOTime t) const = 0;
     /// @}
 
 
@@ -162,7 +162,7 @@ public:
     /** @brief Returns this tl-logic's id
      * @return This tls' id
      */
-    const std::string &getID() const throw() {
+    const std::string &getID() const {
         return myID;
     }
 
@@ -170,7 +170,7 @@ public:
     /** @brief Returns this tl-logic's id
      * @return This program's id
      */
-    const std::string &getProgramID() const throw() {
+    const std::string &getProgramID() const {
         return myProgramID;
     }
 
@@ -178,7 +178,7 @@ public:
     /** @brief Returns the list of lists of all lanes controlled by this tls
      * @return All lanes controlled by this tls, sorted by the signal index
      */
-    const LaneVectorVector &getLanes() const throw() {
+    const LaneVectorVector &getLanes() const {
         return myLanes;
     }
 
@@ -187,7 +187,7 @@ public:
      * @param[in] i The index of the signal
      * @return The lanes controlled by the signal at the given index
      */
-    const LaneVector &getLanesAt(unsigned int i) const throw() {
+    const LaneVector &getLanesAt(unsigned int i) const {
         return myLanes[i];
     }
 
@@ -195,7 +195,7 @@ public:
     /** @brief Returns the list of lists of all affected links
      * @return All links controlled by this tls, sorted by the signal index
      */
-    const LinkVectorVector &getLinks() const throw() {
+    const LinkVectorVector &getLinks() const {
         return myLinks;
     }
 
@@ -204,7 +204,7 @@ public:
      * @param[in] i The index of the signal
      * @return The links controlled by the signal at the given index
      */
-    const LinkVector &getLinksAt(unsigned int i) const throw() {
+    const LinkVector &getLinksAt(unsigned int i) const {
         return myLinks[i];
     }
 
@@ -213,26 +213,26 @@ public:
      * @param[in] link The link to retrieve the index for
      * @return The index of the given link (-1 if it is not controlled by this tls)
      */
-    int getLinkIndex(const MSLink * const link) const throw();
+    int getLinkIndex(const MSLink * const link) const;
 
 
     /** @brief Returns the number of phases
      * @return The number of this tls program's phases
      */
-    virtual unsigned int getPhaseNumber() const throw() = 0;
+    virtual unsigned int getPhaseNumber() const = 0;
 
 
     /** @brief Returns the phases of this tls program
      * @return The phases of this tls program
      */
-    virtual const Phases &getPhases() const throw() = 0;
+    virtual const Phases &getPhases() const = 0;
 
 
     /** @brief Returns the definition of the phase from the given position within the plan
      * @param[in] givenstep The index of the phase within the plan
      * @return The definition of the phase at the given position
      */
-    virtual const MSPhaseDefinition &getPhase(unsigned int givenstep) const throw() = 0;
+    virtual const MSPhaseDefinition &getPhase(unsigned int givenstep) const = 0;
     /// @}
 
 
@@ -243,19 +243,19 @@ public:
     /** @brief Returns the current index within the program
      * @return The index of the current phase within the tls
      */
-    virtual unsigned int getCurrentPhaseIndex() const throw() = 0;
+    virtual unsigned int getCurrentPhaseIndex() const = 0;
 
 
     /** @brief Returns the definition of the current phase
      * @return The current phase
      */
-    virtual const MSPhaseDefinition &getCurrentPhaseDef() const throw() = 0;
+    virtual const MSPhaseDefinition &getCurrentPhaseDef() const = 0;
 
 
     /** @brief Returns the cycle time (in ms)
      * @return The (maybe changing) cycle time of this tls
      */
-    SUMOTime getDefaultCycleTime() const throw() {
+    SUMOTime getDefaultCycleTime() const {
         return myDefaultCycleTime;
     }
 
@@ -265,7 +265,7 @@ public:
      * The time may change in case of adaptive/actuated traffic lights.
      * @return The assumed next switch time (simulation time)
      */
-    SUMOTime getNextSwitchTime() const throw();
+    SUMOTime getNextSwitchTime() const;
     /// @}
 
 
@@ -276,21 +276,21 @@ public:
     /** @brief Returns the index of the logic at the given simulation step
      * @return The (estimated) index of the tls at the given simulation time step
      */
-    virtual SUMOTime getPhaseIndexAtTime(SUMOTime simStep) const throw() = 0;
+    virtual SUMOTime getPhaseIndexAtTime(SUMOTime simStep) const = 0;
 
 
     /** @brief Returns the position (start of a phase during a cycle) from of a given step
      * @param[in] index The index of the phase to return the begin of
      * @return The begin time of the phase
      */
-    virtual SUMOTime getOffsetFromIndex(unsigned int index) const throw() = 0;
+    virtual SUMOTime getOffsetFromIndex(unsigned int index) const = 0;
 
 
     /** @brief Returns the step (the phasenumber) of a given position of the cycle
      * @param[in] offset The offset (time) for which the according phase shall be returned
      * @return The according phase
      */
-    virtual unsigned int getIndexFromOffset(SUMOTime offset) const throw() = 0;
+    virtual unsigned int getIndexFromOffset(SUMOTime offset) const = 0;
     /// @}
 
 
@@ -301,13 +301,13 @@ public:
     /** @brief Changes the duration of the next phase
      * @param[in] duration The new duration
      */
-    void addOverridingDuration(SUMOTime duration) throw();
+    void addOverridingDuration(SUMOTime duration);
 
 
     /** @brief Delays current phase by the given delay
      * @param[in] delay The time by which the current phase shall be delayed
      */
-    void setCurrentDurationIncrement(SUMOTime delay) throw();
+    void setCurrentDurationIncrement(SUMOTime delay);
 
 
     /** @brief Changes the current phase and her duration
@@ -317,7 +317,7 @@ public:
      * @param[in] stepDuration The left duration of the phase
      */
     virtual void changeStepAndDuration(MSTLLogicControl &tlcontrol,
-                                       SUMOTime simStep, unsigned int step, SUMOTime stepDuration) throw() = 0;
+                                       SUMOTime simStep, unsigned int step, SUMOTime stepDuration) = 0;
 
     /// @}
 
@@ -329,14 +329,14 @@ public:
     /** @brief Inserts read parameter
      * @param[in] params The parameter to use
      */
-    void setParameter(const std::map<std::string, std::string> &params) throw();
+    void setParameter(const std::map<std::string, std::string> &params);
 
 
     /** @brief Returns a named parameter
      * @param[in] key The name of the parameter
      * @return The value of the parameter, "" if the parameter is not known
      */
-    std::string getParameterValue(const std::string &key) const throw();
+    std::string getParameterValue(const std::string &key) const;
     /// @}
 
 
@@ -354,29 +354,28 @@ protected:
          */
         SwitchCommand(MSTLLogicControl &tlcontrol,
                       MSTrafficLightLogic *tlLogic,
-                      SUMOTime nextSwitch) throw();
+                      SUMOTime nextSwitch);
 
         /// @brief Destructor
-        ~SwitchCommand() throw();
+        ~SwitchCommand();
 
         /** @brief Executes the regarded junction's "trySwitch"- method
          * @param[in] currentTime The current simulation time
          * @return The time after which the command shall be executed again (the time of next switch)
-         * @exception ProcessError Should not been thrown here
          */
-        SUMOTime execute(SUMOTime currentTime) throw(ProcessError);
+        SUMOTime execute(SUMOTime currentTime);
 
 
         /** @brief Marks this swicth as invalid (if the phase duration has changed, f.e.)
          * @param[in] tlLogic The controlled tls logic
          */
-        void deschedule(MSTrafficLightLogic *tlLogic) throw();
+        void deschedule(MSTrafficLightLogic *tlLogic);
 
 
         /** @brief Returns the assumed next switch time
          * @return The assumed next switch time
          */
-        SUMOTime getNextSwitchTime() const throw() {
+        SUMOTime getNextSwitchTime() const {
             return myAssumedNextSwitch;
         }
 

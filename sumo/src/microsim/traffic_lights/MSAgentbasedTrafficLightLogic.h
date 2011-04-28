@@ -86,7 +86,7 @@ public:
                                   const std::string &id, const std::string &programID,
                                   const MSSimpleTrafficLightLogic::Phases &phases,
                                   unsigned int step, SUMOTime delay, int learnHorizon, int decHorizon,
-                                  SUMOReal minDiff, int tcycle) throw();
+                                  SUMOReal minDiff, int tcycle);
 
 
     /** @brief Initialises the tls with information about incoming lanes
@@ -94,11 +94,11 @@ public:
      * @param[in] edgeContinuations Information about edge predecessors/successors
      * @exception ProcessError If something fails on initialisation
      */
-    void init(NLDetectorBuilder &nb) throw(ProcessError);
+    void init(NLDetectorBuilder &nb);
 
 
     /// @brief Destructor
-    ~MSAgentbasedTrafficLightLogic() throw();
+    ~MSAgentbasedTrafficLightLogic();
 
 
 
@@ -110,7 +110,7 @@ public:
      * @return The time of the next switch
      * @see MSTrafficLightLogic::trySwitch
      */
-    SUMOTime trySwitch(bool isActive) throw();
+    SUMOTime trySwitch(bool isActive);
     /// @}
 
 
@@ -124,46 +124,46 @@ protected:
      *  or stores the activation-time in myLastphase of the phase next
      * @return The index of the next step
      */
-    unsigned int nextStep() throw();
+    unsigned int nextStep();
 
 
     /** @brief Collects the traffic data
      */
-    void collectData() throw();
+    void collectData();
 
 
     /** @brief Aggregates the data of one phase, collected during different cycles
      */
-    void aggregateRawData() throw();
+    void aggregateRawData();
 
 
     /** @brief Calculates the duration for all real phases except intergreen phases
      */
-    void calculateDuration() throw();
+    void calculateDuration();
 
 
     /** @brief lenghtens the actual cycle by an given value
      * @param[in] toLenghten The time increase
      */
-    void lengthenCycleTime(unsigned int toLenghten) throw();
+    void lengthenCycleTime(unsigned int toLenghten);
 
 
     /** @brief cuts the actual cycle by an given value
      * @param[in] toCut The time decrease
      */
-    void cutCycleTime(unsigned int toCut) throw();
+    void cutCycleTime(unsigned int toCut);
 
 
     /** @brief Returns the step of the phase with the longest Queue_Lengt_Ahead_Of_Traffic_Lights
      * @return Which step has the longest queue
      */
-    unsigned int findStepOfMaxValue() const throw();
+    unsigned int findStepOfMaxValue() const;
 
 
     /** @brief Returns the step of the phase with the shortest Queue_Lengt_Ahead_Of_Traffic_Lights
      * @return Which step has the shortest queue
      */
-    unsigned int findStepOfMinValue() const throw();
+    unsigned int findStepOfMinValue() const;
     /// @}
 
 

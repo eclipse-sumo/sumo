@@ -62,11 +62,11 @@ public:
      * @param[in] device The output device to write the detector values into
      */
     Command_SaveTLCoupledDet(MSTLLogicControl::TLSLogicVariants &tlls,
-                             MSDetectorFileOutput *dtf, unsigned int begin, OutputDevice& device) throw();
+                             MSDetectorFileOutput *dtf, unsigned int begin, OutputDevice& device);
 
 
     /// @brief Destructor
-    virtual ~Command_SaveTLCoupledDet() throw();
+    virtual ~Command_SaveTLCoupledDet();
 
 
     /** @brief Executes the command
@@ -77,7 +77,7 @@ public:
      * @see MSDetectorFileOutput::writeXMLOutput
      * @see MSE2Collector::writeXMLOutput
      */
-    virtual void execute() throw();
+    virtual void execute();
 
 
 protected:

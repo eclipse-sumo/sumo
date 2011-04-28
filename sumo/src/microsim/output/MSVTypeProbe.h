@@ -64,11 +64,11 @@ public:
      * @param[in] frequency The output frequency [ms]
      */
     MSVTypeProbe(const std::string &id, const std::string &vType,
-                 OutputDevice &od, SUMOTime frequency) throw();
+                 OutputDevice &od, SUMOTime frequency);
 
 
     /// @brief Destructor
-    virtual ~MSVTypeProbe() throw();
+    virtual ~MSVTypeProbe();
 
 
 
@@ -83,10 +83,9 @@ public:
      *
      * @param[in] currentTime The current simulation time (unused)
      * @return Always myFrequency (time till next output)
-     * @exception ProcessError not here
      * @see Command
      */
-    SUMOTime execute(SUMOTime currentTime) throw(ProcessError);
+    SUMOTime execute(SUMOTime currentTime);
     /// @}
 
 

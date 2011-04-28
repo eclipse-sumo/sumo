@@ -42,19 +42,19 @@
 // method definitions
 // ===========================================================================
 Command_SaveTLSSwitchStates::Command_SaveTLSSwitchStates(const MSTLLogicControl::TLSLogicVariants &logics,
-        OutputDevice &od) throw()
+        OutputDevice &od)
         : myOutputDevice(od), myLogics(logics) {
     MSNet::getInstance()->getEndOfTimestepEvents().addEvent(this, 0, MSEventControl::ADAPT_AFTER_EXECUTION);
     myOutputDevice.writeXMLHeader("tls-switch-states");
 }
 
 
-Command_SaveTLSSwitchStates::~Command_SaveTLSSwitchStates() throw() {
+Command_SaveTLSSwitchStates::~Command_SaveTLSSwitchStates() {
 }
 
 
 SUMOTime
-Command_SaveTLSSwitchStates::execute(SUMOTime currentTime) throw(ProcessError) {
+Command_SaveTLSSwitchStates::execute(SUMOTime currentTime) {
     const std::string &state = myLogics.getActive()->getCurrentPhaseDef().getState();
     if (state!=myPreviousState||myLogics.getActive()->getProgramID()!=myPreviousProgramID) {
         myOutputDevice << "    <tlsstate time=\"" << time2string(currentTime)

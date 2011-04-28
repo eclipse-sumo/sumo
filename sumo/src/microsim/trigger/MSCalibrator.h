@@ -68,9 +68,9 @@ public:
      * @todo Recheck and describe parameter
      */
     MSCalibrator(const std::string &id, MSNet &net, MSLane* destLane,
-                 SUMOReal pos, const std::string &file) throw();
+                 SUMOReal pos, const std::string &file);
 
-    virtual ~MSCalibrator() throw();
+    virtual ~MSCalibrator();
 
 
 public:
@@ -185,10 +185,10 @@ protected:
     public:
         /// Constructor
         MSCalibrator_FileTriggeredChild(MSNet &net,
-                                        const std::string &aXMLFilename, MSCalibrator &parent, MSVehicleControl &vc) throw();
+                                        const std::string &aXMLFilename, MSCalibrator &parent, MSVehicleControl &vc);
 
         /// Destructor
-        ~MSCalibrator_FileTriggeredChild() throw();
+        ~MSCalibrator_FileTriggeredChild();
 
         /** the implementation of the MSTriggeredReader-processNextEntryReaderTriggered method */
         bool processNextEntryReaderTriggered();
@@ -204,7 +204,7 @@ protected:
          * @exception ProcessError
          * @todo Recheck, describe!!!
          */
-        SUMOTime execute(SUMOTime currentTime) throw(ProcessError);
+        SUMOTime execute(SUMOTime currentTime);
         /// @}
 
 
@@ -223,7 +223,7 @@ protected:
          * @see GenericSAXHandler::myStartElement
          */
         virtual void myStartElement(SumoXMLTag element,
-                                    const SUMOSAXAttributes &attrs) throw(ProcessError);
+                                    const SUMOSAXAttributes &attrs);
         //@}
 
         /// Informs the child that the end of the processed file has been reached
@@ -303,7 +303,7 @@ protected:
 
 
     /// TM
-    SUMOTime execute(SUMOTime currentTime) throw(ProcessError);
+    SUMOTime execute(SUMOTime currentTime);
     static std::map<std::string, MSCalibrator*> calibratorMap;
 
 

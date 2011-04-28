@@ -58,7 +58,7 @@ MSTriggeredXMLReader::MSTriggeredXMLReader(MSNet &net,
 }
 
 
-MSTriggeredXMLReader::~MSTriggeredXMLReader() throw() {}
+MSTriggeredXMLReader::~MSTriggeredXMLReader() {}
 
 
 bool

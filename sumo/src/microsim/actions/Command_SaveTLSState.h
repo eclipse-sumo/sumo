@@ -57,11 +57,11 @@ public:
      * @param[in] od The output device to write the state into
      */
     Command_SaveTLSState(const MSTLLogicControl::TLSLogicVariants &logics,
-                         OutputDevice &od) throw();
+                         OutputDevice &od);
 
 
     /// @brief Destructor
-    ~Command_SaveTLSState() throw();
+    ~Command_SaveTLSState();
 
 
     /// @name Derived from Command
@@ -73,10 +73,9 @@ public:
      *
      * @param[in] currentTime The current simulation time (unused)
      * @return Always DELTA_T (will be executed in next time step)
-     * @exception ProcessError not here
      * @see Command
      */
-    SUMOTime execute(SUMOTime currentTime) throw(ProcessError);
+    SUMOTime execute(SUMOTime currentTime);
     /// @}
 
 

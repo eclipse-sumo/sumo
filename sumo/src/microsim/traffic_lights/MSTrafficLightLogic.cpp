@@ -49,17 +49,17 @@
  * member method definitions
  * ----------------------------------------------------------------------- */
 MSTrafficLightLogic::SwitchCommand::SwitchCommand(MSTLLogicControl &tlcontrol,
-        MSTrafficLightLogic *tlLogic, SUMOTime nextSwitch) throw()
+        MSTrafficLightLogic *tlLogic, SUMOTime nextSwitch)
         : myTLControl(tlcontrol), myTLLogic(tlLogic),
         myAssumedNextSwitch(nextSwitch), myAmValid(true) {}
 
 
-MSTrafficLightLogic::SwitchCommand::~SwitchCommand() throw() {}
+MSTrafficLightLogic::SwitchCommand::~SwitchCommand() {}
 
 
 
 SUMOTime
-MSTrafficLightLogic::SwitchCommand::execute(SUMOTime t) throw(ProcessError) {
+MSTrafficLightLogic::SwitchCommand::execute(SUMOTime t) {
     // check whether this command has been descheduled
     if (!myAmValid) {
         return 0;
@@ -85,7 +85,7 @@ MSTrafficLightLogic::SwitchCommand::execute(SUMOTime t) throw(ProcessError) {
 
 
 void
-MSTrafficLightLogic::SwitchCommand::deschedule(MSTrafficLightLogic *tlLogic) throw() {
+MSTrafficLightLogic::SwitchCommand::deschedule(MSTrafficLightLogic *tlLogic) {
     if (tlLogic==myTLLogic) {
         myAmValid = false;
         myAssumedNextSwitch = -1;
@@ -98,7 +98,7 @@ MSTrafficLightLogic::SwitchCommand::deschedule(MSTrafficLightLogic *tlLogic) thr
  * ----------------------------------------------------------------------- */
 MSTrafficLightLogic::MSTrafficLightLogic(MSTLLogicControl &tlcontrol,
         const std::string &id, const std::string &programID,
-        SUMOTime delay) throw()
+        SUMOTime delay)
         : myID(id), myProgramID(programID), myCurrentDurationIncrement(-1),
         myDefaultCycleTime(0) {
     mySwitchCommand = new SwitchCommand(tlcontrol, this, delay);
@@ -108,18 +108,18 @@ MSTrafficLightLogic::MSTrafficLightLogic(MSTLLogicControl &tlcontrol,
 
 
 void
-MSTrafficLightLogic::init(NLDetectorBuilder &) throw(ProcessError) {
+MSTrafficLightLogic::init(NLDetectorBuilder &) {
 }
 
 
-MSTrafficLightLogic::~MSTrafficLightLogic() throw() {
+MSTrafficLightLogic::~MSTrafficLightLogic() {
     mySwitchCommand->deschedule(this);
 }
 
 
 // ----------- Handling of controlled links
 void
-MSTrafficLightLogic::addLink(MSLink *link, MSLane *lane, unsigned int pos) throw() {
+MSTrafficLightLogic::addLink(MSLink *link, MSLane *lane, unsigned int pos) {
     // !!! should be done within the loader (checking necessary)
     myLinks.reserve(pos+1);
     while (myLinks.size()<=pos) {
@@ -137,14 +137,14 @@ MSTrafficLightLogic::addLink(MSLink *link, MSLane *lane, unsigned int pos) throw
 
 
 void
-MSTrafficLightLogic::adaptLinkInformationFrom(const MSTrafficLightLogic &logic) throw() {
+MSTrafficLightLogic::adaptLinkInformationFrom(const MSTrafficLightLogic &logic) {
     myLinks = logic.myLinks;
     myLanes = logic.myLanes;
 }
 
 
 std::map<MSLink*, MSLink::LinkState>
-MSTrafficLightLogic::collectLinkStates() const throw() {
+MSTrafficLightLogic::collectLinkStates() const {
     std::map<MSLink*, MSLink::LinkState> ret;
     for (LinkVectorVector::const_iterator i1=myLinks.begin(); i1!=myLinks.end(); ++i1) {
         const LinkVector &l = (*i1);
@@ -157,7 +157,7 @@ MSTrafficLightLogic::collectLinkStates() const throw() {
 
 
 void
-MSTrafficLightLogic::resetLinkStates(const std::map<MSLink*, MSLink::LinkState> &vals) const throw() {
+MSTrafficLightLogic::resetLinkStates(const std::map<MSLink*, MSLink::LinkState> &vals) const {
     for (LinkVectorVector::const_iterator i1=myLinks.begin(); i1!=myLinks.end(); ++i1) {
         const LinkVector &l = (*i1);
         for (LinkVector::const_iterator i2=l.begin(); i2!=l.end(); ++i2) {
@@ -170,7 +170,7 @@ MSTrafficLightLogic::resetLinkStates(const std::map<MSLink*, MSLink::LinkState> 
 
 // ----------- Static Information Retrieval
 int
-MSTrafficLightLogic::getLinkIndex(const MSLink * const link) const throw() {
+MSTrafficLightLogic::getLinkIndex(const MSLink * const link) const {
     int index = 0;
     for (LinkVectorVector::const_iterator i1=myLinks.begin(); i1!=myLinks.end(); ++i1, ++index) {
         const LinkVector &l = (*i1);
@@ -187,20 +187,20 @@ MSTrafficLightLogic::getLinkIndex(const MSLink * const link) const throw() {
 
 // ----------- Dynamic Information Retrieval
 SUMOTime
-MSTrafficLightLogic::getNextSwitchTime() const throw() {
+MSTrafficLightLogic::getNextSwitchTime() const {
     return mySwitchCommand!=0 ? mySwitchCommand->getNextSwitchTime() : -1;
 }
 
 
 // ----------- Changing phases and phase durations
 void
-MSTrafficLightLogic::addOverridingDuration(SUMOTime duration) throw() {
+MSTrafficLightLogic::addOverridingDuration(SUMOTime duration) {
     myOverridingTimes.push_back(duration);
 }
 
 
 void
-MSTrafficLightLogic::setCurrentDurationIncrement(SUMOTime delay) throw() {
+MSTrafficLightLogic::setCurrentDurationIncrement(SUMOTime delay) {
     myCurrentDurationIncrement = delay;
 }
 
@@ -209,13 +209,13 @@ MSTrafficLightLogic::setCurrentDurationIncrement(SUMOTime delay) throw() {
 
 // ----------- Algorithm parameter handling
 void
-MSTrafficLightLogic::setParameter(const std::map<std::string, std::string> &params) throw() {
+MSTrafficLightLogic::setParameter(const std::map<std::string, std::string> &params) {
     myParameter = params;
 }
 
 
 std::string
-MSTrafficLightLogic::getParameterValue(const std::string &key) const throw() {
+MSTrafficLightLogic::getParameterValue(const std::string &key) const {
     if (myParameter.find(key)==myParameter.end()) {
         return "";
     }

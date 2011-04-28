@@ -51,14 +51,14 @@ MSActuatedTrafficLightLogic::MSActuatedTrafficLightLogic(MSTLLogicControl &tlcon
         const std::string &id, const std::string &programID,
         const Phases &phases,
         unsigned int step, SUMOTime delay, SUMOReal maxGap, SUMOReal passingTime,
-        SUMOReal detectorGap) throw()
+        SUMOReal detectorGap)
         : MSSimpleTrafficLightLogic(tlcontrol, id, programID, phases, step, delay),
         myContinue(false),
         myMaxGap(maxGap), myPassingTime(passingTime), myDetectorGap(detectorGap) {}
 
 
 void
-MSActuatedTrafficLightLogic::init(NLDetectorBuilder &nb) throw(ProcessError) {
+MSActuatedTrafficLightLogic::init(NLDetectorBuilder &nb) {
     SUMOReal det_offset = TplConvert<char>::_2SUMOReal(myParameter.find("detector_offset")->second.c_str());
     // change values for setting the loops and lanestate-detectors, here
     //SUMOTime inductLoopInterval = 1; //
@@ -98,7 +98,7 @@ MSActuatedTrafficLightLogic::init(NLDetectorBuilder &nb) throw(ProcessError) {
 }
 
 
-MSActuatedTrafficLightLogic::~MSActuatedTrafficLightLogic() throw() {
+MSActuatedTrafficLightLogic::~MSActuatedTrafficLightLogic() {
     for (InductLoopMap::iterator i=myInductLoops.begin(); i!=myInductLoops.end(); ++i) {
         delete(*i).second;
     }
@@ -107,7 +107,7 @@ MSActuatedTrafficLightLogic::~MSActuatedTrafficLightLogic() throw() {
 
 // ------------ Switching and setting current rows
 SUMOTime
-MSActuatedTrafficLightLogic::trySwitch(bool) throw() {
+MSActuatedTrafficLightLogic::trySwitch(bool) {
     // checks if the actual phase should be continued
     gapControl();
     if (myContinue) {
@@ -128,7 +128,7 @@ MSActuatedTrafficLightLogic::trySwitch(bool) throw() {
 
 // ------------ "actuated" algorithm methods
 SUMOTime
-MSActuatedTrafficLightLogic::duration() const throw() {
+MSActuatedTrafficLightLogic::duration() const {
     if (myContinue) {
         return 1;
     }
@@ -164,7 +164,7 @@ MSActuatedTrafficLightLogic::duration() const throw() {
 
 
 void
-MSActuatedTrafficLightLogic::gapControl() throw() {
+MSActuatedTrafficLightLogic::gapControl() {
     //intergreen times should not be lenghtend
     assert(myPhases.size()>myStep);
     if (!getCurrentPhaseDef().isGreenPhase()) {

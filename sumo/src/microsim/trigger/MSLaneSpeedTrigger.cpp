@@ -54,7 +54,7 @@
 // ===========================================================================
 MSLaneSpeedTrigger::MSLaneSpeedTrigger(const std::string &id,
                                        const std::vector<MSLane*> &destLanes,
-                                       const std::string &file) throw(ProcessError)
+                                       const std::string &file)
         : MSTrigger(id), SUMOSAXHandler(file),
         myDestLanes(destLanes), myAmOverriding(false), myDidInit(false) {
     myCurrentSpeed = destLanes[0]->getMaxSpeed();
@@ -69,7 +69,7 @@ MSLaneSpeedTrigger::MSLaneSpeedTrigger(const std::string &id,
 }
 
 void
-MSLaneSpeedTrigger::init() throw(ProcessError) {
+MSLaneSpeedTrigger::init() {
     // set it to the right value
     // assert there is at least one
     if (myLoadedSpeeds.size()==0) {
@@ -90,11 +90,11 @@ MSLaneSpeedTrigger::init() throw(ProcessError) {
 }
 
 
-MSLaneSpeedTrigger::~MSLaneSpeedTrigger() throw() {}
+MSLaneSpeedTrigger::~MSLaneSpeedTrigger() {}
 
 
 SUMOTime
-MSLaneSpeedTrigger::execute(SUMOTime currentTime) throw(ProcessError) {
+MSLaneSpeedTrigger::execute(SUMOTime currentTime) {
     return processCommand(true, currentTime);
 }
 
@@ -134,7 +134,7 @@ MSLaneSpeedTrigger::processCommand(bool move2next, SUMOTime currentTime) {
 
 void
 MSLaneSpeedTrigger::myStartElement(SumoXMLTag element,
-                                   const SUMOSAXAttributes &attrs) throw(ProcessError) {
+                                   const SUMOSAXAttributes &attrs) {
     // check whether the correct tag is read
     if (element!=SUMO_TAG_STEP) {
         return;
@@ -158,7 +158,7 @@ MSLaneSpeedTrigger::myStartElement(SumoXMLTag element,
 
 
 void
-MSLaneSpeedTrigger::myEndElement(SumoXMLTag element) throw(ProcessError) {
+MSLaneSpeedTrigger::myEndElement(SumoXMLTag element) {
     if (element==SUMO_TAG_VSS && !myDidInit) {
         init();
     }

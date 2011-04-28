@@ -54,11 +54,11 @@ public:
      */
     Command_SaveTLCoupledLaneDet(MSTLLogicControl::TLSLogicVariants &tlls,
                                  MSDetectorFileOutput *dtf, unsigned int begin, OutputDevice& device,
-                                 MSLink *link) throw();
+                                 MSLink *link);
 
 
     /// @brief Destructor
-    ~Command_SaveTLCoupledLaneDet() throw();
+    ~Command_SaveTLCoupledLaneDet();
 
 
     /** @brief Executes the command
@@ -71,7 +71,7 @@ public:
      * @see MSDetectorFileOutput::writeXMLOutput
      * @see MSE2Collector::writeXMLOutput
      */
-    void execute() throw();
+    void execute();
 
 
 private:

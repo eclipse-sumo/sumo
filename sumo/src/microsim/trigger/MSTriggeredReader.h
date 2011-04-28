@@ -48,7 +48,7 @@ public:
 
     void init();
     bool isInitialised() const;
-    SUMOTime wrappedExecute(SUMOTime current) throw(ProcessError);
+    SUMOTime wrappedExecute(SUMOTime current);
 
 protected:
     /// Constructor (for an abstract class)
@@ -66,7 +66,7 @@ protected:
 
     virtual void inputEndReached() = 0;
 
-    SUMOTime warppedExecute(SUMOTime currentTime) throw(ProcessError);
+    SUMOTime warppedExecute(SUMOTime currentTime);
 
 protected:
     /// The offset to the next event

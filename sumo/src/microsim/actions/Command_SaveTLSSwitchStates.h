@@ -59,11 +59,11 @@ public:
      * @param[in] od The output device to write the state into
      */
     Command_SaveTLSSwitchStates(const MSTLLogicControl::TLSLogicVariants &logics,
-                                OutputDevice &od) throw();
+                                OutputDevice &od);
 
 
     /// @brief Destructor
-    ~Command_SaveTLSSwitchStates() throw();
+    ~Command_SaveTLSSwitchStates();
 
 
     /// @name Derived from Command
@@ -76,11 +76,10 @@ public:
      *
      * @param[in] currentTime The current simulation time
      * @return Always DELTA_T (will be executed in next time step)
-     * @exception ProcessError not here
      * @see Command
      * @todo Here, a discrete even (on switch / program change) would be appropriate
      */
-    SUMOTime execute(SUMOTime currentTime) throw(ProcessError);
+    SUMOTime execute(SUMOTime currentTime);
     /// @}
 
 

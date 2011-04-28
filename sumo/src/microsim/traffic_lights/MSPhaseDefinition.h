@@ -66,7 +66,7 @@ public:
      * @param[in] durationArg The duration of the phase
      * @param[in] stateArg The state in the phase
      */
-    MSPhaseDefinition(SUMOTime durationArg, const std::string &stateArg) throw()
+    MSPhaseDefinition(SUMOTime durationArg, const std::string &stateArg)
             : duration(durationArg), minDuration(durationArg), maxDuration(durationArg),
             myLastSwitch(0), state(stateArg) {
         myLastSwitch = string2time(OptionsCont::getOptions().getString("begin"));
@@ -81,7 +81,7 @@ public:
      * @param[in] stateArg The state in the phase
      */
     MSPhaseDefinition(SUMOTime durationArg, SUMOTime minDurationArg, SUMOTime maxDurationArg,
-                      const std::string &stateArg) throw()
+                      const std::string &stateArg)
             : duration(durationArg),
             myLastSwitch(0), state(stateArg) {
         myLastSwitch = string2time(OptionsCont::getOptions().getString("begin"));
@@ -91,13 +91,13 @@ public:
 
 
     /// @brief Destructor
-    virtual ~MSPhaseDefinition() throw() { }
+    virtual ~MSPhaseDefinition() { }
 
 
     /** @brief Returns the state within this phase
      * @return The state in this phase
      */
-    const std::string &getState() const throw() {
+    const std::string &getState() const {
         return state;
     }
 
@@ -109,7 +109,7 @@ public:
      *  for being stretched by actuated or agentbased traffic light logics.
      * @return Whether this phase is a "pure green" phase
      */
-    bool isGreenPhase() const throw() {
+    bool isGreenPhase() const {
         if (state.find_first_of("gG")==std::string::npos) {
             return false;
         }
@@ -124,7 +124,7 @@ public:
      * @param[in] pos The position of the signal to return the state for
      * @return The state of the signal at the given position
      */
-    MSLink::LinkState getSignalState(unsigned int pos) const throw() {
+    MSLink::LinkState getSignalState(unsigned int pos) const {
         return (MSLink::LinkState) state[pos];
     }
 
