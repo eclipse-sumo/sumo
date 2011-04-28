@@ -67,7 +67,7 @@ public:
      * If the option "osm-files" is not set, this method simply returns.
      *
      * @param[in] oc The options to use
-     * @param[in] nb The network builder to fill
+     * @param[in, out] nb The network builder to fill
      */
     static void loadNetwork(const OptionsCont &oc, NBNetBuilder &nb);
 
@@ -160,7 +160,7 @@ private:
     class NodesHandler : public SUMOSAXHandler {
     public:
         /** @brief Contructor
-         * @param[in] toFill The nodes container to fill
+         * @param[in, out] toFill The nodes container to fill
          * @param[in] options The options to use
          */
         NodesHandler(std::map<int, NIOSMNode*> &toFill) throw();
@@ -228,7 +228,7 @@ private:
         /** @brief Constructor
          *
          * @param[in] osmNodes The previously parsed (osm-)nodes
-         * @param[in] toFill The edges container to fill with read edges
+         * @param[in, out] toFill The edges container to fill with read edges
          */
         EdgesHandler(const std::map<int, NIOSMNode*> &osmNodes,
                      std::map<std::string, Edge*> &toFill) throw();

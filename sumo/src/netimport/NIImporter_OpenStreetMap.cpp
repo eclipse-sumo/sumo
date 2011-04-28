@@ -50,7 +50,6 @@
 #include <utils/options/OptionsCont.h>
 #include <utils/common/FileHelpers.h>
 #include <utils/xml/XMLSubSys.h>
-#include <utils/iodevices/BinaryInputDevice.h>
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
