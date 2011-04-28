@@ -145,15 +145,20 @@ MSLaneSpeedTrigger::myStartElement(SumoXMLTag element,
     SUMOReal speed = attrs.getOptSUMORealReporting(SUMO_ATTR_SPEED, getID().c_str(), ok, -1);
     // check the values
     if (next<0) {
-        MsgHandler::getErrorInstance()->inform("Wrong time in MSLaneSpeedTrigger in file '" + getFileName() + "'.");
+        MsgHandler::getErrorInstance()->inform("Wrong time in vss '" + getID() + "'.");
         return;
     }
     if (speed<0) {
-        MsgHandler::getErrorInstance()->inform("Wrong speed in MSLaneSpeedTrigger in file '" + getFileName() + "'.");
+        MsgHandler::getErrorInstance()->inform("Wrong speed in vss '" + getID() + "'.");
         return;
     }
-    // set the values for the next step as they are valid
-    myLoadedSpeeds.push_back(std::make_pair(next, speed));
+    // set the values for the next step if they are valid
+    if(myLoadedSpeeds.size()!=0&&myLoadedSpeeds.back().first==next) {
+        MsgHandler::getWarningInstance()->inform("Time " + time2string(next) + " was set twice for vss '" + getID() + "'; replacing first entry.");
+        myLoadedSpeeds.back().second = speed;
+    } else {
+        myLoadedSpeeds.push_back(std::make_pair(next, speed));
+    }
 }
 
 
