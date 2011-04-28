@@ -806,33 +806,15 @@ drawAction_drawVehicleBrakeLight(const GUIVehicle &veh) {
 }
 
 
-inline void
-drawAction_drawVehicleName(const GUIVehicle &veh, SUMOReal size) {
-    glPushMatrix();
-    glTranslated(0, veh.getVehicleType().getLength() / 2., 0);
-    glTranslated(0, 0, -.07);
-    glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-    pfSetPosition(0, 0);
-    pfSetScale(size);
-    SUMOReal w = pfdkGetStringWidth(veh.getMicrosimID().c_str());
-    glRotated(180, 0, 1, 0);
-    glTranslated(-w/2., 0.4, 0);
-    pfDrawString(veh.getMicrosimID().c_str());
-    glPopMatrix();
-}
-
-
 void
 GUIVehicle::drawGL(const GUIVisualizationSettings &s) const throw() {
+    glPushName(getGlID());
     glPushMatrix();
     Position2D p1 = myLane->getShape().positionAtLengthPosition(myState.pos());
-    glTranslated(p1.x(), p1.y(), 0);
+    glTranslated(p1.x(), p1.y(), getType());
     glRotated(getAngle(), 0, 0, 1);
-
-    glTranslated(0, 0, getType());
     // set lane color
     s.vehicleColorer.setGlColor(*this);
-    glPushName(getGlID());
     /*
         MSLCM_DK2004 &m2 = static_cast<MSLCM_DK2004&>(veh->getLaneChangeModel());
         if((m2.getState()&LCA_URGENT)!=0) {
@@ -857,13 +839,11 @@ GUIVehicle::drawGL(const GUIVisualizationSettings &s) const throw() {
         drawAction_drawVehicleAsPoly(*this, upscale);
         break;
     }
-    glTranslated(0, 0, .04);
     // draw the blinker if wished
     if (s.showBlinker) {
-        glTranslated(0, 0, -.05);
+        glTranslated(0, 0, .1);
         drawAction_drawVehicleBlinker(*this);
         drawAction_drawVehicleBrakeLight(*this);
-        glTranslated(0, 0, .05);
     }
     // draw the wish to change the lane
     if (s.drawLaneChangePreference) {
@@ -912,15 +892,13 @@ GUIVehicle::drawGL(const GUIVisualizationSettings &s) const throw() {
         glEnd();
         */
     }
+    glPopMatrix();
     if (s.drawVehicleName) {
-        glTranslated(0, 0, -.06);
-        // compute name colors
-        glColor3d(s.vehicleNameColor.red(), s.vehicleNameColor.green(), s.vehicleNameColor.blue());
-        drawAction_drawVehicleName(*this, s.vehicleNameSize / s.scale);
-        glTranslated(0, 0, .06);
+        drawName(
+                myLane->getShape().positionAtLengthPosition(myState.pos() - getVehicleType().getLength() / 2),
+                s.vehicleNameSize / s.scale, s.vehicleNameColor);
     }
     glPopName();
-    glPopMatrix();
 }
 
 

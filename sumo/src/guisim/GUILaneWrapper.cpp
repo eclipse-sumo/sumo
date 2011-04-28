@@ -446,9 +446,9 @@ GUILaneWrapper::drawGL(const GUIVisualizationSettings &s) const throw() {
             }
         }
     }
+    glPopMatrix();
     // draw vehicles
     if (s.scale>s.minVehicleSize) {
-        glTranslated(0, 0, .1);
         // retrieve vehicles from lane; disallow simulation
         const MSLane::VehCont &vehicles = myLane.getVehiclesSecure();
         for (MSLane::VehCont::const_iterator v=vehicles.begin(); v!=vehicles.end(); ++v) {
@@ -457,7 +457,6 @@ GUILaneWrapper::drawGL(const GUIVisualizationSettings &s) const throw() {
         // allow lane simulation
         myLane.releaseVehicles();
     }
-    glPopMatrix();
 }
 
 
