@@ -793,6 +793,9 @@ MSVehicle::moveChecked() {
                 if (approachedLane!=myLane&&approachedLane!=0) {
                     enterLaneAtMove(approachedLane);
                     myLane = approachedLane;
+                    if(approachedLane->getEdge().isVaporizing()) {
+                        break;
+                    }
                 }
                 passedLanes.push_back(approachedLane);
             }
@@ -954,8 +957,25 @@ MSVehicle::checkRewindLinkLanes(SUMOReal lengthsInFront) throw() {
             if (item.myLink==0) {
                 continue;
             }
-            if (availableSpace[i]-getVehicleType().getLength()<0&&item.myLink->willHaveBlockedFoe()) {
-                removalBegin = i;
+            /*
+            SUMOReal impatienceCorrection = MAX2(SUMOReal(0), SUMOReal(SUMOReal(myWaitingTime)));
+            if (seenSpace<getVehicleType().getLength()-impatienceCorrection/10.&&nextSeenNonInternal!=0) {
+                removalBegin = lastLinkToInternal;
+            }
+            */
+
+            SUMOReal leftSpace = availableSpace[i]-getVehicleType().getLength();
+            if (leftSpace<0&&item.myLink->willHaveBlockedFoe()) {
+                SUMOReal impatienceCorrection = 0;
+                /*
+                if(item.myLink->getState()==MSLink::LINKSTATE_MINOR) {
+                    impatienceCorrection = MAX2(SUMOReal(0), STEPS2TIME(myWaitingTime));
+                }
+                */
+                if (leftSpace<-impatienceCorrection/10.) {
+                    removalBegin = i;
+                }
+                //removalBegin = i;
             }
         }
         if (removalBegin!=-1&&!(removalBegin==0&&myLane->getEdge().getPurpose()==MSEdge::EDGEFUNCTION_INTERNAL)) {
