@@ -770,6 +770,34 @@ NBNode::computeInternalLaneShape(NBEdge *fromE, int fromL,
 }
 
 
+bool
+NBNode::needsCont(NBEdge *fromE, NBEdge *toE, NBEdge *otherFromE, NBEdge *otherToE, NBEdge::Connection &c) {
+    if (fromE==otherFromE) {
+        // ignore same edge links
+        return false;
+    }
+    if (!foes(otherFromE, otherToE, fromE, toE)) {
+        // if they do not cross, no waiting place is needed
+        return false;
+    }
+    NBMMLDirection d1 = getMMLDirection(fromE, toE);
+    NBMMLDirection d2 = getMMLDirection(otherFromE, otherToE);
+    if((d1==MMLDIR_LEFT||d1==MMLDIR_TURN)&&(d2==MMLDIR_LEFT||d2==MMLDIR_TURN)) {
+        // we let left-turners move before each other
+        return false;
+    }
+    if (c.tlID!="") {
+        // tls-controlled links will have space
+        return true;
+    }
+    if (forbids(fromE, toE, otherFromE, otherToE, false)) {
+        // links with higher priority will have space
+        return true;
+    }
+    return false;
+}
+
+
 std::pair<SUMOReal, std::vector<unsigned int> >
 NBNode::getCrossingPosition(NBEdge *fromE, unsigned int fromL, NBEdge *toE, unsigned int toL) {
     std::pair<SUMOReal, std::vector<unsigned int> > ret(-1, std::vector<unsigned int>());
@@ -788,7 +816,7 @@ NBNode::getCrossingPosition(NBEdge *fromE, unsigned int fromL, NBEdge *toE, unsi
                     if ((*k2).toEdge==0) {
                         continue;
                     }
-                    if (fromE!=(*i2)&&forbids(*i2, (*k2).toEdge, fromE, toE, true)) {
+                    if (needsCont(fromE, toE, *i2, (*k2).toEdge, *k2)) {
                         // compute the crossing point
                         ret.second.push_back(index);
                         Position2DVector otherShape = computeInternalLaneShape(*i2, j2, (*k2).toEdge, (*k2).toLane);
@@ -845,9 +873,7 @@ NBNode::getCrossingNames_dividedBySpace(NBEdge *fromE, unsigned int fromL,
                         continue;
                     }
                     NBMMLDirection dir2 = getMMLDirection(*i2, (*k2).toEdge);
-                    bool left = dir2==MMLDIR_LEFT || dir2==MMLDIR_PARTLEFT || dir2==MMLDIR_TURN;
-                    left = false;
-                    if (!left&&fromE!=(*i2)&&forbids(*i2, (*k2).toEdge, fromE, toE, true)) {
+                    if (needsCont(fromE, toE, *i2, (*k2).toEdge, *k2)) {
                         if (ret.length()!=0) {
                             ret += " ";
                         }
@@ -886,15 +912,16 @@ NBNode::getCrossingSourcesNames_dividedBySpace(NBEdge *fromE, unsigned int fromL
                     if ((*k2).toEdge==0) {
                         continue;
                     }
+                    if((*k2).mayDefinitelyPass) {
+                        index++;
+                        continue;
+                    }
                     NBEdge *e = fromE->getToNode()->getOppositeIncoming(fromE);
                     if (e!=*i2) {
                         index++;
                         continue;
                     }
-                    NBMMLDirection dir2 = getMMLDirection(*i2, (*k2).toEdge);
-                    bool left = dir2==MMLDIR_LEFT || dir2==MMLDIR_PARTLEFT || dir2==MMLDIR_TURN;
-                    left = false;
-                    if (!left&&fromE!=(*i2)&&forbids(*i2, (*k2).toEdge, fromE, toE, true)) {
+                    if (needsCont(fromE, toE, *i2, (*k2).toEdge, *k2)) {
                         std::string nid = (*i2)->getID() + "_" + toString(j2);
                         if (find(tmp.begin(), tmp.end(), nid)==tmp.end()) {
                             tmp.push_back(nid);

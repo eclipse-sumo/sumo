@@ -373,6 +373,7 @@ public:
     bool isNearDistrict() const;
     bool isDistrict() const;
 
+    bool needsCont(NBEdge *fromE, NBEdge *toE, NBEdge *otherFromE, NBEdge *otherToE, NBEdge::Connection &c);
 
     std::pair<SUMOReal, std::vector<unsigned int> > getCrossingPosition(NBEdge *fromE, unsigned int fromL,
             NBEdge *toE, unsigned int toL);
