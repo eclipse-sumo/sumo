@@ -287,7 +287,6 @@ StringBijection<SumoXMLAttr>::Entry SUMOXMLDefinitions::attrs[] = {
     { "dest",           SUMO_ATTR_DEST },
     { "source",         SUMO_ATTR_SOURCE },
     { "via",            SUMO_ATTR_VIA },
-    { "int_end",        SUMO_ATTR_INTERNALEND },
 
 #ifdef _MESSAGES
     { "msg",			SUMO_ATTR_MSG },

@@ -374,7 +374,6 @@ enum SumoXMLAttr {
     SUMO_ATTR_DEST,
     SUMO_ATTR_SOURCE,
     SUMO_ATTR_VIA,
-    SUMO_ATTR_INTERNALEND,
 #ifdef _MESSAGES
     // Attributes for message emitter
     /// what events to emit

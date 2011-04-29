@@ -881,10 +881,6 @@ NBEdge::writeSingleSucceeding(OutputDevice &into, const NBEdge::Connection &c, b
     } else {
         into << "state=\"" << myTo->stateCode(this, c.toEdge, c.toLane, c.mayDefinitelyPass);
     }
-    if (myTo->getCrossingPosition(this, c.fromLane, c.toEdge, c.toLane).first>=0) {
-        into << "\" int_end=\"x";
-    }
-
     // close
     into << "\"/>\n";
 }
