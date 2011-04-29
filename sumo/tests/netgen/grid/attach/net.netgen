@@ -459,7 +459,7 @@
    <succ edge="0/0to0/1" lane="0/0to0/1_0" junction="0/1">
       <succlane lane="0/1to1/1_0" via=":0/1_8_0" yield="0" dir="r" state="M"/>
       <succlane lane="0/1totop0_0" via=":0/1_9_0" yield="0" dir="s" state="M"/>
-      <succlane lane="0/1toleft1_0" via=":0/1_10_0" yield="1" dir="l" state="m" int_end="x"/>
+      <succlane lane="0/1toleft1_0" via=":0/1_10_0" yield="1" dir="l" state="m"/>
       <succlane lane="0/1to0/0_0" via=":0/1_11_0" yield="1" dir="t" state="m"/>
    </succ>
    <succ edge="0/0to1/0" lane="0/0to1/0_0" junction="1/0">
@@ -477,7 +477,7 @@
    <succ edge="0/1to0/0" lane="0/1to0/0_0" junction="0/0">
       <succlane lane="0/0toleft0_0" via=":0/0_0_0" yield="0" dir="r" state="M"/>
       <succlane lane="0/0tobottom0_0" via=":0/0_1_0" yield="0" dir="s" state="M"/>
-      <succlane lane="0/0to1/0_0" via=":0/0_2_0" yield="1" dir="l" state="m" int_end="x"/>
+      <succlane lane="0/0to1/0_0" via=":0/0_2_0" yield="1" dir="l" state="m"/>
       <succlane lane="0/0to0/1_0" via=":0/0_3_0" yield="1" dir="t" state="m"/>
    </succ>
    <succ edge="0/1to1/1" lane="0/1to1/1_0" junction="1/1">
@@ -501,7 +501,7 @@
    <succ edge="1/0to1/1" lane="1/0to1/1_0" junction="1/1">
       <succlane lane="1/1toright1_0" via=":1/1_8_0" yield="0" dir="r" state="M"/>
       <succlane lane="1/1totop1_0" via=":1/1_9_0" yield="0" dir="s" state="M"/>
-      <succlane lane="1/1to0/1_0" via=":1/1_10_0" yield="1" dir="l" state="m" int_end="x"/>
+      <succlane lane="1/1to0/1_0" via=":1/1_10_0" yield="1" dir="l" state="m"/>
       <succlane lane="1/1to1/0_0" via=":1/1_11_0" yield="1" dir="t" state="m"/>
    </succ>
    <succ edge="1/0tobottom1" lane="1/0tobottom1_0" junction="bottom1">
@@ -519,7 +519,7 @@
    <succ edge="1/1to1/0" lane="1/1to1/0_0" junction="1/0">
       <succlane lane="1/0to0/0_0" via=":1/0_0_0" yield="0" dir="r" state="M"/>
       <succlane lane="1/0tobottom1_0" via=":1/0_1_0" yield="0" dir="s" state="M"/>
-      <succlane lane="1/0toright0_0" via=":1/0_2_0" yield="1" dir="l" state="m" int_end="x"/>
+      <succlane lane="1/0toright0_0" via=":1/0_2_0" yield="1" dir="l" state="m"/>
       <succlane lane="1/0to1/1_0" via=":1/0_3_0" yield="1" dir="t" state="m"/>
    </succ>
    <succ edge="1/1toright1" lane="1/1toright1_0" junction="right1">
@@ -531,13 +531,13 @@
    <succ edge="bottom0to0/0" lane="bottom0to0/0_0" junction="0/0">
       <succlane lane="0/0to1/0_0" via=":0/0_8_0" yield="0" dir="r" state="M"/>
       <succlane lane="0/0to0/1_0" via=":0/0_9_0" yield="0" dir="s" state="M"/>
-      <succlane lane="0/0toleft0_0" via=":0/0_10_0" yield="1" dir="l" state="m" int_end="x"/>
+      <succlane lane="0/0toleft0_0" via=":0/0_10_0" yield="1" dir="l" state="m"/>
       <succlane lane="0/0tobottom0_0" via=":0/0_11_0" yield="1" dir="t" state="m"/>
    </succ>
    <succ edge="bottom1to1/0" lane="bottom1to1/0_0" junction="1/0">
       <succlane lane="1/0toright0_0" via=":1/0_8_0" yield="0" dir="r" state="M"/>
       <succlane lane="1/0to1/1_0" via=":1/0_9_0" yield="0" dir="s" state="M"/>
-      <succlane lane="1/0to0/0_0" via=":1/0_10_0" yield="1" dir="l" state="m" int_end="x"/>
+      <succlane lane="1/0to0/0_0" via=":1/0_10_0" yield="1" dir="l" state="m"/>
       <succlane lane="1/0tobottom1_0" via=":1/0_11_0" yield="1" dir="t" state="m"/>
    </succ>
    <succ edge="left0to0/0" lane="left0to0/0_0" junction="0/0">
@@ -567,13 +567,13 @@
    <succ edge="top0to0/1" lane="top0to0/1_0" junction="0/1">
       <succlane lane="0/1toleft1_0" via=":0/1_0_0" yield="0" dir="r" state="M"/>
       <succlane lane="0/1to0/0_0" via=":0/1_1_0" yield="0" dir="s" state="M"/>
-      <succlane lane="0/1to1/1_0" via=":0/1_2_0" yield="1" dir="l" state="m" int_end="x"/>
+      <succlane lane="0/1to1/1_0" via=":0/1_2_0" yield="1" dir="l" state="m"/>
       <succlane lane="0/1totop0_0" via=":0/1_3_0" yield="1" dir="t" state="m"/>
    </succ>
    <succ edge="top1to1/1" lane="top1to1/1_0" junction="1/1">
       <succlane lane="1/1to0/1_0" via=":1/1_0_0" yield="0" dir="r" state="M"/>
       <succlane lane="1/1to1/0_0" via=":1/1_1_0" yield="0" dir="s" state="M"/>
-      <succlane lane="1/1toright1_0" via=":1/1_2_0" yield="1" dir="l" state="m" int_end="x"/>
+      <succlane lane="1/1toright1_0" via=":1/1_2_0" yield="1" dir="l" state="m"/>
       <succlane lane="1/1totop1_0" via=":1/1_3_0" yield="1" dir="t" state="m"/>
    </succ>
 
