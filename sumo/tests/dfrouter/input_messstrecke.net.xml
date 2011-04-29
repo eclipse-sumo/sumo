@@ -312,7 +312,7 @@
       <succlane lane="ErnstRuska5O_0" tl="ErnstRuskaAltglienicker" linkno="3" yield="1" dir="r" state="t"/>
    </succ>
    <succ edge="AltglienickerBreitN" lane="AltglienickerBreitN_1" junction="ErnstRuskaAltglienicker">
-      <succlane lane="ErnstRuska4W_1" tl="ErnstRuskaAltglienicker" linkno="4" yield="1" dir="l" state="t" int_end="x"/>
+      <succlane lane="ErnstRuska4W_1" tl="ErnstRuskaAltglienicker" linkno="4" yield="1" dir="l" state="t"/>
    </succ>
    <succ edge="AltglienickerBreitS" lane="AltglienickerBreitS_0" junction="AltglienickerBreit">
       <succlane lane="AltglienickerS_0" yield="0" dir="s" state="M"/>
