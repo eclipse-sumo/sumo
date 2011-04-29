@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 03/22/11 09:26:18 by SUMO netconvert Version dev-SVN-r9941
+<!-- generated on 04/29/11 10:39:08 by SUMO netconvert Version dev-SVN-r10182
 <?xml version="1.0" encoding="iso-8859-1"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
@@ -175,10 +175,10 @@
       <lane id=":-7_5_0" depart="0" maxspeed="22.22" length="10.36" shape="349.18,739.98 346.24,740.69 344.16,741.23 342.10,741.88 339.24,742.86"/>
    </edge>
    <edge id=":-7_6" function="internal">
-      <lane id=":-7_6_0" depart="0" maxspeed="13.89" length="7.24" shape="349.18,739.98 345.87,740.28 342.90,738.46"/>
+      <lane id=":-7_6_0" depart="0" maxspeed="13.89" length="3.95" shape="349.18,739.98 344.10,739.61"/>
    </edge>
    <edge id=":-7_18" function="internal">
-      <lane id=":-7_18_0" depart="0" maxspeed="13.89" length="4.45" shape="342.90,738.46 342.13,737.29 341.70,733.99"/>
+      <lane id=":-7_18_0" depart="0" maxspeed="13.89" length="7.74" shape="344.10,739.61 343.51,739.39 342.13,737.29 341.70,733.99"/>
    </edge>
    <edge id=":-7_7" function="internal">
       <lane id=":-7_7_0" depart="0" maxspeed="22.22" length="0.10" shape="349.18,739.98 347.88,739.50"/>
@@ -211,10 +211,10 @@
       <lane id=":-7_13_0" depart="0" maxspeed="22.22" length="10.70" shape="338.15,739.75 341.06,738.75 343.22,738.07 345.42,737.49 348.41,736.77"/>
    </edge>
    <edge id=":-7_14" function="internal">
-      <lane id=":-7_14_0" depart="0" maxspeed="22.22" length="7.28" shape="338.15,739.75 340.98,739.20 343.56,739.95"/>
+      <lane id=":-7_14_0" depart="0" maxspeed="22.22" length="3.78" shape="338.15,739.75 342.42,739.52"/>
    </edge>
    <edge id=":-7_22" function="internal">
-      <lane id=":-7_22_0" depart="0" maxspeed="22.22" length="3.31" shape="343.56,739.95 345.08,741.30 346.36,743.96"/>
+      <lane id=":-7_22_0" depart="0" maxspeed="22.22" length="6.82" shape="342.42,739.52 343.29,739.72 345.08,741.30 346.36,743.96"/>
    </edge>
    <edge id=":-7_15" function="internal">
       <lane id=":-7_15_0" depart="0" maxspeed="22.22" length="0.10" shape="338.15,739.75 339.49,740.09"/>
@@ -393,11 +393,11 @@
    <junction id=":-26_7_0" type="internal" x="491.80" y="408.56" incLanes=":-26_5_0 --33#2_0 --33#2_1" intLanes=":-26_0_0 :-26_1_0" shape=""/>
    <junction id=":-7_16_0" type="internal" x="342.89" y="741.63" incLanes=":-7_2_0 -32_0" intLanes=":-7_8_0 :-7_9_0" shape=""/>
    <junction id=":-7_17_0" type="internal" x="343.24" y="744.86" incLanes=":-7_3_0 -32_0" intLanes=":-7_9_0" shape=""/>
-   <junction id=":-7_18_0" type="internal" x="342.74" y="738.22" incLanes=":-7_6_0 -35#0_0" intLanes=":-7_12_0 :-7_13_0" shape=""/>
+   <junction id=":-7_18_0" type="internal" x="345.28" y="740.06" incLanes=":-7_6_0 -35#0_0" intLanes=":-7_12_0 :-7_13_0" shape=""/>
    <junction id=":-7_19_0" type="internal" x="349.09" y="739.94" incLanes=":-7_7_0 -35#0_0" intLanes=":-7_13_0" shape=""/>
    <junction id=":-7_20_0" type="internal" x="344.33" y="737.78" incLanes=":-7_10_0 --37#1_0" intLanes=":-7_0_0 :-7_1_0" shape=""/>
    <junction id=":-7_21_0" type="internal" x="344.94" y="734.12" incLanes=":-7_11_0 --37#1_0" intLanes=":-7_1_0" shape=""/>
-   <junction id=":-7_22_0" type="internal" x="344.81" y="741.06" incLanes=":-7_14_0 -37#0_0" intLanes=":-7_4_0 :-7_5_0" shape=""/>
+   <junction id=":-7_22_0" type="internal" x="341.85" y="739.39" incLanes=":-7_14_0 -37#0_0" intLanes=":-7_4_0 :-7_5_0" shape=""/>
    <junction id=":-7_23_0" type="internal" x="338.24" y="739.78" incLanes=":-7_15_0 -37#0_0" intLanes=":-7_5_0" shape=""/>
 
    <succ edge="--32" lane="--32_0" junction="-14">

@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on Mon Mar 21 15:37:46 2011 by SUMO netconvert Version dev-SVN-r9933
+<!-- generated on 04/29/11 10:43:11 by SUMO netconvert Version dev-SVN-r10182
 <?xml version="1.0" encoding="iso-8859-1"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
@@ -794,7 +794,7 @@
    </succ>
    <succ edge="-53092407" lane="-53092407_0" junction="1610">
       <succlane lane="905005462_0" yield="0" dir="r" state="M"/>
-      <succlane lane="905002245_0" yield="0" dir="l" state="M"/>
+      <succlane lane="905002245_0" yield="0" dir="l" state="M" int_end="x"/>
       <succlane lane="53092407_0" yield="1" dir="t" state="m"/>
    </succ>
    <succ edge="-53092869" lane="-53092869_0" junction="100668287">
@@ -1135,7 +1135,7 @@
    </succ>
    <succ edge="905005617" lane="905005617_0" junction="605000010">
       <succlane lane="-905002586_0" yield="0" dir="s" state="M"/>
-      <succlane lane="-905006039_0" yield="0" dir="l" state="M"/>
+      <succlane lane="-905006039_0" yield="0" dir="l" state="M" int_end="x"/>
       <succlane lane="-905005617_0" yield="1" dir="t" state="m"/>
    </succ>
    <succ edge="905005621" lane="905005621_0" junction="1661">
@@ -1166,7 +1166,7 @@
    </succ>
    <succ edge="905006039" lane="905006039_0" junction="605000010">
       <succlane lane="-905005617_0" yield="0" dir="r" state="M"/>
-      <succlane lane="-905002586_0" yield="1" dir="l" state="m"/>
+      <succlane lane="-905002586_0" yield="1" dir="l" state="m" int_end="x"/>
       <succlane lane="-905006039_0" yield="1" dir="t" state="m"/>
    </succ>
    <succ edge="905006040" lane="905006040_0" junction="1664">

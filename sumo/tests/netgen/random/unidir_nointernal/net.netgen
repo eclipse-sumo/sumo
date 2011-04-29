@@ -1,7 +1,9 @@
 <?xml version="1.0"?>
 
-<!-- generated on 08/13/10 21:09:58 by SUMO netgen Version dev-SVN-r8487
-<configuration>
+<!-- generated on 04/29/11 11:03:02 by SUMO netgen Version dev-SVN-r10182
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netgenConfiguration.xsd">
 
     <random_network>
         <random-net value="true"/>
@@ -1684,7 +1686,7 @@
       <succlane lane="1093_0" yield="0" dir="r" state="M"/>
    </succ>
    <succ edge="1011" lane="1011_0" junction="1010">
-      <succlane lane="1345_0" yield="0" dir="l" state="M"/>
+      <succlane lane="1345_0" yield="0" dir="l" state="M" int_end="x"/>
    </succ>
    <succ edge="1027" lane="1027_0" junction="1026">
       <succlane lane="1199_0" yield="0" dir="s" state="M"/>
@@ -1777,7 +1779,7 @@
    </succ>
    <succ edge="1373" lane="1373_0" junction="1372">
       <succlane lane="1431_0" yield="1" dir="s" state="m"/>
-      <succlane lane="1441_0" yield="1" dir="L" state="m"/>
+      <succlane lane="1441_0" yield="1" dir="L" state="m" int_end="x"/>
       <succlane lane="1447_0" yield="1" dir="l" state="m"/>
    </succ>
    <succ edge="138" lane="138_0" junction="137">
@@ -1805,7 +1807,7 @@
    <succ edge="1427" lane="1427_0" junction="1372">
       <succlane lane="1431_0" yield="0" dir="s" state="M"/>
       <succlane lane="1441_0" yield="0" dir="s" state="M"/>
-      <succlane lane="1447_0" yield="1" dir="l" state="m"/>
+      <succlane lane="1447_0" yield="1" dir="l" state="m" int_end="x"/>
    </succ>
    <succ edge="1429" lane="1429_0" junction="1428">
       <succlane lane="1523_0" yield="0" dir="r" state="M"/>
@@ -1861,11 +1863,11 @@
    </succ>
    <succ edge="1523" lane="1523_0" junction="1522">
       <succlane lane="1882_0" yield="0" dir="s" state="M"/>
-      <succlane lane="1798_0" yield="0" dir="l" state="M"/>
+      <succlane lane="1798_0" yield="0" dir="l" state="M" int_end="x"/>
    </succ>
    <succ edge="1524" lane="1524_0" junction="1440">
       <succlane lane="2278_0" yield="0" dir="r" state="M"/>
-      <succlane lane="1533_0" yield="0" dir="l" state="M"/>
+      <succlane lane="1533_0" yield="0" dir="l" state="M" int_end="x"/>
    </succ>
    <succ edge="1526" lane="1526_0" junction="1525">
       <succlane lane="1883_0" yield="0" dir="r" state="M"/>
@@ -1913,7 +1915,7 @@
    <succ edge="1797" lane="1797_0" junction="1796">
       <succlane lane="1950_0" yield="0" dir="r" state="M"/>
       <succlane lane="2006_0" yield="0" dir="s" state="M"/>
-      <succlane lane="1944_0" yield="1" dir="l" state="m"/>
+      <succlane lane="1944_0" yield="1" dir="l" state="m" int_end="x"/>
    </succ>
    <succ edge="1798" lane="1798_0" junction="1772">
       <succlane lane="1941_0" yield="0" dir="s" state="M"/>
@@ -1971,7 +1973,7 @@
    </succ>
    <succ edge="210" lane="210_0" junction="209">
       <succlane lane="349_0" yield="0" dir="r" state="M"/>
-      <succlane lane="585_0" yield="0" dir="l" state="M"/>
+      <succlane lane="585_0" yield="0" dir="l" state="M" int_end="x"/>
    </succ>
    <succ edge="2110" lane="2110_0" junction="2109">
       <succlane lane="2201_0" yield="0" dir="r" state="M"/>

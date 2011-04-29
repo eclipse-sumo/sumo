@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on Mon Mar 21 15:37:46 2011 by SUMO netconvert Version dev-SVN-r9933
+<!-- generated on 04/29/11 10:43:11 by SUMO netconvert Version dev-SVN-r10182
 <?xml version="1.0" encoding="iso-8859-1"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
@@ -533,7 +533,7 @@
    </succ>
    <succ edge="-545285123" lane="-545285123_0" junction="814">
       <succlane lane="905005456_0" yield="0" dir="r" state="M"/>
-      <succlane lane="905005626_1" yield="1" dir="l" state="m"/>
+      <succlane lane="905005626_1" yield="1" dir="l" state="m" int_end="x"/>
       <succlane lane="545285123_0" yield="1" dir="t" state="m"/>
    </succ>
    <succ edge="-545285124" lane="-545285124_0" junction="1562">
@@ -586,10 +586,10 @@
       <succlane lane="-905002550_1" tl="1565" linkno="8" yield="1" dir="s" state="t"/>
    </succ>
    <succ edge="-905002548" lane="-905002548_2" junction="1565">
-      <succlane lane="53091655_0" tl="1565" linkno="10" yield="1" dir="l" state="t"/>
+      <succlane lane="53091655_0" tl="1565" linkno="10" yield="1" dir="l" state="t" int_end="x"/>
    </succ>
    <succ edge="-905002548" lane="-905002548_3" junction="1565">
-      <succlane lane="53091655_1" tl="1565" linkno="10" yield="1" dir="l" state="t"/>
+      <succlane lane="53091655_1" tl="1565" linkno="10" yield="1" dir="l" state="t" int_end="x"/>
    </succ>
    <succ edge="-905002550" lane="-905002550_0" junction="1564">
       <succlane lane="-53091628_0" yield="0" dir="s" state="M"/>
@@ -631,7 +631,7 @@
    </succ>
    <succ edge="-905005456" lane="-905005456_1" junction="814">
       <succlane lane="905005626_1" yield="0" dir="s" state="M"/>
-      <succlane lane="545285123_0" yield="0" dir="l" state="M"/>
+      <succlane lane="545285123_0" yield="0" dir="l" state="M" int_end="x"/>
       <succlane lane="905005456_1" yield="1" dir="t" state="m"/>
    </succ>
    <succ edge="-905005617" lane="-905005617_0" junction="1561">

@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on Mon Mar 21 15:37:48 2011 by SUMO netconvert Version dev-SVN-r9933
+<!-- generated on 04/29/11 10:42:52 by SUMO netconvert Version dev-SVN-r10182
 <?xml version="1.0" encoding="iso-8859-1"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
@@ -61,7 +61,7 @@
       <lane id="13_0" depart="1" maxspeed="13.89" length="49.13" shape="1001.16,1425.89 978.53,1469.50"/>
    </edge>
    <edge id="14" from="14-SourceNode" to="14-DestinationNode" priority="-1" type="5" function="normal">
-      <lane id="14_0" depart="1" maxspeed="13.89" length="133.19" shape="1087.01,1462.74 1059.00,1448.93 1053.62,1447.09 1049.93,1446.35 1045.18,1445.99 1041.07,1445.83 1037.41,1445.76 1032.87,1445.39 1029.12,1444.69 1024.85,1443.66 1019.58,1441.79 1003.46,1434.23 964.10,1414.98"/>
+      <lane id="14_0" depart="1" maxspeed="13.89" length="133.19" shape="1087.01,1462.74 1059.00,1448.93 1053.63,1447.09 1049.93,1446.35 1045.18,1445.99 1041.07,1445.83 1037.41,1445.76 1032.87,1445.39 1029.12,1444.69 1024.85,1443.66 1019.58,1441.79 1003.46,1434.23 964.10,1414.98"/>
    </edge>
    <edge id="15" from="15-SourceNode" to="15-DestinationNode" priority="-1" type="1" function="normal">
       <lane id="15_0" depart="1" maxspeed="13.89" length="36.84" shape="994.90,1424.74 1028.35,1440.20"/>
@@ -319,10 +319,10 @@
       <lane id="36_0" depart="1" maxspeed="13.89" length="19.69" shape="1230.41,1549.87 1212.94,1540.78"/>
    </edge>
    <edge id="37" from="23" to="28" priority="-1" type="1" function="normal">
-      <lane id="37_0" depart="1" maxspeed="13.89" length="81.89" shape="973.37,1756.37 952.25,1746.17 945.70,1742.75 939.29,1739.04 929.09,1731.88 918.44,1724.29 904.22,1713.10"/>
+      <lane id="37_0" depart="1" maxspeed="13.89" length="81.89" shape="973.37,1756.37 952.26,1746.17 945.70,1742.75 939.29,1739.04 929.09,1731.88 918.44,1724.29 904.22,1713.10"/>
    </edge>
    <edge id="38" from="27" to="24" priority="-1" type="1" function="normal">
-      <lane id="38_0" depart="1" maxspeed="13.89" length="118.33" shape="863.83,1776.01 876.33,1747.64 881.78,1740.34 886.81,1735.66 893.89,1733.13 900.70,1732.79 907.51,1732.87 913.75,1733.54 919.85,1735.37 926.11,1738.80 931.51,1742.81 936.34,1747.40 939.72,1753.46 942.67,1759.67 943.09,1762.86"/>
+      <lane id="38_0" depart="1" maxspeed="13.89" length="118.33" shape="863.83,1776.01 876.33,1747.64 881.78,1740.34 886.81,1735.66 893.89,1733.14 900.70,1732.79 907.51,1732.87 913.75,1733.54 919.85,1735.37 926.11,1738.80 931.51,1742.81 936.34,1747.40 939.72,1753.46 942.67,1759.67 943.09,1762.86"/>
    </edge>
    <edge id="39" from="19" to="39-end" priority="-1" type="1" function="normal">
       <lane id="39_0" depart="1" maxspeed="8.33" length="64.44" shape="1483.97,1669.50 1484.83,1669.32 1488.72,1669.32 1494.55,1670.57 1499.69,1672.10 1512.75,1676.82 1528.99,1687.24 1543.16,1692.66"/>
@@ -1339,7 +1339,7 @@
       <succlane lane="7_0" yield="1" dir="L" state="m"/>
    </succ>
    <succ edge="1" lane="1_1" junction="1">
-      <succlane lane="7_1" yield="1" dir="L" state="m"/>
+      <succlane lane="7_1" yield="1" dir="L" state="m" int_end="x"/>
    </succ>
    <succ edge="10" lane="10_0" junction="10-DestinationNode">
       <succlane lane="SUMO_NO_DESTINATION" yield="1" dir="s" state="O"/>
@@ -1567,7 +1567,7 @@
       <succlane lane="SUMO_NO_DESTINATION" yield="1" dir="s" state="O"/>
    </succ>
    <succ edge="30008" lane="30008_0" junction="52">
-      <succlane lane="30009[1][1][0]_0" yield="1" dir="l" state="m"/>
+      <succlane lane="30009[1][1][0]_0" yield="1" dir="l" state="m" int_end="x"/>
    </succ>
    <succ edge="30008" lane="30008_1" junction="52">
       <succlane lane="30009[1][1][0]_1" yield="1" dir="l" state="m"/>
@@ -1668,7 +1668,7 @@
       <succlane lane="30007[0]_1" tl="534" linkno="1" yield="0" dir="s" state="t"/>
    </succ>
    <succ edge="30024" lane="30024_0" junction="65">
-      <succlane lane="30023_0" tl="534" linkno="2" yield="1" dir="l" state="t"/>
+      <succlane lane="30023_0" tl="534" linkno="2" yield="1" dir="l" state="t" int_end="x"/>
    </succ>
    <succ edge="30025" lane="30025_0" junction="65">
       <succlane lane="30023_0" tl="534" linkno="3" yield="1" dir="r" state="t"/>
@@ -1834,8 +1834,8 @@
       <succlane lane="7_1" yield="1" dir="s" state="m"/>
    </succ>
    <succ edge="4+103" lane="4+103_2" junction="1">
-      <succlane lane="6[0]_0" yield="1" dir="l" state="m"/>
-      <succlane lane="6[0]_1" yield="1" dir="l" state="m"/>
+      <succlane lane="6[0]_0" yield="1" dir="l" state="m" int_end="x"/>
+      <succlane lane="6[0]_1" yield="1" dir="l" state="m" int_end="x"/>
    </succ>
    <succ edge="40" lane="40_0" junction="29">
       <succlane lane="41_0" yield="0" dir="s" state="M"/>
@@ -1975,7 +1975,7 @@
       <succlane lane="65[1][1][0]_0" yield="1" dir="L" state="m"/>
    </succ>
    <succ edge="69" lane="69_1" junction="3">
-      <succlane lane="65[1][1][0]_1" yield="1" dir="L" state="m"/>
+      <succlane lane="65[1][1][0]_1" yield="1" dir="L" state="m" int_end="x"/>
    </succ>
    <succ edge="6[0]" lane="6[0]_0" junction="15">
       <succlane lane="6[1][0]_0" yield="0" dir="r" state="M"/>
@@ -1986,7 +1986,7 @@
       <succlane lane="26_1" yield="0" dir="s" state="M"/>
    </succ>
    <succ edge="6[1][0]" lane="6[1][0]_0" junction="16">
-      <succlane lane="6[1][1][0]_0" yield="0" dir="l" state="M"/>
+      <succlane lane="6[1][1][0]_0" yield="0" dir="l" state="M" int_end="x"/>
    </succ>
    <succ edge="6[1][0]" lane="6[1][0]_1" junction="16">
       <succlane lane="6[1][1][0]_1" yield="0" dir="l" state="M"/>
@@ -2067,8 +2067,8 @@
       <succlane lane="65[1][1][0]_1" yield="1" dir="t" state="m"/>
    </succ>
    <succ edge="72" lane="72_0" junction="3">
-      <succlane lane="68_0" yield="1" dir="L" state="m"/>
-      <succlane lane="68_1" yield="1" dir="L" state="m"/>
+      <succlane lane="68_0" yield="1" dir="L" state="m" int_end="x"/>
+      <succlane lane="68_1" yield="1" dir="L" state="m" int_end="x"/>
    </succ>
    <succ edge="73" lane="73_0" junction="3">
       <succlane lane="65[1][1][0]_1" yield="1" dir="r" state="m"/>

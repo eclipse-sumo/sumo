@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on Wed Apr 27 08:18:26 2011 by SUMO netconvert Version dev-SVN-r10150
+<!-- generated on 04/29/11 10:42:07 by SUMO netconvert Version dev-SVN-r10182
 <?xml version="1.0" encoding="iso-8859-1"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
@@ -157,8 +157,8 @@
    </succ>
    <succ edge="2" lane="2_2" junction="0">
       <succlane lane="-1_2" yield="0" dir="s" state="M"/>
-      <succlane lane="-3_1" yield="0" dir="l" state="M"/>
-      <succlane lane="-3_2" yield="0" dir="l" state="M"/>
+      <succlane lane="-3_1" yield="0" dir="l" state="M" int_end="x"/>
+      <succlane lane="-3_2" yield="0" dir="l" state="M" int_end="x"/>
       <succlane lane="-2_2" yield="1" dir="t" state="m"/>
    </succ>
    <succ edge="3" lane="3_0" junction="0">

@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on Mon Mar 21 15:36:07 2011 by SUMO netconvert Version dev-SVN-r9933
+<!-- generated on 04/29/11 10:17:46 by SUMO netconvert Version dev-SVN-r10182
 <?xml version="1.0" encoding="iso-8859-1"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
@@ -22,13 +22,16 @@
    <location netOffset="50.00,50.00" convBoundary="0.00,0.00,100.00,100.00" origBoundary="-50.00,-50.00,50.00,50.00" projParameter="!"/>
 
    <edge id=":0_0" function="internal">
-      <lane id=":0_0_0" depart="0" maxspeed="13.89" length="5.00" shape="48.35,54.75 48.16,53.39 47.58,52.43 46.61,51.84 45.25,51.65"/>
+      <lane id=":0_0_0" depart="0" maxspeed="13.89" length="5.00" shape="48.35,54.75 48.16,53.39 47.57,52.43 46.61,51.84 45.25,51.65"/>
    </edge>
    <edge id=":0_1" function="internal">
       <lane id=":0_1_0" depart="0" maxspeed="13.89" length="9.50" shape="48.35,54.75 48.35,45.25"/>
    </edge>
    <edge id=":0_2" function="internal">
-      <lane id=":0_2_0" depart="0" maxspeed="13.89" length="10.32" shape="48.35,54.75 48.75,51.95 49.95,49.95 51.95,48.75 54.75,48.35"/>
+      <lane id=":0_2_0" depart="0" maxspeed="13.89" length="3.18" shape="48.35,54.75 49.77,50.25"/>
+   </edge>
+   <edge id=":0_16" function="internal">
+      <lane id=":0_16_0" depart="0" maxspeed="13.89" length="7.14" shape="49.77,50.25 49.95,49.95 51.95,48.75 54.75,48.35"/>
    </edge>
    <edge id=":0_3" function="internal">
       <lane id=":0_3_0" depart="0" maxspeed="13.89" length="4.82" shape="48.35,54.75 49.18,53.51 50.00,53.10 50.83,53.51 51.65,54.75"/>
@@ -52,7 +55,10 @@
       <lane id=":0_9_0" depart="0" maxspeed="13.89" length="9.50" shape="51.65,45.25 51.65,54.75"/>
    </edge>
    <edge id=":0_10" function="internal">
-      <lane id=":0_10_0" depart="0" maxspeed="13.89" length="10.32" shape="51.65,45.25 51.25,48.05 50.05,50.05 48.05,51.25 45.25,51.65"/>
+      <lane id=":0_10_0" depart="0" maxspeed="13.89" length="3.18" shape="51.65,45.25 50.23,49.75"/>
+   </edge>
+   <edge id=":0_17" function="internal">
+      <lane id=":0_17_0" depart="0" maxspeed="13.89" length="7.14" shape="50.23,49.75 50.05,50.05 48.05,51.25 45.25,51.65"/>
    </edge>
    <edge id=":0_11" function="internal">
       <lane id=":0_11_0" depart="0" maxspeed="13.89" length="4.82" shape="51.65,45.25 50.82,46.49 50.00,46.90 49.17,46.49 48.35,45.25"/>
@@ -110,7 +116,7 @@
    <row-logic id="0" requestSize="16">
       <logicitem request="0" response="0000000000000000" foes="1000010000100000" cont="0"/>
       <logicitem request="1" response="0000000000000000" foes="0111110001100000" cont="0"/>
-      <logicitem request="2" response="0000001100000000" foes="0110001111100000" cont="0"/>
+      <logicitem request="2" response="0000001100000000" foes="0110001111100000" cont="1"/>
       <logicitem request="3" response="0100001000010000" foes="0100001000010000" cont="0"/>
       <logicitem request="4" response="0000001000000000" foes="0100001000001000" cont="0"/>
       <logicitem request="5" response="0000011000000111" foes="1100011000000111" cont="0"/>
@@ -118,7 +124,7 @@
       <logicitem request="7" response="0010000100000100" foes="0010000100000100" cont="0"/>
       <logicitem request="8" response="0000000000000000" foes="0010000010000100" cont="0"/>
       <logicitem request="9" response="0000000000000000" foes="0110000001111100" cont="0"/>
-      <logicitem request="10" response="0000000000000011" foes="1110000001100011" cont="0"/>
+      <logicitem request="10" response="0000000000000011" foes="1110000001100011" cont="1"/>
       <logicitem request="11" response="0001000001000010" foes="0001000001000010" cont="0"/>
       <logicitem request="12" response="0000000000000010" foes="0000100001000010" cont="0"/>
       <logicitem request="13" response="0000011100000110" foes="0000011111000110" cont="0"/>
@@ -138,11 +144,14 @@
       <logicitem request="0" response="0" foes="0" cont="0"/>
    </row-logic>
 
-   <junction id="0" type="traffic_light" x="50.00" y="50.00" incLanes="4i_0 2i_0 3i_0 1i_0" intLanes=":0_0_0 :0_1_0 :0_2_0 :0_3_0 :0_4_0 :0_5_0 :0_6_0 :0_7_0 :0_8_0 :0_9_0 :0_10_0 :0_11_0 :0_12_0 :0_13_0 :0_14_0 :0_15_0" shape="46.75,54.75 53.25,54.75 54.75,53.25 54.75,46.75 53.25,45.25 46.75,45.25 45.25,46.75 45.25,53.25"/>
+   <junction id="0" type="traffic_light" x="50.00" y="50.00" incLanes="4i_0 2i_0 3i_0 1i_0" intLanes=":0_0_0 :0_1_0 :0_16_0 :0_3_0 :0_4_0 :0_5_0 :0_6_0 :0_7_0 :0_8_0 :0_9_0 :0_17_0 :0_11_0 :0_12_0 :0_13_0 :0_14_0 :0_15_0" shape="46.75,54.75 53.25,54.75 54.75,53.25 54.75,46.75 53.25,45.25 46.75,45.25 45.25,46.75 45.25,53.25"/>
    <junction id="1" type="priority" x="0.00" y="50.00" incLanes="1o_0" intLanes=":1_0_0" shape="0.00,49.95 0.00,46.75 -0.00,53.25 -0.00,50.05"/>
    <junction id="2" type="priority" x="100.00" y="50.00" incLanes="2o_0" intLanes=":2_0_0" shape="100.00,50.05 100.00,53.25 100.00,46.75 100.00,49.95"/>
    <junction id="3" type="priority" x="50.00" y="0.00" incLanes="3o_0" intLanes=":3_0_0" shape="50.05,0.00 53.25,0.00 46.75,-0.00 49.95,-0.00"/>
    <junction id="4" type="priority" x="50.00" y="100.00" incLanes="4o_0" intLanes=":4_0_0" shape="49.95,100.00 46.75,100.00 53.25,100.00 50.05,100.00"/>
+
+   <junction id=":0_16_0" type="internal" x="48.93" y="51.65" incLanes=":0_2_0" intLanes="" shape=""/>
+   <junction id=":0_17_0" type="internal" x="51.07" y="48.35" incLanes=":0_10_0" intLanes="" shape=""/>
 
    <succ edge="1i" lane="1i_0" junction="0">
       <succlane lane="3o_0" via=":0_12_0" yield="1" dir="r" state="m"/>
@@ -165,7 +174,7 @@
    <succ edge="3i" lane="3i_0" junction="0">
       <succlane lane="2o_0" via=":0_8_0" yield="0" dir="r" state="M"/>
       <succlane lane="4o_0" via=":0_9_0" yield="0" dir="s" state="M"/>
-      <succlane lane="1o_0" via=":0_10_0" yield="1" dir="l" state="m"/>
+      <succlane lane="1o_0" via=":0_10_0" yield="1" dir="l" state="m" int_end="x"/>
       <succlane lane="3o_0" via=":0_11_0" yield="1" dir="t" state="m"/>
    </succ>
    <succ edge="3o" lane="3o_0" junction="3">
@@ -174,7 +183,7 @@
    <succ edge="4i" lane="4i_0" junction="0">
       <succlane lane="1o_0" via=":0_0_0" yield="0" dir="r" state="M"/>
       <succlane lane="3o_0" via=":0_1_0" yield="0" dir="s" state="M"/>
-      <succlane lane="2o_0" via=":0_2_0" yield="1" dir="l" state="m"/>
+      <succlane lane="2o_0" via=":0_2_0" yield="1" dir="l" state="m" int_end="x"/>
       <succlane lane="4o_0" via=":0_3_0" yield="1" dir="t" state="m"/>
    </succ>
    <succ edge="4o" lane="4o_0" junction="4">
@@ -188,7 +197,10 @@
       <succlane lane="3o_0" tl="" linkno="" yield="0" dir="s" state="M"/>
    </succ>
    <succ edge=":0_2" lane=":0_2_0" junction="0">
-      <succlane lane="2o_0" tl="" linkno="" yield="0" dir="s" state="M"/>
+      <succlane lane="2o_0" via=":0_16_0" tl="" linkno="" yield="1" dir="s" state="M"/>
+   </succ>
+   <succ edge=":0_16" lane=":0_16_0" junction=":0_16">
+      <succlane lane="2o_0" tl="" linkno="0" yield="0" dir="s" state="M"/>
    </succ>
    <succ edge=":0_3" lane=":0_3_0" junction="0">
       <succlane lane="4o_0" tl="" linkno="" yield="0" dir="s" state="M"/>
@@ -212,7 +224,10 @@
       <succlane lane="4o_0" tl="" linkno="" yield="0" dir="s" state="M"/>
    </succ>
    <succ edge=":0_10" lane=":0_10_0" junction="0">
-      <succlane lane="1o_0" tl="" linkno="" yield="0" dir="s" state="M"/>
+      <succlane lane="1o_0" via=":0_17_0" tl="" linkno="" yield="1" dir="s" state="M"/>
+   </succ>
+   <succ edge=":0_17" lane=":0_17_0" junction=":0_17">
+      <succlane lane="1o_0" tl="" linkno="0" yield="0" dir="s" state="M"/>
    </succ>
    <succ edge=":0_11" lane=":0_11_0" junction="0">
       <succlane lane="3o_0" tl="" linkno="" yield="0" dir="s" state="M"/>
