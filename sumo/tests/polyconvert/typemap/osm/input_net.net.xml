@@ -1874,15 +1874,15 @@
 
    <succ edge="-24214693" lane="-24214693_1" junction="32266935">
       <succlane lane="-7216737#3_1" tl="32266935" linkno="15" yield="1" dir="s" state="t"/>
-      <succlane lane="-7727483#3_0" tl="32266935" linkno="16" yield="1" dir="l" state="t" int_end="x"/>
-      <succlane lane="24214693_1" tl="32266935" linkno="17" yield="1" dir="t" state="t" int_end="x"/>
+      <succlane lane="-7727483#3_0" tl="32266935" linkno="16" yield="1" dir="l" state="t"/>
+      <succlane lane="24214693_1" tl="32266935" linkno="17" yield="1" dir="t" state="t"/>
    </succ>
 
    <succ edge="-24214694" lane="-24214694_0" junction="32266935">
       <succlane lane="-7216737#3_0" tl="32266935" linkno="9" yield="1" dir="r" state="t"/>
       <succlane lane="-7727483#3_0" tl="32266935" linkno="10" yield="1" dir="s" state="t"/>
-      <succlane lane="24214693_1" tl="32266935" linkno="11" yield="1" dir="l" state="t" int_end="x"/>
-      <succlane lane="24214694_0" tl="32266935" linkno="12" yield="1" dir="t" state="t" int_end="x"/>
+      <succlane lane="24214693_1" tl="32266935" linkno="11" yield="1" dir="l" state="t"/>
+      <succlane lane="24214694_0" tl="32266935" linkno="12" yield="1" dir="t" state="t"/>
    </succ>
 
    <succ edge="-25944590#0" lane="-25944590#0_0" junction="283018817">
@@ -3023,8 +3023,8 @@
 
    <succ edge="7216737#3" lane="7216737#3_1" junction="32266935">
       <succlane lane="24214693_1" tl="32266935" linkno="6" yield="1" dir="s" state="t"/>
-      <succlane lane="24214694_0" tl="32266935" linkno="7" yield="1" dir="l" state="t" int_end="x"/>
-      <succlane lane="-7216737#3_1" tl="32266935" linkno="8" yield="1" dir="t" state="t" int_end="x"/>
+      <succlane lane="24214694_0" tl="32266935" linkno="7" yield="1" dir="l" state="t"/>
+      <succlane lane="-7216737#3_1" tl="32266935" linkno="8" yield="1" dir="t" state="t"/>
    </succ>
 
    <succ edge="7727482" lane="7727482_0" junction="56231397">
@@ -3051,8 +3051,8 @@
    <succ edge="7727483#3" lane="7727483#3_0" junction="32266935">
       <succlane lane="24214693_0" tl="32266935" linkno="0" yield="1" dir="r" state="t"/>
       <succlane lane="24214694_0" tl="32266935" linkno="1" yield="1" dir="s" state="t"/>
-      <succlane lane="-7216737#3_1" tl="32266935" linkno="2" yield="1" dir="l" state="t" int_end="x"/>
-      <succlane lane="-7727483#3_0" tl="32266935" linkno="3" yield="1" dir="t" state="t" int_end="x"/>
+      <succlane lane="-7216737#3_1" tl="32266935" linkno="2" yield="1" dir="l" state="t"/>
+      <succlane lane="-7727483#3_0" tl="32266935" linkno="3" yield="1" dir="t" state="t"/>
    </succ>
 
    <succ edge="7730463" lane="7730463_0" junction="36268408">
