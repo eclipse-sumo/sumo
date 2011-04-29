@@ -133,7 +133,7 @@
    </succ>
    <succ edge="2i" lane="2i_2" junction="0">
       <succlane lane="1o_2" via=":0_6_0" yield="0" dir="s" state="M"/>
-      <succlane lane="3o_0" via=":0_7_0" yield="0" dir="l" state="M" int_end="x"/>
+      <succlane lane="3o_0" via=":0_7_0" yield="0" dir="l" state="M"/>
    </succ>
    <succ edge="3i" lane="3i_0" junction="0">
       <succlane lane="4o_0" via=":0_8_0" yield="1" dir="s" state="m"/>

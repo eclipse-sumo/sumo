@@ -666,7 +666,7 @@
       <succlane lane="1000707_1" yield="1" dir="s" state="m"/>
    </succ>
    <succ edge="1000702[1]+1000701" lane="1000702[1]+1000701_2" junction="605000045">
-      <succlane lane="1000712_1" tl="1" linkno="5" yield="1" dir="l" state="t" int_end="x"/>
+      <succlane lane="1000712_1" tl="1" linkno="5" yield="1" dir="l" state="t"/>
    </succ>
    <succ edge="1000703" lane="1000703_0" junction="605000018">
       <succlane lane="9_0" yield="0" dir="s" state="M"/>
@@ -675,7 +675,7 @@
       <succlane lane="9_1" yield="0" dir="s" state="M"/>
    </succ>
    <succ edge="1000704" lane="1000704_0" junction="605000045">
-      <succlane lane="1000700_1" tl="1" linkno="0" yield="1" dir="l" state="t" int_end="x"/>
+      <succlane lane="1000700_1" tl="1" linkno="0" yield="1" dir="l" state="t"/>
    </succ>
    <succ edge="1000705[0]" lane="1000705[0]_0" junction="605000047">
       <succlane lane="1000705[1]_0" yield="0" dir="s" state="M"/>
@@ -694,10 +694,10 @@
       <succlane lane="31_1" yield="0" dir="s" state="M"/>
    </succ>
    <succ edge="1000708" lane="1000708_0" junction="605000045">
-      <succlane lane="1000703_0" tl="1" linkno="13" yield="1" dir="l" state="t" int_end="x"/>
+      <succlane lane="1000703_0" tl="1" linkno="13" yield="1" dir="l" state="t"/>
    </succ>
    <succ edge="1000708" lane="1000708_1" junction="605000045">
-      <succlane lane="1000703_1" tl="1" linkno="13" yield="1" dir="l" state="t" int_end="x"/>
+      <succlane lane="1000703_1" tl="1" linkno="13" yield="1" dir="l" state="t"/>
    </succ>
    <succ edge="1000709" lane="1000709_0" junction="605000048">
       <succlane lane="1000708_0" yield="0" dir="s" state="M"/>
@@ -728,8 +728,8 @@
       <succlane lane="1000703_1" yield="1" dir="s" state="m"/>
    </succ>
    <succ edge="1000714+1000713" lane="1000714+1000713_2" junction="605000045">
-      <succlane lane="1000707_1" tl="1" linkno="9" yield="1" dir="l" state="t" int_end="x"/>
-      <succlane lane="1000712_1" yield="1" dir="t" state="m" int_end="x"/>
+      <succlane lane="1000707_1" tl="1" linkno="9" yield="1" dir="l" state="t"/>
+      <succlane lane="1000712_1" yield="1" dir="t" state="m"/>
    </succ>
    <succ edge="11" lane="11_0" junction="605000022">
       <succlane lane="13_0" yield="0" dir="s" state="M"/>

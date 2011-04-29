@@ -177,8 +177,8 @@
    </succ>
    <succ edge="1" lane="1_2" junction="0">
       <succlane lane="-2_2" tl="0" linkno="7" yield="1" dir="s" state="t"/>
-      <succlane lane="-4_2" tl="0" linkno="8" yield="1" dir="l" state="t" int_end="x"/>
-      <succlane lane="-1_2" tl="0" linkno="9" yield="1" dir="t" state="t" int_end="x"/>
+      <succlane lane="-4_2" tl="0" linkno="8" yield="1" dir="l" state="t"/>
+      <succlane lane="-1_2" tl="0" linkno="9" yield="1" dir="t" state="t"/>
    </succ>
    <succ edge="2" lane="2_0" junction="0">
       <succlane lane="-4_0" tl="0" linkno="14" yield="1" dir="r" state="t"/>
@@ -189,24 +189,24 @@
    </succ>
    <succ edge="2" lane="2_2" junction="0">
       <succlane lane="-1_2" tl="0" linkno="17" yield="1" dir="s" state="t"/>
-      <succlane lane="-3_2" tl="0" linkno="18" yield="1" dir="l" state="t" int_end="x"/>
-      <succlane lane="-2_2" tl="0" linkno="19" yield="1" dir="t" state="t" int_end="x"/>
+      <succlane lane="-3_2" tl="0" linkno="18" yield="1" dir="l" state="t"/>
+      <succlane lane="-2_2" tl="0" linkno="19" yield="1" dir="t" state="t"/>
    </succ>
    <succ edge="3" lane="3_0" junction="0">
       <succlane lane="-2_0" tl="0" linkno="0" yield="1" dir="r" state="t"/>
    </succ>
    <succ edge="3" lane="3_1" junction="0">
       <succlane lane="-4_1" tl="0" linkno="1" yield="1" dir="s" state="t"/>
-      <succlane lane="-1_2" tl="0" linkno="2" yield="1" dir="l" state="t" int_end="x"/>
-      <succlane lane="-3_2" tl="0" linkno="3" yield="1" dir="t" state="t" int_end="x"/>
+      <succlane lane="-1_2" tl="0" linkno="2" yield="1" dir="l" state="t"/>
+      <succlane lane="-3_2" tl="0" linkno="3" yield="1" dir="t" state="t"/>
    </succ>
    <succ edge="4" lane="4_0" junction="0">
       <succlane lane="-1_0" tl="0" linkno="10" yield="1" dir="r" state="t"/>
    </succ>
    <succ edge="4" lane="4_1" junction="0">
       <succlane lane="-3_1" tl="0" linkno="11" yield="1" dir="s" state="t"/>
-      <succlane lane="-2_2" tl="0" linkno="12" yield="1" dir="l" state="t" int_end="x"/>
-      <succlane lane="-4_2" tl="0" linkno="13" yield="1" dir="t" state="t" int_end="x"/>
+      <succlane lane="-2_2" tl="0" linkno="12" yield="1" dir="l" state="t"/>
+      <succlane lane="-4_2" tl="0" linkno="13" yield="1" dir="t" state="t"/>
    </succ>
 
 </net>

@@ -424,7 +424,7 @@
    </succ>
    <succ edge="--33#2" lane="--33#2_1" junction="-26">
       <succlane lane="--33#1_1" via=":-26_1_0" tl="-26" linkno="1" yield="1" dir="s" state="t"/>
-      <succlane lane="-33#2_1" via=":-26_2_0" tl="-26" linkno="2" yield="1" dir="t" state="t" int_end="x"/>
+      <succlane lane="-33#2_1" via=":-26_2_0" tl="-26" linkno="2" yield="1" dir="t" state="t"/>
    </succ>
    <succ edge="--35#1" lane="--35#1_0" junction="-30">
       <succlane lane="-35#0_0" via=":-30_0_0" yield="0" dir="t" state="M"/>
@@ -436,8 +436,8 @@
    <succ edge="--37#1" lane="--37#1_0" junction="-7">
       <succlane lane="--35#1_0" via=":-7_0_0" tl="-7" linkno="0" yield="1" dir="r" state="t"/>
       <succlane lane="--32_0" via=":-7_1_0" tl="-7" linkno="1" yield="1" dir="s" state="t"/>
-      <succlane lane="--37#0_0" via=":-7_2_0" tl="-7" linkno="2" yield="1" dir="l" state="t" int_end="x"/>
-      <succlane lane="-37#1_0" via=":-7_3_0" tl="-7" linkno="3" yield="1" dir="t" state="t" int_end="x"/>
+      <succlane lane="--37#0_0" via=":-7_2_0" tl="-7" linkno="2" yield="1" dir="l" state="t"/>
+      <succlane lane="-37#1_0" via=":-7_3_0" tl="-7" linkno="3" yield="1" dir="t" state="t"/>
    </succ>
    <succ edge="--38#0" lane="--38#0_0" junction="-19">
       <succlane lane="-37#0_0" via=":-19_0_0" yield="0" dir="l" state="M"/>
@@ -451,8 +451,8 @@
    <succ edge="-32" lane="-32_0" junction="-7">
       <succlane lane="--37#0_0" via=":-7_8_0" tl="-7" linkno="8" yield="1" dir="r" state="t"/>
       <succlane lane="-37#1_0" via=":-7_9_0" tl="-7" linkno="9" yield="1" dir="s" state="t"/>
-      <succlane lane="--35#1_0" via=":-7_10_0" tl="-7" linkno="10" yield="1" dir="l" state="t" int_end="x"/>
-      <succlane lane="--32_0" via=":-7_11_0" tl="-7" linkno="11" yield="1" dir="t" state="t" int_end="x"/>
+      <succlane lane="--35#1_0" via=":-7_10_0" tl="-7" linkno="10" yield="1" dir="l" state="t"/>
+      <succlane lane="--32_0" via=":-7_11_0" tl="-7" linkno="11" yield="1" dir="t" state="t"/>
    </succ>
    <succ edge="-33#0" lane="-33#0_0" junction="-15">
       <succlane lane="-33#1_0" via=":-15_7_0" yield="0" dir="s" state="M"/>
@@ -467,7 +467,7 @@
    </succ>
    <succ edge="-33#1" lane="-33#1_1" junction="-26">
       <succlane lane="-33#2_1" via=":-26_4_0" tl="-26" linkno="4" yield="1" dir="s" state="t"/>
-      <succlane lane="--33#1_1" via=":-26_5_0" tl="-26" linkno="5" yield="1" dir="t" state="t" int_end="x"/>
+      <succlane lane="--33#1_1" via=":-26_5_0" tl="-26" linkno="5" yield="1" dir="t" state="t"/>
    </succ>
    <succ edge="-33#2" lane="-33#2_0" junction="-29">
       <succlane lane="SUMO_NO_DESTINATION" tl="-29" linkno="0" yield="1" dir="s" state="O"/>
@@ -478,14 +478,14 @@
    <succ edge="-35#0" lane="-35#0_0" junction="-7">
       <succlane lane="--32_0" via=":-7_12_0" tl="-7" linkno="12" yield="1" dir="r" state="t"/>
       <succlane lane="--37#0_0" via=":-7_13_0" tl="-7" linkno="13" yield="1" dir="s" state="t"/>
-      <succlane lane="-37#1_0" via=":-7_14_0" tl="-7" linkno="14" yield="1" dir="l" state="t" int_end="x"/>
-      <succlane lane="--35#1_0" via=":-7_15_0" tl="-7" linkno="15" yield="1" dir="t" state="t" int_end="x"/>
+      <succlane lane="-37#1_0" via=":-7_14_0" tl="-7" linkno="14" yield="1" dir="l" state="t"/>
+      <succlane lane="--35#1_0" via=":-7_15_0" tl="-7" linkno="15" yield="1" dir="t" state="t"/>
    </succ>
    <succ edge="-37#0" lane="-37#0_0" junction="-7">
       <succlane lane="-37#1_0" via=":-7_4_0" tl="-7" linkno="4" yield="1" dir="r" state="t"/>
       <succlane lane="--35#1_0" via=":-7_5_0" tl="-7" linkno="5" yield="1" dir="s" state="t"/>
-      <succlane lane="--32_0" via=":-7_6_0" tl="-7" linkno="6" yield="1" dir="l" state="t" int_end="x"/>
-      <succlane lane="--37#0_0" via=":-7_7_0" tl="-7" linkno="7" yield="1" dir="t" state="t" int_end="x"/>
+      <succlane lane="--32_0" via=":-7_6_0" tl="-7" linkno="6" yield="1" dir="l" state="t"/>
+      <succlane lane="--37#0_0" via=":-7_7_0" tl="-7" linkno="7" yield="1" dir="t" state="t"/>
    </succ>
    <succ edge="-37#1" lane="-37#1_0" junction="-9">
       <succlane lane="--37#1_0" via=":-9_0_0" yield="0" dir="t" state="M"/>

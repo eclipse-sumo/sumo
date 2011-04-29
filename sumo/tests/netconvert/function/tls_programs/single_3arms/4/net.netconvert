@@ -141,13 +141,13 @@
       <succlane lane="900000001_0" via=":15031669_4_0" tl="15031669" linkno="4" yield="1" dir="s" state="t"/>
    </succ>
    <succ edge="-15035564" lane="-15035564_1" junction="15031669">
-      <succlane lane="15032917_1" via=":15031669_5_0" tl="15031669" linkno="5" yield="1" dir="l" state="t" int_end="x"/>
-      <succlane lane="15035564_1" via=":15031669_6_0" tl="15031669" linkno="6" yield="1" dir="t" state="t" int_end="x"/>
+      <succlane lane="15032917_1" via=":15031669_5_0" tl="15031669" linkno="5" yield="1" dir="l" state="t"/>
+      <succlane lane="15035564_1" via=":15031669_6_0" tl="15031669" linkno="6" yield="1" dir="t" state="t"/>
    </succ>
    <succ edge="-900000001" lane="-900000001_0" junction="15031669">
       <succlane lane="15032917_0" via=":15031669_7_0" tl="15031669" linkno="7" yield="1" dir="r" state="t"/>
       <succlane lane="15035564_0" via=":15031669_8_0" tl="15031669" linkno="8" yield="1" dir="s" state="t"/>
-      <succlane lane="900000001_0" via=":15031669_9_0" tl="15031669" linkno="9" yield="1" dir="t" state="t" int_end="x"/>
+      <succlane lane="900000001_0" via=":15031669_9_0" tl="15031669" linkno="9" yield="1" dir="t" state="t"/>
    </succ>
    <succ edge="15031630" lane="15031630_0" junction="15031669">
       <succlane lane="900000001_0" via=":15031669_0_0" tl="15031669" linkno="0" yield="1" dir="r" state="t"/>
@@ -155,7 +155,7 @@
    </succ>
    <succ edge="15031630" lane="15031630_1" junction="15031669">
       <succlane lane="15032917_1" via=":15031669_2_0" tl="15031669" linkno="2" yield="1" dir="s" state="t"/>
-      <succlane lane="15035564_1" via=":15031669_3_0" tl="15031669" linkno="3" yield="1" dir="l" state="t" int_end="x"/>
+      <succlane lane="15035564_1" via=":15031669_3_0" tl="15031669" linkno="3" yield="1" dir="l" state="t"/>
    </succ>
    <succ edge="15032917" lane="15032917_0" junction="15031635">
       <succlane lane="SUMO_NO_DESTINATION" yield="1" dir="s" state="O"/>

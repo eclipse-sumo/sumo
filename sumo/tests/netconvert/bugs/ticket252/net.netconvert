@@ -459,7 +459,7 @@
    </succ>
    <succ edge="6040380" lane="6040380_0" junction="49613631">
       <succlane lane="-6033364#0_0" via=":49613631_0_0" yield="0" dir="r" state="="/>
-      <succlane lane="6033364#1_0" via=":49613631_1_0" yield="1" dir="l" state="=" int_end="x"/>
+      <succlane lane="6033364#1_0" via=":49613631_1_0" yield="1" dir="l" state="="/>
    </succ>
 
    <succ edge=":29933572_0" lane=":29933572_0_0" junction="29933572">

@@ -166,7 +166,7 @@
    </succ>
    <succ edge="1" lane="1_2" junction="0">
       <succlane lane="-2_2" yield="0" dir="s" state="M"/>
-      <succlane lane="-4_2" yield="1" dir="l" state="m" int_end="x"/>
+      <succlane lane="-4_2" yield="1" dir="l" state="m"/>
       <succlane lane="-1_2" yield="1" dir="t" state="m"/>
    </succ>
    <succ edge="2" lane="2_0" junction="0">
@@ -178,7 +178,7 @@
    </succ>
    <succ edge="2" lane="2_2" junction="0">
       <succlane lane="-1_2" yield="0" dir="s" state="M"/>
-      <succlane lane="-3_2" yield="1" dir="l" state="m" int_end="x"/>
+      <succlane lane="-3_2" yield="1" dir="l" state="m"/>
       <succlane lane="-2_2" yield="1" dir="t" state="m"/>
    </succ>
    <succ edge="3" lane="3_0" junction="0">

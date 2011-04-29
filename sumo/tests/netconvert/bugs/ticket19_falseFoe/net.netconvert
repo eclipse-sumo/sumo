@@ -122,25 +122,25 @@
 
    <succ edge="-1570" lane="-1570_0" junction="6365">
       <succlane lane="1839_0" via=":6365_4_0" tl="6365" linkno="4" yield="1" dir="r" state="t"/>
-      <succlane lane="-1841_0" via=":6365_5_0" tl="6365" linkno="5" yield="1" dir="l" state="t" int_end="x"/>
+      <succlane lane="-1841_0" via=":6365_5_0" tl="6365" linkno="5" yield="1" dir="l" state="t"/>
    </succ>
    <succ edge="-1839" lane="-1839_0" junction="6365">
       <succlane lane="-1841_0" via=":6365_2_0" tl="6365" linkno="2" yield="1" dir="s" state="t"/>
-      <succlane lane="1839_0" via=":6365_3_0" tl="6365" linkno="3" yield="1" dir="t" state="t" int_end="x"/>
+      <succlane lane="1839_0" via=":6365_3_0" tl="6365" linkno="3" yield="1" dir="t" state="t"/>
    </succ>
    <succ edge="-1841" lane="-1841_0" junction="6562">
       <succlane lane="1841_0" via=":6562_0_0" yield="0" dir="t" state="M"/>
    </succ>
    <succ edge="1816" lane="1816_0" junction="6365">
       <succlane lane="-1841_0" via=":6365_0_0" tl="6365" linkno="0" yield="1" dir="r" state="t"/>
-      <succlane lane="1839_0" via=":6365_1_0" tl="6365" linkno="1" yield="1" dir="l" state="t" int_end="x"/>
+      <succlane lane="1839_0" via=":6365_1_0" tl="6365" linkno="1" yield="1" dir="l" state="t"/>
    </succ>
    <succ edge="1839" lane="1839_0" junction="6454">
       <succlane lane="-1839_0" via=":6454_0_0" yield="0" dir="t" state="M"/>
    </succ>
    <succ edge="1841" lane="1841_0" junction="6365">
       <succlane lane="1839_0" via=":6365_6_0" tl="6365" linkno="6" yield="1" dir="s" state="t"/>
-      <succlane lane="-1841_0" via=":6365_7_0" tl="6365" linkno="7" yield="1" dir="t" state="t" int_end="x"/>
+      <succlane lane="-1841_0" via=":6365_7_0" tl="6365" linkno="7" yield="1" dir="t" state="t"/>
    </succ>
 
    <succ edge=":6365_0" lane=":6365_0_0" junction="6365">

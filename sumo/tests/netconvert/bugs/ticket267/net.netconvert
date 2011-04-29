@@ -265,7 +265,7 @@
       <succlane lane="2o_0" via=":0_4_0" yield="0" dir="r" state="M"/>
    </succ>
    <succ edge="3si" lane="3si_1" junction="0">
-      <succlane lane="1o_0" via=":0_5_0" yield="1" dir="l" state="m" int_end="x"/>
+      <succlane lane="1o_0" via=":0_5_0" yield="1" dir="l" state="m"/>
    </succ>
    <succ edge="3si" lane="3si_2" junction="0">
       <succlane lane="3o_0" via=":0_6_0" yield="1" dir="t" state="m"/>
@@ -284,7 +284,7 @@
       <succlane lane="3o_0" via=":0_1_0" yield="0" dir="s" state="M"/>
    </succ>
    <succ edge="4si" lane="4si_2" junction="0">
-      <succlane lane="2o_0" via=":0_2_0" yield="1" dir="l" state="m" int_end="x"/>
+      <succlane lane="2o_0" via=":0_2_0" yield="1" dir="l" state="m"/>
    </succ>
 
    <succ edge=":0_0" lane=":0_0_0" junction="0">

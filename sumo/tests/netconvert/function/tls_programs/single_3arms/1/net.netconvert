@@ -142,13 +142,13 @@
    </succ>
    <succ edge="e13" lane="e13_0" junction="n1">
       <succlane lane="e1_0" via=":n1_0_0" tl="n1" linkno="0" yield="1" dir="r" state="t"/>
-      <succlane lane="e15_0" via=":n1_1_0" tl="n1" linkno="1" yield="1" dir="l" state="t" int_end="x"/>
-      <succlane lane="e16_0" via=":n1_2_0" tl="n1" linkno="2" yield="1" dir="t" state="t" int_end="x"/>
+      <succlane lane="e15_0" via=":n1_1_0" tl="n1" linkno="1" yield="1" dir="l" state="t"/>
+      <succlane lane="e16_0" via=":n1_2_0" tl="n1" linkno="2" yield="1" dir="t" state="t"/>
    </succ>
    <succ edge="e14" lane="e14_0" junction="n1">
       <succlane lane="e16_0" via=":n1_3_0" tl="n1" linkno="3" yield="1" dir="r" state="t"/>
       <succlane lane="e1_0" via=":n1_4_0" tl="n1" linkno="4" yield="1" dir="s" state="t"/>
-      <succlane lane="e15_0" via=":n1_5_0" tl="n1" linkno="5" yield="1" dir="t" state="t" int_end="x"/>
+      <succlane lane="e15_0" via=":n1_5_0" tl="n1" linkno="5" yield="1" dir="t" state="t"/>
    </succ>
    <succ edge="e15" lane="e15_0" junction="n6">
       <succlane lane="e14_0" via=":n6_0_0" yield="0" dir="t" state="M"/>
@@ -158,8 +158,8 @@
    </succ>
    <succ edge="e2" lane="e2_0" junction="n1">
       <succlane lane="e15_0" via=":n1_6_0" tl="n1" linkno="6" yield="1" dir="s" state="t"/>
-      <succlane lane="e16_0" via=":n1_7_0" tl="n1" linkno="7" yield="1" dir="l" state="t" int_end="x"/>
-      <succlane lane="e1_0" via=":n1_8_0" tl="n1" linkno="8" yield="1" dir="t" state="t" int_end="x"/>
+      <succlane lane="e16_0" via=":n1_7_0" tl="n1" linkno="7" yield="1" dir="l" state="t"/>
+      <succlane lane="e1_0" via=":n1_8_0" tl="n1" linkno="8" yield="1" dir="t" state="t"/>
    </succ>
 
    <succ edge=":n1_0" lane=":n1_0_0" junction="n1">
