@@ -79,30 +79,30 @@
    <junction id="y" type="priority" x="8000.00" y="1000.00" incLanes="by_0 xy_0" intLanes="" shape="8006.02,996.93 8004.59,994.07 8003.25,993.24 8000.05,993.24 7998.55,996.75 7998.55,999.95"/>
 
    <succ edge="ab" lane="ab_0" junction="b">
-      <succlane lane="bd_0" yield="0" dir="s" state="M"/>
-      <succlane lane="by_0" yield="0" dir="l" state="M"/>
+      <succlane lane="bd_0" dir="s" state="M"/>
+      <succlane lane="by_0" dir="l" state="M"/>
    </succ>
    <succ edge="ax" lane="ax_0" junction="x">
-      <succlane lane="xy_0" yield="0" dir="r" state="M"/>
+      <succlane lane="xy_0" dir="r" state="M"/>
    </succ>
    <succ edge="bd" lane="bd_0" junction="d">
-      <succlane lane="SUMO_NO_DESTINATION" yield="1" dir="s" state="O"/>
+      <succlane lane="SUMO_NO_DESTINATION" dir="s" state="O"/>
    </succ>
    <succ edge="by" lane="by_0" junction="y">
-      <succlane lane="yd_0" yield="0" dir="r" state="M"/>
+      <succlane lane="yd_0" dir="r" state="M"/>
    </succ>
    <succ edge="oa" lane="oa_0" junction="a">
-      <succlane lane="ab_0" yield="0" dir="s" state="M"/>
-      <succlane lane="ax_0" yield="0" dir="l" state="M"/>
+      <succlane lane="ab_0" dir="s" state="M"/>
+      <succlane lane="ax_0" dir="l" state="M"/>
    </succ>
    <succ edge="ox" lane="ox_0" junction="x">
-      <succlane lane="xy_0" yield="1" dir="s" state="m"/>
+      <succlane lane="xy_0" dir="s" state="m"/>
    </succ>
    <succ edge="xy" lane="xy_0" junction="y">
-      <succlane lane="yd_0" yield="1" dir="s" state="m"/>
+      <succlane lane="yd_0" dir="s" state="m"/>
    </succ>
    <succ edge="yd" lane="yd_0" junction="d">
-      <succlane lane="SUMO_NO_DESTINATION" yield="1" dir="s" state="O"/>
+      <succlane lane="SUMO_NO_DESTINATION" dir="s" state="O"/>
    </succ>
 
 </net>

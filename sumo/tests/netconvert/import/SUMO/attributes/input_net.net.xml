@@ -71,41 +71,41 @@
    <junction id="node_right" type="priority" x="40.00" y="0.00" incLanes="reverse_edge_0 reverse_edge_1 reverse_edge_2" intLanes=":node_right_0_0 :node_right_1_0 :node_right_2_0" shape="40.04,0.04 46.97,6.97 40.00,-9.85 40.00,-0.05"/>
 
    <succ edge="edge_with_shape" lane="edge_with_shape_0" junction="node_left">
-      <succlane lane="reverse_edge_0" via=":node_left_0_0" yield="0" dir="t" state="M"/>
+      <succlane lane="reverse_edge_0" via=":node_left_0_0" dir="t" state="M"/>
    </succ>
    <succ edge="edge_with_shape" lane="edge_with_shape_1" junction="node_left">
-      <succlane lane="reverse_edge_1" via=":node_left_1_0" yield="0" dir="t" state="M"/>
+      <succlane lane="reverse_edge_1" via=":node_left_1_0" dir="t" state="M"/>
    </succ>
    <succ edge="edge_with_shape" lane="edge_with_shape_2" junction="node_left">
-      <succlane lane="reverse_edge_2" via=":node_left_2_0" yield="0" dir="t" state="M"/>
+      <succlane lane="reverse_edge_2" via=":node_left_2_0" dir="t" state="M"/>
    </succ>
    <succ edge="reverse_edge" lane="reverse_edge_0" junction="node_right">
-      <succlane lane="edge_with_shape_0" via=":node_right_0_0" yield="0" dir="t" state="M"/>
+      <succlane lane="edge_with_shape_0" via=":node_right_0_0" dir="t" state="M"/>
    </succ>
    <succ edge="reverse_edge" lane="reverse_edge_1" junction="node_right">
-      <succlane lane="edge_with_shape_1" via=":node_right_1_0" yield="0" dir="t" state="M"/>
+      <succlane lane="edge_with_shape_1" via=":node_right_1_0" dir="t" state="M"/>
    </succ>
    <succ edge="reverse_edge" lane="reverse_edge_2" junction="node_right">
-      <succlane lane="edge_with_shape_2" via=":node_right_2_0" yield="0" dir="t" state="M"/>
+      <succlane lane="edge_with_shape_2" via=":node_right_2_0" dir="t" state="M"/>
    </succ>
 
    <succ edge=":node_left_0" lane=":node_left_0_0" junction="node_left">
-      <succlane lane="reverse_edge_0" tl="" linkno="" yield="0" dir="s" state="M"/>
+      <succlane lane="reverse_edge_0" tl="" linkno="" dir="s" state="M"/>
    </succ>
    <succ edge=":node_left_1" lane=":node_left_1_0" junction="node_left">
-      <succlane lane="reverse_edge_1" tl="" linkno="" yield="0" dir="s" state="M"/>
+      <succlane lane="reverse_edge_1" tl="" linkno="" dir="s" state="M"/>
    </succ>
    <succ edge=":node_left_2" lane=":node_left_2_0" junction="node_left">
-      <succlane lane="reverse_edge_2" tl="" linkno="" yield="0" dir="s" state="M"/>
+      <succlane lane="reverse_edge_2" tl="" linkno="" dir="s" state="M"/>
    </succ>
    <succ edge=":node_right_0" lane=":node_right_0_0" junction="node_right">
-      <succlane lane="edge_with_shape_0" tl="" linkno="" yield="0" dir="s" state="M"/>
+      <succlane lane="edge_with_shape_0" tl="" linkno="" dir="s" state="M"/>
    </succ>
    <succ edge=":node_right_1" lane=":node_right_1_0" junction="node_right">
-      <succlane lane="edge_with_shape_1" tl="" linkno="" yield="0" dir="s" state="M"/>
+      <succlane lane="edge_with_shape_1" tl="" linkno="" dir="s" state="M"/>
    </succ>
    <succ edge=":node_right_2" lane=":node_right_2_0" junction="node_right">
-      <succlane lane="edge_with_shape_2" tl="" linkno="" yield="0" dir="s" state="M"/>
+      <succlane lane="edge_with_shape_2" tl="" linkno="" dir="s" state="M"/>
    </succ>
 
 </net>

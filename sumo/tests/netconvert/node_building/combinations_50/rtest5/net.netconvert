@@ -85,51 +85,51 @@
    <junction id="4" type="priority" x="50.00" y="100.00" incLanes="4o_0" intLanes=":4_0_0" shape="49.95,100.00 46.75,100.00 53.25,100.00 50.05,100.00"/>
 
    <succ edge="1o" lane="1o_0" junction="1">
-      <succlane lane="SUMO_NO_DESTINATION" yield="1" dir="s" state="O"/>
+      <succlane lane="SUMO_NO_DESTINATION" dir="s" state="O"/>
    </succ>
    <succ edge="1o" lane="1o_1" junction="1">
-      <succlane lane="SUMO_NO_DESTINATION" yield="1" dir="s" state="O"/>
+      <succlane lane="SUMO_NO_DESTINATION" dir="s" state="O"/>
    </succ>
    <succ edge="3i" lane="3i_0" junction="0">
-      <succlane lane="4o_0" via=":0_3_0" yield="0" dir="s" state="M"/>
-      <succlane lane="1o_1" via=":0_4_0" yield="1" dir="l" state="m"/>
-      <succlane lane="3o_0" via=":0_5_0" yield="1" dir="t" state="m"/>
+      <succlane lane="4o_0" via=":0_3_0" dir="s" state="M"/>
+      <succlane lane="1o_1" via=":0_4_0" dir="l" state="m"/>
+      <succlane lane="3o_0" via=":0_5_0" dir="t" state="m"/>
    </succ>
    <succ edge="3o" lane="3o_0" junction="3">
-      <succlane lane="3i_0" via=":3_0_0" yield="0" dir="t" state="M"/>
+      <succlane lane="3i_0" via=":3_0_0" dir="t" state="M"/>
    </succ>
    <succ edge="4i" lane="4i_0" junction="0">
-      <succlane lane="1o_0" via=":0_0_0" yield="0" dir="r" state="M"/>
-      <succlane lane="3o_0" via=":0_1_0" yield="0" dir="s" state="M"/>
-      <succlane lane="4o_0" via=":0_2_0" yield="1" dir="t" state="m"/>
+      <succlane lane="1o_0" via=":0_0_0" dir="r" state="M"/>
+      <succlane lane="3o_0" via=":0_1_0" dir="s" state="M"/>
+      <succlane lane="4o_0" via=":0_2_0" dir="t" state="m"/>
    </succ>
    <succ edge="4o" lane="4o_0" junction="4">
-      <succlane lane="4i_0" via=":4_0_0" yield="0" dir="t" state="M"/>
+      <succlane lane="4i_0" via=":4_0_0" dir="t" state="M"/>
    </succ>
 
    <succ edge=":0_0" lane=":0_0_0" junction="0">
-      <succlane lane="1o_0" tl="" linkno="" yield="0" dir="s" state="M"/>
+      <succlane lane="1o_0" tl="" linkno="" dir="s" state="M"/>
    </succ>
    <succ edge=":0_1" lane=":0_1_0" junction="0">
-      <succlane lane="3o_0" tl="" linkno="" yield="0" dir="s" state="M"/>
+      <succlane lane="3o_0" tl="" linkno="" dir="s" state="M"/>
    </succ>
    <succ edge=":0_2" lane=":0_2_0" junction="0">
-      <succlane lane="4o_0" tl="" linkno="" yield="0" dir="s" state="M"/>
+      <succlane lane="4o_0" tl="" linkno="" dir="s" state="M"/>
    </succ>
    <succ edge=":0_3" lane=":0_3_0" junction="0">
-      <succlane lane="4o_0" tl="" linkno="" yield="0" dir="s" state="M"/>
+      <succlane lane="4o_0" tl="" linkno="" dir="s" state="M"/>
    </succ>
    <succ edge=":0_4" lane=":0_4_0" junction="0">
-      <succlane lane="1o_1" tl="" linkno="" yield="0" dir="s" state="M"/>
+      <succlane lane="1o_1" tl="" linkno="" dir="s" state="M"/>
    </succ>
    <succ edge=":0_5" lane=":0_5_0" junction="0">
-      <succlane lane="3o_0" tl="" linkno="" yield="0" dir="s" state="M"/>
+      <succlane lane="3o_0" tl="" linkno="" dir="s" state="M"/>
    </succ>
    <succ edge=":3_0" lane=":3_0_0" junction="3">
-      <succlane lane="3i_0" tl="" linkno="" yield="0" dir="s" state="M"/>
+      <succlane lane="3i_0" tl="" linkno="" dir="s" state="M"/>
    </succ>
    <succ edge=":4_0" lane=":4_0_0" junction="4">
-      <succlane lane="4i_0" tl="" linkno="" yield="0" dir="s" state="M"/>
+      <succlane lane="4i_0" tl="" linkno="" dir="s" state="M"/>
    </succ>
 
 </net>

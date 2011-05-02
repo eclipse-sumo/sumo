@@ -74,30 +74,30 @@
    <junction id="91" type="DEAD_END" x="0.00" y="50.00" incLanes="" intLanes="" shape="0.00,49.95 0.00,46.75"/>
 
    <succ edge="1to21" lane="1to21_0" junction="2">
-      <succlane lane="out_0" via=":2_0_0" tl="2" linkno="0" yield="1" dir="s" state="t"/>
+      <succlane lane="out_0" via=":2_0_0" tl="2" linkno="0" dir="s" state="t"/>
    </succ>
    <succ edge="1to22" lane="1to22_0" junction="2">
-      <succlane lane="out_0" via=":2_1_0" tl="2" linkno="1" yield="1" dir="s" state="t"/>
+      <succlane lane="out_0" via=":2_1_0" tl="2" linkno="1" dir="s" state="t"/>
    </succ>
    <succ edge="91to1" lane="91to1_0" junction="1">
-      <succlane lane="1to21_0" via=":1_0_0" yield="0" dir="s" state="M"/>
-      <succlane lane="1to22_0" via=":1_1_0" yield="0" dir="s" state="M"/>
+      <succlane lane="1to21_0" via=":1_0_0" dir="s" state="M"/>
+      <succlane lane="1to22_0" via=":1_1_0" dir="s" state="M"/>
    </succ>
    <succ edge="out" lane="out_0" junction="3">
-      <succlane lane="SUMO_NO_DESTINATION" yield="1" dir="s" state="O"/>
+      <succlane lane="SUMO_NO_DESTINATION" dir="s" state="O"/>
    </succ>
 
    <succ edge=":1_0" lane=":1_0_0" junction="1">
-      <succlane lane="1to21_0" tl="" linkno="" yield="0" dir="s" state="M"/>
+      <succlane lane="1to21_0" tl="" linkno="" dir="s" state="M"/>
    </succ>
    <succ edge=":1_1" lane=":1_1_0" junction="1">
-      <succlane lane="1to22_0" tl="" linkno="" yield="0" dir="s" state="M"/>
+      <succlane lane="1to22_0" tl="" linkno="" dir="s" state="M"/>
    </succ>
    <succ edge=":2_0" lane=":2_0_0" junction="2">
-      <succlane lane="out_0" tl="" linkno="" yield="0" dir="s" state="M"/>
+      <succlane lane="out_0" tl="" linkno="" dir="s" state="M"/>
    </succ>
    <succ edge=":2_1" lane=":2_1_0" junction="2">
-      <succlane lane="out_0" tl="" linkno="" yield="0" dir="s" state="M"/>
+      <succlane lane="out_0" tl="" linkno="" dir="s" state="M"/>
    </succ>
 
 </net>

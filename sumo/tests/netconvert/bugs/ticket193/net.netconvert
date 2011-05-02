@@ -37,7 +37,7 @@
    <junction id="1" type="DEAD_END" x="500.00" y="0.00" incLanes="" intLanes="" shape="500.00,0.05 500.00,3.25"/>
 
    <succ edge="1o" lane="1o_0" junction="0">
-      <succlane lane="SUMO_NO_DESTINATION" tl="0" linkno="0" yield="1" dir="s" state="O"/>
+      <succlane lane="SUMO_NO_DESTINATION" tl="0" linkno="0" dir="s" state="O"/>
    </succ>
 
 </net>

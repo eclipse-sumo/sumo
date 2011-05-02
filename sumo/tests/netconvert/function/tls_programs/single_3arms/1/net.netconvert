@@ -138,80 +138,80 @@
    <junction id=":n1_13_0" type="internal" x="85.69" y="69.16" incLanes=":n1_8_0 e14_0" intLanes=":n1_4_0" shape=""/>
 
    <succ edge="e1" lane="e1_0" junction="n8">
-      <succlane lane="e2_0" via=":n8_0_0" yield="0" dir="t" state="M"/>
+      <succlane lane="e2_0" via=":n8_0_0" dir="t" state="M"/>
    </succ>
    <succ edge="e13" lane="e13_0" junction="n1">
-      <succlane lane="e1_0" via=":n1_0_0" tl="n1" linkno="0" yield="1" dir="r" state="t"/>
-      <succlane lane="e15_0" via=":n1_1_0" tl="n1" linkno="1" yield="1" dir="l" state="t"/>
-      <succlane lane="e16_0" via=":n1_2_0" tl="n1" linkno="2" yield="1" dir="t" state="t"/>
+      <succlane lane="e1_0" via=":n1_0_0" tl="n1" linkno="0" dir="r" state="t"/>
+      <succlane lane="e15_0" via=":n1_1_0" tl="n1" linkno="1" dir="l" state="t"/>
+      <succlane lane="e16_0" via=":n1_2_0" tl="n1" linkno="2" dir="t" state="t"/>
    </succ>
    <succ edge="e14" lane="e14_0" junction="n1">
-      <succlane lane="e16_0" via=":n1_3_0" tl="n1" linkno="3" yield="1" dir="r" state="t"/>
-      <succlane lane="e1_0" via=":n1_4_0" tl="n1" linkno="4" yield="1" dir="s" state="t"/>
-      <succlane lane="e15_0" via=":n1_5_0" tl="n1" linkno="5" yield="1" dir="t" state="t"/>
+      <succlane lane="e16_0" via=":n1_3_0" tl="n1" linkno="3" dir="r" state="t"/>
+      <succlane lane="e1_0" via=":n1_4_0" tl="n1" linkno="4" dir="s" state="t"/>
+      <succlane lane="e15_0" via=":n1_5_0" tl="n1" linkno="5" dir="t" state="t"/>
    </succ>
    <succ edge="e15" lane="e15_0" junction="n6">
-      <succlane lane="e14_0" via=":n6_0_0" yield="0" dir="t" state="M"/>
+      <succlane lane="e14_0" via=":n6_0_0" dir="t" state="M"/>
    </succ>
    <succ edge="e16" lane="e16_0" junction="n5">
-      <succlane lane="e13_0" via=":n5_0_0" yield="0" dir="t" state="M"/>
+      <succlane lane="e13_0" via=":n5_0_0" dir="t" state="M"/>
    </succ>
    <succ edge="e2" lane="e2_0" junction="n1">
-      <succlane lane="e15_0" via=":n1_6_0" tl="n1" linkno="6" yield="1" dir="s" state="t"/>
-      <succlane lane="e16_0" via=":n1_7_0" tl="n1" linkno="7" yield="1" dir="l" state="t"/>
-      <succlane lane="e1_0" via=":n1_8_0" tl="n1" linkno="8" yield="1" dir="t" state="t"/>
+      <succlane lane="e15_0" via=":n1_6_0" tl="n1" linkno="6" dir="s" state="t"/>
+      <succlane lane="e16_0" via=":n1_7_0" tl="n1" linkno="7" dir="l" state="t"/>
+      <succlane lane="e1_0" via=":n1_8_0" tl="n1" linkno="8" dir="t" state="t"/>
    </succ>
 
    <succ edge=":n1_0" lane=":n1_0_0" junction="n1">
-      <succlane lane="e1_0" tl="" linkno="" yield="0" dir="s" state="M"/>
+      <succlane lane="e1_0" tl="" linkno="" dir="s" state="M"/>
    </succ>
    <succ edge=":n1_1" lane=":n1_1_0" junction="n1">
-      <succlane lane="e15_0" via=":n1_9_0" tl="" linkno="" yield="1" dir="s" state="M"/>
+      <succlane lane="e15_0" via=":n1_9_0" tl="" linkno="" dir="s" state="M"/>
    </succ>
    <succ edge=":n1_9" lane=":n1_9_0" junction=":n1_9">
-      <succlane lane="e15_0" tl="" linkno="0" yield="0" dir="s" state="M"/>
+      <succlane lane="e15_0" tl="" linkno="0" dir="s" state="M"/>
    </succ>
    <succ edge=":n1_2" lane=":n1_2_0" junction="n1">
-      <succlane lane="e16_0" via=":n1_10_0" tl="" linkno="" yield="1" dir="s" state="M"/>
+      <succlane lane="e16_0" via=":n1_10_0" tl="" linkno="" dir="s" state="M"/>
    </succ>
    <succ edge=":n1_10" lane=":n1_10_0" junction=":n1_10">
-      <succlane lane="e16_0" tl="" linkno="0" yield="0" dir="s" state="M"/>
+      <succlane lane="e16_0" tl="" linkno="0" dir="s" state="M"/>
    </succ>
    <succ edge=":n1_3" lane=":n1_3_0" junction="n1">
-      <succlane lane="e16_0" tl="" linkno="" yield="0" dir="s" state="M"/>
+      <succlane lane="e16_0" tl="" linkno="" dir="s" state="M"/>
    </succ>
    <succ edge=":n1_4" lane=":n1_4_0" junction="n1">
-      <succlane lane="e1_0" tl="" linkno="" yield="0" dir="s" state="M"/>
+      <succlane lane="e1_0" tl="" linkno="" dir="s" state="M"/>
    </succ>
    <succ edge=":n1_5" lane=":n1_5_0" junction="n1">
-      <succlane lane="e15_0" via=":n1_11_0" tl="" linkno="" yield="1" dir="s" state="M"/>
+      <succlane lane="e15_0" via=":n1_11_0" tl="" linkno="" dir="s" state="M"/>
    </succ>
    <succ edge=":n1_11" lane=":n1_11_0" junction=":n1_11">
-      <succlane lane="e15_0" tl="" linkno="0" yield="0" dir="s" state="M"/>
+      <succlane lane="e15_0" tl="" linkno="0" dir="s" state="M"/>
    </succ>
    <succ edge=":n1_6" lane=":n1_6_0" junction="n1">
-      <succlane lane="e15_0" tl="" linkno="" yield="0" dir="s" state="M"/>
+      <succlane lane="e15_0" tl="" linkno="" dir="s" state="M"/>
    </succ>
    <succ edge=":n1_7" lane=":n1_7_0" junction="n1">
-      <succlane lane="e16_0" via=":n1_12_0" tl="" linkno="" yield="1" dir="s" state="M"/>
+      <succlane lane="e16_0" via=":n1_12_0" tl="" linkno="" dir="s" state="M"/>
    </succ>
    <succ edge=":n1_12" lane=":n1_12_0" junction=":n1_12">
-      <succlane lane="e16_0" tl="" linkno="0" yield="0" dir="s" state="M"/>
+      <succlane lane="e16_0" tl="" linkno="0" dir="s" state="M"/>
    </succ>
    <succ edge=":n1_8" lane=":n1_8_0" junction="n1">
-      <succlane lane="e1_0" via=":n1_13_0" tl="" linkno="" yield="1" dir="s" state="M"/>
+      <succlane lane="e1_0" via=":n1_13_0" tl="" linkno="" dir="s" state="M"/>
    </succ>
    <succ edge=":n1_13" lane=":n1_13_0" junction=":n1_13">
-      <succlane lane="e1_0" tl="" linkno="0" yield="0" dir="s" state="M"/>
+      <succlane lane="e1_0" tl="" linkno="0" dir="s" state="M"/>
    </succ>
    <succ edge=":n5_0" lane=":n5_0_0" junction="n5">
-      <succlane lane="e13_0" tl="" linkno="" yield="0" dir="s" state="M"/>
+      <succlane lane="e13_0" tl="" linkno="" dir="s" state="M"/>
    </succ>
    <succ edge=":n6_0" lane=":n6_0_0" junction="n6">
-      <succlane lane="e14_0" tl="" linkno="" yield="0" dir="s" state="M"/>
+      <succlane lane="e14_0" tl="" linkno="" dir="s" state="M"/>
    </succ>
    <succ edge=":n8_0" lane=":n8_0_0" junction="n8">
-      <succlane lane="e2_0" tl="" linkno="" yield="0" dir="s" state="M"/>
+      <succlane lane="e2_0" tl="" linkno="" dir="s" state="M"/>
    </succ>
 
 </net>

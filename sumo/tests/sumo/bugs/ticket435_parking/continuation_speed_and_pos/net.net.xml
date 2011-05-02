@@ -41,11 +41,11 @@
    <junction id="3" type="DEAD_END" x="6.00" y="0.00" incLanes="out_0" intLanes="" shape="6.00,-3.25 6.00,-0.05"/>
 
    <succ edge="1to2" lane="1to2_0" junction="2">
-      <succlane lane="out_0" yield="0" dir="s" state="M"/>
+      <succlane lane="out_0" dir="s" state="M"/>
    </succ>
 
    <succ edge="out" lane="out_0" junction="3">
-      <succlane lane="SUMO_NO_DESTINATION" yield="1" dir="s" state="O"/>
+      <succlane lane="SUMO_NO_DESTINATION" dir="s" state="O"/>
    </succ>
 
 </net>

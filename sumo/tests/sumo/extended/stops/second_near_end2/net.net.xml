@@ -47,27 +47,27 @@
    <junction id="end" type="DEAD_END" x="1000.00" y="0.00" incLanes="end_0 end_1 end_2" intLanes="" shape="1000.00,-9.85 1000.00,-0.05"/>
 
    <succ edge="beg" lane="beg_0" junction="center">
-      <succlane lane="end_0" yield="0" dir="s" state="M"/>
+      <succlane lane="end_0" dir="s" state="M"/>
    </succ>
 
    <succ edge="beg" lane="beg_1" junction="center">
-      <succlane lane="SUMO_NO_DESTINATION" yield="1" dir="s" state="O"/>
+      <succlane lane="SUMO_NO_DESTINATION" dir="s" state="O"/>
    </succ>
 
    <succ edge="beg" lane="beg_2" junction="center">
-      <succlane lane="SUMO_NO_DESTINATION" yield="1" dir="s" state="O"/>
+      <succlane lane="SUMO_NO_DESTINATION" dir="s" state="O"/>
    </succ>
 
    <succ edge="end" lane="end_0" junction="end">
-      <succlane lane="SUMO_NO_DESTINATION" yield="1" dir="s" state="O"/>
+      <succlane lane="SUMO_NO_DESTINATION" dir="s" state="O"/>
    </succ>
 
    <succ edge="end" lane="end_1" junction="end">
-      <succlane lane="SUMO_NO_DESTINATION" yield="1" dir="s" state="O"/>
+      <succlane lane="SUMO_NO_DESTINATION" dir="s" state="O"/>
    </succ>
 
    <succ edge="end" lane="end_2" junction="end">
-      <succlane lane="SUMO_NO_DESTINATION" yield="1" dir="s" state="O"/>
+      <succlane lane="SUMO_NO_DESTINATION" dir="s" state="O"/>
    </succ>
 
 </net>

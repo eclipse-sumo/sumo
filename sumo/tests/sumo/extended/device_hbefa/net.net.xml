@@ -93,41 +93,41 @@
    <junction id="endright" type="priority" x="100.00" y="600.00" incLanes="right_0" intLanes="" shape="100.25,603.25 103.25,600.25 103.25,603.25 100.25,603.25"/>
 
    <succ edge="beg" lane="beg_0" junction="beg">
-      <succlane lane="beg2right_0" via=":beg_0_0" yield="0" dir="r" state="M"/>
-      <succlane lane="middle_0" via=":beg_1_0" yield="0" dir="s" state="M"/>
-      <succlane lane="beg2left_0" via=":beg_2_0" yield="0" dir="l" state="M"/>
+      <succlane lane="beg2right_0" via=":beg_0_0" dir="r" state="M"/>
+      <succlane lane="middle_0" via=":beg_1_0" dir="s" state="M"/>
+      <succlane lane="beg2left_0" via=":beg_2_0" dir="l" state="M"/>
    </succ>
 
    <succ edge="beg2left" lane="beg2left_0" junction="begleft">
-      <succlane lane="left_0" via=":begleft_0_0" yield="0" dir="r" state="M"/>
+      <succlane lane="left_0" via=":begleft_0_0" dir="r" state="M"/>
    </succ>
 
    <succ edge="beg2right" lane="beg2right_0" junction="begright">
-      <succlane lane="right_0" via=":begright_0_0" yield="0" dir="l" state="M"/>
+      <succlane lane="right_0" via=":begright_0_0" dir="l" state="M"/>
    </succ>
 
    <succ edge="end" lane="end_0" junction="absEnd">
-      <succlane lane="SUMO_NO_DESTINATION" yield="1" dir="s" state="O"/>
+      <succlane lane="SUMO_NO_DESTINATION" dir="s" state="O"/>
    </succ>
 
    <succ edge="left" lane="left_0" junction="endleft">
-      <succlane lane="left2end_0" via=":endleft_0_0" yield="0" dir="r" state="M"/>
+      <succlane lane="left2end_0" via=":endleft_0_0" dir="r" state="M"/>
    </succ>
 
    <succ edge="left2end" lane="left2end_0" junction="end">
-      <succlane lane="end_0" via=":end_2_0" tl="end" linkno="2" yield="1" dir="l" state="t"/>
+      <succlane lane="end_0" via=":end_2_0" tl="end" linkno="2" dir="l" state="t"/>
    </succ>
 
    <succ edge="middle" lane="middle_0" junction="end">
-      <succlane lane="end_0" via=":end_1_0" tl="end" linkno="1" yield="1" dir="s" state="t"/>
+      <succlane lane="end_0" via=":end_1_0" tl="end" linkno="1" dir="s" state="t"/>
    </succ>
 
    <succ edge="right" lane="right_0" junction="endright">
-      <succlane lane="right2end_0" via=":endright_0_0" yield="0" dir="l" state="M"/>
+      <succlane lane="right2end_0" via=":endright_0_0" dir="l" state="M"/>
    </succ>
 
    <succ edge="right2end" lane="right2end_0" junction="end">
-      <succlane lane="end_0" via=":end_0_0" tl="end" linkno="0" yield="1" dir="r" state="t"/>
+      <succlane lane="end_0" via=":end_0_0" tl="end" linkno="0" dir="r" state="t"/>
    </succ>
 
    <edgepos>

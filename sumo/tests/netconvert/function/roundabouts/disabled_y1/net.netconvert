@@ -89,37 +89,37 @@
    <junction id="17200" type="traffic_light" x="75.82" y="205.61" incLanes="-9889_0 -9891_0" intLanes="" shape="77.00,211.57 80.08,210.17 81.71,207.10 80.53,204.81 78.93,201.97 72.05,208.72 74.85,210.39"/>
 
    <succ edge="-5634" lane="-5634_0" junction="13448">
-      <succlane lane="5634_0" yield="0" dir="t" state="M"/>
+      <succlane lane="5634_0" dir="t" state="M"/>
    </succ>
    <succ edge="-9887" lane="-9887_0" junction="17199">
-      <succlane lane="-9892_0" yield="0" dir="r" state="M"/>
-      <succlane lane="9887_0" yield="1" dir="t" state="m"/>
+      <succlane lane="-9892_0" dir="r" state="M"/>
+      <succlane lane="9887_0" dir="t" state="m"/>
    </succ>
    <succ edge="-9889" lane="-9889_0" junction="17200">
-      <succlane lane="-9890_0" yield="0" dir="r" state="M"/>
-      <succlane lane="9889_0" yield="1" dir="t" state="m"/>
+      <succlane lane="-9890_0" dir="r" state="M"/>
+      <succlane lane="9889_0" dir="t" state="m"/>
    </succ>
    <succ edge="-9890" lane="-9890_0" junction="17199">
-      <succlane lane="9887_0" yield="0" dir="r" state="M"/>
-      <succlane lane="-9892_0" yield="1" dir="s" state="m"/>
+      <succlane lane="9887_0" dir="r" state="M"/>
+      <succlane lane="-9892_0" dir="s" state="m"/>
    </succ>
    <succ edge="-9891" lane="-9891_0" junction="17200">
-      <succlane lane="9889_0" yield="0" dir="r" state="M"/>
-      <succlane lane="-9890_0" yield="1" dir="s" state="m"/>
+      <succlane lane="9889_0" dir="r" state="M"/>
+      <succlane lane="-9890_0" dir="s" state="m"/>
    </succ>
    <succ edge="-9892" lane="-9892_0" junction="10708">
-      <succlane lane="-5634_0" yield="0" dir="r" state="M"/>
-      <succlane lane="-9891_0" yield="1" dir="s" state="m"/>
+      <succlane lane="-5634_0" dir="r" state="M"/>
+      <succlane lane="-9891_0" dir="s" state="m"/>
    </succ>
    <succ edge="5634" lane="5634_0" junction="10708">
-      <succlane lane="-9891_0" yield="0" dir="r" state="M"/>
-      <succlane lane="-5634_0" yield="1" dir="t" state="m"/>
+      <succlane lane="-9891_0" dir="r" state="M"/>
+      <succlane lane="-5634_0" dir="t" state="m"/>
    </succ>
    <succ edge="9887" lane="9887_0" junction="14304">
-      <succlane lane="-9887_0" yield="0" dir="t" state="M"/>
+      <succlane lane="-9887_0" dir="t" state="M"/>
    </succ>
    <succ edge="9889" lane="9889_0" junction="14305">
-      <succlane lane="-9889_0" yield="0" dir="t" state="M"/>
+      <succlane lane="-9889_0" dir="t" state="M"/>
    </succ>
 
 </net>

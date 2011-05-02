@@ -87,34 +87,34 @@
    <junction id="17446" type="priority" x="96.14" y="291.06" incLanes="10575_0" intLanes="" shape="97.57,290.34 94.71,291.78 97.69,291.44 94.59,290.68"/>
 
    <succ edge="-10397" lane="-10397_0" junction="17391">
-      <succlane lane="10402_0" yield="1" dir="r" state="m"/>
+      <succlane lane="10402_0" dir="r" state="m"/>
    </succ>
    <succ edge="-10400" lane="-10400_0" junction="10724">
-      <succlane lane="10575_0" yield="0" dir="r" state="M"/>
-      <succlane lane="10396_0" yield="0" dir="s" state="M"/>
+      <succlane lane="10575_0" dir="r" state="M"/>
+      <succlane lane="10396_0" dir="s" state="M"/>
    </succ>
    <succ edge="-10403" lane="-10403_0" junction="17393">
-      <succlane lane="-10400_0" yield="1" dir="r" state="m"/>
+      <succlane lane="-10400_0" dir="r" state="m"/>
    </succ>
    <succ edge="-10575" lane="-10575_0" junction="10724">
-      <succlane lane="10396_0" yield="1" dir="r" state="m"/>
+      <succlane lane="10396_0" dir="r" state="m"/>
    </succ>
    <succ edge="10396" lane="10396_0" junction="17391">
-      <succlane lane="10397_0" yield="0" dir="r" state="M"/>
-      <succlane lane="10402_0" yield="0" dir="s" state="M"/>
+      <succlane lane="10397_0" dir="r" state="M"/>
+      <succlane lane="10402_0" dir="s" state="M"/>
    </succ>
    <succ edge="10397" lane="10397_0" junction="16910">
-      <succlane lane="-10397_0" yield="0" dir="t" state="M"/>
+      <succlane lane="-10397_0" dir="t" state="M"/>
    </succ>
    <succ edge="10402" lane="10402_0" junction="17393">
-      <succlane lane="10403_0" yield="0" dir="r" state="M"/>
-      <succlane lane="-10400_0" yield="0" dir="s" state="M"/>
+      <succlane lane="10403_0" dir="r" state="M"/>
+      <succlane lane="-10400_0" dir="s" state="M"/>
    </succ>
    <succ edge="10403" lane="10403_0" junction="13442">
-      <succlane lane="-10403_0" yield="0" dir="t" state="M"/>
+      <succlane lane="-10403_0" dir="t" state="M"/>
    </succ>
    <succ edge="10575" lane="10575_0" junction="17446">
-      <succlane lane="-10575_0" yield="0" dir="t" state="M"/>
+      <succlane lane="-10575_0" dir="t" state="M"/>
    </succ>
 
    <roundabout nodes="10724 17391 17393"/>

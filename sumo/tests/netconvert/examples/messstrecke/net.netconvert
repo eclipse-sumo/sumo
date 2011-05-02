@@ -518,410 +518,410 @@
    <junction id=":ErnstRuskaHavestadt_11_0" type="internal" x="1017.65" y="201.65" incLanes=":ErnstRuskaHavestadt_8_0 ErnstRuska232W_0 ErnstRuska232W_1" intLanes=":ErnstRuskaHavestadt_3_0 :ErnstRuskaHavestadt_4_0 :ErnstRuskaHavestadt_5_0" shape=""/>
 
    <succ edge="AltglienickerBreitN" lane="AltglienickerBreitN_0" junction="ErnstRuskaAltglienicker">
-      <succlane lane="ErnstRuska5O_0" via=":ErnstRuskaAltglienicker_3_0" tl="ErnstRuskaAltglienicker" linkno="3" yield="1" dir="r" state="t"/>
+      <succlane lane="ErnstRuska5O_0" via=":ErnstRuskaAltglienicker_3_0" tl="ErnstRuskaAltglienicker" linkno="3" dir="r" state="t"/>
    </succ>
    <succ edge="AltglienickerBreitN" lane="AltglienickerBreitN_1" junction="ErnstRuskaAltglienicker">
-      <succlane lane="ErnstRuska4W_1" via=":ErnstRuskaAltglienicker_4_0" tl="ErnstRuskaAltglienicker" linkno="4" yield="1" dir="l" state="t"/>
+      <succlane lane="ErnstRuska4W_1" via=":ErnstRuskaAltglienicker_4_0" tl="ErnstRuskaAltglienicker" linkno="4" dir="l" state="t"/>
    </succ>
    <succ edge="AltglienickerBreitS" lane="AltglienickerBreitS_0" junction="AltglienickerBreit">
-      <succlane lane="AltglienickerS_0" via=":AltglienickerBreit_0_0" yield="0" dir="s" state="M"/>
+      <succlane lane="AltglienickerS_0" via=":AltglienickerBreit_0_0" dir="s" state="M"/>
    </succ>
    <succ edge="AltglienickerN" lane="AltglienickerN_0" junction="AltglienickerBreit">
-      <succlane lane="AltglienickerBreitN_0" via=":AltglienickerBreit_1_0" yield="0" dir="s" state="M"/>
-      <succlane lane="AltglienickerBreitN_1" via=":AltglienickerBreit_2_0" yield="0" dir="s" state="M"/>
+      <succlane lane="AltglienickerBreitN_0" via=":AltglienickerBreit_1_0" dir="s" state="M"/>
+      <succlane lane="AltglienickerBreitN_1" via=":AltglienickerBreit_2_0" dir="s" state="M"/>
    </succ>
    <succ edge="AltglienickerS" lane="AltglienickerS_0" junction="AltglienickerEnd">
-      <succlane lane="AltglienickerSinkS_0" via=":AltglienickerEnd_0_0" yield="0" dir="s" state="M"/>
+      <succlane lane="AltglienickerSinkS_0" via=":AltglienickerEnd_0_0" dir="s" state="M"/>
    </succ>
    <succ edge="AltglienickerSinkN" lane="AltglienickerSinkN_0" junction="AltglienickerEnd">
-      <succlane lane="AltglienickerN_0" via=":AltglienickerEnd_1_0" yield="0" dir="s" state="M"/>
+      <succlane lane="AltglienickerN_0" via=":AltglienickerEnd_1_0" dir="s" state="M"/>
    </succ>
    <succ edge="AltglienickerSinkS" lane="AltglienickerSinkS_0" junction="AltglienickerSinkEnd">
-      <succlane lane="SUMO_NO_DESTINATION" yield="1" dir="s" state="O"/>
+      <succlane lane="SUMO_NO_DESTINATION" dir="s" state="O"/>
    </succ>
    <succ edge="EinsteinN" lane="EinsteinN_0" junction="EinsteinEnd">
-      <succlane lane="EinsteinSinkN_0" via=":EinsteinEnd_1_0" yield="0" dir="s" state="M"/>
+      <succlane lane="EinsteinSinkN_0" via=":EinsteinEnd_1_0" dir="s" state="M"/>
    </succ>
    <succ edge="EinsteinS" lane="EinsteinS_0" junction="ErnstRuskaEinstein">
-      <succlane lane="ErnstRuska1W_0" via=":ErnstRuskaEinstein_0_0" yield="1" dir="r" state="m"/>
-      <succlane lane="ErnstRuska2O_1" via=":ErnstRuskaEinstein_1_0" yield="1" dir="l" state="m"/>
+      <succlane lane="ErnstRuska1W_0" via=":ErnstRuskaEinstein_0_0" dir="r" state="m"/>
+      <succlane lane="ErnstRuska2O_1" via=":ErnstRuskaEinstein_1_0" dir="l" state="m"/>
    </succ>
    <succ edge="EinsteinSinkN" lane="EinsteinSinkN_0" junction="EinsteinSinkEnd">
-      <succlane lane="SUMO_NO_DESTINATION" yield="1" dir="s" state="O"/>
+      <succlane lane="SUMO_NO_DESTINATION" dir="s" state="O"/>
    </succ>
    <succ edge="EinsteinSinkS" lane="EinsteinSinkS_0" junction="EinsteinEnd">
-      <succlane lane="EinsteinS_0" via=":EinsteinEnd_0_0" yield="0" dir="s" state="M"/>
+      <succlane lane="EinsteinS_0" via=":EinsteinEnd_0_0" dir="s" state="M"/>
    </succ>
    <succ edge="ErnstRuska1O" lane="ErnstRuska1O_0" junction="ErnstRuskaEinstein">
-      <succlane lane="ErnstRuska2O_0" via=":ErnstRuskaEinstein_5_0" yield="0" dir="s" state="M"/>
+      <succlane lane="ErnstRuska2O_0" via=":ErnstRuskaEinstein_5_0" dir="s" state="M"/>
    </succ>
    <succ edge="ErnstRuska1O" lane="ErnstRuska1O_1" junction="ErnstRuskaEinstein">
-      <succlane lane="ErnstRuska2O_1" via=":ErnstRuskaEinstein_6_0" yield="0" dir="s" state="M"/>
-      <succlane lane="EinsteinN_0" via=":ErnstRuskaEinstein_7_0" yield="1" dir="l" state="m"/>
+      <succlane lane="ErnstRuska2O_1" via=":ErnstRuskaEinstein_6_0" dir="s" state="M"/>
+      <succlane lane="EinsteinN_0" via=":ErnstRuskaEinstein_7_0" dir="l" state="m"/>
    </succ>
    <succ edge="ErnstRuska1W" lane="ErnstRuska1W_0" junction="ErnstRuskaEnd1">
-      <succlane lane="ErnstRuskaSink1W_0" via=":ErnstRuskaEnd1_0_0" yield="0" dir="s" state="M"/>
+      <succlane lane="ErnstRuskaSink1W_0" via=":ErnstRuskaEnd1_0_0" dir="s" state="M"/>
    </succ>
    <succ edge="ErnstRuska1W" lane="ErnstRuska1W_1" junction="ErnstRuskaEnd1">
-      <succlane lane="ErnstRuskaSink1W_1" via=":ErnstRuskaEnd1_1_0" yield="0" dir="s" state="M"/>
+      <succlane lane="ErnstRuskaSink1W_1" via=":ErnstRuskaEnd1_1_0" dir="s" state="M"/>
    </succ>
    <succ edge="ErnstRuska231O" lane="ErnstRuska231O_0" junction="ErnstRuskaHavestadt">
-      <succlane lane="ErnstRuska232O_0" via=":ErnstRuskaHavestadt_6_0" yield="0" dir="s" state="M"/>
+      <succlane lane="ErnstRuska232O_0" via=":ErnstRuskaHavestadt_6_0" dir="s" state="M"/>
    </succ>
    <succ edge="ErnstRuska231O" lane="ErnstRuska231O_1" junction="ErnstRuskaHavestadt">
-      <succlane lane="ErnstRuska232O_1" via=":ErnstRuskaHavestadt_7_0" yield="0" dir="s" state="M"/>
+      <succlane lane="ErnstRuska232O_1" via=":ErnstRuskaHavestadt_7_0" dir="s" state="M"/>
    </succ>
    <succ edge="ErnstRuska231O" lane="ErnstRuska231O_2" junction="ErnstRuskaHavestadt">
-      <succlane lane="HavestadtN_0" via=":ErnstRuskaHavestadt_8_0" yield="0" dir="l" state="M"/>
+      <succlane lane="HavestadtN_0" via=":ErnstRuskaHavestadt_8_0" dir="l" state="M"/>
    </succ>
    <succ edge="ErnstRuska231W" lane="ErnstRuska231W_0" junction="ErnstRuskaHavestadtDiv1">
-      <succlane lane="ErnstRuska2W_0" via=":ErnstRuskaHavestadtDiv1_0_0" yield="0" dir="s" state="M"/>
+      <succlane lane="ErnstRuska2W_0" via=":ErnstRuskaHavestadtDiv1_0_0" dir="s" state="M"/>
    </succ>
    <succ edge="ErnstRuska231W" lane="ErnstRuska231W_1" junction="ErnstRuskaHavestadtDiv1">
-      <succlane lane="ErnstRuska2W_1" via=":ErnstRuskaHavestadtDiv1_1_0" yield="0" dir="s" state="M"/>
+      <succlane lane="ErnstRuska2W_1" via=":ErnstRuskaHavestadtDiv1_1_0" dir="s" state="M"/>
    </succ>
    <succ edge="ErnstRuska232O" lane="ErnstRuska232O_0" junction="ErnstRuskaHavestadtDiv2">
-      <succlane lane="ErnstRuska3O_0" via=":ErnstRuskaHavestadtDiv2_2_0" yield="0" dir="s" state="M"/>
+      <succlane lane="ErnstRuska3O_0" via=":ErnstRuskaHavestadtDiv2_2_0" dir="s" state="M"/>
    </succ>
    <succ edge="ErnstRuska232O" lane="ErnstRuska232O_1" junction="ErnstRuskaHavestadtDiv2">
-      <succlane lane="ErnstRuska3O_1" via=":ErnstRuskaHavestadtDiv2_3_0" yield="0" dir="s" state="M"/>
+      <succlane lane="ErnstRuska3O_1" via=":ErnstRuskaHavestadtDiv2_3_0" dir="s" state="M"/>
    </succ>
    <succ edge="ErnstRuska232O" lane="ErnstRuska232O_2" junction="ErnstRuskaHavestadtDiv2">
-      <succlane lane="SUMO_NO_DESTINATION" yield="1" dir="s" state="O"/>
+      <succlane lane="SUMO_NO_DESTINATION" dir="s" state="O"/>
    </succ>
    <succ edge="ErnstRuska232W" lane="ErnstRuska232W_0" junction="ErnstRuskaHavestadt">
-      <succlane lane="HavestadtN_0" via=":ErnstRuskaHavestadt_3_0" yield="1" dir="r" state="m"/>
-      <succlane lane="ErnstRuska231W_0" via=":ErnstRuskaHavestadt_4_0" yield="1" dir="s" state="m"/>
+      <succlane lane="HavestadtN_0" via=":ErnstRuskaHavestadt_3_0" dir="r" state="m"/>
+      <succlane lane="ErnstRuska231W_0" via=":ErnstRuskaHavestadt_4_0" dir="s" state="m"/>
    </succ>
    <succ edge="ErnstRuska232W" lane="ErnstRuska232W_1" junction="ErnstRuskaHavestadt">
-      <succlane lane="ErnstRuska231W_1" via=":ErnstRuskaHavestadt_5_0" yield="1" dir="s" state="m"/>
+      <succlane lane="ErnstRuska231W_1" via=":ErnstRuskaHavestadt_5_0" dir="s" state="m"/>
    </succ>
    <succ edge="ErnstRuska2O" lane="ErnstRuska2O_0" junction="ErnstRuskaHavestadtDiv1">
-      <succlane lane="ErnstRuska231O_0" via=":ErnstRuskaHavestadtDiv1_2_0" yield="0" dir="s" state="M"/>
+      <succlane lane="ErnstRuska231O_0" via=":ErnstRuskaHavestadtDiv1_2_0" dir="s" state="M"/>
    </succ>
    <succ edge="ErnstRuska2O" lane="ErnstRuska2O_1" junction="ErnstRuskaHavestadtDiv1">
-      <succlane lane="ErnstRuska231O_1" via=":ErnstRuskaHavestadtDiv1_3_0" yield="0" dir="s" state="M"/>
-      <succlane lane="ErnstRuska231O_2" via=":ErnstRuskaHavestadtDiv1_4_0" yield="0" dir="s" state="M"/>
+      <succlane lane="ErnstRuska231O_1" via=":ErnstRuskaHavestadtDiv1_3_0" dir="s" state="M"/>
+      <succlane lane="ErnstRuska231O_2" via=":ErnstRuskaHavestadtDiv1_4_0" dir="s" state="M"/>
    </succ>
    <succ edge="ErnstRuska2W" lane="ErnstRuska2W_0" junction="ErnstRuskaEinstein">
-      <succlane lane="EinsteinN_0" via=":ErnstRuskaEinstein_2_0" yield="0" dir="r" state="M"/>
-      <succlane lane="ErnstRuska1W_0" via=":ErnstRuskaEinstein_3_0" yield="0" dir="s" state="M"/>
+      <succlane lane="EinsteinN_0" via=":ErnstRuskaEinstein_2_0" dir="r" state="M"/>
+      <succlane lane="ErnstRuska1W_0" via=":ErnstRuskaEinstein_3_0" dir="s" state="M"/>
    </succ>
    <succ edge="ErnstRuska2W" lane="ErnstRuska2W_1" junction="ErnstRuskaEinstein">
-      <succlane lane="ErnstRuska1W_1" via=":ErnstRuskaEinstein_4_0" yield="0" dir="s" state="M"/>
+      <succlane lane="ErnstRuska1W_1" via=":ErnstRuskaEinstein_4_0" dir="s" state="M"/>
    </succ>
    <succ edge="ErnstRuska3O" lane="ErnstRuska3O_0" junction="ErnstRuskaVolmer">
-      <succlane lane="ErnstRuska4O_0" via=":ErnstRuskaVolmer_5_0" yield="0" dir="s" state="M"/>
+      <succlane lane="ErnstRuska4O_0" via=":ErnstRuskaVolmer_5_0" dir="s" state="M"/>
    </succ>
    <succ edge="ErnstRuska3O" lane="ErnstRuska3O_1" junction="ErnstRuskaVolmer">
-      <succlane lane="ErnstRuska4O_1" via=":ErnstRuskaVolmer_6_0" yield="0" dir="s" state="M"/>
-      <succlane lane="VolmerN_0" via=":ErnstRuskaVolmer_7_0" yield="1" dir="l" state="m"/>
+      <succlane lane="ErnstRuska4O_1" via=":ErnstRuskaVolmer_6_0" dir="s" state="M"/>
+      <succlane lane="VolmerN_0" via=":ErnstRuskaVolmer_7_0" dir="l" state="m"/>
    </succ>
    <succ edge="ErnstRuska3W" lane="ErnstRuska3W_0" junction="ErnstRuskaHavestadtDiv2">
-      <succlane lane="ErnstRuska232W_0" via=":ErnstRuskaHavestadtDiv2_0_0" yield="0" dir="s" state="M"/>
+      <succlane lane="ErnstRuska232W_0" via=":ErnstRuskaHavestadtDiv2_0_0" dir="s" state="M"/>
    </succ>
    <succ edge="ErnstRuska3W" lane="ErnstRuska3W_1" junction="ErnstRuskaHavestadtDiv2">
-      <succlane lane="ErnstRuska232W_1" via=":ErnstRuskaHavestadtDiv2_1_0" yield="0" dir="s" state="M"/>
+      <succlane lane="ErnstRuska232W_1" via=":ErnstRuskaHavestadtDiv2_1_0" dir="s" state="M"/>
    </succ>
    <succ edge="ErnstRuska4O" lane="ErnstRuska4O_0" junction="ErnstRuskaAltglienicker">
-      <succlane lane="AltglienickerBreitS_0" via=":ErnstRuskaAltglienicker_5_0" tl="ErnstRuskaAltglienicker" linkno="5" yield="1" dir="r" state="t"/>
-      <succlane lane="ErnstRuska5O_0" via=":ErnstRuskaAltglienicker_6_0" tl="ErnstRuskaAltglienicker" linkno="6" yield="1" dir="s" state="t"/>
+      <succlane lane="AltglienickerBreitS_0" via=":ErnstRuskaAltglienicker_5_0" tl="ErnstRuskaAltglienicker" linkno="5" dir="r" state="t"/>
+      <succlane lane="ErnstRuska5O_0" via=":ErnstRuskaAltglienicker_6_0" tl="ErnstRuskaAltglienicker" linkno="6" dir="s" state="t"/>
    </succ>
    <succ edge="ErnstRuska4O" lane="ErnstRuska4O_1" junction="ErnstRuskaAltglienicker">
-      <succlane lane="ErnstRuska5O_1" via=":ErnstRuskaAltglienicker_7_0" tl="ErnstRuskaAltglienicker" linkno="7" yield="1" dir="s" state="t"/>
+      <succlane lane="ErnstRuska5O_1" via=":ErnstRuskaAltglienicker_7_0" tl="ErnstRuskaAltglienicker" linkno="7" dir="s" state="t"/>
    </succ>
    <succ edge="ErnstRuska4W" lane="ErnstRuska4W_0" junction="ErnstRuskaVolmer">
-      <succlane lane="VolmerN_0" via=":ErnstRuskaVolmer_2_0" yield="0" dir="r" state="M"/>
-      <succlane lane="ErnstRuska3W_0" via=":ErnstRuskaVolmer_3_0" yield="0" dir="s" state="M"/>
+      <succlane lane="VolmerN_0" via=":ErnstRuskaVolmer_2_0" dir="r" state="M"/>
+      <succlane lane="ErnstRuska3W_0" via=":ErnstRuskaVolmer_3_0" dir="s" state="M"/>
    </succ>
    <succ edge="ErnstRuska4W" lane="ErnstRuska4W_1" junction="ErnstRuskaVolmer">
-      <succlane lane="ErnstRuska3W_1" via=":ErnstRuskaVolmer_4_0" yield="0" dir="s" state="M"/>
+      <succlane lane="ErnstRuska3W_1" via=":ErnstRuskaVolmer_4_0" dir="s" state="M"/>
    </succ>
    <succ edge="ErnstRuska5O" lane="ErnstRuska5O_0" junction="ErnstRuskaEnd2">
-      <succlane lane="ErnstRuskaSink5O_0" via=":ErnstRuskaEnd2_3_0" yield="0" dir="s" state="M"/>
+      <succlane lane="ErnstRuskaSink5O_0" via=":ErnstRuskaEnd2_3_0" dir="s" state="M"/>
    </succ>
    <succ edge="ErnstRuska5O" lane="ErnstRuska5O_1" junction="ErnstRuskaEnd2">
-      <succlane lane="ErnstRuskaSink5O_1" via=":ErnstRuskaEnd2_4_0" yield="0" dir="s" state="M"/>
+      <succlane lane="ErnstRuskaSink5O_1" via=":ErnstRuskaEnd2_4_0" dir="s" state="M"/>
    </succ>
    <succ edge="ErnstRuska5W" lane="ErnstRuska5W_0" junction="ErnstRuskaAltglienicker">
-      <succlane lane="ErnstRuska4W_0" via=":ErnstRuskaAltglienicker_0_0" tl="ErnstRuskaAltglienicker" linkno="0" yield="1" dir="s" state="t"/>
+      <succlane lane="ErnstRuska4W_0" via=":ErnstRuskaAltglienicker_0_0" tl="ErnstRuskaAltglienicker" linkno="0" dir="s" state="t"/>
    </succ>
    <succ edge="ErnstRuska5W" lane="ErnstRuska5W_1" junction="ErnstRuskaAltglienicker">
-      <succlane lane="ErnstRuska4W_1" via=":ErnstRuskaAltglienicker_1_0" tl="ErnstRuskaAltglienicker" linkno="1" yield="1" dir="s" state="t"/>
+      <succlane lane="ErnstRuska4W_1" via=":ErnstRuskaAltglienicker_1_0" tl="ErnstRuskaAltglienicker" linkno="1" dir="s" state="t"/>
    </succ>
    <succ edge="ErnstRuska5W" lane="ErnstRuska5W_2" junction="ErnstRuskaAltglienicker">
-      <succlane lane="AltglienickerBreitS_0" via=":ErnstRuskaAltglienicker_2_0" tl="ErnstRuskaAltglienicker" linkno="2" yield="1" dir="l" state="t"/>
+      <succlane lane="AltglienickerBreitS_0" via=":ErnstRuskaAltglienicker_2_0" tl="ErnstRuskaAltglienicker" linkno="2" dir="l" state="t"/>
    </succ>
    <succ edge="ErnstRuskaSink1O" lane="ErnstRuskaSink1O_0" junction="ErnstRuskaEnd1">
-      <succlane lane="ErnstRuska1O_0" via=":ErnstRuskaEnd1_2_0" yield="0" dir="s" state="M"/>
+      <succlane lane="ErnstRuska1O_0" via=":ErnstRuskaEnd1_2_0" dir="s" state="M"/>
    </succ>
    <succ edge="ErnstRuskaSink1O" lane="ErnstRuskaSink1O_1" junction="ErnstRuskaEnd1">
-      <succlane lane="ErnstRuska1O_1" via=":ErnstRuskaEnd1_3_0" yield="0" dir="s" state="M"/>
+      <succlane lane="ErnstRuska1O_1" via=":ErnstRuskaEnd1_3_0" dir="s" state="M"/>
    </succ>
    <succ edge="ErnstRuskaSink1W" lane="ErnstRuskaSink1W_0" junction="ErnstRuskaSink1">
-      <succlane lane="SUMO_NO_DESTINATION" yield="1" dir="s" state="O"/>
+      <succlane lane="SUMO_NO_DESTINATION" dir="s" state="O"/>
    </succ>
    <succ edge="ErnstRuskaSink1W" lane="ErnstRuskaSink1W_1" junction="ErnstRuskaSink1">
-      <succlane lane="SUMO_NO_DESTINATION" yield="1" dir="s" state="O"/>
+      <succlane lane="SUMO_NO_DESTINATION" dir="s" state="O"/>
    </succ>
    <succ edge="ErnstRuskaSink5O" lane="ErnstRuskaSink5O_0" junction="ErnstRuskaSink2">
-      <succlane lane="SUMO_NO_DESTINATION" yield="1" dir="s" state="O"/>
+      <succlane lane="SUMO_NO_DESTINATION" dir="s" state="O"/>
    </succ>
    <succ edge="ErnstRuskaSink5O" lane="ErnstRuskaSink5O_1" junction="ErnstRuskaSink2">
-      <succlane lane="SUMO_NO_DESTINATION" yield="1" dir="s" state="O"/>
+      <succlane lane="SUMO_NO_DESTINATION" dir="s" state="O"/>
    </succ>
    <succ edge="ErnstRuskaSink5W" lane="ErnstRuskaSink5W_0" junction="ErnstRuskaEnd2">
-      <succlane lane="ErnstRuska5W_0" via=":ErnstRuskaEnd2_0_0" yield="0" dir="s" state="M"/>
+      <succlane lane="ErnstRuska5W_0" via=":ErnstRuskaEnd2_0_0" dir="s" state="M"/>
    </succ>
    <succ edge="ErnstRuskaSink5W" lane="ErnstRuskaSink5W_1" junction="ErnstRuskaEnd2">
-      <succlane lane="ErnstRuska5W_1" via=":ErnstRuskaEnd2_1_0" yield="0" dir="s" state="M"/>
-      <succlane lane="ErnstRuska5W_2" via=":ErnstRuskaEnd2_2_0" yield="0" dir="s" state="M"/>
+      <succlane lane="ErnstRuska5W_1" via=":ErnstRuskaEnd2_1_0" dir="s" state="M"/>
+      <succlane lane="ErnstRuska5W_2" via=":ErnstRuskaEnd2_2_0" dir="s" state="M"/>
    </succ>
    <succ edge="HavestadtN" lane="HavestadtN_0" junction="HavestadtEnd">
-      <succlane lane="HavestadtSinkN_0" via=":HavestadtEnd_2_0" yield="0" dir="s" state="M"/>
+      <succlane lane="HavestadtSinkN_0" via=":HavestadtEnd_2_0" dir="s" state="M"/>
    </succ>
    <succ edge="HavestadtN" lane="HavestadtN_1" junction="HavestadtEnd">
-      <succlane lane="HavestadtSinkN_1" via=":HavestadtEnd_3_0" yield="0" dir="s" state="M"/>
+      <succlane lane="HavestadtSinkN_1" via=":HavestadtEnd_3_0" dir="s" state="M"/>
    </succ>
    <succ edge="HavestadtS" lane="HavestadtS_0" junction="ErnstRuskaHavestadt">
-      <succlane lane="ErnstRuska231W_0" via=":ErnstRuskaHavestadt_0_0" yield="0" dir="r" state="M"/>
+      <succlane lane="ErnstRuska231W_0" via=":ErnstRuskaHavestadt_0_0" dir="r" state="M"/>
    </succ>
    <succ edge="HavestadtS" lane="HavestadtS_1" junction="ErnstRuskaHavestadt">
-      <succlane lane="ErnstRuska232O_1" via=":ErnstRuskaHavestadt_1_0" yield="1" dir="l" state="m"/>
-      <succlane lane="ErnstRuska232O_2" via=":ErnstRuskaHavestadt_2_0" yield="1" dir="l" state="m"/>
+      <succlane lane="ErnstRuska232O_1" via=":ErnstRuskaHavestadt_1_0" dir="l" state="m"/>
+      <succlane lane="ErnstRuska232O_2" via=":ErnstRuskaHavestadt_2_0" dir="l" state="m"/>
    </succ>
    <succ edge="HavestadtSinkN" lane="HavestadtSinkN_0" junction="HavestadtSinkEnd">
-      <succlane lane="SUMO_NO_DESTINATION" yield="1" dir="s" state="O"/>
+      <succlane lane="SUMO_NO_DESTINATION" dir="s" state="O"/>
    </succ>
    <succ edge="HavestadtSinkN" lane="HavestadtSinkN_1" junction="HavestadtSinkEnd">
-      <succlane lane="SUMO_NO_DESTINATION" yield="1" dir="s" state="O"/>
+      <succlane lane="SUMO_NO_DESTINATION" dir="s" state="O"/>
    </succ>
    <succ edge="HavestadtSinkS" lane="HavestadtSinkS_0" junction="HavestadtEnd">
-      <succlane lane="HavestadtS_0" via=":HavestadtEnd_0_0" yield="0" dir="s" state="M"/>
+      <succlane lane="HavestadtS_0" via=":HavestadtEnd_0_0" dir="s" state="M"/>
    </succ>
    <succ edge="HavestadtSinkS" lane="HavestadtSinkS_1" junction="HavestadtEnd">
-      <succlane lane="HavestadtS_1" via=":HavestadtEnd_1_0" yield="0" dir="s" state="M"/>
+      <succlane lane="HavestadtS_1" via=":HavestadtEnd_1_0" dir="s" state="M"/>
    </succ>
    <succ edge="VolmerN" lane="VolmerN_0" junction="VolmerEnd">
-      <succlane lane="VolmerSinkN_0" via=":VolmerEnd_1_0" yield="0" dir="s" state="M"/>
+      <succlane lane="VolmerSinkN_0" via=":VolmerEnd_1_0" dir="s" state="M"/>
    </succ>
    <succ edge="VolmerS" lane="VolmerS_0" junction="ErnstRuskaVolmer">
-      <succlane lane="ErnstRuska3W_0" via=":ErnstRuskaVolmer_0_0" yield="1" dir="r" state="m"/>
-      <succlane lane="ErnstRuska4O_1" via=":ErnstRuskaVolmer_1_0" yield="1" dir="l" state="m"/>
+      <succlane lane="ErnstRuska3W_0" via=":ErnstRuskaVolmer_0_0" dir="r" state="m"/>
+      <succlane lane="ErnstRuska4O_1" via=":ErnstRuskaVolmer_1_0" dir="l" state="m"/>
    </succ>
    <succ edge="VolmerSinkN" lane="VolmerSinkN_0" junction="VolmerSinkEnd">
-      <succlane lane="SUMO_NO_DESTINATION" yield="1" dir="s" state="O"/>
+      <succlane lane="SUMO_NO_DESTINATION" dir="s" state="O"/>
    </succ>
    <succ edge="VolmerSinkS" lane="VolmerSinkS_0" junction="VolmerEnd">
-      <succlane lane="VolmerS_0" via=":VolmerEnd_0_0" yield="0" dir="s" state="M"/>
+      <succlane lane="VolmerS_0" via=":VolmerEnd_0_0" dir="s" state="M"/>
    </succ>
 
    <succ edge=":AltglienickerBreit_0" lane=":AltglienickerBreit_0_0" junction="AltglienickerBreit">
-      <succlane lane="AltglienickerS_0" tl="" linkno="" yield="0" dir="s" state="M"/>
+      <succlane lane="AltglienickerS_0" tl="" linkno="" dir="s" state="M"/>
    </succ>
    <succ edge=":AltglienickerBreit_1" lane=":AltglienickerBreit_1_0" junction="AltglienickerBreit">
-      <succlane lane="AltglienickerBreitN_0" tl="" linkno="" yield="0" dir="s" state="M"/>
+      <succlane lane="AltglienickerBreitN_0" tl="" linkno="" dir="s" state="M"/>
    </succ>
    <succ edge=":AltglienickerBreit_2" lane=":AltglienickerBreit_2_0" junction="AltglienickerBreit">
-      <succlane lane="AltglienickerBreitN_1" tl="" linkno="" yield="0" dir="s" state="M"/>
+      <succlane lane="AltglienickerBreitN_1" tl="" linkno="" dir="s" state="M"/>
    </succ>
    <succ edge=":AltglienickerEnd_0" lane=":AltglienickerEnd_0_0" junction="AltglienickerEnd">
-      <succlane lane="AltglienickerSinkS_0" tl="" linkno="" yield="0" dir="s" state="M"/>
+      <succlane lane="AltglienickerSinkS_0" tl="" linkno="" dir="s" state="M"/>
    </succ>
    <succ edge=":AltglienickerEnd_1" lane=":AltglienickerEnd_1_0" junction="AltglienickerEnd">
-      <succlane lane="AltglienickerN_0" tl="" linkno="" yield="0" dir="s" state="M"/>
+      <succlane lane="AltglienickerN_0" tl="" linkno="" dir="s" state="M"/>
    </succ>
    <succ edge=":EinsteinEnd_0" lane=":EinsteinEnd_0_0" junction="EinsteinEnd">
-      <succlane lane="EinsteinS_0" tl="" linkno="" yield="0" dir="s" state="M"/>
+      <succlane lane="EinsteinS_0" tl="" linkno="" dir="s" state="M"/>
    </succ>
    <succ edge=":EinsteinEnd_1" lane=":EinsteinEnd_1_0" junction="EinsteinEnd">
-      <succlane lane="EinsteinSinkN_0" tl="" linkno="" yield="0" dir="s" state="M"/>
+      <succlane lane="EinsteinSinkN_0" tl="" linkno="" dir="s" state="M"/>
    </succ>
    <succ edge=":ErnstRuskaAltglienicker_0" lane=":ErnstRuskaAltglienicker_0_0" junction="ErnstRuskaAltglienicker">
-      <succlane lane="ErnstRuska4W_0" tl="" linkno="" yield="0" dir="s" state="M"/>
+      <succlane lane="ErnstRuska4W_0" tl="" linkno="" dir="s" state="M"/>
    </succ>
    <succ edge=":ErnstRuskaAltglienicker_1" lane=":ErnstRuskaAltglienicker_1_0" junction="ErnstRuskaAltglienicker">
-      <succlane lane="ErnstRuska4W_1" tl="" linkno="" yield="0" dir="s" state="M"/>
+      <succlane lane="ErnstRuska4W_1" tl="" linkno="" dir="s" state="M"/>
    </succ>
    <succ edge=":ErnstRuskaAltglienicker_2" lane=":ErnstRuskaAltglienicker_2_0" junction="ErnstRuskaAltglienicker">
-      <succlane lane="AltglienickerBreitS_0" via=":ErnstRuskaAltglienicker_8_0" tl="" linkno="" yield="1" dir="s" state="M"/>
+      <succlane lane="AltglienickerBreitS_0" via=":ErnstRuskaAltglienicker_8_0" tl="" linkno="" dir="s" state="M"/>
    </succ>
    <succ edge=":ErnstRuskaAltglienicker_8" lane=":ErnstRuskaAltglienicker_8_0" junction=":ErnstRuskaAltglienicker_8">
-      <succlane lane="AltglienickerBreitS_0" tl="" linkno="0" yield="0" dir="s" state="M"/>
+      <succlane lane="AltglienickerBreitS_0" tl="" linkno="0" dir="s" state="M"/>
    </succ>
    <succ edge=":ErnstRuskaAltglienicker_3" lane=":ErnstRuskaAltglienicker_3_0" junction="ErnstRuskaAltglienicker">
-      <succlane lane="ErnstRuska5O_0" tl="" linkno="" yield="0" dir="s" state="M"/>
+      <succlane lane="ErnstRuska5O_0" tl="" linkno="" dir="s" state="M"/>
    </succ>
    <succ edge=":ErnstRuskaAltglienicker_4" lane=":ErnstRuskaAltglienicker_4_0" junction="ErnstRuskaAltglienicker">
-      <succlane lane="ErnstRuska4W_1" via=":ErnstRuskaAltglienicker_9_0" tl="" linkno="" yield="1" dir="s" state="M"/>
+      <succlane lane="ErnstRuska4W_1" via=":ErnstRuskaAltglienicker_9_0" tl="" linkno="" dir="s" state="M"/>
    </succ>
    <succ edge=":ErnstRuskaAltglienicker_9" lane=":ErnstRuskaAltglienicker_9_0" junction=":ErnstRuskaAltglienicker_9">
-      <succlane lane="ErnstRuska4W_1" tl="" linkno="0" yield="0" dir="s" state="M"/>
+      <succlane lane="ErnstRuska4W_1" tl="" linkno="0" dir="s" state="M"/>
    </succ>
    <succ edge=":ErnstRuskaAltglienicker_5" lane=":ErnstRuskaAltglienicker_5_0" junction="ErnstRuskaAltglienicker">
-      <succlane lane="AltglienickerBreitS_0" tl="" linkno="" yield="0" dir="s" state="M"/>
+      <succlane lane="AltglienickerBreitS_0" tl="" linkno="" dir="s" state="M"/>
    </succ>
    <succ edge=":ErnstRuskaAltglienicker_6" lane=":ErnstRuskaAltglienicker_6_0" junction="ErnstRuskaAltglienicker">
-      <succlane lane="ErnstRuska5O_0" tl="" linkno="" yield="0" dir="s" state="M"/>
+      <succlane lane="ErnstRuska5O_0" tl="" linkno="" dir="s" state="M"/>
    </succ>
    <succ edge=":ErnstRuskaAltglienicker_7" lane=":ErnstRuskaAltglienicker_7_0" junction="ErnstRuskaAltglienicker">
-      <succlane lane="ErnstRuska5O_1" tl="" linkno="" yield="0" dir="s" state="M"/>
+      <succlane lane="ErnstRuska5O_1" tl="" linkno="" dir="s" state="M"/>
    </succ>
    <succ edge=":ErnstRuskaEinstein_0" lane=":ErnstRuskaEinstein_0_0" junction="ErnstRuskaEinstein">
-      <succlane lane="ErnstRuska1W_0" tl="" linkno="" yield="0" dir="s" state="M"/>
+      <succlane lane="ErnstRuska1W_0" tl="" linkno="" dir="s" state="M"/>
    </succ>
    <succ edge=":ErnstRuskaEinstein_1" lane=":ErnstRuskaEinstein_1_0" junction="ErnstRuskaEinstein">
-      <succlane lane="ErnstRuska2O_1" tl="" linkno="" yield="0" dir="s" state="M"/>
+      <succlane lane="ErnstRuska2O_1" tl="" linkno="" dir="s" state="M"/>
    </succ>
    <succ edge=":ErnstRuskaEinstein_2" lane=":ErnstRuskaEinstein_2_0" junction="ErnstRuskaEinstein">
-      <succlane lane="EinsteinN_0" tl="" linkno="" yield="0" dir="s" state="M"/>
+      <succlane lane="EinsteinN_0" tl="" linkno="" dir="s" state="M"/>
    </succ>
    <succ edge=":ErnstRuskaEinstein_3" lane=":ErnstRuskaEinstein_3_0" junction="ErnstRuskaEinstein">
-      <succlane lane="ErnstRuska1W_0" tl="" linkno="" yield="0" dir="s" state="M"/>
+      <succlane lane="ErnstRuska1W_0" tl="" linkno="" dir="s" state="M"/>
    </succ>
    <succ edge=":ErnstRuskaEinstein_4" lane=":ErnstRuskaEinstein_4_0" junction="ErnstRuskaEinstein">
-      <succlane lane="ErnstRuska1W_1" tl="" linkno="" yield="0" dir="s" state="M"/>
+      <succlane lane="ErnstRuska1W_1" tl="" linkno="" dir="s" state="M"/>
    </succ>
    <succ edge=":ErnstRuskaEinstein_5" lane=":ErnstRuskaEinstein_5_0" junction="ErnstRuskaEinstein">
-      <succlane lane="ErnstRuska2O_0" tl="" linkno="" yield="0" dir="s" state="M"/>
+      <succlane lane="ErnstRuska2O_0" tl="" linkno="" dir="s" state="M"/>
    </succ>
    <succ edge=":ErnstRuskaEinstein_6" lane=":ErnstRuskaEinstein_6_0" junction="ErnstRuskaEinstein">
-      <succlane lane="ErnstRuska2O_1" tl="" linkno="" yield="0" dir="s" state="M"/>
+      <succlane lane="ErnstRuska2O_1" tl="" linkno="" dir="s" state="M"/>
    </succ>
    <succ edge=":ErnstRuskaEinstein_7" lane=":ErnstRuskaEinstein_7_0" junction="ErnstRuskaEinstein">
-      <succlane lane="EinsteinN_0" tl="" linkno="" yield="0" dir="s" state="M"/>
+      <succlane lane="EinsteinN_0" tl="" linkno="" dir="s" state="M"/>
    </succ>
    <succ edge=":ErnstRuskaEnd1_0" lane=":ErnstRuskaEnd1_0_0" junction="ErnstRuskaEnd1">
-      <succlane lane="ErnstRuskaSink1W_0" tl="" linkno="" yield="0" dir="s" state="M"/>
+      <succlane lane="ErnstRuskaSink1W_0" tl="" linkno="" dir="s" state="M"/>
    </succ>
    <succ edge=":ErnstRuskaEnd1_1" lane=":ErnstRuskaEnd1_1_0" junction="ErnstRuskaEnd1">
-      <succlane lane="ErnstRuskaSink1W_1" tl="" linkno="" yield="0" dir="s" state="M"/>
+      <succlane lane="ErnstRuskaSink1W_1" tl="" linkno="" dir="s" state="M"/>
    </succ>
    <succ edge=":ErnstRuskaEnd1_2" lane=":ErnstRuskaEnd1_2_0" junction="ErnstRuskaEnd1">
-      <succlane lane="ErnstRuska1O_0" tl="" linkno="" yield="0" dir="s" state="M"/>
+      <succlane lane="ErnstRuska1O_0" tl="" linkno="" dir="s" state="M"/>
    </succ>
    <succ edge=":ErnstRuskaEnd1_3" lane=":ErnstRuskaEnd1_3_0" junction="ErnstRuskaEnd1">
-      <succlane lane="ErnstRuska1O_1" tl="" linkno="" yield="0" dir="s" state="M"/>
+      <succlane lane="ErnstRuska1O_1" tl="" linkno="" dir="s" state="M"/>
    </succ>
    <succ edge=":ErnstRuskaEnd2_0" lane=":ErnstRuskaEnd2_0_0" junction="ErnstRuskaEnd2">
-      <succlane lane="ErnstRuska5W_0" tl="" linkno="" yield="0" dir="s" state="M"/>
+      <succlane lane="ErnstRuska5W_0" tl="" linkno="" dir="s" state="M"/>
    </succ>
    <succ edge=":ErnstRuskaEnd2_1" lane=":ErnstRuskaEnd2_1_0" junction="ErnstRuskaEnd2">
-      <succlane lane="ErnstRuska5W_1" tl="" linkno="" yield="0" dir="s" state="M"/>
+      <succlane lane="ErnstRuska5W_1" tl="" linkno="" dir="s" state="M"/>
    </succ>
    <succ edge=":ErnstRuskaEnd2_2" lane=":ErnstRuskaEnd2_2_0" junction="ErnstRuskaEnd2">
-      <succlane lane="ErnstRuska5W_2" tl="" linkno="" yield="0" dir="s" state="M"/>
+      <succlane lane="ErnstRuska5W_2" tl="" linkno="" dir="s" state="M"/>
    </succ>
    <succ edge=":ErnstRuskaEnd2_3" lane=":ErnstRuskaEnd2_3_0" junction="ErnstRuskaEnd2">
-      <succlane lane="ErnstRuskaSink5O_0" tl="" linkno="" yield="0" dir="s" state="M"/>
+      <succlane lane="ErnstRuskaSink5O_0" tl="" linkno="" dir="s" state="M"/>
    </succ>
    <succ edge=":ErnstRuskaEnd2_4" lane=":ErnstRuskaEnd2_4_0" junction="ErnstRuskaEnd2">
-      <succlane lane="ErnstRuskaSink5O_1" tl="" linkno="" yield="0" dir="s" state="M"/>
+      <succlane lane="ErnstRuskaSink5O_1" tl="" linkno="" dir="s" state="M"/>
    </succ>
    <succ edge=":ErnstRuskaHavestadt_0" lane=":ErnstRuskaHavestadt_0_0" junction="ErnstRuskaHavestadt">
-      <succlane lane="ErnstRuska231W_0" tl="" linkno="" yield="0" dir="s" state="M"/>
+      <succlane lane="ErnstRuska231W_0" tl="" linkno="" dir="s" state="M"/>
    </succ>
    <succ edge=":ErnstRuskaHavestadt_1" lane=":ErnstRuskaHavestadt_1_0" junction="ErnstRuskaHavestadt">
-      <succlane lane="ErnstRuska232O_1" via=":ErnstRuskaHavestadt_9_0" tl="" linkno="" yield="1" dir="s" state="M"/>
+      <succlane lane="ErnstRuska232O_1" via=":ErnstRuskaHavestadt_9_0" tl="" linkno="" dir="s" state="M"/>
    </succ>
    <succ edge=":ErnstRuskaHavestadt_9" lane=":ErnstRuskaHavestadt_9_0" junction=":ErnstRuskaHavestadt_9">
-      <succlane lane="ErnstRuska232O_1" tl="" linkno="0" yield="0" dir="s" state="M"/>
+      <succlane lane="ErnstRuska232O_1" tl="" linkno="0" dir="s" state="M"/>
    </succ>
    <succ edge=":ErnstRuskaHavestadt_2" lane=":ErnstRuskaHavestadt_2_0" junction="ErnstRuskaHavestadt">
-      <succlane lane="ErnstRuska232O_2" via=":ErnstRuskaHavestadt_10_0" tl="" linkno="" yield="1" dir="s" state="M"/>
+      <succlane lane="ErnstRuska232O_2" via=":ErnstRuskaHavestadt_10_0" tl="" linkno="" dir="s" state="M"/>
    </succ>
    <succ edge=":ErnstRuskaHavestadt_10" lane=":ErnstRuskaHavestadt_10_0" junction=":ErnstRuskaHavestadt_10">
-      <succlane lane="ErnstRuska232O_2" tl="" linkno="0" yield="0" dir="s" state="M"/>
+      <succlane lane="ErnstRuska232O_2" tl="" linkno="0" dir="s" state="M"/>
    </succ>
    <succ edge=":ErnstRuskaHavestadt_3" lane=":ErnstRuskaHavestadt_3_0" junction="ErnstRuskaHavestadt">
-      <succlane lane="HavestadtN_0" tl="" linkno="" yield="0" dir="s" state="M"/>
+      <succlane lane="HavestadtN_0" tl="" linkno="" dir="s" state="M"/>
    </succ>
    <succ edge=":ErnstRuskaHavestadt_4" lane=":ErnstRuskaHavestadt_4_0" junction="ErnstRuskaHavestadt">
-      <succlane lane="ErnstRuska231W_0" tl="" linkno="" yield="0" dir="s" state="M"/>
+      <succlane lane="ErnstRuska231W_0" tl="" linkno="" dir="s" state="M"/>
    </succ>
    <succ edge=":ErnstRuskaHavestadt_5" lane=":ErnstRuskaHavestadt_5_0" junction="ErnstRuskaHavestadt">
-      <succlane lane="ErnstRuska231W_1" tl="" linkno="" yield="0" dir="s" state="M"/>
+      <succlane lane="ErnstRuska231W_1" tl="" linkno="" dir="s" state="M"/>
    </succ>
    <succ edge=":ErnstRuskaHavestadt_6" lane=":ErnstRuskaHavestadt_6_0" junction="ErnstRuskaHavestadt">
-      <succlane lane="ErnstRuska232O_0" tl="" linkno="" yield="0" dir="s" state="M"/>
+      <succlane lane="ErnstRuska232O_0" tl="" linkno="" dir="s" state="M"/>
    </succ>
    <succ edge=":ErnstRuskaHavestadt_7" lane=":ErnstRuskaHavestadt_7_0" junction="ErnstRuskaHavestadt">
-      <succlane lane="ErnstRuska232O_1" tl="" linkno="" yield="0" dir="s" state="M"/>
+      <succlane lane="ErnstRuska232O_1" tl="" linkno="" dir="s" state="M"/>
    </succ>
    <succ edge=":ErnstRuskaHavestadt_8" lane=":ErnstRuskaHavestadt_8_0" junction="ErnstRuskaHavestadt">
-      <succlane lane="HavestadtN_0" via=":ErnstRuskaHavestadt_11_0" tl="" linkno="" yield="1" dir="s" state="M"/>
+      <succlane lane="HavestadtN_0" via=":ErnstRuskaHavestadt_11_0" tl="" linkno="" dir="s" state="M"/>
    </succ>
    <succ edge=":ErnstRuskaHavestadt_11" lane=":ErnstRuskaHavestadt_11_0" junction=":ErnstRuskaHavestadt_11">
-      <succlane lane="HavestadtN_0" tl="" linkno="0" yield="0" dir="s" state="M"/>
+      <succlane lane="HavestadtN_0" tl="" linkno="0" dir="s" state="M"/>
    </succ>
    <succ edge=":ErnstRuskaHavestadtDiv1_0" lane=":ErnstRuskaHavestadtDiv1_0_0" junction="ErnstRuskaHavestadtDiv1">
-      <succlane lane="ErnstRuska2W_0" tl="" linkno="" yield="0" dir="s" state="M"/>
+      <succlane lane="ErnstRuska2W_0" tl="" linkno="" dir="s" state="M"/>
    </succ>
    <succ edge=":ErnstRuskaHavestadtDiv1_1" lane=":ErnstRuskaHavestadtDiv1_1_0" junction="ErnstRuskaHavestadtDiv1">
-      <succlane lane="ErnstRuska2W_1" tl="" linkno="" yield="0" dir="s" state="M"/>
+      <succlane lane="ErnstRuska2W_1" tl="" linkno="" dir="s" state="M"/>
    </succ>
    <succ edge=":ErnstRuskaHavestadtDiv1_2" lane=":ErnstRuskaHavestadtDiv1_2_0" junction="ErnstRuskaHavestadtDiv1">
-      <succlane lane="ErnstRuska231O_0" tl="" linkno="" yield="0" dir="s" state="M"/>
+      <succlane lane="ErnstRuska231O_0" tl="" linkno="" dir="s" state="M"/>
    </succ>
    <succ edge=":ErnstRuskaHavestadtDiv1_3" lane=":ErnstRuskaHavestadtDiv1_3_0" junction="ErnstRuskaHavestadtDiv1">
-      <succlane lane="ErnstRuska231O_1" tl="" linkno="" yield="0" dir="s" state="M"/>
+      <succlane lane="ErnstRuska231O_1" tl="" linkno="" dir="s" state="M"/>
    </succ>
    <succ edge=":ErnstRuskaHavestadtDiv1_4" lane=":ErnstRuskaHavestadtDiv1_4_0" junction="ErnstRuskaHavestadtDiv1">
-      <succlane lane="ErnstRuska231O_2" tl="" linkno="" yield="0" dir="s" state="M"/>
+      <succlane lane="ErnstRuska231O_2" tl="" linkno="" dir="s" state="M"/>
    </succ>
    <succ edge=":ErnstRuskaHavestadtDiv2_0" lane=":ErnstRuskaHavestadtDiv2_0_0" junction="ErnstRuskaHavestadtDiv2">
-      <succlane lane="ErnstRuska232W_0" tl="" linkno="" yield="0" dir="s" state="M"/>
+      <succlane lane="ErnstRuska232W_0" tl="" linkno="" dir="s" state="M"/>
    </succ>
    <succ edge=":ErnstRuskaHavestadtDiv2_1" lane=":ErnstRuskaHavestadtDiv2_1_0" junction="ErnstRuskaHavestadtDiv2">
-      <succlane lane="ErnstRuska232W_1" tl="" linkno="" yield="0" dir="s" state="M"/>
+      <succlane lane="ErnstRuska232W_1" tl="" linkno="" dir="s" state="M"/>
    </succ>
    <succ edge=":ErnstRuskaHavestadtDiv2_2" lane=":ErnstRuskaHavestadtDiv2_2_0" junction="ErnstRuskaHavestadtDiv2">
-      <succlane lane="ErnstRuska3O_0" tl="" linkno="" yield="0" dir="s" state="M"/>
+      <succlane lane="ErnstRuska3O_0" tl="" linkno="" dir="s" state="M"/>
    </succ>
    <succ edge=":ErnstRuskaHavestadtDiv2_3" lane=":ErnstRuskaHavestadtDiv2_3_0" junction="ErnstRuskaHavestadtDiv2">
-      <succlane lane="ErnstRuska3O_1" tl="" linkno="" yield="0" dir="s" state="M"/>
+      <succlane lane="ErnstRuska3O_1" tl="" linkno="" dir="s" state="M"/>
    </succ>
    <succ edge=":ErnstRuskaVolmer_0" lane=":ErnstRuskaVolmer_0_0" junction="ErnstRuskaVolmer">
-      <succlane lane="ErnstRuska3W_0" tl="" linkno="" yield="0" dir="s" state="M"/>
+      <succlane lane="ErnstRuska3W_0" tl="" linkno="" dir="s" state="M"/>
    </succ>
    <succ edge=":ErnstRuskaVolmer_1" lane=":ErnstRuskaVolmer_1_0" junction="ErnstRuskaVolmer">
-      <succlane lane="ErnstRuska4O_1" tl="" linkno="" yield="0" dir="s" state="M"/>
+      <succlane lane="ErnstRuska4O_1" tl="" linkno="" dir="s" state="M"/>
    </succ>
    <succ edge=":ErnstRuskaVolmer_2" lane=":ErnstRuskaVolmer_2_0" junction="ErnstRuskaVolmer">
-      <succlane lane="VolmerN_0" tl="" linkno="" yield="0" dir="s" state="M"/>
+      <succlane lane="VolmerN_0" tl="" linkno="" dir="s" state="M"/>
    </succ>
    <succ edge=":ErnstRuskaVolmer_3" lane=":ErnstRuskaVolmer_3_0" junction="ErnstRuskaVolmer">
-      <succlane lane="ErnstRuska3W_0" tl="" linkno="" yield="0" dir="s" state="M"/>
+      <succlane lane="ErnstRuska3W_0" tl="" linkno="" dir="s" state="M"/>
    </succ>
    <succ edge=":ErnstRuskaVolmer_4" lane=":ErnstRuskaVolmer_4_0" junction="ErnstRuskaVolmer">
-      <succlane lane="ErnstRuska3W_1" tl="" linkno="" yield="0" dir="s" state="M"/>
+      <succlane lane="ErnstRuska3W_1" tl="" linkno="" dir="s" state="M"/>
    </succ>
    <succ edge=":ErnstRuskaVolmer_5" lane=":ErnstRuskaVolmer_5_0" junction="ErnstRuskaVolmer">
-      <succlane lane="ErnstRuska4O_0" tl="" linkno="" yield="0" dir="s" state="M"/>
+      <succlane lane="ErnstRuska4O_0" tl="" linkno="" dir="s" state="M"/>
    </succ>
    <succ edge=":ErnstRuskaVolmer_6" lane=":ErnstRuskaVolmer_6_0" junction="ErnstRuskaVolmer">
-      <succlane lane="ErnstRuska4O_1" tl="" linkno="" yield="0" dir="s" state="M"/>
+      <succlane lane="ErnstRuska4O_1" tl="" linkno="" dir="s" state="M"/>
    </succ>
    <succ edge=":ErnstRuskaVolmer_7" lane=":ErnstRuskaVolmer_7_0" junction="ErnstRuskaVolmer">
-      <succlane lane="VolmerN_0" tl="" linkno="" yield="0" dir="s" state="M"/>
+      <succlane lane="VolmerN_0" tl="" linkno="" dir="s" state="M"/>
    </succ>
    <succ edge=":HavestadtEnd_0" lane=":HavestadtEnd_0_0" junction="HavestadtEnd">
-      <succlane lane="HavestadtS_0" tl="" linkno="" yield="0" dir="s" state="M"/>
+      <succlane lane="HavestadtS_0" tl="" linkno="" dir="s" state="M"/>
    </succ>
    <succ edge=":HavestadtEnd_1" lane=":HavestadtEnd_1_0" junction="HavestadtEnd">
-      <succlane lane="HavestadtS_1" tl="" linkno="" yield="0" dir="s" state="M"/>
+      <succlane lane="HavestadtS_1" tl="" linkno="" dir="s" state="M"/>
    </succ>
    <succ edge=":HavestadtEnd_2" lane=":HavestadtEnd_2_0" junction="HavestadtEnd">
-      <succlane lane="HavestadtSinkN_0" tl="" linkno="" yield="0" dir="s" state="M"/>
+      <succlane lane="HavestadtSinkN_0" tl="" linkno="" dir="s" state="M"/>
    </succ>
    <succ edge=":HavestadtEnd_3" lane=":HavestadtEnd_3_0" junction="HavestadtEnd">
-      <succlane lane="HavestadtSinkN_1" tl="" linkno="" yield="0" dir="s" state="M"/>
+      <succlane lane="HavestadtSinkN_1" tl="" linkno="" dir="s" state="M"/>
    </succ>
    <succ edge=":VolmerEnd_0" lane=":VolmerEnd_0_0" junction="VolmerEnd">
-      <succlane lane="VolmerS_0" tl="" linkno="" yield="0" dir="s" state="M"/>
+      <succlane lane="VolmerS_0" tl="" linkno="" dir="s" state="M"/>
    </succ>
    <succ edge=":VolmerEnd_1" lane=":VolmerEnd_1_0" junction="VolmerEnd">
-      <succlane lane="VolmerSinkN_0" tl="" linkno="" yield="0" dir="s" state="M"/>
+      <succlane lane="VolmerSinkN_0" tl="" linkno="" dir="s" state="M"/>
    </succ>
 
 </net>

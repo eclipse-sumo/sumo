@@ -31,10 +31,10 @@
    <junction id="SUMOGenerated3" type="DEAD_END" x="1011.00" y="0.00" incLanes="out_0" intLanes="" shape="1011.00,-3.25 1011.00,-0.05"/>
 
    <succ edge="1to2" lane="1to2_0" junction="SUMOGenerated1">
-      <succlane lane="SUMO_NO_DESTINATION" yield="1" dir="s" state="O"/>
+      <succlane lane="SUMO_NO_DESTINATION" dir="s" state="O"/>
    </succ>
    <succ edge="out" lane="out_0" junction="SUMOGenerated3">
-      <succlane lane="SUMO_NO_DESTINATION" yield="1" dir="s" state="O"/>
+      <succlane lane="SUMO_NO_DESTINATION" dir="s" state="O"/>
    </succ>
 
 </net>

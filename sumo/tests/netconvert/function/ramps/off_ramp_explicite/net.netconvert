@@ -90,56 +90,56 @@
    <junction id="s3-AddedOffRampNode" type="priority" x="600.00" y="0.00" incLanes="s3_0 s3_1 s3_2" intLanes="" shape="601.50,9.85 601.50,0.05 598.50,0.05 598.50,13.15"/>
 
    <succ edge="off" lane="off_0" junction="2a">
-      <succlane lane="SUMO_NO_DESTINATION" yield="1" dir="s" state="O"/>
+      <succlane lane="SUMO_NO_DESTINATION" dir="s" state="O"/>
    </succ>
    <succ edge="s1" lane="s1_0" junction="4">
-      <succlane lane="s2_0" yield="0" dir="s" state="M"/>
+      <succlane lane="s2_0" dir="s" state="M"/>
    </succ>
    <succ edge="s1" lane="s1_1" junction="4">
-      <succlane lane="s2_1" yield="0" dir="s" state="M"/>
+      <succlane lane="s2_1" dir="s" state="M"/>
    </succ>
    <succ edge="s1" lane="s1_2" junction="4">
-      <succlane lane="s2_2" yield="0" dir="s" state="M"/>
+      <succlane lane="s2_2" dir="s" state="M"/>
    </succ>
    <succ edge="s2" lane="s2_0" junction="3">
-      <succlane lane="s3_0" yield="0" dir="s" state="M"/>
+      <succlane lane="s3_0" dir="s" state="M"/>
    </succ>
    <succ edge="s2" lane="s2_1" junction="3">
-      <succlane lane="s3_1" yield="0" dir="s" state="M"/>
+      <succlane lane="s3_1" dir="s" state="M"/>
    </succ>
    <succ edge="s2" lane="s2_2" junction="3">
-      <succlane lane="s3_2" yield="0" dir="s" state="M"/>
+      <succlane lane="s3_2" dir="s" state="M"/>
    </succ>
    <succ edge="s3" lane="s3_0" junction="s3-AddedOffRampNode">
-      <succlane lane="s3-AddedOffRampEdge_0" yield="0" dir="s" state="M"/>
-      <succlane lane="s3-AddedOffRampEdge_1" yield="0" dir="s" state="M"/>
+      <succlane lane="s3-AddedOffRampEdge_0" dir="s" state="M"/>
+      <succlane lane="s3-AddedOffRampEdge_1" dir="s" state="M"/>
    </succ>
    <succ edge="s3" lane="s3_1" junction="s3-AddedOffRampNode">
-      <succlane lane="s3-AddedOffRampEdge_2" yield="0" dir="s" state="M"/>
+      <succlane lane="s3-AddedOffRampEdge_2" dir="s" state="M"/>
    </succ>
    <succ edge="s3" lane="s3_2" junction="s3-AddedOffRampNode">
-      <succlane lane="s3-AddedOffRampEdge_3" yield="0" dir="s" state="M"/>
+      <succlane lane="s3-AddedOffRampEdge_3" dir="s" state="M"/>
    </succ>
    <succ edge="s3-AddedOffRampEdge" lane="s3-AddedOffRampEdge_0" junction="2">
-      <succlane lane="off_0" yield="0" dir="s" state="M"/>
+      <succlane lane="off_0" dir="s" state="M"/>
    </succ>
    <succ edge="s3-AddedOffRampEdge" lane="s3-AddedOffRampEdge_1" junction="2">
-      <succlane lane="s4_0" yield="0" dir="s" state="M"/>
+      <succlane lane="s4_0" dir="s" state="M"/>
    </succ>
    <succ edge="s3-AddedOffRampEdge" lane="s3-AddedOffRampEdge_2" junction="2">
-      <succlane lane="s4_1" yield="0" dir="s" state="M"/>
+      <succlane lane="s4_1" dir="s" state="M"/>
    </succ>
    <succ edge="s3-AddedOffRampEdge" lane="s3-AddedOffRampEdge_3" junction="2">
-      <succlane lane="s4_2" yield="0" dir="s" state="M"/>
+      <succlane lane="s4_2" dir="s" state="M"/>
    </succ>
    <succ edge="s4" lane="s4_0" junction="1">
-      <succlane lane="SUMO_NO_DESTINATION" yield="1" dir="s" state="O"/>
+      <succlane lane="SUMO_NO_DESTINATION" dir="s" state="O"/>
    </succ>
    <succ edge="s4" lane="s4_1" junction="1">
-      <succlane lane="SUMO_NO_DESTINATION" yield="1" dir="s" state="O"/>
+      <succlane lane="SUMO_NO_DESTINATION" dir="s" state="O"/>
    </succ>
    <succ edge="s4" lane="s4_2" junction="1">
-      <succlane lane="SUMO_NO_DESTINATION" yield="1" dir="s" state="O"/>
+      <succlane lane="SUMO_NO_DESTINATION" dir="s" state="O"/>
    </succ>
 
 </net>

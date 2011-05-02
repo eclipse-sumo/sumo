@@ -138,80 +138,80 @@
    <junction id=":node_centertl_13_0" type="internal" x="-4.67" y="-1.59" incLanes=":node_centertl_8_0 edge_right_0" intLanes=":node_centertl_4_0" shape=""/>
 
    <succ edge="-edge_left" lane="-edge_left_0" junction="node_left">
-      <succlane lane="edge_left_0" via=":node_left_0_0" yield="0" dir="t" state="M"/>
+      <succlane lane="edge_left_0" via=":node_left_0_0" dir="t" state="M"/>
    </succ>
    <succ edge="-edge_right" lane="-edge_right_0" junction="node_right">
-      <succlane lane="edge_right_0" via=":node_right_0_0" yield="0" dir="t" state="M"/>
+      <succlane lane="edge_right_0" via=":node_right_0_0" dir="t" state="M"/>
    </succ>
    <succ edge="-edge_up" lane="-edge_up_0" junction="node_up">
-      <succlane lane="edge_up_0" via=":node_up_0_0" yield="0" dir="t" state="M"/>
+      <succlane lane="edge_up_0" via=":node_up_0_0" dir="t" state="M"/>
    </succ>
    <succ edge="edge_left" lane="edge_left_0" junction="node_centertl">
-      <succlane lane="-edge_right_0" via=":node_centertl_6_0" tl="node_centertl" linkno="6" yield="1" dir="s" state="t"/>
-      <succlane lane="-edge_up_0" via=":node_centertl_7_0" tl="node_centertl" linkno="7" yield="1" dir="l" state="t"/>
-      <succlane lane="-edge_left_0" via=":node_centertl_8_0" tl="node_centertl" linkno="8" yield="1" dir="t" state="t"/>
+      <succlane lane="-edge_right_0" via=":node_centertl_6_0" tl="node_centertl" linkno="6" dir="s" state="t"/>
+      <succlane lane="-edge_up_0" via=":node_centertl_7_0" tl="node_centertl" linkno="7" dir="l" state="t"/>
+      <succlane lane="-edge_left_0" via=":node_centertl_8_0" tl="node_centertl" linkno="8" dir="t" state="t"/>
    </succ>
    <succ edge="edge_right" lane="edge_right_0" junction="node_centertl">
-      <succlane lane="-edge_up_0" via=":node_centertl_3_0" tl="node_centertl" linkno="3" yield="1" dir="r" state="t"/>
-      <succlane lane="-edge_left_0" via=":node_centertl_4_0" tl="node_centertl" linkno="4" yield="1" dir="s" state="t"/>
-      <succlane lane="-edge_right_0" via=":node_centertl_5_0" tl="node_centertl" linkno="5" yield="1" dir="t" state="t"/>
+      <succlane lane="-edge_up_0" via=":node_centertl_3_0" tl="node_centertl" linkno="3" dir="r" state="t"/>
+      <succlane lane="-edge_left_0" via=":node_centertl_4_0" tl="node_centertl" linkno="4" dir="s" state="t"/>
+      <succlane lane="-edge_right_0" via=":node_centertl_5_0" tl="node_centertl" linkno="5" dir="t" state="t"/>
    </succ>
    <succ edge="edge_up" lane="edge_up_0" junction="node_centertl">
-      <succlane lane="-edge_left_0" via=":node_centertl_0_0" tl="node_centertl" linkno="0" yield="1" dir="r" state="t"/>
-      <succlane lane="-edge_right_0" via=":node_centertl_1_0" tl="node_centertl" linkno="1" yield="1" dir="l" state="t"/>
-      <succlane lane="-edge_up_0" via=":node_centertl_2_0" tl="node_centertl" linkno="2" yield="1" dir="t" state="t"/>
+      <succlane lane="-edge_left_0" via=":node_centertl_0_0" tl="node_centertl" linkno="0" dir="r" state="t"/>
+      <succlane lane="-edge_right_0" via=":node_centertl_1_0" tl="node_centertl" linkno="1" dir="l" state="t"/>
+      <succlane lane="-edge_up_0" via=":node_centertl_2_0" tl="node_centertl" linkno="2" dir="t" state="t"/>
    </succ>
 
    <succ edge=":node_centertl_0" lane=":node_centertl_0_0" junction="node_centertl">
-      <succlane lane="-edge_left_0" tl="" linkno="" yield="0" dir="s" state="M"/>
+      <succlane lane="-edge_left_0" tl="" linkno="" dir="s" state="M"/>
    </succ>
    <succ edge=":node_centertl_1" lane=":node_centertl_1_0" junction="node_centertl">
-      <succlane lane="-edge_right_0" via=":node_centertl_9_0" tl="" linkno="" yield="1" dir="s" state="M"/>
+      <succlane lane="-edge_right_0" via=":node_centertl_9_0" tl="" linkno="" dir="s" state="M"/>
    </succ>
    <succ edge=":node_centertl_9" lane=":node_centertl_9_0" junction=":node_centertl_9">
-      <succlane lane="-edge_right_0" tl="" linkno="0" yield="0" dir="s" state="M"/>
+      <succlane lane="-edge_right_0" tl="" linkno="0" dir="s" state="M"/>
    </succ>
    <succ edge=":node_centertl_2" lane=":node_centertl_2_0" junction="node_centertl">
-      <succlane lane="-edge_up_0" via=":node_centertl_10_0" tl="" linkno="" yield="1" dir="s" state="M"/>
+      <succlane lane="-edge_up_0" via=":node_centertl_10_0" tl="" linkno="" dir="s" state="M"/>
    </succ>
    <succ edge=":node_centertl_10" lane=":node_centertl_10_0" junction=":node_centertl_10">
-      <succlane lane="-edge_up_0" tl="" linkno="0" yield="0" dir="s" state="M"/>
+      <succlane lane="-edge_up_0" tl="" linkno="0" dir="s" state="M"/>
    </succ>
    <succ edge=":node_centertl_3" lane=":node_centertl_3_0" junction="node_centertl">
-      <succlane lane="-edge_up_0" tl="" linkno="" yield="0" dir="s" state="M"/>
+      <succlane lane="-edge_up_0" tl="" linkno="" dir="s" state="M"/>
    </succ>
    <succ edge=":node_centertl_4" lane=":node_centertl_4_0" junction="node_centertl">
-      <succlane lane="-edge_left_0" tl="" linkno="" yield="0" dir="s" state="M"/>
+      <succlane lane="-edge_left_0" tl="" linkno="" dir="s" state="M"/>
    </succ>
    <succ edge=":node_centertl_5" lane=":node_centertl_5_0" junction="node_centertl">
-      <succlane lane="-edge_right_0" via=":node_centertl_11_0" tl="" linkno="" yield="1" dir="s" state="M"/>
+      <succlane lane="-edge_right_0" via=":node_centertl_11_0" tl="" linkno="" dir="s" state="M"/>
    </succ>
    <succ edge=":node_centertl_11" lane=":node_centertl_11_0" junction=":node_centertl_11">
-      <succlane lane="-edge_right_0" tl="" linkno="0" yield="0" dir="s" state="M"/>
+      <succlane lane="-edge_right_0" tl="" linkno="0" dir="s" state="M"/>
    </succ>
    <succ edge=":node_centertl_6" lane=":node_centertl_6_0" junction="node_centertl">
-      <succlane lane="-edge_right_0" tl="" linkno="" yield="0" dir="s" state="M"/>
+      <succlane lane="-edge_right_0" tl="" linkno="" dir="s" state="M"/>
    </succ>
    <succ edge=":node_centertl_7" lane=":node_centertl_7_0" junction="node_centertl">
-      <succlane lane="-edge_up_0" via=":node_centertl_12_0" tl="" linkno="" yield="1" dir="s" state="M"/>
+      <succlane lane="-edge_up_0" via=":node_centertl_12_0" tl="" linkno="" dir="s" state="M"/>
    </succ>
    <succ edge=":node_centertl_12" lane=":node_centertl_12_0" junction=":node_centertl_12">
-      <succlane lane="-edge_up_0" tl="" linkno="0" yield="0" dir="s" state="M"/>
+      <succlane lane="-edge_up_0" tl="" linkno="0" dir="s" state="M"/>
    </succ>
    <succ edge=":node_centertl_8" lane=":node_centertl_8_0" junction="node_centertl">
-      <succlane lane="-edge_left_0" via=":node_centertl_13_0" tl="" linkno="" yield="1" dir="s" state="M"/>
+      <succlane lane="-edge_left_0" via=":node_centertl_13_0" tl="" linkno="" dir="s" state="M"/>
    </succ>
    <succ edge=":node_centertl_13" lane=":node_centertl_13_0" junction=":node_centertl_13">
-      <succlane lane="-edge_left_0" tl="" linkno="0" yield="0" dir="s" state="M"/>
+      <succlane lane="-edge_left_0" tl="" linkno="0" dir="s" state="M"/>
    </succ>
    <succ edge=":node_left_0" lane=":node_left_0_0" junction="node_left">
-      <succlane lane="edge_left_0" tl="" linkno="" yield="0" dir="s" state="M"/>
+      <succlane lane="edge_left_0" tl="" linkno="" dir="s" state="M"/>
    </succ>
    <succ edge=":node_right_0" lane=":node_right_0_0" junction="node_right">
-      <succlane lane="edge_right_0" tl="" linkno="" yield="0" dir="s" state="M"/>
+      <succlane lane="edge_right_0" tl="" linkno="" dir="s" state="M"/>
    </succ>
    <succ edge=":node_up_0" lane=":node_up_0_0" junction="node_up">
-      <succlane lane="edge_up_0" tl="" linkno="" yield="0" dir="s" state="M"/>
+      <succlane lane="edge_up_0" tl="" linkno="" dir="s" state="M"/>
    </succ>
 
 </net>

@@ -281,234 +281,234 @@
    <junction id="n_x2" type="DEAD_END" x="3700.00" y="0.00" incLanes="e_x1_0 e_x1_1" intLanes="" shape="3693.45,0.00 3699.95,0.00"/>
 
    <succ edge="e_m0" lane="e_m0_0" junction="n_m1">
-      <succlane lane="e_m1_0" yield="0" dir="s" state="M"/>
+      <succlane lane="e_m1_0" dir="s" state="M"/>
    </succ>
 
    <succ edge="e_m0" lane="e_m0_1" junction="n_m1">
-      <succlane lane="e_m1_1" yield="0" dir="s" state="M"/>
+      <succlane lane="e_m1_1" dir="s" state="M"/>
    </succ>
 
    <succ edge="e_m0" lane="e_m0_2" junction="n_m1">
-      <succlane lane="e_m1_2" yield="0" dir="s" state="M"/>
+      <succlane lane="e_m1_2" dir="s" state="M"/>
    </succ>
 
    <succ edge="e_m1" lane="e_m1_0" junction="n_m2">
-      <succlane lane="e_m2_0" yield="0" dir="s" state="M"/>
+      <succlane lane="e_m2_0" dir="s" state="M"/>
    </succ>
 
    <succ edge="e_m1" lane="e_m1_1" junction="n_m2">
-      <succlane lane="e_m2_1" yield="0" dir="s" state="M"/>
+      <succlane lane="e_m2_1" dir="s" state="M"/>
    </succ>
 
    <succ edge="e_m1" lane="e_m1_2" junction="n_m2">
-      <succlane lane="e_m2_2" yield="0" dir="s" state="M"/>
+      <succlane lane="e_m2_2" dir="s" state="M"/>
    </succ>
 
    <succ edge="e_m2" lane="e_m2_0" junction="n_m3">
-      <succlane lane="e_m3_0" yield="0" dir="s" state="M"/>
+      <succlane lane="e_m3_0" dir="s" state="M"/>
    </succ>
 
    <succ edge="e_m2" lane="e_m2_1" junction="n_m3">
-      <succlane lane="e_m3_1" yield="0" dir="s" state="M"/>
+      <succlane lane="e_m3_1" dir="s" state="M"/>
    </succ>
 
    <succ edge="e_m2" lane="e_m2_2" junction="n_m3">
-      <succlane lane="e_m3_2" yield="0" dir="s" state="M"/>
+      <succlane lane="e_m3_2" dir="s" state="M"/>
    </succ>
 
    <succ edge="e_m3" lane="e_m3_0" junction="n_m4">
-      <succlane lane="e_m4_0" yield="0" dir="s" state="M"/>
+      <succlane lane="e_m4_0" dir="s" state="M"/>
    </succ>
 
    <succ edge="e_m3" lane="e_m3_1" junction="n_m4">
-      <succlane lane="e_m4_1" yield="0" dir="s" state="M"/>
+      <succlane lane="e_m4_1" dir="s" state="M"/>
    </succ>
 
    <succ edge="e_m3" lane="e_m3_2" junction="n_m4">
-      <succlane lane="e_m4_2" yield="0" dir="s" state="M"/>
+      <succlane lane="e_m4_2" dir="s" state="M"/>
    </succ>
 
    <succ edge="e_m4" lane="e_m4_0" junction="n_m5">
-      <succlane lane="e_m5_0" yield="0" dir="s" state="M"/>
+      <succlane lane="e_m5_0" dir="s" state="M"/>
    </succ>
 
    <succ edge="e_m4" lane="e_m4_1" junction="n_m5">
-      <succlane lane="e_m5_1" yield="0" dir="s" state="M"/>
+      <succlane lane="e_m5_1" dir="s" state="M"/>
    </succ>
 
    <succ edge="e_m4" lane="e_m4_2" junction="n_m5">
-      <succlane lane="e_m5_2" yield="0" dir="s" state="M"/>
+      <succlane lane="e_m5_2" dir="s" state="M"/>
    </succ>
 
    <succ edge="e_m5" lane="e_m5_0" junction="n_m6">
-      <succlane lane="e_m6_0" yield="0" dir="s" state="M"/>
+      <succlane lane="e_m6_0" dir="s" state="M"/>
    </succ>
 
    <succ edge="e_m5" lane="e_m5_1" junction="n_m6">
-      <succlane lane="e_m6_1" yield="0" dir="s" state="M"/>
+      <succlane lane="e_m6_1" dir="s" state="M"/>
    </succ>
 
    <succ edge="e_m5" lane="e_m5_2" junction="n_m6">
-      <succlane lane="e_m6_2" yield="0" dir="s" state="M"/>
+      <succlane lane="e_m6_2" dir="s" state="M"/>
    </succ>
 
    <succ edge="e_m6" lane="e_m6_0" junction="n_m7">
-      <succlane lane="e_shape1_0" yield="0" dir="r" state="M"/>
-      <succlane lane="e_shape1_1" yield="0" dir="r" state="M"/>
-      <succlane lane="e_shape1_2" yield="0" dir="r" state="M"/>
+      <succlane lane="e_shape1_0" dir="r" state="M"/>
+      <succlane lane="e_shape1_1" dir="r" state="M"/>
+      <succlane lane="e_shape1_2" dir="r" state="M"/>
    </succ>
 
    <succ edge="e_m6" lane="e_m6_1" junction="n_m7">
-      <succlane lane="e_shape0_0" yield="0" dir="l" state="M"/>
+      <succlane lane="e_shape0_0" dir="l" state="M"/>
    </succ>
 
    <succ edge="e_m6" lane="e_m6_2" junction="n_m7">
-      <succlane lane="e_shape0_1" yield="0" dir="l" state="M"/>
-      <succlane lane="e_shape0_2" yield="0" dir="l" state="M"/>
+      <succlane lane="e_shape0_1" dir="l" state="M"/>
+      <succlane lane="e_shape0_2" dir="l" state="M"/>
    </succ>
 
    <succ edge="e_o0" lane="e_o0_0" junction="n_o0">
-      <succlane lane="e_vo0_0" yield="0" dir="l" state="M"/>
+      <succlane lane="e_vo0_0" dir="l" state="M"/>
    </succ>
 
    <succ edge="e_o0" lane="e_o0_1" junction="n_o0">
-      <succlane lane="e_vo0_1" yield="0" dir="l" state="M"/>
+      <succlane lane="e_vo0_1" dir="l" state="M"/>
    </succ>
 
    <succ edge="e_o0" lane="e_o0_2" junction="n_o0">
-      <succlane lane="SUMO_NO_DESTINATION" yield="1" dir="s" state="O"/>
+      <succlane lane="SUMO_NO_DESTINATION" dir="s" state="O"/>
    </succ>
 
    <succ edge="e_o1" lane="e_o1_0" junction="n_o1">
-      <succlane lane="e_o0_0" yield="0" dir="s" state="M"/>
+      <succlane lane="e_o0_0" dir="s" state="M"/>
    </succ>
 
    <succ edge="e_o1" lane="e_o1_1" junction="n_o1">
-      <succlane lane="e_o0_1" yield="0" dir="s" state="M"/>
+      <succlane lane="e_o0_1" dir="s" state="M"/>
    </succ>
 
    <succ edge="e_o1" lane="e_o1_2" junction="n_o1">
-      <succlane lane="e_o0_2" yield="0" dir="s" state="M"/>
-      <succlane lane="e_vo1_0" yield="0" dir="l" state="M"/>
-      <succlane lane="e_vo1_1" yield="0" dir="l" state="M"/>
+      <succlane lane="e_o0_2" dir="s" state="M"/>
+      <succlane lane="e_vo1_0" dir="l" state="M"/>
+      <succlane lane="e_vo1_1" dir="l" state="M"/>
    </succ>
 
    <succ edge="e_shape0" lane="e_shape0_0" junction="n_o2">
-      <succlane lane="e_o1_0" yield="0" dir="s" state="M"/>
+      <succlane lane="e_o1_0" dir="s" state="M"/>
    </succ>
 
    <succ edge="e_shape0" lane="e_shape0_1" junction="n_o2">
-      <succlane lane="e_o1_1" yield="0" dir="s" state="M"/>
+      <succlane lane="e_o1_1" dir="s" state="M"/>
    </succ>
 
    <succ edge="e_shape0" lane="e_shape0_2" junction="n_o2">
-      <succlane lane="e_o1_2" yield="0" dir="s" state="M"/>
-      <succlane lane="e_vo2_0" yield="0" dir="l" state="M"/>
-      <succlane lane="e_vo2_1" yield="0" dir="l" state="M"/>
+      <succlane lane="e_o1_2" dir="s" state="M"/>
+      <succlane lane="e_vo2_0" dir="l" state="M"/>
+      <succlane lane="e_vo2_1" dir="l" state="M"/>
    </succ>
 
    <succ edge="e_shape1" lane="e_shape1_0" junction="n_u2">
-      <succlane lane="e_vu2_0" yield="0" dir="r" state="M"/>
-      <succlane lane="e_vu2_1" yield="0" dir="r" state="M"/>
-      <succlane lane="e_u1_0" yield="0" dir="s" state="M"/>
+      <succlane lane="e_vu2_0" dir="r" state="M"/>
+      <succlane lane="e_vu2_1" dir="r" state="M"/>
+      <succlane lane="e_u1_0" dir="s" state="M"/>
    </succ>
 
    <succ edge="e_shape1" lane="e_shape1_1" junction="n_u2">
-      <succlane lane="e_u1_1" yield="0" dir="s" state="M"/>
+      <succlane lane="e_u1_1" dir="s" state="M"/>
    </succ>
 
    <succ edge="e_shape1" lane="e_shape1_2" junction="n_u2">
-      <succlane lane="e_u1_2" yield="0" dir="s" state="M"/>
+      <succlane lane="e_u1_2" dir="s" state="M"/>
    </succ>
 
    <succ edge="e_u0" lane="e_u0_0" junction="n_u0">
-      <succlane lane="e_vu0_0" yield="0" dir="r" state="M"/>
+      <succlane lane="e_vu0_0" dir="r" state="M"/>
    </succ>
 
    <succ edge="e_u0" lane="e_u0_1" junction="n_u0">
-      <succlane lane="e_vu0_1" yield="0" dir="r" state="M"/>
+      <succlane lane="e_vu0_1" dir="r" state="M"/>
    </succ>
 
    <succ edge="e_u0" lane="e_u0_2" junction="n_u0">
-      <succlane lane="SUMO_NO_DESTINATION" yield="1" dir="s" state="O"/>
+      <succlane lane="SUMO_NO_DESTINATION" dir="s" state="O"/>
    </succ>
 
    <succ edge="e_u1" lane="e_u1_0" junction="n_u1">
-      <succlane lane="e_vu1_0" yield="0" dir="r" state="M"/>
-      <succlane lane="e_vu1_1" yield="0" dir="r" state="M"/>
-      <succlane lane="e_u0_0" yield="0" dir="s" state="M"/>
+      <succlane lane="e_vu1_0" dir="r" state="M"/>
+      <succlane lane="e_vu1_1" dir="r" state="M"/>
+      <succlane lane="e_u0_0" dir="s" state="M"/>
    </succ>
 
    <succ edge="e_u1" lane="e_u1_1" junction="n_u1">
-      <succlane lane="e_u0_1" yield="0" dir="s" state="M"/>
+      <succlane lane="e_u0_1" dir="s" state="M"/>
    </succ>
 
    <succ edge="e_u1" lane="e_u1_2" junction="n_u1">
-      <succlane lane="e_u0_2" yield="0" dir="s" state="M"/>
+      <succlane lane="e_u0_2" dir="s" state="M"/>
    </succ>
 
    <succ edge="e_vo0" lane="e_vo0_0" junction="n_m4">
-      <succlane lane="e_m4_1" yield="1" dir="l" state="m"/>
+      <succlane lane="e_m4_1" dir="l" state="m"/>
    </succ>
 
    <succ edge="e_vo0" lane="e_vo0_1" junction="n_m4">
-      <succlane lane="e_m4_2" yield="1" dir="l" state="m"/>
+      <succlane lane="e_m4_2" dir="l" state="m"/>
    </succ>
 
    <succ edge="e_vo1" lane="e_vo1_0" junction="n_m5">
-      <succlane lane="e_m5_1" yield="1" dir="l" state="m"/>
+      <succlane lane="e_m5_1" dir="l" state="m"/>
    </succ>
 
    <succ edge="e_vo1" lane="e_vo1_1" junction="n_m5">
-      <succlane lane="e_m5_2" yield="1" dir="l" state="m"/>
+      <succlane lane="e_m5_2" dir="l" state="m"/>
    </succ>
 
    <succ edge="e_vo2" lane="e_vo2_0" junction="n_m6">
-      <succlane lane="e_m6_1" yield="1" dir="l" state="m"/>
+      <succlane lane="e_m6_1" dir="l" state="m"/>
    </succ>
 
    <succ edge="e_vo2" lane="e_vo2_1" junction="n_m6">
-      <succlane lane="e_m6_2" yield="1" dir="l" state="m"/>
+      <succlane lane="e_m6_2" dir="l" state="m"/>
    </succ>
 
    <succ edge="e_vu0" lane="e_vu0_0" junction="n_m4">
-      <succlane lane="e_m4_0" yield="1" dir="r" state="m"/>
+      <succlane lane="e_m4_0" dir="r" state="m"/>
    </succ>
 
    <succ edge="e_vu0" lane="e_vu0_1" junction="n_m4">
-      <succlane lane="e_m4_1" yield="1" dir="r" state="m"/>
+      <succlane lane="e_m4_1" dir="r" state="m"/>
    </succ>
 
    <succ edge="e_vu1" lane="e_vu1_0" junction="n_m5">
-      <succlane lane="e_m5_0" yield="1" dir="r" state="m"/>
+      <succlane lane="e_m5_0" dir="r" state="m"/>
    </succ>
 
    <succ edge="e_vu1" lane="e_vu1_1" junction="n_m5">
-      <succlane lane="e_m5_1" yield="1" dir="r" state="m"/>
+      <succlane lane="e_m5_1" dir="r" state="m"/>
    </succ>
 
    <succ edge="e_vu2" lane="e_vu2_0" junction="n_m6">
-      <succlane lane="e_m6_0" yield="1" dir="r" state="m"/>
+      <succlane lane="e_m6_0" dir="r" state="m"/>
    </succ>
 
    <succ edge="e_vu2" lane="e_vu2_1" junction="n_m6">
-      <succlane lane="e_m6_1" yield="1" dir="r" state="m"/>
+      <succlane lane="e_m6_1" dir="r" state="m"/>
    </succ>
 
    <succ edge="e_x0" lane="e_x0_0" junction="n_x1">
-      <succlane lane="e_x1_0" yield="0" dir="s" state="M"/>
+      <succlane lane="e_x1_0" dir="s" state="M"/>
    </succ>
 
    <succ edge="e_x0" lane="e_x0_1" junction="n_x1">
-      <succlane lane="e_x1_1" yield="0" dir="s" state="M"/>
+      <succlane lane="e_x1_1" dir="s" state="M"/>
    </succ>
 
    <succ edge="e_x1" lane="e_x1_0" junction="n_x2">
-      <succlane lane="SUMO_NO_DESTINATION" yield="1" dir="s" state="O"/>
+      <succlane lane="SUMO_NO_DESTINATION" dir="s" state="O"/>
    </succ>
 
    <succ edge="e_x1" lane="e_x1_1" junction="n_x2">
-      <succlane lane="SUMO_NO_DESTINATION" yield="1" dir="s" state="O"/>
+      <succlane lane="SUMO_NO_DESTINATION" dir="s" state="O"/>
    </succ>
 
 </net>

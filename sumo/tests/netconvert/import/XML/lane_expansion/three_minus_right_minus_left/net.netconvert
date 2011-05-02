@@ -57,32 +57,32 @@
    <junction id="SUMOGenerated1" type="DEAD_END" x="100.00" y="0.00" incLanes="1.70_0" intLanes="" shape="100.00,-6.55 100.00,-3.35"/>
 
    <succ edge="1" lane="1_0" junction="1.30">
-      <succlane lane="SUMO_NO_DESTINATION" yield="1" dir="s" state="O"/>
+      <succlane lane="SUMO_NO_DESTINATION" dir="s" state="O"/>
    </succ>
    <succ edge="1" lane="1_1" junction="1.30">
-      <succlane lane="1.30_0" via=":1.30_0_0" yield="0" dir="s" state="M"/>
+      <succlane lane="1.30_0" via=":1.30_0_0" dir="s" state="M"/>
    </succ>
    <succ edge="1" lane="1_2" junction="1.30">
-      <succlane lane="1.30_1" via=":1.30_1_0" yield="0" dir="s" state="M"/>
+      <succlane lane="1.30_1" via=":1.30_1_0" dir="s" state="M"/>
    </succ>
    <succ edge="1.30" lane="1.30_0" junction="1.70">
-      <succlane lane="1.70_0" via=":1.70_0_0" yield="0" dir="s" state="M"/>
+      <succlane lane="1.70_0" via=":1.70_0_0" dir="s" state="M"/>
    </succ>
    <succ edge="1.30" lane="1.30_1" junction="1.70">
-      <succlane lane="SUMO_NO_DESTINATION" yield="1" dir="s" state="O"/>
+      <succlane lane="SUMO_NO_DESTINATION" dir="s" state="O"/>
    </succ>
    <succ edge="1.70" lane="1.70_0" junction="SUMOGenerated1">
-      <succlane lane="SUMO_NO_DESTINATION" yield="1" dir="s" state="O"/>
+      <succlane lane="SUMO_NO_DESTINATION" dir="s" state="O"/>
    </succ>
 
    <succ edge=":1.30_0" lane=":1.30_0_0" junction="1.30">
-      <succlane lane="1.30_0" tl="" linkno="" yield="0" dir="s" state="M"/>
+      <succlane lane="1.30_0" tl="" linkno="" dir="s" state="M"/>
    </succ>
    <succ edge=":1.30_1" lane=":1.30_1_0" junction="1.30">
-      <succlane lane="1.30_1" tl="" linkno="" yield="0" dir="s" state="M"/>
+      <succlane lane="1.30_1" tl="" linkno="" dir="s" state="M"/>
    </succ>
    <succ edge=":1.70_0" lane=":1.70_0_0" junction="1.70">
-      <succlane lane="1.70_0" tl="" linkno="" yield="0" dir="s" state="M"/>
+      <succlane lane="1.70_0" tl="" linkno="" dir="s" state="M"/>
    </succ>
 
 </net>

@@ -60,17 +60,17 @@
    <junction id="91" type="DEAD_END" x="0.00" y="0.00" incLanes="" intLanes="" shape="0.00,-0.05 0.00,-3.25"/>
 
    <succ edge="1to21+1to22" lane="1to21+1to22_0" junction="2">
-      <succlane lane="out_0" tl="2" linkno="0" yield="1" dir="s" state="t"/>
+      <succlane lane="out_0" tl="2" linkno="0" dir="s" state="t"/>
    </succ>
    <succ edge="1to21+1to22" lane="1to21+1to22_1" junction="2">
-      <succlane lane="SUMO_NO_DESTINATION" tl="2" linkno="1" yield="1" dir="s" state="O"/>
+      <succlane lane="SUMO_NO_DESTINATION" tl="2" linkno="1" dir="s" state="O"/>
    </succ>
    <succ edge="91to1" lane="91to1_0" junction="1">
-      <succlane lane="1to21+1to22_0" yield="0" dir="s" state="M"/>
-      <succlane lane="1to21+1to22_1" yield="0" dir="s" state="M"/>
+      <succlane lane="1to21+1to22_0" dir="s" state="M"/>
+      <succlane lane="1to21+1to22_1" dir="s" state="M"/>
    </succ>
    <succ edge="out" lane="out_0" junction="3">
-      <succlane lane="SUMO_NO_DESTINATION" yield="1" dir="s" state="O"/>
+      <succlane lane="SUMO_NO_DESTINATION" dir="s" state="O"/>
    </succ>
 
 </net>
