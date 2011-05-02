@@ -53,13 +53,13 @@ Error: Trying to close connections of an unknown lane ('2_0').
 Error: Trying to close connections of an unknown lane ('2_1').
 Quitting (on error).
 ------------------ net/edge[0]@id:
-Error: Missing id of a 'edge'-object.
+Error: Attribute 'id' in definition of a edge is empty.
 Error: An unknown lane ('1_0') was tried to be set as incoming to junction '2'.
 Error: Trying to close connections of an unknown lane ('1_0').
 Error: Trying to close connections of an unknown lane ('1_1').
 Quitting (on error).
 ------------------ net/edge[1]@id:
-Error: Missing id of a 'edge'-object.
+Error: Attribute 'id' in definition of a edge is empty.
 Error: An unknown lane ('2_0') was tried to be set as incoming to junction '3'.
 Error: An unknown lane ('2_0') should be set as a follower for lane '1_0'.
 Error: An unknown lane ('2_1') should be set as a follower for lane '1_1'.
@@ -71,13 +71,13 @@ Quitting (on error).
 ------------------ net/edge[1]@id:a
  Wrong error code returned (0)!
 ------------------ net/edge[0]@id:<remove>
-Error: Missing id of a 'edge'-object.
+Error: Attribute 'id' is missing in definition of a edge.
 Error: An unknown lane ('1_0') was tried to be set as incoming to junction '2'.
 Error: Trying to close connections of an unknown lane ('1_0').
 Error: Trying to close connections of an unknown lane ('1_1').
 Quitting (on error).
 ------------------ net/edge[1]@id:<remove>
-Error: Missing id of a 'edge'-object.
+Error: Attribute 'id' is missing in definition of a edge.
 Error: An unknown lane ('2_0') was tried to be set as incoming to junction '3'.
 Error: An unknown lane ('2_0') should be set as a follower for lane '1_0'.
 Error: An unknown lane ('2_1') should be set as a follower for lane '1_1'.
@@ -172,18 +172,18 @@ Error: An unknown lane ('2_1') should be set as a follower for lane '1_1'.
 Error: Trying to close connections of an unknown lane ('2_1').
 Quitting (on error).
 ------------------ net/edge[0]/lane[0]@id:
-Error: Missing id of a 'lane'-object.
+Error: Attribute 'id' in definition of a lane is empty.
 Error: An unknown lane ('1_0') was tried to be set as incoming to junction '2'.
 Error: Trying to close connections of an unknown lane ('1_0').
 Error: Trying to close connections of an unknown lane ('1_1').
 Quitting (on error).
 ------------------ net/edge[0]/lane[1]@id:
-Error: Missing id of a 'lane'-object.
+Error: Attribute 'id' in definition of a lane is empty.
 Error: An unknown lane ('1_1') was tried to be set as incoming to junction '2'.
 Error: Trying to close connections of an unknown lane ('1_1').
 Quitting (on error).
 ------------------ net/edge[1]/lane[0]@id:
-Error: Missing id of a 'lane'-object.
+Error: Attribute 'id' in definition of a lane is empty.
 Error: An unknown lane ('2_0') was tried to be set as incoming to junction '3'.
 Error: An unknown lane ('2_0') should be set as a follower for lane '1_0'.
 Error: An unknown lane ('2_1') should be set as a follower for lane '1_1'.
@@ -191,7 +191,7 @@ Error: Trying to close connections of an unknown lane ('2_0').
 Error: Trying to close connections of an unknown lane ('2_1').
 Quitting (on error).
 ------------------ net/edge[1]/lane[1]@id:
-Error: Missing id of a 'lane'-object.
+Error: Attribute 'id' in definition of a lane is empty.
 Error: An unknown lane ('2_1') was tried to be set as incoming to junction '3'.
 Error: An unknown lane ('2_1') should be set as a follower for lane '1_1'.
 Error: Trying to close connections of an unknown lane ('2_1').
@@ -215,18 +215,18 @@ Error: An unknown lane ('2_1') should be set as a follower for lane '1_1'.
 Error: Trying to close connections of an unknown lane ('2_1').
 Quitting (on error).
 ------------------ net/edge[0]/lane[0]@id:<remove>
-Error: Missing id of a 'lane'-object.
+Error: Attribute 'id' is missing in definition of a lane.
 Error: An unknown lane ('1_0') was tried to be set as incoming to junction '2'.
 Error: Trying to close connections of an unknown lane ('1_0').
 Error: Trying to close connections of an unknown lane ('1_1').
 Quitting (on error).
 ------------------ net/edge[0]/lane[1]@id:<remove>
-Error: Missing id of a 'lane'-object.
+Error: Attribute 'id' is missing in definition of a lane.
 Error: An unknown lane ('1_1') was tried to be set as incoming to junction '2'.
 Error: Trying to close connections of an unknown lane ('1_1').
 Quitting (on error).
 ------------------ net/edge[1]/lane[0]@id:<remove>
-Error: Missing id of a 'lane'-object.
+Error: Attribute 'id' is missing in definition of a lane.
 Error: An unknown lane ('2_0') was tried to be set as incoming to junction '3'.
 Error: An unknown lane ('2_0') should be set as a follower for lane '1_0'.
 Error: An unknown lane ('2_1') should be set as a follower for lane '1_1'.
@@ -234,7 +234,7 @@ Error: Trying to close connections of an unknown lane ('2_0').
 Error: Trying to close connections of an unknown lane ('2_1').
 Quitting (on error).
 ------------------ net/edge[1]/lane[1]@id:<remove>
-Error: Missing id of a 'lane'-object.
+Error: Attribute 'id' is missing in definition of a lane.
 Error: An unknown lane ('2_1') was tried to be set as incoming to junction '3'.
 Error: An unknown lane ('2_1') should be set as a follower for lane '1_1'.
 Error: Trying to close connections of an unknown lane ('2_1').
@@ -583,13 +583,13 @@ Error: An unknown lane ('2_1') should be set as a follower for lane '1_1'.
 Error: Trying to close connections of an unknown lane ('2_1').
 Quitting (on error).
 ------------------ net/junction[0]@id:
-Error: Missing id of a 'junction'-object.
+Error: Attribute 'id' in definition of a junction is empty.
 Quitting (on error).
 ------------------ net/junction[1]@id:
-Error: Missing id of a 'junction'-object.
+Error: Attribute 'id' in definition of a junction is empty.
 Quitting (on error).
 ------------------ net/junction[2]@id:
-Error: Missing id of a 'junction'-object.
+Error: Attribute 'id' in definition of a junction is empty.
 Quitting (on error).
 ------------------ net/junction[0]@id:a
  Wrong error code returned (0)!
@@ -599,13 +599,13 @@ Quitting (on error).
 ------------------ net/junction[2]@id:a
  Wrong error code returned (0)!
 ------------------ net/junction[0]@id:<remove>
-Error: Missing id of a 'junction'-object.
+Error: Attribute 'id' is missing in definition of a junction.
 Quitting (on error).
 ------------------ net/junction[1]@id:<remove>
-Error: Missing id of a 'junction'-object.
+Error: Attribute 'id' is missing in definition of a junction.
 Quitting (on error).
 ------------------ net/junction[2]@id:<remove>
-Error: Missing id of a 'junction'-object.
+Error: Attribute 'id' is missing in definition of a junction.
 Quitting (on error).
 ------------------ net/junction[0]@type:
 Error: Attribute 'type' in definition of junction '1' is empty.
