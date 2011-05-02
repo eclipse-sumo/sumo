@@ -697,12 +697,18 @@ MSLane::setCritical(SUMOTime t, std::vector<MSLane*> &into) {
             veh->onRemovalFromNet(MSMoveReminder::NOTIFICATION_ARRIVED);
             MSNet::getInstance()->getVehicleControl().scheduleVehicleRemoval(veh);
         } else if (target!=0&&target!=this) {
-            // vehicle has entered a new lane
-            target->myVehBuffer.push_back(veh);
-            SUMOReal pspeed = veh->getSpeed();
-            SUMOReal oldPos = veh->getPositionOnLane() - SPEED2DIST(veh->getSpeed());
-            veh->workOnMoveReminders(oldPos, veh->getPositionOnLane(), pspeed);
-            into.push_back(target);
+            if(target->getEdge().isVaporizing()) {
+                // vehicle has reached a vaporizing edge
+                veh->onRemovalFromNet(MSMoveReminder::NOTIFICATION_VAPORIZED);
+                MSNet::getInstance()->getVehicleControl().scheduleVehicleRemoval(veh);
+            } else {
+                // vehicle has entered a new lane
+                target->myVehBuffer.push_back(veh);
+                SUMOReal pspeed = veh->getSpeed();
+                SUMOReal oldPos = veh->getPositionOnLane() - SPEED2DIST(veh->getSpeed());
+                veh->workOnMoveReminders(oldPos, veh->getPositionOnLane(), pspeed);
+                into.push_back(target);
+            }
         } else if (veh->isParking()) {
             // vehicle started to park
             veh->leaveLane(MSMoveReminder::NOTIFICATION_JUNCTION);
