@@ -338,8 +338,17 @@ NIImporter_SUMO::addJunction(const SUMOSAXAttributes &attrs) {
     } else {
         WRITE_WARNING("Unknown node type '" + typeS + "' for junction '" + id + "'.");
     }
-
     Position2D pos(x, y);
+    // legacy networks may have junction positions that do not lie at the center
+    // of their shape. we need to fix this.
+    std::string shapeS = attrs.getStringReporting(SUMO_ATTR_SHAPE, id.c_str(), ok, false);
+    if (shapeS != "") {
+        Position2DVector shape = GeomConvHelper::parseShapeReporting(
+                shapeS, attrs.getObjectType(), id.c_str(), ok, false);
+        // @todo should we always recenter or only in extrem cases? 
+        // if (!shape.around(pos)) 
+        pos = shape.getPolygonCenter();
+    }
     if (!GeoConvHelper::x2cartesian(pos)) {
         WRITE_ERROR("Unable to project coordinates for junction '" + id + "'.");
         return;
