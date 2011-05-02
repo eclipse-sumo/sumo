@@ -345,9 +345,9 @@ NIImporter_SUMO::addJunction(const SUMOSAXAttributes &attrs) {
     if (shapeS != "") {
         Position2DVector shape = GeomConvHelper::parseShapeReporting(
                 shapeS, attrs.getObjectType(), id.c_str(), ok, false);
-        // @todo should we always recenter or only in extrem cases? 
-        // if (!shape.around(pos)) 
-        pos = shape.getPolygonCenter();
+        if (!shape.around(pos)) { // only fix extrem cases
+            pos = shape.getPolygonCenter();
+        }
     }
     if (!GeoConvHelper::x2cartesian(pos)) {
         WRITE_ERROR("Unable to project coordinates for junction '" + id + "'.");
