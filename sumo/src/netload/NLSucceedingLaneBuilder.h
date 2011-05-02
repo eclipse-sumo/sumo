@@ -80,7 +80,6 @@ public:
      * @param[in] pass Theoretically: the maximum filling rate at the internal link; unused currently
      * @param[in] dir The abstract direction of the link
      * @param[in] state The abstract state of the link
-     * @param[in] internalEnd Whether the link is followed by an internal end lane
      * @param[in] tlid (optional) ID of the tls that controls the link
      * @param[in] linkNo (optional) index of the link within the controlling tls
      * @todo Recheck usage of "pass"
@@ -94,7 +93,6 @@ public:
                      const std::string &viaID, SUMOReal pass,
 #endif
                      MSLink::LinkDirection dir, MSLink::LinkState state,
-                     bool internalEnd,
                      const std::string &tlid="", unsigned int linkNo=0) throw(InvalidArgument);
 
 

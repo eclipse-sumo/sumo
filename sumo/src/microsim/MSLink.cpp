@@ -55,13 +55,12 @@ MSLink::MSLink(MSLane* succLane,
         myState(state), myDirection(dir),  myLength(length) {}
 #else
 MSLink::MSLink(MSLane* succLane, MSLane *via,
-               LinkDirection dir, LinkState state, bool internalEnd,
-               SUMOReal length) throw()
+               LinkDirection dir, LinkState state, SUMOReal length) throw()
         :
         myLane(succLane),
         myRequestIdx(0), myRespondIdx(0),
         myState(state), myDirection(dir), myLength(length),
-        myJunctionInlane(via),myIsInternalEnd(internalEnd) {}
+        myJunctionInlane(via) {}
 #endif
 
 

@@ -812,7 +812,7 @@ NBEdge::writeSucceeding(OutputDevice &into, unsigned int lane, bool includeInter
     }
     // the lane may be unconnented; output information about being invalid
     if (count==0) {
-        into << "      <succlane lane=\"SUMO_NO_DESTINATION\" yield=\"1\"/>\n";
+        into << "      <succlane lane=\"SUMO_NO_DESTINATION\"/>\n";
     }
     into << "   </succ>\n";
 }
@@ -828,7 +828,7 @@ NBEdge::writeSingleSucceeding(OutputDevice &into, const NBEdge::Connection &c, b
             into << " tl=\"" << c.tlID << "\"";
             into << " linkno=\"" << c.tlLinkNo << "\"";
         }
-        into << " yield=\"1\" " << "dir=\"s\" state=\"O\"/>\n"; // !!! check dummy values
+        into << " dir=\"s\" state=\"O\"/>\n"; // !!! check dummy values
         return;
     }
     // write the id
@@ -840,12 +840,6 @@ NBEdge::writeSingleSucceeding(OutputDevice &into, const NBEdge::Connection &c, b
     if (c.tlID!="") {
         into << " tl=\"" << c.tlID << "\"";
         into << " linkno=\"" << c.tlLinkNo << "\"";
-    }
-    // write information whether the connection yields
-    if ((myAmInnerEdge||!myTo->mustBrake(this, c.toEdge, c.toLane)) || c.mayDefinitelyPass) {
-        into << " yield=\"0\"";
-    } else {
-        into << " yield=\"1\"";
     }
     // write the direction information
     NBMMLDirection dir = myTo->getMMLDirection(this, c.toEdge);

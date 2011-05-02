@@ -1001,8 +1001,6 @@ NLHandler::addSuccLane(const SUMOSAXAttributes &attrs) {
     try {
         bool ok = true;
         SUMOReal pass = attrs.getOptSUMORealReporting(SUMO_ATTR_PASS, 0, ok, -1);
-        bool yield = attrs.getBoolReporting(SUMO_ATTR_YIELD, 0, ok);
-        bool internalEnd = attrs.getOptBoolReporting(SUMO_ATTR_YIELD, 0, ok, false);
         std::string lane = attrs.getStringReporting(SUMO_ATTR_LANE, 0, ok);
         std::string dir = attrs.getStringReporting(SUMO_ATTR_DIR, 0, ok);
         std::string state = attrs.getStringReporting(SUMO_ATTR_STATE, 0, ok);
@@ -1022,13 +1020,13 @@ NLHandler::addSuccLane(const SUMOSAXAttributes &attrs) {
 #ifdef HAVE_INTERNAL_LANES
                                                 via, pass,
 #endif
-                                                parseLinkDir(dir[0]), parseLinkState(state[0]), internalEnd, tlID, linkNumber);
+                                                parseLinkDir(dir[0]), parseLinkState(state[0]), tlID, linkNumber);
         } else {
             mySucceedingLaneBuilder.addSuccLane(lane,
 #ifdef HAVE_INTERNAL_LANES
                                                 via, pass,
 #endif
-                                                parseLinkDir(dir[0]), parseLinkState(state[0]), internalEnd);
+                                                parseLinkDir(dir[0]), parseLinkState(state[0]));
         }
     } catch (InvalidArgument &e) {
         MsgHandler::getErrorInstance()->inform(e.what());

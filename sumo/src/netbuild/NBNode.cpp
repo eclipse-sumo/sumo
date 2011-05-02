@@ -977,12 +977,12 @@ NBNode::writeXMLInternalSuccInfos(OutputDevice &into) {
                     << (*k).toEdge->getID() << "_" << (*k).toLane << "\""
                     << " via=\"" << sid << "_" << 0 << "\""
                     << " tl=\"" << "" << "\" linkno=\""
-                    << "" << "\" yield=\"1\" dir=\"s\" state=\"M\""; // !!! yield or not depends on whether it is tls controlled or not
+                    << "" << "\" dir=\"s\" state=\"M\""; // !!! yield or not depends on whether it is tls controlled or not
                 } else {
                     into << "      <succlane lane=\""
                     << (*k).toEdge->getID() << "_" << (*k).toLane
                     << "\" tl=\"" << "" << "\" linkno=\""
-                    << "" << "\" yield=\"0\" dir=\"s\" state=\"M\"";
+                    << "" << "\" dir=\"s\" state=\"M\"";
                 }
                 into << "/>\n";
                 into << "   </succ>\n";
@@ -994,7 +994,7 @@ NBNode::writeXMLInternalSuccInfos(OutputDevice &into) {
                     into << "      <succlane lane=\""
                     << (*k).toEdge->getID() << "_" << (*k).toLane
                     << "\" tl=\"" << "" << "\" linkno=\""
-                    << "0" << "\" yield=\"0\" dir=\"s\" state=\"M\"";
+                    << "0" << "\" dir=\"s\" state=\"M\"";
                     into << "/>\n";
                     into << "   </succ>\n";
                     splitNo++;

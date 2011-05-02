@@ -78,13 +78,12 @@ NLSucceedingLaneBuilder::addSuccLane(const std::string &laneId,
 #endif
                                      MSLink::LinkDirection dir,
                                      MSLink::LinkState state,
-                                     bool internalEnd,
                                      const std::string &tlid, unsigned int linkNo) throw(InvalidArgument) {
     // check whether the link is a dead link
     if (laneId=="SUMO_NO_DESTINATION") {
         // build the dead link and add it to the container
 #ifdef HAVE_INTERNAL_LANES
-        MSLink *link = new MSLink(0, 0, MSLink::LINKDIR_NODIR, MSLink::LINKSTATE_DEADEND, false, 0.);
+        MSLink *link = new MSLink(0, 0, MSLink::LINKDIR_NODIR, MSLink::LINKSTATE_DEADEND, 0.);
 #else
         MSLink *link = new MSLink(0, MSLink::LINKDIR_NODIR, MSLink::LINKSTATE_DEADEND, 0.);
 #endif
@@ -131,7 +130,7 @@ NLSucceedingLaneBuilder::addSuccLane(const std::string &laneId,
     if (via!=0) {
         length = via->getLength();
     }
-    MSLink *link = new MSLink(lane, via, dir, state, internalEnd, length);
+    MSLink *link = new MSLink(lane, via, dir, state, length);
 #else
     MSLink *link = new MSLink(lane, dir, state, length);
 #endif

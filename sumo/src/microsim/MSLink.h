@@ -139,11 +139,10 @@ public:
      * @param[in] via The lane to use within the junction
      * @param[in] dir The direction of this link
      * @param[in] state The state of this link
-     * @param[in] internalEnd Information whether this link is followed by a second junction-internal link
      * @param[in] length The length of this link
      */
     MSLink(MSLane* succLane, MSLane *via,
-           LinkDirection dir, LinkState state, bool internalEnd,
+           LinkDirection dir, LinkState state,
            SUMOReal length) throw();
 #endif
 
@@ -338,9 +337,6 @@ private:
 #ifdef HAVE_INTERNAL_LANES
     /// @brief The following junction-internal lane if used
     MSLane * const myJunctionInlane;
-
-    /// @brief Information whether this link is followed by a second junction-internal link
-    bool myIsInternalEnd;
 #endif
 
     std::vector<MSLink*> myFoeLinks;
