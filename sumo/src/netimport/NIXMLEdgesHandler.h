@@ -93,7 +93,7 @@ protected:
      * @exception ProcessError If something fails
      * @see GenericSAXHandler::myStartElement
      */
-    void myStartElement(SumoXMLTag element,
+    void myStartElement(int element,
                         const SUMOSAXAttributes &attrs) throw(ProcessError);
 
 
@@ -103,7 +103,7 @@ protected:
      * @exception ProcessError If something fails
      * @see GenericSAXHandler::myEndElement
      */
-    void myEndElement(SumoXMLTag element) throw(ProcessError);
+    void myEndElement(int element) throw(ProcessError);
     //@}
 
 

@@ -30,9 +30,6 @@
 #include <string>
 #include <iostream>
 #include <utils/xml/GenericSAXHandler.h>
-#include <utils/common/MsgHandler.h>
-#include <utils/common/TplConvert.h>
-#include <utils/common/ToString.h>
 #include "SUMOXMLDefinitions.h"
 #include "SUMOSAXHandler.h"
 
@@ -49,37 +46,6 @@ SUMOSAXHandler::SUMOSAXHandler(const std::string &file)
 
 
 SUMOSAXHandler::~SUMOSAXHandler() {}
-
-
-std::string
-SUMOSAXHandler::buildErrorMessage(const SAXParseException& exception) throw() {
-    std::ostringstream buf;
-    char *pMsg = XMLString::transcode(exception.getMessage());
-    buf << pMsg << std::endl;
-    buf << " In file '" << getFileName() << "'" << std::endl;
-    buf << " At line/column " << exception.getLineNumber()+1
-    << '/' << exception.getColumnNumber() << "." << std::endl;
-    XMLString::release(&pMsg);
-    return buf.str();
-}
-
-
-void
-SUMOSAXHandler::warning(const SAXParseException& exception) throw() {
-    MsgHandler::getWarningInstance()->inform(buildErrorMessage(exception));
-}
-
-
-void
-SUMOSAXHandler::error(const SAXParseException& exception) throw(ProcessError) {
-    throw ProcessError(buildErrorMessage(exception));
-}
-
-
-void
-SUMOSAXHandler::fatalError(const SAXParseException& exception) throw(ProcessError) {
-    throw ProcessError(buildErrorMessage(exception));
-}
 
 
 /****************************************************************************/

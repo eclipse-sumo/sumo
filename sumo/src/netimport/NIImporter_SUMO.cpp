@@ -183,7 +183,7 @@ NIImporter_SUMO::~NIImporter_SUMO() throw() {
 
 
 void
-NIImporter_SUMO::myStartElement(SumoXMLTag element,
+NIImporter_SUMO::myStartElement(int element,
                                 const SUMOSAXAttributes &attrs) throw(ProcessError) {
     /* our goal is to reproduce the input net faithfully
      * there are different types of objects in the netfile:
@@ -229,7 +229,7 @@ NIImporter_SUMO::myStartElement(SumoXMLTag element,
 
 
 void
-NIImporter_SUMO::myCharacters(SumoXMLTag element,
+NIImporter_SUMO::myCharacters(int element,
                               const std::string &chars) throw(ProcessError) {
     UNUSED_PARAMETER(element);
     UNUSED_PARAMETER(chars);
@@ -237,7 +237,7 @@ NIImporter_SUMO::myCharacters(SumoXMLTag element,
 
 
 void
-NIImporter_SUMO::myEndElement(SumoXMLTag element) throw(ProcessError) {
+NIImporter_SUMO::myEndElement(int element) throw(ProcessError) {
     switch (element) {
     case SUMO_TAG_EDGE:
         if (myEdges.find(myCurrentEdge->id)!=myEdges.end()) {
@@ -276,11 +276,11 @@ NIImporter_SUMO::myEndElement(SumoXMLTag element) throw(ProcessError) {
 void
 NIImporter_SUMO::addEdge(const SUMOSAXAttributes &attrs) {
     // get the id, report an error if not given or empty...
-    std::string id;
-    if (!attrs.setIDFromAttributes(id)) {
+    bool ok = true;
+    std::string id = attrs.getStringReporting(SUMO_ATTR_ID, 0, ok);
+    if (!ok) {
         return;
     }
-    bool ok = true;
     myCurrentEdge = new EdgeAttrs;
     myCurrentEdge->id = id;
     // get the type
@@ -299,15 +299,15 @@ NIImporter_SUMO::addEdge(const SUMOSAXAttributes &attrs) {
 
 void
 NIImporter_SUMO::addLane(const SUMOSAXAttributes &attrs) {
-    std::string id;
-    if (!attrs.setIDFromAttributes(id)) {
+    bool ok = true;
+    std::string id = attrs.getStringReporting(SUMO_ATTR_ID, 0, ok);
+    if (!ok) {
         return;
     }
     if (!myCurrentEdge) {
         WRITE_ERROR("Found lane '" + id  + "' not within edge element");
     }
     myCurrentLane = new LaneAttrs;
-    bool ok = true;
     myCurrentLane->maxSpeed = attrs.getOptSUMORealReporting(SUMO_ATTR_MAXSPEED, id.c_str(), ok, -1);
     myCurrentLane->depart = attrs.getOptBoolReporting(SUMO_ATTR_DEPART, id.c_str(), ok, false);
     myCurrentLane->allow = attrs.getOptStringReporting(SUMO_ATTR_ALLOW, id.c_str(), ok, "");
@@ -321,14 +321,14 @@ NIImporter_SUMO::addLane(const SUMOSAXAttributes &attrs) {
 void
 NIImporter_SUMO::addJunction(const SUMOSAXAttributes &attrs) {
     // get the id, report an error if not given or empty...
-    std::string id;
-    if (!attrs.setIDFromAttributes(id)) {
+    bool ok = true;
+    std::string id = attrs.getStringReporting(SUMO_ATTR_ID, 0, ok);
+    if (!ok) {
         return;
     }
     if (id[0]==':') { // internal node
         return;
     }
-    bool ok = true;
     SumoXMLNodeType type = NODETYPE_UNKNOWN;
     SUMOReal x = attrs.getSUMORealReporting(SUMO_ATTR_X, id.c_str(), ok);
     SUMOReal y = attrs.getSUMORealReporting(SUMO_ATTR_Y, id.c_str(), ok);

@@ -106,7 +106,7 @@ protected:
      * @exception ProcessError If something fails
      * @see GenericSAXHandler::myStartElement
      */
-    virtual void myStartElement(SumoXMLTag element,
+    virtual void myStartElement(int element,
                                 const SUMOSAXAttributes &attrs);
 
     /** @brief Called on the closing of a tag;
@@ -115,7 +115,7 @@ protected:
      * @exception ProcessError If something fails
      * @see GenericSAXHandler::myEndElement
      */
-    virtual void myEndElement(SumoXMLTag element);
+    virtual void myEndElement(int element);
     //@}
 
 

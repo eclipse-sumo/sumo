@@ -56,16 +56,16 @@ RODFDetectorHandler::~RODFDetectorHandler() throw() {}
 
 
 void
-RODFDetectorHandler::myStartElement(SumoXMLTag element,
+RODFDetectorHandler::myStartElement(int element,
                                     const SUMOSAXAttributes &attrs) throw(ProcessError) {
     if (element==SUMO_TAG_DETECTOR_DEFINITION) {
         try {
-            // get the id, report an error if not given or empty...
-            std::string id;
-            if (!attrs.setIDFromAttributes(id, false)) {
-                throw ProcessError("A detector_definition without an id occured within '" + getFileName() + "'.");
-            }
             bool ok = true;
+            // get the id, report an error if not given or empty...
+            std::string id = attrs.getStringReporting(SUMO_ATTR_ID, 0, ok);
+            if (!ok) {
+                throw ProcessError();
+            }
             std::string lane = attrs.getStringReporting(SUMO_ATTR_LANE, id.c_str(), ok);
             if (!ok) {
                 throw ProcessError();

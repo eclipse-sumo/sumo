@@ -66,7 +66,7 @@ GUISettingsHandler::~GUISettingsHandler() throw() {
 
 
 void
-GUISettingsHandler::myStartElement(SumoXMLTag element,
+GUISettingsHandler::myStartElement(int element,
                                    const SUMOSAXAttributes &attrs) throw(ProcessError) {
     bool ok = true;
     switch (element) {

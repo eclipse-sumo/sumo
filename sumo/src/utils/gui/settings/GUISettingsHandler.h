@@ -62,7 +62,7 @@ public:
      * @exception ProcessError If something fails
      * @see GenericSAXHandler::myStartElement
      */
-    void myStartElement(SumoXMLTag element, const SUMOSAXAttributes &attrs) throw(ProcessError);
+    void myStartElement(int element, const SUMOSAXAttributes &attrs) throw(ProcessError);
     //@}
 
 
@@ -129,7 +129,7 @@ private:
     std::vector<GUISUMOAbstractView::Decal> myDecals;
 
     /// @brief The last color scheme category (edges or vehicles)
-    SumoXMLTag myCurrentColorer;
+    int myCurrentColorer;
 
     /// @brief The current color scheme
     GUIColorScheme* myCurrentScheme;

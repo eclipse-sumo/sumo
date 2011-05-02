@@ -60,7 +60,7 @@ RONetHandler::~RONetHandler() throw() {}
 
 
 void
-RONetHandler::myStartElement(SumoXMLTag element,
+RONetHandler::myStartElement(int element,
                              const SUMOSAXAttributes &attrs) throw(ProcessError) {
     switch (element) {
     case SUMO_TAG_EDGE:
@@ -101,7 +101,9 @@ RONetHandler::myStartElement(SumoXMLTag element,
 void
 RONetHandler::parseEdge(const SUMOSAXAttributes &attrs) {
     // get the id, report an error if not given or empty...
-    if (!attrs.setIDFromAttributes(myCurrentName)) {
+    bool ok = true;
+    myCurrentName = attrs.getStringReporting(SUMO_ATTR_ID, 0, ok);
+    if (!ok) {
         throw ProcessError();
     }
     // get the edge
@@ -111,7 +113,6 @@ RONetHandler::parseEdge(const SUMOSAXAttributes &attrs) {
         //  !!! recheck this; internal edges may be of importance during the dua
         return;
     }
-    bool ok = true;
     std::string from = attrs.getStringReporting(SUMO_ATTR_FROM, myCurrentName.c_str(), ok);
     std::string to = attrs.getStringReporting(SUMO_ATTR_TO, myCurrentName.c_str(), ok);
     std::string type = attrs.getStringReporting(SUMO_ATTR_FUNCTION, myCurrentName.c_str(), ok);
@@ -157,14 +158,14 @@ RONetHandler::parseLane(const SUMOSAXAttributes &attrs) {
         // was an internal edge to skip or an error occured
         return;
     }
+    bool ok = true;
     SUMOVehicleClasses allowed, disallowed;
     // get the id, report an error if not given or empty...
-    std::string id;
-    if (!attrs.setIDFromAttributes(id)) {
+    std::string id = attrs.getStringReporting(SUMO_ATTR_ID, 0, ok);
+    if (!ok) {
         return;
     }
     // get the speed
-    bool ok = true;
     SUMOReal maxSpeed = attrs.getSUMORealReporting(SUMO_ATTR_MAXSPEED, id.c_str(), ok);
     SUMOReal length = attrs.getSUMORealReporting(SUMO_ATTR_LENGTH, id.c_str(), ok);
     std::string allow = attrs.getOptStringReporting(SUMO_ATTR_ALLOW, id.c_str(), ok, "");
@@ -187,13 +188,13 @@ RONetHandler::parseLane(const SUMOSAXAttributes &attrs) {
 
 void
 RONetHandler::parseJunction(const SUMOSAXAttributes &attrs) {
+    bool ok = true;
     // get the id, report an error if not given or empty...
-    std::string id;
-    if (!attrs.setIDFromAttributes(id)) {
+    std::string id = attrs.getStringReporting(SUMO_ATTR_ID, 0, ok);
+    if (!ok) {
         return;
     }
     // get the position of the node
-    bool ok = true;
     SUMOReal x = attrs.getSUMORealReporting(SUMO_ATTR_X, id.c_str(), ok);
     SUMOReal y = attrs.getSUMORealReporting(SUMO_ATTR_Y, id.c_str(), ok);
     if (ok) {
@@ -248,7 +249,9 @@ RONetHandler::parseConnectedEdge(const SUMOSAXAttributes &attrs) {
 void
 RONetHandler::parseDistrict(const SUMOSAXAttributes &attrs) throw(ProcessError) {
     myCurrentEdge = 0;
-    if (!attrs.setIDFromAttributes(myCurrentName)) {
+    bool ok;
+    myCurrentName = attrs.getStringReporting(SUMO_ATTR_ID, 0, ok);
+    if (!ok) {
         return;
     }
     ROEdge *sink = myEdgeBuilder.buildEdge(myCurrentName + "-sink", 0, 0);

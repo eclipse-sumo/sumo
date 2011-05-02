@@ -222,7 +222,7 @@ protected:
          * @exception ProcessError If something fails
          * @see GenericSAXHandler::myStartElement
          */
-        virtual void myStartElement(SumoXMLTag element,
+        virtual void myStartElement(int element,
                                     const SUMOSAXAttributes &attrs);
         //@}
 

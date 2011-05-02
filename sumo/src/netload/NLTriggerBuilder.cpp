@@ -70,10 +70,10 @@ NLTriggerBuilder::setHandler(NLHandler *handler) throw() {
 
 void
 NLTriggerBuilder::buildVaporizer(const SUMOSAXAttributes &attrs) throw() {
+    bool ok = true;
     // get the id, throw if not given or empty...
-    std::string id;
-    if (!attrs.setIDFromAttributes(id, false)) {
-        MsgHandler::getErrorInstance()->inform("Missing or empty id in a vaporizer-object.");
+    std::string id = attrs.getStringReporting(SUMO_ATTR_ID, 0, ok);
+    if (!ok) {
         return;
     }
     MSEdge *e = MSEdge::dictionary(id);
@@ -81,7 +81,6 @@ NLTriggerBuilder::buildVaporizer(const SUMOSAXAttributes &attrs) throw() {
         MsgHandler::getErrorInstance()->inform("Unknown edge ('" + id + "') referenced in a vaporizer.");
         return;
     }
-    bool ok = true;
     SUMOTime begin = attrs.getSUMOTimeReporting(SUMO_ATTR_BEGIN, 0, ok);
     SUMOTime end = attrs.getSUMOTimeReporting(SUMO_ATTR_END, 0, ok);
     if (!ok) {
@@ -109,14 +108,15 @@ void
 NLTriggerBuilder::parseAndBuildLaneSpeedTrigger(MSNet &net, const SUMOSAXAttributes &attrs,
         const std::string &base) throw(InvalidArgument) {
     // get the id, throw if not given or empty...
-    std::string id;
-    if (!attrs.setIDFromAttributes(id, false)) {
-        throw InvalidArgument("A lane speed trigger definition does not contain an id");
+    bool ok = true;
+    // get the id, throw if not given or empty...
+    std::string id = attrs.getStringReporting(SUMO_ATTR_ID, 0, ok);
+    if (!ok) {
+        return;
     }
     // get the file name to read further definitions from
     std::string file = getFileName(attrs, base, true);
     std::string objectid;
-    bool ok = true;
     if (attrs.hasAttribute(SUMO_ATTR_LANES)) {
         objectid = attrs.getStringReporting(SUMO_ATTR_LANES, id.c_str(), ok);
     } else {
@@ -154,15 +154,15 @@ NLTriggerBuilder::parseAndBuildLaneSpeedTrigger(MSNet &net, const SUMOSAXAttribu
 
 void
 NLTriggerBuilder::parseAndBuildBusStop(MSNet &net, const SUMOSAXAttributes &attrs) throw(InvalidArgument) {
+    bool ok = true;
     // get the id, throw if not given or empty...
-    std::string id;
-    if (!attrs.setIDFromAttributes(id, false)) {
-        throw InvalidArgument("A bus stop does not contain an id");
+    std::string id = attrs.getStringReporting(SUMO_ATTR_ID, 0, ok);
+    if (!ok) {
+        throw ProcessError();
     }
     // get the lane
     MSLane *lane = getLane(attrs, "bus_stop", id);
     // get the positions
-    bool ok = true;
     SUMOReal frompos = attrs.getOptSUMORealReporting(SUMO_ATTR_STARTPOS, id.c_str(), ok, 0);
     SUMOReal topos = attrs.getOptSUMORealReporting(SUMO_ATTR_ENDPOS, id.c_str(), ok, lane->getLength());
     if (attrs.hasAttribute(SUMO_ATTR_FROM) || attrs.hasAttribute(SUMO_ATTR_TO)) {
@@ -185,15 +185,15 @@ NLTriggerBuilder::parseAndBuildBusStop(MSNet &net, const SUMOSAXAttributes &attr
 void
 NLTriggerBuilder::parseAndBuildCalibrator(MSNet &net, const SUMOSAXAttributes &attrs,
         const std::string &base) throw(InvalidArgument) {
+    bool ok = true;
     // get the id, throw if not given or empty...
-    std::string id;
-    if (!attrs.setIDFromAttributes(id, false)) {
-        throw InvalidArgument("A calibrator does not contain an id");
+    std::string id = attrs.getStringReporting(SUMO_ATTR_ID, 0, ok);
+    if (!ok) {
+        throw ProcessError();
     }
     // get the file name to read further definitions from
     MSLane *lane = getLane(attrs, "calibrator", id);
     SUMOReal pos = getPosition(attrs, lane, "calibrator", id);
-    bool ok = true;
     SUMOTime freq = attrs.getOptSUMOTimeReporting(SUMO_ATTR_FREQUENCY, id.c_str(), ok, DELTA_T); // !!! no error handling
 #ifdef HAVE_MESOSIM
     if (MSGlobals::gUseMesoSim) {
@@ -217,15 +217,15 @@ NLTriggerBuilder::parseAndBuildCalibrator(MSNet &net, const SUMOSAXAttributes &a
 void
 NLTriggerBuilder::parseAndBuildRerouter(MSNet &net, const SUMOSAXAttributes &attrs,
                                         const std::string &base) throw(InvalidArgument) {
+    bool ok = true;
     // get the id, throw if not given or empty...
-    std::string id;
-    if (!attrs.setIDFromAttributes(id, false)) {
-        throw InvalidArgument("A rerouter does not contain an id");
+    std::string id = attrs.getStringReporting(SUMO_ATTR_ID, 0, ok);
+    if (!ok) {
+        throw ProcessError();
     }
     // get the file name to read further definitions from
     std::string file = getFileName(attrs, base);
     std::string objectid;
-    bool ok = true;
     if (attrs.hasAttribute(SUMO_ATTR_EDGES)) {
         objectid = attrs.getStringReporting(SUMO_ATTR_EDGES, id.c_str(), ok);
     } else {

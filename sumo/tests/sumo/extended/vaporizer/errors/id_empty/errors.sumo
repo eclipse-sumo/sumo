@@ -1,2 +1,2 @@
-Error: Missing or empty id in a vaporizer-object.
+Error: Attribute 'id' in definition of a vaporizer is empty.
 Quitting (on error).

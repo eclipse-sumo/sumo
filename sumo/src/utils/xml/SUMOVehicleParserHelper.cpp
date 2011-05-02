@@ -44,10 +44,8 @@
 // ===========================================================================
 SUMOVehicleParameter *
 SUMOVehicleParserHelper::parseFlowAttributes(const SUMOSAXAttributes &attrs) throw(ProcessError) {
-    std::string id;
-    if (!attrs.setIDFromAttributes(id)) {
-        throw ProcessError();
-    }
+    bool ok = true;
+    std::string id = attrs.getStringReporting(SUMO_ATTR_ID, 0, ok);
     if (attrs.hasAttribute(SUMO_ATTR_PERIOD) && attrs.hasAttribute(SUMO_ATTR_VEHSPERHOUR)) {
         throw ProcessError("At most one of '" + attrs.getName(SUMO_ATTR_PERIOD) +
                            "' and '" + attrs.getName(SUMO_ATTR_VEHSPERHOUR) +
@@ -69,7 +67,6 @@ SUMOVehicleParserHelper::parseFlowAttributes(const SUMOSAXAttributes &attrs) thr
                                "' is needed in flow '" + id + "'.");
         }
     }
-    bool ok = true;
     SUMOVehicleParameter *ret = new SUMOVehicleParameter();
     ret->id = id;
     parseCommonAttributes(attrs, ret, "flow");
@@ -146,12 +143,15 @@ SUMOVehicleParserHelper::parseFlowAttributes(const SUMOSAXAttributes &attrs) thr
 SUMOVehicleParameter *
 SUMOVehicleParserHelper::parseVehicleAttributes(const SUMOSAXAttributes &attrs,
         bool skipID, bool skipDepart) throw(ProcessError) {
+    bool ok = true;
     std::string id, errorMsg;
-    if (!skipID && !attrs.setIDFromAttributes(id)) {
-        throw ProcessError();
+    if (!skipID) {
+        id = attrs.getStringReporting(SUMO_ATTR_ID, 0, ok);
     }
     if (attrs.hasAttribute(SUMO_ATTR_PERIOD) ^ attrs.hasAttribute(SUMO_ATTR_REPNUMBER)) {
-        throw ProcessError("The attributes '" + attrs.getName(SUMO_ATTR_PERIOD) + "' and '" + attrs.getName(SUMO_ATTR_REPNUMBER) + "' have to be given both in the definition of '" + id + "'.");
+        throw ProcessError("The attributes '" + attrs.getName(SUMO_ATTR_PERIOD) + 
+                "' and '" + attrs.getName(SUMO_ATTR_REPNUMBER) + 
+                "' have to be given both in the definition of '" + id + "'.");
     }
     SUMOVehicleParameter *ret = new SUMOVehicleParameter();
     ret->id = id;
@@ -161,7 +161,6 @@ SUMOVehicleParserHelper::parseVehicleAttributes(const SUMOSAXAttributes &attrs,
         delete ret;
         throw;
     }
-    bool ok = true;
     if (!skipDepart) {
         const std::string helper = attrs.getStringReporting(SUMO_ATTR_DEPART, 0, ok);
         if (helper=="triggered") {
@@ -375,10 +374,8 @@ SUMOVehicleParserHelper::parseCommonAttributes(const SUMOSAXAttributes &attrs,
 SUMOVTypeParameter *
 SUMOVehicleParserHelper::beginVTypeParsing(const SUMOSAXAttributes &attrs) throw(ProcessError) {
     SUMOVTypeParameter *vtype = new SUMOVTypeParameter();
-    if (!attrs.setIDFromAttributes(vtype->id)) {
-        throw ProcessError();
-    }
     bool ok = true;
+    vtype->id = attrs.getStringReporting(SUMO_ATTR_ID, 0, ok);
     if (attrs.hasAttribute(SUMO_ATTR_LENGTH)) {
         vtype->length = attrs.getSUMORealReporting(SUMO_ATTR_LENGTH, vtype->id.c_str(), ok);
         vtype->setParameter |= VTYPEPARS_LENGTH_SET;
@@ -431,6 +428,7 @@ SUMOVehicleParserHelper::beginVTypeParsing(const SUMOSAXAttributes &attrs) throw
         throw;
     }
     if (!ok) {
+        delete vtype;
         throw ProcessError();
     }
     return vtype;
@@ -439,38 +437,42 @@ SUMOVehicleParserHelper::beginVTypeParsing(const SUMOSAXAttributes &attrs) throw
 
 void
 SUMOVehicleParserHelper::parseVTypeEmbedded(SUMOVTypeParameter &into,
-        SumoXMLTag element, const SUMOSAXAttributes &attrs,
+        int element, const SUMOSAXAttributes &attrs,
         bool fromVType) throw(ProcessError) {
+    SumoXMLTag recognizedTag = SUMO_TAG_NOTHING; // avoid casting
     switch (element) {
     case SUMO_TAG_CF_KRAUSS:
-        parseVTypeEmbedded_Krauss(into, attrs, fromVType);
+        recognizedTag = SUMO_TAG_CF_KRAUSS;
+        parseVTypeEmbedded_Krauss(into, attrs);
         break;
     case SUMO_TAG_CF_IDM:
+        recognizedTag = SUMO_TAG_CF_IDM;
         parseVTypeEmbedded_IDM(into, attrs);
         break;
     case SUMO_TAG_CF_KRAUSS_ORIG1:
+        recognizedTag = SUMO_TAG_CF_KRAUSS_ORIG1;
         parseVTypeEmbedded_Krauss(into, attrs);
         break;
     case SUMO_TAG_CF_PWAGNER2009:
+        recognizedTag = SUMO_TAG_CF_PWAGNER2009;
         parseVTypeEmbedded_Krauss(into, attrs);
         break;
     case SUMO_TAG_CF_BKERNER:
+        recognizedTag = SUMO_TAG_CF_BKERNER;
         parseVTypeEmbedded_BKerner(into, attrs);
         break;
     default:
         WRITE_WARNING("Unknown element " + toString(element));
     }
     if (!fromVType) {
-        into.cfModel = element;
+        into.cfModel = recognizedTag;
     }
 }
 
 
 void
 SUMOVehicleParserHelper::parseVTypeEmbedded_Krauss(SUMOVTypeParameter &into,
-        const SUMOSAXAttributes &attrs,
-        bool fromVType) throw(ProcessError) {
-    UNUSED_PARAMETER(fromVType);
+        const SUMOSAXAttributes &attrs) throw(ProcessError) {
     bool ok = true;
     if (attrs.hasAttribute(SUMO_ATTR_ACCEL)) {
         into.cfParameter["accel"] = attrs.getSUMORealReporting(SUMO_ATTR_ACCEL, into.id.c_str(), ok);

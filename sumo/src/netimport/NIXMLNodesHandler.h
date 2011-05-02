@@ -88,7 +88,7 @@ protected:
      * @note policy is to throw no exception in order to allow further processing
      * @todo ProcessErrors are thrown when parsing traffic lights!?
      */
-    void myStartElement(SumoXMLTag element,
+    void myStartElement(int element,
                         const SUMOSAXAttributes &attrs) throw(ProcessError);
     //@}
 

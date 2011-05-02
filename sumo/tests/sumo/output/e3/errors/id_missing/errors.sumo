@@ -1,2 +1,2 @@
-Error: Missing id of a 'e3-detector'-object.
+Error: Attribute 'id' is missing in definition of a e3-detector.
 Quitting (on error).

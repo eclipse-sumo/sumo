@@ -92,18 +92,15 @@ PCLoaderXML::~PCLoaderXML() throw() {}
 
 
 void
-PCLoaderXML::myStartElement(SumoXMLTag element,
+PCLoaderXML::myStartElement(int element,
                             const SUMOSAXAttributes &attrs) throw(ProcessError) {
     if (element!=SUMO_TAG_POI && element!=SUMO_TAG_POLY) {
         return;
     }
     if (element==SUMO_TAG_POI) {
-        // get the id, report an error if not given or empty...
-        std::string id;
-        if (!attrs.setIDFromAttributes(id)) {
-            return;
-        }
         bool ok = true;
+        // get the id, report an error if not given or empty...
+        std::string id = attrs.getStringReporting(SUMO_ATTR_ID, 0, ok);
         SUMOReal x = attrs.getSUMORealReporting(SUMO_ATTR_X, id.c_str(), ok);
         SUMOReal y = attrs.getSUMORealReporting(SUMO_ATTR_Y, id.c_str(), ok);
         std::string type = attrs.getOptStringReporting(SUMO_ATTR_TYPE, id.c_str(), ok, "");
@@ -184,7 +181,7 @@ PCLoaderXML::myStartElement(SumoXMLTag element,
 
 
 void
-PCLoaderXML::myCharacters(SumoXMLTag element,
+PCLoaderXML::myCharacters(int element,
                           const std::string &chars) throw(ProcessError) {
     if (element==SUMO_TAG_POLY) {
         bool ok = true;

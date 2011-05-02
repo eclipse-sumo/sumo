@@ -100,7 +100,7 @@ protected:
      * @see GenericSAXHandler::myStartElement
      * @todo Refactor/describe
      */
-    virtual void myStartElement(SumoXMLTag element,
+    virtual void myStartElement(int element,
                                 const SUMOSAXAttributes &attrs) throw(ProcessError);
 
 
@@ -112,7 +112,7 @@ protected:
      * @see GenericSAXHandler::myCharacters
      * @todo Refactor/describe
      */
-    virtual void myCharacters(SumoXMLTag element,
+    virtual void myCharacters(int element,
                               const std::string &chars) throw(ProcessError);
 
 
@@ -123,7 +123,7 @@ protected:
      * @see GenericSAXHandler::myEndElement
      * @todo Refactor/describe
      */
-    virtual void myEndElement(SumoXMLTag element) throw(ProcessError);
+    virtual void myEndElement(int element) throw(ProcessError);
     //@}
 
 

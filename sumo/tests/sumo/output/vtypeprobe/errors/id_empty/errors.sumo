@@ -1,2 +1,2 @@
-Error: Missing id of a 'vtypeprobe'-object.
+Error: Attribute 'id' in definition of a vtypeprobe is empty.
 Quitting (on error).

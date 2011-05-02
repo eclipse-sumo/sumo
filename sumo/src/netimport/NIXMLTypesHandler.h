@@ -76,7 +76,7 @@ protected:
      * @exception ProcessError If something fails (not used herein)
      * @note policy is to throw no exception in order to allow further processing
      */
-    void myStartElement(SumoXMLTag element,
+    void myStartElement(int element,
                         const SUMOSAXAttributes &attrs) throw(ProcessError);
     //@}
 

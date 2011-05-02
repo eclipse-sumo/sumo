@@ -55,7 +55,7 @@ ODDistrictHandler::~ODDistrictHandler() throw() {}
 
 
 void
-ODDistrictHandler::myStartElement(SumoXMLTag element,
+ODDistrictHandler::myStartElement(int element,
                                   const SUMOSAXAttributes &attrs) throw(ProcessError) {
     switch (element) {
     case SUMO_TAG_DISTRICT:
@@ -74,7 +74,7 @@ ODDistrictHandler::myStartElement(SumoXMLTag element,
 
 
 void
-ODDistrictHandler::myEndElement(SumoXMLTag element) throw(ProcessError) {
+ODDistrictHandler::myEndElement(int element) throw(ProcessError) {
     if (element==SUMO_TAG_DISTRICT) {
         closeDistrict();
     }
@@ -85,8 +85,9 @@ void
 ODDistrictHandler::openDistrict(const SUMOSAXAttributes &attrs) throw() {
     myCurrentDistrict = 0;
     // get the id, report an error if not given or empty...
-    std::string id;
-    if (!attrs.setIDFromAttributes(id)) {
+    bool ok = true;
+    std::string id = attrs.getStringReporting(SUMO_ATTR_ID, 0, ok);
+    if (!ok) {
         return;
     }
     myCurrentDistrict = new ODDistrict(id);
@@ -119,12 +120,12 @@ ODDistrictHandler::parseConnection(const SUMOSAXAttributes &attrs) throw() {
         return std::pair<std::string, SUMOReal>("", -1);
     }
     // get the id, report an error if not given or empty...
-    std::string id;
-    if (!attrs.setIDFromAttributes(id)) {
+    bool ok = true;
+    std::string id = attrs.getStringReporting(SUMO_ATTR_ID, 0, ok);
+    if (!ok) {
         return std::pair<std::string, SUMOReal>("", -1);
     }
     // get the weight
-    bool ok = true;
     SUMOReal weight = attrs.getSUMORealReporting(SUMO_ATTR_WEIGHT, id.c_str(), ok);
     if (ok) {
         if (weight<0) {

@@ -130,7 +130,7 @@ protected:
          * @exception ProcessError If something fails
          * @see GenericSAXHandler::myStartElement
          */
-        void myStartElement(SumoXMLTag element, const SUMOSAXAttributes &attrs) throw(ProcessError);
+        void myStartElement(int element, const SUMOSAXAttributes &attrs) throw(ProcessError);
 
 
         /** @brief Called when a closing tag occurs
@@ -139,7 +139,7 @@ protected:
          * @exception ProcessError If something fails
          * @see GenericSAXHandler::myEndElement
          */
-        void myEndElement(SumoXMLTag element) throw(ProcessError);
+        void myEndElement(int element) throw(ProcessError);
         //@}
 
 
@@ -148,7 +148,7 @@ protected:
         std::map<int, PCOSMNode*> &myToFill;
 
         /// @brief Current path in order to know to what occuring values belong
-        std::vector<SumoXMLTag> myParentElements;
+        std::vector<int> myParentElements;
 
         /// @brief The id of the last parsed node
         int myLastNodeID;
@@ -195,7 +195,7 @@ protected:
          * @exception ProcessError If something fails
          * @see GenericSAXHandler::myStartElement
          */
-        void myStartElement(SumoXMLTag element, const SUMOSAXAttributes &attrs) throw(ProcessError);
+        void myStartElement(int element, const SUMOSAXAttributes &attrs) throw(ProcessError);
 
 
         /** @brief Called when a closing tag occurs
@@ -204,7 +204,7 @@ protected:
          * @exception ProcessError If something fails
          * @see GenericSAXHandler::myEndElement
          */
-        void myEndElement(SumoXMLTag element) throw(ProcessError);
+        void myEndElement(int element) throw(ProcessError);
         //@}
 
 
@@ -219,7 +219,7 @@ protected:
         PCOSMEdge *myCurrentEdge;
 
         /// @brief Current path in order to know to what occuring values belong
-        std::vector<SumoXMLTag> myParentElements;
+        std::vector<int> myParentElements;
 
 
     private:

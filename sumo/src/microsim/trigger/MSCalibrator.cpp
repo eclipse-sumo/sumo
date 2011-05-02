@@ -215,7 +215,7 @@ MSCalibrator::MSCalibrator_FileTriggeredChild::buildAndScheduleFlowVehicle(SUMOR
 
 
 void
-MSCalibrator::MSCalibrator_FileTriggeredChild::myStartElement(SumoXMLTag element,
+MSCalibrator::MSCalibrator_FileTriggeredChild::myStartElement(int element,
         const SUMOSAXAttributes &attrs) {
     if (element==SUMO_TAG_ROUTEDISTELEM) {
         bool ok = true;
@@ -236,12 +236,12 @@ MSCalibrator::MSCalibrator_FileTriggeredChild::myStartElement(SumoXMLTag element
     }
     // vehicle-type distributions
     if (element==SUMO_TAG_VTYPEDISTELEM) {
+        bool ok = true;
         // get the id, report an error if not given or empty...
-        std::string id;
-        if (!attrs.setIDFromAttributes(id)) {
+        std::string id = attrs.getStringReporting(SUMO_ATTR_ID, 0, ok);
+        if (!ok) {
             return;
         }
-        bool ok = true;
         SUMOReal prob = attrs.getSUMORealReporting(SUMO_ATTR_PROB, id.c_str(), ok);
         if (ok) {
             if (prob<=0) {

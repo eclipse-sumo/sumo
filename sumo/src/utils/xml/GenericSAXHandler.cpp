@@ -32,6 +32,8 @@
 #include <utils/common/TplConvert.h>
 #include <utils/common/TplConvertSec.h>
 #include <utils/common/FileHelpers.h>
+#include <utils/common/MsgHandler.h>
+#include <utils/common/ToString.h>
 #include "SUMOSAXAttributesImpl_Xerces.h"
 #include "XMLSubSys.h"
 
@@ -44,8 +46,8 @@
 // class definitions
 // ===========================================================================
 GenericSAXHandler::GenericSAXHandler(
-        StringBijection<SumoXMLTag>::Entry *tags, 
-        StringBijection<SumoXMLAttr>::Entry *attrs, 
+        StringBijection<int>::Entry *tags, 
+        StringBijection<int>::Entry *attrs, 
         const std::string &file)
         : myParentHandler(0), myParentIndicator(SUMO_TAG_NOTHING), myFileName(file) {
     int i = 0;
@@ -101,7 +103,7 @@ GenericSAXHandler::startElement(const XMLCh* const /*uri*/,
                                 const XMLCh* const qname,
                                 const Attributes& attrs) {
     std::string name = TplConvert<XMLCh>::_2str(qname);
-    SumoXMLTag element = convertTag(name);
+    int element = convertTag(name);
     myCharactersVector.clear();
     SUMOSAXAttributesImpl_Xerces na(attrs, myPredefinedTags, myPredefinedTagsMML, name);
     if (element == SUMO_TAG_INCLUDE) {
@@ -121,7 +123,7 @@ GenericSAXHandler::endElement(const XMLCh* const /*uri*/,
                               const XMLCh* const /*localname*/,
                               const XMLCh* const qname) {
     std::string name = TplConvert<XMLCh>::_2str(qname);
-    SumoXMLTag element = convertTag(name);
+    int element = convertTag(name);
     // collect characters
     if (myCharactersVector.size()!=0) {
         size_t len = 0;
@@ -159,7 +161,7 @@ GenericSAXHandler::endElement(const XMLCh* const /*uri*/,
 
 
 void
-GenericSAXHandler::registerParent(const SumoXMLTag tag, GenericSAXHandler* handler) {
+GenericSAXHandler::registerParent(const int tag, GenericSAXHandler* handler) {
     myParentHandler = handler;
     myParentIndicator = tag;
     XMLSubSys::setHandler(*this);
@@ -173,7 +175,7 @@ GenericSAXHandler::characters(const XMLCh* const chars,
 }
 
 
-SumoXMLTag
+int
 GenericSAXHandler::convertTag(const std::string &tag) const throw() {
     TagMap::const_iterator i=myTagMap.find(tag);
     if (i==myTagMap.end()) {
@@ -183,16 +185,47 @@ GenericSAXHandler::convertTag(const std::string &tag) const throw() {
 }
 
 
-void
-GenericSAXHandler::myStartElement(SumoXMLTag, const SUMOSAXAttributes &) {}
+std::string
+GenericSAXHandler::buildErrorMessage(const SAXParseException& exception) throw() {
+    std::ostringstream buf;
+    char *pMsg = XMLString::transcode(exception.getMessage());
+    buf << pMsg << std::endl;
+    buf << " In file '" << getFileName() << "'" << std::endl;
+    buf << " At line/column " << exception.getLineNumber()+1
+    << '/' << exception.getColumnNumber() << "." << std::endl;
+    XMLString::release(&pMsg);
+    return buf.str();
+}
 
 
 void
-GenericSAXHandler::myCharacters(SumoXMLTag, const std::string &) {}
+GenericSAXHandler::warning(const SAXParseException& exception) throw() {
+    MsgHandler::getWarningInstance()->inform(buildErrorMessage(exception));
+}
 
 
 void
-GenericSAXHandler::myEndElement(SumoXMLTag) {}
+GenericSAXHandler::error(const SAXParseException& exception) throw(ProcessError) {
+    throw ProcessError(buildErrorMessage(exception));
+}
+
+
+void
+GenericSAXHandler::fatalError(const SAXParseException& exception) throw(ProcessError) {
+    throw ProcessError(buildErrorMessage(exception));
+}
+
+
+void
+GenericSAXHandler::myStartElement(int, const SUMOSAXAttributes &) {}
+
+
+void
+GenericSAXHandler::myCharacters(int, const std::string &) {}
+
+
+void
+GenericSAXHandler::myEndElement(int) {}
 
 
 /****************************************************************************/

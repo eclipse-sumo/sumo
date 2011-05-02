@@ -39,7 +39,7 @@
 // definitions
 // ===========================================================================
 
-StringBijection<SumoXMLTag>::Entry SUMOXMLDefinitions::tags[] = {
+StringBijection<int>::Entry SUMOXMLDefinitions::tags[] = {
     { "edge",             SUMO_TAG_EDGE },
     { "lane",             SUMO_TAG_LANE },
     { "poi",              SUMO_TAG_POI },
@@ -184,7 +184,7 @@ StringBijection<SumoXMLTag>::Entry SUMOXMLDefinitions::tags[] = {
 };
 
 
-StringBijection<SumoXMLAttr>::Entry SUMOXMLDefinitions::attrs[] = {
+StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "id",             SUMO_ATTR_ID },
     { "refid",          SUMO_ATTR_REFID },
     { "name",           SUMO_ATTR_NAME },
@@ -439,10 +439,10 @@ StringBijection<SumoXMLNodeType>::Entry SUMOXMLDefinitions::sumoNodeTypeValues[]
 };
     
 
-StringBijection<SumoXMLTag> SUMOXMLDefinitions::Tags(
+StringBijection<int> SUMOXMLDefinitions::Tags(
         SUMOXMLDefinitions::tags, SUMO_TAG_NOTHING);
 
-StringBijection<SumoXMLAttr> SUMOXMLDefinitions::Attrs(
+StringBijection<int> SUMOXMLDefinitions::Attrs(
         SUMOXMLDefinitions::attrs, SUMO_ATTR_NOTHING);
 
 StringBijection<SumoXMLNodeType> SUMOXMLDefinitions::NodeTypes(

@@ -504,7 +504,7 @@ NIImporter_OpenStreetMap::NodesHandler::~NodesHandler() throw() {}
 
 
 void
-NIImporter_OpenStreetMap::NodesHandler::myStartElement(SumoXMLTag element, const SUMOSAXAttributes &attrs) throw(ProcessError) {
+NIImporter_OpenStreetMap::NodesHandler::myStartElement(int element, const SUMOSAXAttributes &attrs) throw(ProcessError) {
     ++myHierarchyLevel;
     if (element == SUMO_TAG_NODE) {
         bool ok = true;
@@ -573,7 +573,7 @@ NIImporter_OpenStreetMap::NodesHandler::myStartElement(SumoXMLTag element, const
 
 
 void
-NIImporter_OpenStreetMap::NodesHandler::myEndElement(SumoXMLTag element) throw(ProcessError) {
+NIImporter_OpenStreetMap::NodesHandler::myEndElement(int element) throw(ProcessError) {
     if (element==SUMO_TAG_NODE && myHierarchyLevel == 2) {
         myLastNodeID = -1;
         myIsInValidNodeTag = false;
@@ -604,7 +604,7 @@ NIImporter_OpenStreetMap::EdgesHandler::~EdgesHandler() throw() {
 
 
 void
-NIImporter_OpenStreetMap::EdgesHandler::myStartElement(SumoXMLTag element,
+NIImporter_OpenStreetMap::EdgesHandler::myStartElement(int element,
         const SUMOSAXAttributes &attrs) throw(ProcessError) {
     myParentElements.push_back(element);
     // parse "way" elements
@@ -689,7 +689,7 @@ NIImporter_OpenStreetMap::EdgesHandler::myStartElement(SumoXMLTag element,
 
 
 void
-NIImporter_OpenStreetMap::EdgesHandler::myEndElement(SumoXMLTag element) throw(ProcessError) {
+NIImporter_OpenStreetMap::EdgesHandler::myEndElement(int element) throw(ProcessError) {
     myParentElements.pop_back();
     if (element==SUMO_TAG_WAY) {
         if (myCurrentEdge!=0 && myCurrentEdge->myCurrentIsRoad) {

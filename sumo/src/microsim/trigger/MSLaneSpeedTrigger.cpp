@@ -133,7 +133,7 @@ MSLaneSpeedTrigger::processCommand(bool move2next, SUMOTime currentTime) {
 
 
 void
-MSLaneSpeedTrigger::myStartElement(SumoXMLTag element,
+MSLaneSpeedTrigger::myStartElement(int element,
                                    const SUMOSAXAttributes &attrs) {
     // check whether the correct tag is read
     if (element!=SUMO_TAG_STEP) {
@@ -163,7 +163,7 @@ MSLaneSpeedTrigger::myStartElement(SumoXMLTag element,
 
 
 void
-MSLaneSpeedTrigger::myEndElement(SumoXMLTag element) {
+MSLaneSpeedTrigger::myEndElement(int element) {
     if (element==SUMO_TAG_VSS && !myDidInit) {
         init();
     }

@@ -801,7 +801,7 @@ NIImporter_OpenDrive::~NIImporter_OpenDrive() throw() {
 
 
 void
-NIImporter_OpenDrive::myStartElement(SumoXMLTag element,
+NIImporter_OpenDrive::myStartElement(int element,
                                      const SUMOSAXAttributes &attrs) throw(ProcessError) {
     bool ok = true;
     switch (element) {
@@ -898,9 +898,11 @@ NIImporter_OpenDrive::myStartElement(SumoXMLTag element,
     }
     break;
     case SUMO_TAG_OPENDRIVE_LEFT:
+        myCurrentLaneDirection = SUMO_TAG_OPENDRIVE_LEFT;
     case SUMO_TAG_OPENDRIVE_CENTER:
+        myCurrentLaneDirection = SUMO_TAG_OPENDRIVE_CENTER;
     case SUMO_TAG_OPENDRIVE_RIGHT:
-        myCurrentLaneDirection = element;
+        myCurrentLaneDirection = SUMO_TAG_OPENDRIVE_RIGHT;
         break;
     case SUMO_TAG_LANE: // !!!
     case SUMO_TAG_OPENDRIVE_LANE: {
@@ -922,7 +924,7 @@ NIImporter_OpenDrive::myStartElement(SumoXMLTag element,
 
 
 void
-NIImporter_OpenDrive::myCharacters(SumoXMLTag element,
+NIImporter_OpenDrive::myCharacters(int element,
                                    const std::string &chars) throw(ProcessError) {
     UNUSED_PARAMETER(element);
     UNUSED_PARAMETER(chars);
@@ -931,7 +933,7 @@ NIImporter_OpenDrive::myCharacters(SumoXMLTag element,
 
 
 void
-NIImporter_OpenDrive::myEndElement(SumoXMLTag element) throw(ProcessError) {
+NIImporter_OpenDrive::myEndElement(int element) throw(ProcessError) {
     myElementStack.pop_back();
     switch (element) {
     case SUMO_TAG_OPENDRIVE_ROAD:

@@ -62,7 +62,7 @@ NIXMLConnectionsHandler::~NIXMLConnectionsHandler() throw() {}
 
 
 void
-NIXMLConnectionsHandler::myStartElement(SumoXMLTag element,
+NIXMLConnectionsHandler::myStartElement(int element,
                                         const SUMOSAXAttributes &attrs) throw(ProcessError) {
     if (element==SUMO_TAG_RESET) {
         bool ok = true;

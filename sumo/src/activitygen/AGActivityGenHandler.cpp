@@ -63,7 +63,7 @@ AGActivityGenHandler::~AGActivityGenHandler() throw() {}
 
 
 void
-AGActivityGenHandler::myStartElement(SumoXMLTag element, const SUMOSAXAttributes &attrs)
+AGActivityGenHandler::myStartElement(int element, const SUMOSAXAttributes &attrs)
 throw(ProcessError) {
     try {
         switch (element) {

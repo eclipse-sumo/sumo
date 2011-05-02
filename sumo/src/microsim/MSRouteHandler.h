@@ -81,7 +81,7 @@ protected:
      * @exception ProcessError If something fails
      * @see GenericSAXHandler::myStartElement
      */
-    virtual void myStartElement(SumoXMLTag element,
+    virtual void myStartElement(int element,
                                 const SUMOSAXAttributes &attrs) throw(ProcessError);
 
 
@@ -92,7 +92,7 @@ protected:
      * @exception ProcessError If something fails
      * @see GenericSAXHandler::myCharacters
      */
-    virtual void myCharacters(SumoXMLTag element,
+    virtual void myCharacters(int element,
                               const std::string &chars) throw(ProcessError);
 
 
@@ -102,7 +102,7 @@ protected:
      * @exception ProcessError If something fails
      * @see GenericSAXHandler::myEndElement
      */
-    virtual void myEndElement(SumoXMLTag element) throw(ProcessError);
+    virtual void myEndElement(int element) throw(ProcessError);
     //@}
 
 

@@ -91,7 +91,7 @@ MSTriggeredRerouter::~MSTriggeredRerouter() throw() {
 
 // ------------ loading begin
 void
-MSTriggeredRerouter::myStartElement(SumoXMLTag element,
+MSTriggeredRerouter::myStartElement(int element,
                                     const SUMOSAXAttributes &attrs) throw(ProcessError) {
     if (element==SUMO_TAG_INTERVAL) {
         bool ok = true;
@@ -164,7 +164,7 @@ MSTriggeredRerouter::myStartElement(SumoXMLTag element,
 
 
 void
-MSTriggeredRerouter::myEndElement(SumoXMLTag element) throw(ProcessError) {
+MSTriggeredRerouter::myEndElement(int element) throw(ProcessError) {
     if (element==SUMO_TAG_INTERVAL) {
         RerouteInterval ri;
         ri.begin = myCurrentIntervalBegin;

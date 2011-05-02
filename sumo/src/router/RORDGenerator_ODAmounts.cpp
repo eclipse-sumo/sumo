@@ -201,7 +201,7 @@ RORDGenerator_ODAmounts::buildForTimeStep(SUMOTime time) throw() {
 
 
 void
-RORDGenerator_ODAmounts::myStartElement(SumoXMLTag element,
+RORDGenerator_ODAmounts::myStartElement(int element,
                                         const SUMOSAXAttributes &attrs) throw(ProcessError) {
     RORDLoader_TripDefs::myStartElement(element, attrs);
     if (element == SUMO_TAG_FLOW) {
@@ -252,7 +252,7 @@ RORDGenerator_ODAmounts::parseInterval(const SUMOSAXAttributes &attrs) {
 
 
 void
-RORDGenerator_ODAmounts::myEndElement(SumoXMLTag element) throw(ProcessError) {
+RORDGenerator_ODAmounts::myEndElement(int element) throw(ProcessError) {
     RORDLoader_TripDefs::myEndElement(element);
     if (element == SUMO_TAG_FLOW) {
         myEndFlowAmountDef();

@@ -80,7 +80,7 @@ protected:
      * @exception ProcessError If an error within the parsed file occurs
      * @see GenericSAXHandler::myStartElement
      */
-    void myStartElement(SumoXMLTag element,
+    void myStartElement(int element,
                         const SUMOSAXAttributes &attrs) throw(ProcessError);
 
 
@@ -91,7 +91,7 @@ protected:
      * @param[in] element ID of the currently opened element
      * @exception ProcessError If an error within the parsed file occurs
      */
-    void myEndElement(SumoXMLTag element) throw(ProcessError);
+    void myEndElement(int element) throw(ProcessError);
     //@}
 
 

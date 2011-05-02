@@ -66,19 +66,19 @@ NIXMLNodesHandler::~NIXMLNodesHandler() throw() {}
 
 
 void
-NIXMLNodesHandler::myStartElement(SumoXMLTag element,
+NIXMLNodesHandler::myStartElement(int element,
                                   const SUMOSAXAttributes &attrs) throw(ProcessError) {
     if (element!=SUMO_TAG_NODE) {
         return;
     }
+    bool ok = true;
     // get the id, report a warning if not given or empty...
-    if (!attrs.setIDFromAttributes(myID), false) {
-        WRITE_WARNING("No node id given... Skipping.");
+    myID = attrs.getStringReporting(SUMO_ATTR_ID, 0, ok);
+    if (!ok) {
         return;
     }
     NBNode *node = myNodeCont.retrieve(myID);
     // retrieve the position of the node
-    bool ok = true;
     bool xOk = false;
     bool yOk = false;
     if (node!=0) {

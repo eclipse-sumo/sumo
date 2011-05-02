@@ -59,7 +59,7 @@ ROJTRTurnDefLoader::~ROJTRTurnDefLoader() throw() {}
 
 
 void
-ROJTRTurnDefLoader::myStartElement(SumoXMLTag element,
+ROJTRTurnDefLoader::myStartElement(int element,
                                    const SUMOSAXAttributes &attrs) throw(ProcessError) {
     bool ok = true;
     switch (element) {
@@ -108,7 +108,7 @@ ROJTRTurnDefLoader::myStartElement(SumoXMLTag element,
 
 
 void
-ROJTRTurnDefLoader::myCharacters(SumoXMLTag element,
+ROJTRTurnDefLoader::myCharacters(int element,
                                  const std::string &chars) throw(ProcessError) {
     switch (element) {
     case SUMO_TAG_SINK: {
@@ -144,9 +144,10 @@ ROJTRTurnDefLoader::myCharacters(SumoXMLTag element,
 void
 ROJTRTurnDefLoader::beginFromEdge(const SUMOSAXAttributes &attrs) throw() {
     myEdge = 0;
+    bool ok = true;
     // get the id, report an error if not given or empty...
-    std::string id;
-    if (!attrs.setIDFromAttributes(id)) {
+    std::string id = attrs.getStringReporting(SUMO_ATTR_ID, 0, ok);
+    if (!ok) {
         return;
     }
     //
@@ -163,9 +164,10 @@ ROJTRTurnDefLoader::addToEdge(const SUMOSAXAttributes &attrs) throw() {
     if (myEdge==0) {
         return;
     }
+    bool ok = true;
     // get the id, report an error if not given or empty...
-    std::string id;
-    if (!attrs.setIDFromAttributes(id)) {
+    std::string id = attrs.getStringReporting(SUMO_ATTR_ID, 0, ok);
+    if (!ok) {
         return;
     }
     //
@@ -174,7 +176,6 @@ ROJTRTurnDefLoader::addToEdge(const SUMOSAXAttributes &attrs) throw() {
         MsgHandler::getErrorInstance()->inform("The edge '" + id + "' is not known within the network (within a 'to-edge' tag).");
         return;
     }
-    bool ok = true;
     SUMOReal probability = attrs.getSUMORealReporting(SUMO_ATTR_PROB, id.c_str(), ok);
     if (ok) {
         if (probability<0) {

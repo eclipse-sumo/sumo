@@ -73,7 +73,7 @@ RORDLoader_SUMOBase::~RORDLoader_SUMOBase() throw() {
 
 
 void
-RORDLoader_SUMOBase::myStartElement(SumoXMLTag element,
+RORDLoader_SUMOBase::myStartElement(int element,
                                     const SUMOSAXAttributes &attrs) throw(ProcessError) {
     switch (element) {
     case SUMO_TAG_ROUTE:
@@ -167,8 +167,8 @@ RORDLoader_SUMOBase::startAlternative(const SUMOSAXAttributes &attrs) {
         }
         id = "!" + id;
     } else {
-        if (!attrs.setIDFromAttributes(id)) {
-            myCurrentIsOk = false;
+        id = attrs.getStringReporting(SUMO_ATTR_ID, 0, myCurrentIsOk);
+        if (!myCurrentIsOk) {
             return;
         }
     }
@@ -184,7 +184,7 @@ RORDLoader_SUMOBase::startAlternative(const SUMOSAXAttributes &attrs) {
 }
 
 void
-RORDLoader_SUMOBase::myCharacters(SumoXMLTag element,
+RORDLoader_SUMOBase::myCharacters(int element,
                                   const std::string &chars) throw(ProcessError) {
     // process routes only, all other elements do
     //  not have embedded characters
@@ -251,7 +251,7 @@ RORDLoader_SUMOBase::myCharacters(SumoXMLTag element,
 
 
 void
-RORDLoader_SUMOBase::myEndElement(SumoXMLTag element) throw(ProcessError) {
+RORDLoader_SUMOBase::myEndElement(int element) throw(ProcessError) {
     switch (element) {
     case SUMO_TAG_ROUTE:
         if (!myAltIsValid) {

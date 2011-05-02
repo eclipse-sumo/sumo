@@ -1,2 +1,2 @@
-Error: Missing id of a 'WAUT'-object.
+Error: Attribute 'id' is missing in definition of a WAUT.
 Quitting (on error).

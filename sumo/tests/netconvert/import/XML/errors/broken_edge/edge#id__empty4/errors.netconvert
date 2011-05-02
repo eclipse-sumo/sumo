@@ -1,2 +1,2 @@
-Error: Missing id of a 'edge'-object.
+Error: Attribute 'id' in definition of a edge is empty.
 Quitting (on error).

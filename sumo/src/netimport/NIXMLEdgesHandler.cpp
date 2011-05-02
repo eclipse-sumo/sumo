@@ -76,7 +76,7 @@ NIXMLEdgesHandler::~NIXMLEdgesHandler() throw() {}
 
 
 void
-NIXMLEdgesHandler::myStartElement(SumoXMLTag element,
+NIXMLEdgesHandler::myStartElement(int element,
                                   const SUMOSAXAttributes &attrs) throw(ProcessError) {
     if (element==SUMO_TAG_EDGE) {
         myIsUpdate = false;
@@ -85,7 +85,8 @@ NIXMLEdgesHandler::myStartElement(SumoXMLTag element,
         myCurrentEdge = 0;
         mySplits.clear();
         // get the id, report an error if not given or empty...
-        if (!attrs.setIDFromAttributes(myCurrentID)) {
+        myCurrentID = attrs.getStringReporting(SUMO_ATTR_ID, 0, ok);
+        if (!ok) {
             return;
         }
         myCurrentEdge = myEdgeCont.retrieve(myCurrentID);
@@ -416,7 +417,7 @@ NIXMLEdgesHandler::tryGetShape(const SUMOSAXAttributes &attrs) throw() {
 
 
 void
-NIXMLEdgesHandler::myEndElement(SumoXMLTag element) throw(ProcessError) {
+NIXMLEdgesHandler::myEndElement(int element) throw(ProcessError) {
     if (element==SUMO_TAG_EDGE && myCurrentEdge!=0) {
         if (!myIsUpdate) {
             try {

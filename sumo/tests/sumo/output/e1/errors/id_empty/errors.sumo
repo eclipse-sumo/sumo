@@ -1,2 +1,2 @@
-Error: Missing id of a 'detector'-object.
+Error: Attribute 'id' in definition of a detector is empty.
 Quitting (on error).

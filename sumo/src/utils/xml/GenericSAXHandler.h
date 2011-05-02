@@ -69,9 +69,9 @@ using namespace XERCES_CPP_NAMESPACE;
  *
  * This class implements the SAX-callback and offers a new set of callbacks
  *  which must be implemented by derived classes. Instead of XMLCh*-values,
- *  element names are supplied to the derived classes as enums (SumoXMLTag).
+ *  element names are supplied to the derived classes as enums (int).
  *
- * Also, this class allows to retrieve attributes using enums (SumoXMLAttr) within
+ * Also, this class allows to retrieve attributes using enums (int) within
  *  the implemented "myStartElement" method.
  *
  * Basically, GenericSAXHandler is not derived within SUMO directly, but via SUMOSAXHandler
@@ -99,8 +99,8 @@ public:
      * @todo Why are both lists non-const and given as pointers?
      */
     GenericSAXHandler(
-            StringBijection<SumoXMLTag>::Entry *tags, 
-            StringBijection<SumoXMLAttr>::Entry *attrs, 
+            StringBijection<int>::Entry *tags, 
+            StringBijection<int>::Entry *attrs, 
             const std::string &file);
 
 
@@ -155,7 +155,7 @@ public:
     /**
      * @brief Assigning a parent handler which is enabled when the specified tag is closed
      */
-    void registerParent(const SumoXMLTag tag, GenericSAXHandler* handler);
+    void registerParent(const int tag, GenericSAXHandler* handler);
 
 
     /**
@@ -176,16 +176,66 @@ public:
     const std::string &getFileName() const throw();
 
 
+    /// @name SAX ErrorHandler callbacks
+    //@{
+
+    /**
+     * @brief Handler for XML-warnings
+     *
+     * The message is built using buildErrorMessage and reported
+     *  to the warning-instance of the MsgHandler.
+     *
+     * @param[in] exception The occured exception to process
+     */
+    void warning(const SAXParseException& exception) throw();
+
+
+    /**
+     * @brief Handler for XML-errors
+     *
+     * The message is built using buildErrorMessage and thrown within a ProcessError.
+     *
+     * @param[in] exception The occured exception to process
+     * @exception ProcessError On any call
+     */
+    void error(const SAXParseException& exception) throw(ProcessError);
+
+
+    /**
+     * @brief Handler for XML-errors
+     *
+     * The message is built using buildErrorMessage and thrown within a ProcessError.
+     *
+     * @exception ProcessError On any call
+     * @param[in] exception The occured exception to process
+     */
+    void fatalError(const SAXParseException& exception) throw(ProcessError);
+    //@}
+
+
+
 protected:
+    /**
+     * @brief Builds an error message
+     *
+     * The error message includes the file name and the line/column information
+     *  as supported by the given SAXParseException
+     *
+     * @param[in] exception The name of the currently processed file
+     * @return A string describing the given exception
+     */
+    std::string buildErrorMessage(const SAXParseException& exception) throw();
+
+
     /**
      * @brief Callback method for an opening tag to implement by derived classes
      *
      * Called by "startElement" (see there).
-     * @param[in] element The element that contains the characters, given as a SumoXMLTag
+     * @param[in] element The element that contains the characters, given as a int
      * @param[in] attrs The SAX-attributes, wrapped as SUMOSAXAttributes
      * @exceptions ProcessError These method may throw a ProcessError if something fails
      */
-    virtual void myStartElement(SumoXMLTag element,
+    virtual void myStartElement(int element,
                                 const SUMOSAXAttributes &attrs);
 
 
@@ -193,21 +243,21 @@ protected:
      * @brief Callback method for characters to implement by derived classes
      *
      * Called by "endElement" (see there).
-     * @param[in] element The opened element, given as a SumoXMLTag
+     * @param[in] element The opened element, given as a int
      * @param[in] chars The complete embedded character string
      * @exceptions ProcessError These method may throw a ProcessError if something fails
      */
-    virtual void myCharacters(SumoXMLTag element,
+    virtual void myCharacters(int element,
                               const std::string &chars);
 
 
     /** @brief Callback method for a closing tag to implement by derived classes
      *
      * Called by "endElement" (see there).
-     * @param[in] element The closed element, given as a SumoXMLTag
+     * @param[in] element The closed element, given as a int
      * @exceptions ProcessError These method may throw a ProcessError if something fails
      */
-    virtual void myEndElement(SumoXMLTag element);
+    virtual void myEndElement(int element);
 
 
 private:
@@ -227,9 +277,9 @@ private:
      * Returns the enum-representation stored for the given tag. If the tag is not
      *  known, SUMO_TAG_NOTHING is returned.
      * @param[in] tag The string to convert
-     * @return The SumoXMLTag-value that represents the string, SUMO_TAG_NOTHING if the named attribute is not known
+     * @return The int-value that represents the string, SUMO_TAG_NOTHING if the named attribute is not known
      */
-    SumoXMLTag convertTag(const std::string &tag) const throw();
+    int convertTag(const std::string &tag) const throw();
 
 
 private:
@@ -237,13 +287,13 @@ private:
     //@{
 
     // the type of the map from ids to their unicode-string representation
-    typedef std::map<SumoXMLAttr, XMLCh*> AttrMap;
+    typedef std::map<int, XMLCh*> AttrMap;
 
     // the map from ids to their unicode-string representation
     AttrMap myPredefinedTags;
 
     /// the map from ids to their string representation
-    std::map<SumoXMLAttr, std::string> myPredefinedTagsMML;
+    std::map<int, std::string> myPredefinedTagsMML;
     //@}
 
 
@@ -251,7 +301,7 @@ private:
     //@{
 
     // the type of the map that maps tag names to ints
-    typedef std::map<std::string, SumoXMLTag> TagMap;
+    typedef std::map<std::string, int> TagMap;
 
     // the map of tag names to their internal numerical representation
     TagMap myTagMap;
@@ -264,7 +314,7 @@ private:
     GenericSAXHandler* myParentHandler;
 
     /// @brief The tag indicating that control should be given back
-    SumoXMLTag myParentIndicator;
+    int myParentIndicator;
 
     /// @brief The name of the currently parsed file
     std::string myFileName;

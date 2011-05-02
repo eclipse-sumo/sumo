@@ -58,18 +58,14 @@ NIXMLTypesHandler::~NIXMLTypesHandler() throw() {}
 
 
 void
-NIXMLTypesHandler::myStartElement(SumoXMLTag element,
+NIXMLTypesHandler::myStartElement(int element,
                                   const SUMOSAXAttributes &attrs) throw(ProcessError) {
     if (element!=SUMO_TAG_TYPE) {
         return;
     }
-    // get the id, report a warning if not given or empty...
-    std::string id;
-    if (!attrs.setIDFromAttributes(id), false) {
-        WRITE_WARNING("No type id given... Skipping.");
-        return;
-    }
     bool ok = true;
+    // get the id, report a warning if not given or empty...
+    std::string id = attrs.getStringReporting(SUMO_ATTR_ID, 0, ok);
     int priority = attrs.getOptIntReporting(SUMO_ATTR_PRIORITY, id.c_str(), ok, myTypeCont.getDefaultPriority());
     int noLanes = attrs.getOptIntReporting(SUMO_ATTR_NOLANES, id.c_str(), ok, myTypeCont.getDefaultNoLanes());
     SUMOReal speed = attrs.getOptSUMORealReporting(SUMO_ATTR_SPEED, id.c_str(), ok, (SUMOReal) myTypeCont.getDefaultSpeed());

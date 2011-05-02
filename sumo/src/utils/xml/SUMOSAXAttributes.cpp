@@ -53,24 +53,8 @@ SUMOSAXAttributes::SUMOSAXAttributes(const std::string &objectType) throw():
 {}
 
 
-bool
-SUMOSAXAttributes::setIDFromAttributes(std::string &id, bool report) const throw() {
-    id = "";
-    if (hasAttribute(SUMO_ATTR_ID)) {
-        id = getString(SUMO_ATTR_ID);
-    }
-    if (id=="") {
-        if (report) {
-            MsgHandler::getErrorInstance()->inform("Missing id of a '" + myObjectType + "'-object.");
-        }
-        return false;
-    }
-    return true;
-}
-
-
 int
-SUMOSAXAttributes::getIntReporting(SumoXMLAttr attr, const char *objectid,
+SUMOSAXAttributes::getIntReporting(int attr, const char *objectid,
                                    bool &ok, bool report) const throw() {
     if (!hasAttribute(attr)) {
         if (report) {
@@ -96,7 +80,7 @@ SUMOSAXAttributes::getIntReporting(SumoXMLAttr attr, const char *objectid,
 
 
 int
-SUMOSAXAttributes::getOptIntReporting(SumoXMLAttr attr, const char *objectid,
+SUMOSAXAttributes::getOptIntReporting(int attr, const char *objectid,
                                       bool &ok, int defaultValue, bool report) const throw() {
     if (!hasAttribute(attr)) {
         return defaultValue;
@@ -118,7 +102,7 @@ SUMOSAXAttributes::getOptIntReporting(SumoXMLAttr attr, const char *objectid,
 
 
 SUMOReal
-SUMOSAXAttributes::getSUMORealReporting(SumoXMLAttr attr, const char *objectid,
+SUMOSAXAttributes::getSUMORealReporting(int attr, const char *objectid,
                                         bool &ok, bool report) const throw() {
     if (!hasAttribute(attr)) {
         if (report) {
@@ -144,7 +128,7 @@ SUMOSAXAttributes::getSUMORealReporting(SumoXMLAttr attr, const char *objectid,
 
 
 SUMOReal
-SUMOSAXAttributes::getOptSUMORealReporting(SumoXMLAttr attr, const char *objectid,
+SUMOSAXAttributes::getOptSUMORealReporting(int attr, const char *objectid,
         bool &ok, SUMOReal defaultValue, bool report) const throw() {
     if (!hasAttribute(attr)) {
         return defaultValue;
@@ -166,7 +150,7 @@ SUMOSAXAttributes::getOptSUMORealReporting(SumoXMLAttr attr, const char *objecti
 
 
 bool
-SUMOSAXAttributes::getBoolReporting(SumoXMLAttr attr, const char *objectid,
+SUMOSAXAttributes::getBoolReporting(int attr, const char *objectid,
                                     bool &ok, bool report) const throw() {
     if (!hasAttribute(attr)) {
         if (report) {
@@ -192,7 +176,7 @@ SUMOSAXAttributes::getBoolReporting(SumoXMLAttr attr, const char *objectid,
 
 
 bool
-SUMOSAXAttributes::getOptBoolReporting(SumoXMLAttr attr, const char *objectid,
+SUMOSAXAttributes::getOptBoolReporting(int attr, const char *objectid,
                                        bool &ok, bool defaultValue, bool report) const throw() {
     if (!hasAttribute(attr)) {
         return defaultValue;
@@ -214,7 +198,7 @@ SUMOSAXAttributes::getOptBoolReporting(SumoXMLAttr attr, const char *objectid,
 
 
 std::string
-SUMOSAXAttributes::getStringReporting(SumoXMLAttr attr, const char *objectid,
+SUMOSAXAttributes::getStringReporting(int attr, const char *objectid,
                                       bool &ok, bool report) const throw() {
     if (!hasAttribute(attr)) {
         if (report) {
@@ -240,7 +224,7 @@ SUMOSAXAttributes::getStringReporting(SumoXMLAttr attr, const char *objectid,
 
 
 std::string
-SUMOSAXAttributes::getOptStringReporting(SumoXMLAttr attr, const char *objectid,
+SUMOSAXAttributes::getOptStringReporting(int attr, const char *objectid,
         bool &ok, const std::string&defaultValue, bool report) const throw() {
     if (!hasAttribute(attr)) {
         return defaultValue;
@@ -258,7 +242,7 @@ SUMOSAXAttributes::getOptStringReporting(SumoXMLAttr attr, const char *objectid,
 
 
 SUMOTime
-SUMOSAXAttributes::getSUMOTimeReporting(SumoXMLAttr attr, const char *objectid,
+SUMOSAXAttributes::getSUMOTimeReporting(int attr, const char *objectid,
                                         bool &ok, bool report) const throw() {
 #ifdef HAVE_SUBSECOND_TIMESTEPS
     if (!hasAttribute(attr)) {
@@ -288,7 +272,7 @@ SUMOSAXAttributes::getSUMOTimeReporting(SumoXMLAttr attr, const char *objectid,
 
 
 SUMOTime
-SUMOSAXAttributes::getOptSUMOTimeReporting(SumoXMLAttr attr, const char *objectid,
+SUMOSAXAttributes::getOptSUMOTimeReporting(int attr, const char *objectid,
         bool &ok, SUMOTime defaultValue, bool report) const throw() {
 #ifdef HAVE_SUBSECOND_TIMESTEPS
     if (!hasAttribute(attr)) {

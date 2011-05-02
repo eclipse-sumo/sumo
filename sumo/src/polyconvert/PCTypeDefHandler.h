@@ -73,7 +73,7 @@ protected:
      * @see GenericSAXHandler::myStartElement
      * @todo Completely unsecure currently (invalid values may force abortion with no error message)
      */
-    void myStartElement(SumoXMLTag element,
+    void myStartElement(int element,
                         const SUMOSAXAttributes &attrs) throw(ProcessError);
     //@}
 

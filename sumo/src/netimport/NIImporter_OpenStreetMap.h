@@ -181,7 +181,7 @@ private:
          * @exception ProcessError If something fails
          * @see GenericSAXHandler::myStartElement
          */
-        void myStartElement(SumoXMLTag element, const SUMOSAXAttributes &attrs) throw(ProcessError);
+        void myStartElement(int element, const SUMOSAXAttributes &attrs) throw(ProcessError);
 
 
         /** @brief Called when a closing tag occurs
@@ -190,7 +190,7 @@ private:
          * @exception ProcessError If something fails
          * @see GenericSAXHandler::myEndElement
          */
-        void myEndElement(SumoXMLTag element) throw(ProcessError);
+        void myEndElement(int element) throw(ProcessError);
         //@}
 
 
@@ -249,7 +249,7 @@ private:
          * @exception ProcessError If something fails
          * @see GenericSAXHandler::myStartElement
          */
-        void myStartElement(SumoXMLTag element, const SUMOSAXAttributes &attrs) throw(ProcessError);
+        void myStartElement(int element, const SUMOSAXAttributes &attrs) throw(ProcessError);
 
 
         /** @brief Called when a closing tag occurs
@@ -258,7 +258,7 @@ private:
          * @exception ProcessError If something fails
          * @see GenericSAXHandler::myEndElement
          */
-        void myEndElement(SumoXMLTag element) throw(ProcessError);
+        void myEndElement(int element) throw(ProcessError);
         //@}
 
 
@@ -273,7 +273,7 @@ private:
         Edge *myCurrentEdge;
 
         /// @brief The element stack
-        std::vector<SumoXMLTag> myParentElements;
+        std::vector<int> myParentElements;
 
         /// @brief A map of non-numeric speed descriptions to their numeric values
         std::map<std::string, SUMOReal> mySpeedMap;

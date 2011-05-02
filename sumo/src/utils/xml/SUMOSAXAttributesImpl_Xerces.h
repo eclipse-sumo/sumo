@@ -62,8 +62,8 @@ public:
      * @param[in] predefinedTagsMML Map of attribute ids to their (readable) string-representation
      */
     SUMOSAXAttributesImpl_Xerces(const Attributes &attrs,
-                                 const std::map<SumoXMLAttr, XMLCh*> &predefinedTags,
-                                 const std::map<SumoXMLAttr, std::string> &predefinedTagsMML,
+                                 const std::map<int, XMLCh*> &predefinedTags,
+                                 const std::map<int, std::string> &predefinedTagsMML,
                                  const std::string &objectType) throw();
 
 
@@ -81,7 +81,7 @@ public:
      * @param[in] id The id of the searched attribute
      * @return Whether the attribute is within the attributes
      */
-    bool hasAttribute(SumoXMLAttr id) const throw();
+    bool hasAttribute(int id) const throw();
 
 
     /**
@@ -99,7 +99,7 @@ public:
      * @exception EmptyData If the attribute is not known or the attribute value is an empty string
      * @exception BoolFormatException If the attribute value can not be parsed to a bool
      */
-    bool getBool(SumoXMLAttr id) const throw(EmptyData, BoolFormatException);
+    bool getBool(int id) const throw(EmptyData, BoolFormatException);
 
     /**
      * @brief Returns the bool-value of the named (by its enum-value) attribute or the given value if the attribute is not known
@@ -115,7 +115,7 @@ public:
      * @return The attribute's value as a bool, if it could be read and parsed
      * @exception EmptyData If the attribute value is an empty string
      */
-    bool getBoolSecure(SumoXMLAttr id, bool def) const throw(EmptyData);
+    bool getBoolSecure(int id, bool def) const throw(EmptyData);
 
 
     /**
@@ -133,7 +133,7 @@ public:
      * @exception EmptyData If the attribute is not known or the attribute value is an empty string
      * @exception NumberFormatException If the attribute value can not be parsed to an int
      */
-    int getInt(SumoXMLAttr id) const throw(EmptyData, NumberFormatException);
+    int getInt(int id) const throw(EmptyData, NumberFormatException);
 
     /**
      * @brief Returns the int-value of the named (by its enum-value) attribute
@@ -152,7 +152,7 @@ public:
      * @exception EmptyData If the attribute value is an empty string
      * @exception NumberFormatException If the attribute value can not be parsed to an int
      */
-    int getIntSecure(SumoXMLAttr id, int def) const throw(EmptyData, NumberFormatException);
+    int getIntSecure(int id, int def) const throw(EmptyData, NumberFormatException);
 
 
     /**
@@ -167,7 +167,7 @@ public:
      * @return The attribute's value as a string, if it could be read and parsed
      * @exception EmptyData If the attribute is not known or the attribute value is an empty string
      */
-    std::string getString(SumoXMLAttr id) const throw(EmptyData);
+    std::string getString(int id) const throw(EmptyData);
 
     /**
      * @brief Returns the string-value of the named (by its enum-value) attribute
@@ -181,7 +181,7 @@ public:
      * @return The attribute's value as a string, if it could be read and parsed
      * @exception EmptyData If the attribute is not known or the attribute value is an empty string
      */
-    std::string getStringSecure(SumoXMLAttr id,
+    std::string getStringSecure(int id,
                                 const std::string &def) const throw(EmptyData);
 
 
@@ -200,7 +200,7 @@ public:
      * @exception EmptyData If the attribute is not known or the attribute value is an empty string
      * @exception NumberFormatException If the attribute value can not be parsed to an SUMOReal
      */
-    SUMOReal getFloat(SumoXMLAttr id) const throw(EmptyData, NumberFormatException);
+    SUMOReal getFloat(int id) const throw(EmptyData, NumberFormatException);
 
     /**
      * @brief Returns the SUMOReal-value of the named (by its enum-value) attribute
@@ -219,7 +219,7 @@ public:
      * @exception EmptyData If the attribute is not known or the attribute value is an empty string
      * @exception NumberFormatException If the attribute value can not be parsed to an SUMOReal
      */
-    SUMOReal getFloatSecure(SumoXMLAttr id, SUMOReal def) const throw(EmptyData, NumberFormatException);
+    SUMOReal getFloatSecure(int id, SUMOReal def) const throw(EmptyData, NumberFormatException);
 
 
     /**
@@ -267,7 +267,7 @@ public:
      * @param[in] attr The id of the attribute to return the name of
      * @return The name of the described attribute
      */
-    std::string getName(SumoXMLAttr attr) const throw();
+    std::string getName(int attr) const throw();
 
 
 private:
@@ -277,7 +277,7 @@ private:
      * @param[in] id The id of the attribute to retrieve the vale of
      * @return The xerces-value of the attribute
      */
-    const XMLCh *getAttributeValueSecure(SumoXMLAttr id) const throw();
+    const XMLCh *getAttributeValueSecure(int id) const throw();
 
 
 private:
@@ -285,12 +285,12 @@ private:
     const Attributes &myAttrs;
 
     /// @brief Definition of a map of attribute ids to their xerces-representation
-    typedef std::map<SumoXMLAttr, XMLCh*> AttrMap;
+    typedef std::map<int, XMLCh*> AttrMap;
     /// @brief Map of attribute ids to their xerces-representation
     const AttrMap &myPredefinedTags;
 
     /// @brief Map of attribute ids to their (readable) string-representation
-    const std::map<SumoXMLAttr, std::string> &myPredefinedTagsMML;
+    const std::map<int, std::string> &myPredefinedTagsMML;
 
 
 private:

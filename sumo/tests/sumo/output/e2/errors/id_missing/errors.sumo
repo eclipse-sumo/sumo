@@ -1,2 +1,2 @@
-Error: Missing id of a 'e2-detector'-object.
+Error: Attribute 'id' is missing in definition of a e2-detector.
 Quitting (on error).

@@ -580,16 +580,16 @@ class SUMOXMLDefinitions {
 
 public:
     /// The names of SUMO-XML elements (for passing to GenericSAXHandler)
-    static StringBijection<SumoXMLTag>::Entry tags[];
+    static StringBijection<int>::Entry tags[];
 
     /// The names of SUMO-XML attributes (for passing to GenericSAXHandler)
-    static StringBijection<SumoXMLAttr>::Entry attrs[];
+    static StringBijection<int>::Entry attrs[];
 
     /// The names of SUMO-XML elements for use in netbuild
-    static StringBijection<SumoXMLTag> Tags;
+    static StringBijection<int> Tags;
 
     /// The names of SUMO-XML attributes for use in netbuild
-    static StringBijection<SumoXMLAttr> Attrs;
+    static StringBijection<int> Attrs;
 
     /// @name Special values of SUMO-XML attributes
     //@{

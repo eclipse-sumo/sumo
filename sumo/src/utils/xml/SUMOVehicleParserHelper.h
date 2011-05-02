@@ -99,7 +99,7 @@ public:
      * @see SUMOVTypeParameter
      */
     static void parseVTypeEmbedded(SUMOVTypeParameter &into,
-                                   SumoXMLTag element, const SUMOSAXAttributes &attrs,
+                                   int element, const SUMOSAXAttributes &attrs,
                                    bool fromVType=false) throw(ProcessError);
 
 
@@ -112,8 +112,7 @@ public:
      * @see SUMOVTypeParameter
      */
     static void parseVTypeEmbedded_Krauss(SUMOVTypeParameter &into,
-                                          const SUMOSAXAttributes &attrs,
-                                          bool fromVType=false) throw(ProcessError);
+                                          const SUMOSAXAttributes &attrs) throw(ProcessError);
 
 
     /** @brief Parses the IDM definition embedded in vtype definition

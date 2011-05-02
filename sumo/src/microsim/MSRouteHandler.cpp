@@ -104,7 +104,7 @@ MSRouteHandler::checkLastDepart() {
 
 
 void
-MSRouteHandler::myStartElement(SumoXMLTag element,
+MSRouteHandler::myStartElement(int element,
                                const SUMOSAXAttributes &attrs) throw(ProcessError) {
     switch (element) {
     case SUMO_TAG_VEHICLE:
@@ -226,10 +226,11 @@ MSRouteHandler::myStartElement(SumoXMLTag element,
 
 void
 MSRouteHandler::openVehicleTypeDistribution(const SUMOSAXAttributes &attrs) {
-    if (attrs.setIDFromAttributes(myCurrentVTypeDistributionID)) {
+    bool ok = true;
+    myCurrentVTypeDistributionID = attrs.getStringReporting(SUMO_ATTR_ID, 0, ok);
+    if (ok) {
         myCurrentVTypeDistribution = new RandomDistributor<MSVehicleType*>();
         if (attrs.hasAttribute(SUMO_ATTR_VTYPES)) {
-            bool ok = true;
             StringTokenizer st(attrs.getStringReporting(SUMO_ATTR_VTYPES, myCurrentVTypeDistributionID.c_str(), ok));
             while (st.hasNext()) {
                 std::string vtypeID = st.next();
@@ -298,7 +299,7 @@ MSRouteHandler::openRoute(const SUMOSAXAttributes &attrs) {
 
 
 void
-MSRouteHandler::myCharacters(SumoXMLTag element,
+MSRouteHandler::myCharacters(int element,
                              const std::string &chars) throw(ProcessError) {
     switch (element) {
     case SUMO_TAG_ROUTE: {
@@ -325,7 +326,7 @@ MSRouteHandler::myCharacters(SumoXMLTag element,
 // ----------------------------------
 
 void
-MSRouteHandler::myEndElement(SumoXMLTag element) throw(ProcessError) {
+MSRouteHandler::myEndElement(int element) throw(ProcessError) {
     switch (element) {
     case SUMO_TAG_ROUTE:
         closeRoute();
@@ -431,12 +432,14 @@ MSRouteHandler::closeRoute() throw(ProcessError) {
 void
 MSRouteHandler::openRouteDistribution(const SUMOSAXAttributes &attrs) {
     // check whether the id is really necessary
+    bool ok = true;
     if (myVehicleParameter!=0) {
         // ok, a vehicle is wrapping the route,
         //  we may use this vehicle's id as default
         myCurrentRouteDistributionID = "!" + myVehicleParameter->id; // !!! document this
     } else {
-        if (!attrs.setIDFromAttributes(myCurrentRouteDistributionID)) {
+        myCurrentRouteDistributionID = attrs.getStringReporting(SUMO_ATTR_ID, 0, ok);
+        if (!ok) {
             return;
         }
     }

@@ -59,21 +59,6 @@ public:
     virtual ~SUMOSAXAttributes() throw() { }
 
 
-    /** @brief Tries to read the id from the attributes, stores it into "id" if given
-     *
-     * If there is no attribute named "id" or it is empty, false is returned.
-     *  An error is reported to error message handler if "report" is true.
-     * Otherwise, the id is stored in the variable "id" and true is returned.
-     *
-     * @param[out] id The read id is stored herein (or "" if no id is given)
-     * @param[in] report Whether missing id shall be reported to MsgHandler::getErrorInstance
-     * @return Whether a valid id could be retrieved
-     */
-    bool setIDFromAttributes(std::string &id,
-                             bool report=true) const throw();
-
-
-
     /** @brief Tries to read given attribute assuming it is an int
      *
      * If an error occurs (the attribute is not there, it is not numeric), "ok" is
@@ -87,7 +72,7 @@ public:
      * @param[in] report Whether errors shall be written to msg handler's error instance
      * @return The read value if given and correct; -1 if an error occured
      */
-    int getIntReporting(SumoXMLAttr attr, const char *objectid, bool &ok,
+    int getIntReporting(int attr, const char *objectid, bool &ok,
                         bool report=true) const throw();
 
 
@@ -106,7 +91,7 @@ public:
      * @param[in] report Whether errors shall be written to msg handler's error instance
      * @return The read value if given and correct; the default value if the attribute does not exist;  -1 if an error occured
      */
-    int getOptIntReporting(SumoXMLAttr attr, const char *objectid, bool &ok,
+    int getOptIntReporting(int attr, const char *objectid, bool &ok,
                            int defaultValue, bool report=true) const throw();
 
 
@@ -124,7 +109,7 @@ public:
      * @param[in] report Whether errors shall be written to msg handler's error instance
      * @return The read value if given and correct; -1 if an error occured
      */
-    SUMOReal getSUMORealReporting(SumoXMLAttr attr, const char *objectid, bool &ok,
+    SUMOReal getSUMORealReporting(int attr, const char *objectid, bool &ok,
                                   bool report=true) const throw();
 
 
@@ -144,7 +129,7 @@ public:
      * @param[in] report Whether errors shall be written to msg handler's error instance
      * @return The read value if given and correct; the default value if the attribute does not exist;  -1 if an error occured
      */
-    SUMOReal getOptSUMORealReporting(SumoXMLAttr attr, const char *objectid, bool &ok,
+    SUMOReal getOptSUMORealReporting(int attr, const char *objectid, bool &ok,
                                      SUMOReal defaultValue, bool report=true) const throw();
 
 
@@ -162,7 +147,7 @@ public:
      * @param[in] report Whether errors shall be written to msg handler's error instance
      * @return The read value if given and correct; false if an error occured
      */
-    bool getBoolReporting(SumoXMLAttr attr,  const char *objectid, bool &ok,
+    bool getBoolReporting(int attr,  const char *objectid, bool &ok,
                           bool report=true) const throw();
 
 
@@ -182,7 +167,7 @@ public:
      * @param[in] report Whether errors shall be written to msg handler's error instance
      * @return The read value if given and correct; the default value if the attribute does not exist; false if an error occured
      */
-    bool getOptBoolReporting(SumoXMLAttr attr, const char *objectid, bool &ok,
+    bool getOptBoolReporting(int attr, const char *objectid, bool &ok,
                              bool defaultValue, bool report=true) const throw();
 
 
@@ -200,7 +185,7 @@ public:
      * @param[in] report Whether errors shall be written to msg handler's error instance
      * @return The read value if given and not empty; "" if an error occured
      */
-    std::string getStringReporting(SumoXMLAttr attr, const char *objectid, bool &ok,
+    std::string getStringReporting(int attr, const char *objectid, bool &ok,
                                    bool report=true) const throw();
 
 
@@ -220,7 +205,7 @@ public:
      * @param[in] report Whether errors shall be written to msg handler's error instance
      * @return The read value if given and not empty; the default value if the attribute does not exist; "" if an error occured
      */
-    std::string getOptStringReporting(SumoXMLAttr attr, const char *objectid, bool &ok,
+    std::string getOptStringReporting(int attr, const char *objectid, bool &ok,
                                       const std::string &defaultValue, bool report=true) const throw();
 
 
@@ -241,7 +226,7 @@ public:
      * @param[in] report Whether errors shall be written to msg handler's error instance
      * @return The read value if given and correct; -1 if an error occured
      */
-    SUMOTime getSUMOTimeReporting(SumoXMLAttr attr, const char *objectid, bool &ok,
+    SUMOTime getSUMOTimeReporting(int attr, const char *objectid, bool &ok,
                                   bool report=true) const throw();
 
 
@@ -264,7 +249,7 @@ public:
      * @param[in] report Whether errors shall be written to msg handler's error instance
      * @return The read value if given and correct; the default value if the attribute does not exist;  -1 if an error occured
      */
-    SUMOTime getOptSUMOTimeReporting(SumoXMLAttr attr, const char *objectid, bool &ok,
+    SUMOTime getOptSUMOTimeReporting(int attr, const char *objectid, bool &ok,
                                      SUMOTime defaultValue, bool report=true) const throw();
 
 
@@ -282,7 +267,7 @@ public:
      * @param[in] id The id of the attribute to search for
      * @return Whether the attribute is within the attributes
      */
-    virtual bool hasAttribute(SumoXMLAttr id) const throw() = 0;
+    virtual bool hasAttribute(int id) const throw() = 0;
 
 
     /** @brief Returns the information whether the named attribute is within the current list
@@ -308,7 +293,7 @@ public:
      * @exception EmptyData If the attribute is not known or the attribute value is an empty string
      * @exception BoolFormatException If the attribute value can not be parsed to a bool
      */
-    virtual bool getBool(SumoXMLAttr id) const throw(EmptyData, BoolFormatException) = 0;
+    virtual bool getBool(int id) const throw(EmptyData, BoolFormatException) = 0;
 
     /**
      * @brief Returns the bool-value of the named (by its enum-value) attribute or the given value if the attribute is not known
@@ -324,7 +309,7 @@ public:
      * @return The attribute's value as a bool, if it could be read and parsed
      * @exception EmptyData If the attribute value is an empty string
      */
-    virtual bool getBoolSecure(SumoXMLAttr id, bool val) const throw(EmptyData) = 0;
+    virtual bool getBoolSecure(int id, bool val) const throw(EmptyData) = 0;
 
 
     /**
@@ -342,7 +327,7 @@ public:
      * @exception EmptyData If the attribute is not known or the attribute value is an empty string
      * @exception NumberFormatException If the attribute value can not be parsed to an int
      */
-    virtual int getInt(SumoXMLAttr id) const throw(EmptyData, NumberFormatException) = 0;
+    virtual int getInt(int id) const throw(EmptyData, NumberFormatException) = 0;
 
 
     /**
@@ -362,7 +347,7 @@ public:
      * @exception EmptyData If the attribute value is an empty string
      * @exception NumberFormatException If the attribute value can not be parsed to an int
      */
-    virtual int getIntSecure(SumoXMLAttr id, int def) const throw(EmptyData, NumberFormatException) = 0;
+    virtual int getIntSecure(int id, int def) const throw(EmptyData, NumberFormatException) = 0;
 
 
     /**
@@ -377,7 +362,7 @@ public:
      * @return The attribute's value as a string, if it could be read and parsed
      * @exception EmptyData If the attribute is not known or the attribute value is an empty string
      */
-    virtual std::string getString(SumoXMLAttr id) const throw(EmptyData) = 0;
+    virtual std::string getString(int id) const throw(EmptyData) = 0;
 
 
     /**
@@ -392,7 +377,7 @@ public:
      * @return The attribute's value as a string, if it could be read and parsed
      * @exception EmptyData If the attribute is not known or the attribute value is an empty string
      */
-    virtual std::string getStringSecure(SumoXMLAttr id,
+    virtual std::string getStringSecure(int id,
                                         const std::string &def) const throw(EmptyData) = 0;
 
 
@@ -411,7 +396,7 @@ public:
      * @exception EmptyData If the attribute is not known or the attribute value is an empty string
      * @exception NumberFormatException If the attribute value can not be parsed to an SUMOReal
      */
-    virtual SUMOReal getFloat(SumoXMLAttr id) const throw(EmptyData, NumberFormatException) = 0;
+    virtual SUMOReal getFloat(int id) const throw(EmptyData, NumberFormatException) = 0;
 
     /**
      * @brief Returns the SUMOReal-value of the named (by its enum-value) attribute
@@ -430,7 +415,7 @@ public:
      * @exception EmptyData If the attribute is not known or the attribute value is an empty string
      * @exception NumberFormatException If the attribute value can not be parsed to an SUMOReal
      */
-    virtual SUMOReal getFloatSecure(SumoXMLAttr id, SUMOReal def) const throw(EmptyData, NumberFormatException) = 0;
+    virtual SUMOReal getFloatSecure(int id, SUMOReal def) const throw(EmptyData, NumberFormatException) = 0;
 
 
     /**
@@ -470,7 +455,7 @@ public:
      * @param[in] attr The id of the attribute to return the name of
      * @return The name of the described attribute
      */
-    virtual std::string getName(SumoXMLAttr attr) const throw() = 0;
+    virtual std::string getName(int attr) const throw() = 0;
 
 
     /** @brief Splits the given string

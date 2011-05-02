@@ -63,7 +63,7 @@ RORDLoader_TripDefs::~RORDLoader_TripDefs() throw() {}
 
 
 void
-RORDLoader_TripDefs::myStartElement(SumoXMLTag element,
+RORDLoader_TripDefs::myStartElement(int element,
                                     const SUMOSAXAttributes &attrs) throw(ProcessError) {
     // check whether a trip definition shall be parsed
     if (element==SUMO_TAG_TRIPDEF) {
@@ -101,14 +101,15 @@ RORDLoader_TripDefs::myStartElement(SumoXMLTag element,
 
 std::string
 RORDLoader_TripDefs::getVehicleID(const SUMOSAXAttributes &attrs) {
-    // get the id, report an error if not given or empty...
-    std::string id;
-    attrs.setIDFromAttributes(id, false);
+    // try to get the id, do not report an error if not given or empty...
+    bool ok = true;
+    std::string id = attrs.getOptStringReporting(SUMO_ATTR_ID, 0, ok, "", false);
     // get a valid vehicle id
-    if (id=="") {
-        id = myIdSupplier.getNext();
+    if (id == "") {
+        return myIdSupplier.getNext();
+    } else {
+        return id;
     }
-    return id;
 }
 
 
@@ -166,7 +167,7 @@ RORDLoader_TripDefs::getLane(const SUMOSAXAttributes &attrs) {
 
 
 void
-RORDLoader_TripDefs::myEndElement(SumoXMLTag element) throw(ProcessError) {
+RORDLoader_TripDefs::myEndElement(int element) throw(ProcessError) {
     if (element==SUMO_TAG_TRIPDEF &&
             !MsgHandler::getErrorInstance()->wasInformed()) {
 

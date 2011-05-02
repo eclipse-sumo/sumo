@@ -222,7 +222,7 @@ PCLoaderOSM::NodesHandler::~NodesHandler() throw() {}
 
 
 void
-PCLoaderOSM::NodesHandler::myStartElement(SumoXMLTag element, const SUMOSAXAttributes &attrs) throw(ProcessError) {
+PCLoaderOSM::NodesHandler::myStartElement(int element, const SUMOSAXAttributes &attrs) throw(ProcessError) {
     myParentElements.push_back(element);
     if (element==SUMO_TAG_NODE) {
         bool ok = true;
@@ -271,7 +271,7 @@ PCLoaderOSM::NodesHandler::myStartElement(SumoXMLTag element, const SUMOSAXAttri
 
 
 void
-PCLoaderOSM::NodesHandler::myEndElement(SumoXMLTag element) throw(ProcessError) {
+PCLoaderOSM::NodesHandler::myEndElement(int element) throw(ProcessError) {
     if (element==SUMO_TAG_NODE) {
         myLastNodeID = -1;
     }
@@ -295,7 +295,7 @@ PCLoaderOSM::EdgesHandler::~EdgesHandler() throw() {
 
 
 void
-PCLoaderOSM::EdgesHandler::myStartElement(SumoXMLTag element, const SUMOSAXAttributes &attrs) throw(ProcessError) {
+PCLoaderOSM::EdgesHandler::myStartElement(int element, const SUMOSAXAttributes &attrs) throw(ProcessError) {
     myParentElements.push_back(element);
     // parse "way" elements
     if (element==SUMO_TAG_WAY) {
@@ -343,7 +343,7 @@ PCLoaderOSM::EdgesHandler::myStartElement(SumoXMLTag element, const SUMOSAXAttri
 
 
 void
-PCLoaderOSM::EdgesHandler::myEndElement(SumoXMLTag element) throw(ProcessError) {
+PCLoaderOSM::EdgesHandler::myEndElement(int element) throw(ProcessError) {
     myParentElements.pop_back();
     if (element==SUMO_TAG_WAY) {
         if (myCurrentEdge->myIsAdditional) {

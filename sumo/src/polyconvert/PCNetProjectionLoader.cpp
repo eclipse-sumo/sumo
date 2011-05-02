@@ -108,7 +108,7 @@ PCNetProjectionLoader::~PCNetProjectionLoader() throw() {}
 
 
 void
-PCNetProjectionLoader::myStartElement(SumoXMLTag element,
+PCNetProjectionLoader::myStartElement(int element,
                                       const SUMOSAXAttributes &attrs) throw(ProcessError) {
     if (element!=SUMO_TAG_LOCATION) {
         return;
@@ -132,7 +132,7 @@ PCNetProjectionLoader::myStartElement(SumoXMLTag element,
 
 
 void
-PCNetProjectionLoader::myCharacters(SumoXMLTag element,
+PCNetProjectionLoader::myCharacters(int element,
                                     const std::string &chars) throw(ProcessError) {
     UNUSED_PARAMETER(element);
     UNUSED_PARAMETER(chars);

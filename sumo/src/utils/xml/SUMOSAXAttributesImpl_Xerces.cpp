@@ -43,8 +43,8 @@
 // class definitions
 // ===========================================================================
 SUMOSAXAttributesImpl_Xerces::SUMOSAXAttributesImpl_Xerces(const Attributes &attrs,
-        const std::map<SumoXMLAttr, XMLCh*> &predefinedTags,
-        const std::map<SumoXMLAttr, std::string> &predefinedTagsMML,
+        const std::map<int, XMLCh*> &predefinedTags,
+        const std::map<int, std::string> &predefinedTagsMML,
         const std::string &objectType) throw() : 
     SUMOSAXAttributes(objectType),
     myAttrs(attrs), 
@@ -59,7 +59,7 @@ SUMOSAXAttributesImpl_Xerces::~SUMOSAXAttributesImpl_Xerces() throw() {
 
 
 bool
-SUMOSAXAttributesImpl_Xerces::hasAttribute(SumoXMLAttr id) const throw() {
+SUMOSAXAttributesImpl_Xerces::hasAttribute(int id) const throw() {
     AttrMap::const_iterator i=myPredefinedTags.find(id);
     if (i==myPredefinedTags.end()) {
         return false;
@@ -69,58 +69,58 @@ SUMOSAXAttributesImpl_Xerces::hasAttribute(SumoXMLAttr id) const throw() {
 
 
 bool
-SUMOSAXAttributesImpl_Xerces::getBool(SumoXMLAttr id) const throw(EmptyData, BoolFormatException) {
+SUMOSAXAttributesImpl_Xerces::getBool(int id) const throw(EmptyData, BoolFormatException) {
     return TplConvert<XMLCh>::_2bool(getAttributeValueSecure(id));
 }
 
 
 bool
-SUMOSAXAttributesImpl_Xerces::getBoolSecure(SumoXMLAttr id, bool val) const throw(EmptyData) {
+SUMOSAXAttributesImpl_Xerces::getBoolSecure(int id, bool val) const throw(EmptyData) {
     return TplConvertSec<XMLCh>::_2boolSec(getAttributeValueSecure(id), val);
 }
 
 
 int
-SUMOSAXAttributesImpl_Xerces::getInt(SumoXMLAttr id) const throw(EmptyData, NumberFormatException) {
+SUMOSAXAttributesImpl_Xerces::getInt(int id) const throw(EmptyData, NumberFormatException) {
     return TplConvert<XMLCh>::_2int(getAttributeValueSecure(id));
 }
 
 
 int
-SUMOSAXAttributesImpl_Xerces::getIntSecure(SumoXMLAttr id,
+SUMOSAXAttributesImpl_Xerces::getIntSecure(int id,
         int def) const throw(EmptyData, NumberFormatException) {
     return TplConvertSec<XMLCh>::_2intSec(getAttributeValueSecure(id), def);
 }
 
 
 std::string
-SUMOSAXAttributesImpl_Xerces::getString(SumoXMLAttr id) const throw(EmptyData) {
+SUMOSAXAttributesImpl_Xerces::getString(int id) const throw(EmptyData) {
     return TplConvert<XMLCh>::_2str(getAttributeValueSecure(id));
 }
 
 
 std::string
-SUMOSAXAttributesImpl_Xerces::getStringSecure(SumoXMLAttr id,
+SUMOSAXAttributesImpl_Xerces::getStringSecure(int id,
         const std::string &str) const throw(EmptyData) {
     return TplConvertSec<XMLCh>::_2strSec(getAttributeValueSecure(id), str);
 }
 
 
 SUMOReal
-SUMOSAXAttributesImpl_Xerces::getFloat(SumoXMLAttr id) const throw(EmptyData, NumberFormatException) {
+SUMOSAXAttributesImpl_Xerces::getFloat(int id) const throw(EmptyData, NumberFormatException) {
     return TplConvert<XMLCh>::_2SUMOReal(getAttributeValueSecure(id));
 }
 
 
 SUMOReal
-SUMOSAXAttributesImpl_Xerces::getFloatSecure(SumoXMLAttr id,
+SUMOSAXAttributesImpl_Xerces::getFloatSecure(int id,
         SUMOReal def) const throw(EmptyData, NumberFormatException) {
     return TplConvertSec<XMLCh>::_2SUMORealSec(getAttributeValueSecure(id), def);
 }
 
 
 const XMLCh *
-SUMOSAXAttributesImpl_Xerces::getAttributeValueSecure(SumoXMLAttr id) const throw() {
+SUMOSAXAttributesImpl_Xerces::getAttributeValueSecure(int id) const throw() {
     AttrMap::const_iterator i=myPredefinedTags.find(id);
     assert(i!=myPredefinedTags.end());
     return myAttrs.getValue((*i).second);
@@ -150,7 +150,7 @@ SUMOSAXAttributesImpl_Xerces::getStringSecure(const std::string &id,
 
 
 std::string
-SUMOSAXAttributesImpl_Xerces::getName(SumoXMLAttr attr) const throw() {
+SUMOSAXAttributesImpl_Xerces::getName(int attr) const throw() {
     if (myPredefinedTagsMML.find(attr)==myPredefinedTagsMML.end()) {
         return "?";
     }

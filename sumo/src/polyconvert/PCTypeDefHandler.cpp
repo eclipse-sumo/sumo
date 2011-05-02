@@ -55,15 +55,15 @@ PCTypeDefHandler::~PCTypeDefHandler() throw() {}
 
 
 void
-PCTypeDefHandler::myStartElement(SumoXMLTag element,
+PCTypeDefHandler::myStartElement(int element,
                                  const SUMOSAXAttributes &attrs) throw(ProcessError) {
     if (element==SUMO_TAG_POLYTYPE) {
+        bool ok = true;
         // get the id, report an error if not given or empty...
-        std::string id;
-        if (!attrs.setIDFromAttributes(id)) {
+        std::string id = attrs.getStringReporting(SUMO_ATTR_ID, 0, ok);
+        if (!ok) {
             return;
         }
-        bool ok = true;
         int layer = attrs.getOptIntReporting(SUMO_ATTR_LAYER, id.c_str(), ok, myOptions.getInt("layer"));
         bool discard = attrs.getOptBoolReporting(SUMO_ATTR_DISCARD, id.c_str(), ok, false);
         bool allowFill = attrs.getOptBoolReporting(SUMO_ATTR_FILL, id.c_str(), ok, true);
