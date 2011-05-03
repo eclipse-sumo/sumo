@@ -333,6 +333,10 @@ enum {
     MID_GNE_MODE_INSPECT,
     /** mode for selecting objects */
     MID_GNE_MODE_SELECT,
+    
+    /// selector match box messages
+    MID_GNE_SELMB_TAG,
+    MID_GNE_SELMB_STRING,
 
     /// misc messages
     /** save network*/
@@ -347,6 +351,9 @@ enum {
     MID_GNE_SET_TEMPLATE,
     /** copy template*/
     MID_GNE_COPY_TEMPLATE,
+    /** help button */
+    MID_GNE_HELP,
+
     //@}
 
     MID_LAST
