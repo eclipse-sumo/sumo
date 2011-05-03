@@ -15,6 +15,7 @@
         <visum-file value="" synonymes="visum"/>
         <vissim-file value="" synonymes="vissim"/>
         <robocup-net value="" synonymes="robocup"/>
+        <matsim-files value="" synonymes="matsim"/>
     </input>
 
     <output>

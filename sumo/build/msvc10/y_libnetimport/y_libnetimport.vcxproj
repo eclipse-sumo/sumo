@@ -137,6 +137,7 @@
   <ItemGroup>
     <ClCompile Include="..\..\..\src\netimport\NIImporter_ArcView.cpp" />
     <ClCompile Include="..\..\..\src\netimport\NIImporter_DlrNavteq.cpp" />
+    <ClCompile Include="..\..\..\src\netimport\NIImporter_MATSim.cpp" />
     <ClCompile Include="..\..\..\src\netimport\NIImporter_OpenDrive.cpp" />
     <ClCompile Include="..\..\..\src\netimport\NIImporter_OpenStreetMap.cpp" />
     <ClCompile Include="..\..\..\src\netimport\NIImporter_RobocupRescue.cpp" />
@@ -153,6 +154,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\src\netimport\NIImporter_ArcView.h" />
+    <ClInclude Include="..\..\..\src\netimport\NIImporter_MATSim.h" />
     <ClInclude Include="..\..\..\src\netimport\NIImporter_DlrNavteq.h" />
     <ClInclude Include="..\..\..\src\netimport\NIImporter_OpenDrive.h" />
     <ClInclude Include="..\..\..\src\netimport\NIImporter_OpenStreetMap.h" />

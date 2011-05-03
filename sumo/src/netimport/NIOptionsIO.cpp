@@ -120,6 +120,10 @@ NIOptionsIO::fillOptions() {
     oc.addSynonyme("robocup-net", "robocup");
     oc.addDescription("robocup-net", "Input", "Read RoboCup-net from DIR");
 
+    oc.doRegister("matsim-files", new Option_FileName());
+    oc.addSynonyme("matsim-files", "matsim");
+    oc.addDescription("matsim-files", "Input", "Read MATSim-net from FILE");
+
 
     // register processing options
     oc.doRegister("dismiss-loading-errors", new Option_Bool(false)); // !!! describe, document

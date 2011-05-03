@@ -346,6 +346,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\..\src\netimport\NIImporter_MATSim.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\..\src\netimport\NIImporter_OpenDrive.cpp"
 				>
 			</File>
@@ -408,6 +412,10 @@
 			</File>
 			<File
 				RelativePath="..\..\..\src\netimport\NIImporter_DlrNavteq.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\netimport\NIImporter_MATSim.h"
 				>
 			</File>
 			<File

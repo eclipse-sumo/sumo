@@ -1,4 +1,4 @@
-SUMO netconvert Version dev-SVN-r10171
+SUMO netconvert Version dev-SVN-r10208
  Copyright (C) 2001-2011 DLR and contributors; http://sumo.sourceforge.net
  
 Road network importer / builder for the road traffic simulation SUMO.
@@ -34,6 +34,7 @@ Usage: netconvert [OPTION]*
   --visum-file FILE                    Read VISUM-net from FILE
   --vissim-file FILE                   Read VISSIM-net from FILE
   --robocup-net FILE                   Read RoboCup-net from DIR
+  --matsim-files FILE                  Read MATSim-net from FILE
 
  Output Options:
   -o, --output-file FILE               The generated net will be written to
