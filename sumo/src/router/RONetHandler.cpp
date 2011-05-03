@@ -249,7 +249,7 @@ RONetHandler::parseConnectedEdge(const SUMOSAXAttributes &attrs) {
 void
 RONetHandler::parseDistrict(const SUMOSAXAttributes &attrs) throw(ProcessError) {
     myCurrentEdge = 0;
-    bool ok;
+    bool ok = true;
     myCurrentName = attrs.getStringReporting(SUMO_ATTR_ID, 0, ok);
     if (!ok) {
         return;
