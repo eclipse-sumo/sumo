@@ -345,8 +345,10 @@ NIImporter_SUMO::addJunction(const SUMOSAXAttributes &attrs) {
     if (shapeS != "") {
         Position2DVector shape = GeomConvHelper::parseShapeReporting(
                 shapeS, attrs.getObjectType(), id.c_str(), ok, false);
-        if (!shape.around(pos)) { // only fix extrem cases
-            pos = shape.getPolygonCenter();
+        Position2D center = shape.getPolygonCenter();
+        SUMOReal MAGIC_THRESHOLD = 5; // only fix extrem cases
+        if (center.distanceTo(pos) > MAGIC_THRESHOLD) {
+            pos = center;
         }
     }
     if (!GeoConvHelper::x2cartesian(pos)) {
