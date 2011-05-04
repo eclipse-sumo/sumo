@@ -29,6 +29,7 @@
 
 #include <utils/geom/Boundary.h>
 #include <utils/geom/Position2D.h>
+#include <utils/gui/settings/GUICompleteSchemeStorage.h>
 #include "GUIPerspectiveChanger.h"
 #include "GUIDanielPerspectiveChanger.h"
 
@@ -64,6 +65,9 @@ GUIDanielPerspectiveChanger::move(int xdiff, int ydiff) {
 
 void
 GUIDanielPerspectiveChanger::zoom(SUMOReal factor) {
+    if (myCallback.getApp()->reg().readIntEntry("gui","zoomAtCenter", 1)) {
+        myZoomBase = myViewPort.getCenter();
+    }
     if (factor > 0) {
         myViewPort = Boundary(
                 myZoomBase.x() - (myZoomBase.x() - myViewPort.xmin()) / factor,

@@ -44,6 +44,7 @@ FXDEFMAP(GUIGlChildWindow) GUIGlChildWindowMap[]={
     FXMAPFUNC(SEL_COMMAND,  MID_RECENTERVIEW,       GUIGlChildWindow::onCmdRecenterView),
     FXMAPFUNC(SEL_COMMAND,  MID_EDITVIEWPORT,       GUIGlChildWindow::onCmdEditViewport),
     FXMAPFUNC(SEL_COMMAND,  MID_SHOWTOOLTIPS,       GUIGlChildWindow::onCmdShowToolTips),
+    FXMAPFUNC(SEL_COMMAND,  MID_ZOOM_STYLE,         GUIGlChildWindow::onCmdZoomStyle),
     FXMAPFUNC(SEL_COMMAND,  MID_COLOURSCHEMECHANGE, GUIGlChildWindow::onCmdChangeColorScheme),
     FXMAPFUNC(SEL_COMMAND,  MID_EDITVIEWSCHEME,     GUIGlChildWindow::onCmdEditViewScheme),
 };
@@ -113,6 +114,14 @@ GUIGlChildWindow::buildNavigationToolBar() {
                            GUIIconSubSys::getIcon(ICON_SHOWTOOLTIPS), this, MID_SHOWTOOLTIPS,
                            BUTTON_NORMAL|LAYOUT_FIX_WIDTH|LAYOUT_FIX_HEIGHT,
                            0,0, 23,23);
+
+    // add toggle button for zooming style
+    MFXCheckableButton *zoomBut = new MFXCheckableButton(false, myNavigationToolBar,
+            "\tToggles Zooming Style\tToggles whether zooming is based at cursor position or at the center of the view.", 
+            GUIIconSubSys::getIcon(ICON_ALLOWROTATION), this, MID_ZOOM_STYLE,
+            BUTTON_NORMAL|LAYOUT_FIX_WIDTH|LAYOUT_FIX_HEIGHT,
+            0,0, 23,23);
+    zoomBut->setChecked(getApp()->reg().readIntEntry("gui","zoomAtCenter", 1) != 1);
 }
 
 
@@ -201,6 +210,18 @@ GUIGlChildWindow::onCmdShowToolTips(FXObject*sender,FXSelector,void*) {
     MFXCheckableButton *button = static_cast<MFXCheckableButton*>(sender);
     button->setChecked(!button->amChecked());
     myView->showToolTips(button->amChecked());
+    update();
+    myView->update();
+    return 1;
+}
+
+
+long
+GUIGlChildWindow::onCmdZoomStyle(FXObject*sender,FXSelector,void*) {
+    MFXCheckableButton *button = static_cast<MFXCheckableButton*>(sender);
+    button->setChecked(!button->amChecked());
+    getApp()->reg().writeIntEntry("gui","zoomAtCenter", 
+            button->amChecked() ? 0 : 1); 
     update();
     myView->update();
     return 1;

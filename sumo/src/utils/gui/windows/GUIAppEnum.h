@@ -166,6 +166,8 @@ enum {
     MID_SHOWTOOLTIPS,
     /// Make snapshot - button
     MID_MAKESNAPSHOT,
+    /// toogle zooming style 
+    MID_ZOOM_STYLE,
     //@}
 
 

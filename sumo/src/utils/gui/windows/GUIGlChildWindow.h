@@ -63,6 +63,7 @@ public:
     long onCmdEditViewport(FXObject*,FXSelector,void*);
     long onCmdEditViewScheme(FXObject*,FXSelector,void*);
     long onCmdShowToolTips(FXObject*sender,FXSelector,void*);
+    long onCmdZoomStyle(FXObject*sender,FXSelector,void*);
     long onCmdChangeColorScheme(FXObject*,FXSelector sel,void*);
 
     virtual void buildNavigationToolBar();
