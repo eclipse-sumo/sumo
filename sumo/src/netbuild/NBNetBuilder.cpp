@@ -462,6 +462,9 @@ NBNetBuilder::insertNetBuildOptions(OptionsCont &oc) {
     oc.doRegister("keep-edges.in-boundary", new Option_String());
     oc.addDescription("keep-edges.in-boundary", "Edge Removal", "Keeps edges which are located within the given boundary");
 
+    oc.doRegister("keep-edges.by-vclass", new Option_String());
+    oc.addDescription("keep-edges.by-vclass", "Edge Removal", "Keep edges that allow any of the vclasss in STR");
+
     oc.doRegister("remove-edges.by-vclass", new Option_String());
     oc.addDescription("remove-edges.by-vclass", "Edge Removal", "Remove edges where vclass def is not in STR");
 

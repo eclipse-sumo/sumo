@@ -179,6 +179,26 @@ NBEdgeCont::insert(NBEdge *edge, bool ignorePrunning) throw() {
             return true;
         }
     }
+    // check whether the edge shall be removed because it does not allow any of the wished classes
+    if (myVehicleClasses2Keep.size()!=0) {
+        SUMOVehicleClasses allowed = edge->getAllowedVehicleClasses(); 
+        // @todo also check disallowed
+        if (allowed.size() > 0) {
+            int matching = 0;
+            for (SUMOVehicleClasses::const_iterator i=myVehicleClasses2Keep.begin(); i!=myVehicleClasses2Keep.end(); ++i) {
+                if (allowed.count(*i)) {
+                    allowed.erase(*i);
+                    matching++;
+                }
+            }
+            if (matching==0) {
+                edge->getFromNode()->removeOutgoing(edge);
+                edge->getToNode()->removeIncoming(edge);
+                delete edge;
+                return true;
+            }
+        }
+    }
     // check whether the edge shall be removed due to allowing unwished classes only
     if (myVehicleClasses2Remove.size()!=0) {
         int matching = 0;
@@ -197,24 +217,7 @@ NBEdgeCont::insert(NBEdge *edge, bool ignorePrunning) throw() {
             return true;
         }
     }
-    // check whether the edge shall be removed due to a allow an unwished class
-    if (myVehicleClasses2Keep.size()!=0) {
-        int matching = 0;
-        SUMOVehicleClasses allowed = edge->getAllowedVehicleClasses();
-        for (SUMOVehicleClasses::const_iterator i=myVehicleClasses2Remove.begin(); i!=myVehicleClasses2Remove.end(); ++i) {
-            if (allowed.count(*i)) {
-                allowed.erase(*i);
-                matching++;
-            }
-        }
-        // remove the edge if all allowed
-        if (matching==0&&allowed.size()!=0) {
-            edge->getFromNode()->removeOutgoing(edge);
-            edge->getToNode()->removeIncoming(edge);
-            delete edge;
-            return true;
-        }
-    }
+
     // check whether the edge is within the prunning boundary
     if (myPrunningBoundary.size()!=0) {
         if (!(edge->getGeometry().getBoxBoundary().grow((SUMOReal) POSITION_EPS).overlapsWith(myPrunningBoundary))) {
