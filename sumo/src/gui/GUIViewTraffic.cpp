@@ -82,9 +82,7 @@ GUIViewTraffic::GUIViewTraffic(
         FXGLCanvas *share) : 
     GUISUMOAbstractView(p, app, parent, net.getVisualisationSpeedUp(), glVis, share),
     myTrackedID(-1) 
-{
-    recenterView();
-}
+{}
 
 
 GUIViewTraffic::~GUIViewTraffic() {

@@ -219,6 +219,8 @@ void
 GUICompleteSchemeStorage::setViewport(GUISUMOAbstractView* view) throw() {
     if (myZoom > 0) {
         view->setViewport(myZoom, myX, myY);
+    } else {
+        view->recenterView();
     }
 }
 

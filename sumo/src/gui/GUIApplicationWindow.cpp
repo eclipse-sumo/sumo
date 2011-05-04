@@ -943,7 +943,7 @@ GUIApplicationWindow::load(const std::string &file, bool isNet, bool isReload) {
         myLoadThread->start();
         setStatusBarText("Reloading.");
     } else {
-        gSchemeStorage.saveViewport(0, 0, 100);
+        gSchemeStorage.saveViewport(0, 0, -1); // recenter view
         myLoadThread->load(file, isNet);
         setStatusBarText("Loading '" + file + "'.");
     }

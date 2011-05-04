@@ -133,6 +133,7 @@ GUISUMOAbstractView::GUISUMOAbstractView(FXComposite *p,
     myChanger = new GUIDanielPerspectiveChanger(*this, *myGrid);
     myToolTip = new GUIGLObjectToolTip(myApp);
     myVisualizationSettings = &gSchemeStorage.getDefault();
+    gSchemeStorage.setViewport(this);
 }
 
 
