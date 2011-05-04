@@ -137,7 +137,7 @@ OptionsCont::isSet(const std::string &name) const {
     if (i==myValues.end()) {
         //@todo: find all failing tests and reorganize options
         //throw ProcessError("Internal request for unknown option '" + name + "'!");
-        return false
+        return false;
     }
     return (*i).second->isSet();
 }
