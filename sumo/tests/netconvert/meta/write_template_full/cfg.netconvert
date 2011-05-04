@@ -68,6 +68,7 @@
         <keep-edges.input-file value=""/>
         <keep-edges.postload value="false"/>
         <keep-edges.in-boundary value=""/>
+        <keep-edges.by-vclass value=""/>
         <remove-edges.by-vclass value=""/>
     </edge_removal>
 
@@ -132,6 +133,8 @@
         <version value="false" synonymes="V"/>
         <suppress-warnings value="false" synonymes="W"/>
         <log-file value="" synonymes="l"/>
+        <message-log value=""/>
+        <error-log value=""/>
     </report>
 
     <random_number>

@@ -60,6 +60,8 @@
         <version value="false" synonymes="V"/>
         <suppress-warnings value="false" synonymes="W"/>
         <log-file value="" synonymes="l"/>
+        <message-log value=""/>
+        <error-log value=""/>
         <report-empty-detectors value="false"/>
         <print-absolute-flows value="false"/>
     </report>

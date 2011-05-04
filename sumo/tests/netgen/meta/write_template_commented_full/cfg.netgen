@@ -195,6 +195,9 @@
         <!-- Keeps edges which are located within the given boundary -->
         <keep-edges.in-boundary value=""/>
 
+        <!-- Keep edges that allow any of the vclasss in STR -->
+        <keep-edges.by-vclass value=""/>
+
         <!-- Remove edges where vclass def is not in STR -->
         <remove-edges.by-vclass value=""/>
 
@@ -290,6 +293,12 @@
 
         <!-- Writes all messages to FILE -->
         <log-file value="" synonymes="l"/>
+
+        <!-- Writes all non-error messages to FILE -->
+        <message-log value=""/>
+
+        <!-- Writes all warnings and errors to FILE -->
+        <error-log value=""/>
 
     </report>
 

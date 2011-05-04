@@ -135,7 +135,9 @@ bool
 OptionsCont::isSet(const std::string &name) const {
     KnownContType::const_iterator i = myValues.find(name);
     if (i==myValues.end()) {
-        return false;
+        //@todo: find all failing tests and reorganize options
+        //throw ProcessError("Internal request for unknown option '" + name + "'!");
+        return false
     }
     return (*i).second->isSet();
 }

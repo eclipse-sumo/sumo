@@ -1,4 +1,4 @@
-SUMO duarouter Version dev-SVN-r9977
+SUMO duarouter Version dev-SVN-r10214
  Copyright (C) 2001-2011 DLR and contributors; http://sumo.sourceforge.net
  
 Shortest path router and DUE computer for the microscopic road traffic
@@ -80,6 +80,8 @@ Usage: duarouter [OPTION]*
   -V, --version                    Prints the current version
   -W, --suppress-warnings          Disables output of warnings
   -l, --log-file FILE              Writes all messages to FILE
+  --message-log FILE               Writes all non-error messages to FILE
+  --error-log FILE                 Writes all warnings and errors to FILE
   --stats-period INT               Defines how often statistics shall be
                                      printed
 

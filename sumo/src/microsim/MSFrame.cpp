@@ -231,12 +231,6 @@ MSFrame::fillOptions() {
     oc.doRegister("no-step-log", new Option_Bool(false));
     oc.addDescription("no-step-log", "Report", "Disable console output of current simulation step");
 
-    oc.doRegister("message-log", new Option_FileName());
-    oc.addDescription("message-log", "Report", "Writes all non-error messages to FILE");
-
-    oc.doRegister("error-log", new Option_FileName());
-    oc.addDescription("error-log", "Report", "Writes all warnings and errors to FILE");
-
 
 #ifndef NO_TRACI
     //remote port 0 if not used
