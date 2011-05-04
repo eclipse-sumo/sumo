@@ -13,6 +13,7 @@ Copyright (C) 2008-2011 DLR (http://www.dlr.de/) and contributors
 All rights reserved
 """
 import os, sys, subprocess, types
+import StringIO
 from datetime import datetime
 from optparse import OptionParser
 
@@ -196,6 +197,17 @@ def main():
         sumoBinary = os.environ.get("SUMO_BINARY", os.path.join(options.path, "meso"))
     else:
         sumoBinary = os.environ.get("SUMO_BINARY", os.path.join(options.path, "sumo"))
+
+    # make sure BOTH binaries are callable before we start
+    try:
+        subprocess.call(duaBinary, stdout=subprocess.PIPE)
+    except OSError:
+        sys.exit("Error: Could not locate duarouter.\nMake sure its on the search path or set environment variable DUAROUTER_BINARY\n")
+    try:
+        subprocess.call(sumoBinary, stdout=subprocess.PIPE)
+    except OSError:
+        sys.exit("Error: Could not locate sumo.\nMake sure its on the search path or set environment variable SUMO_BINARY\n")
+
     
     log = open("dua-log.txt", "w+")
     tripFiles = options.trips.split(",")
