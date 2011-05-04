@@ -85,14 +85,14 @@ GUIDialog_EditViewport::GUIDialog_EditViewport(GUISUMOAbstractView* parent,
         myZoom->setValue(zoom);
     }
     {
-        new FXLabel(m1, "X Offset:", 0, LAYOUT_CENTER_Y);
+        new FXLabel(m1, "X:", 0, LAYOUT_CENTER_Y);
         myXOff = new FXRealSpinDial(m1, 16, this, MID_CHANGED, LAYOUT_CENTER_Y|LAYOUT_TOP|FRAME_SUNKEN|FRAME_THICK);
         myXOff->setRange(-1000000, 1000000);
         myXOff->setNumberFormat(4);
         myXOff->setValue(xoff);
     }
     {
-        new FXLabel(m1, "Y Offset:", 0, LAYOUT_CENTER_Y);
+        new FXLabel(m1, "Y:", 0, LAYOUT_CENTER_Y);
         myYOff = new FXRealSpinDial(m1, 16, this, MID_CHANGED, LAYOUT_CENTER_Y|LAYOUT_TOP|FRAME_SUNKEN|FRAME_THICK);
         myYOff->setRange(-1000000, 1000000);
         myYOff->setNumberFormat(4);
