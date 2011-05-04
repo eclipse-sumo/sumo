@@ -37,7 +37,6 @@
 #include <netbuild/NBNode.h>
 #include <netbuild/NBNodeCont.h>
 #include <netbuild/NBNetBuilder.h>
-#include <utils/xml/SUMOXMLDefinitions.h>
 #include <utils/geom/GeoConvHelper.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/common/FileHelpers.h>
@@ -67,6 +66,7 @@ StringBijection<int>::Entry NIImporter_MATSim::matsimTags[] = {
 
 
 StringBijection<int>::Entry NIImporter_MATSim::matsimAttrs[] = {
+    { "id",             NIImporter_MATSim::MATSIM_ATTR_ID },
     { "x",              NIImporter_MATSim::MATSIM_ATTR_X },
     { "y",              NIImporter_MATSim::MATSIM_ATTR_Y },
     { "from",           NIImporter_MATSim::MATSIM_ATTR_FROM },
@@ -136,13 +136,13 @@ NIImporter_MATSim::NodesHandler::~NodesHandler() throw() {}
 
 
 void
-NIImporter_MATSim::NodesHandler::myStartElement(SumoXMLTag element, const SUMOSAXAttributes &attrs) throw(ProcessError) {
+NIImporter_MATSim::NodesHandler::myStartElement(int element, const SUMOSAXAttributes &attrs) throw(ProcessError) {
     if (element != MATSIM_TAG_NODE) {
         return;
     }
     // get the id, report a warning if not given or empty...
     bool ok = true;
-    std::string id = attrs.getStringReporting(SUMO_ATTR_ID, 0, ok);
+    std::string id = attrs.getStringReporting(MATSIM_ATTR_ID, 0, ok);
     SUMOReal x = attrs.getSUMORealReporting(MATSIM_ATTR_X, id.c_str(), ok);
     SUMOReal y = attrs.getSUMORealReporting(MATSIM_ATTR_Y, id.c_str(), ok);
     if (!ok) {
@@ -175,7 +175,7 @@ NIImporter_MATSim::EdgesHandler::~EdgesHandler() throw() {
 
 
 void
-NIImporter_MATSim::EdgesHandler::myStartElement(SumoXMLTag element,
+NIImporter_MATSim::EdgesHandler::myStartElement(int element,
         const SUMOSAXAttributes &attrs) throw(ProcessError) {
     bool ok = true;
     if (element==MATSIM_TAG_NETWORK) {
@@ -209,7 +209,7 @@ NIImporter_MATSim::EdgesHandler::myStartElement(SumoXMLTag element,
     if (element!=MATSIM_TAG_LINK) {
         return;
     }
-    std::string id = attrs.getStringReporting(SUMO_ATTR_ID, 0, ok);
+    std::string id = attrs.getStringReporting(MATSIM_ATTR_ID, 0, ok);
     std::string fromNodeID = attrs.getStringReporting(MATSIM_ATTR_FROM, id.c_str(), ok);
     std::string toNodeID = attrs.getStringReporting(MATSIM_ATTR_TO, id.c_str(), ok);
     SUMOReal length = attrs.getSUMORealReporting(MATSIM_ATTR_LENGTH, id.c_str(), ok); // override computed?

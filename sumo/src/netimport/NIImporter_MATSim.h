@@ -100,7 +100,7 @@ private:
          * @exception ProcessError If something fails
          * @see GenericSAXHandler::myStartElement
          */
-        void myStartElement(SumoXMLTag element, const SUMOSAXAttributes &attrs) throw(ProcessError);
+        void myStartElement(int element, const SUMOSAXAttributes &attrs) throw(ProcessError);
         //@}
 
 
@@ -149,7 +149,7 @@ private:
          * @exception ProcessError If something fails
          * @see GenericSAXHandler::myStartElement
          */
-        void myStartElement(SumoXMLTag element, const SUMOSAXAttributes &attrs) throw(ProcessError);
+        void myStartElement(int element, const SUMOSAXAttributes &attrs) throw(ProcessError);
         //@}
 
 
@@ -180,11 +180,11 @@ private:
  * @see GenericSAXHandler
  */
 enum MatsimXMLTag {
-    MATSIM_TAG_NOTHING,
     MATSIM_TAG_NETWORK,
     MATSIM_TAG_NODE,
     MATSIM_TAG_LINK,
-    MATSIM_TAG_LINKS
+    MATSIM_TAG_LINKS,
+    MATSIM_TAG_NOTHING
 };
 
 
@@ -194,7 +194,7 @@ enum MatsimXMLTag {
  * @see GenericSAXHandler
  */
 enum MatsimXMLAttr {
-    MATSIM_ATTR_NOTHING,
+    MATSIM_ATTR_ID,
     MATSIM_ATTR_X,
     MATSIM_ATTR_Y,
     MATSIM_ATTR_FROM,
@@ -207,8 +207,8 @@ enum MatsimXMLAttr {
     MATSIM_ATTR_MODES,
     MATSIM_ATTR_ORIGID,
     MATSIM_ATTR_CAPPERIOD,
-    MATSIM_ATTR_CAPDIVIDER
-
+    MATSIM_ATTR_CAPDIVIDER,
+    MATSIM_ATTR_NOTHING
 };
 
     /// The names of MATSIM-XML elements (for passing to GenericSAXHandler)
