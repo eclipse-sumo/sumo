@@ -63,6 +63,7 @@
 #include "allow_rotation.xpm"
 #include "show_tooltips.xpm"
 #include "magnify.xpm"
+#include "zoomstyle.xpm"
 #include "yes.xpm"
 #include "no.xpm"
 
@@ -147,6 +148,7 @@ GUIIconSubSys::GUIIconSubSys(FXApp *a) {
     myIcons[ICON_RECENTERVIEW] = new FXXPMIcon(a, recenter_view_xpm);
     myIcons[ICON_ALLOWROTATION] = new FXXPMIcon(a, allow_rotation_xpm);
     myIcons[ICON_EDITVIEWPORT] = new FXXPMIcon(a, magnify_xpm);
+    myIcons[ICON_ZOOMSTYLE] = new FXXPMIcon(a, zoomstyle_xpm);
 
     myIcons[ICON_APP_TRACKER] = new FXXPMIcon(a, app_tracker_xpm);
     myIcons[ICON_APP_FINDER] = new FXXPMIcon(a, app_finder_xpm);

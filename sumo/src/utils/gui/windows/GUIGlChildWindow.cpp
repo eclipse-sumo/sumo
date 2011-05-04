@@ -103,6 +103,14 @@ GUIGlChildWindow::buildNavigationToolBar() {
                  "\tEdit Viewport...\tOpens a menu which lets you edit the viewport.",
                  GUIIconSubSys::getIcon(ICON_EDITVIEWPORT), this, MID_EDITVIEWPORT,
                  ICON_ABOVE_TEXT|BUTTON_TOOLBAR|FRAME_RAISED|LAYOUT_TOP|LAYOUT_LEFT);
+    // toggle button for zooming style
+    MFXCheckableButton *zoomBut = new MFXCheckableButton(false, myNavigationToolBar,
+            "\tToggles Zooming Style\tToggles whether zooming is based at cursor position or at the center of the view.", 
+            GUIIconSubSys::getIcon(ICON_ZOOMSTYLE), this, MID_ZOOM_STYLE,
+            BUTTON_NORMAL|LAYOUT_FIX_WIDTH|LAYOUT_FIX_HEIGHT,
+            0,0, 23,23);
+    zoomBut->setChecked(getApp()->reg().readIntEntry("gui","zoomAtCenter", 1) != 1);
+
     // build the locator popup
     myLocatorPopup = new FXPopup(myNavigationToolBar, POPUP_VERTICAL);
     myLocatorButton = new FXMenuButton(myNavigationToolBar,"\tLocate Structures\tLocate structures within the network.",
@@ -115,13 +123,6 @@ GUIGlChildWindow::buildNavigationToolBar() {
                            BUTTON_NORMAL|LAYOUT_FIX_WIDTH|LAYOUT_FIX_HEIGHT,
                            0,0, 23,23);
 
-    // add toggle button for zooming style
-    MFXCheckableButton *zoomBut = new MFXCheckableButton(false, myNavigationToolBar,
-            "\tToggles Zooming Style\tToggles whether zooming is based at cursor position or at the center of the view.", 
-            GUIIconSubSys::getIcon(ICON_ALLOWROTATION), this, MID_ZOOM_STYLE,
-            BUTTON_NORMAL|LAYOUT_FIX_WIDTH|LAYOUT_FIX_HEIGHT,
-            0,0, 23,23);
-    zoomBut->setChecked(getApp()->reg().readIntEntry("gui","zoomAtCenter", 1) != 1);
 }
 
 
