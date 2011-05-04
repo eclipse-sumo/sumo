@@ -331,6 +331,9 @@ GUINet::initGUIStructures() {
         cmax[1] = b.ymax();
         myGrid.Insert(cmin, cmax, edge);
         myBoundary.add(b);
+        if (myBoundary.getWidth() > 10e16 || myBoundary.getHeight() > 10e16) {
+            throw ProcessError("Network size exceeds 1 Lightyear. Please reconsider your inputs.\n");
+        }
     }
     for (std::vector<GUIJunctionWrapper*>::iterator i=myJunctionWrapper.begin(); i!=myJunctionWrapper.end(); ++i) {
         GUIJunctionWrapper *junction = *i;
