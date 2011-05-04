@@ -1,7 +1,9 @@
 <?xml version="1.0"?>
 
-<!-- generated on 03/18/10 14:24:07 by SUMO duarouter Version dev-SVN-r8460
-<configuration>
+<!-- generated on 05/04/11 09:31:07 by SUMO duarouter Version dev-SVN-r10211
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/duarouterConfiguration.xsd">
 
     <input>
         <net-file value="input_net.net.xml"/>
@@ -16,7 +18,7 @@
 -->
 
 <routes>
-   <vtype id="0" vclass=""/>
+   <vtype id="0" vclass="unknown"/>
     <vehicle id="0" type="0" depart="0.00">
         <route edges="absBeg middle end absEnd"/>
     </vehicle>

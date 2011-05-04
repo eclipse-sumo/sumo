@@ -36,7 +36,7 @@ accel 2.6
 decel 4.5
 imperfection 0.5
 tau 1.0
-vClass 
+vClass unknown
 emissionclass 
 shape 
 guiOffset 2.5
@@ -121,7 +121,7 @@ accel 2.6
 decel 4.5
 imperfection 0.5
 tau 1.0
-vClass 
+vClass unknown
 emissionclass 
 shape 
 guiOffset 2.5
