@@ -107,6 +107,8 @@ class OutputDevice;
  * @}
  */
 class NBNetBuilder {
+    friend class GNENet; // for triggering intermediate build steps
+
 public:
     /// @brief Constructor
     NBNetBuilder() throw();

@@ -120,6 +120,7 @@ NBTrafficLightDefinition::setParticipantsInformation() throw() {
 
 void
 NBTrafficLightDefinition::collectEdges() throw() {
+    myIncomingEdges.clear();
     EdgeVector myOutgoing;
     // collect the edges from the participating nodes
     for (std::vector<NBNode*>::iterator i=myControlledNodes.begin(); i!=myControlledNodes.end(); i++) {
@@ -150,6 +151,7 @@ NBTrafficLightDefinition::collectEdges() throw() {
 
 void
 NBTrafficLightDefinition::collectLinks() throw(ProcessError) {
+    myControlledLinks.clear();
     // build the list of links which are controled by the traffic light
     for (EdgeVector::iterator i=myIncomingEdges.begin(); i!=myIncomingEdges.end(); i++) {
         NBEdge *incoming = *i;
