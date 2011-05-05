@@ -104,7 +104,7 @@ $(sumo_LDADD) \
 endif
 
 
-SUBDIRS = foreign utils microsim netbuild netgen netimport netload netwrite \
+SUBDIRS = foreign utils microsim netbuild netwrite netgen netimport netload \
 od2trips polyconvert router dfrouter duarouter jtrrouter activitygen \
 $(MESO_DIRS) $(TRACI_DIRS) $(GUI_DIRS)
 

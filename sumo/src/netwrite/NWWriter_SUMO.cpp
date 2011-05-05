@@ -2,7 +2,7 @@
 /// @file    NWWriter_SUMO.cpp
 /// @author  Daniel Krajzewicz
 /// @date    Tue, 04.05.2011
-/// @version $Id: NWWriter_SUMO.cpp 10034 2011-03-31 07:38:31Z namdre $
+/// @version $Id$
 ///
 // Exporter writing networks using the SUMO format
 /****************************************************************************/

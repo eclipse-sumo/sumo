@@ -2,7 +2,7 @@
 /// @file    NWFrame.h
 /// @author  Daniel Krajzewicz
 /// @date    Tue, 20 Nov 2001
-/// @version $Id: NWFrame.h 9525 2011-01-04 21:22:52Z behrisch $
+/// @version $Id$
 ///
 // Sets and checks options for netwrite
 /****************************************************************************/

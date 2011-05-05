@@ -2,7 +2,7 @@
 /// @file    NWFrame.cpp
 /// @author  Daniel Krajzewicz
 /// @date    Tue, 20 Nov 2001
-/// @version $Id: NWFrame.cpp 10209 2011-05-03 12:29:46Z dkrajzew $
+/// @version $Id$
 ///
 // Sets and checks options for netwrite
 /****************************************************************************/
