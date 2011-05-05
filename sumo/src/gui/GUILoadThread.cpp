@@ -158,7 +158,7 @@ GUILoadThread::run() {
         if (std::string(e.what())!=std::string("Process Error") && std::string(e.what())!=std::string("")) {
             MsgHandler::getErrorInstance()->inform(e.what());
         }
-        MsgHandler::getErrorInstance()->inform("Failed to build network.");
+        MsgHandler::getErrorInstance()->inform("Quitting (on error).", false);
         delete net;
         net = 0;
 #ifndef _DEBUG
