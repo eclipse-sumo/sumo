@@ -70,6 +70,9 @@ class OutputDevice;
  * @brief Represents a single node (junction) during network building
  */
 class NBNode : public Named {
+    friend class NBNodeCont;
+    friend class GNEJunction; // used for visualization (NETEDIT) 
+
 public:
     /**
      * @class ApproachingDivider
@@ -348,8 +351,6 @@ public:
     char stateCode(NBEdge *incoming, NBEdge *outgoing, int fromLane, bool mayDefinitelyPass) const throw();
 
     void computeNodeShape(bool leftHand);
-
-    friend class NBNodeCont;
 
 
     const Position2DVector &getShape() const;
