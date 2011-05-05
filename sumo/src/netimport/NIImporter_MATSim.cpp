@@ -113,7 +113,8 @@ NIImporter_MATSim::loadNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
         MsgHandler::getMessageInstance()->endProcessMsg("done.");
     }
     // load edges, then
-    EdgesHandler edgesHandler(nb.getNodeCont(), nb.getEdgeCont());
+    EdgesHandler edgesHandler(nb.getNodeCont(), nb.getEdgeCont(), oc.getBool("matsim.keep-length"),
+        oc.getBool("matsim.lanes-from-capacity"), NBCapacity2Lanes(oc.getFloat("capacity-norm")));
     for (std::vector<std::string>::const_iterator file=files.begin(); file!=files.end(); ++file) {
         // edges
         edgesHandler.setFileName(*file);
@@ -164,9 +165,13 @@ NIImporter_MATSim::NodesHandler::myStartElement(int element, const SUMOSAXAttrib
 // ---------------------------------------------------------------------------
 // definitions of NIImporter_MATSim::EdgesHandler-methods
 // ---------------------------------------------------------------------------
-NIImporter_MATSim::EdgesHandler::EdgesHandler(const NBNodeCont &nc, NBEdgeCont &toFill) throw()
+NIImporter_MATSim::EdgesHandler::EdgesHandler(const NBNodeCont &nc, NBEdgeCont &toFill,
+                                              bool keepEdgeLengths, bool lanesFromCapacity,
+                                              NBCapacity2Lanes capacity2Lanes) throw()
         : GenericSAXHandler(matsimTags, matsimAttrs, "matsim - file"), 
-		myNodeCont(nc), myEdgeCont(toFill), myCapacityNorm(3600) {
+		myNodeCont(nc), myEdgeCont(toFill), myCapacityNorm(3600),
+        myKeepEdgeLengths(keepEdgeLengths), myLanesFromCapacity(lanesFromCapacity),
+        myCapacity2Lanes(capacity2Lanes) {
 }
 
 
@@ -216,9 +221,9 @@ NIImporter_MATSim::EdgesHandler::myStartElement(int element,
     SUMOReal freeSpeed = attrs.getSUMORealReporting(MATSIM_ATTR_FREESPEED, id.c_str(), ok); // 
     SUMOReal capacity = attrs.getSUMORealReporting(MATSIM_ATTR_CAPACITY, id.c_str(), ok); // override permLanes?
     SUMOReal permLanes = attrs.getSUMORealReporting(MATSIM_ATTR_PERMLANES, id.c_str(), ok);
-    bool oneWay = attrs.getBoolReporting(MATSIM_ATTR_ONEWAY, id.c_str(), ok); // mandatory?
-    std::string modes = attrs.getStringReporting(MATSIM_ATTR_MODES, id.c_str(), ok); // which values?
-    std::string origid = attrs.getStringReporting(MATSIM_ATTR_ORIGID, id.c_str(), ok); // what for?
+    bool oneWay = attrs.getOptBoolReporting(MATSIM_ATTR_ONEWAY, id.c_str(), ok, true); // mandatory?
+    std::string modes = attrs.getOptStringReporting(MATSIM_ATTR_MODES, id.c_str(), ok, ""); // which values?
+    std::string origid = attrs.getOptStringReporting(MATSIM_ATTR_ORIGID, id.c_str(), ok, "");
     NBNode *fromNode = myNodeCont.retrieve(fromNodeID);
     NBNode *toNode = myNodeCont.retrieve(toNodeID);
     if(fromNode==0) {
@@ -230,7 +235,13 @@ NIImporter_MATSim::EdgesHandler::myStartElement(int element,
     if(fromNode==0||toNode==0) {
         return;
     }
+    if(myLanesFromCapacity) {
+        permLanes = myCapacity2Lanes.get(capacity);
+    }
     NBEdge *edge = new NBEdge(id, fromNode, toNode, "", freeSpeed, (unsigned int) permLanes, -1);
+    if(myKeepEdgeLengths) {
+        edge->setLoadedLength(length);
+    }
     if(!myEdgeCont.insert(edge)) {
         delete edge;
         MsgHandler::getErrorInstance()->inform("Could not add edge '" + id + "'. Probably declared twice.");

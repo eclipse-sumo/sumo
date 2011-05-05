@@ -31,6 +31,7 @@
 
 #include <string>
 #include <map>
+#include <netbuild/NBCapacity2Lanes.h>
 #include <utils/xml/SUMOSAXHandler.h>
 #include <utils/common/UtilExceptions.h>
 
@@ -130,8 +131,13 @@ private:
          *
          * @param[in] nc The node container to retrieve nodes form
          * @param[in, out] toFill The edges container to fill with read edges
+         * @param[in] keepEdgeLengths Whether the loaded lengths shal be used
+         * @param[in] lanesFromCapacity Whether the lane number shall be computed from the capacity
+         * @param[in] capacity2Lanes The converter from flow to lanes
          */
-        EdgesHandler(const NBNodeCont &nc, NBEdgeCont &toFill) throw();
+        EdgesHandler(const NBNodeCont &nc, NBEdgeCont &toFill,
+            bool keepEdgeLengths, bool lanesFromCapacity,
+            NBCapacity2Lanes capacity2Lanes) throw();
 
 
         /// @brief Destructor
@@ -163,6 +169,15 @@ private:
         /// @brief The capacity norming
         SUMOReal myCapacityNorm;
 
+        /// @brief Whether the loaded lengths shal be used
+        bool myKeepEdgeLengths;
+
+        /// @brief Whether the lane number shall be computed from the capacity
+        bool myLanesFromCapacity;
+
+        /// @brief The converter from flow to lanes
+        NBCapacity2Lanes myCapacity2Lanes;
+
 
     private:
         /** @brief invalidated copy constructor */
@@ -180,11 +195,11 @@ private:
  * @see GenericSAXHandler
  */
 enum MatsimXMLTag {
+    MATSIM_TAG_NOTHING = 0,
     MATSIM_TAG_NETWORK,
     MATSIM_TAG_NODE,
     MATSIM_TAG_LINK,
-    MATSIM_TAG_LINKS,
-    MATSIM_TAG_NOTHING
+    MATSIM_TAG_LINKS
 };
 
 
@@ -194,6 +209,7 @@ enum MatsimXMLTag {
  * @see GenericSAXHandler
  */
 enum MatsimXMLAttr {
+    MATSIM_ATTR_NOTHING = 0,
     MATSIM_ATTR_ID,
     MATSIM_ATTR_X,
     MATSIM_ATTR_Y,
@@ -207,8 +223,7 @@ enum MatsimXMLAttr {
     MATSIM_ATTR_MODES,
     MATSIM_ATTR_ORIGID,
     MATSIM_ATTR_CAPPERIOD,
-    MATSIM_ATTR_CAPDIVIDER,
-    MATSIM_ATTR_NOTHING
+    MATSIM_ATTR_CAPDIVIDER
 };
 
     /// The names of MATSIM-XML elements (for passing to GenericSAXHandler)

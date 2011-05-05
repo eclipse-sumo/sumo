@@ -141,6 +141,13 @@ NIOptionsIO::fillOptions() {
     oc.addDescription("xml.keep-shape", "Processing", "No node positions are added to the edge shape");
 
 
+    oc.doRegister("matsim.keep-length", new Option_Bool(false));
+    oc.addDescription("matsim.keep-length", "Processing", "The edge lengths given in the MATSIM-file will be kept.");
+
+    oc.doRegister("matsim.lanes-from-capacity", new Option_Bool(false));
+    oc.addDescription("matsim.lanes-from-capacity", "Processing", "The lane number will be computed from the capacity.");
+
+
     oc.doRegister("shapefile.street-id", new Option_String());
     oc.addSynonyme("shapefile.street-id", "arcview.street-id");
     oc.addDescription("shapefile.street-id", "Processing", "Read edge ids from column STR");
