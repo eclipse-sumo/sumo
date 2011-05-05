@@ -2,7 +2,7 @@
 /// @file    NIImporter_MATSim.h
 /// @author  Daniel Krajzewicz
 /// @date    Tue, 26.04.2011
-/// @version $Id: NIImporter_MATSim.h 9525 2011-01-04 21:22:52Z behrisch $
+/// @version $Id$
 ///
 // Importer for networks stored in MATSim format
 /****************************************************************************/

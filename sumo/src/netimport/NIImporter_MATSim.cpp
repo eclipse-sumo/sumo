@@ -2,7 +2,7 @@
 /// @file    NIImporter_MATSim.cpp
 /// @author  Daniel Krajzewicz
 /// @date    Tue, 26.04.2011
-/// @version $Id: NIImporter_MATSim.cpp 10034 2011-03-31 07:38:31Z namdre $
+/// @version $Id$
 ///
 // Importer for networks stored in MATSim format
 /****************************************************************************/
