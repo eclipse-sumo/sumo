@@ -340,6 +340,9 @@ enum {
     MID_GNE_SELMB_TAG,
     MID_GNE_SELMB_STRING,
 
+    /// processing menu messages
+    MID_GNE_COMPUTE_JUNCTIONS,
+
     /// misc messages
     /** save network*/
     MID_GNE_SAVE_NETWORK,
