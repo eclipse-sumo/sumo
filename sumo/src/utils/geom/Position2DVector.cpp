@@ -295,6 +295,22 @@ Position2DVector::length() const {
 }
 
 
+SUMOReal
+Position2DVector::area() const {
+    SUMOReal area = 0;
+    Position2DVector tmp = *this;
+    tmp.sortAsPolyCWByAngle();
+    if (!isClosed()) { // make sure its closed
+        tmp.push_back(tmp[0]);
+    }
+    // http://en.wikipedia.org/wiki/Polygon
+    for (int i = 0; i < (int)size(); i++) {
+        area += tmp[i].x() * tmp[i+1].y() - tmp[i+1].x() * tmp[i].y();
+    }
+    return area / -2;
+}
+
+
 bool
 Position2DVector::partialWithin(const AbstractPoly &poly, SUMOReal offset) const {
     for (ContType::const_iterator i=myCont.begin(); i!=myCont.end()-1; i++) {

@@ -155,6 +155,10 @@ public:
     /// Returns the length
     SUMOReal length() const;
 
+
+    /// Returns the area (0 for non-closed)
+    SUMOReal area() const;
+
     /// Returns the information whether this polygon lies partially within the given polygon
     bool partialWithin(const AbstractPoly &poly, SUMOReal offset=0) const;
 
