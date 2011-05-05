@@ -40,6 +40,7 @@
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/RandHelper.h>
 #include <netbuild/NBNetBuilder.h>
+#include <netwrite/NWFrame.h>
 #include <utils/common/SystemFrame.h>
 #include <utils/geom/GeoConvHelper.h>
 
@@ -217,6 +218,8 @@ NIOptionsIO::fillOptions() {
 
     // add netbuilding options
     NBNetBuilder::insertNetBuildOptions(oc);
+    // add netwriting options
+	NWFrame::fillOptions();
 
     // add rand options
     RandHelper::insertRandOptions();
@@ -238,6 +241,7 @@ NIOptionsIO::checkOptions() {
         oc.set("proj.shift", std::string("5"));
     }
 #endif
+	ok &= NWFrame::checkOptions();
     return ok;
 }
 

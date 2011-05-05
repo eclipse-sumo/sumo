@@ -164,6 +164,22 @@ public:
      * @todo Recheck whether the district cont is needed - if districts are processed using an external tool
      */
     void extract(NBDistrictCont &dc, NBEdge *edge) throw();
+
+
+    /** @brief Returns the pointer to the begin of the stored edges
+     * @return The iterator to the beginning of stored edges
+     */
+    std::map<std::string, NBEdge*>::const_iterator begin() const {
+        return myEdges.begin();
+    }
+
+
+    /** @brief Returns the pointer to the end of the stored edges
+     * @return The iterator to the end of stored edges
+     */
+    std::map<std::string, NBEdge*>::const_iterator end() const {
+        return myEdges.end();
+    }
     /// @}
 
 

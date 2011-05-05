@@ -43,6 +43,7 @@
 #include <netbuild/NBDistrictCont.h>
 #include <netbuild/NBTrafficLightLogicCont.h>
 #include <netbuild/NBDistribution.h>
+#include <netwrite/NWFrame.h>
 #include <utils/options/OptionsIO.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/common/UtilExceptions.h>
@@ -91,6 +92,7 @@ main(int argc, char **argv) {
             throw ProcessError();
         }
         nb.buildLoaded(oc);
+		NWFrame::writeNetwork(oc, nb);
     } catch (ProcessError &e) {
         if (std::string(e.what())!=std::string("Process Error") && std::string(e.what())!=std::string("")) {
             MsgHandler::getErrorInstance()->inform(e.what());

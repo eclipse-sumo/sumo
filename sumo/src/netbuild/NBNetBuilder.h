@@ -184,6 +184,14 @@ public:
     NBDistrictCont &getDistrictCont() throw() {
         return myDistrictCont;
     }
+
+
+    /** @brief Returns the determined roundabouts
+     * @return The list of roundabout edges
+     */
+    const std::vector<std::set<NBEdge*> > &getRoundabouts() const {
+        return myRoundabouts;
+    }
     /// @}
 
 

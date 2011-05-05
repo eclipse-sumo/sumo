@@ -69,6 +69,7 @@ netconvert_LDADD   = ./netimport/libnetimport.a \
 ./netimport/vissim/typeloader/libvissimtypeload.a \
 ./netimport/vissim/tempstructs/libvissimtmpstr.a \
 ./netbuild/libnetbuild.a \
+./netwrite/libnetwrite.a \
 ./utils/distribution/libdistribution.a \
 ./utils/geom/libgeom.a \
 ./foreign/eulerspiral/libeulerspiral.a \

@@ -39,6 +39,7 @@
 #include <netgen/NGNet.h>
 #include <netgen/NGRandomNetBuilder.h>
 #include <netbuild/NBTypeCont.h>
+#include <netwrite/NWFrame.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/options/OptionsIO.h>
 #include <utils/options/Option.h>
@@ -62,6 +63,7 @@
 bool
 checkOptions() {
     OptionsCont &oc = OptionsCont::getOptions();
+	bool ok = true;
     // check whether exactly one type of a network to build was wished
     int no = 0;
     if (oc.getBool("spider-net")) {
@@ -73,11 +75,11 @@ checkOptions() {
     if (oc.getBool("random-net")) no++;
     if (no==0) {
         MsgHandler::getErrorInstance()->inform("You have to specify the type of network to generate.");
-        return false;
+        ok = false;
     }
     if (no>1) {
         MsgHandler::getErrorInstance()->inform("You may specify only one type of network to generate at once.");
-        return false;
+        ok = false;
     }
     // check whether the junction type to use is properly set
     if (oc.isSet("default-junction-type")) {
@@ -89,16 +91,17 @@ checkOptions() {
                     toString(NODETYPE_TRAFFIC_LIGHT) + ", " +
                     toString(NODETYPE_PRIORITY_JUNCTION) + ", " +
                     toString(NODETYPE_RIGHT_BEFORE_LEFT));
-            return false;
+            ok = false;
         }
     }
     // check whether the output is valid and can be build
     if (!oc.isSet("output-file")) {
         MsgHandler::getErrorInstance()->inform("No output specified.");
-        return false;
+        ok = false;
     }
-    //
-    return true;
+    // check netwrite options
+	ok &= NWFrame::checkOptions();
+    return ok;
 }
 
 
@@ -243,6 +246,8 @@ fillOptions() {
 
     // add netbuilding options
     NBNetBuilder::insertNetBuildOptions(oc);
+    // add netwriting options
+	NWFrame::fillOptions();
     // register building options
     oc.doRegister("default-junction-type", 'j', new Option_String());
     oc.addSynonyme("default-junction-type", "junctions");
@@ -382,6 +387,7 @@ main(int argc, char **argv) {
         WRITE_MESSAGE("   " + toString<int>(nb.getNodeCont().size()) + " nodes generated.");
         WRITE_MESSAGE("   " + toString<int>(nb.getEdgeCont().size()) + " edges generated.");
         nb.buildLoaded(oc);
+		NWFrame::writeNetwork(oc, nb);
     } catch (ProcessError &e) {
         if (std::string(e.what())!=std::string("Process Error") && std::string(e.what())!=std::string("")) {
             MsgHandler::getErrorInstance()->inform(e.what());

@@ -100,9 +100,6 @@ void
 NBNetBuilder::buildLoaded(OptionsCont& oc) {
     // perform the computation
     compute(oc);
-    // save network
-    OutputDevice& device = OutputDevice::getDevice(oc.getString("output"));
-    save(device, oc);
     // save the mapping information when wished
     if (oc.isSet("map-output")) {
         OutputDevice& mdevice = OutputDevice::getDevice(oc.getString("map-output"));

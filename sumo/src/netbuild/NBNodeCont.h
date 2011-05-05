@@ -127,6 +127,22 @@ public:
      * @return The node at the given position, or 0 if no such node exists
      */
     NBNode *retrieve(const Position2D &position, SUMOReal offset=0.) const throw();
+
+
+    /** @brief Returns the pointer to the begin of the stored nodes
+     * @return The iterator to the beginning of stored nodes
+     */
+    std::map<std::string, NBNode*>::const_iterator begin() const {
+        return myNodes.begin();
+    }
+
+
+    /** @brief Returns the pointer to the end of the stored nodes
+     * @return The iterator to the end of stored nodes
+     */
+    std::map<std::string, NBNode*>::const_iterator end() const {
+        return myNodes.end();
+    }
     /// @}
 
 

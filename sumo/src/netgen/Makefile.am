@@ -14,6 +14,7 @@ NGRandomNetBuilder.h NGRandomNetBuilder.cpp
 netgen_LDFLAGS = $(XERCES_LDFLAGS) $(PROJ_LDFLAGS)
 
 netgen_LDADD   = ../netbuild/libnetbuild.a \
+../netwrite/libnetwrite.a \
 ../utils/geom/libgeom.a \
 ../utils/options/liboptions.a \
 ../utils/common/libcommon.a \
