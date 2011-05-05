@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE network SYSTEM "http://www.matsim.org/files/dtd/network_v1.dtd">
+
+<network name="NAME">
+   <nodes>
+      <node id="1" x="-20000.00" y="0.00"/>
+      <node id="10" x="-2498.00" y="-4331.00"/>
+      <node id="11" x="-865.00" y="-5925.00"/>
+      <node id="12" x="0.00" y="0.00"/>
+      <node id="13" x="5000.00" y="0.00"/>
+      <node id="14" x="5000.00" y="-10000.00"/>
+      <node id="15" x="-20000.00" y="-10000.00"/>
+      <node id="2" x="-15000.00" y="0.00"/>
+      <node id="3" x="-865.00" y="5925.00"/>
+      <node id="4" x="-2498.00" y="4331.00"/>
+      <node id="5" x="-3829.00" y="3215.00"/>
+      <node id="6" x="-4698.00" y="1711.00"/>
+      <node id="7" x="-5000.00" y="0.00"/>
+      <node id="8" x="-4698.00" y="-1711.00"/>
+      <node id="9" x="-3829.00" y="-3215.00"/>
+   </nodes>
+   <links capperiod="01:00:00">
+      <link id="1" from="1" to="2" length="10000.00" capacity="36000.00" freespeed="27.78" permlanes="20"/>
+      <link id="10" from="2" to="11" length="10000.00" capacity="3600.00" freespeed="27.78" permlanes="2"/>
+      <link id="11" from="3" to="12" length="5000.00" capacity="1800.00" freespeed="27.78" permlanes="1"/>
+      <link id="12" from="4" to="12" length="5000.00" capacity="1800.00" freespeed="27.78" permlanes="1"/>
+      <link id="13" from="5" to="12" length="5000.00" capacity="1800.00" freespeed="27.78" permlanes="1"/>
+      <link id="14" from="6" to="12" length="5000.00" capacity="1800.00" freespeed="27.78" permlanes="1"/>
+      <link id="15" from="7" to="12" length="5000.00" capacity="1800.00" freespeed="27.78" permlanes="1"/>
+      <link id="16" from="8" to="12" length="5000.00" capacity="1800.00" freespeed="27.78" permlanes="1"/>
+      <link id="17" from="9" to="12" length="5000.00" capacity="1800.00" freespeed="27.78" permlanes="1"/>
+      <link id="18" from="10" to="12" length="5000.00" capacity="1800.00" freespeed="27.78" permlanes="1"/>
+      <link id="19" from="11" to="12" length="5000.00" capacity="1800.00" freespeed="27.78" permlanes="1"/>
+      <link id="2" from="2" to="3" length="10000.00" capacity="3600.00" freespeed="27.78" permlanes="2"/>
+      <link id="20" from="12" to="13" length="10000.00" capacity="36000.00" freespeed="27.78" permlanes="20"/>
+      <link id="21" from="13" to="14" length="10000.00" capacity="36000.00" freespeed="27.78" permlanes="20"/>
+      <link id="22" from="14" to="15" length="35000.00" capacity="36000.00" freespeed="27.78" permlanes="20"/>
+      <link id="23" from="15" to="1" length="10000.00" capacity="36000.00" freespeed="27.78" permlanes="20"/>
+      <link id="3" from="2" to="4" length="10000.00" capacity="3600.00" freespeed="27.78" permlanes="2"/>
+      <link id="4" from="2" to="5" length="10000.00" capacity="3600.00" freespeed="27.78" permlanes="2"/>
+      <link id="5" from="2" to="6" length="10000.00" capacity="3600.00" freespeed="27.78" permlanes="2"/>
+      <link id="6" from="2" to="7" length="10000.00" capacity="3600.00" freespeed="27.78" permlanes="2"/>
+      <link id="7" from="2" to="8" length="10000.00" capacity="3600.00" freespeed="27.78" permlanes="2"/>
+      <link id="8" from="2" to="9" length="10000.00" capacity="3600.00" freespeed="27.78" permlanes="2"/>
+      <link id="9" from="2" to="10" length="10000.00" capacity="3600.00" freespeed="27.78" permlanes="2"/>
+   </links>
+</network>

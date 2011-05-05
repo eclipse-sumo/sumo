@@ -1,0 +1,33 @@
+Parsing nodes from matsim-file 'matsim.xml'... done.
+Parsing edges from matsim-file 'matsim.xml'... done.
+ Import done:
+   15 nodes loaded.
+   23 edges loaded.
+Computing step 1: Removing dummy edges.
+Computing step 2: Joining double connections.
+Computing step 3: Guessing and setting TLs.
+Computing step 4: Computing turning directions.
+Computing step 5: Sorting nodes' edges.
+Computing step 6: Computing approached edges.
+Computing step 7: Computing approaching lanes.
+Computing step 8: Dividing of lanes on approached lanes.
+Computing step 9: Appending turnarounds.
+Computing step 10: Rechecking of lane endings.
+Computing step 11: Computing node shapes.
+Computing step 12: Computing edge shapes.
+Computing step 13: Computing tls logics.
+Computing step 14: Computing node logics.
+Computing step 15: Computing traffic light logics.
+0 traffic light(s) computed.
+-----------------------------------------------------
+Summary:
+ Node type statistics:
+  Unregulated junctions       : 0
+  Priority junctions          : 15
+  Right-before-left junctions : 0
+ Network boundaries:
+  Original boundary  : -20000.00,-10000.00,5000.00,5925.00
+  Applied offset     : 0.00,0.00
+  Converted boundary : -20000.00,-10000.00,5000.00,5925.00
+-----------------------------------------------------
+Success.

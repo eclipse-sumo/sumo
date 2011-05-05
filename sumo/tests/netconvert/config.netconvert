@@ -13,12 +13,14 @@ copy_test_path:visum.net
 copy_test_path:vissim.inp
 copy_test_path:input_net.net.xml
 copy_test_path:osm.xml
+copy_test_path:matsim.xml
 
 [collate_file]
 net:net.net.xml
 plain_nodes:plain.nod.xml
 plain_edges:plain.edg.xml
 plain_connections:plain.con.xml
+foreign:foreign.net
 cfg:config.cfg
 log:log.txt
 

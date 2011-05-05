@@ -16,3 +16,5 @@ SUMO
 # testing OpenStreetMap-import
 OSM
 
+# Tests for MATSIM-networks
+matsim

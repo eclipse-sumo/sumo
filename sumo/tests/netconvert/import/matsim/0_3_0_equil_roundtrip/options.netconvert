@@ -1,0 +1,1 @@
+--matsim matsim.xml -v --output-format matsim --disable-normalize-node-positions --matsim.keep-length --matsim.lanes-from-capacity --output foreign.net
