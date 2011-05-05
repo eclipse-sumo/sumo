@@ -126,8 +126,7 @@ OptionsCont::addSynonyme(const std::string &name1, const std::string &name2, boo
 
 bool
 OptionsCont::exists(const std::string &name) const {
-    KnownContType::const_iterator i = myValues.find(name);
-    return i!=myValues.end();
+    return myValues.count(name) > 0;
 }
 
 
@@ -135,9 +134,7 @@ bool
 OptionsCont::isSet(const std::string &name) const {
     KnownContType::const_iterator i = myValues.find(name);
     if (i==myValues.end()) {
-        //@todo: find all failing tests and reorganize options
-        //throw ProcessError("Internal request for unknown option '" + name + "'!");
-        return false;
+        throw ProcessError("Internal request for unknown option '" + name + "'!");
     }
     return (*i).second->isSet();
 }
