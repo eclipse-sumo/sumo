@@ -1124,6 +1124,7 @@ NBNode::writeXML(OutputDevice &into) {
 void
 NBNode::computeLogic(const NBEdgeCont &ec, NBJunctionLogicCont &jc,
                      OptionsCont &) {
+    delete myRequest; // possibly recomputation step
     if (myIncomingEdges->size()==0||myOutgoingEdges->size()==0) {
         // no logic if nothing happens here
         myType = NODETYPE_NOJUNCTION;
