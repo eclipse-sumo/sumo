@@ -60,10 +60,10 @@
         <version value="false" synonymes="V"/>
         <suppress-warnings value="false" synonymes="W"/>
         <log-file value="" synonymes="l"/>
-        <no-duration-log value="false"/>
-        <no-step-log value="false"/>
         <message-log value=""/>
         <error-log value=""/>
+        <no-duration-log value="false"/>
+        <no-step-log value="false"/>
     </report>
 
     <routing>

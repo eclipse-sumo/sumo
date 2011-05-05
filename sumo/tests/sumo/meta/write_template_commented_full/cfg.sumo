@@ -144,17 +144,17 @@
         <!-- Writes all messages to FILE -->
         <log-file value="" synonymes="l"/>
 
-        <!-- Disable performance reports for individual simulation steps -->
-        <no-duration-log value="false"/>
-
-        <!-- Disable console output of current simulation step -->
-        <no-step-log value="false"/>
-
         <!-- Writes all non-error messages to FILE -->
         <message-log value=""/>
 
         <!-- Writes all warnings and errors to FILE -->
         <error-log value=""/>
+
+        <!-- Disable performance reports for individual simulation steps -->
+        <no-duration-log value="false"/>
+
+        <!-- Disable console output of current simulation step -->
+        <no-step-log value="false"/>
 
     </report>
 
