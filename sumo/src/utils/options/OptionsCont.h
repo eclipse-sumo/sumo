@@ -298,10 +298,12 @@ public:
      * An option "is set" if a default value was supplied or a value has been
      *  set from the command line / the configuration file.
      *
+     * @param[in] name The name of the option to check
+     * @param[in] failOnNonExistant Whether asking for an unregistered option should trigger an exception
      * @return true if the option has a valid value, false otherwise
      * @exception InvalidArgument If the named option is not known
      */
-    bool isSet(const std::string &name) const;
+    bool isSet(const std::string &name, bool failOnNonExistant=true) const;
 
 
     /** @brief Returns the information whether the named option has still the default value

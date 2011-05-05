@@ -123,7 +123,7 @@ ROLoader::loadNet(RONet &toFill, ROAbstractEdgeBuilder &eb) {
     } else {
         MsgHandler::getMessageInstance()->endProcessMsg("done.");
     }
-    if (myOptions.exists("districts") && myOptions.isSet("districts")) {
+    if (myOptions.isSet("districts", false)) { // dfrouter does not register this option
         file = myOptions.getString("districts");
         if (!FileHelpers::exists(file)) {
             throw ProcessError("The districts file '" + file + "' could not be found.");

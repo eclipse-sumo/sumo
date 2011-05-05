@@ -131,10 +131,14 @@ OptionsCont::exists(const std::string &name) const {
 
 
 bool
-OptionsCont::isSet(const std::string &name) const {
+OptionsCont::isSet(const std::string &name, bool failOnNonExistant) const {
     KnownContType::const_iterator i = myValues.find(name);
     if (i==myValues.end()) {
-        throw ProcessError("Internal request for unknown option '" + name + "'!");
+        if (failOnNonExistant) {
+            throw ProcessError("Internal request for unknown option '" + name + "'!");
+        } else {
+            return false;
+        }
     }
     return (*i).second->isSet();
 }
@@ -543,7 +547,7 @@ OptionsCont::processMetaOptions(bool missingOptions) throw(ProcessError) {
     }
     // check whether something has to be done with options
     // whether the current options shall be saved
-    if (isSet("save-configuration")) {
+    if (isSet("save-configuration", false)) { // sumo-gui does not register these
         std::ofstream out(getString("save-configuration").c_str());
         if (!out.good()) {
             throw ProcessError("Could not save configuration to '" + getString("save-configuration") + "'");
@@ -556,7 +560,7 @@ OptionsCont::processMetaOptions(bool missingOptions) throw(ProcessError) {
         }
     }
     // whether the template shall be saved
-    if (isSet("save-template")) {
+    if (isSet("save-template", false)) { // sumo-gui does not register these
         std::ofstream out(getString("save-template").c_str());
         if (!out.good()) {
             throw ProcessError("Could not save template to '" + getString("save-template") + "'");
@@ -568,7 +572,7 @@ OptionsCont::processMetaOptions(bool missingOptions) throw(ProcessError) {
             return true;
         }
     }
-    if (isSet("save-schema")) {
+    if (isSet("save-schema", false)) { // sumo-gui does not register these
         std::ofstream out(getString("save-schema").c_str());
         if (!out.good()) {
             throw ProcessError("Could not save schema to '" + getString("save-schema") + "'");
