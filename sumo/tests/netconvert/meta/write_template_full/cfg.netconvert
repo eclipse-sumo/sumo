@@ -3,18 +3,18 @@
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net value="" synonymes="s"/>
-        <xml-node-files value="" synonymes="n xml-nodes"/>
-        <xml-edge-files value="" synonymes="e xml-edges"/>
-        <xml-connection-files value="" synonymes="x xml-connections"/>
-        <xml-type-files value="" synonymes="t xml-types"/>
-        <shapefile value="" synonymes="arcview tiger"/>
-        <dlr-navteq value="" synonymes="elmar2"/>
+        <sumo-net-file value="" synonymes="s sumo-net"/>
+        <node-files value="" synonymes="n nodes xml-node-files xml-nodes"/>
+        <edge-files value="" synonymes="e edges xml-edge-files xml-edges"/>
+        <connection-files value="" synonymes="connections x xml-connection-files xml-connections"/>
+        <type-files value="" synonymes="t types xml-type-files xml-types"/>
+        <shapefile-prefix value="" synonymes="arcview shapefile tiger"/>
+        <dlr-navteq-prefix value="" synonymes="dlr-navteq elmar2"/>
         <osm-files value="" synonymes="osm"/>
-        <opendrive value=""/>
+        <opendrive-files value="" synonymes="opendrive"/>
         <visum-file value="" synonymes="visum"/>
         <vissim-file value="" synonymes="vissim"/>
-        <robocup-net value="" synonymes="robocup"/>
+        <robocup-dir value="" synonymes="robocup robocup-net"/>
         <matsim-files value="" synonymes="matsim"/>
     </input>
 
@@ -80,8 +80,8 @@
     </unregulated_nodes>
 
     <processing>
-        <dismiss-loading-errors value="false"/>
-        <capacity-norm value="1800"/>
+        <ignore-errors value="false" synonymes="dismiss-loading-errors"/>
+        <lanes-from-capacity.norm value="1800" synonymes="capacity-norm"/>
         <speed-in-kmh value="false"/>
         <xml.keep-shape value="false"/>
         <matsim.keep-length value="false"/>
@@ -91,10 +91,9 @@
         <shapefile.to-id value="" synonymes="arcview.to-id"/>
         <shapefile.type-id value="" synonymes="arcview.type-id"/>
         <shapefile.use-defaults-on-failure value="false" synonymes="arcview.use-defaults-on-failure"/>
-        <shapefile.all-bidi value="false" synonymes="arcview.all-bidi"/>
-        <shapefile.utm value="32" synonymes="arcview.utm"/>
+        <shapefile.all-bidirectional value="false" synonymes="arcview.all-bidi shapefile.all-bidi"/>
         <shapefile.guess-projection value="false" synonymes="arcview.guess-projection"/>
-        <vissim.offset value="5"/>
+        <vissim.join-distance value="5" synonymes="vissim.offset"/>
         <vissim.default-speed value="50"/>
         <vissim.speed-norm value="1"/>
         <vissim.report-unset-speeds value="false"/>
@@ -102,9 +101,9 @@
         <visum.use-type-laneno value="false"/>
         <visum.use-type-speed value="false"/>
         <visum.connector-speeds value="100"/>
-        <visum.connector-laneno value="3"/>
+        <visum.connectors-lane-number value="3" synonymes="visum.connector-laneno"/>
         <visum.no-connectors value="false"/>
-        <visum.recompute-laneno value="false"/>
+        <visum.recompute-lane-number value="false" synonymes="visum.recompute-laneno"/>
         <visum.verbose-warnings value="false"/>
         <osm.skip-duplicates-check value="false"/>
         <flip-y value="false"/>

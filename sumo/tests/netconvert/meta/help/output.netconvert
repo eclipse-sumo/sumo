@@ -1,4 +1,4 @@
-SUMO netconvert Version dev-SVN-r10238
+SUMO netconvert Version dev-SVN-r10240
  Copyright (C) 2001-2011 DLR and contributors; http://sumo.sourceforge.net
  
 Road network importer / builder for the road traffic simulation SUMO.
@@ -19,21 +19,21 @@ Usage: netconvert [OPTION]*
                                          configuration, or schema
 
  Input Options:
-  -s, --sumo-net FILE                  Read SUMO-net from FILE
-  -n, --xml-node-files FILE            Read XML-node defs from FILE
-  -e, --xml-edge-files FILE            Read XML-edge defs from FILE
-  -x, --xml-connection-files FILE      Read XML-connection defs from FILE
-  -t, --xml-type-files FILE            Read XML-type defs from FILE
-  --shapefile FILE                     Read shapefiles (ArcView, Tiger, ...)
+  -s, --sumo-net-file FILE             Read SUMO-net from FILE
+  -n, --node-files FILE                Read XML-node defs from FILE
+  -e, --edge-files FILE                Read XML-edge defs from FILE
+  -x, --connection-files FILE          Read XML-connection defs from FILE
+  -t, --type-files FILE                Read XML-type defs from FILE
+  --shapefile-prefix FILE              Read shapefiles (ArcView, Tiger, ...)
                                          from files starting with 'FILE'
-  --dlr-navteq FILE                    Read converted Navteq GDF data
+  --dlr-navteq-prefix FILE             Read converted Navteq GDF data
                                          (unsplitted Elmar-network) from path
                                          'FILE'
   --osm-files FILE                     Read OSM-network from path 'FILE(s)'
-  --opendrive FILE                     Read openDrive-network from FILE
+  --opendrive-files FILE               Read openDrive-network from FILE
   --visum-file FILE                    Read VISUM-net from FILE
   --vissim-file FILE                   Read VISSIM-net from FILE
-  --robocup-net FILE                   Read RoboCup-net from DIR
+  --robocup-dir FILE                   Read RoboCup-net from DIR
   --matsim-files FILE                  Read MATSim-net from FILE
 
  Output Options:
@@ -111,8 +111,9 @@ Usage: netconvert [OPTION]*
   --keep-unregulated.district-nodes    Do not regulate district nodes
 
  Processing Options:
-  --dismiss-loading-errors             Continue on broken input
-  --capacity-norm FLOAT                The factor for flow to no. lanes conv
+  --ignore-errors                      Continue on broken input
+  --lanes-from-capacity.norm FLOAT     The factor for flow to no. lanes
+                                         conversion.
   --speed-in-kmh                       vmax is parsed as given in km/h (some)
   --xml.keep-shape                     No node positions are added to the edge
                                          shape
@@ -125,10 +126,9 @@ Usage: netconvert [OPTION]*
   --shapefile.to-id STR                Read to-node ids from column STR
   --shapefile.type-id STR              Read type ids from column STR
   --shapefile.use-defaults-on-failure  Uses edge type defaults on problems
-  --shapefile.all-bidi                 Insert edges in both directions
-  --shapefile.utm INT                  Use INT as UTM zone
+  --shapefile.all-bidirectional        Insert edges in both directions
   --shapefile.guess-projection         Guess the proper projection
-  --vissim.offset FLOAT                Structure join offset
+  --vissim.join-distance FLOAT         Structure join offset
   --vissim.default-speed FLOAT         Use FLOAT as default speed
   --vissim.speed-norm FLOAT            Factor for edge velocity
   --vissim.report-unset-speeds         Writes lanes without an explicite speed
@@ -137,9 +137,9 @@ Usage: netconvert [OPTION]*
   --visum.use-type-laneno              Uses lane numbers from types
   --visum.use-type-speed               Uses speeds from types
   --visum.connector-speeds FLOAT       Sets connector speed
-  --visum.connector-laneno INT         Sets connector lane number
+  --visum.connectors-lane-number INT   Sets connector lane number
   --visum.no-connectors                Excludes connectors
-  --visum.recompute-laneno             Computes the number of lanes from the
+  --visum.recompute-lane-number        Computes the number of lanes from the
                                          edges' capacities
   --visum.verbose-warnings             Prints all warnings, some of which are
                                          due to VISUM misbehaviour

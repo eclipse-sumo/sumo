@@ -1,1 +1,1 @@
---xml-node-files input_nodes.nod.xml --xml-edge-files input_edges.edg.xml --remove-edges.by-vclass bogus,bus
+--node-files input_nodes.nod.xml --edge-files input_edges.edg.xml --remove-edges.by-vclass bogus,bus

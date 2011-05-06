@@ -1,1 +1,1 @@
---xml-edge-files=input_edges.edg.xml --xml-node-files=input_nodes.nod.xml --xml-type-files=input_types.typ.xml --output-file=net.net.xml
+--edge-files=input_edges.edg.xml --node-files=input_nodes.nod.xml --type-files=input_types.typ.xml --output-file=net.net.xml

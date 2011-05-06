@@ -1,1 +1,1 @@
- --osm osm.xml --plain-output plain -o ignore.net.xml
+ --osm-files osm.xml --plain-output plain -o ignore.net.xml

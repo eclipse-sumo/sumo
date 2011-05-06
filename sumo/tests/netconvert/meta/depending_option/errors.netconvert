@@ -1,2 +1,2 @@
-Error: Option 'vissim.offset' needs option 'vissim-file'.
+Error: Option 'vissim.join-distance' needs option 'vissim-file'.
 Quitting (on error).

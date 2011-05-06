@@ -1,1 +1,1 @@
---xml-edge-files=input_edges.edg.xml --xml-node-files=input_nodes.nod.xml --xml-connection-files=input_connections.con.xml --output-file=net.net.xml --no-turnarounds
+--edge-files=input_edges.edg.xml --node-files=input_nodes.nod.xml --connection-files=input_connections.con.xml --output-file=net.net.xml --no-turnarounds

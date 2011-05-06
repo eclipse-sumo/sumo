@@ -4,31 +4,31 @@
 
     <input>
         <!-- Read SUMO-net from FILE -->
-        <sumo-net value="" synonymes="s"/>
+        <sumo-net-file value="" synonymes="s sumo-net"/>
 
         <!-- Read XML-node defs from FILE -->
-        <xml-node-files value="" synonymes="n xml-nodes"/>
+        <node-files value="" synonymes="n nodes xml-node-files xml-nodes"/>
 
         <!-- Read XML-edge defs from FILE -->
-        <xml-edge-files value="" synonymes="e xml-edges"/>
+        <edge-files value="" synonymes="e edges xml-edge-files xml-edges"/>
 
         <!-- Read XML-connection defs from FILE -->
-        <xml-connection-files value="" synonymes="x xml-connections"/>
+        <connection-files value="" synonymes="connections x xml-connection-files xml-connections"/>
 
         <!-- Read XML-type defs from FILE -->
-        <xml-type-files value="" synonymes="t xml-types"/>
+        <type-files value="" synonymes="t types xml-type-files xml-types"/>
 
         <!-- Read shapefiles (ArcView, Tiger, ...) from files starting with 'FILE' -->
-        <shapefile value="" synonymes="arcview tiger"/>
+        <shapefile-prefix value="" synonymes="arcview shapefile tiger"/>
 
         <!-- Read converted Navteq GDF data (unsplitted Elmar-network) from path 'FILE' -->
-        <dlr-navteq value="" synonymes="elmar2"/>
+        <dlr-navteq-prefix value="" synonymes="dlr-navteq elmar2"/>
 
         <!-- Read OSM-network from path 'FILE(s)' -->
         <osm-files value="" synonymes="osm"/>
 
         <!-- Read openDrive-network from FILE -->
-        <opendrive value=""/>
+        <opendrive-files value="" synonymes="opendrive"/>
 
         <!-- Read VISUM-net from FILE -->
         <visum-file value="" synonymes="visum"/>
@@ -37,7 +37,7 @@
         <vissim-file value="" synonymes="vissim"/>
 
         <!-- Read RoboCup-net from DIR -->
-        <robocup-net value="" synonymes="robocup"/>
+        <robocup-dir value="" synonymes="robocup robocup-net"/>
 
         <!-- Read MATSim-net from FILE -->
         <matsim-files value="" synonymes="matsim"/>
@@ -193,10 +193,10 @@
 
     <processing>
         <!-- Continue on broken input -->
-        <dismiss-loading-errors value="false"/>
+        <ignore-errors value="false" synonymes="dismiss-loading-errors"/>
 
-        <!-- The factor for flow to no. lanes conv -->
-        <capacity-norm value="1800"/>
+        <!-- The factor for flow to no. lanes conversion. -->
+        <lanes-from-capacity.norm value="1800" synonymes="capacity-norm"/>
 
         <!-- vmax is parsed as given in km/h (some) -->
         <speed-in-kmh value="false"/>
@@ -226,16 +226,13 @@
         <shapefile.use-defaults-on-failure value="false" synonymes="arcview.use-defaults-on-failure"/>
 
         <!-- Insert edges in both directions -->
-        <shapefile.all-bidi value="false" synonymes="arcview.all-bidi"/>
-
-        <!-- Use INT as UTM zone -->
-        <shapefile.utm value="32" synonymes="arcview.utm"/>
+        <shapefile.all-bidirectional value="false" synonymes="arcview.all-bidi shapefile.all-bidi"/>
 
         <!-- Guess the proper projection -->
         <shapefile.guess-projection value="false" synonymes="arcview.guess-projection"/>
 
         <!-- Structure join offset -->
-        <vissim.offset value="5"/>
+        <vissim.join-distance value="5" synonymes="vissim.offset"/>
 
         <!-- Use FLOAT as default speed -->
         <vissim.default-speed value="50"/>
@@ -259,13 +256,13 @@
         <visum.connector-speeds value="100"/>
 
         <!-- Sets connector lane number -->
-        <visum.connector-laneno value="3"/>
+        <visum.connectors-lane-number value="3" synonymes="visum.connector-laneno"/>
 
         <!-- Excludes connectors -->
         <visum.no-connectors value="false"/>
 
         <!-- Computes the number of lanes from the edges' capacities -->
-        <visum.recompute-laneno value="false"/>
+        <visum.recompute-lane-number value="false" synonymes="visum.recompute-laneno"/>
 
         <!-- Prints all warnings, some of which are due to VISUM misbehaviour -->
         <visum.verbose-warnings value="false"/>
