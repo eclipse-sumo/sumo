@@ -441,8 +441,6 @@ NBEdge::setConnection(unsigned int lane, NBEdge *destEdge,
     if (myStep==INIT_REJECT_CONNECTIONS) {
         return;
     }
-    assert(destLane<=10);
-    assert(lane<=10);
     // some kind of a misbehaviour which may occure when the junction's outgoing
     //  edge priorities were not properly computed, what may happen due to
     //  an incomplete or not proper input
