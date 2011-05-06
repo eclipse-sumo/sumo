@@ -42,7 +42,6 @@
 #include <netbuild/NBNetBuilder.h>
 #include <netwrite/NWFrame.h>
 #include <utils/common/SystemFrame.h>
-#include <utils/geom/GeoConvHelper.h>
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -55,24 +54,6 @@
 void
 NIFrame::fillOptions() {
     OptionsCont &oc = OptionsCont::getOptions();
-    oc.addCallExample("-c <CONFIGURATION>");
-    oc.addCallExample("-n ./nodes.xml -e ./edges.xml -v -t ./owntypes.xml");
-
-
-    // insert options sub-topics
-    SystemFrame::addConfigurationOptions(oc); // fill this subtopic, too
-    oc.addOptionSubTopic("Input");
-    oc.addOptionSubTopic("Output");
-    GeoConvHelper::addProjectionOptions(oc);
-    oc.addOptionSubTopic("TLS Building");
-    oc.addOptionSubTopic("Ramp Guessing");
-    oc.addOptionSubTopic("Edge Removal");
-    oc.addOptionSubTopic("Unregulated Nodes");
-    oc.addOptionSubTopic("Processing");
-    oc.addOptionSubTopic("Building Defaults");
-    SystemFrame::addReportOptions(oc); // fill this subtopic, too
-
-    // register options
     // register I/O options
     oc.doRegister("sumo-net", 's', new Option_FileName());
     oc.addDescription("sumo-net", "Input", "Read SUMO-net from FILE");
@@ -221,15 +202,6 @@ NIFrame::fillOptions() {
 
     oc.doRegister("osm.skip-duplicates-check", new Option_Bool(false));
     oc.addDescription("osm.skip-duplicates-check", "Processing", "Skips the check for duplicate nodes and edges.");
-
-
-    // add netbuilding options
-    NBNetBuilder::insertNetBuildOptions(oc);
-    // add netwriting options
-	NWFrame::fillOptions();
-
-    // add rand options
-    RandHelper::insertRandOptions();
 }
 
 
@@ -248,7 +220,6 @@ NIFrame::checkOptions() {
         oc.set("proj.shift", std::string("5"));
     }
 #endif
-	ok &= NWFrame::checkOptions();
     return ok;
 }
 

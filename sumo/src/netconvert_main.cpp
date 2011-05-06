@@ -33,15 +33,9 @@
 
 #include <iostream>
 #include <string>
-#include <netbuild/NBNetBuilder.h>
 #include <netimport/NIFrame.h>
 #include <netimport/NILoader.h>
-#include <netbuild/NBTypeCont.h>
-#include <netbuild/NBEdgeCont.h>
-#include <netbuild/NBNodeCont.h>
-#include <netbuild/NBTypeCont.h>
-#include <netbuild/NBDistrictCont.h>
-#include <netbuild/NBTrafficLightLogicCont.h>
+#include <netbuild/NBNetBuilder.h>
 #include <netbuild/NBDistribution.h>
 #include <netwrite/NWFrame.h>
 #include <utils/options/OptionsIO.h>
@@ -52,10 +46,48 @@
 #include <utils/common/MsgHandler.h>
 #include <utils/xml/XMLSubSys.h>
 #include <utils/iodevices/OutputDevice.h>
+#include <utils/geom/GeoConvHelper.h>
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
 #endif // CHECK_MEMORY_LEAKS
+
+
+// ===========================================================================
+// method definitions
+// ===========================================================================
+void
+fillOptions() {
+    OptionsCont &oc = OptionsCont::getOptions();
+    oc.addCallExample("-c <CONFIGURATION>");
+    oc.addCallExample("-n ./nodes.xml -e ./edges.xml -v -t ./owntypes.xml");
+
+    // insert options sub-topics
+    SystemFrame::addConfigurationOptions(oc); // this subtopic is filled here, too
+    oc.addOptionSubTopic("Input");
+    oc.addOptionSubTopic("Output");
+    GeoConvHelper::addProjectionOptions(oc);
+    oc.addOptionSubTopic("TLS Building");
+    oc.addOptionSubTopic("Ramp Guessing");
+    oc.addOptionSubTopic("Edge Removal");
+    oc.addOptionSubTopic("Unregulated Nodes");
+    oc.addOptionSubTopic("Processing");
+    oc.addOptionSubTopic("Building Defaults");
+    SystemFrame::addReportOptions(oc); // this subtopic is filled here, too
+
+    NIFrame::fillOptions();
+    NBNetBuilder::insertNetBuildOptions(oc);
+	NWFrame::fillOptions();
+    RandHelper::insertRandOptions();
+}
+
+
+bool
+checkOptions() {
+    bool ok = NIFrame::checkOptions();
+	ok &= NWFrame::checkOptions();
+    return ok;
+}
 
 
 /* -------------------------------------------------------------------------
@@ -70,14 +102,14 @@ main(int argc, char **argv) {
     int ret = 0;
     try {
         XMLSubSys::init(false);
-        NIFrame::fillOptions();
+        fillOptions();
         OptionsIO::getOptions(true, argc, argv);
         if (oc.processMetaOptions(argc < 2)) {
             SystemFrame::close();
             return 0;
         }
         MsgHandler::initOutputOptions();
-        if (!NIFrame::checkOptions()) throw ProcessError();
+        if (!checkOptions()) throw ProcessError();
         RandHelper::initRandGlobal();
         NBNetBuilder nb;
         nb.applyOptions(oc);

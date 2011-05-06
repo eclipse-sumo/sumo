@@ -30,6 +30,7 @@
 #endif
 
 #include <string>
+#include <vector>
 #include <xercesc/sax2/SAX2XMLReader.hpp>
 
 
