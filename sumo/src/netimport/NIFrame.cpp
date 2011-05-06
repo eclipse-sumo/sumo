@@ -1,5 +1,5 @@
 /****************************************************************************/
-/// @file    NIOptionsIO.cpp
+/// @file    NIFrame.cpp
 /// @author  Daniel Krajzewicz
 /// @date    Tue, 20 Nov 2001
 /// @version $Id$
@@ -35,7 +35,7 @@
 #include <utils/options/OptionsIO.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/ToString.h>
-#include "NIOptionsIO.h"
+#include "NIFrame.h"
 #include <utils/common/FileHelpers.h>
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/RandHelper.h>
@@ -53,7 +53,7 @@
 // method definitions
 // ===========================================================================
 void
-NIOptionsIO::fillOptions() {
+NIFrame::fillOptions() {
     OptionsCont &oc = OptionsCont::getOptions();
     oc.addCallExample("-c <CONFIGURATION>");
     oc.addCallExample("-n ./nodes.xml -e ./edges.xml -v -t ./owntypes.xml");
@@ -234,7 +234,7 @@ NIOptionsIO::fillOptions() {
 
 
 bool
-NIOptionsIO::checkOptions() {
+NIFrame::checkOptions() {
     OptionsCont &oc = OptionsCont::getOptions();
     bool ok = oc.checkDependingSuboptions("shapefile", "shapefile.");
     ok &= oc.checkDependingSuboptions("visum-file", "visum.");

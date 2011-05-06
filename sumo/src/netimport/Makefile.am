@@ -1,6 +1,7 @@
 noinst_LIBRARIES = libnetimport.a
 
-libnetimport_a_SOURCES = NILoader.cpp NILoader.h \
+libnetimport_a_SOURCES = NIFrame.cpp NIFrame.h \
+NILoader.cpp NILoader.h \
 NIImporter_ArcView.cpp NIImporter_ArcView.h \
 NIImporter_DlrNavteq.cpp NIImporter_DlrNavteq.h \
 NIImporter_MATSim.cpp NIImporter_MATSim.h \
@@ -14,7 +15,7 @@ NIXMLConnectionsHandler.cpp NIXMLEdgesHandler.cpp \
 NIXMLNodesHandler.cpp NIXMLTypesHandler.cpp \
 NIXMLConnectionsHandler.h NIXMLEdgesHandler.h \
 NIXMLNodesHandler.h NIXMLTypesHandler.h \
-NIOptionsIO.cpp NIOptionsIO.h NINavTeqHelper.cpp NINavTeqHelper.h
+NINavTeqHelper.cpp NINavTeqHelper.h
 
 SUBDIRS = vissim
 

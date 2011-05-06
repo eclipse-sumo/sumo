@@ -339,6 +339,10 @@
 			Filter="cpp;c;cxx;rc;def;r;odl;idl;hpj;bat"
 			>
 			<File
+				RelativePath="..\..\..\src\netimport\NIFrame.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\..\src\netimport\NIImporter_ArcView.cpp"
 				>
 			</File>
@@ -379,10 +383,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\netimport\NIOptionsIO.cpp"
-				>
-			</File>
-			<File
 				RelativePath="..\..\..\src\netimport\NIVisumTL.cpp"
 				>
 			</File>
@@ -407,6 +407,10 @@
 			Name="Header-Dateien"
 			Filter="h;hpp;hxx;hm;inl"
 			>
+			<File
+				RelativePath="..\..\..\src\netimport\NIFrame.h"
+				>
+			</File>
 			<File
 				RelativePath="..\..\..\src\netimport\NIImporter_ArcView.h"
 				>
@@ -445,10 +449,6 @@
 			</File>
 			<File
 				RelativePath="..\..\..\src\netimport\NINavTeqHelper.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\netimport\NIOptionsIO.h"
 				>
 			</File>
 			<File

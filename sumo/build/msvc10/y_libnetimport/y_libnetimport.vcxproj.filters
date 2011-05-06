@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <Filter Include="Quellcodedateien">
@@ -11,6 +11,9 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\..\src\netimport\NIFrame.cpp">
+      <Filter>Quellcodedateien</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\..\src\netimport\NIImporter_ArcView.cpp">
       <Filter>Quellcodedateien</Filter>
     </ClCompile>
@@ -38,9 +41,6 @@
     <ClCompile Include="..\..\..\src\netimport\NINavTeqHelper.cpp">
       <Filter>Quellcodedateien</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\src\netimport\NIOptionsIO.cpp">
-      <Filter>Quellcodedateien</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\src\netimport\NIVisumTL.cpp">
       <Filter>Quellcodedateien</Filter>
     </ClCompile>
@@ -58,6 +58,9 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\..\src\netimport\NIFrame.h">
+      <Filter>Header-Dateien</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\..\src\netimport\NIImporter_ArcView.h">
       <Filter>Header-Dateien</Filter>
     </ClInclude>
@@ -83,9 +86,6 @@
       <Filter>Header-Dateien</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\netimport\NINavTeqHelper.h">
-      <Filter>Header-Dateien</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\netimport\NIOptionsIO.h">
       <Filter>Header-Dateien</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\netimport\NIVisumTL.h">

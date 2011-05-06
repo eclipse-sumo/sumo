@@ -34,7 +34,7 @@
 #include <iostream>
 #include <string>
 #include <netbuild/NBNetBuilder.h>
-#include <netimport/NIOptionsIO.h>
+#include <netimport/NIFrame.h>
 #include <netimport/NILoader.h>
 #include <netbuild/NBTypeCont.h>
 #include <netbuild/NBEdgeCont.h>
@@ -70,14 +70,14 @@ main(int argc, char **argv) {
     int ret = 0;
     try {
         XMLSubSys::init(false);
-        NIOptionsIO::fillOptions();
+        NIFrame::fillOptions();
         OptionsIO::getOptions(true, argc, argv);
         if (oc.processMetaOptions(argc < 2)) {
             SystemFrame::close();
             return 0;
         }
         MsgHandler::initOutputOptions();
-        if (!NIOptionsIO::checkOptions()) throw ProcessError();
+        if (!NIFrame::checkOptions()) throw ProcessError();
         RandHelper::initRandGlobal();
         NBNetBuilder nb;
         nb.applyOptions(oc);

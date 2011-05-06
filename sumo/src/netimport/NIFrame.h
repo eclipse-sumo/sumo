@@ -1,5 +1,5 @@
 /****************************************************************************/
-/// @file    NIOptionsIO.h
+/// @file    NIFrame.h
 /// @author  Daniel Krajzewicz
 /// @date    Tue, 20 Nov 2001
 /// @version $Id$
@@ -16,8 +16,8 @@
 //   (at your option) any later version.
 //
 /****************************************************************************/
-#ifndef NIOptionsIO_h
-#define NIOptionsIO_h
+#ifndef NIFrame_h
+#define NIFrame_h
 
 
 // ===========================================================================
@@ -34,10 +34,10 @@
 // class declarations
 // ===========================================================================
 /**
- * @class NIOptionsIO
+ * @class NIFrame
  * @brief Sets and checks options for netimport
  */
-class NIOptionsIO {
+class NIFrame {
 public:
     /** @brief Inserts options used by the network importer and network building modules
      *

@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -135,6 +135,7 @@
     </ResourceCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\..\src\netimport\NIFrame.cpp" />
     <ClCompile Include="..\..\..\src\netimport\NIImporter_ArcView.cpp" />
     <ClCompile Include="..\..\..\src\netimport\NIImporter_DlrNavteq.cpp" />
     <ClCompile Include="..\..\..\src\netimport\NIImporter_MATSim.cpp" />
@@ -145,7 +146,6 @@
     <ClCompile Include="..\..\..\src\netimport\NIImporter_VISUM.cpp" />
     <ClCompile Include="..\..\..\src\netimport\NILoader.cpp" />
     <ClCompile Include="..\..\..\src\netimport\NINavTeqHelper.cpp" />
-    <ClCompile Include="..\..\..\src\netimport\NIOptionsIO.cpp" />
     <ClCompile Include="..\..\..\src\netimport\NIVisumTL.cpp" />
     <ClCompile Include="..\..\..\src\netimport\NIXMLConnectionsHandler.cpp" />
     <ClCompile Include="..\..\..\src\netimport\NIXMLEdgesHandler.cpp" />
@@ -153,6 +153,7 @@
     <ClCompile Include="..\..\..\src\netimport\NIXMLTypesHandler.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\..\src\netimport\NIFrame.h" />
     <ClInclude Include="..\..\..\src\netimport\NIImporter_ArcView.h" />
     <ClInclude Include="..\..\..\src\netimport\NIImporter_MATSim.h" />
     <ClInclude Include="..\..\..\src\netimport\NIImporter_DlrNavteq.h" />
@@ -163,7 +164,6 @@
     <ClInclude Include="..\..\..\src\netimport\NIImporter_VISUM.h" />
     <ClInclude Include="..\..\..\src\netimport\NILoader.h" />
     <ClInclude Include="..\..\..\src\netimport\NINavTeqHelper.h" />
-    <ClInclude Include="..\..\..\src\netimport\NIOptionsIO.h" />
     <ClInclude Include="..\..\..\src\netimport\NIVisumTL.h" />
     <ClInclude Include="..\..\..\src\netimport\NIXMLConnectionsHandler.h" />
     <ClInclude Include="..\..\..\src\netimport\NIXMLEdgesHandler.h" />
