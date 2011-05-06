@@ -72,7 +72,7 @@ fillOptions() {
     oc.setAdditionalHelpMessage(" Either \"--grid\", \"--spider\" or \"--rand\" must be supplied.\n  In dependance to these switches other options are used.");
 
     // insert options sub-topics
-    SystemFrame::addConfigurationOptions(oc);
+    SystemFrame::addConfigurationOptions(oc); // this subtopic is filled here, too
     oc.addOptionSubTopic("Grid Network");
     oc.addOptionSubTopic("Spider Network");
     oc.addOptionSubTopic("Random Network");
@@ -83,7 +83,7 @@ fillOptions() {
     oc.addOptionSubTopic("Unregulated Nodes");
     oc.addOptionSubTopic("Processing");
     oc.addOptionSubTopic("Building Defaults");
-    SystemFrame::addReportOptions(oc);
+    SystemFrame::addReportOptions(oc); // this subtopic is filled here, too
 
     NGFrame::fillOptions();
     NBNetBuilder::insertNetBuildOptions(oc);
