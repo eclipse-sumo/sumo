@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -178,12 +178,14 @@
   <ItemGroup>
     <ClCompile Include="..\..\..\src\netgen\netgen_main.cpp" />
     <ClCompile Include="..\..\..\src\netgen\NGEdge.cpp" />
+    <ClCompile Include="..\..\..\src\netgen\NGFrame.cpp" />
     <ClCompile Include="..\..\..\src\netgen\NGNet.cpp" />
     <ClCompile Include="..\..\..\src\netgen\NGNode.cpp" />
     <ClCompile Include="..\..\..\src\netgen\NGRandomNetBuilder.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\src\netgen\NGEdge.h" />
+    <ClInclude Include="..\..\..\src\netgen\NGFrame.h" />
     <ClInclude Include="..\..\..\src\netgen\NGNet.h" />
     <ClInclude Include="..\..\..\src\netgen\NGNode.h" />
     <ClInclude Include="..\..\..\src\netgen\NGRandomNetBuilder.h" />

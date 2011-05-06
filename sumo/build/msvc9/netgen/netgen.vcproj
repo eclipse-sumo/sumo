@@ -4,6 +4,7 @@
 	Version="9,00"
 	Name="netgen"
 	ProjectGUID="{F241CA03-4AB1-4BB0-8151-7AF078E2BC06}"
+	RootNamespace="netgen"
 	Keyword="MFCProj"
 	TargetFrameworkVersion="131072"
 	>
@@ -413,6 +414,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\..\src\netgen\NGFrame.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\..\src\netgen\NGNet.cpp"
 				>
 			</File>
@@ -431,6 +436,10 @@
 			>
 			<File
 				RelativePath="..\..\..\src\netgen\NGEdge.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\netgen\NGFrame.h"
 				>
 			</File>
 			<File

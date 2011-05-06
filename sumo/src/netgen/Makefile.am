@@ -8,7 +8,8 @@ endif
 
 bin_PROGRAMS = netgen
 
-netgen_SOURCES = netgen_main.cpp NGEdge.cpp NGEdge.h NGNet.h NGNet.cpp NGNode.cpp NGNode.h \
+netgen_SOURCES = netgen_main.cpp NGEdge.cpp NGEdge.h NGFrame.cpp NGFrame.h \
+NGNet.h NGNet.cpp NGNode.cpp NGNode.h \
 NGRandomNetBuilder.h NGRandomNetBuilder.cpp
 
 netgen_LDFLAGS = $(XERCES_LDFLAGS) $(PROJ_LDFLAGS)

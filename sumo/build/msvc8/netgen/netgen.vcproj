@@ -418,6 +418,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\..\src\netgen\NGFrame.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\..\src\netgen\NGNet.cpp"
 				>
 			</File>
@@ -436,6 +440,10 @@
 			>
 			<File
 				RelativePath="..\..\..\src\netgen\NGEdge.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\netgen\NGFrame.h"
 				>
 			</File>
 			<File
