@@ -38,7 +38,6 @@
 #include <xercesc/sax2/DefaultHandler.hpp>
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/StringBijection.h>
-#include "SUMOXMLDefinitions.h"
 #include "SUMOSAXAttributes.h"
 
 
@@ -85,22 +84,23 @@ public:
      * @brief Constructor
      *
      * This constructor gets the lists of known tag and attribute names with
-     *  their enums (sumotags and sumoattrs in most cases). The list is closed
-     *  by a tag/attribute with the enum-value SUMO_TAG_NOTHING/SUMO_ATTR_NOTHING,
-     *  respectively.
+     *  their enums (sumotags and sumoattrs in most cases). The end of the list
+     *  is signaled by terminatorTag/terminatorAttr respectively.
      *
      * The attribute names are converted into XMLCh* and stored within an
      *  internal container. This container is cleared within the destructor.
      *
      * @param[in] tags The list of known tags
+     * @param[in] terminatorTag The tag which signales the end of tags (usually the last entry)
      * @param[in] attrs The list of known attributes
+     * @param[in] terminatorAttr The attr which signales the end of attrs (usually the last entry)
      * @param[in] file The name of the processed file
      *
      * @todo Why are both lists non-const and given as pointers?
      */
     GenericSAXHandler(
-            StringBijection<int>::Entry *tags, 
-            StringBijection<int>::Entry *attrs, 
+            StringBijection<int>::Entry *tags, int terminatorTag,
+            StringBijection<int>::Entry *attrs, int terminatorAttr,
             const std::string &file);
 
 

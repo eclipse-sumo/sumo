@@ -129,7 +129,9 @@ NIImporter_MATSim::loadNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
 // definitions of NIImporter_MATSim::NodesHandler-methods
 // ---------------------------------------------------------------------------
 NIImporter_MATSim::NodesHandler::NodesHandler(NBNodeCont &toFill) throw()
-        : GenericSAXHandler(matsimTags, matsimAttrs, "matsim - file"), myNodeCont(toFill) {
+        : GenericSAXHandler(matsimTags, MATSIM_TAG_NOTHING,
+                matsimAttrs, MATSIM_ATTR_NOTHING,
+                "matsim - file"), myNodeCont(toFill) {
 }
 
 
@@ -168,7 +170,8 @@ NIImporter_MATSim::NodesHandler::myStartElement(int element, const SUMOSAXAttrib
 NIImporter_MATSim::EdgesHandler::EdgesHandler(const NBNodeCont &nc, NBEdgeCont &toFill,
                                               bool keepEdgeLengths, bool lanesFromCapacity,
                                               NBCapacity2Lanes capacity2Lanes) throw()
-        : GenericSAXHandler(matsimTags, matsimAttrs, "matsim - file"), 
+        : GenericSAXHandler(matsimTags, MATSIM_TAG_NOTHING, 
+                matsimAttrs, MATSIM_ATTR_NOTHING, "matsim - file"), 
 		myNodeCont(nc), myEdgeCont(toFill), myCapacityNorm(3600),
         myKeepEdgeLengths(keepEdgeLengths), myLanesFromCapacity(lanesFromCapacity),
         myCapacity2Lanes(capacity2Lanes) {

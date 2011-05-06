@@ -46,17 +46,17 @@
 // class definitions
 // ===========================================================================
 GenericSAXHandler::GenericSAXHandler(
-        StringBijection<int>::Entry *tags, 
-        StringBijection<int>::Entry *attrs, 
+        StringBijection<int>::Entry *tags, int terminatorTag,
+        StringBijection<int>::Entry *attrs, int terminatorAttr,
         const std::string &file)
         : myParentHandler(0), myParentIndicator(SUMO_TAG_NOTHING), myFileName(file) {
     int i = 0;
-    while (tags[i].key != SUMO_TAG_NOTHING) {
+    while (tags[i].key != terminatorTag) {
         myTagMap.insert(TagMap::value_type(tags[i].str, tags[i].key));
         i++;
     }
     i = 0;
-    while (attrs[i].key != SUMO_ATTR_NOTHING) {
+    while (attrs[i].key != terminatorAttr) {
         assert(myPredefinedTags.find(attrs[i].key)==myPredefinedTags.end());
         myPredefinedTags[attrs[i].key] = convert(attrs[i].str);
         myPredefinedTagsMML[attrs[i].key] = attrs[i].str;
