@@ -82,7 +82,7 @@ NILoader::load(OptionsCont &oc) {
     // load types first
     NIXMLTypesHandler *handler =
         new NIXMLTypesHandler(myNetBuilder.getTypeCont());
-    loadXMLType(handler, oc.getStringVector("xml-type-files"), "types");
+    loadXMLType(handler, oc.getStringVector("type-files"), "types");
     // try to load using different methods
     NIImporter_SUMO::loadNetwork(oc, myNetBuilder);
     NIImporter_RobocupRescue::loadNetwork(oc, myNetBuilder);
@@ -128,16 +128,16 @@ NILoader::loadXML(OptionsCont &oc) {
     // load nodes
     loadXMLType(new NIXMLNodesHandler(myNetBuilder.getNodeCont(),
                                       myNetBuilder.getTLLogicCont(), oc),
-                oc.getStringVector("xml-node-files"), "nodes");
+                oc.getStringVector("node-files"), "nodes");
     // load the edges
     loadXMLType(new NIXMLEdgesHandler(myNetBuilder.getNodeCont(),
                                       myNetBuilder.getEdgeCont(),
                                       myNetBuilder.getTypeCont(),
                                       myNetBuilder.getDistrictCont(), oc),
-                oc.getStringVector("xml-edge-files"), "edges");
+                oc.getStringVector("edge-files"), "edges");
     // load the connections
     loadXMLType(new NIXMLConnectionsHandler(myNetBuilder.getEdgeCont()),
-                oc.getStringVector("xml-connection-files"), "connections");
+                oc.getStringVector("connection-files"), "connections");
 }
 
 

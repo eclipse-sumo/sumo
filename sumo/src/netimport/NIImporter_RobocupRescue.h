@@ -54,11 +54,9 @@ class NIImporter_RobocupRescue {
 public:
     /** @brief Loads content of the optionally given RoboCup Rescue League files
      *
-     * If the option "robocup-net" is set, the file stored therein is read and
-     *  the network definition stored therein is stored within the given network
-     *  builder.
+     * If the option "robocup-dir" is set, the files contained in the folder are read.
      *
-     * If the option "robocup-net" is not set, this method simply returns.
+     * If the option "robocup-dir" is not set, this method simply returns.
      *
      * @param[in] oc The options to use
      * @param[in] nb The network builder to fill

@@ -55,11 +55,11 @@ class NIImporter_ArcView {
 public:
     /** @brief Loads content of the optionally given ArcView Shape files
      *
-     * If the option "arcview" is set, the file stored therein is read and
+     * If the option "shapefile-prefix" is set, the file stored therein is read and
      *  the network definition stored therein is stored within the given network
      *  builder.
      *
-     * If the option "arcview" is not set, this method simply returns.
+     * If the option "shapefile-prefix" is not set, this method simply returns.
      *
      * @param[in] oc The options to use
      * @param[in] nb The network builder to fill

@@ -60,13 +60,13 @@
 void
 NIImporter_RobocupRescue::loadNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
     // check whether the option is set (properly)
-    if (!oc.isSet("robocup-net")) {
+    if (!oc.isSet("robocup-dir")) {
         return;
     }
     // build the handler
     NIImporter_RobocupRescue handler(nb.getNodeCont(), nb.getEdgeCont());
     // parse file(s)
-    std::vector<std::string> files = oc.getStringVector("robocup-net");
+    std::vector<std::string> files = oc.getStringVector("robocup-dir");
     for (std::vector<std::string>::const_iterator file=files.begin(); file!=files.end(); ++file) {
         // nodes
         std::string nodesName = (*file) + "/node.bin";

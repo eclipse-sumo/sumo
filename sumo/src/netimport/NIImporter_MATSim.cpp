@@ -114,7 +114,7 @@ NIImporter_MATSim::loadNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
     }
     // load edges, then
     EdgesHandler edgesHandler(nb.getNodeCont(), nb.getEdgeCont(), oc.getBool("matsim.keep-length"),
-        oc.getBool("matsim.lanes-from-capacity"), NBCapacity2Lanes(oc.getFloat("capacity-norm")));
+        oc.getBool("matsim.lanes-from-capacity"), NBCapacity2Lanes(oc.getFloat("lanes-from-capacity.norm")));
     for (std::vector<std::string>::const_iterator file=files.begin(); file!=files.end(); ++file) {
         // edges
         edgesHandler.setFileName(*file);

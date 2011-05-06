@@ -58,13 +58,13 @@
 void
 NIImporter_SUMO::loadNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
     // check whether the option is set (properly)
-    if (!oc.isUsableFileList("sumo-net")) {
+    if (!oc.isUsableFileList("sumo-net-file")) {
         return;
     }
     // build the handler
     NIImporter_SUMO handler(nb.getNodeCont(), nb.getTLLogicCont());
     // parse file(s)
-    std::vector<std::string> files = oc.getStringVector("sumo-net");
+    std::vector<std::string> files = oc.getStringVector("sumo-net-file");
     for (std::vector<std::string>::const_iterator file=files.begin(); file!=files.end(); ++file) {
         if (!FileHelpers::exists(*file)) {
             MsgHandler::getErrorInstance()->inform("Could not open sumo-net-file '" + *file + "'.");

@@ -53,12 +53,12 @@
 void
 NIImporter_VISUM::loadNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
     // check whether the option is set (properly)
-    if (!oc.isSet("visum")) {
+    if (!oc.isSet("visum-file")) {
         return;
     }
     // build the handler
-    NIImporter_VISUM loader(nb, oc.getString("visum"),
-                            NBCapacity2Lanes(oc.getFloat("capacity-norm")),
+    NIImporter_VISUM loader(nb, oc.getString("visum-file"),
+                            NBCapacity2Lanes(oc.getFloat("lanes-from-capacity.norm")),
                             oc.getBool("visum.use-type-priority"));
     loader.load();
 }
@@ -339,7 +339,7 @@ NIImporter_VISUM::parse_Edges() {
                   : true;
     // get the number of lanes
     int nolanes = myNetBuilder.getTypeCont().getNoLanes(type);
-    if (!OptionsCont::getOptions().getBool("visum.recompute-laneno")) {
+    if (!OptionsCont::getOptions().getBool("visum.recompute-lane-number")) {
         try {
             if (!OptionsCont::getOptions().getBool("visum.use-type-laneno")) {
                 nolanes = myLineParser.know("Fahrstreifen")
@@ -484,7 +484,7 @@ NIImporter_VISUM::parse_Connectors() {
             }
             NBEdge *edge = new NBEdge(id, src, dest, "VisumConnector",
                                       OptionsCont::getOptions().getFloat("visum.connector-speeds"),
-                                      OptionsCont::getOptions().getInt("visum.connector-laneno"),
+                                      OptionsCont::getOptions().getInt("connectors-lane-number"),
                                       -1, NBEdge::LANESPREAD_RIGHT);
             edge->setAsMacroscopicConnector();
             if (!myNetBuilder.getEdgeCont().insert(edge)) {
@@ -518,7 +518,7 @@ NIImporter_VISUM::parse_Connectors() {
             id = "-" + id;
             NBEdge *edge = new NBEdge(id, dest, src, "VisumConnector",
                                       OptionsCont::getOptions().getFloat("visum.connector-speeds"),
-                                      OptionsCont::getOptions().getInt("visum.connector-laneno"),
+                                      OptionsCont::getOptions().getInt("connectors-lane-number"),
                                       -1, NBEdge::LANESPREAD_RIGHT);
             edge->setAsMacroscopicConnector();
             if (!myNetBuilder.getEdgeCont().insert(edge)) {

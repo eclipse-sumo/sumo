@@ -68,14 +68,14 @@
 void
 NIImporter_OpenDrive::loadNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
     // check whether the option is set (properly)
-    if (!oc.isUsableFileList("opendrive")) {
+    if (!oc.isUsableFileList("opendrive-files")) {
         return;
     }
     // build the handler
     std::vector<OpenDriveEdge> innerEdges, outerEdges;
     NIImporter_OpenDrive handler(nb.getNodeCont(), innerEdges, outerEdges);
     // parse file(s)
-    std::vector<std::string> files = oc.getStringVector("opendrive");
+    std::vector<std::string> files = oc.getStringVector("opendrive-files");
     for (std::vector<std::string>::const_iterator file=files.begin(); file!=files.end(); ++file) {
         if (!FileHelpers::exists(*file)) {
             MsgHandler::getErrorInstance()->inform("Could not open opendrive file '" + *file + "'.");

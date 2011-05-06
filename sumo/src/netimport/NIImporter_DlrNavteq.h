@@ -59,11 +59,11 @@ class NIImporter_DlrNavteq {
 public:
     /** @brief Loads content of the optionally given dlr-navteq (aka Elmar-fomat) folder
      *
-     * If the option "dlr-navteq" is set, the file(s) stored therein is read and
+     * If the option "dlr-navteq-prefix" is set, the file(s) stored therein is read and
      *  the network definition stored therein is stored within the given network
      *  builder.
      *
-     * If the option "dlr-navteq" is not set, this method simply returns.
+     * If the option "dlr-navteq-prefix" is not set, this method simply returns.
      *
      * @param[in] oc The options to use
      * @param[in] nb The network builder to fill

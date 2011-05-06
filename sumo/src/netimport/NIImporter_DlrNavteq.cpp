@@ -62,7 +62,7 @@
 void
 NIImporter_DlrNavteq::loadNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
     // check whether the option is set (properly)
-    if (!oc.isSet("dlr-navteq")) {
+    if (!oc.isSet("dlr-navteq-prefix")) {
         return;
     }
     // parse file(s)
@@ -70,7 +70,7 @@ NIImporter_DlrNavteq::loadNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
     // load nodes
     std::map<std::string, Position2DVector> myGeoms;
     MsgHandler::getMessageInstance()->beginProcessMsg("Loading nodes...");
-    std::string file = oc.getString("dlr-navteq") + "_nodes_unsplitted.txt";
+    std::string file = oc.getString("dlr-navteq-prefix") + "_nodes_unsplitted.txt";
     NodesHandler handler1(nb.getNodeCont(), file, myGeoms);
     if (!lr.setFile(file)) {
         throw ProcessError("The file '" + file + "' could not be opened.");
@@ -79,7 +79,7 @@ NIImporter_DlrNavteq::loadNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
     MsgHandler::getMessageInstance()->endProcessMsg("done.");
 
     // load traffic lights
-    file = oc.getString("dlr-navteq") + "_traffic_signals.txt";
+    file = oc.getString("dlr-navteq-prefix") + "_traffic_signals.txt";
     if (lr.setFile(file)) {
         MsgHandler::getMessageInstance()->beginProcessMsg("Loading traffic lights...");
         TrafficlightsHandler handler3(nb.getNodeCont(), nb.getTLLogicCont(), file);
@@ -89,7 +89,7 @@ NIImporter_DlrNavteq::loadNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
 
     // load edges
     MsgHandler::getMessageInstance()->beginProcessMsg("Loading edges...");
-    file = oc.getString("dlr-navteq") + "_links_unsplitted.txt";
+    file = oc.getString("dlr-navteq-prefix") + "_links_unsplitted.txt";
     // parse the file
     EdgesHandler handler2(nb.getNodeCont(), nb.getEdgeCont(), file, myGeoms);
     if (!lr.setFile(file)) {

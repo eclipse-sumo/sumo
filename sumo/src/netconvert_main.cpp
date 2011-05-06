@@ -116,7 +116,7 @@ main(int argc, char **argv) {
         // load data
         NILoader nl(nb);
         nl.load(oc);
-        if (oc.getBool("dismiss-loading-errors")) {
+        if (oc.getBool("ignore-errors")) {
             MsgHandler::getErrorInstance()->clear();
         }
         // check whether any errors occured

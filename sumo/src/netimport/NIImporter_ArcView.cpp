@@ -63,14 +63,14 @@
 // ---------------------------------------------------------------------------
 void
 NIImporter_ArcView::loadNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
-    if (!oc.isSet("arcview")) {
+    if (!oc.isSet("shapefile-prefix")) {
         return;
     }
     // check whether the correct set of entries is given
     //  and compute both file names
-    std::string dbf_file = oc.getString("arcview") + ".dbf";
-    std::string shp_file = oc.getString("arcview") + ".shp";
-    std::string shx_file = oc.getString("arcview") + ".shx";
+    std::string dbf_file = oc.getString("shapefile-prefix") + ".dbf";
+    std::string shp_file = oc.getString("shapefile-prefix") + ".shp";
+    std::string shx_file = oc.getString("shapefile-prefix") + ".shx";
     // check whether the files do exist
     if (!FileHelpers::exists(dbf_file)) {
         MsgHandler::getErrorInstance()->inform("File not found: " + dbf_file);
@@ -138,7 +138,7 @@ NIImporter_ArcView::load() {
     OGRCoordinateTransformation *poCT =
         OGRCreateCoordinateTransformation(origTransf, &destTransf);
     if (poCT == NULL) {
-        if (myOptions.isSet("arcview.guess-projection")) {
+        if (myOptions.isSet("shapefile.guess-projection")) {
             OGRSpatialReference origTransf2;
             origTransf2.SetWellKnownGeogCS("WGS84");
             poCT = OGRCreateCoordinateTransformation(&origTransf2, &destTransf);
@@ -153,8 +153,8 @@ NIImporter_ArcView::load() {
     while ((poFeature = poLayer->GetNextFeature()) != NULL) {
         // read in edge attributes
         std::string id =
-            myOptions.isSet("arcview.street-id")
-            ? poFeature->GetFieldAsString((char*)(myOptions.getString("arcview.street-id").c_str()))
+            myOptions.isSet("shapefile.street-id")
+            ? poFeature->GetFieldAsString((char*)(myOptions.getString("shapefile.street-id").c_str()))
             : poFeature->GetFieldAsString("LINK_ID");
         id = StringUtils::prune(id);
         if (id=="") {
@@ -162,19 +162,19 @@ NIImporter_ArcView::load() {
             return;
         }
         std::string name =
-            myOptions.isSet("arcview.street-id")
-            ? poFeature->GetFieldAsString((char*) myOptions.getString("arcview.street-id").c_str())
+            myOptions.isSet("shapefile.street-id")
+            ? poFeature->GetFieldAsString((char*) myOptions.getString("shapefile.street-id").c_str())
             : poFeature->GetFieldAsString("ST_NAME");
         name = StringUtils::prune(StringUtils::replace(name, "&", "&amp;"));
 
         std::string from_node =
-            myOptions.isSet("arcview.from-id")
-            ? poFeature->GetFieldAsString((char*)(myOptions.getString("arcview.from-id").c_str()))
+            myOptions.isSet("shapefile.from-id")
+            ? poFeature->GetFieldAsString((char*)(myOptions.getString("shapefile.from-id").c_str()))
             : poFeature->GetFieldAsString("REF_IN_ID");
         from_node = StringUtils::prune(from_node);
         std::string to_node =
-            myOptions.isSet("arcview.to-id")
-            ? poFeature->GetFieldAsString((char*) myOptions.getString("arcview.to-id").c_str())
+            myOptions.isSet("shapefile.to-id")
+            ? poFeature->GetFieldAsString((char*) myOptions.getString("shapefile.to-id").c_str())
             : poFeature->GetFieldAsString("NREF_IN_ID");
         to_node = StringUtils::prune(to_node);
         if (from_node==""||to_node=="") {
@@ -186,7 +186,7 @@ NIImporter_ArcView::load() {
         unsigned int nolanes = getLaneNo(*poFeature, id, speed);
         int priority = getPriority(*poFeature, id);
         if (nolanes==0||speed==0) {
-            if (myOptions.getBool("arcview.use-defaults-on-failure")) {
+            if (myOptions.getBool("shapefile.use-defaults-on-failure")) {
                 nolanes = myTypeCont.getDefaultNoLanes();
                 speed = myTypeCont.getDefaultSpeed();
             } else {
@@ -260,7 +260,7 @@ NIImporter_ArcView::load() {
             dir = poFeature->GetFieldAsString(index);
         }
         // add positive direction if wanted
-        if (dir=="B"||dir=="F"||dir==""||myOptions.getBool("arcview.all-bidi")) {
+        if (dir=="B"||dir=="F"||dir==""||myOptions.getBool("shapefile.all-bidirectional")) {
             if (myEdgeCont.retrieve(id)==0) {
                 NBEdge::LaneSpreadFunction spread =
                     dir=="B"||dir=="FALSE"
@@ -273,7 +273,7 @@ NIImporter_ArcView::load() {
             }
         }
         // add negative direction if wanted
-        if (dir=="B"||dir=="T"||myOptions.getBool("arcview.all-bidi")) {
+        if (dir=="B"||dir=="T"||myOptions.getBool("shapefile.all-bidirectional")) {
             id = "-" + id;
             if (myEdgeCont.retrieve(id)==0) {
                 NBEdge::LaneSpreadFunction spread =
@@ -298,8 +298,8 @@ NIImporter_ArcView::load() {
 #ifdef HAVE_GDAL
 SUMOReal
 NIImporter_ArcView::getSpeed(OGRFeature &poFeature, const std::string &edgeid) {
-    if (myOptions.isSet("arcview.type-id")) {
-        return myTypeCont.getSpeed(poFeature.GetFieldAsString((char*)(myOptions.getString("arcview.type-id").c_str())));
+    if (myOptions.isSet("shapefile.type-id")) {
+        return myTypeCont.getSpeed(poFeature.GetFieldAsString((char*)(myOptions.getString("shapefile.type-id").c_str())));
     }
     // try to get definitions as to be found in SUMO-XML-definitions
     //  idea by John Michael Calandrino
@@ -324,8 +324,8 @@ NIImporter_ArcView::getSpeed(OGRFeature &poFeature, const std::string &edgeid) {
 unsigned int
 NIImporter_ArcView::getLaneNo(OGRFeature &poFeature, const std::string &edgeid,
                               SUMOReal speed) {
-    if (myOptions.isSet("arcview.type-id")) {
-        return (unsigned int) myTypeCont.getNoLanes(poFeature.GetFieldAsString((char*)(myOptions.getString("arcview.type-id").c_str())));
+    if (myOptions.isSet("shapefile.type-id")) {
+        return (unsigned int) myTypeCont.getNoLanes(poFeature.GetFieldAsString((char*)(myOptions.getString("shapefile.type-id").c_str())));
     }
     // try to get definitions as to be found in SUMO-XML-definitions
     //  idea by John Michael Calandrino
@@ -352,8 +352,8 @@ NIImporter_ArcView::getLaneNo(OGRFeature &poFeature, const std::string &edgeid,
 
 int
 NIImporter_ArcView::getPriority(OGRFeature &poFeature, const std::string &/*edgeid*/) {
-    if (myOptions.isSet("arcview.type-id")) {
-        return myTypeCont.getPriority(poFeature.GetFieldAsString((char*)(myOptions.getString("arcview.type-id").c_str())));
+    if (myOptions.isSet("shapefile.type-id")) {
+        return myTypeCont.getPriority(poFeature.GetFieldAsString((char*)(myOptions.getString("shapefile.type-id").c_str())));
     }
     // try to get definitions as to be found in SUMO-XML-definitions
     //  idea by John Michael Calandrino

@@ -59,11 +59,11 @@ class NIImporter_OpenDrive : public SUMOSAXHandler {
 public:
     /** @brief Loads content of the optionally given SUMO file
      *
-     * If the option "opendrive" is set, the file stored therein is read and
+     * If the option "opendrive-files" is set, the file stored therein is read and
      *  the network definition stored therein is stored within the given network
      *  builder.
      *
-     * If the option "opendrive" is not set, this method simply returns.
+     * If the option "opendrive-files" is not set, this method simply returns.
      *
      * The loading is done by parsing the network definition as an XML file
      *  using the SAXinterface and handling the incoming data via this class'

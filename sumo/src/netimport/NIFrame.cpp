@@ -54,41 +54,53 @@
 void
 NIFrame::fillOptions() {
     OptionsCont &oc = OptionsCont::getOptions();
-    // register I/O options
-    oc.doRegister("sumo-net", 's', new Option_FileName());
-    oc.addDescription("sumo-net", "Input", "Read SUMO-net from FILE");
+    // register input formats
+    oc.doRegister("sumo-net-file", 's', new Option_FileName());
+    oc.addSynonyme("sumo-net-file", "sumo-net", true);
+    oc.addDescription("sumo-net-file", "Input", "Read SUMO-net from FILE");
 
-    oc.doRegister("xml-node-files", 'n', new Option_FileName());
-    oc.addSynonyme("xml-node-files", "xml-nodes");
-    oc.addDescription("xml-node-files", "Input", "Read XML-node defs from FILE");
+    oc.doRegister("node-files", 'n', new Option_FileName());
+    oc.addSynonyme("node-files", "xml-node-files", true);
+    oc.addSynonyme("node-files", "xml-nodes", true);
+    oc.addSynonyme("node-files", "nodes");
+    oc.addDescription("node-files", "Input", "Read XML-node defs from FILE");
 
-    oc.doRegister("xml-edge-files", 'e', new Option_FileName());
-    oc.addSynonyme("xml-edge-files", "xml-edges");
-    oc.addDescription("xml-edge-files", "Input", "Read XML-edge defs from FILE");
+    oc.doRegister("edge-files", 'e', new Option_FileName());
+    oc.addSynonyme("edge-files", "xml-edge-files", true);
+    oc.addSynonyme("edge-files", "xml-edges", true);
+    oc.addSynonyme("edge-files", "edges");
+    oc.addDescription("edge-files", "Input", "Read XML-edge defs from FILE");
 
-    oc.doRegister("xml-connection-files", 'x', new Option_FileName());
-    oc.addSynonyme("xml-connection-files", "xml-connections");
-    oc.addDescription("xml-connection-files", "Input", "Read XML-connection defs from FILE");
+    oc.doRegister("connection-files", 'x', new Option_FileName());
+    oc.addSynonyme("connection-files", "xml-connection-files", true);
+    oc.addSynonyme("connection-files", "xml-connections", true);
+    oc.addSynonyme("connection-files", "connections");
+    oc.addDescription("connection-files", "Input", "Read XML-connection defs from FILE");
 
-    oc.doRegister("xml-type-files", 't', new Option_FileName());
-    oc.addSynonyme("xml-type-files", "xml-types");
-    oc.addDescription("xml-type-files", "Input", "Read XML-type defs from FILE");
+    oc.doRegister("type-files", 't', new Option_FileName());
+    oc.addSynonyme("type-files", "xml-type-files", true);
+    oc.addSynonyme("type-files", "xml-types", true);
+    oc.addSynonyme("type-files", "types");
+    oc.addDescription("type-files", "Input", "Read XML-type defs from FILE");
 
-    oc.doRegister("shapefile", new Option_FileName());
-    oc.addSynonyme("shapefile", "arcview");
-    oc.addSynonyme("shapefile", "tiger");
-    oc.addDescription("shapefile", "Input", "Read shapefiles (ArcView, Tiger, ...) from files starting with 'FILE'");
+    oc.doRegister("shapefile-prefix", new Option_FileName());
+    oc.addSynonyme("shapefile-prefix", "shapefile");
+    oc.addSynonyme("shapefile-prefix", "arcview", true);
+    oc.addSynonyme("shapefile-prefix", "tiger", true);
+    oc.addDescription("shapefile-prefix", "Input", "Read shapefiles (ArcView, Tiger, ...) from files starting with 'FILE'");
 
-    oc.doRegister("dlr-navteq", new Option_FileName());
-    oc.addSynonyme("dlr-navteq", "elmar2");
-    oc.addDescription("dlr-navteq", "Input", "Read converted Navteq GDF data (unsplitted Elmar-network) from path 'FILE'");
+    oc.doRegister("dlr-navteq-prefix", new Option_FileName());
+    oc.addSynonyme("dlr-navteq-prefix", "dlr-navteq");
+    oc.addSynonyme("dlr-navteq-prefix", "elmar2", true);
+    oc.addDescription("dlr-navteq-prefix", "Input", "Read converted Navteq GDF data (unsplitted Elmar-network) from path 'FILE'");
 
     oc.doRegister("osm-files", new Option_FileName());
     oc.addSynonyme("osm-files", "osm");
     oc.addDescription("osm-files", "Input", "Read OSM-network from path 'FILE(s)'");
 
-    oc.doRegister("opendrive", new Option_FileName());
-    oc.addDescription("opendrive", "Input", "Read openDrive-network from FILE");
+    oc.doRegister("opendrive-files", new Option_FileName());
+    oc.addSynonyme("opendrive-files", "opendrive");
+    oc.addDescription("opendrive-files", "Input", "Read openDrive-network from FILE");
 
     oc.doRegister("visum-file", new Option_FileName());
     oc.addSynonyme("visum-file", "visum");
@@ -98,30 +110,35 @@ NIFrame::fillOptions() {
     oc.addSynonyme("vissim-file", "vissim");
     oc.addDescription("vissim-file", "Input", "Read VISSIM-net from FILE");
 
-    oc.doRegister("robocup-net", new Option_FileName());
-    oc.addSynonyme("robocup-net", "robocup");
-    oc.addDescription("robocup-net", "Input", "Read RoboCup-net from DIR");
+    oc.doRegister("robocup-dir", new Option_FileName());
+    oc.addSynonyme("robocup-dir", "robocup-net", true);
+    oc.addSynonyme("robocup-dir", "robocup");
+    oc.addDescription("robocup-dir", "Input", "Read RoboCup-net from DIR");
 
     oc.doRegister("matsim-files", new Option_FileName());
     oc.addSynonyme("matsim-files", "matsim");
     oc.addDescription("matsim-files", "Input", "Read MATSim-net from FILE");
 
 
-    // register processing options
-    oc.doRegister("dismiss-loading-errors", new Option_Bool(false)); // !!! describe, document
-    oc.addDescription("dismiss-loading-errors", "Processing", "Continue on broken input");
+    // register basic processing options
+    oc.doRegister("ignore-errors", new Option_Bool(false)); // !!! describe, document
+    oc.addSynonyme("ignore-errors", "dismiss-loading-errors", true);
+    oc.addDescription("ignore-errors", "Processing", "Continue on broken input");
 
-    oc.doRegister("capacity-norm", new Option_Float((SUMOReal) 1800));
-    oc.addDescription("capacity-norm", "Processing", "The factor for flow to no. lanes conv");
+    oc.doRegister("lanes-from-capacity.norm", new Option_Float((SUMOReal) 1800));
+    oc.addSynonyme("lanes-from-capacity.norm", "capacity-norm");
+    oc.addDescription("lanes-from-capacity.norm", "Processing", "The factor for flow to no. lanes conversion.");
 
     oc.doRegister("speed-in-kmh", new Option_Bool(false));
     oc.addDescription("speed-in-kmh", "Processing", "vmax is parsed as given in km/h (some)");
 
 
+    // register xml options
     oc.doRegister("xml.keep-shape", new Option_Bool(false));
     oc.addDescription("xml.keep-shape", "Processing", "No node positions are added to the edge shape");
 
 
+    // register matsim options
     oc.doRegister("matsim.keep-length", new Option_Bool(false));
     oc.addDescription("matsim.keep-length", "Processing", "The edge lengths given in the MATSIM-file will be kept.");
 
@@ -129,41 +146,41 @@ NIFrame::fillOptions() {
     oc.addDescription("matsim.lanes-from-capacity", "Processing", "The lane number will be computed from the capacity.");
 
 
+    // register shapefile options
     oc.doRegister("shapefile.street-id", new Option_String());
-    oc.addSynonyme("shapefile.street-id", "arcview.street-id");
+    oc.addSynonyme("shapefile.street-id", "arcview.street-id", true);
     oc.addDescription("shapefile.street-id", "Processing", "Read edge ids from column STR");
 
     oc.doRegister("shapefile.from-id", new Option_String());
-    oc.addSynonyme("shapefile.from-id", "arcview.from-id");
+    oc.addSynonyme("shapefile.from-id", "arcview.from-id", true);
     oc.addDescription("shapefile.from-id", "Processing", "Read from-node ids from column STR");
 
     oc.doRegister("shapefile.to-id", new Option_String());
-    oc.addSynonyme("shapefile.to-id", "arcview.to-id");
+    oc.addSynonyme("shapefile.to-id", "arcview.to-id", true);
     oc.addDescription("shapefile.to-id", "Processing", "Read to-node ids from column STR");
 
     oc.doRegister("shapefile.type-id", new Option_String());
-    oc.addSynonyme("shapefile.type-id", "arcview.type-id");
+    oc.addSynonyme("shapefile.type-id", "arcview.type-id", true);
     oc.addDescription("shapefile.type-id", "Processing", "Read type ids from column STR");
 
     oc.doRegister("shapefile.use-defaults-on-failure", new Option_Bool(false));
-    oc.addSynonyme("shapefile.use-defaults-on-failure", "arcview.use-defaults-on-failure");
+    oc.addSynonyme("shapefile.use-defaults-on-failure", "arcview.use-defaults-on-failure", true);
     oc.addDescription("shapefile.use-defaults-on-failure", "Processing", "Uses edge type defaults on problems");
 
-    oc.doRegister("shapefile.all-bidi", new Option_Bool(false));
-    oc.addSynonyme("shapefile.all-bidi", "arcview.all-bidi");
-    oc.addDescription("shapefile.all-bidi", "Processing", "Insert edges in both directions");
-
-    oc.doRegister("shapefile.utm", new Option_Integer(32));
-    oc.addSynonyme("shapefile.utm", "arcview.utm");
-    oc.addDescription("shapefile.utm", "Processing", "Use INT as UTM zone");
+    oc.doRegister("shapefile.all-bidirectional", new Option_Bool(false));
+    oc.addSynonyme("shapefile.all-bidirectional", "shapefile.all-bidi");
+    oc.addSynonyme("shapefile.all-bidirectional", "arcview.all-bidi", true);
+    oc.addDescription("shapefile.all-bidirectional", "Processing", "Insert edges in both directions");
 
     oc.doRegister("shapefile.guess-projection", new Option_Bool(false));
-    oc.addSynonyme("shapefile.guess-projection", "arcview.guess-projection");
+    oc.addSynonyme("shapefile.guess-projection", "arcview.guess-projection", true);
     oc.addDescription("shapefile.guess-projection", "Processing", "Guess the proper projection");
 
-    // register further vissim-options
-    oc.doRegister("vissim.offset", new Option_Float(5.0f));
-    oc.addDescription("vissim.offset", "Processing", "Structure join offset");
+
+    // register vissim options
+    oc.doRegister("vissim.join-distance", new Option_Float(5.0f));
+    oc.addSynonyme("vissim.join-distance", "vissim.offset", true);
+    oc.addDescription("vissim.join-distance", "Processing", "Structure join offset");
 
     oc.doRegister("vissim.default-speed", new Option_Float(50.0f));
     oc.addDescription("vissim.default-speed", "Processing", "Use FLOAT as default speed");
@@ -174,7 +191,8 @@ NIFrame::fillOptions() {
     oc.doRegister("vissim.report-unset-speeds", new Option_Bool(false));
     oc.addDescription("vissim.report-unset-speeds", "Processing", "Writes lanes without an explicite speed set.");
 
-    // register further visum-options
+
+    // register visum options
     oc.doRegister("visum.use-type-priority", new Option_Bool(false));
     oc.addDescription("visum.use-type-priority", "Processing", "Uses priorities from types");
 
@@ -187,19 +205,22 @@ NIFrame::fillOptions() {
     oc.doRegister("visum.connector-speeds", new Option_Float(100.));
     oc.addDescription("visum.connector-speeds", "Processing", "Sets connector speed");
 
-    oc.doRegister("visum.connector-laneno", new Option_Integer(3));
-    oc.addDescription("visum.connector-laneno", "Processing", "Sets connector lane number");
+    oc.doRegister("visum.connectors-lane-number", new Option_Integer(3));
+    oc.addSynonyme("visum.connectors-lane-number", "visum.connector-laneno", true);
+    oc.addDescription("visum.connectors-lane-number", "Processing", "Sets connector lane number");
 
     oc.doRegister("visum.no-connectors", new Option_Bool(false));
     oc.addDescription("visum.no-connectors", "Processing", "Excludes connectors");
 
-    oc.doRegister("visum.recompute-laneno", new Option_Bool(false));
-    oc.addDescription("visum.recompute-laneno", "Processing", "Computes the number of lanes from the edges' capacities");
+    oc.doRegister("visum.recompute-lane-number", new Option_Bool(false));
+    oc.addSynonyme("visum.recompute-lane-number", "visum.recompute-laneno", true);
+    oc.addDescription("visum.recompute-lane-number", "Processing", "Computes the number of lanes from the edges' capacities");
 
     oc.doRegister("visum.verbose-warnings", new Option_Bool(false));
     oc.addDescription("visum.verbose-warnings", "Processing", "Prints all warnings, some of which are due to VISUM misbehaviour");
 
 
+    // register osm options
     oc.doRegister("osm.skip-duplicates-check", new Option_Bool(false));
     oc.addDescription("osm.skip-duplicates-check", "Processing", "Skips the check for duplicate nodes and edges.");
 }
@@ -213,10 +234,10 @@ NIFrame::checkOptions() {
     ok &= oc.checkDependingSuboptions("vissim-file", "vissim.");
 #ifdef HAVE_PROJ
     unsigned numProjections = oc.getBool("proj.simple") + oc.getBool("proj.utm") + oc.getBool("proj.dhdn") + (oc.getString("proj").length() > 1);
-    if ((oc.isSet("osm-files") || oc.isSet("dlr-navteq")) && numProjections == 0) {
+    if ((oc.isSet("osm-files") || oc.isSet("dlr-navteq-prefix")) && numProjections == 0) {
         oc.set("proj.utm", "true");
     }
-    if (oc.isSet("dlr-navteq") && oc.isDefault("proj.shift")) {
+    if (oc.isSet("dlr-navteq-prefix") && oc.isDefault("proj.shift")) {
         oc.set("proj.shift", std::string("5"));
     }
 #endif

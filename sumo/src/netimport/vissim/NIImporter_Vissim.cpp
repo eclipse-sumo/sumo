@@ -121,11 +121,11 @@
 // ---------------------------------------------------------------------------
 void
 NIImporter_Vissim::loadNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
-    if (!oc.isSet("vissim")) {
+    if (!oc.isSet("vissim-file")) {
         return;
     }
     // load the visum network
-    NIImporter_Vissim loader(nb, oc.getString("vissim"));
+    NIImporter_Vissim loader(nb, oc.getString("vissim-file"));
     loader.load(oc);
 }
 
@@ -358,15 +358,15 @@ void
 NIImporter_Vissim::load(const OptionsCont &options) {
     // load file contents
     // try to open the file
-    std::ifstream strm(options.getString("vissim").c_str());
+    std::ifstream strm(options.getString("vissim-file").c_str());
     if (!strm.good()) {
-        MsgHandler::getErrorInstance()->inform("The vissim-file '" + options.getString("vissim") + "' was not found.");
+        MsgHandler::getErrorInstance()->inform("The vissim-file '" + options.getString("vissim-file") + "' was not found.");
         return;
     }
     if (!readContents(strm)) {
         return;
     }
-    postLoadBuild(options.getFloat("vissim.offset"));
+    postLoadBuild(options.getFloat("vissim.join-distance"));
 }
 
 

@@ -55,11 +55,11 @@ class NIImporter_SUMO : public SUMOSAXHandler {
 public:
     /** @brief Loads content of the optionally given SUMO file
      *
-     * If the option "sumo-net" is set, the file stored therein is read and
+     * If the option "sumo-net-file" is set, the file stored therein is read and
      *  the network definition stored therein is stored within the given network
      *  builder.
      *
-     * If the option "sumo-net" is not set, this method simply returns.
+     * If the option "sumo-net-file" is not set, this method simply returns.
      *
      * The loading is done by parsing the network definition as an XML file
      *  using the SAXinterface and handling the incoming data via this class'
