@@ -193,6 +193,14 @@
       <Project>{bd855404-fa32-48ae-9ab3-fb8b3d71c8c6}</Project>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
     </ProjectReference>
+    <ProjectReference Include="..\y_libnetwrite\y_libnetwrite.vcxproj">
+      <Project>{b0c268f3-2153-8ddc-fac6-bb599e20126d}</Project>
+      <Private>true</Private>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+      <CopyLocalSatelliteAssemblies>false</CopyLocalSatelliteAssemblies>
+      <LinkLibraryDependencies>true</LinkLibraryDependencies>
+      <UseLibraryDependencyInputs>false</UseLibraryDependencyInputs>
+    </ProjectReference>
     <ProjectReference Include="..\zz_foreign_nvwa\zz_foreign_nvwa.vcxproj">
       <Project>{fc5b65e0-a0b1-40d7-8687-c2fc79e3da47}</Project>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>

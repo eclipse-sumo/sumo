@@ -9,6 +9,9 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "netconvert", "netconvert\netconvert.vcxproj", "{4589198B-EBD4-4811-B778-8AE270AEE0CD}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "netgen", "netgen\netgen.vcxproj", "{F241CA03-4AB1-4BB0-8151-7AF078E2BC06}"
+	ProjectSection(ProjectDependencies) = postProject
+		{91422FEF-2369-45E6-87AA-8B38709AD824} = {91422FEF-2369-45E6-87AA-8B38709AD824}
+	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "od2trips", "od2trips\od2trips.vcxproj", "{39392259-4561-44C0-98F1-64CA4396C025}"
 EndProject
@@ -101,6 +104,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "activitygen", "activitygen\
 	ProjectSection(ProjectDependencies) = postProject
 		{492B0B5A-0BBE-49BA-82E6-70A82DBC242F} = {492B0B5A-0BBE-49BA-82E6-70A82DBC242F}
 	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "y_libnetwrite", "y_libnetwrite\y_libnetwrite.vcxproj", "{91422FEF-2369-45E6-87AA-8B38709AD824}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -688,6 +693,18 @@ Global
 		{3DAC2EC1-D265-4F66-8442-A006E50DC95F}.Release|Win32.Build.0 = Release|Win32
 		{3DAC2EC1-D265-4F66-8442-A006E50DC95F}.Release|x64.ActiveCfg = Release|x64
 		{3DAC2EC1-D265-4F66-8442-A006E50DC95F}.Release|x64.Build.0 = Release|x64
+		{91422FEF-2369-45E6-87AA-8B38709AD824}.Debug|Win32.ActiveCfg = Debug|Win32
+		{91422FEF-2369-45E6-87AA-8B38709AD824}.Debug|Win32.Build.0 = Debug|Win32
+		{91422FEF-2369-45E6-87AA-8B38709AD824}.Debug|x64.ActiveCfg = Debug|x64
+		{91422FEF-2369-45E6-87AA-8B38709AD824}.Debug|x64.Build.0 = Debug|x64
+		{91422FEF-2369-45E6-87AA-8B38709AD824}.Fastbuild|Win32.ActiveCfg = Fastbuild|Win32
+		{91422FEF-2369-45E6-87AA-8B38709AD824}.Fastbuild|Win32.Build.0 = Fastbuild|Win32
+		{91422FEF-2369-45E6-87AA-8B38709AD824}.Fastbuild|x64.ActiveCfg = Fastbuild|x64
+		{91422FEF-2369-45E6-87AA-8B38709AD824}.Fastbuild|x64.Build.0 = Fastbuild|x64
+		{91422FEF-2369-45E6-87AA-8B38709AD824}.Release|Win32.ActiveCfg = Release|Win32
+		{91422FEF-2369-45E6-87AA-8B38709AD824}.Release|Win32.Build.0 = Release|Win32
+		{91422FEF-2369-45E6-87AA-8B38709AD824}.Release|x64.ActiveCfg = Release|x64
+		{91422FEF-2369-45E6-87AA-8B38709AD824}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
