@@ -339,9 +339,15 @@ OptionsCont::checkDependingSuboptions(const std::string &name, const std::string
         return true;
     }
     bool ok = true;
+    std::vector<std::string> seenSynonymes;
     for (KnownContType::const_iterator i=myValues.begin(); i!=myValues.end(); i++) {
+        if(std::find(seenSynonymes.begin(), seenSynonymes.end(), (*i).first)!=seenSynonymes.end()) {
+            continue;
+        }
         if ((*i).second->isSet() && !(*i).second->isDefault() && (*i).first.find(prefix) == 0) {
             MsgHandler::getErrorInstance()->inform("Option '" + (*i).first + "' needs option '" + name + "'.");
+            std::vector<std::string> synonymes = getSynonymes((*i).first);
+            std::copy(synonymes.begin(), synonymes.end(), std::back_inserter(seenSynonymes));
             ok = false;
         }
     }
