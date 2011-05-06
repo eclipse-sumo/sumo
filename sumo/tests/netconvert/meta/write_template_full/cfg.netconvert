@@ -24,6 +24,7 @@
         <node-geometry-dump value=""/>
         <map-output value="" synonymes="M"/>
         <node-type-output value=""/>
+        <output-format value="sumo"/>
     </output>
 
     <projection>
@@ -83,6 +84,8 @@
         <capacity-norm value="1800"/>
         <speed-in-kmh value="false"/>
         <xml.keep-shape value="false"/>
+        <matsim.keep-length value="false"/>
+        <matsim.lanes-from-capacity value="false"/>
         <shapefile.street-id value="" synonymes="arcview.street-id"/>
         <shapefile.from-id value="" synonymes="arcview.from-id"/>
         <shapefile.to-id value="" synonymes="arcview.to-id"/>

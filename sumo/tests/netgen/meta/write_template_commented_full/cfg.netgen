@@ -108,6 +108,9 @@
         <!-- Writes pois of node types to FILE -->
         <node-type-output value=""/>
 
+        <!-- Determines the output format to use -->
+        <output-format value="sumo"/>
+
     </output>
 
     <tls_building>

@@ -1,4 +1,4 @@
-SUMO netgen Version dev-SVN-r10214
+SUMO netgen Version dev-SVN-r10238
  Copyright (C) 2001-2011 DLR and contributors; http://sumo.sourceforge.net
  
 Road network generator for the microscopic road traffic simulation SUMO.
@@ -74,6 +74,7 @@ Usage: netgen [OPTION]*
   --node-geometry-dump FILE            Writes node corner positions to FILE
   -M, --map-output FILE                Writes joined edges information to FILE
   --node-type-output FILE              Writes pois of node types to FILE
+  --output-format STR                  Determines the output format to use
 
  TLS Building Options:
   --explicite-tls STR                  Interprets STR as list of junctions to

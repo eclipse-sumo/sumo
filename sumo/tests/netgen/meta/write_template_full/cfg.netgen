@@ -44,6 +44,7 @@
         <node-geometry-dump value=""/>
         <map-output value="" synonymes="M"/>
         <node-type-output value=""/>
+        <output-format value="sumo"/>
     </output>
 
     <tls_building>

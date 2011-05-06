@@ -60,6 +60,9 @@
         <!-- Writes pois of node types to FILE -->
         <node-type-output value=""/>
 
+        <!-- Determines the output format to use -->
+        <output-format value="sumo"/>
+
     </output>
 
     <projection>
@@ -200,6 +203,12 @@
 
         <!-- No node positions are added to the edge shape -->
         <xml.keep-shape value="false"/>
+
+        <!-- The edge lengths given in the MATSIM-file will be kept. -->
+        <matsim.keep-length value="false"/>
+
+        <!-- The lane number will be computed from the capacity. -->
+        <matsim.lanes-from-capacity value="false"/>
 
         <!-- Read edge ids from column STR -->
         <shapefile.street-id value="" synonymes="arcview.street-id"/>
