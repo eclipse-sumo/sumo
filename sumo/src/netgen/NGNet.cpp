@@ -213,7 +213,7 @@ NGNet::toNB() const throw(ProcessError) {
         myNetBuilder.getEdgeCont().insert(edge);
     }
     // now, let's append the reverse directions...
-    SUMOReal bidiProb = OptionsCont::getOptions().getFloat("rand-bidi-probability");
+    SUMOReal bidiProb = OptionsCont::getOptions().getFloat("rand.bidi-probability");
     for (std::vector<NBNode*>::const_iterator i=nodes.begin(); i!=nodes.end(); ++i) {
         NBNode *node = *i;
         EdgeVector incoming = node->getIncomingEdges();

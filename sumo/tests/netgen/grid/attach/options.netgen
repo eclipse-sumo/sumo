@@ -1,1 +1,1 @@
---grid-net --grid-number=2 --grid-length=400 --attach-length=100 --output-file=net.net.xml
+--grid --grid.number=2 --grid.length=400 --grid.attach-length=100 --output-file=net.net.xml

@@ -1,4 +1,4 @@
-SUMO netgen Version dev-SVN-r10238
+SUMO netgen Version dev-SVN-r10240
  Copyright (C) 2001-2011 DLR and contributors; http://sumo.sourceforge.net
  
 Road network generator for the microscopic road traffic simulation SUMO.
@@ -7,12 +7,12 @@ Usage: netgen [OPTION]*
  
  Examples:
   netgen -c <CONFIGURATION>
-  netgen --grid-net [grid-network options] -o <OUTPUTFILE>
-  netgen --spider-net [spider-network opts] -o <OUTPUTFILE>
-  netgen --random-net [random-network opts] -o <OUTPUTFILE>
+  netgen --grid [grid-network options] -o <OUTPUTFILE>
+  netgen --spider [spider-network options] -o <OUTPUTFILE>
+  netgen --rand [random-network options] -o <OUTPUTFILE>
  
- Either "--grid-net", "--spider-net" or "--random-net" must be 
-  supplied. In dependance to these switches other options are used.
+ Either "--grid", "--spider" or "--rand" must be supplied.
+  In dependance to these switches other options are used.
  
  Configuration Options:
   -c, --configuration-file FILE        Loads the named config on startup
@@ -24,47 +24,47 @@ Usage: netgen [OPTION]*
                                          configuration, or schema
 
  Grid Network Options:
-  -g, --grid-net                       Forces NETGEN to build a grid-like
+  -g, --grid                           Forces NETGEN to build a grid-like
                                          network
-  --grid-number INT                    The number of junctions in both dirs
-  --grid-length FLOAT                  The length of streets in both dirs
-  --grid-x-number INT                  The number of junctions in x-dir;
+  --grid.number INT                    The number of junctions in both dirs
+  --grid.length FLOAT                  The length of streets in both dirs
+  --grid.x-number INT                  The number of junctions in x-dir;
                                          Overrides --grid-number
-  --grid-y-number INT                  The number of junctions in y-dir;
+  --grid.y-number INT                  The number of junctions in y-dir;
                                          Overrides --grid-number
-  --grid-x-length FLOAT                The length of horizontal streets;
+  --grid.x-length FLOAT                The length of horizontal streets;
                                          Overrides --grid-length
-  --grid-y-length FLOAT                The length of vertical streets;
+  --grid.y-length FLOAT                The length of vertical streets;
                                          Overrides --grid-length
-  --attach-length FLOAT                The length of streets attached at the
+  --grid.attach-length FLOAT           The length of streets attached at the
                                          boundary;
                                          0 means no streets are attached
 
  Spider Network Options:
-  -s, --spider-net                     Forces NETGEN to build a spider-net-like
+  -s, --spider                         Forces NETGEN to build a spider-net-like
                                          network
-  --spider-arm-number INT              The number of axes within the net
-  --spider-circle-number INT           The number of circles of the net
-  --spider-space-rad FLOAT             The distances between the circles
-  --spider-omit-center                 Omit the central node of the network
+  --spider.arm-number INT              The number of axes within the net
+  --spider.circle-number INT           The number of circles of the net
+  --spider.space-radius FLOAT          The distances between the circles
+  --spider.omit-center                 Omit the central node of the network
 
  Random Network Options:
-  -r, --random-net                     Forces NETGEN to build a random network
-  --rand-iterations INT                Describes how many times an edge shall
+  -r, --rand                           Forces NETGEN to build a random network
+  --rand.iterations INT                Describes how many times an edge shall
                                          be added to the net
-  --rand-bidi-probability FLOAT        Defines the probability to build a
+  --rand.bidi-probability FLOAT        Defines the probability to build a
                                          reverse edge
-  --rand-max-distance FLOAT            
-  --rand-min-distance FLOAT            
-  --rand-min-angle FLOAT               
-  --rand-num-tries INT                 
-  --rand-connectivity FLOAT            
-  --rand-neighbor-dist1 FLOAT          
-  --rand-neighbor-dist2 FLOAT          
-  --rand-neighbor-dist3 FLOAT          
-  --rand-neighbor-dist4 FLOAT          
-  --rand-neighbor-dist5 FLOAT          
-  --rand-neighbor-dist6 FLOAT          
+  --rand.max-distance FLOAT            
+  --rand.min-distance FLOAT            
+  --rand.min-angle FLOAT               
+  --rand.num-tries INT                 
+  --rand.connectivity FLOAT            
+  --rand.neighbor-dist1 FLOAT          
+  --rand.neighbor-dist2 FLOAT          
+  --rand.neighbor-dist3 FLOAT          
+  --rand.neighbor-dist4 FLOAT          
+  --rand.neighbor-dist5 FLOAT          
+  --rand.neighbor-dist6 FLOAT          
 
  Output Options:
   -o, --output-file FILE               The generated net will be written to

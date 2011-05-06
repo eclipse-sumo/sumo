@@ -1,1 +1,1 @@
---random-net -o net.net.xml --rand-iterations=200 --no-internal-links
+--rand -o net.net.xml --rand.iterations=200 --no-internal-links

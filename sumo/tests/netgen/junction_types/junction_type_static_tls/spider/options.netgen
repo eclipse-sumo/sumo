@@ -1,1 +1,1 @@
---default-junction-type traffic_light --spider-net --spider-arm-number=4 --spider-circle-number=1 --spider-space-rad=100 --output-file=net.net.xml -v
+--default-junction-type traffic_light --spider --spider.arm-number=4 --spider.circle-number=1 --spider.space-radius=100 --output-file=net.net.xml -v

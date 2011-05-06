@@ -4,91 +4,91 @@
 
     <grid_network>
         <!-- Forces NETGEN to build a grid-like network -->
-        <grid-net value="false" synonymes="g grid"/>
+        <grid value="false" synonymes="g grid-net"/>
 
         <!-- The number of junctions in both dirs -->
-        <grid-number value="5" synonymes="number"/>
+        <grid.number value="5" synonymes="grid-number number"/>
 
         <!-- The length of streets in both dirs -->
-        <grid-length value="100" synonymes="length"/>
+        <grid.length value="100" synonymes="grid-length length"/>
 
         <!-- The number of junctions in x-dir; Overrides --grid-number -->
-        <grid-x-number value="5" synonymes="x-no"/>
+        <grid.x-number value="5" synonymes="grid-x-number x-no"/>
 
         <!-- The number of junctions in y-dir; Overrides --grid-number -->
-        <grid-y-number value="5" synonymes="y-no"/>
+        <grid.y-number value="5" synonymes="grid-y-number y-no"/>
 
         <!-- The length of horizontal streets; Overrides --grid-length -->
-        <grid-x-length value="100" synonymes="x-length"/>
+        <grid.x-length value="100" synonymes="grid-x-length x-length"/>
 
         <!-- The length of vertical streets; Overrides --grid-length -->
-        <grid-y-length value="100" synonymes="y-length"/>
+        <grid.y-length value="100" synonymes="grid-y-length y-length"/>
 
         <!-- The length of streets attached at the boundary; 0 means no streets are attached -->
-        <attach-length value="0"/>
+        <grid.attach-length value="0" synonymes="attach-length"/>
 
     </grid_network>
 
     <spider_network>
         <!-- Forces NETGEN to build a spider-net-like network -->
-        <spider-net value="false" synonymes="s spider"/>
+        <spider value="false" synonymes="s spider-net"/>
 
         <!-- The number of axes within the net -->
-        <spider-arm-number value="13" synonymes="arms"/>
+        <spider.arm-number value="13" synonymes="arms spider-arm-number"/>
 
         <!-- The number of circles of the net -->
-        <spider-circle-number value="20" synonymes="circles"/>
+        <spider.circle-number value="20" synonymes="circles spider-circle-number"/>
 
         <!-- The distances between the circles -->
-        <spider-space-rad value="100" synonymes="radius"/>
+        <spider.space-radius value="100" synonymes="radius spider-space-rad"/>
 
         <!-- Omit the central node of the network -->
-        <spider-omit-center value="false" synonymes="nocenter"/>
+        <spider.omit-center value="false" synonymes="nocenter spider-omit-center"/>
 
     </spider_network>
 
     <random_network>
         <!-- Forces NETGEN to build a random network -->
-        <random-net value="false" synonymes="r"/>
+        <rand value="false" synonymes="r random-net"/>
 
         <!-- Describes how many times an edge shall be added to the net -->
-        <rand-iterations value="2000" synonymes="iterations"/>
+        <rand.iterations value="2000" synonymes="iterations rand-iterations"/>
 
         <!-- Defines the probability to build a reverse edge -->
-        <rand-bidi-probability value="1" synonymes="bidi"/>
+        <rand.bidi-probability value="1" synonymes="bidi rand-bidi-probability"/>
 
         <!--  -->
-        <rand-max-distance value="250" synonymes="max-dist"/>
+        <rand.max-distance value="250" synonymes="max-dist rand-max-distance"/>
 
         <!--  -->
-        <rand-min-distance value="100" synonymes="min-dist"/>
+        <rand.min-distance value="100" synonymes="min-dist rand-min-distance"/>
 
         <!--  -->
-        <rand-min-angle value="0.785398" synonymes="min-angle"/>
+        <rand.min-angle value="0.785398" synonymes="min-angle rand-min-anglee"/>
 
         <!--  -->
-        <rand-num-tries value="50" synonymes="num-tries"/>
+        <rand.num-tries value="50" synonymes="num-tries rand-num-tries"/>
 
         <!--  -->
-        <rand-connectivity value="0.95" synonymes="connectivity"/>
+        <rand.connectivity value="0.95" synonymes="connectivity rand-connectivity"/>
 
         <!--  -->
-        <rand-neighbor-dist1 value="0" synonymes="dist1"/>
+        <rand.neighbor-dist1 value="0" synonymes="dist1 rand-neighbor-dist1"/>
 
         <!--  -->
-        <rand-neighbor-dist2 value="0" synonymes="dist2"/>
+        <rand.neighbor-dist2 value="0" synonymes="dist2 rand-neighbor-dist2"/>
 
         <!--  -->
-        <rand-neighbor-dist3 value="10" synonymes="dist3"/>
+        <rand.neighbor-dist3 value="10" synonymes="dist3 rand-neighbor-dist3"/>
 
         <!--  -->
-        <rand-neighbor-dist4 value="10" synonymes="dist4"/>
+        <rand.neighbor-dist4 value="10" synonymes="dist4 rand-neighbor-dist4"/>
 
         <!--  -->
-        <rand-neighbor-dist5 value="2" synonymes="dist5"/>
+        <rand.neighbor-dist5 value="2" synonymes="dist5 rand-neighbor-dist5"/>
 
         <!--  -->
-        <rand-neighbor-dist6 value="1" synonymes="dist6"/>
+        <rand.neighbor-dist6 value="1" synonymes="dist6 rand-neighbor-dist6"/>
 
     </random_network>
 

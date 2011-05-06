@@ -3,39 +3,39 @@
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netgenConfiguration.xsd">
 
     <grid_network>
-        <grid-net value="false" synonymes="g grid"/>
-        <grid-number value="5" synonymes="number"/>
-        <grid-length value="100" synonymes="length"/>
-        <grid-x-number value="5" synonymes="x-no"/>
-        <grid-y-number value="5" synonymes="y-no"/>
-        <grid-x-length value="100" synonymes="x-length"/>
-        <grid-y-length value="100" synonymes="y-length"/>
-        <attach-length value="0"/>
+        <grid value="false" synonymes="g grid-net"/>
+        <grid.number value="5" synonymes="grid-number number"/>
+        <grid.length value="100" synonymes="grid-length length"/>
+        <grid.x-number value="5" synonymes="grid-x-number x-no"/>
+        <grid.y-number value="5" synonymes="grid-y-number y-no"/>
+        <grid.x-length value="100" synonymes="grid-x-length x-length"/>
+        <grid.y-length value="100" synonymes="grid-y-length y-length"/>
+        <grid.attach-length value="0" synonymes="attach-length"/>
     </grid_network>
 
     <spider_network>
-        <spider-net value="false" synonymes="s spider"/>
-        <spider-arm-number value="13" synonymes="arms"/>
-        <spider-circle-number value="20" synonymes="circles"/>
-        <spider-space-rad value="100" synonymes="radius"/>
-        <spider-omit-center value="false" synonymes="nocenter"/>
+        <spider value="false" synonymes="s spider-net"/>
+        <spider.arm-number value="13" synonymes="arms spider-arm-number"/>
+        <spider.circle-number value="20" synonymes="circles spider-circle-number"/>
+        <spider.space-radius value="100" synonymes="radius spider-space-rad"/>
+        <spider.omit-center value="false" synonymes="nocenter spider-omit-center"/>
     </spider_network>
 
     <random_network>
-        <random-net value="false" synonymes="r"/>
-        <rand-iterations value="2000" synonymes="iterations"/>
-        <rand-bidi-probability value="1" synonymes="bidi"/>
-        <rand-max-distance value="250" synonymes="max-dist"/>
-        <rand-min-distance value="100" synonymes="min-dist"/>
-        <rand-min-angle value="0.785398" synonymes="min-angle"/>
-        <rand-num-tries value="50" synonymes="num-tries"/>
-        <rand-connectivity value="0.95" synonymes="connectivity"/>
-        <rand-neighbor-dist1 value="0" synonymes="dist1"/>
-        <rand-neighbor-dist2 value="0" synonymes="dist2"/>
-        <rand-neighbor-dist3 value="10" synonymes="dist3"/>
-        <rand-neighbor-dist4 value="10" synonymes="dist4"/>
-        <rand-neighbor-dist5 value="2" synonymes="dist5"/>
-        <rand-neighbor-dist6 value="1" synonymes="dist6"/>
+        <rand value="false" synonymes="r random-net"/>
+        <rand.iterations value="2000" synonymes="iterations rand-iterations"/>
+        <rand.bidi-probability value="1" synonymes="bidi rand-bidi-probability"/>
+        <rand.max-distance value="250" synonymes="max-dist rand-max-distance"/>
+        <rand.min-distance value="100" synonymes="min-dist rand-min-distance"/>
+        <rand.min-angle value="0.785398" synonymes="min-angle rand-min-anglee"/>
+        <rand.num-tries value="50" synonymes="num-tries rand-num-tries"/>
+        <rand.connectivity value="0.95" synonymes="connectivity rand-connectivity"/>
+        <rand.neighbor-dist1 value="0" synonymes="dist1 rand-neighbor-dist1"/>
+        <rand.neighbor-dist2 value="0" synonymes="dist2 rand-neighbor-dist2"/>
+        <rand.neighbor-dist3 value="10" synonymes="dist3 rand-neighbor-dist3"/>
+        <rand.neighbor-dist4 value="10" synonymes="dist4 rand-neighbor-dist4"/>
+        <rand.neighbor-dist5 value="2" synonymes="dist5 rand-neighbor-dist5"/>
+        <rand.neighbor-dist6 value="1" synonymes="dist6 rand-neighbor-dist6"/>
     </random_network>
 
     <output>
