@@ -98,6 +98,7 @@ fillOptions() {
 bool
 checkOptions() {
     bool ok = NGFrame::checkOptions();
+    ok &= NBFrame::checkOptions();
     ok &= NWFrame::checkOptions();
     return ok;
 }
