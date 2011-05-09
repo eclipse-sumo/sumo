@@ -82,6 +82,7 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "netedit", "netedit\netedit.
 	ProjectSection(ProjectDependencies) = postProject
 		{BD855404-FA32-48AE-9AB3-FB8B3D71C8C6} = {BD855404-FA32-48AE-9AB3-FB8B3D71C8C6}
 		{91422FEF-2369-45E6-87AA-8B38709AD823} = {91422FEF-2369-45E6-87AA-8B38709AD823}
+		{91422FEF-2369-45E6-87AA-8B38709AD824} = {91422FEF-2369-45E6-87AA-8B38709AD824}
 	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "y_libnetbuild", "y_libnetbuild\y_libnetbuild.vcxproj", "{BD855404-FA32-48AE-9AB3-FB8B3D71C8C6}"
@@ -93,6 +94,8 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "z_libutils_distribution", "z_libutils_distribution\z_libutils_distribution.vcxproj", "{F5D8313C-621D-4CCE-A6DA-83EFFBDE7CE6}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "zz_foreign_eulerspiral", "zz_foreign_eulerspiral\zz_foreign_eulerspiral.vcxproj", "{50B2C273-2B6A-4A3A-BE24-83E3202DE180}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "y_libnetwrite", "y_libnetwrite\y_libnetwrite.vcxproj", "{91422FEF-2369-45E6-87AA-8B38709AD824}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -890,6 +893,26 @@ Global
 		{50B2C273-2B6A-4A3A-BE24-83E3202DE180}.Release|Win32.Build.0 = Release|Win32
 		{50B2C273-2B6A-4A3A-BE24-83E3202DE180}.Release|x64.ActiveCfg = Release|x64
 		{50B2C273-2B6A-4A3A-BE24-83E3202DE180}.Release|x64.Build.0 = Release|x64
+		{91422FEF-2369-45E6-87AA-8B38709AD824}.Debug|Win32.ActiveCfg = Debug|Win32
+		{91422FEF-2369-45E6-87AA-8B38709AD824}.Debug|Win32.Build.0 = Debug|Win32
+		{91422FEF-2369-45E6-87AA-8B38709AD824}.Debug|x64.ActiveCfg = Debug|x64
+		{91422FEF-2369-45E6-87AA-8B38709AD824}.Debug|x64.Build.0 = Debug|x64
+		{91422FEF-2369-45E6-87AA-8B38709AD824}.Fastbuild|Win32.ActiveCfg = Fastbuild|Win32
+		{91422FEF-2369-45E6-87AA-8B38709AD824}.Fastbuild|Win32.Build.0 = Fastbuild|Win32
+		{91422FEF-2369-45E6-87AA-8B38709AD824}.Fastbuild|x64.ActiveCfg = Fastbuild|x64
+		{91422FEF-2369-45E6-87AA-8B38709AD824}.Fastbuild|x64.Build.0 = Fastbuild|x64
+		{91422FEF-2369-45E6-87AA-8B38709AD824}.MesoDebug|Win32.ActiveCfg = Debug|Win32
+		{91422FEF-2369-45E6-87AA-8B38709AD824}.MesoDebug|Win32.Build.0 = Debug|Win32
+		{91422FEF-2369-45E6-87AA-8B38709AD824}.MesoDebug|x64.ActiveCfg = Debug|x64
+		{91422FEF-2369-45E6-87AA-8B38709AD824}.MesoDebug|x64.Build.0 = Debug|x64
+		{91422FEF-2369-45E6-87AA-8B38709AD824}.MesoRelease|Win32.ActiveCfg = Release|Win32
+		{91422FEF-2369-45E6-87AA-8B38709AD824}.MesoRelease|Win32.Build.0 = Release|Win32
+		{91422FEF-2369-45E6-87AA-8B38709AD824}.MesoRelease|x64.ActiveCfg = Release|x64
+		{91422FEF-2369-45E6-87AA-8B38709AD824}.MesoRelease|x64.Build.0 = Release|x64
+		{91422FEF-2369-45E6-87AA-8B38709AD824}.Release|Win32.ActiveCfg = Release|Win32
+		{91422FEF-2369-45E6-87AA-8B38709AD824}.Release|Win32.Build.0 = Release|Win32
+		{91422FEF-2369-45E6-87AA-8B38709AD824}.Release|x64.ActiveCfg = Release|x64
+		{91422FEF-2369-45E6-87AA-8B38709AD824}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
