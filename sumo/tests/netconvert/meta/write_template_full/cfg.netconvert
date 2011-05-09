@@ -50,14 +50,11 @@
     </tls_building>
 
     <ramp_guessing>
-        <guess-ramps value="false"/>
-        <ramp-guess.max-ramp-speed value="-1"/>
-        <ramp-guess.min-highway-speed value="21.9444"/>
-        <ramp-guess.ramp-length value="100"/>
-        <ramp-guess.explicite value=""/>
-        <guess-obscure-ramps value="false"/>
-        <obscure-ramps.add-ramp value="false"/>
-        <obscure-ramps.min-highway-speed value="27.7778"/>
+        <ramps.guess value="false" synonymes="guess-ramps"/>
+        <ramps.max-ramp-speed value="-1" synonymes="ramp-guess.max-ramp-speed"/>
+        <ramps.min-highway-speed value="21.9444" synonymes="ramp-guess.min-highway-speed"/>
+        <ramps.ramp-length value="100" synonymes="ramp-guess.ramp-length"/>
+        <ramps.set value="" synonymes="ramp-guess.explicite"/>
     </ramp_guessing>
 
     <edge_removal>

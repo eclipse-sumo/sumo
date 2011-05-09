@@ -1,4 +1,4 @@
-SUMO netconvert Version dev-SVN-r10255
+SUMO netconvert Version dev-SVN-r10263
  Copyright (C) 2001-2011 DLR and contributors; http://sumo.sourceforge.net
  
 Road network importer / builder for the road traffic simulation SUMO.
@@ -79,16 +79,13 @@ Usage: netconvert [OPTION]*
                                          quarter-phase
 
  Ramp Guessing Options:
-  --guess-ramps                        Enable ramp-guessing
-  --ramp-guess.max-ramp-speed FLOAT    Treat edges with speed > FLOAT as no
+  --ramps.guess                        Enable ramp-guessing
+  --ramps.max-ramp-speed FLOAT         Treat edges with speed > FLOAT as no
                                          ramps
-  --ramp-guess.min-highway-speed FLOAT  Treat edges with speed < FLOAT as no
+  --ramps.min-highway-speed FLOAT      Treat edges with speed < FLOAT as no
                                          highways
-  --ramp-guess.ramp-length FLOAT       Use FLOAT as ramp-length
-  --ramp-guess.explicite STR           Tries to handle the given edges as ramps
-  --guess-obscure-ramps                
-  --obscure-ramps.add-ramp             
-  --obscure-ramps.min-highway-speed FLOAT  
+  --ramps.ramp-length FLOAT            Use FLOAT as ramp-length
+  --ramps.set STR                      Tries to handle the given edges as ramps
 
  Edge Removal Options:
   --edges-min-speed FLOAT              Remove edges with speed < FLOAT

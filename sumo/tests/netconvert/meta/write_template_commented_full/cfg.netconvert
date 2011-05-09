@@ -121,28 +121,19 @@
 
     <ramp_guessing>
         <!-- Enable ramp-guessing -->
-        <guess-ramps value="false"/>
+        <ramps.guess value="false" synonymes="guess-ramps"/>
 
         <!-- Treat edges with speed > FLOAT as no ramps -->
-        <ramp-guess.max-ramp-speed value="-1"/>
+        <ramps.max-ramp-speed value="-1" synonymes="ramp-guess.max-ramp-speed"/>
 
         <!-- Treat edges with speed < FLOAT as no highways -->
-        <ramp-guess.min-highway-speed value="21.9444"/>
+        <ramps.min-highway-speed value="21.9444" synonymes="ramp-guess.min-highway-speed"/>
 
         <!-- Use FLOAT as ramp-length -->
-        <ramp-guess.ramp-length value="100"/>
+        <ramps.ramp-length value="100" synonymes="ramp-guess.ramp-length"/>
 
         <!-- Tries to handle the given edges as ramps -->
-        <ramp-guess.explicite value=""/>
-
-        <!--  -->
-        <guess-obscure-ramps value="false"/>
-
-        <!--  -->
-        <obscure-ramps.add-ramp value="false"/>
-
-        <!--  -->
-        <obscure-ramps.min-highway-speed value="27.7778"/>
+        <ramps.set value="" synonymes="ramp-guess.explicite"/>
 
     </ramp_guessing>
 
