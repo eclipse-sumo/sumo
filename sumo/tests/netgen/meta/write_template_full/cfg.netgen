@@ -41,9 +41,7 @@
     <output>
         <output-file value="net.net.xml" synonymes="o output"/>
         <plain-output value=""/>
-        <node-geometry-dump value=""/>
         <map-output value="" synonymes="M"/>
-        <node-type-output value=""/>
         <output-format value="sumo"/>
     </output>
 

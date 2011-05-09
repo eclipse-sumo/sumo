@@ -659,7 +659,6 @@ NBNodeCont::getFreeID() {
 
 void
 NBNodeCont::computeNodeShapes(bool leftHand) {
-    OutputDevice::createDeviceByOption("node-geometry-dump", "pois");
     for (NodeCont::iterator i=myNodes.begin(); i!=myNodes.end(); i++) {
         (*i).second->computeNodeShape(leftHand);
     }

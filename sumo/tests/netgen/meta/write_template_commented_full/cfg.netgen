@@ -99,14 +99,8 @@
         <!-- Prefix of files to write plain xml nodes, edges and connections to -->
         <plain-output value=""/>
 
-        <!-- Writes node corner positions to FILE -->
-        <node-geometry-dump value=""/>
-
         <!-- Writes joined edges information to FILE -->
         <map-output value="" synonymes="M"/>
-
-        <!-- Writes pois of node types to FILE -->
-        <node-type-output value=""/>
 
         <!-- Determines the output format to use -->
         <output-format value="sumo"/>

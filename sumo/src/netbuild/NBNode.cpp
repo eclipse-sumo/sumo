@@ -1182,32 +1182,6 @@ NBNode::sortNodesEdges(bool leftHand, const NBTypeCont &tc) {
         myType = computeType(tc);
     }
     setPriorities();
-    // write if wished
-    if (OptionsCont::getOptions().isSet("node-type-output")) {
-        std::string col;
-        switch (myType) {
-        case NODETYPE_NOJUNCTION:
-            col = ".5,.5,.5";
-            break;
-        case NODETYPE_PRIORITY_JUNCTION:
-            col = "0,1,0";
-            break;
-        case NODETYPE_RIGHT_BEFORE_LEFT:
-            col = "0,0,1";
-            break;
-        case NODETYPE_DISTRICT:
-            col = "1,0,0";
-            break;
-        case NODETYPE_TRAFFIC_LIGHT:
-            col = "1,1,0";
-            break;
-        default:
-            col = "0,1,1";
-        }
-        OutputDevice::getDeviceByOption("node-type-output") << "   <poi id=\"type_" << myID
-        << "\" type=\"node_type\" color=\"" << col << "\""
-        << " x=\"" << getPosition().x() << "\" y=\"" << getPosition().y() << "\"/>\n";
-    }
 }
 
 

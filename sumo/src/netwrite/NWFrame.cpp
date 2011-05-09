@@ -49,6 +49,16 @@ void
 NWFrame::fillOptions() {
     OptionsCont &oc = OptionsCont::getOptions();
     // register options
+    oc.doRegister("output-file", 'o', new Option_FileName("net.net.xml"));
+    oc.addSynonyme("output-file", "output");
+    oc.addDescription("output-file", "Output", "The generated net will be written to FILE");
+
+    oc.doRegister("plain-output", new Option_FileName());
+    oc.addDescription("plain-output", "Output", "Prefix of files to write plain xml nodes, edges and connections to");
+
+    oc.doRegister("map-output", 'M', new Option_FileName());
+    oc.addDescription("map-output", "Output", "Writes joined edges information to FILE");
+
     oc.doRegister("output-format", new Option_String("sumo"));
     oc.addDescription("output-format", "Output", "Determines the output format to use");
 }

@@ -184,7 +184,6 @@ NBNetBuilder::compute(OptionsCont &oc) throw(ProcessError) {
     inform(step, "Computing turning directions.");
     myEdgeCont.computeTurningDirections();
     //
-    OutputDevice::createDeviceByOption("node-type-output", "pois");
     inform(step, "Sorting nodes' edges.");
     myNodeCont.sortNodesEdges(oc.getBool("lefthand"), myTypeCont);
     //
