@@ -37,7 +37,7 @@ Usage: netconvert [OPTION]*
   --matsim-files FILE                  Read MATSim-net from FILE
 
  Output Options:
-  -o, --output-file FILE               The generated net will be written to
+  -o, --output FILE                    The generated net will be written to
                                          FILE
   --plain-output FILE                  Prefix of files to write plain xml
                                          nodes, edges and connections to

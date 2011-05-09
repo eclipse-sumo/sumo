@@ -219,11 +219,6 @@ NGFrame::checkOptions() {
             ok = false;
         }
     }
-    // check whether the output is valid and can be build
-    if (!oc.isSet("output-file")) {
-        MsgHandler::getErrorInstance()->inform("No output specified.");
-        ok = false;
-    }
     return ok;
 }
 

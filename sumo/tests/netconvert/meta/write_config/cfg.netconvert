@@ -9,7 +9,7 @@
     </input>
 
     <output>
-        <output-file value="net.net.xml"/>
+        <output value="net.net.xml"/>
     </output>
 
     <processing>

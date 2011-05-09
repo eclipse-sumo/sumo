@@ -67,7 +67,7 @@ Usage: netgen [OPTION]*
   --rand.neighbor-dist6 FLOAT          
 
  Output Options:
-  -o, --output-file FILE               The generated net will be written to
+  -o, --output FILE                    The generated net will be written to
                                          FILE
   --plain-output FILE                  Prefix of files to write plain xml
                                          nodes, edges and connections to

@@ -49,9 +49,9 @@ void
 NWFrame::fillOptions() {
     OptionsCont &oc = OptionsCont::getOptions();
     // register options
-    oc.doRegister("output-file", 'o', new Option_FileName("net.net.xml"));
-    oc.addSynonyme("output-file", "output");
-    oc.addDescription("output-file", "Output", "The generated net will be written to FILE");
+    oc.doRegister("output", 'o', new Option_FileName("net.net.xml"));
+    oc.addSynonyme("output", "output-file", true);
+    oc.addDescription("output", "Output", "The generated net will be written to FILE");
 
     oc.doRegister("plain-output", new Option_FileName());
     oc.addDescription("plain-output", "Output", "Prefix of files to write plain xml nodes, edges and connections to");
@@ -67,6 +67,12 @@ NWFrame::fillOptions() {
 bool
 NWFrame::checkOptions() {
     OptionsCont &oc = OptionsCont::getOptions();
+    bool ok = true;
+    // check whether the output is valid and can be build
+    if (!oc.isSet("output")) {
+        MsgHandler::getErrorInstance()->inform("No output specified.");
+        ok = false;
+    }
 	// check whether the output format is known
 	bool ok1 = false;
 	std::string outputFormat = oc.getString("output-format");
@@ -74,8 +80,8 @@ NWFrame::checkOptions() {
 	if(outputFormat=="matsim") ok1 = true;
 	if(!ok1) {
 		MsgHandler::getErrorInstance()->inform("Unknown output format '" + outputFormat + "'.");
+        ok = false;
 	}
-	bool ok = ok1;
 	//
     return ok;
 }

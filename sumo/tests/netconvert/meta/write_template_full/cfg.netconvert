@@ -19,7 +19,7 @@
     </input>
 
     <output>
-        <output-file value="net.net.xml" synonymes="o output"/>
+        <output value="net.net.xml" synonymes="o output-file"/>
         <plain-output value=""/>
         <map-output value="" synonymes="M"/>
         <output-format value="sumo"/>

@@ -46,7 +46,7 @@
 
     <output>
         <!-- The generated net will be written to FILE -->
-        <output-file value="net.net.xml" synonymes="o output"/>
+        <output value="net.net.xml" synonymes="o output-file"/>
 
         <!-- Prefix of files to write plain xml nodes, edges and connections to -->
         <plain-output value=""/>
