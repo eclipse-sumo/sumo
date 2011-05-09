@@ -1,1 +1,1 @@
---grid --grid.y-number=0 --grid.length=400 --output-file=net.net.xml
+--grid --grid.y-number=0 --grid.length=400 --output=net.net.xml

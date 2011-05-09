@@ -1,1 +1,1 @@
---grid --spider --grid.number=10 --grid.length=400 --output-file=net.net.xml
+--grid --spider --grid.number=10 --grid.length=400 --output=net.net.xml

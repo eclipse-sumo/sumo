@@ -1,1 +1,1 @@
---dismiss-vclasses --edge-files=input_edges.edg.xml --node-files=input_nodes.nod.xml --output-file=net.net.xml --speed-in-kmh
+--dismiss-vclasses --edge-files=input_edges.edg.xml --node-files=input_nodes.nod.xml --output=net.net.xml --speed-in-kmh

@@ -1,1 +1,1 @@
---no-internal-links --dismiss-vclasses --dlr-navteq-prefix=elmar --output-file=net.net.xml -v
+--no-internal-links --dismiss-vclasses --dlr-navteq-prefix=elmar --output=net.net.xml -v
