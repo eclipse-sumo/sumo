@@ -752,15 +752,13 @@ NBNodeCont::mayNeedOnRamp(OptionsCont &oc, NBNode *cur) const {
 
         // check conditions
         // is it really a highway?
-        if (pot_highway->getSpeed()<oc.getFloat("ramp-guess.min-highway-speed")
-                ||
-                cont->getSpeed()<oc.getFloat("ramp-guess.min-highway-speed")) {
+        SUMOReal minHighwaySpeed = oc.getFloat("ramps.min-highway-speed");
+        if (pot_highway->getSpeed()<minHighwaySpeed || cont->getSpeed()<minHighwaySpeed) {
             return false;
         }
         // is it really a ramp?
-        if (oc.getFloat("ramp-guess.max-ramp-speed")>0
-                &&
-                oc.getFloat("ramp-guess.max-ramp-speed")<pot_ramp->getSpeed()) {
+        SUMOReal maxRampSpeed = oc.getFloat("ramps.max-ramp-speed");
+        if (maxRampSpeed>0 && maxRampSpeed<pot_ramp->getSpeed()) {
             return false;
         }
 
@@ -797,7 +795,7 @@ NBNodeCont::buildOnRamp(OptionsCont &oc, NBNode *cur,
     }
 
     //
-    if (cont->getGeometry().length()-POSITION_EPS<=oc.getFloat("ramp-guess.ramp-length")) {
+    if (cont->getGeometry().length()-POSITION_EPS<=oc.getFloat("ramps.ramp-length")) {
         // the edge is shorter than the wished ramp
         //  append a lane only
         if (find(incremented.begin(), incremented.end(), cont)==incremented.end()) {
@@ -838,7 +836,7 @@ NBNodeCont::buildOnRamp(OptionsCont &oc, NBNode *cur,
         NBNode *rn =
             new NBNode(cont->getID() + "-AddedOnRampNode",
                        cont->getGeometry().positionAtLengthPosition(
-                           oc.getFloat("ramp-guess.ramp-length")));
+                           oc.getFloat("ramps.ramp-length")));
         if (!insert(rn)) {
             throw ProcessError("Ups - could not build on-ramp for edge '" + pot_highway->getID() + "' (node could not be build)!");
         }
@@ -913,7 +911,7 @@ NBNodeCont::buildOffRamp(OptionsCont &oc, NBNode *cur,
         return;
     }
     // append on-ramp
-    if (prev->getGeometry().length()-POSITION_EPS<=oc.getFloat("ramp-guess.ramp-length")) {
+    if (prev->getGeometry().length()-POSITION_EPS<=oc.getFloat("ramps.ramp-length")) {
         // the edge is shorter than the wished ramp
         //  append a lane only
         if (find(incremented.begin(), incremented.end(), prev)==incremented.end()) {
@@ -947,7 +945,7 @@ NBNodeCont::buildOffRamp(OptionsCont &oc, NBNode *cur,
     } else {
         Position2D pos =
             prev->getGeometry().positionAtLengthPosition(
-                prev->getGeometry().length()-oc.getFloat("ramp-guess.ramp-length"));
+                prev->getGeometry().length()-oc.getFloat("ramps.ramp-length"));
         NBNode *rn = new NBNode(prev->getID() + "-AddedOffRampNode", pos);
         if (!insert(rn)) {
             throw ProcessError("Ups - could not build off-ramp for edge '" + pot_highway->getID() + "' (node could not be build)!");
@@ -1032,15 +1030,13 @@ NBNodeCont::mayNeedOffRamp(OptionsCont &oc, NBNode *cur) const {
 
         // check conditions
         // is it really a highway?
-        if (pot_highway->getSpeed()<oc.getFloat("ramp-guess.min-highway-speed")
-                ||
-                prev->getSpeed()<oc.getFloat("ramp-guess.min-highway-speed")) {
+        SUMOReal minHighwaySpeed = oc.getFloat("ramps.min-highway-speed");
+        if (pot_highway->getSpeed()<minHighwaySpeed || prev->getSpeed()<minHighwaySpeed) {
             return false;
         }
         // is it really a ramp?
-        if (oc.getFloat("ramp-guess.max-ramp-speed")>0
-                &&
-                oc.getFloat("ramp-guess.max-ramp-speed")<pot_ramp->getSpeed()) {
+        SUMOReal maxRampSpeed = oc.getFloat("ramps.max-ramp-speed");
+        if (maxRampSpeed>0 && maxRampSpeed<pot_ramp->getSpeed()) {
             return false;
         }
 
@@ -1068,85 +1064,8 @@ NBNodeCont::guessRamps(OptionsCont &oc, NBEdgeCont &ec,
                        NBDistrictCont &dc) {
     std::vector<NBEdge*> incremented;
     bool bEdgeDeleted=false;
-    // check whether obsure highway connections shall be checked
-    if (oc.getBool("guess-obscure-ramps")) {
-        for (NodeCont::iterator i=myNodes.begin(); i!=myNodes.end(); i++) {
-            NBNode *cur = (*i).second;
-            const EdgeVector &inc = cur->getIncomingEdges();
-            const EdgeVector &out = cur->getOutgoingEdges();
-            if (inc.size()!=2||out.size()!=2) {
-                continue;
-            }
-            {
-                bool hadInHighway = false;
-                for (EdgeVector::const_iterator j=inc.begin(); j!=inc.end(); ++j) {
-                    if ((*j)->getSpeed()>oc.getFloat("obscure-ramps.min-highway-speed")) {
-
-                        hadInHighway = true;
-                    }
-                }
-                if (!hadInHighway) {
-                    continue;
-                }
-            }
-            {
-                bool hadOutHighway = false;
-                for (EdgeVector::const_iterator j=out.begin(); j!=out.end(); ++j) {
-                    if ((*j)->getSpeed()>oc.getFloat("obscure-ramps.min-highway-speed")) {
-
-                        hadOutHighway = true;
-                    }
-                }
-                if (!hadOutHighway) {
-                    continue;
-                }
-            }
-            // ok, something is strange:
-            //  we do have a highway, here with an off- and an on-ramp on the same node!?
-            // try to place the incoming before...
-            //  ... determine a possible position, first
-            NBEdge *inc_highway = inc[0];
-            NBEdge *inc_ramp = inc[1];
-            NBEdge *out_highway = out[0];
-            NBEdge *out_ramp = out[1];
-            checkHighwayRampOrder(inc_highway, inc_ramp);
-            checkHighwayRampOrder(out_highway, out_ramp);
-
-            if (100>inc_highway->getToNode()->getPosition().distanceTo(inc_ramp->getGeometry()[-1])) {
-                Position2DVector tmp = inc_ramp->getGeometry();
-                tmp.eraseAt(-1);
-                inc_ramp->setGeometry(tmp);
-            }
-            SUMOReal pos =
-                inc_highway->getGeometry().nearest_position_on_line_to_point(
-                    inc_ramp->getGeometry()[-1]);
-            if (pos<0) {
-                continue;
-            }
-            Position2D p = inc_highway->getGeometry().positionAtLengthPosition(pos);
-            NBNode *rn =
-                new NBNode(inc_highway->getID() + "-AddedAntiObscureNode", p);
-            if (!insert(rn)) {
-                throw ProcessError("Ups - could not build anti-obscure node '" + inc_highway->getID() + "'!");
-
-            }
-            std::string name = inc_highway->getID();
-            bool ok = ec.splitAt(dc, inc_highway, rn,
-                                 inc_highway->getID(), inc_highway->getID()+"-AddedInBetweenEdge",
-                                 inc_highway->getNoLanes(), inc_highway->getNoLanes());
-            if (!ok) {
-                throw ProcessError("Ups - could not build anti-obscure edge '" + inc_highway->getID() + "'!");
-
-            } else {
-                NBEdge *added_cont = ec.retrieve(name+"-AddedInBetweenEdge");
-                NBEdge *added = ec.retrieve(name);
-                added_cont->getToNode()->removeIncoming(out_ramp);
-                added->getToNode()->addIncomingEdge(out_ramp);
-            }
-        }
-    }
     // check whether on-off ramps shall be guessed
-    if (oc.getBool("guess-ramps")) {
+    if (oc.getBool("ramps.guess")) {
         for (NodeCont::iterator i=myNodes.begin(); i!=myNodes.end(); i++) {
             NBNode *cur = (*i).second;
             if (mayNeedOnRamp(oc, cur)) {
@@ -1158,8 +1077,8 @@ NBNodeCont::guessRamps(OptionsCont &oc, NBEdgeCont &ec,
         }
     }
     // check whether on-off ramps shall be guessed
-    if (oc.isSet("ramp-guess.explicite")) {
-        std::vector<std::string> edges = oc.getStringVector("ramp-guess.explicite");
+    if (oc.isSet("ramps.set")) {
+        std::vector<std::string> edges = oc.getStringVector("ramps.set");
         for (std::vector<std::string>::iterator i=edges.begin(); i!=edges.end(); ++i) {
             NBEdge *e = ec.retrieve(*i);
             if (e==0) {
