@@ -164,8 +164,8 @@ NBNetBuilder::compute(OptionsCont &oc) throw(ProcessError) {
     }
     //
     inform(step, "Guessing and setting TLs.");
-    if (oc.isSet("explicite-tls")) {
-        std::vector<std::string> tlControlledNodes = oc.getStringVector("explicite-tls");
+    if (oc.isSet("tls.set")) {
+        std::vector<std::string> tlControlledNodes = oc.getStringVector("tls.set");
         for (std::vector<std::string>::const_iterator i=tlControlledNodes.begin(); i!=tlControlledNodes.end(); ++i) {
             NBNode *node = myNodeCont.retrieve(*i);
             if (node==0) {
@@ -177,7 +177,7 @@ NBNetBuilder::compute(OptionsCont &oc) throw(ProcessError) {
     }
     myNodeCont.guessTLs(oc, myTLLCont);
     //
-    if (oc.getBool("try-join-tls")) {
+    if (oc.getBool("tls.join")) {
         myNodeCont.joinTLS(myTLLCont);
     }
     //

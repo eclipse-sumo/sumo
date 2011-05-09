@@ -292,7 +292,7 @@ NBLoadedTLDef::myCompute(const NBEdgeCont &ec, unsigned int brakingTime) throw()
         // needed later
         group->sortPhases();
         // patch the yellow time for this group
-        if (OptionsCont::getOptions().getBool("patch-small-tyellow")) {
+        if (OptionsCont::getOptions().getBool("tls.yellow.patch-small")) {
             group->patchTYellow(brakingTime);
         }
         // copy the now valid times into the container

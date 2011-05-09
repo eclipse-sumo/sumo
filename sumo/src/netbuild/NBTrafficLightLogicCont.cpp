@@ -56,13 +56,13 @@ void
 NBTrafficLightLogicCont::applyOptions(OptionsCont &oc) throw() {
     // check whether any offsets shall be manipulated by setting
     //  them to half of the duration
-    if (oc.isSet("tl-logics.half-offset")) {
-        myHalfOffsetTLS = oc.getStringVector("tl-logics.half-offset");
+    if (oc.isSet("tls.half-offset")) {
+        myHalfOffsetTLS = oc.getStringVector("tls.half-offset");
     }
     // check whether any offsets shall be manipulated by setting
     //  them to a quarter of the duration
-    if (oc.isSet("tl-logics.quarter-offset")) {
-        myQuarterOffsetTLS = oc.getStringVector("tl-logics.quarter-offset");
+    if (oc.isSet("tls.quarter-offset")) {
+        myQuarterOffsetTLS = oc.getStringVector("tls.quarter-offset");
     }
 }
 

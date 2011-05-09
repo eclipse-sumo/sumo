@@ -242,8 +242,8 @@ void
 NBNodeCont::guessTLs(OptionsCont &oc, NBTrafficLightLogicCont &tlc) {
     // build list of definitely not tls-controlled junctions
     std::vector<NBNode*> ncontrolled;
-    if (oc.isSet("explicite-no-tls")) {
-        std::vector<std::string> notTLControlledNodes = oc.getStringVector("explicite-no-tls");
+    if (oc.isSet("tls.unset")) {
+        std::vector<std::string> notTLControlledNodes = oc.getStringVector("tls.unset");
         for (std::vector<std::string>::const_iterator i=notTLControlledNodes.begin(); i!=notTLControlledNodes.end(); ++i) {
             NBNode *n = NBNodeCont::retrieve(*i);
             if (n==0) {
@@ -260,7 +260,7 @@ NBNodeCont::guessTLs(OptionsCont &oc, NBTrafficLightLogicCont &tlc) {
 
     // loop#1 checking whether the node shall be tls controlled,
     //  because it is assigned to a district
-    if (oc.getBool("tls-guess.district-nodes")) {
+    if (oc.getBool("tls.taz-nodes")) {
         for (NodeCont::iterator i=myNodes.begin(); i!=myNodes.end(); i++) {
             NBNode *cur = (*i).second;
             if (cur->isNearDistrict()&&find(ncontrolled.begin(), ncontrolled.end(), cur)==ncontrolled.end()) {
@@ -270,7 +270,7 @@ NBNodeCont::guessTLs(OptionsCont &oc, NBTrafficLightLogicCont &tlc) {
     }
 
     // maybe no tls shall be guessed
-    if (!oc.getBool("guess-tls")) {
+    if (!oc.getBool("tls.guess")) {
         return;
     }
 

@@ -220,10 +220,7 @@ NBOwnTLDef::myCompute(const NBEdgeCont &,
             chosen = getBestPair(toProc);
         }
         unsigned int pos = 0;
-        unsigned int duration = 31;
-        if (OptionsCont::getOptions().isSet("traffic-light-green")) {
-            duration = OptionsCont::getOptions().getInt("traffic-light-green");
-        }
+        unsigned int duration = OptionsCont::getOptions().getInt("tls.green.time");
         std::string state((size_t) noLinksAll, 'o');
         // plain straight movers
         for (unsigned int i1=0; i1<(unsigned int) incoming.size(); ++i1) {
