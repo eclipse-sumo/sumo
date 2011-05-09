@@ -179,22 +179,6 @@ NBTrafficLightDefinition::collectLinks() throw(ProcessError) {
 }
 
 
-std::pair<unsigned int, unsigned int>
-NBTrafficLightDefinition::getSizes() const throw() {
-    unsigned int noLanes = 0;
-    unsigned int noLinks = 0;
-    for (EdgeVector::const_iterator i=myIncomingEdges.begin(); i!=myIncomingEdges.end(); i++) {
-        unsigned int noLanesEdge = (*i)->getNoLanes();
-        for (unsigned int j=0; j<noLanesEdge; j++) {
-            assert((*i)->getConnectionsFromLane(j).size()!=0);
-            noLinks += (unsigned int)(*i)->getConnectionsFromLane(j).size();
-        }
-        noLanes += noLanesEdge;
-    }
-    return std::pair<unsigned int, unsigned int>(noLanes, noLinks);
-}
-
-
 bool
 NBTrafficLightDefinition::isLeftMover(const NBEdge * const from,const NBEdge * const to) const throw() {
     // the destination edge may be unused

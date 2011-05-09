@@ -273,12 +273,6 @@ protected:
                                            unsigned int brakingTime) throw() = 0;
 
 
-    /** @brief Returns a pair of <number participating lanes, number participating links>
-     * @return The numbers of lanes and links controlled by this tls
-     */
-    std::pair<unsigned int, unsigned int> getSizes() const throw();
-
-
     /** @brief Collects the links participating in this traffic light
      * @exception ProcessError If a link could not be found
      */
