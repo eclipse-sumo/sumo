@@ -82,40 +82,40 @@
 
     <tls_building>
         <!-- Interprets STR as list of junctions to be controlled by TLS -->
-        <explicite-tls value=""/>
+        <tls.set value="" synonymes="explicite-tls"/>
 
         <!-- Interprets STR as list of junctions to be not controlled by TLS -->
-        <explicite-no-tls value=""/>
+        <tls.unset value="" synonymes="explicite-no-tls"/>
 
         <!-- Turns on TLS guessing -->
-        <guess-tls value="false"/>
+        <tls.guess value="false" synonymes="guess-tls"/>
 
         <!-- Sets district nodes as tls-controlled -->
-        <tls-guess.district-nodes value="false"/>
+        <tls.taz-nodes value="false" synonymes="tls-guess.district-nodes"/>
 
         <!-- Includes node clusters into guess -->
         <tls-guess.joining value="false"/>
 
         <!-- Tries to cluster tls-controlled nodes -->
-        <try-join-tls value="false"/>
-
-        <!-- Defines smallest vehicle deceleration -->
-        <min-decel value="3" synonymes="D"/>
-
-        <!-- Given yellow times are patched even if being too short -->
-        <patch-small-tyellow value="false"/>
+        <tls.join value="false" synonymes="try-join-tls"/>
 
         <!-- Use INT as green phase duration -->
-        <traffic-light-green value=""/>
+        <tls.green.time value="31" synonymes="traffic-light-green"/>
+
+        <!-- Defines smallest vehicle deceleration -->
+        <tls.yellow.min-decel value="3" synonymes="D min-decel"/>
+
+        <!-- Given yellow times are patched even if being too short -->
+        <tls.yellow.patch-small value="false" synonymes="patch-small-tyellow"/>
 
         <!-- Set INT as fixed time for yellow phase durations -->
-        <traffic-light-yellow value=""/>
+        <tls.yellow.time value="" synonymes="traffic-light-yellow"/>
 
         <!-- TLSs in STR will be shifted by half-phase -->
-        <tl-logics.half-offset value=""/>
+        <tls.half-offset value="" synonymes="tl-logics.half-offset"/>
 
         <!-- TLSs in STR will be shifted by quarter-phase -->
-        <tl-logics.quarter-offset value=""/>
+        <tls.quarter-offset value="" synonymes="tl-logics.quarter-offset"/>
 
     </tls_building>
 

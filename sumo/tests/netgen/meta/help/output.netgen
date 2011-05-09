@@ -1,4 +1,4 @@
-SUMO netgen Version dev-SVN-r10253
+SUMO netgen Version dev-SVN-r10255
  Copyright (C) 2001-2011 DLR and contributors; http://sumo.sourceforge.net
  
 Road network generator for the microscopic road traffic simulation SUMO.
@@ -75,23 +75,23 @@ Usage: netgen [OPTION]*
   --output-format STR                  Determines the output format to use
 
  TLS Building Options:
-  --explicite-tls STR                  Interprets STR as list of junctions to
+  --tls.set STR                        Interprets STR as list of junctions to
                                          be controlled by TLS
-  --explicite-no-tls STR               Interprets STR as list of junctions to
+  --tls.unset STR                      Interprets STR as list of junctions to
                                          be not controlled by TLS
-  --guess-tls                          Turns on TLS guessing
-  --tls-guess.district-nodes           Sets district nodes as tls-controlled
+  --tls.guess                          Turns on TLS guessing
+  --tls.taz-nodes                      Sets district nodes as tls-controlled
   --tls-guess.joining                  Includes node clusters into guess
-  --try-join-tls                       Tries to cluster tls-controlled nodes
-  -D, --min-decel FLOAT                Defines smallest vehicle deceleration
-  --patch-small-tyellow                Given yellow times are patched even if
+  --tls.join                           Tries to cluster tls-controlled nodes
+  --tls.green.time INT                 Use INT as green phase duration
+  -D, --tls.yellow.min-decel FLOAT     Defines smallest vehicle deceleration
+  --tls.yellow.patch-small             Given yellow times are patched even if
                                          being too short
-  --traffic-light-green INT            Use INT as green phase duration
-  --traffic-light-yellow INT           Set INT as fixed time for yellow phase
+  --tls.yellow.time INT                Set INT as fixed time for yellow phase
                                          durations
-  --tl-logics.half-offset STR          TLSs in STR will be shifted by
+  --tls.half-offset STR                TLSs in STR will be shifted by
                                          half-phase
-  --tl-logics.quarter-offset STR       TLSs in STR will be shifted by
+  --tls.quarter-offset STR             TLSs in STR will be shifted by
                                          quarter-phase
 
  Ramp Guessing Options:

@@ -35,18 +35,18 @@
     </projection>
 
     <tls_building>
-        <explicite-tls value=""/>
-        <explicite-no-tls value=""/>
-        <guess-tls value="false"/>
-        <tls-guess.district-nodes value="false"/>
+        <tls.set value="" synonymes="explicite-tls"/>
+        <tls.unset value="" synonymes="explicite-no-tls"/>
+        <tls.guess value="false" synonymes="guess-tls"/>
+        <tls.taz-nodes value="false" synonymes="tls-guess.district-nodes"/>
         <tls-guess.joining value="false"/>
-        <try-join-tls value="false"/>
-        <min-decel value="3" synonymes="D"/>
-        <patch-small-tyellow value="false"/>
-        <traffic-light-green value=""/>
-        <traffic-light-yellow value=""/>
-        <tl-logics.half-offset value=""/>
-        <tl-logics.quarter-offset value=""/>
+        <tls.join value="false" synonymes="try-join-tls"/>
+        <tls.green.time value="31" synonymes="traffic-light-green"/>
+        <tls.yellow.min-decel value="3" synonymes="D min-decel"/>
+        <tls.yellow.patch-small value="false" synonymes="patch-small-tyellow"/>
+        <tls.yellow.time value="" synonymes="traffic-light-yellow"/>
+        <tls.half-offset value="" synonymes="tl-logics.half-offset"/>
+        <tls.quarter-offset value="" synonymes="tl-logics.quarter-offset"/>
     </tls_building>
 
     <ramp_guessing>
