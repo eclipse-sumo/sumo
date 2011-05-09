@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -142,6 +142,7 @@
     <ClCompile Include="..\..\..\src\netbuild\NBDistrictCont.cpp" />
     <ClCompile Include="..\..\..\src\netbuild\NBEdge.cpp" />
     <ClCompile Include="..\..\..\src\netbuild\NBEdgeCont.cpp" />
+    <ClCompile Include="..\..\..\src\netbuild\NBFrame.cpp" />
     <ClCompile Include="..\..\..\src\netbuild\NBHelpers.cpp" />
     <ClCompile Include="..\..\..\src\netbuild\NBJoinedEdgesMap.cpp" />
     <ClCompile Include="..\..\..\src\netbuild\NBJunctionLogicCont.cpp" />
@@ -171,6 +172,7 @@
     <ClInclude Include="..\..\..\src\netbuild\NBEdge.h" />
     <ClInclude Include="..\..\..\src\netbuild\NBEdgeCont.h" />
     <ClInclude Include="..\..\..\src\netbuild\NBHelpers.h" />
+    <ClInclude Include="..\..\..\src\netbuild\NBFrame.h" />
     <ClInclude Include="..\..\..\src\netbuild\NBJoinedEdgesMap.h" />
     <ClInclude Include="..\..\..\src\netbuild\NBJunctionLogicCont.h" />
     <ClInclude Include="..\..\..\src\netbuild\NBJunctionTypesMatrix.h" />

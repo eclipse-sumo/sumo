@@ -195,14 +195,6 @@ public:
     /// @}
 
 
-
-    /** @brief Adds net building options into the given options container
-     *
-     * @param[in] oc The options container to add net building options to
-     */
-    static void insertNetBuildOptions(OptionsCont &oc);
-
-
 protected:
     /**
      * @brief Performs the network building steps

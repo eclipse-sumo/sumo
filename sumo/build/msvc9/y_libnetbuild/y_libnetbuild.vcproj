@@ -367,6 +367,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\..\src\netbuild\NBFrame.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\..\src\netbuild\NBHelpers.cpp"
 				>
 			</File>
@@ -473,6 +477,10 @@
 			</File>
 			<File
 				RelativePath="..\..\..\src\netbuild\NBEdgeCont.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\netbuild\NBFrame.h"
 				>
 			</File>
 			<File

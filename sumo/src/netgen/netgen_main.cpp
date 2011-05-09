@@ -35,11 +35,11 @@
 #include <fstream>
 #include <string>
 #include <ctime>
-#include <netbuild/NBNetBuilder.h>
 #include <netgen/NGNet.h>
 #include <netgen/NGRandomNetBuilder.h>
 #include <netgen/NGFrame.h>
-#include <netbuild/NBTypeCont.h>
+#include <netbuild/NBNetBuilder.h>
+#include <netbuild/NBFrame.h>
 #include <netwrite/NWFrame.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/options/OptionsIO.h>
@@ -86,7 +86,7 @@ fillOptions() {
     SystemFrame::addReportOptions(oc); // this subtopic is filled here, too
 
     NGFrame::fillOptions();
-    NBNetBuilder::insertNetBuildOptions(oc);
+    NBFrame::fillOptions();
 	NWFrame::fillOptions();
     oc.doRegister("default-junction-type", 'j', new Option_String());
     oc.addSynonyme("default-junction-type", "junctions");

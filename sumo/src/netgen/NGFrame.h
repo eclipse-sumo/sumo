@@ -2,7 +2,7 @@
 /// @file    NGFrame.h
 /// @author  Daniel Krajzewicz
 /// @date    06.05.2011
-/// @version $Id:$
+/// @version $Id$
 ///
 // Sets and checks options for netgen
 /****************************************************************************/
@@ -52,7 +52,7 @@ public:
 
 
     /** @brief Checks set options from the OptionsCont-singleton for being valid
-     * @return Whether needed options are set and have proper values
+     * @return Whether needed (netgen) options are set and have proper values
      */
     static bool checkOptions();
 

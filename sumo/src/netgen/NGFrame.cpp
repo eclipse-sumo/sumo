@@ -2,7 +2,7 @@
 /// @file    NGFrame.cpp
 /// @author  Daniel Krajzewicz
 /// @date    06.05.2011
-/// @version $Id:$
+/// @version $Id$
 ///
 // Sets and checks options for netgen
 /****************************************************************************/

@@ -35,6 +35,7 @@
 #include <string>
 #include <netimport/NIFrame.h>
 #include <netimport/NILoader.h>
+#include <netbuild/NBFrame.h>
 #include <netbuild/NBNetBuilder.h>
 #include <netbuild/NBDistribution.h>
 #include <netwrite/NWFrame.h>
@@ -76,7 +77,7 @@ fillOptions() {
     SystemFrame::addReportOptions(oc); // this subtopic is filled here, too
 
     NIFrame::fillOptions();
-    NBNetBuilder::insertNetBuildOptions(oc);
+    NBFrame::fillOptions();
 	NWFrame::fillOptions();
     RandHelper::insertRandOptions();
 }
@@ -85,6 +86,7 @@ fillOptions() {
 bool
 checkOptions() {
     bool ok = NIFrame::checkOptions();
+	ok &= NBFrame::checkOptions();
 	ok &= NWFrame::checkOptions();
     return ok;
 }
