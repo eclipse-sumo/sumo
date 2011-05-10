@@ -65,8 +65,8 @@ Usage: polyconvert [OPTION]*
   --remove STR                     Items with names in STR will be removed
 
  Processing Options:
-  --x-offset-to-apply FLOAT        Adds FLOAT to net x-positions
-  --y-offset-to-apply FLOAT        Adds FLOAT to net y-positions
+  --offset.x FLOAT                 Adds FLOAT to net x-positions
+  --offset.y FLOAT                 Adds FLOAT to net y-positions
 
  Building Defaults Options:
   --color STR                      Sets STR as default color
