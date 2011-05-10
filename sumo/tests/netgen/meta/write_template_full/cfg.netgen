@@ -49,7 +49,6 @@
         <tls.set value="" synonymes="explicite-tls"/>
         <tls.unset value="" synonymes="explicite-no-tls"/>
         <tls.guess value="false" synonymes="guess-tls"/>
-        <tls.taz-nodes value="false" synonymes="tls-guess.district-nodes"/>
         <tls-guess.joining value="false"/>
         <tls.join value="false" synonymes="try-join-tls"/>
         <tls.green.time value="31" synonymes="traffic-light-green"/>
@@ -59,17 +58,6 @@
         <tls.half-offset value="" synonymes="tl-logics.half-offset"/>
         <tls.quarter-offset value="" synonymes="tl-logics.quarter-offset"/>
     </tls_building>
-
-    <ramp_guessing>
-        <guess-ramps value="false"/>
-        <ramp-guess.max-ramp-speed value="-1"/>
-        <ramp-guess.min-highway-speed value="21.9444"/>
-        <ramp-guess.ramp-length value="100"/>
-        <ramp-guess.explicite value=""/>
-        <guess-obscure-ramps value="false"/>
-        <obscure-ramps.add-ramp value="false"/>
-        <obscure-ramps.min-highway-speed value="27.7778"/>
-    </ramp_guessing>
 
     <edge_removal>
         <edges-min-speed value=""/>
@@ -105,10 +93,9 @@
     </processing>
 
     <building_defaults>
-        <type value="Unknown" synonymes="T"/>
-        <lanenumber value="1" synonymes="L"/>
-        <speed value="13.9" synonymes="S"/>
-        <priority value="-1" synonymes="P"/>
+        <default.lanenumber value="1" synonymes="L lanenumber"/>
+        <default.speed value="13.9" synonymes="S speed"/>
+        <default.priority value="-1" synonymes="P priority"/>
         <default-junction-type value="" synonymes="j junctions"/>
     </building_defaults>
 
@@ -117,7 +104,7 @@
         <print-options value="false" synonymes="p"/>
         <help value="false" synonymes="?"/>
         <version value="false" synonymes="V"/>
-        <suppress-warnings value="false" synonymes="W"/>
+        <no-warnings value="false" synonymes="W suppress-warnings"/>
         <log-file value="" synonymes="l"/>
         <message-log value=""/>
         <error-log value=""/>

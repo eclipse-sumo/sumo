@@ -158,7 +158,7 @@ NBNetBuilder::compute(OptionsCont &oc) throw(ProcessError) {
     //
     myEdgeCont.recomputeLaneShapes();
     //
-    if (oc.getBool("ramps.guess")||oc.isSet("ramps.set")) {
+    if ((oc.exists("ramps.guess")&&oc.getBool("ramps.guess"))||(oc.exists("ramps.set")&&oc.isSet("ramps.set"))) {
         inform(step, "Guessing and setting on-/off-ramps.");
         myNodeCont.guessRamps(oc, myEdgeCont, myDistrictCont);
     }

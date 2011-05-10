@@ -260,7 +260,7 @@ NBNodeCont::guessTLs(OptionsCont &oc, NBTrafficLightLogicCont &tlc) {
 
     // loop#1 checking whether the node shall be tls controlled,
     //  because it is assigned to a district
-    if (oc.getBool("tls.taz-nodes")) {
+    if (oc.exists("tls.taz-nodes")&&oc.getBool("tls.taz-nodes")) {
         for (NodeCont::iterator i=myNodes.begin(); i!=myNodes.end(); i++) {
             NBNode *cur = (*i).second;
             if (cur->isNearDistrict()&&find(ncontrolled.begin(), ncontrolled.end(), cur)==ncontrolled.end()) {

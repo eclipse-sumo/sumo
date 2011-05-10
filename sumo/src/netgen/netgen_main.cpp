@@ -78,7 +78,7 @@ fillOptions() {
     oc.addOptionSubTopic("Random Network");
     oc.addOptionSubTopic("Output");
     oc.addOptionSubTopic("TLS Building");
-    oc.addOptionSubTopic("Ramp Guessing");
+    //oc.addOptionSubTopic("Ramp Guessing");
     oc.addOptionSubTopic("Edge Removal");
     oc.addOptionSubTopic("Unregulated Nodes");
     oc.addOptionSubTopic("Processing");
@@ -86,7 +86,7 @@ fillOptions() {
     SystemFrame::addReportOptions(oc); // this subtopic is filled here, too
 
     NGFrame::fillOptions();
-    NBFrame::fillOptions();
+    NBFrame::fillOptions(true);
 	NWFrame::fillOptions();
     oc.doRegister("default-junction-type", 'j', new Option_String());
     oc.addSynonyme("default-junction-type", "junctions");

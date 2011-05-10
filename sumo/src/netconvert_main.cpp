@@ -77,7 +77,7 @@ fillOptions() {
     SystemFrame::addReportOptions(oc); // this subtopic is filled here, too
 
     NIFrame::fillOptions();
-    NBFrame::fillOptions();
+    NBFrame::fillOptions(false);
 	NWFrame::fillOptions();
     RandHelper::insertRandOptions();
 }

@@ -53,8 +53,9 @@
 class NBFrame {
 public:
     /** @brief Inserts options used by the network converter
+     * @param[in] forNetgen Whether netconvert options shall be omitted
      */
-    static void fillOptions();
+    static void fillOptions(bool forNetgen);
 
 
     /** @brief Checks set options from the OptionsCont-singleton for being valid

@@ -56,7 +56,7 @@
 // method definitions
 // ===========================================================================
 void
-NBFrame::fillOptions() {
+NBFrame::fillOptions(bool forNetgen) {
     OptionsCont &oc = OptionsCont::getOptions();
     // register building defaults
     oc.doRegister("default.lanenumber", 'L', new Option_Integer(1));
@@ -128,9 +128,11 @@ NBFrame::fillOptions() {
     oc.addSynonyme("tls.guess", "guess-tls", true);
     oc.addDescription("tls.guess", "TLS Building", "Turns on TLS guessing");
 
-    oc.doRegister("tls.taz-nodes", new Option_Bool(false));
-    oc.addSynonyme("tls.taz-nodes", "tls-guess.district-nodes", true);
-    oc.addDescription("tls.taz-nodes", "TLS Building", "Sets district nodes as tls-controlled"); // !!! describe
+    if(!forNetgen) {
+        oc.doRegister("tls.taz-nodes", new Option_Bool(false));
+        oc.addSynonyme("tls.taz-nodes", "tls-guess.district-nodes", true);
+        oc.addDescription("tls.taz-nodes", "TLS Building", "Sets district nodes as tls-controlled"); // !!! describe
+    }
 
     oc.doRegister("tls-guess.joining", new Option_Bool(false));
     oc.addDescription("tls-guess.joining", "TLS Building", "Includes node clusters into guess"); // !!! describe
@@ -205,25 +207,27 @@ NBFrame::fillOptions() {
 
 
     // ramp guessing options
-    oc.doRegister("ramps.guess", new Option_Bool(false));
-    oc.addSynonyme("ramps.guess", "guess-ramps", true);
-    oc.addDescription("ramps.guess", "Ramp Guessing", "Enable ramp-guessing");
+    if(!forNetgen) {
+        oc.doRegister("ramps.guess", new Option_Bool(false));
+        oc.addSynonyme("ramps.guess", "guess-ramps", true);
+        oc.addDescription("ramps.guess", "Ramp Guessing", "Enable ramp-guessing");
 
-    oc.doRegister("ramps.max-ramp-speed", new Option_Float(-1));
-    oc.addSynonyme("ramps.max-ramp-speed", "ramp-guess.max-ramp-speed", true);
-    oc.addDescription("ramps.max-ramp-speed", "Ramp Guessing", "Treat edges with speed > FLOAT as no ramps");
+        oc.doRegister("ramps.max-ramp-speed", new Option_Float(-1));
+        oc.addSynonyme("ramps.max-ramp-speed", "ramp-guess.max-ramp-speed", true);
+        oc.addDescription("ramps.max-ramp-speed", "Ramp Guessing", "Treat edges with speed > FLOAT as no ramps");
 
-    oc.doRegister("ramps.min-highway-speed", new Option_Float((SUMOReal)(79/3.6)));
-    oc.addSynonyme("ramps.min-highway-speed", "ramp-guess.min-highway-speed", true);
-    oc.addDescription("ramps.min-highway-speed", "Ramp Guessing", "Treat edges with speed < FLOAT as no highways");
+        oc.doRegister("ramps.min-highway-speed", new Option_Float((SUMOReal)(79/3.6)));
+        oc.addSynonyme("ramps.min-highway-speed", "ramp-guess.min-highway-speed", true);
+        oc.addDescription("ramps.min-highway-speed", "Ramp Guessing", "Treat edges with speed < FLOAT as no highways");
 
-    oc.doRegister("ramps.ramp-length", new Option_Float(100));
-    oc.addSynonyme("ramps.ramp-length", "ramp-guess.ramp-length", true);
-    oc.addDescription("ramps.ramp-length", "Ramp Guessing", "Use FLOAT as ramp-length");
+        oc.doRegister("ramps.ramp-length", new Option_Float(100));
+        oc.addSynonyme("ramps.ramp-length", "ramp-guess.ramp-length", true);
+        oc.addDescription("ramps.ramp-length", "Ramp Guessing", "Use FLOAT as ramp-length");
 
-    oc.doRegister("ramps.set", new Option_String());
-    oc.addSynonyme("ramps.set", "ramp-guess.explicite", true);
-    oc.addDescription("ramps.set", "Ramp Guessing", "Tries to handle the given edges as ramps");
+        oc.doRegister("ramps.set", new Option_String());
+        oc.addSynonyme("ramps.set", "ramp-guess.explicite", true);
+        oc.addDescription("ramps.set", "Ramp Guessing", "Tries to handle the given edges as ramps");
+    }
 }
 
 
