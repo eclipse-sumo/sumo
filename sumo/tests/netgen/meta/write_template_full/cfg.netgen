@@ -39,10 +39,10 @@
     </random_network>
 
     <output>
-        <output value="net.net.xml" synonymes="o output-file"/>
+        <output value="net.net.xml" synonymes="o output-file sumo-output"/>
         <plain-output value=""/>
         <map-output value="" synonymes="M"/>
-        <output-format value="sumo"/>
+        <matsim-output value=""/>
     </output>
 
     <tls_building>
@@ -77,7 +77,6 @@
     </unregulated_nodes>
 
     <processing>
-        <flip-y value="false"/>
         <dismiss-vclasses value="false"/>
         <remove-geometry value="false" synonymes="R"/>
         <remove-isolated value="false"/>
@@ -85,10 +84,11 @@
         <no-tls-turnarounds value="false"/>
         <no-internal-links value="false"/>
         <split-geometry value="false"/>
-        <disable-normalize-node-positions value="false"/>
-        <x-offset-to-apply value="0"/>
-        <y-offset-to-apply value="0"/>
-        <guess-roundabouts value="false"/>
+        <offset.disable-normalization value="false" synonymes="disable-normalize-node-positions"/>
+        <offset.x value="0" synonymes="x-offset-to-apply"/>
+        <offset.y value="0" synonymes="y-offset-to-apply"/>
+        <flip-y-axis value="false" synonymes="flip-y"/>
+        <roundabouts.guess value="false" synonymes="guess-roundabouts"/>
         <lefthand value="false"/>
     </processing>
 

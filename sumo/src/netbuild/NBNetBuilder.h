@@ -214,31 +214,6 @@ protected:
 
 
 
-    /// @name Output methods
-    /// @{
-
-    /** @brief Saves the generated network
-     *
-     * Instances the network is made of are written by called methods from
-     *  sub-containers.
-     *
-     * @param[in] device The device to write the network into
-     * @param[in] oc Options needed to know what shall be saved (mainly whether internal links shall be saved)
-     * @exception IOError (not yet implemented)
-     * @see NBDistrictCont::writeXML
-     * @see NBEdgeCont::writeXMLStep1
-     * @see NBJunctionLogicCont::writeXML
-     * @see NBTrafficLightLogicCont::writeXML
-     * @see NBNodeCont::writeXML
-     * @see NBNodeCont::writeXMLInternalNodes
-     * @see NBEdgeCont::writeXMLStep2
-     * @see NBNodeCont::writeXMLInternalSuccInfos
-     */
-    void save(OutputDevice &device, OptionsCont &oc) throw(IOError);
-    /// @}
-
-
-
     /**
      * @class by_id_sorter
      * @brief Sorts nodes by their ids

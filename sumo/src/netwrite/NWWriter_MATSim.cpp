@@ -51,10 +51,10 @@
 void
 NWWriter_MATSim::writeNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
     // check whether a matsim-file shall be generated
-    if (!oc.isSet("output-format") || oc.getString("output-format")!="matsim") {
+    if (!oc.isSet("matsim-output")) {
         return;
     }
-    OutputDevice& device = OutputDevice::getDevice(oc.getString("output"));
+    OutputDevice& device = OutputDevice::getDevice(oc.getString("matsim-output"));
     device << "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n";
     device << "<!DOCTYPE network SYSTEM \"http://www.matsim.org/files/dtd/network_v1.dtd\">\n\n";
     device << "<network name=\"NAME\">\n"; // !!! name

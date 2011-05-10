@@ -52,7 +52,7 @@
 void
 NWWriter_SUMO::writeNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
     // check whether a matsim-file shall be generated
-    if (oc.getString("output-format")!="sumo") {
+    if (!oc.isSet("output")) {
         return;
     }
 	OutputDevice& device = OutputDevice::getDevice(oc.getString("output"));

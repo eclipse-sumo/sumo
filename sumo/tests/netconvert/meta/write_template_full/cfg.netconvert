@@ -19,10 +19,10 @@
     </input>
 
     <output>
-        <output value="net.net.xml" synonymes="o output-file"/>
+        <output value="net.net.xml" synonymes="o output-file sumo-output"/>
         <plain-output value=""/>
         <map-output value="" synonymes="M"/>
-        <output-format value="sumo"/>
+        <matsim-output value=""/>
     </output>
 
     <projection>
@@ -101,7 +101,6 @@
         <visum.recompute-lane-number value="false" synonymes="visum.recompute-laneno"/>
         <visum.verbose-warnings value="false"/>
         <osm.skip-duplicates-check value="false"/>
-        <flip-y value="false"/>
         <dismiss-vclasses value="false"/>
         <remove-geometry value="false" synonymes="R"/>
         <remove-isolated value="false"/>
@@ -109,18 +108,18 @@
         <no-tls-turnarounds value="false"/>
         <no-internal-links value="false"/>
         <split-geometry value="false"/>
-        <disable-normalize-node-positions value="false"/>
-        <x-offset-to-apply value="0"/>
-        <y-offset-to-apply value="0"/>
-        <guess-roundabouts value="false"/>
+        <offset.disable-normalization value="false" synonymes="disable-normalize-node-positions"/>
+        <offset.x value="0" synonymes="x-offset-to-apply"/>
+        <offset.y value="0" synonymes="y-offset-to-apply"/>
+        <flip-y-axis value="false" synonymes="flip-y"/>
+        <roundabouts.guess value="false" synonymes="guess-roundabouts"/>
         <lefthand value="false"/>
     </processing>
 
     <building_defaults>
-        <type value="Unknown" synonymes="T"/>
-        <lanenumber value="1" synonymes="L"/>
-        <speed value="13.9" synonymes="S"/>
-        <priority value="-1" synonymes="P"/>
+        <default.lanenumber value="1" synonymes="L lanenumber"/>
+        <default.speed value="13.9" synonymes="S speed"/>
+        <default.priority value="-1" synonymes="P priority"/>
     </building_defaults>
 
     <report>
@@ -128,7 +127,7 @@
         <print-options value="false" synonymes="p"/>
         <help value="false" synonymes="?"/>
         <version value="false" synonymes="V"/>
-        <suppress-warnings value="false" synonymes="W"/>
+        <no-warnings value="false" synonymes="W suppress-warnings"/>
         <log-file value="" synonymes="l"/>
         <message-log value=""/>
         <error-log value=""/>

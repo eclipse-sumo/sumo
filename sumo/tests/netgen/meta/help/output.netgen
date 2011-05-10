@@ -1,4 +1,4 @@
-SUMO netgen Version dev-SVN-r10266
+SUMO netgen Version dev-SVN-r10278
  Copyright (C) 2001-2011 DLR and contributors; http://sumo.sourceforge.net
  
 Road network generator for the microscopic road traffic simulation SUMO.
@@ -72,7 +72,8 @@ Usage: netgen [OPTION]*
   --plain-output FILE                  Prefix of files to write plain xml
                                          nodes, edges and connections to
   -M, --map-output FILE                Writes joined edges information to FILE
-  --output-format STR                  Determines the output format to use
+  --matsim-output FILE                 The generated net will be written to
+                                         FILE using MATSIM format.
 
  TLS Building Options:
   --tls.set STR                        Interprets STR as list of junctions to
@@ -112,7 +113,6 @@ Usage: netgen [OPTION]*
   --keep-unregulated.district-nodes    Do not regulate district nodes
 
  Processing Options:
-  --flip-y                             Flips the y-coordinate along zero
   --dismiss-vclasses                   Removes vehicle class restrictions from
                                          imported edges.
   -R, --remove-geometry                Removes geometry information from edges
@@ -122,10 +122,11 @@ Usage: netgen [OPTION]*
                                          tls-controlled junctions
   --no-internal-links                  Omits internal links
   --split-geometry                     Splits edges across geometry nodes
-  --disable-normalize-node-positions   Turn off normalizing node positions
-  --x-offset-to-apply FLOAT            Adds FLOAT to net x-positions
-  --y-offset-to-apply FLOAT            Adds FLOAT to net y-positions
-  --guess-roundabouts                  Enable roundabout-guessing
+  --offset.disable-normalization       Turn off normalizing node positions
+  --offset.x FLOAT                     Adds FLOAT to net x-positions
+  --offset.y FLOAT                     Adds FLOAT to net y-positions
+  --flip-y-axis                        Flips the y-coordinate along zero
+  --roundabouts.guess                  Enable roundabout-guessing
   --lefthand                           Assumes left-hand traffic on the network
 
  Building Defaults Options:

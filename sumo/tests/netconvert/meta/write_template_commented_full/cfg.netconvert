@@ -46,7 +46,7 @@
 
     <output>
         <!-- The generated net will be written to FILE -->
-        <output value="net.net.xml" synonymes="o output-file"/>
+        <output value="net.net.xml" synonymes="o output-file sumo-output"/>
 
         <!-- Prefix of files to write plain xml nodes, edges and connections to -->
         <plain-output value=""/>
@@ -54,8 +54,8 @@
         <!-- Writes joined edges information to FILE -->
         <map-output value="" synonymes="M"/>
 
-        <!-- Determines the output format to use -->
-        <output-format value="sumo"/>
+        <!-- The generated net will be written to FILE using MATSIM format. -->
+        <matsim-output value=""/>
 
     </output>
 
@@ -255,9 +255,6 @@
         <!-- Skips the check for duplicate nodes and edges. -->
         <osm.skip-duplicates-check value="false"/>
 
-        <!-- Flips the y-coordinate along zero -->
-        <flip-y value="false"/>
-
         <!-- Removes vehicle class restrictions from imported edges. -->
         <dismiss-vclasses value="false"/>
 
@@ -280,16 +277,19 @@
         <split-geometry value="false"/>
 
         <!-- Turn off normalizing node positions -->
-        <disable-normalize-node-positions value="false"/>
+        <offset.disable-normalization value="false" synonymes="disable-normalize-node-positions"/>
 
         <!-- Adds FLOAT to net x-positions -->
-        <x-offset-to-apply value="0"/>
+        <offset.x value="0" synonymes="x-offset-to-apply"/>
 
         <!-- Adds FLOAT to net y-positions -->
-        <y-offset-to-apply value="0"/>
+        <offset.y value="0" synonymes="y-offset-to-apply"/>
+
+        <!-- Flips the y-coordinate along zero -->
+        <flip-y-axis value="false" synonymes="flip-y"/>
 
         <!-- Enable roundabout-guessing -->
-        <guess-roundabouts value="false"/>
+        <roundabouts.guess value="false" synonymes="guess-roundabouts"/>
 
         <!-- Assumes left-hand traffic on the network -->
         <lefthand value="false"/>
@@ -297,17 +297,14 @@
     </processing>
 
     <building_defaults>
-        <!-- The default name for an edges type -->
-        <type value="Unknown" synonymes="T"/>
-
         <!-- The default number of lanes in an edge -->
-        <lanenumber value="1" synonymes="L"/>
+        <default.lanenumber value="1" synonymes="L lanenumber"/>
 
         <!-- The default speed on an edge (in m/s) -->
-        <speed value="13.9" synonymes="S"/>
+        <default.speed value="13.9" synonymes="S speed"/>
 
         <!-- The default priority of an edge -->
-        <priority value="-1" synonymes="P"/>
+        <default.priority value="-1" synonymes="P priority"/>
 
     </building_defaults>
 
@@ -325,7 +322,7 @@
         <version value="false" synonymes="V"/>
 
         <!-- Disables output of warnings -->
-        <suppress-warnings value="false" synonymes="W"/>
+        <no-warnings value="false" synonymes="W suppress-warnings"/>
 
         <!-- Writes all messages to FILE -->
         <log-file value="" synonymes="l"/>

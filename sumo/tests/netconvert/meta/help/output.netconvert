@@ -1,4 +1,4 @@
-SUMO netconvert Version dev-SVN-r10263
+SUMO netconvert Version dev-SVN-r10278
  Copyright (C) 2001-2011 DLR and contributors; http://sumo.sourceforge.net
  
 Road network importer / builder for the road traffic simulation SUMO.
@@ -42,7 +42,8 @@ Usage: netconvert [OPTION]*
   --plain-output FILE                  Prefix of files to write plain xml
                                          nodes, edges and connections to
   -M, --map-output FILE                Writes joined edges information to FILE
-  --output-format STR                  Determines the output format to use
+  --matsim-output FILE                 The generated net will be written to
+                                         FILE using MATSIM format.
 
  Projection Options:
   --proj.simple                        Uses a simple method for projection
@@ -140,7 +141,6 @@ Usage: netconvert [OPTION]*
                                          due to VISUM misbehaviour
   --osm.skip-duplicates-check          Skips the check for duplicate nodes and
                                          edges.
-  --flip-y                             Flips the y-coordinate along zero
   --dismiss-vclasses                   Removes vehicle class restrictions from
                                          imported edges.
   -R, --remove-geometry                Removes geometry information from edges
@@ -150,24 +150,24 @@ Usage: netconvert [OPTION]*
                                          tls-controlled junctions
   --no-internal-links                  Omits internal links
   --split-geometry                     Splits edges across geometry nodes
-  --disable-normalize-node-positions   Turn off normalizing node positions
-  --x-offset-to-apply FLOAT            Adds FLOAT to net x-positions
-  --y-offset-to-apply FLOAT            Adds FLOAT to net y-positions
-  --guess-roundabouts                  Enable roundabout-guessing
+  --offset.disable-normalization       Turn off normalizing node positions
+  --offset.x FLOAT                     Adds FLOAT to net x-positions
+  --offset.y FLOAT                     Adds FLOAT to net y-positions
+  --flip-y-axis                        Flips the y-coordinate along zero
+  --roundabouts.guess                  Enable roundabout-guessing
   --lefthand                           Assumes left-hand traffic on the network
 
  Building Defaults Options:
-  -T, --type STR                       The default name for an edges type
-  -L, --lanenumber INT                 The default number of lanes in an edge
-  -S, --speed FLOAT                    The default speed on an edge (in m/s)
-  -P, --priority INT                   The default priority of an edge
+  -L, --default.lanenumber INT         The default number of lanes in an edge
+  -S, --default.speed FLOAT            The default speed on an edge (in m/s)
+  -P, --default.priority INT           The default priority of an edge
 
  Report Options:
   -v, --verbose                        Switches to verbose output
   -p, --print-options                  Prints option values before processing
   -?, --help                           Prints this screen
   -V, --version                        Prints the current version
-  -W, --suppress-warnings              Disables output of warnings
+  -W, --no-warnings                    Disables output of warnings
   -l, --log-file FILE                  Writes all messages to FILE
   --message-log FILE                   Writes all non-error messages to FILE
   --error-log FILE                     Writes all warnings and errors to FILE

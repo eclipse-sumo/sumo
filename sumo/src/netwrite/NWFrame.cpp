@@ -50,6 +50,7 @@ NWFrame::fillOptions() {
     OptionsCont &oc = OptionsCont::getOptions();
     // register options
     oc.doRegister("output", 'o', new Option_FileName("net.net.xml"));
+    oc.addSynonyme("output", "sumo-output");
     oc.addSynonyme("output", "output-file", true);
     oc.addDescription("output", "Output", "The generated net will be written to FILE");
 
@@ -59,8 +60,8 @@ NWFrame::fillOptions() {
     oc.doRegister("map-output", 'M', new Option_FileName());
     oc.addDescription("map-output", "Output", "Writes joined edges information to FILE");
 
-    oc.doRegister("output-format", new Option_String("sumo"));
-    oc.addDescription("output-format", "Output", "Determines the output format to use");
+    oc.doRegister("matsim-output", new Option_FileName());
+    oc.addDescription("matsim-output", "Output", "The generated net will be written to FILE using MATSIM format.");
 }
 
 
@@ -69,20 +70,10 @@ NWFrame::checkOptions() {
     OptionsCont &oc = OptionsCont::getOptions();
     bool ok = true;
     // check whether the output is valid and can be build
-    if (!oc.isSet("output")) {
+    if (!oc.isSet("output")&&!oc.isSet("plain-output")&&!oc.isSet("matsim-output")) {
         MsgHandler::getErrorInstance()->inform("No output specified.");
         ok = false;
     }
-	// check whether the output format is known
-	bool ok1 = false;
-	std::string outputFormat = oc.getString("output-format");
-	if(outputFormat=="sumo") ok1 = true;
-	if(outputFormat=="matsim") ok1 = true;
-	if(!ok1) {
-		MsgHandler::getErrorInstance()->inform("Unknown output format '" + outputFormat + "'.");
-        ok = false;
-	}
-	//
     return ok;
 }
 
