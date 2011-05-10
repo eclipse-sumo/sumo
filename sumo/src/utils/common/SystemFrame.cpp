@@ -82,8 +82,9 @@ SystemFrame::addReportOptions(OptionsCont &oc) {
     oc.doRegister("version", 'V', new Option_Bool(false));
     oc.addDescription("version", "Report", "Prints the current version");
 
-    oc.doRegister("suppress-warnings", 'W', new Option_Bool(false));
-    oc.addDescription("suppress-warnings", "Report", "Disables output of warnings");
+    oc.doRegister("no-warnings", 'W', new Option_Bool(false));
+    oc.addSynonyme("no-warnings", "suppress-warnings", true);
+    oc.addDescription("no-warnings", "Report", "Disables output of warnings");
 
     oc.doRegister("log-file", 'l', new Option_FileName());
     oc.addDescription("log-file", "Report", "Writes all messages to FILE");

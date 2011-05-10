@@ -233,8 +233,8 @@ MsgHandler::addRetriever(OutputDevice *retriever) {
     }
     // check whether the message shall be generated
     if (myType==MT_WARNING) {
-        gSuppressWarnings = OptionsCont::getOptions().exists("suppress-warnings")
-                            ? OptionsCont::getOptions().getBool("suppress-warnings")
+        gSuppressWarnings = OptionsCont::getOptions().exists("no-warnings")
+                            ? OptionsCont::getOptions().getBool("no-warnings")
                             : false;
     } else if (myType==MT_MESSAGE) {
         gSuppressMessages = false;
@@ -257,8 +257,8 @@ MsgHandler::removeRetriever(OutputDevice *retriever) {
     }
     // check whether the message shall be generated
     if (myType==MT_WARNING) {
-        gSuppressWarnings = OptionsCont::getOptions().exists("suppress-warnings")
-                            ? OptionsCont::getOptions().getBool("suppress-warnings")
+        gSuppressWarnings = OptionsCont::getOptions().exists("no-warnings")
+                            ? OptionsCont::getOptions().getBool("no-warnings")
                             : myRetrievers.size()==0;
     } else if (myType==MT_MESSAGE) {
         gSuppressMessages = !(myRetrievers.size()==0||myReport2COUT);
@@ -276,8 +276,8 @@ MsgHandler::report2cout(bool value) {
     }
     myReport2COUT = value;
     if (myType==MT_WARNING) {
-        gSuppressWarnings = OptionsCont::getOptions().exists("suppress-warnings")
-                            ? OptionsCont::getOptions().getBool("suppress-warnings")
+        gSuppressWarnings = OptionsCont::getOptions().exists("no-warnings")
+                            ? OptionsCont::getOptions().getBool("no-warnings")
                             : !myReport2COUT;
     } else if (myType==MT_MESSAGE) {
         gSuppressMessages = myRetrievers.size()==0&&!myReport2COUT;
@@ -296,8 +296,8 @@ MsgHandler::report2cerr(bool value) {
     }
     myReport2CERR = value;
     if (myType==MT_WARNING) {
-        gSuppressWarnings = OptionsCont::getOptions().exists("suppress-warnings")
-                            ? OptionsCont::getOptions().getBool("suppress-warnings")
+        gSuppressWarnings = OptionsCont::getOptions().exists("no-warnings")
+                            ? OptionsCont::getOptions().getBool("no-warnings")
                             : !myReport2CERR;
     } else if (myType==MT_MESSAGE) {
         gSuppressMessages = myRetrievers.size()==0&&!myReport2COUT;
@@ -313,7 +313,7 @@ void
 MsgHandler::initOutputOptions(bool gui) {
     OptionsCont& oc = OptionsCont::getOptions();
     getMessageInstance()->report2cout(!gui && oc.getBool("verbose"));
-    getWarningInstance()->report2cerr(!gui && !oc.getBool("suppress-warnings"));
+    getWarningInstance()->report2cerr(!gui && !oc.getBool("no-warnings"));
     // build the logger if possible
     if (oc.isSet("log-file")) {
         try {
