@@ -1,18 +1,18 @@
 <?xml version="1.0"?>
 
-<!-- generated on 04/29/11 11:03:04 by SUMO netgen Version dev-SVN-r10182
+<!-- generated on Tue May 10 11:25:04 2011 by SUMO netgen Version dev-SVN-r10263
 <?xml version="1.0" encoding="iso-8859-1"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netgenConfiguration.xsd">
 
     <random_network>
-        <random-net value="true"/>
-        <rand-iterations value="200"/>
-        <rand-bidi-probability value="0.5"/>
+        <rand value="true"/>
+        <rand.iterations value="200"/>
+        <rand.bidi-probability value="0.5"/>
     </random_network>
 
     <output>
-        <output-file value="net.net.xml"/>
+        <output value="net.net.xml"/>
     </output>
 
     <processing>
@@ -3491,7 +3491,6 @@
       <succlane lane="698_0" dir="l" state="m"/>
    </succ>
    <succ edge="116" lane="116_0" junction="115">
-      <succlane lane="SUMO_NO_DESTINATION" dir="s" state="O"/>
    </succ>
    <succ edge="117" lane="117_0" junction="37">
       <succlane lane="319_0" dir="r" state="m"/>
@@ -3504,7 +3503,6 @@
       <succlane lane="-119_0" dir="t" state="m"/>
    </succ>
    <succ edge="1199" lane="1199_0" junction="1198">
-      <succlane lane="SUMO_NO_DESTINATION" dir="s" state="O"/>
    </succ>
    <succ edge="1201" lane="1201_0" junction="1200">
       <succlane lane="3772_0" dir="s" state="M"/>
@@ -3545,7 +3543,6 @@
       <succlane lane="-1342_0" dir="t" state="m"/>
    </succ>
    <succ edge="1343" lane="1343_0" junction="1198">
-      <succlane lane="SUMO_NO_DESTINATION" dir="s" state="O"/>
    </succ>
    <succ edge="1345" lane="1345_0" junction="1344">
       <succlane lane="1404_0" dir="s" state="M"/>
@@ -3583,7 +3580,6 @@
       <succlane lane="-1391_0" dir="t" state="m"/>
    </succ>
    <succ edge="1396" lane="1396_0" junction="1395">
-      <succlane lane="SUMO_NO_DESTINATION" dir="s" state="O"/>
    </succ>
    <succ edge="1404" lane="1404_0" junction="1403">
       <succlane lane="3737_0" dir="r" state="M"/>
@@ -3867,7 +3863,6 @@
       <succlane lane="-2194_0" dir="t" state="m"/>
    </succ>
    <succ edge="2198" lane="2198_0" junction="2197">
-      <succlane lane="SUMO_NO_DESTINATION" dir="s" state="O"/>
    </succ>
    <succ edge="2200" lane="2200_0" junction="329">
       <succlane lane="-732_0" dir="r" state="m"/>
@@ -3887,7 +3882,6 @@
       <succlane lane="2494_0" dir="s" state="M"/>
    </succ>
    <succ edge="2209" lane="2209_0" junction="2208">
-      <succlane lane="SUMO_NO_DESTINATION" dir="s" state="O"/>
    </succ>
    <succ edge="2210" lane="2210_0" junction="1894">
       <succlane lane="-1895_0" dir="r" state="M"/>
@@ -3906,7 +3900,6 @@
       <succlane lane="-2289_0" dir="t" state="m"/>
    </succ>
    <succ edge="2291" lane="2291_0" junction="2290">
-      <succlane lane="SUMO_NO_DESTINATION" dir="s" state="O"/>
    </succ>
    <succ edge="2300" lane="2300_0" junction="2299">
       <succlane lane="-2300_0" dir="t" state="M"/>
@@ -3949,7 +3942,6 @@
       <succlane lane="3093_0" dir="l" state="m"/>
    </succ>
    <succ edge="2477" lane="2477_0" junction="2476">
-      <succlane lane="SUMO_NO_DESTINATION" dir="s" state="O"/>
    </succ>
    <succ edge="2482" lane="2482_0" junction="2481">
       <succlane lane="-3779_0" dir="s" state="M"/>
@@ -4059,7 +4051,6 @@
       <succlane lane="-3091_0" dir="t" state="m"/>
    </succ>
    <succ edge="3093" lane="3093_0" junction="2476">
-      <succlane lane="SUMO_NO_DESTINATION" dir="s" state="O"/>
    </succ>
    <succ edge="3095" lane="3095_0" junction="3094">
       <succlane lane="-3095_0" dir="t" state="M"/>
@@ -4078,7 +4069,6 @@
       <succlane lane="-3122_0" dir="t" state="m"/>
    </succ>
    <succ edge="313" lane="313_0" junction="115">
-      <succlane lane="SUMO_NO_DESTINATION" dir="s" state="O"/>
    </succ>
    <succ edge="3131" lane="3131_0" junction="3130">
       <succlane lane="3847_0" dir="r" state="M"/>
@@ -4099,10 +4089,8 @@
       <succlane lane="-3151_0" dir="t" state="M"/>
    </succ>
    <succ edge="3155" lane="3155_0" junction="3154">
-      <succlane lane="SUMO_NO_DESTINATION" dir="s" state="O"/>
    </succ>
    <succ edge="3159" lane="3159_0" junction="3158">
-      <succlane lane="SUMO_NO_DESTINATION" dir="s" state="O"/>
    </succ>
    <succ edge="3162" lane="3162_0" junction="3161">
       <succlane lane="-3772_0" dir="r" state="M"/>
@@ -4125,7 +4113,6 @@
       <succlane lane="-3252_0" dir="t" state="m"/>
    </succ>
    <succ edge="326" lane="326_0" junction="115">
-      <succlane lane="SUMO_NO_DESTINATION" dir="s" state="O"/>
    </succ>
    <succ edge="330" lane="330_0" junction="329">
       <succlane lane="837_0" dir="r" state="m"/>
@@ -4207,7 +4194,6 @@
       <succlane lane="4257_0" dir="R" state="M"/>
    </succ>
    <succ edge="3639" lane="3639_0" junction="3638">
-      <succlane lane="SUMO_NO_DESTINATION" dir="s" state="O"/>
    </succ>
    <succ edge="365" lane="365_0" junction="364">
       <succlane lane="569_0" dir="r" state="M"/>
@@ -4218,7 +4204,6 @@
       <succlane lane="-3719_0" dir="t" state="M"/>
    </succ>
    <succ edge="3720" lane="3720_0" junction="3638">
-      <succlane lane="SUMO_NO_DESTINATION" dir="s" state="O"/>
    </succ>
    <succ edge="3734" lane="3734_0" junction="3733">
       <succlane lane="-3734_0" dir="t" state="M"/>
@@ -4278,7 +4263,6 @@
       <succlane lane="-379_0" dir="t" state="m"/>
    </succ>
    <succ edge="3799" lane="3799_0" junction="3798">
-      <succlane lane="SUMO_NO_DESTINATION" dir="s" state="O"/>
    </succ>
    <succ edge="38" lane="38_0" junction="37">
       <succlane lane="319_0" dir="s" state="M"/>
@@ -4291,7 +4275,6 @@
       <succlane lane="-3800_0" dir="t" state="m"/>
    </succ>
    <succ edge="3801" lane="3801_0" junction="3798">
-      <succlane lane="SUMO_NO_DESTINATION" dir="s" state="O"/>
    </succ>
    <succ edge="381" lane="381_0" junction="209">
       <succlane lane="-210_0" dir="r" state="M"/>
@@ -4303,7 +4286,6 @@
       <succlane lane="-3814_0" dir="t" state="M"/>
    </succ>
    <succ edge="3825" lane="3825_0" junction="3824">
-      <succlane lane="SUMO_NO_DESTINATION" dir="s" state="O"/>
    </succ>
    <succ edge="383" lane="383_0" junction="382">
       <succlane lane="579_0" dir="r" state="M"/>
@@ -4313,35 +4295,27 @@
       <succlane lane="-3835_0" dir="t" state="M"/>
    </succ>
    <succ edge="3837" lane="3837_0" junction="3836">
-      <succlane lane="SUMO_NO_DESTINATION" dir="s" state="O"/>
    </succ>
    <succ edge="3847" lane="3847_0" junction="3846">
-      <succlane lane="SUMO_NO_DESTINATION" dir="s" state="O"/>
    </succ>
    <succ edge="3849" lane="3849_0" junction="3848">
-      <succlane lane="SUMO_NO_DESTINATION" dir="s" state="O"/>
    </succ>
    <succ edge="3853" lane="3853_0" junction="3852">
       <succlane lane="-3853_0" dir="t" state="M"/>
    </succ>
    <succ edge="3883" lane="3883_0" junction="3882">
-      <succlane lane="SUMO_NO_DESTINATION" dir="s" state="O"/>
    </succ>
    <succ edge="3885" lane="3885_0" junction="3884">
-      <succlane lane="SUMO_NO_DESTINATION" dir="s" state="O"/>
    </succ>
    <succ edge="3897" lane="3897_0" junction="3896">
-      <succlane lane="SUMO_NO_DESTINATION" dir="s" state="O"/>
    </succ>
    <succ edge="3907" lane="3907_0" junction="3327">
       <succlane lane="-3328_0" dir="l" state="M"/>
       <succlane lane="-3907_0" dir="t" state="m"/>
    </succ>
    <succ edge="3920" lane="3920_0" junction="3919">
-      <succlane lane="SUMO_NO_DESTINATION" dir="s" state="O"/>
    </succ>
    <succ edge="4027" lane="4027_0" junction="4026">
-      <succlane lane="SUMO_NO_DESTINATION" dir="s" state="O"/>
    </succ>
    <succ edge="4031" lane="4031_0" junction="4030">
       <succlane lane="-4031_0" dir="t" state="M"/>
@@ -4356,7 +4330,6 @@
       <succlane lane="-4050_0" dir="t" state="m"/>
    </succ>
    <succ edge="4255" lane="4255_0" junction="3638">
-      <succlane lane="SUMO_NO_DESTINATION" dir="s" state="O"/>
    </succ>
    <succ edge="4256" lane="4256_0" junction="3602">
       <succlane lane="-4256_0" dir="t" state="m"/>
@@ -4372,10 +4345,8 @@
       <succlane lane="-4467_0" dir="t" state="M"/>
    </succ>
    <succ edge="4469" lane="4469_0" junction="4468">
-      <succlane lane="SUMO_NO_DESTINATION" dir="s" state="O"/>
    </succ>
    <succ edge="4473" lane="4473_0" junction="4472">
-      <succlane lane="SUMO_NO_DESTINATION" dir="s" state="O"/>
    </succ>
    <succ edge="4474" lane="4474_0" junction="2962">
       <succlane lane="-4474_0" dir="t" state="m"/>
@@ -4387,16 +4358,13 @@
       <succlane lane="4505_0" dir="r" state="m"/>
    </succ>
    <succ edge="4501" lane="4501_0" junction="4500">
-      <succlane lane="SUMO_NO_DESTINATION" dir="s" state="O"/>
    </succ>
    <succ edge="4505" lane="4505_0" junction="4504">
       <succlane lane="-4505_0" dir="t" state="M"/>
    </succ>
    <succ edge="4527" lane="4527_0" junction="4526">
-      <succlane lane="SUMO_NO_DESTINATION" dir="s" state="O"/>
    </succ>
    <succ edge="4539" lane="4539_0" junction="4538">
-      <succlane lane="SUMO_NO_DESTINATION" dir="s" state="O"/>
    </succ>
    <succ edge="4681" lane="4681_0" junction="4680">
       <succlane lane="-4681_0" dir="t" state="M"/>
@@ -4548,7 +4516,6 @@
       <succlane lane="2291_0" dir="l" state="m"/>
    </succ>
    <succ edge="686" lane="686_0" junction="685">
-      <succlane lane="SUMO_NO_DESTINATION" dir="s" state="O"/>
    </succ>
    <succ edge="696" lane="696_0" junction="678">
       <succlane lane="-679_0" dir="r" state="m"/>
@@ -4590,7 +4557,6 @@
       <succlane lane="-837_0" dir="t" state="m"/>
    </succ>
    <succ edge="840" lane="840_0" junction="839">
-      <succlane lane="SUMO_NO_DESTINATION" dir="s" state="O"/>
    </succ>
    <succ edge="846" lane="846_0" junction="845">
       <succlane lane="2714_0" dir="s" state="M"/>

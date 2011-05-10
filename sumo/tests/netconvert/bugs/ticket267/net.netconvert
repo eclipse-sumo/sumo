@@ -1,18 +1,18 @@
 <?xml version="1.0"?>
 
-<!-- generated on 04/29/11 10:29:37 by SUMO netconvert Version dev-SVN-r10182
+<!-- generated on Tue May 10 11:18:22 2011 by SUMO netconvert Version dev-SVN-r10263
 <?xml version="1.0" encoding="iso-8859-1"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <xml-node-files value="input_nodes.nod.xml"/>
-        <xml-edge-files value="input_edges.edg.xml"/>
-        <xml-connection-files value="input_connections.con.xml"/>
+        <node-files value="input_nodes.nod.xml"/>
+        <edge-files value="input_edges.edg.xml"/>
+        <connection-files value="input_connections.con.xml"/>
     </input>
 
     <output>
-        <output-file value="net.net.xml"/>
+        <output value="net.net.xml"/>
     </output>
 
     <edge_removal>
@@ -156,19 +156,16 @@
       <lane id="4si_2" depart="0" maxspeed="13.89" length="237.15" shape="498.35,748.50 498.35,511.35"/>
    </edge>
 
-   <row-logic id="0" requestSize="12">
-      <logicitem request="0" response="000000000000" foes="000010100000" cont="0"/>
-      <logicitem request="1" response="000000000000" foes="101110100000" cont="0"/>
-      <logicitem request="2" response="000001000000" foes="100001100000" cont="1"/>
-      <logicitem request="3" response="111111111111" foes="000000000000" cont="0"/>
-      <logicitem request="4" response="111111111111" foes="000000000000" cont="0"/>
-      <logicitem request="5" response="000010000111" foes="000010000111" cont="0"/>
-      <logicitem request="6" response="000000000000" foes="100000000100" cont="0"/>
-      <logicitem request="7" response="000000000011" foes="100000100011" cont="1"/>
-      <logicitem request="8" response="001000000010" foes="001000000010" cont="0"/>
-      <logicitem request="9" response="000000000010" foes="000100000010" cont="0"/>
-      <logicitem request="10" response="111111111111" foes="000000000000" cont="0"/>
-      <logicitem request="11" response="000011000110" foes="000011000110" cont="0"/>
+   <row-logic id="0" requestSize="9">
+      <logicitem request="0" response="000000000" foes="000101000" cont="0"/>
+      <logicitem request="1" response="000000000" foes="111101000" cont="0"/>
+      <logicitem request="2" response="000010000" foes="100011000" cont="1"/>
+      <logicitem request="3" response="000100111" foes="000100111" cont="0"/>
+      <logicitem request="4" response="000000000" foes="100000100" cont="0"/>
+      <logicitem request="5" response="000000011" foes="100001011" cont="1"/>
+      <logicitem request="6" response="010000010" foes="010000010" cont="0"/>
+      <logicitem request="7" response="000000010" foes="001000010" cont="0"/>
+      <logicitem request="8" response="000110110" foes="000110110" cont="0"/>
    </row-logic>
    <row-logic id="1" requestSize="1">
       <logicitem request="0" response="0" foes="0" cont="0"/>
@@ -227,7 +224,6 @@
       <succlane lane="3o_0" via=":0_7_0" dir="r" state="m"/>
    </succ>
    <succ edge="1si" lane="1si_1" junction="0">
-      <succlane lane="SUMO_NO_DESTINATION" dir="s" state="O"/>
    </succ>
    <succ edge="1si" lane="1si_2" junction="0">
       <succlane lane="2o_0" via=":0_8_0" dir="s" state="m"/>
@@ -243,10 +239,8 @@
       <succlane lane="2fi_1" via=":2_0_0" dir="t" state="M"/>
    </succ>
    <succ edge="2si" lane="2si_0" junction="0">
-      <succlane lane="SUMO_NO_DESTINATION" dir="s" state="O"/>
    </succ>
    <succ edge="2si" lane="2si_1" junction="0">
-      <succlane lane="SUMO_NO_DESTINATION" dir="s" state="O"/>
    </succ>
    <succ edge="2si" lane="2si_2" junction="0">
       <succlane lane="1o_0" via=":0_3_0" dir="s" state="m"/>

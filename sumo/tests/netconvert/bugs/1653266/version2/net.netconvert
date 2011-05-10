@@ -1,10 +1,12 @@
 <?xml version="1.0"?>
 
-<!-- generated on 08/13/10 09:41:21 by SUMO netconvert Version dev-SVN-r8487
-<configuration>
+<!-- generated on Tue May 10 11:18:21 2011 by SUMO netconvert Version dev-SVN-r10263
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <xml-edge-files value="input_edges.edg.xml"/>
+        <edge-files value="input_edges.edg.xml"/>
     </input>
 
     <processing>
@@ -31,10 +33,8 @@
    <junction id="SUMOGenerated3" type="DEAD_END" x="1011.00" y="0.00" incLanes="out_0" intLanes="" shape="1011.00,-3.25 1011.00,-0.05"/>
 
    <succ edge="1to2" lane="1to2_0" junction="SUMOGenerated1">
-      <succlane lane="SUMO_NO_DESTINATION" dir="s" state="O"/>
    </succ>
    <succ edge="out" lane="out_0" junction="SUMOGenerated3">
-      <succlane lane="SUMO_NO_DESTINATION" dir="s" state="O"/>
    </succ>
 
 </net>

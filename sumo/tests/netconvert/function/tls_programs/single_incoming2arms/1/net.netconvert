@@ -1,17 +1,17 @@
 <?xml version="1.0"?>
 
-<!-- generated on 04/29/11 10:33:52 by SUMO netconvert Version dev-SVN-r10182
+<!-- generated on Tue May 10 11:18:16 2011 by SUMO netconvert Version dev-SVN-r10263
 <?xml version="1.0" encoding="iso-8859-1"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <xml-node-files value="input_nodes.nod.xml"/>
-        <xml-edge-files value="input_edges.edg.xml"/>
+        <node-files value="input_nodes.nod.xml"/>
+        <edge-files value="input_edges.edg.xml"/>
     </input>
 
     <tls_building>
-        <explicite-tls value="15030102"/>
+        <tls.set value="15030102"/>
     </tls_building>
 
     <report>
@@ -97,10 +97,8 @@
       <succlane lane="152850000_0" via=":15030102_2_0" tl="15030102" linkno="2" dir="l" state="t"/>
    </succ>
    <succ edge="153120299" lane="153120299_0" junction="15030099">
-      <succlane lane="SUMO_NO_DESTINATION" dir="s" state="O"/>
    </succ>
    <succ edge="153120299" lane="153120299_1" junction="15030099">
-      <succlane lane="SUMO_NO_DESTINATION" dir="s" state="O"/>
    </succ>
 
    <succ edge=":15030102_0" lane=":15030102_0_0" junction="15030102">

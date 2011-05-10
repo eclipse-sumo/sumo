@@ -1,17 +1,17 @@
 <?xml version="1.0"?>
 
-<!-- generated on 04/29/11 10:43:51 by SUMO netconvert Version dev-SVN-r10182
+<!-- generated on Tue May 10 11:18:01 2011 by SUMO netconvert Version dev-SVN-r10263
 <?xml version="1.0" encoding="iso-8859-1"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <xml-node-files value="input_nodes.nod.xml"/>
-        <xml-edge-files value="input_edges.edg.xml,input_edges2.edg.xml"/>
+        <node-files value="input_nodes.nod.xml"/>
+        <edge-files value="input_edges.edg.xml,input_edges2.edg.xml"/>
     </input>
 
     <output>
-        <output-file value="net.net.xml"/>
+        <output value="net.net.xml"/>
     </output>
 
 </configuration>
@@ -162,10 +162,9 @@
    <row-logic id="1" requestSize="1">
       <logicitem request="0" response="0" foes="0" cont="0"/>
    </row-logic>
-   <row-logic id="1fi.150" requestSize="3">
-      <logicitem request="0" response="000" foes="000" cont="0"/>
-      <logicitem request="1" response="000" foes="000" cont="0"/>
-      <logicitem request="2" response="111" foes="000" cont="0"/>
+   <row-logic id="1fi.150" requestSize="2">
+      <logicitem request="0" response="00" foes="00" cont="0"/>
+      <logicitem request="1" response="00" foes="00" cont="0"/>
    </row-logic>
    <row-logic id="1fi.50" requestSize="3">
       <logicitem request="0" response="000" foes="000" cont="0"/>
@@ -215,7 +214,6 @@
       <succlane lane="1fi.150_1" via=":1fi.150_1_0" dir="s" state="M"/>
    </succ>
    <succ edge="1fi.50" lane="1fi.50_2" junction="1fi.150">
-      <succlane lane="SUMO_NO_DESTINATION" dir="s" state="O"/>
    </succ>
    <succ edge="1o" lane="1o_0" junction="1">
       <succlane lane="1fi_1" via=":1_0_0" dir="t" state="M"/>

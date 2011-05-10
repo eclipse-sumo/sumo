@@ -1,18 +1,18 @@
 <?xml version="1.0"?>
 
-<!-- generated on 04/29/11 10:52:32 by SUMO netconvert Version dev-SVN-r10182
+<!-- generated on Tue May 10 11:17:53 2011 by SUMO netconvert Version dev-SVN-r10263
 <?xml version="1.0" encoding="iso-8859-1"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <xml-node-files value="input_nodes.nod.xml"/>
-        <xml-edge-files value="input_edges.edg.xml"/>
-        <xml-connection-files value="input_connections.con.xml"/>
+        <node-files value="input_nodes.nod.xml"/>
+        <edge-files value="input_edges.edg.xml"/>
+        <connection-files value="input_connections.con.xml"/>
     </input>
 
     <output>
-        <output-file value="net.net.xml"/>
+        <output value="net.net.xml"/>
     </output>
 
     <processing>
@@ -193,8 +193,7 @@
       <logicitem request="14" response="0000011000110110" foes="0000011000111110" cont="0"/>
       <logicitem request="15" response="0000010000100001" foes="0000010000100001" cont="0"/>
    </row-logic>
-   <row-logic id="1" requestSize="1">
-      <logicitem request="0" response="1" foes="0" cont="0"/>
+   <row-logic id="1" requestSize="0">
    </row-logic>
    <row-logic id="2" requestSize="1">
       <logicitem request="0" response="0" foes="0" cont="0"/>
@@ -247,7 +246,6 @@
       <succlane lane="1si_2" via=":m1_2_0" dir="s" state="M"/>
    </succ>
    <succ edge="1o" lane="1o_0" junction="1">
-      <succlane lane="SUMO_NO_DESTINATION" dir="s" state="O"/>
    </succ>
    <succ edge="1si" lane="1si_0" junction="0">
       <succlane lane="3o_0" via=":0_12_0" dir="r" state="m"/>

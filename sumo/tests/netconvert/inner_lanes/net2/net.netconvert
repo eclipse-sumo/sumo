@@ -1,17 +1,17 @@
 <?xml version="1.0"?>
 
-<!-- generated on 04/29/11 10:19:18 by SUMO netconvert Version dev-SVN-r10182
+<!-- generated on Tue May 10 11:17:51 2011 by SUMO netconvert Version dev-SVN-r10263
 <?xml version="1.0" encoding="iso-8859-1"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <xml-node-files value="input_nodes.nod.xml"/>
-        <xml-edge-files value="input_edges.edg.xml"/>
+        <node-files value="input_nodes.nod.xml"/>
+        <edge-files value="input_edges.edg.xml"/>
     </input>
 
     <output>
-        <output-file value="net.net.xml"/>
+        <output value="net.net.xml"/>
     </output>
 
     <processing>
@@ -121,17 +121,13 @@
       <logicitem request="10" response="000111000110" foes="000111100110" cont="0"/>
       <logicitem request="11" response="000110011110" foes="000110011110" cont="1"/>
    </row-logic>
-   <row-logic id="1" requestSize="1">
-      <logicitem request="0" response="1" foes="0" cont="0"/>
+   <row-logic id="1" requestSize="0">
    </row-logic>
-   <row-logic id="2" requestSize="1">
-      <logicitem request="0" response="1" foes="0" cont="0"/>
+   <row-logic id="2" requestSize="0">
    </row-logic>
-   <row-logic id="3" requestSize="1">
-      <logicitem request="0" response="1" foes="0" cont="0"/>
+   <row-logic id="3" requestSize="0">
    </row-logic>
-   <row-logic id="4" requestSize="1">
-      <logicitem request="0" response="1" foes="0" cont="0"/>
+   <row-logic id="4" requestSize="0">
    </row-logic>
 
    <tl-logic id="0" type="static" programID="0" offset="0">
@@ -164,7 +160,6 @@
       <succlane lane="4o_0" via=":0_8_0" tl="0" linkno="8" dir="l" state="t"/>
    </succ>
    <succ edge="1o" lane="1o_0" junction="1">
-      <succlane lane="SUMO_NO_DESTINATION" dir="s" state="O"/>
    </succ>
    <succ edge="2i" lane="2i_0" junction="0">
       <succlane lane="4o_0" via=":0_0_0" tl="0" linkno="0" dir="r" state="t"/>
@@ -174,7 +169,6 @@
       <succlane lane="3o_0" via=":0_2_0" tl="0" linkno="2" dir="l" state="t"/>
    </succ>
    <succ edge="2o" lane="2o_0" junction="2">
-      <succlane lane="SUMO_NO_DESTINATION" dir="s" state="O"/>
    </succ>
    <succ edge="3i" lane="3i_0" junction="0">
       <succlane lane="2o_0" via=":0_3_0" tl="0" linkno="3" dir="r" state="t"/>
@@ -184,7 +178,6 @@
       <succlane lane="1o_0" via=":0_5_0" tl="0" linkno="5" dir="l" state="t"/>
    </succ>
    <succ edge="3o" lane="3o_0" junction="3">
-      <succlane lane="SUMO_NO_DESTINATION" dir="s" state="O"/>
    </succ>
    <succ edge="4i" lane="4i_0" junction="0">
       <succlane lane="1o_0" via=":0_9_0" tl="0" linkno="9" dir="r" state="t"/>
@@ -194,7 +187,6 @@
       <succlane lane="2o_0" via=":0_11_0" tl="0" linkno="11" dir="l" state="t"/>
    </succ>
    <succ edge="4o" lane="4o_0" junction="4">
-      <succlane lane="SUMO_NO_DESTINATION" dir="s" state="O"/>
    </succ>
 
    <succ edge=":0_0" lane=":0_0_0" junction="0">

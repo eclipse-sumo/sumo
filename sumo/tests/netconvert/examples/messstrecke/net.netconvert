@@ -1,18 +1,18 @@
 <?xml version="1.0"?>
 
-<!-- generated on 04/29/11 10:27:08 by SUMO netconvert Version dev-SVN-r10182
+<!-- generated on Tue May 10 11:17:51 2011 by SUMO netconvert Version dev-SVN-r10263
 <?xml version="1.0" encoding="iso-8859-1"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <xml-node-files value="input_nodes.nod.xml"/>
-        <xml-edge-files value="input_edges.edg.xml"/>
-        <xml-connection-files value="input_connections.con.xml"/>
+        <node-files value="input_nodes.nod.xml"/>
+        <edge-files value="input_edges.edg.xml"/>
+        <connection-files value="input_connections.con.xml"/>
     </input>
 
     <output>
-        <output-file value="net.net.xml"/>
+        <output value="net.net.xml"/>
     </output>
 
     <processing>
@@ -378,15 +378,13 @@
       <logicitem request="0" response="00" foes="00" cont="0"/>
       <logicitem request="1" response="00" foes="00" cont="0"/>
    </row-logic>
-   <row-logic id="AltglienickerSinkEnd" requestSize="1">
-      <logicitem request="0" response="1" foes="0" cont="0"/>
+   <row-logic id="AltglienickerSinkEnd" requestSize="0">
    </row-logic>
    <row-logic id="EinsteinEnd" requestSize="2">
       <logicitem request="0" response="00" foes="00" cont="0"/>
       <logicitem request="1" response="00" foes="00" cont="0"/>
    </row-logic>
-   <row-logic id="EinsteinSinkEnd" requestSize="1">
-      <logicitem request="0" response="1" foes="0" cont="0"/>
+   <row-logic id="EinsteinSinkEnd" requestSize="0">
    </row-logic>
    <row-logic id="ErnstRuskaAltglienicker" requestSize="8">
       <logicitem request="0" response="00000000" foes="00010000" cont="0"/>
@@ -439,20 +437,15 @@
       <logicitem request="3" response="00000" foes="00000" cont="0"/>
       <logicitem request="4" response="00000" foes="00000" cont="0"/>
    </row-logic>
-   <row-logic id="ErnstRuskaHavestadtDiv2" requestSize="5">
-      <logicitem request="0" response="00000" foes="00000" cont="0"/>
-      <logicitem request="1" response="00000" foes="00000" cont="0"/>
-      <logicitem request="2" response="00000" foes="00000" cont="0"/>
-      <logicitem request="3" response="00000" foes="00000" cont="0"/>
-      <logicitem request="4" response="11111" foes="00000" cont="0"/>
+   <row-logic id="ErnstRuskaHavestadtDiv2" requestSize="4">
+      <logicitem request="0" response="0000" foes="0000" cont="0"/>
+      <logicitem request="1" response="0000" foes="0000" cont="0"/>
+      <logicitem request="2" response="0000" foes="0000" cont="0"/>
+      <logicitem request="3" response="0000" foes="0000" cont="0"/>
    </row-logic>
-   <row-logic id="ErnstRuskaSink1" requestSize="2">
-      <logicitem request="0" response="11" foes="00" cont="0"/>
-      <logicitem request="1" response="11" foes="00" cont="0"/>
+   <row-logic id="ErnstRuskaSink1" requestSize="0">
    </row-logic>
-   <row-logic id="ErnstRuskaSink2" requestSize="2">
-      <logicitem request="0" response="11" foes="00" cont="0"/>
-      <logicitem request="1" response="11" foes="00" cont="0"/>
+   <row-logic id="ErnstRuskaSink2" requestSize="0">
    </row-logic>
    <row-logic id="ErnstRuskaVolmer" requestSize="8">
       <logicitem request="0" response="00011000" foes="00011000" cont="0"/>
@@ -470,16 +463,13 @@
       <logicitem request="2" response="0000" foes="0000" cont="0"/>
       <logicitem request="3" response="0000" foes="0000" cont="0"/>
    </row-logic>
-   <row-logic id="HavestadtSinkEnd" requestSize="2">
-      <logicitem request="0" response="11" foes="00" cont="0"/>
-      <logicitem request="1" response="11" foes="00" cont="0"/>
+   <row-logic id="HavestadtSinkEnd" requestSize="0">
    </row-logic>
    <row-logic id="VolmerEnd" requestSize="2">
       <logicitem request="0" response="00" foes="00" cont="0"/>
       <logicitem request="1" response="00" foes="00" cont="0"/>
    </row-logic>
-   <row-logic id="VolmerSinkEnd" requestSize="1">
-      <logicitem request="0" response="1" foes="0" cont="0"/>
+   <row-logic id="VolmerSinkEnd" requestSize="0">
    </row-logic>
 
    <tl-logic id="ErnstRuskaAltglienicker" type="static" programID="0" offset="0">
@@ -537,7 +527,6 @@
       <succlane lane="AltglienickerN_0" via=":AltglienickerEnd_1_0" dir="s" state="M"/>
    </succ>
    <succ edge="AltglienickerSinkS" lane="AltglienickerSinkS_0" junction="AltglienickerSinkEnd">
-      <succlane lane="SUMO_NO_DESTINATION" dir="s" state="O"/>
    </succ>
    <succ edge="EinsteinN" lane="EinsteinN_0" junction="EinsteinEnd">
       <succlane lane="EinsteinSinkN_0" via=":EinsteinEnd_1_0" dir="s" state="M"/>
@@ -547,7 +536,6 @@
       <succlane lane="ErnstRuska2O_1" via=":ErnstRuskaEinstein_1_0" dir="l" state="m"/>
    </succ>
    <succ edge="EinsteinSinkN" lane="EinsteinSinkN_0" junction="EinsteinSinkEnd">
-      <succlane lane="SUMO_NO_DESTINATION" dir="s" state="O"/>
    </succ>
    <succ edge="EinsteinSinkS" lane="EinsteinSinkS_0" junction="EinsteinEnd">
       <succlane lane="EinsteinS_0" via=":EinsteinEnd_0_0" dir="s" state="M"/>
@@ -587,7 +575,6 @@
       <succlane lane="ErnstRuska3O_1" via=":ErnstRuskaHavestadtDiv2_3_0" dir="s" state="M"/>
    </succ>
    <succ edge="ErnstRuska232O" lane="ErnstRuska232O_2" junction="ErnstRuskaHavestadtDiv2">
-      <succlane lane="SUMO_NO_DESTINATION" dir="s" state="O"/>
    </succ>
    <succ edge="ErnstRuska232W" lane="ErnstRuska232W_0" junction="ErnstRuskaHavestadt">
       <succlane lane="HavestadtN_0" via=":ErnstRuskaHavestadt_3_0" dir="r" state="m"/>
@@ -659,16 +646,12 @@
       <succlane lane="ErnstRuska1O_1" via=":ErnstRuskaEnd1_3_0" dir="s" state="M"/>
    </succ>
    <succ edge="ErnstRuskaSink1W" lane="ErnstRuskaSink1W_0" junction="ErnstRuskaSink1">
-      <succlane lane="SUMO_NO_DESTINATION" dir="s" state="O"/>
    </succ>
    <succ edge="ErnstRuskaSink1W" lane="ErnstRuskaSink1W_1" junction="ErnstRuskaSink1">
-      <succlane lane="SUMO_NO_DESTINATION" dir="s" state="O"/>
    </succ>
    <succ edge="ErnstRuskaSink5O" lane="ErnstRuskaSink5O_0" junction="ErnstRuskaSink2">
-      <succlane lane="SUMO_NO_DESTINATION" dir="s" state="O"/>
    </succ>
    <succ edge="ErnstRuskaSink5O" lane="ErnstRuskaSink5O_1" junction="ErnstRuskaSink2">
-      <succlane lane="SUMO_NO_DESTINATION" dir="s" state="O"/>
    </succ>
    <succ edge="ErnstRuskaSink5W" lane="ErnstRuskaSink5W_0" junction="ErnstRuskaEnd2">
       <succlane lane="ErnstRuska5W_0" via=":ErnstRuskaEnd2_0_0" dir="s" state="M"/>
@@ -691,10 +674,8 @@
       <succlane lane="ErnstRuska232O_2" via=":ErnstRuskaHavestadt_2_0" dir="l" state="m"/>
    </succ>
    <succ edge="HavestadtSinkN" lane="HavestadtSinkN_0" junction="HavestadtSinkEnd">
-      <succlane lane="SUMO_NO_DESTINATION" dir="s" state="O"/>
    </succ>
    <succ edge="HavestadtSinkN" lane="HavestadtSinkN_1" junction="HavestadtSinkEnd">
-      <succlane lane="SUMO_NO_DESTINATION" dir="s" state="O"/>
    </succ>
    <succ edge="HavestadtSinkS" lane="HavestadtSinkS_0" junction="HavestadtEnd">
       <succlane lane="HavestadtS_0" via=":HavestadtEnd_0_0" dir="s" state="M"/>
@@ -710,7 +691,6 @@
       <succlane lane="ErnstRuska4O_1" via=":ErnstRuskaVolmer_1_0" dir="l" state="m"/>
    </succ>
    <succ edge="VolmerSinkN" lane="VolmerSinkN_0" junction="VolmerSinkEnd">
-      <succlane lane="SUMO_NO_DESTINATION" dir="s" state="O"/>
    </succ>
    <succ edge="VolmerSinkS" lane="VolmerSinkS_0" junction="VolmerEnd">
       <succlane lane="VolmerS_0" via=":VolmerEnd_0_0" dir="s" state="M"/>

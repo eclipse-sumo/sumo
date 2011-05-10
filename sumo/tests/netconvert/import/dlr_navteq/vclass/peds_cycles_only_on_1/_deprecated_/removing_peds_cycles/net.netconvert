@@ -1,16 +1,16 @@
 <?xml version="1.0"?>
 
-<!-- generated on 04/29/11 10:42:07 by SUMO netconvert Version dev-SVN-r10182
+<!-- generated on Tue May 10 11:18:07 2011 by SUMO netconvert Version dev-SVN-r10263
 <?xml version="1.0" encoding="iso-8859-1"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <dlr-navteq value="elmar"/>
+        <dlr-navteq-prefix value="elmar"/>
     </input>
 
     <output>
-        <output-file value="net.net.xml"/>
+        <output value="net.net.xml"/>
     </output>
 
     <projection>
@@ -90,20 +90,14 @@
       <logicitem request="15" response="00000000000000000" foes="00000000111011110"/>
       <logicitem request="16" response="00000000110000001" foes="00000000110000001"/>
    </row-logic>
-   <row-logic id="2" requestSize="3">
-      <logicitem request="0" response="111" foes="000"/>
-      <logicitem request="1" response="111" foes="000"/>
-      <logicitem request="2" response="000" foes="000"/>
+   <row-logic id="2" requestSize="1">
+      <logicitem request="0" response="0" foes="0"/>
    </row-logic>
-   <row-logic id="3" requestSize="3">
-      <logicitem request="0" response="111" foes="000"/>
-      <logicitem request="1" response="111" foes="000"/>
-      <logicitem request="2" response="000" foes="000"/>
+   <row-logic id="3" requestSize="1">
+      <logicitem request="0" response="0" foes="0"/>
    </row-logic>
-   <row-logic id="4" requestSize="3">
-      <logicitem request="0" response="111" foes="000"/>
-      <logicitem request="1" response="111" foes="000"/>
-      <logicitem request="2" response="000" foes="000"/>
+   <row-logic id="4" requestSize="1">
+      <logicitem request="0" response="0" foes="0"/>
    </row-logic>
 
    <junction id="0" type="priority" x="17007.34" y="13405.73" incLanes="3_0 3_1 4_0 4_1 2_0 2_1 2_2" intLanes="" shape="17001.15,13417.29 17017.54,13416.77 17018.84,13410.30 17018.55,13400.50 17013.53,13394.20 16997.14,13394.71 16995.69,13396.26 16996.34,13415.95"/>
@@ -113,37 +107,28 @@
    <junction id="4" type="priority" x="16588.25" y="0.00" incLanes="-4_0 -4_1 -4_2" intLanes="" shape="16588.30,-0.00 16594.80,-0.20 16578.41,0.31 16588.20,0.00"/>
 
    <succ edge="-1" lane="-1_0" junction="1">
-      <succlane lane="SUMO_NO_DESTINATION" dir="s" state="O"/>
    </succ>
    <succ edge="-1" lane="-1_1" junction="1">
-      <succlane lane="SUMO_NO_DESTINATION" dir="s" state="O"/>
    </succ>
    <succ edge="-1" lane="-1_2" junction="1">
-      <succlane lane="SUMO_NO_DESTINATION" dir="s" state="O"/>
    </succ>
    <succ edge="-2" lane="-2_0" junction="2">
-      <succlane lane="SUMO_NO_DESTINATION" dir="s" state="O"/>
    </succ>
    <succ edge="-2" lane="-2_1" junction="2">
-      <succlane lane="SUMO_NO_DESTINATION" dir="s" state="O"/>
    </succ>
    <succ edge="-2" lane="-2_2" junction="2">
       <succlane lane="2_2" dir="t" state="M"/>
    </succ>
    <succ edge="-3" lane="-3_0" junction="3">
-      <succlane lane="SUMO_NO_DESTINATION" dir="s" state="O"/>
    </succ>
    <succ edge="-3" lane="-3_1" junction="3">
-      <succlane lane="SUMO_NO_DESTINATION" dir="s" state="O"/>
    </succ>
    <succ edge="-3" lane="-3_2" junction="3">
       <succlane lane="3_1" dir="t" state="M"/>
    </succ>
    <succ edge="-4" lane="-4_0" junction="4">
-      <succlane lane="SUMO_NO_DESTINATION" dir="s" state="O"/>
    </succ>
    <succ edge="-4" lane="-4_1" junction="4">
-      <succlane lane="SUMO_NO_DESTINATION" dir="s" state="O"/>
    </succ>
    <succ edge="-4" lane="-4_2" junction="4">
       <succlane lane="4_1" dir="t" state="M"/>

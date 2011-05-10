@@ -1,19 +1,21 @@
 <?xml version="1.0"?>
 
-<!-- generated on 08/13/10 09:41:16 by SUMO netconvert Version dev-SVN-r8487
-<configuration>
+<!-- generated on Tue May 10 11:18:17 2011 by SUMO netconvert Version dev-SVN-r10263
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <xml-node-files value="input_nodes.nod.xml"/>
-        <xml-edge-files value="input_edges.edg.xml"/>
+        <node-files value="input_nodes.nod.xml"/>
+        <edge-files value="input_edges.edg.xml"/>
     </input>
 
     <output>
-        <output-file value="net.net.xml"/>
+        <output value="net.net.xml"/>
     </output>
 
     <ramp_guessing>
-        <ramp-guess.explicite value="s2"/>
+        <ramps.set value="s2"/>
     </ramp_guessing>
 
     <processing>
@@ -73,11 +75,10 @@
       <logicitem request="2" response="0000" foes="0001"/>
       <logicitem request="3" response="0000" foes="0001"/>
    </row-logic>
-   <row-logic id="s2-AddedOnRampNode" requestSize="4">
-      <logicitem request="0" response="1111" foes="0000"/>
-      <logicitem request="1" response="0000" foes="0000"/>
-      <logicitem request="2" response="0000" foes="0000"/>
-      <logicitem request="3" response="0000" foes="0000"/>
+   <row-logic id="s2-AddedOnRampNode" requestSize="3">
+      <logicitem request="0" response="000" foes="000"/>
+      <logicitem request="1" response="000" foes="000"/>
+      <logicitem request="2" response="000" foes="000"/>
    </row-logic>
 
    <junction id="1" type="DEAD_END" x="0.00" y="0.00" incLanes="s4_0 s4_1 s4_2" intLanes="" shape="-0.00,9.85 -0.00,0.05"/>
@@ -111,7 +112,6 @@
       <succlane lane="s3_2" dir="s" state="M"/>
    </succ>
    <succ edge="s2-AddedOnRampEdge" lane="s2-AddedOnRampEdge_0" junction="s2-AddedOnRampNode">
-      <succlane lane="SUMO_NO_DESTINATION" dir="s" state="O"/>
    </succ>
    <succ edge="s2-AddedOnRampEdge" lane="s2-AddedOnRampEdge_1" junction="s2-AddedOnRampNode">
       <succlane lane="s2_0" dir="s" state="M"/>
@@ -132,13 +132,10 @@
       <succlane lane="s4_2" dir="s" state="M"/>
    </succ>
    <succ edge="s4" lane="s4_0" junction="1">
-      <succlane lane="SUMO_NO_DESTINATION" dir="s" state="O"/>
    </succ>
    <succ edge="s4" lane="s4_1" junction="1">
-      <succlane lane="SUMO_NO_DESTINATION" dir="s" state="O"/>
    </succ>
    <succ edge="s4" lane="s4_2" junction="1">
-      <succlane lane="SUMO_NO_DESTINATION" dir="s" state="O"/>
    </succ>
 
 </net>

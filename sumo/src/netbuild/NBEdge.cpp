@@ -808,27 +808,13 @@ NBEdge::writeSucceeding(OutputDevice &into, unsigned int lane, bool includeInter
             ++count;
         }
     }
-    // the lane may be unconnented; output information about being invalid
-    if (count==0) {
-        into << "      <succlane lane=\"SUMO_NO_DESTINATION\"/>\n";
-    }
     into << "   </succ>\n";
 }
 
 
 void
 NBEdge::writeSingleSucceeding(OutputDevice &into, const NBEdge::Connection &c, bool includeInternal) {
-    // check whether the connected lane is invalid
-    //  (should not happen; this is an artefact left from previous versions)
-    if (c.toEdge==0) {
-        into << "      <succlane lane=\"SUMO_NO_DESTINATION\""; // !!! check dummy values
-        if (c.tlID!="") {
-            into << " tl=\"" << c.tlID << "\"";
-            into << " linkno=\"" << c.tlLinkNo << "\"";
-        }
-        into << " dir=\"s\" state=\"O\"/>\n"; // !!! check dummy values
-        return;
-    }
+    assert(c.toEdge != 0);
     // write the id
     into << "      <succlane lane=\"" << c.toEdge->getLaneID(c.toLane) << '\"'; // !!! classe LaneEdge mit getLaneID
     if (includeInternal) {
@@ -978,30 +964,6 @@ NBEdge::recheckLanes() {
                     moveConnectionToRight(i+1);
                 }
             }
-        }
-    }
-    // check:
-    // Go through all lanes and add an empty connection if no connection
-    //  is yet set.
-    // This check must be done for all lanes to assert that there is at
-    //  least a dead end information (needed later for building the
-    //  node request
-    for (unsigned int i=0; i<myLanes.size(); i++) {
-        connNumbersPerLane[i] = 0;
-    }
-    for (std::vector<Connection>::iterator i=myConnections.begin(); i!=myConnections.end();) {
-        if ((*i).toEdge==0||(*i).fromLane<0||(*i).toLane<0) {
-            i = myConnections.erase(i);
-        } else {
-            if ((*i).fromLane>=0) {
-                ++connNumbersPerLane[(*i).fromLane];
-            }
-            ++i;
-        }
-    }
-    for (unsigned int i=0; i<myLanes.size(); i++) {
-        if (connNumbersPerLane[i]==0) {
-            setConnection(i, 0, 0, L2L_VALIDATED, false);
         }
     }
     return true;

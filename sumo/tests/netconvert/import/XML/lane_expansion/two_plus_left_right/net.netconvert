@@ -1,14 +1,16 @@
 <?xml version="1.0"?>
 
-<!-- generated on 08/13/10 09:47:20 by SUMO netconvert Version dev-SVN-r8487
-<configuration>
+<!-- generated on Tue May 10 11:17:56 2011 by SUMO netconvert Version dev-SVN-r10263
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <xml-edge-files value="input_edges.edg.xml"/>
+        <edge-files value="input_edges.edg.xml"/>
     </input>
 
     <output>
-        <output-file value="net.net.xml"/>
+        <output value="net.net.xml"/>
     </output>
 
 </configuration>
@@ -62,16 +64,12 @@
       <succlane lane="1.50_3" via=":1.50_3_0" dir="s" state="M"/>
    </succ>
    <succ edge="1.50" lane="1.50_0" junction="SUMOGenerated1">
-      <succlane lane="SUMO_NO_DESTINATION" dir="s" state="O"/>
    </succ>
    <succ edge="1.50" lane="1.50_1" junction="SUMOGenerated1">
-      <succlane lane="SUMO_NO_DESTINATION" dir="s" state="O"/>
    </succ>
    <succ edge="1.50" lane="1.50_2" junction="SUMOGenerated1">
-      <succlane lane="SUMO_NO_DESTINATION" dir="s" state="O"/>
    </succ>
    <succ edge="1.50" lane="1.50_3" junction="SUMOGenerated1">
-      <succlane lane="SUMO_NO_DESTINATION" dir="s" state="O"/>
    </succ>
 
    <succ edge=":1.50_0" lane=":1.50_0_0" junction="1.50">

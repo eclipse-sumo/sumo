@@ -1,11 +1,13 @@
 <?xml version="1.0"?>
 
-<!-- generated on 08/13/10 09:41:21 by SUMO netconvert Version dev-SVN-r8487
-<configuration>
+<!-- generated on Tue May 10 11:18:21 2011 by SUMO netconvert Version dev-SVN-r10263
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <xml-node-files value="input_nodes.nod.xml"/>
-        <xml-edge-files value="input_edges.edg.xml"/>
+        <node-files value="input_nodes.nod.xml"/>
+        <edge-files value="input_edges.edg.xml"/>
     </input>
 
     <processing>
@@ -62,10 +64,8 @@
       <succlane lane="3_1" dir="l" state="m"/>
    </succ>
    <succ edge="3" lane="3_0" junction="node125">
-      <succlane lane="SUMO_NO_DESTINATION" dir="s" state="O"/>
    </succ>
    <succ edge="3" lane="3_1" junction="node125">
-      <succlane lane="SUMO_NO_DESTINATION" dir="s" state="O"/>
    </succ>
 
 </net>

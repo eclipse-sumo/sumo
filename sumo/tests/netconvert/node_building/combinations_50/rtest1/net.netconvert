@@ -1,13 +1,13 @@
 <?xml version="1.0"?>
 
-<!-- generated on 04/29/11 10:17:46 by SUMO netconvert Version dev-SVN-r10182
+<!-- generated on Tue May 10 11:17:50 2011 by SUMO netconvert Version dev-SVN-r10263
 <?xml version="1.0" encoding="iso-8859-1"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <xml-node-files value="input_nodes.nod.xml"/>
-        <xml-edge-files value="input_edges.edg.xml"/>
+        <node-files value="input_nodes.nod.xml"/>
+        <edge-files value="input_edges.edg.xml"/>
     </input>
 
     <processing>
@@ -22,7 +22,7 @@
    <location netOffset="50.00,50.00" convBoundary="0.00,0.00,100.00,100.00" origBoundary="-50.00,-50.00,50.00,50.00" projParameter="!"/>
 
    <edge id=":0_0" function="internal">
-      <lane id=":0_0_0" depart="0" maxspeed="12.50" length="5.00" shape="48.35,54.75 48.16,53.39 47.57,52.43 46.61,51.84 45.25,51.65"/>
+      <lane id=":0_0_0" depart="0" maxspeed="12.50" length="5.00" shape="48.35,54.75 48.16,53.39 47.58,52.43 46.61,51.84 45.25,51.65"/>
    </edge>
    <edge id=":0_1" function="internal">
       <lane id=":0_1_0" depart="0" maxspeed="15.28" length="9.50" shape="48.35,54.75 48.35,45.25"/>
@@ -125,7 +125,6 @@
    <junction id=":0_12_0" type="internal" x="48.93" y="51.65" incLanes=":0_2_0" intLanes="" shape=""/>
 
    <succ edge="1o" lane="1o_0" junction="1">
-      <succlane lane="SUMO_NO_DESTINATION" dir="s" state="O"/>
    </succ>
    <succ edge="2i" lane="2i_0" junction="0">
       <succlane lane="4o_0" via=":0_4_0" dir="r" state="m"/>

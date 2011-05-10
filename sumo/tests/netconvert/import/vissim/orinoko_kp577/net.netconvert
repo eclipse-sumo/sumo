@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 04/29/11 10:42:51 by SUMO netconvert Version dev-SVN-r10182
+<!-- generated on Tue May 10 11:18:05 2011 by SUMO netconvert Version dev-SVN-r10263
 <?xml version="1.0" encoding="iso-8859-1"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
@@ -10,7 +10,7 @@
     </input>
 
     <output>
-        <output-file value="net.net.xml"/>
+        <output value="net.net.xml"/>
     </output>
 
     <processing>
@@ -782,12 +782,11 @@
       <logicitem request="0" response="00" foes="00"/>
       <logicitem request="1" response="00" foes="00"/>
    </row-logic>
-   <row-logic id="605001201" requestSize="5">
-      <logicitem request="0" response="00000" foes="10100"/>
-      <logicitem request="1" response="00000" foes="10100"/>
-      <logicitem request="2" response="00011" foes="10011"/>
-      <logicitem request="3" response="11111" foes="00000"/>
-      <logicitem request="4" response="00111" foes="00111"/>
+   <row-logic id="605001201" requestSize="4">
+      <logicitem request="0" response="0000" foes="1100"/>
+      <logicitem request="1" response="0000" foes="1100"/>
+      <logicitem request="2" response="0011" foes="1011"/>
+      <logicitem request="3" response="0111" foes="0111"/>
    </row-logic>
 
    <tl-logic id="1" type="static" programID="0" offset="0">
@@ -952,7 +951,6 @@
       <succlane lane="65_1" dir="s" state="M"/>
    </succ>
    <succ edge="1001205" lane="1001205_0" junction="605001201">
-      <succlane lane="SUMO_NO_DESTINATION" dir="s" state="O"/>
    </succ>
    <succ edge="1001205" lane="1001205_1" junction="605001201">
       <succlane lane="1001204_1" dir="t" state="m"/>

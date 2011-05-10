@@ -1,18 +1,18 @@
 <?xml version="1.0"?>
 
-<!-- generated on 03/23/11 09:42:44 by SUMO netgen Version dev-SVN-r9962
+<!-- generated on Tue May 10 11:25:05 2011 by SUMO netgen Version dev-SVN-r10263
 <?xml version="1.0" encoding="iso-8859-1"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netgenConfiguration.xsd">
 
     <random_network>
-        <random-net value="true"/>
-        <rand-iterations value="10"/>
-        <rand-bidi-probability value="0"/>
+        <rand value="true"/>
+        <rand.iterations value="10"/>
+        <rand.bidi-probability value="0"/>
     </random_network>
 
     <output>
-        <output-file value="net.net.xml"/>
+        <output value="net.net.xml"/>
     </output>
 
     <building_defaults>
@@ -98,8 +98,8 @@
    </row-logic>
 
    <tl-logic id="10" type="static" programID="0" offset="0">
-      <phase duration="31" state="G"/>
-      <phase duration="4" state="y"/>
+      <phase duration="31" state=""/>
+      <phase duration="4" state=""/>
    </tl-logic>
    <tl-logic id="12" type="static" programID="0" offset="0">
       <phase duration="31" state="Gr"/>
@@ -108,28 +108,28 @@
       <phase duration="4" state="ry"/>
    </tl-logic>
    <tl-logic id="14" type="static" programID="0" offset="0">
-      <phase duration="31" state="G"/>
-      <phase duration="4" state="y"/>
+      <phase duration="31" state=""/>
+      <phase duration="4" state=""/>
    </tl-logic>
    <tl-logic id="18" type="static" programID="0" offset="0">
-      <phase duration="31" state="G"/>
-      <phase duration="4" state="y"/>
+      <phase duration="31" state=""/>
+      <phase duration="4" state=""/>
    </tl-logic>
    <tl-logic id="2" type="static" programID="0" offset="0">
       <phase duration="31" state="GG"/>
       <phase duration="4" state="yy"/>
    </tl-logic>
    <tl-logic id="24" type="static" programID="0" offset="0">
-      <phase duration="31" state="G"/>
-      <phase duration="4" state="y"/>
+      <phase duration="31" state=""/>
+      <phase duration="4" state=""/>
    </tl-logic>
    <tl-logic id="37" type="static" programID="0" offset="0">
-      <phase duration="31" state="G"/>
-      <phase duration="4" state="y"/>
+      <phase duration="31" state=""/>
+      <phase duration="4" state=""/>
    </tl-logic>
    <tl-logic id="6" type="static" programID="0" offset="0">
-      <phase duration="31" state="G"/>
-      <phase duration="4" state="y"/>
+      <phase duration="31" state=""/>
+      <phase duration="4" state=""/>
    </tl-logic>
    <tl-logic id="8" type="static" programID="0" offset="0">
       <phase duration="31" state="GGG"/>
@@ -148,32 +148,26 @@
    <junction id="8" type="traffic_light" x="373.91" y="370.80" incLanes="9_0" intLanes=":8_0_0 :8_1_0 :8_2_0" shape="375.07,372.51 377.76,370.78 378.34,368.96 377.14,365.99 368.93,364.18 366.36,366.09 365.76,367.24 365.63,370.43"/>
 
    <succ edge="11" lane="11_0" junction="10">
-      <succlane lane="SUMO_NO_DESTINATION" tl="10" linkno="0" dir="s" state="O"/>
    </succ>
    <succ edge="13" lane="13_0" junction="12">
       <succlane lane="38_0" via=":12_1_0" tl="12" linkno="1" dir="r" state="t"/>
    </succ>
    <succ edge="15" lane="15_0" junction="14">
-      <succlane lane="SUMO_NO_DESTINATION" tl="14" linkno="0" dir="s" state="O"/>
    </succ>
    <succ edge="17" lane="17_0" junction="12">
       <succlane lane="38_0" via=":12_0_0" tl="12" linkno="0" dir="s" state="t"/>
    </succ>
    <succ edge="19" lane="19_0" junction="18">
-      <succlane lane="SUMO_NO_DESTINATION" tl="18" linkno="0" dir="s" state="O"/>
    </succ>
    <succ edge="25" lane="25_0" junction="24">
-      <succlane lane="SUMO_NO_DESTINATION" tl="24" linkno="0" dir="s" state="O"/>
    </succ>
    <succ edge="3" lane="3_0" junction="2">
       <succlane lane="15_0" via=":2_0_0" tl="2" linkno="0" dir="s" state="t"/>
       <succlane lane="13_0" via=":2_1_0" tl="2" linkno="1" dir="l" state="t"/>
    </succ>
    <succ edge="38" lane="38_0" junction="37">
-      <succlane lane="SUMO_NO_DESTINATION" tl="37" linkno="0" dir="s" state="O"/>
    </succ>
    <succ edge="7" lane="7_0" junction="6">
-      <succlane lane="SUMO_NO_DESTINATION" tl="6" linkno="0" dir="s" state="O"/>
    </succ>
    <succ edge="9" lane="9_0" junction="8">
       <succlane lane="17_0" via=":8_0_0" tl="8" linkno="0" dir="r" state="t"/>

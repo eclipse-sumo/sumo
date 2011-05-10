@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 04/29/11 10:43:11 by SUMO netconvert Version dev-SVN-r10182
+<!-- generated on Tue May 10 11:18:04 2011 by SUMO netconvert Version dev-SVN-r10263
 <?xml version="1.0" encoding="iso-8859-1"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
@@ -10,7 +10,7 @@
     </input>
 
     <output>
-        <output-file value="net.net.xml"/>
+        <output value="net.net.xml"/>
     </output>
 
     <processing>
@@ -542,9 +542,8 @@
       <logicitem request="4" response="000000" foes="000100"/>
       <logicitem request="5" response="000011" foes="000011"/>
    </row-logic>
-   <row-logic id="1567" requestSize="2">
-      <logicitem request="0" response="11" foes="00"/>
-      <logicitem request="1" response="00" foes="00"/>
+   <row-logic id="1567" requestSize="1">
+      <logicitem request="0" response="0" foes="0"/>
    </row-logic>
    <row-logic id="1610" requestSize="9">
       <logicitem request="0" response="000000000" foes="100010000"/>
@@ -744,7 +743,6 @@
       <succlane lane="53091382_0" dir="t" state="M"/>
    </succ>
    <succ edge="-53091482" lane="-53091482_0" junction="1567">
-      <succlane lane="SUMO_NO_DESTINATION" dir="s" state="O"/>
    </succ>
    <succ edge="-53091482" lane="-53091482_1" junction="1567">
       <succlane lane="53091482_1" dir="t" state="M"/>

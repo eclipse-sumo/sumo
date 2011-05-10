@@ -1,17 +1,17 @@
 <?xml version="1.0"?>
 
-<!-- generated on Mon Mar 21 15:37:59 2011 by SUMO netconvert Version dev-SVN-r9933
+<!-- generated on Tue May 10 11:18:16 2011 by SUMO netconvert Version dev-SVN-r10263
 <?xml version="1.0" encoding="iso-8859-1"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <xml-node-files value="input_nodes.nod.xml"/>
-        <xml-edge-files value="input_edges.edg.xml"/>
+        <node-files value="input_nodes.nod.xml"/>
+        <edge-files value="input_edges.edg.xml"/>
     </input>
 
     <tls_building>
-        <explicite-tls value="15031747"/>
+        <tls.set value="15031747"/>
     </tls_building>
 
     <report>
@@ -92,9 +92,8 @@
       <lane id="153119827_0" depart="1" maxspeed="13.89" length="168.87" shape="0.32,185.38 166.03,217.93"/>
    </edge>
 
-   <row-logic id="15031330" requestSize="2">
-      <logicitem request="0" response="11" foes="00" cont="0"/>
-      <logicitem request="1" response="00" foes="00" cont="0"/>
+   <row-logic id="15031330" requestSize="1">
+      <logicitem request="0" response="0" foes="0" cont="0"/>
    </row-logic>
    <row-logic id="15031747" requestSize="9">
       <logicitem request="0" response="000000000" foes="010010000" cont="0"/>
@@ -137,7 +136,6 @@
       <succlane lane="15032465_0" via=":15031747_2_0" tl="15031747" linkno="2" dir="t" state="t"/>
    </succ>
    <succ edge="-153119827" lane="-153119827_0" junction="15031330">
-      <succlane lane="SUMO_NO_DESTINATION" dir="s" state="O"/>
    </succ>
    <succ edge="-153119827" lane="-153119827_1" junction="15031330">
       <succlane lane="153119827_0" via=":15031330_0_0" dir="t" state="M"/>
@@ -146,10 +144,8 @@
       <succlane lane="-15032465_0" via=":15031812_0_0" dir="t" state="M"/>
    </succ>
    <succ edge="15033072" lane="15033072_0" junction="15031746">
-      <succlane lane="SUMO_NO_DESTINATION" dir="s" state="O"/>
    </succ>
    <succ edge="15033072" lane="15033072_1" junction="15031746">
-      <succlane lane="SUMO_NO_DESTINATION" dir="s" state="O"/>
    </succ>
    <succ edge="15033074" lane="15033074_0" junction="15031747">
       <succlane lane="15032465_0" via=":15031747_3_0" tl="15031747" linkno="3" dir="r" state="t"/>

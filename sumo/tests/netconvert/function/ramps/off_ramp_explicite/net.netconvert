@@ -1,19 +1,21 @@
 <?xml version="1.0"?>
 
-<!-- generated on 08/13/10 09:41:16 by SUMO netconvert Version dev-SVN-r8487
-<configuration>
+<!-- generated on Tue May 10 11:18:17 2011 by SUMO netconvert Version dev-SVN-r10263
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <xml-node-files value="input_nodes.nod.xml"/>
-        <xml-edge-files value="input_edges.edg.xml"/>
+        <node-files value="input_nodes.nod.xml"/>
+        <edge-files value="input_edges.edg.xml"/>
     </input>
 
     <output>
-        <output-file value="net.net.xml"/>
+        <output value="net.net.xml"/>
     </output>
 
     <ramp_guessing>
-        <ramp-guess.explicite value="s3"/>
+        <ramps.set value="s3"/>
     </ramp_guessing>
 
     <processing>
@@ -90,7 +92,6 @@
    <junction id="s3-AddedOffRampNode" type="priority" x="600.00" y="0.00" incLanes="s3_0 s3_1 s3_2" intLanes="" shape="601.50,9.85 601.50,0.05 598.50,0.05 598.50,13.15"/>
 
    <succ edge="off" lane="off_0" junction="2a">
-      <succlane lane="SUMO_NO_DESTINATION" dir="s" state="O"/>
    </succ>
    <succ edge="s1" lane="s1_0" junction="4">
       <succlane lane="s2_0" dir="s" state="M"/>
@@ -133,13 +134,10 @@
       <succlane lane="s4_2" dir="s" state="M"/>
    </succ>
    <succ edge="s4" lane="s4_0" junction="1">
-      <succlane lane="SUMO_NO_DESTINATION" dir="s" state="O"/>
    </succ>
    <succ edge="s4" lane="s4_1" junction="1">
-      <succlane lane="SUMO_NO_DESTINATION" dir="s" state="O"/>
    </succ>
    <succ edge="s4" lane="s4_2" junction="1">
-      <succlane lane="SUMO_NO_DESTINATION" dir="s" state="O"/>
    </succ>
 
 </net>

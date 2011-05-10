@@ -1,17 +1,17 @@
 <?xml version="1.0"?>
 
-<!-- generated on 04/29/11 10:29:36 by SUMO netconvert Version dev-SVN-r10182
+<!-- generated on Tue May 10 11:18:22 2011 by SUMO netconvert Version dev-SVN-r10263
 <?xml version="1.0" encoding="iso-8859-1"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <xml-node-files value="input_nodes.nod.xml"/>
-        <xml-edge-files value="input_edges.edg.xml"/>
+        <node-files value="input_nodes.nod.xml"/>
+        <edge-files value="input_edges.edg.xml"/>
     </input>
 
     <output>
-        <output-file value="net.net.xml"/>
+        <output value="net.net.xml"/>
     </output>
 
     <processing>
@@ -196,25 +196,13 @@
       <logicitem request="14" response="0001111100011110" foes="0001111110011110" cont="0"/>
       <logicitem request="15" response="0001111001111110" foes="0001111001111110" cont="0"/>
    </row-logic>
-   <row-logic id="1" requestSize="3">
-      <logicitem request="0" response="111" foes="000" cont="0"/>
-      <logicitem request="1" response="111" foes="000" cont="0"/>
-      <logicitem request="2" response="111" foes="000" cont="0"/>
+   <row-logic id="1" requestSize="0">
    </row-logic>
-   <row-logic id="2" requestSize="3">
-      <logicitem request="0" response="111" foes="000" cont="0"/>
-      <logicitem request="1" response="111" foes="000" cont="0"/>
-      <logicitem request="2" response="111" foes="000" cont="0"/>
+   <row-logic id="2" requestSize="0">
    </row-logic>
-   <row-logic id="3" requestSize="3">
-      <logicitem request="0" response="111" foes="000" cont="0"/>
-      <logicitem request="1" response="111" foes="000" cont="0"/>
-      <logicitem request="2" response="111" foes="000" cont="0"/>
+   <row-logic id="3" requestSize="0">
    </row-logic>
-   <row-logic id="4" requestSize="3">
-      <logicitem request="0" response="111" foes="000" cont="0"/>
-      <logicitem request="1" response="111" foes="000" cont="0"/>
-      <logicitem request="2" response="111" foes="000" cont="0"/>
+   <row-logic id="4" requestSize="0">
    </row-logic>
    <row-logic id="m1" requestSize="3">
       <logicitem request="0" response="000" foes="000" cont="0"/>
@@ -260,13 +248,10 @@
       <succlane lane="1si_2" via=":m1_2_0" dir="s" state="M"/>
    </succ>
    <succ edge="1o" lane="1o_0" junction="1">
-      <succlane lane="SUMO_NO_DESTINATION" dir="s" state="O"/>
    </succ>
    <succ edge="1o" lane="1o_1" junction="1">
-      <succlane lane="SUMO_NO_DESTINATION" dir="s" state="O"/>
    </succ>
    <succ edge="1o" lane="1o_2" junction="1">
-      <succlane lane="SUMO_NO_DESTINATION" dir="s" state="O"/>
    </succ>
    <succ edge="1si" lane="1si_0" junction="0">
       <succlane lane="3o_0" via=":0_13_0" dir="r" state="m"/>
@@ -287,13 +272,10 @@
       <succlane lane="2si_2" via=":m2_2_0" dir="s" state="M"/>
    </succ>
    <succ edge="2o" lane="2o_0" junction="2">
-      <succlane lane="SUMO_NO_DESTINATION" dir="s" state="O"/>
    </succ>
    <succ edge="2o" lane="2o_1" junction="2">
-      <succlane lane="SUMO_NO_DESTINATION" dir="s" state="O"/>
    </succ>
    <succ edge="2o" lane="2o_2" junction="2">
-      <succlane lane="SUMO_NO_DESTINATION" dir="s" state="O"/>
    </succ>
    <succ edge="2si" lane="2si_0" junction="0">
       <succlane lane="4o_0" via=":0_5_0" dir="r" state="m"/>
@@ -314,13 +296,10 @@
       <succlane lane="3si_2" via=":m3_2_0" dir="s" state="M"/>
    </succ>
    <succ edge="3o" lane="3o_0" junction="3">
-      <succlane lane="SUMO_NO_DESTINATION" dir="s" state="O"/>
    </succ>
    <succ edge="3o" lane="3o_1" junction="3">
-      <succlane lane="SUMO_NO_DESTINATION" dir="s" state="O"/>
    </succ>
    <succ edge="3o" lane="3o_2" junction="3">
-      <succlane lane="SUMO_NO_DESTINATION" dir="s" state="O"/>
    </succ>
    <succ edge="3si" lane="3si_0" junction="0">
       <succlane lane="2o_0" via=":0_8_0" dir="r" state="M"/>
@@ -343,13 +322,10 @@
       <succlane lane="4si_2" via=":m4_2_0" dir="s" state="M"/>
    </succ>
    <succ edge="4o" lane="4o_0" junction="4">
-      <succlane lane="SUMO_NO_DESTINATION" dir="s" state="O"/>
    </succ>
    <succ edge="4o" lane="4o_1" junction="4">
-      <succlane lane="SUMO_NO_DESTINATION" dir="s" state="O"/>
    </succ>
    <succ edge="4o" lane="4o_2" junction="4">
-      <succlane lane="SUMO_NO_DESTINATION" dir="s" state="O"/>
    </succ>
    <succ edge="4si" lane="4si_0" junction="0">
       <succlane lane="1o_0" via=":0_0_0" dir="r" state="M"/>

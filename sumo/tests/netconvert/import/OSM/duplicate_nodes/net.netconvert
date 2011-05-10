@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 04/29/11 10:39:08 by SUMO netconvert Version dev-SVN-r10182
+<!-- generated on Tue May 10 11:18:13 2011 by SUMO netconvert Version dev-SVN-r10263
 <?xml version="1.0" encoding="iso-8859-1"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
@@ -10,7 +10,7 @@
     </input>
 
     <output>
-        <output-file value="net.net.xml"/>
+        <output value="net.net.xml"/>
     </output>
 
     <projection>
@@ -18,11 +18,11 @@
     </projection>
 
     <tls_building>
-        <try-join-tls value="true"/>
+        <tls.join value="true"/>
     </tls_building>
 
     <ramp_guessing>
-        <guess-ramps value="true"/>
+        <ramps.guess value="true"/>
     </ramp_guessing>
 
     <edge_removal>
@@ -317,9 +317,8 @@
       <logicitem request="2" response="0000" foes="0010" cont="0"/>
       <logicitem request="3" response="0001" foes="0001" cont="0"/>
    </row-logic>
-   <row-logic id="-2" requestSize="2">
-      <logicitem request="0" response="11" foes="00" cont="0"/>
-      <logicitem request="1" response="00" foes="00" cont="0"/>
+   <row-logic id="-2" requestSize="1">
+      <logicitem request="0" response="0" foes="0" cont="0"/>
    </row-logic>
    <row-logic id="-26" requestSize="6">
       <logicitem request="0" response="000000" foes="100000" cont="0"/>
@@ -329,9 +328,8 @@
       <logicitem request="4" response="000000" foes="000100" cont="0"/>
       <logicitem request="5" response="000011" foes="000011" cont="1"/>
    </row-logic>
-   <row-logic id="-29" requestSize="2">
-      <logicitem request="0" response="11" foes="00" cont="0"/>
-      <logicitem request="1" response="00" foes="00" cont="0"/>
+   <row-logic id="-29" requestSize="1">
+      <logicitem request="0" response="0" foes="0" cont="0"/>
    </row-logic>
    <row-logic id="-30" requestSize="1">
       <logicitem request="0" response="0" foes="0" cont="0"/>
@@ -365,8 +363,8 @@
       <phase duration="9" state="yyryyy"/>
    </tl-logic>
    <tl-logic id="-29" type="static" programID="0" offset="0">
-      <phase duration="31" state="GG"/>
-      <phase duration="9" state="yy"/>
+      <phase duration="31" state="G"/>
+      <phase duration="9" state="y"/>
    </tl-logic>
    <tl-logic id="-7" type="static" programID="0" offset="0">
       <phase duration="31" state="rrrrGGggrrrrGGgg"/>
@@ -406,7 +404,6 @@
       <succlane lane="-32_0" via=":-14_8_0" dir="t" state="="/>
    </succ>
    <succ edge="--33#0" lane="--33#0_0" junction="-2">
-      <succlane lane="SUMO_NO_DESTINATION" dir="s" state="O"/>
    </succ>
    <succ edge="--33#0" lane="--33#0_1" junction="-2">
       <succlane lane="-33#0_1" via=":-2_0_0" dir="t" state="M"/>
@@ -470,10 +467,9 @@
       <succlane lane="--33#1_1" via=":-26_5_0" tl="-26" linkno="5" dir="t" state="t"/>
    </succ>
    <succ edge="-33#2" lane="-33#2_0" junction="-29">
-      <succlane lane="SUMO_NO_DESTINATION" tl="-29" linkno="0" dir="s" state="O"/>
    </succ>
    <succ edge="-33#2" lane="-33#2_1" junction="-29">
-      <succlane lane="--33#2_1" via=":-29_0_0" tl="-29" linkno="1" dir="t" state="t"/>
+      <succlane lane="--33#2_1" via=":-29_0_0" tl="-29" linkno="0" dir="t" state="t"/>
    </succ>
    <succ edge="-35#0" lane="-35#0_0" junction="-7">
       <succlane lane="--32_0" via=":-7_12_0" tl="-7" linkno="12" dir="r" state="t"/>

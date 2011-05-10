@@ -414,11 +414,12 @@ NBRequest::getSizes() const {
             i!=myIncoming->end(); i++) {
         unsigned int noLanesEdge = (*i)->getNoLanes();
         for (unsigned int j=0; j<noLanesEdge; j++) {
-            // assert that at least one edge is approached from this lane
-            assert((*i)->getConnectionsFromLane(j).size()!=0);
-            noLinks += (unsigned int)(*i)->getConnectionsFromLane(j).size();
+            unsigned int numConnections = (unsigned int)(*i)->getConnectionsFromLane(j).size();
+            noLinks += numConnections;
+            if (numConnections > 0) {
+                noLanes++;
+            }
         }
-        noLanes += noLanesEdge;
     }
     return std::make_pair(noLanes, noLinks);
 }

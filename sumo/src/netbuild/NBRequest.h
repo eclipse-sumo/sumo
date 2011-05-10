@@ -79,8 +79,8 @@ public:
     void buildBitfieldLogic(bool leftHanded, NBJunctionLogicCont &jc,
                             const std::string &key);
 
-    /** returns the number of the junction's lanes and the number
-        of the junction's links in respect */
+    /** @brief returns the number of the junction's lanes and the number
+        of the junction's links in respect. @note: only connected lanes are counted */
     std::pair<unsigned int, unsigned int> getSizes() const;
 
     /** @brief Returns the information whether "prohibited" flow must let "prohibitor" flow pass
