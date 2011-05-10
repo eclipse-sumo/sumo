@@ -104,7 +104,7 @@ GeoConvHelper::init(OptionsCont &oc) {
         return false;
     }
 #endif
-    myOffset = Position2D(oc.getFloat("x-offset-to-apply"), oc.getFloat("y-offset-to-apply"));
+    myOffset = Position2D(oc.getFloat("offset.x"), oc.getFloat("offset.y"));
     if (oc.getBool("proj.simple")) {
         return init("-", oc.getInt("proj.shift"));
     }
@@ -120,7 +120,7 @@ GeoConvHelper::init(OptionsCont &oc) {
         ret = init(oc.getString("proj"), oc.getInt("proj.shift"), oc.getBool("proj.inverse"));
     }
 #endif
-    if (!oc.exists("disable-normalize-node-positions") || oc.getBool("disable-normalize-node-positions") || !oc.isDefault("x-offset-to-apply") || !oc.isDefault("y-offset-to-apply")) {
+    if (!oc.exists("offset.disable-normalization") || oc.getBool("offset.disable-normalization") || !oc.isDefault("offset.x") || !oc.isDefault("offset.y")) {
         myBaseFound = true;
     }
     return ret;

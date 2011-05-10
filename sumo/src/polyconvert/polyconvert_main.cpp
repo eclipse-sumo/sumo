@@ -148,11 +148,13 @@ fillOptions() throw() {
     oc.addDescription("remove", "Pruning", "Items with names in STR will be removed");
 
 
-    oc.doRegister("x-offset-to-apply", new Option_Float(0));
-    oc.addDescription("x-offset-to-apply", "Processing", "Adds FLOAT to net x-positions");
+    oc.doRegister("offset.x", new Option_Float(0));
+    oc.addSynonyme("offset.x", "x-offset-to-apply", true);
+    oc.addDescription("offset.x", "Processing", "Adds FLOAT to net x-positions");
 
-    oc.doRegister("y-offset-to-apply", new Option_Float(0));
-    oc.addDescription("y-offset-to-apply", "Processing", "Adds FLOAT to net y-positions");
+    oc.doRegister("offset.y", new Option_Float(0));
+    oc.addSynonyme("offset.y", "y-offset-to-apply", true);
+    oc.addDescription("offset.y", "Processing", "Adds FLOAT to net y-positions");
 
 
     // building defaults options
@@ -198,11 +200,11 @@ main(int argc, char **argv) {
             if (oc.isDefault("proj")) {
                 oc.set("proj", proj);
             }
-            if (oc.isDefault("x-offset-to-apply")) {
-                oc.set("x-offset-to-apply", toString(netOffset.x()));
+            if (oc.isDefault("offset.x")) {
+                oc.set("offset.x", toString(netOffset.x()));
             }
-            if (oc.isDefault("y-offset-to-apply")) {
-                oc.set("y-offset-to-apply", toString(netOffset.y()));
+            if (oc.isDefault("offset.y")) {
+                oc.set("offset.y", toString(netOffset.y()));
             }
         }
 #ifdef HAVE_PROJ

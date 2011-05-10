@@ -101,7 +101,7 @@ NIXMLNodesHandler::myStartElement(int element,
         MsgHandler::getErrorInstance()->inform("Missing position (at node ID='" + myID + "').");
     }
     // check whether the y-axis shall be flipped
-    if (myOptions.getBool("flip-y")) {
+    if (myOptions.getBool("flip-y-axis")) {
         myPosition.mul(1.0, -1.0);
     }
     // get the type

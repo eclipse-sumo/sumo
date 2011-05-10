@@ -146,7 +146,7 @@ NBNetBuilder::compute(OptionsCont &oc) throw(ProcessError) {
         myEdgeCont.splitGeometry(myNodeCont);
     }
     //
-    if (!oc.getBool("disable-normalize-node-positions") && oc.isDefault("x-offset-to-apply") && oc.isDefault("y-offset-to-apply")) {
+    if (!oc.getBool("offset.disable-normalization") && oc.isDefault("offset.x") && oc.isDefault("offset.y")) {
         inform(step, "Normalising node positions.");
         const SUMOReal x = -GeoConvHelper::getConvBoundary().xmin();
         const SUMOReal y = -GeoConvHelper::getConvBoundary().ymin();
@@ -187,7 +187,7 @@ NBNetBuilder::compute(OptionsCont &oc) throw(ProcessError) {
     inform(step, "Sorting nodes' edges.");
     myNodeCont.sortNodesEdges(oc.getBool("lefthand"), myTypeCont);
     //
-    if (oc.getBool("guess-roundabouts")) {
+    if (oc.getBool("roundabouts.guess")) {
         inform(step, "Guessing and setting roundabouts.");
         myEdgeCont.guessRoundabouts(myRoundabouts);
     }

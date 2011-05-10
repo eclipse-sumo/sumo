@@ -83,8 +83,8 @@ class OutputDevice;
  *  \n If "split-geometry" is set, edge geometries are converted to nodes using 
  *   NBEdgeCont::splitGeometry().
  * -# Normalising/transposing node positions
- *  \n If "disable-normalize-node-positions", "x-offset-to-apply", and "y-offset-to-apply" are not
- *   set, teh road graph's instances are moved to the origin.
+ *  \n If "offset.disable-normalization", "offset.x", and "offset.y" are not
+ *   set, the road graph's instances are moved to the origin.
  * -# Guessing and setting on-/off-ramps
  * -# Guessing and setting TLs
  * -# Computing turning directions

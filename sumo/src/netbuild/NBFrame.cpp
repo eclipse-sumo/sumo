@@ -73,9 +73,6 @@ NBFrame::fillOptions(bool forNetgen) {
 
 
     // register the data processing options
-    oc.doRegister("flip-y", new Option_Bool(false));
-    oc.addDescription("flip-y", "Processing", "Flips the y-coordinate along zero");
-
     oc.doRegister("dismiss-vclasses", new Option_Bool(false));
     oc.addDescription("dismiss-vclasses", "Processing", "Removes vehicle class restrictions from imported edges.");
 
@@ -87,6 +84,7 @@ NBFrame::fillOptions(bool forNetgen) {
 
     oc.doRegister("no-turnarounds", new Option_Bool(false));
     oc.addDescription("no-turnarounds", "Processing", "Disables building turnarounds");
+    
     oc.doRegister("no-tls-turnarounds", new Option_Bool(false));
     oc.addDescription("no-tls-turnarounds", "Processing", "Disables building turnarounds at tls-controlled junctions");
 
@@ -96,17 +94,25 @@ NBFrame::fillOptions(bool forNetgen) {
     oc.doRegister("split-geometry", new Option_Bool(false)); // !!!not described
     oc.addDescription("split-geometry", "Processing", "Splits edges across geometry nodes");
 
-    oc.doRegister("disable-normalize-node-positions", new Option_Bool(false));
-    oc.addDescription("disable-normalize-node-positions", "Processing", "Turn off normalizing node positions");
+    oc.doRegister("offset.disable-normalization", new Option_Bool(false));
+    oc.addSynonyme("offset.disable-normalization", "disable-normalize-node-positions", true);
+    oc.addDescription("offset.disable-normalization", "Processing", "Turn off normalizing node positions");
 
-    oc.doRegister("x-offset-to-apply", new Option_Float(0));
-    oc.addDescription("x-offset-to-apply", "Processing", "Adds FLOAT to net x-positions");
+    oc.doRegister("offset.x", new Option_Float(0));
+    oc.addSynonyme("offset.x", "x-offset-to-apply", true);
+    oc.addDescription("offset.x", "Processing", "Adds FLOAT to net x-positions");
 
-    oc.doRegister("y-offset-to-apply", new Option_Float(0));
-    oc.addDescription("y-offset-to-apply", "Processing", "Adds FLOAT to net y-positions");
+    oc.doRegister("offset.y", new Option_Float(0));
+    oc.addSynonyme("offset.y", "y-offset-to-apply", true);
+    oc.addDescription("offset.y", "Processing", "Adds FLOAT to net y-positions");
 
-    oc.doRegister("guess-roundabouts", new Option_Bool(false));
-    oc.addDescription("guess-roundabouts", "Processing", "Enable roundabout-guessing");
+    oc.doRegister("flip-y-axis", new Option_Bool(false));
+    oc.addSynonyme("flip-y-axis", "flip-y");
+    oc.addDescription("flip-y-axis", "Processing", "Flips the y-coordinate along zero");
+
+    oc.doRegister("roundabouts.guess", new Option_Bool(false));
+    oc.addSynonyme("roundabouts.guess", "guess-roundabouts", true);
+    oc.addDescription("roundabouts.guess", "Processing", "Enable roundabout-guessing");
 
     oc.doRegister("lefthand", new Option_Bool(false));
     oc.addDescription("lefthand", "Processing", "Assumes left-hand traffic on the network");
