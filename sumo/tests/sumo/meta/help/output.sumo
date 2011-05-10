@@ -1,4 +1,4 @@
-SUMO sumo Version dev-SVN-r10222
+SUMO sumo Version dev-SVN-r10266
  Copyright (C) 2001-2011 DLR and contributors; http://sumo.sourceforge.net
  
 A microscopic road traffic simulation.
@@ -83,7 +83,7 @@ Usage: sumo [OPTION]*
   -p, --print-options                 Prints option values before processing
   -?, --help                          Prints this screen
   -V, --version                       Prints the current version
-  -W, --suppress-warnings             Disables output of warnings
+  -W, --no-warnings                   Disables output of warnings
   -l, --log-file FILE                 Writes all messages to FILE
   --message-log FILE                  Writes all non-error messages to FILE
   --error-log FILE                    Writes all warnings and errors to FILE

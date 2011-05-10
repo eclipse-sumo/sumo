@@ -55,7 +55,7 @@
         <print-options value="false" synonymes="p"/>
         <help value="false" synonymes="?"/>
         <version value="false" synonymes="V"/>
-        <suppress-warnings value="false" synonymes="W"/>
+        <no-warnings value="false" synonymes="W suppress-warnings"/>
         <log-file value="" synonymes="l"/>
         <message-log value=""/>
         <error-log value=""/>

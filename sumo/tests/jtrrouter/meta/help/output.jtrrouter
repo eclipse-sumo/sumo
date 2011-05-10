@@ -1,4 +1,4 @@
-SUMO jtrrouter Version dev-SVN-r10214
+SUMO jtrrouter Version dev-SVN-r10266
  Copyright (C) 2001-2011 DLR and contributors; http://sumo.sourceforge.net
  
 Router for the microscopic road traffic simulation SUMO based on junction
@@ -76,7 +76,7 @@ Usage: jtrrouter [OPTION]*
   -p, --print-options              Prints option values before processing
   -?, --help                       Prints this screen
   -V, --version                    Prints the current version
-  -W, --suppress-warnings          Disables output of warnings
+  -W, --no-warnings                Disables output of warnings
   -l, --log-file FILE              Writes all messages to FILE
   --message-log FILE               Writes all non-error messages to FILE
   --error-log FILE                 Writes all warnings and errors to FILE
