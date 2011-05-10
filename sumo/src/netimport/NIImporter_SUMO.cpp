@@ -340,7 +340,8 @@ NIImporter_SUMO::addJunction(const SUMOSAXAttributes &attrs) {
     }
     Position2D pos(x, y);
     // legacy networks may have junction positions that do not lie at the center
-    // of their shape. we need to fix this.
+    // of their shape. maybe we need to fix this.
+    /*
     std::string shapeS = attrs.getStringReporting(SUMO_ATTR_SHAPE, id.c_str(), ok, false);
     if (shapeS != "") {
         Position2DVector shape = GeomConvHelper::parseShapeReporting(
@@ -351,6 +352,7 @@ NIImporter_SUMO::addJunction(const SUMOSAXAttributes &attrs) {
             pos = center;
         }
     }
+    */
     if (!GeoConvHelper::x2cartesian(pos)) {
         WRITE_ERROR("Unable to project coordinates for junction '" + id + "'.");
         return;
