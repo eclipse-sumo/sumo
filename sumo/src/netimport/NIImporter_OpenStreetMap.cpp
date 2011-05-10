@@ -160,6 +160,28 @@ const std::string NIImporter_OpenStreetMap::compoundTypeSeparator("|");
 
 void
 NIImporter_OpenStreetMap::loadNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
+    NIImporter_OpenStreetMap importer;
+    importer._loadNetwork(oc, nb);
+}
+
+
+NIImporter_OpenStreetMap::NIImporter_OpenStreetMap() {};
+
+
+NIImporter_OpenStreetMap::~NIImporter_OpenStreetMap() {
+    // delete nodes
+    for (std::map<int, NIOSMNode*>::iterator i=myOSMNodes.begin(); i!=myOSMNodes.end(); ++i) {
+        delete(*i).second;
+    }
+    // delete edges
+    for (std::map<std::string, Edge*>::iterator i=myEdges.begin(); i!=myEdges.end(); ++i) {
+        delete(*i).second;
+    }
+};
+
+
+void
+NIImporter_OpenStreetMap::_loadNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
     // check whether the option is set (properly)
     if (!oc.isSet("osm-files")) {
         return;
@@ -208,8 +230,7 @@ NIImporter_OpenStreetMap::loadNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
      * Each file is parsed twice: first for nodes, second for edges. */
     std::vector<std::string> files = oc.getStringVector("osm-files");
     // load nodes, first
-    std::map<int, NIOSMNode*> nodes;
-    NodesHandler nodesHandler(nodes);
+    NodesHandler nodesHandler(myOSMNodes);
     for (std::vector<std::string>::const_iterator file=files.begin(); file!=files.end(); ++file) {
         // nodes
         if (!FileHelpers::exists(*file)) {
@@ -224,8 +245,7 @@ NIImporter_OpenStreetMap::loadNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
         MsgHandler::getMessageInstance()->endProcessMsg("done.");
     }
     // load edges, then
-    std::map<std::string, Edge*> edges;
-    EdgesHandler edgesHandler(nodes, edges);
+    EdgesHandler edgesHandler(myOSMNodes, myEdges);
     for (std::vector<std::string>::const_iterator file=files.begin(); file!=files.end(); ++file) {
         // edges
         edgesHandler.setFileName(*file);
@@ -241,13 +261,13 @@ NIImporter_OpenStreetMap::loadNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
      * with the second, which has the same coordinates as the first.) */
     if (!OptionsCont::getOptions().getBool("osm.skip-duplicates-check")) {
         MsgHandler::getMessageInstance()->beginProcessMsg("Removing duplicate nodes...");
-        if (nodes.size() > 1) {
+        if (myOSMNodes.size() > 1) {
             std::set<const NIOSMNode*, CompareNodes> dupsFinder;
-            for (std::map<int, NIOSMNode*>::iterator it = nodes.begin(); it != nodes.end(); ++it) {
+            for (std::map<int, NIOSMNode*>::iterator it = myOSMNodes.begin(); it != myOSMNodes.end(); ++it) {
                 const std::set<const NIOSMNode*, CompareNodes>::iterator origNode = dupsFinder.find(it->second);
                 if (origNode != dupsFinder.end()) {
                     MsgHandler::getMessageInstance()->inform("Found duplicate nodes. Substituting " + toString(it->second->id) + " with " + toString((*origNode)->id));
-                    for_each(edges.begin(), edges.end(), SubstituteNode(it->second, *origNode));
+                    for_each(myEdges.begin(), myEdges.end(), SubstituteNode(it->second, *origNode));
                 } else {
                     dupsFinder.insert(it->second);
                 }
@@ -259,20 +279,20 @@ NIImporter_OpenStreetMap::loadNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
     /* Remove duplicate edges with the same shape and attributes */
     if (!OptionsCont::getOptions().getBool("osm.skip-duplicates-check")) {
         MsgHandler::getMessageInstance()->beginProcessMsg("Removing duplicate edges...");
-        if (edges.size() > 1) {
+        if (myEdges.size() > 1) {
             std::set<std::string> toRemove;
-            for (std::map<std::string, Edge*>::iterator it = edges.begin(), itnext =++edges.begin(); itnext != edges.end(); ++it, ++itnext) {
-                std::map<std::string, Edge*>::iterator dupEdge = find_if(itnext, edges.end(), SimilarEdge(*it));
-                while (dupEdge != edges.end()) {
+            for (std::map<std::string, Edge*>::iterator it = myEdges.begin(), itnext =++myEdges.begin(); itnext != myEdges.end(); ++it, ++itnext) {
+                std::map<std::string, Edge*>::iterator dupEdge = find_if(itnext, myEdges.end(), SimilarEdge(*it));
+                while (dupEdge != myEdges.end()) {
                     MsgHandler::getMessageInstance()->inform("Found duplicate edges. Removing " + dupEdge->first);
                     toRemove.insert(dupEdge->first);
-                    dupEdge = find_if(++dupEdge, edges.end(), SimilarEdge(*it));
+                    dupEdge = find_if(++dupEdge, myEdges.end(), SimilarEdge(*it));
                 }
             }
             for (std::set<std::string>::iterator i=toRemove.begin(); i!=toRemove.end(); ++i) {
-                std::map<std::string, Edge*>::iterator j=edges.find(*i);
+                std::map<std::string, Edge*>::iterator j=myEdges.find(*i);
                 delete(*j).second;
-                edges.erase(j);
+                myEdges.erase(j);
             }
         }
         MsgHandler::getMessageInstance()->endProcessMsg(" done.");
@@ -283,7 +303,7 @@ NIImporter_OpenStreetMap::loadNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
      * geometry only */
     std::map<int, int> nodeUsage;
     // Mark which nodes are used by edges (begin and end)
-    for (std::map<std::string, Edge*>::const_iterator i = edges.begin(); i != edges.end(); ++i) {
+    for (std::map<std::string, Edge*>::const_iterator i = myEdges.begin(); i != myEdges.end(); ++i) {
         Edge *e = (*i).second;
         if (!e->myCurrentIsRoad) {
             continue;
@@ -296,7 +316,7 @@ NIImporter_OpenStreetMap::loadNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
         }
     }
     // Mark which nodes are used by traffic lights
-    for (std::map<int, NIOSMNode*>::const_iterator nodesIt = nodes.begin(); nodesIt != nodes.end(); ++nodesIt) {
+    for (std::map<int, NIOSMNode*>::const_iterator nodesIt = myOSMNodes.begin(); nodesIt != myOSMNodes.end(); ++nodesIt) {
         if (nodesIt->second->tlsControlled) {
             // If the key is not found in the map, the value is automatically
             // initialized with 0.
@@ -309,7 +329,7 @@ NIImporter_OpenStreetMap::loadNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
     NBNodeCont &nc = nb.getNodeCont();
     NBEdgeCont &ec = nb.getEdgeCont();
     NBTrafficLightLogicCont &tlsc = nb.getTLLogicCont();
-    for (std::map<std::string, Edge*>::iterator i=edges.begin(); i!=edges.end(); ++i) {
+    for (std::map<std::string, Edge*>::iterator i=myEdges.begin(); i!=myEdges.end(); ++i) {
         Edge *e = (*i).second;
         if (!e->myCurrentIsRoad) {
             continue;
@@ -317,15 +337,15 @@ NIImporter_OpenStreetMap::loadNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
         // build nodes;
         //  the from- and to-nodes must be built in any case
         //  the geometry nodes are only built if more than one edge references them
-        NBNode *currentFrom = insertNodeChecking(*e->myCurrentNodes.begin(), nodes, nc, tlsc);
-        NBNode *last = insertNodeChecking(*(e->myCurrentNodes.end()-1), nodes, nc, tlsc);
+        NBNode *currentFrom = insertNodeChecking(*e->myCurrentNodes.begin(), nc, tlsc);
+        NBNode *last = insertNodeChecking(*(e->myCurrentNodes.end()-1), nc, tlsc);
         int running = 0;
         std::vector<int> passed;
         for (std::vector<int>::iterator j=e->myCurrentNodes.begin(); j!=e->myCurrentNodes.end(); ++j) {
             passed.push_back(*j);
             if (nodeUsage[*j] > 1 && j != e->myCurrentNodes.end()-1 && j != e->myCurrentNodes.begin()) {
-                NBNode *currentTo = insertNodeChecking(*j, nodes, nc, tlsc);
-                insertEdge(e, running, currentFrom, currentTo, passed, nodes, nc, ec, tc);
+                NBNode *currentTo = insertNodeChecking(*j, nc, tlsc);
+                insertEdge(e, running, currentFrom, currentTo, passed, ec, tc);
                 currentFrom = currentTo;
                 running++;
                 passed.clear();
@@ -334,26 +354,16 @@ NIImporter_OpenStreetMap::loadNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
         if (running==0) {
             running = -1;
         }
-        insertEdge(e, running, currentFrom, last, passed, nodes, nc, ec, tc);
-    }
-    /* Clean up */
-    // delete nodes
-    for (std::map<int, NIOSMNode*>::const_iterator i=nodes.begin(); i!=nodes.end(); ++i) {
-        delete(*i).second;
-    }
-    // delete edges
-    for (std::map<std::string, Edge*>::iterator i=edges.begin(); i!=edges.end(); ++i) {
-        delete(*i).second;
+        insertEdge(e, running, currentFrom, last, passed, ec, tc);
     }
 }
 
 
 NBNode *
-NIImporter_OpenStreetMap::insertNodeChecking(int id, const std::map<int, NIOSMNode*> &osmNodes, NBNodeCont &nc,
-        NBTrafficLightLogicCont &tlsc) throw(ProcessError) {
+NIImporter_OpenStreetMap::insertNodeChecking(int id, NBNodeCont &nc, NBTrafficLightLogicCont &tlsc) {
     NBNode *from = nc.retrieve(toString(id));
     if (from==0) {
-        NIOSMNode *n = osmNodes.find(id)->second;
+        NIOSMNode *n = myOSMNodes.find(id)->second;
         Position2D pos(n->lon, n->lat);
         if (!GeoConvHelper::x2cartesian(pos, true, n->lon, n->lat)) {
             MsgHandler::getErrorInstance()->inform("Unable to project coordinates for node " + toString(id) + ".");
@@ -383,9 +393,7 @@ NIImporter_OpenStreetMap::insertNodeChecking(int id, const std::map<int, NIOSMNo
 
 void
 NIImporter_OpenStreetMap::insertEdge(Edge *e, int index, NBNode *from, NBNode *to,
-                                     const std::vector<int> &passed, const std::map<int, NIOSMNode*> &osmNodes,
-                                     NBNodeCont &nc, NBEdgeCont &ec, NBTypeCont &tc) throw(ProcessError) {
-    UNUSED_PARAMETER(nc);
+                                     const std::vector<int> &passed, NBEdgeCont &ec, NBTypeCont &tc) {
     // patch the id
     std::string id = e->id;
     if (index>=0) {
@@ -394,7 +402,7 @@ NIImporter_OpenStreetMap::insertEdge(Edge *e, int index, NBNode *from, NBNode *t
     // convert the shape
     Position2DVector shape;
     for (std::vector<int>::const_iterator i=passed.begin(); i!=passed.end(); ++i) {
-        NIOSMNode *n = osmNodes.find(*i)->second;
+        NIOSMNode *n = myOSMNodes.find(*i)->second;
         Position2D pos(n->lon, n->lat);
         if (!GeoConvHelper::x2cartesian(pos, true, n->lon, n->lat)) {
             throw ProcessError("Unable to project coordinates for edge " + id + ".");

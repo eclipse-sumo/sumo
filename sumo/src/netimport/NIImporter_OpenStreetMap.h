@@ -107,6 +107,12 @@ protected:
     };
 
 
+    NIImporter_OpenStreetMap();
+
+    ~NIImporter_OpenStreetMap();
+
+    void _loadNetwork(const OptionsCont &oc, NBNetBuilder &nb);
+
 private:
 
     /// @brief The separator within newly created compound type names
@@ -115,6 +121,10 @@ private:
     class CompareNodes;
     class SubstituteNode;
     class SimilarEdge;
+
+    /// we are responsible for ultimate cleanup
+    std::map<int, NIOSMNode*> myOSMNodes;
+    std::map<std::string, Edge*> myEdges;
 
     /** @brief Builds an NBNode
      *
@@ -130,8 +140,7 @@ private:
      * @return The built/found node
      * @exception ProcessError If the tls could not be added to the container
      */
-    static NBNode *insertNodeChecking(int id, const std::map<int, NIOSMNode*> &osmNodes,
-                                      NBNodeCont &nc, NBTrafficLightLogicCont &tlsc) throw(ProcessError);
+    NBNode *insertNodeChecking(int id, NBNodeCont &nc, NBTrafficLightLogicCont &tlsc);
 
 
     /** @brief Builds an NBEdge
@@ -142,14 +151,12 @@ private:
      * @param[in] to The destination node of the edge
      * @param[in] passed The list of passed nodes (geometry information)
      * @param[in] osmNodes Container of node definitions for getting information about nodes from
-     * @param[in] nc The container for built nodes
      * @param[in, out] The edge container to add the built edge to
      * @param[in] tc The type container to get information about the edge from
      * @exception ProcessError If the edge could not be added to the container
      */
-    static void insertEdge(Edge *e, int index, NBNode *from, NBNode *to,
-                           const std::vector<int> &passed, const std::map<int, NIOSMNode*> &osmNodes,
-                           NBNodeCont &nc, NBEdgeCont &ec, NBTypeCont &tc) throw(ProcessError);
+    void insertEdge(Edge *e, int index, NBNode *from, NBNode *to,
+            const std::vector<int> &passed, NBEdgeCont &ec, NBTypeCont &tc);
 
 
 
