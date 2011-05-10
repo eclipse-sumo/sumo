@@ -71,9 +71,9 @@ def getDeltaT():
 def getNetBoundary():
     return _getUniversal(tc.VAR_NET_BOUNDING_BOX)
 
-def convert2D(edgeID, pos, laneIndex=0, isGeo=False):
+def convert2D(edgeID, pos, laneIndex=0, toGeo=False):
     posType = tc.POSITION_2D
-    if isGeo:
+    if toGeo:
         posType = tc.POSITION_LAT_LON
     traci._beginMessage(tc.CMD_GET_SIM_VARIABLE, tc.POSITION_CONVERSION, "", 1+4 + 1+4+len(edgeID)+8+1 + 1+8+8)
     traci._message.string += struct.pack("!Bi", tc.TYPE_COMPOUND, 2)
@@ -91,6 +91,30 @@ def convertRoad(x, y, isGeo=False):
     traci._message.string += struct.pack("!BidB", tc.POSITION_ROADMAP, 0, 0., 0)
     result = traci._checkResult(tc.CMD_GET_SIM_VARIABLE, tc.POSITION_CONVERSION, "")
     return result.readString(), result.readDouble(), result.read("!B")[0]
+
+def getDistance2D(x1, y1, x2, y2, isGeo=False, isDriving=False):
+    posType = tc.POSITION_2D
+    if isGeo:
+        posType = tc.POSITION_LAT_LON
+    distType = tc.REQUEST_AIRDIST
+    if isDriving:
+        distType = tc.REQUEST_DRIVINGDIST
+    traci._beginMessage(tc.CMD_GET_SIM_VARIABLE, tc.DISTANCE_REQUEST, "", 1+4 + 1+8+8 + 1+8+8 + 1)
+    traci._message.string += struct.pack("!Bi", tc.TYPE_COMPOUND, 3)
+    traci._message.string += struct.pack("!Bdd", posType, x1, y1)
+    traci._message.string += struct.pack("!BddB", posType, x2, y2, distType)
+    return traci._checkResult(tc.CMD_GET_SIM_VARIABLE, tc.DISTANCE_REQUEST, "").readDouble()
+
+def getDistanceRoad(edgeID1, pos1, edgeID2, pos2, isDriving=False):
+    distType = tc.REQUEST_AIRDIST
+    if isDriving:
+        distType = tc.REQUEST_DRIVINGDIST
+    traci._beginMessage(tc.CMD_GET_SIM_VARIABLE, tc.DISTANCE_REQUEST, "", 1+4 + 1+4+len(edgeID1)+8+1 + 1+4+len(edgeID2)+8+1 + 1)
+    traci._message.string += struct.pack("!Bi", tc.TYPE_COMPOUND, 3)
+    traci._message.string += struct.pack("!Bi", tc.POSITION_ROADMAP, len(edgeID1)) + edgeID1
+    traci._message.string += struct.pack("!dBBi", pos1, 0, tc.POSITION_ROADMAP, len(edgeID2)) + edgeID2
+    traci._message.string += struct.pack("!dBB", pos2, 0, distType)
+    return traci._checkResult(tc.CMD_GET_SIM_VARIABLE, tc.DISTANCE_REQUEST, "").readDouble()
 
 
 def subscribe(varIDs=(tc.VAR_DEPARTED_VEHICLES_IDS,), begin=0, end=2**31-1):
