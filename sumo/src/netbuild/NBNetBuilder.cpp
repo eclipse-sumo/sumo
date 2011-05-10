@@ -88,7 +88,7 @@ NBNetBuilder::applyOptions(OptionsCont &oc) throw(ProcessError) {
         throw ProcessError("No output defined.");
     }
     // apply options to type control
-    myTypeCont.setDefaults(oc.getInt("lanenumber"), oc.getFloat("speed"), oc.getInt("priority"));
+    myTypeCont.setDefaults(oc.getInt("default.lanenumber"), oc.getFloat("default.speed"), oc.getInt("default.priority"));
     // apply options to edge control
     myEdgeCont.applyOptions(oc);
     // apply options to traffic light logics control

@@ -59,17 +59,17 @@ void
 NBFrame::fillOptions() {
     OptionsCont &oc = OptionsCont::getOptions();
     // register building defaults
-    oc.doRegister("type", 'T', new Option_String("Unknown"));
-    oc.addDescription("type", "Building Defaults", "The default name for an edges type");
+    oc.doRegister("default.lanenumber", 'L', new Option_Integer(1));
+    oc.addSynonyme("default.lanenumber", "lanenumber", true);
+    oc.addDescription("default.lanenumber", "Building Defaults", "The default number of lanes in an edge");
 
-    oc.doRegister("lanenumber", 'L', new Option_Integer(1));
-    oc.addDescription("lanenumber", "Building Defaults", "The default number of lanes in an edge");
+    oc.doRegister("default.speed", 'S', new Option_Float((SUMOReal) 13.9));
+    oc.addSynonyme("default.speed", "speed", true);
+    oc.addDescription("default.speed", "Building Defaults", "The default speed on an edge (in m/s)");
 
-    oc.doRegister("speed", 'S', new Option_Float((SUMOReal) 13.9));
-    oc.addDescription("speed", "Building Defaults", "The default speed on an edge (in m/s)");
-
-    oc.doRegister("priority", 'P', new Option_Integer(-1));
-    oc.addDescription("priority", "Building Defaults", "The default priority of an edge");
+    oc.doRegister("default.priority", 'P', new Option_Integer(-1));
+    oc.addSynonyme("default.priority", "priority", true);
+    oc.addDescription("default.priority", "Building Defaults", "The default priority of an edge");
 
 
     // register the data processing options
