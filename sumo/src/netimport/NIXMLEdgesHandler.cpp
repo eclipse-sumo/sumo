@@ -166,6 +166,7 @@ NIXMLEdgesHandler::myStartElement(int element,
         if (SUMOXMLDefinitions::LaneSpreadFunctions.hasString(lsfS)) {
             myLanesSpread = SUMOXMLDefinitions::LaneSpreadFunctions.get(lsfS);
         } else {
+            myLanesSpread = LANESPREAD_RIGHT;
             WRITE_WARNING("Ignoring unknown spread_type '" + lsfS + "' for edge '" + myCurrentID + "'.");
         }
         // get the length or compute it
