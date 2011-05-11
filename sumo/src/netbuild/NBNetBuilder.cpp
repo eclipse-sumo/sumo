@@ -44,7 +44,6 @@
 #include <utils/common/StringTokenizer.h>
 #include <utils/common/ToString.h>
 #include <utils/geom/GeoConvHelper.h>
-#include <utils/iodevices/OutputDevice.h>
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -92,19 +91,7 @@ NBNetBuilder::applyOptions(OptionsCont &oc) throw(ProcessError) {
 
 
 void
-NBNetBuilder::buildLoaded(OptionsCont& oc) {
-    // perform the computation
-    compute(oc);
-    // save the mapping information when wished
-    if (oc.isSet("map-output")) {
-        OutputDevice& mdevice = OutputDevice::getDevice(oc.getString("map-output"));
-        mdevice << myJoinedEdges;
-    }
-}
-
-
-void
-NBNetBuilder::compute(OptionsCont &oc) throw(ProcessError) {
+NBNetBuilder::compute(OptionsCont &oc) {
     int step = 1;
     //
     // Removes edges that are connecting the same node

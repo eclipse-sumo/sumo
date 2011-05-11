@@ -29,14 +29,15 @@
 
 #include <string>
 #include "NWFrame.h"
+#include "NWWriter_SUMO.h"
+#include "NWWriter_MATSim.h"
+#include "NWWriter_XML.h"
 #include <utils/options/Option.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/common/MsgHandler.h>
 #include <netbuild/NBNetBuilder.h>
 #include <utils/common/SystemFrame.h>
-#include <netwrite/NWWriter_SUMO.h>
-#include <netwrite/NWWriter_MATSim.h>
-#include <netwrite/NWWriter_XML.h>
+#include <utils/iodevices/OutputDevice.h>
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -50,7 +51,7 @@ void
 NWFrame::fillOptions() {
     OptionsCont &oc = OptionsCont::getOptions();
     // register options
-    oc.doRegister("output", 'o', new Option_FileName("net.net.xml"));
+    oc.doRegister("output", 'o', new Option_FileName());
     oc.addSynonyme("output", "sumo-output");
     oc.addSynonyme("output", "output-file", true);
     oc.addDescription("output", "Output", "The generated net will be written to FILE");
@@ -73,8 +74,7 @@ NWFrame::checkOptions() {
     bool ok = true;
     // check whether the output is valid and can be build
     if (!oc.isSet("output")&&!oc.isSet("plain-output-prefix")&&!oc.isSet("matsim-output")) {
-        MsgHandler::getErrorInstance()->inform("No output specified.");
-        ok = false;
+        oc.set("output", "net.net.xml");
     }
     return ok;
 }
@@ -85,6 +85,12 @@ NWFrame::writeNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
 	NWWriter_SUMO::writeNetwork(oc, nb);
 	NWWriter_MATSim::writeNetwork(oc, nb);
 	NWWriter_XML::writeNetwork(oc, nb);
+    // save the mapping information when wished
+    if (oc.isSet("map-output")) {
+        OutputDevice& mdevice = OutputDevice::getDevice(oc.getString("map-output"));
+        mdevice << nb.getJoinedEdgesMap();
+        mdevice.close();
+    }
 }
 
 

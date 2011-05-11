@@ -62,9 +62,7 @@ NBJoinedEdgesMap::init(NBEdgeCont &ec) {
 
 void
 NBJoinedEdgesMap::appended(const std::string &to, const std::string &what) {
-    copy(myMap[what].begin(), myMap[what].end(),
-         back_inserter(myMap[to]));
-//    myMap[to].push_back(what);
+    copy(myMap[what].begin(), myMap[what].end(), back_inserter(myMap[to]));
     JoinedEdgesMap::iterator i = myMap.find(what);
     assert(i!=myMap.end());
     myMap.erase(i);

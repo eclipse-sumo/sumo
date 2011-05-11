@@ -125,7 +125,7 @@ main(int argc, char **argv) {
         if (MsgHandler::getErrorInstance()->wasInformed()) {
             throw ProcessError();
         }
-        nb.buildLoaded(oc);
+        nb.compute(oc);
 		NWFrame::writeNetwork(oc, nb);
     } catch (ProcessError &e) {
         if (std::string(e.what())!=std::string("Process Error") && std::string(e.what())!=std::string("")) {

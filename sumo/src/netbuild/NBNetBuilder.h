@@ -59,8 +59,7 @@ class OutputDevice;
  * @brief Instance responsible for building networks
  *
  * The class' - and the netbuild module's - functionality is embedded within the
- *  buildLoaded() method. Here, the network representation is completed using compute(),
- *  first. Then, the output file is built and the network is saved into it using save().
+ *  compute() method.
  *
  * @addtogroup netbuild
  * @{
@@ -129,10 +128,12 @@ public:
     void applyOptions(OptionsCont &oc) throw(ProcessError);
 
 
-    /** @brief Builds a network using the loaded structures and saves it
-     * @param[in] oc The options container to read options from
+    /** @brief Performs the network building steps
+     *
+     * @param[in] oc Container that contains options for building
+     * @exception ProcessError (recheck)
      */
-    void buildLoaded(OptionsCont& oc);
+    void compute(OptionsCont &oc);
 
 
 
@@ -193,19 +194,18 @@ public:
     const std::vector<std::set<NBEdge*> > &getRoundabouts() const {
         return myRoundabouts;
     }
+
+
+    /** @brief Returns the joined edges map
+     * @return The map of joined edges
+     */
+    const NBJoinedEdgesMap &getJoinedEdgesMap() const {
+        return myJoinedEdges;
+    }
     /// @}
 
 
 protected:
-    /**
-     * @brief Performs the network building steps
-     *
-     * @param[in] oc Container that contains options for building
-     * @exception ProcessError (recheck)
-     */
-    void compute(OptionsCont &oc) throw(ProcessError);
-
-
     /** @brief Writes information about the currently processed step
      *
      * @param[in, out] step The current building step (incremented)

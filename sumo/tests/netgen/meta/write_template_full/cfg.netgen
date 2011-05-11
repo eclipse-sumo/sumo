@@ -39,7 +39,7 @@
     </random_network>
 
     <output>
-        <output value="net.net.xml" synonymes="o output-file sumo-output"/>
+        <output value="" synonymes="o output-file sumo-output"/>
         <plain-output-prefix value="" synonymes="plain-output"/>
         <map-output value="" synonymes="M"/>
         <matsim-output value=""/>
