@@ -1,0 +1,3 @@
+<edges>
+   <edge id="e0" fromnode="0" tonode="1" nolanes="3" speed="16" spread_type="center"/>
+</edges>
