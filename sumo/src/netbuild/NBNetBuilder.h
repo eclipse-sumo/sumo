@@ -40,6 +40,7 @@
 #include "NBTrafficLightLogicCont.h"
 #include "NBJunctionLogicCont.h"
 #include "NBDistrictCont.h"
+#include "NBJoinedEdgesMap.h"
 #include <utils/common/UtilExceptions.h>
 
 
@@ -250,6 +251,9 @@ protected:
 
     /// @brief Edges marked as belonging to a roundabout (each set is a roundabout)
     std::vector<std::set<NBEdge*> > myRoundabouts;
+
+    /// @brief Map of joined edges
+    NBJoinedEdgesMap myJoinedEdges;
 
 
 private:

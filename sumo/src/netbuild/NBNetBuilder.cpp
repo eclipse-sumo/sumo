@@ -45,7 +45,6 @@
 #include <utils/common/ToString.h>
 #include <utils/geom/GeoConvHelper.h>
 #include <utils/iodevices/OutputDevice.h>
-#include "NBJoinedEdgesMap.h"
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -99,7 +98,7 @@ NBNetBuilder::buildLoaded(OptionsCont& oc) {
     // save the mapping information when wished
     if (oc.isSet("map-output")) {
         OutputDevice& mdevice = OutputDevice::getDevice(oc.getString("map-output"));
-        mdevice << gJoinedEdges;
+        mdevice << myJoinedEdges;
     }
 }
 
@@ -113,7 +112,7 @@ NBNetBuilder::compute(OptionsCont &oc) throw(ProcessError) {
     myNodeCont.removeDummyEdges(myDistrictCont, myEdgeCont, myTLLCont);
     //
     inform(step, "Joining double connections.");
-    gJoinedEdges.init(myEdgeCont);
+    myJoinedEdges.init(myEdgeCont);
     myNodeCont.recheckEdges(myDistrictCont, myTLLCont, myEdgeCont);
     //
     if (oc.getBool("remove-isolated")) {
@@ -123,7 +122,7 @@ NBNetBuilder::compute(OptionsCont &oc) throw(ProcessError) {
     //
     if (oc.getBool("remove-geometry")) {
         inform(step, "Removing empty nodes and geometry nodes.");
-        myNodeCont.removeUnwishedNodes(myDistrictCont, myEdgeCont, myTLLCont, oc.getBool("remove-geometry"));
+        myNodeCont.removeUnwishedNodes(myDistrictCont, myEdgeCont, myJoinedEdges, myTLLCont, oc.getBool("remove-geometry"));
     }
     //
     if (oc.getBool("keep-edges.postload")) {
@@ -134,7 +133,7 @@ NBNetBuilder::compute(OptionsCont &oc) throw(ProcessError) {
     }
     if (oc.isSet("keep-edges") || oc.isSet("remove-edges") || oc.getBool("keep-edges.postload") || oc.isSet("keep-edges.by-vclass") || oc.isSet("keep-edges.input-file")) {
         inform(step, "Rechecking nodes after edge removal.");
-        myNodeCont.removeUnwishedNodes(myDistrictCont, myEdgeCont, myTLLCont, oc.getBool("remove-geometry"));
+        myNodeCont.removeUnwishedNodes(myDistrictCont, myEdgeCont, myJoinedEdges, myTLLCont, oc.getBool("remove-geometry"));
     }
     //
     if (oc.getBool("split-geometry")) {

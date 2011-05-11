@@ -80,7 +80,6 @@ private:
 };
 
 
-extern NBJoinedEdgesMap gJoinedEdges;
 
 
 #endif

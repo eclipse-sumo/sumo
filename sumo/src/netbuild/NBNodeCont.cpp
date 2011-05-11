@@ -667,7 +667,7 @@ NBNodeCont::computeNodeShapes(bool leftHand) {
 
 void
 NBNodeCont::removeUnwishedNodes(NBDistrictCont &dc, NBEdgeCont &ec,
-                                NBTrafficLightLogicCont &tlc,
+                                NBJoinedEdgesMap &je, NBTrafficLightLogicCont &tlc,
                                 bool removeGeometryNodes) throw() {
     unsigned int no = 0;
     std::vector<NBNode*> toRemove;
@@ -706,15 +706,14 @@ NBNodeCont::removeUnwishedNodes(NBDistrictCont &dc, NBEdgeCont &ec,
             begin->append(continuation);
             continuation->getToNode()->replaceIncoming(continuation, begin, 0);
             tlc.replaceRemoved(continuation, -1, begin, -1);
-            gJoinedEdges.appended(begin->getID(), continuation->getID());
+            je.appended(begin->getID(), continuation->getID());
             ec.erase(dc, continuation);
         }
         toRemove.push_back(current);
         no++;
     }
     // erase all
-    for (std::vector<NBNode*>::iterator j = toRemove.begin(); j
-            != toRemove.end(); j++) {
+    for (std::vector<NBNode*>::iterator j = toRemove.begin(); j!= toRemove.end(); ++j) {
         erase(*j);
     }
     WRITE_MESSAGE("   " + toString(no) + " nodes removed.");

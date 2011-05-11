@@ -46,6 +46,7 @@
 class NBDistrict;
 class OptionsCont;
 class OutputDevice;
+class NBJoinedEdgesMap;
 
 
 // ===========================================================================
@@ -174,6 +175,8 @@ public:
     void setAsTLControlled(NBNode *node, NBTrafficLightLogicCont &tlc, std::string id="");
     /// @}
 
+
+
     /// resets the node positions by the specified offset
     void reshiftNodePositions(const SUMOReal xoff, const SUMOReal yoff);
 
@@ -239,11 +242,12 @@ public:
      * The node is removed from the list of tls-controlled nodes.
      * @param[in, mod] dc The district container needed if a node shall be removed
      * @param[in, mod] ec The edge container needed for joining edges
+     * @param[in, mod] je The map of joined edges (changes are stored here)
      * @param[in, mod] tlc The traffic lights container to remove nodes from
      * @param[in] removeGeometryNodes Whether geometry nodes shall also be removed
      */
     void removeUnwishedNodes(NBDistrictCont &dc, NBEdgeCont &ec,
-                             NBTrafficLightLogicCont &tlc,
+                             NBJoinedEdgesMap &je, NBTrafficLightLogicCont &tlc,
                              bool removeGeometryNodes) throw();
 
     void guessRamps(OptionsCont &oc, NBEdgeCont &ec, NBDistrictCont &dc);
