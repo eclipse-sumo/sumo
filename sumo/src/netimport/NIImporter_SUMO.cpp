@@ -185,7 +185,7 @@ NIImporter_SUMO::_loadNetwork(const OptionsCont &oc) {
         }
     }
     if (mySuspectKeepShape) {
-        WRITE_WARNING("The input network may have been built using option 'xml.keep-shape'. Accuracy of junction positions cannot be guaranteed.");
+        WRITE_WARNING("The input network may have been built using option 'xml.keep-shape'.\n... Accuracy of junction positions cannot be guaranteed.");
     }
 }
 
