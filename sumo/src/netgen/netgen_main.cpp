@@ -228,7 +228,7 @@ main(int argc, char **argv) {
         WRITE_MESSAGE(" Generation done;");
         WRITE_MESSAGE("   " + toString<int>(nb.getNodeCont().size()) + " nodes generated.");
         WRITE_MESSAGE("   " + toString<int>(nb.getEdgeCont().size()) + " edges generated.");
-        nb.buildLoaded(oc);
+        nb.compute(oc);
 		NWFrame::writeNetwork(oc, nb);
     } catch (ProcessError &e) {
         if (std::string(e.what())!=std::string("Process Error") && std::string(e.what())!=std::string("")) {
