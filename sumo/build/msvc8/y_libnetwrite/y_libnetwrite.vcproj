@@ -349,6 +349,10 @@
 				RelativePath="..\..\..\src\netwrite\NWWriter_SUMO.cpp"
 				>
 			</File>
+			<File
+				RelativePath="..\..\..\src\netwrite\NWWriter_XML.cpp"
+				>
+			</File>
 		</Filter>
 		<Filter
 			Name="Header-Dateien"
@@ -364,6 +368,10 @@
 			</File>
 			<File
 				RelativePath="..\..\..\src\netwrite\NWWriter_SUMO.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\netwrite\NWWriter_XML.h"
 				>
 			</File>
 		</Filter>

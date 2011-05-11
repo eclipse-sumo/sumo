@@ -248,7 +248,6 @@ public:
 
     void guessRamps(OptionsCont &oc, NBEdgeCont &ec, NBDistrictCont &dc);
 
-    bool savePlain(const std::string &file);
 
 
     /** @brief Prints statistics about built nodes

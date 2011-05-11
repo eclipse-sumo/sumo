@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <Filter Include="Quellcodedateien">
@@ -20,6 +20,9 @@
     <ClCompile Include="..\..\..\src\netwrite\NWWriter_MATSim.cpp">
       <Filter>Quellcodedateien</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\src\netwrite\NWWriter_XML.cpp">
+      <Filter>Quellcodedateien</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\..\src\netwrite\NWFrame.h">
       <Filter>Header-Dateien</Filter>
     </ClCompile>
@@ -27,6 +30,9 @@
       <Filter>Header-Dateien</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\src\netwrite\NWWriter_MATSim.h">
+      <Filter>Header-Dateien</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\netwrite\NWWriter_XML.h">
       <Filter>Header-Dateien</Filter>
     </ClCompile>
   </ItemGroup>

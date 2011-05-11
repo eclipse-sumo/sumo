@@ -1104,42 +1104,6 @@ NBNodeCont::guessRamps(OptionsCont &oc, NBEdgeCont &ec,
 }
 
 
-
-
-
-bool
-NBNodeCont::savePlain(const std::string &file) {
-    OutputDevice& device = OutputDevice::getDevice(file);
-    device.writeXMLHeader("nodes");
-    for (NodeCont::iterator i=myNodes.begin(); i!=myNodes.end(); i++) {
-        NBNode *n = (*i).second;
-        device << "   <node id=\"" << n->getID() << "\" ";
-        if (GeoConvHelper::usingInverseGeoProjection()) {
-            device.setPrecision(GEO_OUTPUT_ACCURACY);
-            device << "x=\"" << n->getPosition().x() << "\" y=\"" << n->getPosition().y() << "\"";
-            device.setPrecision();
-        } else {
-            device << "x=\"" << n->getPosition().x() << "\" y=\"" << n->getPosition().y() << "\"";
-        }
-        device << " type=\"" << toString(n->getType())<< "\"";
-        if (n->isTLControlled()) {
-            device << " tl=\"";
-            const std::set<NBTrafficLightDefinition*> &tlss = n->getControllingTLS();
-            for (std::set<NBTrafficLightDefinition*>::const_iterator t=tlss.begin(); t!=tlss.end(); ++t) {
-                if (t!=tlss.begin()) {
-                    device << ",";
-                }
-                device << (*t)->getID();
-            }
-            device << "\"";
-        }
-        device << "/>\n";
-    }
-    device.close();
-    return true;
-}
-
-
 void
 NBNodeCont::printBuiltNodesStatistics() const throw() {
     int noDistricts = 0;

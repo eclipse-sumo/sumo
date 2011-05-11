@@ -83,10 +83,6 @@ NBNetBuilder::applyOptions(OptionsCont &oc) throw(ProcessError) {
         }
         oc.set("keep-edges", oss.str());
     }
-    // check whether at least one output file is given
-    if (!oc.isSet("output")&&!oc.isSet("plain-output")&&!oc.isSet("map-output")) {
-        throw ProcessError("No output defined.");
-    }
     // apply options to type control
     myTypeCont.setDefaults(oc.getInt("default.lanenumber"), oc.getFloat("default.speed"), oc.getInt("default.priority"));
     // apply options to edge control
@@ -209,11 +205,6 @@ NBNetBuilder::compute(OptionsCont &oc) throw(ProcessError) {
     //
     inform(step, "Rechecking of lane endings.");
     myEdgeCont.recheckLanes();
-    // save plain nodes/edges/connections
-    if (oc.isSet("plain-output")) {
-        myNodeCont.savePlain(oc.getString("plain-output") + ".nod.xml");
-        myEdgeCont.savePlain(oc.getString("plain-output") + ".edg.xml", oc.getString("plain-output") + ".con.xml");
-    }
     //
     inform(step, "Computing node shapes.");
     myNodeCont.computeNodeShapes(oc.getBool("lefthand"));

@@ -683,66 +683,6 @@ NBEdgeCont::writeXMLStep2(OutputDevice &into, bool includeInternal) throw(IOErro
 
 
 
-void
-NBEdgeCont::savePlain(const std::string &efile, const std::string &cfile) throw(IOError) {
-    OutputDevice& edevice = OutputDevice::getDevice(efile);
-    edevice.writeXMLHeader("edges");
-    OutputDevice& cdevice = OutputDevice::getDevice(cfile);
-    cdevice.writeXMLHeader("connections");
-    for (EdgeCont::iterator i=myEdges.begin(); i!=myEdges.end(); i++) {
-        // write the edge itself to the edges-files
-        NBEdge *e = (*i).second;
-        edevice << "   <edge id=\"" << e->getID()
-        << "\" fromnode=\"" << e->getFromNode()->getID()
-        << "\" tonode=\"" << e->getToNode()->getID()
-        << "\" priority=\"" << e->getPriority();
-        // write the type if given
-        if (e->getTypeID() != "") {
-            edevice << "\" type=\"" << e->getTypeID();
-        }
-        edevice << "\" nolanes=\"" << e->getNoLanes()
-        << "\" speed=\"" << e->getSpeed() << "\"";
-        // write the geometry only if larger than just the from/to positions
-        if (e->getGeometry().size() > 2) {
-            edevice << " shape=\"" << e->getGeometry() << "\"";
-        }
-        // write the spread type if not default ("right")
-        if (e->getLaneSpreadFunction()!=LANESPREAD_RIGHT) {
-            edevice << " spread_type=\"" << toString(e->getLaneSpreadFunction()) << "\"";
-        }
-        // write the vehicles class if restrictions exist
-        if (!e->hasRestrictions()) {
-            edevice << "/>\n";
-        } else {
-            edevice << ">\n";
-            e->writeLanesPlain(edevice);
-            edevice << "   </edge>\n";
-        }
-        // write this edge's connections to the connections-files
-        unsigned int noLanes = e->getNoLanes();
-        unsigned int noWritten = 0;
-        for (unsigned int lane=0; lane<noLanes; ++lane) {
-            std::vector<NBEdge::Connection> connections = e->getConnectionsFromLane(lane);
-            for (std::vector<NBEdge::Connection>::iterator c=connections.begin(); c!=connections.end(); ++c) {
-                if ((*c).toEdge!=0) {
-                    cdevice << "	<connection from=\"" << e->getID()
-                    << "\" to=\"" << (*c).toEdge->getID()
-                    << "\" lane=\"" << (*c).fromLane << ":" << (*c).toLane;
-                    cdevice << "\"/>\n";
-                    ++noWritten;
-                }
-            }
-        }
-        if (noWritten>0) {
-            cdevice << "\n";
-        }
-    }
-    edevice.close();
-    cdevice.close();
-}
-
-
-
 // ----- other
 EdgeVector
 NBEdgeCont::getGeneratedFrom(const std::string &id) const throw() {

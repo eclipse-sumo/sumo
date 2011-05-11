@@ -433,14 +433,6 @@ public:
      * @exception IOError (not yet implemented)
      */
     void writeXMLStep2(OutputDevice &into, bool includeInternal) throw(IOError);
-
-
-    /** @brief Writes the stored edges and their connections to an XML-edge-file and an XML-connections-file, respectively
-     * @param[in] efile The path to write the edge definitions into
-     * @param[in] cfile The path to write the connection definitions into
-     * @exception IOError If one of the files could not be opened
-     */
-    void savePlain(const std::string &efile, const std::string &cfile) throw(IOError);
     /// @}
 
 

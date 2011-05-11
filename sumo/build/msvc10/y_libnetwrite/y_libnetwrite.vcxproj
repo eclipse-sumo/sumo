@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -138,11 +138,13 @@
     <ClCompile Include="..\..\..\src\netwrite\NWFrame.cpp" />
     <ClCompile Include="..\..\..\src\netwrite\NWWriter_SUMO.cpp" />
     <ClCompile Include="..\..\..\src\netwrite\NWWriter_MATSim.cpp" />
+    <ClCompile Include="..\..\..\src\netwrite\NWWriter_XML.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\src\netwrite\NWFrame.h" />
     <ClCompile Include="..\..\..\src\netwrite\NWWriter_SUMO.h" />
     <ClCompile Include="..\..\..\src\netwrite\NWWriter_MATSim.h" />
+    <ClCompile Include="..\..\..\src\netwrite\NWWriter_XML.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\zz_foreign_nvwa\zz_foreign_nvwa.vcxproj">
