@@ -62,7 +62,7 @@ MSDevice_Vehroutes::init() throw(IOError) {
         mySaveExits = OptionsCont::getOptions().getBool("vehroute-output.exit-times");
         myLastRouteOnly = OptionsCont::getOptions().getBool("vehroute-output.last-route");
         mySorted = OptionsCont::getOptions().getBool("vehroute-output.sorted");
-        myWithTaz = OptionsCont::getOptions().getBool("device.routing.with-taz");
+        myWithTaz = OptionsCont::getOptions().getBool("device.rerouting.with-taz");
         MSNet::getInstance()->addVehicleStateListener(&myStateListener);
     }
 }

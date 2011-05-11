@@ -59,6 +59,7 @@ MSDevice_HBEFA::insertOptions() throw() {
     oc.addDescription("device.hbefa.probability", "Emissions", "The probability for a vehicle to have an emission logging device");
 
     oc.doRegister("device.hbefa.knownveh", new Option_String());//!!! describe
+    oc.addSynonyme("device.hbefa.explicit", "device.hbefa.knownveh", true);
     oc.addDescription("device.hbefa.knownveh", "Emissions", "Assign a device to named vehicles");
 
     oc.doRegister("device.hbefa.deterministic", new Option_Bool(false)); //!!! describe
@@ -71,7 +72,7 @@ MSDevice_HBEFA::insertOptions() throw() {
 void
 MSDevice_HBEFA::buildVehicleDevices(SUMOVehicle &v, std::vector<MSDevice*> &into) throw() {
     OptionsCont &oc = OptionsCont::getOptions();
-    if (oc.getFloat("device.hbefa.probability")==0 && !oc.isSet("device.hbefa.knownveh")) {
+    if (oc.getFloat("device.hbefa.probability")==0 && !oc.isSet("device.hbefa.explicit")) {
         // no route computation is modelled
         return;
     }
@@ -82,7 +83,7 @@ MSDevice_HBEFA::buildVehicleDevices(SUMOVehicle &v, std::vector<MSDevice*> &into
     } else {
         haveByNumber = RandHelper::rand()<=oc.getFloat("device.hbefa.probability");
     }
-    bool haveByName = oc.isSet("device.hbefa.knownveh") && OptionsCont::getOptions().isInStringVector("device.hbefa.knownveh", v.getID());
+    bool haveByName = oc.isSet("device.hbefa.explicit") && OptionsCont::getOptions().isInStringVector("device.hbefa.explicit", v.getID());
     if (haveByNumber||haveByName) {
         // build the device
         MSDevice_HBEFA* device = new MSDevice_HBEFA(v, "hbefa_" + v.getID());

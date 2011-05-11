@@ -157,13 +157,12 @@ NLBuilder::build() throw(ProcessError) {
         retrieverDefs.push_back(new SAXWeightsHandler::ToRetrieveDefinition("traveltime", true, ttRetriever));
         //  the measure to use, then
         EdgeFloatTimeLineRetriever_EdgeEffort eRetriever(myNet);
-        std::string measure = myOptions.isSet("measure") ? myOptions.getString("measure") : "traveltime";
+        std::string measure = myOptions.getString("weight-attribute");
         if (measure!="traveltime") {
-            std::string umeasure = measure;
             if (measure=="CO"||measure=="CO2"||measure=="HC"||measure=="PMx"||measure=="NOx"||measure=="fuel") {
-                umeasure = measure + "_perVeh";
+                measure += "_perVeh";
             }
-            retrieverDefs.push_back(new SAXWeightsHandler::ToRetrieveDefinition(umeasure, true, eRetriever));
+            retrieverDefs.push_back(new SAXWeightsHandler::ToRetrieveDefinition(measure, true, eRetriever));
         }
         //  set up handler
         SAXWeightsHandler handler(retrieverDefs, "");

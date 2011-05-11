@@ -86,11 +86,12 @@ MSFrame::fillOptions() {
     oc.addSynonyme("additional-files", "additional");
     oc.addDescription("additional-files", "Input", "Load further descriptions from FILE(s)");
 
-    oc.doRegister("weight-files", 'w', new Option_FileName()); // !!! describe
+    oc.doRegister("weight-files", 'w', new Option_FileName());
     oc.addSynonyme("weight-files", "weights");
-    oc.addDescription("weight-files", "Input", "Load weights from FILE");
-    oc.doRegister("measure", 'm', new Option_String()); // !!! describe
-    oc.addDescription("measure", "Input", "Load <measure> from weights");
+    oc.addDescription("weight-files", "Input", "Load edge/lane weights for online rerouting from FILE");
+    oc.doRegister("weight-attribute", 'm', new Option_String("traveltime"));
+    oc.addSynonyme("weight-attribute", "measure", true);
+    oc.addDescription("weight-attribute", "Input", "Use the given attribute as weight when parsing weight files");
 
 #ifdef HAVE_MESOSIM
     oc.doRegister("load-state", new Option_FileName());//!!! check, describe
@@ -104,21 +105,24 @@ MSFrame::fillOptions() {
     oc.addSynonyme("netstate-dump", "ndump");
     oc.addSynonyme("netstate-dump", "netstate");
     oc.addDescription("netstate-dump", "Output", "Save complete network states into FILE");
-    oc.doRegister("dump-empty-edges", new Option_Bool(false));
-    oc.addDescription("dump-empty-edges", "Output", "Write also empty edges completely when dumping");
+    oc.doRegister("netstate-dump.empty-edges", new Option_Bool(false));
+    oc.addSynonyme("netstate-dump.empty-edges", "netstate.empty-edges");
+    oc.addSynonyme("netstate-dump.empty-edges", "dump-empty-edges", true);
+    oc.addDescription("netstate-dump.empty-edges", "Output", "Write also empty edges completely when dumping");
 
-    oc.doRegister("summary", new Option_FileName());
-    oc.addSynonyme("summary", "emissions-output");
-    oc.addSynonyme("summary", "emissions");
-    oc.addDescription("summary", "Output", "Save aggregated vehicle emission inf. into FILE");
+    oc.doRegister("summary-output", new Option_FileName());
+    oc.addSynonyme("summary-output", "summary");
+    oc.addSynonyme("summary-output", "emissions-output", true);
+    oc.addSynonyme("summary-output", "emissions", true);
+    oc.addDescription("summary-output", "Output", "Save aggregated vehicle departure info into FILE");
 
     oc.doRegister("tripinfo-output", new Option_FileName());
     oc.addSynonyme("tripinfo-output", "tripinfo");
-    oc.addDescription("tripinfo-output", "Output", "Save single vehicle trip inf. into FILE");
+    oc.addDescription("tripinfo-output", "Output", "Save single vehicle trip info into FILE");
 
     oc.doRegister("vehroute-output", new Option_FileName());
     oc.addSynonyme("vehroute-output", "vehroutes");
-    oc.addDescription("vehroute-output", "Output", "Save single vehicle route inf. into FILE");
+    oc.addDescription("vehroute-output", "Output", "Save single vehicle route info into FILE");
 
     oc.doRegister("vehroute-output.exit-times", new Option_Bool(false));
     oc.addSynonyme("vehroute-output.exit-times", "vehroutes.exit-times");
@@ -169,13 +173,16 @@ MSFrame::fillOptions() {
     oc.doRegister("ignore-route-errors", new Option_Bool(false));
     oc.addDescription("ignore-route-errors", "Processing", "Do not check whether routes are connected");
 
-    oc.doRegister("too-many-vehicles", new Option_Integer(-1));//!!! check, describe
-    oc.addDescription("too-many-vehicles", "Processing", "Quit simulation if this number of vehicles is exceeded");
+    oc.doRegister("max-num-vehicles", new Option_Integer(-1));
+    oc.addSynonyme("max-num-vehicles", "too-many-vehicles", true);
+    oc.addDescription("max-num-vehicles", "Processing", "Quit simulation if this number of vehicles is exceeded");
 
-    oc.doRegister("incremental-dua-step", new Option_Integer(-1));//!!! check, describe
+    oc.doRegister("incremental-dua-step", new Option_Integer());//!!! deprecated
     oc.addDescription("incremental-dua-step", "Processing", "Perform the simulation as a step in incremental DUA");
-    oc.doRegister("incremental-dua-base", new Option_Integer(10));//!!! check, describe
+    oc.doRegister("incremental-dua-base", new Option_Integer(10));//!!! deprecated
     oc.addDescription("incremental-dua-base", "Processing", "Base value for incremental DUA");
+	oc.doRegister("scale", new Option_Float());
+    oc.addDescription("scale", "Processing", "Scale demand by the given factor (0..1)");
 
     oc.doRegister("time-to-teleport", new Option_String("300", "TIME"));
     oc.addDescription("time-to-teleport", "Processing", "Specify how long a vehicle may wait until being teleported, defaults to 300, values < 1 disable teleporting");
@@ -277,7 +284,7 @@ void
 MSFrame::buildStreams() throw(IOError) {
     // standard outputs
     OutputDevice::createDeviceByOption("netstate-dump", "sumo-netstate");
-    OutputDevice::createDeviceByOption("summary", "summary");
+    OutputDevice::createDeviceByOption("summary-output", "summary");
     OutputDevice::createDeviceByOption("tripinfo-output", "tripinfos");
     MSDevice_Vehroutes::init();
 }
@@ -287,27 +294,24 @@ bool
 MSFrame::checkOptions() {
     OptionsCont &oc = OptionsCont::getOptions();
     bool ok = true;
-    // check the existance of a name for simulation file
-    if (!oc.isSet("n")) {
+    if (!oc.isSet("net-file")) {
         MsgHandler::getErrorInstance()->inform("No network file (-n) specified.");
         ok = false;
     }
-    // check if the begin and the end of the simulation are supplied
-    if (!oc.isSet("b")) {
-        MsgHandler::getErrorInstance()->inform("The begin of the simulation (-b) is not specified.");
-        ok = false;
-    }
-    if (!oc.isSet("e")) {
-        MsgHandler::getErrorInstance()->inform("The end of the simulation (-e) is not specified.");
-        ok = false;
-    }
     if (oc.isSet("incremental-dua-step") && oc.isSet("incremental-dua-base")) {
+        MsgHandler::getWarningInstance()->inform("The options 'incremental-dua-step' and 'incremental-dua-base' are deprecated, use 'scale' instead.");
         if (oc.getInt("incremental-dua-step") > oc.getInt("incremental-dua-base")) {
-            MsgHandler::getErrorInstance()->inform("Invalid dua step");
+            MsgHandler::getErrorInstance()->inform("Invalid dua step.");
             ok = false;
         }
     }
-    if (oc.getBool("vehroutes.exit-times") && !oc.isSet("vehroutes")) {
+    if (!oc.isDefault("scale")) {
+		if (oc.getFloat("scale") < 0. || oc.getFloat("scale") > 1.) {
+			MsgHandler::getErrorInstance()->inform("Invalid scaling factor.");
+			ok = false;
+		}
+	}
+    if (oc.getBool("vehroute-output.exit-times") && !oc.isSet("vehroute-output")) {
         MsgHandler::getErrorInstance()->inform("A vehroute-output file is needed for exit times.");
         ok = false;
     }
@@ -319,7 +323,7 @@ void
 MSFrame::setMSGlobals(OptionsCont &oc) {
     // pre-initialise the network
     // set whether empty edges shall be printed on dump
-    MSGlobals::gOmitEmptyEdgesOnDump = !oc.getBool("dump-empty-edges");
+    MSGlobals::gOmitEmptyEdgesOnDump = !oc.getBool("netstate-dump.empty-edges");
 #ifdef HAVE_INTERNAL_LANES
     // set whether internal lanes shall be used
     MSGlobals::gUsingInternalLanes = !oc.getBool("no-internal-links");

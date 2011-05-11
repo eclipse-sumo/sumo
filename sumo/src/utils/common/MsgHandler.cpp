@@ -315,14 +315,14 @@ MsgHandler::initOutputOptions(bool gui) {
     getMessageInstance()->report2cout(!gui && oc.getBool("verbose"));
     getWarningInstance()->report2cerr(!gui && !oc.getBool("no-warnings"));
     // build the logger if possible
-    if (oc.isSet("log-file")) {
+    if (oc.isSet("log")) {
         try {
-            OutputDevice *logFile = &OutputDevice::getDevice(oc.getString("log-file"));
+            OutputDevice *logFile = &OutputDevice::getDevice(oc.getString("log"));
             getErrorInstance()->addRetriever(logFile);
             getWarningInstance()->addRetriever(logFile);
             getMessageInstance()->addRetriever(logFile);
         } catch (IOError &) {
-            throw ProcessError("Could not build logging file '" + oc.getString("log-file") + "'");
+            throw ProcessError("Could not build logging file '" + oc.getString("log") + "'");
         }
     }
     if (oc.isSet("message-log")) {

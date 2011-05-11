@@ -69,13 +69,17 @@ MSRouteHandler::MSRouteHandler(const std::string &file,
     myAddVehiclesDirectly(addVehiclesDirectly),
     myCurrentVTypeDistribution(0),
     myCurrentRouteDistribution(0),
-    myRunningVehicleNumber(0),
     myHaveWarned(false), 
-    myCurrentVType(0)
+    myCurrentVType(0),
+	myScale(-1.)
 {
-    myIncrementalBase = OptionsCont::getOptions().getInt("incremental-dua-base");
-    myIncrementalStage = OptionsCont::getOptions().getInt("incremental-dua-step");
-    myAmUsingIncrementalDUA = (myIncrementalStage>0);
+    OptionsCont &oc = OptionsCont::getOptions();
+	if (oc.isSet("incremental-dua-step")) {
+		myScale = oc.getInt("incremental-dua-step") / static_cast<SUMOReal>(oc.getInt("incremental-dua-base"));
+	}
+	if (oc.isSet("scale")) {
+		myScale = oc.getFloat("scale");
+	}
     myActiveRoute.reserve(100);
 }
 
@@ -517,15 +521,8 @@ MSRouteHandler::closeVehicle() throw(ProcessError) {
     SUMOVehicle *vehicle = 0;
     if (MSNet::getInstance()->getVehicleControl().getVehicle(myVehicleParameter->id)==0) {
         // ok there was no other vehicle with the same id, yet
-        // maybe we do not want this vehicle to be inserted due to using incremental dua
-        bool add = true;
-        if (myAmUsingIncrementalDUA) {
-            if ((int)(myRunningVehicleNumber%myIncrementalBase)>=(int) myIncrementalStage) {
-                add = false;
-            }
-            myRunningVehicleNumber++;
-        }
-        if (add) {
+        // maybe we do not want this vehicle to be inserted due to scaling
+        if (myScale < 0 || RandHelper::rand() <= myScale) {
             vehicle = MSNet::getInstance()->getVehicleControl().buildVehicle(myVehicleParameter, route, vtype);
             // add the vehicle to the vehicle control
             MSNet::getInstance()->getVehicleControl().addVehicle(myVehicleParameter->id, vehicle);

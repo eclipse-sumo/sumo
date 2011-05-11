@@ -86,8 +86,9 @@ SystemFrame::addReportOptions(OptionsCont &oc) {
     oc.addSynonyme("no-warnings", "suppress-warnings", true);
     oc.addDescription("no-warnings", "Report", "Disables output of warnings");
 
-    oc.doRegister("log-file", 'l', new Option_FileName());
-    oc.addDescription("log-file", "Report", "Writes all messages to FILE");
+    oc.doRegister("log", 'l', new Option_FileName());
+    oc.addSynonyme("log", "log-file", true);
+    oc.addDescription("log", "Report", "Writes all messages to FILE");
 
     oc.doRegister("message-log", new Option_FileName());
     oc.addDescription("message-log", "Report", "Writes all non-error messages to FILE");

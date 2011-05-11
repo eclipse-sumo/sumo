@@ -12,11 +12,11 @@
         <!-- Load further descriptions from FILE(s) -->
         <additional-files value="" synonymes="a additional"/>
 
-        <!-- Load weights from FILE -->
+        <!-- Load edge/lane weights for online rerouting from FILE -->
         <weight-files value="" synonymes="w weights"/>
 
-        <!-- Load <measure> from weights -->
-        <measure value="" synonymes="m"/>
+        <!-- Use the given attribute as weight when parsing weight files -->
+        <weight-attribute value="" synonymes="m measure"/>
 
     </input>
 
@@ -25,15 +25,15 @@
         <netstate-dump value="" synonymes="ndump netstate"/>
 
         <!-- Write also empty edges completely when dumping -->
-        <dump-empty-edges value="false"/>
+        <netstate-dump.empty-edges value="false" synonymes="dump-empty-edges netstate.empty-edges"/>
 
-        <!-- Save aggregated vehicle emission inf. into FILE -->
-        <summary value="" synonymes="emissions emissions-output"/>
+        <!-- Save aggregated vehicle departure info into FILE -->
+        <summary-output value="" synonymes="emissions emissions-output summary"/>
 
-        <!-- Save single vehicle trip inf. into FILE -->
+        <!-- Save single vehicle trip info into FILE -->
         <tripinfo-output value="" synonymes="tripinfo"/>
 
-        <!-- Save single vehicle route inf. into FILE -->
+        <!-- Save single vehicle route info into FILE -->
         <vehroute-output value="" synonymes="vehroutes"/>
 
         <!-- Write the exit times for all edges -->
@@ -73,13 +73,16 @@
         <ignore-route-errors value="false"/>
 
         <!-- Quit simulation if this number of vehicles is exceeded -->
-        <too-many-vehicles value="-1"/>
+        <max-num-vehicles value="-1" synonymes="too-many-vehicles"/>
 
         <!-- Perform the simulation as a step in incremental DUA -->
-        <incremental-dua-step value="-1"/>
+        <incremental-dua-step value=""/>
 
         <!-- Base value for incremental DUA -->
         <incremental-dua-base value="10"/>
+
+        <!-- Scale demand by the given factor (0..1) -->
+        <scale value=""/>
 
         <!-- Specify how long a vehicle may wait until being teleported, defaults to 300, values < 1 disable teleporting -->
         <time-to-teleport value="300"/>
@@ -142,7 +145,7 @@
         <no-warnings value="false" synonymes="W suppress-warnings"/>
 
         <!-- Writes all messages to FILE -->
-        <log-file value="" synonymes="l"/>
+        <log value="" synonymes="l log-file"/>
 
         <!-- Writes all non-error messages to FILE -->
         <message-log value=""/>
@@ -160,28 +163,28 @@
 
     <routing>
         <!-- The probability for a vehicle to have a routing device -->
-        <device.routing.probability value="0"/>
+        <device.rerouting.probability value="0" synonymes="device.routing.probability"/>
 
         <!-- Assign a device to named vehicles -->
-        <device.routing.knownveh value=""/>
+        <device.rerouting.explicit value="" synonymes="device.routing.knownveh"/>
 
         <!-- The devices are set deterministic using a fraction of 1000 -->
-        <device.routing.deterministic value="false"/>
+        <device.rerouting.deterministic value="false" synonymes="device.routing.deterministic"/>
 
         <!-- The period with which the vehicle shall be rerouted -->
-        <device.routing.period value="0"/>
+        <device.rerouting.period value="0" synonymes="device.routing.period"/>
 
         <!-- The rerouting period before depart -->
-        <device.routing.pre-period value="0"/>
+        <device.rerouting.pre-period value="0" synonymes="device.routing.pre-period"/>
 
         <!-- The weight of prior edge weights. -->
-        <device.routing.adaptation-weight value="0.5"/>
+        <device.rerouting.adaptation-weight value="0.5" synonymes="device.routing.adaptation-weight"/>
 
         <!-- The interval for updating the edge weights. -->
-        <device.routing.adaptation-interval value="1"/>
+        <device.rerouting.adaptation-interval value="1" synonymes="device.routing.adaptation-interval"/>
 
         <!-- Use zones (districts) as routing end points -->
-        <device.routing.with-taz value="false"/>
+        <device.rerouting.with-taz value="false" synonymes="device.routing.with-taz"/>
 
     </routing>
 
@@ -190,7 +193,7 @@
         <device.hbefa.probability value="0"/>
 
         <!-- Assign a device to named vehicles -->
-        <device.hbefa.knownveh value=""/>
+        <device.hbefa.knownveh value="" synonymes="device.hbefa.explicit"/>
 
         <!-- The devices are set deterministic using a fraction of 1000 -->
         <device.hbefa.deterministic value="false"/>

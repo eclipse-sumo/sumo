@@ -182,17 +182,8 @@ protected:
     /// @brief The id of the currently parsed route distribution
     std::string myCurrentRouteDistributionID;
 
-    /// @brief Information whether not all vehicle shall be inserted due to inc-dua
-    bool myAmUsingIncrementalDUA;
-
-    /// @brief The current vehicle number (for inc-dua)
-    unsigned int myRunningVehicleNumber;
-
-    /// @brief The base for inc-dua
-    int myIncrementalBase;
-
-    /// @brief The current stage of inc-dua
-    int myIncrementalStage;
+    /// @brief The scaling factor (especially for inc-dua)
+    SUMOReal myScale;
 
     /// @brief Whether we have warned about routes defined as character strings
     bool myHaveWarned;

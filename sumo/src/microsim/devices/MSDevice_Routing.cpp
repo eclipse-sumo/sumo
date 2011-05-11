@@ -62,29 +62,37 @@ MSDevice_Routing::insertOptions() throw() {
     OptionsCont &oc = OptionsCont::getOptions();
     oc.addOptionSubTopic("Routing");
 
-    oc.doRegister("device.routing.probability", new Option_Float(0.));
-    oc.addDescription("device.routing.probability", "Routing", "The probability for a vehicle to have a routing device");
+    oc.doRegister("device.rerouting.probability", new Option_Float(0.));
+    oc.addSynonyme("device.rerouting.probability", "device.routing.probability", true);
+    oc.addDescription("device.rerouting.probability", "Routing", "The probability for a vehicle to have a routing device");
 
-    oc.doRegister("device.routing.knownveh", new Option_String());
-    oc.addDescription("device.routing.knownveh", "Routing", "Assign a device to named vehicles");
+    oc.doRegister("device.rerouting.explicit", new Option_String());
+    oc.addSynonyme("device.rerouting.explicit", "device.routing.knownveh", true);
+    oc.addDescription("device.rerouting.explicit", "Routing", "Assign a device to named vehicles");
 
-    oc.doRegister("device.routing.deterministic", new Option_Bool(false));
-    oc.addDescription("device.routing.deterministic", "Routing", "The devices are set deterministic using a fraction of 1000");
+    oc.doRegister("device.rerouting.deterministic", new Option_Bool(false));
+    oc.addSynonyme("device.rerouting.deterministic", "device.routing.deterministic", true);
+    oc.addDescription("device.rerouting.deterministic", "Routing", "The devices are set deterministic using a fraction of 1000");
 
-    oc.doRegister("device.routing.period", new Option_String("0"));
-    oc.addDescription("device.routing.period", "Routing", "The period with which the vehicle shall be rerouted");
+    oc.doRegister("device.rerouting.period", new Option_String("0", "TIME"));
+    oc.addSynonyme("device.rerouting.period", "device.routing.period", true);
+    oc.addDescription("device.rerouting.period", "Routing", "The period with which the vehicle shall be rerouted");
 
-    oc.doRegister("device.routing.pre-period", new Option_String("0"));
-    oc.addDescription("device.routing.pre-period", "Routing", "The rerouting period before depart");
+    oc.doRegister("device.rerouting.pre-period", new Option_String("0", "TIME"));
+    oc.addSynonyme("device.rerouting.pre-period", "device.routing.pre-period", true);
+    oc.addDescription("device.rerouting.pre-period", "Routing", "The rerouting period before depart");
 
-    oc.doRegister("device.routing.adaptation-weight", new Option_Float(.5));
-    oc.addDescription("device.routing.adaptation-weight", "Routing", "The weight of prior edge weights.");
+    oc.doRegister("device.rerouting.adaptation-weight", new Option_Float(.5));
+    oc.addSynonyme("device.rerouting.adaptation-weight", "device.routing.adaptation-weight", true);
+    oc.addDescription("device.rerouting.adaptation-weight", "Routing", "The weight of prior edge weights.");
 
-    oc.doRegister("device.routing.adaptation-interval", new Option_String("1"));
-    oc.addDescription("device.routing.adaptation-interval", "Routing", "The interval for updating the edge weights.");
+    oc.doRegister("device.rerouting.adaptation-interval", new Option_String("1", "TIME"));
+    oc.addSynonyme("device.rerouting.adaptation-interval", "device.routing.adaptation-interval", true);
+    oc.addDescription("device.rerouting.adaptation-interval", "Routing", "The interval for updating the edge weights.");
 
-    oc.doRegister("device.routing.with-taz", new Option_Bool(false));
-    oc.addDescription("device.routing.with-taz", "Routing", "Use zones (districts) as routing end points");
+    oc.doRegister("device.rerouting.with-taz", new Option_Bool(false));
+    oc.addSynonyme("device.rerouting.with-taz", "device.routing.with-taz", true);
+    oc.addDescription("device.rerouting.with-taz", "Routing", "Use zones (districts) as routing end points");
 
     myVehicleIndex = 0;
     myEdgeWeightSettingCommand = 0;
@@ -95,24 +103,24 @@ MSDevice_Routing::insertOptions() throw() {
 void
 MSDevice_Routing::buildVehicleDevices(SUMOVehicle &v, std::vector<MSDevice*> &into) throw() {
     OptionsCont &oc = OptionsCont::getOptions();
-    if (oc.getFloat("device.routing.probability")==0&&!oc.isSet("device.routing.knownveh")) {
+    if (oc.getFloat("device.rerouting.probability")==0&&!oc.isSet("device.rerouting.explicit")) {
         // no route computation is modelled
         return;
     }
     // route computation is enabled
     bool haveByNumber = false;
-    if (oc.getBool("device.routing.deterministic")) {
-        haveByNumber = ((myVehicleIndex%1000) < (int)(oc.getFloat("device.routing.probability")*1000.));
+    if (oc.getBool("device.rerouting.deterministic")) {
+        haveByNumber = ((myVehicleIndex%1000) < (int)(oc.getFloat("device.rerouting.probability")*1000.));
     } else {
-        haveByNumber = RandHelper::rand()<=oc.getFloat("device.routing.probability");
+        haveByNumber = RandHelper::rand()<=oc.getFloat("device.rerouting.probability");
     }
-    bool haveByName = oc.isSet("device.routing.knownveh") && OptionsCont::getOptions().isInStringVector("device.routing.knownveh", v.getID());
-    myWithTaz = oc.getBool("device.routing.with-taz");
+    bool haveByName = oc.isSet("device.rerouting.explicit") && OptionsCont::getOptions().isInStringVector("device.rerouting.explicit", v.getID());
+    myWithTaz = oc.getBool("device.rerouting.with-taz");
     if (haveByNumber||haveByName) {
         // build the device
         MSDevice_Routing* device = new MSDevice_Routing(v, "routing_" + v.getID(),
-                string2time(oc.getString("device.routing.period")),
-                string2time(oc.getString("device.routing.pre-period")));
+                string2time(oc.getString("device.rerouting.period")),
+                string2time(oc.getString("device.rerouting.pre-period")));
         into.push_back(device);
         // initialise edge efforts if not done before
         if (myEdgeEfforts.size()==0) {
@@ -126,8 +134,8 @@ MSDevice_Routing::buildVehicleDevices(SUMOVehicle &v, std::vector<MSDevice*> &in
             myEdgeWeightSettingCommand = new StaticCommand< MSDevice_Routing >(&MSDevice_Routing::adaptEdgeEfforts);
             MSNet::getInstance()->getEndOfTimestepEvents().addEvent(
                 myEdgeWeightSettingCommand, 0, MSEventControl::ADAPT_AFTER_EXECUTION);
-            myAdaptationWeight = oc.getFloat("device.routing.adaptation-weight");
-            myAdaptationInterval = string2time(oc.getString("device.routing.adaptation-interval"));
+            myAdaptationWeight = oc.getFloat("device.rerouting.adaptation-weight");
+            myAdaptationInterval = string2time(oc.getString("device.rerouting.adaptation-interval"));
         }
         if (myWithTaz) {
             if (MSEdge::dictionary(v.getParameter().fromTaz+"-source") == 0) {
