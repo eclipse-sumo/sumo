@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 04/29/11 10:39:07 by SUMO netconvert Version dev-SVN-r10182
+<!-- generated on 05/11/11 07:28:23 by SUMO netconvert Version dev-SVN-r10279
 <?xml version="1.0" encoding="iso-8859-1"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
@@ -8156,13 +8156,11 @@
    <row-logic id="13802117" requestSize="1">
       <logicitem request="0" response="0" foes="0"/>
    </row-logic>
-   <row-logic id="254421993" requestSize="2">
-      <logicitem request="0" response="11" foes="00"/>
-      <logicitem request="1" response="00" foes="00"/>
+   <row-logic id="254421993" requestSize="1">
+      <logicitem request="0" response="0" foes="0"/>
    </row-logic>
-   <row-logic id="25686967" requestSize="2">
-      <logicitem request="0" response="11" foes="00"/>
-      <logicitem request="1" response="00" foes="00"/>
+   <row-logic id="25686967" requestSize="1">
+      <logicitem request="0" response="0" foes="0"/>
    </row-logic>
    <row-logic id="259645363" requestSize="1">
       <logicitem request="0" response="0" foes="0"/>
@@ -8944,9 +8942,8 @@
       <logicitem request="9" response="00000000000" foes="00000111100"/>
       <logicitem request="10" response="00000100011" foes="00000100011"/>
    </row-logic>
-   <row-logic id="26698910" requestSize="2">
-      <logicitem request="0" response="11" foes="00"/>
-      <logicitem request="1" response="00" foes="00"/>
+   <row-logic id="26698910" requestSize="1">
+      <logicitem request="0" response="0" foes="0"/>
    </row-logic>
    <row-logic id="26698911" requestSize="1">
       <logicitem request="0" response="0" foes="0"/>
@@ -9134,9 +9131,8 @@
       <logicitem request="4" response="000000" foes="000100"/>
       <logicitem request="5" response="000011" foes="000011"/>
    </row-logic>
-   <row-logic id="27230221" requestSize="2">
-      <logicitem request="0" response="11" foes="00"/>
-      <logicitem request="1" response="00" foes="00"/>
+   <row-logic id="27230221" requestSize="1">
+      <logicitem request="0" response="0" foes="0"/>
    </row-logic>
    <row-logic id="286683628" requestSize="9">
       <logicitem request="0" response="000000000" foes="100010000"/>
@@ -14997,9 +14993,8 @@
    <row-logic id="306035406" requestSize="1">
       <logicitem request="0" response="0" foes="0"/>
    </row-logic>
-   <row-logic id="306047326" requestSize="2">
-      <logicitem request="0" response="11" foes="00"/>
-      <logicitem request="1" response="00" foes="00"/>
+   <row-logic id="306047326" requestSize="1">
+      <logicitem request="0" response="0" foes="0"/>
    </row-logic>
    <row-logic id="306243933" requestSize="10">
       <logicitem request="0" response="0000000000" foes="1000100000"/>
@@ -17139,9 +17134,8 @@
       <logicitem request="7" response="000011000" foes="000011110"/>
       <logicitem request="8" response="000010001" foes="000010001"/>
    </row-logic>
-   <row-logic id="401285420" requestSize="2">
-      <logicitem request="0" response="11" foes="00"/>
-      <logicitem request="1" response="00" foes="00"/>
+   <row-logic id="401285420" requestSize="1">
+      <logicitem request="0" response="0" foes="0"/>
    </row-logic>
    <row-logic id="408437198" requestSize="9">
       <logicitem request="0" response="000000000" foes="100010000"/>
@@ -23782,7 +23776,6 @@
       <succlane lane="27874794#1_0" dir="t" state="m"/>
    </succ>
    <succ edge="-27875772#0" lane="-27875772#0_0" junction="306047326">
-      <succlane lane="SUMO_NO_DESTINATION" dir="s" state="O"/>
    </succ>
    <succ edge="-27875772#0" lane="-27875772#0_1" junction="306047326">
       <succlane lane="27875772#0_1" dir="t" state="M"/>
@@ -24545,7 +24538,6 @@
       <succlane lane="28149674#2_0" dir="t" state="m"/>
    </succ>
    <succ edge="-28156036#0" lane="-28156036#0_0" junction="25686967">
-      <succlane lane="SUMO_NO_DESTINATION" dir="s" state="O"/>
    </succ>
    <succ edge="-28156036#0" lane="-28156036#0_1" junction="25686967">
       <succlane lane="28156036#0_1" dir="t" state="M"/>
@@ -25798,7 +25790,6 @@
       <succlane lane="-10675428#6_1" dir="t" state="m"/>
    </succ>
    <succ edge="10675428#7" lane="10675428#7_0" junction="254421993">
-      <succlane lane="SUMO_NO_DESTINATION" dir="s" state="O"/>
    </succ>
    <succ edge="10675428#7" lane="10675428#7_1" junction="254421993">
       <succlane lane="-10675428#7_1" dir="t" state="M"/>
@@ -31442,7 +31433,6 @@
       <succlane lane="-28788639#1_1" tl="307478324" linkno="5" dir="t" state="t"/>
    </succ>
    <succ edge="28788639#2" lane="28788639#2_0" junction="401285420">
-      <succlane lane="SUMO_NO_DESTINATION" dir="s" state="O"/>
    </succ>
    <succ edge="28788639#2" lane="28788639#2_1" junction="401285420">
       <succlane lane="-28788639#2_1" dir="t" state="M"/>
@@ -31882,7 +31872,6 @@
       <succlane lane="-32382616#0_1" dir="t" state="m"/>
    </succ>
    <succ edge="32382616#1" lane="32382616#1_0" junction="27230221">
-      <succlane lane="SUMO_NO_DESTINATION" dir="s" state="O"/>
    </succ>
    <succ edge="32382616#1" lane="32382616#1_1" junction="27230221">
       <succlane lane="-32382616#1_1" dir="t" state="M"/>
@@ -32352,7 +32341,6 @@
       <succlane lane="-4379614#8_1" dir="t" state="m"/>
    </succ>
    <succ edge="4379614#9" lane="4379614#9_0" junction="26698910">
-      <succlane lane="SUMO_NO_DESTINATION" dir="s" state="O"/>
    </succ>
    <succ edge="4379614#9" lane="4379614#9_1" junction="26698910">
       <succlane lane="-4379614#9_1" dir="t" state="M"/>
