@@ -1,5 +1,6 @@
 from distutils.core import setup
 import py2exe, sys, shutil, os, glob, zipfile
+import subprocess
 
 nightlyDir="N:\\Daten\\Sumo\\Nightly"
 
@@ -12,13 +13,10 @@ shutil.rmtree(dist, True)
 
 setup(console=['runner.py'])
 
-for f in glob.glob(os.path.join(base, "square.*")) + ["cross.sumo.cfg", "dlr.gif", "input_additional.add.xml",
-                                                      "input_additional.add.xml", "settings.xml"]:
+for f in glob.glob(os.path.join(base, "*.sumo.cfg")) + ['input_additional.add.xml']: 
     shutil.copy2(f, dist)
-cross = os.path.join(dist, "cross")
-os.mkdir(cross)
-for f in glob.glob(os.path.join(base, "cross", "cross.*")):
-    shutil.copy2(f, cross)
+for dir in ['cross', 'square']:
+    subprocess.call(['svn', 'export', dir, os.path.join(dist, dir)])
 for dll in glob.glob(os.path.join(nightlyDir, "*.dll")):
     shutil.copy2(dll, dist)
 shutil.copy2(os.path.join(nightlyDir, "sumo-gui.exe"), dist)

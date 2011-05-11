@@ -1,6 +1,6 @@
 <viewsettings>
     <delay value="100"/>
-    <viewport zoom="300" x="0" y="0"/>
+    <viewport zoom="300" x="200" y="200"/>
     <decal filename="cross.gif" centerX="218" centerY="200" width="343" height="240" rotation="0.00"/>
     <scheme name="*real world">
         <opengl antialiase="0" dither="0"/>
