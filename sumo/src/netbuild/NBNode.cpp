@@ -772,6 +772,9 @@ NBNode::computeInternalLaneShape(NBEdge *fromE, int fromL,
 
 bool
 NBNode::needsCont(NBEdge *fromE, NBEdge *toE, NBEdge *otherFromE, NBEdge *otherToE, NBEdge::Connection &c) {
+    if(myType==NODETYPE_RIGHT_BEFORE_LEFT) {
+        return false;
+    }
     if (fromE==otherFromE) {
         // ignore same edge links
         return false;
