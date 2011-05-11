@@ -73,10 +73,9 @@ public:
 
 protected:
     /** @brief Constructor
-     * @param[in] nc The node control to fill
-     * @param[in] nc The trafficLight control to fill
+     * @param[in] nc The network builder to fill
      */
-    NIImporter_SUMO(NBNodeCont &nc, NBTrafficLightLogicCont &tllc);
+    NIImporter_SUMO(NBNetBuilder &nb);
 
 
     /// @brief Destructor
@@ -123,6 +122,9 @@ protected:
 
 
 private:
+    /// @brief load the network
+    void _loadNetwork(const OptionsCont &oc);
+
     /// @name Object instance parsing methods
     //@{
 
@@ -230,6 +232,9 @@ private:
     /// @brief Loaded edge definitions
     std::map<std::string, EdgeAttrs*> myEdges;
 
+    /// @brief The network builder to fill
+    NBNetBuilder &myNetBuilder;
+
     /// @brief The node container to fill
     NBNodeCont &myNodeCont;
 
@@ -244,6 +249,10 @@ private:
 
     /// @brief The currently parsed traffic light
     NBLoadedSUMOTLDef *myCurrentTL;
+
+
+    /// @brief whether we suspect a net that was built with xml.keep-shape
+    bool mySuspectKeepShape;
 
     /** @brief Parses lane index from lane ID an retrieve lane from EdgeAttrs 
      * @param[in] edge The EdgeAttrs* which should contain the lane

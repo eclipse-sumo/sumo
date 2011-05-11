@@ -58,12 +58,43 @@
 // ---------------------------------------------------------------------------
 void
 NIImporter_SUMO::loadNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
+    NIImporter_SUMO importer(nb);
+    importer._loadNetwork(oc);
+}
+
+
+// ---------------------------------------------------------------------------
+// loader methods
+// ---------------------------------------------------------------------------
+NIImporter_SUMO::NIImporter_SUMO(NBNetBuilder &nb)
+        : SUMOSAXHandler("sumo-network"),
+        myNetBuilder(nb),
+        myNodeCont(nb.getNodeCont()), 
+        myTLLCont(nb.getTLLogicCont()),
+        myCurrentEdge(0),
+        myCurrentLane(0),
+        myCurrentTL(0),
+        mySuspectKeepShape(false)
+{}
+
+
+NIImporter_SUMO::~NIImporter_SUMO() throw() {
+    for (std::map<std::string, EdgeAttrs*>::const_iterator i=myEdges.begin(); i!=myEdges.end(); ++i) {
+        EdgeAttrs *ed = (*i).second;
+        for (std::vector<LaneAttrs*>::const_iterator j=ed->lanes.begin(); j!=ed->lanes.end(); ++j) {
+            delete *j;
+        }
+        delete ed;
+    }
+}
+
+
+void
+NIImporter_SUMO::_loadNetwork(const OptionsCont &oc) {
     // check whether the option is set (properly)
     if (!oc.isUsableFileList("sumo-net-file")) {
         return;
     }
-    // build the handler
-    NIImporter_SUMO handler(nb.getNodeCont(), nb.getTLLogicCont());
     // parse file(s)
     std::vector<std::string> files = oc.getStringVector("sumo-net-file");
     for (std::vector<std::string>::const_iterator file=files.begin(); file!=files.end(); ++file) {
@@ -71,24 +102,21 @@ NIImporter_SUMO::loadNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
             MsgHandler::getErrorInstance()->inform("Could not open sumo-net-file '" + *file + "'.");
             return;
         }
-        handler.setFileName(*file);
+        setFileName(*file);
         MsgHandler::getMessageInstance()->beginProcessMsg("Parsing sumo-net from '" + *file + "'...");
-        XMLSubSys::runParser(handler, *file);
+        XMLSubSys::runParser(*this, *file);
         MsgHandler::getMessageInstance()->endProcessMsg("done.");
     }
     // build edges
-    std::map<std::string, EdgeAttrs*> &loadedEdges = handler.myEdges;
-    NBNodeCont &nodesCont = nb.getNodeCont();
-    NBEdgeCont &edgesCont = nb.getEdgeCont();
-    for (std::map<std::string, EdgeAttrs*>::const_iterator i=loadedEdges.begin(); i!=loadedEdges.end(); ++i) {
+    for (std::map<std::string, EdgeAttrs*>::const_iterator i=myEdges.begin(); i!=myEdges.end(); ++i) {
         EdgeAttrs *ed = (*i).second;
         // skip internal edges (provisionally)
         if (ed->func == "internal") {
             continue;
         }
         // get and check the nodes
-        NBNode *from = nodesCont.retrieve(ed->fromNode);
-        NBNode *to = nodesCont.retrieve(ed->toNode);
+        NBNode *from = myNodeCont.retrieve(ed->fromNode);
+        NBNode *to = myNodeCont.retrieve(ed->toNode);
         if (from==0) {
             MsgHandler::getErrorInstance()->inform("Edge's '" + ed->id + "' from-node '" + ed->fromNode + "' is not known.");
             continue;
@@ -103,15 +131,15 @@ NIImporter_SUMO::loadNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
                 ed->id, from, to, ed->type, 
                 ed->maxSpeed, (unsigned int) ed->lanes.size(), 
                 ed->priority, geom, ed->lsf);
-        if (!edgesCont.insert(e)) {
+        if (!myNetBuilder.getEdgeCont().insert(e)) {
             MsgHandler::getErrorInstance()->inform("Could not insert edge '" + ed->id + "'.");
             delete e;
             continue;
         }
-        ed->builtEdge = edgesCont.retrieve(ed->id);
+        ed->builtEdge = myNetBuilder.getEdgeCont().retrieve(ed->id);
     }
     // assign further lane attributes (edges are built)
-    for (std::map<std::string, EdgeAttrs*>::const_iterator i=loadedEdges.begin(); i!=loadedEdges.end(); ++i) {
+    for (std::map<std::string, EdgeAttrs*>::const_iterator i=myEdges.begin(); i!=myEdges.end(); ++i) {
         EdgeAttrs *ed = (*i).second;
         NBEdge *nbe = ed->builtEdge;
         if (nbe == 0) { // inner edge
@@ -126,12 +154,12 @@ NIImporter_SUMO::loadNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
                     std::string toEdgeID;
                     size_t toLaneIndex;
                     interpretLaneID(conn->lane, toEdgeID, toLaneIndex);
-                    if (loadedEdges.find(toEdgeID)==loadedEdges.end()) {
+                    if (myEdges.find(toEdgeID)==myEdges.end()) {
                         MsgHandler::getErrorInstance()->inform(
                                 "Unknown edge '" + toEdgeID + "' given in succlane (for lane '" + conn->lane + "').");
                         continue;
                     }
-                    NBEdge *toEdge = loadedEdges.find(toEdgeID)->second->builtEdge;
+                    NBEdge *toEdge = myEdges.find(toEdgeID)->second->builtEdge;
                     if (toEdge==0) {
                         WRITE_WARNING("target edge '" + toEdgeID + "' not built");
                         continue;
@@ -140,7 +168,7 @@ NIImporter_SUMO::loadNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
 
                     // maybe we have a tls-controlled connection
                     if (conn->tlID != "") {
-                        NBLoadedSUMOTLDef *tl = (NBLoadedSUMOTLDef*)handler.myTLLCont.getDefinition(conn->tlID);
+                        NBLoadedSUMOTLDef *tl = (NBLoadedSUMOTLDef*)myTLLCont.getDefinition(conn->tlID);
                         if (tl) {
                             tl->addConnection(nbe, toEdge, fromLaneIndex, (unsigned int)toLaneIndex, conn->tlLinkNo);
                         } else {
@@ -156,34 +184,11 @@ NIImporter_SUMO::loadNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
             nbe->setVehicleClasses(allowed, disallowed, fromLaneIndex);
         }
     }
-    
-    // clean up
-    for (std::map<std::string, EdgeAttrs*>::const_iterator i=loadedEdges.begin(); i!=loadedEdges.end(); ++i) {
-        EdgeAttrs *ed = (*i).second;
-        for (std::vector<LaneAttrs*>::const_iterator j=ed->lanes.begin(); j!=ed->lanes.end(); ++j) {
-            delete *j;
-        }
-        delete ed;
+    if (mySuspectKeepShape) {
+        WRITE_WARNING("The input network may have been built using option 'xml.keep-shape'. Accuracy of junction positions cannot be guaranteed.");
     }
 }
 
-
-
-// ---------------------------------------------------------------------------
-// loader methods
-// ---------------------------------------------------------------------------
-NIImporter_SUMO::NIImporter_SUMO(NBNodeCont &nc, NBTrafficLightLogicCont &tllc)
-        : SUMOSAXHandler("sumo-network"),
-        myNodeCont(nc), 
-        myTLLCont(tllc),
-        myCurrentEdge(0),
-        myCurrentLane(0),
-        myCurrentTL(0)
-{}
-
-
-NIImporter_SUMO::~NIImporter_SUMO() throw() {
-}
 
 
 void
@@ -350,20 +355,18 @@ NIImporter_SUMO::addJunction(const SUMOSAXAttributes &attrs) {
         WRITE_WARNING("Unknown node type '" + typeS + "' for junction '" + id + "'.");
     }
     Position2D pos(x, y);
-    // legacy networks may have junction positions that do not lie at the center
-    // of their shape. maybe we need to fix this.
-    /*
+    // the network may have been built with the option "xml.keep-shape" this
+    // makes accurate reconstruction impossible. We ought to warn about this
     std::string shapeS = attrs.getStringReporting(SUMO_ATTR_SHAPE, id.c_str(), ok, false);
     if (shapeS != "") {
         Position2DVector shape = GeomConvHelper::parseShapeReporting(
                 shapeS, attrs.getObjectType(), id.c_str(), ok, false);
-        Position2D center = shape.getPolygonCenter();
-        SUMOReal MAGIC_THRESHOLD = 5; // only fix extrem cases
-        if (center.distanceTo(pos) > MAGIC_THRESHOLD) {
-            pos = center;
+        shape.push_back(shape[0]); // need closed shape
+        if (!shape.around(pos) && shape.distance(pos) > 1) { // MAGIC_THRESHOLD
+            WRITE_WARNING("Junction '" + id + "': distance between pos and shape is " + toString(shape.distance(pos)));
+            mySuspectKeepShape = true; 
         }
     }
-    */
     if (!GeoConvHelper::x2cartesian(pos)) {
         WRITE_ERROR("Unable to project coordinates for junction '" + id + "'.");
         return;
