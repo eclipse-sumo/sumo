@@ -204,6 +204,7 @@ GUIApplicationWindow::dependentBuild(bool game) {
         myToolBar2->hide();
         myToolBar4->hide();
         myToolBar5->hide();
+        myMessageWindow->hide();
     }
     // build additional threads
     myLoadThread = new GUILoadThread(this, myEvents, myLoadThreadEvent);
