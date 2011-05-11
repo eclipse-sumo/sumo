@@ -95,27 +95,11 @@ NBLoadedSUMOTLDef::setTLControllingInformation(const NBEdgeCont &ec) const throw
 
 
 void
-NBLoadedSUMOTLDef::remapRemoved(NBEdge *removed,
-                            const EdgeVector &incoming,
-                            const EdgeVector &outgoing) throw() {
-    // not yet implemented
-    UNUSED_PARAMETER(removed);
-    UNUSED_PARAMETER(incoming);
-    UNUSED_PARAMETER(outgoing);
-    WRITE_WARNING("NBLoadedSUMOTLDef::remapRemoved not yet implemented");
-}
+NBLoadedSUMOTLDef::remapRemoved(NBEdge*, const EdgeVector&, const EdgeVector&) throw() {}
 
 
 void
-NBLoadedSUMOTLDef::replaceRemoved(NBEdge *removed, int removedLane,
-                              NBEdge *by, int byLane) throw() {
-    // not yet implemented
-    UNUSED_PARAMETER(removed);
-    UNUSED_PARAMETER(removedLane);
-    UNUSED_PARAMETER(by);
-    UNUSED_PARAMETER(byLane);
-    WRITE_WARNING("NBLoadedSUMOTLDef::replaceRemoved not yet implemented");
-}
+NBLoadedSUMOTLDef::replaceRemoved(NBEdge*, int, NBEdge*, int) throw() {}
 
 
 void 
