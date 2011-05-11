@@ -1,4 +1,4 @@
-SUMO sumo Version dev-SVN-r10266
+SUMO sumo Version dev-SVN-r10303
  Copyright (C) 2001-2011 DLR and contributors; http://sumo.sourceforge.net
  
 A microscopic road traffic simulation.
@@ -23,17 +23,19 @@ Usage: sumo [OPTION]*
   -n, --net-file FILE                 Load road network description from FILE
   -r, --route-files FILE              Load routes descriptions from FILE(s)
   -a, --additional-files FILE         Load further descriptions from FILE(s)
-  -w, --weight-files FILE             Load weights from FILE
-  -m, --measure STR                   Load <measure> from weights
+  -w, --weight-files FILE             Load edge/lane weights for online
+                                        rerouting from FILE
+  -m, --weight-attribute STR          Use the given attribute as weight when
+                                        parsing weight files
 
  Output Options:
   --netstate-dump FILE                Save complete network states into FILE
-  --dump-empty-edges                  Write also empty edges completely when
+  --netstate-dump.empty-edges         Write also empty edges completely when
                                         dumping
-  --summary FILE                      Save aggregated vehicle emission inf.
+  --summary-output FILE               Save aggregated vehicle departure info
                                         into FILE
-  --tripinfo-output FILE              Save single vehicle trip inf. into FILE
-  --vehroute-output FILE              Save single vehicle route inf. into FILE
+  --tripinfo-output FILE              Save single vehicle trip info into FILE
+  --vehroute-output FILE              Save single vehicle route info into FILE
   --vehroute-output.exit-times        Write the exit times for all edges
   --vehroute-output.last-route        Write the last route only
   --vehroute-output.sorted            Sorts the output by departure time
@@ -51,11 +53,12 @@ Usage: sumo [OPTION]*
   --ignore-accidents                  Do not check whether accidents occure
                                         more deeply
   --ignore-route-errors               Do not check whether routes are connected
-  --too-many-vehicles INT             Quit simulation if this number of
+  --max-num-vehicles INT              Quit simulation if this number of
                                         vehicles is exceeded
   --incremental-dua-step INT          Perform the simulation as a step in
                                         incremental DUA
   --incremental-dua-base INT          Base value for incremental DUA
+  --scale FLOAT                       Scale demand by the given factor (0..1)
   --time-to-teleport TIME             Specify how long a vehicle may wait until
                                         being teleported, defaults to 300,
                                         values < 1 disable teleporting
@@ -84,7 +87,7 @@ Usage: sumo [OPTION]*
   -?, --help                          Prints this screen
   -V, --version                       Prints the current version
   -W, --no-warnings                   Disables output of warnings
-  -l, --log-file FILE                 Writes all messages to FILE
+  -l, --log FILE                      Writes all messages to FILE
   --message-log FILE                  Writes all non-error messages to FILE
   --error-log FILE                    Writes all warnings and errors to FILE
   --no-duration-log                   Disable performance reports for
@@ -93,18 +96,18 @@ Usage: sumo [OPTION]*
                                         simulation step
 
  Routing Options:
-  --device.routing.probability FLOAT  The probability for a vehicle to have a
+  --device.rerouting.probability FLOAT  The probability for a vehicle to have a
                                         routing device
-  --device.routing.knownveh STR       Assign a device to named vehicles
-  --device.routing.deterministic      The devices are set deterministic using a
+  --device.rerouting.explicit STR     Assign a device to named vehicles
+  --device.rerouting.deterministic    The devices are set deterministic using a
                                         fraction of 1000
-  --device.routing.period STR         The period with which the vehicle shall
+  --device.rerouting.period TIME      The period with which the vehicle shall
                                         be rerouted
-  --device.routing.pre-period STR     The rerouting period before depart
-  --device.routing.adaptation-weight FLOAT  The weight of prior edge weights.
-  --device.routing.adaptation-interval STR  The interval for updating the edge
-                                        weights.
-  --device.routing.with-taz           Use zones (districts) as routing end
+  --device.rerouting.pre-period TIME  The rerouting period before depart
+  --device.rerouting.adaptation-weight FLOAT  The weight of prior edge weights.
+  --device.rerouting.adaptation-interval TIME  The interval for updating the
+                                        edge weights.
+  --device.rerouting.with-taz         Use zones (districts) as routing end
                                         points
 
  Emissions Options:

@@ -1,1 +1,1 @@
---netstate-dump=xxx/rawdump.xml --no-step-log --no-duration-log --net-file=net.net.xml --routes=input_routes.rou.xml -b 0 -e 1000  --emissions-output=xxx/emissions.xml 
+--netstate-dump=xxx/rawdump.xml --no-step-log --no-duration-log --net-file=net.net.xml --routes=input_routes.rou.xml -b 0 -e 1000  --summary-output=xxx/emissions.xml 

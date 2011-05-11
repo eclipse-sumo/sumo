@@ -7,13 +7,13 @@
         <route-files value="" synonymes="r routes"/>
         <additional-files value="" synonymes="a additional"/>
         <weight-files value="" synonymes="w weights"/>
-        <measure value="" synonymes="m"/>
+        <weight-attribute value="traveltime" synonymes="m measure"/>
     </input>
 
     <output>
         <netstate-dump value="" synonymes="ndump netstate"/>
-        <dump-empty-edges value="false"/>
-        <summary value="" synonymes="emissions emissions-output"/>
+        <netstate-dump.empty-edges value="false" synonymes="dump-empty-edges netstate.empty-edges"/>
+        <summary-output value="" synonymes="emissions emissions-output summary"/>
         <tripinfo-output value="" synonymes="tripinfo"/>
         <vehroute-output value="" synonymes="vehroutes"/>
         <vehroute-output.exit-times value="false" synonymes="vehroutes.exit-times"/>
@@ -32,9 +32,10 @@
         <no-internal-links value="false"/>
         <ignore-accidents value="false"/>
         <ignore-route-errors value="false"/>
-        <too-many-vehicles value="-1"/>
-        <incremental-dua-step value="-1"/>
+        <max-num-vehicles value="-1" synonymes="too-many-vehicles"/>
+        <incremental-dua-step value=""/>
         <incremental-dua-base value="10"/>
+        <scale value=""/>
         <time-to-teleport value="300"/>
         <max-depart-delay value="-1"/>
         <sloppy-insert value="false"/>
@@ -59,7 +60,7 @@
         <help value="false" synonymes="?"/>
         <version value="false" synonymes="V"/>
         <no-warnings value="false" synonymes="W suppress-warnings"/>
-        <log-file value="" synonymes="l"/>
+        <log value="" synonymes="l log-file"/>
         <message-log value=""/>
         <error-log value=""/>
         <no-duration-log value="false"/>
@@ -67,19 +68,19 @@
     </report>
 
     <routing>
-        <device.routing.probability value="0"/>
-        <device.routing.knownveh value=""/>
-        <device.routing.deterministic value="false"/>
-        <device.routing.period value="0"/>
-        <device.routing.pre-period value="0"/>
-        <device.routing.adaptation-weight value="0.5"/>
-        <device.routing.adaptation-interval value="1"/>
-        <device.routing.with-taz value="false"/>
+        <device.rerouting.probability value="0" synonymes="device.routing.probability"/>
+        <device.rerouting.explicit value="" synonymes="device.routing.knownveh"/>
+        <device.rerouting.deterministic value="false" synonymes="device.routing.deterministic"/>
+        <device.rerouting.period value="0" synonymes="device.routing.period"/>
+        <device.rerouting.pre-period value="0" synonymes="device.routing.pre-period"/>
+        <device.rerouting.adaptation-weight value="0.5" synonymes="device.routing.adaptation-weight"/>
+        <device.rerouting.adaptation-interval value="1" synonymes="device.routing.adaptation-interval"/>
+        <device.rerouting.with-taz value="false" synonymes="device.routing.with-taz"/>
     </routing>
 
     <emissions>
         <device.hbefa.probability value="0"/>
-        <device.hbefa.knownveh value=""/>
+        <device.hbefa.knownveh value="" synonymes="device.hbefa.explicit"/>
         <device.hbefa.deterministic value="false"/>
     </emissions>
 

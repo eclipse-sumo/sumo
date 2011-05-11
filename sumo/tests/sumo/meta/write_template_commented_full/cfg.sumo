@@ -16,7 +16,7 @@
         <weight-files value="" synonymes="w weights"/>
 
         <!-- Use the given attribute as weight when parsing weight files -->
-        <weight-attribute value="" synonymes="m measure"/>
+        <weight-attribute value="traveltime" synonymes="m measure"/>
 
     </input>
 
