@@ -653,10 +653,10 @@ NBEdgeCont::recheckLaneSpread() throw() {
             oppositeID = "-" + (*i).first;
         }
         if (myEdges.find(oppositeID)!=myEdges.end()) {
-            (*i).second->setLaneSpreadFunction(NBEdge::LANESPREAD_RIGHT);
-            myEdges.find(oppositeID)->second->setLaneSpreadFunction(NBEdge::LANESPREAD_RIGHT);
+            (*i).second->setLaneSpreadFunction(LANESPREAD_RIGHT);
+            myEdges.find(oppositeID)->second->setLaneSpreadFunction(LANESPREAD_RIGHT);
         } else {
-            (*i).second->setLaneSpreadFunction(NBEdge::LANESPREAD_CENTER);
+            (*i).second->setLaneSpreadFunction(LANESPREAD_CENTER);
         }
     }
 }
@@ -707,8 +707,8 @@ NBEdgeCont::savePlain(const std::string &efile, const std::string &cfile) throw(
             edevice << " shape=\"" << e->getGeometry() << "\"";
         }
         // write the spread type if not default ("right")
-        if (e->getLaneSpreadFunction()!=NBEdge::LANESPREAD_RIGHT) {
-            edevice << " spread_type=\"center\"";
+        if (e->getLaneSpreadFunction()!=LANESPREAD_RIGHT) {
+            edevice << " spread_type=\"" << toString(e->getLaneSpreadFunction()) << "\"";
         }
         // write the vehicles class if restrictions exist
         if (!e->hasRestrictions()) {

@@ -437,7 +437,13 @@ StringBijection<SumoXMLNodeType>::Entry SUMOXMLDefinitions::sumoNodeTypeValues[]
 
     {"unknown",             NODETYPE_UNKNOWN}
 };
-    
+
+
+StringBijection<LaneSpreadFunction>::Entry SUMOXMLDefinitions::laneSpreadFunctionValues[] = {
+    {"right",             LANESPREAD_RIGHT}, // default
+    {"center",            LANESPREAD_CENTER}
+};
+
 
 StringBijection<int> SUMOXMLDefinitions::Tags(
         SUMOXMLDefinitions::tags, SUMO_TAG_NOTHING);
@@ -447,6 +453,10 @@ StringBijection<int> SUMOXMLDefinitions::Attrs(
 
 StringBijection<SumoXMLNodeType> SUMOXMLDefinitions::NodeTypes(
         SUMOXMLDefinitions::sumoNodeTypeValues, NODETYPE_UNKNOWN);
+
+StringBijection<LaneSpreadFunction> SUMOXMLDefinitions::LaneSpreadFunctions(
+        SUMOXMLDefinitions::laneSpreadFunctionValues, LANESPREAD_CENTER);
+    
 
 /****************************************************************************/
 

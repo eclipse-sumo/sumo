@@ -816,7 +816,7 @@ NBNodeCont::buildOnRamp(OptionsCont &oc, NBNode *cur,
                                               o1[0], 0, o1[0]->getNoLanes(), NBEdge::L2L_VALIDATED);
             }
             //
-            if (cont->getLaneSpreadFunction()==NBEdge::LANESPREAD_CENTER) {
+            if (cont->getLaneSpreadFunction()==LANESPREAD_CENTER) {
                 try {
                     Position2DVector g = cont->getGeometry();
                     g.move2side(SUMO_const_laneWidthAndOffset);
@@ -856,7 +856,7 @@ NBNodeCont::buildOnRamp(OptionsCont &oc, NBNode *cur,
                 if (!added_ramp->addLane2LaneConnections(off, added, 0, added->getNoLanes(), NBEdge::L2L_VALIDATED, true)) {
                     throw ProcessError("Could not set connection!");
                 }
-                if (added_ramp->getLaneSpreadFunction()==NBEdge::LANESPREAD_CENTER) {
+                if (added_ramp->getLaneSpreadFunction()==LANESPREAD_CENTER) {
                     try {
                         Position2DVector g = added_ramp->getGeometry();
                         SUMOReal factor = SUMO_const_laneWidthAndOffset * (SUMOReal)(toAdd-1) + SUMO_const_halfLaneAndOffset * (SUMOReal)(toAdd%2);
@@ -928,7 +928,7 @@ NBNodeCont::buildOffRamp(OptionsCont &oc, NBNode *cur,
                 throw ProcessError("Could not set connection!");
 
             }
-            if (prev->getLaneSpreadFunction()==NBEdge::LANESPREAD_CENTER) {
+            if (prev->getLaneSpreadFunction()==LANESPREAD_CENTER) {
                 try {
                     Position2DVector g = prev->getGeometry();
                     g.move2side(SUMO_const_laneWidthAndOffset);
@@ -968,7 +968,7 @@ NBNodeCont::buildOffRamp(OptionsCont &oc, NBNode *cur,
                     throw ProcessError("Could not set connection!");
 
                 }
-                if (added_ramp->getLaneSpreadFunction()==NBEdge::LANESPREAD_CENTER) {
+                if (added_ramp->getLaneSpreadFunction()==LANESPREAD_CENTER) {
                     try {
                         Position2DVector g = added_ramp->getGeometry();
                         SUMOReal factor = SUMO_const_laneWidthAndOffset * (SUMOReal)(toAdd-1) + SUMO_const_halfLaneAndOffset * (SUMOReal)(toAdd%2);

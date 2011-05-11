@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on Tue May 10 11:18:09 2011 by SUMO netconvert Version dev-SVN-r10263
+<!-- generated on Wed May 11 08:57:39 2011 by SUMO netconvert Version dev-SVN-r10285
 <?xml version="1.0" encoding="iso-8859-1"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
@@ -37,7 +37,7 @@
 
    <location netOffset="-328248.16,-5776623.10" convBoundary="0.00,0.00,39850.14,26514.76" origBoundary="1248456.000000,5211834.000000,1306826.000000,5235677.000000" projParameter="+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
 
-   <edge id="-1" from="0" to="1" priority="-1" type="DEFAULT" function="normal">
+   <edge id="-1" from="0" to="1" priority="-1" type="DEFAULT" function="normal" spread_type="center">
       <lane id="-1_0" depart="1" allow="public_transport public_emergency passenger hov taxi bus delivery transport" maxspeed="55.56" length="22841.03" shape="17018.60,13402.10 39850.05,12740.54"/>
       <lane id="-1_1" depart="0" allow="public_transport public_emergency passenger hov taxi bus delivery transport" maxspeed="55.56" length="22841.03" shape="17018.70,13405.40 39850.14,12743.84"/>
       <lane id="-1_2" depart="0" allow="public_transport public_emergency passenger hov taxi bus delivery transport" maxspeed="55.56" length="22841.03" shape="17018.79,13408.70 39850.24,12747.14"/>

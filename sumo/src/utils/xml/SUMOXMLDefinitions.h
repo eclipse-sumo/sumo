@@ -569,6 +569,19 @@ enum SumoXMLNodeType {
     NODETYPE_DEAD_END
 };
 
+
+/**
+ * @enum LaneSpreadFunction
+ * @brief Numbers representing special SUMO-XML-attribute values
+ * Information how the edge's lateral offset shall be computed
+ * In dependence to this value, lanes will be spread to the right side or
+ * to both sides from the given edge geometry (Also used when node
+ * positions are used as edge geometry).
+ */
+enum LaneSpreadFunction {
+    LANESPREAD_RIGHT,
+    LANESPREAD_CENTER
+};
 //@}
 
 /**
@@ -595,12 +608,16 @@ public:
     //@{
     static StringBijection<SumoXMLNodeType> NodeTypes;
 
+    static StringBijection<LaneSpreadFunction> LaneSpreadFunctions;
+
     // static StringBijection<SumoXMLLinkStateValue> LinkStates;
     //@}
 
 private:
 
     static StringBijection<SumoXMLNodeType>::Entry sumoNodeTypeValues[];
+
+    static StringBijection<LaneSpreadFunction>::Entry laneSpreadFunctionValues[];
 
 };
 

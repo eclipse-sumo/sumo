@@ -162,10 +162,11 @@ NIXMLEdgesHandler::myStartElement(int element,
         // try to get the shape
         myShape = tryGetShape(attrs);
         // and how to spread the lanes
-        if (attrs.getOptStringReporting(SUMO_ATTR_SPREADFUNC, myCurrentID.c_str(), ok, "")=="center") {
-            myLanesSpread = NBEdge::LANESPREAD_CENTER;
+        std::string lsfS = attrs.getOptStringReporting(SUMO_ATTR_SPREADFUNC, myCurrentID.c_str(), ok, toString(LANESPREAD_RIGHT));
+        if (SUMOXMLDefinitions::LaneSpreadFunctions.hasString(lsfS)) {
+            myLanesSpread = SUMOXMLDefinitions::LaneSpreadFunctions.get(lsfS);
         } else {
-            myLanesSpread = NBEdge::LANESPREAD_RIGHT;
+            WRITE_WARNING("Ignoring unknown spread_type '" + lsfS + "' for edge '" + myCurrentID + "'.");
         }
         // get the length or compute it
         if (attrs.hasAttribute(SUMO_ATTR_LENGTH)) {

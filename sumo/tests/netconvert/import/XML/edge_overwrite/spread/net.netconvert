@@ -1,17 +1,17 @@
 <?xml version="1.0"?>
 
-<!-- generated on 04/29/11 10:43:50 by SUMO netconvert Version dev-SVN-r10182
+<!-- generated on Wed May 11 08:57:31 2011 by SUMO netconvert Version dev-SVN-r10285
 <?xml version="1.0" encoding="iso-8859-1"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <xml-node-files value="input_nodes.nod.xml"/>
-        <xml-edge-files value="input_edges.edg.xml,input_edges2.edg.xml"/>
+        <node-files value="input_nodes.nod.xml"/>
+        <edge-files value="input_edges.edg.xml,input_edges2.edg.xml"/>
     </input>
 
     <output>
-        <output-file value="net.net.xml"/>
+        <output value="net.net.xml"/>
     </output>
 
 </configuration>
@@ -88,7 +88,7 @@
       <lane id=":4_0_0" depart="0" maxspeed="16.00" length="4.82" shape="501.65,1000.00 500.82,1001.24 500.00,1001.65 499.18,1001.24 498.35,1000.00"/>
    </edge>
 
-   <edge id="1fi" from="1" to="0" priority="-1" type="" function="normal">
+   <edge id="1fi" from="1" to="0" priority="-1" type="" function="normal" spread_type="center">
       <lane id="1fi_0" depart="1" maxspeed="16.00" length="491.95" shape="0.00,498.35 491.95,498.35"/>
       <lane id="1fi_1" depart="0" maxspeed="16.00" length="491.95" shape="0.00,501.65 491.95,501.65"/>
    </edge>

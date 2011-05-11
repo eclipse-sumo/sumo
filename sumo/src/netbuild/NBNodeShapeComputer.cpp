@@ -456,7 +456,7 @@ NBNodeShapeComputer::computeContinuationNodeShape(bool simpleContinuation) {
                 if (distances.find(*cwi)==distances.end()) {
                     return Position2DVector();
                 }
-                replaceLastChecking(g, (*i)->getLaneSpreadFunction()==NBEdge::LANESPREAD_CENTER,
+                replaceLastChecking(g, (*i)->getLaneSpreadFunction()==LANESPREAD_CENTER,
                                     (*cwi)->getGeometry(), (*cwi)->getNoLanes(), distances[*cwi],
                                     laneDiff);
             } else {
@@ -467,7 +467,7 @@ NBNodeShapeComputer::computeContinuationNodeShape(bool simpleContinuation) {
                 if (myNode.hasIncoming(*ccwi)) {
                     counter = counter.reverse();
                 }
-                replaceLastChecking(g, (*i)->getLaneSpreadFunction()==NBEdge::LANESPREAD_CENTER,
+                replaceLastChecking(g, (*i)->getLaneSpreadFunction()==LANESPREAD_CENTER,
                                     counter, (*ccwi)->getNoLanes(), distances[*ccwi],
                                     laneDiff);
             }
@@ -476,7 +476,7 @@ NBNodeShapeComputer::computeContinuationNodeShape(bool simpleContinuation) {
                 if (distances.find(*ccwi)==distances.end()) {
                     return Position2DVector();
                 }
-                replaceFirstChecking(g,(*i)->getLaneSpreadFunction()==NBEdge::LANESPREAD_CENTER,
+                replaceFirstChecking(g,(*i)->getLaneSpreadFunction()==LANESPREAD_CENTER,
                                      (*ccwi)->getGeometry().reverse(), (*ccwi)->getNoLanes(), distances[*ccwi],
                                      laneDiff);
             } else {
@@ -487,7 +487,7 @@ NBNodeShapeComputer::computeContinuationNodeShape(bool simpleContinuation) {
                 if (myNode.hasIncoming(*cwi)) {
                     counter = counter.reverse();
                 }
-                replaceFirstChecking(g,(*i)->getLaneSpreadFunction()==NBEdge::LANESPREAD_CENTER,
+                replaceFirstChecking(g,(*i)->getLaneSpreadFunction()==LANESPREAD_CENTER,
                                      counter, (*cwi)->getNoLanes(), distances[*cwi],
                                      laneDiff);
             }
@@ -504,14 +504,14 @@ NBNodeShapeComputer::computeContinuationNodeShape(bool simpleContinuation) {
                 if (distances.find(*cwi)==distances.end()) {
                     return Position2DVector();
                 }
-                replaceLastChecking(g, (*i)->getLaneSpreadFunction()==NBEdge::LANESPREAD_CENTER,
+                replaceLastChecking(g, (*i)->getLaneSpreadFunction()==LANESPREAD_CENTER,
                                     counter, (*cwi)->getNoLanes(), distances[*cwi],
                                     laneDiff);
             } else {
                 if (distances.find(*cwi)==distances.end()) {
                     return Position2DVector();
                 }
-                replaceFirstChecking(g,(*i)->getLaneSpreadFunction()==NBEdge::LANESPREAD_CENTER,
+                replaceFirstChecking(g,(*i)->getLaneSpreadFunction()==LANESPREAD_CENTER,
                                      counter, (*cwi)->getNoLanes(), distances[*cwi],
                                      laneDiff);
             }
@@ -535,14 +535,14 @@ NBNodeShapeComputer::computeContinuationNodeShape(bool simpleContinuation) {
                 if (distances.find(*ccwi)==distances.end()) {
                     return Position2DVector();
                 }
-                replaceLastChecking(g, (*i)->getLaneSpreadFunction()==NBEdge::LANESPREAD_CENTER,
+                replaceLastChecking(g, (*i)->getLaneSpreadFunction()==LANESPREAD_CENTER,
                                     counter, (*ccwi)->getNoLanes(), distances[*ccwi],
                                     laneDiff);
             } else {
                 if (distances.find(*cwi)==distances.end()) {
                     return Position2DVector();
                 }
-                replaceFirstChecking(g,(*i)->getLaneSpreadFunction()==NBEdge::LANESPREAD_CENTER,
+                replaceFirstChecking(g,(*i)->getLaneSpreadFunction()==LANESPREAD_CENTER,
                                      counter, (*cwi)->getNoLanes(), distances[*cwi],
                                      laneDiff);
             }

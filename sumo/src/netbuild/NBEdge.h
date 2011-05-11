@@ -41,6 +41,7 @@
 #include <utils/geom/Position2DVector.h>
 #include <utils/geom/Line2D.h>
 #include <utils/common/SUMOVehicleClass.h>
+#include <utils/xml/SUMOXMLDefinitions.h>
 #include "NBHelpers.h"
 
 
@@ -71,20 +72,6 @@ class NBEdge : public Named {
     friend class GNEEdge;
 
 public:
-    /**  @enum LaneSpreadFunction
-     * @brief Information how the edge's lateral offset shall be computed
-     *
-     * In dependence to this value, lanes will be spread to the right side or
-     *  to both sides from the given edge geometry (Also used when node
-     *  positions are used as edge geometry).
-     */
-    enum LaneSpreadFunction {
-        /// @brief The lanes will be spread to right
-        LANESPREAD_RIGHT,
-        /// @brief The lanes will be spread to both sides
-        LANESPREAD_CENTER
-    };
-
 
     /** @enum EdgeBuildingStep
      * @brief Current state of the edge within the building process

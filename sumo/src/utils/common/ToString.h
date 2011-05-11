@@ -79,6 +79,14 @@ inline std::string toString<SUMOVehicleClass>(const SUMOVehicleClass& vClass, st
      UNUSED_PARAMETER(accuracy);
      return SumoVehicleClassStrings.getString(vClass);
 } 
+
+
+template <>
+inline std::string toString<LaneSpreadFunction>(const LaneSpreadFunction& lsf, std::streamsize accuracy) {
+     UNUSED_PARAMETER(accuracy);
+     return SUMOXMLDefinitions::LaneSpreadFunctions.getString(lsf);
+} 
+
 #endif
 
 /****************************************************************************/

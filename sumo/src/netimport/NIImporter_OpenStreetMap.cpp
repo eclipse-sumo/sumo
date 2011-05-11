@@ -476,7 +476,7 @@ NIImporter_OpenStreetMap::insertEdge(Edge *e, int index, NBNode *from, NBNode *t
         if (e->myIsOneWay!=""&&e->myIsOneWay!="false"&&e->myIsOneWay!="no"&&e->myIsOneWay!="true"&&e->myIsOneWay!="yes"&&e->myIsOneWay!="-1"&&e->myIsOneWay!="1") {
             WRITE_WARNING("New value for oneway found: " + e->myIsOneWay);
         }
-        NBEdge::LaneSpreadFunction lsf = addSecond ? NBEdge::LANESPREAD_RIGHT : NBEdge::LANESPREAD_CENTER;
+        LaneSpreadFunction lsf = addSecond ? LANESPREAD_RIGHT : LANESPREAD_CENTER;
         if (e->myIsOneWay!="-1") {
             NBEdge *nbe = new NBEdge(id, from, to, type, speed, noLanes, tc.getPriority(type), shape, lsf);
             nbe->setVehicleClasses(allowedClasses, disallowedClasses);

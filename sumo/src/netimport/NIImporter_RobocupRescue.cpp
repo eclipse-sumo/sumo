@@ -194,7 +194,7 @@ NIImporter_RobocupRescue::loadEdges(const std::string &file) {
         NBNode *toNode = myNodeCont.retrieve(toString(endNode));
         SUMOReal speed = (SUMOReal)(50. / 3.6);
         int priority = -1;
-        NBEdge::LaneSpreadFunction spread = linesToHead>0&&linesToTail>0 ? NBEdge::LANESPREAD_RIGHT : NBEdge::LANESPREAD_CENTER;
+        LaneSpreadFunction spread = linesToHead>0&&linesToTail>0 ? LANESPREAD_RIGHT : LANESPREAD_CENTER;
         if (linesToHead>0) {
             NBEdge *edge = new NBEdge(toString(id), fromNode, toNode, "",
                                       speed, linesToHead, priority, spread);

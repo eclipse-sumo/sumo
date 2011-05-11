@@ -611,6 +611,10 @@ NBEdge::writeXMLStep1(OutputDevice &into) {
     if (myAmInnerEdge) {
         into << "\" inner=\"x";
     }
+    // write the spread type if not default ("right")
+    if (myLaneSpreadFunction!=LANESPREAD_RIGHT) {
+        into << "\" spread_type=\"" << toString(myLaneSpreadFunction);
+    }
     into << "\">\n";
     // write the lanes
     for (unsigned int i=0; i<(unsigned int) myLanes.size(); i++) {

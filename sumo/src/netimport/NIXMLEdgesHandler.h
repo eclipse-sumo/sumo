@@ -171,7 +171,7 @@ private:
     Position2DVector myShape;
 
     /// @brief Information about how to spread the lanes
-    NBEdge::LaneSpreadFunction myLanesSpread;
+    LaneSpreadFunction myLanesSpread;
 
     /// @brief Information about how to spread the lanes
     SUMOVehicleClasses myAllowed;

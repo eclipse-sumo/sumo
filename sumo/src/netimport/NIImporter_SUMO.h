@@ -222,6 +222,8 @@ private:
         std::vector<LaneAttrs*> lanes;
         /// @brief The built edge
         NBEdge *builtEdge;
+        /// @brief The lane spread function
+        LaneSpreadFunction lsf;
     };
 
 

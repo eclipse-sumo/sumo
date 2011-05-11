@@ -227,7 +227,7 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
         int priority = nb.getTypeCont().getDefaultPriority();
         unsigned int nolanes = e.getMaxLaneNumber(SUMO_TAG_OPENDRIVE_RIGHT);
         if (nolanes>0) {
-            NBEdge *nbe = new NBEdge("-" + e.id, e.from, e.to, "", speed, nolanes, priority, e.geom, NBEdge::LANESPREAD_RIGHT, true);
+            NBEdge *nbe = new NBEdge("-" + e.id, e.from, e.to, "", speed, nolanes, priority, e.geom, LANESPREAD_RIGHT, true);
             if (!nb.getEdgeCont().insert(nbe)) {
                 throw ProcessError("Could not add edge '" + std::string("-") + e.id + "'.");
             }
@@ -236,7 +236,7 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
         }
         nolanes = e.getMaxLaneNumber(SUMO_TAG_OPENDRIVE_LEFT);
         if (nolanes>0) {
-            NBEdge *nbe = new NBEdge(e.id, e.to, e.from, "", speed, nolanes, priority, e.geom.reverse(), NBEdge::LANESPREAD_RIGHT, true);
+            NBEdge *nbe = new NBEdge(e.id, e.to, e.from, "", speed, nolanes, priority, e.geom.reverse(), LANESPREAD_RIGHT, true);
             if (!nb.getEdgeCont().insert(nbe)) {
                 throw ProcessError("Could not add edge '" + e.id + "'.");
             }

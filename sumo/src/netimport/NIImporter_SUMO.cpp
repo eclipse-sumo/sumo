@@ -36,6 +36,7 @@
 #include <utils/geom/GeomConvHelper.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/common/FileHelpers.h>
+#include <utils/common/ToString.h>
 #include <utils/xml/XMLSubSys.h>
 #include <netbuild/NBEdge.h>
 #include <netbuild/NBEdgeCont.h>
@@ -98,7 +99,10 @@ NIImporter_SUMO::loadNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
         }
         Position2DVector geom = approximateEdgeShape(ed);
         // build and insert the edge
-        NBEdge *e = new NBEdge(ed->id, from, to, ed->type, ed->maxSpeed, (unsigned int) ed->lanes.size(), ed->priority, geom);
+        NBEdge *e = new NBEdge(
+                ed->id, from, to, ed->type, 
+                ed->maxSpeed, (unsigned int) ed->lanes.size(), 
+                ed->priority, geom, ed->lsf);
         if (!edgesCont.insert(e)) {
             MsgHandler::getErrorInstance()->inform("Could not insert edge '" + ed->id + "'.");
             delete e;
@@ -294,6 +298,13 @@ NIImporter_SUMO::addEdge(const SUMOSAXAttributes &attrs) {
     myCurrentEdge->type = attrs.getOptStringReporting(SUMO_ATTR_TYPE, id.c_str(), ok, "");
     myCurrentEdge->maxSpeed = 0;
     myCurrentEdge->builtEdge = 0;
+
+    std::string lsfS = attrs.getOptStringReporting(SUMO_ATTR_SPREADFUNC, id.c_str(), ok, toString(LANESPREAD_RIGHT));
+    if (SUMOXMLDefinitions::LaneSpreadFunctions.hasString(lsfS)) {
+        myCurrentEdge->lsf = SUMOXMLDefinitions::LaneSpreadFunctions.get(lsfS);
+    } else {
+        WRITE_ERROR("Unknown spread_type '" + lsfS + "' for edge '" + id + "'.");
+    }
 }
 
 
@@ -488,10 +499,10 @@ NIImporter_SUMO::approximateEdgeShape(const EdgeAttrs* edge) {
         Position2D to = firstLane[i+1];
         std::pair<SUMOReal, SUMOReal> offsets = NBEdge::laneOffset(
                 from, me, SUMO_const_laneWidthAndOffset, (unsigned int)noLanes-1, 
-                noLanes, NBEdge::LANESPREAD_RIGHT, false);
+                noLanes, edge->lsf, false);
         std::pair<SUMOReal, SUMOReal> offsets2 = NBEdge::laneOffset(
                 me, to, SUMO_const_laneWidthAndOffset, (unsigned int)noLanes-1, 
-                noLanes, NBEdge::LANESPREAD_RIGHT, false);
+                noLanes, edge->lsf, false);
 
         Line2D l1(
                 Position2D(from.x()+offsets.first, from.y()+offsets.second),
