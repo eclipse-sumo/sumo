@@ -46,6 +46,7 @@
 
 #ifdef HAVE_MESOSIM
 #include <mesosim/MELoop.h>
+#include <mesosim/MESegment.h>
 #endif
 
 #ifdef CHECK_MEMORY_LEAKS

@@ -41,6 +41,7 @@
 
 #ifdef HAVE_MESOSIM
 #include <mesosim/MELoop.h>
+#include <mesosim/MESegment.h>
 #endif
 
 #ifdef CHECK_MEMORY_LEAKS
@@ -328,19 +329,15 @@ MSEdge::insertVehicle(SUMOVehicle &v, SUMOTime time) const throw(ProcessError) {
             break;
         }
         bool result = false;
-        bool insertToNet = false;
         MESegment* segment = MSGlobals::gMesoNet->getSegmentForEdge(*this, pos);
         MEVehicle* veh = static_cast<MEVehicle*>(&v);
         if (pars.departPosProcedure == DEPART_POS_FREE) {
             while (segment != 0 && !result) {
-                result = segment->initialise(veh, time, insertToNet);
+                result = segment->initialise(veh, time);
                 segment = segment->getNextSegment();
             }
         } else {
-            result = segment->initialise(veh, time, insertToNet);
-        }
-        if (insertToNet) {
-            MSGlobals::gMesoNet->addCar(veh);
+            result = segment->initialise(veh, time);
         }
         return result;
     }

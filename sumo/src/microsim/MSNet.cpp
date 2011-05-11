@@ -246,9 +246,9 @@ MSNet::~MSNet() throw() {
 int
 MSNet::simulate(SUMOTime start, SUMOTime stop) {
     // the simulation loop
-    std::string quitMessage = "";
+    MSNet::SimulationState state = SIMSTATE_RUNNING;
     myStep = start;
-    do {
+    while (state==SIMSTATE_RUNNING) {
         if (myLogStepNumber) {
             preSimStepOutput();
         }
@@ -256,7 +256,7 @@ MSNet::simulate(SUMOTime start, SUMOTime stop) {
         if (myLogStepNumber) {
             postSimStepOutput();
         }
-        MSNet::SimulationState state = simulationState(stop);
+        state = simulationState(stop);
 #ifndef NO_TRACI
         if (state!=SIMSTATE_RUNNING) {
             if (OptionsCont::getOptions().getInt("remote-port")!=0&&!traci::TraCIServer::wasClosed()) {
@@ -264,11 +264,8 @@ MSNet::simulate(SUMOTime start, SUMOTime stop) {
             }
         }
 #endif
-        if (state!=SIMSTATE_RUNNING) {
-            quitMessage = "Simulation End: " + getStateMessage(state);
-        }
-    } while (quitMessage=="");
-    WRITE_MESSAGE(quitMessage);
+    }
+    WRITE_MESSAGE("Simulation End: " + getStateMessage(state));
     // exit simulation loop
     closeSimulation(start);
     return 0;
