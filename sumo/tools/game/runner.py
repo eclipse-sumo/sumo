@@ -63,6 +63,7 @@ def save(idx, category, name, game, points):
 
 class StartDialog:
     def __init__(self):
+        bWidth = 25
         self.root = Tkinter.Tk()
         self.root.title("Traffic Light Game")
         for cfg in glob.glob(os.path.join(base, "*.sumo.cfg")):
@@ -71,9 +72,9 @@ class StartDialog:
                 text = "Einfache Kreuzung" 
             elif text == "square":
                 text = "Vier Kreuzungen" 
-            Tkinter.Button(self.root, text=text, command=lambda cfg=cfg:self.ok(cfg)).pack()
-        Tkinter.Button(self.root, text="Bestenliste loeschen", command=high.clear).pack()
-        Tkinter.Button(self.root, text="Ende", command=sys.exit).pack()
+            Tkinter.Button(self.root, text=text, width=bWidth, command=lambda cfg=cfg:self.ok(cfg)).pack()
+        Tkinter.Button(self.root, text="Bestenliste loeschen", width=bWidth, command=high.clear).pack()
+        Tkinter.Button(self.root, text="Ende", width=bWidth, command=sys.exit).pack()
         # The following three commands are needed so the window pops
         # up on top on Windows...
         self.root.iconify()
