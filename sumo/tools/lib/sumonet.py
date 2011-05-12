@@ -353,14 +353,23 @@ class NetReader(handler.ContentHandler):
         self._currentLane = None
         self._currentShape = ""
         self._withPhases = 'withPrograms' in others.keys() and others['withPrograms']==True
+        self._withConnections = 'withConnections' not in others.keys() or others['withConnections']==True
+        self._withFoes = 'withFoes' not in others.keys() or others['withFoes']==True
+        self._cnt = 0
 
     def startElement(self, name, attrs):
+#        self._cnt += 1
+#        if self._cnt%1000==0:
+#            print name
         if name == 'edge':
             if not attrs.has_key('function') or attrs['function'] != 'internal':
                 prio = -1
                 if attrs.has_key('priority'):
                     prio = int(attrs['priority'])
-                self._currentEdge = self._net.addEdge(attrs['id'], attrs['from'], attrs['to'], prio, attrs['function'])
+                function = ""
+                if attrs.has_key('function'):
+                    function = 'function'
+                self._currentEdge = self._net.addEdge(attrs['id'], attrs['from'], attrs['to'], prio, function)
             else:
                 self._currentEdge = None
         if name == 'lane' and self._currentEdge!=None:
@@ -372,14 +381,14 @@ class NetReader(handler.ContentHandler):
         if name == 'junction':
             if attrs['id'][0]!=':':
                 self._currentNode = self._net.addNode(attrs['id'], [ float(attrs['x']), float(attrs['y']) ], attrs['incLanes'].split(" ") )
-        if name == 'succ':
+        if name == 'succ' and self._withConnections:
             if attrs['edge'][0]!=':':
                 self._currentEdge = self._net.getEdge(attrs['edge'])
                 self._currentLane = attrs['lane']
                 self._currentLane = int(self._currentLane[self._currentLane.rfind('_')+1:])
             else:
                 self._currentEdge = None
-        if name == 'succlane':
+        if name == 'succlane' and self._withConnections:
             lid = attrs['lane']
             if lid[0]!=':' and lid!="SUMO_NO_DESTINATION" and self._currentEdge:
                 connected = self._net.getEdge(lid[:lid.rfind('_')])
@@ -399,9 +408,9 @@ class NetReader(handler.ContentHandler):
                 tolane = toEdge._lanes[tolane]
                 self._currentEdge.addOutgoing(connected, self._currentEdge._lanes[self._currentLane], tolane, tl, tllink)
                 connected.addIncoming(self._currentEdge)
-        if name == 'row-logic':
+        if name == 'row-logic' and self._withFoes:
             self._currentNode = attrs['id']
-        if name == 'logicitem':
+        if name == 'logicitem' and self._withFoes:
             self._net.setFoes(self._currentNode, int(attrs['request']), attrs["foes"], attrs["response"])
         if self._withPhases and name=='tl-logic':
             self._currentProgram = self._net.addTLSProgram(attrs['id'], attrs['programID'], int(attrs['offset']), attrs['type'])
