@@ -237,7 +237,7 @@ def setMaxSpeed(vehID, speed):
     traci._sendDoubleCmd(tc.CMD_SET_VEHICLE_VARIABLE, tc.VAR_MAXSPEED, vehID, speed)
 
 def setStop(vehID, edgeID, pos=1., laneIndex=0, duration=2**31-1):
-    traci._beginMessage(tc.CMD_SET_VEHICLE_VARIABLE, tc.CMD_STOP, vehID, 1+4+1+4+len(edgeID)+1+4+1+1+1+4)
+    traci._beginMessage(tc.CMD_SET_VEHICLE_VARIABLE, tc.CMD_STOP, vehID, 1+4+1+4+len(edgeID)+1+8+1+1+1+4)
     traci._message.string += struct.pack("!Bi", tc.TYPE_COMPOUND, 4)
     traci._message.string += struct.pack("!Bi", tc.TYPE_STRING, len(edgeID)) + edgeID
     traci._message.string += struct.pack("!BdBBBi", tc.TYPE_DOUBLE, pos, tc.TYPE_BYTE, laneIndex, tc.TYPE_INTEGER, duration)
@@ -249,7 +249,7 @@ def changeLane(vehID, laneIndex, duration):
     traci._sendExact()
 
 def slowDown(vehID, speed, duration):
-    traci._beginMessage(tc.CMD_SET_VEHICLE_VARIABLE, tc.CMD_SLOWDOWN, vehID, 1+4+1+4+1+4)
+    traci._beginMessage(tc.CMD_SET_VEHICLE_VARIABLE, tc.CMD_SLOWDOWN, vehID, 1+4+1+8+1+4)
     traci._message.string += struct.pack("!BiBdBi", tc.TYPE_COMPOUND, 2, tc.TYPE_DOUBLE, speed, tc.TYPE_INTEGER, duration)
     traci._sendExact()
 
@@ -277,7 +277,7 @@ def setRoute(vehID, edgeList):
     traci._sendExact()
 
 def setAdaptedTraveltime(vehID, begTime, endTime, edgeID, time):
-    traci._beginMessage(tc.CMD_SET_VEHICLE_VARIABLE, tc.VAR_EDGE_TRAVELTIME, vehID, 1+4+1+4+1+4+1+4+len(edgeID)+1+4)
+    traci._beginMessage(tc.CMD_SET_VEHICLE_VARIABLE, tc.VAR_EDGE_TRAVELTIME, vehID, 1+4+1+4+1+4+1+4+len(edgeID)+1+8)
     traci._message.string += struct.pack("!BiBiBiBi", tc.TYPE_COMPOUND, 4, tc.TYPE_INTEGER, begTime,
                                          tc.TYPE_INTEGER, endTime, tc.TYPE_STRING, len(edgeID)) + edgeID
     traci._message.string += struct.pack("!Bd", tc.TYPE_DOUBLE, time)
