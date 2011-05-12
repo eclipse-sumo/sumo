@@ -59,7 +59,7 @@
         <help value="false" synonymes="?"/>
         <version value="false" synonymes="V"/>
         <no-warnings value="false" synonymes="W suppress-warnings"/>
-        <log-file value="" synonymes="l"/>
+        <log value="" synonymes="l log-file"/>
         <message-log value=""/>
         <error-log value=""/>
         <report-empty-detectors value="false"/>

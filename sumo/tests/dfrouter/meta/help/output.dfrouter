@@ -1,4 +1,4 @@
-SUMO dfrouter Version dev-SVN-r10266
+SUMO dfrouter Version dev-SVN-r10305
  Copyright (C) 2001-2011 DLR and contributors; http://sumo.sourceforge.net
  
 Builds vehicle routes for SUMO using detector values.
@@ -83,7 +83,7 @@ Usage: dfrouter [OPTION]*
   -?, --help                         Prints this screen
   -V, --version                      Prints the current version
   -W, --no-warnings                  Disables output of warnings
-  -l, --log-file FILE                Writes all messages to FILE
+  -l, --log FILE                     Writes all messages to FILE
   --message-log FILE                 Writes all non-error messages to FILE
   --error-log FILE                   Writes all warnings and errors to FILE
   --report-empty-detectors           Lists detectors with no flow (enable -v)
