@@ -793,8 +793,7 @@ NBNode::needsCont(NBEdge *fromE, NBEdge *toE, NBEdge *otherFromE, NBEdge *otherT
         // tls-controlled links will have space
         return true;
     }
-    if (forbids(fromE, toE, otherFromE, otherToE, false)) {
-        // links with higher priority will have space
+    if ((d1==MMLDIR_LEFT||d1==MMLDIR_TURN)&&fromE->getJunctionPriority(this)>0) {
         return true;
     }
     return false;
