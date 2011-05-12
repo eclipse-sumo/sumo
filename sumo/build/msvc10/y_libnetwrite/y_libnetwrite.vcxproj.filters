@@ -23,6 +23,8 @@
     <ClCompile Include="..\..\..\src\netwrite\NWWriter_XML.cpp">
       <Filter>Quellcodedateien</Filter>
     </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
     <ClCompile Include="..\..\..\src\netwrite\NWFrame.h">
       <Filter>Header-Dateien</Filter>
     </ClCompile>
@@ -36,4 +38,4 @@
       <Filter>Header-Dateien</Filter>
     </ClCompile>
   </ItemGroup>
-</Project>
+OC</Project>
