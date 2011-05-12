@@ -15,7 +15,7 @@ from xml.sax import saxutils, make_parser, handler
 
 # attributes sorting lists
 a = {}
-a['edge'] = ( 'id', 'from', 'to', 'priority', 'type', 'function', 'inner' )
+a['edge'] = ( 'id', 'from', 'to', 'priority', 'type', 'function' )
 a['lane'] = ( 'id', 'depart', 'vclasses', 'allow', 'disallow', 'maxspeed', 'length', 'shape' )
 a['junction'] = ( 'id', 'type', 'x', 'y', 'incLanes', 'intLanes', 'shape' )
 a['logicitem'] = ( 'request', 'response', 'foes', 'cont' )
@@ -29,6 +29,12 @@ a['district'] = ( 'id', 'shape', 'edges' )
 a['dsink'] = ( 'id', 'weight' )
 a['dsource'] = ( 'id', 'weight' )
 a['roundabout'] = ( 'nodes', 'dummy' )
+
+# attributes which are optional
+b = {}
+b['edge'] = {}
+b['edge']['type'] = ''
+b['edge']['function'] = 'normal'
 
 # elements which are single (not using opening/closing tag)
 c = ( 'roundabout', 'logicitem', 'phase', 'succlane', 'dsource', 'dsink', 'junction', 'location', 'lane', 'timed_event' )
@@ -83,7 +89,8 @@ class NetConverter(handler.ContentHandler):
         if name in a:
             for key in a[name]:
                 if attrs.has_key(key):
-                    self.checkWrite(' ' + key + '="' + attrs[key] + '"')
+                    if name not in b or key not in b[name] or attrs[key]!=b[name][key]:
+                        self.checkWrite(' ' + key + '="' + attrs[key] + '"')
         if name not in c:
             self.checkWrite(">\n")
         else:
