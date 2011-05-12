@@ -454,7 +454,6 @@ public:
     virtual MSVehicle* getLastVehicle() const;
     virtual const MSVehicle* getFirstVehicle() const;
 
-    void init(MSEdgeControl &, std::vector<MSLane*>::const_iterator firstNeigh, std::vector<MSLane*>::const_iterator lastNeigh);
 
 
 
@@ -680,12 +679,6 @@ protected:
     /// @brief The vehicle which laps into this lane
     MSVehicle *myInlappingVehicle;
 
-
-    /// @brief The lane left to the described lane (==lastNeigh if none)
-    std::vector<MSLane*>::const_iterator myFirstNeigh;
-
-    /// @brief The end of this lane's edge's lane container
-    std::vector<MSLane*>::const_iterator myLastNeigh;
 
     /// @brief Not yet seen vehicle lengths
     SUMOReal myLeftVehLength;

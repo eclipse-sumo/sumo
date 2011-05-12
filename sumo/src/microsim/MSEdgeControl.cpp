@@ -68,10 +68,6 @@ MSEdgeControl::MSEdgeControl(const std::vector< MSEdge* > &edges) throw()
         size_t pos = (*i)->getNumericalID();
         myLastLaneChange[pos] = -1;
     }
-    // assign lane usage definitions to lanes
-    for (size_t j=0; j<myLanes.size(); j++) {
-        myLanes[j].lane->init(*this, myLanes[j].firstNeigh, myLanes[j].lastNeigh);
-    }
 }
 
 

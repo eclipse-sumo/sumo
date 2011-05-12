@@ -920,13 +920,6 @@ MSLane::buildLaneWrapper() {
 }
 
 
-void
-MSLane::init(MSEdgeControl &, std::vector<MSLane*>::const_iterator firstNeigh, std::vector<MSLane*>::const_iterator lastNeigh) {
-    myFirstNeigh = firstNeigh;
-    myLastNeigh = lastNeigh;
-}
-
-
 MSVehicle *
 MSLane::removeVehicle(MSVehicle * remVehicle) {
     for (MSLane::VehCont::iterator it = myVehicles.begin(); it < myVehicles.end(); it++) {
