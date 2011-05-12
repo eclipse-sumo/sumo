@@ -165,7 +165,7 @@ NIImporter_OpenStreetMap::loadNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
 }
 
 
-NIImporter_OpenStreetMap::NIImporter_OpenStreetMap() {};
+NIImporter_OpenStreetMap::NIImporter_OpenStreetMap() {}
 
 
 NIImporter_OpenStreetMap::~NIImporter_OpenStreetMap() {
@@ -177,7 +177,7 @@ NIImporter_OpenStreetMap::~NIImporter_OpenStreetMap() {
     for (std::map<std::string, Edge*>::iterator i=myEdges.begin(); i!=myEdges.end(); ++i) {
         delete(*i).second;
     }
-};
+}
 
 
 void
