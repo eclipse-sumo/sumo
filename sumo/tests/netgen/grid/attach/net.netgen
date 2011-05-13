@@ -288,76 +288,76 @@
       <lane id=":top1_0_0" depart="0" maxspeed="13.90" length="4.82" shape="501.65,600.00 500.82,601.24 500.00,601.65 499.18,601.24 498.35,600.00"/>
    </edge>
 
-   <edge id="0/0to0/1" from="0/0" to="0/1" priority="-1" type="netgen-default" function="normal">
+   <edge id="0/0to0/1" from="0/0" to="0/1" priority="-1" type="netgen-default">
       <lane id="0/0to0/1_0" depart="1" maxspeed="13.90" length="390.50" shape="101.65,104.75 101.65,495.25"/>
    </edge>
-   <edge id="0/0to1/0" from="0/0" to="1/0" priority="-1" type="netgen-default" function="normal">
+   <edge id="0/0to1/0" from="0/0" to="1/0" priority="-1" type="netgen-default">
       <lane id="0/0to1/0_0" depart="1" maxspeed="13.90" length="390.50" shape="104.75,98.35 495.25,98.35"/>
    </edge>
-   <edge id="0/0tobottom0" from="0/0" to="bottom0" priority="-1" type="netgen-default" function="normal">
+   <edge id="0/0tobottom0" from="0/0" to="bottom0" priority="-1" type="netgen-default">
       <lane id="0/0tobottom0_0" depart="1" maxspeed="13.90" length="95.25" shape="98.35,95.25 98.35,0.00"/>
    </edge>
-   <edge id="0/0toleft0" from="0/0" to="left0" priority="-1" type="netgen-default" function="normal">
+   <edge id="0/0toleft0" from="0/0" to="left0" priority="-1" type="netgen-default">
       <lane id="0/0toleft0_0" depart="1" maxspeed="13.90" length="95.25" shape="95.25,101.65 0.00,101.65"/>
    </edge>
-   <edge id="0/1to0/0" from="0/1" to="0/0" priority="-1" type="netgen-default" function="normal">
+   <edge id="0/1to0/0" from="0/1" to="0/0" priority="-1" type="netgen-default">
       <lane id="0/1to0/0_0" depart="1" maxspeed="13.90" length="390.50" shape="98.35,495.25 98.35,104.75"/>
    </edge>
-   <edge id="0/1to1/1" from="0/1" to="1/1" priority="-1" type="netgen-default" function="normal">
+   <edge id="0/1to1/1" from="0/1" to="1/1" priority="-1" type="netgen-default">
       <lane id="0/1to1/1_0" depart="1" maxspeed="13.90" length="390.50" shape="104.75,498.35 495.25,498.35"/>
    </edge>
-   <edge id="0/1toleft1" from="0/1" to="left1" priority="-1" type="netgen-default" function="normal">
+   <edge id="0/1toleft1" from="0/1" to="left1" priority="-1" type="netgen-default">
       <lane id="0/1toleft1_0" depart="1" maxspeed="13.90" length="95.25" shape="95.25,501.65 0.00,501.65"/>
    </edge>
-   <edge id="0/1totop0" from="0/1" to="top0" priority="-1" type="netgen-default" function="normal">
+   <edge id="0/1totop0" from="0/1" to="top0" priority="-1" type="netgen-default">
       <lane id="0/1totop0_0" depart="1" maxspeed="13.90" length="95.25" shape="101.65,504.75 101.65,600.00"/>
    </edge>
-   <edge id="1/0to0/0" from="1/0" to="0/0" priority="-1" type="netgen-default" function="normal">
+   <edge id="1/0to0/0" from="1/0" to="0/0" priority="-1" type="netgen-default">
       <lane id="1/0to0/0_0" depart="1" maxspeed="13.90" length="390.50" shape="495.25,101.65 104.75,101.65"/>
    </edge>
-   <edge id="1/0to1/1" from="1/0" to="1/1" priority="-1" type="netgen-default" function="normal">
+   <edge id="1/0to1/1" from="1/0" to="1/1" priority="-1" type="netgen-default">
       <lane id="1/0to1/1_0" depart="1" maxspeed="13.90" length="390.50" shape="501.65,104.75 501.65,495.25"/>
    </edge>
-   <edge id="1/0tobottom1" from="1/0" to="bottom1" priority="-1" type="netgen-default" function="normal">
+   <edge id="1/0tobottom1" from="1/0" to="bottom1" priority="-1" type="netgen-default">
       <lane id="1/0tobottom1_0" depart="1" maxspeed="13.90" length="95.25" shape="498.35,95.25 498.35,0.00"/>
    </edge>
-   <edge id="1/0toright0" from="1/0" to="right0" priority="-1" type="netgen-default" function="normal">
+   <edge id="1/0toright0" from="1/0" to="right0" priority="-1" type="netgen-default">
       <lane id="1/0toright0_0" depart="1" maxspeed="13.90" length="95.25" shape="504.75,98.35 600.00,98.35"/>
    </edge>
-   <edge id="1/1to0/1" from="1/1" to="0/1" priority="-1" type="netgen-default" function="normal">
+   <edge id="1/1to0/1" from="1/1" to="0/1" priority="-1" type="netgen-default">
       <lane id="1/1to0/1_0" depart="1" maxspeed="13.90" length="390.50" shape="495.25,501.65 104.75,501.65"/>
    </edge>
-   <edge id="1/1to1/0" from="1/1" to="1/0" priority="-1" type="netgen-default" function="normal">
+   <edge id="1/1to1/0" from="1/1" to="1/0" priority="-1" type="netgen-default">
       <lane id="1/1to1/0_0" depart="1" maxspeed="13.90" length="390.50" shape="498.35,495.25 498.35,104.75"/>
    </edge>
-   <edge id="1/1toright1" from="1/1" to="right1" priority="-1" type="netgen-default" function="normal">
+   <edge id="1/1toright1" from="1/1" to="right1" priority="-1" type="netgen-default">
       <lane id="1/1toright1_0" depart="1" maxspeed="13.90" length="95.25" shape="504.75,498.35 600.00,498.35"/>
    </edge>
-   <edge id="1/1totop1" from="1/1" to="top1" priority="-1" type="netgen-default" function="normal">
+   <edge id="1/1totop1" from="1/1" to="top1" priority="-1" type="netgen-default">
       <lane id="1/1totop1_0" depart="1" maxspeed="13.90" length="95.25" shape="501.65,504.75 501.65,600.00"/>
    </edge>
-   <edge id="bottom0to0/0" from="bottom0" to="0/0" priority="-1" type="netgen-default" function="normal">
+   <edge id="bottom0to0/0" from="bottom0" to="0/0" priority="-1" type="netgen-default">
       <lane id="bottom0to0/0_0" depart="1" maxspeed="13.90" length="95.25" shape="101.65,0.00 101.65,95.25"/>
    </edge>
-   <edge id="bottom1to1/0" from="bottom1" to="1/0" priority="-1" type="netgen-default" function="normal">
+   <edge id="bottom1to1/0" from="bottom1" to="1/0" priority="-1" type="netgen-default">
       <lane id="bottom1to1/0_0" depart="1" maxspeed="13.90" length="95.25" shape="501.65,0.00 501.65,95.25"/>
    </edge>
-   <edge id="left0to0/0" from="left0" to="0/0" priority="-1" type="netgen-default" function="normal">
+   <edge id="left0to0/0" from="left0" to="0/0" priority="-1" type="netgen-default">
       <lane id="left0to0/0_0" depart="1" maxspeed="13.90" length="95.25" shape="0.00,98.35 95.25,98.35"/>
    </edge>
-   <edge id="left1to0/1" from="left1" to="0/1" priority="-1" type="netgen-default" function="normal">
+   <edge id="left1to0/1" from="left1" to="0/1" priority="-1" type="netgen-default">
       <lane id="left1to0/1_0" depart="1" maxspeed="13.90" length="95.25" shape="0.00,498.35 95.25,498.35"/>
    </edge>
-   <edge id="right0to1/0" from="right0" to="1/0" priority="-1" type="netgen-default" function="normal">
+   <edge id="right0to1/0" from="right0" to="1/0" priority="-1" type="netgen-default">
       <lane id="right0to1/0_0" depart="1" maxspeed="13.90" length="95.25" shape="600.00,101.65 504.75,101.65"/>
    </edge>
-   <edge id="right1to1/1" from="right1" to="1/1" priority="-1" type="netgen-default" function="normal">
+   <edge id="right1to1/1" from="right1" to="1/1" priority="-1" type="netgen-default">
       <lane id="right1to1/1_0" depart="1" maxspeed="13.90" length="95.25" shape="600.00,501.65 504.75,501.65"/>
    </edge>
-   <edge id="top0to0/1" from="top0" to="0/1" priority="-1" type="netgen-default" function="normal">
+   <edge id="top0to0/1" from="top0" to="0/1" priority="-1" type="netgen-default">
       <lane id="top0to0/1_0" depart="1" maxspeed="13.90" length="95.25" shape="98.35,600.00 98.35,504.75"/>
    </edge>
-   <edge id="top1to1/1" from="top1" to="1/1" priority="-1" type="netgen-default" function="normal">
+   <edge id="top1to1/1" from="top1" to="1/1" priority="-1" type="netgen-default">
       <lane id="top1to1/1_0" depart="1" maxspeed="13.90" length="95.25" shape="498.35,600.00 498.35,504.75"/>
    </edge>
 
