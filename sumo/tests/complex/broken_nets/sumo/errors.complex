@@ -10,20 +10,6 @@
  Wrong error code returned (0)!
 ------------------ net/edge[1]@from:<remove>
  Wrong error code returned (0)!
------------------- net/edge[0]@function:
-Error: Attribute 'function' in definition of edge '1' is empty.
-Error: An unknown lane ('1_0') was tried to be set as incoming to junction '2'.
-Error: Trying to close connections of an unknown lane ('1_0').
-Error: Trying to close connections of an unknown lane ('1_1').
-Quitting (on error).
------------------- net/edge[1]@function:
-Error: Attribute 'function' in definition of edge '2' is empty.
-Error: An unknown lane ('2_0') was tried to be set as incoming to junction '3'.
-Error: An unknown lane ('2_0') should be set as a follower for lane '1_0'.
-Error: An unknown lane ('2_1') should be set as a follower for lane '1_1'.
-Error: Trying to close connections of an unknown lane ('2_0').
-Error: Trying to close connections of an unknown lane ('2_1').
-Quitting (on error).
 ------------------ net/edge[0]@function:a
 Error: Edge '1' has an invalid type ('a').
 Error: An unknown lane ('1_0') was tried to be set as incoming to junction '2'.
@@ -32,20 +18,6 @@ Error: Trying to close connections of an unknown lane ('1_1').
 Quitting (on error).
 ------------------ net/edge[1]@function:a
 Error: Edge '2' has an invalid type ('a').
-Error: An unknown lane ('2_0') was tried to be set as incoming to junction '3'.
-Error: An unknown lane ('2_0') should be set as a follower for lane '1_0'.
-Error: An unknown lane ('2_1') should be set as a follower for lane '1_1'.
-Error: Trying to close connections of an unknown lane ('2_0').
-Error: Trying to close connections of an unknown lane ('2_1').
-Quitting (on error).
------------------- net/edge[0]@function:<remove>
-Error: Attribute 'function' is missing in definition of edge '1'.
-Error: An unknown lane ('1_0') was tried to be set as incoming to junction '2'.
-Error: Trying to close connections of an unknown lane ('1_0').
-Error: Trying to close connections of an unknown lane ('1_1').
-Quitting (on error).
------------------- net/edge[1]@function:<remove>
-Error: Attribute 'function' is missing in definition of edge '2'.
 Error: An unknown lane ('2_0') was tried to be set as incoming to junction '3'.
 Error: An unknown lane ('2_0') should be set as a follower for lane '1_0'.
 Error: An unknown lane ('2_1') should be set as a follower for lane '1_1'.
