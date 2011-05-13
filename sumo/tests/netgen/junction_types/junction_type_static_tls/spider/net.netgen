@@ -260,52 +260,52 @@
       <lane id=":4/1_14_0" depart="0" maxspeed="13.90" length="4.72" shape="93.58,5.17 93.68,5.15 94.56,5.44 94.85,6.32 94.56,7.78"/>
    </edge>
 
-   <edge id="1/1to1" from="1/1" to="1" priority="-1" type="netgen-default">
+   <edge id="1/1to1" from="1/1" to="1" priority="-1">
       <lane id="1/1to1_0" depart="1" maxspeed="13.90" length="85.90" shape="190.65,101.65 104.75,101.65"/>
    </edge>
-   <edge id="1/1to2/1" from="1/1" to="2/1" priority="-1" type="netgen-default">
+   <edge id="1/1to2/1" from="1/1" to="2/1" priority="-1">
       <lane id="1/1to2/1_0" depart="1" maxspeed="13.90" length="122.73" shape="194.56,107.78 107.78,194.56"/>
    </edge>
-   <edge id="1/1to4/1" from="1/1" to="4/1" priority="-1" type="netgen-default">
+   <edge id="1/1to4/1" from="1/1" to="4/1" priority="-1">
       <lane id="1/1to4/1_0" depart="1" maxspeed="13.90" length="122.73" shape="192.22,94.56 105.44,7.78"/>
    </edge>
-   <edge id="1to1/1" from="1" to="1/1" priority="-1" type="netgen-default">
+   <edge id="1to1/1" from="1" to="1/1" priority="-1">
       <lane id="1to1/1_0" depart="1" maxspeed="13.90" length="85.90" shape="104.75,98.35 190.65,98.35"/>
    </edge>
-   <edge id="1to2/1" from="1" to="2/1" priority="-1" type="netgen-default">
+   <edge id="1to2/1" from="1" to="2/1" priority="-1">
       <lane id="1to2/1_0" depart="1" maxspeed="13.90" length="85.90" shape="101.65,104.75 101.65,190.65"/>
    </edge>
-   <edge id="1to3/1" from="1" to="3/1" priority="-1" type="netgen-default">
+   <edge id="1to3/1" from="1" to="3/1" priority="-1">
       <lane id="1to3/1_0" depart="1" maxspeed="13.90" length="85.90" shape="95.25,101.65 9.35,101.65"/>
    </edge>
-   <edge id="1to4/1" from="1" to="4/1" priority="-1" type="netgen-default">
+   <edge id="1to4/1" from="1" to="4/1" priority="-1">
       <lane id="1to4/1_0" depart="1" maxspeed="13.90" length="85.90" shape="98.35,95.25 98.35,9.35"/>
    </edge>
-   <edge id="2/1to1" from="2/1" to="1" priority="-1" type="netgen-default">
+   <edge id="2/1to1" from="2/1" to="1" priority="-1">
       <lane id="2/1to1_0" depart="1" maxspeed="13.90" length="85.90" shape="98.35,190.65 98.35,104.75"/>
    </edge>
-   <edge id="2/1to1/1" from="2/1" to="1/1" priority="-1" type="netgen-default">
+   <edge id="2/1to1/1" from="2/1" to="1/1" priority="-1">
       <lane id="2/1to1/1_0" depart="1" maxspeed="13.90" length="122.73" shape="105.44,192.22 192.22,105.44"/>
    </edge>
-   <edge id="2/1to3/1" from="2/1" to="3/1" priority="-1" type="netgen-default">
+   <edge id="2/1to3/1" from="2/1" to="3/1" priority="-1">
       <lane id="2/1to3/1_0" depart="1" maxspeed="13.90" length="122.73" shape="92.22,194.56 5.44,107.78"/>
    </edge>
-   <edge id="3/1to1" from="3/1" to="1" priority="-1" type="netgen-default">
+   <edge id="3/1to1" from="3/1" to="1" priority="-1">
       <lane id="3/1to1_0" depart="1" maxspeed="13.90" length="85.90" shape="9.35,98.35 95.25,98.35"/>
    </edge>
-   <edge id="3/1to2/1" from="3/1" to="2/1" priority="-1" type="netgen-default">
+   <edge id="3/1to2/1" from="3/1" to="2/1" priority="-1">
       <lane id="3/1to2/1_0" depart="1" maxspeed="13.90" length="122.73" shape="7.78,105.44 94.56,192.22"/>
    </edge>
-   <edge id="3/1to4/1" from="3/1" to="4/1" priority="-1" type="netgen-default">
+   <edge id="3/1to4/1" from="3/1" to="4/1" priority="-1">
       <lane id="3/1to4/1_0" depart="1" maxspeed="13.90" length="122.73" shape="5.44,92.22 92.22,5.44"/>
    </edge>
-   <edge id="4/1to1" from="4/1" to="1" priority="-1" type="netgen-default">
+   <edge id="4/1to1" from="4/1" to="1" priority="-1">
       <lane id="4/1to1_0" depart="1" maxspeed="13.90" length="85.90" shape="101.65,9.35 101.65,95.25"/>
    </edge>
-   <edge id="4/1to1/1" from="4/1" to="1/1" priority="-1" type="netgen-default">
+   <edge id="4/1to1/1" from="4/1" to="1/1" priority="-1">
       <lane id="4/1to1/1_0" depart="1" maxspeed="13.90" length="122.73" shape="107.78,5.44 194.56,92.22"/>
    </edge>
-   <edge id="4/1to3/1" from="4/1" to="3/1" priority="-1" type="netgen-default">
+   <edge id="4/1to3/1" from="4/1" to="3/1" priority="-1">
       <lane id="4/1to3/1_0" depart="1" maxspeed="13.90" length="122.73" shape="94.56,7.78 7.78,94.56"/>
    </edge>
 
