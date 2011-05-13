@@ -89,9 +89,10 @@ fillOptions() {
     oc.addSynonyme("net-file", "net");
     oc.addDescription("net-file", "Input", "Loads network (districts) from FILE");
 
-    oc.doRegister("od-files", 'd', new Option_FileName());
-    oc.addSynonyme("od-files", "od");
-    oc.addDescription("od-files", "Input", "Loads O/D-files from FILE(s)");
+    oc.doRegister("od-matrix-files", 'd', new Option_FileName());
+    oc.addSynonyme("od-matrix-files", "od-files");
+    oc.addSynonyme("od-matrix-files", "od");
+    oc.addDescription("od-matrix-files", "Input", "Loads O/D-files from FILE(s)");
 
 
     // register the file output options
@@ -196,7 +197,7 @@ checkOptions() {
         MsgHandler::getErrorInstance()->inform("No net input file (-n) specified.");
         ok = false;
     }
-    if (!oc.isSet("od-files")) {
+    if (!oc.isSet("od-matrix-files")) {
         MsgHandler::getErrorInstance()->inform("No input specified.");
         ok = false;
     }

@@ -4,7 +4,7 @@
 
     <input>
         <net-file value="input_net.net.xml"/>
-        <od-files value="input_od_o.fma"/>
+        <od-matrix-files value="input_od_o.fma"/>
     </input>
 
     <output>

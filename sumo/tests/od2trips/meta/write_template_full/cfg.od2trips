@@ -4,7 +4,7 @@
 
     <input>
         <net-file value="" synonymes="n net"/>
-        <od-files value="" synonymes="d od"/>
+        <od-matrix-files value="" synonymes="d od od-files"/>
     </input>
 
     <output>

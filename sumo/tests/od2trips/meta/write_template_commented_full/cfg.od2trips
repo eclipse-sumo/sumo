@@ -7,7 +7,7 @@
         <net-file value="" synonymes="n net"/>
 
         <!-- Loads O/D-files from FILE(s) -->
-        <od-files value="" synonymes="d od"/>
+        <od-matrix-files value="" synonymes="d od od-files"/>
 
     </input>
 
