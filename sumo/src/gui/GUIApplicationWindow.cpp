@@ -874,9 +874,13 @@ GUIApplicationWindow::handleEvent_SimulationLoaded(GUIEvent *e) {
                 mySimDelayTarget->setValue(settings.getDelay());
             }
         }
-        // set simulation name on the caption
-        std::string caption = "SUMO " + std::string(VERSION_STRING);
-        setTitle(MFXUtils::getTitleText(caption.c_str(), ec->myFile.c_str()));
+        if (isGaming()) {
+            setTitle("SUMO Traffic Light Game");
+        } else {
+            // set simulation name on the caption
+            std::string caption = "SUMO " + std::string(VERSION_STRING);
+            setTitle(MFXUtils::getTitleText(caption.c_str(), ec->myFile.c_str()));
+        }
         // set simulation step begin information
         std::string t = time2string(ec->myNet->getCurrentTimeStep());
         if (myAmGaming || fmod(TS, 1.) == 0.) {
