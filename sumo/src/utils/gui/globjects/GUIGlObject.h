@@ -140,9 +140,13 @@ public:
      *
      * @return The id of the object
      */
-    virtual const std::string &getMicrosimID() const {
+    const std::string &getMicrosimID() const {
         return myMicrosimID;
     };
+
+
+    /** @brief Changes the microsimID of the object (happens in NETEDIT) */
+    void setMicrosimID(const std::string &newID);
 
 
     /** @brief Returns the type of the object as coded in GUIGlObjectType

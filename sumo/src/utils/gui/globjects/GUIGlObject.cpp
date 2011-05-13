@@ -107,6 +107,12 @@ GUIGlObject::setGlID(GLuint id) throw() {
 }
 
 
+void 
+GUIGlObject::setMicrosimID(const std::string &newID) {
+    myMicrosimID = newID;
+    myFullName = createFullName();
+}
+
 
 void
 GUIGlObject::buildPopupHeader(GUIGLObjectPopupMenu *ret, GUIMainWindow &app,
