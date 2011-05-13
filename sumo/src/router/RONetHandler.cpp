@@ -115,7 +115,7 @@ RONetHandler::parseEdge(const SUMOSAXAttributes &attrs) {
     }
     std::string from = attrs.getStringReporting(SUMO_ATTR_FROM, myCurrentName.c_str(), ok);
     std::string to = attrs.getStringReporting(SUMO_ATTR_TO, myCurrentName.c_str(), ok);
-    std::string type = attrs.getStringReporting(SUMO_ATTR_FUNCTION, myCurrentName.c_str(), ok);
+    std::string type = attrs.hasAttribute(SUMO_ATTR_FUNCTION) ? attrs.getStringReporting(SUMO_ATTR_FUNCTION, myCurrentName.c_str(), ok) : "";
     if (!ok) {
         return;
     }
@@ -134,7 +134,7 @@ RONetHandler::parseEdge(const SUMOSAXAttributes &attrs) {
     if (myNet.addEdge(myCurrentEdge)) {
         // get the type of the edge
         myProcess = true;
-        if (type=="normal"||type=="connector") {
+        if (type==""||type=="normal"||type=="connector") {
             myCurrentEdge->setType(ROEdge::ET_NORMAL);
         } else if (type=="source") {
             myCurrentEdge->setType(ROEdge::ET_SOURCE);

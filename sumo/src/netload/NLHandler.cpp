@@ -279,14 +279,14 @@ NLHandler::beginEdgeParsing(const SUMOSAXAttributes &attrs) {
     }
     myCurrentIsInternalToSkip = false;
     // get the function
-    std::string func = attrs.getStringReporting(SUMO_ATTR_FUNCTION, id.c_str(), ok);
+    std::string func = attrs.hasAttribute(SUMO_ATTR_FUNCTION) ? attrs.getStringReporting(SUMO_ATTR_FUNCTION, id.c_str(), ok) : "";
     if (!ok) {
         myCurrentIsBroken = true;
         return;
     }
     // parse the function
     MSEdge::EdgeBasicFunction funcEnum = MSEdge::EDGEFUNCTION_UNKNOWN;
-    if (func=="normal") {
+    if (func==""||func=="normal") {
         funcEnum = MSEdge::EDGEFUNCTION_NORMAL;
     } else if (func=="connector"||func=="sink"||func=="source") {
         funcEnum = MSEdge::EDGEFUNCTION_CONNECTOR;

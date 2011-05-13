@@ -158,7 +158,7 @@ NBEdge::NBEdge(const std::string &id, NBNode *from, NBNode *to,
     myPriority(priority), mySpeed(speed),
     myTurnDestination(0),
     myFromJunctionPriority(-1), myToJunctionPriority(-1),
-    myLaneSpreadFunction(spread),
+    myLaneSpreadFunction(spread), myOffset(0), myWidth(0),
     myLoadedLength(-1), myAmLeftHand(false), myAmTurningWithAngle(0), myAmTurningOf(0),
     myAmInnerEdge(false), myAmMacroscopicConnector(false) 
 {
@@ -177,7 +177,7 @@ NBEdge::NBEdge(const std::string &id, NBNode *from, NBNode *to,
     myPriority(priority), mySpeed(speed),
     myTurnDestination(0),
     myFromJunctionPriority(-1), myToJunctionPriority(-1),
-    myGeom(geom), myLaneSpreadFunction(spread),
+    myGeom(geom), myLaneSpreadFunction(spread), myOffset(0), myWidth(0),
     myLoadedLength(-1), myAmLeftHand(false), myAmTurningWithAngle(0), myAmTurningOf(0),
     myAmInnerEdge(false), myAmMacroscopicConnector(false) 
 {
@@ -254,6 +254,8 @@ NBEdge::init(unsigned int noLanes, bool tryIgnoreNodePositions) throw(ProcessErr
     for (unsigned int i=0; i<noLanes; i++) {
         Lane l;
         l.speed = mySpeed;
+        l.offset = myOffset;
+        l.width = myWidth;
         myLanes.push_back(l);
     }
     computeLaneShapes();
@@ -601,21 +603,18 @@ NBEdge::writeXMLStep1(OutputDevice &into) {
     into << "   <edge id=\"" << myID <<
     "\" from=\"" << myFrom->getID() <<
     "\" to=\"" << myTo->getID() <<
-    "\" priority=\"" << myPriority <<
-    "\" type=\"" << myType;
-    if (isMacroscopicConnector()) {
-        into << "\" function=\"connector";
-    } else {
-        into << "\" function=\"normal";
+    "\" priority=\"" << myPriority << "\"";
+    if(myType!="") {
+        into << " type=\"" << myType << "\"";
     }
-    if (myAmInnerEdge) {
-        into << "\" inner=\"x";
+    if (isMacroscopicConnector()) {
+        into << " function=\"connector\"";
     }
     // write the spread type if not default ("right")
     if (myLaneSpreadFunction!=LANESPREAD_RIGHT) {
-        into << "\" spread_type=\"" << toString(myLaneSpreadFunction);
+        into << " spread_type=\"" << toString(myLaneSpreadFunction) << "\"";
     }
-    into << "\">\n";
+    into << ">\n";
     // write the lanes
     for (unsigned int i=0; i<(unsigned int) myLanes.size(); i++) {
         writeLane(into, myLanes[i], i);
@@ -682,6 +681,12 @@ NBEdge::writeLane(OutputDevice &into, NBEdge::Lane &lane, unsigned int index) co
         length = (SUMOReal) .1;
     }
     into << " maxspeed=\"" << lane.speed << "\" length=\"" << length << "\"";
+    if (lane.offset > 0) {
+        into << " offset=\"" << lane.offset << '\"';
+    }
+    if (lane.width > 0) {
+        into << " width=\"" << lane.width << '\"';
+    }
     into << " shape=\"" << lane.shape << "\"/>\n";
 }
 
@@ -1670,6 +1675,8 @@ NBEdge::incLaneNo(unsigned int by) {
     while (myLanes.size()<newLaneNo) {
         Lane l;
         l.speed = mySpeed;
+        l.offset = 0;
+        l.width = 0;
         myLanes.push_back(l);
     }
     computeLaneShapes();

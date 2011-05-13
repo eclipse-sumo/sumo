@@ -125,6 +125,10 @@ public:
         SUMOVehicleClasses notAllowed;
         /// @brief List of vehicle types that are preferred on this lane
         SUMOVehicleClasses preferred;
+        /// @brief This lane's offset to the intersection begin
+        SUMOReal offset;
+        /// @brief This lane's width
+        SUMOReal width;
     };
 
 
@@ -919,6 +923,15 @@ private:
 
     /// @brief The information about how to spread the lanes
     LaneSpreadFunction myLaneSpreadFunction;
+
+    /// @brief An optional name
+    std::string myName;
+
+    /// @brief This edges's offset to the intersection begin (will be applied to all lanes)
+    SUMOReal myOffset;
+
+    /// @brief This width of this edge's lanes
+    SUMOReal myWidth;
 
     /** @brief Lane information
      * @see Lane
