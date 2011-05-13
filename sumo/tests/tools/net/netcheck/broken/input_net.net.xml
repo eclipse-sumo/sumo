@@ -50,23 +50,23 @@
       <lane id=":4_0_0" depart="0" maxspeed="15.28" length="4.82" shape="501.65,1000.00 500.82,1001.24 500.00,1001.65 499.18,1001.24 498.35,1000.00"/>
    </edge>
 
-   <edge id="1i" from="1" to="0" priority="78" type="" function="normal">
+   <edge id="1i" from="1" to="0" priority="78">
       <lane id="1i_0" depart="1" maxspeed="19.44" length="500.00" shape="0.00,498.35 500.00,498.35"/>
    </edge>
-   <edge id="1o" from="0" to="1" priority="46" type="" function="normal">
+   <edge id="1o" from="0" to="1" priority="46">
       <lane id="1o_0" depart="1" maxspeed="11.11" length="500.00" shape="500.00,501.65 0.00,501.65"/>
    </edge>
-   <edge id="2i" from="2" to="0" priority="78" type="" function="normal">
+   <edge id="2i" from="2" to="0" priority="78">
       <lane id="2i_0" depart="1" maxspeed="19.44" length="500.00" shape="1000.00,501.65 500.00,501.65"/>
    </edge>
-   <edge id="2o" from="0" to="2" priority="46" type="" function="normal">
+   <edge id="2o" from="0" to="2" priority="46">
       <lane id="2o_0" depart="1" maxspeed="11.11" length="500.00" shape="500.00,498.35 1000.00,498.35"/>
    </edge>
-   <edge id="3i+4o" from="3" to="4" priority="78" type="" function="normal">
+   <edge id="3i+4o" from="3" to="4" priority="78">
       <lane id="3i+4o_0" depart="1" maxspeed="15.28" length="1000.00" shape="504.95,0.00 504.95,1000.00"/>
       <lane id="3i+4o_1" depart="0" maxspeed="15.28" length="1000.00" shape="501.65,0.00 501.65,1000.00"/>
    </edge>
-   <edge id="3o+4i" from="4" to="3" priority="78" type="" function="normal">
+   <edge id="3o+4i" from="4" to="3" priority="78">
       <lane id="3o+4i_0" depart="1" maxspeed="15.28" length="1000.00" shape="495.05,1000.00 495.05,0.00"/>
       <lane id="3o+4i_1" depart="0" maxspeed="15.28" length="1000.00" shape="498.35,1000.00 498.35,0.00"/>
    </edge>

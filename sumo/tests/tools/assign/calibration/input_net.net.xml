@@ -39,16 +39,16 @@
       <lane id=":2_1_0" depart="0" maxspeed="15.99" length="3.34" shape="1498.44,48.59 1501.77,48.35"/>
    </edge>
 
-   <edge id="1to21" from="1" to="2" priority="-1" type="a" function="normal">
+   <edge id="1to21" from="1" to="2" priority="-1" type="a">
       <lane id="1to21_0" depart="1" maxspeed="15.99" length="1004.90" shape="501.85,48.02 799.73,-1.63 1200.00,-1.65 1498.53,48.08"/>
    </edge>
-   <edge id="1to22" from="1" to="2" priority="-1" type="b" function="normal">
+   <edge id="1to22" from="1" to="2" priority="-1" type="b">
       <lane id="1to22_0" depart="1" maxspeed="15.99" length="1004.93" shape="501.75,48.62 800.27,98.37 1200.00,98.35 1498.44,48.59"/>
    </edge>
-   <edge id="91to1" from="91" to="1" priority="-1" type="c" function="normal">
+   <edge id="91to1" from="91" to="1" priority="-1" type="c">
       <lane id="91to1_0" depart="1" maxspeed="15.99" length="498.50" shape="0.00,48.35 498.50,48.35"/>
    </edge>
-   <edge id="out" from="2" to="3" priority="-1" type="c" function="normal">
+   <edge id="out" from="2" to="3" priority="-1" type="c">
       <lane id="out_0" depart="1" maxspeed="15.99" length="298.23" shape="1501.77,48.35 1800.00,48.35"/>
    </edge>
 
