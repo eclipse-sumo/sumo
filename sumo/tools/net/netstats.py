@@ -32,6 +32,12 @@ def renderHTML(values):
     print "Node number: " + str(values["nodeNumber"]) + "</br>"
     print "</body></html>"
 
+def renderPNG(values):
+    from matplotlib import rcParams
+    from pylab import *
+    bar([0], [values["edgeNumber"]], 1, color='r')
+    show()
+
 
 if len(sys.argv) < 2:
     print "Usage: " + sys.argv[0] + " <net>"
@@ -58,5 +64,6 @@ for e in net._edges:
     values["edgesPerLaneNumber"][len(e._lanes)] = values["edgesPerLaneNumber"][len(e._lanes)] + 1
 
 renderHTML(values)
+renderPNG(values)
 
 
