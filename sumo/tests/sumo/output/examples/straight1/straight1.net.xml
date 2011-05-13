@@ -62,43 +62,43 @@
       <lane id=":b6_0_0" depart="0" maxspeed="36.00" length="0.10" shape="3000.00,-1.65 3000.00,-1.65"/>
    </edge>
 
-   <edge id="0" from="a0" to="a1" priority="-1" type="" function="normal">
+   <edge id="0" from="a0" to="a1" priority="-1">
       <lane id="0_0" depart="1" maxspeed="36.00" length="500.00" shape="0.00,-1.65 500.00,-1.65"/>
    </edge>
-   <edge id="1" from="a1" to="a2" priority="-1" type="" function="normal">
+   <edge id="1" from="a1" to="a2" priority="-1">
       <lane id="1_0" depart="1" maxspeed="36.00" length="250.00" shape="500.00,-1.65 750.00,-1.65"/>
    </edge>
-   <edge id="2" from="a2" to="a3" priority="-1" type="" function="normal">
+   <edge id="2" from="a2" to="a3" priority="-1">
       <lane id="2_0" depart="1" maxspeed="36.00" length="150.00" shape="750.00,-1.65 900.00,-1.65"/>
    </edge>
-   <edge id="3" from="a3" to="a4" priority="-1" type="" function="normal">
+   <edge id="3" from="a3" to="a4" priority="-1">
       <lane id="3_0" depart="1" maxspeed="36.00" length="50.00" shape="900.00,-1.65 950.00,-1.65"/>
    </edge>
-   <edge id="4" from="a4" to="a5" priority="-1" type="" function="normal">
+   <edge id="4" from="a4" to="a5" priority="-1">
       <lane id="4_0" depart="1" maxspeed="36.00" length="40.00" shape="950.00,-1.65 990.00,-1.65"/>
    </edge>
-   <edge id="5" from="a5" to="a6" priority="-1" type="" function="normal">
+   <edge id="5" from="a5" to="a6" priority="-1">
       <lane id="5_0" depart="1" maxspeed="36.00" length="10.00" shape="990.00,-1.65 1000.00,-1.65"/>
    </edge>
-   <edge id="6" from="a6" to="b6" priority="-1" type="" function="normal">
+   <edge id="6" from="a6" to="b6" priority="-1">
       <lane id="6_0" depart="1" maxspeed="36.00" length="2000.00" shape="1000.00,-1.65 3000.00,-1.65"/>
    </edge>
-   <edge id="7" from="b6" to="b5" priority="-1" type="" function="normal">
+   <edge id="7" from="b6" to="b5" priority="-1">
       <lane id="7_0" depart="1" maxspeed="36.00" length="10.00" shape="3000.00,-1.65 3010.00,-1.65"/>
    </edge>
-   <edge id="8" from="b5" to="b4" priority="-1" type="" function="normal">
+   <edge id="8" from="b5" to="b4" priority="-1">
       <lane id="8_0" depart="1" maxspeed="36.00" length="40.00" shape="3010.00,-1.65 3050.00,-1.65"/>
    </edge>
-   <edge id="9" from="b4" to="b3" priority="-1" type="" function="normal">
+   <edge id="9" from="b4" to="b3" priority="-1">
       <lane id="9_0" depart="1" maxspeed="36.00" length="50.00" shape="3050.00,-1.65 3100.00,-1.65"/>
    </edge>
-   <edge id="a" from="b3" to="b2" priority="-1" type="" function="normal">
+   <edge id="a" from="b3" to="b2" priority="-1">
       <lane id="a_0" depart="1" maxspeed="36.00" length="150.00" shape="3100.00,-1.65 3250.00,-1.65"/>
    </edge>
-   <edge id="b" from="b2" to="b1" priority="-1" type="" function="normal">
+   <edge id="b" from="b2" to="b1" priority="-1">
       <lane id="b_0" depart="1" maxspeed="36.00" length="250.00" shape="3250.00,-1.65 3500.00,-1.65"/>
    </edge>
-   <edge id="c" from="b1" to="b0" priority="-1" type="" function="normal">
+   <edge id="c" from="b1" to="b0" priority="-1">
       <lane id="c_0" depart="1" maxspeed="36.00" length="500.00" shape="3500.00,-1.65 4000.00,-1.65"/>
    </edge>
 

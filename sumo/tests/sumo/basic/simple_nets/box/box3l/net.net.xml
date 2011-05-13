@@ -62,22 +62,22 @@
       <lane id=":3_2_0" depart="0" maxspeed="36.00" length="13.22" shape="498.35,9.85 497.84,6.26 496.30,3.70 493.74,2.16 490.15,1.65"/>
    </edge>
 
-   <edge id="0" from="0" to="1" priority="-1" type="" function="normal">
+   <edge id="0" from="0" to="1" priority="-1">
       <lane id="0_0" depart="1" maxspeed="36.00" length="480.30" shape="8.25,9.85 8.25,490.15"/>
       <lane id="0_1" depart="0" maxspeed="36.00" length="480.30" shape="4.95,9.85 4.95,490.15"/>
       <lane id="0_2" depart="0" maxspeed="36.00" length="480.30" shape="1.65,9.85 1.65,490.15"/>
    </edge>
-   <edge id="1" from="1" to="2" priority="-1" type="" function="normal">
+   <edge id="1" from="1" to="2" priority="-1">
       <lane id="1_0" depart="1" maxspeed="36.00" length="480.30" shape="9.85,491.75 490.15,491.75"/>
       <lane id="1_1" depart="0" maxspeed="36.00" length="480.30" shape="9.85,495.05 490.15,495.05"/>
       <lane id="1_2" depart="0" maxspeed="36.00" length="480.30" shape="9.85,498.35 490.15,498.35"/>
    </edge>
-   <edge id="2" from="2" to="3" priority="-1" type="" function="normal">
+   <edge id="2" from="2" to="3" priority="-1">
       <lane id="2_0" depart="1" maxspeed="36.00" length="480.30" shape="491.75,490.15 491.75,9.85"/>
       <lane id="2_1" depart="0" maxspeed="36.00" length="480.30" shape="495.05,490.15 495.05,9.85"/>
       <lane id="2_2" depart="0" maxspeed="36.00" length="480.30" shape="498.35,490.15 498.35,9.85"/>
    </edge>
-   <edge id="3" from="3" to="0" priority="-1" type="" function="normal">
+   <edge id="3" from="3" to="0" priority="-1">
       <lane id="3_0" depart="1" maxspeed="36.00" length="480.30" shape="490.15,8.25 9.85,8.25"/>
       <lane id="3_1" depart="0" maxspeed="36.00" length="480.30" shape="490.15,4.95 9.85,4.95"/>
       <lane id="3_2" depart="0" maxspeed="36.00" length="480.30" shape="490.15,1.65 9.85,1.65"/>

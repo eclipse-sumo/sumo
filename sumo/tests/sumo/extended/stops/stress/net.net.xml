@@ -21,11 +21,11 @@
    <node_count>
    </node_count>
 
-   <edge id="1to2" from="SUMOGenerated0" to="SUMOGenerated1" priority="-1" type="" function="normal">
+   <edge id="1to2" from="SUMOGenerated0" to="SUMOGenerated1" priority="-1">
       <lane id="1to2_0" depart="1" maxspeed="13.90" length="1000000.00" shape="1000000.00,1.65 0.00,1.65"/>
    </edge>
 
-   <edge id="out" from="SUMOGenerated1" to="SUMOGenerated2" priority="-1" type="" function="normal">
+   <edge id="out" from="SUMOGenerated1" to="SUMOGenerated2" priority="-1">
       <lane id="out_0" depart="1" maxspeed="13.90" length="1.00" shape="0.00,-1.65 1.00,-1.65"/>
    </edge>
 

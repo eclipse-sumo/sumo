@@ -32,13 +32,13 @@
       <lane id=":center_0_0" depart="0" maxspeed="27.80" length="0.10" shape="500.00,-1.65 500.00,-1.65"/>
    </edge>
 
-   <edge id="beg" from="beg" to="center" priority="-1" type="" function="normal">
+   <edge id="beg" from="beg" to="center" priority="-1">
       <lane id="beg_0" depart="1" maxspeed="27.80" length="500.00" shape="0.00,-1.65 500.00,-1.65"/>
    </edge>
-   <edge id="end" from="c2" to="end" priority="-1" type="" function="normal">
+   <edge id="end" from="c2" to="end" priority="-1">
       <lane id="end_0" depart="1" maxspeed="27.80" length="498.00" shape="502.00,-1.65 1000.00,-1.65"/>
    </edge>
-   <edge id="middle" from="center" to="c2" priority="-1" type="" function="normal">
+   <edge id="middle" from="center" to="c2" priority="-1">
       <lane id="middle_0" depart="1" maxspeed="27.80" length="2.00" shape="500.00,-1.65 502.00,-1.65"/>
    </edge>
 
