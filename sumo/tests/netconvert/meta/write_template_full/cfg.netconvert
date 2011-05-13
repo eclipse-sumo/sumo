@@ -26,8 +26,8 @@
     </output>
 
     <projection>
-        <proj.simple value="false"/>
-        <proj.shift value="0"/>
+        <simple-projection value="false" synonymes="proj.simple"/>
+        <proj.scale value="0" synonymes="proj.shift"/>
         <proj.utm value="false"/>
         <proj.dhdn value="false"/>
         <proj value="!"/>

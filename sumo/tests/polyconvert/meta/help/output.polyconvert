@@ -43,8 +43,8 @@ Usage: polyconvert [OPTION]*
   -o, --output FILE                Write generated polygons/pois to FILE
 
  Projection Options:
-  --proj.simple                    Uses a simple method for projection
-  --proj.shift INT                 Number of places to shift decimal point to
+  --simple-projection              Uses a simple method for projection
+  --proj.scale INT                 Number of places to shift decimal point to
                                      right in geo-coordinates
   --proj.utm                       Determine the UTM zone (for a universal
                                      transversal mercator projection based on

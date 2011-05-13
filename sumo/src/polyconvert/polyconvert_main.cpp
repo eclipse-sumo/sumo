@@ -214,12 +214,12 @@ main(int argc, char **argv) {
             }
         }
 #ifdef HAVE_PROJ
-        unsigned numProjections = oc.getBool("proj.simple") + oc.getBool("proj.utm") + oc.getBool("proj.dhdn") + (oc.getString("proj").length() > 1);
+        unsigned numProjections = oc.getBool("simple-projection") + oc.getBool("proj.utm") + oc.getBool("proj.dhdn") + (oc.getString("proj").length() > 1);
         if ((oc.isSet("osm-files") || oc.isSet("dlr-navteq-poly-files") || oc.isSet("dlr-navteq-poi-files")) && numProjections == 0) {
             oc.set("proj.utm", "true");
         }
-        if ((oc.isSet("dlr-navteq-poly-files") || oc.isSet("dlr-navteq-poi-files")) && oc.isDefault("proj.shift")) {
-            oc.set("proj.shift", std::string("5"));
+        if ((oc.isSet("dlr-navteq-poly-files") || oc.isSet("dlr-navteq-poi-files")) && oc.isDefault("proj.scale")) {
+            oc.set("proj.scale", std::string("5"));
         }
 #endif
         if (!GeoConvHelper::init(oc)) {

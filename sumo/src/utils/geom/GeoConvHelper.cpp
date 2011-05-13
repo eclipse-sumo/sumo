@@ -69,11 +69,13 @@ void
 GeoConvHelper::addProjectionOptions(OptionsCont &oc) {
     oc.addOptionSubTopic("Projection");
 
-    oc.doRegister("proj.simple", new Option_Bool(false));
-    oc.addDescription("proj.simple", "Projection", "Uses a simple method for projection");
+    oc.doRegister("simple-projection", new Option_Bool(false));
+    oc.addSynonyme("simple-projection", "proj.simple", true);
+    oc.addDescription("simple-projection", "Projection", "Uses a simple method for projection");
 
-    oc.doRegister("proj.shift", new Option_Integer(0));
-    oc.addDescription("proj.shift", "Projection", "Number of places to shift decimal point to right in geo-coordinates");
+    oc.doRegister("proj.scale", new Option_Integer(0));
+    oc.addSynonyme("proj.scale", "proj.shift", true);
+    oc.addDescription("proj.scale", "Projection", "Number of places to shift decimal point to right in geo-coordinates");
 
 #ifdef HAVE_PROJ
     oc.doRegister("proj.utm", new Option_Bool(false));
@@ -98,26 +100,26 @@ GeoConvHelper::init(OptionsCont &oc) {
         MsgHandler::getErrorInstance()->inform("Inverse projection works only with explicit proj parameters.");
         return false;
     }
-    unsigned numProjections = oc.getBool("proj.simple") + oc.getBool("proj.utm") + oc.getBool("proj.dhdn") + (oc.getString("proj").length() > 1);
+    unsigned numProjections = oc.getBool("simple-projection") + oc.getBool("proj.utm") + oc.getBool("proj.dhdn") + (oc.getString("proj").length() > 1);
     if (numProjections > 1) {
         MsgHandler::getErrorInstance()->inform("The projection method needs to be uniquely defined.");
         return false;
     }
 #endif
     myOffset = Position2D(oc.getFloat("offset.x"), oc.getFloat("offset.y"));
-    if (oc.getBool("proj.simple")) {
-        return init("-", oc.getInt("proj.shift"));
+    if (oc.getBool("simple-projection")) {
+        return init("-", oc.getInt("proj.scale"));
     }
     bool ret = true;
 #ifdef HAVE_PROJ
     if (oc.getBool("proj.utm")) {
         myProjectionMethod = UTM;
-        ret = init(".", oc.getInt("proj.shift"));
+        ret = init(".", oc.getInt("proj.scale"));
     } else if (oc.getBool("proj.dhdn")) {
         myProjectionMethod = DHDN;
-        ret = init(".", oc.getInt("proj.shift"));
+        ret = init(".", oc.getInt("proj.scale"));
     } else {
-        ret = init(oc.getString("proj"), oc.getInt("proj.shift"), oc.getBool("proj.inverse"));
+        ret = init(oc.getString("proj"), oc.getInt("proj.scale"), oc.getBool("proj.inverse"));
     }
 #endif
     if (!oc.exists("offset.disable-normalization") || oc.getBool("offset.disable-normalization") || !oc.isDefault("offset.x") || !oc.isDefault("offset.y")) {
