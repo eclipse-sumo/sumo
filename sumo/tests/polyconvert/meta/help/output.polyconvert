@@ -56,13 +56,13 @@ Usage: polyconvert [OPTION]*
   --proj.inverse                   Inverses projection
 
  Pruning Options:
-  --prune.on-net                   Enables pruning on net boundaries
-  --prune.on-net.offsets STR       Uses STR as offset definition added to the
+  --prune.in-net                   Enables pruning on net boundaries
+  --prune.in-net.offsets STR       Uses STR as offset definition added to the
                                      net boundaries
   --prune.boundary STR             Uses STR as pruning boundary
-  --prune.ignore STR               Items in STR will be kept though out of
+  --prune.keep-list STR            Items in STR will be kept though out of
                                      boundary
-  --remove STR                     Items with names in STR will be removed
+  --prune.explicit STR             Items with names in STR will be removed
 
  Processing Options:
   --offset.x FLOAT                 Adds FLOAT to net x-positions

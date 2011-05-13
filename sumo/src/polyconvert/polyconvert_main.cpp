@@ -138,20 +138,25 @@ fillOptions() throw() {
 
 
     // prunning options
-    oc.doRegister("prune.on-net", new Option_Bool(false));
-    oc.addDescription("prune.on-net", "Pruning", "Enables pruning on net boundaries");
+    oc.doRegister("prune.in-net", new Option_Bool(false));
+    oc.addSynonyme("prune.in-net", "prune.on-net", true);
+    oc.addDescription("prune.in-net", "Pruning", "Enables pruning on net boundaries");
 
-    oc.doRegister("prune.on-net.offsets", new Option_String("0;0;0;0"));
-    oc.addDescription("prune.on-net.offsets", "Pruning", "Uses STR as offset definition added to the net boundaries");
+    oc.doRegister("prune.in-net.offsets", new Option_String("0,0,0,0"));
+    oc.addSynonyme("prune.in-net.offsets", "prune.on-net.offsets", true);
+    oc.addDescription("prune.in-net.offsets", "Pruning", "Uses STR as offset definition added to the net boundaries");
 
     oc.doRegister("prune.boundary", new Option_String());
     oc.addDescription("prune.boundary", "Pruning", "Uses STR as pruning boundary");
 
-    oc.doRegister("prune.ignore", new Option_String());
-    oc.addDescription("prune.ignore", "Pruning", "Items in STR will be kept though out of boundary");
+    oc.doRegister("prune.keep-list", new Option_String());
+    oc.addSynonyme("prune.keep-list", "prune.keep");
+    oc.addSynonyme("prune.keep-list", "prune.ignore", true);
+    oc.addDescription("prune.keep-list", "Pruning", "Items in STR will be kept though out of boundary");
 
-    oc.doRegister("remove", new Option_String(""));
-    oc.addDescription("remove", "Pruning", "Items with names in STR will be removed");
+    oc.doRegister("prune.explicit", new Option_String(""));
+    oc.addSynonyme("prune.explicit", "remove");
+    oc.addDescription("prune.explicit", "Pruning", "Items with names in STR will be removed");
 
 
     oc.doRegister("offset.x", new Option_Float(0));
@@ -228,13 +233,13 @@ main(int argc, char **argv) {
 
         // check whether the input shall be pruned
         bool prune = false;
-        if (oc.getBool("prune.on-net")) {
+        if (oc.getBool("prune.in-net")) {
             if (!oc.isSet("net")) {
                 throw ProcessError("In order to prune the input on the net, you have to supply a network.");
             }
             bool ok = true;
             // !!! no proper error handling
-            Boundary offsets = GeomConvHelper::parseBoundaryReporting(oc.getString("prune.on-net.offsets"), "--prune.on-net.offsets", 0, ok);
+            Boundary offsets = GeomConvHelper::parseBoundaryReporting(oc.getString("prune.in-net.offsets"), "--prune.on-net.offsets", 0, ok);
             pruningBoundary = Boundary(
                                   pruningBoundary.xmin()+offsets.xmin(),
                                   pruningBoundary.ymin()+offsets.ymin(),

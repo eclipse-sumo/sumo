@@ -167,7 +167,7 @@ PCLoaderDlrNavteq::loadPOIFile(const std::string &file,
         }
         if (!discard) {
             bool ignorePrunning = false;
-            if (OptionsCont::getOptions().isInStringVector("prune.ignore", name)) {
+            if (OptionsCont::getOptions().isInStringVector("prune.keep-list", name)) {
                 ignorePrunning = true;
             }
             PointOfInterest *poi = new PointOfInterest(name, type, pos, color);

@@ -129,7 +129,7 @@ PCLoaderXML::myStartElement(int element,
         }
         if (!discard) {
             bool ignorePrunning = false;
-            if (OptionsCont::getOptions().isInStringVector("prune.ignore", id)) {
+            if (OptionsCont::getOptions().isInStringVector("prune.keep-list", id)) {
                 ignorePrunning = true;
             }
             PointOfInterest *poi = new PointOfInterest(id, type, pos, color);
@@ -163,7 +163,7 @@ PCLoaderXML::myStartElement(int element,
         }
         if (!discard) {
             bool ignorePrunning = false;
-            if (OptionsCont::getOptions().isInStringVector("prune.ignore", id)) {
+            if (OptionsCont::getOptions().isInStringVector("prune.keep-list", id)) {
                 ignorePrunning = true;
             }
             myCurrentID = id;

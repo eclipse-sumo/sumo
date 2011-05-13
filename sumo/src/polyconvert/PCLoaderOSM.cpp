@@ -183,7 +183,7 @@ PCLoaderOSM::loadIfSet(OptionsCont &oc, PCPolyContainer &toFill,
                 type = n->myType;
             }
             bool ignorePrunning = false;
-            if (OptionsCont::getOptions().isInStringVector("prune.ignore", name)) {
+            if (OptionsCont::getOptions().isInStringVector("prune.keep-list", name)) {
                 ignorePrunning = true;
             }
             Position2D pos(n->lon, n->lat);
