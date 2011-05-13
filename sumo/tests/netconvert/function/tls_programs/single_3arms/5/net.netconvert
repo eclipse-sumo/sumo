@@ -71,24 +71,24 @@
       <lane id=":15031812_0_0" depart="0" maxspeed="13.89" length="4.82" shape="204.52,230.43 205.43,231.61 205.57,232.52 204.91,233.17 203.48,233.57"/>
    </edge>
 
-   <edge id="-15032465" from="15031812" to="15031747" priority="-1" type="" function="normal">
+   <edge id="-15032465" from="15031812" to="15031747" priority="-1">
       <lane id="-15032465_0" depart="1" maxspeed="13.89" length="28.69" shape="203.48,233.57 176.26,224.49"/>
    </edge>
-   <edge id="-153119827" from="15031747" to="15031330" priority="-1" type="" function="normal">
+   <edge id="-153119827" from="15031747" to="15031330" priority="-1">
       <lane id="-153119827_0" depart="1" maxspeed="13.89" length="168.87" shape="164.75,224.41 -0.95,191.86"/>
       <lane id="-153119827_1" depart="0" maxspeed="13.89" length="168.87" shape="165.39,221.17 -0.32,188.62"/>
    </edge>
-   <edge id="15032465" from="15031747" to="15031812" priority="-1" type="" function="normal">
+   <edge id="15032465" from="15031747" to="15031812" priority="-1">
       <lane id="15032465_0" depart="1" maxspeed="13.89" length="28.69" shape="177.31,221.36 204.52,230.43"/>
    </edge>
-   <edge id="15033072" from="15031747" to="15031746" priority="-1" type="" function="normal">
+   <edge id="15033072" from="15031747" to="15031746" priority="-1">
       <lane id="15033072_0" depart="1" maxspeed="13.89" length="16.88" shape="172.62,228.33 171.95,245.20"/>
       <lane id="15033072_1" depart="0" maxspeed="13.89" length="16.88" shape="169.32,228.20 168.65,245.07"/>
    </edge>
-   <edge id="15033074" from="15031077" to="15031747" priority="-1" type="" function="normal">
+   <edge id="15033074" from="15031077" to="15031747" priority="-1">
       <lane id="15033074_0" depart="1" maxspeed="13.89" length="215.73" shape="153.65,-0.12 169.29,215.04"/>
    </edge>
-   <edge id="153119827" from="15031330" to="15031747" priority="-1" type="" function="normal">
+   <edge id="153119827" from="15031330" to="15031747" priority="-1">
       <lane id="153119827_0" depart="1" maxspeed="13.89" length="168.87" shape="0.32,185.38 166.03,217.93"/>
    </edge>
 

@@ -25,7 +25,7 @@
 
    <location netOffset="20000.00,10000.00" convBoundary="0.00,0.00,25000.00,15925.00" origBoundary="-20000.00,-10000.00,5000.00,5925.00" projParameter="!"/>
 
-   <edge id="1" from="1" to="2" priority="-1" type="" function="normal">
+   <edge id="1" from="1" to="2" priority="-1">
       <lane id="1_0" depart="1" maxspeed="27.78" length="4932.56" shape="65.95,9935.65 4998.51,9935.65"/>
       <lane id="1_1" depart="0" maxspeed="27.78" length="4932.56" shape="65.95,9938.95 4998.51,9938.95"/>
       <lane id="1_2" depart="0" maxspeed="27.78" length="4932.56" shape="65.95,9942.25 4998.51,9942.25"/>
@@ -47,42 +47,42 @@
       <lane id="1_18" depart="0" maxspeed="27.78" length="4932.56" shape="65.95,9995.05 4998.51,9995.05"/>
       <lane id="1_19" depart="0" maxspeed="27.78" length="4932.56" shape="65.95,9998.35 4998.51,9998.35"/>
    </edge>
-   <edge id="10" from="2" to="11" priority="-1" type="" function="normal">
+   <edge id="10" from="2" to="11" priority="-1">
       <lane id="10_0" depart="1" maxspeed="27.78" length="15306.81" shape="5014.99,9988.35 19131.76,4070.99"/>
       <lane id="10_1" depart="0" maxspeed="27.78" length="15306.81" shape="5016.26,9991.39 19133.04,4074.03"/>
    </edge>
-   <edge id="11" from="3" to="12" priority="-1" type="" function="normal">
+   <edge id="11" from="3" to="12" priority="-1">
       <lane id="11_0" depart="1" maxspeed="27.78" length="5969.16" shape="19134.68,15915.76 19996.99,10009.21"/>
    </edge>
-   <edge id="12" from="4" to="12" priority="-1" type="" function="normal">
+   <edge id="12" from="4" to="12" priority="-1">
       <lane id="12_0" depart="1" maxspeed="27.78" length="4981.93" shape="17504.34,14323.64 19993.43,10008.08"/>
    </edge>
-   <edge id="13" from="5" to="12" priority="-1" type="" function="normal">
+   <edge id="13" from="5" to="12" priority="-1">
       <lane id="13_0" depart="1" maxspeed="27.78" length="4981.68" shape="16175.46,13209.10 19990.62,10005.72"/>
    </edge>
-   <edge id="14" from="6" to="12" priority="-1" type="" function="normal">
+   <edge id="14" from="6" to="12" priority="-1">
       <lane id="14_0" depart="1" maxspeed="27.78" length="4979.94" shape="15309.96,11706.35 19989.23,10002.17"/>
    </edge>
-   <edge id="15" from="7" to="12" priority="-1" type="" function="normal">
+   <edge id="15" from="7" to="12" priority="-1">
       <lane id="15_0" depart="1" maxspeed="27.78" length="4987.64" shape="15001.50,9998.35 19989.14,9998.35"/>
    </edge>
-   <edge id="16" from="8" to="12" priority="-1" type="" function="normal">
+   <edge id="16" from="8" to="12" priority="-1">
       <lane id="16_0" depart="1" maxspeed="27.78" length="4987.53" shape="15303.96,8287.96 19990.36,9994.73"/>
    </edge>
-   <edge id="17" from="9" to="12" priority="-1" type="" function="normal">
+   <edge id="17" from="9" to="12" priority="-1">
       <lane id="17_0" depart="1" maxspeed="27.78" length="4987.41" shape="16173.19,6784.68 19992.74,9991.75"/>
    </edge>
-   <edge id="18" from="10" to="12" priority="-1" type="" function="normal">
+   <edge id="18" from="10" to="12" priority="-1">
       <lane id="18_0" depart="1" maxspeed="27.78" length="4987.44" shape="17504.16,5669.44 19996.00,9989.77"/>
    </edge>
-   <edge id="19" from="11" to="12" priority="-1" type="" function="normal">
+   <edge id="19" from="11" to="12" priority="-1">
       <lane id="19_0" depart="1" maxspeed="27.78" length="5976.20" shape="19136.84,4076.18 20000.16,9989.69"/>
    </edge>
-   <edge id="2" from="2" to="3" priority="-1" type="" function="normal">
+   <edge id="2" from="2" to="3" priority="-1">
       <lane id="2_0" depart="1" maxspeed="27.78" length="15303.03" shape="5017.59,10002.01 19130.88,15917.91"/>
       <lane id="2_1" depart="0" maxspeed="27.78" length="15303.03" shape="5016.31,10005.05 19129.60,15920.95"/>
    </edge>
-   <edge id="20" from="12" to="13" priority="-1" type="" function="normal">
+   <edge id="20" from="12" to="13" priority="-1">
       <lane id="20_0" depart="1" maxspeed="27.78" length="4932.48" shape="20001.46,9935.65 24934.05,9935.65"/>
       <lane id="20_1" depart="0" maxspeed="27.78" length="4932.48" shape="20001.46,9938.95 24934.05,9938.95"/>
       <lane id="20_2" depart="0" maxspeed="27.78" length="4932.48" shape="20001.46,9942.25 24934.05,9942.25"/>
@@ -104,7 +104,7 @@
       <lane id="20_18" depart="0" maxspeed="27.78" length="4932.48" shape="20001.46,9995.05 24934.05,9995.05"/>
       <lane id="20_19" depart="0" maxspeed="27.78" length="4932.48" shape="20001.46,9998.35 24934.05,9998.35"/>
    </edge>
-   <edge id="21" from="13" to="14" priority="-1" type="" function="normal">
+   <edge id="21" from="13" to="14" priority="-1">
       <lane id="21_0" depart="1" maxspeed="27.78" length="9868.10" shape="24935.65,9934.05 24935.65,65.95"/>
       <lane id="21_1" depart="0" maxspeed="27.78" length="9868.10" shape="24938.95,9934.05 24938.95,65.95"/>
       <lane id="21_2" depart="0" maxspeed="27.78" length="9868.10" shape="24942.25,9934.05 24942.25,65.95"/>
@@ -126,7 +126,7 @@
       <lane id="21_18" depart="0" maxspeed="27.78" length="9868.10" shape="24995.05,9934.05 24995.05,65.95"/>
       <lane id="21_19" depart="0" maxspeed="27.78" length="9868.10" shape="24998.35,9934.05 24998.35,65.95"/>
    </edge>
-   <edge id="22" from="14" to="15" priority="-1" type="" function="normal">
+   <edge id="22" from="14" to="15" priority="-1">
       <lane id="22_0" depart="1" maxspeed="27.78" length="24868.10" shape="24934.05,64.35 65.95,64.35"/>
       <lane id="22_1" depart="0" maxspeed="27.78" length="24868.10" shape="24934.05,61.05 65.95,61.05"/>
       <lane id="22_2" depart="0" maxspeed="27.78" length="24868.10" shape="24934.05,57.75 65.95,57.75"/>
@@ -148,7 +148,7 @@
       <lane id="22_18" depart="0" maxspeed="27.78" length="24868.10" shape="24934.05,4.95 65.95,4.95"/>
       <lane id="22_19" depart="0" maxspeed="27.78" length="24868.10" shape="24934.05,1.65 65.95,1.65"/>
    </edge>
-   <edge id="23" from="15" to="1" priority="-1" type="" function="normal">
+   <edge id="23" from="15" to="1" priority="-1">
       <lane id="23_0" depart="1" maxspeed="27.78" length="9868.10" shape="64.35,65.95 64.35,9934.05"/>
       <lane id="23_1" depart="0" maxspeed="27.78" length="9868.10" shape="61.05,65.95 61.05,9934.05"/>
       <lane id="23_2" depart="0" maxspeed="27.78" length="9868.10" shape="57.75,65.95 57.75,9934.05"/>
@@ -170,31 +170,31 @@
       <lane id="23_18" depart="0" maxspeed="27.78" length="9868.10" shape="4.95,65.95 4.95,9934.05"/>
       <lane id="23_19" depart="0" maxspeed="27.78" length="9868.10" shape="1.65,65.95 1.65,9934.05"/>
    </edge>
-   <edge id="3" from="2" to="4" priority="-1" type="" function="normal">
+   <edge id="3" from="2" to="4" priority="-1">
       <lane id="3_0" depart="1" maxspeed="27.78" length="13210.14" shape="5018.01,10001.00 17500.26,14325.16"/>
       <lane id="3_1" depart="0" maxspeed="27.78" length="13210.14" shape="5016.73,10004.05 17499.18,14328.28"/>
    </edge>
-   <edge id="4" from="2" to="5" priority="-1" type="" function="normal">
+   <edge id="4" from="2" to="5" priority="-1">
       <lane id="4_0" depart="1" maxspeed="27.78" length="11605.97" shape="5018.29,10000.11 16171.40,13209.96"/>
       <lane id="4_1" depart="0" maxspeed="27.78" length="11605.97" shape="5017.09,10003.20 16170.48,13213.13"/>
    </edge>
-   <edge id="5" from="2" to="6" priority="-1" type="" function="normal">
+   <edge id="5" from="2" to="6" priority="-1">
       <lane id="5_0" depart="1" maxspeed="27.78" length="10428.81" shape="5018.32,9998.03 15306.26,11706.69"/>
       <lane id="5_1" depart="0" maxspeed="27.78" length="10428.81" shape="5017.89,10001.30 15305.72,11709.94"/>
    </edge>
-   <edge id="6" from="2" to="7" priority="-1" type="" function="normal">
+   <edge id="6" from="2" to="7" priority="-1">
       <lane id="6_0" depart="1" maxspeed="27.78" length="9980.18" shape="5018.32,9995.05 14998.50,9995.05"/>
       <lane id="6_1" depart="0" maxspeed="27.78" length="9980.18" shape="5018.32,9998.35 14998.50,9998.35"/>
    </edge>
-   <edge id="7" from="2" to="8" priority="-1" type="" function="normal">
+   <edge id="7" from="2" to="8" priority="-1">
       <lane id="7_0" depart="1" maxspeed="27.78" length="10423.38" shape="5016.61,9992.22 15299.72,8284.36"/>
       <lane id="7_1" depart="0" maxspeed="27.78" length="10423.38" shape="5018.32,9995.28 15300.26,8287.62"/>
    </edge>
-   <edge id="8" from="2" to="9" priority="-1" type="" function="normal">
+   <edge id="8" from="2" to="9" priority="-1">
       <lane id="8_0" depart="1" maxspeed="27.78" length="11604.59" shape="5015.80,9990.30 16168.22,6780.65"/>
       <lane id="8_1" depart="0" maxspeed="27.78" length="11604.59" shape="5017.68,9993.19 16169.13,6783.82"/>
    </edge>
-   <edge id="9" from="2" to="10" priority="-1" type="" function="normal">
+   <edge id="9" from="2" to="10" priority="-1">
       <lane id="9_0" depart="1" maxspeed="27.78" length="13211.32" shape="5015.43,9989.42 17499.00,5664.80"/>
       <lane id="9_1" depart="0" maxspeed="27.78" length="13211.32" shape="5016.71,9992.46 17500.08,5667.92"/>
    </edge>

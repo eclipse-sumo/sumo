@@ -33,11 +33,11 @@
       <lane id=":1.50_3_0" depart="0" maxspeed="28.00" length="7.25" shape="48.50,-8.25 51.50,-1.65"/>
    </edge>
 
-   <edge id="1" from="SUMOGenerated0" to="1.50" priority="-1" type="" function="normal">
+   <edge id="1" from="SUMOGenerated0" to="1.50" priority="-1">
       <lane id="1_0" depart="1" maxspeed="28.00" length="48.50" shape="0.00,-11.55 48.50,-11.55"/>
       <lane id="1_1" depart="0" maxspeed="28.00" length="48.50" shape="0.00,-8.25 48.50,-8.25"/>
    </edge>
-   <edge id="1.50" from="1.50" to="SUMOGenerated1" priority="-1" type="" function="normal">
+   <edge id="1.50" from="1.50" to="SUMOGenerated1" priority="-1">
       <lane id="1.50_0" depart="1" maxspeed="28.00" length="48.50" shape="51.50,-11.55 100.00,-11.55"/>
       <lane id="1.50_1" depart="0" maxspeed="28.00" length="48.50" shape="51.50,-8.25 100.00,-8.25"/>
       <lane id="1.50_2" depart="0" maxspeed="28.00" length="48.50" shape="51.50,-4.95 100.00,-4.95"/>

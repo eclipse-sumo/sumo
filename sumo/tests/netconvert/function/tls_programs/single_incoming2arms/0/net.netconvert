@@ -32,13 +32,13 @@
       <lane id=":15030043_1_0" depart="0" maxspeed="13.89" length="6.30" shape="122.93,64.88 121.57,71.03"/>
    </edge>
 
-   <edge id="15030608" from="15030238" to="15030043" priority="-1" type="" function="normal">
+   <edge id="15030608" from="15030238" to="15030043" priority="-1">
       <lane id="15030608_0" depart="1" maxspeed="12.50" length="134.93" shape="256.62,99.61 125.28,68.70"/>
    </edge>
-   <edge id="15030858" from="15030435" to="15030043" priority="-1" type="" function="normal">
+   <edge id="15030858" from="15030435" to="15030043" priority="-1">
       <lane id="15030858_0" depart="1" maxspeed="13.89" length="65.97" shape="136.61,0.34 122.93,64.88"/>
    </edge>
-   <edge id="153122148" from="15030043" to="15031475" priority="-1" type="" function="normal">
+   <edge id="153122148" from="15030043" to="15031475" priority="-1">
       <lane id="153122148_0" depart="1" maxspeed="13.89" length="550.55" shape="121.57,71.03 1.61,608.36"/>
    </edge>
 

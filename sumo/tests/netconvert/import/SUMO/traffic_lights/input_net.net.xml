@@ -82,22 +82,22 @@
       <lane id=":node_up_0_0" depart="0" maxspeed="10.00" length="4.82" shape="1.65,30.00 0.83,31.24 0.00,31.65 -0.82,31.24 -1.65,30.00"/>
    </edge>
 
-   <edge id="-edge_left" from="node_centertl" to="node_left" priority="2" type="" function="normal">
+   <edge id="-edge_left" from="node_centertl" to="node_left" priority="2">
       <lane id="-edge_left_0" depart="1" maxspeed="10.00" length="25.25" shape="-4.75,1.65 -30.00,1.65"/>
    </edge>
-   <edge id="-edge_right" from="node_centertl" to="node_right" priority="2" type="" function="normal">
+   <edge id="-edge_right" from="node_centertl" to="node_right" priority="2">
       <lane id="-edge_right_0" depart="1" maxspeed="10.00" length="25.25" shape="4.75,-1.65 30.00,-1.65"/>
    </edge>
-   <edge id="-edge_up" from="node_centertl" to="node_up" priority="2" type="" function="normal">
+   <edge id="-edge_up" from="node_centertl" to="node_up" priority="2">
       <lane id="-edge_up_0" depart="1" maxspeed="10.00" length="25.25" shape="1.65,4.75 1.65,30.00"/>
    </edge>
-   <edge id="edge_left" from="node_left" to="node_centertl" priority="2" type="" function="normal">
+   <edge id="edge_left" from="node_left" to="node_centertl" priority="2">
       <lane id="edge_left_0" depart="1" maxspeed="10.00" length="25.25" shape="-30.00,-1.65 -4.75,-1.65"/>
    </edge>
-   <edge id="edge_right" from="node_right" to="node_centertl" priority="2" type="" function="normal">
+   <edge id="edge_right" from="node_right" to="node_centertl" priority="2">
       <lane id="edge_right_0" depart="1" maxspeed="10.00" length="25.25" shape="30.00,1.65 4.75,1.65"/>
    </edge>
-   <edge id="edge_up" from="node_up" to="node_centertl" priority="2" type="" function="normal">
+   <edge id="edge_up" from="node_up" to="node_centertl" priority="2">
       <lane id="edge_up_0" depart="1" maxspeed="10.00" length="25.25" shape="-1.65,30.00 -1.65,4.75"/>
    </edge>
 

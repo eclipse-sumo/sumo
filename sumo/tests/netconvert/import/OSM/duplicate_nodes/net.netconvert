@@ -235,64 +235,64 @@
       <lane id=":-9_0_0" depart="0" maxspeed="22.22" length="4.82" shape="402.75,920.85 402.34,922.28 401.68,922.92 400.77,922.78 399.61,921.85"/>
    </edge>
 
-   <edge id="--32" from="-7" to="-14" priority="1" type="highway.track" function="normal">
+   <edge id="--32" from="-7" to="-14" priority="1" type="highway.track">
       <lane id="--32_0" depart="1" maxspeed="5.56" length="12.51" shape="341.70,733.99 341.88,721.48"/>
    </edge>
-   <edge id="--33#0" from="-15" to="-2" priority="9" type="highway.primary" function="normal">
+   <edge id="--33#0" from="-15" to="-2" priority="9" type="highway.primary">
       <lane id="--33#0_0" depart="1" maxspeed="27.78" length="327.24" shape="304.31,705.95 134.77,790.69 1.56,826.82"/>
       <lane id="--33#0_1" depart="0" maxspeed="27.78" length="327.24" shape="302.83,702.99 133.59,787.59 0.70,823.64"/>
    </edge>
-   <edge id="--33#1" from="-26" to="-15" priority="9" type="highway.primary" function="normal">
+   <edge id="--33#1" from="-26" to="-15" priority="9" type="highway.primary">
       <lane id="--33#1_0" depart="1" maxspeed="27.78" length="353.84" shape="498.20,409.92 478.22,510.47 430.46,586.58 342.67,684.36 315.26,699.86"/>
       <lane id="--33#1_1" depart="0" maxspeed="27.78" length="353.84" shape="494.96,409.28 475.11,509.24 427.66,584.83 340.58,681.75 313.63,696.99"/>
    </edge>
-   <edge id="--33#2" from="-29" to="-26" priority="9" type="highway.primary" function="normal">
+   <edge id="--33#2" from="-29" to="-26" priority="9" type="highway.primary">
       <lane id="--33#2_0" depart="1" maxspeed="27.78" length="389.36" shape="496.81,19.74 481.26,117.27 498.40,407.00"/>
       <lane id="--33#2_1" depart="0" maxspeed="27.78" length="389.36" shape="493.55,19.22 477.94,117.10 495.10,407.19"/>
    </edge>
-   <edge id="--35#1" from="-7" to="-30" priority="5" type="highway.unclassified" function="normal">
+   <edge id="--35#1" from="-7" to="-30" priority="5" type="highway.unclassified">
       <lane id="--35#1_0" depart="1" maxspeed="22.22" length="357.70" shape="339.24,742.86 316.26,750.95 0.53,857.84"/>
    </edge>
-   <edge id="--37#0" from="-7" to="-19" priority="5" type="highway.unclassified" function="normal">
+   <edge id="--37#0" from="-7" to="-19" priority="5" type="highway.unclassified">
       <lane id="--37#0_0" depart="1" maxspeed="22.22" length="699.43" shape="348.41,736.77 580.89,680.95 814.73,670.49 1040.78,680.39"/>
    </edge>
-   <edge id="--37#1" from="-9" to="-7" priority="5" type="highway.unclassified" function="normal">
+   <edge id="--37#1" from="-9" to="-7" priority="5" type="highway.unclassified">
       <lane id="--37#1_0" depart="1" maxspeed="22.22" length="185.67" shape="399.61,921.85 343.21,744.96"/>
    </edge>
-   <edge id="--38#0" from="-14" to="-19" priority="1" type="highway.track" function="normal">
+   <edge id="--38#0" from="-14" to="-19" priority="1" type="highway.track">
       <lane id="--38#0_0" depart="1" maxspeed="5.56" length="729.20" shape="345.28,714.46 395.04,676.55 595.00,634.03 871.08,653.24 1023.47,650.26 1044.62,675.65"/>
    </edge>
-   <edge id="--38#2" from="-15" to="-14" priority="1" type="highway.track" function="normal">
+   <edge id="--38#2" from="-15" to="-14" priority="1" type="highway.track">
       <lane id="--38#2_0" depart="1" maxspeed="5.56" length="27.56" shape="315.49,704.05 320.01,705.98 340.84,714.86"/>
    </edge>
-   <edge id="-32" from="-14" to="-7" priority="1" type="highway.track" function="normal">
+   <edge id="-32" from="-14" to="-7" priority="1" type="highway.track">
       <lane id="-32_0" depart="1" maxspeed="5.56" length="12.51" shape="345.18,721.53 345.00,734.04"/>
    </edge>
-   <edge id="-33#0" from="-2" to="-15" priority="9" type="highway.primary" function="normal">
+   <edge id="-33#0" from="-2" to="-15" priority="9" type="highway.primary">
       <lane id="-33#0_0" depart="1" maxspeed="27.78" length="325.92" shape="-1.03,817.27 131.23,781.39 299.88,697.09"/>
       <lane id="-33#0_1" depart="0" maxspeed="27.78" length="325.92" shape="-0.17,820.45 132.41,784.49 301.36,700.04"/>
    </edge>
-   <edge id="-33#1" from="-15" to="-26" priority="9" type="highway.primary" function="normal">
+   <edge id="-33#1" from="-15" to="-26" priority="9" type="highway.primary">
       <lane id="-33#1_0" depart="1" maxspeed="27.78" length="348.13" shape="310.38,691.24 336.39,676.54 422.59,580.64 468.87,506.76 488.49,407.99"/>
       <lane id="-33#1_1" depart="0" maxspeed="27.78" length="348.13" shape="312.01,694.12 338.48,679.15 425.04,582.85 471.99,508.00 491.72,408.63"/>
    </edge>
-   <edge id="-33#2" from="-26" to="-29" priority="9" type="highway.primary" function="normal">
+   <edge id="-33#2" from="-26" to="-29" priority="9" type="highway.primary">
       <lane id="-33#2_0" depart="1" maxspeed="27.78" length="390.80" shape="488.52,407.58 471.31,116.77 487.03,18.18"/>
       <lane id="-33#2_1" depart="0" maxspeed="27.78" length="390.80" shape="491.81,407.39 474.63,116.94 490.29,18.70"/>
    </edge>
-   <edge id="-35#0" from="-30" to="-7" priority="5" type="highway.unclassified" function="normal">
+   <edge id="-35#0" from="-30" to="-7" priority="5" type="highway.unclassified">
       <lane id="-35#0_0" depart="1" maxspeed="22.22" length="357.66" shape="-0.53,854.71 315.18,747.83 338.15,739.75"/>
    </edge>
-   <edge id="-37#0" from="-19" to="-7" priority="5" type="highway.unclassified" function="normal">
+   <edge id="-37#0" from="-19" to="-7" priority="5" type="highway.unclassified">
       <lane id="-37#0_0" depart="1" maxspeed="22.22" length="698.51" shape="1040.64,683.69 814.73,673.78 581.35,684.23 349.18,739.98"/>
    </edge>
-   <edge id="-37#1" from="-7" to="-9" priority="5" type="highway.unclassified" function="normal">
+   <edge id="-37#1" from="-7" to="-9" priority="5" type="highway.unclassified">
       <lane id="-37#1_0" depart="1" maxspeed="22.22" length="185.67" shape="346.36,743.96 402.75,920.85"/>
    </edge>
-   <edge id="-38#0" from="-19" to="-14" priority="1" type="highway.track" function="normal">
+   <edge id="-38#0" from="-19" to="-14" priority="1" type="highway.track">
       <lane id="-38#0_0" depart="1" maxspeed="5.56" length="723.91" shape="1042.08,677.77 1021.95,653.59 871.00,656.54 595.23,637.36 396.45,679.62 347.28,717.08"/>
    </edge>
-   <edge id="-38#1" from="-14" to="-15" priority="1" type="highway.track" function="normal">
+   <edge id="-38#1" from="-14" to="-15" priority="1" type="highway.track">
       <lane id="-38#1_0" depart="1" maxspeed="5.56" length="27.56" shape="339.55,717.90 318.71,709.01 314.20,707.09"/>
    </edge>
 
