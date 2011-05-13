@@ -91,7 +91,7 @@ class NetReader(handler.ContentHandler):
 
     def startElement(self, name, attrs):
         if name == 'edge':
-            if attrs['function'] == 'normal':
+            if not attrs.has_key('function') or attrs['function'] == 'normal':
                 self._edges.append(attrs['id'])
 
     def getEdges(self):
