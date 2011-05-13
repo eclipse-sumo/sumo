@@ -50,31 +50,31 @@
       <lane id=":r4_0_0" depart="0" maxspeed="13.90" length="2.58" shape="300.05,98.35 300.75,98.45 301.25,98.75 301.55,99.25 301.65,99.95"/>
    </edge>
 
-   <edge id="1to2" from="r1" to="r2" priority="-1" type="" function="normal">
+   <edge id="1to2" from="r1" to="r2" priority="-1">
       <lane id="1to2_0" depart="1" maxspeed="13.90" length="95.30" shape="3.25,98.35 98.55,98.35"/>
    </edge>
-   <edge id="2to3" from="r2" to="r3" priority="-1" type="" function="normal">
+   <edge id="2to3" from="r2" to="r3" priority="-1">
       <lane id="2to3_0" depart="1" maxspeed="13.90" length="93.80" shape="104.75,98.35 198.55,98.35"/>
    </edge>
-   <edge id="3to4" from="r3" to="r4" priority="-1" type="" function="normal">
+   <edge id="3to4" from="r3" to="r4" priority="-1">
       <lane id="3to4_0" depart="1" maxspeed="13.90" length="95.30" shape="204.75,98.35 300.05,98.35"/>
    </edge>
-   <edge id="in1" from="i1" to="r1" priority="-1" type="" function="normal">
+   <edge id="in1" from="i1" to="r1" priority="-1">
       <lane id="in1_0" depart="1" maxspeed="13.90" length="96.75" shape="1.65,0.00 1.65,96.75"/>
    </edge>
-   <edge id="in2" from="i2" to="r2" priority="-1" type="" function="normal">
+   <edge id="in2" from="i2" to="r2" priority="-1">
       <lane id="in2_0" depart="1" maxspeed="13.90" length="95.25" shape="101.65,0.00 101.65,95.25"/>
    </edge>
-   <edge id="out3" from="r3" to="o3" priority="-1" type="" function="normal">
+   <edge id="out3" from="r3" to="o3" priority="-1">
       <lane id="out3_0" depart="1" maxspeed="13.90" length="98.55" shape="201.65,101.45 201.65,200.00"/>
    </edge>
-   <edge id="out4" from="r4" to="o4" priority="-1" type="" function="normal">
+   <edge id="out4" from="r4" to="o4" priority="-1">
       <lane id="out4_0" depart="1" maxspeed="13.90" length="100.05" shape="301.65,99.95 301.65,200.00"/>
    </edge>
-   <edge id="post3" from="o3" to="p3" priority="-1" type="" function="normal">
+   <edge id="post3" from="o3" to="p3" priority="-1">
       <lane id="post3_0" depart="1" maxspeed="13.90" length="5.00" shape="201.65,200.00 201.65,205.00"/>
    </edge>
-   <edge id="post4" from="o4" to="p4" priority="-1" type="" function="normal">
+   <edge id="post4" from="o4" to="p4" priority="-1">
       <lane id="post4_0" depart="1" maxspeed="13.90" length="5.00" shape="301.65,200.00 301.65,205.00"/>
    </edge>
 
