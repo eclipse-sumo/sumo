@@ -59,7 +59,7 @@
 void
 PCLoaderXML::loadIfSet(OptionsCont &oc, PCPolyContainer &toFill,
                        PCTypeMap &tm) throw(ProcessError) {
-    if (!oc.isSet("xml")) {
+    if (!oc.isSet("xml-files")) {
         return;
     }
     PCLoaderXML handler(toFill, tm, oc);

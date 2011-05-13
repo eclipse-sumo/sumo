@@ -53,11 +53,11 @@
 void
 PCLoaderArcView::loadIfSet(OptionsCont &oc, PCPolyContainer &toFill,
                            PCTypeMap &tm) throw(ProcessError) {
-    if (!oc.isSet("shape-files")) {
+    if (!oc.isSet("shapefile-prefix")) {
         return;
     }
     // parse file(s)
-    std::vector<std::string> files = oc.getStringVector("shape-files");
+    std::vector<std::string> files = oc.getStringVector("shapefile-prefix");
     for (std::vector<std::string>::const_iterator file=files.begin(); file!=files.end(); ++file) {
         MsgHandler::getMessageInstance()->beginProcessMsg("Parsing from shape-file '" + *file + "'...");
         load(*file, oc, toFill, tm);
@@ -76,7 +76,7 @@ PCLoaderArcView::load(const std::string &file, OptionsCont &oc, PCPolyContainer 
     std::string type = oc.getString("type");
     RGBColor color = RGBColor::parseColor(oc.getString("color"));
     int layer = oc.getInt("layer");
-    std::string idField = oc.getString("shape-files.id-name");
+    std::string idField = oc.getString("shapefile.id-column");
     // start parsing
     std::string shpName = file + ".shp";
     OGRRegisterAll();
@@ -96,7 +96,7 @@ PCLoaderArcView::load(const std::string &file, OptionsCont &oc, PCPolyContainer 
     destTransf.SetWellKnownGeogCS("WGS84");
     OGRCoordinateTransformation *poCT = OGRCreateCoordinateTransformation(origTransf, &destTransf);
     if (poCT == NULL) {
-        if (oc.isSet("arcview.guess-projection")) {
+        if (oc.isSet("shapefile.guess-projection")) {
             OGRSpatialReference origTransf2;
             origTransf2.SetWellKnownGeogCS("WGS84");
             poCT = OGRCreateCoordinateTransformation(&origTransf2, &destTransf);

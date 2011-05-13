@@ -1,4 +1,4 @@
-SUMO polyconvert Version dev-SVN-r10305
+SUMO polyconvert Version dev-SVN-r10329
  Copyright (C) 2001-2011 DLR and contributors; http://sumo.sourceforge.net
  
 Importer of polygons and POIs for the road traffic simulation SUMO.
@@ -26,18 +26,18 @@ Usage: polyconvert [OPTION]*
                                      in DLR-Navteq (Elmar)-format
   --visum-files FILE               Reads polygons from FILE assuming it's a
                                      Visum-net
-  --xml FILE                       Reads pois from FILE assuming they're coded
-                                     in XML
+  --xml-files FILE                 Reads pois and shapes from FILE assuming
+                                     they're coded in XML
   --osm-files FILE                 Reads pois from FILE+ assuming they're coded
                                      in OSM
   --osm.keep-full-type             The type will be made of the key-value -
                                      pair.
   --osm.use-name                   The id will be set from the given 'name'
                                      attribute.
-  --shapefile FILE                 Reads shapes from shape-files FILE+
+  --shapefile-prefix FILE          Reads shapes from shapefiles FILE+
   --shapefile.guess-projection     Guesses the shapefile's projection
-  --shapefile.id-name FILE         Defines where to find the id
-  --typemap FILE                   Reads types from FILE
+  --shapefile.id-column FILE       Defines in which column the id can be found
+  --type-file FILE                 Reads types from FILE
 
  Output Options:
   -o, --output FILE                Write generated polygons/pois to FILE

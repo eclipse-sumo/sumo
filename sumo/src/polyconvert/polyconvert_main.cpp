@@ -98,8 +98,9 @@ fillOptions() throw() {
     oc.addDescription("visum-files", "Input", "Reads polygons from FILE assuming it's a Visum-net");
 
     // xml import
-    oc.doRegister("xml", new Option_FileName());
-    oc.addDescription("xml", "Input", "Reads pois from FILE assuming they're coded in XML");
+    oc.doRegister("xml-files", new Option_FileName());
+    oc.addSynonyme("xml-files", "xml");
+    oc.addDescription("xml-files", "Input", "Reads pois and shapes from FILE assuming they're coded in XML");
 
     // osm import
     oc.doRegister("osm-files", new Option_FileName());
@@ -111,19 +112,24 @@ fillOptions() throw() {
     oc.addDescription("osm.use-name", "Input", "The id will be set from the given 'name' attribute.");
 
     // arcview import
-    oc.doRegister("shapefile", new Option_FileName());
-    oc.addSynonyme("shapefile", "shape-files");
-    oc.addSynonyme("shapefile", "shape");
-    oc.addDescription("shapefile", "Input", "Reads shapes from shape-files FILE+");
+    oc.doRegister("shapefile-prefix", new Option_FileName());
+    oc.addSynonyme("shapefile-prefix", "shapefile");
+    oc.addSynonyme("shapefile-prefix", "shape-files", true);
+    oc.addDescription("shapefile-prefix", "Input", "Reads shapes from shapefiles FILE+");
+
     oc.doRegister("shapefile.guess-projection", new Option_Bool(false));
-    oc.addSynonyme("shapefile.guess-projection", "arcview.guess-projection");
+    oc.addSynonyme("shapefile.guess-projection", "arcview.guess-projection", true);
     oc.addDescription("shapefile.guess-projection", "Input", "Guesses the shapefile's projection");
-    oc.doRegister("shapefile.id-name", new Option_FileName());
-    oc.addDescription("shapefile.id-name", "Input", "Defines where to find the id");
+
+    oc.doRegister("shapefile.id-column", new Option_FileName());
+    oc.addSynonyme("shapefile.id-column", "shapefile.id-name", true);
+    oc.addSynonyme("shapefile.id-column", "shape-files.id-name", true);
+    oc.addDescription("shapefile.id-column", "Input", "Defines in which column the id can be found");
 
     // typemap reading
-    oc.doRegister("typemap", new Option_FileName());
-    oc.addDescription("typemap", "Input", "Reads types from FILE");
+    oc.doRegister("type-file", new Option_FileName());
+    oc.addSynonyme("type-file", "typemap", true);
+    oc.addDescription("type-file", "Input", "Reads types from FILE");
 
 
     // output
@@ -247,9 +253,9 @@ main(int argc, char **argv) {
 
         // read in the type defaults
         PCTypeMap tm;
-        if (oc.isSet("typemap")) {
+        if (oc.isSet("type-file")) {
             PCTypeDefHandler handler(oc, tm);
-            if (!XMLSubSys::runParser(handler, oc.getString("typemap"))) {
+            if (!XMLSubSys::runParser(handler, oc.getString("type-file"))) {
                 // something failed
                 throw ProcessError();
             }
