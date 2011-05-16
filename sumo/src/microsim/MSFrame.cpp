@@ -202,35 +202,6 @@ MSFrame::fillOptions() {
     MSDevice_HBEFA::insertOptions();
 
 
-    // tls
-    oc.doRegister("agent-tl.detector-len", new Option_Float(75));//!!! recheck
-    oc.addDescription("agent-tl.detector-len", "TLS Defaults", "");
-
-    oc.doRegister("agent-tl.learn-horizon", new Option_Integer(3));//!!! recheck
-    oc.addDescription("agent-tl.learn-horizon", "TLS Defaults", "");
-
-    oc.doRegister("agent-tl.decision-horizon", new Option_Integer(1));//!!! recheck
-    oc.addDescription("agent-tl.decision-horizon", "TLS Defaults", "");
-
-    oc.doRegister("agent-tl.min-diff", new Option_Float((SUMOReal) .1));//!!! recheck
-    oc.addDescription("agent-tl.min-diff", "TLS Defaults", "");
-
-    oc.doRegister("agent-tl.tcycle", new Option_Integer(90));//!!! recheck
-    oc.addDescription("agent-tl.tcycle", "TLS Defaults", "");
-
-    oc.doRegister("actuated-tl.detector-pos", new Option_Float(100));//!!! recheck
-    oc.addDescription("actuated-tl.detector-pos", "TLS Defaults", "");
-
-    oc.doRegister("actuated-tl.max-gap", new Option_Float(3.1f));//!!! recheck
-    oc.addDescription("actuated-tl.max-gap", "TLS Defaults", "");
-
-    oc.doRegister("actuated-tl.detector-gap", new Option_Float(3.0f));//!!! recheck
-    oc.addDescription("actuated-tl.detector-gap", "TLS Defaults", "");
-
-    oc.doRegister("actuated-tl.passing-time", new Option_Float(1.9f));//!!! recheck
-    oc.addDescription("actuated-tl.passing-time", "TLS Defaults", "");
-
-
     // register report options
     oc.doRegister("no-duration-log", new Option_Bool(false));
     oc.addDescription("no-duration-log", "Report", "Disable performance reports for individual simulation steps");

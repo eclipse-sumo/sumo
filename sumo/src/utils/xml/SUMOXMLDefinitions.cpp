@@ -306,7 +306,6 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "speed_treshold", SUMO_ATTR_HALTING_SPEED_THRESHOLD },
     { "jam_treshold",   SUMO_ATTR_JAM_DIST_THRESHOLD },
     { "keep_for",       SUMO_ATTR_DELETE_DATA_AFTER_SECONDS },
-    { "det_offset",     SUMO_ATTR_DET_OFFSET },
 
     { "wautID",		    SUMO_ATTR_WAUT_ID },
     { "junctionID",     SUMO_ATTR_JUNCTION_ID },

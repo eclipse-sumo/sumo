@@ -180,13 +180,11 @@ public:
      * @param[in] programID The id of the currently loaded program
      * @param[in] type The type of the tls
      * @param[in] offset The offset to start with
-     * @param[in] detectorOffset The offset of the detectors to build
      * @todo Why is the type not verified?
      * @todo Recheck, describe usage of detectorOffset (where does the information come from?)
-     * @todo detectorOffset is used only by one junction type. Is it not possible, to remove this from the call?
      */
     void initTrafficLightLogic(const std::string &id, const std::string &programID,
-                               const std::string &type, int offset, SUMOReal detectorOffset) throw();
+                               const std::string &type, int offset) throw();
 
 
     /** @brief Adds a phase to the currently built traffic lights logic
@@ -414,41 +412,6 @@ protected:
 
     /// @brief The container for information which junctions shall be initialised using which values
     std::vector<TLInitInfo> myJunctions2PostLoadInit;
-
-    /// @name Default parameter for extended tls
-    /// @todo Recheck, move to somewhere else
-    /// @{
-
-    /// @brief Default detector offset
-    SUMOReal myDetectorOffset;
-
-    /// @brief Default detector positions
-    SUMOReal myStdDetectorPositions;
-
-    /// @brief Default detector lengths (agentbased)
-    SUMOReal myStdDetectorLengths;
-
-    /// @brief Default learning horizon (agentbased)
-    int myStdLearnHorizon;
-
-    /// @brief Default decision horizon (agentbased)
-    int myStdDecisionHorizon;
-
-    /// @brief Default difference minimum (agentbased)
-    SUMOReal myStdDeltaLimit;
-
-    /// @brief The loaded default cycle time
-    int myStdTCycle;
-
-    // @brief Default maximum gap  (actuated)
-    SUMOReal myStdActuatedMaxGap;
-
-    // @brief Default passing time (actuated)
-    SUMOReal myStdActuatedPassingTime;
-
-    // @brief Default maximum gap (actuated)
-    SUMOReal myStdActuatedDetectorGap;
-    /// @}
 
 
     /// @brief The tls control to use (0 if net's tls control shall be used)

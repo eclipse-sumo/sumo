@@ -77,16 +77,13 @@ public:
      * @param[in] phases Definitions of the phases
      * @param[in] step The initial phase index
      * @param[in] delay The time to wait before the first switch
-     * @param[in] learnHorizon !!!
-     * @param[in] decHorizon !!!
-     * @param[in] minDiff !!!
-     * @param[in] tcycle !!!
+     * @param[in] parameter The parameter to use for tls set-up
      */
     MSAgentbasedTrafficLightLogic(MSTLLogicControl &tlcontrol,
                                   const std::string &id, const std::string &programID,
                                   const MSSimpleTrafficLightLogic::Phases &phases,
-                                  unsigned int step, SUMOTime delay, int learnHorizon, int decHorizon,
-                                  SUMOReal minDiff, int tcycle);
+                                  unsigned int step, SUMOTime delay, 
+                                  const std::map<std::string, std::string> &parameter);
 
 
     /** @brief Initialises the tls with information about incoming lanes

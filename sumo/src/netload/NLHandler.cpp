@@ -621,15 +621,13 @@ NLHandler::initJunctionLogic(const SUMOSAXAttributes &attrs) {
 void
 NLHandler::initTrafficLightLogic(const SUMOSAXAttributes &attrs) {
     myAmInTLLogicMode = true;
-    SUMOReal detectorOffset = -1;
     myJunctionControlBuilder.initIncomingLanes(); // @deprecated (is this still used?)
     bool ok = true;
     std::string type = attrs.getStringReporting(SUMO_ATTR_TYPE, 0, ok);
-    detectorOffset = attrs.getOptSUMORealReporting(SUMO_ATTR_DET_OFFSET, 0, ok, -1);
     //
     if (!attrs.hasAttribute(SUMO_ATTR_ID)) {
         // @deprecated: assuming a net could still use characters for the id
-        myJunctionControlBuilder.initTrafficLightLogic("", "", type, 0, detectorOffset);
+        myJunctionControlBuilder.initTrafficLightLogic("", "", type, 0);
         return;
     }
     std::string id = attrs.getStringReporting(SUMO_ATTR_ID, 0, ok);
@@ -638,7 +636,7 @@ NLHandler::initTrafficLightLogic(const SUMOSAXAttributes &attrs) {
         return;
     }
     std::string programID = attrs.getOptStringReporting(SUMO_ATTR_PROGRAMID, id.c_str(), ok, "<unknown>");
-    myJunctionControlBuilder.initTrafficLightLogic(id, programID, type, offset, detectorOffset);
+    myJunctionControlBuilder.initTrafficLightLogic(id, programID, type, offset);
 }
 
 

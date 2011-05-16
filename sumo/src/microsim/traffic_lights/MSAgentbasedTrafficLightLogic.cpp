@@ -48,10 +48,27 @@ MSAgentbasedTrafficLightLogic::MSAgentbasedTrafficLightLogic(
     MSTLLogicControl &tlcontrol,
     const std::string &id, const std::string &programID,
     const Phases &phases, unsigned int step, SUMOTime delay,
-    int learnHorizon, int decHorizon, SUMOReal minDiff, int tcycle)
+    const std::map<std::string, std::string> &parameter)
         : MSSimpleTrafficLightLogic(tlcontrol, id, programID, phases, step, delay),
-        tDecide(decHorizon), tSinceLastDecision(0), stepOfLastDecision(0),
-        numberOfValues(learnHorizon), tCycle(tcycle), deltaLimit(minDiff) {}
+        tSinceLastDecision(0), stepOfLastDecision(0) {
+
+    tDecide = unsigned int(1);
+    if(parameter.find("decision-horizon")!=parameter.end()) {
+        tDecide = (unsigned int) TplConvert<char>::_2int(parameter.find("decision-horizon")->second.c_str());
+    }
+    numberOfValues = unsigned int(3);
+    if(parameter.find("learn-horizon")!=parameter.end()) {
+        numberOfValues = (unsigned int) TplConvert<char>::_2int(parameter.find("learn-horizon")->second.c_str());
+    }
+    tCycle = unsigned int(90);
+    if(parameter.find("tcycle")!=parameter.end()) {
+        tCycle = (unsigned int) TplConvert<char>::_2SUMOReal(parameter.find("tcycle")->second.c_str());
+    }
+    deltaLimit = SUMOReal(1);
+    if(parameter.find("min-diff")!=parameter.end()) {
+        deltaLimit = TplConvert<char>::_2int(parameter.find("min-diff")->second.c_str());
+    }
+}
 
 
 void

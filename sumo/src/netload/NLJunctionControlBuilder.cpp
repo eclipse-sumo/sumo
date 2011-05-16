@@ -62,15 +62,6 @@
 NLJunctionControlBuilder::NLJunctionControlBuilder(MSNet &net,
         NLDetectorBuilder &db, const OptionsCont &oc) throw()
         : myNet(net), myDetectorBuilder(db), myOffset(0), myJunctions(0) {
-    myStdDetectorPositions = oc.getFloat("actuated-tl.detector-pos");
-    myStdDetectorLengths = oc.getFloat("agent-tl.detector-len");
-    myStdLearnHorizon = oc.getInt("agent-tl.learn-horizon");
-    myStdDecisionHorizon = oc.getInt("agent-tl.decision-horizon");
-    myStdDeltaLimit = oc.getFloat("agent-tl.min-diff");
-    myStdTCycle = oc.getInt("agent-tl.tcycle");
-    myStdActuatedMaxGap = oc.getFloat("actuated-tl.max-gap");
-    myStdActuatedPassingTime = oc.getFloat("actuated-tl.passing-time");
-    myStdActuatedDetectorGap = oc.getFloat("actuated-tl.detector-gap");
     myLogicControl = new MSTLLogicControl();
     myJunctions = new MSJunctionControl();
 }
@@ -253,15 +244,13 @@ NLJunctionControlBuilder::closeTrafficLightLogic() throw(InvalidArgument, Proces
         tlLogic =
             new MSActuatedTrafficLightLogic(getTLLogicControlToUse(),
                                             myActiveKey, myActiveProgram,
-                                            myActivePhases, step, firstEventOffset, myStdActuatedMaxGap,
-                                            myStdActuatedPassingTime, myStdActuatedDetectorGap);
+                                            myActivePhases, step, firstEventOffset, myAdditionalParameter);
     } else if (myLogicType=="agentbased") {
         // build an agentbased logic
         tlLogic =
             new MSAgentbasedTrafficLightLogic(getTLLogicControlToUse(),
                                               myActiveKey, myActiveProgram,
-                                              myActivePhases, step, firstEventOffset, myStdLearnHorizon,
-                                              myStdDecisionHorizon, myStdDeltaLimit, myStdTCycle);
+                                              myActivePhases, step, firstEventOffset, myAdditionalParameter);
     } else {
         // build a fixed tls-logic
         tlLogic =
@@ -273,7 +262,6 @@ NLJunctionControlBuilder::closeTrafficLightLogic() throw(InvalidArgument, Proces
     TLInitInfo ii;
     ii.logic = tlLogic;
     ii.params = myAdditionalParameter;
-    ii.params["detector_offset"] = toString(myDetectorOffset);
     myJunctions2PostLoadInit.push_back(ii);
     myActivePhases.clear();
     if (tlLogic!=0) {
@@ -342,7 +330,7 @@ NLJunctionControlBuilder::addLogicItem(int request,
 
 void
 NLJunctionControlBuilder::initTrafficLightLogic(const std::string &id, const std::string &programID,
-        const std::string &type, int offset, SUMOReal detectorOffset) throw() {
+        const std::string &type, int offset) throw() {
     myActiveKey = id;
     myActiveProgram = programID;
     myActivePhases.clear();
@@ -350,19 +338,8 @@ NLJunctionControlBuilder::initTrafficLightLogic(const std::string &id, const std
     myRequestSize = -1;
     initIncomingLanes();
     myLogicType = type;
-    myDetectorOffset = detectorOffset;
     myOffset = offset;
     myAdditionalParameter.clear();
-    if (myDetectorOffset==-1) {
-        // agentbased
-        if (myLogicType=="agentbased") {
-            myDetectorOffset = myStdDetectorLengths;
-        }
-        // actuated
-        if (myLogicType=="actuated") {
-            myDetectorOffset = myStdDetectorPositions;
-        }
-    }
 }
 
 
