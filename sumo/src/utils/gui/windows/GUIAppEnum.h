@@ -346,6 +346,9 @@ enum {
     /// misc messages
     /** save network*/
     MID_GNE_SAVE_NETWORK,
+    MID_GNE_SAVE_AS_NETWORK,
+    /** insert contents of another network */
+    MID_GNE_INSERT_NETWORK,
     /** attribute edited */
     MID_GNE_SET_ATTRIBUTE,
     /** open edit dialog */
