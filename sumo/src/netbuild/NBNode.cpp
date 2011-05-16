@@ -785,15 +785,14 @@ NBNode::needsCont(NBEdge *fromE, NBEdge *toE, NBEdge *otherFromE, NBEdge *otherT
     }
     NBMMLDirection d1 = getMMLDirection(fromE, toE);
     NBMMLDirection d2 = getMMLDirection(otherFromE, otherToE);
-    if((d1==MMLDIR_LEFT||d1==MMLDIR_TURN)&&(d2==MMLDIR_LEFT||d2==MMLDIR_TURN)) {
-        // we let left-turners move before each other
-        return false;
-    }
-    if (c.tlID!="") {
+    bool thisLeft = (d1==MMLDIR_LEFT||d1==MMLDIR_TURN);
+    bool otherLeft = (d2==MMLDIR_LEFT||d2==MMLDIR_TURN);
+    bool bothLeft = thisLeft&&otherLeft;
+    if (c.tlID!=""&&!bothLeft) {
         // tls-controlled links will have space
         return true;
     }
-    if ((d1==MMLDIR_LEFT||d1==MMLDIR_TURN)&&fromE->getJunctionPriority(this)>0) {
+    if (fromE->getJunctionPriority(this)>0&&otherFromE->getJunctionPriority(this)>0) {
         return true;
     }
     return false;
