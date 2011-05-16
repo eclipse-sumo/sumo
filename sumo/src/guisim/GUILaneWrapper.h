@@ -222,6 +222,12 @@ private:
     /// @brief Invalidated assignment operator.
     GUILaneWrapper& operator=(const GUILaneWrapper&);
 
+    /// @brief helper methods
+    void ROWdrawAction_drawLinkNo() const;
+    void ROWdrawAction_drawTLSLinkNo(const GUINet &net) const;
+    void ROWdrawAction_drawLinkRules(const GUINet &net) const;
+    void ROWdrawAction_drawArrows() const;
+    void ROWdrawAction_drawLane2LaneConnections() const;
 };
 
 

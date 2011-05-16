@@ -116,8 +116,8 @@ GUILaneWrapper::forLane(const MSLane &lane) const {
 
 
 void
-ROWdrawAction_drawLinkNo(const GUILaneWrapper &lane) {
-    unsigned int noLinks = lane.getLinkNumber();
+GUILaneWrapper::ROWdrawAction_drawLinkNo() const {
+    unsigned int noLinks = getLinkNumber();
     if (noLinks==0) {
         return;
     }
@@ -127,7 +127,7 @@ ROWdrawAction_drawLinkNo(const GUILaneWrapper &lane) {
     SUMOReal x1 = SUMO_const_laneWidth / (SUMOReal) 2.;
     glPushMatrix();
     glColor3d(.5, .5, 1);
-    const Position2DVector &g = lane.getShape();
+    const Position2DVector &g = getShape();
     const Position2D &end = g.getEnd();
     const Position2D &f = g[-2];
     const Position2D &s = end;
@@ -136,7 +136,7 @@ ROWdrawAction_drawLinkNo(const GUILaneWrapper &lane) {
     glRotated(rot, 0, 0, 1);
     for (unsigned int i=0; i<noLinks; ++i) {
         SUMOReal x2 = x1 - (SUMOReal)(w/2.);
-        int linkNo = lane.getLane().getLinkCont()[i]->getRespondIndex();
+        int linkNo = getLane().getLinkCont()[i]->getRespondIndex();
         glPushMatrix();
         glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
         pfSetPosition(0, 0);
@@ -153,8 +153,8 @@ ROWdrawAction_drawLinkNo(const GUILaneWrapper &lane) {
 
 
 void
-ROWdrawAction_drawTLSLinkNo(const GUINet &net, const GUILaneWrapper &lane) {
-    unsigned int noLinks = lane.getLinkNumber();
+GUILaneWrapper::ROWdrawAction_drawTLSLinkNo(const GUINet &net) const {
+    unsigned int noLinks = getLinkNumber();
     if (noLinks==0) {
         return;
     }
@@ -164,7 +164,7 @@ ROWdrawAction_drawTLSLinkNo(const GUINet &net, const GUILaneWrapper &lane) {
     SUMOReal x1 = (SUMOReal)(SUMO_const_laneWidth / 2.);
     glPushMatrix();
     glColor3d(.5, .5, 1);
-    const Position2DVector &g = lane.getShape();
+    const Position2DVector &g = getShape();
     const Position2D &end = g.getEnd();
     const Position2D &f = g[-2];
     const Position2D &s = end;
@@ -173,7 +173,7 @@ ROWdrawAction_drawTLSLinkNo(const GUINet &net, const GUILaneWrapper &lane) {
     glRotated(rot, 0, 0, 1);
     for (unsigned int i=0; i<noLinks; ++i) {
         SUMOReal x2 = x1 - (SUMOReal)(w/2.);
-        int linkNo = net.getLinkTLIndex(lane.getLane().getLinkCont()[i]);
+        int linkNo = net.getLinkTLIndex(getLane().getLinkCont()[i]);
         if (linkNo<0) {
             continue;
         }
@@ -193,15 +193,15 @@ ROWdrawAction_drawTLSLinkNo(const GUINet &net, const GUILaneWrapper &lane) {
 
 
 void
-ROWdrawAction_drawLinkRules(const GUINet &net, const GUILaneWrapper &lane) {
-    unsigned int noLinks = lane.getLinkNumber();
-    const Position2DVector &g = lane.getShape();
+GUILaneWrapper::ROWdrawAction_drawLinkRules(const GUINet &net) const {
+    unsigned int noLinks = getLinkNumber();
+    const Position2DVector &g = getShape();
     const Position2D &end = g.getEnd();
     const Position2D &f = g[-2];
     const Position2D &s = end;
     SUMOReal rot = (SUMOReal) atan2((s.x()-f.x()), (f.y()-s.y()))*(SUMOReal) 180.0/(SUMOReal) PI;
     if (noLinks==0) {
-        glPushName(lane.getGlID());
+        glPushName(getGlID());
         // draw a grey bar if no links are on the street
         glColor3d(0.5, 0.5, 0.5);
         glPushMatrix();
@@ -225,7 +225,7 @@ ROWdrawAction_drawLinkRules(const GUINet &net, const GUILaneWrapper &lane) {
     glRotated(rot, 0, 0, 1);
     for (unsigned int i=0; i<noLinks; ++i) {
         SUMOReal x2 = x1 + w;
-        MSLink::LinkState state = lane.getLane().getLinkCont()[i]->getState();
+        MSLink::LinkState state = getLane().getLinkCont()[i]->getState();
         switch (state) {
             case MSLink::LINKSTATE_TL_GREEN_MAJOR:
             case MSLink::LINKSTATE_TL_GREEN_MINOR:
@@ -233,14 +233,14 @@ ROWdrawAction_drawLinkRules(const GUINet &net, const GUILaneWrapper &lane) {
             case MSLink::LINKSTATE_TL_YELLOW_MAJOR:
             case MSLink::LINKSTATE_TL_YELLOW_MINOR:
             case MSLink::LINKSTATE_TL_OFF_BLINKING:
-                glPushName(net.getLinkTLID(lane.getLane().getLinkCont()[i]));
+                glPushName(net.getLinkTLID(getLane().getLinkCont()[i]));
                 break;
             case MSLink::LINKSTATE_MAJOR:
             case MSLink::LINKSTATE_MINOR:
             case MSLink::LINKSTATE_EQUAL:
             case MSLink::LINKSTATE_TL_OFF_NOSIGNAL:
             default:
-                glPushName(lane.getGlID());
+                glPushName(getGlID());
                 break;
         }
         switch (state) {
@@ -289,14 +289,14 @@ ROWdrawAction_drawLinkRules(const GUINet &net, const GUILaneWrapper &lane) {
 
 
 void
-ROWdrawAction_drawArrows(const GUILaneWrapper &lane) {
-    unsigned int noLinks = lane.getLinkNumber();
+GUILaneWrapper::ROWdrawAction_drawArrows() const {
+    unsigned int noLinks = getLinkNumber();
     if (noLinks==0) {
         return;
     }
     // draw all links
-    const Position2D &end = lane.getShape().getEnd();
-    const Position2D &f = lane.getShape()[-2];
+    const Position2D &end = getShape().getEnd();
+    const Position2D &f = getShape()[-2];
     SUMOReal rot = (SUMOReal) atan2((end.x()-f.x()), (f.y()-end.y()))*(SUMOReal) 180.0/(SUMOReal) PI;
     glPushMatrix();
     glPushName(0);
@@ -304,8 +304,8 @@ ROWdrawAction_drawArrows(const GUILaneWrapper &lane) {
     glTranslated(end.x(), end.y(), 0);
     glRotated(rot, 0, 0, 1);
     for (unsigned int i=0; i<noLinks; ++i) {
-        MSLink::LinkDirection dir = lane.getLane().getLinkCont()[i]->getDirection();
-        MSLink::LinkState state = lane.getLane().getLinkCont()[i]->getState();
+        MSLink::LinkDirection dir = getLane().getLinkCont()[i]->getDirection();
+        MSLink::LinkState state = getLane().getLinkCont()[i]->getState();
         if (state==MSLink::LINKSTATE_TL_OFF_NOSIGNAL||dir==MSLink::LINKDIR_NODIR) {
             continue;
         }
@@ -348,13 +348,13 @@ ROWdrawAction_drawArrows(const GUILaneWrapper &lane) {
 
 
 void
-ROWdrawAction_drawLane2LaneConnections(const GUILaneWrapper &lane) {
+GUILaneWrapper::ROWdrawAction_drawLane2LaneConnections() const {
     glPushMatrix();
     glTranslated(0, 0, GLO_JUNCTION); // must draw on top of junction shape
-    unsigned int noLinks = lane.getLinkNumber();
+    unsigned int noLinks = getLinkNumber();
     for (unsigned int i=0; i<noLinks; ++i) {
-        MSLink::LinkState state = lane.getLane().getLinkCont()[i]->getState();
-        const MSLane *connected = lane.getLane().getLinkCont()[i]->getLane();
+        MSLink::LinkState state = getLane().getLinkCont()[i]->getState();
+        const MSLane *connected = getLane().getLinkCont()[i]->getLane();
         if (connected==0) {
             continue;
         }
@@ -391,7 +391,7 @@ ROWdrawAction_drawLane2LaneConnections(const GUILaneWrapper &lane) {
         }
 
         glBegin(GL_LINES);
-        const Position2D &p1 = lane.getShape()[-1];
+        const Position2D &p1 = getShape()[-1];
         const Position2D &p2 = connected->getShape()[0];
         glVertex2f(p1.x(), p1.y());
         glVertex2f(p2.x(), p2.y());
@@ -428,21 +428,21 @@ GUILaneWrapper::drawGL(const GUIVisualizationSettings &s) const throw() {
         if (getLane().getEdge().getPurpose()!=MSEdge::EDGEFUNCTION_INTERNAL) {// !!! getPurpose()
             GUINet *net = (GUINet*) MSNet::getInstance();
             glTranslated(0, 0, .1);
-            ROWdrawAction_drawLinkRules(*net, *this);
+            ROWdrawAction_drawLinkRules(*net);
             if (s.showLinkDecals) {
-                ROWdrawAction_drawArrows(*this);
+                ROWdrawAction_drawArrows();
             }
             if (s.showLane2Lane) {
                 // this should be independent to the geometry:
                 //  draw from end of first to the begin of second
-                ROWdrawAction_drawLane2LaneConnections(*this);
+                ROWdrawAction_drawLane2LaneConnections();
             }
             glTranslated(0, 0, .1);
             if (s.drawLinkJunctionIndex) {
-                ROWdrawAction_drawLinkNo(*this);
+                ROWdrawAction_drawLinkNo();
             }
             if (s.drawLinkTLIndex) {
-                ROWdrawAction_drawTLSLinkNo(*net, *this);
+                ROWdrawAction_drawTLSLinkNo(*net);
             }
         }
     }
