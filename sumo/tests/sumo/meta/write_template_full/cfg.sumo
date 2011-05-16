@@ -42,18 +42,6 @@
         <lanechange.allow-swap value="false"/>
     </processing>
 
-    <tls_defaults>
-        <agent-tl.detector-len value="75"/>
-        <agent-tl.learn-horizon value="3"/>
-        <agent-tl.decision-horizon value="1"/>
-        <agent-tl.min-diff value="0.1"/>
-        <agent-tl.tcycle value="90"/>
-        <actuated-tl.detector-pos value="100"/>
-        <actuated-tl.max-gap value="3.1"/>
-        <actuated-tl.detector-gap value="3"/>
-        <actuated-tl.passing-time value="1.9"/>
-    </tls_defaults>
-
     <report>
         <verbose value="false" synonymes="v"/>
         <print-options value="false" synonymes="p"/>
@@ -80,7 +68,7 @@
 
     <emissions>
         <device.hbefa.probability value="0"/>
-        <device.hbefa.knownveh value="" synonymes="device.hbefa.explicit"/>
+        <device.hbefa.explicit value="" synonymes="device.hbefa.knownveh"/>
         <device.hbefa.deterministic value="false"/>
     </emissions>
 

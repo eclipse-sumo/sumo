@@ -98,36 +98,6 @@
 
     </processing>
 
-    <tls_defaults>
-        <!--  -->
-        <agent-tl.detector-len value="75"/>
-
-        <!--  -->
-        <agent-tl.learn-horizon value="3"/>
-
-        <!--  -->
-        <agent-tl.decision-horizon value="1"/>
-
-        <!--  -->
-        <agent-tl.min-diff value="0.1"/>
-
-        <!--  -->
-        <agent-tl.tcycle value="90"/>
-
-        <!--  -->
-        <actuated-tl.detector-pos value="100"/>
-
-        <!--  -->
-        <actuated-tl.max-gap value="3.1"/>
-
-        <!--  -->
-        <actuated-tl.detector-gap value="3"/>
-
-        <!--  -->
-        <actuated-tl.passing-time value="1.9"/>
-
-    </tls_defaults>
-
     <report>
         <!-- Switches to verbose output -->
         <verbose value="false" synonymes="v"/>
@@ -193,7 +163,7 @@
         <device.hbefa.probability value="0"/>
 
         <!-- Assign a device to named vehicles -->
-        <device.hbefa.knownveh value="" synonymes="device.hbefa.explicit"/>
+        <device.hbefa.explicit value="" synonymes="device.hbefa.knownveh"/>
 
         <!-- The devices are set deterministic using a fraction of 1000 -->
         <device.hbefa.deterministic value="false"/>
