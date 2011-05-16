@@ -68,7 +68,6 @@ MSFrame::fillOptions() {
     oc.addOptionSubTopic("Output");
     oc.addOptionSubTopic("Time");
     oc.addOptionSubTopic("Processing");
-    oc.addOptionSubTopic("TLS Defaults");
     SystemFrame::addReportOptions(oc); // fill this subtopic, too
 
 
