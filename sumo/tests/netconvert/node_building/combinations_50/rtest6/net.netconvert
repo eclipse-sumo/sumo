@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on Tue May 10 11:17:51 2011 by SUMO netconvert Version dev-SVN-r10263
+<!-- generated on 05/16/11 11:31:00 by SUMO netconvert Version dev-SVN-r10338
 <?xml version="1.0" encoding="iso-8859-1"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
@@ -9,6 +9,10 @@
         <node-files value="input_nodes.nod.xml"/>
         <edge-files value="input_edges.edg.xml"/>
     </input>
+
+    <output>
+        <output value="net.net.xml"/>
+    </output>
 
     <processing>
         <speed-in-kmh value="true"/>
@@ -22,7 +26,7 @@
    <location netOffset="50.00,50.00" convBoundary="0.00,0.00,100.00,100.00" origBoundary="-50.00,-50.00,50.00,50.00" projParameter="!"/>
 
    <edge id=":0_0" function="internal">
-      <lane id=":0_0_0" depart="0" maxspeed="15.28" length="5.00" shape="48.35,61.35 48.16,59.99 47.58,59.02 46.61,58.44 45.25,58.25"/>
+      <lane id=":0_0_0" depart="0" maxspeed="15.28" length="5.00" shape="48.35,61.35 48.16,59.99 47.57,59.02 46.61,58.44 45.25,58.25"/>
    </edge>
    <edge id=":0_1" function="internal">
       <lane id=":0_1_0" depart="0" maxspeed="15.28" length="12.80" shape="48.35,61.35 48.35,57.94 48.35,54.95 48.35,51.96 48.35,48.55"/>
@@ -43,10 +47,7 @@
       <lane id=":0_6_0" depart="0" maxspeed="15.28" length="9.50" shape="54.75,51.65 45.25,51.65"/>
    </edge>
    <edge id=":0_7" function="internal">
-      <lane id=":0_7_0" depart="0" maxspeed="15.28" length="3.12" shape="54.75,51.65 50.25,50.96"/>
-   </edge>
-   <edge id=":0_11" function="internal">
-      <lane id=":0_11_0" depart="0" maxspeed="15.28" length="4.73" shape="50.25,50.96 49.95,50.88 48.75,49.91 48.35,48.55"/>
+      <lane id=":0_7_0" depart="0" maxspeed="15.28" length="7.85" shape="54.75,51.65 51.95,51.46 49.95,50.88 48.75,49.91 48.35,48.55"/>
    </edge>
    <edge id=":0_8" function="internal">
       <lane id=":0_8_0" depart="0" maxspeed="15.28" length="12.80" shape="51.65,48.55 51.65,51.96 51.65,54.95 51.65,57.94 51.65,61.35"/>
@@ -95,7 +96,7 @@
       <logicitem request="4" response="00000000000" foes="01100000011" cont="0"/>
       <logicitem request="5" response="00000000000" foes="01100000011" cont="0"/>
       <logicitem request="6" response="00000000000" foes="01100000011" cont="0"/>
-      <logicitem request="7" response="00000000000" foes="11100000010" cont="1"/>
+      <logicitem request="7" response="00000000000" foes="11100000010" cont="0"/>
       <logicitem request="8" response="00011111000" foes="00011111100" cont="0"/>
       <logicitem request="9" response="00011110011" foes="00011110011" cont="0"/>
       <logicitem request="10" response="00010000010" foes="00010000010" cont="0"/>
@@ -107,13 +108,11 @@
       <logicitem request="0" response="0" foes="0" cont="0"/>
    </row-logic>
 
-   <junction id="0" type="traffic_light" x="50.00" y="50.00" incLanes="4i_0 2i_0 2i_1 2i_2 3i_0" intLanes=":0_0_0 :0_1_0 :0_2_0 :0_3_0 :0_4_0 :0_5_0 :0_6_0 :0_11_0 :0_8_0 :0_9_0 :0_10_0" shape="46.75,61.35 53.25,61.35 54.75,59.85 54.75,50.05 53.25,48.55 46.75,48.55 45.25,50.05 45.25,59.85"/>
+   <junction id="0" type="traffic_light" x="50.00" y="50.00" incLanes="4i_0 2i_0 2i_1 2i_2 3i_0" intLanes=":0_0_0 :0_1_0 :0_2_0 :0_3_0 :0_4_0 :0_5_0 :0_6_0 :0_7_0 :0_8_0 :0_9_0 :0_10_0" shape="46.75,61.35 53.25,61.35 54.75,59.85 54.75,50.05 53.25,48.55 46.75,48.55 45.25,50.05 45.25,59.85"/>
    <junction id="1" type="DEAD_END" x="0.00" y="50.00" incLanes="1o_0 1o_1 1o_2" intLanes="" shape="-0.00,59.85 -0.00,50.05"/>
    <junction id="2" type="DEAD_END" x="100.00" y="50.00" incLanes="" intLanes="" shape="100.00,50.05 100.00,59.85"/>
    <junction id="3" type="priority" x="50.00" y="0.00" incLanes="3o_0" intLanes=":3_0_0" shape="50.05,0.00 53.25,0.00 46.75,-0.00 49.95,-0.00"/>
    <junction id="4" type="priority" x="50.00" y="100.00" incLanes="4o_0" intLanes=":4_0_0" shape="49.95,100.00 46.75,100.00 53.25,100.00 50.05,100.00"/>
-
-   <junction id=":0_11_0" type="internal" x="51.65" y="51.37" incLanes=":0_7_0 4i_0" intLanes=":0_1_0" shape=""/>
 
    <succ edge="1o" lane="1o_0" junction="1">
    </succ>
@@ -171,10 +170,7 @@
       <succlane lane="1o_2" tl="" linkno="" dir="s" state="M"/>
    </succ>
    <succ edge=":0_7" lane=":0_7_0" junction="0">
-      <succlane lane="3o_0" via=":0_11_0" tl="" linkno="" dir="s" state="M"/>
-   </succ>
-   <succ edge=":0_11" lane=":0_11_0" junction=":0_11">
-      <succlane lane="3o_0" tl="" linkno="0" dir="s" state="M"/>
+      <succlane lane="3o_0" tl="" linkno="" dir="s" state="M"/>
    </succ>
    <succ edge=":0_8" lane=":0_8_0" junction="0">
       <succlane lane="4o_0" tl="" linkno="" dir="s" state="M"/>
