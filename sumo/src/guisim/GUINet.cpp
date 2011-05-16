@@ -195,6 +195,7 @@ GUINet::initTLMap() {
                 myLinks2Logic[*j2] = tll->getID();
             }
         }
+        myGrid.addAdditionalGLObject(tllw);
         myLogics2Wrapper[tll] = tllw;
     }
 }

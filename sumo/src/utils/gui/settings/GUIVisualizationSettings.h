@@ -196,6 +196,9 @@ public:
     /// @brief A temporary (used for a single view) information about a lane's width
     SUMOReal scale;
 
+    /// @brief whether the application is in gaming mode or not
+    bool gaming;
+
     /** @brief Writes the settings into an output device
      * @param[in] dev The device to write the settings into
      */

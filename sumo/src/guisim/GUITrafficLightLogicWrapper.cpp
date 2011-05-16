@@ -38,6 +38,7 @@
 #include <gui/GUIGlobals.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/gui/images/GUIIconSubSys.h>
+#include <utils/gui/div/GLHelper.h>
 #include <guisim/GLObjectValuePassConnector.h>
 #include <microsim/logging/FunctionBinding.h>
 #include <microsim/logging/FuncBinding_StringParam.h>
@@ -225,7 +226,45 @@ GUITrafficLightLogicWrapper::getLinkIndex(const MSLink * const link) const {
 
 
 void
-GUITrafficLightLogicWrapper::drawGL(const GUIVisualizationSettings&/*s*/) const throw() {
+GUITrafficLightLogicWrapper::drawGL(const GUIVisualizationSettings& s) const throw() {
+    if (s.gaming) {
+        if (!MSNet::getInstance()->getTLSControl().isActive(&myTLLogic)) {
+            return;
+        };
+        const std::string &curState = myTLLogic.getCurrentPhaseDef().getState();
+        if (curState.find_first_of("gG") == std::string::npos) {
+            // no link is 'green' at the moment. find those that turn green next
+            const MSTrafficLightLogic::Phases &phases = myTLLogic.getPhases();
+            unsigned int curPhaseIdx = myTLLogic.getCurrentPhaseIndex();
+            unsigned int phaseIdx = (curPhaseIdx + 1) % phases.size();
+            std::vector<unsigned int> nextGreen;
+            while (phaseIdx != curPhaseIdx) {
+                const std::string &state = phases[phaseIdx]->getState();
+                for (unsigned int linkIdx = 0; linkIdx < state.size(); linkIdx++) {
+                    if ((MSLink::LinkState)state[linkIdx] == MSLink::LINKSTATE_TL_GREEN_MINOR ||
+                            (MSLink::LinkState)state[linkIdx] == MSLink::LINKSTATE_TL_GREEN_MAJOR) {
+                        nextGreen.push_back(linkIdx);
+                    }
+                }
+                if (nextGreen.size() > 0) {
+                    break;
+                }
+                phaseIdx = (phaseIdx + 1) % phases.size();
+            }
+            // highlight nextGreen links
+            for (std::vector<unsigned int>::iterator it_idx = nextGreen.begin(); it_idx != nextGreen.end(); it_idx++) {
+                const MSTrafficLightLogic::LaneVector &lanes = myTLLogic.getLanesAt(*it_idx);
+                for (MSTrafficLightLogic::LaneVector::const_iterator it_lane = lanes.begin(); it_lane != lanes.end(); it_lane++) {
+                    glPushMatrix();
+                    glColor3d(0,1,0);
+                    Position2D pos = (*it_lane)->getShape().getEnd();
+                    glTranslated(pos.x(), pos.y(), GLO_MAX);
+                    GLHelper::drawFilledCircle(SUMO_const_halfLaneWidth);
+                    glPopMatrix();
+                }
+            }
+        }
+    }
 }
 
 

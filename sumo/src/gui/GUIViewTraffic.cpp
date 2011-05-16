@@ -146,6 +146,7 @@ GUIViewTraffic::setColorScheme(const std::string &name) {
         }
     }
     myVisualizationSettings = &gSchemeStorage.get(name.c_str());
+    myVisualizationSettings->gaming = myApp->isGaming();
     update();
     return true;
 }
