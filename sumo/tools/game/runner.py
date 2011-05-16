@@ -14,6 +14,7 @@ Copyright (C) 2010-2011 DLR (http://www.dlr.de/) and contributors
 All rights reserved
 """
 import os, subprocess, sys, re, pickle, httplib, glob, Tkinter
+from xml.dom import pulldom
 
 _SCOREFILE = "scores.pkl"
 _SCORESERVER = "sumo.sourceforge.net"
@@ -61,6 +62,13 @@ def save(idx, category, name, game, points):
     except:
         pass
 
+def parseEndTime(cfg): 
+    cfg_doc = pulldom.parse(cfg)
+    for event, parsenode in cfg_doc:
+        if event == pulldom.START_ELEMENT and parsenode.localName == 'end':
+            return float(parsenode.getAttribute('value'))
+            break
+
 class StartDialog:
     def __init__(self):
         bWidth = 25
@@ -85,6 +93,7 @@ class StartDialog:
     def ok(self, cfg):
         self.root.destroy()
         print "starting", cfg
+        self.gametime = parseEndTime(cfg)
         self.ret = subprocess.call([guisimPath, "-G", "-Q", "-c", cfg])
         self.category = os.path.basename(cfg)[:-9]
 
@@ -154,7 +163,7 @@ while True:
     complete = True
     for line in open(os.path.join(base, "netstate.xml")):
         m = re.search('<interval begin="0(.00)?" end="([^"]*)"', line)
-        if m and float(m.group(2)) != 180:
+        if m and float(m.group(2)) != start.gametime:
             complete = False
         m = re.search('sampledSeconds="([^"]*)".*speed="([^"]*)"', line)
         if m:
@@ -177,7 +186,7 @@ while True:
                 switch += [m.group(3), m.group(1)]
     score = 25000 - 100000 * totalFuel / totalDistance
     if _DEBUG:
-        print switch, score, totalArrived
+        print switch, score, totalArrived, complete
     if complete:
         ScoreDialog(switch, score, start.category)
     if start.ret != 0:
