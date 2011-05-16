@@ -33,7 +33,7 @@ def loadHighscore():
                 scores[category] = 10*[("", "", -1.)]
                 for idx, item in enumerate(values.split(':')):
                     name, game, points = item.split(',')
-                    scores[category][idx] = (name, game, float(points))
+                    scores[category][idx] = (name, game, int(float(points)))
             return scores
     except:
         pass
@@ -43,24 +43,6 @@ def loadHighscore():
     except:
         pass
     return {}
-
-def save(idx, category, name, game, points):
-    high[category].insert(idx, (name, game, points))
-    high[category].pop()
-    try:
-        f = open(_SCOREFILE, 'w')
-        pickle.dump(high, f)
-        f.close()
-    except:
-        pass
-    try:
-        conn = httplib.HTTPConnection(_SCORESERVER)
-        conn.request("GET", _SCORESCRIPT + "category=%s&name=%s&instance=%s&points=%s" % (category, name, "_".join(game), points))
-        if _DEBUG:
-            r1 = conn.getresponse()
-            print r1.status, r1.reason, r1.read()
-    except:
-        pass
 
 def parseEndTime(cfg): 
     cfg_doc = pulldom.parse(cfg)
@@ -77,12 +59,12 @@ class StartDialog:
         for cfg in glob.glob(os.path.join(base, "*.sumo.cfg")):
             text = category = os.path.basename(cfg)[:-9]
             if text == "cross":
-                text = "Einfache Kreuzung" 
+                text = "Simple Junction" 
             elif text == "square":
-                text = "Vier Kreuzungen" 
+                text = "Four Junctions" 
             Tkinter.Button(self.root, text=text, width=bWidth, command=lambda cfg=cfg:self.ok(cfg)).pack()
-        Tkinter.Button(self.root, text="Bestenliste loeschen", width=bWidth, command=high.clear).pack()
-        Tkinter.Button(self.root, text="Ende", width=bWidth, command=sys.exit).pack()
+        Tkinter.Button(self.root, text="Reset Highscore", width=bWidth, command=high.clear).pack()
+        Tkinter.Button(self.root, text="Quit", width=bWidth, command=sys.exit).pack()
         # The following three commands are needed so the window pops
         # up on top on Windows...
         self.root.iconify()
@@ -97,6 +79,7 @@ class StartDialog:
         self.ret = subprocess.call([guisimPath, "-G", "-Q", "-c", cfg])
         self.category = os.path.basename(cfg)[:-9]
 
+
 class ScoreDialog:
     def __init__(self, game, points, category):
         self.root = Tkinter.Tk()
@@ -105,29 +88,39 @@ class ScoreDialog:
         self.points = points
         self.category = category
         haveHigh = False
-        self.root.title("Bestenliste")
+        self.root.title("Highscore")
+        self.root.minsize(250, 50)
 
         if not category in high:
             high[category] = 10*[("", "", -1.)]
         idx = 0
         for n, g, p in high[category]:
+            Tkinter.Label(self.root, text=(str(idx + 1) + '. ')).grid(row=idx)
             if not haveHigh and p < points:
                 self.name = Tkinter.Entry(self.root)
-                self.name.grid(row=idx, sticky=Tkinter.W)
+                self.name.grid(row=idx, sticky=Tkinter.W, column=1)
+                self.scoreLabel = Tkinter.Label(self.root, text=str(points), bg="pale green").grid(row=idx, column=2)
                 self.idx = idx
-                p = points
                 haveHigh = True
-                self.root.title("Glueckwunsch")
-            else:
-                if p == -1:
-                    break
-                Tkinter.Label(self.root, text=n).grid(row=idx, sticky=Tkinter.W)
-            Tkinter.Label(self.root, text=str(p)).grid(row=idx, column=1)
+                self.root.title("Congratulations!")
+                idx += 1
+            if p == -1 or idx == 10:
+                break
+            Tkinter.Label(self.root, text=n, padx=5).grid(row=idx, sticky=Tkinter.W, column=1)
+            Tkinter.Label(self.root, text=str(p)).grid(row=idx, column=2)
             idx += 1
-        Tkinter.Button(self.root, text="OK", command=self.ok).grid(row=idx)
+        if not haveHigh:
+            Tkinter.Label(self.root, text='your score', padx=5, bg="indian red").grid(row=idx, sticky=Tkinter.W, column=1)
+            Tkinter.Label(self.root, text=str(points), bg="indian red").grid(row=idx, column=2)
+            idx += 1
+        else:
+            self.saveBut = Tkinter.Button(self.root, text="Save", command=self.save)
+            self.saveBut.grid(row=idx, column=1)
+        Tkinter.Button(self.root, text="Continue", command=self.quit).grid(row=idx, column=2)
         self.root.grid()
-        self.root.bind("<Return>", self.ok)
-        self.root.grab_set()
+        self.root.bind("<Return>", self.save)
+        # self.root.wait_visibility() 
+        # self.root.grab_set()
         if self.name:
             self.name.focus_set()
         # The following three commands are needed so the window pops
@@ -137,9 +130,35 @@ class ScoreDialog:
         self.root.deiconify()
         self.root.mainloop()
 
-    def ok(self, event=None):
+    def save(self, event=None):
         if self.name:
-            save(self.idx, self.category, self.name.get(), self.game, self.points)
+            name = self.name.get()
+            high[self.category].insert(self.idx, (name, self.game, self.points))
+            high[self.category].pop()
+            self.saveBut.config(state=Tkinter.DISABLED)
+            self.name.destroy()
+            self.name = None
+            Tkinter.Label(self.root, text=name, padx=5, bg="pale green").grid(row=self.idx, sticky=Tkinter.W, column=1)
+            try:
+                f = open(_SCOREFILE, 'w')
+                pickle.dump(high, f)
+                f.close()
+            except:
+                pass
+            try:
+                conn = httplib.HTTPConnection(_SCORESERVER)
+                conn.request("GET", _SCORESCRIPT + "category=%s&name=%s&instance=%s&points=%s" % (
+                    self.category, name, "_".join(self.game), self.points))
+                if _DEBUG:
+                    r1 = conn.getresponse()
+                    print r1.status, r1.reason, r1.read()
+            except:
+                pass
+        else:
+            self.quit()
+
+
+    def quit(self, event=None):
         self.root.destroy()
 
 
@@ -184,7 +203,7 @@ while True:
             if tls not in lastProg or lastProg[tls] != program:
                 lastProg[tls] = program
                 switch += [m.group(3), m.group(1)]
-    score = 25000 - 100000 * totalFuel / totalDistance
+    score = int(25000 - 100000 * totalFuel / totalDistance)
     if _DEBUG:
         print switch, score, totalArrived, complete
     if complete:
