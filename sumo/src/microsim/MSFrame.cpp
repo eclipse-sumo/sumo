@@ -72,7 +72,7 @@ MSFrame::fillOptions() {
 
 
     // register configuration options
-    // register input options
+    //  register input options
     oc.doRegister("net-file", 'n', new Option_FileName());
     oc.addSynonyme("net-file", "net");
     oc.addDescription("net-file", "Input", "Load road network description from FILE");
@@ -99,7 +99,7 @@ MSFrame::fillOptions() {
     oc.addDescription("load-state.offset", "Input", "Sets the time offset for vehicle segment exit times.");
 #endif
 
-    // register output options
+    //  register output options
     oc.doRegister("netstate-dump", new Option_FileName());
     oc.addSynonyme("netstate-dump", "ndump");
     oc.addSynonyme("netstate-dump", "netstate");
