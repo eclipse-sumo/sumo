@@ -180,9 +180,6 @@
         <!-- Removes geometry information from edges -->
         <remove-geometry value="false" synonymes="R"/>
 
-        <!-- Removes isolated edges -->
-        <remove-isolated value="false"/>
-
         <!-- Disables building turnarounds -->
         <no-turnarounds value="false"/>
 

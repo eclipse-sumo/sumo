@@ -111,7 +111,6 @@ Usage: netgen [OPTION]*
   --dismiss-vclasses                   Removes vehicle class restrictions from
                                          imported edges.
   -R, --remove-geometry                Removes geometry information from edges
-  --remove-isolated                    Removes isolated edges
   --no-turnarounds                     Disables building turnarounds
   --no-tls-turnarounds                 Disables building turnarounds at
                                          tls-controlled junctions

@@ -76,7 +76,6 @@
     <processing>
         <dismiss-vclasses value="false"/>
         <remove-geometry value="false" synonymes="R"/>
-        <remove-isolated value="false"/>
         <no-turnarounds value="false"/>
         <no-tls-turnarounds value="false"/>
         <no-internal-links value="false"/>
