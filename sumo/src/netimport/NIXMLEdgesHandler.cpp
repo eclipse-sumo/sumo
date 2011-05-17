@@ -192,7 +192,7 @@ NIXMLEdgesHandler::myStartElement(int element,
             } else {
                 myCurrentEdge = new NBEdge(myCurrentID, myFromNode, myToNode, myCurrentType, myCurrentSpeed,
                                            myCurrentLaneNo, myCurrentPriority, myShape,
-                                           myLanesSpread, OptionsCont::getOptions().getBool("xml.keep-shape"));
+                                           myLanesSpread, OptionsCont::getOptions().getBool("plain.keep-edge-shape"));
             }
             myCurrentEdge->setLoadedLength(myLength);
         }

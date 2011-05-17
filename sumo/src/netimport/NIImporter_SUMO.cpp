@@ -355,7 +355,7 @@ NIImporter_SUMO::addJunction(const SUMOSAXAttributes &attrs) {
         WRITE_WARNING("Unknown node type '" + typeS + "' for junction '" + id + "'.");
     }
     Position2D pos(x, y);
-    // the network may have been built with the option "xml.keep-shape" this
+    // the network may have been built with the option "plain.keep-edge-shape" this
     // makes accurate reconstruction impossible. We ought to warn about this
     std::string shapeS = attrs.getStringReporting(SUMO_ATTR_SHAPE, id.c_str(), ok, false);
     if (shapeS != "") {
