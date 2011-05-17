@@ -398,8 +398,7 @@ operator<<(std::ostream &os, const Position2DVector &geom) {
 
 void
 Position2DVector::sortAsPolyCWByAngle() {
-    Position2D c = getPolygonCenter();
-    std::sort(myCont.begin(), myCont.end(), as_poly_cw_sorter(c));
+    std::sort(myCont.begin(), myCont.end(), as_poly_cw_sorter());
 }
 
 
@@ -409,11 +408,6 @@ Position2DVector::reshiftRotate(SUMOReal xoff, SUMOReal yoff, SUMOReal rot) {
         myCont[i].reshiftRotate(xoff, yoff, rot);
     }
 }
-
-
-Position2DVector::as_poly_cw_sorter::as_poly_cw_sorter(Position2D center)
-        : myCenter(center) {}
-
 
 
 int

@@ -219,15 +219,11 @@ public:
     class as_poly_cw_sorter {
     public:
         /// constructor
-        explicit as_poly_cw_sorter(Position2D center);
+        as_poly_cw_sorter() {};
 
     public:
         /// comparing operation
         int operator()(const Position2D &p1, const Position2D &p2) const;
-
-    private:
-        /// the edge to compute the relative angle of
-        Position2D myCenter;
 
     };
 
