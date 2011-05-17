@@ -62,3 +62,46 @@ TEST_F(Position2DVectorTest, test_method_getBoxBoundary) {
 	EXPECT_FLOAT_EQ(bound.ymin(), 0);
 }
 
+/* Test the method 'splitAt'*/
+TEST_F(Position2DVectorTest, test_method_splitAt) {	
+    Position2DVector vec;
+    vec.push_back(Position2D(0,0));
+    vec.push_back(Position2D(2,0));
+    vec.push_back(Position2D(5,0));
+    SUMOReal smallDiff = POSITION_EPS / 2;
+    std::pair<Position2DVector, Position2DVector> result;
+    // split in first segment
+    result = vec.splitAt(1);
+	EXPECT_FLOAT_EQ(2, result.first.size());
+	EXPECT_FLOAT_EQ(0, result.first[0].x());
+	EXPECT_FLOAT_EQ(1, result.first[1].x());
+	EXPECT_FLOAT_EQ(3, result.second.size());
+	EXPECT_FLOAT_EQ(1, result.second[0].x());
+	EXPECT_FLOAT_EQ(2, result.second[1].x());
+	EXPECT_FLOAT_EQ(5, result.second[2].x());
+    // split in second segment
+    result = vec.splitAt(4);
+	EXPECT_FLOAT_EQ(3, result.first.size());
+	EXPECT_FLOAT_EQ(0, result.first[0].x());
+	EXPECT_FLOAT_EQ(2, result.first[1].x());
+	EXPECT_FLOAT_EQ(4, result.first[2].x());
+	EXPECT_FLOAT_EQ(2, result.second.size());
+	EXPECT_FLOAT_EQ(4, result.second[0].x());
+	EXPECT_FLOAT_EQ(5, result.second[1].x());
+    // split close before inner point
+    result = vec.splitAt(2 - smallDiff);
+	EXPECT_FLOAT_EQ(2, result.first.size());
+	EXPECT_FLOAT_EQ(0, result.first[0].x());
+	EXPECT_FLOAT_EQ(2, result.first[1].x());
+	EXPECT_FLOAT_EQ(2, result.second.size());
+	EXPECT_FLOAT_EQ(2, result.second[0].x());
+	EXPECT_FLOAT_EQ(5 ,result.second[1].x());
+    // split close after inner point
+    result = vec.splitAt(2 + smallDiff);
+	EXPECT_FLOAT_EQ(2, result.first.size());
+	EXPECT_FLOAT_EQ(0, result.first[0].x());
+	EXPECT_FLOAT_EQ(2, result.first[1].x());
+	EXPECT_FLOAT_EQ(2, result.second.size());
+	EXPECT_FLOAT_EQ(2, result.second[0].x());
+	EXPECT_FLOAT_EQ(5 ,result.second[1].x());
+}
