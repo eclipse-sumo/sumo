@@ -772,6 +772,12 @@ NBNode::computeInternalLaneShape(NBEdge *fromE, int fromL,
 
 bool
 NBNode::needsCont(NBEdge *fromE, NBEdge *toE, NBEdge *otherFromE, NBEdge *otherToE, NBEdge::Connection &c) {
+    if(fromE->getID()=="2i" && toE->getID()=="3o") {
+        int bla = 0;
+        if(otherFromE->getID()=="4i" && otherToE->getID()=="3o") {
+            bla = 0;
+        }
+    }
     if(myType==NODETYPE_RIGHT_BEFORE_LEFT) {
         return false;
     }

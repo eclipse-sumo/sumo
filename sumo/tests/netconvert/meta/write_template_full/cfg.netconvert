@@ -58,9 +58,9 @@
     </ramp_guessing>
 
     <edge_removal>
-        <edges-min-speed value=""/>
-        <remove-edges value=""/>
-        <keep-edges value=""/>
+        <keep-edges.min-speed value="" synonymes="edges-min-speed"/>
+        <remove-edges.explicit value="" synonymes="remove-edges"/>
+        <keep-edges.explicit value="" synonymes="keep-edges"/>
         <keep-edges.input-file value=""/>
         <keep-edges.postload value="false"/>
         <keep-edges.in-boundary value=""/>

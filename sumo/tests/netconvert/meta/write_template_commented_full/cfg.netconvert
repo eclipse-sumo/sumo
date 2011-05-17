@@ -139,13 +139,13 @@
 
     <edge_removal>
         <!-- Remove edges with speed < FLOAT -->
-        <edges-min-speed value=""/>
+        <keep-edges.min-speed value="" synonymes="edges-min-speed"/>
 
         <!-- Remove edges in STR -->
-        <remove-edges value=""/>
+        <remove-edges.explicit value="" synonymes="remove-edges"/>
 
         <!-- Remove edges not in STR -->
-        <keep-edges value=""/>
+        <keep-edges.explicit value="" synonymes="keep-edges"/>
 
         <!-- Removed edges not in FILE -->
         <keep-edges.input-file value=""/>

@@ -79,7 +79,7 @@ NBNetBuilder::applyOptions(OptionsCont &oc) throw(ProcessError) {
             oss << name;
             first = false;
         }
-        oc.set("keep-edges", oss.str());
+        oc.set("keep-edges.explicit", oss.str());
     }
     // apply options to type control
     myTypeCont.setDefaults(oc.getInt("default.lanenumber"), oc.getFloat("default.speed"), oc.getInt("default.priority"));
@@ -113,12 +113,12 @@ NBNetBuilder::compute(OptionsCont &oc) {
     }
     //
     if (oc.getBool("keep-edges.postload")) {
-        if (oc.isSet("keep-edges")) {
+        if (oc.isSet("keep-edges.explicit")) {
             inform(step, "Removing unwished edges.");
             myEdgeCont.removeUnwishedEdges(myDistrictCont);
         }
     }
-    if (oc.isSet("keep-edges") || oc.isSet("remove-edges") || oc.getBool("keep-edges.postload") || oc.isSet("keep-edges.by-vclass") || oc.isSet("keep-edges.input-file")) {
+    if (oc.isSet("keep-edges.explicit") || oc.isSet("remove-edges.explicit") || oc.getBool("keep-edges.postload") || oc.isSet("keep-edges.by-vclass") || oc.isSet("keep-edges.input-file")) {
         inform(step, "Rechecking nodes after edge removal.");
         myNodeCont.removeUnwishedNodes(myDistrictCont, myEdgeCont, myJoinedEdges, myTLLCont, oc.getBool("remove-geometry"));
     }

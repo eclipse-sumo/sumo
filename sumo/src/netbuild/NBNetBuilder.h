@@ -73,10 +73,10 @@ class OutputDevice;
  *  \n Removed nodes with no incoming/outgoing edges and nodes which can be transformed into 
  *   geometry point using NBNodeCont::removeUnwishedNodes().
  * -# Removing unwished edges (optional)
- *  \n If "keep-edges.postload" and "keep-edges" are set, the edges not with "keep-edges" are
+ *  \n If "keep-edges.postload" and "keep-edges.explicit" are set, the edges not within "keep-edges.explicit" are
  *   removed from the network using NBEdgeCont::removeUnwishedEdges().
  * -# Rechecking nodes after edge removal (optional)
- *  \n If any of the edge removing options was set ("keep-edges", "remove-edges", "keep-edges.postload",
+ *  \n If any of the edge removing options was set ("keep-edges.explicit", "remove-edges.explicit", "keep-edges.postload",
  *   "keep-edges.by-vclass", "keep-edges.input-file"), the now orphaned nodes are removed using 
  *   NBNodeCont::removeUnwishedNodes().
  * -# Splitting geometry edges (optional)

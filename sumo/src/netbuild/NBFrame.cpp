@@ -175,14 +175,17 @@ NBFrame::fillOptions(bool forNetgen) {
 
 
     // edge constraints
-    oc.doRegister("edges-min-speed", new Option_Float());
-    oc.addDescription("edges-min-speed", "Edge Removal", "Remove edges with speed < FLOAT");
+    oc.doRegister("keep-edges.min-speed", new Option_Float());
+    oc.addSynonyme("keep-edges.min-speed", "edges-min-speed", true);
+    oc.addDescription("keep-edges.min-speed", "Edge Removal", "Remove edges with speed < FLOAT");
 
-    oc.doRegister("remove-edges", new Option_String());
-    oc.addDescription("remove-edges", "Edge Removal", "Remove edges in STR");
+    oc.doRegister("remove-edges.explicit", new Option_String());
+    oc.addSynonyme("remove-edges.explicit", "remove-edges");
+    oc.addDescription("remove-edges.explicit", "Edge Removal", "Remove edges in STR");
 
-    oc.doRegister("keep-edges", new Option_String());
-    oc.addDescription("keep-edges", "Edge Removal", "Remove edges not in STR");
+    oc.doRegister("keep-edges.explicit", new Option_String());
+    oc.addSynonyme("keep-edges.explicit", "keep-edges");
+    oc.addDescription("keep-edges.explicit", "Edge Removal", "Remove edges not in STR");
 
     oc.doRegister("keep-edges.input-file", new Option_FileName());
     oc.addDescription("keep-edges.input-file", "Edge Removal", "Removed edges not in FILE");

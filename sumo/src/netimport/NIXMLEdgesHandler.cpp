@@ -200,7 +200,7 @@ NIXMLEdgesHandler::myStartElement(int element,
     }
     if (element==SUMO_TAG_LANE) {
         if (myCurrentEdge==0) {
-            if (!OptionsCont::getOptions().isInStringVector("remove-edges", myCurrentID)) {
+            if (!OptionsCont::getOptions().isInStringVector("remove-edges.explicit", myCurrentID)) {
                 MsgHandler::getErrorInstance()->inform("Additional lane information could not been set - the edge with id '" + myCurrentID + "' is not known.");
             }
             return;
@@ -278,7 +278,7 @@ NIXMLEdgesHandler::myStartElement(int element,
             }
             e.nameid = (int)e.pos;
             if (myCurrentEdge==0) {
-                if (!OptionsCont::getOptions().isInStringVector("remove-edges", myCurrentID)) {
+                if (!OptionsCont::getOptions().isInStringVector("remove-edges.explicit", myCurrentID)) {
                     MsgHandler::getErrorInstance()->inform("Additional lane information could not been set - the edge with id '" + myCurrentID + "' is not known.");
                 }
                 return;

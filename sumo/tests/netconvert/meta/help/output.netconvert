@@ -1,4 +1,4 @@
-SUMO netconvert Version dev-SVN-r10329
+SUMO netconvert Version dev-SVN-r10355
  Copyright (C) 2001-2011 DLR and contributors; http://sumo.sourceforge.net
  
 Road network importer / builder for the road traffic simulation SUMO.
@@ -89,9 +89,9 @@ Usage: netconvert [OPTION]*
   --ramps.set STR                      Tries to handle the given edges as ramps
 
  Edge Removal Options:
-  --edges-min-speed FLOAT              Remove edges with speed < FLOAT
-  --remove-edges STR                   Remove edges in STR
-  --keep-edges STR                     Remove edges not in STR
+  --keep-edges.min-speed FLOAT         Remove edges with speed < FLOAT
+  --remove-edges.explicit STR          Remove edges in STR
+  --keep-edges.explicit STR            Remove edges not in STR
   --keep-edges.input-file FILE         Removed edges not in FILE
   --keep-edges.postload                Remove edges after joining
   --keep-edges.in-boundary STR         Keeps edges which are located within the

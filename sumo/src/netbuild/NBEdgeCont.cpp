@@ -74,14 +74,14 @@ void
 NBEdgeCont::applyOptions(OptionsCont &oc) {
     myAmLeftHanded = oc.getBool("lefthand");
     // set edges dismiss/accept options
-    myEdgesMinSpeed = oc.isSet("edges-min-speed") ? oc.getFloat("edges-min-speed") : -1;
+    myEdgesMinSpeed = oc.isSet("keep-edges.min-speed") ? oc.getFloat("keep-edges.min-speed") : -1;
     myRemoveEdgesAfterJoining = OptionsCont::getOptions().getBool("keep-edges.postload");
-    if (oc.isSet("keep-edges")) {
-        const std::vector<std::string> edges = oc.getStringVector("keep-edges");
+    if (oc.isSet("keep-edges.explicit")) {
+        const std::vector<std::string> edges = oc.getStringVector("keep-edges.explicit");
 		myEdges2Keep.insert(edges.begin(), edges.end());
     }
-    if (oc.isSet("remove-edges")) {
-        const std::vector<std::string> edges = oc.getStringVector("remove-edges");
+    if (oc.isSet("remove-edges.explicit")) {
+        const std::vector<std::string> edges = oc.getStringVector("remove-edges.explicit");
 		myEdges2Remove.insert(edges.begin(), edges.end());
     }
     if (oc.isSet("keep-edges.by-vclass")) {
@@ -154,7 +154,7 @@ NBEdgeCont::insert(NBEdge *edge, bool ignorePrunning) throw() {
         myEdges.insert(EdgeCont::value_type(edge->getID(), edge));
         return true;
     }
-    // remove edges which allow a speed below a set one (set using "edges-min-speed")
+    // remove edges which allow a speed below a set one (set using "keep-edges.min-speed")
     if (edge->getSpeed()<myEdgesMinSpeed) {
         edge->getFromNode()->removeOutgoing(edge);
         edge->getToNode()->removeIncoming(edge);

@@ -556,9 +556,9 @@ NIImporter_VISUM::parse_Turns() {
         // check both
         if (src==0) {
             // maybe it was removed due to something
-            if (OptionsCont::getOptions().isSet("edges-min-speed")
+            if (OptionsCont::getOptions().isSet("keep-edges.min-speed")
                     ||
-                    OptionsCont::getOptions().isSet("keep-edges")) {
+                    OptionsCont::getOptions().isSet("keep-edges.explicit")) {
                 WRITE_WARNING("Could not set connection from node '" + from->getID() + "' to node '" + via->getID() + "'.");
             } else {
                 if (OptionsCont::getOptions().getBool("visum.verbose-warnings")) {
@@ -568,9 +568,9 @@ NIImporter_VISUM::parse_Turns() {
             return;
         }
         if (dest==0) {
-            if (OptionsCont::getOptions().isSet("edges-min-speed")
+            if (OptionsCont::getOptions().isSet("keep-edges.min-speed")
                     ||
-                    OptionsCont::getOptions().isSet("keep-edges")) {
+                    OptionsCont::getOptions().isSet("keep-edges.explicit")) {
                 WRITE_WARNING("Could not set connection from node '" + via->getID() + "' to node '" + to->getID() + "'.");
             } else {
                 if (OptionsCont::getOptions().getBool("visum.verbose-warnings")) {
@@ -625,7 +625,7 @@ NIImporter_VISUM::parse_EdgePolys() {
     if (failed) {
         // we should report this to the warning instance only if we have removed
         //  some nodes or edges...
-        if (OptionsCont::getOptions().isSet("edges-min-speed") || OptionsCont::getOptions().isSet("keep-edges")) {
+        if (OptionsCont::getOptions().isSet("keep-edges.min-speed") || OptionsCont::getOptions().isSet("keep-edges.explicit")) {
             WRITE_WARNING("Could not set geometry between node '" + from->getID() + "' and node '" + to->getID() + "'.");
         } else {
             // ... in the other case we report this to the error instance
