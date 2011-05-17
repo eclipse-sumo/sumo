@@ -629,8 +629,8 @@ NBNodeCont::removeIsolatedRoads(NBDistrictCont &dc, NBEdgeCont &ec, NBTrafficLig
             WRITE_WARNING(warningString);
         }
     }
-    if (edgeCounter > 0 && !OptionsCont::getOptions().getBool("remove-isolated")) {
-        WRITE_WARNING("Detected isolated roads. Use the option --remove-isolated to get a list of all affected edges.");
+    if (edgeCounter > 0 && !OptionsCont::getOptions().getBool("remove-edges.isolated")) {
+        WRITE_WARNING("Detected isolated roads. Use the option --remove-edges.isolated to get a list of all affected edges.");
     }
 }
 

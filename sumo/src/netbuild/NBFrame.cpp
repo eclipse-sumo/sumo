@@ -78,9 +78,6 @@ NBFrame::fillOptions(bool forNetgen) {
     oc.doRegister("remove-geometry", 'R', new Option_Bool(false));
     oc.addDescription("remove-geometry", "Processing", "Removes geometry information from edges");
 
-    oc.doRegister("remove-isolated", new Option_Bool(false));
-    oc.addDescription("remove-isolated", "Processing", "Removes isolated edges");
-
     oc.doRegister("no-turnarounds", new Option_Bool(false));
     oc.addDescription("no-turnarounds", "Processing", "Disables building turnarounds");
     
@@ -205,6 +202,13 @@ NBFrame::fillOptions(bool forNetgen) {
         oc.doRegister("remove-edges.by-vclass", new Option_String());
         oc.addDescription("remove-edges.by-vclass", "Edge Removal", "Remove edges where vclass def is not in STR");
     }
+
+    if(!forNetgen) {
+        oc.doRegister("remove-edges.isolated", new Option_Bool(false));
+        oc.addSynonyme("remove-edges.isolated", "remove-isolated", true);
+        oc.addDescription("remove-edges.isolated", "Edge Removal", "Removes isolated edges");
+    }
+
 
     // unregulated nodes options
     oc.doRegister("keep-unregulated", new Option_Bool(false));

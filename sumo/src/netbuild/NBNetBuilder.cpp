@@ -102,7 +102,7 @@ NBNetBuilder::compute(OptionsCont &oc) {
     myJoinedEdges.init(myEdgeCont);
     myNodeCont.recheckEdges(myDistrictCont, myTLLCont, myEdgeCont);
     //
-    if (oc.getBool("remove-isolated")) {
+    if (oc.exists("remove-edges.isolated") && oc.getBool("remove-edges.isolated")) {
         inform(step, "Finding isolated roads.");
         myNodeCont.removeIsolatedRoads(myDistrictCont, myEdgeCont, myTLLCont);
     }
