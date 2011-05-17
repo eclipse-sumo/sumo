@@ -78,11 +78,13 @@ NLJunctionControlBuilder::openJunction(const std::string &id,
                                        const std::string &key,
                                        const std::string &type,
                                        SUMOReal x, SUMOReal y,
-                                       const Position2DVector &shape) throw(InvalidArgument) {
+                                       const Position2DVector &shape,
+                                       const std::vector<MSLane*> &incomingLanes,
+                                       const std::vector<MSLane*> &internalLanes) throw(InvalidArgument) {
 #ifdef HAVE_INTERNAL_LANES
-    myActiveInternalLanes.clear();
+    myActiveInternalLanes = internalLanes;
 #endif
-    myActiveIncomingLanes.clear();
+    myActiveIncomingLanes = incomingLanes;
     myActiveID = id;
     myActiveKey = key;
     if (!SUMOXMLDefinitions::NodeTypes.hasString(type)) {
@@ -92,20 +94,6 @@ NLJunctionControlBuilder::openJunction(const std::string &id,
     myType = SUMOXMLDefinitions::NodeTypes.get(type);
     myPosition.set(x, y);
     myShape = shape;
-}
-
-
-#ifdef HAVE_INTERNAL_LANES
-void
-NLJunctionControlBuilder::addInternalLane(MSLane *lane) throw() {
-    myActiveInternalLanes.push_back(lane);
-}
-#endif
-
-
-void
-NLJunctionControlBuilder::addIncomingLane(MSLane *lane) throw() {
-    myActiveIncomingLanes.push_back(lane);
 }
 
 
@@ -191,12 +179,6 @@ NLJunctionControlBuilder::getJunctionLogicSecure() throw(InvalidArgument) {
         throw InvalidArgument("Missing junction logic '" + myActiveID + "'.");
     }
     return myLogics[myActiveID];
-}
-
-
-void
-NLJunctionControlBuilder::initIncomingLanes() throw() {
-    myActiveIncomingLanes.clear();
 }
 
 
@@ -336,7 +318,6 @@ NLJunctionControlBuilder::initTrafficLightLogic(const std::string &id, const std
     myActivePhases.clear();
     myAbsDuration = 0;
     myRequestSize = -1;
-    initIncomingLanes();
     myLogicType = type;
     myOffset = offset;
     myAdditionalParameter.clear();
@@ -404,12 +385,6 @@ NLJunctionControlBuilder::getTLLogicControlToUse() const throw() {
         return *myLogicControl;
     }
     return myNet.getTLSControl();
-}
-
-
-const std::string &
-NLJunctionControlBuilder::getActiveID() const throw() {
-    return myActiveID;
 }
 
 

@@ -96,28 +96,16 @@ public:
      * @param[in] x x-position of the junction
      * @param[in] y y-position of the junction
      * @param[in] shape The shape of the junction
+     * @param[in] incomingLanes List of lanes which end at this intersection
+     * @param[in] internalLanes List of internal lanes across this intersection
      * @exception InvalidArgument If the junction type is not known
      * @todo Check why "key" is given
      */
     void openJunction(const std::string &id, const std::string &key,
                       const std::string &type, SUMOReal x, SUMOReal y,
-                      const Position2DVector &shape) throw(InvalidArgument);
-
-
-    /** @brief Adds an incoming lane to the previously chosen junction
-     *
-     * @param[in] lane The lane to add to the junction as being an incoming lane
-     */
-    void addIncomingLane(MSLane *lane) throw();
-
-
-#ifdef HAVE_INTERNAL_LANES
-    /** @brief Adds an internal lane to the previously chosen junction
-     *
-     * @param[in] lane The lane to add to the junction as being an internal lane
-     */
-    void addInternalLane(MSLane *lane) throw();
-#endif
+                      const Position2DVector &shape,
+                      const std::vector<MSLane*> &incomingLanes,
+                      const std::vector<MSLane*> &internalLanes) throw(InvalidArgument);
 
 
     /** @brief Closes (ends) the processing of the current junction
@@ -143,13 +131,6 @@ public:
      * @return The built junction control
      */
     MSJunctionControl *build() const throw();
-
-
-    /** @brief Clears the inlanes-container
-     *
-     * @todo It seems as the container would be used in several ways; Recheck!
-     */
-    void initIncomingLanes() throw();
 
 
     /** @brief Initialises a junction logic
@@ -262,12 +243,6 @@ public:
      * @todo Can a parameter be overwritten?
      */
     void addParam(const std::string &key, const std::string &value) throw();
-
-
-    /** @brief Returns the active name
-     * @return The active id
-     */
-    const std::string &getActiveID() const throw();
 
 
     /** @brief Returns the active key

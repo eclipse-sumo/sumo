@@ -387,45 +387,45 @@ NLHandler::openJunction(const SUMOSAXAttributes &attrs) {
     SUMOReal y = attrs.getSUMORealReporting(SUMO_ATTR_Y, id.c_str(), ok);
     std::string type = attrs.getStringReporting(SUMO_ATTR_TYPE, id.c_str(), ok);
     std::string key = attrs.getOptStringReporting(SUMO_ATTR_KEY, id.c_str(), ok, "");
+    // incoming lanes
+    std::vector<MSLane*> incomingLanes;
+    parseLanes(id, attrs.getStringSecure(SUMO_ATTR_INCLANES, ""), incomingLanes, ok);
+    // internal lanes
+    std::vector<MSLane*> internalLanes;
+#ifdef HAVE_INTERNAL_LANES
+    if (MSGlobals::gUsingInternalLanes) {
+        parseLanes(id, attrs.getStringSecure(SUMO_ATTR_INTLANES, ""), internalLanes, ok);
+    }
+#endif
     if (!ok) {
         myCurrentIsBroken = true;
     } else {
         try {
-            myJunctionControlBuilder.openJunction(id, key, type, x, y, shape);
+            myJunctionControlBuilder.openJunction(id, key, type, x, y, shape, incomingLanes, internalLanes);
         } catch (InvalidArgument &e) {
             MsgHandler::getErrorInstance()->inform(e.what() + std::string("\n Can not build according junction."));
             myCurrentIsBroken = true;
         }
-        //
-        StringTokenizer st(attrs.getStringSecure(SUMO_ATTR_INCLANES, ""));
-        while (!myCurrentIsBroken&&st.hasNext()) {
-            std::string set = st.next();
-            MSLane *lane = MSLane::dictionary(set);
-            if (!MSGlobals::gUsingInternalLanes&&set[0]==':') {
-                continue;
-            }
-            if (lane==0) {
-                MsgHandler::getErrorInstance()->inform("An unknown lane ('" + set + "') was tried to be set as incoming to junction '" + myJunctionControlBuilder.getActiveID() + "'.");
-                myCurrentIsBroken = true;
-                continue;
-            }
-            myJunctionControlBuilder.addIncomingLane(lane);
+    }
+}
+
+
+void
+NLHandler::parseLanes(const std::string &junctionID, 
+                      const std::string &def, std::vector<MSLane*> &into, bool &ok) {
+    StringTokenizer st(def);
+    while (ok&&st.hasNext()) {
+        std::string laneID = st.next();
+        MSLane *lane = MSLane::dictionary(laneID);
+        if (!MSGlobals::gUsingInternalLanes&&laneID[0]==':') {
+            continue;
         }
-#ifdef HAVE_INTERNAL_LANES
-        if (MSGlobals::gUsingInternalLanes) {
-            StringTokenizer st(attrs.getStringSecure(SUMO_ATTR_INTLANES, ""));
-            while (!myCurrentIsBroken&&st.hasNext()) {
-                std::string set = st.next();
-                MSLane *lane = MSLane::dictionary(set);
-                if (lane==0) {
-                    MsgHandler::getErrorInstance()->inform("An unknown lane ('" + set + "') was tried to be set as internal.");
-                    myCurrentIsBroken = true;
-                    continue;
-                }
-                myJunctionControlBuilder.addInternalLane(lane);
-            }
+        if (lane==0) {
+            MsgHandler::getErrorInstance()->inform("An unknown lane ('" + laneID + "') was tried to be set as incoming to junction '" + junctionID + "'.");
+            ok = false;
+            continue;
         }
-#endif
+        into.push_back(lane);
     }
 }
 
@@ -621,7 +621,6 @@ NLHandler::initJunctionLogic(const SUMOSAXAttributes &attrs) {
 void
 NLHandler::initTrafficLightLogic(const SUMOSAXAttributes &attrs) {
     myAmInTLLogicMode = true;
-    myJunctionControlBuilder.initIncomingLanes(); // @deprecated (is this still used?)
     bool ok = true;
     std::string type = attrs.getStringReporting(SUMO_ATTR_TYPE, 0, ok);
     //
