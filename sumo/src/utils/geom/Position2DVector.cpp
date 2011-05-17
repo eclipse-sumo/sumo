@@ -345,46 +345,43 @@ Position2DVector::getEnd() const {
 std::pair<Position2DVector, Position2DVector>
 Position2DVector::splitAt(SUMOReal where) const {
     assert(size()>=2);
-    assert(where!=0);
-    Position2DVector one, two;
-    Position2D last = myCont[0];
-    Position2D curr = myCont[0];
+    assert(where>0);
+    assert(where<length());
+    Position2DVector first, second;
+    first.push_back(myCont[0]);
     SUMOReal seen = 0;
-    SUMOReal currdist = 0;
-    one.push_back(myCont[0]);
-    ContType::const_iterator i=myCont.begin()+1;
-
-    do {
-        last = curr;
-        curr = *i;
-        currdist = last.distanceTo(curr);
-        if (seen+currdist<where&&i!=myCont.begin()+1) {
-            one.push_back(last);
-        }
-        i++;
-        seen += currdist;
-    } while (seen<where&&i!=myCont.end());
-    seen -= currdist;
-    i--;
-
-    if (fabs(seen+currdist-where)<POSITION_EPS) {
-        one.push_back(curr);
-    } else {
-        Line2D tmpL(last, curr);
-        assert(seen+currdist-where>POSITION_EPS);
-        Position2D p = tmpL.getPositionAtDistance(seen+currdist-where);
-        one.push_back(p);
-        two.push_back(p);
+    ContType::const_iterator it = myCont.begin()+1;
+    SUMOReal next = first.getEnd().distanceTo(*it);
+    // see how many points we can add to first
+    while (where >= seen + next + POSITION_EPS) { 
+        seen += next;
+        first.push_back(*it);
+        it++;
+        next = first.getEnd().distanceTo(*it);
     }
-
-    for (; i!=myCont.end(); i++) {
-        two.push_back(*i);
+    if (fabs(where - (seen + next))>POSITION_EPS) { 
+        // we need to insert a new point
+        Line2D tmpL(first.getEnd(), *it);
+        Position2D p = tmpL.getPositionAtDistance(where - seen);
+        first.push_back(p);
+        second.push_back(p);
     }
-    assert(one.size()>=2);
-    assert(two.size()>=2);
-    return std::pair<Position2DVector, Position2DVector>(one, two);
+    // add the remaining points to second
+    for (; it!=myCont.end(); it++) {
+        second.push_back(*it);
+    }
+    // make sure both geoms are long enough
+    if (first.size() < 2) {
+        first.push_back(second.getBegin());
+    }
+    if (second.size() < 2) {
+        second.push_front(first.getEnd());
+    }
+    assert(first.size()>=2);
+    assert(second.size()>=2);
+    assert(fabs(first.length() + second.length() - length()) < 2 * POSITION_EPS);
+    return std::pair<Position2DVector, Position2DVector>(first, second);
 }
-
 
 
 std::ostream &
