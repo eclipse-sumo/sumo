@@ -355,8 +355,6 @@ if test x"$with_gtest" != xno; then
     save_ldflags=$LDFLAGS
     LDFLAGS="-L$with_gtest/lib"
     export LDFLAGS
-    AC_CHECK_LIB([$LIB_GTEST], [main], [GTEST_LDFLAGS=$LDFLAGS],
-                 [AC_MSG_ERROR([gtest-lib not found in "$with_gtest/lib".])])
     LDFLAGS=$save_ldflags
     AC_SUBST(GTEST_LDFLAGS)
     AC_SUBST(LIB_GTEST)
