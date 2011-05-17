@@ -174,7 +174,7 @@ NBFrame::fillOptions(bool forNetgen) {
 
 
 
-    // edge constraints
+    // edge pruning
     oc.doRegister("keep-edges.min-speed", new Option_Float());
     oc.addSynonyme("keep-edges.min-speed", "edges-min-speed", true);
     oc.addDescription("keep-edges.min-speed", "Edge Removal", "Remove edges with speed < FLOAT");
@@ -190,18 +190,21 @@ NBFrame::fillOptions(bool forNetgen) {
     oc.doRegister("keep-edges.input-file", new Option_FileName());
     oc.addDescription("keep-edges.input-file", "Edge Removal", "Removed edges not in FILE");
 
-    oc.doRegister("keep-edges.postload", new Option_Bool(false));
-    oc.addDescription("keep-edges.postload", "Edge Removal", "Remove edges after joining");
+    if(!forNetgen) {
+        oc.doRegister("keep-edges.postload", new Option_Bool(false));
+        oc.addDescription("keep-edges.postload", "Edge Removal", "Remove edges after joining");
+    }
 
     oc.doRegister("keep-edges.in-boundary", new Option_String());
     oc.addDescription("keep-edges.in-boundary", "Edge Removal", "Keeps edges which are located within the given boundary");
 
-    oc.doRegister("keep-edges.by-vclass", new Option_String());
-    oc.addDescription("keep-edges.by-vclass", "Edge Removal", "Keep edges that allow any of the vclasss in STR");
+    if(!forNetgen) {
+        oc.doRegister("keep-edges.by-vclass", new Option_String());
+        oc.addDescription("keep-edges.by-vclass", "Edge Removal", "Keep edges that allow any of the vclasss in STR");
 
-    oc.doRegister("remove-edges.by-vclass", new Option_String());
-    oc.addDescription("remove-edges.by-vclass", "Edge Removal", "Remove edges where vclass def is not in STR");
-
+        oc.doRegister("remove-edges.by-vclass", new Option_String());
+        oc.addDescription("remove-edges.by-vclass", "Edge Removal", "Remove edges where vclass def is not in STR");
+    }
 
     // unregulated nodes options
     oc.doRegister("keep-unregulated", new Option_Bool(false));

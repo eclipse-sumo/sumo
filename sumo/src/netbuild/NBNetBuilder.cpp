@@ -112,13 +112,17 @@ NBNetBuilder::compute(OptionsCont &oc) {
         myNodeCont.removeUnwishedNodes(myDistrictCont, myEdgeCont, myJoinedEdges, myTLLCont, oc.getBool("remove-geometry"));
     }
     //
-    if (oc.getBool("keep-edges.postload")) {
+    if (oc.exists("keep-edges.postload") && oc.getBool("keep-edges.postload")) {
         if (oc.isSet("keep-edges.explicit")) {
             inform(step, "Removing unwished edges.");
             myEdgeCont.removeUnwishedEdges(myDistrictCont);
         }
     }
-    if (oc.isSet("keep-edges.explicit") || oc.isSet("remove-edges.explicit") || oc.getBool("keep-edges.postload") || oc.isSet("keep-edges.by-vclass") || oc.isSet("keep-edges.input-file")) {
+    if (oc.isSet("keep-edges.explicit") || oc.isSet("remove-edges.explicit") 
+        || (oc.exists("keep-edges.postload") && oc.getBool("keep-edges.postload") )
+        || (oc.exists("keep-edges.by-vclass") && oc.isSet("keep-edges.by-vclass") )
+        || (oc.exists("remove-edges.by-vclass") && oc.isSet("remove-edges.by-vclass") )
+        || oc.isSet("keep-edges.input-file")) {
         inform(step, "Rechecking nodes after edge removal.");
         myNodeCont.removeUnwishedNodes(myDistrictCont, myEdgeCont, myJoinedEdges, myTLLCont, oc.getBool("remove-geometry"));
     }

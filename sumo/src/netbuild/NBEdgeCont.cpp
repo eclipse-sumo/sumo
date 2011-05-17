@@ -75,7 +75,7 @@ NBEdgeCont::applyOptions(OptionsCont &oc) {
     myAmLeftHanded = oc.getBool("lefthand");
     // set edges dismiss/accept options
     myEdgesMinSpeed = oc.isSet("keep-edges.min-speed") ? oc.getFloat("keep-edges.min-speed") : -1;
-    myRemoveEdgesAfterJoining = OptionsCont::getOptions().getBool("keep-edges.postload");
+    myRemoveEdgesAfterJoining = oc.exists("keep-edges.postload") && oc.getBool("keep-edges.postload");
     if (oc.isSet("keep-edges.explicit")) {
         const std::vector<std::string> edges = oc.getStringVector("keep-edges.explicit");
 		myEdges2Keep.insert(edges.begin(), edges.end());
@@ -84,7 +84,7 @@ NBEdgeCont::applyOptions(OptionsCont &oc) {
         const std::vector<std::string> edges = oc.getStringVector("remove-edges.explicit");
 		myEdges2Remove.insert(edges.begin(), edges.end());
     }
-    if (oc.isSet("keep-edges.by-vclass")) {
+    if (oc.exists("keep-edges.by-vclass") && oc.isSet("keep-edges.by-vclass")) {
         const std::vector<std::string> classes = oc.getStringVector("keep-edges.by-vclass");
         for (std::vector<std::string>::const_iterator i=classes.begin(); i!=classes.end(); ++i) {
             SUMOVehicleClass svc = getVehicleClassID(*i);
@@ -95,7 +95,7 @@ NBEdgeCont::applyOptions(OptionsCont &oc) {
             }
         }
     }
-    if (oc.isSet("remove-edges.by-vclass")) {
+    if (oc.exists("remove-edges.by-vclass") && oc.isSet("remove-edges.by-vclass")) {
         const std::vector<std::string> classes = oc.getStringVector("remove-edges.by-vclass");
         for (std::vector<std::string>::const_iterator i=classes.begin(); i!=classes.end(); ++i) {
             SUMOVehicleClass svc = getVehicleClassID(*i);

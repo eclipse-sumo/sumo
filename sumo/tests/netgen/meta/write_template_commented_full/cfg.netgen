@@ -156,17 +156,8 @@
         <!-- Removed edges not in FILE -->
         <keep-edges.input-file value=""/>
 
-        <!-- Remove edges after joining -->
-        <keep-edges.postload value="false"/>
-
         <!-- Keeps edges which are located within the given boundary -->
         <keep-edges.in-boundary value=""/>
-
-        <!-- Keep edges that allow any of the vclasss in STR -->
-        <keep-edges.by-vclass value=""/>
-
-        <!-- Remove edges where vclass def is not in STR -->
-        <remove-edges.by-vclass value=""/>
 
     </edge_removal>
 

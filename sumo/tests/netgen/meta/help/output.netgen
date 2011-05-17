@@ -99,13 +99,8 @@ Usage: netgen [OPTION]*
   --remove-edges.explicit STR          Remove edges in STR
   --keep-edges.explicit STR            Remove edges not in STR
   --keep-edges.input-file FILE         Removed edges not in FILE
-  --keep-edges.postload                Remove edges after joining
   --keep-edges.in-boundary STR         Keeps edges which are located within the
                                          given boundary
-  --keep-edges.by-vclass STR           Keep edges that allow any of the vclasss
-                                         in STR
-  --remove-edges.by-vclass STR         Remove edges where vclass def is not in
-                                         STR
 
  Unregulated Nodes Options:
   --keep-unregulated                   All nodes will be not regulated
