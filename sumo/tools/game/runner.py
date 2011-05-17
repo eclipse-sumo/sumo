@@ -56,15 +56,29 @@ class StartDialog:
         bWidth = 25
         self.root = Tkinter.Tk()
         self.root.title("Traffic Light Game")
-        for cfg in glob.glob(os.path.join(base, "*.sumo.cfg")):
+        self.root.minsize(250, 50)
+        self.gametime = 0
+        self.ret = 0
+        configs = glob.glob(os.path.join(base, "*.sumo.cfg"))
+        numButtons = len(configs) + 2
+        print numButtons
+        # some pretty images
+        dlrLogo = Tkinter.PhotoImage(file='dlr.gif')
+        sumoLogo = Tkinter.PhotoImage(file='logo.gif')
+        Tkinter.Label(self.root, image=dlrLogo).grid(rowspan=numButtons)
+        idx = 0
+        for cfg in configs:
             text = category = os.path.basename(cfg)[:-9]
             if text == "cross":
                 text = "Simple Junction" 
             elif text == "square":
                 text = "Four Junctions" 
-            Tkinter.Button(self.root, text=text, width=bWidth, command=lambda cfg=cfg:self.ok(cfg)).pack()
-        Tkinter.Button(self.root, text="Reset Highscore", width=bWidth, command=high.clear).pack()
-        Tkinter.Button(self.root, text="Quit", width=bWidth, command=sys.exit).pack()
+            Tkinter.Button(self.root, text=text, width=bWidth, command=lambda cfg=cfg:self.ok(cfg)).grid(row=idx, column=1)
+            idx += 1
+        Tkinter.Button(self.root, text="Reset Highscore", width=bWidth, command=high.clear).grid(row=idx, column=1)
+        Tkinter.Button(self.root, text="Quit", width=bWidth, command=sys.exit).grid(row=idx+1, column=1)
+        Tkinter.Label(self.root, image=sumoLogo).grid(row=0, column=2, rowspan=numButtons)
+        self.root.grid()
         # The following three commands are needed so the window pops
         # up on top on Windows...
         self.root.iconify()
@@ -95,8 +109,8 @@ class ScoreDialog:
             high[category] = 10*[("", "", -1.)]
         idx = 0
         for n, g, p in high[category]:
-            Tkinter.Label(self.root, text=(str(idx + 1) + '. ')).grid(row=idx)
             if not haveHigh and p < points:
+                Tkinter.Label(self.root, text=(str(idx + 1) + '. ')).grid(row=idx)
                 self.name = Tkinter.Entry(self.root)
                 self.name.grid(row=idx, sticky=Tkinter.W, column=1)
                 self.scoreLabel = Tkinter.Label(self.root, text=str(points), bg="pale green").grid(row=idx, column=2)
@@ -106,6 +120,7 @@ class ScoreDialog:
                 idx += 1
             if p == -1 or idx == 10:
                 break
+            Tkinter.Label(self.root, text=(str(idx + 1) + '. ')).grid(row=idx)
             Tkinter.Label(self.root, text=n, padx=5).grid(row=idx, sticky=Tkinter.W, column=1)
             Tkinter.Label(self.root, text=str(p)).grid(row=idx, column=2)
             idx += 1
