@@ -261,7 +261,6 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "style",          SUMO_ATTR_STYLE },
     { "file",           SUMO_ATTR_FILE },
     { "junction",       SUMO_ATTR_JUNCTION },
-    { "yield",          SUMO_ATTR_YIELD },
     { "no",             SUMO_ATTR_NO },
     { "duration",       SUMO_ATTR_DURATION },
     { "until",          SUMO_ATTR_UNTIL },
