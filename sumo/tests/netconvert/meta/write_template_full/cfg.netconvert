@@ -66,6 +66,7 @@
         <keep-edges.in-boundary value=""/>
         <keep-edges.by-vclass value=""/>
         <remove-edges.by-vclass value=""/>
+        <remove-edges.isolated value="false" synonymes="remove-isolated"/>
     </edge_removal>
 
     <unregulated_nodes>
@@ -103,7 +104,6 @@
         <osm.skip-duplicates-check value="false"/>
         <dismiss-vclasses value="false"/>
         <remove-geometry value="false" synonymes="R"/>
-        <remove-isolated value="false"/>
         <no-turnarounds value="false"/>
         <no-tls-turnarounds value="false"/>
         <no-internal-links value="false"/>

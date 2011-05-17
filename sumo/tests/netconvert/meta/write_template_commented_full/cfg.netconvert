@@ -162,6 +162,9 @@
         <!-- Remove edges where vclass def is not in STR -->
         <remove-edges.by-vclass value=""/>
 
+        <!-- Removes isolated edges -->
+        <remove-edges.isolated value="false" synonymes="remove-isolated"/>
+
     </edge_removal>
 
     <unregulated_nodes>
@@ -260,9 +263,6 @@
 
         <!-- Removes geometry information from edges -->
         <remove-geometry value="false" synonymes="R"/>
-
-        <!-- Removes isolated edges -->
-        <remove-isolated value="false"/>
 
         <!-- Disables building turnarounds -->
         <no-turnarounds value="false"/>
