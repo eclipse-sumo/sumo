@@ -141,6 +141,7 @@ GUISUMOAbstractView::GUISUMOAbstractView(FXComposite *p,
 GUISUMOAbstractView::~GUISUMOAbstractView() {
     gSchemeStorage.setDefault(myVisualizationSettings->name);
     gSchemeStorage.saveViewport(myChanger->getXPos(), myChanger->getYPos(), myChanger->getZoom());
+    delete myPopup;
     delete myChanger;
     delete myToolTip;
     delete myViewportChooser;
