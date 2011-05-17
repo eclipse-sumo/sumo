@@ -141,10 +141,10 @@
     <ClCompile Include="..\..\..\src\netwrite\NWWriter_XML.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\src\netwrite\NWFrame.h" />
-    <ClCompile Include="..\..\..\src\netwrite\NWWriter_SUMO.h" />
-    <ClCompile Include="..\..\..\src\netwrite\NWWriter_MATSim.h" />
-    <ClCompile Include="..\..\..\src\netwrite\NWWriter_XML.h" />
+    <ClInclude Include="..\..\..\src\netwrite\NWFrame.h" />
+    <ClInclude Include="..\..\..\src\netwrite\NWWriter_SUMO.h" />
+    <ClInclude Include="..\..\..\src\netwrite\NWWriter_MATSim.h" />
+    <ClInclude Include="..\..\..\src\netwrite\NWWriter_XML.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\zz_foreign_nvwa\zz_foreign_nvwa.vcxproj">

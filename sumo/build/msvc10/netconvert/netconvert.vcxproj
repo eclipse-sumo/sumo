@@ -190,11 +190,7 @@
     </ProjectReference>
     <ProjectReference Include="..\y_libnetwrite\y_libnetwrite.vcxproj">
       <Project>{b0c268f3-2153-8ddc-fac6-bb599e20126d}</Project>
-      <Private>true</Private>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
-      <CopyLocalSatelliteAssemblies>false</CopyLocalSatelliteAssemblies>
-      <LinkLibraryDependencies>true</LinkLibraryDependencies>
-      <UseLibraryDependencyInputs>false</UseLibraryDependencyInputs>
     </ProjectReference>
     <ProjectReference Include="..\zz_foreign_eulerspiral\zz_foreign_eulerspiral.vcxproj">
       <Project>{50b2c273-2b6a-4a3a-be24-83e3202de180}</Project>
