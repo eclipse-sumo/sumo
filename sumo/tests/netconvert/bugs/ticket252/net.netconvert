@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 05/12/11 10:24:36 by SUMO netconvert Version dev-SVN-r10305
+<!-- generated on Tue May 17 15:59:13 2011 by SUMO netconvert Version dev-SVN-r10370
 <?xml version="1.0" encoding="iso-8859-1"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
@@ -26,7 +26,7 @@
         <no-turnarounds value="true"/>
         <offset.disable-normalization value="true"/>
         <offset.x value="-280900"/>
-        <offset.y value="-4.1536e+006"/>
+        <offset.y value="-4.1536e+06"/>
     </processing>
 
 </configuration>
@@ -106,10 +106,10 @@
       <lane id=":49613629_1_0" depart="0" maxspeed="20.10" length="10.30" shape="4147.21,3230.28 4146.53,3227.30 4146.08,3225.26 4145.64,3223.21 4145.00,3220.22"/>
    </edge>
    <edge id=":49613629_2" function="internal">
-      <lane id=":49613629_2_0" depart="0" maxspeed="16.75" length="5.37" shape="4147.21,3230.28 4147.46,3228.49 4150.99,3224.13"/>
+      <lane id=":49613629_2_0" depart="0" maxspeed="16.75" length="5.37" shape="4147.21,3230.28 4147.46,3228.49 4148.92,3226.24 4149.53,3225.61"/>
    </edge>
    <edge id=":49613629_8" function="internal">
-      <lane id=":49613629_8_0" depart="0" maxspeed="16.75" length="7.98" shape="4150.99,3224.13 4151.60,3223.51 4155.49,3220.31"/>
+      <lane id=":49613629_8_0" depart="0" maxspeed="16.75" length="7.98" shape="4149.53,3225.61 4151.60,3223.51 4155.49,3220.31"/>
    </edge>
    <edge id=":49613629_3" function="internal">
       <lane id=":49613629_3_0" depart="0" maxspeed="16.75" length="7.33" shape="4157.49,3222.94 4155.59,3224.57 4154.32,3226.09 4153.67,3227.49 4153.64,3228.78"/>

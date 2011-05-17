@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on Tue May 10 11:17:51 2011 by SUMO netconvert Version dev-SVN-r10263
+<!-- generated on Tue May 17 15:58:38 2011 by SUMO netconvert Version dev-SVN-r10370
 <?xml version="1.0" encoding="iso-8859-1"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
@@ -36,10 +36,10 @@
       <lane id=":0_1_0" depart="0" maxspeed="13.90" length="15.32" shape="501.76,508.76 498.70,504.98 496.97,501.64 495.59,498.65 493.57,495.91"/>
    </edge>
    <edge id=":0_2" function="internal">
-      <lane id=":0_2_0" depart="0" maxspeed="13.90" length="6.08" shape="504.09,506.43 501.31,501.57"/>
+      <lane id=":0_2_0" depart="0" maxspeed="13.90" length="6.08" shape="504.09,506.43 501.73,503.17 501.21,501.19"/>
    </edge>
    <edge id=":0_12" function="internal">
-      <lane id=":0_12_0" depart="0" maxspeed="13.90" length="10.31" shape="501.31,501.57 500.80,499.58 501.30,495.65 503.25,491.38"/>
+      <lane id=":0_12_0" depart="0" maxspeed="13.90" length="10.31" shape="501.21,501.19 500.80,499.58 501.30,495.65 503.25,491.38"/>
    </edge>
    <edge id=":0_3" function="internal">
       <lane id=":0_3_0" depart="0" maxspeed="13.90" length="10.10" shape="508.91,494.77 507.09,498.12 506.08,500.79 505.85,502.78 506.43,504.09"/>
@@ -48,10 +48,10 @@
       <lane id=":0_4_0" depart="0" maxspeed="13.90" length="18.13" shape="506.08,493.08 503.02,498.18 500.63,502.16 498.64,505.48 496.75,508.62"/>
    </edge>
    <edge id=":0_5" function="internal">
-      <lane id=":0_5_0" depart="0" maxspeed="13.90" length="5.58" shape="506.08,493.08 500.77,498.18"/>
+      <lane id=":0_5_0" depart="0" maxspeed="13.90" length="5.58" shape="506.08,493.08 503.14,496.85 502.45,497.24"/>
    </edge>
    <edge id=":0_13" function="internal">
-      <lane id=":0_13_0" depart="0" maxspeed="13.90" length="9.99" shape="500.77,498.18 500.08,498.58 496.89,498.26 493.57,495.91"/>
+      <lane id=":0_13_0" depart="0" maxspeed="13.90" length="9.99" shape="502.45,497.24 500.08,498.58 496.89,498.26 493.57,495.91"/>
    </edge>
    <edge id=":0_6" function="internal">
       <lane id=":0_6_0" depart="0" maxspeed="13.90" length="6.06" shape="498.24,491.24 499.75,492.44 501.08,492.87 502.25,492.51 503.25,491.38"/>
@@ -60,10 +60,10 @@
       <lane id=":0_7_0" depart="0" maxspeed="13.90" length="15.32" shape="498.24,491.24 501.30,495.02 503.03,498.36 504.41,501.35 506.43,504.09"/>
    </edge>
    <edge id=":0_8" function="internal">
-      <lane id=":0_8_0" depart="0" maxspeed="13.90" length="6.08" shape="495.91,493.57 498.69,498.43"/>
+      <lane id=":0_8_0" depart="0" maxspeed="13.90" length="6.08" shape="495.91,493.57 498.27,496.83 498.79,498.81"/>
    </edge>
    <edge id=":0_14" function="internal">
-      <lane id=":0_14_0" depart="0" maxspeed="13.90" length="10.31" shape="498.69,498.43 499.20,500.42 498.70,504.35 496.75,508.62"/>
+      <lane id=":0_14_0" depart="0" maxspeed="13.90" length="10.31" shape="498.79,498.81 499.20,500.42 498.70,504.35 496.75,508.62"/>
    </edge>
    <edge id=":0_9" function="internal">
       <lane id=":0_9_0" depart="0" maxspeed="13.90" length="10.10" shape="491.09,505.23 492.91,501.88 493.92,499.21 494.15,497.22 493.57,495.91"/>
@@ -72,10 +72,10 @@
       <lane id=":0_10_0" depart="0" maxspeed="13.90" length="18.13" shape="493.92,506.92 496.98,501.82 499.37,497.84 501.36,494.52 503.25,491.38"/>
    </edge>
    <edge id=":0_11" function="internal">
-      <lane id=":0_11_0" depart="0" maxspeed="13.90" length="5.58" shape="493.92,506.92 499.23,501.82"/>
+      <lane id=":0_11_0" depart="0" maxspeed="13.90" length="5.58" shape="493.92,506.92 496.86,503.15 497.55,502.76"/>
    </edge>
    <edge id=":0_15" function="internal">
-      <lane id=":0_15_0" depart="0" maxspeed="13.90" length="9.99" shape="499.23,501.82 499.92,501.42 503.11,501.74 506.43,504.09"/>
+      <lane id=":0_15_0" depart="0" maxspeed="13.90" length="9.99" shape="497.55,502.76 499.92,501.42 503.11,501.74 506.43,504.09"/>
    </edge>
 
    <edge id="1i" from="1" to="0" priority="2">

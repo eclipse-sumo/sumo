@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 05/12/11 10:23:28 by SUMO netconvert Version dev-SVN-r10305
+<!-- generated on Tue May 17 15:59:03 2011 by SUMO netconvert Version dev-SVN-r10370
 <?xml version="1.0" encoding="iso-8859-1"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
@@ -103,10 +103,10 @@
       <lane id=":49613629_1_0" depart="0" maxspeed="20.10" length="10.30" shape="234.01,3593.21 233.32,3590.24 232.87,3588.19 232.44,3586.15 231.79,3583.16"/>
    </edge>
    <edge id=":49613629_2" function="internal">
-      <lane id=":49613629_2_0" depart="0" maxspeed="16.75" length="5.37" shape="234.01,3593.21 234.26,3591.43 237.78,3587.07"/>
+      <lane id=":49613629_2_0" depart="0" maxspeed="16.75" length="5.37" shape="234.01,3593.21 234.26,3591.43 235.72,3589.17 236.33,3588.55"/>
    </edge>
    <edge id=":49613629_8" function="internal">
-      <lane id=":49613629_8_0" depart="0" maxspeed="16.75" length="7.98" shape="237.78,3587.07 238.40,3586.44 242.29,3583.25"/>
+      <lane id=":49613629_8_0" depart="0" maxspeed="16.75" length="7.98" shape="236.33,3588.55 238.40,3586.44 242.29,3583.25"/>
    </edge>
    <edge id=":49613629_3" function="internal">
       <lane id=":49613629_3_0" depart="0" maxspeed="16.75" length="7.33" shape="244.29,3585.87 242.39,3587.50 241.11,3589.02 240.46,3590.42 240.44,3591.72"/>

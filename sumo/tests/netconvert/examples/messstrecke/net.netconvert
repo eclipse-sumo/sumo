@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 05/16/11 11:31:01 by SUMO netconvert Version dev-SVN-r10338
+<!-- generated on Tue May 17 15:58:38 2011 by SUMO netconvert Version dev-SVN-r10370
 <?xml version="1.0" encoding="iso-8859-1"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
@@ -54,19 +54,19 @@
       <lane id=":ErnstRuskaAltglienicker_1_0" depart="0" maxspeed="19.00" length="13.35" shape="1916.52,204.95 1912.66,204.43 1910.12,203.30 1907.58,202.17 1903.72,201.65"/>
    </edge>
    <edge id=":ErnstRuskaAltglienicker_2" function="internal">
-      <lane id=":ErnstRuskaAltglienicker_2_0" depart="0" maxspeed="16.50" length="8.84" shape="1916.52,201.65 1912.28,201.04 1907.95,197.07"/>
+      <lane id=":ErnstRuskaAltglienicker_2_0" depart="0" maxspeed="16.50" length="8.84" shape="1916.52,201.65 1912.28,201.04 1909.24,199.23 1908.72,198.35"/>
    </edge>
    <edge id=":ErnstRuskaAltglienicker_8" function="internal">
-      <lane id=":ErnstRuskaAltglienicker_8_0" depart="0" maxspeed="16.50" length="6.80" shape="1907.95,197.07 1907.43,196.19 1906.82,191.95"/>
+      <lane id=":ErnstRuskaAltglienicker_8_0" depart="0" maxspeed="16.50" length="6.80" shape="1908.72,198.35 1907.43,196.19 1906.82,191.95"/>
    </edge>
    <edge id=":ErnstRuskaAltglienicker_3" function="internal">
       <lane id=":ErnstRuskaAltglienicker_3_0" depart="0" maxspeed="16.50" length="5.00" shape="1913.42,191.95 1913.61,193.31 1914.19,194.28 1915.16,194.86 1916.52,195.05"/>
    </edge>
    <edge id=":ErnstRuskaAltglienicker_4" function="internal">
-      <lane id=":ErnstRuskaAltglienicker_4_0" depart="0" maxspeed="16.50" length="3.11" shape="1910.12,191.95 1910.01,193.09"/>
+      <lane id=":ErnstRuskaAltglienicker_4_0" depart="0" maxspeed="16.50" length="3.11" shape="1910.12,191.95 1909.83,195.05"/>
    </edge>
    <edge id=":ErnstRuskaAltglienicker_9" function="internal">
-      <lane id=":ErnstRuskaAltglienicker_9_0" depart="0" maxspeed="16.50" length="9.98" shape="1910.01,193.09 1909.72,196.19 1908.52,199.22 1906.52,201.04 1903.72,201.65"/>
+      <lane id=":ErnstRuskaAltglienicker_9_0" depart="0" maxspeed="16.50" length="9.98" shape="1909.83,195.05 1909.72,196.19 1908.52,199.22 1906.52,201.04 1903.72,201.65"/>
    </edge>
    <edge id=":ErnstRuskaAltglienicker_5" function="internal">
       <lane id=":ErnstRuskaAltglienicker_5_0" depart="0" maxspeed="16.50" length="5.00" shape="1903.72,195.05 1905.08,194.86 1906.04,194.28 1906.63,193.31 1906.82,191.95"/>
@@ -99,10 +99,10 @@
       <lane id=":ErnstRuskaEinstein_6_0" depart="0" maxspeed="19.00" length="9.50" shape="290.17,198.35 299.67,198.35"/>
    </edge>
    <edge id=":ErnstRuskaEinstein_7" function="internal">
-      <lane id=":ErnstRuskaEinstein_7_0" depart="0" maxspeed="16.50" length="6.51" shape="290.17,198.35 292.97,198.96 295.82,202.93"/>
+      <lane id=":ErnstRuskaEinstein_7_0" depart="0" maxspeed="16.50" length="6.51" shape="290.17,198.35 292.97,198.96 294.97,200.77 295.31,201.65"/>
    </edge>
    <edge id=":ErnstRuskaEinstein_8" function="internal">
-      <lane id=":ErnstRuskaEinstein_8_0" depart="0" maxspeed="16.50" length="6.58" shape="295.82,202.93 296.17,203.81 296.56,208.05"/>
+      <lane id=":ErnstRuskaEinstein_8_0" depart="0" maxspeed="16.50" length="6.58" shape="295.31,201.65 296.17,203.81 296.56,208.05"/>
    </edge>
    <edge id=":ErnstRuskaEnd1_0" function="internal">
       <lane id=":ErnstRuskaEnd1_0_0" depart="0" maxspeed="19.00" length="0.10" shape="100.00,204.95 100.00,204.95"/>
@@ -207,10 +207,10 @@
       <lane id=":ErnstRuskaVolmer_6_0" depart="0" maxspeed="19.00" length="9.50" shape="1580.00,198.35 1589.50,198.35"/>
    </edge>
    <edge id=":ErnstRuskaVolmer_7" function="internal">
-      <lane id=":ErnstRuskaVolmer_7_0" depart="0" maxspeed="16.50" length="6.51" shape="1580.00,198.35 1582.80,198.96 1585.65,202.93"/>
+      <lane id=":ErnstRuskaVolmer_7_0" depart="0" maxspeed="16.50" length="6.51" shape="1580.00,198.35 1582.80,198.96 1584.80,200.77 1585.15,201.65"/>
    </edge>
    <edge id=":ErnstRuskaVolmer_8" function="internal">
-      <lane id=":ErnstRuskaVolmer_8_0" depart="0" maxspeed="16.50" length="6.58" shape="1585.65,202.93 1586.00,203.81 1586.40,208.05"/>
+      <lane id=":ErnstRuskaVolmer_8_0" depart="0" maxspeed="16.50" length="6.58" shape="1585.15,201.65 1586.00,203.81 1586.40,208.05"/>
    </edge>
    <edge id=":HavestadtEnd_0" function="internal">
       <lane id=":HavestadtEnd_0_0" depart="0" maxspeed="14.00" length="0.10" shape="1010.30,300.00 1010.30,300.00"/>

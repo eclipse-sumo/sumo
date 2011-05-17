@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 05/12/11 10:24:08 by SUMO netconvert Version dev-SVN-r10305
+<!-- generated on Tue May 17 15:59:09 2011 by SUMO netconvert Version dev-SVN-r10370
 <?xml version="1.0" encoding="iso-8859-1"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
@@ -36,10 +36,10 @@
       <lane id=":0_2_0" depart="0" maxspeed="12.50" length="2.66" shape="501.65,500.00 501.55,499.28 501.24,498.76 500.72,498.45 500.00,498.35"/>
    </edge>
    <edge id=":0_3" function="internal">
-      <lane id=":0_3_0" depart="0" maxspeed="12.50" length="0.10" shape="501.65,500.00 500.88,501.15"/>
+      <lane id=":0_3_0" depart="0" maxspeed="12.50" length="0.10" shape="501.65,500.00 501.59,500.08"/>
    </edge>
    <edge id=":0_16" function="internal">
-      <lane id=":0_16_0" depart="0" maxspeed="12.50" length="4.72" shape="500.88,501.15 500.82,501.24 500.00,501.65 499.18,501.24 498.35,500.00"/>
+      <lane id=":0_16_0" depart="0" maxspeed="12.50" length="4.72" shape="501.59,500.08 500.82,501.24 500.00,501.65 499.18,501.24 498.35,500.00"/>
    </edge>
    <edge id=":0_4" function="internal">
       <lane id=":0_4_0" depart="0" maxspeed="12.50" length="8.73" shape="500.00,491.75 500.72,492.27 501.24,493.81 501.55,496.39 501.65,500.00"/>
@@ -63,10 +63,10 @@
       <lane id=":0_10_0" depart="0" maxspeed="12.50" length="2.66" shape="498.35,500.00 498.45,500.72 498.76,501.24 499.28,501.55 500.00,501.65"/>
    </edge>
    <edge id=":0_11" function="internal">
-      <lane id=":0_11_0" depart="0" maxspeed="12.50" length="0.10" shape="498.35,500.00 499.12,498.85"/>
+      <lane id=":0_11_0" depart="0" maxspeed="12.50" length="0.10" shape="498.35,500.00 498.41,499.92"/>
    </edge>
    <edge id=":0_17" function="internal">
-      <lane id=":0_17_0" depart="0" maxspeed="12.50" length="4.72" shape="499.12,498.85 499.18,498.76 500.00,498.35 500.82,498.76 501.65,500.00"/>
+      <lane id=":0_17_0" depart="0" maxspeed="12.50" length="4.72" shape="498.41,499.92 499.18,498.76 500.00,498.35 500.82,498.76 501.65,500.00"/>
    </edge>
    <edge id=":0_12" function="internal">
       <lane id=":0_12_0" depart="0" maxspeed="12.50" length="8.73" shape="500.00,508.25 499.28,507.73 498.76,506.19 498.45,503.61 498.35,500.00"/>
