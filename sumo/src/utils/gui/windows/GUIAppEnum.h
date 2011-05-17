@@ -344,6 +344,7 @@ enum {
     MID_GNE_COMPUTE_JUNCTIONS,
 
     /// misc messages
+    MID_GNE_NEW_NETWORK,
     /** save network*/
     MID_GNE_SAVE_NETWORK,
     MID_GNE_SAVE_AS_NETWORK,
