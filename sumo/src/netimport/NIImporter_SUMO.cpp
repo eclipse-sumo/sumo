@@ -454,14 +454,9 @@ NIImporter_SUMO::initTrafficLightLogic(const SUMOSAXAttributes &attrs) {
     std::string id = attrs.getStringReporting(SUMO_ATTR_ID, 0, ok);
     int offset = attrs.getOptSUMOTimeReporting(SUMO_ATTR_OFFSET, id.c_str(), ok, 0);
     std::string programID = attrs.getOptStringReporting(SUMO_ATTR_PROGRAMID, id.c_str(), ok, "<unknown>");
-    //std::string type = attrs.getStringReporting(SUMO_ATTR_TYPE, id.c_str(), ok);
-    // this attribute is never used within myJunctionControlBuilder
-    //SUMOReal detectorOffset = attrs.getOptSUMORealReporting(SUMO_ATTR_DET_OFFSET, id.c_str(), ok, -1);
-
     if (ok) {
         myCurrentTL = new NBLoadedSUMOTLDef(id, programID, offset);
     }
-    //myJunctionControlBuilder.initTrafficLightLogic(id, programID, type, offset, detectorOffset);
 }
 
 
