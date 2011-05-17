@@ -187,7 +187,7 @@
         <speed-in-kmh value="false"/>
 
         <!-- No node positions are added to the edge shape -->
-        <xml.keep-shape value="false"/>
+        <plain.keep-edge-shape value="false" synonymes="xml.keep-shape"/>
 
         <!-- The edge lengths given in the MATSIM-file will be kept. -->
         <matsim.keep-length value="false"/>

@@ -78,7 +78,7 @@
         <ignore-errors value="false" synonymes="dismiss-loading-errors"/>
         <lanes-from-capacity.norm value="1800" synonymes="capacity-norm"/>
         <speed-in-kmh value="false"/>
-        <xml.keep-shape value="false"/>
+        <plain.keep-edge-shape value="false" synonymes="xml.keep-shape"/>
         <matsim.keep-length value="false"/>
         <matsim.lanes-from-capacity value="false"/>
         <shapefile.street-id value="" synonymes="arcview.street-id"/>

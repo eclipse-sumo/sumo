@@ -111,7 +111,7 @@ Usage: netconvert [OPTION]*
   --lanes-from-capacity.norm FLOAT     The factor for flow to no. lanes
                                          conversion.
   --speed-in-kmh                       vmax is parsed as given in km/h (some)
-  --xml.keep-shape                     No node positions are added to the edge
+  --plain.keep-edge-shape              No node positions are added to the edge
                                          shape
   --matsim.keep-length                 The edge lengths given in the
                                          MATSIM-file will be kept.
