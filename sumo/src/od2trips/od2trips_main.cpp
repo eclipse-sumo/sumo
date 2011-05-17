@@ -96,9 +96,9 @@ fillOptions() {
 
 
     // register the file output options
-    oc.doRegister("output-file", 'o', new Option_FileName());
-    oc.addSynonyme("output-file", "output");
-    oc.addDescription("output-file", "Output", "Writes trip definitions into FILE");
+    oc.doRegister("output", 'o', new Option_FileName());
+    oc.addSynonyme("output", "output-file", true);
+    oc.addDescription("output", "Output", "Writes trip definitions into FILE");
 
     oc.doRegister("no-vtype", new Option_Bool(false));
     oc.addDescription("no-vtype", "Output", "Does not save vtype information");

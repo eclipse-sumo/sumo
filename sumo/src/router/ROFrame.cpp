@@ -51,8 +51,8 @@ ROFrame::fillOptions(OptionsCont &oc) {
     // register options
     // register I/O options
     oc.doRegister("output", 'o', new Option_FileName());
-    oc.addSynonyme("output-file", "output");
-    oc.addDescription("output-file", "Output", "Write generated routes to FILE");
+    oc.addSynonyme("output", "output-file", true);
+    oc.addDescription("output", "Output", "Write generated routes to FILE");
 
     oc.doRegister("net-file", 'n', new Option_FileName());
     oc.addSynonyme("net-file", "net");

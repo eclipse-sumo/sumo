@@ -1,4 +1,4 @@
-SUMO activitygen Version dev-SVN-r10305
+SUMO activitygen Version dev-SVN-r10355
  Copyright (C) 2001-2011 DLR and contributors; http://sumo.sourceforge.net
  Copyright (C) 2010-2011 Technische Universitaet Muenchen
  
@@ -8,8 +8,8 @@ Generates routes of persons throughout a day for the microscopic road traffic
 Usage: activitygen [OPTION]*
  
  Examples:
-  activitygen --net-file <INPUT>.net.xml --stat-file <INPUT>.stat.xml --output-file <OUTPUT>.rou.xml --abs-rand
-  activitygen --net-file <INPUT>.net.xml --stat-file <INPUT>.stat.xml --output-file <OUTPUT>.rou.xml --duration-d <NBR_OF_DAYS>
+  activitygen --net-file <INPUT>.net.xml --stat-file <INPUT>.stat.xml --output <OUTPUT>.rou.xml --abs-rand
+  activitygen --net-file <INPUT>.net.xml --stat-file <INPUT>.stat.xml --output <OUTPUT>.rou.xml --duration-d <NBR_OF_DAYS>
  
  Configuration Options:
   -c, --configuration-file FILE    Loads the named config on startup
@@ -25,7 +25,7 @@ Usage: activitygen [OPTION]*
   -s, --stat-file FILE             Loads the SUMO-statistics FILE
 
  Output Options:
-  -o, --output-file FILE           Write generated routes to FILE
+  -o, --output FILE                Write generated routes to FILE
 
  Processing Options:
   --interpolate                    Interpolate edge weights at interval

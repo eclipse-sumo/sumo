@@ -1,4 +1,4 @@
-SUMO jtrrouter Version dev-SVN-r10305
+SUMO jtrrouter Version dev-SVN-r10355
  Copyright (C) 2001-2011 DLR and contributors; http://sumo.sourceforge.net
  
 Router for the microscopic road traffic simulation SUMO based on junction
@@ -30,7 +30,7 @@ Usage: jtrrouter [OPTION]*
   -t, --turn-definition FILE       Read turn-definitions from FILE
 
  Output Options:
-  -o, --output-file FILE           Write generated routes to FILE
+  -o, --output FILE                Write generated routes to FILE
   --exit-times                     Write exit times (weights) for each edge
 
  Processing Options:

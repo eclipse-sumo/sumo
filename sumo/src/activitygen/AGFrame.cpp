@@ -52,8 +52,8 @@ void AGFrame::fillOptions() {
     oc.setApplicationName("activitygen", "SUMO activitygen Version " + (std::string)VERSION_STRING);
     oc.addCopyrightNotice("Copyright (C) 2010-2011 Technische Universitaet Muenchen");
     // Options handling
-    oc.addCallExample("--net-file <INPUT>.net.xml --stat-file <INPUT>.stat.xml --output-file <OUTPUT>.rou.xml --abs-rand");
-    oc.addCallExample("--net-file <INPUT>.net.xml --stat-file <INPUT>.stat.xml --output-file <OUTPUT>.rou.xml --duration-d <NBR_OF_DAYS>");
+    oc.addCallExample("--net-file <INPUT>.net.xml --stat-file <INPUT>.stat.xml --output <OUTPUT>.rou.xml --abs-rand");
+    oc.addCallExample("--net-file <INPUT>.net.xml --stat-file <INPUT>.stat.xml --output <OUTPUT>.rou.xml --duration-d <NBR_OF_DAYS>");
 
     // Add categories and insert the standard options
     SystemFrame::addConfigurationOptions(oc);
@@ -73,8 +73,8 @@ void AGFrame::fillOptions() {
     oc.addDescription("stat-file", "Input", "Loads the SUMO-statistics FILE");
 
     oc.doRegister("output", 'o', new Option_FileName());
-    oc.addSynonyme("output-file", "output");
-    oc.addDescription("output-file", "Output", "Write generated routes to FILE");
+    oc.addSynonyme("output", "output-file", true);
+    oc.addDescription("output", "Output", "Write generated routes to FILE");
 
     oc.doRegister("debug", new Option_Bool(false));
     oc.addDescription("debug", "Report",

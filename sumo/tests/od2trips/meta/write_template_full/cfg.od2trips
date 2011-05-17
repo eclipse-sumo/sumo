@@ -8,7 +8,7 @@
     </input>
 
     <output>
-        <output-file value="" synonymes="o output"/>
+        <output value="" synonymes="o output-file"/>
         <no-vtype value="false"/>
     </output>
 

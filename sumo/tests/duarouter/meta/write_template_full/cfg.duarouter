@@ -15,7 +15,7 @@
     </input>
 
     <output>
-        <output-file value="" synonymes="o output"/>
+        <output value="" synonymes="o output-file"/>
         <exit-times value="false"/>
     </output>
 
