@@ -6,31 +6,56 @@ trafficlights ['0']
 examining 0
 ryg GGggrrrrGGggrrrr
 rygdef [Logic:
-subID: horizontal
+subID: 0
 type: 0
 subParameter: 0
 currentPhaseIndex: 0
 Phase:
-duration: 10000000
-duration1: 10000000
-duration2: 10000000
-phaseDef: rrrrGGggrrrrGGgg
-, Logic:
-subID: vertical
-type: 0
-subParameter: 0
-currentPhaseIndex: 0
-Phase:
-duration: 10000000
-duration1: 10000000
-duration2: 10000000
+duration: 31000
+duration1: 31000
+duration2: 31000
 phaseDef: GGggrrrrGGggrrrr
+Phase:
+duration: 4000
+duration1: 4000
+duration2: 4000
+phaseDef: yyggrrrryyggrrrr
+Phase:
+duration: 6000
+duration1: 6000
+duration2: 6000
+phaseDef: rrGGrrrrrrGGrrrr
+Phase:
+duration: 4000
+duration1: 4000
+duration2: 4000
+phaseDef: rryyrrrrrryyrrrr
+Phase:
+duration: 31000
+duration1: 31000
+duration2: 31000
+phaseDef: rrrrGGggrrrrGGgg
+Phase:
+duration: 4000
+duration1: 4000
+duration2: 4000
+phaseDef: rrrryyggrrrryygg
+Phase:
+duration: 6000
+duration1: 6000
+duration2: 6000
+phaseDef: rrrrrrGGrrrrrrGG
+Phase:
+duration: 4000
+duration1: 4000
+duration2: 4000
+phaseDef: rrrrrryyrrrrrryy
 ]
 lanes ['4si_0', '4si_1', '4si_2', '4si_2', '2si_0', '2si_1', '2si_2', '2si_2', '3si_0', '3si_1', '3si_2', '3si_2', '1si_0', '1si_1', '1si_2', '1si_2']
 links [[['4si_0', '1o_0', '']], [['4si_1', '3o_0', '']], [['4si_2', '2o_0', '']], [['4si_2', '4o_0', '']], [['2si_0', '4o_0', '']], [['2si_1', '1o_0', '']], [['2si_2', '3o_0', '']], [['2si_2', '2o_0', '']], [['3si_0', '2o_0', '']], [['3si_1', '4o_0', '']], [['3si_2', '1o_0', '']], [['3si_2', '3o_0', '']], [['1si_0', '3o_0', '']], [['1si_1', '2o_0', '']], [['1si_2', '4o_0', '']], [['1si_2', '1o_0', '']]]
-program vertical
+program 0
 phase 0
-switch 10000000
+switch 31000
 {40: 0}
 step 3
 {40: 0}
