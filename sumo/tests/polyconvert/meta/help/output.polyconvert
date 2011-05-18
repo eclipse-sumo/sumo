@@ -1,4 +1,4 @@
-SUMO polyconvert Version dev-SVN-r10329
+SUMO polyconvert Version dev-SVN-r10373
  Copyright (C) 2001-2011 DLR and contributors; http://sumo.sourceforge.net
  
 Importer of polygons and POIs for the road traffic simulation SUMO.
@@ -34,7 +34,7 @@ Usage: polyconvert [OPTION]*
                                      pair.
   --osm.use-name                   The id will be set from the given 'name'
                                      attribute.
-  --shapefile-prefix FILE          Reads shapes from shapefiles FILE+
+  --shapefile-prefixes FILE        Reads shapes from shapefiles FILE+
   --shapefile.guess-projection     Guesses the shapefile's projection
   --shapefile.id-column FILE       Defines in which column the id can be found
   --type-file FILE                 Reads types from FILE

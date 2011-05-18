@@ -53,11 +53,11 @@
 void
 PCLoaderArcView::loadIfSet(OptionsCont &oc, PCPolyContainer &toFill,
                            PCTypeMap &tm) throw(ProcessError) {
-    if (!oc.isSet("shapefile-prefix")) {
+    if (!oc.isSet("shapefile-prefixes")) {
         return;
     }
     // parse file(s)
-    std::vector<std::string> files = oc.getStringVector("shapefile-prefix");
+    std::vector<std::string> files = oc.getStringVector("shapefile-prefixes");
     for (std::vector<std::string>::const_iterator file=files.begin(); file!=files.end(); ++file) {
         MsgHandler::getMessageInstance()->beginProcessMsg("Parsing from shape-file '" + *file + "'...");
         load(*file, oc, toFill, tm);
