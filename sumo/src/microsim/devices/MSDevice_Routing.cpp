@@ -42,7 +42,6 @@
 // ===========================================================================
 // static member variables
 // ===========================================================================
-int MSDevice_Routing::myVehicleIndex = 0;
 std::map<const MSEdge*, SUMOReal> MSDevice_Routing::myEdgeEfforts;
 Command *MSDevice_Routing::myEdgeWeightSettingCommand = 0;
 SUMOReal MSDevice_Routing::myAdaptationWeight;
@@ -94,7 +93,6 @@ MSDevice_Routing::insertOptions() throw() {
     oc.addSynonyme("device.rerouting.with-taz", "device.routing.with-taz", true);
     oc.addDescription("device.rerouting.with-taz", "Routing", "Use zones (districts) as routing end points");
 
-    myVehicleIndex = 0;
     myEdgeWeightSettingCommand = 0;
     myEdgeEfforts.clear();
 }
@@ -110,7 +108,7 @@ MSDevice_Routing::buildVehicleDevices(SUMOVehicle &v, std::vector<MSDevice*> &in
     // route computation is enabled
     bool haveByNumber = false;
     if (oc.getBool("device.rerouting.deterministic")) {
-        haveByNumber = ((myVehicleIndex%1000) < (int)(oc.getFloat("device.rerouting.probability")*1000.));
+		haveByNumber = MSNet::getInstance()->getVehicleControl().isInQuota(oc.getFloat("device.rerouting.probability"));
     } else {
         haveByNumber = RandHelper::rand()<=oc.getFloat("device.rerouting.probability");
     }
@@ -148,7 +146,6 @@ MSDevice_Routing::buildVehicleDevices(SUMOVehicle &v, std::vector<MSDevice*> &in
             }
         }
     }
-    myVehicleIndex++;
 }
 
 

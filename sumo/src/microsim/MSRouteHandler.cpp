@@ -482,6 +482,7 @@ void
 MSRouteHandler::closeVehicle() throw(ProcessError) {
     // get nested route
     const MSRoute *route = MSRoute::dictionary("!" + myVehicleParameter->id);
+	MSVehicleControl& vehControl = MSNet::getInstance()->getVehicleControl();
     if (myVehicleParameter->departProcedure == DEPART_GIVEN) {
         // let's check whether this vehicle had to depart before the simulation starts
         if (!checkLastDepart() || myVehicleParameter->depart<string2time(OptionsCont::getOptions().getString("begin"))) {
@@ -495,13 +496,13 @@ MSRouteHandler::closeVehicle() throw(ProcessError) {
     // get the vehicle's type
     MSVehicleType *vtype = 0;
     if (myVehicleParameter->vtypeid!="") {
-        vtype = MSNet::getInstance()->getVehicleControl().getVType(myVehicleParameter->vtypeid);
+        vtype = vehControl.getVType(myVehicleParameter->vtypeid);
         if (vtype==0) {
             throw ProcessError("The vehicle type '" + myVehicleParameter->vtypeid + "' for vehicle '" + myVehicleParameter->id + "' is not known.");
         }
     } else {
         // there should be one (at least the default one)
-        vtype = MSNet::getInstance()->getVehicleControl().getVType();
+        vtype = vehControl.getVType();
     }
     if (route==0) {
         // if there is no nested route, try via the (hopefully) given route-id
@@ -519,19 +520,22 @@ MSRouteHandler::closeVehicle() throw(ProcessError) {
 
     // try to build the vehicle
     SUMOVehicle *vehicle = 0;
-    if (MSNet::getInstance()->getVehicleControl().getVehicle(myVehicleParameter->id)==0) {
-        // ok there was no other vehicle with the same id, yet
+    if (vehControl.getVehicle(myVehicleParameter->id)==0) {
+        vehicle = vehControl.buildVehicle(myVehicleParameter, route, vtype);
         // maybe we do not want this vehicle to be inserted due to scaling
-        if (myScale < 0 || RandHelper::rand() <= myScale) {
-            vehicle = MSNet::getInstance()->getVehicleControl().buildVehicle(myVehicleParameter, route, vtype);
+		if (myScale < 0 || vehControl.isInQuota(myScale)) {
             // add the vehicle to the vehicle control
-            MSNet::getInstance()->getVehicleControl().addVehicle(myVehicleParameter->id, vehicle);
+            vehControl.addVehicle(myVehicleParameter->id, vehicle);
             if (myVehicleParameter->departProcedure == DEPART_TRIGGERED) {
-                MSNet::getInstance()->getVehicleControl().addWaiting(*route->begin(), vehicle);
-                MSNet::getInstance()->getVehicleControl().registerOneWaitingForPerson();
+                vehControl.addWaiting(*route->begin(), vehicle);
+                vehControl.registerOneWaitingForPerson();
             }
             myVehicleParameter = 0;
-        }
+        } else {
+			vehControl.deleteVehicle(vehicle);
+            myVehicleParameter = 0;
+			vehicle = 0;
+		}
     } else {
         // strange: another vehicle with the same id already exists
 #ifdef HAVE_MESOSIM

@@ -207,9 +207,6 @@ private:
     /// @brief The period with which a vehicle shall be rerouted before insertion
     SUMOTime myPreInsertionPeriod;
 
-    /// @brief A static vehicle index for computing deterministic vehicle fractions
-    static int myVehicleIndex;
-
     /// @brief The (optional) command responsible for rerouting
     WrappingCommand< MSDevice_Routing >* myRerouteCommand;
 

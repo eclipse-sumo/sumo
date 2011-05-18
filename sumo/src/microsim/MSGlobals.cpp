@@ -41,17 +41,16 @@ bool MSGlobals::gOmitEmptyEdgesOnDump;
 
 bool MSGlobals::gUsingInternalLanes;
 
-SUMOTime MSGlobals::gTimeToGridlock = TIME2STEPS(300);
+SUMOTime MSGlobals::gTimeToGridlock;
 
 bool MSGlobals::gCheck4Accidents;
 
 bool MSGlobals::gCheckRoutes;
 
-#ifdef HAVE_MESOSIM
-bool MSGlobals::gStateLoaded;
-#endif
+std::map<SUMOReal, std::pair<unsigned int, unsigned int> > MSGlobals::gFractions;
 
 #ifdef HAVE_MESOSIM
+bool MSGlobals::gStateLoaded;
 bool MSGlobals::gUseMesoSim;
 MELoop *MSGlobals::gMesoNet;
 #endif

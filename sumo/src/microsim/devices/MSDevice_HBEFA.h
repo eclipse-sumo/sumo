@@ -125,9 +125,6 @@ private:
 
 
 private:
-    /// @brief A static vehicle index for computing deterministic vehicle fractions
-    static int myVehicleIndex;
-
     /// @name Internal storages for pollutant/fuel sum
     /// @{
 

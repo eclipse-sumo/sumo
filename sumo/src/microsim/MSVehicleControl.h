@@ -32,6 +32,7 @@
 #include <string>
 #include <map>
 #include <set>
+#include "MSGlobals.h"
 #include <utils/common/SUMOTime.h>
 #include <utils/common/RandomDistributor.h>
 #include <utils/common/SUMOVehicleParameter.h>
@@ -216,6 +217,17 @@ public:
      */
     unsigned int getDepartedVehicleNo() const throw() {
         return myRunningVehNo + myEndedVehNo;
+    }
+
+
+    /** @brief Returns the information whether the currently vehicle number is still in the given range
+     * @return True iff the vehicle number is acceptable
+     */
+    bool isInQuota(const SUMOReal frac) const throw() {
+		if (MSGlobals::gFractions.find(frac) == MSGlobals::gFractions.end()) {
+			return (myLoadedVehNo-1) % 1000 < (unsigned int)(frac*1000.);
+		}
+		return (myLoadedVehNo-1) % MSGlobals::gFractions[frac].second < MSGlobals::gFractions[frac].first;
     }
 
 

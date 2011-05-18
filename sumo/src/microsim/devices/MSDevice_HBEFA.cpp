@@ -29,6 +29,7 @@
 #include "MSDevice_HBEFA.h"
 #include <microsim/MSNet.h>
 #include <microsim/MSLane.h>
+#include <microsim/MSVehicleControl.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/common/HelpersHBEFA.h>
 #include <utils/iodevices/OutputDevice.h>
@@ -36,12 +37,6 @@
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
 #endif // CHECK_MEMORY_LEAKS
-
-
-// ===========================================================================
-// static member variables
-// ===========================================================================
-int MSDevice_HBEFA::myVehicleIndex = 0;
 
 
 // ===========================================================================
@@ -64,8 +59,6 @@ MSDevice_HBEFA::insertOptions() throw() {
 
     oc.doRegister("device.hbefa.deterministic", new Option_Bool(false)); //!!! describe
     oc.addDescription("device.hbefa.deterministic", "Emissions", "The devices are set deterministic using a fraction of 1000");
-
-    myVehicleIndex = 0;
 }
 
 
@@ -79,7 +72,7 @@ MSDevice_HBEFA::buildVehicleDevices(SUMOVehicle &v, std::vector<MSDevice*> &into
     // route computation is enabled
     bool haveByNumber = false;
     if (oc.getBool("device.hbefa.deterministic")) {
-        haveByNumber = ((myVehicleIndex%1000) < (int)(oc.getFloat("device.hbefa.probability")*1000.));
+		haveByNumber = MSNet::getInstance()->getVehicleControl().isInQuota(oc.getFloat("device.hbefa.probability"));
     } else {
         haveByNumber = RandHelper::rand()<=oc.getFloat("device.hbefa.probability");
     }
@@ -89,7 +82,6 @@ MSDevice_HBEFA::buildVehicleDevices(SUMOVehicle &v, std::vector<MSDevice*> &into
         MSDevice_HBEFA* device = new MSDevice_HBEFA(v, "hbefa_" + v.getID());
         into.push_back(device);
     }
-    myVehicleIndex++;
 }
 
 
