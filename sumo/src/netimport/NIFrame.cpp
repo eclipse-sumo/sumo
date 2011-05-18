@@ -190,7 +190,7 @@ NIFrame::fillOptions() {
     oc.addDescription("vissim.speed-norm", "Processing", "Factor for edge velocity");
 
     oc.doRegister("vissim.report-unset-speeds", new Option_Bool(false));
-    oc.addDescription("vissim.report-unset-speeds", "Processing", "Writes lanes without an explicite speed set.");
+    oc.addDescription("vissim.report-unset-speeds", "Processing", "Writes lanes without an explicit speed set.");
 
 
     // register visum options

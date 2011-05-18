@@ -1138,11 +1138,11 @@ NBNode::computeLogic(const NBEdgeCont &ec, NBJunctionLogicCont &jc,
         return;
     }
     // check whether the node was set to be unregulated by the user
-    if (OptionsCont::getOptions().getBool("keep-unregulated")
+    if (OptionsCont::getOptions().getBool("keep-nodes-unregulated")
             ||
-            OptionsCont::getOptions().isInStringVector("keep-unregulated.nodes", getID())
+            OptionsCont::getOptions().isInStringVector("keep-nodes-unregulated.explicit", getID())
             ||
-            (OptionsCont::getOptions().getBool("keep-unregulated.district-nodes")&&(isNearDistrict()||isDistrict()))) {
+            (OptionsCont::getOptions().getBool("keep-nodes-unregulated.district-nodes")&&(isNearDistrict()||isDistrict()))) {
 
         myType = NODETYPE_NOJUNCTION;
         return;

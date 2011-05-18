@@ -70,9 +70,9 @@
     </edge_removal>
 
     <unregulated_nodes>
-        <keep-unregulated value="false"/>
-        <keep-unregulated.nodes value=""/>
-        <keep-unregulated.district-nodes value="false"/>
+        <keep-nodes-unregulated value="false" synonymes="keep-unregulated"/>
+        <keep-nodes-unregulated.explicit value="" synonymes="keep-unregulated.explicit keep-unregulated.nodes"/>
+        <keep-nodes-unregulated.district-nodes value="false" synonymes="keep-unregulated.district-nodes"/>
     </unregulated_nodes>
 
     <processing>

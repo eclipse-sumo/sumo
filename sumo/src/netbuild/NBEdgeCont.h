@@ -184,7 +184,7 @@ public:
 
 
 
-    /// @name explicite edge manipulation methods
+    /// @name explicit edge manipulation methods
     /// @{
 
     /** @brief Splits the edge at the position nearest to the given node
@@ -484,10 +484,10 @@ private:
     /// @brief Whether edges shall be joined first, then removed
     bool myRemoveEdgesAfterJoining;
 
-    /// @brief Set of ids of edges which shall explicitely be kept
+    /// @brief Set of ids of edges which shall explicitly be kept
     std::set<std::string> myEdges2Keep;
 
-    /// @brief Set of ids of edges which shall explicitely be removed
+    /// @brief Set of ids of edges which shall explicitly be removed
     std::set<std::string> myEdges2Remove;
 
     /// @brief Set of vehicle types which must be allowed on edges in order to keep them

@@ -169,13 +169,13 @@
 
     <unregulated_nodes>
         <!-- All nodes will be not regulated -->
-        <keep-unregulated value="false"/>
+        <keep-nodes-unregulated value="false" synonymes="keep-unregulated"/>
 
         <!-- Do not regulate nodes in STR -->
-        <keep-unregulated.nodes value=""/>
+        <keep-nodes-unregulated.explicit value="" synonymes="keep-unregulated.explicit keep-unregulated.nodes"/>
 
         <!-- Do not regulate district nodes -->
-        <keep-unregulated.district-nodes value="false"/>
+        <keep-nodes-unregulated.district-nodes value="false" synonymes="keep-unregulated.district-nodes"/>
 
     </unregulated_nodes>
 
@@ -228,7 +228,7 @@
         <!-- Factor for edge velocity -->
         <vissim.speed-norm value="1"/>
 
-        <!-- Writes lanes without an explicite speed set. -->
+        <!-- Writes lanes without an explicit speed set. -->
         <vissim.report-unset-speeds value="false"/>
 
         <!-- Uses priorities from types -->

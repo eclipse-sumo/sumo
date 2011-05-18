@@ -123,7 +123,7 @@ NBFrame::fillOptions(bool forNetgen) {
 
 
     // tls setting options
-    // explicite tls
+    // explicit tls
     oc.doRegister("tls.set", new Option_String());
     oc.addSynonyme("tls.set", "explicite-tls", true);
     oc.addDescription("tls.set", "TLS Building", "Interprets STR as list of junctions to be controlled by TLS");
@@ -216,14 +216,18 @@ NBFrame::fillOptions(bool forNetgen) {
 
 
     // unregulated nodes options
-    oc.doRegister("keep-unregulated", new Option_Bool(false));
-    oc.addDescription("keep-unregulated", "Unregulated Nodes", "All nodes will be not regulated");
+    oc.doRegister("keep-nodes-unregulated", new Option_Bool(false));
+    oc.addSynonyme("keep-nodes-unregulated", "keep-unregulated");
+    oc.addDescription("keep-nodes-unregulated", "Unregulated Nodes", "All nodes will be not regulated");
 
-    oc.doRegister("keep-unregulated.nodes", new Option_String());
-    oc.addDescription("keep-unregulated.nodes", "Unregulated Nodes", "Do not regulate nodes in STR");
+    oc.doRegister("keep-nodes-unregulated.explicit", new Option_String());
+    oc.addSynonyme("keep-nodes-unregulated.explicit", "keep-unregulated.explicit");
+    oc.addSynonyme("keep-nodes-unregulated.explicit", "keep-unregulated.nodes", true);
+    oc.addDescription("keep-nodes-unregulated.explicit", "Unregulated Nodes", "Do not regulate nodes in STR");
 
-    oc.doRegister("keep-unregulated.district-nodes", new Option_Bool(false));
-    oc.addDescription("keep-unregulated.district-nodes", "Unregulated Nodes", "Do not regulate district nodes");
+    oc.doRegister("keep-nodes-unregulated.district-nodes", new Option_Bool(false));
+    oc.addSynonyme("keep-nodes-unregulated.district-nodes", "keep-unregulated.district-nodes");
+    oc.addDescription("keep-nodes-unregulated.district-nodes", "Unregulated Nodes", "Do not regulate district nodes");
 
 
     // ramp guessing options

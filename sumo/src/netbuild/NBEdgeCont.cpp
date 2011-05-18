@@ -349,7 +349,7 @@ NBEdgeCont::extract(NBDistrictCont &dc, NBEdge *edge) throw() {
 
 
 
-// ----- explicite edge manipulation methods
+// ----- explicit edge manipulation methods
 bool
 NBEdgeCont::splitAt(NBDistrictCont &dc, NBEdge *edge, NBNode *node) throw(ProcessError) {
     return splitAt(dc, edge, node, edge->getID() + "[0]", edge->getID() + "[1]",

@@ -324,7 +324,7 @@ NBNodeCont::guessTLs(OptionsCont &oc, NBTrafficLightLogicCont &tlc) {
         if (cur->isTLControlled()) {
             continue;
         }
-        // do nothing if in the list of explicite non-controlled junctions
+        // do nothing if in the list of explicit non-controlled junctions
         if (find(ncontrolled.begin(), ncontrolled.end(), cur)!=ncontrolled.end()) {
             continue;
         }

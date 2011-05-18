@@ -904,7 +904,7 @@ NIVissimEdge::dict_checkEdges2Join() {
             Line2D l1 = Line2D(g1.getBegin(), g1.getEnd());
             Line2D l2 = Line2D(g2.getBegin(), g2.getEnd());
             // check for parallelity
-            //  !!! the usage of an explicite value is not very fine
+            //  !!! the usage of an explicit value is not very fine
             if (fabs(l1.atan2DegreeAngle()-l2.atan2DegreeAngle())>2.0) {
                 // continue if the lines are not parallel
                 continue;
@@ -912,7 +912,7 @@ NIVissimEdge::dict_checkEdges2Join() {
 
             // check whether the same node is approached
             //  (the distance between the ends should not be too large)
-            //  !!! the usage of an explicite value is not very fine
+            //  !!! the usage of an explicit value is not very fine
             if (l1.p2().distanceTo(l2.p2())>10) {
                 // continue if the lines do not end at the same length
                 continue;
@@ -984,7 +984,7 @@ NIVissimEdge::reportUnsetSpeeds() throw() {
         return;
     }
     std::ostringstream str;
-    str << "The following lanes have no explicite speed information:\n  ";
+    str << "The following lanes have no explicit speed information:\n  ";
     for (std::vector<std::string>::iterator i=myLanesWithMissingSpeeds.begin(); i!=myLanesWithMissingSpeeds.end(); ++i) {
         if (i!=myLanesWithMissingSpeeds.begin()) {
             str << ", ";
