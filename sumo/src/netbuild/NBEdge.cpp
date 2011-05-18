@@ -266,9 +266,22 @@ NBEdge::~NBEdge() throw() {}
 
 
 // ----------- Edge geometry access and computation
+const Position2DVector 
+NBEdge::getInnerGeometry() const {
+    Position2DVector result = getGeometry();
+    result.pop_front();
+    result.pop_back();
+    return result;
+}
+
+
 void
-NBEdge::setGeometry(const Position2DVector &s) throw() {
+NBEdge::setGeometry(const Position2DVector &s, bool inner) throw() {
     myGeom = s;
+    if (inner) {
+        myGeom.push_front(myFrom->getPosition());
+        myGeom.push_back(myTo->getPosition());
+    }
     computeLaneShapes();
 }
 

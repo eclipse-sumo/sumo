@@ -330,16 +330,20 @@ public:
     }
 
 
+    /** @brief Returns the geometry of the edge without the endpoints */
+    const Position2DVector getInnerGeometry() const;
+
     /** @brief (Re)sets the edge's geometry
      *
      * Replaces the edge's prior geometry by the given. Then, computes
      *  the geometries of all lanes using computeLaneShapes.
      * Definitely not the best way to have it accessable from outside...
      * @param[in] g The edge's new geometry
+     * @param[in] inner whether g should be interpreted as inner points
      * @todo Recheck usage, disallow access
      * @see computeLaneShapes
      */
-    void setGeometry(const Position2DVector &g) throw();
+    void setGeometry(const Position2DVector &g, bool inner=false) throw();
 
 
     /** @brief Adds a further geometry point
