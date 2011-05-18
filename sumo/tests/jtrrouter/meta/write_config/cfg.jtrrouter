@@ -12,7 +12,7 @@
     </output>
 
     <processing>
-        <continue-on-unbuild value="true"/>
+        <ignore-errors value="true"/>
         <turn-defaults value="50,50,0,0"/>
     </processing>
 

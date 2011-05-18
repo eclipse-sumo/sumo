@@ -1,4 +1,4 @@
-SUMO duarouter Version dev-SVN-r10355
+SUMO duarouter Version dev-SVN-r10386
  Copyright (C) 2001-2011 DLR and contributors; http://sumo.sourceforge.net
  
 Shortest path router and DUE computer for the microscopic road traffic
@@ -20,11 +20,11 @@ Usage: duarouter [OPTION]*
 
  Input Options:
   -n, --net-file FILE              Use FILE as SUMO-network to route on
-  -d, --districts FILE             Read (additional) districts from FILE
-  -a, --alternatives FILE          Read alternatives from FILE
-  -w, --weights FILE               Read network weights from FILE(s)
+  -d, --taz-files FILE             Read (additional) districts from FILE
+  -a, --alternative-files FILE     Read alternatives from FILE
+  -w, --weight-files FILE          Read network weights from FILE(s)
   --lane-weights FILE              Read lane-weights from FILE(s)
-  -x, --measure STR                Name of the xml attribute which gives the
+  -x, --weight-attribute STR       Name of the xml attribute which gives the
                                      edge weight
   -t, --trip-defs FILE             Read trip-definitions from FILE
   -f, --flow-definition FILE       Read flow-definitions from FILE
@@ -35,8 +35,8 @@ Usage: duarouter [OPTION]*
   --exit-times                     Write exit times (weights) for each edge
 
  Processing Options:
-  --continue-on-unbuild            Continue if a route could not be build
-  --unsorted                       Assume input is unsorted
+  --ignore-errors                  Continue if a route could not be build
+  --unsorted-input                 Assume input is unsorted
   --randomize-flows                generate random departure times for flow
                                      input
   --max-alternatives INT           Prune the number of alternatives to INT
@@ -44,13 +44,13 @@ Usage: duarouter [OPTION]*
                                      Remove turnarounds at start and end of the
                                      route
   --repair                         Tries to correct a false route
-  --interpolate                    Interpolate edge weights at interval
+  --weights.interpolate            Interpolate edge weights at interval
                                      boundaries
   --with-taz                       Use origin and destination zones (districts)
                                      for in- and output
-  --expand-weights                 Expand weights behind the simulation's end
-  --gBeta FLOAT                    Use FLOAT as Gawron's beta
-  --gA FLOAT                       Use FLOAT as Gawron's alpha
+  --weights.expand                 Expand weights behind the simulation's end
+  --gawron.beta FLOAT              Use FLOAT as Gawron's beta
+  --gawron.a FLOAT                 Use FLOAT as Gawron's a
   --keep-all-routes                Save routes with near zero probability
   --logit                          Use c-logit model
   --lBeta FLOAT                    Use FLOAT as logit's beta

@@ -87,11 +87,11 @@ initNet(RONet &net, ROLoader &loader, OptionsCont &oc,
         static_cast<ROJTREdge*>((*i).second)->setTurnDefaults(turnDefs);
     }
     // load the weights when wished/available
-    if (oc.isSet("weights")) {
-        loader.loadWeights(net, "weights", oc.getString("measure"), false);
+    if (oc.isSet("weight-files")) {
+        loader.loadWeights(net, "weight-files", oc.getString("weight-attribute"), false);
     }
     if (oc.isSet("lane-weights")) {
-        loader.loadWeights(net, "lane-weights", oc.getString("measure"), true);
+        loader.loadWeights(net, "lane-weights", oc.getString("weight-attribute"), true);
     }
 }
 
@@ -123,7 +123,7 @@ loadJTRDefinitions(RONet &net, OptionsCont &oc) {
             throw ProcessError();
         }
     }
-    if (MsgHandler::getErrorInstance()->wasInformed() && oc.getBool("dismiss-loading-errors")) {
+    if (MsgHandler::getErrorInstance()->wasInformed() && oc.getBool("ignore-errors")) {
         MsgHandler::getErrorInstance()->clear();
     }
     // parse sink edges specified at the input/within the configuration
@@ -154,10 +154,9 @@ computeRoutes(RONet &net, ROLoader &loader, OptionsCont &oc) {
         throw e;
     }
     // build the router
-    ROJTRRouter router(net, oc.getBool("continue-on-unbuild"),
-                       oc.getBool("accept-all-destinations"));
+    ROJTRRouter router(net, oc.getBool("ignore-errors"), oc.getBool("accept-all-destinations"));
     // the routes are sorted - process stepwise
-    if (!oc.getBool("unsorted")) {
+    if (!oc.getBool("unsorted-input")) {
         loader.processRoutesStepWise(string2time(oc.getString("begin")), string2time(oc.getString("end")), net, router);
     }
     // the routes are not sorted: load all and process

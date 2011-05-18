@@ -66,7 +66,7 @@ RORouteDef_Complete::buildCurrentRoute(SUMOAbstractRouter<ROEdge,ROVehicle> &rou
     if (myTryRepair) {
         const std::vector<const ROEdge*> &oldEdges = myEdges;
         if (oldEdges.size()==0) {
-            MsgHandler *m = OptionsCont::getOptions().getBool("continue-on-unbuild") ? MsgHandler::getWarningInstance() : MsgHandler::getErrorInstance();
+            MsgHandler *m = OptionsCont::getOptions().getBool("ignore-errors") ? MsgHandler::getWarningInstance() : MsgHandler::getErrorInstance();
             m->inform("Could not repair empty route of vehicle '" + veh.getID() + "'.");
             return new RORoute(myID, 0, 1, std::vector<const ROEdge*>(), copyColorIfGiven());
         }

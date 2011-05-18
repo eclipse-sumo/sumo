@@ -58,21 +58,25 @@ ROFrame::fillOptions(OptionsCont &oc) {
     oc.addSynonyme("net-file", "net");
     oc.addDescription("net-file", "Input", "Use FILE as SUMO-network to route on");
 
-    oc.doRegister("districts", 'd', new Option_FileName());
-    oc.addDescription("districts", "Input", "Read (additional) districts from FILE");
+    oc.doRegister("taz-files", 'd', new Option_FileName());
+    oc.addSynonyme("taz-files", "districts", true);
+    oc.addDescription("taz-files", "Input", "Read (additional) districts from FILE");
 
-    oc.doRegister("alternatives", 'a', new Option_FileName());
-    oc.addDescription("alternatives", "Input", "Read alternatives from FILE");
+    oc.doRegister("alternative-files", 'a', new Option_FileName());
+    oc.addSynonyme("alternative-files", "alternatives-files");
+    oc.addSynonyme("alternative-files", "alternatives", true);
+    oc.addDescription("alternative-files", "Input", "Read alternatives from FILE");
 
-    oc.doRegister("weights", 'w', new Option_FileName());
-    oc.addSynonyme("weights", "weight-files");
-    oc.addDescription("weights", "Input", "Read network weights from FILE(s)");
+    oc.doRegister("weight-files", 'w', new Option_FileName());
+    oc.addSynonyme("weight-files", "weights");
+    oc.addDescription("weight-files", "Input", "Read network weights from FILE(s)");
 
     oc.doRegister("lane-weights", new Option_FileName());
     oc.addDescription("lane-weights", "Input", "Read lane-weights from FILE(s)");
 
-    oc.doRegister("measure", 'x', new Option_String("traveltime"));
-    oc.addDescription("measure", "Input", "Name of the xml attribute which gives the edge weight");
+    oc.doRegister("weight-attribute", 'x', new Option_String("traveltime"));
+    oc.addSynonyme("weight-attribute", "measure", true);
+    oc.addDescription("weight-attribute", "Input", "Name of the xml attribute which gives the edge weight");
 
     // register the time settings
     oc.doRegister("begin", 'b', new Option_String("0", "TIME"));
@@ -83,11 +87,13 @@ ROFrame::fillOptions(OptionsCont &oc) {
 
 
     // register the processing options
-    oc.doRegister("continue-on-unbuild", new Option_Bool(false));
-    oc.addDescription("continue-on-unbuild", "Processing", "Continue if a route could not be build");
+    oc.doRegister("ignore-errors", new Option_Bool(false));
+    oc.addSynonyme("ignore-errors", "continue-on-unbuild", true);
+    oc.addDescription("ignore-errors", "Processing", "Continue if a route could not be build");
 
-    oc.doRegister("unsorted", new Option_Bool(false));
-    oc.addDescription("unsorted", "Processing", "Assume input is unsorted");
+    oc.doRegister("unsorted-input", new Option_Bool(false));
+    oc.addSynonyme("unsorted-input", "unsorted");
+    oc.addDescription("unsorted-input", "Processing", "Assume input is unsorted");
 
     oc.doRegister("randomize-flows", new Option_Bool(false));
     oc.addDescription("randomize-flows", "Processing", "generate random departure times for flow input");
@@ -101,8 +107,9 @@ ROFrame::fillOptions(OptionsCont &oc) {
     oc.doRegister("repair", new Option_Bool(false));
     oc.addDescription("repair", "Processing", "Tries to correct a false route");
 
-    oc.doRegister("interpolate", new Option_Bool(false));
-    oc.addDescription("interpolate", "Processing", "Interpolate edge weights at interval boundaries");
+    oc.doRegister("weights.interpolate", new Option_Bool(false));
+    oc.addSynonyme("weights.interpolate", "interpolate", true);
+    oc.addDescription("weights.interpolate", "Processing", "Interpolate edge weights at interval boundaries");
 
     oc.doRegister("with-taz", new Option_Bool(false));
     oc.addDescription("with-taz", "Processing", "Use origin and destination zones (districts) for in- and output");

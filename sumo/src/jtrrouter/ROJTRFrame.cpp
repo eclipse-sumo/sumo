@@ -100,9 +100,10 @@ ROJTRFrame::addJTROptions() {
 
     oc.doRegister("ignore-classes", 'i', new Option_Bool(false));
     oc.addDescription("ignore-classes", "Processing", "");
-
+/*
     oc.doRegister("dismiss-loading-errors", new Option_Bool(false));
     oc.addDescription("dismiss-loading-errors", "Processing", "Continue on broken input");
+*/
 }
 
 

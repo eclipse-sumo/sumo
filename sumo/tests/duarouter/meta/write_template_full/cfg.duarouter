@@ -4,11 +4,11 @@
 
     <input>
         <net-file value="" synonymes="n net"/>
-        <districts value="" synonymes="d"/>
-        <alternatives value="" synonymes="a"/>
-        <weights value="" synonymes="w weight-files"/>
+        <taz-files value="" synonymes="d districts"/>
+        <alternative-files value="" synonymes="a alternatives alternatives-files"/>
+        <weight-files value="" synonymes="w weights"/>
         <lane-weights value=""/>
-        <measure value="traveltime" synonymes="x"/>
+        <weight-attribute value="traveltime" synonymes="measure x"/>
         <trip-defs value="" synonymes="t trips"/>
         <flow-definition value="" synonymes="f flows"/>
         <sumo-input value="" synonymes="s sumo"/>
@@ -20,17 +20,17 @@
     </output>
 
     <processing>
-        <continue-on-unbuild value="false"/>
-        <unsorted value="false"/>
+        <ignore-errors value="false" synonymes="continue-on-unbuild"/>
+        <unsorted-input value="false" synonymes="unsorted"/>
         <randomize-flows value="false"/>
         <max-alternatives value="5"/>
         <remove-loops value="false"/>
         <repair value="false"/>
-        <interpolate value="false"/>
+        <weights.interpolate value="false" synonymes="interpolate"/>
         <with-taz value="false"/>
-        <expand-weights value="false"/>
-        <gBeta value="0.3"/>
-        <gA value="0.05"/>
+        <weights.expand value="false" synonymes="expand-weights"/>
+        <gawron.beta value="0.3" synonymes="gBeta"/>
+        <gawron.a value="0.05" synonymes="gA"/>
         <keep-all-routes value="false"/>
         <logit value="false"/>
         <lBeta value="0.15"/>

@@ -319,7 +319,7 @@ ROEdge::prohibits(const ROVehicle * const vehicle) const throw() {
     if (vclass==SVC_UNKNOWN) {
         return false;
     }
-    // check whether it is explicitely disallowed
+    // check whether it is explicitly disallowed
     if (find(myNotAllowedClasses.begin(), myNotAllowedClasses.end(), vclass)!=myNotAllowedClasses.end()) {
         return true;
     }

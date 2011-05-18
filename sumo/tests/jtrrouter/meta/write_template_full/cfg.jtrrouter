@@ -4,11 +4,11 @@
 
     <input>
         <net-file value="" synonymes="n net"/>
-        <districts value="" synonymes="d"/>
-        <alternatives value="" synonymes="a"/>
-        <weights value="" synonymes="w weight-files"/>
+        <taz-files value="" synonymes="d districts"/>
+        <alternative-files value="" synonymes="a alternatives alternatives-files"/>
+        <weight-files value="" synonymes="w weights"/>
         <lane-weights value=""/>
-        <measure value="traveltime" synonymes="x"/>
+        <weight-attribute value="traveltime" synonymes="measure x"/>
         <flow-definition value="" synonymes="f flows"/>
         <turn-definition value="" synonymes="t turns"/>
     </input>
@@ -19,20 +19,19 @@
     </output>
 
     <processing>
-        <continue-on-unbuild value="false"/>
-        <unsorted value="false"/>
+        <ignore-errors value="false" synonymes="continue-on-unbuild"/>
+        <unsorted-input value="false" synonymes="unsorted"/>
         <randomize-flows value="false"/>
         <max-alternatives value="5"/>
         <remove-loops value="false"/>
         <repair value="false"/>
-        <interpolate value="false"/>
+        <weights.interpolate value="false" synonymes="interpolate"/>
         <with-taz value="false"/>
         <max-edges-factor value="2"/>
         <turn-defaults value="30,50,20" synonymes="T"/>
         <sinks value="" synonymes="s"/>
         <accept-all-destinations value="false" synonymes="A"/>
         <ignore-classes value="false" synonymes="i"/>
-        <dismiss-loading-errors value="false"/>
     </processing>
 
     <defaults>

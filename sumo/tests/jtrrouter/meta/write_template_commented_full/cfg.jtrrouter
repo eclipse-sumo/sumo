@@ -7,19 +7,19 @@
         <net-file value="" synonymes="n net"/>
 
         <!-- Read (additional) districts from FILE -->
-        <districts value="" synonymes="d"/>
+        <taz-files value="" synonymes="d districts"/>
 
         <!-- Read alternatives from FILE -->
-        <alternatives value="" synonymes="a"/>
+        <alternative-files value="" synonymes="a alternatives alternatives-files"/>
 
         <!-- Read network weights from FILE(s) -->
-        <weights value="" synonymes="w weight-files"/>
+        <weight-files value="" synonymes="w weights"/>
 
         <!-- Read lane-weights from FILE(s) -->
         <lane-weights value=""/>
 
         <!-- Name of the xml attribute which gives the edge weight -->
-        <measure value="traveltime" synonymes="x"/>
+        <weight-attribute value="traveltime" synonymes="measure x"/>
 
         <!-- Read flow-definitions from FILE -->
         <flow-definition value="" synonymes="f flows"/>
@@ -40,10 +40,10 @@
 
     <processing>
         <!-- Continue if a route could not be build -->
-        <continue-on-unbuild value="false"/>
+        <ignore-errors value="false" synonymes="continue-on-unbuild"/>
 
         <!-- Assume input is unsorted -->
-        <unsorted value="false"/>
+        <unsorted-input value="false" synonymes="unsorted"/>
 
         <!-- generate random departure times for flow input -->
         <randomize-flows value="false"/>
@@ -58,7 +58,7 @@
         <repair value="false"/>
 
         <!-- Interpolate edge weights at interval boundaries -->
-        <interpolate value="false"/>
+        <weights.interpolate value="false" synonymes="interpolate"/>
 
         <!-- Use origin and destination zones (districts) for in- and output -->
         <with-taz value="false"/>
@@ -77,9 +77,6 @@
 
         <!--  -->
         <ignore-classes value="false" synonymes="i"/>
-
-        <!-- Continue on broken input -->
-        <dismiss-loading-errors value="false"/>
 
     </processing>
 

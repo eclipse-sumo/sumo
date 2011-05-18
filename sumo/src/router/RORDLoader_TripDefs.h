@@ -148,7 +148,7 @@ protected:
     ROEdge *myEndEdge;
 
     /** @brief Information whether empty destinations are allowed
-        This is a feature used for the handling of explicite routes within the
+        This is a feature used for the handling of explicit routes within the
         jp-router where the destination is not necessary */
     const bool myEmptyDestinationsAllowed;
 

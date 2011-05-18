@@ -76,14 +76,14 @@
 void
 initNet(RONet &net, ROLoader &loader, OptionsCont &oc) {
     // load the net
-    RODUAEdgeBuilder builder(oc.getBool("expand-weights"), oc.getBool("interpolate"));
+    RODUAEdgeBuilder builder(oc.getBool("weights.expand"), oc.getBool("weights.interpolate"));
     loader.loadNet(net, builder);
     // load the weights when wished/available
-    if (oc.isSet("weights")) {
-        loader.loadWeights(net, "weights", oc.getString("measure"), false);
+    if (oc.isSet("weight-files")) {
+        loader.loadWeights(net, "weight-files", oc.getString("weight-attribute"), false);
     }
     if (oc.isSet("lane-weights")) {
-        loader.loadWeights(net, "lane-weights", oc.getString("measure"), true);
+        loader.loadWeights(net, "lane-weights", oc.getString("weight-attribute"), true);
     }
 }
 
@@ -104,14 +104,14 @@ computeRoutes(RONet &net, ROLoader &loader, OptionsCont &oc) {
     }
     // build the router
     SUMOAbstractRouter<ROEdge, ROVehicle> *router;
-    std::string measure = oc.getString("measure");
+    std::string measure = oc.getString("weight-attribute");
     if (measure=="traveltime") {
         if (net.hasRestrictions()) {
             router = new DijkstraRouterTT_Direct<ROEdge, ROVehicle, prohibited_withRestrictions<ROEdge, ROVehicle> >(
-                net.getEdgeNo(), oc.getBool("continue-on-unbuild"), &ROEdge::getTravelTime);
+                net.getEdgeNo(), oc.getBool("ignore-errors"), &ROEdge::getTravelTime);
         } else {
             router = new DijkstraRouterTT_Direct<ROEdge, ROVehicle, prohibited_noRestrictions<ROEdge, ROVehicle> >(
-                net.getEdgeNo(), oc.getBool("continue-on-unbuild"), &ROEdge::getTravelTime);
+                net.getEdgeNo(), oc.getBool("ignore-errors"), &ROEdge::getTravelTime);
         }
     } else {
         DijkstraRouterEffort_Direct<ROEdge, ROVehicle, prohibited_withRestrictions<ROEdge, ROVehicle> >::Operation op;
@@ -132,16 +132,16 @@ computeRoutes(RONet &net, ROLoader &loader, OptionsCont &oc) {
         }
         if (net.hasRestrictions()) {
             router = new DijkstraRouterEffort_Direct<ROEdge, ROVehicle, prohibited_withRestrictions<ROEdge, ROVehicle> >(
-                net.getEdgeNo(), oc.getBool("continue-on-unbuild"), op, &ROEdge::getTravelTime);
+                net.getEdgeNo(), oc.getBool("ignore-errors"), op, &ROEdge::getTravelTime);
         } else {
             router = new DijkstraRouterEffort_Direct<ROEdge, ROVehicle, prohibited_noRestrictions<ROEdge, ROVehicle> >(
-                net.getEdgeNo(), oc.getBool("continue-on-unbuild"), op, &ROEdge::getTravelTime);
+                net.getEdgeNo(), oc.getBool("ignore-errors"), op, &ROEdge::getTravelTime);
         }
     }
     // process route definitions
     try {
         // the routes are sorted - process stepwise
-        if (!oc.getBool("unsorted")) {
+        if (!oc.getBool("unsorted-input")) {
             loader.processRoutesStepWise(string2time(oc.getString("begin")), string2time(oc.getString("end")), net, *router);
         }
         // the routes are not sorted: load all and process

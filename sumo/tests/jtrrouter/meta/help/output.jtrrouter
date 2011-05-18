@@ -1,4 +1,4 @@
-SUMO jtrrouter Version dev-SVN-r10355
+SUMO jtrrouter Version dev-SVN-r10386
  Copyright (C) 2001-2011 DLR and contributors; http://sumo.sourceforge.net
  
 Router for the microscopic road traffic simulation SUMO based on junction
@@ -20,11 +20,11 @@ Usage: jtrrouter [OPTION]*
 
  Input Options:
   -n, --net-file FILE              Use FILE as SUMO-network to route on
-  -d, --districts FILE             Read (additional) districts from FILE
-  -a, --alternatives FILE          Read alternatives from FILE
-  -w, --weights FILE               Read network weights from FILE(s)
+  -d, --taz-files FILE             Read (additional) districts from FILE
+  -a, --alternative-files FILE     Read alternatives from FILE
+  -w, --weight-files FILE          Read network weights from FILE(s)
   --lane-weights FILE              Read lane-weights from FILE(s)
-  -x, --measure STR                Name of the xml attribute which gives the
+  -x, --weight-attribute STR       Name of the xml attribute which gives the
                                      edge weight
   -f, --flow-definition FILE       Read flow-definitions from FILE
   -t, --turn-definition FILE       Read turn-definitions from FILE
@@ -34,8 +34,8 @@ Usage: jtrrouter [OPTION]*
   --exit-times                     Write exit times (weights) for each edge
 
  Processing Options:
-  --continue-on-unbuild            Continue if a route could not be build
-  --unsorted                       Assume input is unsorted
+  --ignore-errors                  Continue if a route could not be build
+  --unsorted-input                 Assume input is unsorted
   --randomize-flows                generate random departure times for flow
                                      input
   --max-alternatives INT           Prune the number of alternatives to INT
@@ -43,7 +43,7 @@ Usage: jtrrouter [OPTION]*
                                      Remove turnarounds at start and end of the
                                      route
   --repair                         Tries to correct a false route
-  --interpolate                    Interpolate edge weights at interval
+  --weights.interpolate            Interpolate edge weights at interval
                                      boundaries
   --with-taz                       Use origin and destination zones (districts)
                                      for in- and output
@@ -52,7 +52,6 @@ Usage: jtrrouter [OPTION]*
   -s, --sinks STR                  Use STR as sink list
   -A, --accept-all-destinations    
   -i, --ignore-classes             
-  --dismiss-loading-errors         Continue on broken input
 
  Defaults Options:
   --departlane STR                 Assigns a default depart lane

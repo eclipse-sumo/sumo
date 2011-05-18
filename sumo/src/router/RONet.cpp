@@ -177,7 +177,7 @@ bool
 RONet::computeRoute(OptionsCont &options, SUMOAbstractRouter<ROEdge,ROVehicle> &router,
                     const ROVehicle * const veh) {
     MsgHandler *mh = MsgHandler::getErrorInstance();
-    if (options.getBool("continue-on-unbuild")) {
+    if (options.getBool("ignore-errors")) {
         mh = MsgHandler::getWarningInstance();
     }
     RORouteDef * const routeDef = veh->getRouteDefinition();

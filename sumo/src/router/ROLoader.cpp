@@ -123,8 +123,8 @@ ROLoader::loadNet(RONet &toFill, ROAbstractEdgeBuilder &eb) {
     } else {
         MsgHandler::getMessageInstance()->endProcessMsg("done.");
     }
-    if (myOptions.isSet("districts", false)) { // dfrouter does not register this option
-        file = myOptions.getString("districts");
+    if (myOptions.isSet("taz-files", false)) { // dfrouter does not register this option
+        file = myOptions.getString("taz-files");
         if (!FileHelpers::exists(file)) {
             throw ProcessError("The districts file '" + file + "' could not be found.");
         }
@@ -148,7 +148,7 @@ ROLoader::openRoutes(RONet &net) {
     // load the XML-trip definitions when wished
     ok &= openTypedRoutes("trip-defs", net);
     // load the sumo-alternative file when wished
-    ok &= openTypedRoutes("alternatives", net);
+    ok &= openTypedRoutes("alternative-files", net);
     // load the amount definitions if wished
     ok &= openTypedRoutes("flows", net);
     // check
@@ -156,7 +156,7 @@ ROLoader::openRoutes(RONet &net) {
         throw ProcessError("No route input specified.");
     }
     // skip routes prior to the begin time
-    if (ok&&!myOptions.getBool("unsorted")) {
+    if (ok&&!myOptions.getBool("unsorted-input")) {
         MsgHandler::getMessageInstance()->inform("Skipping...");
         for (RouteLoaderCont::iterator i=myHandler.begin(); ok&&i!=myHandler.end(); i++) {
             ok &= (*i)->readRoutesAtLeastUntil(string2time(myOptions.getString("begin")), true);
@@ -194,7 +194,7 @@ ROLoader::processRoutesStepWise(SUMOTime start, SUMOTime end,
                 endReached = false;
             }
         }
-        errorOccured = MsgHandler::getErrorInstance()->wasInformed() && !myOptions.getBool("continue-on-unbuild");
+        errorOccured = MsgHandler::getErrorInstance()->wasInformed() && !myOptions.getBool("ignore-errors");
     }
     MsgHandler::getMessageInstance()->inform("Routes found between time steps " + time2string(firstStep) + " and " + time2string(lastStep) + ".");
 }
@@ -296,12 +296,12 @@ ROAbstractRouteDefLoader*
 ROLoader::buildNamedHandler(const std::string &optionName,
                             const std::string &file,
                             RONet &net) throw(ProcessError) {
-    if (optionName=="sumo-input" || optionName=="alternatives") {
-        const SUMOReal beta = myOptions.getBool("logit") ? myOptions.getFloat("lBeta") : myOptions.getFloat("gBeta");
+    if (optionName=="sumo-input" || optionName=="alternative-files") {
+        const SUMOReal beta = myOptions.getBool("logit") ? myOptions.getFloat("lBeta") : myOptions.getFloat("gawron.beta");
         const SUMOReal gamma = myOptions.getBool("logit") ? myOptions.getFloat("lGamma") : -1;
         return new RORDLoader_SUMOBase(net,
                                        string2time(myOptions.getString("begin")), string2time(myOptions.getString("end")),
-                                       beta, myOptions.getFloat("gA"), gamma,
+                                       beta, myOptions.getFloat("gawron.a"), gamma,
                                        myOptions.getInt("max-alternatives"), myOptions.getBool("repair"),
                                        myOptions.getBool("with-taz"), myOptions.getBool("keep-all-routes"), file);
     }

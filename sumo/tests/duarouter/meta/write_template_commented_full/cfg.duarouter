@@ -7,19 +7,19 @@
         <net-file value="" synonymes="n net"/>
 
         <!-- Read (additional) districts from FILE -->
-        <districts value="" synonymes="d"/>
+        <taz-files value="" synonymes="d districts"/>
 
         <!-- Read alternatives from FILE -->
-        <alternatives value="" synonymes="a"/>
+        <alternative-files value="" synonymes="a alternatives alternatives-files"/>
 
         <!-- Read network weights from FILE(s) -->
-        <weights value="" synonymes="w weight-files"/>
+        <weight-files value="" synonymes="w weights"/>
 
         <!-- Read lane-weights from FILE(s) -->
         <lane-weights value=""/>
 
         <!-- Name of the xml attribute which gives the edge weight -->
-        <measure value="traveltime" synonymes="x"/>
+        <weight-attribute value="traveltime" synonymes="measure x"/>
 
         <!-- Read trip-definitions from FILE -->
         <trip-defs value="" synonymes="t trips"/>
@@ -43,10 +43,10 @@
 
     <processing>
         <!-- Continue if a route could not be build -->
-        <continue-on-unbuild value="false"/>
+        <ignore-errors value="false" synonymes="continue-on-unbuild"/>
 
         <!-- Assume input is unsorted -->
-        <unsorted value="false"/>
+        <unsorted-input value="false" synonymes="unsorted"/>
 
         <!-- generate random departure times for flow input -->
         <randomize-flows value="false"/>
@@ -61,19 +61,19 @@
         <repair value="false"/>
 
         <!-- Interpolate edge weights at interval boundaries -->
-        <interpolate value="false"/>
+        <weights.interpolate value="false" synonymes="interpolate"/>
 
         <!-- Use origin and destination zones (districts) for in- and output -->
         <with-taz value="false"/>
 
         <!-- Expand weights behind the simulation's end -->
-        <expand-weights value="false"/>
+        <weights.expand value="false" synonymes="expand-weights"/>
 
         <!-- Use FLOAT as Gawron's beta -->
-        <gBeta value="0.3"/>
+        <gawron.beta value="0.3" synonymes="gBeta"/>
 
-        <!-- Use FLOAT as Gawron's alpha -->
-        <gA value="0.05"/>
+        <!-- Use FLOAT as Gawron's a -->
+        <gawron.a value="0.05" synonymes="gA"/>
 
         <!-- Save routes with near zero probability -->
         <keep-all-routes value="false"/>

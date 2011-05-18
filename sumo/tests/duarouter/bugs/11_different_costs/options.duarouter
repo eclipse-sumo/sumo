@@ -1,2 +1,2 @@
---net-file=input_net.net.xml --weights=input_weights.dump.xml -b 0 -e 86400 --alternatives=input_alts.rou.alt.xml -o routes.rou.xml -v --continue-on-unbuild
+--net-file=input_net.net.xml --weight-files=input_weights.dump.xml -b 0 -e 86400 --alternative-files=input_alts.rou.alt.xml -o routes.rou.xml -v --ignore-errors
 

@@ -90,8 +90,9 @@ RODUAFrame::addImportOptions() {
 
     // register further processing options
     // ! The subtopic "Processing" must be initialised earlier !
-    oc.doRegister("expand-weights", new Option_Bool(false));
-    oc.addDescription("expand-weights", "Processing", "Expand weights behind the simulation's end");
+    oc.doRegister("weights.expand", new Option_Bool(false));
+    oc.addSynonyme("weights.expand", "expand-weights", true);
+    oc.addDescription("weights.expand", "Processing", "Expand weights behind the simulation's end");
 }
 
 
@@ -99,11 +100,13 @@ void
 RODUAFrame::addDUAOptions() {
     OptionsCont &oc = OptionsCont::getOptions();
     // register Gawron's DUE-settings
-    oc.doRegister("gBeta", new Option_Float(SUMOReal(0.3)));
-    oc.addDescription("gBeta", "Processing", "Use FLOAT as Gawron's beta");
+    oc.doRegister("gawron.beta", new Option_Float(SUMOReal(0.3)));
+    oc.addSynonyme("gawron.beta", "gBeta", true);
+    oc.addDescription("gawron.beta", "Processing", "Use FLOAT as Gawron's beta");
 
-    oc.doRegister("gA", new Option_Float(SUMOReal(0.05)));
-    oc.addDescription("gA", "Processing", "Use FLOAT as Gawron's alpha");
+    oc.doRegister("gawron.a", new Option_Float(SUMOReal(0.05)));
+    oc.addSynonyme("gawron.a", "gA", true);
+    oc.addDescription("gawron.a", "Processing", "Use FLOAT as Gawron's a");
 
     oc.doRegister("exit-times", new Option_Bool(false));
     oc.addDescription("exit-times", "Output", "Write exit times (weights) for each edge");
