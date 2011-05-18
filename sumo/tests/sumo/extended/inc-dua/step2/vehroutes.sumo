@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 01/05/11 14:54:34 by SUMO sumo Version dev-SVN-r9525
+<!-- generated on 05/18/11 11:13:45 by SUMO sumo Version dev-SVN-r10357
 <?xml version="1.0" encoding="iso-8859-1"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/sumoConfiguration.xsd">
@@ -19,7 +19,7 @@
     </time>
 
     <processing>
-        <incremental-dua-step value="2"/>
+        <scale value="0.2"/>
     </processing>
 
     <report>
@@ -35,7 +35,7 @@
         <route edges="2fi 2si 1o 1fi 1si 2o 2fi"/>
     </vehicle>
 
-    <vehicle id="horizontal02" depart="102.00" arrival="273.00">
+    <vehicle id="horizontal06" depart="102.00" arrival="273.00">
         <route edges="2fi 2si 1o 1fi 1si 2o 2fi"/>
     </vehicle>
 
