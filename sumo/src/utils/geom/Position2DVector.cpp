@@ -35,6 +35,7 @@
 #include <iterator>
 #include <limits>
 #include <utils/common/StdDefs.h>
+#include <utils/common/ToString.h>
 #include "AbstractPoly.h"
 #include "Position2D.h"
 #include "Position2DVector.h"
@@ -344,9 +345,12 @@ Position2DVector::getEnd() const {
 
 std::pair<Position2DVector, Position2DVector>
 Position2DVector::splitAt(SUMOReal where) const {
-    assert(size()>=2);
-    assert(where>0);
-    assert(where<length());
+    if (size() < 2 ) {
+        throw InvalidArgument("Vector to short for splitting");
+    }
+    if (where <= 0 || where >= length()) {
+        throw InvalidArgument("Invalid position " + toString(where) + " for splitting vector of length " + toString(length()));
+    }
     Position2DVector first, second;
     first.push_back(myCont[0]);
     SUMOReal seen = 0;
@@ -365,20 +369,16 @@ Position2DVector::splitAt(SUMOReal where) const {
         Position2D p = tmpL.getPositionAtDistance(where - seen);
         first.push_back(p);
         second.push_back(p);
+    } else {
+        first.push_back(*it);
     }
     // add the remaining points to second
     for (; it!=myCont.end(); it++) {
         second.push_back(*it);
     }
-    // make sure both geoms are long enough
-    if (first.size() < 2) {
-        first.push_back(second.getBegin());
-    }
-    if (second.size() < 2) {
-        second.push_front(first.getEnd());
-    }
     assert(first.size()>=2);
     assert(second.size()>=2);
+    assert(first.getEnd() == second.getBegin());
     assert(fabs(first.length() + second.length() - length()) < 2 * POSITION_EPS);
     return std::pair<Position2DVector, Position2DVector>(first, second);
 }
