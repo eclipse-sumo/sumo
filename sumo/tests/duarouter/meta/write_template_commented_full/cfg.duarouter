@@ -82,10 +82,10 @@
         <logit value="false"/>
 
         <!-- Use FLOAT as logit's beta -->
-        <lBeta value="0.15"/>
+        <logit.beta value="0.15" synonymes="lBeta"/>
 
         <!-- Use FLOAT as logit's gamma -->
-        <lGamma value="1"/>
+        <logit.gamma value="1" synonymes="lGamma"/>
 
     </processing>
 

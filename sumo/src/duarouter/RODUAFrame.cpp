@@ -117,11 +117,13 @@ RODUAFrame::addDUAOptions() {
     oc.doRegister("logit", new Option_Bool(false));
     oc.addDescription("logit", "Processing", "Use c-logit model");
 
-    oc.doRegister("lBeta", new Option_Float(SUMOReal(0.15)));
-    oc.addDescription("lBeta", "Processing", "Use FLOAT as logit's beta");
+    oc.doRegister("logit.beta", new Option_Float(SUMOReal(0.15)));
+    oc.addSynonyme("logit.beta", "lBeta", true);
+    oc.addDescription("logit.beta", "Processing", "Use FLOAT as logit's beta");
 
-    oc.doRegister("lGamma", new Option_Float(SUMOReal(1)));
-    oc.addDescription("lGamma", "Processing", "Use FLOAT as logit's gamma");
+    oc.doRegister("logit.gamma", new Option_Float(SUMOReal(1)));
+    oc.addSynonyme("logit.gamma", "lGamma", true);
+    oc.addDescription("logit.gamma", "Processing", "Use FLOAT as logit's gamma");
 
 }
 
