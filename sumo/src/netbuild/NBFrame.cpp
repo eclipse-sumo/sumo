@@ -208,9 +208,7 @@ NBFrame::fillOptions(bool forNetgen) {
 
         oc.doRegister("remove-edges.by-vclass", new Option_String());
         oc.addDescription("remove-edges.by-vclass", "Edge Removal", "Remove edges where vclass def is not in STR");
-    }
 
-    if(!forNetgen) {
         oc.doRegister("remove-edges.isolated", new Option_Bool(false));
         oc.addSynonyme("remove-edges.isolated", "remove-isolated", true);
         oc.addDescription("remove-edges.isolated", "Edge Removal", "Removes isolated edges");
