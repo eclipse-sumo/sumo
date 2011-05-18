@@ -184,7 +184,7 @@
         <no-turnarounds value="false"/>
 
         <!-- Disables building turnarounds at tls-controlled junctions -->
-        <no-tls-turnarounds value="false"/>
+        <no-turnarounds.tls value="false" synonymes="no-tls-turnarounds"/>
 
         <!-- Omits internal links -->
         <no-internal-links value="false"/>

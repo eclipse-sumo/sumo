@@ -81,8 +81,9 @@ NBFrame::fillOptions(bool forNetgen) {
     oc.doRegister("no-turnarounds", new Option_Bool(false));
     oc.addDescription("no-turnarounds", "Processing", "Disables building turnarounds");
     
-    oc.doRegister("no-tls-turnarounds", new Option_Bool(false));
-    oc.addDescription("no-tls-turnarounds", "Processing", "Disables building turnarounds at tls-controlled junctions");
+    oc.doRegister("no-turnarounds.tls", new Option_Bool(false));
+    oc.addSynonyme("no-turnarounds.tls", "no-tls-turnarounds", true);
+    oc.addDescription("no-turnarounds.tls", "Processing", "Disables building turnarounds at tls-controlled junctions");
 
     oc.doRegister("no-internal-links", new Option_Bool(false)); // !!! not described
     oc.addDescription("no-internal-links", "Processing", "Omits internal links");

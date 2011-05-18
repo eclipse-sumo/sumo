@@ -77,7 +77,7 @@
         <dismiss-vclasses value="false"/>
         <remove-geometry value="false" synonymes="R"/>
         <no-turnarounds value="false"/>
-        <no-tls-turnarounds value="false"/>
+        <no-turnarounds.tls value="false" synonymes="no-tls-turnarounds"/>
         <no-internal-links value="false"/>
         <split-geometry value="false"/>
         <offset.disable-normalization value="false" synonymes="disable-normalize-node-positions"/>

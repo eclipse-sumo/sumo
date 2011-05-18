@@ -190,7 +190,7 @@ NBNetBuilder::compute(OptionsCont &oc) {
     //
     if (!oc.getBool("no-turnarounds")) {
         inform(step, "Appending turnarounds.");
-        myEdgeCont.appendTurnarounds(oc.getBool("no-tls-turnarounds"));
+        myEdgeCont.appendTurnarounds(oc.getBool("no-turnarounds.tls"));
     }
     //
     inform(step, "Rechecking of lane endings.");
