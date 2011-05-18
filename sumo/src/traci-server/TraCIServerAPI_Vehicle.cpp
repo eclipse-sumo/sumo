@@ -152,9 +152,9 @@ TraCIServerAPI_Vehicle::processGet(TraCIServer &server, tcpip::Storage &inputSto
             break;
         case VAR_COLOR:
             tempMsg.writeUnsignedByte(TYPE_COLOR);
-            tempMsg.writeUnsignedByte((int)(v->getParameter().color.red()*255.));
-            tempMsg.writeUnsignedByte((int)(v->getParameter().color.green()*255.));
-            tempMsg.writeUnsignedByte((int)(v->getParameter().color.blue()*255.));
+            tempMsg.writeUnsignedByte(static_cast<int>(v->getParameter().color.red()*255.+0.5));
+            tempMsg.writeUnsignedByte(static_cast<int>(v->getParameter().color.green()*255.+0.5));
+            tempMsg.writeUnsignedByte(static_cast<int>(v->getParameter().color.blue()*255.+0.5));
             tempMsg.writeUnsignedByte(255);
             break;
         case VAR_LANEPOSITION:
