@@ -1,28 +1,28 @@
 <?xml version="1.0"?>
 
-<!-- generated on Thu Mar 31 09:17:34 2011 by SUMO netconvert Version dev-SVN-r10031
+<!-- generated on Wed May 18 15:56:35 2011 by SUMO netconvert Version dev-SVN-r10391
 <?xml version="1.0" encoding="iso-8859-1"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net value="input_net.net.xml"/>
+        <sumo-net-file value="input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="net.net.xml"/>
-        <plain-output value="plain"/>
+        <output value="net.net.xml"/>
+        <plain-output-prefix value="plain"/>
     </output>
 
     <processing>
-        <disable-normalize-node-positions value="true"/>
+        <offset.disable-normalization value="true"/>
     </processing>
 
 </configuration>
 -->
 
 <edges>
-   <edge id="edge_with_shape" fromnode="node_right" tonode="node_left" priority="-1" type="testType" nolanes="3" speed="13.90" shape="40.00,0.00 20.00,20.00 0.00,0.00">
+   <edge id="edge_with_shape" fromnode="node_right" tonode="node_left" priority="-1" type="testType" nolanes="3" speed="13.90" shape="20.00,20.00">
       <lane id="0" allow="bus"/>
       <lane id="1" disallow="bicycle"/>
       <lane id="2"/>
