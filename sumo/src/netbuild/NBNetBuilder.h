@@ -80,7 +80,7 @@ class OutputDevice;
  *   "keep-edges.by-vclass", "keep-edges.input-file"), the now orphaned nodes are removed using 
  *   NBNodeCont::removeUnwishedNodes().
  * -# Splitting geometry edges (optional)
- *  \n If "split-geometry" is set, edge geometries are converted to nodes using 
+ *  \n If "geometry.split" is set, edge geometries are converted to nodes using 
  *   NBEdgeCont::splitGeometry().
  * -# Normalising/transposing node positions
  *  \n If "offset.disable-normalization", "offset.x", and "offset.y" are not
@@ -103,7 +103,7 @@ class OutputDevice;
  *
  *  @todo Removing unwished edges: Recheck whether this can be done during loading - whether this option/step is really needed.
  *  @todo Finding isolated roads: Describe 
- *  @bug Removing empty nodes and geometry nodes: Ok, empty nodes should be removed, uh? But this is only done if "remove-geometry" is set. 
+ *  @bug Removing empty nodes and geometry nodes: Ok, empty nodes should be removed, uh? But this is only done if "geometry.remove" is set. 
  * @}
  */
 class NBNetBuilder {

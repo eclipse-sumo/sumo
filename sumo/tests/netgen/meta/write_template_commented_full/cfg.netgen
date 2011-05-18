@@ -174,11 +174,11 @@
     </unregulated_nodes>
 
     <processing>
+        <!-- Omits internal links -->
+        <no-internal-links value="false"/>
+
         <!-- Removes vehicle class restrictions from imported edges. -->
         <dismiss-vclasses value="false"/>
-
-        <!-- Removes geometry information from edges -->
-        <remove-geometry value="false" synonymes="R"/>
 
         <!-- Disables building turnarounds -->
         <no-turnarounds value="false"/>
@@ -186,11 +186,11 @@
         <!-- Disables building turnarounds at tls-controlled junctions -->
         <no-turnarounds.tls value="false" synonymes="no-tls-turnarounds"/>
 
-        <!-- Omits internal links -->
-        <no-internal-links value="false"/>
-
         <!-- Splits edges across geometry nodes -->
-        <split-geometry value="false"/>
+        <geometry.split value="false" synonymes="split-geometry"/>
+
+        <!-- Removes geometry information from edges -->
+        <geometry.remove value="false" synonymes="R remove-geometry"/>
 
         <!-- Turn off normalizing node positions -->
         <offset.disable-normalization value="false" synonymes="disable-normalize-node-positions"/>
