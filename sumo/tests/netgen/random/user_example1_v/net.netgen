@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 05/18/11 09:58:06 by SUMO netgen Version dev-SVN-r10373
+<!-- generated on Wed May 18 15:49:13 2011 by SUMO netgen Version dev-SVN-r10391
 <?xml version="1.0" encoding="iso-8859-1"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netgenConfiguration.xsd">
@@ -911,7 +911,7 @@
       <lane id=":1372_16_0" depart="0" maxspeed="13.90" length="18.61" shape="1200.10,693.64 1204.33,692.85 1209.31,692.51 1214.31,692.62 1218.58,693.20"/>
    </edge>
    <edge id=":1372_17" function="internal">
-      <lane id=":1372_17_0" depart="0" maxspeed="13.90" length="8.83" shape="1200.10,693.64 1204.74,692.99"/>
+      <lane id=":1372_17_0" depart="0" maxspeed="13.90" length="8.83" shape="1200.10,693.64 1204.74,692.99 1208.86,693.80"/>
    </edge>
    <edge id=":1372_26" function="internal">
       <lane id=":1372_26_0" depart="0" maxspeed="13.90" length="9.10" shape="1208.86,693.80 1212.44,696.06 1215.50,699.78"/>
@@ -3371,7 +3371,7 @@
       <lane id=":2424_6_0" depart="0" maxspeed="13.90" length="10.61" shape="1767.43,2902.44 1770.40,2901.67 1772.59,2901.23 1774.82,2900.99 1777.88,2900.83"/>
    </edge>
    <edge id=":2424_7" function="internal">
-      <lane id=":2424_7_0" depart="0" maxspeed="13.90" length="7.94" shape="1767.43,2902.44 1770.44,2902.08 1772.75,2902.80"/>
+      <lane id=":2424_7_0" depart="0" maxspeed="13.90" length="7.94" shape="1767.43,2902.44 1770.44,2902.08 1772.75,2902.80 1774.34,2904.62"/>
    </edge>
    <edge id=":2424_10" function="internal">
       <lane id=":2424_10_0" depart="0" maxspeed="13.90" length="2.96" shape="1774.34,2904.62 1775.24,2907.52"/>
@@ -5033,7 +5033,7 @@
       <lane id=":3610_6_0" depart="0" maxspeed="13.90" length="13.53" shape="1989.15,2540.36 1991.34,2537.45 1993.83,2535.17 1996.63,2533.53 1999.74,2532.53"/>
    </edge>
    <edge id=":3610_7" function="internal">
-      <lane id=":3610_7_0" depart="0" maxspeed="13.90" length="9.29" shape="1989.15,2540.36 1991.71,2537.30 1994.22,2536.31"/>
+      <lane id=":3610_7_0" depart="0" maxspeed="13.90" length="9.29" shape="1989.15,2540.36 1991.71,2537.30 1994.22,2536.31 1996.69,2537.41"/>
    </edge>
    <edge id=":3610_10" function="internal">
       <lane id=":3610_10_0" depart="0" maxspeed="13.90" length="4.09" shape="1996.69,2537.41 1999.10,2540.59"/>
@@ -6869,7 +6869,7 @@
       <lane id=":866_0_0" depart="0" maxspeed="13.90" length="10.81" shape="1422.23,2785.07 1420.44,2782.55 1419.24,2780.57 1418.25,2778.49 1417.05,2775.63"/>
    </edge>
    <edge id=":866_1" function="internal">
-      <lane id=":866_1_0" depart="0" maxspeed="13.90" length="7.79" shape="1422.23,2785.07 1420.97,2782.58 1420.89,2780.15"/>
+      <lane id=":866_1_0" depart="0" maxspeed="13.90" length="7.79" shape="1422.23,2785.07 1420.97,2782.58 1420.89,2780.15 1422.01,2777.78"/>
    </edge>
    <edge id=":866_9" function="internal">
       <lane id=":866_9_0" depart="0" maxspeed="13.90" length="3.31" shape="1422.01,2777.78 1424.32,2775.48"/>
