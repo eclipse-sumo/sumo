@@ -107,9 +107,9 @@ NBNetBuilder::compute(OptionsCont &oc) {
         myNodeCont.removeIsolatedRoads(myDistrictCont, myEdgeCont, myTLLCont);
     }
     //
-    if (oc.getBool("geometry.remove")) {
+    if (oc.exists("geometry.remove")&&oc.getBool("geometry.remove")) {
         inform(step, "Removing empty nodes and geometry nodes.");
-        myNodeCont.removeUnwishedNodes(myDistrictCont, myEdgeCont, myJoinedEdges, myTLLCont, oc.getBool("geometry.remove"));
+        myNodeCont.removeUnwishedNodes(myDistrictCont, myEdgeCont, myJoinedEdges, myTLLCont, oc.exists("geometry.remove")&&oc.getBool("geometry.remove"));
     }
     //
     if (oc.exists("keep-edges.postload") && oc.getBool("keep-edges.postload")) {
@@ -124,10 +124,10 @@ NBNetBuilder::compute(OptionsCont &oc) {
         || (oc.exists("remove-edges.by-vclass") && oc.isSet("remove-edges.by-vclass") )
         || oc.isSet("keep-edges.input-file")) {
         inform(step, "Rechecking nodes after edge removal.");
-        myNodeCont.removeUnwishedNodes(myDistrictCont, myEdgeCont, myJoinedEdges, myTLLCont, oc.getBool("geometry.remove"));
+        myNodeCont.removeUnwishedNodes(myDistrictCont, myEdgeCont, myJoinedEdges, myTLLCont, oc.exists("geometry.remove")&&oc.getBool("geometry.remove"));
     }
     //
-    if (oc.getBool("geometry.split")) {
+    if (oc.exists("geometry.split") && oc.getBool("geometry.split")) {
         inform(step, "Splitting geometry edges.");
         myEdgeCont.splitGeometry(myNodeCont);
     }

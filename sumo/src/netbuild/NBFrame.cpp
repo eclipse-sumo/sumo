@@ -75,8 +75,10 @@ NBFrame::fillOptions(bool forNetgen) {
     oc.doRegister("no-internal-links", new Option_Bool(false)); // !!! not described
     oc.addDescription("no-internal-links", "Processing", "Omits internal links");
 
-    oc.doRegister("dismiss-vclasses", new Option_Bool(false));
-    oc.addDescription("dismiss-vclasses", "Processing", "Removes vehicle class restrictions from imported edges.");
+    if(!forNetgen) {
+        oc.doRegister("dismiss-vclasses", new Option_Bool(false));
+        oc.addDescription("dismiss-vclasses", "Processing", "Removes vehicle class restrictions from imported edges.");
+    }
 
     oc.doRegister("no-turnarounds", new Option_Bool(false));
     oc.addDescription("no-turnarounds", "Processing", "Disables building turnarounds");
@@ -85,13 +87,15 @@ NBFrame::fillOptions(bool forNetgen) {
     oc.addSynonyme("no-turnarounds.tls", "no-tls-turnarounds", true);
     oc.addDescription("no-turnarounds.tls", "Processing", "Disables building turnarounds at tls-controlled junctions");
 
-    oc.doRegister("geometry.split", new Option_Bool(false)); // !!!not described
-    oc.addSynonyme("geometry.split", "split-geometry", true);
-    oc.addDescription("geometry.split", "Processing", "Splits edges across geometry nodes");
+    if(!forNetgen) {
+        oc.doRegister("geometry.split", new Option_Bool(false)); // !!!not described
+        oc.addSynonyme("geometry.split", "split-geometry", true);
+        oc.addDescription("geometry.split", "Processing", "Splits edges across geometry nodes");
 
-    oc.doRegister("geometry.remove", 'R', new Option_Bool(false));
-    oc.addSynonyme("geometry.remove", "remove-geometry", true);
-    oc.addDescription("geometry.remove", "Processing", "Removes geometry information from edges");
+        oc.doRegister("geometry.remove", 'R', new Option_Bool(false));
+        oc.addSynonyme("geometry.remove", "remove-geometry", true);
+        oc.addDescription("geometry.remove", "Processing", "Removes geometry information from edges");
+    }
 
     oc.doRegister("offset.disable-normalization", new Option_Bool(false));
     oc.addSynonyme("offset.disable-normalization", "disable-normalize-node-positions", true);

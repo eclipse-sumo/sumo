@@ -177,20 +177,11 @@
         <!-- Omits internal links -->
         <no-internal-links value="false"/>
 
-        <!-- Removes vehicle class restrictions from imported edges. -->
-        <dismiss-vclasses value="false"/>
-
         <!-- Disables building turnarounds -->
         <no-turnarounds value="false"/>
 
         <!-- Disables building turnarounds at tls-controlled junctions -->
         <no-turnarounds.tls value="false" synonymes="no-tls-turnarounds"/>
-
-        <!-- Splits edges across geometry nodes -->
-        <geometry.split value="false" synonymes="split-geometry"/>
-
-        <!-- Removes geometry information from edges -->
-        <geometry.remove value="false" synonymes="R remove-geometry"/>
 
         <!-- Turn off normalizing node positions -->
         <offset.disable-normalization value="false" synonymes="disable-normalize-node-positions"/>

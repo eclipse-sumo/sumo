@@ -234,7 +234,8 @@ NBEdgeCont::insert(NBEdge *edge, bool ignorePrunning) throw() {
         return true;
     }
 
-    if (OptionsCont::getOptions().getBool("dismiss-vclasses")) {
+    OptionsCont &oc = OptionsCont::getOptions();
+    if (oc.exists("dismiss-vclasses") && oc.getBool("dismiss-vclasses")) {
         edge->dismissVehicleClassInformation();
     }
     myEdges.insert(EdgeCont::value_type(edge->getID(), edge));

@@ -75,11 +75,8 @@
 
     <processing>
         <no-internal-links value="false"/>
-        <dismiss-vclasses value="false"/>
         <no-turnarounds value="false"/>
         <no-turnarounds.tls value="false" synonymes="no-tls-turnarounds"/>
-        <geometry.split value="false" synonymes="split-geometry"/>
-        <geometry.remove value="false" synonymes="R remove-geometry"/>
         <offset.disable-normalization value="false" synonymes="disable-normalize-node-positions"/>
         <offset.x value="0" synonymes="x-offset-to-apply"/>
         <offset.y value="0" synonymes="y-offset-to-apply"/>
