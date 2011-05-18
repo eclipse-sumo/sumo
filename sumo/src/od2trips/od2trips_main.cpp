@@ -100,8 +100,9 @@ fillOptions() {
     oc.addSynonyme("output", "output-file", true);
     oc.addDescription("output", "Output", "Writes trip definitions into FILE");
 
-    oc.doRegister("no-vtype", new Option_Bool(false));
-    oc.addDescription("no-vtype", "Output", "Does not save vtype information");
+    oc.doRegister("ignore-vehicle-type", new Option_Bool(false));
+    oc.addSynonyme("ignore-vehicle-type", "no-vtype", true);
+    oc.addDescription("ignore-vehicle-type", "Output", "Does not save vtype information");
 
 
     // register the time settings
@@ -499,7 +500,7 @@ main(int argc, char **argv) {
         }
         OutputDevice& dev = OutputDevice::getDeviceByOption("output");
         matrix.write(SUMOTime(string2time(oc.getString("begin"))/1000.), SUMOTime(string2time(oc.getString("end"))/1000.),
-                     dev, oc.getBool("spread.uniform"), oc.getBool("no-vtype"), oc.getString("prefix"));
+                     dev, oc.getBool("spread.uniform"), oc.getBool("ignore-vehicle-type"), oc.getString("prefix"));
         MsgHandler::getMessageInstance()->inform(toString(matrix.getNoDiscarded()) + " vehicles discarded.");
         MsgHandler::getMessageInstance()->inform(toString(matrix.getNoWritten()) + " vehicles written.");
     } catch (ProcessError &e) {

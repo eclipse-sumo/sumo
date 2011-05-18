@@ -16,7 +16,7 @@
         <output value="" synonymes="o output-file"/>
 
         <!-- Does not save vtype information -->
-        <no-vtype value="false"/>
+        <ignore-vehicle-type value="false" synonymes="no-vtype"/>
 
     </output>
 
