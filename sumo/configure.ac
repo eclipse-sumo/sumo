@@ -352,19 +352,10 @@ if test x"$with_gtest" == x; then
 fi
 if test x"$with_gtest" != xno; then
     LIB_GTEST="gtest"
-    save_ldflags=$LDFLAGS
-    LDFLAGS="-L$with_gtest/lib"
-    export LDFLAGS
-    LDFLAGS=$save_ldflags
+    GTEST_LDFLAGS="-L$with_gtest/lib"
     AC_SUBST(GTEST_LDFLAGS)
     AC_SUBST(LIB_GTEST)
     AM_CPPFLAGS="-I$with_gtest/include $AM_CPPFLAGS"
-#    save_cppflags=$CPPFLAGS
-#    CPPFLAGS="-I$with_gtest/include"
-#    export CPPFLAGS
-#    AC_CHECK_HEADER([gtest/gtest.h], [AM_CPPFLAGS="$CPPFLAGS $AM_CPPFLAGS"],
-#                    [AC_MSG_ERROR([gtest-includes not found in "$with_gtest/include".])])
-#    CPPFLAGS=$save_cppflags
 fi
 AM_CONDITIONAL([WITH_GTEST], [test x"$with_gtest" != xno])
 if test x"$with_gtest" != xno; then
