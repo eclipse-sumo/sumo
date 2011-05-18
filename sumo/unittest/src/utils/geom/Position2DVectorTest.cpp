@@ -104,4 +104,30 @@ TEST_F(Position2DVectorTest, test_method_splitAt) {
 	EXPECT_FLOAT_EQ(2, result.second.size());
 	EXPECT_FLOAT_EQ(2, result.second[0].x());
 	EXPECT_FLOAT_EQ(5 ,result.second[1].x());
+
+    // catch a bug
+    vec.push_back(Position2D(6,0));
+    vec.push_back(Position2D(8,0));
+    // split at inner point
+    result = vec.splitAt(5);
+	EXPECT_FLOAT_EQ(3, result.first.size());
+	EXPECT_FLOAT_EQ(0, result.first[0].x());
+	EXPECT_FLOAT_EQ(2, result.first[1].x());
+	EXPECT_FLOAT_EQ(5, result.first[2].x());
+	EXPECT_FLOAT_EQ(3, result.second.size());
+	EXPECT_FLOAT_EQ(5, result.second[0].x());
+	EXPECT_FLOAT_EQ(6 ,result.second[1].x());
+	EXPECT_FLOAT_EQ(8 ,result.second[2].x());
+
+    // split short vector
+    Position2DVector vec2;
+    vec2.push_back(Position2D(0,0));
+    vec2.push_back(Position2D(2,0));
+    result = vec2.splitAt(1);
+	EXPECT_FLOAT_EQ(2, result.first.size());
+	EXPECT_FLOAT_EQ(0, result.first[0].x());
+	EXPECT_FLOAT_EQ(1, result.first[1].x());
+	EXPECT_FLOAT_EQ(2, result.second.size());
+	EXPECT_FLOAT_EQ(1, result.second[0].x());
+	EXPECT_FLOAT_EQ(2 ,result.second[1].x());
 }
