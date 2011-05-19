@@ -224,7 +224,7 @@ NIImporter_MATSim::EdgesHandler::myStartElement(int element,
     SUMOReal freeSpeed = attrs.getSUMORealReporting(MATSIM_ATTR_FREESPEED, id.c_str(), ok); // 
     SUMOReal capacity = attrs.getSUMORealReporting(MATSIM_ATTR_CAPACITY, id.c_str(), ok); // override permLanes?
     SUMOReal permLanes = attrs.getSUMORealReporting(MATSIM_ATTR_PERMLANES, id.c_str(), ok);
-    bool oneWay = attrs.getOptBoolReporting(MATSIM_ATTR_ONEWAY, id.c_str(), ok, true); // mandatory?
+    //bool oneWay = attrs.getOptBoolReporting(MATSIM_ATTR_ONEWAY, id.c_str(), ok, true); // mandatory?
     std::string modes = attrs.getOptStringReporting(MATSIM_ATTR_MODES, id.c_str(), ok, ""); // which values?
     std::string origid = attrs.getOptStringReporting(MATSIM_ATTR_ORIGID, id.c_str(), ok, "");
     NBNode *fromNode = myNodeCont.retrieve(fromNodeID);
@@ -241,7 +241,7 @@ NIImporter_MATSim::EdgesHandler::myStartElement(int element,
     if(myLanesFromCapacity) {
         permLanes = myCapacity2Lanes.get(capacity);
     }
-    NBEdge *edge = new NBEdge(id, fromNode, toNode, "", freeSpeed, (unsigned int) permLanes, -1);
+    NBEdge *edge = new NBEdge(id, fromNode, toNode, "", freeSpeed, (unsigned int) permLanes, -1, -1);
     if(myKeepEdgeLengths) {
         edge->setLoadedLength(length);
     }

@@ -66,13 +66,14 @@ NIXMLTypesHandler::myStartElement(int element,
     bool ok = true;
     // get the id, report a warning if not given or empty...
     std::string id = attrs.getStringReporting(SUMO_ATTR_ID, 0, ok);
-    int priority = attrs.getOptIntReporting(SUMO_ATTR_PRIORITY, id.c_str(), ok, myTypeCont.getDefaultPriority());
-    int noLanes = attrs.getOptIntReporting(SUMO_ATTR_NOLANES, id.c_str(), ok, myTypeCont.getDefaultNoLanes());
-    SUMOReal speed = attrs.getOptSUMORealReporting(SUMO_ATTR_SPEED, id.c_str(), ok, (SUMOReal) myTypeCont.getDefaultSpeed());
+    int priority = attrs.getOptIntReporting(SUMO_ATTR_PRIORITY, id.c_str(), ok, myTypeCont.getPriority(""));
+    int noLanes = attrs.getOptIntReporting(SUMO_ATTR_NOLANES, id.c_str(), ok, myTypeCont.getNoLanes(""));
+    SUMOReal speed = attrs.getOptSUMORealReporting(SUMO_ATTR_SPEED, id.c_str(), ok, (SUMOReal) myTypeCont.getSpeed(""));
     std::string allowS = attrs.getOptStringReporting(SUMO_ATTR_ALLOW, id.c_str(), ok, "");
     std::string disallowS = attrs.getOptStringReporting(SUMO_ATTR_DISALLOW, id.c_str(), ok, "");
     bool oneway = attrs.getOptBoolReporting(SUMO_ATTR_ONEWAY, id.c_str(), ok, false);
     bool discard = attrs.getOptBoolReporting(SUMO_ATTR_DISCARD, id.c_str(), ok, false);
+    SUMOReal width = attrs.getOptSUMORealReporting(SUMO_ATTR_WIDTH, id.c_str(), ok, (SUMOReal) -1);
     if (!ok) {
         return;
     }
@@ -80,7 +81,7 @@ NIXMLTypesHandler::myStartElement(int element,
     SUMOVehicleClasses allow;
     SUMOVehicleClasses disallow;
     parseVehicleClasses(allowS, disallowS, allow, disallow);
-    if (!myTypeCont.insert(id, noLanes, speed, priority, allow, disallow, oneway)) {
+    if (!myTypeCont.insert(id, noLanes, speed, priority, allow, disallow, width, oneway)) {
         MsgHandler::getErrorInstance()->inform("Duplicate type occured. ID='" + id + "'");
     } else {
         if (discard) {

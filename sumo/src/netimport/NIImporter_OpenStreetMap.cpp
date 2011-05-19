@@ -189,41 +189,41 @@ NIImporter_OpenStreetMap::_loadNetwork(const OptionsCont &oc, NBNetBuilder &nb) 
     // preset types
     //  for highways
     NBTypeCont &tc = nb.getTypeCont();
-    tc.insert("highway.motorway",      3, (SUMOReal)(160./3.6), 13, SVC_UNKNOWN, true);
-    tc.insert("highway.motorway_link", 1, (SUMOReal)(80. /3.6), 12, SVC_UNKNOWN, true);
-    tc.insert("highway.trunk",         2, (SUMOReal)(100./3.6), 11);  // !!! 130km/h?
-    tc.insert("highway.trunk_link",    1, (SUMOReal)(80. /3.6), 10);
-    tc.insert("highway.primary",       2, (SUMOReal)(100./3.6),  9);
-    tc.insert("highway.primary_link",  1, (SUMOReal)(80. /3.6),  8);
-    tc.insert("highway.secondary",     2, (SUMOReal)(100./3.6),  7);
-    tc.insert("highway.secondary_link",1, (SUMOReal)(80. /3.6),  6);
-    tc.insert("highway.tertiary",      1, (SUMOReal)(80. /3.6),  6);
-    tc.insert("highway.unclassified",  1, (SUMOReal)(80. /3.6),  5);
-    tc.insert("highway.residential",   1, (SUMOReal)(50. /3.6),  4);  // actually, maybe one lane for parking would be nice...
-    tc.insert("highway.living_street", 1, (SUMOReal)(10. /3.6),  3);
-    tc.insert("highway.service",       1, (SUMOReal)(20. /3.6),  2, SVC_DELIVERY);
-    tc.insert("highway.track",         1, (SUMOReal)(20. /3.6),  1);
-    tc.insert("highway.services",      1, (SUMOReal)(30. /3.6),  1);
-    tc.insert("highway.unsurfaced",    1, (SUMOReal)(30. /3.6),  1);  // additional
-    tc.insert("highway.footway",       1, (SUMOReal)(30. /3.6),  1, SVC_PEDESTRIAN);  // additional
-    tc.insert("highway.pedestrian",    1, (SUMOReal)(30. /3.6),  1, SVC_PEDESTRIAN);
+    tc.insert("highway.motorway",      3, (SUMOReal)(160./3.6), 13, -1, SVC_UNKNOWN, true);
+    tc.insert("highway.motorway_link", 1, (SUMOReal)(80. /3.6), 12, -1, SVC_UNKNOWN, true);
+    tc.insert("highway.trunk",         2, (SUMOReal)(100./3.6), 11, -1);  // !!! 130km/h?
+    tc.insert("highway.trunk_link",    1, (SUMOReal)(80. /3.6), 10, -1);
+    tc.insert("highway.primary",       2, (SUMOReal)(100./3.6),  9, -1);
+    tc.insert("highway.primary_link",  1, (SUMOReal)(80. /3.6),  8, -1);
+    tc.insert("highway.secondary",     2, (SUMOReal)(100./3.6),  7, -1);
+    tc.insert("highway.secondary_link",1, (SUMOReal)(80. /3.6),  6, -1);
+    tc.insert("highway.tertiary",      1, (SUMOReal)(80. /3.6),  6, -1);
+    tc.insert("highway.unclassified",  1, (SUMOReal)(80. /3.6),  5, -1);
+    tc.insert("highway.residential",   1, (SUMOReal)(50. /3.6),  4, -1);  // actually, maybe one lane for parking would be nice...
+    tc.insert("highway.living_street", 1, (SUMOReal)(10. /3.6),  3, -1);
+    tc.insert("highway.service",       1, (SUMOReal)(20. /3.6),  2, -1, SVC_DELIVERY);
+    tc.insert("highway.track",         1, (SUMOReal)(20. /3.6),  1, -1);
+    tc.insert("highway.services",      1, (SUMOReal)(30. /3.6),  1, -1);
+    tc.insert("highway.unsurfaced",    1, (SUMOReal)(30. /3.6),  1, -1);  // additional
+    tc.insert("highway.footway",       1, (SUMOReal)(30. /3.6),  1, -1, SVC_PEDESTRIAN);  // additional
+    tc.insert("highway.pedestrian",    1, (SUMOReal)(30. /3.6),  1, -1, SVC_PEDESTRIAN);
 
-    tc.insert("highway.path",          1, (SUMOReal)(10. /3.6),  1, SVC_PEDESTRIAN);
-    tc.insert("highway.bridleway",     1, (SUMOReal)(10. /3.6),  1, SVC_PEDESTRIAN);  // no horse stuff
-    tc.insert("highway.cycleway",      1, (SUMOReal)(20. /3.6),  1, SVC_BICYCLE);
-    tc.insert("highway.footway",       1, (SUMOReal)(10. /3.6),  1, SVC_PEDESTRIAN);
-    tc.insert("highway.step",          1, (SUMOReal)(5.  /3.6),  1, SVC_PEDESTRIAN);  // additional
-    tc.insert("highway.steps",         1, (SUMOReal)(5.  /3.6),  1, SVC_PEDESTRIAN);  // :-) do not run too fast
-    tc.insert("highway.stairs",        1, (SUMOReal)(5.  /3.6),  1, SVC_PEDESTRIAN);  // additional
-    tc.insert("highway.bus_guideway",  1, (SUMOReal)(30. /3.6),  1, SVC_BUS);
+    tc.insert("highway.path",          1, (SUMOReal)(10. /3.6),  1, -1, SVC_PEDESTRIAN);
+    tc.insert("highway.bridleway",     1, (SUMOReal)(10. /3.6),  1, -1, SVC_PEDESTRIAN);  // no horse stuff
+    tc.insert("highway.cycleway",      1, (SUMOReal)(20. /3.6),  1, -1, SVC_BICYCLE);
+    tc.insert("highway.footway",       1, (SUMOReal)(10. /3.6),  1, -1, SVC_PEDESTRIAN);
+    tc.insert("highway.step",          1, (SUMOReal)(5.  /3.6),  1, -1, SVC_PEDESTRIAN);  // additional
+    tc.insert("highway.steps",         1, (SUMOReal)(5.  /3.6),  1, -1, SVC_PEDESTRIAN);  // :-) do not run too fast
+    tc.insert("highway.stairs",        1, (SUMOReal)(5.  /3.6),  1, -1, SVC_PEDESTRIAN);  // additional
+    tc.insert("highway.bus_guideway",  1, (SUMOReal)(30. /3.6),  1, -1, SVC_BUS);
 
     //  for railways
-    tc.insert("railway.rail",          1, (SUMOReal)(30. /3.6),  1, SVC_RAIL_FAST);
-    tc.insert("railway.tram",          1, (SUMOReal)(30. /3.6),  1, SVC_CITYRAIL);
-    tc.insert("railway.light_rail",    1, (SUMOReal)(30. /3.6),  1, SVC_LIGHTRAIL);
-    tc.insert("railway.subway",        1, (SUMOReal)(30. /3.6),  1, SVC_CITYRAIL);
-    tc.insert("railway.preserved",     1, (SUMOReal)(30. /3.6),  1, SVC_LIGHTRAIL);
-    tc.insert("railway.monorail",      1, (SUMOReal)(30. /3.6),  1, SVC_LIGHTRAIL);  // rail stuff has to be discussed
+    tc.insert("railway.rail",          1, (SUMOReal)(30. /3.6),  1, -1, SVC_RAIL_FAST);
+    tc.insert("railway.tram",          1, (SUMOReal)(30. /3.6),  1, -1, SVC_CITYRAIL);
+    tc.insert("railway.light_rail",    1, (SUMOReal)(30. /3.6),  1, -1, SVC_LIGHTRAIL);
+    tc.insert("railway.subway",        1, (SUMOReal)(30. /3.6),  1, -1, SVC_CITYRAIL);
+    tc.insert("railway.preserved",     1, (SUMOReal)(30. /3.6),  1, -1, SVC_LIGHTRAIL);
+    tc.insert("railway.monorail",      1, (SUMOReal)(30. /3.6),  1, -1, SVC_LIGHTRAIL);  // rail stuff has to be discussed
 
 
     /* Parse file(s)
@@ -478,7 +478,7 @@ NIImporter_OpenStreetMap::insertEdge(Edge *e, int index, NBNode *from, NBNode *t
         }
         LaneSpreadFunction lsf = addSecond ? LANESPREAD_RIGHT : LANESPREAD_CENTER;
         if (e->myIsOneWay!="-1") {
-            NBEdge *nbe = new NBEdge(id, from, to, type, speed, noLanes, tc.getPriority(type), shape, lsf);
+            NBEdge *nbe = new NBEdge(id, from, to, type, speed, noLanes, tc.getPriority(type), tc.getWidth(type), shape, lsf);
             nbe->setVehicleClasses(allowedClasses, disallowedClasses);
             if (!ec.insert(nbe)) {
                 delete nbe;
@@ -489,7 +489,7 @@ NIImporter_OpenStreetMap::insertEdge(Edge *e, int index, NBNode *from, NBNode *t
             if (e->myIsOneWay!="-1") {
                 id = "-" + id;
             }
-            NBEdge *nbe = new NBEdge(id, to, from, type, speed, noLanes, tc.getPriority(type), shape.reverse(), lsf);
+            NBEdge *nbe = new NBEdge(id, to, from, type, speed, noLanes, tc.getPriority(type), tc.getWidth(type), shape.reverse(), lsf);
             nbe->setVehicleClasses(allowedClasses, disallowedClasses);
             if (!ec.insert(nbe)) {
                 delete nbe;

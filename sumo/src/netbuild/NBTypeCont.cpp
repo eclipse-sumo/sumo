@@ -55,27 +55,24 @@ NBTypeCont::setDefaults(int defaultNoLanes,
 
 bool
 NBTypeCont::insert(const std::string &id, int noLanes, SUMOReal maxSpeed, int prio,
-                   SUMOVehicleClass vClass, bool oneWayIsDefault) throw() {
+                   SUMOReal width, SUMOVehicleClass vClass, bool oneWayIsDefault) throw() {
 	SUMOVehicleClasses allow;
-	if (vClass != SVC_UNKNOWN)
-	{
+	if (vClass != SVC_UNKNOWN) {
 		allow.insert(vClass);
 	}
-	return insert(id, noLanes, maxSpeed, prio, allow,
-			SUMOVehicleClasses(), oneWayIsDefault);
+	return insert(id, noLanes, maxSpeed, prio, allow, SUMOVehicleClasses(), width, oneWayIsDefault);
 }
 
 
 bool
 NBTypeCont::insert(const std::string &id, int noLanes, SUMOReal maxSpeed, int prio,
-                   const SUMOVehicleClasses& allow,
-                   const SUMOVehicleClasses& disallow,
-                   bool oneWayIsDefault) throw() {
+                   const SUMOVehicleClasses& allow, const SUMOVehicleClasses& disallow,
+                   SUMOReal width, bool oneWayIsDefault) throw() {
     TypesCont::iterator i = myTypes.find(id);
     if (i!=myTypes.end()) {
         return false;
     }
-    NBTypeCont::TypeDefinition td(noLanes, maxSpeed, prio);
+    NBTypeCont::TypeDefinition td(noLanes, maxSpeed, prio, width);
     td.allowed.insert(allow.begin(), allow.end());
     td.notAllowed.insert(disallow.begin(), disallow.end());
     td.oneWay = oneWayIsDefault;
@@ -175,6 +172,16 @@ NBTypeCont::getDisallowedClasses(const std::string &type) const throw() {
         return myDefaultType.notAllowed;
     }
     return (*i).second.notAllowed;
+}
+
+
+SUMOReal
+NBTypeCont::getWidth(const std::string &type) const throw() {
+    TypesCont::const_iterator i = myTypes.find(type);
+    if (i==myTypes.end()) {
+        return myDefaultType.width;
+    }
+    return (*i).second.width;
 }
 
 

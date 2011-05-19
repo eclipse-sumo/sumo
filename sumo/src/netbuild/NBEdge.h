@@ -178,6 +178,7 @@ public:
      * @param[in] speed The maximum velocity allowed on this edge
      * @param[in] nolanes The number of lanes this edge has
      * @param[in] priority This edge's priority
+     * @param[in] width This edge's lane width
      * @param[in] spread How the lateral offset of the lanes shall be computed
      * @see init
      * @see LaneSpreadFunction
@@ -185,7 +186,7 @@ public:
     NBEdge(const std::string &id,
            NBNode *from, NBNode *to, std::string type,
            SUMOReal speed, unsigned int nolanes, int priority,
-           LaneSpreadFunction spread=LANESPREAD_RIGHT) throw(ProcessError);
+           SUMOReal width, LaneSpreadFunction spread=LANESPREAD_RIGHT) throw(ProcessError);
 
 
     /** @brief Constructor
@@ -199,6 +200,7 @@ public:
      * @param[in] speed The maximum velocity allowed on this edge
      * @param[in] nolanes The number of lanes this edge has
      * @param[in] priority This edge's priority
+     * @param[in] width This edge's lane width
      * @param[in] geom The edge's geomatry
      * @param[in] spread How the lateral offset of the lanes shall be computed
      * @param[in] tryIgnoreNodePositions Does not add node geometries if geom.size()>=2
@@ -208,7 +210,7 @@ public:
     NBEdge(const std::string &id,
            NBNode *from, NBNode *to, std::string type,
            SUMOReal speed, unsigned int nolanes, int priority,
-           Position2DVector geom,
+           SUMOReal width, Position2DVector geom, 
            LaneSpreadFunction spread=LANESPREAD_RIGHT,
            bool tryIgnoreNodePositions=false) throw(ProcessError);
 
@@ -224,7 +226,7 @@ public:
      */
     void reinit(NBNode *from, NBNode *to, std::string type,
                 SUMOReal speed, unsigned int nolanes, int priority,
-                Position2DVector geom,
+                Position2DVector geom, SUMOReal width,
                 LaneSpreadFunction spread=LANESPREAD_RIGHT) throw(ProcessError);
 
 
@@ -314,6 +316,14 @@ public:
      */
     EdgeBuildingStep getStep() const throw() {
         return myStep;
+    }
+
+
+    /** @brief Returns the width of lanes of this edge
+     * @return The width of lanes of this edge
+     */
+    SUMOReal getWidth() const throw() {
+        return myWidth;
     }
     //@}
 
@@ -708,6 +718,8 @@ public:
     void disallowVehicleClass(int lane, SUMOVehicleClass vclass);
 
     void preferVehicleClass(int lane, SUMOVehicleClass vclass);
+
+    void setWidth(int lane, SUMOReal width);
 
     /// @brief get the union of allowed classes over all lanes
     SUMOVehicleClasses getAllowedVehicleClasses() const;

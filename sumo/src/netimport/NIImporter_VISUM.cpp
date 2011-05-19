@@ -236,7 +236,7 @@ NIImporter_VISUM::parse_Types() {
     SUMOReal cap = getNamedFloat("Kap-IV", "KAPIV");
     int nolanes = myCapacity2Lanes.get(cap);
     // insert the type
-    myNetBuilder.getTypeCont().insert(myCurrentID, nolanes, speed/(SUMOReal) 3.6, priority);
+    myNetBuilder.getTypeCont().insert(myCurrentID, nolanes, speed/(SUMOReal) 3.6, priority, -1);
 }
 
 
@@ -377,10 +377,8 @@ NIImporter_VISUM::parse_Edges() {
     // add the edge
     int prio = myUseVisumPrio ? myNetBuilder.getTypeCont().getPriority(type) : -1;
     if (nolanes!=0&&speed!=0) {
-        LaneSpreadFunction lsf = oneway_checked
-                                         ? LANESPREAD_CENTER
-                                         : LANESPREAD_RIGHT;
-        NBEdge *e = new NBEdge(myCurrentID, from, to, type, speed, nolanes, prio, lsf);
+        LaneSpreadFunction lsf = oneway_checked ? LANESPREAD_CENTER : LANESPREAD_RIGHT;
+        NBEdge *e = new NBEdge(myCurrentID, from, to, type, speed, nolanes, prio, -1, lsf);
         if (!myNetBuilder.getEdgeCont().insert(e)) {
             delete e;
             MsgHandler::getErrorInstance()->inform("Duplicate edge occured ('" + myCurrentID + "').");
@@ -395,7 +393,7 @@ NIImporter_VISUM::parse_Edges() {
     myCurrentID = '-' + myCurrentID;
     if (nolanes!=0&&speed!=0) {
         LaneSpreadFunction lsf = oneway_checked ? LANESPREAD_CENTER : LANESPREAD_RIGHT;
-        NBEdge *e = new NBEdge(myCurrentID, from, to, type, speed, nolanes, prio, lsf);
+        NBEdge *e = new NBEdge(myCurrentID, from, to, type, speed, nolanes, prio, -1, lsf);
         if (!myNetBuilder.getEdgeCont().insert(e)) {
             delete e;
             MsgHandler::getErrorInstance()->inform("Duplicate edge occured ('" + myCurrentID + "').");
@@ -483,7 +481,7 @@ NIImporter_VISUM::parse_Connectors() {
             NBEdge *edge = new NBEdge(id, src, dest, "VisumConnector",
                                       OptionsCont::getOptions().getFloat("visum.connector-speeds"),
                                       OptionsCont::getOptions().getInt("connectors-lane-number"),
-                                      -1, LANESPREAD_RIGHT);
+                                      -1, -1, LANESPREAD_RIGHT);
             edge->setAsMacroscopicConnector();
             if (!myNetBuilder.getEdgeCont().insert(edge)) {
                 MsgHandler::getErrorInstance()->inform("A duplicate edge id occured (ID='" + id + "').");
@@ -517,7 +515,7 @@ NIImporter_VISUM::parse_Connectors() {
             NBEdge *edge = new NBEdge(id, dest, src, "VisumConnector",
                                       OptionsCont::getOptions().getFloat("visum.connector-speeds"),
                                       OptionsCont::getOptions().getInt("connectors-lane-number"),
-                                      -1, LANESPREAD_RIGHT);
+                                      -1, -1, LANESPREAD_RIGHT);
             edge->setAsMacroscopicConnector();
             if (!myNetBuilder.getEdgeCont().insert(edge)) {
                 MsgHandler::getErrorInstance()->inform("A duplicate edge id occured (ID='" + id + "').");

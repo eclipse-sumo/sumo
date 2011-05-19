@@ -158,6 +158,9 @@ private:
     /// @brief The current edge's number of lanes
     int myCurrentLaneNo;
 
+    /// @brief The current edge's lane width
+    SUMOReal myCurrentWidth;
+
     /// @brief The current edge's type
     std::string myCurrentType;
 

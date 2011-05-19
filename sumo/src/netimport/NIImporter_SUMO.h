@@ -199,6 +199,8 @@ private:
         std::string allow;
         /// @brief This lane's disallowed vehicle classes
         std::string disallow;
+        /// @brief The width of this lane
+        SUMOReal width;
     };
 
 

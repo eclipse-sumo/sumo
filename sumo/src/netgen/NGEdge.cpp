@@ -73,9 +73,8 @@ NGEdge::buildNBEdge(NBNetBuilder &nb) const throw(ProcessError) {
                myID, 
                nb.getNodeCont().retrieve(myStartNode->getID()), // from
                nb.getNodeCont().retrieve(myEndNode->getID()), // to
-               "", nb.getTypeCont().getDefaultSpeed(),
-               nb.getTypeCont().getDefaultNoLanes(), 
-               nb.getTypeCont().getDefaultPriority()
+               "", nb.getTypeCont().getSpeed(""), nb.getTypeCont().getNoLanes(""), 
+               nb.getTypeCont().getPriority(""), nb.getTypeCont().getWidth("")
            );
 }
 

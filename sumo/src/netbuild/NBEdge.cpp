@@ -150,7 +150,7 @@ NBEdge::MainDirections::includes(Direction d) const {
  * ----------------------------------------------------------------------- */
 NBEdge::NBEdge(const std::string &id, NBNode *from, NBNode *to,
                std::string type, SUMOReal speed, unsigned int nolanes,
-               int priority, LaneSpreadFunction spread) throw(ProcessError) :
+               int priority, SUMOReal width, LaneSpreadFunction spread) throw(ProcessError) :
     Named(StringUtils::convertUmlaute(id)),
     myStep(INIT),
     myType(StringUtils::convertUmlaute(type)),
@@ -158,7 +158,7 @@ NBEdge::NBEdge(const std::string &id, NBNode *from, NBNode *to,
     myPriority(priority), mySpeed(speed),
     myTurnDestination(0),
     myFromJunctionPriority(-1), myToJunctionPriority(-1),
-    myLaneSpreadFunction(spread), myOffset(0), myWidth(0),
+    myLaneSpreadFunction(spread), myOffset(0), myWidth(width),
     myLoadedLength(-1), myAmLeftHand(false), myAmTurningWithAngle(0), myAmTurningOf(0),
     myAmInnerEdge(false), myAmMacroscopicConnector(false) 
 {
@@ -168,7 +168,7 @@ NBEdge::NBEdge(const std::string &id, NBNode *from, NBNode *to,
 
 NBEdge::NBEdge(const std::string &id, NBNode *from, NBNode *to,
                std::string type, SUMOReal speed, unsigned int nolanes,
-               int priority, Position2DVector geom,
+               int priority, SUMOReal width, Position2DVector geom,
                LaneSpreadFunction spread, bool tryIgnoreNodePositions) throw(ProcessError) :
     Named(StringUtils::convertUmlaute(id)),
     myStep(INIT),
@@ -177,7 +177,7 @@ NBEdge::NBEdge(const std::string &id, NBNode *from, NBNode *to,
     myPriority(priority), mySpeed(speed),
     myTurnDestination(0),
     myFromJunctionPriority(-1), myToJunctionPriority(-1),
-    myGeom(geom), myLaneSpreadFunction(spread), myOffset(0), myWidth(0),
+    myGeom(geom), myLaneSpreadFunction(spread), myOffset(0), myWidth(width),
     myLoadedLength(-1), myAmLeftHand(false), myAmTurningWithAngle(0), myAmTurningOf(0),
     myAmInnerEdge(false), myAmMacroscopicConnector(false) 
 {
@@ -188,7 +188,7 @@ NBEdge::NBEdge(const std::string &id, NBNode *from, NBNode *to,
 void
 NBEdge::reinit(NBNode *from, NBNode *to, std::string type,
                SUMOReal speed, unsigned int nolanes, int priority,
-               Position2DVector geom, LaneSpreadFunction spread) throw(ProcessError) {
+               Position2DVector geom, SUMOReal width, LaneSpreadFunction spread) throw(ProcessError) {
     if (myFrom!=from) {
         myFrom->removeOutgoing(this);
     }
@@ -204,6 +204,7 @@ NBEdge::reinit(NBNode *from, NBNode *to, std::string type,
     //?myFromJunctionPriority(-1), myToJunctionPriority(-1),
     myGeom = geom;
     myLaneSpreadFunction = spread;
+    myWidth = width;
     myLoadedLength = -1;
     //?, myAmTurningWithAngle(0), myAmTurningOf(0),
     //?myAmInnerEdge(false), myAmMacroscopicConnector(false)
@@ -1827,6 +1828,21 @@ NBEdge::preferVehicleClass(int lane, SUMOVehicleClass vclass) {
     }
     assert(lane<(int) myLanes.size());
     myLanes[lane].preferred.insert(vclass);
+}
+
+
+void
+NBEdge::setWidth(int lane, SUMOReal width) {
+    if (lane<0) {
+        // if all lanes are meant...
+        for (unsigned int i=0; i<myLanes.size(); i++) {
+            // ... do it for each lane
+            setWidth((int) i, width);
+        }
+        return;
+    }
+    assert(lane<(int) myLanes.size());
+    myLanes[lane].width = width;
 }
 
 

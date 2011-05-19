@@ -135,8 +135,7 @@ NIImporter_ArcView::load() {
     OGRSpatialReference destTransf;
     // use wgs84 as destination
     destTransf.SetWellKnownGeogCS("WGS84");
-    OGRCoordinateTransformation *poCT =
-        OGRCreateCoordinateTransformation(origTransf, &destTransf);
+    OGRCoordinateTransformation *poCT = OGRCreateCoordinateTransformation(origTransf, &destTransf);
     if (poCT == NULL) {
         if (myOptions.isSet("shapefile.guess-projection")) {
             OGRSpatialReference origTransf2;
@@ -182,13 +181,14 @@ NIImporter_ArcView::load() {
             to_node = toString(myRunningNodeID++);
         }
         std::string type = poFeature->GetFieldAsString("ST_TYP_AFT");
+        SUMOReal width = myTypeCont.getWidth(type);
         SUMOReal speed = getSpeed(*poFeature, id);
         unsigned int nolanes = getLaneNo(*poFeature, id, speed);
         int priority = getPriority(*poFeature, id);
         if (nolanes==0||speed==0) {
             if (myOptions.getBool("shapefile.use-defaults-on-failure")) {
-                nolanes = myTypeCont.getDefaultNoLanes();
-                speed = myTypeCont.getDefaultSpeed();
+                nolanes = myTypeCont.getNoLanes("");
+                speed = myTypeCont.getSpeed("");
             } else {
                 OGRFeature::DestroyFeature(poFeature);
                 MsgHandler::getErrorInstance()->inform("The description seems to be invalid. Please recheck usage of types.");
@@ -263,8 +263,7 @@ NIImporter_ArcView::load() {
         if (dir=="B"||dir=="F"||dir==""||myOptions.getBool("shapefile.all-bidirectional")) {
             if (myEdgeCont.retrieve(id)==0) {
                 LaneSpreadFunction spread = dir=="B"||dir=="FALSE" ? LANESPREAD_RIGHT : LANESPREAD_CENTER;
-                NBEdge *edge = new NBEdge(id, from, to, type, speed, nolanes,
-                                          priority, shape, spread);
+                NBEdge *edge = new NBEdge(id, from, to, type, speed, nolanes, priority, width, shape, spread);
                 myEdgeCont.insert(edge);
                 checkSpread(edge);
             }
@@ -274,8 +273,7 @@ NIImporter_ArcView::load() {
             id = "-" + id;
             if (myEdgeCont.retrieve(id)==0) {
                 LaneSpreadFunction spread = dir=="B"||dir=="FALSE" ? LANESPREAD_RIGHT : LANESPREAD_CENTER;
-                NBEdge *edge = new NBEdge(id, to, from, type, speed, nolanes,
-                                          priority, shape.reverse(), spread);
+                NBEdge *edge = new NBEdge(id, to, from, type, speed, nolanes, priority, -1, shape.reverse(), spread);
                 myEdgeCont.insert(edge);
                 checkSpread(edge);
             }

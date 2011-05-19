@@ -74,12 +74,13 @@ public:
      * @param[in] noLanes The number of lanes an edge of this type has
      * @param[in] maxSpeed The speed allowed on an edge of this type
      * @param[in] prio The priority of an edge of this type
+     * @param[in] width The width of lanes of edgesof this type
      * @param[in] vClasses The vehicle classes allowed on an edge of this type
      * @param[in] oneWayIsDefault Whether edges of this type are one-way per default
      * @return Whether the type could be added (no type with the same id existed)
      */
     bool insert(const std::string &id, int noLanes, SUMOReal maxSpeed, int prio,
-                SUMOVehicleClass vClasses=SVC_UNKNOWN, bool oneWayIsDefault=false) throw();
+                SUMOReal width, SUMOVehicleClass vClasses=SVC_UNKNOWN, bool oneWayIsDefault=false) throw();
 
     /** @brief Adds a type into the list
      * @param[in] id The id of the type
@@ -88,16 +89,14 @@ public:
      * @param[in] prio The priority of an edge of this type
      * @param[in] allow The list of vehicle classes allowed on an edge of this type
      * @param[in] disallow The list of vehicle classes disallowed on an edge of this type
+     * @param[in] width The width of lanes of edgesof this type
      * @param[in] oneWayIsDefault Whether edges of this type are one-way per default
      * @return Whether the type could be added (no type with the same id existed)
      */
-    bool insert(const std::string &id,
-				int noLanes,
-				SUMOReal maxSpeed,
-				int prio,
-                const SUMOVehicleClasses& allow,
-                const SUMOVehicleClasses& disallow,
-                bool oneWayIsDefault) throw();
+    bool insert(const std::string &id, int noLanes,
+				SUMOReal maxSpeed, int prio,
+                const SUMOVehicleClasses& allow, const SUMOVehicleClasses& disallow,
+                SUMOReal width, bool oneWayIsDefault) throw();
 
     /** @brief Returns the number of known types
      * @return The number of known edge types (excluding the default)
@@ -190,35 +189,15 @@ public:
      * @return List of vehicles class which may not use edges of the given type
      */
     const SUMOVehicleClasses &getDisallowedClasses(const std::string &type) const throw();
-    /// @}
 
 
-
-    /// @name Type-dependant Retrieval methods
-    /// @{
-
-    /** @brief Returns the default number of lanes of an edge
-     * @return The number of lanes an edge has per default
+    /** @brief Returns the lane width for the given type [m/s]
+     *
+     * If the named type is not known, the default is returned
+     * @param[in] type The name of the type to return the width for
+     * @return The width of lanes of edges of this type
      */
-    int getDefaultNoLanes() throw() {
-        return myDefaultType.noLanes;
-    }
-
-
-    /** @brief Returns the default speed of an edge
-     * @return The maximum speed allowed on an edge per default
-     */
-    SUMOReal getDefaultSpeed() throw() {
-        return myDefaultType.speed;
-    }
-
-
-    /** @brief Returns the default priority of an edge
-     * @return The default priority of an edge
-     */
-    int getDefaultPriority() throw() {
-        return myDefaultType.priority;
-    }
+    SUMOReal getWidth(const std::string &type) const throw();
     /// @}
 
 
@@ -226,11 +205,13 @@ private:
     struct TypeDefinition {
         /// @brief Constructor
         TypeDefinition()
-                : noLanes(1), speed((SUMOReal) 13.9), priority(-1), oneWay(true), discard(false) { }
+                : noLanes(1), speed((SUMOReal) 13.9), priority(-1), 
+                oneWay(true), discard(false), width(-1) { }
 
         /// @brief Destructor
-        TypeDefinition(int _noLanes, SUMOReal _speed, int _priority)
-                : noLanes(_noLanes), speed(_speed), priority(_priority), oneWay(true), discard(false) { }
+        TypeDefinition(int _noLanes, SUMOReal _speed, int _priority, SUMOReal _width)
+                : noLanes(_noLanes), speed(_speed), priority(_priority), 
+                oneWay(true), discard(false), width(_width) { }
 
         /// @brief The number of lanes of an edge
         int noLanes;
@@ -246,6 +227,8 @@ private:
         bool oneWay;
         /// @brief Whether edges of this type shall be discarded
         bool discard;
+        /// @brief The width of lanes of edges of this type [m]
+        SUMOReal width;
 
     };
 

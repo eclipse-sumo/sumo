@@ -153,7 +153,7 @@ public:
      * @param[in] nb The netbuilder to retrieve the tls-container from
      * @return The built node
      * @exception ProcessError If the built tls logic could not be added (should never happen)
-     * @todo There is no interaction with explicite node setting options? Where is this done?
+     * @todo There is no interaction with explicit node setting options? Where is this done?
      * @todo Check whether throwing an exception is really necessary, here
      */
     NBNode *buildNBNode(NBNetBuilder &nb) const throw(ProcessError);

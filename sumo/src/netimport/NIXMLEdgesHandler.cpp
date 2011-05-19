@@ -97,6 +97,7 @@ NIXMLEdgesHandler::myStartElement(int element,
         myCurrentLaneNo = myTypeCont.getNoLanes("");
         myAllowed = myTypeCont.getAllowedClasses("");
         myNotAllowed = myTypeCont.getDisallowedClasses("");
+        myCurrentWidth = myTypeCont.getWidth("");
         // check whether a type's values shall be used
         myCurrentType = "";
         myShape = Position2DVector();
@@ -114,6 +115,7 @@ NIXMLEdgesHandler::myStartElement(int element,
             myCurrentLaneNo = myTypeCont.getNoLanes(myCurrentType);
             myAllowed = myTypeCont.getAllowedClasses(myCurrentType);
             myNotAllowed = myTypeCont.getDisallowedClasses(myCurrentType);
+            myCurrentWidth = myTypeCont.getWidth(myCurrentType);
         }
         // use values from the edge to overwrite if existing, then
         if (myCurrentEdge!=0) {
@@ -129,6 +131,7 @@ NIXMLEdgesHandler::myStartElement(int element,
             myAllowed = myCurrentEdge->getAllowedVehicleClasses();
             myNotAllowed = myCurrentEdge->getDisallowedVehicleClasses();
             myShape = myCurrentEdge->getGeometry();
+            myCurrentWidth = myCurrentEdge->getWidth();
         }
         // speed, priority and the number of lanes have now default values;
         // try to read the real values from the file
@@ -145,6 +148,10 @@ NIXMLEdgesHandler::myStartElement(int element,
         // try to get the priority
         if (attrs.hasAttribute(SUMO_ATTR_PRIORITY)) {
             myCurrentPriority = attrs.getIntReporting(SUMO_ATTR_PRIORITY, myCurrentID.c_str(), ok);
+        }
+        // try to get the width
+        if (attrs.hasAttribute(SUMO_ATTR_WIDTH)) {
+            myCurrentWidth = attrs.getSUMORealReporting(SUMO_ATTR_WIDTH, myCurrentID.c_str(), ok);
         }
         // try to get the allowed/disallowed classes
         if (attrs.hasAttribute(SUMO_ATTR_ALLOW) || attrs.hasAttribute(SUMO_ATTR_DISALLOW)) {
@@ -183,15 +190,15 @@ NIXMLEdgesHandler::myStartElement(int element,
         if (myCurrentEdge!=0) {
             myCurrentEdge->reinit(myFromNode, myToNode, myCurrentType, myCurrentSpeed,
                                   myCurrentLaneNo, myCurrentPriority, myShape,
-                                  myLanesSpread);
+                                  myCurrentWidth, myLanesSpread);
         } else {
             // the edge must be allocated in dependence to whether a shape is given
             if (myShape.size()==0) {
                 myCurrentEdge = new NBEdge(myCurrentID, myFromNode, myToNode, myCurrentType, myCurrentSpeed,
-                                           myCurrentLaneNo, myCurrentPriority, myLanesSpread);
+                                           myCurrentLaneNo, myCurrentPriority, myCurrentWidth, myLanesSpread);
             } else {
                 myCurrentEdge = new NBEdge(myCurrentID, myFromNode, myToNode, myCurrentType, myCurrentSpeed,
-                                           myCurrentLaneNo, myCurrentPriority, myShape,
+                                           myCurrentLaneNo, myCurrentPriority, myCurrentWidth, myShape,
                                            myLanesSpread, OptionsCont::getOptions().getBool("plain.keep-edge-shape"));
             }
             myCurrentEdge->setLoadedLength(myLength);
@@ -232,6 +239,10 @@ NIXMLEdgesHandler::myStartElement(int element,
         }
         for (std::vector<std::string>::iterator i=preferred.begin(); i!=preferred.end(); ++i) {
             myCurrentEdge->preferVehicleClass(lane, getVehicleClassID(*i));
+        }
+        // try to get the width
+        if (attrs.hasAttribute(SUMO_ATTR_WIDTH)) {
+            myCurrentEdge->setWidth(lane, attrs.getSUMORealReporting(SUMO_ATTR_WIDTH, myCurrentID.c_str(), ok));
         }
 
         // set information about later beginning lanes
