@@ -1,5 +1,6 @@
 #include <gtest/gtest.h>
 #include <utils/geom/Position2DVector.h>
+#include <utils/common/UtilExceptions.h>
 
 using namespace std;
 
@@ -130,4 +131,8 @@ TEST_F(Position2DVectorTest, test_method_splitAt) {
 	EXPECT_FLOAT_EQ(2, result.second.size());
 	EXPECT_FLOAT_EQ(1, result.second[0].x());
 	EXPECT_FLOAT_EQ(2 ,result.second[1].x());
+
+    // invalid split pos
+    EXPECT_THROW(vec2.splitAt(smallDiff), InvalidArgument);
+    EXPECT_THROW(vec2.splitAt(2 - smallDiff), InvalidArgument);
 }
