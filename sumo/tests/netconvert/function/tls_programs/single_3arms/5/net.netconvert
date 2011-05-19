@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on Tue May 17 15:59:06 2011 by SUMO netconvert Version dev-SVN-r10370
+<!-- generated on 05/19/11 10:21:20 by SUMO netconvert Version dev-SVN-r10397
 <?xml version="1.0" encoding="iso-8859-1"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
@@ -39,10 +39,10 @@
       <lane id=":15031747_1_0" depart="0" maxspeed="13.89" length="11.61" shape="176.26,224.49 173.26,223.97 170.85,224.27 168.27,224.67 164.75,224.41"/>
    </edge>
    <edge id=":15031747_2" function="internal">
-      <lane id=":15031747_2_0" depart="0" maxspeed="13.89" length="0.10" shape="176.26,224.49 176.20,224.41"/>
+      <lane id=":15031747_2_0" depart="0" maxspeed="13.89" length="2.41" shape="176.26,224.49 175.35,223.32 175.22,222.41"/>
    </edge>
    <edge id=":15031747_9" function="internal">
-      <lane id=":15031747_9_0" depart="0" maxspeed="13.89" length="4.72" shape="176.20,224.41 175.35,223.32 175.22,222.41 175.87,221.75 177.31,221.36"/>
+      <lane id=":15031747_9_0" depart="0" maxspeed="13.89" length="2.41" shape="175.22,222.41 175.87,221.75 177.31,221.36"/>
    </edge>
    <edge id=":15031747_3" function="internal">
       <lane id=":15031747_3_0" depart="0" maxspeed="13.89" length="10.72" shape="169.29,215.04 169.90,216.84 171.43,218.49 173.90,220.00 177.31,221.36"/>
@@ -66,10 +66,10 @@
       <lane id=":15031747_11_0" depart="0" maxspeed="13.89" length="3.68" shape="169.27,224.51 169.32,228.20"/>
    </edge>
    <edge id=":15031747_8" function="internal">
-      <lane id=":15031747_8_0" depart="0" maxspeed="13.89" length="0.10" shape="166.03,217.93 166.10,218.00"/>
+      <lane id=":15031747_8_0" depart="0" maxspeed="13.89" length="2.41" shape="166.03,217.93 167.08,218.98 167.33,219.87"/>
    </edge>
    <edge id=":15031747_12" function="internal">
-      <lane id=":15031747_12_0" depart="0" maxspeed="13.89" length="4.72" shape="166.10,218.00 167.08,218.98 167.33,219.87 166.76,220.60 165.39,221.17"/>
+      <lane id=":15031747_12_0" depart="0" maxspeed="13.89" length="2.41" shape="167.33,219.87 166.76,220.60 165.39,221.17"/>
    </edge>
    <edge id=":15031812_0" function="internal">
       <lane id=":15031812_0_0" depart="0" maxspeed="13.89" length="4.82" shape="204.52,230.43 205.43,231.61 205.57,232.52 204.91,233.17 203.48,233.57"/>
@@ -129,10 +129,10 @@
    <junction id="15031747" type="traffic_light" x="168.00" y="220.00" incLanes="-15032465_0 15033074_0 153119827_0" intLanes=":15031747_0_0 :15031747_1_0 :15031747_9_0 :15031747_3_0 :15031747_4_0 :15031747_10_0 :15031747_6_0 :15031747_11_0 :15031747_12_0" shape="175.76,226.01 177.81,219.84 170.89,214.92 167.70,215.15 166.33,216.36 164.45,225.98 167.72,228.13 174.22,228.39"/>
    <junction id="15031812" type="priority" x="204.00" y="232.00" incLanes="15032465_0" intLanes=":15031812_0_0" shape="203.98,232.05 202.97,235.08 205.03,228.92 204.02,231.95"/>
 
-   <junction id=":15031747_9_0" type="internal" x="176.20" y="224.41" incLanes=":15031747_2_0 153119827_0" intLanes=":15031747_6_0" shape=""/>
+   <junction id=":15031747_9_0" type="internal" x="175.22" y="222.41" incLanes=":15031747_2_0 153119827_0" intLanes=":15031747_6_0" shape=""/>
    <junction id=":15031747_10_0" type="internal" x="169.05" y="218.62" incLanes=":15031747_5_0 -15032465_0" intLanes=":15031747_1_0" shape=""/>
    <junction id=":15031747_11_0" type="internal" x="169.27" y="224.51" incLanes=":15031747_7_0 -15032465_0" intLanes=":15031747_0_0 :15031747_1_0" shape=""/>
-   <junction id=":15031747_12_0" type="internal" x="166.10" y="218.00" incLanes=":15031747_8_0 -15032465_0" intLanes=":15031747_1_0" shape=""/>
+   <junction id=":15031747_12_0" type="internal" x="167.33" y="219.87" incLanes=":15031747_8_0 -15032465_0" intLanes=":15031747_1_0" shape=""/>
 
    <succ edge="-15032465" lane="-15032465_0" junction="15031747">
       <succlane lane="15033072_0" via=":15031747_0_0" tl="15031747" linkno="0" dir="r" state="t"/>

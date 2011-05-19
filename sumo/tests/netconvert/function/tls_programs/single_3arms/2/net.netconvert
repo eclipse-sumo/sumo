@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on Tue May 17 15:59:06 2011 by SUMO netconvert Version dev-SVN-r10370
+<!-- generated on 05/19/11 10:21:18 by SUMO netconvert Version dev-SVN-r10397
 <?xml version="1.0" encoding="iso-8859-1"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
@@ -48,10 +48,10 @@
       <lane id=":n5_9_0" depart="0" maxspeed="13.89" length="3.23" shape="129.18,201.49 128.98,201.29 127.84,198.57"/>
    </edge>
    <edge id=":n5_2" function="internal">
-      <lane id=":n5_2_0" depart="0" maxspeed="13.89" length="0.10" shape="135.70,203.45 135.61,203.42"/>
+      <lane id=":n5_2_0" depart="0" maxspeed="13.89" length="2.41" shape="135.70,203.45 134.30,202.96 133.70,202.26"/>
    </edge>
    <edge id=":n5_10" function="internal">
-      <lane id=":n5_10_0" depart="0" maxspeed="13.89" length="4.72" shape="135.61,203.42 134.30,202.96 133.70,202.26 133.90,201.36 134.90,200.25"/>
+      <lane id=":n5_10_0" depart="0" maxspeed="13.89" length="2.41" shape="133.70,202.26 133.90,201.36 134.90,200.25"/>
    </edge>
    <edge id=":n5_3" function="internal">
       <lane id=":n5_3_0" depart="0" maxspeed="13.89" length="5.26" shape="131.02,197.71 131.60,199.10 132.44,199.99 133.54,200.38 134.90,200.25"/>
@@ -63,10 +63,10 @@
       <lane id=":n5_11_0" depart="0" maxspeed="13.89" length="7.39" shape="131.27,201.04 130.69,202.96 128.92,204.58 126.10,205.53"/>
    </edge>
    <edge id=":n5_5" function="internal">
-      <lane id=":n5_5_0" depart="0" maxspeed="13.89" length="0.10" shape="131.02,197.71 130.99,197.80"/>
+      <lane id=":n5_5_0" depart="0" maxspeed="13.89" length="2.41" shape="131.02,197.71 130.55,199.12 129.86,199.73"/>
    </edge>
    <edge id=":n5_12" function="internal">
-      <lane id=":n5_12_0" depart="0" maxspeed="13.89" length="4.72" shape="130.99,197.80 130.55,199.12 129.86,199.73 128.96,199.55 127.84,198.57"/>
+      <lane id=":n5_12_0" depart="0" maxspeed="13.89" length="2.41" shape="129.86,199.73 128.96,199.55 127.84,198.57"/>
    </edge>
    <edge id=":n5_6" function="internal">
       <lane id=":n5_6_0" depart="0" maxspeed="13.89" length="5.10" shape="125.50,202.29 126.84,201.83 127.68,201.07 128.01,199.98 127.84,198.57"/>
@@ -75,10 +75,10 @@
       <lane id=":n5_7_0" depart="0" maxspeed="13.89" length="9.61" shape="125.50,202.29 134.90,200.25"/>
    </edge>
    <edge id=":n5_8" function="internal">
-      <lane id=":n5_8_0" depart="0" maxspeed="13.89" length="0.10" shape="125.50,202.29 125.59,202.33"/>
+      <lane id=":n5_8_0" depart="0" maxspeed="13.89" length="2.41" shape="125.50,202.29 126.87,202.87 127.42,203.61"/>
    </edge>
    <edge id=":n5_13" function="internal">
-      <lane id=":n5_13_0" depart="0" maxspeed="13.89" length="4.72" shape="125.59,202.33 126.87,202.87 127.42,203.61 127.16,204.50 126.10,205.53"/>
+      <lane id=":n5_13_0" depart="0" maxspeed="13.89" length="2.41" shape="127.42,203.61 127.16,204.50 126.10,205.53"/>
    </edge>
 
    <edge id="e10" from="n5" to="n3" priority="-1">
@@ -136,10 +136,10 @@
    <junction id="n5" type="traffic_light" x="130.75" y="203.00" incLanes="e21_0 e16_0 e11_0" intLanes=":n5_0_0 :n5_9_0 :n5_10_0 :n5_3_0 :n5_11_0 :n5_12_0 :n5_6_0 :n5_7_0 :n5_13_0" shape="136.09,205.01 134.50,198.70 132.57,197.29 126.29,198.99 125.21,200.71 126.39,207.11"/>
 
    <junction id=":n5_9_0" type="internal" x="129.18" y="201.49" incLanes=":n5_1_0 e11_0" intLanes=":n5_6_0 :n5_7_0" shape=""/>
-   <junction id=":n5_10_0" type="internal" x="135.61" y="203.42" incLanes=":n5_2_0 e11_0" intLanes=":n5_7_0" shape=""/>
+   <junction id=":n5_10_0" type="internal" x="133.70" y="202.26" incLanes=":n5_2_0 e11_0" intLanes=":n5_7_0" shape=""/>
    <junction id=":n5_11_0" type="internal" x="131.27" y="201.04" incLanes=":n5_4_0 e21_0" intLanes=":n5_0_0" shape=""/>
-   <junction id=":n5_12_0" type="internal" x="130.99" y="197.80" incLanes=":n5_5_0" intLanes="" shape=""/>
-   <junction id=":n5_13_0" type="internal" x="125.59" y="202.33" incLanes=":n5_8_0 e21_0" intLanes=":n5_0_0" shape=""/>
+   <junction id=":n5_12_0" type="internal" x="129.86" y="199.73" incLanes=":n5_5_0" intLanes="" shape=""/>
+   <junction id=":n5_13_0" type="internal" x="127.42" y="203.61" incLanes=":n5_8_0 e21_0" intLanes=":n5_0_0" shape=""/>
 
    <succ edge="e10" lane="e10_0" junction="n3">
       <succlane lane="e11_0" via=":n3_0_0" dir="t" state="M"/>
