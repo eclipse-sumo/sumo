@@ -335,6 +335,8 @@ enum {
     MID_GNE_MODE_INSPECT,
     /** mode for selecting objects */
     MID_GNE_MODE_SELECT,
+    /** mode for connecting lanes */
+    MID_GNE_MODE_CONNECT,
     
     /// selector match box messages
     MID_GNE_SELMB_TAG,
@@ -360,6 +362,12 @@ enum {
     MID_GNE_SET_TEMPLATE,
     /** copy template*/
     MID_GNE_COPY_TEMPLATE,
+    /** select dead end lanes */
+    MID_GNE_SELECT_DEAD_ENDS,
+    /** select lanes that have no connection leading to it */
+    MID_GNE_SELECT_DEAD_STARTS,
+    /** select lanes that are connected from concurrent lanes */
+    MID_GNE_SELECT_CONFLICTS,
     /** help button */
     MID_GNE_HELP,
 
