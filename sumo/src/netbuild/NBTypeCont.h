@@ -232,6 +232,17 @@ private:
 
     };
 
+
+    /** @brief Retrieve the name or the default type
+     *
+     * If no name is given, the default type is returned
+     * @param[in] name The name of the type to retrieve
+     * @return The named type
+     */
+    const TypeDefinition &getType(const std::string &name) const;
+
+
+private:
     /// @brief The default type
     TypeDefinition myDefaultType;
 

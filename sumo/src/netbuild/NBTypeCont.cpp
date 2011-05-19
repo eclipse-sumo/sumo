@@ -107,83 +107,60 @@ NBTypeCont::markAsToDiscard(const std::string &id) throw() {
 // ------------ Type-dependant Retrieval methods
 int
 NBTypeCont::getNoLanes(const std::string &type) const throw() {
-    TypesCont::const_iterator i = myTypes.find(type);
-    if (i==myTypes.end()) {
-        return myDefaultType.noLanes;
-    }
-    return (*i).second.noLanes;
+    return getType(type).noLanes;
 }
 
 
 SUMOReal
 NBTypeCont::getSpeed(const std::string &type) const throw() {
-    TypesCont::const_iterator i = myTypes.find(type);
-    if (i==myTypes.end()) {
-        return myDefaultType.speed;
-    }
-    return (*i).second.speed;
+    return getType(type).speed;
 }
 
 
 int
 NBTypeCont::getPriority(const std::string &type) const throw() {
-    TypesCont::const_iterator i = myTypes.find(type);
-    if (i==myTypes.end()) {
-        return myDefaultType.priority;
-    }
-    return (*i).second.priority;
+    return getType(type).priority;
 }
 
 
 bool
 NBTypeCont::getIsOneWay(const std::string &type) const throw() {
-    TypesCont::const_iterator i = myTypes.find(type);
-    if (i==myTypes.end()) {
-        return myDefaultType.oneWay;
-    }
-    return (*i).second.oneWay;
+    return getType(type).oneWay;
 }
 
 
 bool
 NBTypeCont::getShallBeDiscarded(const std::string &type) const throw() {
-    TypesCont::const_iterator i = myTypes.find(type);
-    if (i==myTypes.end()) {
-        return false;
-    }
-    return (*i).second.discard;
+    return getType(type).discard;
 }
 
 
 const SUMOVehicleClasses &
 NBTypeCont::getAllowedClasses(const std::string &type) const throw() {
-    TypesCont::const_iterator i = myTypes.find(type);
-    if (i==myTypes.end()) {
-        return myDefaultType.allowed;
-    }
-    return (*i).second.allowed;
+    return getType(type).allowed;
 }
 
 
 const SUMOVehicleClasses &
 NBTypeCont::getDisallowedClasses(const std::string &type) const throw() {
-    TypesCont::const_iterator i = myTypes.find(type);
-    if (i==myTypes.end()) {
-        return myDefaultType.notAllowed;
-    }
-    return (*i).second.notAllowed;
+    return getType(type).notAllowed;
 }
 
 
 SUMOReal
 NBTypeCont::getWidth(const std::string &type) const throw() {
-    TypesCont::const_iterator i = myTypes.find(type);
-    if (i==myTypes.end()) {
-        return myDefaultType.width;
-    }
-    return (*i).second.width;
+    return getType(type).width;
 }
 
+
+const NBTypeCont::TypeDefinition &
+NBTypeCont::getType(const std::string &name) const {
+    TypesCont::const_iterator i = myTypes.find(name);
+    if (i==myTypes.end()) {
+        return myDefaultType;
+    }
+    return (*i).second;
+}
 
 /****************************************************************************/
 
