@@ -160,6 +160,9 @@ private:
 
     class StateListener : public MSNet::VehicleStateListener {
     public:
+        /// @brief Destructor
+        ~StateListener()throw(){}
+
         /** @brief Called if a vehicle changes its state
          * @param[in] vehicle The vehicle which changed its state
          * @param[in] to The state the vehicle has changed to
