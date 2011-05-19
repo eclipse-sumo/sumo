@@ -275,6 +275,11 @@ public:
     }
 
 
+    const GUIVisualizationSettings* getVisualisationSettings() {
+        return myVisualizationSettings;
+    }
+
+
 protected:
     /// performs the painting of the simulation
     void paintGL();
