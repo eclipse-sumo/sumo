@@ -315,7 +315,7 @@ NLHandler::closeEdge() {
         return;
     }
     try {
-        MSEdge& edge = *myEdgeControlBuilder.closeEdge();
+        myEdgeControlBuilder.closeEdge();
     } catch (InvalidArgument &e) {
         MsgHandler::getErrorInstance()->inform(e.what());
     }
@@ -342,6 +342,7 @@ NLHandler::addLane(const SUMOSAXAttributes &attrs) {
     std::string allow = attrs.getOptStringReporting(SUMO_ATTR_ALLOW, id.c_str(), ok, "");
     std::string disallow = attrs.getOptStringReporting(SUMO_ATTR_DISALLOW, id.c_str(), ok, "");
     Position2DVector shape = GeomConvHelper::parseShapeReporting(attrs.getStringReporting(SUMO_ATTR_SHAPE, id.c_str(), ok), "lane", id.c_str(), ok, false);
+    SUMOReal width = attrs.getOptSUMORealReporting(SUMO_ATTR_WIDTH, id.c_str(), ok, -1);
     if (shape.size()<2) {
         MsgHandler::getErrorInstance()->inform("Shape of lane '" + id + "' is broken.\n Can not build according edge.");
         myCurrentIsBroken = true;
@@ -353,7 +354,7 @@ NLHandler::addLane(const SUMOSAXAttributes &attrs) {
     myCurrentIsBroken |= !ok;
     if(!myCurrentIsBroken) {
         try {
-            MSLane *lane = myEdgeControlBuilder.addLane(id, maxSpeed, length, laneIsDepart, shape, allowedClasses, disallowedClasses);
+            MSLane *lane = myEdgeControlBuilder.addLane(id, maxSpeed, length, laneIsDepart, shape, width, allowedClasses, disallowedClasses);
             // insert the lane into the lane-dictionary, checking
             if (!MSLane::dictionary(id, lane)) {
                 delete lane;

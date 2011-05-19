@@ -69,11 +69,11 @@ MSLane::DictType MSLane::myDict;
 // member method definitions
 // ===========================================================================
 MSLane::MSLane(const std::string &id, SUMOReal maxSpeed, SUMOReal length, MSEdge * const edge,
-               unsigned int numericalID, const Position2DVector &shape,
+               unsigned int numericalID, const Position2DVector &shape, SUMOReal width, 
                const SUMOVehicleClasses &allowed,
                const SUMOVehicleClasses &disallowed) throw()
         : myShape(shape), myID(id), myNumericalID(numericalID),
-        myVehicles(), myLength(length), myEdge(edge), myMaxSpeed(maxSpeed),
+        myVehicles(), myLength(length), myWidth(width), myEdge(edge), myMaxSpeed(maxSpeed),
         myAllowedClasses(allowed), myNotAllowedClasses(disallowed),
         myLogicalPredecessorLane(0),
         myVehicleLengthSum(0), myInlappingVehicleEnd(10000), myInlappingVehicle(0) {

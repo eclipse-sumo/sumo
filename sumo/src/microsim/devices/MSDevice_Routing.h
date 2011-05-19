@@ -58,7 +58,7 @@ class MSLane;
  *  device is built and is kept updated via an event that adapts it to the current
  *  mean speed on the simulated network's edges.
  *
- * A device is assigned to a vehicle using the common explicite/probability - procedure.
+ * A device is assigned to a vehicle using the common explicit/probability - procedure.
  *
  * A device computes a new route for a vehicle as soon as the vehicle is inserted
  *  (within "enterLaneAtInsertion") - and, if the given period is larger than 0 - each

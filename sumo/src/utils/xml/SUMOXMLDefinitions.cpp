@@ -193,6 +193,7 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "nolanes",        SUMO_ATTR_NOLANES },
     { "speed",          SUMO_ATTR_SPEED },
     { "oneway",         SUMO_ATTR_ONEWAY },
+    { "width",          SUMO_ATTR_WIDTH },
 
     { "length",         SUMO_ATTR_LENGTH },
     { "fromnode",       SUMO_ATTR_FROMNODE },

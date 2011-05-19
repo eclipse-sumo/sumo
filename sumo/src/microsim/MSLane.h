@@ -93,16 +93,18 @@ public:
     /** @brief Constructor
      *
      * @param[in] id The lane's id
-     * @param[in] maxSpeed The speed allwoed on this lane
+     * @param[in] maxSpeed The speed allowed on this lane
      * @param[in] length The lane's length
      * @param[in] edge The edge this lane belongs to
      * @param[in] numericalID The numerical id of the lane
-     * @param[in] allowed Vehicle classes that explicitely may drive on this lane
-     * @param[in] disallowed Vehicle classes that are explicitaly forbidden on this lane
+     * @param[in] shape The shape of the lane
+     * @param[in] width The width of the lane
+     * @param[in] allowed Vehicle classes that explicitly may drive on this lane
+     * @param[in] disallowed Vehicle classes that are explicitly forbidden on this lane
      * @see SUMOVehicleClass
      */
     MSLane(const std::string &id, SUMOReal maxSpeed, SUMOReal length, MSEdge * const edge,
-           unsigned int numericalID, const Position2DVector &shape,
+           unsigned int numericalID, const Position2DVector &shape, SUMOReal width, 
            const SUMOVehicleClasses &allowed,
            const SUMOVehicleClasses &disallowed) throw();
 
@@ -343,7 +345,7 @@ public:
     }
 
 
-    /** @brief Returns vehicle classes explicitely allowed on this lane
+    /** @brief Returns vehicle classes explicitly allowed on this lane
      * @return This lane's allowed vehicle classes
      */
     const SUMOVehicleClasses &getAllowedClasses() const throw() {
@@ -351,7 +353,7 @@ public:
     }
 
 
-    /** @brief Returns vehicle classes explicitely disallowed on this lane
+    /** @brief Returns vehicle classes explicitly disallowed on this lane
      * @return This lane's disallowed vehicle classes
      */
     const SUMOVehicleClasses &getNotAllowedClasses() const throw() {
@@ -640,6 +642,9 @@ protected:
 
     /// Lane length [m]
     SUMOReal myLength;
+
+    /// Lane width [m]
+    SUMOReal myWidth;
 
     /// The lane's edge, for routing only.
     MSEdge* myEdge;

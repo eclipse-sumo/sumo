@@ -63,15 +63,17 @@ public:
      * @param[in] length The lane's length
      * @param[in] edge The edge this lane belongs to
      * @param[in] numericalID The numerical id of the lane
-     * @param[in] allowed Vehicle classes that explicitely may drive on this lane
-     * @param[in] disallowed Vehicle classes that are explicitaly forbidden on this lane
+     * @param[in] shape The shape of the lane
+     * @param[in] width The width of the lane
+     * @param[in] allowed Vehicle classes that explicitly may drive on this lane
+     * @param[in] disallowed Vehicle classes that are explicitly forbidden on this lane
      * @see SUMOVehicleClass
      * @see MSLane
      * @see MSInternalLane
      */
     GUIInternalLane(const std::string &id, SUMOReal maxSpeed,
                     SUMOReal length, MSEdge * const edge, unsigned int numericalID,
-                    const Position2DVector &shape,
+                    const Position2DVector &shape, SUMOReal width,
                     const SUMOVehicleClasses &allowed,
                     const SUMOVehicleClasses &disallowed) throw();
 

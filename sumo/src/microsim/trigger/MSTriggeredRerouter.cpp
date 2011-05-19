@@ -138,7 +138,7 @@ MSTriggeredRerouter::myStartElement(int element,
     }
 
     if (element==SUMO_TAG_ROUTE_PROB_REROUTE) {
-        // by explicite rerouting using routes
+        // by explicit rerouting using routes
         // check if route exists
         std::string routeStr = attrs.getStringSecure(SUMO_ATTR_ID, "");
         if (routeStr=="") {

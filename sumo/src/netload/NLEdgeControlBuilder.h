@@ -88,15 +88,27 @@ public:
 
 
     /** @brief Adds a lane to the current edge;
-        This method throws an ProcessError when the
-        lane is marked to be the depart lane and another so marked lane
-        was added before
+     *
+     * This method throws an ProcessError when the lane is marked to be the depart lane 
+     *  and another so marked lane was added before
+     *
+     * @param[in] id The lane's id
+     * @param[in] maxSpeed The speed allowed on this lane
+     * @param[in] length The lane's length
+     * @param[in] edge The edge this lane belongs to
+     * @param[in] numericalID The numerical id of the lane
+     * @param[in] shape The shape of the lane
+     * @param[in] width The width of the lane
+     * @param[in] allowed Vehicle classes that explicitly may drive on this lane
+     * @param[in] disallowed Vehicle classes that are explicitly forbidden on this lane
+     * @see SUMOVehicleClass
+     * @see MSLane
+     * @see MSInternalLane
      * @todo Definitely not a good way
      */
     virtual MSLane *addLane(const std::string &id, SUMOReal maxSpeed,
                             SUMOReal length, bool isDepart, const Position2DVector &shape,
-                            const SUMOVehicleClasses &allowed,
-                            const SUMOVehicleClasses &disallowed);
+                            SUMOReal width, const SUMOVehicleClasses &allowed, const SUMOVehicleClasses &disallowed);
 
 
     /** @brief Closes the building of an edge;

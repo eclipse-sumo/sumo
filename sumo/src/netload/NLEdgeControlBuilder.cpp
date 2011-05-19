@@ -85,7 +85,7 @@ NLEdgeControlBuilder::beginEdgeParsing(const std::string &id,
 MSLane *
 NLEdgeControlBuilder::addLane(const std::string &id,
                               SUMOReal maxSpeed, SUMOReal length, bool isDepart,
-                              const Position2DVector &shape,
+                              const Position2DVector &shape, SUMOReal width, 
                               const SUMOVehicleClasses &allowed,
                               const SUMOVehicleClasses &disallowed) {
     // checks if the depart lane was set before
@@ -96,12 +96,12 @@ NLEdgeControlBuilder::addLane(const std::string &id,
     switch (m_Function) {
     case MSEdge::EDGEFUNCTION_INTERNAL:
         lane = new MSInternalLane(id, maxSpeed, length, myActiveEdge,
-                                  myCurrentNumericalLaneID++, shape, allowed, disallowed);
+                                  myCurrentNumericalLaneID++, shape, width, allowed, disallowed);
         break;
     case MSEdge::EDGEFUNCTION_NORMAL:
     case MSEdge::EDGEFUNCTION_CONNECTOR:
         lane = new MSLane(id, maxSpeed, length, myActiveEdge,
-                          myCurrentNumericalLaneID++, shape, allowed, disallowed);
+                          myCurrentNumericalLaneID++, shape, width, allowed, disallowed);
         break;
     default:
         throw InvalidArgument("Unrecognised edge type.");

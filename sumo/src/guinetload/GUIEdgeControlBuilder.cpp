@@ -67,6 +67,7 @@ MSLane *
 GUIEdgeControlBuilder::addLane(const std::string &id,
                                SUMOReal maxSpeed, SUMOReal length, bool isDepart,
                                const Position2DVector &shape,
+                               SUMOReal width, 
                                const SUMOVehicleClasses &allowed,
                                const SUMOVehicleClasses &disallowed) {
     // checks if the depart lane was set before
@@ -77,12 +78,12 @@ GUIEdgeControlBuilder::addLane(const std::string &id,
     switch (m_Function) {
     case MSEdge::EDGEFUNCTION_INTERNAL:
         lane = new GUIInternalLane(id, maxSpeed, length, myActiveEdge,
-                                   myCurrentNumericalLaneID++, shape, allowed, disallowed);
+                                   myCurrentNumericalLaneID++, shape, width, allowed, disallowed);
         break;
     case MSEdge::EDGEFUNCTION_NORMAL:
     case MSEdge::EDGEFUNCTION_CONNECTOR:
         lane = new GUILane(id, maxSpeed, length, myActiveEdge,
-                           myCurrentNumericalLaneID++, shape, allowed, disallowed);
+                           myCurrentNumericalLaneID++, shape, width, allowed, disallowed);
         break;
     default:
         throw InvalidArgument("A lane with an unknown type occured (" + toString(m_Function) + ")");

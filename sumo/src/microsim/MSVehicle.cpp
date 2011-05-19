@@ -529,7 +529,7 @@ MSVehicle::processNextStop(SUMOReal currentVelocity) throw() {
             if (stop.busstop!=0) {
                 // on bus stops, we have to wait for free place if they are in use...
                 endPos = stop.busstop->getLastFreePos();
-                if (endPos-5.<stop.busstop->getBeginLanePosition()) { // !!! explicite offset
+                if (endPos-5.<stop.busstop->getBeginLanePosition()) { // !!! explicit offset
                     busStopsMustHaveSpace = false;
                 }
             }
@@ -1389,7 +1389,7 @@ MSVehicle::getBestLanes(bool forceRebuild, MSLane *startLane) const throw() {
         */
     }
 
-    // we are examining the last lane explicitely
+    // we are examining the last lane explicitly
     if (myBestLanes.size()!=0) {
         SUMOReal bestLength = -1;
         int bestThisIndex = 0;
