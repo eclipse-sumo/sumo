@@ -1105,7 +1105,6 @@ NBNodeCont::guessRamps(OptionsCont &oc, NBEdgeCont &ec,
 
 void
 NBNodeCont::printBuiltNodesStatistics() const throw() {
-    int noDistricts = 0;
     int noUnregulatedJunctions = 0;
     int noPriorityJunctions = 0;
     int noRightBeforeLeftJunctions = 0;

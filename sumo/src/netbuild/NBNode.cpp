@@ -844,7 +844,7 @@ NBNode::getCrossingPosition(NBEdge *fromE, unsigned int fromL, NBEdge *toE, unsi
         }
         if (dir==MMLDIR_TURN&&ret.first<0&&ret.second.size()!=0) {
             // let turnarounds wait at the begin if no other crossing point was found
-            ret.first = (SUMOReal) POSITION_EPS;
+            ret.first = (SUMOReal) thisShape.length() / 2.;
         }
     }
     break;
@@ -879,7 +879,7 @@ NBNode::getCrossingNames_dividedBySpace(NBEdge *fromE, unsigned int fromL,
                         index++;
                         continue;
                     }
-                    NBMMLDirection dir2 = getMMLDirection(*i2, (*k2).toEdge);
+//                    NBMMLDirection dir2 = getMMLDirection(*i2, (*k2).toEdge);
                     if (needsCont(fromE, toE, *i2, (*k2).toEdge, *k2)) {
                         if (ret.length()!=0) {
                             ret += " ";
