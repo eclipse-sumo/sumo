@@ -199,6 +199,9 @@ public:
     /// @brief whether the application is in gaming mode or not
     bool gaming;
 
+    /// @brief the current NETEDIT mode
+    int editMode;
+
     /** @brief Writes the settings into an output device
      * @param[in] dev The device to write the settings into
      */
