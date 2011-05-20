@@ -657,7 +657,14 @@ public:
         This edges (which is a "dummy" edge, in fact) connections are spread over the incoming non-dummy edges */
     void remapConnections(const EdgeVector &incoming);
 
-    void removeFromConnections(NBEdge *which, int lane=-1);
+    /** @brief Removes the specified connection(s) 
+     * @param[in] toEdge The destination edge
+     * @param[in] fromLane The lane from which connections shall be removed 
+     *                     (-1) means remove all
+     * @param[in] toLane   The lane to which connections shall be removed 
+     *                     (-1) means remove all
+     */
+    void removeFromConnections(NBEdge *toEdge, int fromLane=-1, int toLane=-1);
 
     void invalidateConnections(bool reallowSetting=false);
 

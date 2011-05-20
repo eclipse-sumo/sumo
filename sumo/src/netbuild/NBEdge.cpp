@@ -1348,18 +1348,20 @@ NBEdge::remapConnections(const EdgeVector &incoming) {
 
 
 void
-NBEdge::removeFromConnections(NBEdge *which, int lane) {
+NBEdge::removeFromConnections(NBEdge *toEdge, int fromLane, int toLane) {
     // remove from "myConnections"
     for (std::vector<Connection>::iterator i=myConnections.begin(); i!=myConnections.end();) {
         Connection &c = *i;
-        if (c.toEdge==which && (lane<0 || c.fromLane==lane)) {
+        if (c.toEdge==toEdge 
+                && (fromLane<0 || c.fromLane==fromLane) 
+                && (toLane<0 || c.toLane==toLane)) {
             i = myConnections.erase(i);
         } else {
             ++i;
         }
     }
     // check whether it was the turn destination
-    if (myTurnDestination==which&&lane<0) {
+    if (myTurnDestination==toEdge && fromLane<0) {
         myTurnDestination = 0;
     }
 }
