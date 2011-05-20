@@ -114,11 +114,11 @@ NBOwnTLDef::computeUnblockedWeightedStreamNumber(const NBEdge * const e1, const 
 
 
 std::pair<NBEdge*, NBEdge*>
-NBOwnTLDef::getBestCombination(const std::vector<NBEdge*> &edges) throw() {
+NBOwnTLDef::getBestCombination(const EdgeVector &edges) throw() {
     std::pair<NBEdge*, NBEdge*> bestPair(static_cast<NBEdge*>(0), static_cast<NBEdge*>(0));
     SUMOReal bestValue = -1;
-    for (std::vector<NBEdge*>::const_iterator i=edges.begin(); i!=edges.end(); ++i) {
-        for (std::vector<NBEdge*>::const_iterator j=i+1; j!=edges.end(); ++j) {
+    for (EdgeVector::const_iterator i=edges.begin(); i!=edges.end(); ++i) {
+        for (EdgeVector::const_iterator j=i+1; j!=edges.end(); ++j) {
             SUMOReal value = computeUnblockedWeightedStreamNumber(*i, *j);
             if (value>bestValue) {
                 bestValue = value;
@@ -137,7 +137,7 @@ NBOwnTLDef::getBestCombination(const std::vector<NBEdge*> &edges) throw() {
 
 
 std::pair<NBEdge*, NBEdge*>
-NBOwnTLDef::getBestPair(std::vector<NBEdge*> &incoming) throw() {
+NBOwnTLDef::getBestPair(EdgeVector &incoming) throw() {
     if (incoming.size()==1) {
         // only one there - return the one
         std::pair<NBEdge*, NBEdge*> ret(*incoming.begin(), static_cast<NBEdge*>(0));
@@ -146,12 +146,12 @@ NBOwnTLDef::getBestPair(std::vector<NBEdge*> &incoming) throw() {
     }
     // determine the best combination
     //  by priority, first
-    std::vector<NBEdge*> used;
+    EdgeVector used;
     std::sort(incoming.begin(), incoming.end(), edge_by_incoming_priority_sorter());
     used.push_back(*incoming.begin()); // the first will definitely be used
     // get the ones with the same priority
     int prio = getToPrio(*used.begin());
-    for (std::vector<NBEdge*>::iterator i=incoming.begin()+1; i!=incoming.end()&&prio!=getToPrio(*i); ++i) {
+    for (EdgeVector::iterator i=incoming.begin()+1; i!=incoming.end()&&prio!=getToPrio(*i); ++i) {
         used.push_back(*i);
     }
     //  if there only lower priorised, use these, too
@@ -170,7 +170,7 @@ NBOwnTLDef::myCompute(const NBEdgeCont &,
                       unsigned int brakingTime) throw() {
     // build complete lists first
     const EdgeVector &incoming = getIncomingEdges();
-    std::vector<NBEdge*> fromEdges, toEdges;
+    EdgeVector fromEdges, toEdges;
     std::vector<bool> isLeftMoverV, isTurnaround;
     unsigned int noLanesAll = 0;
     unsigned int noLinksAll = 0;
@@ -209,7 +209,7 @@ NBOwnTLDef::myCompute(const NBEdgeCont &,
     }
 
     NBTrafficLightLogic *logic = new NBTrafficLightLogic(getID(), "0", noLinksAll);
-    std::vector<NBEdge*> toProc = incoming;
+    EdgeVector toProc = incoming;
     // build all phases
     while (toProc.size()>0) {
         std::pair<NBEdge*, NBEdge*> chosen;

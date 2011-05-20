@@ -92,7 +92,7 @@ NBEdge::ToEdgeConnectionsAdder::execute(const unsigned int lane, const unsigned 
 /* -------------------------------------------------------------------------
  * NBEdge::MainDirections-methods
  * ----------------------------------------------------------------------- */
-NBEdge::MainDirections::MainDirections(const std::vector<NBEdge*> &outgoing,
+NBEdge::MainDirections::MainDirections(const EdgeVector &outgoing,
                                        NBEdge *parent, NBNode *to) {
     if (outgoing.size()==0) {
         return;
@@ -107,7 +107,7 @@ NBEdge::MainDirections::MainDirections(const std::vector<NBEdge*> &outgoing,
         // ok, the left turn belongs to the higher priorised edges on the junction
         //  let's check, whether it has also a higher priority (lane number/speed)
         //  than the current
-        std::vector<NBEdge*> tmp(outgoing);
+        EdgeVector tmp(outgoing);
         sort(tmp.begin(), tmp.end(), NBContHelper::edge_similar_direction_sorter(parent));
         if (outgoing.back()->getPriority()>tmp[0]->getPriority()) {
             myDirs.push_back(MainDirections::DIR_LEFTMOST);
@@ -119,7 +119,7 @@ NBEdge::MainDirections::MainDirections(const std::vector<NBEdge*> &outgoing,
     }
     // check whether the forward direction has a higher priority
     //  try to get the forward direction
-    std::vector<NBEdge*> tmp(outgoing);
+    EdgeVector tmp(outgoing);
     sort(tmp.begin(), tmp.end(), NBContHelper::edge_similar_direction_sorter(parent));
     NBEdge *edge = *(tmp.begin());
     // check whether it has a higher priority and is going straight
@@ -634,13 +634,13 @@ NBEdge::writeXMLStep1(OutputDevice &into) {
         writeLane(into, myLanes[i], i);
     }
     // write the list of connected edges
-    const std::vector<NBEdge*> *tmp = getConnectedSorted();
-    std::vector<NBEdge*> sortedConnected = *tmp;
+    const EdgeVector *tmp = getConnectedSorted();
+    EdgeVector sortedConnected = *tmp;
     if (getTurnDestination()!=0) {
         sortedConnected.push_back(getTurnDestination());
     }
     delete tmp;
-    for (std::vector<NBEdge*>::iterator l=sortedConnected.begin(); l!=sortedConnected.end(); l++) {
+    for (EdgeVector::iterator l=sortedConnected.begin(); l!=sortedConnected.end(); l++) {
         LaneVector lanes;
         for (std::vector<Connection>::const_iterator i=myConnections.begin(); i!=myConnections.end(); ++i) {
             if ((*i).toEdge==*l && find(lanes.begin(), lanes.end(), (*i).fromLane)==lanes.end()) {
@@ -946,7 +946,7 @@ NBEdge::computeLanes2Edges() {
     assert(myStep==EDGE2EDGES);
     // get list of possible outgoing edges sorted by direction clockwise
     //  the edge in the backward direction (turnaround) is not in the list
-    const std::vector<NBEdge*> *edges = getConnectedSorted();
+    const EdgeVector *edges = getConnectedSorted();
     if (myConnections.size()!=0&&edges->size()==0) {
         // dead end per definition!?
         myConnections.clear();
@@ -1054,7 +1054,7 @@ NBEdge::getConnectionLanes(NBEdge *currentOutgoing) const {
 }
 
 
-const std::vector<NBEdge*> *
+const EdgeVector *
 NBEdge::getConnectedSorted() {
     // check whether connections exist and if not, use edges from the node
     EdgeVector outgoing;
@@ -1069,7 +1069,7 @@ NBEdge::getConnectedSorted() {
     }
     // allocate the sorted container
     unsigned int size = (unsigned int) outgoing.size();
-    std::vector<NBEdge*> *edges = new std::vector<NBEdge*>();
+    EdgeVector *edges = new EdgeVector();
     edges->reserve(size);
     for (EdgeVector::const_iterator i=outgoing.begin(); i!=outgoing.end(); i++) {
         NBEdge *outedge = *i;
@@ -1083,7 +1083,7 @@ NBEdge::getConnectedSorted() {
 
 
 void
-NBEdge::divideOnEdges(const std::vector<NBEdge*> *outgoing) {
+NBEdge::divideOnEdges(const EdgeVector *outgoing) {
     if (outgoing->size()==0) {
         // we have to do this, because the turnaround may have been added before
         myConnections.clear();
@@ -1127,7 +1127,7 @@ NBEdge::divideOnEdges(const std::vector<NBEdge*> *outgoing) {
     sumResulting += minResulting / (SUMOReal) 2.;
     unsigned int noVirtual = (unsigned int)(sumResulting / minResulting);
     // compute the transition from virtual to real edges
-    std::vector<NBEdge*> transition;
+    EdgeVector transition;
     transition.reserve(size);
     for (i=0; i<size; i++) {
         // tmpNo will be the number of connections from this edge
@@ -1161,14 +1161,14 @@ NBEdge::divideOnEdges(const std::vector<NBEdge*> *outgoing) {
 
 
 std::vector<unsigned int> *
-NBEdge::preparePriorities(const std::vector<NBEdge*> *outgoing) {
+NBEdge::preparePriorities(const EdgeVector *outgoing) {
     // copy the priorities first
     std::vector<unsigned int> *priorities = new std::vector<unsigned int>();
     if (outgoing->size()==0) {
         return priorities;
     }
     priorities->reserve(outgoing->size());
-    std::vector<NBEdge*>::const_iterator i;
+    EdgeVector::const_iterator i;
     for (i=outgoing->begin(); i!=outgoing->end(); i++) {
         int prio = (*i)->getJunctionPriority(myTo);
         assert((prio+1)*2>0);
@@ -1179,7 +1179,7 @@ NBEdge::preparePriorities(const std::vector<NBEdge*> *outgoing) {
     //  the importance by 2 due to the possibility to leave the junction
     //  faster from this lane
     MainDirections mainDirections(*outgoing, this, myTo);
-    std::vector<NBEdge*> tmp(*outgoing);
+    EdgeVector tmp(*outgoing);
     sort(tmp.begin(), tmp.end(), NBContHelper::edge_similar_direction_sorter(this));
     i=find(outgoing->begin(), outgoing->end(), *(tmp.begin()));
     unsigned int dist = (unsigned int) distance(outgoing->begin(), i);
@@ -1319,9 +1319,9 @@ NBEdge::isConnectedTo(NBEdge *e) {
 }
 
 
-std::vector<NBEdge*>
+EdgeVector
 NBEdge::getConnectedEdges() const throw() {
-    std::vector<NBEdge*> ret;
+    EdgeVector ret;
     for (std::vector<Connection>::const_iterator i=myConnections.begin(); i!=myConnections.end(); ++i) {
         if (find(ret.begin(), ret.end(), (*i).toEdge)==ret.end()) {
             ret.push_back((*i).toEdge);
@@ -1333,7 +1333,7 @@ NBEdge::getConnectedEdges() const throw() {
 
 void
 NBEdge::remapConnections(const EdgeVector &incoming) {
-    std::vector<NBEdge*> connected = getConnectedEdges();
+    EdgeVector connected = getConnectedEdges();
     for (EdgeVector::const_iterator i=incoming.begin(); i!=incoming.end(); i++) {
         NBEdge *inc = *i;
         // We have to do this

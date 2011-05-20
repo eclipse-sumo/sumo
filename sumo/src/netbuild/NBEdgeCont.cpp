@@ -616,7 +616,7 @@ NBEdgeCont::joinSameNodeConnectingEdges(NBDistrictCont &dc,
 
 void
 NBEdgeCont::removeUnwishedEdges(NBDistrictCont &dc) throw() {
-    std::vector<NBEdge*> toRemove;
+    EdgeVector toRemove;
     for (EdgeCont::iterator i=myEdges.begin(); i!=myEdges.end();) {
         NBEdge *edge = (*i).second;
 		if (!myEdges2Keep.count(edge->getID())) {
@@ -626,7 +626,7 @@ NBEdgeCont::removeUnwishedEdges(NBDistrictCont &dc) throw() {
         }
         ++i;
     }
-    for (std::vector<NBEdge*>::iterator j=toRemove.begin(); j!=toRemove.end(); ++j) {
+    for (EdgeVector::iterator j=toRemove.begin(); j!=toRemove.end(); ++j) {
         erase(dc, *j);
     }
 }
@@ -752,13 +752,13 @@ NBEdgeCont::guessRoundabouts(std::vector<std::set<NBEdge*> > &marked) throw() {
         bool noLoop = false;
         do {
             visited.insert(e);
-            std::vector<NBEdge*> edges = e->getToNode()->getEdges();
+            EdgeVector edges = e->getToNode()->getEdges();
             if (edges.size()<2) {
                 noLoop = true;
                 break;
             }
             sort(edges.begin(), edges.end(), NBContHelper::edge_by_junction_angle_sorter(e->getToNode()));
-            std::vector<NBEdge*>::const_iterator me = find(edges.begin(), edges.end(), e);
+            EdgeVector::const_iterator me = find(edges.begin(), edges.end(), e);
             NBContHelper::nextCW(&edges, me);
             NBEdge *left = *me;
             loopEdges.insert(left);
@@ -780,16 +780,16 @@ NBEdgeCont::guessRoundabouts(std::vector<std::set<NBEdge*> > &marked) throw() {
             for (std::set<NBEdge*>::const_iterator j=loopEdges.begin(); j!=loopEdges.end(); ++j) {
 
                 // disable turnarounds on incoming edges
-                const std::vector<NBEdge*> &incoming = (*j)->getToNode()->getIncomingEdges();
-                const std::vector<NBEdge*> &outgoing = (*j)->getToNode()->getOutgoingEdges();
-                for (std::vector<NBEdge*>::const_iterator k=incoming.begin(); k!=incoming.end(); ++k) {
+                const EdgeVector &incoming = (*j)->getToNode()->getIncomingEdges();
+                const EdgeVector &outgoing = (*j)->getToNode()->getOutgoingEdges();
+                for (EdgeVector::const_iterator k=incoming.begin(); k!=incoming.end(); ++k) {
                     if (loopEdges.find(*k)!=loopEdges.end()) {
                         continue;
                     }
                     if ((*k)->getStep()>=NBEdge::LANES2LANES_USER) {
                         continue;
                     }
-                    for (std::vector<NBEdge*>::const_iterator l=outgoing.begin(); l!=outgoing.end(); ++l) {
+                    for (EdgeVector::const_iterator l=outgoing.begin(); l!=outgoing.end(); ++l) {
                         if (loopEdges.find(*l)!=loopEdges.end()) {
                             (*k)->addEdge2EdgeConnection(*l);
                         } else {

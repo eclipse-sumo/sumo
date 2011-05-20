@@ -88,7 +88,7 @@ public:
     class ApproachingDivider : public Bresenham::BresenhamCallBack {
     private:
         /// @brief The list of edges that approach the current edge
-        std::vector<NBEdge*> *myApproaching;
+        EdgeVector *myApproaching;
 
         /// @brief The approached current edge
         NBEdge *myCurrentOutgoing;
@@ -98,7 +98,7 @@ public:
          * @param[in] approaching The list of the edges that approach the outgoing edge
          * @param[in] currentOutgoing The outgoing edge
          */
-        ApproachingDivider(std::vector<NBEdge*> *approaching,
+        ApproachingDivider(EdgeVector *approaching,
                            NBEdge *currentOutgoing) throw();
 
         /// @brief Destructor
@@ -439,16 +439,16 @@ private:
         performs the swapping of two edges in the myAllEdges-list when the
         outgoing is in clockwise direction to the incoming */
     bool swapWhenReversed(bool leftHand,
-                          const std::vector<NBEdge*>::iterator &i1,
-                          const std::vector<NBEdge*>::iterator &i2);
+                          const EdgeVector::iterator &i1,
+                          const EdgeVector::iterator &i2);
 
     /** removes the first edge from the list, marks it as higher priorised and
         returns it */
-    NBEdge* extractAndMarkFirst(std::vector<NBEdge*> &s);
+    NBEdge* extractAndMarkFirst(EdgeVector &s);
 
     /** returns a list of edges which are connected to the given
         outgoing edge */
-    std::vector<NBEdge*> *getEdgesThatApproach(NBEdge *currentOutgoing);
+    EdgeVector *getEdgesThatApproach(NBEdge *currentOutgoing);
 
     /// resets the position by the given amount
     void reshiftPosition(SUMOReal xoff, SUMOReal yoff);
@@ -472,13 +472,13 @@ private:
     Position2D myPosition;
 
     /// @brief Vector of incoming edges
-    std::vector<NBEdge*> *myIncomingEdges;
+    EdgeVector *myIncomingEdges;
 
     /// @brief Vector of outgoing edges
-    std::vector<NBEdge*> *myOutgoingEdges;
+    EdgeVector *myOutgoingEdges;
 
     /// @brief Vector of incoming and outgoing edges
-    std::vector<NBEdge*> myAllEdges;
+    EdgeVector myAllEdges;
 
     /// @brief The type of the junction
     SumoXMLNodeType myType;

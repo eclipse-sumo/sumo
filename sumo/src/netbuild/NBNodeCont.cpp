@@ -572,7 +572,7 @@ NBNodeCont::removeIsolatedRoads(NBDistrictCont &dc, NBEdgeCont &ec, NBTrafficLig
         // Now we know that the edge e starts a dead end.
         // Next we test if the dead end is isolated, i.e. does not lead to a junction
         bool hasJunction = false;
-        std::vector<NBEdge*> road;
+        EdgeVector road;
         NBEdge* eOld = 0;
         NBNode* to;
         std::set<NBNode*> adjacentNodes;
@@ -604,7 +604,7 @@ NBNodeCont::removeIsolatedRoads(NBDistrictCont &dc, NBEdgeCont &ec, NBTrafficLig
             edgeCounter +=  int(road.size());
             std::string warningString =
                 "Removed a road without junctions: ";
-            for (std::vector<NBEdge*>::iterator roadIt = road.begin(); roadIt
+            for (EdgeVector::iterator roadIt = road.begin(); roadIt
                     != road.end(); ++roadIt) {
                 if (roadIt == road.begin()) {
                     warningString += (*roadIt)->getID();
@@ -771,7 +771,7 @@ NBNodeCont::mayNeedOnRamp(OptionsCont &oc, NBNode *cur) const {
 bool
 NBNodeCont::buildOnRamp(OptionsCont &oc, NBNode *cur,
                         NBEdgeCont &ec, NBDistrictCont &dc,
-                        std::vector<NBEdge*> &incremented) {
+                        EdgeVector &incremented) {
     NBEdge *pot_highway = cur->getIncomingEdges()[0];
     NBEdge *pot_ramp = cur->getIncomingEdges()[1];
     NBEdge *cont = cur->getOutgoingEdges()[0];
@@ -891,7 +891,7 @@ NBNodeCont::buildOnRamp(OptionsCont &oc, NBNode *cur,
 void
 NBNodeCont::buildOffRamp(OptionsCont &oc, NBNode *cur,
                          NBEdgeCont &ec, NBDistrictCont &dc,
-                         std::vector<NBEdge*> &incremented) {
+                         EdgeVector &incremented) {
     NBEdge *pot_highway = cur->getOutgoingEdges()[0];
     NBEdge *pot_ramp = cur->getOutgoingEdges()[1];
     NBEdge *prev = cur->getIncomingEdges()[0];
@@ -1061,7 +1061,7 @@ NBNodeCont::checkHighwayRampOrder(NBEdge *&pot_highway, NBEdge *&pot_ramp) {
 void
 NBNodeCont::guessRamps(OptionsCont &oc, NBEdgeCont &ec,
                        NBDistrictCont &dc) {
-    std::vector<NBEdge*> incremented;
+    EdgeVector incremented;
     bool bEdgeDeleted=false;
     // check whether on-off ramps shall be guessed
     if (oc.getBool("ramps.guess")) {

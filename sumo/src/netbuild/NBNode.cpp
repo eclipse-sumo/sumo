@@ -83,7 +83,7 @@
  * NBNode::ApproachingDivider-methods
  * ----------------------------------------------------------------------- */
 NBNode::ApproachingDivider::ApproachingDivider(
-    std::vector<NBEdge*> *approaching, NBEdge *currentOutgoing) throw()
+    EdgeVector *approaching, NBEdge *currentOutgoing) throw()
         : myApproaching(approaching), myCurrentOutgoing(currentOutgoing) {
     // check whether origin lanes have been given
     assert(myApproaching!=0);
@@ -296,8 +296,8 @@ NBNode::addOutgoingEdge(NBEdge *edge) {
 
 bool
 NBNode::swapWhenReversed(bool leftHand,
-                         const std::vector<NBEdge*>::iterator &i1,
-                         const std::vector<NBEdge*>::iterator &i2) {
+                         const EdgeVector::iterator &i1,
+                         const EdgeVector::iterator &i2) {
     NBEdge *e1 = *i1;
     NBEdge *e2 = *i2;
     if (leftHand) {
@@ -317,7 +317,7 @@ NBNode::swapWhenReversed(bool leftHand,
 void
 NBNode::setPriorities() {
     // reset all priorities
-    std::vector<NBEdge*>::iterator i;
+    EdgeVector::iterator i;
     // check if the junction is not a real junction
     if (myIncomingEdges->size()==1&&myOutgoingEdges->size()==1) {
         for (i=myAllEdges.begin(); i!=myAllEdges.end(); i++) {
@@ -352,8 +352,8 @@ NBNode::computeType(const NBTypeCont &tc) const {
     // choose the uppermost type as default
     SumoXMLNodeType type = NODETYPE_RIGHT_BEFORE_LEFT;
     // determine the type
-    for (std::vector<NBEdge*>::const_iterator i=myIncomingEdges->begin(); i!=myIncomingEdges->end(); i++) {
-        for (std::vector<NBEdge*>::const_iterator j=i+1; j!=myIncomingEdges->end(); j++) {
+    for (EdgeVector::const_iterator i=myIncomingEdges->begin(); i!=myIncomingEdges->end(); i++) {
+        for (EdgeVector::const_iterator j=i+1; j!=myIncomingEdges->end(); j++) {
             bool isOpposite = false;
             if (getOppositeIncoming(*j)==*i&&myIncomingEdges->size()>2) {
                 isOpposite = true;
@@ -424,13 +424,13 @@ NBNode::setPriorityJunctionPriorities() {
     if (myIncomingEdges->size()==0||myOutgoingEdges->size()==0) {
         return;
     }
-    std::vector<NBEdge*> incoming(*myIncomingEdges);
-    std::vector<NBEdge*> outgoing(*myOutgoingEdges);
+    EdgeVector incoming(*myIncomingEdges);
+    EdgeVector outgoing(*myOutgoingEdges);
     // what we do want to have is to extract the pair of roads that are
     //  the major roads for this junction
     // let's get the list of incoming edges with the highest priority
     std::sort(incoming.begin(), incoming.end(), NBContHelper::edge_by_priority_sorter());
-    std::vector<NBEdge*> bestIncoming;
+    EdgeVector bestIncoming;
     NBEdge *best = incoming[0];
     while (incoming.size()>0&&samePriority(best, incoming[0])) {
         bestIncoming.push_back(*incoming.begin());
@@ -439,7 +439,7 @@ NBNode::setPriorityJunctionPriorities() {
     // now, let's get the list of best outgoing
     assert(outgoing.size()!=0);
     sort(outgoing.begin(), outgoing.end(), NBContHelper::edge_by_priority_sorter());
-    std::vector<NBEdge*> bestOutgoing;
+    EdgeVector bestOutgoing;
     best = outgoing[0];
     while (outgoing.size()>0&&samePriority(best, outgoing[0])) {//->getPriority()==best->getPriority()) {
         bestOutgoing.push_back(*outgoing.begin());
@@ -448,7 +448,7 @@ NBNode::setPriorityJunctionPriorities() {
     // now, let's compute for each of the best incoming edges
     //  the incoming which is most opposite
     //  the outgoing which is most opposite
-    std::vector<NBEdge*>::iterator i;
+    EdgeVector::iterator i;
     std::map<NBEdge*, NBEdge*> counterIncomingEdges;
     std::map<NBEdge*, NBEdge*> counterOutgoingEdges;
     incoming = *myIncomingEdges;
@@ -483,7 +483,7 @@ NBNode::setPriorityJunctionPriorities() {
     NBEdge *bestSecond = 0;
     bool hadBest = false;
     for (i=bestIncoming.begin(); i!=bestIncoming.end(); ++i) {
-        std::vector<NBEdge*>::iterator j;
+        EdgeVector::iterator j;
         NBEdge *t1 = *i;
         SUMOReal angle1 = t1->getAngle()+180;
         if (angle1>=360) {
@@ -518,7 +518,7 @@ NBNode::setPriorityJunctionPriorities() {
 
 
 NBEdge*
-NBNode::extractAndMarkFirst(std::vector<NBEdge*> &s) {
+NBNode::extractAndMarkFirst(EdgeVector &s) {
     if (s.size()==0) {
         return 0;
     }
@@ -1178,7 +1178,7 @@ NBNode::sortNodesEdges(bool leftHand, const NBTypeCont &tc) {
     if (myAllEdges.size()==0) {
         return;
     }
-    std::vector<NBEdge*>::iterator i;
+    EdgeVector::iterator i;
     for (i=myAllEdges.begin(); i!=myAllEdges.end()-1&&i!=myAllEdges.end(); i++) {
         swapWhenReversed(leftHand ,i, i+1);
     }
@@ -1261,11 +1261,11 @@ NBNode::computeLanes2Lanes() {
     //  for every outgoing edge, compute the distribution of the node's
     //  incoming edges on this edge when approaching this edge
     // the incoming edges' steps will then also be marked as LANE2LANE_RECHECK...
-    std::vector<NBEdge*>::reverse_iterator i;
+    EdgeVector::reverse_iterator i;
     for (i=myOutgoingEdges->rbegin(); i!=myOutgoingEdges->rend(); i++) {
         NBEdge *currentOutgoing = *i;
         // get the information about edges that do approach this edge
-        std::vector<NBEdge*> *approaching = getEdgesThatApproach(currentOutgoing);
+        EdgeVector *approaching = getEdgesThatApproach(currentOutgoing);
         if (approaching->size()!=0) {
             ApproachingDivider divider(approaching, currentOutgoing);
             Bresenham::compute(&divider, static_cast<unsigned int>(approaching->size()),
@@ -1284,15 +1284,15 @@ NBNode::computeLanes2Lanes() {
 }
 
 
-std::vector<NBEdge*> *
+EdgeVector *
 NBNode::getEdgesThatApproach(NBEdge *currentOutgoing) {
     // get the position of the node to get the approaching nodes of
-    std::vector<NBEdge*>::const_iterator i = find(myAllEdges.begin(),
+    EdgeVector::const_iterator i = find(myAllEdges.begin(),
             myAllEdges.end(), currentOutgoing);
     // get the first possible approaching edge
     NBContHelper::nextCW(&myAllEdges, i);
     // go through the list of edges clockwise and add the edges
-    std::vector<NBEdge*> *approaching = new std::vector<NBEdge*>();
+    EdgeVector *approaching = new EdgeVector();
     for (; *i!=currentOutgoing;) {
         // check only incoming edges
         if ((*i)->getToNode()==this&&(*i)->getTurnDestination()!=currentOutgoing) {
@@ -1317,7 +1317,7 @@ NBNode::reshiftPosition(SUMOReal xoff, SUMOReal yoff) {
 void
 NBNode::replaceOutgoing(NBEdge *which, NBEdge *by, unsigned int laneOff) {
     // replace the edge in the list of outgoing nodes
-    std::vector<NBEdge*>::iterator i=find(myOutgoingEdges->begin(), myOutgoingEdges->end(), which);
+    EdgeVector::iterator i=find(myOutgoingEdges->begin(), myOutgoingEdges->end(), which);
     if (i!=myOutgoingEdges->end()) {
         (*i) = by;
         i = find(myAllEdges.begin(), myAllEdges.end(), which);
@@ -1353,7 +1353,7 @@ NBNode::replaceOutgoing(const EdgeVector &which, NBEdge *by) {
 void
 NBNode::replaceIncoming(NBEdge *which, NBEdge *by, unsigned int laneOff) {
     // replace the edge in the list of incoming nodes
-    std::vector<NBEdge*>::iterator i=find(myIncomingEdges->begin(), myIncomingEdges->end(), which);
+    EdgeVector::iterator i=find(myIncomingEdges->begin(), myIncomingEdges->end(), which);
     if (i!=myIncomingEdges->end()) {
         (*i) = by;
         i = find(myAllEdges.begin(), myAllEdges.end(), which);
@@ -1991,7 +1991,7 @@ NBNode::getMaxEdgeWidth() const {
 
 NBEdge *
 NBNode::getConnectionTo(NBNode *n) const {
-    std::vector<NBEdge*>::iterator i;
+    EdgeVector::iterator i;
     for (i=myOutgoingEdges->begin(); i!=myOutgoingEdges->end(); i++) {
         if ((*i)->getToNode()==n) {
             return (*i);

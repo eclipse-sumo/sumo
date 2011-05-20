@@ -648,10 +648,10 @@ public:
 
     /** returns the list of outgoing edges without the turnaround
         sorted in clockwise direction */
-    const std::vector<NBEdge*> *getConnectedSorted();
+    const EdgeVector *getConnectedSorted();
 
     /** returns the list of outgoing edges unsorted */
-    std::vector<NBEdge*> getConnectedEdges() const throw();
+    EdgeVector getConnectedEdges() const throw();
 
     /** @brief Remaps the connection in a way tha allows the removal of it
         This edges (which is a "dummy" edge, in fact) connections are spread over the incoming non-dummy edges */
@@ -760,11 +760,11 @@ private:
         std::map<NBEdge*, std::vector<unsigned int> > myConnections;
 
         /// the transition from the virtual lane to the edge it belongs to
-        const std::vector<NBEdge*> &myTransitions;
+        const EdgeVector &myTransitions;
 
     public:
         /// constructor
-        ToEdgeConnectionsAdder(const std::vector<NBEdge*> &transitions) throw()
+        ToEdgeConnectionsAdder(const EdgeVector &transitions) throw()
                 : myTransitions(transitions) { }
 
         /// destructor
@@ -805,7 +805,7 @@ private:
 
     public:
         /// constructor
-        MainDirections(const std::vector<NBEdge*> &outgoing,
+        MainDirections(const EdgeVector &outgoing,
                        NBEdge *parent, NBNode *to);
 
         /// destructor
@@ -862,12 +862,12 @@ private:
 
 
     /** divides the lanes on the outgoing edges */
-    void divideOnEdges(const std::vector<NBEdge*> *outgoing);
+    void divideOnEdges(const EdgeVector *outgoing);
 
     /** recomputes the priorities and manipulates them for a distribution
         of lanes on edges which is more like in real-life */
     std::vector<unsigned int> *preparePriorities(
-        const std::vector<NBEdge*> *outgoing);
+        const EdgeVector *outgoing);
 
     /** computes teh sum of the given list's entries (sic!) */
     unsigned int computePrioritySum(std::vector<unsigned int> *priorities);

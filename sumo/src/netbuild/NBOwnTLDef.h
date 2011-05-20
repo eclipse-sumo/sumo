@@ -169,7 +169,7 @@ protected:
      * @param[in] edges The list of edges to include in the computation
      * @return The two edges for which the weighted number of unblocked streams is the highest
      */
-    std::pair<NBEdge*, NBEdge*> getBestCombination(const std::vector<NBEdge*> &edges) throw();
+    std::pair<NBEdge*, NBEdge*> getBestCombination(const EdgeVector &edges) throw();
 
 
     /** @brief Returns the combination of two edges from the given which has most unblocked streams
@@ -179,7 +179,7 @@ protected:
      * @param[in, changed] incoming The list of edges which are participating in the logic
      * @return The two edges for which the weighted number of unblocked streams is the highest
      */
-    std::pair<NBEdge*, NBEdge*> getBestPair(std::vector<NBEdge*> &incoming) throw();
+    std::pair<NBEdge*, NBEdge*> getBestPair(EdgeVector &incoming) throw();
 
 
     /** @class edge_by_incoming_priority_sorter

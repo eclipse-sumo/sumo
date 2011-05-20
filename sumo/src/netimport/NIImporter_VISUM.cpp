@@ -462,9 +462,9 @@ NIImporter_VISUM::parse_Connectors() {
     }
     // build the source when needed
     if (dir.find('Q')!=std::string::npos) {
-        const std::vector<NBEdge*> &edges = dest->getOutgoingEdges();
+        const EdgeVector &edges = dest->getOutgoingEdges();
         bool hasContinuation = false;
-        for (std::vector<NBEdge*>::const_iterator i=edges.begin(); i!=edges.end(); ++i) {
+        for (EdgeVector::const_iterator i=edges.begin(); i!=edges.end(); ++i) {
             if (!(*i)->isMacroscopicConnector()) {
                 hasContinuation = true;
             }
@@ -495,9 +495,9 @@ NIImporter_VISUM::parse_Connectors() {
     }
     // build the sink when needed
     if (dir.find('Z')!=std::string::npos) {
-        const std::vector<NBEdge*> &edges = dest->getIncomingEdges();
+        const EdgeVector &edges = dest->getIncomingEdges();
         bool hasPredeccessor = false;
-        for (std::vector<NBEdge*>::const_iterator i=edges.begin(); i!=edges.end(); ++i) {
+        for (EdgeVector::const_iterator i=edges.begin(); i!=edges.end(); ++i) {
             if (!(*i)->isMacroscopicConnector()) {
                 hasPredeccessor = true;
             }

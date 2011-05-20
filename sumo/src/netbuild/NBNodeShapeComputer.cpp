@@ -78,12 +78,12 @@ NBNodeShapeComputer::compute(bool leftHand) {
     if (geometryLike) {
         // additionally, the angle between the edges must not be larger than 45 degrees
         //  (otherwise, we will try to compute the shape in a different way)
-        const std::vector<NBEdge*> &incoming = myNode.getIncomingEdges();
-        const std::vector<NBEdge*> &outgoing = myNode.getOutgoingEdges();
+        const EdgeVector &incoming = myNode.getIncomingEdges();
+        const EdgeVector &outgoing = myNode.getOutgoingEdges();
         SUMOReal maxAngle = SUMOReal(0);
-        for (std::vector<NBEdge*>::const_iterator i=incoming.begin(); i!=incoming.end(); ++i) {
+        for (EdgeVector::const_iterator i=incoming.begin(); i!=incoming.end(); ++i) {
             SUMOReal ia = (*i)->getAngle(myNode);
-            for (std::vector<NBEdge*>::const_iterator j=outgoing.begin(); j!=outgoing.end(); ++j) {
+            for (EdgeVector::const_iterator j=outgoing.begin(); j!=outgoing.end(); ++j) {
                 SUMOReal oa = (*j)->getAngle(myNode);
                 SUMOReal ad = GeomHelper::getMinAngleDiff(ia, oa);
                 if (22.5>=ad) {
@@ -195,7 +195,7 @@ NBNodeShapeComputer::computeContinuationNodeShape(bool simpleContinuation) {
     // initialise
     EdgeVector::const_iterator i;
     // edges located in the value-vector have the same direction as the key edge
-    std::map<NBEdge*, std::vector<NBEdge*> > same;
+    std::map<NBEdge*, EdgeVector > same;
     // the counter-clockwise boundary of the edge regarding possible same-direction edges
     std::map<NBEdge*, Position2DVector> geomsCCW;
     // the clockwise boundary of the edge regarding possible same-direction edges
@@ -210,7 +210,7 @@ NBNodeShapeComputer::computeContinuationNodeShape(bool simpleContinuation) {
     // check which edges are parallel
     joinSameDirectionEdges(same, geomsCCW, geomsCW);
     // compute unique direction list
-    std::vector<NBEdge*> newAll = computeUniqueDirectionList(same, geomsCCW, geomsCW, ccwBoundary, cwBoundary);
+    EdgeVector newAll = computeUniqueDirectionList(same, geomsCCW, geomsCW, ccwBoundary, cwBoundary);
     // if we have only two "directions", let's not compute the geometry using this method
     if (newAll.size()<2) {
         return Position2DVector();
@@ -601,7 +601,7 @@ NBNodeShapeComputer::computeContinuationNodeShape(bool simpleContinuation) {
 
 
 void
-NBNodeShapeComputer::joinSameDirectionEdges(std::map<NBEdge*, std::vector<NBEdge*> > &same,
+NBNodeShapeComputer::joinSameDirectionEdges(std::map<NBEdge*, EdgeVector > &same,
         std::map<NBEdge*, Position2DVector> &geomsCCW,
         std::map<NBEdge*, Position2DVector> &geomsCW) {
     EdgeVector::const_iterator i, j;
@@ -638,10 +638,10 @@ NBNodeShapeComputer::joinSameDirectionEdges(std::map<NBEdge*, std::vector<NBEdge
             geomsCW[*j].replaceAt(0, tmp.p1());
             if (fabs(l1.atan2DegreeAngle()-l2.atan2DegreeAngle())<20) {
                 if (same.find(*i)==same.end()) {
-                    same[*i] = std::vector<NBEdge*>();
+                    same[*i] = EdgeVector();
                 }
                 if (same.find(*j)==same.end()) {
-                    same[*j] = std::vector<NBEdge*>();
+                    same[*j] = EdgeVector();
                 }
                 if (find(same[*i].begin(), same[*i].end(), *j)==same[*i].end()) {
                     same[*i].push_back(*j);
@@ -655,27 +655,27 @@ NBNodeShapeComputer::joinSameDirectionEdges(std::map<NBEdge*, std::vector<NBEdge
 }
 
 
-std::vector<NBEdge*>
+EdgeVector
 NBNodeShapeComputer::computeUniqueDirectionList(
-    const std::map<NBEdge*, std::vector<NBEdge*> > &same,
+    const std::map<NBEdge*, EdgeVector > &same,
     std::map<NBEdge*, Position2DVector> &geomsCCW,
     std::map<NBEdge*, Position2DVector> &geomsCW,
     std::map<NBEdge*, NBEdge*> &ccwBoundary,
     std::map<NBEdge*, NBEdge*> &cwBoundary) {
-    std::vector<NBEdge*> newAll = myNode.myAllEdges;
+    EdgeVector newAll = myNode.myAllEdges;
     EdgeVector::const_iterator j;
     EdgeVector::iterator i2;
-    std::map<NBEdge*, std::vector<NBEdge*> >::iterator k;
+    std::map<NBEdge*, EdgeVector >::iterator k;
     bool changed = true;
     while (changed) {
         changed = false;
         for (i2=newAll.begin(); !changed&&i2!=newAll.end();) {
-            std::vector<NBEdge*> other;
+            EdgeVector other;
             if (same.find(*i2)!=same.end()) {
                 other = same.find(*i2)->second;
             }
             for (j=other.begin(); j!=other.end(); ++j) {
-                std::vector<NBEdge*>::iterator k = find(newAll.begin(), newAll.end(), *j);
+                EdgeVector::iterator k = find(newAll.begin(), newAll.end(), *j);
                 if (k!=newAll.end()) {
                     if (myNode.hasIncoming(*i2)) {
                         if (myNode.hasIncoming(*j)) {} else {
