@@ -321,6 +321,8 @@ enum {
     MID_GNE_ABORT,
     /** hot key <DEL> */
     MID_GNE_HOTKEY_DEL,
+    /** hot key <ENTER> */
+    MID_GNE_HOTKEY_ENTER,
 
     /** mode has changed */
     MID_GNE_MODE_CHANGE,
