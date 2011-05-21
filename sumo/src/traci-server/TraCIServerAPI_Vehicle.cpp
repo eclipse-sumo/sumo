@@ -106,7 +106,7 @@ TraCIServerAPI_Vehicle::processGet(TraCIServer &server, tcpip::Storage &inputSto
             server.writeStatusCmd(CMD_GET_VEHICLE_VARIABLE, RTYPE_ERR, "Vehicle '" + id + "' is not known", outputStorage);
             return false;
         }
-        bool onRoad = v->isOnRoad();
+        const bool onRoad = v->isOnRoad();
         switch (variable) {
         case VAR_SPEED:
             tempMsg.writeUnsignedByte(TYPE_DOUBLE);
@@ -950,13 +950,18 @@ TraCIServerAPI_Vehicle::commandDistanceRequest(traci::TraCIServer &server, tcpip
     // read distance type
     int distType = inputStorage.readUnsignedByte();
 
-    SUMOReal distance = 0.0;
-    if (distType == REQUEST_DRIVINGDIST) {
-        distance = v->getRoute().getDistanceBetween(v->getPositionOnLane(), roadPos.second,
-                                                    v->getEdge(), &roadPos.first->getEdge());
-    } else {
-        // compute air distance (default)
-        distance = v->getPosition().distanceTo(pos);
+    SUMOReal distance = INVALID_DOUBLE_VALUE;
+    if (v->isOnRoad()) {
+        if (distType == REQUEST_DRIVINGDIST) {
+            distance = v->getRoute().getDistanceBetween(v->getPositionOnLane(), roadPos.second,
+                                                        v->getEdge(), &roadPos.first->getEdge());
+            if (distance == std::numeric_limits<SUMOReal>::max()) {
+                distance = INVALID_DOUBLE_VALUE;
+            }
+        } else {
+            // compute air distance (default)
+            distance = v->getPosition().distanceTo(pos);
+        }
     }
     // write response command
     outputStorage.writeUnsignedByte(TYPE_DOUBLE);
