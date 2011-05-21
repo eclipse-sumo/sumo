@@ -69,7 +69,6 @@ MSRouteHandler::MSRouteHandler(const std::string &file,
     myAddVehiclesDirectly(addVehiclesDirectly),
     myCurrentVTypeDistribution(0),
     myCurrentRouteDistribution(0),
-    myHaveWarned(false), 
     myCurrentVType(0),
 	myScale(-1.)
 {
@@ -298,36 +297,6 @@ MSRouteHandler::openRoute(const SUMOSAXAttributes &attrs) {
     myActiveRouteColor = attrs.hasAttribute(SUMO_ATTR_COLOR) ? RGBColor::parseColorReporting(attrs.getString(SUMO_ATTR_COLOR), attrs.getObjectType(),  myActiveRouteID.c_str(), true, ok) : RGBColor::getDefaultColor();
 }
 
-
-// ----------------------------------
-
-
-void
-MSRouteHandler::myCharacters(int element,
-                             const std::string &chars) throw(ProcessError) {
-    switch (element) {
-    case SUMO_TAG_ROUTE: {
-        size_t len = chars.length();
-        size_t beg = 0;
-        while (beg<len&&chars[beg]<=32) {
-            beg++;
-        }
-        if (beg<len) {
-            if (!myHaveWarned) {
-                MsgHandler::getWarningInstance()->inform("Defining routes as a nested string is deprecated, use the edges attribute instead.");
-                myHaveWarned = true;
-            }
-            MSEdge::parseEdgesList(chars, myActiveRoute, myActiveRouteID);
-        }
-        break;
-    }
-    default:
-        break;
-    }
-}
-
-
-// ----------------------------------
 
 void
 MSRouteHandler::myEndElement(int element) throw(ProcessError) {

@@ -52,9 +52,6 @@
 #include <microsim/MSVehicleControl.h>
 #include <microsim/MSVehicle.h>
 #include <microsim/MSEdge.h>
-#include <microsim/MSRouteHandler.h>
-#include <microsim/MSRouteLoaderControl.h>
-#include <microsim/MSRouteLoader.h>
 #include <microsim/MSJunctionControl.h>
 #include <microsim/MSJunction.h>
 #include <microsim/traffic_lights/MSTLLogicControl.h>

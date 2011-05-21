@@ -210,14 +210,6 @@ NLHandler::myStartElement(int element,
 
 
 void
-NLHandler::myCharacters(int element,
-                        const std::string &chars) throw(ProcessError) {
-    UNUSED_PARAMETER(element);
-    UNUSED_PARAMETER(chars);
-}
-
-
-void
 NLHandler::myEndElement(int element) throw(ProcessError) {
     switch (element) {
     case SUMO_TAG_EDGE:

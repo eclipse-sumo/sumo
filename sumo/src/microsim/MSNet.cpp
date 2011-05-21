@@ -67,8 +67,6 @@
 #include <utils/common/WrappingCommand.h>
 #include <utils/options/OptionsCont.h>
 #include "MSGlobals.h"
-#include "MSRouteHandler.h"
-#include "MSRouteLoader.h"
 #include <utils/geom/GeoConvHelper.h>
 #include <ctime>
 #include "MSPerson.h"
