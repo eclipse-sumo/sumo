@@ -256,6 +256,18 @@ MSBaseVehicle::addReminder(MSMoveReminder* rem) throw() {
 
 
 void
+MSBaseVehicle::activateReminders(const MSMoveReminder::Notification reason) throw() {
+    for (MoveReminderCont::iterator rem=myMoveReminders.begin(); rem!=myMoveReminders.end();) {
+        if (rem->first->notifyEnter(*this, reason)) {
+            ++rem;
+        } else {
+            rem = myMoveReminders.erase(rem);
+        }
+    }
+}
+
+
+void
 MSBaseVehicle::calculateArrivalPos() throw() {
     const SUMOReal lastLaneLength = (myRoute->getLastEdge()->getLanes())[0]->getLength();
     switch (myParameter->arrivalPosProcedure) {

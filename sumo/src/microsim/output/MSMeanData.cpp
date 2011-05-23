@@ -171,13 +171,18 @@ MSMeanData::MeanDataValueTracker::notifyMoveInternal(SUMOVehicle& veh, SUMOReal 
 
 bool
 MSMeanData::MeanDataValueTracker::notifyLeave(SUMOVehicle& veh, SUMOReal lastPos, MSMoveReminder::Notification reason) throw() {
-    myTrackedData[&veh]->myNumVehicleLeft++;
+    if (myParent == 0 || reason != MSMoveReminder::NOTIFICATION_SEGMENT) {
+        myTrackedData[&veh]->myNumVehicleLeft++;
+    }
     return myTrackedData[&veh]->myValues->notifyLeave(veh, lastPos, reason);
 }
 
 
 bool
 MSMeanData::MeanDataValueTracker::notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification reason) throw() {
+    if (reason == MSMoveReminder::NOTIFICATION_SEGMENT) {
+        return true;
+    }
     if (vehicleApplies(veh) && myTrackedData.find(&veh) == myTrackedData.end()) {
         myTrackedData[&veh] = myCurrentData.back();
         myTrackedData[&veh]->myNumVehicleEntered++;

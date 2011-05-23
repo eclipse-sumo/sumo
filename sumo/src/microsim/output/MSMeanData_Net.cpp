@@ -122,10 +122,15 @@ MSMeanData_Net::MSLaneMeanDataValues::notifyLeave(SUMOVehicle& veh, SUMOReal /*l
             ++nVehArrived;
         } else if (reason == MSMoveReminder::NOTIFICATION_LANE_CHANGE) {
             ++nVehLaneChangeFrom;
-        } else {
+        } else if (myParent == 0 || reason != MSMoveReminder::NOTIFICATION_SEGMENT) {
             ++nVehLeft;
         }
     }
+#ifdef HAVE_MESOSIM
+    if (MSGlobals::gUseMesoSim) {
+        return false;
+    }
+#endif
     return reason == MSMoveReminder::NOTIFICATION_JUNCTION;
 }
 
@@ -133,12 +138,14 @@ MSMeanData_Net::MSLaneMeanDataValues::notifyLeave(SUMOVehicle& veh, SUMOReal /*l
 bool
 MSMeanData_Net::MSLaneMeanDataValues::notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification reason) throw() {
     if (vehicleApplies(veh)) {
-        if (reason == MSMoveReminder::NOTIFICATION_DEPARTED) {
-            ++nVehDeparted;
-        } else if (reason == MSMoveReminder::NOTIFICATION_LANE_CHANGE) {
-            ++nVehLaneChangeTo;
-        } else {
-            ++nVehEntered;
+        if (getLane() == 0 || getLane() == static_cast<MSVehicle&>(veh).getLane()) {
+            if (reason == MSMoveReminder::NOTIFICATION_DEPARTED) {
+                ++nVehDeparted;
+            } else if (reason == MSMoveReminder::NOTIFICATION_LANE_CHANGE) {
+                ++nVehLaneChangeTo;
+            } else if (myParent == 0 || reason != MSMoveReminder::NOTIFICATION_SEGMENT) {
+                ++nVehEntered;
+            }
         }
         return true;
     }

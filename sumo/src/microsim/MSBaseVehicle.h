@@ -35,6 +35,7 @@
 #include <utils/common/SUMOVehicle.h>
 #include <utils/common/StdDefs.h>
 #include "MSRoute.h"
+#include "MSMoveReminder.h"
 
 
 // ===========================================================================
@@ -42,7 +43,6 @@
 // ===========================================================================
 class SUMOVehicleParameter;
 class MSVehicleType;
-class MSMoveReminder;
 
 
 // ===========================================================================
@@ -194,6 +194,18 @@ public:
      * @see MSMoveReminder
      */
     void addReminder(MSMoveReminder* rem) throw();
+
+    /** @brief "Activates" all current move reminder
+     *
+     * For all move reminder stored in "myMoveReminders", their method
+     *  "MSMoveReminder::notifyEnter" is called.
+     *
+     * @param[in] reason The reason for changing the reminders' states
+     * @see MSMoveReminder
+     * @see MSMoveReminder::notifyEnter
+     * @see MSMoveReminder::Notification
+     */
+    void activateReminders(const MSMoveReminder::Notification reason) throw();
 
 protected:
     /** @brief (Re-)Calculates the arrival position from the vehicle parameters

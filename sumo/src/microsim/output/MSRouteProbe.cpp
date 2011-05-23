@@ -78,8 +78,8 @@ MSRouteProbe::~MSRouteProbe() throw() {
 
 
 bool
-MSRouteProbe::notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification /*reason*/) throw() {
-    if (myCurrentRouteDistribution != 0) {
+MSRouteProbe::notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification reason) throw() {
+    if (myCurrentRouteDistribution != 0 && reason != MSMoveReminder::NOTIFICATION_SEGMENT && reason != MSMoveReminder::NOTIFICATION_LANE_CHANGE) {
         veh.getRoute().addReference();
         myCurrentRouteDistribution->add(1., &veh.getRoute());
     }

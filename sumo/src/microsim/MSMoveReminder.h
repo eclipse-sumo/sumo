@@ -91,7 +91,9 @@ public:
         NOTIFICATION_DEPARTED,
         /// @brief The vehicle arrived at a junction
         NOTIFICATION_JUNCTION,
-        /// @brief The vehicle changes lanes
+        /// @brief The vehicle changes the segment (meso only)
+        NOTIFICATION_SEGMENT,
+        /// @brief The vehicle changes lanes (micro only)
         NOTIFICATION_LANE_CHANGE,
         /// @brief The vehicle is being teleported
         NOTIFICATION_TELEPORT,

@@ -43,7 +43,6 @@
 #include <utils/common/SUMOVehicle.h>
 #include <utils/common/SUMOVehicleClass.h>
 #include "MSVehicleType.h"
-#include "MSMoveReminder.h"
 #include <utils/common/SUMOAbstractRouter.h>
 
 #ifdef HAVE_MESOSIM
@@ -843,19 +842,6 @@ protected:
 
     /// @name Interaction with move reminders
     ///@{
-
-    /** @brief "Activates" all current move reminder
-     *
-     * For all move reminder stored in "myMoveReminders", their method
-     *  "MSMoveReminder::notifyEnter" is called.
-     *
-     * @param[in] reason The reason for changing the reminders' states
-     * @see MSMoveReminder
-     * @see MSMoveReminder::notifyEnter
-     * @see MSMoveReminder::Notification
-     */
-    void activateReminders(const MSMoveReminder::Notification reason) throw();
-
 
     /** @brief Adapts the vehicle's entering of a new lane
      *

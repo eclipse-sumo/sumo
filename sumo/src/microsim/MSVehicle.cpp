@@ -361,24 +361,6 @@ MSVehicle::adaptLaneEntering2MoveReminder(const MSLane &enteredLane) throw() {
 }
 
 
-void
-MSVehicle::activateReminders(const MSMoveReminder::Notification reason) throw() {
-    // This erasure-idiom works for all stl-sequence-containers
-    // See Meyers: Effective STL, Item 9
-    for (MoveReminderCont::iterator rem=myMoveReminders.begin(); rem!=myMoveReminders.end();) {
-        if (rem->first->getLane() != 0 && rem->first->getLane() != myLane) {
-            ++rem;
-        } else {
-            if (!rem->first->notifyEnter(*this, reason)) {
-                rem = myMoveReminders.erase(rem);
-            } else {
-                ++rem;
-            }
-        }
-    }
-}
-
-
 // ------------ Other getter methods
 Position2D
 MSVehicle::getPosition() const throw() {
@@ -1263,10 +1245,10 @@ MSVehicle::enterLaneAtInsertion(MSLane* enteredLane, SUMOReal pos, SUMOReal spee
 void
 MSVehicle::leaveLane(const MSMoveReminder::Notification reason) {
     for (MoveReminderCont::iterator rem=myMoveReminders.begin(); rem!=myMoveReminders.end();) {
-        if (!rem->first->notifyLeave(*this, myState.myPos + rem->second, reason)) {
-            rem = myMoveReminders.erase(rem);
-        } else {
+        if (rem->first->notifyLeave(*this, myState.myPos + rem->second, reason)) {
             ++rem;
+        } else {
+            rem = myMoveReminders.erase(rem);
         }
     }
     if (reason != MSMoveReminder::NOTIFICATION_JUNCTION) {
