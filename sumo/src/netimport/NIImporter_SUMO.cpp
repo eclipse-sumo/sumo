@@ -179,8 +179,9 @@ NIImporter_SUMO::_loadNetwork(const OptionsCont &oc) {
             SUMOVehicleClasses disallowed;
             parseVehicleClasses(lane->allow, lane->disallow, allowed, disallowed);
             nbe->setVehicleClasses(allowed, disallowed, fromLaneIndex);
-            // width
+            // width, offset
             nbe->setWidth(fromLaneIndex, lane->width);
+            nbe->setOffset(fromLaneIndex, lane->offset);
         }
     }
     if (mySuspectKeepShape) {

@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on Fri May 20 15:08:09 2011 by SUMO netconvert Version dev-SVN-r10411
+<!-- generated on Mon May 23 10:35:06 2011 by SUMO netconvert Version dev-SVN-r10419
 <?xml version="1.0" encoding="iso-8859-1"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
@@ -51,7 +51,7 @@
    </edge>
    <edge id="reverse_edge" from="node_left" to="node_right" priority="-1">
       <lane id="reverse_edge_0" depart="1" maxspeed="13.90" length="40.00" width="4.00" shape="0.00,-8.25 40.00,-8.25"/>
-      <lane id="reverse_edge_1" depart="0" maxspeed="13.90" length="40.00" shape="0.00,-4.95 40.00,-4.95"/>
+      <lane id="reverse_edge_1" depart="0" maxspeed="13.90" length="40.00" offset="3.00" shape="0.00,-4.95 40.00,-4.95"/>
       <lane id="reverse_edge_2" depart="0" maxspeed="13.90" length="40.00" shape="0.00,-1.65 40.00,-1.65"/>
    </edge>
 
