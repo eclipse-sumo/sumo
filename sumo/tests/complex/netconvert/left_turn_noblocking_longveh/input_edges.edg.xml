@@ -1,0 +1,10 @@
+<edges>
+   <edge id="edge_L2C" fromnode="node_L" tonode="node_C"/>
+   <edge id="edge_C2L" fromnode="node_C" tonode="node_L"/>
+   <edge id="edge_R2C" fromnode="node_R" tonode="node_C"/>
+   <edge id="edge_C2R" fromnode="node_C" tonode="node_R"/>
+   <edge id="edge_U2C" fromnode="node_U" tonode="node_C"/>
+   <edge id="edge_C2U" fromnode="node_C" tonode="node_U"/>
+   <edge id="edge_D2C" fromnode="node_D" tonode="node_C"/>
+   <edge id="edge_C2D" fromnode="node_C" tonode="node_D"/>
+</edges>

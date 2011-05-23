@@ -1,0 +1,12 @@
+<routes>
+    <vtype accel="3.0" decel="6.0" id="longveh" length="8.0" maxspeed="45.0" sigma="0.5" guiShape="transport/trailer" color="1.0,0.0,0.0"/>
+
+    <vehicle id="veh0" depart="0" type="longveh" departpos="0" arrivalpos="-1">
+        <route edges="edge_D2C edge_C2C2 edge_C22L"/>
+    </vehicle>
+
+    <vehicle id="veh1" depart="0" type="longveh" departpos="0" arrivalpos="-1">
+        <route edges="edge_U2C2 edge_C22C edge_C2R"/>
+    </vehicle>
+</routes>
+

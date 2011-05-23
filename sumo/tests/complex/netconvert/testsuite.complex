@@ -1,0 +1,7 @@
+# left turning long vehicles should never block other left turning vehicles (see #384)
+# 
+# 
+left_turn_noblocking_longveh
+
+# left turning vehicles should not block other left turning vehicles on double-intersections where the in-between lanes are very short
+left_turn_noblocking_double_intersection

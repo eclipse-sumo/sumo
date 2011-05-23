@@ -1,0 +1,10 @@
+<nodes>
+   <node id="node_C" x="0.0"   y="0.0"/>
+   <node id="node_C2" x="0.0"   y="10.0"/>
+   <node id="node_L" x="-40.0" y="0.0"/>
+   <node id="node_R" x="40.0"  y="0.0"/>
+   <node id="node_L2" x="-40.0" y="10.0"/>
+   <node id="node_R2" x="40.0"  y="10.0"/>
+   <node id="node_U" x="0.0"   y="50.0"/>
+   <node id="node_D" x="0.0"   y="-40.0"/>
+</nodes>
