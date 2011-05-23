@@ -17,6 +17,7 @@ laneID = "2fi_0"
 print "examining", laneID
 print "length", traci.lane.getLength(laneID)
 print "maxSpeed", traci.lane.getMaxSpeed(laneID)
+print "width", traci.lane.getWidth(laneID)
 print "allowed", traci.lane.getAllowed(laneID)
 print "disallowed", traci.lane.getDisallowed(laneID)
 print "linkNum", traci.lane.getLinkNumber(laneID)
