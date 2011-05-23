@@ -589,10 +589,8 @@ NBNode::writeXMLInternalLinks(OutputDevice &into) {
                 Position2D beg = (*i)->getLaneShape(j).getEnd();
 
                 Position2DVector shape = computeInternalLaneShape(*i, j, (*k).toEdge, (*k).toLane);
-                if (shape.size()==1) {
-                    shape.push_back(shape[0]);
-                }
-                SUMOReal length = MAX2(shape.length(), (SUMOReal) .1);
+                assert(shape.size() >= 2);
+                SUMOReal length = MAX2(shape.length(), POSITION_EPS);
 
                 // get internal splits if any
                 std::pair<SUMOReal, std::vector<unsigned int> > cross = getCrossingPosition(*i, j, (*k).toEdge, (*k).toLane);
@@ -601,7 +599,7 @@ NBNode::writeXMLInternalLinks(OutputDevice &into) {
                     // as usual, a problem...
                     //  if the one edge starts exactly where the other one ends (think of a
                     //  turnaround edges lying over the other one) we have a shape with length=0
-                    if (shape.length()!=0) {
+                    if (shape.length() > POSITION_EPS) {
                         split = shape.splitAt(cross.first);
                     } else {
                         split = std::pair<Position2DVector, Position2DVector>(shape, shape);
@@ -664,7 +662,7 @@ NBNode::computeInternalLaneShape(NBEdge *fromE, int fromL,
     Position2D end = toE->getLaneShape(toL).getBegin();
     Position2D intersection;
     unsigned int noInitialPoints = 0;
-    if (beg==end) {
+    if (beg.distanceTo(end) <= POSITION_EPS) {
         noSpline = true;
     } else {
         if (fromE->getTurnDestination()==toE) {
