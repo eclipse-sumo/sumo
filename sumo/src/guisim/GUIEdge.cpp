@@ -223,7 +223,7 @@ GUIEdge::drawGL(const GUIVisualizationSettings &s) const throw() {
         glTranslated(0, 0, .02);
         glColor3d(1,1,1);
         for (LaneWrapperVector::const_iterator i=myLaneGeoms.begin(); i!=myLaneGeoms.end(); ++i) {
-            GLHelper::drawBoxLines((*i)->getShape(), (*i)->getShapeRotations(), (*i)->getShapeLengths(), SUMO_const_halfLaneAndOffset);
+            GLHelper::drawBoxLines((*i)->getShape(), (*i)->getShapeRotations(), (*i)->getShapeLengths(), (*i)->getHalfWidth()+SUMO_const_laneOffset);
         }
         glTranslated(0, 0, -.02);
     }

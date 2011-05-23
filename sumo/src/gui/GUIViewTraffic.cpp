@@ -163,8 +163,6 @@ GUIViewTraffic::doPaintGL(int mode, const Boundary& bound) {
     glDisable(GL_BLEND);
     glEnable(GL_DEPTH_TEST);
 
-    // compute lane width
-    SUMOReal lw = m2p(SUMO_const_laneWidth);
     // draw decals (if not in grabbing mode)
     if (!myUseToolTips) {
         drawDecals();
@@ -181,7 +179,7 @@ GUIViewTraffic::doPaintGL(int mode, const Boundary& bound) {
     minB[1] = bound.ymin();
     maxB[0] = bound.xmax();
     maxB[1] = bound.ymax();
-    myVisualizationSettings->scale = lw;
+    myVisualizationSettings->scale = m2p(SUMO_const_laneWidth);
     glEnable(GL_POLYGON_OFFSET_FILL);
     glEnable(GL_POLYGON_OFFSET_LINE);
     int hits2 = myGrid->Search(minB, maxB, *myVisualizationSettings);

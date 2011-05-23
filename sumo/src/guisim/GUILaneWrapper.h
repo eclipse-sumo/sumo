@@ -142,6 +142,10 @@ public:
     /// Returns the number of links
     unsigned int getLinkNumber() const;
 
+    SUMOReal getHalfWidth() const {
+        return myHalfLaneWidth;
+    }
+
 
     /// @name Current state retrieval
     //@{
@@ -211,6 +215,12 @@ protected:
 
     /// The lengths of the shape parts
     DoubleVector myShapeLengths;
+
+    /// @brief Half of lane width, for speed-up
+    SUMOReal myHalfLaneWidth;
+
+    /// @brief Quarter of lane width, for speed-up
+    SUMOReal myQuarterLaneWidth;
 
     /// The maximum velocity over all lanes
     static SUMOReal myAllMaxSpeed;

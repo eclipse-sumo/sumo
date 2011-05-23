@@ -79,7 +79,6 @@ GUILaneWrapper::GUILaneWrapper(MSLane &lane, const Position2DVector &shape) thro
     SUMOReal y1 = shape[0].y();
     SUMOReal x2 = shape[-1].x();
     SUMOReal y2 = shape[-1].y();
-    SUMOReal length = myLane.getLength();
     // also the virtual length is set in here
     myVisLength = sqrt((x1-x2)*(x1-x2) + (y1-y2)*(y1-y2));
     // check maximum speed
@@ -96,6 +95,9 @@ GUILaneWrapper::GUILaneWrapper(MSLane &lane, const Position2DVector &shape) thro
         myShapeLengths.push_back(f.distanceTo(s));
         myShapeRotations.push_back((SUMOReal) atan2((s.x()-f.x()), (f.y()-s.y()))*(SUMOReal) 180.0/(SUMOReal) PI);
     }
+    //
+    myHalfLaneWidth = (SUMOReal) (myLane.getWidth() / 2.);
+    myQuarterLaneWidth = (SUMOReal) (myLane.getWidth() / 4.);
 }
 
 
@@ -123,8 +125,8 @@ GUILaneWrapper::ROWdrawAction_drawLinkNo() const {
     }
 
     // draw all links
-    SUMOReal w = SUMO_const_laneWidth / (SUMOReal) noLinks;
-    SUMOReal x1 = SUMO_const_laneWidth / (SUMOReal) 2.;
+    SUMOReal w = myLane.getWidth() / (SUMOReal) noLinks;
+    SUMOReal x1 = myLane.getWidth() / (SUMOReal) 2.;
     glPushMatrix();
     glColor3d(.5, .5, 1);
     const Position2DVector &g = getShape();
@@ -160,8 +162,8 @@ GUILaneWrapper::ROWdrawAction_drawTLSLinkNo(const GUINet &net) const {
     }
 
     // draw all links
-    SUMOReal w = SUMO_const_laneWidth / (SUMOReal) noLinks;
-    SUMOReal x1 = (SUMOReal)(SUMO_const_laneWidth / 2.);
+    SUMOReal w = myLane.getWidth() / (SUMOReal) noLinks;
+    SUMOReal x1 = (SUMOReal)(myLane.getWidth() / 2.);
     glPushMatrix();
     glColor3d(.5, .5, 1);
     const Position2DVector &g = getShape();
@@ -208,17 +210,17 @@ GUILaneWrapper::ROWdrawAction_drawLinkRules(const GUINet &net) const {
         glTranslated(end.x(), end.y(), 0);
         glRotated(rot, 0, 0, 1);
         glBegin(GL_QUADS);
-        glVertex2d(-SUMO_const_halfLaneWidth, 0.0);
-        glVertex2d(-SUMO_const_halfLaneWidth, 0.5);
-        glVertex2d(SUMO_const_halfLaneWidth, 0.5);
-        glVertex2d(SUMO_const_halfLaneWidth, 0.0);
+        glVertex2d(-myHalfLaneWidth, 0.0);
+        glVertex2d(-myHalfLaneWidth, 0.5);
+        glVertex2d(myHalfLaneWidth, 0.5);
+        glVertex2d(myHalfLaneWidth, 0.0);
         glEnd();
         glPopMatrix();
         glPopName();
         return;
     }
     // draw all links
-    SUMOReal w = SUMO_const_laneWidth / (SUMOReal) noLinks;
+    SUMOReal w = myLane.getWidth() / (SUMOReal) noLinks;
     SUMOReal x1 = 0;
     glPushMatrix();
     glTranslated(end.x(), end.y(), 0);
@@ -275,10 +277,10 @@ GUILaneWrapper::ROWdrawAction_drawLinkRules(const GUINet &net) const {
             break;
         }
         glBegin(GL_QUADS);
-        glVertex2d(x1-SUMO_const_halfLaneWidth, 0.0);
-        glVertex2d(x1-SUMO_const_halfLaneWidth, 0.5);
-        glVertex2d(x2-SUMO_const_halfLaneWidth, 0.5);
-        glVertex2d(x2-SUMO_const_halfLaneWidth,0.0);
+        glVertex2d(x1-myHalfLaneWidth, 0.0);
+        glVertex2d(x1-myHalfLaneWidth, 0.5);
+        glVertex2d(x2-myHalfLaneWidth, 0.5);
+        glVertex2d(x2-myHalfLaneWidth,0.0);
         glEnd();
         glPopName();
         x1 = x2;
@@ -419,9 +421,9 @@ GUILaneWrapper::drawGL(const GUIVisualizationSettings &s) const throw() {
         glPopName();
     } else {
         if (getLane().getEdge().getPurpose()!=MSEdge::EDGEFUNCTION_INTERNAL) {
-            GLHelper::drawBoxLines(myShape, myShapeRotations, myShapeLengths, SUMO_const_halfLaneWidth);
+            GLHelper::drawBoxLines(myShape, myShapeRotations, myShapeLengths, myHalfLaneWidth);
         } else {
-            GLHelper::drawBoxLines(myShape, myShapeRotations, myShapeLengths, SUMO_const_quarterLaneWidth);
+            GLHelper::drawBoxLines(myShape, myShapeRotations, myShapeLengths, myQuarterLaneWidth);
         }
         glPopName();
         // draw ROWs (not for inner lanes)

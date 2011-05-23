@@ -259,7 +259,7 @@ GUITrafficLightLogicWrapper::drawGL(const GUIVisualizationSettings& s) const thr
                     glColor3d(0,1,0);
                     Position2D pos = (*it_lane)->getShape().getEnd();
                     glTranslated(pos.x(), pos.y(), GLO_MAX);
-                    GLHelper::drawFilledCircle(SUMO_const_halfLaneWidth);
+                    GLHelper::drawFilledCircle((*it_lane)->getWidth() / 2.);
                     glPopMatrix();
                 }
             }

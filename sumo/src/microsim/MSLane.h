@@ -359,6 +359,14 @@ public:
     const SUMOVehicleClasses &getNotAllowedClasses() const throw() {
         return myNotAllowedClasses;
     }
+
+
+    /** @brief Returns the lane's width
+     * @return This lane's width
+     */
+    SUMOReal getWidth() const throw() {
+        return myWidth;
+    }
     /// @}
 
 
