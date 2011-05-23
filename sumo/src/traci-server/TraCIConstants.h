@@ -416,7 +416,7 @@
 // offset (brake gap) (get: vehicle types)
 #define VAR_GUIOFFSET 0x4c
 
-// width (get: vehicle types)
+// width (get: vehicle types, lanes)
 #define VAR_WIDTH 0x4d
 
 // shape (get: polygons)

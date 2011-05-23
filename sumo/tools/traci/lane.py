@@ -41,6 +41,7 @@ def _readLinks(result):
 RETURN_VALUE_FUNC = {tc.ID_LIST:                   traci.Storage.readStringList,
                      tc.VAR_LENGTH:                traci.Storage.readDouble,
                      tc.VAR_MAXSPEED:              traci.Storage.readDouble,
+                     tc.VAR_WIDTH:                 traci.Storage.readDouble,
                      tc.LANE_ALLOWED:              traci.Storage.readStringList,
                      tc.LANE_DISALLOWED:           traci.Storage.readStringList,
                      tc.LANE_LINK_NUMBER:          lambda(result): result.read("!B")[0],
@@ -75,6 +76,9 @@ def getLength(laneID):
 
 def getMaxSpeed(laneID):
     return _getUniversal(tc.VAR_MAXSPEED, laneID)
+
+def getWidth(laneID):
+    return _getUniversal(tc.VAR_WIDTH, laneID)
 
 def getAllowed(laneID):
     return _getUniversal(tc.LANE_ALLOWED, laneID)
