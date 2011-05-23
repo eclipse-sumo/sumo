@@ -90,7 +90,7 @@ load(OptionsCont &oc) {
                            new MSEventControl(), new MSEventControl());
     NLEdgeControlBuilder eb;
     NLDetectorBuilder db(*net);
-    NLJunctionControlBuilder jb(*net, db, oc);
+    NLJunctionControlBuilder jb(*net, db);
     NLTriggerBuilder tb;
     NLHandler handler("", *net, db, tb, eb, jb);
     tb.setHandler(&handler);

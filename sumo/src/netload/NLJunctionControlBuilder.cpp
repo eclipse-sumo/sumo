@@ -59,8 +59,7 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-NLJunctionControlBuilder::NLJunctionControlBuilder(MSNet &net,
-        NLDetectorBuilder &db, const OptionsCont &oc) throw()
+NLJunctionControlBuilder::NLJunctionControlBuilder(MSNet &net, NLDetectorBuilder &db) throw()
         : myNet(net), myDetectorBuilder(db), myOffset(0), myJunctions(0) {
     myLogicControl = new MSTLLogicControl();
     myJunctions = new MSJunctionControl();

@@ -75,9 +75,8 @@ public:
      *  options. Builds a MSTLLogicControl instance for myLogicControl.
      * @param[in] net The network to fill
      * @param[in] db The detector builder to use
-     * @param[in] oc The options to use
      */
-    NLJunctionControlBuilder(MSNet &net, NLDetectorBuilder &db, const OptionsCont &oc) throw();
+    NLJunctionControlBuilder(MSNet &net, NLDetectorBuilder &db) throw();
 
 
     /** @brief Destructor
