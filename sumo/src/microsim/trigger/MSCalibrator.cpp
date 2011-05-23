@@ -534,11 +534,6 @@ MSCalibrator::updateCalibrator(std::string name, int time, SUMOReal count) {
 
     calibrator->myInterval = time;
     calibrator->myNumVehicles = count;
-
-    //DOME
-    int i=0;
-
-
 }
 
 

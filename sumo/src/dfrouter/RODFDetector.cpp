@@ -152,7 +152,7 @@ RODFDetector::buildDestinationDistribution(const RODFDetectorCon &detectors,
         return;
     }
     std::vector<RODFRouteDesc> &descs = myRoutes->get();
-    const std::vector<FlowDef> &mflows = flows.getFlowDefs(myID);
+//    const std::vector<FlowDef> &mflows = flows.getFlowDefs(myID);
     // iterate through time (in output interval steps)
     for (SUMOTime time=startTime; time<endTime; time+=stepOffset) {
         into[time] = new RandomDistributor<size_t>();
@@ -637,8 +637,8 @@ RODFDetectorCon::getAggFlowFor(const ROEdge *edge, SUMOTime time, SUMOTime perio
     if (edge==0) {
         return 0;
     }
-    SUMOReal stepOffset = 60; // !!!
-    SUMOReal startTime = 0; // !!!
+//    SUMOReal stepOffset = 60; // !!!
+//    SUMOReal startTime = 0; // !!!
 //    cout << edge->getID() << endl;
     assert(myDetectorEdgeMap.find(edge->getID())!=myDetectorEdgeMap.end());
     const std::vector<FlowDef> &flows = static_cast<const RODFEdge*>(edge)->getFlows();
@@ -669,7 +669,7 @@ RODFDetectorCon::getAggFlowFor(const ROEdge *edge, SUMOTime time, SUMOTime perio
         return (int) agg;
     }
     */
-    return -1;
+//    return -1;
 }
 
 

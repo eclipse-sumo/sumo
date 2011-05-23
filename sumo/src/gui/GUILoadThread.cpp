@@ -138,7 +138,7 @@ GUILoadThread::run() {
 #endif
     GUIEdgeControlBuilder *eb = new GUIEdgeControlBuilder();
     GUIDetectorBuilder db(*net);
-    NLJunctionControlBuilder jb(*net, db, oc);
+    NLJunctionControlBuilder jb(*net, db);
     GUITriggerBuilder tb;
     NLHandler handler("", *net, db, tb, *eb, jb);
     tb.setHandler(&handler);
