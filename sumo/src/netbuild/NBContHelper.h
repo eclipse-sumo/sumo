@@ -54,12 +54,12 @@ class NBContHelper {
 public:
     /** Moves the given iterator clockwise within the given container
         of edges sorted clockwise */
-    static void nextCW(const EdgeVector * edges,
+    static void nextCW(const EdgeVector &edges,
                        EdgeVector::const_iterator &from);
 
     /** Moves the given iterator counter clockwise within the given container
         of edges sorted clockwise */
-    static void nextCCW(const EdgeVector * edges,
+    static void nextCCW(const EdgeVector &edges,
                         EdgeVector::const_iterator &from);
 
     static SUMOReal getMaxSpeed(const EdgeVector &edges);

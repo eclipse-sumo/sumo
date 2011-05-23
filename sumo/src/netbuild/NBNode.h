@@ -163,7 +163,7 @@ public:
      * @return The edges which yield in this node
      */
     const EdgeVector &getIncomingEdges() const throw() {
-        return *myIncomingEdges;
+        return myIncomingEdges;
     }
 
 
@@ -171,7 +171,7 @@ public:
      * @return The edges which start at this node
      */
     const EdgeVector &getOutgoingEdges() const throw() {
-        return *myOutgoingEdges;
+        return myOutgoingEdges;
     }
 
 
@@ -465,17 +465,17 @@ private:
     Position2DVector computeInternalLaneShape(NBEdge *fromE,
             int fromL, NBEdge *toE, int toL);
 
-    void writeinternal(EdgeVector *myIncomingEdges, OutputDevice &into, const std::string &id);
+    void writeinternal(OutputDevice &into, const std::string &id);
 
 private:
     /// @brief The position the node lies at
     Position2D myPosition;
 
     /// @brief Vector of incoming edges
-    EdgeVector *myIncomingEdges;
+    EdgeVector myIncomingEdges;
 
     /// @brief Vector of outgoing edges
-    EdgeVector *myOutgoingEdges;
+    EdgeVector myOutgoingEdges;
 
     /// @brief Vector of incoming and outgoing edges
     EdgeVector myAllEdges;

@@ -67,9 +67,10 @@ public:
         describe the junctions. These parameter must not be changed during the
         logic's building */
     NBRequest(const NBEdgeCont &ec,
-              NBNode *junction, const EdgeVector * const all,
-              const EdgeVector * const incoming,
-              const EdgeVector * const outgoing,
+              NBNode *junction, 
+              const EdgeVector &all,
+              const EdgeVector &incoming,
+              const EdgeVector &outgoing,
               const NBConnectionProhibits &loadedProhibits);
 
     /** destructor */
@@ -203,13 +204,13 @@ private:
     NBNode *myJunction;
 
     /** all (icoming and outgoing) of the junctions edges */
-    const EdgeVector * const myAll;
+    const EdgeVector &myAll;
 
     /** edges incoming to the junction */
-    const EdgeVector * const myIncoming;
+    const EdgeVector &myIncoming;
 
     /** edges outgoing from the junction */
-    const EdgeVector * const myOutgoing;
+    const EdgeVector &myOutgoing;
 
     /** definition of a container to store boolean informations about a link
         into */

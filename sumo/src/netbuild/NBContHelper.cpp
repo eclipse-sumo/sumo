@@ -45,18 +45,18 @@
  * utility methods
  * ----------------------------------------------------------------------- */
 void
-NBContHelper::nextCW(const EdgeVector * edges, EdgeVector::const_iterator &from) {
+NBContHelper::nextCW(const EdgeVector &edges, EdgeVector::const_iterator &from) {
     from++;
-    if (from==edges->end()) {
-        from = edges->begin();
+    if (from==edges.end()) {
+        from = edges.begin();
     }
 }
 
 
 void
-NBContHelper::nextCCW(const EdgeVector * edges, EdgeVector::const_iterator &from) {
-    if (from==edges->begin()) {
-        from = edges->end() - 1;
+NBContHelper::nextCCW(const EdgeVector &edges, EdgeVector::const_iterator &from) {
+    if (from==edges.begin()) {
+        from = edges.end() - 1;
     } else {
         --from;
     }
