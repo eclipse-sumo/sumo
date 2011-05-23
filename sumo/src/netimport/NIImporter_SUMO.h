@@ -201,6 +201,8 @@ private:
         std::string disallow;
         /// @brief The width of this lane
         SUMOReal width;
+        /// @brief This lane's offset from the intersection
+        SUMOReal offset;
     };
 
 

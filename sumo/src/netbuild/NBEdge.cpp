@@ -150,7 +150,8 @@ NBEdge::MainDirections::includes(Direction d) const {
  * ----------------------------------------------------------------------- */
 NBEdge::NBEdge(const std::string &id, NBNode *from, NBNode *to,
                std::string type, SUMOReal speed, unsigned int nolanes,
-               int priority, SUMOReal width, LaneSpreadFunction spread) throw(ProcessError) :
+               int priority, SUMOReal width, SUMOReal offset, 
+               LaneSpreadFunction spread) throw(ProcessError) :
     Named(StringUtils::convertUmlaute(id)),
     myStep(INIT),
     myType(StringUtils::convertUmlaute(type)),
@@ -158,7 +159,7 @@ NBEdge::NBEdge(const std::string &id, NBNode *from, NBNode *to,
     myPriority(priority), mySpeed(speed),
     myTurnDestination(0),
     myFromJunctionPriority(-1), myToJunctionPriority(-1),
-    myLaneSpreadFunction(spread), myOffset(0), myWidth(width),
+    myLaneSpreadFunction(spread), myOffset(offset), myWidth(width),
     myLoadedLength(-1), myAmLeftHand(false), myAmTurningWithAngle(0), myAmTurningOf(0),
     myAmInnerEdge(false), myAmMacroscopicConnector(false) 
 {
@@ -168,7 +169,8 @@ NBEdge::NBEdge(const std::string &id, NBNode *from, NBNode *to,
 
 NBEdge::NBEdge(const std::string &id, NBNode *from, NBNode *to,
                std::string type, SUMOReal speed, unsigned int nolanes,
-               int priority, SUMOReal width, Position2DVector geom,
+               int priority, SUMOReal width, SUMOReal offset, 
+               Position2DVector geom,
                LaneSpreadFunction spread, bool tryIgnoreNodePositions) throw(ProcessError) :
     Named(StringUtils::convertUmlaute(id)),
     myStep(INIT),
@@ -177,7 +179,7 @@ NBEdge::NBEdge(const std::string &id, NBNode *from, NBNode *to,
     myPriority(priority), mySpeed(speed),
     myTurnDestination(0),
     myFromJunctionPriority(-1), myToJunctionPriority(-1),
-    myGeom(geom), myLaneSpreadFunction(spread), myOffset(0), myWidth(width),
+    myGeom(geom), myLaneSpreadFunction(spread), myOffset(offset), myWidth(width),
     myLoadedLength(-1), myAmLeftHand(false), myAmTurningWithAngle(0), myAmTurningOf(0),
     myAmInnerEdge(false), myAmMacroscopicConnector(false) 
 {
@@ -186,9 +188,9 @@ NBEdge::NBEdge(const std::string &id, NBNode *from, NBNode *to,
 
 
 void
-NBEdge::reinit(NBNode *from, NBNode *to, std::string type,
+NBEdge::reinit(NBNode *from, NBNode *to, const std::string &type,
                SUMOReal speed, unsigned int nolanes, int priority,
-               Position2DVector geom, SUMOReal width, LaneSpreadFunction spread) throw(ProcessError) {
+               Position2DVector geom, SUMOReal width, SUMOReal offset, LaneSpreadFunction spread) throw(ProcessError) {
     if (myFrom!=from) {
         myFrom->removeOutgoing(this);
     }
@@ -204,6 +206,7 @@ NBEdge::reinit(NBNode *from, NBNode *to, std::string type,
     //?myFromJunctionPriority(-1), myToJunctionPriority(-1),
     myGeom = geom;
     myLaneSpreadFunction = spread;
+    myOffset = offset;
     myWidth = width;
     myLoadedLength = -1;
     //?, myAmTurningWithAngle(0), myAmTurningOf(0),
@@ -1772,8 +1775,9 @@ NBEdge::splitGeometry(NBEdgeCont &ec, NBNodeCont &nc) {
             newTo->addIncomingEdge(currentEdge);
         } else {
             std::string edgename = myID + "[" + toString(i-1) + "]";
+            // @bug both width and offset are ignored
             currentEdge = new NBEdge(edgename, newFrom, newTo, myType, mySpeed, (unsigned int) myLanes.size(),
-                                     myPriority, myLaneSpreadFunction);
+                                     myPriority, -1, -1, myLaneSpreadFunction);
             if (!ec.insert(currentEdge, true)) {
                 throw ProcessError("Error on adding splitted edge '" + edgename + "'.");
             }
@@ -1845,6 +1849,21 @@ NBEdge::setWidth(int lane, SUMOReal width) {
     }
     assert(lane<(int) myLanes.size());
     myLanes[lane].width = width;
+}
+
+
+void
+NBEdge::setOffset(int lane, SUMOReal offset) {
+    if (lane<0) {
+        // if all lanes are meant...
+        for (unsigned int i=0; i<myLanes.size(); i++) {
+            // ... do it for each lane
+            setOffset((int) i, offset);
+        }
+        return;
+    }
+    assert(lane<(int) myLanes.size());
+    myLanes[lane].offset = offset;
 }
 
 

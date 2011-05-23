@@ -127,7 +127,7 @@ NIImporter_SUMO::_loadNetwork(const OptionsCont &oc) {
         }
         Position2DVector geom = approximateEdgeShape(ed);
         // build and insert the edge
-        NBEdge *e = new NBEdge(ed->id, from, to, ed->type, ed->maxSpeed, (unsigned int) ed->lanes.size(), ed->priority, -1, geom, ed->lsf);
+        NBEdge *e = new NBEdge(ed->id, from, to, ed->type, ed->maxSpeed, (unsigned int) ed->lanes.size(), ed->priority, -1, -1, geom, ed->lsf);
         if (!myNetBuilder.getEdgeCont().insert(e)) {
             MsgHandler::getErrorInstance()->inform("Could not insert edge '" + ed->id + "'.");
             delete e;
@@ -328,6 +328,7 @@ NIImporter_SUMO::addLane(const SUMOSAXAttributes &attrs) {
     myCurrentLane->allow = attrs.getOptStringReporting(SUMO_ATTR_ALLOW, id.c_str(), ok, "");
     myCurrentLane->disallow = attrs.getOptStringReporting(SUMO_ATTR_DISALLOW, id.c_str(), ok, "");
     myCurrentLane->width = attrs.getOptSUMORealReporting(SUMO_ATTR_WIDTH, id.c_str(), ok, (SUMOReal) -1);
+    myCurrentLane->offset = attrs.getOptSUMORealReporting(SUMO_ATTR_OFFSET, id.c_str(), ok, (SUMOReal) -1);
     myCurrentLane->shape = GeomConvHelper::parseShapeReporting(
             attrs.getStringReporting(SUMO_ATTR_SHAPE, id.c_str(), ok),
             attrs.getObjectType(), id.c_str(), ok, false);

@@ -179,6 +179,7 @@ public:
      * @param[in] nolanes The number of lanes this edge has
      * @param[in] priority This edge's priority
      * @param[in] width This edge's lane width
+     * @param[in] offset Additional offset to the destination node
      * @param[in] spread How the lateral offset of the lanes shall be computed
      * @see init
      * @see LaneSpreadFunction
@@ -186,7 +187,8 @@ public:
     NBEdge(const std::string &id,
            NBNode *from, NBNode *to, std::string type,
            SUMOReal speed, unsigned int nolanes, int priority,
-           SUMOReal width, LaneSpreadFunction spread=LANESPREAD_RIGHT) throw(ProcessError);
+           SUMOReal width, SUMOReal offset, 
+           LaneSpreadFunction spread=LANESPREAD_RIGHT) throw(ProcessError);
 
 
     /** @brief Constructor
@@ -201,6 +203,7 @@ public:
      * @param[in] nolanes The number of lanes this edge has
      * @param[in] priority This edge's priority
      * @param[in] width This edge's lane width
+     * @param[in] offset Additional offset to the destination node
      * @param[in] geom The edge's geomatry
      * @param[in] spread How the lateral offset of the lanes shall be computed
      * @param[in] tryIgnoreNodePositions Does not add node geometries if geom.size()>=2
@@ -210,7 +213,8 @@ public:
     NBEdge(const std::string &id,
            NBNode *from, NBNode *to, std::string type,
            SUMOReal speed, unsigned int nolanes, int priority,
-           SUMOReal width, Position2DVector geom, 
+           SUMOReal width, SUMOReal offset, 
+           Position2DVector geom, 
            LaneSpreadFunction spread=LANESPREAD_RIGHT,
            bool tryIgnoreNodePositions=false) throw(ProcessError);
 
@@ -221,12 +225,21 @@ public:
 
 
     /** @brief Resets initial values
-     * @param[in] position The position of the node
-     * @param[in] type The type of the node
+     *
+     * @param[in] from The node the edge starts at
+     * @param[in] to The node the edge ends at
+     * @param[in] type The type of the edge (may be =="")
+     * @param[in] speed The maximum velocity allowed on this edge
+     * @param[in] nolanes The number of lanes this edge has
+     * @param[in] priority This edge's priority
+     * @param[in] geom The edge's geomatry
+     * @param[in] width This edge's lane width
+     * @param[in] offset Additional offset to the destination node
+     * @param[in] spread How the lateral offset of the lanes shall be computed
      */
-    void reinit(NBNode *from, NBNode *to, std::string type,
+    void reinit(NBNode *from, NBNode *to, const std::string &type,
                 SUMOReal speed, unsigned int nolanes, int priority,
-                Position2DVector geom, SUMOReal width,
+                Position2DVector geom, SUMOReal width, SUMOReal offset,
                 LaneSpreadFunction spread=LANESPREAD_RIGHT) throw(ProcessError);
 
 
@@ -324,6 +337,14 @@ public:
      */
     SUMOReal getWidth() const throw() {
         return myWidth;
+    }
+
+
+    /** @brief Returns the offset to the destination node
+     * @return The offset to the destination node
+     */
+    SUMOReal getOffset() const throw() {
+        return myOffset;
     }
     //@}
 
@@ -727,6 +748,7 @@ public:
     void preferVehicleClass(int lane, SUMOVehicleClass vclass);
 
     void setWidth(int lane, SUMOReal width);
+    void setOffset(int lane, SUMOReal offset);
 
     /// @brief get the union of allowed classes over all lanes
     SUMOVehicleClasses getAllowedVehicleClasses() const;

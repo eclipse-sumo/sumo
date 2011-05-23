@@ -221,7 +221,7 @@ NGNet::toNB() const throw(ProcessError) {
             if (node->getConnectionTo((*j)->getFromNode())==0 && RandHelper::rand()<=bidiProb) {
                 NBEdge *back = new NBEdge("-" + (*j)->getID(), node, (*j)->getFromNode(),
                                           "", myNetBuilder.getTypeCont().getSpeed(""), myNetBuilder.getTypeCont().getNoLanes(""),
-                                          myNetBuilder.getTypeCont().getPriority(""), myNetBuilder.getTypeCont().getWidth(""));
+                                          myNetBuilder.getTypeCont().getPriority(""), myNetBuilder.getTypeCont().getWidth(""), -1);
                 myNetBuilder.getEdgeCont().insert(back);
             }
         }
