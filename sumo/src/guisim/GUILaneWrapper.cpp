@@ -351,8 +351,6 @@ GUILaneWrapper::ROWdrawAction_drawArrows() const {
 
 void
 GUILaneWrapper::ROWdrawAction_drawLane2LaneConnections() const {
-    glPushMatrix();
-    glTranslated(0, 0, GLO_JUNCTION); // must draw on top of junction shape
     unsigned int noLinks = getLinkNumber();
     for (unsigned int i=0; i<noLinks; ++i) {
         MSLink::LinkState state = getLane().getLinkCont()[i]->getState();
@@ -400,14 +398,19 @@ GUILaneWrapper::ROWdrawAction_drawLane2LaneConnections() const {
         glEnd();
         GLHelper::drawTriangleAtEnd(Line2D(p1, p2), (SUMOReal) .4, (SUMOReal) .2);
     }
-    glPopMatrix();
 }
 
 
 void
 GUILaneWrapper::drawGL(const GUIVisualizationSettings &s) const throw() {
     glPushMatrix();
-    glTranslated(0, 0, getType());
+    const bool isInternal = getLane().getEdge().getPurpose()==MSEdge::EDGEFUNCTION_INTERNAL;
+    if (isInternal) {
+        // draw internal lanes on top of junctions
+        glTranslated(0, 0, GLO_JUNCTION + 0.1);
+    } else {
+        glTranslated(0, 0, getType());
+    }
     // set lane color
 #ifdef HAVE_MESOSIM
     if (!MSGlobals::gUseMesoSim)
@@ -419,15 +422,19 @@ GUILaneWrapper::drawGL(const GUIVisualizationSettings &s) const throw() {
     if (s.scale<1.) {
         GLHelper::drawLine(myShape);
         glPopName();
+        glPopMatrix();
     } else {
-        if (getLane().getEdge().getPurpose()!=MSEdge::EDGEFUNCTION_INTERNAL) {
+        if (!isInternal) {
             GLHelper::drawBoxLines(myShape, myShapeRotations, myShapeLengths, myHalfLaneWidth);
         } else {
             GLHelper::drawBoxLines(myShape, myShapeRotations, myShapeLengths, myQuarterLaneWidth);
         }
         glPopName();
+        glPopMatrix();
         // draw ROWs (not for inner lanes)
-        if (getLane().getEdge().getPurpose()!=MSEdge::EDGEFUNCTION_INTERNAL) {// !!! getPurpose()
+        if (!isInternal) {
+            glPushMatrix();
+            glTranslated(0, 0, GLO_JUNCTION); // must draw on top of junction shape
             GUINet *net = (GUINet*) MSNet::getInstance();
             glTranslated(0, 0, .1);
             ROWdrawAction_drawLinkRules(*net);
@@ -446,9 +453,9 @@ GUILaneWrapper::drawGL(const GUIVisualizationSettings &s) const throw() {
             if (s.drawLinkTLIndex) {
                 ROWdrawAction_drawTLSLinkNo(*net);
             }
+            glPopMatrix();
         }
     }
-    glPopMatrix();
     // draw vehicles
     if (s.scale>s.minVehicleSize) {
         // retrieve vehicles from lane; disallow simulation
