@@ -117,7 +117,21 @@ NWWriter_XML::writeNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
             edevice << "/>\n";
         } else {
             edevice << ">\n";
-            e->writeLanesPlain(edevice);
+            for (unsigned int i=0; i<e->getLanes().size(); ++i) {
+                edevice << "      <lane id=\"" << i << "\"";
+                const NBEdge::Lane &lane = e->getLanes()[i];
+                // write allowed lanes
+                if (lane.allowed.size()!=0) {
+                    edevice << " allow=\"" << getVehicleClassNames(lane.allowed) << '\"';
+                }
+                if (lane.notAllowed.size()!=0) {
+                    edevice << " disallow=\"" << getVehicleClassNames(lane.notAllowed) << '\"';
+                }
+                if (lane.preferred.size()!=0) {
+                    edevice << " prefer=\"" << getVehicleClassNames(lane.preferred) << '\"';
+                }
+                edevice << "/>\n";
+            }
             edevice << "   </edge>\n";
         }
         // write this edge's connections to the connections-files

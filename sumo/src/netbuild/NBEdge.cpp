@@ -740,26 +740,6 @@ NBEdge::hasRestrictions() const {
 }
 
 
-void
-NBEdge::writeLanesPlain(OutputDevice &into) {
-    for (unsigned int i=0; i<myLanes.size(); ++i) {
-        into << "      <lane id=\"" << i << "\"";
-        const Lane &lane = myLanes[i];
-        // write allowed lanes
-        if (lane.allowed.size()!=0) {
-            into << " allow=\"" << getVehicleClassNames(lane.allowed) << '\"';
-        }
-        if (lane.notAllowed.size()!=0) {
-            into << " disallow=\"" << getVehicleClassNames(lane.notAllowed) << '\"';
-        }
-        if (lane.preferred.size()!=0) {
-            into << " prefer=\"" << getVehicleClassNames(lane.preferred) << '\"';
-        }
-        into << "/>\n";
-    }
-}
-
-
 bool
 NBEdge::computeEdge2Edges() {
     // return if this relationship has been build in previous steps or

@@ -609,7 +609,6 @@ public:
 
 
     bool hasRestrictions() const;
-    void writeLanesPlain(OutputDevice &into);
     void setLoadedLength(SUMOReal val);
     void dismissVehicleClassInformation();
 
