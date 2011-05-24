@@ -105,12 +105,9 @@ int main(int argc, char *argv[]) {
 
         // Load network
         net = new RONet();
-        RODUAEdgeBuilder builder(oc.getBool("expand-weights"), oc.getBool("interpolate"));
+        RODUAEdgeBuilder builder(oc.getBool("weights.expand"), oc.getBool("weights.interpolate"));
         loadNet(*net, builder);
-        MsgHandler::getMessageInstance()->inform("Loaded " + toString(
-                    net->getEdgeNo()) + " edges.");
-
-
+        MsgHandler::getMessageInstance()->inform("Loaded " + toString(net->getEdgeNo()) + " edges.");
         if (oc.getBool("debug")) {
             MsgHandler::getMessageInstance()->inform("\n\t ---- begin AcitivtyGen ----\n");
         }

@@ -1,4 +1,4 @@
-SUMO activitygen Version dev-SVN-r10355
+SUMO activitygen Version dev-SVN-r10428
  Copyright (C) 2001-2011 DLR and contributors; http://sumo.sourceforge.net
  Copyright (C) 2010-2011 Technische Universitaet Muenchen
  
@@ -28,9 +28,9 @@ Usage: activitygen [OPTION]*
   -o, --output FILE                Write generated routes to FILE
 
  Processing Options:
-  --interpolate                    Interpolate edge weights at interval
+  --weights.interpolate            Interpolate edge weights at interval
                                      boundaries
-  --expand-weights                 Expand weights behind the simulation's end
+  --weights.expand                 Expand weights behind the simulation's end
 
  Time Options:
   -b, --begin INT                  Sets the time of beginning of the simulation
