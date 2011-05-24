@@ -102,6 +102,30 @@ public:
     bool remove(const std::string &id) throw();
 
 
+    /** @brief Returns the pointer to the begin of the stored logics
+     * @return The iterator to the beginning of stored logics
+     */
+    std::map<std::string, NBTrafficLightLogic*>::const_iterator begin() const {
+        return myComputed.begin();
+    }
+
+
+    /** @brief Returns the pointer to the end of the stored logics
+     * @return The iterator to the end of stored logics
+     */
+    std::map<std::string, NBTrafficLightLogic*>::const_iterator end() const {
+        return myComputed.end();
+    }
+
+
+    /** @brief Returns the number of stored logics
+     * @return The number of stored logics
+     */
+    size_t size() const {
+        return myComputed.size();
+    }
+
+
     /** @brief Computes the traffic light logics using the stored definitions and stores the results
      *
      * Goes through all stored definitions and calls "NBTrafficLightDefinition::compute"
@@ -112,17 +136,6 @@ public:
      * @see NBTrafficLightDefinition::compute
      */
     void computeLogics(NBEdgeCont &ec, OptionsCont &oc) throw();
-
-
-    /** @brief Saves all known logics into the given stream
-     *
-     * Calls "writeXML" for each of the stored NBTrafficLightLogics.
-     *
-     * @param[in] into The stream to write the logics into
-     * @exception IOError (not yet implemented)
-     * @see NBTrafficLightLogic::writeXML
-     */
-    void writeXML(OutputDevice &into) throw(IOError);
 
 
     /** @brief Destroys all stored definitions and logics

@@ -64,18 +64,6 @@ NBTrafficLightLogic::addStep(SUMOTime duration, const std::string &state) throw(
 }
 
 
-void
-NBTrafficLightLogic::writeXML(OutputDevice &into) const throw() {
-    into << "   <tl-logic id=\"" << getID() << "\" type=\"static\""
-    << " programID=\"" << mySubID << "\" offset=\"" << myOffset << "\">\n";
-    // write the phases
-    for (PhaseDefinitionVector::const_iterator i=myPhases.begin(); i!=myPhases.end(); i++) {
-        into << "      <phase duration=\"" << (*i).duration << "\" state=\"" << (*i).state << "\"/>\n";
-    }
-    into << "   </tl-logic>\n";
-}
-
-
 SUMOTime
 NBTrafficLightLogic::getDuration() const throw() {
     SUMOTime duration = 0;

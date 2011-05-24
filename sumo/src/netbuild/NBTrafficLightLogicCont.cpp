@@ -122,17 +122,6 @@ NBTrafficLightLogicCont::computeLogics(NBEdgeCont &ec, OptionsCont &oc) throw() 
 
 
 void
-NBTrafficLightLogicCont::writeXML(OutputDevice &into) throw(IOError) {
-    for (ComputedContType::iterator i=myComputed.begin(); i!=myComputed.end(); i++) {
-        (*i).second->writeXML(into);
-    }
-    if (myComputed.size()!=0) {
-        into << "\n";
-    }
-}
-
-
-void
 NBTrafficLightLogicCont::clear() throw() {
     for (ComputedContType::iterator i=myComputed.begin(); i!=myComputed.end(); ++i) {
         delete(*i).second;

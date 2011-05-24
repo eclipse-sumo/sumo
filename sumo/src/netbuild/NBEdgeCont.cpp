@@ -663,26 +663,6 @@ NBEdgeCont::recheckLaneSpread() throw() {
 
 
 
-// ----- output methods
-void
-NBEdgeCont::writeXMLStep1(OutputDevice &into) throw(IOError) {
-    for (EdgeCont::iterator i=myEdges.begin(); i!=myEdges.end(); i++) {
-        (*i).second->writeXMLStep1(into);
-    }
-    into << "\n";
-}
-
-
-void
-NBEdgeCont::writeXMLStep2(OutputDevice &into, bool includeInternal) throw(IOError) {
-    for (EdgeCont::iterator i=myEdges.begin(); i!=myEdges.end(); i++) {
-        (*i).second->writeXMLStep2(into, includeInternal);
-    }
-    into << "\n";
-}
-
-
-
 // ----- other
 EdgeVector
 NBEdgeCont::getGeneratedFrom(const std::string &id) const throw() {

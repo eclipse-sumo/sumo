@@ -86,34 +86,6 @@ NBDistrict::addSink(NBEdge * const sink, SUMOReal weight) throw() {
 
 
 void
-NBDistrict::writeXML(OutputDevice &into) throw() {
-    VectorHelper<SUMOReal>::normaliseSum(mySourceWeights, 1.0);
-    VectorHelper<SUMOReal>::normaliseSum(mySinkWeights, 1.0);
-    // write the head and the id of the district
-    into << "   <district id=\"" << myID << "\"";
-    if (myShape.size()>0) {
-        into << " shape=\"" << myShape << "\"";
-    }
-    into << ">\n";
-    size_t i;
-    // write all sources
-    for (i=0; i<mySources.size(); i++) {
-        // write the head and the id of the source
-        assert(i<mySources.size());
-        into << "      <dsource id=\"" << mySources[i]->getID() << "\" weight=\"" << mySourceWeights[i] << "\"/>\n";
-    }
-    // write all sinks
-    for (i=0; i<mySinks.size(); i++) {
-        // write the head and the id of the sink
-        assert(i<mySinks.size());
-        into << "      <dsink id=\"" << mySinks[i]->getID() << "\" weight=\"" << mySinkWeights[i] << "\"/>\n";
-    }
-    // write the tail
-    into << "   </district>\n";
-}
-
-
-void
 NBDistrict::setCenter(const Position2D &pos) throw() {
     myPosition = pos;
 }

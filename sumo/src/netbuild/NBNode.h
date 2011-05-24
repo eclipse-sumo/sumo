@@ -238,14 +238,8 @@ public:
     /// adds an outgoing edge
     void addOutgoingEdge(NBEdge *edge);
 
-    bool writeXMLInternalLinks(OutputDevice &into);
-    bool writeXMLInternalSuccInfos(OutputDevice &into);
-    bool writeXMLInternalNodes(OutputDevice &into);
 
 
-
-    /// prints the junction
-    void writeXML(OutputDevice &into);
 
     /// computes the connections of lanes to edges
     void computeLanes2Lanes();
@@ -348,7 +342,7 @@ public:
      */
     NBMMLDirection getMMLDirection(const NBEdge * const incoming, const NBEdge * const outgoing) const throw();
 
-    char stateCode(NBEdge *incoming, NBEdge *outgoing, int fromLane, bool mayDefinitelyPass) const throw();
+    char stateCode(const NBEdge *incoming, NBEdge *outgoing, int fromLane, bool mayDefinitelyPass) const throw();
 
     void computeNodeShape(bool leftHand);
 
@@ -356,9 +350,9 @@ public:
     const Position2DVector &getShape() const;
 
     // @brief adds up all lanes of all incoming edges which have a continuation
-    unsigned int countInternalLanes(bool includeSplits);
+    unsigned int countInternalLanes(bool includeSplits) const;
 
-    std::string getInternalLaneID(NBEdge *from, unsigned int fromlane,
+    std::string getInternalLaneID(const NBEdge *from, unsigned int fromlane,
                                   NBEdge *to, unsigned int tolane) const;
 
 
@@ -374,14 +368,17 @@ public:
     bool isNearDistrict() const;
     bool isDistrict() const;
 
-    bool needsCont(NBEdge *fromE, NBEdge *toE, NBEdge *otherFromE, NBEdge *otherToE, NBEdge::Connection &c);
+    bool needsCont(NBEdge *fromE, NBEdge *toE, NBEdge *otherFromE, NBEdge *otherToE, NBEdge::Connection &c) const;
 
     std::pair<SUMOReal, std::vector<unsigned int> > getCrossingPosition(NBEdge *fromE, unsigned int fromL,
-            NBEdge *toE, unsigned int toL);
+            NBEdge *toE, unsigned int toL) const;
     std::string getCrossingNames_dividedBySpace(NBEdge *fromE, unsigned int fromL,
-            NBEdge *toE, unsigned int toL);
+            NBEdge *toE, unsigned int toL) const;
     std::string getCrossingSourcesNames_dividedBySpace(NBEdge *fromE, unsigned int fromL,
-            NBEdge *toE, unsigned int toL);
+            NBEdge *toE, unsigned int toL) const;
+    Position2DVector computeInternalLaneShape(NBEdge *fromE,
+            int fromL, NBEdge *toE, int toL) const;
+
 
     /** @brief Replaces occurences of the first edge within the list of incoming by the second
         Connections are remapped, too */
@@ -462,10 +459,6 @@ private:
     void remapRemoved(NBTrafficLightLogicCont &tc,
                       NBEdge *removed, const EdgeVector &incoming, const EdgeVector &outgoing);
 
-    Position2DVector computeInternalLaneShape(NBEdge *fromE,
-            int fromL, NBEdge *toE, int toL);
-
-    void writeinternal(OutputDevice &into, const std::string &id);
 
 private:
     /// @brief The position the node lies at

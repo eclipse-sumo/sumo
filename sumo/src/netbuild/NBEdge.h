@@ -346,6 +346,22 @@ public:
     SUMOReal getOffset() const throw() {
         return myOffset;
     }
+
+
+    /** @brief Returns the type name
+     * @return The name of this edge's type
+     */
+    const std::string &getTypeName() const throw() {
+        return myType;
+    }
+
+
+    /** @brief Returns the lane definitions
+     * @return The stored lane definitions
+     */
+    const std::vector<NBEdge::Lane> &getLanes() const {
+        return myLanes;
+    }
     //@}
 
 
@@ -547,7 +563,7 @@ public:
     /** @brief Returns whether this edge was marked as a macroscopic connector
      * @return Whether this edge was marked as a macroscopic connector
      */
-    bool isMacroscopicConnector() throw() {
+    bool isMacroscopicConnector() const throw() {
         return myAmMacroscopicConnector;
     }
 
@@ -591,13 +607,6 @@ public:
      */
     int getJunctionPriority(const NBNode * const node) const;
 
-
-    /** writes the edge definition with lanes and connected edges
-        into the given stream */
-    void writeXMLStep1(OutputDevice &into);
-
-    /** writes the succeeding lane information */
-    void writeXMLStep2(OutputDevice &into, bool includeInternal);
 
     bool hasRestrictions() const;
     void writeLanesPlain(OutputDevice &into);
@@ -903,20 +912,7 @@ private:
     void moveConnectionToRight(unsigned int lane);
 
 
-    /** writes information about the described lane into the given stream */
-    void writeLane(OutputDevice &into, NBEdge::Lane &lane, unsigned int index) const;
 
-    // !!! describe
-    void writeSucceeding(OutputDevice &into, unsigned int lane,
-                         bool includeInternal);
-
-
-
-
-
-    // !!! describe
-    void writeSingleSucceeding(OutputDevice &into,
-                               const NBEdge::Connection &c, bool includeInternal);
 
 
     // returns a reference to the internal structure for the convenience of NETEDIT

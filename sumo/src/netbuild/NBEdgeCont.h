@@ -411,32 +411,6 @@ public:
 
 
 
-    /// @name output methods
-    /// @{
-
-    /** @brief Writes the edge definitions with lanes into the given stream
-     *
-     * Calls "NBEdge::writeXMLStep1" for all edges within the container.
-     *
-     * @param[in] into The stream to write the definieions into
-     * @exception IOError (not yet implemented)
-     */
-    void writeXMLStep1(OutputDevice &into) throw(IOError);
-
-
-    /** @brief Writes the successor definitions of edges into the given stream
-     *
-     * Calls "NBEdge::writeXMLStep2" for all edges within the container.
-     *
-     * @param[in] into The stream to write the definieions into
-     * @param[in] includeInternal Whether internal successors shal be written, too
-     * @exception IOError (not yet implemented)
-     */
-    void writeXMLStep2(OutputDevice &into, bool includeInternal) throw(IOError);
-    /// @}
-
-
-
     /** @brief Determines which edges belong to roundabouts and increases their priority
      * @param[out] marked Edges which belong to a roundabout are stored here
      */

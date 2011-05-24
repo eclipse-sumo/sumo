@@ -71,17 +71,6 @@ NBDistrictCont::retrieve(const std::string &id) const throw() {
 }
 
 
-void
-NBDistrictCont::writeXML(OutputDevice &into) const throw() {
-    for (DistrictCont::const_iterator i=myDistricts.begin(); i!=myDistricts.end(); i++) {
-        (*i).second->writeXML(into);
-    }
-    if (myDistricts.size()!=0) {
-        into << "\n";
-    }
-}
-
-
 size_t
 NBDistrictCont::size() const throw() {
     return myDistricts.size();

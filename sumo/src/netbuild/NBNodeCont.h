@@ -190,12 +190,6 @@ public:
     /// sorts the nodes' edges
     void sortNodesEdges(bool leftHand, const NBTypeCont &tc);
 
-    void writeXMLInternalLinks(OutputDevice &into);
-    void writeXMLInternalSuccInfos(OutputDevice &into);
-    void writeXMLInternalNodes(OutputDevice &into);
-
-    /// writes the nodes into the given ostream
-    void writeXML(OutputDevice &into);
 
     /** @brief Returns the number of known nodes
      * @return The number of nodes stored in this container

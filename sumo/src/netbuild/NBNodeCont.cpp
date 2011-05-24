@@ -430,51 +430,6 @@ NBNodeCont::sortNodesEdges(bool leftHand, const NBTypeCont &tc) {
 
 
 void
-NBNodeCont::writeXMLInternalLinks(OutputDevice &into) {
-    bool hadAny = false;
-    for (NodeCont::iterator i=myNodes.begin(); i!=myNodes.end(); i++) {
-        hadAny |= (*i).second->writeXMLInternalLinks(into);
-    }
-    if (hadAny) {
-        into << "\n";
-    }
-}
-
-
-void
-NBNodeCont::writeXMLInternalSuccInfos(OutputDevice &into) {
-    bool hadAny = false;
-    for (NodeCont::iterator i=myNodes.begin(); i!=myNodes.end(); i++) {
-        hadAny |= (*i).second->writeXMLInternalSuccInfos(into);
-    }
-    if (hadAny) {
-        into << "\n";
-    }
-}
-
-
-void
-NBNodeCont::writeXMLInternalNodes(OutputDevice &into) {
-    bool hadAny = false;
-    for (NodeCont::iterator i=myNodes.begin(); i!=myNodes.end(); i++) {
-        hadAny |= (*i).second->writeXMLInternalNodes(into);
-    }
-    if (hadAny) {
-        into << "\n";
-    }
-}
-
-
-void
-NBNodeCont::writeXML(OutputDevice &into) {
-    for (NodeCont::iterator i=myNodes.begin(); i!=myNodes.end(); i++) {
-        (*i).second->writeXML(into);
-    }
-    into << "\n";
-}
-
-
-void
 NBNodeCont::clear() {
     for (NodeCont::iterator i=myNodes.begin(); i!=myNodes.end(); i++) {
         delete((*i).second);

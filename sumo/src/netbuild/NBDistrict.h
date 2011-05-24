@@ -119,21 +119,6 @@ public:
     bool addSink(NBEdge * const sink, SUMOReal weight) throw();
 
 
-    /** @brief Writes the sumo-xml-representation of this district into the given stream
-     *
-     * The district writes itself into the stream in XML-format.
-     * The format looks as following:
-     * @code
-     *    <district id="<ID>" shape="<SHAPE>">
-     *        [<dsource id="<EDGE_ID>" weight="<WEIGHT>"/>]*
-     *        [<dsink id="<EDGE_ID>" weight="<WEIGHT>"/>]*
-     *    </district>
-     *
-     * @param[in] into The device to write the xml-representation into
-     */
-    void writeXML(OutputDevice &into) throw();
-
-
     /** @brief Returns the position of this district's center
      *
      * @return The position of this district's center
@@ -199,6 +184,46 @@ public:
      * @param[in] yoff The y-offset to apply
      */
     void reshiftPosition(SUMOReal xoff, SUMOReal yoff) throw();
+
+
+    /** @brief Returns the weights of the sources
+     * @return The source weights
+     */ 
+    const std::vector<SUMOReal> &getSourceWeights() const {
+        return mySourceWeights;
+    }
+
+
+    /** @brief Returns the sources
+     * @return The source edges
+     */ 
+    const std::vector<NBEdge*> &getSourceEdges() const {
+        return mySources;
+    }
+
+
+    /** @brief Returns the weights of the sinks
+     * @return The sink weights
+     */ 
+    const std::vector<SUMOReal> &getSinkWeights() const {
+        return mySinkWeights;
+    }
+
+
+    /** @brief Returns the sinks
+     * @return The sink edges
+     */ 
+    const std::vector<NBEdge*> &getSinkEdges() const {
+        return mySinks;
+    }
+
+
+    /** @brief Returns the shape
+     * @return The district's shape
+     */
+    const Position2DVector &getShape() const {
+        return myShape;
+    }
 
 
 private:

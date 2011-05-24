@@ -54,62 +54,6 @@ class OutputDevice;
  */
 class NBTrafficLightLogic : public Named {
 public:
-    /** @brief Constructor
-     * @param[in] id The id of the traffic light
-     * @param[in] subid The id of the program
-     * @param[in] noLinks Number of links that are controlled by this tls
-     */
-    NBTrafficLightLogic(const std::string &id, const std::string &subid, unsigned int noLinks) throw();
-
-
-    /// @brief Destructor
-    ~NBTrafficLightLogic() throw();
-
-
-    /** @brief Adds a phase to the logic
-     *
-     * This is done during the building; the new phase is inserted at the end of
-     *  the list of already added phases
-     * @param[in] duration The duration of the phase to add
-     * @param[in] state The state definition of a tls phase
-     */
-    void addStep(SUMOTime duration, const std::string &state) throw();
-
-
-    /** @brief Writes the traffic light logic into the given stream in it's XML-representation
-     * @param[in] into The stream to write the definition into
-     */
-    void writeXML(OutputDevice &into) const throw();
-
-
-    /** @brief closes the building process
-     *
-     * Joins equal steps.
-     */
-    void closeBuilding() throw();
-
-
-    /** @brief Returns the duration of the complete cycle
-     * @return The duration of this logic's cycle
-     */
-    SUMOTime getDuration() const throw();
-
-
-    /** @brief Sets the offset of this tls
-     * @param[in] offset The offset of this cycle
-     */
-    void setOffset(SUMOTime offset) throw() {
-        myOffset = offset;
-    }
-
-
-    /** @brief Returns the ProgramID */
-    const std::string & getProgramID() const {
-        return mySubID;
-    };
-
-
-private:
     /**
      * @class PhaseDefinition
      * @brief The definition of a single phase of the logic
@@ -140,6 +84,73 @@ private:
             return pd.duration != duration || pd.state != state;
         }
 
+    };
+
+
+    /** @brief Constructor
+     * @param[in] id The id of the traffic light
+     * @param[in] subid The id of the program
+     * @param[in] noLinks Number of links that are controlled by this tls
+     */
+    NBTrafficLightLogic(const std::string &id, const std::string &subid, unsigned int noLinks) throw();
+
+
+    /// @brief Destructor
+    ~NBTrafficLightLogic() throw();
+
+
+    /** @brief Adds a phase to the logic
+     *
+     * This is done during the building; the new phase is inserted at the end of
+     *  the list of already added phases
+     * @param[in] duration The duration of the phase to add
+     * @param[in] state The state definition of a tls phase
+     */
+    void addStep(SUMOTime duration, const std::string &state) throw();
+
+
+    /** @brief closes the building process
+     *
+     * Joins equal steps.
+     */
+    void closeBuilding() throw();
+
+
+    /** @brief Returns the duration of the complete cycle
+     * @return The duration of this logic's cycle
+     */
+    SUMOTime getDuration() const throw();
+
+
+    /** @brief Sets the offset of this tls
+     * @param[in] offset The offset of this cycle
+     */
+    void setOffset(SUMOTime offset) throw() {
+        myOffset = offset;
+    }
+
+
+    /** @brief Returns the ProgramID 
+     * @return The ID of the program (subID)
+     */
+    const std::string & getProgramID() const {
+        return mySubID;
+    };
+
+
+    /** @brief Returns the phases
+     * @return The phase list
+     */
+    const std::vector<PhaseDefinition> &getPhases() const {
+        return myPhases;
+    }
+
+
+    /** @brief Returns the offset of first switch
+     * @return The switch offset
+     */
+    SUMOTime getOffset() const {
+        return myOffset;
     };
 
 

@@ -68,17 +68,6 @@ NBJunctionLogicCont::add(const std::string &key,
 
 
 void
-NBJunctionLogicCont::writeXML(OutputDevice &into) {
-    for (LogicMap::iterator i=myMap.begin(); i!=myMap.end(); i++) {
-        into << (*i).second;
-    }
-    if (myMap.size()!=0) {
-        into << "\n";
-    }
-}
-
-
-void
 NBJunctionLogicCont::clear() {
     myMap.clear();
 }

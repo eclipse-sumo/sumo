@@ -81,15 +81,20 @@ public:
     NBDistrict *retrieve(const std::string &id) const throw();
 
 
-    /** @brief Writes the sumo-xml-representation of all districts into the given stream
-     *
-     * This method simply goes through all stored districts and calls their method
-     *  NBDistrict::writeXML.
-     *
-     * @see NBDistrict::writeXML
-     * @param[in] into The stream to write the xml-representations into
+    /** @brief Returns the pointer to the begin of the stored districts
+     * @return The iterator to the beginning of stored edges
      */
-    void writeXML(OutputDevice &into) const throw();
+    std::map<std::string, NBDistrict*>::const_iterator begin() const {
+        return myDistricts.begin();
+    }
+
+
+    /** @brief Returns the pointer to the end of the stored districts
+     * @return The iterator to the end of stored edges
+     */
+    std::map<std::string, NBDistrict*>::const_iterator end() const {
+        return myDistricts.end();
+    }
 
 
     /** @brief Returns the number of districts inside the container */

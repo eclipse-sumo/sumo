@@ -519,10 +519,9 @@ NBNode::extractAndMarkFirst(EdgeVector &s) {
 
 
 unsigned int
-NBNode::countInternalLanes(bool includeSplits) {
+NBNode::countInternalLanes(bool includeSplits) const {
     unsigned int lno = 0;
-    EdgeVector::iterator i;
-    for (i=myIncomingEdges.begin(); i!=myIncomingEdges.end(); i++) {
+    for (EdgeVector::const_iterator i=myIncomingEdges.begin(); i!=myIncomingEdges.end(); i++) {
         unsigned int noLanesEdge = (*i)->getNoLanes();
         for (unsigned int j=0; j<noLanesEdge; j++) {
             std::vector<NBEdge::Connection> elv = (*i)->getConnectionsFromLane(j);
@@ -545,99 +544,9 @@ NBNode::countInternalLanes(bool includeSplits) {
 }
 
 
-bool
-NBNode::writeXMLInternalLinks(OutputDevice &into) {
-    unsigned int noInternalNoSplits = countInternalLanes(false);
-    if (noInternalNoSplits==0) {
-        return false;
-    }
-    std::string id = ":" + myID;
-    unsigned int lno = 0;
-    unsigned int splitNo = 0;
-    bool ret = false;
-    EdgeVector::iterator i;
-    for (i=myIncomingEdges.begin(); i!=myIncomingEdges.end(); i++) {
-        unsigned int noLanesEdge = (*i)->getNoLanes();
-        for (unsigned int j=0; j<noLanesEdge; j++) {
-            std::vector<NBEdge::Connection> elv = (*i)->getConnectionsFromLane(j);
-            for (std::vector<NBEdge::Connection>::iterator k=elv.begin(); k!=elv.end(); ++k) {
-                if ((*k).toEdge==0) {
-                    continue;
-                }
-                // compute the maximum speed allowed
-                //  see !!! for an explanation (with a_lat_mean ~0.3)
-                SUMOReal vmax = (SUMOReal) 0.3 * (SUMOReal) 9.80778 *
-                                (*i)->getLaneShape(j).getEnd().distanceTo(
-                                    (*k).toEdge->getLaneShape((*k).toLane).getBegin())
-                                / (SUMOReal) 2.0 / (SUMOReal) PI;
-                vmax = MIN2(vmax, (((*i)->getSpeed()+(*k).toEdge->getSpeed())/(SUMOReal) 2.0));
-                vmax = ((*i)->getSpeed()+(*k).toEdge->getSpeed())/(SUMOReal) 2.0;
-                //
-                std::string id = ":" + myID + "_" + toString(lno);
-                Position2D end = (*k).toEdge->getLaneShape((*k).toLane).getBegin();
-                Position2D beg = (*i)->getLaneShape(j).getEnd();
-
-                Position2DVector shape = computeInternalLaneShape(*i, j, (*k).toEdge, (*k).toLane);
-                assert(shape.size() >= 2);
-                SUMOReal length = MAX2(shape.length(), POSITION_EPS);
-
-                // get internal splits if any
-                std::pair<SUMOReal, std::vector<unsigned int> > cross = getCrossingPosition(*i, j, (*k).toEdge, (*k).toLane);
-                if (cross.first>=0) {
-                    std::pair<Position2DVector, Position2DVector> split;
-                    // as usual, a problem...
-                    //  if the one edge starts exactly where the other one ends (think of a
-                    //  turnaround edges lying over the other one) we have a shape with length=0
-                    if (shape.length() > POSITION_EPS) {
-                        split = shape.splitAt(cross.first);
-                    } else {
-                        split = std::pair<Position2DVector, Position2DVector>(shape, shape);
-                    }
-                    if (split.first.size()==1) {
-                        split.first.push_back(split.first[0]);
-                    }
-                    if (split.second.size()==1) {
-                        split.second.push_back(split.second[0]);
-                    }
-
-                    into << "   <edge id=\"" << id << "\" function=\"internal\">\n";
-                    into << "      <lane id=\"" << id << "_0\" depart=\"0\" "
-                    << "maxspeed=\"" << vmax << "\" length=\""
-                    << toString<SUMOReal>(cross.first) << "\""
-                    << " shape=\"" << split.first << "\"/>\n"
-                    << "   </edge>\n";
-                    lno++;
-
-                    std::string id = ":" + myID + "_" + toString(splitNo+noInternalNoSplits);
-                    into << "   <edge id=\"" << id
-                    << "\" function=\"internal\">\n";
-                    into << "      <lane id=\"" << id << "_0\" depart=\"0\" "
-                    << "maxspeed=\"" << vmax << "\" length=\""
-                    << toString<SUMOReal>(length-cross.first) << "\""
-                    << " shape=\"" << split.second << "\"/>\n"
-                    << "   </edge>\n";
-                    splitNo++;
-                } else {
-                    into << "   <edge id=\"" << id
-                    << "\" function=\"internal\">\n";
-                    into << "      <lane id=\"" << id << "_0\" depart=\"0\" "
-                    << "maxspeed=\"" << vmax << "\" length=\""
-                    << toString<SUMOReal>(length) << "\""
-                    << " shape=\"" << shape << "\"/>\n"
-                    << "   </edge>\n";
-                    lno++;
-                }
-                ret = true;
-            }
-        }
-    }
-    return ret;
-}
-
-
 Position2DVector
 NBNode::computeInternalLaneShape(NBEdge *fromE, int fromL,
-                                 NBEdge *toE, int toL) {
+                                 NBEdge *toE, int toL) const {
     if (fromL>=(int) fromE->getNoLanes()) {
         throw ProcessError("Connection '" + fromE->getID() + "_" + toString(fromL) + "->" + toE->getID() + "_" + toString(toL) + "' starts at a not existing lane.");
     }
@@ -758,7 +667,7 @@ NBNode::computeInternalLaneShape(NBEdge *fromE, int fromL,
 
 
 bool
-NBNode::needsCont(NBEdge *fromE, NBEdge *toE, NBEdge *otherFromE, NBEdge *otherToE, NBEdge::Connection &c) {
+NBNode::needsCont(NBEdge *fromE, NBEdge *toE, NBEdge *otherFromE, NBEdge *otherToE, NBEdge::Connection &c) const {
     if(fromE->getID()=="2i" && toE->getID()=="3o") {
         int bla = 0;
         if(otherFromE->getID()=="4i" && otherToE->getID()=="3o") {
@@ -793,7 +702,7 @@ NBNode::needsCont(NBEdge *fromE, NBEdge *toE, NBEdge *otherFromE, NBEdge *otherT
 
 
 std::pair<SUMOReal, std::vector<unsigned int> >
-NBNode::getCrossingPosition(NBEdge *fromE, unsigned int fromL, NBEdge *toE, unsigned int toL) {
+NBNode::getCrossingPosition(NBEdge *fromE, unsigned int fromL, NBEdge *toE, unsigned int toL) const {
     std::pair<SUMOReal, std::vector<unsigned int> > ret(-1, std::vector<unsigned int>());
     NBMMLDirection dir = getMMLDirection(fromE, toE);
     switch (dir) {
@@ -802,7 +711,7 @@ NBNode::getCrossingPosition(NBEdge *fromE, unsigned int fromL, NBEdge *toE, unsi
     case MMLDIR_TURN: {
         Position2DVector thisShape = computeInternalLaneShape(fromE, fromL, toE, toL);
         unsigned int index = 0;
-        for (EdgeVector::iterator i2=myIncomingEdges.begin(); i2!=myIncomingEdges.end(); i2++) {
+        for (EdgeVector::const_iterator i2=myIncomingEdges.begin(); i2!=myIncomingEdges.end(); i2++) {
             unsigned int noLanesEdge = (*i2)->getNoLanes();
             for (unsigned int j2=0; j2<noLanesEdge; j2++) {
                 std::vector<NBEdge::Connection> elv = (*i2)->getConnectionsFromLane(j2);
@@ -844,7 +753,7 @@ NBNode::getCrossingPosition(NBEdge *fromE, unsigned int fromL, NBEdge *toE, unsi
 
 std::string
 NBNode::getCrossingNames_dividedBySpace(NBEdge *fromE, unsigned int fromL,
-                                        NBEdge *toE, unsigned int toL) {
+                                        NBEdge *toE, unsigned int toL) const {
     std::string ret;
     NBMMLDirection dir = getMMLDirection(fromE, toE);
     switch (dir) {
@@ -853,7 +762,7 @@ NBNode::getCrossingNames_dividedBySpace(NBEdge *fromE, unsigned int fromL,
     case MMLDIR_TURN: {
         Position2DVector thisShape = computeInternalLaneShape(fromE, fromL, toE, toL);
         unsigned int index = 0;
-        for (EdgeVector::iterator i2=myIncomingEdges.begin(); i2!=myIncomingEdges.end(); i2++) {
+        for (EdgeVector::const_iterator i2=myIncomingEdges.begin(); i2!=myIncomingEdges.end(); i2++) {
             unsigned int noLanesEdge = (*i2)->getNoLanes();
             for (unsigned int j2=0; j2<noLanesEdge; j2++) {
                 std::vector<NBEdge::Connection> elv = (*i2)->getConnectionsFromLane(j2);
@@ -888,7 +797,7 @@ NBNode::getCrossingNames_dividedBySpace(NBEdge *fromE, unsigned int fromL,
 
 std::string
 NBNode::getCrossingSourcesNames_dividedBySpace(NBEdge *fromE, unsigned int fromL,
-        NBEdge *toE, unsigned int toL) {
+        NBEdge *toE, unsigned int toL) const {
     std::string ret;
     std::vector<std::string> tmp;
     NBMMLDirection dir = getMMLDirection(fromE, toE);
@@ -898,7 +807,7 @@ NBNode::getCrossingSourcesNames_dividedBySpace(NBEdge *fromE, unsigned int fromL
     case MMLDIR_TURN: {
         Position2DVector thisShape = computeInternalLaneShape(fromE, fromL, toE, toL);
         unsigned int index = 0;
-        for (EdgeVector::iterator i2=myIncomingEdges.begin(); i2!=myIncomingEdges.end(); i2++) {
+        for (EdgeVector::const_iterator i2=myIncomingEdges.begin(); i2!=myIncomingEdges.end(); i2++) {
             unsigned int noLanesEdge = (*i2)->getNoLanes();
             for (unsigned int j2=0; j2<noLanesEdge; j2++) {
                 std::vector<NBEdge::Connection> elv = (*i2)->getConnectionsFromLane(j2);
@@ -937,181 +846,6 @@ NBNode::getCrossingSourcesNames_dividedBySpace(NBEdge *fromE, unsigned int fromL
         ret = ret + *i;
     }
     return ret;
-}
-
-
-bool
-NBNode::writeXMLInternalSuccInfos(OutputDevice &into) {
-    unsigned int noInternalNoSplits = countInternalLanes(false);
-    if (noInternalNoSplits==0) {
-        return false;
-    }
-    bool ret = false;
-    unsigned int lno = 0;
-    unsigned int splitNo = 0;
-    for (EdgeVector::iterator i=myIncomingEdges.begin(); i!=myIncomingEdges.end(); i++) {
-        unsigned int noLanesEdge = (*i)->getNoLanes();
-        for (unsigned int j=0; j<noLanesEdge; j++) {
-            std::vector<NBEdge::Connection> elv = (*i)->getConnectionsFromLane(j);
-            for (std::vector<NBEdge::Connection>::iterator k=elv.begin(); k!=elv.end(); ++k) {
-                if ((*k).toEdge==0) {
-                    continue;
-                }
-                std::string id = ":" + myID + "_" + toString(lno);
-                std::string sid = ":" + myID + "_" + toString(splitNo+noInternalNoSplits);
-                std::pair<SUMOReal, std::vector<unsigned int> > cross = getCrossingPosition(*i, j, (*k).toEdge, (*k).toLane);
-
-                // get internal splits if any
-                into << "   <succ edge=\"" << id << "\" "
-                << "lane=\"" << id << "_"
-                << 0 << "\" junction=\"" << myID << "\">\n";
-                if (cross.first>=0) {
-                    into << "      <succlane lane=\""
-                    //<< sid << "_" << 0 ()
-                    << (*k).toEdge->getID() << "_" << (*k).toLane << "\""
-                    << " via=\"" << sid << "_" << 0 << "\""
-                    << " tl=\"" << "" << "\" linkno=\""
-                    << "" << "\" dir=\"s\" state=\"M\""; // !!! yield or not depends on whether it is tls controlled or not
-                } else {
-                    into << "      <succlane lane=\""
-                    << (*k).toEdge->getID() << "_" << (*k).toLane
-                    << "\" tl=\"" << "" << "\" linkno=\""
-                    << "" << "\" dir=\"s\" state=\"M\"";
-                }
-                into << "/>\n";
-                into << "   </succ>\n";
-
-                if (cross.first>=0) {
-                    into << "   <succ edge=\"" << sid << "\" "
-                    << "lane=\"" << sid << "_" << 0
-                    << "\" junction=\"" << sid << "\">\n";
-                    into << "      <succlane lane=\""
-                    << (*k).toEdge->getID() << "_" << (*k).toLane
-                    << "\" tl=\"" << "" << "\" linkno=\""
-                    << "0" << "\" dir=\"s\" state=\"M\"";
-                    into << "/>\n";
-                    into << "   </succ>\n";
-                    splitNo++;
-                }
-                lno++;
-                ret = true;
-            }
-        }
-    }
-    return ret;
-}
-
-
-bool
-NBNode::writeXMLInternalNodes(OutputDevice &into) {
-    unsigned int noInternalNoSplits = countInternalLanes(false);
-    if (noInternalNoSplits==0) {
-        return false;
-    }
-    bool ret = false;
-    unsigned int lno = 0;
-    unsigned int splitNo = 0;
-    for (EdgeVector::iterator i=myIncomingEdges.begin(); i!=myIncomingEdges.end(); i++) {
-        unsigned int noLanesEdge = (*i)->getNoLanes();
-        for (unsigned int j=0; j<noLanesEdge; j++) {
-            std::vector<NBEdge::Connection> elv = (*i)->getConnectionsFromLane(j);
-            for (std::vector<NBEdge::Connection>::iterator k=elv.begin(); k!=elv.end(); ++k) {
-                if ((*k).toEdge==0) {
-                    continue;
-                }
-                std::pair<SUMOReal, std::vector<unsigned int> > cross = getCrossingPosition(*i, j, (*k).toEdge, (*k).toLane);
-                if (cross.first<=0) {
-                    lno++;
-                    continue;
-                }
-                // write the attributes
-                std::string sid = ":" + myID + "_" + toString(splitNo+noInternalNoSplits) + "_0";
-                std::string iid = ":" + myID + "_" + toString(lno) + "_0";
-                Position2DVector shape = computeInternalLaneShape(*i, j, (*k).toEdge, (*k).toLane);
-                Position2D pos = shape.positionAtLengthPosition(cross.first);
-                into << "   <junction id=\"" << sid << '\"';
-                into << " type=\"" << toString(NODETYPE_INTERNAL) << "\"";
-                into << " x=\"" << pos.x() << "\" y=\"" << pos.y() << "\"";
-                into << " incLanes=\"";
-                std::string furtherIncoming = getCrossingSourcesNames_dividedBySpace(*i, j, (*k).toEdge, (*k).toLane);
-                if (furtherIncoming.length()!=0) {
-                    into << iid << " " << furtherIncoming;
-                } else {
-                    into << iid;
-                }
-                into << "\"";
-                into << " intLanes=\"" << getCrossingNames_dividedBySpace(*i, j, (*k).toEdge, (*k).toLane) << "\"";
-                into << " shape=\"\"/>\n";
-                splitNo++;
-                lno++;
-                ret = true;
-            }
-        }
-    }
-    return ret;
-}
-
-
-void
-NBNode::writeinternal(OutputDevice &into, const std::string &id) {
-    unsigned int l = 0;
-    unsigned int o = countInternalLanes(false);
-    for (EdgeVector::const_iterator i=myIncomingEdges.begin(); i!=myIncomingEdges.end(); i++) {
-        unsigned int noLanesEdge = (*i)->getNoLanes();
-        for (unsigned int j=0; j<noLanesEdge; j++) {
-            std::vector<NBEdge::Connection> elv = (*i)->getConnectionsFromLane(j);
-            for (std::vector<NBEdge::Connection>::iterator k=elv.begin(); k!=elv.end(); ++k) {
-                if ((*k).toEdge==0) {
-                    continue;
-                }
-                if (l!=0) {
-                    into << ' ';
-                }
-                std::pair<SUMOReal, std::vector<unsigned int> > cross = getCrossingPosition(*i, j, (*k).toEdge, (*k).toLane);
-                if (cross.first<=0) {
-                    into << ':' << id << '_' << l << "_0";
-                } else {
-                    into << ':' << id << '_' << o << "_0";
-                    o++;
-                }
-                l++;
-            }
-        }
-    }
-}
-
-
-void
-NBNode::writeXML(OutputDevice &into) {
-    // write the attributes
-    into << "   <junction id=\"" << myID << '\"';
-    if (myIncomingEdges.size()==0 || myOutgoingEdges.size()==0) {
-        myType = NODETYPE_DEAD_END;
-    }
-    into << " type=\"" << toString(myType) << "\"";
-    into << " x=\"" << myPosition.x() << "\" y=\"" << myPosition.y() << "\"";
-    into << " incLanes=\"";
-    // write the incoming lanes
-    EdgeVector::iterator i;
-    for (i=myIncomingEdges.begin(); i!=myIncomingEdges.end(); i++) {
-        unsigned int noLanes = (*i)->getNoLanes();
-        std::string id = (*i)->getID();
-        for (unsigned int j=0; j<noLanes; j++) {
-            into << id << '_' << j;
-            if (i!=myIncomingEdges.end()-1 || j<noLanes-1) {
-                into << ' ';
-            }
-        }
-    }
-    into << "\"";
-    // write the internal lanes
-    into << " intLanes=\"";
-    if (!OptionsCont::getOptions().getBool("no-internal-links")) {
-        writeinternal(into, myID);
-    }
-    into << "\"";
-    // close writing
-    into << " shape=\"" << myPoly << "\"/>\n";
 }
 
 
@@ -1831,7 +1565,7 @@ NBNode::getMMLDirection(const NBEdge * const incoming, const NBEdge * const outg
 
 
 char
-NBNode::stateCode(NBEdge *incoming, NBEdge *outgoing, int fromlane, bool mayDefinitelyPass) const throw() {
+NBNode::stateCode(const NBEdge *incoming, NBEdge *outgoing, int fromlane, bool mayDefinitelyPass) const throw() {
     if (outgoing==0) {
         return 'O'; // always off
     }
@@ -1933,7 +1667,7 @@ NBNode::getShape() const {
 }
 
 std::string
-NBNode::getInternalLaneID(NBEdge *from, unsigned int fromlane,
+NBNode::getInternalLaneID(const NBEdge *from, unsigned int fromlane,
                           NBEdge *to, unsigned int tolane) const {
     unsigned int l = 0;
     for (EdgeVector::const_iterator i=myIncomingEdges.begin(); i!=myIncomingEdges.end(); i++) {

@@ -58,11 +58,33 @@ public:
     /// saves the given junction logic bitfield
     void add(const std::string &key, const std::string &xmlDescription);
 
-    /// saves all known logics
-    void writeXML(OutputDevice &into);
-
     /// destroys all stored logics
     void clear();
+
+
+
+    /** @brief Returns the pointer to the begin of the stored logics
+     * @return The iterator to the beginning of stored logics
+     */
+    std::map<std::string, std::string>::const_iterator begin() const {
+        return myMap.begin();
+    }
+
+
+    /** @brief Returns the pointer to the end of the stored logics
+     * @return The iterator to the end of stored logics
+     */
+    std::map<std::string, std::string>::const_iterator end() const {
+        return myMap.end();
+    }
+
+
+    /** @brief Returns the number of stored logics
+     * @return The number of stored logics
+     */
+    size_t size() const {
+        return myMap.size();
+    }
 
 private:
     /// tries to load a logic with the given key (and all of his permutations)
