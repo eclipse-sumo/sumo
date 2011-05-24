@@ -139,6 +139,9 @@ private:
     /// @brief Invalidated assignment operator.
     GUIJunctionWrapper& operator=(const GUIJunctionWrapper&);
 
+    /// @brief whether this wraps an instance of MSInternalJunction
+    bool myIsInner;
+
 };
 
 

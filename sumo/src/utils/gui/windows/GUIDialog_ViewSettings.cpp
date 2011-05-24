@@ -395,6 +395,8 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(
                                               this, MID_SIMPLE_VIEW_COLORCHANGE,
                                               LAYOUT_FIX_WIDTH|LAYOUT_CENTER_Y|LAYOUT_SIDE_TOP|FRAME_SUNKEN|FRAME_THICK|ICON_AFTER_TEXT,
                                               0, 0, 100, 0,   0, 0, 0, 0);
+        myShowInternalJunctionName = new FXCheckButton(m33, "Show internal junction name", this, MID_SIMPLE_VIEW_COLORCHANGE, LAYOUT_CENTER_Y|CHECKBUTTON_NORMAL);
+        myShowInternalJunctionName->setCheck(mySettings->drawInternalJunctionName);
     } {
         new FXTabItem(tabbook,"Detectors/Trigger",NULL,TAB_LEFT_NORMAL, 0,0,0,0, 4,8,4,4);
         FXVerticalFrame *frame5 =
@@ -613,6 +615,7 @@ GUIDialog_ViewSettings::onCmdNameChange(FXObject*,FXSelector,void*data) {
     myShowTLIndex->setCheck(mySettings->drawLinkTLIndex);
     myShowJunctionIndex->setCheck(mySettings->drawLinkJunctionIndex);
     myShowJunctionName->setCheck(mySettings->drawJunctionName);
+    myShowInternalJunctionName->setCheck(mySettings->drawInternalJunctionName);
     myJunctionNameSizeDialer->setValue(mySettings->junctionNameSize);
     myJunctionNameColor->setRGBA(convert(mySettings->junctionNameColor));
 
@@ -688,6 +691,7 @@ GUIDialog_ViewSettings::onCmdColorChange(FXObject*sender,FXSelector,void* /*val*
     tmpSettings.drawLinkTLIndex = (myShowTLIndex->getCheck() != FALSE);
     tmpSettings.drawLinkJunctionIndex = (myShowJunctionIndex->getCheck() != FALSE);
     tmpSettings.drawJunctionName = (myShowJunctionName->getCheck() != FALSE);
+    tmpSettings.drawInternalJunctionName = (myShowInternalJunctionName->getCheck() != FALSE);
     tmpSettings.junctionNameSize = (SUMOReal) myJunctionNameSizeDialer->getValue();
     tmpSettings.junctionNameColor = convert(myJunctionNameColor->getRGBA());
 

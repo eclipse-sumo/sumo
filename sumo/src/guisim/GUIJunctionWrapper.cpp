@@ -33,6 +33,7 @@
 #include <microsim/MSJunction.h>
 #include <utils/geom/Position2D.h>
 #include <microsim/MSNet.h>
+#include <microsim/MSInternalJunction.h>
 #include <gui/GUIApplicationWindow.h>
 #include <gui/GUIGlobals.h>
 #include <utils/gui/windows/GUIAppEnum.h>
@@ -62,6 +63,7 @@ GUIJunctionWrapper::GUIJunctionWrapper(MSJunction &junction) throw()
         myBoundary = myJunction.getShape().getBoxBoundary();
     }
     myMaxSize = MAX2(myBoundary.getWidth(), myBoundary.getHeight());
+    myIsInner = dynamic_cast<MSInternalJunction*>(&myJunction) != 0;
 }
 
 
@@ -102,13 +104,17 @@ GUIJunctionWrapper::drawGL(const GUIVisualizationSettings &s) const throw() {
     if (s.scale*myMaxSize<1.) {
         return;
     }
-    glPushName(getGlID());
-    glColor3d(0, 0, 0);
-    glTranslated(0, 0, getType());
-    GLHelper::drawFilledPoly(myJunction.getShape(), true);
-    glTranslated(0, 0, -getType());
+    if (!myIsInner) {
+        glPushName(getGlID());
+        glPushMatrix();
+        glColor3d(0, 0, 0);
+        glTranslated(0, 0, getType());
+        GLHelper::drawFilledPoly(myJunction.getShape(), true);
+        glPopMatrix();
+    }
     // (optional) draw name
-    if (s.drawJunctionName) {
+    if ((s.drawJunctionName && !myIsInner) ||
+            (s.drawInternalJunctionName && myIsInner)) {
         drawName(myJunction.getPosition(), s.junctionNameSize / s.scale, s.junctionNameColor);
     }
     glPopName();

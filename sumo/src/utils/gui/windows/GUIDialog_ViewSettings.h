@@ -228,6 +228,7 @@ private:
 
     FXCheckButton *myShowTLIndex, *myShowJunctionIndex;
     FXCheckButton *myShowJunctionName;
+    FXCheckButton *myShowInternalJunctionName;
     FXRealSpinDial *myJunctionNameSizeDialer;
     FXColorWell *myJunctionNameColor;
 

@@ -175,6 +175,7 @@ GUISettingsHandler::myStartElement(int element,
         mySettings.drawLinkTLIndex = TplConvert<char>::_2bool(attrs.getStringSecure("drawLinkTLIndex", toString(mySettings.drawLinkTLIndex)).c_str());
         mySettings.drawLinkJunctionIndex = TplConvert<char>::_2bool(attrs.getStringSecure("drawLinkJunctionIndex", toString(mySettings.drawLinkJunctionIndex)).c_str());
         mySettings.drawJunctionName = TplConvert<char>::_2bool(attrs.getStringSecure("drawJunctionName", toString(mySettings.drawJunctionName)).c_str());
+        mySettings.drawInternalJunctionName = TplConvert<char>::_2bool(attrs.getStringSecure("drawInternalJunctionName", toString(mySettings.drawInternalJunctionName)).c_str());
         mySettings.junctionNameSize = TplConvert<char>::_2SUMOReal(attrs.getStringSecure("junctionNameSize", toString(mySettings.junctionNameSize)).c_str());
         mySettings.junctionNameColor = RGBColor::parseColorReporting(attrs.getStringSecure("junctionNameColor", toString(mySettings.junctionNameColor)), "junctions", 0, true, ok);
         mySettings.showLane2Lane = TplConvert<char>::_2bool(attrs.getStringSecure("showLane2Lane", toString(mySettings.showLane2Lane)).c_str());

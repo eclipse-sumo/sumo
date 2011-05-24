@@ -146,6 +146,8 @@ public:
     bool drawLinkJunctionIndex;
     /// @brief Information whether the junction's name shall be drawn
     bool drawJunctionName;
+    /// @brief Information whether the internal junction's name shall be drawn
+    bool drawInternalJunctionName;
     /// @brief The size of the junction name
     float junctionNameSize;
     /// @brief The color of junction names

@@ -57,7 +57,7 @@ GUIVisualizationSettings::GUIVisualizationSettings() throw()
         drawVehicleName(false), vehicleNameSize(50),
         vehicleNameColor(RGBColor((SUMOReal) .8, (SUMOReal) .6, (SUMOReal) 0)),
         junctionMode(0), drawLinkTLIndex(false), drawLinkJunctionIndex(false),
-        drawJunctionName(false), junctionNameSize(50),
+        drawJunctionName(false), drawInternalJunctionName(false), junctionNameSize(50),
         junctionNameColor(RGBColor((SUMOReal) 0, (SUMOReal) 1, (SUMOReal) .5)),
         showLane2Lane(false), addMode(0), minAddSize(1), addExaggeration(1),
         drawAddName(false), addNameSize(50),
@@ -132,6 +132,7 @@ GUIVisualizationSettings::save(OutputDevice &dev) const throw(IOError) {
     << "\" drawLinkTLIndex=\"" << drawLinkTLIndex
     << "\" drawLinkJunctionIndex=\"" << drawLinkJunctionIndex << "\"\n"
     << "                   drawJunctionName=\"" << drawJunctionName
+    << "\" drawInternalJunctionName=\"" << drawInternalJunctionName
     << "\" junctionNameSize=\"" << junctionNameSize
     << "\" junctionNameColor=\"" << junctionNameColor
     << "\" showLane2Lane=\"" << showLane2Lane << "\"/>\n";
@@ -193,6 +194,7 @@ GUIVisualizationSettings::operator==(const GUIVisualizationSettings &v2) {
     if (drawLinkTLIndex!=v2.drawLinkTLIndex) return false;
     if (drawLinkJunctionIndex!=v2.drawLinkJunctionIndex) return false;
     if (drawJunctionName!=v2.drawJunctionName) return false;
+    if (drawInternalJunctionName!=v2.drawInternalJunctionName) return false;
     if (junctionNameSize!=v2.junctionNameSize) return false;
     if (junctionNameColor!=v2.junctionNameColor) return false;
 
