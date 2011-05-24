@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -173,7 +173,7 @@
     <ClCompile Include="..\..\..\src\activitygen\city\AGDataAndStatistics.cpp" />
     <ClCompile Include="..\..\..\src\activitygen\activities\AGFreeTime.cpp" />
     <ClCompile Include="..\..\..\src\activitygen\city\AGHousehold.cpp" />
-    <ClCompile Include="..\..\..\src\activitygen\AGMain.cpp" />
+    <ClCompile Include="..\..\..\src\activitygen\activitygen_main.cpp" />
     <ClCompile Include="..\..\..\src\activitygen\city\AGPerson.cpp" />
     <ClCompile Include="..\..\..\src\activitygen\city\AGPosition.cpp" />
     <ClCompile Include="..\..\..\src\activitygen\city\AGSchool.cpp" />

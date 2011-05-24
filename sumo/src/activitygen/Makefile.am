@@ -17,7 +17,7 @@ $(XERCES_LIBS)
 
 bin_PROGRAMS = activitygen
 
-activitygen_SOURCES = AGMain.cpp \
+activitygen_SOURCES = activitygen_main.cpp \
 AGActivityGen.cpp AGActivityGen.h \
 AGActivityGenHandler.cpp AGActivityGenHandler.h \
 AGActivityTripWriter.cpp AGActivityTripWriter.h \

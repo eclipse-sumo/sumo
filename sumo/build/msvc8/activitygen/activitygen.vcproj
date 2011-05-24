@@ -464,7 +464,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\activitygen\AGMain.cpp"
+				RelativePath="..\..\..\src\activitygen\activitygen_main.cpp"
 				>
 			</File>
 			<File
