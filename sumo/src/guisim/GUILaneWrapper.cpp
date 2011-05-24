@@ -436,7 +436,7 @@ GUILaneWrapper::drawGL(const GUIVisualizationSettings &s) const throw() {
             glPushMatrix();
             glTranslated(0, 0, GLO_JUNCTION); // must draw on top of junction shape
             GUINet *net = (GUINet*) MSNet::getInstance();
-            glTranslated(0, 0, .1);
+            glTranslated(0, 0, .2);
             ROWdrawAction_drawLinkRules(*net);
             if (s.showLinkDecals) {
                 ROWdrawAction_drawArrows();
