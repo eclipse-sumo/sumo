@@ -1009,7 +1009,7 @@ GUISUMOAbstractView::applyGLTransform(bool fixRatio) {
     // as a rough rule, each GLObject is drawn at z = -GUIGlObjectType
     // thus, objects with a higher value will be closer (drawn on top)
     // // @todo last param should be 0 after modifying all glDraw methods
-    glOrtho(0, getWidth(), 0, getHeight(), -GLO_MAX, GLO_MAX); 
+    glOrtho(0, getWidth(), 0, getHeight(), -GLO_MAX-1, GLO_MAX+1); 
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
     SUMOReal scaleX = (SUMOReal)getWidth() / bound.getWidth();
