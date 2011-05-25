@@ -329,7 +329,7 @@ NIImporter_SUMO::addLane(const SUMOSAXAttributes &attrs) {
     myCurrentLane->allow = attrs.getOptStringReporting(SUMO_ATTR_ALLOW, id.c_str(), ok, "");
     myCurrentLane->disallow = attrs.getOptStringReporting(SUMO_ATTR_DISALLOW, id.c_str(), ok, "");
     myCurrentLane->width = attrs.getOptSUMORealReporting(SUMO_ATTR_WIDTH, id.c_str(), ok, (SUMOReal) -1);
-    myCurrentLane->offset = attrs.getOptSUMORealReporting(SUMO_ATTR_OFFSET, id.c_str(), ok, (SUMOReal) -1);
+    myCurrentLane->offset = attrs.getOptSUMORealReporting(SUMO_ATTR_ENDOFFSET, id.c_str(), ok, (SUMOReal) -1);
     myCurrentLane->shape = GeomConvHelper::parseShapeReporting(
             attrs.getStringReporting(SUMO_ATTR_SHAPE, id.c_str(), ok),
             attrs.getObjectType(), id.c_str(), ok, false);
@@ -454,7 +454,7 @@ NIImporter_SUMO::initTrafficLightLogic(const SUMOSAXAttributes &attrs) {
     }
     bool ok = true;
     std::string id = attrs.getStringReporting(SUMO_ATTR_ID, 0, ok);
-    int offset = attrs.getOptSUMOTimeReporting(SUMO_ATTR_OFFSET, id.c_str(), ok, 0);
+    int offset = attrs.getOptSUMOTimeReporting(SUMO_ATTR_ENDOFFSET, id.c_str(), ok, 0);
     std::string programID = attrs.getOptStringReporting(SUMO_ATTR_PROGRAMID, id.c_str(), ok, "<unknown>");
     if (ok) {
         myCurrentTL = new NBLoadedSUMOTLDef(id, programID, offset);

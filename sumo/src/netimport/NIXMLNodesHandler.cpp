@@ -81,9 +81,11 @@ NIXMLNodesHandler::myStartElement(int element,
     // retrieve the position of the node
     bool xOk = false;
     bool yOk = false;
+    bool needConversion = true;
     if (node!=0) {
         myPosition = node->getPosition();
         xOk = yOk = true;
+        needConversion = false;
     }
     if (attrs.hasAttribute(SUMO_ATTR_X)) {
         myPosition.set(attrs.getSUMORealReporting(SUMO_ATTR_X, myID.c_str(), ok), myPosition.y());
@@ -94,7 +96,7 @@ NIXMLNodesHandler::myStartElement(int element,
         yOk = true;
     }
     if (xOk&&yOk) {
-        if (!GeoConvHelper::x2cartesian(myPosition)) {
+        if (needConversion&&!GeoConvHelper::x2cartesian(myPosition)) {
             MsgHandler::getErrorInstance()->inform("Unable to project coordinates for node '" + myID + "'.");
         }
     } else {

@@ -58,6 +58,7 @@ StringBijection<int>::Entry SUMOXMLDefinitions::tags[] = {
 #endif
     { "det_entry",        SUMO_TAG_DET_ENTRY },
     { "det_exit",         SUMO_TAG_DET_EXIT },
+    { "edgeFollowDetector", SUMO_TAG_EDGEFOLLOWDETECTOR },
     { "variableSpeedSign",SUMO_TAG_VSS },
     { "calibrator",       SUMO_TAG_CALIBRATOR },
     { "rerouter",         SUMO_TAG_REROUTER },
@@ -212,6 +213,7 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "response",       SUMO_ATTR_RESPONSE },
     { "programID",      SUMO_ATTR_PROGRAMID },
     { "offset",         SUMO_ATTR_OFFSET },
+    { "endOffset",      SUMO_ATTR_ENDOFFSET },
     { "incLanes",       SUMO_ATTR_INCLANES },
     { "intLanes",       SUMO_ATTR_INTLANES },
 

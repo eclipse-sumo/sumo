@@ -77,6 +77,8 @@ enum SumoXMLTag {
     SUMO_TAG_DET_ENTRY,
     /** an e3-exit point */
     SUMO_TAG_DET_EXIT,
+    /// @brief An edge-following detector
+    SUMO_TAG_EDGEFOLLOWDETECTOR,
     /// @brief A variable speed sign
     SUMO_TAG_VSS,
     /// @brief A calibrator
@@ -284,6 +286,7 @@ enum SumoXMLAttr {
     SUMO_ATTR_RESPONSE,
     SUMO_ATTR_PROGRAMID,
     SUMO_ATTR_OFFSET,
+    SUMO_ATTR_ENDOFFSET,
     SUMO_ATTR_INCLANES,
     SUMO_ATTR_INTLANES,
     /// the weight of a district's source or sink

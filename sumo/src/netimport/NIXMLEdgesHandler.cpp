@@ -156,8 +156,8 @@ NIXMLEdgesHandler::myStartElement(int element,
             myCurrentWidth = attrs.getSUMORealReporting(SUMO_ATTR_WIDTH, myCurrentID.c_str(), ok);
         }
         // try to get the width
-        if (attrs.hasAttribute(SUMO_ATTR_OFFSET)) {
-            myCurrentOffset = attrs.getSUMORealReporting(SUMO_ATTR_OFFSET, myCurrentID.c_str(), ok);
+        if (attrs.hasAttribute(SUMO_ATTR_ENDOFFSET)) {
+            myCurrentOffset = attrs.getSUMORealReporting(SUMO_ATTR_ENDOFFSET, myCurrentID.c_str(), ok);
         }
         // try to get the allowed/disallowed classes
         if (attrs.hasAttribute(SUMO_ATTR_ALLOW) || attrs.hasAttribute(SUMO_ATTR_DISALLOW)) {
@@ -253,8 +253,8 @@ NIXMLEdgesHandler::myStartElement(int element,
             myCurrentEdge->setWidth(lane, attrs.getSUMORealReporting(SUMO_ATTR_WIDTH, myCurrentID.c_str(), ok));
         }
         // try to get the width
-        if (attrs.hasAttribute(SUMO_ATTR_OFFSET)) {
-            myCurrentEdge->setOffset(lane, attrs.getSUMORealReporting(SUMO_ATTR_OFFSET, myCurrentID.c_str(), ok));
+        if (attrs.hasAttribute(SUMO_ATTR_ENDOFFSET)) {
+            myCurrentEdge->setOffset(lane, attrs.getSUMORealReporting(SUMO_ATTR_ENDOFFSET, myCurrentID.c_str(), ok));
         }
 
         // set information about later beginning lanes

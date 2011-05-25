@@ -329,7 +329,7 @@ NWWriter_SUMO::writeLane(OutputDevice &into, const std::string &eID, const std::
     }
     into << " maxspeed=\"" << lane.speed << "\" length=\"" << length << "\"";
     if (lane.offset > 0) {
-        into << " offset=\"" << lane.offset << '\"';
+        into << " endOffset=\"" << lane.offset << '\"';
     }
     if (lane.width > 0) {
         into << " width=\"" << lane.width << '\"';
