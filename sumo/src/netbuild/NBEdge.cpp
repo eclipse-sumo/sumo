@@ -298,18 +298,25 @@ NBEdge::getInnerGeometry() const {
 
 bool 
 NBEdge::hasDefaultGeometry() const {
-    return myGeom.size() == 2 && 
-        myGeom.getBegin() == myFrom->getPosition() &&
+    return myGeom.size() == 2 && hasDefaultGeometryEndpoints();
+}
+
+
+bool 
+NBEdge::hasDefaultGeometryEndpoints() const {
+    return myGeom.getBegin() == myFrom->getPosition() &&
         myGeom.getEnd() == myTo->getPosition();
 }
 
 
 void
 NBEdge::setGeometry(const Position2DVector &s, bool inner) throw() {
+    Position2D begin = myGeom.getBegin(); // may differ from node position
+    Position2D end = myGeom.getEnd(); // may differ from node position
     myGeom = s;
     if (inner) {
-        myGeom.push_front(myFrom->getPosition());
-        myGeom.push_back(myTo->getPosition());
+        myGeom.push_front(begin);
+        myGeom.push_back(end);
     }
     computeLaneShapes();
 }

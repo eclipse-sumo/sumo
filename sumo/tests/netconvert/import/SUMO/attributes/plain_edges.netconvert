@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on Wed May 18 15:56:35 2011 by SUMO netconvert Version dev-SVN-r10391
+<!-- generated on Wed May 25 13:10:25 2011 by SUMO netconvert Version dev-SVN-r10445
 <?xml version="1.0" encoding="iso-8859-1"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
@@ -22,7 +22,7 @@
 -->
 
 <edges>
-   <edge id="edge_with_shape" fromnode="node_right" tonode="node_left" priority="-1" type="testType" nolanes="3" speed="13.90" shape="20.00,20.00">
+   <edge id="edge_with_shape" fromnode="node_right" tonode="node_left" priority="-1" type="testType" nolanes="3" speed="13.90" shape="40.00,0.00 20.00,20.00 0.00,0.00">
       <lane id="0" allow="bus"/>
       <lane id="1" disallow="bicycle"/>
       <lane id="2"/>

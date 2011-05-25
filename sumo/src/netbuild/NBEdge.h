@@ -399,6 +399,14 @@ public:
     bool hasDefaultGeometry() const;
 
 
+    /** @brief Returns whether the geometry is terminated by the node positions
+     * This default may be violated by initializing with
+     * tryIgnoreNodePositions=true' or with setGeometry()
+     * non-default endpoints are useful to control the generated node shape
+     */
+    bool hasDefaultGeometryEndpoints() const;
+
+
     /** @brief (Re)sets the edge's geometry
      *
      * Replaces the edge's prior geometry by the given. Then, computes

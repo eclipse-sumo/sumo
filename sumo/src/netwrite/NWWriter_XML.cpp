@@ -105,8 +105,8 @@ NWWriter_XML::writeNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
         edevice << "\" nolanes=\"" << e->getNoLanes()
         << "\" speed=\"" << e->getSpeed() << "\"";
         // write inner geometry (if any)
-        if (e->getGeometry().size() > 2) {
-            edevice << " shape=\"" << e->getInnerGeometry() << "\"";
+        if (!e->hasDefaultGeometry()) {
+            edevice << " shape=\"" << e->getGeometry() << "\"";
         }
         // write the spread type if not default ("right")
         if (e->getLaneSpreadFunction()!=LANESPREAD_RIGHT) {
