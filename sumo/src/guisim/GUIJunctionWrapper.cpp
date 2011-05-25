@@ -63,7 +63,11 @@ GUIJunctionWrapper::GUIJunctionWrapper(MSJunction &junction) throw()
         myBoundary = myJunction.getShape().getBoxBoundary();
     }
     myMaxSize = MAX2(myBoundary.getWidth(), myBoundary.getHeight());
+#ifdef HAVE_INTERNAL_LANES
     myIsInner = dynamic_cast<MSInternalJunction*>(&myJunction) != 0;
+#else
+    myIsInner = false;
+#endif
 }
 
 
