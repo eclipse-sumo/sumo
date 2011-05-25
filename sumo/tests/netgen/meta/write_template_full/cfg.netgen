@@ -83,6 +83,8 @@
         <flip-y-axis value="false" synonymes="flip-y"/>
         <roundabouts.guess value="false" synonymes="guess-roundabouts"/>
         <lefthand value="false"/>
+        <junctions.join value="false"/>
+        <junctions.join-dist value="15"/>
     </processing>
 
     <building_defaults>

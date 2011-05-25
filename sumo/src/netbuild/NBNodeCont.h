@@ -159,6 +159,10 @@ public:
     void guessTLs(OptionsCont &oc, NBTrafficLightLogicCont &tlc);
 
 
+    /** @brief Joins junctions that are very close together 
+     */
+    void joinJunctions(SUMOReal maxdist, NBDistrictCont &dc, NBEdgeCont &ec, NBTrafficLightLogicCont &tlc);
+
     /** @brief Builds clusters of tls-controlled junctions and joins the control if possible
      * @param[changed] tlc The traffic lights control for adding/removing new/prior tls
      * @todo Recheck exception handling
@@ -306,6 +310,12 @@ private:
 
     /// @brief invalidated assignment operator
     NBNodeCont &operator=(const NBNodeCont &s);
+
+    // @brief merges two nodes using name and position of target
+    void merge(NBNode *moved, NBNode *target, NBDistrictCont &dc, NBEdgeCont &ec);
+
+    // @brief replaces oldEdge by an edge between from and to, keeping all attributes
+    void remapEdge(NBEdge *oldEdge, NBNode *from, NBNode *to, NBDistrictCont &dc, NBEdgeCont &ec);
 };
 
 

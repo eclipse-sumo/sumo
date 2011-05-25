@@ -339,6 +339,97 @@ NBNodeCont::guessTLs(OptionsCont &oc, NBTrafficLightLogicCont &tlc) {
 
 
 void
+NBNodeCont::joinJunctions(SUMOReal maxdist, NBDistrictCont &dc, NBEdgeCont &ec, NBTrafficLightLogicCont &tlc) {
+    std::vector<std::set<NBNode*> > cands;
+    generateNodeClusters(maxdist, cands);
+    int numJoined = 0;
+    for (std::vector<std::set<NBNode*> >::iterator i=cands.begin(); i!=cands.end(); ++i) {
+        const std::set<NBNode*> &candCluster = (*i);
+        std::set<NBNode*> cluster;
+        // remove nodes with degree = 2 at fringe of the cluster (at least one edge leads to a non-cluster node)
+        for (std::set<NBNode*>::const_iterator j=candCluster.begin(); j!=candCluster.end(); j++) {
+            NBNode *n = *j;
+            if (n->getIncomingEdges().size() == 1 && 
+                    n->getOutgoingEdges().size() == 1 &&
+                    (!cluster.count(n->getIncomingEdges()[0]->getFromNode()) ||
+                     !cluster.count(n->getOutgoingEdges()[0]->getToNode()))) {
+                continue;
+            } else {
+                cluster.insert(n);
+            }
+        }
+        if (cluster.size() > 1) {
+            // ok, we still have something to cluster. create the new node
+            std::string id = "cluster";
+            Position2D pos;
+            for (std::set<NBNode*>::const_iterator j=cluster.begin(); j!=cluster.end(); j++) {
+                id = id + "_" + (*j)->getID();
+                pos.add((*j)->getPosition());
+            }
+            pos.mul(1.0 / cluster.size());
+            if (!insert(id, pos)) {
+                // should not fail
+                WRITE_WARNING("Could not join junctions " + id);
+                continue;
+            }
+            numJoined++;
+            NBNode* newNode = retrieve(id);
+            // add a traffic light if one of the cluster members was controlled
+            bool setTL = false;
+            for (std::set<NBNode*>::const_iterator j=cluster.begin(); j!=cluster.end(); j++) {
+                if ((*j)->isTLControlled()) {
+                    setTL = true;
+                }
+            }
+            if (setTL) {
+                NBTrafficLightDefinition *tlDef = new NBOwnTLDef(id, newNode);
+                if (!tlc.insert(tlDef)) {
+                    // actually, nothing should fail here
+                    delete tlDef;
+                    throw ProcessError("Could not allocate tls '" + id + "'.");
+                }
+            }
+            // perform the merging
+            for (std::set<NBNode*>::const_iterator j=cluster.begin(); j!=cluster.end(); j++) {
+                merge(*j, newNode, dc, ec);
+            }
+        }
+    }
+    WRITE_MESSAGE("Joined " + toString(numJoined) + " junction cluster(s)");
+}
+
+
+void 
+NBNodeCont::merge(NBNode *moved, NBNode *target, NBDistrictCont &dc, NBEdgeCont &ec) {
+    // deleting edges changes in the underlying EdgeVector so we have to make a copy
+    EdgeVector incoming = moved->getIncomingEdges();
+    for (EdgeVector::iterator it = incoming.begin(); it != incoming.end(); it++) {
+        remapEdge(*it, (*it)->getFromNode(), target, dc, ec);
+    }
+    // deleting edges changes in the underlying EdgeVector so we have to make a copy
+    EdgeVector outgoing = moved->getOutgoingEdges();
+    for (EdgeVector::iterator it = outgoing.begin(); it != outgoing.end(); it++) {
+        remapEdge(*it, target, (*it)->getToNode(), dc, ec);
+    }
+    erase(moved);
+}
+
+
+void 
+NBNodeCont::remapEdge(NBEdge* oldEdge, NBNode *from, NBNode *to, NBDistrictCont &dc, NBEdgeCont &ec) {
+    if (to == from) {
+        // @todo remap connections
+        ec.erase(dc, oldEdge); 
+    } else {
+        NBEdge* remapped = new NBEdge(oldEdge->getID(), from, to, oldEdge);
+        remapped->setGeometry(oldEdge->getGeometry());
+        ec.erase(dc, oldEdge); // erase first so we can reuse the name
+        ec.insert(remapped);
+    }
+}
+
+
+void
 NBNodeCont::joinTLS(NBTrafficLightLogicCont &tlc) {
     SUMOReal MAXDIST = 25;
     std::vector<std::set<NBNode*> > cands;

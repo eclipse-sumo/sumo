@@ -1,4 +1,4 @@
-SUMO netgen Version dev-SVN-r10373
+SUMO netgen Version dev-SVN-r10434
  Copyright (C) 2001-2011 DLR and contributors; http://sumo.sourceforge.net
  
 Road network generator for the microscopic road traffic simulation SUMO.
@@ -116,6 +116,10 @@ Usage: netgen [OPTION]*
   --flip-y-axis                       Flips the y-coordinate along zero
   --roundabouts.guess                 Enable roundabout-guessing
   --lefthand                          Assumes left-hand traffic on the network
+  --junctions.join                    Joins junctions that are close to each
+                                        other (recommended for OSM import)
+  --junctions.join-dist FLOAT         Determines the maximal distance for
+                                        joining junctions (defaults to 15)
 
  Building Defaults Options:
   -L, --default.lanenumber INT        The default number of lanes in an edge

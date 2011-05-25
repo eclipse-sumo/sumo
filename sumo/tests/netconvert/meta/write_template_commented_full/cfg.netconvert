@@ -294,6 +294,12 @@
         <!-- Assumes left-hand traffic on the network -->
         <lefthand value="false"/>
 
+        <!-- Joins junctions that are close to each other (recommended for OSM import) -->
+        <junctions.join value="false"/>
+
+        <!-- Determines the maximal distance for joining junctions (defaults to 15) -->
+        <junctions.join-dist value="15"/>
+
     </processing>
 
     <building_defaults>

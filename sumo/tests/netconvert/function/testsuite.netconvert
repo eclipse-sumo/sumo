@@ -25,3 +25,6 @@ translation
 
 # tests for joining double connections
 join_double_conn
+
+# tests for joining of close junctions
+junctions.join

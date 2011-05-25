@@ -120,7 +120,13 @@ NBFrame::fillOptions(bool forNetgen) {
     oc.doRegister("lefthand", new Option_Bool(false));
     oc.addDescription("lefthand", "Processing", "Assumes left-hand traffic on the network");
 
+    oc.doRegister("junctions.join", new Option_Bool(false)); 
+    oc.addDescription("junctions.join", "Processing", 
+            "Joins junctions that are close to each other (recommended for OSM import)");
 
+    oc.doRegister("junctions.join-dist", new Option_Float(15));
+    oc.addDescription("junctions.join-dist", "Processing", 
+            "Determines the maximal distance for joining junctions (defaults to 15)");
 
     // tls setting options
     // explicit tls

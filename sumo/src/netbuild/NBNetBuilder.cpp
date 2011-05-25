@@ -94,6 +94,9 @@ void
 NBNetBuilder::compute(OptionsCont &oc) {
     int step = 1;
     //
+    if (oc.getBool("junctions.join")) {
+        myNodeCont.joinJunctions(oc.getFloat("junctions.join-dist"), myDistrictCont, myEdgeCont, myTLLCont);
+    }
     // Removes edges that are connecting the same node
     inform(step, "Removing dummy edges.");
     myNodeCont.removeDummyEdges(myDistrictCont, myEdgeCont, myTLLCont);

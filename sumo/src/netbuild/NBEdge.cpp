@@ -187,6 +187,23 @@ NBEdge::NBEdge(const std::string &id, NBNode *from, NBNode *to,
 }
 
 
+NBEdge::NBEdge(const std::string &id, NBNode *from, NBNode *to, NBEdge *tpl) :
+    Named(StringUtils::convertUmlaute(id)),
+    myStep(INIT),
+    myType(tpl->getTypeID()),
+    myFrom(from), myTo(to), myAngle(0),
+    myPriority(tpl->getPriority()), mySpeed(tpl->getSpeed()),
+    myTurnDestination(0),
+    myFromJunctionPriority(-1), myToJunctionPriority(-1),
+    myLaneSpreadFunction(tpl->getLaneSpreadFunction()), 
+    myOffset(tpl->getOffset()), 
+    myWidth(tpl->getWidth()),
+    myLoadedLength(-1), myAmLeftHand(false), myAmTurningWithAngle(0), myAmTurningOf(0),
+    myAmInnerEdge(false), myAmMacroscopicConnector(false) 
+{
+    init(tpl->getNoLanes(), false);
+}
+
 void
 NBEdge::reinit(NBNode *from, NBNode *to, const std::string &type,
                SUMOReal speed, unsigned int nolanes, int priority,
@@ -276,6 +293,14 @@ NBEdge::getInnerGeometry() const {
     result.pop_front();
     result.pop_back();
     return result;
+}
+
+
+bool 
+NBEdge::hasDefaultGeometry() const {
+    return myGeom.size() == 2 && 
+        myGeom.getBegin() == myFrom->getPosition() &&
+        myGeom.getEnd() == myTo->getPosition();
 }
 
 

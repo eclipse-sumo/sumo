@@ -218,6 +218,19 @@ public:
            LaneSpreadFunction spread=LANESPREAD_RIGHT,
            bool tryIgnoreNodePositions=false) throw(ProcessError);
 
+    /** @brief Constructor
+     *
+     * Use this to copy attribuets from another edge
+     *
+     * @param[in] id The id of the edge
+     * @param[in] from The node the edge starts at
+     * @param[in] to The node the edge ends at
+     * @param[in] tpl The template edge to copy attributes from
+     */
+    NBEdge(const std::string &id,
+           NBNode *from, NBNode *to, 
+           NBEdge *tpl);
+
 
     /** @brief Destructor
      */
@@ -379,6 +392,12 @@ public:
 
     /** @brief Returns the geometry of the edge without the endpoints */
     const Position2DVector getInnerGeometry() const;
+
+
+    /** @brief Returns whether the geometry consists only of the node positions
+     */
+    bool hasDefaultGeometry() const;
+
 
     /** @brief (Re)sets the edge's geometry
      *
