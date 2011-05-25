@@ -258,10 +258,14 @@ MSBaseVehicle::addReminder(MSMoveReminder* rem) throw() {
 void
 MSBaseVehicle::activateReminders(const MSMoveReminder::Notification reason) throw() {
     for (MoveReminderCont::iterator rem=myMoveReminders.begin(); rem!=myMoveReminders.end();) {
-        if (rem->first->notifyEnter(*this, reason)) {
+        if (rem->first->getLane() != 0 && dynamic_cast<MSVehicle*>(this)!=0 && rem->first->getLane() != dynamic_cast<MSVehicle*>(this)->getLane()) { 
             ++rem;
         } else {
-            rem = myMoveReminders.erase(rem);
+            if (rem->first->notifyEnter(*this, reason)) {
+                ++rem;
+            } else {
+                rem = myMoveReminders.erase(rem);
+            }
         }
     }
 }
