@@ -41,8 +41,8 @@
 #include <string>
 #include <iostream>
 #include "MSNet.h"
-#include <utils/geom/Position2DVector.h>
-#include <utils/geom/Line2D.h>
+#include <utils/geom/PositionVector.h>
+#include <utils/geom/Line.h>
 #include <utils/geom/GeomHelper.h>
 #include <utils/common/SUMOTime.h>
 #include <utils/common/SUMOVehicleClass.h>
@@ -104,7 +104,7 @@ public:
      * @see SUMOVehicleClass
      */
     MSLane(const std::string &id, SUMOReal maxSpeed, SUMOReal length, MSEdge * const edge,
-           unsigned int numericalID, const Position2DVector &shape, SUMOReal width, 
+           unsigned int numericalID, const PositionVector &shape, SUMOReal width, 
            const SUMOVehicleClasses &allowed,
            const SUMOVehicleClasses &disallowed) throw();
 
@@ -324,7 +324,7 @@ public:
     /** @brief Returns this lane's shape
      * @return This lane's shape
      */
-    const Position2DVector &getShape() const throw() {
+    const PositionVector &getShape() const throw() {
         return myShape;
     }
 
@@ -473,7 +473,7 @@ public:
     virtual MSVehicle *removeVehicle(MSVehicle *remVehicle);
 
     /// The shape of the lane
-    Position2DVector myShape;
+    PositionVector myShape;
 
 
 

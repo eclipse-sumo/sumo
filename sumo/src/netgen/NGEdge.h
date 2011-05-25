@@ -31,7 +31,7 @@
 
 #include <list>
 #include <utils/common/UtilExceptions.h>
-#include <utils/geom/Position2D.h>
+#include <utils/geom/Position.h>
 #include <utils/geom/GeomHelper.h>
 
 

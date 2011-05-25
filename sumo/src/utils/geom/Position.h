@@ -1,10 +1,10 @@
 /****************************************************************************/
-/// @file    Position2D.h
+/// @file    Position.h
 /// @author  Daniel Krajzewicz
 /// @date    Sept 2002
 /// @version $Id$
 ///
-// A position in a 2D-world
+// A position in the 2D- or 3D-world
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // Copyright (C) 2001-2011 DLR (http://www.dlr.de/) and contributors
@@ -16,8 +16,8 @@
 //   (at your option) any later version.
 //
 /****************************************************************************/
-#ifndef Position2D_h
-#define Position2D_h
+#ifndef Position_h
+#define Position_h
 
 
 // ===========================================================================
@@ -36,24 +36,24 @@
 // class definitions
 // ===========================================================================
 /**
- * @class Position2D
- * @brief A point in 2D with translation and scaling methods.
+ * @class Position
+ * @brief A point in 2D or 3D with translation and scaling methods.
  */
-class Position2D {
+class Position {
 public:
     /// default constructor
-    Position2D() : myX(0.0), myY(0.0), myZ(0.0) { }
+    Position() : myX(0.0), myY(0.0), myZ(0.0) { }
 
     /// parametrised constructor
-    Position2D(SUMOReal x, SUMOReal y)
+    Position(SUMOReal x, SUMOReal y)
             : myX(x), myY(y), myZ(0) { }
 
     /// parametrised constructor
-    Position2D(SUMOReal x, SUMOReal y, SUMOReal z)
+    Position(SUMOReal x, SUMOReal y, SUMOReal z)
             : myX(x), myY(y), myZ(z) { }
 
     /// Destructor
-    ~Position2D() { }
+    ~Position() { }
 
     /// Returns the x-position
     SUMOReal x() const {
@@ -84,7 +84,7 @@ public:
     }
 
     ///
-    void set(const Position2D &pos) {
+    void set(const Position &pos) {
         myX = pos.myX;
         myY = pos.myY;
         myZ = pos.myZ;
@@ -112,7 +112,7 @@ public:
     }
 
     /// Adds the given position to this one
-    void add(const Position2D &pos) {
+    void add(const Position &pos) {
         myX += pos.myX;
         myY += pos.myY;
         myZ += pos.myZ;
@@ -145,7 +145,7 @@ public:
     }
 
     /// Substracts the given position from this one
-    void sub(const Position2D &pos) {
+    void sub(const Position &pos) {
         myX -= pos.myX;
         myY -= pos.myY;
         myZ -= pos.myZ;
@@ -167,7 +167,7 @@ public:
 
 
     /// Prints to the output
-    friend std::ostream &operator<<(std::ostream &os, const Position2D &p) {
+    friend std::ostream &operator<<(std::ostream &os, const Position &p) {
         os << p.x() << "," << p.y();
         if(p.z()!=SUMOReal(0.0)) {
             os << "," << p.z();
@@ -175,26 +175,26 @@ public:
         return os;
     }
 
-    bool operator==(const Position2D &p2) const {
+    bool operator==(const Position &p2) const {
         return myX==p2.myX && myY==p2.myY && myZ==p2.myZ;
     }
 
-    bool operator!=(const Position2D &p2) const {
+    bool operator!=(const Position &p2) const {
         return myX!=p2.myX || myY!=p2.myY || myZ!=p2.myZ;
     }
 
 
-    bool almostSame(const Position2D &p2, SUMOReal maxDiv=POSITION_EPS) const {
+    bool almostSame(const Position &p2, SUMOReal maxDiv=POSITION_EPS) const {
         return fabs(myX-p2.myX)<maxDiv && fabs(myY-p2.myY)<maxDiv && fabs(myZ-p2.myZ)<maxDiv;
     }
 
 
-    inline SUMOReal distanceTo(const Position2D &p2) const {
+    inline SUMOReal distanceTo(const Position &p2) const {
         return sqrt(distanceSquaredTo(p2));
     }
 
 
-    inline SUMOReal distanceSquaredTo(const Position2D &p2) const {
+    inline SUMOReal distanceSquaredTo(const Position &p2) const {
         return (myX-p2.myX)*(myX-p2.myX) + (myY-p2.myY)*(myY-p2.myY) + (myZ-p2.myZ)*(myZ-p2.myZ);
     }
 

@@ -1,5 +1,5 @@
 /****************************************************************************/
-/// @file    GUIPolygon2D.cpp
+/// @file    GUIPolygon.cpp
 /// @author  Daniel Krajzewicz
 /// @date    June 2006
 /// @version $Id$
@@ -27,7 +27,7 @@
 #endif
 
 #include <string>
-#include "GUIPolygon2D.h"
+#include "GUIPolygon.h"
 #include <utils/gui/globjects/GUIGlObject.h>
 #include <utils/gui/div/GUIParameterTableWindow.h>
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
@@ -50,21 +50,21 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-GUIPolygon2D::GUIPolygon2D(int layer,
+GUIPolygon::GUIPolygon(int layer,
                            const std::string name, const std::string type,
                            const RGBColor &color,
-                           const Position2DVector &Pos,
+                           const PositionVector &Pos,
                            bool fill) throw()
-        : Polygon2D(name, type, color, Pos, fill),
+        : Polygon(name, type, color, Pos, fill),
         GUIGlObject_AbstractAdd("poly", GLO_SHAPE, name), myLayer(layer) {}
 
 
-GUIPolygon2D::~GUIPolygon2D() throw() {}
+GUIPolygon::~GUIPolygon() throw() {}
 
 
 
 GUIGLObjectPopupMenu *
-GUIPolygon2D::getPopUpMenu(GUIMainWindow &app,
+GUIPolygon::getPopUpMenu(GUIMainWindow &app,
                            GUISUMOAbstractView &parent) throw() {
     GUIGLObjectPopupMenu *ret = new GUIGLObjectPopupMenu(app, parent, *this);
     buildPopupHeader(ret, app, false);
@@ -80,14 +80,14 @@ GUIPolygon2D::getPopUpMenu(GUIMainWindow &app,
 
 
 GUIParameterTableWindow *
-GUIPolygon2D::getParameterWindow(GUIMainWindow &,
+GUIPolygon::getParameterWindow(GUIMainWindow &,
                                  GUISUMOAbstractView &) throw() {
     return 0;
 }
 
 
 Boundary
-GUIPolygon2D::getCenteringBoundary() const throw() {
+GUIPolygon::getCenteringBoundary() const throw() {
     Boundary b;
     b.add(myShape.getBoxBoundary());
     b.grow(10);
@@ -135,7 +135,7 @@ void APIENTRY combineCallback(GLdouble coords[3],
 
 double glvert[6];
 void
-GUIPolygon2D::drawGL(const GUIVisualizationSettings &s) const throw() {
+GUIPolygon::drawGL(const GUIVisualizationSettings &s) const throw() {
     UNUSED_PARAMETER(s);
     if (fill()) {
         if (myShape.size()<3) {
@@ -190,7 +190,7 @@ GUIPolygon2D::drawGL(const GUIVisualizationSettings &s) const throw() {
 
 
 int
-GUIPolygon2D::getLayer() const {
+GUIPolygon::getLayer() const {
     return myLayer;
 }
 

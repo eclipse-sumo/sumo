@@ -35,10 +35,10 @@
 #include <fx.h>
 #include <fx3d.h>
 #include <utils/geom/Boundary.h>
-#include <utils/geom/Position2D.h>
+#include <utils/geom/Position.h>
 #include <utils/common/RGBColor.h>
 #include <utils/common/SUMOTime.h>
-#include <utils/shapes/Polygon2D.h>
+#include <utils/shapes/Polygon.h>
 #include <utils/gui/globjects/GUIGlObjectTypes.h>
 #include <utils/foxtools/MFXMutex.h>
 #include <foreign/rtree/SUMORTree.h>
@@ -196,7 +196,7 @@ public:
         return -1;
     }
 
-    virtual void onGamingClick(Position2D /*pos*/) { }
+    virtual void onGamingClick(Position /*pos*/) { }
 
 
 
@@ -268,7 +268,7 @@ public:
     /** @brief Returns the cursor's x/y position within the network 
      * @return The cursor's x/y position within the network 
      */
-    Position2D getPositionInformation() const;
+    Position getPositionInformation() const;
 
     void addDecals(const std::vector<Decal> &decals) {
         myDecals.insert(myDecals.end(), decals.begin(), decals.end());
@@ -307,7 +307,7 @@ protected:
     GLuint getObjectUnderCursor();
 
     /// returns the id of the object at position using GL_SELECT
-    GLuint getObjectAtPosition(Position2D pos);
+    GLuint getObjectAtPosition(Position pos);
     
     /// returns the ids of all objects in the given boundary
     std::vector<GLuint> getObjectsInBoundary(const Boundary& bound); 

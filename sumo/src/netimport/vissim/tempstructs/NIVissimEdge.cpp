@@ -37,7 +37,7 @@
 #include <sstream>
 #include <iterator>
 #include <utils/common/ToString.h>
-#include <utils/geom/Position2DVector.h>
+#include <utils/geom/PositionVector.h>
 #include <utils/geom/GeomHelper.h>
 #include <utils/distribution/Distribution.h>
 #include <netbuild/NBDistribution.h>
@@ -117,7 +117,7 @@ NIVissimEdge::connection_cluster_position_sorter::operator()(
 NIVissimEdge::NIVissimEdge(int id, const std::string &name,
                            const std::string &type, int noLanes,
                            SUMOReal zuschlag1, SUMOReal zuschlag2,
-                           SUMOReal /*length*/, const Position2DVector &geom,
+                           SUMOReal /*length*/, const PositionVector &geom,
                            const NIVissimClosedLanesVector &clv)
         : NIVissimAbstractEdge(id, geom),
         myName(name), myType(type), myNoLanes(noLanes),
@@ -145,7 +145,7 @@ bool
 NIVissimEdge::dictionary(int id, const std::string &name,
                          const std::string &type, int noLanes,
                          SUMOReal zuschlag1, SUMOReal zuschlag2, SUMOReal length,
-                         const Position2DVector &geom,
+                         const PositionVector &geom,
                          const NIVissimClosedLanesVector &clv) {
     NIVissimEdge *o = new NIVissimEdge(id, name, type, noLanes, zuschlag1,
                                        zuschlag2, length, geom, clv);
@@ -466,7 +466,7 @@ NIVissimEdge::buildNBEdge(NBDistrictCont &dc, NBNodeCont &nc, NBEdgeCont &ec,
     //
     if (fromNode==0) {
         fromInf.first = 0;
-        Position2D pos = myGeom[0];
+        Position pos = myGeom[0];
         fromNode = new NBNode(toString<int>(myID) + "-SourceNode", pos, NODETYPE_NOJUNCTION);
         if (!nc.insert(fromNode)) {
             throw ProcessError("Could not insert node '" + fromNode->getID() + "' to nodes container.");
@@ -474,7 +474,7 @@ NIVissimEdge::buildNBEdge(NBDistrictCont &dc, NBNodeCont &nc, NBEdgeCont &ec,
     }
     if (toNode==0) {
         toInf.first = 0;
-        Position2D pos = myGeom[-1];
+        Position pos = myGeom[-1];
         toNode = new NBNode(toString<int>(myID) + "-DestinationNode", pos, NODETYPE_NOJUNCTION);
         if (!nc.insert(toNode)) {
             throw ProcessError("Could not insert node '" + toNode->getID() + "' to nodes container.");
@@ -582,7 +582,7 @@ std::pair<NIVissimConnectionCluster*, NBNode*>
 NIVissimEdge::getFromNode(NBNodeCont &nc, ConnectionClusters &clusters) {
     const SUMOReal MAX_DISTANCE = 10.;
     assert(clusters.size()>=1);
-    const Position2D &beg = myGeom.getBegin();
+    const Position &beg = myGeom.getBegin();
     NIVissimConnectionCluster *c = *(clusters.begin());
     // check whether the edge starts within a already build node
     if (c->around(beg, MAX_DISTANCE)) {
@@ -615,7 +615,7 @@ NIVissimEdge::getFromNode(NBNodeCont &nc, ConnectionClusters &clusters) {
 
 std::pair<NIVissimConnectionCluster*, NBNode *>
 NIVissimEdge::getToNode(NBNodeCont &nc, ConnectionClusters &clusters) {
-    const Position2D &end = myGeom.getEnd();
+    const Position &end = myGeom.getEnd();
     if (clusters.size()>0) {
         const SUMOReal MAX_DISTANCE = 10.;
         assert(clusters.size()>=1);
@@ -695,7 +695,7 @@ NIVissimEdge::resolveSameNode(NBNodeCont &nc, SUMOReal offset,
     NIVissimDistrictConnection *d =
         NIVissimDistrictConnection::dict_findForEdge(myID);
     if (d!=0) {
-        Position2D pos = d->geomPosition();
+        Position pos = d->geomPosition();
         SUMOReal position = d->getPosition();
         // the district is at the begin of the edge
         if (myGeom.length()-position>position) {
@@ -828,13 +828,13 @@ NIVissimEdge::addToConnectionCluster(NIVissimConnectionCluster *c) {
 }
 
 
-Position2D // !!! reference?
+Position // !!! reference?
 NIVissimEdge::getBegin2D() const {
     return myGeom[0];
 }
 
 
-Position2D // !!! reference?
+Position // !!! reference?
 NIVissimEdge::getEnd2D() const {
     return myGeom[-1];
 }
@@ -874,14 +874,14 @@ NIVissimEdge::dict_checkEdges2Join() {
     for (DictType::iterator i1=myDict.begin(); i1!=myDict.end(); i1++) {
         // retrieve needed values from the first edge
         NIVissimEdge *e1 = (*i1).second;
-        const Position2DVector &g1 = e1->getGeometry();
+        const PositionVector &g1 = e1->getGeometry();
         // check all other edges
         DictType::iterator i2=i1;
         i2++;
         for (; i2!=myDict.end(); i2++) {
             // retrieve needed values from the second edge
             NIVissimEdge *e2 = (*i2).second;
-            const Position2DVector &g2 = e2->getGeometry();
+            const PositionVector &g2 = e2->getGeometry();
             // get the connection description
             NIVissimConnection *c = e1->getConnectionTo(e2);
             if (c==0) {
@@ -899,8 +899,8 @@ NIVissimEdge::dict_checkEdges2Join() {
             // only parallel edges which do end at the same node
             //  should be joined
             // retrieve the "approximating" lines first
-            Line2D l1 = Line2D(g1.getBegin(), g1.getEnd());
-            Line2D l2 = Line2D(g2.getBegin(), g2.getEnd());
+            Line l1 = Line(g1.getBegin(), g1.getEnd());
+            Line l2 = Line(g2.getBegin(), g2.getEnd());
             // check for parallelity
             //  !!! the usage of an explicit value is not very fine
             if (fabs(l1.atan2DegreeAngle()-l2.atan2DegreeAngle())>2.0) {

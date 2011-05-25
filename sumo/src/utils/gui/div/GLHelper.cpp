@@ -52,19 +52,19 @@ std::vector<std::pair<SUMOReal, SUMOReal> > GLHelper::myCircleCoords;
 // method definitions
 // ===========================================================================
 void
-GLHelper::drawFilledPoly(const Position2DVector &v, bool close) throw() {
+GLHelper::drawFilledPoly(const PositionVector &v, bool close) throw() {
     if (v.size()==0) {
         return;
     }
     glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
     glBegin(GL_POLYGON);
-    const Position2DVector::ContType &l = v.getCont();
-    for (Position2DVector::ContType ::const_iterator i=l.begin(); i!=l.end(); i++) {
-        const Position2D &p = *i;
+    const PositionVector::ContType &l = v.getCont();
+    for (PositionVector::ContType ::const_iterator i=l.begin(); i!=l.end(); i++) {
+        const Position &p = *i;
         glVertex2d(p.x(), p.y());
     }
     if (close) {
-        const Position2D &p = *(l.begin());
+        const Position &p = *(l.begin());
         glVertex2d(p.x(), p.y());
     }
     glEnd();
@@ -72,7 +72,7 @@ GLHelper::drawFilledPoly(const Position2DVector &v, bool close) throw() {
 
 
 void
-GLHelper::drawBoxLine(const Position2D &beg, SUMOReal rot, SUMOReal visLength,
+GLHelper::drawBoxLine(const Position &beg, SUMOReal rot, SUMOReal visLength,
                       SUMOReal width) throw() {
     glPushMatrix();
     glTranslated(beg.x(), beg.y(), 0);
@@ -88,7 +88,7 @@ GLHelper::drawBoxLine(const Position2D &beg, SUMOReal rot, SUMOReal visLength,
 
 
 void
-GLHelper::drawBoxLine(const Position2D &beg1, const Position2D &beg2,
+GLHelper::drawBoxLine(const Position &beg1, const Position &beg2,
                       SUMOReal rot, SUMOReal visLength,
                       SUMOReal width) throw() {
     glPushMatrix();
@@ -105,7 +105,7 @@ GLHelper::drawBoxLine(const Position2D &beg1, const Position2D &beg2,
 
 
 void
-GLHelper::drawBoxLines(const Position2DVector &geom,
+GLHelper::drawBoxLines(const PositionVector &geom,
                        const std::vector<SUMOReal> &rots,
                        const std::vector<SUMOReal> &lengths,
                        SUMOReal width) throw() {
@@ -117,8 +117,8 @@ GLHelper::drawBoxLines(const Position2DVector &geom,
 
 
 void
-GLHelper::drawBoxLines(const Position2DVector &geom1,
-                       const Position2DVector &geom2,
+GLHelper::drawBoxLines(const PositionVector &geom1,
+                       const PositionVector &geom2,
                        const std::vector<SUMOReal> &rots,
                        const std::vector<SUMOReal> &lengths,
                        SUMOReal width) throw() {
@@ -130,11 +130,11 @@ GLHelper::drawBoxLines(const Position2DVector &geom1,
 
 
 void
-GLHelper::drawBoxLines(const Position2DVector &geom, SUMOReal width) throw() {
+GLHelper::drawBoxLines(const PositionVector &geom, SUMOReal width) throw() {
     int e = (int) geom.size() - 1;
     for (int i=0; i<e; i++) {
-        const Position2D &f = geom[i];
-        const Position2D &s = geom[i+1];
+        const Position &f = geom[i];
+        const Position &s = geom[i+1];
         drawBoxLine(f,
                     (SUMOReal) atan2((s.x()-f.x()), (f.y()-s.y()))*(SUMOReal) 180.0/(SUMOReal) PI,
                     f.distanceTo(s),
@@ -144,7 +144,7 @@ GLHelper::drawBoxLines(const Position2DVector &geom, SUMOReal width) throw() {
 
 
 void
-GLHelper::drawLine(const Position2D &beg, SUMOReal rot, SUMOReal visLength) throw() {
+GLHelper::drawLine(const Position &beg, SUMOReal rot, SUMOReal visLength) throw() {
     glPushMatrix();
     glTranslated(beg.x(), beg.y(), 0);
     glRotated(rot, 0, 0, 1);
@@ -157,7 +157,7 @@ GLHelper::drawLine(const Position2D &beg, SUMOReal rot, SUMOReal visLength) thro
 
 
 void
-GLHelper::drawLine(const Position2D &beg1, const Position2D &beg2,
+GLHelper::drawLine(const Position &beg1, const Position &beg2,
                    SUMOReal rot, SUMOReal visLength) throw() {
     glPushMatrix();
     glTranslated((beg2.x()+beg1.x())*.5, (beg2.y()+beg1.y())*.5, 0);
@@ -172,7 +172,7 @@ GLHelper::drawLine(const Position2D &beg1, const Position2D &beg2,
 
 
 void
-GLHelper::drawLine(const Position2DVector &v) throw() {
+GLHelper::drawLine(const PositionVector &v) throw() {
     glBegin(GL_LINES);
     int e = (int) v.size() - 1;
     for (int i=0; i<e; ++i) {
@@ -185,7 +185,7 @@ GLHelper::drawLine(const Position2DVector &v) throw() {
 
 
 void
-GLHelper::drawLine(const Position2D &beg, const Position2D &end) throw() {
+GLHelper::drawLine(const Position &beg, const Position &end) throw() {
     glBegin(GL_LINES);
     glVertex2d(beg.x(), beg.y());
     glVertex2d(end.x(), end.y());
@@ -280,13 +280,13 @@ GLHelper::drawOutlineCircle(SUMOReal width, SUMOReal iwidth, int steps,
 
 
 void
-GLHelper::drawTriangleAtEnd(const Line2D &l, SUMOReal tLength,
+GLHelper::drawTriangleAtEnd(const Line &l, SUMOReal tLength,
                             SUMOReal tWidth) throw() {
     if (l.length()<tLength) {
         tWidth = tWidth * l.length() / tLength;
         tLength = l.length();
     }
-    Line2D rl(l.getPositionAtDistance(l.length()-tLength), l.p2());
+    Line rl(l.getPositionAtDistance(l.length()-tLength), l.p2());
     glPushMatrix();
     glTranslated(rl.p1().x(), rl.p1().y(), 0);
     glRotated(-l.atan2DegreeAngle(), 0, 0, 1);

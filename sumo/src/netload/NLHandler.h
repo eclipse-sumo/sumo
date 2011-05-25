@@ -322,7 +322,7 @@ protected:
     std::string myCurrentWAUTID;
 
     /// The network offset
-    Position2D myNetworkOffset;
+    Position myNetworkOffset;
 
     /// The network's boundaries
     Boundary myOrigBoundary, myConvBoundary;

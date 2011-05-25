@@ -35,8 +35,8 @@
 
 #include <string>
 #include <utils/common/MsgHandler.h>
-#include <utils/geom/Position2DVector.h>
-#include <utils/geom/Line2D.h>
+#include <utils/geom/PositionVector.h>
+#include <utils/geom/Line.h>
 #include <utils/geom/Boundary.h>
 #include <utils/gui/div/GLHelper.h>
 #include <utils/common/ToString.h>
@@ -78,12 +78,12 @@ GUIBusStop::GUIBusStop(const std::string &id, const std::vector<std::string> &li
     myFGShapeLengths.reserve(myFGShape.size()-1);
     int e = (int) myFGShape.size() - 1;
     for (int i=0; i<e; ++i) {
-        const Position2D &f = myFGShape[i];
-        const Position2D &s = myFGShape[i+1];
+        const Position &f = myFGShape[i];
+        const Position &s = myFGShape[i+1];
         myFGShapeLengths.push_back(f.distanceTo(s));
         myFGShapeRotations.push_back((SUMOReal) atan2((s.x()-f.x()), (f.y()-s.y()))*(SUMOReal) 180.0/(SUMOReal) PI);
     }
-    Position2DVector tmp = myFGShape;
+    PositionVector tmp = myFGShape;
     tmp.move2side(1.5);
     myFGSignPos = tmp.getLineCenter();
     myFGSignRot = 0;

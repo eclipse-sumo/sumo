@@ -44,16 +44,16 @@
 
 
 // Assume that a class is already given for the object:
-//    Position2D with coordinates {SUMOReal x, y;}
-Position2DVector
-simpleHull_2D(const Position2DVector &V) {
+//    Position with coordinates {SUMOReal x, y;}
+PositionVector
+simpleHull_2D(const PositionVector &V) {
     if (V.size()<3) {
         throw ProcessError();
     }
     // initialize a deque D[] from bottom to top so that the
     // 1st three vertices of V[] are a counterclockwise triangle
     int n = (int) V.size();
-    std::vector<Position2D> D(2*n+1);
+    std::vector<Position> D(2*n+1);
     int bot = n-2, top = bot+3;   // initial bottom and top deque indices
     D[bot] = D[top] = V[2];       // 3rd vertex is at both bot and top
     if (isLeft(V[0], V[1], V[2]) > 0) {
@@ -106,7 +106,7 @@ simpleHull_2D(const Position2DVector &V) {
 
     // transcribe deque D[] to the output hull array H[]
     int h;        // hull vertex counter
-    Position2DVector H;
+    PositionVector H;
     for (h=0; h <= (top-bot); h++) {
         if (bot + h>=(int) D.size()) {
             throw ProcessError();

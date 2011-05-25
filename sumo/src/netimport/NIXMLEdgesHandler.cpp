@@ -101,7 +101,7 @@ NIXMLEdgesHandler::myStartElement(int element,
         myCurrentOffset = 0;
         // check whether a type's values shall be used
         myCurrentType = "";
-        myShape = Position2DVector();
+        myShape = PositionVector();
         if (attrs.hasAttribute(SUMO_ATTR_TYPE)) {
             myCurrentType = attrs.getStringReporting(SUMO_ATTR_TYPE, myCurrentID.c_str(), ok);
             if (!ok) {
@@ -349,23 +349,23 @@ NIXMLEdgesHandler::setNodes(const SUMOSAXAttributes &attrs) throw() {
     SUMOReal endNodeXPos = tryGetPosition(attrs, SUMO_ATTR_XTO, "XTo");
     SUMOReal endNodeYPos = tryGetPosition(attrs, SUMO_ATTR_YTO, "YTo");
     if (begNodeXPos!=SUMOXML_INVALID_POSITION&&begNodeYPos!=SUMOXML_INVALID_POSITION) {
-        Position2D pos(begNodeXPos, begNodeYPos);
+        Position pos(begNodeXPos, begNodeYPos);
         GeoConvHelper::x2cartesian(pos);
         begNodeXPos = pos.x();
         begNodeYPos = pos.y();
     }
     if (endNodeXPos!=SUMOXML_INVALID_POSITION&&endNodeYPos!=SUMOXML_INVALID_POSITION) {
-        Position2D pos(endNodeXPos, endNodeYPos);
+        Position pos(endNodeXPos, endNodeYPos);
         GeoConvHelper::x2cartesian(pos);
         endNodeXPos = pos.x();
         endNodeYPos = pos.y();
     }
     // check the obtained values for nodes
-    myFromNode = insertNodeChecking(Position2D(begNodeXPos, begNodeYPos), begNodeID, "from");
-    myToNode = insertNodeChecking(Position2D(endNodeXPos, endNodeYPos), endNodeID, "to");
+    myFromNode = insertNodeChecking(Position(begNodeXPos, begNodeYPos), begNodeID, "from");
+    myToNode = insertNodeChecking(Position(endNodeXPos, endNodeYPos), endNodeID, "to");
     if(myFromNode!=0&&myToNode!=0) {
         if(myIsUpdate&&(myFromNode->getID()!=oldBegID||myToNode->getID()!=oldEndID)) {
-            myShape = Position2DVector();
+            myShape = PositionVector();
         }
     }
     return myFromNode!=0&&myToNode!=0;
@@ -382,7 +382,7 @@ NIXMLEdgesHandler::tryGetPosition(const SUMOSAXAttributes &attrs, SumoXMLAttr at
 
 
 NBNode *
-NIXMLEdgesHandler::insertNodeChecking(const Position2D &pos,
+NIXMLEdgesHandler::insertNodeChecking(const Position &pos,
                                       const std::string &name, const std::string &dir) {
     NBNode *ret = 0;
     if (name=="" && (pos.x()==SUMOXML_INVALID_POSITION || pos.y()==SUMOXML_INVALID_POSITION)) {
@@ -417,7 +417,7 @@ NIXMLEdgesHandler::insertNodeChecking(const Position2D &pos,
 }
 
 
-Position2DVector
+PositionVector
 NIXMLEdgesHandler::tryGetShape(const SUMOSAXAttributes &attrs) throw() {
     if (!attrs.hasAttribute(SUMO_ATTR_SHAPE)) {
         return myShape;
@@ -426,12 +426,12 @@ NIXMLEdgesHandler::tryGetShape(const SUMOSAXAttributes &attrs) throw() {
     bool ok = true;
     std::string shpdef = attrs.getOptStringReporting(SUMO_ATTR_SHAPE, 0, ok, "");
     if (shpdef=="") {
-        return Position2DVector();
+        return PositionVector();
     }
-    Position2DVector shape1 = GeomConvHelper::parseShapeReporting(shpdef, attrs.getObjectType(), 0, ok, true);
-    Position2DVector shape;
+    PositionVector shape1 = GeomConvHelper::parseShapeReporting(shpdef, attrs.getObjectType(), 0, ok, true);
+    PositionVector shape;
     for (int i=0; i<(int) shape1.size(); ++i) {
-        Position2D pos(shape1[i]);
+        Position pos(shape1[i]);
         if (!GeoConvHelper::x2cartesian(pos)) {
             MsgHandler::getErrorInstance()->inform("Unable to project coordinates for edge '" + myCurrentID + "'.");
         }
@@ -541,7 +541,7 @@ NIXMLEdgesHandler::myEndElement(int element) throw(ProcessError) {
             for (; i!=mySplits.end(); ++i) {
                 unsigned int maxLeft = (*i).lanes.back();
                 if (maxLeft<noLanesMax) {
-                    Position2DVector g = e->getGeometry();
+                    PositionVector g = e->getGeometry();
                     g.move2side(SUMO_const_laneWidthAndOffset*(noLanesMax-1-maxLeft));
                     e->setGeometry(g);
                 }

@@ -77,7 +77,7 @@ NLJunctionControlBuilder::openJunction(const std::string &id,
                                        const std::string &key,
                                        const std::string &type,
                                        SUMOReal x, SUMOReal y,
-                                       const Position2DVector &shape,
+                                       const PositionVector &shape,
                                        const std::vector<MSLane*> &incomingLanes,
                                        const std::vector<MSLane*> &internalLanes) throw(InvalidArgument) {
 #ifdef HAVE_INTERNAL_LANES

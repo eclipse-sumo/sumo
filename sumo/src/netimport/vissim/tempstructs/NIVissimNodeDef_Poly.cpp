@@ -32,7 +32,7 @@
 #include <map>
 #include <cassert>
 #include <algorithm>
-#include <utils/geom/Position2DVector.h>
+#include <utils/geom/PositionVector.h>
 #include "NIVissimEdge.h"
 #include "NIVissimNodeDef.h"
 #include "NIVissimNodeDef_Poly.h"
@@ -50,7 +50,7 @@
 using namespace std;
 
 NIVissimNodeDef_Poly::NIVissimNodeDef_Poly(int id, const std::string &name,
-        const Position2DVector &poly)
+        const PositionVector &poly)
         : NIVissimNodeDef_Edges(id, name, NIVissimNodeParticipatingEdgeVector()),
         myPoly(poly) {}
 
@@ -60,7 +60,7 @@ NIVissimNodeDef_Poly::~NIVissimNodeDef_Poly() {}
 
 bool
 NIVissimNodeDef_Poly::dictionary(int id, const std::string &name,
-                                 const Position2DVector &poly) {
+                                 const PositionVector &poly) {
     NIVissimNodeDef_Poly *o = new NIVissimNodeDef_Poly(id, name, poly);
     if (!NIVissimNodeDef::dictionary(id, o)) {
         delete o;
@@ -86,8 +86,8 @@ NIVissimNodeDef_Poly::getEdgePosition(int edgeid) const
 {
     NIVissimEdge *edge = NIVissimEdge::dictionary(edgeid);
     return edge->crossesAtPoint(
-        Position2D(myBoundary->xmin(), myBoundary->ymin()),
-        Position2D(myBoundary->xmax(), myBoundary->ymax()));
+        Position(myBoundary->xmin(), myBoundary->ymin()),
+        Position(myBoundary->xmax(), myBoundary->ymax()));
 }
 */
 

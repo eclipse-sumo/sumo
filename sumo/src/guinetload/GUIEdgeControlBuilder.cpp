@@ -66,7 +66,7 @@ GUIEdgeControlBuilder::closeEdge() {
 MSLane *
 GUIEdgeControlBuilder::addLane(const std::string &id,
                                SUMOReal maxSpeed, SUMOReal length, bool isDepart,
-                               const Position2DVector &shape,
+                               const PositionVector &shape,
                                SUMOReal width, 
                                const SUMOVehicleClasses &allowed,
                                const SUMOVehicleClasses &disallowed) {

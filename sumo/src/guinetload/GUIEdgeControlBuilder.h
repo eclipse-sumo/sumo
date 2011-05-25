@@ -32,7 +32,7 @@
 #include <string>
 #include <vector>
 #include <netload/NLEdgeControlBuilder.h>
-#include <utils/geom/Position2DVector.h>
+#include <utils/geom/PositionVector.h>
 #include <guisim/GUIEdge.h>
 
 
@@ -82,7 +82,7 @@ public:
      */
     virtual MSLane *addLane(const std::string &id,
                             SUMOReal maxSpeed, SUMOReal length, bool isDepart,
-                            const Position2DVector &shape, SUMOReal width, 
+                            const PositionVector &shape, SUMOReal width, 
                             const SUMOVehicleClasses &allowed,
                             const SUMOVehicleClasses &disallowed);
 

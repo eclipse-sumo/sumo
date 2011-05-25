@@ -29,7 +29,7 @@
     <ClCompile Include="..\..\..\src\utils\gui\globjects\GUIPointOfInterest.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\src\utils\gui\globjects\GUIPolygon2D.cpp">
+    <ClCompile Include="..\..\..\src\utils\gui\globjects\GUIPolygon.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
   </ItemGroup>
@@ -55,7 +55,7 @@
     <ClInclude Include="..\..\..\src\utils\gui\globjects\GUIPointOfInterest.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\src\utils\gui\globjects\GUIPolygon2D.h">
+    <ClInclude Include="..\..\..\src\utils\gui\globjects\GUIPolygon.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
   </ItemGroup>

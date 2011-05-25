@@ -30,7 +30,7 @@
 #endif
 
 #include <utils/xml/SUMOSAXHandler.h>
-#include <utils/geom/Position2D.h>
+#include <utils/geom/Position.h>
 
 
 // ===========================================================================
@@ -111,7 +111,7 @@ private:
     std::string myID;
 
     /// @brief The position of the currently parsed node
-    Position2D myPosition;
+    Position myPosition;
 
     /// @brief The node container to add built nodes to
     NBNodeCont &myNodeCont;

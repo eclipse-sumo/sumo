@@ -1,5 +1,5 @@
 /****************************************************************************/
-/// @file    Line2D.h
+/// @file    Line.h
 /// @author  Daniel Krajzewicz
 /// @date    Fri, 29.04.2005
 /// @version $Id$
@@ -16,8 +16,8 @@
 //   (at your option) any later version.
 //
 /****************************************************************************/
-#ifndef Line2D_h
-#define Line2D_h
+#ifndef Line_h
+#define Line_h
 
 
 // ===========================================================================
@@ -29,14 +29,14 @@
 #include <config.h>
 #endif
 
-#include "Position2D.h"
+#include "Position.h"
 #include <utils/common/VectorHelper.h>
 
 
 // ===========================================================================
 // class declarations
 // ===========================================================================
-class Position2DVector;
+class PositionVector;
 
 
 // ===========================================================================
@@ -45,35 +45,35 @@ class Position2DVector;
 /**
  *
  */
-class Line2D {
+class Line {
 public:
-    Line2D();
-    Line2D(const Position2D &p1, const Position2D &p2);
-    ~Line2D();
+    Line();
+    Line(const Position &p1, const Position &p2);
+    ~Line();
     void extrapolateBy(SUMOReal length);
     void extrapolateFirstBy(SUMOReal length);
     void extrapolateSecondBy(SUMOReal length);
-    const Position2D &p1() const;
-    const Position2D &p2() const;
-    Position2D getPositionAtDistance(SUMOReal offset) const;
+    const Position &p1() const;
+    const Position &p2() const;
+    Position getPositionAtDistance(SUMOReal offset) const;
     void move2side(SUMOReal amount);
-    DoubleVector intersectsAtLengths(const Position2DVector &v);
-    SUMOReal intersectsAtLength(const Line2D &v);
+    DoubleVector intersectsAtLengths(const PositionVector &v);
+    SUMOReal intersectsAtLength(const Line &v);
     SUMOReal atan2Angle() const;
     SUMOReal atan2DegreeAngle() const;
     SUMOReal atan2PositiveAngle() const;
-    bool intersects(const Line2D &l) const;
-    Position2D intersectsAt(const Line2D &l) const;
+    bool intersects(const Line &l) const;
+    Position intersectsAt(const Line &l) const;
     SUMOReal length() const;
     void add(SUMOReal x, SUMOReal y);
-    void add(const Position2D &p);
+    void add(const Position &p);
     void sub(SUMOReal x, SUMOReal y);
-    Line2D &reverse();
+    Line &reverse();
     void rotateAtP1(SUMOReal rot);
-    void rotateAround(const Position2D &at, SUMOReal rot);
+    void rotateAround(const Position &at, SUMOReal rot);
 
 private:
-    Position2D myP1, myP2;
+    Position myP1, myP2;
 };
 
 

@@ -30,7 +30,7 @@
 #include <iostream>
 #include <utils/common/TplConvert.h>
 #include <utils/common/VectorHelper.h>
-#include <utils/geom/Position2DVector.h>
+#include <utils/geom/PositionVector.h>
 #include "../NIImporter_Vissim.h"
 #include "../tempstructs/NIVissimEdge.h"
 #include "../tempstructs/NIVissimClosedLaneDef.h"
@@ -92,16 +92,16 @@ NIVissimSingleTypeParser_Streckendefinition::parse(std::istream &from) {
         }
     }
     // Read the geometry information
-    Position2DVector geom;
+    PositionVector geom;
     while (tag!="nach") {
-        geom.push_back_noDoublePos(getPosition2D(from));
+        geom.push_back_noDoublePos(getPosition(from));
         tag = myRead(from);
         try {
             TplConvert<char>::_2SUMOReal(tag.c_str());
             tag = myRead(from);
         } catch (NumberFormatException &) {}
     }
-    geom.push_back_noDoublePos(getPosition2D(from));
+    geom.push_back_noDoublePos(getPosition(from));
     // Read definitions of closed lanes
     NIVissimClosedLanesVector clv;
     // check whether a next close lane definition can be found

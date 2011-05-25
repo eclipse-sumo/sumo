@@ -31,7 +31,7 @@
 #include <config.h>
 #endif
 
-#include "../../utils/geom/Position2D.h"
+#include "../../utils/geom/Position.h"
 #include <list>
 #include <map>
 
@@ -49,12 +49,12 @@ class AGStreet;
  * @class AGPosition
  * @brief A location in the 2D plane freely positioned on a street.
  *
- * This class restricts the Position2D class in the way that it must be
+ * This class restricts the Position class in the way that it must be
  * a position on a street. As a consequence, this position can be described
  * either by x and y coordinates or by a street and its distance to the
  * beginning of the street (the relative position).
  *
- * @TODO Should this class be derived from Position2D?
+ * @TODO Should this class be derived from Position?
  */
 class AGPosition {
 public:
@@ -95,7 +95,7 @@ public:
     /** @brief Tests whether two positions are at the same place.
      *
      * Compares the x and y coordinates with a threshold
-     * (see Position2D::almostSame)
+     * (see Position::almostSame)
      *
      * @param[in] pos the position with which the comparison is done
      * @return true if both AGPositions are (almost) at the same place
@@ -137,7 +137,7 @@ public:
 private:
     const AGStreet* street;
     SUMOReal position;
-    Position2D pos2d;
+    Position pos2d;
 
     /** @brief Determines a random relative position on a street.
      *
@@ -145,14 +145,14 @@ private:
      */
     static SUMOReal randomPositionInStreet(const AGStreet& street) throw();
 
-    /** Creates a Position2D object to the street and position attribute of
+    /** Creates a Position object to the street and position attribute of
      * this class.
      *
      * This method may only be called when street and position are initialised!
      *
-     * @return the Position2D object
+     * @return the Position object
      */
-    Position2D compute2dPosition() const throw();
+    Position compute2dPosition() const throw();
 };
 
 #endif /* AGPOSITION_H */

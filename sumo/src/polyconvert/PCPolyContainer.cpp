@@ -31,7 +31,7 @@
 #include <map>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/ToString.h>
-#include <utils/shapes/Polygon2D.h>
+#include <utils/shapes/Polygon.h>
 #include "PCPolyContainer.h"
 #include <utils/common/UtilExceptions.h>
 #include <utils/iodevices/OutputDevice.h>
@@ -58,7 +58,7 @@ PCPolyContainer::~PCPolyContainer() throw() {
 
 
 bool
-PCPolyContainer::insert(const std::string &id, Polygon2D *poly,
+PCPolyContainer::insert(const std::string &id, Polygon *poly,
                         int layer, bool ignorePrunning) throw() {
     // check whether the polygon lies within the wished area
     //  - if such an area was given

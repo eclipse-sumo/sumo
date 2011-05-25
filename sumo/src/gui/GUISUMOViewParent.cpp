@@ -27,7 +27,7 @@
 #include <config.h>
 #endif
 
-#include <utils/geom/Position2D.h>
+#include <utils/geom/Position.h>
 #include <utils/geom/Boundary.h>
 #include <guisim/GUIVehicle.h>
 #include <microsim/MSJunction.h>

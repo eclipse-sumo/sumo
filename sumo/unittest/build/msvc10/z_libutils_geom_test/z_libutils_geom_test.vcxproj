@@ -81,8 +81,8 @@
   <ItemGroup>
     <ClCompile Include="..\..\..\src\unittest_main.cpp" />
     <ClCompile Include="..\..\..\src\utils\geom\BoundaryTest.cpp" />
-    <ClCompile Include="..\..\..\src\utils\geom\Line2DTest.cpp" />
-    <ClCompile Include="..\..\..\src\utils\geom\Position2DVectorTest.cpp" />
+    <ClCompile Include="..\..\..\src\utils\geom\LineTest.cpp" />
+    <ClCompile Include="..\..\..\src\utils\geom\PositionVectorTest.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\build\msvc10\z_libutils_geom\z_libutils_geom.vcxproj">

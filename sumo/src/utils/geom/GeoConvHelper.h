@@ -31,7 +31,7 @@
 
 #include <map>
 #include <string>
-#include <utils/geom/Position2D.h>
+#include <utils/geom/Position.h>
 #include <utils/geom/Boundary.h>
 
 #ifdef HAVE_PROJ
@@ -71,7 +71,7 @@ public:
 
     /// Initialises the subsystem using the given proj.4-definition and complete network parameter
     static bool init(const std::string &proj,
-                     const Position2D &offset,
+                     const Position &offset,
                      const Boundary &orig,
                      const Boundary &conv);
 
@@ -79,10 +79,10 @@ public:
     static void close();
 
     /// Converts the given cartesian (shifted) position to its geo (lat/long) representation
-    static void cartesian2geo(Position2D &cartesian);
+    static void cartesian2geo(Position &cartesian);
 
     /// Converts the given coordinate into a cartesian using the previous initialisation
-    static bool x2cartesian(Position2D &from, bool includeInBoundary=true, double x=-1, double y=-1);
+    static bool x2cartesian(Position &from, bool includeInBoundary=true, double x=-1, double y=-1);
 
     /// Returns whether a transformation from geo to metric coordinates will be performed
     static bool usingGeoProjection();
@@ -100,7 +100,7 @@ public:
     static const Boundary &getConvBoundary();
 
     /// Returns the network base
-    static const Position2D getOffsetBase();
+    static const Position getOffsetBase();
 
     /// Returns the network offset
     static const std::string &getProjString();
@@ -123,7 +123,7 @@ private:
 #endif
 
     /// The offset to apply
-    static Position2D myOffset;
+    static Position myOffset;
 
     /// The scaling to apply to geo-coordinates
     static double myGeoScale;

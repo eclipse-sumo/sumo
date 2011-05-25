@@ -45,8 +45,8 @@
 // ===========================================================================
 #ifdef HAVE_INTERNAL_LANES
 MSInternalJunction::MSInternalJunction(const std::string &id,
-                                       const Position2D &position,
-                                       const Position2DVector &shape,
+                                       const Position &position,
+                                       const PositionVector &shape,
                                        std::vector<MSLane*> incoming,
                                        std::vector<MSLane*> internal) throw()
         : MSLogicJunction(id, position, shape, incoming, internal) {}

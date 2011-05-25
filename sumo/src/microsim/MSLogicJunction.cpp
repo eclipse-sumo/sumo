@@ -43,8 +43,8 @@
  * methods from MSLogicJunction
  * ----------------------------------------------------------------------- */
 MSLogicJunction::MSLogicJunction(const std::string &id,
-                                 const Position2D &position,
-                                 const Position2DVector &shape,
+                                 const Position &position,
+                                 const PositionVector &shape,
                                  std::vector<MSLane*> incoming
 #ifdef HAVE_INTERNAL_LANES
                                  , std::vector<MSLane*> internal

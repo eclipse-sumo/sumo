@@ -32,7 +32,7 @@
 #include <string>
 #include <map>
 #include <vector>
-#include <utils/shapes/Polygon2D.h>
+#include <utils/shapes/Polygon.h>
 #include <utils/shapes/PointOfInterest.h>
 #include <utils/geom/Boundary.h>
 #include <utils/common/UtilExceptions.h>
@@ -75,7 +75,7 @@ public:
      * @param[in] ignorePrunning Whether the polygon shall be kept, even though it would be prunned
      * @return Whether the polygon could been added (no one with the same id was added before)
      */
-    bool insert(const std::string &id, Polygon2D *poly, int layer,
+    bool insert(const std::string &id, Polygon *poly, int layer,
                 bool ignorePrunning=false) throw();
 
 
@@ -152,7 +152,7 @@ public:
 
 public:
     /** @brief Definition of a container of polygons, accessed by the string key */
-    typedef std::map<std::string, Polygon2D*> PolyCont;
+    typedef std::map<std::string, Polygon*> PolyCont;
     /** @brief The polygon container, accessed by the polygons' ids */
     PolyCont myPolyCont;
 
@@ -165,7 +165,7 @@ public:
     std::map<std::string, int> myIDEnums;
 
     /// @brief A map from polygons to the layers they are located in
-    std::map<Polygon2D*, int> myPolyLayerMap;
+    std::map<Polygon*, int> myPolyLayerMap;
 
     /// @brief A map from pois to the layers they are located in
     std::map<PointOfInterest*, int> myPOILayerMap;

@@ -32,7 +32,7 @@ TEST(Boundary, test_method_add_multiple) {
 /* Test the method 'getCenter'*/
 TEST(Boundary, test_method_getCenter) {
 	Boundary *bound = new Boundary(-2,-4,4,8);
-	Position2D pos = bound->getCenter();
+	Position pos = bound->getCenter();
 	EXPECT_FLOAT_EQ(pos.x(), 1);
 	EXPECT_FLOAT_EQ(pos.y(), 2);
 }
@@ -47,10 +47,10 @@ TEST(Boundary, test_method_getWidthHeight) {
 /* Test the method 'around'*/
 TEST(Boundary, test_method_around) {
 	Boundary *bound = new Boundary(1,2,3,6);
-	EXPECT_TRUE(bound->around(Position2D(2,4)));
-	EXPECT_FALSE(bound->around(Position2D(0,4)));
-	EXPECT_FALSE(bound->around(Position2D(2,7)));
-	EXPECT_TRUE(bound->around(Position2D(0,7),2));
+	EXPECT_TRUE(bound->around(Position(2,4)));
+	EXPECT_FALSE(bound->around(Position(0,4)));
+	EXPECT_FALSE(bound->around(Position(2,7)));
+	EXPECT_TRUE(bound->around(Position(0,7),2));
 }
 
 /* Test the method 'overlapsWith'*/
@@ -65,10 +65,10 @@ TEST(Boundary, test_method_overlapsWith) {
 /* Test the method 'crosses'*/
 TEST(Boundary, test_method_crosses) {
 	Boundary *bound = new Boundary(1,2,3,6);
-	EXPECT_TRUE(bound->crosses(Position2D(3,2),Position2D(4,2)));
-	EXPECT_TRUE(bound->crosses(Position2D(2,1),Position2D(0,3)));
-	EXPECT_TRUE(bound->crosses(Position2D(1,2),Position2D(3,6)));
-	EXPECT_FALSE(bound->crosses(Position2D(0,0),Position2D(0,8)));
+	EXPECT_TRUE(bound->crosses(Position(3,2),Position(4,2)));
+	EXPECT_TRUE(bound->crosses(Position(2,1),Position(0,3)));
+	EXPECT_TRUE(bound->crosses(Position(1,2),Position(3,6)));
+	EXPECT_FALSE(bound->crosses(Position(0,0),Position(0,8)));
 }
 
 /* Test the method 'partialWithin'*/

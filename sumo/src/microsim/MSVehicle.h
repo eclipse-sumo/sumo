@@ -64,7 +64,7 @@ class MSPerson;
 class MSDevice;
 class MSEdgeWeightsStorage;
 class OutputDevice;
-class Position2D;
+class Position;
 class MSDevice_Person;
 #ifdef _MESSAGES
 class MSMessageEmitter;
@@ -309,7 +309,7 @@ public:
      * @return The current position (in cartesian coordinates)
      * @see myLane
      */
-    Position2D getPosition() const throw();
+    Position getPosition() const throw();
 
 
     /** @brief Returns the lane the vehicle is on

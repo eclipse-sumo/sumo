@@ -35,7 +35,7 @@
 #include <utils/common/MsgHandler.h>
 #include <utils/common/ToString.h>
 #include "NIVissimExtendedEdgePoint.h"
-#include <utils/geom/Position2DVector.h>
+#include <utils/geom/PositionVector.h>
 #include <utils/geom/Boundary.h>
 #include <utils/geom/GeomHelper.h>
 #include <netbuild/NBEdge.h>
@@ -65,7 +65,7 @@ int NIVissimConnection::myMaxID;
 NIVissimConnection::NIVissimConnection(int id,
                                        const std::string &name, const NIVissimExtendedEdgePoint &from_def,
                                        const NIVissimExtendedEdgePoint &to_def,
-                                       const Position2DVector &geom, Direction direction,
+                                       const PositionVector &geom, Direction direction,
                                        SUMOReal dxnothalt, SUMOReal dxeinordnen,
                                        SUMOReal zuschlag1, SUMOReal zuschlag2, SUMOReal /*seglength*/,
                                        const IntVector &assignedVehicles, const NIVissimClosedLanesVector &clv)
@@ -89,7 +89,7 @@ bool
 NIVissimConnection::dictionary(int id, const std::string &name,
                                const NIVissimExtendedEdgePoint &from_def,
                                const NIVissimExtendedEdgePoint &to_def,
-                               const Position2DVector &geom,
+                               const PositionVector &geom,
                                Direction direction,
                                SUMOReal dxnothalt, SUMOReal dxeinordnen,
                                SUMOReal zuschlag1, SUMOReal zuschlag2,
@@ -214,14 +214,14 @@ NIVissimConnection::getToPosition() const {
 }
 
 
-Position2D
+Position
 NIVissimConnection::getFromGeomPosition() const {
     return myFromDef.getGeomPosition();
 }
 
 
 
-Position2D
+Position
 NIVissimConnection::getToGeomPosition() const {
     return myToDef.getGeomPosition();
 }

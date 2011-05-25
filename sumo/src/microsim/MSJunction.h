@@ -32,8 +32,8 @@
 #include <string>
 #include <vector>
 #include <map>
-#include <utils/geom/Position2D.h>
-#include <utils/geom/Position2DVector.h>
+#include <utils/geom/Position.h>
+#include <utils/geom/PositionVector.h>
 #include <utils/common/SUMOTime.h>
 #include <utils/common/UtilExceptions.h>
 
@@ -59,8 +59,8 @@ public:
      * @param[in] position The position of the junction
      * @param[in] shape The shape of the junction
      */
-    MSJunction(const std::string &id, const Position2D &position,
-               const Position2DVector &shape) throw();
+    MSJunction(const std::string &id, const Position &position,
+               const PositionVector &shape) throw();
 
     /** performs some initialisation after the loading
         (e.g., link map computation) */
@@ -68,7 +68,7 @@ public:
 
 
     /** returns the junction's position */
-    const Position2D &getPosition() const;
+    const Position &getPosition() const;
 
     /// Returns the id of the junction
     const std::string &getID() const;
@@ -76,7 +76,7 @@ public:
     /** @brief Returns this junction's shape
      * @return The shape of this junction
      */
-    const Position2DVector &getShape() const throw() {
+    const PositionVector &getShape() const throw() {
         return myShape;
     }
 
@@ -93,10 +93,10 @@ protected:
     std::string myID;
 
     /// @brief The position of the junction
-    Position2D myPosition;
+    Position myPosition;
 
     /// @brief The shape of the junction
-    Position2DVector myShape;
+    PositionVector myShape;
 
     std::vector<MSLink*> myEmptyLinks;
     std::vector<MSLane*> myEmptyLanes;

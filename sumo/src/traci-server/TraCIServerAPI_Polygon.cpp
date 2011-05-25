@@ -76,7 +76,7 @@ TraCIServerAPI_Polygon::processGet(TraCIServer &server, tcpip::Storage &inputSto
         tempMsg.writeUnsignedByte(TYPE_STRINGLIST);
         tempMsg.writeStringList(ids);
     } else {
-        Polygon2D *p = 0;
+        Polygon *p = 0;
         ShapeContainer& shapeCont = MSNet::getInstance()->getShapeContainer();
         for (int i = shapeCont.getMinLayer(); i <= shapeCont.getMaxLayer()&&p==0; ++i) {
             p = shapeCont.getPolygonCont(i).get(id);
@@ -135,7 +135,7 @@ TraCIServerAPI_Polygon::processSet(TraCIServer &server, tcpip::Storage &inputSto
     }
     // id
     std::string id = inputStorage.readString();
-    Polygon2D *p = 0;
+    Polygon *p = 0;
     int layer = 0;
     ShapeContainer& shapeCont = MSNet::getInstance()->getShapeContainer();
     if (variable!=ADD&&variable!=REMOVE) {
@@ -179,11 +179,11 @@ TraCIServerAPI_Polygon::processSet(TraCIServer &server, tcpip::Storage &inputSto
             return false;
         }
         unsigned int noEntries = inputStorage.readUnsignedByte();
-        Position2DVector shape;
+        PositionVector shape;
         for (unsigned int i=0; i<noEntries; ++i) {
             SUMOReal x = inputStorage.readDouble();
             SUMOReal y = inputStorage.readDouble();
-            shape.push_back(Position2D(x, y));
+            shape.push_back(Position(x, y));
         }
         shapeCont.reshapePolygon(layer, id, shape);
     }
@@ -238,11 +238,11 @@ TraCIServerAPI_Polygon::processSet(TraCIServer &server, tcpip::Storage &inputSto
             return false;
         }
         unsigned int noEntries = inputStorage.readUnsignedByte();
-        Position2DVector shape;
+        PositionVector shape;
         for (unsigned int i=0; i<noEntries; ++i) {
             SUMOReal x = inputStorage.readDouble();
             SUMOReal y = inputStorage.readDouble();
-            shape.push_back(Position2D(x, y));
+            shape.push_back(Position(x, y));
         }
         //
         if (!shapeCont.addPolygon(id, layer, type, RGBColor(r, g, b), fill, shape)) {

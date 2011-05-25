@@ -62,7 +62,7 @@ NIVissimExtendedEdgePoint::getPosition() const {
 }
 
 
-Position2D
+Position
 NIVissimExtendedEdgePoint::getGeomPosition() const {
     return
         NIVissimAbstractEdge::dictionary(myEdgeID)->getGeomPosition(myPosition);

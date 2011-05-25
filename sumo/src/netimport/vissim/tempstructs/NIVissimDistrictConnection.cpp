@@ -33,9 +33,9 @@
 #include <cassert>
 #include <utils/common/VectorHelper.h>
 #include <utils/common/ToString.h>
-#include <utils/geom/Position2D.h>
+#include <utils/geom/Position.h>
 #include <utils/geom/GeomHelper.h>
-#include <utils/geom/Position2DVector.h>
+#include <utils/geom/PositionVector.h>
 #include <utils/options/OptionsCont.h>
 #include "NIVissimAbstractEdge.h"
 #include "NIVissimEdge.h"
@@ -168,12 +168,12 @@ NIVissimDistrictConnection::dict_BuildDistrictNodes(NBDistrictCont &dc,
         NBDistrict *district = new NBDistrict(dsid);
         dc.insert(district);
         // compute the middle of the district
-        Position2DVector pos;
+        PositionVector pos;
         for (IntVector::const_iterator j=connections.begin(); j!=connections.end(); j++) {
             NIVissimDistrictConnection *c = dictionary(*j);
             pos.push_back(c->geomPosition());
         }
-        Position2D distCenter = pos.getPolygonCenter();
+        Position distCenter = pos.getPolygonCenter();
         if (connections.size()==1) { // !!! ok, ok, maybe not the best way just to add an offset
             distCenter.add(10, 10);
         }
@@ -287,7 +287,7 @@ NIVissimDistrictConnection::dict_BuildDistricts(NBDistrictCont &dc,
             NIVissimDistrictConnection *c = dictionary(*l);
             // get the edge to connect the parking place to
             NBEdge *e = NBEdgeCont::retrieve(toString<int>(c->myEdgeID));
-            Position2D edgepos = c->geomPosition();
+            Position edgepos = c->geomPosition();
             NBNode *edgeend = e->tryGetNodeAtPosition(c->myPosition,
                 e->getLength()/4.0);
             if(edgeend==0) {
@@ -336,7 +336,7 @@ NIVissimDistrictConnection::dict_BuildDistricts(NBDistrictCont &dc,
 
 
 
-Position2D
+Position
 NIVissimDistrictConnection::geomPosition() const {
     NIVissimAbstractEdge *e = NIVissimEdge::dictionary(myEdgeID);
     return e->getGeomPosition(myPosition);

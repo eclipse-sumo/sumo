@@ -32,7 +32,7 @@
 
 #include <iostream>
 #include <vector>
-#include <utils/geom/Position2D.h>
+#include <utils/geom/Position.h>
 #include <utils/geom/Boundary.h>
 #include <utils/common/VectorHelper.h>
 #include "NIVissimConnection.h"
@@ -76,7 +76,7 @@ public:
 
     NBNode *getNBNode() const;
 
-    bool around(const Position2D &p, SUMOReal offset=0) const;
+    bool around(const Position &p, SUMOReal offset=0) const;
 
     SUMOReal getPositionForEdge(int edgeid) const;
 
@@ -86,8 +86,8 @@ public:
         return myConnections;
     }
 
-    Position2DVector getIncomingContinuationGeometry(NIVissimEdge *e) const;
-    Position2DVector getOutgoingContinuationGeometry(NIVissimEdge *e) const;
+    PositionVector getIncomingContinuationGeometry(NIVissimEdge *e) const;
+    PositionVector getOutgoingContinuationGeometry(NIVissimEdge *e) const;
     NIVissimConnection *getIncomingContinuation(NIVissimEdge *e) const;
     NIVissimConnection *getOutgoingContinuation(NIVissimEdge *e) const;
 

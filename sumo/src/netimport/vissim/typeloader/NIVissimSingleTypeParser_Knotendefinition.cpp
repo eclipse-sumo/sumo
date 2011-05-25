@@ -29,8 +29,8 @@
 
 #include <iostream>
 #include <utils/common/TplConvert.h>
-#include <utils/geom/Position2D.h>
-#include <utils/geom/Position2DVector.h>
+#include <utils/geom/Position.h>
+#include <utils/geom/PositionVector.h>
 #include "../NIImporter_Vissim.h"
 #include "../tempstructs/NIVissimNodeParticipatingEdge.h"
 #include "../tempstructs/NIVissimNodeParticipatingEdgeVector.h"
@@ -90,9 +90,9 @@ NIVissimSingleTypeParser_Knotendefinition::parse(std::istream &from) {
         NIVissimNodeDef_Edges::dictionary(id, name, edges);
     } else {
         int no = TplConvert<char>::_2int(tag.c_str());
-        Position2DVector poly;
+        PositionVector poly;
         for (int i=0; i<no; i++) {
-            poly.push_back(getPosition2D(from));
+            poly.push_back(getPosition(from));
         }
         poly.closePolygon();
         NIVissimNodeDef_Poly::dictionary(id, name, poly);

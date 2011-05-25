@@ -34,8 +34,8 @@
 #include <microsim/MSJunction.h>
 #include <microsim/MSRightOfWayJunction.h>
 #include <microsim/MSJunctionControl.h>
-#include <utils/geom/Position2D.h>
-#include <utils/geom/Position2DVector.h>
+#include <utils/geom/Position.h>
+#include <utils/geom/PositionVector.h>
 #include <microsim/traffic_lights/MSSimpleTrafficLightLogic.h>
 #include <microsim/traffic_lights/MSActuatedTrafficLightLogic.h>
 #include <microsim/MSBitSetLogic.h>
@@ -102,7 +102,7 @@ public:
      */
     void openJunction(const std::string &id, const std::string &key,
                       const std::string &type, SUMOReal x, SUMOReal y,
-                      const Position2DVector &shape,
+                      const PositionVector &shape,
                       const std::vector<MSLane*> &incomingLanes,
                       const std::vector<MSLane*> &internalLanes) throw(InvalidArgument);
 
@@ -367,13 +367,13 @@ protected:
     SumoXMLNodeType myType;
 
     /// @brief The position of the junction
-    Position2D myPosition;
+    Position myPosition;
 
     /// @brief The absolute duration of a tls-control loop
     SUMOTime myAbsDuration;
 
     /// @brief The shape of the current junction
-    Position2DVector myShape;
+    PositionVector myShape;
 
 
     /// @brief A definition of junction initialisation

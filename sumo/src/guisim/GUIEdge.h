@@ -31,7 +31,7 @@
 
 #include <vector>
 #include <string>
-#include <utils/geom/Position2D.h>
+#include <utils/geom/Position.h>
 #include <utils/geom/Boundary.h>
 #include <microsim/MSLane.h>
 #include <microsim/MSEdge.h>

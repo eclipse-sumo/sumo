@@ -33,7 +33,7 @@
 #include <map>
 #include <utils/common/VectorHelper.h>
 #include <utils/common/RGBColor.h>
-#include <utils/geom/Position2D.h>
+#include <utils/geom/Position.h>
 #include "tempstructs/NIVissimExtendedEdgePoint.h"
 #include "NIVissimElements.h"
 
@@ -109,7 +109,7 @@ public:
                                           const std::string &tag="");
 
         /// returns the 2d-position saved as next within the stream
-        Position2D getPosition2D(std::istream &from);
+        Position getPosition(std::istream &from);
 
         /** @brief parses a listof vehicle types assigned to the current data field
             One should remeber, that -1 means "all" vehicle types */

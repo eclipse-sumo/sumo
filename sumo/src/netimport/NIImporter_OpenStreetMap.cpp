@@ -257,7 +257,7 @@ NIImporter_OpenStreetMap::_loadNetwork(const OptionsCont &oc, NBNetBuilder &nb) 
     /* Remove duplicate nodes with the same coordinates
      *
      * Without that, insertEdge can fail, if both nodes start
-     * the shape of an edge. (NBEdge::init calls Position2DVector::push_front
+     * the shape of an edge. (NBEdge::init calls PositionVector::push_front
      * with the second, which has the same coordinates as the first.) */
     if (!OptionsCont::getOptions().getBool("osm.skip-duplicates-check")) {
         MsgHandler::getMessageInstance()->beginProcessMsg("Removing duplicate nodes...");
@@ -364,7 +364,7 @@ NIImporter_OpenStreetMap::insertNodeChecking(int id, NBNodeCont &nc, NBTrafficLi
     NBNode *from = nc.retrieve(toString(id));
     if (from==0) {
         NIOSMNode *n = myOSMNodes.find(id)->second;
-        Position2D pos(n->lon, n->lat);
+        Position pos(n->lon, n->lat);
         if (!GeoConvHelper::x2cartesian(pos, true, n->lon, n->lat)) {
             MsgHandler::getErrorInstance()->inform("Unable to project coordinates for node " + toString(id) + ".");
             delete from;
@@ -400,10 +400,10 @@ NIImporter_OpenStreetMap::insertEdge(Edge *e, int index, NBNode *from, NBNode *t
         id = id + "#" + toString(index);
     }
     // convert the shape
-    Position2DVector shape;
+    PositionVector shape;
     for (std::vector<int>::const_iterator i=passed.begin(); i!=passed.end(); ++i) {
         NIOSMNode *n = myOSMNodes.find(*i)->second;
-        Position2D pos(n->lon, n->lat);
+        Position pos(n->lon, n->lat);
         if (!GeoConvHelper::x2cartesian(pos, true, n->lon, n->lat)) {
             throw ProcessError("Unable to project coordinates for edge " + id + ".");
         }

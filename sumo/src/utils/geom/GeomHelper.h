@@ -29,8 +29,8 @@
 #include <config.h>
 #endif
 
-#include "Position2D.h"
-#include "Position2DVector.h"
+#include "Position.h"
+#include "PositionVector.h"
 #include <utils/common/UtilExceptions.h>
 
 
@@ -49,52 +49,52 @@ public:
     static bool intersects(SUMOReal x1b, SUMOReal y1b, SUMOReal x1e, SUMOReal y1e,
                            SUMOReal x2b, SUMOReal y2b, SUMOReal x2e, SUMOReal y2e);
 
-    static bool intersects(const Position2D &p11, const Position2D &p12,
-                           const Position2D &p21, const Position2D &p22);
+    static bool intersects(const Position &p11, const Position &p12,
+                           const Position &p21, const Position &p22);
 
-    static Position2D intersection_position(const Position2D &p11,
-                                            const Position2D &p12, const Position2D &p21, const Position2D &p22);
+    static Position intersection_position(const Position &p11,
+                                            const Position &p12, const Position &p21, const Position &p22);
 
     static SUMOReal Angle2D(SUMOReal x1, SUMOReal y1, SUMOReal x2, SUMOReal y2);
 
-    static Position2D interpolate(const Position2D &p1,
-                                  const Position2D &p2, SUMOReal length);
+    static Position interpolate(const Position &p1,
+                                  const Position &p2, SUMOReal length);
 
-    static Position2D extrapolate_first(const Position2D &p1,
-                                        const Position2D &p2, SUMOReal length);
+    static Position extrapolate_first(const Position &p1,
+                                        const Position &p2, SUMOReal length);
 
-    static Position2D extrapolate_second(const Position2D &p1,
-                                         const Position2D &p2, SUMOReal length);
+    static Position extrapolate_second(const Position &p1,
+                                         const Position &p2, SUMOReal length);
 
     static SUMOReal nearest_position_on_line_to_point(
-        const Position2D &l1, const Position2D &l2,
-        const Position2D &p, bool perpendicular=true);
+        const Position &l1, const Position &l2,
+        const Position &p, bool perpendicular=true);
 
     /** by Damian Coventry */
-    static SUMOReal distancePointLine(const Position2D &point,
-                                      const Position2D &lineStart, const Position2D &lineEnd);
+    static SUMOReal distancePointLine(const Position &point,
+                                      const Position &lineStart, const Position &lineEnd);
 
     /**
      * Return the distance from point to line as well as the intersection point.
      * If intersection does not lie within the line segment, the  start or end point of the segment is returned
      */
-    static SUMOReal closestDistancePointLine(const Position2D &point,
-            const Position2D &lineStart, const Position2D &lineEnd,
-            Position2D& outIntersection);
+    static SUMOReal closestDistancePointLine(const Position &point,
+            const Position &lineStart, const Position &lineEnd,
+            Position& outIntersection);
 
-    static Position2D transfer_to_side(Position2D &p,
-                                       const Position2D &lineBeg, const Position2D &lineEnd,
+    static Position transfer_to_side(Position &p,
+                                       const Position &lineBeg, const Position &lineEnd,
                                        SUMOReal amount);
 
 
-    static Position2D crossPoint(const Boundary &b,
-                                 const Position2DVector &v);
+    static Position crossPoint(const Boundary &b,
+                                 const PositionVector &v);
 
-    static std::pair<SUMOReal, SUMOReal> getNormal90D_CW(const Position2D &beg,
-            const Position2D &end, SUMOReal length, SUMOReal wanted_offset);
+    static std::pair<SUMOReal, SUMOReal> getNormal90D_CW(const Position &beg,
+            const Position &end, SUMOReal length, SUMOReal wanted_offset);
 
-    static std::pair<SUMOReal, SUMOReal> getNormal90D_CW(const Position2D &beg,
-            const Position2D &end, SUMOReal wanted_offset);
+    static std::pair<SUMOReal, SUMOReal> getNormal90D_CW(const Position &beg,
+            const Position &end, SUMOReal wanted_offset);
 
     /** @brief Returns the distance of second angle from first angle counter-clockwise
      * @param[in] angle1 The first angle

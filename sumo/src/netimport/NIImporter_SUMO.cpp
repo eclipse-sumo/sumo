@@ -125,7 +125,7 @@ NIImporter_SUMO::_loadNetwork(const OptionsCont &oc) {
             MsgHandler::getErrorInstance()->inform("Edge's '" + ed->id + "' to-node '" + ed->toNode + "' is not known.");
             continue;
         }
-        Position2DVector geom = approximateEdgeShape(ed);
+        PositionVector geom = approximateEdgeShape(ed);
         // build and insert the edge
         NBEdge *e = new NBEdge(ed->id, from, to, ed->type, ed->maxSpeed, (unsigned int) ed->lanes.size(), ed->priority, -1, -1, geom, ed->lsf);
         if (!myNetBuilder.getEdgeCont().insert(e)) {
@@ -356,12 +356,12 @@ NIImporter_SUMO::addJunction(const SUMOSAXAttributes &attrs) {
     } else {
         WRITE_WARNING("Unknown node type '" + typeS + "' for junction '" + id + "'.");
     }
-    Position2D pos(x, y);
+    Position pos(x, y);
     // the network may have been built with the option "plain.keep-edge-shape" this
     // makes accurate reconstruction impossible. We ought to warn about this
     std::string shapeS = attrs.getStringReporting(SUMO_ATTR_SHAPE, id.c_str(), ok, false);
     if (shapeS != "") {
-        Position2DVector shape = GeomConvHelper::parseShapeReporting(
+        PositionVector shape = GeomConvHelper::parseShapeReporting(
                 shapeS, attrs.getObjectType(), id.c_str(), ok, false);
         shape.push_back(shape[0]); // need closed shape
         if (!shape.around(pos) && shape.distance(pos) > 1) { // MAGIC_THRESHOLD
@@ -486,17 +486,17 @@ NIImporter_SUMO::addPhase(const SUMOSAXAttributes &attrs) {
 }
 
 
-Position2DVector 
+PositionVector 
 NIImporter_SUMO::approximateEdgeShape(const EdgeAttrs* edge) {
     // reverse logic of NBEdge::computeLaneShape
-    const Position2DVector &firstLane = edge->lanes[0]->shape;
+    const PositionVector &firstLane = edge->lanes[0]->shape;
     const size_t noLanes = edge->lanes.size();
-    Position2DVector result;
+    PositionVector result;
     // start- and end- positions are added automatically in NBEdge::init
     for (unsigned int i=1; i < firstLane.size() - 1; i++) {
-        Position2D from = firstLane[i-1];
-        Position2D me = firstLane[i];
-        Position2D to = firstLane[i+1];
+        Position from = firstLane[i-1];
+        Position me = firstLane[i];
+        Position to = firstLane[i+1];
         std::pair<SUMOReal, SUMOReal> offsets = NBEdge::laneOffset(
                 from, me, SUMO_const_laneWidthAndOffset, (unsigned int)noLanes-1, 
                 noLanes, edge->lsf, false);
@@ -504,13 +504,13 @@ NIImporter_SUMO::approximateEdgeShape(const EdgeAttrs* edge) {
                 me, to, SUMO_const_laneWidthAndOffset, (unsigned int)noLanes-1, 
                 noLanes, edge->lsf, false);
 
-        Line2D l1(
-                Position2D(from.x()+offsets.first, from.y()+offsets.second),
-                Position2D(me.x()+offsets.first, me.y()+offsets.second));
+        Line l1(
+                Position(from.x()+offsets.first, from.y()+offsets.second),
+                Position(me.x()+offsets.first, me.y()+offsets.second));
         l1.extrapolateBy(100);
-        Line2D l2(
-                Position2D(me.x()+offsets2.first, me.y()+offsets2.second),
-                Position2D(to.x()+offsets2.first, to.y()+offsets2.second));
+        Line l2(
+                Position(me.x()+offsets2.first, me.y()+offsets2.second),
+                Position(to.x()+offsets2.first, to.y()+offsets2.second));
         l2.extrapolateBy(100);
         if (l1.intersects(l2)) {
             result.push_back(l1.intersectsAt(l2));

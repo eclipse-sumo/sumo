@@ -29,7 +29,7 @@
 
 #include <cassert>
 #include "Distribution.h"
-#include <utils/geom/Position2DVector.h>
+#include <utils/geom/PositionVector.h>
 #include "Distribution_Points.h"
 #include <utils/common/StdDefs.h>
 
@@ -42,7 +42,7 @@
 // method definitions
 // ===========================================================================
 Distribution_Points::Distribution_Points(const std::string &id,
-        const Position2DVector &points,
+        const PositionVector &points,
         bool interpolating) throw()
         : Distribution(id), myPoints(points), myProbabilitiesAreComputed(false),
         myInterpolateDist(interpolating) {}
@@ -54,7 +54,7 @@ Distribution_Points::~Distribution_Points() throw() {}
 SUMOReal
 Distribution_Points::getMax() const {
     assert(myPoints.size()>0);
-    const Position2D &p = myPoints[-1];
+    const Position &p = myPoints[-1];
     return p.x();
 }
 

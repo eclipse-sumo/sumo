@@ -163,7 +163,7 @@ fillOptions() {
 Distribution_Points
 parseTimeLine(const std::vector<std::string> &def, bool timelineDayInHours) {
     bool interpolating = !timelineDayInHours;
-    Position2DVector points;
+    PositionVector points;
     SUMOReal prob = 0;
     if (timelineDayInHours) {
         if (def.size()!=24) {
@@ -171,9 +171,9 @@ parseTimeLine(const std::vector<std::string> &def, bool timelineDayInHours) {
         }
         for (int chour=0; chour<24; ++chour) {
             prob = TplConvert<char>::_2SUMOReal(def[chour].c_str());
-            points.push_back(Position2D((SUMOReal)(chour*3600), prob));
+            points.push_back(Position((SUMOReal)(chour*3600), prob));
         }
-        points.push_back(Position2D((SUMOReal)(24 * 3600), prob));
+        points.push_back(Position((SUMOReal)(24 * 3600), prob));
     } else {
         size_t i = 0;
         while (i<def.size()) {
@@ -183,7 +183,7 @@ parseTimeLine(const std::vector<std::string> &def, bool timelineDayInHours) {
             }
             int time = TplConvert<char>::_2int(st2.next().c_str());
             prob = TplConvert<char>::_2SUMOReal(st2.next().c_str());
-            points.push_back(Position2D((SUMOReal) time, prob));
+            points.push_back(Position((SUMOReal) time, prob));
         }
     }
     return Distribution_Points("N/A", points, interpolating);

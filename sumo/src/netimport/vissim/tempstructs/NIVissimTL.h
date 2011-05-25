@@ -33,7 +33,7 @@
 #include <map>
 #include <string>
 #include <vector>
-#include <utils/geom/Position2DVector.h>
+#include <utils/geom/PositionVector.h>
 #include <utils/geom/AbstractPoly.h>
 #include <utils/common/VectorHelper.h>
 #include <utils/common/SUMOTime.h>
@@ -85,8 +85,8 @@ public:
                          const IntVector &groupids, int edgeid, int laneno,
                          SUMOReal position, const IntVector &assignedVehicleTypes);
         ~NIVissimTLSignal();
-        bool isWithin(const Position2DVector &poly) const;
-        Position2D getPosition() const;
+        bool isWithin(const PositionVector &poly) const;
+        Position getPosition() const;
         bool addTo(NBEdgeCont &ec, NBLoadedTLDef *node) const;
 
     public:

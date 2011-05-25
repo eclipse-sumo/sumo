@@ -30,7 +30,7 @@
 #endif
 
 #include <list>
-#include <utils/geom/Position2D.h>
+#include <utils/geom/Position.h>
 #include <utils/geom/GeomHelper.h>
 #include <utils/common/UtilExceptions.h>
 #include "NGEdge.h"
@@ -100,7 +100,7 @@ public:
      *
      * @return The position of the node
      */
-    const Position2D &getPosition() const throw() {
+    const Position &getPosition() const throw() {
         return myPosition;
     }
 
@@ -210,7 +210,7 @@ private:
     std::string myID;
 
     /// @brief The position of the node
-    Position2D myPosition;
+    Position myPosition;
 
     /// @brief The maximum number of neighbours
     SUMOReal myMaxNeighbours;

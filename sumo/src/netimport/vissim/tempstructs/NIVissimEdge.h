@@ -34,7 +34,7 @@
 #include <string>
 #include <map>
 #include <netbuild/NBEdge.h>
-#include <utils/geom/Position2DVector.h>
+#include <utils/geom/PositionVector.h>
 #include <utils/common/VectorHelper.h>
 #include <utils/common/UtilExceptions.h>
 #include "NIVissimAbstractEdge.h"
@@ -64,7 +64,7 @@ public:
     NIVissimEdge(int id, const std::string &name,
                  const std::string &type, int noLanes, SUMOReal zuschlag1,
                  SUMOReal zuschlag2, SUMOReal length,
-                 const Position2DVector &geom,
+                 const PositionVector &geom,
                  const NIVissimClosedLanesVector &clv);
 
     /// Destructor
@@ -81,13 +81,13 @@ public:
 
     /** @brief Returns the node at the given position
         As this may be ambigous, a second node not to return may be supplied */
-    NBNode *getNodeAt(const Position2D &p, NBNode *other=0);
+    NBNode *getNodeAt(const Position &p, NBNode *other=0);
 
     /** Returns the begin position of the edge */
-    Position2D getBegin2D() const;
+    Position getBegin2D() const;
 
     /// Returns the end position of the edge
-    Position2D getEnd2D() const;
+    Position getEnd2D() const;
 
     /// Returns the length of the node
     SUMOReal getLength() const;
@@ -125,7 +125,7 @@ public:
     static bool dictionary(int id, const std::string &name,
                            const std::string &type, int noLanes, SUMOReal zuschlag1,
                            SUMOReal zuschlag2, SUMOReal length,
-                           const Position2DVector &geom,
+                           const PositionVector &geom,
                            const NIVissimClosedLanesVector &clv);
 
     /// Adds the edge to the dictionary
@@ -207,7 +207,7 @@ private:
 
 
 private:
-    static NBNode *getNodeSecure(int nodeid, const Position2D &pos,
+    static NBNode *getNodeSecure(int nodeid, const Position &pos,
                                  const std::string &possibleName);
 
     std::pair<NBNode*, NBNode*>

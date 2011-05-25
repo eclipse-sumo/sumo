@@ -74,12 +74,12 @@ NIVissimTL::NIVissimTLSignal::NIVissimTLSignal(int lsaid, int id,
 NIVissimTL::NIVissimTLSignal::~NIVissimTLSignal() {}
 
 bool
-NIVissimTL::NIVissimTLSignal::isWithin(const Position2DVector &poly) const {
+NIVissimTL::NIVissimTLSignal::isWithin(const PositionVector &poly) const {
     return poly.around(getPosition());
 }
 
 
-Position2D
+Position
 NIVissimTL::NIVissimTLSignal::getPosition() const {
     return NIVissimAbstractEdge::dictionary(myEdgeID)->getGeomPosition(myPosition);
 }

@@ -28,11 +28,11 @@
 #endif
 
 #include <utils/gui/globjects/GUIGlObject.h>
-#include <utils/geom/Position2DVector.h>
+#include <utils/geom/PositionVector.h>
 #include "GUILaneWrapper.h"
 #include "GUI_E2_ZS_Collector.h"
 #include <utils/gui/div/GLHelper.h>
-#include <utils/geom/Line2D.h>
+#include <utils/geom/Line.h>
 #include <utils/geom/GeomHelper.h>
 #include <utils/gui/div/GUIParameterTableWindow.h>
 #include <microsim/logging/FunctionBinding.h>
@@ -105,8 +105,8 @@ GUI_E2_ZS_Collector::MyWrapper::MyWrapper(
 void
 GUI_E2_ZS_Collector::MyWrapper::myConstruct(GUI_E2_ZS_Collector &detector,
         GUILaneWrapper &wrapper) {
-    const Position2DVector &v = wrapper.getShape();
-    Line2D l(v.getBegin(), v.getEnd());
+    const PositionVector &v = wrapper.getShape();
+    Line l(v.getBegin(), v.getEnd());
     // build geometry
     myFullGeometry = v.getSubpart(detector.getStartPos(), detector.getEndPos());
     //
@@ -114,8 +114,8 @@ GUI_E2_ZS_Collector::MyWrapper::myConstruct(GUI_E2_ZS_Collector &detector,
     myShapeLengths.reserve(myFullGeometry.size()-1);
     int e = (int) myFullGeometry.size() - 1;
     for (int i=0; i<e; ++i) {
-        const Position2D &f = myFullGeometry[i];
-        const Position2D &s = myFullGeometry[i+1];
+        const Position &f = myFullGeometry[i];
+        const Position &s = myFullGeometry[i+1];
         myShapeLengths.push_back(f.distanceTo(s));
         myShapeRotations.push_back((SUMOReal) atan2((s.x()-f.x()), (f.y()-s.y()))*(SUMOReal) 180.0/(SUMOReal) PI);
     }

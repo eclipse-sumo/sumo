@@ -1,5 +1,5 @@
 /****************************************************************************/
-/// @file    Line2D.cpp
+/// @file    Line.cpp
 /// @author  Daniel Krajzewicz
 /// @date    2003-08-14
 /// @version $Id$
@@ -28,8 +28,8 @@
 #include <config.h>
 #endif
 
-#include "Position2D.h"
-#include "Line2D.h"
+#include "Position.h"
+#include "Line.h"
 #include "GeomHelper.h"
 #include <cassert>
 
@@ -42,53 +42,53 @@
 // member method definitions
 // ===========================================================================
 
-Line2D::Line2D() {}
+Line::Line() {}
 
 
-Line2D::Line2D(const Position2D &p1, const Position2D &p2)
+Line::Line(const Position &p1, const Position &p2)
         : myP1(p1), myP2(p2) {}
 
 
-Line2D::~Line2D() {}
+Line::~Line() {}
 
 
 void
-Line2D::extrapolateBy(SUMOReal length) {
+Line::extrapolateBy(SUMOReal length) {
     SUMOReal oldlen = myP1.distanceTo(myP2);
     SUMOReal x1 = myP1.x() - (myP2.x() - myP1.x()) * (length) / oldlen;
     SUMOReal y1 = myP1.y() - (myP2.y() - myP1.y()) * (length) / oldlen;
     SUMOReal x2 = myP2.x() - (myP1.x() - myP2.x()) * (length) / oldlen;
     SUMOReal y2 = myP2.y() - (myP1.y() - myP2.y()) * (length) / oldlen;
-    myP1 = Position2D(x1, y1);
-    myP2 = Position2D(x2, y2);
+    myP1 = Position(x1, y1);
+    myP2 = Position(x2, y2);
 }
 
 
 void
-Line2D::extrapolateFirstBy(SUMOReal length) {
+Line::extrapolateFirstBy(SUMOReal length) {
     myP1 = GeomHelper::extrapolate_first(myP1, myP2, length);
 }
 
 
 void
-Line2D::extrapolateSecondBy(SUMOReal length) {
+Line::extrapolateSecondBy(SUMOReal length) {
     myP2 = GeomHelper::extrapolate_second(myP1, myP2, length);
 }
 
-const Position2D &
-Line2D::p1() const {
+const Position &
+Line::p1() const {
     return myP1;
 }
 
 
-const Position2D &
-Line2D::p2() const {
+const Position &
+Line::p2() const {
     return myP2;
 }
 
 
-Position2D
-Line2D::getPositionAtDistance(SUMOReal offset) const {
+Position
+Line::getPositionAtDistance(SUMOReal offset) const {
     SUMOReal length = myP1.distanceTo(myP2);
     if (length==0) {
         if (offset!=0) {
@@ -100,12 +100,12 @@ Line2D::getPositionAtDistance(SUMOReal offset) const {
     SUMOReal y = myP1.y() + (myP2.y() - myP1.y()) / length * offset;
     /*    SUMOReal x2 = myP2.x() - (myP1.x() - myP2.x())  / length * offset;
         SUMOReal y2 = myP2.y() - (myP1.y() - myP2.y()) / length * offset;*/
-    return Position2D(x, y);
+    return Position(x, y);
 }
 
 
 void
-Line2D::move2side(SUMOReal amount) {
+Line::move2side(SUMOReal amount) {
     std::pair<SUMOReal, SUMOReal> p = GeomHelper::getNormal90D_CW(myP1, myP2, amount);
     myP1.add(p.first, p.second);
     myP2.add(p.first, p.second);
@@ -113,8 +113,8 @@ Line2D::move2side(SUMOReal amount) {
 
 
 DoubleVector
-Line2D::intersectsAtLengths(const Position2DVector &v) {
-    Position2DVector p = v.intersectsAtPoints(myP1, myP2);
+Line::intersectsAtLengths(const PositionVector &v) {
+    PositionVector p = v.intersectsAtPoints(myP1, myP2);
     DoubleVector ret;
     for (size_t i=0; i<p.size(); i++) {
         ret.push_back(myP1.distanceTo(p[int(i)]));
@@ -124,19 +124,19 @@ Line2D::intersectsAtLengths(const Position2DVector &v) {
 
 
 SUMOReal
-Line2D::atan2Angle() const {
+Line::atan2Angle() const {
     return atan2(myP1.x()-myP2.x(), myP1.y()-myP2.y());
 }
 
 
 SUMOReal
-Line2D::atan2DegreeAngle() const {
+Line::atan2DegreeAngle() const {
     return (SUMOReal) atan2(myP1.x()-myP2.x(), myP1.y()-myP2.y()) *(SUMOReal) 180.0 / (SUMOReal) PI;
 }
 
 
 SUMOReal
-Line2D::atan2PositiveAngle() const {
+Line::atan2PositiveAngle() const {
     SUMOReal angle = atan2Angle();
     if (angle<0) {
         angle = (SUMOReal) PI * (SUMOReal) 2.0 + angle;
@@ -144,20 +144,20 @@ Line2D::atan2PositiveAngle() const {
     return angle;
 }
 
-Position2D
-Line2D::intersectsAt(const Line2D &l) const {
+Position
+Line::intersectsAt(const Line &l) const {
     return GeomHelper::intersection_position(myP1, myP2, l.myP1, l.myP2);
 }
 
 
 bool
-Line2D::intersects(const Line2D &l) const {
+Line::intersects(const Line &l) const {
     return GeomHelper::intersects(myP1, myP2, l.myP1, l.myP2);
 }
 
 
 SUMOReal
-Line2D::length() const {
+Line::length() const {
     return sqrt(
                (myP1.x()-myP2.x())*(myP1.x()-myP2.x())
                +
@@ -166,30 +166,30 @@ Line2D::length() const {
 
 
 void
-Line2D::add(SUMOReal x, SUMOReal y) {
+Line::add(SUMOReal x, SUMOReal y) {
     myP1.add(x, y);
     myP2.add(x, y);
 }
 
 
 void
-Line2D::add(const Position2D &p) {
+Line::add(const Position &p) {
     myP1.add(p.x(), p.y());
     myP2.add(p.x(), p.y());
 }
 
 
 void
-Line2D::sub(SUMOReal x, SUMOReal y) {
+Line::sub(SUMOReal x, SUMOReal y) {
     myP1.sub(x, y);
     myP2.sub(x, y);
 }
 
 
 
-Line2D &
-Line2D::reverse() {
-    Position2D tmp(myP1);
+Line &
+Line::reverse() {
+    Position tmp(myP1);
     myP1 = myP2;
     myP2 = tmp;
     return *this;
@@ -197,16 +197,16 @@ Line2D::reverse() {
 
 
 SUMOReal
-Line2D::intersectsAtLength(const Line2D &v) {
-    Position2D pos =
+Line::intersectsAtLength(const Line &v) {
+    Position pos =
         GeomHelper::intersection_position(myP1, myP2, v.myP1, v.myP2);
     return GeomHelper::nearest_position_on_line_to_point(myP1, myP2, pos);
 }
 
 
 void
-Line2D::rotateAtP1(SUMOReal rot) {
-    Position2D p = myP2;
+Line::rotateAtP1(SUMOReal rot) {
+    Position p = myP2;
     p.sub(myP1);
     p.reshiftRotate(0, 0, rot);
     p.add(myP1);
@@ -215,18 +215,18 @@ Line2D::rotateAtP1(SUMOReal rot) {
 
 
 void
-Line2D::rotateAround(const Position2D &at, SUMOReal rot) {
+Line::rotateAround(const Position &at, SUMOReal rot) {
     myP1.add(-at.x(), -at.y());
     myP2.add(-at.x(), -at.y());
     {
         SUMOReal x = myP1.x() * cos(rot) + myP1.y() * sin(rot);
         SUMOReal y = myP1.y() * cos(rot) - myP1.x() * sin(rot);
-        myP1 = Position2D(x, y);
+        myP1 = Position(x, y);
     }
     {
         SUMOReal x = myP2.x() * cos(rot) + myP2.y() * sin(rot);
         SUMOReal y = myP2.y() * cos(rot) - myP2.x() * sin(rot);
-        myP2 = Position2D(x, y);
+        myP2 = Position(x, y);
     }
     myP1.add(at.x(), at.y());
     myP2.add(at.x(), at.y());

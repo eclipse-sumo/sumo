@@ -31,7 +31,7 @@
 
 
 #include <string>
-#include <utils/geom/Position2D.h>
+#include <utils/geom/Position.h>
 
 // ===========================================================================
 // class definitions

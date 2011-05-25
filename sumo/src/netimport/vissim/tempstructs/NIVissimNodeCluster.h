@@ -31,7 +31,7 @@
 
 #include <map>
 #include <utils/common/VectorHelper.h>
-#include <utils/geom/Position2D.h>
+#include <utils/geom/Position.h>
 
 
 // ===========================================================================
@@ -62,7 +62,7 @@ public:
     void buildNBNode(NBNodeCont &nc);
     bool recheckEdgeChanges();
     NBNode *getNBNode() const;
-    Position2D getPos() const;
+    Position getPos() const;
     std::string getNodeName() const;
 
 
@@ -91,7 +91,7 @@ private:
     int myTLID;
     IntVector myConnectors;
     IntVector myDisturbances;
-    Position2D myPosition;
+    Position myPosition;
     typedef std::map<int, NIVissimNodeCluster*> DictType;
     static DictType myDict;
     static int myCurrentID;

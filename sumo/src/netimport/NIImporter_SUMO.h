@@ -192,7 +192,7 @@ private:
         /// @brief The maximum velocity allowed on this lane
         SUMOReal maxSpeed;
         /// @brief This lane's shape
-        Position2DVector shape;
+        PositionVector shape;
         /// @brief This lane's connections
         std::vector<Connection> connections;
         /// @brief This lane's allowed vehicle classes
@@ -276,7 +276,7 @@ private:
      * approximation
      * @param[in] lanes The list of lane attributes
      */
-    static Position2DVector approximateEdgeShape(const EdgeAttrs* edge); 
+    static PositionVector approximateEdgeShape(const EdgeAttrs* edge); 
 };
 
 

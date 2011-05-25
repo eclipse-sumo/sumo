@@ -42,9 +42,9 @@
 #include <utils/common/ToString.h>
 
 #include <utils/geom/Boundary.h>
-#include <utils/geom/Position2D.h>
+#include <utils/geom/Position.h>
 #include <utils/geom/GeomHelper.h>
-#include <utils/shapes/Polygon2D.h>
+#include <utils/shapes/Polygon.h>
 #include <utils/shapes/PointOfInterest.h>
 #include <utils/options/OptionsCont.h>
 #include <microsim/MSVehicle.h>

@@ -207,7 +207,7 @@ NIImporter_VISUM::load() throw(ProcessError) {
         j->second->build(myNetBuilder.getTLLogicCont());
     }
     // build district shapes
-    for (std::map<NBDistrict*, Position2DVector>::const_iterator k=myDistrictShapes.begin(); k!=myDistrictShapes.end(); ++k) {
+    for (std::map<NBDistrict*, PositionVector>::const_iterator k=myDistrictShapes.begin(); k!=myDistrictShapes.end(); ++k) {
         (*k).first->addShape((*k).second);
     }
 }
@@ -247,7 +247,7 @@ NIImporter_VISUM::parse_Nodes() {
     // get the position
     SUMOReal x = getNamedFloat("XKoord");
     SUMOReal y = getNamedFloat("YKoord");
-    Position2D pos(x, y);
+    Position pos(x, y);
     if (!GeoConvHelper::x2cartesian(pos)) {
         MsgHandler::getErrorInstance()->inform("Unable to project coordinates for node " + myCurrentID + ".");
         return;
@@ -270,7 +270,7 @@ NIImporter_VISUM::parse_Districts() {
     // get the node information
     SUMOReal x = getNamedFloat("XKoord");
     SUMOReal y = getNamedFloat("YKoord");
-    Position2D pos(x, y);
+    Position pos(x, y);
     if (!GeoConvHelper::x2cartesian(pos, false)) {
         MsgHandler::getErrorInstance()->inform("Unable to project coordinates for district " + myCurrentID + ".");
         return;
@@ -294,7 +294,7 @@ NIImporter_VISUM::parse_Point() {
     long id = TplConvert<char>::_2long(myLineParser.get("ID").c_str());
     SUMOReal x = TplConvert<char>::_2SUMOReal(myLineParser.get("XKOORD").c_str());
     SUMOReal y = TplConvert<char>::_2SUMOReal(myLineParser.get("YKOORD").c_str());
-    Position2D pos(x, y);
+    Position pos(x, y);
     if (!GeoConvHelper::x2cartesian(pos, false)) {
         MsgHandler::getErrorInstance()->inform("Unable to project coordinates for point " + toString(id) + ".");
         return;
@@ -603,7 +603,7 @@ NIImporter_VISUM::parse_EdgePolys() {
         MsgHandler::getErrorInstance()->inform("Error in geometry description from node '" + from->getID() + "' to node '" + to->getID() + "'.");
         return;
     }
-    Position2D pos(x, y);
+    Position pos(x, y);
     if (!GeoConvHelper::x2cartesian(pos)) {
         MsgHandler::getErrorInstance()->inform("Unable to project coordinates for node '" + from->getID() + "'.");
         return;
@@ -741,7 +741,7 @@ NIImporter_VISUM::parse_Lanes() {
             }
         }
         // compute position
-        Position2D p;
+        Position p;
         SUMOReal useLength = length - seenLength;
         useLength = edge->getLength()-useLength;
         std::string edgeID = edge->getID();
@@ -882,7 +882,7 @@ NIImporter_VISUM::parse_AreaSubPartElement() {
         MsgHandler::getErrorInstance()->inform("An index for a TEILFLAECHENELEMENT is not numeric (id='" + toString(id) + "').");
         return;
     }
-    Position2DVector shape;
+    PositionVector shape;
     shape.push_back(myPoints[myEdges[edgeid].first]);
     shape.push_back(myPoints[myEdges[edgeid].second]);
     if (dir.length()>0&&dir[0]=='1') {
@@ -900,7 +900,7 @@ NIImporter_VISUM::parse_AreaSubPartElement() {
             continue;
         }
         if (myDistrictShapes.find(d)==myDistrictShapes.end()) {
-            myDistrictShapes[d] = Position2DVector();
+            myDistrictShapes[d] = PositionVector();
         }
         if (dir.length()>0&&dir[0]=='1') {
             myDistrictShapes[d].push_back(myPoints[myEdges[edgeid].second]);

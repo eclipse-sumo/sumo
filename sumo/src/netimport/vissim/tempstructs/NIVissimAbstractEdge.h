@@ -31,7 +31,7 @@
 
 #include <map>
 #include <utils/common/VectorHelper.h>
-#include <utils/geom/Position2DVector.h>
+#include <utils/geom/PositionVector.h>
 
 
 // ===========================================================================
@@ -42,21 +42,21 @@
  */
 class NIVissimAbstractEdge {
 public:
-    NIVissimAbstractEdge(int id, const Position2DVector &geom);
+    NIVissimAbstractEdge(int id, const PositionVector &geom);
     virtual ~NIVissimAbstractEdge();
-    Position2D getGeomPosition(SUMOReal pos) const;
+    Position getGeomPosition(SUMOReal pos) const;
     void splitAssigning();
     bool crossesEdge(NIVissimAbstractEdge *c) const;
-    Position2D crossesEdgeAtPoint(NIVissimAbstractEdge *c) const;
+    Position crossesEdgeAtPoint(NIVissimAbstractEdge *c) const;
     bool overlapsWith(const AbstractPoly &p, SUMOReal offset=0.0) const;
     virtual void setNodeCluster(int nodeid) = 0;
     bool hasNodeCluster() const;
-    SUMOReal crossesAtPoint(const Position2D &p1,
-                            const Position2D &p2) const;
+    SUMOReal crossesAtPoint(const Position &p1,
+                            const Position &p2) const;
 
     virtual void buildGeom() = 0;
     int getID() const;
-    const Position2DVector &getGeometry() const;
+    const PositionVector &getGeometry() const;
 
     void addDisturbance(int disturbance);
 
@@ -72,7 +72,7 @@ public:
 
 protected:
     int myID;
-    Position2DVector myGeom;
+    PositionVector myGeom;
     IntVector myDisturbances;
     int myNode;
 

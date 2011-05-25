@@ -205,24 +205,24 @@ NWWriter_SUMO::writeInternalEdges(OutputDevice &into, const NBNode &n) {
                 vmax = ((*i)->getSpeed()+(*k).toEdge->getSpeed())/(SUMOReal) 2.0;
                 //
                 std::string id = innerID + "_" + toString(lno);
-                Position2D end = (*k).toEdge->getLaneShape((*k).toLane).getBegin();
-                Position2D beg = (*i)->getLaneShape(j).getEnd();
+                Position end = (*k).toEdge->getLaneShape((*k).toLane).getBegin();
+                Position beg = (*i)->getLaneShape(j).getEnd();
 
-                Position2DVector shape = n.computeInternalLaneShape(*i, j, (*k).toEdge, (*k).toLane);
+                PositionVector shape = n.computeInternalLaneShape(*i, j, (*k).toEdge, (*k).toLane);
                 assert(shape.size() >= 2);
                 SUMOReal length = MAX2(shape.length(), (SUMOReal)POSITION_EPS);
 
                 // get internal splits if any
                 std::pair<SUMOReal, std::vector<unsigned int> > cross = n.getCrossingPosition(*i, j, (*k).toEdge, (*k).toLane);
                 if (cross.first>=0) {
-                    std::pair<Position2DVector, Position2DVector> split;
+                    std::pair<PositionVector, PositionVector> split;
                     // as usual, a problem...
                     //  if the one edge starts exactly where the other one ends (think of a
                     //  turnaround edges lying over the other one) we have a shape with length=0
                     if (shape.length() > POSITION_EPS) {
                         split = shape.splitAt(cross.first);
                     } else {
-                        split = std::pair<Position2DVector, Position2DVector>(shape, shape);
+                        split = std::pair<PositionVector, PositionVector>(shape, shape);
                     }
                     if (split.first.size()==1) {
                         split.first.push_back(split.first[0]);
@@ -334,7 +334,7 @@ NWWriter_SUMO::writeLane(OutputDevice &into, const std::string &eID, const std::
     if (lane.width > 0) {
         into << " width=\"" << lane.width << '\"';
     }
-    Position2DVector shape = lane.shape;
+    PositionVector shape = lane.shape;
     if(lane.offset>0) {
         shape = shape.getSubpart(0, shape.length()-lane.offset);
     }
@@ -427,8 +427,8 @@ NWWriter_SUMO::writeInternalNodes(OutputDevice &into, const NBNode &n) {
                 // write the attributes
                 std::string sid = innerID + "_" + toString(splitNo+noInternalNoSplits) + "_0";
                 std::string iid = innerID + "_" + toString(lno) + "_0";
-                Position2DVector shape = n.computeInternalLaneShape(*i, j, (*k).toEdge, (*k).toLane);
-                Position2D pos = shape.positionAtLengthPosition(cross.first);
+                PositionVector shape = n.computeInternalLaneShape(*i, j, (*k).toEdge, (*k).toLane);
+                Position pos = shape.positionAtLengthPosition(cross.first);
                 into << "   <junction id=\"" << sid << '\"';
                 into << " type=\"" << toString(NODETYPE_INTERNAL) << "\"";
                 into << " x=\"" << pos.x() << "\" y=\"" << pos.y() << "\"";

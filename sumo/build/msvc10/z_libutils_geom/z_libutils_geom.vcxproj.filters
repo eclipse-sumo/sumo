@@ -32,13 +32,13 @@
     <ClCompile Include="..\..\..\src\utils\geom\Helper_ConvexHull.cpp">
       <Filter>Quellcodedateien</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\src\utils\geom\Line2D.cpp">
+    <ClCompile Include="..\..\..\src\utils\geom\Line.cpp">
       <Filter>Quellcodedateien</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\src\utils\shapes\Polygon2D.cpp">
+    <ClCompile Include="..\..\..\src\utils\shapes\Polygon.cpp">
       <Filter>Quellcodedateien</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\src\utils\geom\Position2DVector.cpp">
+    <ClCompile Include="..\..\..\src\utils\geom\PositionVector.cpp">
       <Filter>Quellcodedateien</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\src\utils\shapes\ShapeContainer.cpp">
@@ -70,19 +70,19 @@
     <ClInclude Include="..\..\..\src\utils\geom\Helper_ConvexHull.h">
       <Filter>Header-Dateien</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\src\utils\geom\Line2D.h">
+    <ClInclude Include="..\..\..\src\utils\geom\Line.h">
       <Filter>Header-Dateien</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\utils\shapes\PointOfInterest.h">
       <Filter>Header-Dateien</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\src\utils\shapes\Polygon2D.h">
+    <ClInclude Include="..\..\..\src\utils\shapes\Polygon.h">
       <Filter>Header-Dateien</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\src\utils\geom\Position2D.h">
+    <ClInclude Include="..\..\..\src\utils\geom\Position.h">
       <Filter>Header-Dateien</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\src\utils\geom\Position2DVector.h">
+    <ClInclude Include="..\..\..\src\utils\geom\PositionVector.h">
       <Filter>Header-Dateien</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\utils\shapes\ShapeContainer.h">

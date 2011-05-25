@@ -31,7 +31,7 @@
 
 #include <string>
 #include <utils/common/RGBColor.h>
-#include <utils/geom/Position2D.h>
+#include <utils/geom/Position.h>
 #include <utils/common/Named.h>
 
 
@@ -42,7 +42,7 @@
  * @class PointOfInterest
  * @brief A point-of-interest (2D)
  */
-class PointOfInterest : public RGBColor, public Position2D, public Named {
+class PointOfInterest : public RGBColor, public Position, public Named {
 public:
     /** @brief Constrcutor
      * @param[in] id The id of the POI
@@ -51,8 +51,8 @@ public:
      * @param[in] c The color of the poi
      */
     PointOfInterest(const std::string &id, const std::string &type,
-                    const Position2D &p, const RGBColor &c) throw()
-            : RGBColor(c), Position2D(p), Named(id), myType(type) { }
+                    const Position &p, const RGBColor &c) throw()
+            : RGBColor(c), Position(p), Named(id), myType(type) { }
 
 
     /// @brief Destructor

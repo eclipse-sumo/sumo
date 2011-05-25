@@ -34,8 +34,8 @@ $(XERCES_LIBS) \
 ./utils/common/RGBColorTest.o \
 ./utils/common/ValueTimeLineTest.o \
 ./utils/geom/BoundaryTest.o \
-./utils/geom/Position2DVectorTest.o \
-./utils/geom/Line2DTest.o \
+./utils/geom/PositionVectorTest.o \
+./utils/geom/LineTest.o \
 ./netbuild/NBTrafficLightLogicTest.o \
 -lgtest
 

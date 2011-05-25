@@ -44,7 +44,7 @@ class NBNodeCont;
 class NBTrafficLightLogicCont;
 class NBTypeCont;
 class OptionsCont;
-class Position2DVector;
+class PositionVector;
 
 
 // ===========================================================================
@@ -88,7 +88,7 @@ protected:
          * @param[in, geoms] geoms Storage for read edge geometries
          */
         NodesHandler(NBNodeCont &nc, const std::string &file,
-                     std::map<std::string, Position2DVector> &geoms) throw();
+                     std::map<std::string, PositionVector> &geoms) throw();
 
 
         /// @brief Destructor
@@ -114,7 +114,7 @@ protected:
         NBNodeCont &myNodeCont;
 
         /// @brief A container for parsed geometries
-        std::map<std::string, Position2DVector> &myGeoms;
+        std::map<std::string, PositionVector> &myGeoms;
 
 
     private:
@@ -144,7 +144,7 @@ protected:
          * @param[in] geoms The previously read edge geometries
          */
         EdgesHandler(NBNodeCont &nc, NBEdgeCont &ec,
-                     const std::string &file, std::map<std::string, Position2DVector> &geoms) throw();
+                     const std::string &file, std::map<std::string, PositionVector> &geoms) throw();
 
 
         /// @brief Destructor
@@ -171,7 +171,7 @@ protected:
         NBEdgeCont &myEdgeCont;
 
         /// @brief Previously read edge geometries
-        std::map<std::string, Position2DVector> &myGeoms;
+        std::map<std::string, PositionVector> &myGeoms;
 
         /// @brief Whether node positions shall not be added to the edge's geometry
         bool myTryIgnoreNodePositions;

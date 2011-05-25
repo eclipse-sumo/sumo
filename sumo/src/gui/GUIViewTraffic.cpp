@@ -40,8 +40,8 @@
 #include <microsim/MSJunctionControl.h>
 #include <microsim/traffic_lights/MSTLLogicControl.h>
 #include <utils/common/RGBColor.h>
-#include <utils/geom/Position2DVector.h>
-#include <utils/shapes/Polygon2D.h>
+#include <utils/geom/PositionVector.h>
+#include <utils/shapes/Polygon.h>
 #include "GUISUMOViewParent.h"
 #include "GUIViewTraffic.h"
 #include <utils/gui/windows/GUISUMOAbstractView.h>
@@ -237,7 +237,7 @@ GUIViewTraffic::showViewschemeEditor() {
 
 
 void
-GUIViewTraffic::onGamingClick(Position2D pos) {
+GUIViewTraffic::onGamingClick(Position pos) {
     MSTLLogicControl &tlsControl = MSNet::getInstance()->getTLSControl();
     const std::vector<MSTrafficLightLogic*> &logics = tlsControl.getAllLogics();
     MSTrafficLightLogic *minTll = 0;
@@ -249,7 +249,7 @@ GUIViewTraffic::onGamingClick(Position2D pos) {
             // get the links
             const MSTrafficLightLogic::LaneVector &lanes = tll->getLanesAt(0);
             if (lanes.size()>0) {
-                const Position2D &endPos = lanes[0]->getShape().getEnd();
+                const Position &endPos = lanes[0]->getShape().getEnd();
                 if (endPos.distanceTo(pos) < minDist) {
                     minDist = endPos.distanceTo(pos);
                     minTll = tll;

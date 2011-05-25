@@ -115,15 +115,15 @@ NBEdgeCont::applyOptions(OptionsCont &oc) {
         }
         if (poly.size()==4) {
             // prunning boundary (box)
-            myPrunningBoundary.push_back(Position2D(poly[0], poly[1]));
-            myPrunningBoundary.push_back(Position2D(poly[2], poly[1]));
-            myPrunningBoundary.push_back(Position2D(poly[2], poly[3]));
-            myPrunningBoundary.push_back(Position2D(poly[0], poly[3]));
+            myPrunningBoundary.push_back(Position(poly[0], poly[1]));
+            myPrunningBoundary.push_back(Position(poly[2], poly[1]));
+            myPrunningBoundary.push_back(Position(poly[2], poly[3]));
+            myPrunningBoundary.push_back(Position(poly[0], poly[3]));
         } else {
             for (std::vector<SUMOReal>::iterator j=poly.begin(); j!=poly.end();) {
                 SUMOReal x = *j++;
                 SUMOReal y = *j++;
-                myPrunningBoundary.push_back(Position2D(x, y));
+                myPrunningBoundary.push_back(Position(x, y));
             }
         }
     }
@@ -384,7 +384,7 @@ NBEdgeCont::splitAt(NBDistrictCont &dc,
                     const std::string &secondEdgeName,
                     unsigned int noLanesFirstEdge, unsigned int noLanesSecondEdge) throw(ProcessError) {
     // build the new edges' geometries
-    std::pair<Position2DVector, Position2DVector> geoms =
+    std::pair<PositionVector, PositionVector> geoms =
         edge->getGeometry().splitAt(pos);
     if (geoms.first[-1]!=node->getPosition()) {
         geoms.first.pop_back();

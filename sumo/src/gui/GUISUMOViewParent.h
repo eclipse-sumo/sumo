@@ -32,7 +32,7 @@
 #include <string>
 #include <vector>
 #include <fx.h>
-#include <utils/geom/Position2D.h>
+#include <utils/geom/Position.h>
 #include <utils/geom/Boundary.h>
 #include "dialogs/GUIDialog_GLObjChooser.h"
 #include <utils/gui/globjects/GUIGlObjectTypes.h>

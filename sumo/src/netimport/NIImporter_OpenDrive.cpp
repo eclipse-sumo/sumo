@@ -153,14 +153,14 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
             std::string nid = id1+"."+id2;
             if (nb.getNodeCont().retrieve(nid)==0) {
                 // not yet seen, build
-                Position2D pos = l.linkType==OPENDRIVE_LT_SUCCESSOR ? e.geom[(int)e.geom.size()-1] : e.geom[0];
+                Position pos = l.linkType==OPENDRIVE_LT_SUCCESSOR ? e.geom[(int)e.geom.size()-1] : e.geom[0];
                 if (!nb.getNodeCont().insert(nid, pos)) {
                     throw ProcessError("Could not build node '" + nid + "'.");
                 }
             }
             /* debug-stuff
             else {
-                Position2D pos = l.linkType==OPENDRIVE_LT_SUCCESSOR ? e.geom[e.geom.size()-1] : e.geom[0];
+                Position pos = l.linkType==OPENDRIVE_LT_SUCCESSOR ? e.geom[e.geom.size()-1] : e.geom[0];
                 cout << nid << " " << pos << " " << nb.getNodeCont().retrieve(nid)->getPosition() << endl;
             }
             */
@@ -204,12 +204,12 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
         OpenDriveEdge &e = *i;
         if (e.from==0) {
             std::string nid = e.id + ".begin";
-            Position2D pos(e.geometries[0].x, e.geometries[0].y);
+            Position pos(e.geometries[0].x, e.geometries[0].y);
             e.from = getOrBuildNode(nid, e.geom[0], nb.getNodeCont());
         }
         if (e.to==0) {
             std::string nid = e.id + ".end";
-            Position2D pos(e.geometries[e.geometries.size()-1].x, e.geometries[e.geometries.size()-1].y);
+            Position pos(e.geometries[e.geometries.size()-1].x, e.geometries[e.geometries.size()-1].y);
             e.to = getOrBuildNode(nid, e.geom[(int)e.geom.size()-1], nb.getNodeCont());
         }
     }
@@ -525,7 +525,7 @@ NIImporter_OpenDrive::setLaneConnections(NIImporter_OpenDrive::Connection &c,
 
 
 NBNode *
-NIImporter_OpenDrive::getOrBuildNode(const std::string &id, Position2D &pos,
+NIImporter_OpenDrive::getOrBuildNode(const std::string &id, Position &pos,
                                      NBNodeCont &nc) throw(ProcessError) {
     if (nc.retrieve(id)==0) {
         // not yet built; build now
@@ -604,7 +604,7 @@ NIImporter_OpenDrive::computeShapes(std::vector<OpenDriveEdge> &edges) throw() {
         OpenDriveEdge &e = *i;
         for (std::vector<OpenDriveGeometry>::iterator j=e.geometries.begin(); j!=e.geometries.end(); ++j) {
             OpenDriveGeometry &g = *j;
-            std::vector<Position2D> geom;
+            std::vector<Position> geom;
             switch (g.type) {
             case OPENDRIVE_GT_UNKNOWN:
                 break;
@@ -623,7 +623,7 @@ NIImporter_OpenDrive::computeShapes(std::vector<OpenDriveEdge> &edges) throw() {
             default:
                 break;
             }
-            for (std::vector<Position2D>::iterator k=geom.begin(); k!=geom.end(); ++k) {
+            for (std::vector<Position>::iterator k=geom.begin(); k!=geom.end(); ++k) {
                 e.geom.push_back_noDoublePos(*k);
             }
         }
@@ -635,20 +635,20 @@ NIImporter_OpenDrive::computeShapes(std::vector<OpenDriveEdge> &edges) throw() {
     }
 }
 
-std::vector<Position2D>
+std::vector<Position>
 NIImporter_OpenDrive::geomFromLine(const OpenDriveEdge &e, const OpenDriveGeometry &g) throw() {
     UNUSED_PARAMETER(e);
-    std::vector<Position2D> ret;
-    ret.push_back(Position2D(g.x, g.y));
-    ret.push_back(calculateStraightEndPoint(g.hdg, g.length, Position2D(g.x, g.y)));
+    std::vector<Position> ret;
+    ret.push_back(Position(g.x, g.y));
+    ret.push_back(calculateStraightEndPoint(g.hdg, g.length, Position(g.x, g.y)));
     return ret;
 }
 
 
-std::vector<Position2D>
+std::vector<Position>
 NIImporter_OpenDrive::geomFromSpiral(const OpenDriveEdge &e, const OpenDriveGeometry &g) throw() {
     UNUSED_PARAMETER(e);
-    std::vector<Position2D> ret;
+    std::vector<Position> ret;
     SUMOReal curveStart = g.params[0];
     SUMOReal curveEnd = g.params[1];
     Point2D<double> end;
@@ -656,16 +656,16 @@ NIImporter_OpenDrive::geomFromSpiral(const OpenDriveEdge &e, const OpenDriveGeom
     std::vector<Point2D<double> > into;
     s.computeSpiral(into, 1.);
     for (std::vector<Point2D<double> >::iterator i=into.begin(); i!=into.end(); ++i) {
-        ret.push_back(Position2D((*i).getX(), (*i).getY()));
+        ret.push_back(Position((*i).getX(), (*i).getY()));
     }
     return ret;
 }
 
 
-std::vector<Position2D>
+std::vector<Position>
 NIImporter_OpenDrive::geomFromArc(const OpenDriveEdge &e, const OpenDriveGeometry &g) throw() {
     UNUSED_PARAMETER(e);
-    std::vector<Position2D> ret;
+    std::vector<Position> ret;
     SUMOReal dist = 0.0;
     SUMOReal centerX = g.x;
     SUMOReal centerY = g.y;
@@ -700,7 +700,7 @@ NIImporter_OpenDrive::geomFromArc(const OpenDriveEdge &e, const OpenDriveGeometr
             hdgE = g.hdg - dist/fabs(radius);
         }
         //
-        ret.push_back(Position2D(startX, startY));
+        ret.push_back(Position(startX, startY));
         //
         startX = endX;
         startY = endY;
@@ -715,24 +715,24 @@ NIImporter_OpenDrive::geomFromArc(const OpenDriveEdge &e, const OpenDriveGeometr
 }
 
 
-std::vector<Position2D>
+std::vector<Position>
 NIImporter_OpenDrive::geomFromPoly(const OpenDriveEdge &e, const OpenDriveGeometry &g) throw() {
     UNUSED_PARAMETER(g);
     UNUSED_PARAMETER(e);
-    std::vector<Position2D> ret;
+    std::vector<Position> ret;
     return ret;
 }
 
 
-Position2D
-NIImporter_OpenDrive::calculateStraightEndPoint(double hdg, double length, const Position2D &start) throw() {
+Position
+NIImporter_OpenDrive::calculateStraightEndPoint(double hdg, double length, const Position &start) throw() {
     double normx = 1.0f;
     double normy = 0.0f;
     double x2 = normx * cos(hdg) - normy * sin(hdg);
     double y2 = normx * sin(hdg) + normy * cos(hdg);
     normx = x2 * length;
     normy = y2 * length;
-    return Position2D(start.x() + normx, start.y() + normy);
+    return Position(start.x() + normx, start.y() + normy);
 }
 
 

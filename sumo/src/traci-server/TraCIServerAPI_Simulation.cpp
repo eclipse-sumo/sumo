@@ -196,7 +196,7 @@ TraCIServerAPI_Simulation::processGet(TraCIServer &server, tcpip::Storage &input
 
 
 std::pair<MSLane*, SUMOReal>
-TraCIServerAPI_Simulation::convertCartesianToRoadMap(Position2D pos) {
+TraCIServerAPI_Simulation::convertCartesianToRoadMap(Position pos) {
     std::pair<MSLane*, SUMOReal> result;
     std::vector<std::string> allEdgeIds;
     SUMOReal minDistance = std::numeric_limits<SUMOReal>::max();
@@ -239,8 +239,8 @@ TraCIServerAPI_Simulation::commandPositionConversion(traci::TraCIServer &server,
                                                      tcpip::Storage &outputStorage, int commandId) {
     tcpip::Storage tmpResult;
     std::pair<MSLane*, SUMOReal> roadPos;
-    Position2D cartesianPos;
-    Position2D geoPos;
+    Position cartesianPos;
+    Position geoPos;
     SUMOReal z = 0;
 
     // actual position type that will be converted
@@ -353,8 +353,8 @@ TraCIServerAPI_Simulation::commandPositionConversion(traci::TraCIServer &server,
 bool
 TraCIServerAPI_Simulation::commandDistanceRequest(traci::TraCIServer &server, tcpip::Storage &inputStorage,
                                                   tcpip::Storage &outputStorage, int commandId) {
-    Position2D pos1;
-    Position2D pos2;
+    Position pos1;
+    Position pos2;
     std::pair<const MSLane*, SUMOReal> roadPos1;
     std::pair<const MSLane*, SUMOReal> roadPos2;
 

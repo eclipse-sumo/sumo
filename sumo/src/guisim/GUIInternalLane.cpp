@@ -30,7 +30,7 @@
 #include <string>
 #include <utility>
 #include <utils/common/MsgHandler.h>
-#include <utils/geom/Position2D.h>
+#include <utils/geom/Position.h>
 #include <microsim/MSLane.h>
 #include <microsim/MSVehicleControl.h>
 #include <microsim/MSVehicleTransfer.h>
@@ -51,7 +51,7 @@
 GUIInternalLane::GUIInternalLane(const std::string &id,
                                  SUMOReal maxSpeed, SUMOReal length,
                                  MSEdge * const edge, unsigned int numericalID,
-                                 const Position2DVector &shape, SUMOReal width,
+                                 const PositionVector &shape, SUMOReal width,
                                  const SUMOVehicleClasses &allowed,
                                  const SUMOVehicleClasses &disallowed) throw()
         : MSInternalLane(id, maxSpeed, length, edge, numericalID, shape, width, allowed, disallowed) {}

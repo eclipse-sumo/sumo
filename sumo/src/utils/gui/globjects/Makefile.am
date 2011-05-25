@@ -8,4 +8,4 @@ GUIGlObjectStorage.cpp GUIGlObjectStorage.h \
 GUIGlObjectTypes.h \
 GUIGlObject_AbstractAdd.cpp GUIGlObject_AbstractAdd.h \
 GUIPointOfInterest.cpp GUIPointOfInterest.h \
-GUIPolygon2D.cpp GUIPolygon2D.h
+GUIPolygon.cpp GUIPolygon.h

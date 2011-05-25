@@ -68,7 +68,7 @@ NIImporter_DlrNavteq::loadNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
     // parse file(s)
     LineReader lr;
     // load nodes
-    std::map<std::string, Position2DVector> myGeoms;
+    std::map<std::string, PositionVector> myGeoms;
     MsgHandler::getMessageInstance()->beginProcessMsg("Loading nodes...");
     std::string file = oc.getString("dlr-navteq-prefix") + "_nodes_unsplitted.txt";
     NodesHandler handler1(nb.getNodeCont(), file, myGeoms);
@@ -106,7 +106,7 @@ NIImporter_DlrNavteq::loadNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
 // ---------------------------------------------------------------------------
 NIImporter_DlrNavteq::NodesHandler::NodesHandler(NBNodeCont &nc,
         const std::string &file,
-        std::map<std::string, Position2DVector> &geoms) throw()
+        std::map<std::string, PositionVector> &geoms) throw()
         : myNodeCont(nc), myGeoms(geoms) {
     UNUSED_PARAMETER(file);
 }
@@ -144,7 +144,7 @@ NIImporter_DlrNavteq::NodesHandler::report(const std::string &result) throw(Proc
         throw ProcessError("Non-numerical value for number of geometries in node " + id + ".");
     }
     // geometrical information
-    Position2DVector geoms;
+    PositionVector geoms;
     for (int i=0; i<no_geoms; i++) {
         stream >> x;
         if (stream.fail()) {
@@ -154,7 +154,7 @@ NIImporter_DlrNavteq::NodesHandler::report(const std::string &result) throw(Proc
         if (stream.fail()) {
             throw ProcessError("Non-numerical value for y-position in node " + id + ".");
         }
-        Position2D pos(x, y);
+        Position pos(x, y);
         if (!GeoConvHelper::x2cartesian(pos, true, x, y)) {
             throw ProcessError("Unable to project coordinates for node " + id + ".");
         }
@@ -180,7 +180,7 @@ NIImporter_DlrNavteq::NodesHandler::report(const std::string &result) throw(Proc
 NIImporter_DlrNavteq::EdgesHandler::EdgesHandler(NBNodeCont &nc, NBEdgeCont &ec,
         const std::string &file,
         std::map<std::string,
-        Position2DVector> &geoms) throw()
+        PositionVector> &geoms) throw()
         : myNodeCont(nc), myEdgeCont(ec), myGeoms(geoms) {
     UNUSED_PARAMETER(file);
 }
@@ -261,7 +261,7 @@ NIImporter_DlrNavteq::EdgesHandler::report(const std::string &result) throw(Proc
     if (interID=="-1") {
         e = new NBEdge(id, from, to, "DEFAULT", speed, nolanes, priority, -1, -1);
     } else {
-        Position2DVector geoms = myGeoms[interID];
+        PositionVector geoms = myGeoms[interID];
         if (connection) {
             geoms = geoms.reverse();
             geoms.push_front(from->getPosition());

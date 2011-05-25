@@ -29,7 +29,7 @@
 #include <config.h>
 #endif
 
-#include <utils/geom/Position2D.h>
+#include <utils/geom/Position.h>
 #include "GUIPerspectiveChanger.h"
 
 
@@ -82,7 +82,7 @@ public:
     virtual SUMOReal getZoom() const;
 
     /// Centers the view to the given position, setting it to a size that covers the radius
-    void centerTo(const Position2D &pos, SUMOReal radius, bool applyZoom=true);
+    void centerTo(const Position &pos, SUMOReal radius, bool applyZoom=true);
 
     /** @brief Sets the viewport */
     void setViewport(SUMOReal zoom, SUMOReal xPos, SUMOReal yPos);
@@ -131,7 +131,7 @@ private:
     bool myMoveOnClick;
 
     /// the network location on which to zoom using right click+drag
-    Position2D myZoomBase;
+    Position myZoomBase;
 
     /// avoid flicker
     FXTime myDragDelay;

@@ -33,7 +33,7 @@
 #include <map>
 #include <vector>
 #include <set>
-#include <utils/geom/Position2D.h>
+#include <utils/geom/Position.h>
 #include "NBEdgeCont.h"
 #include "NBJunctionLogicCont.h"
 #include "NBNode.h"
@@ -76,7 +76,7 @@ public:
      * @param[in] A district assigned to the node
      * @return Whether the node could be added (no other with the same id or position is stored)
      */
-    bool insert(const std::string &id, const Position2D &position,
+    bool insert(const std::string &id, const Position &position,
                 NBDistrict *district) throw();
 
 
@@ -85,14 +85,14 @@ public:
      * @param[in] position The node's position
      * @return Whether the node could be added (no other with the same id or position is stored)
      */
-    bool insert(const std::string &id, const Position2D &position) throw();
+    bool insert(const std::string &id, const Position &position) throw();
 
 
     /** @brief Inserts a node into the map
      * @param[in] id The node's id
      * @return Whether the node could be added (no other with the same id is stored)
      */
-    Position2D insert(const std::string &id) throw();
+    Position insert(const std::string &id) throw();
 
 
     /** @brief Inserts a node into the map
@@ -127,7 +127,7 @@ public:
      * @param[in] offset An offset which can be applied in the case positions are blurred
      * @return The node at the given position, or 0 if no such node exists
      */
-    NBNode *retrieve(const Position2D &position, SUMOReal offset=0.) const throw();
+    NBNode *retrieve(const Position &position, SUMOReal offset=0.) const throw();
 
 
     /** @brief Returns the pointer to the begin of the stored nodes

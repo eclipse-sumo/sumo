@@ -170,9 +170,9 @@
     <ClCompile Include="..\..\..\src\utils\geom\GeomConvHelper.cpp" />
     <ClCompile Include="..\..\..\src\utils\geom\GeomHelper.cpp" />
     <ClCompile Include="..\..\..\src\utils\geom\Helper_ConvexHull.cpp" />
-    <ClCompile Include="..\..\..\src\utils\geom\Line2D.cpp" />
-    <ClCompile Include="..\..\..\src\utils\shapes\Polygon2D.cpp" />
-    <ClCompile Include="..\..\..\src\utils\geom\Position2DVector.cpp" />
+    <ClCompile Include="..\..\..\src\utils\geom\Line.cpp" />
+    <ClCompile Include="..\..\..\src\utils\shapes\Polygon.cpp" />
+    <ClCompile Include="..\..\..\src\utils\geom\PositionVector.cpp" />
     <ClCompile Include="..\..\..\src\utils\shapes\ShapeContainer.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -184,11 +184,11 @@
     <ClInclude Include="..\..\..\src\utils\geom\GeomConvHelper.h" />
     <ClInclude Include="..\..\..\src\utils\geom\GeomHelper.h" />
     <ClInclude Include="..\..\..\src\utils\geom\Helper_ConvexHull.h" />
-    <ClInclude Include="..\..\..\src\utils\geom\Line2D.h" />
+    <ClInclude Include="..\..\..\src\utils\geom\Line.h" />
     <ClInclude Include="..\..\..\src\utils\shapes\PointOfInterest.h" />
-    <ClInclude Include="..\..\..\src\utils\shapes\Polygon2D.h" />
-    <ClInclude Include="..\..\..\src\utils\geom\Position2D.h" />
-    <ClInclude Include="..\..\..\src\utils\geom\Position2DVector.h" />
+    <ClInclude Include="..\..\..\src\utils\shapes\Polygon.h" />
+    <ClInclude Include="..\..\..\src\utils\geom\Position.h" />
+    <ClInclude Include="..\..\..\src\utils\geom\PositionVector.h" />
     <ClInclude Include="..\..\..\src\utils\shapes\ShapeContainer.h" />
   </ItemGroup>
   <ItemGroup>

@@ -47,7 +47,7 @@
 // ===========================================================================
 // member method definitions
 // ===========================================================================
-NBDistrict::NBDistrict(const std::string &id, const Position2D &pos) throw()
+NBDistrict::NBDistrict(const std::string &id, const Position &pos) throw()
         : Named(StringUtils::convertUmlaute(id)),
         myPosition(pos) {}
 
@@ -86,7 +86,7 @@ NBDistrict::addSink(NBEdge * const sink, SUMOReal weight) throw() {
 
 
 void
-NBDistrict::setCenter(const Position2D &pos) throw() {
+NBDistrict::setCenter(const Position &pos) throw() {
     myPosition = pos;
 }
 
@@ -155,7 +155,7 @@ NBDistrict::replaceOutgoing(const EdgeVector &which, NBEdge * const by) throw() 
 }
 
 
-const Position2D &
+const Position &
 NBDistrict::getPosition() const throw() {
     return myPosition;
 }
@@ -180,7 +180,7 @@ NBDistrict::removeFromSinksAndSources(NBEdge * const e) throw() {
 
 
 void
-NBDistrict::addShape(const Position2DVector &p) throw() {
+NBDistrict::addShape(const PositionVector &p) throw() {
     myShape = p;
 }
 

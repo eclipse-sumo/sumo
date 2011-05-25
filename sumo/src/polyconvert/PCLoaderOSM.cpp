@@ -40,7 +40,7 @@
 #include "PCLoaderOSM.h"
 #include <utils/common/RGBColor.h>
 #include <utils/geom/GeomHelper.h>
-#include <utils/geom/Position2D.h>
+#include <utils/geom/Position.h>
 #include <utils/geom/GeoConvHelper.h>
 #include <utils/xml/XMLSubSys.h>
 #include <utils/geom/GeomConvHelper.h>
@@ -98,10 +98,10 @@ PCLoaderOSM::loadIfSet(OptionsCont &oc, PCPolyContainer &toFill,
             continue;
         }
         // compute shape
-        Position2DVector vec;
+        PositionVector vec;
         for (std::vector<int>::iterator j=e->myCurrentNodes.begin(); j!=e->myCurrentNodes.end(); ++j) {
             PCOSMNode *n = nodes.find(*j)->second;
-            Position2D pos(n->lon, n->lat);
+            Position pos(n->lon, n->lat);
             if (!GeoConvHelper::x2cartesian(pos)) {
                 MsgHandler::getWarningInstance()->inform("Unable to project coordinates for polygon '" + e->id + "'.");
             }
@@ -139,7 +139,7 @@ PCLoaderOSM::loadIfSet(OptionsCont &oc, PCPolyContainer &toFill,
             if (oc.getBool("osm.keep-full-type")) {
                 type = e->myType;
             }
-            Polygon2D *poly = new Polygon2D(name, type, color, vec, fill);
+            Polygon *poly = new Polygon(name, type, color, vec, fill);
             if (!toFill.insert(name, poly, layer)) {
                 MsgHandler::getErrorInstance()->inform("Polygon '" + name + "' could not been added.");
                 delete poly;
@@ -186,7 +186,7 @@ PCLoaderOSM::loadIfSet(OptionsCont &oc, PCPolyContainer &toFill,
             if (OptionsCont::getOptions().isInStringVector("prune.keep-list", name)) {
                 ignorePrunning = true;
             }
-            Position2D pos(n->lon, n->lat);
+            Position pos(n->lon, n->lat);
             if (!GeoConvHelper::x2cartesian(pos)) {
                 MsgHandler::getWarningInstance()->inform("Unable to project coordinates for POI '" + name + "'.");
             }

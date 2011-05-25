@@ -151,7 +151,7 @@ NIImporter_MATSim::NodesHandler::myStartElement(int element, const SUMOSAXAttrib
     if (!ok) {
         return;
     }
-    Position2D pos(x, y);
+    Position pos(x, y);
     if (!GeoConvHelper::x2cartesian(pos)) {
         MsgHandler::getErrorInstance()->inform("Unable to project coordinates for node '" + id + "'.");
     }

@@ -55,7 +55,7 @@
 #include <utils/shapes/PointOfInterest.h>
 #include <utils/shapes/ShapeContainer.h>
 #include <utils/gui/globjects/GUIPointOfInterest.h>
-#include <utils/gui/globjects/GUIPolygon2D.h>
+#include <utils/gui/globjects/GUIPolygon.h>
 #include <utils/gui/windows/GUIDialog_ViewSettings.h>
 #include <utils/geom/GeoConvHelper.h>
 #include <utils/gui/settings/GUIVisualizationSettings.h>
@@ -164,19 +164,19 @@ GUISUMOAbstractView::updateToolTip() {
 }
 
 
-Position2D
+Position
 GUISUMOAbstractView::getPositionInformation() const {
     Boundary bound = myChanger->getViewport();
     SUMOReal x = bound.xmin() + bound.getWidth()  * myWindowCursorPositionX / getWidth();
     // cursor origin is in the top-left corner
     SUMOReal y = bound.ymin() + bound.getHeight() * (getHeight() - myWindowCursorPositionY) / getHeight();
-    return Position2D(x, y);
+    return Position(x, y);
 }
 
 
 void
 GUISUMOAbstractView::updatePositionInformation() const {
-    Position2D pos = getPositionInformation();
+    Position pos = getPositionInformation();
     std::string text = "x:" + toString(pos.x()) + ", y:" + toString(pos.y());
     myApp->getCartesianLabel().setText(text.c_str());
     GeoConvHelper::cartesian2geo(pos);
@@ -254,7 +254,7 @@ GUISUMOAbstractView::getObjectUnderCursor() {
 
 
 GLuint
-GUISUMOAbstractView::getObjectAtPosition(Position2D pos) {
+GUISUMOAbstractView::getObjectAtPosition(Position pos) {
     const SUMOReal SENSITIVITY = 0.1; // meters
     Boundary selection;
     selection.add(pos);
@@ -280,12 +280,12 @@ GUISUMOAbstractView::getObjectAtPosition(Position2D pos) {
             //  this "layer" resembles the layer of the shape
             //  taking into account the stac of other objects
             if (type==GLO_SHAPE) {
-                if (dynamic_cast<GUIPolygon2D*>(o)!=0) {
-                    if (dynamic_cast<GUIPolygon2D*>(o)->getLayer()>0) {
-                        clayer = GLO_MAX + dynamic_cast<GUIPolygon2D*>(o)->getLayer();
+                if (dynamic_cast<GUIPolygon*>(o)!=0) {
+                    if (dynamic_cast<GUIPolygon*>(o)->getLayer()>0) {
+                        clayer = GLO_MAX + dynamic_cast<GUIPolygon*>(o)->getLayer();
                     }
-                    if (dynamic_cast<GUIPolygon2D*>(o)->getLayer()<0) {
-                        clayer = dynamic_cast<GUIPolygon2D*>(o)->getLayer();
+                    if (dynamic_cast<GUIPolygon*>(o)->getLayer()<0) {
+                        clayer = dynamic_cast<GUIPolygon*>(o)->getLayer();
                     }
                 }
                 if (dynamic_cast<GUIPointOfInterest*>(o)!=0) {

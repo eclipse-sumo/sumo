@@ -162,7 +162,7 @@ NIImporter_RobocupRescue::loadNodes(const std::string &file) {
             times.push_back(time);
         }
 
-        Position2D pos((SUMOReal)(posX / 1000.), -(SUMOReal)(posY / 1000.));
+        Position pos((SUMOReal)(posX / 1000.), -(SUMOReal)(posY / 1000.));
         GeoConvHelper::x2cartesian(pos);
         NBNode *node = new NBNode(toString(id), pos);
         myNodeCont.insert(node);

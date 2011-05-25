@@ -1,28 +1,28 @@
 #include <gtest/gtest.h>
-#include <utils/geom/Position2DVector.h>
+#include <utils/geom/PositionVector.h>
 #include <utils/common/UtilExceptions.h>
 
 using namespace std;
 
 /*
-Tests the class Position2DVector
+Tests the class PositionVector
 */
-class Position2DVectorTest : public testing::Test {
+class PositionVectorTest : public testing::Test {
 	protected :
-		Position2DVector *vectorPolygon;
-		Position2DVector *vectorLine;
+		PositionVector *vectorPolygon;
+		PositionVector *vectorLine;
 
 		virtual void SetUp(){
-			vectorPolygon = new Position2DVector();
-			vectorPolygon->push_back(Position2D(0,0));
-			vectorPolygon->push_back(Position2D(0,2));
-			vectorPolygon->push_back(Position2D(2,4));
-			vectorPolygon->push_back(Position2D(4,2));
-			vectorPolygon->push_back(Position2D(4,0));	
+			vectorPolygon = new PositionVector();
+			vectorPolygon->push_back(Position(0,0));
+			vectorPolygon->push_back(Position(0,2));
+			vectorPolygon->push_back(Position(2,4));
+			vectorPolygon->push_back(Position(4,2));
+			vectorPolygon->push_back(Position(4,0));	
 
-			vectorLine = new Position2DVector();
-			vectorLine->push_back(Position2D(0,0));
-			vectorLine->push_back(Position2D(2,2));
+			vectorLine = new PositionVector();
+			vectorLine->push_back(Position(0,0));
+			vectorLine->push_back(Position(2,2));
 		}
 
 		virtual void TearDown(){
@@ -32,30 +32,30 @@ class Position2DVectorTest : public testing::Test {
 };
 
 /* Test the method 'around'*/
-TEST_F(Position2DVectorTest, test_method_around) {
+TEST_F(PositionVectorTest, test_method_around) {
 
-	EXPECT_TRUE(vectorPolygon->around(Position2D(1,1)));
-	EXPECT_TRUE(vectorPolygon->around(Position2D(1,2)));
-	EXPECT_FALSE(vectorPolygon->around(Position2D(4,4)));
-	EXPECT_FALSE(vectorPolygon->around(Position2D(0,0)));
+	EXPECT_TRUE(vectorPolygon->around(Position(1,1)));
+	EXPECT_TRUE(vectorPolygon->around(Position(1,2)));
+	EXPECT_FALSE(vectorPolygon->around(Position(4,4)));
+	EXPECT_FALSE(vectorPolygon->around(Position(0,0)));
 
-	EXPECT_FALSE(vectorLine->around(Position2D(1,1)));
-	EXPECT_FALSE(vectorLine->around(Position2D(0,2)));
+	EXPECT_FALSE(vectorLine->around(Position(1,1)));
+	EXPECT_FALSE(vectorLine->around(Position(0,2)));
 }
 
 /* Test the method 'getPolygonCenter'.*/
-TEST_F(Position2DVectorTest, test_method_getPolygonCenter) {
-	Position2D pos = vectorPolygon->getPolygonCenter();
+TEST_F(PositionVectorTest, test_method_getPolygonCenter) {
+	Position pos = vectorPolygon->getPolygonCenter();
 	EXPECT_FLOAT_EQ(2, pos.x());
 	EXPECT_FLOAT_EQ(1.6, pos.y());
-	Position2D pos2 = vectorLine->getPolygonCenter();
+	Position pos2 = vectorLine->getPolygonCenter();
 	EXPECT_FLOAT_EQ(1, pos2.x());
 	EXPECT_FLOAT_EQ(1, pos2.y());
 	
 }
 
 /* Test the method 'getBoxBoundary'*/
-TEST_F(Position2DVectorTest, test_method_getBoxBoundary) {	
+TEST_F(PositionVectorTest, test_method_getBoxBoundary) {	
 	Boundary bound = vectorPolygon->getBoxBoundary();
 	EXPECT_FLOAT_EQ(bound.xmax(), 4);
 	EXPECT_FLOAT_EQ(bound.xmin(), 0);
@@ -64,13 +64,13 @@ TEST_F(Position2DVectorTest, test_method_getBoxBoundary) {
 }
 
 /* Test the method 'splitAt'*/
-TEST_F(Position2DVectorTest, test_method_splitAt) {	
-    Position2DVector vec;
-    vec.push_back(Position2D(0,0));
-    vec.push_back(Position2D(2,0));
-    vec.push_back(Position2D(5,0));
+TEST_F(PositionVectorTest, test_method_splitAt) {	
+    PositionVector vec;
+    vec.push_back(Position(0,0));
+    vec.push_back(Position(2,0));
+    vec.push_back(Position(5,0));
     SUMOReal smallDiff = POSITION_EPS / 2;
-    std::pair<Position2DVector, Position2DVector> result;
+    std::pair<PositionVector, PositionVector> result;
     // split in first segment
     result = vec.splitAt(1);
 	EXPECT_FLOAT_EQ(2, result.first.size());
@@ -107,8 +107,8 @@ TEST_F(Position2DVectorTest, test_method_splitAt) {
 	EXPECT_FLOAT_EQ(5 ,result.second[1].x());
 
     // catch a bug
-    vec.push_back(Position2D(6,0));
-    vec.push_back(Position2D(8,0));
+    vec.push_back(Position(6,0));
+    vec.push_back(Position(8,0));
     // split at inner point
     result = vec.splitAt(5);
 	EXPECT_FLOAT_EQ(3, result.first.size());
@@ -121,9 +121,9 @@ TEST_F(Position2DVectorTest, test_method_splitAt) {
 	EXPECT_FLOAT_EQ(8 ,result.second[2].x());
 
     // split short vector
-    Position2DVector vec2;
-    vec2.push_back(Position2D(0,0));
-    vec2.push_back(Position2D(2,0));
+    PositionVector vec2;
+    vec2.push_back(Position(0,0));
+    vec2.push_back(Position(2,0));
     result = vec2.splitAt(1);
 	EXPECT_FLOAT_EQ(2, result.first.size());
 	EXPECT_FLOAT_EQ(0, result.first[0].x());

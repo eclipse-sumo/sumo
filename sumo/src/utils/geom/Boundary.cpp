@@ -30,8 +30,8 @@
 
 #include "GeomHelper.h"
 #include "Boundary.h"
-#include "Position2DVector.h"
-#include "Position2D.h"
+#include "PositionVector.h"
+#include "Position.h"
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -87,7 +87,7 @@ Boundary::add(SUMOReal x, SUMOReal y) {
 
 
 void
-Boundary::add(const Position2D &p) {
+Boundary::add(const Position &p) {
     add(p.x(), p.y());
 }
 
@@ -99,9 +99,9 @@ Boundary::add(const Boundary &p) {
 }
 
 
-Position2D
+Position
 Boundary::getCenter() const {
-    return Position2D((myXmin+myXmax)/(SUMOReal) 2.0, (myYmin+myYmax)/(SUMOReal) 2.0);
+    return Position((myXmin+myXmax)/(SUMOReal) 2.0, (myYmin+myYmax)/(SUMOReal) 2.0);
 }
 
 
@@ -142,7 +142,7 @@ Boundary::getHeight() const {
 
 
 bool
-Boundary::around(const Position2D &p, SUMOReal offset) const {
+Boundary::around(const Position &p, SUMOReal offset) const {
     return
         (p.x()<=myXmax+offset && p.x()>=myXmin-offset) &&
         (p.y()<=myYmax+offset && p.y()>=myYmin-offset);
@@ -160,36 +160,36 @@ Boundary::overlapsWith(const AbstractPoly &p, SUMOReal offset) const {
     }
     // check whether the bounderies cross
     return
-        p.crosses(Position2D(myXmax+offset, myYmax+offset), Position2D(myXmin-offset, myYmax+offset))
+        p.crosses(Position(myXmax+offset, myYmax+offset), Position(myXmin-offset, myYmax+offset))
         ||
-        p.crosses(Position2D(myXmin-offset, myYmax+offset), Position2D(myXmin-offset, myYmin-offset))
+        p.crosses(Position(myXmin-offset, myYmax+offset), Position(myXmin-offset, myYmin-offset))
         ||
-        p.crosses(Position2D(myXmin-offset, myYmin-offset), Position2D(myXmax+offset, myYmin-offset))
+        p.crosses(Position(myXmin-offset, myYmin-offset), Position(myXmax+offset, myYmin-offset))
         ||
-        p.crosses(Position2D(myXmax+offset, myYmin-offset), Position2D(myXmax+offset, myYmax+offset));
+        p.crosses(Position(myXmax+offset, myYmin-offset), Position(myXmax+offset, myYmax+offset));
 }
 
 
 bool
-Boundary::crosses(const Position2D &p1, const Position2D &p2) const {
+Boundary::crosses(const Position &p1, const Position &p2) const {
     return
-        GeomHelper::intersects(p1, p2, Position2D(myXmax, myYmax), Position2D(myXmin, myYmax))
+        GeomHelper::intersects(p1, p2, Position(myXmax, myYmax), Position(myXmin, myYmax))
         ||
-        GeomHelper::intersects(p1, p2, Position2D(myXmin, myYmax), Position2D(myXmin, myYmin))
+        GeomHelper::intersects(p1, p2, Position(myXmin, myYmax), Position(myXmin, myYmin))
         ||
-        GeomHelper::intersects(p1, p2, Position2D(myXmin, myYmin), Position2D(myXmax, myYmin))
+        GeomHelper::intersects(p1, p2, Position(myXmin, myYmin), Position(myXmax, myYmin))
         ||
-        GeomHelper::intersects(p1, p2, Position2D(myXmax, myYmin), Position2D(myXmax, myYmax));
+        GeomHelper::intersects(p1, p2, Position(myXmax, myYmin), Position(myXmax, myYmax));
 }
 
 
 bool
 Boundary::partialWithin(const AbstractPoly &poly, SUMOReal offset) const {
     return
-        poly.around(Position2D(myXmax, myYmax), offset) ||
-        poly.around(Position2D(myXmin, myYmax), offset) ||
-        poly.around(Position2D(myXmax, myYmin), offset) ||
-        poly.around(Position2D(myXmin, myYmin), offset);
+        poly.around(Position(myXmax, myYmax), offset) ||
+        poly.around(Position(myXmin, myYmax), offset) ||
+        poly.around(Position(myXmax, myYmin), offset) ||
+        poly.around(Position(myXmin, myYmin), offset);
 }
 
 

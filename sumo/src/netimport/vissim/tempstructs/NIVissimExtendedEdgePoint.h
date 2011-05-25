@@ -30,7 +30,7 @@
 #endif
 
 #include <utils/common/VectorHelper.h>
-#include <utils/geom/Position2D.h>
+#include <utils/geom/Position.h>
 
 
 // ===========================================================================
@@ -58,7 +58,7 @@ public:
     ~NIVissimExtendedEdgePoint();
     int getEdgeID() const;
     SUMOReal getPosition() const;
-    Position2D getGeomPosition() const;
+    Position getGeomPosition() const;
     const IntVector &getLanes() const;
 
 

@@ -61,7 +61,7 @@ public:
      * @param pos	cartesian position that is to be converted
      * @return the closest road map position to the cartesian position
      */
-    static std::pair<MSLane*, SUMOReal> convertCartesianToRoadMap(Position2D pos);
+    static std::pair<MSLane*, SUMOReal> convertCartesianToRoadMap(Position pos);
 
     /**
      * Converts a road map position to a cartesian position

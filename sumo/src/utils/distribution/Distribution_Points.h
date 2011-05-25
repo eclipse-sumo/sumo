@@ -30,7 +30,7 @@
 #endif
 
 #include "Distribution.h"
-#include <utils/geom/Position2DVector.h>
+#include <utils/geom/PositionVector.h>
 
 
 // ===========================================================================
@@ -47,7 +47,7 @@ class Distribution_Points :
 public:
     /// Constructor
     Distribution_Points(const std::string &id,
-                        const Position2DVector &points, bool interpolating=false) throw();
+                        const PositionVector &points, bool interpolating=false) throw();
 
     /// Destructor
     virtual ~Distribution_Points() throw();
@@ -63,7 +63,7 @@ public:
 
 protected:
     /// The list of points that describe the distribution
-    Position2DVector myPoints;
+    PositionVector myPoints;
 
     mutable bool myProbabilitiesAreComputed;
 

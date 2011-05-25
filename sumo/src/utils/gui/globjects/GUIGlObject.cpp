@@ -211,7 +211,7 @@ GUIGlObject::createFullName() const {
 
 
 void
-GUIGlObject::drawName(const Position2D& pos, const SUMOReal size, const RGBColor& col, const SUMOReal angle) const {
+GUIGlObject::drawName(const Position& pos, const SUMOReal size, const RGBColor& col, const SUMOReal angle) const {
     glPushMatrix();
     glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
     GLHelper::setColor(col);

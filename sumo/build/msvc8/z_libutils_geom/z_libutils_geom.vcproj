@@ -378,15 +378,15 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\utils\geom\Line2D.cpp"
+				RelativePath="..\..\..\src\utils\geom\Line.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\utils\shapes\Polygon2D.cpp"
+				RelativePath="..\..\..\src\utils\shapes\Polygon.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\utils\geom\Position2DVector.cpp"
+				RelativePath="..\..\..\src\utils\geom\PositionVector.cpp"
 				>
 			</File>
 			<File
@@ -431,7 +431,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\utils\geom\Line2D.h"
+				RelativePath="..\..\..\src\utils\geom\Line.h"
 				>
 			</File>
 			<File
@@ -439,15 +439,15 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\utils\shapes\Polygon2D.h"
+				RelativePath="..\..\..\src\utils\shapes\Polygon.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\utils\geom\Position2D.h"
+				RelativePath="..\..\..\src\utils\geom\Position.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\utils\geom\Position2DVector.h"
+				RelativePath="..\..\..\src\utils\geom\PositionVector.h"
 				>
 			</File>
 			<File

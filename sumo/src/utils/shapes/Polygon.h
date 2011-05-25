@@ -1,5 +1,5 @@
 /****************************************************************************/
-/// @file    Polygon2D.h
+/// @file    Polygon.h
 /// @author  Daniel Krajzewicz
 /// @date    Jun 2004
 /// @version $Id$
@@ -16,8 +16,8 @@
 //   (at your option) any later version.
 //
 /****************************************************************************/
-#ifndef Polygon2D_h
-#define Polygon2D_h
+#ifndef Polygon_h
+#define Polygon_h
 
 
 // ===========================================================================
@@ -31,9 +31,9 @@
 
 #include <string>
 #include <utils/common/RGBColor.h>
-#include <utils/geom/Position2DVector.h>
+#include <utils/geom/PositionVector.h>
 #include <utils/common/VectorHelper.h>
-#include <utils/geom/Position2D.h>
+#include <utils/geom/Position.h>
 #include <map>
 
 
@@ -41,10 +41,10 @@
 // class definitions
 // ===========================================================================
 /**
- * @class Polygon2D
+ * @class Polygon
  * @brief A 2D-polygon
  */
-class Polygon2D {
+class Polygon {
 public:
     /** @brief Constructor
      * @param[in] name The name of the polygon
@@ -53,12 +53,12 @@ public:
      * @param[in] shape The shape of the poslygon
      * @param[in] fill Whether the polygon shall be filled
      */
-    Polygon2D(const std::string &name, const std::string &type,
-              const RGBColor &color, const Position2DVector &shape, bool fill) throw();
+    Polygon(const std::string &name, const std::string &type,
+              const RGBColor &color, const PositionVector &shape, bool fill) throw();
 
 
     /// @brief Destructor
-    virtual ~Polygon2D() throw();
+    virtual ~Polygon() throw();
 
 
 
@@ -92,7 +92,7 @@ public:
     /** @brief Returns the shape of the polygon
      * @return The polygon's shape
      */
-    const Position2DVector &getShape() const throw() {
+    const PositionVector &getShape() const throw() {
         return myShape;
     }
 
@@ -129,7 +129,7 @@ public:
     /** @brief Sets a new shape
      * @param[in] shape The new shape to use
      */
-    void setShape(const Position2DVector &shape) throw() {
+    void setShape(const PositionVector &shape) throw() {
         myShape = shape;
     }
 
@@ -154,7 +154,7 @@ protected:
     RGBColor myColor;
 
     /// @brief The positions of the polygon
-    Position2DVector myShape;
+    PositionVector myShape;
 
     /// @brief Information whether the polygon has to be filled
     bool myFill;

@@ -35,8 +35,8 @@
 #include "NBCont.h"
 #include <utils/common/Named.h>
 #include <utils/common/VectorHelper.h>
-#include <utils/geom/Position2D.h>
-#include <utils/geom/Position2DVector.h>
+#include <utils/geom/Position.h>
+#include <utils/geom/PositionVector.h>
 
 
 // ===========================================================================
@@ -73,7 +73,7 @@ public:
      * @param[in] id The id of the district
      * @param[in] pos The position of the district
      */
-    NBDistrict(const std::string &id, const Position2D &pos) throw();
+    NBDistrict(const std::string &id, const Position &pos) throw();
 
 
     /** @brief Constructor without position
@@ -124,7 +124,7 @@ public:
      * @return The position of this district's center
      * @todo Recheck when this information is set/needed
      */
-    const Position2D &getPosition() const throw();
+    const Position &getPosition() const throw();
 
 
     /** @brief Sets the center coordinates
@@ -132,7 +132,7 @@ public:
      * @param[in] pos The new center to assign
      * @todo Recheck when this information is set/needed
      */
-    void setCenter(const Position2D &pos) throw();
+    void setCenter(const Position &pos) throw();
 
 
     /** @brief Replaces incoming edges from the vector (sinks) by the given edge
@@ -176,7 +176,7 @@ public:
      *
      * @param[in] p The new shape
      */
-    void addShape(const Position2DVector &p) throw();
+    void addShape(const PositionVector &p) throw();
 
 
     /** @brief Applies an offset to the district
@@ -221,7 +221,7 @@ public:
     /** @brief Returns the shape
      * @return The district's shape
      */
-    const Position2DVector &getShape() const {
+    const PositionVector &getShape() const {
         return myShape;
     }
 
@@ -243,10 +243,10 @@ private:
     WeightsCont mySinkWeights;
 
     /// @brief The position of the district
-    Position2D myPosition;
+    Position myPosition;
 
     /// @brief The shape of the dsitrict
-    Position2DVector myShape;
+    PositionVector myShape;
 
 
 private:

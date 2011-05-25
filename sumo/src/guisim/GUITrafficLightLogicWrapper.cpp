@@ -257,7 +257,7 @@ GUITrafficLightLogicWrapper::drawGL(const GUIVisualizationSettings& s) const thr
                 for (MSTrafficLightLogic::LaneVector::const_iterator it_lane = lanes.begin(); it_lane != lanes.end(); it_lane++) {
                     glPushMatrix();
                     glColor3d(0,1,0);
-                    Position2D pos = (*it_lane)->getShape().getEnd();
+                    Position pos = (*it_lane)->getShape().getEnd();
                     glTranslated(pos.x(), pos.y(), GLO_MAX);
                     GLHelper::drawFilledCircle((*it_lane)->getWidth() / 2.);
                     glPopMatrix();

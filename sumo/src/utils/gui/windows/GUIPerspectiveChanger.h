@@ -31,7 +31,7 @@
 
 #include <fx.h>
 #include <utils/geom/Boundary.h>
-#include <utils/geom/Position2D.h>
+#include <utils/geom/Position.h>
 #include "GUISUMOAbstractView.h"
 
 
@@ -91,7 +91,7 @@ public:
     /** @brief Centers the view to the given position,
         setting it to a size that covers the radius.
         Used for: Centering of vehicles and junctions */
-    virtual void centerTo(const Position2D &pos, SUMOReal radius, bool applyZoom=true) = 0;
+    virtual void centerTo(const Position &pos, SUMOReal radius, bool applyZoom=true) = 0;
 
     /** @brief Sets the viewport
         Used for: Adapting a new viewport */

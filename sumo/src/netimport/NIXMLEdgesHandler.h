@@ -30,7 +30,7 @@
 #endif
 
 #include <utils/common/SUMOVehicleClass.h>
-#include <utils/geom/Position2DVector.h>
+#include <utils/geom/PositionVector.h>
 #include <utils/xml/SUMOSAXHandler.h>
 #include <netbuild/NBEdge.h>
 
@@ -115,7 +115,7 @@ private:
      * @param[in] attrs The attributes to read the shape from
      * @return The edge's shape
      */
-    Position2DVector tryGetShape(const SUMOSAXAttributes &attrs) throw();
+    PositionVector tryGetShape(const SUMOSAXAttributes &attrs) throw();
 
 
     /** @brief Sets from/to node information of the currently parsed edge
@@ -134,7 +134,7 @@ private:
                             const std::string &attrName);
 
 
-    NBNode * insertNodeChecking(const Position2D &pos,
+    NBNode * insertNodeChecking(const Position &pos,
                                 const std::string &name, const std::string &dir);
 
 
@@ -174,7 +174,7 @@ private:
     SUMOReal myLength;
 
     /// @brief The shape of the edge
-    Position2DVector myShape;
+    PositionVector myShape;
 
     /// @brief Information about how to spread the lanes
     LaneSpreadFunction myLanesSpread;
@@ -222,7 +222,7 @@ private:
         /// @brief A numerical id
         int nameid;
         /// @brief A 2D-position (for the node to insert at this place)
-        Position2D gpos;
+        Position gpos;
     };
 
     /// @brief The list of this edge's splits

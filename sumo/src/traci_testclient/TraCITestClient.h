@@ -33,7 +33,7 @@ namespace testclient {
 // ===========================================================================
 // Definitions
 // ===========================================================================
-struct Position2D {
+struct Position {
     SUMOReal x;
     SUMOReal y;
 };
@@ -51,11 +51,11 @@ struct PositionRoadMap {
 };
 
 struct BoundingBox {
-    Position2D lowerLeft;
-    Position2D upperRight;
+    Position lowerLeft;
+    Position upperRight;
 };
 
-typedef std::vector<Position2D> Polygon;
+typedef std::vector<Position> Polygon;
 
 struct TLPhase {
     std::string precRoadId;
@@ -87,18 +87,18 @@ public:
     // simulation commands
     void commandSimulationStep2(SUMOTime time);
 
-    void commandPositionConversion(testclient::Position2D pos, int posId);
+    void commandPositionConversion(testclient::Position pos, int posId);
     void commandPositionConversion(testclient::Position3D pos, int posId);
     void commandPositionConversion(testclient::PositionRoadMap pos, int posId);
 
-    void commandDistanceRequest(testclient::Position2D pos1, testclient::Position2D pos2, int flag);
+    void commandDistanceRequest(testclient::Position pos1, testclient::Position pos2, int flag);
     void commandDistanceRequest(testclient::Position3D pos1, testclient::Position3D pos2, int flag);
-    void commandDistanceRequest(testclient::Position2D pos1, testclient::Position3D pos2, int flag);
-    void commandDistanceRequest(testclient::Position3D pos1, testclient::Position2D pos2, int flag);
+    void commandDistanceRequest(testclient::Position pos1, testclient::Position3D pos2, int flag);
+    void commandDistanceRequest(testclient::Position3D pos1, testclient::Position pos2, int flag);
     void commandDistanceRequest(testclient::PositionRoadMap pos1, testclient::PositionRoadMap pos2, int flag);
-    void commandDistanceRequest(testclient::PositionRoadMap pos1, testclient::Position2D pos2, int flag);
+    void commandDistanceRequest(testclient::PositionRoadMap pos1, testclient::Position pos2, int flag);
     void commandDistanceRequest(testclient::PositionRoadMap pos1, testclient::Position3D pos2, int flag);
-    void commandDistanceRequest(testclient::Position2D pos1, testclient::PositionRoadMap pos2, int flag);
+    void commandDistanceRequest(testclient::Position pos1, testclient::PositionRoadMap pos2, int flag);
     void commandDistanceRequest(testclient::Position3D pos1, testclient::PositionRoadMap pos2, int flag);
 
     void commandGetVariable(int domID, int varID, const std::string &objID);
@@ -113,15 +113,15 @@ private:
 
     void errorMsg(std::stringstream& msg);
 
-    void commandPositionConversion(testclient::Position2D* pos2D,
+    void commandPositionConversion(testclient::Position* pos2D,
                                    testclient::Position3D* pos3D,
                                    testclient::PositionRoadMap* posRoad,
                                    int posId);
 
-    void commandDistanceRequest(testclient::Position2D* pos1_2D,
+    void commandDistanceRequest(testclient::Position* pos1_2D,
                                 testclient::Position3D* pos1_3D,
                                 testclient::PositionRoadMap* pos1_Road,
-                                testclient::Position2D* pos2_2D,
+                                testclient::Position* pos2_2D,
                                 testclient::Position3D* pos2_3D,
                                 testclient::PositionRoadMap* pos2_Road,
                                 int flag);

@@ -126,7 +126,7 @@ PCLoaderArcView::load(const std::string &file, OptionsCont &oc, PCPolyContainer 
         switch (gtype) {
         case wkbPoint: {
             OGRPoint *cgeom = (OGRPoint*) poGeometry;
-            Position2D pos((SUMOReal) cgeom->getX(), (SUMOReal) cgeom->getY());
+            Position pos((SUMOReal) cgeom->getX(), (SUMOReal) cgeom->getY());
             if (!GeoConvHelper::x2cartesian(pos)) {
                 MsgHandler::getErrorInstance()->inform("Unable to project coordinates for POI '" + id + "'.");
             }
@@ -139,15 +139,15 @@ PCLoaderArcView::load(const std::string &file, OptionsCont &oc, PCPolyContainer 
         break;
         case wkbLineString: {
             OGRLineString *cgeom = (OGRLineString*) poGeometry;
-            Position2DVector shape;
+            PositionVector shape;
             for (int j=0; j<cgeom->getNumPoints(); j++) {
-                Position2D pos((SUMOReal) cgeom->getX(j), (SUMOReal) cgeom->getY(j));
+                Position pos((SUMOReal) cgeom->getX(j), (SUMOReal) cgeom->getY(j));
                 if (!GeoConvHelper::x2cartesian(pos)) {
                     MsgHandler::getErrorInstance()->inform("Unable to project coordinates for polygon '" + id + "'.");
                 }
                 shape.push_back_noDoublePos(pos);
             }
-            Polygon2D *poly = new Polygon2D(id, type, color, shape, false);
+            Polygon *poly = new Polygon(id, type, color, shape, false);
             if (!toFill.insert(id, poly, layer)) {
                 MsgHandler::getErrorInstance()->inform("Polygon '" + id + "' could not been added.");
                 delete poly;
@@ -156,15 +156,15 @@ PCLoaderArcView::load(const std::string &file, OptionsCont &oc, PCPolyContainer 
         break;
         case wkbPolygon: {
             OGRLinearRing *cgeom = ((OGRPolygon*) poGeometry)->getExteriorRing();
-            Position2DVector shape;
+            PositionVector shape;
             for (int j=0; j<cgeom->getNumPoints(); j++) {
-                Position2D pos((SUMOReal) cgeom->getX(j), (SUMOReal) cgeom->getY(j));
+                Position pos((SUMOReal) cgeom->getX(j), (SUMOReal) cgeom->getY(j));
                 if (!GeoConvHelper::x2cartesian(pos)) {
                     MsgHandler::getErrorInstance()->inform("Unable to project coordinates for polygon '" + id + "'.");
                 }
                 shape.push_back_noDoublePos(pos);
             }
-            Polygon2D *poly = new Polygon2D(id, type, color, shape, true);
+            Polygon *poly = new Polygon(id, type, color, shape, true);
             if (!toFill.insert(id, poly, layer)) {
                 MsgHandler::getErrorInstance()->inform("Polygon '" + id + "' could not been added.");
                 delete poly;
@@ -175,7 +175,7 @@ PCLoaderArcView::load(const std::string &file, OptionsCont &oc, PCPolyContainer 
             OGRMultiPoint *cgeom = (OGRMultiPoint*) poGeometry;
             for (int i=0; i<cgeom->getNumGeometries(); ++i) {
                 OGRPoint *cgeom2 = (OGRPoint*) cgeom->getGeometryRef(i);
-                Position2D pos((SUMOReal) cgeom2->getX(), (SUMOReal) cgeom2->getY());
+                Position pos((SUMOReal) cgeom2->getX(), (SUMOReal) cgeom2->getY());
                 std::string tid = id + "#" + toString(i);
                 if (!GeoConvHelper::x2cartesian(pos)) {
                     MsgHandler::getErrorInstance()->inform("Unable to project coordinates for POI '" + tid + "'.");
@@ -192,16 +192,16 @@ PCLoaderArcView::load(const std::string &file, OptionsCont &oc, PCPolyContainer 
             OGRMultiLineString *cgeom = (OGRMultiLineString*) poGeometry;
             for (int i=0; i<cgeom->getNumGeometries(); ++i) {
                 OGRLineString *cgeom2 = (OGRLineString*) cgeom->getGeometryRef(i);
-                Position2DVector shape;
+                PositionVector shape;
                 std::string tid = id + "#" + toString(i);
                 for (int j=0; j<cgeom2->getNumPoints(); j++) {
-                    Position2D pos((SUMOReal) cgeom2->getX(j), (SUMOReal) cgeom2->getY(j));
+                    Position pos((SUMOReal) cgeom2->getX(j), (SUMOReal) cgeom2->getY(j));
                     if (!GeoConvHelper::x2cartesian(pos)) {
                         MsgHandler::getErrorInstance()->inform("Unable to project coordinates for polygon '" + tid + "'.");
                     }
                     shape.push_back_noDoublePos(pos);
                 }
-                Polygon2D *poly = new Polygon2D(tid, type, color, shape, false);
+                Polygon *poly = new Polygon(tid, type, color, shape, false);
                 if (!toFill.insert(tid, poly, layer)) {
                     MsgHandler::getErrorInstance()->inform("Polygon '" + tid + "' could not been added.");
                     delete poly;
@@ -213,16 +213,16 @@ PCLoaderArcView::load(const std::string &file, OptionsCont &oc, PCPolyContainer 
             OGRMultiPolygon *cgeom = (OGRMultiPolygon*) poGeometry;
             for (int i=0; i<cgeom->getNumGeometries(); ++i) {
                 OGRLinearRing *cgeom2 = ((OGRPolygon*) cgeom->getGeometryRef(i))->getExteriorRing();
-                Position2DVector shape;
+                PositionVector shape;
                 std::string tid = id + "#" + toString(i);
                 for (int j=0; j<cgeom2->getNumPoints(); j++) {
-                    Position2D pos((SUMOReal) cgeom2->getX(j), (SUMOReal) cgeom2->getY(j));
+                    Position pos((SUMOReal) cgeom2->getX(j), (SUMOReal) cgeom2->getY(j));
                     if (!GeoConvHelper::x2cartesian(pos)) {
                         MsgHandler::getErrorInstance()->inform("Unable to project coordinates for polygon '" + tid + "'.");
                     }
                     shape.push_back_noDoublePos(pos);
                 }
-                Polygon2D *poly = new Polygon2D(tid, type, color, shape, true);
+                Polygon *poly = new Polygon(tid, type, color, shape, true);
                 if (!toFill.insert(tid, poly, layer)) {
                     MsgHandler::getErrorInstance()->inform("Polygon '" + tid + "' could not been added.");
                     delete poly;

@@ -37,9 +37,9 @@
 #include <utils/common/Named.h>
 #include <utils/geom/Bresenham.h>
 #include <utils/common/VectorHelper.h>
-#include <utils/geom/Position2D.h>
-#include <utils/geom/Line2D.h>
-#include <utils/geom/Position2DVector.h>
+#include <utils/geom/Position.h>
+#include <utils/geom/Line.h>
+#include <utils/geom/PositionVector.h>
 #include <utils/xml/SUMOXMLDefinitions.h>
 #include "NBEdge.h"
 #include "NBJunctionLogicCont.h"
@@ -119,7 +119,7 @@ public:
      * @param[in] id The id of the node
      * @param[in] position The position of the node
      */
-    NBNode(const std::string &id, const Position2D &position) throw();
+    NBNode(const std::string &id, const Position &position) throw();
 
 
     /** @brief Constructor
@@ -127,7 +127,7 @@ public:
      * @param[in] position The position of the node
      * @param[in] type The type of the node
      */
-    NBNode(const std::string &id, const Position2D &position, SumoXMLNodeType type) throw();
+    NBNode(const std::string &id, const Position &position, SumoXMLNodeType type) throw();
 
 
     /** @brief Constructor
@@ -135,7 +135,7 @@ public:
      * @param[in] position The position of the node
      * @param[in] district The district this district node represents
      */
-    NBNode(const std::string &id, const Position2D &position, NBDistrict *district) throw();
+    NBNode(const std::string &id, const Position &position, NBDistrict *district) throw();
 
 
     /// @brief Destructor
@@ -146,7 +146,7 @@ public:
      * @param[in] position The position of the node
      * @param[in] type The type of the node
      */
-    void reinit(const Position2D &position, SumoXMLNodeType type) throw();
+    void reinit(const Position &position, SumoXMLNodeType type) throw();
 
     /// @name Atomar getter methods
     /// @{
@@ -154,7 +154,7 @@ public:
     /** @brief Returns the position of this node
      * @return This node's position
      */
-    const Position2D &getPosition() const throw() {
+    const Position &getPosition() const throw() {
         return myPosition;
     }
 
@@ -253,7 +253,7 @@ public:
 
     /** @brief Returns something like the most unused direction
         Should only be used to add source or sink nodes */
-    Position2D getEmptyDir() const;
+    Position getEmptyDir() const;
 
 
     /** @brief Returns whether the given edge ends at this node
@@ -347,7 +347,7 @@ public:
     void computeNodeShape(bool leftHand);
 
 
-    const Position2DVector &getShape() const;
+    const PositionVector &getShape() const;
 
     // @brief adds up all lanes of all incoming edges which have a continuation
     unsigned int countInternalLanes(bool includeSplits) const;
@@ -376,7 +376,7 @@ public:
             NBEdge *toE, unsigned int toL) const;
     std::string getCrossingSourcesNames_dividedBySpace(NBEdge *fromE, unsigned int fromL,
             NBEdge *toE, unsigned int toL) const;
-    Position2DVector computeInternalLaneShape(NBEdge *fromE,
+    PositionVector computeInternalLaneShape(NBEdge *fromE,
             int fromL, NBEdge *toE, int toL) const;
 
 
@@ -462,7 +462,7 @@ private:
 
 private:
     /// @brief The position the node lies at
-    Position2D myPosition;
+    Position myPosition;
 
     /// @brief Vector of incoming edges
     EdgeVector myIncomingEdges;
@@ -483,7 +483,7 @@ private:
     NBDistrict *myDistrict;
 
     /// the (outer) shape of the junction
-    Position2DVector myPoly;
+    PositionVector myPoly;
 
     NBRequest *myRequest;
 

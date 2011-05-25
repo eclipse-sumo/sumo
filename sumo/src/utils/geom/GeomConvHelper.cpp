@@ -29,7 +29,7 @@
 
 #include <string>
 #include <sstream>
-#include <utils/geom/Position2DVector.h>
+#include <utils/geom/PositionVector.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/StringTokenizer.h>
 #include <utils/common/TplConvert.h>
@@ -43,7 +43,7 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-Position2DVector
+PositionVector
 GeomConvHelper::parseShapeReporting(const std::string &shpdef, const std::string &objecttype,
                                     const char *objectid, bool &ok, bool allowEmpty, bool report) throw() {
     if (shpdef=="") {
@@ -51,34 +51,34 @@ GeomConvHelper::parseShapeReporting(const std::string &shpdef, const std::string
             emitError(report, "Shape", objecttype, objectid, "the shape is empty");
             ok = false;
         }
-        return Position2DVector();
+        return PositionVector();
     }
     StringTokenizer st(shpdef, " ");
-    Position2DVector shape;
+    PositionVector shape;
     while (st.hasNext()) {
         StringTokenizer pos(st.next(), ",");
         if (pos.size()!=2 && pos.size()!=3) {
             emitError(report, "Shape", objecttype, objectid, "the position is neither x,y nor x,y,z");
             ok = false;
-            return Position2DVector();
+            return PositionVector();
         }
         try {
             SUMOReal x = TplConvert<char>::_2SUMOReal(pos.next().c_str());
             SUMOReal y = TplConvert<char>::_2SUMOReal(pos.next().c_str());
             if(pos.size()==2) {
-                shape.push_back(Position2D(x, y));
+                shape.push_back(Position(x, y));
             } else {
                 SUMOReal z = TplConvert<char>::_2SUMOReal(pos.next().c_str());
-                shape.push_back(Position2D(x, y, z));
+                shape.push_back(Position(x, y, z));
             }
         } catch (NumberFormatException &) {
             emitError(report, "Shape", objecttype, objectid, "not numeric position entry");
             ok = false;
-            return Position2DVector();
+            return PositionVector();
         } catch (EmptyData &) {
             emitError(report, "Shape", objecttype, objectid, "empty position entry");
             ok = false;
-            return Position2DVector();
+            return PositionVector();
         }
     }
     return shape;

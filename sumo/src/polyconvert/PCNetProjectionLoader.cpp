@@ -38,7 +38,7 @@
 #include <utils/common/RGBColor.h>
 #include <utils/geom/GeomHelper.h>
 #include <utils/geom/Boundary.h>
-#include <utils/geom/Position2D.h>
+#include <utils/geom/Position.h>
 #include <utils/geom/GeoConvHelper.h>
 #include <utils/xml/XMLSubSys.h>
 #include <utils/geom/GeomConvHelper.h>
@@ -58,7 +58,7 @@
 // ---------------------------------------------------------------------------
 void
 PCNetProjectionLoader::loadIfSet(OptionsCont &oc,
-                                 Position2D &netOffset, Boundary &origNetBoundary,
+                                 Position &netOffset, Boundary &origNetBoundary,
                                  Boundary &convNetBoundary,
                                  std::string &projParameter) throw(ProcessError) {
     if (!oc.isSet("net")) {
@@ -94,7 +94,7 @@ PCNetProjectionLoader::loadIfSet(OptionsCont &oc,
 // ---------------------------------------------------------------------------
 // handler methods
 // ---------------------------------------------------------------------------
-PCNetProjectionLoader::PCNetProjectionLoader(Position2D &netOffset,
+PCNetProjectionLoader::PCNetProjectionLoader(Position &netOffset,
         Boundary &origNetBoundary, Boundary &convNetBoundary,
         std::string &projParameter) throw()
         : SUMOSAXHandler("sumo-network"), myNetOffset(netOffset),
@@ -114,7 +114,7 @@ PCNetProjectionLoader::myStartElement(int element,
         return;
     }
     bool ok = true;
-    Position2DVector tmp = GeomConvHelper::parseShapeReporting(
+    PositionVector tmp = GeomConvHelper::parseShapeReporting(
             attrs.getOptStringReporting(SUMO_ATTR_NET_OFFSET, 0, ok, ""), 
             attrs.getObjectType(), 0, ok, false);
     if (ok) {

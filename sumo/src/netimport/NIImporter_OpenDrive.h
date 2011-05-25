@@ -32,7 +32,7 @@
 #include <string>
 #include <map>
 #include <utils/xml/SUMOSAXHandler.h>
-#include <utils/geom/Position2DVector.h>
+#include <utils/geom/PositionVector.h>
 
 
 // ===========================================================================
@@ -229,7 +229,7 @@ protected:
         NBNode *to;
         std::map<int, int> beginLaneMap;
         std::map<int, int> endLaneMap;
-        Position2DVector geom;
+        PositionVector geom;
         std::vector<OpenDriveLaneSection> laneSections;
     };
 
@@ -322,14 +322,14 @@ protected:
      * @return The retrieved/built node
      * @exception ProcessError If the node could not be built/retrieved
      */
-    static NBNode *getOrBuildNode(const std::string &id, Position2D &pos, NBNodeCont &nc) throw(ProcessError);
+    static NBNode *getOrBuildNode(const std::string &id, Position &pos, NBNodeCont &nc) throw(ProcessError);
 
 
-    static std::vector<Position2D> geomFromLine(const OpenDriveEdge &e, const OpenDriveGeometry &g) throw();
-    static std::vector<Position2D> geomFromSpiral(const OpenDriveEdge &e, const OpenDriveGeometry &g) throw();
-    static std::vector<Position2D> geomFromArc(const OpenDriveEdge &e, const OpenDriveGeometry &g) throw();
-    static std::vector<Position2D> geomFromPoly(const OpenDriveEdge &e, const OpenDriveGeometry &g) throw();
-    static Position2D calculateStraightEndPoint(double hdg, double length, const Position2D &start) throw();
+    static std::vector<Position> geomFromLine(const OpenDriveEdge &e, const OpenDriveGeometry &g) throw();
+    static std::vector<Position> geomFromSpiral(const OpenDriveEdge &e, const OpenDriveGeometry &g) throw();
+    static std::vector<Position> geomFromArc(const OpenDriveEdge &e, const OpenDriveGeometry &g) throw();
+    static std::vector<Position> geomFromPoly(const OpenDriveEdge &e, const OpenDriveGeometry &g) throw();
+    static Position calculateStraightEndPoint(double hdg, double length, const Position &start) throw();
     static void calculateCurveCenter(SUMOReal *ad_x, SUMOReal *ad_y, SUMOReal ad_radius, SUMOReal ad_hdg) throw();
     static void calcPointOnCurve(SUMOReal *ad_x, SUMOReal *ad_y, SUMOReal ad_centerX, SUMOReal ad_centerY,
                                  SUMOReal ad_r, SUMOReal ad_length) throw();

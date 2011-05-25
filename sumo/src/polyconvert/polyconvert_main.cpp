@@ -205,7 +205,7 @@ main(int argc, char **argv) {
         MsgHandler::initOutputOptions();
         // build the projection
         Boundary origNetBoundary, pruningBoundary;
-        Position2D netOffset;
+        Position netOffset;
         std::string proj;
         PCNetProjectionLoader::loadIfSet(oc, netOffset, origNetBoundary, pruningBoundary, proj);
         if (proj != "") {

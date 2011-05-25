@@ -29,7 +29,7 @@
 #include <config.h>
 #endif
 
-#include <utils/geom/Position2DVector.h>
+#include <utils/geom/PositionVector.h>
 
 
 // ===========================================================================
@@ -55,10 +55,10 @@ public:
     ~NBNodeShapeComputer();
 
     /// Computes the shape of the assigned junction
-    Position2DVector compute(bool leftHand);
+    PositionVector compute(bool leftHand);
 
 private:
-    Position2DVector computeContinuationNodeShape(bool simpleContinuation);
+    PositionVector computeContinuationNodeShape(bool simpleContinuation);
 
     /** @brief Computes the node geometry using normals
      *
@@ -68,16 +68,16 @@ private:
      *  at the node's height (the length of the edge the edge would cross the node
      *  point).
      */
-    Position2DVector computeNodeShapeByCrosses();
+    PositionVector computeNodeShapeByCrosses();
 
 
-    void replaceLastChecking(Position2DVector &g, bool decenter,
-                             Position2DVector counter, size_t counterLanes, SUMOReal counterDist,
+    void replaceLastChecking(PositionVector &g, bool decenter,
+                             PositionVector counter, size_t counterLanes, SUMOReal counterDist,
                              int laneDiff);
 
 
-    void replaceFirstChecking(Position2DVector &g, bool decenter,
-                              Position2DVector counter, size_t counterLanes, SUMOReal counterDist,
+    void replaceFirstChecking(PositionVector &g, bool decenter,
+                              PositionVector counter, size_t counterLanes, SUMOReal counterDist,
                               int laneDiff);
 
     /** @brief Joins edges and computes ccw/cw boundaries
@@ -90,8 +90,8 @@ private:
      *  less than 1 from the key-edge's direction.
      */
     void joinSameDirectionEdges(std::map<NBEdge*, EdgeVector > &same,
-                                std::map<NBEdge*, Position2DVector> &geomsCCW,
-                                std::map<NBEdge*, Position2DVector> &geomsCW);
+                                std::map<NBEdge*, PositionVector> &geomsCCW,
+                                std::map<NBEdge*, PositionVector> &geomsCW);
 
     /** @brief Joins edges and computes ccw/cw boundaries
      *
@@ -102,8 +102,8 @@ private:
      */
     EdgeVector computeUniqueDirectionList(
         const std::map<NBEdge*, EdgeVector > &same,
-        std::map<NBEdge*, Position2DVector> &geomsCCW,
-        std::map<NBEdge*, Position2DVector> &geomsCW,
+        std::map<NBEdge*, PositionVector> &geomsCCW,
+        std::map<NBEdge*, PositionVector> &geomsCW,
         std::map<NBEdge*, NBEdge*> &ccwBoundary,
         std::map<NBEdge*, NBEdge*> &cwBoundary);
 

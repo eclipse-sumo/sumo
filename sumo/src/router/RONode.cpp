@@ -46,7 +46,7 @@ RONode::~RONode() throw() {}
 
 
 void
-RONode::setPosition(const Position2D &p) throw() {
+RONode::setPosition(const Position &p) throw() {
     myPosition = p;
 }
 

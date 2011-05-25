@@ -31,7 +31,7 @@
 
 #include <vector>
 #include <fx.h>
-#include <utils/geom/Position2D.h>
+#include <utils/geom/Position.h>
 
 
 // ===========================================================================
@@ -102,7 +102,7 @@ protected:
     GUIMainWindow *myApplication;
 
     /// @brief The position within the network the cursor was above when instanting the popup
-    Position2D myNetworkPosition;
+    Position myNetworkPosition;
 
 
 protected:

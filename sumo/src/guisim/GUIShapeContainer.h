@@ -68,7 +68,7 @@ public:
      * @see ShapeContainer::addPoI
      */
     virtual bool addPoI(const std::string &name, int layer, const std::string &type,
-                        const RGBColor &c, const Position2D &pos) throw();
+                        const RGBColor &c, const Position &pos) throw();
 
 
     /** @brief Builds a polygon using the given values and adds it to the according layer
@@ -81,7 +81,7 @@ public:
      * @see ShapeContainer::addPolygon
      */
     virtual bool addPolygon(const std::string &name, int layer,
-                            const std::string &type, const RGBColor &c, bool filled, const Position2DVector &shape) throw();
+                            const std::string &type, const RGBColor &c, bool filled, const PositionVector &shape) throw();
 
 
 
@@ -110,7 +110,7 @@ public:
      * @param[in] pos The PoI's new position
      * @see ShapeContainer::movePoI
      */
-    void movePoI(int layer, const std::string &id, const Position2D &pos) throw();
+    void movePoI(int layer, const std::string &id, const Position &pos) throw();
 
 
     /** @brief Assigns a shape to the named polygon
@@ -118,7 +118,7 @@ public:
      * @param[in] id The id of the polygon to reshape
      * @param[in] shape The polygon's new shape
      */
-    void reshapePolygon(int layer, const std::string &id, const Position2DVector &shape) throw();
+    void reshapePolygon(int layer, const std::string &id, const PositionVector &shape) throw();
 
 
 private:

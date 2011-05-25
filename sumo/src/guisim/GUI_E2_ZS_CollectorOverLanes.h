@@ -31,8 +31,8 @@
 
 #include <microsim/output/MS_E2_ZS_CollectorOverLanes.h>
 #include <microsim/MSNet.h>
-#include <utils/geom/Position2D.h>
-#include <utils/geom/Position2DVector.h>
+#include <utils/geom/Position.h>
+#include <utils/geom/PositionVector.h>
 #include <utils/common/VectorHelper.h>
 #include <utils/common/ValueSource.h>
 #include "GUI_E2_ZS_Collector.h"

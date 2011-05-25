@@ -43,7 +43,7 @@ class GUINet;
 class GUIGLObjectPopupMenu;
 class MSLane;
 class MSEdge;
-class Position2DVector;
+class PositionVector;
 
 
 // ===========================================================================
@@ -64,7 +64,7 @@ public:
      * @param[in] lane The lane to be represented
      * @param[in] shape The shape of the lane (!!! this is a member of the lane - no need to give it additionally)
      */
-    GUILaneWrapper(MSLane &lane, const Position2DVector &shape, unsigned int index) throw();
+    GUILaneWrapper(MSLane &lane, const PositionVector &shape, unsigned int index) throw();
 
 
     /// @brief Destructor
@@ -122,7 +122,7 @@ public:
     }
 
 
-    const Position2DVector &getShape() const;
+    const PositionVector &getShape() const;
     const DoubleVector &getShapeRotations() const;
     const DoubleVector &getShapeLengths() const;
 
@@ -209,7 +209,7 @@ protected:
     MSLane &myLane;
 
     /// The shape of the lane
-    const Position2DVector &myShape;
+    const PositionVector &myShape;
 
     /// The rotations of the shape parts
     DoubleVector myShapeRotations;

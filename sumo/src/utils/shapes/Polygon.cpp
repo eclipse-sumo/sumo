@@ -1,5 +1,5 @@
 /****************************************************************************/
-/// @file    Polygon2D.cpp
+/// @file    Polygon.cpp
 /// @author  Daniel Krajzewicz
 /// @date    Jun 2004
 /// @version $Id$
@@ -27,7 +27,7 @@
 #include <config.h>
 #endif
 
-#include "Polygon2D.h"
+#include "Polygon.h"
 #include <utils/common/RGBColor.h>
 
 #ifdef CHECK_MEMORY_LEAKS
@@ -38,13 +38,13 @@
 // ===========================================================================
 // member definitions
 // ===========================================================================
-Polygon2D::Polygon2D(const std::string &name, const std::string &type,
-                     const RGBColor &color, const Position2DVector &shape,
+Polygon::Polygon(const std::string &name, const std::string &type,
+                     const RGBColor &color, const PositionVector &shape,
                      bool fill) throw()
         : myName(name),  myType(type), myColor(color), myShape(shape), myFill(fill) {}
 
 
-Polygon2D::~Polygon2D() throw() {}
+Polygon::~Polygon() throw() {}
 
 
 

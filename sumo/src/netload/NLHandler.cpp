@@ -334,7 +334,7 @@ NLHandler::addLane(const SUMOSAXAttributes &attrs) {
     std::string allow = attrs.getOptStringReporting(SUMO_ATTR_ALLOW, id.c_str(), ok, "");
     std::string disallow = attrs.getOptStringReporting(SUMO_ATTR_DISALLOW, id.c_str(), ok, "");
     SUMOReal width = attrs.getOptSUMORealReporting(SUMO_ATTR_WIDTH, id.c_str(), ok, SUMO_const_laneWidth);
-    Position2DVector shape = GeomConvHelper::parseShapeReporting(attrs.getStringReporting(SUMO_ATTR_SHAPE, id.c_str(), ok), "lane", id.c_str(), ok, false);
+    PositionVector shape = GeomConvHelper::parseShapeReporting(attrs.getStringReporting(SUMO_ATTR_SHAPE, id.c_str(), ok), "lane", id.c_str(), ok, false);
     if (shape.size()<2) {
         MsgHandler::getErrorInstance()->inform("Shape of lane '" + id + "' is broken.\n Can not build according edge.");
         myCurrentIsBroken = true;
@@ -371,7 +371,7 @@ NLHandler::openJunction(const SUMOSAXAttributes &attrs) {
         myCurrentIsBroken = true;
         return;
     }
-    Position2DVector shape;
+    PositionVector shape;
     if (attrs.hasAttribute(SUMO_ATTR_SHAPE)) {
         // @deprecated: at some time, all junctions should have a shape attribute (moved from characters)
         shape = GeomConvHelper::parseShapeReporting(attrs.getStringSecure(SUMO_ATTR_SHAPE, ""), attrs.getObjectType(), id.c_str(), ok, true);
@@ -538,7 +538,7 @@ NLHandler::addPOI(const SUMOSAXAttributes &attrs) {
     if (!ok) {
         return;
     }
-    Position2D pos(x, y);
+    Position pos(x, y);
     if (x==INVALID_POSITION||y==INVALID_POSITION) {
         MSLane *lane = MSLane::dictionary(laneID);
         if (lane==0) {
@@ -569,7 +569,7 @@ NLHandler::addPoly(const SUMOSAXAttributes &attrs) {
     std::string type = attrs.getOptStringReporting(SUMO_ATTR_TYPE, id.c_str(), ok, "");
     std::string colorStr = attrs.getStringReporting(SUMO_ATTR_COLOR, id.c_str(), ok);
     RGBColor color = RGBColor::parseColorReporting(colorStr, attrs.getObjectType(), id.c_str(), true, ok);
-    Position2DVector shape = GeomConvHelper::parseShapeReporting(attrs.getStringReporting(SUMO_ATTR_SHAPE, id.c_str(), ok), attrs.getObjectType(), id.c_str(), ok, false);
+    PositionVector shape = GeomConvHelper::parseShapeReporting(attrs.getStringReporting(SUMO_ATTR_SHAPE, id.c_str(), ok), attrs.getObjectType(), id.c_str(), ok, false);
     if(!myNet.getShapeContainer().addPolygon(id, layer, type, color, fill, shape)) {
         MsgHandler::getErrorInstance()->inform("Polygon '" + id + "' already exists.");
     }
@@ -1084,7 +1084,7 @@ NLHandler::setRequestSize(const std::string &chars) {
 void
 NLHandler::setLocation(const SUMOSAXAttributes &attrs) {
     bool ok = true;
-    Position2DVector s = GeomConvHelper::parseShapeReporting(
+    PositionVector s = GeomConvHelper::parseShapeReporting(
             attrs.getStringReporting(SUMO_ATTR_NET_OFFSET, 0, ok),
             attrs.getObjectType(), 0, ok, false);
     Boundary convBoundary = GeomConvHelper::parseBoundaryReporting(
@@ -1095,7 +1095,7 @@ NLHandler::setLocation(const SUMOSAXAttributes &attrs) {
             attrs.getObjectType(), 0, ok);
     std::string proj = attrs.getStringReporting(SUMO_ATTR_ORIG_PROJ, 0, ok);
     if (ok) {
-        Position2D networkOffset = s[0];
+        Position networkOffset = s[0];
         GeoConvHelper::init(proj, networkOffset, origBoundary, convBoundary);
     }
 }

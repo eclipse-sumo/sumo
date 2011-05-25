@@ -35,8 +35,8 @@
 
 #include <string>
 #include <utils/common/MsgHandler.h>
-#include <utils/geom/Position2DVector.h>
-#include <utils/geom/Line2D.h>
+#include <utils/geom/PositionVector.h>
+#include <utils/geom/Line.h>
 #include <utils/geom/Boundary.h>
 #include <utils/gui/div/GLHelper.h>
 #include <utils/common/ToString.h>
@@ -248,11 +248,11 @@ GUITriggeredRerouter::GUITriggeredRerouter(
         const std::vector<MSLane*> &lanes = gedge->getLanes();
         size_t noLanes = lanes.size();
         for (size_t i=0; i<noLanes; ++i) {
-            const Position2DVector &v = gedge->getLaneGeometry((size_t) i).getShape();
+            const PositionVector &v = gedge->getLaneGeometry((size_t) i).getShape();
             SUMOReal pos = v.length() - (SUMOReal) 6.;
             myFGPositions.push_back(v.positionAtLengthPosition(pos));
             myBoundary.add(v.positionAtLengthPosition(pos));
-            Line2D l(v.getBegin(), v.getEnd());
+            Line l(v.getBegin(), v.getEnd());
             myFGRotations.push_back(-v.rotationDegreeAtLengthPosition(pos));
         }
     }
@@ -287,7 +287,7 @@ void
 GUITriggeredRerouter::drawGL(const GUIVisualizationSettings &s) const throw() {
     glPushName(getGlID());
     for (size_t i=0; i<myFGPositions.size(); ++i) {
-        const Position2D &pos = myFGPositions[i];
+        const Position &pos = myFGPositions[i];
         SUMOReal rot = myFGRotations[i];
         glPushMatrix();
         glScaled(s.addExaggeration, s.addExaggeration, 1);
@@ -337,9 +337,9 @@ GUITriggeredRerouter::drawGL(const GUIVisualizationSettings &s) const throw() {
             size_t noLanes = lanes.size();
             SUMOReal prob = getProbability()*360;
             for (size_t j=0; j<noLanes; ++j) {
-                const Position2DVector &v = gedge->getLaneGeometry((size_t) j).getShape();
+                const PositionVector &v = gedge->getLaneGeometry((size_t) j).getShape();
                 SUMOReal d = 3.;
-                Position2D pos = v.positionAtLengthPosition(d);
+                Position pos = v.positionAtLengthPosition(d);
                 SUMOReal rot = -v.rotationDegreeAtLengthPosition(d);
 
                 glPushMatrix();

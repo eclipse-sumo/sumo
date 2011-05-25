@@ -38,8 +38,8 @@
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/VectorHelper.h>
 #include <utils/geom/Bresenham.h>
-#include <utils/geom/Position2DVector.h>
-#include <utils/geom/Line2D.h>
+#include <utils/geom/PositionVector.h>
+#include <utils/geom/Line.h>
 #include <utils/common/SUMOVehicleClass.h>
 #include <utils/xml/SUMOXMLDefinitions.h>
 #include "NBHelpers.h"
@@ -116,7 +116,7 @@ public:
      */
     struct Lane {
         /// @brief The lane's shape
-        Position2DVector shape;
+        PositionVector shape;
         /// @brief The speed allowed on this lane
         SUMOReal speed;
         /// @brief List of vehicle types that are allowed on this lane
@@ -162,8 +162,8 @@ public:
     };
 
     /// Computes the offset from the edge shape on the current segment
-    static std::pair<SUMOReal, SUMOReal> laneOffset(const Position2D &from,
-            const Position2D &to, SUMOReal lanewidth, unsigned int lane,
+    static std::pair<SUMOReal, SUMOReal> laneOffset(const Position &from,
+            const Position &to, SUMOReal lanewidth, unsigned int lane,
             size_t noLanes, LaneSpreadFunction lsf, bool leftHand);
 
 public:
@@ -214,7 +214,7 @@ public:
            NBNode *from, NBNode *to, std::string type,
            SUMOReal speed, unsigned int nolanes, int priority,
            SUMOReal width, SUMOReal offset, 
-           Position2DVector geom, 
+           PositionVector geom, 
            LaneSpreadFunction spread=LANESPREAD_RIGHT,
            bool tryIgnoreNodePositions=false) throw(ProcessError);
 
@@ -252,7 +252,7 @@ public:
      */
     void reinit(NBNode *from, NBNode *to, const std::string &type,
                 SUMOReal speed, unsigned int nolanes, int priority,
-                Position2DVector geom, SUMOReal width, SUMOReal offset,
+                PositionVector geom, SUMOReal width, SUMOReal offset,
                 LaneSpreadFunction spread=LANESPREAD_RIGHT) throw(ProcessError);
 
 
@@ -385,13 +385,13 @@ public:
     /** @brief Returns the geometry of the edge
      * @return The edge's geometry
      */
-    const Position2DVector &getGeometry() const throw() {
+    const PositionVector &getGeometry() const throw() {
         return myGeom;
     }
 
 
     /** @brief Returns the geometry of the edge without the endpoints */
-    const Position2DVector getInnerGeometry() const;
+    const PositionVector getInnerGeometry() const;
 
 
     /** @brief Returns whether the geometry consists only of the node positions
@@ -417,7 +417,7 @@ public:
      * @todo Recheck usage, disallow access
      * @see computeLaneShapes
      */
-    void setGeometry(const Position2DVector &g, bool inner=false) throw();
+    void setGeometry(const PositionVector &g, bool inner=false) throw();
 
 
     /** @brief Adds a further geometry point
@@ -429,7 +429,7 @@ public:
      * @param[in] index The position at which the point shall be added
      * @param[in] p The point to add
      */
-    void addGeometryPoint(int index, const Position2D &p) throw();
+    void addGeometryPoint(int index, const Position &p) throw();
 
 
     /** @brief Computes the shape of the edge (regarding the nodes' shapes
@@ -445,7 +445,7 @@ public:
     /** @brief Returns the shape of the nth lane
      * @return The shape of the lane given by its index (counter from right)
      */
-    const Position2DVector &getLaneShape(unsigned int i) const throw();
+    const PositionVector &getLaneShape(unsigned int i) const throw();
 
 
     /** @brief (Re)sets how the lanes lateral offset shall be computed
@@ -690,8 +690,8 @@ public:
 
     SUMOReal getMaxLaneOffset();
 
-    Position2D getMinLaneOffsetPositionAt(NBNode *node, SUMOReal width) const;
-    Position2D getMaxLaneOffsetPositionAt(NBNode *node, SUMOReal width) const;
+    Position getMinLaneOffsetPositionAt(NBNode *node, SUMOReal width) const;
+    Position getMaxLaneOffsetPositionAt(NBNode *node, SUMOReal width) const;
     const std::vector<Connection> &getConnections() const {
         return myConnections;
     }
@@ -732,12 +732,12 @@ public:
                                      const std::string &tlID, unsigned int tlPos);
 
     void addCrossingPointsAsIncomingWithGivenOutgoing(NBEdge *o,
-            Position2DVector &into);
+            PositionVector &into);
 
     SUMOReal width() const;
 
-    Position2DVector getCWBoundaryLine(const NBNode &n, SUMOReal offset) const;
-    Position2DVector getCCWBoundaryLine(const NBNode &n, SUMOReal offset) const;
+    PositionVector getCWBoundaryLine(const NBNode &n, SUMOReal offset) const;
+    PositionVector getCCWBoundaryLine(const NBNode &n, SUMOReal offset) const;
 
     bool expandableBy(NBEdge *possContinuation) const;
     void append(NBEdge *continuation);
@@ -900,11 +900,11 @@ private:
     };
 
     /// Computes the shape for the given lane
-    Position2DVector computeLaneShape(unsigned int lane) throw(InvalidArgument);
+    PositionVector computeLaneShape(unsigned int lane) throw(InvalidArgument);
 
     /// Computes the offset from the edge shape on the current segment
-    std::pair<SUMOReal, SUMOReal> laneOffset(const Position2D &from,
-            const Position2D &to, SUMOReal lanewidth, unsigned int lane) throw(InvalidArgument);
+    std::pair<SUMOReal, SUMOReal> laneOffset(const Position &from,
+            const Position &to, SUMOReal lanewidth, unsigned int lane) throw(InvalidArgument);
 
     void computeLaneShapes() throw();
 
@@ -995,7 +995,7 @@ private:
     int myToJunctionPriority;
 
     /// @brief The geometry for the edge
-    Position2DVector myGeom;
+    PositionVector myGeom;
 
     /// @brief The information about how to spread the lanes
     LaneSpreadFunction myLaneSpreadFunction;

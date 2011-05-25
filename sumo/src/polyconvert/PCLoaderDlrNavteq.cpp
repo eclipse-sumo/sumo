@@ -48,7 +48,7 @@
 #include <utils/common/RGBColor.h>
 #include <utils/geom/GeomHelper.h>
 #include <utils/geom/Boundary.h>
-#include <utils/geom/Position2D.h>
+#include <utils/geom/Position.h>
 #include <utils/geom/GeoConvHelper.h>
 
 #ifdef CHECK_MEMORY_LEAKS
@@ -140,7 +140,7 @@ PCLoaderDlrNavteq::loadPOIFile(const std::string &file,
         if (stream.fail()) {
             throw ProcessError("Invalid y coordinate for POI '" + name + "'.");
         }
-        Position2D pos(x, y);
+        Position pos(x, y);
         // check the poi
         if (name=="") {
             throw ProcessError("The name of a POI is missing.");
@@ -210,7 +210,7 @@ PCLoaderDlrNavteq::loadPolyFile(const std::string &file,
         std::string ort = values[1];
         std::string type = values[2];
         std::string name = values[3];
-        Position2DVector vec;
+        PositionVector vec;
         size_t index = 4;
         // now collect the positions
         while (values.size()>index) {
@@ -219,7 +219,7 @@ PCLoaderDlrNavteq::loadPolyFile(const std::string &file,
             index += 2;
             SUMOReal x = TplConvert<char>::_2SUMOReal(xpos.c_str());
             SUMOReal y = TplConvert<char>::_2SUMOReal(ypos.c_str());
-            Position2D pos(x, y);
+            Position pos(x, y);
             if (!GeoConvHelper::x2cartesian(pos)) {
                 MsgHandler::getWarningInstance()->inform("Unable to project coordinates for polygon '" + id + "'.");
             }
@@ -260,7 +260,7 @@ PCLoaderDlrNavteq::loadPolyFile(const std::string &file,
             color = c;
         }
         if (!discard) {
-            Polygon2D *poly = new Polygon2D(name, type, color, vec, fill);
+            Polygon *poly = new Polygon(name, type, color, vec, fill);
             if (!toFill.insert(name, poly, layer)) {
                 MsgHandler::getErrorInstance()->inform("Polygon '" + name + "' could not been added.");
                 delete poly;

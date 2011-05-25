@@ -28,7 +28,7 @@
 #endif
 
 #include <iostream>
-#include <utils/geom/Position2DVector.h>
+#include <utils/geom/PositionVector.h>
 #include <utils/common/TplConvert.h>
 #include "../NIImporter_Vissim.h"
 #include "../tempstructs/NIVissimConnection.h"
@@ -64,14 +64,14 @@ NIVissimSingleTypeParser_Verbindungsdefinition::parse(std::istream &from) {
     }
     // Read the geometry information
     NIVissimExtendedEdgePoint from_def = readExtEdgePointDef(from);
-    Position2DVector geom;
+    PositionVector geom;
     tag = myRead(from); // "ueber"
     while (tag!="nach") {
         std::string x = myRead(from);
         std::string y = myRead(from);
         if (y!="nach") {
             geom.push_back_noDoublePos(
-                Position2D(
+                Position(
                     TplConvert<char>::_2SUMOReal(x.c_str()),
                     TplConvert<char>::_2SUMOReal(y.c_str())
                 ));

@@ -35,7 +35,7 @@
 #include <utils/gui/globjects/GUIGlObject.h>
 #include <utils/gui/globjects/GUIGlObject_AbstractAdd.h>
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
-#include <utils/geom/Position2D.h>
+#include <utils/geom/Position.h>
 #include <gui/GUIManipulator.h>
 #include <utils/foxtools/FXRealSpinDial.h>
 
@@ -190,7 +190,7 @@ public:
 
 private:
     /// Definition of a positions container
-    typedef std::vector<Position2D> PosCont;
+    typedef std::vector<Position> PosCont;
 
     /// Definition of a rotation container
     typedef std::vector<SUMOReal> RotCont;

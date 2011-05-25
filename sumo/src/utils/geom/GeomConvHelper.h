@@ -30,7 +30,7 @@
 #endif
 
 #include <string>
-#include <utils/geom/Position2DVector.h>
+#include <utils/geom/PositionVector.h>
 #include <utils/geom/Boundary.h>
 
 
@@ -43,7 +43,7 @@
  */
 class GeomConvHelper {
 public:
-    /** @brief Builds a Position2DVector from a string representation, reporting occured errors
+    /** @brief Builds a PositionVector from a string representation, reporting occured errors
      *
      * It is assumed, the vector is stored as "x,y[ x,y]*" where x and y are SUMOReals.
      * @param[in] shpdef The shape definition to parse
@@ -54,7 +54,7 @@ public:
      * @param[in] report Whether errors shall be written to msg handler's error instance
      * @return The parsed position vector
      */
-    static Position2DVector parseShapeReporting(const std::string &shpdef, const std::string &objecttype,
+    static PositionVector parseShapeReporting(const std::string &shpdef, const std::string &objecttype,
             const char *objectid, bool &ok, bool allowEmpty, bool report=true) throw();
 
 

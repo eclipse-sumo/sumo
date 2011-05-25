@@ -69,7 +69,7 @@ NBNodeCont::~NBNodeCont() throw() {
 
 // ----------- Insertion/removal/retrieval of nodes
 bool
-NBNodeCont::insert(const std::string &id, const Position2D &position,
+NBNodeCont::insert(const std::string &id, const Position &position,
                    NBDistrict *district) throw() {
     NodeCont::iterator i = myNodes.find(id);
     if (i!=myNodes.end()) {
@@ -82,7 +82,7 @@ NBNodeCont::insert(const std::string &id, const Position2D &position,
 
 
 bool
-NBNodeCont::insert(const std::string &id, const Position2D &position) throw() {
+NBNodeCont::insert(const std::string &id, const Position &position) throw() {
     NodeCont::iterator i = myNodes.find(id);
     if (i!=myNodes.end()) {
         return false;
@@ -93,17 +93,17 @@ NBNodeCont::insert(const std::string &id, const Position2D &position) throw() {
 }
 
 
-Position2D
+Position
 NBNodeCont::insert(const std::string &id) throw() {
     std::pair<SUMOReal, SUMOReal> ret(-1.0, -1.0);
     NodeCont::iterator i = myNodes.find(id);
     if (i!=myNodes.end()) {
         return (*i).second->getPosition();
     } else {
-        NBNode *node = new NBNode(id, Position2D(-1.0, -1.0));
+        NBNode *node = new NBNode(id, Position(-1.0, -1.0));
         myNodes[id] = node;
     }
-    return Position2D(-1, -1);
+    return Position(-1, -1);
 }
 
 
@@ -130,7 +130,7 @@ NBNodeCont::retrieve(const std::string &id) const throw() {
 
 
 NBNode *
-NBNodeCont::retrieve(const Position2D &position, SUMOReal offset) const throw() {
+NBNodeCont::retrieve(const Position &position, SUMOReal offset) const throw() {
     for (NodeCont::const_iterator i=myNodes.begin(); i!=myNodes.end(); i++) {
         NBNode *node = (*i).second;
         if (fabs(node->getPosition().x()-position.x())<offset
@@ -360,7 +360,7 @@ NBNodeCont::joinJunctions(SUMOReal maxdist, NBDistrictCont &dc, NBEdgeCont &ec, 
         }
         if (cluster.size() > 1) {
             // ok, we still have something to cluster. create the new node
-            Position2D pos;
+            Position pos;
             std::vector<std::string> member_ids;
             for (std::set<NBNode*>::const_iterator j=cluster.begin(); j!=cluster.end(); j++) {
                 member_ids.push_back((*j)->getID());
@@ -870,7 +870,7 @@ NBNodeCont::buildOnRamp(OptionsCont &oc, NBNode *cur,
             //
             if (cont->getLaneSpreadFunction()==LANESPREAD_CENTER) {
                 try {
-                    Position2DVector g = cont->getGeometry();
+                    PositionVector g = cont->getGeometry();
                     g.move2side(SUMO_const_laneWidthAndOffset);
                     cont->setGeometry(g);
                 } catch (InvalidArgument &) {
@@ -878,7 +878,7 @@ NBNodeCont::buildOnRamp(OptionsCont &oc, NBNode *cur,
                 }
             }
         }
-        Position2DVector p = pot_ramp->getGeometry();
+        PositionVector p = pot_ramp->getGeometry();
         p.pop_back();
         p.push_back(cont->getFromNode()->getPosition());
         pot_ramp->setGeometry(p);
@@ -910,7 +910,7 @@ NBNodeCont::buildOnRamp(OptionsCont &oc, NBNode *cur,
                 }
                 if (added_ramp->getLaneSpreadFunction()==LANESPREAD_CENTER) {
                     try {
-                        Position2DVector g = added_ramp->getGeometry();
+                        PositionVector g = added_ramp->getGeometry();
                         SUMOReal factor = SUMO_const_laneWidthAndOffset * (SUMOReal)(toAdd-1) + SUMO_const_halfLaneAndOffset * (SUMOReal)(toAdd%2);
                         g.move2side(factor);
                         added_ramp->setGeometry(g);
@@ -931,7 +931,7 @@ NBNodeCont::buildOnRamp(OptionsCont &oc, NBNode *cur,
             if (!pot_ramp->addLane2LaneConnections(0, added_ramp, 0, pot_ramp->getNoLanes(), NBEdge::L2L_VALIDATED, true, true)) {
                 throw ProcessError("Could not set connection!");
             }
-            Position2DVector p = pot_ramp->getGeometry();
+            PositionVector p = pot_ramp->getGeometry();
             p.pop_back();
             p.push_back(added_ramp->getFromNode()->getPosition());//added_ramp->getLaneShape(0).at(0));
             pot_ramp->setGeometry(p);
@@ -982,7 +982,7 @@ NBNodeCont::buildOffRamp(OptionsCont &oc, NBNode *cur,
             }
             if (prev->getLaneSpreadFunction()==LANESPREAD_CENTER) {
                 try {
-                    Position2DVector g = prev->getGeometry();
+                    PositionVector g = prev->getGeometry();
                     g.move2side(SUMO_const_laneWidthAndOffset);
                     prev->setGeometry(g);
                 } catch (InvalidArgument &) {
@@ -990,12 +990,12 @@ NBNodeCont::buildOffRamp(OptionsCont &oc, NBNode *cur,
                 }
             }
         }
-        Position2DVector p = pot_ramp->getGeometry();
+        PositionVector p = pot_ramp->getGeometry();
         p.pop_front();
         p.push_front(prev->getToNode()->getPosition());//added_ramp->getLaneShape(0).at(-1));
         pot_ramp->setGeometry(p);
     } else {
-        Position2D pos =
+        Position pos =
             prev->getGeometry().positionAtLengthPosition(
                 prev->getGeometry().length()-oc.getFloat("ramps.ramp-length"));
         NBNode *rn = new NBNode(prev->getID() + "-AddedOffRampNode", pos);
@@ -1022,7 +1022,7 @@ NBNodeCont::buildOffRamp(OptionsCont &oc, NBNode *cur,
                 }
                 if (added_ramp->getLaneSpreadFunction()==LANESPREAD_CENTER) {
                     try {
-                        Position2DVector g = added_ramp->getGeometry();
+                        PositionVector g = added_ramp->getGeometry();
                         SUMOReal factor = SUMO_const_laneWidthAndOffset * (SUMOReal)(toAdd-1) + SUMO_const_halfLaneAndOffset * (SUMOReal)(toAdd%2);
                         g.move2side(factor);
                         added_ramp->setGeometry(g);
@@ -1043,7 +1043,7 @@ NBNodeCont::buildOffRamp(OptionsCont &oc, NBNode *cur,
                 throw ProcessError("Could not set connection!");
 
             }
-            Position2DVector p = pot_ramp->getGeometry();
+            PositionVector p = pot_ramp->getGeometry();
             p.pop_front();
             p.push_front(added_ramp->getToNode()->getPosition());//added_ramp->getLaneShape(0).at(-1));
             pot_ramp->setGeometry(p);

@@ -33,12 +33,12 @@
 #include <string>
 #include <utils/common/Command.h>
 #include <utils/common/VectorHelper.h>
-#include <utils/geom/Position2DVector.h>
+#include <utils/geom/PositionVector.h>
 #include <microsim/trigger/MSBusStop.h>
 #include <utils/gui/globjects/GUIGlObject.h>
 #include <utils/gui/globjects/GUIGlObject_AbstractAdd.h>
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
-#include <utils/geom/Position2D.h>
+#include <utils/geom/Position.h>
 #include <gui/GUIManipulator.h>
 #include <utils/foxtools/FXRealSpinDial.h>
 
@@ -136,10 +136,10 @@ private:
     DoubleVector myFGShapeLengths;
 
     /// @brief The shape
-    Position2DVector myFGShape;
+    PositionVector myFGShape;
 
     /// @brief The position of the sign
-    Position2D myFGSignPos;
+    Position myFGSignPos;
 
     /// @brief The rotation of the sign
     SUMOReal myFGSignRot;

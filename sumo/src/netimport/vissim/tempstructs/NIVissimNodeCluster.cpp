@@ -33,7 +33,7 @@
 #include <cassert>
 #include <utils/common/VectorHelper.h>
 #include <utils/common/ToString.h>
-#include <utils/geom/Position2DVector.h>
+#include <utils/geom/PositionVector.h>
 #include <netbuild/NBNode.h>
 #include <netbuild/NBNodeCont.h>
 #include "NIVissimTL.h"
@@ -132,7 +132,7 @@ NIVissimNodeCluster::buildNBNode(NBNodeCont &nc) {
     }
 
     // compute the position
-    Position2DVector crossings;
+    PositionVector crossings;
     IntVector::iterator i, j;
     // check whether this is a split of an edge only
     if (myAmEdgeSplit) {
@@ -164,7 +164,7 @@ NIVissimNodeCluster::buildNBNode(NBNodeCont &nc) {
         }
     }
     // get the position (center)
-    Position2D pos = crossings.getPolygonCenter();
+    Position pos = crossings.getPolygonCenter();
     // build the node
     /*    if(myTLID!=-1) {
      !!!        NIVissimTL *tl = NIVissimTL::dictionary(myTLID);
@@ -270,7 +270,7 @@ NIVissimNodeCluster::getNBNode() const {
 }
 
 
-Position2D
+Position
 NIVissimNodeCluster::getPos() const {
     return myPosition;
 }

@@ -28,7 +28,7 @@
 #endif
 
 #include <utils/geom/Boundary.h>
-#include <utils/geom/Position2D.h>
+#include <utils/geom/Position.h>
 #include <utils/gui/settings/GUICompleteSchemeStorage.h>
 #include "GUIPerspectiveChanger.h"
 #include "GUIDanielPerspectiveChanger.h"
@@ -113,7 +113,7 @@ GUIDanielPerspectiveChanger::getZoom() const {
 
 
 void
-GUIDanielPerspectiveChanger::centerTo(const Position2D &pos, SUMOReal radius,
+GUIDanielPerspectiveChanger::centerTo(const Position &pos, SUMOReal radius,
                                       bool applyZoom) {
     if (applyZoom) {
         myViewPort = Boundary();
@@ -230,7 +230,7 @@ GUIDanielPerspectiveChanger::setViewport(SUMOReal zoom,
         SUMOReal xPos, SUMOReal yPos) {
     const SUMOReal zoomFactor = zoom / 50; // /100 to normalize, *2 because growth is added on both sides
     myViewPort = Boundary();
-    myViewPort.add(Position2D(xPos, yPos));
+    myViewPort.add(Position(xPos, yPos));
     myViewPort.growHeight(myOrigHeight / zoomFactor); 
     myViewPort.growWidth(myOrigWidth / zoomFactor);
     myCallback.update();

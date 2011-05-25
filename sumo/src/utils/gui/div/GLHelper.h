@@ -32,8 +32,8 @@
 #include <vector>
 #include <utility>
 #include <utils/common/RGBColor.h>
-#include <utils/geom/Position2DVector.h>
-#include <utils/geom/Line2D.h>
+#include <utils/geom/PositionVector.h>
+#include <utils/geom/Line.h>
 
 
 // ===========================================================================
@@ -52,7 +52,7 @@ public:
      * @param[in] v The polygon to draw
      * @param[in] close Whether the first point shall be appended
      */
-    static void drawFilledPoly(const Position2DVector &v, bool close) throw();
+    static void drawFilledPoly(const PositionVector &v, bool close) throw();
 
 
     /** @brief Draws a thick line
@@ -64,7 +64,7 @@ public:
      * @param[in] visLength The length of the line
      * @param[in] width The width of the line
      */
-    static void drawBoxLine(const Position2D &beg, SUMOReal rot,
+    static void drawBoxLine(const Position &beg, SUMOReal rot,
                             SUMOReal visLength, SUMOReal width) throw();
 
 
@@ -78,7 +78,7 @@ public:
      * @param[in] visLength The length of the line
      * @param[in] width The width of the line
      */
-    static void drawBoxLine(const Position2D &beg1, const Position2D &beg2,
+    static void drawBoxLine(const Position &beg1, const Position &beg2,
                             SUMOReal rot, SUMOReal visLength, SUMOReal width) throw();
 
 
@@ -92,7 +92,7 @@ public:
      * @param[in] width The width of the lines
      * @see drawBoxLine
      */
-    static void drawBoxLines(const Position2DVector &geom,
+    static void drawBoxLines(const PositionVector &geom,
                              const std::vector<SUMOReal> &rots, const std::vector<SUMOReal> &lengths,
                              SUMOReal width) throw();
 
@@ -108,8 +108,8 @@ public:
      * @param[in] width The width of the lines
      * @see drawBoxLine
      */
-    static void drawBoxLines(const Position2DVector &geom1,
-                             const Position2DVector &geom2,
+    static void drawBoxLines(const PositionVector &geom1,
+                             const PositionVector &geom2,
                              const std::vector<SUMOReal> &rots, const std::vector<SUMOReal> &lengths,
                              SUMOReal width) throw();
 
@@ -123,7 +123,7 @@ public:
      * @param[in] width The width of the lines
      * @see drawBoxLine
      */
-    static void drawBoxLines(const Position2DVector &geom, SUMOReal width) throw();
+    static void drawBoxLines(const PositionVector &geom, SUMOReal width) throw();
 
 
     /** @brief Draws a thin line
@@ -134,7 +134,7 @@ public:
      * @param[in] rot The direction the line shall be drawn to (in radiants)
      * @param[in] visLength The length of the line
      */
-    static void drawLine(const Position2D &beg, SUMOReal rot,
+    static void drawLine(const Position &beg, SUMOReal rot,
                          SUMOReal visLength) throw();
 
 
@@ -147,7 +147,7 @@ public:
      * @param[in] rot The direction the line shall be drawn to (in radiants)
      * @param[in] visLength The length of the line
      */
-    static void drawLine(const Position2D &beg1, const Position2D &beg2,
+    static void drawLine(const Position &beg1, const Position &beg2,
                          SUMOReal rot, SUMOReal visLength) throw();
 
 
@@ -157,7 +157,7 @@ public:
      *
      * @param[in] v The positions vector to use
      */
-    static void drawLine(const Position2DVector &v) throw();
+    static void drawLine(const PositionVector &v) throw();
 
 
     /** @brief Draws a thin line between the two points
@@ -167,7 +167,7 @@ public:
      * @param[in] beg Begin of the line
      * @param[in] end End of the line
      */
-    static void drawLine(const Position2D &beg, const Position2D &end) throw();
+    static void drawLine(const Position &beg, const Position &end) throw();
 
 
     /** @brief Draws a filled circle around (0,0)
@@ -225,7 +225,7 @@ public:
      * @param[in] tLength The length of the triangle
      * @param[in] tWidth The width of the triangle
      */
-    static void drawTriangleAtEnd(const Line2D &l, SUMOReal tLength,
+    static void drawTriangleAtEnd(const Line &l, SUMOReal tLength,
                                   SUMOReal tWidth) throw();
 
     /// @brief Sets the gl-color to this value

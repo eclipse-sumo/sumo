@@ -363,7 +363,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\utils\gui\globjects\GUIPolygon2D.cpp"
+				RelativePath="..\..\..\src\utils\gui\globjects\GUIPolygon.cpp"
 				>
 			</File>
 		</Filter>
@@ -401,7 +401,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\utils\gui\globjects\GUIPolygon2D.h"
+				RelativePath="..\..\..\src\utils\gui\globjects\GUIPolygon.h"
 				>
 			</File>
 		</Filter>

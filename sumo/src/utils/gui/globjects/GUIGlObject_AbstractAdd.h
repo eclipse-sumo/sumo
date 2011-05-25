@@ -31,7 +31,7 @@
 
 #include "GUIGlObjectTypes.h"
 #include "GUIGlObject.h"
-#include <utils/geom/Position2D.h>
+#include <utils/geom/Position.h>
 #include <vector>
 #include <map>
 

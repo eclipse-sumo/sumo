@@ -29,9 +29,9 @@
 
 #include <utils/gui/globjects/GUIGlObject.h>
 #include <utils/gui/globjects/GUIGlObjectStorage.h>
-#include <utils/geom/Position2DVector.h>
+#include <utils/geom/PositionVector.h>
 #include <utils/gui/div/GLHelper.h>
-#include <utils/geom/Line2D.h>
+#include <utils/geom/Line.h>
 #include <utils/geom/GeomHelper.h>
 #include <utils/gui/div/GUIParameterTableWindow.h>
 #include <guisim/GUIEdge.h>

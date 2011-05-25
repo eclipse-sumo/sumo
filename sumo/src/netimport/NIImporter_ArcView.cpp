@@ -210,9 +210,9 @@ NIImporter_ArcView::load() {
             cgeom->transform(poCT);
         }
 
-        Position2DVector shape;
+        PositionVector shape;
         for (int j=0; j<cgeom->getNumPoints(); j++) {
-            Position2D pos((SUMOReal) cgeom->getX(j), (SUMOReal) cgeom->getY(j));
+            Position pos((SUMOReal) cgeom->getX(j), (SUMOReal) cgeom->getY(j));
             if (!GeoConvHelper::x2cartesian(pos)) {
                 WRITE_WARNING("Unable to project coordinates for edge '" + id + "'.");
             }
@@ -222,7 +222,7 @@ NIImporter_ArcView::load() {
         // build from-node
         NBNode *from = myNodeCont.retrieve(from_node);
         if (from==0) {
-            Position2D from_pos = shape[0];
+            Position from_pos = shape[0];
             from = myNodeCont.retrieve(from_pos);
             if (from==0) {
                 from = new NBNode(from_node, from_pos);
@@ -236,7 +236,7 @@ NIImporter_ArcView::load() {
         // build to-node
         NBNode *to = myNodeCont.retrieve(to_node);
         if (to==0) {
-            Position2D to_pos = shape[-1];
+            Position to_pos = shape[-1];
             to = myNodeCont.retrieve(to_pos);
             if (to==0) {
                 to = new NBNode(to_node, to_pos);

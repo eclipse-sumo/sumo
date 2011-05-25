@@ -32,7 +32,7 @@
 #include <utility>
 #include <microsim/MSLane.h>
 #include <microsim/MSGlobals.h>
-#include <utils/geom/Position2DVector.h>
+#include <utils/geom/PositionVector.h>
 #include <microsim/MSNet.h>
 #include <gui/GUIGlobals.h>
 #include <utils/gui/windows/GUISUMOAbstractView.h>
@@ -70,7 +70,7 @@ SUMOReal GUILaneWrapper::myAllMaxSpeed = 0;
 // ===========================================================================
 // method definitions
 // ===========================================================================
-GUILaneWrapper::GUILaneWrapper(MSLane &lane, const Position2DVector &shape, unsigned int index) throw() : 
+GUILaneWrapper::GUILaneWrapper(MSLane &lane, const PositionVector &shape, unsigned int index) throw() : 
     GUIGlObject(GLO_LANE, lane.getID()),
     myLane(lane), 
     myShape(shape),
@@ -91,8 +91,8 @@ GUILaneWrapper::GUILaneWrapper(MSLane &lane, const Position2DVector &shape, unsi
     myShapeLengths.reserve(myShape.size()-1);
     int e = (int) myShape.size() - 1;
     for (int i=0; i<e; ++i) {
-        const Position2D &f = myShape[i];
-        const Position2D &s = myShape[i+1];
+        const Position &f = myShape[i];
+        const Position &s = myShape[i+1];
         myShapeLengths.push_back(f.distanceTo(s));
         myShapeRotations.push_back((SUMOReal) atan2((s.x()-f.x()), (f.y()-s.y()))*(SUMOReal) 180.0/(SUMOReal) PI);
     }
@@ -130,10 +130,10 @@ GUILaneWrapper::ROWdrawAction_drawLinkNo() const {
     SUMOReal x1 = myLane.getWidth() / (SUMOReal) 2.;
     glPushMatrix();
     glColor3d(.5, .5, 1);
-    const Position2DVector &g = getShape();
-    const Position2D &end = g.getEnd();
-    const Position2D &f = g[-2];
-    const Position2D &s = end;
+    const PositionVector &g = getShape();
+    const Position &end = g.getEnd();
+    const Position &f = g[-2];
+    const Position &s = end;
     SUMOReal rot = (SUMOReal) atan2((s.x()-f.x()), (f.y()-s.y()))*(SUMOReal) 180.0/(SUMOReal) PI;
     glTranslated(end.x(), end.y(), 0);
     glRotated(rot, 0, 0, 1);
@@ -167,10 +167,10 @@ GUILaneWrapper::ROWdrawAction_drawTLSLinkNo(const GUINet &net) const {
     SUMOReal x1 = (SUMOReal)(myLane.getWidth() / 2.);
     glPushMatrix();
     glColor3d(.5, .5, 1);
-    const Position2DVector &g = getShape();
-    const Position2D &end = g.getEnd();
-    const Position2D &f = g[-2];
-    const Position2D &s = end;
+    const PositionVector &g = getShape();
+    const Position &end = g.getEnd();
+    const Position &f = g[-2];
+    const Position &s = end;
     SUMOReal rot = (SUMOReal) atan2((s.x()-f.x()), (f.y()-s.y()))*(SUMOReal) 180.0/(SUMOReal) PI;
     glTranslated(end.x(), end.y(), 0);
     glRotated(rot, 0, 0, 1);
@@ -198,10 +198,10 @@ GUILaneWrapper::ROWdrawAction_drawTLSLinkNo(const GUINet &net) const {
 void
 GUILaneWrapper::ROWdrawAction_drawLinkRules(const GUINet &net) const {
     unsigned int noLinks = getLinkNumber();
-    const Position2DVector &g = getShape();
-    const Position2D &end = g.getEnd();
-    const Position2D &f = g[-2];
-    const Position2D &s = end;
+    const PositionVector &g = getShape();
+    const Position &end = g.getEnd();
+    const Position &f = g[-2];
+    const Position &s = end;
     SUMOReal rot = (SUMOReal) atan2((s.x()-f.x()), (f.y()-s.y()))*(SUMOReal) 180.0/(SUMOReal) PI;
     if (noLinks==0) {
         glPushName(getGlID());
@@ -298,8 +298,8 @@ GUILaneWrapper::ROWdrawAction_drawArrows() const {
         return;
     }
     // draw all links
-    const Position2D &end = getShape().getEnd();
-    const Position2D &f = getShape()[-2];
+    const Position &end = getShape().getEnd();
+    const Position &f = getShape()[-2];
     SUMOReal rot = (SUMOReal) atan2((end.x()-f.x()), (f.y()-end.y()))*(SUMOReal) 180.0/(SUMOReal) PI;
     glPushMatrix();
     glPushName(0);
@@ -314,34 +314,34 @@ GUILaneWrapper::ROWdrawAction_drawArrows() const {
         }
         switch (dir) {
         case MSLink::LINKDIR_STRAIGHT:
-            GLHelper::drawBoxLine(Position2D(0, 4), 0, 2, .05);
-            GLHelper::drawTriangleAtEnd(Line2D(Position2D(0, 4), Position2D(0, 1)), (SUMOReal) 1, (SUMOReal) .25);
+            GLHelper::drawBoxLine(Position(0, 4), 0, 2, .05);
+            GLHelper::drawTriangleAtEnd(Line(Position(0, 4), Position(0, 1)), (SUMOReal) 1, (SUMOReal) .25);
             break;
         case MSLink::LINKDIR_TURN:
-            GLHelper::drawBoxLine(Position2D(0, 4), 0, 1.5, .05);
-            GLHelper::drawBoxLine(Position2D(0, 2.5), 90, .5, .05);
-            GLHelper::drawBoxLine(Position2D(0.5, 2.5), 180, 1, .05);
-            GLHelper::drawTriangleAtEnd(Line2D(Position2D(0.5, 2.5), Position2D(0.5, 4)), (SUMOReal) 1, (SUMOReal) .25);
+            GLHelper::drawBoxLine(Position(0, 4), 0, 1.5, .05);
+            GLHelper::drawBoxLine(Position(0, 2.5), 90, .5, .05);
+            GLHelper::drawBoxLine(Position(0.5, 2.5), 180, 1, .05);
+            GLHelper::drawTriangleAtEnd(Line(Position(0.5, 2.5), Position(0.5, 4)), (SUMOReal) 1, (SUMOReal) .25);
             break;
         case MSLink::LINKDIR_LEFT:
-            GLHelper::drawBoxLine(Position2D(0, 4), 0, 1.5, .05);
-            GLHelper::drawBoxLine(Position2D(0, 2.5), 90, 1, .05);
-            GLHelper::drawTriangleAtEnd(Line2D(Position2D(0, 2.5), Position2D(1.5, 2.5)), (SUMOReal) 1, (SUMOReal) .25);
+            GLHelper::drawBoxLine(Position(0, 4), 0, 1.5, .05);
+            GLHelper::drawBoxLine(Position(0, 2.5), 90, 1, .05);
+            GLHelper::drawTriangleAtEnd(Line(Position(0, 2.5), Position(1.5, 2.5)), (SUMOReal) 1, (SUMOReal) .25);
             break;
         case MSLink::LINKDIR_RIGHT:
-            GLHelper::drawBoxLine(Position2D(0, 4), 0, 1.5, .05);
-            GLHelper::drawBoxLine(Position2D(0, 2.5), -90, 1, .05);
-            GLHelper::drawTriangleAtEnd(Line2D(Position2D(0, 2.5), Position2D(-1.5, 2.5)), (SUMOReal) 1, (SUMOReal) .25);
+            GLHelper::drawBoxLine(Position(0, 4), 0, 1.5, .05);
+            GLHelper::drawBoxLine(Position(0, 2.5), -90, 1, .05);
+            GLHelper::drawTriangleAtEnd(Line(Position(0, 2.5), Position(-1.5, 2.5)), (SUMOReal) 1, (SUMOReal) .25);
             break;
         case MSLink::LINKDIR_PARTLEFT:
-            GLHelper::drawBoxLine(Position2D(0, 4), 0, 1.5, .05);
-            GLHelper::drawBoxLine(Position2D(0, 2.5), 45, .7, .05);
-            GLHelper::drawTriangleAtEnd(Line2D(Position2D(0, 2.5), Position2D(1.2, 1.3)), (SUMOReal) 1, (SUMOReal) .25);
+            GLHelper::drawBoxLine(Position(0, 4), 0, 1.5, .05);
+            GLHelper::drawBoxLine(Position(0, 2.5), 45, .7, .05);
+            GLHelper::drawTriangleAtEnd(Line(Position(0, 2.5), Position(1.2, 1.3)), (SUMOReal) 1, (SUMOReal) .25);
             break;
         case MSLink::LINKDIR_PARTRIGHT:
-            GLHelper::drawBoxLine(Position2D(0, 4), 0, 1.5, .05);
-            GLHelper::drawBoxLine(Position2D(0, 2.5), -45, .7, .05);
-            GLHelper::drawTriangleAtEnd(Line2D(Position2D(0, 2.5), Position2D(-1.2, 1.3)), (SUMOReal) 1, (SUMOReal) .25);
+            GLHelper::drawBoxLine(Position(0, 4), 0, 1.5, .05);
+            GLHelper::drawBoxLine(Position(0, 2.5), -45, .7, .05);
+            GLHelper::drawTriangleAtEnd(Line(Position(0, 2.5), Position(-1.2, 1.3)), (SUMOReal) 1, (SUMOReal) .25);
             break;
         }
     }
@@ -392,12 +392,12 @@ GUILaneWrapper::ROWdrawAction_drawLane2LaneConnections() const {
         }
 
         glBegin(GL_LINES);
-        const Position2D &p1 = getShape()[-1];
-        const Position2D &p2 = connected->getShape()[0];
+        const Position &p1 = getShape()[-1];
+        const Position &p2 = connected->getShape()[0];
         glVertex2f(p1.x(), p1.y());
         glVertex2f(p2.x(), p2.y());
         glEnd();
-        GLHelper::drawTriangleAtEnd(Line2D(p1, p2), (SUMOReal) .4, (SUMOReal) .2);
+        GLHelper::drawTriangleAtEnd(Line(p1, p2), (SUMOReal) .4, (SUMOReal) .2);
     }
 }
 
@@ -559,7 +559,7 @@ GUILaneWrapper::getCenteringBoundary() const throw() {
 
 
 
-const Position2DVector &
+const PositionVector &
 GUILaneWrapper::getShape() const {
     return myShape;
 }

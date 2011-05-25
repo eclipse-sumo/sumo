@@ -499,7 +499,7 @@ private:
 
 
     /// A map of point ids to positions
-    std::map<long, Position2D> myPoints;
+    std::map<long, Position> myPoints;
 
     /// A map of edge (not road, but "edge" in this case) ids to from/to-points
     std::map<long, std::pair<long, long> > myEdges;
@@ -511,7 +511,7 @@ private:
     std::map<long, std::vector<long> > mySubPartsAreas;
 
     /// A temporary storage for district shapes as they are filled incrementally
-    std::map<NBDistrict*, Position2DVector> myDistrictShapes;
+    std::map<NBDistrict*, PositionVector> myDistrictShapes;
 
 
 };

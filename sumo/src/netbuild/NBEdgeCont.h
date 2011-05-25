@@ -37,7 +37,7 @@
 #include "NBCont.h"
 #include <utils/common/SUMOVehicleClass.h>
 #include <utils/common/UtilExceptions.h>
-#include <utils/geom/Position2DVector.h>
+#include <utils/geom/PositionVector.h>
 
 
 // ===========================================================================
@@ -471,7 +471,7 @@ private:
     SUMOVehicleClasses myVehicleClasses2Remove;
 
     /// @brief Boundary within which an edge must be located in order to be kept
-    Position2DVector myPrunningBoundary;
+    PositionVector myPrunningBoundary;
     /// @}
 
 

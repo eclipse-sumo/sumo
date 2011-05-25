@@ -51,7 +51,7 @@ std::string GeoConvHelper::myProjString = "!";
 #ifdef HAVE_PROJ
 projPJ GeoConvHelper::myProjection = 0;
 #endif
-Position2D GeoConvHelper::myOffset;
+Position GeoConvHelper::myOffset;
 double GeoConvHelper::myGeoScale = 1.f;
 GeoConvHelper::ProjectionMethod GeoConvHelper::myProjectionMethod = NONE;
 bool GeoConvHelper::myUseInverseProjection = false;
@@ -106,7 +106,7 @@ GeoConvHelper::init(OptionsCont &oc) {
         return false;
     }
 #endif
-    myOffset = Position2D(oc.getFloat("offset.x"), oc.getFloat("offset.y"));
+    myOffset = Position(oc.getFloat("offset.x"), oc.getFloat("offset.y"));
     if (oc.getBool("simple-projection")) {
         return init("-", oc.getInt("proj.scale"));
     }
@@ -165,7 +165,7 @@ GeoConvHelper::init(const std::string &proj,
 
 bool
 GeoConvHelper::init(const std::string &proj,
-                    const Position2D &offset,
+                    const Position &offset,
                     const Boundary &orig,
                     const Boundary &conv) {
     bool ret = init(proj);
@@ -200,7 +200,7 @@ GeoConvHelper::usingInverseGeoProjection() {
 
 
 void
-GeoConvHelper::cartesian2geo(Position2D &cartesian) {
+GeoConvHelper::cartesian2geo(Position &cartesian) {
     cartesian.sub(myOffset);
     if (myProjectionMethod == NONE) {
         return;
@@ -219,7 +219,7 @@ GeoConvHelper::cartesian2geo(Position2D &cartesian) {
 
 
 bool
-GeoConvHelper::x2cartesian(Position2D &from, bool includeInBoundary, double x, double y) {
+GeoConvHelper::x2cartesian(Position &from, bool includeInBoundary, double x, double y) {
     myOrigBoundary.add(from);
     if (x == -1 && y == -1) {
         x = from.x();
@@ -323,9 +323,9 @@ GeoConvHelper::getConvBoundary() {
 }
 
 
-const Position2D
+const Position
 GeoConvHelper::getOffsetBase() {
-    return Position2D(myOffset.x()-myBaseX, myOffset.y()-myBaseY);
+    return Position(myOffset.x()-myBaseX, myOffset.y()-myBaseY);
 }
 
 

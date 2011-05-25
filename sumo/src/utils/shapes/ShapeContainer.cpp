@@ -34,7 +34,7 @@
 #include <string>
 #include <cmath>
 #include <utils/common/NamedObjectCont.h>
-#include <utils/shapes/Polygon2D.h>
+#include <utils/shapes/Polygon.h>
 #include <utils/shapes/ShapeContainer.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/UtilExceptions.h>
@@ -62,7 +62,7 @@ ShapeContainer::~ShapeContainer() throw() {}
 
 bool
 ShapeContainer::addPoI(const std::string &name, int layer, const std::string &type, const RGBColor &c,
-                       const Position2D &pos) throw() {
+                       const Position &pos) throw() {
     PointOfInterest *p = new PointOfInterest(name, type, pos, c);
     if (!add(layer, p)) {
         delete p;
@@ -74,8 +74,8 @@ ShapeContainer::addPoI(const std::string &name, int layer, const std::string &ty
 
 bool
 ShapeContainer::addPolygon(const std::string &name, int layer, const std::string &type, const RGBColor &c,
-                           bool filled, const Position2DVector &shape) throw() {
-    Polygon2D *p = new Polygon2D(name, type, c, shape, filled);
+                           bool filled, const PositionVector &shape) throw() {
+    Polygon *p = new Polygon(name, type, c, shape, filled);
     if (!add(layer, p)) {
         delete p;
         return false;
@@ -105,20 +105,20 @@ ShapeContainer::removePoI(int layer, const std::string &id) throw() {
 
 
 void
-ShapeContainer::movePoI(int layer, const std::string &id, const Position2D &pos) throw() {
+ShapeContainer::movePoI(int layer, const std::string &id, const Position &pos) throw() {
     if (myPOILayers.find(layer)!=myPOILayers.end()) {
         PointOfInterest *p = myPOILayers.find(layer)->second.get(id);
         if (p!=0) {
-            static_cast<Position2D*>(p)->set(pos);
+            static_cast<Position*>(p)->set(pos);
         }
     }
 }
 
 
 void
-ShapeContainer::reshapePolygon(int layer, const std::string &id, const Position2DVector &shape) throw() {
+ShapeContainer::reshapePolygon(int layer, const std::string &id, const PositionVector &shape) throw() {
     if (myPolygonLayers.find(layer)!=myPolygonLayers.end()) {
-        Polygon2D *p = myPolygonLayers.find(layer)->second.get(id);
+        Polygon *p = myPolygonLayers.find(layer)->second.get(id);
         if (p!=0) {
             p->setShape(shape);
         }
@@ -127,10 +127,10 @@ ShapeContainer::reshapePolygon(int layer, const std::string &id, const Position2
 
 
 
-const NamedObjectCont<Polygon2D*> &
+const NamedObjectCont<Polygon*> &
 ShapeContainer::getPolygonCont(int layer) const throw() {
     if (myPolygonLayers.find(layer)==myPolygonLayers.end()) {
-        myPolygonLayers[layer] = NamedObjectCont<Polygon2D*>();
+        myPolygonLayers[layer] = NamedObjectCont<Polygon*>();
         myMinLayer = MIN2(layer, myMinLayer);
         myMaxLayer = MAX2(layer, myMaxLayer);
     }
@@ -151,9 +151,9 @@ ShapeContainer::getPOICont(int layer) const throw() {
 
 
 bool
-ShapeContainer::add(int layer, Polygon2D *p) throw() {
+ShapeContainer::add(int layer, Polygon *p) throw() {
     if (myPolygonLayers.find(layer)==myPolygonLayers.end()) {
-        myPolygonLayers[layer] = NamedObjectCont<Polygon2D*>();
+        myPolygonLayers[layer] = NamedObjectCont<Polygon*>();
         myMinLayer = MIN2(layer, myMinLayer);
         myMaxLayer = MAX2(layer, myMaxLayer);
     }

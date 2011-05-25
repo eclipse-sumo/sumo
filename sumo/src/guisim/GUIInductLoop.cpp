@@ -29,11 +29,11 @@
 
 #include <microsim/output/MSInductLoop.h>
 #include <utils/gui/globjects/GUIGlObject.h>
-#include <utils/geom/Position2DVector.h>
+#include <utils/geom/PositionVector.h>
 #include "GUILaneWrapper.h"
 #include "GUIInductLoop.h"
 #include <utils/gui/div/GLHelper.h>
-#include <utils/geom/Line2D.h>
+#include <utils/geom/Line.h>
 #include <utils/gui/div/GUIParameterTableWindow.h>
 #include <microsim/logging/FuncBinding_IntParam.h>
 #include <microsim/logging/FunctionBinding.h>
@@ -115,9 +115,9 @@ GUIInductLoop::MyWrapper::MyWrapper(GUIInductLoop &detector,
                                     GUILaneWrapper &wrapper, SUMOReal pos) throw()
         : GUIDetectorWrapper("induct loop", detector.getID()),
         myDetector(detector), myPosition(pos) {
-    const Position2DVector &v = wrapper.getShape();
+    const PositionVector &v = wrapper.getShape();
     myFGPosition = v.positionAtLengthPosition(pos);
-    Line2D l(v.getBegin(), v.getEnd());
+    Line l(v.getBegin(), v.getEnd());
     SUMOReal sgPos = pos / v.length() * l.length();
     myBoundary.add(myFGPosition.x()+(SUMOReal) 5.5, myFGPosition.y()+(SUMOReal) 5.5);
     myBoundary.add(myFGPosition.x()-(SUMOReal) 5.5, myFGPosition.y()-(SUMOReal) 5.5);

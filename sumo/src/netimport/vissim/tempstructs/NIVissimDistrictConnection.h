@@ -31,7 +31,7 @@
 
 #include <map>
 #include <string>
-#include <utils/geom/Position2D.h>
+#include <utils/geom/Position.h>
 #include <utils/common/VectorHelper.h>
 
 
@@ -55,7 +55,7 @@ public:
 
     /** @brief Returns the position
         The position yields from the edge geometry and the place the connection is plaed at */
-    Position2D geomPosition() const;
+    Position geomPosition() const;
 
     /// Returns the id of the connection
     int getID() const {

@@ -38,7 +38,7 @@
 #include <utils/common/RGBColor.h>
 #include <utils/geom/GeomHelper.h>
 #include <utils/geom/Boundary.h>
-#include <utils/geom/Position2D.h>
+#include <utils/geom/Position.h>
 #include <utils/geom/GeoConvHelper.h>
 #include <utils/xml/XMLSubSys.h>
 #include <utils/geom/GeomConvHelper.h>
@@ -107,7 +107,7 @@ PCLoaderXML::myStartElement(int element,
         if (!ok) {
             return;
         }
-        Position2D pos(x, y);
+        Position pos(x, y);
         if (!GeoConvHelper::x2cartesian(pos)) {
             MsgHandler::getWarningInstance()->inform("Unable to project coordinates for POI '" + id + "'.");
         }
@@ -185,20 +185,20 @@ PCLoaderXML::myCharacters(int element,
                           const std::string &chars) throw(ProcessError) {
     if (element==SUMO_TAG_POLY) {
         bool ok = true;
-        Position2DVector pshape = GeomConvHelper::parseShapeReporting(chars, "poly", myCurrentID.c_str(), ok, false);
+        PositionVector pshape = GeomConvHelper::parseShapeReporting(chars, "poly", myCurrentID.c_str(), ok, false);
         if (!ok) {
             return;
         }
-        const Position2DVector::ContType &cont = pshape.getCont();
-        Position2DVector shape;
-        for (Position2DVector::ContType::const_iterator i=cont.begin(); i!=cont.end(); ++i) {
-            Position2D pos((*i));
+        const PositionVector::ContType &cont = pshape.getCont();
+        PositionVector shape;
+        for (PositionVector::ContType::const_iterator i=cont.begin(); i!=cont.end(); ++i) {
+            Position pos((*i));
             if (!GeoConvHelper::x2cartesian(pos)) {
                 MsgHandler::getWarningInstance()->inform("Unable to project coordinates for polygon '" + myCurrentID + "'.");
             }
             shape.push_back(pos);
         }
-        Polygon2D *poly = new Polygon2D(myCurrentID, myCurrentType, myCurrentColor, shape, false);
+        Polygon *poly = new Polygon(myCurrentID, myCurrentType, myCurrentColor, shape, false);
         if (!myCont.insert(myCurrentID, poly, myCurrentLayer, myCurrentIgnorePrunning)) {
             MsgHandler::getErrorInstance()->inform("Polygon '" + myCurrentID + "' could not been added.");
             delete poly;

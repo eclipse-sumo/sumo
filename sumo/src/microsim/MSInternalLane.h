@@ -89,7 +89,7 @@ public:
      * @see MSLane
      */
     MSInternalLane(const std::string &id, SUMOReal maxSpeed, SUMOReal length, MSEdge * const edge,
-                   unsigned int numericalID, const Position2DVector &shape, SUMOReal width,
+                   unsigned int numericalID, const PositionVector &shape, SUMOReal width,
                    const SUMOVehicleClasses &allowed,
                    const SUMOVehicleClasses &disallowed) throw();
 

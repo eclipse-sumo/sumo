@@ -57,7 +57,7 @@
 #include "GUIVehicle.h"
 #include "GUINet.h"
 #include "GUIShapeContainer.h"
-#include <utils/gui/globjects/GUIPolygon2D.h>
+#include <utils/gui/globjects/GUIPolygon.h>
 #include <utils/gui/globjects/GUIPointOfInterest.h>
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
 #include <utils/gui/div/GUIParameterTableWindow.h>
@@ -201,7 +201,7 @@ GUINet::initTLMap() {
 }
 
 
-Position2D
+Position
 GUINet::getJunctionPosition(const std::string &name) const {
     // !!! no check for existance!
     return myJunctions->get(name)->getPosition();
@@ -286,9 +286,9 @@ GUINet::getShapeIDs() const {
         int minLayer = myShapeContainer->getMinLayer();
         int maxLayer = myShapeContainer->getMaxLayer();
         for (int j=minLayer; j<=maxLayer; ++j) {
-            const std::map<std::string, Polygon2D*> &pol = myShapeContainer->getPolygonCont(j).getMyMap();
-            for (std::map<std::string, Polygon2D*>::const_iterator i=pol.begin(); i!=pol.end(); ++i) {
-                ret.push_back(static_cast<GUIPolygon2D*>((*i).second)->getGlID());
+            const std::map<std::string, Polygon*> &pol = myShapeContainer->getPolygonCont(j).getMyMap();
+            for (std::map<std::string, Polygon*>::const_iterator i=pol.begin(); i!=pol.end(); ++i) {
+                ret.push_back(static_cast<GUIPolygon*>((*i).second)->getGlID());
             }
             const std::map<std::string, PointOfInterest*> &poi = myShapeContainer->getPOICont(j).getMyMap();
             for (std::map<std::string, PointOfInterest*>::const_iterator i=poi.begin(); i!=poi.end(); ++i) {

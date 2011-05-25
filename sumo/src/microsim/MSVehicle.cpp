@@ -362,10 +362,10 @@ MSVehicle::adaptLaneEntering2MoveReminder(const MSLane &enteredLane) throw() {
 
 
 // ------------ Other getter methods
-Position2D
+Position
 MSVehicle::getPosition() const throw() {
     if (myLane==0) {
-        return Position2D(-1000, -1000);
+        return Position(-1000, -1000);
     }
     return myLane->getShape().positionAtLengthPosition(myState.pos());
 }
@@ -373,8 +373,8 @@ MSVehicle::getPosition() const throw() {
 
 SUMOReal
 MSVehicle::getAngle() const throw() {
-    Position2D p1 = myLane->getShape().positionAtLengthPosition(myState.pos());
-    Position2D p2 = myFurtherLanes.size()>0
+    Position p1 = myLane->getShape().positionAtLengthPosition(myState.pos());
+    Position p2 = myFurtherLanes.size()>0
                     ? myFurtherLanes.front()->getShape().positionAtLengthPosition(myFurtherLanes.front()->getPartialOccupatorEnd())
                     : myLane->getShape().positionAtLengthPosition(myState.pos()-myType->getLength());
     if (p1!=p2) {

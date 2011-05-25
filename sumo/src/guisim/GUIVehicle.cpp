@@ -644,18 +644,18 @@ drawAction_drawVehicleAsPoly(const GUIVehicle &veh, SUMOReal upscale) {
         break;
     case SVS_TRANSPORT:
         glColor3dv(current);
-        GLHelper::drawBoxLine(Position2D(2.3, 0), 90., length-veh.getVehicleType().getGuiOffset()-2.3, .5);
+        GLHelper::drawBoxLine(Position(2.3, 0), 90., length-veh.getVehicleType().getGuiOffset()-2.3, .5);
         break;
     case SVS_TRANSPORT_SEMITRAILER:
         glColor3dv(current);
-        GLHelper::drawBoxLine(Position2D(2.8, 0), 90., length-veh.getVehicleType().getGuiOffset()-2.8, .5);
+        GLHelper::drawBoxLine(Position(2.8, 0), 90., length-veh.getVehicleType().getGuiOffset()-2.8, .5);
         break;
     case SVS_TRANSPORT_1TRAILER: {
         glColor3dv(current);
         SUMOReal l = length-veh.getVehicleType().getGuiOffset()-2.3;
         l = l/2.;
-        GLHelper::drawBoxLine(Position2D(2.3, 0), 90., l, .5);
-        GLHelper::drawBoxLine(Position2D(2.3+l+.5, 0), 90., l-.5, .5);
+        GLHelper::drawBoxLine(Position(2.3, 0), 90., l, .5);
+        GLHelper::drawBoxLine(Position(2.3+l+.5, 0), 90., l-.5, .5);
         break;
     }
     case SVS_BUS:
@@ -809,7 +809,7 @@ void
 GUIVehicle::drawGL(const GUIVisualizationSettings &s) const throw() {
     glPushName(getGlID());
     glPushMatrix();
-    Position2D p1 = myLane->getShape().positionAtLengthPosition(myState.pos());
+    Position p1 = myLane->getShape().positionAtLengthPosition(myState.pos());
     glTranslated(p1.x(), p1.y(), getType());
     glRotated(getAngle(), 0, 0, 1);
     // set lane color
@@ -987,32 +987,32 @@ GUIVehicle::Colorer::setFunctionalColor(const GUIVehicle& vehicle) const {
         vehicle.setOwnRouteColor();
         return true;
     case 4: {
-        Position2D p = vehicle.getRoute().getEdges()[0]->getLanes()[0]->getShape()[0];
+        Position p = vehicle.getRoute().getEdges()[0]->getLanes()[0]->getShape()[0];
         const Boundary &b = ((GUINet*) MSNet::getInstance())->getBoundary();
-        Position2D center = b.getCenter();
+        Position center = b.getCenter();
         SUMOReal hue = 180. + atan2(center.x()-p.x(), center.y()-p.y()) * 180. / PI;
-        SUMOReal sat = p.distanceTo(center) / center.distanceTo(Position2D(b.xmin(), b.ymin()));
+        SUMOReal sat = p.distanceTo(center) / center.distanceTo(Position(b.xmin(), b.ymin()));
         RGBColor c = RGBColor::fromHSV(hue, sat, 1.);
         glColor3d(c.red(), c.green(), c.blue());
         return true;
     }
     case 5: {
-        Position2D p = vehicle.getRoute().getEdges().back()->getLanes()[0]->getShape()[-1];
+        Position p = vehicle.getRoute().getEdges().back()->getLanes()[0]->getShape()[-1];
         const Boundary &b = ((GUINet*) MSNet::getInstance())->getBoundary();
-        Position2D center = b.getCenter();
+        Position center = b.getCenter();
         SUMOReal hue = 180. + atan2(center.x()-p.x(), center.y()-p.y()) * 180. / PI;
-        SUMOReal sat = p.distanceTo(center) / center.distanceTo(Position2D(b.xmin(), b.ymin()));
+        SUMOReal sat = p.distanceTo(center) / center.distanceTo(Position(b.xmin(), b.ymin()));
         RGBColor c = RGBColor::fromHSV(hue, sat, 1.);
         glColor3d(c.red(), c.green(), c.blue());
         return true;
     }
     case 6: {
-        Position2D pb = vehicle.getRoute().getEdges()[0]->getLanes()[0]->getShape()[0];
-        Position2D pe = vehicle.getRoute().getEdges().back()->getLanes()[0]->getShape()[-1];
+        Position pb = vehicle.getRoute().getEdges()[0]->getLanes()[0]->getShape()[0];
+        Position pe = vehicle.getRoute().getEdges().back()->getLanes()[0]->getShape()[-1];
         const Boundary &b = ((GUINet*) MSNet::getInstance())->getBoundary();
         SUMOReal hue = 180. + atan2(pb.x()-pe.x(), pb.y()-pe.y()) * 180. / PI;
-        Position2D minp(b.xmin(), b.ymin());
-        Position2D maxp(b.xmax(), b.ymax());
+        Position minp(b.xmin(), b.ymin());
+        Position maxp(b.xmax(), b.ymax());
         SUMOReal sat = pb.distanceTo(pe) / minp.distanceTo(maxp);
         RGBColor c = RGBColor::fromHSV(hue, sat, 1.);
         glColor3d(c.red(), c.green(), c.blue());
@@ -1120,13 +1120,13 @@ GUIVehicle::drawBestLanes() const throw() {
             rmax = MAX2((*i).occupation, rmax);
         }
         for (std::vector<MSVehicle::LaneQ>::const_iterator i=lanes.begin(); i!=lanes.end(); ++i) {
-            const Position2DVector &shape = (*i).lane->getShape();
+            const PositionVector &shape = (*i).lane->getShape();
             SUMOReal g = (*i).length / gmax;
             SUMOReal r = (*i).occupation / rmax;
             glColor3d(r, g, 0);
             GLHelper::drawBoxLines(shape, width);
 
-            Position2DVector s1 = shape;
+            PositionVector s1 = shape;
             s1.move2side((SUMOReal) .1);
             glColor3d(r, 0, 0);
             GLHelper::drawLine(s1);
@@ -1135,7 +1135,7 @@ GUIVehicle::drawBestLanes() const throw() {
             GLHelper::drawLine(s1);
 
             glColor3d(r, g, 0);
-            Position2D lastPos = shape[-1];
+            Position lastPos = shape[-1];
         }
         width = .2;
     }

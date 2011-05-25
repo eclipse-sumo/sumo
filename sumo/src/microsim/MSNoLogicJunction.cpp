@@ -50,8 +50,8 @@ std::bitset<64> MSNoLogicJunction::myDump((unsigned long long) 0xffffffff);
 // method definitions
 // ===========================================================================
 MSNoLogicJunction::MSNoLogicJunction(const std::string &id,
-                                     const Position2D &position,
-                                     const Position2DVector &shape,
+                                     const Position &position,
+                                     const PositionVector &shape,
                                      std::vector<MSLane*> incoming
 #ifdef HAVE_INTERNAL_LANES
                                      , std::vector<MSLane*> internal

@@ -32,7 +32,7 @@
 #include <string>
 #include <utils/xml/SUMOSAXHandler.h>
 #include <utils/common/UtilExceptions.h>
-#include <utils/geom/Position2D.h>
+#include <utils/geom/Position.h>
 
 
 // ===========================================================================
@@ -63,7 +63,7 @@ public:
      * @param[out] projParameter The projection parameter to fill from values read from the network
      * @exception ProcessError if something fails
      */
-    static void loadIfSet(OptionsCont &oc, Position2D &netOffset, Boundary &origNetBoundary,
+    static void loadIfSet(OptionsCont &oc, Position &netOffset, Boundary &origNetBoundary,
                           Boundary &convNetBoundary, std::string &projParameter) throw(ProcessError);
 
 
@@ -74,7 +74,7 @@ protected:
      * @param[out] convNetBoundary The converted network boundary to fill from values read from the network
      * @param[out] projParameter The projection parameter to fill from values read from the network
      */
-    PCNetProjectionLoader(Position2D &netOffset,
+    PCNetProjectionLoader(Position &netOffset,
                           Boundary &origNetBoundary, Boundary &convNetBoundary, std::string &projParameter) throw();
 
 
@@ -117,7 +117,7 @@ protected:
 
 private:
     /// @brief The network offset to fill from values read from the network
-    Position2D &myNetOffset;
+    Position &myNetOffset;
 
     /// @brief The original network boundary to fill from values read from the network
     Boundary &myOrigNetBoundary;

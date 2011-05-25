@@ -171,7 +171,7 @@ TraCITestClient::run(std::string fileName, int port, std::string host) {
             }
         } else if (lineCommand.compare("posconversion2d") == 0) {
             // trigger command PositionConversion for a 2d position
-            testclient::Position2D pos;
+            testclient::Position pos;
             int destFormat;
 
             defFile >> pos.x;
@@ -386,7 +386,7 @@ TraCITestClient::commandSimulationStep2(SUMOTime time) {
 
 
 void
-TraCITestClient::commandPositionConversion(testclient::Position2D pos, int posId) {
+TraCITestClient::commandPositionConversion(testclient::Position pos, int posId) {
     commandPositionConversion(&pos, NULL, NULL, posId);
 }
 
@@ -404,7 +404,7 @@ TraCITestClient::commandPositionConversion(testclient::PositionRoadMap pos, int 
 
 
 void
-TraCITestClient::commandPositionConversion(testclient::Position2D* pos2D,
+TraCITestClient::commandPositionConversion(testclient::Position* pos2D,
         testclient::Position3D* pos3D,
         testclient::PositionRoadMap* posRoad,
         int posId) {
@@ -485,13 +485,13 @@ TraCITestClient::commandPositionConversion(testclient::Position2D* pos2D,
 
 
 void
-TraCITestClient::commandDistanceRequest(testclient::Position2D pos1, testclient::Position2D pos2, int flag) {
+TraCITestClient::commandDistanceRequest(testclient::Position pos1, testclient::Position pos2, int flag) {
     commandDistanceRequest(&pos1, NULL, NULL, &pos2, NULL, NULL, flag);
 }
 
 
 void
-TraCITestClient::commandDistanceRequest(testclient::Position2D pos1, testclient::Position3D pos2, int flag) {
+TraCITestClient::commandDistanceRequest(testclient::Position pos1, testclient::Position3D pos2, int flag) {
     commandDistanceRequest(&pos1, NULL, NULL, NULL, &pos2, NULL, flag);
 }
 
@@ -503,13 +503,13 @@ TraCITestClient::commandDistanceRequest(testclient::Position3D pos1, testclient:
 
 
 void
-TraCITestClient::commandDistanceRequest(testclient::Position3D pos1, testclient::Position2D pos2, int flag) {
+TraCITestClient::commandDistanceRequest(testclient::Position3D pos1, testclient::Position pos2, int flag) {
     commandDistanceRequest(NULL, &pos1, NULL, &pos2, NULL, NULL, flag);
 }
 
 
 void
-TraCITestClient::commandDistanceRequest(testclient::PositionRoadMap pos1, testclient::Position2D pos2, int flag) {
+TraCITestClient::commandDistanceRequest(testclient::PositionRoadMap pos1, testclient::Position pos2, int flag) {
     commandDistanceRequest(NULL, NULL, &pos1, &pos2, NULL, NULL, flag);
 }
 
@@ -527,7 +527,7 @@ TraCITestClient::commandDistanceRequest(testclient::PositionRoadMap pos1, testcl
 
 
 void
-TraCITestClient::commandDistanceRequest(testclient::Position2D pos1, testclient::PositionRoadMap pos2, int flag) {
+TraCITestClient::commandDistanceRequest(testclient::Position pos1, testclient::PositionRoadMap pos2, int flag) {
     commandDistanceRequest(&pos1, NULL, NULL, NULL, NULL, &pos2, flag);
 }
 
@@ -540,10 +540,10 @@ TraCITestClient::commandDistanceRequest(testclient::Position3D pos1, testclient:
 
 
 void
-TraCITestClient::commandDistanceRequest(testclient::Position2D* pos1_2D,
+TraCITestClient::commandDistanceRequest(testclient::Position* pos1_2D,
                                         testclient::Position3D* pos1_3D,
                                         testclient::PositionRoadMap* pos1_Road,
-                                        testclient::Position2D* pos2_2D,
+                                        testclient::Position* pos2_2D,
                                         testclient::Position3D* pos2_3D,
                                         testclient::PositionRoadMap* pos2_Road,
                                         int flag) {
@@ -1116,7 +1116,7 @@ TraCITestClient::validatePositionConversion(tcpip::Storage &inMsg) {
     int reqPosType;
     int cmdStart;
     testclient::PositionRoadMap roadPos;
-    testclient::Position2D pos2D;
+    testclient::Position pos2D;
     testclient::Position3D pos3D;
 
     try {
@@ -1189,7 +1189,7 @@ TraCITestClient::validateDistanceRequest(tcpip::Storage& inMsg) {
     int cmdStart;
     SUMOReal distance;
     /*testclient::PositionRoadMap roadPos;
-    testclient::Position2D pos2D;
+    testclient::Position pos2D;
     testclient::Position3D pos3D;*/
 
     try {

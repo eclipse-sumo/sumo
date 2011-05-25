@@ -28,8 +28,8 @@
 #endif
 
 #include <iostream>
-#include <utils/geom/Position2D.h>
-#include <utils/geom/Position2DVector.h>
+#include <utils/geom/Position.h>
+#include <utils/geom/PositionVector.h>
 #include <utils/common/TplConvert.h>
 #include "../NIImporter_Vissim.h"
 #include <utils/distribution/Distribution_Points.h>
@@ -58,7 +58,7 @@ NIVissimSingleTypeParser_Zeitenverteilungsdefinition::parse(std::istream &from) 
     std::string id;
     from >> id;
     // list of points
-    Position2DVector points;
+    PositionVector points;
     std::string tag;
     do {
         tag = readEndSecure(from);
@@ -74,7 +74,7 @@ NIVissimSingleTypeParser_Zeitenverteilungsdefinition::parse(std::istream &from) 
             SUMOReal p1 = TplConvert<char>::_2SUMOReal(tag.c_str());
             from >> tag;
             SUMOReal p2 = TplConvert<char>::_2SUMOReal(tag.c_str());
-            points.push_back(Position2D(p1, p2));
+            points.push_back(Position(p1, p2));
         }
     } while (tag!="DATAEND");
     return NBDistribution::dictionary("times",

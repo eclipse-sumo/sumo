@@ -32,7 +32,7 @@
 #include <iostream>
 #include <utility>
 #include "AbstractPoly.h"
-#include "Position2D.h"
+#include "Position.h"
 
 
 // ===========================================================================
@@ -61,13 +61,13 @@ public:
     void add(SUMOReal x, SUMOReal y);
 
     /// Makes the boundary include the given coordinate
-    void add(const Position2D &p);
+    void add(const Position &p);
 
     /// Makes the boundary include the given boundary
     void add(const Boundary &p);
 
     /// Returns the center of the boundary
-    Position2D getCenter() const;
+    Position getCenter() const;
 
     /// Returns minimum x-coordinate
     SUMOReal xmin() const;
@@ -88,7 +88,7 @@ public:
     SUMOReal getHeight() const;
 
     /// Returns whether the boundary contains the given coordinate
-    bool around(const Position2D &p, SUMOReal offset=0) const;
+    bool around(const Position &p, SUMOReal offset=0) const;
 
     /// Returns whether the boundary overlaps with the given polygon
     bool overlapsWith(const AbstractPoly &poly, SUMOReal offset=0) const;
@@ -97,7 +97,7 @@ public:
     bool partialWithin(const AbstractPoly &poly, SUMOReal offset=0) const;
 
     /// Returns whether the boundary crosses the given line
-    bool crosses(const Position2D &p1, const Position2D &p2) const;
+    bool crosses(const Position &p1, const Position &p2) const;
 
 
     /** @brief extends the boundary by the given amount

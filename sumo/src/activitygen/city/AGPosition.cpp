@@ -118,12 +118,12 @@ AGPosition::randomPositionInStreet(const AGStreet& s) throw() {
 }
 
 
-Position2D
+Position
 AGPosition::compute2dPosition() const throw() {
     // P = From + pos*(To - From) = pos*To + (1-pos)*From
-    Position2D From = street->edge->getFromNode()->getPosition();
-    Position2D To = street->edge->getToNode()->getPosition();
-    Position2D position2d(To);
+    Position From = street->edge->getFromNode()->getPosition();
+    Position To = street->edge->getToNode()->getPosition();
+    Position position2d(To);
 
     position2d.sub(From);
     position2d.mul(position / street->getLength());

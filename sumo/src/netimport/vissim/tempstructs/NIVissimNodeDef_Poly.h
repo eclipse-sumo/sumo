@@ -32,22 +32,22 @@
 
 #include <string>
 #include <map>
-#include <utils/geom/Position2DVector.h>
+#include <utils/geom/PositionVector.h>
 #include "NIVissimNodeDef_Edges.h"
 
 class NIVissimNodeDef_Poly :
             public NIVissimNodeDef_Edges {
 public:
     NIVissimNodeDef_Poly(int id, const std::string &name,
-                         const Position2DVector &poly);
+                         const PositionVector &poly);
     virtual ~NIVissimNodeDef_Poly();
     static bool dictionary(int id, const std::string &name,
-                           const Position2DVector &poly);
+                           const PositionVector &poly);
 //    virtual void computeBounding();
 //    SUMOReal getEdgePosition(int edgeid) const;
     void searchAndSetConnections(SUMOReal offset);
 private:
-    Position2DVector myPoly;
+    PositionVector myPoly;
 
 };
 

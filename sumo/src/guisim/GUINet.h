@@ -33,9 +33,9 @@
 #include <utility>
 #include <microsim/MSNet.h>
 #include <utils/geom/Boundary.h>
-#include <utils/geom/Position2D.h>
+#include <utils/geom/Position.h>
 #include <foreign/rtree/SUMORTree.h>
-#include <utils/geom/Position2DVector.h>
+#include <utils/geom/PositionVector.h>
 #include <utils/gui/globjects/GUIGlObjectStorage.h>
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
 #include <utils/gui/globjects/GUIGlObject.h>
@@ -148,7 +148,7 @@ public:
     const Boundary &getBoundary() const;
 
     /// returns the position of a junction
-    Position2D getJunctionPosition(const std::string &name) const;
+    Position getJunctionPosition(const std::string &name) const;
 
     /// returns the information whether the vehicle still exists
     bool vehicleExists(const std::string &name) const;

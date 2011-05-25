@@ -32,7 +32,7 @@
 #include <string>
 #include <vector>
 #include <microsim/MSEdge.h>
-#include <utils/geom/Position2DVector.h>
+#include <utils/geom/PositionVector.h>
 
 
 // ===========================================================================
@@ -107,7 +107,7 @@ public:
      * @todo Definitely not a good way
      */
     virtual MSLane *addLane(const std::string &id, SUMOReal maxSpeed,
-                            SUMOReal length, bool isDepart, const Position2DVector &shape,
+                            SUMOReal length, bool isDepart, const PositionVector &shape,
                             SUMOReal width, const SUMOVehicleClasses &allowed, const SUMOVehicleClasses &disallowed);
 
 

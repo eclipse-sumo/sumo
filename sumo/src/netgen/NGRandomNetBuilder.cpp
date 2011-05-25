@@ -110,7 +110,7 @@ NGRandomNetBuilder::checkAngles(NGNode *node) throw() {
             } else {
                 ni = (*li)->getStartNode();
             }
-            Position2D v1(
+            Position v1(
                 ni->getPosition().x() - node->getPosition().x(),
                 ni->getPosition().y() - node->getPosition().y());
             // loop over all links
@@ -121,7 +121,7 @@ NGRandomNetBuilder::checkAngles(NGNode *node) throw() {
                         ni = (*lj)->getEndNode();
                     else
                         ni = (*lj)->getStartNode();
-                    Position2D v2(
+                    Position v2(
                         ni->getPosition().x() - node->getPosition().x(),
                         ni->getPosition().y() - node->getPosition().y());
                     SUMOReal angle = GeomHelper::Angle2D(v1.x(), v1.y(), v2.x(), v2.y());
@@ -138,8 +138,8 @@ NGRandomNetBuilder::checkAngles(NGNode *node) throw() {
 bool
 NGRandomNetBuilder::canConnect(NGNode *baseNode, NGNode *newNode) throw() {
     bool connectable=true;
-    Position2D n1(baseNode->getPosition());
-    Position2D n2(newNode->getPosition());
+    Position n1(baseNode->getPosition());
+    Position n2(newNode->getPosition());
 
     // check for range between Basenode and Newnode
     if (connectable) {
@@ -159,8 +159,8 @@ NGRandomNetBuilder::canConnect(NGNode *baseNode, NGNode *newNode) throw() {
         li = myOuterLinks.begin();
         while ((connectable == true) && (li != myOuterLinks.end())) {
             // check intersection only if links don't share a node
-            Position2D p1((*li)->getStartNode()->getPosition());
-            Position2D p2((*li)->getEndNode()->getPosition());
+            Position p1((*li)->getStartNode()->getPosition());
+            Position p2((*li)->getEndNode()->getPosition());
             if ((baseNode != (*li)->getStartNode()) && (baseNode!= (*li)->getEndNode())
                     && (newNode != (*li)->getStartNode()) && (newNode!= (*li)->getEndNode())) {
                 connectable = !GeomHelper::intersects(n1, n2, p1, p2);

@@ -203,7 +203,7 @@ RONetHandler::parseJunction(const SUMOSAXAttributes &attrs) {
             n = new RONode(id);
             myNet.addNode(n);
         }
-        n->setPosition(Position2D(x, y));
+        n->setPosition(Position(x, y));
     } else {
         throw ProcessError();
     }

@@ -125,7 +125,7 @@ Boundary
 GUIEdge::getBoundary() const {
     Boundary ret;
     for (LaneWrapperVector::const_iterator i=myLaneGeoms.begin(); i!=myLaneGeoms.end(); ++i) {
-        const Position2DVector &g = (*i)->getShape();
+        const PositionVector &g = (*i)->getShape();
         for (unsigned int j=0; j<g.size(); j++) {
             ret.add(g[j]);
         }
@@ -216,10 +216,10 @@ GUIEdge::drawGL(const GUIVisualizationSettings &s) const throw() {
     if (MSGlobals::gUseMesoSim) {
         size_t idx = 0;
         for (LaneWrapperVector::const_iterator l=myLaneGeoms.begin(); l!=myLaneGeoms.end(); ++l,++idx) {
-            const Position2DVector& shape = (*l)->getShape();
+            const PositionVector& shape = (*l)->getShape();
             const DoubleVector& shapeRotations = (*l)->getShapeRotations();
             const DoubleVector& shapeLengths = (*l)->getShapeLengths();
-            const Position2D &laneBeg = shape[0];
+            const Position &laneBeg = shape[0];
 
             glColor3d(1,1,0);
             glPushMatrix();
@@ -272,7 +272,7 @@ GUIEdge::drawGL(const GUIVisualizationSettings &s) const throw() {
     if ((s.drawEdgeName && myFunction == EDGEFUNCTION_NORMAL) || (s.drawInternalEdgeName && myFunction != EDGEFUNCTION_NORMAL)) {
         GUILaneWrapper *lane1 = myLaneGeoms[0];
         GUILaneWrapper *lane2 = myLaneGeoms[myLaneGeoms.size()-1];
-        Position2D p = lane1->getShape().positionAtLengthPosition(lane1->getShape().length()/(SUMOReal) 2.);
+        Position p = lane1->getShape().positionAtLengthPosition(lane1->getShape().length()/(SUMOReal) 2.);
         p.add(lane2->getShape().positionAtLengthPosition(lane2->getShape().length()/(SUMOReal) 2.));
         p.mul(.5);
         SUMOReal angle = lane1->getShape().rotationDegreeAtLengthPosition(lane1->getShape().length()/(SUMOReal) 2.);

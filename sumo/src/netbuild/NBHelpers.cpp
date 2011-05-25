@@ -33,7 +33,7 @@
 #include "NBNode.h"
 #include "NBHelpers.h"
 #include <utils/common/StringTokenizer.h>
-#include <utils/geom/Position2D.h>
+#include <utils/geom/Position.h>
 #include <utils/geom/GeomHelper.h>
 #include <iostream>
 

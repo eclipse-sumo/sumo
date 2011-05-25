@@ -31,8 +31,8 @@
 
 #include <microsim/output/MSE2Collector.h>
 #include <microsim/MSNet.h>
-#include <utils/geom/Position2D.h>
-#include <utils/geom/Position2DVector.h>
+#include <utils/geom/Position.h>
+#include <utils/geom/PositionVector.h>
 #include <utils/common/VectorHelper.h>
 #include <utils/common/ValueSource.h>
 #include "GUIDetectorWrapper.h"
@@ -156,7 +156,7 @@ public:
         Boundary myBoundary;
 
         /// A sequence of positions in full-geometry mode
-        Position2DVector myFullGeometry;
+        PositionVector myFullGeometry;
 
         /// A sequence of lengths in full-geometry mode
         DoubleVector myShapeLengths;

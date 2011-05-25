@@ -97,18 +97,18 @@ GeomHelper::intersects(SUMOReal x1, SUMOReal y1, SUMOReal x2, SUMOReal y2,
 
 
 bool
-GeomHelper::intersects(const Position2D &p11, const Position2D &p12,
-                       const Position2D &p21, const Position2D &p22) {
+GeomHelper::intersects(const Position &p11, const Position &p12,
+                       const Position &p21, const Position &p22) {
     return intersects(p11.x(), p11.y(), p12.x(), p12.y(),
                       p21.x(), p21.y(), p22.x(), p22.y());
 }
 
 
-Position2D
-GeomHelper::intersection_position(const Position2D &p11,
-                                  const Position2D &p12,
-                                  const Position2D &p21,
-                                  const Position2D &p22) {
+Position
+GeomHelper::intersection_position(const Position &p11,
+                                  const Position &p12,
+                                  const Position &p21,
+                                  const Position &p22) {
     /*void Intersect_Lines(SUMOReal p11.x(),SUMOReal p11.y(),SUMOReal p12.x(),SUMOReal p12.y(),
                          SUMOReal p21.x(),SUMOReal p21.y(),SUMOReal p22.x(),SUMOReal p22.y(),
                          SUMOReal *xi,SUMOReal *yi)
@@ -152,7 +152,7 @@ GeomHelper::intersection_position(const Position2D &p11,
     det_inv = 1/(a1*b2 - a2*b1);
 
     // use Kramers rule to compute xi and yi
-    return Position2D(
+    return Position(
                ((b1*c2 - b2*c1)*det_inv),
                ((a2*c1 - a1*c2)*det_inv));
 }
@@ -180,40 +180,40 @@ GeomHelper::Angle2D(SUMOReal x1, SUMOReal y1, SUMOReal x2, SUMOReal y2) {
 }
 
 
-Position2D
-GeomHelper::interpolate(const Position2D &p1,
-                        const Position2D &p2, SUMOReal length) {
+Position
+GeomHelper::interpolate(const Position &p1,
+                        const Position &p2, SUMOReal length) {
     SUMOReal oldlen = p1.distanceTo(p2);
     SUMOReal x = p1.x() + (p2.x() - p1.x()) * length / oldlen;
     SUMOReal y = p1.y() + (p2.y() - p1.y()) * length / oldlen;
-    return Position2D(x, y);
+    return Position(x, y);
 }
 
 
-Position2D
-GeomHelper::extrapolate_first(const Position2D &p1,
-                              const Position2D &p2, SUMOReal length) {
+Position
+GeomHelper::extrapolate_first(const Position &p1,
+                              const Position &p2, SUMOReal length) {
     SUMOReal oldlen = p1.distanceTo(p2);
     SUMOReal x = p1.x() - (p2.x() - p1.x()) * (length) / oldlen;
     SUMOReal y = p1.y() - (p2.y() - p1.y()) * (length) / oldlen;
-    return Position2D(x, y);
+    return Position(x, y);
 }
 
 
-Position2D
-GeomHelper::extrapolate_second(const Position2D &p1,
-                               const Position2D &p2, SUMOReal length) {
+Position
+GeomHelper::extrapolate_second(const Position &p1,
+                               const Position &p2, SUMOReal length) {
     SUMOReal oldlen = p1.distanceTo(p2);
     SUMOReal x = p2.x() - (p1.x() - p2.x()) * (length) / oldlen;
     SUMOReal y = p2.y() - (p1.y() - p2.y()) * (length) / oldlen;
-    return Position2D(x, y);
+    return Position(x, y);
 }
 
 
 SUMOReal
-GeomHelper::nearest_position_on_line_to_point(const Position2D &LineStart,
-        const Position2D &LineEnd,
-        const Position2D &Point, bool perpendicular) {
+GeomHelper::nearest_position_on_line_to_point(const Position &LineStart,
+        const Position &LineEnd,
+        const Position &Point, bool perpendicular) {
     SUMOReal u = (((Point.x() - LineStart.x()) * (LineEnd.x() - LineStart.x())) +
                   ((Point.y() - LineStart.y()) * (LineEnd.y() - LineStart.y()))
                  ) / LineStart.distanceSquaredTo(LineEnd);
@@ -231,15 +231,15 @@ GeomHelper::nearest_position_on_line_to_point(const Position2D &LineStart,
 
 
 SUMOReal
-GeomHelper::distancePointLine(const Position2D &point,
-                              const Position2D &lineStart,
-                              const Position2D &lineEnd) {
+GeomHelper::distancePointLine(const Position &point,
+                              const Position &lineStart,
+                              const Position &lineEnd) {
     SUMOReal u = (((point.x() - lineStart.x()) * (lineEnd.x() - lineStart.x())) +
                   ((point.y() - lineStart.y()) * (lineEnd.y() - lineStart.y()))
                  ) / lineStart.distanceSquaredTo(lineEnd);
     if (u < 0.0f || u > 1.0f)
         return -1;   // closest point does not fall within the line segment
-    Position2D intersection(
+    Position intersection(
         lineStart.x() + u *(lineEnd.x() - lineStart.x()),
         lineStart.y() + u *(lineEnd.y() - lineStart.y()));
     return point.distanceTo(intersection);
@@ -248,11 +248,11 @@ GeomHelper::distancePointLine(const Position2D &point,
 
 
 SUMOReal
-GeomHelper::closestDistancePointLine(const Position2D &point,
-                                     const Position2D &lineStart,
-                                     const Position2D &lineEnd,
-                                     Position2D& outIntersection) {
-    Position2D directVec(lineEnd.x()-lineStart.x(), lineEnd.y()-lineStart.y());
+GeomHelper::closestDistancePointLine(const Position &point,
+                                     const Position &lineStart,
+                                     const Position &lineEnd,
+                                     Position& outIntersection) {
+    Position directVec(lineEnd.x()-lineStart.x(), lineEnd.y()-lineStart.y());
     SUMOReal u = (((point.x() - lineStart.x()) * directVec.x()) +
                   ((point.y() - lineStart.y()) * directVec.y())) /
                  (directVec.x() * directVec.x() +
@@ -278,10 +278,10 @@ GeomHelper::closestDistancePointLine(const Position2D &point,
 
 
 
-Position2D
-GeomHelper::transfer_to_side(Position2D &p,
-                             const Position2D &lineBeg,
-                             const Position2D &lineEnd,
+Position
+GeomHelper::transfer_to_side(Position &p,
+                             const Position &lineBeg,
+                             const Position &lineEnd,
                              SUMOReal amount) {
     SUMOReal dx = lineBeg.x() - lineEnd.x();
     SUMOReal dy = lineBeg.y() - lineEnd.y();
@@ -319,34 +319,34 @@ GeomHelper::transfer_to_side(Position2D &p,
 
 
 
-Position2D
-GeomHelper::crossPoint(const Boundary &b, const Position2DVector &v) {
-    if (v.intersects(Position2D(b.xmin(), b.ymin()), Position2D(b.xmin(), b.ymax()))) {
+Position
+GeomHelper::crossPoint(const Boundary &b, const PositionVector &v) {
+    if (v.intersects(Position(b.xmin(), b.ymin()), Position(b.xmin(), b.ymax()))) {
         return v.intersectsAtPoint(
-                   Position2D(b.xmin(), b.ymin()),
-                   Position2D(b.xmin(), b.ymax()));
+                   Position(b.xmin(), b.ymin()),
+                   Position(b.xmin(), b.ymax()));
     }
-    if (v.intersects(Position2D(b.xmax(), b.ymin()), Position2D(b.xmax(), b.ymax()))) {
+    if (v.intersects(Position(b.xmax(), b.ymin()), Position(b.xmax(), b.ymax()))) {
         return v.intersectsAtPoint(
-                   Position2D(b.xmax(), b.ymin()),
-                   Position2D(b.xmax(), b.ymax()));
+                   Position(b.xmax(), b.ymin()),
+                   Position(b.xmax(), b.ymax()));
     }
-    if (v.intersects(Position2D(b.xmin(), b.ymin()), Position2D(b.xmax(), b.ymin()))) {
+    if (v.intersects(Position(b.xmin(), b.ymin()), Position(b.xmax(), b.ymin()))) {
         return v.intersectsAtPoint(
-                   Position2D(b.xmin(), b.ymin()),
-                   Position2D(b.xmax(), b.ymin()));
+                   Position(b.xmin(), b.ymin()),
+                   Position(b.xmax(), b.ymin()));
     }
-    if (v.intersects(Position2D(b.xmin(), b.ymax()), Position2D(b.xmax(), b.ymax()))) {
+    if (v.intersects(Position(b.xmin(), b.ymax()), Position(b.xmax(), b.ymax()))) {
         return v.intersectsAtPoint(
-                   Position2D(b.xmin(), b.ymax()),
-                   Position2D(b.xmax(), b.ymax()));
+                   Position(b.xmin(), b.ymax()),
+                   Position(b.xmax(), b.ymax()));
     }
     throw 1;
 }
 
 std::pair<SUMOReal, SUMOReal>
-GeomHelper::getNormal90D_CW(const Position2D &beg,
-                            const Position2D &end,
+GeomHelper::getNormal90D_CW(const Position &beg,
+                            const Position &end,
                             SUMOReal wanted_offset) {
     SUMOReal length = sqrt((beg.x()-end.x())*(beg.x()-end.x()) + (beg.y()-end.y())*(beg.y()-end.y()));
     return getNormal90D_CW(beg, end, length, wanted_offset);
@@ -354,8 +354,8 @@ GeomHelper::getNormal90D_CW(const Position2D &beg,
 
 
 std::pair<SUMOReal, SUMOReal>
-GeomHelper::getNormal90D_CW(const Position2D &beg,
-                            const Position2D &end,
+GeomHelper::getNormal90D_CW(const Position &beg,
+                            const Position &end,
                             SUMOReal length, SUMOReal wanted_offset) {
     if (beg == end) {
         throw InvalidArgument("same points at " + toString(beg));

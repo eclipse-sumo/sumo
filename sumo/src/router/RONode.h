@@ -31,7 +31,7 @@
 
 #include <string>
 #include <utils/common/Named.h>
-#include <utils/geom/Position2D.h>
+#include <utils/geom/Position.h>
 
 
 // ===========================================================================
@@ -56,20 +56,20 @@ public:
     /** @brief Sets the position of the node
      * @param[in] p The node's position
      */
-    void setPosition(const Position2D &p) throw();
+    void setPosition(const Position &p) throw();
 
 
     /** @brief Returns the position of the node
      * @return This node's position
      */
-    const Position2D &getPosition() throw() {
+    const Position &getPosition() throw() {
         return myPosition;
     }
 
 
 private:
     /// @brief This node's position
-    Position2D myPosition;
+    Position myPosition;
 
 
 private:

@@ -31,7 +31,7 @@
 #include <utility>
 #include <microsim/MSLane.h>
 #include <microsim/MSJunction.h>
-#include <utils/geom/Position2D.h>
+#include <utils/geom/Position.h>
 #include <microsim/MSNet.h>
 #include <microsim/MSInternalJunction.h>
 #include <gui/GUIApplicationWindow.h>
@@ -57,7 +57,7 @@ GUIJunctionWrapper::GUIJunctionWrapper(MSJunction &junction) throw()
         : GUIGlObject(GLO_JUNCTION, junction.getID()),
         myJunction(junction) {
     if (myJunction.getShape().size()==0) {
-        Position2D pos = myJunction.getPosition();
+        Position pos = myJunction.getPosition();
         myBoundary = Boundary(pos.x()-1., pos.y()-1., pos.x()+1., pos.y()+1.);
     } else {
         myBoundary = myJunction.getShape().getBoxBoundary();

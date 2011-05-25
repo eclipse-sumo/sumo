@@ -33,7 +33,7 @@
 #include <map>
 #include <utils/common/VectorHelper.h>
 #include "NIVissimExtendedEdgePoint.h"
-#include <utils/geom/Position2D.h>
+#include <utils/geom/Position.h>
 #include <utils/geom/AbstractPoly.h>
 #include "NIVissimAbstractEdge.h"
 #include "NIVissimClosedLanesVector.h"
@@ -62,7 +62,7 @@ public:
     NIVissimConnection(int id, const std::string &name,
                        const NIVissimExtendedEdgePoint &from_def,
                        const NIVissimExtendedEdgePoint &to_def,
-                       const Position2DVector &geom,
+                       const PositionVector &geom,
                        Direction direction, SUMOReal dxnothalt, SUMOReal dxeinordnen,
                        SUMOReal zuschlag1, SUMOReal zuschlag2, SUMOReal seglength,
                        const IntVector &assignedVehicles,
@@ -73,8 +73,8 @@ public:
     int getToEdgeID() const;
     SUMOReal getFromPosition() const;
     SUMOReal getToPosition() const;
-    Position2D getFromGeomPosition() const;
-    Position2D getToGeomPosition() const;
+    Position getFromGeomPosition() const;
+    Position getToGeomPosition() const;
     void setNodeCluster(int nodeid);
     const Boundary &getBoundingBox() const;
 
@@ -102,7 +102,7 @@ public:
     static bool dictionary(int id, const std::string &name,
                            const NIVissimExtendedEdgePoint &from_def,
                            const NIVissimExtendedEdgePoint &to_def,
-                           const Position2DVector &geom,
+                           const PositionVector &geom,
                            Direction direction, SUMOReal dxnothalt, SUMOReal dxeinordnen,
                            SUMOReal zuschlag1, SUMOReal zuschlag2, SUMOReal seglength,
                            const IntVector &assignedVehicles,

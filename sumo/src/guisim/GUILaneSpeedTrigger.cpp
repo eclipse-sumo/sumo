@@ -33,8 +33,8 @@
 
 #include <string>
 #include <utils/common/MsgHandler.h>
-#include <utils/geom/Position2DVector.h>
-#include <utils/geom/Line2D.h>
+#include <utils/geom/PositionVector.h>
+#include <utils/geom/Line.h>
 #include <utils/geom/Boundary.h>
 #include <utils/gui/div/GLHelper.h>
 #include <utils/common/ToString.h>
@@ -289,10 +289,10 @@ GUILaneSpeedTrigger::GUILaneSpeedTrigger(
     myFGRotations.reserve(destLanes.size());
     std::vector<MSLane*>::const_iterator i;
     for (i=destLanes.begin(); i!=destLanes.end(); ++i) {
-        const Position2DVector &v = (*i)->getShape();
+        const PositionVector &v = (*i)->getShape();
         myFGPositions.push_back(v.positionAtLengthPosition(0));
         myBoundary.add(v.positionAtLengthPosition(0));
-        Line2D l(v.getBegin(), v.getEnd());
+        Line l(v.getBegin(), v.getEnd());
         myFGRotations.push_back(-v.rotationDegreeAtLengthPosition(0));
         myDefaultSpeed = (*i)->getMaxSpeed();
         mySpeedOverrideValue = (*i)->getMaxSpeed();
@@ -338,7 +338,7 @@ GUILaneSpeedTrigger::drawGL(const GUIVisualizationSettings &s) const throw() {
     glPushMatrix();
     glTranslated(0, 0, getType());
     for (size_t i=0; i<myFGPositions.size(); ++i) {
-        const Position2D &pos = myFGPositions[i];
+        const Position &pos = myFGPositions[i];
         SUMOReal rot = myFGRotations[i];
         glPushMatrix();
         glScaled(s.addExaggeration, s.addExaggeration, 1);

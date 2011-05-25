@@ -33,7 +33,7 @@
 #include <utils/common/MsgHandler.h>
 #include <utils/common/ToString.h>
 #include <utils/geom/GeomHelper.h>
-#include <utils/geom/Line2D.h>
+#include <utils/geom/Line.h>
 #include <utils/geom/GeoConvHelper.h>
 #include "NIVissimAbstractEdge.h"
 
@@ -45,13 +45,13 @@
 NIVissimAbstractEdge::DictType NIVissimAbstractEdge::myDict;
 
 NIVissimAbstractEdge::NIVissimAbstractEdge(int id,
-        const Position2DVector &geom)
+        const PositionVector &geom)
         : myID(id), myNode(-1) {
     // convert/publicate geometry
-    std::deque<Position2D>::const_iterator i;
-    const std::deque<Position2D> &geomC = geom.getCont();
+    std::deque<Position>::const_iterator i;
+    const std::deque<Position> &geomC = geom.getCont();
     for (i=geomC.begin(); i!=geomC.end(); ++i) {
-        Position2D p = *i;
+        Position p = *i;
         if (!GeoConvHelper::x2cartesian(p)) {
             MsgHandler::getWarningInstance()->inform("Unable to project coordinates for edge '" + toString(id) + "'.");
         }
@@ -87,16 +87,16 @@ NIVissimAbstractEdge::dictionary(int id) {
 
 
 
-Position2D
+Position
 NIVissimAbstractEdge::getGeomPosition(SUMOReal pos) const {
     if (myGeom.length()>pos) {
         return myGeom.positionAtLengthPosition(pos);
     } else if (myGeom.length()==pos) {
         return myGeom[-1];
     } else {
-        Position2DVector g(myGeom);
+        PositionVector g(myGeom);
         SUMOReal amount = pos - myGeom.length();
-        Position2D ne = GeomHelper::extrapolate_second(g[-2], g[-1], amount*2);
+        Position ne = GeomHelper::extrapolate_second(g[-2], g[-1], amount*2);
         g.pop_back();
         g.push_back(ne);
         return g.positionAtLengthPosition(pos);
@@ -125,17 +125,17 @@ NIVissimAbstractEdge::crossesEdge(NIVissimAbstractEdge *c) const {
 }
 
 
-Position2D
+Position
 NIVissimAbstractEdge::crossesEdgeAtPoint(NIVissimAbstractEdge *c) const {
     return myGeom.intersectsAtPoint(c->myGeom);
 }
 
 
 SUMOReal
-NIVissimAbstractEdge::crossesAtPoint(const Position2D &p1,
-                                     const Position2D &p2) const {
+NIVissimAbstractEdge::crossesAtPoint(const Position &p1,
+                                     const Position &p2) const {
     // !!! not needed
-    Position2D p = GeomHelper::intersection_position(
+    Position p = GeomHelper::intersection_position(
                        myGeom.getBegin(), myGeom.getEnd(), p1, p2);
     return GeomHelper::nearest_position_on_line_to_point(
                myGeom.getBegin(), myGeom.getEnd(), p);
@@ -182,7 +182,7 @@ NIVissimAbstractEdge::clearDict() {
 }
 
 
-const Position2DVector &
+const PositionVector &
 NIVissimAbstractEdge::getGeometry() const {
     return myGeom;
 }

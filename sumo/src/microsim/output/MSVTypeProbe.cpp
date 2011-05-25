@@ -69,7 +69,7 @@ MSVTypeProbe::execute(SUMOTime currentTime) {
             if (!veh->isOnRoad()) {
                 continue;
             }
-            Position2D pos = veh->getLane()->getShape().positionAtLengthPosition(veh->getPositionOnLane());
+            Position pos = veh->getLane()->getShape().positionAtLengthPosition(veh->getPositionOnLane());
             myOutputDevice << indent << indent
             << "<vehicle id=\"" << veh->getID()
             << "\" lane=\"" << veh->getLane()->getID()

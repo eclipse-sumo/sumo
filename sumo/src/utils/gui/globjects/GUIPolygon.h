@@ -1,5 +1,5 @@
 /****************************************************************************/
-/// @file    GUIPolygon2D.h
+/// @file    GUIPolygon.h
 /// @author  Daniel Krajzewicz
 /// @date    June 2006
 /// @version $Id$
@@ -16,8 +16,8 @@
 //   (at your option) any later version.
 //
 /****************************************************************************/
-#ifndef GUIPolygon2D_h
-#define GUIPolygon2D_h
+#ifndef GUIPolygon_h
+#define GUIPolygon_h
 
 
 // ===========================================================================
@@ -30,7 +30,7 @@
 #endif
 
 #include <string>
-#include <utils/shapes/Polygon2D.h>
+#include <utils/shapes/Polygon.h>
 #include <utils/gui/globjects/GUIGlObject_AbstractAdd.h>
 
 
@@ -38,10 +38,10 @@
 // class definitions
 // ===========================================================================
 /*
- * @class GUIPolygon2D
+ * @class GUIPolygon
  * @brief The GUI-version of a polygon
  */
-class GUIPolygon2D : public Polygon2D, public GUIGlObject_AbstractAdd {
+class GUIPolygon : public Polygon, public GUIGlObject_AbstractAdd {
 public:
     /** @brief Constructor
      * @param[in] layer The layer the polygon will be located in
@@ -51,13 +51,13 @@ public:
      * @param[in] shape The shape of the polygon
      * @param[in] fill Whether the polygon shall be filled
      */
-    GUIPolygon2D(int layer,
+    GUIPolygon(int layer,
                  const std::string name, const std::string type,
-                 const RGBColor &color, const Position2DVector &shape,
+                 const RGBColor &color, const PositionVector &shape,
                  bool fill) throw();
 
     /// @brief Destructor
-    ~GUIPolygon2D() throw();
+    ~GUIPolygon() throw();
 
 
 

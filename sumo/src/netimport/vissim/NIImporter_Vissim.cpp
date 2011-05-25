@@ -218,12 +218,12 @@ NIImporter_Vissim::VissimSingleTypeParser::overrideOptionalLabel(std::istream &f
 }
 
 
-Position2D
-NIImporter_Vissim::VissimSingleTypeParser::getPosition2D(std::istream &from) {
+Position
+NIImporter_Vissim::VissimSingleTypeParser::getPosition(std::istream &from) {
     SUMOReal x, y;
     from >> x; // type-checking is missing!
     from >> y; // type-checking is missing!
-    return Position2D(x, y);
+    return Position(x, y);
 }
 
 

@@ -58,7 +58,7 @@ public:
      */
     GUIPointOfInterest(int layer,
                        const std::string &id, const std::string &type,
-                       const Position2D &p, const RGBColor &c) throw();
+                       const Position &p, const RGBColor &c) throw();
 
     /// @brief Destructor
     virtual ~GUIPointOfInterest() throw();

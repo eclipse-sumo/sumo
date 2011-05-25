@@ -33,7 +33,7 @@
 #include <vector>
 #include <microsim/output/MSE3Collector.h>
 #include "GUIDetectorWrapper.h"
-#include <utils/geom/Position2DVector.h>
+#include <utils/geom/PositionVector.h>
 #include <utils/common/ValueSource.h>
 
 
@@ -118,7 +118,7 @@ public:
     protected:
         struct SingleCrossingDefinition {
             /// The position in full-geometry mode
-            Position2D myFGPosition;
+            Position myFGPosition;
             /// The rotation in full-geometry mode
             SUMOReal myFGRotation;
         };
@@ -128,7 +128,7 @@ public:
         SingleCrossingDefinition buildDefinition(const MSCrossSection &section);
 
         /// Draws a single entry/exit point
-        void drawSingleCrossing(const Position2D &pos, SUMOReal rot,
+        void drawSingleCrossing(const Position &pos, SUMOReal rot,
                                 SUMOReal upscale) const;
 
     private:

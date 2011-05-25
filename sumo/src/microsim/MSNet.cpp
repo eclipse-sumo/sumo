@@ -59,7 +59,7 @@
 #include <microsim/output/MSDetectorControl.h>
 #include <microsim/MSVehicleTransfer.h>
 #include "traffic_lights/MSTrafficLightLogic.h"
-#include <utils/shapes/Polygon2D.h>
+#include <utils/shapes/Polygon.h>
 #include <utils/shapes/ShapeContainer.h>
 #include "output/MSXMLRawOut.h"
 #include <utils/iodevices/OutputDevice.h>

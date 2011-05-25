@@ -31,10 +31,10 @@
 
 #include <string>
 #include <utils/geom/Boundary.h>
-#include <utils/geom/Position2D.h>
+#include <utils/geom/Position.h>
 #include <utils/common/RGBColor.h>
-#include <utils/geom/Position2DVector.h>
-#include <utils/shapes/Polygon2D.h>
+#include <utils/geom/PositionVector.h>
+#include <utils/shapes/Polygon.h>
 #include "GUISUMOViewParent.h"
 #include <utils/gui/windows/GUISUMOAbstractView.h>
 
@@ -97,7 +97,7 @@ public:
 
 
 
-    void onGamingClick(Position2D pos);
+    void onGamingClick(Position pos);
 
 protected:
     int doPaintGL(int mode, const Boundary& bound);

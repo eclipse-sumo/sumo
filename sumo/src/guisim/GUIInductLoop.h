@@ -31,7 +31,7 @@
 
 #include <utils/foxtools/MFXMutex.h>
 #include <microsim/output/MSInductLoop.h>
-#include <utils/geom/Position2D.h>
+#include <utils/geom/Position.h>
 #include "GUIDetectorWrapper.h"
 
 
@@ -192,7 +192,7 @@ public:
         Boundary myBoundary;
 
         /// The position in full-geometry mode
-        Position2D myFGPosition;
+        Position myFGPosition;
 
         /// The rotation in full-geometry mode
         SUMOReal myFGRotation;

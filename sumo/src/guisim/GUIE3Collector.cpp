@@ -29,7 +29,7 @@
 
 #include "GUIE3Collector.h"
 #include "GUIEdge.h"
-#include <utils/geom/Line2D.h>
+#include <utils/geom/Line.h>
 #include <utils/gui/div/GUIParameterTableWindow.h>
 #include <utils/gui/div/GLHelper.h>
 #include <microsim/logging/FunctionBinding.h>
@@ -77,8 +77,8 @@ GUIE3Collector::MyWrapper::SingleCrossingDefinition
 GUIE3Collector::MyWrapper::buildDefinition(const MSCrossSection &section) {
     const MSLane *lane = section.myLane;
     SUMOReal pos = section.myPosition;
-    const Position2DVector &v = lane->getShape();
-    Line2D l(v.getBegin(), v.getEnd());
+    const PositionVector &v = lane->getShape();
+    Line l(v.getBegin(), v.getEnd());
     SingleCrossingDefinition def;
     def.myFGPosition = v.positionAtLengthPosition(pos);
     def.myFGRotation = -v.rotationDegreeAtLengthPosition(pos);
@@ -130,7 +130,7 @@ GUIE3Collector::MyWrapper::drawGL(const GUIVisualizationSettings &s) const throw
 
 
 void
-GUIE3Collector::MyWrapper::drawSingleCrossing(const Position2D &pos,
+GUIE3Collector::MyWrapper::drawSingleCrossing(const Position &pos,
         SUMOReal rot, SUMOReal upscale) const {
     glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
     glPushMatrix();
@@ -149,11 +149,11 @@ GUIE3Collector::MyWrapper::drawSingleCrossing(const Position2D &pos,
     glEnd();
     // arrows
     glTranslated(1.5, 0, 0);
-    GLHelper::drawBoxLine(Position2D(0, 4), 0, 2, .05);
-    GLHelper::drawTriangleAtEnd(Line2D(Position2D(0, 4), Position2D(0, 1)), (SUMOReal) 1, (SUMOReal) .25);
+    GLHelper::drawBoxLine(Position(0, 4), 0, 2, .05);
+    GLHelper::drawTriangleAtEnd(Line(Position(0, 4), Position(0, 1)), (SUMOReal) 1, (SUMOReal) .25);
     glTranslated(-3, 0, 0);
-    GLHelper::drawBoxLine(Position2D(0, 4), 0, 2, .05);
-    GLHelper::drawTriangleAtEnd(Line2D(Position2D(0, 4), Position2D(0, 1)), (SUMOReal) 1, (SUMOReal) .25);
+    GLHelper::drawBoxLine(Position(0, 4), 0, 2, .05);
+    GLHelper::drawTriangleAtEnd(Line(Position(0, 4), Position(0, 1)), (SUMOReal) 1, (SUMOReal) .25);
     glPopMatrix();
 }
 

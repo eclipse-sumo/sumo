@@ -32,7 +32,7 @@
 #include <microsim/MSVehicle.h>
 #include <microsim/MSLane.h>
 #include <microsim/MSEdge.h>
-#include <utils/geom/Position2DVector.h>
+#include <utils/geom/PositionVector.h>
 #include <utils/common/DijkstraRouterTT.h>
 #include <utils/common/DijkstraRouterEffort.h>
 #include "TraCIConstants.h"
@@ -913,7 +913,7 @@ TraCIServerAPI_Vehicle::commandDistanceRequest(traci::TraCIServer &server, tcpip
         return false;
     }
 
-    Position2D pos;
+    Position pos;
     std::pair<const MSLane*, SUMOReal> roadPos;
 
     // read position

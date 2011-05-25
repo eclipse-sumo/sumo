@@ -39,7 +39,7 @@
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/StringUtils.h>
 #include <utils/options/OptionsCont.h>
-#include <utils/geom/Line2D.h>
+#include <utils/geom/Line.h>
 #include <utils/geom/GeomHelper.h>
 #include <utils/geom/bezier.h>
 #include <utils/common/MsgHandler.h>
@@ -192,14 +192,14 @@ NBNode::ApproachingDivider::spread(const std::vector<int> &approachingLanes,
 /* -------------------------------------------------------------------------
  * NBNode-methods
  * ----------------------------------------------------------------------- */
-NBNode::NBNode(const std::string &id, const Position2D &position) throw() : 
+NBNode::NBNode(const std::string &id, const Position &position) throw() : 
     Named(StringUtils::convertUmlaute(id)), 
     myPosition(position),
     myType(NODETYPE_UNKNOWN), myDistrict(0), myRequest(0) 
 { }
 
 
-NBNode::NBNode(const std::string &id, const Position2D &position,
+NBNode::NBNode(const std::string &id, const Position &position,
                SumoXMLNodeType type) throw() : 
     Named(StringUtils::convertUmlaute(id)), 
     myPosition(position),
@@ -207,7 +207,7 @@ NBNode::NBNode(const std::string &id, const Position2D &position,
 { }
 
 
-NBNode::NBNode(const std::string &id, const Position2D &position, NBDistrict *district) throw() : 
+NBNode::NBNode(const std::string &id, const Position &position, NBDistrict *district) throw() : 
     Named(StringUtils::convertUmlaute(id)), 
     myPosition(position),
     myType(NODETYPE_DISTRICT), myDistrict(district), myRequest(0) 
@@ -220,7 +220,7 @@ NBNode::~NBNode() throw() {
 
 
 void
-NBNode::reinit(const Position2D &position, SumoXMLNodeType type) throw() {
+NBNode::reinit(const Position &position, SumoXMLNodeType type) throw() {
     myPosition = position;
     // patch type
     myType = type;
@@ -544,7 +544,7 @@ NBNode::countInternalLanes(bool includeSplits) const {
 }
 
 
-Position2DVector
+PositionVector
 NBNode::computeInternalLaneShape(NBEdge *fromE, int fromL,
                                  NBEdge *toE, int toL) const {
     if (fromL>=(int) fromE->getNoLanes()) {
@@ -554,11 +554,11 @@ NBNode::computeInternalLaneShape(NBEdge *fromE, int fromL,
         throw ProcessError("Connection '" + fromE->getID() + "_" + toString(fromL) + "->" + toE->getID() + "_" + toString(toL) + "' yields in a not existing lane.");
     }
     bool noSpline = false;
-    Position2DVector ret;
-    Position2DVector init;
-    Position2D beg = fromE->getLaneShape(fromL).getEnd();
-    Position2D end = toE->getLaneShape(toL).getBegin();
-    Position2D intersection;
+    PositionVector ret;
+    PositionVector init;
+    Position beg = fromE->getLaneShape(fromL).getEnd();
+    Position end = toE->getLaneShape(toL).getBegin();
+    Position intersection;
     unsigned int noInitialPoints = 0;
     if (beg.distanceTo(end) <= POSITION_EPS) {
         noSpline = true;
@@ -570,10 +570,10 @@ NBNode::computeInternalLaneShape(NBEdge *fromE, int fromL,
             //  - begin of outgoing lane
             noInitialPoints = 3;
             init.push_back(beg);
-            Line2D straightConn(fromE->getLaneShape(fromL)[-1],toE->getLaneShape(toL)[0]);
-            Position2D straightCenter = straightConn.getPositionAtDistance((SUMOReal) straightConn.length() / (SUMOReal) 2.);
-            Position2D center = straightCenter;//.add(straightCenter);
-            Line2D cross(straightConn);
+            Line straightConn(fromE->getLaneShape(fromL)[-1],toE->getLaneShape(toL)[0]);
+            Position straightCenter = straightConn.getPositionAtDistance((SUMOReal) straightConn.length() / (SUMOReal) 2.);
+            Position center = straightCenter;//.add(straightCenter);
+            Line cross(straightConn);
             cross.sub(cross.p1().x(), cross.p1().y());
             cross.rotateAtP1(PI/2);
             center.sub(cross.p2());
@@ -588,22 +588,22 @@ NBNode::computeInternalLaneShape(NBEdge *fromE, int fromL,
                 // very low angle: almost straight
                 noInitialPoints = 4;
                 init.push_back(beg);
-                Line2D begL = fromE->getLaneShape(fromL).getEndLine();
+                Line begL = fromE->getLaneShape(fromL).getEndLine();
                 begL.extrapolateSecondBy(100);
-                Line2D endL = toE->getLaneShape(toL).getBegLine();
+                Line endL = toE->getLaneShape(toL).getBegLine();
                 endL.extrapolateFirstBy(100);
                 SUMOReal distance = beg.distanceTo(end);
                 if (distance>10) {
                     {
                         SUMOReal off1 = fromE->getLaneShape(fromL).getEndLine().length() + (SUMOReal) 5. * (SUMOReal) fromE->getNoLanes();
                         off1 = MIN2(off1, (SUMOReal)(fromE->getLaneShape(fromL).getEndLine().length()+distance/2.));
-                        Position2D tmp = begL.getPositionAtDistance(off1);
+                        Position tmp = begL.getPositionAtDistance(off1);
                         init.push_back(tmp);
                     }
                     {
                         SUMOReal off1 = (SUMOReal) 100. - (SUMOReal) 5. * (SUMOReal) toE->getNoLanes();
                         off1 = MAX2(off1, (SUMOReal)(100.-distance/2.));
-                        Position2D tmp = endL.getPositionAtDistance(off1);
+                        Position tmp = endL.getPositionAtDistance(off1);
                         init.push_back(tmp);
                     }
                 } else {
@@ -618,8 +618,8 @@ NBNode::computeInternalLaneShape(NBEdge *fromE, int fromL,
                 // attention: if there is no intersection, use a straight line
                 noInitialPoints = 3;
                 init.push_back(beg);
-                Line2D begL = fromE->getLaneShape(fromL).getEndLine();
-                Line2D endL = toE->getLaneShape(toL).getBegLine();
+                Line begL = fromE->getLaneShape(fromL).getEndLine();
+                Line endL = toE->getLaneShape(toL).getBegLine();
                 bool check = !begL.p1().almostSame(begL.p2()) && !endL.p1().almostSame(endL.p2());
                 if (check) {
                     begL.extrapolateSecondBy(100);
@@ -651,9 +651,9 @@ NBNode::computeInternalLaneShape(NBEdge *fromE, int fromL,
         SUMOReal ret_buf[NO_INTERNAL_POINTS*3+1];
         bezier(noInitialPoints, def, NO_INTERNAL_POINTS, ret_buf);
         delete[] def;
-        Position2D prev;
+        Position prev;
         for (int i=0; i<(int) NO_INTERNAL_POINTS; i++) {
-            Position2D current(ret_buf[i*3+1], ret_buf[i*3+3]);
+            Position current(ret_buf[i*3+1], ret_buf[i*3+3]);
             if (prev!=current) {
                 ret.push_back(current);
             }
@@ -662,7 +662,7 @@ NBNode::computeInternalLaneShape(NBEdge *fromE, int fromL,
     }
     const NBEdge::Lane &lane = fromE->getLaneStruct(fromL);
     if(lane.offset>0) {
-        Position2DVector beg = lane.shape.getSubpart(lane.shape.length()-lane.offset, lane.shape.length());;
+        PositionVector beg = lane.shape.getSubpart(lane.shape.length()-lane.offset, lane.shape.length());;
         beg.appendWithCrossingPoint(ret);
         ret = beg;
     }
@@ -713,7 +713,7 @@ NBNode::getCrossingPosition(NBEdge *fromE, unsigned int fromL, NBEdge *toE, unsi
     case MMLDIR_LEFT:
     case MMLDIR_PARTLEFT:
     case MMLDIR_TURN: {
-        Position2DVector thisShape = computeInternalLaneShape(fromE, fromL, toE, toL);
+        PositionVector thisShape = computeInternalLaneShape(fromE, fromL, toE, toL);
         unsigned int index = 0;
         for (EdgeVector::const_iterator i2=myIncomingEdges.begin(); i2!=myIncomingEdges.end(); i2++) {
             unsigned int noLanesEdge = (*i2)->getNoLanes();
@@ -726,7 +726,7 @@ NBNode::getCrossingPosition(NBEdge *fromE, unsigned int fromL, NBEdge *toE, unsi
                     if (needsCont(fromE, toE, *i2, (*k2).toEdge, *k2)) {
                         // compute the crossing point
                         ret.second.push_back(index);
-                        Position2DVector otherShape = computeInternalLaneShape(*i2, j2, (*k2).toEdge, (*k2).toLane);
+                        PositionVector otherShape = computeInternalLaneShape(*i2, j2, (*k2).toEdge, (*k2).toLane);
                         if (thisShape.intersects(otherShape)) {
                             DoubleVector dv = thisShape.intersectsAtLengths(otherShape);
                             SUMOReal minDV = dv[0];
@@ -764,7 +764,7 @@ NBNode::getCrossingNames_dividedBySpace(NBEdge *fromE, unsigned int fromL,
     case MMLDIR_LEFT:
     case MMLDIR_PARTLEFT:
     case MMLDIR_TURN: {
-        Position2DVector thisShape = computeInternalLaneShape(fromE, fromL, toE, toL);
+        PositionVector thisShape = computeInternalLaneShape(fromE, fromL, toE, toL);
         unsigned int index = 0;
         for (EdgeVector::const_iterator i2=myIncomingEdges.begin(); i2!=myIncomingEdges.end(); i2++) {
             unsigned int noLanesEdge = (*i2)->getNoLanes();
@@ -809,7 +809,7 @@ NBNode::getCrossingSourcesNames_dividedBySpace(NBEdge *fromE, unsigned int fromL
     case MMLDIR_LEFT:
     case MMLDIR_PARTLEFT:
     case MMLDIR_TURN: {
-        Position2DVector thisShape = computeInternalLaneShape(fromE, fromL, toE, toL);
+        PositionVector thisShape = computeInternalLaneShape(fromE, fromL, toE, toL);
         unsigned int index = 0;
         for (EdgeVector::const_iterator i2=myIncomingEdges.begin(); i2!=myIncomingEdges.end(); i2++) {
             unsigned int noLanesEdge = (*i2)->getNoLanes();
@@ -1322,27 +1322,27 @@ NBNode::removeIncoming(NBEdge *edge) {
 
 
 
-Position2D
+Position
 NBNode::getEmptyDir() const {
-    Position2D pos(0, 0);
+    Position pos(0, 0);
     EdgeVector::const_iterator i;
     for (i=myIncomingEdges.begin(); i!=myIncomingEdges.end(); i++) {
         NBNode *conn = (*i)->getFromNode();
-        Position2D toAdd = conn->getPosition();
+        Position toAdd = conn->getPosition();
         toAdd.sub(myPosition);
         toAdd.mul((SUMOReal) 1.0/sqrt(toAdd.x()*toAdd.x()+toAdd.y()*toAdd.y()));
         pos.add(toAdd);
     }
     for (i=myOutgoingEdges.begin(); i!=myOutgoingEdges.end(); i++) {
         NBNode *conn = (*i)->getToNode();
-        Position2D toAdd = conn->getPosition();
+        Position toAdd = conn->getPosition();
         toAdd.sub(myPosition);
         toAdd.mul((SUMOReal) 1.0/sqrt(toAdd.x()*toAdd.x()+toAdd.y()*toAdd.y()));
         pos.add(toAdd);
     }
     pos.mul((SUMOReal) -1.0/(myIncomingEdges.size()+myOutgoingEdges.size()));
     if (pos.x()==0&&pos.y()==0) {
-        pos = Position2D(1, 0);
+        pos = Position(1, 0);
     }
     pos.norm();
     return pos;
@@ -1665,7 +1665,7 @@ NBNode::getEdgesToJoin() const {
 }
 
 
-const Position2DVector &
+const PositionVector &
 NBNode::getShape() const {
     return myPoly;
 }

@@ -172,7 +172,7 @@ TraCIServerAPI_POI::processSet(TraCIServer &server, tcpip::Storage &inputStorage
         }
         SUMOReal x = inputStorage.readDouble();
         SUMOReal y = inputStorage.readDouble();
-        shapeCont.movePoI(layer, id, Position2D(x, y));
+        shapeCont.movePoI(layer, id, Position(x, y));
     }
     break;
     case ADD: {
@@ -212,7 +212,7 @@ TraCIServerAPI_POI::processSet(TraCIServer &server, tcpip::Storage &inputStorage
         SUMOReal x = inputStorage.readDouble();
         SUMOReal y = inputStorage.readDouble();
         //
-        if (!shapeCont.addPoI(id, layer, type, RGBColor(r, g, b), Position2D(x, y))) {
+        if (!shapeCont.addPoI(id, layer, type, RGBColor(r, g, b), Position(x, y))) {
             delete p;
             server.writeStatusCmd(CMD_SET_POI_VARIABLE, RTYPE_ERR, "Could not add PoI.", outputStorage);
             return false;

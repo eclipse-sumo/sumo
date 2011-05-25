@@ -46,7 +46,7 @@
 #include <utils/common/RGBColor.h>
 #include <utils/geom/GeomHelper.h>
 #include <utils/geom/Boundary.h>
-#include <utils/geom/Position2D.h>
+#include <utils/geom/Position.h>
 #include <utils/geom/GeoConvHelper.h>
 #include <utils/importio/NamedColumnsParser.h>
 
@@ -82,9 +82,9 @@ void
 PCLoaderVisum::load(const std::string &file, OptionsCont &oc, PCPolyContainer &toFill,
                     PCTypeMap &tm) throw(ProcessError) {
     std::string what;
-    std::map<long, Position2D> punkte;
-    std::map<long, Position2DVector> kanten;
-    std::map<long, Position2DVector> teilflaechen;
+    std::map<long, Position> punkte;
+    std::map<long, PositionVector> kanten;
+    std::map<long, PositionVector> teilflaechen;
     std::map<long, long> flaechenelemente;
     NamedColumnsParser lineParser;
     LineReader lr(file);
@@ -100,7 +100,7 @@ PCLoaderVisum::load(const std::string &file, OptionsCont &oc, PCPolyContainer &t
             long id = TplConvert<char>::_2long(lineParser.get("ID").c_str());
             SUMOReal x = TplConvert<char>::_2SUMOReal(lineParser.get("XKOORD").c_str());
             SUMOReal y = TplConvert<char>::_2SUMOReal(lineParser.get("YKOORD").c_str());
-            Position2D pos(x, y);
+            Position pos(x, y);
             if (!GeoConvHelper::x2cartesian(pos)) {
                 MsgHandler::getWarningInstance()->inform("Unable to project coordinates for point '" + toString(id) + "'.");
             }
@@ -111,7 +111,7 @@ PCLoaderVisum::load(const std::string &file, OptionsCont &oc, PCPolyContainer &t
             long id = TplConvert<char>::_2long(lineParser.get("ID").c_str());
             long fromID = TplConvert<char>::_2long(lineParser.get("VONPUNKTID").c_str());
             long toID = TplConvert<char>::_2long(lineParser.get("NACHPUNKTID").c_str());
-            Position2DVector vec;
+            PositionVector vec;
             vec.push_back(punkte[fromID]);
             vec.push_back(punkte[toID]);
             kanten[id] = vec;
@@ -122,7 +122,7 @@ PCLoaderVisum::load(const std::string &file, OptionsCont &oc, PCPolyContainer &t
             int index = TplConvert<char>::_2int(lineParser.get("INDEX").c_str());
             SUMOReal x = TplConvert<char>::_2SUMOReal(lineParser.get("XKOORD").c_str());
             SUMOReal y = TplConvert<char>::_2SUMOReal(lineParser.get("YKOORD").c_str());
-            Position2D pos(x, y);
+            Position pos(x, y);
             if (!GeoConvHelper::x2cartesian(pos)) {
                 MsgHandler::getWarningInstance()->inform("Unable to project coordinates for edge '" + toString(id) + "'.");
             }
@@ -136,7 +136,7 @@ PCLoaderVisum::load(const std::string &file, OptionsCont &oc, PCPolyContainer &t
             long kid = TplConvert<char>::_2long(lineParser.get("KANTEID").c_str());
             int dir = TplConvert<char>::_2int(lineParser.get("RICHTUNG").c_str());
             if (teilflaechen.find(id)==teilflaechen.end()) {
-                teilflaechen[id] = Position2DVector();
+                teilflaechen[id] = PositionVector();
             }
             if (dir==0) {
                 for (int i=0; i<(int) kanten[kid].size(); ++i) {
@@ -185,7 +185,7 @@ PCLoaderVisum::load(const std::string &file, OptionsCont &oc, PCPolyContainer &t
     bool parsingCategories = false;
     bool parsingPOIs = false;
     bool parsingDistrictsDirectly = false;
-    Position2DVector vec;
+    PositionVector vec;
     std::string polyType, lastID;
     bool first = true;
     while (lr.hasMore()) {
@@ -228,7 +228,7 @@ PCLoaderVisum::load(const std::string &file, OptionsCont &oc, PCPolyContainer &t
             // process read values
             SUMOReal x = TplConvert<char>::_2SUMOReal(xpos.c_str());
             SUMOReal y = TplConvert<char>::_2SUMOReal(ypos.c_str());
-            Position2D pos(x, y);
+            Position pos(x, y);
             if (!GeoConvHelper::x2cartesian(pos)) {
                 MsgHandler::getWarningInstance()->inform("Unable to project coordinates for POI '" + num + "'.");
             }
@@ -283,7 +283,7 @@ PCLoaderVisum::load(const std::string &file, OptionsCont &oc, PCPolyContainer &t
                     color = c;
                 }
                 if (!discard) {
-                    Polygon2D *poly = new Polygon2D(id, type, color, vec, false);
+                    Polygon *poly = new Polygon(id, type, color, vec, false);
                     if (!toFill.insert(id, poly, 1)) {
                         MsgHandler::getErrorInstance()->inform("Polygon '" + id + "' could not been added.");
                         delete poly;
@@ -297,7 +297,7 @@ PCLoaderVisum::load(const std::string &file, OptionsCont &oc, PCPolyContainer &t
             std::string index = st.next();
             std::string xpos = st.next();
             std::string ypos = st.next();
-            Position2D pos2D((SUMOReal) atof(xpos.c_str()), (SUMOReal) atof(ypos.c_str()));
+            Position pos2D((SUMOReal) atof(xpos.c_str()), (SUMOReal) atof(ypos.c_str()));
             if (!GeoConvHelper::x2cartesian(pos2D)) {
                 MsgHandler::getWarningInstance()->inform("Unable to project coordinates for polygon '" + id + "'.");
             }
@@ -335,7 +335,7 @@ PCLoaderVisum::load(const std::string &file, OptionsCont &oc, PCPolyContainer &t
             }
             if (!discard) {
                 if (teilflaechen[flaechenelemente[id]].size()>0) {
-                    Polygon2D *poly = new Polygon2D(name, type, color, teilflaechen[flaechenelemente[id]], false);
+                    Polygon *poly = new Polygon(name, type, color, teilflaechen[flaechenelemente[id]], false);
                     if (!toFill.insert(name, poly, layer)) {
                         MsgHandler::getErrorInstance()->inform("Polygon '" + name + "' could not been added.");
                         delete poly;
@@ -343,7 +343,7 @@ PCLoaderVisum::load(const std::string &file, OptionsCont &oc, PCPolyContainer &t
                 } else {
                     SUMOReal x = TplConvert<char>::_2SUMOReal(xpos.c_str());
                     SUMOReal y = TplConvert<char>::_2SUMOReal(ypos.c_str());
-                    Position2D pos(x, y);
+                    Position pos(x, y);
                     if (!GeoConvHelper::x2cartesian(pos)) {
                         MsgHandler::getWarningInstance()->inform("Unable to project coordinates for POI '" + name + "'.");
                     }

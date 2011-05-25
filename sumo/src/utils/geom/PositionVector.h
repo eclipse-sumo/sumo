@@ -1,5 +1,5 @@
 /****************************************************************************/
-/// @file    Position2DVector.h
+/// @file    PositionVector.h
 /// @author  Daniel Krajzewicz
 /// @date    Sept 2002
 /// @version $Id$
@@ -16,8 +16,8 @@
 //   (at your option) any later version.
 //
 /****************************************************************************/
-#ifndef Position2DVector_h
-#define Position2DVector_h
+#ifndef PositionVector_h
+#define PositionVector_h
 
 
 // ===========================================================================
@@ -34,40 +34,40 @@
 #include <utils/common/VectorHelper.h>
 #include "AbstractPoly.h"
 #include "Boundary.h"
-#include "Position2D.h"
+#include "Position.h"
 
 
-class Line2D;
+class Line;
 
 // ===========================================================================
 // class definitions
 // ===========================================================================
 /**
- * @class Position2DVector
+ * @class PositionVector
  * @brief A list of 2D-positions
  */
-class Position2DVector
+class PositionVector
             : public AbstractPoly {
 public:
     /// Definition of the list of points
-    typedef std::deque<Position2D> ContType;
+    typedef std::deque<Position> ContType;
 
 public:
     /** @brief Constructor
      *
      * Creates an empty position vector
      */
-    Position2DVector() throw();
+    PositionVector() throw();
 
 
     /** @brief Constructor
      * @param[in] v The vector to copy
      */
-    Position2DVector(const std::vector<Position2D> &v) throw();
+    PositionVector(const std::vector<Position> &v) throw();
 
 
     /// @brief Destructor
-    ~Position2DVector() throw();
+    ~PositionVector() throw();
 
 
     /// @name Adding items to the container
@@ -76,47 +76,47 @@ public:
     /** @brief Appends the given position to the list
      * @param[in] p The position to append
      */
-    void push_back(const Position2D &p) throw();
+    void push_back(const Position &p) throw();
 
 
     /** @brief Appends all positions from the given vector
      * @param[in] p The vector from which values shall be appended
      */
-    void push_back(const Position2DVector &p) throw();
+    void push_back(const PositionVector &p) throw();
     /// @}
 
 
 
     /// Puts the given position at the begin of the list
-    void push_front(const Position2D &p);
+    void push_front(const Position &p);
 
     /** @brief Returns the information whether the position vector describes a polygon lying around the given point
         The optional offset is added to the polygon's bounderies */
-    bool around(const Position2D &p, SUMOReal offset=0) const;
+    bool around(const Position &p, SUMOReal offset=0) const;
 
     /** @brief Returns the information whether the given polygon overlaps with this
         Again a boundary may be specified */
     bool overlapsWith(const AbstractPoly &poly, SUMOReal offset=0) const;
 
     /** Returns the information whether this list of points interesects the given line */
-    bool intersects(const Position2D &p1, const Position2D &p2) const;
+    bool intersects(const Position &p1, const Position &p2) const;
 
     /** Returns the information whether this list of points interesects one the given lines */
-    bool intersects(const Position2DVector &v1) const;
+    bool intersects(const PositionVector &v1) const;
 
     /** Returns the position of the intersection */
-    Position2D intersectsAtPoint(const Position2D &p1,
-                                 const Position2D &p2) const; // !!!
+    Position intersectsAtPoint(const Position &p1,
+                                 const Position &p2) const; // !!!
 
-    Position2DVector intersectsAtPoints(const Position2D &p1,
-                                        const Position2D &p2) const; // !!!
+    PositionVector intersectsAtPoints(const Position &p1,
+                                        const Position &p2) const; // !!!
 
-    DoubleVector intersectsAtLengths(const Position2DVector &s) const; // !!!
+    DoubleVector intersectsAtLengths(const PositionVector &s) const; // !!!
 
-    DoubleVector intersectsAtLengths(const Line2D &s) const; // !!!
+    DoubleVector intersectsAtLengths(const Line &s) const; // !!!
 
     /** Returns the position of the intersection */
-    Position2D intersectsAtPoint(const Position2DVector &v1) const; // !!!
+    Position intersectsAtPoint(const PositionVector &v1) const; // !!!
 
     /// Removes all information from this list
     void clear();
@@ -125,32 +125,32 @@ public:
 
     /** @brief returns the position at the given index
         !!! exceptions?*/
-    const Position2D &operator[](int index) const;
-    Position2D &operator[](int index);
+    const Position &operator[](int index) const;
+    Position &operator[](int index);
 
     /// returns the number of points making up the line vector
     size_t size() const;
 
     /// Returns the position at the given length
-    Position2D positionAtLengthPosition(SUMOReal pos) const;
+    Position positionAtLengthPosition(SUMOReal pos) const;
 
     /// Returns the position at the given length
     SUMOReal rotationDegreeAtLengthPosition(SUMOReal pos) const;
 
     /// Returns the position between the two given point at the specified position */
-    static Position2D positionAtLengthPosition(const Position2D &p1,
-            const Position2D &p2, SUMOReal pos);
+    static Position positionAtLengthPosition(const Position &p1,
+            const Position &p2, SUMOReal pos);
 
     /// Returns a boundary enclosing this list of lines
     Boundary getBoxBoundary() const;
 
     /** @brief Returns the center
         !! Only for closed??? */
-    Position2D getPolygonCenter() const;
-    Position2D getLineCenter() const;
+    Position getPolygonCenter() const;
+    Position getLineCenter() const;
 
-    Position2D pop_back();
-    Position2D pop_front();
+    Position pop_back();
+    Position pop_front();
 
     /// Returns the length
     SUMOReal length() const;
@@ -163,32 +163,32 @@ public:
     bool partialWithin(const AbstractPoly &poly, SUMOReal offset=0) const;
 
     /// Returns the first position
-    const Position2D &getBegin() const;
+    const Position &getBegin() const;
 
     /// Returns the last position
-    const Position2D &getEnd() const;
+    const Position &getEnd() const;
 
     /// Returns the two lists made when this list vector is splitted at the given point
-    std::pair<Position2DVector, Position2DVector> splitAt(SUMOReal where) const;
+    std::pair<PositionVector, PositionVector> splitAt(SUMOReal where) const;
 
     /// Output operator
     friend std::ostream &operator<<(std::ostream &os,
-                                    const Position2DVector &geom);
+                                    const PositionVector &geom);
 
-    bool crosses(const Position2D &p1, const Position2D &p2) const;
+    bool crosses(const Position &p1, const Position &p2) const;
 
     void reshiftRotate(SUMOReal xoff, SUMOReal yoff, SUMOReal rot);
 
-    Position2DVector convexHull() const;
+    PositionVector convexHull() const;
 
-    int appendWithCrossingPoint(const Position2DVector &v);
+    int appendWithCrossingPoint(const PositionVector &v);
 
 
     const ContType &getCont() const {
         return myCont;
     }
 
-    Position2DVector getSubpart(SUMOReal begin, SUMOReal end) const;
+    PositionVector getSubpart(SUMOReal begin, SUMOReal end) const;
 
     void sortAsPolyCWByAngle();
 
@@ -196,25 +196,25 @@ public:
 
     void extrapolate(SUMOReal val);
 
-    Position2DVector reverse() const;
+    PositionVector reverse() const;
 
     void move2side(SUMOReal amount);
     void move2side(SUMOReal amount, int index);
 
-    Line2D lineAt(size_t pos) const;
+    Line lineAt(size_t pos) const;
 
-    Line2D getBegLine() const;
+    Line getBegLine() const;
 
-    Line2D getEndLine() const;
+    Line getEndLine() const;
 
 
-    void insertAt(int index, const Position2D &p);
+    void insertAt(int index, const Position &p);
 
     // brief inserts p between the two closest positions
-    void insertAtClosest(const Position2D &p);
+    void insertAtClosest(const Position &p);
 
     /// comparing operation
-    bool operator==(const Position2DVector &v2) const;
+    bool operator==(const PositionVector &v2) const;
 
     class as_poly_cw_sorter {
     public:
@@ -223,7 +223,7 @@ public:
 
     public:
         /// comparing operation
-        int operator()(const Position2D &p1, const Position2D &p2) const;
+        int operator()(const Position &p1, const Position &p2) const;
 
     };
 
@@ -234,36 +234,36 @@ public:
 
     public:
         /// comparing operation
-        int operator()(const Position2D &p1, const Position2D &p2) const;
+        int operator()(const Position &p1, const Position &p2) const;
 
     };
 
     // !!!
-    SUMOReal isLeft(const Position2D &P0, const Position2D &P1, const Position2D &P2) const;
+    SUMOReal isLeft(const Position &P0, const Position &P1, const Position &P2) const;
 
-    void set(size_t pos, const Position2D &p);
+    void set(size_t pos, const Position &p);
 
-    void pruneFromBeginAt(const Position2D &p);
-    void pruneFromEndAt(const Position2D &p);
+    void pruneFromBeginAt(const Position &p);
+    void pruneFromEndAt(const Position &p);
 
     SUMOReal beginEndAngle() const;
 
     void eraseAt(int i);
 
-    SUMOReal nearest_position_on_line_to_point(const Position2D &p, bool perpendicular=true) const;
+    SUMOReal nearest_position_on_line_to_point(const Position &p, bool perpendicular=true) const;
 
     // @brief index of the closest position to p
-    int indexOfClosest(const Position2D &p) const;
+    int indexOfClosest(const Position &p) const;
 
     // distances of all my points to s and all of s points to myself
-    DoubleVector distances(const Position2DVector &s) const;
+    DoubleVector distances(const PositionVector &s) const;
 
-    SUMOReal distance(const Position2D &p) const;
+    SUMOReal distance(const Position &p) const;
 
-    void push_back_noDoublePos(const Position2D &p);
-    void push_front_noDoublePos(const Position2D &p);
+    void push_back_noDoublePos(const Position &p);
+    void push_front_noDoublePos(const Position &p);
 
-    void replaceAt(size_t index, const Position2D &by);
+    void replaceAt(size_t index, const Position &by);
 
     bool isClosed() const;
 
