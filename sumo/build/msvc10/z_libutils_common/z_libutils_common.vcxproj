@@ -173,6 +173,7 @@
     <ClInclude Include="..\..\..\src\utils\common\RGBColor.h" />
     <ClInclude Include="..\..\..\src\utils\common\StaticCommand.h" />
     <ClInclude Include="..\..\..\src\utils\common\StdDefs.h" />
+    <ClInclude Include="..\..\..\src\utils\common\StringBijection.h" />
     <ClInclude Include="..\..\..\src\utils\common\StringTokenizer.h" />
     <ClInclude Include="..\..\..\src\utils\common\StringUtils.h" />
     <ClInclude Include="..\..\..\src\utils\common\SUMOAbstractRouter.h" />

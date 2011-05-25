@@ -169,5 +169,8 @@
     <ClInclude Include="..\..\..\src\utils\common\WrappingCommand.h">
       <Filter>Header-Dateien</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\src\utils\common\StringBijection.h">
+      <Filter>Header-Dateien</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
