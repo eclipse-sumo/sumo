@@ -311,8 +311,8 @@ NBEdge::hasDefaultGeometryEndpoints() const {
 
 void
 NBEdge::setGeometry(const PositionVector &s, bool inner) throw() {
-    Position2D begin = myGeom.getBegin(); // may differ from node position
-    Position2D end = myGeom.getEnd(); // may differ from node position
+    Position begin = myGeom.getBegin(); // may differ from node position
+    Position end = myGeom.getEnd(); // may differ from node position
     myGeom = s;
     if (inner) {
         myGeom.push_front(begin);
