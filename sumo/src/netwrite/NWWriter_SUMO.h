@@ -94,7 +94,7 @@ protected:
      * @param[in] index The index of the lane within the edge
      */
     static void writeLane(OutputDevice &into, const std::string &lID, const std::string &eID, 
-        const NBEdge::Lane &lane, const SUMOReal length, unsigned int index);
+        const NBEdge::Lane &lane, SUMOReal length, unsigned int index);
 
 
     /** @brief Writes a junction (<junction ...)

@@ -299,7 +299,7 @@ NWWriter_SUMO::writeEdge(OutputDevice &into, const NBEdge &e) {
 
 
 void
-NWWriter_SUMO::writeLane(OutputDevice &into, const std::string &eID, const std::string &lID, const NBEdge::Lane &lane, const SUMOReal length, unsigned int index) {
+NWWriter_SUMO::writeLane(OutputDevice &into, const std::string &eID, const std::string &lID, const NBEdge::Lane &lane, SUMOReal length, unsigned int index) {
     // output the lane's attributes
     into << "      <lane id=\"" << lID << "\"";
     // the first lane of an edge will be the depart lane
@@ -324,6 +324,9 @@ NWWriter_SUMO::writeLane(OutputDevice &into, const std::string &eID, const std::
     } else if (lane.speed<0) {
         throw ProcessError("Negative velocity (" + toString(lane.speed) + " on edge '" + eID + "' lane#" + toString(index) + ".");
     }
+    if(lane.offset>0) {
+        length = length - lane.offset;
+    }
     into << " maxspeed=\"" << lane.speed << "\" length=\"" << length << "\"";
     if (lane.offset > 0) {
         into << " offset=\"" << lane.offset << '\"';
@@ -331,7 +334,11 @@ NWWriter_SUMO::writeLane(OutputDevice &into, const std::string &eID, const std::
     if (lane.width > 0) {
         into << " width=\"" << lane.width << '\"';
     }
-    into << " shape=\"" << lane.shape << "\"/>\n";
+    Position2DVector shape = lane.shape;
+    if(lane.offset>0) {
+        shape = shape.getSubpart(0, shape.length()-lane.offset);
+    }
+    into << " shape=\"" << shape << "\"/>\n";
 }
 
 

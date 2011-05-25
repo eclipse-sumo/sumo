@@ -640,27 +640,31 @@ NBNode::computeInternalLaneShape(NBEdge *fromE, int fromL,
     if (noSpline) {
         ret.push_back(fromE->getLaneShape(fromL).getEnd());
         ret.push_back(toE->getLaneShape(toL).getBegin());
-        return ret;
-    }
-
-    SUMOReal *def = new SUMOReal[1+noInitialPoints*3];
-    for (int i=0; i<(int) init.size(); ++i) {
-        // starts at index 1
-        def[i*3+1] = init[i].x();
-        def[i*3+2] = 0;
-        def[i*3+3] = init[i].y();
-    }
-    SUMOReal ret_buf[NO_INTERNAL_POINTS*3+1];
-    bezier(noInitialPoints, def, NO_INTERNAL_POINTS, ret_buf);
-    delete[] def;
-    Position2D prev;
-
-    for (int i=0; i<(int) NO_INTERNAL_POINTS; i++) {
-        Position2D current(ret_buf[i*3+1], ret_buf[i*3+3]);
-        if (prev!=current) {
-            ret.push_back(current);
+    } else {
+        SUMOReal *def = new SUMOReal[1+noInitialPoints*3];
+        for (int i=0; i<(int) init.size(); ++i) {
+            // starts at index 1
+            def[i*3+1] = init[i].x();
+            def[i*3+2] = 0;
+            def[i*3+3] = init[i].y();
         }
-        prev = current;
+        SUMOReal ret_buf[NO_INTERNAL_POINTS*3+1];
+        bezier(noInitialPoints, def, NO_INTERNAL_POINTS, ret_buf);
+        delete[] def;
+        Position2D prev;
+        for (int i=0; i<(int) NO_INTERNAL_POINTS; i++) {
+            Position2D current(ret_buf[i*3+1], ret_buf[i*3+3]);
+            if (prev!=current) {
+                ret.push_back(current);
+            }
+            prev = current;
+        }
+    }
+    const NBEdge::Lane &lane = fromE->getLaneStruct(fromL);
+    if(lane.offset>0) {
+        Position2DVector beg = lane.shape.getSubpart(lane.shape.length()-lane.offset, lane.shape.length());;
+        beg.appendWithCrossingPoint(ret);
+        ret = beg;
     }
     return ret;
 }
