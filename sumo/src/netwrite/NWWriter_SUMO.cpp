@@ -210,7 +210,7 @@ NWWriter_SUMO::writeInternalEdges(OutputDevice &into, const NBNode &n) {
 
                 Position2DVector shape = n.computeInternalLaneShape(*i, j, (*k).toEdge, (*k).toLane);
                 assert(shape.size() >= 2);
-                SUMOReal length = MAX2(shape.length(), POSITION_EPS);
+                SUMOReal length = MAX2(shape.length(), (SUMOReal)POSITION_EPS);
 
                 // get internal splits if any
                 std::pair<SUMOReal, std::vector<unsigned int> > cross = n.getCrossingPosition(*i, j, (*k).toEdge, (*k).toLane);
