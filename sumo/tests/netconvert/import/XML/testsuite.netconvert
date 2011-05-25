@@ -28,6 +28,9 @@ node_overwrite
 # tests whether overwriting earlier loaded edge attributes works
 edge_overwrite
 
+# Tests for setting an offset
+offset
+
 # testing error input and handling
 errors
 
