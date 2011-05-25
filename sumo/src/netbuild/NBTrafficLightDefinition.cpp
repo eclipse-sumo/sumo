@@ -88,8 +88,8 @@ NBTrafficLightDefinition::~NBTrafficLightDefinition() throw() {}
 NBTrafficLightLogic *
 NBTrafficLightDefinition::compute(const NBEdgeCont &ec, OptionsCont &oc) throw() {
     // it is not really a traffic light if no incoming edge exists
-    if (myIncomingEdges.size()==0) {
-        WRITE_WARNING("The traffic light '" + getID() + "' has no incoming edges; it will not be build.");
+    if (myControlledLinks.size()==0) {
+        WRITE_WARNING("The traffic light '" + getID() + "' does not control any links; it will not be build.");
         return 0;
     }
     // compute the time needed to brake

@@ -1,7 +1,7 @@
-Warning: The traffic light '56231397' has no incoming edges; it will not be build.
+Warning: The traffic light '56231397' does not control any links; it will not be build.
 Warning: Could not build traffic lights '56231397'
-Warning: The traffic light 'joinedS_0' has no incoming edges; it will not be build.
+Warning: The traffic light 'joinedS_0' does not control any links; it will not be build.
 Warning: Could not build traffic lights 'joinedS_0'
-Leaked object at 0x1632540 (size 16, 0x339dea4bb9)
+Leaked object at 0xf78e540 (size 16, 0x339dea4bb9)
 *** 1 leaks found
-delete: freed 0x1632540 (size 16, 0 bytes still allocated)
+delete: freed 0xf78e540 (size 16, 0 bytes still allocated)
