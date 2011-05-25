@@ -915,7 +915,7 @@ MSLane::swapAfterLaneChange(SUMOTime) {
 
 
 GUILaneWrapper *
-MSLane::buildLaneWrapper() {
+MSLane::buildLaneWrapper(unsigned int) {
     throw "Only within the gui-version";
 }
 

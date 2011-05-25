@@ -70,10 +70,11 @@ SUMOReal GUILaneWrapper::myAllMaxSpeed = 0;
 // ===========================================================================
 // method definitions
 // ===========================================================================
-GUILaneWrapper::GUILaneWrapper(MSLane &lane, const Position2DVector &shape) throw() : 
+GUILaneWrapper::GUILaneWrapper(MSLane &lane, const Position2DVector &shape, unsigned int index) throw() : 
     GUIGlObject(GLO_LANE, lane.getID()),
     myLane(lane), 
-    myShape(shape) 
+    myShape(shape),
+    myIndex(index)
 {
     SUMOReal x1 = shape[0].x();
     SUMOReal y1 = shape[0].y();
@@ -405,6 +406,7 @@ void
 GUILaneWrapper::drawGL(const GUIVisualizationSettings &s) const throw() {
     glPushMatrix();
     const bool isInternal = getLane().getEdge().getPurpose()==MSEdge::EDGEFUNCTION_INTERNAL;
+    bool mustDrawMarkings = false;
     if (isInternal) {
         // draw internal lanes on top of junctions
         glTranslated(0, 0, GLO_JUNCTION + 0.1);
@@ -426,6 +428,7 @@ GUILaneWrapper::drawGL(const GUIVisualizationSettings &s) const throw() {
     } else {
         if (!isInternal) {
             GLHelper::drawBoxLines(myShape, myShapeRotations, myShapeLengths, myHalfLaneWidth);
+            mustDrawMarkings = true;
         } else {
             GLHelper::drawBoxLines(myShape, myShapeRotations, myShapeLengths, myQuarterLaneWidth);
         }
@@ -456,6 +459,9 @@ GUILaneWrapper::drawGL(const GUIVisualizationSettings &s) const throw() {
             glPopMatrix();
         }
     }
+    if (mustDrawMarkings) { // needs matrix reset
+        drawMarkings(s);
+    }
     // draw vehicles
     if (s.scale>s.minVehicleSize) {
         // retrieve vehicles from lane; disallow simulation
@@ -470,27 +476,41 @@ GUILaneWrapper::drawGL(const GUIVisualizationSettings &s) const throw() {
 
 
 void
-GUILaneWrapper::drawBordersGL(const GUIVisualizationSettings &s) const throw() {
+GUILaneWrapper::drawMarkings(const GUIVisualizationSettings &s) const {
+    glPushMatrix();
+    glPushName(0);
+    glTranslated(0, 0, GLO_EDGE);
 #ifdef HAVE_MESOSIM
     if (!MSGlobals::gUseMesoSim)
 #endif
         s.laneColorer.setGlColor(*this);
-    // check whether lane boundaries shall be drawn
-    int e = (int) myShape.size() - 1;
-    for (int i=0; i<e; i++) {
-        glPushMatrix();
-        glTranslated(myShape[i].x(), myShape[i].y(), 0);
-        glRotated(myShapeRotations[i], 0, 0, 1);
-        for (SUMOReal t=0; t<myShapeLengths[i]; t+=6) {
-            glBegin(GL_QUADS);
-            glVertex2d(-1.8, -t);
-            glVertex2d(-1.8, -t-3.);
-            glVertex2d(1.0, -t-3.);
-            glVertex2d(1.0, -t);
-            glEnd();
+    // optionally draw inverse markings 
+    if (myIndex > 0) {
+        int e = (int) getShape().size() - 1;
+        for (int i=0; i<e; i++) {
+            glPushMatrix();
+            glTranslated(getShape()[i].x(), getShape()[i].y(), 0.1);
+            glRotated(myShapeRotations[i], 0, 0, 1);
+            for (SUMOReal t=0; t<myShapeLengths[i]; t+=6) {
+                glBegin(GL_QUADS);
+                glVertex2d(-1.8, -t);
+                glVertex2d(-1.8, -t-3.);
+                glVertex2d(1.0, -t-3.);
+                glVertex2d(1.0, -t);
+                glEnd();
+            }
+            glPopMatrix();
         }
-        glPopMatrix();
     }
+    // draw white boundings and white markings
+    glColor3d(1,1,1);
+    GLHelper::drawBoxLines(
+            getShape(), 
+            getShapeRotations(), 
+            getShapeLengths(), 
+            getHalfWidth() + SUMO_const_laneOffset);
+    glPopMatrix();
+    glPopName();
 }
 
 

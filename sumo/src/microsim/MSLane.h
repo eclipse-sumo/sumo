@@ -468,7 +468,7 @@ public:
 
 
     // valid for gui-version only
-    virtual GUILaneWrapper *buildLaneWrapper();
+    virtual GUILaneWrapper *buildLaneWrapper(unsigned int index);
 
     virtual MSVehicle *removeVehicle(MSVehicle *remVehicle);
 

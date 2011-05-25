@@ -124,7 +124,7 @@ public:
     bool integrateNewVehicle(SUMOTime t);
     ///@}
 
-    GUILaneWrapper *buildLaneWrapper();
+    GUILaneWrapper *buildLaneWrapper(unsigned int index);
 
     void detectCollisions(SUMOTime timestep);
     MSVehicle *removeVehicle(MSVehicle *remVehicle);

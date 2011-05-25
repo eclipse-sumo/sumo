@@ -64,7 +64,7 @@ public:
      * @param[in] lane The lane to be represented
      * @param[in] shape The shape of the lane (!!! this is a member of the lane - no need to give it additionally)
      */
-    GUILaneWrapper(MSLane &lane, const Position2DVector &shape) throw();
+    GUILaneWrapper(MSLane &lane, const Position2DVector &shape, unsigned int index) throw();
 
 
     /// @brief Destructor
@@ -136,7 +136,8 @@ public:
     bool forLane(const MSLane &lane) const;
 
 
-    void drawBordersGL(const GUIVisualizationSettings &s) const throw();
+    /// @brief draw lane borders and white markings
+    void drawMarkings(const GUIVisualizationSettings &s) const;
 
 
     /// Returns the number of links
@@ -224,6 +225,9 @@ protected:
 
     /// The maximum velocity over all lanes
     static SUMOReal myAllMaxSpeed;
+
+    /// The lane index 
+    unsigned int myIndex;
 
 private:
     /// @brief Invalidated copy constructor.

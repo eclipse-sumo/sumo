@@ -81,8 +81,8 @@ GUIEdge::initGeometry() throw() {
     }
     // build the lane wrapper
     myLaneGeoms.reserve(myLanes->size());
-    for (std::vector<MSLane*>::const_iterator i=myLanes->begin(); i<myLanes->end(); ++i) {
-        myLaneGeoms.push_back((*i)->buildLaneWrapper());
+    for (unsigned int i = 0; i < myLanes->size(); i++) {
+        myLaneGeoms.push_back(myLanes->at(i)->buildLaneWrapper(i));
     }
 }
 
@@ -211,21 +211,6 @@ GUIEdge::drawGL(const GUIVisualizationSettings &s) const throw() {
         }
 #endif
         (*i)->drawGL(s);
-    }
-    // check whether lane boundaries shall be drawn
-    if (s.scale>1.&&s.laneShowBorders&&myFunction!=MSEdge::EDGEFUNCTION_INTERNAL) {
-        glTranslated(0, 0, .01);
-        for (LaneWrapperVector::const_iterator i=myLaneGeoms.begin()+1; i!=myLaneGeoms.end(); ++i) {
-            (*i)->drawBordersGL(s);
-        }
-        glTranslated(0, 0, -.01);
-        // draw white boundings
-        glTranslated(0, 0, .02);
-        glColor3d(1,1,1);
-        for (LaneWrapperVector::const_iterator i=myLaneGeoms.begin(); i!=myLaneGeoms.end(); ++i) {
-            GLHelper::drawBoxLines((*i)->getShape(), (*i)->getShapeRotations(), (*i)->getShapeLengths(), (*i)->getHalfWidth()+SUMO_const_laneOffset);
-        }
-        glTranslated(0, 0, -.02);
     }
 #ifdef HAVE_MESOSIM
     if (MSGlobals::gUseMesoSim) {
