@@ -360,13 +360,20 @@ NBNodeCont::joinJunctions(SUMOReal maxdist, NBDistrictCont &dc, NBEdgeCont &ec, 
         }
         if (cluster.size() > 1) {
             // ok, we still have something to cluster. create the new node
-            std::string id = "cluster";
             Position2D pos;
+            std::vector<std::string> member_ids;
             for (std::set<NBNode*>::const_iterator j=cluster.begin(); j!=cluster.end(); j++) {
-                id = id + "_" + (*j)->getID();
+                member_ids.push_back((*j)->getID());
                 pos.add((*j)->getPosition());
             }
             pos.mul(1.0 / cluster.size());
+
+            // need to sort the member names to make the output deterministic
+            sort(member_ids.begin(), member_ids.end());
+            std::string id = "cluster";
+            for (std::vector<std::string>::iterator j=member_ids.begin(); j!=member_ids.end(); j++) {
+                id = id + "_" + (*j);
+            }
             if (!insert(id, pos)) {
                 // should not fail
                 WRITE_WARNING("Could not join junctions " + id);
