@@ -38,11 +38,10 @@
 #include <utils/common/RGBColor.h>
 
 
-#ifdef _WIN32
-#include <windows.h>
-#endif
-
-#include <GL/gl.h>
+// ===========================================================================
+// definitions
+// ===========================================================================
+typedef unsigned int GUIGlID;
 
 
 // ===========================================================================
@@ -103,7 +102,7 @@ public:
     /** @brief Returns the numerical id of the object
      * @return This object's gl-id
      */
-    GLuint getGlID() const throw() {
+    GUIGlID getGlID() const throw() {
         return myGlID;
     }
     /// @}
@@ -266,11 +265,11 @@ private:
      * May not be done within the constructor in the case of compund objects
      * @param[in] id The (new) id of the object
      */
-    void setGlID(GLuint id) throw();
+    void setGlID(GUIGlID id) throw();
 
 private:
     /// @brief The numerical id of the object
-    GLuint myGlID;
+    GUIGlID myGlID;
 
     /// @brief The type of the object
     const GUIGlObjectType myGLObjectType;

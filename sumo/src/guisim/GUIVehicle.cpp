@@ -27,6 +27,12 @@
 #include <config.h>
 #endif
 
+#ifdef WIN32
+#include <windows.h>
+#endif
+
+#include <GL/gl.h>
+
 #include <cmath>
 #include <vector>
 #include <string>
@@ -977,15 +983,21 @@ GUIVehicle::Colorer::Colorer() {
 bool
 GUIVehicle::Colorer::setFunctionalColor(const GUIVehicle& vehicle) const {
     switch (myActiveScheme) {
-    case 1:
-        vehicle.setOwnDefinedColor();
+    case 1: {
+		const RGBColor &col = vehicle.getParameter().color;
+        glColor3d(col.red(), col.green(), col.blue());
         return true;
-    case 2:
-        vehicle.setOwnTypeColor();
+			}
+    case 2: {
+		const RGBColor &col = vehicle.getVehicleType().getColor();
+        glColor3d(col.red(), col.green(), col.blue());
         return true;
-    case 3:
-        vehicle.setOwnRouteColor();
+			}
+    case 3: {
+		const RGBColor &col = vehicle.getRoute().getColor();
+        glColor3d(col.red(), col.green(), col.blue());
         return true;
+			}
     case 4: {
         Position p = vehicle.getRoute().getEdges()[0]->getLanes()[0]->getShape()[0];
         const Boundary &b = ((GUINet*) MSNet::getInstance())->getBoundary();

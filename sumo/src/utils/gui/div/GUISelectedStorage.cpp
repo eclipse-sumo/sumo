@@ -53,19 +53,19 @@ GUISelectedStorage::SingleTypeSelections::~SingleTypeSelections() {}
 
 
 bool
-GUISelectedStorage::SingleTypeSelections::isSelected(GLuint id) {
+GUISelectedStorage::SingleTypeSelections::isSelected(GUIGlID id) {
     return mySelected.count(id) > 0;
 }
 
 
 void
-GUISelectedStorage::SingleTypeSelections::select(GLuint id) {
+GUISelectedStorage::SingleTypeSelections::select(GUIGlID id) {
     mySelected.insert(id);
 }
 
 
 void
-GUISelectedStorage::SingleTypeSelections::deselect(GLuint id) {
+GUISelectedStorage::SingleTypeSelections::deselect(GUIGlID id) {
     mySelected.erase(id);
 }
 
@@ -82,7 +82,7 @@ GUISelectedStorage::SingleTypeSelections::save(const std::string &filename) {
 }
 
 
-const std::set<GLuint> &
+const std::set<GUIGlID> &
 GUISelectedStorage::SingleTypeSelections::getSelected() const {
     return mySelected;
 }
@@ -99,7 +99,7 @@ GUISelectedStorage::~GUISelectedStorage() {}
 
 
 bool
-GUISelectedStorage::isSelected(GUIGlObjectType type, GLuint id) {
+GUISelectedStorage::isSelected(GUIGlObjectType type, GUIGlID id) {
     switch (type) {
         case GLO_NETWORK:
             return false;
@@ -112,7 +112,7 @@ GUISelectedStorage::isSelected(GUIGlObjectType type, GLuint id) {
 
 
 void
-GUISelectedStorage::select(GLuint id, bool update) {
+GUISelectedStorage::select(GUIGlID id, bool update) {
     GUIGlObject *object = GUIGlObjectStorage::gIDStorage.getObjectBlocking(id);
     if (!object) {
         throw ProcessError("Unkown object in GUISelectedStorage::select (id=" + toString(id) + ").");
@@ -129,7 +129,7 @@ GUISelectedStorage::select(GLuint id, bool update) {
 
 
 void
-GUISelectedStorage::deselect(GLuint id) {
+GUISelectedStorage::deselect(GUIGlID id) {
     GUIGlObject *object = GUIGlObjectStorage::gIDStorage.getObjectBlocking(id);
     if (!object) {
         throw ProcessError("Unkown object in GUISelectedStorage::deselect (id=" + toString(id) + ").");
@@ -146,7 +146,7 @@ GUISelectedStorage::deselect(GLuint id) {
 
 
 void
-GUISelectedStorage::toggleSelection(GLuint id) {
+GUISelectedStorage::toggleSelection(GUIGlID id) {
     GUIGlObject *object = GUIGlObjectStorage::gIDStorage.getObjectBlocking(id);
     if (!object) {
         throw ProcessError("Unkown object in GUISelectedStorage::toggleSelection (id=" + toString(id) + ").");
@@ -162,13 +162,13 @@ GUISelectedStorage::toggleSelection(GLuint id) {
 }
 
 
-const std::set<GLuint> &
+const std::set<GUIGlID> &
 GUISelectedStorage::getSelected() const {
     return myAllSelected;
 }
 
 
-const std::set<GLuint> &
+const std::set<GUIGlID> &
 GUISelectedStorage::getSelected(GUIGlObjectType type) {
     return mySelections[type].getSelected();
 }
@@ -245,9 +245,9 @@ GUISelectedStorage::remove2Update() {
 
 
 void
-GUISelectedStorage::save(const std::string &filename, const std::set<GLuint>& ids) {
+GUISelectedStorage::save(const std::string &filename, const std::set<GUIGlID>& ids) {
     OutputDevice &dev = OutputDevice::getDevice(filename);
-    for (std::set<GLuint>::const_iterator i=ids.begin(); i!=ids.end(); ++i) {
+    for (std::set<GUIGlID>::const_iterator i=ids.begin(); i!=ids.end(); ++i) {
         GUIGlObject *object = GUIGlObjectStorage::gIDStorage.getObjectBlocking(*i);
         if (object!=0) {
             std::string name = object->getFullName();

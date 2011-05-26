@@ -81,7 +81,7 @@ GUIVehicleControl::deleteVehicle(SUMOVehicle *veh) throw() {
 
 
 void
-GUIVehicleControl::insertVehicleIDs(std::vector<GLuint> &into) throw() {
+GUIVehicleControl::insertVehicleIDs(std::vector<GUIGlID> &into) throw() {
     myLock.lock();
     into.reserve(myVehicleDict.size());
     for (VehicleDictType::iterator i=myVehicleDict.begin(); i!=myVehicleDict.end(); ++i) {

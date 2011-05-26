@@ -28,6 +28,7 @@
 #endif
 
 #include <cassert>
+#include <utils/foxtools/MFXMutex.h>
 #include "GUIEventControl.h"
 
 #ifdef CHECK_MEMORY_LEAKS
@@ -38,9 +39,6 @@
 // ===========================================================================
 // member definitions
 // ===========================================================================
-/* -------------------------------------------------------------------------
- * methods from GUIEventControl
- * ----------------------------------------------------------------------- */
 GUIEventControl::GUIEventControl() throw() {}
 
 

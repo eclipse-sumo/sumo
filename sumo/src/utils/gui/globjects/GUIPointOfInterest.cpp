@@ -27,6 +27,12 @@
 #include <config.h>
 #endif
 
+#ifdef WIN32
+#include <windows.h>
+#endif
+
+#include <GL/gl.h>
+
 #include "GUIPointOfInterest.h"
 #include <utils/gui/div/GUIParameterTableWindow.h>
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>

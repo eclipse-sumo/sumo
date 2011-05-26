@@ -31,13 +31,7 @@
 
 #include <vector>
 #include <microsim/MSVehicleControl.h>
-
-#ifdef _WIN32
-#include <windows.h>
-#endif
-
-#include <GL/gl.h>
-
+#include <utils/gui/globjects/GUIGlObject.h>
 
 
 // ===========================================================================
@@ -115,7 +109,7 @@ public:
      * @param[fill] into The list to fill with vehicle ids
      * @todo Well, what about concurrent modifications?
      */
-    void insertVehicleIDs(std::vector<GLuint> &into) throw();
+    void insertVehicleIDs(std::vector<GUIGlID> &into) throw();
 
 
 private:

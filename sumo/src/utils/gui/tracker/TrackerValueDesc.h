@@ -30,10 +30,10 @@
 #include <fx.h>
 #include <string>
 #include <vector>
+#include <utils/foxtools/MFXMutex.h>
 #include <utils/common/RGBColor.h>
 #include <utils/common/SUMOTime.h>
 #include <utils/common/ValueRetriever.h>
-#include <utils/foxtools/MFXMutex.h>
 
 
 // ===========================================================================

@@ -254,9 +254,9 @@ GUINet::guiSimulationStep() {
 }
 
 
-std::vector<GLuint>
+std::vector<GUIGlID>
 GUINet::getJunctionIDs() const {
-    std::vector<GLuint> ret;
+    std::vector<GUIGlID> ret;
     for (std::vector<GUIJunctionWrapper*>::const_iterator i=myJunctionWrapper.begin(); i!=myJunctionWrapper.end(); ++i) {
         ret.push_back((*i)->getGlID());
     }
@@ -264,36 +264,15 @@ GUINet::getJunctionIDs() const {
 }
 
 
-std::vector<GLuint>
+std::vector<GUIGlID>
 GUINet::getTLSIDs() const {
-    std::vector<GLuint> ret;
+    std::vector<GUIGlID> ret;
     std::vector<std::string> ids;
     for (std::map<MSTrafficLightLogic*, GUITrafficLightLogicWrapper*>::const_iterator i=myLogics2Wrapper.begin(); i!=myLogics2Wrapper.end(); ++i) {
         std::string sid = (*i).second->getMicrosimID();
         if (find(ids.begin(), ids.end(), sid)==ids.end()) {
             ret.push_back((*i).second->getGlID());
             ids.push_back(sid);
-        }
-    }
-    return ret;
-}
-
-
-std::vector<GLuint>
-GUINet::getShapeIDs() const {
-    std::vector<GLuint> ret;
-    if (myShapeContainer!=0) {
-        int minLayer = myShapeContainer->getMinLayer();
-        int maxLayer = myShapeContainer->getMaxLayer();
-        for (int j=minLayer; j<=maxLayer; ++j) {
-            const std::map<std::string, Polygon*> &pol = myShapeContainer->getPolygonCont(j).getMyMap();
-            for (std::map<std::string, Polygon*>::const_iterator i=pol.begin(); i!=pol.end(); ++i) {
-                ret.push_back(static_cast<GUIPolygon*>((*i).second)->getGlID());
-            }
-            const std::map<std::string, PointOfInterest*> &poi = myShapeContainer->getPOICont(j).getMyMap();
-            for (std::map<std::string, PointOfInterest*>::const_iterator i=poi.begin(); i!=poi.end(); ++i) {
-                ret.push_back(static_cast<GUIPointOfInterest*>((*i).second)->getGlID());
-            }
         }
     }
     return ret;

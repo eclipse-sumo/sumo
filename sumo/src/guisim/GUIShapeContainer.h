@@ -30,6 +30,7 @@
 #endif
 
 #include <utils/shapes/ShapeContainer.h>
+#include <utils/gui/globjects/GUIGlObject.h>
 #include <utils/foxtools/MFXMutex.h>
 
 
@@ -37,6 +38,7 @@
 // class declarations
 // ===========================================================================
 class SUMORTree;
+class Position;
 
 
 // ===========================================================================
@@ -119,6 +121,10 @@ public:
      * @param[in] shape The polygon's new shape
      */
     void reshapePolygon(int layer, const std::string &id, const PositionVector &shape) throw();
+
+
+    /// Returns the gl-ids of all shapes
+    std::vector<GUIGlID> getShapeIDs() const;
 
 
 private:

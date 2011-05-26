@@ -31,7 +31,6 @@
 
 #include "GUIGlObjectTypes.h"
 #include "GUIGlObject.h"
-#include <utils/geom/Position.h>
 #include <vector>
 #include <map>
 
@@ -62,7 +61,7 @@ public:
     static const std::vector<GUIGlObject_AbstractAdd*> &getObjectList();
 
     /// Returns the list of gl-ids of all additional objects
-    static std::vector<GLuint> getIDList();
+    static std::vector<GUIGlID> getIDList();
 
 
 protected:

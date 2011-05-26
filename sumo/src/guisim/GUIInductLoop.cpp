@@ -37,6 +37,7 @@
 #include <utils/gui/div/GUIParameterTableWindow.h>
 #include <microsim/logging/FuncBinding_IntParam.h>
 #include <microsim/logging/FunctionBinding.h>
+#include <microsim/MSLane.h>
 
 #ifdef _WIN32
 #include <windows.h>

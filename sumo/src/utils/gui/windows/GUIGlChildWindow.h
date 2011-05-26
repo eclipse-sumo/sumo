@@ -78,7 +78,7 @@ public:
     /** @brief Centers the view onto the given artifact
      * @param[in] id The id of the object to center the view on
      */
-    void setView(GLuint id);
+    void setView(GUIGlID id);
 
 protected:
     /// the view

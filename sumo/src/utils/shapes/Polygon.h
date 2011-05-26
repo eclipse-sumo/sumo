@@ -4,7 +4,7 @@
 /// @date    Jun 2004
 /// @version $Id$
 ///
-// A 2D-polygon
+// A 2D- or 3D-polygon
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // Copyright (C) 2001-2011 DLR (http://www.dlr.de/) and contributors
@@ -42,7 +42,7 @@
 // ===========================================================================
 /**
  * @class Polygon
- * @brief A 2D-polygon
+ * @brief A 2D- or 3D-polygon
  */
 class Polygon {
 public:

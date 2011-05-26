@@ -32,6 +32,7 @@
 #include <fx.h>
 #include <fx3d.h>
 #include "GUITexturesHelper.h"
+#include <utils/gui/globjects/GUIGlObject.h>
 
 #ifdef _WIN32
 #include <windows.h>
@@ -53,9 +54,9 @@ bool gAllowTextures;
 // ===========================================================================
 // method definitions
 // ===========================================================================
-unsigned int
+GUIGlID
 GUITexturesHelper::add(FXImage *i) {
-    GLuint id;
+    GUIGlID id;
     glGenTextures(1, &id);
     glBindTexture(GL_TEXTURE_2D, id);
     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA,

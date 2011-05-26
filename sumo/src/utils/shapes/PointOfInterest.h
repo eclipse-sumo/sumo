@@ -40,7 +40,7 @@
 // ===========================================================================
 /**
  * @class PointOfInterest
- * @brief A point-of-interest (2D)
+ * @brief A point-of-interest
  */
 class PointOfInterest : public RGBColor, public Position, public Named {
 public:

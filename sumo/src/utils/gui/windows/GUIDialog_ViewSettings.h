@@ -33,7 +33,12 @@
 #include <utils/gui/windows/GUISUMOAbstractView.h>
 #include <utils/foxtools/FXRealSpinDial.h>
 #include <utils/foxtools/MFXAddEditTypedTable.h>
-#include <utils/foxtools/MFXMutex.h>
+
+
+// ===========================================================================
+// class declarations
+// ===========================================================================
+class MFXMutex;
 
 
 // ===========================================================================

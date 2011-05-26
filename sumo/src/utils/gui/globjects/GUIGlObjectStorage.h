@@ -33,19 +33,8 @@
 #include <string>
 #include <set>
 #include <fx.h>
+#include "GUIGlObject.h"
 #include <utils/foxtools/MFXMutex.h>
-
-#ifdef _WIN32
-#include <windows.h>
-#endif
-
-#include <GL/gl.h>
-
-
-// ===========================================================================
-// class declarations
-// ===========================================================================
-class GUIGlObject;
 
 
 // ===========================================================================
@@ -88,7 +77,7 @@ public:
     /** @brief retrieves a unique id for an object to display
      * @return The next free gl-id
      */
-    GLuint getUniqueID() throw();
+    GUIGlID getUniqueID() throw();
 
 
     /** @brief Returns the object from the container locking it
@@ -99,7 +88,7 @@ public:
      * @param[in] id The id of the object to return
      * @return The object with the given id or 0 if no such object is known
      */
-    GUIGlObject *getObjectBlocking(GLuint id) throw();
+    GUIGlObject *getObjectBlocking(GUIGlID id) throw();
 
 
     /** @brief Returns the object from the container locking it
@@ -122,7 +111,7 @@ public:
      * @param[in] id The id of the object to remove
      * @return Whether the object could be removed (and may be deleted)
      */
-    bool remove(GLuint id) throw();
+    bool remove(GUIGlID id) throw();
 
 
     /** @brief Clears this container
@@ -137,7 +126,7 @@ public:
      * The object is moved from "myBlocked" to "myMap".
      * @param[in] id The id of the object to unblock
      */
-    void unblockObject(GLuint id) throw();
+    void unblockObject(GUIGlID id) throw();
 
 
     /** @brief Sets the given object as the "network" object
@@ -163,11 +152,11 @@ public:
 
     /** @brief Returns the set of all known ids
      */
-    std::set<GLuint> getAllIDs() const;
+    std::set<GUIGlID> getAllIDs() const;
 
 private:
     /// @brief Definition of a container from numerical ids to objects
-    typedef std::map<GLuint, GUIGlObject *> ObjectMap;
+    typedef std::map<GUIGlID, GUIGlObject *> ObjectMap;
 
     /// @brief The known objects which are not accessed currently
     ObjectMap myMap;
@@ -183,7 +172,7 @@ private:
     ObjectMap my2Delete;
 
     /// @brief The next id to give; initially zero, increased by one with each object registration
-    GLuint myAktID;
+    GUIGlID myAktID;
 
     /// @brief A lock to avoid parallel access on the storages
     MFXMutex myLock;

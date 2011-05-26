@@ -35,13 +35,7 @@
 #include <fstream>
 #include <fx.h>
 #include <utils/common/UtilExceptions.h>
-#include <utils/gui/globjects/GUIGlObjectTypes.h>
-
-#ifdef _WIN32
-#include <windows.h>
-#endif
-
-#include <GL/gl.h>
+#include <utils/gui/globjects/GUIGlObject.h>
 
 
 // ===========================================================================
@@ -111,7 +105,7 @@ public:
      * @see GUIGlObjectType
      * @see SingleTypeSelections::isSelected
      */
-    bool isSelected(GUIGlObjectType type, GLuint id);
+    bool isSelected(GUIGlObjectType type, GUIGlID id);
 
 
     /** @brief Adds the object with the given id
@@ -129,7 +123,7 @@ public:
      * @see SingleTypeSelections::select
      * @see GUIDialog_GLChosenEditor
      */
-    void select(GLuint id, bool update=true);
+    void select(GUIGlID id, bool update=true);
 
 
     /** @brief Deselects the object with the given id
@@ -147,7 +141,7 @@ public:
      * @see SingleTypeSelections::deselect
      * @see GUIDialog_GLChosenEditor
      */
-    void deselect(GLuint id);
+    void deselect(GUIGlID id);
 
 
     /** @brief Toggles selection of an object
@@ -164,7 +158,7 @@ public:
      * @see deselect
      * @see select
      */
-    void toggleSelection(GLuint id);
+    void toggleSelection(GUIGlID id);
 
 
     /** @brief Returns the list of ids of all selected objects
@@ -172,7 +166,7 @@ public:
      *
      * @return The set of all selected objects (ids)
      */
-    const std::set<GLuint> &getSelected() const; 
+    const std::set<GUIGlID> &getSelected() const; 
 
 
     /**  @brief Returns the set of ids of all selected objects' of a certain type
@@ -181,7 +175,7 @@ public:
      * @return A set containing the ids of all selected objects of the given type
      * @see SingleTypeSelections::getSelected
      */
-    const std::set<GLuint> &getSelected(GUIGlObjectType type);
+    const std::set<GUIGlID> &getSelected(GUIGlObjectType type);
 
 
     /** @brief Clears the list of selected objects
@@ -244,19 +238,19 @@ public:
          * @param[in] id The id of the object
          * @return Whether the object is selected
          */
-        bool isSelected(GLuint id);
+        bool isSelected(GUIGlID id);
 
 
         /** @brief Adds the object with the given id to the list of selected objects
          * @param[in] id The id of the object
          */
-        void select(GLuint id);
+        void select(GUIGlID id);
 
 
         /** @brief Deselects the object with the given id from the list of selected objects
          * @param[in] id The id of the object
          */
-        void deselect(GLuint id);
+        void deselect(GUIGlID id);
 
 
         /// @brief Clears the list of selected objects
@@ -272,11 +266,11 @@ public:
         /** @brief Returns the list of selected ids
          * @return A list containing the ids of all selected objects
          */
-        const std::set<GLuint> &getSelected() const;
+        const std::set<GUIGlID> &getSelected() const;
 
     private:
         /// @brief The list of selected ids
-        std::set<GLuint> mySelected;
+        std::set<GUIGlID> mySelected;
 
     };
     friend class SingleTypeSelections;
@@ -286,18 +280,18 @@ private:
     std::map<GUIGlObjectType, SingleTypeSelections> mySelections;
 
     /// @brief List of selected objects
-    std::set<GLuint> myAllSelected;
+    std::set<GUIGlID> myAllSelected;
 
     /// @brief The dialog to be updated
     UpdateTarget *myUpdateTarget;
 
     /* @brief load items into the given set, optionally restricting to type 
      */
-    std::string load(GUIGlObjectType type, const std::string &filename, bool restrictType, std::set<GLuint>& into);
+    std::string load(GUIGlObjectType type, const std::string &filename, bool restrictType, std::set<GUIGlID>& into);
 
 
     /// @brief saves items from the given set
-    static void save(const std::string &filename, const std::set<GLuint>& ids);
+    static void save(const std::string &filename, const std::set<GUIGlID>& ids);
 
 };
 

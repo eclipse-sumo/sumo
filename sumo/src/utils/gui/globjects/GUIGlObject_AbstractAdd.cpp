@@ -86,9 +86,9 @@ GUIGlObject_AbstractAdd::getObjectList() {
 }
 
 
-std::vector<GLuint>
+std::vector<GUIGlID>
 GUIGlObject_AbstractAdd::getIDList() {
-    std::vector<GLuint> ret;
+    std::vector<GUIGlID> ret;
     for (std::vector<GUIGlObject_AbstractAdd*>::iterator i=myObjectList.begin(); i!=myObjectList.end(); ++i) {
         ret.push_back((*i)->getGlID());
     }

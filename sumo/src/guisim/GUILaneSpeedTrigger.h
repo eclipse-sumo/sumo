@@ -32,20 +32,10 @@
 #include <vector>
 #include <string>
 #include <microsim/trigger/MSLaneSpeedTrigger.h>
-#include <utils/gui/globjects/GUIGlObject.h>
 #include <utils/gui/globjects/GUIGlObject_AbstractAdd.h>
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
-#include <utils/geom/Position.h>
-#include <gui/GUIManipulator.h>
 #include <utils/foxtools/FXRealSpinDial.h>
-
-
-// ===========================================================================
-// class declarations
-// ===========================================================================
-class MSNet;
-class MSLane;
-class GUIManipulator;
+#include <gui/GUIManipulator.h>
 
 
 // ===========================================================================

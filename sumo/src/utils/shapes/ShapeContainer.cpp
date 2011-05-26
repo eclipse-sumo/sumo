@@ -34,16 +34,13 @@
 #include <string>
 #include <cmath>
 #include <utils/common/NamedObjectCont.h>
+#include <utils/shapes/PointOfInterest.h>
 #include <utils/shapes/Polygon.h>
 #include <utils/shapes/ShapeContainer.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/ToString.h>
 #include <utils/common/StdDefs.h>
-
-#ifdef _WIN32
-#include <windows.h>
-#endif
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>

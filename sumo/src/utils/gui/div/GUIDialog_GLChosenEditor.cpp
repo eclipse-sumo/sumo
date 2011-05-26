@@ -125,8 +125,8 @@ GUIDialog_GLChosenEditor::~GUIDialog_GLChosenEditor() throw() {
 void
 GUIDialog_GLChosenEditor::rebuildList() throw() {
     myList->clearItems();
-    const std::set<GLuint> &chosen = gSelected.getSelected();
-    for (std::set<GLuint>::const_iterator i=chosen.begin(); i!=chosen.end(); ++i) {
+    const std::set<GUIGlID> &chosen = gSelected.getSelected();
+    for (std::set<GUIGlID>::const_iterator i=chosen.begin(); i!=chosen.end(); ++i) {
         GUIGlObject *object = GUIGlObjectStorage::gIDStorage.getObjectBlocking(*i);
         if (object!=0) {
             std::string name = object->getFullName();
@@ -187,7 +187,7 @@ long
 GUIDialog_GLChosenEditor::onCmdDeselect(FXObject*,FXSelector,void*) {
     FXint no = myList->getNumItems();
     FXint i;
-    std::vector<GLuint> selected;
+    std::vector<GUIGlID> selected;
     for (i=0; i<no; ++i) {
         if (myList->getItem(i)->isSelected()) {
             selected.push_back(static_cast<GUIGlObject *>(myList->getItem(i)->getData())->getGlID());

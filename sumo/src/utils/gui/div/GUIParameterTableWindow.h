@@ -32,9 +32,9 @@
 #include <vector>
 #include <string>
 #include <fx.h>
+#include <utils/foxtools/MFXMutex.h>
 #include <utils/common/ValueSource.h>
 #include <utils/common/SUMOTime.h>
-#include <utils/foxtools/MFXMutex.h>
 
 
 // ===========================================================================

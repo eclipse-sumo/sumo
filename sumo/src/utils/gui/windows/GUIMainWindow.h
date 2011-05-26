@@ -32,16 +32,13 @@
 #include <fx.h>
 #include <vector>
 #include <string>
-#include <utils/foxtools/MFXMutex.h>
 #include <utils/common/SUMOTime.h>
+#include <utils/foxtools/MFXMutex.h>
 
 
 // ===========================================================================
 // class definitions
 // ===========================================================================
-/**
- *
- */
 class GUIMainWindow : public FXMainWindow {
 public:
     GUIMainWindow(FXApp* a);

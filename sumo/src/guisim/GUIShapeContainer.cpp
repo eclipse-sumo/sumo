@@ -32,10 +32,6 @@
 #include <utils/gui/globjects/GUIPolygon.h>
 #include <utils/gui/globjects/GUIPointOfInterest.h>
 
-#ifdef _WIN32
-#include <windows.h>
-#endif
-
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
 #endif // CHECK_MEMORY_LEAKS
@@ -111,14 +107,13 @@ GUIShapeContainer::removePolygon(int layer, const std::string &id) throw() {
         myLock.unlock();
         return false;
     }
-    NamedObjectCont<Polygon*> &c = myPolygonLayers.find(layer)->second;
-    Polygon *p = c.get(id);
+    GUIPolygon *p = static_cast<GUIPolygon*>(myPolygonLayers.find(layer)->second.get(id));
     if (p==0) {
         myLock.unlock();
         return false;
     }
-    myVis.removeAdditionalGLObject(static_cast<GUIPolygon*>(p));
-    bool ret = c.remove(id);
+    myVis.removeAdditionalGLObject(p);
+    bool ret = myPolygonLayers.find(layer)->second.remove(id);
     myLock.unlock();
     return ret;
 }
@@ -144,14 +139,31 @@ void
 GUIShapeContainer::reshapePolygon(int layer, const std::string &id, const PositionVector &shape) throw() {
     myLock.lock();
     if (myPolygonLayers.find(layer)!=myPolygonLayers.end()) {
-        Polygon *p = myPolygonLayers.find(layer)->second.get(id);
+        GUIPolygon *p = static_cast<GUIPolygon*>(myPolygonLayers.find(layer)->second.get(id));
         if (p!=0) {
-            myVis.removeAdditionalGLObject(static_cast<GUIPolygon*>(p));
+            myVis.removeAdditionalGLObject(p);
             p->setShape(shape);
-            myVis.addAdditionalGLObject(static_cast<GUIPolygon*>(p));
+            myVis.addAdditionalGLObject(p);
         }
     }
     myLock.unlock();
+}
+
+
+std::vector<GUIGlID>
+GUIShapeContainer::getShapeIDs() const {
+    std::vector<GUIGlID> ret;
+    for (int j=myMinLayer; j<=myMaxLayer; ++j) {
+        const PolyMap &pol = getPolygonCont(j).getMyMap();
+        for (PolyMap::const_iterator i=pol.begin(); i!=pol.end(); ++i) {
+            ret.push_back(static_cast<GUIPolygon*>((*i).second)->getGlID());
+        }
+        const std::map<std::string, PointOfInterest*> &poi = getPOICont(j).getMyMap();
+        for (std::map<std::string, PointOfInterest*>::const_iterator i=poi.begin(); i!=poi.end(); ++i) {
+            ret.push_back(static_cast<GUIPointOfInterest*>((*i).second)->getGlID());
+        }
+    }
+    return ret;
 }
 
 

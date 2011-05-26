@@ -31,8 +31,16 @@
 
 #include <string>
 #include <utils/common/NamedObjectCont.h>
-#include <utils/shapes/Polygon.h>
-#include "PointOfInterest.h"
+
+
+// ===========================================================================
+// class declarations
+// ===========================================================================
+class Polygon;
+class PointOfInterest;
+class Position;
+class PositionVector;
+class RGBColor;
 
 
 // ===========================================================================
@@ -165,6 +173,7 @@ protected:
 
 
 protected:
+	typedef std::map<std::string, Polygon*> PolyMap;
     /// @brief Polygon layers
     mutable std::map<int, NamedObjectCont<Polygon*> > myPolygonLayers;
 

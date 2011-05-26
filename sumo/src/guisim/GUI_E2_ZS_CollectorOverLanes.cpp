@@ -100,7 +100,7 @@ GUI_E2_ZS_CollectorOverLanes::MyWrapper::MyWrapper(
     const LaneDetMap &detectors) throw()
         : GUIDetectorWrapper("E2OverLanes detector", detector.getID()),
         myDetector(detector) {
-    GLuint glID = GUIGlObjectStorage::gIDStorage.getUniqueID();
+    GUIGlID glID = GUIGlObjectStorage::gIDStorage.getUniqueID();
     for (LaneDetMap::const_iterator i=detectors.begin(); i!=detectors.end(); ++i) {
         MSLane *l = (*i).first;
         GUIEdge &edge = static_cast<GUIEdge&>(l->getEdge());

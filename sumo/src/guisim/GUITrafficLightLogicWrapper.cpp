@@ -27,6 +27,12 @@
 #include <config.h>
 #endif
 
+#ifdef WIN32
+#include <windows.h>
+#endif
+
+#include <GL/gl.h>
+
 #include <cassert>
 #include <utils/gui/globjects/GUIGlObject.h>
 #include <gui/GUIApplicationWindow.h>

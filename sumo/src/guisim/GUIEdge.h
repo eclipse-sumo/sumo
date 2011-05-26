@@ -31,27 +31,9 @@
 
 #include <vector>
 #include <string>
-#include <utils/geom/Position.h>
-#include <utils/geom/Boundary.h>
-#include <microsim/MSLane.h>
 #include <microsim/MSEdge.h>
 #include <utils/gui/globjects/GUIGlObject.h>
 #include "GUILaneWrapper.h"
-#include <utils/gui/settings/GUIColorer.h>
-
-#ifdef WIN32
-#include <windows.h>
-#endif
-
-#include <GL/gl.h>
-
-
-// ===========================================================================
-// class declarations
-// ===========================================================================
-class MSJunction;
-class GUILane;
-class GUIBasicLane;
 
 
 // ===========================================================================
@@ -83,7 +65,7 @@ public:
 
 
     /** Returns the list of all known edge ids */
-    static std::vector<GLuint> getIDs();
+    static std::vector<GUIGlID> getIDs();
 
     /// Returns the street's geometry
     Boundary getBoundary() const;

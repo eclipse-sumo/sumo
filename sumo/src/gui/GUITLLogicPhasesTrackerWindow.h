@@ -42,12 +42,6 @@
 #include <microsim/logging/FunctionBinding.h>
 #include <utils/common/SUMOTime.h>
 #include <utils/foxtools/FXRealSpinDial.h>
-#include <utils/foxtools/MFXMutex.h>
-
-#ifdef _WIN32
-#include <windows.h>
-#include <GL/gl.h>
-#endif
 
 
 // ===========================================================================
@@ -56,6 +50,7 @@
 class GUIMainWindow;
 class MSTrafficLightLogic;
 class GUITrafficLightLogicWrapper;
+class MFXMutex;
 
 
 // ===========================================================================

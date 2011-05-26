@@ -31,6 +31,7 @@
 #include <utility>
 #include <cmath>
 #include <cassert>
+#include <utils/shapes/ShapeContainer.h>
 #include <foreign/gl2ps/gl2ps.h>
 #include <utils/common/RGBColor.h>
 #include <utils/common/ToString.h>
@@ -53,7 +54,6 @@
 #include "GUIDialog_EditViewport.h"
 #include <foreign/polyfonts/polyfonts.h>
 #include <utils/shapes/PointOfInterest.h>
-#include <utils/shapes/ShapeContainer.h>
 #include <utils/gui/globjects/GUIPointOfInterest.h>
 #include <utils/gui/globjects/GUIPolygon.h>
 #include <utils/gui/windows/GUIDialog_ViewSettings.h>
@@ -247,24 +247,24 @@ GUISUMOAbstractView::paintGL() {
 }
 
 
-GLuint
+GUIGlID
 GUISUMOAbstractView::getObjectUnderCursor() {
     return getObjectAtPosition(getPositionInformation());
 }
 
 
-GLuint
+GUIGlID
 GUISUMOAbstractView::getObjectAtPosition(Position pos) {
     const SUMOReal SENSITIVITY = 0.1; // meters
     Boundary selection;
     selection.add(pos);
     selection.grow(SENSITIVITY);
-    const std::vector<GLuint> ids = getObjectsInBoundary(selection);
+    const std::vector<GUIGlID> ids = getObjectsInBoundary(selection);
     // Interpret results
     unsigned int idMax = 0;
     int prevLayer = -1000;
-    for (std::vector<GLuint>::const_iterator it = ids.begin(); it != ids.end(); it++) {
-        GLuint id = *it;
+    for (std::vector<GUIGlID>::const_iterator it = ids.begin(); it != ids.end(); it++) {
+        GUIGlID id = *it;
         GUIGlObject *o = GUIGlObjectStorage::gIDStorage.getObjectBlocking(id);
         if (o==0) {
             continue;
@@ -309,11 +309,11 @@ GUISUMOAbstractView::getObjectAtPosition(Position pos) {
 }
 
 
-std::vector<GLuint> 
+std::vector<GUIGlID> 
 GUISUMOAbstractView::getObjectsInBoundary(const Boundary& bound) {
     const int NB_HITS_MAX = 1024 * 1024;
     // Prepare the selection mode
-    static GLuint hits[NB_HITS_MAX];
+    static GUIGlID hits[NB_HITS_MAX];
     static GLint nb_hits = 0;
     glSelectBuffer(NB_HITS_MAX, hits);
     glInitNames();
@@ -329,7 +329,7 @@ GUISUMOAbstractView::getObjectsInBoundary(const Boundary& bound) {
     if (nb_hits == -1) {
         myApp->setStatusBarText("Selection in boundary failed. Try to select fewer than " + toString(hits2) + " items");
     }
-    std::vector<GLuint> result;
+    std::vector<GUIGlID> result;
     for (int i=0; i<nb_hits; ++i) {
         assert(i*4+3<NB_HITS_MAX);
         result.push_back(hits[i*4+3]);
@@ -480,7 +480,7 @@ GUISUMOAbstractView::recenterView() {
 
 
 void
-GUISUMOAbstractView::centerTo(GLuint id) {
+GUISUMOAbstractView::centerTo(GUIGlID id) {
     GUIGlObject *o = GUIGlObjectStorage::gIDStorage.getObjectBlocking(id);
     if (o!=0 && dynamic_cast<GUIGlObject*>(o)!=0) {
         myChanger->setViewport(o->getCenteringBoundary());

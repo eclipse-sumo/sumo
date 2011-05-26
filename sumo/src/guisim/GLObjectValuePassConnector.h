@@ -32,16 +32,15 @@
 #include <algorithm>
 #include <vector>
 #include <map>
-#include <utils/gui/globjects/GUIGlObject.h>
 #include <utils/common/ValueSource.h>
 #include <utils/common/ValueRetriever.h>
-#include <utils/foxtools/MFXMutex.h>
 
 
 // ===========================================================================
 // class declarations
 // ===========================================================================
 class GUIGlObject;
+class MFXMutex;
 
 
 // ===========================================================================

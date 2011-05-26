@@ -237,7 +237,7 @@ GUIGlChildWindow::onCmdChangeColorScheme(FXObject*,FXSelector ,void*data) {
 
 
 void
-GUIGlChildWindow::setView(GLuint id) {
+GUIGlChildWindow::setView(GUIGlID id) {
     myView->centerTo(id);
 }
 

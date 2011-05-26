@@ -29,12 +29,6 @@
 #include <config.h>
 #endif
 
-#ifdef WIN32
-#include <windows.h>
-#endif
-
-#include <GL/gl.h>
-
 #include <vector>
 #include <set>
 #include <string>
@@ -81,35 +75,6 @@ public:
 
     /// @brief destructor
     ~GUIVehicle() throw();
-
-
-    /// @name Setting vehicle color
-    /// @{
-
-    /** @brief Sets the vehicle's given color
-     */
-    inline void setOwnDefinedColor() const throw() {
-        const RGBColor &col = myParameter->color;
-        glColor3d(col.red(), col.green(), col.blue());
-    }
-
-
-    /** @brief Sets the vehicle type's given color
-     */
-    inline void setOwnTypeColor() const throw() {
-        const RGBColor &col = myType->getColor();
-        glColor3d(col.red(), col.green(), col.blue());
-    }
-
-
-    /** @brief Sets the vehicle routes's given color
-     */
-    inline void setOwnRouteColor() const throw() {
-        const RGBColor &col = myRoute->getColor();
-        glColor3d(col.red(), col.green(), col.blue());
-    }
-    /// @}
-
 
 
     /// @name inherited from GUIGlObject

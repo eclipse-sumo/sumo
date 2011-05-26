@@ -29,6 +29,7 @@
 
 #include <string>
 #include <vector>
+#include <guisim/GUIShapeContainer.h>
 #include <fxkeys.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <gui/GUIGlobals.h>
@@ -92,7 +93,7 @@ GUIDialog_GLObjChooser::GUIDialog_GLObjChooser(
     FXVerticalFrame *style1 = new FXVerticalFrame(layout1, LAYOUT_FILL_X|LAYOUT_FILL_Y|LAYOUT_TOP|FRAME_THICK|FRAME_SUNKEN, 0,0,0,0, 0,0,0,0);
     myList = new FXList(style1, this, MID_CHOOSER_LIST, LAYOUT_FILL_X|LAYOUT_FILL_Y|LIST_SINGLESELECT|FRAME_SUNKEN|FRAME_THICK);
     // get the ids
-    std::vector<GLuint> ids;
+    std::vector<GUIGlID> ids;
     switch (type) {
     case GLO_JUNCTION:
         ids = static_cast<GUINet*>(GUINet::getInstance())->getJunctionIDs();
@@ -110,12 +111,12 @@ GUIDialog_GLObjChooser::GUIDialog_GLObjChooser(
         ids = GUIGlObject_AbstractAdd::getIDList();
         break;
     case GLO_SHAPE:
-        ids = static_cast<GUINet*>(GUINet::getInstance())->getShapeIDs();
+		ids = static_cast<GUIShapeContainer&>(GUINet::getInstance()->getShapeContainer()).getShapeIDs();
         break;
     default:
         break;
     }
-    for (std::vector<GLuint>::iterator i=ids.begin(); i!=ids.end(); ++i) {
+    for (std::vector<GUIGlID>::iterator i=ids.begin(); i!=ids.end(); ++i) {
         GUIGlObject *o = glStorage.getObjectBlocking(*i);
         if (o==0) {
             continue;
@@ -162,7 +163,7 @@ long
 GUIDialog_GLObjChooser::onCmdCenter(FXObject*,FXSelector,void*) {
     int selected = myList->getCurrentItem();
     if (selected>=0) {
-        myParent->setView(*static_cast<GLuint*>(myList->getItemData(selected)));
+        myParent->setView(*static_cast<GUIGlID*>(myList->getItemData(selected)));
     }
     return 1;
 }
@@ -193,7 +194,7 @@ long
 GUIDialog_GLObjChooser::onCmdText(FXObject*,FXSelector,void*) {
     int selected = myList->getCurrentItem();
     if (selected>=0) {
-        myParent->setView(*static_cast<GLuint*>(myList->getItemData(selected)));
+        myParent->setView(*static_cast<GUIGlID*>(myList->getItemData(selected)));
     }
     return 1;
 }

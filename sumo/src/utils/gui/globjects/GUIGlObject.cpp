@@ -27,6 +27,12 @@
 #include <config.h>
 #endif
 
+#ifdef WIN32
+#include <windows.h>
+#endif
+
+#include <GL/gl.h>
+
 #include <string>
 #include <stack>
 #include <foreign/polyfonts/polyfonts.h>
@@ -101,7 +107,7 @@ GUIGlObject::~GUIGlObject() throw() {
 
 
 void
-GUIGlObject::setGlID(GLuint id) throw() {
+GUIGlObject::setGlID(GUIGlID id) throw() {
     myGlID = id;
     myFullName = createFullName();
 }

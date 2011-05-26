@@ -40,13 +40,7 @@
 #include <utils/common/SUMOTime.h>
 #include <utils/shapes/Polygon.h>
 #include <utils/gui/globjects/GUIGlObjectTypes.h>
-#include <utils/foxtools/MFXMutex.h>
 #include <foreign/rtree/SUMORTree.h>
-
-#ifdef _WIN32
-#include <windows.h>
-#include <GL/gl.h>
-#endif
 
 
 // ===========================================================================
@@ -62,7 +56,7 @@ class GUIGlObject;
 class GUIDialog_EditViewport;
 class GUIDialog_ViewSettings;
 class GUIVisualizationSettings;
-
+class MFXMutex;
 
 
 // ===========================================================================
@@ -92,7 +86,7 @@ public:
     void recenterView();
 
     /// centers to the chosen artifact
-    void centerTo(GLuint id);
+    void centerTo(GUIGlID id);
 
     /// centers to the chosen artifact
     void centerTo(const Boundary& bound);
@@ -304,13 +298,13 @@ protected:
 
 
     /// returns the id of the object under the cursor using GL_SELECT
-    GLuint getObjectUnderCursor();
+    GUIGlID getObjectUnderCursor();
 
     /// returns the id of the object at position using GL_SELECT
-    GLuint getObjectAtPosition(Position pos);
+    GUIGlID getObjectAtPosition(Position pos);
     
     /// returns the ids of all objects in the given boundary
-    std::vector<GLuint> getObjectsInBoundary(const Boundary& bound); 
+    std::vector<GUIGlID> getObjectsInBoundary(const Boundary& bound); 
 
     /// invokes the tooltip for the given object
     void showToolTipFor(unsigned int id);

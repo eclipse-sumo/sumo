@@ -41,12 +41,6 @@
 #include <utils/gui/globjects/GUIGlObject.h>
 #include <utils/gui/globjects/GUIGlObject_AbstractAdd.h>
 
-#ifdef _WIN32
-#include <windows.h>
-#endif
-
-#include <GL/gl.h>
-
 
 // ===========================================================================
 // class declarations
@@ -217,13 +211,10 @@ public:
     //@{
 
     /// Returns the gl-ids of all junctions within the net
-    std::vector<GLuint> getJunctionIDs() const;
+    std::vector<GUIGlID> getJunctionIDs() const;
 
     /// Returns the gl-ids of all traffic light logics within the net
-    std::vector<GLuint> getTLSIDs() const;
-
-    /// Returns the gl-ids of all shapes within the net
-    std::vector<GLuint> getShapeIDs() const;
+    std::vector<GUIGlID> getTLSIDs() const;
     //@}
 
 

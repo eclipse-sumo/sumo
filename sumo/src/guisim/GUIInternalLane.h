@@ -35,7 +35,6 @@
 #include <microsim/MSEdge.h>
 #include <utils/geom/Position.h>
 #include <utils/geom/PositionVector.h>
-#include <utils/foxtools/MFXMutex.h>
 
 
 // ===========================================================================
@@ -43,6 +42,7 @@
 // ===========================================================================
 class MSVehicle;
 class MSNet;
+class MFXMutex;
 
 
 // ===========================================================================

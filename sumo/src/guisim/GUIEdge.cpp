@@ -110,9 +110,9 @@ GUIEdge::getLaneGeometry(const MSLane *lane) const {
 }
 
 
-std::vector<GLuint>
+std::vector<GUIGlID>
 GUIEdge::getIDs() {
-    std::vector<GLuint> ret;
+    std::vector<GUIGlID> ret;
     ret.reserve(MSEdge::myDict.size());
     for (MSEdge::DictType::iterator i=MSEdge::myDict.begin(); i!=MSEdge::myDict.end(); ++i) {
         ret.push_back(static_cast<GUIEdge*>((*i).second)->getGlID());

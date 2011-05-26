@@ -36,11 +36,6 @@
 #include "TrackerValueDesc.h"
 #include <guisim/GLObjectValuePassConnector.h>
 
-#ifdef _WIN32
-#include <windows.h>
-#include <GL/gl.h>      /* OpenGL header file */
-#endif // _WIN32
-
 
 // ===========================================================================
 // class definitions

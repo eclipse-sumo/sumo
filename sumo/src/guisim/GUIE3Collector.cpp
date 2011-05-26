@@ -33,6 +33,7 @@
 #include <utils/gui/div/GUIParameterTableWindow.h>
 #include <utils/gui/div/GLHelper.h>
 #include <microsim/logging/FunctionBinding.h>
+#include <microsim/MSLane.h>
 
 #ifdef _WIN32
 #include <windows.h>

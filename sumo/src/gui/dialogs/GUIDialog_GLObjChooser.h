@@ -33,8 +33,7 @@
 #include <vector>
 #include <set>
 #include <fx.h>
-#include <GL/gl.h>
-#include <utils/gui/globjects/GUIGlObjectTypes.h>
+#include <utils/gui/globjects/GUIGlObject.h>
 
 
 // ===========================================================================
@@ -121,7 +120,7 @@ private:
 
     /// myList contains (void) pointers to elements of myIDs instead of the more
     //volatile pointers to GUIGlObject
-    std::set<GLuint> myIDs;
+    std::set<GUIGlID> myIDs;
 
 
 protected:

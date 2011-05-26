@@ -27,11 +27,12 @@
 #include <config.h>
 #endif
 
-#include <cassert>
-#include "GUIGlObject.h"
 #include <map>
-#include "GUIGlObjectStorage.h"
 #include <iostream>
+#include <cassert>
+#include <utils/foxtools/MFXMutex.h>
+#include "GUIGlObject.h"
+#include "GUIGlObjectStorage.h"
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -64,17 +65,17 @@ GUIGlObjectStorage::registerObject(GUIGlObject *object) throw() {
 }
 
 
-GLuint
+GUIGlID
 GUIGlObjectStorage::getUniqueID() throw() {
     myLock.lock();
-    GLuint ret = myAktID++;
+    GUIGlID ret = myAktID++;
     myLock.unlock();
     return ret;
 }
 
 
 GUIGlObject *
-GUIGlObjectStorage::getObjectBlocking(GLuint id) throw() {
+GUIGlObjectStorage::getObjectBlocking(GUIGlID id) throw() {
     myLock.lock();
     ObjectMap::iterator i=myMap.find(id);
     if (i==myMap.end()) {
@@ -99,7 +100,7 @@ GUIGlObject *
 GUIGlObjectStorage::getObjectBlocking(const std::string &fullName) throw() {
     myLock.lock();
     if (myFullNameMap.count(fullName)) {
-        GLuint id = myFullNameMap[fullName]->getGlID();
+        GUIGlID id = myFullNameMap[fullName]->getGlID();
         myLock.unlock();
         return getObjectBlocking(id);
     } else {
@@ -110,7 +111,7 @@ GUIGlObjectStorage::getObjectBlocking(const std::string &fullName) throw() {
 
 
 bool
-GUIGlObjectStorage::remove(GLuint id) throw() {
+GUIGlObjectStorage::remove(GUIGlID id) throw() {
     myLock.lock();
     ObjectMap::iterator i=myMap.find(id);
     if (i==myMap.end()) {
@@ -141,7 +142,7 @@ GUIGlObjectStorage::clear() throw() {
 
 
 void
-GUIGlObjectStorage::unblockObject(GLuint id) throw() {
+GUIGlObjectStorage::unblockObject(GUIGlID id) throw() {
     myLock.lock();
     ObjectMap::iterator i=myBlocked.find(id);
     if (i==myBlocked.end()) {
@@ -155,9 +156,9 @@ GUIGlObjectStorage::unblockObject(GLuint id) throw() {
 }
 
 
-std::set<GLuint> 
+std::set<GUIGlID> 
 GUIGlObjectStorage::getAllIDs() const {
-    std::set<GLuint> result;
+    std::set<GUIGlID> result;
     for (ObjectMap::const_iterator it=myMap.begin(); it!=myMap.end(); it++) {
         result.insert(it->first);
     }
