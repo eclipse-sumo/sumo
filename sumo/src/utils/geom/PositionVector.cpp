@@ -348,9 +348,11 @@ PositionVector::splitAt(SUMOReal where) const {
     if (size() < 2 ) {
         throw InvalidArgument("Vector to short for splitting");
     }
+    /*
     if (where <= POSITION_EPS || where >= length() - POSITION_EPS) {
         throw InvalidArgument("Invalid position " + toString(where) + " for splitting vector of length " + toString(length()));
     }
+    */
     PositionVector first, second;
     first.push_back(myCont[0]);
     SUMOReal seen = 0;

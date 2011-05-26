@@ -249,17 +249,18 @@ NBEdge::init(unsigned int noLanes, bool tryIgnoreNodePositions) throw(ProcessErr
             myGeom.push_back(myTo->getPosition());
             myGeom.push_front(myFrom->getPosition());
         } else {
-            PositionVector v;
-            v = myGeom;
-            v.push_back_noDoublePos(myTo->getPosition());
-            v.push_front_noDoublePos(myFrom->getPosition());
-            if (v.size()<2) {
-                myGeom.push_back(myTo->getPosition());
-                myGeom.push_front(myFrom->getPosition());
-            } else {
-                myGeom = v;
-            }
+            myGeom.push_back_noDoublePos(myTo->getPosition());
+            myGeom.push_front_noDoublePos(myFrom->getPosition());
         }
+    }
+    if(myGeom.size()<2) {
+        myGeom.clear();
+        myGeom.push_back(myTo->getPosition());
+        myGeom.push_front(myFrom->getPosition());
+    }
+    if(myGeom.size()==2&&myGeom[0]==myGeom[1]) {
+        MsgHandler::getErrorInstance()->inform("Edge's '" + myID + "' from- and to-node are at the same position.");
+        myGeom[1].add(Position(POSITION_EPS, POSITION_EPS));
     }
     //
     myAngle = NBHelpers::angle(
