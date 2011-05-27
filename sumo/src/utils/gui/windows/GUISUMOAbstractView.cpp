@@ -798,7 +798,6 @@ GUISUMOAbstractView::makeSnapshot(const std::string &destFile) {
             glDisable(GL_BLEND);
             glEnable(GL_DEPTH_TEST);
             // compute lane width
-            SUMOReal lw = m2p(SUMO_const_laneWidth);
             // draw decals (if not in grabbing mode)
             if (!myUseToolTips) {
                 drawDecals();
@@ -815,7 +814,7 @@ GUISUMOAbstractView::makeSnapshot(const std::string &destFile) {
             minB[1] = viewPort.ymin();
             maxB[0] = viewPort.xmax();
             maxB[1] = viewPort.ymax();
-            myVisualizationSettings->scale = lw;
+            myVisualizationSettings->scale = m2p(SUMO_const_laneWidth);
             glEnable(GL_POLYGON_OFFSET_FILL);
             glEnable(GL_POLYGON_OFFSET_LINE);
             myGrid->Search(minB, maxB, *myVisualizationSettings);
