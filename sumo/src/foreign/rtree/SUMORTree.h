@@ -65,8 +65,8 @@ public:
      */
     void addAdditionalGLObject(GUIGlObject *o) throw() {
         Boundary b = o->getCenteringBoundary();
-        const float cmin[2] = {b.xmin(), b.ymin()};
-        const float cmax[2] = {b.xmax(), b.ymax()};
+        const float cmin[2] = {(float) b.xmin(), (float) b.ymin()};
+        const float cmax[2] = {(float) b.xmax(), (float) b.ymax()};
         Insert(cmin, cmax, o);
     }
 
@@ -75,8 +75,8 @@ public:
      */
     void removeAdditionalGLObject(GUIGlObject *o) throw() {
         Boundary b = o->getCenteringBoundary();
-        const float cmin[2] = {b.xmin(), b.ymin()};
-        const float cmax[2] = {b.xmax(), b.ymax()};
+        const float cmin[2] = {(float) b.xmin(), (float) b.ymin()};
+        const float cmax[2] = {(float) b.xmax(), (float) b.ymax()};
         Remove(cmin, cmax, o);
     }
 
