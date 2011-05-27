@@ -191,7 +191,7 @@ private:
         bool depart;
         /// @brief The maximum velocity allowed on this lane
         SUMOReal maxSpeed;
-        /// @brief This lane's shape
+        /// @brief This lane's shape (needed to reconstruct edge shape for legacy networks)
         PositionVector shape;
         /// @brief This lane's connections
         std::vector<Connection> connections;
@@ -220,6 +220,8 @@ private:
         std::string fromNode;
         /// @brief The node this edge ends at
         std::string toNode;
+        /// @brief This edges's shape
+        PositionVector shape;
         /// @brief This edge's priority
         int priority;
         /// @brief The maximum velocity allowed on this edge (!!!)
@@ -271,12 +273,12 @@ private:
      */
     static void interpretLaneID(const std::string &lane_id, std::string &edge_id, size_t &index); 
 
-    /** @brief reconstructs the edge shape from the given lane shapes
+    /** @brief reconstructs the edge shape from the node positions and the given lane shapes
      * since we do not know the original LaneSpreadFunction this is only an
      * approximation
      * @param[in] lanes The list of lane attributes
      */
-    static PositionVector approximateEdgeShape(const EdgeAttrs* edge); 
+    static PositionVector reconstructEdgeShape(const EdgeAttrs* edge, const Position &from, const Position &to); 
 };
 
 

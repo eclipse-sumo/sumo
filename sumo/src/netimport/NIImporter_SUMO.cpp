@@ -125,9 +125,21 @@ NIImporter_SUMO::_loadNetwork(const OptionsCont &oc) {
             MsgHandler::getErrorInstance()->inform("Edge's '" + ed->id + "' to-node '" + ed->toNode + "' is not known.");
             continue;
         }
-        PositionVector geom = approximateEdgeShape(ed);
+        // edge shape
+        PositionVector geom;
+        if (ed->shape.size() > 0) {
+            geom = ed->shape;
+            mySuspectKeepShape = false; // no problem with reconstruction if edge shape is given explicit
+        } else {
+            // either the edge has default shape consisting only of the two node
+            // positions or we have a legacy network
+            geom = reconstructEdgeShape(ed, from->getPosition(), to->getPosition());
+        }
         // build and insert the edge
-        NBEdge *e = new NBEdge(ed->id, from, to, ed->type, ed->maxSpeed, (unsigned int) ed->lanes.size(), ed->priority, -1, -1, geom, ed->lsf);
+        NBEdge *e = new NBEdge(ed->id, from, to, 
+                ed->type, ed->maxSpeed, 
+                (unsigned int) ed->lanes.size(), 
+                ed->priority, -1, -1, geom, ed->lsf, true); // always use tryIgnoreNodePositions to keep original shape
         if (!myNetBuilder.getEdgeCont().insert(e)) {
             MsgHandler::getErrorInstance()->inform("Could not insert edge '" + ed->id + "'.");
             delete e;
@@ -301,6 +313,9 @@ NIImporter_SUMO::addEdge(const SUMOSAXAttributes &attrs) {
     myCurrentEdge->toNode = attrs.getOptStringReporting(SUMO_ATTR_TO, id.c_str(), ok, "");
     myCurrentEdge->priority = attrs.getOptIntReporting(SUMO_ATTR_PRIORITY, id.c_str(), ok, -1);
     myCurrentEdge->type = attrs.getOptStringReporting(SUMO_ATTR_TYPE, id.c_str(), ok, "");
+    myCurrentEdge->shape = GeomConvHelper::parseShapeReporting(
+            attrs.getOptStringReporting(SUMO_ATTR_SHAPE, id.c_str(), ok, ""),
+            attrs.getObjectType(), id.c_str(), ok, true);
     myCurrentEdge->maxSpeed = 0;
     myCurrentEdge->builtEdge = 0;
 
@@ -358,14 +373,14 @@ NIImporter_SUMO::addJunction(const SUMOSAXAttributes &attrs) {
     }
     Position pos(x, y);
     // the network may have been built with the option "plain.keep-edge-shape" this
-    // makes accurate reconstruction impossible. We ought to warn about this
+    // makes accurate reconstruction of legacy networks impossible. We ought to warn about this
     std::string shapeS = attrs.getStringReporting(SUMO_ATTR_SHAPE, id.c_str(), ok, false);
     if (shapeS != "") {
         PositionVector shape = GeomConvHelper::parseShapeReporting(
                 shapeS, attrs.getObjectType(), id.c_str(), ok, false);
         shape.push_back(shape[0]); // need closed shape
         if (!shape.around(pos) && shape.distance(pos) > 1) { // MAGIC_THRESHOLD
-            WRITE_WARNING("Junction '" + id + "': distance between pos and shape is " + toString(shape.distance(pos)));
+            // WRITE_WARNING("Junction '" + id + "': distance between pos and shape is " + toString(shape.distance(pos)));
             mySuspectKeepShape = true; 
         }
     }
@@ -487,12 +502,14 @@ NIImporter_SUMO::addPhase(const SUMOSAXAttributes &attrs) {
 
 
 PositionVector 
-NIImporter_SUMO::approximateEdgeShape(const EdgeAttrs* edge) {
-    // reverse logic of NBEdge::computeLaneShape
+NIImporter_SUMO::reconstructEdgeShape(const EdgeAttrs* edge, const Position &from, const Position &to) {
     const PositionVector &firstLane = edge->lanes[0]->shape;
-    const size_t noLanes = edge->lanes.size();
     PositionVector result;
-    // start- and end- positions are added automatically in NBEdge::init
+    result.push_back(from);
+
+    // reverse logic of NBEdge::computeLaneShape
+    // !!! this will only work for old-style constant width lanes
+    const size_t noLanes = edge->lanes.size();
     for (unsigned int i=1; i < firstLane.size() - 1; i++) {
         Position from = firstLane[i-1];
         Position me = firstLane[i];
@@ -518,6 +535,8 @@ NIImporter_SUMO::approximateEdgeShape(const EdgeAttrs* edge) {
             MsgHandler::getWarningInstance()->inform("Could not reconstruct shape for edge '" + edge->id + "'.");
         }
     }
+
+    result.push_back(to);
     return result;
 }
 /****************************************************************************/
