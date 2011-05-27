@@ -173,7 +173,9 @@ NIImporter_SUMO::_loadNetwork(const OptionsCont &oc) {
                         WRITE_WARNING("target edge '" + toEdgeID + "' not built");
                         continue;
                     }
-                    nbe->addLane2LaneConnection(fromLaneIndex, toEdge, (unsigned int)toLaneIndex, NBEdge::L2L_VALIDATED);
+                    nbe->addLane2LaneConnection(
+                            fromLaneIndex, toEdge, (unsigned int)toLaneIndex, NBEdge::L2L_VALIDATED, 
+                            false, conn->mayDefinitelyPass);
 
                     // maybe we have a tls-controlled connection
                     if (conn->tlID != "") {
@@ -422,6 +424,7 @@ NIImporter_SUMO::addSuccLane(const SUMOSAXAttributes &attrs) {
     Connection conn;
     conn.lane = attrs.getStringReporting(SUMO_ATTR_LANE, 0, ok);
     conn.tlID = attrs.getOptStringReporting(SUMO_ATTR_TLID, 0, ok, "");
+    conn.mayDefinitelyPass = (attrs.getStringReporting(SUMO_ATTR_STATE, 0, ok, "") == "M");
     if (conn.tlID != "") {
         conn.tlLinkNo = attrs.getIntReporting(SUMO_ATTR_TLLINKNO, 0, ok);
     }
