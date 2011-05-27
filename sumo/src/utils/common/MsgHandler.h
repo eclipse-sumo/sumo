@@ -223,10 +223,9 @@ private:
 // ===========================================================================
 // global definitions
 // ===========================================================================
-#define WRITE_WARNING(command) if(!gSuppressWarnings) { MsgHandler::getWarningInstance()->inform(command); }
-#define WRITE_MESSAGE(command) if(!gSuppressMessages) { MsgHandler::getMessageInstance()->inform(command); }
-#define WRITE_ERROR(command)   MsgHandler::getErrorInstance()->inform(command);
-#define MSG_OUT (*MsgHandler::getMessageInstance())
+#define WRITE_WARNING(msg) MsgHandler::getWarningInstance()->inform(msg);
+#define WRITE_MESSAGE(msg) MsgHandler::getMessageInstance()->inform(msg);
+#define WRITE_ERROR(msg)   MsgHandler::getErrorInstance()->inform(msg);
 
 #endif
 
