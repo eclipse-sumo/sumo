@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on Tue May 24 15:54:57 2011 by SUMO netconvert Version dev-SVN-r10434
+<!-- generated on Fri May 27 07:55:06 2011 by SUMO netconvert Version dev-SVN-r10457
 <?xml version="1.0" encoding="iso-8859-1"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
@@ -71,26 +71,26 @@
       <lane id=":cluster_301292612_38919945_56231397_59993001_14_0" depart="0" maxspeed="22.22" length="7.61" shape="33.75,49.44 32.18,51.89 28.02,54.06"/>
    </edge>
 
-   <edge id="27437972" from="38918157" to="cluster_301292612_38919945_56231397_59993001" priority="7" spread_type="center">
+   <edge id="27437972" from="38918157" to="cluster_301292612_38919945_56231397_59993001" priority="7" spread_type="center" shape="88.72,78.21 43.13,56.80">
       <lane id="27437972_0" depart="1" maxspeed="13.89" length="44.41" shape="88.02,79.70 47.83,60.83"/>
       <lane id="27437972_1" depart="0" maxspeed="13.89" length="44.41" shape="89.42,76.72 49.21,57.83"/>
    </edge>
-   <edge id="27441289.0" from="cluster_301292612_38919945_56231397_59993001" to="gneJ0" priority="7">
+   <edge id="27441289.0" from="cluster_301292612_38919945_56231397_59993001" to="gneJ0" priority="7" shape="36.97,44.55 48.35,0.00">
       <lane id="27441289.0_0" depart="1" maxspeed="13.89" length="42.42" shape="33.05,39.88 43.55,-1.23"/>
       <lane id="27441289.0_1" depart="0" maxspeed="13.89" length="42.42" shape="36.25,40.70 46.75,-0.41"/>
    </edge>
-   <edge id="27441289.95" from="gneJ1" to="cluster_301292612_38919945_56231397_59993001" priority="7">
+   <edge id="27441289.95" from="gneJ1" to="cluster_301292612_38919945_56231397_59993001" priority="7" shape="59.75,2.19 45.80,46.84">
       <lane id="27441289.95_0" depart="1" maxspeed="13.89" length="43.01" shape="64.47,3.67 51.67,44.64"/>
       <lane id="27441289.95_1" depart="0" maxspeed="13.89" length="43.01" shape="61.32,2.68 48.47,43.82"/>
    </edge>
-   <edge id="27445000#0" from="cluster_301292612_38919945_56231397_59993001" to="945141569" priority="6" spread_type="center">
+   <edge id="27445000#0" from="cluster_301292612_38919945_56231397_59993001" to="945141569" priority="6" spread_type="center" shape="35.18,54.83 0.00,51.05">
       <lane id="27445000#0_0" depart="1" maxspeed="22.22" length="28.18" shape="28.02,54.06 0.00,51.05"/>
    </edge>
-   <edge id="27445015#0" from="cluster_301292612_38919945_56231397_59993001" to="567607201" priority="7" spread_type="center">
+   <edge id="27445015#0" from="cluster_301292612_38919945_56231397_59993001" to="567607201" priority="7" spread_type="center" shape="45.80,46.84 92.46,68.26">
       <lane id="27445015#0_0" depart="1" maxspeed="13.89" length="43.65" shape="53.47,48.55 93.15,66.76"/>
       <lane id="27445015#0_1" depart="0" maxspeed="13.89" length="43.65" shape="52.10,51.55 91.77,69.76"/>
    </edge>
-   <edge id="46039050" from="492462300" to="cluster_301292612_38919945_56231397_59993001" priority="6" spread_type="center">
+   <edge id="46039050" from="492462300" to="cluster_301292612_38919945_56231397_59993001" priority="6" spread_type="center" shape="1.87,40.76 36.97,44.55">
       <lane id="46039050_0" depart="1" maxspeed="22.22" length="27.42" shape="1.87,40.76 29.13,43.70"/>
    </edge>
 

@@ -283,6 +283,9 @@ NWWriter_SUMO::writeEdge(OutputDevice &into, const NBEdge &e) {
     if (e.getLaneSpreadFunction()!=LANESPREAD_RIGHT) {
         into << " spread_type=\"" << toString(e.getLaneSpreadFunction()) << "\"";
     }
+    if (!e.hasDefaultGeometry()) {
+        into << " " << toString(SUMO_ATTR_SHAPE) <<  "=\"" << toString(e.getGeometry()) << "\"";
+    }
     into << ">\n";
     // write the lanes
     const std::vector<NBEdge::Lane> &lanes = e.getLanes();
