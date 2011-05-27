@@ -282,7 +282,7 @@ NIXMLEdgesHandler::myStartElement(int element,
             }
         }
     }
-    if (element==SUMO_TAG_SPLIT) {
+    if (element==SUMO_TAG_SPLIT&&myCurrentEdge!=0) {
         bool ok = true;
         Split e;
         e.pos = attrs.getSUMORealReporting(SUMO_ATTR_POSITION, 0, ok);
