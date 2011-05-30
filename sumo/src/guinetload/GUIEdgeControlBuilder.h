@@ -98,7 +98,7 @@ public:
      *
      * @param[in] id The id of the edge to build
      */
-    MSEdge *buildEdge(const std::string &id) throw();
+    MSEdge *buildEdge(const std::string &id, const std::string &streetName) throw();
 
 
 private:

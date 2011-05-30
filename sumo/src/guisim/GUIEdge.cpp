@@ -61,8 +61,8 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-GUIEdge::GUIEdge(const std::string &id, unsigned int numericalID) throw()
-        : MSEdge(id, numericalID),
+GUIEdge::GUIEdge(const std::string &id, unsigned int numericalID, const std::string &streetName) throw()
+        : MSEdge(id, numericalID, streetName),
         GUIGlObject(GLO_EDGE, id) {}
 
 
@@ -268,8 +268,11 @@ GUIEdge::drawGL(const GUIVisualizationSettings &s) const throw() {
         }
     }
 #endif
-    // (optionally) draw the name
-    if ((s.drawEdgeName && myFunction == EDGEFUNCTION_NORMAL) || (s.drawInternalEdgeName && myFunction != EDGEFUNCTION_NORMAL)) {
+    // (optionally) draw the name and/or the street name
+    const bool drawEdgeName = s.drawEdgeName && myFunction == EDGEFUNCTION_NORMAL;
+    const bool drawInternalEdgeName = s.drawInternalEdgeName && myFunction != EDGEFUNCTION_NORMAL;
+    const bool drawStreetName = s.drawStreetName && myStreetName != "";
+    if (drawEdgeName || drawInternalEdgeName || drawStreetName) {
         GUILaneWrapper *lane1 = myLaneGeoms[0];
         GUILaneWrapper *lane2 = myLaneGeoms[myLaneGeoms.size()-1];
         Position p = lane1->getShape().positionAtLengthPosition(lane1->getShape().length()/(SUMOReal) 2.);
@@ -280,10 +283,14 @@ GUIEdge::drawGL(const GUIVisualizationSettings &s) const throw() {
         if (angle>90&&angle<270) {
             angle -= 180;
         }
-        if (myFunction == EDGEFUNCTION_NORMAL) {
+        if (drawEdgeName) {
             drawName(p, s.edgeNameSize / s.scale, s.edgeNameColor, angle);
-        } else {
+        } else if (drawInternalEdgeName) {
             drawName(p, s.internalEdgeNameSize / s.scale, s.internalEdgeNameColor, angle);
+        }
+        if (drawStreetName) {
+            GLHelper::drawText(getStreetName(), p, GLO_MAX,
+                    s.streetNameSize / s.scale, s.streetNameColor, angle);
         }
     }
 }

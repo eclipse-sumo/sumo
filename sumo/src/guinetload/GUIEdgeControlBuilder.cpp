@@ -98,8 +98,8 @@ GUIEdgeControlBuilder::addLane(const std::string &id,
 
 
 MSEdge *
-GUIEdgeControlBuilder::buildEdge(const std::string &id) throw() {
-    return new GUIEdge(id, myCurrentNumericalEdgeID++);
+GUIEdgeControlBuilder::buildEdge(const std::string &id, const std::string &streetName) throw() {
+    return new GUIEdge(id, myCurrentNumericalEdgeID++, streetName);
 }
 
 /****************************************************************************/

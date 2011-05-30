@@ -44,25 +44,26 @@
 // ===========================================================================
 GUIVisualizationSettings::GUIVisualizationSettings() throw()
         : name(""), antialiase(false), dither(false),
-        backgroundColor(RGBColor((SUMOReal) 1, (SUMOReal) 1, (SUMOReal) 1)),
+        backgroundColor(RGBColor(1, 1, 1)),
         showGrid(false), gridXSize(100), gridYSize(100),
         laneShowBorders(false), showLinkDecals(true), showRails(true),
         drawEdgeName(false), edgeNameSize(50),
-        edgeNameColor(RGBColor((SUMOReal) 1, (SUMOReal) .5, (SUMOReal) 0)),
+        edgeNameColor(RGBColor(1, .5, 0)),
         drawInternalEdgeName(false), internalEdgeNameSize(40),
-        internalEdgeNameColor(RGBColor((SUMOReal) .5, (SUMOReal) .25, (SUMOReal) 0)),
+        internalEdgeNameColor(RGBColor(.5, .25, 0)),
+        drawStreetName(false), streetNameSize(55), streetNameColor(RGBColor(1, 1, 0)),
         hideConnectors(false), vehicleQuality(0),
         minVehicleSize(1), vehicleExaggeration(1), showBlinker(true),
         drawLaneChangePreference(false),
         drawVehicleName(false), vehicleNameSize(50),
-        vehicleNameColor(RGBColor((SUMOReal) .8, (SUMOReal) .6, (SUMOReal) 0)),
+        vehicleNameColor(RGBColor(.8, .6, 0)),
         junctionMode(0), drawLinkTLIndex(false), drawLinkJunctionIndex(false),
         drawJunctionName(false), drawInternalJunctionName(false), junctionNameSize(50),
-        junctionNameColor(RGBColor((SUMOReal) 0, (SUMOReal) 1, (SUMOReal) .5)),
+        junctionNameColor(RGBColor(0, 1, .5)),
         showLane2Lane(false), addMode(0), minAddSize(1), addExaggeration(1),
         drawAddName(false), addNameSize(50),
         minPOISize(0), poiExaggeration(1), drawPOIName(false), poiNameSize(50),
-        poiNameColor(RGBColor((SUMOReal) 1., (SUMOReal) 0, (SUMOReal) .5)),
+        poiNameColor(RGBColor(1., 0, .5)),
         showSizeLegend(true),
         gaming(false)
 {
@@ -109,6 +110,9 @@ GUIVisualizationSettings::save(OutputDevice &dev) const throw(IOError) {
     << "               drawInternalEdgeName=\"" << drawInternalEdgeName
     << "\" internalEdgeNameSize=\"" << internalEdgeNameSize
     << "\" internalEdgeNameColor=\"" << internalEdgeNameColor
+    << "               drawStreetName=\"" << drawStreetName
+    << "\" streetNameSize=\"" << streetNameSize
+    << "\" streetNameColor=\"" << streetNameColor
     << "\" hideConnectors=\"" << hideConnectors
     << "\">\n";
     laneColorer.save(dev);
@@ -178,6 +182,9 @@ GUIVisualizationSettings::operator==(const GUIVisualizationSettings &v2) {
     if (drawInternalEdgeName!=v2.drawInternalEdgeName) return false;
     if (internalEdgeNameSize!=v2.internalEdgeNameSize) return false;
     if (internalEdgeNameColor!=v2.internalEdgeNameColor) return false;
+    if (drawStreetName!=v2.drawStreetName) return false;
+    if (streetNameSize!=v2.streetNameSize) return false;
+    if (streetNameColor!=v2.streetNameColor) return false;
     if (hideConnectors!=v2.hideConnectors) return false;
 
     if (!(vehicleColorer==v2.vehicleColorer)) return false;

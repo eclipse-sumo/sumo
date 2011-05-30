@@ -214,11 +214,10 @@ private:
     std::vector<FXButton *> myLaneButtons;
     FXCheckButton *myLaneColorInterpolation;
 
-    FXCheckButton *myShowLaneBorders, *myShowLaneDecals, *myShowRails, *myShowEdgeName, *myShowInternalEdgeName, *myHideMacroConnectors;
-    FXRealSpinDial *myEdgeNameSizeDialer;
-    FXColorWell *myEdgeNameColor;
-    FXRealSpinDial *myInternalEdgeNameSizeDialer;
-    FXColorWell *myInternalEdgeNameColor;
+    FXCheckButton *myShowLaneBorders, *myShowLaneDecals, *myShowRails, *myShowEdgeName, 
+                  *myShowInternalEdgeName, *myShowStreetName, *myHideMacroConnectors;
+    FXRealSpinDial *myEdgeNameSizeDialer, *myInternalEdgeNameSizeDialer, *myStreetNameSizeDialer;
+    FXColorWell *myEdgeNameColor, *myInternalEdgeNameColor, *myStreetNameColor;
 
     FXComboBox *myVehicleColorMode, *myVehicleShapeDetail;
     FXVerticalFrame *myVehicleColorSettingFrame;

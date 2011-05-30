@@ -212,6 +212,8 @@ private:
     struct EdgeAttrs {
         /// @brief This edge's id
         std::string id;
+        /// @brief This edge's street name
+        std::string streetName;
         /// @brief This edge's type
         std::string type;
         /// @brief This edge's function

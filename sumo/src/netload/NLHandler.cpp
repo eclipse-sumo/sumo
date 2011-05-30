@@ -290,9 +290,15 @@ NLHandler::beginEdgeParsing(const SUMOSAXAttributes &attrs) {
         myCurrentIsBroken = true;
         return;
     }
+    // get the street name
+    std::string streetName = attrs.getOptStringReporting(SUMO_ATTR_NAME, id.c_str(), ok, "");
+    if (!ok) {
+        myCurrentIsBroken = true;
+        return;
+    }
     //
     try {
-        myEdgeControlBuilder.beginEdgeParsing(id, funcEnum);
+        myEdgeControlBuilder.beginEdgeParsing(id, funcEnum, streetName);
     } catch (InvalidArgument &e) {
         MsgHandler::getErrorInstance()->inform(e.what());
         myCurrentIsBroken = true;

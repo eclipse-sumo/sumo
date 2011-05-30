@@ -119,6 +119,9 @@ GUISettingsHandler::myStartElement(int element,
         mySettings.drawInternalEdgeName = TplConvert<char>::_2bool(attrs.getStringSecure("drawInternalEdgeName", toString(mySettings.drawInternalEdgeName)).c_str());
         mySettings.internalEdgeNameSize = TplConvert<char>::_2SUMOReal(attrs.getStringSecure("internalEdgeNameSize", toString(mySettings.internalEdgeNameSize)).c_str());
         mySettings.internalEdgeNameColor = RGBColor::parseColorReporting(attrs.getStringSecure("internalEdgeNameColor", toString(mySettings.internalEdgeNameColor)), "edges", 0, true, ok);
+        mySettings.drawStreetName = TplConvert<char>::_2bool(attrs.getStringSecure("drawStreetName", toString(mySettings.drawStreetName)).c_str());
+        mySettings.streetNameSize = TplConvert<char>::_2SUMOReal(attrs.getStringSecure("streetNameSize", toString(mySettings.streetNameSize)).c_str());
+        mySettings.streetNameColor = RGBColor::parseColorReporting(attrs.getStringSecure("streetNameColor", toString(mySettings.streetNameColor)), "edges", 0, true, ok);
         mySettings.hideConnectors = TplConvert<char>::_2bool(attrs.getStringSecure("hideConnectors", toString(mySettings.hideConnectors)).c_str());
         myCurrentColorer = element;
 #ifdef HAVE_MESOSIM

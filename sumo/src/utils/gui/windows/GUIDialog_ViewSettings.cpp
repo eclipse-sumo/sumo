@@ -223,6 +223,7 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(
         myHideMacroConnectors = new FXCheckButton(m22, "Hide macro connectors", this, MID_SIMPLE_VIEW_COLORCHANGE);
         myHideMacroConnectors->setCheck(mySettings->hideConnectors);
         new FXLabel(m22, " ", 0, LAYOUT_CENTER_Y);
+        // edge name
         myShowEdgeName = new FXCheckButton(m22, "Show edge name", this, MID_SIMPLE_VIEW_COLORCHANGE, LAYOUT_CENTER_Y|CHECKBUTTON_NORMAL);
         myShowEdgeName->setCheck(mySettings->drawEdgeName);
         new FXLabel(m22, "");
@@ -243,23 +244,45 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(
                                           this, MID_SIMPLE_VIEW_COLORCHANGE,
                                           LAYOUT_FIX_WIDTH|LAYOUT_CENTER_Y|LAYOUT_SIDE_TOP|FRAME_SUNKEN|FRAME_THICK|ICON_AFTER_TEXT,
                                           0, 0, 100, 0,   0, 0, 0, 0);
-        myShowInternalEdgeName = new FXCheckButton(m22, "Show internal edge name", this, MID_SIMPLE_VIEW_COLORCHANGE, LAYOUT_CENTER_Y|CHECKBUTTON_NORMAL);
-        myShowInternalEdgeName->setCheck(mySettings->drawInternalEdgeName);
+        // street name
+        myShowStreetName = new FXCheckButton(m22, "Show street name", this, MID_SIMPLE_VIEW_COLORCHANGE, LAYOUT_CENTER_Y|CHECKBUTTON_NORMAL);
+        myShowStreetName->setCheck(mySettings->drawStreetName);
         new FXLabel(m22, "");
         FXMatrix *m223 =
             new FXMatrix(m22,2,LAYOUT_CENTER_Y|LAYOUT_FILL_X|LAYOUT_BOTTOM|LAYOUT_LEFT|MATRIX_BY_COLUMNS,
                          0,0,0,0, 10,10,0,0, 5,5);
         new FXLabel(m223, "Size", 0, LAYOUT_CENTER_Y);
-        myInternalEdgeNameSizeDialer =
+        myStreetNameSizeDialer =
             new FXRealSpinDial(m223, 10, this, MID_SIMPLE_VIEW_COLORCHANGE,
                                LAYOUT_CENTER_Y|LAYOUT_TOP|FRAME_SUNKEN|FRAME_THICK);
-        myInternalEdgeNameSizeDialer->setRange(10, 1000);
-        myInternalEdgeNameSizeDialer->setValue(mySettings->internalEdgeNameSize);
+        myStreetNameSizeDialer->setRange(10, 1000);
+        myStreetNameSizeDialer->setValue(mySettings->streetNameSize);
         FXMatrix *m224 =
             new FXMatrix(m22,2,LAYOUT_CENTER_Y|LAYOUT_FILL_X|LAYOUT_BOTTOM|LAYOUT_LEFT|MATRIX_BY_COLUMNS,
                          0,0,0,0, 10,10,0,0, 5,5);
         new FXLabel(m224, "Color", 0, LAYOUT_CENTER_Y);
-        myInternalEdgeNameColor = new FXColorWell(m224, convert(settings->internalEdgeNameColor),
+        myStreetNameColor = new FXColorWell(m224, convert(settings->streetNameColor),
+                                          this, MID_SIMPLE_VIEW_COLORCHANGE,
+                                          LAYOUT_FIX_WIDTH|LAYOUT_CENTER_Y|LAYOUT_SIDE_TOP|FRAME_SUNKEN|FRAME_THICK|ICON_AFTER_TEXT,
+                                          0, 0, 100, 0,   0, 0, 0, 0);
+        // internal edge name
+        myShowInternalEdgeName = new FXCheckButton(m22, "Show internal edge name", this, MID_SIMPLE_VIEW_COLORCHANGE, LAYOUT_CENTER_Y|CHECKBUTTON_NORMAL);
+        myShowInternalEdgeName->setCheck(mySettings->drawInternalEdgeName);
+        new FXLabel(m22, "");
+        FXMatrix *m225 =
+            new FXMatrix(m22,2,LAYOUT_CENTER_Y|LAYOUT_FILL_X|LAYOUT_BOTTOM|LAYOUT_LEFT|MATRIX_BY_COLUMNS,
+                         0,0,0,0, 10,10,0,0, 5,5);
+        new FXLabel(m225, "Size", 0, LAYOUT_CENTER_Y);
+        myInternalEdgeNameSizeDialer =
+            new FXRealSpinDial(m225, 10, this, MID_SIMPLE_VIEW_COLORCHANGE,
+                               LAYOUT_CENTER_Y|LAYOUT_TOP|FRAME_SUNKEN|FRAME_THICK);
+        myInternalEdgeNameSizeDialer->setRange(10, 1000);
+        myInternalEdgeNameSizeDialer->setValue(mySettings->internalEdgeNameSize);
+        FXMatrix *m226 =
+            new FXMatrix(m22,2,LAYOUT_CENTER_Y|LAYOUT_FILL_X|LAYOUT_BOTTOM|LAYOUT_LEFT|MATRIX_BY_COLUMNS,
+                         0,0,0,0, 10,10,0,0, 5,5);
+        new FXLabel(m226, "Color", 0, LAYOUT_CENTER_Y);
+        myInternalEdgeNameColor = new FXColorWell(m226, convert(settings->internalEdgeNameColor),
                 this, MID_SIMPLE_VIEW_COLORCHANGE,
                 LAYOUT_FIX_WIDTH|LAYOUT_CENTER_Y|LAYOUT_SIDE_TOP|FRAME_SUNKEN|FRAME_THICK|ICON_AFTER_TEXT,
                 0, 0, 100, 0,   0, 0, 0, 0);
@@ -598,6 +621,9 @@ GUIDialog_ViewSettings::onCmdNameChange(FXObject*,FXSelector,void*data) {
     myShowInternalEdgeName->setCheck(mySettings->drawInternalEdgeName);
     myInternalEdgeNameSizeDialer->setValue(mySettings->internalEdgeNameSize);
     myInternalEdgeNameColor->setRGBA(convert(mySettings->internalEdgeNameColor));
+    myShowStreetName->setCheck(mySettings->drawStreetName);
+    myStreetNameSizeDialer->setValue(mySettings->streetNameSize);
+    myStreetNameColor->setRGBA(convert(mySettings->streetNameColor));
     myHideMacroConnectors->setCheck(mySettings->hideConnectors);
 
     myVehicleColorMode->setCurrentItem((FXint) mySettings->vehicleColorer.getActive());
@@ -674,6 +700,9 @@ GUIDialog_ViewSettings::onCmdColorChange(FXObject*sender,FXSelector,void* /*val*
     tmpSettings.drawInternalEdgeName = (myShowInternalEdgeName->getCheck() != FALSE);
     tmpSettings.internalEdgeNameSize = (SUMOReal) myInternalEdgeNameSizeDialer->getValue();
     tmpSettings.internalEdgeNameColor = convert(myInternalEdgeNameColor->getRGBA());
+    tmpSettings.drawStreetName = (myShowStreetName->getCheck() != FALSE);
+    tmpSettings.streetNameSize = (SUMOReal) myStreetNameSizeDialer->getValue();
+    tmpSettings.streetNameColor = convert(myStreetNameColor->getRGBA());
     tmpSettings.hideConnectors = (myHideMacroConnectors->getCheck() != FALSE);
 
     tmpSettings.vehicleColorer.setActive(myVehicleColorMode->getCurrentItem());

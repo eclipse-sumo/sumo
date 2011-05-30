@@ -248,8 +248,11 @@ NWWriter_SUMO::writeEdge(OutputDevice &into, const NBEdge &e) {
     // write the edge's begin
     into << "   <edge id=\"" << e.getID() <<
     "\" from=\"" << e.getFromNode()->getID() <<
-    "\" to=\"" << e.getToNode()->getID() <<
-    "\" priority=\"" << e.getPriority() << "\"";
+    "\" to=\"" << e.getToNode()->getID();
+    if (e.getStreetName() != "") {
+        into << "\" " << toString(SUMO_ATTR_NAME) << "=\"" << e.getStreetName();
+    }
+    into << "\" priority=\"" << e.getPriority() << "\"";
     if(e.getTypeName()!="") {
         into << " type=\"" << e.getTypeName() << "\"";
     }

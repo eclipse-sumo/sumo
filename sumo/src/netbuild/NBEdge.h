@@ -180,6 +180,7 @@ public:
      * @param[in] priority This edge's priority
      * @param[in] width This edge's lane width
      * @param[in] offset Additional offset to the destination node
+     * @param[in] streetName The street name (need not be unique)
      * @param[in] spread How the lateral offset of the lanes shall be computed
      * @see init
      * @see LaneSpreadFunction
@@ -188,6 +189,7 @@ public:
            NBNode *from, NBNode *to, std::string type,
            SUMOReal speed, unsigned int nolanes, int priority,
            SUMOReal width, SUMOReal offset, 
+           const std::string &streetName="",
            LaneSpreadFunction spread=LANESPREAD_RIGHT) throw(ProcessError);
 
 
@@ -205,6 +207,7 @@ public:
      * @param[in] width This edge's lane width
      * @param[in] offset Additional offset to the destination node
      * @param[in] geom The edge's geomatry
+     * @param[in] streetName The street name (need not be unique)
      * @param[in] spread How the lateral offset of the lanes shall be computed
      * @param[in] tryIgnoreNodePositions Does not add node geometries if geom.size()>=2
      * @see init
@@ -215,6 +218,7 @@ public:
            SUMOReal speed, unsigned int nolanes, int priority,
            SUMOReal width, SUMOReal offset, 
            PositionVector geom, 
+           const std::string &streetName="",
            LaneSpreadFunction spread=LANESPREAD_RIGHT,
            bool tryIgnoreNodePositions=false) throw(ProcessError);
 
@@ -350,6 +354,13 @@ public:
      */
     SUMOReal getWidth() const throw() {
         return myWidth;
+    }
+
+
+    /** @brief Returns the street name this edge
+     */
+    const std::string& getStreetName() const throw() {
+        return myStreetName;
     }
 
 
@@ -1043,6 +1054,10 @@ private:
     };
 
     std::vector<TLSDisabledConnection> myTLSDisabledConnections;
+
+
+    /// @brief The street name (or whatever arbitrary string you wish to attach)
+    std::string myStreetName;
 
 public:
     /**

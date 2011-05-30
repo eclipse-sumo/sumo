@@ -96,8 +96,11 @@ NWWriter_XML::writeNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
         NBEdge *e = (*i).second;
         edevice << "   <edge id=\"" << e->getID()
         << "\" fromnode=\"" << e->getFromNode()->getID()
-        << "\" tonode=\"" << e->getToNode()->getID()
-        << "\" priority=\"" << e->getPriority();
+        << "\" tonode=\"" << e->getToNode()->getID();
+        if (e->getStreetName() != "") {
+            edevice << "\" " << toString(SUMO_ATTR_NAME) << "=\"" << e->getStreetName();
+        }
+        edevice << "\" priority=\"" << e->getPriority();
         // write the type if given
         if (e->getTypeID() != "") {
             edevice << "\" type=\"" << e->getTypeID();

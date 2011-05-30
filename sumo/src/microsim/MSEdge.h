@@ -99,8 +99,9 @@ public:
      *
      * @param[in] id The id of the edge
      * @param[in] numericalID The numerical id (index) of the edge
+     * @param[in] streetName The street name for that edge
      */
-    MSEdge(const std::string &id, unsigned int numericalID) throw();
+    MSEdge(const std::string &id, unsigned int numericalID, const std::string& streetName="") throw();
 
 
     /// @brief Destructor.
@@ -200,6 +201,13 @@ public:
      */
     unsigned int getNumericalID() const throw() {
         return myNumericalID;
+    }
+
+
+    /** @brief Returns the street name of the edge
+     */
+    const std::string& getStreetName() const {
+        return myStreetName;
     }
     /// @}
 
@@ -492,6 +500,8 @@ protected:
 
     /// @brief Whether any class constraints exist for this edge
     bool myHaveClassConstraints;
+
+    std::string myStreetName;
     /// @}
 
 

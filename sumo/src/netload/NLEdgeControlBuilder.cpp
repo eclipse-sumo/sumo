@@ -70,9 +70,11 @@ NLEdgeControlBuilder::~NLEdgeControlBuilder() {
 
 
 void
-NLEdgeControlBuilder::beginEdgeParsing(const std::string &id,
-                                       MSEdge::EdgeBasicFunction function) throw(InvalidArgument) {
-    myActiveEdge = buildEdge(id);
+NLEdgeControlBuilder::beginEdgeParsing(
+        const std::string &id, MSEdge::EdgeBasicFunction function, 
+        const std::string& streetName) 
+{
+    myActiveEdge = buildEdge(id, streetName);
     if (!MSEdge::dictionary(id, myActiveEdge)) {
         throw InvalidArgument("Another edge with the id '" + id + "' exists.");
     }
@@ -145,8 +147,8 @@ NLEdgeControlBuilder::build() {
 
 
 MSEdge *
-NLEdgeControlBuilder::buildEdge(const std::string &id) throw() {
-    return new MSEdge(id, myCurrentNumericalEdgeID++);
+NLEdgeControlBuilder::buildEdge(const std::string &id, const std::string &streetName) throw() {
+    return new MSEdge(id, myCurrentNumericalEdgeID++, streetName);
 }
 
 

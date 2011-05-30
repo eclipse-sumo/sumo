@@ -151,6 +151,7 @@ NBEdge::MainDirections::includes(Direction d) const {
 NBEdge::NBEdge(const std::string &id, NBNode *from, NBNode *to,
                std::string type, SUMOReal speed, unsigned int nolanes,
                int priority, SUMOReal width, SUMOReal offset, 
+               const std::string &streetName,
                LaneSpreadFunction spread) throw(ProcessError) :
     Named(StringUtils::convertUmlaute(id)),
     myStep(INIT),
@@ -161,7 +162,8 @@ NBEdge::NBEdge(const std::string &id, NBNode *from, NBNode *to,
     myFromJunctionPriority(-1), myToJunctionPriority(-1),
     myLaneSpreadFunction(spread), myOffset(offset), myWidth(width),
     myLoadedLength(-1), myAmLeftHand(false), myAmTurningWithAngle(0), myAmTurningOf(0),
-    myAmInnerEdge(false), myAmMacroscopicConnector(false) 
+    myAmInnerEdge(false), myAmMacroscopicConnector(false),
+    myStreetName(streetName)
 {
     init(nolanes, false);
 }
@@ -171,6 +173,7 @@ NBEdge::NBEdge(const std::string &id, NBNode *from, NBNode *to,
                std::string type, SUMOReal speed, unsigned int nolanes,
                int priority, SUMOReal width, SUMOReal offset, 
                PositionVector geom,
+               const std::string &streetName,
                LaneSpreadFunction spread, bool tryIgnoreNodePositions) throw(ProcessError) :
     Named(StringUtils::convertUmlaute(id)),
     myStep(INIT),
@@ -181,7 +184,8 @@ NBEdge::NBEdge(const std::string &id, NBNode *from, NBNode *to,
     myFromJunctionPriority(-1), myToJunctionPriority(-1),
     myGeom(geom), myLaneSpreadFunction(spread), myOffset(offset), myWidth(width),
     myLoadedLength(-1), myAmLeftHand(false), myAmTurningWithAngle(0), myAmTurningOf(0),
-    myAmInnerEdge(false), myAmMacroscopicConnector(false) 
+    myAmInnerEdge(false), myAmMacroscopicConnector(false),
+    myStreetName(streetName)
 {
     init(nolanes, tryIgnoreNodePositions);
 }
@@ -199,9 +203,14 @@ NBEdge::NBEdge(const std::string &id, NBNode *from, NBNode *to, NBEdge *tpl) :
     myOffset(tpl->getOffset()), 
     myWidth(tpl->getWidth()),
     myLoadedLength(-1), myAmLeftHand(false), myAmTurningWithAngle(0), myAmTurningOf(0),
-    myAmInnerEdge(false), myAmMacroscopicConnector(false) 
+    myAmInnerEdge(false), myAmMacroscopicConnector(false),
+    myStreetName(tpl->getStreetName())
 {
     init(tpl->getNoLanes(), false);
+    for (unsigned int i = 0; i < getNoLanes(); i++) {
+        setLaneSpeed(i, tpl->getLaneSpeed(i));
+        setVehicleClasses( tpl->getAllowedVehicleClasses(i), tpl->getDisallowedVehicleClasses(i), i);
+    }
 }
 
 void
@@ -1629,7 +1638,7 @@ NBEdge::splitGeometry(NBEdgeCont &ec, NBNodeCont &nc) {
             std::string edgename = myID + "[" + toString(i-1) + "]";
             // @bug both width and offset are ignored
             currentEdge = new NBEdge(edgename, newFrom, newTo, myType, mySpeed, (unsigned int) myLanes.size(),
-                                     myPriority, -1, -1, myLaneSpreadFunction);
+                                     myPriority, -1, -1, myStreetName, myLaneSpreadFunction);
             if (!ec.insert(currentEdge, true)) {
                 throw ProcessError("Error on adding splitted edge '" + edgename + "'.");
             }

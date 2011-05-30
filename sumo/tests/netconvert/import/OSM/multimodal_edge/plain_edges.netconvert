@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on Fri Mar 18 12:19:31 2011 by SUMO netconvert Version dev-SVN-r9918
+<!-- generated on Mon May 30 15:42:53 2011 by SUMO netconvert Version dev-SVN-r10475
 <?xml version="1.0" encoding="iso-8859-1"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
@@ -10,8 +10,8 @@
     </input>
 
     <output>
-        <output-file value="ignore.net.xml"/>
-        <plain-output value="plain"/>
+        <output value="ignore.net.xml"/>
+        <plain-output-prefix value="plain"/>
     </output>
 
     <projection>
@@ -22,6 +22,6 @@
 -->
 
 <edges>
-   <edge id="-10860201" fromnode="2" tonode="1" priority="7" type="highway.secondary" nolanes="2" speed="27.78"/>
-   <edge id="10860201" fromnode="1" tonode="2" priority="7" type="highway.secondary" nolanes="2" speed="27.78"/>
+   <edge id="-10860201" fromnode="2" tonode="1" name="Sterndamm" priority="7" type="highway.secondary" nolanes="2" speed="27.78"/>
+   <edge id="10860201" fromnode="1" tonode="2" name="Sterndamm" priority="7" type="highway.secondary" nolanes="2" speed="27.78"/>
 </edges>

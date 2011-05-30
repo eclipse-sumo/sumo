@@ -159,6 +159,9 @@ NIXMLEdgesHandler::myStartElement(int element,
         if (attrs.hasAttribute(SUMO_ATTR_ENDOFFSET)) {
             myCurrentOffset = attrs.getSUMORealReporting(SUMO_ATTR_ENDOFFSET, myCurrentID.c_str(), ok);
         }
+        // try to get the street name
+        myCurrentStreetName = attrs.getOptStringReporting(SUMO_ATTR_NAME, myCurrentID.c_str(), ok, "");
+
         // try to get the allowed/disallowed classes
         if (attrs.hasAttribute(SUMO_ATTR_ALLOW) || attrs.hasAttribute(SUMO_ATTR_DISALLOW)) {
             std::string allowS = attrs.hasAttribute(SUMO_ATTR_ALLOW) ? attrs.getStringSecure(SUMO_ATTR_ALLOW, "") : getVehicleClassNames(myAllowed);
@@ -202,11 +205,11 @@ NIXMLEdgesHandler::myStartElement(int element,
             if (myShape.size()==0) {
                 myCurrentEdge = new NBEdge(myCurrentID, myFromNode, myToNode, myCurrentType, myCurrentSpeed,
                                            myCurrentLaneNo, myCurrentPriority, myCurrentWidth, myCurrentOffset, 
-                                           myLanesSpread);
+                                           myCurrentStreetName, myLanesSpread);
             } else {
                 myCurrentEdge = new NBEdge(myCurrentID, myFromNode, myToNode, myCurrentType, myCurrentSpeed,
                                            myCurrentLaneNo, myCurrentPriority, myCurrentWidth, myCurrentOffset, 
-                                           myShape, myLanesSpread, 
+                                           myShape, myCurrentStreetName, myLanesSpread, 
                                            OptionsCont::getOptions().getBool("plain.keep-edge-shape"));
             }
             myCurrentEdge->setLoadedLength(myLength);

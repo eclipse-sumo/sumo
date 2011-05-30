@@ -92,6 +92,8 @@ protected:
     struct Edge {
         /// @brief The edge's id
         std::string id;
+        /// @brief The edge's street name
+        std::string streetName;
         /// @brief number of lanes, or -1 if unknown
         int myNoLanes;
         /// @brief maximum speed in km/h, or -1 if unknown

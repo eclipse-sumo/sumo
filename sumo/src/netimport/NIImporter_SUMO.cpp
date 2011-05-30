@@ -139,7 +139,7 @@ NIImporter_SUMO::_loadNetwork(const OptionsCont &oc) {
         NBEdge *e = new NBEdge(ed->id, from, to, 
                 ed->type, ed->maxSpeed, 
                 (unsigned int) ed->lanes.size(), 
-                ed->priority, -1, -1, geom, ed->lsf, true); // always use tryIgnoreNodePositions to keep original shape
+                ed->priority, -1, -1, geom, ed->streetName, ed->lsf, true); // always use tryIgnoreNodePositions to keep original shape
         if (!myNetBuilder.getEdgeCont().insert(e)) {
             MsgHandler::getErrorInstance()->inform("Could not insert edge '" + ed->id + "'.");
             delete e;
@@ -320,6 +320,7 @@ NIImporter_SUMO::addEdge(const SUMOSAXAttributes &attrs) {
             attrs.getObjectType(), id.c_str(), ok, true);
     myCurrentEdge->maxSpeed = 0;
     myCurrentEdge->builtEdge = 0;
+    myCurrentEdge->streetName = attrs.getOptStringReporting(SUMO_ATTR_NAME, id.c_str(), ok, "");
 
     std::string lsfS = attrs.getOptStringReporting(SUMO_ATTR_SPREADFUNC, id.c_str(), ok, toString(LANESPREAD_RIGHT));
     if (SUMOXMLDefinitions::LaneSpreadFunctions.hasString(lsfS)) {

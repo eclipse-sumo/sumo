@@ -398,13 +398,15 @@ NBEdgeCont::splitAt(NBDistrictCont &dc,
     // build and insert the edges
     NBEdge *one = new NBEdge(firstEdgeName,
                              edge->myFrom, node, edge->myType, edge->mySpeed, noLanesFirstEdge,
-                             edge->getPriority(), edge->myWidth, -1, geoms.first, edge->myLaneSpreadFunction, true);
+                             edge->getPriority(), edge->myWidth, -1, geoms.first, 
+                             edge->getStreetName(), edge->myLaneSpreadFunction, true);
     for (unsigned int i=0; i<noLanesFirstEdge&&i<edge->getNoLanes(); i++) {
         one->setLaneSpeed(i, edge->getLaneSpeed(i));
     }
     NBEdge *two = new NBEdge(secondEdgeName,
                              node, edge->myTo, edge->myType, edge->mySpeed, noLanesSecondEdge,
-                             edge->getPriority(), edge->myWidth, edge->myOffset, geoms.second, edge->myLaneSpreadFunction, true);
+                             edge->getPriority(), edge->myWidth, edge->myOffset, geoms.second, 
+                             edge->getStreetName(), edge->myLaneSpreadFunction, true);
     for (unsigned int i=0; i<noLanesSecondEdge&&i<edge->getNoLanes(); i++) {
         two->setLaneSpeed(i, edge->getLaneSpeed(i));
     }
@@ -578,7 +580,8 @@ NBEdgeCont::joinSameNodeConnectingEdges(NBDistrictCont &dc,
     // build the new edge
     // @bug new edge does not know about allowed vclass of old edges
     // @bug both the width and the offset are not regarded
-    NBEdge *newEdge = new NBEdge(id, from, to, "", speed, nolanes, priority, -1, -1, tpledge->myLaneSpreadFunction);
+    NBEdge *newEdge = new NBEdge(id, from, to, "", speed, nolanes, priority, -1, -1, 
+            tpledge->getStreetName(), tpledge->myLaneSpreadFunction);
     insert(newEdge, true);
     // replace old edge by current within the nodes
     //  and delete the old

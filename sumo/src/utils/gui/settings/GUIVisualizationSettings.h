@@ -107,6 +107,11 @@ public:
     /// @brief The color of internal edge names
     RGBColor internalEdgeNameColor;
     /// @brief Whether macroscopic connectors shall be hidden
+    bool drawStreetName;
+    /// @brief The size of the internal edge name
+    float streetNameSize;
+    /// @brief The color of internal edge names
+    RGBColor streetNameColor;
     bool hideConnectors;
     //@}
 

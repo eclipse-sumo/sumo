@@ -164,6 +164,9 @@ private:
     /// @brief The current edge's offset till the destination node
     SUMOReal myCurrentOffset;
 
+    /// @brief The current edge's street name
+    std::string myCurrentStreetName;
+
     /// @brief The current edge's type
     std::string myCurrentType;
 
