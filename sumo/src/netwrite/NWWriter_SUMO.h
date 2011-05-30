@@ -141,6 +141,13 @@ protected:
     static void writeDistrict(OutputDevice &into, const NBDistrict &d);
 
 
+private:
+    /** @brief Writes a single internal edge 
+     * @param[in] into The device to write the edges into
+     */
+    static void writeInternalEdge(OutputDevice &into, 
+            const std::string &id, SUMOReal vmax, SUMOReal length, const PositionVector &shape);
+
 };
 
 
