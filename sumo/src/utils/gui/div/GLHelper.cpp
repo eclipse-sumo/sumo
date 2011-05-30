@@ -36,6 +36,7 @@
 #include "GLHelper.h"
 #include <utils/geom/GeomHelper.h>
 #include <utils/common/StdDefs.h>
+#include <foreign/polyfonts/polyfonts.h>
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -302,6 +303,25 @@ GLHelper::drawTriangleAtEnd(const Line &l, SUMOReal tLength,
 void 
 GLHelper::setColor(const RGBColor& c) {
     glColor3d(c.red(), c.green(), c.blue());
+}
+
+
+void 
+GLHelper::drawText(const std::string &text, const Position& pos, 
+        const SUMOReal layer, const SUMOReal size, 
+        const RGBColor& col, const SUMOReal angle) {
+    glPushMatrix();
+    glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+    setColor(col);
+    glTranslated(pos.x(), pos.y(), layer);
+    pfSetPosition(0, 0);
+    pfSetScale(size);
+    SUMOReal w = pfdkGetStringWidth(text.c_str());
+    glRotated(180, 1, 0, 0);
+    glRotated(angle, 0, 0, 1);
+    glTranslated(-w/2., 0.4, 0);
+    pfDrawString(text.c_str());
+    glPopMatrix();
 }
 
 

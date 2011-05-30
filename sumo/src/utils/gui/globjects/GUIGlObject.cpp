@@ -35,7 +35,6 @@
 
 #include <string>
 #include <stack>
-#include <foreign/polyfonts/polyfonts.h>
 #include <utils/common/ToString.h>
 #include <utils/gui/windows/GUISUMOAbstractView.h>
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
@@ -218,18 +217,7 @@ GUIGlObject::createFullName() const {
 
 void
 GUIGlObject::drawName(const Position& pos, const SUMOReal size, const RGBColor& col, const SUMOReal angle) const {
-    glPushMatrix();
-    glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-    GLHelper::setColor(col);
-    glTranslated(pos.x(), pos.y(), GLO_MAX);
-    pfSetPosition(0, 0);
-    pfSetScale(size);
-    SUMOReal w = pfdkGetStringWidth(getMicrosimID().c_str());
-    glRotated(180, 1, 0, 0);
-    glRotated(angle, 0, 0, 1);
-    glTranslated(-w/2., 0.4, 0);
-    pfDrawString(getMicrosimID().c_str());
-    glPopMatrix();
+    GLHelper::drawText(getMicrosimID(), pos, GLO_MAX, size, col, angle);
 }
 
 /****************************************************************************/

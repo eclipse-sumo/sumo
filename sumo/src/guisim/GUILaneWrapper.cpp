@@ -130,12 +130,10 @@ GUILaneWrapper::ROWdrawAction_drawLinkNo() const {
     if (noLinks==0) {
         return;
     }
-
     // draw all links
     SUMOReal w = myLane.getWidth() / (SUMOReal) noLinks;
     SUMOReal x1 = myLane.getWidth() / (SUMOReal) 2.;
     glPushMatrix();
-    glColor3d(.5, .5, 1);
     const PositionVector &g = getShape();
     const Position &end = g.getEnd();
     const Position &f = g[-2];
@@ -145,16 +143,8 @@ GUILaneWrapper::ROWdrawAction_drawLinkNo() const {
     glRotated(rot, 0, 0, 1);
     for (unsigned int i=0; i<noLinks; ++i) {
         SUMOReal x2 = x1 - (SUMOReal)(w/2.);
-        int linkNo = getLane().getLinkCont()[i]->getRespondIndex();
-        glPushMatrix();
-        glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-        pfSetPosition(0, 0);
-        pfSetScale(1);
-        SUMOReal tw = pfdkGetStringWidth(toString(linkNo).c_str());
-        glRotated(180, 0, 1, 0);
-        glTranslated(x2-tw/2., 0.5, 0);
-        pfDrawString(toString(linkNo).c_str());
-        glPopMatrix();
+        GLHelper::drawText(toString(getLane().getLinkCont()[i]->getRespondIndex()),
+                Position(x2, .1), 0, 1, RGBColor(.5,.5,1), 180);
         x1 -= w;
     }
     glPopMatrix();
@@ -167,12 +157,10 @@ GUILaneWrapper::ROWdrawAction_drawTLSLinkNo(const GUINet &net) const {
     if (noLinks==0) {
         return;
     }
-
     // draw all links
     SUMOReal w = myLane.getWidth() / (SUMOReal) noLinks;
     SUMOReal x1 = (SUMOReal)(myLane.getWidth() / 2.);
     glPushMatrix();
-    glColor3d(.5, .5, 1);
     const PositionVector &g = getShape();
     const Position &end = g.getEnd();
     const Position &f = g[-2];
@@ -186,15 +174,8 @@ GUILaneWrapper::ROWdrawAction_drawTLSLinkNo(const GUINet &net) const {
         if (linkNo<0) {
             continue;
         }
-        glPushMatrix();
-        glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-        pfSetPosition(0, 0);
-        pfSetScale(1);
-        SUMOReal tw = pfdkGetStringWidth(toString(linkNo).c_str());
-        glRotated(180, 0, 1, 0);
-        glTranslated(x2-tw/2., 0.5, 0);
-        pfDrawString(toString(linkNo).c_str());
-        glPopMatrix();
+        GLHelper::drawText(toString(linkNo),
+                Position(x2, .1), 0, 1, RGBColor(.5,.5,1), 180);
         x1 -= w;
     }
     glPopMatrix();

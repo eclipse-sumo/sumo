@@ -231,6 +231,12 @@ public:
     /// @brief Sets the gl-color to this value
     static void setColor(const RGBColor& c);
 
+
+    /// @brief draw Text with given parameters
+    static void drawText(const std::string &text, const Position& pos, 
+            const SUMOReal layer, const SUMOReal size, 
+            const RGBColor& col=RGBColor(0,0,0), const SUMOReal angle=0);
+
 private:
     /// @brief Storage for precomputed sin/cos-values describing a circle
     static std::vector<std::pair<SUMOReal, SUMOReal> > myCircleCoords;
