@@ -204,65 +204,42 @@ NWWriter_SUMO::writeInternalEdges(OutputDevice &into, const NBNode &n) {
                 vmax = MIN2(vmax, (((*i)->getSpeed()+(*k).toEdge->getSpeed())/(SUMOReal) 2.0));
                 vmax = ((*i)->getSpeed()+(*k).toEdge->getSpeed())/(SUMOReal) 2.0;
                 //
-                std::string id = innerID + "_" + toString(lno);
                 Position end = (*k).toEdge->getLaneShape((*k).toLane).getBegin();
                 Position beg = (*i)->getLaneShape(j).getEnd();
 
                 PositionVector shape = n.computeInternalLaneShape(*i, j, (*k).toEdge, (*k).toLane);
                 assert(shape.size() >= 2);
-                SUMOReal length = MAX2(shape.length(), (SUMOReal)POSITION_EPS);
+                SUMOReal length = MAX2(shape.length(), (SUMOReal)POSITION_EPS); // !!! is this needed?
 
                 // get internal splits if any
                 std::pair<SUMOReal, std::vector<unsigned int> > cross = n.getCrossingPosition(*i, j, (*k).toEdge, (*k).toLane);
                 if (cross.first>=0) {
-                    std::pair<PositionVector, PositionVector> split;
-                    // as usual, a problem...
-                    //  if the one edge starts exactly where the other one ends (think of a
-                    //  turnaround edges lying over the other one) we have a shape with length=0
-                    if (shape.length() > POSITION_EPS) {
-                        split = shape.splitAt(cross.first);
-                    } else {
-                        split = std::pair<PositionVector, PositionVector>(shape, shape);
-                    }
-                    if (split.first.size()==1) {
-                        split.first.push_back(split.first[0]);
-                    }
-                    if (split.second.size()==1) {
-                        split.second.push_back(split.second[0]);
-                    }
-
-                    into << "   <edge id=\"" << id << "\" function=\"internal\">\n";
-                    into << "      <lane id=\"" << id << "_0\" depart=\"0\" "
-                    << "maxspeed=\"" << vmax << "\" length=\""
-                    << toString<SUMOReal>(cross.first) << "\""
-                    << " shape=\"" << split.first << "\"/>\n"
-                    << "   </edge>\n";
-                    lno++;
-
-                    std::string id = innerID + "_" + toString(splitNo+noInternalNoSplits);
-                    into << "   <edge id=\"" << id
-                    << "\" function=\"internal\">\n";
-                    into << "      <lane id=\"" << id << "_0\" depart=\"0\" "
-                    << "maxspeed=\"" << vmax << "\" length=\""
-                    << toString<SUMOReal>(length-cross.first) << "\""
-                    << " shape=\"" << split.second << "\"/>\n"
-                    << "   </edge>\n";
+                    std::pair<PositionVector, PositionVector> split = shape.splitAt(cross.first);
+                    writeInternalEdge(into, innerID + "_" + toString(lno), vmax, cross.first, split.first);
+                    writeInternalEdge(into, innerID + "_" + toString(splitNo+noInternalNoSplits), vmax, 
+                            length - cross.first, split.second);
                     splitNo++;
                 } else {
-                    into << "   <edge id=\"" << id
-                    << "\" function=\"internal\">\n";
-                    into << "      <lane id=\"" << id << "_0\" depart=\"0\" "
-                    << "maxspeed=\"" << vmax << "\" length=\""
-                    << toString<SUMOReal>(length) << "\""
-                    << " shape=\"" << shape << "\"/>\n"
-                    << "   </edge>\n";
-                    lno++;
+                    writeInternalEdge(into, innerID + "_" + toString(lno), vmax, length, shape);
                 }
+                lno++;
                 ret = true;
             }
         }
     }
     return ret;
+}
+
+
+void 
+NWWriter_SUMO::writeInternalEdge(OutputDevice &into, 
+        const std::string &id, SUMOReal vmax, SUMOReal length, const PositionVector &shape) {
+    into << "   <edge id=\"" << id << "\" function=\"internal\">\n";
+    into << "      <lane id=\"" << id << "_0\" depart=\"0\" "
+        << "maxspeed=\"" << vmax << "\" "
+        << "length=\"" << toString(length) << "\" "
+        << "shape=\"" << shape << "\"/>\n";
+    into << "   </edge>\n";
 }
 
 
