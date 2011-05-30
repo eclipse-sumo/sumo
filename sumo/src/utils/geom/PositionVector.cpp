@@ -35,6 +35,7 @@
 #include <iterator>
 #include <limits>
 #include <utils/common/StdDefs.h>
+#include <utils/common/MsgHandler.h>
 #include <utils/common/ToString.h>
 #include "AbstractPoly.h"
 #include "Position.h"
@@ -348,11 +349,9 @@ PositionVector::splitAt(SUMOReal where) const {
     if (size() < 2 ) {
         throw InvalidArgument("Vector to short for splitting");
     }
-    /*
     if (where <= POSITION_EPS || where >= length() - POSITION_EPS) {
-        throw InvalidArgument("Invalid position " + toString(where) + " for splitting vector of length " + toString(length()));
+        WRITE_WARNING("Splitting vector close to end (pos: " + toString(where) + ", length: " + toString(length()) + ")");
     }
-    */
     PositionVector first, second;
     first.push_back(myCont[0]);
     SUMOReal seen = 0;
@@ -365,8 +364,9 @@ PositionVector::splitAt(SUMOReal where) const {
         it++;
         next = first.getEnd().distanceTo(*it);
     }
-    if (fabs(where - (seen + next))>POSITION_EPS) { 
-        // we need to insert a new point
+    if (fabs(where - (seen + next))>POSITION_EPS || it == myCont.end()-1) { 
+        // we need to insert a new point because 'where' is not close to an
+        // existing point or it is to close to the endpoint 
         Line tmpL(first.getEnd(), *it);
         Position p = tmpL.getPositionAtDistance(where - seen);
         first.push_back(p);

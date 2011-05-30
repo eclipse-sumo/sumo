@@ -132,7 +132,15 @@ TEST_F(PositionVectorTest, test_method_splitAt) {
 	EXPECT_FLOAT_EQ(1, result.second[0].x());
 	EXPECT_FLOAT_EQ(2 ,result.second[1].x());
 
-    // invalid split pos
-    EXPECT_THROW(vec2.splitAt(smallDiff), InvalidArgument);
-    EXPECT_THROW(vec2.splitAt(2 - smallDiff), InvalidArgument);
+    // split very short vector
+    PositionVector vec3;
+    vec3.push_back(Position(0,0));
+    vec3.push_back(Position(POSITION_EPS,0));
+    result = vec3.splitAt(smallDiff);
+	EXPECT_FLOAT_EQ(2, result.first.size());
+	EXPECT_FLOAT_EQ(0, result.first[0].x());
+	EXPECT_FLOAT_EQ(smallDiff, result.first[1].x());
+	EXPECT_FLOAT_EQ(2, result.second.size());
+	EXPECT_FLOAT_EQ(smallDiff, result.second[0].x());
+	EXPECT_FLOAT_EQ(POSITION_EPS ,result.second[1].x());
 }
