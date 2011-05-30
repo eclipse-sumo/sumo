@@ -751,9 +751,9 @@ MSVehicle::moveChecked() {
         if (myCurrEdge != myRoute->end() - 1) {
             MSLane *approachedLane = myLane;
             // move the vehicle forward
-            for (i=myLFLinkLanes.begin(); approachedLane!=0 && i!=myLFLinkLanes.end() && myState.myPos>approachedLane->getLength(); ++i) {
+            for (i=myLFLinkLanes.begin(); i!=myLFLinkLanes.end() && approachedLane!=0 && myState.myPos>approachedLane->getLength(); ++i) {
                 leaveLane(MSMoveReminder::NOTIFICATION_JUNCTION);
-                MSLink *link = (*i).myLink;
+				MSLink *link = (*i).myLink;
                 // check whether the vehicle was allowed to enter lane
                 //  otherwise it is decelareted and we do not need to test for it's
                 //  approach on the following lanes when a lane changing is performed
@@ -980,6 +980,9 @@ MSVehicle::checkRewindLinkLanes(SUMOReal lengthsInFront) throw() {
 
 void
 MSVehicle::vsafeCriticalCont(SUMOTime t, SUMOReal boundVSafe) {
+    if(myInfluencer!=0) {
+        myInfluencer->influenceSpeed(MSNet::getInstance()->getCurrentTimeStep(), boundVSafe);
+    }
 #ifdef DEBUG_VEHICLE_GUI_SELECTION
     if (gSelected.isSelected(GLO_VEHICLE, static_cast<const GUIVehicle*>(this)->getGlID())) {
         int bla = 0;
@@ -993,7 +996,6 @@ MSVehicle::vsafeCriticalCont(SUMOTime t, SUMOReal boundVSafe) {
     //
     if (this!=myLane->getFirstVehicle() && seen - cfModel.brakeGap(myState.mySpeed) > 0 && seen - SPEED2DIST(boundVSafe) - ACCEL2DIST(cfModel.getMaxAccel()) > 0) {
         // not "reaching critical"
-        assert(boundVSafe >= cfModel.getSpeedAfterMaxDecel(myState.mySpeed));
         myLFLinkLanes.push_back(DriveProcessItem(0, boundVSafe, boundVSafe, false, 0, 0, seen));
         return;
     }
