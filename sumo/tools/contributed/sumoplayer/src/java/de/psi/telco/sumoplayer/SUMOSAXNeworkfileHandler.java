@@ -44,6 +44,23 @@ public class SUMOSAXNeworkfileHandler extends DefaultHandler{
 			
 			network.lanes.put(sumoLaneId, new SUMOLane(sumoLaneId));
 			
+			String data = new String(attributes.getValue("shape"));
+			
+			String[] coordPairs = data.split(" ");	// split by pairs (  COORD1X,COORD1Y COORD2X,COORD2Y ...)
+			for (int i = 0 ; i < coordPairs.length; i++){
+				String[] coordElements = coordPairs[i].split(",");
+				if (coordElements != null && coordElements.length == 2){	// split by comma ( COORD1X,COORD1Y )
+					try{
+						double x = Double.parseDouble(coordElements[0]);
+						double y = Double.parseDouble(coordElements[1]);
+						
+						network.lanes.get(sumoLaneId).points.add(new PointImpl(x,y));
+					}catch(NumberFormatException e){
+					}
+				}				
+			}
+			
+			
 		}else if (qName.equals("cedge")){	// cedges seem to be mappings from sumo.edg.xml IDs to sumoIDs
 			this.currentElementType = CEDGE;
 			cEdgeId = attributes.getValue("id");

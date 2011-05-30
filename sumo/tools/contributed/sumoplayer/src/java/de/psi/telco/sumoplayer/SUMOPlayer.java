@@ -124,7 +124,7 @@ public class SUMOPlayer extends Thread{
 	public void run() {
 		this.init();	// read network first
 		
-		System.out.println("Performing Simulation...");
+		//System.out.println("Performing Simulation...");
         try {
 			saxParser.parse(new File(ndumpFile), saxHandler);
 		} catch (SAXException e) {
@@ -134,7 +134,7 @@ public class SUMOPlayer extends Thread{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-        System.out.println("done.");
+        //System.out.println("done.");
 	}
 
 	/**

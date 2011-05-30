@@ -53,7 +53,21 @@ public class SUMOSAXHandler extends DefaultHandler{
 	
 	public void startElement (String uri, String localName, String qName, Attributes attributes) throws SAXException{
 		if (qName.equals("timestep")){
-			timestep = Integer.parseInt(attributes.getValue("time"));
+			String full= attributes.getValue("time");
+			//String req = full.substring(0, 4);
+			String req = "";
+			
+			for (int i=0;i<full.length();i++){
+				char ctr=full.charAt(i);
+				if (ctr != '.') {
+					req +=ctr;
+				}else if(ctr == '.') {
+					break;
+				}
+
+				}
+			
+			timestep = Integer.parseInt(req);
 			
 			long timeToBe = startTime + timestep*1000;	// dirty realtime trick
 			long now = System.currentTimeMillis();

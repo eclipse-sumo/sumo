@@ -44,7 +44,7 @@ public class SUMOLane {
 	}
 	
 	public Point getPositionWithin(double pos){
-		//System.out.println("GetPosWithin: laneId:"+this.id+" - req pos: "+pos+" - cal len:"+this.getLength());
+		//System.out.println("GetPosWithin: laneId:"+this.id+" - req pos: "+pos+" - cal len:"+this.getLength()+"***"+points);
 		if (this.getLength()<=pos){	// near end. returning last point	
 			return points.get(points.size()-1);		// just return last point
 		}

@@ -39,7 +39,7 @@ public class SUMOGeoCoordinatesResolver {
 			e.printStackTrace();
 		}
 		SUMOSAXNeworkfileHandler saxHandler = new SUMOSAXNeworkfileHandler();
-		System.out.println("Reading SUMO Networkfile...");
+		//System.out.println("Reading SUMO Networkfile...");
         try {
 			saxParser.parse(networkFile, saxHandler);
 		} catch (SAXException e) {
@@ -49,7 +49,7 @@ public class SUMOGeoCoordinatesResolver {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-        System.out.println("done.");
+        //System.out.println("done.");
         
         this.network = saxHandler.network;
 	}
