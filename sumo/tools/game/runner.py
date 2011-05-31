@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+# -*- coding: utf8 -*-
 """
 @file    runner.py
 @author  Michael.Behrisch@dlr.de
@@ -73,6 +74,8 @@ class StartDialog:
                 text = "Simple Junction" 
             elif text == "square":
                 text = "Four Junctions" 
+            elif text == "kuehne":
+                text = "Prof. Kühne" 
             Tkinter.Button(self.root, text=text, width=bWidth, command=lambda cfg=cfg:self.ok(cfg)).grid(row=idx, column=1)
             idx += 1
         Tkinter.Button(self.root, text="Reset Highscore", width=bWidth, command=high.clear).grid(row=idx, column=1)
