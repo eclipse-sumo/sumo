@@ -339,6 +339,8 @@ enum {
     MID_GNE_MODE_SELECT,
     /** mode for connecting lanes */
     MID_GNE_MODE_CONNECT,
+    /** mode for editing tls */
+    MID_GNE_MODE_TLS,
     
     /// selector match box messages
     MID_GNE_SELMB_TAG,
