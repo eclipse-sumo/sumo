@@ -231,6 +231,8 @@ public:
     /// @brief Sets the gl-color to this value
     static void setColor(const RGBColor& c);
 
+    /// @brief gets the gl-color
+    static RGBColor getColor();
 
     /// @brief draw Text with given parameters
     static void drawText(const std::string &text, const Position& pos, 

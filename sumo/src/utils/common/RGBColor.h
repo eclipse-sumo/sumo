@@ -110,6 +110,9 @@ public:
     bool operator!=(const RGBColor &c) const;
 
 
+    RGBColor changedBrightness(SUMOReal change);
+
+
     /** @brief Parses a color information
      *
      * It is assumed that the color is stored as "<RED>,<GREEN>,<BLUE>"

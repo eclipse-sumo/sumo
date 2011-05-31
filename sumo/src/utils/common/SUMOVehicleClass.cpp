@@ -198,6 +198,7 @@ initGuiShapeNames() throw() {
     addToShapeNames(SVS_BUS_CITY, "bus/city");
     addToShapeNames(SVS_BUS_CITY_FLEXIBLE, "bus/flexible");
     addToShapeNames(SVS_BUS_OVERLAND, "bus/overland");
+    addToShapeNames(SVS_BUS_TROLLEY, "bus/trolley");
     addToShapeNames(SVS_RAIL, "rail");
     addToShapeNames(SVS_RAIL_LIGHT, "rail/light");
     addToShapeNames(SVS_RAIL_CITY, "rail/city");
@@ -205,6 +206,7 @@ initGuiShapeNames() throw() {
     addToShapeNames(SVS_RAIL_FAST, "rail/fast");
     addToShapeNames(SVS_RAIL_CARGO, "rail/cargo");
     addToShapeNames(SVS_E_VEHICLE, "evehicle");
+    addToShapeNames(SVS_ANT, "ant");
 }
 
 

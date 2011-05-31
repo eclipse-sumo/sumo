@@ -77,6 +77,8 @@ enum SUMOVehicleShape {
     SVS_BUS_CITY_FLEXIBLE,
     /// @brief render as a overland bus
     SVS_BUS_OVERLAND,
+    /// @brief render as a trolley bus
+    SVS_BUS_TROLLEY,
     /// @brief render as a rail
     SVS_RAIL,
     /// @brief render as a light rail
@@ -90,7 +92,9 @@ enum SUMOVehicleShape {
     /// @brief render as a cargo train
     SVS_RAIL_CARGO,
     /// @brief render as a (futuristic) e-vehicle
-    SVS_E_VEHICLE
+    SVS_E_VEHICLE,
+    /// @brief render as a giant ant
+    SVS_ANT
 };
 
 

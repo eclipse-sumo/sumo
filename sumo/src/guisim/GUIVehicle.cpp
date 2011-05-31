@@ -396,17 +396,9 @@ drawPoly(double *poses, SUMOReal offset) {
 
 inline void
 drawAction_drawVehicleAsPoly(const GUIVehicle &veh, SUMOReal upscale) {
-    GLdouble current[4], lighter[4];
-    glGetDoublev(GL_CURRENT_COLOR, current);
-    lighter[0] = current[0]+.2;
-    if (lighter[0]>1) lighter[0] = 1;
-    lighter[1] = current[1]+.2;
-    if (lighter[1]>1) lighter[1] = 1;
-    lighter[2] = current[2]+.2;
-    if (lighter[2]>1) lighter[2] = 1;
-    lighter[3] = current[3]+.2;
-    if (lighter[3]>1) lighter[3] = 1;
-
+    RGBColor current = GLHelper::getColor();
+    RGBColor lighter = current.changedBrightness(.2);
+    RGBColor darker = current.changedBrightness(-.2);
 
     SUMOReal length = veh.getVehicleType().getLength();
     glPushMatrix();
@@ -415,10 +407,12 @@ drawAction_drawVehicleAsPoly(const GUIVehicle &veh, SUMOReal upscale) {
     glScaled(length-veh.getVehicleType().getGuiOffset(), veh.getVehicleType().getGuiWidth(), 1.);
     glScaled(upscale, upscale, 1);
     SUMOVehicleShape shape = veh.getVehicleType().getGuiShape();
+
+    // draw main body
     switch (shape) {
     case SVS_UNKNOWN:
         drawPoly(vehiclePoly_PassengerCarBody, 4);
-        glColor3dv(lighter);
+        GLHelper::setColor(lighter);
         drawPoly(vehiclePoly_PassengerCarBodyFront, 4.5);
         glColor3d(0, 0, 0);
         drawPoly(vehiclePoly_PassengerFrontGlass, 4.5);
@@ -430,7 +424,7 @@ drawAction_drawVehicleAsPoly(const GUIVehicle &veh, SUMOReal upscale) {
         glTranslated(0, 0, -.045);
         glScaled(.7, 2, 1);
         glTranslated(0, 0, .04);
-        glColor3dv(lighter);
+        GLHelper::setColor(lighter);
         GLHelper::drawFilledCircle(1);
         glTranslated(0, 0, -.04);
         break;
@@ -444,7 +438,7 @@ drawAction_drawVehicleAsPoly(const GUIVehicle &veh, SUMOReal upscale) {
         glScaled(.7, 2, 1);
         glTranslated(0, 0, -.045);
         glTranslated(0, 0, .04);
-        glColor3dv(lighter);
+        GLHelper::setColor(lighter);
         GLHelper::drawFilledCircle(1);
         glTranslated(0, 0, -.04);
         glPopMatrix();
@@ -455,14 +449,14 @@ drawAction_drawVehicleAsPoly(const GUIVehicle &veh, SUMOReal upscale) {
     case SVS_PASSENGER_HATCHBACK:
     case SVS_PASSENGER_WAGON:
         drawPoly(vehiclePoly_PassengerCarBody, 4);
-        glColor3dv(lighter);
+        GLHelper::setColor(lighter);
         drawPoly(vehiclePoly_PassengerCarBodyFront, 4.5);
         glColor3d(0, 0, 0);
         drawPoly(vehiclePoly_PassengerFrontGlass, 4.5);
         break;
     case SVS_PASSENGER_VAN:
         drawPoly(vehiclePoly_PassengerVanBody, 4);
-        glColor3dv(lighter);
+        GLHelper::setColor(lighter);
         drawPoly(vehiclePoly_PassengerVanBodyFront, 4.5);
         glColor3d(0, 0, 0);
         drawPoly(vehiclePoly_PassengerVanFrontGlass, 4.5);
@@ -472,7 +466,7 @@ drawAction_drawVehicleAsPoly(const GUIVehicle &veh, SUMOReal upscale) {
         break;
     case SVS_DELIVERY:
         drawPoly(vehiclePoly_PassengerVanBody, 4);
-        glColor3dv(lighter);
+        GLHelper::setColor(lighter);
         drawPoly(vehiclePoly_PassengerVanBodyFront, 4.5);
         glColor3d(0, 0, 0);
         drawPoly(vehiclePoly_PassengerVanFrontGlass, 4.5);
@@ -490,6 +484,7 @@ drawAction_drawVehicleAsPoly(const GUIVehicle &veh, SUMOReal upscale) {
         drawPoly(vehiclePoly_TransportLeftGlass, 4.5);
         break;
     case SVS_BUS:
+    case SVS_BUS_TROLLEY:
     case SVS_BUS_CITY: {
         SUMOReal ml = length - veh.getVehicleType().getGuiOffset();
         glScaled(1./(length-veh.getVehicleType().getGuiOffset()), 1, 1.);
@@ -565,7 +560,7 @@ drawAction_drawVehicleAsPoly(const GUIVehicle &veh, SUMOReal upscale) {
         glColor3d(0, 0, 0);
         drawPoly(vehiclePoly_EVehicleFrontGlass, 4.5);
         glTranslated(0, 0, .048);
-        glColor3dv(current);
+        GLHelper::setColor(current);
         glBegin(GL_QUADS);
         glVertex2d(.3, .5);
         glVertex2d(.35, .5);
@@ -585,6 +580,38 @@ drawAction_drawVehicleAsPoly(const GUIVehicle &veh, SUMOReal upscale) {
         glTranslated(0, 0, -.048);
         //drawPoly(vehiclePoly_EVehicleBackGlass, 4.5);
         break;
+    case SVS_ANT:
+        glPushMatrix();
+        // ant is stretched via vehicle length 
+        GLHelper::setColor(darker);
+        // draw left side
+        GLHelper::drawBoxLine(Position(-0.2, -.10), 350, 0.5, .02);
+        GLHelper::drawBoxLine(Position(-0.3, -.50), 240, 0.4, .03);
+        GLHelper::drawBoxLine(Position( 0.3, -.10), 340, 0.8, .03);
+        GLHelper::drawBoxLine(Position( 0.05,-.80), 290, 0.6, .04);
+        GLHelper::drawBoxLine(Position( 0.4, -.10),  20, 0.8, .03);
+        GLHelper::drawBoxLine(Position( 0.65,-.80),  75, 0.6, .04);
+        GLHelper::drawBoxLine(Position( 0.5, -.10),  55, 0.8, .04);
+        GLHelper::drawBoxLine(Position( 1.1, -.55),  90, 0.6, .04);
+        // draw right side 
+        GLHelper::drawBoxLine(Position(-0.2,  .10), 190, 0.5, .02);
+        GLHelper::drawBoxLine(Position(-0.3,  .50), 300, 0.4, .03);
+        GLHelper::drawBoxLine(Position( 0.3,  .10), 200, 0.8, .03);
+        GLHelper::drawBoxLine(Position( 0.05, .80), 250, 0.6, .04);
+        GLHelper::drawBoxLine(Position( 0.4,  .10), 160, 0.8, .03);
+        GLHelper::drawBoxLine(Position( 0.65, .80), 105, 0.6, .04);
+        GLHelper::drawBoxLine(Position( 0.5,  .10), 125, 0.8, .04);
+        GLHelper::drawBoxLine(Position( 1.1,  .55),  90, 0.6, .04);
+        // draw body
+        GLHelper::setColor(current);
+        glTranslated(0,0,0.1);
+        GLHelper::drawFilledCircle(.25,16);
+        glTranslated(.4,0,0);
+        GLHelper::drawFilledCircle(.2,16);
+        glTranslated(.4,0,0);
+        GLHelper::drawFilledCircle(.3,16);
+        glPopMatrix();
+        break;
     default: // same as passenger
         drawPoly(vehiclePoly_PassengerCarBody, 4);
         glColor3d(1, 1, 1);
@@ -594,6 +621,7 @@ drawAction_drawVehicleAsPoly(const GUIVehicle &veh, SUMOReal upscale) {
         break;
     }
 
+    // draw decorations
     switch (shape) {
     case SVS_PEDESTRIAN:
         break;
@@ -649,21 +677,34 @@ drawAction_drawVehicleAsPoly(const GUIVehicle &veh, SUMOReal upscale) {
     case SVS_DELIVERY:
         break;
     case SVS_TRANSPORT:
-        glColor3dv(current);
+        GLHelper::setColor(current);
         GLHelper::drawBoxLine(Position(2.3, 0), 90., length-veh.getVehicleType().getGuiOffset()-2.3, .5);
         break;
     case SVS_TRANSPORT_SEMITRAILER:
-        glColor3dv(current);
+        GLHelper::setColor(current);
         GLHelper::drawBoxLine(Position(2.8, 0), 90., length-veh.getVehicleType().getGuiOffset()-2.8, .5);
         break;
     case SVS_TRANSPORT_1TRAILER: {
-        glColor3dv(current);
+        GLHelper::setColor(current);
         SUMOReal l = length-veh.getVehicleType().getGuiOffset()-2.3;
         l = l/2.;
         GLHelper::drawBoxLine(Position(2.3, 0), 90., l, .5);
         GLHelper::drawBoxLine(Position(2.3+l+.5, 0), 90., l-.5, .5);
         break;
     }
+    case SVS_BUS_TROLLEY:
+        glPushMatrix();
+        glTranslated(0,0,.1);
+        GLHelper::setColor(darker);
+        GLHelper::drawBoxLine(Position(3.8, 0), 90., 1, .3);
+        glTranslated(0,0,.1);
+        glColor3d(0,0,0);
+        GLHelper::drawBoxLine(Position(4.3, .2), 90., 1, .06);
+        GLHelper::drawBoxLine(Position(4.3, -.2), 90., 1, .06);
+        GLHelper::drawBoxLine(Position(5.3, .2), 90., 3, .03);
+        GLHelper::drawBoxLine(Position(5.3, -.2), 90., 3, .03);
+        glPopMatrix();
+        break;
     case SVS_BUS:
     case SVS_BUS_CITY:
     case SVS_BUS_CITY_FLEXIBLE:
@@ -675,6 +716,7 @@ drawAction_drawVehicleAsPoly(const GUIVehicle &veh, SUMOReal upscale) {
     case SVS_RAIL_FAST:
     case SVS_RAIL_CARGO:
     case SVS_E_VEHICLE:
+    case SVS_ANT:
         break;
     default: // same as passenger/sedan
         drawPoly(vehiclePoly_PassengerSedanRightGlass, 4.5);
@@ -847,8 +889,16 @@ GUIVehicle::drawGL(const GUIVisualizationSettings &s) const throw() {
     // draw the blinker if wished
     if (s.showBlinker) {
         glTranslated(0, 0, .1);
-        drawAction_drawVehicleBlinker(*this);
-        drawAction_drawVehicleBrakeLight(*this);
+        switch (getVehicleType().getGuiShape()) {
+            case SVS_PEDESTRIAN:
+            case SVS_BICYCLE:
+            case SVS_ANT:
+                break;
+            default:
+                drawAction_drawVehicleBlinker(*this);
+                drawAction_drawVehicleBrakeLight(*this);
+                break;
+        }
     }
     // draw the wish to change the lane
     if (s.drawLaneChangePreference) {

@@ -306,6 +306,14 @@ GLHelper::setColor(const RGBColor& c) {
 }
 
 
+RGBColor 
+GLHelper::getColor() {
+    GLdouble current[4];
+    glGetDoublev(GL_CURRENT_COLOR, current);
+    return RGBColor(current[0], current[1], current[2]);
+}
+
+
 void 
 GLHelper::drawText(const std::string &text, const Position& pos, 
         const SUMOReal layer, const SUMOReal size, 

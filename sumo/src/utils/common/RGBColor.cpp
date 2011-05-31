@@ -99,6 +99,15 @@ RGBColor::operator!=(const RGBColor &c) const {
 }
 
 
+RGBColor 
+RGBColor::changedBrightness(SUMOReal change) {
+    SUMOReal red = MIN2(MAX2(myRed + change, .0), 1.);
+    SUMOReal blue = MIN2(MAX2(myBlue + change, .0), 1.);
+    SUMOReal green = MIN2(MAX2(myGreen + change, .0), 1.);
+    return RGBColor(red, green, blue);
+
+}
+
 RGBColor
 RGBColor::parseColor(const std::string &coldef) throw(EmptyData, NumberFormatException) {
     StringTokenizer st(coldef, ",");
