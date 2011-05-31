@@ -898,11 +898,8 @@ GUIVehicle::drawGL(const GUIVisualizationSettings &s) const throw() {
         */
     }
     glPopMatrix();
-    if (s.drawVehicleName) {
-        drawName(
-                myLane->getShape().positionAtLengthPosition(myState.pos() - getVehicleType().getLength() / 2),
-                s.vehicleNameSize / s.scale, s.vehicleNameColor);
-    }
+    drawName(myLane->getShape().positionAtLengthPosition(myState.pos() - getVehicleType().getLength() / 2),
+            s.scale, s.vehicleName);
     glPopName();
 }
 

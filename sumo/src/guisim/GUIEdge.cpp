@@ -269,9 +269,9 @@ GUIEdge::drawGL(const GUIVisualizationSettings &s) const throw() {
     }
 #endif
     // (optionally) draw the name and/or the street name
-    const bool drawEdgeName = s.drawEdgeName && myFunction == EDGEFUNCTION_NORMAL;
-    const bool drawInternalEdgeName = s.drawInternalEdgeName && myFunction != EDGEFUNCTION_NORMAL;
-    const bool drawStreetName = s.drawStreetName && myStreetName != "";
+    const bool drawEdgeName = s.edgeName.show && myFunction == EDGEFUNCTION_NORMAL;
+    const bool drawInternalEdgeName = s.internalEdgeName.show && myFunction != EDGEFUNCTION_NORMAL;
+    const bool drawStreetName = s.streetName.show && myStreetName != "";
     if (drawEdgeName || drawInternalEdgeName || drawStreetName) {
         GUILaneWrapper *lane1 = myLaneGeoms[0];
         GUILaneWrapper *lane2 = myLaneGeoms[myLaneGeoms.size()-1];
@@ -284,13 +284,13 @@ GUIEdge::drawGL(const GUIVisualizationSettings &s) const throw() {
             angle -= 180;
         }
         if (drawEdgeName) {
-            drawName(p, s.edgeNameSize / s.scale, s.edgeNameColor, angle);
+            drawName(p, s.scale, s.edgeName, angle);
         } else if (drawInternalEdgeName) {
-            drawName(p, s.internalEdgeNameSize / s.scale, s.internalEdgeNameColor, angle);
+            drawName(p, s.scale, s.internalEdgeName, angle);
         }
         if (drawStreetName) {
             GLHelper::drawText(getStreetName(), p, GLO_MAX,
-                    s.streetNameSize / s.scale, s.streetNameColor, angle);
+                    s.streetName.size / s.scale, s.streetName.color, angle);
         }
     }
 }

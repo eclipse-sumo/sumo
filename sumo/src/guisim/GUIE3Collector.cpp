@@ -122,10 +122,7 @@ GUIE3Collector::MyWrapper::drawGL(const GUIVisualizationSettings &s) const throw
         drawSingleCrossing((*i).myFGPosition, (*i).myFGRotation, s.addExaggeration);
     }
     glPopMatrix();
-    // (optional) draw name
-    if (s.drawAddName) {
-        drawName(getCenteringBoundary().getCenter(), s.addNameSize / s.scale);
-    }
+    drawName(getCenteringBoundary().getCenter(), s.scale, s.addName);
     glPopName();
 }
 

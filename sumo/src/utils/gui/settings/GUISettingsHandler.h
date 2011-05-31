@@ -134,6 +134,12 @@ private:
     /// @brief The current color scheme
     GUIColorScheme* myCurrentScheme;
 
+private:
+
+    /// @brief parse combined settings of bool, size and color
+    GUIVisualizationTextSettings parseTextSettings(
+            const std::string &prefix, const SUMOSAXAttributes &attrs,
+            GUIVisualizationTextSettings defaults);
 
 };
 

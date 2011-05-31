@@ -113,15 +113,9 @@ GUISettingsHandler::myStartElement(int element,
         mySettings.laneShowBorders = TplConvert<char>::_2bool(attrs.getStringSecure("laneShowBorders", toString(mySettings.laneShowBorders)).c_str());
         mySettings.showLinkDecals = TplConvert<char>::_2bool(attrs.getStringSecure("showLinkDecals", toString(mySettings.showLinkDecals)).c_str());
         mySettings.showRails = TplConvert<char>::_2bool(attrs.getStringSecure("showRails", toString(mySettings.showRails)).c_str());
-        mySettings.drawEdgeName = TplConvert<char>::_2bool(attrs.getStringSecure("drawEdgeName", toString(mySettings.drawEdgeName)).c_str());
-        mySettings.edgeNameSize = TplConvert<char>::_2SUMOReal(attrs.getStringSecure("edgeNameSize", toString(mySettings.edgeNameSize)).c_str());
-        mySettings.edgeNameColor = RGBColor::parseColorReporting(attrs.getStringSecure("edgeNameColor", toString(mySettings.edgeNameColor)), "edges", 0, true, ok);
-        mySettings.drawInternalEdgeName = TplConvert<char>::_2bool(attrs.getStringSecure("drawInternalEdgeName", toString(mySettings.drawInternalEdgeName)).c_str());
-        mySettings.internalEdgeNameSize = TplConvert<char>::_2SUMOReal(attrs.getStringSecure("internalEdgeNameSize", toString(mySettings.internalEdgeNameSize)).c_str());
-        mySettings.internalEdgeNameColor = RGBColor::parseColorReporting(attrs.getStringSecure("internalEdgeNameColor", toString(mySettings.internalEdgeNameColor)), "edges", 0, true, ok);
-        mySettings.drawStreetName = TplConvert<char>::_2bool(attrs.getStringSecure("drawStreetName", toString(mySettings.drawStreetName)).c_str());
-        mySettings.streetNameSize = TplConvert<char>::_2SUMOReal(attrs.getStringSecure("streetNameSize", toString(mySettings.streetNameSize)).c_str());
-        mySettings.streetNameColor = RGBColor::parseColorReporting(attrs.getStringSecure("streetNameColor", toString(mySettings.streetNameColor)), "edges", 0, true, ok);
+        mySettings.edgeName = parseTextSettings("edgeName", attrs, mySettings.edgeName);
+        mySettings.internalEdgeName = parseTextSettings("internalEdgeName", attrs, mySettings.internalEdgeName);
+        mySettings.streetName = parseTextSettings("streetName", attrs, mySettings.streetName);
         mySettings.hideConnectors = TplConvert<char>::_2bool(attrs.getStringSecure("hideConnectors", toString(mySettings.hideConnectors)).c_str());
         myCurrentColorer = element;
 #ifdef HAVE_MESOSIM
@@ -168,34 +162,27 @@ GUISettingsHandler::myStartElement(int element,
         mySettings.minVehicleSize = TplConvert<char>::_2SUMOReal(attrs.getStringSecure("minVehicleSize", toString(mySettings.minVehicleSize)).c_str());
         mySettings.vehicleExaggeration = TplConvert<char>::_2SUMOReal(attrs.getStringSecure("vehicleExaggeration", toString(mySettings.vehicleExaggeration)).c_str());
         mySettings.showBlinker = TplConvert<char>::_2bool(attrs.getStringSecure("showBlinker", toString(mySettings.showBlinker)).c_str());
-        mySettings.drawVehicleName = TplConvert<char>::_2bool(attrs.getStringSecure("drawVehicleName", toString(mySettings.drawVehicleName)).c_str());
-        mySettings.vehicleNameSize = TplConvert<char>::_2SUMOReal(attrs.getStringSecure("vehicleNameSize", toString(mySettings.vehicleNameSize)).c_str());
-        mySettings.vehicleNameColor = RGBColor::parseColorReporting(attrs.getStringSecure("vehicleNameColor", toString(mySettings.vehicleNameColor)), "vehicles", 0, true, ok);
+        mySettings.vehicleName = parseTextSettings("vehicleName", attrs, mySettings.vehicleName);
         myCurrentColorer = element;
         break;
     case SUMO_TAG_VIEWSETTINGS_JUNCTIONS:
         mySettings.junctionMode = TplConvert<char>::_2int(attrs.getStringSecure("junctionMode", toString(mySettings.junctionMode)).c_str());
         mySettings.drawLinkTLIndex = TplConvert<char>::_2bool(attrs.getStringSecure("drawLinkTLIndex", toString(mySettings.drawLinkTLIndex)).c_str());
         mySettings.drawLinkJunctionIndex = TplConvert<char>::_2bool(attrs.getStringSecure("drawLinkJunctionIndex", toString(mySettings.drawLinkJunctionIndex)).c_str());
-        mySettings.drawJunctionName = TplConvert<char>::_2bool(attrs.getStringSecure("drawJunctionName", toString(mySettings.drawJunctionName)).c_str());
-        mySettings.drawInternalJunctionName = TplConvert<char>::_2bool(attrs.getStringSecure("drawInternalJunctionName", toString(mySettings.drawInternalJunctionName)).c_str());
-        mySettings.junctionNameSize = TplConvert<char>::_2SUMOReal(attrs.getStringSecure("junctionNameSize", toString(mySettings.junctionNameSize)).c_str());
-        mySettings.junctionNameColor = RGBColor::parseColorReporting(attrs.getStringSecure("junctionNameColor", toString(mySettings.junctionNameColor)), "junctions", 0, true, ok);
+        mySettings.junctionName = parseTextSettings("junctionName", attrs, mySettings.junctionName);
+        mySettings.internalJunctionName = parseTextSettings("internalJunctionName", attrs, mySettings.internalJunctionName);
         mySettings.showLane2Lane = TplConvert<char>::_2bool(attrs.getStringSecure("showLane2Lane", toString(mySettings.showLane2Lane)).c_str());
         break;
     case SUMO_TAG_VIEWSETTINGS_ADDITIONALS:
         mySettings.addMode = TplConvert<char>::_2int(attrs.getStringSecure("addMode", toString(mySettings.addMode)).c_str());
         mySettings.minAddSize = TplConvert<char>::_2SUMOReal(attrs.getStringSecure("minAddSize", toString(mySettings.minAddSize)).c_str());
         mySettings.addExaggeration = TplConvert<char>::_2SUMOReal(attrs.getStringSecure("addExaggeration", toString(mySettings.addExaggeration)).c_str());
-        mySettings.drawAddName = TplConvert<char>::_2bool(attrs.getStringSecure("drawAddName", toString(mySettings.drawAddName)).c_str());
-        mySettings.addNameSize = TplConvert<char>::_2SUMOReal(attrs.getStringSecure("addNameSize", toString(mySettings.addNameSize)).c_str());
+        mySettings.addName = parseTextSettings("addName", attrs, mySettings.addName);
         break;
     case SUMO_TAG_VIEWSETTINGS_POIS:
         mySettings.poiExaggeration = TplConvert<char>::_2SUMOReal(attrs.getStringSecure("poiExaggeration", toString(mySettings.poiExaggeration)).c_str());
         mySettings.minPOISize = TplConvert<char>::_2SUMOReal(attrs.getStringSecure("minPOISize", toString(mySettings.minPOISize)).c_str());
-        mySettings.drawPOIName = TplConvert<char>::_2bool(attrs.getStringSecure("drawPOIName", toString(mySettings.drawPOIName)).c_str());
-        mySettings.poiNameSize = TplConvert<char>::_2SUMOReal(attrs.getStringSecure("poiNameSize", toString(mySettings.poiNameSize)).c_str());
-        mySettings.poiNameColor = RGBColor::parseColorReporting(attrs.getStringSecure("poiNameColor", toString(mySettings.poiNameColor)), "pois", 0, true, ok);
+        mySettings.poiName = parseTextSettings("poiName", attrs, mySettings.poiName);
         break;
     case SUMO_TAG_VIEWSETTINGS_LEGEND:
         mySettings.showSizeLegend = TplConvert<char>::_2bool(attrs.getStringSecure("showSizeLegend", toString(mySettings.showSizeLegend)).c_str());
@@ -218,6 +205,19 @@ GUISettingsHandler::myStartElement(int element,
     default:
         break;
     }
+}
+
+
+GUIVisualizationTextSettings 
+GUISettingsHandler::parseTextSettings(
+        const std::string &prefix, const SUMOSAXAttributes &attrs,
+        GUIVisualizationTextSettings defaults) 
+{
+    bool ok;
+    return GUIVisualizationTextSettings(
+            TplConvert<char>::_2bool(attrs.getStringSecure(prefix + "_show", toString(defaults.show)).c_str()),
+            TplConvert<char>::_2SUMOReal(attrs.getStringSecure(prefix + "_size", toString(defaults.size)).c_str()),
+            RGBColor::parseColorReporting(attrs.getStringSecure(prefix + "_color", toString(defaults.color)), "edges", 0, true, ok));
 }
 
 

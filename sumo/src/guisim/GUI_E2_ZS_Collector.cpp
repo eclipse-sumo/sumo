@@ -195,10 +195,7 @@ GUI_E2_ZS_Collector::MyWrapper::drawGL(const GUIVisualizationSettings &s) const 
         }
     }
     glPopMatrix();
-    // (optional) draw name
-    if (s.drawAddName) {
-        drawName(getCenteringBoundary().getCenter(), s.addNameSize / s.scale);
-    }
+    drawName(getCenteringBoundary().getCenter(), s.scale, s.addName);
     glPopName();
 }
 

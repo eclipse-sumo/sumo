@@ -216,8 +216,11 @@ GUIGlObject::createFullName() const {
 
 
 void
-GUIGlObject::drawName(const Position& pos, const SUMOReal size, const RGBColor& col, const SUMOReal angle) const {
-    GLHelper::drawText(getMicrosimID(), pos, GLO_MAX, size, col, angle);
+GUIGlObject::drawName(const Position& pos, const SUMOReal scale, 
+            const GUIVisualizationTextSettings &settings, const SUMOReal angle) const {
+    if (settings.show) {
+        GLHelper::drawText(getMicrosimID(), pos, GLO_MAX, settings.size / scale, settings.color, angle);
+    }
 }
 
 /****************************************************************************/

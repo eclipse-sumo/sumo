@@ -109,10 +109,8 @@ GUIPointOfInterest::drawGL(const GUIVisualizationSettings &s) const throw() {
     glTranslated(x(), y(), getLayer());
     GLHelper::drawFilledCircle((SUMOReal) 1.3*s.poiExaggeration, 16);
     glPopMatrix();
-    if (s.drawPOIName) {
-        drawName(Position(x() + 1.32*s.poiExaggeration, y() + 1.32*s.poiExaggeration),
-                s.poiNameSize / s.scale, s.poiNameColor);
-    }
+    drawName(Position(x() + 1.32*s.poiExaggeration, y() + 1.32*s.poiExaggeration),
+            s.scale, s.poiName);
     glPopName();
 }
 

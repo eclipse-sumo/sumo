@@ -48,12 +48,40 @@ class OutputDevice;
 // ===========================================================================
 // class definitions
 // ===========================================================================
+
+// cannot declare this as inner class because it needs to be used in forward
+// declaration (@todo fix inclusion order by removing references to guisim!)
+struct GUIVisualizationTextSettings {
+    GUIVisualizationTextSettings(bool _show, float _size, RGBColor _color) :
+        show(_show), size(_size), color(_color) {}
+
+    bool show;
+    float size;
+    RGBColor color;
+
+    bool operator==(const GUIVisualizationTextSettings &other) {
+        return show == other.show &&
+            size == other.size &&
+            color == other.color;
+    }
+    bool operator!=(const GUIVisualizationTextSettings &other) {
+        return !((*this) == other);
+    }
+
+    std::string print(const std::string& name) const {
+        return name + "_show=\"" + toString(show) + "\" " +
+            name + "_size=\"" + toString(size) + "\" " +
+            name + "_color=\"" + toString(color) + "\" "; 
+    }
+};
+
 /**
  * @class GUIVisualizationSettings
  * @brief Stores the information about how to visualize structures
  */
 class GUIVisualizationSettings {
 public:
+
     /// @brief constructor
     GUIVisualizationSettings() throw();
 
@@ -94,24 +122,9 @@ public:
     bool showLinkDecals;
     /// @brief Information whether rails shall be drawn
     bool showRails;
-    /// @brief Information whether the edge's name shall be drawn
-    bool drawEdgeName;
-    /// @brief The size of the edge name
-    float edgeNameSize;
-    /// @brief The color of edge names
-    RGBColor edgeNameColor;
-    /// @brief Information whether the names of internal edges shall be drawn
-    bool drawInternalEdgeName;
-    /// @brief The size of the internal edge name
-    float internalEdgeNameSize;
-    /// @brief The color of internal edge names
-    RGBColor internalEdgeNameColor;
-    /// @brief Whether macroscopic connectors shall be hidden
-    bool drawStreetName;
-    /// @brief The size of the internal edge name
-    float streetNameSize;
-    /// @brief The color of internal edge names
-    RGBColor streetNameColor;
+    // Setting bundles for optional drawing names with size and color
+    GUIVisualizationTextSettings edgeName, internalEdgeName, streetName;
+
     bool hideConnectors;
     //@}
 
@@ -131,12 +144,8 @@ public:
     bool showBlinker;
     /// @brief Information whether the lane change preference shall be drawn
     bool drawLaneChangePreference;
-    /// @brief Information whether the vehicle's name shall be drawn
-    bool drawVehicleName;
-    /// @brief The size of the vehicle name
-    float vehicleNameSize;
-    /// @brief The color of vehicle names
-    RGBColor vehicleNameColor;
+    // Setting bundles for optional drawing vehicle names
+    GUIVisualizationTextSettings vehicleName;
     //@}
 
 
@@ -149,14 +158,8 @@ public:
     bool drawLinkTLIndex;
     /// @brief Information whether a link's junction index shall be drawn
     bool drawLinkJunctionIndex;
-    /// @brief Information whether the junction's name shall be drawn
-    bool drawJunctionName;
-    /// @brief Information whether the internal junction's name shall be drawn
-    bool drawInternalJunctionName;
-    /// @brief The size of the junction name
-    float junctionNameSize;
-    /// @brief The color of junction names
-    RGBColor junctionNameColor;
+    // Setting bundles for optional drawing junction names
+    GUIVisualizationTextSettings junctionName, internalJunctionName;
     //@}
 
 
@@ -173,12 +176,8 @@ public:
     float minAddSize;
     /// @brief The additional structures exaggeration (upscale)
     float addExaggeration;
-    /// @brief Information whether the additional's name shall be drawn
-    bool drawAddName;
-    /// @brief The size of the additionals' name
-    float addNameSize;
-    // The color of additionals' names
-    //RGBColor addNameColor;
+    // Setting bundles for optional drawing additional names
+    GUIVisualizationTextSettings addName;
     //@}
 
 
@@ -189,12 +188,8 @@ public:
     float minPOISize;
     /// @brief The additional shapes (upscale)
     float poiExaggeration;
-    /// @brief Information whether the poi's name shall be drawn
-    bool drawPOIName;
-    /// @brief The size of the poi name
-    float poiNameSize;
-    /// @brief The color of poi names
-    RGBColor poiNameColor;
+    // Setting bundles for optional drawing poi names
+    GUIVisualizationTextSettings poiName;
     //@}
 
     /// @brief Information whether the size legend shall be drawn
@@ -226,7 +221,6 @@ public:
 
     /** @brief Assignment operator */
     bool operator==(const GUIVisualizationSettings &vs2);
-
 };
 
 

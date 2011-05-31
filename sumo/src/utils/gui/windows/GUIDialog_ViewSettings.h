@@ -54,6 +54,21 @@ class GUIDialog_ViewSettings : public FXDialogBox {
     // is a FOX-object with an own mapping
     FXDECLARE(GUIDialog_ViewSettings)
 public:
+
+    class NamePanel {
+    public:
+        NamePanel(FXMatrix *parent, GUIDialog_ViewSettings *target,
+                const std::string &title, 
+                const GUIVisualizationTextSettings &settings); 
+
+        GUIVisualizationTextSettings getSettings();
+        void update(const GUIVisualizationTextSettings &settings);
+
+        FXCheckButton *myCheck;
+        FXRealSpinDial *mySizeDial;
+        FXColorWell* myColorWell;
+    };
+
     /** @brief Constructor
      * @param[in] parent The view to report changed settings to
      * @param[in, out] settings The current settings that can be changed
@@ -137,19 +152,20 @@ public:
     void setCurrentScheme(const std::string &) throw();
 
 
-protected:
     /** @brief Converts a FOX-color into a RGBColor
      * @param[in] c The color to convert
      * @return The converted color
      */
-    RGBColor convert(const FXColor c) const throw();
+    static RGBColor convert(const FXColor c);
 
 
     /** @brief Converts a RGBColor into a FOX-color
      * @param[in] c The color to convert
      * @return The converted color
      */
-    FXColor convert(const RGBColor &c) const throw();
+    static FXColor convert(const RGBColor &c);
+
+protected:
 
 
     /** @brief Rebuilds color changing dialogs after choosing another coloring scheme
@@ -214,10 +230,8 @@ private:
     std::vector<FXButton *> myLaneButtons;
     FXCheckButton *myLaneColorInterpolation;
 
-    FXCheckButton *myShowLaneBorders, *myShowLaneDecals, *myShowRails, *myShowEdgeName, 
-                  *myShowInternalEdgeName, *myShowStreetName, *myHideMacroConnectors;
-    FXRealSpinDial *myEdgeNameSizeDialer, *myInternalEdgeNameSizeDialer, *myStreetNameSizeDialer;
-    FXColorWell *myEdgeNameColor, *myInternalEdgeNameColor, *myStreetNameColor;
+    FXCheckButton *myShowLaneBorders, *myShowLaneDecals, *myShowRails,
+                  *myHideMacroConnectors;
 
     FXComboBox *myVehicleColorMode, *myVehicleShapeDetail;
     FXVerticalFrame *myVehicleColorSettingFrame;
@@ -226,27 +240,21 @@ private:
     std::vector<FXButton *> myVehicleButtons;
     FXCheckButton *myVehicleColorInterpolation;
     FXRealSpinDial *myVehicleMinSizeDialer, *myVehicleUpscaleDialer;
-    FXCheckButton *myShowBlinker, /* *myShowLaneChangePreference,*/ *myShowVehicleName;
-    FXRealSpinDial *myVehicleNameSizeDialer;
-    FXColorWell *myVehicleNameColor;
+    FXCheckButton *myShowBlinker; /* *myShowLaneChangePreference,*/ 
 
     FXCheckButton *myShowTLIndex, *myShowJunctionIndex;
-    FXCheckButton *myShowJunctionName;
-    FXCheckButton *myShowInternalJunctionName;
-    FXRealSpinDial *myJunctionNameSizeDialer;
-    FXColorWell *myJunctionNameColor;
 
-    FXRealSpinDial *myDetectorMinSizeDialer, *myDetectorUpscaleDialer, *myAddNameSizeDialer;
-    FXCheckButton *myShowAddName;
-
-    FXRealSpinDial *myPOIMinSizeDialer, *myPOIUpscaleDialer, *myPOINameSizeDialer;
-    FXCheckButton *myShowPOIName;
-    FXColorWell *myPOINameColor;
+    FXRealSpinDial *myDetectorMinSizeDialer, *myDetectorUpscaleDialer;
+    FXRealSpinDial *myPOIMinSizeDialer, *myPOIUpscaleDialer;
 
     FXCheckButton *myShowLane2Lane;
     FXCheckButton *myAntialiase;
     FXCheckButton *myDither;
     FXCheckButton *myShowSizeLegend;
+
+    NamePanel *myEdgeNamePanel, *myInternalEdgeNamePanel, *myStreetNamePanel, 
+              *myJunctionNamePanel, *myInternalJunctionNamePanel,
+              *myVehicleNamePanel, *myAddNamePanel, *myPoiNamePanel;
     /// @}
 
 

@@ -47,23 +47,20 @@ GUIVisualizationSettings::GUIVisualizationSettings() throw()
         backgroundColor(RGBColor(1, 1, 1)),
         showGrid(false), gridXSize(100), gridYSize(100),
         laneShowBorders(false), showLinkDecals(true), showRails(true),
-        drawEdgeName(false), edgeNameSize(50),
-        edgeNameColor(RGBColor(1, .5, 0)),
-        drawInternalEdgeName(false), internalEdgeNameSize(40),
-        internalEdgeNameColor(RGBColor(.5, .25, 0)),
-        drawStreetName(false), streetNameSize(55), streetNameColor(RGBColor(1, 1, 0)),
+        edgeName(false, 50, RGBColor(1, .5, 0)),
+        internalEdgeName(false, 40, RGBColor(.5, .25, 0)),
+        streetName(false, 55, RGBColor(1, 1, 0)),
         hideConnectors(false), vehicleQuality(0),
         minVehicleSize(1), vehicleExaggeration(1), showBlinker(true),
         drawLaneChangePreference(false),
-        drawVehicleName(false), vehicleNameSize(50),
-        vehicleNameColor(RGBColor(.8, .6, 0)),
+        vehicleName(false, 50, RGBColor(.8, .6, 0)),
         junctionMode(0), drawLinkTLIndex(false), drawLinkJunctionIndex(false),
-        drawJunctionName(false), drawInternalJunctionName(false), junctionNameSize(50),
-        junctionNameColor(RGBColor(0, 1, .5)),
+        junctionName(false, 50, RGBColor(0, 1, .5)),
+        internalJunctionName(false, 50, RGBColor(0, .8, .5)),
         showLane2Lane(false), addMode(0), minAddSize(1), addExaggeration(1),
-        drawAddName(false), addNameSize(50),
-        minPOISize(0), poiExaggeration(1), drawPOIName(false), poiNameSize(50),
-        poiNameColor(RGBColor(1., 0, .5)),
+        addName(false, 50, RGBColor(1., 0, .5)),
+        poiName(false, 50, RGBColor(1., 0, .5)),
+        minPOISize(0), poiExaggeration(1), 
         showSizeLegend(true),
         gaming(false)
 {
@@ -103,18 +100,11 @@ GUIVisualizationSettings::save(OutputDevice &dev) const throw(IOError) {
     dev << "        <edges laneEdgeMode=\"" << getLaneEdgeMode()
     << "\" laneShowBorders=\"" << laneShowBorders
     << "\" showLinkDecals=\"" << showLinkDecals
-    << "\" showRails=\"" << showRails << "\"\n"
-    << "               drawEdgeName=\"" << drawEdgeName
-    << "\" edgeNameSize=\"" << edgeNameSize
-    << "\" edgeNameColor=\"" << edgeNameColor << "\"\n"
-    << "               drawInternalEdgeName=\"" << drawInternalEdgeName
-    << "\" internalEdgeNameSize=\"" << internalEdgeNameSize
-    << "\" internalEdgeNameColor=\"" << internalEdgeNameColor
-    << "               drawStreetName=\"" << drawStreetName
-    << "\" streetNameSize=\"" << streetNameSize
-    << "\" streetNameColor=\"" << streetNameColor
-    << "\" hideConnectors=\"" << hideConnectors
-    << "\">\n";
+    << "\" showRails=\"" << showRails 
+    << "\" hideConnectors=\"" << hideConnectors << "\"\n"
+    << "               " << edgeName.print("edgeName") << "\n"
+    << "               " << internalEdgeName.print("internalEdgeName") << "\n"
+    << "               " << streetName.print("streetName") << ">\n";
     laneColorer.save(dev);
 #ifdef HAVE_MESOSIM
     edgeColorer.save(dev);
@@ -126,32 +116,28 @@ GUIVisualizationSettings::save(OutputDevice &dev) const throw(IOError) {
     << "\" minVehicleSize=\"" << minVehicleSize
     << "\" vehicleExaggeration=\"" << vehicleExaggeration
     << "\" showBlinker=\"" << showBlinker << "\"\n"
-    << "                  drawVehicleName=\"" << drawVehicleName
-    << "\" vehicleNameSize=\"" << vehicleNameSize
-    << "\" vehicleNameColor=\"" << vehicleNameColor << "\">\n";
+    << "                  " << vehicleName.print("vehicleName")
+    << ">\n";
     vehicleColorer.save(dev);
     dev << "        </vehicles>\n";
 
     dev << "        <junctions junctionMode=\"" << junctionMode
     << "\" drawLinkTLIndex=\"" << drawLinkTLIndex
     << "\" drawLinkJunctionIndex=\"" << drawLinkJunctionIndex << "\"\n"
-    << "                   drawJunctionName=\"" << drawJunctionName
-    << "\" drawInternalJunctionName=\"" << drawInternalJunctionName
-    << "\" junctionNameSize=\"" << junctionNameSize
-    << "\" junctionNameColor=\"" << junctionNameColor
-    << "\" showLane2Lane=\"" << showLane2Lane << "\"/>\n";
+    << "                  " << junctionName.print("junctionName") << "\n"
+    << "                  " << internalJunctionName.print("internalJunctionName") << "\n"
+    << " showLane2Lane=\"" << showLane2Lane << "\"/>\n";
 
     dev << "        <additionals addMode=\"" << addMode
     << "\" minAddSize=\"" << minAddSize
-    << "\" addExaggeration=\"" << addExaggeration
-    << "\" drawAddName=\"" << drawAddName
-    << "\" addNameSize=\"" << addNameSize << "\"/>\n";
+    << "\" addExaggeration=\"" << addExaggeration << "\"\n"
+    << "                  " << addName.print("addName")
+    << "/>\n";
 
     dev << "        <pois poiExaggeration=\"" << poiExaggeration
-    << "\" minPOISize=\"" << minPOISize
-    << "\" drawPOIName=\"" << drawPOIName
-    << "\" poiNameSize=\"" << poiNameSize
-    << "\" poiNameColor=\"" << poiNameColor << "\"/>\n";
+    << "\" minPOISize=\"" << minPOISize << "\"\n"
+    << "                  " << poiName.print("poiName")
+    << "/>\n";
 
     dev << "        <legend showSizeLegend=\"" << showSizeLegend << "\"/>\n";
     dev << "    </scheme>\n";
@@ -176,15 +162,9 @@ GUIVisualizationSettings::operator==(const GUIVisualizationSettings &v2) {
     if (laneShowBorders!=v2.laneShowBorders) return false;
     if (showLinkDecals!=v2.showLinkDecals) return false;
     if (showRails!=v2.showRails) return false;
-    if (drawEdgeName!=v2.drawEdgeName) return false;
-    if (edgeNameSize!=v2.edgeNameSize) return false;
-    if (edgeNameColor!=v2.edgeNameColor) return false;
-    if (drawInternalEdgeName!=v2.drawInternalEdgeName) return false;
-    if (internalEdgeNameSize!=v2.internalEdgeNameSize) return false;
-    if (internalEdgeNameColor!=v2.internalEdgeNameColor) return false;
-    if (drawStreetName!=v2.drawStreetName) return false;
-    if (streetNameSize!=v2.streetNameSize) return false;
-    if (streetNameColor!=v2.streetNameColor) return false;
+    if (edgeName!=v2.edgeName) return false;
+    if (internalEdgeName!=v2.internalEdgeName) return false;
+    if (streetName!=v2.streetName) return false;
     if (hideConnectors!=v2.hideConnectors) return false;
 
     if (!(vehicleColorer==v2.vehicleColorer)) return false;
@@ -193,31 +173,23 @@ GUIVisualizationSettings::operator==(const GUIVisualizationSettings &v2) {
     if (vehicleExaggeration!=v2.vehicleExaggeration) return false;
     if (showBlinker!=v2.showBlinker) return false;
     if (drawLaneChangePreference!=v2.drawLaneChangePreference) return false;
-    if (drawVehicleName!=v2.drawVehicleName) return false;
-    if (vehicleNameSize!=v2.vehicleNameSize) return false;
-    if (vehicleNameColor!=v2.vehicleNameColor) return false;
-
+    if (vehicleName!=v2.vehicleName) return false;
     if (junctionMode!=v2.junctionMode) return false;
     if (drawLinkTLIndex!=v2.drawLinkTLIndex) return false;
     if (drawLinkJunctionIndex!=v2.drawLinkJunctionIndex) return false;
-    if (drawJunctionName!=v2.drawJunctionName) return false;
-    if (drawInternalJunctionName!=v2.drawInternalJunctionName) return false;
-    if (junctionNameSize!=v2.junctionNameSize) return false;
-    if (junctionNameColor!=v2.junctionNameColor) return false;
+    if (junctionName!=v2.junctionName) return false;
+    if (internalJunctionName!=v2.internalJunctionName) return false;
 
     if (showLane2Lane!=v2.showLane2Lane) return false;
 
     if (addMode!=v2.addMode) return false;
     if (minAddSize!=v2.minAddSize) return false;
     if (addExaggeration!=v2.addExaggeration) return false;
-    if (drawAddName!=v2.drawAddName) return false;
-    if (addNameSize!=v2.addNameSize) return false;
+    if (addName!=v2.addName) return false;
 
     if (minPOISize!=v2.minPOISize) return false;
     if (poiExaggeration!=v2.poiExaggeration) return false;
-    if (drawPOIName!=v2.drawPOIName) return false;
-    if (poiNameSize!=v2.poiNameSize) return false;
-    if (poiNameColor!=v2.poiNameColor) return false;
+    if (poiName!=v2.poiName) return false;
 
     if (showSizeLegend!=v2.showSizeLegend) return false;
 

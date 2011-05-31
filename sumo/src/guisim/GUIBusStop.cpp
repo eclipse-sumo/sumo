@@ -180,10 +180,7 @@ GUIBusStop::drawGL(const GUIVisualizationSettings &s) const throw() {
         }
     }
     glPopMatrix();
-    // (optional) draw name
-    if (s.drawAddName) {
-        drawName(getCenteringBoundary().getCenter(), s.addNameSize / s.scale);
-    }
+    drawName(getCenteringBoundary().getCenter(), s.scale, s.addName);
     glPopName();
 }
 

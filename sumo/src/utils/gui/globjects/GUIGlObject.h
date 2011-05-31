@@ -53,6 +53,7 @@ class GUIMainWindow;
 class GUIGLObjectPopupMenu;
 class GUISUMOAbstractView;
 class GUIVisualizationSettings;
+struct GUIVisualizationTextSettings;
 
 
 // ===========================================================================
@@ -198,7 +199,8 @@ public:
     /// @}
 
 
-    void drawName(const Position& pos, const SUMOReal size, const RGBColor& col=RGBColor(0,0,0), const SUMOReal angle=0) const;
+    void drawName(const Position& pos, const SUMOReal scale, 
+            const GUIVisualizationTextSettings &settings, const SUMOReal angle=0) const;
 
 
 protected:

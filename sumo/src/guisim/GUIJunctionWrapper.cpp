@@ -122,10 +122,10 @@ GUIJunctionWrapper::drawGL(const GUIVisualizationSettings &s) const throw() {
         GLHelper::drawFilledPoly(myJunction.getShape(), true);
         glPopMatrix();
     }
-    // (optional) draw name
-    if ((s.drawJunctionName && !myIsInner) ||
-            (s.drawInternalJunctionName && myIsInner)) {
-        drawName(myJunction.getPosition(), s.junctionNameSize / s.scale, s.junctionNameColor);
+    if (myIsInner) {
+        drawName(myJunction.getPosition(), s.scale, s.internalJunctionName);
+    } else {
+        drawName(myJunction.getPosition(), s.scale, s.junctionName);
     }
     glPopName();
 }

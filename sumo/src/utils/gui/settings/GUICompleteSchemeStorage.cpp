@@ -174,8 +174,10 @@ GUICompleteSchemeStorage::init(FXApp *app) throw() {
                 index++;
             }
             if (content != "" && xmlSize == 0) {
-                GUISettingsHandler handler(content, false);
-                handler.addSettings();
+                try {
+                    GUISettingsHandler handler(content, false);
+                    handler.addSettings();
+                } catch (ProcessError) { }
             }
         }
     }
