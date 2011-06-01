@@ -425,7 +425,7 @@ NIImporter_SUMO::addSuccLane(const SUMOSAXAttributes &attrs) {
     Connection conn;
     conn.lane = attrs.getStringReporting(SUMO_ATTR_LANE, 0, ok);
     conn.tlID = attrs.getOptStringReporting(SUMO_ATTR_TLID, 0, ok, "");
-    conn.mayDefinitelyPass = (attrs.getStringReporting(SUMO_ATTR_STATE, 0, ok, "") == "M");
+    conn.mayDefinitelyPass = false; // (attrs.getStringReporting(SUMO_ATTR_STATE, 0, ok, "") == "M");
     if (conn.tlID != "") {
         conn.tlLinkNo = attrs.getIntReporting(SUMO_ATTR_TLLINKNO, 0, ok);
     }
