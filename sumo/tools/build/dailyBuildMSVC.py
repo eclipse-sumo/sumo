@@ -88,10 +88,9 @@ for platform in ["Win32", "x64"]:
     log = open(makeLog, 'a')
     try:
         files_to_zip = (
-                [env["PROJ_GDAL"+envSuffix]+"\\bin\\proj.dll", 
-                 env["PROJ_GDAL"+envSuffix]+"\\bin\\gdal16.dll",
-                 env["XERCES"+envSuffix]+"\\bin\\xerces-c_3_0.dll",
-                 env["FOX16"+envSuffix]+"\\lib\\FOXDLL-1.6.dll"] +
+                glob.glob(os.path.join(env["XERCES"+envSuffix], "bin", "xerces-c_?_?.dll")) +
+                glob.glob(os.path.join(env["PROJ_GDAL"+envSuffix], "bin", "*.dll")) +
+                glob.glob(os.path.join(env["FOX16"+envSuffix], "lib", "FOXDLL-?.?.dll")) +
                 glob.glob(os.path.join(options.rootDir, options.binDir, "*.exe")) +
                 glob.glob(os.path.join(options.rootDir, options.binDir, "*.bat")))
         zipf = zipfile.ZipFile(binaryZip, 'w', zipfile.ZIP_DEFLATED)
