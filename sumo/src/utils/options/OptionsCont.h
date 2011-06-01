@@ -211,7 +211,7 @@ public:
      * @param[in] os The stream to write the header into
      * @param[in] xmlParams Additional parameters (such as encoding) to include in the <?xml> declaration
      */
-    void writeXMLHeader(std::ostream &os, const std::string xmlParams="encoding=\"iso-8859-1\"");
+    void writeXMLHeader(std::ostream &os, const std::string xmlParams="");
     /// @}
 
 

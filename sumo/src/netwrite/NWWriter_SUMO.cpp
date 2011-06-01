@@ -59,7 +59,7 @@ NWWriter_SUMO::writeNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
         return;
     }
 	OutputDevice& device = OutputDevice::getDevice(oc.getString("output"));
-    device.writeXMLHeader("net");
+    device.writeXMLHeader("net", " encoding=\"iso-8859-1\""); // street names may contain non-ascii chars
     device << "\n";
     // write network offsets
     device << "   <location netOffset=\"" << GeoConvHelper::getOffsetBase() << "\""

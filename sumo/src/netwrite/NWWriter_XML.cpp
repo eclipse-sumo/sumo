@@ -58,7 +58,7 @@ NWWriter_XML::writeNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
     }
     // write nodes
 	OutputDevice& device = OutputDevice::getDevice(oc.getString("plain-output-prefix") + ".nod.xml");
-    device.writeXMLHeader("nodes");
+    device.writeXMLHeader("nodes", " encoding=\"iso-8859-1\""); // street names may contain non-ascii chars
 	NBNodeCont &nc = nb.getNodeCont();
 	for(std::map<std::string, NBNode*>::const_iterator i=nc.begin(); i!=nc.end(); ++i) {
         NBNode *n = (*i).second;
@@ -87,9 +87,9 @@ NWWriter_XML::writeNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
     device.close();
     // write edges / connections
     OutputDevice& edevice = OutputDevice::getDevice(oc.getString("plain-output-prefix") + ".edg.xml");
-    edevice.writeXMLHeader("edges");
+    edevice.writeXMLHeader("edges", " encoding=\"iso-8859-1\""); // street names may contain non-ascii chars
     OutputDevice& cdevice = OutputDevice::getDevice(oc.getString("plain-output-prefix") + ".con.xml");
-    cdevice.writeXMLHeader("connections");
+    cdevice.writeXMLHeader("connections", " encoding=\"iso-8859-1\""); // street names may contain non-ascii chars
 	NBEdgeCont &ec = nb.getEdgeCont();
 	for(std::map<std::string, NBEdge*>::const_iterator i=ec.begin(); i!=ec.end(); ++i) {
         // write the edge itself to the edges-files
