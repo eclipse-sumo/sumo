@@ -11,9 +11,6 @@ import StringIO
 sys.path.append(os.path.join(os.path.dirname(sys.argv[0]), '..', '..', '..', '..', "tools", "lib"))
 sys.path.append(os.path.join(os.path.dirname(sys.argv[0]), '..', '..', '..', '..', "tools", "import", "osm"))
 from testUtil import checkBinary
-
-TEXTTEST_LIB = "/home/erdm_ja/texttest-3.19/source/lib/default"
-sys.path.append(TEXTTEST_LIB)
 import fpdiff 
 
 osm_input = 'osm.xml'
