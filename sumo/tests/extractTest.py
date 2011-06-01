@@ -40,9 +40,10 @@ for source, target in targets.iteritems():
     if len(outputFiles) != 1:
         print >> sys.stderr, "Not a unique output file in %s." % source
         continue
-    app = outputFiles[0].split('.')[1]
+    app = os.path.basename(outputFiles[0]).split('.')[1]
     optionsFiles = []
     potentials = {}
+    source = os.path.realpath(source)
     curDir = source
     if curDir[-1] == os.path.sep:
         curDir = os.path.dirname(curDir)
@@ -65,14 +66,19 @@ for source, target in targets.iteritems():
     testPath = os.path.abspath(join(options.output, target))
     if not os.path.exists(testPath):
         os.makedirs(testPath)
-    for line in open(config):
-        entry = line.strip().split(':')
-        if entry and entry[0] == "copy_test_path" and entry[1] in potentials:
-            shutil.copy2(potentials[entry[1]], testPath)
+    net = None
     appOptions = []
     for f in optionsFiles:
         appOptions += open(f).read().split()
+    for o in appOptions:
+        if o[-8:] == ".net.xml":
+            net = o
     appOptions += ['--save-configuration', 'test.%s.cfg' % app[:4]]
+    for line in open(config):
+        entry = line.strip().split(':')
+        if entry and entry[0] == "copy_test_path" and entry[1] in potentials:
+            if "net" in app or not net or entry[1][-8:] != ".net.xml" or entry[1] == net:
+                shutil.copy2(potentials[entry[1]], testPath)
     oldWorkDir = os.getcwd()
     os.chdir(testPath)
     if app in ["dfrouter", "duarouter", "jtrrouter", "netconvert", "netgen", "od2trips", "polyconvert", "sumo", "activitygen"]:
