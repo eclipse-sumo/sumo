@@ -279,8 +279,6 @@ public:
     int myDebugLevel;
     std::string myDebugFilesBaseName;
 
-    static void updateCalibrator(std::string name, int time, SUMOReal count);
-
 protected:
     /// @brief The network the calibrator is located in
     MSNet &myNet;

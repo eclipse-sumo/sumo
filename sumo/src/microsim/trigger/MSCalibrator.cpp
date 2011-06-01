@@ -520,22 +520,6 @@ MSCalibrator::setActiveChild(MSCalibratorChild *c) {
 
 std::map<std::string, MSCalibrator*> MSCalibrator::calibratorMap;
 
-void
-MSCalibrator::updateCalibrator(std::string name, int time, SUMOReal count) {
-
-    std::map<std::string, MSCalibrator*>::iterator it = MSCalibrator::calibratorMap.find(name);
-
-    if (it==MSCalibrator::calibratorMap.end()) {
-        WRITE_ERROR("WRONG UPDATE COMMAND, CALIBRATOR NOT FOUND: " + name);
-        return;
-    }
-
-    MSCalibrator * calibrator = (*it).second;
-
-    calibrator->myInterval = time;
-    calibrator->myNumVehicles = count;
-}
-
 
 /****************************************************************************/
 
