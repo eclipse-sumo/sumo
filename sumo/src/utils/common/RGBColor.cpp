@@ -101,9 +101,9 @@ RGBColor::operator!=(const RGBColor &c) const {
 
 RGBColor 
 RGBColor::changedBrightness(SUMOReal change) {
-    SUMOReal red = MIN2(MAX2(myRed + change, (SumoReal)0), (SumoReal)1);
-    SUMOReal blue = MIN2(MAX2(myBlue + change, (SumoReal)0), (SumoReal)1);
-    SUMOReal green = MIN2(MAX2(myGreen + change, (SumoReal)0), (SumoReal)1);
+    SUMOReal red = MIN2(MAX2(myRed + change, (SUMOReal)0), (SUMOReal)1);
+    SUMOReal blue = MIN2(MAX2(myBlue + change, (SUMOReal)0), (SUMOReal)1);
+    SUMOReal green = MIN2(MAX2(myGreen + change, (SUMOReal)0), (SUMOReal)1);
     return RGBColor(red, green, blue);
 
 }
