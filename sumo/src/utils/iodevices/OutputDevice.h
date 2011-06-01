@@ -173,7 +173,7 @@ public:
      * @todo Describe what is saved
      */
     bool writeXMLHeader(const std::string &rootElement,
-                        const std::string xmlParams="",
+                        const std::string xmlParams="encoding=\"iso-8859-1\"",
                         const std::string &attrs="",
                         const std::string &comment="") throw();
 
