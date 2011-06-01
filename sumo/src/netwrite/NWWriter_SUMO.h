@@ -144,9 +144,11 @@ protected:
 private:
     /** @brief Writes a single internal edge 
      * @param[in] into The device to write the edges into
+     * @param[in] id The id of the edge
+     * @param[in] vmax The maximum speed of the edge
+     * @param[in] shape The shape of the edge
      */
-    static void writeInternalEdge(OutputDevice &into, 
-            const std::string &id, SUMOReal vmax, SUMOReal length, const PositionVector &shape);
+    static void writeInternalEdge(OutputDevice &into, const std::string &id, SUMOReal vmax, const PositionVector &shape);
 
 };
 

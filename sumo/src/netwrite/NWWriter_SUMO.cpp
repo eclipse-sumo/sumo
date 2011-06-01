@@ -209,18 +209,15 @@ NWWriter_SUMO::writeInternalEdges(OutputDevice &into, const NBNode &n) {
 
                 PositionVector shape = n.computeInternalLaneShape(*i, j, (*k).toEdge, (*k).toLane);
                 assert(shape.size() >= 2);
-                SUMOReal length = MAX2(shape.length(), (SUMOReal)POSITION_EPS); // !!! is this needed?
-
                 // get internal splits if any
                 std::pair<SUMOReal, std::vector<unsigned int> > cross = n.getCrossingPosition(*i, j, (*k).toEdge, (*k).toLane);
                 if (cross.first>=0) {
                     std::pair<PositionVector, PositionVector> split = shape.splitAt(cross.first);
-                    writeInternalEdge(into, innerID + "_" + toString(lno), vmax, cross.first, split.first);
-                    writeInternalEdge(into, innerID + "_" + toString(splitNo+noInternalNoSplits), vmax, 
-                            length - cross.first, split.second);
+                    writeInternalEdge(into, innerID + "_" + toString(lno), vmax, split.first);
+                    writeInternalEdge(into, innerID + "_" + toString(splitNo+noInternalNoSplits), vmax, split.second);
                     splitNo++;
                 } else {
-                    writeInternalEdge(into, innerID + "_" + toString(lno), vmax, length, shape);
+                    writeInternalEdge(into, innerID + "_" + toString(lno), vmax, shape);
                 }
                 lno++;
                 ret = true;
@@ -232,8 +229,8 @@ NWWriter_SUMO::writeInternalEdges(OutputDevice &into, const NBNode &n) {
 
 
 void 
-NWWriter_SUMO::writeInternalEdge(OutputDevice &into, 
-        const std::string &id, SUMOReal vmax, SUMOReal length, const PositionVector &shape) {
+NWWriter_SUMO::writeInternalEdge(OutputDevice &into, const std::string &id, SUMOReal vmax, const PositionVector &shape) {
+    SUMOReal length = MAX2(shape.length(), (SUMOReal)POSITION_EPS); // microsim needs positive length
     into << "   <edge id=\"" << id << "\" function=\"internal\">\n";
     into << "      <lane id=\"" << id << "_0\" depart=\"0\" "
         << "maxspeed=\"" << vmax << "\" "
