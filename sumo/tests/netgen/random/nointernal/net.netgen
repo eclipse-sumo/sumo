@@ -1,17 +1,17 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="iso-8859-1"?>
 
-<!-- generated on 04/29/11 11:03:00 by SUMO netgen Version dev-SVN-r10182
+<!-- generated on 06/01/11 09:29:39 by SUMO netgen Version dev-SVN-r10489
 <?xml version="1.0" encoding="iso-8859-1"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netgenConfiguration.xsd">
 
     <random_network>
-        <random-net value="true"/>
-        <rand-iterations value="200"/>
+        <rand value="true"/>
+        <rand.iterations value="200"/>
     </random_network>
 
     <output>
-        <output-file value="net.net.xml"/>
+        <output value="net.net.xml"/>
     </output>
 
     <processing>

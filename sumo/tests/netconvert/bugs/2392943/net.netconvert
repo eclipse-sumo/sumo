@@ -1,6 +1,6 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="iso-8859-1"?>
 
-<!-- generated on Tue May 10 11:18:22 2011 by SUMO netconvert Version dev-SVN-r10263
+<!-- generated on 06/01/11 09:29:14 by SUMO netconvert Version dev-SVN-r10489
 <?xml version="1.0" encoding="iso-8859-1"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
@@ -19,7 +19,7 @@
     </ramp_guessing>
 
     <edge_removal>
-        <keep-edges value="s1,s2,s3,s4,on,off"/>
+        <keep-edges.explicit value="s1,s2,s3,s4,on,off"/>
     </edge_removal>
 
     <processing>

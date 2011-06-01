@@ -1,19 +1,19 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="iso-8859-1"?>
 
-<!-- generated on 04/29/11 11:02:51 by SUMO netgen Version dev-SVN-r10182
+<!-- generated on 06/01/11 09:29:35 by SUMO netgen Version dev-SVN-r10489
 <?xml version="1.0" encoding="iso-8859-1"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netgenConfiguration.xsd">
 
     <spider_network>
-        <spider-net value="true"/>
-        <spider-arm-number value="10"/>
-        <spider-circle-number value="10"/>
-        <spider-space-rad value="100"/>
+        <spider value="true"/>
+        <spider.arm-number value="10"/>
+        <spider.circle-number value="10"/>
+        <spider.space-radius value="100"/>
     </spider_network>
 
     <output>
-        <output-file value="net.net.xml"/>
+        <output value="net.net.xml"/>
     </output>
 
     <processing>

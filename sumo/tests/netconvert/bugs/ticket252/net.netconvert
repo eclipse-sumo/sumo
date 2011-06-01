@@ -1,6 +1,6 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="iso-8859-1"?>
 
-<!-- generated on Mon May 30 15:43:00 2011 by SUMO netconvert Version dev-SVN-r10475
+<!-- generated on 06/01/11 09:29:16 by SUMO netconvert Version dev-SVN-r10489
 <?xml version="1.0" encoding="iso-8859-1"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
@@ -26,7 +26,7 @@
         <no-turnarounds value="true"/>
         <offset.disable-normalization value="true"/>
         <offset.x value="-280900"/>
-        <offset.y value="-4.1536e+06"/>
+        <offset.y value="-4.1536e+006"/>
     </processing>
 
 </configuration>

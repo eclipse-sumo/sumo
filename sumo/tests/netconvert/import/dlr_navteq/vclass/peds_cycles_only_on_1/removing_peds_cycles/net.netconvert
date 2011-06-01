@@ -1,6 +1,6 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="iso-8859-1"?>
 
-<!-- generated on Wed May 11 08:57:37 2011 by SUMO netconvert Version dev-SVN-r10285
+<!-- generated on 06/01/11 09:28:29 by SUMO netconvert Version dev-SVN-r10489
 <?xml version="1.0" encoding="iso-8859-1"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
@@ -14,7 +14,7 @@
     </output>
 
     <projection>
-        <proj.shift value="5"/>
+        <proj.scale value="5"/>
         <proj.utm value="true"/>
     </projection>
 

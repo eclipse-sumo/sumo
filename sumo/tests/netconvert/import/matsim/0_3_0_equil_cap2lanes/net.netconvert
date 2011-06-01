@@ -1,6 +1,6 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="iso-8859-1"?>
 
-<!-- generated on Tue May 10 11:18:14 2011 by SUMO netconvert Version dev-SVN-r10263
+<!-- generated on 06/01/11 09:28:45 by SUMO netconvert Version dev-SVN-r10489
 <?xml version="1.0" encoding="iso-8859-1"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
@@ -8,6 +8,10 @@
     <input>
         <matsim-files value="matsim.xml"/>
     </input>
+
+    <output>
+        <output value="net.net.xml"/>
+    </output>
 
     <processing>
         <matsim.lanes-from-capacity value="true"/>

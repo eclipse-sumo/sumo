@@ -1,18 +1,18 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="iso-8859-1"?>
 
-<!-- generated on 04/29/11 11:02:25 by SUMO netgen Version dev-SVN-r10182
+<!-- generated on 06/01/11 09:29:25 by SUMO netgen Version dev-SVN-r10489
 <?xml version="1.0" encoding="iso-8859-1"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netgenConfiguration.xsd">
 
     <grid_network>
-        <grid-net value="true"/>
-        <grid-number value="10"/>
-        <grid-length value="400"/>
+        <grid value="true"/>
+        <grid.number value="10"/>
+        <grid.length value="400"/>
     </grid_network>
 
     <output>
-        <output-file value="net.net.xml"/>
+        <output value="net.net.xml"/>
     </output>
 
     <processing>
