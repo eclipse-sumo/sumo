@@ -110,6 +110,10 @@ public:
     bool operator!=(const RGBColor &c) const;
 
 
+    /** @brief Returns a new color with altered brightness
+     * @param[in] change The absolute change applied to all channels (within bounds)
+     * @return The new color
+     */
     RGBColor changedBrightness(SUMOReal change);
 
 
