@@ -191,9 +191,17 @@ public:
 
     /** @brief Adds a MoveReminder dynamically
      *
+     * @param[in] rem the reminder to add
      * @see MSMoveReminder
      */
     void addReminder(MSMoveReminder* rem) throw();
+
+    /** @brief Removes a MoveReminder dynamically
+     *
+     * @param[in] rem the reminder to remove
+     * @see MSMoveReminder
+     */
+    void removeReminder(MSMoveReminder* rem) throw();
 
     /** @brief "Activates" all current move reminder
      *
@@ -205,7 +213,7 @@ public:
      * @see MSMoveReminder::notifyEnter
      * @see MSMoveReminder::Notification
      */
-    void activateReminders(const MSMoveReminder::Notification reason) throw();
+    virtual void activateReminders(const MSMoveReminder::Notification reason) throw();
 
 protected:
     /** @brief (Re-)Calculates the arrival position from the vehicle parameters

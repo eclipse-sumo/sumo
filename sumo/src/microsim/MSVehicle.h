@@ -389,6 +389,18 @@ public:
     }
 
 
+    /** @brief "Activates" all current move reminder
+     *
+     * For all move reminder stored in "myMoveReminders", their method
+     *  "MSMoveReminder::notifyEnter" is called.
+     *
+     * @param[in] reason The reason for changing the reminders' states
+     * @see MSMoveReminder
+     * @see MSMoveReminder::notifyEnter
+     * @see MSMoveReminder::Notification
+     */
+    void activateReminders(const MSMoveReminder::Notification reason) throw();
+
     /** @brief Update when the vehicle enters a new lane in the move step.
      *
      * @param[in] enteredLane The lane the vehicle enters

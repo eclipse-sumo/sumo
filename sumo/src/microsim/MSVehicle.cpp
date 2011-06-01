@@ -1132,6 +1132,22 @@ MSVehicle::vsafeCriticalCont(SUMOTime t, SUMOReal boundVSafe) {
 }
 
 
+void
+MSVehicle::activateReminders(const MSMoveReminder::Notification reason) throw() {
+    for (MoveReminderCont::iterator rem=myMoveReminders.begin(); rem!=myMoveReminders.end();) {
+        if (rem->first->getLane() != 0 && rem->first->getLane() != getLane()) { 
+            ++rem;
+        } else {
+            if (rem->first->notifyEnter(*this, reason)) {
+                ++rem;
+            } else {
+                rem = myMoveReminders.erase(rem);
+            }
+        }
+    }
+}
+
+
 bool
 MSVehicle::enterLaneAtMove(MSLane* enteredLane, bool onTeleporting) {
     myAmOnNet = true;

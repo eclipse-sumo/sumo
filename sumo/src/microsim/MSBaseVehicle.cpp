@@ -256,16 +256,23 @@ MSBaseVehicle::addReminder(MSMoveReminder* rem) throw() {
 
 
 void
+MSBaseVehicle::removeReminder(MSMoveReminder* rem) throw() {
+    for (MoveReminderCont::iterator r=myMoveReminders.begin(); r!=myMoveReminders.end(); ++r) {
+        if (r->first == rem) {
+            myMoveReminders.erase(r);
+			return;
+        }
+    }
+}
+
+
+void
 MSBaseVehicle::activateReminders(const MSMoveReminder::Notification reason) throw() {
     for (MoveReminderCont::iterator rem=myMoveReminders.begin(); rem!=myMoveReminders.end();) {
-        if (rem->first->getLane() != 0 && dynamic_cast<MSVehicle*>(this)!=0 && rem->first->getLane() != dynamic_cast<MSVehicle*>(this)->getLane()) { 
+        if (rem->first->notifyEnter(*this, reason)) {
             ++rem;
         } else {
-            if (rem->first->notifyEnter(*this, reason)) {
-                ++rem;
-            } else {
-                rem = myMoveReminders.erase(rem);
-            }
+            rem = myMoveReminders.erase(rem);
         }
     }
 }
