@@ -553,7 +553,7 @@ GUIDialog_ViewSettings::onCmdColorChange(FXObject*sender,FXSelector,void* /*val*
     tmpSettings.showLinkDecals = (myShowLaneDecals->getCheck() != FALSE);
     tmpSettings.showRails = (myShowRails->getCheck() != FALSE);
     tmpSettings.edgeName = myEdgeNamePanel->getSettings();
-    tmpSettings.internalEdgeName = myInternalJunctionNamePanel->getSettings();
+    tmpSettings.internalEdgeName = myInternalEdgeNamePanel->getSettings();
     tmpSettings.streetName = myStreetNamePanel->getSettings();
     tmpSettings.hideConnectors = (myHideMacroConnectors->getCheck() != FALSE);
 
