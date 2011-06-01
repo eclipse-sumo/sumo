@@ -1,6 +1,7 @@
 #include <gtest/gtest.h>
 #include <utils/geom/PositionVector.h>
 #include <utils/common/UtilExceptions.h>
+#include <utils/common/MsgHandler.h>
 
 using namespace std;
 
@@ -136,7 +137,11 @@ TEST_F(PositionVectorTest, test_method_splitAt) {
     PositionVector vec3;
     vec3.push_back(Position(0,0));
     vec3.push_back(Position(POSITION_EPS,0));
+    // supress expected warning
+    MsgHandler::getWarningInstance()->report2cerr(false);
     result = vec3.splitAt(smallDiff);
+    MsgHandler::getWarningInstance()->report2cerr(true);
+
 	EXPECT_FLOAT_EQ(2, result.first.size());
 	EXPECT_FLOAT_EQ(0, result.first[0].x());
 	EXPECT_FLOAT_EQ(smallDiff, result.first[1].x());
