@@ -35,3 +35,5 @@ ticket267
 # Test for false foe determination (on inner-continuation-intersections) yielding in a teleport
 ticket19_falseFoe
 
+# Test for messstrecke scenarios
+ticket346_messstrecke_jr

@@ -1,0 +1,493 @@
+Parsing nodes from osm-file 'osm.xml'... 
+done.
+Parsing edges from osm-file 'osm.xml'... 
+done.
+Removing duplicate nodes... 
+Found duplicate nodes. Substituting 152875142 with 151386361
+Found duplicate nodes. Substituting 152985203 with 151813798
+Found duplicate nodes. Substituting 152985211 with 152228442
+Found duplicate nodes. Substituting 152985223 with 152767001
+Found duplicate nodes. Substituting 152986347 with 152956099
+Found duplicate nodes. Substituting 152986350 with 152685858
+Found duplicate nodes. Substituting 152986359 with 152471572
+Found duplicate nodes. Substituting 152986362 with 152468494
+Found duplicate nodes. Substituting 152986369 with 152633456
+Found duplicate nodes. Substituting 152986396 with 152652223
+Found duplicate nodes. Substituting 152988317 with 152153248
+Found duplicate nodes. Substituting 152988356 with 152323851
+Found duplicate nodes. Substituting 152989759 with 152492453
+Found duplicate nodes. Substituting 153039834 with 152328441
+Found duplicate nodes. Substituting 153039848 with 152489269
+Found duplicate nodes. Substituting 153039866 with 152844868
+Found duplicate nodes. Substituting 153039868 with 152231253
+Found duplicate nodes. Substituting 153039870 with 152141797
+Found duplicate nodes. Substituting 153039875 with 152379071
+Found duplicate nodes. Substituting 153065786 with 153039879
+Found duplicate nodes. Substituting 153110696 with 152986387
+Found duplicate nodes. Substituting 153273572 with 153039873
+Found duplicate nodes. Substituting 153332425 with 152986375
+Found duplicate nodes. Substituting 356798886 with 356798776
+Found duplicate nodes. Substituting 356802176 with 356797683
+Found duplicate nodes. Substituting 356804988 with 356798732
+Found duplicate nodes. Substituting 725604964 with 725604325
+Found duplicate nodes. Substituting 1057939810 with 1057939805
+Found duplicate nodes. Substituting 1057939838 with 1057939808
+Found duplicate nodes. Substituting 1057939849 with 1057939841
+ done.
+Removing duplicate edges... 
+ done.
+Warning: New value for oneway found: reversible
+Warning: New value for oneway found: reversible
+Warning: Discarding edge 103022141 with type "highway.cycleway|railway.abandoned" (unknown compound "railway.abandoned").
+Warning: Discarding edge 103029365#0 with type "highway.cycleway|railway.abandoned" (unknown compound "railway.abandoned").
+Warning: Discarding edge 103029365#1 with type "highway.cycleway|railway.abandoned" (unknown compound "railway.abandoned").
+Warning: Discarding edge 103029365#2 with type "highway.cycleway|railway.abandoned" (unknown compound "railway.abandoned").
+Warning: Discarding edge 103029365#3 with type "highway.cycleway|railway.abandoned" (unknown compound "railway.abandoned").
+Warning: Discarding edge 103029365#4 with type "highway.cycleway|railway.abandoned" (unknown compound "railway.abandoned").
+Warning: Discarding edge 103029365#5 with type "highway.cycleway|railway.abandoned" (unknown compound "railway.abandoned").
+Warning: Discarding edge 103029365#6 with type "highway.cycleway|railway.abandoned" (unknown compound "railway.abandoned").
+Warning: Discarding edge 103029365#7 with type "highway.cycleway|railway.abandoned" (unknown compound "railway.abandoned").
+Warning: Discarding edge 103029365#8 with type "highway.cycleway|railway.abandoned" (unknown compound "railway.abandoned").
+Warning: Discarding edge 103029365#9 with type "highway.cycleway|railway.abandoned" (unknown compound "railway.abandoned").
+Warning: Discarding edge 103029365#10 with type "highway.cycleway|railway.abandoned" (unknown compound "railway.abandoned").
+Warning: Discarding edge 103029365#11 with type "highway.cycleway|railway.abandoned" (unknown compound "railway.abandoned").
+Warning: Discarding edge 103029365#12 with type "highway.cycleway|railway.abandoned" (unknown compound "railway.abandoned").
+Warning: Discarding edge 103029365#13 with type "highway.cycleway|railway.abandoned" (unknown compound "railway.abandoned").
+Warning: Discarding edge 103029365#14 with type "highway.cycleway|railway.abandoned" (unknown compound "railway.abandoned").
+Warning: Discarding edge 103029365#15 with type "highway.cycleway|railway.abandoned" (unknown compound "railway.abandoned").
+Warning: Discarding edge 103029365#16 with type "highway.cycleway|railway.abandoned" (unknown compound "railway.abandoned").
+Warning: Discarding edge 103029365#17 with type "highway.cycleway|railway.abandoned" (unknown compound "railway.abandoned").
+Warning: Discarding edge 103029365#18 with type "highway.cycleway|railway.abandoned" (unknown compound "railway.abandoned").
+Warning: Discarding edge 103029365#19 with type "highway.cycleway|railway.abandoned" (unknown compound "railway.abandoned").
+Warning: Discarding edge 103029365#20 with type "highway.cycleway|railway.abandoned" (unknown compound "railway.abandoned").
+Warning: Discarding edge 103029365#21 with type "highway.cycleway|railway.abandoned" (unknown compound "railway.abandoned").
+Warning: Discarding edge 103029365#22 with type "highway.cycleway|railway.abandoned" (unknown compound "railway.abandoned").
+Warning: Discarding edge 103029365#23 with type "highway.cycleway|railway.abandoned" (unknown compound "railway.abandoned").
+Warning: Discarding edge 103029365#24 with type "highway.cycleway|railway.abandoned" (unknown compound "railway.abandoned").
+Warning: Discarding edge 103029365#25 with type "highway.cycleway|railway.abandoned" (unknown compound "railway.abandoned").
+Warning: Discarding edge 103029365#26 with type "highway.cycleway|railway.abandoned" (unknown compound "railway.abandoned").
+Warning: Discarding edge 103029365#27 with type "highway.cycleway|railway.abandoned" (unknown compound "railway.abandoned").
+Warning: Discarding edge 103029365#28 with type "highway.cycleway|railway.abandoned" (unknown compound "railway.abandoned").
+Warning: Discarding edge 103029365#29 with type "highway.cycleway|railway.abandoned" (unknown compound "railway.abandoned").
+Warning: Discarding edge 103029365#30 with type "highway.cycleway|railway.abandoned" (unknown compound "railway.abandoned").
+Warning: Discarding edge 103029365#31 with type "highway.cycleway|railway.abandoned" (unknown compound "railway.abandoned").
+Warning: Discarding edge 103029365#32 with type "highway.cycleway|railway.abandoned" (unknown compound "railway.abandoned").
+Warning: Discarding edge 103029365#33 with type "highway.cycleway|railway.abandoned" (unknown compound "railway.abandoned").
+Warning: Discarding edge 103029365#34 with type "highway.cycleway|railway.abandoned" (unknown compound "railway.abandoned").
+Warning: Discarding edge 103050457 with type "highway.cycleway|railway.abandoned" (unknown compound "railway.abandoned").
+Warning: Discarding edge 103050496#0 with type "highway.cycleway|railway.abandoned" (unknown compound "railway.abandoned").
+Warning: Discarding edge 103050496#1 with type "highway.cycleway|railway.abandoned" (unknown compound "railway.abandoned").
+Warning: Discarding edge 103050496#2 with type "highway.cycleway|railway.abandoned" (unknown compound "railway.abandoned").
+Warning: Discarding edge 103050496#3 with type "highway.cycleway|railway.abandoned" (unknown compound "railway.abandoned").
+Warning: Discarding edge 103050496#4 with type "highway.cycleway|railway.abandoned" (unknown compound "railway.abandoned").
+Warning: Discarding edge 103050496#5 with type "highway.cycleway|railway.abandoned" (unknown compound "railway.abandoned").
+Warning: Discarding edge 103054738 with type "highway.cycleway|railway.abandoned" (unknown compound "railway.abandoned").
+Warning: New value for oneway found: reversible
+Warning: New value for oneway found: reversible
+Warning: New value for oneway found: reversible
+Warning: New value for oneway found: reversible
+Warning: New value for oneway found: reversible
+Warning: New value for oneway found: reversible
+Warning: New value for oneway found: reversible
+Warning: New value for oneway found: reversible
+Warning: New value for oneway found: reversible
+Warning: New value for oneway found: reversible
+Warning: New value for oneway found: reversible
+Warning: New value for oneway found: reversible
+Warning: New value for oneway found: reversible
+Warning: New value for oneway found: reversible
+Warning: New value for oneway found: reversible
+Warning: New value for oneway found: reversible
+Warning: New value for oneway found: reversible
+Warning: New value for oneway found: reversible
+Warning: New value for oneway found: reversible
+Warning: New value for oneway found: reversible
+Warning: New value for oneway found: reversible
+Warning: New value for oneway found: reversible
+Warning: Discarding edge 103238041 with type "highway.cycleway|railway.abandoned" (unknown compound "railway.abandoned").
+Warning: Discarding edge 103238045#0 with type "highway.cycleway|railway.abandoned" (unknown compound "railway.abandoned").
+Warning: Discarding edge 103238045#1 with type "highway.cycleway|railway.abandoned" (unknown compound "railway.abandoned").
+Warning: Discarding edge 103238045#2 with type "highway.cycleway|railway.abandoned" (unknown compound "railway.abandoned").
+Warning: Discarding edge 103238045#3 with type "highway.cycleway|railway.abandoned" (unknown compound "railway.abandoned").
+Warning: Discarding edge 103238045#4 with type "highway.cycleway|railway.abandoned" (unknown compound "railway.abandoned").
+Warning: Discarding edge 103238045#5 with type "highway.cycleway|railway.abandoned" (unknown compound "railway.abandoned").
+Warning: Discarding edge 103238045#6 with type "highway.cycleway|railway.abandoned" (unknown compound "railway.abandoned").
+Warning: Discarding edge 103238045#7 with type "highway.cycleway|railway.abandoned" (unknown compound "railway.abandoned").
+Warning: Discarding edge 103238045#8 with type "highway.cycleway|railway.abandoned" (unknown compound "railway.abandoned").
+Warning: Discarding edge 103238045#9 with type "highway.cycleway|railway.abandoned" (unknown compound "railway.abandoned").
+Warning: Discarding edge 103238045#10 with type "highway.cycleway|railway.abandoned" (unknown compound "railway.abandoned").
+Warning: Discarding edge 103238045#11 with type "highway.cycleway|railway.abandoned" (unknown compound "railway.abandoned").
+Warning: Discarding edge 103238045#12 with type "highway.cycleway|railway.abandoned" (unknown compound "railway.abandoned").
+Warning: Discarding edge 103238046#0 with type "highway.cycleway|railway.abandoned" (unknown compound "railway.abandoned").
+Warning: Discarding edge 103238046#1 with type "highway.cycleway|railway.abandoned" (unknown compound "railway.abandoned").
+Warning: Discarding edge 103238046#2 with type "highway.cycleway|railway.abandoned" (unknown compound "railway.abandoned").
+Warning: Discarding edge 103238047 with type "highway.cycleway|railway.abandoned" (unknown compound "railway.abandoned").
+Warning: Discarding edge 103238053 with type "highway.cycleway|railway.abandoned" (unknown compound "railway.abandoned").
+Warning: New value for oneway found: reversible
+Warning: New value for oneway found: reversible
+Warning: New value for oneway found: reversible
+Warning: New value for oneway found: reversible
+Warning: New value for oneway found: reversible
+Warning: In lane '15422051#9_0': Could not build shape.
+Warning: In lane '15422051#9_1': Could not build shape.
+Warning: In lane '-15422051#9_0': Could not build shape.
+Warning: In lane '-15422051#9_1': Could not build shape.
+Warning: In edge '15444691#20': lane shape could not been determined (same points at 1758.38,-1521.50)
+Warning: In edge '-15444691#20': lane shape could not been determined (same points at 1758.38,-1521.50)
+Warning: New value for oneway found: reversible
+Warning: New value for oneway found: reversible
+Warning: New value for oneway found: reversible
+Warning: New value for oneway found: reversible
+Warning: New value for oneway found: reversible
+Warning: New value for oneway found: reversible
+Warning: New value for oneway found: reversible
+Warning: New value for oneway found: reversible
+Warning: In edge '44526660#19': lane shape could not been determined (same points at 1758.38,-1521.50)
+Warning: In edge '-44526660#19': lane shape could not been determined (same points at 1758.38,-1521.50)
+Warning: In lane '54179780#33_0': Could not build shape.
+Warning: In lane '54179780#33_1': Could not build shape.
+Warning: In lane '-54179780#33_0': Could not build shape.
+Warning: In lane '-54179780#33_1': Could not build shape.
+Warning: Discarding edge 58558780#0 with type "highway.cycleway|railway.abandoned" (unknown compound "railway.abandoned").
+Warning: Discarding edge 58558780#1 with type "highway.cycleway|railway.abandoned" (unknown compound "railway.abandoned").
+Warning: Discarding edge 58558780#2 with type "highway.cycleway|railway.abandoned" (unknown compound "railway.abandoned").
+Warning: Discarding edge 58558780#3 with type "highway.cycleway|railway.abandoned" (unknown compound "railway.abandoned").
+Warning: Discarding edge 58558780#4 with type "highway.cycleway|railway.abandoned" (unknown compound "railway.abandoned").
+Warning: Discarding edge 58558780#5 with type "highway.cycleway|railway.abandoned" (unknown compound "railway.abandoned").
+Warning: Discarding edge 58558780#6 with type "highway.cycleway|railway.abandoned" (unknown compound "railway.abandoned").
+Warning: Discarding edge 58558780#7 with type "highway.cycleway|railway.abandoned" (unknown compound "railway.abandoned").
+Warning: Discarding edge 58558780#8 with type "highway.cycleway|railway.abandoned" (unknown compound "railway.abandoned").
+Warning: Discarding edge 58558780#9 with type "highway.cycleway|railway.abandoned" (unknown compound "railway.abandoned").
+Warning: Discarding edge 58558780#10 with type "highway.cycleway|railway.abandoned" (unknown compound "railway.abandoned").
+Warning: Discarding edge 58558780#11 with type "highway.cycleway|railway.abandoned" (unknown compound "railway.abandoned").
+Warning: Discarding edge 58558780#12 with type "highway.cycleway|railway.abandoned" (unknown compound "railway.abandoned").
+Warning: Discarding edge 58558780#13 with type "highway.cycleway|railway.abandoned" (unknown compound "railway.abandoned").
+Warning: Discarding edge 58558780#14 with type "highway.cycleway|railway.abandoned" (unknown compound "railway.abandoned").
+Warning: Discarding edge 58558780#15 with type "highway.cycleway|railway.abandoned" (unknown compound "railway.abandoned").
+Warning: Discarding edge 58558780#16 with type "highway.cycleway|railway.abandoned" (unknown compound "railway.abandoned").
+Warning: Discarding edge 58558780#17 with type "highway.cycleway|railway.abandoned" (unknown compound "railway.abandoned").
+Warning: Discarding edge 58558780#18 with type "highway.cycleway|railway.abandoned" (unknown compound "railway.abandoned").
+Warning: Discarding edge 58558780#19 with type "highway.cycleway|railway.abandoned" (unknown compound "railway.abandoned").
+Warning: Discarding edge 58558780#20 with type "highway.cycleway|railway.abandoned" (unknown compound "railway.abandoned").
+Warning: Discarding edge 58558780#21 with type "highway.cycleway|railway.abandoned" (unknown compound "railway.abandoned").
+Warning: In lane '86251620#3_0': Could not build shape.
+Warning: In lane '-86251620#3_0': Could not build shape.
+ Import done:
+   7434 nodes loaded.
+   31 types loaded.
+   19757 edges loaded.
+Proj projection parameters used: '+proj=utm +zone=15 +ellps=WGS84 +datum=WGS84 +units=m +no_defs'.
+Computing step 1: Removing dummy edges.
+Warning:  Removing dummy edge '45010427#1'
+Warning:  Removing dummy edge '-45010427#1'
+Warning:  Removing dummy edge '43032348#1'
+Warning:  Removing dummy edge '-43032348#1'
+Warning:  Removing dummy edge '43032441#1'
+Warning:  Removing dummy edge '-43032441#1'
+Warning:  Removing dummy edge '43570883#1'
+Warning:  Removing dummy edge '-43570883#1'
+Warning:  Removing dummy edge '15454015#12'
+Warning:  Removing dummy edge '-15454015#12'
+Warning:  Removing dummy edge '54369255'
+Warning:  Removing dummy edge '-54369255'
+Warning:  Removing dummy edge '54369362'
+Warning:  Removing dummy edge '-54369362'
+Warning:  Removing dummy edge '56065323'
+Warning:  Removing dummy edge '-56065323'
+Warning:  Removing dummy edge '60965240'
+Warning:  Removing dummy edge '-60965240'
+Warning: 18 dummy edge(s) removed.
+Computing step 2: Joining double connections.
+Computing step 3: Normalising node positions.
+Warning: In edge '-15444691#20': lane shape could not been determined (same points at 39988.49,5994.69)
+Warning: In edge '-44526660#19': lane shape could not been determined (same points at 39988.49,5994.69)
+Warning: In lane '-54179780#33_0': Could not build shape.
+Warning: In lane '-54179780#33_1': Could not build shape.
+Warning: In lane '-86251620#3_0': Could not build shape.
+Warning: In edge '15444691#20': lane shape could not been determined (same points at 39988.49,5994.69)
+Warning: In edge '44526660#19': lane shape could not been determined (same points at 39988.49,5994.69)
+Warning: In lane '54179780#33_0': Could not build shape.
+Warning: In lane '54179780#33_1': Could not build shape.
+Warning: In lane '86251620#3_0': Could not build shape.
+Computing step 4: Guessing and setting TLs.
+Computing step 5: Computing turning directions.
+Computing step 6: Sorting nodes' edges.
+Computing step 7: Computing approached edges.
+Computing step 8: Computing approaching lanes.
+Computing step 9: Dividing of lanes on approached lanes.
+Computing step 10: Appending turnarounds.
+Computing step 11: Rechecking of lane endings.
+Computing step 12: Computing node shapes.
+Warning: For node '153232838': could not compute shape.
+Warning: For node '729939033': could not compute shape.
+Computing step 13: Computing edge shapes.
+Lane '-102752346#6' has calculated shape length near zero. Revert it back to old shape.
+Lane '-102753476#5' has calculated shape length near zero. Revert it back to old shape.
+Lane '-102926367#4' has calculated shape length near zero. Revert it back to old shape.
+Lane '-102926383#4' has calculated shape length near zero. Revert it back to old shape.
+Lane '-103022112#4' has calculated shape length near zero. Revert it back to old shape.
+Lane '-103093003#5' has calculated shape length near zero. Revert it back to old shape.
+Lane '-103371645' has calculated shape length near zero. Revert it back to old shape.
+Lane '-103371680' has calculated shape length near zero. Revert it back to old shape.
+Lane '-103371680' has calculated shape length near zero. Revert it back to old shape.
+Lane '-103925990#3' has calculated shape length near zero. Revert it back to old shape.
+Lane '-103925990#5' has calculated shape length near zero. Revert it back to old shape.
+Lane '-105339580#6' has calculated shape length near zero. Revert it back to old shape.
+Lane '-106963876#3' has calculated shape length near zero. Revert it back to old shape.
+Lane '-15352297#1' has calculated shape length near zero. Revert it back to old shape.
+Lane '-15355568' has calculated shape length near zero. Revert it back to old shape.
+Lane '-15359449' has calculated shape length near zero. Revert it back to old shape.
+Lane '-15362190#1' has calculated shape length near zero. Revert it back to old shape.
+Lane '-15363345#3' has calculated shape length near zero. Revert it back to old shape.
+Lane '-15366343#2' has calculated shape length near zero. Revert it back to old shape.
+Lane '-15366793#0' has calculated shape length near zero. Revert it back to old shape.
+Lane '-15374887#2' has calculated shape length near zero. Revert it back to old shape.
+Lane '-15374887#2' has calculated shape length near zero. Revert it back to old shape.
+Lane '-15374932' has calculated shape length near zero. Revert it back to old shape.
+Lane '-15386903#10' has calculated shape length near zero. Revert it back to old shape.
+Lane '-15386903#10' has calculated shape length near zero. Revert it back to old shape.
+Lane '-15386903#11' has calculated shape length near zero. Revert it back to old shape.
+Lane '-15386903#11' has calculated shape length near zero. Revert it back to old shape.
+Lane '-15394742#8' has calculated shape length near zero. Revert it back to old shape.
+Lane '-15399764#2' has calculated shape length near zero. Revert it back to old shape.
+Lane '-15399770#9' has calculated shape length near zero. Revert it back to old shape.
+Lane '-15404437#11' has calculated shape length near zero. Revert it back to old shape.
+Lane '-15404437#11' has calculated shape length near zero. Revert it back to old shape.
+Lane '-15404437#13' has calculated shape length near zero. Revert it back to old shape.
+Lane '-15404437#13' has calculated shape length near zero. Revert it back to old shape.
+Lane '-15404806#13' has calculated shape length near zero. Revert it back to old shape.
+Lane '-15404806#15' has calculated shape length near zero. Revert it back to old shape.
+Lane '-15421257#4' has calculated shape length near zero. Revert it back to old shape.
+Lane '-15422051#6' has calculated shape length near zero. Revert it back to old shape.
+Lane '-15422051#6' has calculated shape length near zero. Revert it back to old shape.
+Lane '-15422051#8+15422051#9' has calculated shape length near zero. Revert it back to old shape.
+Lane '-15422051#8+15422051#9' has calculated shape length near zero. Revert it back to old shape.
+Lane '-15422051#8+15422051#9' has calculated shape length near zero. Revert it back to old shape.
+Lane '-15422051#8+15422051#9' has calculated shape length near zero. Revert it back to old shape.
+Lane '-15422051#9+15422051#8' has calculated shape length near zero. Revert it back to old shape.
+Lane '-15422051#9+15422051#8' has calculated shape length near zero. Revert it back to old shape.
+Lane '-15423824#0' has calculated shape length near zero. Revert it back to old shape.
+Lane '-15425400#0' has calculated shape length near zero. Revert it back to old shape.
+Lane '-15426264#2' has calculated shape length near zero. Revert it back to old shape.
+Lane '-15426264#2' has calculated shape length near zero. Revert it back to old shape.
+Lane '-15426264#5' has calculated shape length near zero. Revert it back to old shape.
+Lane '-15426264#5' has calculated shape length near zero. Revert it back to old shape.
+Lane '-15427210#5' has calculated shape length near zero. Revert it back to old shape.
+Lane '-15434846#7' has calculated shape length near zero. Revert it back to old shape.
+Lane '-15434846#8' has calculated shape length near zero. Revert it back to old shape.
+Lane '-15445473#2' has calculated shape length near zero. Revert it back to old shape.
+Lane '-15450363#4' has calculated shape length near zero. Revert it back to old shape.
+Lane '-15450365#7' has calculated shape length near zero. Revert it back to old shape.
+Lane '-38743386#3' has calculated shape length near zero. Revert it back to old shape.
+Lane '-44504700#3' has calculated shape length near zero. Revert it back to old shape.
+Lane '-44638377#1' has calculated shape length near zero. Revert it back to old shape.
+Lane '-44638377#1' has calculated shape length near zero. Revert it back to old shape.
+Lane '-54032271#1' has calculated shape length near zero. Revert it back to old shape.
+Lane '-54179780#2' has calculated shape length near zero. Revert it back to old shape.
+Lane '-54179780#2' has calculated shape length near zero. Revert it back to old shape.
+Lane '-58558779' has calculated shape length near zero. Revert it back to old shape.
+Lane '-98243729#8' has calculated shape length near zero. Revert it back to old shape.
+Lane '102752346#6' has calculated shape length near zero. Revert it back to old shape.
+Lane '102753476#5' has calculated shape length near zero. Revert it back to old shape.
+Lane '102926367#4' has calculated shape length near zero. Revert it back to old shape.
+Lane '103022112#4' has calculated shape length near zero. Revert it back to old shape.
+Lane '103093003#5' has calculated shape length near zero. Revert it back to old shape.
+Lane '103094418#5' has calculated shape length near zero. Revert it back to old shape.
+Lane '103094418#5' has calculated shape length near zero. Revert it back to old shape.
+Lane '103094418#7' has calculated shape length near zero. Revert it back to old shape.
+Lane '103094418#7' has calculated shape length near zero. Revert it back to old shape.
+Lane '103371645' has calculated shape length near zero. Revert it back to old shape.
+Lane '103371680' has calculated shape length near zero. Revert it back to old shape.
+Lane '103371680' has calculated shape length near zero. Revert it back to old shape.
+Lane '103902905#30' has calculated shape length near zero. Revert it back to old shape.
+Lane '103925990#3' has calculated shape length near zero. Revert it back to old shape.
+Lane '103925990#5' has calculated shape length near zero. Revert it back to old shape.
+Lane '104940195' has calculated shape length near zero. Revert it back to old shape.
+Lane '105234277#2' has calculated shape length near zero. Revert it back to old shape.
+Lane '105234277#2' has calculated shape length near zero. Revert it back to old shape.
+Lane '105339580#6' has calculated shape length near zero. Revert it back to old shape.
+Lane '106856502#14' has calculated shape length near zero. Revert it back to old shape.
+Lane '106856502#14' has calculated shape length near zero. Revert it back to old shape.
+Lane '106965249#1' has calculated shape length near zero. Revert it back to old shape.
+Lane '106965249#2' has calculated shape length near zero. Revert it back to old shape.
+Lane '106986736#1' has calculated shape length near zero. Revert it back to old shape.
+Lane '15356982' has calculated shape length near zero. Revert it back to old shape.
+Lane '15359449' has calculated shape length near zero. Revert it back to old shape.
+Lane '15362190#1' has calculated shape length near zero. Revert it back to old shape.
+Lane '15363345#3' has calculated shape length near zero. Revert it back to old shape.
+Lane '15366343#2' has calculated shape length near zero. Revert it back to old shape.
+Lane '15366793#0' has calculated shape length near zero. Revert it back to old shape.
+Lane '15367247#6' has calculated shape length near zero. Revert it back to old shape.
+Lane '15367247#6' has calculated shape length near zero. Revert it back to old shape.
+Lane '15367247#7' has calculated shape length near zero. Revert it back to old shape.
+Lane '15367247#7' has calculated shape length near zero. Revert it back to old shape.
+Lane '15369585#1' has calculated shape length near zero. Revert it back to old shape.
+Lane '15373801#16' has calculated shape length near zero. Revert it back to old shape.
+Lane '15373801#16' has calculated shape length near zero. Revert it back to old shape.
+Lane '15374887#1' has calculated shape length near zero. Revert it back to old shape.
+Lane '15374887#1' has calculated shape length near zero. Revert it back to old shape.
+Lane '15374887#2' has calculated shape length near zero. Revert it back to old shape.
+Lane '15374887#2' has calculated shape length near zero. Revert it back to old shape.
+Lane '15374932' has calculated shape length near zero. Revert it back to old shape.
+Lane '15375583#10' has calculated shape length near zero. Revert it back to old shape.
+Lane '15375583#10' has calculated shape length near zero. Revert it back to old shape.
+Lane '15384602#4' has calculated shape length near zero. Revert it back to old shape.
+Lane '15386903#10' has calculated shape length near zero. Revert it back to old shape.
+Lane '15386903#10' has calculated shape length near zero. Revert it back to old shape.
+Lane '15386903#11' has calculated shape length near zero. Revert it back to old shape.
+Lane '15386903#11' has calculated shape length near zero. Revert it back to old shape.
+Lane '15394742#8' has calculated shape length near zero. Revert it back to old shape.
+Lane '15399764#2' has calculated shape length near zero. Revert it back to old shape.
+Lane '15403678#3' has calculated shape length near zero. Revert it back to old shape.
+Lane '15404437#11' has calculated shape length near zero. Revert it back to old shape.
+Lane '15404437#11' has calculated shape length near zero. Revert it back to old shape.
+Lane '15404437#13' has calculated shape length near zero. Revert it back to old shape.
+Lane '15404437#13' has calculated shape length near zero. Revert it back to old shape.
+Lane '15404806#13' has calculated shape length near zero. Revert it back to old shape.
+Lane '15404806#15' has calculated shape length near zero. Revert it back to old shape.
+Lane '15408628#6' has calculated shape length near zero. Revert it back to old shape.
+Lane '15408628#6' has calculated shape length near zero. Revert it back to old shape.
+Lane '15412981#9' has calculated shape length near zero. Revert it back to old shape.
+Lane '15412981#9' has calculated shape length near zero. Revert it back to old shape.
+Lane '15420077#12' has calculated shape length near zero. Revert it back to old shape.
+Lane '15420077#12' has calculated shape length near zero. Revert it back to old shape.
+Lane '15420077#13' has calculated shape length near zero. Revert it back to old shape.
+Lane '15421257#4' has calculated shape length near zero. Revert it back to old shape.
+Lane '15422051#6' has calculated shape length near zero. Revert it back to old shape.
+Lane '15422051#6' has calculated shape length near zero. Revert it back to old shape.
+Lane '15423824#0' has calculated shape length near zero. Revert it back to old shape.
+Lane '15425400#0' has calculated shape length near zero. Revert it back to old shape.
+Lane '15426264#1' has calculated shape length near zero. Revert it back to old shape.
+Lane '15426264#1' has calculated shape length near zero. Revert it back to old shape.
+Lane '15426264#2' has calculated shape length near zero. Revert it back to old shape.
+Lane '15426264#2' has calculated shape length near zero. Revert it back to old shape.
+Lane '15426264#4' has calculated shape length near zero. Revert it back to old shape.
+Lane '15426264#4' has calculated shape length near zero. Revert it back to old shape.
+Lane '15426264#5' has calculated shape length near zero. Revert it back to old shape.
+Lane '15426264#5' has calculated shape length near zero. Revert it back to old shape.
+Lane '15427205#11' has calculated shape length near zero. Revert it back to old shape.
+Lane '15427205#12' has calculated shape length near zero. Revert it back to old shape.
+Lane '15427205#12' has calculated shape length near zero. Revert it back to old shape.
+Lane '15427210#5' has calculated shape length near zero. Revert it back to old shape.
+Lane '15428002#5' has calculated shape length near zero. Revert it back to old shape.
+Lane '15428002#5' has calculated shape length near zero. Revert it back to old shape.
+Lane '15428002#7' has calculated shape length near zero. Revert it back to old shape.
+Lane '15428002#7' has calculated shape length near zero. Revert it back to old shape.
+Lane '15433917#3' has calculated shape length near zero. Revert it back to old shape.
+Lane '15433917#3' has calculated shape length near zero. Revert it back to old shape.
+Lane '15434846#7' has calculated shape length near zero. Revert it back to old shape.
+Lane '15434846#8' has calculated shape length near zero. Revert it back to old shape.
+Lane '15450363#4' has calculated shape length near zero. Revert it back to old shape.
+Lane '15450365#7' has calculated shape length near zero. Revert it back to old shape.
+Lane '15451603#3' has calculated shape length near zero. Revert it back to old shape.
+Lane '15458329#1' has calculated shape length near zero. Revert it back to old shape.
+Lane '28761080#5' has calculated shape length near zero. Revert it back to old shape.
+Lane '28761080#5' has calculated shape length near zero. Revert it back to old shape.
+Lane '43032089#1' has calculated shape length near zero. Revert it back to old shape.
+Lane '43482080#9' has calculated shape length near zero. Revert it back to old shape.
+Lane '43482080#9' has calculated shape length near zero. Revert it back to old shape.
+Lane '44504700#3' has calculated shape length near zero. Revert it back to old shape.
+Lane '44638377#1' has calculated shape length near zero. Revert it back to old shape.
+Lane '44638377#1' has calculated shape length near zero. Revert it back to old shape.
+Lane '51824796' has calculated shape length near zero. Revert it back to old shape.
+Lane '51824796' has calculated shape length near zero. Revert it back to old shape.
+Lane '51825257#3' has calculated shape length near zero. Revert it back to old shape.
+Lane '51825257#3' has calculated shape length near zero. Revert it back to old shape.
+Lane '51825257#5' has calculated shape length near zero. Revert it back to old shape.
+Lane '51825257#5' has calculated shape length near zero. Revert it back to old shape.
+Lane '52092875#1' has calculated shape length near zero. Revert it back to old shape.
+Lane '54032271#1' has calculated shape length near zero. Revert it back to old shape.
+Lane '54044824#7' has calculated shape length near zero. Revert it back to old shape.
+Lane '54044824#7' has calculated shape length near zero. Revert it back to old shape.
+Lane '54179780#2' has calculated shape length near zero. Revert it back to old shape.
+Lane '54179780#2' has calculated shape length near zero. Revert it back to old shape.
+Lane '55563042#2' has calculated shape length near zero. Revert it back to old shape.
+Lane '58558779' has calculated shape length near zero. Revert it back to old shape.
+Lane '98243725#7' has calculated shape length near zero. Revert it back to old shape.
+Lane '98243725#7' has calculated shape length near zero. Revert it back to old shape.
+Lane '98243729#8' has calculated shape length near zero. Revert it back to old shape.
+Lane '98669902#9' has calculated shape length near zero. Revert it back to old shape.
+Lane '98669902#9' has calculated shape length near zero. Revert it back to old shape.
+Lane '98962608#7' has calculated shape length near zero. Revert it back to old shape.
+Lane '98962608#7' has calculated shape length near zero. Revert it back to old shape.
+Lane '98962608#9' has calculated shape length near zero. Revert it back to old shape.
+Lane '98962608#9' has calculated shape length near zero. Revert it back to old shape.
+Computing step 14: Computing tls logics.
+Computing step 15: Computing node logics.
+Warning: Could not use edge geometry for internal lane, node '153232838'.
+Warning: Could not use edge geometry for internal lane, node '153232838'.
+Warning: Could not use edge geometry for internal lane, node '153232838'.
+Warning: Could not use edge geometry for internal lane, node '153232838'.
+Warning: Could not use edge geometry for internal lane, node '153232838'.
+Warning: Could not use edge geometry for internal lane, node '153232838'.
+Warning: Could not use edge geometry for internal lane, node '153232838'.
+Warning: Could not use edge geometry for internal lane, node '153232838'.
+Warning: Could not use edge geometry for internal lane, node '153232838'.
+Warning: Could not use edge geometry for internal lane, node '153232838'.
+Warning: Could not use edge geometry for internal lane, node '153232838'.
+Warning: Could not use edge geometry for internal lane, node '153232838'.
+Warning: Could not use edge geometry for internal lane, node '153232838'.
+Warning: Could not use edge geometry for internal lane, node '153232838'.
+Warning: Could not use edge geometry for internal lane, node '153232838'.
+Warning: Could not use edge geometry for internal lane, node '153232838'.
+Computing step 16: Computing traffic light logics.
+0 traffic light(s) computed.
+-----------------------------------------------------
+Summary:
+ Node type statistics:
+  Unregulated junctions       : 117
+  Priority junctions          : 6940
+  Right-before-left junctions : 377
+ Network boundaries:
+  Original boundary  : -95.78,29.67,-95.25,29.86
+  Applied offset     : -231480.47,-3284622.85
+  Converted boundary : 0.00,0.00,50540.11,21311.55
+-----------------------------------------------------
+Warning: Could not use edge geometry for internal lane, node '153232838'.
+Warning: Could not use edge geometry for internal lane, node '153232838'.
+Warning: Could not use edge geometry for internal lane, node '153232838'.
+Warning: Could not use edge geometry for internal lane, node '153232838'.
+Warning: Could not use edge geometry for internal lane, node '153232838'.
+Warning: Could not use edge geometry for internal lane, node '153232838'.
+Warning: Could not use edge geometry for internal lane, node '153232838'.
+Warning: Could not use edge geometry for internal lane, node '153232838'.
+Warning: Could not use edge geometry for internal lane, node '153232838'.
+Warning: Could not use edge geometry for internal lane, node '153232838'.
+Warning: Could not use edge geometry for internal lane, node '153232838'.
+Warning: Could not use edge geometry for internal lane, node '153232838'.
+Warning: Could not use edge geometry for internal lane, node '153232838'.
+Warning: Could not use edge geometry for internal lane, node '153232838'.
+Warning: Could not use edge geometry for internal lane, node '153232838'.
+Warning: Could not use edge geometry for internal lane, node '153232838'.
+Warning: Could not use edge geometry for internal lane, node '153232838'.
+Warning: Could not use edge geometry for internal lane, node '153232838'.
+Warning: Could not use edge geometry for internal lane, node '153232838'.
+Warning: Could not use edge geometry for internal lane, node '153232838'.
+Warning: Could not use edge geometry for internal lane, node '153232838'.
+Warning: Could not use edge geometry for internal lane, node '153232838'.
+Warning: Could not use edge geometry for internal lane, node '153232838'.
+Warning: Could not use edge geometry for internal lane, node '153232838'.
+Warning: Could not use edge geometry for internal lane, node '153232838'.
+Warning: Could not use edge geometry for internal lane, node '153232838'.
+Warning: Could not use edge geometry for internal lane, node '153232838'.
+Warning: Could not use edge geometry for internal lane, node '153232838'.
+Warning: Could not use edge geometry for internal lane, node '153232838'.
+Warning: Could not use edge geometry for internal lane, node '153232838'.
+Warning: Could not use edge geometry for internal lane, node '153232838'.
+Warning: Could not use edge geometry for internal lane, node '153232838'.
+Warning: Could not use edge geometry for internal lane, node '153232838'.
+Warning: Could not use edge geometry for internal lane, node '153232838'.
+Warning: Could not use edge geometry for internal lane, node '153232838'.
+Warning: Could not use edge geometry for internal lane, node '153232838'.
+Warning: Could not use edge geometry for internal lane, node '153232838'.
+Warning: Could not use edge geometry for internal lane, node '153232838'.
+Warning: Could not use edge geometry for internal lane, node '153232838'.
+Warning: Could not use edge geometry for internal lane, node '153232838'.
+Warning: Could not use edge geometry for internal lane, node '153232838'.
+Warning: Could not use edge geometry for internal lane, node '153232838'.
+Warning: Could not use edge geometry for internal lane, node '153232838'.
+Warning: Could not use edge geometry for internal lane, node '153232838'.
+Warning: Could not use edge geometry for internal lane, node '153232838'.
+Warning: Could not use edge geometry for internal lane, node '153232838'.
+Warning: Could not use edge geometry for internal lane, node '153232838'.
+Warning: Could not use edge geometry for internal lane, node '153232838'.
