@@ -176,6 +176,7 @@
     <ClCompile Include="..\..\..\src\netedit\GNEDialog_About.cpp" />
     <ClCompile Include="..\..\..\src\netedit\GNEEdge.cpp" />
     <ClCompile Include="..\..\..\src\netedit\GNEInspector.cpp" />
+    <ClCompile Include="..\..\..\src\netedit\GNEInternalLane.cpp" />
     <ClCompile Include="..\..\..\src\netedit\GNEJunction.cpp" />
     <ClCompile Include="..\..\..\src\netedit\GNELane.cpp" />
     <ClCompile Include="..\..\..\src\netedit\GNELoadThread.cpp" />
@@ -337,6 +338,7 @@
     <ClInclude Include="..\..\..\src\netedit\GNEEdge.h" />
     <ClInclude Include="..\..\..\src\netedit\GNEEvent_NetworkLoaded.h" />
     <ClInclude Include="..\..\..\src\netedit\GNEInspector.h" />
+    <ClInclude Include="..\..\..\src\netedit\GNEInternalLane.h" />
     <ClInclude Include="..\..\..\src\netedit\GNEJunction.h" />
     <ClInclude Include="..\..\..\src\netedit\GNELane.h" />
     <ClInclude Include="..\..\..\src\netedit\GNELoadThread.h" />
