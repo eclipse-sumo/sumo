@@ -349,6 +349,18 @@ enum {
     /// processing menu messages
     MID_GNE_COMPUTE_JUNCTIONS,
 
+    /// tls mode messages
+    /** rename traffic light */
+    MID_GNE_RENAME_TLS,
+    /** replace program with a newly guessed program */
+    MID_GNE_GUESS_PROGRAM,
+    /** phase related controls */
+    MID_GNE_PHASE_SWITCH,
+    MID_GNE_PHASE_CREATE,
+    MID_GNE_PHASE_DELETE,
+    MID_GNE_PHASE_INDEX,
+    MID_GNE_PHASE_DURATION,
+
     /// misc messages
     MID_GNE_NEW_NETWORK,
     /** save network*/
@@ -372,6 +384,7 @@ enum {
     MID_GNE_SELECT_DEAD_STARTS,
     /** select lanes that are connected from concurrent lanes */
     MID_GNE_SELECT_CONFLICTS,
+
     /** help button */
     MID_GNE_HELP,
 
