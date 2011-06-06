@@ -16,7 +16,7 @@ from xml.sax import saxutils, make_parser, handler
 # attributes sorting lists
 a = {}
 a['edge'] = ( 'id', 'from', 'to', 'name', 'priority', 'type', 'function', 'spread_type', 'shape' )
-a['lane'] = ( 'id', 'depart', 'vclasses', 'allow', 'disallow', 'maxspeed', 'length', 'shape' )
+a['lane'] = ( 'id', 'depart', 'vclasses', 'allow', 'disallow', 'maxspeed', 'length', 'endOffset', "width', 'shape' )
 a['junction'] = ( 'id', 'type', 'x', 'y', 'incLanes', 'intLanes', 'shape' )
 a['logicitem'] = ( 'request', 'response', 'foes', 'cont' )
 a['succ'] = ( 'edge', 'lane', 'junction' )
