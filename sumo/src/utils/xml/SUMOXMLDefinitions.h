@@ -137,7 +137,6 @@ enum SumoXMLTag {
     SUMO_TAG_TOEDGE,
     /// Sink(s) specification
     SUMO_TAG_SINK,
-    SUMO_TAG_SUPPLEMENTARY_WEIGHTS,
     SUMO_TAG_PARAM,
     SUMO_TAG_WAUT,
     SUMO_TAG_WAUT_SWITCH,
@@ -326,12 +325,6 @@ enum SumoXMLAttr {
     SUMO_ATTR_NO,
     SUMO_ATTR_DURATION,
     SUMO_ATTR_UNTIL,
-    /** trigger: definition of an object type to be triggered */
-    SUMO_ATTR_OBJECTTYPE,
-    /** trigger: definition of an attribute to trigger */
-    SUMO_ATTR_ATTR,
-    /** trigger: name of the object to manipulate */
-    SUMO_ATTR_OBJECTID,
     /** trigger: the time of the step */
     SUMO_ATTR_TIME,
     /** weights: time range begin */

@@ -116,15 +116,7 @@ NLTriggerBuilder::parseAndBuildLaneSpeedTrigger(MSNet &net, const SUMOSAXAttribu
     }
     // get the file name to read further definitions from
     std::string file = getFileName(attrs, base, true);
-    std::string objectid;
-    if (attrs.hasAttribute(SUMO_ATTR_LANES)) {
-        objectid = attrs.getStringReporting(SUMO_ATTR_LANES, id.c_str(), ok);
-    } else {
-        if (attrs.hasAttribute(SUMO_ATTR_OBJECTID)) {
-            objectid = attrs.getStringReporting(SUMO_ATTR_OBJECTID, id.c_str(), ok);
-            MsgHandler::getWarningInstance()->inform("Defining the lanes using 'objectid' within a variable speed sign is deprecated, use 'lanes' instead.");
-        }
-    }
+    std::string objectid = attrs.getStringReporting(SUMO_ATTR_LANES, id.c_str(), ok);
     if (!ok) {
         throw InvalidArgument("The lanes to use within MSLaneSpeedTrigger '" + id + "' are not known.");
     }
@@ -225,15 +217,7 @@ NLTriggerBuilder::parseAndBuildRerouter(MSNet &net, const SUMOSAXAttributes &att
     }
     // get the file name to read further definitions from
     std::string file = getFileName(attrs, base);
-    std::string objectid;
-    if (attrs.hasAttribute(SUMO_ATTR_EDGES)) {
-        objectid = attrs.getStringReporting(SUMO_ATTR_EDGES, id.c_str(), ok);
-    } else {
-        if (attrs.hasAttribute(SUMO_ATTR_OBJECTID)) {
-            objectid = attrs.getStringReporting(SUMO_ATTR_OBJECTID, id.c_str(), ok);
-            MsgHandler::getWarningInstance()->inform("Defining the edges using 'objectid' within a rerouter is deprecated, use 'edges' instead.");
-        }
-    }
+    std::string objectid = attrs.getStringReporting(SUMO_ATTR_EDGES, id.c_str(), ok);
     if (!ok) {
         throw InvalidArgument("The edge to use within MSTriggeredRerouter '" + id + "' is not known.");
     }
@@ -334,15 +318,7 @@ NLTriggerBuilder::getLane(const SUMOSAXAttributes &attrs,
                           const std::string &tt,
                           const std::string &tid) throw(InvalidArgument) {
     bool ok = true;
-    std::string objectid;
-    if (attrs.hasAttribute(SUMO_ATTR_LANE)) {
-        objectid = attrs.getStringReporting(SUMO_ATTR_LANE, tid.c_str(), ok);
-    } else {
-        if (attrs.hasAttribute(SUMO_ATTR_OBJECTID)) {
-            objectid = attrs.getStringReporting(SUMO_ATTR_OBJECTID, tid.c_str(), ok);
-            MsgHandler::getWarningInstance()->inform("Defining the lane using 'objectid' within " + tt + " is deprecated, use 'lane' instead.");
-        }
-    }
+    std::string objectid = attrs.getStringReporting(SUMO_ATTR_LANE, tid.c_str(), ok);
     MSLane *lane = MSLane::dictionary(objectid);
     if (lane==0) {
         throw InvalidArgument("The lane " + objectid + " to use within the " + tt + " '" + tid + "' is not known.");

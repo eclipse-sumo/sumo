@@ -89,7 +89,6 @@ StringBijection<int>::Entry SUMOXMLDefinitions::tags[] = {
     { "fromedge",         SUMO_TAG_FROMEDGE },
     { "toedge",           SUMO_TAG_TOEDGE },
     { "sink",             SUMO_TAG_SINK },
-    { "supplementary-weights", SUMO_TAG_SUPPLEMENTARY_WEIGHTS },
     { "param",	          SUMO_TAG_PARAM },
     { "WAUT",	          SUMO_TAG_WAUT },
     { "wautSwitch",       SUMO_TAG_WAUT_SWITCH },
@@ -255,9 +254,6 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "duration",       SUMO_ATTR_DURATION },
     { "until",          SUMO_ATTR_UNTIL },
 
-    { "objecttype",     SUMO_ATTR_OBJECTTYPE },
-    { "attr",           SUMO_ATTR_ATTR },
-    { "objectid",       SUMO_ATTR_OBJECTID },
     { "time",           SUMO_ATTR_TIME },
     { "begin",          SUMO_ATTR_BEGIN },
     { "end",            SUMO_ATTR_END },
