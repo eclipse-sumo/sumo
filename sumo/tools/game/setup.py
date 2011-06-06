@@ -2,7 +2,7 @@ from distutils.core import setup
 import py2exe, sys, shutil, os, glob, zipfile
 import subprocess
 
-nightlyDir="N:\\Daten\\Sumo\\Nightly"
+nightlyDir="M:\\Daten\\Sumo\\Nightly"
 
 if len(sys.argv) == 1:
     sys.argv.append("py2exe")
@@ -13,9 +13,9 @@ shutil.rmtree(dist, True)
 
 setup(console=['runner.py'])
 
-for f in glob.glob(os.path.join(base, "*.sumo.cfg")) + ['input_additional.add.xml']: 
+for f in glob.glob(os.path.join(base, "*.sumo.cfg")) + ['input_additional.add.xml', 'logo.gif', 'dlr.gif']: 
     shutil.copy2(f, dist)
-for dir in ['cross', 'square']:
+for dir in ['cross', 'square', 'kuehne']:
     subprocess.call(['svn', 'export', dir, os.path.join(dist, dir)])
 for dll in glob.glob(os.path.join(nightlyDir, "*.dll")):
     shutil.copy2(dll, dist)
