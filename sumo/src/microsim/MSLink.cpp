@@ -184,7 +184,7 @@ MSLink::hasApproachingFoe(SUMOTime arrivalTime, SUMOTime leaveTime) const throw(
 }
 
 
-MSLink::LinkDirection
+LinkDirection
 MSLink::getDirection() const throw() {
     return myDirection;
 }

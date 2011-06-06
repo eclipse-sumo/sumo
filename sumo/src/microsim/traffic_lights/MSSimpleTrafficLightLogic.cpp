@@ -100,7 +100,7 @@ MSSimpleTrafficLightLogic::setTrafficLightSignals(SUMOTime t) const {
     // go through the links
     for (size_t i=0; i<myLinks.size(); i++) {
         const LinkVector &currGroup = myLinks[i];
-        MSLink::LinkState ls = (MSLink::LinkState) state[i];
+        LinkState ls = (LinkState) state[i];
         for (LinkVector::const_iterator j=currGroup.begin(); j!=currGroup.end(); j++) {
             (*j)->setTLState(ls, t);
         }

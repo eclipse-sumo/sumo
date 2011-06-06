@@ -87,6 +87,19 @@ inline std::string toString<LaneSpreadFunction>(const LaneSpreadFunction& lsf, s
      return SUMOXMLDefinitions::LaneSpreadFunctions.getString(lsf);
 } 
 
+
+template <>
+inline std::string toString<LinkState>(const LinkState& linkState, std::streamsize accuracy) {
+     UNUSED_PARAMETER(accuracy);
+     return SUMOXMLDefinitions::LinkStates.getString(linkState);
+} 
+
+template <>
+inline std::string toString<LinkDirection>(const LinkDirection& linkDir, std::streamsize accuracy) {
+     UNUSED_PARAMETER(accuracy);
+     return SUMOXMLDefinitions::LinkDirections.getString(linkDir);
+} 
+
 #endif
 
 /****************************************************************************/

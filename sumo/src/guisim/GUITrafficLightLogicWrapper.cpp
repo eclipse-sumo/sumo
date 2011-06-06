@@ -247,8 +247,8 @@ GUITrafficLightLogicWrapper::drawGL(const GUIVisualizationSettings& s) const thr
             while (phaseIdx != curPhaseIdx) {
                 const std::string &state = phases[phaseIdx]->getState();
                 for (unsigned int linkIdx = 0; linkIdx < state.size(); linkIdx++) {
-                    if ((MSLink::LinkState)state[linkIdx] == MSLink::LINKSTATE_TL_GREEN_MINOR ||
-                            (MSLink::LinkState)state[linkIdx] == MSLink::LINKSTATE_TL_GREEN_MAJOR) {
+                    if ((LinkState)state[linkIdx] == LINKSTATE_TL_GREEN_MINOR ||
+                            (LinkState)state[linkIdx] == LINKSTATE_TL_GREEN_MAJOR) {
                         nextGreen.push_back(linkIdx);
                     }
                 }

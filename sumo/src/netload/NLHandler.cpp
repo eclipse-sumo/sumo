@@ -1056,13 +1056,13 @@ NLHandler::addSuccLane(const SUMOSAXAttributes &attrs) {
 #ifdef HAVE_INTERNAL_LANES
                                                 via, pass,
 #endif
-                                                parseLinkDir(dir[0]), parseLinkState(state[0]), tlID, linkNumber);
+                                                parseLinkDir(dir), parseLinkState(state), tlID, linkNumber);
         } else {
             mySucceedingLaneBuilder.addSuccLane(lane,
 #ifdef HAVE_INTERNAL_LANES
                                                 via, pass,
 #endif
-                                                parseLinkDir(dir[0]), parseLinkState(state[0]));
+                                                parseLinkDir(dir), parseLinkState(state));
         }
     } catch (InvalidArgument &e) {
         MsgHandler::getErrorInstance()->inform(e.what());
@@ -1071,43 +1071,27 @@ NLHandler::addSuccLane(const SUMOSAXAttributes &attrs) {
 
 
 
-MSLink::LinkDirection
-NLHandler::parseLinkDir(char dir) {
-    switch (dir) {
-    case 's':
-        return MSLink::LINKDIR_STRAIGHT;
-    case 'l':
-        return MSLink::LINKDIR_LEFT;
-    case 'r':
-        return MSLink::LINKDIR_RIGHT;
-    case 't':
-        return MSLink::LINKDIR_TURN;
-    case 'L':
-        return MSLink::LINKDIR_PARTLEFT;
-    case 'R':
-        return MSLink::LINKDIR_PARTRIGHT;
-    default:
-        throw InvalidArgument("Unrecognised link direction '" + toString(dir) + "'.");
+LinkDirection
+NLHandler::parseLinkDir(const std::string &dir) {
+    if (SUMOXMLDefinitions::LinkDirections.hasString(dir)) {
+        return SUMOXMLDefinitions::LinkDirections.get(dir);
+    } else {
+        throw InvalidArgument("Unrecognised link direction '" + dir + "'.");
     }
 }
 
 
-MSLink::LinkState
-NLHandler::parseLinkState(char state) {
-    switch (state) {
-    case 't':
-    case 'o':
-        return MSLink::LINKSTATE_TL_OFF_BLINKING;
-    case 'O':
-        return MSLink::LINKSTATE_TL_OFF_NOSIGNAL;
-    case 'M':
-        return MSLink::LINKSTATE_MAJOR;
-    case 'm':
-        return MSLink::LINKSTATE_MINOR;
-    case '=':
-        return MSLink::LINKSTATE_EQUAL;
-    default:
-        throw InvalidArgument("Unrecognised link state '" + toString(state) + "'.");
+LinkState
+NLHandler::parseLinkState(const std::string &state) {
+    if (SUMOXMLDefinitions::LinkStates.hasString(state)) {
+        return SUMOXMLDefinitions::LinkStates.get(state);
+    } else {
+        if (state == "t") { // legacy networks
+            // WRITE_WARNING("Obsolete link state 't'. Use 'o' instead");
+            return LINKSTATE_TL_OFF_BLINKING;
+        } else {
+            throw InvalidArgument("Unrecognised link state '" + state + "'.");
+        }
     }
 }
 

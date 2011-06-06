@@ -451,6 +451,32 @@ StringBijection<LaneSpreadFunction>::Entry SUMOXMLDefinitions::laneSpreadFunctio
 };
 
 
+StringBijection<LinkState>::Entry SUMOXMLDefinitions::linkStateValues[] = {
+    { "G", LINKSTATE_TL_GREEN_MAJOR },
+    { "g", LINKSTATE_TL_GREEN_MINOR },
+    { "r", LINKSTATE_TL_RED },
+    { "Y", LINKSTATE_TL_YELLOW_MAJOR },
+    { "y", LINKSTATE_TL_YELLOW_MINOR },
+    { "o", LINKSTATE_TL_OFF_BLINKING },
+    { "O", LINKSTATE_TL_OFF_NOSIGNAL },
+    { "M", LINKSTATE_MAJOR },
+    { "m", LINKSTATE_MINOR },
+    { "=", LINKSTATE_EQUAL },
+    { "-", LINKSTATE_DEADEND }
+};
+
+
+StringBijection<LinkDirection>::Entry SUMOXMLDefinitions::linkDirectionValues[] = {
+    { "s", LINKDIR_STRAIGHT },
+    { "t", LINKDIR_TURN },
+    { "l", LINKDIR_LEFT },
+    { "r", LINKDIR_RIGHT },
+    { "L", LINKDIR_PARTLEFT },
+    { "R", LINKDIR_PARTRIGHT },
+    { "invalid", LINKDIR_NODIR }
+};
+
+
 StringBijection<int> SUMOXMLDefinitions::Tags(
         SUMOXMLDefinitions::tags, SUMO_TAG_NOTHING);
 
@@ -463,6 +489,11 @@ StringBijection<SumoXMLNodeType> SUMOXMLDefinitions::NodeTypes(
 StringBijection<LaneSpreadFunction> SUMOXMLDefinitions::LaneSpreadFunctions(
         SUMOXMLDefinitions::laneSpreadFunctionValues, LANESPREAD_CENTER);
     
+StringBijection<LinkState> SUMOXMLDefinitions::LinkStates(
+        SUMOXMLDefinitions::linkStateValues, LINKSTATE_DEADEND);
+
+StringBijection<LinkDirection> SUMOXMLDefinitions::LinkDirections(
+        SUMOXMLDefinitions::linkDirectionValues, LINKDIR_NODIR);
 
 /****************************************************************************/
 

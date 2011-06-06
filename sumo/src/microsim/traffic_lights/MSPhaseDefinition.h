@@ -124,8 +124,8 @@ public:
      * @param[in] pos The position of the signal to return the state for
      * @return The state of the signal at the given position
      */
-    MSLink::LinkState getSignalState(unsigned int pos) const {
-        return (MSLink::LinkState) state[pos];
+    LinkState getSignalState(unsigned int pos) const {
+        return (LinkState) state[pos];
     }
 
 

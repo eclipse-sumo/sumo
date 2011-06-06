@@ -70,17 +70,17 @@ NBOwnTLDef::getToPrio(const NBEdge * const e) throw() {
 
 
 SUMOReal
-NBOwnTLDef::getDirectionalWeight(NBMMLDirection dir) throw() {
+NBOwnTLDef::getDirectionalWeight(LinkDirection dir) throw() {
     switch (dir) {
-    case MMLDIR_STRAIGHT:
-    case MMLDIR_PARTLEFT:
-    case MMLDIR_PARTRIGHT:
+    case LINKDIR_STRAIGHT:
+    case LINKDIR_PARTLEFT:
+    case LINKDIR_PARTRIGHT:
         return 2.;
-    case MMLDIR_LEFT:
-    case MMLDIR_RIGHT:
+    case LINKDIR_LEFT:
+    case LINKDIR_RIGHT:
         return .5;
-    case MMLDIR_NODIR:
-    case MMLDIR_TURN:
+    case LINKDIR_NODIR:
+    case LINKDIR_TURN:
         return 0;
     }
     return 0;
@@ -102,8 +102,8 @@ NBOwnTLDef::computeUnblockedWeightedStreamNumber(const NBEdge * const e1, const 
                         continue;
                     }
                     if (!foes(e1, (*e1c).toEdge, e2, (*e2c).toEdge)) {
-                        val += getDirectionalWeight(e1->getToNode()->getMMLDirection(e1, (*e1c).toEdge));
-                        val += getDirectionalWeight(e2->getToNode()->getMMLDirection(e2, (*e2c).toEdge));
+                        val += getDirectionalWeight(e1->getToNode()->getDirection(e1, (*e1c).toEdge));
+                        val += getDirectionalWeight(e2->getToNode()->getDirection(e2, (*e2c).toEdge));
                     }
                 }
             }

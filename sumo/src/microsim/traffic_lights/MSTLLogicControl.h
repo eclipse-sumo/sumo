@@ -131,7 +131,7 @@ public:
         std::map<std::string, MSTrafficLightLogic*> myVariants;
 
         /// @brief Originally loaded link states
-        std::map<MSLink*, MSLink::LinkState> myOriginalLinkStates;
+        std::map<MSLink*, LinkState> myOriginalLinkStates;
 
         /// @brief The list of actions/commands to execute on switch
         std::vector<OnSwitchAction*> mySwitchActions;
@@ -180,7 +180,7 @@ public:
     /** @brief Lets all running (current) tls programs apply their current signal states to links they control
      * @param[in] t The current time
      * @see MSTrafficLightLogic::setTrafficLightSignals
-     * @see MSLink::LinkState
+     * @see LinkState
      * @see MSLink::setTLState
      */
     void setTrafficLightSignals(SUMOTime t) const;

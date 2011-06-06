@@ -124,13 +124,13 @@ public:
     /** @brief Returns the (uncontrolled) states of the controlled links
      * @return The controlled link's states
      */
-    std::map<MSLink*, MSLink::LinkState> collectLinkStates() const;
+    std::map<MSLink*, LinkState> collectLinkStates() const;
 
 
     /** @brief Resets the states of controlled links
      * @param[in] vals The state of controlled links to use
      */
-    void resetLinkStates(const std::map<MSLink*, MSLink::LinkState> &vals) const;
+    void resetLinkStates(const std::map<MSLink*, LinkState> &vals) const;
     /// @}
 
 
@@ -148,7 +148,7 @@ public:
     /** @brief Applies the current signal states to controlled links
      * @param[in] t The current time
      * @return Always true
-     * @see MSLink::LinkState
+     * @see LinkState
      * @see MSLink::setTLState
      */
     virtual bool setTrafficLightSignals(SUMOTime t) const = 0;

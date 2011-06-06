@@ -40,6 +40,7 @@
 class MSNet;
 class MSEdge;
 class OutputDevice;
+class SUMOVehicleParameter;
 
 typedef std::vector<const MSEdge*> MSEdgeVector;
 

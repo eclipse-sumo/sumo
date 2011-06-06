@@ -393,7 +393,7 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
         // get the next link used...
         MSLinkCont::const_iterator link = currentLane->succLinkSec(*aVehicle, 1, *currentLane, bestLaneConts);
         // ...and the next used lane (including internal)
-        if (!currentLane->isLinkEnd(link) && (*link)->opened(arrivalTime, speed, aVehicle->getVehicleType().getLength()) && (*link)->getState()!=MSLink::LINKSTATE_TL_RED) { // red may have priority?
+        if (!currentLane->isLinkEnd(link) && (*link)->opened(arrivalTime, speed, aVehicle->getVehicleType().getLength()) && (*link)->getState()!=LINKSTATE_TL_RED) { // red may have priority?
 #ifdef HAVE_INTERNAL_LANES
             bool nextInternal = false;
             nextLane = (*link)->getViaLane();
@@ -1023,7 +1023,7 @@ MSLane::getFollowerOnConsecutive(SUMOReal dist, SUMOReal seen, SUMOReal leaderSp
     while (toExamine.size()!=0) {
         for (std::vector<MSLane::IncomingLaneInfo>::iterator i=toExamine.begin(); i!=toExamine.end(); ++i) {
             /*
-            if ((*i).viaLink->getState()==MSLink::LINKSTATE_TL_RED) {
+            if ((*i).viaLink->getState()==LINKSTATE_TL_RED) {
                 continue;
             }
             */
@@ -1079,7 +1079,7 @@ MSLane::getLeaderOnConsecutive(SUMOReal dist, SUMOReal seen, SUMOReal speed, con
     while (true) {
         // get the next link used
         MSLinkCont::const_iterator link = targetLane->succLinkSec(veh, view, *nextLane, bestLaneConts);
-        if (nextLane->isLinkEnd(link) || !(*link)->opened(arrivalTime, speed, veh.getVehicleType().getLength()) || (*link)->getState()==MSLink::LINKSTATE_TL_RED) {
+        if (nextLane->isLinkEnd(link) || !(*link)->opened(arrivalTime, speed, veh.getVehicleType().getLength()) || (*link)->getState()==LINKSTATE_TL_RED) {
             return std::pair<MSVehicle * const, SUMOReal>(static_cast<MSVehicle *>(0), -1);
         }
 #ifdef HAVE_INTERNAL_LANES

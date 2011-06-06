@@ -32,15 +32,16 @@
 #include <xercesc/sax/HandlerBase.hpp>
 #include <xercesc/sax/SAXException.hpp>
 #include <xercesc/sax/AttributeList.hpp>
-#include "NLBuilder.h"
-#include "NLDiscreteEventBuilder.h"
-#include "NLSucceedingLaneBuilder.h"
+#include <utils/common/SUMOTime.h>
+#include <utils/xml/SUMOXMLDefinitions.h>
 #include <microsim/MSLink.h>
 #include <microsim/MSRouteHandler.h>
 #include <microsim/traffic_lights/MSSimpleTrafficLightLogic.h>
 #include <microsim/traffic_lights/MSActuatedTrafficLightLogic.h>
 #include <microsim/MSBitSetLogic.h>
-#include <utils/common/SUMOTime.h>
+#include "NLBuilder.h"
+#include "NLDiscreteEventBuilder.h"
+#include "NLSucceedingLaneBuilder.h"
 
 
 // ===========================================================================
@@ -278,10 +279,10 @@ private:
     void closeSuccLane();
 
     /// Parses the given character into an enumeration typed link direction
-    MSLink::LinkDirection parseLinkDir(char dir);
+    LinkDirection parseLinkDir(const std::string& dir);
 
     /// Parses the given character into an enumeration typed link state
-    MSLink::LinkState parseLinkState(char state);
+    LinkState parseLinkState(const std::string& state);
 
 
 protected:

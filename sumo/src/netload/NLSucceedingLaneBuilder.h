@@ -84,15 +84,15 @@ public:
      * @param[in] linkNo (optional) index of the link within the controlling tls
      * @todo Recheck usage of "pass"
      * @exception InvalidArgument If one of the referenced structures was not found or is invalid
-     * @see MSLink::LinkDirection
-     * @see MSLink::LinkState
+     * @see LinkDirection
+     * @see LinkState
      * @see MSLink
      */
     void addSuccLane(const std::string &laneId,
 #ifdef HAVE_INTERNAL_LANES
                      const std::string &viaID, SUMOReal pass,
 #endif
-                     MSLink::LinkDirection dir, MSLink::LinkState state,
+                     LinkDirection dir, LinkState state,
                      const std::string &tlid="", unsigned int linkNo=0) throw(InvalidArgument);
 
 

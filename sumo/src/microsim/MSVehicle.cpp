@@ -645,9 +645,9 @@ MSVehicle::moveChecked() {
         MSLink *link = (*i).myLink;
         // the vehicle must change the lane on one of the next lanes
         if (link!=0&&(*i).mySetRequest) {
-            const MSLink::LinkState ls = link->getState();
+            const LinkState ls = link->getState();
             // vehicles should brake when running onto a yellow light if the distance allows to halt in front
-            const bool yellow = ls==MSLink::LINKSTATE_TL_YELLOW_MAJOR||ls==MSLink::LINKSTATE_TL_YELLOW_MINOR;
+            const bool yellow = ls==LINKSTATE_TL_YELLOW_MAJOR||ls==LINKSTATE_TL_YELLOW_MINOR;
             if (yellow&&(*i).myDistance>getCarFollowModel().getSpeedAfterMaxDecel(myState.mySpeed)) {
                 vSafe = (*i).myVLinkWait;
                 braking = true;
@@ -662,7 +662,7 @@ MSVehicle::moveChecked() {
                 vSafe = (*i).myVLinkWait;
                 braking = true;
                 lastWasGreenCont = false;
-                if (ls==MSLink::LINKSTATE_EQUAL) {
+                if (ls==LINKSTATE_EQUAL) {
                     link->removeApproaching(this);
                 }
                 break; // could be revalidated
@@ -670,12 +670,12 @@ MSVehicle::moveChecked() {
             // have waited; may pass if opened...
             if (opened) {
                 vSafe = (*i).myVLinkPass;
-                lastWasGreenCont = link->isCont()&&(ls==MSLink::LINKSTATE_TL_GREEN_MAJOR);
+                lastWasGreenCont = link->isCont()&&(ls==LINKSTATE_TL_GREEN_MAJOR);
             } else {
                 lastWasGreenCont = false;
                 vSafe = (*i).myVLinkWait;
                 braking = true;
-                if (ls==MSLink::LINKSTATE_EQUAL) {
+                if (ls==LINKSTATE_EQUAL) {
                     link->removeApproaching(this);
                 }
                 break;
@@ -950,7 +950,7 @@ MSVehicle::checkRewindLinkLanes(SUMOReal lengthsInFront) throw() {
             if (leftSpace<0&&item.myLink->willHaveBlockedFoe()) {
                 SUMOReal impatienceCorrection = 0;
                 /*
-                if(item.myLink->getState()==MSLink::LINKSTATE_MINOR) {
+                if(item.myLink->getState()==LINKSTATE_MINOR) {
                     impatienceCorrection = MAX2(SUMOReal(0), STEPS2TIME(myWaitingTime));
                 }
                 */
@@ -1108,9 +1108,9 @@ MSVehicle::vsafeCriticalCont(SUMOTime t, SUMOReal boundVSafe) {
             }
         }
 
-        setRequest |= ((*link)->getState()!=MSLink::LINKSTATE_TL_RED&&(vLinkPass>0&&dist-seen>0));
-        bool yellow = (*link)->getState()==MSLink::LINKSTATE_TL_YELLOW_MAJOR||(*link)->getState()==MSLink::LINKSTATE_TL_YELLOW_MINOR;
-        bool red = (*link)->getState()==MSLink::LINKSTATE_TL_RED;
+        setRequest |= ((*link)->getState()!=LINKSTATE_TL_RED&&(vLinkPass>0&&dist-seen>0));
+        bool yellow = (*link)->getState()==LINKSTATE_TL_YELLOW_MAJOR||(*link)->getState()==LINKSTATE_TL_YELLOW_MINOR;
+        bool red = (*link)->getState()==LINKSTATE_TL_RED;
         if ((yellow||red)&&seen>cfModel.brakeGap(myState.mySpeed)-SPEED2DIST(myState.mySpeed)*cfModel.getTau()) { // !!! we should reuse brakeGap with no reaction time...
             vLinkPass = vLinkWait;
             setRequest = false;
@@ -1623,13 +1623,13 @@ MSVehicle::setBlinkerInformation() throw() {
         MSLinkCont::const_iterator link = lane->succLinkSec(*this, 1, *lane, getBestLanesContinuation());
         if (link!=lane->getLinkCont().end()&&lane->getLength()-getPositionOnLane()<lane->getMaxSpeed()*(SUMOReal) 7.) {
             switch ((*link)->getDirection()) {
-            case MSLink::LINKDIR_TURN:
-            case MSLink::LINKDIR_LEFT:
-            case MSLink::LINKDIR_PARTLEFT:
+            case LINKDIR_TURN:
+            case LINKDIR_LEFT:
+            case LINKDIR_PARTLEFT:
                 switchOnSignal(VEH_SIGNAL_BLINKER_LEFT);
                 break;
-            case MSLink::LINKDIR_RIGHT:
-            case MSLink::LINKDIR_PARTRIGHT:
+            case LINKDIR_RIGHT:
+            case LINKDIR_PARTRIGHT:
                 switchOnSignal(VEH_SIGNAL_BLINKER_RIGHT);
                 break;
             default:

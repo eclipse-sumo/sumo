@@ -132,7 +132,7 @@ MSTrafficLightLogic::addLink(MSLink *link, MSLane *lane, unsigned int pos) {
         myLanes.push_back(LaneVector());
     }
     myLanes[pos].push_back(lane);
-    link->setTLState((MSLink::LinkState) getCurrentPhaseDef().getState()[pos], MSNet::getInstance()->getCurrentTimeStep());
+    link->setTLState((LinkState) getCurrentPhaseDef().getState()[pos], MSNet::getInstance()->getCurrentTimeStep());
 }
 
 
@@ -143,9 +143,9 @@ MSTrafficLightLogic::adaptLinkInformationFrom(const MSTrafficLightLogic &logic) 
 }
 
 
-std::map<MSLink*, MSLink::LinkState>
+std::map<MSLink*, LinkState>
 MSTrafficLightLogic::collectLinkStates() const {
-    std::map<MSLink*, MSLink::LinkState> ret;
+    std::map<MSLink*, LinkState> ret;
     for (LinkVectorVector::const_iterator i1=myLinks.begin(); i1!=myLinks.end(); ++i1) {
         const LinkVector &l = (*i1);
         for (LinkVector::const_iterator i2=l.begin(); i2!=l.end(); ++i2) {
@@ -157,7 +157,7 @@ MSTrafficLightLogic::collectLinkStates() const {
 
 
 void
-MSTrafficLightLogic::resetLinkStates(const std::map<MSLink*, MSLink::LinkState> &vals) const {
+MSTrafficLightLogic::resetLinkStates(const std::map<MSLink*, LinkState> &vals) const {
     for (LinkVectorVector::const_iterator i1=myLinks.begin(); i1!=myLinks.end(); ++i1) {
         const LinkVector &l = (*i1);
         for (LinkVector::const_iterator i2=l.begin(); i2!=l.end(); ++i2) {

@@ -589,6 +589,70 @@ enum LaneSpreadFunction {
     LANESPREAD_RIGHT,
     LANESPREAD_CENTER
 };
+
+
+/**
+ * @enum LinkState
+ * @brief The right-of-way state of a link between two lanes
+ * used when constructing a NBTrafficLightLogic, in MSLink and GNEInternalLane
+ *
+ * This enumerations holds the possible right-of-way rules a link
+ *  may have. Beyond the righ-of-way rules, this enumeration also
+ *  holds the possible traffic light states.
+ *  
+ *  enum values are assigned so that chars can be cast back to linkstates
+ *  @todo fix redundancy 
+ */
+enum LinkState {
+    /// @brief The link has green light, may pass
+    LINKSTATE_TL_GREEN_MAJOR = 'G',
+    /// @brief The link has green light, has to brake
+    LINKSTATE_TL_GREEN_MINOR = 'g',
+    /// @brief The link has red light (must brake)
+    LINKSTATE_TL_RED = 'r',
+    /// @brief The link has yellow light, may pass
+    LINKSTATE_TL_YELLOW_MAJOR = 'Y',
+    /// @brief The link has yellow light, has to brake anyway
+    LINKSTATE_TL_YELLOW_MINOR = 'y',
+    /// @brief The link is controlled by a tls which is off and blinks, has to brake
+    LINKSTATE_TL_OFF_BLINKING = 'o',
+    /// @brief The link is controlled by a tls which is off, not blinking, may pass
+    LINKSTATE_TL_OFF_NOSIGNAL = 'O',
+    /// @brief This is an uncontrolled, major link, may pass
+    LINKSTATE_MAJOR = 'M',
+    /// @brief This is an uncontrolled, minor link, has to brake
+    LINKSTATE_MINOR = 'm',
+    /// @brief This is an uncontrolled, right-before-left link
+    LINKSTATE_EQUAL = '=',
+    /// @brief This is a dead end link
+    LINKSTATE_DEADEND = '-'
+};
+
+
+/**
+ * @enum LinkDirection
+ * @brief The different directions a link between two lanes may take (or a
+ * stream between two edges).
+ * used in netbuild (formerly NBMMLDirection) and MSLink
+ */
+enum LinkDirection {
+    /// The link is a straight direction
+    LINKDIR_STRAIGHT = 0,
+    /// The link is a 180 degree turn
+    LINKDIR_TURN,
+    /// The link is a (hard) left direction
+    LINKDIR_LEFT,
+    /// The link is a (hard) right direction
+    LINKDIR_RIGHT,
+    /// The link is a partial left direction
+    LINKDIR_PARTLEFT,
+    /// The link is a partial right direction
+    LINKDIR_PARTRIGHT,
+    /// The link has no direction (is a dead end link)
+    LINKDIR_NODIR
+};
+
+
 //@}
 
 /**
@@ -617,7 +681,9 @@ public:
 
     static StringBijection<LaneSpreadFunction> LaneSpreadFunctions;
 
-    // static StringBijection<SumoXMLLinkStateValue> LinkStates;
+    static StringBijection<LinkState> LinkStates;
+
+    static StringBijection<LinkDirection> LinkDirections;
     //@}
 
 private:
@@ -625,6 +691,10 @@ private:
     static StringBijection<SumoXMLNodeType>::Entry sumoNodeTypeValues[];
 
     static StringBijection<LaneSpreadFunction>::Entry laneSpreadFunctionValues[];
+
+    static StringBijection<LinkState>::Entry linkStateValues[];
+
+    static StringBijection<LinkDirection>::Entry linkDirectionValues[];
 
 };
 

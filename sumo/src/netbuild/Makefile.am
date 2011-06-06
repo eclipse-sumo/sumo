@@ -22,4 +22,3 @@ NBLoadedSUMOTLDef.cpp NBLoadedSUMOTLDef.h \
 NBNetBuilder.cpp NBNetBuilder.h \
 NBJoinedEdgesMap.cpp NBJoinedEdgesMap.h
 
-EXTRA_DIST = NBMMLDirections.h

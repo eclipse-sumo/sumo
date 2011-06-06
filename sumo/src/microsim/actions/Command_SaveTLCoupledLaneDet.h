@@ -79,7 +79,7 @@ private:
     MSLink *myLink;
 
     /// @brief The state the link had the last time
-    MSLink::LinkState myLastState;
+    LinkState myLastState;
 
     /// @brief Whether the last link state was already saved
     bool myHadOne;

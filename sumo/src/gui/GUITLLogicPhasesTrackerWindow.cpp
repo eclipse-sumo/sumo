@@ -364,11 +364,11 @@ GUITLLogicPhasesTrackerWindow::drawValues(GUITLLogicPhasesTrackerPanel &caller) 
         // go through the links
         for (unsigned int j=0; j<(unsigned int) myTLLogic->getLinks().size(); j++) {
             // determine the current link's color
-            MSLink::LinkState state = (*pi).getSignalState(j);
+            LinkState state = (*pi).getSignalState(j);
             // draw the bar (red is drawn as a line)
             switch (state) {
-            case MSLink::LINKSTATE_TL_GREEN_MAJOR:
-            case MSLink::LINKSTATE_TL_GREEN_MINOR:
+            case LINKSTATE_TL_GREEN_MAJOR:
+            case LINKSTATE_TL_GREEN_MINOR:
                 glColor3d(0, 1.0, 0);
                 glBegin(GL_QUADS);
                 glVertex2d(x, h - h16);
@@ -377,8 +377,8 @@ GUITLLogicPhasesTrackerWindow::drawValues(GUITLLogicPhasesTrackerPanel &caller) 
                 glVertex2d(x2, h - h16);
                 glEnd();
                 break;
-            case MSLink::LINKSTATE_TL_YELLOW_MAJOR:
-            case MSLink::LINKSTATE_TL_YELLOW_MINOR:
+            case LINKSTATE_TL_YELLOW_MAJOR:
+            case LINKSTATE_TL_YELLOW_MINOR:
                 glColor3d(1.0, 1.0, 0);
                 glBegin(GL_QUADS);
                 glVertex2d(x, h - h16);
@@ -387,7 +387,7 @@ GUITLLogicPhasesTrackerWindow::drawValues(GUITLLogicPhasesTrackerPanel &caller) 
                 glVertex2d(x2, h - h16);
                 glEnd();
                 break;
-            case MSLink::LINKSTATE_TL_RED:
+            case LINKSTATE_TL_RED:
                 glColor3d(1.0, 0, 0);
                 glBegin(GL_LINES);
                 glVertex2d(x, h - h10);

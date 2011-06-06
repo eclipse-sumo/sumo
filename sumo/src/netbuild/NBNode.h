@@ -46,7 +46,6 @@
 #include "NBConnection.h"
 #include "NBConnectionDefs.h"
 #include "NBContHelper.h"
-#include "NBMMLDirections.h"
 
 
 // ===========================================================================
@@ -335,14 +334,14 @@ public:
               const NBEdge * const from2, const NBEdge * const to2) const throw();
 
 
-    /** @brief Returns the MML-representation of the described stream's direction
+    /** @brief Returns the representation of the described stream's direction
      * @param[in] incoming The edge the stream starts at
      * @param[in] outgoing The edge the stream ends at
      * @return The direction of the stream
      */
-    NBMMLDirection getMMLDirection(const NBEdge * const incoming, const NBEdge * const outgoing) const throw();
+    LinkDirection getDirection(const NBEdge * const incoming, const NBEdge * const outgoing) const throw();
 
-    char stateCode(const NBEdge *incoming, NBEdge *outgoing, int fromLane, bool mayDefinitelyPass) const throw();
+    std::string stateCode(const NBEdge *incoming, NBEdge *outgoing, int fromLane, bool mayDefinitelyPass) const throw();
 
     void computeNodeShape(bool leftHand);
 

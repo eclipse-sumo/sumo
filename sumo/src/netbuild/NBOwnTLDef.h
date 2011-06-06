@@ -31,8 +31,8 @@
 
 #include <vector>
 #include <set>
+#include <utils/xml/SUMOXMLDefinitions.h>
 #include "NBTrafficLightDefinition.h"
-#include "NBMMLDirections.h"
 
 
 // ===========================================================================
@@ -147,7 +147,7 @@ protected:
      * @return This stream's weight
      * @todo There are several magic numbers; describe
      */
-    SUMOReal getDirectionalWeight(NBMMLDirection dir) throw();
+    SUMOReal getDirectionalWeight(LinkDirection dir) throw();
 
 
     /** @brief Returns this edge's priority at the node it ends at

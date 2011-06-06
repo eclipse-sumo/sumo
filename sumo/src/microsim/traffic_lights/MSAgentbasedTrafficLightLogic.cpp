@@ -178,7 +178,7 @@ MSAgentbasedTrafficLightLogic::collectData() {
     SUMOReal maxPerPhase = 0;
     for (unsigned int i=0; i<(unsigned int) state.size(); i++)  {
         // finds the maximum QUEUE_LENGTH_AHEAD_OF_TRAFFIC_LIGHTS_IN_VEHICLES of all lanes that have green
-        if (state[i]==MSLink::LINKSTATE_TL_GREEN_MAJOR||state[i]==MSLink::LINKSTATE_TL_GREEN_MINOR) {
+        if (state[i]==LINKSTATE_TL_GREEN_MAJOR||state[i]==LINKSTATE_TL_GREEN_MINOR) {
             const std::vector<MSLane*> &lanes = getLanesAt(i);
             if (lanes.empty())    {
                 break;

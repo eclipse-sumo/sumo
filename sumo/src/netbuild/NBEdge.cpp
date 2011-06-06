@@ -123,7 +123,7 @@ NBEdge::MainDirections::MainDirections(const EdgeVector &outgoing,
     sort(tmp.begin(), tmp.end(), NBContHelper::edge_similar_direction_sorter(parent));
     NBEdge *edge = *(tmp.begin());
     // check whether it has a higher priority and is going straight
-    if (edge->getJunctionPriority(to)==1 && to->getMMLDirection(parent, edge)==MMLDIR_STRAIGHT) {
+    if (edge->getJunctionPriority(to)==1 && to->getDirection(parent, edge)==LINKDIR_STRAIGHT) {
         myDirs.push_back(MainDirections::DIR_FORWARD);
     }
 }

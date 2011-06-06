@@ -689,10 +689,10 @@ NBNode::needsCont(NBEdge *fromE, NBEdge *toE, NBEdge *otherFromE, NBEdge *otherT
         // if they do not cross, no waiting place is needed
         return false;
     }
-    NBMMLDirection d1 = getMMLDirection(fromE, toE);
-    NBMMLDirection d2 = getMMLDirection(otherFromE, otherToE);
-    bool thisLeft = (d1==MMLDIR_LEFT||d1==MMLDIR_TURN);
-    bool otherLeft = (d2==MMLDIR_LEFT||d2==MMLDIR_TURN);
+    LinkDirection d1 = getDirection(fromE, toE);
+    LinkDirection d2 = getDirection(otherFromE, otherToE);
+    bool thisLeft = (d1==LINKDIR_LEFT||d1==LINKDIR_TURN);
+    bool otherLeft = (d2==LINKDIR_LEFT||d2==LINKDIR_TURN);
     bool bothLeft = thisLeft&&otherLeft;
     if (c.tlID!=""&&!bothLeft) {
         // tls-controlled links will have space
@@ -708,11 +708,11 @@ NBNode::needsCont(NBEdge *fromE, NBEdge *toE, NBEdge *otherFromE, NBEdge *otherT
 std::pair<SUMOReal, std::vector<unsigned int> >
 NBNode::getCrossingPosition(NBEdge *fromE, unsigned int fromL, NBEdge *toE, unsigned int toL) const {
     std::pair<SUMOReal, std::vector<unsigned int> > ret(-1, std::vector<unsigned int>());
-    NBMMLDirection dir = getMMLDirection(fromE, toE);
+    LinkDirection dir = getDirection(fromE, toE);
     switch (dir) {
-    case MMLDIR_LEFT:
-    case MMLDIR_PARTLEFT:
-    case MMLDIR_TURN: {
+    case LINKDIR_LEFT:
+    case LINKDIR_PARTLEFT:
+    case LINKDIR_TURN: {
         PositionVector thisShape = computeInternalLaneShape(fromE, fromL, toE, toL);
         unsigned int index = 0;
         for (EdgeVector::const_iterator i2=myIncomingEdges.begin(); i2!=myIncomingEdges.end(); i2++) {
@@ -742,7 +742,7 @@ NBNode::getCrossingPosition(NBEdge *fromE, unsigned int fromL, NBEdge *toE, unsi
                 }
             }
         }
-        if (dir==MMLDIR_TURN&&ret.first<0&&ret.second.size()!=0) {
+        if (dir==LINKDIR_TURN&&ret.first<0&&ret.second.size()!=0) {
             // let turnarounds wait at the begin if no other crossing point was found
             ret.first = (SUMOReal) thisShape.length() / 2.;
         }
@@ -759,11 +759,11 @@ std::string
 NBNode::getCrossingNames_dividedBySpace(NBEdge *fromE, unsigned int fromL,
                                         NBEdge *toE, unsigned int toL) const {
     std::string ret;
-    NBMMLDirection dir = getMMLDirection(fromE, toE);
+    LinkDirection dir = getDirection(fromE, toE);
     switch (dir) {
-    case MMLDIR_LEFT:
-    case MMLDIR_PARTLEFT:
-    case MMLDIR_TURN: {
+    case LINKDIR_LEFT:
+    case LINKDIR_PARTLEFT:
+    case LINKDIR_TURN: {
         PositionVector thisShape = computeInternalLaneShape(fromE, fromL, toE, toL);
         unsigned int index = 0;
         for (EdgeVector::const_iterator i2=myIncomingEdges.begin(); i2!=myIncomingEdges.end(); i2++) {
@@ -779,7 +779,7 @@ NBNode::getCrossingNames_dividedBySpace(NBEdge *fromE, unsigned int fromL,
                         index++;
                         continue;
                     }
-//                    NBMMLDirection dir2 = getMMLDirection(*i2, (*k2).toEdge);
+//                    LinkDirection dir2 = getDirection(*i2, (*k2).toEdge);
                     if (needsCont(fromE, toE, *i2, (*k2).toEdge, *k2)) {
                         if (ret.length()!=0) {
                             ret += " ";
@@ -804,11 +804,11 @@ NBNode::getCrossingSourcesNames_dividedBySpace(NBEdge *fromE, unsigned int fromL
         NBEdge *toE, unsigned int toL) const {
     std::string ret;
     std::vector<std::string> tmp;
-    NBMMLDirection dir = getMMLDirection(fromE, toE);
+    LinkDirection dir = getDirection(fromE, toE);
     switch (dir) {
-    case MMLDIR_LEFT:
-    case MMLDIR_PARTLEFT:
-    case MMLDIR_TURN: {
+    case LINKDIR_LEFT:
+    case LINKDIR_PARTLEFT:
+    case LINKDIR_TURN: {
         PositionVector thisShape = computeInternalLaneShape(fromE, fromL, toE, toL);
         unsigned int index = 0;
         for (EdgeVector::const_iterator i2=myIncomingEdges.begin(); i2!=myIncomingEdges.end(); i2++) {
@@ -1522,22 +1522,22 @@ NBNode::remapRemoved(NBTrafficLightLogicCont &tc,
 }
 
 
-NBMMLDirection
-NBNode::getMMLDirection(const NBEdge * const incoming, const NBEdge * const outgoing) const throw() {
+LinkDirection
+NBNode::getDirection(const NBEdge * const incoming, const NBEdge * const outgoing) const throw() {
     // ok, no connection at all -> dead end
     if (outgoing==0) {
-        return MMLDIR_NODIR;
+        return LINKDIR_NODIR;
     }
     // turning direction
     if (incoming->isTurningDirectionAt(this, outgoing)) {
-        return MMLDIR_TURN;
+        return LINKDIR_TURN;
     }
     // get the angle between incoming/outgoing at the junction
     SUMOReal angle =
         NBHelpers::normRelAngle(incoming->getAngle(*this), outgoing->getAngle(*this));
     // ok, should be a straight connection
     if (abs((int) angle)+1<45) {
-        return MMLDIR_STRAIGHT;
+        return LINKDIR_STRAIGHT;
     }
 
     // check for left and right, first
@@ -1548,11 +1548,11 @@ NBNode::getMMLDirection(const NBEdge * const incoming, const NBEdge * const outg
         NBContHelper::nextCW(myAllEdges, i);
         while ((*i)!=incoming) {
             if ((*i)->getFromNode()==this) {
-                return MMLDIR_PARTRIGHT;
+                return LINKDIR_PARTRIGHT;
             }
             NBContHelper::nextCW(myAllEdges, i);
         }
-        return MMLDIR_RIGHT;
+        return LINKDIR_RIGHT;
     }
     // check whether any other edge goes further to the left
     EdgeVector::const_iterator i =
@@ -1560,27 +1560,27 @@ NBNode::getMMLDirection(const NBEdge * const incoming, const NBEdge * const outg
     NBContHelper::nextCCW(myAllEdges, i);
     while ((*i)!=incoming) {
         if ((*i)->getFromNode()==this&&!incoming->isTurningDirectionAt(this, *i)) {
-            return MMLDIR_PARTLEFT;
+            return LINKDIR_PARTLEFT;
         }
         NBContHelper::nextCCW(myAllEdges, i);
     }
-    return MMLDIR_LEFT;
+    return LINKDIR_LEFT;
 }
 
 
-char
+std::string
 NBNode::stateCode(const NBEdge *incoming, NBEdge *outgoing, int fromlane, bool mayDefinitelyPass) const throw() {
-    if (outgoing==0) {
-        return 'O'; // always off
+    if (outgoing==0) { // always off
+        return toString(LINKSTATE_TL_OFF_NOSIGNAL);
     }
     if (myType==NODETYPE_RIGHT_BEFORE_LEFT) {
-        return '='; // all the same
+        return toString(LINKSTATE_EQUAL); // all the same
     }
     if ((!incoming->isInnerEdge()&&mustBrake(incoming, outgoing, fromlane)) && !mayDefinitelyPass) {
-        return 'm'; // minor road
+        return toString(LINKSTATE_MINOR); // minor road
     }
     // traffic lights are not regardedm here
-    return 'M';
+    return toString(LINKSTATE_MAJOR);
 }
 
 

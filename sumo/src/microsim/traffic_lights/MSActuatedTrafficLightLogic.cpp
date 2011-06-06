@@ -151,7 +151,7 @@ MSActuatedTrafficLightLogic::duration() const {
     int newduration = (int) getCurrentPhaseDef().minDuration;
     const std::string &state = getCurrentPhaseDef().getState();
     for (unsigned int i=0; i<(unsigned int) state.size(); i++) {
-        if (state[i]==MSLink::LINKSTATE_TL_GREEN_MAJOR||state[i]==MSLink::LINKSTATE_TL_GREEN_MINOR) {
+        if (state[i]==LINKSTATE_TL_GREEN_MAJOR||state[i]==LINKSTATE_TL_GREEN_MINOR) {
             const std::vector<MSLane*> &lanes = getLanesAt(i);
             if (lanes.empty()) {
                 break;
@@ -193,7 +193,7 @@ MSActuatedTrafficLightLogic::gapControl() {
     // now the gapcontrol starts
     const std::string &state = getCurrentPhaseDef().getState();
     for (unsigned int i=0; i<(unsigned int) state.size(); i++)  {
-        if (state[i]==MSLink::LINKSTATE_TL_GREEN_MAJOR||state[i]==MSLink::LINKSTATE_TL_GREEN_MINOR) {
+        if (state[i]==LINKSTATE_TL_GREEN_MAJOR||state[i]==LINKSTATE_TL_GREEN_MINOR) {
             const std::vector<MSLane*> &lanes = getLanesAt(i);
             if (lanes.empty())    {
                 break;

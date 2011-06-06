@@ -453,36 +453,12 @@ NWWriter_SUMO::writeSucceeding(OutputDevice &into, const NBEdge &e, unsigned int
             into << " linkno=\"" << c.tlLinkNo << "\"";
         }
         // write the direction information
-        NBMMLDirection dir = e.getToNode()->getMMLDirection(&e, c.toEdge);
-        into << " dir=\"";
-        switch (dir) {
-        case MMLDIR_STRAIGHT:
-            into << "s";
-            break;
-        case MMLDIR_LEFT:
-            into << "l";
-            break;
-        case MMLDIR_RIGHT:
-            into << "r";
-            break;
-        case MMLDIR_TURN:
-            into << "t";
-            break;
-        case MMLDIR_PARTLEFT:
-            into << "L";
-            break;
-        case MMLDIR_PARTRIGHT:
-            into << "R";
-            break;
-        default:
-            // should not happen
-            assert(false);
-            break;
-        }
-        into << "\" ";
+        LinkDirection dir = e.getToNode()->getDirection(&e, c.toEdge);
+        assert(dir != LINKDIR_NODIR);
+        into << " dir=\"" << toString(dir) << "\" ";
         // write the state information
         if (c.tlID!="") {
-            into << "state=\"t";
+            into << "state=\"" << toString(LINKSTATE_TL_OFF_BLINKING);
         } else {
             into << "state=\"" << e.getToNode()->stateCode(&e, c.toEdge, c.toLane, c.mayDefinitelyPass);
         }

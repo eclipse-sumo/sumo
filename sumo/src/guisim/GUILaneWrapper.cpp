@@ -215,52 +215,52 @@ GUILaneWrapper::ROWdrawAction_drawLinkRules(const GUINet &net) const {
     glRotated(rot, 0, 0, 1);
     for (unsigned int i=0; i<noLinks; ++i) {
         SUMOReal x2 = x1 + w;
-        MSLink::LinkState state = getLane().getLinkCont()[i]->getState();
+        LinkState state = getLane().getLinkCont()[i]->getState();
         switch (state) {
-            case MSLink::LINKSTATE_TL_GREEN_MAJOR:
-            case MSLink::LINKSTATE_TL_GREEN_MINOR:
-            case MSLink::LINKSTATE_TL_RED:
-            case MSLink::LINKSTATE_TL_YELLOW_MAJOR:
-            case MSLink::LINKSTATE_TL_YELLOW_MINOR:
-            case MSLink::LINKSTATE_TL_OFF_BLINKING:
+            case LINKSTATE_TL_GREEN_MAJOR:
+            case LINKSTATE_TL_GREEN_MINOR:
+            case LINKSTATE_TL_RED:
+            case LINKSTATE_TL_YELLOW_MAJOR:
+            case LINKSTATE_TL_YELLOW_MINOR:
+            case LINKSTATE_TL_OFF_BLINKING:
                 glPushName(net.getLinkTLID(getLane().getLinkCont()[i]));
                 break;
-            case MSLink::LINKSTATE_MAJOR:
-            case MSLink::LINKSTATE_MINOR:
-            case MSLink::LINKSTATE_EQUAL:
-            case MSLink::LINKSTATE_TL_OFF_NOSIGNAL:
+            case LINKSTATE_MAJOR:
+            case LINKSTATE_MINOR:
+            case LINKSTATE_EQUAL:
+            case LINKSTATE_TL_OFF_NOSIGNAL:
             default:
                 glPushName(getGlID());
                 break;
         }
         switch (state) {
-        case MSLink::LINKSTATE_TL_GREEN_MAJOR:
-        case MSLink::LINKSTATE_TL_GREEN_MINOR:
+        case LINKSTATE_TL_GREEN_MAJOR:
+        case LINKSTATE_TL_GREEN_MINOR:
             glColor3d(0, 1, 0);
             break;
-        case MSLink::LINKSTATE_TL_RED:
+        case LINKSTATE_TL_RED:
             glColor3d(1, 0, 0);
             break;
-        case MSLink::LINKSTATE_TL_YELLOW_MAJOR:
-        case MSLink::LINKSTATE_TL_YELLOW_MINOR:
+        case LINKSTATE_TL_YELLOW_MAJOR:
+        case LINKSTATE_TL_YELLOW_MINOR:
             glColor3d(1, 1, 0);
             break;
-        case MSLink::LINKSTATE_TL_OFF_BLINKING:
+        case LINKSTATE_TL_OFF_BLINKING:
             glColor3d(1, 1, 0);
             break;
-        case MSLink::LINKSTATE_TL_OFF_NOSIGNAL:
+        case LINKSTATE_TL_OFF_NOSIGNAL:
             glColor3d(0, 1, 1);
             break;
-        case MSLink::LINKSTATE_MAJOR:
+        case LINKSTATE_MAJOR:
             glColor3d(1, 1, 1);
             break;
-        case MSLink::LINKSTATE_MINOR:
+        case LINKSTATE_MINOR:
             glColor3d(.2, .2, .2);
             break;
-        case MSLink::LINKSTATE_EQUAL:
+        case LINKSTATE_EQUAL:
             glColor3d(.5, .5, .5);
             break;
-        case MSLink::LINKSTATE_DEADEND:
+        case LINKSTATE_DEADEND:
             glColor3d(0, 0, 0);
             break;
         }
@@ -294,38 +294,38 @@ GUILaneWrapper::ROWdrawAction_drawArrows() const {
     glTranslated(end.x(), end.y(), 0);
     glRotated(rot, 0, 0, 1);
     for (unsigned int i=0; i<noLinks; ++i) {
-        MSLink::LinkDirection dir = getLane().getLinkCont()[i]->getDirection();
-        MSLink::LinkState state = getLane().getLinkCont()[i]->getState();
-        if (state==MSLink::LINKSTATE_TL_OFF_NOSIGNAL||dir==MSLink::LINKDIR_NODIR) {
+        LinkDirection dir = getLane().getLinkCont()[i]->getDirection();
+        LinkState state = getLane().getLinkCont()[i]->getState();
+        if (state==LINKSTATE_TL_OFF_NOSIGNAL||dir==LINKDIR_NODIR) {
             continue;
         }
         switch (dir) {
-        case MSLink::LINKDIR_STRAIGHT:
+        case LINKDIR_STRAIGHT:
             GLHelper::drawBoxLine(Position(0, 4), 0, 2, .05);
             GLHelper::drawTriangleAtEnd(Line(Position(0, 4), Position(0, 1)), (SUMOReal) 1, (SUMOReal) .25);
             break;
-        case MSLink::LINKDIR_TURN:
+        case LINKDIR_TURN:
             GLHelper::drawBoxLine(Position(0, 4), 0, 1.5, .05);
             GLHelper::drawBoxLine(Position(0, 2.5), 90, .5, .05);
             GLHelper::drawBoxLine(Position(0.5, 2.5), 180, 1, .05);
             GLHelper::drawTriangleAtEnd(Line(Position(0.5, 2.5), Position(0.5, 4)), (SUMOReal) 1, (SUMOReal) .25);
             break;
-        case MSLink::LINKDIR_LEFT:
+        case LINKDIR_LEFT:
             GLHelper::drawBoxLine(Position(0, 4), 0, 1.5, .05);
             GLHelper::drawBoxLine(Position(0, 2.5), 90, 1, .05);
             GLHelper::drawTriangleAtEnd(Line(Position(0, 2.5), Position(1.5, 2.5)), (SUMOReal) 1, (SUMOReal) .25);
             break;
-        case MSLink::LINKDIR_RIGHT:
+        case LINKDIR_RIGHT:
             GLHelper::drawBoxLine(Position(0, 4), 0, 1.5, .05);
             GLHelper::drawBoxLine(Position(0, 2.5), -90, 1, .05);
             GLHelper::drawTriangleAtEnd(Line(Position(0, 2.5), Position(-1.5, 2.5)), (SUMOReal) 1, (SUMOReal) .25);
             break;
-        case MSLink::LINKDIR_PARTLEFT:
+        case LINKDIR_PARTLEFT:
             GLHelper::drawBoxLine(Position(0, 4), 0, 1.5, .05);
             GLHelper::drawBoxLine(Position(0, 2.5), 45, .7, .05);
             GLHelper::drawTriangleAtEnd(Line(Position(0, 2.5), Position(1.2, 1.3)), (SUMOReal) 1, (SUMOReal) .25);
             break;
-        case MSLink::LINKDIR_PARTRIGHT:
+        case LINKDIR_PARTRIGHT:
             GLHelper::drawBoxLine(Position(0, 4), 0, 1.5, .05);
             GLHelper::drawBoxLine(Position(0, 2.5), -45, .7, .05);
             GLHelper::drawTriangleAtEnd(Line(Position(0, 2.5), Position(-1.2, 1.3)), (SUMOReal) 1, (SUMOReal) .25);
@@ -341,39 +341,39 @@ void
 GUILaneWrapper::ROWdrawAction_drawLane2LaneConnections() const {
     unsigned int noLinks = getLinkNumber();
     for (unsigned int i=0; i<noLinks; ++i) {
-        MSLink::LinkState state = getLane().getLinkCont()[i]->getState();
+        LinkState state = getLane().getLinkCont()[i]->getState();
         const MSLane *connected = getLane().getLinkCont()[i]->getLane();
         if (connected==0) {
             continue;
         }
         switch (state) {
-        case MSLink::LINKSTATE_TL_GREEN_MAJOR:
-        case MSLink::LINKSTATE_TL_GREEN_MINOR:
+        case LINKSTATE_TL_GREEN_MAJOR:
+        case LINKSTATE_TL_GREEN_MINOR:
             glColor3d(0, 1, 0);
             break;
-        case MSLink::LINKSTATE_TL_RED:
+        case LINKSTATE_TL_RED:
             glColor3d(1, 0, 0);
             break;
-        case MSLink::LINKSTATE_TL_YELLOW_MAJOR:
-        case MSLink::LINKSTATE_TL_YELLOW_MINOR:
+        case LINKSTATE_TL_YELLOW_MAJOR:
+        case LINKSTATE_TL_YELLOW_MINOR:
             glColor3d(1, 1, 0);
             break;
-        case MSLink::LINKSTATE_TL_OFF_BLINKING:
+        case LINKSTATE_TL_OFF_BLINKING:
             glColor3d(1, 1, 0);
             break;
-        case MSLink::LINKSTATE_TL_OFF_NOSIGNAL:
+        case LINKSTATE_TL_OFF_NOSIGNAL:
             glColor3d(0, 1, 1);
             break;
-        case MSLink::LINKSTATE_MAJOR:
+        case LINKSTATE_MAJOR:
             glColor3d(1, 1, 1);
             break;
-        case MSLink::LINKSTATE_MINOR:
+        case LINKSTATE_MINOR:
             glColor3d(.2, .2, .2);
             break;
-        case MSLink::LINKSTATE_EQUAL:
+        case LINKSTATE_EQUAL:
             glColor3d(.5, .5, .5);
             break;
-        case MSLink::LINKSTATE_DEADEND:
+        case LINKSTATE_DEADEND:
             glColor3d(0, 0, 0);
             break;
         }
