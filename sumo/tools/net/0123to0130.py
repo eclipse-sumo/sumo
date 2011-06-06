@@ -15,14 +15,16 @@ from xml.sax import saxutils, make_parser, handler
 
 # attributes sorting lists
 a = {}
-a['edge'] = ( 'id', 'from', 'to', 'priority', 'type', 'function', 'spread_type' )
+a['edge'] = ( 'id', 'from', 'to', 'name', 'priority', 'type', 'function', 'spread_type', 'shape' )
 a['lane'] = ( 'id', 'depart', 'vclasses', 'allow', 'disallow', 'maxspeed', 'length', 'shape' )
 a['junction'] = ( 'id', 'type', 'x', 'y', 'incLanes', 'intLanes', 'shape' )
 a['logicitem'] = ( 'request', 'response', 'foes', 'cont' )
 a['succ'] = ( 'edge', 'lane', 'junction' )
 a['succlane'] = ( 'lane', 'via', 'tl', 'linkno', 'dir', 'state' )
 a['row-logic'] = ( 'id', 'requestSize' )
+a['ROWLogic'] = ( 'id', 'requestSize' )
 a['tl-logic'] = ( 'id', 'type', 'programID', 'offset' )
+a['tlLogic'] = ( 'id', 'type', 'programID', 'offset' )
 a['location'] = ( 'netOffset', 'convBoundary', 'origBoundary', 'projParameter' )
 a['phase'] = ( 'duration', 'state', 'minDur', 'maxDur' )
 a['district'] = ( 'id', 'shape', 'edges' )
@@ -41,6 +43,12 @@ c = ( 'roundabout', 'logicitem', 'phase', 'succlane', 'dsource', 'dsink', 'junct
 
 # remove these
 r = ( 'lanes', 'logic' )
+
+# renamed elements
+n = {}
+n['tl-logic'] = "tlLogic"
+n['row-logic'] = "ROWLogic"
+
 
 
 def getBegin(file):
@@ -85,7 +93,10 @@ class NetConverter(handler.ContentHandler):
         if name in r:
             return
         self.intend()
-        self.checkWrite("<" + name)
+        if name in n:
+            self.checkWrite("<" + n[name])
+        else:
+            self.checkWrite("<" + name)
         if name in a:
             for key in a[name]:
                 if attrs.has_key(key):
@@ -106,7 +117,10 @@ class NetConverter(handler.ContentHandler):
             self.checkWrite("\n")
         if name not in c:
             self.intend()
-            self.checkWrite("</" + name + ">")
+            if name in n:
+                self.checkWrite("</" + n[name] + ">")
+            else:
+                self.checkWrite("</" + name + ">")
             if name!="net":
                 self.checkWrite("\n")
             

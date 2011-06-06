@@ -107,7 +107,7 @@ NWWriter_SUMO::writeNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
 
     // write tls logics
     for (std::map<std::string, NBTrafficLightLogic*>::const_iterator i=tc.begin(); i!=tc.end(); ++i) {
-        device << "   <tl-logic id=\"" << (*i).second->getID() << "\" type=\"static\""
+        device << "   <" << toString(SUMO_TAG_TLLOGIC) << " id=\"" << (*i).second->getID() << "\" type=\"static\""
             << " programID=\"" << (*i).second->getProgramID() 
             << "\" offset=\"" << (*i).second->getOffset() << "\">\n";
         // write the phases
@@ -115,7 +115,7 @@ NWWriter_SUMO::writeNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
         for (std::vector<NBTrafficLightLogic::PhaseDefinition>::const_iterator j=phases.begin(); j!=phases.end(); ++j) {
             device << "      <phase duration=\"" << (*j).duration << "\" state=\"" << (*j).state << "\"/>\n";
         }
-        device << "   </tl-logic>\n";
+        device << "   </" << toString(SUMO_TAG_TLLOGIC) << ">\n";
     }
     if (tc.size()!=0) {
         device << "\n";

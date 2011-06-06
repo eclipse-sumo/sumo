@@ -408,11 +408,11 @@ class NetReader(handler.ContentHandler):
                 tolane = toEdge._lanes[tolane]
                 self._currentEdge.addOutgoing(connected, self._currentEdge._lanes[self._currentLane], tolane, tl, tllink)
                 connected.addIncoming(self._currentEdge)
-        if name == 'row-logic' and self._withFoes:
+        if self._withFoes and (name=='ROWLogic' or name=='row-logic'): # 'row-logic' is deprecated!!!
             self._currentNode = attrs['id']
         if name == 'logicitem' and self._withFoes:
             self._net.setFoes(self._currentNode, int(attrs['request']), attrs["foes"], attrs["response"])
-        if self._withPhases and name=='tl-logic':
+        if self._withPhases and (name=='tlLogic' or name=='tl-logic'): # tl-logic is deprecated!!!
             self._currentProgram = self._net.addTLSProgram(attrs['id'], attrs['programID'], int(attrs['offset']), attrs['type'])
         if self._withPhases and name=='phase':
             self._currentProgram.addPhase(attrs['state'], int(attrs['duration']))
@@ -440,9 +440,9 @@ class NetReader(handler.ContentHandler):
             self._currentEdge.rebuildShape();
         if name == 'edge':
             self._currentEdge = None
-        if name == 'row-logic':
+        if name=='ROWLogic' or name=='row-logic': # 'row-logic' is deprecated!!!
             self._haveROWLogic = False
-        if self._withPhases and name=='tl-logic':
+        if self._withPhases and (name=='tlLogic' or name=='tl-logic'): # tl-logic is deprecated!!!
             self._currentProgram = None
 
     def getNet(self):

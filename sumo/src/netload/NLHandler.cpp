@@ -73,7 +73,17 @@ NLHandler::NLHandler(const std::string &file, MSNet &net,
         myDetectorBuilder(detBuilder), myTriggerBuilder(triggerBuilder),
         myEdgeControlBuilder(edgeBuilder), myJunctionControlBuilder(junctionBuilder),
         mySucceedingLaneBuilder(junctionBuilder),
-        myAmInTLLogicMode(false), myCurrentIsBroken(false) {}
+        myAmInTLLogicMode(false), myCurrentIsBroken(false),
+		myHaveWarnedAboutDeprecatedE1(false),
+		myHaveWarnedAboutDeprecatedE2(false),
+		myHaveWarnedAboutDeprecatedE3(false),
+		myHaveWarnedAboutDeprecatedDetEntry(false),
+		myHaveWarnedAboutDeprecatedDetExit(false),
+		myHaveWarnedAboutDeprecatedRowLogic(false),
+		myHaveWarnedAboutDeprecatedTLLogic(false),
+		myHaveWarnedAboutDeprecatedTimedEvent(false),
+		myHaveWarnedAboutDeprecatedTLSTiming(false)
+{}
 
 
 NLHandler::~NLHandler() throw() {}
@@ -108,9 +118,19 @@ NLHandler::myStartElement(int element,
         case SUMO_TAG_SUCCLANE:
             addSuccLane(attrs);
             break;
+        case SUMO_TAG_ROWLOGIC__DEPRECATED:
+			if(!myHaveWarnedAboutDeprecatedRowLogic) {
+				myHaveWarnedAboutDeprecatedRowLogic = true;
+				MsgHandler::getWarningInstance()->inform("Your network uses deprecated tags; please rebuild.");
+			}
         case SUMO_TAG_ROWLOGIC:
             initJunctionLogic(attrs);
             break;
+        case SUMO_TAG_TLLOGIC__DEPRECATED:
+			if(!myHaveWarnedAboutDeprecatedTLLogic) {
+				myHaveWarnedAboutDeprecatedTLLogic = true;
+				MsgHandler::getWarningInstance()->inform("Deprecated tl-logic name; please rebuild.");
+			}
         case SUMO_TAG_TLLOGIC:
             initTrafficLightLogic(attrs);
             break;
@@ -221,6 +241,7 @@ NLHandler::myEndElement(int element) throw(ProcessError) {
     case SUMO_TAG_SUCC:
         closeSuccLane();
         break;
+    case SUMO_TAG_ROWLOGIC__DEPRECATED:
     case SUMO_TAG_ROWLOGIC:
         try {
             myJunctionControlBuilder.closeJunctionLogic();
@@ -228,6 +249,7 @@ NLHandler::myEndElement(int element) throw(ProcessError) {
             MsgHandler::getErrorInstance()->inform(e.what());
         }
         break;
+    case SUMO_TAG_TLLOGIC__DEPRECATED:
     case SUMO_TAG_TLLOGIC:
         try {
             myJunctionControlBuilder.closeTrafficLightLogic();
@@ -654,8 +676,26 @@ NLHandler::addPhase(const SUMOSAXAttributes &attrs) {
     }
     // if the traffic light is an actuated traffic light, try to get
     //  the minimum and maximum durations
-    SUMOTime minDuration = attrs.getOptSUMOTimeReporting(SUMO_ATTR_MINDURATION, myJunctionControlBuilder.getActiveKey().c_str(), ok, -1);
-    SUMOTime maxDuration = attrs.getOptSUMOTimeReporting(SUMO_ATTR_MAXDURATION, myJunctionControlBuilder.getActiveKey().c_str(), ok, -1);
+	SUMOTime minDuration = -1;
+	if(attrs.hasAttribute(SUMO_ATTR_MINDURATION__DEPRECATED)) {
+		minDuration = attrs.getSUMOTimeReporting(SUMO_ATTR_MINDURATION__DEPRECATED, myJunctionControlBuilder.getActiveKey().c_str(), ok);
+		if(!myHaveWarnedAboutDeprecatedTLSTiming) {
+			myHaveWarnedAboutDeprecatedTLSTiming = true;
+			MsgHandler::getWarningInstance()->inform("Your tls definition contains deprecated minimum/maximum duration attribute; use minDur and maxDur instead.");
+		}
+	} else {
+		minDuration = attrs.getOptSUMOTimeReporting(SUMO_ATTR_MINDURATION, myJunctionControlBuilder.getActiveKey().c_str(), ok, -1);
+	}
+	SUMOTime maxDuration = -1;
+	if(attrs.hasAttribute(SUMO_ATTR_MAXDURATION__DEPRECATED)) {
+		maxDuration = attrs.getSUMOTimeReporting(SUMO_ATTR_MAXDURATION__DEPRECATED, myJunctionControlBuilder.getActiveKey().c_str(), ok);
+		if(!myHaveWarnedAboutDeprecatedTLSTiming) {
+			myHaveWarnedAboutDeprecatedTLSTiming = true;
+			MsgHandler::getWarningInstance()->inform("Your tls definition contains deprecated minimum/maximum duration attribute; use minDur and maxDur instead.");
+		}
+	} else {
+		maxDuration = attrs.getOptSUMOTimeReporting(SUMO_ATTR_MAXDURATION, myJunctionControlBuilder.getActiveKey().c_str(), ok, -1);
+	}
     myJunctionControlBuilder.addPhase(duration, state, minDuration, maxDuration);
 }
 

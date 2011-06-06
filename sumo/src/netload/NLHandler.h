@@ -329,6 +329,16 @@ protected:
 
     bool myCurrentIsBroken;
 
+	bool myHaveWarnedAboutDeprecatedE1, myHaveWarnedAboutDeprecatedE2, 
+		myHaveWarnedAboutDeprecatedE3, myHaveWarnedAboutDeprecatedDetEntry,
+		myHaveWarnedAboutDeprecatedDetExit, myHaveWarnedAboutDeprecatedTimedEvent;
+	bool myHaveWarnedAboutDeprecatedRowLogic, myHaveWarnedAboutDeprecatedTLLogic;
+	bool myHaveWarnedAboutDeprecatedTLSTiming;
+	bool myHaveWarnedAboutDeprecatedTimeTreshold, 
+		myHaveWarnedAboutDeprecatedSpeedTreshold,
+		myHaveWarnedAboutDeprecatedJamDistTreshold;
+
+
 private:
     /** invalid copy constructor */
     NLHandler(const NLHandler &s);

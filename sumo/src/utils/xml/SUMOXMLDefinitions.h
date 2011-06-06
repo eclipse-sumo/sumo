@@ -104,6 +104,7 @@ enum SumoXMLTag {
     /** description of a single succeeding lane */
     SUMO_TAG_SUCCLANE,
     /** begin of a right-of-way logic */
+    SUMO_TAG_ROWLOGIC__DEPRECATED,
     SUMO_TAG_ROWLOGIC,
     /** description of a single junction logic part */
     SUMO_TAG_LOGICITEM,
@@ -116,6 +117,7 @@ enum SumoXMLTag {
     /** a sink within a district (connection road) */
     SUMO_TAG_DSINK,
     /** a traffic light logic */
+    SUMO_TAG_TLLOGIC__DEPRECATED,
     SUMO_TAG_TLLOGIC,
     /** a single phase description */
     SUMO_TAG_PHASE,
@@ -395,8 +397,10 @@ enum SumoXMLAttr {
 #endif
     // Attributes for actuated traffic lights:
     /// minimum duration of a phase
+    SUMO_ATTR_MINDURATION__DEPRECATED,
     SUMO_ATTR_MINDURATION,
     /// maximum duration of a phase
+    SUMO_ATTR_MAXDURATION__DEPRECATED,
     SUMO_ATTR_MAXDURATION,
     // Attributes for junction-internal lanes
     /// Information within the junction logic which internal lanes block external
@@ -432,6 +436,7 @@ enum SumoXMLAttr {
     SUMO_ATTR_ALLOW,
     SUMO_ATTR_DISALLOW,
     SUMO_ATTR_PREFER,
+    SUMO_ATTR_CONTROLLED_INNER__DEPRECATED,
     SUMO_ATTR_CONTROLLED_INNER,
     SUMO_ATTR_VEHSPERHOUR,
     SUMO_ATTR_OUTPUT,

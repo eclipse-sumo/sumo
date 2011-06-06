@@ -207,9 +207,9 @@ for keyIndex, key in enumerate(allKeys):
              
         pd = '        <phase duration="' + normTimes[i] + '" '
         if len(minTimes)==len(normTimes):
-            pd = pd + 'min_dur="' + minTimes[i] + '" '
+            pd = pd + 'minDur="' + minTimes[i] + '" '
         if len(maxTimes)==len(normTimes):
-            pd = pd + 'max_dur="' + maxTimes[i] + '" '
+            pd = pd + 'maxDur="' + maxTimes[i] + '" '
         pd = pd + 'state="' + state + '"/>'
         print pd
     print "    </tl-logic>"
