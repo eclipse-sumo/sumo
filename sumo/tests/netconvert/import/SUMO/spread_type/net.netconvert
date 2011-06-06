@@ -20,7 +20,7 @@
 
    <location netOffset="0.00,0.00" convBoundary="0.00,0.00,100.00,0.00" origBoundary="0.00,0.00,100.00,0.00" projParameter="!"/>
 
-   <edge id="e0" from="0" to="1" priority="-1" spread_type="center">
+   <edge id="e0" from="0" to="1" priority="-1">
       <lane id="e0_0" depart="1" maxspeed="16.00" length="100.00" shape="0.00,-3.30 100.00,-3.30"/>
       <lane id="e0_1" depart="0" maxspeed="16.00" length="100.00" shape="0.00,-0.00 100.00,-0.00"/>
       <lane id="e0_2" depart="0" maxspeed="16.00" length="100.00" shape="0.00,3.30 100.00,3.30"/>

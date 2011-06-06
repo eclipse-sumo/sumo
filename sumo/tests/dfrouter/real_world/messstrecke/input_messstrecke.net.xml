@@ -543,173 +543,60 @@
       <lane id="9_1" depart="0" maxspeed="19.44" length="419.84" shape="1772.84,539.32 1868.14,629.80 1926.22,693.89 2061.23,843.90"/>
    </edge>
 
-   <row-logic id="10" requestSize="2">
-      <logicitem request="0" response="11" foes="00" cont="0"/>
-      <logicitem request="1" response="11" foes="00" cont="0"/>
+   <logicitem request="0" response="11" foes="00" cont="0"/><logicitem request="1" response="11" foes="00" cont="0"/>
    </row-logic>
-   <row-logic id="12" requestSize="1">
-      <logicitem request="0" response="1" foes="0" cont="0"/>
+   <logicitem request="0" response="1" foes="0" cont="0"/>
    </row-logic>
-   <row-logic id="13" requestSize="1">
-      <logicitem request="0" response="1" foes="0" cont="0"/>
+   <logicitem request="0" response="1" foes="0" cont="0"/>
    </row-logic>
-   <row-logic id="14" requestSize="1">
-      <logicitem request="0" response="1" foes="0" cont="0"/>
+   <logicitem request="0" response="1" foes="0" cont="0"/>
    </row-logic>
-   <row-logic id="15" requestSize="4">
-      <logicitem request="0" response="0000" foes="0000" cont="0"/>
-      <logicitem request="1" response="0100" foes="1100" cont="0"/>
-      <logicitem request="2" response="0000" foes="0010" cont="0"/>
-      <logicitem request="3" response="0010" foes="0010" cont="0"/>
+   <logicitem request="0" response="0000" foes="0000" cont="0"/><logicitem request="1" response="0100" foes="1100" cont="0"/><logicitem request="2" response="0000" foes="0010" cont="0"/><logicitem request="3" response="0010" foes="0010" cont="0"/>
    </row-logic>
-   <row-logic id="16" requestSize="4">
-      <logicitem request="0" response="0100" foes="0100" cont="0"/>
-      <logicitem request="1" response="0000" foes="1000" cont="0"/>
-      <logicitem request="2" response="1000" foes="1001" cont="0"/>
-      <logicitem request="3" response="0010" foes="0110" cont="0"/>
+   <logicitem request="0" response="0100" foes="0100" cont="0"/><logicitem request="1" response="0000" foes="1000" cont="0"/><logicitem request="2" response="1000" foes="1001" cont="0"/><logicitem request="3" response="0010" foes="0110" cont="0"/>
    </row-logic>
-   <row-logic id="17" requestSize="1">
-      <logicitem request="0" response="1" foes="0" cont="0"/>
+   <logicitem request="0" response="1" foes="0" cont="0"/>
    </row-logic>
-   <row-logic id="18" requestSize="1">
-      <logicitem request="0" response="1" foes="0" cont="0"/>
+   <logicitem request="0" response="1" foes="0" cont="0"/>
    </row-logic>
-   <row-logic id="19" requestSize="1">
-      <logicitem request="0" response="1" foes="0" cont="0"/>
+   <logicitem request="0" response="1" foes="0" cont="0"/>
    </row-logic>
-   <row-logic id="2" requestSize="2">
-      <logicitem request="0" response="11" foes="00" cont="0"/>
-      <logicitem request="1" response="11" foes="00" cont="0"/>
+   <logicitem request="0" response="11" foes="00" cont="0"/><logicitem request="1" response="11" foes="00" cont="0"/>
    </row-logic>
-   <row-logic id="20" requestSize="1">
-      <logicitem request="0" response="1" foes="0" cont="0"/>
+   <logicitem request="0" response="1" foes="0" cont="0"/>
    </row-logic>
-   <row-logic id="21" requestSize="1">
-      <logicitem request="0" response="1" foes="0" cont="0"/>
+   <logicitem request="0" response="1" foes="0" cont="0"/>
    </row-logic>
-   <row-logic id="22" requestSize="5">
-      <logicitem request="0" response="00000" foes="00000" cont="0"/>
-      <logicitem request="1" response="00000" foes="00000" cont="0"/>
-      <logicitem request="2" response="00000" foes="00000" cont="0"/>
-      <logicitem request="3" response="00000" foes="00000" cont="0"/>
-      <logicitem request="4" response="00000" foes="00000" cont="0"/>
+   <logicitem request="0" response="00000" foes="00000" cont="0"/><logicitem request="1" response="00000" foes="00000" cont="0"/><logicitem request="2" response="00000" foes="00000" cont="0"/><logicitem request="3" response="00000" foes="00000" cont="0"/><logicitem request="4" response="00000" foes="00000" cont="0"/>
    </row-logic>
-   <row-logic id="23" requestSize="5">
-      <logicitem request="0" response="00000" foes="00000" cont="0"/>
-      <logicitem request="1" response="00000" foes="00000" cont="0"/>
-      <logicitem request="2" response="00000" foes="00000" cont="0"/>
-      <logicitem request="3" response="00000" foes="00000" cont="0"/>
-      <logicitem request="4" response="00000" foes="00000" cont="0"/>
+   <logicitem request="0" response="00000" foes="00000" cont="0"/><logicitem request="1" response="00000" foes="00000" cont="0"/><logicitem request="2" response="00000" foes="00000" cont="0"/><logicitem request="3" response="00000" foes="00000" cont="0"/><logicitem request="4" response="00000" foes="00000" cont="0"/>
    </row-logic>
-   <row-logic id="24" requestSize="4">
-      <logicitem request="0" response="0000" foes="0000" cont="0"/>
-      <logicitem request="1" response="0000" foes="0000" cont="0"/>
-      <logicitem request="2" response="0000" foes="0000" cont="0"/>
-      <logicitem request="3" response="0000" foes="0000" cont="0"/>
+   <logicitem request="0" response="0000" foes="0000" cont="0"/><logicitem request="1" response="0000" foes="0000" cont="0"/><logicitem request="2" response="0000" foes="0000" cont="0"/><logicitem request="3" response="0000" foes="0000" cont="0"/>
    </row-logic>
-   <row-logic id="25" requestSize="2">
-      <logicitem request="0" response="00" foes="00" cont="0"/>
-      <logicitem request="1" response="00" foes="00" cont="0"/>
+   <logicitem request="0" response="00" foes="00" cont="0"/><logicitem request="1" response="00" foes="00" cont="0"/>
    </row-logic>
-   <row-logic id="26" requestSize="6">
-      <logicitem request="0" response="000000" foes="000000" cont="0"/>
-      <logicitem request="1" response="000000" foes="000000" cont="0"/>
-      <logicitem request="2" response="000000" foes="000000" cont="0"/>
-      <logicitem request="3" response="000000" foes="000000" cont="0"/>
-      <logicitem request="4" response="000000" foes="000000" cont="0"/>
-      <logicitem request="5" response="000000" foes="000000" cont="0"/>
+   <logicitem request="0" response="000000" foes="000000" cont="0"/><logicitem request="1" response="000000" foes="000000" cont="0"/><logicitem request="2" response="000000" foes="000000" cont="0"/><logicitem request="3" response="000000" foes="000000" cont="0"/><logicitem request="4" response="000000" foes="000000" cont="0"/><logicitem request="5" response="000000" foes="000000" cont="0"/>
    </row-logic>
-   <row-logic id="27" requestSize="5">
-      <logicitem request="0" response="00000" foes="00000" cont="0"/>
-      <logicitem request="1" response="00000" foes="00000" cont="0"/>
-      <logicitem request="2" response="00000" foes="00000" cont="0"/>
-      <logicitem request="3" response="00000" foes="00000" cont="0"/>
-      <logicitem request="4" response="00000" foes="00000" cont="0"/>
+   <logicitem request="0" response="00000" foes="00000" cont="0"/><logicitem request="1" response="00000" foes="00000" cont="0"/><logicitem request="2" response="00000" foes="00000" cont="0"/><logicitem request="3" response="00000" foes="00000" cont="0"/><logicitem request="4" response="00000" foes="00000" cont="0"/>
    </row-logic>
-   <row-logic id="28" requestSize="6">
-      <logicitem request="0" response="000000" foes="000000" cont="0"/>
-      <logicitem request="1" response="000000" foes="000000" cont="0"/>
-      <logicitem request="2" response="000000" foes="000000" cont="0"/>
-      <logicitem request="3" response="000000" foes="000000" cont="0"/>
-      <logicitem request="4" response="000000" foes="000000" cont="0"/>
-      <logicitem request="5" response="000000" foes="000000" cont="0"/>
+   <logicitem request="0" response="000000" foes="000000" cont="0"/><logicitem request="1" response="000000" foes="000000" cont="0"/><logicitem request="2" response="000000" foes="000000" cont="0"/><logicitem request="3" response="000000" foes="000000" cont="0"/><logicitem request="4" response="000000" foes="000000" cont="0"/><logicitem request="5" response="000000" foes="000000" cont="0"/>
    </row-logic>
-   <row-logic id="3" requestSize="14">
-      <logicitem request="0" response="00000000110000" foes="00001000110000" cont="0"/>
-      <logicitem request="1" response="11110001110000" foes="11111001110000" cont="0"/>
-      <logicitem request="2" response="11100111110000" foes="11100111110000" cont="1"/>
-      <logicitem request="3" response="00000000000000" foes="10000100000000" cont="0"/>
-      <logicitem request="4" response="00000000000000" foes="10001100000111" cont="0"/>
-      <logicitem request="5" response="00000000000000" foes="10001100000111" cont="0"/>
-      <logicitem request="6" response="01110000000000" foes="01111100000110" cont="1"/>
-      <logicitem request="7" response="01100000000000" foes="01100000000100" cont="0"/>
-      <logicitem request="8" response="11100001111000" foes="11100001111100" cont="0"/>
-      <logicitem request="9" response="11100001110011" foes="11100001110011" cont="1"/>
-      <logicitem request="10" response="00000000000000" foes="00000001000010" cont="0"/>
-      <logicitem request="11" response="00000000000000" foes="00001111000110" cont="0"/>
-      <logicitem request="12" response="00000000000000" foes="00001111000110" cont="0"/>
-      <logicitem request="13" response="00000000111000" foes="00001100111110" cont="1"/>
+   <logicitem request="0" response="00000000110000" foes="00001000110000" cont="0"/><logicitem request="1" response="11110001110000" foes="11111001110000" cont="0"/><logicitem request="2" response="11100111110000" foes="11100111110000" cont="1"/><logicitem request="3" response="00000000000000" foes="10000100000000" cont="0"/><logicitem request="4" response="00000000000000" foes="10001100000111" cont="0"/><logicitem request="5" response="00000000000000" foes="10001100000111" cont="0"/><logicitem request="6" response="01110000000000" foes="01111100000110" cont="1"/><logicitem request="7" response="01100000000000" foes="01100000000100" cont="0"/><logicitem request="8" response="11100001111000" foes="11100001111100" cont="0"/><logicitem request="9" response="11100001110011" foes="11100001110011" cont="1"/><logicitem request="10" response="00000000000000" foes="00000001000010" cont="0"/><logicitem request="11" response="00000000000000" foes="00001111000110" cont="0"/><logicitem request="12" response="00000000000000" foes="00001111000110" cont="0"/><logicitem request="13" response="00000000111000" foes="00001100111110" cont="1"/>
    </row-logic>
-   <row-logic id="4" requestSize="8">
-      <logicitem request="0" response="00011000" foes="00011000" cont="0"/>
-      <logicitem request="1" response="11111000" foes="11111000" cont="0"/>
-      <logicitem request="2" response="00000000" foes="10000000" cont="0"/>
-      <logicitem request="3" response="00000000" foes="10000011" cont="0"/>
-      <logicitem request="4" response="00000000" foes="10000011" cont="0"/>
-      <logicitem request="5" response="00000000" foes="00000010" cont="0"/>
-      <logicitem request="6" response="00000000" foes="00000010" cont="0"/>
-      <logicitem request="7" response="00011100" foes="00011110" cont="0"/>
+   <logicitem request="0" response="00011000" foes="00011000" cont="0"/><logicitem request="1" response="11111000" foes="11111000" cont="0"/><logicitem request="2" response="00000000" foes="10000000" cont="0"/><logicitem request="3" response="00000000" foes="10000011" cont="0"/><logicitem request="4" response="00000000" foes="10000011" cont="0"/><logicitem request="5" response="00000000" foes="00000010" cont="0"/><logicitem request="6" response="00000000" foes="00000010" cont="0"/><logicitem request="7" response="00011100" foes="00011110" cont="0"/>
    </row-logic>
-   <row-logic id="5" requestSize="8">
-      <logicitem request="0" response="00011000" foes="00011000" cont="0"/>
-      <logicitem request="1" response="11111000" foes="11111000" cont="0"/>
-      <logicitem request="2" response="11111000" foes="11111000" cont="0"/>
-      <logicitem request="3" response="00000000" foes="00000111" cont="0"/>
-      <logicitem request="4" response="00000000" foes="00000111" cont="0"/>
-      <logicitem request="5" response="00000000" foes="00000110" cont="0"/>
-      <logicitem request="6" response="00000000" foes="00000110" cont="0"/>
-      <logicitem request="7" response="00000000" foes="00000110" cont="0"/>
+   <logicitem request="0" response="00011000" foes="00011000" cont="0"/><logicitem request="1" response="11111000" foes="11111000" cont="0"/><logicitem request="2" response="11111000" foes="11111000" cont="0"/><logicitem request="3" response="00000000" foes="00000111" cont="0"/><logicitem request="4" response="00000000" foes="00000111" cont="0"/><logicitem request="5" response="00000000" foes="00000110" cont="0"/><logicitem request="6" response="00000000" foes="00000110" cont="0"/><logicitem request="7" response="00000000" foes="00000110" cont="0"/>
    </row-logic>
-   <row-logic id="6" requestSize="6">
-      <logicitem request="0" response="000000" foes="100000" cont="0"/>
-      <logicitem request="1" response="000000" foes="100000" cont="0"/>
-      <logicitem request="2" response="000000" foes="100000" cont="0"/>
-      <logicitem request="3" response="000000" foes="000000" cont="0"/>
-      <logicitem request="4" response="000000" foes="000000" cont="0"/>
-      <logicitem request="5" response="000111" foes="000111" cont="0"/>
+   <logicitem request="0" response="000000" foes="100000" cont="0"/><logicitem request="1" response="000000" foes="100000" cont="0"/><logicitem request="2" response="000000" foes="100000" cont="0"/><logicitem request="3" response="000000" foes="000000" cont="0"/><logicitem request="4" response="000000" foes="000000" cont="0"/><logicitem request="5" response="000111" foes="000111" cont="0"/>
    </row-logic>
-   <row-logic id="7" requestSize="8">
-      <logicitem request="0" response="00011000" foes="00011000" cont="0"/>
-      <logicitem request="1" response="11111000" foes="11111000" cont="0"/>
-      <logicitem request="2" response="00000000" foes="10000000" cont="0"/>
-      <logicitem request="3" response="00000000" foes="10000011" cont="0"/>
-      <logicitem request="4" response="00000000" foes="10000011" cont="0"/>
-      <logicitem request="5" response="00000000" foes="00000010" cont="0"/>
-      <logicitem request="6" response="00000000" foes="00000010" cont="0"/>
-      <logicitem request="7" response="00011100" foes="00011110" cont="0"/>
+   <logicitem request="0" response="00011000" foes="00011000" cont="0"/><logicitem request="1" response="11111000" foes="11111000" cont="0"/><logicitem request="2" response="00000000" foes="10000000" cont="0"/><logicitem request="3" response="00000000" foes="10000011" cont="0"/><logicitem request="4" response="00000000" foes="10000011" cont="0"/><logicitem request="5" response="00000000" foes="00000010" cont="0"/><logicitem request="6" response="00000000" foes="00000010" cont="0"/><logicitem request="7" response="00011100" foes="00011110" cont="0"/>
    </row-logic>
-   <row-logic id="8" requestSize="8">
-      <logicitem request="0" response="00000000" foes="00010000" cont="0"/>
-      <logicitem request="1" response="00000000" foes="00010000" cont="0"/>
-      <logicitem request="2" response="11100000" foes="11110000" cont="1"/>
-      <logicitem request="3" response="11000000" foes="11000000" cont="0"/>
-      <logicitem request="4" response="11000111" foes="11000111" cont="1"/>
-      <logicitem request="5" response="00000000" foes="00000100" cont="0"/>
-      <logicitem request="6" response="00000000" foes="00011100" cont="0"/>
-      <logicitem request="7" response="00000000" foes="00011100" cont="0"/>
+   <logicitem request="0" response="00000000" foes="00010000" cont="0"/><logicitem request="1" response="00000000" foes="00010000" cont="0"/><logicitem request="2" response="11100000" foes="11110000" cont="1"/><logicitem request="3" response="11000000" foes="11000000" cont="0"/><logicitem request="4" response="11000111" foes="11000111" cont="1"/><logicitem request="5" response="00000000" foes="00000100" cont="0"/><logicitem request="6" response="00000000" foes="00011100" cont="0"/><logicitem request="7" response="00000000" foes="00011100" cont="0"/>
    </row-logic>
-   <row-logic id="9" requestSize="8">
-      <logicitem request="0" response="00000000" foes="00100000" cont="0"/>
-      <logicitem request="1" response="00000000" foes="11100000" cont="0"/>
-      <logicitem request="2" response="00000000" foes="11100000" cont="0"/>
-      <logicitem request="3" response="00000000" foes="10000000" cont="0"/>
-      <logicitem request="4" response="00000000" foes="10000000" cont="0"/>
-      <logicitem request="5" response="00000111" foes="10000111" cont="1"/>
-      <logicitem request="6" response="00000110" foes="00000110" cont="0"/>
-      <logicitem request="7" response="00111110" foes="00111110" cont="1"/>
+   <logicitem request="0" response="00000000" foes="00100000" cont="0"/><logicitem request="1" response="00000000" foes="11100000" cont="0"/><logicitem request="2" response="00000000" foes="11100000" cont="0"/><logicitem request="3" response="00000000" foes="10000000" cont="0"/><logicitem request="4" response="00000000" foes="10000000" cont="0"/><logicitem request="5" response="00000111" foes="10000111" cont="1"/><logicitem request="6" response="00000110" foes="00000110" cont="0"/><logicitem request="7" response="00111110" foes="00111110" cont="1"/>
    </row-logic>
 
-   <tl-logic id="3" type="static" programID="0" offset="0">
+   <tlLogic programID="0" type="static" id="3" offset="0">
       <phase duration="39" state="GGgGrrrGGGgrrr"/>
       <phase duration="5" state="yyyyrrryyyyrrr"/>
       <phase duration="6" state="rrrrrrrrrrrrrr"/>
@@ -718,8 +605,8 @@
       <phase duration="9" state="rrrrrrrrrrrGGG"/>
       <phase duration="5" state="rrrrrrrrrrryyy"/>
       <phase duration="5" state="rrrrrrrrrrrrrr"/>
-   </tl-logic>
-   <tl-logic id="8" type="static" programID="0" offset="0">
+   </tlLogic>
+   <tlLogic programID="0" type="static" id="8" offset="0">
       <phase duration="5" state="yyyGGGrrr"/>
       <phase duration="2" state="rrrGGGrrr"/>
       <phase duration="7" state="rrrGGGGrr"/>
@@ -732,8 +619,8 @@
       <phase duration="2" state="rrrrrrrrr"/>
       <phase duration="1" state="GGGrrrrrr"/>
       <phase duration="40" state="GGGGGgrrr"/>
-   </tl-logic>
-   <tl-logic id="9" type="static" programID="0" offset="0">
+   </tlLogic>
+   <tlLogic programID="0" type="static" id="9" offset="0">
       <phase duration="45" state="GGgrrrGGG"/>
       <phase duration="5" state="GGGrrryyy"/>
       <phase duration="2" state="GGGrrrrrr"/>
@@ -746,7 +633,7 @@
       <phase duration="5" state="rrrryyrrr"/>
       <phase duration="2" state="rrrrrrrrr"/>
       <phase duration="1" state="rrrrrrGGG"/>
-   </tl-logic>
+   </tlLogic>
 
    <junction id="10" type="priority" x="2060.00" y="845.00" incLanes="9_0 9_1" intLanes="" shape="2059.96,845.03 2055.13,849.38 2064.87,840.62 2060.04,844.97"/>
    <junction id="12" type="priority" x="425.00" y="813.00" incLanes="-25_0" intLanes="" shape="424.95,813.00 421.76,812.81 428.24,813.19 425.05,813.00"/>

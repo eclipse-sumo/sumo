@@ -101,23 +101,11 @@
       <lane id="900000001_0" depart="1" maxspeed="8.33" length="87.19" shape="134.67,66.58 124.64,153.19"/>
    </edge>
 
-   <row-logic id="15031669" requestSize="10">
-      <logicitem request="0" response="0000000000" foes="1000010000" cont="0"/>
-      <logicitem request="1" response="0000000000" foes="0110110000" cont="0"/>
-      <logicitem request="2" response="0000000000" foes="0110110000" cont="0"/>
-      <logicitem request="3" response="0000000000" foes="0101110000" cont="1"/>
-      <logicitem request="4" response="0000001111" foes="1000001111" cont="0"/>
-      <logicitem request="5" response="0110001110" foes="0110001110" cont="1"/>
-      <logicitem request="6" response="0100001000" foes="0100001000" cont="1"/>
-      <logicitem request="7" response="0000000110" foes="0000100110" cont="0"/>
-      <logicitem request="8" response="0000001110" foes="0001101110" cont="0"/>
-      <logicitem request="9" response="0000010001" foes="0000010001" cont="1"/>
+   <logicitem request="0" response="0000000000" foes="1000010000" cont="0"/><logicitem request="1" response="0000000000" foes="0110110000" cont="0"/><logicitem request="2" response="0000000000" foes="0110110000" cont="0"/><logicitem request="3" response="0000000000" foes="0101110000" cont="1"/><logicitem request="4" response="0000001111" foes="1000001111" cont="0"/><logicitem request="5" response="0110001110" foes="0110001110" cont="1"/><logicitem request="6" response="0100001000" foes="0100001000" cont="1"/><logicitem request="7" response="0000000110" foes="0000100110" cont="0"/><logicitem request="8" response="0000001110" foes="0001101110" cont="0"/><logicitem request="9" response="0000010001" foes="0000010001" cont="1"/>
    </row-logic>
-   <row-logic id="15031670" requestSize="1">
-      <logicitem request="0" response="0" foes="0" cont="0"/>
+   <logicitem request="0" response="0" foes="0" cont="0"/>
    </row-logic>
-   <row-logic id="915660425" requestSize="1">
-      <logicitem request="0" response="0" foes="0" cont="0"/>
+   <logicitem request="0" response="0" foes="0" cont="0"/>
    </row-logic>
 
    <tl-logic id="15031669" type="static" programID="0" offset="0">

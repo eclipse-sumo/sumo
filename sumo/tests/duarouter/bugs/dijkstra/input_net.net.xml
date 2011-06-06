@@ -87,45 +87,25 @@
       <lane id="c3e_0" depart="1" maxspeed="1.00" length="291.98" shape="294.60,300.77 6.59,252.77"/>
    </edge>
 
-   <row-logic id="a1" requestSize="1">
-      <logicitem request="0" response="0" foes="0"/>
+   <logicitem request="0" response="0" foes="0"/>
    </row-logic>
-   <row-logic id="a2" requestSize="1">
-      <logicitem request="0" response="0" foes="0"/>
+   <logicitem request="0" response="0" foes="0"/>
    </row-logic>
-   <row-logic id="a25" requestSize="2">
-      <logicitem request="0" response="00" foes="10"/>
-      <logicitem request="1" response="01" foes="01"/>
+   <logicitem request="0" response="00" foes="10"/><logicitem request="1" response="01" foes="01"/>
    </row-logic>
-   <row-logic id="a3" requestSize="1">
-      <logicitem request="0" response="0" foes="0"/>
+   <logicitem request="0" response="0" foes="0"/>
    </row-logic>
-   <row-logic id="b1" requestSize="1">
-      <logicitem request="0" response="0" foes="0"/>
+   <logicitem request="0" response="0" foes="0"/>
    </row-logic>
-   <row-logic id="b2" requestSize="8">
-      <logicitem request="0" response="00000000" foes="00000000"/>
-      <logicitem request="1" response="00000000" foes="00000000"/>
-      <logicitem request="2" response="00000000" foes="00000000"/>
-      <logicitem request="3" response="00000000" foes="00000000"/>
-      <logicitem request="4" response="00000000" foes="00000000"/>
-      <logicitem request="5" response="00000000" foes="00000000"/>
-      <logicitem request="6" response="00000000" foes="00000000"/>
-      <logicitem request="7" response="00000000" foes="00000000"/>
+   <logicitem request="0" response="00000000" foes="00000000"/><logicitem request="1" response="00000000" foes="00000000"/><logicitem request="2" response="00000000" foes="00000000"/><logicitem request="3" response="00000000" foes="00000000"/><logicitem request="4" response="00000000" foes="00000000"/><logicitem request="5" response="00000000" foes="00000000"/><logicitem request="6" response="00000000" foes="00000000"/><logicitem request="7" response="00000000" foes="00000000"/>
    </row-logic>
-   <row-logic id="b3" requestSize="2">
-      <logicitem request="0" response="00" foes="00"/>
-      <logicitem request="1" response="00" foes="00"/>
+   <logicitem request="0" response="00" foes="00"/><logicitem request="1" response="00" foes="00"/>
    </row-logic>
-   <row-logic id="c1" requestSize="1">
-      <logicitem request="0" response="0" foes="0"/>
+   <logicitem request="0" response="0" foes="0"/>
    </row-logic>
-   <row-logic id="c2" requestSize="1">
-      <logicitem request="0" response="0" foes="0"/>
+   <logicitem request="0" response="0" foes="0"/>
    </row-logic>
-   <row-logic id="c3" requestSize="2">
-      <logicitem request="0" response="00" foes="10"/>
-      <logicitem request="1" response="01" foes="01"/>
+   <logicitem request="0" response="00" foes="10"/><logicitem request="1" response="01" foes="01"/>
    </row-logic>
 
    <junction id="a1" type="priority" x="100.00" y="100.00" incLanes="b2a1_0" intLanes="" shape="100.51,105.10 102.77,102.84 97.84,103.33 100.51,105.10"/>

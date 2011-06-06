@@ -58,20 +58,16 @@
       <lane id="out2_0" depart="1" maxspeed="13.90" length="10.00" shape="410.00,-1.65 420.00,-1.65"/>
    </edge>
 
-   <row-logic id="SUMOGenerated1" requestSize="1">
-      <logicitem request="0" response="0" foes="0" cont="0"/>
+   <logicitem request="0" response="0" foes="0" cont="0"/>
    </row-logic>
 
-   <row-logic id="SUMOGenerated3" requestSize="1">
-      <logicitem request="0" response="0" foes="0" cont="0"/>
+   <logicitem request="0" response="0" foes="0" cont="0"/>
    </row-logic>
 
-   <row-logic id="SUMOGenerated4" requestSize="1">
-      <logicitem request="0" response="0" foes="0" cont="0"/>
+   <logicitem request="0" response="0" foes="0" cont="0"/>
    </row-logic>
 
-   <row-logic id="SUMOGenerated5" requestSize="1">
-      <logicitem request="0" response="0" foes="0" cont="0"/>
+   <logicitem request="0" response="0" foes="0" cont="0"/>
    </row-logic>
 
    <junction id="SUMOGenerated0" type="DEAD_END" x="0.00" y="0.00" incLanes="" intLanes="" shape="-0.00,-0.05 -0.00,-3.25"/>

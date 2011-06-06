@@ -238,131 +238,81 @@
    <edge id="--32" from="-7" to="-14" priority="1" type="highway.track">
       <lane id="--32_0" depart="1" maxspeed="5.56" length="12.51" shape="341.70,733.99 341.88,721.48"/>
    </edge>
-   <edge id="--33#0" from="-15" to="-2" name="Ingolstädter Straße" priority="9" type="highway.primary" shape="303.59,700.77 133.00,786.04 0.26,822.04">
+   <edge id="--33#0" from="-15" to="-2" priority="9" type="highway.primary">
       <lane id="--33#0_0" depart="1" maxspeed="27.78" length="327.24" shape="304.31,705.95 134.77,790.69 1.56,826.82"/>
       <lane id="--33#0_1" depart="0" maxspeed="27.78" length="327.24" shape="302.83,702.99 133.59,787.59 0.70,823.64"/>
    </edge>
-   <edge id="--33#1" from="-26" to="-15" name="Ingolstädter Straße" priority="9" type="highway.primary" shape="493.51,408.13 473.55,508.62 426.27,583.95 339.53,680.45 303.59,700.77">
+   <edge id="--33#1" from="-26" to="-15" priority="9" type="highway.primary">
       <lane id="--33#1_0" depart="1" maxspeed="27.78" length="353.84" shape="498.20,409.92 478.22,510.47 430.46,586.58 342.67,684.36 315.26,699.86"/>
       <lane id="--33#1_1" depart="0" maxspeed="27.78" length="353.84" shape="494.96,409.28 475.11,509.24 427.66,584.83 340.58,681.75 313.63,696.99"/>
    </edge>
-   <edge id="--33#2" from="-29" to="-26" name="Ingolstädter Straße" priority="9" type="highway.primary" shape="491.92,18.96 476.29,117.02 493.51,408.13">
+   <edge id="--33#2" from="-29" to="-26" priority="9" type="highway.primary">
       <lane id="--33#2_0" depart="1" maxspeed="27.78" length="389.36" shape="496.81,19.74 481.26,117.27 498.40,407.00"/>
       <lane id="--33#2_1" depart="0" maxspeed="27.78" length="389.36" shape="493.55,19.22 477.94,117.10 495.10,407.19"/>
    </edge>
-   <edge id="--35#1" from="-7" to="-30" priority="5" type="highway.unclassified" shape="343.27,739.70 315.71,749.40 0.00,856.28">
+   <edge id="--35#1" from="-7" to="-30" priority="5" type="highway.unclassified">
       <lane id="--35#1_0" depart="1" maxspeed="22.22" length="357.70" shape="339.24,742.86 316.26,750.95 0.53,857.84"/>
    </edge>
-   <edge id="--37#0" from="-7" to="-19" priority="5" type="highway.unclassified" shape="343.27,739.70 581.12,682.59 814.81,672.13 1048.06,682.36">
+   <edge id="--37#0" from="-7" to="-19" priority="5" type="highway.unclassified">
       <lane id="--37#0_0" depart="1" maxspeed="22.22" length="699.43" shape="348.41,736.77 580.89,680.95 814.73,670.49 1040.78,680.39"/>
    </edge>
    <edge id="--37#1" from="-9" to="-7" priority="5" type="highway.unclassified">
       <lane id="--37#1_0" depart="1" maxspeed="22.22" length="185.67" shape="399.61,921.85 343.21,744.96"/>
    </edge>
-   <edge id="--38#0" from="-14" to="-19" priority="1" type="highway.track" shape="343.58,717.82 395.74,678.09 595.11,635.70 870.97,654.89 1022.71,651.92 1048.06,682.36">
+   <edge id="--38#0" from="-14" to="-19" priority="1" type="highway.track">
       <lane id="--38#0_0" depart="1" maxspeed="5.56" length="729.20" shape="345.28,714.46 395.04,676.55 595.00,634.03 871.08,653.24 1023.47,650.26 1044.62,675.65"/>
    </edge>
-   <edge id="--38#2" from="-15" to="-14" priority="1" type="highway.track" shape="303.59,700.77 319.36,707.50 343.58,717.82">
+   <edge id="--38#2" from="-15" to="-14" priority="1" type="highway.track">
       <lane id="--38#2_0" depart="1" maxspeed="5.56" length="27.56" shape="315.49,704.05 320.01,705.98 340.84,714.86"/>
    </edge>
    <edge id="-32" from="-14" to="-7" priority="1" type="highway.track">
       <lane id="-32_0" depart="1" maxspeed="5.56" length="12.51" shape="345.18,721.53 345.00,734.04"/>
    </edge>
-   <edge id="-33#0" from="-2" to="-15" name="Ingolstädter Straße" priority="9" type="highway.primary" shape="0.26,822.04 133.00,786.04 303.59,700.77">
+   <edge id="-33#0" from="-2" to="-15" priority="9" type="highway.primary">
       <lane id="-33#0_0" depart="1" maxspeed="27.78" length="325.92" shape="-1.03,817.27 131.23,781.39 299.88,697.09"/>
       <lane id="-33#0_1" depart="0" maxspeed="27.78" length="325.92" shape="-0.17,820.45 132.41,784.49 301.36,700.04"/>
    </edge>
-   <edge id="-33#1" from="-15" to="-26" name="Ingolstädter Straße" priority="9" type="highway.primary" shape="303.59,700.77 339.53,680.45 426.27,583.95 473.55,508.62 493.51,408.13">
+   <edge id="-33#1" from="-15" to="-26" priority="9" type="highway.primary">
       <lane id="-33#1_0" depart="1" maxspeed="27.78" length="348.13" shape="310.38,691.24 336.39,676.54 422.59,580.64 468.87,506.76 488.49,407.99"/>
       <lane id="-33#1_1" depart="0" maxspeed="27.78" length="348.13" shape="312.01,694.12 338.48,679.15 425.04,582.85 471.99,508.00 491.72,408.63"/>
    </edge>
-   <edge id="-33#2" from="-26" to="-29" name="Ingolstädter Straße" priority="9" type="highway.primary" shape="493.51,408.13 476.29,117.02 491.92,18.96">
+   <edge id="-33#2" from="-26" to="-29" priority="9" type="highway.primary">
       <lane id="-33#2_0" depart="1" maxspeed="27.78" length="390.80" shape="488.52,407.58 471.31,116.77 487.03,18.18"/>
       <lane id="-33#2_1" depart="0" maxspeed="27.78" length="390.80" shape="491.81,407.39 474.63,116.94 490.29,18.70"/>
    </edge>
-   <edge id="-35#0" from="-30" to="-7" priority="5" type="highway.unclassified" shape="0.00,856.28 315.71,749.40 343.27,739.70">
+   <edge id="-35#0" from="-30" to="-7" priority="5" type="highway.unclassified">
       <lane id="-35#0_0" depart="1" maxspeed="22.22" length="357.66" shape="-0.53,854.71 315.18,747.83 338.15,739.75"/>
    </edge>
-   <edge id="-37#0" from="-19" to="-7" priority="5" type="highway.unclassified" shape="1048.06,682.36 814.81,672.13 581.12,682.59 343.27,739.70">
+   <edge id="-37#0" from="-19" to="-7" priority="5" type="highway.unclassified">
       <lane id="-37#0_0" depart="1" maxspeed="22.22" length="698.51" shape="1040.64,683.69 814.73,673.78 581.35,684.23 349.18,739.98"/>
    </edge>
    <edge id="-37#1" from="-7" to="-9" priority="5" type="highway.unclassified">
       <lane id="-37#1_0" depart="1" maxspeed="22.22" length="185.67" shape="346.36,743.96 402.75,920.85"/>
    </edge>
-   <edge id="-38#0" from="-19" to="-14" priority="1" type="highway.track" shape="1048.06,682.36 1022.71,651.92 870.97,654.89 595.11,635.70 395.74,678.09 343.58,717.82">
+   <edge id="-38#0" from="-19" to="-14" priority="1" type="highway.track">
       <lane id="-38#0_0" depart="1" maxspeed="5.56" length="723.91" shape="1042.08,677.77 1021.95,653.59 871.00,656.54 595.23,637.36 396.45,679.62 347.28,717.08"/>
    </edge>
-   <edge id="-38#1" from="-14" to="-15" priority="1" type="highway.track" shape="343.58,717.82 319.36,707.50 303.59,700.77">
+   <edge id="-38#1" from="-14" to="-15" priority="1" type="highway.track">
       <lane id="-38#1_0" depart="1" maxspeed="5.56" length="27.56" shape="339.55,717.90 318.71,709.01 314.20,707.09"/>
    </edge>
 
-   <row-logic id="-14" requestSize="9">
-      <logicitem request="0" response="000000000" foes="100010000" cont="0"/>
-      <logicitem request="1" response="011000000" foes="011110000" cont="0"/>
-      <logicitem request="2" response="010001000" foes="010001000" cont="0"/>
-      <logicitem request="3" response="000000000" foes="010000100" cont="0"/>
-      <logicitem request="4" response="000000011" foes="110000011" cont="0"/>
-      <logicitem request="5" response="001000010" foes="001000010" cont="0"/>
-      <logicitem request="6" response="000000000" foes="000100010" cont="0"/>
-      <logicitem request="7" response="000011000" foes="000011110" cont="0"/>
-      <logicitem request="8" response="000010001" foes="000010001" cont="0"/>
+   <logicitem request="0" response="000000000" foes="100010000" cont="0"/><logicitem request="1" response="011000000" foes="011110000" cont="0"/><logicitem request="2" response="010001000" foes="010001000" cont="0"/><logicitem request="3" response="000000000" foes="010000100" cont="0"/><logicitem request="4" response="000000011" foes="110000011" cont="0"/><logicitem request="5" response="001000010" foes="001000010" cont="0"/><logicitem request="6" response="000000000" foes="000100010" cont="0"/><logicitem request="7" response="000011000" foes="000011110" cont="0"/><logicitem request="8" response="000010001" foes="000010001" cont="0"/>
    </row-logic>
-   <row-logic id="-15" requestSize="11">
-      <logicitem request="0" response="00000110000" foes="10000110000" cont="0"/>
-      <logicitem request="1" response="01110110000" foes="01111110000" cont="0"/>
-      <logicitem request="2" response="01000001000" foes="01000001000" cont="0"/>
-      <logicitem request="3" response="00000000000" foes="01000000100" cont="0"/>
-      <logicitem request="4" response="00000000000" foes="11000000011" cont="0"/>
-      <logicitem request="5" response="00000000000" foes="11000000011" cont="0"/>
-      <logicitem request="6" response="00110000010" foes="00110000010" cont="1"/>
-      <logicitem request="7" response="00000000000" foes="00001000010" cont="0"/>
-      <logicitem request="8" response="00000000000" foes="00001000010" cont="0"/>
-      <logicitem request="9" response="00000111000" foes="00000111110" cont="1"/>
-      <logicitem request="10" response="00000110001" foes="00000110001" cont="1"/>
+   <logicitem request="0" response="00000110000" foes="10000110000" cont="0"/><logicitem request="1" response="01110110000" foes="01111110000" cont="0"/><logicitem request="2" response="01000001000" foes="01000001000" cont="0"/><logicitem request="3" response="00000000000" foes="01000000100" cont="0"/><logicitem request="4" response="00000000000" foes="11000000011" cont="0"/><logicitem request="5" response="00000000000" foes="11000000011" cont="0"/><logicitem request="6" response="00110000010" foes="00110000010" cont="1"/><logicitem request="7" response="00000000000" foes="00001000010" cont="0"/><logicitem request="8" response="00000000000" foes="00001000010" cont="0"/><logicitem request="9" response="00000111000" foes="00000111110" cont="1"/><logicitem request="10" response="00000110001" foes="00000110001" cont="1"/>
    </row-logic>
-   <row-logic id="-19" requestSize="4">
-      <logicitem request="0" response="0000" foes="1000" cont="0"/>
-      <logicitem request="1" response="0100" foes="0100" cont="0"/>
-      <logicitem request="2" response="0000" foes="0010" cont="0"/>
-      <logicitem request="3" response="0001" foes="0001" cont="0"/>
+   <logicitem request="0" response="0000" foes="1000" cont="0"/><logicitem request="1" response="0100" foes="0100" cont="0"/><logicitem request="2" response="0000" foes="0010" cont="0"/><logicitem request="3" response="0001" foes="0001" cont="0"/>
    </row-logic>
-   <row-logic id="-2" requestSize="1">
-      <logicitem request="0" response="0" foes="0" cont="0"/>
+   <logicitem request="0" response="0" foes="0" cont="0"/>
    </row-logic>
-   <row-logic id="-26" requestSize="6">
-      <logicitem request="0" response="000000" foes="100000" cont="0"/>
-      <logicitem request="1" response="000000" foes="100000" cont="0"/>
-      <logicitem request="2" response="011000" foes="011000" cont="1"/>
-      <logicitem request="3" response="000000" foes="000100" cont="0"/>
-      <logicitem request="4" response="000000" foes="000100" cont="0"/>
-      <logicitem request="5" response="000011" foes="000011" cont="1"/>
+   <logicitem request="0" response="000000" foes="100000" cont="0"/><logicitem request="1" response="000000" foes="100000" cont="0"/><logicitem request="2" response="011000" foes="011000" cont="1"/><logicitem request="3" response="000000" foes="000100" cont="0"/><logicitem request="4" response="000000" foes="000100" cont="0"/><logicitem request="5" response="000011" foes="000011" cont="1"/>
    </row-logic>
-   <row-logic id="-29" requestSize="1">
-      <logicitem request="0" response="0" foes="0" cont="0"/>
+   <logicitem request="0" response="0" foes="0" cont="0"/>
    </row-logic>
-   <row-logic id="-30" requestSize="1">
-      <logicitem request="0" response="0" foes="0" cont="0"/>
+   <logicitem request="0" response="0" foes="0" cont="0"/>
    </row-logic>
-   <row-logic id="-7" requestSize="16">
-      <logicitem request="0" response="0000000000100000" foes="1000010000100000" cont="0"/>
-      <logicitem request="1" response="0111000001100000" foes="0111110001100000" cont="0"/>
-      <logicitem request="2" response="0110001101100000" foes="0110001111100000" cont="1"/>
-      <logicitem request="3" response="0100001000010000" foes="0100001000010000" cont="1"/>
-      <logicitem request="4" response="0000000000000000" foes="0100001000001000" cont="0"/>
-      <logicitem request="5" response="0000000000000000" foes="1100011000000111" cont="0"/>
-      <logicitem request="6" response="0011000000000000" foes="0011111000000110" cont="1"/>
-      <logicitem request="7" response="0010000100000100" foes="0010000100000100" cont="1"/>
-      <logicitem request="8" response="0010000000000000" foes="0010000010000100" cont="0"/>
-      <logicitem request="9" response="0110000001110000" foes="0110000001111100" cont="0"/>
-      <logicitem request="10" response="0110000001100011" foes="1110000001100011" cont="1"/>
-      <logicitem request="11" response="0001000001000010" foes="0001000001000010" cont="1"/>
-      <logicitem request="12" response="0000000000000000" foes="0000100001000010" cont="0"/>
-      <logicitem request="13" response="0000000000000000" foes="0000011111000110" cont="0"/>
-      <logicitem request="14" response="0000000000110000" foes="0000011000111110" cont="1"/>
-      <logicitem request="15" response="0000010000100001" foes="0000010000100001" cont="1"/>
+   <logicitem request="0" response="0000000000100000" foes="1000010000100000" cont="0"/><logicitem request="1" response="0111000001100000" foes="0111110001100000" cont="0"/><logicitem request="2" response="0110001101100000" foes="0110001111100000" cont="1"/><logicitem request="3" response="0100001000010000" foes="0100001000010000" cont="1"/><logicitem request="4" response="0000000000000000" foes="0100001000001000" cont="0"/><logicitem request="5" response="0000000000000000" foes="1100011000000111" cont="0"/><logicitem request="6" response="0011000000000000" foes="0011111000000110" cont="1"/><logicitem request="7" response="0010000100000100" foes="0010000100000100" cont="1"/><logicitem request="8" response="0010000000000000" foes="0010000010000100" cont="0"/><logicitem request="9" response="0110000001110000" foes="0110000001111100" cont="0"/><logicitem request="10" response="0110000001100011" foes="1110000001100011" cont="1"/><logicitem request="11" response="0001000001000010" foes="0001000001000010" cont="1"/><logicitem request="12" response="0000000000000000" foes="0000100001000010" cont="0"/><logicitem request="13" response="0000000000000000" foes="0000011111000110" cont="0"/><logicitem request="14" response="0000000000110000" foes="0000011000111110" cont="1"/><logicitem request="15" response="0000010000100001" foes="0000010000100001" cont="1"/>
    </row-logic>
-   <row-logic id="-9" requestSize="1">
-      <logicitem request="0" response="0" foes="0" cont="0"/>
+   <logicitem request="0" response="0" foes="0" cont="0"/>
    </row-logic>
 
    <tl-logic id="-26" type="static" programID="0" offset="0">

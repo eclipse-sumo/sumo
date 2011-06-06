@@ -1,4 +1,3 @@
-<?xml version="1.0"?>
 <districts>
    <district id="D1">
       <dsource id="L1" weight="1"/>
@@ -81,4 +80,3 @@
       <dsink id="L4" weight="1"/>
    </district>
 </districts>
-

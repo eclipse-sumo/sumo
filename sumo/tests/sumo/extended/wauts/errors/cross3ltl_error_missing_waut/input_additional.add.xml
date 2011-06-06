@@ -1,13 +1,13 @@
 <additional>
     <timed_event dest="tls_state_switch.xml" source="0" type="SaveTLSSwitchStates"/>
 
-   <tl-logic id="0" type="static" programID="S1" offset="0">
+   <tlLogic id="0" type="static" programID="S1" offset="0">
       <phase duration="50" state="GGggrrrrGGggrrrr"/>
-   </tl-logic>
+   </tlLogic>
 
-   <tl-logic id="0" type="static" programID="S2" offset="0">
+   <tlLogic id="0" type="static" programID="S2" offset="0">
       <phase duration="50" state="rrrrGGggrrrrGGgg"/>
-   </tl-logic>
+   </tlLogic>
 
 	<wautJunction junctionID="0" wautID="w1"></wautJunction>
 

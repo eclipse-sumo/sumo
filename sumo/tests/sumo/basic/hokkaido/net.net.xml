@@ -57,18 +57,13 @@
       <lane id="source_0" depart="1" maxspeed="13.90" length="498.50" shape="0.00,-1.65 498.50,-1.65"/>
    </edge>
 
-   <row-logic id="dl" requestSize="2">
-      <logicitem request="0" response="10" foes="10" cont="0"/>
-      <logicitem request="1" response="00" foes="01" cont="0"/>
+   <logicitem request="0" response="10" foes="10" cont="0"/><logicitem request="1" response="00" foes="01" cont="0"/>
    </row-logic>
-   <row-logic id="dr" requestSize="1">
-      <logicitem request="0" response="0" foes="0" cont="0"/>
+   <logicitem request="0" response="0" foes="0" cont="0"/>
    </row-logic>
-   <row-logic id="tl" requestSize="1">
-      <logicitem request="0" response="0" foes="0" cont="0"/>
+   <logicitem request="0" response="0" foes="0" cont="0"/>
    </row-logic>
-   <row-logic id="tr" requestSize="1">
-      <logicitem request="0" response="0" foes="0" cont="0"/>
+   <logicitem request="0" response="0" foes="0" cont="0"/>
    </row-logic>
 
    <junction id="dl" type="priority" x="500.00" y="0.00" incLanes="source_0 4_0" intLanes=":dl_0_0 :dl_1_0" shape="501.50,1.60 501.50,-1.60 498.50,-3.25 498.50,-0.05"/>

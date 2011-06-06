@@ -1,7 +1,6 @@
 <districts>
-   <district id="1" edges="beg beg2left">
+   <district edges="beg beg2left" id="1">
    </district>
-   <district id="2" edges="end rend">
+   <district edges="end rend" id="2">
    </district>
 </districts>
-

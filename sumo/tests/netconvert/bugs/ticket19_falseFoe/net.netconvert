@@ -64,7 +64,7 @@
       <lane id=":6562_0_0" depart="0" maxspeed="13.90" length="4.82" shape="135.66,423.97 134.74,425.15 133.89,425.50 133.10,425.02 132.36,423.73"/>
    </edge>
 
-   <edge id="-1570" from="6366" to="6365" priority="-1" spread_type="center" shape="0.00,0.00 1.75,1.30 2.23,7.92 121.83,241.60 142.08,247.70 146.87,250.87">
+   <edge id="-1570" from="6366" to="6365" priority="-1">
       <lane id="-1570_0" depart="1" maxspeed="13.90" length="292.14" shape="0.00,0.00 1.75,1.30 2.23,7.92 121.83,241.60 141.76,247.60"/>
    </edge>
    <edge id="-1839" from="6454" to="6365" priority="-1">
@@ -73,7 +73,7 @@
    <edge id="-1841" from="6365" to="6562" priority="-1">
       <lane id="-1841_0" depart="1" maxspeed="13.90" length="170.26" shape="148.28,254.18 135.66,423.97"/>
    </edge>
-   <edge id="1816" from="6564" to="6365" priority="-1" spread_type="center" shape="224.35,221.05 220.91,224.24 162.04,248.16 154.71,250.79 152.01,251.40 146.87,250.87">
+   <edge id="1816" from="6564" to="6365" priority="-1">
       <lane id="1816_0" depart="1" maxspeed="13.90" length="79.16" shape="224.35,221.05 220.91,224.24 162.04,248.16 154.71,250.79 152.01,251.40 151.64,251.36"/>
    </edge>
    <edge id="1839" from="6365" to="6454" priority="-1">
@@ -83,21 +83,11 @@
       <lane id="1841_0" depart="1" maxspeed="13.90" length="170.26" shape="132.36,423.73 144.99,253.93"/>
    </edge>
 
-   <row-logic id="6365" requestSize="8">
-      <logicitem request="0" response="00000100" foes="10100100" cont="0"/>
-      <logicitem request="1" response="01010100" foes="01011100" cont="1"/>
-      <logicitem request="2" response="00000000" foes="10100011" cont="0"/>
-      <logicitem request="3" response="01010010" foes="01010010" cont="1"/>
-      <logicitem request="4" response="01000000" foes="01001010" cont="0"/>
-      <logicitem request="5" response="01000101" foes="11000101" cont="1"/>
-      <logicitem request="6" response="00000000" foes="00111010" cont="0"/>
-      <logicitem request="7" response="00100101" foes="00100101" cont="1"/>
+   <logicitem request="0" response="00000100" foes="10100100" cont="0"/><logicitem request="1" response="01010100" foes="01011100" cont="1"/><logicitem request="2" response="00000000" foes="10100011" cont="0"/><logicitem request="3" response="01010010" foes="01010010" cont="1"/><logicitem request="4" response="01000000" foes="01001010" cont="0"/><logicitem request="5" response="01000101" foes="11000101" cont="1"/><logicitem request="6" response="00000000" foes="00111010" cont="0"/><logicitem request="7" response="00100101" foes="00100101" cont="1"/>
    </row-logic>
-   <row-logic id="6454" requestSize="1">
-      <logicitem request="0" response="0" foes="0" cont="0"/>
+   <logicitem request="0" response="0" foes="0" cont="0"/>
    </row-logic>
-   <row-logic id="6562" requestSize="1">
-      <logicitem request="0" response="0" foes="0" cont="0"/>
+   <logicitem request="0" response="0" foes="0" cont="0"/>
    </row-logic>
 
    <tl-logic id="6365" type="static" programID="0" offset="0">
