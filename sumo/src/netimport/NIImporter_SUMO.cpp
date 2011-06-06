@@ -239,6 +239,7 @@ NIImporter_SUMO::myStartElement(int element,
     case SUMO_TAG_SUCCLANE:
         addSuccLane(attrs);
         break;
+    case SUMO_TAG_TLLOGIC__DEPRECATED:
     case SUMO_TAG_TLLOGIC:
         initTrafficLightLogic(attrs);
         break;
@@ -277,6 +278,7 @@ NIImporter_SUMO::myEndElement(int element) throw(ProcessError) {
         }
         myCurrentLane = 0;
         break;
+    case SUMO_TAG_TLLOGIC__DEPRECATED:
     case SUMO_TAG_TLLOGIC:
         if (!myCurrentTL) {
             WRITE_ERROR("Unmatched closing tag for tl-logic.");
