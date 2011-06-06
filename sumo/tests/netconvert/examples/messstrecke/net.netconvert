@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 
-<!-- generated on 06/01/11 09:27:37 by SUMO netconvert Version dev-SVN-r10489
+<!-- generated on Mon Jun  6 14:54:45 2011 by SUMO netconvert Version dev-SVN-r10510
 <?xml version="1.0" encoding="iso-8859-1"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
@@ -504,10 +504,10 @@
    <junction id=":ErnstRuskaVolmer_8_0" type="internal" x="1585.15" y="201.65" incLanes=":ErnstRuskaVolmer_7_0 ErnstRuska4W_0 ErnstRuska4W_1" intLanes=":ErnstRuskaVolmer_2_0 :ErnstRuskaVolmer_3_0 :ErnstRuskaVolmer_4_0" shape=""/>
 
    <succ edge="AltglienickerBreitN" lane="AltglienickerBreitN_0" junction="ErnstRuskaAltglienicker">
-      <succlane lane="ErnstRuska5O_0" via=":ErnstRuskaAltglienicker_3_0" tl="ErnstRuskaAltglienicker" linkno="3" dir="r" state="t"/>
+      <succlane lane="ErnstRuska5O_0" via=":ErnstRuskaAltglienicker_3_0" tl="ErnstRuskaAltglienicker" linkno="3" dir="r" state="o"/>
    </succ>
    <succ edge="AltglienickerBreitN" lane="AltglienickerBreitN_1" junction="ErnstRuskaAltglienicker">
-      <succlane lane="ErnstRuska4W_1" via=":ErnstRuskaAltglienicker_4_0" tl="ErnstRuskaAltglienicker" linkno="4" dir="l" state="t"/>
+      <succlane lane="ErnstRuska4W_1" via=":ErnstRuskaAltglienicker_4_0" tl="ErnstRuskaAltglienicker" linkno="4" dir="l" state="o"/>
    </succ>
    <succ edge="AltglienickerBreitS" lane="AltglienickerBreitS_0" junction="AltglienickerBreit">
       <succlane lane="AltglienickerS_0" via=":AltglienickerBreit_0_0" dir="s" state="M"/>
@@ -607,11 +607,11 @@
       <succlane lane="ErnstRuska232W_1" via=":ErnstRuskaHavestadtDiv2_1_0" dir="s" state="M"/>
    </succ>
    <succ edge="ErnstRuska4O" lane="ErnstRuska4O_0" junction="ErnstRuskaAltglienicker">
-      <succlane lane="AltglienickerBreitS_0" via=":ErnstRuskaAltglienicker_5_0" tl="ErnstRuskaAltglienicker" linkno="5" dir="r" state="t"/>
-      <succlane lane="ErnstRuska5O_0" via=":ErnstRuskaAltglienicker_6_0" tl="ErnstRuskaAltglienicker" linkno="6" dir="s" state="t"/>
+      <succlane lane="AltglienickerBreitS_0" via=":ErnstRuskaAltglienicker_5_0" tl="ErnstRuskaAltglienicker" linkno="5" dir="r" state="o"/>
+      <succlane lane="ErnstRuska5O_0" via=":ErnstRuskaAltglienicker_6_0" tl="ErnstRuskaAltglienicker" linkno="6" dir="s" state="o"/>
    </succ>
    <succ edge="ErnstRuska4O" lane="ErnstRuska4O_1" junction="ErnstRuskaAltglienicker">
-      <succlane lane="ErnstRuska5O_1" via=":ErnstRuskaAltglienicker_7_0" tl="ErnstRuskaAltglienicker" linkno="7" dir="s" state="t"/>
+      <succlane lane="ErnstRuska5O_1" via=":ErnstRuskaAltglienicker_7_0" tl="ErnstRuskaAltglienicker" linkno="7" dir="s" state="o"/>
    </succ>
    <succ edge="ErnstRuska4W" lane="ErnstRuska4W_0" junction="ErnstRuskaVolmer">
       <succlane lane="VolmerN_0" via=":ErnstRuskaVolmer_2_0" dir="r" state="M"/>
@@ -627,13 +627,13 @@
       <succlane lane="ErnstRuskaSink5O_1" via=":ErnstRuskaEnd2_4_0" dir="s" state="M"/>
    </succ>
    <succ edge="ErnstRuska5W" lane="ErnstRuska5W_0" junction="ErnstRuskaAltglienicker">
-      <succlane lane="ErnstRuska4W_0" via=":ErnstRuskaAltglienicker_0_0" tl="ErnstRuskaAltglienicker" linkno="0" dir="s" state="t"/>
+      <succlane lane="ErnstRuska4W_0" via=":ErnstRuskaAltglienicker_0_0" tl="ErnstRuskaAltglienicker" linkno="0" dir="s" state="o"/>
    </succ>
    <succ edge="ErnstRuska5W" lane="ErnstRuska5W_1" junction="ErnstRuskaAltglienicker">
-      <succlane lane="ErnstRuska4W_1" via=":ErnstRuskaAltglienicker_1_0" tl="ErnstRuskaAltglienicker" linkno="1" dir="s" state="t"/>
+      <succlane lane="ErnstRuska4W_1" via=":ErnstRuskaAltglienicker_1_0" tl="ErnstRuskaAltglienicker" linkno="1" dir="s" state="o"/>
    </succ>
    <succ edge="ErnstRuska5W" lane="ErnstRuska5W_2" junction="ErnstRuskaAltglienicker">
-      <succlane lane="AltglienickerBreitS_0" via=":ErnstRuskaAltglienicker_2_0" tl="ErnstRuskaAltglienicker" linkno="2" dir="l" state="t"/>
+      <succlane lane="AltglienickerBreitS_0" via=":ErnstRuskaAltglienicker_2_0" tl="ErnstRuskaAltglienicker" linkno="2" dir="l" state="o"/>
    </succ>
    <succ edge="ErnstRuskaSink1O" lane="ErnstRuskaSink1O_0" junction="ErnstRuskaEnd1">
       <succlane lane="ErnstRuska1O_0" via=":ErnstRuskaEnd1_2_0" dir="s" state="M"/>

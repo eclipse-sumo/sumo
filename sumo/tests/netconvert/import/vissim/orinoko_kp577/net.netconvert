@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 
-<!-- generated on 06/01/11 09:28:22 by SUMO netconvert Version dev-SVN-r10489
+<!-- generated on Mon Jun  6 14:55:04 2011 by SUMO netconvert Version dev-SVN-r10510
 <?xml version="1.0" encoding="iso-8859-1"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
@@ -883,57 +883,57 @@
       <succlane lane="89_0" dir="s" state="M"/>
    </succ>
    <succ edge="1000701" lane="1000701_0" junction="605001196">
-      <succlane lane="1000709_0" tl="1" linkno="8" dir="l" state="t"/>
+      <succlane lane="1000709_0" tl="1" linkno="8" dir="l" state="o"/>
    </succ>
    <succ edge="1000702[0]" lane="1000702[0]_0" junction="605001197">
       <succlane lane="1000702[1]_0" dir="s" state="M"/>
       <succlane lane="1000701_0" dir="s" state="M"/>
    </succ>
    <succ edge="1000702[1]" lane="1000702[1]_0" junction="605001196">
-      <succlane lane="1000703_0" tl="1" linkno="6" dir="r" state="t"/>
-      <succlane lane="1000706_0" tl="1" linkno="7" dir="s" state="t"/>
+      <succlane lane="1000703_0" tl="1" linkno="6" dir="r" state="o"/>
+      <succlane lane="1000706_0" tl="1" linkno="7" dir="s" state="o"/>
    </succ>
    <succ edge="1000703" lane="1000703_0" junction="605001168">
       <succlane lane="41_0" dir="s" state="M"/>
    </succ>
    <succ edge="1000704" lane="1000704_0" junction="605001196">
-      <succlane lane="1000700_0" tl="1" linkno="3" dir="l" state="t"/>
+      <succlane lane="1000700_0" tl="1" linkno="3" dir="l" state="o"/>
    </succ>
    <succ edge="1000705[0]" lane="1000705[0]_0" junction="605001198">
       <succlane lane="1000705[1]_0" dir="s" state="M"/>
       <succlane lane="1000704_0" dir="s" state="M"/>
    </succ>
    <succ edge="1000705[1]" lane="1000705[1]_0" junction="605001196">
-      <succlane lane="1000706_0" tl="1" linkno="4" dir="r" state="t"/>
-      <succlane lane="1000709_0" tl="1" linkno="5" dir="s" state="t"/>
+      <succlane lane="1000706_0" tl="1" linkno="4" dir="r" state="o"/>
+      <succlane lane="1000709_0" tl="1" linkno="5" dir="s" state="o"/>
    </succ>
    <succ edge="1000706" lane="1000706_0" junction="605001144">
       <succlane lane="11_0" dir="s" state="M"/>
    </succ>
    <succ edge="1000707" lane="1000707_0" junction="605001196">
-      <succlane lane="1000703_0" tl="1" linkno="1" dir="l" state="t"/>
+      <succlane lane="1000703_0" tl="1" linkno="1" dir="l" state="o"/>
    </succ>
    <succ edge="1000708[0]" lane="1000708[0]_0" junction="605001199">
       <succlane lane="1000708[1]_0" dir="s" state="M"/>
       <succlane lane="1000707_0" dir="s" state="M"/>
    </succ>
    <succ edge="1000708[1]" lane="1000708[1]_0" junction="605001196">
-      <succlane lane="1000709_0" tl="1" linkno="2" dir="r" state="t"/>
-      <succlane lane="1000700_0" tl="1" linkno="0" dir="s" state="t"/>
+      <succlane lane="1000709_0" tl="1" linkno="2" dir="r" state="o"/>
+      <succlane lane="1000700_0" tl="1" linkno="0" dir="s" state="o"/>
    </succ>
    <succ edge="1000709" lane="1000709_0" junction="605001194">
       <succlane lane="96_0" dir="s" state="M"/>
    </succ>
    <succ edge="1000710" lane="1000710_0" junction="605001196">
-      <succlane lane="1000706_0" tl="1" linkno="11" dir="l" state="t"/>
+      <succlane lane="1000706_0" tl="1" linkno="11" dir="l" state="o"/>
    </succ>
    <succ edge="1000711[0]" lane="1000711[0]_0" junction="605001200">
       <succlane lane="1000711[1]_0" dir="s" state="M"/>
       <succlane lane="1000710_0" dir="s" state="M"/>
    </succ>
    <succ edge="1000711[1]" lane="1000711[1]_0" junction="605001196">
-      <succlane lane="1000700_0" tl="1" linkno="9" dir="r" state="t"/>
-      <succlane lane="1000703_0" tl="1" linkno="10" dir="s" state="t"/>
+      <succlane lane="1000700_0" tl="1" linkno="9" dir="r" state="o"/>
+      <succlane lane="1000703_0" tl="1" linkno="10" dir="s" state="o"/>
    </succ>
    <succ edge="1001201" lane="1001201_0" junction="605001201">
       <succlane lane="1001204_1" dir="l" state="m"/>

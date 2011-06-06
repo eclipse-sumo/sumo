@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 
-<!-- generated on 06/01/11 09:29:17 by SUMO netconvert Version dev-SVN-r10489
+<!-- generated on Mon Jun  6 14:55:42 2011 by SUMO netconvert Version dev-SVN-r10510
 <?xml version="1.0" encoding="iso-8859-1"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
@@ -121,26 +121,26 @@
    <junction id=":6365_11_0" type="internal" x="146.76" y="252.41" incLanes=":6365_7_0 -1839_0" intLanes=":6365_2_0" shape=""/>
 
    <succ edge="-1570" lane="-1570_0" junction="6365">
-      <succlane lane="1839_0" via=":6365_4_0" tl="6365" linkno="4" dir="r" state="t"/>
-      <succlane lane="-1841_0" via=":6365_5_0" tl="6365" linkno="5" dir="l" state="t"/>
+      <succlane lane="1839_0" via=":6365_4_0" tl="6365" linkno="4" dir="r" state="o"/>
+      <succlane lane="-1841_0" via=":6365_5_0" tl="6365" linkno="5" dir="l" state="o"/>
    </succ>
    <succ edge="-1839" lane="-1839_0" junction="6365">
-      <succlane lane="-1841_0" via=":6365_2_0" tl="6365" linkno="2" dir="s" state="t"/>
-      <succlane lane="1839_0" via=":6365_3_0" tl="6365" linkno="3" dir="t" state="t"/>
+      <succlane lane="-1841_0" via=":6365_2_0" tl="6365" linkno="2" dir="s" state="o"/>
+      <succlane lane="1839_0" via=":6365_3_0" tl="6365" linkno="3" dir="t" state="o"/>
    </succ>
    <succ edge="-1841" lane="-1841_0" junction="6562">
       <succlane lane="1841_0" via=":6562_0_0" dir="t" state="M"/>
    </succ>
    <succ edge="1816" lane="1816_0" junction="6365">
-      <succlane lane="-1841_0" via=":6365_0_0" tl="6365" linkno="0" dir="r" state="t"/>
-      <succlane lane="1839_0" via=":6365_1_0" tl="6365" linkno="1" dir="l" state="t"/>
+      <succlane lane="-1841_0" via=":6365_0_0" tl="6365" linkno="0" dir="r" state="o"/>
+      <succlane lane="1839_0" via=":6365_1_0" tl="6365" linkno="1" dir="l" state="o"/>
    </succ>
    <succ edge="1839" lane="1839_0" junction="6454">
       <succlane lane="-1839_0" via=":6454_0_0" dir="t" state="M"/>
    </succ>
    <succ edge="1841" lane="1841_0" junction="6365">
-      <succlane lane="1839_0" via=":6365_6_0" tl="6365" linkno="6" dir="s" state="t"/>
-      <succlane lane="-1841_0" via=":6365_7_0" tl="6365" linkno="7" dir="t" state="t"/>
+      <succlane lane="1839_0" via=":6365_6_0" tl="6365" linkno="6" dir="s" state="o"/>
+      <succlane lane="-1841_0" via=":6365_7_0" tl="6365" linkno="7" dir="t" state="o"/>
    </succ>
 
    <succ edge=":6365_0" lane=":6365_0_0" junction="6365">

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 
-<!-- generated on 06/01/11 09:29:49 by SUMO netgen Version dev-SVN-r10489
+<!-- generated on Mon Jun  6 14:55:58 2011 by SUMO netgen Version dev-SVN-r10510
 <?xml version="1.0" encoding="iso-8859-1"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netgenConfiguration.xsd">
@@ -139,7 +139,7 @@
       <lane id=":1/0_11_0" depart="0" maxspeed="13.90" length="2.41" shape="36.90,-0.00 36.49,0.82 35.25,1.65"/>
    </edge>
    <edge id=":1/1_0" function="internal">
-      <lane id=":1/1_0_0" depart="0" maxspeed="13.90" length="5.00" shape="38.35,44.75 38.16,43.39 37.57,42.43 36.61,41.84 35.25,41.65"/>
+      <lane id=":1/1_0_0" depart="0" maxspeed="13.90" length="5.00" shape="38.35,44.75 38.16,43.39 37.58,42.43 36.61,41.84 35.25,41.65"/>
    </edge>
    <edge id=":1/1_1" function="internal">
       <lane id=":1/1_1_0" depart="0" maxspeed="13.90" length="9.50" shape="38.35,44.75 38.35,35.25"/>
@@ -253,7 +253,7 @@
       <lane id=":2/0_5_0" depart="0" maxspeed="13.90" length="2.41" shape="78.40,-0.00 77.99,0.82 76.75,1.65"/>
    </edge>
    <edge id=":2/1_0" function="internal">
-      <lane id=":2/1_0_0" depart="0" maxspeed="13.90" length="5.00" shape="78.35,44.75 78.16,43.39 77.57,42.43 76.61,41.84 75.25,41.65"/>
+      <lane id=":2/1_0_0" depart="0" maxspeed="13.90" length="5.00" shape="78.35,44.75 78.16,43.39 77.58,42.43 76.61,41.84 75.25,41.65"/>
    </edge>
    <edge id=":2/1_1" function="internal">
       <lane id=":2/1_1_0" depart="0" maxspeed="13.90" length="9.50" shape="78.35,44.75 78.35,35.25"/>
@@ -520,8 +520,8 @@
       <succlane lane="1/0to0/0_0" via=":1/0_8_0" dir="t" state="m"/>
    </succ>
    <succ edge="0/1to0/0" lane="0/1to0/0_0" junction="0/0">
-      <succlane lane="0/0to1/0_0" via=":0/0_0_0" tl="0/0" linkno="0" dir="l" state="t"/>
-      <succlane lane="0/0to0/1_0" via=":0/0_1_0" tl="0/0" linkno="1" dir="t" state="t"/>
+      <succlane lane="0/0to1/0_0" via=":0/0_0_0" tl="0/0" linkno="0" dir="l" state="o"/>
+      <succlane lane="0/0to0/1_0" via=":0/0_1_0" tl="0/0" linkno="1" dir="t" state="o"/>
    </succ>
    <succ edge="0/1to0/2" lane="0/1to0/2_0" junction="0/2">
       <succlane lane="0/2to1/2_0" via=":0/2_2_0" dir="r" state="M"/>
@@ -544,8 +544,8 @@
       <succlane lane="1/2to0/2_0" via=":1/2_8_0" dir="t" state="m"/>
    </succ>
    <succ edge="1/0to0/0" lane="1/0to0/0_0" junction="0/0">
-      <succlane lane="0/0to0/1_0" via=":0/0_2_0" tl="0/0" linkno="2" dir="r" state="t"/>
-      <succlane lane="0/0to1/0_0" via=":0/0_3_0" tl="0/0" linkno="3" dir="t" state="t"/>
+      <succlane lane="0/0to0/1_0" via=":0/0_2_0" tl="0/0" linkno="2" dir="r" state="o"/>
+      <succlane lane="0/0to1/0_0" via=":0/0_3_0" tl="0/0" linkno="3" dir="t" state="o"/>
    </succ>
    <succ edge="1/0to1/1" lane="1/0to1/1_0" junction="1/1">
       <succlane lane="1/1to2/1_0" via=":1/1_8_0" dir="r" state="M"/>

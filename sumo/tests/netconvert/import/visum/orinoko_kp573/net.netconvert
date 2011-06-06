@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 
-<!-- generated on 06/01/11 09:28:20 by SUMO netconvert Version dev-SVN-r10489
+<!-- generated on Mon Jun  6 14:55:04 2011 by SUMO netconvert Version dev-SVN-r10510
 <?xml version="1.0" encoding="iso-8859-1"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
@@ -514,13 +514,13 @@
       <succlane lane="53091628_1" dir="t" state="m"/>
    </succ>
    <succ edge="-53091655" lane="-53091655_0" junction="1565">
-      <succlane lane="905002548_0" tl="1565" linkno="11" dir="r" state="t"/>
+      <succlane lane="905002548_0" tl="1565" linkno="11" dir="r" state="o"/>
    </succ>
    <succ edge="-53091655" lane="-53091655_1" junction="1565">
-      <succlane lane="905002551_1" tl="1565" linkno="1" dir="s" state="t"/>
+      <succlane lane="905002551_1" tl="1565" linkno="1" dir="s" state="o"/>
    </succ>
    <succ edge="-53091655" lane="-53091655_2" junction="1565">
-      <succlane lane="-905002550_1" tl="1565" linkno="0" dir="l" state="t"/>
+      <succlane lane="-905002550_1" tl="1565" linkno="0" dir="l" state="o"/>
    </succ>
    <succ edge="-545279717" lane="-545279717_0" junction="100674627">
       <succlane lane="-59394070_0" dir="s" state="M"/>
@@ -574,17 +574,17 @@
       <succlane lane="905002541_1" dir="t" state="m"/>
    </succ>
    <succ edge="-905002548" lane="-905002548_0" junction="1565">
-      <succlane lane="905002551_0" tl="1565" linkno="9" dir="r" state="t"/>
-      <succlane lane="-905002550_0" tl="1565" linkno="8" dir="s" state="t"/>
+      <succlane lane="905002551_0" tl="1565" linkno="9" dir="r" state="o"/>
+      <succlane lane="-905002550_0" tl="1565" linkno="8" dir="s" state="o"/>
    </succ>
    <succ edge="-905002548" lane="-905002548_1" junction="1565">
-      <succlane lane="-905002550_1" tl="1565" linkno="8" dir="s" state="t"/>
+      <succlane lane="-905002550_1" tl="1565" linkno="8" dir="s" state="o"/>
    </succ>
    <succ edge="-905002548" lane="-905002548_2" junction="1565">
-      <succlane lane="53091655_0" tl="1565" linkno="10" dir="l" state="t"/>
+      <succlane lane="53091655_0" tl="1565" linkno="10" dir="l" state="o"/>
    </succ>
    <succ edge="-905002548" lane="-905002548_3" junction="1565">
-      <succlane lane="53091655_1" tl="1565" linkno="10" dir="l" state="t"/>
+      <succlane lane="53091655_1" tl="1565" linkno="10" dir="l" state="o"/>
    </succ>
    <succ edge="-905002550" lane="-905002550_0" junction="1564">
       <succlane lane="-53091628_0" dir="s" state="M"/>
@@ -596,11 +596,11 @@
    <succ edge="-905002551" lane="-905002551_0" junction="1565">
    </succ>
    <succ edge="-905002551" lane="-905002551_1" junction="1565">
-      <succlane lane="-905002550_1" tl="1565" linkno="7" dir="r" state="t"/>
-      <succlane lane="53091655_1" tl="1565" linkno="5" dir="s" state="t"/>
+      <succlane lane="-905002550_1" tl="1565" linkno="7" dir="r" state="o"/>
+      <succlane lane="53091655_1" tl="1565" linkno="5" dir="s" state="o"/>
    </succ>
    <succ edge="-905002551" lane="-905002551_2" junction="1565">
-      <succlane lane="905002548_1" tl="1565" linkno="6" dir="l" state="t"/>
+      <succlane lane="905002548_1" tl="1565" linkno="6" dir="l" state="o"/>
       <succlane lane="905002551_1" dir="t" state="m"/>
    </succ>
    <succ edge="-905002586" lane="-905002586_0" junction="100668229">
@@ -754,14 +754,14 @@
       <succlane lane="-905002548_3" dir="t" state="m"/>
    </succ>
    <succ edge="905002550" lane="905002550_0" junction="1565">
-      <succlane lane="53091655_0" tl="1565" linkno="2" dir="r" state="t"/>
-      <succlane lane="905002548_0" tl="1565" linkno="3" dir="s" state="t"/>
+      <succlane lane="53091655_0" tl="1565" linkno="2" dir="r" state="o"/>
+      <succlane lane="905002548_0" tl="1565" linkno="3" dir="s" state="o"/>
    </succ>
    <succ edge="905002550" lane="905002550_1" junction="1565">
-      <succlane lane="905002548_1" tl="1565" linkno="3" dir="s" state="t"/>
+      <succlane lane="905002548_1" tl="1565" linkno="3" dir="s" state="o"/>
    </succ>
    <succ edge="905002550" lane="905002550_2" junction="1565">
-      <succlane lane="905002551_1" tl="1565" linkno="4" dir="l" state="t"/>
+      <succlane lane="905002551_1" tl="1565" linkno="4" dir="l" state="o"/>
       <succlane lane="-905002550_1" dir="t" state="m"/>
    </succ>
    <succ edge="905002551" lane="905002551_0" junction="100667891">

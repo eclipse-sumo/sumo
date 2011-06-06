@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 
-<!-- generated on 06/01/11 09:29:47 by SUMO netgen Version dev-SVN-r10489
+<!-- generated on Mon Jun  6 14:55:56 2011 by SUMO netgen Version dev-SVN-r10510
 <?xml version="1.0" encoding="iso-8859-1"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netgenConfiguration.xsd">
@@ -425,34 +425,34 @@
       <succlane lane="1to1/1_0" via=":1_7_0" dir="t" state="M"/>
    </succ>
    <succ edge="1/1to2/1" lane="1/1to2/1_0" junction="2/1">
-      <succlane lane="2/1to3/1_0" via=":2/1_0_0" tl="2/1" linkno="0" dir="L" state="t"/>
-      <succlane lane="2/1to1_0" via=":2/1_1_0" tl="2/1" linkno="1" dir="l" state="t"/>
-      <succlane lane="2/1to1/1_0" via=":2/1_2_0" tl="2/1" linkno="2" dir="t" state="t"/>
+      <succlane lane="2/1to3/1_0" via=":2/1_0_0" tl="2/1" linkno="0" dir="L" state="o"/>
+      <succlane lane="2/1to1_0" via=":2/1_1_0" tl="2/1" linkno="1" dir="l" state="o"/>
+      <succlane lane="2/1to1/1_0" via=":2/1_2_0" tl="2/1" linkno="2" dir="t" state="o"/>
    </succ>
    <succ edge="1/1to4/1" lane="1/1to4/1_0" junction="4/1">
-      <succlane lane="4/1to1_0" via=":4/1_3_0" tl="4/1" linkno="3" dir="r" state="t"/>
-      <succlane lane="4/1to3/1_0" via=":4/1_4_0" tl="4/1" linkno="4" dir="R" state="t"/>
-      <succlane lane="4/1to1/1_0" via=":4/1_5_0" tl="4/1" linkno="5" dir="t" state="t"/>
+      <succlane lane="4/1to1_0" via=":4/1_3_0" tl="4/1" linkno="3" dir="r" state="o"/>
+      <succlane lane="4/1to3/1_0" via=":4/1_4_0" tl="4/1" linkno="4" dir="R" state="o"/>
+      <succlane lane="4/1to1/1_0" via=":4/1_5_0" tl="4/1" linkno="5" dir="t" state="o"/>
    </succ>
    <succ edge="1to1/1" lane="1to1/1_0" junction="1/1">
-      <succlane lane="1/1to4/1_0" via=":1/1_3_0" tl="1/1" linkno="3" dir="r" state="t"/>
-      <succlane lane="1/1to2/1_0" via=":1/1_4_0" tl="1/1" linkno="4" dir="l" state="t"/>
-      <succlane lane="1/1to1_0" via=":1/1_5_0" tl="1/1" linkno="5" dir="t" state="t"/>
+      <succlane lane="1/1to4/1_0" via=":1/1_3_0" tl="1/1" linkno="3" dir="r" state="o"/>
+      <succlane lane="1/1to2/1_0" via=":1/1_4_0" tl="1/1" linkno="4" dir="l" state="o"/>
+      <succlane lane="1/1to1_0" via=":1/1_5_0" tl="1/1" linkno="5" dir="t" state="o"/>
    </succ>
    <succ edge="1to2/1" lane="1to2/1_0" junction="2/1">
-      <succlane lane="2/1to1/1_0" via=":2/1_3_0" tl="2/1" linkno="3" dir="r" state="t"/>
-      <succlane lane="2/1to3/1_0" via=":2/1_4_0" tl="2/1" linkno="4" dir="l" state="t"/>
-      <succlane lane="2/1to1_0" via=":2/1_5_0" tl="2/1" linkno="5" dir="t" state="t"/>
+      <succlane lane="2/1to1/1_0" via=":2/1_3_0" tl="2/1" linkno="3" dir="r" state="o"/>
+      <succlane lane="2/1to3/1_0" via=":2/1_4_0" tl="2/1" linkno="4" dir="l" state="o"/>
+      <succlane lane="2/1to1_0" via=":2/1_5_0" tl="2/1" linkno="5" dir="t" state="o"/>
    </succ>
    <succ edge="1to3/1" lane="1to3/1_0" junction="3/1">
-      <succlane lane="3/1to2/1_0" via=":3/1_3_0" tl="3/1" linkno="3" dir="r" state="t"/>
-      <succlane lane="3/1to4/1_0" via=":3/1_4_0" tl="3/1" linkno="4" dir="l" state="t"/>
-      <succlane lane="3/1to1_0" via=":3/1_5_0" tl="3/1" linkno="5" dir="t" state="t"/>
+      <succlane lane="3/1to2/1_0" via=":3/1_3_0" tl="3/1" linkno="3" dir="r" state="o"/>
+      <succlane lane="3/1to4/1_0" via=":3/1_4_0" tl="3/1" linkno="4" dir="l" state="o"/>
+      <succlane lane="3/1to1_0" via=":3/1_5_0" tl="3/1" linkno="5" dir="t" state="o"/>
    </succ>
    <succ edge="1to4/1" lane="1to4/1_0" junction="4/1">
-      <succlane lane="4/1to3/1_0" via=":4/1_0_0" tl="4/1" linkno="0" dir="r" state="t"/>
-      <succlane lane="4/1to1/1_0" via=":4/1_1_0" tl="4/1" linkno="1" dir="l" state="t"/>
-      <succlane lane="4/1to1_0" via=":4/1_2_0" tl="4/1" linkno="2" dir="t" state="t"/>
+      <succlane lane="4/1to3/1_0" via=":4/1_0_0" tl="4/1" linkno="0" dir="r" state="o"/>
+      <succlane lane="4/1to1/1_0" via=":4/1_1_0" tl="4/1" linkno="1" dir="l" state="o"/>
+      <succlane lane="4/1to1_0" via=":4/1_2_0" tl="4/1" linkno="2" dir="t" state="o"/>
    </succ>
    <succ edge="2/1to1" lane="2/1to1_0" junction="1">
       <succlane lane="1to3/1_0" via=":1_0_0" dir="r" state="M"/>
@@ -461,14 +461,14 @@
       <succlane lane="1to2/1_0" via=":1_3_0" dir="t" state="M"/>
    </succ>
    <succ edge="2/1to1/1" lane="2/1to1/1_0" junction="1/1">
-      <succlane lane="1/1to1_0" via=":1/1_6_0" tl="1/1" linkno="6" dir="r" state="t"/>
-      <succlane lane="1/1to4/1_0" via=":1/1_7_0" tl="1/1" linkno="7" dir="R" state="t"/>
-      <succlane lane="1/1to2/1_0" via=":1/1_8_0" tl="1/1" linkno="8" dir="t" state="t"/>
+      <succlane lane="1/1to1_0" via=":1/1_6_0" tl="1/1" linkno="6" dir="r" state="o"/>
+      <succlane lane="1/1to4/1_0" via=":1/1_7_0" tl="1/1" linkno="7" dir="R" state="o"/>
+      <succlane lane="1/1to2/1_0" via=":1/1_8_0" tl="1/1" linkno="8" dir="t" state="o"/>
    </succ>
    <succ edge="2/1to3/1" lane="2/1to3/1_0" junction="3/1">
-      <succlane lane="3/1to4/1_0" via=":3/1_0_0" tl="3/1" linkno="0" dir="L" state="t"/>
-      <succlane lane="3/1to1_0" via=":3/1_1_0" tl="3/1" linkno="1" dir="l" state="t"/>
-      <succlane lane="3/1to2/1_0" via=":3/1_2_0" tl="3/1" linkno="2" dir="t" state="t"/>
+      <succlane lane="3/1to4/1_0" via=":3/1_0_0" tl="3/1" linkno="0" dir="L" state="o"/>
+      <succlane lane="3/1to1_0" via=":3/1_1_0" tl="3/1" linkno="1" dir="l" state="o"/>
+      <succlane lane="3/1to2/1_0" via=":3/1_2_0" tl="3/1" linkno="2" dir="t" state="o"/>
    </succ>
    <succ edge="3/1to1" lane="3/1to1_0" junction="1">
       <succlane lane="1to4/1_0" via=":1_12_0" dir="r" state="M"/>
@@ -477,14 +477,14 @@
       <succlane lane="1to3/1_0" via=":1_15_0" dir="t" state="M"/>
    </succ>
    <succ edge="3/1to2/1" lane="3/1to2/1_0" junction="2/1">
-      <succlane lane="2/1to1_0" via=":2/1_6_0" tl="2/1" linkno="6" dir="r" state="t"/>
-      <succlane lane="2/1to1/1_0" via=":2/1_7_0" tl="2/1" linkno="7" dir="R" state="t"/>
-      <succlane lane="2/1to3/1_0" via=":2/1_8_0" tl="2/1" linkno="8" dir="t" state="t"/>
+      <succlane lane="2/1to1_0" via=":2/1_6_0" tl="2/1" linkno="6" dir="r" state="o"/>
+      <succlane lane="2/1to1/1_0" via=":2/1_7_0" tl="2/1" linkno="7" dir="R" state="o"/>
+      <succlane lane="2/1to3/1_0" via=":2/1_8_0" tl="2/1" linkno="8" dir="t" state="o"/>
    </succ>
    <succ edge="3/1to4/1" lane="3/1to4/1_0" junction="4/1">
-      <succlane lane="4/1to1/1_0" via=":4/1_6_0" tl="4/1" linkno="6" dir="L" state="t"/>
-      <succlane lane="4/1to1_0" via=":4/1_7_0" tl="4/1" linkno="7" dir="l" state="t"/>
-      <succlane lane="4/1to3/1_0" via=":4/1_8_0" tl="4/1" linkno="8" dir="t" state="t"/>
+      <succlane lane="4/1to1/1_0" via=":4/1_6_0" tl="4/1" linkno="6" dir="L" state="o"/>
+      <succlane lane="4/1to1_0" via=":4/1_7_0" tl="4/1" linkno="7" dir="l" state="o"/>
+      <succlane lane="4/1to3/1_0" via=":4/1_8_0" tl="4/1" linkno="8" dir="t" state="o"/>
    </succ>
    <succ edge="4/1to1" lane="4/1to1_0" junction="1">
       <succlane lane="1to1/1_0" via=":1_8_0" dir="r" state="M"/>
@@ -493,14 +493,14 @@
       <succlane lane="1to4/1_0" via=":1_11_0" dir="t" state="M"/>
    </succ>
    <succ edge="4/1to1/1" lane="4/1to1/1_0" junction="1/1">
-      <succlane lane="1/1to2/1_0" via=":1/1_0_0" tl="1/1" linkno="0" dir="L" state="t"/>
-      <succlane lane="1/1to1_0" via=":1/1_1_0" tl="1/1" linkno="1" dir="l" state="t"/>
-      <succlane lane="1/1to4/1_0" via=":1/1_2_0" tl="1/1" linkno="2" dir="t" state="t"/>
+      <succlane lane="1/1to2/1_0" via=":1/1_0_0" tl="1/1" linkno="0" dir="L" state="o"/>
+      <succlane lane="1/1to1_0" via=":1/1_1_0" tl="1/1" linkno="1" dir="l" state="o"/>
+      <succlane lane="1/1to4/1_0" via=":1/1_2_0" tl="1/1" linkno="2" dir="t" state="o"/>
    </succ>
    <succ edge="4/1to3/1" lane="4/1to3/1_0" junction="3/1">
-      <succlane lane="3/1to1_0" via=":3/1_6_0" tl="3/1" linkno="6" dir="r" state="t"/>
-      <succlane lane="3/1to2/1_0" via=":3/1_7_0" tl="3/1" linkno="7" dir="R" state="t"/>
-      <succlane lane="3/1to4/1_0" via=":3/1_8_0" tl="3/1" linkno="8" dir="t" state="t"/>
+      <succlane lane="3/1to1_0" via=":3/1_6_0" tl="3/1" linkno="6" dir="r" state="o"/>
+      <succlane lane="3/1to2/1_0" via=":3/1_7_0" tl="3/1" linkno="7" dir="R" state="o"/>
+      <succlane lane="3/1to4/1_0" via=":3/1_8_0" tl="3/1" linkno="8" dir="t" state="o"/>
    </succ>
 
    <succ edge=":1_0" lane=":1_0_0" junction="1">

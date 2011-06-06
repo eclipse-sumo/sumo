@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 
-<!-- generated on 06/01/11 09:28:53 by SUMO netconvert Version dev-SVN-r10489
+<!-- generated on Mon Jun  6 14:55:31 2011 by SUMO netconvert Version dev-SVN-r10510
 <?xml version="1.0" encoding="iso-8859-1"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
@@ -145,22 +145,22 @@
       <succlane lane="e11_0" via=":n3_0_0" dir="t" state="M"/>
    </succ>
    <succ edge="e11" lane="e11_0" junction="n5">
-      <succlane lane="e13_0" via=":n5_6_0" tl="n5" linkno="6" dir="r" state="t"/>
-      <succlane lane="e22_0" via=":n5_7_0" tl="n5" linkno="7" dir="s" state="t"/>
-      <succlane lane="e10_0" via=":n5_8_0" tl="n5" linkno="8" dir="t" state="t"/>
+      <succlane lane="e13_0" via=":n5_6_0" tl="n5" linkno="6" dir="r" state="o"/>
+      <succlane lane="e22_0" via=":n5_7_0" tl="n5" linkno="7" dir="s" state="o"/>
+      <succlane lane="e10_0" via=":n5_8_0" tl="n5" linkno="8" dir="t" state="o"/>
    </succ>
    <succ edge="e13" lane="e13_0" junction="n1">
       <succlane lane="e16_0" via=":n1_0_0" dir="t" state="M"/>
    </succ>
    <succ edge="e16" lane="e16_0" junction="n5">
-      <succlane lane="e22_0" via=":n5_3_0" tl="n5" linkno="3" dir="r" state="t"/>
-      <succlane lane="e10_0" via=":n5_4_0" tl="n5" linkno="4" dir="l" state="t"/>
-      <succlane lane="e13_0" via=":n5_5_0" tl="n5" linkno="5" dir="t" state="t"/>
+      <succlane lane="e22_0" via=":n5_3_0" tl="n5" linkno="3" dir="r" state="o"/>
+      <succlane lane="e10_0" via=":n5_4_0" tl="n5" linkno="4" dir="l" state="o"/>
+      <succlane lane="e13_0" via=":n5_5_0" tl="n5" linkno="5" dir="t" state="o"/>
    </succ>
    <succ edge="e21" lane="e21_0" junction="n5">
-      <succlane lane="e10_0" via=":n5_0_0" tl="n5" linkno="0" dir="s" state="t"/>
-      <succlane lane="e13_0" via=":n5_1_0" tl="n5" linkno="1" dir="l" state="t"/>
-      <succlane lane="e22_0" via=":n5_2_0" tl="n5" linkno="2" dir="t" state="t"/>
+      <succlane lane="e10_0" via=":n5_0_0" tl="n5" linkno="0" dir="s" state="o"/>
+      <succlane lane="e13_0" via=":n5_1_0" tl="n5" linkno="1" dir="l" state="o"/>
+      <succlane lane="e22_0" via=":n5_2_0" tl="n5" linkno="2" dir="t" state="o"/>
    </succ>
    <succ edge="e22" lane="e22_0" junction="n13">
       <succlane lane="e21_0" via=":n13_0_0" dir="t" state="M"/>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 
-<!-- generated on 06/01/11 09:28:53 by SUMO netconvert Version dev-SVN-r10489
+<!-- generated on Mon Jun  6 14:55:31 2011 by SUMO netconvert Version dev-SVN-r10510
 <?xml version="1.0" encoding="iso-8859-1"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
@@ -142,19 +142,19 @@
    <junction id=":15031750_13_0" type="internal" x="211.05" y="64.03" incLanes=":15031750_8_0 -15033109_0" intLanes=":15031750_0_0" shape=""/>
 
    <succ edge="-15033077" lane="-15033077_0" junction="15031750">
-      <succlane lane="15033109_0" via=":15031750_3_0" tl="15031750" linkno="3" dir="s" state="t"/>
-      <succlane lane="15033110_0" via=":15031750_4_0" tl="15031750" linkno="4" dir="l" state="t"/>
-      <succlane lane="15033077_0" via=":15031750_5_0" tl="15031750" linkno="5" dir="t" state="t"/>
+      <succlane lane="15033109_0" via=":15031750_3_0" tl="15031750" linkno="3" dir="s" state="o"/>
+      <succlane lane="15033110_0" via=":15031750_4_0" tl="15031750" linkno="4" dir="l" state="o"/>
+      <succlane lane="15033077_0" via=":15031750_5_0" tl="15031750" linkno="5" dir="t" state="o"/>
    </succ>
    <succ edge="-15033109" lane="-15033109_0" junction="15031750">
-      <succlane lane="15033110_0" via=":15031750_0_0" tl="15031750" linkno="0" dir="r" state="t"/>
-      <succlane lane="15033077_0" via=":15031750_1_0" tl="15031750" linkno="1" dir="s" state="t"/>
-      <succlane lane="15033109_0" via=":15031750_2_0" tl="15031750" linkno="2" dir="t" state="t"/>
+      <succlane lane="15033110_0" via=":15031750_0_0" tl="15031750" linkno="0" dir="r" state="o"/>
+      <succlane lane="15033077_0" via=":15031750_1_0" tl="15031750" linkno="1" dir="s" state="o"/>
+      <succlane lane="15033109_0" via=":15031750_2_0" tl="15031750" linkno="2" dir="t" state="o"/>
    </succ>
    <succ edge="-15033110" lane="-15033110_0" junction="15031750">
-      <succlane lane="15033077_0" via=":15031750_6_0" tl="15031750" linkno="6" dir="r" state="t"/>
-      <succlane lane="15033109_0" via=":15031750_7_0" tl="15031750" linkno="7" dir="l" state="t"/>
-      <succlane lane="15033110_0" via=":15031750_8_0" tl="15031750" linkno="8" dir="t" state="t"/>
+      <succlane lane="15033077_0" via=":15031750_6_0" tl="15031750" linkno="6" dir="r" state="o"/>
+      <succlane lane="15033109_0" via=":15031750_7_0" tl="15031750" linkno="7" dir="l" state="o"/>
+      <succlane lane="15033110_0" via=":15031750_8_0" tl="15031750" linkno="8" dir="t" state="o"/>
    </succ>
    <succ edge="15033077" lane="15033077_0" junction="15031754">
       <succlane lane="-15033077_0" via=":15031754_0_0" dir="t" state="M"/>

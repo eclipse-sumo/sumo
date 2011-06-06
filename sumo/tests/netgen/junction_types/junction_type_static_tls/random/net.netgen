@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 
-<!-- generated on 06/01/11 09:29:47 by SUMO netgen Version dev-SVN-r10489
+<!-- generated on Mon Jun  6 14:55:56 2011 by SUMO netgen Version dev-SVN-r10510
 <?xml version="1.0" encoding="iso-8859-1"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netgenConfiguration.xsd">
@@ -126,29 +126,29 @@
    <succ edge="11" lane="11_0" junction="10">
    </succ>
    <succ edge="13" lane="13_0" junction="12">
-      <succlane lane="38_0" via=":12_1_0" tl="12" linkno="1" dir="r" state="t"/>
+      <succlane lane="38_0" via=":12_1_0" tl="12" linkno="1" dir="r" state="o"/>
    </succ>
    <succ edge="15" lane="15_0" junction="14">
    </succ>
    <succ edge="17" lane="17_0" junction="12">
-      <succlane lane="38_0" via=":12_0_0" tl="12" linkno="0" dir="s" state="t"/>
+      <succlane lane="38_0" via=":12_0_0" tl="12" linkno="0" dir="s" state="o"/>
    </succ>
    <succ edge="19" lane="19_0" junction="18">
    </succ>
    <succ edge="25" lane="25_0" junction="24">
    </succ>
    <succ edge="3" lane="3_0" junction="2">
-      <succlane lane="15_0" via=":2_0_0" tl="2" linkno="0" dir="s" state="t"/>
-      <succlane lane="13_0" via=":2_1_0" tl="2" linkno="1" dir="l" state="t"/>
+      <succlane lane="15_0" via=":2_0_0" tl="2" linkno="0" dir="s" state="o"/>
+      <succlane lane="13_0" via=":2_1_0" tl="2" linkno="1" dir="l" state="o"/>
    </succ>
    <succ edge="38" lane="38_0" junction="37">
    </succ>
    <succ edge="7" lane="7_0" junction="6">
    </succ>
    <succ edge="9" lane="9_0" junction="8">
-      <succlane lane="17_0" via=":8_0_0" tl="8" linkno="0" dir="r" state="t"/>
-      <succlane lane="19_0" via=":8_1_0" tl="8" linkno="1" dir="s" state="t"/>
-      <succlane lane="25_0" via=":8_2_0" tl="8" linkno="2" dir="l" state="t"/>
+      <succlane lane="17_0" via=":8_0_0" tl="8" linkno="0" dir="r" state="o"/>
+      <succlane lane="19_0" via=":8_1_0" tl="8" linkno="1" dir="s" state="o"/>
+      <succlane lane="25_0" via=":8_2_0" tl="8" linkno="2" dir="l" state="o"/>
    </succ>
 
    <succ edge=":12_0" lane=":12_0_0" junction="12">

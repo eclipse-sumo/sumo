@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 
-<!-- generated on 06/01/11 09:28:21 by SUMO netconvert Version dev-SVN-r10489
+<!-- generated on Mon Jun  6 14:55:04 2011 by SUMO netconvert Version dev-SVN-r10510
 <?xml version="1.0" encoding="iso-8859-1"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
@@ -762,11 +762,11 @@
       <succlane lane="53091573_0" dir="t" state="M"/>
    </succ>
    <succ edge="-53091615" lane="-53091615_0" junction="1560">
-      <succlane lane="-905006120_0" tl="1560" linkno="2" dir="r" state="t"/>
-      <succlane lane="905006042_0" tl="1560" linkno="1" dir="s" state="t"/>
+      <succlane lane="-905006120_0" tl="1560" linkno="2" dir="r" state="o"/>
+      <succlane lane="905006042_0" tl="1560" linkno="1" dir="s" state="o"/>
    </succ>
    <succ edge="-53091615" lane="-53091615_1" junction="1560">
-      <succlane lane="545285126_0" tl="1560" linkno="0" dir="l" state="t"/>
+      <succlane lane="545285126_0" tl="1560" linkno="0" dir="l" state="o"/>
    </succ>
    <succ edge="-53091628" lane="-53091628_0" junction="1563">
       <succlane lane="-545285124_0" dir="s" state="M"/>
@@ -819,11 +819,11 @@
       <succlane lane="545285124_0" dir="t" state="m"/>
    </succ>
    <succ edge="-545285126" lane="-545285126_0" junction="1560">
-      <succlane lane="53091615_0" tl="1560" linkno="3" dir="r" state="t"/>
-      <succlane lane="-905006120_0" tl="1560" linkno="5" dir="s" state="t"/>
+      <succlane lane="53091615_0" tl="1560" linkno="3" dir="r" state="o"/>
+      <succlane lane="-905006120_0" tl="1560" linkno="5" dir="s" state="o"/>
    </succ>
    <succ edge="-545285126" lane="-545285126_1" junction="1560">
-      <succlane lane="905006042_0" tl="1560" linkno="4" dir="l" state="t"/>
+      <succlane lane="905006042_0" tl="1560" linkno="4" dir="l" state="o"/>
    </succ>
    <succ edge="-545285142" lane="-545285142_0" junction="1558">
       <succlane lane="905006119_0" dir="s" state="M"/>
@@ -946,11 +946,11 @@
       <succlane lane="905006041_0" dir="t" state="m"/>
    </succ>
    <succ edge="-905006042" lane="-905006042_0" junction="1560">
-      <succlane lane="545285126_0" tl="1560" linkno="7" dir="r" state="t"/>
-      <succlane lane="53091615_0" tl="1560" linkno="6" dir="s" state="t"/>
+      <succlane lane="545285126_0" tl="1560" linkno="7" dir="r" state="o"/>
+      <succlane lane="53091615_0" tl="1560" linkno="6" dir="s" state="o"/>
    </succ>
    <succ edge="-905006042" lane="-905006042_1" junction="1560">
-      <succlane lane="-905006120_0" tl="1560" linkno="8" dir="l" state="t"/>
+      <succlane lane="-905006120_0" tl="1560" linkno="8" dir="l" state="o"/>
    </succ>
    <succ edge="-905006117" lane="-905006117_0" junction="1659">
       <succlane lane="905006117_0" dir="t" state="M"/>
@@ -1189,11 +1189,11 @@
       <succlane lane="-905006119_0" dir="t" state="m"/>
    </succ>
    <succ edge="905006120" lane="905006120_0" junction="1560">
-      <succlane lane="905006042_0" tl="1560" linkno="11" dir="r" state="t"/>
-      <succlane lane="545285126_0" tl="1560" linkno="10" dir="s" state="t"/>
+      <succlane lane="905006042_0" tl="1560" linkno="11" dir="r" state="o"/>
+      <succlane lane="545285126_0" tl="1560" linkno="10" dir="s" state="o"/>
    </succ>
    <succ edge="905006120" lane="905006120_1" junction="1560">
-      <succlane lane="53091615_0" tl="1560" linkno="9" dir="l" state="t"/>
+      <succlane lane="53091615_0" tl="1560" linkno="9" dir="l" state="o"/>
       <succlane lane="-905006120_0" dir="t" state="m"/>
    </succ>
    <succ edge="905006352" lane="905006352_0" junction="1672">

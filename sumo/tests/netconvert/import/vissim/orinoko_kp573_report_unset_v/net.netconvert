@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 
-<!-- generated on 06/01/11 09:28:23 by SUMO netconvert Version dev-SVN-r10489
+<!-- generated on Mon Jun  6 14:55:05 2011 by SUMO netconvert Version dev-SVN-r10510
 <?xml version="1.0" encoding="iso-8859-1"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
@@ -149,8 +149,8 @@
       <lane id="26_0" depart="1" maxspeed="13.89" length="433.76" shape="67.96,3568.69 293.79,3323.08 327.50,3229.52"/>
       <lane id="26_1" depart="0" maxspeed="13.89" length="433.76" shape="70.39,3570.92 296.67,3324.82 330.61,3230.64"/>
    </edge>
-   <edge id="27" from="605000031" to="605000032" name="VISUM Strecke 905001109" priority="-1" type="81" spread_type="center" shape="561.91,2951.39 481.13,2886.13 412.15,2832.64 303.16,2750.65">
-      <lane id="27_0" depart="1" maxspeed="13.89" length="327.86" shape="562.25,2951.67 481.13,2886.13 412.15,2832.64 303.24,2750.71"/>
+   <edge id="27" from="605000031" to="605000032" name="VISUM Strecke 905001109" priority="-1" type="81" spread_type="center" shape="561.91,2951.39 481.13,2886.12 412.15,2832.64 303.16,2750.65">
+      <lane id="27_0" depart="1" maxspeed="13.89" length="327.86" shape="562.25,2951.67 481.13,2886.12 412.15,2832.64 303.24,2750.71"/>
    </edge>
    <edge id="28" from="605000032" to="605000031" name="VISUM Strecke 905001109" priority="-1" type="81" spread_type="center" shape="305.27,2747.85 414.28,2829.86 483.30,2883.38 564.11,2948.67">
       <lane id="28_0" depart="1" maxspeed="13.89" length="327.98" shape="305.35,2747.91 414.28,2829.86 483.30,2883.38 564.45,2948.94"/>
@@ -254,7 +254,7 @@
       <lane id="50_0" depart="1" maxspeed="13.89" length="358.33" shape="329.32,3226.23 488.14,3023.10 512.60,2991.00 562.11,2956.03"/>
       <lane id="50_1" depart="0" maxspeed="13.89" length="358.33" shape="331.92,3228.26 490.74,3025.13 514.92,2993.41 564.02,2958.72"/>
    </edge>
-   <edge id="51" from="605000014" to="605000043" name="VISUM Strecke 905006042" priority="-1" type="83" spread_type="center" shape="1755.29,1599.21 2143.51,1075.13">
+   <edge id="51" from="605000014" to="605000043" name="VISUM Strecke 905006042" priority="-1" type="83" spread_type="center" shape="1755.29,1599.21 2143.51,1075.12">
       <lane id="51_0" depart="1" maxspeed="13.89" length="671.95" shape="1748.20,1606.02 2148.10,1066.16"/>
       <lane id="51_1" depart="0" maxspeed="13.89" length="671.95" shape="1750.71,1608.17 2150.74,1068.14"/>
    </edge>
@@ -659,14 +659,14 @@
       <succlane lane="1000702[1]+1000701_2" dir="s" state="M"/>
    </succ>
    <succ edge="1000702[1]+1000701" lane="1000702[1]+1000701_0" junction="605000045">
-      <succlane lane="1000703_0" tl="1" linkno="2" dir="r" state="t"/>
-      <succlane lane="1000707_0" tl="1" linkno="3" dir="s" state="t"/>
+      <succlane lane="1000703_0" tl="1" linkno="2" dir="r" state="o"/>
+      <succlane lane="1000707_0" tl="1" linkno="3" dir="s" state="o"/>
    </succ>
    <succ edge="1000702[1]+1000701" lane="1000702[1]+1000701_1" junction="605000045">
       <succlane lane="1000707_1" dir="s" state="m"/>
    </succ>
    <succ edge="1000702[1]+1000701" lane="1000702[1]+1000701_2" junction="605000045">
-      <succlane lane="1000712_1" tl="1" linkno="5" dir="l" state="t"/>
+      <succlane lane="1000712_1" tl="1" linkno="5" dir="l" state="o"/>
    </succ>
    <succ edge="1000703" lane="1000703_0" junction="605000018">
       <succlane lane="9_0" dir="s" state="M"/>
@@ -675,17 +675,17 @@
       <succlane lane="9_1" dir="s" state="M"/>
    </succ>
    <succ edge="1000704" lane="1000704_0" junction="605000045">
-      <succlane lane="1000700_1" tl="1" linkno="0" dir="l" state="t"/>
+      <succlane lane="1000700_1" tl="1" linkno="0" dir="l" state="o"/>
    </succ>
    <succ edge="1000705[0]" lane="1000705[0]_0" junction="605000047">
       <succlane lane="1000705[1]_0" dir="s" state="M"/>
       <succlane lane="1000706_0" dir="s" state="M"/>
    </succ>
    <succ edge="1000705[1]" lane="1000705[1]_0" junction="605000045">
-      <succlane lane="1000712_1" tl="1" linkno="1" dir="s" state="t"/>
+      <succlane lane="1000712_1" tl="1" linkno="1" dir="s" state="o"/>
    </succ>
    <succ edge="1000706" lane="1000706_0" junction="605000045">
-      <succlane lane="1000707_0" tl="1" linkno="15" dir="r" state="t"/>
+      <succlane lane="1000707_0" tl="1" linkno="15" dir="r" state="o"/>
    </succ>
    <succ edge="1000707" lane="1000707_0" junction="605000033">
       <succlane lane="31_0" dir="s" state="M"/>
@@ -694,21 +694,21 @@
       <succlane lane="31_1" dir="s" state="M"/>
    </succ>
    <succ edge="1000708" lane="1000708_0" junction="605000045">
-      <succlane lane="1000703_0" tl="1" linkno="13" dir="l" state="t"/>
+      <succlane lane="1000703_0" tl="1" linkno="13" dir="l" state="o"/>
    </succ>
    <succ edge="1000708" lane="1000708_1" junction="605000045">
-      <succlane lane="1000703_1" tl="1" linkno="13" dir="l" state="t"/>
+      <succlane lane="1000703_1" tl="1" linkno="13" dir="l" state="o"/>
    </succ>
    <succ edge="1000709" lane="1000709_0" junction="605000048">
       <succlane lane="1000708_0" dir="s" state="M"/>
       <succlane lane="1000708_1" dir="s" state="M"/>
    </succ>
    <succ edge="1000710" lane="1000710_0" junction="605000045">
-      <succlane lane="1000712_0" tl="1" linkno="12" dir="r" state="t"/>
-      <succlane lane="1000700_0" tl="1" linkno="10" dir="s" state="t"/>
+      <succlane lane="1000712_0" tl="1" linkno="12" dir="r" state="o"/>
+      <succlane lane="1000700_0" tl="1" linkno="10" dir="s" state="o"/>
    </succ>
    <succ edge="1000710" lane="1000710_1" junction="605000045">
-      <succlane lane="1000700_1" tl="1" linkno="10" dir="s" state="t"/>
+      <succlane lane="1000700_1" tl="1" linkno="10" dir="s" state="o"/>
    </succ>
    <succ edge="1000711" lane="1000711_0" junction="605000049">
       <succlane lane="1000710_0" dir="s" state="M"/>
@@ -721,14 +721,14 @@
       <succlane lane="35_1" dir="s" state="M"/>
    </succ>
    <succ edge="1000714+1000713" lane="1000714+1000713_0" junction="605000045">
-      <succlane lane="1000700_0" tl="1" linkno="6" dir="r" state="t"/>
+      <succlane lane="1000700_0" tl="1" linkno="6" dir="r" state="o"/>
    </succ>
    <succ edge="1000714+1000713" lane="1000714+1000713_1" junction="605000045">
       <succlane lane="1000700_1" dir="r" state="m"/>
       <succlane lane="1000703_1" dir="s" state="m"/>
    </succ>
    <succ edge="1000714+1000713" lane="1000714+1000713_2" junction="605000045">
-      <succlane lane="1000707_1" tl="1" linkno="9" dir="l" state="t"/>
+      <succlane lane="1000707_1" tl="1" linkno="9" dir="l" state="o"/>
       <succlane lane="1000712_1" dir="t" state="m"/>
    </succ>
    <succ edge="11" lane="11_0" junction="605000022">

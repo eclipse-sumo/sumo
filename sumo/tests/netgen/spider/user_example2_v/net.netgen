@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 
-<!-- generated on 06/01/11 09:29:31 by SUMO netgen Version dev-SVN-r10489
+<!-- generated on Mon Jun  6 14:55:48 2011 by SUMO netgen Version dev-SVN-r10510
 <?xml version="1.0" encoding="iso-8859-1"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netgenConfiguration.xsd">
@@ -640,10 +640,10 @@
       <lane id=":4/2_9_0" depart="0" maxspeed="13.90" length="12.19" shape="301.65,97.15 301.65,100.47 301.65,103.25 301.65,106.03 301.65,109.35"/>
    </edge>
    <edge id=":4/2_10" function="internal">
-      <lane id=":4/2_10_0" depart="0" maxspeed="13.90" length="7.31" shape="301.65,97.15 301.21,99.14 299.88,101.57 298.35,103.56"/>
+      <lane id=":4/2_10_0" depart="0" maxspeed="13.90" length="7.92" shape="301.65,97.15 301.04,100.43 299.43,103.01 298.35,104.11"/>
    </edge>
    <edge id=":4/2_18" function="internal">
-      <lane id=":4/2_18_0" depart="0" maxspeed="13.90" length="5.68" shape="298.35,103.56 297.66,104.45 294.56,107.78"/>
+      <lane id=":4/2_18_0" depart="0" maxspeed="13.90" length="5.27" shape="298.35,104.11 297.16,105.33 294.56,107.78"/>
    </edge>
    <edge id=":4/2_11" function="internal">
       <lane id=":4/2_11_0" depart="0" maxspeed="13.90" length="2.41" shape="301.65,97.15 300.82,98.39 300.00,98.80"/>
@@ -1087,7 +1087,7 @@
    <junction id=":4/1_19_0" type="internal" x="300.00" y="198.80" incLanes=":4/1_11_0 1to4/1_0" intLanes=":4/1_1_0" shape=""/>
    <junction id=":4/2_16_0" type="internal" x="301.65" y="101.85" incLanes=":4/2_2_0 4/3to4/2_0" intLanes=":4/2_8_0 :4/2_9_0" shape=""/>
    <junction id=":4/2_17_0" type="internal" x="300.00" y="107.70" incLanes=":4/2_3_0 4/3to4/2_0" intLanes=":4/2_9_0" shape=""/>
-   <junction id=":4/2_18_0" type="internal" x="298.35" y="103.56" incLanes=":4/2_10_0 4/1to4/2_0" intLanes=":4/2_0_0 :4/2_1_0" shape=""/>
+   <junction id=":4/2_18_0" type="internal" x="298.35" y="104.11" incLanes=":4/2_10_0 4/1to4/2_0" intLanes=":4/2_0_0 :4/2_1_0" shape=""/>
    <junction id=":4/2_19_0" type="internal" x="300.00" y="98.80" incLanes=":4/2_11_0 4/1to4/2_0" intLanes=":4/2_1_0" shape=""/>
    <junction id=":4/3_9_0" type="internal" x="305.44" y="5.44" incLanes=":4/3_5_0 3/3to4/3_0" intLanes=":4/3_6_0" shape=""/>
    <junction id=":4/3_10_0" type="internal" x="301.20" y="5.35" incLanes=":4/3_7_0 1/3to4/3_0" intLanes=":4/3_3_0 :4/3_4_0" shape=""/>

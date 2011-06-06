@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 
-<!-- generated on 06/01/11 09:28:37 by SUMO netconvert Version dev-SVN-r10489
+<!-- generated on Mon Jun  6 14:55:08 2011 by SUMO netconvert Version dev-SVN-r10510
 <?xml version="1.0" encoding="iso-8859-1"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
@@ -147,19 +147,19 @@
       <succlane lane="edge_up_0" via=":node_up_0_0" dir="t" state="M"/>
    </succ>
    <succ edge="edge_left" lane="edge_left_0" junction="node_centertl">
-      <succlane lane="-edge_right_0" via=":node_centertl_6_0" tl="node_centertl" linkno="6" dir="s" state="t"/>
-      <succlane lane="-edge_up_0" via=":node_centertl_7_0" tl="node_centertl" linkno="7" dir="l" state="t"/>
-      <succlane lane="-edge_left_0" via=":node_centertl_8_0" tl="node_centertl" linkno="8" dir="t" state="t"/>
+      <succlane lane="-edge_right_0" via=":node_centertl_6_0" tl="node_centertl" linkno="6" dir="s" state="o"/>
+      <succlane lane="-edge_up_0" via=":node_centertl_7_0" tl="node_centertl" linkno="7" dir="l" state="o"/>
+      <succlane lane="-edge_left_0" via=":node_centertl_8_0" tl="node_centertl" linkno="8" dir="t" state="o"/>
    </succ>
    <succ edge="edge_right" lane="edge_right_0" junction="node_centertl">
-      <succlane lane="-edge_up_0" via=":node_centertl_3_0" tl="node_centertl" linkno="3" dir="r" state="t"/>
-      <succlane lane="-edge_left_0" via=":node_centertl_4_0" tl="node_centertl" linkno="4" dir="s" state="t"/>
-      <succlane lane="-edge_right_0" via=":node_centertl_5_0" tl="node_centertl" linkno="5" dir="t" state="t"/>
+      <succlane lane="-edge_up_0" via=":node_centertl_3_0" tl="node_centertl" linkno="3" dir="r" state="o"/>
+      <succlane lane="-edge_left_0" via=":node_centertl_4_0" tl="node_centertl" linkno="4" dir="s" state="o"/>
+      <succlane lane="-edge_right_0" via=":node_centertl_5_0" tl="node_centertl" linkno="5" dir="t" state="o"/>
    </succ>
    <succ edge="edge_up" lane="edge_up_0" junction="node_centertl">
-      <succlane lane="-edge_left_0" via=":node_centertl_0_0" tl="node_centertl" linkno="0" dir="r" state="t"/>
-      <succlane lane="-edge_right_0" via=":node_centertl_1_0" tl="node_centertl" linkno="1" dir="l" state="t"/>
-      <succlane lane="-edge_up_0" via=":node_centertl_2_0" tl="node_centertl" linkno="2" dir="t" state="t"/>
+      <succlane lane="-edge_left_0" via=":node_centertl_0_0" tl="node_centertl" linkno="0" dir="r" state="o"/>
+      <succlane lane="-edge_right_0" via=":node_centertl_1_0" tl="node_centertl" linkno="1" dir="l" state="o"/>
+      <succlane lane="-edge_up_0" via=":node_centertl_2_0" tl="node_centertl" linkno="2" dir="t" state="o"/>
    </succ>
 
    <succ edge=":node_centertl_0" lane=":node_centertl_0_0" junction="node_centertl">

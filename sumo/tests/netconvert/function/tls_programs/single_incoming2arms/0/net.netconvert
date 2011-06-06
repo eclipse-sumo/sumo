@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 
-<!-- generated on 06/01/11 09:28:55 by SUMO netconvert Version dev-SVN-r10489
+<!-- generated on Mon Jun  6 14:55:33 2011 by SUMO netconvert Version dev-SVN-r10510
 <?xml version="1.0" encoding="iso-8859-1"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
@@ -64,10 +64,10 @@
    <junction id="15031475" type="DEAD_END" x="0.00" y="608.00" incLanes="153122148_0" intLanes="" shape="3.17,608.71 0.05,608.01"/>
 
    <succ edge="15030608" lane="15030608_0" junction="15030043">
-      <succlane lane="153122148_0" via=":15030043_0_0" tl="15030043" linkno="0" dir="r" state="t"/>
+      <succlane lane="153122148_0" via=":15030043_0_0" tl="15030043" linkno="0" dir="r" state="o"/>
    </succ>
    <succ edge="15030858" lane="15030858_0" junction="15030043">
-      <succlane lane="153122148_0" via=":15030043_1_0" tl="15030043" linkno="1" dir="s" state="t"/>
+      <succlane lane="153122148_0" via=":15030043_1_0" tl="15030043" linkno="1" dir="s" state="o"/>
    </succ>
    <succ edge="153122148" lane="153122148_0" junction="15031475">
    </succ>

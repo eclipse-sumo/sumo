@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 
-<!-- generated on 06/01/11 09:28:34 by SUMO netconvert Version dev-SVN-r10489
+<!-- generated on Mon Jun  6 14:55:08 2011 by SUMO netconvert Version dev-SVN-r10510
 <?xml version="1.0" encoding="iso-8859-1"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
@@ -153,44 +153,44 @@
       <succlane lane="4_1" dir="t" state="M"/>
    </succ>
    <succ edge="1" lane="1_0" junction="0">
-      <succlane lane="-3_0" tl="0" linkno="4" dir="r" state="t"/>
-      <succlane lane="-2_0" tl="0" linkno="5" dir="s" state="t"/>
+      <succlane lane="-3_0" tl="0" linkno="4" dir="r" state="o"/>
+      <succlane lane="-2_0" tl="0" linkno="5" dir="s" state="o"/>
    </succ>
    <succ edge="1" lane="1_1" junction="0">
-      <succlane lane="-2_1" tl="0" linkno="6" dir="s" state="t"/>
+      <succlane lane="-2_1" tl="0" linkno="6" dir="s" state="o"/>
    </succ>
    <succ edge="1" lane="1_2" junction="0">
-      <succlane lane="-2_2" tl="0" linkno="7" dir="s" state="t"/>
-      <succlane lane="-4_2" tl="0" linkno="8" dir="l" state="t"/>
-      <succlane lane="-1_2" tl="0" linkno="9" dir="t" state="t"/>
+      <succlane lane="-2_2" tl="0" linkno="7" dir="s" state="o"/>
+      <succlane lane="-4_2" tl="0" linkno="8" dir="l" state="o"/>
+      <succlane lane="-1_2" tl="0" linkno="9" dir="t" state="o"/>
    </succ>
    <succ edge="2" lane="2_0" junction="0">
-      <succlane lane="-4_0" tl="0" linkno="14" dir="r" state="t"/>
-      <succlane lane="-1_0" tl="0" linkno="15" dir="s" state="t"/>
+      <succlane lane="-4_0" tl="0" linkno="14" dir="r" state="o"/>
+      <succlane lane="-1_0" tl="0" linkno="15" dir="s" state="o"/>
    </succ>
    <succ edge="2" lane="2_1" junction="0">
-      <succlane lane="-1_1" tl="0" linkno="16" dir="s" state="t"/>
+      <succlane lane="-1_1" tl="0" linkno="16" dir="s" state="o"/>
    </succ>
    <succ edge="2" lane="2_2" junction="0">
-      <succlane lane="-1_2" tl="0" linkno="17" dir="s" state="t"/>
-      <succlane lane="-3_2" tl="0" linkno="18" dir="l" state="t"/>
-      <succlane lane="-2_2" tl="0" linkno="19" dir="t" state="t"/>
+      <succlane lane="-1_2" tl="0" linkno="17" dir="s" state="o"/>
+      <succlane lane="-3_2" tl="0" linkno="18" dir="l" state="o"/>
+      <succlane lane="-2_2" tl="0" linkno="19" dir="t" state="o"/>
    </succ>
    <succ edge="3" lane="3_0" junction="0">
-      <succlane lane="-2_0" tl="0" linkno="0" dir="r" state="t"/>
+      <succlane lane="-2_0" tl="0" linkno="0" dir="r" state="o"/>
    </succ>
    <succ edge="3" lane="3_1" junction="0">
-      <succlane lane="-4_1" tl="0" linkno="1" dir="s" state="t"/>
-      <succlane lane="-1_2" tl="0" linkno="2" dir="l" state="t"/>
-      <succlane lane="-3_2" tl="0" linkno="3" dir="t" state="t"/>
+      <succlane lane="-4_1" tl="0" linkno="1" dir="s" state="o"/>
+      <succlane lane="-1_2" tl="0" linkno="2" dir="l" state="o"/>
+      <succlane lane="-3_2" tl="0" linkno="3" dir="t" state="o"/>
    </succ>
    <succ edge="4" lane="4_0" junction="0">
-      <succlane lane="-1_0" tl="0" linkno="10" dir="r" state="t"/>
+      <succlane lane="-1_0" tl="0" linkno="10" dir="r" state="o"/>
    </succ>
    <succ edge="4" lane="4_1" junction="0">
-      <succlane lane="-3_1" tl="0" linkno="11" dir="s" state="t"/>
-      <succlane lane="-2_2" tl="0" linkno="12" dir="l" state="t"/>
-      <succlane lane="-4_2" tl="0" linkno="13" dir="t" state="t"/>
+      <succlane lane="-3_1" tl="0" linkno="11" dir="s" state="o"/>
+      <succlane lane="-2_2" tl="0" linkno="12" dir="l" state="o"/>
+      <succlane lane="-4_2" tl="0" linkno="13" dir="t" state="o"/>
    </succ>
 
 </net>
