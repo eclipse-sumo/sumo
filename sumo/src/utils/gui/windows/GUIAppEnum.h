@@ -350,6 +350,8 @@ enum {
     MID_GNE_COMPUTE_JUNCTIONS,
 
     /// tls mode messages
+    /** toggle signaled status */
+    MID_GNE_TLS_TOGGLE,
     /** rename traffic light */
     MID_GNE_RENAME_TLS,
     /** replace program with a newly guessed program */
