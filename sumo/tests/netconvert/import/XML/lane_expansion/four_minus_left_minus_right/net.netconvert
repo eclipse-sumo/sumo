@@ -42,19 +42,24 @@
       <lane id="1_2" depart="0" maxspeed="28.00" length="28.50" shape="0.00,-4.95 28.50,-4.95"/>
       <lane id="1_3" depart="0" maxspeed="28.00" length="28.50" shape="0.00,-1.65 28.50,-1.65"/>
    </edge>
-   <edge id="1.30" from="1.30" to="1.70" priority="-1">
+   <edge id="1.30" from="1.30" to="1.70" priority="-1" shape="30.00,-3.30 70.00,-3.30">
       <lane id="1.30_0" depart="1" maxspeed="28.00" length="37.00" shape="31.50,-11.55 68.50,-11.55"/>
       <lane id="1.30_1" depart="0" maxspeed="28.00" length="37.00" shape="31.50,-8.25 68.50,-8.25"/>
       <lane id="1.30_2" depart="0" maxspeed="28.00" length="37.00" shape="31.50,-4.95 68.50,-4.95"/>
    </edge>
-   <edge id="1.70" from="1.70" to="SUMOGenerated1" priority="-1">
+   <edge id="1.70" from="1.70" to="SUMOGenerated1" priority="-1" shape="70.00,-3.30 100.00,-3.30">
       <lane id="1.70_0" depart="1" maxspeed="28.00" length="28.50" shape="71.50,-8.25 100.00,-8.25"/>
       <lane id="1.70_1" depart="0" maxspeed="28.00" length="28.50" shape="71.50,-4.95 100.00,-4.95"/>
    </edge>
 
-   <logicitem request="0" response="000" foes="000" cont="0"/><logicitem request="1" response="000" foes="000" cont="0"/><logicitem request="2" response="000" foes="000" cont="0"/>
+   <row-logic id="1.30" requestSize="3">
+      <logicitem request="0" response="000" foes="000" cont="0"/>
+      <logicitem request="1" response="000" foes="000" cont="0"/>
+      <logicitem request="2" response="000" foes="000" cont="0"/>
    </row-logic>
-   <logicitem request="0" response="00" foes="00" cont="0"/><logicitem request="1" response="00" foes="00" cont="0"/>
+   <row-logic id="1.70" requestSize="2">
+      <logicitem request="0" response="00" foes="00" cont="0"/>
+      <logicitem request="1" response="00" foes="00" cont="0"/>
    </row-logic>
 
    <junction id="1.30" type="priority" x="30.00" y="0.00" incLanes="1_0 1_1 1_2 1_3" intLanes=":1.30_0_0 :1.30_1_0 :1.30_2_0" shape="31.50,-3.35 31.50,-13.15 28.50,-13.15 28.50,-0.05"/>

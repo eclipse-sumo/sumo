@@ -52,17 +52,21 @@
       <lane id="out_0" depart="1" maxspeed="15.99" length="298.23" shape="1501.77,48.35 1800.00,48.35"/>
    </edge>
 
-   <logicitem request="0" response="00" foes="00" cont="0"/><logicitem request="1" response="00" foes="00" cont="0"/>
+   <row-logic id="1" requestSize="2">
+      <logicitem request="0" response="00" foes="00" cont="0"/>
+      <logicitem request="1" response="00" foes="00" cont="0"/>
    </row-logic>
-   <logicitem request="0" response="00" foes="10" cont="0"/><logicitem request="1" response="01" foes="01" cont="0"/>
+   <row-logic id="2" requestSize="2">
+      <logicitem request="0" response="00" foes="10" cont="0"/>
+      <logicitem request="1" response="01" foes="01" cont="0"/>
    </row-logic>
 
-   <tlLogic programID="0" type="static" id="2" offset="0">
+   <tl-logic id="2" type="static" programID="0" offset="0">
       <phase duration="31" state="Gr"/>
       <phase duration="5" state="yr"/>
       <phase duration="31" state="rG"/>
       <phase duration="5" state="ry"/>
-   </tlLogic>
+   </tl-logic>
 
    <junction id="1" type="priority" x="500.00" y="50.00" incLanes="91to1_0" intLanes=":1_0_0 :1_1_0" shape="501.48,50.20 502.01,47.04 498.50,46.75 498.50,49.95"/>
    <junction id="2" type="priority" x="1500.00" y="50.00" incLanes="1to21_0 1to22_0" intLanes=":2_0_0 :2_1_0" shape="1501.77,49.95 1501.77,46.75 1498.79,46.50 1498.26,49.66"/>

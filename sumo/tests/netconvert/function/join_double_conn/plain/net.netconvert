@@ -40,9 +40,12 @@
       <lane id="out_0" depart="1" maxspeed="13.90" length="298.50" shape="1501.50,-1.65 1800.00,-1.65"/>
    </edge>
 
-   <logicitem request="0" response="00" foes="00"/><logicitem request="1" response="00" foes="00"/>
+   <row-logic id="1" requestSize="2">
+      <logicitem request="0" response="00" foes="00"/>
+      <logicitem request="1" response="00" foes="00"/>
    </row-logic>
-   <logicitem request="0" response="0" foes="0"/>
+   <row-logic id="2" requestSize="1">
+      <logicitem request="0" response="0" foes="0"/>
    </row-logic>
 
    <tl-logic id="2" type="static" programID="0" offset="0">

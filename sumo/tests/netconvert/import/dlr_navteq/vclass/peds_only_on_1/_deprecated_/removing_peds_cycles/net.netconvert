@@ -37,7 +37,7 @@
 
    <location netOffset="-328248.16,-5776623.10" convBoundary="0.00,0.00,39850.14,26514.76" origBoundary="1248456.000000,5211834.000000,1306826.000000,5235677.000000" projParameter="+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
 
-   <edge id="-1" from="0" to="1" priority="-1" type="DEFAULT">
+   <edge id="-1" from="0" to="1" priority="-1" type="DEFAULT" spread_type="center">
       <lane id="-1_0" depart="1" allow="public_transport public_emergency passenger hov taxi bus delivery transport" maxspeed="55.56" length="22841.03" shape="17018.60,13402.10 39850.05,12740.54"/>
       <lane id="-1_1" depart="0" allow="public_transport public_emergency passenger hov taxi bus delivery transport" maxspeed="55.56" length="22841.03" shape="17018.70,13405.40 39850.14,12743.84"/>
       <lane id="-1_2" depart="0" allow="public_transport public_emergency passenger hov taxi bus delivery transport" maxspeed="55.56" length="22841.03" shape="17018.79,13408.70 39850.24,12747.14"/>
@@ -71,13 +71,33 @@
       <lane id="4_1" depart="0" allow="public_transport public_emergency passenger hov taxi bus delivery transport" maxspeed="33.33" length="13400.94" shape="16589.90,-0.05 17008.63,13394.35"/>
    </edge>
 
-   <logicitem request="0" response="00000000000000000" foes="10000000110000000"/><logicitem request="1" response="01111110000000000" foes="01111111110000000"/><logicitem request="2" response="01111110000000000" foes="01111111110000000"/><logicitem request="3" response="01111100001100000" foes="01111100001100000"/><logicitem request="4" response="01100000001000000" foes="01100000001000000"/><logicitem request="5" response="00011100000000000" foes="00011100000001000"/><logicitem request="6" response="01111100000000000" foes="01111100000011000"/><logicitem request="7" response="01111100000000111" foes="11111100000000111"/><logicitem request="8" response="01111100000000111" foes="11111100000000111"/><logicitem request="9" response="00000010000000110" foes="00000010000000110"/><logicitem request="10" response="00000000000000000" foes="00000001000000110"/><logicitem request="11" response="00000000000000000" foes="00000000111101110"/><logicitem request="12" response="00000000000000000" foes="00000000111101110"/><logicitem request="13" response="00000000000000000" foes="00000000111101110"/><logicitem request="14" response="00000000000000000" foes="00000000111011110"/><logicitem request="15" response="00000000000000000" foes="00000000111011110"/><logicitem request="16" response="00000000110000001" foes="00000000110000001"/>
+   <row-logic id="0" requestSize="17">
+      <logicitem request="0" response="00000000000000000" foes="10000000110000000"/>
+      <logicitem request="1" response="01111110000000000" foes="01111111110000000"/>
+      <logicitem request="2" response="01111110000000000" foes="01111111110000000"/>
+      <logicitem request="3" response="01111100001100000" foes="01111100001100000"/>
+      <logicitem request="4" response="01100000001000000" foes="01100000001000000"/>
+      <logicitem request="5" response="00011100000000000" foes="00011100000001000"/>
+      <logicitem request="6" response="01111100000000000" foes="01111100000011000"/>
+      <logicitem request="7" response="01111100000000111" foes="11111100000000111"/>
+      <logicitem request="8" response="01111100000000111" foes="11111100000000111"/>
+      <logicitem request="9" response="00000010000000110" foes="00000010000000110"/>
+      <logicitem request="10" response="00000000000000000" foes="00000001000000110"/>
+      <logicitem request="11" response="00000000000000000" foes="00000000111101110"/>
+      <logicitem request="12" response="00000000000000000" foes="00000000111101110"/>
+      <logicitem request="13" response="00000000000000000" foes="00000000111101110"/>
+      <logicitem request="14" response="00000000000000000" foes="00000000111011110"/>
+      <logicitem request="15" response="00000000000000000" foes="00000000111011110"/>
+      <logicitem request="16" response="00000000110000001" foes="00000000110000001"/>
    </row-logic>
-   <logicitem request="0" response="0" foes="0"/>
+   <row-logic id="2" requestSize="1">
+      <logicitem request="0" response="0" foes="0"/>
    </row-logic>
-   <logicitem request="0" response="0" foes="0"/>
+   <row-logic id="3" requestSize="1">
+      <logicitem request="0" response="0" foes="0"/>
    </row-logic>
-   <logicitem request="0" response="0" foes="0"/>
+   <row-logic id="4" requestSize="1">
+      <logicitem request="0" response="0" foes="0"/>
    </row-logic>
 
    <junction id="0" type="priority" x="17007.34" y="13405.73" incLanes="3_0 3_1 4_0 4_1 2_0 2_1 2_2" intLanes="" shape="17001.15,13417.29 17017.54,13416.77 17018.84,13410.30 17018.55,13400.50 17013.53,13394.20 16997.14,13394.71 16995.69,13396.26 16996.34,13415.95"/>

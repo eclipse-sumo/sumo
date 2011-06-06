@@ -1,3 +1,5 @@
+<?xml version="1.0"?>
+
 <districts>
    <district id="1">
    </district>
@@ -6,3 +8,4 @@
       <dsink id="b2" weight="1"/>
    </district>
 </districts>
+

@@ -107,15 +107,27 @@
       <lane id="4o_0" depart="1" maxspeed="13.90" length="574.03" shape="496.75,508.62 201.41,1000.85"/>
    </edge>
 
-   <logicitem request="0" response="000000000000" foes="000100010000" cont="0"/><logicitem request="1" response="000000000000" foes="111100110000" cont="0"/><logicitem request="2" response="000011000000" foes="110011110000" cont="1"/><logicitem request="3" response="000010000000" foes="100010000000" cont="0"/><logicitem request="4" response="000110000111" foes="100110000111" cont="0"/><logicitem request="5" response="011110000110" foes="011110000110" cont="1"/><logicitem request="6" response="000000000000" foes="010000000100" cont="0"/><logicitem request="7" response="000000000000" foes="110000111100" cont="0"/><logicitem request="8" response="000000000011" foes="110000110011" cont="1"/><logicitem request="9" response="000000000010" foes="000000100010" cont="0"/><logicitem request="10" response="000111000110" foes="000111100110" cont="0"/><logicitem request="11" response="000110011110" foes="000110011110" cont="1"/>
+   <row-logic id="0" requestSize="12">
+      <logicitem request="0" response="000000000000" foes="000100010000" cont="0"/>
+      <logicitem request="1" response="000000000000" foes="111100110000" cont="0"/>
+      <logicitem request="2" response="000011000000" foes="110011110000" cont="1"/>
+      <logicitem request="3" response="000010000000" foes="100010000000" cont="0"/>
+      <logicitem request="4" response="000110000111" foes="100110000111" cont="0"/>
+      <logicitem request="5" response="011110000110" foes="011110000110" cont="1"/>
+      <logicitem request="6" response="000000000000" foes="010000000100" cont="0"/>
+      <logicitem request="7" response="000000000000" foes="110000111100" cont="0"/>
+      <logicitem request="8" response="000000000011" foes="110000110011" cont="1"/>
+      <logicitem request="9" response="000000000010" foes="000000100010" cont="0"/>
+      <logicitem request="10" response="000111000110" foes="000111100110" cont="0"/>
+      <logicitem request="11" response="000110011110" foes="000110011110" cont="1"/>
    </row-logic>
-   
+   <row-logic id="1" requestSize="0">
    </row-logic>
-   
+   <row-logic id="2" requestSize="0">
    </row-logic>
-   
+   <row-logic id="3" requestSize="0">
    </row-logic>
-   
+   <row-logic id="4" requestSize="0">
    </row-logic>
 
    <tl-logic id="0" type="static" programID="0" offset="0">

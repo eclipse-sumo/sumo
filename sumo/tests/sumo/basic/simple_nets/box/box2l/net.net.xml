@@ -67,13 +67,21 @@
       <lane id="3_1" depart="0" maxspeed="36.00" length="486.90" shape="493.45,1.65 6.55,1.65"/>
    </edge>
 
-   <logicitem request="0" response="00" foes="00" cont="0"/><logicitem request="1" response="00" foes="00" cont="0"/>
+   <row-logic id="0" requestSize="2">
+      <logicitem request="0" response="00" foes="00" cont="0"/>
+      <logicitem request="1" response="00" foes="00" cont="0"/>
    </row-logic>
-   <logicitem request="0" response="00" foes="00" cont="0"/><logicitem request="1" response="00" foes="00" cont="0"/>
+   <row-logic id="1" requestSize="2">
+      <logicitem request="0" response="00" foes="00" cont="0"/>
+      <logicitem request="1" response="00" foes="00" cont="0"/>
    </row-logic>
-   <logicitem request="0" response="00" foes="00" cont="0"/><logicitem request="1" response="00" foes="00" cont="0"/>
+   <row-logic id="2" requestSize="2">
+      <logicitem request="0" response="00" foes="00" cont="0"/>
+      <logicitem request="1" response="00" foes="00" cont="0"/>
    </row-logic>
-   <logicitem request="0" response="00" foes="00" cont="0"/><logicitem request="1" response="00" foes="00" cont="0"/>
+   <row-logic id="3" requestSize="2">
+      <logicitem request="0" response="00" foes="00" cont="0"/>
+      <logicitem request="1" response="00" foes="00" cont="0"/>
    </row-logic>
 
    <junction id="0" type="priority" x="0.00" y="0.00" incLanes="3_0 3_1" intLanes=":0_0_0 :0_1_0" shape="0.05,6.55 6.55,6.55 6.55,0.05"/>

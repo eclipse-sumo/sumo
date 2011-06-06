@@ -203,35 +203,164 @@
       <lane id="9_1" depart="0" maxspeed="27.78" length="13211.32" shape="5016.71,9992.46 17500.08,5667.92"/>
    </edge>
 
-   <logicitem request="0" response="00000000000000000000" foes="00000000000000000000"/><logicitem request="1" response="00000000000000000000" foes="00000000000000000000"/><logicitem request="2" response="00000000000000000000" foes="00000000000000000000"/><logicitem request="3" response="00000000000000000000" foes="00000000000000000000"/><logicitem request="4" response="00000000000000000000" foes="00000000000000000000"/><logicitem request="5" response="00000000000000000000" foes="00000000000000000000"/><logicitem request="6" response="00000000000000000000" foes="00000000000000000000"/><logicitem request="7" response="00000000000000000000" foes="00000000000000000000"/><logicitem request="8" response="00000000000000000000" foes="00000000000000000000"/><logicitem request="9" response="00000000000000000000" foes="00000000000000000000"/><logicitem request="10" response="00000000000000000000" foes="00000000000000000000"/><logicitem request="11" response="00000000000000000000" foes="00000000000000000000"/><logicitem request="12" response="00000000000000000000" foes="00000000000000000000"/><logicitem request="13" response="00000000000000000000" foes="00000000000000000000"/><logicitem request="14" response="00000000000000000000" foes="00000000000000000000"/><logicitem request="15" response="00000000000000000000" foes="00000000000000000000"/><logicitem request="16" response="00000000000000000000" foes="00000000000000000000"/><logicitem request="17" response="00000000000000000000" foes="00000000000000000000"/><logicitem request="18" response="00000000000000000000" foes="00000000000000000000"/><logicitem request="19" response="00000000000000000000" foes="00000000000000000000"/>
+   <row-logic id="1" requestSize="20">
+      <logicitem request="0" response="00000000000000000000" foes="00000000000000000000"/>
+      <logicitem request="1" response="00000000000000000000" foes="00000000000000000000"/>
+      <logicitem request="2" response="00000000000000000000" foes="00000000000000000000"/>
+      <logicitem request="3" response="00000000000000000000" foes="00000000000000000000"/>
+      <logicitem request="4" response="00000000000000000000" foes="00000000000000000000"/>
+      <logicitem request="5" response="00000000000000000000" foes="00000000000000000000"/>
+      <logicitem request="6" response="00000000000000000000" foes="00000000000000000000"/>
+      <logicitem request="7" response="00000000000000000000" foes="00000000000000000000"/>
+      <logicitem request="8" response="00000000000000000000" foes="00000000000000000000"/>
+      <logicitem request="9" response="00000000000000000000" foes="00000000000000000000"/>
+      <logicitem request="10" response="00000000000000000000" foes="00000000000000000000"/>
+      <logicitem request="11" response="00000000000000000000" foes="00000000000000000000"/>
+      <logicitem request="12" response="00000000000000000000" foes="00000000000000000000"/>
+      <logicitem request="13" response="00000000000000000000" foes="00000000000000000000"/>
+      <logicitem request="14" response="00000000000000000000" foes="00000000000000000000"/>
+      <logicitem request="15" response="00000000000000000000" foes="00000000000000000000"/>
+      <logicitem request="16" response="00000000000000000000" foes="00000000000000000000"/>
+      <logicitem request="17" response="00000000000000000000" foes="00000000000000000000"/>
+      <logicitem request="18" response="00000000000000000000" foes="00000000000000000000"/>
+      <logicitem request="19" response="00000000000000000000" foes="00000000000000000000"/>
    </row-logic>
-   <logicitem request="0" response="0" foes="0"/>
+   <row-logic id="10" requestSize="1">
+      <logicitem request="0" response="0" foes="0"/>
    </row-logic>
-   <logicitem request="0" response="0" foes="0"/>
+   <row-logic id="11" requestSize="1">
+      <logicitem request="0" response="0" foes="0"/>
    </row-logic>
-   <logicitem request="0" response="0000000000000000000000" foes="1111111111111111111100"/><logicitem request="1" response="0000000000000000000000" foes="1111111111111111111100"/><logicitem request="2" response="1100000000000000000011" foes="1111111111111111110011"/><logicitem request="3" response="1100000000000000000011" foes="1111111111111111110011"/><logicitem request="4" response="1100000000000000001111" foes="1111111111111100001111"/><logicitem request="5" response="1100000000000000001111" foes="1111111111111100001111"/><logicitem request="6" response="1100000000000000001111" foes="1111111111111100001111"/><logicitem request="7" response="1100000000000000001111" foes="1111111111111100001111"/><logicitem request="8" response="1100000000000011111111" foes="1111111111110011111111"/><logicitem request="9" response="1100000000000011111111" foes="1111111111110011111111"/><logicitem request="10" response="1100000000001111111111" foes="1111111111001111111111"/><logicitem request="11" response="1100000000001111111111" foes="1111111111001111111111"/><logicitem request="12" response="1100000000111111111111" foes="1111111100111111111111"/><logicitem request="13" response="1100000000111111111111" foes="1111111100111111111111"/><logicitem request="14" response="1100000011111111111111" foes="1111000011111111111111"/><logicitem request="15" response="1100000011111111111111" foes="1111000011111111111111"/><logicitem request="16" response="1100000011111111111111" foes="1111000011111111111111"/><logicitem request="17" response="1100000011111111111111" foes="1111000011111111111111"/><logicitem request="18" response="1100111111111111111111" foes="1100111111111111111111"/><logicitem request="19" response="1100111111111111111111" foes="1100111111111111111111"/><logicitem request="20" response="0000000000000000000011" foes="0011111111111111111111"/><logicitem request="21" response="0000000000000000000011" foes="0011111111111111111111"/>
+   <row-logic id="12" requestSize="22">
+      <logicitem request="0" response="0000000000000000000000" foes="1111111111111111111100"/>
+      <logicitem request="1" response="0000000000000000000000" foes="1111111111111111111100"/>
+      <logicitem request="2" response="1100000000000000000011" foes="1111111111111111110011"/>
+      <logicitem request="3" response="1100000000000000000011" foes="1111111111111111110011"/>
+      <logicitem request="4" response="1100000000000000001111" foes="1111111111111100001111"/>
+      <logicitem request="5" response="1100000000000000001111" foes="1111111111111100001111"/>
+      <logicitem request="6" response="1100000000000000001111" foes="1111111111111100001111"/>
+      <logicitem request="7" response="1100000000000000001111" foes="1111111111111100001111"/>
+      <logicitem request="8" response="1100000000000011111111" foes="1111111111110011111111"/>
+      <logicitem request="9" response="1100000000000011111111" foes="1111111111110011111111"/>
+      <logicitem request="10" response="1100000000001111111111" foes="1111111111001111111111"/>
+      <logicitem request="11" response="1100000000001111111111" foes="1111111111001111111111"/>
+      <logicitem request="12" response="1100000000111111111111" foes="1111111100111111111111"/>
+      <logicitem request="13" response="1100000000111111111111" foes="1111111100111111111111"/>
+      <logicitem request="14" response="1100000011111111111111" foes="1111000011111111111111"/>
+      <logicitem request="15" response="1100000011111111111111" foes="1111000011111111111111"/>
+      <logicitem request="16" response="1100000011111111111111" foes="1111000011111111111111"/>
+      <logicitem request="17" response="1100000011111111111111" foes="1111000011111111111111"/>
+      <logicitem request="18" response="1100111111111111111111" foes="1100111111111111111111"/>
+      <logicitem request="19" response="1100111111111111111111" foes="1100111111111111111111"/>
+      <logicitem request="20" response="0000000000000000000011" foes="0011111111111111111111"/>
+      <logicitem request="21" response="0000000000000000000011" foes="0011111111111111111111"/>
    </row-logic>
-   <logicitem request="0" response="00000000000000000000" foes="00000000000000000000"/><logicitem request="1" response="00000000000000000000" foes="00000000000000000000"/><logicitem request="2" response="00000000000000000000" foes="00000000000000000000"/><logicitem request="3" response="00000000000000000000" foes="00000000000000000000"/><logicitem request="4" response="00000000000000000000" foes="00000000000000000000"/><logicitem request="5" response="00000000000000000000" foes="00000000000000000000"/><logicitem request="6" response="00000000000000000000" foes="00000000000000000000"/><logicitem request="7" response="00000000000000000000" foes="00000000000000000000"/><logicitem request="8" response="00000000000000000000" foes="00000000000000000000"/><logicitem request="9" response="00000000000000000000" foes="00000000000000000000"/><logicitem request="10" response="00000000000000000000" foes="00000000000000000000"/><logicitem request="11" response="00000000000000000000" foes="00000000000000000000"/><logicitem request="12" response="00000000000000000000" foes="00000000000000000000"/><logicitem request="13" response="00000000000000000000" foes="00000000000000000000"/><logicitem request="14" response="00000000000000000000" foes="00000000000000000000"/><logicitem request="15" response="00000000000000000000" foes="00000000000000000000"/><logicitem request="16" response="00000000000000000000" foes="00000000000000000000"/><logicitem request="17" response="00000000000000000000" foes="00000000000000000000"/><logicitem request="18" response="00000000000000000000" foes="00000000000000000000"/><logicitem request="19" response="00000000000000000000" foes="00000000000000000000"/>
+   <row-logic id="13" requestSize="20">
+      <logicitem request="0" response="00000000000000000000" foes="00000000000000000000"/>
+      <logicitem request="1" response="00000000000000000000" foes="00000000000000000000"/>
+      <logicitem request="2" response="00000000000000000000" foes="00000000000000000000"/>
+      <logicitem request="3" response="00000000000000000000" foes="00000000000000000000"/>
+      <logicitem request="4" response="00000000000000000000" foes="00000000000000000000"/>
+      <logicitem request="5" response="00000000000000000000" foes="00000000000000000000"/>
+      <logicitem request="6" response="00000000000000000000" foes="00000000000000000000"/>
+      <logicitem request="7" response="00000000000000000000" foes="00000000000000000000"/>
+      <logicitem request="8" response="00000000000000000000" foes="00000000000000000000"/>
+      <logicitem request="9" response="00000000000000000000" foes="00000000000000000000"/>
+      <logicitem request="10" response="00000000000000000000" foes="00000000000000000000"/>
+      <logicitem request="11" response="00000000000000000000" foes="00000000000000000000"/>
+      <logicitem request="12" response="00000000000000000000" foes="00000000000000000000"/>
+      <logicitem request="13" response="00000000000000000000" foes="00000000000000000000"/>
+      <logicitem request="14" response="00000000000000000000" foes="00000000000000000000"/>
+      <logicitem request="15" response="00000000000000000000" foes="00000000000000000000"/>
+      <logicitem request="16" response="00000000000000000000" foes="00000000000000000000"/>
+      <logicitem request="17" response="00000000000000000000" foes="00000000000000000000"/>
+      <logicitem request="18" response="00000000000000000000" foes="00000000000000000000"/>
+      <logicitem request="19" response="00000000000000000000" foes="00000000000000000000"/>
    </row-logic>
-   <logicitem request="0" response="00000000000000000000" foes="00000000000000000000"/><logicitem request="1" response="00000000000000000000" foes="00000000000000000000"/><logicitem request="2" response="00000000000000000000" foes="00000000000000000000"/><logicitem request="3" response="00000000000000000000" foes="00000000000000000000"/><logicitem request="4" response="00000000000000000000" foes="00000000000000000000"/><logicitem request="5" response="00000000000000000000" foes="00000000000000000000"/><logicitem request="6" response="00000000000000000000" foes="00000000000000000000"/><logicitem request="7" response="00000000000000000000" foes="00000000000000000000"/><logicitem request="8" response="00000000000000000000" foes="00000000000000000000"/><logicitem request="9" response="00000000000000000000" foes="00000000000000000000"/><logicitem request="10" response="00000000000000000000" foes="00000000000000000000"/><logicitem request="11" response="00000000000000000000" foes="00000000000000000000"/><logicitem request="12" response="00000000000000000000" foes="00000000000000000000"/><logicitem request="13" response="00000000000000000000" foes="00000000000000000000"/><logicitem request="14" response="00000000000000000000" foes="00000000000000000000"/><logicitem request="15" response="00000000000000000000" foes="00000000000000000000"/><logicitem request="16" response="00000000000000000000" foes="00000000000000000000"/><logicitem request="17" response="00000000000000000000" foes="00000000000000000000"/><logicitem request="18" response="00000000000000000000" foes="00000000000000000000"/><logicitem request="19" response="00000000000000000000" foes="00000000000000000000"/>
+   <row-logic id="14" requestSize="20">
+      <logicitem request="0" response="00000000000000000000" foes="00000000000000000000"/>
+      <logicitem request="1" response="00000000000000000000" foes="00000000000000000000"/>
+      <logicitem request="2" response="00000000000000000000" foes="00000000000000000000"/>
+      <logicitem request="3" response="00000000000000000000" foes="00000000000000000000"/>
+      <logicitem request="4" response="00000000000000000000" foes="00000000000000000000"/>
+      <logicitem request="5" response="00000000000000000000" foes="00000000000000000000"/>
+      <logicitem request="6" response="00000000000000000000" foes="00000000000000000000"/>
+      <logicitem request="7" response="00000000000000000000" foes="00000000000000000000"/>
+      <logicitem request="8" response="00000000000000000000" foes="00000000000000000000"/>
+      <logicitem request="9" response="00000000000000000000" foes="00000000000000000000"/>
+      <logicitem request="10" response="00000000000000000000" foes="00000000000000000000"/>
+      <logicitem request="11" response="00000000000000000000" foes="00000000000000000000"/>
+      <logicitem request="12" response="00000000000000000000" foes="00000000000000000000"/>
+      <logicitem request="13" response="00000000000000000000" foes="00000000000000000000"/>
+      <logicitem request="14" response="00000000000000000000" foes="00000000000000000000"/>
+      <logicitem request="15" response="00000000000000000000" foes="00000000000000000000"/>
+      <logicitem request="16" response="00000000000000000000" foes="00000000000000000000"/>
+      <logicitem request="17" response="00000000000000000000" foes="00000000000000000000"/>
+      <logicitem request="18" response="00000000000000000000" foes="00000000000000000000"/>
+      <logicitem request="19" response="00000000000000000000" foes="00000000000000000000"/>
    </row-logic>
-   <logicitem request="0" response="00000000000000000000" foes="00000000000000000000"/><logicitem request="1" response="00000000000000000000" foes="00000000000000000000"/><logicitem request="2" response="00000000000000000000" foes="00000000000000000000"/><logicitem request="3" response="00000000000000000000" foes="00000000000000000000"/><logicitem request="4" response="00000000000000000000" foes="00000000000000000000"/><logicitem request="5" response="00000000000000000000" foes="00000000000000000000"/><logicitem request="6" response="00000000000000000000" foes="00000000000000000000"/><logicitem request="7" response="00000000000000000000" foes="00000000000000000000"/><logicitem request="8" response="00000000000000000000" foes="00000000000000000000"/><logicitem request="9" response="00000000000000000000" foes="00000000000000000000"/><logicitem request="10" response="00000000000000000000" foes="00000000000000000000"/><logicitem request="11" response="00000000000000000000" foes="00000000000000000000"/><logicitem request="12" response="00000000000000000000" foes="00000000000000000000"/><logicitem request="13" response="00000000000000000000" foes="00000000000000000000"/><logicitem request="14" response="00000000000000000000" foes="00000000000000000000"/><logicitem request="15" response="00000000000000000000" foes="00000000000000000000"/><logicitem request="16" response="00000000000000000000" foes="00000000000000000000"/><logicitem request="17" response="00000000000000000000" foes="00000000000000000000"/><logicitem request="18" response="00000000000000000000" foes="00000000000000000000"/><logicitem request="19" response="00000000000000000000" foes="00000000000000000000"/>
+   <row-logic id="15" requestSize="20">
+      <logicitem request="0" response="00000000000000000000" foes="00000000000000000000"/>
+      <logicitem request="1" response="00000000000000000000" foes="00000000000000000000"/>
+      <logicitem request="2" response="00000000000000000000" foes="00000000000000000000"/>
+      <logicitem request="3" response="00000000000000000000" foes="00000000000000000000"/>
+      <logicitem request="4" response="00000000000000000000" foes="00000000000000000000"/>
+      <logicitem request="5" response="00000000000000000000" foes="00000000000000000000"/>
+      <logicitem request="6" response="00000000000000000000" foes="00000000000000000000"/>
+      <logicitem request="7" response="00000000000000000000" foes="00000000000000000000"/>
+      <logicitem request="8" response="00000000000000000000" foes="00000000000000000000"/>
+      <logicitem request="9" response="00000000000000000000" foes="00000000000000000000"/>
+      <logicitem request="10" response="00000000000000000000" foes="00000000000000000000"/>
+      <logicitem request="11" response="00000000000000000000" foes="00000000000000000000"/>
+      <logicitem request="12" response="00000000000000000000" foes="00000000000000000000"/>
+      <logicitem request="13" response="00000000000000000000" foes="00000000000000000000"/>
+      <logicitem request="14" response="00000000000000000000" foes="00000000000000000000"/>
+      <logicitem request="15" response="00000000000000000000" foes="00000000000000000000"/>
+      <logicitem request="16" response="00000000000000000000" foes="00000000000000000000"/>
+      <logicitem request="17" response="00000000000000000000" foes="00000000000000000000"/>
+      <logicitem request="18" response="00000000000000000000" foes="00000000000000000000"/>
+      <logicitem request="19" response="00000000000000000000" foes="00000000000000000000"/>
    </row-logic>
-   <logicitem request="0" response="000000000000000000" foes="000000000000000000"/><logicitem request="1" response="000000000000000000" foes="000000000000000000"/><logicitem request="2" response="000000000000000000" foes="000000000000000000"/><logicitem request="3" response="000000000000000000" foes="000000000000000000"/><logicitem request="4" response="000000000000000000" foes="000000000000000000"/><logicitem request="5" response="000000000000000000" foes="000000000000000000"/><logicitem request="6" response="000000000000000000" foes="000000000000000000"/><logicitem request="7" response="000000000000000000" foes="000000000000000000"/><logicitem request="8" response="000000000000000000" foes="000000000000000000"/><logicitem request="9" response="000000000000000000" foes="000000000000000000"/><logicitem request="10" response="000000000000000000" foes="000000000000000000"/><logicitem request="11" response="000000000000000000" foes="000000000000000000"/><logicitem request="12" response="000000000000000000" foes="000000000000000000"/><logicitem request="13" response="000000000000000000" foes="000000000000000000"/><logicitem request="14" response="000000000000000000" foes="000000000000000000"/><logicitem request="15" response="000000000000000000" foes="000000000000000000"/><logicitem request="16" response="000000000000000000" foes="000000000000000000"/><logicitem request="17" response="000000000000000000" foes="000000000000000000"/>
+   <row-logic id="2" requestSize="18">
+      <logicitem request="0" response="000000000000000000" foes="000000000000000000"/>
+      <logicitem request="1" response="000000000000000000" foes="000000000000000000"/>
+      <logicitem request="2" response="000000000000000000" foes="000000000000000000"/>
+      <logicitem request="3" response="000000000000000000" foes="000000000000000000"/>
+      <logicitem request="4" response="000000000000000000" foes="000000000000000000"/>
+      <logicitem request="5" response="000000000000000000" foes="000000000000000000"/>
+      <logicitem request="6" response="000000000000000000" foes="000000000000000000"/>
+      <logicitem request="7" response="000000000000000000" foes="000000000000000000"/>
+      <logicitem request="8" response="000000000000000000" foes="000000000000000000"/>
+      <logicitem request="9" response="000000000000000000" foes="000000000000000000"/>
+      <logicitem request="10" response="000000000000000000" foes="000000000000000000"/>
+      <logicitem request="11" response="000000000000000000" foes="000000000000000000"/>
+      <logicitem request="12" response="000000000000000000" foes="000000000000000000"/>
+      <logicitem request="13" response="000000000000000000" foes="000000000000000000"/>
+      <logicitem request="14" response="000000000000000000" foes="000000000000000000"/>
+      <logicitem request="15" response="000000000000000000" foes="000000000000000000"/>
+      <logicitem request="16" response="000000000000000000" foes="000000000000000000"/>
+      <logicitem request="17" response="000000000000000000" foes="000000000000000000"/>
    </row-logic>
-   <logicitem request="0" response="0" foes="0"/>
+   <row-logic id="3" requestSize="1">
+      <logicitem request="0" response="0" foes="0"/>
    </row-logic>
-   <logicitem request="0" response="0" foes="0"/>
+   <row-logic id="4" requestSize="1">
+      <logicitem request="0" response="0" foes="0"/>
    </row-logic>
-   <logicitem request="0" response="0" foes="0"/>
+   <row-logic id="5" requestSize="1">
+      <logicitem request="0" response="0" foes="0"/>
    </row-logic>
-   <logicitem request="0" response="0" foes="0"/>
+   <row-logic id="6" requestSize="1">
+      <logicitem request="0" response="0" foes="0"/>
    </row-logic>
-   <logicitem request="0" response="0" foes="0"/>
+   <row-logic id="7" requestSize="1">
+      <logicitem request="0" response="0" foes="0"/>
    </row-logic>
-   <logicitem request="0" response="0" foes="0"/>
+   <row-logic id="8" requestSize="1">
+      <logicitem request="0" response="0" foes="0"/>
    </row-logic>
-   <logicitem request="0" response="0" foes="0"/>
+   <row-logic id="9" requestSize="1">
+      <logicitem request="0" response="0" foes="0"/>
    </row-logic>
 
    <junction id="1" type="priority" x="0.00" y="10000.00" incLanes="23_0 23_1 23_2 23_3 23_4 23_5 23_6 23_7 23_8 23_9 23_10 23_11 23_12 23_13 23_14 23_15 23_16 23_17 23_18 23_19" intLanes="" shape="65.95,9999.95 65.95,9934.05 0.05,9934.05"/>

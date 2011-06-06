@@ -1,3 +1,5 @@
+<?xml version="1.0"?>
+
 <districts>
    <district id="1">
       <dsource id="a1" weight="1"/>
@@ -7,3 +9,4 @@
       <dsource id="b1" weight="1"/>
    </district>
 </districts>
+

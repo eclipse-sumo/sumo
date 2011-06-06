@@ -29,10 +29,10 @@
 
    <location netOffset="500.00,50.00" convBoundary="0.00,0.00,1800.00,100.00" origBoundary="-500.00,-50.00,1300.00,50.00" projParameter="!"/>
 
-   <edge id="1to21" from="1" to="2" priority="-1">
+   <edge id="1to21" from="1" to="2" priority="-1" shape="500.00,50.00 1000.00,100.00 1500.00,50.00">
       <lane id="1to21_0" depart="1" maxspeed="13.90" length="1001.80" shape="501.65,48.51 1000.00,98.34 1498.48,48.49"/>
    </edge>
-   <edge id="1to22" from="1" to="2" priority="-1">
+   <edge id="1to22" from="1" to="2" priority="-1" shape="500.00,50.00 1000.00,0.00 1500.00,50.00">
       <lane id="1to22_0" depart="1" maxspeed="13.90" length="1001.79" shape="501.69,48.17 1000.00,-1.66 1498.51,48.19"/>
    </edge>
    <edge id="91to1" from="91" to="1" priority="-1">
@@ -42,9 +42,13 @@
       <lane id="out_0" depart="1" maxspeed="13.90" length="298.34" shape="1501.66,48.35 1800.00,48.35"/>
    </edge>
 
-   <logicitem request="0" response="00" foes="00"/><logicitem request="1" response="00" foes="00"/>
+   <row-logic id="1" requestSize="2">
+      <logicitem request="0" response="00" foes="00"/>
+      <logicitem request="1" response="00" foes="00"/>
    </row-logic>
-   <logicitem request="0" response="00" foes="10"/><logicitem request="1" response="01" foes="01"/>
+   <row-logic id="2" requestSize="2">
+      <logicitem request="0" response="00" foes="10"/>
+      <logicitem request="1" response="01" foes="01"/>
    </row-logic>
 
    <tl-logic id="2" type="static" programID="0" offset="0">

@@ -102,17 +102,29 @@
       <lane id="middle_0" depart="1" maxspeed="19.44" length="995.25" shape="104.75,248.35 1100.00,248.35"/>
    </edge>
 
-   <logicitem request="0" response="000" foes="000" cont="0"/><logicitem request="1" response="000" foes="000" cont="0"/><logicitem request="2" response="000" foes="000" cont="0"/>
+   <row-logic id="1" requestSize="3">
+      <logicitem request="0" response="000" foes="000" cont="0"/>
+      <logicitem request="1" response="000" foes="000" cont="0"/>
+      <logicitem request="2" response="000" foes="000" cont="0"/>
    </row-logic>
-   <logicitem request="0" response="0" foes="0" cont="0"/>
+   <row-logic id="2" requestSize="1">
+      <logicitem request="0" response="0" foes="0" cont="0"/>
    </row-logic>
-   <logicitem request="0" response="0" foes="0" cont="0"/>
+   <row-logic id="L1" requestSize="1">
+      <logicitem request="0" response="0" foes="0" cont="0"/>
    </row-logic>
-   <logicitem request="0" response="000" foes="000" cont="0"/><logicitem request="1" response="000" foes="000" cont="0"/><logicitem request="2" response="000" foes="000" cont="0"/>
+   <row-logic id="L2" requestSize="3">
+      <logicitem request="0" response="000" foes="000" cont="0"/>
+      <logicitem request="1" response="000" foes="000" cont="0"/>
+      <logicitem request="2" response="000" foes="000" cont="0"/>
    </row-logic>
-   <logicitem request="0" response="0" foes="0" cont="0"/>
+   <row-logic id="R1" requestSize="1">
+      <logicitem request="0" response="0" foes="0" cont="0"/>
    </row-logic>
-   <logicitem request="0" response="000" foes="000" cont="0"/><logicitem request="1" response="000" foes="000" cont="0"/><logicitem request="2" response="000" foes="000" cont="0"/>
+   <row-logic id="R2" requestSize="3">
+      <logicitem request="0" response="000" foes="000" cont="0"/>
+      <logicitem request="1" response="000" foes="000" cont="0"/>
+      <logicitem request="2" response="000" foes="000" cont="0"/>
    </row-logic>
 
    <junction id="1" type="priority" x="100.00" y="250.00" incLanes="beg_0" intLanes=":1_0_0 :1_1_0 :1_2_0" shape="100.05,251.45 103.25,251.45 104.75,249.95 104.75,246.75 99.95,245.25 96.75,245.25 95.25,246.75 95.25,249.95"/>
