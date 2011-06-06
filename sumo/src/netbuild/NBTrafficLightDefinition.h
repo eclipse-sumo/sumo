@@ -263,6 +263,11 @@ public:
     const EdgeVector &getIncomingEdges() const throw();
 
 
+    /// @brief returns the controlled links (depends on previous call to collectLinks)
+    const NBConnectionVector& getControlledLinks() const {
+        return myControlledLinks;
+    }
+
 protected:
     /** @brief Computes the traffic light logic finally in dependence to the type
      * @param[in] ec The edge container
