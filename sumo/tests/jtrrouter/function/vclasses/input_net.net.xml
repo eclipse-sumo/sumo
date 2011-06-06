@@ -75,24 +75,24 @@
       <lane id="rend_1" depart="0" maxspeed="27.80" length="500.00" shape="2000.00,-1.65 2500.00,-1.65"/>
    </edge>
 
-   <row-logic id="absEnd" requestSize="2">
+   <ROWLogic id="absEnd" requestSize="2">
       <logicitem request="0" response="00" foes="00" cont="0"/>
       <logicitem request="1" response="00" foes="00" cont="0"/>
-   </row-logic>
-   <row-logic id="beg" requestSize="2">
+   </ROWLogic>
+   <ROWLogic id="beg" requestSize="2">
       <logicitem request="0" response="00" foes="00" cont="0"/>
       <logicitem request="1" response="00" foes="00" cont="0"/>
-   </row-logic>
-   <row-logic id="begleft" requestSize="1">
+   </ROWLogic>
+   <ROWLogic id="begleft" requestSize="1">
       <logicitem request="0" response="0" foes="0" cont="0"/>
-   </row-logic>
-   <row-logic id="end" requestSize="2">
+   </ROWLogic>
+   <ROWLogic id="end" requestSize="2">
       <logicitem request="0" response="00" foes="10" cont="0"/>
       <logicitem request="1" response="00" foes="01" cont="0"/>
-   </row-logic>
-   <row-logic id="endleft" requestSize="1">
+   </ROWLogic>
+   <ROWLogic id="endleft" requestSize="1">
       <logicitem request="0" response="0" foes="0" cont="0"/>
-   </row-logic>
+   </ROWLogic>
 
    <junction id="absBeg" type="DEAD_END" x="0.00" y="0.00" incLanes="" intLanes="" shape="0.00,-0.05 0.00,-6.55"/>
    <junction id="absEnd" type="priority" x="2000.00" y="0.00" incLanes="end_0 end_1" intLanes=":absEnd_0_0 :absEnd_1_0" shape="2000.00,-0.05 2000.00,-6.55 2000.00,-0.05"/>

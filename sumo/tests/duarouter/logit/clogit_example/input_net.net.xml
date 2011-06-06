@@ -54,22 +54,22 @@
       <lane id="yd_0" depart="1" maxspeed="13.90" length="1107.40" shape="8005.31,995.50 8995.80,500.26"/>
    </edge>
 
-   <row-logic id="a" requestSize="2">
+   <ROWLogic id="a" requestSize="2">
       <logicitem request="0" response="00" foes="00"/>
       <logicitem request="1" response="00" foes="00"/>
-   </row-logic>
-   <row-logic id="b" requestSize="2">
+   </ROWLogic>
+   <ROWLogic id="b" requestSize="2">
       <logicitem request="0" response="00" foes="00"/>
       <logicitem request="1" response="00" foes="00"/>
-   </row-logic>
-   <row-logic id="x" requestSize="2">
+   </ROWLogic>
+   <ROWLogic id="x" requestSize="2">
       <logicitem request="0" response="00" foes="10"/>
       <logicitem request="1" response="01" foes="01"/>
-   </row-logic>
-   <row-logic id="y" requestSize="2">
+   </ROWLogic>
+   <ROWLogic id="y" requestSize="2">
       <logicitem request="0" response="00" foes="10"/>
       <logicitem request="1" response="01" foes="01"/>
-   </row-logic>
+   </ROWLogic>
 
    <junction id="a" type="priority" x="5000.00" y="0.00" incLanes="oa_0" intLanes="" shape="5003.34,3.27 5005.61,1.01 5006.05,-0.05 5006.05,-3.25 4998.52,-3.25 4998.52,-0.05"/>
    <junction id="b" type="priority" x="8000.00" y="0.00" incLanes="ab_0" intLanes="" shape="8000.05,3.07 8003.25,3.07 8004.59,2.24 8006.02,-0.62 7998.55,-3.25 7998.55,-0.05"/>

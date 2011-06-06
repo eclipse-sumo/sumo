@@ -170,13 +170,13 @@
       <lane id="4/2to4/1_0" depart="1" maxspeed="10.00" length="392.00" shape="1598.35,796.75 1598.35,404.75"/>
    </edge>
 
-   <row-logic id="0/0" requestSize="4">
+   <ROWLogic id="0/0" requestSize="4">
       <logicitem request="0" response="0000" foes="1000"/>
       <logicitem request="1" response="0100" foes="0100"/>
       <logicitem request="2" response="0000" foes="0010"/>
       <logicitem request="3" response="0001" foes="0001"/>
-   </row-logic>
-   <row-logic id="0/1" requestSize="9">
+   </ROWLogic>
+   <ROWLogic id="0/1" requestSize="9">
       <logicitem request="0" response="000000000" foes="100010000"/>
       <logicitem request="1" response="011000000" foes="011110000"/>
       <logicitem request="2" response="010001000" foes="010001000"/>
@@ -186,14 +186,14 @@
       <logicitem request="6" response="000000000" foes="000100010"/>
       <logicitem request="7" response="000000000" foes="000011110"/>
       <logicitem request="8" response="000010001" foes="000010001"/>
-   </row-logic>
-   <row-logic id="0/2" requestSize="4">
+   </ROWLogic>
+   <ROWLogic id="0/2" requestSize="4">
       <logicitem request="0" response="0000" foes="1000"/>
       <logicitem request="1" response="0100" foes="0100"/>
       <logicitem request="2" response="0000" foes="0010"/>
       <logicitem request="3" response="0001" foes="0001"/>
-   </row-logic>
-   <row-logic id="1/0" requestSize="9">
+   </ROWLogic>
+   <ROWLogic id="1/0" requestSize="9">
       <logicitem request="0" response="000010000" foes="100010000"/>
       <logicitem request="1" response="011010000" foes="011110000"/>
       <logicitem request="2" response="010001000" foes="010001000"/>
@@ -203,8 +203,8 @@
       <logicitem request="6" response="000000000" foes="000100010"/>
       <logicitem request="7" response="000011000" foes="000011110"/>
       <logicitem request="8" response="000010001" foes="000010001"/>
-   </row-logic>
-   <row-logic id="1/1" requestSize="16">
+   </ROWLogic>
+   <ROWLogic id="1/1" requestSize="16">
       <logicitem request="0" response="0000000000000000" foes="1000010000100000"/>
       <logicitem request="1" response="0000000000000000" foes="0111110001100000"/>
       <logicitem request="2" response="0000001100000000" foes="0110001111100000"/>
@@ -221,8 +221,8 @@
       <logicitem request="13" response="0000011100000110" foes="0000011111000110"/>
       <logicitem request="14" response="0000011000110110" foes="0000011000111110"/>
       <logicitem request="15" response="0000010000100001" foes="0000010000100001"/>
-   </row-logic>
-   <row-logic id="1/2" requestSize="9">
+   </ROWLogic>
+   <ROWLogic id="1/2" requestSize="9">
       <logicitem request="0" response="000000000" foes="100010000"/>
       <logicitem request="1" response="011000000" foes="011110000"/>
       <logicitem request="2" response="010001000" foes="010001000"/>
@@ -232,8 +232,8 @@
       <logicitem request="6" response="000000000" foes="000100010"/>
       <logicitem request="7" response="000000000" foes="000011110"/>
       <logicitem request="8" response="000010001" foes="000010001"/>
-   </row-logic>
-   <row-logic id="2/0" requestSize="9">
+   </ROWLogic>
+   <ROWLogic id="2/0" requestSize="9">
       <logicitem request="0" response="000010000" foes="100010000"/>
       <logicitem request="1" response="011010000" foes="011110000"/>
       <logicitem request="2" response="010001000" foes="010001000"/>
@@ -243,8 +243,8 @@
       <logicitem request="6" response="000000000" foes="000100010"/>
       <logicitem request="7" response="000011000" foes="000011110"/>
       <logicitem request="8" response="000010001" foes="000010001"/>
-   </row-logic>
-   <row-logic id="2/1" requestSize="16">
+   </ROWLogic>
+   <ROWLogic id="2/1" requestSize="16">
       <logicitem request="0" response="0000000000000000" foes="1000010000100000"/>
       <logicitem request="1" response="0000000000000000" foes="0111110001100000"/>
       <logicitem request="2" response="0000001100000000" foes="0110001111100000"/>
@@ -261,8 +261,8 @@
       <logicitem request="13" response="0000011100000110" foes="0000011111000110"/>
       <logicitem request="14" response="0000011000110110" foes="0000011000111110"/>
       <logicitem request="15" response="0000010000100001" foes="0000010000100001"/>
-   </row-logic>
-   <row-logic id="2/2" requestSize="9">
+   </ROWLogic>
+   <ROWLogic id="2/2" requestSize="9">
       <logicitem request="0" response="000000000" foes="100010000"/>
       <logicitem request="1" response="011000000" foes="011110000"/>
       <logicitem request="2" response="010001000" foes="010001000"/>
@@ -272,8 +272,8 @@
       <logicitem request="6" response="000000000" foes="000100010"/>
       <logicitem request="7" response="000000000" foes="000011110"/>
       <logicitem request="8" response="000010001" foes="000010001"/>
-   </row-logic>
-   <row-logic id="3/0" requestSize="9">
+   </ROWLogic>
+   <ROWLogic id="3/0" requestSize="9">
       <logicitem request="0" response="000010000" foes="100010000"/>
       <logicitem request="1" response="011010000" foes="011110000"/>
       <logicitem request="2" response="010001000" foes="010001000"/>
@@ -283,8 +283,8 @@
       <logicitem request="6" response="000000000" foes="000100010"/>
       <logicitem request="7" response="000011000" foes="000011110"/>
       <logicitem request="8" response="000010001" foes="000010001"/>
-   </row-logic>
-   <row-logic id="3/1" requestSize="16">
+   </ROWLogic>
+   <ROWLogic id="3/1" requestSize="16">
       <logicitem request="0" response="0000000000000000" foes="1000010000100000"/>
       <logicitem request="1" response="0000000000000000" foes="0111110001100000"/>
       <logicitem request="2" response="0000001100000000" foes="0110001111100000"/>
@@ -301,8 +301,8 @@
       <logicitem request="13" response="0000011100000110" foes="0000011111000110"/>
       <logicitem request="14" response="0000011000110110" foes="0000011000111110"/>
       <logicitem request="15" response="0000010000100001" foes="0000010000100001"/>
-   </row-logic>
-   <row-logic id="3/2" requestSize="9">
+   </ROWLogic>
+   <ROWLogic id="3/2" requestSize="9">
       <logicitem request="0" response="000000000" foes="100010000"/>
       <logicitem request="1" response="011000000" foes="011110000"/>
       <logicitem request="2" response="010001000" foes="010001000"/>
@@ -312,14 +312,14 @@
       <logicitem request="6" response="000000000" foes="000100010"/>
       <logicitem request="7" response="000000000" foes="000011110"/>
       <logicitem request="8" response="000010001" foes="000010001"/>
-   </row-logic>
-   <row-logic id="4/0" requestSize="4">
+   </ROWLogic>
+   <ROWLogic id="4/0" requestSize="4">
       <logicitem request="0" response="0000" foes="1000"/>
       <logicitem request="1" response="0100" foes="0100"/>
       <logicitem request="2" response="0000" foes="0010"/>
       <logicitem request="3" response="0001" foes="0001"/>
-   </row-logic>
-   <row-logic id="4/1" requestSize="9">
+   </ROWLogic>
+   <ROWLogic id="4/1" requestSize="9">
       <logicitem request="0" response="000000000" foes="100010000"/>
       <logicitem request="1" response="000000000" foes="011110000"/>
       <logicitem request="2" response="010001000" foes="010001000"/>
@@ -329,43 +329,43 @@
       <logicitem request="6" response="000000010" foes="000100010"/>
       <logicitem request="7" response="000011010" foes="000011110"/>
       <logicitem request="8" response="000010001" foes="000010001"/>
-   </row-logic>
-   <row-logic id="4/2" requestSize="4">
+   </ROWLogic>
+   <ROWLogic id="4/2" requestSize="4">
       <logicitem request="0" response="0000" foes="1000"/>
       <logicitem request="1" response="0100" foes="0100"/>
       <logicitem request="2" response="0000" foes="0010"/>
       <logicitem request="3" response="0001" foes="0001"/>
-   </row-logic>
+   </ROWLogic>
 
-   <tl-logic id="0/0" type="static" programID="0" offset="0">
+   <tlLogic id="0/0" type="static" programID="0" offset="0">
       <phase duration="31" state="GgGr"/>
       <phase duration="3" state="yyyr"/>
       <phase duration="31" state="GrGg"/>
       <phase duration="3" state="yryy"/>
-   </tl-logic>
-   <tl-logic id="0/1" type="static" programID="0" offset="0">
+   </tlLogic>
+   <tlLogic id="0/1" type="static" programID="0" offset="0">
       <phase duration="31" state="GggrrrGGg"/>
       <phase duration="3" state="yggrrryyg"/>
       <phase duration="6" state="rGGrrrrrG"/>
       <phase duration="3" state="ryyrrrrry"/>
       <phase duration="31" state="rrrGGgGrr"/>
       <phase duration="3" state="rrryyyyrr"/>
-   </tl-logic>
-   <tl-logic id="0/2" type="static" programID="0" offset="0">
+   </tlLogic>
+   <tlLogic id="0/2" type="static" programID="0" offset="0">
       <phase duration="31" state="GgGr"/>
       <phase duration="3" state="yyyr"/>
       <phase duration="31" state="GrGg"/>
       <phase duration="3" state="yryy"/>
-   </tl-logic>
-   <tl-logic id="1/0" type="static" programID="0" offset="0">
+   </tlLogic>
+   <tlLogic id="1/0" type="static" programID="0" offset="0">
       <phase duration="31" state="rrrGGgGgg"/>
       <phase duration="3" state="rrryygygg"/>
       <phase duration="6" state="rrrrrGrGG"/>
       <phase duration="3" state="rrrrryryy"/>
       <phase duration="31" state="GGgGrrrrr"/>
       <phase duration="3" state="yyyyrrrrr"/>
-   </tl-logic>
-   <tl-logic id="1/1" type="static" programID="0" offset="0">
+   </tlLogic>
+   <tlLogic id="1/1" type="static" programID="0" offset="0">
       <phase duration="31" state="GGggrrrrGGggrrrr"/>
       <phase duration="3" state="yyggrrrryyggrrrr"/>
       <phase duration="6" state="rrGGrrrrrrGGrrrr"/>
@@ -374,24 +374,24 @@
       <phase duration="3" state="rrrryyggrrrryygg"/>
       <phase duration="6" state="rrrrrrGGrrrrrrGG"/>
       <phase duration="3" state="rrrrrryyrrrrrryy"/>
-   </tl-logic>
-   <tl-logic id="1/2" type="static" programID="0" offset="0">
+   </tlLogic>
+   <tlLogic id="1/2" type="static" programID="0" offset="0">
       <phase duration="31" state="GggrrrGGg"/>
       <phase duration="3" state="yggrrryyg"/>
       <phase duration="6" state="rGGrrrrrG"/>
       <phase duration="3" state="ryyrrrrry"/>
       <phase duration="31" state="rrrGGgGrr"/>
       <phase duration="3" state="rrryyyyrr"/>
-   </tl-logic>
-   <tl-logic id="2/0" type="static" programID="0" offset="0">
+   </tlLogic>
+   <tlLogic id="2/0" type="static" programID="0" offset="0">
       <phase duration="31" state="rrrGGgGgg"/>
       <phase duration="3" state="rrryygygg"/>
       <phase duration="6" state="rrrrrGrGG"/>
       <phase duration="3" state="rrrrryryy"/>
       <phase duration="31" state="GGgGrrrrr"/>
       <phase duration="3" state="yyyyrrrrr"/>
-   </tl-logic>
-   <tl-logic id="2/1" type="static" programID="0" offset="0">
+   </tlLogic>
+   <tlLogic id="2/1" type="static" programID="0" offset="0">
       <phase duration="31" state="GGggrrrrGGggrrrr"/>
       <phase duration="3" state="yyggrrrryyggrrrr"/>
       <phase duration="6" state="rrGGrrrrrrGGrrrr"/>
@@ -400,24 +400,24 @@
       <phase duration="3" state="rrrryyggrrrryygg"/>
       <phase duration="6" state="rrrrrrGGrrrrrrGG"/>
       <phase duration="3" state="rrrrrryyrrrrrryy"/>
-   </tl-logic>
-   <tl-logic id="2/2" type="static" programID="0" offset="0">
+   </tlLogic>
+   <tlLogic id="2/2" type="static" programID="0" offset="0">
       <phase duration="31" state="GggrrrGGg"/>
       <phase duration="3" state="yggrrryyg"/>
       <phase duration="6" state="rGGrrrrrG"/>
       <phase duration="3" state="ryyrrrrry"/>
       <phase duration="31" state="rrrGGgGrr"/>
       <phase duration="3" state="rrryyyyrr"/>
-   </tl-logic>
-   <tl-logic id="3/0" type="static" programID="0" offset="0">
+   </tlLogic>
+   <tlLogic id="3/0" type="static" programID="0" offset="0">
       <phase duration="31" state="rrrGGgGgg"/>
       <phase duration="3" state="rrryygygg"/>
       <phase duration="6" state="rrrrrGrGG"/>
       <phase duration="3" state="rrrrryryy"/>
       <phase duration="31" state="GGgGrrrrr"/>
       <phase duration="3" state="yyyyrrrrr"/>
-   </tl-logic>
-   <tl-logic id="3/1" type="static" programID="0" offset="0">
+   </tlLogic>
+   <tlLogic id="3/1" type="static" programID="0" offset="0">
       <phase duration="31" state="GGggrrrrGGggrrrr"/>
       <phase duration="3" state="yyggrrrryyggrrrr"/>
       <phase duration="6" state="rrGGrrrrrrGGrrrr"/>
@@ -426,35 +426,35 @@
       <phase duration="3" state="rrrryyggrrrryygg"/>
       <phase duration="6" state="rrrrrrGGrrrrrrGG"/>
       <phase duration="3" state="rrrrrryyrrrrrryy"/>
-   </tl-logic>
-   <tl-logic id="3/2" type="static" programID="0" offset="0">
+   </tlLogic>
+   <tlLogic id="3/2" type="static" programID="0" offset="0">
       <phase duration="31" state="GggrrrGGg"/>
       <phase duration="3" state="yggrrryyg"/>
       <phase duration="6" state="rGGrrrrrG"/>
       <phase duration="3" state="ryyrrrrry"/>
       <phase duration="31" state="rrrGGgGrr"/>
       <phase duration="3" state="rrryyyyrr"/>
-   </tl-logic>
-   <tl-logic id="4/0" type="static" programID="0" offset="0">
+   </tlLogic>
+   <tlLogic id="4/0" type="static" programID="0" offset="0">
       <phase duration="31" state="GgGr"/>
       <phase duration="3" state="yyyr"/>
       <phase duration="31" state="GrGg"/>
       <phase duration="3" state="yryy"/>
-   </tl-logic>
-   <tl-logic id="4/1" type="static" programID="0" offset="0">
+   </tlLogic>
+   <tlLogic id="4/1" type="static" programID="0" offset="0">
       <phase duration="31" state="GGgGggrrr"/>
       <phase duration="3" state="yygyggrrr"/>
       <phase duration="6" state="rrGrGGrrr"/>
       <phase duration="3" state="rryryyrrr"/>
       <phase duration="31" state="GrrrrrGGg"/>
       <phase duration="3" state="yrrrrryyy"/>
-   </tl-logic>
-   <tl-logic id="4/2" type="static" programID="0" offset="0">
+   </tlLogic>
+   <tlLogic id="4/2" type="static" programID="0" offset="0">
       <phase duration="31" state="GgGr"/>
       <phase duration="3" state="yyyr"/>
       <phase duration="31" state="GrGg"/>
       <phase duration="3" state="yryy"/>
-   </tl-logic>
+   </tlLogic>
 
    <junction id="0/0" type="priority" x="0.00" y="0.00" incLanes="0/1to0/0_0 1/0to0/0_0" intLanes="" shape="-3.25,3.25 3.25,3.25 3.25,-3.25"/>
    <junction id="0/1" type="priority" x="0.00" y="400.00" incLanes="0/2to0/1_0 1/1to0/1_0 0/0to0/1_0" intLanes="" shape="-3.25,404.75 3.25,404.75 4.75,403.25 4.75,396.75 3.25,395.25 -3.25,395.25"/>

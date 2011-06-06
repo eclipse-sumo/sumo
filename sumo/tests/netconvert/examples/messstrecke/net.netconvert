@@ -366,24 +366,24 @@
       <lane id="VolmerSinkS_0" depart="1" maxspeed="14.00" length="100.00" shape="1583.10,400.00 1583.10,300.00"/>
    </edge>
 
-   <row-logic id="AltglienickerBreit" requestSize="3">
+   <ROWLogic id="AltglienickerBreit" requestSize="3">
       <logicitem request="0" response="000" foes="000" cont="0"/>
       <logicitem request="1" response="000" foes="000" cont="0"/>
       <logicitem request="2" response="000" foes="000" cont="0"/>
-   </row-logic>
-   <row-logic id="AltglienickerEnd" requestSize="2">
+   </ROWLogic>
+   <ROWLogic id="AltglienickerEnd" requestSize="2">
       <logicitem request="0" response="00" foes="00" cont="0"/>
       <logicitem request="1" response="00" foes="00" cont="0"/>
-   </row-logic>
-   <row-logic id="AltglienickerSinkEnd" requestSize="0">
-   </row-logic>
-   <row-logic id="EinsteinEnd" requestSize="2">
+   </ROWLogic>
+   <ROWLogic id="AltglienickerSinkEnd" requestSize="0">
+   </ROWLogic>
+   <ROWLogic id="EinsteinEnd" requestSize="2">
       <logicitem request="0" response="00" foes="00" cont="0"/>
       <logicitem request="1" response="00" foes="00" cont="0"/>
-   </row-logic>
-   <row-logic id="EinsteinSinkEnd" requestSize="0">
-   </row-logic>
-   <row-logic id="ErnstRuskaAltglienicker" requestSize="8">
+   </ROWLogic>
+   <ROWLogic id="EinsteinSinkEnd" requestSize="0">
+   </ROWLogic>
+   <ROWLogic id="ErnstRuskaAltglienicker" requestSize="8">
       <logicitem request="0" response="00000000" foes="00010000" cont="0"/>
       <logicitem request="1" response="00000000" foes="00010000" cont="0"/>
       <logicitem request="2" response="00000000" foes="11110000" cont="1"/>
@@ -392,8 +392,8 @@
       <logicitem request="5" response="00000100" foes="00000100" cont="0"/>
       <logicitem request="6" response="00011100" foes="00011100" cont="0"/>
       <logicitem request="7" response="00011100" foes="00011100" cont="0"/>
-   </row-logic>
-   <row-logic id="ErnstRuskaEinstein" requestSize="8">
+   </ROWLogic>
+   <ROWLogic id="ErnstRuskaEinstein" requestSize="8">
       <logicitem request="0" response="00011000" foes="00011000" cont="0"/>
       <logicitem request="1" response="11111000" foes="11111000" cont="0"/>
       <logicitem request="2" response="00000000" foes="10000000" cont="0"/>
@@ -402,21 +402,21 @@
       <logicitem request="5" response="00000000" foes="00000010" cont="0"/>
       <logicitem request="6" response="00000000" foes="00000010" cont="0"/>
       <logicitem request="7" response="00011100" foes="00011110" cont="1"/>
-   </row-logic>
-   <row-logic id="ErnstRuskaEnd1" requestSize="4">
+   </ROWLogic>
+   <ROWLogic id="ErnstRuskaEnd1" requestSize="4">
       <logicitem request="0" response="0000" foes="0000" cont="0"/>
       <logicitem request="1" response="0000" foes="0000" cont="0"/>
       <logicitem request="2" response="0000" foes="0000" cont="0"/>
       <logicitem request="3" response="0000" foes="0000" cont="0"/>
-   </row-logic>
-   <row-logic id="ErnstRuskaEnd2" requestSize="5">
+   </ROWLogic>
+   <ROWLogic id="ErnstRuskaEnd2" requestSize="5">
       <logicitem request="0" response="00000" foes="00000" cont="0"/>
       <logicitem request="1" response="00000" foes="00000" cont="0"/>
       <logicitem request="2" response="00000" foes="00000" cont="0"/>
       <logicitem request="3" response="00000" foes="00000" cont="0"/>
       <logicitem request="4" response="00000" foes="00000" cont="0"/>
-   </row-logic>
-   <row-logic id="ErnstRuskaHavestadt" requestSize="9">
+   </ROWLogic>
+   <ROWLogic id="ErnstRuskaHavestadt" requestSize="9">
       <logicitem request="0" response="000000000" foes="000110000" cont="0"/>
       <logicitem request="1" response="111000000" foes="111110000" cont="0"/>
       <logicitem request="2" response="111000000" foes="111110000" cont="0"/>
@@ -426,25 +426,25 @@
       <logicitem request="6" response="000000000" foes="000000110" cont="0"/>
       <logicitem request="7" response="000000000" foes="000000110" cont="0"/>
       <logicitem request="8" response="000000000" foes="000111110" cont="0"/>
-   </row-logic>
-   <row-logic id="ErnstRuskaHavestadtDiv1" requestSize="5">
+   </ROWLogic>
+   <ROWLogic id="ErnstRuskaHavestadtDiv1" requestSize="5">
       <logicitem request="0" response="00000" foes="00000" cont="0"/>
       <logicitem request="1" response="00000" foes="00000" cont="0"/>
       <logicitem request="2" response="00000" foes="00000" cont="0"/>
       <logicitem request="3" response="00000" foes="00000" cont="0"/>
       <logicitem request="4" response="00000" foes="00000" cont="0"/>
-   </row-logic>
-   <row-logic id="ErnstRuskaHavestadtDiv2" requestSize="4">
+   </ROWLogic>
+   <ROWLogic id="ErnstRuskaHavestadtDiv2" requestSize="4">
       <logicitem request="0" response="0000" foes="0000" cont="0"/>
       <logicitem request="1" response="0000" foes="0000" cont="0"/>
       <logicitem request="2" response="0000" foes="0000" cont="0"/>
       <logicitem request="3" response="0000" foes="0000" cont="0"/>
-   </row-logic>
-   <row-logic id="ErnstRuskaSink1" requestSize="0">
-   </row-logic>
-   <row-logic id="ErnstRuskaSink2" requestSize="0">
-   </row-logic>
-   <row-logic id="ErnstRuskaVolmer" requestSize="8">
+   </ROWLogic>
+   <ROWLogic id="ErnstRuskaSink1" requestSize="0">
+   </ROWLogic>
+   <ROWLogic id="ErnstRuskaSink2" requestSize="0">
+   </ROWLogic>
+   <ROWLogic id="ErnstRuskaVolmer" requestSize="8">
       <logicitem request="0" response="00011000" foes="00011000" cont="0"/>
       <logicitem request="1" response="11111000" foes="11111000" cont="0"/>
       <logicitem request="2" response="00000000" foes="10000000" cont="0"/>
@@ -453,30 +453,30 @@
       <logicitem request="5" response="00000000" foes="00000010" cont="0"/>
       <logicitem request="6" response="00000000" foes="00000010" cont="0"/>
       <logicitem request="7" response="00011100" foes="00011110" cont="1"/>
-   </row-logic>
-   <row-logic id="HavestadtEnd" requestSize="4">
+   </ROWLogic>
+   <ROWLogic id="HavestadtEnd" requestSize="4">
       <logicitem request="0" response="0000" foes="0000" cont="0"/>
       <logicitem request="1" response="0000" foes="0000" cont="0"/>
       <logicitem request="2" response="0000" foes="0000" cont="0"/>
       <logicitem request="3" response="0000" foes="0000" cont="0"/>
-   </row-logic>
-   <row-logic id="HavestadtSinkEnd" requestSize="0">
-   </row-logic>
-   <row-logic id="VolmerEnd" requestSize="2">
+   </ROWLogic>
+   <ROWLogic id="HavestadtSinkEnd" requestSize="0">
+   </ROWLogic>
+   <ROWLogic id="VolmerEnd" requestSize="2">
       <logicitem request="0" response="00" foes="00" cont="0"/>
       <logicitem request="1" response="00" foes="00" cont="0"/>
-   </row-logic>
-   <row-logic id="VolmerSinkEnd" requestSize="0">
-   </row-logic>
+   </ROWLogic>
+   <ROWLogic id="VolmerSinkEnd" requestSize="0">
+   </ROWLogic>
 
-   <tl-logic id="ErnstRuskaAltglienicker" type="static" programID="0" offset="0">
+   <tlLogic id="ErnstRuskaAltglienicker" type="static" programID="0" offset="0">
       <phase duration="31" state="GGGrrggg"/>
       <phase duration="6" state="yyyrrggg"/>
       <phase duration="6" state="rrrrrGGG"/>
       <phase duration="6" state="rrrrryyy"/>
       <phase duration="31" state="rrrGGGrr"/>
       <phase duration="6" state="rrryyyrr"/>
-   </tl-logic>
+   </tlLogic>
 
    <junction id="AltglienickerBreit" type="traffic_light" x="1908.47" y="180.00" incLanes="AltglienickerBreitS_0 AltglienickerN_0" intLanes=":AltglienickerBreit_0_0 :AltglienickerBreit_1_0 :AltglienickerBreit_2_0" shape="1905.22,181.50 1915.02,181.50 1911.72,178.50 1905.22,178.50"/>
    <junction id="AltglienickerEnd" type="priority" x="1908.47" y="100.00" incLanes="AltglienickerS_0 AltglienickerSinkN_0" intLanes=":AltglienickerEnd_0_0 :AltglienickerEnd_1_0" shape="1905.22,100.00 1911.72,100.00 1905.22,100.00"/>

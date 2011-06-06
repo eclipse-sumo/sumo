@@ -43,12 +43,12 @@
       <lane id="3_1" depart="0" maxspeed="15.00" length="76.51" shape="-1.65,76.51 -1.65,0.00"/>
    </edge>
 
-   <row-logic id="node123" requestSize="4">
+   <ROWLogic id="node123" requestSize="4">
       <logicitem request="0" response="0000" foes="1100"/>
       <logicitem request="1" response="0000" foes="1100"/>
       <logicitem request="2" response="0011" foes="0011"/>
       <logicitem request="3" response="0011" foes="0011"/>
-   </row-logic>
+   </ROWLogic>
 
    <junction id="node103" type="DEAD_END" x="289.54" y="77.96" incLanes="" intLanes="" shape="289.54,78.01 289.54,84.51"/>
    <junction id="node104" type="DEAD_END" x="278.40" y="167.05" incLanes="" intLanes="" shape="278.40,167.10 278.40,173.60"/>

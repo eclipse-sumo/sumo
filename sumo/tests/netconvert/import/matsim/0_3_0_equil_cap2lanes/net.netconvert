@@ -203,7 +203,7 @@
       <lane id="9_1" depart="0" maxspeed="27.78" length="13211.32" shape="5016.71,9992.46 17500.08,5667.92"/>
    </edge>
 
-   <row-logic id="1" requestSize="20">
+   <ROWLogic id="1" requestSize="20">
       <logicitem request="0" response="00000000000000000000" foes="00000000000000000000"/>
       <logicitem request="1" response="00000000000000000000" foes="00000000000000000000"/>
       <logicitem request="2" response="00000000000000000000" foes="00000000000000000000"/>
@@ -224,14 +224,14 @@
       <logicitem request="17" response="00000000000000000000" foes="00000000000000000000"/>
       <logicitem request="18" response="00000000000000000000" foes="00000000000000000000"/>
       <logicitem request="19" response="00000000000000000000" foes="00000000000000000000"/>
-   </row-logic>
-   <row-logic id="10" requestSize="1">
+   </ROWLogic>
+   <ROWLogic id="10" requestSize="1">
       <logicitem request="0" response="0" foes="0"/>
-   </row-logic>
-   <row-logic id="11" requestSize="1">
+   </ROWLogic>
+   <ROWLogic id="11" requestSize="1">
       <logicitem request="0" response="0" foes="0"/>
-   </row-logic>
-   <row-logic id="12" requestSize="22">
+   </ROWLogic>
+   <ROWLogic id="12" requestSize="22">
       <logicitem request="0" response="0000000000000000000000" foes="1111111111111111111100"/>
       <logicitem request="1" response="0000000000000000000000" foes="1111111111111111111100"/>
       <logicitem request="2" response="1100000000000000000011" foes="1111111111111111110011"/>
@@ -254,8 +254,8 @@
       <logicitem request="19" response="1100111111111111111111" foes="1100111111111111111111"/>
       <logicitem request="20" response="0000000000000000000011" foes="0011111111111111111111"/>
       <logicitem request="21" response="0000000000000000000011" foes="0011111111111111111111"/>
-   </row-logic>
-   <row-logic id="13" requestSize="20">
+   </ROWLogic>
+   <ROWLogic id="13" requestSize="20">
       <logicitem request="0" response="00000000000000000000" foes="00000000000000000000"/>
       <logicitem request="1" response="00000000000000000000" foes="00000000000000000000"/>
       <logicitem request="2" response="00000000000000000000" foes="00000000000000000000"/>
@@ -276,8 +276,8 @@
       <logicitem request="17" response="00000000000000000000" foes="00000000000000000000"/>
       <logicitem request="18" response="00000000000000000000" foes="00000000000000000000"/>
       <logicitem request="19" response="00000000000000000000" foes="00000000000000000000"/>
-   </row-logic>
-   <row-logic id="14" requestSize="20">
+   </ROWLogic>
+   <ROWLogic id="14" requestSize="20">
       <logicitem request="0" response="00000000000000000000" foes="00000000000000000000"/>
       <logicitem request="1" response="00000000000000000000" foes="00000000000000000000"/>
       <logicitem request="2" response="00000000000000000000" foes="00000000000000000000"/>
@@ -298,8 +298,8 @@
       <logicitem request="17" response="00000000000000000000" foes="00000000000000000000"/>
       <logicitem request="18" response="00000000000000000000" foes="00000000000000000000"/>
       <logicitem request="19" response="00000000000000000000" foes="00000000000000000000"/>
-   </row-logic>
-   <row-logic id="15" requestSize="20">
+   </ROWLogic>
+   <ROWLogic id="15" requestSize="20">
       <logicitem request="0" response="00000000000000000000" foes="00000000000000000000"/>
       <logicitem request="1" response="00000000000000000000" foes="00000000000000000000"/>
       <logicitem request="2" response="00000000000000000000" foes="00000000000000000000"/>
@@ -320,8 +320,8 @@
       <logicitem request="17" response="00000000000000000000" foes="00000000000000000000"/>
       <logicitem request="18" response="00000000000000000000" foes="00000000000000000000"/>
       <logicitem request="19" response="00000000000000000000" foes="00000000000000000000"/>
-   </row-logic>
-   <row-logic id="2" requestSize="18">
+   </ROWLogic>
+   <ROWLogic id="2" requestSize="18">
       <logicitem request="0" response="000000000000000000" foes="000000000000000000"/>
       <logicitem request="1" response="000000000000000000" foes="000000000000000000"/>
       <logicitem request="2" response="000000000000000000" foes="000000000000000000"/>
@@ -340,28 +340,28 @@
       <logicitem request="15" response="000000000000000000" foes="000000000000000000"/>
       <logicitem request="16" response="000000000000000000" foes="000000000000000000"/>
       <logicitem request="17" response="000000000000000000" foes="000000000000000000"/>
-   </row-logic>
-   <row-logic id="3" requestSize="1">
+   </ROWLogic>
+   <ROWLogic id="3" requestSize="1">
       <logicitem request="0" response="0" foes="0"/>
-   </row-logic>
-   <row-logic id="4" requestSize="1">
+   </ROWLogic>
+   <ROWLogic id="4" requestSize="1">
       <logicitem request="0" response="0" foes="0"/>
-   </row-logic>
-   <row-logic id="5" requestSize="1">
+   </ROWLogic>
+   <ROWLogic id="5" requestSize="1">
       <logicitem request="0" response="0" foes="0"/>
-   </row-logic>
-   <row-logic id="6" requestSize="1">
+   </ROWLogic>
+   <ROWLogic id="6" requestSize="1">
       <logicitem request="0" response="0" foes="0"/>
-   </row-logic>
-   <row-logic id="7" requestSize="1">
+   </ROWLogic>
+   <ROWLogic id="7" requestSize="1">
       <logicitem request="0" response="0" foes="0"/>
-   </row-logic>
-   <row-logic id="8" requestSize="1">
+   </ROWLogic>
+   <ROWLogic id="8" requestSize="1">
       <logicitem request="0" response="0" foes="0"/>
-   </row-logic>
-   <row-logic id="9" requestSize="1">
+   </ROWLogic>
+   <ROWLogic id="9" requestSize="1">
       <logicitem request="0" response="0" foes="0"/>
-   </row-logic>
+   </ROWLogic>
 
    <junction id="1" type="priority" x="0.00" y="10000.00" incLanes="23_0 23_1 23_2 23_3 23_4 23_5 23_6 23_7 23_8 23_9 23_10 23_11 23_12 23_13 23_14 23_15 23_16 23_17 23_18 23_19" intLanes="" shape="65.95,9999.95 65.95,9934.05 0.05,9934.05"/>
    <junction id="10" type="priority" x="17502.00" y="5669.00" incLanes="9_0 9_1" intLanes="" shape="17502.77,5670.24 17505.54,5668.64 17498.48,5663.29 17500.61,5669.43"/>

@@ -42,21 +42,21 @@
       <lane id="out_0" depart="1" maxspeed="13.90" length="298.50" shape="1501.50,-1.65 1800.00,-1.65"/>
    </edge>
 
-   <row-logic id="1" requestSize="2">
+   <ROWLogic id="1" requestSize="2">
       <logicitem request="0" response="00" foes="00"/>
       <logicitem request="1" response="00" foes="00"/>
-   </row-logic>
-   <row-logic id="2" requestSize="2">
+   </ROWLogic>
+   <ROWLogic id="2" requestSize="2">
       <logicitem request="0" response="00" foes="10"/>
       <logicitem request="1" response="01" foes="01"/>
-   </row-logic>
+   </ROWLogic>
 
-   <tl-logic id="2" type="static" programID="0" offset="0">
+   <tlLogic id="2" type="static" programID="0" offset="0">
       <phase duration="31" state="Gr"/>
       <phase duration="4" state="yr"/>
       <phase duration="31" state="rG"/>
       <phase duration="4" state="ry"/>
-   </tl-logic>
+   </tlLogic>
 
    <junction id="1" type="priority" x="500.00" y="0.00" incLanes="91to1_0" intLanes="" shape="501.50,-0.05 501.50,-3.25 498.50,-3.25 498.50,-0.05"/>
    <junction id="2" type="traffic_light" x="1500.00" y="0.00" incLanes="1to21_0 1to22_0" intLanes="" shape="1501.50,-0.05 1501.50,-3.25 1498.50,-3.25 1498.50,-0.05"/>

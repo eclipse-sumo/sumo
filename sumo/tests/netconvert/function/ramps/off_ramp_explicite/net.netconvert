@@ -59,28 +59,28 @@
       <lane id="s4_2" depart="0" maxspeed="30.00" length="483.82" shape="483.82,1.65 0.00,1.65"/>
    </edge>
 
-   <row-logic id="2" requestSize="4">
+   <ROWLogic id="2" requestSize="4">
       <logicitem request="0" response="0000" foes="0000"/>
       <logicitem request="1" response="0000" foes="0000"/>
       <logicitem request="2" response="0000" foes="0000"/>
       <logicitem request="3" response="0000" foes="0000"/>
-   </row-logic>
-   <row-logic id="3" requestSize="3">
+   </ROWLogic>
+   <ROWLogic id="3" requestSize="3">
       <logicitem request="0" response="000" foes="000"/>
       <logicitem request="1" response="000" foes="000"/>
       <logicitem request="2" response="000" foes="000"/>
-   </row-logic>
-   <row-logic id="4" requestSize="3">
+   </ROWLogic>
+   <ROWLogic id="4" requestSize="3">
       <logicitem request="0" response="000" foes="000"/>
       <logicitem request="1" response="000" foes="000"/>
       <logicitem request="2" response="000" foes="000"/>
-   </row-logic>
-   <row-logic id="s3-AddedOffRampNode" requestSize="4">
+   </ROWLogic>
+   <ROWLogic id="s3-AddedOffRampNode" requestSize="4">
       <logicitem request="0" response="0000" foes="0000"/>
       <logicitem request="1" response="0000" foes="0000"/>
       <logicitem request="2" response="0000" foes="0000"/>
       <logicitem request="3" response="0000" foes="0000"/>
-   </row-logic>
+   </ROWLogic>
 
    <junction id="1" type="DEAD_END" x="0.00" y="0.00" incLanes="s4_0 s4_1 s4_2" intLanes="" shape="-0.00,9.85 -0.00,0.05"/>
    <junction id="2" type="priority" x="500.00" y="0.00" incLanes="s3-AddedOffRampEdge_0 s3-AddedOffRampEdge_1 s3-AddedOffRampEdge_2 s3-AddedOffRampEdge_3" intLanes="" shape="487.63,13.15 487.63,0.05 483.82,0.05 483.82,9.85 483.11,11.32 484.89,13.98"/>

@@ -94,7 +94,7 @@
       <lane id="46039050_0" depart="1" maxspeed="22.22" length="27.42" shape="1.87,40.76 29.13,43.70"/>
    </edge>
 
-   <row-logic id="cluster_301292612_38919945_56231397_59993001" requestSize="10">
+   <ROWLogic id="cluster_301292612_38919945_56231397_59993001" requestSize="10">
       <logicitem request="0" response="0000000000" foes="1000100000" cont="0"/>
       <logicitem request="1" response="0000000000" foes="0111100000" cont="1"/>
       <logicitem request="2" response="0100011000" foes="0100011000" cont="1"/>
@@ -105,16 +105,16 @@
       <logicitem request="7" response="0000000010" foes="0001000010" cont="0"/>
       <logicitem request="8" response="0000111010" foes="0000111110" cont="0"/>
       <logicitem request="9" response="0000100001" foes="0000100001" cont="1"/>
-   </row-logic>
+   </ROWLogic>
 
-   <tl-logic id="cluster_301292612_38919945_56231397_59993001" type="static" programID="0" offset="0">
+   <tlLogic id="cluster_301292612_38919945_56231397_59993001" type="static" programID="0" offset="0">
       <phase duration="31" state="GGgGGggrrr"/>
       <phase duration="7" state="yygyyggrrr"/>
       <phase duration="6" state="rrGrrGGrrr"/>
       <phase duration="7" state="rryrryyrrr"/>
       <phase duration="31" state="GrrrrrrGGg"/>
       <phase duration="7" state="yrrrrrryyy"/>
-   </tl-logic>
+   </tlLogic>
 
    <junction id="38918157" type="DEAD_END" x="88.72" y="78.21" incLanes="" intLanes="" shape="90.10,75.27 87.34,81.15"/>
    <junction id="492462300" type="DEAD_END" x="1.87" y="40.76" incLanes="" intLanes="" shape="1.70,42.35 2.04,39.17"/>

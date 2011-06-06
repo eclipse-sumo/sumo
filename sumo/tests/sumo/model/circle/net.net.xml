@@ -158,46 +158,46 @@
       <lane id="9/1to8/1_0" depart="1" maxspeed="19.60" length="979.94" shape="2078.97,1.65 1099.03,1.65"/>
    </edge>
 
-   <row-logic id="1/1" requestSize="2">
+   <ROWLogic id="1/1" requestSize="2">
       <logicitem request="0" response="00" foes="00" cont="0"/>
       <logicitem request="1" response="00" foes="00" cont="0"/>
-   </row-logic>
-   <row-logic id="10/1" requestSize="2">
+   </ROWLogic>
+   <ROWLogic id="10/1" requestSize="2">
       <logicitem request="0" response="00" foes="00" cont="0"/>
       <logicitem request="1" response="00" foes="00" cont="0"/>
-   </row-logic>
-   <row-logic id="2/1" requestSize="2">
+   </ROWLogic>
+   <ROWLogic id="2/1" requestSize="2">
       <logicitem request="0" response="00" foes="00" cont="0"/>
       <logicitem request="1" response="00" foes="00" cont="0"/>
-   </row-logic>
-   <row-logic id="3/1" requestSize="2">
+   </ROWLogic>
+   <ROWLogic id="3/1" requestSize="2">
       <logicitem request="0" response="00" foes="00" cont="0"/>
       <logicitem request="1" response="00" foes="00" cont="0"/>
-   </row-logic>
-   <row-logic id="4/1" requestSize="2">
+   </ROWLogic>
+   <ROWLogic id="4/1" requestSize="2">
       <logicitem request="0" response="00" foes="00" cont="0"/>
       <logicitem request="1" response="00" foes="00" cont="0"/>
-   </row-logic>
-   <row-logic id="5/1" requestSize="2">
+   </ROWLogic>
+   <ROWLogic id="5/1" requestSize="2">
       <logicitem request="0" response="00" foes="00" cont="0"/>
       <logicitem request="1" response="00" foes="00" cont="0"/>
-   </row-logic>
-   <row-logic id="6/1" requestSize="2">
+   </ROWLogic>
+   <ROWLogic id="6/1" requestSize="2">
       <logicitem request="0" response="00" foes="00" cont="0"/>
       <logicitem request="1" response="00" foes="00" cont="0"/>
-   </row-logic>
-   <row-logic id="7/1" requestSize="2">
+   </ROWLogic>
+   <ROWLogic id="7/1" requestSize="2">
       <logicitem request="0" response="00" foes="00" cont="0"/>
       <logicitem request="1" response="00" foes="00" cont="0"/>
-   </row-logic>
-   <row-logic id="8/1" requestSize="2">
+   </ROWLogic>
+   <ROWLogic id="8/1" requestSize="2">
       <logicitem request="0" response="00" foes="00" cont="0"/>
       <logicitem request="1" response="00" foes="00" cont="0"/>
-   </row-logic>
-   <row-logic id="9/1" requestSize="2">
+   </ROWLogic>
+   <ROWLogic id="9/1" requestSize="2">
       <logicitem request="0" response="00" foes="00" cont="0"/>
       <logicitem request="1" response="00" foes="00" cont="0"/>
-   </row-logic>
+   </ROWLogic>
 
    <junction id="1/1" type="priority" x="3178.00" y="1511.23" incLanes="10/1to1/1_0 2/1to1/1_0" intLanes=":1/1_0_0 :1/1_1_0" shape="3180.76,1509.22 3174.58,1511.23 3180.76,1513.24"/>
    <junction id="10/1" type="priority" x="2874.53" y="577.24" incLanes="1/1to10/1_0 9/1to10/1_0" intLanes=":10/1_0_0 :10/1_1_0" shape="2871.76,579.25 2877.95,577.24 2875.58,573.99 2871.76,579.25"/>

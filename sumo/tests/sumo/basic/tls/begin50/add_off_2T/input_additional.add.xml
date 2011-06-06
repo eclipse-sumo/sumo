@@ -2,7 +2,7 @@
     <timed_event dest="tls_state_switch.xml" source="0" type="SaveTLSSwitchStates"/>
 
 
-   <tl-logic id="0" type="static" programID="2" offset="124">
+   <tlLogic id="0" type="static" programID="2" offset="124">
       <phase duration="20" state="GGggrrrrGGggrrrr"/>
       <phase duration="4" state="yyggrrrryyggrrrr"/>
       <phase duration="3" state="rrGGrrrrrrGGrrrr"/>
@@ -11,6 +11,6 @@
       <phase duration="4" state="rrrryyggrrrryygg"/>
       <phase duration="3" state="rrrrrrGGrrrrrrGG"/>
       <phase duration="4" state="rrrrrryyrrrrrryy"/>
-   </tl-logic>
+   </tlLogic>
 
 </additional>

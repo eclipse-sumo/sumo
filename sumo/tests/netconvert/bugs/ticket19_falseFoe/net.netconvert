@@ -83,7 +83,7 @@
       <lane id="1841_0" depart="1" maxspeed="13.90" length="170.26" shape="132.36,423.73 144.99,253.93"/>
    </edge>
 
-   <row-logic id="6365" requestSize="8">
+   <ROWLogic id="6365" requestSize="8">
       <logicitem request="0" response="00000100" foes="10100100" cont="0"/>
       <logicitem request="1" response="01010100" foes="01011100" cont="1"/>
       <logicitem request="2" response="00000000" foes="10100011" cont="0"/>
@@ -92,22 +92,22 @@
       <logicitem request="5" response="01000101" foes="11000101" cont="1"/>
       <logicitem request="6" response="00000000" foes="00111010" cont="0"/>
       <logicitem request="7" response="00100101" foes="00100101" cont="1"/>
-   </row-logic>
-   <row-logic id="6454" requestSize="1">
+   </ROWLogic>
+   <ROWLogic id="6454" requestSize="1">
       <logicitem request="0" response="0" foes="0" cont="0"/>
-   </row-logic>
-   <row-logic id="6562" requestSize="1">
+   </ROWLogic>
+   <ROWLogic id="6562" requestSize="1">
       <logicitem request="0" response="0" foes="0" cont="0"/>
-   </row-logic>
+   </ROWLogic>
 
-   <tl-logic id="6365" type="static" programID="0" offset="0">
+   <tlLogic id="6365" type="static" programID="0" offset="0">
       <phase duration="31" state="rrGgrrGg"/>
       <phase duration="4" state="rryyrryy"/>
       <phase duration="31" state="GgrrGgrr"/>
       <phase duration="4" state="ygrrygrr"/>
       <phase duration="6" state="rGrrrGrr"/>
       <phase duration="4" state="ryrrryrr"/>
-   </tl-logic>
+   </tlLogic>
 
    <junction id="6365" type="traffic_light" x="146.87" y="250.87" incLanes="1816_0 -1839_0 -1570_0 1841_0" intLanes=":6365_0_0 :6365_8_0 :6365_2_0 :6365_9_0 :6365_4_0 :6365_10_0 :6365_6_0 :6365_11_0" shape="151.48,252.95 151.81,249.77 150.54,246.07 144.07,245.52 142.68,246.21 140.85,249.00 143.39,253.81 149.87,254.30"/>
    <junction id="6366" type="DEAD_END" x="0.00" y="0.00" incLanes="" intLanes="" shape="-0.95,1.28 0.95,-1.28"/>

@@ -54,30 +54,30 @@
       <lane id="4014_0" depart="1" maxspeed="13.90" length="62.83" shape="132.09,245.72 144.99,261.82 159.18,295.51 159.75,301.12"/>
    </edge>
 
-   <row-logic id="10724" requestSize="1">
+   <ROWLogic id="10724" requestSize="1">
       <logicitem request="0" response="0" foes="0"/>
-   </row-logic>
-   <row-logic id="10731" requestSize="3">
+   </ROWLogic>
+   <ROWLogic id="10731" requestSize="3">
       <logicitem request="0" response="100" foes="100"/>
       <logicitem request="1" response="000" foes="000"/>
       <logicitem request="2" response="000" foes="001"/>
-   </row-logic>
-   <row-logic id="10732" requestSize="1">
+   </ROWLogic>
+   <ROWLogic id="10732" requestSize="1">
       <logicitem request="0" response="0" foes="0"/>
-   </row-logic>
-   <row-logic id="13439" requestSize="1">
+   </ROWLogic>
+   <ROWLogic id="13439" requestSize="1">
       <logicitem request="0" response="0" foes="0"/>
-   </row-logic>
-   <row-logic id="17394" requestSize="3">
+   </ROWLogic>
+   <ROWLogic id="17394" requestSize="3">
       <logicitem request="0" response="000" foes="000"/>
       <logicitem request="1" response="000" foes="100"/>
       <logicitem request="2" response="010" foes="010"/>
-   </row-logic>
-   <row-logic id="17446" requestSize="3">
+   </ROWLogic>
+   <ROWLogic id="17446" requestSize="3">
       <logicitem request="0" response="100" foes="100"/>
       <logicitem request="1" response="000" foes="000"/>
       <logicitem request="2" response="000" foes="001"/>
-   </row-logic>
+   </ROWLogic>
 
    <junction id="10724" type="priority" x="61.75" y="0.00" incLanes="-10575_0" intLanes="" shape="60.30,0.67 63.20,-0.67 60.20,-0.40 63.30,0.40"/>
    <junction id="10731" type="traffic_light" x="126.88" y="241.87" incLanes="-4014_0 10573_0" intLanes="" shape="127.96,248.41 131.08,247.19 133.03,244.34 130.32,240.45 127.85,238.26 123.14,245.74 126.03,247.18"/>

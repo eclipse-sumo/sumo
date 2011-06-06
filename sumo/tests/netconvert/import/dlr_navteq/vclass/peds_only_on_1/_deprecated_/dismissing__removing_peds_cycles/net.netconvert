@@ -72,7 +72,7 @@
       <lane id="4_1" depart="0" maxspeed="33.33" length="13400.94" shape="16589.90,-0.05 17008.63,13394.35"/>
    </edge>
 
-   <row-logic id="0" requestSize="17">
+   <ROWLogic id="0" requestSize="17">
       <logicitem request="0" response="00000000000000000" foes="10000000110000000"/>
       <logicitem request="1" response="01111110000000000" foes="01111111110000000"/>
       <logicitem request="2" response="01111110000000000" foes="01111111110000000"/>
@@ -90,16 +90,16 @@
       <logicitem request="14" response="00000000000000000" foes="00000000111011110"/>
       <logicitem request="15" response="00000000000000000" foes="00000000111011110"/>
       <logicitem request="16" response="00000000110000001" foes="00000000110000001"/>
-   </row-logic>
-   <row-logic id="2" requestSize="1">
+   </ROWLogic>
+   <ROWLogic id="2" requestSize="1">
       <logicitem request="0" response="0" foes="0"/>
-   </row-logic>
-   <row-logic id="3" requestSize="1">
+   </ROWLogic>
+   <ROWLogic id="3" requestSize="1">
       <logicitem request="0" response="0" foes="0"/>
-   </row-logic>
-   <row-logic id="4" requestSize="1">
+   </ROWLogic>
+   <ROWLogic id="4" requestSize="1">
       <logicitem request="0" response="0" foes="0"/>
-   </row-logic>
+   </ROWLogic>
 
    <junction id="0" type="priority" x="17007.34" y="13405.73" incLanes="3_0 3_1 4_0 4_1 2_0 2_1 2_2" intLanes="" shape="17001.15,13417.29 17017.54,13416.77 17018.84,13410.30 17018.55,13400.50 17013.53,13394.20 16997.14,13394.71 16995.69,13396.26 16996.34,13415.95"/>
    <junction id="1" type="DEAD_END" x="39850.14" y="12743.84" incLanes="-1_0 -1_1 -1_2" intLanes="" shape="39850.00,12738.95 39850.28,12748.74"/>

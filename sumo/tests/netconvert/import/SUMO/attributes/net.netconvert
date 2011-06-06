@@ -50,21 +50,21 @@
       <lane id="edge_with_shape_2" depart="0" maxspeed="13.90" length="66.47" shape="41.17,1.17 20.00,22.33 -1.17,1.17"/>
    </edge>
    <edge id="reverse_edge" from="node_left" to="node_right" priority="-1">
-      <lane id="reverse_edge_0" depart="1" maxspeed="13.90" length="40.00" width="4.00" shape="0.00,-8.25 40.00,-8.25"/>
-      <lane id="reverse_edge_1" depart="0" maxspeed="13.90" length="37.00" endOffset="3.00" shape="0.00,-4.95 37.00,-4.95"/>
+      <lane id="reverse_edge_0" depart="1" maxspeed="13.90" length="40.00" shape="0.00,-8.25 40.00,-8.25"/>
+      <lane id="reverse_edge_1" depart="0" maxspeed="13.90" length="37.00" shape="0.00,-4.95 37.00,-4.95"/>
       <lane id="reverse_edge_2" depart="0" maxspeed="13.90" length="40.00" shape="0.00,-1.65 40.00,-1.65"/>
    </edge>
 
-   <row-logic id="node_left" requestSize="3">
+   <ROWLogic id="node_left" requestSize="3">
       <logicitem request="0" response="000" foes="000" cont="0"/>
       <logicitem request="1" response="000" foes="000" cont="0"/>
       <logicitem request="2" response="000" foes="000" cont="0"/>
-   </row-logic>
-   <row-logic id="node_right" requestSize="3">
+   </ROWLogic>
+   <ROWLogic id="node_right" requestSize="3">
       <logicitem request="0" response="000" foes="000" cont="0"/>
       <logicitem request="1" response="000" foes="000" cont="0"/>
       <logicitem request="2" response="000" foes="000" cont="0"/>
-   </row-logic>
+   </ROWLogic>
 
    <junction id="node_left" type="priority" x="0.00" y="0.00" incLanes="edge_with_shape_0 edge_with_shape_1 edge_with_shape_2" intLanes=":node_left_0_0 :node_left_1_0 :node_left_2_0" shape="0.00,-0.05 0.00,-9.85 -6.97,6.96 -0.04,0.04"/>
    <junction id="node_right" type="priority" x="40.00" y="0.00" incLanes="reverse_edge_0 reverse_edge_1 reverse_edge_2" intLanes=":node_right_0_0 :node_right_1_0 :node_right_2_0" shape="40.04,0.04 46.97,6.96 40.00,-9.85 40.00,-0.05"/>

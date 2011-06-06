@@ -135,7 +135,7 @@
       <lane id="4o_0" depart="1" maxspeed="13.90" length="495.25" shape="501.65,504.75 501.65,1000.00"/>
    </edge>
 
-   <row-logic id="0" requestSize="16">
+   <ROWLogic id="0" requestSize="16">
       <logicitem request="0" response="0000000000000000" foes="1000010000100000" cont="0"/>
       <logicitem request="1" response="0000000000000000" foes="0111110001100000" cont="0"/>
       <logicitem request="2" response="0000001100000000" foes="0110001111100000" cont="1"/>
@@ -152,21 +152,21 @@
       <logicitem request="13" response="0000011100000110" foes="0000011111000110" cont="0"/>
       <logicitem request="14" response="0000011000110110" foes="0000011000111110" cont="1"/>
       <logicitem request="15" response="0000010000100001" foes="0000010000100001" cont="1"/>
-   </row-logic>
-   <row-logic id="1" requestSize="1">
+   </ROWLogic>
+   <ROWLogic id="1" requestSize="1">
       <logicitem request="0" response="0" foes="0" cont="0"/>
-   </row-logic>
-   <row-logic id="2" requestSize="1">
+   </ROWLogic>
+   <ROWLogic id="2" requestSize="1">
       <logicitem request="0" response="0" foes="0" cont="0"/>
-   </row-logic>
-   <row-logic id="3" requestSize="1">
+   </ROWLogic>
+   <ROWLogic id="3" requestSize="1">
       <logicitem request="0" response="0" foes="0" cont="0"/>
-   </row-logic>
-   <row-logic id="4" requestSize="1">
+   </ROWLogic>
+   <ROWLogic id="4" requestSize="1">
       <logicitem request="0" response="0" foes="0" cont="0"/>
-   </row-logic>
+   </ROWLogic>
 
-   <tl-logic id="0" type="static" programID="0" offset="0">
+   <tlLogic id="0" type="static" programID="0" offset="0">
       <phase duration="31" state="GGggrrrrGGggrrrr"/>
       <phase duration="4" state="yyggrrrryyggrrrr"/>
       <phase duration="6" state="rrGGrrrrrrGGrrrr"/>
@@ -175,7 +175,7 @@
       <phase duration="4" state="rrrryyggrrrryygg"/>
       <phase duration="6" state="rrrrrrGGrrrrrrGG"/>
       <phase duration="4" state="rrrrrryyrrrrrryy"/>
-   </tl-logic>
+   </tlLogic>
 
    <junction id="0" type="traffic_light" x="500.00" y="500.00" incLanes="4i_0 2i_0 3i_0 1i_0" intLanes=":0_0_0 :0_1_0 :0_16_0 :0_17_0 :0_4_0 :0_5_0 :0_18_0 :0_19_0 :0_8_0 :0_9_0 :0_20_0 :0_21_0 :0_12_0 :0_13_0 :0_22_0 :0_23_0" shape="496.75,504.75 503.25,504.75 504.75,503.25 504.75,496.75 503.25,495.25 496.75,495.25 495.25,496.75 495.25,503.25"/>
    <junction id="1" type="priority" x="0.00" y="500.00" incLanes="1o_0" intLanes=":1_0_0" shape="0.00,499.95 0.00,496.75 -0.00,503.25 -0.00,500.05"/>

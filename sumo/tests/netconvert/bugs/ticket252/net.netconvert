@@ -235,44 +235,44 @@
       <lane id="6040380_0" depart="1" maxspeed="13.40" length="230.76" shape="4361.70,3361.49 4290.39,3269.34 4217.90,3181.04"/>
    </edge>
 
-   <row-logic id="29933572" requestSize="6">
+   <ROWLogic id="29933572" requestSize="6">
       <logicitem request="0" response="000000" foes="111000" cont="0"/>
       <logicitem request="1" response="000000" foes="111000" cont="0"/>
       <logicitem request="2" response="000000" foes="111000" cont="0"/>
       <logicitem request="3" response="000111" foes="000111" cont="0"/>
       <logicitem request="4" response="000111" foes="000111" cont="0"/>
       <logicitem request="5" response="000111" foes="000111" cont="0"/>
-   </row-logic>
-   <row-logic id="29933574" requestSize="4">
+   </ROWLogic>
+   <ROWLogic id="29933574" requestSize="4">
       <logicitem request="0" response="0000" foes="0000" cont="0"/>
       <logicitem request="1" response="0000" foes="0000" cont="0"/>
       <logicitem request="2" response="0000" foes="0000" cont="0"/>
       <logicitem request="3" response="0000" foes="0000" cont="0"/>
-   </row-logic>
-   <row-logic id="445817289" requestSize="0">
-   </row-logic>
-   <row-logic id="445851270" requestSize="4">
+   </ROWLogic>
+   <ROWLogic id="445817289" requestSize="0">
+   </ROWLogic>
+   <ROWLogic id="445851270" requestSize="4">
       <logicitem request="0" response="0000" foes="0000" cont="0"/>
       <logicitem request="1" response="0000" foes="0000" cont="0"/>
       <logicitem request="2" response="0000" foes="0000" cont="0"/>
       <logicitem request="3" response="0000" foes="0000" cont="0"/>
-   </row-logic>
-   <row-logic id="450601519" requestSize="0">
-   </row-logic>
-   <row-logic id="450601528" requestSize="3">
+   </ROWLogic>
+   <ROWLogic id="450601519" requestSize="0">
+   </ROWLogic>
+   <ROWLogic id="450601528" requestSize="3">
       <logicitem request="0" response="000" foes="000" cont="0"/>
       <logicitem request="1" response="000" foes="000" cont="0"/>
       <logicitem request="2" response="000" foes="000" cont="0"/>
-   </row-logic>
-   <row-logic id="450601590" requestSize="4">
+   </ROWLogic>
+   <ROWLogic id="450601590" requestSize="4">
       <logicitem request="0" response="0000" foes="0000" cont="0"/>
       <logicitem request="1" response="0000" foes="0000" cont="0"/>
       <logicitem request="2" response="0000" foes="0000" cont="0"/>
       <logicitem request="3" response="0000" foes="0000" cont="0"/>
-   </row-logic>
-   <row-logic id="49609811" requestSize="0">
-   </row-logic>
-   <row-logic id="49613629" requestSize="8">
+   </ROWLogic>
+   <ROWLogic id="49609811" requestSize="0">
+   </ROWLogic>
+   <ROWLogic id="49613629" requestSize="8">
       <logicitem request="0" response="00000000" foes="00010000" cont="0"/>
       <logicitem request="1" response="00000000" foes="00010000" cont="0"/>
       <logicitem request="2" response="11100000" foes="11110000" cont="1"/>
@@ -281,19 +281,19 @@
       <logicitem request="5" response="00000000" foes="00000100" cont="0"/>
       <logicitem request="6" response="00000000" foes="00011100" cont="0"/>
       <logicitem request="7" response="00000000" foes="00011100" cont="0"/>
-   </row-logic>
-   <row-logic id="49613631" requestSize="6">
+   </ROWLogic>
+   <ROWLogic id="49613631" requestSize="6">
       <logicitem request="0" response="000000" foes="001000" cont="0"/>
       <logicitem request="1" response="110000" foes="111000" cont="0"/>
       <logicitem request="2" response="000000" foes="100000" cont="0"/>
       <logicitem request="3" response="000011" foes="100011" cont="0"/>
       <logicitem request="4" response="000000" foes="000010" cont="0"/>
       <logicitem request="5" response="001100" foes="001110" cont="0"/>
-   </row-logic>
-   <row-logic id="49615901" requestSize="0">
-   </row-logic>
-   <row-logic id="49616450" requestSize="0">
-   </row-logic>
+   </ROWLogic>
+   <ROWLogic id="49615901" requestSize="0">
+   </ROWLogic>
+   <ROWLogic id="49616450" requestSize="0">
+   </ROWLogic>
 
    <junction id="-10" type="DEAD_END" x="4399.35" y="3441.19" incLanes="" intLanes="" shape="4404.24,3440.84 4394.46,3441.54"/>
    <junction id="-12" type="DEAD_END" x="4411.95" y="3440.85" incLanes="38232899#1_0 38232899#1_1 38232899#1_2" intLanes="" shape="4416.82,3440.26 4407.08,3441.43"/>

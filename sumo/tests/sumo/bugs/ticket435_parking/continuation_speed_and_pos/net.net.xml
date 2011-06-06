@@ -30,9 +30,9 @@
       <lane id="out_0" depart="1" maxspeed="13.90" length="10.00" shape="100.00,0 110.00,0"/>
    </edge>
 
-   <row-logic id="2" requestSize="1">
+   <ROWLogic id="2" requestSize="1">
       <logicitem request="0" response="0" foes="0"/>
-   </row-logic>
+   </ROWLogic>
 
    <junction id="1" type="DEAD_END" x="0.00" y="0.00" incLanes="" intLanes="" shape="-0.00,-0.05 -0.00,-3.25"/>
 
