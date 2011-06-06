@@ -60,6 +60,56 @@
 
 
 // ===========================================================================
+// static variables
+// ===========================================================================
+StringBijection<int>::Entry NIImporter_OpenDrive::openDriveTags[] = {
+    { "header",           NIImporter_OpenDrive::OPENDRIVE_TAG_HEADER },
+    { "road",             NIImporter_OpenDrive::OPENDRIVE_TAG_ROAD },
+    { "predecessor",      NIImporter_OpenDrive::OPENDRIVE_TAG_PREDECESSOR },
+    { "successor",        NIImporter_OpenDrive::OPENDRIVE_TAG_SUCCESSOR },
+    { "geometry",         NIImporter_OpenDrive::OPENDRIVE_TAG_GEOMETRY },
+    { "line",             NIImporter_OpenDrive::OPENDRIVE_TAG_LINE },
+    { "spiral",           NIImporter_OpenDrive::OPENDRIVE_TAG_SPIRAL },
+    { "arc",              NIImporter_OpenDrive::OPENDRIVE_TAG_ARC },
+    { "poly3",            NIImporter_OpenDrive::OPENDRIVE_TAG_POLY3 },
+    { "laneSection",      NIImporter_OpenDrive::OPENDRIVE_TAG_LANESECTION },
+    { "left",             NIImporter_OpenDrive::OPENDRIVE_TAG_LEFT },
+    { "center",           NIImporter_OpenDrive::OPENDRIVE_TAG_CENTER },
+    { "right",            NIImporter_OpenDrive::OPENDRIVE_TAG_RIGHT },
+    { "lane",             NIImporter_OpenDrive::OPENDRIVE_TAG_LANE },
+
+    { "",                 NIImporter_OpenDrive::OPENDRIVE_TAG_NOTHING }
+};
+
+
+StringBijection<int>::Entry NIImporter_OpenDrive::openDriveAttrs[] = {
+    { "revMajor",       NIImporter_OpenDrive::OPENDRIVE_ATTR_REVMAJOR },
+    { "revMinor",       NIImporter_OpenDrive::OPENDRIVE_ATTR_REVMINOR },
+    { "ID",             NIImporter_OpenDrive::OPENDRIVE_ATTR_ID },
+    { "length",         NIImporter_OpenDrive::OPENDRIVE_ATTR_LENGTH },
+    { "junction",       NIImporter_OpenDrive::OPENDRIVE_ATTR_JUNCTION },
+    { "elementType",    NIImporter_OpenDrive::OPENDRIVE_ATTR_ELEMENTTYPE },
+    { "elementId",      NIImporter_OpenDrive::OPENDRIVE_ATTR_ELEMENTID },
+    { "contactPoint",   NIImporter_OpenDrive::OPENDRIVE_ATTR_CONTACTPOINT },
+    { "s",              NIImporter_OpenDrive::OPENDRIVE_ATTR_S },
+    { "x",              NIImporter_OpenDrive::OPENDRIVE_ATTR_X },
+    { "y",              NIImporter_OpenDrive::OPENDRIVE_ATTR_Y },
+    { "hdg",            NIImporter_OpenDrive::OPENDRIVE_ATTR_HDG },
+    { "curvStart",      NIImporter_OpenDrive::OPENDRIVE_ATTR_CURVSTART },
+    { "curvEnd",        NIImporter_OpenDrive::OPENDRIVE_ATTR_CURVEND },
+    { "curvature",      NIImporter_OpenDrive::OPENDRIVE_ATTR_CURVATURE },
+    { "a",              NIImporter_OpenDrive::OPENDRIVE_ATTR_A },
+    { "b",              NIImporter_OpenDrive::OPENDRIVE_ATTR_B },
+    { "c",              NIImporter_OpenDrive::OPENDRIVE_ATTR_C },
+    { "d",              NIImporter_OpenDrive::OPENDRIVE_ATTR_D },
+    { "type",           NIImporter_OpenDrive::OPENDRIVE_ATTR_TYPE },
+    { "level",          NIImporter_OpenDrive::OPENDRIVE_ATTR_LEVEL },
+
+    { "",               NIImporter_OpenDrive::OPENDRIVE_ATTR_NOTHING }
+};
+
+
+// ===========================================================================
 // method definitions
 // ===========================================================================
 // ---------------------------------------------------------------------------
@@ -73,7 +123,7 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
     }
     // build the handler
     std::vector<OpenDriveEdge> innerEdges, outerEdges;
-    NIImporter_OpenDrive handler(nb.getNodeCont(), innerEdges, outerEdges);
+    NIImporter_OpenDrive handler(innerEdges, outerEdges);
     // parse file(s)
     std::vector<std::string> files = oc.getStringVector("opendrive-files");
     for (std::vector<std::string>::const_iterator file=files.begin(); file!=files.end(); ++file) {
@@ -225,23 +275,23 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
         OpenDriveEdge &e = *i;
         SUMOReal speed = nb.getTypeCont().getSpeed("");
         int priority = nb.getTypeCont().getPriority("");
-        unsigned int nolanes = e.getMaxLaneNumber(SUMO_TAG_OPENDRIVE_RIGHT);
+        unsigned int nolanes = e.getMaxLaneNumber(OPENDRIVE_TAG_RIGHT);
         if (nolanes>0) {
             NBEdge *nbe = new NBEdge("-" + e.id, e.from, e.to, "", speed, nolanes, priority, -1, -1, e.geom, "", LANESPREAD_RIGHT, true);
             if (!nb.getEdgeCont().insert(nbe)) {
                 throw ProcessError("Could not add edge '" + std::string("-") + e.id + "'.");
             }
-            fromLaneMap[nbe] = e.laneSections.back().buildLaneMapping(SUMO_TAG_OPENDRIVE_RIGHT);
-            toLaneMap[nbe] = e.laneSections[0].buildLaneMapping(SUMO_TAG_OPENDRIVE_RIGHT);
+            fromLaneMap[nbe] = e.laneSections.back().buildLaneMapping(OPENDRIVE_TAG_RIGHT);
+            toLaneMap[nbe] = e.laneSections[0].buildLaneMapping(OPENDRIVE_TAG_RIGHT);
         }
-        nolanes = e.getMaxLaneNumber(SUMO_TAG_OPENDRIVE_LEFT);
+        nolanes = e.getMaxLaneNumber(OPENDRIVE_TAG_LEFT);
         if (nolanes>0) {
             NBEdge *nbe = new NBEdge(e.id, e.to, e.from, "", speed, nolanes, priority, -1, -1, e.geom.reverse(), "", LANESPREAD_RIGHT, true);
             if (!nb.getEdgeCont().insert(nbe)) {
                 throw ProcessError("Could not add edge '" + e.id + "'.");
             }
-            fromLaneMap[nbe] = e.laneSections[0].buildLaneMapping(SUMO_TAG_OPENDRIVE_LEFT);
-            toLaneMap[nbe] = e.laneSections.back().buildLaneMapping(SUMO_TAG_OPENDRIVE_LEFT);
+            fromLaneMap[nbe] = e.laneSections[0].buildLaneMapping(OPENDRIVE_TAG_LEFT);
+            toLaneMap[nbe] = e.laneSections.back().buildLaneMapping(OPENDRIVE_TAG_LEFT);
         }
     }
 
@@ -318,12 +368,12 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
             }
         }
 
-        if(e.getMaxLaneNumber(SUMO_TAG_OPENDRIVE_LEFT)!=0&&e.getMaxLaneNumber(SUMO_TAG_OPENDRIVE_RIGHT)!=0) {
+        if(e.getMaxLaneNumber(OPENDRIVE_TAG_LEFT)!=0&&e.getMaxLaneNumber(OPENDRIVE_TAG_RIGHT)!=0) {
             cout << "Both dirs given!" << endl;
         }
 
         bool isReversed = false;
-        if(e.getMaxLaneNumber(SUMO_TAG_OPENDRIVE_LEFT)!=0) {
+        if(e.getMaxLaneNumber(OPENDRIVE_TAG_LEFT)!=0) {
     //            std::swap(pred, succ);
             //std::swap(predC, succC);
             isReversed = true;
@@ -361,9 +411,9 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
             throw ProcessError("Something's false");
         }
         setLaneConnections(c,
-            *predEdge, c.from->getID()[0]!='-', c.from->getID()[0]=='-' ? SUMO_TAG_OPENDRIVE_RIGHT : SUMO_TAG_OPENDRIVE_LEFT,
-            e, isReversed, !isReversed ? SUMO_TAG_OPENDRIVE_RIGHT : SUMO_TAG_OPENDRIVE_LEFT,
-            *succEdge, c.to->getID()[0]!='-', c.to->getID()[0]=='-' ? SUMO_TAG_OPENDRIVE_RIGHT : SUMO_TAG_OPENDRIVE_LEFT);
+            *predEdge, c.from->getID()[0]!='-', c.from->getID()[0]=='-' ? OPENDRIVE_TAG_RIGHT : OPENDRIVE_TAG_LEFT,
+            e, isReversed, !isReversed ? OPENDRIVE_TAG_RIGHT : OPENDRIVE_TAG_LEFT,
+            *succEdge, c.to->getID()[0]!='-', c.to->getID()[0]=='-' ? OPENDRIVE_TAG_RIGHT : OPENDRIVE_TAG_LEFT);
         connections.push_back(c);
     }
     */
@@ -443,8 +493,8 @@ NIImporter_OpenDrive::addE2EConnectionsSecure(const NBEdgeCont &ec, const NBNode
     if (fromEdge!=0&&toEdge!=0) {
         Connection c(fromEdge, "", toEdge);
         setLaneConnections(c,
-                           from, c.from->getID()[0]!='-', c.from->getID()[0]=='-' ? SUMO_TAG_OPENDRIVE_RIGHT : SUMO_TAG_OPENDRIVE_LEFT,
-                           to, c.to->getID()[0]!='-', c.to->getID()[0]=='-' ? SUMO_TAG_OPENDRIVE_RIGHT : SUMO_TAG_OPENDRIVE_LEFT);
+                           from, c.from->getID()[0]!='-', c.from->getID()[0]=='-' ? OPENDRIVE_TAG_RIGHT : OPENDRIVE_TAG_LEFT,
+                           to, c.to->getID()[0]!='-', c.to->getID()[0]=='-' ? OPENDRIVE_TAG_RIGHT : OPENDRIVE_TAG_LEFT);
         connections.push_back(c);
     }
     // negative direction (to is incoming, from is outgoing)
@@ -459,8 +509,8 @@ NIImporter_OpenDrive::addE2EConnectionsSecure(const NBEdgeCont &ec, const NBNode
     if (fromEdge!=0&&toEdge!=0) {
         Connection c(toEdge, "", fromEdge);
         setLaneConnections(c,
-                           to, c.to->getID()[0]!='-', c.to->getID()[0]=='-' ? SUMO_TAG_OPENDRIVE_RIGHT : SUMO_TAG_OPENDRIVE_LEFT,
-                           from, c.from->getID()[0]!='-', c.from->getID()[0]=='-' ? SUMO_TAG_OPENDRIVE_RIGHT : SUMO_TAG_OPENDRIVE_LEFT);
+                           to, c.to->getID()[0]!='-', c.to->getID()[0]=='-' ? OPENDRIVE_TAG_RIGHT : OPENDRIVE_TAG_LEFT,
+                           from, c.from->getID()[0]!='-', c.from->getID()[0]=='-' ? OPENDRIVE_TAG_RIGHT : OPENDRIVE_TAG_LEFT);
         connections.push_back(c);
     }
 }
@@ -468,8 +518,8 @@ NIImporter_OpenDrive::addE2EConnectionsSecure(const NBEdgeCont &ec, const NBNode
 
 void
 NIImporter_OpenDrive::setLaneConnections(NIImporter_OpenDrive::Connection &c,
-        const OpenDriveEdge &from, bool fromAtBegin, SumoXMLTag fromLaneDir,
-        const OpenDriveEdge &to, bool toAtEnd, SumoXMLTag toLaneDir) {
+        const OpenDriveEdge &from, bool fromAtBegin, OpenDriveXMLTag fromLaneDir,
+        const OpenDriveEdge &to, bool toAtEnd, OpenDriveXMLTag toLaneDir) {
     const OpenDriveLaneSection &fromLS = fromAtBegin ? from.laneSections[0] : from.laneSections.back();
     const std::vector<OpenDriveLane> &fromLanes = fromLS.lanesByDir.find(fromLaneDir)->second;
     const OpenDriveLaneSection &toLS = toAtEnd ? to.laneSections.back() : to.laneSections[0];
@@ -504,9 +554,9 @@ NIImporter_OpenDrive::setLaneConnections(NIImporter_OpenDrive::Connection &c,
 
 void
 NIImporter_OpenDrive::setLaneConnections(NIImporter_OpenDrive::Connection &c,
-        const OpenDriveEdge &from, bool fromAtBegin, SumoXMLTag fromLaneDir,
-        const OpenDriveEdge &via, bool viaIsReversed, SumoXMLTag viaLaneDir,
-        const OpenDriveEdge &to, bool toAtEnd, SumoXMLTag toLaneDir) {
+        const OpenDriveEdge &from, bool fromAtBegin, OpenDriveXMLTag fromLaneDir,
+        const OpenDriveEdge &via, bool viaIsReversed, OpenDriveXMLTag viaLaneDir,
+        const OpenDriveEdge &to, bool toAtEnd, OpenDriveXMLTag toLaneDir) {
     Connection from2via(0, "", 0);
     setLaneConnections(from2via, from, fromAtBegin, fromLaneDir, via, viaIsReversed, viaLaneDir);
     Connection via2to(0, "", 0);
@@ -786,12 +836,11 @@ NIImporter_OpenDrive::calcPointOnCurve(SUMOReal *ad_x, SUMOReal *ad_y, SUMOReal 
 // ---------------------------------------------------------------------------
 // loader methods
 // ---------------------------------------------------------------------------
-NIImporter_OpenDrive::NIImporter_OpenDrive(NBNodeCont &nc,
+NIImporter_OpenDrive::NIImporter_OpenDrive(
         std::vector<OpenDriveEdge> &innerEdges,
         std::vector<OpenDriveEdge> &outerEdges)
-        : SUMOSAXHandler("opendrive"), myCurrentEdge("", "", -1),
-        myInnerEdges(innerEdges), myOuterEdges(outerEdges) {
-    UNUSED_PARAMETER(nc);
+        : GenericSAXHandler(openDriveTags, OPENDRIVE_TAG_NOTHING, openDriveAttrs, OPENDRIVE_ATTR_NOTHING, "opendrive"), 
+		myCurrentEdge("", "", -1), myInnerEdges(innerEdges), myOuterEdges(outerEdges) {
 }
 
 
@@ -804,113 +853,107 @@ NIImporter_OpenDrive::myStartElement(int element,
                                      const SUMOSAXAttributes &attrs) throw(ProcessError) {
     bool ok = true;
     switch (element) {
-    case SUMO_TAG_OPENDRIVE_HEADER: {
-        int majorVersion = attrs.getIntReporting(SUMO_ATTR_OPENDRIVE_REVMAJOR, 0, ok);
-        int minorVersion = attrs.getIntReporting(SUMO_ATTR_OPENDRIVE_REVMINOR, 0, ok);
+    case OPENDRIVE_TAG_HEADER: {
+        int majorVersion = attrs.getIntReporting(OPENDRIVE_ATTR_REVMAJOR, 0, ok);
+        int minorVersion = attrs.getIntReporting(OPENDRIVE_ATTR_REVMINOR, 0, ok);
         if (majorVersion!=1||minorVersion!=2) {
             MsgHandler::getWarningInstance()->inform("Given openDrive file '" + getFileName() + "' uses version " + toString(majorVersion) + "." + toString(minorVersion) + ";\n Version 1.2 is supported.");
         }
     }
     break;
-    case SUMO_TAG_OPENDRIVE_ROAD: {
-        std::string id =
-            attrs.hasAttribute(SUMO_ATTR_OPENDRIVE_ID)
-            ? attrs.getStringReporting(SUMO_ATTR_OPENDRIVE_ID, 0, ok)
-            : attrs.getStringReporting(SUMO_ATTR_ID, 0, ok);
+    case OPENDRIVE_TAG_ROAD: {
+        std::string id = attrs.getStringReporting(OPENDRIVE_ATTR_ID, 0, ok);
         std::cout << "found edge '" << id << "'" << std::endl;
-        std::string junction = attrs.getStringReporting(SUMO_ATTR_OPENDRIVE_JUNCTION, id.c_str(), ok);
-        SUMOReal length = attrs.getSUMORealReporting(SUMO_ATTR_OPENDRIVE_LENGTH, id.c_str(), ok);
+        std::string junction = attrs.getStringReporting(OPENDRIVE_ATTR_JUNCTION, id.c_str(), ok);
+        SUMOReal length = attrs.getSUMORealReporting(OPENDRIVE_ATTR_LENGTH, id.c_str(), ok);
         myCurrentEdge = OpenDriveEdge(id, junction, length);
     }
     break;
-    case SUMO_TAG_OPENDRIVE_PREDECESSOR: {
-        if (myElementStack.size()>=2&&myElementStack[myElementStack.size()-2]==SUMO_TAG_OPENDRIVE_ROAD) {
-            std::string elementType = attrs.getStringReporting(SUMO_ATTR_OPENDRIVE_ELEMENTTYPE, myCurrentEdge.id.c_str(), ok);
-            std::string elementID = attrs.getStringReporting(SUMO_ATTR_OPENDRIVE_ELEMENTID, myCurrentEdge.id.c_str(), ok);
-            std::string contactPoint = attrs.hasAttribute(SUMO_ATTR_OPENDRIVE_CONTACTPOINT)
-                                       ? attrs.getStringReporting(SUMO_ATTR_OPENDRIVE_CONTACTPOINT, myCurrentEdge.id.c_str(), ok)
+    case OPENDRIVE_TAG_PREDECESSOR: {
+        if (myElementStack.size()>=2&&myElementStack[myElementStack.size()-2]==OPENDRIVE_TAG_ROAD) {
+            std::string elementType = attrs.getStringReporting(OPENDRIVE_ATTR_ELEMENTTYPE, myCurrentEdge.id.c_str(), ok);
+            std::string elementID = attrs.getStringReporting(OPENDRIVE_ATTR_ELEMENTID, myCurrentEdge.id.c_str(), ok);
+            std::string contactPoint = attrs.hasAttribute(OPENDRIVE_ATTR_CONTACTPOINT)
+                                       ? attrs.getStringReporting(OPENDRIVE_ATTR_CONTACTPOINT, myCurrentEdge.id.c_str(), ok)
                                        : "end";
             addLink(OPENDRIVE_LT_PREDECESSOR, elementType, elementID, contactPoint);
         }
-        if (myElementStack.size()>=2&&myElementStack[myElementStack.size()-2]==SUMO_TAG_OPENDRIVE_LANE||myElementStack[myElementStack.size()-2]==SUMO_TAG_LANE) { // !!!
-            int no = attrs.getIntReporting(SUMO_ATTR_ID, myCurrentEdge.id.c_str(), ok);
+        if (myElementStack.size()>=2&&myElementStack[myElementStack.size()-2]==OPENDRIVE_TAG_LANE) {
+            int no = attrs.getIntReporting(OPENDRIVE_ATTR_ID, myCurrentEdge.id.c_str(), ok);
             OpenDriveLane &l = myCurrentEdge.laneSections[myCurrentEdge.laneSections.size()-1].lanesByDir[myCurrentLaneDirection].back();
             l.predecessor = no;
         }
     }
     break;
-    case SUMO_TAG_OPENDRIVE_SUCCESSOR: {
-        if (myElementStack.size()>=2&&myElementStack[myElementStack.size()-2]==SUMO_TAG_OPENDRIVE_ROAD) {
-            std::string elementType = attrs.getStringReporting(SUMO_ATTR_OPENDRIVE_ELEMENTTYPE, myCurrentEdge.id.c_str(), ok);
-            std::string elementID = attrs.getStringReporting(SUMO_ATTR_OPENDRIVE_ELEMENTID, myCurrentEdge.id.c_str(), ok);
-            std::string contactPoint = attrs.hasAttribute(SUMO_ATTR_OPENDRIVE_CONTACTPOINT)
-                                       ? attrs.getStringReporting(SUMO_ATTR_OPENDRIVE_CONTACTPOINT, myCurrentEdge.id.c_str(), ok)
+    case OPENDRIVE_TAG_SUCCESSOR: {
+        if (myElementStack.size()>=2&&myElementStack[myElementStack.size()-2]==OPENDRIVE_TAG_ROAD) {
+            std::string elementType = attrs.getStringReporting(OPENDRIVE_ATTR_ELEMENTTYPE, myCurrentEdge.id.c_str(), ok);
+            std::string elementID = attrs.getStringReporting(OPENDRIVE_ATTR_ELEMENTID, myCurrentEdge.id.c_str(), ok);
+            std::string contactPoint = attrs.hasAttribute(OPENDRIVE_ATTR_CONTACTPOINT)
+                                       ? attrs.getStringReporting(OPENDRIVE_ATTR_CONTACTPOINT, myCurrentEdge.id.c_str(), ok)
                                        : "start";
             addLink(OPENDRIVE_LT_SUCCESSOR, elementType, elementID, contactPoint);
         }
-        if (myElementStack.size()>=2&&myElementStack[myElementStack.size()-2]==SUMO_TAG_OPENDRIVE_LANE||myElementStack[myElementStack.size()-2]==SUMO_TAG_LANE) { // !!!
-            int no = attrs.getIntReporting(SUMO_ATTR_ID, myCurrentEdge.id.c_str(), ok);
+        if (myElementStack.size()>=2&&myElementStack[myElementStack.size()-2]==OPENDRIVE_TAG_LANE) {
+            int no = attrs.getIntReporting(OPENDRIVE_ATTR_ID, myCurrentEdge.id.c_str(), ok);
             OpenDriveLane &l = myCurrentEdge.laneSections[myCurrentEdge.laneSections.size()-1].lanesByDir[myCurrentLaneDirection].back();
             l.successor = no;
         }
     }
     break;
-    case SUMO_TAG_OPENDRIVE_GEOMETRY: {
-        SUMOReal length = attrs.getSUMORealReporting(SUMO_ATTR_OPENDRIVE_LENGTH, myCurrentEdge.id.c_str(), ok);
-        SUMOReal s = attrs.getSUMORealReporting(SUMO_ATTR_OPENDRIVE_S, myCurrentEdge.id.c_str(), ok);
-        SUMOReal x = attrs.getSUMORealReporting(SUMO_ATTR_OPENDRIVE_X, myCurrentEdge.id.c_str(), ok);
-        SUMOReal y = attrs.getSUMORealReporting(SUMO_ATTR_OPENDRIVE_Y, myCurrentEdge.id.c_str(), ok);
-        SUMOReal hdg = attrs.getSUMORealReporting(SUMO_ATTR_OPENDRIVE_HDG, myCurrentEdge.id.c_str(), ok);
+    case OPENDRIVE_TAG_GEOMETRY: {
+        SUMOReal length = attrs.getSUMORealReporting(OPENDRIVE_ATTR_LENGTH, myCurrentEdge.id.c_str(), ok);
+        SUMOReal s = attrs.getSUMORealReporting(OPENDRIVE_ATTR_S, myCurrentEdge.id.c_str(), ok);
+        SUMOReal x = attrs.getSUMORealReporting(OPENDRIVE_ATTR_X, myCurrentEdge.id.c_str(), ok);
+        SUMOReal y = attrs.getSUMORealReporting(OPENDRIVE_ATTR_Y, myCurrentEdge.id.c_str(), ok);
+        SUMOReal hdg = attrs.getSUMORealReporting(OPENDRIVE_ATTR_HDG, myCurrentEdge.id.c_str(), ok);
         myCurrentEdge.geometries.push_back(OpenDriveGeometry(length, s, x, y, hdg));
     }
     break;
-    case SUMO_TAG_OPENDRIVE_LINE: {
+    case OPENDRIVE_TAG_LINE: {
         std::vector<SUMOReal> vals;
         addGeometryShape(OPENDRIVE_GT_LINE, vals);
     }
     break;
-    case SUMO_TAG_OPENDRIVE_SPIRAL: {
+    case OPENDRIVE_TAG_SPIRAL: {
         std::vector<SUMOReal> vals;
-        vals.push_back(attrs.getSUMORealReporting(SUMO_ATTR_OPENDRIVE_CURVSTART, myCurrentEdge.id.c_str(), ok));
-        vals.push_back(attrs.getSUMORealReporting(SUMO_ATTR_OPENDRIVE_CURVEND, myCurrentEdge.id.c_str(), ok));
+        vals.push_back(attrs.getSUMORealReporting(OPENDRIVE_ATTR_CURVSTART, myCurrentEdge.id.c_str(), ok));
+        vals.push_back(attrs.getSUMORealReporting(OPENDRIVE_ATTR_CURVEND, myCurrentEdge.id.c_str(), ok));
         addGeometryShape(OPENDRIVE_GT_SPIRAL, vals);
     }
     break;
-    case SUMO_TAG_OPENDRIVE_ARC: {
+    case OPENDRIVE_TAG_ARC: {
         std::vector<SUMOReal> vals;
-        vals.push_back(attrs.getSUMORealReporting(SUMO_ATTR_OPENDRIVE_CURVATURE, myCurrentEdge.id.c_str(), ok));
+        vals.push_back(attrs.getSUMORealReporting(OPENDRIVE_ATTR_CURVATURE, myCurrentEdge.id.c_str(), ok));
         addGeometryShape(OPENDRIVE_GT_ARC, vals);
     }
     break;
-    case SUMO_TAG_OPENDRIVE_POLY3: {
+    case OPENDRIVE_TAG_POLY3: {
         std::vector<SUMOReal> vals;
-        vals.push_back(attrs.getSUMORealReporting(SUMO_ATTR_OPENDRIVE_A, myCurrentEdge.id.c_str(), ok));
-        vals.push_back(attrs.getSUMORealReporting(SUMO_ATTR_OPENDRIVE_B, myCurrentEdge.id.c_str(), ok));
-        vals.push_back(attrs.getSUMORealReporting(SUMO_ATTR_OPENDRIVE_C, myCurrentEdge.id.c_str(), ok));
-        vals.push_back(attrs.getSUMORealReporting(SUMO_ATTR_OPENDRIVE_D, myCurrentEdge.id.c_str(), ok));
+        vals.push_back(attrs.getSUMORealReporting(OPENDRIVE_ATTR_A, myCurrentEdge.id.c_str(), ok));
+        vals.push_back(attrs.getSUMORealReporting(OPENDRIVE_ATTR_B, myCurrentEdge.id.c_str(), ok));
+        vals.push_back(attrs.getSUMORealReporting(OPENDRIVE_ATTR_C, myCurrentEdge.id.c_str(), ok));
+        vals.push_back(attrs.getSUMORealReporting(OPENDRIVE_ATTR_D, myCurrentEdge.id.c_str(), ok));
         addGeometryShape(OPENDRIVE_GT_POLY3, vals);
     }
     break;
-    case SUMO_TAG_OPENDRIVE_LANESECTION: {
-        SUMOReal s = attrs.getSUMORealReporting(SUMO_ATTR_OPENDRIVE_S, myCurrentEdge.id.c_str(), ok);
+    case OPENDRIVE_TAG_LANESECTION: {
+        SUMOReal s = attrs.getSUMORealReporting(OPENDRIVE_ATTR_S, myCurrentEdge.id.c_str(), ok);
         myCurrentEdge.laneSections.push_back(OpenDriveLaneSection(s));
     }
     break;
-    case SUMO_TAG_OPENDRIVE_LEFT:
-        myCurrentLaneDirection = SUMO_TAG_OPENDRIVE_LEFT;
-    case SUMO_TAG_OPENDRIVE_CENTER:
-        myCurrentLaneDirection = SUMO_TAG_OPENDRIVE_CENTER;
-    case SUMO_TAG_OPENDRIVE_RIGHT:
-        myCurrentLaneDirection = SUMO_TAG_OPENDRIVE_RIGHT;
+    case OPENDRIVE_TAG_LEFT:
+        myCurrentLaneDirection = OPENDRIVE_TAG_LEFT;
+    case OPENDRIVE_TAG_CENTER:
+        myCurrentLaneDirection = OPENDRIVE_TAG_CENTER;
+    case OPENDRIVE_TAG_RIGHT:
+        myCurrentLaneDirection = OPENDRIVE_TAG_RIGHT;
         break;
-    case SUMO_TAG_LANE: // !!!
-    case SUMO_TAG_OPENDRIVE_LANE: {
-        std::string type = attrs.getStringReporting(SUMO_ATTR_OPENDRIVE_TYPE, myCurrentEdge.id.c_str(), ok);
-        int id = attrs.hasAttribute(SUMO_ATTR_OPENDRIVE_ID)
-                 ? attrs.getIntReporting(SUMO_ATTR_OPENDRIVE_ID, myCurrentEdge.id.c_str(), ok)
-                 : attrs.getIntReporting(SUMO_ATTR_ID, myCurrentEdge.id.c_str(), ok);
-        int level = attrs.hasAttribute(SUMO_ATTR_OPENDRIVE_LEVEL)
-                    ? attrs.getIntReporting(SUMO_ATTR_OPENDRIVE_LEVEL, myCurrentEdge.id.c_str(), ok)
+    case OPENDRIVE_TAG_LANE: {
+        std::string type = attrs.getStringReporting(OPENDRIVE_ATTR_TYPE, myCurrentEdge.id.c_str(), ok);
+        int id = attrs.getIntReporting(OPENDRIVE_ATTR_ID, myCurrentEdge.id.c_str(), ok);
+        int level = attrs.hasAttribute(OPENDRIVE_ATTR_LEVEL)
+                    ? attrs.getIntReporting(OPENDRIVE_ATTR_LEVEL, myCurrentEdge.id.c_str(), ok)
                     : 0;
         OpenDriveLaneSection &ls = myCurrentEdge.laneSections[myCurrentEdge.laneSections.size()-1];
         ls.lanesByDir[myCurrentLaneDirection].push_back(OpenDriveLane(id, level, type));
@@ -935,7 +978,7 @@ void
 NIImporter_OpenDrive::myEndElement(int element) throw(ProcessError) {
     myElementStack.pop_back();
     switch (element) {
-    case SUMO_TAG_OPENDRIVE_ROAD:
+    case OPENDRIVE_TAG_ROAD:
         if (myCurrentEdge.junction=="" || myCurrentEdge.junction=="-1") {
             myOuterEdges.push_back(myCurrentEdge);
         } else {

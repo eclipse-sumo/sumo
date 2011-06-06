@@ -31,7 +31,7 @@
 
 #include <string>
 #include <map>
-#include <utils/xml/SUMOSAXHandler.h>
+#include <utils/xml/GenericSAXHandler.h>
 #include <utils/geom/PositionVector.h>
 
 
@@ -55,7 +55,7 @@ class NBNodeCont;
  * @brief Importer for networks stored in openDrive format
  *
  */
-class NIImporter_OpenDrive : public SUMOSAXHandler {
+class NIImporter_OpenDrive : public GenericSAXHandler {
 public:
     /** @brief Loads content of the optionally given SUMO file
      *
@@ -76,7 +76,64 @@ public:
 
 
 protected:
-    enum LinkType {
+
+/**
+ * @enum OpenDriveXMLTag
+ * @brief Numbers representing openDrive-XML - element names
+ * @see GenericSAXHandler
+ */
+enum OpenDriveXMLTag {
+    OPENDRIVE_TAG_NOTHING,
+    OPENDRIVE_TAG_HEADER,
+    OPENDRIVE_TAG_ROAD,
+    OPENDRIVE_TAG_PREDECESSOR,
+    OPENDRIVE_TAG_SUCCESSOR,
+    // !!! OPENDRIVE_TAG_NEIGHBOR,
+    // !!! OPENDRIVE_TAG_TYPE,
+    OPENDRIVE_TAG_GEOMETRY,
+    OPENDRIVE_TAG_LINE,
+    OPENDRIVE_TAG_SPIRAL,
+    OPENDRIVE_TAG_ARC,
+    OPENDRIVE_TAG_POLY3,
+    OPENDRIVE_TAG_LANESECTION,
+    OPENDRIVE_TAG_LEFT,
+    OPENDRIVE_TAG_CENTER,
+    OPENDRIVE_TAG_RIGHT,
+    OPENDRIVE_TAG_LANE
+};
+
+
+/**
+ * @enum OpenDriveXMLAttr
+ * @brief Numbers representing openDrive-XML - attributes
+ * @see GenericSAXHandler
+ */
+enum OpenDriveXMLAttr {
+    OPENDRIVE_ATTR_NOTHING,
+    OPENDRIVE_ATTR_REVMAJOR,
+    OPENDRIVE_ATTR_REVMINOR,
+    OPENDRIVE_ATTR_ID,
+    OPENDRIVE_ATTR_LENGTH,
+    OPENDRIVE_ATTR_JUNCTION,
+    OPENDRIVE_ATTR_ELEMENTTYPE,
+    OPENDRIVE_ATTR_ELEMENTID,
+    OPENDRIVE_ATTR_CONTACTPOINT,
+    OPENDRIVE_ATTR_S,
+    OPENDRIVE_ATTR_X,
+    OPENDRIVE_ATTR_Y,
+    OPENDRIVE_ATTR_HDG,
+    OPENDRIVE_ATTR_CURVSTART,
+    OPENDRIVE_ATTR_CURVEND,
+    OPENDRIVE_ATTR_CURVATURE,
+    OPENDRIVE_ATTR_A,
+    OPENDRIVE_ATTR_B,
+    OPENDRIVE_ATTR_C,
+    OPENDRIVE_ATTR_D,
+    OPENDRIVE_ATTR_TYPE,
+    OPENDRIVE_ATTR_LEVEL
+};
+
+enum LinkType {
         OPENDRIVE_LT_SUCCESSOR,
         OPENDRIVE_LT_PREDECESSOR
     };
@@ -159,12 +216,12 @@ protected:
     struct OpenDriveLaneSection {
         OpenDriveLaneSection(SUMOReal sArg)
                 : s(sArg) {
-            lanesByDir[SUMO_TAG_OPENDRIVE_LEFT] = std::vector<OpenDriveLane>();
-            lanesByDir[SUMO_TAG_OPENDRIVE_RIGHT] = std::vector<OpenDriveLane>();
-            lanesByDir[SUMO_TAG_OPENDRIVE_CENTER] = std::vector<OpenDriveLane>();
+            lanesByDir[OPENDRIVE_TAG_LEFT] = std::vector<OpenDriveLane>();
+            lanesByDir[OPENDRIVE_TAG_RIGHT] = std::vector<OpenDriveLane>();
+            lanesByDir[OPENDRIVE_TAG_CENTER] = std::vector<OpenDriveLane>();
         }
 
-        unsigned int getLaneNumber(SumoXMLTag dir) const throw() {
+        unsigned int getLaneNumber(OpenDriveXMLTag dir) const throw() {
             unsigned int laneNum = 0;
             const std::vector<OpenDriveLane> &dirLanes = lanesByDir.find(dir)->second;
             for (std::vector<OpenDriveLane>::const_iterator i=dirLanes.begin(); i!=dirLanes.end(); ++i) {
@@ -175,11 +232,11 @@ protected:
             return laneNum;
         }
 
-        std::map<int, int> buildLaneMapping(SumoXMLTag dir) {
+        std::map<int, int> buildLaneMapping(OpenDriveXMLTag dir) {
             std::map<int, int> ret;
             unsigned int sumoLane = 0;
             const std::vector<OpenDriveLane> &dirLanes = lanesByDir.find(dir)->second;
-            if (dir==SUMO_TAG_OPENDRIVE_RIGHT) {
+            if (dir==OPENDRIVE_TAG_RIGHT) {
                 for (std::vector<OpenDriveLane>::const_reverse_iterator i=dirLanes.rbegin(); i!=dirLanes.rend(); ++i) {
                     if ((*i).type=="driving") {
                         ret[(*i).id] = sumoLane++;
@@ -196,7 +253,7 @@ protected:
         }
 
         SUMOReal s;
-        std::map<SumoXMLTag, std::vector<OpenDriveLane> > lanesByDir;
+        std::map<OpenDriveXMLTag, std::vector<OpenDriveLane> > lanesByDir;
     };
 
 
@@ -209,7 +266,7 @@ protected:
                 : id(idArg), junction(junctionArg), length(lengthArg),
                 from(0), to(0) { }
 
-        unsigned int getMaxLaneNumber(SumoXMLTag dir) const throw() {
+        unsigned int getMaxLaneNumber(OpenDriveXMLTag dir) const throw() {
             unsigned int maxLaneNum = 0;
             for (std::vector<OpenDriveLaneSection>::const_iterator i=laneSections.begin(); i!=laneSections.end(); ++i) {
                 maxLaneNum = MAX2(maxLaneNum, (*i).getLaneNumber(dir));
@@ -247,7 +304,7 @@ protected:
     /** @brief Constructor
      * @param[in] nc The node control to fill
      */
-    NIImporter_OpenDrive(NBNodeCont &nc, std::vector<OpenDriveEdge> &innerEdges, std::vector<OpenDriveEdge> &outerEdges);
+    NIImporter_OpenDrive(std::vector<OpenDriveEdge> &innerEdges, std::vector<OpenDriveEdge> &outerEdges);
 
 
     /// @brief Destructor
@@ -305,7 +362,7 @@ private:
     std::vector<OpenDriveEdge> &myInnerEdges;
     std::vector<OpenDriveEdge> &myOuterEdges;
     std::vector<int> myElementStack;
-    SumoXMLTag myCurrentLaneDirection;
+    OpenDriveXMLTag myCurrentLaneDirection;
 
 
 protected:
@@ -350,13 +407,13 @@ protected:
                                        std::vector<NIImporter_OpenDrive::Connection> &connections);
 
     static void setLaneConnections(NIImporter_OpenDrive::Connection &c,
-                                   const OpenDriveEdge &from, bool fromAtBegin, SumoXMLTag fromLaneDir,
-                                   const OpenDriveEdge &to, bool toAtEnd, SumoXMLTag toLaneDir);
+                                   const OpenDriveEdge &from, bool fromAtBegin, OpenDriveXMLTag fromLaneDir,
+                                   const OpenDriveEdge &to, bool toAtEnd, OpenDriveXMLTag toLaneDir);
 
     static void setLaneConnections(NIImporter_OpenDrive::Connection &c,
-                                   const OpenDriveEdge &from, bool fromAtBegin, SumoXMLTag fromLaneDir,
-                                   const OpenDriveEdge &via, bool viaIsReversed, SumoXMLTag viaLaneDir,
-                                   const OpenDriveEdge &to, bool fromAtEnd, SumoXMLTag toLaneDir);
+                                   const OpenDriveEdge &from, bool fromAtBegin, OpenDriveXMLTag fromLaneDir,
+                                   const OpenDriveEdge &via, bool viaIsReversed, OpenDriveXMLTag viaLaneDir,
+                                   const OpenDriveEdge &to, bool fromAtEnd, OpenDriveXMLTag toLaneDir);
 
 
     class edge_by_id_finder {
@@ -372,6 +429,15 @@ protected:
         const std::string &myEdgeID;
 
     };
+
+
+
+    /// The names of openDrive-XML elements (for passing to GenericSAXHandler)
+    static StringBijection<int>::Entry openDriveTags[];
+
+    /// The names of openDrive-XML attributes (for passing to GenericSAXHandler)
+    static StringBijection<int>::Entry openDriveAttrs[];
+
 
 
 };
