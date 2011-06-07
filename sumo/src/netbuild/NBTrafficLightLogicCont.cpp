@@ -162,6 +162,16 @@ NBTrafficLightLogicCont::getDefinition(const std::string &id) const throw() {
 }
 
 
+NBTrafficLightLogic *
+NBTrafficLightLogicCont::getLogic(const std::string &id) const {
+    ComputedContType::const_iterator i=myComputed.find(id);
+    if (i!=myComputed.end()) {
+        return (*i).second;
+    }
+    return 0;
+}
+
+
 void
 NBTrafficLightLogicCont::setTLControllingInformation(const NBEdgeCont &ec) throw() {
     DefinitionContType::iterator i;

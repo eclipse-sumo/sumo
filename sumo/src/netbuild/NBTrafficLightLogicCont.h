@@ -174,6 +174,14 @@ public:
     NBTrafficLightDefinition *getDefinition(const std::string &id) const throw();
 
 
+    /** @brief Returns the computed logic for the given name
+     *
+     * @param[in] id The id of the logic to return
+     * @return The named definition, 0 if it is not known
+     */
+    NBTrafficLightLogic * getLogic(const std::string &id) const;
+
+
     /** @brief Informs the edges about being controlled by a tls
      *
      * Goes through all definition, calling eachs "setParticipantsInformation" method.
