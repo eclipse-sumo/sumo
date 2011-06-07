@@ -5,7 +5,7 @@
     <input>
         <net-file value="" synonymes="n net"/>
         <detector-files value="" synonymes="d detectors"/>
-        <detector-flow-files value="" synonymes="detflows f"/>
+        <measure-files value="" synonymes="detector-flow-files detflows f"/>
     </input>
 
     <output>

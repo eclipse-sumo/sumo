@@ -98,15 +98,15 @@ readDetectors(RODFDetectorCon &detectors, OptionsCont &oc, RODFNet *optNet) {
 
 void
 readDetectorFlows(RODFDetectorFlows &flows, OptionsCont &oc, RODFDetectorCon &dc) {
-    if (!oc.isSet("detector-flow-files")) {
+    if (!oc.isSet("measure-files")) {
         // ok, not given, return an empty container
         return;
     }
     // check whether the file exists
-    std::vector<std::string> files = oc.getStringVector("detector-flow-files");
+    std::vector<std::string> files = oc.getStringVector("measure-files");
     for (std::vector<std::string>::const_iterator fileIt=files.begin(); fileIt!=files.end(); ++fileIt) {
         if (!FileHelpers::exists(*fileIt)) {
-            throw ProcessError("The detector-flow-file '" + *fileIt + "' can not be opened.");
+            throw ProcessError("The measure-file '" + *fileIt + "' can not be opened.");
         }
         // parse
         MsgHandler::getMessageInstance()->beginProcessMsg("Loading flows from '" + *fileIt + "'...");

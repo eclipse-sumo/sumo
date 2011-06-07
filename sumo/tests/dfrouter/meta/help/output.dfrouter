@@ -20,7 +20,7 @@ Usage: dfrouter [OPTION]*
  Input Options:
   -n, --net-file FILE                Loads the SUMO-network FILE
   -d, --detector-files FILE          Loads detector descriptions from FILE
-  -f, --detector-flow-files FILE     Loads detector flows from FILE(s)
+  -f, --measure-files FILE           Loads detector flows from FILE(s)
 
  Output Options:
   -o, --routes-output FILE           Saves computed routes to FILE

@@ -79,9 +79,10 @@ RODFFrame::fillOptions() {
     oc.addSynonyme("detector-files", "detectors");
     oc.addDescription("detector-files", "Input", "Loads detector descriptions from FILE");
 
-    oc.doRegister("detector-flow-files", 'f', new Option_FileName());
-    oc.addSynonyme("detector-flow-files", "detflows");
-    oc.addDescription("detector-flow-files", "Input", "Loads detector flows from FILE(s)");
+    oc.doRegister("measure-files", 'f', new Option_FileName());
+    oc.addSynonyme("measure-files", "detflows");
+    oc.addSynonyme("measure-files", "detector-flow-files", true);
+    oc.addDescription("measure-files", "Input", "Loads detector flows from FILE(s)");
 
 
     // register output options

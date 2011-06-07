@@ -10,7 +10,7 @@
         <detector-files value="" synonymes="d detectors"/>
 
         <!-- Loads detector flows from FILE(s) -->
-        <detector-flow-files value="" synonymes="detflows f"/>
+        <measure-files value="" synonymes="detector-flow-files detflows f"/>
 
     </input>
 
