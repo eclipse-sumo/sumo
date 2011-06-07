@@ -46,7 +46,7 @@ Usage: jtrrouter [OPTION]*
   --max-edges-factor FLOAT         
   -T, --turn-defaults STR          Use STR as default turn definition
   -s, --sink-edges STR             Use STR as list of sink edges
-  -A, --accept-all-destinations    
+  -A, --accept-all-destinations    Whether all edges are allowed as sink edges
   -i, --ignore-vclasses            Ignore road restrictions based on vehicle
                                      class
 

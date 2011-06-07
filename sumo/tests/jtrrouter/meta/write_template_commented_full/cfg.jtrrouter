@@ -63,7 +63,7 @@
         <!-- Use STR as list of sink edges -->
         <sink-edges value="" synonymes="s sinks"/>
 
-        <!--  -->
+        <!-- Whether all edges are allowed as sink edges -->
         <accept-all-destinations value="false" synonymes="A"/>
 
         <!-- Ignore road restrictions based on vehicle class -->

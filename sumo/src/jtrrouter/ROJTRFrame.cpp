@@ -92,7 +92,7 @@ ROJTRFrame::addJTROptions() {
     oc.addDescription("sink-edges", "Processing", "Use STR as list of sink edges");
 
     oc.doRegister("accept-all-destinations", 'A', new Option_Bool(false));
-    oc.addDescription("accept-all-destinations", "Processing", "");
+    oc.addDescription("accept-all-destinations", "Processing", "Whether all edges are allowed as sink edges");
 
     oc.doRegister("ignore-vclasses", 'i', new Option_Bool(false));
     oc.addSynonyme("ignore-vclasses", "ignore-classes", true);
