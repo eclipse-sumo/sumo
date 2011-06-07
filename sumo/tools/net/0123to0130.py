@@ -10,13 +10,13 @@ Changes xml network files from version 0.10.3 to version 0.11.0.
 Copyright (C) 2009-2011 DLR (http://www.dlr.de/) and contributors
 All rights reserved
 """
-import os, string, sys, StringIO
-from xml.sax import saxutils, make_parser, handler
+import os, string, sys, glob
+from xml.sax import parse, handler
 
 # attributes sorting lists
 a = {}
 a['edge'] = ( 'id', 'from', 'to', 'name', 'priority', 'type', 'function', 'spread_type', 'shape' )
-a['lane'] = ( 'id', 'depart', 'vclasses', 'allow', 'disallow', 'maxspeed', 'length', 'endOffset', "width', 'shape' )
+a['lane'] = ( 'id', 'depart', 'vclasses', 'allow', 'disallow', 'maxspeed', 'length', 'endOffset', 'width', 'shape' )
 a['junction'] = ( 'id', 'type', 'x', 'y', 'incLanes', 'intLanes', 'shape' )
 a['logicitem'] = ( 'request', 'response', 'foes', 'cont' )
 a['succ'] = ( 'edge', 'lane', 'junction' )
@@ -77,9 +77,8 @@ class NetConverter(handler.ContentHandler):
     def checkWrite(self, what, isCharacters=False):
         self._out.write(what)
 
-    def intend(self):
+    def indent(self):
         self._out.write(" " * (3*len(self._tree)))
-
 
     def endDocument(self):
         self.checkWrite("\n")
@@ -92,7 +91,7 @@ class NetConverter(handler.ContentHandler):
 
         if name in r:
             return
-        self.intend()
+        self.indent()
         if name in n:
             self.checkWrite("<" + n[name])
         else:
@@ -108,7 +107,6 @@ class NetConverter(handler.ContentHandler):
             self.checkWrite("/>\n")
         self._tree.append(name)
 
-
     def endElement(self, name):
         if name in r:
             return
@@ -116,37 +114,27 @@ class NetConverter(handler.ContentHandler):
         if name=="net":
             self.checkWrite("\n")
         if name not in c:
-            self.intend()
+            self.indent()
             if name in n:
                 self.checkWrite("</" + n[name] + ">")
             else:
                 self.checkWrite("</" + name + ">")
             if name!="net":
                 self.checkWrite("\n")
-            
 
     def characters(self, content):
         self._content += content
 
-                    
-    def ignorableWhitespace(self, content):
-        pass
-        
-    def skippedEntity(self, content):
-        pass
-        
     def processingInstruction(self, target, data):
         self.checkWrite('<?%s %s?>' % (target, data))
 
 
 
-
 if len(sys.argv) < 2:
-    print "Usage: " + sys.argv[0] + " <net>"
+    print "Usage: " + sys.argv[0] + " <net>+"
     sys.exit()
-beg = getBegin(sys.argv[1])
-parser = make_parser()
-net = NetConverter(sys.argv[1]+".chg", beg)
-parser.setContentHandler(net)
-parser.parse(sys.argv[1])
-
+for a in sys.argv[1:]:
+	for f in glob.glob(a):
+		beg = getBegin(f)
+		net = NetConverter(f+".chg", beg)
+		parse(f, net)
