@@ -46,7 +46,8 @@ Usage: dfrouter [OPTION]*
   --revalidate-routes                  Recomputes routes even if given
   --all-end-follower                   Continues routes till the first street
                                          after a sink
-  --keep-unfound-ends                  Keeps routes ending at no sinks
+  --keep-unfinished-routes             Keeps routes even if they have exhausted
+                                         max-search-depth
   --keep-longer-routes                 Keeps routes even if a shorter one
                                          exists
   --max-nodet-follower INT             Number of edges until which a route is

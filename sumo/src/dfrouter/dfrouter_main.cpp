@@ -143,7 +143,7 @@ startComputation(RODFNet *optNet, RODFDetectorFlows &flows, RODFDetectorCon &det
         if (!detectors.detectorsHaveRoutes()||oc.getBool("revalidate-routes")||oc.getBool("guess-empty-flows")) {
             MsgHandler::getMessageInstance()->beginProcessMsg("Computing routes...");
             optNet->buildRoutes(detectors,
-                                oc.getBool("all-end-follower"), oc.getBool("keep-unfound-ends"),
+                                oc.getBool("all-end-follower"), oc.getBool("keep-unfinished-routes"),
                                 oc.getBool("routes-for-all"), !oc.getBool("keep-longer-routes"),
                                 oc.getInt("max-nodet-follower"));
             MsgHandler::getMessageInstance()->endProcessMsg("done.");

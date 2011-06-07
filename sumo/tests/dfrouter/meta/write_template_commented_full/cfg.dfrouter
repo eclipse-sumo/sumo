@@ -66,8 +66,8 @@
         <!-- Continues routes till the first street after a sink -->
         <all-end-follower value="false"/>
 
-        <!-- Keeps routes ending at no sinks -->
-        <keep-unfound-ends value="false"/>
+        <!-- Keeps routes even if they have exhausted max-search-depth -->
+        <keep-unfinished-routes value="false" synonymes="keep-unfound-ends"/>
 
         <!-- Keeps routes even if a shorter one exists -->
         <keep-longer-routes value="false"/>

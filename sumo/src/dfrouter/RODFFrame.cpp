@@ -143,8 +143,9 @@ RODFFrame::fillOptions() {
     oc.doRegister("all-end-follower", new Option_Bool(false));
     oc.addDescription("all-end-follower", "Processing", "Continues routes till the first street after a sink");
 
-    oc.doRegister("keep-unfound-ends", new Option_Bool(false));
-    oc.addDescription("keep-unfound-ends", "Processing", "Keeps routes ending at no sinks");
+    oc.doRegister("keep-unfinished-routes", new Option_Bool(false));
+    oc.addSynonyme("keep-unfinished-routes", "keep-unfound-ends", true);
+    oc.addDescription("keep-unfinished-routes", "Processing", "Keeps routes even if they have exhausted max-search-depth");
 
     oc.doRegister("keep-longer-routes", new Option_Bool(false));
     oc.addDescription("keep-longer-routes", "Processing", "Keeps routes even if a shorter one exists");

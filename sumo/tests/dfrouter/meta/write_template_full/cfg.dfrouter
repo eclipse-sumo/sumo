@@ -28,7 +28,7 @@
         <revalidate-detectors value="false"/>
         <revalidate-routes value="false"/>
         <all-end-follower value="false"/>
-        <keep-unfound-ends value="false"/>
+        <keep-unfinished-routes value="false" synonymes="keep-unfound-ends"/>
         <keep-longer-routes value="false"/>
         <max-nodet-follower value="30"/>
         <emissions-only value="false"/>
