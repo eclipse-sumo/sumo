@@ -21,12 +21,10 @@ a['junction'] = ( 'id', 'type', 'x', 'y', 'incLanes', 'intLanes', 'shape' )
 a['logicitem'] = ( 'request', 'response', 'foes', 'cont' )
 a['succ'] = ( 'edge', 'lane', 'junction' )
 a['succlane'] = ( 'lane', 'via', 'tl', 'linkno', 'dir', 'state' )
-a['row-logic'] = ( 'id', 'requestSize' )
-a['ROWLogic'] = ( 'id', 'requestSize' )
-a['tl-logic'] = ( 'id', 'type', 'programID', 'offset' )
-a['tlLogic'] = ( 'id', 'type', 'programID', 'offset' )
+a['row-logic'] = a['ROWLogic'] = ( 'id', 'requestSize' )
+a['tl-logic'] = a['tlLogic'] = ( 'id', 'type', 'programID', 'offset' )
 a['location'] = ( 'netOffset', 'convBoundary', 'origBoundary', 'projParameter' )
-a['phase'] = ( 'duration', 'state', 'minDur', 'maxDur' )
+a['phase'] = ( 'duration', 'state', 'minDur', 'maxDur', 'min_dur', 'max_dur' )
 a['district'] = ( 'id', 'shape', 'edges' )
 a['dsink'] = ( 'id', 'weight' )
 a['dsource'] = ( 'id', 'weight' )
@@ -42,20 +40,20 @@ b['edge']['function'] = 'normal'
 c = ( 'roundabout', 'logicitem', 'phase', 'succlane', 'dsource', 'dsink', 'junction', 'location', 'lane', 'timed_event' )
 
 # remove these
-r = ( 'lanes', 'logic' )
+removed = ( 'lanes', 'logic' )
 
 # renamed elements
-n = {}
-n['tl-logic'] = "tlLogic"
-n['row-logic'] = "ROWLogic"
+renamed = {'tl-logic':  'tlLogic', 'row-logic':  'ROWLogic'}
 
+# renamed elements
+renamedAttrs = {'min_dur':  'minDur', 'max_dur':  'maxDur'}
 
 
 def getBegin(file):
     fd = open(file)
     content = "";
     for line in fd:
-        if line.find("<net>")>=0 or line.find("<districts>")>=0:
+        if line.find("<net>")>=0 or line.find("<districts>")>=0 or line.find("<add>")>=0:
             fd.close()
             return content
         content = content + line
@@ -89,18 +87,19 @@ class NetConverter(handler.ContentHandler):
             self.checkWrite("\n")
         self._content = ""
 
-        if name in r:
+        if name in removed:
             return
         self.indent()
-        if name in n:
-            self.checkWrite("<" + n[name])
+        if name in renamed:
+            self.checkWrite("<" + renamed[name])
         else:
             self.checkWrite("<" + name)
         if name in a:
             for key in a[name]:
                 if attrs.has_key(key):
                     if name not in b or key not in b[name] or attrs[key]!=b[name][key]:
-                        self.checkWrite(' ' + key + '="' + attrs[key] + '"')
+                        self.checkWrite(' ' + renamedAttrs.get(key, key) + '="' + attrs[key] + '"')
+                    
         if name not in c:
             self.checkWrite(">\n")
         else:
@@ -108,15 +107,15 @@ class NetConverter(handler.ContentHandler):
         self._tree.append(name)
 
     def endElement(self, name):
-        if name in r:
+        if name in removed:
             return
         self._tree.pop()
         if name=="net":
             self.checkWrite("\n")
         if name not in c:
             self.indent()
-            if name in n:
-                self.checkWrite("</" + n[name] + ">")
+            if name in renamed:
+                self.checkWrite("</" + renamed[name] + ">")
             else:
                 self.checkWrite("</" + name + ">")
             if name!="net":
@@ -133,8 +132,8 @@ class NetConverter(handler.ContentHandler):
 if len(sys.argv) < 2:
     print "Usage: " + sys.argv[0] + " <net>+"
     sys.exit()
-for a in sys.argv[1:]:
-	for f in glob.glob(a):
-		beg = getBegin(f)
-		net = NetConverter(f+".chg", beg)
-		parse(f, net)
+for arg in sys.argv[1:]:
+	for fname in glob.glob(arg):
+		beg = getBegin(fname)
+		net = NetConverter(fname+".chg", beg)
+		parse(fname, net)
