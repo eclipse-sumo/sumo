@@ -28,7 +28,7 @@
         <trip-files value="" synonymes="t trip-defs trips"/>
 
         <!-- Read sumo-routes from FILE(s) -->
-        <route-files value="" synonymes="s sumo sumo-input"/>
+        <route-files value="" synonymes="r sumo sumo-input"/>
 
     </input>
 

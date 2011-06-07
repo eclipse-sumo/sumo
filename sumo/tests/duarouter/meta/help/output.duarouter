@@ -28,7 +28,7 @@ Usage: duarouter [OPTION]*
   -x, --weight-attribute STR       Name of the xml attribute which gives the
                                      edge weight
   -t, --trip-files FILE            Read trip-definitions from FILE(s)
-  -s, --route-files FILE           Read sumo-routes from FILE(s)
+  -r, --route-files FILE           Read sumo-routes from FILE(s)
 
  Output Options:
   -o, --output-file FILE           Write generated routes to FILE

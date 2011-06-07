@@ -88,9 +88,9 @@ MSFrame::fillOptions() {
     oc.doRegister("weight-files", 'w', new Option_FileName());
     oc.addSynonyme("weight-files", "weights");
     oc.addDescription("weight-files", "Input", "Load edge/lane weights for online rerouting from FILE");
-    oc.doRegister("weight-attribute", 'm', new Option_String("traveltime"));
+    oc.doRegister("weight-attribute", 'x', new Option_String("traveltime"));
     oc.addSynonyme("weight-attribute", "measure", true);
-    oc.addDescription("weight-attribute", "Input", "Use the given attribute as weight when parsing weight files");
+    oc.addDescription("weight-attribute", "Input", "Name of the xml attribute which gives the edge weight");
 
 #ifdef HAVE_MESOSIM
     oc.doRegister("load-state", new Option_FileName());//!!! check, describe
