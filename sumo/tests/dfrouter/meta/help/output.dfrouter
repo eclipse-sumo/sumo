@@ -9,88 +9,89 @@ Usage: dfrouter [OPTION]*
   dfrouter -c <CONFIGURATION>
  
  Configuration Options:
-  -c, --configuration-file FILE      Loads the named config on startup
-  --save-configuration FILE          Saves current configuration into FILE
-  --save-template FILE               Saves a configuration template (empty)
-                                       into FILE
-  --save-schema FILE                 Saves the configuration schema into FILE
-  --save-commented                   Adds comments to saved template,
-                                       configuration, or schema
+  -c, --configuration-file FILE        Loads the named config on startup
+  --save-configuration FILE            Saves current configuration into FILE
+  --save-template FILE                 Saves a configuration template (empty)
+                                         into FILE
+  --save-schema FILE                   Saves the configuration schema into FILE
+  --save-commented                     Adds comments to saved template,
+                                         configuration, or schema
 
  Input Options:
-  -n, --net-file FILE                Loads the SUMO-network FILE
-  -d, --detector-files FILE          Loads detector descriptions from FILE
-  -f, --measure-files FILE           Loads detector flows from FILE(s)
+  -n, --net-file FILE                  Loads the SUMO-network FILE
+  -d, --detector-files FILE            Loads detector descriptions from FILE
+  -f, --measure-files FILE             Loads detector flows from FILE(s)
 
  Output Options:
-  -o, --routes-output FILE           Saves computed routes to FILE
-  --routes-for-all                   Forces DFROUTER to compute routes for
-                                       in-between detectors
-  --detector-output FILE             Saves typed detectors to FILE
-  --detectors-poi-output FILE        Saves detector positions as pois to FILE
-  --emitters-output FILE             Saves emitter definitions for source
-                                       detectors to FILE
-  --emitters-poi-output FILE         Saves emitter positions as pois to FILE
-  --speed-trigger-output FILE        Saves variable seed sign definitions for
-                                       sink detectors to FILE
-  --end-reroute-output FILE          Saves rerouter definitions for sink
-                                       detectors to FILE
-  --validation-output FILE           
-  --validation-output.add-sources    
+  -o, --routes-output FILE             Saves computed routes to FILE
+  --routes-for-all                     Forces DFROUTER to compute routes for
+                                         in-between detectors
+  --detector-output FILE               Saves typed detectors to FILE
+  --detectors-poi-output FILE          Saves detector positions as pois to FILE
+  --emitters-output FILE               Saves emitter definitions for source
+                                         detectors to FILE
+  --emitters-poi-output FILE           Saves emitter positions as pois to FILE
+  --variable-speed-sign-output FILE    Saves variable seed sign definitions for
+                                         sink detectors to FILE
+  --end-reroute-output FILE            Saves rerouter definitions for sink
+                                         detectors to FILE
+  --validation-output FILE             
+  --validation-output.add-sources      
 
  Processing Options:
-  --guess-empty-flows                
-  -h, --highway-mode                 Switches to highway-mode
-  --ignore-invalid-detectors         Only warn about unparseable detectors
-  --revalidate-detectors             Recomputes detector types even if given
-  --revalidate-routes                Recomputes routes even if given
-  --all-end-follower                 Continues routes till the first street
-                                       after a sink
-  --keep-unfound-ends                Keeps routes ending at no sinks
-  --keep-longer-routes               Keeps routes even if a shorter one exists
-  --max-nodet-follower INT           Number of edges until which a route is
-                                       followed
-  --emissions-only                   Writes only emission times
-  --disallowed-edges STR             Do not route on these edges
-  --keep-turnarounds                 Allow turnarounds as route continuations
-  --min-distance FLOAT               According sink must be at least that far
-                                       away
-  --time-factor TIME                 Multiply flow times with TIME to get
-                                       seconds
-  --time-offset TIME                 Subtracts TIME seconds from (scaled) flow
-                                       times
-  --time-step TIME                   Expected distance between two successive
-                                       data sets
-  --write-calibrators                
-  --include-unused-routes            
-  --revalidate-flows                 
-  --remove-empty-detectors           Removes empty detectors from the list
-  --strict-sources                   
-  --mesosim                          Joins detectors lying on same height
-  --scale FLOAT                      Scale factor for flows
+  --guess-empty-flows                  
+  -h, --highway-mode                   Switches to highway-mode
+  --ignore-invalid-detectors           Only warn about unparseable detectors
+  --revalidate-detectors               Recomputes detector types even if given
+  --revalidate-routes                  Recomputes routes even if given
+  --all-end-follower                   Continues routes till the first street
+                                         after a sink
+  --keep-unfound-ends                  Keeps routes ending at no sinks
+  --keep-longer-routes                 Keeps routes even if a shorter one
+                                         exists
+  --max-nodet-follower INT             Number of edges until which a route is
+                                         followed
+  --emissions-only                     Writes only emission times
+  --disallowed-edges STR               Do not route on these edges
+  --keep-turnarounds                   Allow turnarounds as route continuations
+  --min-distance FLOAT                 According sink must be at least that far
+                                         away
+  --time-factor TIME                   Multiply flow times with TIME to get
+                                         seconds
+  --time-offset TIME                   Subtracts TIME seconds from (scaled)
+                                         flow times
+  --time-step TIME                     Expected distance between two successive
+                                         data sets
+  --write-calibrators                  
+  --include-unused-routes              
+  --revalidate-flows                   
+  --remove-empty-detectors             Removes empty detectors from the list
+  --strict-sources                     
+  --mesosim                            Joins detectors lying on same height
+  --scale FLOAT                        Scale factor for flows
 
  Time Options:
-  -b, --begin TIME                   Defines the begin time;
-                                       Previous defs will be discarded
-  -e, --end TIME                     Defines the end time;
-                                       Later defs will be discarded;
-                                       Defaults to one day
+  -b, --begin TIME                     Defines the begin time;
+                                         Previous defs will be discarded
+  -e, --end TIME                       Defines the end time;
+                                         Later defs will be discarded;
+                                         Defaults to one day
 
  Report Options:
-  -v, --verbose                      Switches to verbose output
-  -p, --print-options                Prints option values before processing
-  -?, --help                         Prints this screen
-  -V, --version                      Prints the current version
-  -W, --no-warnings                  Disables output of warnings
-  -l, --log FILE                     Writes all messages to FILE
-  --message-log FILE                 Writes all non-error messages to FILE
-  --error-log FILE                   Writes all warnings and errors to FILE
-  --report-empty-detectors           Lists detectors with no flow (enable -v)
-  --print-absolute-flows             Prints aggregated detector flows
+  -v, --verbose                        Switches to verbose output
+  -p, --print-options                  Prints option values before processing
+  -?, --help                           Prints this screen
+  -V, --version                        Prints the current version
+  -W, --no-warnings                    Disables output of warnings
+  -l, --log FILE                       Writes all messages to FILE
+  --message-log FILE                   Writes all non-error messages to FILE
+  --error-log FILE                     Writes all warnings and errors to FILE
+  --report-empty-detectors             Lists detectors with no flow (enable -v)
+  --print-absolute-flows               Prints aggregated detector flows
 
  Random Number Options:
-  --random                           Initialises the random number generator
-                                       with the current system time
-  --seed INT                         Initialises the random number generator
-                                       with the given value
+  --random                             Initialises the random number generator
+                                         with the current system time
+  --seed INT                           Initialises the random number generator
+                                         with the given value
 

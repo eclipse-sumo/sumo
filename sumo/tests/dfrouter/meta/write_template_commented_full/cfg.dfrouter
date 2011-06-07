@@ -34,7 +34,7 @@
         <emitters-poi-output value=""/>
 
         <!-- Saves variable seed sign definitions for sink detectors to FILE -->
-        <speed-trigger-output value=""/>
+        <variable-speed-sign-output value="" synonymes="speed-trigger-output"/>
 
         <!-- Saves rerouter definitions for sink detectors to FILE -->
         <end-reroute-output value=""/>

@@ -15,7 +15,7 @@
         <detectors-poi-output value=""/>
         <emitters-output value=""/>
         <emitters-poi-output value=""/>
-        <speed-trigger-output value=""/>
+        <variable-speed-sign-output value="" synonymes="speed-trigger-output"/>
         <end-reroute-output value=""/>
         <validation-output value=""/>
         <validation-output.add-sources value="false"/>

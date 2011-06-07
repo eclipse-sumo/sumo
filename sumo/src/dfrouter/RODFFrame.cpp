@@ -105,8 +105,9 @@ RODFFrame::fillOptions() {
     oc.doRegister("emitters-poi-output", new Option_FileName()); // !!! describe
     oc.addDescription("emitters-poi-output", "Output", "Saves emitter positions as pois to FILE");
 
-    oc.doRegister("speed-trigger-output", new Option_FileName());
-    oc.addDescription("speed-trigger-output", "Output", "Saves variable seed sign definitions for sink detectors to FILE");
+    oc.doRegister("variable-speed-sign-output", new Option_FileName());
+    oc.addSynonyme("variable-speed-sign-output", "speed-trigger-output", true);
+    oc.addDescription("variable-speed-sign-output", "Output", "Saves variable seed sign definitions for sink detectors to FILE");
 
     oc.doRegister("end-reroute-output", new Option_FileName());
     oc.addDescription("end-reroute-output", "Output", "Saves rerouter definitions for sink detectors to FILE");
