@@ -15,8 +15,8 @@
         <!-- Load edge/lane weights for online rerouting from FILE -->
         <weight-files value="" synonymes="w weights"/>
 
-        <!-- Use the given attribute as weight when parsing weight files -->
-        <weight-attribute value="traveltime" synonymes="m measure"/>
+        <!-- Name of the xml attribute which gives the edge weight -->
+        <weight-attribute value="traveltime" synonymes="measure x"/>
 
     </input>
 

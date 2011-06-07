@@ -7,7 +7,7 @@
         <route-files value="" synonymes="r routes"/>
         <additional-files value="" synonymes="a additional"/>
         <weight-files value="" synonymes="w weights"/>
-        <weight-attribute value="traveltime" synonymes="m measure"/>
+        <weight-attribute value="traveltime" synonymes="measure x"/>
     </input>
 
     <output>
