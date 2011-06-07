@@ -12,6 +12,7 @@ All rights reserved
 """
 import os, string, sys, glob
 from xml.sax import parse, handler
+from optparse import OptionParser
 
 # attributes sorting lists
 a = {}
@@ -43,10 +44,11 @@ c = ( 'roundabout', 'logicitem', 'phase', 'succlane', 'dsource', 'dsink', 'junct
 removed = ( 'lanes', 'logic' )
 
 # renamed elements
-renamed = {'tl-logic':  'tlLogic', 'row-logic':  'ROWLogic'}
+renamed = {'tl-logic': 'tlLogic', 'row-logic': 'ROWLogic'}
 
-# renamed elements
-renamedAttrs = {'min_dur':  'minDur', 'max_dur':  'maxDur'}
+renamedAttrs = {'min_dur': 'minDur', 'max_dur': 'maxDur'}
+
+renamedValues = {'state': {'t': 'o'} }
 
 
 def getBegin(file):
@@ -76,7 +78,7 @@ class NetConverter(handler.ContentHandler):
         self._out.write(what)
 
     def indent(self):
-        self._out.write(" " * (3*len(self._tree)))
+        self._out.write(" " * (4*len(self._tree)))
 
     def endDocument(self):
         self.checkWrite("\n")
@@ -97,8 +99,11 @@ class NetConverter(handler.ContentHandler):
         if name in a:
             for key in a[name]:
                 if attrs.has_key(key):
+                    val = attrs[key]
+                    if key in renamedValues:
+                        val = renamedValues[key].get(val, val)
                     if name not in b or key not in b[name] or attrs[key]!=b[name][key]:
-                        self.checkWrite(' ' + renamedAttrs.get(key, key) + '="' + attrs[key] + '"')
+                        self.checkWrite(' ' + renamedAttrs.get(key, key) + '="' + val + '"')
                     
         if name not in c:
             self.checkWrite(">\n")
@@ -127,13 +132,39 @@ class NetConverter(handler.ContentHandler):
     def processingInstruction(self, target, data):
         self.checkWrite('<?%s %s?>' % (target, data))
 
+def changeFile(fname):
+    if options.verbose:
+        print "Patching " + fname + " ..."
+    net = NetConverter(fname+".chg", getBegin(fname))
+    parse(fname, net)
+    if options.inplace:
+        os.remove(fname)
+        os.rename(fname+".chg", fname)
+
+def walkDir(srcRoot):
+    for root, dirs, files in os.walk(srcRoot):
+        for name in files:
+            if name.endswith(".net.xml") or name in ["net.netconvert", "net.netgen",
+                                                     "tls.scenario", "net.scenario"]:
+                changeFile(os.path.join(root, name))
+            for ignoreDir in ['.svn', 'foreign']:
+                if ignoreDir in dirs:
+                    dirs.remove(ignoreDir)
 
 
-if len(sys.argv) < 2:
+optParser = OptionParser()
+optParser.add_option("-v", "--verbose", action="store_true",
+                     default=False, help="tell me what you are doing")
+optParser.add_option("-i", "--inplace", action="store_true",
+                     default=False, help="replace original files")
+(options, args) = optParser.parse_args()
+
+if len(args) == 0:
     print "Usage: " + sys.argv[0] + " <net>+"
     sys.exit()
-for arg in sys.argv[1:]:
-	for fname in glob.glob(arg):
-		beg = getBegin(fname)
-		net = NetConverter(fname+".chg", beg)
-		parse(fname, net)
+for arg in args:
+    for fname in glob.glob(arg):
+        if os.path.isdir(fname):
+            walkDir(fname)
+        else:
+            changeFile(fname)
