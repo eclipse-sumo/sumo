@@ -60,8 +60,8 @@
         <!-- Use STR as default turn definition -->
         <turn-defaults value="30,50,20" synonymes="T"/>
 
-        <!-- Use STR as sink list -->
-        <sinks value="" synonymes="s"/>
+        <!-- Use STR as list of sink edges -->
+        <sink-edges value="" synonymes="s sinks"/>
 
         <!--  -->
         <accept-all-destinations value="false" synonymes="A"/>

@@ -87,8 +87,9 @@ ROJTRFrame::addJTROptions() {
     oc.doRegister("turn-defaults", 'T', new Option_String("30,50,20"));
     oc.addDescription("turn-defaults", "Processing", "Use STR as default turn definition");
 
-    oc.doRegister("sinks", 's', new Option_String());
-    oc.addDescription("sinks", "Processing", "Use STR as sink list");
+    oc.doRegister("sink-edges", 's', new Option_String());
+    oc.addSynonyme("sink-edges", "sinks");
+    oc.addDescription("sink-edges", "Processing", "Use STR as list of sink edges");
 
     oc.doRegister("accept-all-destinations", 'A', new Option_Bool(false));
     oc.addDescription("accept-all-destinations", "Processing", "");

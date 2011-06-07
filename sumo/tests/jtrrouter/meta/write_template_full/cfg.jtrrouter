@@ -26,7 +26,7 @@
         <with-taz value="false"/>
         <max-edges-factor value="2"/>
         <turn-defaults value="30,50,20" synonymes="T"/>
-        <sinks value="" synonymes="s"/>
+        <sink-edges value="" synonymes="s sinks"/>
         <accept-all-destinations value="false" synonymes="A"/>
         <ignore-classes value="false" synonymes="i"/>
     </processing>

@@ -45,7 +45,7 @@ Usage: jtrrouter [OPTION]*
                                      for in- and output
   --max-edges-factor FLOAT         
   -T, --turn-defaults STR          Use STR as default turn definition
-  -s, --sinks STR                  Use STR as sink list
+  -s, --sink-edges STR             Use STR as list of sink edges
   -A, --accept-all-destinations    
   -i, --ignore-classes             
 

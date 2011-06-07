@@ -120,8 +120,8 @@ loadJTRDefinitions(RONet &net, OptionsCont &oc) {
         MsgHandler::getErrorInstance()->clear();
     }
     // parse sink edges specified at the input/within the configuration
-    if (oc.isSet("sinks")) {
-        std::vector<std::string> edges = oc.getStringVector("sinks");
+    if (oc.isSet("sink-edges")) {
+        std::vector<std::string> edges = oc.getStringVector("sink-edges");
         for (std::vector<std::string>::const_iterator i=edges.begin(); i!=edges.end(); ++i) {
             ROJTREdge *edge = static_cast<ROJTREdge*>(net.getEdge(*i));
             if (edge==0) {
