@@ -72,9 +72,9 @@ void AGFrame::fillOptions() {
     oc.doRegister("stat-file", 's', new Option_FileName());
     oc.addDescription("stat-file", "Input", "Loads the SUMO-statistics FILE");
 
-    oc.doRegister("output", 'o', new Option_FileName());
-    oc.addSynonyme("output", "output-file", true);
-    oc.addDescription("output", "Output", "Write generated routes to FILE");
+    oc.doRegister("output-file", 'o', new Option_FileName());
+    oc.addSynonyme("output-file", "output", true);
+    oc.addDescription("output-file", "Output", "Write generated routes to FILE");
 
     oc.doRegister("debug", new Option_Bool(false));
     oc.addDescription("debug", "Report",

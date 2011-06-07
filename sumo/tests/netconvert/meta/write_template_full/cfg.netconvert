@@ -19,7 +19,7 @@
     </input>
 
     <output>
-        <output value="" synonymes="o output-file sumo-output"/>
+        <output-file value="" synonymes="o output sumo-output"/>
         <plain-output-prefix value="" synonymes="plain-output"/>
         <map-output value="" synonymes="M"/>
         <matsim-output value=""/>

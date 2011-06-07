@@ -50,9 +50,9 @@ void
 ROFrame::fillOptions(OptionsCont &oc, bool forDuarouter) {
     // register options
     // register I/O options
-    oc.doRegister("output", 'o', new Option_FileName());
-    oc.addSynonyme("output", "output-file", true);
-    oc.addDescription("output", "Output", "Write generated routes to FILE");
+    oc.doRegister("output-file", 'o', new Option_FileName());
+    oc.addSynonyme("output-file", "output");
+    oc.addDescription("output-file", "Output", "Write generated routes to FILE");
 
     oc.doRegister("net-file", 'n', new Option_FileName());
     oc.addSynonyme("net-file", "net");
@@ -154,7 +154,7 @@ ROFrame::fillOptions(OptionsCont &oc, bool forDuarouter) {
 bool
 ROFrame::checkOptions(OptionsCont &oc) {
     // check whether the output is valid and can be build
-    if (!oc.isSet("output")) {
+    if (!oc.isSet("output-file")) {
         MsgHandler::getErrorInstance()->inform("No output specified.");
         return false;
     }

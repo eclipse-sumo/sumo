@@ -26,7 +26,7 @@ Usage: jtrrouter [OPTION]*
   -t, --turn-ratio-file FILE       Read turning ratios from FILE
 
  Output Options:
-  -o, --output FILE                Write generated routes to FILE
+  -o, --output-file FILE           Write generated routes to FILE
   --exit-times                     Write exit times (weights) for each edge
 
  Processing Options:

@@ -51,10 +51,10 @@ void
 NWFrame::fillOptions() {
     OptionsCont &oc = OptionsCont::getOptions();
     // register options
-    oc.doRegister("output", 'o', new Option_FileName());
-    oc.addSynonyme("output", "sumo-output");
-    oc.addSynonyme("output", "output-file", true);
-    oc.addDescription("output", "Output", "The generated net will be written to FILE");
+    oc.doRegister("output-file", 'o', new Option_FileName());
+    oc.addSynonyme("output-file", "sumo-output");
+    oc.addSynonyme("output-file", "output");
+    oc.addDescription("output-file", "Output", "The generated net will be written to FILE");
 
     oc.doRegister("plain-output-prefix", new Option_FileName());
     oc.addSynonyme("plain-output-prefix", "plain-output");
@@ -73,8 +73,8 @@ NWFrame::checkOptions() {
     OptionsCont &oc = OptionsCont::getOptions();
     bool ok = true;
     // check whether the output is valid and can be build
-    if (!oc.isSet("output")&&!oc.isSet("plain-output-prefix")&&!oc.isSet("matsim-output")) {
-        oc.set("output", "net.net.xml");
+    if (!oc.isSet("output-file")&&!oc.isSet("plain-output-prefix")&&!oc.isSet("matsim-output")) {
+        oc.set("output-file", "net.net.xml");
     }
     return ok;
 }

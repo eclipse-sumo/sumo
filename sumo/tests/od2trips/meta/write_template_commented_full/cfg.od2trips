@@ -13,7 +13,7 @@
 
     <output>
         <!-- Writes trip definitions into FILE -->
-        <output value="" synonymes="o output-file"/>
+        <output-file value="" synonymes="o output"/>
 
         <!-- Does not save vtype information -->
         <ignore-vehicle-type value="false" synonymes="no-vtype"/>

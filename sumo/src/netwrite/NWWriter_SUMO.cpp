@@ -55,10 +55,10 @@
 void
 NWWriter_SUMO::writeNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
     // check whether a matsim-file shall be generated
-    if (!oc.isSet("output")) {
+    if (!oc.isSet("output-file")) {
         return;
     }
-	OutputDevice& device = OutputDevice::getDevice(oc.getString("output"));
+	OutputDevice& device = OutputDevice::getDevice(oc.getString("output-file"));
     device.writeXMLHeader("net", " encoding=\"iso-8859-1\""); // street names may contain non-ascii chars
     device << "\n";
     // write network offsets

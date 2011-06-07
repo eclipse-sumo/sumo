@@ -94,7 +94,7 @@
 
     <output>
         <!-- The generated net will be written to FILE -->
-        <output value="" synonymes="o output-file sumo-output"/>
+        <output-file value="" synonymes="o output sumo-output"/>
 
         <!-- Prefix of files to write plain xml nodes, edges and connections to -->
         <plain-output-prefix value="" synonymes="plain-output"/>

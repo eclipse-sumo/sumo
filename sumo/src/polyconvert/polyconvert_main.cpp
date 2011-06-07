@@ -134,8 +134,9 @@ fillOptions() throw() {
 
 
     // output
-    oc.doRegister("output", 'o', new Option_FileName("polygons.xml"));
-    oc.addDescription("output", "Output", "Write generated polygons/pois to FILE");
+    oc.doRegister("output-file", 'o', new Option_FileName("polygons.xml"));
+    oc.addSynonyme("output-file", "output");
+    oc.addDescription("output-file", "Output", "Write generated polygons/pois to FILE");
 
 
     // prunning options
@@ -276,7 +277,7 @@ main(int argc, char **argv) {
         // check whether any errors occured
         if (!MsgHandler::getErrorInstance()->wasInformed()) {
             // no? ok, save
-            toFill.save(oc.getString("output"));
+            toFill.save(oc.getString("output-file"));
         } else {
             throw ProcessError();
         }

@@ -96,9 +96,9 @@ fillOptions() {
 
 
     // register the file output options
-    oc.doRegister("output", 'o', new Option_FileName());
-    oc.addSynonyme("output", "output-file", true);
-    oc.addDescription("output", "Output", "Writes trip definitions into FILE");
+    oc.doRegister("output-file", 'o', new Option_FileName());
+    oc.addSynonyme("output-file", "output", true);
+    oc.addDescription("output-file", "Output", "Writes trip definitions into FILE");
 
     oc.doRegister("ignore-vehicle-type", new Option_Bool(false));
     oc.addSynonyme("ignore-vehicle-type", "no-vtype", true);
@@ -202,7 +202,7 @@ checkOptions() {
         MsgHandler::getErrorInstance()->inform("No input specified.");
         ok = false;
     }
-    if (!oc.isSet("output")) {
+    if (!oc.isSet("output-file")) {
         MsgHandler::getErrorInstance()->inform("No trip table output file (-o) specified.");
         ok = false;
     }
@@ -495,10 +495,10 @@ main(int argc, char **argv) {
             matrix.applyCurve(parseTimeLine(oc.getStringVector("timeline"), oc.getBool("timeline.day-in-hours")));
         }
         // write
-        if (!OutputDevice::createDeviceByOption("output", "tripdefs")) {
+        if (!OutputDevice::createDeviceByOption("output-file", "tripdefs")) {
             throw ProcessError("No output name is given.");
         }
-        OutputDevice& dev = OutputDevice::getDeviceByOption("output");
+        OutputDevice& dev = OutputDevice::getDeviceByOption("output-file");
         matrix.write(SUMOTime(string2time(oc.getString("begin"))/1000.), SUMOTime(string2time(oc.getString("end"))/1000.),
                      dev, oc.getBool("spread.uniform"), oc.getBool("ignore-vehicle-type"), oc.getString("prefix"));
         MsgHandler::getMessageInstance()->inform(toString(matrix.getNoDiscarded()) + " vehicles discarded.");

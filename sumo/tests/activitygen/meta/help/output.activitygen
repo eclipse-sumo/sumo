@@ -1,4 +1,4 @@
-SUMO activitygen Version dev-SVN-r10428
+SUMO activitygen Version dev-SVN-r10521
  Copyright (C) 2001-2011 DLR and contributors; http://sumo.sourceforge.net
  Copyright (C) 2010-2011 Technische Universitaet Muenchen
  
@@ -25,7 +25,7 @@ Usage: activitygen [OPTION]*
   -s, --stat-file FILE             Loads the SUMO-statistics FILE
 
  Output Options:
-  -o, --output FILE                Write generated routes to FILE
+  -o, --output-file FILE           Write generated routes to FILE
 
  Processing Options:
   --weights.interpolate            Interpolate edge weights at interval

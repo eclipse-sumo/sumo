@@ -8,7 +8,7 @@
     </input>
 
     <output>
-        <output value="trips.trips.xml"/>
+        <output-file value="trips.trips.xml"/>
     </output>
 
 </configuration>

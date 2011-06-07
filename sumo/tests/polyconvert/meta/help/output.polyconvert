@@ -1,4 +1,4 @@
-SUMO polyconvert Version dev-SVN-r10373
+SUMO polyconvert Version dev-SVN-r10521
  Copyright (C) 2001-2011 DLR and contributors; http://sumo.sourceforge.net
  
 Importer of polygons and POIs for the road traffic simulation SUMO.
@@ -40,7 +40,7 @@ Usage: polyconvert [OPTION]*
   --type-file FILE                 Reads types from FILE
 
  Output Options:
-  -o, --output FILE                Write generated polygons/pois to FILE
+  -o, --output-file FILE           Write generated polygons/pois to FILE
 
  Projection Options:
   --simple-projection              Uses a simple method for projection

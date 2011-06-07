@@ -113,7 +113,7 @@ int main(int argc, char *argv[]) {
         }
 
         std::string statFile = oc.getString("stat-file");
-        std::string routeFile = oc.getString("output");
+        std::string routeFile = oc.getString("output-file");
         AGTime duration(1,0,0);
         AGTime begin(0);
         AGTime end(0);

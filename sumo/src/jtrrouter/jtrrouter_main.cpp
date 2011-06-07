@@ -142,7 +142,7 @@ computeRoutes(RONet &net, ROLoader &loader, OptionsCont &oc) {
     loader.openRoutes(net);
     // prepare the output
     try {
-        net.openOutput(oc.getString("output"), false);
+        net.openOutput(oc.getString("output-file"), false);
     } catch (IOError &e) {
         throw e;
     }

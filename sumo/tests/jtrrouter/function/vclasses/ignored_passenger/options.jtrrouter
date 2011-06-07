@@ -1,2 +1,2 @@
---ignore-vclasses --output=routes.rou.xml --net-file=input_net.net.xml --flows=input_flows.flows.xml --sinks=end --turns=input_turns.turns.xml --ignore-errors
+--ignore-vclasses --output-file=routes.rou.xml --net-file=input_net.net.xml --flows=input_flows.flows.xml --sinks=end --turns=input_turns.turns.xml --ignore-errors
 
