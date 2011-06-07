@@ -146,7 +146,7 @@ ROLoader::openRoutes(RONet &net) {
     // load sumo-routes when wished
     bool ok = openTypedRoutes("sumo-input", net);
     // load the XML-trip definitions when wished
-    ok &= openTypedRoutes("trip-defs", net);
+    ok &= openTypedRoutes("trip-files", net);
     // load the sumo-alternative file when wished
     ok &= openTypedRoutes("alternative-files", net);
     // load the amount definitions if wished
@@ -309,7 +309,7 @@ ROLoader::buildNamedHandler(const std::string &optionName,
                                        myOptions.getInt("max-alternatives"), myOptions.getBool("repair"),
                                        myOptions.getBool("with-taz"), myOptions.getBool("keep-all-routes"), file);
     }
-    if (optionName=="trip-defs") {
+    if (optionName=="trip-files") {
         return new RORDLoader_TripDefs(net,
                                        string2time(myOptions.getString("begin")), string2time(myOptions.getString("end")),
                                        myEmptyDestinationsAllowed, myOptions.getBool("with-taz"), file);

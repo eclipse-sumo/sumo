@@ -76,9 +76,10 @@ void
 RODUAFrame::addImportOptions() {
     OptionsCont &oc = OptionsCont::getOptions();
     // register import options
-    oc.doRegister("trip-defs", 't', new Option_FileName());
-    oc.addSynonyme("trips", "trip-defs");
-    oc.addDescription("trip-defs", "Input", "Read trip-definitions from FILE");
+    oc.doRegister("trip-files", 't', new Option_FileName());
+    oc.addSynonyme("trips", "trip-files");
+    oc.addSynonyme("trip-defs", "trip-files");
+    oc.addDescription("trip-files", "Input", "Read trip-definitions from FILE(s)");
 
     oc.doRegister("flow-definition", 'f', new Option_FileName());
     oc.addSynonyme("flow-definition", "flows");

@@ -26,7 +26,7 @@ Usage: duarouter [OPTION]*
   --lane-weight-files FILE         Read lane-based network weights from FILE(s)
   -x, --weight-attribute STR       Name of the xml attribute which gives the
                                      edge weight
-  -t, --trip-defs FILE             Read trip-definitions from FILE
+  -t, --trip-files FILE            Read trip-definitions from FILE(s)
   -f, --flow-definition FILE       Read flow-definitions from FILE
   -s, --sumo-input FILE            Read sumo-routes from FILE
 

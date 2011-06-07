@@ -21,8 +21,8 @@
         <!-- Name of the xml attribute which gives the edge weight -->
         <weight-attribute value="traveltime" synonymes="measure x"/>
 
-        <!-- Read trip-definitions from FILE -->
-        <trip-defs value="" synonymes="t trips"/>
+        <!-- Read trip-definitions from FILE(s) -->
+        <trip-files value="" synonymes="t trip-defs trips"/>
 
         <!-- Read flow-definitions from FILE -->
         <flow-definition value="" synonymes="f flows"/>

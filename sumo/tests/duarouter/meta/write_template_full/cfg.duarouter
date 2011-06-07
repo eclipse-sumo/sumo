@@ -9,7 +9,7 @@
         <weight-files value="" synonymes="w weights"/>
         <lane-weight-files value=""/>
         <weight-attribute value="traveltime" synonymes="measure x"/>
-        <trip-defs value="" synonymes="t trips"/>
+        <trip-files value="" synonymes="t trip-defs trips"/>
         <flow-definition value="" synonymes="f flows"/>
         <sumo-input value="" synonymes="s sumo"/>
     </input>
