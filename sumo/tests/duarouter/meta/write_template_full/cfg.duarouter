@@ -6,11 +6,11 @@
         <net-file value="" synonymes="n net"/>
         <taz-files value="" synonymes="d districts"/>
         <alternative-files value="" synonymes="a alternatives alternatives-files"/>
+        <flow-files value="" synonymes="f flow-definition flows"/>
         <weight-files value="" synonymes="w weights"/>
         <lane-weight-files value=""/>
         <weight-attribute value="traveltime" synonymes="measure x"/>
         <trip-files value="" synonymes="t trip-defs trips"/>
-        <flow-definition value="" synonymes="f flows"/>
         <sumo-input value="" synonymes="s sumo"/>
     </input>
 

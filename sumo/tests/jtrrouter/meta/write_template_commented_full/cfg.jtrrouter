@@ -12,8 +12,8 @@
         <!-- Read alternatives from FILE -->
         <alternative-files value="" synonymes="a alternatives alternatives-files"/>
 
-        <!-- Read flow-definitions from FILE -->
-        <flow-definition value="" synonymes="f flows"/>
+        <!-- Read flow-definitions from FILE(s) -->
+        <flow-files value="" synonymes="f flow-definition flows"/>
 
         <!-- Read turn-definitions from FILE -->
         <turn-definition value="" synonymes="t turns"/>

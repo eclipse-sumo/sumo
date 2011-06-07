@@ -6,7 +6,7 @@
         <net-file value="" synonymes="n net"/>
         <taz-files value="" synonymes="d districts"/>
         <alternative-files value="" synonymes="a alternatives alternatives-files"/>
-        <flow-definition value="" synonymes="f flows"/>
+        <flow-files value="" synonymes="f flow-definition flows"/>
         <turn-definition value="" synonymes="t turns"/>
     </input>
 

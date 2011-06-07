@@ -22,12 +22,12 @@ Usage: duarouter [OPTION]*
   -n, --net-file FILE              Use FILE as SUMO-network to route on
   -d, --taz-files FILE             Read (additional) districts from FILE
   -a, --alternative-files FILE     Read alternatives from FILE
+  -f, --flow-files FILE            Read flow-definitions from FILE(s)
   -w, --weight-files FILE          Read network weights from FILE(s)
   --lane-weight-files FILE         Read lane-based network weights from FILE(s)
   -x, --weight-attribute STR       Name of the xml attribute which gives the
                                      edge weight
   -t, --trip-files FILE            Read trip-definitions from FILE(s)
-  -f, --flow-definition FILE       Read flow-definitions from FILE
   -s, --sumo-input FILE            Read sumo-routes from FILE
 
  Output Options:

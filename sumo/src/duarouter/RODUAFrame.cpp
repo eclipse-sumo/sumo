@@ -78,12 +78,8 @@ RODUAFrame::addImportOptions() {
     // register import options
     oc.doRegister("trip-files", 't', new Option_FileName());
     oc.addSynonyme("trips", "trip-files");
-    oc.addSynonyme("trip-defs", "trip-files");
+    oc.addSynonyme("trip-defs", "trip-files", true);
     oc.addDescription("trip-files", "Input", "Read trip-definitions from FILE(s)");
-
-    oc.doRegister("flow-definition", 'f', new Option_FileName());
-    oc.addSynonyme("flow-definition", "flows");
-    oc.addDescription("flow-definition", "Input", "Read flow-definitions from FILE");
 
     oc.doRegister("sumo-input", 's', new Option_FileName());
     oc.addSynonyme("sumo", "sumo-input");

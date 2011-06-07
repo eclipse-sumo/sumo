@@ -22,7 +22,7 @@ Usage: jtrrouter [OPTION]*
   -n, --net-file FILE              Use FILE as SUMO-network to route on
   -d, --taz-files FILE             Read (additional) districts from FILE
   -a, --alternative-files FILE     Read alternatives from FILE
-  -f, --flow-definition FILE       Read flow-definitions from FILE
+  -f, --flow-files FILE            Read flow-definitions from FILE(s)
   -t, --turn-definition FILE       Read turn-definitions from FILE
 
  Output Options:

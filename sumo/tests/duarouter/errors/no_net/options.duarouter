@@ -1,1 +1,1 @@
---trip-defs=increasing_trips.trips.xml -o routes.rou.xml
+--trip-files=increasing_trips.trips.xml -o routes.rou.xml

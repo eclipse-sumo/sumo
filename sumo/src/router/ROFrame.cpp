@@ -67,6 +67,11 @@ ROFrame::fillOptions(OptionsCont &oc, bool forDuarouter) {
     oc.addSynonyme("alternative-files", "alternatives", true);
     oc.addDescription("alternative-files", "Input", "Read alternatives from FILE");
 
+    oc.doRegister("flow-files", 'f', new Option_FileName());
+    oc.addSynonyme("flow-files", "flows");
+    oc.addSynonyme("flow-files", "flow-definition", true);
+    oc.addDescription("flow-files", "Input", "Read flow-definitions from FILE(s)");
+
     if (forDuarouter) {
         oc.doRegister("weight-files", 'w', new Option_FileName());
         oc.addSynonyme("weight-files", "weights");

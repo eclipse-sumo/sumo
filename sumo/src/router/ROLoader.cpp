@@ -150,7 +150,7 @@ ROLoader::openRoutes(RONet &net) {
     // load the sumo-alternative file when wished
     ok &= openTypedRoutes("alternative-files", net);
     // load the amount definitions if wished
-    ok &= openTypedRoutes("flows", net);
+    ok &= openTypedRoutes("flow-files", net);
     // check
     if (ok&&myHandler.size()==0) {
         throw ProcessError("No route input specified.");
@@ -314,7 +314,7 @@ ROLoader::buildNamedHandler(const std::string &optionName,
                                        string2time(myOptions.getString("begin")), string2time(myOptions.getString("end")),
                                        myEmptyDestinationsAllowed, myOptions.getBool("with-taz"), file);
     }
-    if (optionName=="flows") {
+    if (optionName=="flow-files") {
         return new RORDGenerator_ODAmounts(net,
                                            string2time(myOptions.getString("begin")), string2time(myOptions.getString("end")),
                                            myEmptyDestinationsAllowed, myOptions.getBool("randomize-flows"), file);

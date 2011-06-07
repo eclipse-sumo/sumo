@@ -12,6 +12,9 @@
         <!-- Read alternatives from FILE -->
         <alternative-files value="" synonymes="a alternatives alternatives-files"/>
 
+        <!-- Read flow-definitions from FILE(s) -->
+        <flow-files value="" synonymes="f flow-definition flows"/>
+
         <!-- Read network weights from FILE(s) -->
         <weight-files value="" synonymes="w weights"/>
 
@@ -23,9 +26,6 @@
 
         <!-- Read trip-definitions from FILE(s) -->
         <trip-files value="" synonymes="t trip-defs trips"/>
-
-        <!-- Read flow-definitions from FILE -->
-        <flow-definition value="" synonymes="f flows"/>
 
         <!-- Read sumo-routes from FILE -->
         <sumo-input value="" synonymes="s sumo"/>

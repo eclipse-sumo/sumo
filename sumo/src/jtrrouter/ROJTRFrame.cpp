@@ -73,18 +73,12 @@ ROJTRFrame::fillOptions() {
 void
 ROJTRFrame::addJTROptions() {
     OptionsCont &oc = OptionsCont::getOptions();
-    oc.doRegister("flow-definition", 'f', new Option_FileName());
-    oc.addSynonyme("flow-definition", "flows");
-    oc.addDescription("flow-definition", "Input", "Read flow-definitions from FILE");
-
     oc.doRegister("turn-definition", 't', new Option_FileName());
     oc.addSynonyme("turn-definition", "turns");
     oc.addDescription("turn-definition", "Input", "Read turn-definitions from FILE");
 
-
     oc.doRegister("exit-times", new Option_Bool(false));
     oc.addDescription("exit-times", "Output", "Write exit times (weights) for each edge");
-
 
     oc.doRegister("max-edges-factor", new Option_Float(2.0));
     oc.addDescription("max-edges-factor", "Processing", "");

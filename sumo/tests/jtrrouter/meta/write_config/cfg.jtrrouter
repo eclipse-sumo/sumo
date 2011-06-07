@@ -4,7 +4,7 @@
 
     <input>
         <net-file value="input_net.net.xml"/>
-        <flow-definition value="input_flows.flows.xml"/>
+        <flow-files value="input_flows.flows.xml"/>
     </input>
 
     <output>
