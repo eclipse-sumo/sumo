@@ -11,7 +11,7 @@
         <lane-weight-files value=""/>
         <weight-attribute value="traveltime" synonymes="measure x"/>
         <trip-files value="" synonymes="t trip-defs trips"/>
-        <sumo-input value="" synonymes="s sumo"/>
+        <route-files value="" synonymes="s sumo sumo-input"/>
     </input>
 
     <output>

@@ -81,9 +81,10 @@ RODUAFrame::addImportOptions() {
     oc.addSynonyme("trip-defs", "trip-files", true);
     oc.addDescription("trip-files", "Input", "Read trip-definitions from FILE(s)");
 
-    oc.doRegister("sumo-input", 's', new Option_FileName());
-    oc.addSynonyme("sumo", "sumo-input");
-    oc.addDescription("sumo-input", "Input", "Read sumo-routes from FILE");
+    oc.doRegister("route-files", 's', new Option_FileName());
+    oc.addSynonyme("route-files", "sumo-input", true);
+    oc.addSynonyme("route-files", "sumo", true);
+    oc.addDescription("route-files", "Input", "Read sumo-routes from FILE(s)");
 
     // register further processing options
     // ! The subtopic "Processing" must be initialised earlier !

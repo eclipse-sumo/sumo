@@ -144,7 +144,7 @@ unsigned int
 ROLoader::openRoutes(RONet &net) {
     // build loader
     // load sumo-routes when wished
-    bool ok = openTypedRoutes("sumo-input", net);
+    bool ok = openTypedRoutes("route-files", net);
     // load the XML-trip definitions when wished
     ok &= openTypedRoutes("trip-files", net);
     // load the sumo-alternative file when wished
@@ -296,7 +296,7 @@ ROAbstractRouteDefLoader*
 ROLoader::buildNamedHandler(const std::string &optionName,
                             const std::string &file,
                             RONet &net) throw(ProcessError) {
-    if (optionName=="sumo-input" || optionName=="alternative-files") {
+    if (optionName=="route-files" || optionName=="alternative-files") {
         const SUMOReal beta = myOptions.getBool("logit") 
             ? myOptions.getFloat("logit.beta") 
             : myOptions.getFloat("gawron.beta");
