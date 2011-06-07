@@ -22,7 +22,7 @@
         <routes-for-all value="false"/>
 
         <!-- Saves typed detectors to FILE -->
-        <detectors-output value=""/>
+        <detector-output value="" synonymes="detectors-output"/>
 
         <!-- Saves detector positions as pois to FILE -->
         <detectors-poi-output value=""/>

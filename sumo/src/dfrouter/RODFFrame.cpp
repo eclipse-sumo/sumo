@@ -92,8 +92,9 @@ RODFFrame::fillOptions() {
     oc.doRegister("routes-for-all", new Option_Bool(false));
     oc.addDescription("routes-for-all", "Output", "Forces DFROUTER to compute routes for in-between detectors");
 
-    oc.doRegister("detectors-output", new Option_FileName());
-    oc.addDescription("detectors-output", "Output", "Saves typed detectors to FILE");
+    oc.doRegister("detector-output", new Option_FileName());
+    oc.addSynonyme("detector-output", "detectors-output", true);
+    oc.addDescription("detector-output", "Output", "Saves typed detectors to FILE");
 
     oc.doRegister("detectors-poi-output", new Option_FileName());
     oc.addDescription("detectors-poi-output", "Output", "Saves detector positions as pois to FILE");

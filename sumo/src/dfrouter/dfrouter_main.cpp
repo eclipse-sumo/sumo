@@ -161,8 +161,8 @@ startComputation(RODFNet *optNet, RODFDetectorFlows &flows, RODFDetectorCon &det
     }
 
     // save the detectors if wished
-    if (oc.isSet("detectors-output")) {
-        detectors.save(oc.getString("detectors-output"));
+    if (oc.isSet("detector-output")) {
+        detectors.save(oc.getString("detector-output"));
     }
     // save their positions as POIs if wished
     if (oc.isSet("detectors-poi-output")) {

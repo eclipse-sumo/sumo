@@ -26,7 +26,7 @@ Usage: dfrouter [OPTION]*
   -o, --routes-output FILE           Saves computed routes to FILE
   --routes-for-all                   Forces DFROUTER to compute routes for
                                        in-between detectors
-  --detectors-output FILE            Saves typed detectors to FILE
+  --detector-output FILE             Saves typed detectors to FILE
   --detectors-poi-output FILE        Saves detector positions as pois to FILE
   --emitters-output FILE             Saves emitter definitions for source
                                        detectors to FILE

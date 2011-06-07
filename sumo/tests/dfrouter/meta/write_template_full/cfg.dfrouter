@@ -11,7 +11,7 @@
     <output>
         <routes-output value="" synonymes="o"/>
         <routes-for-all value="false"/>
-        <detectors-output value=""/>
+        <detector-output value="" synonymes="detectors-output"/>
         <detectors-poi-output value=""/>
         <emitters-output value=""/>
         <emitters-poi-output value=""/>
