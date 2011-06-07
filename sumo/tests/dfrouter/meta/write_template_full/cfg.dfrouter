@@ -30,7 +30,7 @@
         <all-end-follower value="false"/>
         <keep-unfinished-routes value="false" synonymes="keep-unfound-ends"/>
         <keep-longer-routes value="false"/>
-        <max-nodet-follower value="30"/>
+        <max-search-depth value="30" synonymes="max-nodet-follower"/>
         <emissions-only value="false"/>
         <disallowed-edges value=""/>
         <keep-turnarounds value="false"/>

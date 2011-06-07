@@ -145,7 +145,7 @@ startComputation(RODFNet *optNet, RODFDetectorFlows &flows, RODFDetectorCon &det
             optNet->buildRoutes(detectors,
                                 oc.getBool("all-end-follower"), oc.getBool("keep-unfinished-routes"),
                                 oc.getBool("routes-for-all"), !oc.getBool("keep-longer-routes"),
-                                oc.getInt("max-nodet-follower"));
+                                oc.getInt("max-search-depth"));
             MsgHandler::getMessageInstance()->endProcessMsg("done.");
         }
     }
@@ -200,7 +200,7 @@ startComputation(RODFNet *optNet, RODFDetectorFlows &flows, RODFDetectorCon &det
                                     oc.getBool("write-calibrators"),
                                     oc.getBool("include-unused-routes"),
                                     oc.getFloat("scale"),
-                                    oc.getInt("max-nodet-follower"),
+                                    oc.getInt("max-search-depth"),
                                     oc.getBool("emissions-only"));
             MsgHandler::getMessageInstance()->endProcessMsg("done.");
         }

@@ -72,8 +72,8 @@
         <!-- Keeps routes even if a shorter one exists -->
         <keep-longer-routes value="false"/>
 
-        <!-- Number of edges until which a route is followed -->
-        <max-nodet-follower value="30"/>
+        <!-- Number of edges to follow a route without passing a detector -->
+        <max-search-depth value="30" synonymes="max-nodet-follower"/>
 
         <!-- Writes only emission times -->
         <emissions-only value="false"/>

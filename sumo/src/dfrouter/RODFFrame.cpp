@@ -150,8 +150,9 @@ RODFFrame::fillOptions() {
     oc.doRegister("keep-longer-routes", new Option_Bool(false));
     oc.addDescription("keep-longer-routes", "Processing", "Keeps routes even if a shorter one exists");
 
-    oc.doRegister("max-nodet-follower", new Option_Integer(30));
-    oc.addDescription("max-nodet-follower", "Processing", "Number of edges until which a route is followed");
+    oc.doRegister("max-search-depth", new Option_Integer(30));
+    oc.addSynonyme("max-search-depth", "max-nodet-follower", true);
+    oc.addDescription("max-search-depth", "Processing", "Number of edges to follow a route without passing a detector");
 
     oc.doRegister("emissions-only", new Option_Bool(false));
     oc.addDescription("emissions-only", "Processing", "Writes only emission times");

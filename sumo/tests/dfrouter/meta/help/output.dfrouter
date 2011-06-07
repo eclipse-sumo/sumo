@@ -50,8 +50,8 @@ Usage: dfrouter [OPTION]*
                                          max-search-depth
   --keep-longer-routes                 Keeps routes even if a shorter one
                                          exists
-  --max-nodet-follower INT             Number of edges until which a route is
-                                         followed
+  --max-search-depth INT               Number of edges to follow a route
+                                         without passing a detector
   --emissions-only                     Writes only emission times
   --disallowed-edges STR               Do not route on these edges
   --keep-turnarounds                   Allow turnarounds as route continuations
