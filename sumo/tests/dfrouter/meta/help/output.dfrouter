@@ -67,7 +67,6 @@ Usage: dfrouter [OPTION]*
   --revalidate-flows                   
   --remove-empty-detectors             Removes empty detectors from the list
   --strict-sources                     
-  --mesosim                            Joins detectors lying on same height
   --scale FLOAT                        Scale factor for flows
 
  Time Options:

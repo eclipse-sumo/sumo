@@ -111,9 +111,6 @@
         <!--  -->
         <strict-sources value="false"/>
 
-        <!-- Joins detectors lying on same height -->
-        <mesosim value="false"/>
-
         <!-- Scale factor for flows -->
         <scale value="1"/>
 

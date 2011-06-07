@@ -43,7 +43,6 @@
         <revalidate-flows value="false"/>
         <remove-empty-detectors value="false"/>
         <strict-sources value="false"/>
-        <mesosim value="false"/>
         <scale value="1"/>
     </processing>
 
