@@ -15,8 +15,8 @@
         <!-- Read flow-definitions from FILE(s) -->
         <flow-files value="" synonymes="f flow-definition flows"/>
 
-        <!-- Read turn-definitions from FILE -->
-        <turn-definition value="" synonymes="t turns"/>
+        <!-- Read turning ratios from FILE -->
+        <turn-ratio-file value="" synonymes="t turn-definition turns"/>
 
     </input>
 

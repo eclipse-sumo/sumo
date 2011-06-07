@@ -23,7 +23,7 @@ Usage: jtrrouter [OPTION]*
   -d, --taz-files FILE             Read (additional) districts from FILE
   -a, --alternative-files FILE     Read alternatives from FILE
   -f, --flow-files FILE            Read flow-definitions from FILE(s)
-  -t, --turn-definition FILE       Read turn-definitions from FILE
+  -t, --turn-ratio-file FILE       Read turning ratios from FILE
 
  Output Options:
   -o, --output FILE                Write generated routes to FILE

@@ -110,9 +110,9 @@ getTurningDefaults(OptionsCont &oc) {
 void
 loadJTRDefinitions(RONet &net, OptionsCont &oc) {
     // load the turning definitions (and possible sink definition)
-    if (oc.isSet("turn-definition")) {
+    if (oc.isSet("turn-ratio-file")) {
         ROJTRTurnDefLoader loader(net);
-        if (!XMLSubSys::runParser(loader, oc.getString("turn-definition"))) {
+        if (!XMLSubSys::runParser(loader, oc.getString("turn-ratio-file"))) {
             throw ProcessError();
         }
     }

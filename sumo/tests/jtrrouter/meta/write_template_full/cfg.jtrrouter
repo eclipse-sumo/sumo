@@ -7,7 +7,7 @@
         <taz-files value="" synonymes="d districts"/>
         <alternative-files value="" synonymes="a alternatives alternatives-files"/>
         <flow-files value="" synonymes="f flow-definition flows"/>
-        <turn-definition value="" synonymes="t turns"/>
+        <turn-ratio-file value="" synonymes="t turn-definition turns"/>
     </input>
 
     <output>

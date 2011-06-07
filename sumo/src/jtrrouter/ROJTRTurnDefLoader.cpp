@@ -49,7 +49,7 @@
 // method definitions
 // ===========================================================================
 ROJTRTurnDefLoader::ROJTRTurnDefLoader(RONet &net) throw()
-        : SUMOSAXHandler("turn-definitions"), myNet(net),
+        : SUMOSAXHandler("turn-ratio-file"), myNet(net),
         myIntervalBegin(0), myIntervalEnd(SUMOTime_MAX), myEdge(0),
         myHaveWarnedAboutDeprecatedSources(false),
         myHaveWarnedAboutDeprecatedSinks(false) {}
