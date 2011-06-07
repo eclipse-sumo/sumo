@@ -6,9 +6,6 @@
         <!-- Loads the SUMO-network FILE -->
         <net-file value="" synonymes="n net"/>
 
-        <!-- Loads SUMO-routes from FILE -->
-        <routes-input value="" synonymes="r"/>
-
         <!-- Loads detector descriptions from FILE -->
         <detector-files value="" synonymes="d detectors"/>
 

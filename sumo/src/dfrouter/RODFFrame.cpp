@@ -70,8 +70,10 @@ RODFFrame::fillOptions() {
     oc.addSynonyme("net-file", "net");
     oc.addDescription("net-file", "Input", "Loads the SUMO-network FILE");
 
-    oc.doRegister("routes-input", 'r', new Option_FileName());
-    oc.addDescription("routes-input", "Input", "Loads SUMO-routes from FILE");
+    /* never used
+    oc.doRegister("route-files", 'r', new Option_FileName());
+    oc.addDescription("route-files", "Input", "Loads SUMO-routes from FILE");
+    */
 
     oc.doRegister("detector-files", 'd', new Option_FileName());
     oc.addSynonyme("detector-files", "detectors");

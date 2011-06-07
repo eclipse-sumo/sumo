@@ -4,7 +4,6 @@
 
     <input>
         <net-file value="" synonymes="n net"/>
-        <routes-input value="" synonymes="r"/>
         <detector-files value="" synonymes="d detectors"/>
         <detector-flow-files value="" synonymes="detflows f"/>
     </input>
