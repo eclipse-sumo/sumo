@@ -197,7 +197,7 @@ startComputation(RODFNet *optNet, RODFDetectorFlows &flows, RODFDetectorCon &det
             detectors.writeEmitters(oc.getString("emitters-output"), flows,
                                     begin, end, step,
                                     *optNet,
-                                    oc.getBool("write-calibrators"),
+                                    oc.getBool("calibrator-output"),
                                     oc.getBool("include-unused-routes"),
                                     oc.getFloat("scale"),
                                     oc.getInt("max-search-depth"),

@@ -38,7 +38,7 @@
         <time-factor value="60"/>
         <time-offset value="0"/>
         <time-step value="60"/>
-        <write-calibrators value="false"/>
+        <calibrator-output value="false" synonymes="write-calibrators"/>
         <include-unused-routes value="false"/>
         <revalidate-flows value="false"/>
         <remove-empty-detectors value="false"/>

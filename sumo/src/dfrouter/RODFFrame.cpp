@@ -179,8 +179,9 @@ RODFFrame::fillOptions() {
     oc.addDescription("time-step", "Processing", "Expected distance between two successive data sets");
 
     // saving further structures
-    oc.doRegister("write-calibrators", new Option_Bool(false)); // !!!undescribed
-    oc.addDescription("write-calibrators", "Processing", "");
+    oc.doRegister("calibrator-output", new Option_Bool(false)); // !!!undescribed
+    oc.addSynonyme("calibrator-output", "write-calibrators", true);
+    oc.addDescription("calibrator-output", "Processing", "Write calibrators to FILE");
 
     oc.doRegister("include-unused-routes", new Option_Bool(false)); // !!!undescribed
     oc.addDescription("include-unused-routes", "Processing", "");

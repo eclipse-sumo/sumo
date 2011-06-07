@@ -96,8 +96,8 @@
         <!-- Expected distance between two successive data sets -->
         <time-step value="60"/>
 
-        <!--  -->
-        <write-calibrators value="false"/>
+        <!-- Write calibrators to FILE -->
+        <calibrator-output value="false" synonymes="write-calibrators"/>
 
         <!--  -->
         <include-unused-routes value="false"/>

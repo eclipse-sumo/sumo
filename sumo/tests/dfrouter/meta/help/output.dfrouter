@@ -63,7 +63,7 @@ Usage: dfrouter [OPTION]*
                                          flow times
   --time-step TIME                     Expected distance between two successive
                                          data sets
-  --write-calibrators                  
+  --calibrator-output                  Write calibrators to FILE
   --include-unused-routes              
   --revalidate-flows                   
   --remove-empty-detectors             Removes empty detectors from the list
