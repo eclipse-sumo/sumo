@@ -66,8 +66,8 @@
         <!--  -->
         <accept-all-destinations value="false" synonymes="A"/>
 
-        <!--  -->
-        <ignore-classes value="false" synonymes="i"/>
+        <!-- Ignore road restrictions based on vehicle class -->
+        <ignore-vclasses value="false" synonymes="i ignore-classes"/>
 
     </processing>
 

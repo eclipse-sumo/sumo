@@ -94,8 +94,9 @@ ROJTRFrame::addJTROptions() {
     oc.doRegister("accept-all-destinations", 'A', new Option_Bool(false));
     oc.addDescription("accept-all-destinations", "Processing", "");
 
-    oc.doRegister("ignore-classes", 'i', new Option_Bool(false));
-    oc.addDescription("ignore-classes", "Processing", "");
+    oc.doRegister("ignore-vclasses", 'i', new Option_Bool(false));
+    oc.addSynonyme("ignore-vclasses", "ignore-classes", true);
+    oc.addDescription("ignore-vclasses", "Processing", "Ignore road restrictions based on vehicle class");
 /*
     oc.doRegister("dismiss-loading-errors", new Option_Bool(false));
     oc.addDescription("dismiss-loading-errors", "Processing", "Continue on broken input");

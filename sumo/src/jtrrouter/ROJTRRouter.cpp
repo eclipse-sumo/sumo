@@ -48,7 +48,7 @@ ROJTRRouter::ROJTRRouter(RONet &net, bool unbuildIsWarningOnly,
     myMaxEdges = (int)(
                      ((SUMOReal) net.getEdgeNo()) *
                      OptionsCont::getOptions().getFloat("max-edges-factor"));
-    myIgnoreClasses = OptionsCont::getOptions().getBool("ignore-classes");
+    myIgnoreClasses = OptionsCont::getOptions().getBool("ignore-vclasses");
 }
 
 

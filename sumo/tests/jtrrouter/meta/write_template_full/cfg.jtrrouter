@@ -28,7 +28,7 @@
         <turn-defaults value="30,50,20" synonymes="T"/>
         <sink-edges value="" synonymes="s sinks"/>
         <accept-all-destinations value="false" synonymes="A"/>
-        <ignore-classes value="false" synonymes="i"/>
+        <ignore-vclasses value="false" synonymes="i ignore-classes"/>
     </processing>
 
     <defaults>

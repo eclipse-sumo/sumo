@@ -47,7 +47,8 @@ Usage: jtrrouter [OPTION]*
   -T, --turn-defaults STR          Use STR as default turn definition
   -s, --sink-edges STR             Use STR as list of sink edges
   -A, --accept-all-destinations    
-  -i, --ignore-classes             
+  -i, --ignore-vclasses            Ignore road restrictions based on vehicle
+                                     class
 
  Defaults Options:
   --departlane STR                 Assigns a default depart lane
