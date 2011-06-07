@@ -82,8 +82,8 @@ initNet(RONet &net, ROLoader &loader, OptionsCont &oc) {
     if (oc.isSet("weight-files")) {
         loader.loadWeights(net, "weight-files", oc.getString("weight-attribute"), false);
     }
-    if (oc.isSet("lane-weights")) {
-        loader.loadWeights(net, "lane-weights", oc.getString("weight-attribute"), true);
+    if (oc.isSet("lane-weight-files")) {
+        loader.loadWeights(net, "lane-weight-files", oc.getString("weight-attribute"), true);
     }
 }
 

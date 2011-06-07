@@ -71,8 +71,8 @@ ROFrame::fillOptions(OptionsCont &oc) {
     oc.addSynonyme("weight-files", "weights");
     oc.addDescription("weight-files", "Input", "Read network weights from FILE(s)");
 
-    oc.doRegister("lane-weights", new Option_FileName());
-    oc.addDescription("lane-weights", "Input", "Read lane-weights from FILE(s)");
+    oc.doRegister("lane-weight-files", new Option_FileName());
+    oc.addDescription("lane-weight-files", "Input", "Read lane-based network weights from FILE(s)");
 
     oc.doRegister("weight-attribute", 'x', new Option_String("traveltime"));
     oc.addSynonyme("weight-attribute", "measure", true);

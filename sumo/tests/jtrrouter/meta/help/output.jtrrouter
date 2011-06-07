@@ -1,4 +1,4 @@
-SUMO jtrrouter Version dev-SVN-r10386
+SUMO jtrrouter Version dev-SVN-r10521
  Copyright (C) 2001-2011 DLR and contributors; http://sumo.sourceforge.net
  
 Router for the microscopic road traffic simulation SUMO based on junction
@@ -23,7 +23,7 @@ Usage: jtrrouter [OPTION]*
   -d, --taz-files FILE             Read (additional) districts from FILE
   -a, --alternative-files FILE     Read alternatives from FILE
   -w, --weight-files FILE          Read network weights from FILE(s)
-  --lane-weights FILE              Read lane-weights from FILE(s)
+  --lane-weight-files FILE         Read lane-based network weights from FILE(s)
   -x, --weight-attribute STR       Name of the xml attribute which gives the
                                      edge weight
   -f, --flow-definition FILE       Read flow-definitions from FILE

@@ -7,7 +7,7 @@
         <taz-files value="" synonymes="d districts"/>
         <alternative-files value="" synonymes="a alternatives alternatives-files"/>
         <weight-files value="" synonymes="w weights"/>
-        <lane-weights value=""/>
+        <lane-weight-files value=""/>
         <weight-attribute value="traveltime" synonymes="measure x"/>
         <trip-defs value="" synonymes="t trips"/>
         <flow-definition value="" synonymes="f flows"/>
