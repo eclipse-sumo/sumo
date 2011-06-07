@@ -112,6 +112,7 @@ StringBijection<int>::Entry SUMOXMLDefinitions::tags[] = {
     { "routeDistribution", SUMO_TAG_ROUTE_DISTRIBUTION },
     { "vtypeDistribution", SUMO_TAG_VTYPE_DISTRIBUTION },
     { "vaporizer",        SUMO_TAG_VAPORIZER },
+    { "roundabout",        SUMO_TAG_ROUNDABOUT },
 
     { "way",              SUMO_TAG_WAY },
     { "nd",               SUMO_TAG_ND },

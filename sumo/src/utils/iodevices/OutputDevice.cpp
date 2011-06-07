@@ -40,6 +40,7 @@
 #include <utils/common/TplConvert.h>
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/FileHelpers.h>
+#include <utils/common/ToString.h>
 #include <utils/options/OptionsCont.h>
 
 #ifdef CHECK_MEMORY_LEAKS
@@ -204,6 +205,12 @@ OutputDevice::openTag(const std::string &xmlElement) throw() {
     postWriteHook();
     myXMLStack.push_back(xmlElement);
     return *this;
+}
+
+
+OutputDevice&
+OutputDevice::openTag(const SumoXMLTag &xmlElement) throw() {
+    return openTag(toString(xmlElement));
 }
 
 

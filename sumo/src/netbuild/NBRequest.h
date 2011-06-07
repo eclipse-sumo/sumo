@@ -48,6 +48,7 @@ class OptionsCont;
 class NBTrafficLightDefinition;
 class NBEdgeCont;
 class NBJunctionLogicCont;
+class OutputDevice;
 
 
 // ===========================================================================
@@ -143,7 +144,7 @@ private:
 
     /** @brief writes the response of a certain lane
         Returns the next link index within the junction */
-    int writeLaneResponse(std::ostream &os, NBEdge *from, int lane,
+    int writeLaneResponse(OutputDevice &od, NBEdge *from, int lane,
                           int pos);
 
     /** @brief Writes the response of a certain link
@@ -156,7 +157,7 @@ private:
      * In the case "mayDefinitelyPass" is true, the link will not be disturbed by
      *  any other (special case for on-ramps).
      *
-     * @param[in] os The stream to write the information to
+     * @param[in] od The stream to write the information to
      * @param[in] from The link's starting edge
      * @param[in] to The link's destination edge
      * @param[in] fromLane The link's starting lane
@@ -164,12 +165,12 @@ private:
      * @param[in] mayDefinitelyPass Whether this link is definitely not disturbed
      * @exception IOError not yet implemented
      */
-    void writeResponse(std::ostream &os, const NBEdge * const from, const NBEdge * const to,
+    void writeResponse(OutputDevice &od, const NBEdge * const from, const NBEdge * const to,
                        int fromLane, int toLane, bool mayDefinitelyPass) const throw(IOError);
 
 
     /** writes which participating links are foes to the given */
-    void writeAreFoes(std::ostream &os, NBEdge *from, NBEdge *to,
+    void writeAreFoes(OutputDevice &od, NBEdge *from, NBEdge *to,
                       bool isInnerEnd);
 
 

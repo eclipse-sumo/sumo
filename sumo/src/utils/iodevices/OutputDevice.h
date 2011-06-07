@@ -33,6 +33,7 @@
 #include <vector>
 #include <map>
 #include <utils/common/UtilExceptions.h>
+#include <utils/xml/SUMOXMLDefinitions.h>
 
 
 // ===========================================================================
@@ -189,14 +190,24 @@ public:
 
     /** @brief Opens an XML tag
      *
-     * An intendation, depending on the current xml-element-stack size, is written followed
-     *  by the given xmlelement ("<" + xmlElement)
-     * The xmlelement is added to the stack, then.
+     * An indentation, depending on the current xml-element-stack size, is written followed
+     *  by the given xml element ("<" + xmlElement)
+     * The xml element is added to the stack, then.
      *
      * @param[in] xmlElement Name of element to open
      * @returns The OutputDevice for further processing
      */
     OutputDevice& openTag(const std::string &xmlElement) throw();
+
+
+    /** @brief Opens an XML tag
+     *
+     * Helper method which finds the correct string before calling openTag.
+     *
+     * @param[in] xmlElement Id of the element to open
+     * @returns The OutputDevice for further processing
+     */
+    OutputDevice& openTag(const SumoXMLTag &xmlElement) throw();
 
 
     /** @brief Closes the most recently opened tag

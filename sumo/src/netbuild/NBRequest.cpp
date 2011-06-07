@@ -38,6 +38,7 @@
 #include <utils/common/MsgHandler.h>
 #include <utils/common/ToString.h>
 #include <utils/options/OptionsCont.h>
+#include <utils/iodevices/OutputDevice_String.h>
 #include "NBEdge.h"
 #include "NBJunctionLogicCont.h"
 #include "NBContHelper.h"
@@ -321,7 +322,7 @@ NBRequest::distanceCounterClockwise(NBEdge *from, NBEdge *to) {
 
 std::string
 NBRequest::bitsetToXML(std::string key) {
-    std::ostringstream os;
+    OutputDevice_String od(1);
     // reset signalised/non-signalised dependencies
     resetSignalised();
     // init
@@ -329,21 +330,20 @@ NBRequest::bitsetToXML(std::string key) {
     size_t absNoLinks = sizes.second;
     size_t absNoLanes = sizes.first;
     assert(absNoLinks>=absNoLanes);
-    os << "   <" << toString(SUMO_TAG_ROWLOGIC) << " " 
+    od.openTag(SUMO_TAG_ROWLOGIC) << " " 
         << toString(SUMO_ATTR_ID) << "=\"" << key << "\" "
-        << toString(SUMO_ATTR_REQUESTSIZE) << "=\"" << absNoLinks << "\">" 
-        << std::endl;
+        << toString(SUMO_ATTR_REQUESTSIZE) << "=\"" << absNoLinks << "\">\n";
     int pos = 0;
     // save the logic
     EdgeVector::const_iterator i;
     for (i=myIncoming.begin(); i!=myIncoming.end(); i++) {
         unsigned int noLanes = (*i)->getNoLanes();
         for (unsigned int k=0; k<noLanes; k++) {
-            pos = writeLaneResponse(os, *i, k, pos);
+            pos = writeLaneResponse(od, *i, k, pos);
         }
     }
-    os << "   </" << toString(SUMO_TAG_ROWLOGIC) << ">" << std::endl;
-    return os.str();
+	od.closeTag();
+	return od.getString();
 }
 
 
@@ -478,30 +478,30 @@ NBRequest::forbids(const NBEdge * const possProhibitorFrom, const NBEdge * const
 
 
 int
-NBRequest::writeLaneResponse(std::ostream &os, NBEdge *from,
+NBRequest::writeLaneResponse(OutputDevice &od, NBEdge *from,
                              int fromLane, int pos) {
     std::vector<NBEdge::Connection> connected = from->getConnectionsFromLane(fromLane);
     for (std::vector<NBEdge::Connection>::iterator j=connected.begin(); j!=connected.end(); j++) {
-        os << "      <logicitem request=\"" << pos++ << "\" response=\"";
-        writeResponse(os, from, (*j).toEdge, fromLane, (*j).toLane, (*j).mayDefinitelyPass);
-        os << "\" foes=\"";
-        writeAreFoes(os, from, (*j).toEdge, myJunction->getCrossingPosition(from, fromLane, (*j).toEdge, (*j).toLane).first>=0);
-        os << "\"";
+		od.openTag(SUMO_TAG_LOGICITEM) << " request=\"" << pos++ << "\" response=\"";
+        writeResponse(od, from, (*j).toEdge, fromLane, (*j).toLane, (*j).mayDefinitelyPass);
+        od << "\" foes=\"";
+        writeAreFoes(od, from, (*j).toEdge, myJunction->getCrossingPosition(from, fromLane, (*j).toEdge, (*j).toLane).first>=0);
+        od << "\"";
         if (!OptionsCont::getOptions().getBool("no-internal-links")) {
             if (myJunction->getCrossingPosition(from, fromLane, (*j).toEdge, (*j).toLane).first>=0) {
-                os << " cont=\"1\"";
+                od << " cont=\"1\"";
             } else {
-                os << " cont=\"0\"";
+                od << " cont=\"0\"";
             }
         }
-        os << "/>" << std::endl;
+		od.closeTag(true);
     }
     return pos;
 }
 
 
 void
-NBRequest::writeResponse(std::ostream &os, const NBEdge * const from, const NBEdge * const to,
+NBRequest::writeResponse(OutputDevice &od, const NBEdge * const from, const NBEdge * const to,
                          int fromLane, int toLane, bool mayDefinitelyPass) const throw(IOError) {
     UNUSED_PARAMETER(toLane);
     int idx = 0;
@@ -516,23 +516,23 @@ NBRequest::writeResponse(std::ostream &os, const NBEdge * const from, const NBEd
             int size = (int) connected.size();
             for (int k=size; k-->0;) {
                 if (mayDefinitelyPass) {
-                    os << '0';
+                    od << '0';
                 } else if (to==0) {
                     // should wait if no further connection!?
-                    os << '1';
+                    od << '1';
                 } else if ((*i)==from&&fromLane==j) {
                     // do not prohibit a connection by others from same lane
-                    os << '0';
+                    od << '0';
                 } else {
                     assert(k<(int) connected.size());
                     assert((size_t) idx<myIncoming.size()*myOutgoing.size());
                     assert(connected[k].toEdge==0 || (size_t) getIndex(*i, connected[k].toEdge)<myIncoming.size()*myOutgoing.size());
                     // check whether the connection is prohibited by another one
                     if (connected[k].toEdge!=0 && myForbids[getIndex(*i, connected[k].toEdge)][idx]) {
-                        os << '1';
+                        od << '1';
                         continue;
                     }
-                    os << '0';
+                    od << '0';
                 }
             }
         }
@@ -541,7 +541,7 @@ NBRequest::writeResponse(std::ostream &os, const NBEdge * const from, const NBEd
 
 
 void
-NBRequest::writeAreFoes(std::ostream &os, NBEdge *from, NBEdge *to, bool isInnerEnd) {
+NBRequest::writeAreFoes(OutputDevice &od, NBEdge *from, NBEdge *to, bool isInnerEnd) {
     // remember the case when the lane is a "dead end" in the meaning that
     // vehicles must choose another lane to move over the following
     // junction
@@ -560,13 +560,13 @@ NBRequest::writeAreFoes(std::ostream &os, NBEdge *from, NBEdge *to, bool isInner
             int size = (int) connected.size();
             for (int k=size; k-->0;) {
                 if (to==0) {
-                    os << '0';
+                    od << '0';
                 } else {
 //                    if (foes(from, to, (*i), connected[k].edge) && !isInnerEnd) {
                     if (foes(from, to, (*i), connected[k].toEdge)) {
-                        os << '1';
+                        od << '1';
                     } else {
-                        os << '0';
+                        od << '0';
                     }
                 }
             }

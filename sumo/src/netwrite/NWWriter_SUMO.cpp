@@ -62,7 +62,7 @@ NWWriter_SUMO::writeNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
     device.writeXMLHeader("net", " encoding=\"iso-8859-1\""); // street names may contain non-ascii chars
     device << "\n";
     // write network offsets
-    device << "   <location netOffset=\"" << GeoConvHelper::getOffsetBase() << "\""
+	device.openTag(SUMO_TAG_LOCATION) << " netOffset=\"" << GeoConvHelper::getOffsetBase() << "\""
     << " convBoundary=\"" << GeoConvHelper::getConvBoundary() << "\"";
     if (GeoConvHelper::usingGeoProjection()) {
         device.setPrecision(GEO_OUTPUT_ACCURACY);
@@ -71,7 +71,9 @@ NWWriter_SUMO::writeNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
     } else {
         device << " origBoundary=\"" << GeoConvHelper::getOrigBoundary() << "\"";
     }
-    device << " projParameter=\"" << GeoConvHelper::getProjString() << "\"/>\n\n";
+    device << " projParameter=\"" << GeoConvHelper::getProjString() << "\"";
+	device.closeTag(true);
+	device << "\n";
 
     // get involved container
     const NBNodeCont &nc = nb.getNodeCont();
@@ -107,15 +109,16 @@ NWWriter_SUMO::writeNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
 
     // write tls logics
     for (std::map<std::string, NBTrafficLightLogic*>::const_iterator i=tc.begin(); i!=tc.end(); ++i) {
-        device << "   <" << toString(SUMO_TAG_TLLOGIC) << " id=\"" << (*i).second->getID() << "\" type=\"static\""
+		device.openTag(SUMO_TAG_TLLOGIC) << " id=\"" << (*i).second->getID() << "\" type=\"static\""
             << " programID=\"" << (*i).second->getProgramID() 
             << "\" offset=\"" << (*i).second->getOffset() << "\">\n";
         // write the phases
         const std::vector<NBTrafficLightLogic::PhaseDefinition> &phases = (*i).second->getPhases();
         for (std::vector<NBTrafficLightLogic::PhaseDefinition>::const_iterator j=phases.begin(); j!=phases.end(); ++j) {
-            device << "      <phase duration=\"" << (*j).duration << "\" state=\"" << (*j).state << "\"/>\n";
+			device.openTag(SUMO_TAG_PHASE) << " duration=\"" << (*j).duration << "\" state=\"" << (*j).state << "\"";
+			device.closeTag(true);
         }
-        device << "   </" << toString(SUMO_TAG_TLLOGIC) << ">\n";
+		device.closeTag();
     }
     if (tc.size()!=0) {
         device << "\n";
@@ -231,19 +234,20 @@ NWWriter_SUMO::writeInternalEdges(OutputDevice &into, const NBNode &n) {
 void 
 NWWriter_SUMO::writeInternalEdge(OutputDevice &into, const std::string &id, SUMOReal vmax, const PositionVector &shape) {
     SUMOReal length = MAX2(shape.length(), (SUMOReal)POSITION_EPS); // microsim needs positive length
-    into << "   <edge id=\"" << id << "\" function=\"internal\">\n";
-    into << "      <lane id=\"" << id << "_0\" depart=\"0\" "
+	into.openTag(SUMO_TAG_EDGE) << " id=\"" << id << "\" function=\"internal\">\n";
+    into.openTag(SUMO_TAG_LANE) << " id=\"" << id << "_0\" depart=\"0\" "
         << "maxspeed=\"" << vmax << "\" "
         << "length=\"" << toString(length) << "\" "
-        << "shape=\"" << shape << "\"/>\n";
-    into << "   </edge>\n";
+        << "shape=\"" << shape << "\"";
+	into.closeTag(true);
+	into.closeTag();
 }
 
 
 void
 NWWriter_SUMO::writeEdge(OutputDevice &into, const NBEdge &e) {
     // write the edge's begin
-    into << "   <edge id=\"" << e.getID() <<
+    into.openTag(SUMO_TAG_EDGE) << " id=\"" << e.getID() <<
     "\" from=\"" << e.getFromNode()->getID() <<
     "\" to=\"" << e.getToNode()->getID();
     if (e.getStreetName() != "") {
@@ -274,14 +278,14 @@ NWWriter_SUMO::writeEdge(OutputDevice &into, const NBEdge &e) {
         writeLane(into, e.getID(), e.getLaneID(i), lanes[i], length, i);
     }
     // close the edge
-    into << "   </edge>\n";
+	into.closeTag();
 }
 
 
 void
 NWWriter_SUMO::writeLane(OutputDevice &into, const std::string &eID, const std::string &lID, const NBEdge::Lane &lane, SUMOReal length, unsigned int index) {
     // output the lane's attributes
-    into << "      <lane id=\"" << lID << "\"";
+    into.openTag(SUMO_TAG_LANE) << " id=\"" << lID << "\"";
     // the first lane of an edge will be the depart lane
     if (index==0) {
         into << " depart=\"1\"";
@@ -318,14 +322,15 @@ NWWriter_SUMO::writeLane(OutputDevice &into, const std::string &eID, const std::
     if(lane.offset>0) {
         shape = shape.getSubpart(0, shape.length()-lane.offset);
     }
-    into << " shape=\"" << shape << "\"/>\n";
+    into << " shape=\"" << shape << "\"";
+	into.closeTag(true);
 }
 
 
 void
 NWWriter_SUMO::writeJunction(OutputDevice &into, const NBNode &n) {
     // write the attributes
-    into << "   <junction id=\"" << n.getID() << '\"';
+    into.openTag(SUMO_TAG_JUNCTION) << " id=\"" << n.getID() << '\"';
     SumoXMLNodeType type = n.getType();
     if (n.getIncomingEdges().size()==0 || n.getOutgoingEdges().size()==0) {
         type = NODETYPE_DEAD_END;
@@ -376,7 +381,8 @@ NWWriter_SUMO::writeJunction(OutputDevice &into, const NBNode &n) {
     }
     into << "\"";
     // close writing
-    into << " shape=\"" << n.getShape() << "\"/>\n";
+    into << " shape=\"" << n.getShape() << "\"";
+	into.closeTag(true);
 }
 
 
@@ -409,7 +415,7 @@ NWWriter_SUMO::writeInternalNodes(OutputDevice &into, const NBNode &n) {
                 std::string iid = innerID + "_" + toString(lno) + "_0";
                 PositionVector shape = n.computeInternalLaneShape(*i, j, (*k).toEdge, (*k).toLane);
                 Position pos = shape.positionAtLengthPosition(cross.first);
-                into << "   <junction id=\"" << sid << '\"';
+			    into.openTag(SUMO_TAG_JUNCTION) << " id=\"" << sid << '\"';
                 into << " type=\"" << toString(NODETYPE_INTERNAL) << "\"";
                 into << " x=\"" << pos.x() << "\" y=\"" << pos.y() << "\"";
                 into << " incLanes=\"";
@@ -421,7 +427,8 @@ NWWriter_SUMO::writeInternalNodes(OutputDevice &into, const NBNode &n) {
                 }
                 into << "\"";
                 into << " intLanes=\"" << n.getCrossingNames_dividedBySpace(*i, j, (*k).toEdge, (*k).toLane) << "\"";
-                into << " shape=\"\"/>\n";
+                into << " shape=\"\"";
+				into.closeTag(true);
                 splitNo++;
                 lno++;
                 ret = true;
@@ -434,7 +441,7 @@ NWWriter_SUMO::writeInternalNodes(OutputDevice &into, const NBNode &n) {
 
 void
 NWWriter_SUMO::writeSucceeding(OutputDevice &into, const NBEdge &e, unsigned int lane, bool includeInternal) {
-    into << "   <succ edge=\"" << e.getID() << "\" lane=\"" << e.getLaneID(lane) << "\" junction=\"" << e.getToNode()->getID() << "\">\n";
+	into.openTag(SUMO_TAG_SUCC) << " edge=\"" << e.getID() << "\" lane=\"" << e.getLaneID(lane) << "\" junction=\"" << e.getToNode()->getID() << "\">\n";
     // output list of connected lanes
     const std::vector<NBEdge::Connection> &connections = e.getConnections();
     for (std::vector<NBEdge::Connection>::const_iterator i=connections.begin(); i!=connections.end(); ++i) {
@@ -443,7 +450,7 @@ NWWriter_SUMO::writeSucceeding(OutputDevice &into, const NBEdge &e, unsigned int
             continue;
         }
         assert(c.toEdge != 0);
-        into << "      <succlane lane=\"" << c.toEdge->getLaneID(c.toLane) << '\"'; // !!! classe LaneEdge mit getLaneID
+		into.openTag(SUMO_TAG_SUCCLANE) << " lane=\"" << c.toEdge->getLaneID(c.toLane) << '\"'; // !!! classe LaneEdge mit getLaneID
         if (includeInternal) {
             into << " via=\"" << e.getToNode()->getInternalLaneID(&e, c.fromLane, c.toEdge, c.toLane) << "_0\"";
         }
@@ -463,9 +470,10 @@ NWWriter_SUMO::writeSucceeding(OutputDevice &into, const NBEdge &e, unsigned int
             into << "state=\"" << e.getToNode()->stateCode(&e, c.toEdge, c.toLane, c.mayDefinitelyPass);
         }
         // close
-        into << "\"/>\n";
+        into << "\"";
+		into.closeTag(true);
     }
-    into << "   </succ>\n";
+	into.closeTag();
 }
 
 
@@ -493,35 +501,32 @@ NWWriter_SUMO::writeInternalSucceeding(OutputDevice &into, const NBNode &n) {
                 std::pair<SUMOReal, std::vector<unsigned int> > cross = n.getCrossingPosition(*i, j, (*k).toEdge, (*k).toLane);
 
                 // get internal splits if any
-                into << "   <succ edge=\"" << id << "\" "
+                into.openTag(SUMO_TAG_SUCC) << " edge=\"" << id << "\" "
                 << "lane=\"" << id << "_"
                 << 0 << "\" junction=\"" << n.getID() << "\">\n";
                 if (cross.first>=0) {
-                    into << "      <succlane lane=\""
+					into.openTag(SUMO_TAG_SUCCLANE) << " lane=\""
                     //<< sid << "_" << 0 ()
                     << (*k).toEdge->getID() << "_" << (*k).toLane << "\""
-                    << " via=\"" << sid << "_" << 0 << "\""
-                    << " tl=\"" << "" << "\" linkno=\""
-                    << "" << "\" dir=\"s\" state=\"M\""; // !!! yield or not depends on whether it is tls controlled or not
+                    << " via=\"" << sid << "_0\""
+                    << " tl=\"\" linkno=\"\" dir=\"s\" state=\"M\""; // !!! yield or not depends on whether it is tls controlled or not
                 } else {
-                    into << "      <succlane lane=\""
+                    into.openTag(SUMO_TAG_SUCCLANE) << " lane=\""
                     << (*k).toEdge->getID() << "_" << (*k).toLane
-                    << "\" tl=\"" << "" << "\" linkno=\""
-                    << "" << "\" dir=\"s\" state=\"M\"";
+                    << "\" tl=\"\" linkno=\"\" dir=\"s\" state=\"M\"";
                 }
-                into << "/>\n";
-                into << "   </succ>\n";
+				into.closeTag(true);
+				into.closeTag();
 
                 if (cross.first>=0) {
-                    into << "   <succ edge=\"" << sid << "\" "
+                    into.openTag(SUMO_TAG_SUCC) << " edge=\"" << sid << "\" "
                     << "lane=\"" << sid << "_" << 0
                     << "\" junction=\"" << sid << "\">\n";
-                    into << "      <succlane lane=\""
+                    into.openTag(SUMO_TAG_SUCCLANE) << " lane=\""
                     << (*k).toEdge->getID() << "_" << (*k).toLane
-                    << "\" tl=\"" << "" << "\" linkno=\""
-                    << "0" << "\" dir=\"s\" state=\"M\"";
-                    into << "/>\n";
-                    into << "   </succ>\n";
+                    << "\" tl=\"\" linkno=\"0\" dir=\"s\" state=\"M\"";
+					into.closeTag(true);
+					into.closeTag();
                     splitNo++;
                 }
                 lno++;
@@ -543,7 +548,7 @@ NWWriter_SUMO::writeRoundabout(OutputDevice &into, const std::set<NBEdge*> &r) {
             }
         }
 		sort(nodes.begin(), nodes.end(), NBNode::nodes_by_id_sorter());
-        into << "   <roundabout nodes=\"";
+		into.openTag(SUMO_TAG_ROUNDABOUT) << " nodes=\"";
         int k = 0;
         for (std::vector<NBNode*>::iterator j=nodes.begin(); j!=nodes.end(); ++j, ++k) {
             if (k!=0) {
@@ -551,7 +556,8 @@ NWWriter_SUMO::writeRoundabout(OutputDevice &into, const std::set<NBEdge*> &r) {
             }
             into << (*j)->getID();
         }
-        into << "\"/>\n";
+        into << "\"";
+		into.closeTag(true);
 }
 
 
@@ -562,7 +568,7 @@ NWWriter_SUMO::writeDistrict(OutputDevice &into, const NBDistrict &d) {
     std::vector<SUMOReal> sinkW = d.getSinkWeights();
     VectorHelper<SUMOReal>::normaliseSum(sinkW, 1.0);
     // write the head and the id of the district
-    into << "   <district id=\"" << d.getID() << "\"";
+	into.openTag(SUMO_TAG_DISTRICT) << " id=\"" << d.getID() << "\"";
     if (d.getShape().size()>0) {
         into << " shape=\"" << d.getShape() << "\"";
     }
@@ -572,16 +578,18 @@ NWWriter_SUMO::writeDistrict(OutputDevice &into, const NBDistrict &d) {
     const std::vector<NBEdge*> &sources = d.getSourceEdges();
     for (i=0; i<sources.size(); i++) {
         // write the head and the id of the source
-        into << "      <dsource id=\"" << sources[i]->getID() << "\" weight=\"" << sourceW[i] << "\"/>\n";
+		into.openTag(SUMO_TAG_DSOURCE) << " id=\"" << sources[i]->getID() << "\" weight=\"" << sourceW[i] << "\"";
+		into.closeTag(true);
     }
     // write all sinks
     const std::vector<NBEdge*> &sinks = d.getSinkEdges();
     for (i=0; i<sinks.size(); i++) {
         // write the head and the id of the sink
-        into << "      <dsink id=\"" << sinks[i]->getID() << "\" weight=\"" << sinkW[i] << "\"/>\n";
+        into.openTag(SUMO_TAG_DSINK) << " id=\"" << sinks[i]->getID() << "\" weight=\"" << sinkW[i] << "\"";
+		into.closeTag(true);
     }
     // write the tail
-    into << "   </district>\n";
+	into.closeTag();
 }
 
 
