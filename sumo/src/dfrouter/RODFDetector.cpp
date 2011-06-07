@@ -31,6 +31,7 @@
 #include <utils/common/FileHelpers.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/UtilExceptions.h>
+#include <utils/common/ToString.h>
 #include <router/ROEdge.h>
 #include "RODFEdge.h"
 #include "RODFRouteDesc.h"
@@ -449,7 +450,7 @@ RODFDetectorCon::save(const std::string &file) const {
     OutputDevice& out = OutputDevice::getDevice(file);
     out.writeXMLHeader("detectors");
     for (std::vector<RODFDetector*>::const_iterator i=myDetectors.begin(); i!=myDetectors.end(); ++i) {
-        out << "   <detector_definition id=\"" << StringUtils::escapeXML((*i)->getID())
+        out << "   <" << toString(SUMO_TAG_DETECTOR_DEFINITION) << " id=\"" << StringUtils::escapeXML((*i)->getID())
         << "\" lane=\"" << (*i)->getLaneID()
         << "\" pos=\"" << (*i)->getPos();
         switch ((*i)->getType()) {

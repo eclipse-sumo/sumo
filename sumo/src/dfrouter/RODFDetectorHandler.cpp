@@ -33,6 +33,7 @@
 #include <utils/common/StringTokenizer.h>
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/TplConvertSec.h>
+#include <utils/common/ToString.h>
 #include <utils/xml/SUMOSAXHandler.h>
 #include <utils/xml/SUMOXMLDefinitions.h>
 #include "RODFDetectorHandler.h"
@@ -49,7 +50,9 @@
 RODFDetectorHandler::RODFDetectorHandler(RODFNet *optNet, bool ignoreErrors, RODFDetectorCon &con,
         const std::string &file)
         : SUMOSAXHandler(file),
-        myNet(optNet), myIgnoreErrors(ignoreErrors), myContainer(con) {}
+        myNet(optNet), myIgnoreErrors(ignoreErrors), myContainer(con),
+		myHaveWarnedAboutDeprecatedDetectorDefinition(false)
+{}
 
 
 RODFDetectorHandler::~RODFDetectorHandler() throw() {}
@@ -58,7 +61,11 @@ RODFDetectorHandler::~RODFDetectorHandler() throw() {}
 void
 RODFDetectorHandler::myStartElement(int element,
                                     const SUMOSAXAttributes &attrs) throw(ProcessError) {
-    if (element==SUMO_TAG_DETECTOR_DEFINITION) {
+    if (element==SUMO_TAG_DETECTOR_DEFINITION__DEPRECATED&&!myHaveWarnedAboutDeprecatedDetectorDefinition) {
+		myHaveWarnedAboutDeprecatedDetectorDefinition = true;
+        MsgHandler::getWarningInstance()->inform("Using '" + toString(SUMO_TAG_DETECTOR_DEFINITION__DEPRECATED) + "' is deprecated. Please use '" + toString(SUMO_TAG_DETECTOR_DEFINITION) + "' instead.");
+	}
+    if (element==SUMO_TAG_DETECTOR_DEFINITION||element==SUMO_TAG_DETECTOR_DEFINITION__DEPRECATED) {
         try {
             bool ok = true;
             // get the id, report an error if not given or empty...
