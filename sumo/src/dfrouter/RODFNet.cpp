@@ -203,7 +203,7 @@ RODFNet::computeRoutesFor(ROEdge *edge, RODFRouteDesc &base, int /*no*/,
     std::map<ROEdge*, std::vector<ROEdge*> > dets2Follow;
     dets2Follow[edge] = std::vector<ROEdge*>();
     base.passedNo = 0;
-    SUMOReal minDist = OptionsCont::getOptions().getFloat("min-distance");
+    SUMOReal minDist = OptionsCont::getOptions().getFloat("min-route-length");
     toSolve.push(base);
     while (!toSolve.empty()) {
         RODFRouteDesc current = toSolve.top();

@@ -163,10 +163,10 @@ RODFFrame::fillOptions() {
     oc.doRegister("keep-turnarounds", new Option_Bool(false));
     oc.addDescription("keep-turnarounds", "Processing", "Allow turnarounds as route continuations");
 
-    oc.doRegister("min-distance", new Option_Float(-1));
-    oc.addSynonyme("min-distance", "min-dist");
-    oc.addDescription("min-distance", "Processing", "According sink must be at least that far away");
-
+    oc.doRegister("min-route-length", new Option_Float(-1));
+    oc.addSynonyme("min-route-length", "min-dist", true);
+    oc.addSynonyme("min-route-length", "min-distance", true);
+    oc.addDescription("min-route-length", "Processing", "Minimum distance in meters between start and end node of every route.");
 
     // flow reading
     oc.doRegister("time-factor", new Option_String("60", "TIME"));

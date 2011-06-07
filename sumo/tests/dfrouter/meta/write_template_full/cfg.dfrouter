@@ -34,7 +34,7 @@
         <emissions-only value="false"/>
         <disallowed-edges value=""/>
         <keep-turnarounds value="false"/>
-        <min-distance value="-1" synonymes="min-dist"/>
+        <min-route-length value="-1" synonymes="min-dist min-distance"/>
         <time-factor value="60"/>
         <time-offset value="0"/>
         <time-step value="60"/>
