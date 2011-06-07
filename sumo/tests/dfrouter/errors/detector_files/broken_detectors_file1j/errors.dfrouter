@@ -1,2 +1,2 @@
-Error: Attribute 'lane' in definition of detector_definition 'MQ11Fs2' is empty.
+Error: Attribute 'lane' in definition of detectorDefinition 'MQ11Fs2' is empty.
 Quitting (on error).

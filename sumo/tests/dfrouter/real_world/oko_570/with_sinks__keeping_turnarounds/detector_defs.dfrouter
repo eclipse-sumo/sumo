@@ -32,10 +32,10 @@
 -->
 
 <detectors>
-   <detector_definition id="LI" lane="11_21_0" pos="100.00" type="discarded"/>
-   <detector_definition id="LO" lane="20_10_0" pos="100.00" type="sink"/>
-   <detector_definition id="RI" lane="60_50_0" pos="100.00" type="discarded"/>
-   <detector_definition id="RO" lane="51_61_0" pos="100.00" type="sink"/>
-   <detector_definition id="BI" lane="a5_a4_0" pos="50.00" type="between"/>
-   <detector_definition id="BO" lane="a4_a5_0" pos="50.00" type="source"/>
+   <detectorDefinition id="LI" lane="11_21_0" pos="100.00" type="discarded"/>
+   <detectorDefinition id="LO" lane="20_10_0" pos="100.00" type="sink"/>
+   <detectorDefinition id="RI" lane="60_50_0" pos="100.00" type="discarded"/>
+   <detectorDefinition id="RO" lane="51_61_0" pos="100.00" type="sink"/>
+   <detectorDefinition id="BI" lane="a5_a4_0" pos="50.00" type="between"/>
+   <detectorDefinition id="BO" lane="a4_a5_0" pos="50.00" type="source"/>
 </detectors>

@@ -32,51 +32,51 @@
 -->
 
 <detectors>
-   <detector_definition id="1" lane="33_0" pos="10.00" type="source"/>
-   <detector_definition id="2" lane="33_1" pos="10.00" type="source"/>
+   <detectorDefinition id="1" lane="33_0" pos="10.00" type="source"/>
+   <detectorDefinition id="2" lane="33_1" pos="10.00" type="source"/>
      
-   <detector_definition id="24" lane="17_0" pos="10.00" type="source"/>
-   <detector_definition id="25" lane="17_1" pos="10.00" type="source"/>
+   <detectorDefinition id="24" lane="17_0" pos="10.00" type="source"/>
+   <detectorDefinition id="25" lane="17_1" pos="10.00" type="source"/>
    
-   <detector_definition id="37" lane="-19_0" pos="250.00" type="source"/>
+   <detectorDefinition id="37" lane="-19_0" pos="250.00" type="source"/>
    
-   <detector_definition id="52" lane="-20_0" pos="640.00" type="source"/>
+   <detectorDefinition id="52" lane="-20_0" pos="640.00" type="source"/>
   
-   <detector_definition id="46" lane="-35_0" pos="10.00" type="source"/>
-   <detector_definition id="47" lane="-35_1" pos="10.00" type="source"/>
-   <detector_definition id="48" lane="-35_2" pos="10.00" type="source"/>
+   <detectorDefinition id="46" lane="-35_0" pos="10.00" type="source"/>
+   <detectorDefinition id="47" lane="-35_1" pos="10.00" type="source"/>
+   <detectorDefinition id="48" lane="-35_2" pos="10.00" type="source"/>
    
    
    
    
-   <detector_definition id="3" lane="-33_0" pos="420.00" type="sink"/>
-   <detector_definition id="4" lane="-33_1" pos="420.00" type="sink"/>
+   <detectorDefinition id="3" lane="-33_0" pos="420.00" type="sink"/>
+   <detectorDefinition id="4" lane="-33_1" pos="420.00" type="sink"/>
    
-   <detector_definition id="26" lane="18_0" pos="10.00" type="sink"/>
-   <detector_definition id="27" lane="18_1" pos="10.00" type="sink"/>
+   <detectorDefinition id="26" lane="18_0" pos="10.00" type="sink"/>
+   <detectorDefinition id="27" lane="18_1" pos="10.00" type="sink"/>
    
-   <detector_definition id="36" lane="19_0" pos="10.00" type="sink"/>
+   <detectorDefinition id="36" lane="19_0" pos="10.00" type="sink"/>
    
-   <detector_definition id="44" lane="35_0" pos="10.00" type="sink"/>
-   <detector_definition id="45" lane="35_1" pos="10.00" type="sink"/>
+   <detectorDefinition id="44" lane="35_0" pos="10.00" type="sink"/>
+   <detectorDefinition id="45" lane="35_1" pos="10.00" type="sink"/>
    
    
     
-   <detector_definition id="11" lane="5_0" pos="10.00" type="between"/>
-   <detector_definition id="12" lane="5_1" pos="10.00" type="between"/>
-   <detector_definition id="14" lane="6_0" pos="10.00" type="between"/>
-   <detector_definition id="15" lane="6_1" pos="10.00" type="between"/>
-   <detector_definition id="13" lane="5_2" pos="10.00" type="between"/>
-   <detector_definition id="20" lane="32_0" pos="10.00" type="between"/>
-   <detector_definition id="21" lane="32_1" pos="10.00" type="between"/>
+   <detectorDefinition id="11" lane="5_0" pos="10.00" type="between"/>
+   <detectorDefinition id="12" lane="5_1" pos="10.00" type="between"/>
+   <detectorDefinition id="14" lane="6_0" pos="10.00" type="between"/>
+   <detectorDefinition id="15" lane="6_1" pos="10.00" type="between"/>
+   <detectorDefinition id="13" lane="5_2" pos="10.00" type="between"/>
+   <detectorDefinition id="20" lane="32_0" pos="10.00" type="between"/>
+   <detectorDefinition id="21" lane="32_1" pos="10.00" type="between"/>
    
-   <detector_definition id="34" lane="-6_0" pos="10.00" type="between"/>
-   <detector_definition id="35" lane="-6_1" pos="10.00" type="between"/>
-   <detector_definition id="30" lane="7_0" pos="10.00" type="between"/>
-   <detector_definition id="31" lane="7_1" pos="10.00" type="between"/>
+   <detectorDefinition id="34" lane="-6_0" pos="10.00" type="between"/>
+   <detectorDefinition id="35" lane="-6_1" pos="10.00" type="between"/>
+   <detectorDefinition id="30" lane="7_0" pos="10.00" type="between"/>
+   <detectorDefinition id="31" lane="7_1" pos="10.00" type="between"/>
    
-   <detector_definition id="49" lane="-7_0" pos="10.00" type="between"/>
-   <detector_definition id="50" lane="-7_1" pos="10.00" type="between"/>
+   <detectorDefinition id="49" lane="-7_0" pos="10.00" type="between"/>
+   <detectorDefinition id="50" lane="-7_1" pos="10.00" type="between"/>
    
    
 </detectors>
