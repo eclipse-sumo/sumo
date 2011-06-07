@@ -22,10 +22,6 @@ Usage: jtrrouter [OPTION]*
   -n, --net-file FILE              Use FILE as SUMO-network to route on
   -d, --taz-files FILE             Read (additional) districts from FILE
   -a, --alternative-files FILE     Read alternatives from FILE
-  -w, --weight-files FILE          Read network weights from FILE(s)
-  --lane-weight-files FILE         Read lane-based network weights from FILE(s)
-  -x, --weight-attribute STR       Name of the xml attribute which gives the
-                                     edge weight
   -f, --flow-definition FILE       Read flow-definitions from FILE
   -t, --turn-definition FILE       Read turn-definitions from FILE
 

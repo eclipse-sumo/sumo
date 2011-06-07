@@ -63,7 +63,7 @@ ROJTRFrame::fillOptions() {
     oc.addOptionSubTopic("Time");
     SystemFrame::addReportOptions(oc); // fill this subtopic, too
 
-    ROFrame::fillOptions(oc);
+    ROFrame::fillOptions(oc, false);
     addJTROptions();
     // add rand options
     RandHelper::insertRandOptions();

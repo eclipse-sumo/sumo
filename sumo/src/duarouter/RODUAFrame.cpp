@@ -64,7 +64,7 @@ RODUAFrame::fillOptions() {
     SystemFrame::addReportOptions(oc); // fill this subtopic, too
 
     // insert options
-    ROFrame::fillOptions(oc);
+    ROFrame::fillOptions(oc, true);
     addImportOptions();
     addDUAOptions();
     // add rand options

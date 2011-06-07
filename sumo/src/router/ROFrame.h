@@ -49,9 +49,10 @@ class ROFrame {
 public:
     /** @brief Inserts options used by routing applications into the OptionsCont-singleton
      * @param[in] oc The options container to fill
+     * @param[in] forDuarouter whether duarouter-specific options shall be added
      * @todo Why is the container given? Everywhere else not...
      */
-    static void fillOptions(OptionsCont &oc);
+    static void fillOptions(OptionsCont &oc, bool forDuarouter);
 
 
     /** @brief Checks whether options are valid

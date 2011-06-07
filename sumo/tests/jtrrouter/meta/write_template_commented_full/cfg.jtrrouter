@@ -12,15 +12,6 @@
         <!-- Read alternatives from FILE -->
         <alternative-files value="" synonymes="a alternatives alternatives-files"/>
 
-        <!-- Read network weights from FILE(s) -->
-        <weight-files value="" synonymes="w weights"/>
-
-        <!-- Read lane-based network weights from FILE(s) -->
-        <lane-weight-files value=""/>
-
-        <!-- Name of the xml attribute which gives the edge weight -->
-        <weight-attribute value="traveltime" synonymes="measure x"/>
-
         <!-- Read flow-definitions from FILE -->
         <flow-definition value="" synonymes="f flows"/>
 

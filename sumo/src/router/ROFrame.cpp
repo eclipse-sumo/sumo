@@ -47,7 +47,7 @@
 // method definitions
 // ===========================================================================
 void
-ROFrame::fillOptions(OptionsCont &oc) {
+ROFrame::fillOptions(OptionsCont &oc, bool forDuarouter) {
     // register options
     // register I/O options
     oc.doRegister("output", 'o', new Option_FileName());
@@ -67,16 +67,18 @@ ROFrame::fillOptions(OptionsCont &oc) {
     oc.addSynonyme("alternative-files", "alternatives", true);
     oc.addDescription("alternative-files", "Input", "Read alternatives from FILE");
 
-    oc.doRegister("weight-files", 'w', new Option_FileName());
-    oc.addSynonyme("weight-files", "weights");
-    oc.addDescription("weight-files", "Input", "Read network weights from FILE(s)");
+    if (forDuarouter) {
+        oc.doRegister("weight-files", 'w', new Option_FileName());
+        oc.addSynonyme("weight-files", "weights");
+        oc.addDescription("weight-files", "Input", "Read network weights from FILE(s)");
 
-    oc.doRegister("lane-weight-files", new Option_FileName());
-    oc.addDescription("lane-weight-files", "Input", "Read lane-based network weights from FILE(s)");
+        oc.doRegister("lane-weight-files", new Option_FileName());
+        oc.addDescription("lane-weight-files", "Input", "Read lane-based network weights from FILE(s)");
 
-    oc.doRegister("weight-attribute", 'x', new Option_String("traveltime"));
-    oc.addSynonyme("weight-attribute", "measure", true);
-    oc.addDescription("weight-attribute", "Input", "Name of the xml attribute which gives the edge weight");
+        oc.doRegister("weight-attribute", 'x', new Option_String("traveltime"));
+        oc.addSynonyme("weight-attribute", "measure", true);
+        oc.addDescription("weight-attribute", "Input", "Name of the xml attribute which gives the edge weight");
+    }
 
     // register the time settings
     oc.doRegister("begin", 'b', new Option_String("0", "TIME"));

@@ -86,13 +86,6 @@ initNet(RONet &net, ROLoader &loader, OptionsCont &oc,
     for (std::map<std::string, ROEdge*>::const_iterator i=edges.begin(); i!=edges.end(); ++i) {
         static_cast<ROJTREdge*>((*i).second)->setTurnDefaults(turnDefs);
     }
-    // load the weights when wished/available
-    if (oc.isSet("weight-files")) {
-        loader.loadWeights(net, "weight-files", oc.getString("weight-attribute"), false);
-    }
-    if (oc.isSet("lane-weight-files")) {
-        loader.loadWeights(net, "lane-weight-files", oc.getString("weight-attribute"), true);
-    }
 }
 
 std::vector<SUMOReal>
