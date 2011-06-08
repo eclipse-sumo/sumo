@@ -119,12 +119,6 @@ protected:
 protected:
     void addParam(const SUMOSAXAttributes &attrs);
 
-    /** @brief adds a detector
-        Determines the type of the detector first, and then calls the
-         appropriate method */
-    virtual void addDetector(const SUMOSAXAttributes &attrs);
-
-
     /** @brief Builds an e1 detector using the given specification
      * @param[in] attrs The attributes that define the detector
      */
@@ -291,9 +285,6 @@ protected:
 
     /// @brief Information whether the currently parsed edge is internal and not wished, here
     bool myCurrentIsInternalToSkip;
-
-    /// @brief The type of the last detector
-    std::string myCurrentDetectorType;
 
 
     /// @brief The detector builder to use

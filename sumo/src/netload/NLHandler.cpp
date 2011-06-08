@@ -149,11 +149,6 @@ NLHandler::myStartElement(int element,
         case SUMO_TAG_WAUT_JUNCTION:
             addWAUTJunction(attrs);
             break;
-            /// @deprecated begins
-        case SUMO_TAG_DETECTOR:
-            addDetector(attrs);
-            break;
-            /// @deprecated ends
 #ifdef _MESSAGES
         case SUMO_TAG_MSG_EMITTER:
             addMsgEmitter(attrs);
@@ -299,9 +294,6 @@ NLHandler::myEndElement(int element) throw(ProcessError) {
         break;
     case SUMO_TAG_E3DETECTOR:
         endE3Detector();
-        break;
-    case SUMO_TAG_DETECTOR:
-        endDetector();
         break;
     default:
         break;
@@ -758,44 +750,6 @@ NLHandler::addMsgEmitter(const SUMOSAXAttributes& attrs) {
 }
 #endif
 
-
-void
-NLHandler::addDetector(const SUMOSAXAttributes &attrs) {
-    bool ok = true;
-    // get the id, report an error if not given or empty...
-    std::string id = attrs.getStringReporting(SUMO_ATTR_ID, 0, ok);
-    if (!ok) {
-        return;
-    }
-    // try to get the type
-    std::string type = attrs.getOptStringReporting(SUMO_ATTR_TYPE, 0, ok, "induct_loop");
-    // build in dependence to type
-    // induct loops (E1 detectors)
-    if (type=="induct_loop"||type=="E1"||type=="e1") {
-        addE1Detector(attrs);
-        myCurrentDetectorType = "e1";
-        return;
-    }
-    // lane-based areal detectors (E2 detectors)
-    if (type=="lane_based"||type=="E2"||type=="e2") {
-        addE2Detector(attrs);
-        myCurrentDetectorType = "e2";
-        return;
-    }
-    // multi-origin/multi-destination detectors (E3 detectors)
-    if (type=="multi_od"||type=="E3"||type=="e3") {
-        beginE3Detector(attrs);
-        myCurrentDetectorType = "e3";
-        return;
-    }
-#ifdef _MESSAGES
-    // new induct loop, for static messages
-    if (type=="il_msg"||type=="E4"||type=="e4") {
-        addMsgDetector(attrs);
-        myCurrentDetectorType="e4";
-    }
-#endif
-}
 
 #ifdef _MESSAGES
 void
@@ -1297,15 +1251,6 @@ NLHandler::closeSuccLane() {
     } catch (InvalidArgument &e) {
         MsgHandler::getErrorInstance()->inform(e.what());
     }
-}
-
-
-void
-NLHandler::endDetector() {
-    if (myCurrentDetectorType=="e3") {
-        endE3Detector();
-    }
-    myCurrentDetectorType = "";
 }
 
 

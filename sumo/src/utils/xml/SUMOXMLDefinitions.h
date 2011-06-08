@@ -59,10 +59,6 @@ enum SumoXMLTag {
     /** a msg detector (e-4 detector*/
     SUMO_TAG_MSG,
 #endif
-    /** a detector */
-    /// @deprecated begins
-    SUMO_TAG_DETECTOR,
-    /// @deprecated ends
     /** an e1 detector */
     SUMO_TAG_E1DETECTOR__DEPRECATED,
     SUMO_TAG_E1DETECTOR,
