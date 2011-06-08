@@ -1,5 +1,5 @@
 <additional>
-    <timed_event dest="tls_state_switch.xml" source="0" type="SaveTLSSwitchStates"/>
+    <timedEvent dest="tls_state_switch.xml" source="0" type="SaveTLSSwitchStates"/>
 
 
    <tlLogic id="0" type="static" programID="2" offset="62">

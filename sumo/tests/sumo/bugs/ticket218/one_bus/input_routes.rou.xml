@@ -23,10 +23,10 @@
     <vtype id="bus" accel="2.6" decel="4.5" sigma="0.5" length="15" maxspeed="70" emissionClass="bus/city" guiShape="bus/city" vclass="bus"></vtype>
 
     <vehicle id="bus_1" depart="0.00" departlane="free" arrivalpos="-1" type="bus" color="0,1,0"><route edges="2/0to2/1 2/1to1/1 1/1to1/2 1/2to0/2 0/2to0/1 0/1to0/0 0/0to1/0 1/0to2/0 2/0to2/1 2/1to1/1 1/1to1/2 1/2to0/2 0/2to0/1 0/1to0/0 0/0to1/0 1/0to2/0 2/0to2/1"></route>
-        <stop bus_stop="busStop#1" duration="20"></stop>
-        <stop bus_stop="busStop#2" duration="20"></stop>
-        <stop bus_stop="busStop#1" duration="20"></stop>
-        <stop bus_stop="busStop#2" duration="20"></stop>
+        <stop busStop="busStop#1" duration="20"></stop>
+        <stop busStop="busStop#2" duration="20"></stop>
+        <stop busStop="busStop#1" duration="20"></stop>
+        <stop busStop="busStop#2" duration="20"></stop>
     </vehicle>
 
 </routes>

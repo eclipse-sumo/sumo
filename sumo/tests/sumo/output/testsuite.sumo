@@ -1,17 +1,17 @@
-# Tests for e1-detectors (induction loops)
+# Tests for e1Detectors (induction loops)
 e1
 
-# Tests for e2-detectors (lane-areal)
+# Tests for e2Detectors (lane-areal)
 e2
 
-# Tests for e3-detectors (areal)
+# Tests for e3Detectors (areal)
 e3
 
 
-# Tests for e2-detectors (lane-areal) couppled to a tls
+# Tests for e2Detectors (lane-areal) couppled to a tls
 e2_tls
 
-# Tests for e2-detectors (lane-areal) couppled to a tls link
+# Tests for e2Detectors (lane-areal) couppled to a tls link
 e2_tls_link
 
 

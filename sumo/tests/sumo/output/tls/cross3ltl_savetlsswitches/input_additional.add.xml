@@ -1,3 +1,3 @@
 <additional>
-    <timed_event type="SaveTLSSwitchTimes" source="0" dest="tls_switch.xml"/>
+    <timedEvent type="SaveTLSSwitchTimes" source="0" dest="tls_switch.xml"/>
 </additional>

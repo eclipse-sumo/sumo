@@ -1,9 +1,9 @@
 <additional>
 
 
-	<e3-detector id="3/1to2/1" freq="10" file="detector.xml">
-		<det_entry lane="3/1to2/1_0" pos="100"/>
-		<det_exit lane="3/1to2/1_0" pos="300"/>
-	</e3-detector>
+	<e3Detector id="3/1to2/1" freq="10" file="detector.xml">
+		<detEntry lane="3/1to2/1_0" pos="100"/>
+		<detExit lane="3/1to2/1_0" pos="300"/>
+	</e3Detector>
 
 </additional>
