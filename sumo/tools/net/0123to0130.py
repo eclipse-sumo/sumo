@@ -66,16 +66,11 @@ class NetConverter(handler.ContentHandler):
     def __init__(self, outFileName, begin):
         self._out = open(outFileName, "w")
         self._out.write(begin)
-        self._collect = False
         self._tree = []
-        self._attributes = {}
-        self._shapePatch = False
-        self._skipping = False
-        self._hadShape = False
         self._content = ""
 
-    def checkWrite(self, what, isCharacters=False):
-        self._out.write(what)
+    def checkWrite(self, what):
+        self._out.write(what.encode('iso-8859-1'))
 
     def indent(self):
         self._out.write(" " * (4*len(self._tree)))
@@ -103,7 +98,7 @@ class NetConverter(handler.ContentHandler):
                     if key in renamedValues:
                         val = renamedValues[key].get(val, val)
                     if name not in b or key not in b[name] or attrs[key]!=b[name][key]:
-                        self.checkWrite(' ' + renamedAttrs.get(key, key) + '="' + val + '"')
+                        self.checkWrite(' ' + renamedAttrs.get(key, key) + '="%s"' % val)
                     
         if name not in c:
             self.checkWrite(">\n")
