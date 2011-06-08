@@ -17,9 +17,9 @@ assert(jtrrouter)
 
 args = [jtrrouter,
         '--net-file', 'input_net.net.xml',
-        '--flow-definition', 'input_flows.flows.xml',
-        '--turn-definition', 'input_turns.turns.xml',
-        '--output', output_file1,
+        '--flow-files', 'input_flows.flows.xml',
+        '--turn-ratio-file', 'input_turns.turns.xml',
+        '--output-file', output_file1,
         '--sinks=end',
         '--seed', None,
         '--randomize-flows']
