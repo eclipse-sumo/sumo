@@ -20,10 +20,10 @@ sumo_unittest_LDADD   = ../../src/netbuild/libnetbuild.a \
 ../../src/microsim/traffic_lights/libmicrosimtls.a \
 ../../src/utils/geom/libgeom.a \
 ../../src/utils/shapes/libshapes.a \
-../../src/utils/xml/libxml.a \
 ../../src/utils/common/libcommon.a \
 ../../src/utils/options/liboptions.a \
 ../../src/utils/iodevices/libiodevices.a \
+../../src/utils/xml/libxml.a \
 ../../src/utils/common/FileHelpers.o \
 ../../src/foreign/tcpip/libtcpip.a \
 $(MEM_LIBS) \
