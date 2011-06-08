@@ -116,7 +116,7 @@
   </node>
   <node id="56231397" lat="52.4287829" lon="13.5269484" user="xybot" visible="true" timestamp="2008-10-02T07:11:20+01:00">
     <tag k="name" v="Rudower Chaussee/Wegedornstraße"/>
-    <tag k="highway" v="bus_stop"/>
+    <tag k="highway" v="busStop"/>
     <tag k="created_by" v="xybot"/>
   </node>
   <node id="56231597" lat="52.4287882" lon="13.5289084" user="lexikos" visible="true" timestamp="2008-09-06T18:12:20+01:00"/>
@@ -136,7 +136,7 @@
   </node>
   <node id="59993001" lat="52.4287543" lon="13.5267518" user="xybot" visible="true" timestamp="2008-10-02T07:12:00+01:00">
     <tag k="name" v="Rudower Chaussee/Wegedornstraße"/>
-    <tag k="highway" v="bus_stop"/>
+    <tag k="highway" v="busStop"/>
     <tag k="created_by" v="xybot"/>
   </node>
   <node id="261644597" lat="52.4292389" lon="13.5294385" user="Randbewohner" visible="true" timestamp="2008-05-02T19:50:25+01:00"/>
@@ -391,11 +391,11 @@
   </node>
   <node id="301331956" lat="52.4298694" lon="13.530337" user="Ihmehlmenn" visible="true" timestamp="2008-10-24T13:24:28+01:00">
     <tag k="created_by" v="xybot"/>
-    <tag k="highway" v="bus_stop"/>
+    <tag k="highway" v="busStop"/>
     <tag k="name" v="Magnusstraße"/>
   </node>
   <node id="306982602" lat="52.429703" lon="13.5304225" user="Ihmehlmenn" visible="true" timestamp="2008-10-24T13:24:26+01:00">
-    <tag k="highway" v="bus_stop"/>
+    <tag k="highway" v="busStop"/>
     <tag k="name" v="Magnusstraße"/>
   </node>
   <node id="36268418" lat="52.4265768" lon="13.5358889" user="Randbewohner" visible="true" timestamp="2008-05-01T15:55:45+01:00">
@@ -496,7 +496,7 @@
   </node>
   <node id="36268381" lat="52.4319097" lon="13.5380947" user="xybot" visible="true" timestamp="2008-10-01T09:45:22+01:00">
     <tag k="name" v="Albert-Einstein-Straße"/>
-    <tag k="highway" v="bus_stop"/>
+    <tag k="highway" v="busStop"/>
     <tag k="created_by" v="xybot"/>
   </node>
   <node id="36268382" lat="52.4303659" lon="13.5406954" user="Randbewohner" visible="true" timestamp="2008-05-01T15:57:46+01:00">
@@ -698,12 +698,12 @@
   </node>
   <node id="57343288" lat="52.4284378" lon="13.5240819" user="xybot" visible="true" timestamp="2008-10-02T07:11:33+01:00">
     <tag k="name" v="Schwarzschildstraße"/>
-    <tag k="highway" v="bus_stop"/>
+    <tag k="highway" v="busStop"/>
     <tag k="created_by" v="xybot"/>
   </node>
   <node id="57343297" lat="52.4285334" lon="13.5240656" user="xybot" visible="true" timestamp="2008-10-02T07:11:33+01:00">
     <tag k="name" v="Schwarzschildstraße"/>
-    <tag k="highway" v="bus_stop"/>
+    <tag k="highway" v="busStop"/>
     <tag k="created_by" v="xybot"/>
   </node>
   <node id="57343359" lat="52.4283597" lon="13.5196023" user="Randbewohner" visible="true" timestamp="2008-11-11T23:45:23+00:00"/>
@@ -715,7 +715,7 @@
   </node>
   <node id="59598486" lat="52.4319601" lon="13.5350147" user="xybot" visible="true" timestamp="2008-10-02T07:11:41+01:00">
     <tag k="name" v="Walther-Nemest-Straße"/>
-    <tag k="highway" v="bus_stop"/>
+    <tag k="highway" v="busStop"/>
     <tag k="created_by" v="xybot"/>
   </node>
   <node id="59992993" lat="52.4260045" lon="13.5240575" user="Randbewohner" visible="true" timestamp="2008-11-13T10:10:43+00:00"/>
@@ -1022,7 +1022,7 @@
   <node id="298030765" lat="52.4508769" lon="13.4622879" user="Randbewohner" visible="true" timestamp="2008-11-13T10:10:45+00:00"/>
   <node id="301331622" lat="52.43207" lon="13.5348002" user="xybot" visible="true" timestamp="2008-10-02T07:58:19+01:00">
     <tag k="name" v="Walther-Nemest-Straße"/>
-    <tag k="highway" v="bus_stop"/>
+    <tag k="highway" v="busStop"/>
     <tag k="created_by" v="xybot"/>
   </node>
   <node id="301331742" lat="52.4310495" lon="13.5335642" user="Randbewohner" visible="true" timestamp="2008-10-01T09:30:07+01:00"/>
