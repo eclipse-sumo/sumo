@@ -68,10 +68,10 @@ for tls in net._tlss:
             else:
                 det_length = min(length-distToTLS, det_length_input)
             pos = max(0,(length-det_length-distToTLS))
-            print >> detectorFile, "\t<e2-detector file=\"%s\" freq=\"%d\" friendly_pos=\"x\" id=\"e2det_%s\" lane=\"%s\" pos=\"%f\" length=\"%f\" />" % (options.results, freq, id, id, pos, det_length)
+            print >> detectorFile, "\t<e2Detector file=\"%s\" freq=\"%d\" friendlyPos=\"x\" id=\"e2det_%s\" lane=\"%s\" pos=\"%f\" length=\"%f\" />" % (options.results, freq, id, id, pos, det_length)
 
 print >> detectorFile, "</additional>"
 
 detectorFile.close()
 
-print "%d e2-detectors generated!" % len(lanes_ready)            
+print "%d e2 detectors generated!" % len(lanes_ready)            

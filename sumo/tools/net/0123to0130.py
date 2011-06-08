@@ -16,7 +16,7 @@ from optparse import OptionParser
 
 # attributes sorting lists
 a = {}
-a['edge'] = ( 'id', 'from', 'to', 'name', 'priority', 'type', 'function', 'spread_type', 'shape' )
+a['edge'] = ( 'id', 'from', 'to', 'name', 'priority', 'type', 'function', 'spread_type', 'spreadType', 'shape' )
 a['lane'] = ( 'id', 'depart', 'vclasses', 'allow', 'disallow', 'maxspeed', 'length', 'endOffset', 'width', 'shape' )
 a['junction'] = ( 'id', 'type', 'x', 'y', 'incLanes', 'intLanes', 'shape' )
 a['logicitem'] = ( 'request', 'response', 'foes', 'cont' )
@@ -46,7 +46,7 @@ removed = ( 'lanes', 'logic' )
 # renamed elements
 renamed = {'tl-logic': 'tlLogic', 'row-logic': 'ROWLogic'}
 
-renamedAttrs = {'min_dur': 'minDur', 'max_dur': 'maxDur'}
+renamedAttrs = {'min_dur': 'minDur', 'max_dur': 'maxDur', 'spread_type': 'spreadType'}
 
 renamedValues = {'state': {'t': 'o'} }
 

@@ -58,16 +58,16 @@ print >> detectorFile, "<additional>"
 for tls in net._tlss:
     for e in sorted(tls.getEdges(), key=sumonet.NetEdge.getID):
         id = tls._id + "_" + e._id
-        print >> detectorFile, '    <e3-detector id="e3_%s" freq="%s" file="%s">' % (id, freq, options.results)
+        print >> detectorFile, '    <e3Detector id="e3_%s" freq="%s" file="%s">' % (id, freq, options.results)
         iedges = net.getDownstreamEdges(e, det_length_input, True)
         for ie in iedges:
             pos = ie[1]
             if ie[3]:
                 pos = .1
             for l in ie[0]._lanes:
-                print >> detectorFile, '        <det_entry lane="%s" pos="%s"/>' % (l.getID(), pos)
+                print >> detectorFile, '        <detEntry lane="%s" pos="%s"/>' % (l.getID(), pos)
         for l in e._lanes:
-            print >> detectorFile, '        <det_exit lane="%s" pos="-.1"/>' % (l.getID())
-        print >> detectorFile, '    </e3-detector>'
+            print >> detectorFile, '        <detExit lane="%s" pos="-.1"/>' % (l.getID())
+        print >> detectorFile, '    </e3Detector>'
 print >> detectorFile, "</additional>"
 detectorFile.close()
