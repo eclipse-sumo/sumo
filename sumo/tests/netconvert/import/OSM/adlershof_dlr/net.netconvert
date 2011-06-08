@@ -302,16 +302,16 @@
     <edge id="-7730464" from="56231598" to="56242441" priority="6" type="highway.tertiary">
         <lane id="-7730464_0" depart="1" maxspeed="22.22" length="2.38" shape="616.96,421.85 616.84,424.23"/>
     </edge>
-    <edge id="20430080" from="57343359" to="59993001" name="Rudower Chaussee" priority="6" type="highway.tertiary" spread_type="center" shape="0.00,348.44 4.55,342.53 12.54,333.63 32.95,332.62 190.22,343.97 304.73,350.90 387.65,360.32 486.97,382.40">
+    <edge id="20430080" from="57343359" to="59993001" name="Rudower Chaussee" priority="6" type="highway.tertiary" spreadType="center" shape="0.00,348.44 4.55,342.53 12.54,333.63 32.95,332.62 190.22,343.97 304.73,350.90 387.65,360.32 486.97,382.40">
         <lane id="20430080_0" depart="1" maxspeed="22.22" length="491.13" shape="1.94,345.92 4.55,342.53 12.54,333.63 32.95,332.62 190.22,343.97 304.73,350.90 387.65,360.32 483.90,381.71"/>
     </edge>
     <edge id="22917251" from="32266938" to="32266936" name="Teltowkanalbrücke" priority="6" type="highway.tertiary">
         <lane id="22917251_0" depart="1" maxspeed="22.22" length="53.81" shape="475.75,102.76 471.12,49.15"/>
     </edge>
-    <edge id="24152812#0" from="36268421" to="261636677" name="Havestadtplatz" priority="4" type="highway.residential" spread_type="center" shape="1144.91,50.46 1148.46,112.43 1119.89,114.18">
+    <edge id="24152812#0" from="36268421" to="261636677" name="Havestadtplatz" priority="4" type="highway.residential" spreadType="center" shape="1144.91,50.46 1148.46,112.43 1119.89,114.18">
         <lane id="24152812#0_0" depart="1" maxspeed="13.89" length="77.73" shape="1145.37,58.55 1148.46,112.43 1124.74,113.88"/>
     </edge>
-    <edge id="24152812#1" from="261636677" to="261636678" name="Havestadtplatz" priority="4" type="highway.residential" spread_type="center">
+    <edge id="24152812#1" from="261636677" to="261636678" name="Havestadtplatz" priority="4" type="highway.residential" spreadType="center">
         <lane id="24152812#1_0" depart="1" maxspeed="13.89" length="48.86" shape="1119.56,109.85 1115.78,61.13"/>
     </edge>
     <edge id="24214693#0" from="32266935" to="261599791" name="Ernst-Ruska-Ufer" priority="9" type="highway.primary" shape="478.98,121.02 202.12,155.05 33.97,176.57">
@@ -400,7 +400,7 @@
     <edge id="26816413#1" from="294168710" to="294168098" priority="2" type="highway.service">
         <lane id="26816413#1_0" depart="1" allow="delivery" maxspeed="5.56" length="20.27" shape="582.08,338.19 567.13,324.51"/>
     </edge>
-    <edge id="26816541" from="294168098" to="294168710" priority="2" type="highway.service" spread_type="center" shape="566.45,321.65 534.87,327.64 539.54,356.67 560.71,364.39 585.57,339.15">
+    <edge id="26816541" from="294168098" to="294168710" priority="2" type="highway.service" spreadType="center" shape="566.45,321.65 534.87,327.64 539.54,356.67 560.71,364.39 585.57,339.15">
         <lane id="26816541_0" depart="1" allow="delivery" maxspeed="5.56" length="109.11" shape="560.96,322.69 534.87,327.64 539.54,356.67 560.71,364.39 582.19,342.58"/>
     </edge>
     <edge id="26816553" from="294168098" to="294168972" priority="2" type="highway.service" shape="566.45,321.65 563.73,311.92 570.98,302.73 633.73,223.14 682.39,261.75 706.28,235.54 714.97,226.01">
@@ -424,49 +424,49 @@
     <edge id="26843133#0" from="294169339" to="294831560" priority="2" type="highway.service">
         <lane id="26843133#0_0" depart="1" allow="delivery" maxspeed="5.56" length="5.29" shape="542.27,297.90 541.86,292.62"/>
     </edge>
-    <edge id="27437972#0" from="38918157" to="36268398" name="Rudower Chaussee" priority="6" type="highway.tertiary" spread_type="center" shape="1068.74,767.39 1041.64,740.05 984.17,684.68 957.65,657.32 939.78,639.63 926.70,628.25 908.96,616.96 891.80,605.66">
+    <edge id="27437972#0" from="38918157" to="36268398" name="Rudower Chaussee" priority="6" type="highway.tertiary" spreadType="center" shape="1068.74,767.39 1041.64,740.05 984.17,684.68 957.65,657.32 939.78,639.63 926.70,628.25 908.96,616.96 891.80,605.66">
         <lane id="27437972#0_0" depart="1" maxspeed="22.22" length="235.31" shape="1068.74,767.39 1041.64,740.05 984.17,684.68 957.65,657.32 939.78,639.63 926.70,628.25 908.96,616.96 896.11,608.50"/>
     </edge>
-    <edge id="27437972#1" from="36268398" to="38919668" name="Rudower Chaussee" priority="6" type="highway.tertiary" spread_type="center" shape="891.80,605.66 803.74,552.14 733.24,501.46 685.82,466.03">
+    <edge id="27437972#1" from="36268398" to="38919668" name="Rudower Chaussee" priority="6" type="highway.tertiary" spreadType="center" shape="891.80,605.66 803.74,552.14 733.24,501.46 685.82,466.03">
         <lane id="27437972#1_0" depart="1" maxspeed="22.22" length="242.45" shape="888.00,603.35 803.74,552.14 733.24,501.46 687.55,467.32"/>
     </edge>
-    <edge id="27437972#2" from="38919668" to="38919703" name="Rudower Chaussee" priority="6" type="highway.tertiary" spread_type="center">
+    <edge id="27437972#2" from="38919668" to="38919703" name="Rudower Chaussee" priority="6" type="highway.tertiary" spreadType="center">
         <lane id="27437972#2_0" depart="1" maxspeed="22.22" length="17.47" shape="681.41,462.87 667.21,452.69"/>
     </edge>
-    <edge id="27437972#3" from="38919703" to="56242441" name="Rudower Chaussee" priority="6" type="highway.tertiary" spread_type="center" shape="664.49,450.74 650.91,443.45 614.99,427.87">
+    <edge id="27437972#3" from="38919703" to="56242441" name="Rudower Chaussee" priority="6" type="highway.tertiary" spreadType="center" shape="664.49,450.74 650.91,443.45 614.99,427.87">
         <lane id="27437972#3_0" depart="1" maxspeed="22.22" length="47.11" shape="661.78,449.28 650.91,443.45 619.00,429.61"/>
     </edge>
-    <edge id="27437972#4" from="56242441" to="301292612" name="Rudower Chaussee" priority="6" type="highway.tertiary" spread_type="center">
+    <edge id="27437972#4" from="56242441" to="301292612" name="Rudower Chaussee" priority="6" type="highway.tertiary" spreadType="center">
         <lane id="27437972#4_0" depart="1" maxspeed="22.22" length="112.58" shape="610.03,426.66 500.61,400.16"/>
     </edge>
-    <edge id="27441168" from="59993001" to="56231397" name="Rudower Chaussee" priority="6" type="highway.tertiary" spread_type="center">
+    <edge id="27441168" from="59993001" to="56231397" name="Rudower Chaussee" priority="6" type="highway.tertiary" spreadType="center">
         <lane id="27441168_0" depart="1" maxspeed="22.22" length="7.03" shape="490.04,383.06 496.91,384.55"/>
     </edge>
-    <edge id="27441189" from="301292612" to="38919945" name="Rudower Chaussee" priority="6" type="highway.tertiary" spread_type="center">
+    <edge id="27441189" from="301292612" to="38919945" name="Rudower Chaussee" priority="6" type="highway.tertiary" spreadType="center">
         <lane id="27441189_0" depart="1" maxspeed="22.22" length="7.57" shape="494.56,398.61 487.25,396.63"/>
     </edge>
-    <edge id="27441289" from="59993001" to="38920501" name="Wegedornstraße" priority="6" type="highway.tertiary" spread_type="center" shape="486.97,382.40 493.84,346.12 495.47,311.99">
+    <edge id="27441289" from="59993001" to="38920501" name="Wegedornstraße" priority="6" type="highway.tertiary" spreadType="center" shape="486.97,382.40 493.84,346.12 495.47,311.99">
         <lane id="27441289_0" depart="1" maxspeed="22.22" length="55.44" shape="487.56,379.30 493.84,346.12 494.87,324.48"/>
     </edge>
-    <edge id="27445000" from="38919945" to="57343359" name="Rudower Chaussee" priority="6" type="highway.tertiary" spread_type="center" shape="484.37,395.86 387.27,372.75 303.84,361.55 189.83,353.29 133.74,350.94 0.00,348.44">
+    <edge id="27445000" from="38919945" to="57343359" name="Rudower Chaussee" priority="6" type="highway.tertiary" spreadType="center" shape="484.37,395.86 387.27,372.75 303.84,361.55 189.83,353.29 133.74,350.94 0.00,348.44">
         <lane id="27445000_0" depart="1" maxspeed="22.22" length="481.86" shape="481.29,395.12 387.27,372.75 303.84,361.55 189.83,353.29 133.74,350.94 3.17,348.50"/>
     </edge>
-    <edge id="27445003" from="56231397" to="301292612" name="Wegedornstraße" priority="6" type="highway.tertiary" spread_type="center">
+    <edge id="27445003" from="56231397" to="301292612" name="Wegedornstraße" priority="6" type="highway.tertiary" spreadType="center">
         <lane id="27445003_0" depart="1" maxspeed="22.22" length="7.94" shape="499.79,388.48 498.28,396.28"/>
     </edge>
-    <edge id="27445015#0" from="56231397" to="56231598" name="Rudower Chaussee" priority="6" type="highway.tertiary" spread_type="center">
+    <edge id="27445015#0" from="56231397" to="56231598" name="Rudower Chaussee" priority="6" type="highway.tertiary" spreadType="center">
         <lane id="27445015#0_0" depart="1" maxspeed="22.22" length="111.87" shape="503.52,386.18 611.22,416.42"/>
     </edge>
-    <edge id="27445015#1" from="56231598" to="56242425" name="Rudower Chaussee" priority="6" type="highway.tertiary" spread_type="center" shape="615.54,417.63 642.13,427.10 662.43,435.64">
+    <edge id="27445015#1" from="56231598" to="56242425" name="Rudower Chaussee" priority="6" type="highway.tertiary" spreadType="center" shape="615.54,417.63 642.13,427.10 662.43,435.64">
         <lane id="27445015#1_0" depart="1" maxspeed="22.22" length="40.48" shape="620.59,419.43 642.13,427.10 658.37,433.93"/>
     </edge>
-    <edge id="27445015#2" from="56242425" to="36268415" name="Rudower Chaussee" priority="6" type="highway.tertiary" spread_type="center" shape="662.43,435.64 683.08,446.29 703.53,459.75 738.68,482.83 778.40,511.89">
+    <edge id="27445015#2" from="56242425" to="36268415" name="Rudower Chaussee" priority="6" type="highway.tertiary" spreadType="center" shape="662.43,435.64 683.08,446.29 703.53,459.75 738.68,482.83 778.40,511.89">
         <lane id="27445015#2_0" depart="1" maxspeed="22.22" length="129.18" shape="667.05,438.02 683.08,446.29 703.53,459.75 738.68,482.83 774.68,509.17"/>
     </edge>
-    <edge id="27445015#3" from="36268415" to="38920778" name="Rudower Chaussee" priority="6" type="highway.tertiary" spread_type="center" shape="778.40,511.89 804.51,532.91 825.84,548.20 842.40,558.92 903.89,592.25">
+    <edge id="27445015#3" from="36268415" to="38920778" name="Rudower Chaussee" priority="6" type="highway.tertiary" spreadType="center" shape="778.40,511.89 804.51,532.91 825.84,548.20 842.40,558.92 903.89,592.25">
         <lane id="27445015#3_0" depart="1" maxspeed="22.22" length="139.48" shape="782.17,514.92 804.51,532.91 825.84,548.20 842.40,558.92 899.39,589.81"/>
     </edge>
-    <edge id="27445015#4" from="38920778" to="57343487" name="Rudower Chaussee" priority="6" type="highway.tertiary" spread_type="center" shape="903.89,592.25 936.90,612.90 955.31,628.25 974.34,645.34 1002.94,673.87 1055.97,727.53 1081.87,752.58">
+    <edge id="27445015#4" from="38920778" to="57343487" name="Rudower Chaussee" priority="6" type="highway.tertiary" spreadType="center" shape="903.89,592.25 936.90,612.90 955.31,628.25 974.34,645.34 1002.94,673.87 1055.97,727.53 1081.87,752.58">
         <lane id="27445015#4_0" depart="1" maxspeed="22.22" length="235.43" shape="908.06,594.86 936.90,612.90 955.31,628.25 974.34,645.34 1002.94,673.87 1055.97,727.53 1081.87,752.58"/>
     </edge>
     <edge id="5198584" from="36268416" to="36268382" name="Justus-von-Liebig-Straße" priority="4" type="highway.residential" shape="1055.08,184.85 1262.01,371.09 1438.58,542.41">
@@ -547,22 +547,22 @@
     <edge id="5198597#2" from="56231597" to="56231598" name="Rutherfordstraße" priority="4" type="highway.residential" shape="633.67,383.18 620.59,408.02 615.54,417.63">
         <lane id="5198597#2_0" depart="1" maxspeed="13.89" length="31.34" shape="633.26,387.49 622.05,408.79 618.67,415.23"/>
     </edge>
-    <edge id="5784947#0" from="38919668" to="38919652" name="Max-Born-Straße" priority="4" type="highway.residential" spread_type="center" shape="685.82,466.03 677.09,467.37 669.56,470.43 662.70,477.56 616.73,561.79">
+    <edge id="5784947#0" from="38919668" to="38919652" name="Max-Born-Straße" priority="4" type="highway.residential" spreadType="center" shape="685.82,466.03 677.09,467.37 669.56,470.43 662.70,477.56 616.73,561.79">
         <lane id="5784947#0_0" depart="1" maxspeed="13.89" length="111.17" shape="680.46,466.85 677.09,467.37 669.56,470.43 662.70,477.56 619.71,556.33"/>
     </edge>
-    <edge id="5784947#1" from="38919652" to="38919797" name="Max-Born-Straße" priority="4" type="highway.residential" spread_type="center" shape="616.73,561.79 615.65,565.88 582.56,632.36 525.69,749.30">
+    <edge id="5784947#1" from="38919652" to="38919797" name="Max-Born-Straße" priority="4" type="highway.residential" spreadType="center" shape="616.73,561.79 615.65,565.88 582.56,632.36 525.69,749.30">
         <lane id="5784947#1_0" depart="1" maxspeed="13.89" length="202.90" shape="615.03,567.13 582.56,632.36 525.69,749.30"/>
     </edge>
-    <edge id="5784950#0" from="38920557" to="38919808" name="Max-Born-Straße" priority="4" type="highway.residential" spread_type="center" shape="518.91,744.71 545.14,688.49 604.30,563.25">
+    <edge id="5784950#0" from="38920557" to="38919808" name="Max-Born-Straße" priority="4" type="highway.residential" spreadType="center" shape="518.91,744.71 545.14,688.49 604.30,563.25">
         <lane id="5784950#0_0" depart="1" maxspeed="13.89" length="194.57" shape="518.91,744.71 545.14,688.49 601.75,568.66"/>
     </edge>
-    <edge id="5784950#1" from="38919808" to="283018817" name="Max-Born-Straße" priority="4" type="highway.residential" spread_type="center">
+    <edge id="5784950#1" from="38919808" to="283018817" name="Max-Born-Straße" priority="4" type="highway.residential" spreadType="center">
         <lane id="5784950#1_0" depart="1" maxspeed="13.89" length="5.53" shape="607.77,557.39 610.58,552.63"/>
     </edge>
-    <edge id="5784950#2" from="283018817" to="38919712" name="Max-Born-Straße" priority="4" type="highway.residential" spread_type="center">
+    <edge id="5784950#2" from="283018817" to="38919712" name="Max-Born-Straße" priority="4" type="highway.residential" spreadType="center">
         <lane id="5784950#2_0" depart="1" maxspeed="13.89" length="9.42" shape="613.50,547.70 618.29,539.59"/>
     </edge>
-    <edge id="5784950#3" from="38919712" to="38919703" name="Max-Born-Straße" priority="4" type="highway.residential" spread_type="center">
+    <edge id="5784950#3" from="38919712" to="38919703" name="Max-Born-Straße" priority="4" type="highway.residential" spreadType="center">
         <lane id="5784950#3_0" depart="1" maxspeed="13.89" length="92.21" shape="620.41,535.52 662.94,453.71"/>
     </edge>
     <edge id="5784968#0" from="36268378" to="283721348" name="Gottfried-Leibniz-Straße" priority="4" type="highway.residential">
@@ -613,7 +613,7 @@
     <edge id="6137239#4" from="38919652" to="38919605" name="Carl-Scheele-Straße" priority="4" type="highway.residential" shape="616.73,561.79 750.90,557.31 760.86,558.85 770.89,563.89 782.81,575.88">
         <lane id="6137239#4_0" depart="1" maxspeed="13.89" length="168.54" shape="621.95,559.96 751.00,555.66 761.37,557.26 771.87,562.54 783.98,574.71"/>
     </edge>
-    <edge id="6137245" from="38919945" to="59993001" name="Wegedornstraße" priority="6" type="highway.tertiary" spread_type="center">
+    <edge id="6137245" from="38919945" to="59993001" name="Wegedornstraße" priority="6" type="highway.tertiary" spreadType="center">
         <lane id="6137245_0" depart="1" maxspeed="22.22" length="7.40" shape="484.97,392.74 486.38,385.47"/>
     </edge>
     <edge id="7216737#0" from="94487954" to="36268421" name="Ernst-Ruska-Ufer" priority="9" type="highway.primary" shape="1737.68,19.68 1720.58,11.27 1696.54,5.94 1680.43,2.68 1640.10,0.00 1605.67,0.69 1508.96,10.80 1144.91,50.46">
@@ -632,7 +632,7 @@
         <lane id="7216737#3_0" depart="1" maxspeed="27.78" length="153.28" shape="636.84,111.46 484.21,125.51"/>
         <lane id="7216737#3_1" depart="0" maxspeed="27.78" length="153.28" shape="636.53,108.18 483.90,122.23"/>
     </edge>
-    <edge id="7727482" from="38920501" to="56231397" name="Wegedornstraße" priority="6" type="highway.tertiary" spread_type="center" shape="495.47,311.99 498.64,344.10 500.40,385.30">
+    <edge id="7727482" from="38920501" to="56231397" name="Wegedornstraße" priority="6" type="highway.tertiary" spreadType="center" shape="495.47,311.99 498.64,344.10 500.40,385.30">
         <lane id="7727482_0" depart="1" maxspeed="22.22" length="57.76" shape="496.67,324.11 498.64,344.10 500.25,381.73"/>
     </edge>
     <edge id="7727483#0" from="38920501" to="294169342" name="Wegedornstraße" priority="6" type="highway.tertiary">

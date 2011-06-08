@@ -94,7 +94,7 @@
         <lane id=":4_0_0" depart="0" maxspeed="16.00" length="4.82" shape="501.65,1000.00 500.82,1001.24 500.00,1001.65 499.18,1001.24 498.35,1000.00"/>
     </edge>
 
-    <edge id="1fi" from="1" to="0" priority="-1" spread_type="center">
+    <edge id="1fi" from="1" to="0" priority="-1" spreadType="center">
         <lane id="1fi_0" depart="1" maxspeed="16.00" length="491.95" shape="0.00,498.35 491.95,498.35"/>
         <lane id="1fi_1" depart="0" maxspeed="16.00" length="491.95" shape="0.00,501.65 491.95,501.65"/>
     </edge>

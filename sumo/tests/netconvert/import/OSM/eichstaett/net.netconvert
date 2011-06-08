@@ -4476,22 +4476,22 @@
     <edge id="26203515#1" from="297063786" to="286919906" priority="1" type="highway.footway">
         <lane id="26203515#1_0" depart="1" allow="pedestrian" maxspeed="8.33" length="4.93" shape="8022.44,6978.00 8027.38,6978.09"/>
     </edge>
-    <edge id="26203516#0" from="286919916" to="297063649" name="Marktplatz" priority="4" type="highway.residential" spread_type="center">
+    <edge id="26203516#0" from="286919916" to="297063649" name="Marktplatz" priority="4" type="highway.residential" spreadType="center">
         <lane id="26203516#0_0" depart="1" maxspeed="13.89" length="12.59" shape="8128.39,6987.99 8131.79,6975.87"/>
     </edge>
-    <edge id="26203516#1" from="297063649" to="297063637" name="Marktplatz" priority="4" type="highway.residential" spread_type="center">
+    <edge id="26203516#1" from="297063649" to="297063637" name="Marktplatz" priority="4" type="highway.residential" spreadType="center">
         <lane id="26203516#1_0" depart="1" maxspeed="13.89" length="22.27" shape="8134.95,6967.18 8144.17,6946.90"/>
     </edge>
-    <edge id="26203516#2" from="297063637" to="286919920" name="Marktplatz" priority="4" type="highway.residential" spread_type="center">
+    <edge id="26203516#2" from="297063637" to="286919920" name="Marktplatz" priority="4" type="highway.residential" spreadType="center">
         <lane id="26203516#2_0" depart="1" maxspeed="13.89" length="1.05" shape="8145.62,6938.63 8145.52,6937.59"/>
     </edge>
-    <edge id="26203516#3" from="286919920" to="320126292" name="Marktplatz" priority="4" type="highway.residential" spread_type="center" shape="8145.19,6934.08 8139.26,6913.60 8134.34,6892.84">
+    <edge id="26203516#3" from="286919920" to="320126292" name="Marktplatz" priority="4" type="highway.residential" spreadType="center" shape="8145.19,6934.08 8139.26,6913.60 8134.34,6892.84">
         <lane id="26203516#3_0" depart="1" maxspeed="13.89" length="32.74" shape="8143.68,6928.85 8139.26,6913.60 8135.37,6897.19"/>
     </edge>
-    <edge id="26203516#4" from="320126292" to="286919922" name="Marktplatz" priority="4" type="highway.residential" spread_type="center">
+    <edge id="26203516#4" from="320126292" to="286919922" name="Marktplatz" priority="4" type="highway.residential" spreadType="center">
         <lane id="26203516#4_0" depart="1" maxspeed="13.89" length="12.49" shape="8133.36,6887.60 8131.08,6875.32"/>
     </edge>
-    <edge id="26203516#5" from="286919922" to="286919924" name="Marktplatz" priority="4" type="highway.residential" spread_type="center" shape="8130.46,6872.03 8124.41,6846.73 8122.41,6832.63">
+    <edge id="26203516#5" from="286919922" to="286919924" name="Marktplatz" priority="4" type="highway.residential" spreadType="center" shape="8130.46,6872.03 8124.41,6846.73 8122.41,6832.63">
         <lane id="26203516#5_0" depart="1" maxspeed="13.89" length="32.42" shape="8129.77,6869.15 8124.41,6846.73 8123.09,6837.46"/>
     </edge>
     <edge id="26203517#0" from="286919930" to="286919933" name="Domplatz" priority="5" type="highway.unclassified">
@@ -4614,13 +4614,13 @@
     <edge id="27077551#4" from="297342162" to="294134037" name="Innere Freiwasserstraße" priority="4" type="highway.residential">
         <lane id="27077551#4_0" depart="1" maxspeed="13.89" length="2.12" shape="7949.56,6961.65 7948.94,6959.62"/>
     </edge>
-    <edge id="27077552#0" from="286919915" to="297082770" name="Pfahlstraße" priority="4" type="highway.residential" spread_type="center" shape="8076.04,7067.88 8077.75,7044.10 8083.49,7022.17">
+    <edge id="27077552#0" from="286919915" to="297082770" name="Pfahlstraße" priority="4" type="highway.residential" spreadType="center" shape="8076.04,7067.88 8077.75,7044.10 8083.49,7022.17">
         <lane id="27077552#0_0" depart="1" maxspeed="13.89" length="32.14" shape="8076.73,7058.28 8077.75,7044.10 8082.29,7026.77"/>
     </edge>
-    <edge id="27077552#1" from="297082770" to="286919911" name="Pfahlstraße" priority="4" type="highway.residential" spread_type="center">
+    <edge id="27077552#1" from="297082770" to="286919911" name="Pfahlstraße" priority="4" type="highway.residential" spreadType="center">
         <lane id="27077552#1_0" depart="1" maxspeed="13.89" length="20.37" shape="8085.12,7017.87 8092.32,6998.82"/>
     </edge>
-    <edge id="27077553" from="286919922" to="259648773" name="Loy-Hering-Gasse" priority="4" type="highway.residential" spread_type="center">
+    <edge id="27077553" from="286919922" to="259648773" name="Loy-Hering-Gasse" priority="4" type="highway.residential" spreadType="center">
         <lane id="27077553_0" depart="1" maxspeed="13.89" length="50.94" shape="8127.30,6873.10 8079.03,6889.39"/>
     </edge>
     <edge id="27077554#0" from="297063637" to="297063640" name="Marktgasse" priority="1" type="highway.pedestrian" shape="8146.02,6942.83 8176.30,6931.98 8215.03,6914.09">
@@ -4668,22 +4668,22 @@
     <edge id="27077562#2" from="297063652" to="297063653" name="Webergasse" priority="4" type="highway.residential">
         <lane id="27077562#2_0" depart="1" maxspeed="13.89" length="26.30" shape="8163.72,7112.13 8150.71,7134.99"/>
     </edge>
-    <edge id="27077563#0" from="297063669" to="297342181" name="Pedettistraße" priority="4" type="highway.residential" spread_type="center">
+    <edge id="27077563#0" from="297063669" to="297342181" name="Pedettistraße" priority="4" type="highway.residential" spreadType="center">
         <lane id="27077563#0_0" depart="1" maxspeed="13.89" length="81.54" shape="8285.23,6941.84 8215.11,6983.46"/>
     </edge>
-    <edge id="27077563#1" from="297342181" to="297063667" name="Pedettistraße" priority="4" type="highway.residential" spread_type="center">
+    <edge id="27077563#1" from="297342181" to="297063667" name="Pedettistraße" priority="4" type="highway.residential" spreadType="center">
         <lane id="27077563#1_0" depart="1" maxspeed="13.89" length="18.02" shape="8206.79,6988.19 8190.95,6996.79"/>
     </edge>
-    <edge id="27077563#2" from="297063667" to="297063672" name="Pedettistraße" priority="4" type="highway.residential" spread_type="center">
+    <edge id="27077563#2" from="297063667" to="297063672" name="Pedettistraße" priority="4" type="highway.residential" spreadType="center">
         <lane id="27077563#2_0" depart="1" maxspeed="13.89" length="27.13" shape="8182.95,7001.69 8160.54,7016.97"/>
     </edge>
-    <edge id="27077563#3" from="297063672" to="297063666" name="Pedettistraße" priority="4" type="highway.residential" spread_type="center">
+    <edge id="27077563#3" from="297063672" to="297063666" name="Pedettistraße" priority="4" type="highway.residential" spreadType="center">
         <lane id="27077563#3_0" depart="1" maxspeed="13.89" length="2.76" shape="8152.74,7022.62 8150.55,7024.30"/>
     </edge>
-    <edge id="27077563#4" from="297063666" to="297063665" name="Pedettistraße" priority="4" type="highway.residential" spread_type="center">
+    <edge id="27077563#4" from="297063666" to="297063665" name="Pedettistraße" priority="4" type="highway.residential" spreadType="center">
         <lane id="27077563#4_0" depart="1" maxspeed="13.89" length="36.14" shape="8144.04,7030.66 8121.45,7058.87"/>
     </edge>
-    <edge id="27077563#5" from="297063665" to="89112479" name="Pedettistraße" priority="4" type="highway.residential" spread_type="center" shape="8118.57,7062.46 8079.25,7118.37 8059.93,7108.38">
+    <edge id="27077563#5" from="297063665" to="89112479" name="Pedettistraße" priority="4" type="highway.residential" spreadType="center" shape="8118.57,7062.46 8079.25,7118.37 8059.93,7108.38">
         <lane id="27077563#5_0" depart="1" maxspeed="13.89" length="80.08" shape="8115.66,7066.59 8079.25,7118.37 8064.34,7110.66"/>
     </edge>
     <edge id="27077564" from="297063665" to="297063652" name="Turmgasse" priority="4" type="highway.residential" shape="8118.57,7062.46 8140.88,7084.24 8164.24,7107.87">
@@ -4839,13 +4839,13 @@
     <edge id="27077600" from="286919924" to="297063783" name="Gutenberggasse" priority="4" type="highway.residential">
         <lane id="27077600_0" depart="1" maxspeed="13.89" length="32.93" shape="8117.45,6835.40 8085.26,6842.40"/>
     </edge>
-    <edge id="27077601#0" from="89112500" to="297342182" name="Gabrielistraße" priority="5" type="highway.unclassified" spread_type="center" shape="8278.42,6918.58 8234.44,6933.79 8193.05,6950.60">
+    <edge id="27077601#0" from="89112500" to="297342182" name="Gabrielistraße" priority="5" type="highway.unclassified" spreadType="center" shape="8278.42,6918.58 8234.44,6933.79 8193.05,6950.60">
         <lane id="27077601#0_0" depart="1" maxspeed="22.22" length="81.68" shape="8274.04,6920.09 8234.44,6933.79 8197.58,6948.76"/>
     </edge>
-    <edge id="27077601#1" from="297342182" to="297063674" name="Gabrielistraße" priority="5" type="highway.unclassified" spread_type="center">
+    <edge id="27077601#1" from="297342182" to="297063674" name="Gabrielistraße" priority="5" type="highway.unclassified" spreadType="center">
         <lane id="27077601#1_0" depart="1" maxspeed="22.22" length="26.09" shape="8188.79,6952.62 8165.24,6963.84"/>
     </edge>
-    <edge id="27077601#2" from="297063674" to="286919916" name="Gabrielistraße" priority="5" type="highway.unclassified" spread_type="center" shape="8160.52,6966.08 8129.37,6992.09 8126.53,6994.65">
+    <edge id="27077601#2" from="297063674" to="286919916" name="Gabrielistraße" priority="5" type="highway.unclassified" spreadType="center" shape="8160.52,6966.08 8129.37,6992.09 8126.53,6994.65">
         <lane id="27077601#2_0" depart="1" maxspeed="22.22" length="32.69" shape="8156.85,6969.15 8131.76,6990.10"/>
     </edge>
     <edge id="27077602#0" from="286919916" to="297063673" name="Westenstraße" priority="4" type="highway.residential">
@@ -5170,10 +5170,10 @@
     <edge id="27078886#3" from="297076304" to="297076306" name="Gemmingenstraße" priority="4" type="highway.residential">
         <lane id="27078886#3_0" depart="1" maxspeed="13.89" length="136.64" shape="7441.12,7187.63 7535.34,7088.67"/>
     </edge>
-    <edge id="27078887#0" from="297076307" to="297076309" name="Oettingenstraße" priority="4" type="highway.residential" spread_type="center" shape="7242.67,7256.10 7223.79,7224.96 7286.42,7178.82">
+    <edge id="27078887#0" from="297076307" to="297076309" name="Oettingenstraße" priority="4" type="highway.residential" spreadType="center" shape="7242.67,7256.10 7223.79,7224.96 7286.42,7178.82">
         <lane id="27078887#0_0" depart="1" maxspeed="13.89" length="104.18" shape="7239.98,7251.67 7223.79,7224.96 7282.53,7181.69"/>
     </edge>
-    <edge id="27078887#1" from="297076309" to="297076314" name="Oettingenstraße" priority="4" type="highway.residential" spread_type="center" shape="7286.42,7178.82 7337.56,7147.65 7358.17,7138.74 7373.78,7138.70 7381.97,7140.92 7388.14,7146.24">
+    <edge id="27078887#1" from="297076309" to="297076314" name="Oettingenstraße" priority="4" type="highway.residential" spreadType="center" shape="7286.42,7178.82 7337.56,7147.65 7358.17,7138.74 7373.78,7138.70 7381.97,7140.92 7388.14,7146.24">
         <lane id="27078887#1_0" depart="1" maxspeed="13.89" length="104.79" shape="7290.53,7176.31 7337.56,7147.65 7358.17,7138.74 7373.78,7138.70 7381.97,7140.92 7384.37,7142.99"/>
     </edge>
     <edge id="27078888#0" from="297076309" to="297076288" name="Castellweg" priority="1" type="highway.footway">
@@ -5550,7 +5550,7 @@
     <edge id="27101091" from="297342174" to="286919924" priority="1" type="highway.footway">
         <lane id="27101091_0" depart="1" allow="pedestrian" maxspeed="8.33" length="9.80" shape="8117.92,6817.97 8121.78,6826.98"/>
     </edge>
-    <edge id="27101092" from="297342179" to="297063665" priority="4" type="highway.residential" spread_type="center">
+    <edge id="27101092" from="297342179" to="297063665" priority="4" type="highway.residential" spreadType="center">
         <lane id="27101092_0" depart="1" maxspeed="13.89" length="22.13" shape="8098.80,7046.78 8116.14,7060.54"/>
     </edge>
     <edge id="27101093" from="297342181" to="297342182" priority="1" type="highway.footway">
@@ -5586,7 +5586,7 @@
     <edge id="27142667" from="296928769" to="297798819" priority="1" type="highway.footway">
         <lane id="27142667_0" depart="1" allow="pedestrian" maxspeed="8.33" length="16.77" shape="6983.32,7429.69 6991.58,7415.10"/>
     </edge>
-    <edge id="27142669" from="297076307" to="297076296" name="Alberthalstraße" priority="4" type="highway.residential" spread_type="center">
+    <edge id="27142669" from="297076307" to="297076296" name="Alberthalstraße" priority="4" type="highway.residential" spreadType="center">
         <lane id="27142669_0" depart="1" maxspeed="13.89" length="96.90" shape="7241.40,7262.18 7221.58,7357.04"/>
     </edge>
     <edge id="27142670#0" from="297076332" to="297076347" name="Petersleite" priority="4" type="highway.residential" shape="7658.56,6767.92 7669.97,6734.48 7695.95,6693.83 7700.80,6683.42">
@@ -5745,7 +5745,7 @@
     <edge id="27396177" from="300745218" to="300745216" priority="1" type="highway.track" shape="8572.26,6063.94 8677.52,5997.10 8715.05,5973.98 8762.82,5936.02 8774.35,5940.97 8797.95,5964.37 8818.17,5967.21">
         <lane id="27396177_0" depart="1" maxspeed="5.56" length="291.93" shape="8575.24,6060.09 8676.64,5995.70 8714.18,5972.58 8762.57,5934.12 8775.29,5939.58 8798.72,5962.81 8817.61,5965.47"/>
     </edge>
-    <edge id="27396178" from="300745229" to="297063753" name="Am Siechhof" priority="4" type="highway.residential" spread_type="center" shape="8465.47,6120.99 8461.50,6115.03 8537.73,6052.55 8562.51,6041.25 8568.66,6055.96">
+    <edge id="27396178" from="300745229" to="297063753" name="Am Siechhof" priority="4" type="highway.residential" spreadType="center" shape="8465.47,6120.99 8461.50,6115.03 8537.73,6052.55 8562.51,6041.25 8568.66,6055.96">
         <lane id="27396178_0" depart="1" maxspeed="13.89" length="126.65" shape="8466.57,6110.88 8537.73,6052.55 8562.51,6041.25 8565.37,6048.09"/>
     </edge>
     <edge id="27396180#0" from="300745237" to="320148612" priority="2" type="highway.service">
@@ -6584,10 +6584,10 @@
     <edge id="27474179" from="301663035" to="301663062" name="Eichendorffstraße" priority="4" type="highway.residential">
         <lane id="27474179_0" depart="1" maxspeed="13.89" length="23.36" shape="10196.80,5845.12 10188.07,5823.45"/>
     </edge>
-    <edge id="27474180#0" from="301663062" to="320514432" name="Eichendorffstraße" priority="4" type="highway.residential" spread_type="center" shape="10189.13,5821.67 10172.20,5781.81 10172.65,5766.32 10181.83,5751.10 10201.83,5731.35 10221.02,5722.23 10259.03,5713.21">
+    <edge id="27474180#0" from="301663062" to="320514432" name="Eichendorffstraße" priority="4" type="highway.residential" spreadType="center" shape="10189.13,5821.67 10172.20,5781.81 10172.65,5766.32 10181.83,5751.10 10201.83,5731.35 10221.02,5722.23 10259.03,5713.21">
         <lane id="27474180#0_0" depart="1" maxspeed="13.89" length="159.57" shape="10188.45,5820.06 10172.20,5781.81 10172.65,5766.32 10181.83,5751.10 10201.83,5731.35 10221.02,5722.23 10255.45,5714.06"/>
     </edge>
-    <edge id="27474180#1" from="320514432" to="301663062" name="Eichendorffstraße" priority="4" type="highway.residential" spread_type="center" shape="10259.03,5713.21 10304.20,5699.96 10322.62,5700.98 10336.52,5704.02 10344.68,5710.60 10348.00,5719.62 10349.26,5730.96 10345.61,5739.97 10341.25,5746.39 10333.48,5753.70 10209.53,5810.76 10189.13,5821.67">
+    <edge id="27474180#1" from="320514432" to="301663062" name="Eichendorffstraße" priority="4" type="highway.residential" spreadType="center" shape="10259.03,5713.21 10304.20,5699.96 10322.62,5700.98 10336.52,5704.02 10344.68,5710.60 10348.00,5719.62 10349.26,5730.96 10345.61,5739.97 10341.25,5746.39 10333.48,5753.70 10209.53,5810.76 10189.13,5821.67">
         <lane id="27474180#1_0" depart="1" maxspeed="13.89" length="294.21" shape="10261.94,5712.36 10304.20,5699.96 10322.62,5700.98 10336.52,5704.02 10344.68,5710.60 10348.00,5719.62 10349.26,5730.96 10345.61,5739.97 10341.25,5746.39 10333.48,5753.70 10209.53,5810.76 10190.67,5820.84"/>
     </edge>
     <edge id="27474182#0" from="301663072" to="320514439" priority="1" type="highway.track" shape="10492.75,6653.55 10365.27,6651.14 10339.89,6644.84 10239.97,6644.28 10215.34,6642.67 10152.84,6644.84">
@@ -6971,7 +6971,7 @@
     <edge id="27666140#2" from="308260380" to="440995761" priority="1" type="highway.cycleway">
         <lane id="27666140#2_0" depart="1" allow="bicycle" maxspeed="5.56" length="170.28" shape="9119.38,5735.74 9271.14,5658.53"/>
     </edge>
-    <edge id="27675632" from="303943911" to="94560419" priority="7" type="highway.secondary" spread_type="center" shape="10082.99,7733.84 10067.29,7710.79 10049.94,7701.49 10022.22,7701.94">
+    <edge id="27675632" from="303943911" to="94560419" priority="7" type="highway.secondary" spreadType="center" shape="10082.99,7733.84 10067.29,7710.79 10049.94,7701.49 10022.22,7701.94">
         <lane id="27675632_0" depart="1" maxspeed="27.78" length="46.38" shape="10081.58,7734.70 10066.16,7712.05 10050.90,7703.88"/>
         <lane id="27675632_1" depart="0" maxspeed="27.78" length="46.38" shape="10084.31,7732.84 10068.43,7709.52 10050.95,7700.16"/>
     </edge>
@@ -8028,25 +8028,25 @@
     <edge id="39271415" from="286919905" to="27230168" name="Fischerbuck" priority="1" type="highway.cycleway">
         <lane id="39271415_0" depart="1" allow="bicycle" maxspeed="5.56" length="4.56" shape="7064.01,6130.78 7060.12,6128.40"/>
     </edge>
-    <edge id="39271416#0" from="286919911" to="286919943" name="Pfahlstraße" priority="4" type="highway.residential" spread_type="center">
+    <edge id="39271416#0" from="286919911" to="286919943" name="Pfahlstraße" priority="4" type="highway.residential" spreadType="center">
         <lane id="39271416#0_0" depart="1" maxspeed="13.89" length="5.34" shape="8095.61,6989.64 8097.30,6984.58"/>
     </edge>
-    <edge id="39271416#1" from="286919943" to="297063648" name="Pfahlstraße" priority="4" type="highway.residential" spread_type="center">
+    <edge id="39271416#1" from="286919943" to="297063648" name="Pfahlstraße" priority="4" type="highway.residential" spreadType="center">
         <lane id="39271416#1_0" depart="1" maxspeed="13.89" length="9.28" shape="8100.05,6975.18 8102.20,6966.15"/>
     </edge>
-    <edge id="39271416#2" from="297063648" to="297063776" name="Pfahlstraße" priority="4" type="highway.residential" spread_type="center">
+    <edge id="39271416#2" from="297063648" to="297063776" name="Pfahlstraße" priority="4" type="highway.residential" spreadType="center">
         <lane id="39271416#2_0" depart="1" maxspeed="13.89" length="1.70" shape="8101.85,6957.26 8101.27,6955.67"/>
     </edge>
-    <edge id="39271416#3" from="297063776" to="297063647" name="Pfahlstraße" priority="4" type="highway.residential" spread_type="center">
+    <edge id="39271416#3" from="297063776" to="297063647" name="Pfahlstraße" priority="4" type="highway.residential" spreadType="center">
         <lane id="39271416#3_0" depart="1" maxspeed="13.89" length="9.30" shape="8098.39,6946.47 8095.94,6937.51"/>
     </edge>
-    <edge id="39271416#4" from="297063647" to="259648773" name="Pfahlstraße" priority="4" type="highway.residential" spread_type="center" shape="8094.52,6932.29 8082.69,6921.20 8075.98,6890.42">
+    <edge id="39271416#4" from="297063647" to="259648773" name="Pfahlstraße" priority="4" type="highway.residential" spreadType="center" shape="8094.52,6932.29 8082.69,6921.20 8075.98,6890.42">
         <lane id="39271416#4_0" depart="1" maxspeed="13.89" length="43.97" shape="8093.93,6931.74 8082.69,6921.20 8076.61,6893.29"/>
     </edge>
-    <edge id="39271416#5" from="259648773" to="330119845" name="Pfahlstraße" priority="4" type="highway.residential" spread_type="center" shape="8075.98,6890.42 8064.98,6848.37 8055.87,6811.75">
+    <edge id="39271416#5" from="259648773" to="330119845" name="Pfahlstraße" priority="4" type="highway.residential" spreadType="center" shape="8075.98,6890.42 8064.98,6848.37 8055.87,6811.75">
         <lane id="39271416#5_0" depart="1" maxspeed="13.89" length="73.09" shape="8075.17,6887.31 8064.98,6848.37 8057.05,6816.51"/>
     </edge>
-    <edge id="39271416#6" from="330119845" to="89112362" name="Pfahlstraße" priority="4" type="highway.residential" spread_type="center">
+    <edge id="39271416#6" from="330119845" to="89112362" name="Pfahlstraße" priority="4" type="highway.residential" spreadType="center">
         <lane id="39271416#6_0" depart="1" maxspeed="13.89" length="1.23" shape="8055.47,6808.18 8055.34,6806.95"/>
     </edge>
     <edge id="39271417#0" from="89112374" to="297800151" name="Residenzplatz" priority="4" type="highway.residential" shape="8212.87,6641.29 8193.84,6633.34 8167.46,6632.54">
@@ -8061,27 +8061,27 @@
     <edge id="39271419" from="308263368" to="308261470" name="Ohne-Tritt-Steg" priority="1" type="highway.footway">
         <lane id="39271419_0" depart="1" allow="pedestrian" maxspeed="8.33" length="4.91" shape="9637.03,5726.67 9639.46,5730.94"/>
     </edge>
-    <edge id="4379608#0" from="26698741" to="26698744" priority="9" type="highway.primary" spread_type="center" shape="10393.51,5013.46 10376.93,5011.12 10366.74,4997.13">
+    <edge id="4379608#0" from="26698741" to="26698744" priority="9" type="highway.primary" spreadType="center" shape="10393.51,5013.46 10376.93,5011.12 10366.74,4997.13">
         <lane id="4379608#0_0" depart="1" maxspeed="27.78" length="23.00" shape="10389.67,5014.59 10376.00,5012.66 10369.77,5004.09"/>
         <lane id="4379608#0_1" depart="0" maxspeed="27.78" length="23.00" shape="10390.13,5011.32 10377.85,5009.59 10372.44,5002.15"/>
     </edge>
-    <edge id="4379608#1" from="26698744" to="26698738" priority="9" type="highway.primary" spread_type="center" shape="10366.74,4997.13 10370.35,4979.71 10383.22,4971.22 10398.70,4973.48 10408.69,4985.51">
+    <edge id="4379608#1" from="26698744" to="26698738" priority="9" type="highway.primary" spreadType="center" shape="10366.74,4997.13 10370.35,4979.71 10383.22,4971.22 10398.70,4973.48 10408.69,4985.51">
         <lane id="4379608#1_0" depart="1" maxspeed="27.78" length="50.08" shape="10366.59,4989.75 10368.87,4978.71 10382.83,4969.50 10399.56,4971.93 10405.35,4978.91"/>
         <lane id="4379608#1_1" depart="0" maxspeed="27.78" length="50.08" shape="10369.82,4990.42 10371.83,4980.72 10383.60,4972.95 10397.83,4975.02 10402.81,4981.01"/>
     </edge>
-    <edge id="4379608#2" from="26698738" to="26698741" priority="9" type="highway.primary" spread_type="center" shape="10408.69,4985.51 10406.42,5004.08 10393.51,5013.46">
+    <edge id="4379608#2" from="26698738" to="26698741" priority="9" type="highway.primary" spreadType="center" shape="10408.69,4985.51 10406.42,5004.08 10393.51,5013.46">
         <lane id="4379608#2_0" depart="1" maxspeed="27.78" length="23.68" shape="10409.45,4992.91 10407.97,5005.00 10397.51,5012.60"/>
         <lane id="4379608#2_1" depart="0" maxspeed="27.78" length="23.68" shape="10406.17,4992.51 10404.87,5003.17 10395.57,5009.93"/>
     </edge>
-    <edge id="4379609#0" from="26698771" to="26698765" priority="9" type="highway.primary" spread_type="center" shape="9235.52,5636.50 9234.43,5625.03 9241.59,5614.61 9252.27,5611.47 9261.59,5614.47">
+    <edge id="4379609#0" from="26698771" to="26698765" priority="9" type="highway.primary" spreadType="center" shape="9235.52,5636.50 9234.43,5625.03 9241.59,5614.61 9252.27,5611.47 9261.59,5614.47">
         <lane id="4379609#0_0" depart="1" maxspeed="27.78" length="30.70" shape="9233.20,5629.49 9232.74,5624.59 9240.56,5613.20 9252.29,5609.75 9255.25,5610.70"/>
         <lane id="4379609#0_1" depart="0" maxspeed="27.78" length="30.70" shape="9236.48,5629.18 9236.13,5625.47 9242.62,5616.03 9252.25,5613.20 9254.24,5613.84"/>
     </edge>
-    <edge id="4379609#1" from="26698765" to="26698769" priority="9" type="highway.primary" spread_type="center" shape="9261.59,5614.47 9269.41,5630.72 9261.73,5643.82">
+    <edge id="4379609#1" from="26698765" to="26698769" priority="9" type="highway.primary" spreadType="center" shape="9261.59,5614.47 9269.41,5630.72 9261.73,5643.82">
         <lane id="4379609#1_0" depart="1" maxspeed="27.78" length="18.50" shape="9266.28,5620.42 9271.27,5630.80 9266.85,5638.34"/>
         <lane id="4379609#1_1" depart="0" maxspeed="27.78" length="18.50" shape="9263.31,5621.85 9267.54,5630.65 9264.01,5636.67"/>
     </edge>
-    <edge id="4379609#2" from="26698769" to="26698771" priority="9" type="highway.primary" spread_type="center" shape="9261.73,5643.82 9251.99,5646.90 9242.58,5644.39 9235.52,5636.50">
+    <edge id="4379609#2" from="26698769" to="26698771" priority="9" type="highway.primary" spreadType="center" shape="9261.73,5643.82 9251.99,5646.90 9242.58,5644.39 9235.52,5636.50">
         <lane id="4379609#2_0" depart="1" maxspeed="27.78" length="15.47" shape="9255.33,5647.57 9252.03,5648.61 9241.68,5645.86 9239.52,5643.44"/>
         <lane id="4379609#2_1" depart="0" maxspeed="27.78" length="15.47" shape="9254.34,5644.42 9251.95,5645.18 9243.48,5642.92 9241.97,5641.23"/>
     </edge>

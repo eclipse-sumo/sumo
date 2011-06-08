@@ -1350,13 +1350,13 @@
     <tag k="bus_routes" v="FIX ME"/>
     <tag k="created_by" v="Merkaartor 0.11"/>
     <tag k="operator" v="FIX ME"/>
-    <tag k="highway" v="bus_stop"/>
+    <tag k="highway" v="busStop"/>
     <tag k="amenity" v="bus_station"/>
     <tag k="shelter" v="FIX ME"/>
   </node>
   <node id="282908439" lat="48.8854289" lon="11.202853" version="2" changeset="45963" user="MacLoyer" uid="56137" visible="true" timestamp="2008-08-03T21:54:55Z">
     <tag k="created_by" v="Merkaartor 0.11"/>
-    <tag k="highway" v="bus_stop"/>
+    <tag k="highway" v="busStop"/>
     <tag k="amenity" v="bus_station"/>
   </node>
   <node id="286683628" lat="48.8958098" lon="11.1235269" version="4" changeset="590523" user="roemer60" uid="73803" visible="true" timestamp="2008-10-26T18:55:42Z"/>
@@ -1527,7 +1527,7 @@
     <tag k="bus_routes" v="FIX ME"/>
     <tag k="created_by" v="JOSM"/>
     <tag k="operator" v="FIX ME"/>
-    <tag k="highway" v="bus_stop"/>
+    <tag k="highway" v="busStop"/>
     <tag k="shelter" v="FIX ME"/>
   </node>
   <node id="297063643" lat="48.8925672" lon="11.1857313" version="2" changeset="645611" user="Andre68" uid="31231" visible="true" timestamp="2008-09-16T08:02:27Z"/>
@@ -3351,7 +3351,7 @@
     <tag k="bus_routes" v="FIX ME"/>
     <tag k="created_by" v="JOSM"/>
     <tag k="operator" v="FIX ME"/>
-    <tag k="highway" v="bus_stop"/>
+    <tag k="highway" v="busStop"/>
     <tag k="shelter" v="FIX ME"/>
   </node>
   <node id="297342170" lat="48.892308" lon="11.184277" version="1" changeset="642064" user="grungelborz" uid="15035" visible="true" timestamp="2008-09-15T22:01:47Z">
@@ -3387,7 +3387,7 @@
     <tag k="bus_routes" v="FIX ME"/>
     <tag k="created_by" v="JOSM"/>
     <tag k="operator" v="FIX ME"/>
-    <tag k="highway" v="bus_stop"/>
+    <tag k="highway" v="busStop"/>
     <tag k="shelter" v="FIX ME"/>
   </node>
   <node id="297342184" lat="48.8932592" lon="11.1851223" version="1" changeset="642064" user="grungelborz" uid="15035" visible="true" timestamp="2008-09-15T22:01:48Z">
@@ -7529,7 +7529,7 @@
   <node id="306491991" lat="48.8761219" lon="11.2139495" version="2" changeset="518215" user="roemer60" uid="73803" visible="true" timestamp="2008-10-22T21:04:18Z"/>
   <node id="306495207" lat="48.8795109" lon="11.2353061" version="26" changeset="869535" user="Paulchen Panther" uid="62236" visible="true" timestamp="2009-03-30T09:36:26Z"/>
   <node id="306495395" lat="48.8794601" lon="11.2354005" version="13" changeset="577710" user="roemer60" uid="73803" visible="true" timestamp="2008-10-26T11:45:00Z">
-    <tag k="highway" v="bus_stop"/>
+    <tag k="highway" v="busStop"/>
   </node>
   <node id="306495402" lat="48.8793112" lon="11.2355702" version="16" changeset="590523" user="roemer60" uid="73803" visible="true" timestamp="2008-10-26T15:33:33Z"/>
   <node id="306495406" lat="48.8792548" lon="11.2356818" version="16" changeset="590523" user="roemer60" uid="73803" visible="true" timestamp="2008-10-26T15:33:33Z"/>
@@ -7540,7 +7540,7 @@
   <node id="306496398" lat="48.8796499" lon="11.2377074" version="3" changeset="590523" user="roemer60" uid="73803" visible="true" timestamp="2008-10-26T16:20:19Z"/>
   <node id="306497095" lat="48.8817327" lon="11.2337334" version="24" changeset="869535" user="Paulchen Panther" uid="62236" visible="true" timestamp="2009-03-30T09:34:57Z"/>
   <node id="306497097" lat="48.8823197" lon="11.2329009" version="31" changeset="590523" user="roemer60" uid="73803" visible="true" timestamp="2008-10-26T15:18:09Z">
-    <tag k="highway" v="bus_stop"/>
+    <tag k="highway" v="busStop"/>
   </node>
   <node id="306497099" lat="48.8826923" lon="11.2325146" version="24" changeset="869535" user="Paulchen Panther" uid="62236" visible="true" timestamp="2009-03-30T09:34:58Z"/>
   <node id="306497100" lat="48.883093" lon="11.2322743" version="24" changeset="869535" user="Paulchen Panther" uid="62236" visible="true" timestamp="2009-03-30T09:34:58Z"/>
@@ -7772,7 +7772,7 @@
     <tag k="amenity" v="fire_station"/>
   </node>
   <node id="307654861" lat="48.8816076" lon="11.2332042" version="1" changeset="577710" user="roemer60" uid="73803" visible="true" timestamp="2008-10-26T11:45:44Z">
-    <tag k="highway" v="bus_stop"/>
+    <tag k="highway" v="busStop"/>
   </node>
   <node id="307654891" lat="48.8806455" lon="11.2346366" version="6" changeset="869535" user="Paulchen Panther" uid="62236" visible="true" timestamp="2009-03-30T09:36:26Z"/>
   <node id="307657960" lat="48.8808769" lon="11.2260021" version="2" changeset="577710" user="roemer60" uid="73803" visible="true" timestamp="2008-10-26T12:01:51Z"/>

@@ -10,5 +10,5 @@ traffic_lights
 # handle shape, allow, disallow, type
 attributes
 
-# handle non-default spread_type
-spread_type
+# handle non-default spreadType
+spreadType
