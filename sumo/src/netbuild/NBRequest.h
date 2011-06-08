@@ -47,7 +47,6 @@ class NBTrafficLightLogic;
 class OptionsCont;
 class NBTrafficLightDefinition;
 class NBEdgeCont;
-class NBJunctionLogicCont;
 class OutputDevice;
 
 
@@ -78,8 +77,7 @@ public:
     ~NBRequest();
 
     /** builds the bitset-representation of the logic */
-    void buildBitfieldLogic(bool leftHanded, NBJunctionLogicCont &jc,
-                            const std::string &key);
+    void buildBitfieldLogic(bool leftHanded);
 
     /** @brief returns the number of the junction's lanes and the number
         of the junction's links in respect. @note: only connected lanes are counted */
@@ -126,6 +124,10 @@ public:
                  const NBEdge * const possProhibitedFrom, const NBEdge * const possProhibitedTo,
                  bool regardNonSignalisedLowerPriority) const throw();
 
+    /** writes the XML-representation of the logic as a bitset-logic
+        XML representation */
+    void writeLogic(std::string key, OutputDevice &into) const;
+
     /// prints the request
     friend std::ostream &operator<<(std::ostream &os, const NBRequest &r);
 
@@ -138,14 +140,10 @@ private:
         from2->to2 (is higher priorised than this) */
     void setBlocking(bool leftHanded, NBEdge *from1, NBEdge *to1, NBEdge *from2, NBEdge *to2);
 
-    /** returns the XML-representation of the logic as a bitset-logic
-        XML representation */
-    std::string bitsetToXML(std::string key);
-
     /** @brief writes the response of a certain lane
         Returns the next link index within the junction */
     int writeLaneResponse(OutputDevice &od, NBEdge *from, int lane,
-                          int pos);
+                          int pos) const;
 
     /** @brief Writes the response of a certain link
      *
@@ -171,7 +169,7 @@ private:
 
     /** writes which participating links are foes to the given */
     void writeAreFoes(OutputDevice &od, NBEdge *from, NBEdge *to,
-                      bool isInnerEnd);
+                      bool isInnerEnd) const;
 
 
     /** @brief Returns the index to the internal combination container for the given edge combination

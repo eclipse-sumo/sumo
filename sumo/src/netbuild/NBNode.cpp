@@ -53,7 +53,6 @@
 #include "NBNodeShapeComputer.h"
 #include "NBEdgeCont.h"
 #include "NBTypeCont.h"
-#include "NBJunctionLogicCont.h"
 #include "NBHelpers.h"
 #include "NBDistrict.h"
 #include "NBContHelper.h"
@@ -854,8 +853,7 @@ NBNode::getCrossingSourcesNames_dividedBySpace(NBEdge *fromE, unsigned int fromL
 
 
 void
-NBNode::computeLogic(const NBEdgeCont &ec, NBJunctionLogicCont &jc,
-                     OptionsCont &) {
+NBNode::computeLogic(const NBEdgeCont &ec, OptionsCont &oc) {
     delete myRequest; // possibly recomputation step
     if (myIncomingEdges.size()==0||myOutgoingEdges.size()==0) {
         // no logic if nothing happens here
@@ -863,12 +861,8 @@ NBNode::computeLogic(const NBEdgeCont &ec, NBJunctionLogicCont &jc,
         return;
     }
     // check whether the node was set to be unregulated by the user
-    if (OptionsCont::getOptions().getBool("keep-nodes-unregulated")
-            ||
-            OptionsCont::getOptions().isInStringVector("keep-nodes-unregulated.explicit", getID())
-            ||
-            (OptionsCont::getOptions().getBool("keep-nodes-unregulated.district-nodes")&&(isNearDistrict()||isDistrict()))) {
-
+    if (oc.getBool("keep-nodes-unregulated") || oc.isInStringVector("keep-nodes-unregulated.explicit", getID())
+            || (oc.getBool("keep-nodes-unregulated.district-nodes")&&(isNearDistrict()||isDistrict()))) {
         myType = NODETYPE_NOJUNCTION;
         return;
     }
@@ -885,9 +879,19 @@ NBNode::computeLogic(const NBEdgeCont &ec, NBJunctionLogicCont &jc,
             myRequest = 0;
             myType = NODETYPE_NOJUNCTION;
         } else {
-            myRequest->buildBitfieldLogic(ec.isLeftHanded(), jc, myID);
+            myRequest->buildBitfieldLogic(ec.isLeftHanded());
         }
     }
+}
+
+
+bool
+NBNode::writeLogic(OutputDevice &into) {
+	if (myRequest) {
+		myRequest->writeLogic(myID, into);
+		return true;
+	}
+	return false;
 }
 
 

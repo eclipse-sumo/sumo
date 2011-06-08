@@ -38,7 +38,6 @@
 #include "NBNodeCont.h"
 #include "NBNode.h"
 #include "NBTrafficLightLogicCont.h"
-#include "NBJunctionLogicCont.h"
 #include "NBDistrictCont.h"
 #include "NBJoinedEdgesMap.h"
 #include <utils/common/UtilExceptions.h>
@@ -172,14 +171,6 @@ public:
     }
 
 
-    /** @brief Returns the junction logics container
-     * @return The junction logics container (reference)
-     */
-    NBJunctionLogicCont &getJunctionLogicCont() throw() {
-        return myJunctionLogicCont;
-    }
-
-
     /** @brief Returns the districts container
      * @return The districts container (reference)
      */
@@ -242,9 +233,6 @@ protected:
 
     /// @brief The used container for traffic light logics
     NBTrafficLightLogicCont myTLLCont;
-
-    /// @brief The used container for junction logics
-    NBJunctionLogicCont myJunctionLogicCont;
 
     /// @brief The used container for districts
     NBDistrictCont myDistrictCont;

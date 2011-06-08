@@ -40,7 +40,6 @@
 #include <utils/options/OptionsCont.h>
 #include <utils/iodevices/OutputDevice_String.h>
 #include "NBEdge.h"
-#include "NBJunctionLogicCont.h"
 #include "NBContHelper.h"
 #include "NBTrafficLightLogic.h"
 #include "NBTrafficLightLogicCont.h"
@@ -150,8 +149,7 @@ NBRequest::~NBRequest() {}
 
 
 void
-NBRequest::buildBitfieldLogic(bool leftHanded, NBJunctionLogicCont &jc,
-                              const std::string &key) {
+NBRequest::buildBitfieldLogic(bool leftHanded) {
     EdgeVector::const_iterator i, j;
     for (i=myIncoming.begin(); i!=myIncoming.end(); i++) {
         for (j=myOutgoing.begin(); j!=myOutgoing.end(); j++) {
@@ -159,7 +157,8 @@ NBRequest::buildBitfieldLogic(bool leftHanded, NBJunctionLogicCont &jc,
             computeLeftOutgoingLinkCrossings(leftHanded, *i, *j);
         }
     }
-    jc.add(key, bitsetToXML(key));
+    // reset signalised/non-signalised dependencies
+    resetSignalised();
 }
 
 
@@ -320,17 +319,14 @@ NBRequest::distanceCounterClockwise(NBEdge *from, NBEdge *to) {
 }
 
 
-std::string
-NBRequest::bitsetToXML(std::string key) {
-    OutputDevice_String od(1);
-    // reset signalised/non-signalised dependencies
-    resetSignalised();
+void
+NBRequest::writeLogic(std::string key, OutputDevice &into) const {
     // init
     std::pair<size_t, size_t> sizes = getSizes();
     size_t absNoLinks = sizes.second;
     size_t absNoLanes = sizes.first;
     assert(absNoLinks>=absNoLanes);
-    od.openTag(SUMO_TAG_ROWLOGIC) << " " 
+    into.openTag(SUMO_TAG_ROWLOGIC) << " " 
         << toString(SUMO_ATTR_ID) << "=\"" << key << "\" "
         << toString(SUMO_ATTR_REQUESTSIZE) << "=\"" << absNoLinks << "\">\n";
     int pos = 0;
@@ -339,11 +335,10 @@ NBRequest::bitsetToXML(std::string key) {
     for (i=myIncoming.begin(); i!=myIncoming.end(); i++) {
         unsigned int noLanes = (*i)->getNoLanes();
         for (unsigned int k=0; k<noLanes; k++) {
-            pos = writeLaneResponse(od, *i, k, pos);
+            pos = writeLaneResponse(into, *i, k, pos);
         }
     }
-	od.closeTag();
-	return od.getString();
+	into.closeTag();
 }
 
 
@@ -479,7 +474,7 @@ NBRequest::forbids(const NBEdge * const possProhibitorFrom, const NBEdge * const
 
 int
 NBRequest::writeLaneResponse(OutputDevice &od, NBEdge *from,
-                             int fromLane, int pos) {
+                             int fromLane, int pos) const {
     std::vector<NBEdge::Connection> connected = from->getConnectionsFromLane(fromLane);
     for (std::vector<NBEdge::Connection>::iterator j=connected.begin(); j!=connected.end(); j++) {
 		od.openTag(SUMO_TAG_LOGICITEM) << " request=\"" << pos++ << "\" response=\"";
@@ -541,7 +536,7 @@ NBRequest::writeResponse(OutputDevice &od, const NBEdge * const from, const NBEd
 
 
 void
-NBRequest::writeAreFoes(OutputDevice &od, NBEdge *from, NBEdge *to, bool isInnerEnd) {
+NBRequest::writeAreFoes(OutputDevice &od, NBEdge *from, NBEdge *to, bool isInnerEnd) const {
     // remember the case when the lane is a "dead end" in the meaning that
     // vehicles must choose another lane to move over the following
     // junction

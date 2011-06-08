@@ -33,7 +33,6 @@
 #include "NBNodeCont.h"
 #include "NBEdgeCont.h"
 #include "NBTrafficLightLogicCont.h"
-#include "NBJunctionLogicCont.h"
 #include "NBDistrictCont.h"
 #include "NBDistribution.h"
 #include "NBRequest.h"
@@ -209,7 +208,7 @@ NBNetBuilder::compute(OptionsCont &oc) {
     myTLLCont.setTLControllingInformation(myEdgeCont);
     //
     inform(step, "Computing node logics.");
-    myNodeCont.computeLogics(myEdgeCont, myJunctionLogicCont, oc);
+    myNodeCont.computeLogics(myEdgeCont, oc);
     //
     inform(step, "Computing traffic light logics.");
     myTLLCont.computeLogics(myEdgeCont, oc);

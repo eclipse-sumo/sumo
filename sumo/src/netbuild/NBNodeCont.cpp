@@ -44,7 +44,6 @@
 #include <utils/iodevices/OutputDevice.h>
 #include "NBDistrict.h"
 #include "NBEdgeCont.h"
-#include "NBJunctionLogicCont.h"
 #include "NBTrafficLightLogicCont.h"
 #include "NBJoinedEdgesMap.h"
 #include "NBOwnTLDef.h"
@@ -511,10 +510,9 @@ NBNodeCont::computeLanes2Lanes() {
 
 // computes the "wheel" of incoming and outgoing edges for every node
 void
-NBNodeCont::computeLogics(const NBEdgeCont &ec, NBJunctionLogicCont &jc,
-                          OptionsCont &oc) {
+NBNodeCont::computeLogics(const NBEdgeCont &ec, OptionsCont &oc) {
     for (NodeCont::iterator i=myNodes.begin(); i!=myNodes.end(); i++) {
-        (*i).second->computeLogic(ec, jc, oc);
+        (*i).second->computeLogic(ec, oc);
     }
 }
 

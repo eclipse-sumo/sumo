@@ -35,7 +35,6 @@
 #include <set>
 #include <utils/geom/Position.h>
 #include "NBEdgeCont.h"
-#include "NBJunctionLogicCont.h"
 #include "NBNode.h"
 #include <utils/common/UtilExceptions.h>
 
@@ -188,8 +187,7 @@ public:
     void computeLanes2Lanes();
 
     /// build the list of outgoing edges and lanes
-    void computeLogics(const NBEdgeCont &ec, NBJunctionLogicCont &jc,
-                       OptionsCont &oc);
+    void computeLogics(const NBEdgeCont &ec, OptionsCont &oc);
 
     /// sorts the nodes' edges
     void sortNodesEdges(bool leftHand, const NBTypeCont &tc);

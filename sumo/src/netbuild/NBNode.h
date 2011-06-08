@@ -42,7 +42,6 @@
 #include <utils/geom/PositionVector.h>
 #include <utils/xml/SUMOXMLDefinitions.h>
 #include "NBEdge.h"
-#include "NBJunctionLogicCont.h"
 #include "NBConnection.h"
 #include "NBConnectionDefs.h"
 #include "NBContHelper.h"
@@ -244,8 +243,11 @@ public:
     void computeLanes2Lanes();
 
     /// computes the node's type, logic and traffic light
-    void computeLogic(const NBEdgeCont &ec, NBJunctionLogicCont &jc,
-                      OptionsCont &oc);
+    void computeLogic(const NBEdgeCont &ec, OptionsCont &oc);
+
+    /** writes the XML-representation of the logic as a bitset-logic
+        XML representation */
+    bool writeLogic(OutputDevice &into);
 
     /** initialises the list of all edges and sorts all edges */
     void sortNodesEdges(bool leftHand, const NBTypeCont &tc);
@@ -414,13 +416,6 @@ public:
     };
 
 private:
-    /// build the logic using the NBRequest
-    void buildBitfieldLogic();
-
-    /** sorts edges with same direction (other direction lanes) in a way that
-        the outgoing lanes are "earlier" in the list */
-    void sortSmall();
-
     // computes the junction type
     SumoXMLNodeType computeType(const NBTypeCont &tc) const;
     bool isSimpleContinuation() const;

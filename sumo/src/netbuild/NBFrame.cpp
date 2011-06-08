@@ -33,7 +33,6 @@
 #include "NBNodeCont.h"
 #include "NBEdgeCont.h"
 #include "NBTrafficLightLogicCont.h"
-#include "NBJunctionLogicCont.h"
 #include "NBDistrictCont.h"
 #include "NBDistribution.h"
 #include "NBRequest.h"

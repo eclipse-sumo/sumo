@@ -78,7 +78,6 @@ NWWriter_SUMO::writeNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
     // get involved container
     const NBNodeCont &nc = nb.getNodeCont();
     const NBEdgeCont &ec = nb.getEdgeCont();
-    const NBJunctionLogicCont &jc = nb.getJunctionLogicCont();
     const NBTrafficLightLogicCont &tc = nb.getTLLogicCont();
     const NBDistrictCont &dc = nb.getDistrictCont();
 
@@ -100,12 +99,13 @@ NWWriter_SUMO::writeNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
     device << "\n";
 
     // write right-of-way logics
-    for (std::map<std::string, std::string>::const_iterator i=jc.begin(); i!=jc.end(); ++i) {
-        device << (*i).second;
+    bool hadLogic = false;
+    for (std::map<std::string, NBNode*>::const_iterator i=nc.begin(); i!=nc.end(); ++i) {
+		hadLogic |= (*i).second->writeLogic(device);
     }
-    if (jc.size()!=0) {
-        device << "\n";
-    }
+	if (hadLogic) {
+		device << "\n";
+	}
 
     // write tls logics
     for (std::map<std::string, NBTrafficLightLogic*>::const_iterator i=tc.begin(); i!=tc.end(); ++i) {
