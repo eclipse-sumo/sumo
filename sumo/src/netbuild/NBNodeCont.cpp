@@ -540,8 +540,8 @@ void
 NBNodeCont::recheckEdges(NBDistrictCont &dc, NBTrafficLightLogicCont &tlc,
                          NBEdgeCont &ec) {
     // magic values
-    SUMOReal distanceTreshold = 7; // don't merge edges further apart
-    SUMOReal lengthTreshold = 0.05; // don't merge edges with higher relative length-difference
+    SUMOReal distanceThreshold = 7; // don't merge edges further apart
+    SUMOReal lengthThreshold = 0.05; // don't merge edges with higher relative length-difference
 
     for (NodeCont::iterator i=myNodes.begin(); i!=myNodes.end(); i++) {
         // count the edges to other nodes outgoing from the current
@@ -572,8 +572,8 @@ NBNodeCont::recheckEdges(NBDistrictCont &dc, NBTrafficLightLogicCont &tlc,
             for (jci=ev.begin()+1; jci!=ev.end(); ++jci) {
                 const SUMOReal relativeLengthDifference =
                     fabs(first->getLoadedLength() - (*jci)->getLoadedLength()) / first->getLoadedLength();
-                if ((!first->isNearEnough2BeJoined2(*jci, distanceTreshold)) ||
-                        (relativeLengthDifference > lengthTreshold) ||
+                if ((!first->isNearEnough2BeJoined2(*jci, distanceThreshold)) ||
+                        (relativeLengthDifference > lengthThreshold) ||
                         (first->getSpeed() != (*jci)->getSpeed())
                         // @todo check vclass
                    ) {
