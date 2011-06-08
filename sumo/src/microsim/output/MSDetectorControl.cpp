@@ -115,7 +115,7 @@ void
 MSDetectorControl::add(MSE2Collector *e2, OutputDevice& device, int splInterval) throw(ProcessError) {
     // insert object into dictionary
     if (! myE2Detectors.add(e2->getID(), e2)) {
-        throw ProcessError("e2-detector '" + e2->getID() + "' could not be build;\n (declared twice?)");
+        throw ProcessError("e2 detector '" + e2->getID() + "' could not be build;\n (declared twice?)");
     }
     addDetectorAndInterval(e2, &device, splInterval);
 }
@@ -125,7 +125,7 @@ void
 MSDetectorControl::add(MS_E2_ZS_CollectorOverLanes *e2ol, OutputDevice& device, int splInterval) throw(ProcessError) {
     // insert object into dictionary
     if (! myE2OverLanesDetectors.add(e2ol->getID(), e2ol)) {
-        throw ProcessError("e2-overlanes-detector '" + e2ol->getID() + "' could not be build;\n (declared twice?)");
+        throw ProcessError("e2 overlanes-detector '" + e2ol->getID() + "' could not be build;\n (declared twice?)");
     }
     addDetectorAndInterval(e2ol, &device, splInterval);
 }
@@ -135,7 +135,7 @@ void
 MSDetectorControl::add(MSE2Collector *e2) throw(ProcessError) {
     // insert object into dictionary
     if (! myE2Detectors.add(e2->getID(), e2)) {
-        throw ProcessError("e2-detector '" + e2->getID() + "' could not be build;\n (declared twice?)");
+        throw ProcessError("e2 detector '" + e2->getID() + "' could not be build;\n (declared twice?)");
     }
 }
 
@@ -144,7 +144,7 @@ void
 MSDetectorControl::add(MS_E2_ZS_CollectorOverLanes *e2ol) throw(ProcessError) {
     // insert object into dictionary
     if (! myE2OverLanesDetectors.add(e2ol->getID(), e2ol)) {
-        throw ProcessError("e2-overlanes-detector '" + e2ol->getID() + "' could not be build;\n (declared twice?)");
+        throw ProcessError("e2 over lanes detector '" + e2ol->getID() + "' could not be build;\n (declared twice?)");
     }
 }
 
@@ -164,7 +164,7 @@ void
 MSDetectorControl::add(MSE3Collector *e3, OutputDevice& device, int splInterval) throw(ProcessError) {
     // insert object into dictionary
     if (! myE3Detectors.add(e3->getID(), e3)) {
-        throw ProcessError("e3-detector '" + e3->getID() + "' could not be build;\n (declared twice?)");
+        throw ProcessError("e3 detector '" + e3->getID() + "' could not be build;\n (declared twice?)");
     }
     addDetectorAndInterval(e3, &device, splInterval);
 }
@@ -199,12 +199,12 @@ MSDetectorControl::add(MEInductLoop *meil, OutputDevice& device, int splInterval
 void
 MSDetectorControl::updateDetectors(const SUMOTime step) throw() {
     // update all detectors with inner containers
-    // e2-detectors
+    // e2 detectors
     const std::vector<MSE2Collector*> &e2s = myE2Detectors.buildAndGetStaticVector();
     for (E2Vect::const_iterator i=e2s.begin(); i!=e2s.end(); ++i) {
         (*i)->update(step);
     }
-    // e3-detectors
+    // e3 detectors
     const std::vector<MSE3Collector*> &e3s = myE3Detectors.buildAndGetStaticVector();
     for (E3Vect::const_iterator i=e3s.begin(); i!=e3s.end(); ++i) {
         (*i)->update(step);

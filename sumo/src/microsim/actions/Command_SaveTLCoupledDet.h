@@ -4,7 +4,7 @@
 /// @date    15 Feb 2004
 /// @version $Id$
 ///
-// Writes e2-state on each tls switch
+// Writes e2 state on each tls switch
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // Copyright (C) 2001-2011 DLR (http://www.dlr.de/) and contributors
@@ -48,7 +48,7 @@ class OutputDevice;
 // ===========================================================================
 /**
  * @class Command_SaveTLCoupledDet
- * @brief Writes e2-state on each tls switch
+ * @brief Writes e2 state on each tls switch
  *
  * @todo Problem: The detector may not save the last state (on simulation end)
  */

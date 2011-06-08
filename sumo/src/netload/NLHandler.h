@@ -125,12 +125,12 @@ protected:
     virtual void addDetector(const SUMOSAXAttributes &attrs);
 
 
-    /** @brief Builds an e1-detector using the given specification
+    /** @brief Builds an e1 detector using the given specification
      * @param[in] attrs The attributes that define the detector
      */
     virtual void addE1Detector(const SUMOSAXAttributes &attrs);
 
-    /** @brief Builds an e2-detector using the given specification
+    /** @brief Builds an e2 detector using the given specification
      * @param[in] attrs The attributes that define the detector
      */
     virtual void addE2Detector(const SUMOSAXAttributes &attrs);
@@ -142,22 +142,22 @@ protected:
     virtual void addMsgDetector(const SUMOSAXAttributes &attrs);
 #endif
 
-    /** @brief Starts building of an e3-detector using the given specification
+    /** @brief Starts building of an e3 detector using the given specification
      * @param[in] attrs The attributes that define the detector
      */
     void beginE3Detector(const SUMOSAXAttributes &attrs);
 
-    /** @brief Adds an entry to the currently processed e3-detector
+    /** @brief Adds an entry to the currently processed e3 detector
      * @param[in] attrs The attributes that define the entry
      */
     void addE3Entry(const SUMOSAXAttributes &attrs);
 
-    /** @brief Adds an exit to the currently processed e3-detector
+    /** @brief Adds an exit to the currently processed e3 detector
      * @param[in] attrs The attributes that define the exit
      */
     void addE3Exit(const SUMOSAXAttributes &attrs);
 
-    /// Builds of an e3-detector using collected values
+    /// Builds of an e3 detector using collected values
     virtual void endE3Detector();
 
     /** @brief Builds a vtype-detector using the given specification
@@ -335,9 +335,9 @@ protected:
 		myHaveWarnedAboutDeprecatedDetExit, myHaveWarnedAboutDeprecatedTimedEvent;
 	bool myHaveWarnedAboutDeprecatedRowLogic, myHaveWarnedAboutDeprecatedTLLogic;
 	bool myHaveWarnedAboutDeprecatedTLSTiming;
-	bool myHaveWarnedAboutDeprecatedTimeTreshold, 
-		myHaveWarnedAboutDeprecatedSpeedTreshold,
-		myHaveWarnedAboutDeprecatedJamDistTreshold;
+	bool myHaveWarnedAboutDeprecatedTimeThreshold, 
+		myHaveWarnedAboutDeprecatedSpeedThreshold,
+		myHaveWarnedAboutDeprecatedJamDistThreshold;
 
 
 private:

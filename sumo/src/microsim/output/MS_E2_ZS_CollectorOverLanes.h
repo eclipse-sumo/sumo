@@ -62,7 +62,7 @@ class MSE2Collector;
 class MS_E2_ZS_CollectorOverLanes :
             public MSDetectorFileOutput {
 public:
-    /// Definition of a E2-collector storage
+    /// Definition of a E2 collector storage
     typedef std::vector< MSE2Collector* > CollectorCont;
 
     /** @brief Constructor
@@ -83,7 +83,7 @@ public:
                                 SUMOReal jamDistThreshold) throw();
 
 
-    /** @brief Builds the consecutive E2-detectors
+    /** @brief Builds the consecutive E2 detectors
      *
      * This is not done within the constructor to allow overriding of
      *  most functions but the building of detectors itself which in fact
@@ -160,7 +160,7 @@ protected:
     void extendTo(SUMOReal length) throw();
 
 
-    /** @brief Builds an id for one of the E2-collectors this detector uses
+    /** @brief Builds an id for one of the E2 collectors this detector uses
      *
      * @param[in] baseID The id of the parent detector
      * @param[in] c !!!

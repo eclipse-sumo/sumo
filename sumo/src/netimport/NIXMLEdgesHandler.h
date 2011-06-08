@@ -271,6 +271,8 @@ private:
     /// @brief Information whether at least one edge's attributes were overwritten
     bool myHaveReportedAboutOverwriting;
 
+    bool myHaveWarnedAboutDeprecatedSpreadType;
+
 
 private:
     /** @brief invalid copy constructor */

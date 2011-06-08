@@ -237,7 +237,7 @@ MSInductLoop::enterDetectorByMove(SUMOVehicle& veh,
         //  before the first one leaves... (collision)
         // Still, this seems to happen, but should not be handled herein.
         //  we will inform the user, etc., but continue as nothing had happened
-        MsgHandler::getWarningInstance()->inform("Collision on e1-detector '" + getID() + "'.\n Vehicle '" + myCurrentVehicle->getID() +
+        MsgHandler::getWarningInstance()->inform("Collision on e1 detector '" + getID() + "'.\n Vehicle '" + myCurrentVehicle->getID() +
                 "' was already at detector as '" + veh.getID() + "' entered at '" + toString(entryTimestep) + "'.");
         leaveDetectorByMove(*myCurrentVehicle, entryTimestep);
     }

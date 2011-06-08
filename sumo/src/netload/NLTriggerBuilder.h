@@ -298,6 +298,8 @@ protected:
     /// @brief The parent handler to set for subhandlers
     NLHandler* myHandler;
 
+    bool myHaveWarnedAboutDeprecatedFriendlyPos;
+
 };
 
 

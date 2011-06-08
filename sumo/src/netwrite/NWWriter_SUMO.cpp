@@ -262,7 +262,7 @@ NWWriter_SUMO::writeEdge(OutputDevice &into, const NBEdge &e) {
     }
     // write the spread type if not default ("right")
     if (e.getLaneSpreadFunction()!=LANESPREAD_RIGHT) {
-        into << " spread_type=\"" << toString(e.getLaneSpreadFunction()) << "\"";
+        into << " spreadType=\"" << toString(e.getLaneSpreadFunction()) << "\"";
     }
     if (!e.hasDefaultGeometry()) {
         into << " " << toString(SUMO_ATTR_SHAPE) <<  "=\"" << toString(e.getGeometry()) << "\"";

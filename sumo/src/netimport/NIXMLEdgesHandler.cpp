@@ -69,7 +69,7 @@ NIXMLEdgesHandler::NIXMLEdgesHandler(NBNodeCont &nc,
         : SUMOSAXHandler("xml-edges - file"),
         myOptions(options),
         myNodeCont(nc), myEdgeCont(ec), myTypeCont(tc), myDistrictCont(dc),
-        myCurrentEdge(0) {}
+        myCurrentEdge(0), myHaveWarnedAboutDeprecatedSpreadType(false) {}
 
 
 NIXMLEdgesHandler::~NIXMLEdgesHandler() throw() {}
@@ -178,12 +178,21 @@ NIXMLEdgesHandler::myStartElement(int element,
         // try to get the shape
         myShape = tryGetShape(attrs);
         // and how to spread the lanes
-        std::string lsfS = attrs.getOptStringReporting(SUMO_ATTR_SPREADFUNC, myCurrentID.c_str(), ok, toString(LANESPREAD_RIGHT));
+        std::string lsfS = toString(LANESPREAD_RIGHT);
+        if(attrs.hasAttribute(SUMO_ATTR_SPREADFUNC__DEPRECATED)) {
+	        lsfS = attrs.getStringReporting(SUMO_ATTR_SPREADFUNC__DEPRECATED, myCurrentID.c_str(), ok);
+            if(!myHaveWarnedAboutDeprecatedSpreadType) {
+                MsgHandler::getWarningInstance()->inform("'" + toString(SUMO_ATTR_SPREADFUNC__DEPRECATED) + " is deprecated; please use '" + toString(SUMO_ATTR_SPREADFUNC) + "'.");
+                myHaveWarnedAboutDeprecatedSpreadType = true;
+            }   
+	    } else {
+	        lsfS = attrs.getOptStringReporting(SUMO_ATTR_SPREADFUNC, myCurrentID.c_str(), ok, lsfS);
+	    }
         if (SUMOXMLDefinitions::LaneSpreadFunctions.hasString(lsfS)) {
             myLanesSpread = SUMOXMLDefinitions::LaneSpreadFunctions.get(lsfS);
         } else {
             myLanesSpread = LANESPREAD_RIGHT;
-            WRITE_WARNING("Ignoring unknown spread_type '" + lsfS + "' for edge '" + myCurrentID + "'.");
+            WRITE_WARNING("Ignoring unknown spreadType '" + lsfS + "' for edge '" + myCurrentID + "'.");
         }
         // get the length or compute it
         if (attrs.hasAttribute(SUMO_ATTR_LENGTH)) {

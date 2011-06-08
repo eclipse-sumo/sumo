@@ -74,7 +74,7 @@ NIImporter_SUMO::NIImporter_SUMO(NBNetBuilder &nb)
         myCurrentEdge(0),
         myCurrentLane(0),
         myCurrentTL(0),
-        mySuspectKeepShape(false)
+        mySuspectKeepShape(false), myHaveWarnedAboutDeprecatedSpreadType(false)
 {}
 
 
@@ -324,11 +324,20 @@ NIImporter_SUMO::addEdge(const SUMOSAXAttributes &attrs) {
     myCurrentEdge->builtEdge = 0;
     myCurrentEdge->streetName = attrs.getOptStringReporting(SUMO_ATTR_NAME, id.c_str(), ok, "");
 
-    std::string lsfS = attrs.getOptStringReporting(SUMO_ATTR_SPREADFUNC, id.c_str(), ok, toString(LANESPREAD_RIGHT));
+	std::string lsfS = toString(LANESPREAD_RIGHT);
+	if(attrs.hasAttribute(SUMO_ATTR_SPREADFUNC__DEPRECATED)) {
+	    lsfS = attrs.getStringReporting(SUMO_ATTR_SPREADFUNC__DEPRECATED, id.c_str(), ok);
+        if(!myHaveWarnedAboutDeprecatedSpreadType) {
+            MsgHandler::getWarningInstance()->inform("'" + toString(SUMO_ATTR_SPREADFUNC__DEPRECATED) + " is deprecated; please use '" + toString(SUMO_ATTR_SPREADFUNC) + "'.");
+            myHaveWarnedAboutDeprecatedSpreadType = true;
+        }
+	} else {
+	    lsfS = attrs.getOptStringReporting(SUMO_ATTR_SPREADFUNC, id.c_str(), ok, lsfS);
+	}
     if (SUMOXMLDefinitions::LaneSpreadFunctions.hasString(lsfS)) {
         myCurrentEdge->lsf = SUMOXMLDefinitions::LaneSpreadFunctions.get(lsfS);
     } else {
-        WRITE_ERROR("Unknown spread_type '" + lsfS + "' for edge '" + id + "'.");
+        WRITE_ERROR("Unknown spreadType '" + lsfS + "' for edge '" + id + "'.");
     }
 }
 

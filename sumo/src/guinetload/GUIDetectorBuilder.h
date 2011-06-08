@@ -70,7 +70,7 @@ public:
     /// Override NLDetectorBuilder methods.
     /// @{
 
-    /** @brief Creates an instance of an e1-detector using the given values
+    /** @brief Creates an instance of an e1 detector using the given values
      *
      * Simply calls the GUIInductLoop constructor
      *
@@ -83,7 +83,7 @@ public:
 
 
 #ifdef HAVE_MESOSIM
-    /** @brief Creates an instance of a mesoscopic e1-detector using the given values
+    /** @brief Creates an instance of a mesoscopic e1 detector using the given values
      *
      * Simply calls the MEInductLoop constructor
      *
@@ -136,7 +136,7 @@ public:
         SUMOReal jamDistThreshold) throw();
 
 
-    /** @brief Creates an instance of an e3-detector using the given values
+    /** @brief Creates an instance of an e3 detector using the given values
      *
      * Simply calls the GUIE3Collector constructor.
      *

@@ -54,7 +54,7 @@ class OutputDevice;
  * @class MSE3Collector
  * @brief A detector of vehicles passing an area between entry/exit points
  *
- * E3-detectors are defined by a set of in-cross-sections and out-cross-sections.
+ * E3 detectors are defined by a set of in-cross-sections and out-cross-sections.
  * Vehicles, that pass an in- and out-cross-section are detected when they pass the
  *  out-cross-section. Vehicles passing the out-cross-section without having
  *  passed the in-cross-section are not detected.
@@ -63,7 +63,7 @@ class MSE3Collector : public MSDetectorFileOutput, public Named {
 public:
     /**
      * @class MSE3EntryReminder
-     * @brief A place on the road net (at a certain lane and position on it) where the E3-area begins
+     * @brief A place on the road net (at a certain lane and position on it) where the E3 area begins
      */
     class MSE3EntryReminder : public MSMoveReminder {
     public:
@@ -131,7 +131,7 @@ public:
 
     /**
      * @class MSE3LeaveReminder
-     * @brief A place on the road net (at a certain lane and position on it) where the E3-area ends
+     * @brief A place on the road net (at a certain lane and position on it) where the E3 area ends
      */
     class MSE3LeaveReminder : public MSMoveReminder {
     public:
@@ -276,7 +276,7 @@ public:
     void writeXMLOutput(OutputDevice &dev, SUMOTime startTime, SUMOTime stopTime) throw(IOError);
 
 
-    /** @brief Opens the XML-output using "e3-detector" as root element
+    /** @brief Opens the XML-output using "e3Detector" as root element
      *
      * The lists of entries/exists are written, too.
      *

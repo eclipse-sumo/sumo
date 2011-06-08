@@ -113,7 +113,7 @@ NWWriter_XML::writeNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
         }
         // write the spread type if not default ("right")
         if (e->getLaneSpreadFunction()!=LANESPREAD_RIGHT) {
-            edevice << " spread_type=\"" << toString(e->getLaneSpreadFunction()) << "\"";
+            edevice << " spreadType=\"" << toString(e->getLaneSpreadFunction()) << "\"";
         }
         // write the vehicles class if restrictions exist
         if (!e->hasRestrictions()) {

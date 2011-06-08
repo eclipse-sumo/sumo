@@ -82,7 +82,10 @@ NLHandler::NLHandler(const std::string &file, MSNet &net,
 		myHaveWarnedAboutDeprecatedRowLogic(false),
 		myHaveWarnedAboutDeprecatedTLLogic(false),
 		myHaveWarnedAboutDeprecatedTimedEvent(false),
-		myHaveWarnedAboutDeprecatedTLSTiming(false)
+		myHaveWarnedAboutDeprecatedTLSTiming(false),
+        myHaveWarnedAboutDeprecatedTimeThreshold(false), 
+		myHaveWarnedAboutDeprecatedSpeedThreshold(false),
+		myHaveWarnedAboutDeprecatedJamDistThreshold(false)
 {}
 
 
@@ -159,18 +162,46 @@ NLHandler::myStartElement(int element,
             addMsgDetector(attrs);
             break;
 #endif
+        case SUMO_TAG_E1DETECTOR__DEPRECATED:
+			if(!myHaveWarnedAboutDeprecatedE1) {
+				myHaveWarnedAboutDeprecatedE1 = true;
+				MsgHandler::getWarningInstance()->inform("'" + toString(SUMO_TAG_E1DETECTOR__DEPRECATED) + " is deprecated; please use '" + toString(SUMO_TAG_E3DETECTOR) + "'.");
+			}
         case SUMO_TAG_E1DETECTOR:
+		case SUMO_TAG_INDUCTION_LOOP:
             addE1Detector(attrs);
             break;
+        case SUMO_TAG_E2DETECTOR__DEPRECATED:
+			if(!myHaveWarnedAboutDeprecatedE2) {
+				myHaveWarnedAboutDeprecatedE2 = true;
+				MsgHandler::getWarningInstance()->inform("'" + toString(SUMO_TAG_E2DETECTOR__DEPRECATED) + " is deprecated; please use '" + toString(SUMO_TAG_E2DETECTOR) + "'.");
+			}
         case SUMO_TAG_E2DETECTOR:
+		case SUMO_TAG_LANE_AREA_DETECTOR:
             addE2Detector(attrs);
             break;
+        case SUMO_TAG_E3DETECTOR__DEPRECATED:
+			if(!myHaveWarnedAboutDeprecatedE3) {
+				myHaveWarnedAboutDeprecatedE3 = true;
+				MsgHandler::getWarningInstance()->inform("'" + toString(SUMO_TAG_E3DETECTOR__DEPRECATED) + " is deprecated; please use '" + toString(SUMO_TAG_E3DETECTOR) + "'.");
+			}
         case SUMO_TAG_E3DETECTOR:
+		case SUMO_TAG_ENTRY_EXIT_DETECTOR:
             beginE3Detector(attrs);
             break;
+        case SUMO_TAG_DET_ENTRY__DEPRECATED:
+			if(!myHaveWarnedAboutDeprecatedDetEntry) {
+				myHaveWarnedAboutDeprecatedDetEntry = true;
+				MsgHandler::getWarningInstance()->inform("'" + toString(SUMO_TAG_DET_ENTRY__DEPRECATED) + " is deprecated; please use '" + toString(SUMO_TAG_DET_ENTRY) + "'.");
+			}
         case SUMO_TAG_DET_ENTRY:
             addE3Entry(attrs);
             break;
+        case SUMO_TAG_DET_EXIT__DEPRECATED:
+			if(!myHaveWarnedAboutDeprecatedDetExit) {
+				myHaveWarnedAboutDeprecatedDetExit = true;
+				MsgHandler::getWarningInstance()->inform("'" + toString(SUMO_TAG_DET_EXIT__DEPRECATED) + " is deprecated; please use '" + toString(SUMO_TAG_DET_EXIT) + "'.");
+			}
         case SUMO_TAG_DET_EXIT:
             addE3Exit(attrs);
             break;
@@ -198,6 +229,11 @@ NLHandler::myStartElement(int element,
         case SUMO_TAG_MEANDATA_LANE:
             addEdgeLaneMeanData(attrs, "meandata_lane");
             break;
+        case SUMO_TAG_TIMEDEVENT__DEPRECATED:
+			if(!myHaveWarnedAboutDeprecatedTimedEvent) {
+				myHaveWarnedAboutDeprecatedTimedEvent = true;
+				MsgHandler::getWarningInstance()->inform("'" + toString(SUMO_TAG_TIMEDEVENT__DEPRECATED) + " is deprecated; please use '" + toString(SUMO_TAG_TIMEDEVENT) + "'.");
+			}
         case SUMO_TAG_TIMEDEVENT:
             myActionBuilder.addAction(attrs, getFileName());
             break;
@@ -734,19 +770,19 @@ NLHandler::addDetector(const SUMOSAXAttributes &attrs) {
     // try to get the type
     std::string type = attrs.getOptStringReporting(SUMO_ATTR_TYPE, 0, ok, "induct_loop");
     // build in dependence to type
-    // induct loops (E1-detectors)
+    // induct loops (E1 detectors)
     if (type=="induct_loop"||type=="E1"||type=="e1") {
         addE1Detector(attrs);
         myCurrentDetectorType = "e1";
         return;
     }
-    // lane-based areal detectors (E2-detectors)
+    // lane-based areal detectors (E2 detectors)
     if (type=="lane_based"||type=="E2"||type=="e2") {
         addE2Detector(attrs);
         myCurrentDetectorType = "e2";
         return;
     }
-    // multi-origin/multi-destination detectors (E3-detectors)
+    // multi-origin/multi-destination detectors (E3 detectors)
     if (type=="multi_od"||type=="E3"||type=="e3") {
         beginE3Detector(attrs);
         myCurrentDetectorType = "e3";
@@ -771,7 +807,13 @@ NLHandler::addMsgDetector(const SUMOSAXAttributes &attrs) {
         return;
     }
     SUMOReal position = attrs.getSUMORealReporting(SUMO_ATTR_POSITION, id.c_str(), ok);
-    bool friendlyPos = attrs.getOptBoolReporting(SUMO_ATTR_FRIENDLY_POS, id.c_str(), ok, false);
+		if(attrs.hasAttribute(SUMO_ATTR_FRIENDLY_POS__DEPRECATED)&&!myHaveWarnedAboutDeprecatedFriendlyPos) {
+			myHaveWarnedAboutDeprecatedFriendlyPos = true;
+			MsgHandler::getWarningInstance()->inform("'" + toString(SUMO_ATTR_FRIENDLY_POS__DEPRECATED) + "' is deprecated, use '" + toString(SUMO_ATTR_FRIENDLY_POS) + "' instead.");
+		}
+    bool friendlyPos = attrs.hasAttribute(SUMO_ATTR_FRIENDLY_POS__DEPRECATED)
+		? attrs.getOptBoolReporting(SUMO_ATTR_FRIENDLY_POS__DEPRECATED, id.c_str(), ok, false);
+		: attrs.getOptBoolReporting(SUMO_ATTR_FRIENDLY_POS, id.c_str(), ok, false);
     std::string lane = attrs.getStringReporting(SUMO_ATTR_LANE, id.c_str(), ok);
     std::string msg = attrs.getStringReporting(SUMO_ATTR_MSG, id.c_str(), ok);
     std::string file = attrs.getStringReporting(SUMO_ATTR_FILE, id.c_str(), ok);
@@ -799,12 +841,15 @@ NLHandler::addE1Detector(const SUMOSAXAttributes &attrs) {
         return;
     }
     // inform the user about deprecated values
-    if (attrs.getOptStringReporting(SUMO_ATTR_STYLE, id.c_str(), ok, "<invalid>")!="<invalid>") {
-        MsgHandler::getWarningInstance()->inform("While parsing E1-detector '" + id + "': 'style' is deprecated.");
-    }
     SUMOTime frequency = attrs.getSUMOTimeReporting(SUMO_ATTR_FREQUENCY, id.c_str(), ok);
     SUMOReal position = attrs.getSUMORealReporting(SUMO_ATTR_POSITION, id.c_str(), ok);
-    bool friendlyPos = attrs.getOptBoolReporting(SUMO_ATTR_FRIENDLY_POS, id.c_str(), ok, false);
+		if(attrs.hasAttribute(SUMO_ATTR_FRIENDLY_POS__DEPRECATED)&&!myHaveWarnedAboutDeprecatedFriendlyPos) {
+			myHaveWarnedAboutDeprecatedFriendlyPos = true;
+			MsgHandler::getWarningInstance()->inform("'" + toString(SUMO_ATTR_FRIENDLY_POS__DEPRECATED) + "' is deprecated, use '" + toString(SUMO_ATTR_FRIENDLY_POS) + "' instead.");
+		}
+    bool friendlyPos = attrs.hasAttribute(SUMO_ATTR_FRIENDLY_POS__DEPRECATED)
+		? attrs.getOptBoolReporting(SUMO_ATTR_FRIENDLY_POS__DEPRECATED, id.c_str(), ok, false)
+		: attrs.getOptBoolReporting(SUMO_ATTR_FRIENDLY_POS, id.c_str(), ok, false);
     std::string lane = attrs.getStringReporting(SUMO_ATTR_LANE, id.c_str(), ok);
     std::string file = attrs.getStringReporting(SUMO_ATTR_FILE, id.c_str(), ok);
     if (!ok) {
@@ -872,21 +917,40 @@ NLHandler::addE2Detector(const SUMOSAXAttributes &attrs) {
     std::string id = attrs.getStringReporting(SUMO_ATTR_ID, 0, ok);
     std::string lsaid = attrs.getOptStringReporting(SUMO_ATTR_TLID, id.c_str(), ok, "<invalid>");
     std::string toLane = attrs.getOptStringReporting(SUMO_ATTR_TO, id.c_str(), ok, "<invalid>");
-    // inform the user about deprecated values
-    if (attrs.getOptStringReporting(SUMO_ATTR_MEASURES, id.c_str(), ok, "<invalid>")!="<invalid>") {
-        MsgHandler::getWarningInstance()->inform("While parsing E2-detector '" + id + "': 'measures' is deprecated.");
-    }
-    if (attrs.getOptStringReporting(SUMO_ATTR_STYLE, id.c_str(), ok, "<invalid>")!="<invalid>") {
-        MsgHandler::getWarningInstance()->inform("While parsing E2-detector '" + id + "': 'style' is deprecated.");
-    }
     //
     try {
-        const SUMOTime haltingTimeThreshold = attrs.getOptSUMOTimeReporting(SUMO_ATTR_HALTING_TIME_THRESHOLD, id.c_str(), ok, TIME2STEPS(1));
-        const SUMOReal haltingSpeedThreshold = attrs.getOptSUMORealReporting(SUMO_ATTR_HALTING_SPEED_THRESHOLD, id.c_str(), ok, 5.0f/3.6f);
-        const SUMOReal jamDistThreshold = attrs.getOptSUMORealReporting(SUMO_ATTR_JAM_DIST_THRESHOLD, id.c_str(), ok, 10.0f);
+		if(attrs.hasAttribute(SUMO_ATTR_HALTING_TIME_THRESHOLD__DEPRECATED)) {
+			myHaveWarnedAboutDeprecatedTimeThreshold = true;
+            MsgHandler::getWarningInstance()->inform("'" + toString(SUMO_ATTR_HALTING_TIME_THRESHOLD__DEPRECATED) + " is deprecated; please use '" + toString(SUMO_ATTR_HALTING_TIME_THRESHOLD) + "'.");
+		}
+		if(attrs.hasAttribute(SUMO_ATTR_HALTING_SPEED_THRESHOLD__DEPRECATED)) {
+			myHaveWarnedAboutDeprecatedSpeedThreshold = true;
+            MsgHandler::getWarningInstance()->inform("'" + toString(SUMO_ATTR_HALTING_SPEED_THRESHOLD__DEPRECATED) + " is deprecated; please use '" + toString(SUMO_ATTR_HALTING_SPEED_THRESHOLD) + "'.");
+		}
+		if(attrs.hasAttribute(SUMO_ATTR_JAM_DIST_THRESHOLD__DEPRECATED)) {
+			myHaveWarnedAboutDeprecatedJamDistThreshold = true;
+            MsgHandler::getWarningInstance()->inform("'" + toString(SUMO_ATTR_JAM_DIST_THRESHOLD__DEPRECATED) + " is deprecated; please use '" + toString(SUMO_ATTR_JAM_DIST_THRESHOLD) + "'.");
+		}
+		if(attrs.hasAttribute(SUMO_ATTR_FRIENDLY_POS__DEPRECATED)&&!myHaveWarnedAboutDeprecatedFriendlyPos) {
+			myHaveWarnedAboutDeprecatedFriendlyPos = true;
+            MsgHandler::getWarningInstance()->inform("'" + toString(SUMO_ATTR_FRIENDLY_POS__DEPRECATED) + " is deprecated; please use '" + toString(SUMO_ATTR_FRIENDLY_POS) + "'.");
+		}
+
+
+		const SUMOTime haltingTimeThreshold = attrs.hasAttribute(SUMO_ATTR_HALTING_TIME_THRESHOLD__DEPRECATED)
+			? attrs.getOptSUMOTimeReporting(SUMO_ATTR_HALTING_TIME_THRESHOLD__DEPRECATED, id.c_str(), ok, TIME2STEPS(1))
+			: attrs.getOptSUMOTimeReporting(SUMO_ATTR_HALTING_TIME_THRESHOLD, id.c_str(), ok, TIME2STEPS(1));
+        const SUMOReal haltingSpeedThreshold = attrs.hasAttribute(SUMO_ATTR_HALTING_SPEED_THRESHOLD__DEPRECATED)
+			? attrs.getOptSUMORealReporting(SUMO_ATTR_HALTING_SPEED_THRESHOLD__DEPRECATED, id.c_str(), ok, 5.0f/3.6f)
+			: attrs.getOptSUMORealReporting(SUMO_ATTR_HALTING_SPEED_THRESHOLD, id.c_str(), ok, 5.0f/3.6f);
+        const SUMOReal jamDistThreshold = attrs.hasAttribute(SUMO_ATTR_JAM_DIST_THRESHOLD__DEPRECATED)
+			? attrs.getOptSUMORealReporting(SUMO_ATTR_JAM_DIST_THRESHOLD__DEPRECATED, id.c_str(), ok, 10.0f)
+			: attrs.getOptSUMORealReporting(SUMO_ATTR_JAM_DIST_THRESHOLD, id.c_str(), ok, 10.0f);
         const SUMOReal position = attrs.getSUMORealReporting(SUMO_ATTR_POSITION, id.c_str(), ok);
         const SUMOReal length = attrs.getSUMORealReporting(SUMO_ATTR_LENGTH, id.c_str(), ok);
-        const bool friendlyPos = attrs.getOptBoolReporting(SUMO_ATTR_FRIENDLY_POS, id.c_str(), ok, false);
+		const bool friendlyPos = attrs.hasAttribute(SUMO_ATTR_FRIENDLY_POS__DEPRECATED)
+			? attrs.getOptBoolReporting(SUMO_ATTR_FRIENDLY_POS__DEPRECATED, id.c_str(), ok, false)
+			: attrs.getOptBoolReporting(SUMO_ATTR_FRIENDLY_POS, id.c_str(), ok, false);
         const bool cont = attrs.getOptBoolReporting(SUMO_ATTR_CONT, id.c_str(), ok, false);
         const std::string lane = attrs.getStringReporting(SUMO_ATTR_LANE, id.c_str(), ok);
         const std::string file = attrs.getStringReporting(SUMO_ATTR_FILE, id.c_str(), ok);
@@ -931,15 +995,22 @@ NLHandler::beginE3Detector(const SUMOSAXAttributes &attrs) {
     bool ok = true;
     // inform the user about deprecated values
     std::string id = attrs.getStringReporting(SUMO_ATTR_ID, 0, ok);
-    if (attrs.getOptStringReporting(SUMO_ATTR_MEASURES, id.c_str(), ok, "<invalid>")!="<invalid>") {
-        MsgHandler::getWarningInstance()->inform("While parsing E3-detector '" + id + "': 'measures' is deprecated.");
-    }
-    if (attrs.getOptStringReporting(SUMO_ATTR_STYLE, id.c_str(), ok, "<invalid>")!="<invalid>") {
-        MsgHandler::getWarningInstance()->inform("While parsing E3-detector '" + id + "': 'style' is deprecated.");
-    }
-    const SUMOTime frequency = attrs.getSUMOTimeReporting(SUMO_ATTR_FREQUENCY, id.c_str(), ok);
-    const SUMOTime haltingTimeThreshold = attrs.getOptSUMOTimeReporting(SUMO_ATTR_HALTING_TIME_THRESHOLD, id.c_str(), ok, TIME2STEPS(1));
-    const SUMOReal haltingSpeedThreshold = attrs.getOptSUMORealReporting(SUMO_ATTR_HALTING_SPEED_THRESHOLD, id.c_str(), ok, 5.0f/3.6f);
+	if(attrs.hasAttribute(SUMO_ATTR_HALTING_TIME_THRESHOLD__DEPRECATED)) {
+		myHaveWarnedAboutDeprecatedTimeThreshold = true;
+        MsgHandler::getWarningInstance()->inform("'" + toString(SUMO_ATTR_HALTING_TIME_THRESHOLD__DEPRECATED) + " is deprecated; please use '" + toString(SUMO_ATTR_HALTING_TIME_THRESHOLD) + "'.");
+	}
+	if(attrs.hasAttribute(SUMO_ATTR_HALTING_SPEED_THRESHOLD__DEPRECATED)) {
+		myHaveWarnedAboutDeprecatedSpeedThreshold = true;
+        MsgHandler::getWarningInstance()->inform("'" + toString(SUMO_ATTR_HALTING_SPEED_THRESHOLD__DEPRECATED) + " is deprecated; please use '" + toString(SUMO_ATTR_HALTING_SPEED_THRESHOLD) + "'.");
+	}
+
+	const SUMOTime frequency = attrs.getSUMOTimeReporting(SUMO_ATTR_FREQUENCY, id.c_str(), ok);
+	const SUMOTime haltingTimeThreshold = attrs.hasAttribute(SUMO_ATTR_HALTING_TIME_THRESHOLD__DEPRECATED)
+		? attrs.getOptSUMOTimeReporting(SUMO_ATTR_HALTING_TIME_THRESHOLD__DEPRECATED, id.c_str(), ok, TIME2STEPS(1))
+		: attrs.getOptSUMOTimeReporting(SUMO_ATTR_HALTING_TIME_THRESHOLD, id.c_str(), ok, TIME2STEPS(1));
+	const SUMOReal haltingSpeedThreshold = attrs.hasAttribute(SUMO_ATTR_HALTING_SPEED_THRESHOLD__DEPRECATED)
+		? attrs.getOptSUMORealReporting(SUMO_ATTR_HALTING_SPEED_THRESHOLD__DEPRECATED, id.c_str(), ok, 5.0f/3.6f)
+		: attrs.getOptSUMORealReporting(SUMO_ATTR_HALTING_SPEED_THRESHOLD, id.c_str(), ok, 5.0f/3.6f);
     const std::string file = attrs.getStringReporting(SUMO_ATTR_FILE, id.c_str(), ok);
     if (!ok) {
         return;
@@ -959,8 +1030,14 @@ NLHandler::beginE3Detector(const SUMOSAXAttributes &attrs) {
 void
 NLHandler::addE3Entry(const SUMOSAXAttributes &attrs) {
     bool ok = true;
+		if(attrs.hasAttribute(SUMO_ATTR_FRIENDLY_POS__DEPRECATED)&&!myHaveWarnedAboutDeprecatedFriendlyPos) {
+			myHaveWarnedAboutDeprecatedFriendlyPos = true;
+			MsgHandler::getWarningInstance()->inform("'" + toString(SUMO_ATTR_FRIENDLY_POS__DEPRECATED) + "' is deprecated, use '" + toString(SUMO_ATTR_FRIENDLY_POS) + "' instead.");
+		}
     const SUMOReal position = attrs.getSUMORealReporting(SUMO_ATTR_POSITION, myDetectorBuilder.getCurrentE3ID().c_str(), ok);
-    const bool friendlyPos = attrs.getOptBoolReporting(SUMO_ATTR_FRIENDLY_POS, myDetectorBuilder.getCurrentE3ID().c_str(), ok, false);
+	const bool friendlyPos = attrs.hasAttribute(SUMO_ATTR_FRIENDLY_POS__DEPRECATED)
+		? attrs.getOptBoolReporting(SUMO_ATTR_FRIENDLY_POS__DEPRECATED, myDetectorBuilder.getCurrentE3ID().c_str(), ok, false)
+		: attrs.getOptBoolReporting(SUMO_ATTR_FRIENDLY_POS, myDetectorBuilder.getCurrentE3ID().c_str(), ok, false);
     const std::string lane = attrs.getStringReporting(SUMO_ATTR_LANE, myDetectorBuilder.getCurrentE3ID().c_str(), ok);
     if (!ok) {
         return;
@@ -973,7 +1050,13 @@ void
 NLHandler::addE3Exit(const SUMOSAXAttributes &attrs) {
     bool ok = true;
     const SUMOReal position = attrs.getSUMORealReporting(SUMO_ATTR_POSITION, myDetectorBuilder.getCurrentE3ID().c_str(), ok);
-    const bool friendlyPos = attrs.getOptBoolReporting(SUMO_ATTR_FRIENDLY_POS, myDetectorBuilder.getCurrentE3ID().c_str(), ok, false);
+		if(attrs.hasAttribute(SUMO_ATTR_FRIENDLY_POS__DEPRECATED)&&!myHaveWarnedAboutDeprecatedFriendlyPos) {
+			myHaveWarnedAboutDeprecatedFriendlyPos = true;
+			MsgHandler::getWarningInstance()->inform("'" + toString(SUMO_ATTR_FRIENDLY_POS__DEPRECATED) + "' is deprecated, use '" + toString(SUMO_ATTR_FRIENDLY_POS) + "' instead.");
+		}
+	const bool friendlyPos = attrs.hasAttribute(SUMO_ATTR_FRIENDLY_POS__DEPRECATED)
+		? attrs.getOptBoolReporting(SUMO_ATTR_FRIENDLY_POS__DEPRECATED, myDetectorBuilder.getCurrentE3ID().c_str(), ok, false)
+		: attrs.getOptBoolReporting(SUMO_ATTR_FRIENDLY_POS, myDetectorBuilder.getCurrentE3ID().c_str(), ok, false);
     const std::string lane = attrs.getStringReporting(SUMO_ATTR_LANE, myDetectorBuilder.getCurrentE3ID().c_str(), ok);
     if (!ok) {
         return;

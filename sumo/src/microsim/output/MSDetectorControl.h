@@ -164,7 +164,7 @@ public:
     void add(MSInductLoop *il, OutputDevice& device, int splInterval) throw(ProcessError);
 
 
-    /** @brief Adds a e2-detector into the containers
+    /** @brief Adds a e2 detector into the containers
      *
      * The detector is tried to be added into "myE2Detectors". If the detector
      *  is already known (the id was already used for a similar detector),
@@ -174,9 +174,9 @@ public:
      *
      * Please note, that the detector control gets responsible for the detector.
      *
-     * @param[in] e2 The e2-detector to add
-     * @param[in] device The device the e2-detector uses
-     * @param[in] splInterval The sample interval of the e2-detector
+     * @param[in] e2 The e2 detector to add
+     * @param[in] device The device the e2 detector uses
+     * @param[in] splInterval The sample interval of the e2 detector
      * @exception ProcessError If the detector is already known
      */
     void add(MSE2Collector *e2, OutputDevice& device, int splInterval) throw(ProcessError);
@@ -201,7 +201,7 @@ public:
              int splInterval) throw(ProcessError);
 
 
-    /** @brief Adds a e3-detector into the containers
+    /** @brief Adds a e3 detector into the containers
      *
      * The detector is tried to be added into "myE3Detectors". If the detector
      *  is already known (the id was already used for a similar detector),
@@ -211,9 +211,9 @@ public:
      *
      * Please note, that the detector control gets responsible for the detector.
      *
-     * @param[in] e3 The e3-detector to add
-     * @param[in] device The device the e3-detector uses
-     * @param[in] splInterval The sample interval of the e3-detector
+     * @param[in] e3 The e3 detector to add
+     * @param[in] device The device the e3 detector uses
+     * @param[in] splInterval The sample interval of the e3 detector
      * @exception ProcessError If the detector is already known
      */
     void add(MSE3Collector *e3, OutputDevice& device, int splInterval) throw(ProcessError);
@@ -259,7 +259,7 @@ public:
     /// @name Methods for adding detectors that are coupled to an own OutputDevice
     /// @{
 
-    /** @brief Adds a e2-detector coupled to an extern output impulse giver
+    /** @brief Adds a e2 detector coupled to an extern output impulse giver
      *
      * The detector is tried to be added into "myE2Detectors". If the detector
      *  is already known (the id was already used for a similar detector),
@@ -267,7 +267,7 @@ public:
      *
      * Please note, that the detector control gets responsible for the detector.
      *
-     * @param[in] e2 The e2-detector to add
+     * @param[in] e2 The e2 detector to add
      * @exception ProcessError If the detector is already known
      */
     void add(MSE2Collector *e2) throw(ProcessError);

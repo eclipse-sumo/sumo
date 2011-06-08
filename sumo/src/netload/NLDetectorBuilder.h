@@ -94,15 +94,15 @@ public:
                      OutputDevice& device, bool friendlyPos) throw(InvalidArgument);
 #endif
 
-    /** @brief Builds an e1-detector and adds it to the net
+    /** @brief Builds an e1 detector and adds it to the net
      *
      * Checks the given values, first. If one of the values is invalid
      *  (lane is not known, sampling frequency<=0, position is larger
      *  than lane's length, the id is already in use), an InvalidArgument is thrown.
      *
-     * Otherwise the e1-detector is built by calling "createInductLoop".
+     * Otherwise the e1 detector is built by calling "createInductLoop".
      *
-     * Internally, there is also a distinction whether a mesosim e1-detector
+     * Internally, there is also a distinction whether a mesosim e1 detector
      *  shall be built.
      *
      * @param[in] id The id the detector shall have
@@ -118,14 +118,14 @@ public:
                          OutputDevice& device, bool friendlyPos) throw(InvalidArgument);
 
 
-    /** @brief Builds an e2-detector with a fixed interval and adds it to the net
+    /** @brief Builds an e2 detector with a fixed interval and adds it to the net
      *
      * Checks the given values, first. If one of the values is invalid
      *  (lane is not known, sampling frequency<=0, position is larger
      *  than lane's length, length is too large, the id is already in use),
      *  an InvalidArgument is thrown.
      *
-     * Otherwise the e2-detector is built, either by calling "buildMultiLaneE2Det"
+     * Otherwise the e2 detector is built, either by calling "buildMultiLaneE2Det"
      *  if the detector shall continue on consecutive lanes, or by calling
      *  "buildSingleLaneE2Det" if it is a one-lane detector.
      *
@@ -148,14 +148,14 @@ public:
                          bool friendlyPos) throw(InvalidArgument);
 
 
-    /** @brief Builds an e2-detector connected to a lsa
+    /** @brief Builds an e2 detector connected to a lsa
      *
      * Checks the given values, first. If one of the values is invalid
      *  (lane is not known, position is larger than lane's length, length is too large,
      *  the tls is not known, the id is already in use),
      *  an InvalidArgument is thrown.
      *
-     * Otherwise the e2-detector is built, either by calling "buildMultiLaneE2Det"
+     * Otherwise the e2 detector is built, either by calling "buildMultiLaneE2Det"
      *  if the detector shall continue on consecutive lanes, or by calling
      *  "buildSingleLaneE2Det" if it is a one-lane detector.
      *
@@ -179,14 +179,14 @@ public:
                          bool friendlyPos) throw(InvalidArgument);
 
 
-    /** @brief Builds an e2-detector connected to a link's state
+    /** @brief Builds an e2 detector connected to a link's state
      *
      * Checks the given values, first. If one of the values is invalid
      *  (lane is not known, position is larger than lane's length, length is too large,
      *  the tls or the destination lane is not known, the id is already in use),
      *  an InvalidArgument is thrown.
      *
-     * Otherwise the e2-detector is built, either by calling "buildMultiLaneE2Det"
+     * Otherwise the e2 detector is built, either by calling "buildMultiLaneE2Det"
      *  if the detector shall continue on consecutive lanes, or by calling
      *  "buildSingleLaneE2Det" if it is a one-lane detector.
      *
@@ -211,7 +211,7 @@ public:
                          bool friendlyPos) throw(InvalidArgument);
 
 
-    /** @brief Stores temporary the initial information about an e3-detector to build
+    /** @brief Stores temporary the initial information about an e3 detector to build
      *
      * If the given sample interval is < 0, an InvalidArgument is thrown. Otherwise,
      *  the values are stored in a new instance of E3DetectorDefinition within
@@ -232,7 +232,7 @@ public:
      *
      * If the lane is not known or the position information is not within the lane,
      *  an InvalidArgument is thrown. Otherwise a MSCrossSection is built
-     *  using the obtained values and added to the list of entries of the e3-definition
+     *  using the obtained values and added to the list of entries of the e3 definition
      *  stored in "myE3Definition".
      *
      * @param[in] lane The id of the lane the entry shall be placed at
@@ -247,7 +247,7 @@ public:
      *
      * If the lane is not known or the position information is not within the lane,
      *  an InvalidArgument is thrown. Otherwise a MSCrossSection is built
-     *  using the obtained values and added to the list of exits of the e3-definition
+     *  using the obtained values and added to the list of exits of the e3 definition
      *  stored in "myE3Definition".
      *
      * @param[in] lane The id of the lane the exit shall be placed at
@@ -258,9 +258,9 @@ public:
     void addE3Exit(const std::string &lane, SUMOReal pos, bool friendlyPos) throw(InvalidArgument);
 
 
-    /** @brief Builds of an e3-detector using collected values
+    /** @brief Builds of an e3 detector using collected values
      *
-     * The parameter collected are used to build an e3-detector using
+     * The parameter collected are used to build an e3 detector using
      *  "createE3Detector". The resulting detector is added to the net.
      *
      * @param[in] lane The id of the lane the exit shall be placed at
@@ -270,12 +270,12 @@ public:
     void endE3Detector() throw(InvalidArgument);
 
 
-    /** @brief Returns the id of the currently built e3-detector
+    /** @brief Returns the id of the currently built e3 detector
      *
      * This is used for error-message generation only. If no id is known,
      *  "<unknown>" is returned.
      *
-     * @return The id of the currently processed e3-detector
+     * @return The id of the currently processed e3 detector
      */
     std::string getCurrentE3ID() const throw();
 
@@ -333,7 +333,7 @@ public:
             MSLane *lane, SUMOReal pos) throw();
 #endif
 
-    /** @brief Creates an instance of an e1-detector using the given values
+    /** @brief Creates an instance of an e1 detector using the given values
      *
      * Simply calls the MSInductLoop constructor
      *
@@ -346,7 +346,7 @@ public:
 
 
 #ifdef HAVE_MESOSIM
-    /** @brief Creates an instance of a mesoscopic e1-detector using the given values
+    /** @brief Creates an instance of a mesoscopic e1 detector using the given values
      *
      * Simply calls the MEInductLoop constructor
      *
@@ -360,7 +360,7 @@ public:
 #endif
 
 
-    /** @brief Creates an instance of an e2-detector using the given values
+    /** @brief Creates an instance of an e2 detector using the given values
      *
      * Simply calls the MSE2Collector constructor
      *
@@ -398,7 +398,7 @@ public:
         SUMOReal jamDistThreshold) throw();
 
 
-    /** @brief Creates an instance of an e3-detector using the given values
+    /** @brief Creates an instance of an e3 detector using the given values
      *
      * Simply calls the MSE3Collector constructor.
      *
@@ -440,7 +440,7 @@ public:
 
 
 
-    /** @brief Builds an e2-detector that lies on only one lane
+    /** @brief Builds an e2 detector that lies on only one lane
      *
      * @param[in] id The id the detector shall have
      * @param[in] usage Information how the detector is used within the simulation
@@ -458,7 +458,7 @@ public:
                                         SUMOReal jamDistThreshold) throw();
 
 
-    /** @brief Builds an e2-detector that continues on preceeding lanes
+    /** @brief Builds an e2 detector that continues on preceeding lanes
      *
      * @param[in] id The id the detector shall have
      * @param[in] usage Information how the detector is used within the simulation
@@ -545,7 +545,7 @@ protected:
      *
      * If the resulting position is beyond or in front (<0) of the lane, it is either
      *  set to the according lane's boundary (.1 or length-.1) if friendlyPos
-     *  is set, or, if friendly_pos is not set, an InvalidArgument is thrown.
+     *  is set, or, if friendlyPos is not set, an InvalidArgument is thrown.
      *
      * @param[in] pos Definition of the position on the lane
      * @param[in] lane The lane the position must be valid for
@@ -557,7 +557,7 @@ protected:
                                  const std::string &detid) throw(InvalidArgument);
 
 
-    /** @brief Converts the length and the position information for an e2-detector
+    /** @brief Converts the length and the position information for an e2 detector
      *
      * @param[in] id The id of the currently built detector (for error message generation)
      * @param[in] clane The lane the detector is placed at
@@ -587,7 +587,7 @@ protected:
 
 
 private:
-    /// @brief definition of the currently parsed e3-detector
+    /// @brief definition of the currently parsed e3 detector
     E3DetectorDefinition *myE3Definition;
 
 

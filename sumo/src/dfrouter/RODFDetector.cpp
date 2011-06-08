@@ -587,7 +587,7 @@ RODFDetectorCon::writeEmitters(const std::string &file,
             out << "   <calibrator id=\"calibrator_" << escapedID
             << "\" pos=\"" << det->getPos() << "\" "
             << "lane=\"" << det->getLaneID() << "\" "
-            << "friendly_pos=\"x\" " // !!!
+            << "friendlyPos=\"x\" " // !!!
             << "file=\"" << defFileName << "\"/>\n";
         }
     }
@@ -735,7 +735,7 @@ RODFDetectorCon::writeValidationDetectors(const std::string &file,
             << "pos=\"" << pos << "\" "
             << "freq=\"60\" ";
             if (friendly) {
-                out << "friendly_pos=\"x\" ";
+                out << "friendlyPos=\"x\" ";
             }
             if (!singleFile) {
                 out << "file=\"validation_det_" << StringUtils::escapeXML(det->getID()) << ".xml\"/>\n";

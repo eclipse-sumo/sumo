@@ -90,7 +90,7 @@ NLDetectorBuilder::buildMsgDetector(const std::string &id,
                                     const std::string &msg,
                                     OutputDevice& device, bool friendlyPos) throw(InvalidArgument) {
     if (splInterval<0) {
-        throw InvalidArgument("Negative sampling frequency (in e4-detector '" + id + "').");
+        throw InvalidArgument("Negative sampling frequency (in " + toString(SUMO_TAG_E4DETECTOR) + " '" + id + "').");
     }
     if (splInterval==0) {
         throw InvalidArgument("Sampling frequency must not be zero (in e4-detector '" + id + "').");
@@ -124,10 +124,10 @@ NLDetectorBuilder::buildInductLoop(const std::string &id,
                                    const std::string &lane, SUMOReal pos, int splInterval,
                                    OutputDevice& device, bool friendlyPos) throw(InvalidArgument) {
     if (splInterval<0) {
-        throw InvalidArgument("Negative sampling frequency (in e1-detector '" + id + "').");
+        throw InvalidArgument("Negative sampling frequency (in " + toString(SUMO_TAG_E1DETECTOR) + " '" + id + "').");
     }
     if (splInterval==0) {
-        throw InvalidArgument("Sampling frequency must not be zero (in e1-detector '" + id + "').");
+        throw InvalidArgument("Sampling frequency must not be zero (in " + toString(SUMO_TAG_E1DETECTOR) + " '" + id + "').");
     }
     // get and check the lane
     MSLane *clane = getLaneChecking(lane, id);
@@ -181,10 +181,10 @@ NLDetectorBuilder::buildE2Detector(const std::string &id,
                                    SUMOReal haltingSpeedThreshold,
                                    SUMOReal jamDistThreshold, bool friendlyPos) throw(InvalidArgument) {
     if (splInterval<0) {
-        throw InvalidArgument("Negative sampling frequency (in e2-detector '" + id + "').");
+        throw InvalidArgument("Negative sampling frequency (in " + toString(SUMO_TAG_E2DETECTOR) + " '" + id + "').");
     }
     if (splInterval==0) {
-        throw InvalidArgument("Sampling frequency must not be zero (in e2-detector '" + id + "').");
+        throw InvalidArgument("Sampling frequency must not be zero (in " + toString(SUMO_TAG_E2DETECTOR) + " '" + id + "').");
     }
     MSLane *clane = getLaneChecking(lane, id);
     // check whether the detector may lie over more than one lane
@@ -333,10 +333,10 @@ NLDetectorBuilder::beginE3Detector(const std::string &id,
                                    SUMOReal haltingSpeedThreshold,
                                    SUMOTime haltingTimeThreshold) throw(InvalidArgument) {
     if (splInterval<0) {
-        throw InvalidArgument("Negative sampling frequency (in e3-detector '" + id + "').");
+        throw InvalidArgument("Negative sampling frequency (in " + toString(SUMO_TAG_E3DETECTOR) + " '" + id + "').");
     }
     if (splInterval==0) {
-        throw InvalidArgument("Sampling frequency must not be zero (in e3-detector '" + id + "').");
+        throw InvalidArgument("Sampling frequency must not be zero (in " + toString(SUMO_TAG_E3DETECTOR) + " '" + id + "').");
     }
     myE3Definition = new E3DetectorDefinition(id, device,
             haltingSpeedThreshold, haltingTimeThreshold,

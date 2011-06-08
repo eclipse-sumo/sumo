@@ -165,7 +165,7 @@ protected:
 
 
 protected:
-    /// @brief A map from lanes to E2-detectors lying on them
+    /// @brief A map from lanes to E2 detectors lying on them
     E2DetectorMap myE2Detectors;
 
     /// @brief A map of the step of the greenphases and their detectorvalues for several (mumberofValues) cycles

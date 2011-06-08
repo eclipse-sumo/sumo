@@ -4,7 +4,7 @@
 /// @date    15 Feb 2004
 /// @version $Id$
 ///
-// Writes e2-state of a link for the time the link has yellow/red
+// Writes e2 state of a link for the time the link has yellow/red
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // Copyright (C) 2001-2011 DLR (http://www.dlr.de/) and contributors

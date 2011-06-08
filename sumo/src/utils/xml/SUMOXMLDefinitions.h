@@ -63,19 +63,27 @@ enum SumoXMLTag {
     /// @deprecated begins
     SUMO_TAG_DETECTOR,
     /// @deprecated ends
-    /** an e1-detector */
+    /** an e1 detector */
+    SUMO_TAG_E1DETECTOR__DEPRECATED,
     SUMO_TAG_E1DETECTOR,
-    /** an e2-detector */
+	SUMO_TAG_INDUCTION_LOOP,
+    /** an e2 detector */
+    SUMO_TAG_E2DETECTOR__DEPRECATED,
     SUMO_TAG_E2DETECTOR,
-    /** an e3-detector */
+	SUMO_TAG_LANE_AREA_DETECTOR,
+    /** an e3 detector */
+    SUMO_TAG_E3DETECTOR__DEPRECATED,
     SUMO_TAG_E3DETECTOR,
+	SUMO_TAG_ENTRY_EXIT_DETECTOR,
     /** an edge based mean data detector */
     SUMO_TAG_MEANDATA_EDGE,
     /** a lane based mean data detector */
     SUMO_TAG_MEANDATA_LANE,
-    /** an e3-entry point*/
+    /** an e3 entry point*/
+    SUMO_TAG_DET_ENTRY__DEPRECATED,
     SUMO_TAG_DET_ENTRY,
-    /** an e3-exit point */
+    /** an e3 exit point */
+    SUMO_TAG_DET_EXIT__DEPRECATED,
     SUMO_TAG_DET_EXIT,
     /// @brief An edge-following detector
     SUMO_TAG_EDGEFOLLOWDETECTOR,
@@ -130,6 +138,7 @@ enum SumoXMLTag {
     /** an aggreagated-output interval */
     SUMO_TAG_INTERVAL,
     /// The definition of a periodic event
+    SUMO_TAG_TIMEDEVENT__DEPRECATED,
     SUMO_TAG_TIMEDEVENT,
     /// Incoming edge specification (jp-router)
     SUMO_TAG_FROMEDGE,
@@ -146,8 +155,11 @@ enum SumoXMLTag {
     SUMO_TAG_EMIT,
     SUMO_TAG_RESET,
     SUMO_TAG_STOP,
+    SUMO_TAG_DEST_PROB_REROUTE__DEPRECATED,
     SUMO_TAG_DEST_PROB_REROUTE,
+    SUMO_TAG_CLOSING_REROUTE__DEPRECATED,
     SUMO_TAG_CLOSING_REROUTE,
+    SUMO_TAG_ROUTE_PROB_REROUTE__DEPRECATED,
     SUMO_TAG_ROUTE_PROB_REROUTE,
     SUMO_TAG_POLYTYPE,
     SUMO_TAG_CONNECTION,
@@ -340,6 +352,7 @@ enum SumoXMLAttr {
     /** edge: the shape in xml-definition */
     SUMO_ATTR_SHAPE,
     /// The information about how to spread the lanes from the given position
+    SUMO_ATTR_SPREADFUNC__DEPRECATED,
     SUMO_ATTR_SPREADFUNC,
     /// A color information
     SUMO_ATTR_COLOR,
@@ -388,10 +401,12 @@ enum SumoXMLAttr {
     SUMO_ATTR_MEASURES,
     /// Information whether the detector shall be continued on the folowing lanes
     SUMO_ATTR_CONT,
+    SUMO_ATTR_HALTING_TIME_THRESHOLD__DEPRECATED,
     SUMO_ATTR_HALTING_TIME_THRESHOLD,
+    SUMO_ATTR_HALTING_SPEED_THRESHOLD__DEPRECATED,
     SUMO_ATTR_HALTING_SPEED_THRESHOLD,
+    SUMO_ATTR_JAM_DIST_THRESHOLD__DEPRECATED,
     SUMO_ATTR_JAM_DIST_THRESHOLD,
-    SUMO_ATTR_DELETE_DATA_AFTER_SECONDS,
 
     SUMO_ATTR_WAUT_ID,
     SUMO_ATTR_JUNCTION_ID,
@@ -401,10 +416,12 @@ enum SumoXMLAttr {
     SUMO_ATTR_START_PROG,
 
     SUMO_ATTR_OFF,
+    SUMO_ATTR_FRIENDLY_POS__DEPRECATED,
     SUMO_ATTR_FRIENDLY_POS,
     SUMO_ATTR_UNCONTROLLED,
     SUMO_ATTR_PASS,
     SUMO_ATTR_FORCE_LENGTH,
+    SUMO_ATTR_BUS_STOP__DEPRECATED,
     SUMO_ATTR_BUS_STOP,
     SUMO_ATTR_LINE,
     SUMO_ATTR_LINES,

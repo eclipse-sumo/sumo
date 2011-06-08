@@ -120,7 +120,7 @@ GUINet::getBoundary() const {
 
 void
 GUINet::initDetectors() {
-    // e2-detectors
+    // e2 detectors
     const std::map<std::string, MSE2Collector*> &e2 = myDetectorControl->getE2Detectors().getMyMap();
     for (std::map<std::string, MSE2Collector*>::const_iterator i2=e2.begin(); i2!=e2.end(); i2++) {
         MSE2Collector *const e2i = (*i2).second;
@@ -158,7 +158,7 @@ GUINet::initDetectors() {
         myDetectorDict[wrapper->getMicrosimID()] = wrapper;
         myGrid.addAdditionalGLObject(wrapper);
     }
-    // e3-detectors
+    // e3 detectors
     const std::map<std::string, MSE3Collector*> &e3 = myDetectorControl->getE3Detectors().getMyMap();
     for (std::map<std::string, MSE3Collector*>::const_iterator i2=e3.begin(); i2!=e3.end(); i2++) {
         MSE3Collector *const e3i = (*i2).second;

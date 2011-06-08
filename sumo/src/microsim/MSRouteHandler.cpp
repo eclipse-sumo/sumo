@@ -70,7 +70,9 @@ MSRouteHandler::MSRouteHandler(const std::string &file,
     myCurrentVTypeDistribution(0),
     myCurrentRouteDistribution(0),
     myCurrentVType(0),
-	myScale(-1.)
+	myScale(-1.),
+	myHaveWarnedAboutDeprecatedFriendlyPos(false),
+	myHaveWarnedAboutDeprecatedBusStop(false)
 {
     OptionsCont &oc = OptionsCont::getOptions();
 	if (oc.isSet("incremental-dua-step")) {
@@ -633,7 +635,15 @@ MSRouteHandler::addStop(const SUMOSAXAttributes &attrs) throw(ProcessError) {
     }
     SUMOVehicleParameter::Stop stop;
     // try to parse the assigned bus stop
-    stop.busstop = attrs.getOptStringReporting(SUMO_ATTR_BUS_STOP, 0, ok, "");
+	if(attrs.hasAttribute(SUMO_ATTR_BUS_STOP__DEPRECATED)) {
+		stop.busstop = attrs.getStringReporting(SUMO_ATTR_BUS_STOP__DEPRECATED, 0, ok);
+		if(!myHaveWarnedAboutDeprecatedBusStop) {
+			myHaveWarnedAboutDeprecatedBusStop = true;
+			MsgHandler::getWarningInstance()->inform("'bus_stop' is deprecated, please use 'busStop' instead.");
+		}
+	} else {
+	    stop.busstop = attrs.getOptStringReporting(SUMO_ATTR_BUS_STOP, 0, ok, "");
+	}
     if (stop.busstop!="") {
         // ok, we have obviously a bus stop
         MSBusStop *bs = MSNet::getInstance()->getBusStop(stop.busstop);
@@ -670,8 +680,14 @@ MSRouteHandler::addStop(const SUMOSAXAttributes &attrs) throw(ProcessError) {
             stop.endPos = attrs.getOptSUMORealReporting(SUMO_ATTR_POSITION, 0, ok, stop.endPos);
         }
         stop.startPos = attrs.getOptSUMORealReporting(SUMO_ATTR_STARTPOS, 0, ok, stop.endPos - 2 * POSITION_EPS);
-        if (!ok || !checkStopPos(stop.startPos, stop.endPos, MSLane::dictionary(stop.lane)->getLength(), POSITION_EPS,
-                                 attrs.getOptBoolReporting(SUMO_ATTR_FRIENDLY_POS, 0, ok, false))) {
+		if(attrs.hasAttribute(SUMO_ATTR_FRIENDLY_POS__DEPRECATED)&&!myHaveWarnedAboutDeprecatedFriendlyPos) {
+			myHaveWarnedAboutDeprecatedFriendlyPos = true;
+			MsgHandler::getWarningInstance()->inform("'" + toString(SUMO_ATTR_FRIENDLY_POS__DEPRECATED) + "' is deprecated, use '" + toString(SUMO_ATTR_FRIENDLY_POS) + "' instead.");
+		}
+		bool friendlyPos = attrs.hasAttribute(SUMO_ATTR_FRIENDLY_POS__DEPRECATED) 
+			? attrs.getOptBoolReporting(SUMO_ATTR_FRIENDLY_POS__DEPRECATED, 0, ok, false)
+			: attrs.getOptBoolReporting(SUMO_ATTR_FRIENDLY_POS, 0, ok, false);
+        if (!ok || !checkStopPos(stop.startPos, stop.endPos, MSLane::dictionary(stop.lane)->getLength(), POSITION_EPS, friendlyPos)) {
             MsgHandler::getErrorInstance()->inform("Invalid start or end position for stop" + errorSuffix);
             return;
         }

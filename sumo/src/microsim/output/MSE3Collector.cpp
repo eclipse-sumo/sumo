@@ -147,7 +147,7 @@ MSE3Collector::reset() throw() {
 void
 MSE3Collector::enter(SUMOVehicle& veh, SUMOReal entryTimestep) throw() {
     if (myEnteredContainer.find(&veh)!=myEnteredContainer.end()) {
-        MsgHandler::getWarningInstance()->inform("Vehicle '" + veh.getID() + "' reentered E3-detector '" + getID() + "'.");
+        MsgHandler::getWarningInstance()->inform("Vehicle '" + veh.getID() + "' reentered " + toString(SUMO_TAG_E3DETECTOR) + " '" + getID() + "'.");
         return;
     }
     SUMOReal entryTimestepFraction = ((SUMOReal) DELTA_T - fmod(entryTimestep * 1000., 1000.)) / (SUMOReal) DELTA_T;
@@ -174,7 +174,7 @@ MSE3Collector::enter(SUMOVehicle& veh, SUMOReal entryTimestep) throw() {
 void
 MSE3Collector::leave(SUMOVehicle& veh, SUMOReal leaveTimestep) throw() {
     if (myEnteredContainer.find(&veh)==myEnteredContainer.end()) {
-        MsgHandler::getWarningInstance()->inform("Vehicle '" + veh.getID() + "' left E3-detector '" + getID() + "' before entering it.");
+        MsgHandler::getWarningInstance()->inform("Vehicle '" + veh.getID() + "' left " + toString(SUMO_TAG_E3DETECTOR) + " '" + getID() + "' before entering it.");
     } else {
         E3Values values = myEnteredContainer[&veh];
         values.leaveTime = leaveTimestep;
@@ -268,7 +268,7 @@ MSE3Collector::writeXMLOutput(OutputDevice &dev,
 
 void
 MSE3Collector::writeXMLDetectorProlog(OutputDevice &dev) const throw(IOError) {
-    dev.writeXMLHeader("e3-detector");
+    dev.writeXMLHeader("e3Detector");
 }
 
 

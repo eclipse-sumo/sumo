@@ -177,6 +177,8 @@ protected:
     /// @brief The currently parsed vehicle type
     SUMOVTypeParameter *myCurrentVType;
 
+	bool myHaveWarnedAboutDeprecatedFriendlyPos, myHaveWarnedAboutDeprecatedBusStop;
+
 private:
     /// Checks whether the route file is sorted by departure time if needed
     bool checkLastDepart();
