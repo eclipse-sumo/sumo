@@ -38,7 +38,6 @@
 #include "NBNodeCont.h"
 #include "NBNode.h"
 #include "NBTrafficLightLogicCont.h"
-#include "NBJunctionLogicCont.h"
 #include "NBDistrictCont.h"
 #include <utils/common/UtilExceptions.h>
 

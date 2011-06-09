@@ -379,10 +379,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\netbuild\NBJunctionLogicCont.cpp"
-				>
-			</File>
-			<File
 				RelativePath="..\..\..\src\netbuild\NBJunctionTypesMatrix.cpp"
 				>
 			</File>
@@ -489,10 +485,6 @@
 			</File>
 			<File
 				RelativePath="..\..\..\src\netbuild\NBJoinedEdgesMap.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\netbuild\NBJunctionLogicCont.h"
 				>
 			</File>
 			<File

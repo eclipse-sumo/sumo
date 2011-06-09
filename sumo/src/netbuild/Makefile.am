@@ -6,7 +6,6 @@ NBDistribution.cpp NBDistribution.h NBDistrict.cpp NBDistrict.h \
 NBDistrictCont.cpp NBDistrictCont.h NBEdge.cpp NBEdge.h \
 NBEdgeCont.cpp NBEdgeCont.h NBFrame.cpp NBFrame.h \
 NBHelpers.cpp NBHelpers.h \
-NBJunctionLogicCont.cpp NBJunctionLogicCont.h \
 NBJunctionTypesMatrix.cpp NBJunctionTypesMatrix.h \
 NBLinkPossibilityMatrix.h NBNode.cpp NBNode.h \
 NBNodeCont.cpp NBNodeCont.h \

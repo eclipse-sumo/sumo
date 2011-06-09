@@ -41,9 +41,6 @@
     <ClCompile Include="..\..\..\src\netbuild\NBJoinedEdgesMap.cpp">
       <Filter>Quellcodedateien</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\src\netbuild\NBJunctionLogicCont.cpp">
-      <Filter>Quellcodedateien</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\src\netbuild\NBJunctionTypesMatrix.cpp">
       <Filter>Quellcodedateien</Filter>
     </ClCompile>
@@ -122,9 +119,6 @@
       <Filter>Header-Dateien</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\netbuild\NBJoinedEdgesMap.h">
-      <Filter>Header-Dateien</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\netbuild\NBJunctionLogicCont.h">
       <Filter>Header-Dateien</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\netbuild\NBJunctionTypesMatrix.h">
