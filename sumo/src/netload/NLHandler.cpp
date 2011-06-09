@@ -766,7 +766,7 @@ NLHandler::addMsgDetector(const SUMOSAXAttributes &attrs) {
 			MsgHandler::getWarningInstance()->inform("'" + toString(SUMO_ATTR_FRIENDLY_POS__DEPRECATED) + "' is deprecated, use '" + toString(SUMO_ATTR_FRIENDLY_POS) + "' instead.");
 		}
     bool friendlyPos = attrs.hasAttribute(SUMO_ATTR_FRIENDLY_POS__DEPRECATED)
-		? attrs.getOptBoolReporting(SUMO_ATTR_FRIENDLY_POS__DEPRECATED, id.c_str(), ok, false);
+		? attrs.getOptBoolReporting(SUMO_ATTR_FRIENDLY_POS__DEPRECATED, id.c_str(), ok, false)
 		: attrs.getOptBoolReporting(SUMO_ATTR_FRIENDLY_POS, id.c_str(), ok, false);
     std::string lane = attrs.getStringReporting(SUMO_ATTR_LANE, id.c_str(), ok);
     std::string msg = attrs.getStringReporting(SUMO_ATTR_MSG, id.c_str(), ok);

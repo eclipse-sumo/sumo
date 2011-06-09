@@ -90,7 +90,7 @@ NLDetectorBuilder::buildMsgDetector(const std::string &id,
                                     const std::string &msg,
                                     OutputDevice& device, bool friendlyPos) throw(InvalidArgument) {
     if (splInterval<0) {
-        throw InvalidArgument("Negative sampling frequency (in " + toString(SUMO_TAG_E4DETECTOR) + " '" + id + "').");
+        throw InvalidArgument("Negative sampling frequency (in " + toString(SUMO_TAG_MSG) + " '" + id + "').");
     }
     if (splInterval==0) {
         throw InvalidArgument("Sampling frequency must not be zero (in e4-detector '" + id + "').");
