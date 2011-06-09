@@ -75,8 +75,6 @@
 #include <microsim/trigger/MSCalibrator.h>
 #include <microsim/MSGlobals.h>
 
-#include <xercesc/sax2/SAX2XMLReader.hpp>
-
 #include <string>
 #include <map>
 #include <iostream>
