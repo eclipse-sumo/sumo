@@ -1,10 +1,10 @@
 <edges xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xsi:noNamespaceSchemaLocation='http://sumo.sf.net/xsd/edges_file.xsd'>
 
-	<edge id="s1" fromnode="5" tonode="4" nolanes="3" speed="30"/>
-	<edge id="s2" fromnode="4" tonode="3" nolanes="3" speed="30"/>
-	<edge id="s3" fromnode="3" tonode="2" nolanes="3" speed="30"/>
-	<edge id="s4" fromnode="2" tonode="1" nolanes="3" speed="30"/>
+	<edge id="s1" from="5" to="4" nolanes="3" speed="30"/>
+	<edge id="s2" from="4" to="3" nolanes="3" speed="30"/>
+	<edge id="s3" from="3" to="2" nolanes="3" speed="30"/>
+	<edge id="s4" from="2" to="1" nolanes="3" speed="30"/>
 
-	<edge id="off" fromnode="2" tonode="2a" nolanes="1" speed="30"/>
+	<edge id="off" from="2" to="2a" nolanes="1" speed="30"/>
 
 </edges>

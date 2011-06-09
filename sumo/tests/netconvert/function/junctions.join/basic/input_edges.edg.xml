@@ -17,14 +17,14 @@
 -->
 
 <edges>
-   <edge id="27437972" fromnode="38918157" tonode="301292612" priority="7" nolanes="2" speed="13.89" spreadType="center"/>
-   <edge id="27441168" fromnode="59993001" tonode="56231397" priority="6" nolanes="1" speed="22.22" spreadType="center"/>
-   <edge id="27441189" fromnode="301292612" tonode="38919945" priority="6" nolanes="4" speed="22.22" spreadType="center"/>
-   <edge id="27441289.0" fromnode="59993001" tonode="gneJ0" priority="7" nolanes="2" speed="13.89"/>
-   <edge id="27441289.95" fromnode="gneJ1" tonode="56231397" priority="7" nolanes="2" speed="13.89"/>
-   <edge id="27445000#0" fromnode="38919945" tonode="945141569" priority="6" nolanes="1" speed="22.22" spreadType="center"/>
-   <edge id="27445003" fromnode="56231397" tonode="301292612" priority="7" nolanes="2" speed="27.78" spreadType="center"/>
-   <edge id="27445015#0" fromnode="56231397" tonode="567607201" priority="7" nolanes="2" speed="13.89" spreadType="center"/>
-   <edge id="46039050" fromnode="492462300" tonode="59993001" priority="6" nolanes="1" speed="22.22" spreadType="center"/>
-   <edge id="6137245" fromnode="38919945" tonode="59993001" priority="7" nolanes="2" speed="27.78" spreadType="center"/>
+   <edge id="27437972" from="38918157" to="301292612" priority="7" nolanes="2" speed="13.89" spreadType="center"/>
+   <edge id="27441168" from="59993001" to="56231397" priority="6" nolanes="1" speed="22.22" spreadType="center"/>
+   <edge id="27441189" from="301292612" to="38919945" priority="6" nolanes="4" speed="22.22" spreadType="center"/>
+   <edge id="27441289.0" from="59993001" to="gneJ0" priority="7" nolanes="2" speed="13.89"/>
+   <edge id="27441289.95" from="gneJ1" to="56231397" priority="7" nolanes="2" speed="13.89"/>
+   <edge id="27445000#0" from="38919945" to="945141569" priority="6" nolanes="1" speed="22.22" spreadType="center"/>
+   <edge id="27445003" from="56231397" to="301292612" priority="7" nolanes="2" speed="27.78" spreadType="center"/>
+   <edge id="27445015#0" from="56231397" to="567607201" priority="7" nolanes="2" speed="13.89" spreadType="center"/>
+   <edge id="46039050" from="492462300" to="59993001" priority="6" nolanes="1" speed="22.22" spreadType="center"/>
+   <edge id="6137245" from="38919945" to="59993001" priority="7" nolanes="2" speed="27.78" spreadType="center"/>
 </edges>

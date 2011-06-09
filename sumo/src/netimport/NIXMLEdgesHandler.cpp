@@ -69,7 +69,8 @@ NIXMLEdgesHandler::NIXMLEdgesHandler(NBNodeCont &nc,
         : SUMOSAXHandler("xml-edges - file"),
         myOptions(options),
         myNodeCont(nc), myEdgeCont(ec), myTypeCont(tc), myDistrictCont(dc),
-        myCurrentEdge(0), myHaveWarnedAboutDeprecatedSpreadType(false) {}
+        myCurrentEdge(0), myHaveWarnedAboutDeprecatedSpreadType(false),
+		myHaveWarnedAboutDeprecatedFromTo(false) {}
 
 
 NIXMLEdgesHandler::~NIXMLEdgesHandler() throw() {}
@@ -350,8 +351,22 @@ NIXMLEdgesHandler::setNodes(const SUMOSAXAttributes &attrs) throw() {
     std::string endNodeID = myIsUpdate ? myCurrentEdge->getToNode()->getID() : "";
     std::string oldBegID = begNodeID;
     std::string oldEndID = endNodeID;
-    begNodeID = attrs.hasAttribute(SUMO_ATTR_FROMNODE) ? attrs.getStringReporting(SUMO_ATTR_FROMNODE, 0, ok) : begNodeID;
-    endNodeID = attrs.hasAttribute(SUMO_ATTR_TONODE) ? attrs.getStringReporting(SUMO_ATTR_TONODE, 0, ok) : endNodeID;
+	if (attrs.hasAttribute(SUMO_ATTR_FROMNODE)) {
+		begNodeID = attrs.getStringReporting(SUMO_ATTR_FROMNODE, 0, ok);
+        if (!myHaveWarnedAboutDeprecatedFromTo) {
+			WRITE_WARNING("'" + toString(SUMO_ATTR_FROMNODE) + "' is deprecated; please use '" + toString(SUMO_ATTR_FROM) + "'.");
+			myHaveWarnedAboutDeprecatedFromTo = true;
+		}
+	}
+	if (attrs.hasAttribute(SUMO_ATTR_TONODE)) {
+		endNodeID = attrs.getStringReporting(SUMO_ATTR_TONODE, 0, ok);
+        if (!myHaveWarnedAboutDeprecatedFromTo) {
+			WRITE_WARNING("'" + toString(SUMO_ATTR_TONODE) + "' is deprecated; please use '" + toString(SUMO_ATTR_TO) + "'.");
+			myHaveWarnedAboutDeprecatedFromTo = true;
+		}
+	}
+    begNodeID = attrs.hasAttribute(SUMO_ATTR_FROM) ? attrs.getStringReporting(SUMO_ATTR_FROM, 0, ok) : begNodeID;
+    endNodeID = attrs.hasAttribute(SUMO_ATTR_TO) ? attrs.getStringReporting(SUMO_ATTR_TO, 0, ok) : endNodeID;
     if (!ok) {
         return false;
     }
@@ -365,12 +380,20 @@ NIXMLEdgesHandler::setNodes(const SUMOSAXAttributes &attrs) throw() {
         GeoConvHelper::x2cartesian(pos);
         begNodeXPos = pos.x();
         begNodeYPos = pos.y();
+        if (!myHaveWarnedAboutDeprecatedFromTo) {
+			WRITE_WARNING("'" + toString(SUMO_ATTR_XFROM) + "' and '" + toString(SUMO_ATTR_YFROM) + "' are deprecated; please define nodes separately.");
+			myHaveWarnedAboutDeprecatedFromTo = true;
+		}
     }
     if (endNodeXPos!=SUMOXML_INVALID_POSITION&&endNodeYPos!=SUMOXML_INVALID_POSITION) {
         Position pos(endNodeXPos, endNodeYPos);
         GeoConvHelper::x2cartesian(pos);
         endNodeXPos = pos.x();
         endNodeYPos = pos.y();
+        if (!myHaveWarnedAboutDeprecatedFromTo) {
+			WRITE_WARNING("'" + toString(SUMO_ATTR_XTO) + "' and '" + toString(SUMO_ATTR_YTO) + "' are deprecated; please define nodes separately.");
+			myHaveWarnedAboutDeprecatedFromTo = true;
+		}
     }
     // check the obtained values for nodes
     myFromNode = insertNodeChecking(Position(begNodeXPos, begNodeYPos), begNodeID, "from");

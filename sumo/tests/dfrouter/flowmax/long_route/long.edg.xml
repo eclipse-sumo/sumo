@@ -1,13 +1,13 @@
 <edges>
 
-   <edge id="in1" fromnode="i1" tonode="r1" />
-   <edge id="in2" fromnode="i2" tonode="r2" />
-   <edge id="1to2" fromnode="r1" tonode="r2" />
-   <edge id="2to3" fromnode="r2" tonode="r3" />
-   <edge id="3to4" fromnode="r3" tonode="r4" />
-   <edge id="out3" fromnode="r3" tonode="o3" />
-   <edge id="out4" fromnode="r4" tonode="o4" />
-   <edge id="post3" fromnode="o3" tonode="p3" />
-   <edge id="post4" fromnode="o4" tonode="p4" />
+   <edge id="in1" from="i1" to="r1" />
+   <edge id="in2" from="i2" to="r2" />
+   <edge id="1to2" from="r1" to="r2" />
+   <edge id="2to3" from="r2" to="r3" />
+   <edge id="3to4" from="r3" to="r4" />
+   <edge id="out3" from="r3" to="o3" />
+   <edge id="out4" from="r4" to="o4" />
+   <edge id="post3" from="o3" to="p3" />
+   <edge id="post4" from="o4" to="p4" />
 
 </edges>

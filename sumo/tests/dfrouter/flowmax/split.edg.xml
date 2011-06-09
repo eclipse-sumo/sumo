@@ -1,15 +1,15 @@
 <edges>
 
-   <edge id="1to2" fromnode="1" tonode="2" />
-   <edge id="2to3" fromnode="2" tonode="3" />
-   <edge id="3to4" fromnode="3" tonode="4" />
-   <edge id="4to5" fromnode="4" tonode="5" />
-   <edge id="6to7" fromnode="6" tonode="7" />
-   <edge id="7to8" fromnode="7" tonode="8" />
-   <edge id="8to9" fromnode="8" tonode="9" />
-   <edge id="9to10" fromnode="9" tonode="10" />
-   <edge id="2to9split" fromnode="2" tonode="9" />
-   <edge id="5out" fromnode="5" tonode="5a" />
-   <edge id="10out" fromnode="10" tonode="10a" />
+   <edge id="1to2" from="1" to="2" />
+   <edge id="2to3" from="2" to="3" />
+   <edge id="3to4" from="3" to="4" />
+   <edge id="4to5" from="4" to="5" />
+   <edge id="6to7" from="6" to="7" />
+   <edge id="7to8" from="7" to="8" />
+   <edge id="8to9" from="8" to="9" />
+   <edge id="9to10" from="9" to="10" />
+   <edge id="2to9split" from="2" to="9" />
+   <edge id="5out" from="5" to="5a" />
+   <edge id="10out" from="10" to="10a" />
 
 </edges>

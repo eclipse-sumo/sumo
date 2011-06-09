@@ -1,18 +1,18 @@
 <edges>
-   <edge id="i1" fromnode="f0" tonode="f1" nolanes="3"/>
-   <edge id="i2" fromnode="f1" tonode="f2" nolanes="3"/>
-   <edge id="i3" fromnode="f2" tonode="f3" nolanes="3"/>
-   <edge id="i4" fromnode="f3" tonode="f4" nolanes="3"/>
-   <edge id="i5" fromnode="f4" tonode="f5" nolanes="3"/>
-   <edge id="i6" fromnode="f5" tonode="f6" nolanes="3"/>
-   <edge id="i7" fromnode="f6" tonode="f7" nolanes="3"/>
-   <edge id="o" fromnode="f7" tonode="z0"/>
-   <edge id="e1" fromnode="z0" tonode="z1" nolanes="3"/>
-   <edge id="e2" fromnode="z1" tonode="z2" nolanes="3"/>
-   <edge id="e3" fromnode="z2" tonode="z3" nolanes="3"/>
-   <edge id="e4" fromnode="z3" tonode="z4" nolanes="3"/>
-   <edge id="e5" fromnode="z4" tonode="z5" nolanes="3"/>
-   <edge id="e6" fromnode="z5" tonode="z6" nolanes="3"/>
-   <edge id="e7" fromnode="z6" tonode="z7" nolanes="3"/>
-   <edge id="e8" fromnode="z7" tonode="z0" nolanes="3"/>
+   <edge id="i1" from="f0" to="f1" nolanes="3"/>
+   <edge id="i2" from="f1" to="f2" nolanes="3"/>
+   <edge id="i3" from="f2" to="f3" nolanes="3"/>
+   <edge id="i4" from="f3" to="f4" nolanes="3"/>
+   <edge id="i5" from="f4" to="f5" nolanes="3"/>
+   <edge id="i6" from="f5" to="f6" nolanes="3"/>
+   <edge id="i7" from="f6" to="f7" nolanes="3"/>
+   <edge id="o" from="f7" to="z0"/>
+   <edge id="e1" from="z0" to="z1" nolanes="3"/>
+   <edge id="e2" from="z1" to="z2" nolanes="3"/>
+   <edge id="e3" from="z2" to="z3" nolanes="3"/>
+   <edge id="e4" from="z3" to="z4" nolanes="3"/>
+   <edge id="e5" from="z4" to="z5" nolanes="3"/>
+   <edge id="e6" from="z5" to="z6" nolanes="3"/>
+   <edge id="e7" from="z6" to="z7" nolanes="3"/>
+   <edge id="e8" from="z7" to="z0" nolanes="3"/>
 </edges>

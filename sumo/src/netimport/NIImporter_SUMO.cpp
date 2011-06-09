@@ -327,8 +327,8 @@ NIImporter_SUMO::addEdge(const SUMOSAXAttributes &attrs) {
 	std::string lsfS = toString(LANESPREAD_RIGHT);
 	if(attrs.hasAttribute(SUMO_ATTR_SPREADFUNC__DEPRECATED)) {
 	    lsfS = attrs.getStringReporting(SUMO_ATTR_SPREADFUNC__DEPRECATED, id.c_str(), ok);
-        if(!myHaveWarnedAboutDeprecatedSpreadType) {
-            MsgHandler::getWarningInstance()->inform("'" + toString(SUMO_ATTR_SPREADFUNC__DEPRECATED) + " is deprecated; please use '" + toString(SUMO_ATTR_SPREADFUNC) + "'.");
+        if (!myHaveWarnedAboutDeprecatedSpreadType) {
+            WRITE_WARNING("'" + toString(SUMO_ATTR_SPREADFUNC__DEPRECATED) + "' is deprecated; please use '" + toString(SUMO_ATTR_SPREADFUNC) + "'.");
             myHaveWarnedAboutDeprecatedSpreadType = true;
         }
 	} else {

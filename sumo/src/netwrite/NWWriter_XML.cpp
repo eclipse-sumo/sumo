@@ -95,8 +95,8 @@ NWWriter_XML::writeNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
         // write the edge itself to the edges-files
         NBEdge *e = (*i).second;
         edevice << "   <edge id=\"" << e->getID()
-        << "\" fromnode=\"" << e->getFromNode()->getID()
-        << "\" tonode=\"" << e->getToNode()->getID();
+        << "\" from=\"" << e->getFromNode()->getID()
+        << "\" to=\"" << e->getToNode()->getID();
         if (e->getStreetName() != "") {
             edevice << "\" " << toString(SUMO_ATTR_NAME) << "=\"" << e->getStreetName();
         }

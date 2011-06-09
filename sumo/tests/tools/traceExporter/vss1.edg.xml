@@ -1,23 +1,23 @@
 <edges>
 
-   <edge id="beg" fromnode="absBeg" tonode="beg" speed="27.8" nolanes="2"/>
+   <edge id="beg" from="absBeg" to="beg" speed="27.8" nolanes="2"/>
 
-   <edge id="beg2left" fromnode="beg" tonode="begleft" speed="27.8"/>
+   <edge id="beg2left" from="beg" to="begleft" speed="27.8"/>
 
-   <edge id="left" fromnode="begleft" tonode="endleft" speed="27.8"/>
+   <edge id="left" from="begleft" to="endleft" speed="27.8"/>
 
-   <edge id="middle" fromnode="beg" tonode="end" speed="13.9"/>
-   <!-- edge id="middle2" fromnode="mid" tonode="end" speed="13.9"/ -->
+   <edge id="middle" from="beg" to="end" speed="13.9"/>
+   <!-- edge id="middle2" from="mid" to="end" speed="13.9"/ -->
 
-   <edge id="left2end" fromnode="endleft" tonode="end" speed="27.8"/>
+   <edge id="left2end" from="endleft" to="end" speed="27.8"/>
 
-   <edge id="end" fromnode="end" tonode="absEnd" speed="27.8" nolanes="2"/>
-   <edge id="rend" fromnode="absEnd" tonode="rabsEnd" speed="27.8" nolanes="2"/>
+   <edge id="end" from="end" to="absEnd" speed="27.8" nolanes="2"/>
+   <edge id="rend" from="absEnd" to="rabsEnd" speed="27.8" nolanes="2"/>
 
-   <!-- edge id="fmin" fromnode="midmin" tonode="mid" speed="13.9"/ -->
-   <!-- edge id="tmin" fromnode="mid" tonode="midmin" speed="13.9"/ -->
-   <!-- edge id="fmax" fromnode="midmax" tonode="mid" speed="13.9"/ -->
-   <!-- edge id="tmax" fromnode="mid" tonode="midmax" speed="13.9"/ -->
+   <!-- edge id="fmin" from="midmin" to="mid" speed="13.9"/ -->
+   <!-- edge id="tmin" from="mid" to="midmin" speed="13.9"/ -->
+   <!-- edge id="fmax" from="midmax" to="mid" speed="13.9"/ -->
+   <!-- edge id="tmax" from="mid" to="midmax" speed="13.9"/ -->
 
 
 </edges>

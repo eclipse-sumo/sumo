@@ -1,12 +1,12 @@
 <edges>
 
-   <edge id="oa" fromnode="o" tonode="a"/>
-   <edge id="ab" fromnode="a" tonode="b"/>
-   <edge id="bd" fromnode="b" tonode="d"/>
-   <edge id="ox" fromnode="o" tonode="x"/>
-   <edge id="xy" fromnode="x" tonode="y"/>
-   <edge id="yd" fromnode="y" tonode="d"/>
-   <edge id="ax" fromnode="a" tonode="x"/>
-   <edge id="by" fromnode="b" tonode="y"/>
+   <edge id="oa" from="o" to="a"/>
+   <edge id="ab" from="a" to="b"/>
+   <edge id="bd" from="b" to="d"/>
+   <edge id="ox" from="o" to="x"/>
+   <edge id="xy" from="x" to="y"/>
+   <edge id="yd" from="y" to="d"/>
+   <edge id="ax" from="a" to="x"/>
+   <edge id="by" from="b" to="y"/>
 
 </edges>

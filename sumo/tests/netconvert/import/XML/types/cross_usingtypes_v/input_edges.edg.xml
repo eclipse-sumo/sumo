@@ -1,18 +1,18 @@
 <edges>
-   <edge id="1fi" fromnode="1" tonode="m1" type="b"/>
-   <edge id="1si" fromnode="m1" tonode="0" type="a"/>
-   <edge id="1o" fromnode="0" tonode="1" type="c"/>
+   <edge id="1fi" from="1" to="m1" type="b"/>
+   <edge id="1si" from="m1" to="0" type="a"/>
+   <edge id="1o" from="0" to="1" type="c"/>
 
-   <edge id="2fi" fromnode="2" tonode="m2" type="b"/>
-   <edge id="2si" fromnode="m2" tonode="0" type="a"/>
-   <edge id="2o" fromnode="0" tonode="2" type="c"/>
+   <edge id="2fi" from="2" to="m2" type="b"/>
+   <edge id="2si" from="m2" to="0" type="a"/>
+   <edge id="2o" from="0" to="2" type="c"/>
 
-   <edge id="3fi" fromnode="3" tonode="m3" type="b"/>
-   <edge id="3si" fromnode="m3" tonode="0" type="a"/>
-   <edge id="3o" fromnode="0" tonode="3" type="c"/>
+   <edge id="3fi" from="3" to="m3" type="b"/>
+   <edge id="3si" from="m3" to="0" type="a"/>
+   <edge id="3o" from="0" to="3" type="c"/>
 
-   <edge id="4fi" fromnode="4" tonode="m4" type="b"/>
-   <edge id="4si" fromnode="m4" tonode="0" type="a"/>
-   <edge id="4o" fromnode="0" tonode="4" type="c"/>
+   <edge id="4fi" from="4" to="m4" type="b"/>
+   <edge id="4si" from="m4" to="0" type="a"/>
+   <edge id="4o" from="0" to="4" type="c"/>
 
 </edges>

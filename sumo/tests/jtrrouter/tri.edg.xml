@@ -1,27 +1,27 @@
 <edges>
 
-   <edge id="beg" fromnode="absBeg" tonode="beg" nolanes="1" speed="36"/>
-   <edge id="-beg" fromnode="beg" tonode="absBeg" nolanes="1" speed="36"/>
+   <edge id="beg" from="absBeg" to="beg" nolanes="1" speed="36"/>
+   <edge id="-beg" from="beg" to="absBeg" nolanes="1" speed="36"/>
 
-   <edge id="beg2left" fromnode="beg" tonode="begleft" nolanes="1" speed="36"/>
-   <edge id="-beg2left" fromnode="begleft" tonode="beg" nolanes="1" speed="36"/>
-   <edge id="beg2right" fromnode="beg" tonode="begright" nolanes="1" speed="36"/>
-   <edge id="-beg2right" fromnode="begright" tonode="beg" nolanes="1" speed="36"/>
+   <edge id="beg2left" from="beg" to="begleft" nolanes="1" speed="36"/>
+   <edge id="-beg2left" from="begleft" to="beg" nolanes="1" speed="36"/>
+   <edge id="beg2right" from="beg" to="begright" nolanes="1" speed="36"/>
+   <edge id="-beg2right" from="begright" to="beg" nolanes="1" speed="36"/>
 
-   <edge id="left" fromnode="begleft" tonode="endleft" nolanes="1" speed="36"/>
-   <edge id="-left" fromnode="endleft" tonode="begleft" nolanes="1" speed="36"/>
-   <edge id="middle" fromnode="beg" tonode="end" nolanes="1" speed="36"/>
-   <edge id="-middle" fromnode="end" tonode="beg" nolanes="1" speed="36"/>
-   <edge id="right" fromnode="begright" tonode="endright" nolanes="1" speed="36"/>
-   <edge id="-right" fromnode="endright" tonode="begright" nolanes="1" speed="36"/>
+   <edge id="left" from="begleft" to="endleft" nolanes="1" speed="36"/>
+   <edge id="-left" from="endleft" to="begleft" nolanes="1" speed="36"/>
+   <edge id="middle" from="beg" to="end" nolanes="1" speed="36"/>
+   <edge id="-middle" from="end" to="beg" nolanes="1" speed="36"/>
+   <edge id="right" from="begright" to="endright" nolanes="1" speed="36"/>
+   <edge id="-right" from="endright" to="begright" nolanes="1" speed="36"/>
 
-   <edge id="left2end" fromnode="endleft" tonode="end" nolanes="1" speed="36"/>
-   <edge id="-left2end" fromnode="end" tonode="endleft" nolanes="1" speed="36"/>
-   <edge id="right2end" fromnode="endright" tonode="end" nolanes="1" speed="36"/>
-   <edge id="-right2end" fromnode="end" tonode="endright" nolanes="1" speed="36"/>
+   <edge id="left2end" from="endleft" to="end" nolanes="1" speed="36"/>
+   <edge id="-left2end" from="end" to="endleft" nolanes="1" speed="36"/>
+   <edge id="right2end" from="endright" to="end" nolanes="1" speed="36"/>
+   <edge id="-right2end" from="end" to="endright" nolanes="1" speed="36"/>
 
-   <edge id="end" fromnode="end" tonode="absEnd" nolanes="1" speed="36"/>
-   <edge id="-end" fromnode="absEnd" tonode="end" nolanes="1" speed="36"/>
+   <edge id="end" from="end" to="absEnd" nolanes="1" speed="36"/>
+   <edge id="-end" from="absEnd" to="end" nolanes="1" speed="36"/>
 
 </edges>
 

@@ -1,16 +1,16 @@
 <edges>
-   <edge id="edge_L2C" fromnode="node_L" tonode="node_C"/>
-   <edge id="edge_L2C2" fromnode="node_L2" tonode="node_C2"/>
-   <edge id="edge_C2L" fromnode="node_C" tonode="node_L"/>
-   <edge id="edge_C22L" fromnode="node_C2" tonode="node_L2"/>
-   <edge id="edge_R2C" fromnode="node_R" tonode="node_C"/>
-   <edge id="edge_R2C2" fromnode="node_R2" tonode="node_C2"/>
-   <edge id="edge_C2R" fromnode="node_C" tonode="node_R"/>
-   <edge id="edge_C22R" fromnode="node_C2" tonode="node_R2"/>
-   <edge id="edge_U2C2" fromnode="node_U" tonode="node_C2"/>
-   <edge id="edge_C22U" fromnode="node_C2" tonode="node_U"/>
-   <edge id="edge_D2C" fromnode="node_D" tonode="node_C"/>
-   <edge id="edge_C2D" fromnode="node_C" tonode="node_D"/>
-   <edge id="edge_C22C" fromnode="node_C2" tonode="node_C"/>
-   <edge id="edge_C2C2" fromnode="node_C" tonode="node_C2"/>
+   <edge id="edge_L2C" from="node_L" to="node_C"/>
+   <edge id="edge_L2C2" from="node_L2" to="node_C2"/>
+   <edge id="edge_C2L" from="node_C" to="node_L"/>
+   <edge id="edge_C22L" from="node_C2" to="node_L2"/>
+   <edge id="edge_R2C" from="node_R" to="node_C"/>
+   <edge id="edge_R2C2" from="node_R2" to="node_C2"/>
+   <edge id="edge_C2R" from="node_C" to="node_R"/>
+   <edge id="edge_C22R" from="node_C2" to="node_R2"/>
+   <edge id="edge_U2C2" from="node_U" to="node_C2"/>
+   <edge id="edge_C22U" from="node_C2" to="node_U"/>
+   <edge id="edge_D2C" from="node_D" to="node_C"/>
+   <edge id="edge_C2D" from="node_C" to="node_D"/>
+   <edge id="edge_C22C" from="node_C2" to="node_C"/>
+   <edge id="edge_C2C2" from="node_C" to="node_C2"/>
 </edges>
