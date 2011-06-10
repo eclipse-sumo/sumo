@@ -199,7 +199,12 @@ TraCIServerAPI_VehicleType::setVariable(const int cmd, const int variable, const
             server.writeStatusCmd(cmd, RTYPE_ERR, "Setting length requires a double.", outputStorage);
             return false;
         }
-        v.setLength(inputStorage.readDouble());
+		double val = inputStorage.readDouble();
+		if (val == 0.0 || abs(val) == std::numeric_limits<double>::infinity()) {
+            server.writeStatusCmd(cmd, RTYPE_ERR, "Invalid length.", outputStorage);
+            return false;
+        }
+        v.setLength(val);
     }
     break;
     case VAR_MAXSPEED: {
@@ -207,7 +212,12 @@ TraCIServerAPI_VehicleType::setVariable(const int cmd, const int variable, const
             server.writeStatusCmd(cmd, RTYPE_ERR, "Setting maximum speed requires a double.", outputStorage);
             return false;
         }
-        v.setMaxSpeed(inputStorage.readDouble());
+		double val = inputStorage.readDouble();
+		if (val == 0.0 || abs(val) == std::numeric_limits<double>::infinity()) {
+            server.writeStatusCmd(cmd, RTYPE_ERR, "Invalid maximum speed.", outputStorage);
+            return false;
+        }
+        v.setMaxSpeed(val);
     }
     break;
     case VAR_VEHICLECLASS: {
