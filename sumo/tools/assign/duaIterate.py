@@ -72,7 +72,7 @@ def writeRouteConf(step, options, file, output, routesInfo):
     if step==0:
         print >> fd, '        <trip-files value="%s"/>' % file
     else:
-        print >> fd, '        <alternatives value="%s"/>' % file
+        print >> fd, '        <alternative-files value="%s"/>' % file
         print >> fd, '        <weights value="dump_%s_%s.xml"/>' % (step-1, options.aggregation)
     print >> fd, """    </input>
     <output>
@@ -134,7 +134,7 @@ def writeSUMOConf(step, options, files):
     print >> fd, '        <no-internal-links value="%s"/>' % options.internallink
     print >> fd, '        <lanechange.allow-swap value="%s"/>' % options.lanechangeallowed
     if hasattr(options, "incBase") and options.incBase > 0:
-        print >> fd, "        <scale value="%s"/>" % (options.incValue*float(step+1) / options.incBase)
+        print >> fd, '        <scale value="%s"/>' % (options.incValue*float(step+1) / options.incBase)
     if options.mesosim:
         print >> fd, '        <mesosim value="True"/>'
         if options.mesomultiqueue:
@@ -146,7 +146,7 @@ def writeSUMOConf(step, options, files):
     print >> fd, """</processing>
     <report>
         <verbose value="True"/>
-        <suppress-warnings value="%s"/>
+        <no-warnings value="%s"/>
     </report>
 </configuration>""" % options.noWarnings
     fd.close()
