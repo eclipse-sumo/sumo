@@ -198,6 +198,7 @@ MSRouteHandler::myStartElement(int element,
     case SUMO_TAG_TRIPDEF: {
         bool ok = true;
         myVehicleParameter = SUMOVehicleParserHelper::parseVehicleAttributes(attrs);
+		myVehicleParameter->setParameter |= VEHPARS_FORCE_REROUTE;
         myActiveRouteID = "!" + myVehicleParameter->id;
         if (attrs.hasAttribute(SUMO_ATTR_FROM) || !myVehicleParameter->wasSet(VEHPARS_TAZ_SET)) {
             MSEdge::parseEdgesList(attrs.getStringReporting(SUMO_ATTR_FROM, myVehicleParameter->id.c_str(), ok),

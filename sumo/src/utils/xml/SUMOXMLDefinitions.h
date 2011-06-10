@@ -325,6 +325,7 @@ enum SumoXMLAttr {
     SUMO_ATTR_PERIOD,
     SUMO_ATTR_FROM_TAZ,
     SUMO_ATTR_TO_TAZ,
+    SUMO_ATTR_REROUTE,
     /* source definitions */
     SUMO_ATTR_FUNCTION,
     SUMO_ATTR_POSITION,

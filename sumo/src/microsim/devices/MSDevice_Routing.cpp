@@ -101,7 +101,8 @@ MSDevice_Routing::insertOptions() throw() {
 void
 MSDevice_Routing::buildVehicleDevices(SUMOVehicle &v, std::vector<MSDevice*> &into) throw() {
     OptionsCont &oc = OptionsCont::getOptions();
-    if (oc.getFloat("device.rerouting.probability")==0&&!oc.isSet("device.rerouting.explicit")) {
+	bool needRerouting = v.getParameter().wasSet(VEHPARS_FORCE_REROUTE);
+    if (!needRerouting && oc.getFloat("device.rerouting.probability")==0 && !oc.isSet("device.rerouting.explicit")) {
         // no route computation is modelled
         return;
     }
@@ -114,7 +115,7 @@ MSDevice_Routing::buildVehicleDevices(SUMOVehicle &v, std::vector<MSDevice*> &in
     }
     bool haveByName = oc.isSet("device.rerouting.explicit") && OptionsCont::getOptions().isInStringVector("device.rerouting.explicit", v.getID());
     myWithTaz = oc.getBool("device.rerouting.with-taz");
-    if (haveByNumber||haveByName) {
+    if (needRerouting||haveByNumber||haveByName) {
         // build the device
         MSDevice_Routing* device = new MSDevice_Routing(v, "routing_" + v.getID(),
                 string2time(oc.getString("device.rerouting.period")),

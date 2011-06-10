@@ -223,6 +223,10 @@ SUMOVehicleParserHelper::parseCommonAttributes(const SUMOSAXAttributes &attrs,
         ret->fromTaz = attrs.getStringReporting(SUMO_ATTR_FROM_TAZ, 0, ok);
         ret->toTaz = attrs.getStringReporting(SUMO_ATTR_TO_TAZ, 0, ok);
     }
+    // parse reroute information
+	if (attrs.getOptBoolReporting(SUMO_ATTR_REROUTE, 0, ok, false)) {
+        ret->setParameter |= VEHPARS_FORCE_REROUTE;
+    }
 
     // parse depart lane information
     if (attrs.hasAttribute(SUMO_ATTR_DEPARTLANE)) {
