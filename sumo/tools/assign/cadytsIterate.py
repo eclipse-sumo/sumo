@@ -43,8 +43,8 @@ def main():
                          default = 25., help="minimal traffic count standard deviation")
     optParser.add_option("-O", "--overridett", action="store_true", dest="overridett",
                          default= False, help="override depart times according to updated link travel times")
-    optParser.add_option("-E", "--disable-emissions", action="store_true", dest="noEmissions",
-                         default=False, help="No emissions are written by the simulation")
+    optParser.add_option("-E", "--disable-summary", "--disable-emissions", action="store_true", dest="noSummary",                    
+                         default=False, help="No summaries are written by the simulation")                                                 
     optParser.add_option("-T", "--disable-tripinfos", action="store_true", dest="noTripinfo",
                          default=False, help="No tripinfos are written by the simulation")
     optParser.add_option("-M", "--matrix-prefix", dest="fmaprefix", type='string',

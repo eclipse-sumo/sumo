@@ -70,7 +70,7 @@ def writeRouteConf(step, options, file, output, routesInfo):
     if options.districts:
         print >> fd, '        <districts value="%s"/>' % options.districts
     if step==0:
-        print >> fd, '        <trip-defs value="%s"/>' % file
+        print >> fd, '        <trip-files value="%s"/>' % file
     else:
         print >> fd, '        <alternatives value="%s"/>' % file
         print >> fd, '        <weights value="dump_%s_%s.xml"/>' % (step-1, options.aggregation)
@@ -80,19 +80,19 @@ def writeRouteConf(step, options, file, output, routesInfo):
         <exit-times value="%s"/>
     </output>""" % (output, withExitTimes)
     print >> fd, """    <processing>
-        <continue-on-unbuild value="%s"/>
+        <ignore-errors value="%s"/>
         <with-taz value="%s"/>
-        <gBeta value="%s"/>
-        <gA value="%s"/>
+        <gawron.beta value="%s"/>
+        <gawron.a value="%s"/>
     </processing>""" % (options.continueOnUnbuild, bool(options.districts), options.gBeta, options.gA)
-    print >> fd, '    <random_number><abs-rand value="%s"/></random_number>' % options.absrand
+    print >> fd, '    <random_number><random value="%s"/></random_number>' % options.absrand
     print >> fd, '    <time><begin value="%s"/>' % options.begin,
     if options.end:
         print >> fd, '<end value="%s"/>' % options.end,
     print >> fd, """</time>
     <report>
         <verbose value="True"/>
-        <suppress-warnings value="%s"/>
+        <no-warnings value="%s"/>
     </report>
 </configuration>""" % options.noWarnings
     fd.close()
@@ -109,8 +109,8 @@ def writeSUMOConf(step, options, files):
         <additional-files value="dua_dump_%s.add.xml%s"/>
     </input>
     <output>""" % (options.net, files, step, add)
-    if hasattr(options, "noEmissions") and not options.noEmissions:
-        print >> fd, '        <emissions-output value="emissions_%s.xml"/>' % step
+    if hasattr(options, "noSummary") and not options.noSummary:
+        print >> fd, '        <summary-output value="summary_%s.xml"/>' % step
     if hasattr(options, "noTripinfo") and not options.noTripinfo:
         print >> fd, '        <tripinfo-output value="tripinfo_%s.xml"/>' % step
     if hasattr(options, "routefile"):
@@ -122,7 +122,7 @@ def writeSUMOConf(step, options, files):
     if hasattr(options, "lastroute") and options.lastroute:
         print >> fd, '          <vehroute-output.last-route value="%s"/>' % options.lastroute
     print >> fd, "    </output>"
-    print >> fd, '    <random_number><abs-rand value="%s"/></random_number>' % options.absrand
+    print >> fd, '    <random_number><random value="%s"/></random_number>' % options.absrand
     print >> fd, '    <time><begin value="%s"/>' % options.begin,
     if hasattr(options, "timeInc") and options.timeInc:
         print >> fd, '<end value="%s"/>' % int(options.timeInc * (step + 1)),
@@ -134,8 +134,7 @@ def writeSUMOConf(step, options, files):
     print >> fd, '        <no-internal-links value="%s"/>' % options.internallink
     print >> fd, '        <lanechange.allow-swap value="%s"/>' % options.lanechangeallowed
     if hasattr(options, "incBase") and options.incBase > 0:
-        print >> fd, """        <incremental-dua-step value="%s"/>
-        <incremental-dua-base value="%s"/>""" % (options.incValue*(step+1), options.incBase)
+        print >> fd, "        <scale value="%s"/>" % (options.incValue*float(step+1) / options.incBase)
     if options.mesosim:
         print >> fd, '        <mesosim value="True"/>'
         if options.mesomultiqueue:
@@ -167,8 +166,8 @@ def main():
                          type="float", default=.5, help="Sets Gawron's Alpha [default: %default]")
     optParser.add_option("-B", "--gBeta", dest="gBeta",
                          type="float", default=.9, help="Sets Gawron's Beta [default: %default]")
-    optParser.add_option("-E", "--disable-emissions", action="store_true", dest="noEmissions",
-                         default=False, help="No emissions are written by the simulation")
+    optParser.add_option("-E", "--disable-summary", "--disable-emissions", action="store_true", dest="noSummary",
+                         default=False, help="No summaries are written by the simulation")
     optParser.add_option("-T", "--disable-tripinfos", action="store_true", dest="noTripinfo",
                          default=False, help="No tripinfos are written by the simulation")
     optParser.add_option("--inc-base", dest="incBase",

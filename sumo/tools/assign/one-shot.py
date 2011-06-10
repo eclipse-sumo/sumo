@@ -31,8 +31,8 @@ def writeSUMOConf(step, options, files):
         <net-file value="%s"/>
         <route-files value="%s"/>
         <vehroutes value="vehroutes_%s.xml"/>""" % (options.net, files, step)
-    if not options.noEmissions:
-        print >> fd, '        <emissions value="emissions_%s.xml"/>' % step
+    if not options.noSummary:
+        print >> fd, '        <summary value="summary_%s.xml"/>' % step
     if not options.noTripinfo:
         print >> fd, '        <tripinfo value="tripinfo_%s.xml"/>' % step
     add = 'dump_%s.add.xml' % step
@@ -87,8 +87,8 @@ optParser.add_option("-f", "--frequencies", dest="frequencies",
 optParser.add_option("-i", "--adaptation-interval", dest="updateInterval",
                      type="int", default=1, help="Set edge weight adaptation interval")
 
-optParser.add_option("-E", "--disable-emissions", action="store_true", dest="noEmissions",
-                     default=False, help="No emissions are written by the simulation")
+optParser.add_option("-E", "--disable-summary", "--disable-emissions", action="store_true", dest="noSummary",                    
+                     default=False, help="No summaries are written by the simulation")                                                 
 optParser.add_option("-T", "--disable-tripinfos", action="store_true", dest="noTripinfo",
                      default=False, help="No tripinfos are written by the simulation")
 optParser.add_option("-m", "--mesosim", action="store_true", dest="mesosim",
