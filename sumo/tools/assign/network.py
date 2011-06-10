@@ -362,7 +362,7 @@ class NetworkReader(handler.ContentHandler):
             self._maxSpeed = 0
             self._laneNumber = 0
             self._length = 0
-        elif name == 'tl-logic':
+        elif name == 'tl-logic' or name == 'tlLogic':
             self._junctionObj = TLJunction()
             if self._junctionObj and attrs.has_key('id'):
                 self._junctionObj.label = attrs['id']
@@ -439,7 +439,7 @@ class NetworkReader(handler.ContentHandler):
         elif name == 'phaseno' and self._edge != '':
             self._junctionObj.phaseNum = int(self._chars)
             self._chars = ''
-        elif name == 'tl-logic' and self._edge != '':
+        elif (name == 'tl-logic' or name == 'tlLogic') and self._edge != '':
             if not self._phasenoInfo:
                 self._junctionObj.phaseNum = self._counter
             self._counter = 0
@@ -492,7 +492,7 @@ class ExtraSignalInformationReader(handler.ContentHandler):
 
     def startElement(self, name, attrs):
         self._chars = ''
-        if name == 'tl-logic':
+        if name == 'tl-logic' or name == 'tlLogic':
             if attrs.has_key('id'):
                 self._junctionObj = self._net.getJunction(attrs['id'])
                 if self._junctionObj:
@@ -529,7 +529,7 @@ class ExtraSignalInformationReader(handler.ContentHandler):
         elif name == 'phaseno':
             self._junctionObj.phaseNum = int(self._chars)
             self._chars = ''
-        elif name == 'tl-logic':
+        elif name == 'tl-logic' or name == 'tlLogic':
             if not self._phasenoInfo:
                 self._junctionObj.phaseNum = self._counter
             self._counter = 0
