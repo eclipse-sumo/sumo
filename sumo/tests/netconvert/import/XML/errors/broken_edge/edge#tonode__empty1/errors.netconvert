@@ -1,2 +1,2 @@
-Error: Attribute 'tonode' in definition of a edge is empty.
+Error: Attribute 'to' in definition of a edge is empty.
 Quitting (on error).
