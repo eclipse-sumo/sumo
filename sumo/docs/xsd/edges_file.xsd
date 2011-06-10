@@ -8,6 +8,8 @@
 		</xsd:sequence>
 		<xsd:attribute name="id" type="xsd:string" use="required"></xsd:attribute>
 		<xsd:attribute name="refid" type="xsd:string"></xsd:attribute>
+		<xsd:attribute name="from" type="xsd:string"></xsd:attribute>
+		<xsd:attribute name="to" type="xsd:string"></xsd:attribute>
 		<xsd:attribute name="fromnode" type="xsd:string"></xsd:attribute>
 		<xsd:attribute name="tonode" type="xsd:string"></xsd:attribute>
 		<xsd:attribute name="xfrom" type="xsd:string"></xsd:attribute>
