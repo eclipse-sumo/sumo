@@ -3,14 +3,14 @@ SUBDIRS = src unittest bin
 EXTRA_DIST = README ChangeLog AUTHORS COPYING INSTALL NEWS sumo.doxyconf
 
 doc:
-	echo "H"; #tools/build/makeDoc.py -o docs/sumo-user.html -p docs/sumo-user.pdf
+	tools/build/makeDoc.py -o docs/sumo-user.html -p docs/sumo-user.pdf
 
 dist-hook:
 	abs_distdir="`pwd`/$(distdir)" \
 	&& cd $(srcdir) \
-	&& for f in `find build tools -name .svn -prune -o -type d -print`; do mkdir $$abs_distdir/$$f; done \
+	&& for f in `find build tools docs/tutorial docs/xsd -name .svn -prune -o -type d -print`; do mkdir -p $$abs_distdir/$$f; done \
 	&& find build -regex ".*\.\(vcproj\|vsprops\|sln\|spec\)" -print0 | xargs -0 cp --parents --target-directory $$abs_distdir \
-	&& find docs/tutorial -regex ".*\.\(xml\|cfg\|py\)" -print0 | xargs -0 cp --parents --target-directory $$abs_distdir \
+	&& find docs/tutorial docs/xsd -regex ".*\.\(xml\|cfg\|py\|xsd\)" -print0 | xargs -0 cp --parents --target-directory $$abs_distdir \
 	&& ( svn export --force tools $(distdir)/tools && cd $(distdir) && find tools -type f > ../tools_filelist; true ) \
 	&& xargs cp --parents --target-directory $$abs_distdir < tools_filelist \
 	&& cp tools_filelist $$abs_distdir \
@@ -21,7 +21,7 @@ dist-doc: doc
 	$(am__remove_distdir)
 	mkdir $(distdir)
 	cp --parents docs/*.pdf $(distdir)
-	find docs/tutorial -regex ".*\.\(xml\|cfg\|py\)" -print0 | xargs -0 cp --parents --target-directory $(distdir)
+	find docs/tutorial docs/xsd -regex ".*\.\(xml\|cfg\|py\|xsd\)" -print0 | xargs -0 cp --parents --target-directory $(distdir)
 	tar -czf $(PACKAGE)-doc-$(VERSION).tar.gz $(distdir)
 	$(am__remove_distdir)
 

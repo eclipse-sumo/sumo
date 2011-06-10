@@ -86,7 +86,7 @@ class PropertyReader(xml.sax.handler.ContentHandler):
 
 seen = set()
 doFix = len(sys.argv) == 2 and sys.argv[1] in ["-f" , "--fix"]
-sumoRoot = os.path.normpath(os.path.join(os.path.dirname(sys.argv[0]), "../../"))
+sumoRoot = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 output = subprocess.Popen(["svn", "pl", "-v", "-R", "--xml", sumoRoot], stdout=subprocess.PIPE).communicate()[0]
 xml.sax.parseString(output, PropertyReader(doFix))
 
@@ -109,6 +109,6 @@ for root, dirs, files in os.walk(sumoRoot):
             print fullName, "svn:keywords"
             if doFix:
                 subprocess.call(["svn", "ps", "svn:keywords", _KEYWORDS, fullName])
-    for ignoreDir in ['.svn', 'foreign', 'mesosim', 'mesogui', 'netedit']:
+    for ignoreDir in ['.svn', 'foreign', 'mesosim', 'mesogui', 'netedit', 'contributed']:
         if ignoreDir in dirs:
             dirs.remove(ignoreDir)
