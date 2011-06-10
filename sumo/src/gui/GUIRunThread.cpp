@@ -128,17 +128,18 @@ GUIRunThread::run() {
                 stop();
             }
             // wait if wanted
-            SUMOReal val = (SUMOReal) mySimDelay.getValue();
+            long val = (long) mySimDelay.getValue();
             if (getNet().logSimulationDuration()) {
                 end = SysUtils::getCurrentMillis();
                 getNet().setSimDuration((int)(end-beg));
                 end2 = SysUtils::getCurrentMillis();
+				val -= end2 - beg;
             }
-            if ((int) val!=0) {
-                sleep((int) val);
+            if (val>0) {
+                sleep(val);
             }
         } else {
-            // sleep if the siulation is not running
+            // sleep if the simulation is not running
             sleep(500);
         }
     }
