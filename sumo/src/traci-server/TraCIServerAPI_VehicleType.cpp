@@ -27,6 +27,7 @@
 #include <config.h>
 #endif
 
+#include <limits>
 #include <microsim/MSNet.h>
 #include <microsim/MSVehicleType.h>
 #include "TraCIConstants.h"
