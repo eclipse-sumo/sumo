@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.example.org/Additional" xmlns:tns="http://www.example.org/Additional" elementFormDefault="qualified">
+
+    <element name="additional" type="tns:additionalType"></element>
+    
+    <complexType name="additionalType">
+    	<sequence>
+    		<element name="vtypeprobe" type="tns:vtypeprobeType"
+    			minOccurs="0" maxOccurs="unbounded">
+    		</element>
+    		<element name="e1-detector" type="tns:e1-detectorType"
+    			minOccurs="0" maxOccurs="unbounded">
+    		</element>
+    		<element name="e2-detector" type="tns:e2-detectorType"
+    			minOccurs="0" maxOccurs="unbounded">
+    		</element>
+    		<element name="e3-detector" type="tns:e3-detectorType"
+    			minOccurs="0" maxOccurs="unbounded">
+    		</element>
+    		<element name="meandata-edge" type="tns:meandataType"
+    			minOccurs="0" maxOccurs="unbounded">
+    		</element>
+    		<element name="meandata-lane" type="tns:meandataType"
+    			minOccurs="0" maxOccurs="unbounded">
+    		</element>
+    		<element name="timed_event" type="tns:timed_eventType"
+    			minOccurs="0" maxOccurs="unbounded">
+    		</element>
+    		<element name="tl-logic" type="tns:tl-logicType"
+    			minOccurs="0" maxOccurs="unbounded">
+    		</element>
+    		<element name="WAUT" type="tns:WAUTType" minOccurs="0"
+    			maxOccurs="unbounded">
+    		</element>
+    		<element name="wautJunction" type="tns:wautJunctionType" minOccurs="0" maxOccurs="unbounded"></element>
+    	</sequence>
+
+    </complexType>
+    
+    <complexType name="e1-detectorType">
+    	<attribute name="id" type="string" use="required"></attribute>
+    	<attribute name="lane" type="string" use="required"></attribute>
+    	<attribute name="pos" type="float" use="required"></attribute>
+    	<attribute name="freq" type="int" use="required"></attribute>
+    	<attribute name="file" type="string" use="required"></attribute>
+    	<attribute name="friendly_pos" use="optional" type="boolean">
+    	</attribute>
+    </complexType>
+
+    <complexType name="vtypeprobeType">
+    	<attribute name="id" type="string" use="required"></attribute>
+    	<attribute name="type" type="string" use="optional"></attribute>
+    	<attribute name="freq" type="int" use="required"></attribute>
+    	<attribute name="file" type="string" use="required"></attribute>
+    </complexType>
+
+    <complexType name="e2-detectorType">
+    	<attribute name="id" type="string" use="required"></attribute>
+    	<attribute name="lane" type="string" use="required"></attribute>
+    	<attribute name="pos" type="float" use="required"></attribute>
+    	<attribute name="file" type="string" use="required"></attribute>
+		<attribute name="length" type="float" use="required"></attribute>
+		<attribute name="freq" type="int" use="optional"></attribute>
+		<attribute name="tl" type="string" use="optional"></attribute>
+		<attribute name="cont" type="boolean" use="optional"></attribute>
+		<attribute name="time_treshold" type="int" use="optional"></attribute>
+		<attribute name="speed_treshold" type="float" use="optional"></attribute>
+		<attribute name="jam_treshold" type="float" use="optional"></attribute>
+    	<attribute name="friendly_pos" use="optional" type="boolean"></attribute>		
+    </complexType>
+
+    <complexType name="e3-detectorType">
+    	<sequence>
+    		<element name="det_entry" type="tns:det_entryexitType"
+    			minOccurs="1" maxOccurs="unbounded">
+    		</element>
+    		<element name="det_exit" type="tns:det_entryexitType" minOccurs="1" maxOccurs="unbounded"></element>
+    	</sequence>
+    	<attribute name="id" type="string" use="required"></attribute>
+    	<attribute name="freq" type="int" use="required"></attribute>
+    	<attribute name="file" type="string" use="required"></attribute>
+    	<attribute name="time_treshold" type="float" use="optional"></attribute>
+    	<attribute name="speed_treshold" use="optional">
+    		<simpleType>
+    			<restriction base="float"></restriction>
+    		</simpleType>
+    	</attribute>
+    </complexType>
+
+    <complexType name="det_entryexitType">
+    	<attribute name="lane" type="string" use="required"></attribute>
+    	<attribute name="pos" type="float" use="required"></attribute>
+    	<attribute name="friendly_pos" use="optional" type="boolean">
+    	</attribute>
+    </complexType>
+
+    <complexType name="meandataType">
+    	<attribute name="id" type="string" use="required"></attribute>
+    	<attribute name="type" use="optional">
+    		<simpleType>
+    			<restriction base="string">
+    				<enumeration value="hbefa"></enumeration>
+    				<enumeration value="harmonoise"></enumeration>
+    			</restriction>
+    		</simpleType>
+    	</attribute>
+    	<attribute name="freq" type="int" use="required"></attribute>
+    	<attribute name="file" type="string" use="required"></attribute>
+    	<attribute name="begin" type="int" use="optional"></attribute>
+    	<attribute name="end" type="int" use="optional"></attribute>
+    	<attribute name="excludeEmpty" use="optional">
+    		<simpleType>
+    			<restriction base="string"></restriction>
+    		</simpleType>
+    	</attribute>
+    </complexType>
+
+    <complexType name="timed_eventType">
+    	<attribute name="type" use="required">
+    		<simpleType>
+    			<restriction base="string">
+    				<enumeration value="SaveTLSStates"></enumeration>
+    				<enumeration value="SaveTLSSwitches"></enumeration>
+    				<enumeration value="SaveTLSSwitchStates"></enumeration>
+    			</restriction>
+    		</simpleType>
+    	</attribute>
+    	<attribute name="source" type="string" use="required"></attribute>
+    	<attribute name="dest" type="string" use="required"></attribute>
+    </complexType>
+
+    <complexType name="tl-logicType">
+    	<all>
+    		<element name="key" type="string" minOccurs="1"></element>
+    		<element name="subkey" type="string" minOccurs="1"></element>
+    		<element name="phaseno" type="int" minOccurs="1"></element>
+    		<element name="offset" type="int" minOccurs="1"></element>
+    		<sequence>
+    			<element name="phase" type="tns:phaseType" minOccurs="1" maxOccurs="unbounded"></element>
+    		</sequence>
+    	</all>
+    	<attribute name="type" use="required">
+    		<simpleType>
+    			<restriction base="string">
+    				<enumeration value="static"></enumeration>
+    				<enumeration value="traffic_light"></enumeration>
+    				<enumeration value="actuated"></enumeration>
+    				<enumeration value="agentbased"></enumeration>
+    			</restriction>
+    		</simpleType>
+    	</attribute>
+    </complexType>
+
+    <complexType name="phaseType">
+    	<attribute name="duration" type="int" use="required"></attribute>
+    	<attribute name="state" use="required">
+    		<simpleType>
+    			<restriction base="string">
+    				<pattern value="(G|g|r|y)+"></pattern>
+    			</restriction>
+    		</simpleType>
+    	</attribute>
+    </complexType>
+
+    <complexType name="WAUTType">
+    	<sequence>
+    		<element name="wautSwitch" type="tns:wautSwitchType" minOccurs="0" maxOccurs="unbounded"></element>
+    	</sequence>
+    	<attribute name="id" type="string" use="required"></attribute>
+    	<attribute name="refTime" type="int" use="required"></attribute>
+    	<attribute name="startProg" type="string" use="required"></attribute>
+    </complexType>
+
+    <complexType name="wautSwitchType">
+    	<attribute name="time" type="int" use="required"></attribute>
+    	<attribute name="to" type="string" use="required"></attribute>
+    </complexType>
+
+    <complexType name="wautJunctionType">
+    	<attribute name="wautID" type="string" use="required"></attribute>
+    	<attribute name="junctionID" type="string" use="required"></attribute>
+    	<attribute name="procedure" type="string"></attribute>
+    	<attribute name="synchron" type="string"></attribute>
+    </complexType>
+</schema>
