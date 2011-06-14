@@ -579,11 +579,8 @@ NBNode::computeInternalLaneShape(NBEdge *fromE, int fromL,
             init.push_back(center);
             init.push_back(end);
         } else {
-            //
-            SUMOReal angle1 = fromE->getLaneShape(fromL).getEndLine().atan2DegreeAngle();
-            SUMOReal angle2 = toE->getLaneShape(toL).getBegLine().atan2DegreeAngle();
-            SUMOReal angle = GeomHelper::getMinAngleDiff(angle1, angle2);
-            if (angle<45) {
+            const SUMOReal angle = fabs(fromE->getLaneShape(fromL).getEndLine().atan2Angle() - toE->getLaneShape(toL).getBegLine().atan2Angle());
+            if (angle < PI/4. || angle > 7./4.*PI) {
                 // very low angle: almost straight
                 noInitialPoints = 4;
                 init.push_back(beg);
@@ -671,12 +668,6 @@ NBNode::computeInternalLaneShape(NBEdge *fromE, int fromL,
 
 bool
 NBNode::needsCont(NBEdge *fromE, NBEdge *toE, NBEdge *otherFromE, NBEdge *otherToE, NBEdge::Connection &c) const {
-    if(fromE->getID()=="2i" && toE->getID()=="3o") {
-        int bla = 0;
-        if(otherFromE->getID()=="4i" && otherToE->getID()=="3o") {
-            bla = 0;
-        }
-    }
     if(myType==NODETYPE_RIGHT_BEFORE_LEFT) {
         return false;
     }

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 
-<!-- generated on 06/06/11 15:56:19 by SUMO netgen Version dev-SVN-r10513
+<!-- generated on 06/14/11 12:40:22 by SUMO netgen Version dev-SVN-r10609
 <?xml version="1.0" encoding="iso-8859-1"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netgenConfiguration.xsd">
@@ -13,7 +13,7 @@
     </spider_network>
 
     <output>
-        <output value="net.net.xml"/>
+        <output-file value="net.net.xml"/>
     </output>
 
 </configuration>
@@ -90,7 +90,7 @@
         <lane id=":1/1_17_0" depart="0" maxspeed="13.90" length="2.41" shape="401.20,300.00 401.61,299.18 402.85,298.35"/>
     </edge>
     <edge id=":1/1_4" function="internal">
-        <lane id=":1/1_4_0" depart="0" maxspeed="13.90" length="10.43" shape="394.56,292.22 397.37,294.90 399.69,296.82 401.52,297.97 402.85,298.35"/>
+        <lane id=":1/1_4_0" depart="0" maxspeed="13.90" length="10.81" shape="394.56,292.22 396.64,294.67 398.15,296.61 399.94,297.89 402.85,298.35"/>
     </edge>
     <edge id=":1/1_5" function="internal">
         <lane id=":1/1_5_0" depart="0" maxspeed="13.90" length="17.73" shape="394.56,292.22 397.47,296.11 398.45,300.00 397.47,303.89 394.56,307.78"/>
@@ -150,7 +150,7 @@
         <lane id=":1/2_17_0" depart="0" maxspeed="13.90" length="2.41" shape="501.20,300.00 501.61,299.18 502.85,298.35"/>
     </edge>
     <edge id=":1/2_4" function="internal">
-        <lane id=":1/2_4_0" depart="0" maxspeed="13.90" length="10.43" shape="494.56,292.22 497.37,294.90 499.69,296.82 501.52,297.97 502.85,298.35"/>
+        <lane id=":1/2_4_0" depart="0" maxspeed="13.90" length="10.81" shape="494.56,292.22 496.64,294.67 498.15,296.61 499.94,297.89 502.85,298.35"/>
     </edge>
     <edge id=":1/2_5" function="internal">
         <lane id=":1/2_5_0" depart="0" maxspeed="13.90" length="17.73" shape="494.56,292.22 497.47,296.11 498.45,300.00 497.47,303.89 494.56,307.78"/>
@@ -420,7 +420,7 @@
         <lane id=":3/1_9_0" depart="0" maxspeed="13.90" length="12.41" shape="207.78,294.56 205.73,297.28 205.05,300.00 205.73,302.72 207.78,305.44"/>
     </edge>
     <edge id=":3/1_10" function="internal">
-        <lane id=":3/1_10_0" depart="0" maxspeed="13.90" length="12.99" shape="207.78,294.56 204.45,297.66 201.57,299.88 199.14,301.21 197.15,301.65"/>
+        <lane id=":3/1_10_0" depart="0" maxspeed="13.90" length="13.19" shape="207.78,294.56 205.33,297.16 203.01,299.43 200.43,301.04 197.15,301.65"/>
     </edge>
     <edge id=":3/1_11" function="internal">
         <lane id=":3/1_11_0" depart="0" maxspeed="13.90" length="4.82" shape="207.78,294.56 206.32,294.85 205.44,294.56 205.15,293.68 205.44,292.22"/>
@@ -486,7 +486,7 @@
         <lane id=":3/2_11_0" depart="0" maxspeed="13.90" length="4.82" shape="107.78,294.56 106.32,294.85 105.44,294.56 105.15,293.68 105.44,292.22"/>
     </edge>
     <edge id=":3/2_12" function="internal">
-        <lane id=":3/2_12_0" depart="0" maxspeed="13.90" length="10.43" shape="97.15,298.35 98.48,297.97 100.31,296.82 102.63,294.90 105.44,292.22"/>
+        <lane id=":3/2_12_0" depart="0" maxspeed="13.90" length="10.81" shape="97.15,298.35 100.06,297.89 101.85,296.61 103.36,294.67 105.44,292.22"/>
     </edge>
     <edge id=":3/2_13" function="internal">
         <lane id=":3/2_13_0" depart="0" maxspeed="13.90" length="12.19" shape="97.15,298.35 100.47,298.35 103.25,298.35 106.03,298.35 109.35,298.35"/>
@@ -636,10 +636,10 @@
         <lane id=":4/2_9_0" depart="0" maxspeed="13.90" length="12.19" shape="301.65,97.15 301.65,100.47 301.65,103.25 301.65,106.03 301.65,109.35"/>
     </edge>
     <edge id=":4/2_10" function="internal">
-        <lane id=":4/2_10_0" depart="0" maxspeed="13.90" length="7.31" shape="301.65,97.15 301.21,99.14 299.88,101.57 298.35,103.56"/>
+        <lane id=":4/2_10_0" depart="0" maxspeed="13.90" length="7.92" shape="301.65,97.15 301.04,100.43 299.43,103.01 298.35,104.11"/>
     </edge>
     <edge id=":4/2_18" function="internal">
-        <lane id=":4/2_18_0" depart="0" maxspeed="13.90" length="5.68" shape="298.35,103.56 297.66,104.45 294.56,107.78"/>
+        <lane id=":4/2_18_0" depart="0" maxspeed="13.90" length="5.27" shape="298.35,104.11 297.16,105.33 294.56,107.78"/>
     </edge>
     <edge id=":4/2_11" function="internal">
         <lane id=":4/2_11_0" depart="0" maxspeed="13.90" length="2.41" shape="301.65,97.15 300.82,98.39 300.00,98.80"/>
@@ -648,7 +648,7 @@
         <lane id=":4/2_19_0" depart="0" maxspeed="13.90" length="2.41" shape="300.00,98.80 299.17,98.39 298.35,97.15"/>
     </edge>
     <edge id=":4/2_12" function="internal">
-        <lane id=":4/2_12_0" depart="0" maxspeed="13.90" length="10.43" shape="292.22,105.44 294.90,102.63 296.82,100.31 297.97,98.48 298.35,97.15"/>
+        <lane id=":4/2_12_0" depart="0" maxspeed="13.90" length="10.81" shape="292.22,105.44 294.67,103.36 296.61,101.85 297.89,100.06 298.35,97.15"/>
     </edge>
     <edge id=":4/2_13" function="internal">
         <lane id=":4/2_13_0" depart="0" maxspeed="13.90" length="17.73" shape="292.22,105.44 296.11,102.53 300.00,101.55 303.89,102.53 307.78,105.44"/>
@@ -1083,7 +1083,7 @@
     <junction id=":4/1_19_0" type="internal" x="300.00" y="198.80" incLanes=":4/1_11_0 1to4/1_0" intLanes=":4/1_1_0" shape=""/>
     <junction id=":4/2_16_0" type="internal" x="301.65" y="101.85" incLanes=":4/2_2_0 4/3to4/2_0" intLanes=":4/2_8_0 :4/2_9_0" shape=""/>
     <junction id=":4/2_17_0" type="internal" x="300.00" y="107.70" incLanes=":4/2_3_0 4/3to4/2_0" intLanes=":4/2_9_0" shape=""/>
-    <junction id=":4/2_18_0" type="internal" x="298.35" y="103.56" incLanes=":4/2_10_0 4/1to4/2_0" intLanes=":4/2_0_0 :4/2_1_0" shape=""/>
+    <junction id=":4/2_18_0" type="internal" x="298.35" y="104.11" incLanes=":4/2_10_0 4/1to4/2_0" intLanes=":4/2_0_0 :4/2_1_0" shape=""/>
     <junction id=":4/2_19_0" type="internal" x="300.00" y="98.80" incLanes=":4/2_11_0 4/1to4/2_0" intLanes=":4/2_1_0" shape=""/>
     <junction id=":4/3_9_0" type="internal" x="305.44" y="5.44" incLanes=":4/3_5_0 3/3to4/3_0" intLanes=":4/3_6_0" shape=""/>
     <junction id=":4/3_10_0" type="internal" x="301.20" y="5.35" incLanes=":4/3_7_0 1/3to4/3_0" intLanes=":4/3_3_0 :4/3_4_0" shape=""/>

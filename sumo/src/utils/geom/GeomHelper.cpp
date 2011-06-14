@@ -166,26 +166,23 @@ GeomHelper::intersection_position(const Position &p11,
 */
 SUMOReal
 GeomHelper::Angle2D(SUMOReal x1, SUMOReal y1, SUMOReal x2, SUMOReal y2) {
-    SUMOReal dtheta,theta1,theta2;
-
-    theta1 = atan2(y1,x1);
-    theta2 = atan2(y2,x2);
-    dtheta = theta2 - theta1;
-    while (dtheta > (SUMOReal) PI)
+    SUMOReal dtheta = atan2(y2,x2) - atan2(y1,x1);
+    while (dtheta > (SUMOReal) PI) {
         dtheta -= (SUMOReal)(2.0*PI);
-    while (dtheta < (SUMOReal) -PI)
+	}
+    while (dtheta < (SUMOReal) -PI) {
         dtheta += (SUMOReal)(2.0*PI);
-
-    return(dtheta);
+	}
+    return dtheta;
 }
 
 
 Position
 GeomHelper::interpolate(const Position &p1,
                         const Position &p2, SUMOReal length) {
-    SUMOReal oldlen = p1.distanceTo(p2);
-    SUMOReal x = p1.x() + (p2.x() - p1.x()) * length / oldlen;
-    SUMOReal y = p1.y() + (p2.y() - p1.y()) * length / oldlen;
+    const SUMOReal oldlen = p1.distanceTo(p2);
+    const SUMOReal x = p1.x() + (p2.x() - p1.x()) * length / oldlen;
+    const SUMOReal y = p1.y() + (p2.y() - p1.y()) * length / oldlen;
     return Position(x, y);
 }
 
@@ -193,9 +190,9 @@ GeomHelper::interpolate(const Position &p1,
 Position
 GeomHelper::extrapolate_first(const Position &p1,
                               const Position &p2, SUMOReal length) {
-    SUMOReal oldlen = p1.distanceTo(p2);
-    SUMOReal x = p1.x() - (p2.x() - p1.x()) * (length) / oldlen;
-    SUMOReal y = p1.y() - (p2.y() - p1.y()) * (length) / oldlen;
+    const SUMOReal oldlen = p1.distanceTo(p2);
+    const SUMOReal x = p1.x() - (p2.x() - p1.x()) * length / oldlen;
+    const SUMOReal y = p1.y() - (p2.y() - p1.y()) * length / oldlen;
     return Position(x, y);
 }
 
@@ -203,9 +200,9 @@ GeomHelper::extrapolate_first(const Position &p1,
 Position
 GeomHelper::extrapolate_second(const Position &p1,
                                const Position &p2, SUMOReal length) {
-    SUMOReal oldlen = p1.distanceTo(p2);
-    SUMOReal x = p2.x() - (p1.x() - p2.x()) * (length) / oldlen;
-    SUMOReal y = p2.y() - (p1.y() - p2.y()) * (length) / oldlen;
+    const SUMOReal oldlen = p1.distanceTo(p2);
+    const SUMOReal x = p2.x() - (p1.x() - p2.x()) * length / oldlen;
+    const SUMOReal y = p2.y() - (p1.y() - p2.y()) * length / oldlen;
     return Position(x, y);
 }
 
@@ -283,37 +280,12 @@ GeomHelper::transfer_to_side(Position &p,
                              const Position &lineBeg,
                              const Position &lineEnd,
                              SUMOReal amount) {
-    SUMOReal dx = lineBeg.x() - lineEnd.x();
-    SUMOReal dy = lineBeg.y() - lineEnd.y();
-    SUMOReal length = sqrt(
-                          (lineBeg.x() - lineEnd.x())*(lineBeg.x() - lineEnd.x())
-                          +
-                          (lineBeg.y() - lineEnd.y())*(lineBeg.y() - lineEnd.y()));
-    if (dx<0) { // fromX<toX -> to right
-        if (dy>0) { // to up right -> lanes to down right (+, +)
-            p.add(dy*amount/length, -dx*amount/length);
-        } else if (dy<0) { // to down right -> lanes to down left (-, +)
-            p.add(dy*amount/length, -dx*amount/length);
-        } else { // to right -> lanes to down (0, +)
-            p.add(0, -dx*amount/length);
-        }
-    } else if (dx>0) { // fromX>toX -> to left
-        if (dy>0) { // to up left -> lanes to up right (+, -)
-            p.add(dy*amount/length, -dx*amount/length);
-        } else if (dy<0) { // to down left -> lanes to up left (-, -)
-            p.add(dy*amount/length, -dx*amount/length);
-        } else { // to left -> lanes to up (0, -)
-            p.add(0, -dx*amount/length);
-        }
-    } else { // fromX==toX
-        if (dy>0) { // to up -> lanes to right (+, 0)
-            p.add(dy*amount/length, 0);
-        } else if (dy<0) { // to down -> lanes to left (-, 0)
-            p.add(dy*amount/length, 0);
-        } else { // zero !
-            throw 1;
-        }
-    }
+    const SUMOReal dx = lineBeg.x() - lineEnd.x();
+    const SUMOReal dy = lineBeg.y() - lineEnd.y();
+    const SUMOReal length = sqrt(dx*dx + dy*dy);
+	if (length > 0) {
+		p.add(dy*amount/length, -dx*amount/length);
+	}
     return p;
 }
 
@@ -348,7 +320,7 @@ std::pair<SUMOReal, SUMOReal>
 GeomHelper::getNormal90D_CW(const Position &beg,
                             const Position &end,
                             SUMOReal wanted_offset) {
-    SUMOReal length = sqrt((beg.x()-end.x())*(beg.x()-end.x()) + (beg.y()-end.y())*(beg.y()-end.y()));
+    const SUMOReal length = sqrt((beg.x()-end.x())*(beg.x()-end.x()) + (beg.y()-end.y())*(beg.y()-end.y()));
     return getNormal90D_CW(beg, end, length, wanted_offset);
 }
 
