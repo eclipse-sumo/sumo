@@ -670,10 +670,10 @@ PositionVector::nearest_position_on_line_to_point(const Position &p, bool perpen
 
 int
 PositionVector::indexOfClosest(const Position &p) const {
-    SUMOReal minDist = std::numeric_limits<double>::max();
+    SUMOReal minDist = std::numeric_limits<SUMOReal>::max();
     SUMOReal dist;
-    int closest;
-    for (int i=0; i < (int)size(); i++) {
+    int closest = 0;
+    for (int i=1; i < (int)size(); i++) {
         dist = p.distanceTo(myCont[i]);
         if (dist < minDist) {
             closest = i;
@@ -687,10 +687,10 @@ PositionVector::indexOfClosest(const Position &p) const {
 void 
 PositionVector::insertAtClosest(const Position &p) {
     Position outIntersection = Position();
-    SUMOReal minDist = std::numeric_limits<double>::max();
+    SUMOReal minDist = std::numeric_limits<SUMOReal>::max();
     SUMOReal dist;
-    int insertionIndex;
-    for (int i=0; i < (int)size()-1; i++) {
+    int insertionIndex = 1;
+    for (int i=1; i < (int)size()-1; i++) {
         dist = GeomHelper::closestDistancePointLine(p, myCont[i], myCont[i+1], outIntersection);
         if (dist < minDist) {
             insertionIndex = i+1;

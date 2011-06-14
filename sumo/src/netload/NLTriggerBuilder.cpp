@@ -191,10 +191,10 @@ NLTriggerBuilder::parseAndBuildCalibrator(MSNet &net, const SUMOSAXAttributes &a
     }
     // get the file name to read further definitions from
     MSLane *lane = getLane(attrs, "calibrator", id);
-    SUMOReal pos = getPosition(attrs, lane, "calibrator", id);
-    SUMOTime freq = attrs.getOptSUMOTimeReporting(SUMO_ATTR_FREQUENCY, id.c_str(), ok, DELTA_T); // !!! no error handling
+    const SUMOReal pos = getPosition(attrs, lane, "calibrator", id);
 #ifdef HAVE_MESOSIM
     if (MSGlobals::gUseMesoSim) {
+	    const SUMOTime freq = attrs.getOptSUMOTimeReporting(SUMO_ATTR_FREQUENCY, id.c_str(), ok, DELTA_T); // !!! no error handling
         std::string file = getFileName(attrs, base, true);
         bool ok = true;
         std::string outfile = attrs.getOptStringReporting(SUMO_ATTR_OUTPUT, 0, ok, "");

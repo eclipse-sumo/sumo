@@ -916,13 +916,13 @@ NLHandler::addE2Detector(const SUMOSAXAttributes &attrs) {
                 myDetectorBuilder.buildE2Detector(id, lane, position, length, cont,
                                                   myJunctionControlBuilder.getTLLogic(lsaid),
                                                   OutputDevice::getDevice(file, getFileName()),
-                                                  (SUMOTime) haltingSpeedThreshold, haltingSpeedThreshold, jamDistThreshold,
+                                                  haltingTimeThreshold, haltingSpeedThreshold, jamDistThreshold,
                                                   friendlyPos);
             } else {
                 myDetectorBuilder.buildE2Detector(id, lane, position, length, cont,
                                                   myJunctionControlBuilder.getTLLogic(lsaid), toLane,
                                                   OutputDevice::getDevice(file, getFileName()),
-                                                  (SUMOTime) haltingSpeedThreshold, haltingSpeedThreshold, jamDistThreshold,
+                                                  haltingTimeThreshold, haltingSpeedThreshold, jamDistThreshold,
                                                   friendlyPos);
             }
         } else {
@@ -933,7 +933,7 @@ NLHandler::addE2Detector(const SUMOSAXAttributes &attrs) {
             }
             myDetectorBuilder.buildE2Detector(id, lane, position, length, cont, frequency,
                                               OutputDevice::getDevice(file, getFileName()),
-                                              (SUMOTime) haltingSpeedThreshold, haltingSpeedThreshold, jamDistThreshold,
+                                              haltingTimeThreshold, haltingSpeedThreshold, jamDistThreshold,
                                               friendlyPos);
         }
     } catch (InvalidArgument &e) {

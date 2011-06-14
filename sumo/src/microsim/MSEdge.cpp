@@ -312,9 +312,9 @@ MSEdge::insertVehicle(SUMOVehicle &v, SUMOTime time) const throw(ProcessError) {
     if (isVaporizing()) {
         return false;
     }
-    const SUMOVehicleParameter &pars = v.getParameter();
 #ifdef HAVE_MESOSIM
     if (MSGlobals::gUseMesoSim) {
+	    const SUMOVehicleParameter &pars = v.getParameter();
         SUMOReal pos = 0.0;
         switch (pars.departPosProcedure) {
         case DEPART_POS_GIVEN:
