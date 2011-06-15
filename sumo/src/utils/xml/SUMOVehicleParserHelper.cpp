@@ -466,7 +466,9 @@ SUMOVehicleParserHelper::parseVTypeEmbedded(SUMOVTypeParameter &into,
         parseVTypeEmbedded_BKerner(into, attrs);
         break;
     default:
-        WRITE_WARNING("Unknown element " + toString(element));
+        if (SUMOXMLDefinitions::Tags.has(element)) {
+            WRITE_WARNING("Unknown element " + toString((SumoXMLTag)element));
+        }
     }
     if (!fromVType) {
         into.cfModel = recognizedTag;
