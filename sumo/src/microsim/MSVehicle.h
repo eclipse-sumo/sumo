@@ -199,8 +199,9 @@ public:
      *  myLane.
      * 
      * The vehicle also sets the lanes it is in-lapping into and informs them about it.
+     * @return Whether the vehicle has moved to the next edge
      */
-    void moveChecked();
+    bool moveChecked();
 
 
     /** @brief Returns the gap between pred and this vehicle.

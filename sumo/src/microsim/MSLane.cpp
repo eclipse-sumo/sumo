@@ -689,14 +689,14 @@ MSLane::setCritical(SUMOTime t, std::vector<MSLane*> &into) {
     // move critical vehicles
     for (VehCont::iterator i=myVehicles.begin(); i!=myVehicles.end(); ) {
         MSVehicle *veh = *i;
-        veh->moveChecked();
+        bool moved = veh->moveChecked();
         MSLane *target = veh->getLane();
         SUMOReal length = veh->getVehicleType().getLength();
         if (veh->ends()) {
             // vehicle has reached its arrival position
             veh->onRemovalFromNet(MSMoveReminder::NOTIFICATION_ARRIVED);
             MSNet::getInstance()->getVehicleControl().scheduleVehicleRemoval(veh);
-        } else if (target!=0&&target!=this) {
+        } else if (target!=0&&moved) {
             if(target->getEdge().isVaporizing()) {
                 // vehicle has reached a vaporizing edge
                 veh->onRemovalFromNet(MSMoveReminder::NOTIFICATION_VAPORIZED);

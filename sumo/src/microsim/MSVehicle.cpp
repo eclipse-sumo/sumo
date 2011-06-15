@@ -627,7 +627,7 @@ MSVehicle::moveRegardingCritical(SUMOTime t, const MSLane* const lane,
 }
 
 
-void
+bool
 MSVehicle::moveChecked() {
 #ifdef DEBUG_VEHICLE_GUI_SELECTION
     if (gSelected.isSelected(GLO_VEHICLE, static_cast<const GUIVehicle*>(this)->getGlID())) {
@@ -742,11 +742,13 @@ MSVehicle::moveChecked() {
     if (passedLanes.size()==0||passedLanes.back()!=myLane) {
         passedLanes.push_back(myLane);
     }
+    bool moved = true;
     // move on lane(s)
     if (myState.myPos<=myLane->getLength()) {
         // we are staying at our lane
         //  there is no need to go over succeeding lanes
         workOnMoveReminders(pos, pos + SPEED2DIST(vNext), vNext);
+        moved = false;
     } else {
         // we are moving at least to the next lane (maybe pass even more than one)
         if (myCurrEdge != myRoute->end() - 1) {
@@ -801,6 +803,7 @@ MSVehicle::moveChecked() {
         }
         setBlinkerInformation();
     }
+    return moved;
 }
 
 
