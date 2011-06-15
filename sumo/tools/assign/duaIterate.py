@@ -84,7 +84,8 @@ def writeRouteConf(step, options, file, output, routesInfo):
         <with-taz value="%s"/>
         <gawron.beta value="%s"/>
         <gawron.a value="%s"/>
-    </processing>""" % (options.continueOnUnbuild, bool(options.districts), options.gBeta, options.gA)
+        <keep-all-routes value="%s"/>
+    </processing>""" % (options.continueOnUnbuild, bool(options.districts), options.gBeta, options.gA, options.allroutes)
     print >> fd, '    <random_number><random value="%s"/></random_number>' % options.absrand
     print >> fd, '    <time><begin value="%s"/>' % options.begin,
     if options.end:
@@ -186,6 +187,9 @@ def main():
                          default = 'None', help="choose the format of the route file")
     optParser.add_option("-z", "--output-lastRoute",  action="store_true", dest="lastroute",
                          default = False, help="output the last routes")
+    optParser.add_option("-K", "--keep-allroutes", action="store_true", dest="allroutes",
+                         default = False, help="save routes with near zero probability")
+
     
     (options, args) = optParser.parse_args()
     if not options.net or not options.trips:
