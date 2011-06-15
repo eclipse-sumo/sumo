@@ -160,7 +160,7 @@ NLHandler::myStartElement(int element,
         case SUMO_TAG_E1DETECTOR__DEPRECATED:
 			if(!myHaveWarnedAboutDeprecatedE1) {
 				myHaveWarnedAboutDeprecatedE1 = true;
-				MsgHandler::getWarningInstance()->inform("'" + toString(SUMO_TAG_E1DETECTOR__DEPRECATED) + " is deprecated; please use '" + toString(SUMO_TAG_E3DETECTOR) + "'.");
+				MsgHandler::getWarningInstance()->inform("'" + toString(SUMO_TAG_E1DETECTOR__DEPRECATED) + "' is deprecated; please use '" + toString(SUMO_TAG_E1DETECTOR) + "'.");
 			}
         case SUMO_TAG_E1DETECTOR:
 		case SUMO_TAG_INDUCTION_LOOP:
@@ -169,7 +169,7 @@ NLHandler::myStartElement(int element,
         case SUMO_TAG_E2DETECTOR__DEPRECATED:
 			if(!myHaveWarnedAboutDeprecatedE2) {
 				myHaveWarnedAboutDeprecatedE2 = true;
-				MsgHandler::getWarningInstance()->inform("'" + toString(SUMO_TAG_E2DETECTOR__DEPRECATED) + " is deprecated; please use '" + toString(SUMO_TAG_E2DETECTOR) + "'.");
+				MsgHandler::getWarningInstance()->inform("'" + toString(SUMO_TAG_E2DETECTOR__DEPRECATED) + "' is deprecated; please use '" + toString(SUMO_TAG_E2DETECTOR) + "'.");
 			}
         case SUMO_TAG_E2DETECTOR:
 		case SUMO_TAG_LANE_AREA_DETECTOR:
@@ -178,7 +178,7 @@ NLHandler::myStartElement(int element,
         case SUMO_TAG_E3DETECTOR__DEPRECATED:
 			if(!myHaveWarnedAboutDeprecatedE3) {
 				myHaveWarnedAboutDeprecatedE3 = true;
-				MsgHandler::getWarningInstance()->inform("'" + toString(SUMO_TAG_E3DETECTOR__DEPRECATED) + " is deprecated; please use '" + toString(SUMO_TAG_E3DETECTOR) + "'.");
+				MsgHandler::getWarningInstance()->inform("'" + toString(SUMO_TAG_E3DETECTOR__DEPRECATED) + "' is deprecated; please use '" + toString(SUMO_TAG_E3DETECTOR) + "'.");
 			}
         case SUMO_TAG_E3DETECTOR:
 		case SUMO_TAG_ENTRY_EXIT_DETECTOR:
@@ -187,7 +187,7 @@ NLHandler::myStartElement(int element,
         case SUMO_TAG_DET_ENTRY__DEPRECATED:
 			if(!myHaveWarnedAboutDeprecatedDetEntry) {
 				myHaveWarnedAboutDeprecatedDetEntry = true;
-				MsgHandler::getWarningInstance()->inform("'" + toString(SUMO_TAG_DET_ENTRY__DEPRECATED) + " is deprecated; please use '" + toString(SUMO_TAG_DET_ENTRY) + "'.");
+				MsgHandler::getWarningInstance()->inform("'" + toString(SUMO_TAG_DET_ENTRY__DEPRECATED) + "' is deprecated; please use '" + toString(SUMO_TAG_DET_ENTRY) + "'.");
 			}
         case SUMO_TAG_DET_ENTRY:
             addE3Entry(attrs);
@@ -195,7 +195,7 @@ NLHandler::myStartElement(int element,
         case SUMO_TAG_DET_EXIT__DEPRECATED:
 			if(!myHaveWarnedAboutDeprecatedDetExit) {
 				myHaveWarnedAboutDeprecatedDetExit = true;
-				MsgHandler::getWarningInstance()->inform("'" + toString(SUMO_TAG_DET_EXIT__DEPRECATED) + " is deprecated; please use '" + toString(SUMO_TAG_DET_EXIT) + "'.");
+				MsgHandler::getWarningInstance()->inform("'" + toString(SUMO_TAG_DET_EXIT__DEPRECATED) + "' is deprecated; please use '" + toString(SUMO_TAG_DET_EXIT) + "'.");
 			}
         case SUMO_TAG_DET_EXIT:
             addE3Exit(attrs);
@@ -227,7 +227,7 @@ NLHandler::myStartElement(int element,
         case SUMO_TAG_TIMEDEVENT__DEPRECATED:
 			if(!myHaveWarnedAboutDeprecatedTimedEvent) {
 				myHaveWarnedAboutDeprecatedTimedEvent = true;
-				MsgHandler::getWarningInstance()->inform("'" + toString(SUMO_TAG_TIMEDEVENT__DEPRECATED) + " is deprecated; please use '" + toString(SUMO_TAG_TIMEDEVENT) + "'.");
+				MsgHandler::getWarningInstance()->inform("'" + toString(SUMO_TAG_TIMEDEVENT__DEPRECATED) + "' is deprecated; please use '" + toString(SUMO_TAG_TIMEDEVENT) + "'.");
 			}
         case SUMO_TAG_TIMEDEVENT:
             myActionBuilder.addAction(attrs, getFileName());
@@ -875,19 +875,19 @@ NLHandler::addE2Detector(const SUMOSAXAttributes &attrs) {
     try {
 		if(attrs.hasAttribute(SUMO_ATTR_HALTING_TIME_THRESHOLD__DEPRECATED)) {
 			myHaveWarnedAboutDeprecatedTimeThreshold = true;
-            MsgHandler::getWarningInstance()->inform("'" + toString(SUMO_ATTR_HALTING_TIME_THRESHOLD__DEPRECATED) + " is deprecated; please use '" + toString(SUMO_ATTR_HALTING_TIME_THRESHOLD) + "'.");
+            MsgHandler::getWarningInstance()->inform("'" + toString(SUMO_ATTR_HALTING_TIME_THRESHOLD__DEPRECATED) + "' is deprecated; please use '" + toString(SUMO_ATTR_HALTING_TIME_THRESHOLD) + "'.");
 		}
 		if(attrs.hasAttribute(SUMO_ATTR_HALTING_SPEED_THRESHOLD__DEPRECATED)) {
 			myHaveWarnedAboutDeprecatedSpeedThreshold = true;
-            MsgHandler::getWarningInstance()->inform("'" + toString(SUMO_ATTR_HALTING_SPEED_THRESHOLD__DEPRECATED) + " is deprecated; please use '" + toString(SUMO_ATTR_HALTING_SPEED_THRESHOLD) + "'.");
+            MsgHandler::getWarningInstance()->inform("'" + toString(SUMO_ATTR_HALTING_SPEED_THRESHOLD__DEPRECATED) + "' is deprecated; please use '" + toString(SUMO_ATTR_HALTING_SPEED_THRESHOLD) + "'.");
 		}
 		if(attrs.hasAttribute(SUMO_ATTR_JAM_DIST_THRESHOLD__DEPRECATED)) {
 			myHaveWarnedAboutDeprecatedJamDistThreshold = true;
-            MsgHandler::getWarningInstance()->inform("'" + toString(SUMO_ATTR_JAM_DIST_THRESHOLD__DEPRECATED) + " is deprecated; please use '" + toString(SUMO_ATTR_JAM_DIST_THRESHOLD) + "'.");
+            MsgHandler::getWarningInstance()->inform("'" + toString(SUMO_ATTR_JAM_DIST_THRESHOLD__DEPRECATED) + "' is deprecated; please use '" + toString(SUMO_ATTR_JAM_DIST_THRESHOLD) + "'.");
 		}
 		if(attrs.hasAttribute(SUMO_ATTR_FRIENDLY_POS__DEPRECATED)&&!myHaveWarnedAboutDeprecatedFriendlyPos) {
 			myHaveWarnedAboutDeprecatedFriendlyPos = true;
-            MsgHandler::getWarningInstance()->inform("'" + toString(SUMO_ATTR_FRIENDLY_POS__DEPRECATED) + " is deprecated; please use '" + toString(SUMO_ATTR_FRIENDLY_POS) + "'.");
+            MsgHandler::getWarningInstance()->inform("'" + toString(SUMO_ATTR_FRIENDLY_POS__DEPRECATED) + "' is deprecated; please use '" + toString(SUMO_ATTR_FRIENDLY_POS) + "'.");
 		}
 
 
@@ -951,11 +951,11 @@ NLHandler::beginE3Detector(const SUMOSAXAttributes &attrs) {
     std::string id = attrs.getStringReporting(SUMO_ATTR_ID, 0, ok);
 	if(attrs.hasAttribute(SUMO_ATTR_HALTING_TIME_THRESHOLD__DEPRECATED)) {
 		myHaveWarnedAboutDeprecatedTimeThreshold = true;
-        MsgHandler::getWarningInstance()->inform("'" + toString(SUMO_ATTR_HALTING_TIME_THRESHOLD__DEPRECATED) + " is deprecated; please use '" + toString(SUMO_ATTR_HALTING_TIME_THRESHOLD) + "'.");
+        MsgHandler::getWarningInstance()->inform("'" + toString(SUMO_ATTR_HALTING_TIME_THRESHOLD__DEPRECATED) + "' is deprecated; please use '" + toString(SUMO_ATTR_HALTING_TIME_THRESHOLD) + "'.");
 	}
 	if(attrs.hasAttribute(SUMO_ATTR_HALTING_SPEED_THRESHOLD__DEPRECATED)) {
 		myHaveWarnedAboutDeprecatedSpeedThreshold = true;
-        MsgHandler::getWarningInstance()->inform("'" + toString(SUMO_ATTR_HALTING_SPEED_THRESHOLD__DEPRECATED) + " is deprecated; please use '" + toString(SUMO_ATTR_HALTING_SPEED_THRESHOLD) + "'.");
+        MsgHandler::getWarningInstance()->inform("'" + toString(SUMO_ATTR_HALTING_SPEED_THRESHOLD__DEPRECATED) + "' is deprecated; please use '" + toString(SUMO_ATTR_HALTING_SPEED_THRESHOLD) + "'.");
 	}
 
 	const SUMOTime frequency = attrs.getSUMOTimeReporting(SUMO_ATTR_FREQUENCY, id.c_str(), ok);
