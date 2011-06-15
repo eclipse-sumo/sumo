@@ -1161,6 +1161,7 @@ GUIDialog_ViewSettings::onCmdEditTable(FXObject*,FXSelector,void*data) {
     }
     GUISUMOAbstractView::Decal d;
     int row = i->row;
+    // check whether we add a new entry or edit an existing entry
     if (row== static_cast<int>(myDecals->size())) {
         d.filename = "";
         d.centerX = SUMOReal(myParent->getGridWidth() / 2.);
@@ -1172,6 +1173,9 @@ GUIDialog_ViewSettings::onCmdEditTable(FXObject*,FXSelector,void*data) {
         myDecalsLock->lock();
         myDecals->push_back(d);
         myDecalsLock->unlock();
+    } else if (row > static_cast<int>(myDecals->size())) {
+        // ignore clicks two lines below existing entries
+        return 1;
     } else {
         d = (*myDecals)[row];
     }
