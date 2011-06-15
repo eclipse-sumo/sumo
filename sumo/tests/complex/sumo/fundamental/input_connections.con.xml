@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conncections>
+    <connection from="a" to="b" lane="0:0"/>
+    <connection from="b" to="a" lane="0:0"/>
+</conncections>
