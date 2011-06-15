@@ -37,11 +37,10 @@
 // method definitions
 // ===========================================================================
 MSCFModel_PWag2009::MSCFModel_PWag2009(const MSVehicleType* vtype,  SUMOReal accel, SUMOReal decel,
-                                       SUMOReal dawdle, SUMOReal tau) throw()
-        : MSCFModel(vtype, decel), myAccel(accel), myDawdle(dawdle), myTau(tau) {
-
-    myTauDecel = decel * tau;
-    myDecelDivTau = decel / tau;
+                                       SUMOReal dawdle, SUMOReal tau, SUMOReal tauLast, SUMOReal apProb) throw()
+        : MSCFModel(vtype, decel), myAccel(accel), myDawdle(dawdle), myTau(tau),
+          myTauDecel(decel * tau), myDecelDivTau(decel / tau), myTauLastDecel(decel * tauLast),
+          myActionPointProbability(apProb) {
 }
 
 
@@ -49,26 +48,26 @@ MSCFModel_PWag2009::~MSCFModel_PWag2009() throw() {}
 
 
 SUMOReal
-MSCFModel_PWag2009::ffeV(const MSVehicle * const /*veh*/, SUMOReal speed, SUMOReal gap, SUMOReal predSpeed) const throw() {
-    return _v(speed, gap, predSpeed, maxNextSpeed(speed));
+MSCFModel_PWag2009::ffeV(const MSVehicle * const veh, SUMOReal speed, SUMOReal gap, SUMOReal predSpeed) const throw() {
+    return _v(veh, speed, gap, predSpeed);
 }
 
 
 SUMOReal
 MSCFModel_PWag2009::ffeV(const MSVehicle * const veh, SUMOReal gap, SUMOReal predSpeed) const throw() {
-    return _v(veh->getSpeed(), gap, predSpeed, maxNextSpeed(veh->getSpeed()));
+    return _v(veh, veh->getSpeed(), gap, predSpeed);
 }
 
 
 SUMOReal
 MSCFModel_PWag2009::ffeV(const MSVehicle * const veh, const MSVehicle *pred) const throw() {
-    return _v(veh->getSpeed(), veh->gap2pred(*pred), pred->getSpeed(), maxNextSpeed(veh->getSpeed()));
+    return _v(veh, veh->getSpeed(), veh->gap2pred(*pred), pred->getSpeed());
 }
 
 
 SUMOReal
 MSCFModel_PWag2009::ffeS(const MSVehicle * const veh, SUMOReal gap) const throw() {
-    return _v(veh->getSpeed(), gap, 0, maxNextSpeed(veh->getSpeed()));
+    return _v(veh, veh->getSpeed(), gap, 0);
 }
 
 
@@ -92,29 +91,35 @@ MSCFModel_PWag2009::dawdle(SUMOReal speed) const throw() {
     return MAX2(SUMOReal(0), speed - ACCEL2SPEED(myDawdle * myAccel * RandHelper::rand()));
 }
 
-
+// in addition, the parameters myTauLast, probAP, and sigmaAcc are needed; sigmaAcc can use myDawdle
+// myTauLast might use the current time-step size, but this yields eventually an extreme model, I would be
+// more careful and set it to something around 0.3 or 0.4, which are among the shortest headways I have
+// seen so far in data ... 
 SUMOReal
-MSCFModel_PWag2009::_v(SUMOReal speed, SUMOReal gap, SUMOReal predSpeed, SUMOReal /*vmax*/) const throw() {
+MSCFModel_PWag2009::_v(const MSVehicle * const veh, SUMOReal speed, SUMOReal gap, SUMOReal predSpeed) const throw() {
     if (predSpeed==0&&gap<0.01) {
         return 0;
     }
-    SUMOReal vsafe = -myTauDecel + sqrt(myTauDecel * myTauDecel + predSpeed * predSpeed + 2.0 * myDecel * gap);
-    SUMOReal asafe = vsafe-speed;
-    SUMOReal apref = asafe;
-    if (RandHelper::rand()>.5) {
-        apref = myDecelDivTau * (gap+(predSpeed-speed)*myTau-speed*myTau) / (speed+myTauDecel);
-        apref += RandHelper::rand((SUMOReal)-1., (SUMOReal)1.);
-        if (apref>asafe) apref = asafe;
-    }
-    return MAX2((SUMOReal)0, speed+apref);//ACCEL2SPEED(apref);
+    VehicleVariables* vars = (VehicleVariables*)veh->getCarFollowVariables();
+	// model should re-use acceleration from previous time-step:
+	SUMOReal apref = vars->aOld;
+    const SUMOReal vsafe = -myTauLastDecel + sqrt(myTauLastDecel * myTauLastDecel + predSpeed * predSpeed + 2.0 * myDecel * gap);
+    const SUMOReal asafe = SPEED2ACCEL(vsafe-speed);
+	if (apref > asafe) {
+        apref = asafe;
+    } else {
+		if (RandHelper::rand()>myActionPointProbability*TS) {
+			apref = myDecelDivTau * (gap+(predSpeed-speed)*myTau-speed*myTau) / (speed+myTauDecel);
+			apref += myDawdle*RandHelper::rand((SUMOReal)-1., (SUMOReal)1.);
+			if (apref > asafe) apref = asafe;  // just to make sure that nothing evil has happened
+		}
+	}
+	vars->aOld = apref;  // save this value for the next time-step
+    return MAX2((SUMOReal)0, speed + ACCEL2SPEED(apref));
 }
 
 
 MSCFModel *
 MSCFModel_PWag2009::duplicate(const MSVehicleType *vtype) const throw() {
-    return new MSCFModel_PWag2009(vtype, myAccel, myDecel, myDawdle, myTau);
+    return new MSCFModel_PWag2009(vtype, myAccel, myDecel, myDawdle, myTau, myTauLastDecel/myDecel, myActionPointProbability);
 }
-
-
-//void MSCFModel::saveState(std::ostream &os) {}
-

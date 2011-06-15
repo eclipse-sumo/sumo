@@ -246,7 +246,8 @@ MSVehicleType::build(SUMOVTypeParameter &from) throw(ProcessError) {
                                        get(from.cfParameter, "accel", DEFAULT_VEH_ACCEL),
                                        get(from.cfParameter, "decel", DEFAULT_VEH_DECEL),
                                        get(from.cfParameter, "sigma", DEFAULT_VEH_SIGMA),
-                                       get(from.cfParameter, "tau", DEFAULT_VEH_TAU));
+                                       get(from.cfParameter, "tau", DEFAULT_VEH_TAU),
+                                       .3, .5);
         break;
     case SUMO_TAG_CF_KRAUSS:
     default:

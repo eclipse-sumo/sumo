@@ -47,7 +47,8 @@ public:
      * @param[in] dawdle The driver imperfection
      * @param[in] tau The driver's reaction time
      */
-    MSCFModel_PWag2009(const MSVehicleType* vtype, SUMOReal accel, SUMOReal decel, SUMOReal dawdle, SUMOReal tau) throw();
+    MSCFModel_PWag2009(const MSVehicleType* vtype, SUMOReal accel, SUMOReal decel, SUMOReal dawdle,
+                       SUMOReal tau, SUMOReal tauLast, SUMOReal apProb) throw();
 
 
     /// @brief Destructor
@@ -158,13 +159,23 @@ public:
     MSCFModel *duplicate(const MSVehicleType *vtype) const throw();
 
 
+    virtual MSCFModel::VehicleVariables* createVehicleVariables() const throw() {
+        return new VehicleVariables();
+    }
+
+
 private:
+    class VehicleVariables : public MSCFModel::VehicleVariables {
+    public:
+        SUMOReal aOld;
+    };
+
     /** @brief Returns the next velocity
      * @param[in] gap2pred The (netto) distance to the LEADER
      * @param[in] predSpeed The LEADER's speed
      * @return the safe velocity
      */
-    SUMOReal _v(SUMOReal speed, SUMOReal gap, SUMOReal predSpeed, SUMOReal vmax) const throw();
+    SUMOReal _v(const MSVehicle * const veh, SUMOReal speed, SUMOReal gap, SUMOReal predSpeed) const throw();
 
 
     /** @brief Applies driver imperfection (dawdling / sigma)
@@ -189,7 +200,14 @@ private:
     /// @brief The precomputed value for myDecel*myTau
     SUMOReal myTauDecel;
 
+    /// @brief The precomputed value for myDecel/myTau
     SUMOReal myDecelDivTau;
+
+    /// @brief The precomputed value for (minimum headway time)*myDecel
+    SUMOReal myTauLastDecel;
+
+    /// @brief The probability for any action
+    SUMOReal myActionPointProbability;
     /// @}
 
 };
