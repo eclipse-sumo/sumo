@@ -71,6 +71,8 @@ for source, target in targets.iteritems():
     for f in optionsFiles:
         appOptions += open(f).read().split()
     for o in appOptions:
+        if "=" in o:
+            o = o.split("=")[-1]
         if o[-8:] == ".net.xml":
             net = o
     appOptions += ['--save-configuration', 'test.%s.cfg' % app[:4]]
