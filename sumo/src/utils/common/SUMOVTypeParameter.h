@@ -99,7 +99,7 @@ public:
     /// @brief The vehicle type's id
     std::string id;
 
-    /// @brief The vehicle type's length
+    /// @brief The physical vehicle length + the standing gap in m
     SUMOReal length;
     /// @brief The vehicle type's maximum speed [m/s]
     SUMOReal maxSpeed;
