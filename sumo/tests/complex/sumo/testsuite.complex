@@ -7,3 +7,5 @@ ringNoBrake
 # Lane change checks
 lane_change
 
+# detector comparisons
+output

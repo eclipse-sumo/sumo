@@ -1,0 +1,21 @@
+# no traffic, just plain output
+no_vehicles
+
+# one vehicle is moving
+one_vehicle
+
+# one vehicle is moving, subsecond
+one_vehicle_subsecond
+
+# two vehicles are moving which have same properties
+two_same_vehicles
+
+# two vehicles are moving; the first runs with 10m/s, the second with 9m/s
+two_vehicles_diff_speed
+
+# two vehicles are moving; the first is 5m long, the second 15m
+two_vehicles_diff_length
+
+# Testing error cases
+errors
+
