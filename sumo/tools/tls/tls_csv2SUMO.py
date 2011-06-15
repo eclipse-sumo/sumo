@@ -169,7 +169,7 @@ for keyIndex, key in enumerate(allKeys):
             print >> sys.stderr, "Link %s is not described (%s)" % (l, linkMap[l])
             sys.exit()
 
-    print '    <tl-logic type="static" id="' + key + '" programID="' + subkey + '" offset="' + offset + '">'
+    print '    <tlLogic id="' + key + '" type="static" programID="' + subkey + '" offset="' + offset + '">'
     for i in range(0, len(normTimes)):
         state = ""
         for l in range(0, len(linkMap)):
@@ -206,14 +206,15 @@ for keyIndex, key in enumerate(allKeys):
                     state = state[:l1] + 'G' + state[l1+1:]
              
         pd = '        <phase duration="' + normTimes[i] + '" '
+        pd = pd + 'state="' + state + '"'
         if len(minTimes)==len(normTimes):
-            pd = pd + 'minDur="' + minTimes[i] + '" '
+            pd = pd + ' minDur="' + minTimes[i] + '"'
         if len(maxTimes)==len(normTimes):
-            pd = pd + 'maxDur="' + maxTimes[i] + '" '
-        pd = pd + 'state="' + state + '"/>'
+            pd = pd + ' maxDur="' + maxTimes[i] + '"'
+        pd = pd + '/>'
         print pd
-    print "    </tl-logic>"
-print "</add>"
+    print "    </tlLogic>"
+print "</add>\n"
 
 
     
