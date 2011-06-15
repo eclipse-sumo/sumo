@@ -54,6 +54,10 @@ class MSLane;
  */
 class MSCFModel {
 public:
+
+    class VehicleVariables {
+    };
+
     /** @brief Constructor
      *  @param[in] rvtype a reference to the corresponding vtype
      */
@@ -298,6 +302,9 @@ public:
     /// @}
 
 
+    virtual VehicleVariables* createVehicleVariables() const throw() {
+        return 0;
+    }
 
 protected:
     /// @brief The type to which this model definition belongs to

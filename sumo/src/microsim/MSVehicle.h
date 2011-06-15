@@ -521,6 +521,15 @@ public:
     }
 
 
+    /** @brief Returns the vehicle's car following model variables
+     *
+     * @return The vehicle's car following model variables
+     */
+    inline MSCFModel::VehicleVariables* getCarFollowVariables() const throw() {
+        return myCFVariables;
+    }
+
+
     /// @name vehicle stops definitions and i/o
     //@{
 
@@ -947,10 +956,11 @@ private:
     /// Container for used Links/visited Lanes during lookForward.
     DriveItemVector myLFLinkLanes;
 
-
     /// @brief The vehicle's knowledge about edge efforts/travel times; @see MSEdgeWeightsStorage
     MSEdgeWeightsStorage *myEdgeWeights;
 
+    /// @brief The per vehicle variables of the car following model
+    MSCFModel::VehicleVariables *myCFVariables;
 
 #ifndef NO_TRACI
     /// @brief An instance of a velicty/lane influencing instance; built in "getInfluencer"

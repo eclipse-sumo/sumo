@@ -257,6 +257,7 @@ MSVehicle::MSVehicle(SUMOVehicleParameter* pars,
     myHBMsgEmitter = MSNet::getInstance()->getMsgEmitter("heartbeat");
 #endif
     myLaneChangeModel = new MSLCM_DK2004(*this);
+    myCFVariables = type->getCarFollowModel().createVehicleVariables();
 }
 
 
