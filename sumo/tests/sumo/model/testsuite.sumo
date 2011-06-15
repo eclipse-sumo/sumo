@@ -1,2 +1,17 @@
 # the standard structure for model tests
 circle
+
+# idm model test
+idm
+
+# kerner model test
+kerner
+
+# original krauss model test
+krauss
+
+# Peter Wagner 2009 model test
+pwag2009
+
+# wiedemann model test
+wiedemann
