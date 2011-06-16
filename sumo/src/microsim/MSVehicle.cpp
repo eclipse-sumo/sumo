@@ -692,7 +692,7 @@ MSVehicle::moveChecked() {
         myHaveToWaitOnNextLink = true;
     }
 
-    SUMOReal vNext = getCarFollowModel().moveHelper(this, myLane, vSafe);
+    SUMOReal vNext = getCarFollowModel().moveHelper(this, vSafe);
     vNext = MAX2(vNext, (SUMOReal) 0.);
 #ifndef NO_TRACI
     if(myInfluencer!=0) {
