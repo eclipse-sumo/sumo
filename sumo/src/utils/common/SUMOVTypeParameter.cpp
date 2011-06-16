@@ -100,13 +100,13 @@ SUMOVTypeParameter::write(OutputDevice &dev) const throw(IOError) {
         dev << ">\n";
         dev << "      <";
         dev << toString(cfModel);
-        std::vector<std::string> names;
-        for (std::map<std::string, SUMOReal>::const_iterator i=cfParameter.begin(); i!=cfParameter.end(); ++i) {
-            names.push_back((*i).first);
+        std::vector<SumoXMLAttr> attrs;
+        for (CFParams::const_iterator i=cfParameter.begin(); i!=cfParameter.end(); ++i) {
+            attrs.push_back(i->first);
         }
-        std::sort(names.begin(), names.end());
-        for (std::vector<std::string>::const_iterator i=names.begin(); i!=names.end(); ++i) {
-            dev << ' ' << (*i) << "=\"" << cfParameter.find(*i)->second << '"';
+        std::sort(attrs.begin(), attrs.end());
+        for (std::vector<SumoXMLAttr>::const_iterator i=attrs.begin(); i!=attrs.end(); ++i) {
+            dev << ' ' << toString(*i) << "=\"" << cfParameter.find(*i)->second << '"';
         }
         dev << "/>\n";
         dev << "   </vtype>\n";

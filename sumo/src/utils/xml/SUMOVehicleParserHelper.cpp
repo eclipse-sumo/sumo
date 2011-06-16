@@ -40,6 +40,11 @@
 
 
 // ===========================================================================
+// static members
+// ===========================================================================
+SUMOVehicleParserHelper::CFAttrMap SUMOVehicleParserHelper::allowedCFModelAttrs;
+
+// ===========================================================================
 // method definitions
 // ===========================================================================
 SUMOVehicleParameter *
@@ -443,33 +448,14 @@ void
 SUMOVehicleParserHelper::parseVTypeEmbedded(SUMOVTypeParameter &into,
         int element, const SUMOSAXAttributes &attrs,
         bool fromVType) throw(ProcessError) {
-    SumoXMLTag recognizedTag = SUMO_TAG_NOTHING; // avoid casting
-    switch (element) {
-    case SUMO_TAG_CF_KRAUSS:
-        recognizedTag = SUMO_TAG_CF_KRAUSS;
-        parseVTypeEmbedded_Krauss(into, attrs);
-        break;
-    case SUMO_TAG_CF_IDM:
-        recognizedTag = SUMO_TAG_CF_IDM;
-        parseVTypeEmbedded_IDM(into, attrs);
-        break;
-    case SUMO_TAG_CF_KRAUSS_ORIG1:
-        recognizedTag = SUMO_TAG_CF_KRAUSS_ORIG1;
-        parseVTypeEmbedded_Krauss(into, attrs);
-        break;
-    case SUMO_TAG_CF_PWAGNER2009:
-        recognizedTag = SUMO_TAG_CF_PWAGNER2009;
-        parseVTypeEmbedded_Krauss(into, attrs);
-        break;
-    case SUMO_TAG_CF_BKERNER:
-        recognizedTag = SUMO_TAG_CF_BKERNER;
-        parseVTypeEmbedded_BKerner(into, attrs);
-        break;
-    case SUMO_TAG_CF_WIEDEMANN:
-        recognizedTag = SUMO_TAG_CF_WIEDEMANN;
-        parseVTypeEmbedded_Wiedemann(into, attrs);
-        break;
-    default:
+    const CFAttrMap& allowedAttrs = getAllowedCFModelAttrs();
+    CFAttrMap::const_iterator cf_it;
+    for (cf_it = allowedAttrs.begin(); cf_it != allowedAttrs.end(); cf_it++) {
+        if (cf_it->first == element) {
+            break;
+        }
+    }
+    if (cf_it==allowedAttrs.end()) {
         if (SUMOXMLDefinitions::Tags.has(element)) {
             WRITE_WARNING("Unknown cfmodel " + toString((SumoXMLTag)element) + " when parsing vtype '" + into.id + "'");
         } else {
@@ -477,99 +463,65 @@ SUMOVehicleParserHelper::parseVTypeEmbedded(SUMOVTypeParameter &into,
         }
     }
     if (!fromVType) {
-        into.cfModel = recognizedTag;
+        into.cfModel = cf_it->first;
     }
-}
-
-
-void
-SUMOVehicleParserHelper::parseVTypeEmbedded_Krauss(SUMOVTypeParameter &into,
-        const SUMOSAXAttributes &attrs) throw(ProcessError) {
     bool ok = true;
-    if (attrs.hasAttribute(SUMO_ATTR_ACCEL)) {
-        into.cfParameter["accel"] = attrs.getSUMORealReporting(SUMO_ATTR_ACCEL, into.id.c_str(), ok);
-    }
-    if (attrs.hasAttribute(SUMO_ATTR_DECEL)) {
-        into.cfParameter["decel"] = attrs.getSUMORealReporting(SUMO_ATTR_DECEL, into.id.c_str(), ok);
-    }
-    if (attrs.hasAttribute(SUMO_ATTR_SIGMA)) {
-        into.cfParameter["sigma"] = attrs.getSUMORealReporting(SUMO_ATTR_SIGMA, into.id.c_str(), ok);
-    }
-    if (attrs.hasAttribute(SUMO_ATTR_TAU)) {
-        into.cfParameter["tau"] = attrs.getSUMORealReporting(SUMO_ATTR_TAU, into.id.c_str(), ok);
-    }
-    if (!ok) {
-        throw ProcessError();
-    }
-}
-
-
-void
-SUMOVehicleParserHelper::parseVTypeEmbedded_IDM(SUMOVTypeParameter &into,
-        const SUMOSAXAttributes &attrs) throw(ProcessError) {
-    bool ok = true;
-    if (attrs.hasAttribute(SUMO_ATTR_ACCEL)) {
-        into.cfParameter["accel"] = attrs.getSUMORealReporting(SUMO_ATTR_ACCEL, into.id.c_str(), ok);
-    }
-    if (attrs.hasAttribute(SUMO_ATTR_DECEL)) {
-        into.cfParameter["decel"] = attrs.getSUMORealReporting(SUMO_ATTR_DECEL, into.id.c_str(), ok);
-    }
-    if (attrs.hasAttribute(SUMO_ATTR_TAU)) {
-        into.cfParameter["tau"] = attrs.getSUMORealReporting(SUMO_ATTR_TAU, into.id.c_str(), ok);
-    }
-    if (attrs.hasAttribute(SUMO_ATTR_CF_IDM_TIMEHEADWAY)) {
-        into.cfParameter["timeHeadWay"] = attrs.getSUMORealReporting(SUMO_ATTR_CF_IDM_TIMEHEADWAY, into.id.c_str(), ok);
-    }
-    if (attrs.hasAttribute(SUMO_ATTR_CF_IDM_MINGAP)) {
-        into.cfParameter["minGap"] = attrs.getSUMORealReporting(SUMO_ATTR_CF_IDM_MINGAP, into.id.c_str(), ok);
-    }
-    if (!ok) {
-        throw ProcessError();
-    }
-}
-
-
-void
-SUMOVehicleParserHelper::parseVTypeEmbedded_BKerner(SUMOVTypeParameter &into,
-        const SUMOSAXAttributes &attrs) throw(ProcessError) {
-    bool ok = true;
-    if (attrs.hasAttribute(SUMO_ATTR_ACCEL)) {
-        into.cfParameter["accel"] = attrs.getSUMORealReporting(SUMO_ATTR_ACCEL, into.id.c_str(), ok);
-    }
-    if (attrs.hasAttribute(SUMO_ATTR_DECEL)) {
-        into.cfParameter["decel"] = attrs.getSUMORealReporting(SUMO_ATTR_DECEL, into.id.c_str(), ok);
-    }
-    if (attrs.hasAttribute(SUMO_ATTR_TAU)) {
-        into.cfParameter["tau"] = attrs.getSUMORealReporting(SUMO_ATTR_TAU, into.id.c_str(), ok);
-    }
-    if (attrs.hasAttribute(SUMO_ATTR_K)) {
-        into.cfParameter["k"] = attrs.getSUMORealReporting(SUMO_ATTR_K, into.id.c_str(), ok);
-    }
-    if (attrs.hasAttribute(SUMO_ATTR_CF_KERNER_PHI)) {
-        into.cfParameter["phi"] = attrs.getSUMORealReporting(SUMO_ATTR_CF_KERNER_PHI, into.id.c_str(), ok);
-    }
-    if (!ok) {
-        throw ProcessError();
-    }
-}
-
-
-void
-SUMOVehicleParserHelper::parseVTypeEmbedded_Wiedemann(SUMOVTypeParameter &into, const SUMOSAXAttributes &attrs) {
-    bool ok = true;
-    std::set<SumoXMLAttr> optional;
-    optional.insert(SUMO_ATTR_ACCEL);
-    optional.insert(SUMO_ATTR_DECEL);
-    optional.insert(SUMO_ATTR_CF_WIEDEMANN_SECURITY);
-    optional.insert(SUMO_ATTR_CF_WIEDEMANN_ESTIMATION);
-    for (std::set<SumoXMLAttr>::const_iterator it = optional.begin(); it != optional.end(); it++) {
+    for (std::set<SumoXMLAttr>::const_iterator it = cf_it->second.begin(); it != cf_it->second.end(); it++) {
         if (attrs.hasAttribute(*it)) {
-            into.cfParameter[toString(*it)] = attrs.getSUMORealReporting(*it, into.id.c_str(), ok);
+            into.cfParameter[*it] = attrs.getSUMORealReporting(*it, into.id.c_str(), ok);
         }
     }
     if (!ok) {
         throw ProcessError();
     }
+}
+
+
+const SUMOVehicleParserHelper::CFAttrMap & 
+SUMOVehicleParserHelper::getAllowedCFModelAttrs() {
+    // init on first use
+    if (allowedCFModelAttrs.size() == 0) {
+        std::set<SumoXMLAttr> krausParams;
+        krausParams.insert(SUMO_ATTR_ACCEL);
+        krausParams.insert(SUMO_ATTR_DECEL);
+        krausParams.insert(SUMO_ATTR_SIGMA);
+        krausParams.insert(SUMO_ATTR_TAU);
+        allowedCFModelAttrs[SUMO_TAG_CF_KRAUSS] = krausParams;
+        allowedCFModelAttrs[SUMO_TAG_CF_KRAUSS_ORIG1] = krausParams;
+
+        std::set<SumoXMLAttr> pwagParams;
+        pwagParams.insert(SUMO_ATTR_ACCEL);
+        pwagParams.insert(SUMO_ATTR_DECEL);
+        pwagParams.insert(SUMO_ATTR_SIGMA);
+        pwagParams.insert(SUMO_ATTR_TAU);
+        pwagParams.insert(SUMO_ATTR_CF_PWAGNER2009_TAULAST);
+        pwagParams.insert(SUMO_ATTR_CF_PWAGNER2009_APPROB);
+        allowedCFModelAttrs[SUMO_TAG_CF_PWAGNER2009] = pwagParams; 
+
+        std::set<SumoXMLAttr> idmParams;
+        idmParams.insert(SUMO_ATTR_ACCEL);
+        idmParams.insert(SUMO_ATTR_DECEL);
+        idmParams.insert(SUMO_ATTR_TAU);
+        idmParams.insert(SUMO_ATTR_CF_IDM_TIMEHEADWAY);
+        idmParams.insert(SUMO_ATTR_CF_IDM_MINGAP);
+        allowedCFModelAttrs[SUMO_TAG_CF_IDM] = idmParams; 
+
+        std::set<SumoXMLAttr> bkernerParams;
+        bkernerParams.insert(SUMO_ATTR_ACCEL);
+        bkernerParams.insert(SUMO_ATTR_DECEL);
+        bkernerParams.insert(SUMO_ATTR_TAU);
+        bkernerParams.insert(SUMO_ATTR_K);
+        bkernerParams.insert(SUMO_ATTR_CF_KERNER_PHI);
+        allowedCFModelAttrs[SUMO_TAG_CF_BKERNER] = bkernerParams; 
+
+        std::set<SumoXMLAttr> wiedemannParams;
+        wiedemannParams.insert(SUMO_ATTR_ACCEL);
+        wiedemannParams.insert(SUMO_ATTR_DECEL);
+        wiedemannParams.insert(SUMO_ATTR_CF_WIEDEMANN_SECURITY);
+        wiedemannParams.insert(SUMO_ATTR_CF_WIEDEMANN_ESTIMATION);
+        allowedCFModelAttrs[SUMO_TAG_CF_WIEDEMANN] = wiedemannParams; 
+    } 
+    return allowedCFModelAttrs;
 }
 
 

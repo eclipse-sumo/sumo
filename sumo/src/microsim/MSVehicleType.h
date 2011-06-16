@@ -37,6 +37,7 @@
 #include <utils/common/StdDefs.h>
 #include <utils/common/SUMOVehicleClass.h>
 #include <utils/common/RandHelper.h>
+#include <utils/common/SUMOVTypeParameter.h>
 #include <utils/common/RGBColor.h>
 
 
@@ -370,12 +371,11 @@ public:
 
     /** @brief Returns the named value from the map, or the default if it is ot contained there
      * @param[in] from The map to retrieve values from
-     * @param[in] name The name of variable
+     * @param[in] attr The corresponding xml attribute
      * @param[in] defaultValue The value to return if the given map does not contain the named variable
      * @return The named value from the map or the default if it does not exist there
      */
-    static SUMOReal get(const std::map<std::string, SUMOReal> &from, const std::string &name,
-                        SUMOReal defaultValue) throw();
+    static SUMOReal get(const SUMOVTypeParameter::CFParams &from, SumoXMLAttr attr, SUMOReal defaultValue);
     /// @}
 
 

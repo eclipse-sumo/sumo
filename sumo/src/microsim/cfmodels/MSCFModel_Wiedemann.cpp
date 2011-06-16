@@ -136,7 +136,7 @@ MSCFModel_Wiedemann::_v(const MSVehicle *veh, SUMOReal predSpeed, SUMOReal dx) c
         }
     }
     vars->accelSign = accel > 0 ? 1 : -1;
-    return v + accel;
+    return v + ACCEL2SPEED(accel);
 }
 
 

@@ -368,6 +368,8 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "origBoundary",   SUMO_ATTR_ORIG_BOUNDARY },
     { "projParameter",  SUMO_ATTR_ORIG_PROJ },
 
+    { "tauLast",        SUMO_ATTR_CF_PWAGNER2009_TAULAST },
+    { "apProb",         SUMO_ATTR_CF_PWAGNER2009_APPROB },
     { "timeHeadWay",    SUMO_ATTR_CF_IDM_TIMEHEADWAY },
     { "minGap",         SUMO_ATTR_CF_IDM_MINGAP },
     //{ "k",              SUMO_ATTR_CF_KERNER_K },

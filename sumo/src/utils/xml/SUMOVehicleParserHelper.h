@@ -103,50 +103,6 @@ public:
                                    bool fromVType=false) throw(ProcessError);
 
 
-    /** @brief Parses the Krauss definition embedded in vtype definition
-     *
-     * @param[in, filled] into The structure to fill with parsed values
-     * @param[in] attr The SAX-attributes to get model parameter from
-     * @param[in] fromVType Whether the attributes are a part of the vtype-definition
-     * @exception ProcessError If an attribute's value is invalid
-     * @see SUMOVTypeParameter
-     */
-    static void parseVTypeEmbedded_Krauss(SUMOVTypeParameter &into,
-                                          const SUMOSAXAttributes &attrs) throw(ProcessError);
-
-
-    /** @brief Parses the IDM definition embedded in vtype definition
-     *
-     * @param[in, filled] into The structure to fill with parsed values
-     * @param[in] attr The SAX-attributes to get model parameter from
-     * @exception ProcessError If an attribute's value is invalid
-     * @see SUMOVTypeParameter
-     */
-    static void parseVTypeEmbedded_IDM(SUMOVTypeParameter &into,
-                                       const SUMOSAXAttributes &attrs) throw(ProcessError);
-
-
-    /** @brief Parses the Kerner definition embedded in vtype definition
-     *
-     * @param[in, filled] into The structure to fill with parsed values
-     * @param[in] attr The SAX-attributes to get model parameter from
-     * @exception ProcessError If an attribute's value is invalid
-     * @see SUMOVTypeParameter
-     */
-    static void parseVTypeEmbedded_BKerner(SUMOVTypeParameter &into,
-                                           const SUMOSAXAttributes &attrs) throw(ProcessError);
-
-
-    /** @brief Parses the Wiedemann definition embedded in vtype definition
-     *
-     * @param[in, filled] into The structure to fill with parsed values
-     * @param[in] attr The SAX-attributes to get model parameter from
-     * @exception ProcessError If an attribute's value is invalid
-     * @see SUMOVTypeParameter
-     */
-    static void parseVTypeEmbedded_Wiedemann(SUMOVTypeParameter &into, const SUMOSAXAttributes &attrs);
-
-
     /** @brief Closes parsing of the vehicle type
      * @return The resulting vehicle type parameter
      * @see SUMOVTypeParameter
@@ -222,6 +178,13 @@ private:
                                       SUMOVehicleParameter *ret, std::string element) throw(ProcessError);
 
 
+    typedef std::map<SumoXMLTag, std::set<SumoXMLAttr> > CFAttrMap;
+
+    // returns allowed attrs for each known CF-model (init on first use)
+    static const CFAttrMap& getAllowedCFModelAttrs();
+
+    // brief allowed attrs for each known CF-model
+    static CFAttrMap allowedCFModelAttrs;
 };
 
 

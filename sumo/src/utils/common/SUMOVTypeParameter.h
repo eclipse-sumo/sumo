@@ -133,8 +133,10 @@ public:
 
     /// @brief The enum-representation of the car-following model to use
     SumoXMLTag cfModel;
+
     /// @brief Car-following parameter
-    std::map<std::string, SUMOReal> cfParameter;
+    typedef std::map<SumoXMLAttr, SUMOReal> CFParams;
+    CFParams cfParameter;
 
     /// @brief The name of the lane-change model to use
     std::string lcModel;
