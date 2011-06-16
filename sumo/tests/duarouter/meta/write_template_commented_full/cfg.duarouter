@@ -78,6 +78,9 @@
         <!-- Save routes with near zero probability -->
         <keep-all-routes value="false"/>
 
+        <!-- Only reuse routes from input, do not calculate new ones -->
+        <skip-new-routes value="false"/>
+
         <!-- Use c-logit model -->
         <logit value="false"/>
 

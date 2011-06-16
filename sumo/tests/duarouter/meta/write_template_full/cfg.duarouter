@@ -32,6 +32,7 @@
         <gawron.beta value="0.3" synonymes="gBeta"/>
         <gawron.a value="0.05" synonymes="gA"/>
         <keep-all-routes value="false"/>
+        <skip-new-routes value="false"/>
         <logit value="false"/>
         <logit.beta value="0.15" synonymes="lBeta"/>
         <logit.gamma value="1" synonymes="lGamma"/>
