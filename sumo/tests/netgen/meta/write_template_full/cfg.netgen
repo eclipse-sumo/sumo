@@ -43,6 +43,7 @@
         <plain-output-prefix value="" synonymes="plain-output"/>
         <map-output value="" synonymes="M"/>
         <matsim-output value=""/>
+        <output.no-names value="false"/>
     </output>
 
     <tls_building>

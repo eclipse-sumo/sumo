@@ -105,6 +105,9 @@
         <!-- The generated net will be written to FILE using MATSIM format. -->
         <matsim-output value=""/>
 
+        <!-- Edge names will not be included in the output. -->
+        <output.no-names value="false"/>
+
     </output>
 
     <tls_building>
