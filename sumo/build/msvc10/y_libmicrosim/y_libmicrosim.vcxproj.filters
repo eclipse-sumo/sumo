@@ -148,6 +148,9 @@
     <ClCompile Include="..\..\..\src\microsim\MSInsertionControl.cpp">
       <Filter>Quellcodedateien</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\src\microsim\cfmodels\MSCFModel_Wiedemann.cpp">
+      <Filter>Quellcodedateien</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\src\microsim\MSAbstractLaneChangeModel.h">
@@ -292,6 +295,9 @@
       <Filter>Header-Dateien</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\microsim\MSInsertionControl.h">
+      <Filter>Header-Dateien</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\microsim\cfmodels\MSCFModel_Wiedemann.h">
       <Filter>Header-Dateien</Filter>
     </ClInclude>
   </ItemGroup>
