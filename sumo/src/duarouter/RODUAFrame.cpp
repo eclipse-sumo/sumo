@@ -112,6 +112,9 @@ RODUAFrame::addDUAOptions() {
     oc.doRegister("keep-all-routes", new Option_Bool(false));
     oc.addDescription("keep-all-routes", "Processing", "Save routes with near zero probability");
 
+    oc.doRegister("skip-new-routes", new Option_Bool(false));
+    oc.addDescription("skip-new-routes", "Processing", "Only reuse routes from input, do not calculate new ones");
+
     oc.doRegister("logit", new Option_Bool(false));
     oc.addDescription("logit", "Processing", "Use c-logit model");
 

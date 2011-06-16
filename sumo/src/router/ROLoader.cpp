@@ -307,7 +307,8 @@ ROLoader::buildNamedHandler(const std::string &optionName,
                                        string2time(myOptions.getString("begin")), string2time(myOptions.getString("end")),
                                        beta, myOptions.getFloat("gawron.a"), gamma,
                                        myOptions.getInt("max-alternatives"), myOptions.getBool("repair"),
-                                       myOptions.getBool("with-taz"), myOptions.getBool("keep-all-routes"), file);
+                                       myOptions.getBool("with-taz"), myOptions.getBool("keep-all-routes"),
+                                       myOptions.getBool("skip-new-routes"), file);
     }
     if (optionName=="trip-files") {
         return new RORDLoader_TripDefs(net,

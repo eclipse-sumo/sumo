@@ -59,10 +59,11 @@
 RORouteDef_Alternatives::RORouteDef_Alternatives(const std::string &id,
         unsigned int lastUsed,
         const SUMOReal beta, const SUMOReal gawronA, const SUMOReal logitGamma,
-        const int maxRoutes, const bool keepRoutes) throw()
+        const int maxRoutes, const bool keepRoutes, const bool skipRouteCalculation) throw()
         : RORouteDef(id, 0), myLastUsed((int) lastUsed),
         myBeta(beta), myGawronA(gawronA), myLogitGamma(logitGamma),
-        myMaxRouteNumber(maxRoutes), myKeepRoutes(keepRoutes) {
+        myMaxRouteNumber(maxRoutes), myKeepRoutes(keepRoutes),
+        mySkipRouteCalculation(skipRouteCalculation) {
 }
 
 
@@ -83,6 +84,11 @@ RORouteDef_Alternatives::addLoadedAlternative(RORoute *alt) {
 RORoute *
 RORouteDef_Alternatives::buildCurrentRoute(SUMOAbstractRouter<ROEdge,ROVehicle> &router,
         SUMOTime begin, const ROVehicle &veh) const {
+    if (mySkipRouteCalculation) {
+        myLastUsed = 0;
+        myNewRoute = false;
+        return myAlternatives[myLastUsed];
+    }
     // recompute duration of the last route used
     // build a new route to test whether it is better
     std::vector<const ROEdge*> edges;
@@ -294,7 +300,7 @@ RORouteDef_Alternatives::gawronG(SUMOReal a, SUMOReal x) {
 RORouteDef *
 RORouteDef_Alternatives::copy(const std::string &id) const {
     RORouteDef_Alternatives *ret = new RORouteDef_Alternatives(id,
-            myLastUsed, myBeta, myGawronA, myLogitGamma, myMaxRouteNumber, myKeepRoutes);
+        myLastUsed, myBeta, myGawronA, myLogitGamma, myMaxRouteNumber, myKeepRoutes, mySkipRouteCalculation);
     for (std::vector<RORoute*>::const_iterator i=myAlternatives.begin(); i!=myAlternatives.end(); i++) {
         ret->addLoadedAlternative(new RORoute(*(*i)));
     }

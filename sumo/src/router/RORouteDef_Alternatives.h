@@ -53,7 +53,7 @@ public:
     /// Constructor
     RORouteDef_Alternatives(const std::string &id, unsigned int lastUsed, const SUMOReal beta,
                             const SUMOReal gawronA, const SUMOReal logitGamma, const int maxRoutes,
-                            const bool keepRoutes) throw();
+                            const bool keepRoutes, const bool skipRouteCalculation) throw();
 
     /// Destructor
     virtual ~RORouteDef_Alternatives() throw();
@@ -129,6 +129,9 @@ private:
 
     /// @brief Information whether all routes should be saved
     const bool myKeepRoutes;
+
+    /// @brief Information whether new routes should be calculated
+    const bool mySkipRouteCalculation;
 
 
 private:

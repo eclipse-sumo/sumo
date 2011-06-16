@@ -65,7 +65,8 @@ public:
     RORDLoader_SUMOBase(RONet &net,
                         SUMOTime begin, SUMOTime end,
                         const SUMOReal beta, const SUMOReal gawronA, const SUMOReal logitGamma,
-                        const int maxRouteNumber, const bool tryRepair, const bool withTaz, const bool keepRoutes,
+                        const int maxRouteNumber, const bool tryRepair, const bool withTaz, 
+                        const bool keepRoutes, const bool skipRouteCalculation,
                         const std::string &file="") throw(ProcessError);
 
     /// Destructor
@@ -197,6 +198,9 @@ protected:
 
     /// @brief Information whether all routes should be saved
     const bool myKeepRoutes;
+
+    /// @brief Information whether new routes should be calculated
+    const bool mySkipRouteCalculation;
 
     /// @brief The currently parsed route
     RORouteDef_Complete *myCurrentRoute;
