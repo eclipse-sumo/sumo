@@ -27,18 +27,19 @@
 #include <config.h>
 #endif
 
-#include "MSVehicleType.h"
+#include <cassert>
+#include <utils/iodevices/BinaryInputDevice.h>
+#include <utils/common/FileHelpers.h>
+#include <utils/common/RandHelper.h>
+#include <utils/common/SUMOVTypeParameter.h>
 #include "MSNet.h"
 #include "cfmodels/MSCFModel_IDM.h"
 #include "cfmodels/MSCFModel_Kerner.h"
 #include "cfmodels/MSCFModel_Krauss.h"
 #include "cfmodels/MSCFModel_KraussOrig1.h"
 #include "cfmodels/MSCFModel_PWag2009.h"
-#include <cassert>
-#include <utils/iodevices/BinaryInputDevice.h>
-#include <utils/common/FileHelpers.h>
-#include <utils/common/RandHelper.h>
-#include <utils/common/SUMOVTypeParameter.h>
+#include "cfmodels/MSCFModel_Wiedemann.h"
+#include "MSVehicleType.h"
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -248,6 +249,13 @@ MSVehicleType::build(SUMOVTypeParameter &from) throw(ProcessError) {
                                        get(from.cfParameter, "sigma", DEFAULT_VEH_SIGMA),
                                        get(from.cfParameter, "tau", DEFAULT_VEH_TAU),
                                        .3, .5);
+        break;
+    case SUMO_TAG_CF_WIEDEMANN:
+        model = new MSCFModel_Wiedemann(vtype,
+                                       get(from.cfParameter, "accel", DEFAULT_VEH_ACCEL),
+                                       get(from.cfParameter, "decel", DEFAULT_VEH_DECEL),
+                                       get(from.cfParameter, toString(SUMO_ATTR_CF_WIEDEMANN_SECURITY), 0.5),
+                                       get(from.cfParameter, toString(SUMO_ATTR_CF_WIEDEMANN_ESTIMATION), 0.5));
         break;
     case SUMO_TAG_CF_KRAUSS:
     default:

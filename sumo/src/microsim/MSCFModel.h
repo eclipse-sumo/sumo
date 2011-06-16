@@ -159,8 +159,22 @@ public:
      * @return The model's ID
      */
     virtual int getModelID() const throw() = 0;
-    /// @}
 
+
+    /** @brief Duplicates the car-following model
+     * @param[in] vtype The vehicle type this model belongs to (1:1)
+     * @return A duplicate of this car-following model
+     */
+    virtual MSCFModel *duplicate(const MSVehicleType *vtype) const throw() = 0;
+
+
+    /** @brief Returns model specific values which are stored inside a vehicle
+     * and must be used with casting
+     */
+    virtual VehicleVariables* createVehicleVariables() const throw() {
+        return 0;
+    }
+    /// @}
 
 
     /// @name Virtual methods with default implementation
@@ -256,15 +270,6 @@ public:
     /// @}
 
 
-
-    /** @brief Duplicates the car-following model
-     * @param[in] vtype The vehicle type this model belongs to (1:1)
-     * @return A duplicate of this car-following model
-     */
-    virtual MSCFModel *duplicate(const MSVehicleType *vtype) const throw() = 0;
-
-
-
     /// @name Setter methods
     /// @{
 
@@ -301,10 +306,6 @@ public:
     }
     /// @}
 
-
-    virtual VehicleVariables* createVehicleVariables() const throw() {
-        return 0;
-    }
 
 protected:
     /// @brief The type to which this model definition belongs to

@@ -137,6 +137,16 @@ public:
                                            const SUMOSAXAttributes &attrs) throw(ProcessError);
 
 
+    /** @brief Parses the Wiedemann definition embedded in vtype definition
+     *
+     * @param[in, filled] into The structure to fill with parsed values
+     * @param[in] attr The SAX-attributes to get model parameter from
+     * @exception ProcessError If an attribute's value is invalid
+     * @see SUMOVTypeParameter
+     */
+    static void parseVTypeEmbedded_Wiedemann(SUMOVTypeParameter &into, const SUMOSAXAttributes &attrs);
+
+
     /** @brief Closes parsing of the vehicle type
      * @return The resulting vehicle type parameter
      * @see SUMOVTypeParameter

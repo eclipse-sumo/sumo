@@ -375,6 +375,9 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     //{ "k",              SUMO_ATTR_CF_KERNER_K },
     { "phi",            SUMO_ATTR_CF_KERNER_PHI },
 
+    { "security",       SUMO_ATTR_CF_WIEDEMANN_SECURITY },
+    { "estimation",     SUMO_ATTR_CF_WIEDEMANN_ESTIMATION },
+
     { "generateWalks",  SUMO_ATTR_GENERATE_WALKS },
 
     // ActivityGen statistics file

@@ -465,9 +465,15 @@ SUMOVehicleParserHelper::parseVTypeEmbedded(SUMOVTypeParameter &into,
         recognizedTag = SUMO_TAG_CF_BKERNER;
         parseVTypeEmbedded_BKerner(into, attrs);
         break;
+    case SUMO_TAG_CF_WIEDEMANN:
+        recognizedTag = SUMO_TAG_CF_WIEDEMANN;
+        parseVTypeEmbedded_Wiedemann(into, attrs);
+        break;
     default:
         if (SUMOXMLDefinitions::Tags.has(element)) {
-            WRITE_WARNING("Unknown element " + toString((SumoXMLTag)element));
+            WRITE_WARNING("Unknown cfmodel " + toString((SumoXMLTag)element) + " when parsing vtype '" + into.id + "'");
+        } else {
+            WRITE_WARNING("Unknown cfmodel when parsing vtype '" + into.id + "'");
         }
     }
     if (!fromVType) {
@@ -541,6 +547,25 @@ SUMOVehicleParserHelper::parseVTypeEmbedded_BKerner(SUMOVTypeParameter &into,
     }
     if (attrs.hasAttribute(SUMO_ATTR_CF_KERNER_PHI)) {
         into.cfParameter["phi"] = attrs.getSUMORealReporting(SUMO_ATTR_CF_KERNER_PHI, into.id.c_str(), ok);
+    }
+    if (!ok) {
+        throw ProcessError();
+    }
+}
+
+
+void
+SUMOVehicleParserHelper::parseVTypeEmbedded_Wiedemann(SUMOVTypeParameter &into, const SUMOSAXAttributes &attrs) {
+    bool ok = true;
+    std::set<SumoXMLAttr> optional;
+    optional.insert(SUMO_ATTR_ACCEL);
+    optional.insert(SUMO_ATTR_DECEL);
+    optional.insert(SUMO_ATTR_CF_WIEDEMANN_SECURITY);
+    optional.insert(SUMO_ATTR_CF_WIEDEMANN_ESTIMATION);
+    for (std::set<SumoXMLAttr>::const_iterator it = optional.begin(); it != optional.end(); it++) {
+        if (attrs.hasAttribute(*it)) {
+            into.cfParameter[toString(*it)] = attrs.getSUMORealReporting(*it, into.id.c_str(), ok);
+        }
     }
     if (!ok) {
         throw ProcessError();
