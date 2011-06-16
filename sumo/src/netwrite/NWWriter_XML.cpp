@@ -91,13 +91,14 @@ NWWriter_XML::writeNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
     OutputDevice& cdevice = OutputDevice::getDevice(oc.getString("plain-output-prefix") + ".con.xml");
     cdevice.writeXMLHeader("connections", " encoding=\"iso-8859-1\""); // street names may contain non-ascii chars
 	NBEdgeCont &ec = nb.getEdgeCont();
+    bool noNames = oc.getBool("output.no-names");
 	for(std::map<std::string, NBEdge*>::const_iterator i=ec.begin(); i!=ec.end(); ++i) {
         // write the edge itself to the edges-files
         NBEdge *e = (*i).second;
         edevice << "   <edge id=\"" << e->getID()
         << "\" from=\"" << e->getFromNode()->getID()
         << "\" to=\"" << e->getToNode()->getID();
-        if (e->getStreetName() != "") {
+        if (!noNames && e->getStreetName() != "") {
             edevice << "\" " << toString(SUMO_ATTR_NAME) << "=\"" << e->getStreetName();
         }
         edevice << "\" priority=\"" << e->getPriority();
