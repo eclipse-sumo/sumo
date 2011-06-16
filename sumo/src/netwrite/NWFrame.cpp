@@ -65,6 +65,9 @@ NWFrame::fillOptions() {
 
     oc.doRegister("matsim-output", new Option_FileName());
     oc.addDescription("matsim-output", "Output", "The generated net will be written to FILE using MATSIM format.");
+
+    oc.doRegister("output.no-names", new Option_Bool(false));
+    oc.addDescription("output.no-names", "Output", "Edge names will not be included in the output.");
 }
 
 

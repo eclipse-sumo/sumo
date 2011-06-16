@@ -93,8 +93,9 @@ NWWriter_SUMO::writeNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
     }
 
     // write edges with lanes and connected edges
+    bool noNames = oc.getBool("output.no-names");
     for (std::map<std::string, NBEdge*>::const_iterator i=ec.begin(); i!=ec.end(); ++i) {
-        writeEdge(device, *(*i).second);
+        writeEdge(device, *(*i).second, noNames);
     }
     device << "\n";
 
@@ -245,12 +246,12 @@ NWWriter_SUMO::writeInternalEdge(OutputDevice &into, const std::string &id, SUMO
 
 
 void
-NWWriter_SUMO::writeEdge(OutputDevice &into, const NBEdge &e) {
+NWWriter_SUMO::writeEdge(OutputDevice &into, const NBEdge &e, bool noNames) {
     // write the edge's begin
     into.openTag(SUMO_TAG_EDGE) << " id=\"" << e.getID() <<
     "\" from=\"" << e.getFromNode()->getID() <<
     "\" to=\"" << e.getToNode()->getID();
-    if (e.getStreetName() != "") {
+    if (!noNames && e.getStreetName() != "") {
         into << "\" " << toString(SUMO_ATTR_NAME) << "=\"" << e.getStreetName();
     }
     into << "\" priority=\"" << e.getPriority() << "\"";

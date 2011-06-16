@@ -79,9 +79,10 @@ protected:
     /** @brief Writes an edge (<edge ...)
      * @param[in] into The device to write the edge into
      * @param[in] e The edge to write
+     * @param[in] noNames Whether names shall be ignored
      * @see writeLane()
      */
-    static void writeEdge(OutputDevice &into, const NBEdge &e);
+    static void writeEdge(OutputDevice &into, const NBEdge &e, bool noNames);
 
 
     /** @brief Writes a lane (<lane ...) of an edge
