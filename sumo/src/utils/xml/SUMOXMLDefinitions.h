@@ -99,8 +99,6 @@ enum SumoXMLTag {
     SUMO_TAG_VEHICLE,
     /** description of a vehicle type */
     SUMO_TAG_VTYPE,
-    /** description of a car following model */
-    SUMO_TAG_CFMODEL,
     /** begin/end of the description of a route */
     SUMO_TAG_ROUTE,
     /** begin/end of the description of succeeding lanes */
@@ -395,8 +393,6 @@ enum SumoXMLAttr {
     /// Information within the junction logic which internal lanes block external
     SUMO_ATTR_FOES,
     // Attributes for detectors
-    /// Measures to retrieve
-    SUMO_ATTR_MEASURES,
     /// Information whether the detector shall be continued on the folowing lanes
     SUMO_ATTR_CONT,
     SUMO_ATTR_HALTING_TIME_THRESHOLD__DEPRECATED,

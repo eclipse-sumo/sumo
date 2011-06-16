@@ -74,7 +74,6 @@ StringBijection<int>::Entry SUMOXMLDefinitions::tags[] = {
     { "routeprobe",       SUMO_TAG_ROUTEPROBE },
     { "vehicle",          SUMO_TAG_VEHICLE },
     { "vtype",            SUMO_TAG_VTYPE },
-    { "cfmodel",          SUMO_TAG_CFMODEL },
     { "route",            SUMO_TAG_ROUTE },
     { "succ",             SUMO_TAG_SUCC },
     { "succlane",         SUMO_TAG_SUCCLANE },
@@ -302,7 +301,6 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "max_dur",        SUMO_ATTR_MAXDURATION__DEPRECATED },
     { "maxDur",         SUMO_ATTR_MAXDURATION },
     { "foes",           SUMO_ATTR_FOES },
-    { "measures",       SUMO_ATTR_MEASURES },
 
     { "cont",           SUMO_ATTR_CONT },
     { "time_treshold",  SUMO_ATTR_HALTING_TIME_THRESHOLD__DEPRECATED },
