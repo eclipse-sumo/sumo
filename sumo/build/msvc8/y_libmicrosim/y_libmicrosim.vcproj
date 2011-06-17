@@ -584,6 +584,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\..\src\microsim\cfmodels\MSCFModel_Wiedemann.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\..\src\microsim\devices\MSDevice_HBEFA.cpp"
 				>
 			</File>
@@ -779,6 +783,10 @@
 				RelativePath="..\..\..\src\microsim\cfmodels\MSCFModel_PWag2009.h"
 				>
 			</File>
+		<File
+			RelativePath="..\..\..\src\microsim\cfmodels\MSCFModel_Wiedemann.h"
+			>
+		</File>
 			<File
 				RelativePath="..\..\..\src\microsim\devices\MSDevice.h"
 				>
