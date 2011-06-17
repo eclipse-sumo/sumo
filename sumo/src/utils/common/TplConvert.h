@@ -117,7 +117,11 @@ public:
         char *buf = new char[length+1];
         unsigned i = 0;
         for (i=0; i<length; i++) {
-            buf[i] = (char) data[i];
+            if ((int) data[i] > 255) {
+                buf[i] = 63; // rudimentary damage control, replace with '?'
+            } else {
+                buf[i] = (char) data[i];
+            }
         }
         buf[i] = 0;
         std::string ret = buf;
