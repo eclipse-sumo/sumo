@@ -86,7 +86,7 @@ MSCFModel_Wiedemann::ffeV(const MSVehicle * const veh, const MSVehicle * const p
 
 SUMOReal
 MSCFModel_Wiedemann::ffeS(const MSVehicle * const veh, SUMOReal gap2pred) const throw() {
-    return _v(veh, myType->getMaxSpeed(), gap2pred);
+    return _v(veh, 0, gap2pred);
 }
 
 
@@ -104,8 +104,9 @@ MSCFModel_Wiedemann::duplicate(const MSVehicleType *vtype) const throw() {
 
 
 SUMOReal 
-MSCFModel_Wiedemann::_v(const MSVehicle *veh, SUMOReal predSpeed, SUMOReal dx) const {
+MSCFModel_Wiedemann::_v(const MSVehicle *veh, SUMOReal predSpeed, SUMOReal gap) const {
     VehicleVariables* vars = (VehicleVariables*)veh->getCarFollowVariables();
+    const SUMOReal dx = gap + myType->getLength() - myType->getGuiOffset(); // wiedemann uses brutto gap
     const SUMOReal v = veh->getSpeed();
     const SUMOReal vpref = veh->getMaxSpeed();
     const SUMOReal dv = v - predSpeed;
@@ -129,14 +130,15 @@ MSCFModel_Wiedemann::_v(const MSVehicle *veh, SUMOReal predSpeed, SUMOReal dx) c
             accel = fullspeed(v, vpref, dx, bx);
         }
     } else {
-        if (dv > sdv && dx > D_MAX) { //@note other versions have an disjunction instead of conjunction
-            accel = fullspeed(v, vpref, dx, bx);
-        } else {
+        if (dv > sdv && dx < D_MAX) { //@note other versions have an disjunction instead of conjunction
             accel = approaching(dv, dx, bx);
+        } else {
+            accel = fullspeed(v, vpref, dx, bx);
         }
     }
     vars->accelSign = accel > 0 ? 1 : -1;
-    return v + ACCEL2SPEED(accel);
+    const SUMOReal vNew = v + ACCEL2SPEED(accel);
+    return MAX2(0.0, vNew); // don't allow negative speeds
 }
 
 
@@ -169,8 +171,21 @@ MSCFModel_Wiedemann::approaching(SUMOReal dv, SUMOReal dx, SUMOReal bx) const {
 
 SUMOReal 
 MSCFModel_Wiedemann::emergency(SUMOReal dv, SUMOReal dx) const {
-    SUMOReal accel = 0.5 * dv * dv / (myAX - dx); // + predAccel at t-reaction_time if this is value is above a treshold
-    // since we have hard constrainst on accel we may as well use them here
-    assert(accel > 0);
-    return MAX2(accel, -myDecel);
+    /* emergency according to A.Stebens
+    // wiedemann assumes that dx will always be larger than myAX (sumo may
+    // violate this assumption when crashing (-:
+    if (dx > myAX) {
+        SUMOReal accel = 0.5 * dv * dv / (myAX - dx); // + predAccel at t-reaction_time if this is value is above a treshold
+        // one would assume that in an emergency accel must be negative. However the
+        // wiedemann formula allows for accel = 0 whenever dv = 0
+        assert(accel <= 0);
+        // since we have hard constrainst on accel we may as well use them here
+        return MAX2(accel, -myDecel);
+    } else {
+        return = -myDecel;
+    }
+    */
+
+    // emergency according to C.Werner
+    return -myDecel;
 }

@@ -181,8 +181,10 @@ private:
 
 
 private:
-    /// @brief the main enty point for the speed computation
-    SUMOReal _v(const MSVehicle *veh, SUMOReal predSpeed, SUMOReal dx) const;
+    /* @brief the main enty point for the speed computation
+     * @param[in] gap The netto gap (front bumper of ego to back bumper of leader)
+     */
+    SUMOReal _v(const MSVehicle *veh, SUMOReal predSpeed, SUMOReal gap) const;
 
     /// @name acceleration based on the 'driving regime'
     /// @{
