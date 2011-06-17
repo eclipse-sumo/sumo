@@ -106,7 +106,7 @@ MSCFModel_Wiedemann::duplicate(const MSVehicleType *vtype) const throw() {
 SUMOReal 
 MSCFModel_Wiedemann::_v(const MSVehicle *veh, SUMOReal predSpeed, SUMOReal gap) const {
     VehicleVariables* vars = (VehicleVariables*)veh->getCarFollowVariables();
-    const SUMOReal dx = gap + myType->getLength() - myType->getGuiOffset(); // wiedemann uses brutto gap
+    const SUMOReal dx = gap + myType->getLengthWithGap() - myType->getMinGap(); // wiedemann uses brutto gap
     const SUMOReal v = veh->getSpeed();
     const SUMOReal vpref = veh->getMaxSpeed();
     const SUMOReal dv = v - predSpeed;
