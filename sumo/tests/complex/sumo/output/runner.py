@@ -3,6 +3,12 @@ import os,subprocess,sys
 from xml.sax import parse, handler
 
 class OutputHandler(handler.ContentHandler):
+    e1speed = -1
+    e2speed = -1
+    e3speed = -1
+    edgespeed = -1
+    lanespeed = -1
+
     def startElement(self, name, attrs):
         if name == "interval":
             if "nVehContrib" in attrs:
@@ -21,10 +27,8 @@ class OutputHandler(handler.ContentHandler):
 sumoBinary = os.environ.get("SUMO_BINARY", os.path.join(os.path.dirname(sys.argv[0]), '..', '..', '..', '..', 'bin', 'sumo'))
 subprocess.call([sumoBinary]+sys.argv[1:], shell=(os.name=="nt"), stdout=sys.stdout, stderr=sys.stderr)
 handler = OutputHandler()
-parse("e1detector.xml", handler)
-parse("e2detector.xml", handler)
-parse("e3detector.xml", handler)
-parse("meandataedge.xml", handler)
-parse("meandatalane.xml", handler)
+for f in ["e1detector.xml", "e2detector.xml", "e3detector.xml", "meandataedge.xml", "meandatalane.xml"]:
+    if os.path.exists(f):
+        parse(f, handler)
 
 print handler.e1speed, handler.e2speed, handler.e3speed, handler.edgespeed, handler.lanespeed
